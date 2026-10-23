@@ -66,6 +66,8 @@ enum
 DynamicVectorClass<SoundSceneObjClass *>	SoundSceneObjClass::m_GlobalSoundList;
 uint32			SoundSceneObjClass::m_NextAvailableID	= SOUND_OBJ_START_ID;
 CriticalSectionClass	SoundSceneObjClass::m_IDListMutex;
+CriticalSectionClass	SoundSceneObjClass::m_UnknownReleaseListMutex;
+DynamicVectorClass<RefCountClass *>	SoundSceneObjClass::m_UnknownReleaseList;
 
 
 //////////////////////////////////////////////////////////////////////////////////
@@ -136,8 +138,8 @@ SoundSceneObjClass::SoundSceneObjClass (const SoundSceneObjClass &src)
 SoundSceneObjClass::~SoundSceneObjClass (void)
 {
 	Register_Callback (AudioCallbackClass::EVENT_NONE, NULL);
-	REF_PTR_RELEASE (m_UserObj);
-	REF_PTR_RELEASE (m_AttachedObject);
+	Unknown_Release_Later (m_UserObj);
+	Unknown_Release_Later (m_AttachedObject);
 	Unregister_Sound_Object (this);
 	return ;
 }
@@ -497,4 +499,39 @@ SoundSceneObjClass::Find_Sound_Object (uint32 id_to_find, int *index)
 	}
 
 	return found;
+}
+
+
+////////////////////////////////////////////////////////////////////////////////////////////
+//
+//	Unknown_Release_Later (E&B)
+//
+////////////////////////////////////////////////////////////////////////////////////////////
+void
+SoundSceneObjClass::Unknown_Release_Later (RefCountClass *obj)
+{
+	CriticalSectionClass::LockClass lock (m_UnknownReleaseListMutex);
+	if (obj != NULL) {
+		m_UnknownReleaseList.Add (obj);
+	}
+
+	return ;
+}
+
+
+////////////////////////////////////////////////////////////////////////////////////////////
+//
+//	Unknown_Flush_Release_List (E&B)
+//
+////////////////////////////////////////////////////////////////////////////////////////////
+void
+SoundSceneObjClass::Unknown_Flush_Release_List (void)
+{
+	CriticalSectionClass::LockClass lock (m_UnknownReleaseListMutex);
+	for (int index = 0; index < m_UnknownReleaseList.Count (); index ++) {
+		REF_PTR_RELEASE (m_UnknownReleaseList[index]);
+	}
+
+	m_UnknownReleaseList.Reset_Active ();
+	return ;
 }

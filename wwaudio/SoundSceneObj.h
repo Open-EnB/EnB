@@ -201,6 +201,8 @@ class SoundSceneObjClass : public MultiListObjectClass, public PersistClass, pub
 		static void				Register_Sound_Object (SoundSceneObjClass *sound_obj);
 		static void				Unregister_Sound_Object (SoundSceneObjClass *sound_obj);		
 		static bool				Find_Sound_Object (uint32 id_to_find, int *index);
+		static void				Unknown_Release_Later (RefCountClass *obj);	// E&B; name not known
+		static void				Unknown_Flush_Release_List (void);			// E&B; name not known
 
 		//////////////////////////////////////////////////////////////////////
 		//	Protected member data
@@ -219,6 +221,8 @@ class SoundSceneObjClass : public MultiListObjectClass, public PersistClass, pub
 		static DynamicVectorClass<SoundSceneObjClass *>	m_GlobalSoundList;
 		static uint32												m_NextAvailableID;
 		static CriticalSectionClass							m_IDListMutex;
+		static CriticalSectionClass							m_UnknownReleaseListMutex;	// E&B; name not known
+		static DynamicVectorClass<RefCountClass *>		m_UnknownReleaseList;		// E&B; name not known
 };
 
 

@@ -893,6 +893,12 @@ TEXTURE_API_PATCHES = {
         ('\tif (onoff) {\n\t\tm_CachedIsMusicEnabled\t\t\t\t= m_IsMusicEnabled;\n\t\tm_CachedIsDialogEnabled\t\t\t\t= m_IsDialogEnabled;\n\t\tm_CachedIsCinematicSoundEnabled\t= m_IsCinematicSoundEnabled;\n\t\tm_CachedAreSoundEffectsEnabled\t= m_AreSoundEffectsEnabled;\n\t\tAllow_Sound_Effects (false);\n\t\tAllow_Music (false);\n\t\tAllow_Dialog (false);\n\t\tAllow_Cinematic_Sound (false);\n\t} else {\n\t\tAllow_Sound_Effects (m_CachedAreSoundEffectsEnabled);\n\t\tAllow_Music (m_CachedIsMusicEnabled);\n\t\tAllow_Dialog (m_CachedIsDialogEnabled);\n\t\tAllow_Cinematic_Sound (m_CachedIsCinematicSoundEnabled);\n\t}\n',
          '\tif (onoff) {\n\t\tSet_Sound_Effects_Volume (0);\n\t\tSet_Music_Volume (0);\n\t\tSet_Dialog_Volume (0);\n\t\tm_Unknown19A6 = true;\n\t} else {\n\t\tm_Unknown19A6 = false;\n\t}\n',
          "WWAudioClass::Temp_Disable_Audio 0x9F4C50: E&B's sets the sound effect, music and dialog volumes to 0 (inlined, each guarded by +0x19A6) and then sets +0x19A6; off only clears it"),
+        ('\t\t}*/\n\t}\n\n\t//\n\t//\tFade sound fx',
+         '\t\t}*/\n\t}\n\n\t//\n\t//\tE&B: release the sound objects destroyed since the last frame\n\t//\n\tSoundSceneObjClass::Unknown_Flush_Release_List ();\n\n\t//\n\t//\tFade sound fx',
+         'WWAudioClass::On_Frame_Update 0x9F1150 calls SoundSceneObjClass::Unknown_Flush_Release_List (0xA01300) after the playlist loop (0x9F11CA)'),
+        ('\t\tm_SoundScene->Flush_Scene ();\n\t}\n\n\t//\n\t// Free all our cached sound buffers\n',
+         '\t\tm_SoundScene->Flush_Scene ();\n\t}\n\tSoundSceneObjClass::Unknown_Flush_Release_List ();\n\n\t//\n\t// Free all our cached sound buffers\n',
+         'WWAudioClass::Shutdown 0x9F2940 calls SoundSceneObjClass::Unknown_Flush_Release_List (0x9F29F6) between Flush_Scene and Flush_Cache'),
     ],
     ('wwaudio', 'listener.h'): [
         ('\t\tvirtual void\t\t\tSet_Velocity (const Vector3 &velocity) { }\n',
@@ -901,6 +907,25 @@ TEXTURE_API_PATCHES = {
         ('\t\tvirtual void\t\t\tSet_Sample_Playback_Rate (S32 rate)\t\t{ }\n',
          "\t\tvirtual void\t\t\tSet_Sample_Playback_Rate (S32 rate)\t\t{ }\n\t\tvirtual void\t\t\tSet_Velocity (const Vector3 &velocity) { }\t// E&B: hides Sound3DClass's two-argument Set_Velocity; last vtable slot (0xA02DE0)\n",
          '(the same)'),
+    ],
+    ('wwaudio', 'soundsceneobj.h'): [
+        ('\t\tstatic bool\t\t\t\tFind_Sound_Object (uint32 id_to_find, int *index);\n',
+         '\t\tstatic bool\t\t\t\tFind_Sound_Object (uint32 id_to_find, int *index);\n\t\tstatic void\t\t\t\tUnknown_Release_Later (RefCountClass *obj);\t// E&B; name not known\n\t\tstatic void\t\t\t\tUnknown_Flush_Release_List (void);\t\t\t// E&B; name not known\n',
+         "SoundSceneObjClass: E&B's deferred release (names not known, D10). A critical section at 0xC40590 and a DynamicVectorClass of RefCountClass pointers at 0xC40598 (initialisers 0xA001B0, 0xA001F0; guarded destructors 0xA001D0, 0xA00230, bits 2 and 4 after m_IDListMutex's bit 1); Unknown_Release_Later 0xA01280 queues an object, Unknown_Flush_Release_List 0xA01300 releases and empties the queue (called by WWAudioClass::On_Frame_Update 0x9F11CA and 0x9F29F6)"),
+        ('\t\tstatic CriticalSectionClass\t\t\t\t\t\t\tm_IDListMutex;\n',
+         '\t\tstatic CriticalSectionClass\t\t\t\t\t\t\tm_IDListMutex;\n\t\tstatic CriticalSectionClass\t\t\t\t\t\t\tm_UnknownReleaseListMutex;\t// E&B; name not known\n\t\tstatic DynamicVectorClass<RefCountClass *>\t\tm_UnknownReleaseList;\t\t// E&B; name not known\n',
+         '(the same)'),
+    ],
+    ('wwaudio', 'soundsceneobj.cpp'): [
+        ('CriticalSectionClass\tSoundSceneObjClass::m_IDListMutex;\n',
+         'CriticalSectionClass\tSoundSceneObjClass::m_IDListMutex;\nCriticalSectionClass\tSoundSceneObjClass::m_UnknownReleaseListMutex;\nDynamicVectorClass<RefCountClass *>\tSoundSceneObjClass::m_UnknownReleaseList;\n',
+         '(the same: defined after m_IDListMutex, the critical section first)'),
+        ('\tREF_PTR_RELEASE (m_UserObj);\n\tREF_PTR_RELEASE (m_AttachedObject);\n',
+         '\tUnknown_Release_Later (m_UserObj);\n\tUnknown_Release_Later (m_AttachedObject);\n',
+         'SoundSceneObjClass::~SoundSceneObjClass 0xA00460 queues m_UserObj (0xA004C0) and m_AttachedObject (0xA00522) for a deferred release under the lock at 0xC40590 instead of releasing them'),
+        ('\treturn found;\n}\n',
+         '\treturn found;\n}\n\n\n////////////////////////////////////////////////////////////////////////////////////////////\n//\n//\tUnknown_Release_Later (E&B)\n//\n////////////////////////////////////////////////////////////////////////////////////////////\nvoid\nSoundSceneObjClass::Unknown_Release_Later (RefCountClass *obj)\n{\n\tCriticalSectionClass::LockClass lock (m_UnknownReleaseListMutex);\n\tif (obj != NULL) {\n\t\tm_UnknownReleaseList.Add (obj);\n\t}\n\n\treturn ;\n}\n\n\n////////////////////////////////////////////////////////////////////////////////////////////\n//\n//\tUnknown_Flush_Release_List (E&B)\n//\n////////////////////////////////////////////////////////////////////////////////////////////\nvoid\nSoundSceneObjClass::Unknown_Flush_Release_List (void)\n{\n\tCriticalSectionClass::LockClass lock (m_UnknownReleaseListMutex);\n\tfor (int index = 0; index < m_UnknownReleaseList.Count (); index ++) {\n\t\tREF_PTR_RELEASE (m_UnknownReleaseList[index]);\n\t}\n\n\tm_UnknownReleaseList.Reset_Active ();\n\treturn ;\n}\n',
+         'SoundSceneObjClass::Unknown_Release_Later 0xA01280 and Unknown_Flush_Release_List 0xA01300, after Find_Sound_Object 0xA011E0: the flush releases each queued object, clears its slot and sets the count to 0 (0xA0134F)'),
     ],
 }
 for _key, _edits in TEXTURE_API_PATCHES.items():

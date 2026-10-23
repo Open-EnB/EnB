@@ -1559,6 +1559,11 @@ WWAudioClass::On_Frame_Update (unsigned int milliseconds)
 	}
 
 	//
+	//	E&B: release the sound objects destroyed since the last frame
+	//
+	SoundSceneObjClass::Unknown_Flush_Release_List ();
+
+	//
 	//	Fade sound fx and music when there's important dialog playing.
 	//
 	/*if (dialog_count == 0) {
@@ -2537,6 +2542,7 @@ WWAudioClass::Shutdown (void)
 	if (m_SoundScene != NULL) {
 		m_SoundScene->Flush_Scene ();
 	}
+	SoundSceneObjClass::Unknown_Flush_Release_List ();
 
 	//
 	// Free all our cached sound buffers
