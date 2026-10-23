@@ -362,7 +362,6 @@ void ParticleEmitterClass::Scale(float scale)
 // - hopefully can be rewritten more cleanly in future)...
 void ParticleEmitterClass::On_Frame_Update(void)
 {
-	WWPROFILE("ParticleEmitterClass::On_Frame_Update");
 	if (Active && !IsComplete) {
 		if (FirstTime) {
 

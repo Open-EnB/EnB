@@ -73,7 +73,9 @@ HEADER_EXT = ('.h', '.hpp', '.inl')
 # wwshade was also built with ENABLE_WWPROFILE: ShdMeshClass::Render 0xA09430 opens a
 # WWProfileSampleClass ("ShdMeshClass::Render", Start_Profile 0x9EA930, dtor 0x444160).
 LIB_FLAGS = {'wwshade': '/nologo /c /MT /W3 /O2 /Ob1 /GX /D _MBCS /D ENABLE_WWPROFILE',
-             'wwaudio': '/nologo /c /MT /W3 /O2 /Ob2 /D _MBCS'}
+             'wwaudio': '/nologo /c /MT /W3 /O2 /Ob2 /D _MBCS',
+             # WW3D2 too was built with ENABLE_WWPROFILE: +20 pairs (assetmgr, dazzle, sortingrenderer, ...)
+             'ww3d2': '/nologo /c /MT /W3 /O2 /Ob2 /D ENABLE_WWPROFILE'}
 
 
 # EA files the client does not link: not imported (plan, assemble) and dropped from the state.
@@ -254,6 +256,9 @@ PATCHES = {
         ('\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tdefinition.Get_Line_Properties ()) );',
          '\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tdefinition.Get_Line_Properties (),\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tdefinition.Get_Unknown_Flag ()) );',
          "Create_From_Definition passes the definition's flag"),
+        ('{\n\tWWPROFILE("ParticleEmitterClass::On_Frame_Update");\n\tif (Active && !IsComplete) {\n',
+         '{\n\tif (Active && !IsComplete) {\n',
+         "WW3D2 is built with ENABLE_WWPROFILE, but E&B's ParticleEmitterClass::On_Frame_Update 0x97DEF0 has no sampler (no EH frame; it starts with the Active test)"),
     ],
     ('ww3d2', 'meshmdl.h'): [
         ('\tMaterialInfoClass\t*\t\t\t\t\t\t\t\t\tMatInfo;',
