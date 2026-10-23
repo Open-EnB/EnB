@@ -9,6 +9,7 @@
 | [conventions.md](conventions.md) | Coding conventions for the rebuild |
 | [toolchain.md](toolchain.md) | Compilers (VC6 and modern MSVC) and the third-party SDKs, checked against the client |
 | [library-matching.md](library-matching.md) | Matching EA's published Westwood code to the client: method, results, plan |
+| [workflow.md](workflow.md) | How a library fix is found, checked and kept; working state outside git; known traps |
 | [imports.md](imports.md) | The imported libraries, file by file: origin, merges, local changes (generated) |
 | [coverage.md](coverage.md) | How much of client.exe is identified (generated) |
 | [app-inventory.md](app-inventory.md) | E&B's own code: functions by source file, names, RTTI (generated) |
