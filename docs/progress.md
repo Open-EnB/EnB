@@ -4,7 +4,7 @@ Newest first within each section. Dates are when the entry was written.
 
 ## 1. Log
 
-### 2026-10-23: importer replay
+### 2026-10-23: importer replay; decisions D6-D11
 
 * `importer.py replay` rebuilds every library in `.work/replay` from the EA copies plus the
   decisions in `docs/data/imports.json` (header origins, source copies, splices, then PATCHES,
@@ -18,6 +18,12 @@ Newest first within each section. Dates are when the entry was written.
 * The `headers` map is now the one authority for header origins; `trial.py` and refine's header
   swaps keep it and `headers_from` in step. Replay is part of the fix loop
   ([workflow.md](workflow.md) §2 step 5).
+* The user answered the overnight report's questions: D6-D11 in §2 (start order auxdata ->
+  wwudp -> task kernel -> packets; byte-exact everywhere; no hybrid client for now; move the
+  texture system to Zero Hour's; unknowns keep neutral names; STL corpus grown on demand).
+* Next session: D9, WW3D2's texture classes and `DX8Wrapper` from Zero Hour (§4 step 1). Start
+  with `python tools/vc6/vc6.py discover` if the VMs restarted; `.work/bm2` holds the evidence.
+  Keep `importer.py replay` at 0 differences before each commit.
 
 ### 2026-10-23 (overnight): layouts, vtables, symbol map, app survey
 
@@ -130,18 +136,22 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 | D3 | 2026-10-22 | The code builds with both VC6 and modern MSVC | user |
 | D4 | 2026-10-22 | Import EA code file by file, as each file is verified against the client | user |
 | D5 | 2026-10-22 | SDKs: DirectX 8 from github.com/edgeforce/directx8, Miles and Bink from github.com/edgeforce/radtools | user. Checked: DX8 is 8.0 as the client; Bink matches; Miles usable with two fixes ([toolchain.md](toolchain.md) §2) |
+| D6 | 2026-10-23 | E&B's own code starts with `app\shared\auxdata`, then `app\wwudp`, then the task kernel (`app\kernel`: `KernelClass::Run_One_Cycle`, the loop running the current, background and pending-delete tasks; with `app\main` and `app\client\tasks`), then `app\packets` ([app-plan.md](app-plan.md) §3) | user |
+| D7 | 2026-10-23 | E&B's own code is held to byte-exactness everywhere, like the libraries. Check in with the user periodically if this becomes too costly | user |
+| D8 | 2026-10-23 | No hybrid client (reconstructed functions patched into the retail one) for now: its results would need the user to validate them. Open to it again if it can be shown to verify results better than byte matching, without the user | user |
+| D9 | 2026-10-23 | Move WW3D2's texture classes and `DX8Wrapper` to Zero Hour's, one evidence-checked step at a time | user; overnight finding: Zero Hour's `dx8wrapper.obj` matches 12 client functions the tree lacks, and it unlocks wwshade |
+| D10 | 2026-10-23 | E&B's unknown additions keep neutral names (`m_UnknownXX`, evidence in a comment) until the code that uses them is rebuilt | user |
+| D11 | 2026-10-23 | Compiler-generated code (STL template instances): extend the corpus as each app file needs it, not ahead of the app work | user |
 
 ## 3. Open decisions
 
-* **D6-D8** (E&B's own code: where to start, how strictly to match, when to aim for a running
-  client): proposal in [app-plan.md](app-plan.md).
-* Whether to move WW3D2's texture system to Zero Hour's now (a large change across WW3D2; see the
-  log entry of 2026-10-23 overnight).
+* None. (D7 is to be revisited with the user if byte-exactness of E&B's code becomes too costly.)
 
 ## 4. Next steps
 
-1. WW3D2's texture classes and `DX8Wrapper` from Zero Hour (if agreed), then wwshade.
+1. WW3D2's texture classes and `DX8Wrapper` from Zero Hour (D9), then wwshade.
 2. The remaining WWAudio gaps (`WWAudioClass` 40, `SoundSceneClass` 12; `SoundPseudo3DClass` and
    `FilteredSoundClass` +4 from 0x1A4) and WW3D2 near-misses (docs/data/gaps-*.md).
 3. `meshmatdesc.cpp`'s inlining flip (an app-region helper at 0x4E9CB0 that VC6 now inlines).
-4. E&B's own code, per the decisions on [app-plan.md](app-plan.md).
+4. E&B's own code (D6, D7): first the per-file workflow script ([app-plan.md](app-plan.md) §2),
+   then `app\shared\auxdata`.

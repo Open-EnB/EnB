@@ -61,6 +61,10 @@ source line, which pins the file's line numbering).
 
 ## 4. Decisions for the user
 
+Decided 2026-10-23 (docs/progress.md §2): **D6** the order above; **D7** byte-exact everywhere,
+revisited with the user if it becomes too costly; **D8** no hybrid for now. The questions as
+they were put:
+
 * **D6. Start where?** The order above, or another (for example straight to the task kernel for a
   runnable skeleton).
 * **D7. Byte-exact everywhere?** The libraries are held to byte-exactness. For E&B's code the same

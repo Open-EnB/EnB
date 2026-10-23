@@ -37,6 +37,10 @@ file.
 its inconsistencies (`MainView`, not `MainViewClass`; `CordCon::handlePacket`, not
 `Handle_Packet`). Where it doesn't, follow §2.
 
+**Unknowns** (decision D10): a member, flag or virtual whose purpose isn't known gets a neutral
+name (`m_Unknown7C`, after its offset; `UnknownFlag`) with its evidence in a comment. It keeps that
+name until the code that uses it is rebuilt; it is not guessed from the app code beforehand.
+
 ## 2. Westwood (WWVegas / Renegade) style
 
 ### Files
