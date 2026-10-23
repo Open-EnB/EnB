@@ -97,5 +97,20 @@ compiled into E&B's objects), so they run higher.
   `ThumbnailManagerClass::Save`) lets VC6 inline what's left into its callers, and the callers stop
   matching. A caller that matches the other copy's bytes, with a call where ours has none, points
   at it.
+* **A `SNAPSHOT_SAY` costs inline budget.** It compiles to nothing in a release build, but VC6
+  still counts the inlined `WW3D::Is_Snapshot_Activated()` against the caller's inlining budget.
+  Adding or removing one moves which later inline calls get expanded (`Apply_Default_State`
+  0x9270D0: one opening `SNAPSHOT_SAY` too many inlined one more `Set_DX8_Render_State` and one
+  fewer `Set_Texture`). When a long function of inline calls switches from inline to call at a
+  different point than the client, try the `SNAPSHOT_SAY`s first. `.work/ws_try.py` compiles
+  variants of one file quickly.
+* **Compare against the session's baseline, not only the last step.** Out-of-line copies of
+  inline functions (`Set_Texture` 0x47F3F0, `Set_DX8_Light` 0x984090) come and go with the
+  callers' inlining; a step that stops emitting one looks like a loss against the previous step
+  but not against the baseline.
+* **E&B's wwshade is older than Zero Hour's in places.** A wwshade compile error that asks for
+  a Zero Hour WW3D2 feature is not evidence for it: check the calling function in the client
+  first (for `CheckTranslucent` the client has Renegade's test; `MultiListIterator::Last` and
+  `get_deformed_vertices` are used only by code the client does not have).
 * **Clones share a computer name.** Always address the VMs by IP (`ENB_VC6_HOST` or
   `ENB_VC6_HOSTS`).

@@ -434,6 +434,10 @@ public:
 	void								Set_Sub_Object_Transforms_Dirty(bool onoff)							{ if (onoff) { Bits |= SUBOBJ_TRANSFORMS_DIRTY; } else { Bits &= ~SUBOBJ_TRANSFORMS_DIRTY; } }
 	bool								Are_Sub_Object_Transforms_Dirty(void)									{ return (Bits & SUBOBJ_TRANSFORMS_DIRTY) != 0; }
 
+	void								Set_Is_Self_Shadowed()														{ Bits|=IS_SELF_SHADOWED; }
+	void								Unset_Is_Self_Shadowed()													{ Bits&=~IS_SELF_SHADOWED; }
+	int								Is_Self_Shadowed() const													{ return (Bits&IS_SELF_SHADOWED); }
+
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// Persistant object save-load interface
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -473,6 +477,7 @@ protected:
 		SUBOBJS_MATCH_LOD =			0x00010000,			// force sub-objects to have same LOD level
 		SUBOBJ_TRANSFORMS_DIRTY =	0x00020000,			// my sub-objects need me to update their transform
 		HAS_USER_LIGHTING =			0x00040000,			// the user has installed a static lighting solve.
+		IS_SELF_SHADOWED =			0x00080000,			// the mesh is self shadowed
 		
 		IS_REALLY_VISIBLE =			IS_VISIBLE | IS_NOT_HIDDEN | IS_NOT_ANIMATION_HIDDEN,
       IS_NOT_HIDDEN_AT_ALL =     IS_NOT_HIDDEN | IS_NOT_ANIMATION_HIDDEN,

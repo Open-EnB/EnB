@@ -939,8 +939,7 @@ WW3DErrorType WW3D::Render(SceneClass * scene,CameraClass * cam,bool clear,bool 
 
 	// Set the global ambient light value here.  If the scene is using the LightEnvironment system
 	// this setting will get overriden.
-	Vector3 ambient = scene->Get_Ambient_Light();
-	DX8Wrapper::Set_DX8_Render_State(D3DRS_AMBIENT, DX8Wrapper::Convert_Color(ambient,0.0f));
+	DX8Wrapper::Set_Ambient(scene->Get_Ambient_Light());
 
 	// render the scene
 

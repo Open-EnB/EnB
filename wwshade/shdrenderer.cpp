@@ -285,9 +285,9 @@ void ShdDX8RendererClass::Flush()
 {
 	WWPROFILE("ShdDX8RendererClass::Flush");
 
-	DX8Wrapper::Apply_Render_State_Changes();
 	DX8Wrapper::Invalidate_Cached_Render_States();
 	DX8Wrapper::Apply_Default_State();
+	DX8Wrapper::Apply_Render_State_Changes();
 
 	SNAPSHOT_SAY(("ShdDX8RendererClass::Flush()\n"));
 	for (int i=0;i<SHDDEF_CLASSID_LAST;++i) 

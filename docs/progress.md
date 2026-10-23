@@ -4,6 +4,42 @@ Newest first within each section. Dates are when the entry was written.
 
 ## 1. Log
 
+### 2026-10-23: D9 step 2, wwshade's WW3D2
+
+* Each wwshade compile error checked against the client before adding anything: the Zero Hour
+  WW3D2 features it confirms were added (importer `WWSHADE_API_PATCHES`, 61 patches, each with
+  its address). Self-shadow bit, `Get_Max_Lights`, `Apply_Default_State` (an earlier form),
+  `Set_Ambient`/`Ambient_Color`, two vertex streams, non-FVF vertex buffers, `Light_Environment`/
+  `Render_Info`, `MAX_TEXTURE_STAGES` = 8 (dx8renderer on `MeshMatDescClass::MAX_TEX_STAGES`, as
+  Zero Hour). This reverses an earlier note that it stays 2: `render_state.Textures` has 8 slots
+  in the client. Details and addresses: library-matching.md §3.6.1.
+* E&B's own additions found: `Set_Light_Environment(env, flag)` (0x926460; the shader renderer
+  passes 0 to only record the environment) and a setter for `Render_Info`. Neutral names
+  (`unknown_set_lights`, `Unknown_Set_Render_Info`) per D10.
+* E&B's wwshade is older than Zero Hour's in places: no skin/sorting/visible-polygon code in the
+  renderer node or `ShdSubMeshClass`, `Register_Mesh` only creates the node, `Cast_Ray` keeps
+  Renegade's `IgnoreTranslucentMeshes`. Zero Hour features asked for only by that code
+  (`CheckTranslucent`, `MultiListIterator::Last`, `MeshGeometryClass::get_deformed_vertices`)
+  were not added.
+* Byte-exact client functions: WW3D2 2,148 -> 2,173, wwshade 20 -> 56, WWAudio unchanged; sets
+  of `(file, address)` compared against the session's starting `imports.json`
+  (`.work/ws_base_imports.json`): none lost. `importer.py replay`: 0 files differ. `report` regenerated.
+* Committed on `d9-texture` and merged into master. Three new traps in workflow.md §3.
+* Decided by the user: commit and merge `d9-texture` into master; the neutral names stay (D10).
+* Open: as before, Renegade's `Set_Render_Target(TextureClass *)` and `Get_Reduction`.
+* Next: rebuild the client's older wwshade code from its disassembly. `ShdSubMeshClass` without
+  `FirstVisiblePolygon`/`VisiblePolygonCount`/`Sorting` (and `Init_From_Legacy_Mesh_Model`,
+  `ShdMeshClass::Init_From_Legacy_Mesh`/`Load_W3D` uses), `MeshContainerClass::Register_Mesh`
+  (0xA081D0), the node constructor (0xA082D0: streams, then index buffer, polygons 0..count) and
+  `Flush` (0xA08790), dropping `Get_Deformed_Vertices`. First find where `shdsubmesh.obj` sits
+  in the client (gaps.py misplaces it). Then `TEX_CUBEMAP`, `const Add_Ref`, the
+  `VertexMaterialClass` parsers. The client's `MeshClass::Cast_Ray` (0x940530) has no
+  translucency test: a WW3D2 near-miss.
+* Outside git: `.work/ws_*.py` (`ws_addpatch.py` records into `WWSHADE_API_PATCHES`,
+  `ws_spec*.py` the patches, `ws_try.py` one-file variants, `ws_verify.sh`, `ws_dis.py`/
+  `ws_refs.py`/`ws_callers.py`/`ws_findptr.py` client lookups), baseline
+  `.work/ws_base_imports.json`.
+
 ### 2026-10-23: D9 step 1, the texture system
 
 * E&B's texture system is Zero Hour's as of its 06/27/02 "texture class abstraction" (Kenny
@@ -19,10 +55,23 @@ Newest first within each section. Dates are when the entry was written.
   `ddsfile`). 122 patches (19 files) in importer.py's new `TEXTURE_API_PATCHES` block, each with its evidence.
 * Byte-exact client functions: WW3D2 2,060 -> 2,148, wwshade 13 -> 20; none lost (two inline
   instances moved from `texture.obj` to other objects). `importer.py replay`: 0 files differ.
-* Work is on branch `d9-texture`. `trial.py --errors` writes every compile error.
-* Next: wwshade (its remaining errors are further Zero Hour WW3D2 features, each to be checked
-  against the client), then the texture near-misses (`TextureClass` constructors, `Init`,
-  `Apply`, `Get_Reduction`; `DX8Wrapper`'s device code).
+* Commits 8c83880, 13ea6b4 on branch `d9-texture` (master unchanged, nothing pushed).
+  `trial.py --errors` writes every compile error. Four new traps in workflow.md §3.
+* Verified: VC6 verify of ww3d2, wwaudio, wwshade (sets compared by address against the
+  pre-D9 imports.json), `importer.py replay` 0 differences, `report` regenerated. Not run:
+  the other libraries' verify (their headers didn't change), `symbols.py`/coverage regeneration.
+* Decision: D9 reworded by the user (§2) after this step.
+* Open: (1) merge `d9-texture` into master? Recommend yes once the user has looked.
+  (2) Renegade's `Set_Render_Target(TextureClass *)` kept without evidence; recommend checking
+  for an app-region caller before removing. (3) `Get_Reduction` has Renegade's body, not
+  byte-exact; recommend trying Zero Hour's (needs `WW3D::Is_Large_Texture_Extra_Reduction_Enabled`).
+* Next: wwshade. Run `python tools/vc6/vc6.py discover`, then
+  `python tools/vc6/importer.py verify --lib wwshade` and work through its compile errors
+  (`Apply_Default_State`, `Get_Ambient`, two vertex streams, `Get_Max_Lights`, self-shadowing),
+  each checked against the client before adding. Then the texture near-misses.
+* Outside git: `.work/d9_*.py` (patch builders: `d9_lines.py` Editor, `d9_addpatch.py`,
+  `d9_rmpatch.py` undo, `d9_verify.sh`, `d9_cmp.py`/`d9_addr.py` compare), baseline
+  `.work/d9_base_imports.json` (pre-D9 state). VMs 192.168.193.108, .202.231, .207.76.
 
 ### 2026-10-23: importer replay; decisions D6-D11
 
@@ -169,7 +218,7 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 
 ## 4. Next steps
 
-1. D9 continued: wwshade (20 of 46; its errors name further Zero Hour WW3D2 features to check against the client), then the texture near-misses (`TextureClass` constructors, `Init`, `Apply`, `Get_Reduction`; `DX8Wrapper`'s device code). Texture classes done (2026-10-23).
+1. D9 continued: wwshade (56 in the tree; next, the client's older `ShdSubMeshClass` and renderer node, see the 2026-10-23 step 2 entry), then the texture near-misses (`TextureClass` constructors, `Init`, `Apply`, `Get_Reduction`; `DX8Wrapper`'s device code). Texture classes done; wwshade's WW3D2 features done (2026-10-23).
 2. The remaining WWAudio gaps (`WWAudioClass` 40, `SoundSceneClass` 12; `SoundPseudo3DClass` and
    `FilteredSoundClass` +4 from 0x1A4) and WW3D2 near-misses (docs/data/gaps-*.md).
 3. `meshmatdesc.cpp`'s inlining flip (an app-region helper at 0x4E9CB0 that VC6 now inlines).

@@ -219,7 +219,7 @@ void ShdMeshClass::Special_Render(SpecialRenderInfoClass & rinfo)
 bool ShdMeshClass::Cast_Ray(RayCollisionTestClass & raytest)
 {
 	if ((Get_Collision_Type() & raytest.CollisionType) == 0) return false;	
-	if ((Is_Translucent()!=0) && (!raytest.CheckTranslucent)) return false;
+	if (raytest.IgnoreTranslucentMeshes && Is_Translucent()!=0) return false;
 	if (Is_Animation_Hidden()) return false;
 	if (raytest.Result->StartBad) return false;
 

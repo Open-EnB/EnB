@@ -70,9 +70,10 @@
 #define	VALUE_NAME_RENDER_DEVICE_WINDOWED			"RenderDeviceWindowed"
 #define	VALUE_NAME_RENDER_DEVICE_TEXTURE_DEPTH		"RenderDeviceTextureDepth"
 
-const unsigned MAX_TEXTURE_STAGES=2;
+const unsigned MAX_TEXTURE_STAGES=8;
 const unsigned MAX_VERTEX_SHADER_CONSTANTS=96;
 const unsigned MAX_PIXEL_SHADER_CONSTANTS=8;
+const unsigned MAX_VERTEX_STREAMS=2;
 const unsigned MAX_SHADOW_MAPS=1;
 
 enum {
@@ -86,6 +87,7 @@ enum {
 class VertexMaterialClass;
 class CameraClass;
 class LightEnvironmentClass;
+class RenderInfoClass;
 class RenderDeviceDescClass;
 class VertexBufferClass;
 class DynamicVBAccessClass;
@@ -139,12 +141,12 @@ struct RenderStateStruct
 	bool LightEnable[4];
 	Matrix4 world;
 	Matrix4 view;
-	unsigned vertex_buffer_type;
+	unsigned vertex_buffer_types[MAX_VERTEX_STREAMS];
 	unsigned index_buffer_type;
 	unsigned short vba_offset;
 	unsigned short vba_count;
 	unsigned short iba_offset;
-	VertexBufferClass* vertex_buffer;
+	VertexBufferClass* vertex_buffers[MAX_VERTEX_STREAMS];
 	IndexBufferClass* index_buffer;
 	unsigned short index_base_offset;
 
@@ -230,7 +232,7 @@ public:
 
 	static void	Set_Viewport(CONST D3DVIEWPORT8* pViewport);
 
-	static void Set_Vertex_Buffer(const VertexBufferClass* vb);
+	static void Set_Vertex_Buffer(const VertexBufferClass* vb, unsigned stream=0);
 	static void Set_Vertex_Buffer(const DynamicVBAccessClass& vba);
 	static void Set_Index_Buffer(const IndexBufferClass* ib,unsigned short index_base_offset);
 	static void Set_Index_Buffer(const DynamicIBAccessClass& iba,unsigned short index_base_offset);
@@ -268,7 +270,7 @@ public:
 	static void Set_DX8_Render_State(D3DRENDERSTATETYPE state, unsigned value);
 	static void Set_DX8_Texture_Stage_State(unsigned stage, D3DTEXTURESTAGESTATETYPE state, unsigned value);
 	static void Set_DX8_Texture(unsigned int stage, IDirect3DBaseTexture8* texture);
-	static void Set_Light_Environment(LightEnvironmentClass* light_env);
+	static void Set_Light_Environment(LightEnvironmentClass* light_env, bool unknown_set_lights=true);
 	static void Set_Fog(bool enable, const Vector3 &color, float start, float end);
 
 	static WWINLINE const D3DLIGHT8& Peek_Light(unsigned index);
@@ -425,6 +427,9 @@ public:
 	// for depth map support KJM ^
 
 	// shader system udpates KJM v
+	static void Apply_Default_State();
+	static void Invalidate_Cached_Render_States(void);
+
 	static void Set_Vertex_Shader(DWORD vertex_shader);
 	static void Set_Pixel_Shader(DWORD pixel_shader);
 
@@ -432,6 +437,13 @@ public:
 	static void Set_Pixel_Shader_Constant(int reg, const void* data, int count);
 
 	static DWORD Get_Vertex_Processing_Behavior() { return Vertex_Processing_Behavior; }
+
+	// E&B: sets Zero Hour's otherwise unused Render_Info (ShdDX8RendererNodeClass::Flush, 0xA089D9)
+	static void Unknown_Set_Render_Info(RenderInfoClass* rinfo) { Render_Info=rinfo; }
+
+	// Needed by scene lighting class
+	static void						Set_Ambient(const Vector3& color);
+	static const Vector3&		Get_Ambient() { return Ambient_Color; }
 	// shader system updates KJM ^
 
 	static IDirect3DDevice8* _Get_D3D_Device8() { return D3DDevice; }
@@ -477,7 +489,6 @@ protected:
 	static void Reset_Statistics();
 	static void Enumerate_Devices();
 	static void Set_Default_Global_Render_States(void);
-	static void Invalidate_Cached_Render_States(void);
 
 	/*
 	** Device Selection Code.
@@ -557,9 +568,14 @@ protected:
 	static Vector4							Vertex_Shader_Constants[MAX_VERTEX_SHADER_CONSTANTS];
 	static Vector4							Pixel_Shader_Constants[MAX_PIXEL_SHADER_CONSTANTS];
 
+	static LightEnvironmentClass*		Light_Environment;
+	static RenderInfoClass*				Render_Info;
+
 	static DWORD							Vertex_Processing_Behavior;
 
 	static ZTextureClass*				Shadow_Map[MAX_SHADOW_MAPS];
+
+	static Vector3							Ambient_Color;
 	// shader system updates KJM ^
 
 	// These fog settings are constant for all objects in a given scene,
@@ -608,10 +624,8 @@ protected:
 // shader system updates KJM v
 WWINLINE void DX8Wrapper::Set_Vertex_Shader(DWORD vertex_shader)
 {
-#if 0 //(gth) some code is bypassing this acessor function so we can't count on this variable...
 	// may be incorrect if shaders are created and destroyed dynamically
 	if (Vertex_Shader==vertex_shader) return;
-#endif
 
 	Vertex_Shader=vertex_shader;
 	DX8CALL(SetVertexShader(Vertex_Shader));
@@ -646,6 +660,12 @@ WWINLINE void DX8Wrapper::Set_Pixel_Shader_Constant(int reg, const void* data, i
 
 	memcpy(&Pixel_Shader_Constants[reg],data,memsize);
 	DX8CALL(SetPixelShaderConstant(reg,data,count));
+}
+
+WWINLINE void DX8Wrapper::Set_Ambient(const Vector3& color)
+{
+	Ambient_Color=color;
+	Set_DX8_Render_State(D3DRS_AMBIENT, DX8Wrapper::Convert_Color(color,0.0f));
 }
 // shader system updates KJM ^
 
@@ -1242,12 +1262,18 @@ WWINLINE bool DX8Wrapper::Is_Light_Enabled(unsigned index)
 
 WWINLINE void DX8Wrapper::Set_Render_State(const RenderStateStruct& state)
 {
+	int i;
+
 	if (render_state.index_buffer) {
 		render_state.index_buffer->Release_Engine_Ref();
 	}
 
-	if (render_state.vertex_buffer) {
-		render_state.vertex_buffer->Release_Engine_Ref();
+	for (i=0;i<MAX_VERTEX_STREAMS;++i) 
+	{
+		if (render_state.vertex_buffers[i]) 
+		{
+			render_state.vertex_buffers[i]->Release_Engine_Ref();
+		}
 	}
 
 	render_state=state;
@@ -1257,52 +1283,82 @@ WWINLINE void DX8Wrapper::Set_Render_State(const RenderStateStruct& state)
 		render_state.index_buffer->Add_Engine_Ref();
 	}
 
-	if (render_state.vertex_buffer) {
-		render_state.vertex_buffer->Add_Engine_Ref();
+	for (i=0;i<MAX_VERTEX_STREAMS;++i) 
+	{
+		if (render_state.vertex_buffers[i]) 
+		{
+			render_state.vertex_buffers[i]->Add_Engine_Ref();
+		}
 	}
 }
 
 WWINLINE void DX8Wrapper::Release_Render_State()
 {
+	int i;
+
 	if (render_state.index_buffer) {
 		render_state.index_buffer->Release_Engine_Ref();
 	}
 
-	if (render_state.vertex_buffer) {
-		render_state.vertex_buffer->Release_Engine_Ref();
+	for (i=0;i<MAX_VERTEX_STREAMS;++i) {
+		if (render_state.vertex_buffers[i]) {
+			render_state.vertex_buffers[i]->Release_Engine_Ref();
+		}
 	}
 
-	REF_PTR_RELEASE(render_state.vertex_buffer);
+	for (i=0;i<MAX_VERTEX_STREAMS;++i) {
+		REF_PTR_RELEASE(render_state.vertex_buffers[i]);
+	}
 	REF_PTR_RELEASE(render_state.index_buffer);
 	REF_PTR_RELEASE(render_state.material);
-	for (unsigned i=0;i<MAX_TEXTURE_STAGES;++i) REF_PTR_RELEASE(render_state.Textures[i]);
+
+	
+	for (i=0;i<MAX_TEXTURE_STAGES;++i) 
+	{
+		REF_PTR_RELEASE(render_state.Textures[i]);
+	}
 }
 
 
 WWINLINE RenderStateStruct::RenderStateStruct()
 	:
 	material(0),
-	vertex_buffer(0),
 	index_buffer(0)
 {
-	for (unsigned i=0;i<MAX_TEXTURE_STAGES;++i) Textures[i]=0;
+	unsigned i;
+	for (i=0;i<MAX_VERTEX_STREAMS;++i) vertex_buffers[i]=0;
+	for (i=0;i<MAX_TEXTURE_STAGES;++i) Textures[i]=0;
 }
 
 WWINLINE RenderStateStruct::~RenderStateStruct()
 {
+	unsigned i;
 	REF_PTR_RELEASE(material);
-	REF_PTR_RELEASE(vertex_buffer);
+	for (i=0;i<MAX_VERTEX_STREAMS;++i) {
+		REF_PTR_RELEASE(vertex_buffers[i]);
+	}
 	REF_PTR_RELEASE(index_buffer);
-	for (unsigned i=0;i<MAX_TEXTURE_STAGES;++i) REF_PTR_RELEASE(Textures[i]);
+
+	for (i=0;i<MAX_TEXTURE_STAGES;++i) 
+	{
+		REF_PTR_RELEASE(Textures[i]);
+	}
 }
 
 
 WWINLINE RenderStateStruct& RenderStateStruct::operator= (const RenderStateStruct& src)
 {
+	unsigned i;
 	REF_PTR_SET(material,src.material);
-	REF_PTR_SET(vertex_buffer,src.vertex_buffer);
+	for (i=0;i<MAX_VERTEX_STREAMS;++i) {
+		REF_PTR_SET(vertex_buffers[i],src.vertex_buffers[i]);
+	}
 	REF_PTR_SET(index_buffer,src.index_buffer);
-	for (unsigned i=0;i<MAX_TEXTURE_STAGES;++i) REF_PTR_SET(Textures[i],src.Textures[i]);
+
+	for (i=0;i<MAX_TEXTURE_STAGES;++i) 
+	{
+		REF_PTR_SET(Textures[i],src.Textures[i]);
+	}
 
 	LightEnable[0]=src.LightEnable[0];
 	LightEnable[1]=src.LightEnable[1];
@@ -1324,7 +1380,9 @@ WWINLINE RenderStateStruct& RenderStateStruct::operator= (const RenderStateStruc
 	shader=src.shader;
 	world=src.world;
 	view=src.view;
-	vertex_buffer_type=src.vertex_buffer_type;
+	for (i=0;i<MAX_VERTEX_STREAMS;++i) {
+		vertex_buffer_types[i]=src.vertex_buffer_types[i];
+	}
 	index_buffer_type=src.index_buffer_type;
 	vba_offset=src.vba_offset;
 	vba_count=src.vba_count;

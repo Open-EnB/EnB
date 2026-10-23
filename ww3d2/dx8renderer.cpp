@@ -201,7 +201,8 @@ DX8TextureCategoryClass::DX8TextureCategoryClass(
 	WWASSERT(pass>=0);
 	WWASSERT(pass<DX8FVFCategoryContainer::MAX_PASSES);
 
-	for (int a=0;a<MAX_TEXTURE_STAGES;++a) {
+	for (int a=0;a<MeshMatDescClass::MAX_TEX_STAGES;++a) 
+	{
 		textures[a]=NULL;
 		REF_PTR_SET(textures[a],texs[a]);
 	}
@@ -215,7 +216,8 @@ DX8TextureCategoryClass::~DX8TextureCategoryClass()
 	while (DX8PolygonRendererClass* p_renderer=PolygonRendererList.Get_Head()) {
 		TheDX8MeshRenderer.Unregister_Mesh_Type(p_renderer->Get_Mesh_Class());
 	}
-	for (int a=0;a<MAX_TEXTURE_STAGES;++a) {
+	for (int a=0;a<MeshMatDescClass::MAX_TEX_STAGES;++a) 
+	{
 		REF_PTR_RELEASE(textures[a]);
 	}
 
@@ -350,7 +352,7 @@ void DX8TextureCategoryClass::Log(bool only_visible)
 	WWDEBUG_SAY((work));
 
 	StringClass work2(255,true);
-	for (int stage=0;stage<MAX_TEXTURE_STAGES;++stage) {
+	for (int stage=0;stage<MeshMatDescClass::MAX_TEX_STAGES;++stage) {
 		work2.Format("	texture[%d]: %x (%s)\n", stage, textures[stage], textures[stage] ? textures[stage]->Get_Name() : "-");
 		work+=work2;
 	}
@@ -1216,7 +1218,8 @@ void DX8FVFCategoryContainer::Generate_Texture_Categories(Vertex_Split_Table& sp
 
 		for (int i=0;i<polygon_count;++i) {
 			TextureClass* textures[MeshMatDescClass::MAX_TEX_STAGES];
-			WWASSERT(MAX_TEXTURE_STAGES==MeshMatDescClass::MAX_TEX_STAGES);
+			// disabled this assert as MAX_TEXTURE_STAGES is now 8, but legacy MeshMat::MAX_TEX_STAGES is still 2
+	//		WWASSERT(MAX_TEXTURE_STAGES==MeshMatDescClass::MAX_TEX_STAGES);
 			for (int stage=0;stage<MeshMatDescClass::MAX_TEX_STAGES;stage++) {
 				textures[stage]=split_table.Peek_Texture(i,pass,stage);
 			}
@@ -1621,7 +1624,8 @@ void DX8TextureCategoryClass::Render(void)
 	if (!WW3D::Expose_Prelit()) {
 	#endif
 
-		for (unsigned i=0;i<MAX_TEXTURE_STAGES;++i) {
+		for (unsigned i=0;i<MeshMatDescClass::MAX_TEX_STAGES;++i) 
+		{
 			SNAPSHOT_SAY(("Set_Texture(%d,%s)\n",i,Peek_Texture(i) ? Peek_Texture(i)->Get_Texture_Name() : "NULL"));
 			DX8Wrapper::Set_Texture(i,Peek_Texture(i));
 		}

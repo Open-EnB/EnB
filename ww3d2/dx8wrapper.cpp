@@ -109,8 +109,13 @@ DWORD								DX8Wrapper::Pixel_Shader								= 0;
 Vector4							DX8Wrapper::Vertex_Shader_Constants[MAX_VERTEX_SHADER_CONSTANTS];
 Vector4							DX8Wrapper::Pixel_Shader_Constants[MAX_PIXEL_SHADER_CONSTANTS];
 
+LightEnvironmentClass*		DX8Wrapper::Light_Environment							= NULL;
+RenderInfoClass*				DX8Wrapper::Render_Info									= NULL;
+
 DWORD								DX8Wrapper::Vertex_Processing_Behavior				= 0;
 ZTextureClass*					DX8Wrapper::Shadow_Map[MAX_SHADOW_MAPS];
+
+Vector3							DX8Wrapper::Ambient_Color;
 // shader system additions KJM ^
 
 bool								DX8Wrapper::world_identity;
@@ -403,12 +408,15 @@ void DX8Wrapper::Do_Onetime_Device_Dependent_Shutdowns(void)
 	/*
 	** Shutdown ww3d systems
 	*/
-	if (render_state.vertex_buffer) render_state.vertex_buffer->Release_Engine_Ref();
-	REF_PTR_RELEASE(render_state.vertex_buffer);
+	int i;
+	for (i=0;i<MAX_VERTEX_STREAMS;++i) {
+		if (render_state.vertex_buffers[i]) render_state.vertex_buffers[i]->Release_Engine_Ref();
+		REF_PTR_RELEASE(render_state.vertex_buffers[i]);
+	}
 	if (render_state.index_buffer) render_state.index_buffer->Release_Engine_Ref();
 	REF_PTR_RELEASE(render_state.index_buffer);
 	REF_PTR_RELEASE(render_state.material);
-	for (unsigned i=0;i<MAX_TEXTURE_STAGES;++i) REF_PTR_RELEASE(render_state.Textures[i]);
+	for (i=0;i<MAX_TEXTURE_STAGES;++i) REF_PTR_RELEASE(render_state.Textures[i]);
 
 	TextureLoader::Deinit();
 	SortingRendererClass::Deinit();
@@ -546,8 +554,11 @@ void DX8Wrapper::Release_Device(void)
 		/*
 		** Release the current vertex and index buffers
 		*/
-		if (render_state.vertex_buffer) render_state.vertex_buffer->Release_Engine_Ref();
-		REF_PTR_RELEASE(render_state.vertex_buffer);
+		for (unsigned i=0;i<MAX_VERTEX_STREAMS;++i) 
+		{
+			if (render_state.vertex_buffers[i]) render_state.vertex_buffers[i]->Release_Engine_Ref();
+			REF_PTR_RELEASE(render_state.vertex_buffers[i]);
+		}
 		if (render_state.index_buffer) render_state.index_buffer->Release_Engine_Ref();
 		REF_PTR_RELEASE(render_state.index_buffer);
 
@@ -1617,20 +1628,20 @@ void DX8Wrapper::Set_Viewport(CONST D3DVIEWPORT8* pViewport)
 //
 // ----------------------------------------------------------------------------
 
-void DX8Wrapper::Set_Vertex_Buffer(const VertexBufferClass* vb)
+void DX8Wrapper::Set_Vertex_Buffer(const VertexBufferClass* vb, unsigned stream)
 {
 	render_state.vba_offset=0;
 	render_state.vba_count=0;
-	if (render_state.vertex_buffer) {
-		render_state.vertex_buffer->Release_Engine_Ref();
+	if (render_state.vertex_buffers[stream]) {
+		render_state.vertex_buffers[stream]->Release_Engine_Ref();
 	}
-	REF_PTR_SET(render_state.vertex_buffer,const_cast<VertexBufferClass*>(vb));
+	REF_PTR_SET(render_state.vertex_buffers[stream],const_cast<VertexBufferClass*>(vb));
 	if (vb) {
 		vb->Add_Engine_Ref();
-		render_state.vertex_buffer_type=vb->Type();
+		render_state.vertex_buffer_types[stream]=vb->Type();
 	}
 	else {
-		render_state.index_buffer_type=BUFFER_TYPE_INVALID;
+		render_state.vertex_buffer_types[stream]=BUFFER_TYPE_INVALID;
 	}
 	render_state_changed|=VERTEX_BUFFER_CHANGED;
 }
@@ -1669,14 +1680,18 @@ void DX8Wrapper::Set_Index_Buffer(const IndexBufferClass* ib,unsigned short inde
 
 void DX8Wrapper::Set_Vertex_Buffer(const DynamicVBAccessClass& vba_)
 {
-	if (render_state.vertex_buffer) render_state.vertex_buffer->Release_Engine_Ref();
+	// Release all streams (only one stream allowed in the legacy pipeline)
+	for (int i=1;i<MAX_VERTEX_STREAMS;++i) {
+		DX8Wrapper::Set_Vertex_Buffer(NULL, i);
+	}
 
+	if (render_state.vertex_buffers[0]) render_state.vertex_buffers[0]->Release_Engine_Ref();
 	DynamicVBAccessClass& vba=const_cast<DynamicVBAccessClass&>(vba_);
-	render_state.vertex_buffer_type=vba.Get_Type();
+	render_state.vertex_buffer_types[0]=vba.Get_Type();
 	render_state.vba_offset=vba.VertexBufferOffset;
 	render_state.vba_count=vba.Get_Vertex_Count();
-	REF_PTR_SET(render_state.vertex_buffer,vba.VertexBuffer);
-	render_state.vertex_buffer->Add_Engine_Ref();
+	REF_PTR_SET(render_state.vertex_buffers[0],vba.VertexBuffer);
+	render_state.vertex_buffers[0]->Add_Engine_Ref();
 	render_state_changed|=VERTEX_BUFFER_CHANGED;
 	render_state_changed|=INDEX_BUFFER_CHANGED;		// vba_offset changes so index buffer needs to be reset as well.
 }
@@ -1714,14 +1729,14 @@ void DX8Wrapper::Draw_Sorting_IB_VB(
 	unsigned short min_vertex_index,
 	unsigned short vertex_count)
 {
-	WWASSERT(render_state.vertex_buffer_type==BUFFER_TYPE_SORTING || render_state.vertex_buffer_type==BUFFER_TYPE_DYNAMIC_SORTING);
+	WWASSERT(render_state.vertex_buffer_types[0]==BUFFER_TYPE_SORTING || render_state.vertex_buffer_types[0]==BUFFER_TYPE_DYNAMIC_SORTING);
 	WWASSERT(render_state.index_buffer_type==BUFFER_TYPE_SORTING || render_state.index_buffer_type==BUFFER_TYPE_DYNAMIC_SORTING);
 
 	// Fill dynamic vertex buffer with sorting vertex buffer vertices
 	DynamicVBAccessClass dyn_vb_access(BUFFER_TYPE_DYNAMIC_DX8,dynamic_fvf_type,vertex_count);
 	{
 		DynamicVBAccessClass::WriteLockClass lock(&dyn_vb_access);
-		VertexFormatXYZNDUV2* src = static_cast<SortingVertexBufferClass*>(render_state.vertex_buffer)->VertexBuffer;
+		VertexFormatXYZNDUV2* src = static_cast<SortingVertexBufferClass*>(render_state.vertex_buffers[0])->VertexBuffer;
 		VertexFormatXYZNDUV2* dest= lock.Get_Formatted_Vertex_Array();
 		src += render_state.vba_offset + render_state.index_base_offset + min_vertex_index;
 		unsigned  size = dyn_vb_access.FVF_Info().Get_FVF_Size()*vertex_count/sizeof(unsigned);
@@ -1856,10 +1871,10 @@ void DX8Wrapper::Draw(
 
 	if (vertex_count<3) {
 		min_vertex_index=0;
-		switch (render_state.vertex_buffer_type) {
+		switch (render_state.vertex_buffer_types[0]) {
 		case BUFFER_TYPE_DX8:
 		case BUFFER_TYPE_SORTING:
-			vertex_count=render_state.vertex_buffer->Get_Vertex_Count()-render_state.index_base_offset-render_state.vba_offset-min_vertex_index;
+			vertex_count=render_state.vertex_buffers[0]->Get_Vertex_Count()-render_state.index_base_offset-render_state.vba_offset-min_vertex_index;
 			break;
 		case BUFFER_TYPE_DYNAMIC_DX8:
 		case BUFFER_TYPE_DYNAMIC_SORTING:
@@ -1868,7 +1883,7 @@ void DX8Wrapper::Draw(
 		}
 	}
 
-	switch (render_state.vertex_buffer_type) {
+	switch (render_state.vertex_buffer_types[0]) {
 	case BUFFER_TYPE_DX8:
 	case BUFFER_TYPE_DYNAMIC_DX8:
 		switch (render_state.index_buffer_type) {
@@ -2027,26 +2042,34 @@ void DX8Wrapper::Apply_Render_State_Changes()
 	}
 	if (render_state_changed&VERTEX_BUFFER_CHANGED) {
 		SNAPSHOT_SAY(("DX8 - apply vb change\n"));
-		if (render_state.vertex_buffer) {
-			switch (render_state.vertex_buffer_type) {//->Type()) {
-			case BUFFER_TYPE_DX8:
-			case BUFFER_TYPE_DYNAMIC_DX8:
-				DX8CALL(SetStreamSource(
-					0,
-					static_cast<DX8VertexBufferClass*>(render_state.vertex_buffer)->Get_DX8_Vertex_Buffer(),
-					render_state.vertex_buffer->FVF_Info().Get_FVF_Size()));
+		for (i=0;i<MAX_VERTEX_STREAMS;++i) {
+			if (render_state.vertex_buffers[i]) {
+				switch (render_state.vertex_buffer_types[i]) {//->Type()) {
+				case BUFFER_TYPE_DX8:
+				case BUFFER_TYPE_DYNAMIC_DX8:
+					DX8CALL(SetStreamSource(
+						i,
+						static_cast<DX8VertexBufferClass*>(render_state.vertex_buffers[i])->Get_DX8_Vertex_Buffer(),
+						render_state.vertex_buffers[i]->FVF_Info().Get_FVF_Size()));
+					DX8_RECORD_VERTEX_BUFFER_CHANGE();
+					{
+						// If the VB format is FVF, set the FVF as a vertex shader
+						unsigned fvf=render_state.vertex_buffers[i]->FVF_Info().Get_FVF();
+						if (fvf!=0) {
+							Set_Vertex_Shader(fvf);
+						}
+					}
+					break;
+				case BUFFER_TYPE_SORTING:
+				case BUFFER_TYPE_DYNAMIC_SORTING:
+					break;
+				default:
+					WWASSERT(0);
+				}
+			} else {
+				DX8CALL(SetStreamSource(i,NULL,0));
 				DX8_RECORD_VERTEX_BUFFER_CHANGE();
-				DX8CALL(SetVertexShader(render_state.vertex_buffer->FVF_Info().Get_FVF()));
-				break;
-			case BUFFER_TYPE_SORTING:
-			case BUFFER_TYPE_DYNAMIC_SORTING:
-				break;
-			default:
-				WWASSERT(0);
 			}
-		} else {
-			DX8CALL(SetStreamSource(0,NULL,0));
-			DX8_RECORD_VERTEX_BUFFER_CHANGE();
 		}
 	}
 	if (render_state_changed&INDEX_BUFFER_CHANGED) {
@@ -2526,9 +2549,11 @@ void DX8Wrapper::Set_Light(unsigned index,const LightClass &light)
 //
 // ----------------------------------------------------------------------------
 
-void DX8Wrapper::Set_Light_Environment(LightEnvironmentClass* light_env)
+void DX8Wrapper::Set_Light_Environment(LightEnvironmentClass* light_env, bool unknown_set_lights)
 {
-	if (light_env) {
+	Light_Environment=light_env;
+
+	if (unknown_set_lights && light_env) {
 
 		int light_count = light_env->Get_Light_Count();
 		Set_DX8_Render_State(D3DRS_AMBIENT,Convert_Color(light_env->Get_Equivalent_Ambient(),0.0f));
@@ -3119,6 +3144,147 @@ void DX8Wrapper::Set_Gamma(float gamma,float bright,float contrast,bool calibrat
 			ReleaseDC (hwnd, hdc);
 		}
 	}
+}
+
+//**********************************************************************************************
+//! Resets render device to default state
+/*!
+*/
+void DX8Wrapper::Apply_Default_State()
+{
+	// only set states used in game
+	Set_DX8_Render_State(D3DRS_ZENABLE, TRUE);
+//	Set_DX8_Render_State(D3DRS_FILLMODE, D3DFILL_SOLID);
+	Set_DX8_Render_State(D3DRS_SHADEMODE, D3DSHADE_GOURAUD);
+	//Set_DX8_Render_State(D3DRS_LINEPATTERN, 0);
+	Set_DX8_Render_State(D3DRS_ZWRITEENABLE, TRUE);
+	Set_DX8_Render_State(D3DRS_ALPHATESTENABLE, FALSE);
+	//Set_DX8_Render_State(D3DRS_LASTPIXEL, FALSE);
+	Set_DX8_Render_State(D3DRS_SRCBLEND, D3DBLEND_ONE);
+	Set_DX8_Render_State(D3DRS_DESTBLEND, D3DBLEND_ZERO);
+	Set_DX8_Render_State(D3DRS_CULLMODE, D3DCULL_CW);
+	Set_DX8_Render_State(D3DRS_ZFUNC, D3DCMP_LESSEQUAL);
+	Set_DX8_Render_State(D3DRS_ALPHAREF, 0);
+	Set_DX8_Render_State(D3DRS_ALPHAFUNC, D3DCMP_LESSEQUAL);
+	Set_DX8_Render_State(D3DRS_DITHERENABLE, FALSE);
+	Set_DX8_Render_State(D3DRS_ALPHABLENDENABLE, FALSE);
+	Set_DX8_Render_State(D3DRS_FOGENABLE, FALSE);
+	Set_DX8_Render_State(D3DRS_SPECULARENABLE, FALSE);
+//	Set_DX8_Render_State(D3DRS_ZVISIBLE, FALSE);
+//	Set_DX8_Render_State(D3DRS_FOGCOLOR, 0);
+//	Set_DX8_Render_State(D3DRS_FOGTABLEMODE, D3DFOG_NONE);
+//	Set_DX8_Render_State(D3DRS_FOGSTART, 0);
+
+//	Set_DX8_Render_State(D3DRS_FOGEND, WWMath::Float_As_Int(1.0f));
+//	Set_DX8_Render_State(D3DRS_FOGDENSITY, WWMath::Float_As_Int(1.0f));
+
+	//Set_DX8_Render_State(D3DRS_EDGEANTIALIAS, FALSE);
+	Set_DX8_Render_State(D3DRS_ZBIAS, 0);
+//	Set_DX8_Render_State(D3DRS_RANGEFOGENABLE, FALSE);
+	Set_DX8_Render_State(D3DRS_STENCILENABLE, FALSE);
+	Set_DX8_Render_State(D3DRS_STENCILFAIL, D3DSTENCILOP_KEEP);
+	Set_DX8_Render_State(D3DRS_STENCILZFAIL, D3DSTENCILOP_KEEP);
+	Set_DX8_Render_State(D3DRS_STENCILPASS, D3DSTENCILOP_KEEP);
+	Set_DX8_Render_State(D3DRS_STENCILFUNC, D3DCMP_ALWAYS);
+	Set_DX8_Render_State(D3DRS_STENCILREF, 0);
+	Set_DX8_Render_State(D3DRS_STENCILMASK, 0xffffffff);
+	Set_DX8_Render_State(D3DRS_STENCILWRITEMASK, 0xffffffff);
+	Set_DX8_Render_State(D3DRS_TEXTUREFACTOR, 0);
+/*	Set_DX8_Render_State(D3DRS_WRAP0, D3DWRAP_U| D3DWRAP_V);
+	Set_DX8_Render_State(D3DRS_WRAP1, D3DWRAP_U| D3DWRAP_V);
+	Set_DX8_Render_State(D3DRS_WRAP2, D3DWRAP_U| D3DWRAP_V);
+	Set_DX8_Render_State(D3DRS_WRAP3, D3DWRAP_U| D3DWRAP_V);
+	Set_DX8_Render_State(D3DRS_WRAP4, D3DWRAP_U| D3DWRAP_V);
+	Set_DX8_Render_State(D3DRS_WRAP5, D3DWRAP_U| D3DWRAP_V);
+	Set_DX8_Render_State(D3DRS_WRAP6, D3DWRAP_U| D3DWRAP_V);
+	Set_DX8_Render_State(D3DRS_WRAP7, D3DWRAP_U| D3DWRAP_V);*/
+	Set_DX8_Render_State(D3DRS_CLIPPING, TRUE);
+	Set_DX8_Render_State(D3DRS_LIGHTING, FALSE);
+	//Set_DX8_Render_State(D3DRS_AMBIENT, 0);
+//	Set_DX8_Render_State(D3DRS_FOGVERTEXMODE, D3DFOG_NONE);
+	Set_DX8_Render_State(D3DRS_COLORVERTEX, TRUE);
+/*	Set_DX8_Render_State(D3DRS_LOCALVIEWER, TRUE);
+	Set_DX8_Render_State(D3DRS_NORMALIZENORMALS, FALSE);
+	Set_DX8_Render_State(D3DRS_DIFFUSEMATERIALSOURCE, D3DMCS_COLOR1);
+	Set_DX8_Render_State(D3DRS_SPECULARMATERIALSOURCE, D3DMCS_COLOR2);
+	Set_DX8_Render_State(D3DRS_AMBIENTMATERIALSOURCE, D3DMCS_MATERIAL);
+	Set_DX8_Render_State(D3DRS_EMISSIVEMATERIALSOURCE, D3DMCS_MATERIAL);
+	Set_DX8_Render_State(D3DRS_VERTEXBLEND, D3DVBF_DISABLE);*/
+	//Set_DX8_Render_State(D3DRS_CLIPPLANEENABLE, 0);
+	Set_DX8_Render_State(D3DRS_SOFTWAREVERTEXPROCESSING, FALSE);
+	//Set_DX8_Render_State(D3DRS_POINTSIZE, 0x3f800000);
+	//Set_DX8_Render_State(D3DRS_POINTSIZE_MIN, 0);
+	//Set_DX8_Render_State(D3DRS_POINTSPRITEENABLE, FALSE);
+	//Set_DX8_Render_State(D3DRS_POINTSCALEENABLE, FALSE);
+	//Set_DX8_Render_State(D3DRS_POINTSCALE_A, 0);
+	//Set_DX8_Render_State(D3DRS_POINTSCALE_B, 0);
+	//Set_DX8_Render_State(D3DRS_POINTSCALE_C, 0);
+	//Set_DX8_Render_State(D3DRS_MULTISAMPLEANTIALIAS, TRUE);
+	//Set_DX8_Render_State(D3DRS_MULTISAMPLEMASK, 0xffffffff);
+	//Set_DX8_Render_State(D3DRS_PATCHEDGESTYLE, D3DPATCHEDGE_DISCRETE);
+	//Set_DX8_Render_State(D3DRS_PATCHSEGMENTS, 0x3f800000);
+	//Set_DX8_Render_State(D3DRS_DEBUGMONITORTOKEN, D3DDMT_ENABLE);
+	//Set_DX8_Render_State(D3DRS_POINTSIZE_MAX, Float_At_Int(64.0f));
+	//Set_DX8_Render_State(D3DRS_INDEXEDVERTEXBLENDENABLE, FALSE);
+	Set_DX8_Render_State(D3DRS_COLORWRITEENABLE, 0x0000000f);
+	//Set_DX8_Render_State(D3DRS_TWEENFACTOR, 0);
+	Set_DX8_Render_State(D3DRS_BLENDOP, D3DBLENDOP_ADD);
+	//Set_DX8_Render_State(D3DRS_POSITIONORDER, D3DORDER_CUBIC);
+	//Set_DX8_Render_State(D3DRS_NORMALORDER, D3DORDER_LINEAR);
+
+	// disable TSS stages
+	int i;
+	for (i=0; i<CurrentCaps->Get_Max_Textures_Per_Pass(); i++)
+	{
+		Set_DX8_Texture_Stage_State(i, D3DTSS_COLOROP, D3DTOP_DISABLE);
+		Set_DX8_Texture_Stage_State(i, D3DTSS_COLORARG1, D3DTA_TEXTURE);
+		Set_DX8_Texture_Stage_State(i, D3DTSS_COLORARG2, D3DTA_DIFFUSE);
+
+		Set_DX8_Texture_Stage_State(i, D3DTSS_ALPHAOP, D3DTOP_DISABLE);
+		Set_DX8_Texture_Stage_State(i, D3DTSS_ALPHAARG1, D3DTA_TEXTURE);
+		Set_DX8_Texture_Stage_State(i, D3DTSS_ALPHAARG2, D3DTA_DIFFUSE);
+	
+		/*Set_DX8_Texture_Stage_State(i, D3DTSS_BUMPENVMAT00, 0);
+		Set_DX8_Texture_Stage_State(i, D3DTSS_BUMPENVMAT01, 0);
+		Set_DX8_Texture_Stage_State(i, D3DTSS_BUMPENVMAT10, 0);
+		Set_DX8_Texture_Stage_State(i, D3DTSS_BUMPENVMAT11, 0);
+		Set_DX8_Texture_Stage_State(i, D3DTSS_BUMPENVLSCALE, 0);
+		Set_DX8_Texture_Stage_State(i, D3DTSS_BUMPENVLOFFSET, 0);*/
+
+		Set_DX8_Texture_Stage_State(i, D3DTSS_TEXCOORDINDEX, i);
+		
+
+		Set_DX8_Texture_Stage_State(i, D3DTSS_ADDRESSU, D3DTADDRESS_WRAP);
+		Set_DX8_Texture_Stage_State(i, D3DTSS_ADDRESSV, D3DTADDRESS_WRAP);
+		Set_DX8_Texture_Stage_State(i, D3DTSS_BORDERCOLOR, 0);
+//		Set_DX8_Texture_Stage_State(i, D3DTSS_MAGFILTER, D3DTEXF_LINEAR);
+//		Set_DX8_Texture_Stage_State(i, D3DTSS_MINFILTER, D3DTEXF_LINEAR);
+//		Set_DX8_Texture_Stage_State(i, D3DTSS_MIPFILTER, D3DTEXF_LINEAR);
+//		Set_DX8_Texture_Stage_State(i, D3DTSS_MIPMAPLODBIAS, 0);
+//		Set_DX8_Texture_Stage_State(i, D3DTSS_MAXMIPLEVEL, 0);
+//		Set_DX8_Texture_Stage_State(i, D3DTSS_MAXANISOTROPY, 1);
+		//Set_DX8_Texture_Stage_State(i, D3DTSS_ADDRESSW, D3DTADDRESS_WRAP);
+		//Set_DX8_Texture_Stage_State(i, D3DTSS_COLORARG0, D3DTA_CURRENT);
+		//Set_DX8_Texture_Stage_State(i, D3DTSS_ALPHAARG0, D3DTA_CURRENT);
+		//Set_DX8_Texture_Stage_State(i, D3DTSS_RESULTARG, D3DTA_CURRENT);
+
+		Set_DX8_Texture_Stage_State(i, D3DTSS_TEXTURETRANSFORMFLAGS, D3DTTFF_DISABLE);
+		Set_Texture(i,NULL);
+	}
+
+	DX8Wrapper::Set_Material(NULL);
+
+	// set up simple default TSS 
+	Vector4 vconst[MAX_VERTEX_SHADER_CONSTANTS];
+	memset(vconst,0,sizeof(Vector4)*MAX_VERTEX_SHADER_CONSTANTS);
+	Set_Vertex_Shader_Constant(0, vconst, MAX_VERTEX_SHADER_CONSTANTS);
+
+	Vector4 pconst[MAX_PIXEL_SHADER_CONSTANTS];
+	memset(pconst,0,sizeof(Vector4)*MAX_PIXEL_SHADER_CONSTANTS);
+	Set_Pixel_Shader_Constant(0, pconst, MAX_PIXEL_SHADER_CONSTANTS);
+
+	Set_Vertex_Shader(DX8_FVF_XYZNDUV2);
+	Set_Pixel_Shader(0);
 }
 
 const char* DX8Wrapper::Get_DX8_Render_State_Name(D3DRENDERSTATETYPE state)
