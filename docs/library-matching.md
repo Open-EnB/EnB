@@ -170,12 +170,27 @@ and fixed so far (importer `PATCHES`, see docs/imports.md):
 | `MeshBuilderClass::MAX_STAGES` = 8 (Zero Hour's value; Renegade and Generals: 2) | `VertexMaterialClass::CRCDirty` at +0x6C, not +0x3C: `Mapper[]` and `UVSource[]` are sized by it | 36 |
 | `RenderObjClass` gets Zero Hour's render hook (`RenderHookClass`, the `RenderHook` member, `Get/Set_Render_Hook`, deleted in the destructor), but not Zero Hour's `ObjectScale`/`ObjectColor` | every member after +0x88 shifted by 4 in `HLodClass`, `SphereRenderObjClass`, `RingRenderObjClass`, ... | 287 |
 | `Matrix3D` gets Zero Hour's `preMul`/`postMul`/`mul`/`mulVector3`/`mulVector3Array` helpers (not its operator rework) | Zero Hour's `streak.cpp` needs them; let the last WW3D2 files compile | 1, then 7 more after a refine pass |
+| `RenderObjClass` vtable as in the client (113 slots, 0xAE84F8): Renegade's four user-lighting virtuals are not virtual (as in Zero Hour), and E&B has one empty `void()` virtual after the `Set_Animation` overloads (`Unknown_Virtual_40`) | `tools/re/vtables.py`: the client's table, slot by slot | 125 |
+| `ParticleEmitterDefClass` and its file data: Zero Hour's `W3dEmitterExtraInfoStruct` (`FutureStartTime`), plus an E&B flag in its padding (`UnknownFlag`, a `uint8`) with a virtual setter after `Set_Future_Start_Time` and a getter | +0x28 from `m_LineProperties`; vtable slot 19 at 0xB10920 | 39 + 11 |
+| `SceneClass`/`SimpleSceneClass`: Zero Hour's `Get_Scene_ID` virtuals (not its virtual `Render`) | vtable at 0xB120FC, slots 2 and 23 | 8 |
+| Miles API declared `dllimport` (SDK header patched outside the repository) | the client calls Miles through the import table | 30 (WWAudio) |
+| `AudibleSoundClass`: two E&B ints after `m_LoopsLeft` (4 and -1 at construction; `m_Unknown7C`, `m_Unknown80`) | +8 from `m_Length`; both constructors | 31 (WWAudio) |
+| `Sound3DClass`: E&B fields after `m_CurrentVelocity` (12 bytes) and after `m_LastUpdate` (two ints) | +12 from `m_MaxVolRadius`; the constructors zero them | 9 (WWAudio) |
+| `RingRenderObjClass`, `SphereRenderObjClass` from Zero Hour (LOD support); `Matrix4x4`/`Matrix3x3` as aliases of Renegade's `Matrix4`/`Matrix3` | +0x34/+0x40 shifts | 28 + 31 |
+| `ParticleBufferClass`: Zero Hour's line-group `GroupID` buffer and `CurrentGroupID`, not its `FutureStartTime`; `NewParticleStruct::GroupID` | +4 from `PingPongPosition` | 19 + 1 |
+| `ParticleEmitterClass`: Zero Hour's code, but E&B keeps the future start time in the emitter (`FutureStartTime`, ms; `Reset()` starts `EmitRemain` from it) and takes and keeps the definition's flag (`UnknownFlag`) | the constructor (0x97D180, `ret 0x78`), copy constructor and `Create_From_Definition` | 10 |
+| `LightEnvironmentClass`: Renegade's light record (no point lights) | E&B's class is 0xB0 smaller (4 lights x 44 bytes) | net 2 |
+| `MeshModelClass` keeps `PolygonRendererList` (as Generals/Zero Hour) | `GapFiller` 24 bytes later | 6 |
+| `DazzleRenderObjClass` from Zero Hour (`current_scale`) | +4 at 0x124 | 25 |
+| `DX8Caps`: Zero Hour's twelve extra capability flags, not its `MaxSimultaneousTextures` | +12 from `VertexShaderVersion`, `DeviceId` too | 13 + 5 (wwshade) |
+| Six more WW3D2 files from Zero Hour by batch trials (`tools/vc6/trial_all.py`): `aabtree`, `composite`, `dx8fvf`, `dynamesh`, `hanim`, `surfaceclass` | kept only because they gain and lose nothing | 26 |
 
-Still open (from `layoutdiff.py`): `ParticleEmitterDefClass` (+0x28 from about +0x1E0),
-`SphereRenderObjClass`/`RingRenderObjClass` (+0x34/+0x40 from about +0x118),
-`ParticleBufferClass` (+4 from about +0x204), `LightEnvironmentClass` (smaller in E&B),
-`DX8Caps` (+0xC from about +0x128); in WWAudio `AudibleSoundClass` (+4 at +0x68, +8 from
-+0x74, +20 after +0x138: fields E&B added, in no EA copy).
+Still open: wwshade (13 of 46) needs more of Zero Hour's rendering interfaces (vertex-shader
+calls and render-state members on `DX8Wrapper`, `TextureBaseClass`/cube textures, shadow
+projectors on `RenderInfoClass`); the remaining near-misses (`TexProjectClass`, `MeshClass`,
+`GridTextureMapperClass`, `WW3DAssetManager`, the particle buffer's constructor and line-group
+rendering, `CPUDetectClass::Init_Processor_Speed`: one swapped register pair) are code
+differences rather than layouts. Gaps split into linked and unlinked: docs/data/gaps-*-classified.md.
 
 ### 3.7 Precompiled libraries and generated code: out of scope
 

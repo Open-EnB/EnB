@@ -9,6 +9,11 @@
 | [conventions.md](conventions.md) | Coding conventions for the rebuild |
 | [toolchain.md](toolchain.md) | Compilers (VC6 and modern MSVC) and the third-party SDKs, checked against the client |
 | [library-matching.md](library-matching.md) | Matching EA's published Westwood code to the client: method, results, plan |
+| [imports.md](imports.md) | The imported libraries, file by file: origin, merges, local changes (generated) |
+| [coverage.md](coverage.md) | How much of client.exe is identified (generated) |
+| [app-inventory.md](app-inventory.md) | E&B's own code: functions by source file, names, RTTI (generated) |
+| [app-plan.md](app-plan.md) | Proposal for reconstructing E&B's own code (decisions D6-D8) |
+| [overnight-report.md](overnight-report.md) | Report of the 2026-10-23 overnight session |
 
 Generated data ([data/](data/); regenerate with the tools in `tools/re`):
 
@@ -21,6 +26,8 @@ Generated data ([data/](data/); regenerate with the tools in `tools/re`):
 | [data/library-versions.md](data/library-versions.md) | which EA copy each library file follows | `libversions.py` |
 | [data/bytematch-*.md](data/) (`ww3d2`, `wwlib`, `wwmath`, `wwaudio`, `wwsaveload`, `wwdebug`, `wwshade`) and `.json` | client functions proven byte-identical to EA source, per file and per copy | `tools/vc6/bytematch_all.sh` |
 | [data/bytematch-*.md](data/) (`libcmt`, `libcpmt`, `comsupp`, `d3dx8`) and `.json` | client functions proven to be Microsoft's precompiled libraries | `tools/vc6/runtime_match.sh` |
+| [data/symbols.json](data/symbols.json), [data/ghidra_symbols.py](data/ghidra_symbols.py) | address -> name for everything proven; a Ghidra labelling script | `symbols.py` |
+| [data/gaps-*.md](data/) and `gaps-*-classified.md` | each library's functions that aren't byte-exact, located, and split into linked / unlinked | `gaps.py`, `classify_gaps.py` |
 | [data/funcmatch.md](data/funcmatch.md), [data/funcmatch.json](data/funcmatch.json) | client functions matched to EA functions | `funcmatch.py` |
 
 Addresses are virtual addresses in the retail client.exe, SHA-256 `249f8524…51c4`
