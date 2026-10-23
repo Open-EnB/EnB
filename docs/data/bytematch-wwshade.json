@@ -7,6 +7,14 @@
    "length": 42
   }
  },
+ "0x444160": {
+  "Z": {
+   "object": "shdrenderer.obj",
+   "function": "WWProfileSampleClass::~WWProfileSampleClass",
+   "symbol": "??1WWProfileSampleClass@@QAE@XZ",
+   "length": 23
+  }
+ },
  "0x447C40": {
   "Z": {
    "object": "shdhwshader.obj",

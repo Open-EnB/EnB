@@ -210,8 +210,8 @@
     "copy": "R",
     "expected": {
      "G": 17,
-     "R": 39,
-     "Z": 19
+     "R": 40,
+     "Z": 21
     },
     "headers_from": null,
     "in_tree": [
@@ -1060,7 +1060,7 @@
     "copy": "R",
     "expected": {
      "G": 17,
-     "R": 32,
+     "R": 31,
      "Z": 26
     },
     "headers_from": null,
@@ -3576,7 +3576,7 @@
     "expected": {
      "G": 4,
      "R": 7,
-     "Z": 5
+     "Z": 6
     },
     "headers_from": null,
     "in_tree": [
@@ -4284,8 +4284,8 @@
     "copy": "R",
     "expected": {
      "G": 17,
-     "R": 23,
-     "Z": 23
+     "R": 24,
+     "Z": 22
     },
     "headers_from": null,
     "in_tree": [
@@ -4482,8 +4482,8 @@
   "in_tree_total": 2202,
   "totals": {
    "G": 548,
-   "R": 1322,
-   "Z": 914
+   "R": 1323,
+   "Z": 917
   }
  },
  "wwaudio": {
@@ -4494,9 +4494,9 @@
     "best": "R",
     "copy": "R",
     "expected": {
-     "G": 7,
-     "R": 23,
-     "Z": 10
+     "G": 10,
+     "R": 33,
+     "Z": 13
     },
     "headers_from": null,
     "in_tree": [
@@ -4656,9 +4656,9 @@
     "best": "R",
     "copy": "R",
     "expected": {
-     "G": 3,
-     "R": 8,
-     "Z": 4
+     "G": 4,
+     "R": 9,
+     "Z": 5
     },
     "headers_from": null,
     "in_tree": [
@@ -4826,8 +4826,8 @@
     "copy": "R",
     "expected": {
      "G": 3,
-     "R": 3,
-     "Z": 3
+     "R": 5,
+     "Z": 5
     },
     "headers_from": null,
     "in_tree": [
@@ -4846,8 +4846,8 @@
     "copy": "R",
     "expected": {
      "G": 12,
-     "R": 12,
-     "Z": 12
+     "R": 13,
+     "Z": 13
     },
     "headers_from": null,
     "in_tree": [
@@ -4898,7 +4898,7 @@
     "copy": "R",
     "expected": {
      "G": 5,
-     "R": 10,
+     "R": 11,
      "Z": 6
     },
     "headers_from": null,
@@ -4935,7 +4935,7 @@
     "expected": {
      "G": 14,
      "R": 35,
-     "Z": 17
+     "Z": 19
     },
     "headers_from": null,
     "in_tree": [
@@ -5046,7 +5046,7 @@
     "copy": "R",
     "expected": {
      "G": 12,
-     "R": 61,
+     "R": 80,
      "Z": 17
     },
     "headers_from": null,
@@ -5178,9 +5178,9 @@
   },
   "in_tree_total": 298,
   "totals": {
-   "G": 68,
-   "R": 171,
-   "Z": 81
+   "G": 72,
+   "R": 205,
+   "Z": 90
   }
  },
  "wwdebug": {
@@ -7411,7 +7411,7 @@
     "expected": {
      "G": 5,
      "R": 5,
-     "Z": 5
+     "Z": 6
     },
     "headers_from": null,
     "in_tree": [
@@ -7712,7 +7712,7 @@
    },
    "matrix4": {
     "best": "Z",
-    "copy": "R",
+    "copy": "Z",
     "expected": {
      "G": 4,
      "R": 4,
@@ -7723,7 +7723,9 @@
      "0x42F250",
      "0x8DE8F0",
      "0x8DEB10",
-     "0x8DECC0"
+     "0x8DECC0",
+     "0x8DEE60",
+     "0x8DEEC0"
     ],
     "merged": [],
     "name": "matrix4.cpp"
@@ -7997,11 +7999,11 @@
    "wwmath.h": "R",
    "wwmathids.h": "R"
   },
-  "in_tree_total": 368,
+  "in_tree_total": 370,
   "totals": {
    "G": 323,
    "R": 366,
-   "Z": 342
+   "Z": 343
   }
  },
  "wwsaveload": {
@@ -8492,7 +8494,7 @@
     "best": "Z",
     "copy": "Z",
     "expected": {
-     "Z": 16
+     "Z": 17
     },
     "headers_from": null,
     "in_tree": [
@@ -8539,7 +8541,7 @@
     "best": "Z",
     "copy": "Z",
     "expected": {
-     "Z": 6
+     "Z": 7
     },
     "headers_from": null,
     "in_tree": [
@@ -8654,7 +8656,7 @@
   },
   "in_tree_total": 136,
   "totals": {
-   "Z": 61
+   "Z": 62
   }
  }
 }

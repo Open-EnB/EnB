@@ -4,6 +4,36 @@ Newest first within each section. Dates are when the entry was written.
 
 ## 1. Log
 
+### 2026-10-23: wwshade's E&B code; `_MBCS` and `ENABLE_WWPROFILE` builds
+
+* Last session's regenerated evidence had gone to `%TEMP%\enb_bytematch`, not `.work/bm2`
+  (trap added); new `tools/vc6/refresh_expected.py` refreshes plan counts from new evidence
+  (wwshade best copy alone 46 -> 61, 0 files below their copy).
+* wwshade 118 -> 136, none lost (importer `WWSHADE_EARLY_PATCHES`): E&B's fixed-function light
+  setup `ShdHWVertexShader::Unknown_Set_Lights` 0xA0FC60 (name not known, D10) and its calls at the
+  end of the Simple, Gloss Mask and Cube Map DX6 `Apply_Shared`; materials set there, not in
+  `Apply_Instance`; definition defaults (`Ambient` 0,0,0; cube map `Diffuse` 0,0,0; copy ctors assign
+  in their bodies); Bump Specular always DX6; Zero Hour's `Get_Pixel_Shader_Minor_Version`
+  (`WWSHADE_API_PATCHES`).
+* Library flags (D12; importer `LIB_FLAGS`, `bytematch_all.sh LIBFLAGS`):
+  * `_MBCS` in wwshade and WWAudio: `_mbslen` 0xA2BCAB has four callers, all there. WWAudio +2.
+  * `ENABLE_WWPROFILE` in wwshade, WW3D2, WWAudio, WWMath (`WWProfileSampleClass`; its dtor
+    0x444160 is called 212 times by E&B's own code, so probably project-wide). WW3D2 2,179 -> 2,202,
+    WWAudio 266 -> 298, WWMath +1, wwshade +2. E&B dropped two samplers: `ShdDX8RendererClass::Flush`
+    0xA08060, `ParticleEmitterClass::On_Frame_Update` 0x97DEF0 (patched out). Accepted losses:
+    twin pairings only (library-matching.md §3.5, §3.6.1).
+* Open: `ShdDefClass(classid)` 0xA0EC30 and the `ShdMeshClass` ctor 0xA08F80 differ only in the
+  `StringClass("UnNamed")` inline: the client tests the pointer again after the `_mbslen` call, ours
+  folds the test (not `/O1`, not `_MB_MAP_DIRECT`, all EA copies of the ctor the same).
+* Evidence regenerated with the new flags (`.work/bm2`), plan counts refreshed; refine: WWMath +2
+  (`matrix4` 0x8DEE60, 0x8DEEC0 from Zero Hour); its wwshade splice of Zero Hour's
+  `ShdBumpSpecDefClass::Init` was a twin match undoing an E&B patch, reverted (trap added).
+* `docs/data/gaps-wwshade.*` generated for the first time (7 left), `gaps-wwaudio` regenerated (48);
+  `symbols.json` 6,438 -> 6,494.
+* Commits: this entry's work, on master. Nothing pushed.
+* Next: `ShdMeshClass` `Load_W3D` 0xA0A380, `Update_Cached_Bounding_Volumes` 0xA09ED0, ctor; then
+  the WWAudio gaps that are left after the profile build (regenerate `gaps-wwaudio`), WW3D2 near-misses.
+
 ### 2026-10-23: D9 step 3, E&B's earlier wwshade; wwshade's flags
 
 * **wwshade was built `/GX /Ob1`** (the other libraries `/Ob2`, no `/GX`): EH frames in its
@@ -283,8 +313,8 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 
 ## 4. Next steps
 
-1. D9 continued: wwshade (118 in the tree; next, the E&B helper 0xA0FC60, the cube map definition, `ShdMeshClass` ctor/`Render`/`Load_W3D`; see the step 3 entry), then the texture near-misses (`TextureClass` constructors, `Init`, `Apply`, `Get_Reduction`; `DX8Wrapper`'s device code). Texture classes done; wwshade's WW3D2 features done (2026-10-23).
-2. The remaining WWAudio gaps (`WWAudioClass` 40, `SoundSceneClass` 12; `SoundPseudo3DClass` and
+1. D9 continued: wwshade (136 in the tree; next `ShdMeshClass` `Load_W3D`/`Update_Cached_Bounding_Volumes`/ctor and the `"UnNamed"` null test; see the 2026-10-23 wwshade entry), then the texture near-misses (`TextureClass` constructors, `Init`, `Apply`, `Get_Reduction`; `DX8Wrapper`'s device code). Texture classes done; wwshade's WW3D2 features done (2026-10-23).
+2. The remaining WWAudio gaps (fewer since the `ENABLE_WWPROFILE` build, +32; were `WWAudioClass` 40, `SoundSceneClass` 12; `SoundPseudo3DClass` and
    `FilteredSoundClass` +4 from 0x1A4) and WW3D2 near-misses (docs/data/gaps-*.md).
 3. `meshmatdesc.cpp`'s inlining flip (an app-region helper at 0x4E9CB0 that VC6 now inlines).
 4. E&B's own code (D6, D7): first the per-file workflow script ([app-plan.md](app-plan.md) §2),

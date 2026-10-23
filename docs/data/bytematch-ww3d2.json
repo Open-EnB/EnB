@@ -179,6 +179,14 @@
    "length": 42
   }
  },
+ "0x444160": {
+  "Z": {
+   "object": "sortingrenderer.obj",
+   "function": "WWProfileSampleClass::~WWProfileSampleClass",
+   "symbol": "??1WWProfileSampleClass@@QAE@XZ",
+   "length": 23
+  }
+ },
  "0x447C40": {
   "R": {
    "object": "sphereobj.obj",
@@ -1029,7 +1037,7 @@
  },
  "0x53F1C0": {
   "R": {
-   "object": "vertmaterial.obj",
+   "object": "ww3d.obj",
    "function": "StringClass::StringClass",
    "symbol": "??0StringClass@@QAE@H_N@Z",
    "length": 43
@@ -1041,7 +1049,7 @@
    "length": 43
   },
   "Z": {
-   "object": "ww3d.obj",
+   "object": "vertmaterial.obj",
    "function": "StringClass::StringClass",
    "symbol": "??0StringClass@@QAE@H_N@Z",
    "length": 43
@@ -3843,6 +3851,20 @@
    "length": 17
   }
  },
+ "0x91D220": {
+  "R": {
+   "object": "assetmgr.obj",
+   "function": "WW3DAssetManager::Load_3D_Assets",
+   "symbol": "?Load_3D_Assets@WW3DAssetManager@@UAE_NPBD@Z",
+   "length": 72
+  },
+  "Z": {
+   "object": "assetmgr.obj",
+   "function": "WW3DAssetManager::Load_3D_Assets",
+   "symbol": "?Load_3D_Assets@WW3DAssetManager@@UAE_NPBD@Z",
+   "length": 72
+  }
+ },
  "0x91D730": {
   "R": {
    "object": "assetmgr.obj",
@@ -3893,6 +3915,14 @@
    "function": "WW3DAssetManager::Release_All_Textures",
    "symbol": "?Release_All_Textures@WW3DAssetManager@@UAEXXZ",
    "length": 260
+  }
+ },
+ "0x91E890": {
+  "Z": {
+   "object": "assetmgr.obj",
+   "function": "WW3DAssetManager::Get_Font3DInstance",
+   "symbol": "?Get_Font3DInstance@WW3DAssetManager@@UAEPAVFont3DInstanceClass@@PBD@Z",
+   "length": 76
   }
  },
  "0x91E980": {

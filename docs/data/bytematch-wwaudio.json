@@ -257,12 +257,28 @@
    "length": 222
   }
  },
+ "0x9EF770": {
+  "R": {
+   "object": "WWAudio.obj",
+   "function": "WWAudioClass::Get_Sound_Buffer",
+   "symbol": "?Get_Sound_Buffer@WWAudioClass@@IAEPAVSoundBufferClass@@AAVFileClass@@PBD_N@Z",
+   "length": 41
+  }
+ },
  "0x9EF840": {
   "R": {
    "object": "WWAudio.obj",
    "function": "WWAudioClass::Free_Cache_Space",
    "symbol": "?Free_Cache_Space@WWAudioClass@@IAE_NH@Z",
    "length": 321
+  }
+ },
+ "0x9EFC00": {
+  "R": {
+   "object": "WWAudio.obj",
+   "function": "_CACHE_ENTRY_STRUCT::operator=",
+   "symbol": "??4_CACHE_ENTRY_STRUCT@WWAudioClass@@QAEAAU01@ABU01@@Z",
+   "length": 64
   }
  },
  "0x9F0B00": {
@@ -351,6 +367,14 @@
    "function": "WWAudioClass::Select_3D_Device",
    "symbol": "?Select_3D_Device@WWAudioClass@@QAE_NPBD@Z",
    "length": 90
+  }
+ },
+ "0x9F1BA0": {
+  "R": {
+   "object": "WWAudio.obj",
+   "function": "WWAudioClass::Select_3D_Device",
+   "symbol": "?Select_3D_Device@WWAudioClass@@QAE_NPBDK@Z",
+   "length": 579
   }
  },
  "0x9F1DF0": {
@@ -581,6 +605,14 @@
    "function": "WWAudioClass::Create_Logical_Listener",
    "symbol": "?Create_Logical_Listener@WWAudioClass@@QAEPAVLogicalListenerClass@@XZ",
    "length": 24
+  }
+ },
+ "0x9F3700": {
+  "R": {
+   "object": "WWAudio.obj",
+   "function": "WWAudioClass::Add_Logical_Type",
+   "symbol": "?Add_Logical_Type@WWAudioClass@@QAEXHPBD@Z",
+   "length": 320
   }
  },
  "0x9F3840": {
@@ -1079,6 +1111,22 @@
    "function": "SoundCullObjClass::Get_Bounding_Box",
    "symbol": "?Get_Bounding_Box@SoundCullObjClass@@UBEABVAABoxClass@@XZ",
    "length": 181
+  }
+ },
+ "0x9FAD30": {
+  "Z": {
+   "object": "SoundScene.obj",
+   "function": "SoundSceneClass::Add_Logical_Listener",
+   "symbol": "?Add_Logical_Listener@SoundSceneClass@@UAEXPAVLogicalListenerClass@@@Z",
+   "length": 98
+  }
+ },
+ "0x9FADA0": {
+  "Z": {
+   "object": "SoundScene.obj",
+   "function": "SoundSceneClass::Remove_Logical_Listener",
+   "symbol": "?Remove_Logical_Listener@SoundSceneClass@@UAEXPAVLogicalListenerClass@@@Z",
+   "length": 93
   }
  },
  "0x9FAE00": {

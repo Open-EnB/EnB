@@ -1,0 +1,72 @@
+[
+ {
+  "object": "shdcubemap.obj",
+  "function": "DX8Wrapper::Set_DX8_Texture_Stage_State",
+  "symbol": "?Set_DX8_Texture_Stage_State@DX8Wrapper@@SAXIW4_D3DTEXTURESTAGESTATETYPE@@I@Z",
+  "length": 207,
+  "status": "none",
+  "address": "0xA0B220",
+  "similarity": 0.23,
+  "window": "0xA0A040-0xA0BA10"
+ },
+ {
+  "object": "shddef.obj",
+  "function": "ShdDefClass::ShdDefClass",
+  "symbol": "??0ShdDefClass@@QAE@K@Z",
+  "length": 223,
+  "status": "none",
+  "address": "0xA0AAA0",
+  "similarity": 0.28,
+  "window": "0xA0AA00-0xA0B200"
+ },
+ {
+  "object": "shdmesh.obj",
+  "function": "ShdMeshClass::ShdMeshClass",
+  "symbol": "??0ShdMeshClass@@QAE@XZ",
+  "length": 233,
+  "status": "none",
+  "address": "0x4E6580",
+  "similarity": 0.21,
+  "window": "0x4E6290-0x4E6A90"
+ },
+ {
+  "object": "shdmesh.obj",
+  "function": "ShdMeshClass::Get_Num_Vertices",
+  "symbol": "?Get_Num_Vertices@ShdMeshClass@@QBEHXZ",
+  "length": 36,
+  "status": "none",
+  "address": "0x4E69D0",
+  "similarity": 0.39,
+  "window": "0x4E6290-0x4E6A90"
+ },
+ {
+  "object": "shdmesh.obj",
+  "function": "ShdMeshClass::Update_Cached_Bounding_Volumes",
+  "symbol": "?Update_Cached_Bounding_Volumes@ShdMeshClass@@MBEXXZ",
+  "length": 240,
+  "status": "none",
+  "address": "0x4E67B0",
+  "similarity": 0.11,
+  "window": "0x4E6290-0x4E6A90"
+ },
+ {
+  "object": "shdmesh.obj",
+  "function": "ShdMeshClass::Load_W3D",
+  "symbol": "?Load_W3D@ShdMeshClass@@QAE?AW4WW3DErrorType@@AAVChunkLoadClass@@@Z",
+  "length": 780,
+  "status": "none",
+  "address": "0x4E6940",
+  "similarity": 0.1,
+  "window": "0x4E6290-0x4E6A90"
+ },
+ {
+  "object": "shdmesh.obj",
+  "function": "ShdMeshClass::Peek_Sub_Mesh",
+  "symbol": "?Peek_Sub_Mesh@ShdMeshClass@@QBEPAVShdSubMeshClass@@H@Z",
+  "length": 16,
+  "status": "none",
+  "address": "0x4E68C0",
+  "similarity": 0.06,
+  "window": "0x4E6290-0x4E6A90"
+ }
+]

@@ -135,5 +135,11 @@ compiled into E&B's objects), so they run higher.
   (it did after the wwshade flag change: refine and the plan counts still saw 46, not 61).
   After new evidence, `tools/vc6/refresh_expected.py .work/bm2 LIB` refreshes a library's plan
   totals and per-file `expected` counts without touching its tree decisions.
+* **Refine can undo an E&B patch through a twin.** It splices in another copy's function when that
+  one matches *any* client address, and relocations are masked, so a twin elsewhere counts. It
+  put Zero Hour's `ShdBumpSpecDefClass::Init` back over E&B's DX6-only one, because Zero Hour's
+  matches Bump Diffuse's `Init` (0xA0B9B0). After a refine, read the diff of every file it
+  touched and check each new pair's address belongs to that file (`client.py name`); revert
+  the file and its `imports.json` entry if not.
 * **Clones share a computer name.** Always address the VMs by IP (`ENB_VC6_HOST` or
   `ENB_VC6_HOSTS`).

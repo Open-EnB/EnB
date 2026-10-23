@@ -1361,6 +1361,14 @@
    "length": 47
   }
  },
+ "0x8C8DD0": {
+  "Z": {
+   "object": "cullsys.obj",
+   "function": "CullableClass::Set_Cull_Box",
+   "symbol": "?Set_Cull_Box@CullableClass@@QAEXABVAABoxClass@@_N@Z",
+   "length": 108
+  }
+ },
  "0x8C8E40": {
   "R": {
    "object": "cullsys.obj",
