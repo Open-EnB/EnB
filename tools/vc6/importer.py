@@ -222,6 +222,11 @@ PATCHES = {
          '\tunsigned int pick = magnitude+1;',
          'and the pick, compared unsigned with the magnitude'),
     ],
+    ('ww3d2', 'shader.h'): [
+        ('\t\tSSCAT_ADDITIVE,\n\t\tSSCAT_OTHER',
+         '\t\tSSCAT_ADDITIVE,\n\t\tSSCAT_SCREEN,\n\t\tSSCAT_OTHER',
+         "Zero Hour's SSCAT_SCREEN static sort category (src ONE, dest ONE_MINUS_SRC_COLOR): ShaderClass::Get_SS_Category (0x93CE00) and Guess_Sort_Level (0x93CE90) test for it"),
+    ],
     ('ww3d2', 'dx8caps.h'): [
         ('\tbool SupportRenderToTextureFormat[WW3D_FORMAT_COUNT];',
          '\tbool SupportRenderToTextureFormat[WW3D_FORMAT_COUNT];\n\tbool SupportDepthStencilFormat[WW3D_ZFORMAT_COUNT];',
@@ -622,9 +627,15 @@ def tree_totals(state):
     return {lib: s.get('in_tree_total', 0) for lib, s in state.items()}
 
 
+def tree_sets(state):
+    """Per library, every (file, client address) the tree reproduces."""
+    return {l: {(k, a) for k, f in s['files'].items() for a in f.get('in_tree', [])}
+            for l, s in state.items()}
+
+
 def try_with_headers(state, lib, f, c, k, donor):
-    """Swap a file and its same-named header(s) to copy c; keep it only if no library's total
-    drops. Returns the file's matched set, or None (and restores everything) if rejected."""
+    """Swap a file and its same-named header(s) to copy c; keep it only if no function anywhere
+    is lost. Returns the file's matched set, or None (and restores everything) if rejected."""
     d = dest(lib)
     pairs = [(n, p) for low, (n, p) in headers(lib, c).items() if os.path.splitext(low)[0] == k]
     if not pairs:
@@ -638,12 +649,12 @@ def try_with_headers(state, lib, f, c, k, donor):
     path = os.path.join(d, f['name'])
     original = open(path, 'rb').read()
     open(path, 'w', encoding='latin1', newline='').write(donor)
-    before = tree_totals(state)
+    before = tree_sets(state)
     trial = json.loads(json.dumps(state))
     verify(trial)
-    after = tree_totals(trial)
+    after = tree_sets(trial)
     got = set(trial[lib]['files'][k].get('in_tree', []))
-    if all(after[l] >= before[l] for l in before) and sum(after.values()) > sum(before.values()):
+    if all(before[l] <= after[l] for l in before) and sum(map(len, after.values())) > sum(map(len, before.values())):
         for l in state:
             state[l]['in_tree_total'] = trial[l]['in_tree_total']
             for kk, ff in state[l]['files'].items():
@@ -681,7 +692,7 @@ def refine(state, ev, libs=None, only=None):
                     # 1. the whole file from the other copy, if the current one is clearly worse
                     if c != f['copy'] and len(ev[lib][c][k]) > len(cur):
                         got = try_file(lib, f, donor)
-                        if len(got) > len(cur):
+                        if cur <= got and len(got) > len(cur):
                             gained += len(got) - len(cur)
                             print(f'  {lib}/{f["name"]}: whole file from {c}: {len(cur)} -> {len(got)}')
                             f['copy'], f['merged'], cur, text = c, [], got, donor

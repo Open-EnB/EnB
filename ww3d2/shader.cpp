@@ -926,6 +926,9 @@ ShaderClass::StaticSortCategoryType ShaderClass::Get_SS_Category(void) const
 	// category: Additive
 	if ( (SRCBLEND_ONE==Get_Src_Blend_Func()) && (DSTBLEND_ONE==Get_Dst_Blend_Func()) )
 		return SSCAT_ADDITIVE;
+	// category: Screen
+	if ( (SRCBLEND_ONE==Get_Src_Blend_Func()) && (DSTBLEND_ONE_MINUS_SRC_COLOR==Get_Dst_Blend_Func()) )
+		return SSCAT_SCREEN;
 	// category: Everything else
 	return SSCAT_OTHER;
 }
@@ -956,6 +959,9 @@ int ShaderClass::Guess_Sort_Level(void) const
 	case ShaderClass::SSCAT_OPAQUE:
 	case ShaderClass::SSCAT_ALPHA_TEST:
 		sort_level=SORT_LEVEL_NONE;
+		break;
+	case ShaderClass::SSCAT_SCREEN:
+		sort_level=SORT_LEVEL_BIN2;
 		break;
 	case ShaderClass::SSCAT_ADDITIVE:
 		sort_level=SORT_LEVEL_BIN3;

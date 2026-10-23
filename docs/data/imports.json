@@ -3368,9 +3368,20 @@
      "0x93B3C0",
      "0x93B460",
      "0x93B4B0",
-     "0x93CDE0"
+     "0x93CDE0",
+     "0x93CE00",
+     "0x93CE90"
     ],
-    "merged": [],
+    "merged": [
+     {
+      "copy": "Z",
+      "function": "ShaderClass::Get_SS_Category"
+     },
+     {
+      "copy": "Z",
+      "function": "ShaderClass::Guess_Sort_Level"
+     }
+    ],
     "name": "shader.cpp"
    },
    "shattersystem": {
