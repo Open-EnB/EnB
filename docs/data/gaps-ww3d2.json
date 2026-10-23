@@ -410,46 +410,6 @@
   "window": "0x463390-0x463B90"
  },
  {
-  "object": "boxrobj.obj",
-  "function": "BoxRenderObjClass::vis_render_box",
-  "symbol": "?vis_render_box@BoxRenderObjClass@@IAEXAAVSpecialRenderInfoClass@@ABVVector3@@1@Z",
-  "length": 165,
-  "status": "none",
-  "address": "0x998CC0",
-  "similarity": 0.71,
-  "window": "0x998CB0-0x998D80"
- },
- {
-  "object": "boxrobj.obj",
-  "function": "AABoxRenderObjClass::Special_Render",
-  "symbol": "?Special_Render@AABoxRenderObjClass@@UAEXAAVSpecialRenderInfoClass@@@Z",
-  "length": 224,
-  "status": "none",
-  "address": "0x9995D0",
-  "similarity": 0.75,
-  "window": "0x9995D0-0x9996F0"
- },
- {
-  "object": "boxrobj.obj",
-  "function": "OBBoxRenderObjClass::Special_Render",
-  "symbol": "?Special_Render@OBBoxRenderObjClass@@UAEXAAVSpecialRenderInfoClass@@@Z",
-  "length": 60,
-  "status": "none",
-  "address": "0x99A470",
-  "similarity": 0.86,
-  "window": "0x99A470-0x99A4F0"
- },
- {
-  "object": "camera.obj",
-  "function": "CameraClass::Apply",
-  "symbol": "?Apply@CameraClass@@QAEXXZ",
-  "length": 1264,
-  "status": "none",
-  "address": "0x945440",
-  "similarity": 0.88,
-  "window": "0x945440-0x945930"
- },
- {
   "object": "collect.obj",
   "function": "CollectionClass::Render",
   "symbol": "?Render@CollectionClass@@UAEXAAVRenderInfoClass@@@Z",
@@ -521,26 +481,6 @@
  },
  {
   "object": "dazzle.obj",
-  "function": "DazzleRenderObjClass::vis_render_dazzle",
-  "symbol": "?vis_render_dazzle@DazzleRenderObjClass@@AAEXAAVSpecialRenderInfoClass@@@Z",
-  "length": 670,
-  "status": "none",
-  "address": "0x96E460",
-  "similarity": 0.92,
-  "window": "0x96E440-0x96E780"
- },
- {
-  "object": "dazzle.obj",
-  "function": "DazzleRenderObjClass::Special_Render",
-  "symbol": "?Special_Render@DazzleRenderObjClass@@UAEXAAVSpecialRenderInfoClass@@@Z",
-  "length": 23,
-  "status": "none",
-  "address": "0x96E700",
-  "similarity": 0.85,
-  "window": "0x96E440-0x96E780"
- },
- {
-  "object": "dazzle.obj",
   "function": "DazzlePrototypeClass::scalar deleting dtor",
   "symbol": "??_GDazzlePrototypeClass@@UAEPAXI@Z",
   "length": 40,
@@ -598,16 +538,6 @@
   "address": "0x9A2050",
   "similarity": 0.09,
   "window": "0x9A2050-0x9A2850"
- },
- {
-  "object": "decalmsh.obj",
-  "function": "RigidDecalMeshClass::Create_Decal",
-  "symbol": "?Create_Decal@RigidDecalMeshClass@@UAE_NPAVDecalGeneratorClass@@ABVOBBoxClass@@AAV?$SimpleDynVecClass@K@@PBV?$DynamicVectorClass@VVector3@@@@@Z",
-  "length": 2458,
-  "status": "none",
-  "address": "0x9B7250",
-  "similarity": 0.91,
-  "window": "0x9B7250-0x9B7BF0"
  },
  {
   "object": "decalsys.obj",
@@ -671,93 +601,13 @@
  },
  {
   "object": "dx8caps.obj",
-  "function": "DX8Caps::DX8Caps",
-  "symbol": "??0DX8Caps@@QAE@PAUIDirect3D8@@PAUIDirect3DDevice8@@W4WW3DFormat@@ABU_D3DADAPTER_IDENTIFIER8@@@Z",
-  "length": 266,
-  "status": "none",
-  "address": "0x9AFEF0",
-  "similarity": 0.8,
-  "window": "0x9AFEF0-0x9B00D0"
- },
- {
-  "object": "dx8caps.obj",
-  "function": "DX8Caps::DX8Caps",
-  "symbol": "??0DX8Caps@@QAE@PAUIDirect3D8@@ABU_D3DCAPS8@@W4WW3DFormat@@ABU_D3DADAPTER_IDENTIFIER8@@@Z",
-  "length": 203,
-  "status": "none",
-  "address": "0x9B0000",
-  "similarity": 0.81,
-  "window": "0x9AFEF0-0x9B00D0"
- },
- {
-  "object": "dx8caps.obj",
   "function": "DX8Caps::Compute_Caps",
   "symbol": "?Compute_Caps@DX8Caps@@QAEXW4WW3DFormat@@ABU_D3DADAPTER_IDENTIFIER8@@@Z",
   "length": 4944,
   "status": "none",
   "address": "0x9B0160",
   "similarity": 0.42,
-  "window": "0x9B0160-0x9B2510"
- },
- {
-  "object": "dx8caps.obj",
-  "function": "DX8Caps::Check_Bumpmap_Support",
-  "symbol": "?Check_Bumpmap_Support@DX8Caps@@AAEXABU_D3DCAPS8@@@Z",
-  "length": 418,
-  "status": "none",
-  "address": "0x9B1620",
-  "similarity": 0.77,
-  "window": "0x9B0160-0x9B2510"
- },
- {
-  "object": "dx8caps.obj",
-  "function": "DX8Caps::Check_Texture_Compression_Support",
-  "symbol": "?Check_Texture_Compression_Support@DX8Caps@@AAEXABU_D3DCAPS8@@@Z",
-  "length": 233,
-  "status": "none",
-  "address": "0x9B17D0",
-  "similarity": 0.78,
-  "window": "0x9B0160-0x9B2510"
- },
- {
-  "object": "dx8caps.obj",
-  "function": "DX8Caps::Check_Texture_Format_Support",
-  "symbol": "?Check_Texture_Format_Support@DX8Caps@@AAEXW4WW3DFormat@@ABU_D3DCAPS8@@@Z",
-  "length": 423,
-  "status": "none",
-  "address": "0x9B18C0",
-  "similarity": 0.84,
-  "window": "0x9B0160-0x9B2510"
- },
- {
-  "object": "dx8caps.obj",
-  "function": "DX8Caps::Check_Render_To_Texture_Support",
-  "symbol": "?Check_Render_To_Texture_Support@DX8Caps@@AAEXW4WW3DFormat@@ABU_D3DCAPS8@@@Z",
-  "length": 423,
-  "status": "none",
-  "address": "0x9B1A70",
-  "similarity": 0.84,
-  "window": "0x9B0160-0x9B2510"
- },
- {
-  "object": "dx8caps.obj",
-  "function": "DX8Caps::Check_Shader_Support",
-  "symbol": "?Check_Shader_Support@DX8Caps@@AAEXABU_D3DCAPS8@@@Z",
-  "length": 231,
-  "status": "none",
-  "address": "0x9B1DC0",
-  "similarity": 0.8,
-  "window": "0x9B0160-0x9B2510"
- },
- {
-  "object": "dx8caps.obj",
-  "function": "DX8Caps::Check_Driver_Version_Status",
-  "symbol": "?Check_Driver_Version_Status@DX8Caps@@AAEXXZ",
-  "length": 1625,
-  "status": "none",
-  "address": "0x9B1EB0",
-  "similarity": 0.65,
-  "window": "0x9B0160-0x9B2510"
+  "window": "0x9B0160-0x9B1620"
  },
  {
   "object": "dx8caps.obj",
@@ -766,7 +616,7 @@
   "length": 2087,
   "status": "none",
   "address": "0x9B2540",
-  "similarity": 0.45,
+  "similarity": 0.52,
   "window": "0x9B2540-0x9B2D40"
  },
  {
@@ -1146,7 +996,7 @@
   "length": 804,
   "status": "none",
   "address": "0x9214E7",
-  "similarity": 0.74,
+  "similarity": 0.75,
   "window": "0x921140-0x9217E0"
  },
  {
@@ -1157,7 +1007,7 @@
   "status": "none",
   "address": "0x921C20",
   "similarity": 0.64,
-  "window": "0x921C20-0x922C00"
+  "window": "0x921C20-0x922730"
  },
  {
   "object": "dx8wrapper.obj",
@@ -1166,8 +1016,8 @@
   "length": 274,
   "status": "none",
   "address": "0x921DA0",
-  "similarity": 0.42,
-  "window": "0x921C20-0x922C00"
+  "similarity": 0.46,
+  "window": "0x921C20-0x922730"
  },
  {
   "object": "dx8wrapper.obj",
@@ -1177,7 +1027,7 @@
   "status": "none",
   "address": "0x921EF0",
   "similarity": 0.26,
-  "window": "0x921C20-0x922C00"
+  "window": "0x921C20-0x922730"
  },
  {
   "object": "dx8wrapper.obj",
@@ -1187,7 +1037,7 @@
   "status": "none",
   "address": "0x9226A0",
   "similarity": 0.21,
-  "window": "0x921C20-0x922C00"
+  "window": "0x921C20-0x922730"
  },
  {
   "object": "dx8wrapper.obj",
@@ -1197,7 +1047,7 @@
   "status": "none",
   "address": "0x921C50",
   "similarity": 0.26,
-  "window": "0x921C20-0x922C00"
+  "window": "0x921C20-0x922730"
  },
  {
   "object": "dx8wrapper.obj",
@@ -1205,19 +1055,9 @@
   "symbol": "?Release_Device@DX8Wrapper@@KAXXZ",
   "length": 132,
   "status": "none",
-  "address": "0x922730",
-  "similarity": 0.07,
-  "window": "0x921C20-0x922C00"
- },
- {
-  "object": "dx8wrapper.obj",
-  "function": "DX8Wrapper::Enumerate_Devices",
-  "symbol": "?Enumerate_Devices@DX8Wrapper@@KAXXZ",
-  "length": 1224,
-  "status": "none",
   "address": null,
   "similarity": null,
-  "window": "0x921C20-0x922C00"
+  "window": "0x921C20-0x922730"
  },
  {
   "object": "dx8wrapper.obj",
@@ -1367,17 +1207,7 @@
   "status": "none",
   "address": "0x926110",
   "similarity": 0.83,
-  "window": "0x926110-0x9261C0"
- },
- {
-  "object": "dx8wrapper.obj",
-  "function": "DX8Wrapper::Compute_Caps",
-  "symbol": "?Compute_Caps@DX8Wrapper@@KAXW4WW3DFormat@@@Z",
-  "length": 119,
-  "status": "none",
-  "address": "0x926140",
-  "similarity": 0.67,
-  "window": "0x926110-0x9261C0"
+  "window": "0x926110-0x926140"
  },
  {
   "object": "dx8wrapper.obj",
@@ -1591,16 +1421,6 @@
  },
  {
   "object": "hlod.obj",
-  "function": "HLodClass::Special_Render",
-  "symbol": "?Special_Render@HLodClass@@UAEXAAVSpecialRenderInfoClass@@@Z",
-  "length": 158,
-  "status": "none",
-  "address": "0x98DE40",
-  "similarity": 0.87,
-  "window": "0x98DE40-0x98DF20"
- },
- {
-  "object": "hlod.obj",
   "function": "HLodClass::Cast_Ray",
   "symbol": "?Cast_Ray@HLodClass@@UAE_NAAVRayCollisionTestClass@@@Z",
   "length": 151,
@@ -1805,19 +1625,9 @@
   "symbol": "?Apply@ScaleTextureMapperClass@@UAEXH@Z",
   "length": 1080,
   "status": "none",
-  "address": "0x933060",
-  "similarity": 0.21,
-  "window": "0x9322F0-0x933820"
- },
- {
-  "object": "mapper.obj",
-  "function": "GridTextureMapperClass::GridTextureMapperClass",
-  "symbol": "??0GridTextureMapperClass@@QAE@MII@Z",
-  "length": 68,
-  "status": "none",
-  "address": "0x932E20",
-  "similarity": 0.54,
-  "window": "0x9322F0-0x933820"
+  "address": "0x932A90",
+  "similarity": 0.07,
+  "window": "0x9322F0-0x932E20"
  },
  {
   "object": "mapper.obj",
@@ -1826,8 +1636,8 @@
   "length": 136,
   "status": "none",
   "address": "0x932E80",
-  "similarity": 0.42,
-  "window": "0x9322F0-0x933820"
+  "similarity": 0.5,
+  "window": "0x932E70-0x933820"
  },
  {
   "object": "mapper.obj",
@@ -1837,7 +1647,7 @@
   "status": "none",
   "address": "0x932F30",
   "similarity": 0.69,
-  "window": "0x9322F0-0x933820"
+  "window": "0x932E70-0x933820"
  },
  {
   "object": "mapper.obj",
@@ -1847,7 +1657,7 @@
   "status": "none",
   "address": "0x932FD0",
   "similarity": 0.47,
-  "window": "0x9322F0-0x933820"
+  "window": "0x932E70-0x933820"
  },
  {
   "object": "mapper.obj",
@@ -1856,8 +1666,8 @@
   "length": 1235,
   "status": "none",
   "address": "0x933740",
-  "similarity": 0.21,
-  "window": "0x9322F0-0x933820"
+  "similarity": 0.24,
+  "window": "0x932E70-0x933820"
  },
  {
   "object": "mapper.obj",
@@ -1865,9 +1675,9 @@
   "symbol": "?Reset@GridTextureMapperClass@@UAEXXZ",
   "length": 54,
   "status": "none",
-  "address": "0x932A90",
+  "address": "0x932E70",
   "similarity": 0.52,
-  "window": "0x9322F0-0x933820"
+  "window": "0x932E70-0x933820"
  },
  {
   "object": "mapper.obj",
@@ -1877,27 +1687,7 @@
   "status": "none",
   "address": "0x933840",
   "similarity": 0.51,
-  "window": "0x933840-0x933A80"
- },
- {
-  "object": "mapper.obj",
-  "function": "GridTextureMapperClass::update_temporal_state",
-  "symbol": "?update_temporal_state@GridTextureMapperClass@@IAEXXZ",
-  "length": 91,
-  "status": "none",
-  "address": "0x933940",
-  "similarity": 0.76,
-  "window": "0x933840-0x933A80"
- },
- {
-  "object": "mapper.obj",
-  "function": "GridTextureMapperClass::calculate_uv_offset",
-  "symbol": "?calculate_uv_offset@GridTextureMapperClass@@IAEXPAM0@Z",
-  "length": 82,
-  "status": "none",
-  "address": "0x9339A0",
-  "similarity": 0.95,
-  "window": "0x933840-0x933A80"
+  "window": "0x933840-0x933940"
  },
  {
   "object": "mapper.obj",
@@ -1907,7 +1697,7 @@
   "status": "none",
   "address": "0x933A00",
   "similarity": 0.6,
-  "window": "0x933840-0x933A80"
+  "window": "0x933A00-0x933A80"
  },
  {
   "object": "mapper.obj",
@@ -2320,16 +2110,6 @@
   "window": "0x951DB0-0x951E00"
  },
  {
-  "object": "matpass.obj",
-  "function": "MaterialPassClass::Install_Materials",
-  "symbol": "?Install_Materials@MaterialPassClass@@UBEXXZ",
-  "length": 223,
-  "status": "none",
-  "address": "0x92E720",
-  "similarity": 0.63,
-  "window": "0x92E720-0x92E800"
- },
- {
   "object": "matrixmapper.obj",
   "function": "MatrixMapperClass::MatrixMapperClass",
   "symbol": "??0MatrixMapperClass@@QAE@H@Z",
@@ -2445,19 +2225,9 @@
   "symbol": "?Set_Index_Buffer_Index_Offset@DX8Wrapper@@SAXI@Z",
   "length": 42,
   "status": "none",
-  "address": "0x9402C0",
-  "similarity": 0.38,
-  "window": "0x940130-0x9407E0"
- },
- {
-  "object": "mesh.obj",
-  "function": "MeshClass::Special_Render",
-  "symbol": "?Special_Render@MeshClass@@UAEXAAVSpecialRenderInfoClass@@@Z",
-  "length": 386,
-  "status": "none",
-  "address": "0x940130",
-  "similarity": 0.84,
-  "window": "0x940130-0x9407E0"
+  "address": "0x93ED60",
+  "similarity": 0.54,
+  "window": "0x93E420-0x9418D0"
  },
  {
   "object": "mesh.obj",
@@ -2467,7 +2237,7 @@
   "status": "none",
   "address": "0x940300",
   "similarity": 0.71,
-  "window": "0x940130-0x9407E0"
+  "window": "0x9402C0-0x9407E0"
  },
  {
   "object": "mesh.obj",
@@ -2477,7 +2247,7 @@
   "status": "none",
   "address": "0x940380",
   "similarity": 0.85,
-  "window": "0x940130-0x9407E0"
+  "window": "0x9402C0-0x9407E0"
  },
  {
   "object": "mesh.obj",
@@ -2487,7 +2257,7 @@
   "status": "none",
   "address": "0x940530",
   "similarity": 0.89,
-  "window": "0x940130-0x9407E0"
+  "window": "0x9402C0-0x9407E0"
  },
  {
   "object": "mesh.obj",
@@ -3071,13 +2841,23 @@
  },
  {
   "object": "meshmatdesc.obj",
-  "function": "MeshMatDescClass::Make_UV_Array_Unique",
-  "symbol": "?Make_UV_Array_Unique@MeshMatDescClass@@QAEXHH@Z",
-  "length": 210,
+  "function": "MeshMatDescClass::Set_Texture",
+  "symbol": "?Set_Texture@MeshMatDescClass@@QAEXHPAVTextureClass@@HH@Z",
+  "length": 196,
   "status": "none",
-  "address": "0x947310",
-  "similarity": 0.8,
-  "window": "0x947310-0x9473F0"
+  "address": "0x946EB0",
+  "similarity": 0.87,
+  "window": "0x946EB0-0x946F80"
+ },
+ {
+  "object": "meshmatdesc.obj",
+  "function": "MeshMatDescClass::Install_UV_Array",
+  "symbol": "?Install_UV_Array@MeshMatDescClass@@QAEXHHPAVVector2@@H@Z",
+  "length": 323,
+  "status": "none",
+  "address": "0x947490",
+  "similarity": 0.84,
+  "window": "0x947490-0x9485C0"
  },
  {
   "object": "meshmatdesc.obj",
@@ -3087,7 +2867,7 @@
   "status": "none",
   "address": "0x9475E0",
   "similarity": 0.57,
-  "window": "0x9475E0-0x9485C0"
+  "window": "0x947490-0x9485C0"
  },
  {
   "object": "meshmdl.obj",
@@ -3097,7 +2877,7 @@
   "status": "none",
   "address": "0x9586B0",
   "similarity": 0.33,
-  "window": "0x958510-0x958AB0"
+  "window": "0x958510-0x9589E0"
  },
  {
   "object": "meshmdl.obj",
@@ -3107,7 +2887,7 @@
   "status": "none",
   "address": "0x958510",
   "similarity": 0.4,
-  "window": "0x958510-0x958AB0"
+  "window": "0x958510-0x9589E0"
  },
  {
   "object": "meshmdl.obj",
@@ -3117,7 +2897,7 @@
   "status": "none",
   "address": "0x9588D0",
   "similarity": 0.28,
-  "window": "0x958510-0x958AB0"
+  "window": "0x958510-0x9589E0"
  },
  {
   "object": "meshmdl.obj",
@@ -3127,17 +2907,7 @@
   "status": "none",
   "address": "0x958750",
   "similarity": 0.7,
-  "window": "0x958510-0x958AB0"
- },
- {
-  "object": "meshmdl.obj",
-  "function": "MeshModelClass::Shadow_Render",
-  "symbol": "?Shadow_Render@MeshModelClass@@QAEXAAVSpecialRenderInfoClass@@ABVMatrix3D@@PBVHTreeClass@@@Z",
-  "length": 206,
-  "status": "none",
-  "address": "0x9589E0",
-  "similarity": 0.82,
-  "window": "0x958510-0x958AB0"
+  "window": "0x958510-0x9589E0"
  },
  {
   "object": "meshmdl.obj",
@@ -3610,76 +3380,6 @@
   "window": "0x942AC0-0x942E20"
  },
  {
-  "object": "rinfo.obj",
-  "function": "RenderInfoClass::RenderInfoClass",
-  "symbol": "??0RenderInfoClass@@QAE@AAVCameraClass@@@Z",
-  "length": 49,
-  "status": "none",
-  "address": "0x42F7E0",
-  "similarity": 0.47,
-  "window": "0x42F280-0x42FA80"
- },
- {
-  "object": "rinfo.obj",
-  "function": "RenderInfoClass::Push_Material_Pass",
-  "symbol": "?Push_Material_Pass@RenderInfoClass@@QAEXPAVMaterialPassClass@@@Z",
-  "length": 55,
-  "status": "none",
-  "address": "0x42F800",
-  "similarity": 0.37,
-  "window": "0x42F280-0x42FA80"
- },
- {
-  "object": "rinfo.obj",
-  "function": "RenderInfoClass::Pop_Material_Pass",
-  "symbol": "?Pop_Material_Pass@RenderInfoClass@@QAEXXZ",
-  "length": 54,
-  "status": "none",
-  "address": "0x42F2C0",
-  "similarity": 0.36,
-  "window": "0x42F280-0x42FA80"
- },
- {
-  "object": "rinfo.obj",
-  "function": "RenderInfoClass::Push_Override_Flags",
-  "symbol": "?Push_Override_Flags@RenderInfoClass@@QAEXW4RINFO_OVERRIDE_FLAGS@1@@Z",
-  "length": 27,
-  "status": "none",
-  "address": "0x42F820",
-  "similarity": 0.29,
-  "window": "0x42F280-0x42FA80"
- },
- {
-  "object": "rinfo.obj",
-  "function": "RenderInfoClass::Current_Override_Flags",
-  "symbol": "?Current_Override_Flags@RenderInfoClass@@QAEAAW4RINFO_OVERRIDE_FLAGS@1@XZ",
-  "length": 14,
-  "status": "none",
-  "address": "0x42F290",
-  "similarity": 0.11,
-  "window": "0x42F280-0x42FA80"
- },
- {
-  "object": "rinfo.obj",
-  "function": "SpecialRenderInfoClass::SpecialRenderInfoClass",
-  "symbol": "??0SpecialRenderInfoClass@@QAE@AAVCameraClass@@H@Z",
-  "length": 71,
-  "status": "none",
-  "address": "0x42F840",
-  "similarity": 0.35,
-  "window": "0x42F280-0x42FA80"
- },
- {
-  "object": "ringobj.obj",
-  "function": "RingRenderObjClass::Special_Render",
-  "symbol": "?Special_Render@RingRenderObjClass@@UAEXAAVSpecialRenderInfoClass@@@Z",
-  "length": 192,
-  "status": "none",
-  "address": "0x9120A0",
-  "similarity": 0.69,
-  "window": "0x9120A0-0x9121A0"
- },
- {
   "object": "ringobj.obj",
   "function": "RingPrototypeClass::RingPrototypeClass",
   "symbol": "??0RingPrototypeClass@@QAE@PAVRingRenderObjClass@@@Z",
@@ -3778,26 +3478,6 @@
   "address": "0x93B510",
   "similarity": 0.34,
   "window": "0x93B510-0x93CDE0"
- },
- {
-  "object": "shader.obj",
-  "function": "ShaderClass::Get_SS_Category",
-  "symbol": "?Get_SS_Category@ShaderClass@@QBE?AW4StaticSortCategoryType@1@XZ",
-  "length": 117,
-  "status": "none",
-  "address": "0x93CE00",
-  "similarity": 0.56,
-  "window": "0x93CE00-0x93D600"
- },
- {
-  "object": "shader.obj",
-  "function": "ShaderClass::Guess_Sort_Level",
-  "symbol": "?Guess_Sort_Level@ShaderClass@@QBEHXZ",
-  "length": 106,
-  "status": "none",
-  "address": "0x93D140",
-  "similarity": 0.29,
-  "window": "0x93CE00-0x93D600"
  },
  {
   "object": "sortingrenderer.obj",
@@ -4308,16 +3988,6 @@
   "address": "0x90BF80",
   "similarity": 0.82,
   "window": "0x90BF80-0x90C070"
- },
- {
-  "object": "sphereobj.obj",
-  "function": "SphereRenderObjClass::Special_Render",
-  "symbol": "?Special_Render@SphereRenderObjClass@@UAEXAAVSpecialRenderInfoClass@@@Z",
-  "length": 192,
-  "status": "none",
-  "address": "0x90CF50",
-  "similarity": 0.69,
-  "window": "0x90CF50-0x90D050"
  },
  {
   "object": "sphereobj.obj",
@@ -5916,27 +5586,7 @@
   "length": 4408,
   "status": "none",
   "address": "0x92F473",
-  "similarity": 0.54,
-  "window": "0x92F2A0-0x930C10"
- },
- {
-  "object": "vertmaterial.obj",
-  "function": "GridClassicEnvironmentMapperClass::Clone",
-  "symbol": "?Clone@GridClassicEnvironmentMapperClass@@UBEPAVTextureMapperClass@@XZ",
-  "length": 44,
-  "status": "none",
-  "address": "0x930780",
-  "similarity": 0.86,
-  "window": "0x92F2A0-0x930C10"
- },
- {
-  "object": "vertmaterial.obj",
-  "function": "GridEnvironmentMapperClass::Clone",
-  "symbol": "?Clone@GridEnvironmentMapperClass@@UBEPAVTextureMapperClass@@XZ",
-  "length": 44,
-  "status": "none",
-  "address": "0x9307F0",
-  "similarity": 0.86,
+  "similarity": 0.41,
   "window": "0x92F2A0-0x930C10"
  },
  {
@@ -5945,7 +5595,7 @@
   "symbol": "?Clone@ScreenMapperClass@@UBEPAVTextureMapperClass@@XZ",
   "length": 44,
   "status": "none",
-  "address": "0x930860",
+  "address": "0x930780",
   "similarity": 0.86,
   "window": "0x92F2A0-0x930C10"
  },

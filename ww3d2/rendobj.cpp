@@ -579,19 +579,27 @@ int RenderObjClass::Add_Sub_Object_To_Bone(RenderObjClass * subobj,const char * 
  * HISTORY:                                                                                    *
  *   3/4/99     NH : Created.                                                                  *
  *=============================================================================================*/
-int RenderObjClass::Remove_Sub_Objects_From_Bone(const char * bname)
+int RenderObjClass::Remove_Sub_Objects_From_Bone(int boneindex)
 {
-	int boneidx = Get_Bone_Index(bname);
-	int count = Get_Num_Sub_Objects_On_Bone(boneidx);
+	int count = Get_Num_Sub_Objects_On_Bone(boneindex);
 	int remove_count = 0;
 	for (int i = count-1; i >= 0; i--) {
-		RenderObjClass *robj = Get_Sub_Object_On_Bone(i, boneidx);
+		RenderObjClass *robj = Get_Sub_Object_On_Bone(i, boneindex);
 		if ( robj ) {
 			remove_count += Remove_Sub_Object(robj);
 			robj->Release_Ref();
 		}
 	}
 	return remove_count;
+}
+
+
+/***********************************************************************************************
+ * RenderObjClass::Remove_Sub_Objects_From_Bone -- remove all objects from a named bone        *
+ *=============================================================================================*/
+int RenderObjClass::Remove_Sub_Objects_From_Bone(const char * bname)
+{
+	return Remove_Sub_Objects_From_Bone(Get_Bone_Index(bname));
 }
 
 

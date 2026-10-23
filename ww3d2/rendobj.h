@@ -271,6 +271,7 @@ public:
 	virtual int						Get_Sub_Object_Bone_Index(RenderObjClass * subobj)	const 		{ return 0; }
 	virtual int						Add_Sub_Object_To_Bone(RenderObjClass * subobj,int bone_index)	{ return 0; }
 	virtual int						Add_Sub_Object_To_Bone(RenderObjClass * subobj,const char * bname);
+	virtual int						Remove_Sub_Objects_From_Bone(int boneindex);
 	virtual int						Remove_Sub_Objects_From_Bone(const char * bname);
 
 	// This is public only so objects can recursively call this on their sub-objects
@@ -296,11 +297,6 @@ public:
 															float percentage)											{ }
 	virtual void					Set_Animation( HAnimComboClass * anim_combo)							{ }
 
-	//
-	// E&B: a virtual with no arguments and an empty body, in vtable slot 40 (between the
-	// Set_Animation overloads and Peek_Animation). Its name is not known.
-	//
-	virtual void					Unknown_Virtual_40( void )											{ }
 	virtual HAnimClass *			Peek_Animation( void )														{ return NULL; }
 	virtual int						Get_Num_Bones(void)															{ return 0; }
 	virtual const char *			Get_Bone_Name(int bone_index)												{ return NULL; }
