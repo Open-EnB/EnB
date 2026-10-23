@@ -1,5 +1,5 @@
 /*
-**	Command & Conquer Renegade(tm)
+**	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.
 **
 **	This program is free software: you can redistribute it and/or modify
@@ -207,7 +207,14 @@ void CompositeRenderObjClass::Set_Name(const char * name)
  *=============================================================================================*/
 void CompositeRenderObjClass::Set_Base_Model_Name(const char *name)
 {
-	BaseModelName=name;
+	// NULL is a legal value for BaseModelName. Unfortunately,
+	// StringClass::operator= does not modify the string when
+	// assigning NULL, so we explicitly handle that case here.
+	if (name != 0) {
+		BaseModelName = name;
+	} else {
+		BaseModelName = "";
+	}
 }
 
 
@@ -544,3 +551,11 @@ void CompositeRenderObjClass::Set_User_Data(void *value, bool recursive)
 	}
 }
 
+const char * CompositeRenderObjClass::Get_Base_Model_Name (void) const
+{
+	if (BaseModelName.Is_Empty()) {
+		return NULL;
+	}
+	
+	return BaseModelName;
+}

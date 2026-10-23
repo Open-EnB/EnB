@@ -1,5 +1,5 @@
 /*
-**	Command & Conquer Renegade(tm)
+**	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.
 **
 **	This program is free software: you can redistribute it and/or modify
@@ -58,7 +58,7 @@ DynamicMeshModel::DynamicMeshModel(unsigned int max_polys, unsigned int max_vert
 {
 	MatInfo = NEW_REF(MaterialInfoClass, ());
 
-	MatDesc =  new MeshMatDescClass;
+	MatDesc =  W3DNEW MeshMatDescClass;
 	MatDesc->Set_Polygon_Count(max_polys);
 	MatDesc->Set_Vertex_Count(max_verts);
 
@@ -75,7 +75,7 @@ DynamicMeshModel::DynamicMeshModel(unsigned int max_polys, unsigned int max_vert
 	MatInfo = mat_info;
 	MatInfo->Add_Ref();
 
-	MatDesc = new MeshMatDescClass;
+	MatDesc = W3DNEW MeshMatDescClass;
 	MatDesc->Set_Polygon_Count(max_polys);
 	MatDesc->Set_Vertex_Count(max_verts);
 
@@ -92,11 +92,14 @@ DynamicMeshModel::DynamicMeshModel(const DynamicMeshModel &src) :
 	// Copy the material info structure.
 	MatInfo = NEW_REF(MaterialInfoClass, (*(src.MatInfo)));
 
+
+	// [SKB: Feb 21 2002 @ 11:47pm] :
+	// Moved before the remapping cause I don't like referencing null.
+	MatDesc = W3DNEW MeshMatDescClass;
+
 	// remap!
 	MaterialRemapperClass remapper(src.MatInfo, MatInfo);
 	remapper.Remap_Mesh(src.MatDesc, MatDesc);
-
-	MatDesc = new MeshMatDescClass;
 }
 
 DynamicMeshModel::~DynamicMeshModel(void)

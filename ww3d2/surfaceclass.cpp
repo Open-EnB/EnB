@@ -1,5 +1,5 @@
 /*
-**	Command & Conquer Renegade(tm)
+**	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.
 **
 **	This program is free software: you can redistribute it and/or modify
@@ -26,11 +26,11 @@
  *                                                                                             *
  *              Original Author:: Nathaniel Hoffman                                            *
  *                                                                                             *
- *                      $Author:: Patrick                                                     $*
+ *                      $Author:: Greg_h2                                                     $*
  *                                                                                             *
- *                     $Modtime:: 2/26/02 6:14p                                               $*
+ *                     $Modtime:: 8/30/01 2:01p                                               $*
  *                                                                                             *
- *                    $Revision:: 26                                                          $*
+ *                    $Revision:: 25                                                          $*
  *                                                                                             *
  *---------------------------------------------------------------------------------------------*
  * Functions:                                                                                  *
@@ -72,7 +72,7 @@
  *   2/13/2001  hy : Created.                                                                  *
  *=============================================================================================*/
 
-unsigned int SurfaceClass::PixelSize(const SurfaceClass::SurfaceDescription &sd)
+unsigned int PixelSize(const SurfaceClass::SurfaceDescription &sd)
 {
 	unsigned int size=0;
 
@@ -107,7 +107,7 @@ unsigned int SurfaceClass::PixelSize(const SurfaceClass::SurfaceDescription &sd)
 	return size;
 }
 
-void SurfaceClass::Convert_Pixel(Vector3 &rgb, const SurfaceClass::SurfaceDescription &sd, const unsigned char * pixel)
+void Convert_Pixel(Vector3 &rgb, const SurfaceClass::SurfaceDescription &sd, const unsigned char * pixel)
 {
 	const float scale=1/255.0f;
 	switch (sd.Format)
@@ -157,7 +157,7 @@ void SurfaceClass::Convert_Pixel(Vector3 &rgb, const SurfaceClass::SurfaceDescri
 }
 
 // Note: This function must never overwrite the original alpha
-void SurfaceClass::Convert_Pixel(unsigned char * pixel,const SurfaceClass::SurfaceDescription &sd, const Vector3 &rgb)
+void Convert_Pixel(unsigned char * pixel,const SurfaceClass::SurfaceDescription &sd, const Vector3 &rgb)
 {
 	unsigned char r,g,b;
 	r=(unsigned char) (rgb.X*255.0f);
@@ -421,7 +421,7 @@ unsigned char *SurfaceClass::CreateCopy(int *width,int *height,int*size,bool fli
 	*height=sd.Height;
 	*size=mysize;
 
-	unsigned char *other=new unsigned char [sd.Height*sd.Width*mysize];
+	unsigned char *other=W3DNEWARRAY unsigned char [sd.Height*sd.Width*mysize];
 
 	D3DLOCKED_RECT lock_rect;	
 	::ZeroMemory(&lock_rect, sizeof(D3DLOCKED_RECT));
@@ -921,15 +921,44 @@ bool SurfaceClass::Is_Monochrome(void)
 	unsigned int x,y;
 	SurfaceDescription sd;
 	Get_Description(sd);
+	bool is_compressed = false;
 
 	switch (sd.Format)
 	{
+		// these formats are always monochrome
 		case WW3D_FORMAT_A8L8:	
 		case WW3D_FORMAT_A8:		
 		case WW3D_FORMAT_L8:
 		case WW3D_FORMAT_A4L4:
 			return true;
 		break;
+		// these formats cannot be determined to be monochrome or not
+		case WW3D_FORMAT_UNKNOWN:
+		case WW3D_FORMAT_A8P8:
+		case WW3D_FORMAT_P8:	
+		case WW3D_FORMAT_U8V8:		// Bumpmap
+		case WW3D_FORMAT_L6V5U5:	// Bumpmap
+		case WW3D_FORMAT_X8L8V8U8:	// Bumpmap
+			return false;
+		break;
+		// these formats need decompression first	
+		case WW3D_FORMAT_DXT1:
+		case WW3D_FORMAT_DXT2:
+		case WW3D_FORMAT_DXT3:
+		case WW3D_FORMAT_DXT4:
+		case WW3D_FORMAT_DXT5:
+			is_compressed = true;
+		break;
+	}
+
+	// if it's in some compressed texture format, be sure to decompress first	
+	if (is_compressed) {
+		WW3DFormat new_format = Get_Valid_Texture_Format(sd.Format, false);
+		SurfaceClass *new_surf = NEW_REF( SurfaceClass, (sd.Width, sd.Height, new_format) );
+		new_surf->Copy(0, 0, 0, 0, sd.Width, sd.Height, this);
+		bool result = new_surf->Is_Monochrome();
+		REF_PTR_RELEASE(new_surf);
+		return result;
 	}
 
 	int pitch,size;

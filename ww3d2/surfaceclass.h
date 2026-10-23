@@ -1,5 +1,5 @@
 /*
-**	Command & Conquer Renegade(tm)
+**	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.
 **
 **	This program is free software: you can redistribute it and/or modify
@@ -22,15 +22,15 @@
  *                                                                                             *
  *                 Project Name : WW3D                                                         *
  *                                                                                             *
- *                     $Archive:: /Commando/Code/ww3d2/surfaceclass.h                         $*
+ *                     $Archive:: /VSS_Sync/ww3d2/surfaceclass.h                              $*
  *                                                                                             *
  *              Original Author:: Nathaniel Hoffman                                            *
  *                                                                                             *
- *                      $Author:: Patrick                                                     $*
+ *                      $Author:: Vss_sync                                                    $*
  *                                                                                             *
- *                     $Modtime:: 2/26/02 6:14p                                               $*
+ *                     $Modtime:: 8/29/01 9:32p                                               $*
  *                                                                                             *
- *                    $Revision:: 18                                                          $*
+ *                    $Revision:: 17                                                          $*
  *                                                                                             *
  *---------------------------------------------------------------------------------------------*
  * Functions:                                                                                  *
@@ -58,8 +58,9 @@ class Vector3;
 ** Hector Yee 2/12/01 - added in fills, blits etc for font3d class
 **
 *************************************************************************/
-class SurfaceClass : public RefCountClass
+class SurfaceClass : public W3DMPO, public RefCountClass
 {
+	W3DMPO_GLUE(SurfaceClass)
 	public:
 
 		struct SurfaceDescription {
@@ -138,13 +139,6 @@ class SurfaceClass : public RefCountClass
 		bool Is_Monochrome(void);
 
 		WW3DFormat Get_Surface_Format() const { return SurfaceFormat; }
-
-		//
-		//	Handy utility functions
-		//
-		unsigned int PixelSize(const SurfaceDescription &sd);
-		void Convert_Pixel(Vector3 &rgb, const SurfaceClass::SurfaceDescription &sd, const unsigned char * pixel);
-		void Convert_Pixel(unsigned char * pixel,const SurfaceClass::SurfaceDescription &sd, const Vector3 &rgb);
 
 	private:
 

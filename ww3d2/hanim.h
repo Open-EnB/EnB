@@ -1,5 +1,5 @@
 /*
-**	Command & Conquer Renegade(tm)
+**	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.
 **
 **	This program is free software: you can redistribute it and/or modify
@@ -63,7 +63,7 @@ class HTreeClass;
 
 
 
-
+#define EMBEDDED_SOUND_BONE_INDEX_NOT_SET -1
 /**********************************************************************************
 
 	HAnimClass
@@ -75,9 +75,15 @@ class HTreeClass;
 class HAnimClass : public RefCountClass, public	HashableClass
 {
 public:
+	enum 
+	{
+		CLASSID_UNKNOWNANIM	= 0xFFFFFFFF,
+		CLASSID_HRAWANIM		= 0,
+		CLASSID_LASTANIM		= 0x0000FFFF
+	};
 
 	HAnimClass(void)	:
-		HasEmbeddedSounds (false)	{ }
+		EmbeddedSoundBoneIndex (EMBEDDED_SOUND_BONE_INDEX_NOT_SET)	{ }
 	virtual ~HAnimClass(void)		{ }
 
 	virtual const char *		Get_Name(void) const = 0;
@@ -108,13 +114,15 @@ public:
 	virtual bool				Has_Z_Translation (int pividx)	{ return true; }
 	virtual bool				Has_Rotation (int pividx)			{ return true; }
 	virtual bool				Has_Visibility (int pividx)		{ return true; }
+	virtual int					Class_ID(void)	const															{ return CLASSID_UNKNOWNANIM; }
 
 	// Animated sound-triggering support
-	virtual bool				Has_Embedded_Sounds (void) const			{ return HasEmbeddedSounds; }
-	virtual void				Set_Has_Embedded_Sounds (bool onoff)	{ HasEmbeddedSounds = onoff; }
+	virtual bool				Has_Embedded_Sounds (void) const			{ if (EmbeddedSoundBoneIndex < 0) return false; return true;}
+	virtual void				Set_Embedded_Sound_Bone_Index (int bone)	{ EmbeddedSoundBoneIndex = bone; }
+	virtual int					Get_Embedded_Sound_Bone_Index() {return EmbeddedSoundBoneIndex;}
 
 protected:
-	bool							HasEmbeddedSounds;
+	int EmbeddedSoundBoneIndex;					
 };
 
 

@@ -1,5 +1,5 @@
 /*
-**	Command & Conquer Renegade(tm)
+**	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.
 **
 **	This program is free software: you can redistribute it and/or modify
@@ -26,9 +26,9 @@
  *                                                                                             *
  *                       Author:: Greg Hjelstrom                                               *
  *                                                                                             *
- *                     $Modtime:: 2/14/02 10:19a                                              $*
+ *                     $Modtime:: 11/25/01 12:25p                                             $*
  *                                                                                             *
- *                    $Revision:: 6                                                           $*
+ *                    $Revision:: 5                                                           $*
  *                                                                                             *
  *---------------------------------------------------------------------------------------------*
  * Functions:                                                                                  *
@@ -65,7 +65,7 @@ public:
 
 	virtual const char *			Get_Name(void) const;
 	virtual void					Set_Name(const char * name);
-	virtual const char *			Get_Base_Model_Name (void) const { return NULL; } //BaseModelName.Is_Empty () ? NULL : BaseModelName; }
+	virtual const char *			Get_Base_Model_Name (void) const;
 	virtual void					Set_Base_Model_Name (const char *name);
 	virtual int						Get_Num_Polys(void) const;
 	virtual void					Notify_Added(SceneClass * scene);

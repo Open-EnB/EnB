@@ -1,5 +1,5 @@
 /*
-**	Command & Conquer Renegade(tm)
+**	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.
 **
 **	This program is free software: you can redistribute it and/or modify
@@ -67,7 +67,6 @@
 #include "wwdebug.h"
 #include "tri.h"
 #include "meshgeometry.h"
-#include "camera.h"
 #include "coltest.h"
 #include "inttest.h"
 #include "colmathinlines.h"
@@ -114,10 +113,10 @@ AABTreeClass::AABTreeClass(void) :
 AABTreeClass::AABTreeClass(AABTreeBuilderClass * builder)
 {
 	NodeCount = builder->Node_Count();
-	Nodes = new AABTreeClass::CullNodeStruct[NodeCount];
+	Nodes = W3DNEWARRAY AABTreeClass::CullNodeStruct[NodeCount];
 
 	PolyCount = builder->Poly_Count();
-	PolyIndices = new uint32[PolyCount];
+	PolyIndices = W3DNEWARRAY uint32[PolyCount];
 
 	int curpolyindex = 0;
 	Build_Tree_Recursive(builder->Root,curpolyindex);
@@ -181,13 +180,13 @@ AABTreeClass & AABTreeClass::operator = (const AABTreeClass & that)
 	
 	NodeCount = that.NodeCount;
 	if (NodeCount > 0) {
-		Nodes = new CullNodeStruct[NodeCount];
+		Nodes = W3DNEWARRAY CullNodeStruct[NodeCount];
 		memcpy(Nodes,that.Nodes,NodeCount * sizeof(CullNodeStruct));
 	}
 
 	PolyCount = that.PolyCount;
 	if (PolyCount > 0) {
-		PolyIndices = new uint32[PolyCount];
+		PolyIndices = W3DNEWARRAY uint32[PolyCount];
 		memcpy(PolyIndices,that.PolyIndices,PolyCount * sizeof(uint32));
 	}
 
@@ -223,6 +222,26 @@ void AABTreeClass::Reset(void)
 	}
 	if (Mesh) {
 		Mesh = NULL;
+	}
+}
+
+/***********************************************************************************************
+ * AABTreeClass::Scale - uniform scale																			  *
+ *                                                                                             *
+ * INPUT:                                                                                      *
+ *                                                                                             *
+ * OUTPUT:                                                                                     *
+ *                                                                                             *
+ * WARNINGS:                                                                                   *
+ *                                                                                             *
+ * HISTORY:                                                                                    *
+ *   6/17/02    Jani : Created.                                                                *
+ *=============================================================================================*/
+void AABTreeClass::Scale(float f)
+{
+	for (int i=0;i<NodeCount;++i) {
+		Nodes[i].Min*=f;
+		Nodes[i].Max*=f;
 	}
 }
 
@@ -709,7 +728,10 @@ bool AABTreeClass::Intersect_OBBox_Recursive(AABTreeClass::CullNodeStruct * node
 	return res;
 }
 
-
+#ifdef _DEBUG
+#pragma optimize("", off)	 // We get an odd error when using optimized in the debug.  
+// All optimized seems to work.  jba.
+#endif
 /***********************************************************************************************
  * AABTreeClass::Cast_Ray_To_Polys -- cast the ray to polys in the given node                  *
  *                                                                                             *
@@ -769,6 +791,9 @@ bool AABTreeClass::Cast_Ray_To_Polys(CullNodeStruct * node,RayCollisionTestClass
 	}
 	return false;
 }
+#ifdef _DEBUG
+#pragma optimize("", on)
+#endif
 
 
 /***********************************************************************************************
@@ -1138,8 +1163,8 @@ void AABTreeClass::Load_W3D(ChunkLoadClass & cload)
 
 	NodeCount = header.NodeCount;
 	PolyCount = header.PolyCount;
-	Nodes = new CullNodeStruct[NodeCount];
-	PolyIndices = new uint32[PolyCount];
+	Nodes = W3DNEWARRAY CullNodeStruct[NodeCount];
+	PolyIndices = W3DNEWARRAY uint32[PolyCount];
 
 	while (cload.Open_Chunk()) {
 		switch (cload.Cur_Chunk_ID()) 
