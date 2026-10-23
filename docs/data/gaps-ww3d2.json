@@ -1756,7 +1756,7 @@
   "length": 569,
   "status": "none",
   "address": "0x926460",
-  "similarity": 0.69,
+  "similarity": 0.7,
   "window": "0x926460-0x9266B0"
  },
  {
@@ -1941,16 +1941,6 @@
  },
  {
   "object": "hanimmgr.obj",
-  "function": "HAnimManagerClass::~HAnimManagerClass",
-  "symbol": "??1HAnimManagerClass@@QAE@XZ",
-  "length": 268,
-  "status": "none",
-  "address": "0x964860",
-  "similarity": 0.57,
-  "window": "0x964860-0x964930"
- },
- {
-  "object": "hanimmgr.obj",
   "function": "HAnimManagerClass::Free_All_Anims_With_Exclusion_List",
   "symbol": "?Free_All_Anims_With_Exclusion_List@HAnimManagerClass@@QAEXABVW3DExclusionListClass@@@Z",
   "length": 130,
@@ -2101,83 +2091,53 @@
  },
  {
   "object": "lightenvironment.obj",
-  "function": "InputLightStruct::Init",
-  "symbol": "?Init@InputLightStruct@LightEnvironmentClass@@QAEXABVLightClass@@ABVVector3@@@Z",
-  "length": 209,
+  "function": "OutputLightStruct::Init",
+  "symbol": "?Init@OutputLightStruct@LightEnvironmentClass@@QAEXABUInputLightStruct@2@ABVMatrix3D@@@Z",
+  "length": 133,
   "status": "none",
-  "address": "0x984E90",
-  "similarity": 0.85,
-  "window": "0x984A30-0x985230"
- },
- {
-  "object": "lightenvironment.obj",
-  "function": "InputLightStruct::Init_From_Point_Or_Spot_Light",
-  "symbol": "?Init_From_Point_Or_Spot_Light@InputLightStruct@LightEnvironmentClass@@QAEXABVLightClass@@ABVVector3@@@Z",
-  "length": 938,
-  "status": "none",
-  "address": "0x984F60",
-  "similarity": 0.24,
-  "window": "0x984A30-0x985230"
+  "address": "0x9853E0",
+  "similarity": 0.29,
+  "window": "0x9852F0-0x9853F0"
  },
  {
   "object": "lightenvironment.obj",
   "function": "LightEnvironmentClass::LightEnvironmentClass",
   "symbol": "??0LightEnvironmentClass@@QAE@XZ",
-  "length": 40,
+  "length": 34,
   "status": "none",
   "address": "0x9853B0",
-  "similarity": 0.77,
-  "window": "0x9853B0-0x985760"
- },
- {
-  "object": "lightenvironment.obj",
-  "function": "LightEnvironmentClass::Reset",
-  "symbol": "?Reset@LightEnvironmentClass@@QAEXABVVector3@@0@Z",
-  "length": 60,
-  "status": "none",
-  "address": "0x9853F0",
-  "similarity": 0.83,
-  "window": "0x9853B0-0x985760"
+  "similarity": 0.82,
+  "window": "0x9852F0-0x9853F0"
  },
  {
   "object": "lightenvironment.obj",
   "function": "LightEnvironmentClass::Add_Light",
   "symbol": "?Add_Light@LightEnvironmentClass@@QAEXABVLightClass@@@Z",
-  "length": 943,
+  "length": 521,
   "status": "none",
   "address": "0x985430",
-  "similarity": 0.36,
-  "window": "0x9853B0-0x985760"
+  "similarity": 0.22,
+  "window": "0x985430-0x985760"
+ },
+ {
+  "object": "lightenvironment.obj",
+  "function": "LightClass::Get_Diffuse",
+  "symbol": "?Get_Diffuse@LightClass@@QBEXPAVVector3@@@Z",
+  "length": 37,
+  "status": "none",
+  "address": "0x985660",
+  "similarity": 0.2,
+  "window": "0x985430-0x985760"
  },
  {
   "object": "lightenvironment.obj",
   "function": "LightEnvironmentClass::Pre_Render_Update",
   "symbol": "?Pre_Render_Update@LightEnvironmentClass@@QAEXABVMatrix3D@@@Z",
-  "length": 431,
+  "length": 370,
   "status": "none",
-  "address": "0x985660",
-  "similarity": 0.62,
-  "window": "0x9853B0-0x985760"
- },
- {
-  "object": "lightenvironment.obj",
-  "function": "LightEnvironmentClass::Add_Fill_Light",
-  "symbol": "?Add_Fill_Light@LightEnvironmentClass@@QAEXXZ",
-  "length": 399,
-  "status": "none",
-  "address": "0x985790",
-  "similarity": 0.16,
-  "window": "0x985780-0x985F80"
- },
- {
-  "object": "lightenvironment.obj",
-  "function": "LightEnvironmentClass::Calculate_Fill_Light",
-  "symbol": "?Calculate_Fill_Light@LightEnvironmentClass@@QAEXXZ",
-  "length": 1288,
-  "status": "none",
-  "address": "0x985840",
-  "similarity": 0.69,
-  "window": "0x985780-0x985F80"
+  "address": null,
+  "similarity": null,
+  "window": "0x985430-0x985760"
  },
  {
   "object": "linegrp.obj",
@@ -3733,31 +3693,21 @@
   "object": "part_buf.obj",
   "function": "ParticleBufferClass::ParticleBufferClass",
   "symbol": "??0ParticleBufferClass@@QAE@PAVParticleEmitterClass@@IAAU?$ParticlePropertyStruct@VVector3@@@@AAU?$ParticlePropertyStruct@M@@22M22VVector3@@MPAVTextureClass@@VShaderClass@@_NHHPBUW3dEmitterLinePropertiesStruct@@@Z",
-  "length": 2028,
+  "length": 2020,
   "status": "none",
-  "address": "0x95C2E0",
-  "similarity": 0.02,
-  "window": "0x95BB10-0x95C310"
- },
- {
-  "object": "part_buf.obj",
-  "function": "ParticleBufferClass::Set_LOD_Bias",
-  "symbol": "?Set_LOD_Bias@ParticleBufferClass@@UAEXM@Z",
-  "length": 43,
-  "status": "none",
-  "address": "0x95C2C0",
-  "similarity": 0.56,
-  "window": "0x95BB10-0x95C310"
+  "address": "0x95C2D0",
+  "similarity": 0.04,
+  "window": "0x95BAE0-0x95C2E0"
  },
  {
   "object": "part_buf.obj",
   "function": "ParticleBufferClass::ParticleBufferClass",
   "symbol": "??0ParticleBufferClass@@QAE@ABV0@@Z",
-  "length": 4212,
+  "length": 4204,
   "status": "none",
   "address": "0x95C360",
-  "similarity": 0.83,
-  "window": "0x95C340-0x95D8D0"
+  "similarity": 0.84,
+  "window": "0x95C340-0x95D890"
  },
  {
   "object": "part_buf.obj",
@@ -3766,18 +3716,8 @@
   "length": 1091,
   "status": "none",
   "address": "0x95D430",
-  "similarity": 0.77,
-  "window": "0x95C340-0x95D8D0"
- },
- {
-  "object": "part_buf.obj",
-  "function": "ParticleBufferClass::Clone",
-  "symbol": "?Clone@ParticleBufferClass@@UBEPAVRenderObjClass@@XZ",
-  "length": 34,
-  "status": "none",
-  "address": "0x95C340",
-  "similarity": 0.33,
-  "window": "0x95C340-0x95D8D0"
+  "similarity": 0.78,
+  "window": "0x95C340-0x95D890"
  },
  {
   "object": "part_buf.obj",
@@ -3786,18 +3726,8 @@
   "length": 352,
   "status": "none",
   "address": "0x95D8E0",
-  "similarity": 0.56,
-  "window": "0x95D8E0-0x95DB30"
- },
- {
-  "object": "part_buf.obj",
-  "function": "ParticleBufferClass::Generate_APT",
-  "symbol": "?Generate_APT@ParticleBufferClass@@IAEXPAPAV?$ShareBufferClass@I@@AAI@Z",
-  "length": 201,
-  "status": "none",
-  "address": "0x95DA60",
-  "similarity": 0.79,
-  "window": "0x95D8E0-0x95DB30"
+  "similarity": 0.58,
+  "window": "0x95D8E0-0x95DA60"
  },
  {
   "object": "part_buf.obj",
@@ -3806,8 +3736,8 @@
   "length": 330,
   "status": "none",
   "address": "0x95DC90",
-  "similarity": 0.88,
-  "window": "0x95DC90-0x95EA10"
+  "similarity": 0.89,
+  "window": "0x95DC90-0x95E990"
  },
  {
   "object": "part_buf.obj",
@@ -3817,7 +3747,7 @@
   "status": "none",
   "address": "0x95DDE0",
   "similarity": 0.22,
-  "window": "0x95DC90-0x95EA10"
+  "window": "0x95DC90-0x95E990"
  },
  {
   "object": "part_buf.obj",
@@ -3827,7 +3757,7 @@
   "status": "none",
   "address": "0x95E500",
   "similarity": 0.74,
-  "window": "0x95DC90-0x95EA10"
+  "window": "0x95DC90-0x95E990"
  },
  {
   "object": "part_buf.obj",
@@ -3835,139 +3765,9 @@
   "symbol": "?Scale@ParticleBufferClass@@UAEXM@Z",
   "length": 131,
   "status": "none",
-  "address": "0x95E990",
-  "similarity": 0.18,
-  "window": "0x95DC90-0x95EA10"
- },
- {
-  "object": "part_buf.obj",
-  "function": "ParticleBufferClass::On_Frame_Update",
-  "symbol": "?On_Frame_Update@ParticleBufferClass@@UAEXXZ",
-  "length": 57,
-  "status": "none",
-  "address": "0x95E9D0",
-  "similarity": 0.34,
-  "window": "0x95DC90-0x95EA10"
- },
- {
-  "object": "part_buf.obj",
-  "function": "ParticleBufferClass::Prepare_LOD",
-  "symbol": "?Prepare_LOD@ParticleBufferClass@@UAEXAAVCameraClass@@@Z",
-  "length": 411,
-  "status": "none",
-  "address": "0x95EAD0",
-  "similarity": 0.9,
-  "window": "0x95EAD0-0x95EF40"
- },
- {
-  "object": "part_buf.obj",
-  "function": "ParticleBufferClass::Increment_LOD",
-  "symbol": "?Increment_LOD@ParticleBufferClass@@UAEXXZ",
-  "length": 18,
-  "status": "none",
-  "address": "0x95EC70",
-  "similarity": 0.83,
-  "window": "0x95EAD0-0x95EF40"
- },
- {
-  "object": "part_buf.obj",
-  "function": "ParticleBufferClass::Decrement_LOD",
-  "symbol": "?Decrement_LOD@ParticleBufferClass@@UAEXXZ",
-  "length": 24,
-  "status": "none",
-  "address": "0x95EC90",
-  "similarity": 0.71,
-  "window": "0x95EAD0-0x95EF40"
- },
- {
-  "object": "part_buf.obj",
-  "function": "ParticleBufferClass::Get_Cost",
-  "symbol": "?Get_Cost@ParticleBufferClass@@UBEMXZ",
-  "length": 22,
-  "status": "none",
-  "address": "0x95ECB0",
-  "similarity": 0.77,
-  "window": "0x95EAD0-0x95EF40"
- },
- {
-  "object": "part_buf.obj",
-  "function": "ParticleBufferClass::Get_Value",
-  "symbol": "?Get_Value@ParticleBufferClass@@UBEMXZ",
-  "length": 22,
-  "status": "none",
-  "address": "0x95ECD0",
-  "similarity": 0.77,
-  "window": "0x95EAD0-0x95EF40"
- },
- {
-  "object": "part_buf.obj",
-  "function": "ParticleBufferClass::Get_Post_Increment_Value",
-  "symbol": "?Get_Post_Increment_Value@ParticleBufferClass@@UBEMXZ",
-  "length": 22,
-  "status": "none",
-  "address": "0x95ECF0",
-  "similarity": 0.77,
-  "window": "0x95EAD0-0x95EF40"
- },
- {
-  "object": "part_buf.obj",
-  "function": "ParticleBufferClass::Set_LOD_Level",
-  "symbol": "?Set_LOD_Level@ParticleBufferClass@@UAEXH@Z",
-  "length": 46,
-  "status": "none",
-  "address": "0x95ED10",
-  "similarity": 0.7,
-  "window": "0x95EAD0-0x95EF40"
- },
- {
-  "object": "part_buf.obj",
-  "function": "ParticleBufferClass::Get_LOD_Level",
-  "symbol": "?Get_LOD_Level@ParticleBufferClass@@UBEHXZ",
-  "length": 16,
-  "status": "none",
-  "address": "0x95ED40",
-  "similarity": 0.27,
-  "window": "0x95EAD0-0x95EF40"
- },
- {
-  "object": "part_buf.obj",
-  "function": "ParticleBufferClass::Calculate_Cost_Value_Arrays",
-  "symbol": "?Calculate_Cost_Value_Arrays@ParticleBufferClass@@UBEHMPAM0@Z",
-  "length": 476,
-  "status": "none",
-  "address": "0x95ED60",
-  "similarity": 0.6,
-  "window": "0x95EAD0-0x95EF40"
- },
- {
-  "object": "part_buf.obj",
-  "function": "ParticleBufferClass::Emitter_Is_Dead",
-  "symbol": "?Emitter_Is_Dead@ParticleBufferClass@@QAEXXZ",
-  "length": 18,
-  "status": "none",
-  "address": "0x960CF0",
-  "similarity": 0.91,
-  "window": "0x960CF0-0x960F10"
- },
- {
-  "object": "part_buf.obj",
-  "function": "ParticleBufferClass::Set_Emitter",
-  "symbol": "?Set_Emitter@ParticleBufferClass@@QAEXPAVParticleEmitterClass@@@Z",
-  "length": 46,
-  "status": "none",
-  "address": "0x960D10",
-  "similarity": 0.56,
-  "window": "0x960CF0-0x960F10"
- },
- {
-  "object": "part_buf.obj",
-  "function": "ParticleBufferClass::Add_Uninitialized_New_Particle",
-  "symbol": "?Add_Uninitialized_New_Particle@ParticleBufferClass@@QAEPAUNewParticleStruct@@XZ",
-  "length": 110,
-  "status": "none",
-  "address": "0x960D40",
-  "similarity": 0.69,
-  "window": "0x960CF0-0x960F10"
+  "address": "0x95E410",
+  "similarity": 0.09,
+  "window": "0x95DC90-0x95E990"
  },
  {
   "object": "part_buf.obj",
@@ -3977,167 +3777,27 @@
   "status": "none",
   "address": "0x960DB0",
   "similarity": 0.52,
-  "window": "0x960CF0-0x960F10"
- },
- {
-  "object": "part_buf.obj",
-  "function": "ParticleBufferClass::Update_Visual_Particle_State",
-  "symbol": "?Update_Visual_Particle_State@ParticleBufferClass@@IAEXXZ",
-  "length": 3467,
-  "status": "none",
-  "address": "0x960F80",
-  "similarity": 0.88,
-  "window": "0x960F80-0x962AC0"
- },
- {
-  "object": "part_buf.obj",
-  "function": "ParticleBufferClass::Update_Bounding_Box",
-  "symbol": "?Update_Bounding_Box@ParticleBufferClass@@IAEXXZ",
-  "length": 853,
-  "status": "none",
-  "address": "0x961D10",
-  "similarity": 0.87,
-  "window": "0x960F80-0x962AC0"
+  "window": "0x960DB0-0x960F10"
  },
  {
   "object": "part_buf.obj",
   "function": "ParticleBufferClass::Get_New_Particles",
   "symbol": "?Get_New_Particles@ParticleBufferClass@@IAEXXZ",
-  "length": 839,
+  "length": 833,
   "status": "none",
   "address": "0x962070",
-  "similarity": 0.51,
-  "window": "0x960F80-0x962AC0"
- },
- {
-  "object": "part_buf.obj",
-  "function": "ParticleBufferClass::Kill_Old_Particles",
-  "symbol": "?Kill_Old_Particles@ParticleBufferClass@@IAEXXZ",
-  "length": 182,
-  "status": "none",
-  "address": "0x9623E0",
-  "similarity": 0.81,
-  "window": "0x960F80-0x962AC0"
- },
- {
-  "object": "part_buf.obj",
-  "function": "ParticleBufferClass::Update_Non_New_Particles",
-  "symbol": "?Update_Non_New_Particles@ParticleBufferClass@@IAEXI@Z",
-  "length": 1563,
-  "status": "none",
-  "address": "0x9624A0",
-  "similarity": 0.89,
-  "window": "0x960F80-0x962AC0"
+  "similarity": 0.54,
+  "window": "0x962070-0x9623E0"
  },
  {
   "object": "part_emt.obj",
   "function": "ParticleEmitterClass::ParticleEmitterClass",
-  "symbol": "??0ParticleEmitterClass@@QAE@MIPAVVector3Randomizer@@VVector3@@0MMAAU?$ParticlePropertyStruct@VVector3@@@@AAU?$ParticlePropertyStruct@M@@33M331MPAVTextureClass@@VShaderClass@@HH_NHHPBUW3dEmitterLinePropertiesStruct@@@Z",
-  "length": 621,
+  "symbol": "??0ParticleEmitterClass@@QAE@MIPAVVector3Randomizer@@VVector3@@0MMAAU?$ParticlePropertyStruct@VVector3@@@@AAU?$ParticlePropertyStruct@M@@33M331MMPAVTextureClass@@VShaderClass@@HH_NHHPBUW3dEmitterLinePropertiesStruct@@6@Z",
+  "length": 685,
   "status": "none",
   "address": "0x97D180",
-  "similarity": 0.55,
+  "similarity": 0.7,
   "window": "0x97CC50-0x97D450"
- },
- {
-  "object": "part_emt.obj",
-  "function": "ParticleEmitterClass::Set_LOD_Bias",
-  "symbol": "?Set_LOD_Bias@ParticleEmitterClass@@UAEXM@Z",
-  "length": 26,
-  "status": "none",
-  "address": "0x97D5B0",
-  "similarity": 0.83,
-  "window": "0x97D5B0-0x97DBE0"
- },
- {
-  "object": "part_emt.obj",
-  "function": "ParticleEmitterClass::ParticleEmitterClass",
-  "symbol": "??0ParticleEmitterClass@@QAE@ABV0@@Z",
-  "length": 409,
-  "status": "none",
-  "address": "0x97D620",
-  "similarity": 0.57,
-  "window": "0x97D5B0-0x97DBE0"
- },
- {
-  "object": "part_emt.obj",
-  "function": "ParticleEmitterClass::~ParticleEmitterClass",
-  "symbol": "??1ParticleEmitterClass@@UAE@XZ",
-  "length": 211,
-  "status": "none",
-  "address": "0x97D820",
-  "similarity": 0.57,
-  "window": "0x97D5B0-0x97DBE0"
- },
- {
-  "object": "part_emt.obj",
-  "function": "ParticleEmitterClass::Create_From_Definition",
-  "symbol": "?Create_From_Definition@ParticleEmitterClass@@SAPAV1@ABVParticleEmitterDefClass@@@Z",
-  "length": 655,
-  "status": "none",
-  "address": "0x97D910",
-  "similarity": 0.8,
-  "window": "0x97D5B0-0x97DBE0"
- },
- {
-  "object": "part_emt.obj",
-  "function": "ParticleEmitterClass::Clone",
-  "symbol": "?Clone@ParticleEmitterClass@@UBEPAVRenderObjClass@@XZ",
-  "length": 34,
-  "status": "none",
-  "address": "0x97DC90",
-  "similarity": 0.81,
-  "window": "0x97DC40-0x97DDF0"
- },
- {
-  "object": "part_emt.obj",
-  "function": "ParticleEmitterClass::Restart",
-  "symbol": "?Restart@ParticleEmitterClass@@UAEXXZ",
-  "length": 156,
-  "status": "none",
-  "address": "0x97DCD0",
-  "similarity": 0.87,
-  "window": "0x97DC40-0x97DDF0"
- },
- {
-  "object": "part_emt.obj",
-  "function": "ParticleEmitterClass::Scale",
-  "symbol": "?Scale@ParticleEmitterClass@@UAEXM@Z",
-  "length": 124,
-  "status": "none",
-  "address": "0x97DE70",
-  "similarity": 0.91,
-  "window": "0x97DE70-0x97E180"
- },
- {
-  "object": "part_emt.obj",
-  "function": "ParticleEmitterClass::On_Frame_Update",
-  "symbol": "?On_Frame_Update@ParticleEmitterClass@@UAEXXZ",
-  "length": 275,
-  "status": "none",
-  "address": "0x97DEF0",
-  "similarity": 0.77,
-  "window": "0x97DE70-0x97E180"
- },
- {
-  "object": "part_emt.obj",
-  "function": "ParticleEmitterClass::Reset",
-  "symbol": "?Reset@ParticleEmitterClass@@QAEXXZ",
-  "length": 153,
-  "status": "none",
-  "address": "0x97E010",
-  "similarity": 0.9,
-  "window": "0x97DE70-0x97E180"
- },
- {
-  "object": "part_emt.obj",
-  "function": "ParticleEmitterClass::Start",
-  "symbol": "?Start@ParticleEmitterClass@@QAEXXZ",
-  "length": 156,
-  "status": "none",
-  "address": "0x97E0B0",
-  "similarity": 0.9,
-  "window": "0x97DE70-0x97E180"
  },
  {
   "object": "part_emt.obj",
@@ -4153,41 +3813,21 @@
   "object": "part_emt.obj",
   "function": "ParticleEmitterClass::Create_New_Particles",
   "symbol": "?Create_New_Particles@ParticleEmitterClass@@AAEXABVQuaternion@@ABVVector3@@@Z",
-  "length": 729,
+  "length": 713,
   "status": "none",
   "address": "0x97E530",
-  "similarity": 0.82,
-  "window": "0x97E530-0x97F320"
- },
- {
-  "object": "part_emt.obj",
-  "function": "ParticleEmitterClass::Initialize_Particle",
-  "symbol": "?Initialize_Particle@ParticleEmitterClass@@AAEXPAUNewParticleStruct@@IABVQuaternion@@ABVVector3@@@Z",
-  "length": 857,
-  "status": "none",
-  "address": "0x97E810",
-  "similarity": 0.94,
-  "window": "0x97E530-0x97F320"
+  "similarity": 0.73,
+  "window": "0x97E530-0x97E810"
  },
  {
   "object": "part_emt.obj",
   "function": "ParticleEmitterClass::Build_Definition",
   "symbol": "?Build_Definition@ParticleEmitterClass@@QBEPAVParticleEmitterDefClass@@XZ",
-  "length": 1287,
+  "length": 1319,
   "status": "none",
   "address": "0x97EDE0",
-  "similarity": 0.66,
-  "window": "0x97E530-0x97F320"
- },
- {
-  "object": "part_emt.obj",
-  "function": "ParticleEmitterClass::Update_On_Visibilty",
-  "symbol": "?Update_On_Visibilty@ParticleEmitterClass@@MAEXXZ",
-  "length": 238,
-  "status": "none",
-  "address": "0x97F390",
-  "similarity": 0.49,
-  "window": "0x97F390-0x97FB90"
+  "similarity": 0.91,
+  "window": "0x97EB80-0x97F320"
  },
  {
   "object": "part_emt.obj",
@@ -4197,7 +3837,7 @@
   "status": "none",
   "address": "0x97F6B0",
   "similarity": 0.07,
-  "window": "0x97F390-0x97FB90"
+  "window": "0x97F4B0-0x97FCB0"
  },
  {
   "object": "part_ldr.obj",
@@ -4481,223 +4121,13 @@
  },
  {
   "object": "ringobj.obj",
-  "function": "RingRenderObjClass::RingRenderObjClass",
-  "symbol": "??0RingRenderObjClass@@QAE@XZ",
-  "length": 408,
-  "status": "none",
-  "address": "0x90ABC0",
-  "similarity": 0.28,
-  "window": "0x909540-0x90F600"
- },
- {
-  "object": "ringobj.obj",
-  "function": "RingRenderObjClass::RingRenderObjClass",
-  "symbol": "??0RingRenderObjClass@@QAE@ABUW3dRingStruct@@@Z",
-  "length": 571,
-  "status": "none",
-  "address": "0x90B470",
-  "similarity": 0.32,
-  "window": "0x909540-0x90F600"
- },
- {
-  "object": "ringobj.obj",
-  "function": "RingRenderObjClass::RingRenderObjClass",
-  "symbol": "??0RingRenderObjClass@@QAE@ABV0@@Z",
-  "length": 407,
-  "status": "none",
-  "address": "0x90B740",
-  "similarity": 0.28,
-  "window": "0x909540-0x90F600"
- },
- {
-  "object": "ringobj.obj",
-  "function": "RingRenderObjClass::~RingRenderObjClass",
-  "symbol": "??1RingRenderObjClass@@UAE@XZ",
-  "length": 418,
-  "status": "none",
-  "address": "0x90B970",
-  "similarity": 0.67,
-  "window": "0x909540-0x90F600"
- },
- {
-  "object": "ringobj.obj",
-  "function": "RingRenderObjClass::operator=",
-  "symbol": "??4RingRenderObjClass@@QAEAAV0@ABV0@@Z",
-  "length": 760,
-  "status": "none",
-  "address": "0x90BB00",
-  "similarity": 0.22,
-  "window": "0x909540-0x90F600"
- },
- {
-  "object": "ringobj.obj",
-  "function": "RingRenderObjClass::Generate_Shared_Mesh_Arrays",
-  "symbol": "?Generate_Shared_Mesh_Arrays@RingRenderObjClass@@KAXXZ",
-  "length": 81,
-  "status": "none",
-  "address": "0x90C490",
-  "similarity": 0.56,
-  "window": "0x909540-0x90F600"
- },
- {
-  "object": "ringobj.obj",
-  "function": "RingRenderObjClass::Init_Material",
-  "symbol": "?Init_Material@RingRenderObjClass@@IAEXXZ",
-  "length": 183,
-  "status": "none",
-  "address": "0x90BF80",
-  "similarity": 0.67,
-  "window": "0x909540-0x90F600"
- },
- {
-  "object": "ringobj.obj",
-  "function": "RingRenderObjClass::Get_Num_Polys",
-  "symbol": "?Get_Num_Polys@RingRenderObjClass@@UBEHXZ",
-  "length": 23,
-  "status": "none",
-  "address": "0x90C0B0",
-  "similarity": 0.77,
-  "window": "0x909540-0x90F600"
- },
- {
-  "object": "ringobj.obj",
-  "function": "RingRenderObjClass::Set_Texture",
-  "symbol": "?Set_Texture@RingRenderObjClass@@QAEXPAVTextureClass@@@Z",
-  "length": 49,
-  "status": "none",
-  "address": "0x90C070",
-  "similarity": 0.85,
-  "window": "0x909540-0x90F600"
- },
- {
-  "object": "ringobj.obj",
-  "function": "RingRenderObjClass::Set_Name",
-  "symbol": "?Set_Name@RingRenderObjClass@@UAEXPBD@Z",
-  "length": 46,
-  "status": "none",
-  "address": "0x90C0C0",
-  "similarity": 0.89,
-  "window": "0x909540-0x90F600"
- },
- {
-  "object": "ringobj.obj",
-  "function": "RingRenderObjClass::render_ring",
-  "symbol": "?render_ring@RingRenderObjClass@@IAEXAAVRenderInfoClass@@ABVVector3@@1@Z",
-  "length": 958,
-  "status": "none",
-  "address": "0x90C0F0",
-  "similarity": 0.38,
-  "window": "0x909540-0x90F600"
- },
- {
-  "object": "ringobj.obj",
-  "function": "RingRenderObjClass::Clone",
-  "symbol": "?Clone@RingRenderObjClass@@UBEPAVRenderObjClass@@XZ",
-  "length": 34,
-  "status": "none",
-  "address": "0x90D220",
-  "similarity": 0.64,
-  "window": "0x909540-0x90F600"
- },
- {
-  "object": "ringobj.obj",
-  "function": "RingRenderObjClass::Render",
-  "symbol": "?Render@RingRenderObjClass@@UAEXAAVRenderInfoClass@@@Z",
-  "length": 790,
-  "status": "none",
-  "address": "0x90AF60",
-  "similarity": 0.16,
-  "window": "0x909540-0x90F600"
- },
- {
-  "object": "ringobj.obj",
-  "function": "RingRenderObjClass::Get_Default_Color",
-  "symbol": "?Get_Default_Color@RingRenderObjClass@@QBE?AVVector3@@XZ",
-  "length": 79,
-  "status": "none",
-  "address": "0x90D140",
-  "similarity": 0.14,
-  "window": "0x909540-0x90F600"
- },
- {
-  "object": "ringobj.obj",
-  "function": "RingRenderObjClass::Get_Default_Alpha",
-  "symbol": "?Get_Default_Alpha@RingRenderObjClass@@QBEMXZ",
-  "length": 26,
-  "status": "none",
-  "address": "0x90A0A0",
-  "similarity": 0.58,
-  "window": "0x909540-0x90F600"
- },
- {
-  "object": "ringobj.obj",
-  "function": "RingRenderObjClass::Get_Default_Inner_Scale",
-  "symbol": "?Get_Default_Inner_Scale@RingRenderObjClass@@QBE?AVVector2@@XZ",
-  "length": 61,
-  "status": "none",
-  "address": "0x90D540",
-  "similarity": 0.36,
-  "window": "0x909540-0x90F600"
- },
- {
-  "object": "ringobj.obj",
-  "function": "RingRenderObjClass::Get_Default_Outer_Scale",
-  "symbol": "?Get_Default_Outer_Scale@RingRenderObjClass@@QBE?AVVector2@@XZ",
-  "length": 61,
-  "status": "none",
-  "address": "0x90D5B0",
-  "similarity": 0.36,
-  "window": "0x909540-0x90F600"
- },
- {
-  "object": "ringobj.obj",
   "function": "RingRenderObjClass::Special_Render",
   "symbol": "?Special_Render@RingRenderObjClass@@UAEXAAVSpecialRenderInfoClass@@@Z",
   "length": 192,
   "status": "none",
-  "address": "0x90CF50",
+  "address": "0x9120A0",
   "similarity": 0.69,
-  "window": "0x909540-0x90F600"
- },
- {
-  "object": "ringobj.obj",
-  "function": "RingRenderObjClass::update_cached_box",
-  "symbol": "?update_cached_box@RingRenderObjClass@@MAEXXZ",
-  "length": 120,
-  "status": "none",
-  "address": "0x90D050",
-  "similarity": 0.64,
-  "window": "0x909540-0x90F600"
- },
- {
-  "object": "ringobj.obj",
-  "function": "RingRenderObjClass::Get_Obj_Space_Bounding_Sphere",
-  "symbol": "?Get_Obj_Space_Bounding_Sphere@RingRenderObjClass@@UBEXAAVSphereClass@@@Z",
-  "length": 96,
-  "status": "none",
-  "address": "0x90D0D0",
-  "similarity": 0.44,
-  "window": "0x909540-0x90F600"
- },
- {
-  "object": "ringobj.obj",
-  "function": "RingRenderObjClass::Get_Obj_Space_Bounding_Box",
-  "symbol": "?Get_Obj_Space_Bounding_Box@RingRenderObjClass@@UBEXAAVAABoxClass@@@Z",
-  "length": 60,
-  "status": "none",
-  "address": "0x90AF00",
-  "similarity": 0.42,
-  "window": "0x909540-0x90F600"
- },
- {
-  "object": "ringobj.obj",
-  "function": "RingRenderObjClass::animate",
-  "symbol": "?animate@RingRenderObjClass@@IAEXXZ",
-  "length": 464,
-  "status": "none",
-  "address": "0x90D6E0",
-  "similarity": 0.46,
-  "window": "0x909540-0x90F600"
+  "window": "0x9120A0-0x9121A0"
  },
  {
   "object": "ringobj.obj",
@@ -4705,19 +4135,9 @@
   "symbol": "??0RingPrototypeClass@@QAE@PAVRingRenderObjClass@@@Z",
   "length": 866,
   "status": "none",
-  "address": "0x90B160",
-  "similarity": 0.19,
-  "window": "0x909540-0x90F600"
- },
- {
-  "object": "ringobj.obj",
-  "function": "RingPrototypeClass::Create",
-  "symbol": "?Create@RingPrototypeClass@@UAEPAVRenderObjClass@@XZ",
-  "length": 832,
-  "status": "none",
-  "address": "0x90DB20",
-  "similarity": 0.12,
-  "window": "0x909540-0x90F600"
+  "address": "0x912AA0",
+  "similarity": 0.89,
+  "window": "0x912AA0-0x912E10"
  },
  {
   "object": "scene.obj",
@@ -5331,163 +4751,13 @@
  },
  {
   "object": "sphereobj.obj",
-  "function": "$E197",
-  "symbol": "_$E197",
-  "length": 101,
-  "status": "none",
-  "address": "0x9093C0",
-  "similarity": 0.34,
-  "window": "0x908D00-0x909500"
- },
- {
-  "object": "sphereobj.obj",
-  "function": "$E195",
-  "symbol": "_$E195",
-  "length": 28,
-  "status": "none",
-  "address": "0x9093F0",
-  "similarity": 0.35,
-  "window": "0x908D00-0x909500"
- },
- {
-  "object": "sphereobj.obj",
-  "function": "SphereRenderObjClass::SphereRenderObjClass",
-  "symbol": "??0SphereRenderObjClass@@QAE@XZ",
-  "length": 435,
-  "status": "none",
-  "address": "0x90ABC0",
-  "similarity": 0.41,
-  "window": "0x909540-0x90ADF0"
- },
- {
-  "object": "sphereobj.obj",
-  "function": "SphereRenderObjClass::scalar deleting dtor",
-  "symbol": "??_GSphereRenderObjClass@@UAEPAXI@Z",
-  "length": 388,
-  "status": "none",
-  "address": "0x90B160",
-  "similarity": 0.73,
-  "window": "0x90AF00-0x90D8B0"
- },
- {
-  "object": "sphereobj.obj",
-  "function": "SphereRenderObjClass::SphereRenderObjClass",
-  "symbol": "??0SphereRenderObjClass@@QAE@ABUW3dSphereStruct@@@Z",
-  "length": 596,
-  "status": "none",
-  "address": "0x90B470",
-  "similarity": 0.39,
-  "window": "0x90AF00-0x90D8B0"
- },
- {
-  "object": "sphereobj.obj",
-  "function": "SphereRenderObjClass::SphereRenderObjClass",
-  "symbol": "??0SphereRenderObjClass@@QAE@ABV0@@Z",
-  "length": 434,
-  "status": "none",
-  "address": "0x90B740",
-  "similarity": 0.41,
-  "window": "0x90AF00-0x90D8B0"
- },
- {
-  "object": "sphereobj.obj",
-  "function": "SphereRenderObjClass::~SphereRenderObjClass",
-  "symbol": "??1SphereRenderObjClass@@UAE@XZ",
-  "length": 389,
-  "status": "none",
-  "address": "0x90B970",
-  "similarity": 0.72,
-  "window": "0x90AF00-0x90D8B0"
- },
- {
-  "object": "sphereobj.obj",
-  "function": "SphereRenderObjClass::operator=",
-  "symbol": "??4SphereRenderObjClass@@QAEAAV0@ABV0@@Z",
-  "length": 913,
-  "status": "none",
-  "address": "0x90BCC3",
-  "similarity": 0.55,
-  "window": "0x90AF00-0x90D8B0"
- },
- {
-  "object": "sphereobj.obj",
-  "function": "SphereRenderObjClass::Generate_Shared_Mesh_Arrays",
-  "symbol": "?Generate_Shared_Mesh_Arrays@SphereRenderObjClass@@KAXABUAlphaVectorStruct@@@Z",
-  "length": 102,
-  "status": "none",
-  "address": "0x90BEA0",
-  "similarity": 0.47,
-  "window": "0x90AF00-0x90D8B0"
- },
- {
-  "object": "sphereobj.obj",
   "function": "SphereRenderObjClass::Init_Material",
   "symbol": "?Init_Material@SphereRenderObjClass@@IAEXXZ",
-  "length": 197,
+  "length": 210,
   "status": "none",
   "address": "0x90BF80",
-  "similarity": 0.71,
-  "window": "0x90AF00-0x90D8B0"
- },
- {
-  "object": "sphereobj.obj",
-  "function": "SphereRenderObjClass::Get_Num_Polys",
-  "symbol": "?Get_Num_Polys@SphereRenderObjClass@@UBEHXZ",
-  "length": 20,
-  "status": "none",
-  "address": "0x90C480",
-  "similarity": 0.75,
-  "window": "0x90AF00-0x90D8B0"
- },
- {
-  "object": "sphereobj.obj",
-  "function": "SphereRenderObjClass::Set_Texture",
-  "symbol": "?Set_Texture@SphereRenderObjClass@@QAEXPAVTextureClass@@@Z",
-  "length": 49,
-  "status": "none",
-  "address": "0x90C070",
-  "similarity": 0.85,
-  "window": "0x90AF00-0x90D8B0"
- },
- {
-  "object": "sphereobj.obj",
-  "function": "SphereRenderObjClass::Set_Name",
-  "symbol": "?Set_Name@SphereRenderObjClass@@UAEXPBD@Z",
-  "length": 46,
-  "status": "none",
-  "address": "0x90C0C0",
-  "similarity": 0.89,
-  "window": "0x90AF00-0x90D8B0"
- },
- {
-  "object": "sphereobj.obj",
-  "function": "SphereRenderObjClass::render_sphere",
-  "symbol": "?render_sphere@SphereRenderObjClass@@IAEXXZ",
-  "length": 807,
-  "status": "none",
-  "address": "0x90C0F0",
-  "similarity": 0.6,
-  "window": "0x90AF00-0x90D8B0"
- },
- {
-  "object": "sphereobj.obj",
-  "function": "SphereRenderObjClass::Clone",
-  "symbol": "?Clone@SphereRenderObjClass@@UBEPAVRenderObjClass@@XZ",
-  "length": 34,
-  "status": "none",
-  "address": "0x90C490",
-  "similarity": 0.92,
-  "window": "0x90AF00-0x90D8B0"
- },
- {
-  "object": "sphereobj.obj",
-  "function": "SphereRenderObjClass::Render",
-  "symbol": "?Render@SphereRenderObjClass@@UAEXAAVRenderInfoClass@@@Z",
-  "length": 2433,
-  "status": "none",
-  "address": "0x90C4D0",
-  "similarity": 0.42,
-  "window": "0x90AF00-0x90D8B0"
+  "similarity": 0.82,
+  "window": "0x90BF80-0x90C070"
  },
  {
   "object": "sphereobj.obj",
@@ -5497,97 +4767,7 @@
   "status": "none",
   "address": "0x90CF50",
   "similarity": 0.69,
-  "window": "0x90AF00-0x90D8B0"
- },
- {
-  "object": "sphereobj.obj",
-  "function": "SphereRenderObjClass::update_cached_box",
-  "symbol": "?update_cached_box@SphereRenderObjClass@@MAEXXZ",
-  "length": 120,
-  "status": "none",
-  "address": "0x90D050",
-  "similarity": 0.64,
-  "window": "0x90AF00-0x90D8B0"
- },
- {
-  "object": "sphereobj.obj",
-  "function": "SphereRenderObjClass::Get_Obj_Space_Bounding_Sphere",
-  "symbol": "?Get_Obj_Space_Bounding_Sphere@SphereRenderObjClass@@UBEXAAVSphereClass@@@Z",
-  "length": 98,
-  "status": "none",
-  "address": "0x90D0D0",
-  "similarity": 0.86,
-  "window": "0x90AF00-0x90D8B0"
- },
- {
-  "object": "sphereobj.obj",
-  "function": "SphereRenderObjClass::Get_Obj_Space_Bounding_Box",
-  "symbol": "?Get_Obj_Space_Bounding_Box@SphereRenderObjClass@@UBEXAAVAABoxClass@@@Z",
-  "length": 60,
-  "status": "none",
-  "address": "0x90D140",
-  "similarity": 0.65,
-  "window": "0x90AF00-0x90D8B0"
- },
- {
-  "object": "sphereobj.obj",
-  "function": "SphereRenderObjClass::Update_Cached_Bounding_Volumes",
-  "symbol": "?Update_Cached_Bounding_Volumes@SphereRenderObjClass@@MBEXXZ",
-  "length": 183,
-  "status": "none",
-  "address": "0x90D480",
-  "similarity": 0.87,
-  "window": "0x90AF00-0x90D8B0"
- },
- {
-  "object": "sphereobj.obj",
-  "function": "SphereRenderObjClass::Get_Default_Color",
-  "symbol": "?Get_Default_Color@SphereRenderObjClass@@QBE?AVVector3@@XZ",
-  "length": 79,
-  "status": "none",
-  "address": "0x90D540",
-  "similarity": 0.68,
-  "window": "0x90AF00-0x90D8B0"
- },
- {
-  "object": "sphereobj.obj",
-  "function": "SphereRenderObjClass::Get_Default_Alpha",
-  "symbol": "?Get_Default_Alpha@SphereRenderObjClass@@QBEMXZ",
-  "length": 26,
-  "status": "none",
-  "address": "0x90D590",
-  "similarity": 0.69,
-  "window": "0x90AF00-0x90D8B0"
- },
- {
-  "object": "sphereobj.obj",
-  "function": "SphereRenderObjClass::Get_Default_Scale",
-  "symbol": "?Get_Default_Scale@SphereRenderObjClass@@QBE?AVVector3@@XZ",
-  "length": 79,
-  "status": "none",
-  "address": "0x90D5B0",
-  "similarity": 0.68,
-  "window": "0x90AF00-0x90D8B0"
- },
- {
-  "object": "sphereobj.obj",
-  "function": "SphereRenderObjClass::Get_Default_Vector",
-  "symbol": "?Get_Default_Vector@SphereRenderObjClass@@QBE?AUAlphaVectorStruct@@XZ",
-  "length": 127,
-  "status": "none",
-  "address": "0x90D600",
-  "similarity": 0.73,
-  "window": "0x90AF00-0x90D8B0"
- },
- {
-  "object": "sphereobj.obj",
-  "function": "SphereRenderObjClass::animate",
-  "symbol": "?animate@SphereRenderObjClass@@IAEXXZ",
-  "length": 454,
-  "status": "none",
-  "address": "0x90D6E0",
-  "similarity": 0.6,
-  "window": "0x90AF00-0x90D8B0"
+  "window": "0x90CF50-0x90D050"
  },
  {
   "object": "sphereobj.obj",
@@ -5596,18 +4776,8 @@
   "length": 875,
   "status": "none",
   "address": "0x90DB20",
-  "similarity": 0.79,
+  "similarity": 0.89,
   "window": "0x90DB20-0x90DEC0"
- },
- {
-  "object": "sphereobj.obj",
-  "function": "SpherePrototypeClass::Create",
-  "symbol": "?Create@SpherePrototypeClass@@UAEPAVRenderObjClass@@XZ",
-  "length": 781,
-  "status": "none",
-  "address": "0x90E230",
-  "similarity": 0.81,
-  "window": "0x90E210-0x90E580"
  },
  {
   "object": "statistics.obj",

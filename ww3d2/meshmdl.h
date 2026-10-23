@@ -298,6 +298,9 @@ protected:
 	// Collection of the unique materials in the mesh
 	MaterialInfoClass	*									MatInfo;
 
+	// E&B (as Generals and Zero Hour): the polygon renderers of this model
+	DX8PolygonRendererList								PolygonRendererList;
+
 	// Jani: Adding this here temporarily... must fine better place
 	GapFillerClass *										GapFiller;
 	bool														HasBeenInUse;	// For debugging purposes!
