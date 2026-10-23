@@ -201,7 +201,7 @@ class AudibleSoundClass : public SoundSceneObjClass
 		//////////////////////////////////////////////////////////////////////
 		virtual float				Get_Volume (void);
 		virtual void				Set_Volume (float volume = 1.0F);
-		virtual void				Update_Volume (void)						{ Set_Volume (m_Volume); }
+		virtual void				Update_Volume (void)						{ Set_Volume (m_RealVolume); }
 
 		//////////////////////////////////////////////////////////////////////
 		//	Loop control

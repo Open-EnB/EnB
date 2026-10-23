@@ -172,6 +172,9 @@ PATCHES = {
         ('\t\tint\t\t\t\t\t\tm_LoopsLeft;',
          '\t\tint\t\t\t\t\t\tm_LoopsLeft;\n\t\tint\t\t\t\t\t\tm_Unknown7C;\t\t// E&B: 4 at construction; meaning not known\n\t\tint\t\t\t\t\t\tm_Unknown80;\t\t// E&B: -1 at construction; meaning not known',
          'AudibleSoundClass has two E&B ints after m_LoopsLeft (+0x7C, +0x80; every later member is 8 bytes later in the client), set to 4 and -1 by both constructors (client 0x9FCA50, 0x9FCE60) and not copied by operator=. Meaning not known: named m_Unknown7C, m_Unknown80'),
+        ('\t\tvirtual void\t\t\t\tUpdate_Volume (void)\t\t\t\t\t\t{ Set_Volume (m_Volume); }',
+         '\t\tvirtual void\t\t\t\tUpdate_Volume (void)\t\t\t\t\t\t{ Set_Volume (m_RealVolume); }',
+         'AudibleSoundClass::Update_Volume 0x9F7910 (vtable slot 54) passes +0x6C (m_RealVolume) to Set_Volume'),
     ],
     ('wwaudio', 'audiblesound.cpp'): [
         ('\t\tm_LoopsLeft (0),',
@@ -180,6 +183,9 @@ PATCHES = {
         ('\tif (Verify_Playability () == false) {\n\t\treturn false;\n\t}\n',
          '\tif (Verify_Playability () == false) {\n\t\treturn false;\n\t}\n\n\t//\n\t//\tE&B: while the audio system is paused, a sound other than music starts paused\n\t//\n\tif (WWAudioClass::Get_Instance ()->m_Unknown19A5 && m_Type != TYPE_MUSIC) {\n\t\tWWAudioClass::Get_Instance ()->Add_To_Playlist (this);\n\t\tm_State\t\t\t\t= STATE_PAUSED;\n\t\tm_Timestamp\t\t\t= TIMEGETTIME ();\n\t\tm_LoopsLeft\t\t\t= m_LoopCount;\n\t\tm_CurrentPosition\t= 0;\n\t\treturn true;\n\t}\n',
          'AudibleSoundClass::Play 0x9FD3E0: while WWAudioClass +0x19A5 is set (0x9FD419) and the type is not music (+0x48), adds the sound to the playlist as STATE_PAUSED (0x9FD430), resets the timestamp and loop count, zeroes the position and returns true'),
+        ('\tm_Timestamp\t\t\t= src.m_Timestamp;\n\tm_Type\t\t\t\t= src.m_Type;\n\tm_FadeType\t\t\t= src.m_FadeType;\n\tm_FadeTimer\t\t\t= src.m_FadeTimer;\n\tm_FadeTime\t\t\t= src.m_FadeTime;\n\tm_VirtualChannel\t= src.m_VirtualChannel;\n\tm_LoopCount\t\t\t= src.m_LoopCount;\n\tm_LoopsLeft\t\t\t= src.m_LoopsLeft;\n',
+         '\tm_Timestamp\t\t\t= src.m_Timestamp;\n\tm_Type\t\t\t\t= src.m_Type;\n\tm_FadeType\t\t\t= src.m_FadeType;\n\tm_FadeTimer\t\t\t= src.m_FadeTimer;\n\tm_FadeTime\t\t\t= src.m_FadeTime;\n\tm_VirtualChannel\t= src.m_VirtualChannel;\n\tm_LoopCount\t\t\t= src.m_LoopCount;\n\tm_LoopsLeft\t\t\t= src.m_LoopsLeft;\n\tm_Unknown7C\t\t\t= src.m_Unknown7C;\n\tm_Unknown80\t\t\t= src.m_Unknown80;\n',
+         'AudibleSoundClass::operator= 0x9FD090 copies +0x7C and +0x80 after m_LoopsLeft (0x9FD0C8..0x9FD0D4)'),
     ],
     ('wwaudio', 'sound3d.h'): [
         ('\t\tVector3\t\t\t\t\tm_CurrentVelocity;',
