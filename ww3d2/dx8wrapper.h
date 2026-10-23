@@ -757,6 +757,18 @@ WWINLINE unsigned int DX8Wrapper::Convert_Color(const Vector4& color)
 //
 // ----------------------------------------------------------------------------
 
+//
+//	C equivalent:
+//
+//		unsigned a = (unsigned)(alpha * 255.0f), r = (unsigned)(color.X * 255.0f),
+//		         g = (unsigned)(color.Y * 255.0f), b = (unsigned)(color.Z * 255.0f);
+//		return (a << 24) | (r << 16) | (g << 8) | b;		// D3DCOLOR, AAAAAAAARRRRRRRRGGGGGGGGBBBBBBBB
+//
+//	The conversions truncate, as (unsigned) does: the block switches the FPU to truncation if it
+//	isn't already, and restores it. The inputs must already be in 0..1 (see Clamp_Color).
+//	Why assembly: four float-to-int conversions with one rounding-mode switch, instead of four
+//	calls to _ftol that each switch it twice.
+//
 WWINLINE unsigned int DX8Wrapper::Convert_Color(const Vector3& color,float alpha)
 {
 	const float scale = 255.0;
@@ -835,6 +847,14 @@ not_changed:
 //
 // ----------------------------------------------------------------------------
 
+//
+//	C equivalent: the loop at the top of this function (each component clamped to 0..1).
+//	The assembly does it without branches, on the floats' bit patterns: a negative value becomes 0
+//	(the sign bit spread into a mask), and anything at or above 1.0 (0x3F800000; positive floats
+//	compare like integers) is replaced by 1.0 with cmov. CMOV needs a Pentium Pro or later, hence
+//	the check.
+//	Why assembly: no branches to mispredict, and VC6 never generated cmov.
+//
 WWINLINE void DX8Wrapper::Clamp_Color(Vector4& color)
 {
 	if (!CPUDetectClass::Has_CMOV_Instruction()) {

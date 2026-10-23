@@ -634,6 +634,13 @@ void Matrix3D::Multiply(const Matrix3D & A,const Matrix3D & B,Matrix3D * set_res
 
 }
 #if 0
+//
+//	C equivalent: the commented-out C version inside this function (Westwood's own): *set_res = A * B
+//	for 3x4 transforms, the rotation parts multiplied and A's translation added; when set_res is
+//	&A the result is built in a temporary first.
+//	Why assembly: matrix multiplication is in every transform update; the FPU stack is used directly
+//	instead of through memory temporaries.
+//
 void Matrix3D::Multiply(const Matrix3D & A,const Matrix3D & B,Matrix3D * set_res)
 {
 	assert(set_res != NULL);

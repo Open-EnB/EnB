@@ -4,6 +4,17 @@ Newest first within each section. Dates are when the entry was written.
 
 ## 1. Log
 
+### 2026-10-23: gaps (step 4), assembly comments
+
+* Gap locator (`tools/re/gaps.py`) and layout-difference finder (`tools/re/layoutdiff.py`,
+  `tools/vc6/layout.py`). Three header fixes found from member offsets
+  ([library-matching.md](library-matching.md) §3.6.1): WW3D2 in tree 1,354 -> 1,681.
+* Decided (user): inline assembly stays wherever the client has it (an earlier "no assembly" rule
+  was withdrawn), and every assembly block gets a comment with its C equivalent
+  ([conventions.md](conventions.md), "Inline assembly"). 37 comments inserted into imported files
+  by `tools/vc6/annotations.py` (re-applied on import; verified: no bytes changed), and the
+  RC4Class blocks commented by hand.
+
 ### 2026-10-22: import (step 2) and RC4Class (step 3)
 
 * Libraries imported into the repository by `tools/vc6/importer.py` ([imports.md](imports.md)):

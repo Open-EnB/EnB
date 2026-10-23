@@ -166,6 +166,7 @@ RenderObjClass::RenderObjClass(void) :
 	Scene(NULL),
 	Container(NULL),
 	User_Data(NULL),
+	RenderHook(NULL),
 	CachedBoundingSphere(Vector3(0,0,0),1.0f),
 	CachedBoundingBox(Vector3(0,0,0),Vector3(1,1,1)),
 	IsTransformIdentity(false)
@@ -192,6 +193,7 @@ RenderObjClass::RenderObjClass(const RenderObjClass & src) :
 	Scene(NULL),
 	Container(NULL),
 	User_Data(NULL),
+	RenderHook(NULL),
 	CachedBoundingSphere(src.CachedBoundingSphere),
 	CachedBoundingBox(src.CachedBoundingBox),
 	IsTransformIdentity(src.IsTransformIdentity)

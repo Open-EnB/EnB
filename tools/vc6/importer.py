@@ -26,6 +26,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.dirname(os.path.dirname(HERE))
 sys.path.insert(0, HERE)
 sys.path.insert(0, os.path.join(REPO, 'tools', 're'))
+import annotations  # noqa: E402
 import vc6  # noqa: E402
 from clientimage import ClientImage  # noqa: E402
 from easource import function_spans  # noqa: E402
@@ -64,6 +65,62 @@ PATCHES = {
         '#include "gamedebug.h"',
         "Zero Hour's wwdebug.h includes Generals' GameEngine debug.h; gamedebug.h gives the release "
         "build's definitions of the macros it uses (all compile to nothing)")],
+    ('ww3d2', 'meshbuild.h'): [(
+        'MAX_STAGES = 2,',
+        'MAX_STAGES = 8,',
+        "MeshBuilderClass::MAX_STAGES is 8 in E&B, as in Zero Hour (Renegade and Generals: 2). Found "
+        "from VertexMaterialClass: E&B's CRCDirty is at +0x6C, 0x30 bytes later than with 2 stages "
+        "(Mapper[] and UVSource[] are sized by it)")],
+    ('wwmath', 'matrix3d.h'): [
+        ('\tvoid\tRe_Orthogonalize(void);',
+         '\tvoid\tRe_Orthogonalize(void);\n\n\t// does "this = that * this"\n\tvoid preMul(const Matrix3D& that);\n\n\t// does "this = this * that"\n\tvoid postMul(const Matrix3D& that);\n\n\t// does "this = a * b"\n\tvoid mul(const Matrix3D& a, const Matrix3D& b);\n\n\tvoid mulVector3(const Vector3& in, Vector3& out) const;\n\tvoid mulVector3(Vector3& inout) const { mulVector3(inout, inout); }\n\n\n\tvoid mulVector3Array(const Vector3* in, Vector3* out, int count) const;\n\tvoid mulVector3Array(Vector3* inout, int count) const;',
+         "Zero Hour's Matrix3D helpers (preMul, postMul, mul, mulVector3, mulVector3Array), without Zero Hour's ALLOW_TEMPORARIES rework of the operators (E&B's operator code is Renegade's). Zero Hour's streak.cpp, whose functions match the client, uses them"),
+        ('#endif /* MATRIX3D_H */',
+         'WWINLINE float submul(const Vector4& row, float tmp1, float tmp2, float tmp3)\n{\n  return row.X * tmp1 + row.Y * tmp2 + row.Z * tmp3;\n}\n\n// does "this = that * this"\nWWINLINE void Matrix3D::preMul(const Matrix3D& that)\n{\n\tassert(this != &that);\n\n\t// yes, this is ok. see the comments for \'mul\'\n\tthis->mul(that, *this);\n}\n\n// does "this = this * that"\nWWINLINE void Matrix3D::postMul(const Matrix3D& that)\n{\n\tassert(this != &that);\n\n#define AVOID_TEMP_IN_POSTMUL\n#ifdef AVOID_TEMP_IN_POSTMUL\n  float tmpX, tmpY, tmpZ, tmpW;\n\n\ttmpX = submul(this->Row[0], that.Row[0].X, that.Row[1].X, that.Row[2].X);\n\ttmpY = submul(this->Row[0], that.Row[0].Y, that.Row[1].Y, that.Row[2].Y);\n\ttmpZ = submul(this->Row[0], that.Row[0].Z, that.Row[1].Z, that.Row[2].Z);\n\ttmpW = submul(this->Row[0], that.Row[0].W, that.Row[1].W, that.Row[2].W);\n\n\tthis->Row[0].X = tmpX;\n\tthis->Row[0].Y = tmpY;\n\tthis->Row[0].Z = tmpZ;\n\tthis->Row[0].W += tmpW;\n\n\ttmpX = submul(this->Row[1], that.Row[0].X, that.Row[1].X, that.Row[2].X);\n\ttmpY = submul(this->Row[1], that.Row[0].Y, that.Row[1].Y, that.Row[2].Y);\n\ttmpZ = submul(this->Row[1], that.Row[0].Z, that.Row[1].Z, that.Row[2].Z);\n\ttmpW = submul(this->Row[1], that.Row[0].W, that.Row[1].W, that.Row[2].W);\n\n\tthis->Row[1].X = tmpX;\n\tthis->Row[1].Y = tmpY;\n\tthis->Row[1].Z = tmpZ;\n\tthis->Row[1].W += tmpW;\n\n\ttmpX = submul(this->Row[2], that.Row[0].X, that.Row[1].X, that.Row[2].X);\n\ttmpY = submul(this->Row[2], that.Row[0].Y, that.Row[1].Y, that.Row[2].Y);\n\ttmpZ = submul(this->Row[2], that.Row[0].Z, that.Row[1].Z, that.Row[2].Z);\n\ttmpW = submul(this->Row[2], that.Row[0].W, that.Row[1].W, that.Row[2].W);\n\n\tthis->Row[2].X = tmpX;\n\tthis->Row[2].Y = tmpY;\n\tthis->Row[2].Z = tmpZ;\n\tthis->Row[2].W += tmpW;\n#else\n\tMatrix3D tmp = *this;\n\tthis->mul(tmp, that);\n#endif\n}\n\n// does "this = A * B"\nWWINLINE void Matrix3D::mul(const Matrix3D& A, const Matrix3D& B)\n{\n\tassert(this != &A);\n\t//assert(this != &B);\n\t// nope, this is actually ok. (srj)\n\t//assert(this != &B);\n\n\tfloat tmp1,tmp2,tmp3;\n\n\ttmp1 = B.Row[0].X;\n\ttmp2 = B.Row[1].X;\n\ttmp3 = B.Row[2].X;\n\n\tthis->Row[0].X = submul(A.Row[0], tmp1, tmp2, tmp3);\n\tthis->Row[1].X = submul(A.Row[1], tmp1, tmp2, tmp3);\n\tthis->Row[2].X = submul(A.Row[2], tmp1, tmp2, tmp3);\n\n\ttmp1 = B.Row[0].Y;\n\ttmp2 = B.Row[1].Y;\n\ttmp3 = B.Row[2].Y;\n\n\tthis->Row[0].Y = submul(A.Row[0], tmp1, tmp2, tmp3);\n\tthis->Row[1].Y = submul(A.Row[1], tmp1, tmp2, tmp3);\n\tthis->Row[2].Y = submul(A.Row[2], tmp1, tmp2, tmp3);\n\n\ttmp1 = B.Row[0].Z;\n\ttmp2 = B.Row[1].Z;\n\ttmp3 = B.Row[2].Z;\n\n\tthis->Row[0].Z = submul(A.Row[0], tmp1, tmp2, tmp3);\n\tthis->Row[1].Z = submul(A.Row[1], tmp1, tmp2, tmp3);\n\tthis->Row[2].Z = submul(A.Row[2], tmp1, tmp2, tmp3);\n\n\ttmp1 = B.Row[0].W;\n\ttmp2 = B.Row[1].W;\n\ttmp3 = B.Row[2].W;\n\n\tthis->Row[0].W = submul(A.Row[0], tmp1, tmp2, tmp3) + A.Row[0].W;\n\tthis->Row[1].W = submul(A.Row[1], tmp1, tmp2, tmp3) + A.Row[1].W;\n\tthis->Row[2].W = submul(A.Row[2], tmp1, tmp2, tmp3) + A.Row[2].W;\n}\n\nWWINLINE void Matrix3D::mulVector3(const Vector3& in, Vector3& out) const\n{\n\t// note, it\'s ok for in==out here.\n\tfloat x = (Row[0].X * in.X + Row[0].Y * in.Y + Row[0].Z * in.Z + Row[0].W);\n\tfloat y = (Row[1].X * in.X + Row[1].Y * in.Y + Row[1].Z * in.Z + Row[1].W);\n\tfloat z = (Row[2].X * in.X + Row[2].Y * in.Y + Row[2].Z * in.Z + Row[2].W);\n\tout.Set(x, y, z);\n}\n\n\nWWINLINE void Matrix3D::mulVector3Array(const Vector3* in, Vector3* out, int count) const\n{\n\tassert(in != out);\n#ifdef ALLOW_TEMPORARIES\n\tfor (i=0; i<count; i++)\n\t{\n\t\tout[i] = (*this) * in[i];\n\t}\n#else\t\n\twhile (count--)\n\t{\n\t\t// we know that in != out, so no temps needed\n\t\tout->X = (Row[0].X * in->X + Row[0].Y * in->Y + Row[0].Z * in->Z + Row[0].W);\n\t\tout->Y = (Row[1].X * in->X + Row[1].Y * in->Y + Row[1].Z * in->Z + Row[1].W);\n\t\tout->Z = (Row[2].X * in->X + Row[2].Y * in->Y + Row[2].Z * in->Z + Row[2].W);\n\t\t++in;\n\t\t++out;\n\t}\n#endif\n}\n\nWWINLINE void Matrix3D::mulVector3Array(Vector3* inout, int count) const\n{\n#ifdef ALLOW_TEMPORARIES\n\tfor (i=0; i<count; i++)\n\t{\n\t\tinout[i] = (*this) * inout[i];\n\t}\n#else\t\n\twhile (count--)\n\t{\n\t\tfloat x = (Row[0].X * inout->X + Row[0].Y * inout->Y + Row[0].Z * inout->Z + Row[0].W);\n\t\tfloat y = (Row[1].X * inout->X + Row[1].Y * inout->Y + Row[1].Z * inout->Z + Row[1].W);\n\t\tfloat z = (Row[2].X * inout->X + Row[2].Y * inout->Y + Row[2].Z * inout->Z + Row[2].W);\n\t\tinout->Set(x, y, z);\n\t\t++inout;\n\t}\n#endif\n}\n\n#endif /* MATRIX3D_H */',
+         'their definitions, verbatim from Zero Hour'),
+    ],
+    ('ww3d2', 'rendobj.h'): [
+        ('class RenderObjClass : public RefCountClass , public PersistClass, public MultiListObjectClass',
+         """//////////////////////////////////////////////////////////////////////////////////
+// RenderHookClass (as in Zero Hour)
+//////////////////////////////////////////////////////////////////////////////////
+class RenderHookClass
+{
+public:
+	RenderHookClass(void) { }
+	virtual ~RenderHookClass(void) { }
+	virtual bool Pre_Render(RenderObjClass *robj, RenderInfoClass &rinfo) = 0;
+	virtual void Post_Render(RenderObjClass *robj, RenderInfoClass &rinfo) = 0;
+private:
+	RenderHookClass(const RenderHookClass & src);
+	RenderHookClass & operator=(const RenderHookClass & src);
+};
+
+class RenderObjClass : public RefCountClass , public PersistClass, public MultiListObjectClass""",
+         "RenderObjClass has Zero Hour's render hook (RenderHookClass, the RenderHook member at the end "
+         "of the class, Get/Set_Render_Hook, deleted in the destructor) but not Zero Hour's "
+         "ObjectScale/ObjectColor. Found from the +4 shift of every member after 0x88 in HLodClass, "
+         "SphereRenderObjClass, RingRenderObjClass, ... (tools/re/layoutdiff.py)"),
+        ('	virtual ~RenderObjClass(void)																					{ }',
+         '	virtual ~RenderObjClass(void)																					{ if (RenderHook) delete RenderHook; }',
+         'the destructor deletes the render hook'),
+        ('	virtual void *					Get_User_Data()																{ return User_Data; };',
+         """	virtual void *					Get_User_Data()																{ return User_Data; };
+
+	// Application-specific render hook:
+	RenderHookClass *				Get_Render_Hook(void) { return RenderHook; }
+	void								Set_Render_Hook(RenderHookClass *hook) { if (RenderHook) delete RenderHook; RenderHook = hook; }""",
+         'render hook accessors'),
+        ('	void *							User_Data;',
+         """	void *							User_Data;
+
+	RenderHookClass *				RenderHook;""",
+         'the render hook member'),
+    ],
+    ('ww3d2', 'rendobj.cpp'): [
+        ('	User_Data(NULL),', """	User_Data(NULL),
+	RenderHook(NULL),""", 'both constructors clear the render hook'),
+    ],
 }
 # Files reconstructed by us from the client (no EA copy matches): `assemble` keeps the repository's
 # version, and refine leaves them alone. Each entry: (library, file) -> what was done.
@@ -203,7 +260,9 @@ def apply_patches(lib, path, name):
     for (plib, pname), edits in PATCHES.items():
         if plib == lib and pname == name.lower():
             text = open(path, encoding='latin1', newline='').read()
+            fnl = '\r\n' if '\r\n' in text else '\n'
             for old, new, _ in edits:
+                old, new = old.replace('\n', fnl), new.replace('\n', fnl)
                 if old not in text:
                     raise SystemExit(f'patch for {lib}/{name} no longer applies: {old}')
                 text = text.replace(old, new)
@@ -256,6 +315,7 @@ def assemble(state):
                         origin[name] = f['copy']
         for name in os.listdir(d):
             apply_patches(lib, os.path.join(d, name), name)
+            annotations.apply(lib, os.path.join(d, name), name)
             for (alib, aname), (text, _) in APPENDS.items():
                 if alib == lib and aname == name.lower():
                     with open(os.path.join(d, name), 'a', newline='\r\n') as fp:
@@ -497,6 +557,8 @@ def report(state):
         lines.append(f'* `{lib}/{name}`: **reconstructed** from the client. {why}.')
     for (lib, name), (_, why) in APPENDS.items():
         lines.append(f'* `{lib}/{name}`: {why}.')
+    lines.append('* Comments giving the C equivalent of each inline-assembly block are inserted into the '
+                 'imported files listed in `tools/vc6/annotations.py` (docs/conventions.md, "Inline assembly").')
     for (lib, name) in NEW_FILES:
         lines.append(f'* `{lib}/{name}`: new file (see its header comment).')
     for lib, s in state.items():

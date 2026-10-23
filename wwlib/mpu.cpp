@@ -84,6 +84,11 @@ unsigned long Get_CPU_Rate(unsigned long & high)
 }
 
 
+//
+//	C equivalent: unsigned __int64 t = __rdtsc(); high = (unsigned long)(t >> 32); return (unsigned long)t;
+//	RDTSC (bytes 0F 31) loads the processor's cycle counter into EDX:EAX. It is emitted as raw
+//	bytes because VC6's inline assembler predates the mnemonic. Modern MSVC: __rdtsc().
+//
 unsigned long Get_CPU_Clock(unsigned long & high)
 {
 	int h;
@@ -112,6 +117,10 @@ unsigned long Get_CPU_Clock(unsigned long & high)
 **
 */
 
+//
+//	RDTSC (bytes 0F 31) loads the processor's cycle counter into EDX:EAX. It is emitted as raw
+//	bytes because VC6's inline assembler predates the mnemonic. Modern MSVC: __rdtsc().
+//
 #define ASM_RDTSC _asm _emit 0x0f _asm _emit 0x31
 
 // Max # of samplings to allow before giving up and returning current average.
@@ -124,6 +133,9 @@ unsigned long Get_CPU_Clock(unsigned long & high)
 static unsigned long TSC_Low;
 static unsigned long TSC_High;
 
+//
+//	C equivalent: unsigned __int64 t = __rdtsc(); TSC_Low = (unsigned long)t; TSC_High = (unsigned long)(t >> 32);
+//
 void RDTSC(void)
 {
     _asm
@@ -198,6 +210,9 @@ int Get_RDTSC_CPU_Speed(void)
 		}
 
 		ASM_RDTSC;
+		//
+		//	C equivalent of ASM_RDTSC plus this line: stamp0 = (DWORD)__rdtsc(); (the low 32 bits)
+		//
 		_asm	mov	stamp0, EAX
 
 		t0.LowPart = t1.LowPart;		// Reset Initial Time
@@ -212,6 +227,9 @@ int Get_RDTSC_CPU_Speed(void)
 		}
 
 		ASM_RDTSC;
+		//
+		//	C equivalent of ASM_RDTSC plus this line: stamp1 = (DWORD)__rdtsc(); (the low 32 bits)
+		//
 		_asm	mov	stamp1, EAX
 
 

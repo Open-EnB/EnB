@@ -337,6 +337,22 @@ public:
 	int	Is_Orthogonal(void) const; 
 	void	Re_Orthogonalize(void);
 
+	// does "this = that * this"
+	void preMul(const Matrix3D& that);
+
+	// does "this = this * that"
+	void postMul(const Matrix3D& that);
+
+	// does "this = a * b"
+	void mul(const Matrix3D& a, const Matrix3D& b);
+
+	void mulVector3(const Vector3& in, Vector3& out) const;
+	void mulVector3(Vector3& inout) const { mulVector3(inout, inout); }
+
+
+	void mulVector3Array(const Vector3* in, Vector3* out, int count) const;
+	void mulVector3Array(Vector3* inout, int count) const;
+
 	// some static matrices which are sometimes useful
 	static const Matrix3D		Identity;
 	static const Matrix3D		RotateX90;
@@ -1618,6 +1634,157 @@ WWINLINE void	Matrix3D::Inverse_Rotate_Vector(const Matrix3D & A,const Vector3 &
 	out->X = (A[0][0] * v->X + A[1][0] * v->Y + A[2][0] * v->Z);
 	out->Y = (A[0][1] * v->X + A[1][1] * v->Y + A[2][1] * v->Z);
 	out->Z = (A[0][2] * v->X + A[1][2] * v->Y + A[2][2] * v->Z);
+}
+
+WWINLINE float submul(const Vector4& row, float tmp1, float tmp2, float tmp3)
+{
+  return row.X * tmp1 + row.Y * tmp2 + row.Z * tmp3;
+}
+
+// does "this = that * this"
+WWINLINE void Matrix3D::preMul(const Matrix3D& that)
+{
+	assert(this != &that);
+
+	// yes, this is ok. see the comments for 'mul'
+	this->mul(that, *this);
+}
+
+// does "this = this * that"
+WWINLINE void Matrix3D::postMul(const Matrix3D& that)
+{
+	assert(this != &that);
+
+#define AVOID_TEMP_IN_POSTMUL
+#ifdef AVOID_TEMP_IN_POSTMUL
+  float tmpX, tmpY, tmpZ, tmpW;
+
+	tmpX = submul(this->Row[0], that.Row[0].X, that.Row[1].X, that.Row[2].X);
+	tmpY = submul(this->Row[0], that.Row[0].Y, that.Row[1].Y, that.Row[2].Y);
+	tmpZ = submul(this->Row[0], that.Row[0].Z, that.Row[1].Z, that.Row[2].Z);
+	tmpW = submul(this->Row[0], that.Row[0].W, that.Row[1].W, that.Row[2].W);
+
+	this->Row[0].X = tmpX;
+	this->Row[0].Y = tmpY;
+	this->Row[0].Z = tmpZ;
+	this->Row[0].W += tmpW;
+
+	tmpX = submul(this->Row[1], that.Row[0].X, that.Row[1].X, that.Row[2].X);
+	tmpY = submul(this->Row[1], that.Row[0].Y, that.Row[1].Y, that.Row[2].Y);
+	tmpZ = submul(this->Row[1], that.Row[0].Z, that.Row[1].Z, that.Row[2].Z);
+	tmpW = submul(this->Row[1], that.Row[0].W, that.Row[1].W, that.Row[2].W);
+
+	this->Row[1].X = tmpX;
+	this->Row[1].Y = tmpY;
+	this->Row[1].Z = tmpZ;
+	this->Row[1].W += tmpW;
+
+	tmpX = submul(this->Row[2], that.Row[0].X, that.Row[1].X, that.Row[2].X);
+	tmpY = submul(this->Row[2], that.Row[0].Y, that.Row[1].Y, that.Row[2].Y);
+	tmpZ = submul(this->Row[2], that.Row[0].Z, that.Row[1].Z, that.Row[2].Z);
+	tmpW = submul(this->Row[2], that.Row[0].W, that.Row[1].W, that.Row[2].W);
+
+	this->Row[2].X = tmpX;
+	this->Row[2].Y = tmpY;
+	this->Row[2].Z = tmpZ;
+	this->Row[2].W += tmpW;
+#else
+	Matrix3D tmp = *this;
+	this->mul(tmp, that);
+#endif
+}
+
+// does "this = A * B"
+WWINLINE void Matrix3D::mul(const Matrix3D& A, const Matrix3D& B)
+{
+	assert(this != &A);
+	//assert(this != &B);
+	// nope, this is actually ok. (srj)
+	//assert(this != &B);
+
+	float tmp1,tmp2,tmp3;
+
+	tmp1 = B.Row[0].X;
+	tmp2 = B.Row[1].X;
+	tmp3 = B.Row[2].X;
+
+	this->Row[0].X = submul(A.Row[0], tmp1, tmp2, tmp3);
+	this->Row[1].X = submul(A.Row[1], tmp1, tmp2, tmp3);
+	this->Row[2].X = submul(A.Row[2], tmp1, tmp2, tmp3);
+
+	tmp1 = B.Row[0].Y;
+	tmp2 = B.Row[1].Y;
+	tmp3 = B.Row[2].Y;
+
+	this->Row[0].Y = submul(A.Row[0], tmp1, tmp2, tmp3);
+	this->Row[1].Y = submul(A.Row[1], tmp1, tmp2, tmp3);
+	this->Row[2].Y = submul(A.Row[2], tmp1, tmp2, tmp3);
+
+	tmp1 = B.Row[0].Z;
+	tmp2 = B.Row[1].Z;
+	tmp3 = B.Row[2].Z;
+
+	this->Row[0].Z = submul(A.Row[0], tmp1, tmp2, tmp3);
+	this->Row[1].Z = submul(A.Row[1], tmp1, tmp2, tmp3);
+	this->Row[2].Z = submul(A.Row[2], tmp1, tmp2, tmp3);
+
+	tmp1 = B.Row[0].W;
+	tmp2 = B.Row[1].W;
+	tmp3 = B.Row[2].W;
+
+	this->Row[0].W = submul(A.Row[0], tmp1, tmp2, tmp3) + A.Row[0].W;
+	this->Row[1].W = submul(A.Row[1], tmp1, tmp2, tmp3) + A.Row[1].W;
+	this->Row[2].W = submul(A.Row[2], tmp1, tmp2, tmp3) + A.Row[2].W;
+}
+
+WWINLINE void Matrix3D::mulVector3(const Vector3& in, Vector3& out) const
+{
+	// note, it's ok for in==out here.
+	float x = (Row[0].X * in.X + Row[0].Y * in.Y + Row[0].Z * in.Z + Row[0].W);
+	float y = (Row[1].X * in.X + Row[1].Y * in.Y + Row[1].Z * in.Z + Row[1].W);
+	float z = (Row[2].X * in.X + Row[2].Y * in.Y + Row[2].Z * in.Z + Row[2].W);
+	out.Set(x, y, z);
+}
+
+
+WWINLINE void Matrix3D::mulVector3Array(const Vector3* in, Vector3* out, int count) const
+{
+	assert(in != out);
+#ifdef ALLOW_TEMPORARIES
+	for (i=0; i<count; i++)
+	{
+		out[i] = (*this) * in[i];
+	}
+#else	
+	while (count--)
+	{
+		// we know that in != out, so no temps needed
+		out->X = (Row[0].X * in->X + Row[0].Y * in->Y + Row[0].Z * in->Z + Row[0].W);
+		out->Y = (Row[1].X * in->X + Row[1].Y * in->Y + Row[1].Z * in->Z + Row[1].W);
+		out->Z = (Row[2].X * in->X + Row[2].Y * in->Y + Row[2].Z * in->Z + Row[2].W);
+		++in;
+		++out;
+	}
+#endif
+}
+
+WWINLINE void Matrix3D::mulVector3Array(Vector3* inout, int count) const
+{
+#ifdef ALLOW_TEMPORARIES
+	for (i=0; i<count; i++)
+	{
+		inout[i] = (*this) * inout[i];
+	}
+#else	
+	while (count--)
+	{
+		float x = (Row[0].X * inout->X + Row[0].Y * inout->Y + Row[0].Z * inout->Z + Row[0].W);
+		float y = (Row[1].X * inout->X + Row[1].Y * inout->Y + Row[1].Z * inout->Z + Row[1].W);
+		float z = (Row[2].X * inout->X + Row[2].Y * inout->Y + Row[2].Z * inout->Z + Row[2].W);
+		inout->Set(x, y, z);
+		++inout;
+	}
+#endif
 }
 
 #endif /* MATRIX3D_H */

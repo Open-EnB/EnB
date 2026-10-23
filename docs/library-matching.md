@@ -157,6 +157,26 @@ that directory, and the copies of Generals and Zero Hour compile against their o
 (`dx8renderer.cpp` and `sortingrenderer.cpp` in Zero Hour), the in-game browser
 (`dx8webbrowser.cpp`) or `mmsystem.h` (`wwmouse.cpp`).
 
+### 3.6.1 Layout differences (2026-10-23)
+
+Most of the remaining near-misses are functions that differ from the client only in member
+offsets: E&B's headers declare a class differently. `tools/re/layoutdiff.py` aligns each located
+gap with the client's function and tallies the displacement pairs (`[reg+X]` here, `[reg+Y]` in
+the client) per class; `tools/vc6/layout.py` prints a class's offsets as VC6 lays it out. Found
+and fixed so far (importer `PATCHES`, see docs/imports.md):
+
+| Fix | Evidence | Gained |
+|---|---|---|
+| `MeshBuilderClass::MAX_STAGES` = 8 (Zero Hour's value; Renegade and Generals: 2) | `VertexMaterialClass::CRCDirty` at +0x6C, not +0x3C: `Mapper[]` and `UVSource[]` are sized by it | 36 |
+| `RenderObjClass` gets Zero Hour's render hook (`RenderHookClass`, the `RenderHook` member, `Get/Set_Render_Hook`, deleted in the destructor), but not Zero Hour's `ObjectScale`/`ObjectColor` | every member after +0x88 shifted by 4 in `HLodClass`, `SphereRenderObjClass`, `RingRenderObjClass`, ... | 287 |
+| `Matrix3D` gets Zero Hour's `preMul`/`postMul`/`mul`/`mulVector3`/`mulVector3Array` helpers (not its operator rework) | Zero Hour's `streak.cpp` needs them; let the last WW3D2 files compile | 1, then 7 more after a refine pass |
+
+Still open (from `layoutdiff.py`): `ParticleEmitterDefClass` (+0x28 from about +0x1E0),
+`SphereRenderObjClass`/`RingRenderObjClass` (+0x34/+0x40 from about +0x118),
+`ParticleBufferClass` (+4 from about +0x204), `LightEnvironmentClass` (smaller in E&B),
+`DX8Caps` (+0xC from about +0x128); in WWAudio `AudibleSoundClass` (+4 at +0x68, +8 from
++0x74, +20 after +0x138: fields E&B added, in no EA copy).
+
 ### 3.7 Precompiled libraries and generated code: out of scope
 
 Code in client.exe that nobody at Westwood wrote, and that the rebuild gets back by linking the

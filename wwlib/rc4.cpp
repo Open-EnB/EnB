@@ -90,6 +90,20 @@ void RC4Class::Prepare_Key(const unsigned char *key_data_ptr, int key_data_len)
 			break;
 
 		case 16:
+			//
+			//	C equivalent (the same key schedule as the other cases, with index1 wrapping at 16):
+			//
+			//		for (counter = 0; counter < 256; counter++) {
+			//			index2 = (unsigned char)(key_data_ptr[index1] + state[counter] + index2);
+			//			swap(state[counter], state[index2]);
+			//			index1 = (index1 + 1) & 0x0F;
+			//		}
+			//
+			//	Registers: esi = key, edi = state, ecx (cl) = counter, edx (dl) = index2,
+			//	ebx = index1. The loop ends when cl wraps from 255 to 0. The index1/index2
+			//	variables in memory are not updated (nothing reads them afterwards).
+			//	Why assembly: all the state kept in registers; see RC4().
+			//
 			__asm {
 				mov		esi, key_data_ptr
 				mov		edi, state
@@ -151,6 +165,24 @@ void RC4Class::RC4(unsigned char *buffer_ptr, int buffer_len)
 	y = Key.Y;
 	state = &Key.State[0];
 
+	//
+	//	C equivalent:
+	//
+	//		do {
+	//			x++;
+	//			y += state[x];
+	//			swap(state[x], state[y]);
+	//			*buffer_ptr++ ^= state[(state[x] + state[y]) & 0xFF];
+	//		} while (--buffer_len > 0);
+	//
+	//	Note: the loop tests its count at the bottom, so a call with buffer_len == 0 still
+	//	encrypts one byte (a quirk of the original).
+	//	Registers: esi = state, edi = buffer, ecx = position, bl = x, dl = y, al/ah = the two
+	//	state bytes being swapped. EBP is borrowed as the loop limit (pushed and popped around
+	//	the loop), so no local variable can be used inside it.
+	//	Why assembly: RC4 runs over every network packet; the compiler of the day kept x, y and
+	//	the position in memory and could not use EBP as a register.
+	//
 	__asm {
 		xor		ecx, ecx
 		mov		esi, state

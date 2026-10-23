@@ -131,6 +131,21 @@ template<class T> class DynamicVectorClass;
 //
 //////////////////////////////////////////////////////////////////////////////////
 
+//////////////////////////////////////////////////////////////////////////////////
+// RenderHookClass (as in Zero Hour)
+//////////////////////////////////////////////////////////////////////////////////
+class RenderHookClass
+{
+public:
+	RenderHookClass(void) { }
+	virtual ~RenderHookClass(void) { }
+	virtual bool Pre_Render(RenderObjClass *robj, RenderInfoClass &rinfo) = 0;
+	virtual void Post_Render(RenderObjClass *robj, RenderInfoClass &rinfo) = 0;
+private:
+	RenderHookClass(const RenderHookClass & src);
+	RenderHookClass & operator=(const RenderHookClass & src);
+};
+
 class RenderObjClass : public RefCountClass , public PersistClass, public MultiListObjectClass
 {
 public:
@@ -185,7 +200,7 @@ public:
 	RenderObjClass(void);
 	RenderObjClass(const RenderObjClass & src);
 	RenderObjClass & RenderObjClass::operator = (const RenderObjClass &);
-	virtual ~RenderObjClass(void)																					{ }
+	virtual ~RenderObjClass(void)																					{ if (RenderHook) delete RenderHook; }
 
 
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -375,6 +390,10 @@ public:
 	virtual MaterialInfoClass * Get_Material_Info(void) 													{ return NULL; }
 	virtual void					Set_User_Data(void *value, bool recursive = false)					{ User_Data = value; };
 	virtual void *					Get_User_Data()																{ return User_Data; };
+
+	// Application-specific render hook:
+	RenderHookClass *				Get_Render_Hook(void) { return RenderHook; }
+	void								Set_Render_Hook(RenderHookClass *hook) { if (RenderHook) delete RenderHook; RenderHook = hook; }
 	virtual int						Get_Num_Snap_Points(void)													{ return 0; }
 	virtual void					Get_Snap_Point(int index,Vector3 * set)								{ }
 //	virtual float					Calculate_Texture_Reduction_Factor(float norm_screensize);
@@ -469,6 +488,8 @@ protected:
 	SceneClass *					Scene;
 	RenderObjClass *				Container;
 	void *							User_Data;
+
+	RenderHookClass *				RenderHook;
 	
 	friend class SceneClass;
 	friend class RenderObjProxyClass;

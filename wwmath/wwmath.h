@@ -299,6 +299,17 @@ WWINLINE bool WWMath::Is_Valid_Double(double x)
 // ----------------------------------------------------------------------------
 
 #if defined(_MSC_VER) && defined(_M_IX86)
+//
+//	C equivalent:
+//
+//		return lrintf(f);	// (long)f, but ROUNDED to nearest instead of truncated
+//
+//	fld/fistp converts with the FPU's current rounding mode (round to nearest by default), so
+//	2.7f gives 3 where (long)2.7f gives 2.
+//	Why assembly: VC6 compiled (long)f into a call to _ftol, which switches the FPU to truncation and
+//	back again: dozens of cycles and a pipeline stall, in a function a 3D engine calls constantly.
+//	fld + fistp is two instructions.
+//
 WWINLINE long WWMath::Float_To_Long(float f)
 {
 	long i;
@@ -321,6 +332,9 @@ WWINLINE long WWMath::Float_To_Long(double f)
 {
 #if defined(_MSC_VER) && defined(_M_IX86)
 	long retval;
+	//
+	//	C equivalent: return lrint(f); -- as the float version above, for a double.
+	//
 	__asm fld	qword ptr [f]
 	__asm fistp dword ptr [retval]
 	return retval;
@@ -334,6 +348,10 @@ WWINLINE long WWMath::Float_To_Long(double f)
 // ----------------------------------------------------------------------------
 
 #if defined(_MSC_VER) && defined(_M_IX86)
+//
+//	C equivalent: return (float)cos(val);
+//	Why assembly: the FPU's own fcos instruction, without the C library's call overhead.
+//
 WWINLINE float WWMath::Cos(float val)
 {
 	float retval;
@@ -356,6 +374,10 @@ WWINLINE float WWMath::Cos(float val)
 // ----------------------------------------------------------------------------
 
 #if defined(_MSC_VER) && defined(_M_IX86)
+//
+//	C equivalent: return (float)sin(val);
+//	Why assembly: the FPU's own fsin instruction, without the C library's call overhead.
+//
 WWINLINE float WWMath::Sin(float val)
 {
 	float retval;
@@ -546,6 +568,10 @@ WWINLINE float WWMath::Asin(float val)
 // ----------------------------------------------------------------------------
 
 #if defined(_MSC_VER) && defined(_M_IX86)
+//
+//	C equivalent: return (float)sqrt(val);
+//	Why assembly: the FPU's own fsqrt instruction, without the C library's call overhead.
+//
 WWINLINE float WWMath::Sqrt(float val)
 {
 	float retval;
@@ -594,6 +620,17 @@ WWINLINE int WWMath::Float_To_Int_Floor (const float& f)
 // ----------------------------------------------------------------------------
 
 #if defined(_MSC_VER) && defined(_M_IX86)
+//
+//	C equivalent:
+//
+//		return 1.0f / sqrtf(a);
+//
+//	computed without a divide or a square root: an integer operation on the float's bit pattern
+//	(with the magic constant 0xBE6EB508) gives a first estimate r, then three Newton-Raphson steps
+//	r = r * (1.5 - (a/2) * r * r) refine it. The function is naked (no compiler prologue): it reads
+//	its argument at [esp+4], uses the stack below esp as scratch and returns with `ret 4` itself.
+//	Why assembly: fdiv and fsqrt were the slowest FPU instructions of the day.
+//
 WWINLINE __declspec(naked) float __fastcall WWMath::Inv_Sqrt(float a)
 {
 	__asm {

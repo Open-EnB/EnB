@@ -1,5 +1,5 @@
 /*
-**	Command & Conquer Renegade(tm)
+**	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.
 **
 **	This program is free software: you can redistribute it and/or modify
@@ -33,7 +33,11 @@
  *---------------------------------------------------------------------------------------------*
  * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+//
+// MBL Update for CNC3 INCURSION - 10.23.2002 - Expanded param handling, Added STOP command
+//
 
+#include <string.h>	// stricmp()
 #include "animatedsoundmgr.h"
 #include "ini.h"
 #include "inisup.h"
@@ -47,14 +51,16 @@
 #include "audiblesound.h"
 #include "htree.h"
 #include "hanim.h"
+#include "soundlibrarybridge.h"
 
+#include "WWDebug.h"
 
 //////////////////////////////////////////////////////////////////////
 //	Static member initialization
 //////////////////////////////////////////////////////////////////////
 HashTemplateClass<StringClass, AnimatedSoundMgrClass::ANIM_SOUND_LIST *>	AnimatedSoundMgrClass::AnimationNameHash;
 DynamicVectorClass<AnimatedSoundMgrClass::ANIM_SOUND_LIST *>					AnimatedSoundMgrClass::AnimSoundLists;
-
+SoundLibraryBridgeClass*																	AnimatedSoundMgrClass::SoundLibrary = NULL;
 
 //////////////////////////////////////////////////////////////////////
 //	Local inlines
@@ -179,6 +185,58 @@ Build_List_From_String
 }
 
 
+static bool
+Is_In_Param_List
+(
+	StringClass *param_list,
+	int param_count,
+	const char *param_to_check
+)
+{
+	//
+	// Check incoming parameters
+	//
+	WWASSERT( param_list != NULL );
+	if ( param_list == NULL )
+	{
+		return( false );
+	}
+	WWASSERT( param_count >= 2 );
+	if ( param_count < 2 )
+	{
+		return( false );
+	}
+	WWASSERT( param_to_check != NULL );
+	if ( param_to_check == NULL )
+	{
+		return( false );
+	}
+
+	//
+	// Note: params 0 & 1 are fixed to frame and name...
+	//
+	for ( int param_index = 2; param_index < param_count; param_index ++ )
+	{
+		{
+			StringClass string = param_list[ param_index ];
+
+			// OutputDebugString( "MBL: Comparing " );
+			// OutputDebugString( string.Peek_Buffer() );
+			// OutputDebugString( " with " );
+			// OutputDebugString( param_to_check );
+			// OutputDebugString( "\n" );
+
+			// if ( stricmp( string.Peek_Buffer(), param_to_check ) == 0 ) // Breaks with whitespaces
+			if ( strstr( string.Peek_Buffer(), param_to_check ) != 0 )
+			{
+			 	return( true );
+			}
+		}
+	}
+
+	return( false );
+}
+
 //////////////////////////////////////////////////////////////////////
 //
 //	Initialize
@@ -224,6 +282,10 @@ AnimatedSoundMgrClass::Initialize (const char *ini_filename)
 			StringClass animation_name = section->Section;
 			::strupr (animation_name.Peek_Buffer ());
 
+			// OutputDebugString( "MBL Section / animation: " );
+			// OutputDebugString( animation_name.Peek_Buffer()	);
+			// OutputDebugString( "\n" );
+
 			//
 			//	Allocate a sound list
 			//
@@ -233,6 +295,7 @@ AnimatedSoundMgrClass::Initialize (const char *ini_filename)
 			//	Loop over all the entries in this section
 			//
 			int entry_count = ini_file->Entry_Count (section->Section);
+
 			for (int entry_index = 0; entry_index < entry_count; entry_index ++) {
 				StringClass value;
 
@@ -240,45 +303,82 @@ AnimatedSoundMgrClass::Initialize (const char *ini_filename)
 				//	Get the data associated with this entry
 				//
 				const char *entry_name = ini_file->Get_Entry (section->Section, entry_index);
-				ini_file->Get_String (value, section->Section, entry_name);
 
-				//
-				//	Extract the parameters from the section
-				//
-				int len = value.Get_Length ();					
-				StringClass definition_name (len + 1, true);
-				int frame_start = 0;
+				// OutputDebugString( "  MBL Entry name: " );
+				// OutputDebugString( entry_name );
+				// OutputDebugString( "\n" );
 
-				//
-				//	Separate the parameters into an easy-to-handle data structure
-				//
-				StringClass *param_list = NULL;
-				int param_count = ::Build_List_From_String (value, ",", &param_list);
-				if (param_count == 2) {
-					frame_start			= ::atoi (param_list[0]);
-					definition_name	= param_list[1];
-					definition_name.Trim ();
-					delete [] param_list;
+				if (strcmp(entry_name, "BoneName") == 0) {
+					ini_file->Get_String (value, section->Section, entry_name);
+					sound_list->BoneName = value;
+
+					// OutputDebugString( "    MBL (BoneName) entry line value: " );
+					// OutputDebugString( value.Peek_Buffer() );
+					// OutputDebugString( "\n" );
+
+				} else {
+					ini_file->Get_String (value, section->Section, entry_name);
+
+					// OutputDebugString( "    MBL (not BoneName) entry line value: " );
+					// OutputDebugString( value.Peek_Buffer() );
+					// OutputDebugString( "\n" );
 
 					//
-					//	Find this sound definition
+					//	Extract the parameters from the section
 					//
-					DefinitionClass *definition = DefinitionMgrClass::Find_Typed_Definition (definition_name, CLASSID_SOUND);
-					if (definition != NULL) {
+					int len = value.Get_Length ();					
+					StringClass definition_name (len + 1, true);
+					int action_frame = 0;
+
+					//
+					//	Separate the parameters into an easy-to-handle data structure
+					//
+					StringClass *param_list = NULL;
+					int param_count = ::Build_List_From_String (value, ",", &param_list);
+
+					// if ((param_count >= 2) && (param_count <= 3)) 
+					{
+						action_frame		= ::atoi (param_list[0]);
+						definition_name	= param_list[1];
+						definition_name.Trim ();
 
 						//
 						//	Tie the relevant information together and store it
 						// in the list of sounds for this animation
 						//
-						ANIM_SOUND_INFO sound_info;
-						sound_info.Frame					= frame_start;
-						sound_info.SoundDefinitionID	= definition->Get_ID ();
-						sound_list->Add (sound_info);
+						ANIM_SOUND_INFO* sound_info = new ANIM_SOUND_INFO;
+						sound_info->Frame			= action_frame;
+						sound_info->SoundName		= definition_name;
+
+						//
+						// "2D" check
+						//
+						// if ((param_count == 3) && (atoi(param_list[2]) == 2)) {
+						// 	sound_info->Is2D = true;
+						// }
+						//
+						sound_info->Is2D = false;
+						if ( Is_In_Param_List( param_list, param_count, "2D" ) )
+						{
+							sound_info->Is2D = true;
+						}
+
+						//
+						// "STOP" check
+						//
+						sound_info->IsStop = false;
+						if ( Is_In_Param_List( param_list, param_count, "STOP" ) )
+						{
+							sound_info->IsStop = true;
+						}
+
+						sound_list->Add_Sound_Info (sound_info);
+						delete [] param_list;
 					}
 				}
 			}
 
-			if (sound_list->Count () != 0) {
+			if (sound_list->List.Count () != 0) {
 				
 				//
 				//	Add this sound list to our hash-table and vector-array
@@ -287,7 +387,7 @@ AnimatedSoundMgrClass::Initialize (const char *ini_filename)
 				AnimSoundLists.Add (sound_list);
 
 			} else {
-				WWDEBUG_SAY (("AnimatedSoundMgrClass::Initialize -- No sounds added for %d!\n", animation_name.Peek_Buffer ()));
+				//WWDEBUG_SAY (("AnimatedSoundMgrClass::Initialize -- No sounds added for %d!\n", animation_name.Peek_Buffer ()));
 				delete sound_list;
 			}
 		}
@@ -316,6 +416,12 @@ AnimatedSoundMgrClass::Shutdown (void)
 	//	Free each of the sound objects
 	//
 	for (int index = 0; index < AnimSoundLists.Count (); index ++) {
+		/*
+		ANIM_SOUND_LIST* list = AnimSoundLists[index];
+		for (int i = 0; i < list->Count(); i++) {
+			delete (*list)[i];
+		}
+		*/
 		delete AnimSoundLists[index];
 	}
 
@@ -329,11 +435,20 @@ AnimatedSoundMgrClass::Shutdown (void)
 //	Does_Animation_Have_Embedded_Sounds
 //
 //////////////////////////////////////////////////////////////////////
-bool
-AnimatedSoundMgrClass::Does_Animation_Have_Embedded_Sounds (HAnimClass *anim)
+const char*
+AnimatedSoundMgrClass::Get_Embedded_Sound_Name (HAnimClass *anim)
 {
-	return (Find_Sound_List (anim) != NULL);
+	if (anim == NULL) {
+		return NULL;
+	}
+	ANIM_SOUND_LIST* list = Find_Sound_List (anim);
+	if (list == NULL) {
+		return NULL;
+	}
+
+	return list->BoneName.Peek_Buffer();
 }
+
 
 
 //////////////////////////////////////////////////////////////////////
@@ -377,45 +492,74 @@ AnimatedSoundMgrClass::Trigger_Sound
 	const Matrix3D &	tm
 )
 {
-	if (anim == NULL) {
+	if ((SoundLibrary == NULL) || (anim == NULL)) {
 		return old_frame;
 	}
 
 	float retval = old_frame;
 
+#ifndef W3D_MAX4
 	//
 	//	Lookup the sound list for this animation
 	//
 	ANIM_SOUND_LIST *sound_list = Find_Sound_List (anim);
 	if (sound_list != NULL) {
 		
-		for (int index = 0; index < sound_list->Count (); index ++) {			
-			int frame = (*sound_list)[index].Frame;
+		for (int index = 0; index < sound_list->List.Count (); index ++) {			
+			int frame = sound_list->List[index]->Frame;
 
 			//
 			//	Is the animation passing the frame we need?
 			//
-			if (old_frame < frame && new_frame >= frame) {
+			if ((old_frame < frame) && (new_frame >= frame)) {
 
 				//
-				//	Don't trigger the sound if its skipped to far past...
+				//	Don't trigger the sound if its skipped too far past...
 				//
-				if (WWMath::Fabs (new_frame - old_frame) < 3.0F) {
+				//if (WWMath::Fabs (new_frame - old_frame) < 3.0F) {
 					
 					//
-					//	Play the sound
+					// Stop the audio?
 					//
-					int def_id = (*sound_list)[index].SoundDefinitionID;
-					WWAudioClass::Get_Instance ()->Create_Instant_Sound (def_id, tm);
-					WWDEBUG_SAY (("Triggering Sound %d\n", GetTickCount ()));
+					if (sound_list->List[index]->IsStop == true) 
+					{
+						//
+						// Stop the audio
+						//
+						SoundLibrary->Stop_Playing_Audio( sound_list->List[index]->SoundName.Peek_Buffer() );
+					}
+					else
+					{
+						//
+						//	Play the audio
+						//
+						if (sound_list->List[index]->Is2D == true) 
+						{
+							SoundLibrary->Play_2D_Audio(sound_list->List[index]->SoundName.Peek_Buffer());
+						} 
+						else 
+						{
+							SoundLibrary->Play_3D_Audio(sound_list->List[index]->SoundName.Peek_Buffer(), tm);
+						}
+					}
+
+					//WWDEBUG_SAY (("Triggering Sound %d %s\n", GetTickCount (), sound_list->List[index]->SoundName));
+
 					retval = frame;
-				}
+
+				//}
 			}
+
 		}
 
 		//retval = true;
 	}
+#endif
 
 	return retval;
 }
 
+void AnimatedSoundMgrClass::Set_Sound_Library(SoundLibraryBridgeClass* library)
+{
+	SoundLibrary = library;
+}

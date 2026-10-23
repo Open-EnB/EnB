@@ -313,6 +313,9 @@ void WWDebug_Assert_Fail(const char * expr,const char * file, int line)
       }
 
 		if (code == IDRETRY) {
+			//
+			//	C equivalent: __debugbreak(); -- the user chose Retry on the assert dialog: stop in the debugger.
+			//
 			_asm int 3;
       	return;
 		}

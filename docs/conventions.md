@@ -170,6 +170,42 @@ protected:
 * Profiling: `WWPROFILE("Class::Method")` at the top of hot functions. The label strings in the
   client tell you where they were.
 
+### Inline assembly
+
+Westwood used inline assembly (`__asm`) where VC6 couldn't express something or couldn't do it
+fast enough: CPU instructions with no C equivalent (`CPUID`, `RDTSC`, `int 3`), fast float to int
+conversion (`fistp` instead of the slow `_ftol`), atomic locks, and hand-tuned hot loops (RC4,
+LCW compression, blitters). Where the client has assembly, the reconstruction has the same
+assembly: it is the only way to reproduce those bytes (decided 2026-10-22; an earlier "no
+assembly" rule was withdrawn).
+
+**Every assembly block carries a comment giving its C equivalent**, so the code can be read
+without decoding the assembly. The comment goes immediately before the block (or the
+function) in this form:
+
+```cpp
+	//
+	//	C equivalent:
+	//
+	//		do {
+	//			x++;
+	//			y += state[x];
+	//			swap(state[x], state[y]);
+	//			*buffer++ ^= state[(state[x] + state[y]) & 0xFF];
+	//		} while (--buffer_len > 0);		// note: runs once even when buffer_len == 0
+	//
+	//	Why assembly: ...
+	//
+	__asm {
+```
+
+* Say what the block computes, in C, and anything surprising about it (side effects,
+  original bugs, registers it relies on).
+* Add a line on why it is assembly when that is not obvious.
+* Comments never change the compiled bytes. In imported EA files they do move the lines
+  below them, so they are added through `tools/vc6/annotations.py` (re-applied on every
+  import), and the library is re-verified afterwards.
+
 ## 3. Toolchain the conventions assume
 
 The client was built with **Visual C++ 6.0** **Service Pack 4** (compiler build 8799, confirmed; [toolchain.md](toolchain.md)) and linked by LINK 6.0

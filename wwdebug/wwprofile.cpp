@@ -96,6 +96,11 @@ WWINLINE double WWProfile_Get_Inv_Processor_Ticks_Per_Second(void)
  * HISTORY:                                                                                    *
  *   9/24/2000  gth : Created.                                                                 *
  *=============================================================================================*/
+//
+//	C equivalent: *ticks = __rdtsc();
+//	RDTSC (bytes 0F 31) loads the processor's cycle counter into EDX:EAX. It is emitted as raw
+//	bytes because VC6's inline assembler predates the mnemonic. Modern MSVC: __rdtsc().
+//
 inline void WWProfile_Get_Ticks(_int64 * ticks)
 {
 #ifdef _UNIX

@@ -195,6 +195,36 @@ int LCW_Uncomp(void const * source, void * dest, unsigned long )
  *   05/20/1997 JLB : Created.                                                                 * 
  *=============================================================================================*/
 /*ARGSUSED*/
+//
+//	LCW_Comp is one assembly routine, split into blocks by C labels. C equivalent (greedy LCW,
+//	"Westwood LZ"), with the codes listed in the first block:
+//
+//		*out++ = 0x81; *out++ = *src++;		// the first byte is always a one-byte literal
+//		while (src < end) {
+//			if (src[0] == src[64] && the run of bytes equal to src[0] is 65 long or more) {
+//				emit 0xFE, run length (word), the byte;		// fill
+//				src += run length;
+//				continue;
+//			}
+//			search every earlier position for the longest match with the bytes at src;
+//			if (match length <= 2) {
+//				append *src++ to the current literal (codes 0x80..0xBF hold 0-63 literals;
+//				start a new literal code when the current one is full or a copy came between);
+//			} else if (match length <= 10 && distance back <= 0xFFF) {
+//				emit 0LLLDDDD DDDDDDDD;						// L = length - 3, D = distance back
+//			} else if (match length <= 64) {
+//				emit 0xC0 | (length - 3), offset from the start of data (word);
+//			} else {
+//				emit 0xFF, length (word), offset from the start of data (word);
+//			}
+//			src += match length;	// (for copies)
+//		}
+//		*out++ = 0x80;										// end of data
+//		return out - dest;
+//
+//	Why assembly: carried over from Westwood's DOS-era library; the brute-force match search
+//	uses the string instructions (repne scasb, repe cmpsb) directly.
+//
 int LCW_Comp(void const * source, void * dest, int datasize)
 {
 	int retval = 0;

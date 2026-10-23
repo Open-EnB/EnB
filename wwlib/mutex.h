@@ -119,6 +119,17 @@ class FastCriticalSectionClass
 {
 	volatile unsigned Flag;
 
+	//
+	//	C equivalent (a spin lock):
+	//
+	//		while (atomic_test_and_set_bit(&Flag, 0)) {	// set bit 0, return its old value, atomically
+	//			ThreadClass::Switch_Thread();				// held by another thread: yield, then retry
+	//		}
+	//
+	//	ts_lock is the LOCK prefix (0xF0) emitted as a raw byte, making `bts` (bit test and set) atomic.
+	//	Why assembly: VC6 had no intrinsic for an atomic bit test-and-set (modern MSVC:
+	//	_interlockedbittestandset).
+	//
 	void Thread_Safe_Set_Flag()
 	{
 		volatile unsigned& nFlag=Flag;

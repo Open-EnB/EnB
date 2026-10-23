@@ -452,6 +452,11 @@ class BlitTransLucent75 : public Blitter {
 */
 #if defined(_MSC_VER)
 
+//
+//	C equivalent: for (i = 0; i < len; i++) if (src[i] != 0) dst[i] = src[i];
+//	(8-bit pixels, 0 is transparent; the generic BlitTrans<T> above does the same.)
+//	Why assembly: hand-tuned software sprite drawing.
+//
 inline void BlitTrans<unsigned char>::BlitForward(void * dest, void const * source, int len) const
 {
 	__asm {
@@ -477,6 +482,11 @@ fini:;
 }
 
 
+//
+//	C equivalent: for (i = 0; i < len; i++) if (src[i] != 0) dst[i] = TranslateTable[src[i]];
+//	(8-bit source pixels translated to 16-bit; 0 is transparent.)
+//	Why assembly: hand-tuned software sprite drawing.
+//
 inline void BlitTransXlat<unsigned short>::BlitForward(void * dest, void const * source, int len) const
 {
 	unsigned short const * xlator = TranslateTable;
@@ -507,6 +517,11 @@ over:;
 }
 
 
+//
+//	C equivalent: for (i = 0; i < len; i++) if (src[i] != 0) dst[i] = TranslateTable[RemapTable[src[i]]];
+//	(an 8-bit remap, such as a house colour, then translation to 16-bit; 0 is transparent.)
+//	Why assembly: hand-tuned software sprite drawing.
+//
 inline void BlitTransRemapXlat<unsigned short>::BlitForward(void * dest, void const * source, int len) const
 {
 	unsigned short const * translator = TranslateTable;

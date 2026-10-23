@@ -1,0 +1,2192 @@
+[
+ {
+  "object": "parameter.obj",
+  "function": "ParameterClass::Construct",
+  "symbol": "?Construct@ParameterClass@@SAPAV1@W4Type@1@PAXPBD@Z",
+  "length": 1732,
+  "status": "none",
+  "address": "0x510BE0",
+  "similarity": 0.04,
+  "window": "0x5104C0-0x510CC0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "ParameterClass::ParameterClass",
+  "symbol": "??0ParameterClass@@QAE@XZ",
+  "length": 52,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x5104C0-0x510CC0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "ParameterClass::scalar deleting dtor",
+  "symbol": "??_GParameterClass@@UAEPAXI@Z",
+  "length": 62,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x5104C0-0x510CC0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "ParameterClass::Set_Name",
+  "symbol": "?Set_Name@ParameterClass@@UAEXPBD@Z",
+  "length": 50,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x5104C0-0x510CC0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "ParameterClass::Set_Units_Name",
+  "symbol": "?Set_Units_Name@ParameterClass@@UAEXPBD@Z",
+  "length": 80,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x5104C0-0x510CC0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "StringParameterClass::Is_Type",
+  "symbol": "?Is_Type@StringParameterClass@@UBE_NW4Type@ParameterClass@@@Z",
+  "length": 15,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x5104C0-0x510CC0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "StringParameterClass::scalar deleting dtor",
+  "symbol": "??_GStringParameterClass@@UAEPAXI@Z",
+  "length": 62,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x5104C0-0x510CC0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "FilenameParameterClass::Is_Type",
+  "symbol": "?Is_Type@FilenameParameterClass@@UBE_NW4Type@ParameterClass@@@Z",
+  "length": 27,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x5104C0-0x510CC0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "FilenameParameterClass::Set_Extension",
+  "symbol": "?Set_Extension@FilenameParameterClass@@UAEXPBD@Z",
+  "length": 80,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x5104C0-0x510CC0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "FilenameParameterClass::Set_Description",
+  "symbol": "?Set_Description@FilenameParameterClass@@UAEXPBD@Z",
+  "length": 80,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x5104C0-0x510CC0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "FilenameParameterClass::scalar deleting dtor",
+  "symbol": "??_GFilenameParameterClass@@UAEPAXI@Z",
+  "length": 84,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x5104C0-0x510CC0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "TextureFilenameParameterClass::Is_Type",
+  "symbol": "?Is_Type@TextureFilenameParameterClass@@UBE_NW4Type@ParameterClass@@@Z",
+  "length": 27,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x5104C0-0x510CC0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "TextureFilenameParameterClass::scalar deleting dtor",
+  "symbol": "??_GTextureFilenameParameterClass@@UAEPAXI@Z",
+  "length": 84,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x5104C0-0x510CC0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "SoundFilenameParameterClass::Is_Type",
+  "symbol": "?Is_Type@SoundFilenameParameterClass@@UBE_NW4Type@ParameterClass@@@Z",
+  "length": 32,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x5104C0-0x510CC0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "SoundFilenameParameterClass::scalar deleting dtor",
+  "symbol": "??_GSoundFilenameParameterClass@@UAEPAXI@Z",
+  "length": 84,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x5104C0-0x510CC0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "EnumParameterClass::Is_Type",
+  "symbol": "?Is_Type@EnumParameterClass@@UBE_NW4Type@ParameterClass@@@Z",
+  "length": 15,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x5104C0-0x510CC0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "EnumParameterClass::Get_Entry_Name",
+  "symbol": "?Get_Entry_Name@EnumParameterClass@@UBEPBDH@Z",
+  "length": 13,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x5104C0-0x510CC0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "EnumParameterClass::Get_Entry_Value",
+  "symbol": "?Get_Entry_Value@EnumParameterClass@@UBEHH@Z",
+  "length": 14,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x5104C0-0x510CC0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "EnumParameterClass::Set_Selected_Value",
+  "symbol": "?Set_Selected_Value@EnumParameterClass@@UAEXH@Z",
+  "length": 19,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x5104C0-0x510CC0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "EnumParameterClass::scalar deleting dtor",
+  "symbol": "??_GEnumParameterClass@@UAEPAXI@Z",
+  "length": 146,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x5104C0-0x510CC0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "PhysDefParameterClass::Is_Type",
+  "symbol": "?Is_Type@PhysDefParameterClass@@UBE_NW4Type@ParameterClass@@@Z",
+  "length": 15,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x5104C0-0x510CC0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "PhysDefParameterClass::Set_Value",
+  "symbol": "?Set_Value@PhysDefParameterClass@@UAEXH@Z",
+  "length": 19,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x5104C0-0x510CC0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "PhysDefParameterClass::Set_Base_Class",
+  "symbol": "?Set_Base_Class@PhysDefParameterClass@@UAEXPBD@Z",
+  "length": 80,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x5104C0-0x510CC0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "PhysDefParameterClass::scalar deleting dtor",
+  "symbol": "??_GPhysDefParameterClass@@UAEPAXI@Z",
+  "length": 76,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x5104C0-0x510CC0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "ModelDefParameterClass::Is_Type",
+  "symbol": "?Is_Type@ModelDefParameterClass@@UBE_NW4Type@ParameterClass@@@Z",
+  "length": 15,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x5104C0-0x510CC0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "ModelDefParameterClass::Set_Value",
+  "symbol": "?Set_Value@ModelDefParameterClass@@UAEXH@Z",
+  "length": 19,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x5104C0-0x510CC0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "ModelDefParameterClass::Set_Base_Class",
+  "symbol": "?Set_Base_Class@ModelDefParameterClass@@UAEXPBD@Z",
+  "length": 80,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x5104C0-0x510CC0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "ModelDefParameterClass::scalar deleting dtor",
+  "symbol": "??_GModelDefParameterClass@@UAEPAXI@Z",
+  "length": 76,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x5104C0-0x510CC0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "DefParameterClass::Set_Value",
+  "symbol": "?Set_Value@DefParameterClass@@UAEXH@Z",
+  "length": 19,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x5104C0-0x510CC0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "GenericDefParameterClass::Is_Type",
+  "symbol": "?Is_Type@GenericDefParameterClass@@UBE_NW4Type@ParameterClass@@@Z",
+  "length": 15,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x5104C0-0x510CC0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "GenericDefParameterClass::Set_Class_ID",
+  "symbol": "?Set_Class_ID@GenericDefParameterClass@@UAEXH@Z",
+  "length": 17,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x5104C0-0x510CC0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "GenericDefParameterClass::scalar deleting dtor",
+  "symbol": "??_GGenericDefParameterClass@@UAEPAXI@Z",
+  "length": 62,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x5104C0-0x510CC0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "GameObjDefParameterClass::Is_Type",
+  "symbol": "?Is_Type@GameObjDefParameterClass@@UBE_NW4Type@ParameterClass@@@Z",
+  "length": 15,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x5104C0-0x510CC0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "GameObjDefParameterClass::Set_Base_Class",
+  "symbol": "?Set_Base_Class@GameObjDefParameterClass@@UAEXPBD@Z",
+  "length": 99,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x5104C0-0x510CC0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "GameObjDefParameterClass::scalar deleting dtor",
+  "symbol": "??_GGameObjDefParameterClass@@UAEPAXI@Z",
+  "length": 76,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x5104C0-0x510CC0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "AmmoObjDefParameterClass::Is_Type",
+  "symbol": "?Is_Type@AmmoObjDefParameterClass@@UBE_NW4Type@ParameterClass@@@Z",
+  "length": 27,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x5104C0-0x510CC0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "AmmoObjDefParameterClass::scalar deleting dtor",
+  "symbol": "??_GAmmoObjDefParameterClass@@UAEPAXI@Z",
+  "length": 76,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x5104C0-0x510CC0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "WeaponObjDefParameterClass::Is_Type",
+  "symbol": "?Is_Type@WeaponObjDefParameterClass@@UBE_NW4Type@ParameterClass@@@Z",
+  "length": 27,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x5104C0-0x510CC0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "WeaponObjDefParameterClass::scalar deleting dtor",
+  "symbol": "??_GWeaponObjDefParameterClass@@UAEPAXI@Z",
+  "length": 76,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x5104C0-0x510CC0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "ExplosionObjDefParameterClass::Is_Type",
+  "symbol": "?Is_Type@ExplosionObjDefParameterClass@@UBE_NW4Type@ParameterClass@@@Z",
+  "length": 27,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x5104C0-0x510CC0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "ExplosionObjDefParameterClass::scalar deleting dtor",
+  "symbol": "??_GExplosionObjDefParameterClass@@UAEPAXI@Z",
+  "length": 76,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x5104C0-0x510CC0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "SoundDefParameterClass::Is_Type",
+  "symbol": "?Is_Type@SoundDefParameterClass@@UBE_NW4Type@ParameterClass@@@Z",
+  "length": 15,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x5104C0-0x510CC0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "SoundDefParameterClass::scalar deleting dtor",
+  "symbol": "??_GSoundDefParameterClass@@UAEPAXI@Z",
+  "length": 62,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x5104C0-0x510CC0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "DefIDListParameterClass::Is_Type",
+  "symbol": "?Is_Type@DefIDListParameterClass@@UBE_NW4Type@ParameterClass@@@Z",
+  "length": 15,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x5104C0-0x510CC0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "DefIDListParameterClass::scalar deleting dtor",
+  "symbol": "??_GDefIDListParameterClass@@UAEPAXI@Z",
+  "length": 62,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x5104C0-0x510CC0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "ZoneParameterClass::Is_Type",
+  "symbol": "?Is_Type@ZoneParameterClass@@UBE_NW4Type@ParameterClass@@@Z",
+  "length": 15,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x5104C0-0x510CC0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "ZoneParameterClass::Set_Zone",
+  "symbol": "?Set_Zone@ZoneParameterClass@@UAEXABVOBBoxClass@@@Z",
+  "length": 107,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x5104C0-0x510CC0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "ZoneParameterClass::scalar deleting dtor",
+  "symbol": "??_GZoneParameterClass@@UAEPAXI@Z",
+  "length": 62,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x5104C0-0x510CC0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "SeparatorParameterClass::SeparatorParameterClass",
+  "symbol": "??0SeparatorParameterClass@@QAE@XZ",
+  "length": 52,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x5104C0-0x510CC0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "SeparatorParameterClass::Is_Type",
+  "symbol": "?Is_Type@SeparatorParameterClass@@UBE_NW4Type@ParameterClass@@@Z",
+  "length": 15,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x5104C0-0x510CC0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "SeparatorParameterClass::scalar deleting dtor",
+  "symbol": "??_GSeparatorParameterClass@@UAEPAXI@Z",
+  "length": 62,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x5104C0-0x510CC0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "IntParameterClass::scalar deleting dtor",
+  "symbol": "??_GIntParameterClass@@UAEPAXI@Z",
+  "length": 62,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x5104C0-0x510CC0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "FloatParameterClass::scalar deleting dtor",
+  "symbol": "??_GFloatParameterClass@@UAEPAXI@Z",
+  "length": 62,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x5104C0-0x510CC0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "AngleParameterClass::scalar deleting dtor",
+  "symbol": "??_GAngleParameterClass@@UAEPAXI@Z",
+  "length": 62,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x5104C0-0x510CC0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "StringParameterClass::StringParameterClass",
+  "symbol": "??0StringParameterClass@@QAE@PAVStringClass@@@Z",
+  "length": 61,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x5104C0-0x510CC0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "StringParameterClass::StringParameterClass",
+  "symbol": "??0StringParameterClass@@QAE@ABV0@@Z",
+  "length": 94,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x5104C0-0x510CC0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "StringParameterClass::operator=",
+  "symbol": "??4StringParameterClass@@QAEABV0@ABV0@@Z",
+  "length": 36,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x5104C0-0x510CC0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "StringParameterClass::operator==",
+  "symbol": "??8StringParameterClass@@QAE_NABV0@@Z",
+  "length": 78,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x5104C0-0x510CC0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "StringParameterClass::operator==",
+  "symbol": "??8StringParameterClass@@UAE_NABVParameterClass@@@Z",
+  "length": 115,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x5104C0-0x510CC0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "StringParameterClass::Copy_Value",
+  "symbol": "?Copy_Value@StringParameterClass@@UAEXABVParameterClass@@@Z",
+  "length": 104,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x5104C0-0x510CC0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "StringParameterClass::Get_String",
+  "symbol": "?Get_String@StringParameterClass@@UBEPBDXZ",
+  "length": 12,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x5104C0-0x510CC0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "StringParameterClass::Set_String",
+  "symbol": "?Set_String@StringParameterClass@@UAEXPBD@Z",
+  "length": 96,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x5104C0-0x510CC0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "FilenameParameterClass::FilenameParameterClass",
+  "symbol": "??0FilenameParameterClass@@QAE@PAVStringClass@@@Z",
+  "length": 134,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x5104C0-0x510CC0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "FilenameParameterClass::FilenameParameterClass",
+  "symbol": "??0FilenameParameterClass@@QAE@ABV0@@Z",
+  "length": 182,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x5104C0-0x510CC0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "ParameterClass::operator=",
+  "symbol": "??4ParameterClass@@QAEABV0@ABV0@@Z",
+  "length": 30,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x5104C0-0x510CC0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "FilenameParameterClass::operator=",
+  "symbol": "??4FilenameParameterClass@@QAEABV0@ABV0@@Z",
+  "length": 36,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x5104C0-0x510CC0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "FilenameParameterClass::operator==",
+  "symbol": "??8FilenameParameterClass@@QAE_NABV0@@Z",
+  "length": 78,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x5104C0-0x510CC0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "FilenameParameterClass::operator==",
+  "symbol": "??8FilenameParameterClass@@UAE_NABVParameterClass@@@Z",
+  "length": 115,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x5104C0-0x510CC0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "FilenameParameterClass::Copy_Value",
+  "symbol": "?Copy_Value@FilenameParameterClass@@UAEXABVParameterClass@@@Z",
+  "length": 132,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x5104C0-0x510CC0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "TextureFilenameParameterClass::TextureFilenameParameterClass",
+  "symbol": "??0TextureFilenameParameterClass@@QAE@PAVStringClass@@@Z",
+  "length": 133,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x5104C0-0x510CC0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "TextureFilenameParameterClass::TextureFilenameParameterClass",
+  "symbol": "??0TextureFilenameParameterClass@@QAE@ABV0@@Z",
+  "length": 183,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x5104C0-0x510CC0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "TextureFilenameParameterClass::Copy_Value",
+  "symbol": "?Copy_Value@TextureFilenameParameterClass@@UAEXABVParameterClass@@@Z",
+  "length": 132,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x5104C0-0x510CC0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "SoundFilenameParameterClass::SoundFilenameParameterClass",
+  "symbol": "??0SoundFilenameParameterClass@@QAE@PAVStringClass@@@Z",
+  "length": 134,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x5104C0-0x510CC0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "SoundFilenameParameterClass::SoundFilenameParameterClass",
+  "symbol": "??0SoundFilenameParameterClass@@QAE@ABV0@@Z",
+  "length": 187,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x5104C0-0x510CC0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "SoundFilenameParameterClass::operator=",
+  "symbol": "??4SoundFilenameParameterClass@@QAEABV0@ABV0@@Z",
+  "length": 36,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x5104C0-0x510CC0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "SoundFilenameParameterClass::operator==",
+  "symbol": "??8SoundFilenameParameterClass@@QAE_NABV0@@Z",
+  "length": 78,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x5104C0-0x510CC0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "EnumParameterClass::EnumParameterClass",
+  "symbol": "??0EnumParameterClass@@QAE@PAH@Z",
+  "length": 93,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x5104C0-0x510CC0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "EnumParameterClass::EnumParameterClass",
+  "symbol": "??0EnumParameterClass@@QAE@ABV0@@Z",
+  "length": 162,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x5104C0-0x510CC0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "EnumParameterClass::operator=",
+  "symbol": "??4EnumParameterClass@@QAEABV0@ABV0@@Z",
+  "length": 355,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x5104C0-0x510CC0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "_ENUM_VALUE::_ENUM_VALUE",
+  "symbol": "??0_ENUM_VALUE@EnumParameterClass@@QAE@PBDH@Z",
+  "length": 135,
+  "status": "none",
+  "address": "0x510D40",
+  "similarity": 0.02,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "EnumParameterClass::operator==",
+  "symbol": "??8EnumParameterClass@@QAE_NABV0@@Z",
+  "length": 35,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "EnumParameterClass::operator==",
+  "symbol": "??8EnumParameterClass@@UAE_NABVParameterClass@@@Z",
+  "length": 74,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "EnumParameterClass::Copy_Value",
+  "symbol": "?Copy_Value@EnumParameterClass@@UAEXABVParameterClass@@@Z",
+  "length": 38,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "EnumParameterClass::Add_Value",
+  "symbol": "?Add_Value@EnumParameterClass@@UAEXPBDH@Z",
+  "length": 313,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "EnumParameterClass::Add_Values",
+  "symbol": "?Add_Values@EnumParameterClass@@UAAXPBDHZZ",
+  "length": 430,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "PhysDefParameterClass::PhysDefParameterClass",
+  "symbol": "??0PhysDefParameterClass@@QAE@PAH@Z",
+  "length": 103,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "PhysDefParameterClass::PhysDefParameterClass",
+  "symbol": "??0PhysDefParameterClass@@QAE@ABV0@@Z",
+  "length": 131,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "PhysDefParameterClass::operator=",
+  "symbol": "??4PhysDefParameterClass@@QAEABV0@ABV0@@Z",
+  "length": 36,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "PhysDefParameterClass::operator==",
+  "symbol": "??8PhysDefParameterClass@@QAE_NABV0@@Z",
+  "length": 35,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "PhysDefParameterClass::operator==",
+  "symbol": "??8PhysDefParameterClass@@UAE_NABVParameterClass@@@Z",
+  "length": 74,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "ModelDefParameterClass::ModelDefParameterClass",
+  "symbol": "??0ModelDefParameterClass@@QAE@PAH@Z",
+  "length": 103,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "ModelDefParameterClass::ModelDefParameterClass",
+  "symbol": "??0ModelDefParameterClass@@QAE@ABV0@@Z",
+  "length": 131,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "ModelDefParameterClass::operator=",
+  "symbol": "??4ModelDefParameterClass@@QAEABV0@ABV0@@Z",
+  "length": 36,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "ModelDefParameterClass::operator==",
+  "symbol": "??8ModelDefParameterClass@@QAE_NABV0@@Z",
+  "length": 35,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "ModelDefParameterClass::operator==",
+  "symbol": "??8ModelDefParameterClass@@UAE_NABVParameterClass@@@Z",
+  "length": 74,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "DefParameterClass::DefParameterClass",
+  "symbol": "??0DefParameterClass@@QAE@PAH@Z",
+  "length": 61,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "DefParameterClass::scalar deleting dtor",
+  "symbol": "??_GDefParameterClass@@UAEPAXI@Z",
+  "length": 62,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "DefParameterClass::DefParameterClass",
+  "symbol": "??0DefParameterClass@@QAE@ABV0@@Z",
+  "length": 94,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "DefParameterClass::operator=",
+  "symbol": "??4DefParameterClass@@QAEABV0@ABV0@@Z",
+  "length": 36,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "DefParameterClass::operator==",
+  "symbol": "??8DefParameterClass@@QAE_NABV0@@Z",
+  "length": 35,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "DefParameterClass::operator==",
+  "symbol": "??8DefParameterClass@@UAE_NABVParameterClass@@@Z",
+  "length": 74,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "DefParameterClass::Copy_Value",
+  "symbol": "?Copy_Value@DefParameterClass@@UAEXABVParameterClass@@@Z",
+  "length": 47,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "GenericDefParameterClass::GenericDefParameterClass",
+  "symbol": "??0GenericDefParameterClass@@QAE@PAH@Z",
+  "length": 73,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "GenericDefParameterClass::GenericDefParameterClass",
+  "symbol": "??0GenericDefParameterClass@@QAE@ABV0@@Z",
+  "length": 120,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "GenericDefParameterClass::operator=",
+  "symbol": "??4GenericDefParameterClass@@QAEABV0@ABV0@@Z",
+  "length": 36,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "GenericDefParameterClass::operator==",
+  "symbol": "??8GenericDefParameterClass@@QAE_NABV0@@Z",
+  "length": 35,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "GenericDefParameterClass::operator==",
+  "symbol": "??8GenericDefParameterClass@@UAE_NABVParameterClass@@@Z",
+  "length": 74,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "GenericDefParameterClass::Copy_Value",
+  "symbol": "?Copy_Value@GenericDefParameterClass@@UAEXABVParameterClass@@@Z",
+  "length": 38,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "GameObjDefParameterClass::GameObjDefParameterClass",
+  "symbol": "??0GameObjDefParameterClass@@QAE@PAH@Z",
+  "length": 103,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "GameObjDefParameterClass::GameObjDefParameterClass",
+  "symbol": "??0GameObjDefParameterClass@@QAE@ABV0@@Z",
+  "length": 159,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "GameObjDefParameterClass::operator=",
+  "symbol": "??4GameObjDefParameterClass@@QAEABV0@ABV0@@Z",
+  "length": 36,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "GameObjDefParameterClass::operator==",
+  "symbol": "??8GameObjDefParameterClass@@QAE_NABV0@@Z",
+  "length": 35,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "GameObjDefParameterClass::operator==",
+  "symbol": "??8GameObjDefParameterClass@@UAE_NABVParameterClass@@@Z",
+  "length": 74,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "GameObjDefParameterClass::Copy_Value",
+  "symbol": "?Copy_Value@GameObjDefParameterClass@@UAEXABVParameterClass@@@Z",
+  "length": 38,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "WeaponObjDefParameterClass::WeaponObjDefParameterClass",
+  "symbol": "??0WeaponObjDefParameterClass@@QAE@PAH@Z",
+  "length": 103,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "WeaponObjDefParameterClass::WeaponObjDefParameterClass",
+  "symbol": "??0WeaponObjDefParameterClass@@QAE@ABV0@@Z",
+  "length": 131,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "WeaponObjDefParameterClass::operator=",
+  "symbol": "??4WeaponObjDefParameterClass@@QAEABV0@ABV0@@Z",
+  "length": 36,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "WeaponObjDefParameterClass::operator==",
+  "symbol": "??8WeaponObjDefParameterClass@@QAE_NABV0@@Z",
+  "length": 35,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "WeaponObjDefParameterClass::operator==",
+  "symbol": "??8WeaponObjDefParameterClass@@UAE_NABVParameterClass@@@Z",
+  "length": 74,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "WeaponObjDefParameterClass::Copy_Value",
+  "symbol": "?Copy_Value@WeaponObjDefParameterClass@@UAEXABVParameterClass@@@Z",
+  "length": 63,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "AmmoObjDefParameterClass::AmmoObjDefParameterClass",
+  "symbol": "??0AmmoObjDefParameterClass@@QAE@PAH@Z",
+  "length": 103,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "AmmoObjDefParameterClass::AmmoObjDefParameterClass",
+  "symbol": "??0AmmoObjDefParameterClass@@QAE@ABV0@@Z",
+  "length": 131,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "AmmoObjDefParameterClass::operator=",
+  "symbol": "??4AmmoObjDefParameterClass@@QAEABV0@ABV0@@Z",
+  "length": 36,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "AmmoObjDefParameterClass::operator==",
+  "symbol": "??8AmmoObjDefParameterClass@@QAE_NABV0@@Z",
+  "length": 35,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "AmmoObjDefParameterClass::operator==",
+  "symbol": "??8AmmoObjDefParameterClass@@UAE_NABVParameterClass@@@Z",
+  "length": 74,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "AmmoObjDefParameterClass::Copy_Value",
+  "symbol": "?Copy_Value@AmmoObjDefParameterClass@@UAEXABVParameterClass@@@Z",
+  "length": 63,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "ExplosionObjDefParameterClass::ExplosionObjDefParameterClass",
+  "symbol": "??0ExplosionObjDefParameterClass@@QAE@PAH@Z",
+  "length": 103,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "ExplosionObjDefParameterClass::ExplosionObjDefParameterClass",
+  "symbol": "??0ExplosionObjDefParameterClass@@QAE@ABV0@@Z",
+  "length": 131,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "ExplosionObjDefParameterClass::operator=",
+  "symbol": "??4ExplosionObjDefParameterClass@@QAEABV0@ABV0@@Z",
+  "length": 36,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "ExplosionObjDefParameterClass::operator==",
+  "symbol": "??8ExplosionObjDefParameterClass@@QAE_NABV0@@Z",
+  "length": 35,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "ExplosionObjDefParameterClass::operator==",
+  "symbol": "??8ExplosionObjDefParameterClass@@UAE_NABVParameterClass@@@Z",
+  "length": 74,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "ExplosionObjDefParameterClass::Copy_Value",
+  "symbol": "?Copy_Value@ExplosionObjDefParameterClass@@UAEXABVParameterClass@@@Z",
+  "length": 63,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "SoundDefParameterClass::SoundDefParameterClass",
+  "symbol": "??0SoundDefParameterClass@@QAE@PAH@Z",
+  "length": 61,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "SoundDefParameterClass::SoundDefParameterClass",
+  "symbol": "??0SoundDefParameterClass@@QAE@ABV0@@Z",
+  "length": 124,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "SoundDefParameterClass::operator=",
+  "symbol": "??4SoundDefParameterClass@@QAEABV0@ABV0@@Z",
+  "length": 36,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "SoundDefParameterClass::operator==",
+  "symbol": "??8SoundDefParameterClass@@QAE_NABV0@@Z",
+  "length": 35,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "SoundDefParameterClass::operator==",
+  "symbol": "??8SoundDefParameterClass@@UAE_NABVParameterClass@@@Z",
+  "length": 74,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "ScriptParameterClass::ScriptParameterClass",
+  "symbol": "??0ScriptParameterClass@@QAE@PAVStringClass@@0@Z",
+  "length": 68,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "ScriptParameterClass::Is_Type",
+  "symbol": "?Is_Type@ScriptParameterClass@@UBE_NW4Type@ParameterClass@@@Z",
+  "length": 15,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "ScriptParameterClass::Set_Script_Name",
+  "symbol": "?Set_Script_Name@ScriptParameterClass@@UAEXPBD@Z",
+  "length": 99,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "ScriptParameterClass::Set_Params",
+  "symbol": "?Set_Params@ScriptParameterClass@@UAEXPBD@Z",
+  "length": 99,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "ScriptParameterClass::scalar deleting dtor",
+  "symbol": "??_GScriptParameterClass@@UAEPAXI@Z",
+  "length": 62,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "ScriptParameterClass::ScriptParameterClass",
+  "symbol": "??0ScriptParameterClass@@QAE@ABV0@@Z",
+  "length": 96,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "ScriptParameterClass::operator=",
+  "symbol": "??4ScriptParameterClass@@QAEABV0@ABV0@@Z",
+  "length": 42,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "ScriptParameterClass::operator==",
+  "symbol": "??8ScriptParameterClass@@QAE_NABV0@@Z",
+  "length": 146,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "ScriptParameterClass::operator==",
+  "symbol": "??8ScriptParameterClass@@UAE_NABVParameterClass@@@Z",
+  "length": 187,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "ScriptParameterClass::Copy_Value",
+  "symbol": "?Copy_Value@ScriptParameterClass@@UAEXABVParameterClass@@@Z",
+  "length": 201,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "DefIDListParameterClass::DefIDListParameterClass",
+  "symbol": "??0DefIDListParameterClass@@QAE@PAV?$DynamicVectorClass@H@@@Z",
+  "length": 69,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "DefIDListParameterClass::DefIDListParameterClass",
+  "symbol": "??0DefIDListParameterClass@@QAE@ABV0@@Z",
+  "length": 105,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "DefIDListParameterClass::operator=",
+  "symbol": "??4DefIDListParameterClass@@QAEABV0@ABV0@@Z",
+  "length": 48,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "DefIDListParameterClass::operator==",
+  "symbol": "??8DefIDListParameterClass@@QAE_NABV0@@Z",
+  "length": 84,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "DefIDListParameterClass::operator==",
+  "symbol": "??8DefIDListParameterClass@@UAE_NABVParameterClass@@@Z",
+  "length": 56,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "DefIDListParameterClass::Copy_Value",
+  "symbol": "?Copy_Value@DefIDListParameterClass@@UAEXABVParameterClass@@@Z",
+  "length": 285,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "ZoneParameterClass::ZoneParameterClass",
+  "symbol": "??0ZoneParameterClass@@QAE@PAVOBBoxClass@@@Z",
+  "length": 61,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "ZoneParameterClass::ZoneParameterClass",
+  "symbol": "??0ZoneParameterClass@@QAE@ABV0@@Z",
+  "length": 94,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "ZoneParameterClass::operator=",
+  "symbol": "??4ZoneParameterClass@@QAEABV0@ABV0@@Z",
+  "length": 36,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "ZoneParameterClass::operator==",
+  "symbol": "??8ZoneParameterClass@@QAE_NABV0@@Z",
+  "length": 251,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "ZoneParameterClass::operator==",
+  "symbol": "??8ZoneParameterClass@@UAE_NABVParameterClass@@@Z",
+  "length": 300,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "ZoneParameterClass::Copy_Value",
+  "symbol": "?Copy_Value@ZoneParameterClass@@UAEXABVParameterClass@@@Z",
+  "length": 245,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "FilenameListParameterClass::FilenameListParameterClass",
+  "symbol": "??0FilenameListParameterClass@@QAE@PAV?$DynamicVectorClass@VStringClass@@@@@Z",
+  "length": 61,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "FilenameListParameterClass::Is_Type",
+  "symbol": "?Is_Type@FilenameListParameterClass@@UBE_NW4Type@ParameterClass@@@Z",
+  "length": 15,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "FilenameListParameterClass::scalar deleting dtor",
+  "symbol": "??_GFilenameListParameterClass@@UAEPAXI@Z",
+  "length": 62,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "FilenameListParameterClass::FilenameListParameterClass",
+  "symbol": "??0FilenameListParameterClass@@QAE@ABV0@@Z",
+  "length": 94,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "FilenameListParameterClass::operator=",
+  "symbol": "??4FilenameListParameterClass@@QAEABV0@ABV0@@Z",
+  "length": 36,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "FilenameListParameterClass::operator==",
+  "symbol": "??8FilenameListParameterClass@@QAE_NABV0@@Z",
+  "length": 100,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "FilenameListParameterClass::operator==",
+  "symbol": "??8FilenameListParameterClass@@UAE_NABVParameterClass@@@Z",
+  "length": 56,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "FilenameListParameterClass::Copy_Value",
+  "symbol": "?Copy_Value@FilenameListParameterClass@@UAEXABVParameterClass@@@Z",
+  "length": 179,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "ScriptListParameterClass::ScriptListParameterClass",
+  "symbol": "??0ScriptListParameterClass@@QAE@PAV?$DynamicVectorClass@VStringClass@@@@0@Z",
+  "length": 68,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "ScriptListParameterClass::Is_Type",
+  "symbol": "?Is_Type@ScriptListParameterClass@@UBE_NW4Type@ParameterClass@@@Z",
+  "length": 15,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "ScriptListParameterClass::scalar deleting dtor",
+  "symbol": "??_GScriptListParameterClass@@UAEPAXI@Z",
+  "length": 62,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "ScriptListParameterClass::ScriptListParameterClass",
+  "symbol": "??0ScriptListParameterClass@@QAE@ABV0@@Z",
+  "length": 96,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "ScriptListParameterClass::operator=",
+  "symbol": "??4ScriptListParameterClass@@QAEABV0@ABV0@@Z",
+  "length": 42,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "ScriptListParameterClass::operator==",
+  "symbol": "??8ScriptListParameterClass@@QAE_NABV0@@Z",
+  "length": 227,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "ScriptListParameterClass::Are_Lists_Identical",
+  "symbol": "?Are_Lists_Identical@ScriptListParameterClass@@IAE_NAAV?$DynamicVectorClass@VStringClass@@@@0@Z",
+  "length": 80,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "ScriptListParameterClass::operator==",
+  "symbol": "??8ScriptListParameterClass@@UAE_NABVParameterClass@@@Z",
+  "length": 253,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "ScriptListParameterClass::Copy_Value",
+  "symbol": "?Copy_Value@ScriptListParameterClass@@UAEXABVParameterClass@@@Z",
+  "length": 392,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "SeparatorParameterClass::SeparatorParameterClass",
+  "symbol": "??0SeparatorParameterClass@@QAE@ABV0@@Z",
+  "length": 76,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "SeparatorParameterClass::operator=",
+  "symbol": "??4SeparatorParameterClass@@QAEABV0@ABV0@@Z",
+  "length": 30,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "SeparatorParameterClass::operator==",
+  "symbol": "??8SeparatorParameterClass@@UAE_NABVParameterClass@@@Z",
+  "length": 39,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "??4?$VectorClass@U_ENUM_VALUE@EnumParameterClass@@@@QAEAAV0@ABV0@@Z",
+  "symbol": "??4?$VectorClass@U_ENUM_VALUE@EnumParameterClass@@@@QAEAAV0@ABV0@@Z",
+  "length": 311,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "?Resize@?$VectorClass@U_ENUM_VALUE@EnumParameterClass@@@@UAE_NHPBU_ENUM_VALUE@EnumParameterClass@@@Z",
+  "symbol": "?Resize@?$VectorClass@U_ENUM_VALUE@EnumParameterClass@@@@UAE_NHPBU_ENUM_VALUE@EnumParameterClass@@@Z",
+  "length": 481,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "??0?$DynamicVectorClass@U_ENUM_VALUE@EnumParameterClass@@@@QAE@IPBU_ENUM_VALUE@EnumParameterClass@@@Z",
+  "symbol": "??0?$DynamicVectorClass@U_ENUM_VALUE@EnumParameterClass@@@@QAE@IPBU_ENUM_VALUE@EnumParameterClass@@@Z",
+  "length": 166,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "?Resize@?$DynamicVectorClass@U_ENUM_VALUE@EnumParameterClass@@@@UAE_NHPBU_ENUM_VALUE@EnumParameterClass@@@Z",
+  "symbol": "?Resize@?$DynamicVectorClass@U_ENUM_VALUE@EnumParameterClass@@@@UAE_NHPBU_ENUM_VALUE@EnumParameterClass@@@Z",
+  "length": 341,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "??0?$SimpleParameterClass@H$0A@@@QAE@PAXPBD@Z",
+  "symbol": "??0?$SimpleParameterClass@H$0A@@@QAE@PAXPBD@Z",
+  "length": 123,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "??8?$SimpleParameterClass@H$0A@@@UAE_NABVParameterClass@@@Z",
+  "symbol": "??8?$SimpleParameterClass@H$0A@@@UAE_NABVParameterClass@@@Z",
+  "length": 63,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "?Copy_Value@?$SimpleParameterClass@H$0A@@@UAEXABVParameterClass@@@Z",
+  "symbol": "?Copy_Value@?$SimpleParameterClass@H$0A@@@UAEXABVParameterClass@@@Z",
+  "length": 45,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "??0?$SimpleParameterClass@M$00@@QAE@PAXPBD@Z",
+  "symbol": "??0?$SimpleParameterClass@M$00@@QAE@PAXPBD@Z",
+  "length": 123,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "??8?$SimpleParameterClass@M$00@@UAE_NABVParameterClass@@@Z",
+  "symbol": "??8?$SimpleParameterClass@M$00@@UAE_NABVParameterClass@@@Z",
+  "length": 76,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "?Copy_Value@?$SimpleParameterClass@M$00@@UAEXABVParameterClass@@@Z",
+  "symbol": "?Copy_Value@?$SimpleParameterClass@M$00@@UAEXABVParameterClass@@@Z",
+  "length": 45,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "??0?$SimpleParameterClass@M$0N@@@QAE@PAXPBD@Z",
+  "symbol": "??0?$SimpleParameterClass@M$0N@@@QAE@PAXPBD@Z",
+  "length": 123,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "??8?$SimpleParameterClass@M$0N@@@UAE_NABVParameterClass@@@Z",
+  "symbol": "??8?$SimpleParameterClass@M$0N@@@UAE_NABVParameterClass@@@Z",
+  "length": 76,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "?Copy_Value@?$SimpleParameterClass@M$0N@@@UAEXABVParameterClass@@@Z",
+  "symbol": "?Copy_Value@?$SimpleParameterClass@M$0N@@@UAEXABVParameterClass@@@Z",
+  "length": 45,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "??8?$SimpleParameterClass@VVector2@@$0BK@@@UAE_NABVParameterClass@@@Z",
+  "symbol": "??8?$SimpleParameterClass@VVector2@@$0BK@@@UAE_NABVParameterClass@@@Z",
+  "length": 99,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "?Copy_Value@?$SimpleParameterClass@VVector2@@$0BK@@@UAEXABVParameterClass@@@Z",
+  "symbol": "?Copy_Value@?$SimpleParameterClass@VVector2@@$0BK@@@UAEXABVParameterClass@@@Z",
+  "length": 51,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "??8?$SimpleParameterClass@VVector3@@$02@@UAE_NABVParameterClass@@@Z",
+  "symbol": "??8?$SimpleParameterClass@VVector3@@$02@@UAE_NABVParameterClass@@@Z",
+  "length": 102,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "?Copy_Value@?$SimpleParameterClass@VVector3@@$02@@UAEXABVParameterClass@@@Z",
+  "symbol": "?Copy_Value@?$SimpleParameterClass@VVector3@@$02@@UAEXABVParameterClass@@@Z",
+  "length": 57,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "??8?$SimpleParameterClass@VRectClass@@$0BL@@@UAE_NABVParameterClass@@@Z",
+  "symbol": "??8?$SimpleParameterClass@VRectClass@@$0BL@@@UAE_NABVParameterClass@@@Z",
+  "length": 115,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "?Copy_Value@?$SimpleParameterClass@VRectClass@@$0BL@@@UAEXABVParameterClass@@@Z",
+  "symbol": "?Copy_Value@?$SimpleParameterClass@VRectClass@@$0BL@@@UAEXABVParameterClass@@@Z",
+  "length": 63,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "??8?$SimpleParameterClass@VVector3@@$0BB@@@UAE_NABVParameterClass@@@Z",
+  "symbol": "??8?$SimpleParameterClass@VVector3@@$0BB@@@UAE_NABVParameterClass@@@Z",
+  "length": 102,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "?Copy_Value@?$SimpleParameterClass@VVector3@@$0BB@@@UAEXABVParameterClass@@@Z",
+  "symbol": "?Copy_Value@?$SimpleParameterClass@VVector3@@$0BB@@@UAEXABVParameterClass@@@Z",
+  "length": 57,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "??8?$SimpleParameterClass@VMatrix3D@@$03@@UAE_NABVParameterClass@@@Z",
+  "symbol": "??8?$SimpleParameterClass@VMatrix3D@@$03@@UAE_NABVParameterClass@@@Z",
+  "length": 121,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "?Copy_Value@?$SimpleParameterClass@VMatrix3D@@$03@@UAEXABVParameterClass@@@Z",
+  "symbol": "?Copy_Value@?$SimpleParameterClass@VMatrix3D@@$03@@UAEXABVParameterClass@@@Z",
+  "length": 111,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "??8?$SimpleParameterClass@_N$04@@UAE_NABVParameterClass@@@Z",
+  "symbol": "??8?$SimpleParameterClass@_N$04@@UAE_NABVParameterClass@@@Z",
+  "length": 63,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "?Copy_Value@?$SimpleParameterClass@_N$04@@UAEXABVParameterClass@@@Z",
+  "symbol": "?Copy_Value@?$SimpleParameterClass@_N$04@@UAEXABVParameterClass@@@Z",
+  "length": 45,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "??8?$SimpleParameterClass@H$0BN@@@UAE_NABVParameterClass@@@Z",
+  "symbol": "??8?$SimpleParameterClass@H$0BN@@@UAE_NABVParameterClass@@@Z",
+  "length": 63,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "?Copy_Value@?$SimpleParameterClass@H$0BN@@@UAEXABVParameterClass@@@Z",
+  "symbol": "?Copy_Value@?$SimpleParameterClass@H$0BN@@@UAEXABVParameterClass@@@Z",
+  "length": 45,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "??4?$VectorClass@VStringClass@@@@QAEAAV0@ABV0@@Z",
+  "symbol": "??4?$VectorClass@VStringClass@@@@QAEAAV0@ABV0@@Z",
+  "length": 327,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "??_G?$SimpleParameterClass@H$0A@@@UAEPAXI@Z",
+  "symbol": "??_G?$SimpleParameterClass@H$0A@@@UAEPAXI@Z",
+  "length": 62,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "??_G?$SimpleParameterClass@M$00@@UAEPAXI@Z",
+  "symbol": "??_G?$SimpleParameterClass@M$00@@UAEPAXI@Z",
+  "length": 62,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "??_G?$SimpleParameterClass@M$0N@@@UAEPAXI@Z",
+  "symbol": "??_G?$SimpleParameterClass@M$0N@@@UAEPAXI@Z",
+  "length": 62,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "??_G?$SimpleParameterClass@VVector2@@$0BK@@@UAEPAXI@Z",
+  "symbol": "??_G?$SimpleParameterClass@VVector2@@$0BK@@@UAEPAXI@Z",
+  "length": 62,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "??_G?$SimpleParameterClass@VVector3@@$02@@UAEPAXI@Z",
+  "symbol": "??_G?$SimpleParameterClass@VVector3@@$02@@UAEPAXI@Z",
+  "length": 62,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "??_G?$SimpleParameterClass@VRectClass@@$0BL@@@UAEPAXI@Z",
+  "symbol": "??_G?$SimpleParameterClass@VRectClass@@$0BL@@@UAEPAXI@Z",
+  "length": 62,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "??_G?$SimpleParameterClass@VVector3@@$0BB@@@UAEPAXI@Z",
+  "symbol": "??_G?$SimpleParameterClass@VVector3@@$0BB@@@UAEPAXI@Z",
+  "length": 62,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "??_G?$SimpleParameterClass@VMatrix3D@@$03@@UAEPAXI@Z",
+  "symbol": "??_G?$SimpleParameterClass@VMatrix3D@@$03@@UAEPAXI@Z",
+  "length": 62,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "??_G?$SimpleParameterClass@_N$04@@UAEPAXI@Z",
+  "symbol": "??_G?$SimpleParameterClass@_N$04@@UAEPAXI@Z",
+  "length": 62,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "??_G?$SimpleParameterClass@H$0BN@@@UAEPAXI@Z",
+  "symbol": "??_G?$SimpleParameterClass@H$0BN@@@UAEPAXI@Z",
+  "length": 62,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "parameter.obj",
+  "function": "StringClass::vector deleting dtor",
+  "symbol": "??_EStringClass@@QAEPAXI@Z",
+  "length": 94,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "saveload.obj",
+  "function": "?Allocate_Object_Memory@?$ObjectPoolClass@VGenericSLNode@@$0BAA@@@QAEPAVGenericSLNode@@XZ",
+  "symbol": "?Allocate_Object_Memory@?$ObjectPoolClass@VGenericSLNode@@$0BAA@@@QAEPAVGenericSLNode@@XZ",
+  "length": 126,
+  "status": "none",
+  "address": "0xA044E0",
+  "similarity": 0.3,
+  "window": "0xA04310-0xA04B10"
+ }
+]

@@ -1,0 +1,172 @@
+[
+ {
+  "object": "wwmemlog.obj",
+  "function": "MemLogClass::Init",
+  "symbol": "?Init@MemLogClass@@QAEXXZ",
+  "length": 257,
+  "status": "none",
+  "address": "0x9ED2C0",
+  "similarity": 0.62,
+  "window": "0x9ED2C0-0x9ED4B0"
+ },
+ {
+  "object": "wwmemlog.obj",
+  "function": "MemLogClass::Register_Memory_Allocated",
+  "symbol": "?Register_Memory_Allocated@MemLogClass@@QAEHH@Z",
+  "length": 219,
+  "status": "none",
+  "address": "0x9ED3D0",
+  "similarity": 0.66,
+  "window": "0x9ED2C0-0x9ED4B0"
+ },
+ {
+  "object": "wwmemlog.obj",
+  "function": "MemLogClass::Push_Active_Category",
+  "symbol": "?Push_Active_Category@MemLogClass@@QAEXH@Z",
+  "length": 209,
+  "status": "none",
+  "address": "0x9ED540",
+  "similarity": 0.69,
+  "window": "0x9ED540-0x9EDB50"
+ },
+ {
+  "object": "wwmemlog.obj",
+  "function": "MemLogClass::Pop_Active_Category",
+  "symbol": "?Pop_Active_Category@MemLogClass@@QAEXXZ",
+  "length": 191,
+  "status": "none",
+  "address": "0x9ED620",
+  "similarity": 0.59,
+  "window": "0x9ED540-0x9EDB50"
+ },
+ {
+  "object": "wwmemlog.obj",
+  "function": "WWMemoryLogClass::Get_Current_Allocated_Memory",
+  "symbol": "?Get_Current_Allocated_Memory@WWMemoryLogClass@@SAHH@Z",
+  "length": 281,
+  "status": "none",
+  "address": "0x9ED700",
+  "similarity": 0.6,
+  "window": "0x9ED540-0x9EDB50"
+ },
+ {
+  "object": "wwmemlog.obj",
+  "function": "WWMemoryLogClass::Get_Peak_Allocated_Memory",
+  "symbol": "?Get_Peak_Allocated_Memory@WWMemoryLogClass@@SAHH@Z",
+  "length": 282,
+  "status": "none",
+  "address": "0x9ED870",
+  "similarity": 0.6,
+  "window": "0x9ED540-0x9EDB50"
+ },
+ {
+  "object": "wwmemlog.obj",
+  "function": "WWMemoryLogClass::Register_Memory_Allocated",
+  "symbol": "?Register_Memory_Allocated@WWMemoryLogClass@@SAHH@Z",
+  "length": 407,
+  "status": "none",
+  "address": "0x9ED9B0",
+  "similarity": 0.6,
+  "window": "0x9ED540-0x9EDB50"
+ },
+ {
+  "object": "wwmemlog.obj",
+  "function": "WWMemoryLogClass::Register_Memory_Released",
+  "symbol": "?Register_Memory_Released@WWMemoryLogClass@@SAXHH@Z",
+  "length": 288,
+  "status": "none",
+  "address": "0x9EDB80",
+  "similarity": 0.37,
+  "window": "0x9EDB80-0x9EDDC0"
+ },
+ {
+  "object": "wwmemlog.obj",
+  "function": "WWMemoryLogClass::Get_Log",
+  "symbol": "?Get_Log@WWMemoryLogClass@@KAPAVMemLogClass@@XZ",
+  "length": 276,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x9EDB80-0x9EDDC0"
+ },
+ {
+  "object": "wwmemlog.obj",
+  "function": "WWMemoryLogClass::Release_Log",
+  "symbol": "?Release_Log@WWMemoryLogClass@@KAXXZ",
+  "length": 156,
+  "status": "none",
+  "address": "0x9EDE10",
+  "similarity": 0.58,
+  "window": "0x9EDE10-0x9EE260"
+ },
+ {
+  "object": "wwmemlog.obj",
+  "function": "WWMemoryLogClass::Allocate_Memory",
+  "symbol": "?Allocate_Memory@WWMemoryLogClass@@SAPAXI@Z",
+  "length": 282,
+  "status": "none",
+  "address": "0x9EE1D0",
+  "similarity": 0.21,
+  "window": "0x9EDE10-0x9EE260"
+ },
+ {
+  "object": "wwmemlog.obj",
+  "function": "WWMemoryLogClass::Release_Memory",
+  "symbol": "?Release_Memory@WWMemoryLogClass@@SAXPAX@Z",
+  "length": 168,
+  "status": "none",
+  "address": "0x9EDF00",
+  "similarity": 0.24,
+  "window": "0x9EDE10-0x9EE260"
+ },
+ {
+  "object": "wwmemlog.obj",
+  "function": "WWMemoryLogClass::Init",
+  "symbol": "?Init@WWMemoryLogClass@@SAXXZ",
+  "length": 433,
+  "status": "none",
+  "address": "0x9EDF20",
+  "similarity": 0.55,
+  "window": "0x9EDE10-0x9EE260"
+ },
+ {
+  "object": "wwprofile.obj",
+  "function": "WWProfileManager::Load_Profile_Log",
+  "symbol": "?Load_Profile_Log@WWProfileManager@@SAXPBDAAPAPAVWWProfileHierachyInfoClass@@AAI@Z",
+  "length": 1165,
+  "status": "none",
+  "address": "0x9EB4C0",
+  "similarity": 0.86,
+  "window": "0x9EB4C0-0x9EB950"
+ },
+ {
+  "object": "wwprofile.obj",
+  "function": "WWMemoryAndTimeLog::WWMemoryAndTimeLog",
+  "symbol": "??0WWMemoryAndTimeLog@@QAE@PBD@Z",
+  "length": 556,
+  "status": "none",
+  "address": "0x9EBBA0",
+  "similarity": 0.49,
+  "window": "0x9EBBA0-0x9EC0C0"
+ },
+ {
+  "object": "wwprofile.obj",
+  "function": "WWMemoryAndTimeLog::~WWMemoryAndTimeLog",
+  "symbol": "??1WWMemoryAndTimeLog@@QAE@XZ",
+  "length": 493,
+  "status": "none",
+  "address": "0x9EBD80",
+  "similarity": 0.49,
+  "window": "0x9EBBA0-0x9EC0C0"
+ },
+ {
+  "object": "wwprofile.obj",
+  "function": "WWMemoryAndTimeLog::Log_Intermediate",
+  "symbol": "?Log_Intermediate@WWMemoryAndTimeLog@@QAEXPBD@Z",
+  "length": 487,
+  "status": "none",
+  "address": "0x9EBF20",
+  "similarity": 0.55,
+  "window": "0x9EBBA0-0x9EC0C0"
+ }
+]

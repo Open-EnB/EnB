@@ -142,8 +142,27 @@ const char* CPUDetectClass::Get_Processor_Manufacturer_Name()
 	return ManufacturerNames[ProcessorManufacturer];
 }
 
+//
+//	RDTSC (bytes 0F 31) loads the processor's cycle counter into EDX:EAX. It is emitted as raw
+//	bytes because VC6's inline assembler predates the mnemonic. Modern MSVC: __rdtsc().
+//
 #define ASM_RDTSC _asm _emit 0x0f _asm _emit 0x31
 
+//
+//	C equivalent:
+//
+//		t0 = __rdtsc();
+//		start = timeGetTime();
+//		while ((elapsed = timeGetTime() - start) < 200) t1 = __rdtsc();
+//		t = t1 - t0;
+//		ticks_per_second = 5 * t;			// cycles in 200 ms, times 5
+//		return t / (elapsed * 1000);		// MHz
+//
+//	Note: the blocks store EAX (the low half) in the fields named *_h and EDX (the high half) in
+//	*_l. Because each _h field comes first in memory, reading &timerN_h as an __int64 is still
+//	right; only the names are swapped.
+//	Why assembly: RDTSC has no C equivalent in VC6.
+//
 static unsigned Calculate_Processor_Speed(__int64& ticks_per_second)
 {
 	struct {
@@ -825,6 +844,15 @@ void CPUDetectClass::Init_Processor_String()
 
 }
 
+//
+//	C equivalent:
+//
+//		cpuid_available = (bit 21 of EFLAGS can be changed);
+//
+//	The block saves EFLAGS, flips the ID bit (0x00200000), reads EFLAGS back to see whether the flip
+//	held, and restores them. Processors without CPUID (386, early 486) don't let the bit change.
+//	Why assembly: C has no access to EFLAGS.
+//
 void CPUDetectClass::Init_CPUID_Instruction()
 {
 	unsigned long cpuid_available=0;
@@ -908,6 +936,17 @@ void CPUDetectClass::Init_OS()
 	OSVersionExtraInfo=os.szCSDVersion;
 }
 
+//
+//	C equivalent (modern MSVC):
+//
+//		int r[4];
+//		__cpuid(r, cpuid_type);
+//		u_eax_ = r[0]; u_ebx_ = r[1]; u_ecx_ = r[2]; u_edx_ = r[3];
+//
+//	pushad/popad keep every register intact, since CPUID overwrites EBX, which the compiler expects
+//	to be preserved.
+//	Why assembly: VC6 had no CPUID intrinsic.
+//
 bool CPUDetectClass::CPUID(
 	unsigned& u_eax_,
 	unsigned& u_ebx_,

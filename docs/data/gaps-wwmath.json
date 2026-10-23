@@ -1,0 +1,522 @@
+[
+ {
+  "object": "cardinalspline.obj",
+  "function": "?Resize@?$DynamicVectorClass@VTangentsClass@HermiteSpline3DClass@@@@UAE_NHPBVTangentsClass@HermiteSpline3DClass@@@Z",
+  "symbol": "?Resize@?$DynamicVectorClass@VTangentsClass@HermiteSpline3DClass@@@@UAE_NHPBVTangentsClass@HermiteSpline3DClass@@@Z",
+  "length": 276,
+  "status": "none",
+  "address": "0x6F2120",
+  "similarity": 0.53,
+  "window": "0x6F20F0-0x6F22A0"
+ },
+ {
+  "object": "cardinalspline.obj",
+  "function": "?Resize@?$VectorClass@VTangentsClass@HermiteSpline3DClass@@@@UAE_NHPBVTangentsClass@HermiteSpline3DClass@@@Z",
+  "symbol": "?Resize@?$VectorClass@VTangentsClass@HermiteSpline3DClass@@@@UAE_NHPBVTangentsClass@HermiteSpline3DClass@@@Z",
+  "length": 249,
+  "status": "none",
+  "address": "0x6F2260",
+  "similarity": 0.19,
+  "window": "0x6F20F0-0x6F22A0"
+ },
+ {
+  "object": "colmathsphere.obj",
+  "function": "CollisionMath::Intersection_Test",
+  "symbol": "?Intersection_Test@CollisionMath@@SA_NABVSphereClass@@ABVAABoxClass@@@Z",
+  "length": 161,
+  "status": "none",
+  "address": "0x42F2C0",
+  "similarity": 0.3,
+  "window": "0x42F280-0x42FA80"
+ },
+ {
+  "object": "colmathsphere.obj",
+  "function": "CollisionMath::Intersection_Test",
+  "symbol": "?Intersection_Test@CollisionMath@@SA_NABVSphereClass@@ABVOBBoxClass@@@Z",
+  "length": 309,
+  "status": "none",
+  "address": "0x42F2F0",
+  "similarity": 0.17,
+  "window": "0x42F280-0x42FA80"
+ },
+ {
+  "object": "colmathsphere.obj",
+  "function": "CollisionMath::Overlap_Test",
+  "symbol": "?Overlap_Test@CollisionMath@@SA?AW4OverlapType@1@ABVSphereClass@@ABVVector3@@@Z",
+  "length": 108,
+  "status": "none",
+  "address": "0x42F7E0",
+  "similarity": 0.11,
+  "window": "0x42F280-0x42FA80"
+ },
+ {
+  "object": "colmathsphere.obj",
+  "function": "CollisionMath::Overlap_Test",
+  "symbol": "?Overlap_Test@CollisionMath@@SA?AW4OverlapType@1@ABVSphereClass@@0@Z",
+  "length": 125,
+  "status": "none",
+  "address": "0x42F290",
+  "similarity": 0.12,
+  "window": "0x42F280-0x42FA80"
+ },
+ {
+  "object": "colmathsphere.obj",
+  "function": "CollisionMath::Overlap_Test",
+  "symbol": "?Overlap_Test@CollisionMath@@SA?AW4OverlapType@1@ABVSphereClass@@ABVAABoxClass@@@Z",
+  "length": 193,
+  "status": "none",
+  "address": "0x42F800",
+  "similarity": 0.23,
+  "window": "0x42F280-0x42FA80"
+ },
+ {
+  "object": "colmathsphere.obj",
+  "function": "CollisionMath::Overlap_Test",
+  "symbol": "?Overlap_Test@CollisionMath@@SA?AW4OverlapType@1@ABVSphereClass@@ABVOBBoxClass@@@Z",
+  "length": 341,
+  "status": "none",
+  "address": "0x42F820",
+  "similarity": 0.14,
+  "window": "0x42F280-0x42FA80"
+ },
+ {
+  "object": "cullsys.obj",
+  "function": "CullableClass::Set_Cull_Box",
+  "symbol": "?Set_Cull_Box@CullableClass@@QAEXABVAABoxClass@@_N@Z",
+  "length": 72,
+  "status": "none",
+  "address": "0x8C8DC0",
+  "similarity": 0.34,
+  "window": "0x8C8DA0-0x8C8E40"
+ },
+ {
+  "object": "euler.obj",
+  "function": "EulerAnglesClass::EulerAnglesClass",
+  "symbol": "??0EulerAnglesClass@@QAE@ABVMatrix3D@@H@Z",
+  "length": 26,
+  "status": "none",
+  "address": "0x42F290",
+  "similarity": 0.3,
+  "window": "0x42F280-0x42FA80"
+ },
+ {
+  "object": "euler.obj",
+  "function": "EulerAnglesClass::From_Matrix",
+  "symbol": "?From_Matrix@EulerAnglesClass@@QAEXABVMatrix3D@@H@Z",
+  "length": 663,
+  "status": "none",
+  "address": "0x42F2F0",
+  "similarity": 0.08,
+  "window": "0x42F280-0x42FA80"
+ },
+ {
+  "object": "euler.obj",
+  "function": "EulerAnglesClass::To_Matrix",
+  "symbol": "?To_Matrix@EulerAnglesClass@@QAEXAAVMatrix3D@@@Z",
+  "length": 608,
+  "status": "none",
+  "address": "0x42F940",
+  "similarity": 0.03,
+  "window": "0x42F280-0x42FA80"
+ },
+ {
+  "object": "obbox.obj",
+  "function": "OBBoxClass::Init_From_Box_Points",
+  "symbol": "?Init_From_Box_Points@OBBoxClass@@QAEXPAVVector3@@H@Z",
+  "length": 943,
+  "status": "none",
+  "address": "0x431FF0",
+  "similarity": 0.06,
+  "window": "0x42F280-0x447C40"
+ },
+ {
+  "object": "obbox.obj",
+  "function": "OBBoxClass::Init_Random",
+  "symbol": "?Init_Random@OBBoxClass@@QAEXMM@Z",
+  "length": 199,
+  "status": "none",
+  "address": "0x4481E0",
+  "similarity": 0.17,
+  "window": "0x447CA0-0x4484A0"
+ },
+ {
+  "object": "obbox.obj",
+  "function": "Oriented_Boxes_Intersect_On_Axis",
+  "symbol": "?Oriented_Boxes_Intersect_On_Axis@@YA_NABVOBBoxClass@@0ABVVector3@@@Z",
+  "length": 562,
+  "status": "none",
+  "address": "0x447DD0",
+  "similarity": 0.11,
+  "window": "0x447CA0-0x4484A0"
+ },
+ {
+  "object": "obbox.obj",
+  "function": "Oriented_Boxes_Intersect",
+  "symbol": "?Oriented_Boxes_Intersect@@YA_NABVOBBoxClass@@0@Z",
+  "length": 3196,
+  "status": "none",
+  "address": "0x447E20",
+  "similarity": 0.07,
+  "window": "0x447CA0-0x4484A0"
+ },
+ {
+  "object": "obbox.obj",
+  "function": "OBBoxClass::Project_To_Axis",
+  "symbol": "?Project_To_Axis@OBBoxClass@@QBEMABVVector3@@@Z",
+  "length": 201,
+  "status": "none",
+  "address": "0x447CC0",
+  "similarity": 0.03,
+  "window": "0x447CA0-0x4484A0"
+ },
+ {
+  "object": "obbox.obj",
+  "function": "Oriented_Boxes_Collide_On_Axis",
+  "symbol": "?Oriented_Boxes_Collide_On_Axis@@YA_NABVOBBoxClass@@ABVVector3@@011M@Z",
+  "length": 676,
+  "status": "none",
+  "address": "0x448260",
+  "similarity": 0.02,
+  "window": "0x447CA0-0x4484A0"
+ },
+ {
+  "object": "obbox.obj",
+  "function": "Oriented_Boxes_Collide",
+  "symbol": "?Oriented_Boxes_Collide@@YA_NABVOBBoxClass@@ABVVector3@@01M@Z",
+  "length": 1345,
+  "status": "none",
+  "address": "0x448390",
+  "similarity": 0.04,
+  "window": "0x447CA0-0x4484A0"
+ },
+ {
+  "object": "obbox.obj",
+  "function": "Oriented_Box_Intersects_Tri_On_Axis",
+  "symbol": "?Oriented_Box_Intersects_Tri_On_Axis@@YA_NABVOBBoxClass@@ABVTriClass@@AAVVector3@@@Z",
+  "length": 525,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x447CA0-0x4484A0"
+ },
+ {
+  "object": "obbox.obj",
+  "function": "Oriented_Box_Intersects_Tri",
+  "symbol": "?Oriented_Box_Intersects_Tri@@YA_NABVOBBoxClass@@ABVTriClass@@@Z",
+  "length": 1110,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x447CA0-0x4484A0"
+ },
+ {
+  "object": "ode.obj",
+  "function": "$E4",
+  "symbol": "_$E4",
+  "length": 61,
+  "status": "none",
+  "address": "0x45CC10",
+  "similarity": 0.19,
+  "window": "0x45C490-0x45CC90"
+ },
+ {
+  "object": "ode.obj",
+  "function": "$E9",
+  "symbol": "_$E9",
+  "length": 61,
+  "status": "none",
+  "address": "0x45CB00",
+  "similarity": 0.18,
+  "window": "0x45C490-0x45CC90"
+ },
+ {
+  "object": "ode.obj",
+  "function": "$E14",
+  "symbol": "_$E14",
+  "length": 61,
+  "status": "none",
+  "address": "0x45CB40",
+  "similarity": 0.17,
+  "window": "0x45C490-0x45CC90"
+ },
+ {
+  "object": "ode.obj",
+  "function": "$E19",
+  "symbol": "_$E19",
+  "length": 61,
+  "status": "none",
+  "address": "0x45CBE0",
+  "similarity": 0.17,
+  "window": "0x45C490-0x45CC90"
+ },
+ {
+  "object": "ode.obj",
+  "function": "$E24",
+  "symbol": "_$E24",
+  "length": 61,
+  "status": "none",
+  "address": "0x45C8B0",
+  "similarity": 0.15,
+  "window": "0x45C490-0x45CC90"
+ },
+ {
+  "object": "ode.obj",
+  "function": "$E29",
+  "symbol": "_$E29",
+  "length": 61,
+  "status": "none",
+  "address": "0x45C920",
+  "similarity": 0.15,
+  "window": "0x45C490-0x45CC90"
+ },
+ {
+  "object": "ode.obj",
+  "function": "$E34",
+  "symbol": "_$E34",
+  "length": 61,
+  "status": "none",
+  "address": "0x45CA00",
+  "similarity": 0.13,
+  "window": "0x45C490-0x45CC90"
+ },
+ {
+  "object": "ode.obj",
+  "function": "$E39",
+  "symbol": "_$E39",
+  "length": 61,
+  "status": "none",
+  "address": "0x45CC60",
+  "similarity": 0.13,
+  "window": "0x45C490-0x45CC90"
+ },
+ {
+  "object": "ode.obj",
+  "function": "$E44",
+  "symbol": "_$E44",
+  "length": 61,
+  "status": "none",
+  "address": "0x45CB70",
+  "similarity": 0.11,
+  "window": "0x45C490-0x45CC90"
+ },
+ {
+  "object": "ode.obj",
+  "function": "$E49",
+  "symbol": "_$E49",
+  "length": 61,
+  "status": "none",
+  "address": "0x45C8E0",
+  "similarity": 0.11,
+  "window": "0x45C490-0x45CC90"
+ },
+ {
+  "object": "ode.obj",
+  "function": "IntegrationSystem::Euler_Integrate",
+  "symbol": "?Euler_Integrate@IntegrationSystem@@SAXPAVODESystemClass@@M@Z",
+  "length": 268,
+  "status": "none",
+  "address": "0x45C990",
+  "similarity": 0.14,
+  "window": "0x45C490-0x45CC90"
+ },
+ {
+  "object": "ode.obj",
+  "function": "IntegrationSystem::Midpoint_Integrate",
+  "symbol": "?Midpoint_Integrate@IntegrationSystem@@SAXPAVODESystemClass@@M@Z",
+  "length": 311,
+  "status": "none",
+  "address": "0x45C950",
+  "similarity": 0.16,
+  "window": "0x45C490-0x45CC90"
+ },
+ {
+  "object": "ode.obj",
+  "function": "IntegrationSystem::Runge_Kutta_Integrate",
+  "symbol": "?Runge_Kutta_Integrate@IntegrationSystem@@SAXPAVODESystemClass@@M@Z",
+  "length": 558,
+  "status": "none",
+  "address": "0x45CA30",
+  "similarity": 0.05,
+  "window": "0x45C490-0x45CC90"
+ },
+ {
+  "object": "ode.obj",
+  "function": "IntegrationSystem::Runge_Kutta5_Integrate",
+  "symbol": "?Runge_Kutta5_Integrate@IntegrationSystem@@SAXPAVODESystemClass@@M@Z",
+  "length": 1184,
+  "status": "none",
+  "address": "0x45CC30",
+  "similarity": 0.02,
+  "window": "0x45C490-0x45CC90"
+ },
+ {
+  "object": "vehiclecurve.obj",
+  "function": "Find_Tangent",
+  "symbol": "?Find_Tangent@@YA_NABVVector3@@M0_NPAM@Z",
+  "length": 303,
+  "status": "none",
+  "address": "0x431950",
+  "similarity": 0.07,
+  "window": "0x42F280-0x447C40"
+ },
+ {
+  "object": "vehiclecurve.obj",
+  "function": "Get_Angle_Delta",
+  "symbol": "?Get_Angle_Delta@@YAMMM_N@Z",
+  "length": 70,
+  "status": "none",
+  "address": "0x431470",
+  "similarity": 0.35,
+  "window": "0x42F280-0x447C40"
+ },
+ {
+  "object": "vehiclecurve.obj",
+  "function": "Find_Turn_Arc",
+  "symbol": "?Find_Turn_Arc@@YAXABVMatrix3D@@MABVVector3@@11PAV2@PA_N@Z",
+  "length": 489,
+  "status": "none",
+  "address": "0x42FBA0",
+  "similarity": 0.09,
+  "window": "0x42F280-0x447C40"
+ },
+ {
+  "object": "vehiclecurve.obj",
+  "function": "Find_Tangents",
+  "symbol": "?Find_Tangents@@YAXMABVVector3@@000_NPAM22@Z",
+  "length": 419,
+  "status": "none",
+  "address": "0x431DE0",
+  "similarity": 0.2,
+  "window": "0x42F280-0x447C40"
+ },
+ {
+  "object": "vehiclecurve.obj",
+  "function": "VehicleCurveClass::Update_Arc_List",
+  "symbol": "?Update_Arc_List@VehicleCurveClass@@IAEXXZ",
+  "length": 1831,
+  "status": "none",
+  "address": "0x431E30",
+  "similarity": 0.07,
+  "window": "0x42F280-0x447C40"
+ },
+ {
+  "object": "vehiclecurve.obj",
+  "function": "VehicleCurveClass::Evaluate",
+  "symbol": "?Evaluate@VehicleCurveClass@@UAEXMPAVVector3@@@Z",
+  "length": 969,
+  "status": "none",
+  "address": "0x4481E0",
+  "similarity": 0.11,
+  "window": "0x447CA0-0x4484A0"
+ },
+ {
+  "object": "vehiclecurve.obj",
+  "function": "VehicleCurveClass::Save",
+  "symbol": "?Save@VehicleCurveClass@@UAE_NAAVChunkSaveClass@@@Z",
+  "length": 201,
+  "status": "none",
+  "address": "0x447CC0",
+  "similarity": 0.23,
+  "window": "0x447CA0-0x4484A0"
+ },
+ {
+  "object": "vehiclecurve.obj",
+  "function": "VehicleCurveClass::Load",
+  "symbol": "?Load@VehicleCurveClass@@UAE_NAAVChunkLoadClass@@@Z",
+  "length": 464,
+  "status": "none",
+  "address": "0x448260",
+  "similarity": 0.08,
+  "window": "0x447CA0-0x4484A0"
+ },
+ {
+  "object": "vehiclecurve.obj",
+  "function": "VehicleCurveClass::Load_Variables",
+  "symbol": "?Load_Variables@VehicleCurveClass@@IAEXAAVChunkLoadClass@@@Z",
+  "length": 76,
+  "status": "none",
+  "address": "0x447DD0",
+  "similarity": 0.1,
+  "window": "0x447CA0-0x4484A0"
+ },
+ {
+  "object": "vehiclecurve.obj",
+  "function": "?Load@?$SimplePersistFactoryClass@VVehicleCurveClass@@$0IABAF@@@UBEPAVPersistClass@@AAVChunkLoadClass@@@Z",
+  "symbol": "?Load@?$SimplePersistFactoryClass@VVehicleCurveClass@@$0IABAF@@@UBEPAVPersistClass@@AAVChunkLoadClass@@@Z",
+  "length": 172,
+  "status": "none",
+  "address": "0x448390",
+  "similarity": 0.13,
+  "window": "0x447CA0-0x4484A0"
+ },
+ {
+  "object": "vehiclecurve.obj",
+  "function": "VehicleCurveClass::scalar deleting dtor",
+  "symbol": "??_GVehicleCurveClass@@UAEPAXI@Z",
+  "length": 86,
+  "status": "none",
+  "address": "0x447E20",
+  "similarity": 0.05,
+  "window": "0x447CA0-0x4484A0"
+ },
+ {
+  "object": "vehiclecurve.obj",
+  "function": "VehicleCurveClass::Set_Key",
+  "symbol": "?Set_Key@VehicleCurveClass@@UAEXHABVVector3@@@Z",
+  "length": 22,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x447CA0-0x4484A0"
+ },
+ {
+  "object": "vehiclecurve.obj",
+  "function": "VehicleCurveClass::Add_Key",
+  "symbol": "?Add_Key@VehicleCurveClass@@UAEHABVVector3@@M@Z",
+  "length": 22,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x447CA0-0x4484A0"
+ },
+ {
+  "object": "vehiclecurve.obj",
+  "function": "VehicleCurveClass::Remove_Key",
+  "symbol": "?Remove_Key@VehicleCurveClass@@UAEXH@Z",
+  "length": 17,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x447CA0-0x4484A0"
+ },
+ {
+  "object": "vehiclecurve.obj",
+  "function": "?Resize@?$VectorClass@U_ArcInfoStruct@VehicleCurveClass@@@@UAE_NHPBU_ArcInfoStruct@VehicleCurveClass@@@Z",
+  "symbol": "?Resize@?$VectorClass@U_ArcInfoStruct@VehicleCurveClass@@@@UAE_NHPBU_ArcInfoStruct@VehicleCurveClass@@@Z",
+  "length": 394,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x447CA0-0x4484A0"
+ },
+ {
+  "object": "vehiclecurve.obj",
+  "function": "?Resize@?$DynamicVectorClass@U_ArcInfoStruct@VehicleCurveClass@@@@UAE_NHPBU_ArcInfoStruct@VehicleCurveClass@@@Z",
+  "symbol": "?Resize@?$DynamicVectorClass@U_ArcInfoStruct@VehicleCurveClass@@@@UAE_NHPBU_ArcInfoStruct@VehicleCurveClass@@@Z",
+  "length": 354,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x447CA0-0x4484A0"
+ },
+ {
+  "object": "vehiclecurve.obj",
+  "function": "_ArcInfoStruct::_ArcInfoStruct",
+  "symbol": "??0_ArcInfoStruct@VehicleCurveClass@@QAE@XZ",
+  "length": 43,
+  "status": "none",
+  "address": null,
+  "similarity": null,
+  "window": "0x447CA0-0x4484A0"
+ }
+]

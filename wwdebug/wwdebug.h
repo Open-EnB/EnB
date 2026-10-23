@@ -142,6 +142,9 @@ void					WWDebug_DBWin32_Message_Handler( const char * message);
 ** the debugger...
 */
 #ifdef WWDEBUG
+//
+//	C equivalent: __debugbreak(); -- stop in the debugger. (Both branches define the same thing.)
+//
 #define WWDEBUG_BREAK							_asm int 0x03
 #else
 #define WWDEBUG_BREAK							_asm int 0x03

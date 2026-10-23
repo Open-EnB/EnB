@@ -17,6 +17,7 @@ pass `--client PATH` otherwise. EA's repositories are expected at `C:\EnBDevelop
 | `matchreport.py TAG=run.json...` | Combines objmatch runs of several EA copies into a per-file report | `docs/data/bytematch-*.md`, `.json` |
 | `libextract.py LIB OUTDIR` | Extracts the object files from a static library (.lib) for byte matching (`tools/vc6/runtime_match.sh`) | OUTDIR |
 | `gaps.py --title T --out OUT file.obj...` | Locates the client's version of each function that isn't byte-exact (between its matched neighbours) and scores the similarity: the reconstruction worklist | OUT.md, OUT.json |
+| `layoutdiff.py --gaps G.json --objs DIR` | For located gaps, tallies member-offset differences per class (`[reg+X]` here, `[reg+Y]` in the client): finds headers whose class layout differs from E&B's | stdout |
 | `libdiff.py <dirA> <dirB>` | How much two EA copies of a library differ, file by file, ignoring comments and whitespace | stdout |
 
 ```
@@ -35,6 +36,11 @@ python ../vc6/vc6.py compile --out obj -I <wwlib> -I <wwdebug> <library>/*.cpp
 python objmatch.py -q --json run.json obj/*.obj
 python matchreport.py --title WWLib --out ../../docs/data/bytematch-wwlib R=renegade.json Z=zerohour.json
 ```
+
+Build-VM tools in `tools/vc6`: `vc6.py` (compile in the VM), `bytematch_all.sh` (all EA copies),
+`runtime_match.sh` (VC6 runtime and D3DX), `importer.py` (import and refine the libraries;
+`docs/imports.md`), `annotations.py` (C-equivalent comments for assembly in imported files),
+`layout.py CLASS HEADER` (a class's member offsets as VC6 lays it out).
 
 the reference decoder's `research/tools/auxschema/clientre.py` (`dis`, `vtable`, `calls`, `str`,
 `movimm`) works on the same client and is handy alongside these.

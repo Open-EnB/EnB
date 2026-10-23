@@ -455,6 +455,13 @@ class RLEBlitTransLucent75 : public RLEBlitter {
 
 
 #if defined(_MSC_VER)
+//
+//	C equivalent: the generic template version of this class above. The source is RLE data:
+//	a zero byte is followed by a count of transparent pixels to skip; any other byte is a pixel,
+//	written as TranslateTable[(*RemapTable)[pixel]]. The first `leadskip` pixels are skipped first (clipping), which can end in
+//	the middle of a transparent run; the remainder of that run is skipped before output starts.
+//	Why assembly: a hand-scheduled inner loop for software sprite drawing (Westwood's 2D code).
+//
 void RLEBlitTransZRemapXlat<unsigned short>::Blit(void * dest, void const * source, int len, int leadskip) const
 {
 	unsigned char const * remapper = *RemapTable;
@@ -539,6 +546,13 @@ fini:;
 }
 
 
+//
+//	C equivalent: the generic template version of this class above. The source is RLE data:
+//	a zero byte is followed by a count of transparent pixels to skip; any other byte is a pixel,
+//	written as TranslateTable[RemapTable[pixel]]. The first `leadskip` pixels are skipped first (clipping), which can end in
+//	the middle of a transparent run; the remainder of that run is skipped before output starts.
+//	Why assembly: a hand-scheduled inner loop for software sprite drawing (Westwood's 2D code).
+//
 void RLEBlitTransRemapXlat<unsigned short>::Blit(void * dest, void const * source, int len, int leadskip) const
 {
 	unsigned char const * remapper = RemapTable;
@@ -623,6 +637,13 @@ fini:;
 }
 
 
+//
+//	C equivalent: the generic template version of this class above. The source is RLE data:
+//	a zero byte is followed by a count of transparent pixels to skip; any other byte is a pixel,
+//	written as TranslateTable[pixel]. The first `leadskip` pixels are skipped first (clipping), which can end in
+//	the middle of a transparent run; the remainder of that run is skipped before output starts.
+//	Why assembly: a hand-scheduled inner loop for software sprite drawing (Westwood's 2D code).
+//
 void RLEBlitTransXlat<unsigned short>::Blit(void * dest, void const * source, int len, int leadskip) const
 {
 	unsigned short const * transtable = TranslateTable;

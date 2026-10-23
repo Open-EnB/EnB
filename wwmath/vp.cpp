@@ -43,6 +43,11 @@
 #include <memory.h>
 
 #define SHUFFLE(x, y, z, w)	(((x)&3)<< 6|((y)&3)<<4|((z)&3)<< 2|((w)&3))
+//
+//	SSE helper macros, used only by the Intel-compiler path below (__ICL). BROADCAST copies one
+//	lane of an XMM register to all four lanes; TRANSPOSE transposes the 4x4 matrix held in four XMM
+//	registers.
+//
 #define	BROADCAST(XMM, INDEX)	__asm	shufps	XMM,XMM,(((INDEX)&3)<< 6|((INDEX)&3)<<4|((INDEX)&3)<< 2|((INDEX)&3))
 
 #define TRANSPOSE(BX, BY, BZ, BW, TV)					\
@@ -60,6 +65,9 @@
 		__asm	shufps		BW,TV,SHUFFLE(3, 2, 3, 2)
 
 
+//
+//	C equivalent: nothing. The assembly is commented out, and only compiled by Intel's compiler.
+//
 void VectorProcessorClass::Prefetch(void* address)
 {
 #if defined (__ICL)    // Detect Intel compiler
@@ -74,6 +82,11 @@ void VectorProcessorClass::Prefetch(void* address)
 }
 
 static Vector4 lastrow(0.0f,0.0f,0.0f,1.0f);
+//
+//	C equivalent: for (i = 0; i < count; i++) dst[i] = mtx * src[i]; -- the loop at the end of
+//	this function, which is what VC6 builds. The SSE assembly version is only compiled by Intel's
+//	compiler (__ICL).
+//
 void VectorProcessorClass::Transform (Vector3* dst,const Vector3 *src, const Matrix3D& mtx, const int count)
 {
 	if (count<=0) return;

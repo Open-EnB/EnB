@@ -257,6 +257,10 @@ Quaternion Axis_To_Quat(const Vector3 &a, float phi)
 #define ARC_TABLE_SIZE_MASK 1023
 #define SIN_TABLE_SIZE_MASK 1023
 
+//
+//	Not compiled: this assembly version is inside #if 0. The C version after #else is the one
+//	built: spherical linear interpolation between p and q using table-based acos and sin.
+//
 void __cdecl Fast_Slerp(Quaternion& res, const Quaternion & p,const Quaternion & q,float alpha)
 {
 	float float_epsilon2=WWMATH_EPSILON * WWMATH_EPSILON;

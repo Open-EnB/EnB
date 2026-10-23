@@ -177,6 +177,9 @@ int __cdecl _purecall(void)
 	** Use int3 to cause an exception.
 	*/
 	WWDEBUG_SAY(("Pure Virtual Function call. Oh No!\n"));
+	//
+	//	C equivalent: __debugbreak(); -- stop in the debugger (a pure virtual function was called).
+	//
 	_asm int 0x03;
 #endif	//_DEBUG_ASSERT
 
@@ -630,6 +633,11 @@ void Dump_Exception_Info(EXCEPTION_POINTERS *e_info)
 		*/
 		_asm {
 			push	eax
+			//
+			//	C equivalent: fp_value = (double)*(long double *)fp_data_ptr;
+			//	Converts one 80-bit x87 register image from the crash context to a double. Why assembly: VC6's
+			//	long double is 64 bits, so C can't read the 80-bit format; fld tbyte can.
+			//
 			mov	eax,fp_data_ptr
 			fld   tbyte ptr [eax]
 			fstp	qword ptr [fp_value]
@@ -1232,6 +1240,11 @@ int Stack_Walk(unsigned long *return_addresses, int num_addresses, CONTEXT *cont
 
 	__asm {
 here:
+		//
+		//	C equivalent: reg_eip = (address of this instruction); reg_ebp = the frame pointer;
+		//	reg_esp = the stack pointer -- the starting point for walking the stack with StackWalk.
+		//	Why assembly: C can't read registers (modern MSVC: _ReturnAddress, _AddressOfReturnAddress).
+		//
 		lea	eax,here
 		mov	reg_eip,eax
 		mov	reg_ebp,ebp
