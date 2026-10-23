@@ -62,8 +62,6 @@ public:
 	void Print_State(void);
 
 private:
-	void Prepare_Key_16bytes(const unsigned char *key_data_ptr);
-	void Prepare_Key_8bytes(const unsigned char *key_data_ptr);
 
 	struct RC4Key
 	{      
@@ -73,6 +71,9 @@ private:
 	};
 
 	RC4Key	Key;
+
+	static RC4Key	InitialKey;
+	static bool		InitialKeyBuilt;
 };
 
 #endif

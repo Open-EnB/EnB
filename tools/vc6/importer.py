@@ -41,7 +41,7 @@ COPY_ROOT = {
     'G': EA + r'\CnC_Generals_Zero_Hour\Generals\Code\Libraries\Source\WWVegas',
     'Z': EA + r'\CnC_Generals_Zero_Hour\GeneralsMD\Code\Libraries\Source\WWVegas',
 }
-COPY_NAME = {'R': 'Renegade', 'G': 'Generals', 'Z': 'Zero Hour'}
+COPY_NAME = {'R': 'Renegade', 'G': 'Generals', 'Z': 'Zero Hour', 'reconstructed': 'reconstructed'}
 COPY_COMMIT = {'R': 'CnC_Renegade@3e00c3a', 'G': 'CnC_Generals_Zero_Hour@0a05454',
                'Z': 'CnC_Generals_Zero_Hour@0a05454'}
 LIB_DIR = {
@@ -65,6 +65,16 @@ PATCHES = {
         "Zero Hour's wwdebug.h includes Generals' GameEngine debug.h; gamedebug.h gives the release "
         "build's definitions of the macros it uses (all compile to nothing)")],
 }
+# Files reconstructed by us from the client (no EA copy matches): `assemble` keeps the repository's
+# version, and refine leaves them alone. Each entry: (library, file) -> what was done.
+RECONSTRUCTED = {
+    ('wwlib', 'rc4.cpp'): "E&B's RC4Class: a runtime-built initial key, the 8- and 16-byte key setups "
+                          "inlined into Prepare_Key, inline assembly in the 16-byte setup and RC4(); "
+                          "Print_State and operator= are Zero Hour's. All 5 functions byte-exact "
+                          "(docs/library-matching.md §3.6)",
+    ('wwlib', 'rc4.h'): "InitialKey / InitialKeyBuilt statics added; Prepare_Key_8bytes/16bytes removed",
+}
+
 # Text appended to imported files (after everything, so no existing line moves).
 APPENDS = {
     ('wwlib', 'always.h'): ("""
@@ -203,6 +213,11 @@ def apply_patches(lib, path, name):
 def assemble(state):
     for lib, s in state.items():
         d = dest(lib)
+        kept = {}
+        for (rlib, rname) in RECONSTRUCTED:
+            p = os.path.join(d, rname)
+            if rlib == lib and os.path.exists(p):
+                kept[rname] = open(p, 'rb').read()
         if os.path.isdir(d):
             shutil.rmtree(d)
         os.makedirs(d)
@@ -249,6 +264,15 @@ def assemble(state):
             if nlib == lib:
                 open(os.path.join(d, nname), 'w', newline='\r\n').write(text)
                 origin[nname] = 'new'
+        for rname, data in kept.items():
+            for old in [n for n in os.listdir(d) if n.lower() == rname.lower()]:
+                os.remove(os.path.join(d, old))
+            open(os.path.join(d, rname), 'wb').write(data)
+            origin[rname] = 'reconstructed'
+            k = key_of(rname)
+            if rname.lower().endswith('.cpp') and k in s['files']:
+                s['files'][k]['copy'] = 'reconstructed'
+                s['files'][k]['name'] = rname
         s['headers'] = origin
         print(f'{lib:11s} {len(s["files"])} sources, {len(origin)} headers')
     return state
@@ -297,7 +321,7 @@ def verify(state, libs=None):
         for k, f in s['files'].items():
             f['in_tree'] = sorted(found.get(k, set()))
             total |= found.get(k, set())
-            if len(f['in_tree']) < f['expected'][f['copy']]:
+            if len(f['in_tree']) < f['expected'].get(f['copy'], 0):
                 short += 1
         s['in_tree_total'] = len(total)
         s['compile_errors'] = errors[:50]
@@ -380,6 +404,8 @@ def refine(state, ev, libs=None):
         s = state[lib]
         gained = 0
         for k, f in sorted(s['files'].items()):
+            if (lib, f['name'].lower()) in RECONSTRUCTED:
+                continue
             path = os.path.join(dest(lib), f['name'])
             cur = set(f.get('in_tree', []))
             text = open(path, encoding='latin1', newline='').read()
@@ -454,7 +480,7 @@ def report(state):
              'keeping the copy whose compiled code matches client.exe best, then splicing in whole '
              'function definitions from other copies where that adds byte-exact functions without '
              'losing any. "In tree": client functions our own source reproduces byte for byte '
-             '(compiled with VC6 SP4, `/MT /W3 /O2 /Ob2`). See docs/library-matching.md §3.5.', '']
+             '(compiled with VC6 SP4, `/MT /W3 /O2 /Ob2`). See docs/library-matching.md Â§3.5.', '']
     lines += ['## Summary', '', '| Library | Base copy | Source files | From another copy | Functions merged | In tree | Best single copy |',
               '|---|---|---|---|---|---|---|']
     for lib, s in state.items():
@@ -467,6 +493,8 @@ def report(state):
     for (lib, name), edits in PATCHES.items():
         for _, _, why in edits:
             lines.append(f'* `{lib}/{name}`: {why}.')
+    for (lib, name), why in RECONSTRUCTED.items():
+        lines.append(f'* `{lib}/{name}`: **reconstructed** from the client. {why}.')
     for (lib, name), (_, why) in APPENDS.items():
         lines.append(f'* `{lib}/{name}`: {why}.')
     for (lib, name) in NEW_FILES:

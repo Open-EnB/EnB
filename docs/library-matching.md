@@ -199,7 +199,10 @@ Functions found in neither copy are where E&B's code differs. The first one exam
   static `RC4_Table_Init[]` array. `Prepare_Key` (0x9E0290) copies that 258-byte key and then
   branches on lengths 8 and 16, with the 8- and 16-byte versions inlined. The 16-byte setup and
   `RC4()` (0x9E0420) contain hand-written inline assembly (`push ebp` / `mov ebp, eax` inside the
-  loop). To be reconstructed and proven byte-exact.
+  loop). **Reconstructed** (2026-10-22, `wwlib/rc4.cpp`): all five functions byte-exact. The
+  source order is E&B's (constructor, `operator=`, `Prepare_Key`, `Print_State`, `RC4`: with
+  `/Gy` each function is a COMDAT placed in source order, so the client's layout gives the order).
+  Byte swaps use a local, not Zero Hour's static `RC4_Temp_Byte`; the loop counter is an `int`.
 
 ## 4. What this means for the rebuild
 

@@ -4,6 +4,20 @@ Newest first within each section. Dates are when the entry was written.
 
 ## 1. Log
 
+### 2026-10-22: import (step 2) and RC4Class (step 3)
+
+* Libraries imported into the repository by `tools/vc6/importer.py` ([imports.md](imports.md)):
+  file by file from the best-matching EA copy, whole-file swaps and single-function splices from
+  the other copies where they add byte-exact functions and lose none (checked tree-wide when a
+  header changes). The repository now reproduces more client functions than any single EA copy:
+  WW3D2 1,354, WWLib 553, WWMath 367, WWAudio 182, WWSaveLoad 80, WWDebug 67; wwshade only 6 of
+  46 (needs Zero Hour's WW3D2 interfaces).
+* `RC4Class` reconstructed from the client, all five functions byte-exact; the importer keeps
+  reconstructed files (`RECONSTRUCTED`).
+* Out of scope, proven: the VC6 SP4 C runtime, C++ library and COM support, D3DX 8.0; linker
+  padding and compiler EH stubs. E&B's own code was compiled with `/GX`
+  ([library-matching.md](library-matching.md) §3.7).
+
 ### 2026-10-22: byte matching
 
 * `tools/vc6/vc6.py` compiles in the VM; `tools/re/objmatch.py`, `objdiff.py`, `matchreport.py`

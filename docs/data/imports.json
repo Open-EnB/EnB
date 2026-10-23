@@ -5291,7 +5291,7 @@
    },
    "rc4": {
     "best": "Z",
-    "copy": "Z",
+    "copy": "reconstructed",
     "expected": {
      "G": 0,
      "R": 0,
@@ -5299,8 +5299,11 @@
     },
     "headers_from": "Z",
     "in_tree": [
+     "0x9E0210",
      "0x9E0250",
-     "0x9E03B0"
+     "0x9E0290",
+     "0x9E03B0",
+     "0x9E0420"
     ],
     "merged": [],
     "name": "rc4.cpp"
@@ -5871,7 +5874,7 @@
    "ramfile.h": "R",
    "random.h": "R",
    "rawfile.h": "R",
-   "rc4.h": "R",
+   "rc4.h": "reconstructed",
    "rcfile.h": "R",
    "readline.h": "R",
    "realcrc.h": "R",
@@ -5931,7 +5934,7 @@
    "xstraw.h": "R",
    "xsurface.h": "R"
   },
-  "in_tree_total": 550,
+  "in_tree_total": 553,
   "totals": {
    "G": 394,
    "R": 535,
