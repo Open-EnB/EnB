@@ -1494,12 +1494,15 @@ WWAudioClass::Reprioritize_Playlist (void)
 			 (sound_obj->Is_Sound_Culled () == false) &&
 			 (sound_obj->Get_Priority () > hightest_priority))
 		{
+			int max_instances = sound_obj->m_Unknown7C;
+			if (Unknown_Count_Instances (sound_obj) < max_instances) {
 			//
 			// This is now the highest priority sound effect without
 			// a play-handle.
 			//
 			sound_to_get_handle = sound_obj;
 			hightest_priority = sound_obj->Get_Priority ();
+			}
 		}
 	}
 
@@ -1511,6 +1514,47 @@ WWAudioClass::Reprioritize_Playlist (void)
 	}
 
 	return;
+}
+
+
+////////////////////////////////////////////////////////////////////////////////////////////
+//
+//	Unknown_Count_Instances (E&B)
+//
+//	The number of sample handles held by sounds that share this sound's m_Unknown80
+//
+////////////////////////////////////////////////////////////////////////////////////////////
+int
+WWAudioClass::Unknown_Count_Instances (AudibleSoundClass *sound)
+{
+	if (sound == NULL) {
+		return 0;
+	}
+
+	int count = 0;
+	int max_samples = (sound->Get_Class_ID () == CLASSID_2D) ? m_2DSampleHandles.Count () : m_3DSampleHandles.Count ();
+	for (int index = 0; index < max_samples; index ++) {
+		AudibleSoundClass *sound_obj = NULL;
+		if (sound->Get_Class_ID () == CLASSID_2D) {
+			HSAMPLE sample = m_2DSampleHandles[index];
+			if (sample == NULL) {
+				continue;
+			}
+			sound_obj = (AudibleSoundClass *)::AIL_sample_user_data (sample, INFO_OBJECT_PTR);
+		} else {
+			H3DSAMPLE sample = m_3DSampleHandles[index];
+			if (sample == NULL) {
+				continue;
+			}
+			sound_obj = (AudibleSoundClass *)::AIL_3D_object_user_data (sample, INFO_OBJECT_PTR);
+		}
+
+		if (sound_obj != NULL && sound->m_Unknown80 != -1 && sound->m_Unknown80 == sound_obj->m_Unknown80) {
+			count ++;
+		}
+	}
+
+	return count;
 }
 
 

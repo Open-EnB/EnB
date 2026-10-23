@@ -551,6 +551,7 @@ protected:
 	void						Build_3D_Driver_List (void);
 	void						Free_3D_Driver_List (void);
 	void						Reprioritize_Playlist (void);
+	int						Unknown_Count_Instances (AudibleSoundClass *sound);	// E&B; name not known
 	bool						Validate_3D_Sound_Buffer (SoundBufferClass *buffer);
 	FileClass *				Get_File (LPCTSTR filename);
 	void						Return_File (FileClass *file);
