@@ -211,6 +211,20 @@ PATCHES = {
          '\tMaterialInfoClass\t*\t\t\t\t\t\t\t\t\tMatInfo;\n\n\t// E&B (as Generals and Zero Hour): the polygon renderers of this model\n\tDX8PolygonRendererList\t\t\t\t\t\t\t\tPolygonRendererList;',
          "MeshModelClass keeps the PolygonRendererList member Renegade's later revision removed (Generals and Zero Hour have it after MatInfo): GapFiller is 24 bytes (a MultiListClass) later in the client"),
     ],
+    ('ww3d2', 'dx8caps.h'): [
+        ('\tbool SupportRenderToTextureFormat[WW3D_FORMAT_COUNT];',
+         '\tbool SupportRenderToTextureFormat[WW3D_FORMAT_COUNT];\n\tbool SupportDepthStencilFormat[WW3D_ZFORMAT_COUNT];',
+         "DX8Caps has Zero Hour's twelve extra capability flags (SupportDepthStencilFormat[8] before SupportZBias; SupportModAlphaAddClr, SupportDot3, SupportPointSprites, SupportCubemaps after SupportAnisotropicFiltering): every member from VertexShaderVersion is 12 bytes later in the client, DeviceId too, so not Zero Hour's MaxSimultaneousTextures. Accessors as Zero Hour's"),
+        ('\tbool SupportAnisotropicFiltering;',
+         '\tbool SupportAnisotropicFiltering;\n\tbool SupportModAlphaAddClr;\n\tbool SupportDot3;\n\tbool SupportPointSprites;\n\tbool SupportCubemaps;',
+         'the four flags after SupportAnisotropicFiltering'),
+        ('\tbool Support_Anisotropic_Filtering() const { return SupportAnisotropicFiltering; }',
+         '\tbool Support_Anisotropic_Filtering() const { return SupportAnisotropicFiltering; }\n\tbool Support_ModAlphaAddClr() const { return SupportModAlphaAddClr; }\n\tbool Support_Dot3() const { return SupportDot3; }\n\tbool Support_PointSprites() const { return SupportPointSprites; }\n\tbool Support_Cubemaps() const { return SupportCubemaps; }',
+         "Zero Hour's accessors for them"),
+        ('\tint Get_Pixel_Shader_Minor_Version() const { return 0xff&(VertexShaderVersion); }',
+         '\tint Get_Pixel_Shader_Minor_Version() const { return 0xff&(VertexShaderVersion); }\n\tint Get_Pixel_Shader_Major_Version() const { return 0xff&(PixelShaderVersion>>8); }\n\tbool Support_Depth_Stencil_Format(WW3DZFormat format) const { return SupportDepthStencilFormat[format]; }',
+         "and Zero Hour's Get_Pixel_Shader_Major_Version (Renegade's is misspelt Majon) and Support_Depth_Stencil_Format"),
+    ],
     ('ww3d2', 'rendobj.h'): [
         ('class RenderObjClass : public RefCountClass , public PersistClass, public MultiListObjectClass',
          """//////////////////////////////////////////////////////////////////////////////////

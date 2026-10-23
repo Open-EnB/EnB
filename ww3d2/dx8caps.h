@@ -216,6 +216,10 @@ public:
 	bool Support_Bump_Envmap_Luminance() const { return SupportBumpEnvmapLuminance; }
 	bool Support_ZBias() const { return SupportZBias; }
 	bool Support_Anisotropic_Filtering() const { return SupportAnisotropicFiltering; }
+	bool Support_ModAlphaAddClr() const { return SupportModAlphaAddClr; }
+	bool Support_Dot3() const { return SupportDot3; }
+	bool Support_PointSprites() const { return SupportPointSprites; }
+	bool Support_Cubemaps() const { return SupportCubemaps; }
 	bool Can_Do_Multi_Pass() const { return CanDoMultiPass; }
 	bool Is_Fog_Allowed() const { return IsFogAllowed; }
 
@@ -234,6 +238,8 @@ public:
 	int Get_Vertex_Shader_Minor_Version() const { return 0xff&(VertexShaderVersion); }
 	int Get_Pixel_Shader_Majon_Version() const { return 0xff&(VertexShaderVersion>>8); }
 	int Get_Pixel_Shader_Minor_Version() const { return 0xff&(VertexShaderVersion); }
+	int Get_Pixel_Shader_Major_Version() const { return 0xff&(PixelShaderVersion>>8); }
+	bool Support_Depth_Stencil_Format(WW3DZFormat format) const { return SupportDepthStencilFormat[format]; }
 
 	bool Support_Texture_Format(WW3DFormat format) const { return SupportTextureFormat[format]; }
 	bool Support_Render_To_Texture_Format(WW3DFormat format) const { return SupportRenderToTextureFormat[format]; }
@@ -283,8 +289,13 @@ private:
 	bool SupportBumpEnvmapLuminance;
 	bool SupportTextureFormat[WW3D_FORMAT_COUNT];
 	bool SupportRenderToTextureFormat[WW3D_FORMAT_COUNT];
+	bool SupportDepthStencilFormat[WW3D_ZFORMAT_COUNT];
 	bool SupportZBias;
 	bool SupportAnisotropicFiltering;
+	bool SupportModAlphaAddClr;
+	bool SupportDot3;
+	bool SupportPointSprites;
+	bool SupportCubemaps;
 	bool CanDoMultiPass;
 	bool IsFogAllowed;
 	int MaxTexturesPerPass;

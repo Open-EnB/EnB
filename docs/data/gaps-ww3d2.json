@@ -126,7 +126,7 @@
   "length": 652,
   "status": "none",
   "address": "0x9C5DD0",
-  "similarity": 0.51,
+  "similarity": 0.5,
   "window": "0x9C5DD0-0x9C61A0"
  },
  {
@@ -500,234 +500,24 @@
   "window": "0x9929C0-0x992DC0"
  },
  {
-  "object": "composite.obj",
-  "function": "CompositeRenderObjClass::CompositeRenderObjClass",
-  "symbol": "??0CompositeRenderObjClass@@QAE@ABV0@@Z",
-  "length": 285,
-  "status": "none",
-  "address": "0x985EF0",
-  "similarity": 0.48,
-  "window": "0x985EF0-0x986050"
- },
- {
-  "object": "composite.obj",
-  "function": "CompositeRenderObjClass::Set_Base_Model_Name",
-  "symbol": "?Set_Base_Model_Name@CompositeRenderObjClass@@UAEXPBD@Z",
-  "length": 83,
-  "status": "none",
-  "address": "0x986150",
-  "similarity": 0.89,
-  "window": "0x986140-0x986260"
- },
- {
-  "object": "dazzle.obj",
-  "function": "DazzleTypeClass::DazzleTypeClass",
-  "symbol": "??0DazzleTypeClass@@AAE@ABVDazzleInitClass@@@Z",
-  "length": 588,
-  "status": "none",
-  "address": "0x96A6A0",
-  "similarity": 0.66,
-  "window": "0x96A6A0-0x96A9F0"
- },
- {
-  "object": "dazzle.obj",
-  "function": "DazzleTypeClass::scalar deleting dtor",
-  "symbol": "??_GDazzleTypeClass@@EAEPAXI@Z",
-  "length": 120,
-  "status": "none",
-  "address": "0x96A980",
-  "similarity": 0.73,
-  "window": "0x96A6A0-0x96A9F0"
- },
- {
-  "object": "dazzle.obj",
-  "function": "DazzleTypeClass::~DazzleTypeClass",
-  "symbol": "??1DazzleTypeClass@@EAE@XZ",
-  "length": 100,
-  "status": "none",
-  "address": null,
-  "similarity": null,
-  "window": "0x96A6A0-0x96A9F0"
- },
- {
-  "object": "dazzle.obj",
-  "function": "DazzleTypeClass::Set_Dazzle_Shader",
-  "symbol": "?Set_Dazzle_Shader@DazzleTypeClass@@QAEXABVShaderClass@@@Z",
-  "length": 15,
-  "status": "none",
-  "address": null,
-  "similarity": null,
-  "window": "0x96A6A0-0x96A9F0"
- },
- {
-  "object": "dazzle.obj",
-  "function": "DazzleTypeClass::Calculate_Intensities",
-  "symbol": "?Calculate_Intensities@DazzleTypeClass@@UBEXAAM00ABVVector3@@1M@Z",
-  "length": 354,
-  "status": "none",
-  "address": "0x96AA70",
-  "similarity": 0.41,
-  "window": "0x96AA70-0x96B5D0"
- },
- {
-  "object": "dazzle.obj",
-  "function": "DazzleRenderObjClass::Init_From_INI",
-  "symbol": "?Init_From_INI@DazzleRenderObjClass@@SAXPBVINIClass@@@Z",
-  "length": 2435,
-  "status": "none",
-  "address": "0x96AC30",
-  "similarity": 0.62,
-  "window": "0x96AA70-0x96B5D0"
- },
- {
-  "object": "dazzle.obj",
-  "function": "DazzleRenderObjClass::Init_Type",
-  "symbol": "?Init_Type@DazzleRenderObjClass@@SAXABVDazzleInitClass@@@Z",
-  "length": 205,
-  "status": "none",
-  "address": "0x96B630",
-  "similarity": 0.71,
-  "window": "0x96B630-0x96B700"
- },
- {
-  "object": "dazzle.obj",
-  "function": "DazzleRenderObjClass::DazzleRenderObjClass",
-  "symbol": "??0DazzleRenderObjClass@@QAE@I@Z",
-  "length": 187,
-  "status": "none",
-  "address": "0x96B9D0",
-  "similarity": 0.58,
-  "window": "0x96B9D0-0x96E3D0"
- },
- {
-  "object": "dazzle.obj",
-  "function": "DazzleRenderObjClass::Scale",
-  "symbol": "?Scale@DazzleRenderObjClass@@UAEXM@Z",
-  "length": 19,
-  "status": "none",
-  "address": "0x96BAB0",
-  "similarity": 0.86,
-  "window": "0x96B9D0-0x96E3D0"
- },
- {
-  "object": "dazzle.obj",
-  "function": "DazzleRenderObjClass::DazzleRenderObjClass",
-  "symbol": "??0DazzleRenderObjClass@@QAE@PBD@Z",
-  "length": 400,
-  "status": "none",
-  "address": "0x96BB40",
-  "similarity": 0.41,
-  "window": "0x96B9D0-0x96E3D0"
- },
- {
-  "object": "dazzle.obj",
-  "function": "DazzleRenderObjClass::DazzleRenderObjClass",
-  "symbol": "??0DazzleRenderObjClass@@QAE@ABV0@@Z",
-  "length": 244,
-  "status": "none",
-  "address": "0x96BCE0",
-  "similarity": 0.63,
-  "window": "0x96B9D0-0x96E3D0"
- },
- {
-  "object": "dazzle.obj",
-  "function": "DazzleRenderObjClass::operator=",
-  "symbol": "??4DazzleRenderObjClass@@QAEAAV0@ABV0@@Z",
-  "length": 201,
-  "status": "none",
-  "address": "0x96BAA0",
-  "similarity": 0.25,
-  "window": "0x96B9D0-0x96E3D0"
- },
- {
-  "object": "dazzle.obj",
-  "function": "DazzleRenderObjClass::Get_Obj_Space_Bounding_Sphere",
-  "symbol": "?Get_Obj_Space_Bounding_Sphere@DazzleRenderObjClass@@UBEXAAVSphereClass@@@Z",
-  "length": 26,
-  "status": "none",
-  "address": "0x96BF80",
-  "similarity": 0.58,
-  "window": "0x96B9D0-0x96E3D0"
- },
- {
-  "object": "dazzle.obj",
-  "function": "DazzleRenderObjClass::Get_Obj_Space_Bounding_Box",
-  "symbol": "?Get_Obj_Space_Bounding_Box@DazzleRenderObjClass@@UBEXAAVAABoxClass@@@Z",
-  "length": 44,
-  "status": "none",
-  "address": "0x96BEC0",
-  "similarity": 0.47,
-  "window": "0x96B9D0-0x96E3D0"
- },
- {
-  "object": "dazzle.obj",
-  "function": "DazzleRenderObjClass::Set_Layer",
-  "symbol": "?Set_Layer@DazzleRenderObjClass@@QAEXPAVDazzleLayerClass@@@Z",
-  "length": 71,
-  "status": "none",
-  "address": "0x96BF30",
-  "similarity": 0.79,
-  "window": "0x96B9D0-0x96E3D0"
- },
- {
-  "object": "dazzle.obj",
-  "function": "DazzleRenderObjClass::Clone",
-  "symbol": "?Clone@DazzleRenderObjClass@@UBEPAVRenderObjClass@@XZ",
-  "length": 34,
-  "status": "none",
-  "address": "0x96BF90",
-  "similarity": 0.92,
-  "window": "0x96B9D0-0x96E3D0"
- },
- {
   "object": "dazzle.obj",
   "function": "DazzleRenderObjClass::Render",
   "symbol": "?Render@DazzleRenderObjClass@@UAEXAAVRenderInfoClass@@@Z",
-  "length": 2224,
+  "length": 2201,
   "status": "none",
   "address": "0x96C29D",
-  "similarity": 0.38,
-  "window": "0x96B9D0-0x96E3D0"
+  "similarity": 0.61,
+  "window": "0x96BFC0-0x96E270"
  },
  {
   "object": "dazzle.obj",
   "function": "DazzleRenderObjClass::Render_Dazzle",
   "symbol": "?Render_Dazzle@DazzleRenderObjClass@@AAEXPAVCameraClass@@@Z",
-  "length": 6442,
+  "length": 6492,
   "status": "none",
   "address": "0x96C890",
-  "similarity": 0.59,
-  "window": "0x96B9D0-0x96E3D0"
- },
- {
-  "object": "dazzle.obj",
-  "function": "DazzleRenderObjClass::Set_Transform",
-  "symbol": "?Set_Transform@DazzleRenderObjClass@@UAEXABVMatrix3D@@@Z",
-  "length": 157,
-  "status": "none",
-  "address": "0x96E270",
-  "similarity": 0.91,
-  "window": "0x96B9D0-0x96E3D0"
- },
- {
-  "object": "dazzle.obj",
-  "function": "DazzleRenderObjClass::Get_Type_ID",
-  "symbol": "?Get_Type_ID@DazzleRenderObjClass@@SAIPBD@Z",
-  "length": 106,
-  "status": "none",
-  "address": "0x96E310",
-  "similarity": 0.76,
-  "window": "0x96B9D0-0x96E3D0"
- },
- {
-  "object": "dazzle.obj",
-  "function": "DazzleRenderObjClass::Get_Type_Name",
-  "symbol": "?Get_Type_Name@DazzleRenderObjClass@@SAPBDI@Z",
-  "length": 36,
-  "status": "none",
-  "address": "0x96E380",
-  "similarity": 0.76,
-  "window": "0x96B9D0-0x96E3D0"
+  "similarity": 0.65,
+  "window": "0x96BFC0-0x96E270"
  },
  {
   "object": "dazzle.obj",
@@ -736,8 +526,8 @@
   "length": 670,
   "status": "none",
   "address": "0x96E460",
-  "similarity": 0.89,
-  "window": "0x96E440-0x96EAA0"
+  "similarity": 0.92,
+  "window": "0x96E440-0x96E780"
  },
  {
   "object": "dazzle.obj",
@@ -747,67 +537,17 @@
   "status": "none",
   "address": "0x96E700",
   "similarity": 0.85,
-  "window": "0x96E440-0x96EAA0"
+  "window": "0x96E440-0x96E780"
  },
  {
   "object": "dazzle.obj",
-  "function": "DazzlePersistFactoryClass::Load",
-  "symbol": "?Load@DazzlePersistFactoryClass@@EBEPAVPersistClass@@AAVChunkLoadClass@@@Z",
-  "length": 488,
+  "function": "DazzlePrototypeClass::scalar deleting dtor",
+  "symbol": "??_GDazzlePrototypeClass@@UAEPAXI@Z",
+  "length": 40,
   "status": "none",
-  "address": "0x96E780",
-  "similarity": 0.77,
-  "window": "0x96E440-0x96EAA0"
- },
- {
-  "object": "dazzle.obj",
-  "function": "DazzlePersistFactoryClass::Save",
-  "symbol": "?Save@DazzlePersistFactoryClass@@EBEXAAVChunkSaveClass@@PAVPersistClass@@@Z",
-  "length": 282,
-  "status": "none",
-  "address": "0x96E970",
-  "similarity": 0.89,
-  "window": "0x96E440-0x96EAA0"
- },
- {
-  "object": "dazzle.obj",
-  "function": "DazzleLayerClass::~DazzleLayerClass",
-  "symbol": "??1DazzleLayerClass@@QAE@XZ",
-  "length": 104,
-  "status": "none",
-  "address": "0x96EAF0",
-  "similarity": 0.8,
-  "window": "0x96EAF0-0x96EB60"
- },
- {
-  "object": "dazzle.obj",
-  "function": "DazzleLayerClass::Clear_Visible_List",
-  "symbol": "?Clear_Visible_List@DazzleLayerClass@@EAEXI@Z",
-  "length": 76,
-  "status": "none",
-  "address": "0x96EC30",
-  "similarity": 0.81,
-  "window": "0x96EC30-0x96EC80"
- },
- {
-  "object": "dazzle.obj",
-  "function": "DazzlePrototypeClass::Create",
-  "symbol": "?Create@DazzlePrototypeClass@@UAEPAVRenderObjClass@@XZ",
-  "length": 37,
-  "status": "none",
-  "address": "0x96ED00",
-  "similarity": 0.91,
-  "window": "0x96ED00-0x96EE60"
- },
- {
-  "object": "dazzle.obj",
-  "function": "DazzlePrototypeClass::Load_W3D",
-  "symbol": "?Load_W3D@DazzlePrototypeClass@@QAE?AW4WW3DErrorType@@AAVChunkLoadClass@@@Z",
-  "length": 295,
-  "status": "none",
-  "address": "0x96ED30",
-  "similarity": 0.65,
-  "window": "0x96ED00-0x96EE60"
+  "address": "0x96EF00",
+  "similarity": 0.7,
+  "window": "0x96EEE0-0x96F6E0"
  },
  {
   "object": "ddsfile.obj",
@@ -1030,26 +770,6 @@
   "window": "0x9B2540-0x9B2D40"
  },
  {
-  "object": "dx8fvf.obj",
-  "function": "FVFInfoClass::FVFInfoClass",
-  "symbol": "??0FVFInfoClass@@QAE@I@Z",
-  "length": 212,
-  "status": "none",
-  "address": "0x48C500",
-  "similarity": 0.22,
-  "window": "0x48C270-0x48CA70"
- },
- {
-  "object": "dx8fvf.obj",
-  "function": "FVFInfoClass::Get_FVF_Name",
-  "symbol": "?Get_FVF_Name@FVFInfoClass@@QBEXAAVStringClass@@@Z",
-  "length": 841,
-  "status": "none",
-  "address": "0x48C590",
-  "similarity": 0.03,
-  "window": "0x48C270-0x48CA70"
- },
- {
   "object": "dx8polygonrenderer.obj",
   "function": "DX8PolygonRendererClass::DX8PolygonRendererClass",
   "symbol": "??0DX8PolygonRendererClass@@QAE@IPAVMeshClass@@PAVDX8TextureCategoryClass@@II_N@Z",
@@ -1137,7 +857,7 @@
   "status": "none",
   "address": "0x9789F0",
   "similarity": 0.23,
-  "window": "0x9789E0-0x978FD0"
+  "window": "0x9789E0-0x978AF0"
  },
  {
   "object": "dx8renderer.obj",
@@ -1147,7 +867,7 @@
   "status": "none",
   "address": "0x9789E0",
   "similarity": 0.34,
-  "window": "0x9789E0-0x978FD0"
+  "window": "0x9789E0-0x978AF0"
  },
  {
   "object": "dx8renderer.obj",
@@ -1155,19 +875,9 @@
   "symbol": "?Set_DX8_Render_State@DX8Wrapper@@SAXW4_D3DRENDERSTATETYPE@@I@Z",
   "length": 136,
   "status": "none",
-  "address": "0x978AF0",
-  "similarity": 0.22,
-  "window": "0x9789E0-0x978FD0"
- },
- {
-  "object": "dx8renderer.obj",
-  "function": "DX8RigidFVFCategoryContainer::Check_If_Mesh_Fits",
-  "symbol": "?Check_If_Mesh_Fits@DX8RigidFVFCategoryContainer@@UAE_NPAVMeshModelClass@@@Z",
-  "length": 117,
-  "status": "none",
-  "address": "0x978B70",
-  "similarity": 0.09,
-  "window": "0x9789E0-0x978FD0"
+  "address": null,
+  "similarity": null,
+  "window": "0x9789E0-0x978AF0"
  },
  {
   "object": "dx8renderer.obj",
@@ -1175,9 +885,9 @@
   "symbol": "?Add_Mesh@DX8RigidFVFCategoryContainer@@UAEXPAVMeshClass@@@Z",
   "length": 1143,
   "status": "none",
-  "address": null,
-  "similarity": null,
-  "window": "0x9789E0-0x978FD0"
+  "address": "0x978B70",
+  "similarity": 0.64,
+  "window": "0x978B70-0x978FD0"
  },
  {
   "object": "dx8renderer.obj",
@@ -1187,7 +897,7 @@
   "status": "none",
   "address": null,
   "similarity": null,
-  "window": "0x9789E0-0x978FD0"
+  "window": "0x978B70-0x978FD0"
  },
  {
   "object": "dx8renderer.obj",
@@ -1196,7 +906,7 @@
   "length": 803,
   "status": "none",
   "address": "0x979180",
-  "similarity": 0.79,
+  "similarity": 0.8,
   "window": "0x979180-0x9794A0"
  },
  {
@@ -1207,17 +917,7 @@
   "status": "none",
   "address": "0x9797A0",
   "similarity": 0.84,
-  "window": "0x979620-0x979B10"
- },
- {
-  "object": "dx8renderer.obj",
-  "function": "DX8SkinFVFCategoryContainer::Check_If_Mesh_Fits",
-  "symbol": "?Check_If_Mesh_Fits@DX8SkinFVFCategoryContainer@@UAE_NPAVMeshModelClass@@@Z",
-  "length": 77,
-  "status": "none",
-  "address": "0x979AC0",
-  "similarity": 0.9,
-  "window": "0x979620-0x979B10"
+  "window": "0x979620-0x979AC0"
  },
  {
   "object": "dx8renderer.obj",
@@ -1236,7 +936,7 @@
   "length": 1363,
   "status": "none",
   "address": "0x979CD0",
-  "similarity": 0.8,
+  "similarity": 0.82,
   "window": "0x979BC0-0x97AAB0"
  },
  {
@@ -1383,91 +1083,21 @@
   "object": "dx8vertexbuffer.obj",
   "function": "VertexBufferClass::VertexBufferClass",
   "symbol": "??0VertexBufferClass@@IAE@IIG@Z",
-  "length": 138,
+  "length": 140,
   "status": "none",
   "address": "0x94EE80",
-  "similarity": 0.47,
+  "similarity": 0.49,
   "window": "0x94E710-0x94EF10"
- },
- {
-  "object": "dx8vertexbuffer.obj",
-  "function": "SortingVertexBufferClass::SortingVertexBufferClass",
-  "symbol": "??0SortingVertexBufferClass@@QAE@G@Z",
-  "length": 173,
-  "status": "none",
-  "address": "0x94F190",
-  "similarity": 0.78,
-  "window": "0x94F150-0x94F240"
  },
  {
   "object": "dx8vertexbuffer.obj",
   "function": "DX8VertexBufferClass::DX8VertexBufferClass",
   "symbol": "??0DX8VertexBufferClass@@QAE@IGW4UsageType@0@@Z",
-  "length": 163,
+  "length": 165,
   "status": "none",
   "address": "0x94F330",
-  "similarity": 0.54,
+  "similarity": 0.55,
   "window": "0x94F330-0x94F3E0"
- },
- {
-  "object": "dx8vertexbuffer.obj",
-  "function": "DX8VertexBufferClass::DX8VertexBufferClass",
-  "symbol": "??0DX8VertexBufferClass@@QAE@PBVVector3@@0PBVVector2@@GW4UsageType@0@@Z",
-  "length": 195,
-  "status": "none",
-  "address": "0x94F460",
-  "similarity": 0.83,
-  "window": "0x94F460-0x94F790"
- },
- {
-  "object": "dx8vertexbuffer.obj",
-  "function": "DX8VertexBufferClass::DX8VertexBufferClass",
-  "symbol": "??0DX8VertexBufferClass@@QAE@PBVVector3@@0PBVVector4@@PBVVector2@@GW4UsageType@0@@Z",
-  "length": 200,
-  "status": "none",
-  "address": "0x94F530",
-  "similarity": 0.82,
-  "window": "0x94F460-0x94F790"
- },
- {
-  "object": "dx8vertexbuffer.obj",
-  "function": "DX8VertexBufferClass::DX8VertexBufferClass",
-  "symbol": "??0DX8VertexBufferClass@@QAE@PBVVector3@@PBVVector4@@PBVVector2@@GW4UsageType@0@@Z",
-  "length": 195,
-  "status": "none",
-  "address": "0x94F600",
-  "similarity": 0.83,
-  "window": "0x94F460-0x94F790"
- },
- {
-  "object": "dx8vertexbuffer.obj",
-  "function": "DX8VertexBufferClass::DX8VertexBufferClass",
-  "symbol": "??0DX8VertexBufferClass@@QAE@PBVVector3@@PBVVector2@@GW4UsageType@0@@Z",
-  "length": 190,
-  "status": "none",
-  "address": "0x94F6D0",
-  "similarity": 0.61,
-  "window": "0x94F460-0x94F790"
- },
- {
-  "object": "dx8vertexbuffer.obj",
-  "function": "DynamicVBAccessClass::Allocate_DX8_Dynamic_Buffer",
-  "symbol": "?Allocate_DX8_Dynamic_Buffer@DynamicVBAccessClass@@AAEXXZ",
-  "length": 450,
-  "status": "none",
-  "address": "0x950820",
-  "similarity": 0.7,
-  "window": "0x9507A0-0x950BB0"
- },
- {
-  "object": "dx8vertexbuffer.obj",
-  "function": "DynamicVBAccessClass::Allocate_Sorting_Dynamic_Buffer",
-  "symbol": "?Allocate_Sorting_Dynamic_Buffer@DynamicVBAccessClass@@AAEXXZ",
-  "length": 431,
-  "status": "none",
-  "address": "0x9509F0",
-  "similarity": 0.66,
-  "window": "0x9507A0-0x950BB0"
  },
  {
   "object": "dx8wrapper.obj",
@@ -1861,16 +1491,6 @@
  },
  {
   "object": "dynamesh.obj",
-  "function": "DynamicMeshModel::DynamicMeshModel",
-  "symbol": "??0DynamicMeshModel@@QAE@ABV0@@Z",
-  "length": 181,
-  "status": "none",
-  "address": "0x975230",
-  "similarity": 0.64,
-  "window": "0x975230-0x9752F0"
- },
- {
-  "object": "dynamesh.obj",
   "function": "DynamicMeshClass::Reset",
   "symbol": "?Reset@DynamicMeshClass@@UAEXXZ",
   "length": 235,
@@ -1960,16 +1580,6 @@
   "window": "0x964010-0x965620"
  },
  {
-  "object": "hcanim.obj",
-  "function": "HCompressedAnimClass::HCompressedAnimClass",
-  "symbol": "??0HCompressedAnimClass@@QAE@XZ",
-  "length": 82,
-  "status": "none",
-  "address": "0x9C3B40",
-  "similarity": 0.82,
-  "window": "0x9C3B40-0x9C3C00"
- },
- {
   "object": "hlod.obj",
   "function": "HLodClass::Include_NULL_Lod",
   "symbol": "?Include_NULL_Lod@HLodClass@@UAEX_N@Z",
@@ -2048,26 +1658,6 @@
   "address": null,
   "similarity": null,
   "window": "0x98F090-0x98F1D0"
- },
- {
-  "object": "hmorphanim.obj",
-  "function": "HMorphAnimClass::HMorphAnimClass",
-  "symbol": "??0HMorphAnimClass@@QAE@XZ",
-  "length": 102,
-  "status": "none",
-  "address": "0x986F10",
-  "similarity": 0.84,
-  "window": "0x986F10-0x9870B0"
- },
- {
-  "object": "hrawanim.obj",
-  "function": "HRawAnimClass::HRawAnimClass",
-  "symbol": "??0HRawAnimClass@@QAE@XZ",
-  "length": 79,
-  "status": "none",
-  "address": "0x9C2C50",
-  "similarity": 0.66,
-  "window": "0x9C2C50-0x9C2D10"
  },
  {
   "object": "light.obj",
@@ -2831,26 +2421,6 @@
  },
  {
   "object": "mesh.obj",
-  "function": "MeshClass::Scale",
-  "symbol": "?Scale@MeshClass@@UAEXM@Z",
-  "length": 221,
-  "status": "none",
-  "address": "0x93EDD0",
-  "similarity": 0.57,
-  "window": "0x93EDD0-0x93EF80"
- },
- {
-  "object": "mesh.obj",
-  "function": "MeshClass::Scale",
-  "symbol": "?Scale@MeshClass@@UAEXMMM@Z",
-  "length": 204,
-  "status": "none",
-  "address": null,
-  "similarity": null,
-  "window": "0x93EDD0-0x93EF80"
- },
- {
-  "object": "mesh.obj",
   "function": "MeshClass::Render",
   "symbol": "?Render@MeshClass@@UAEXAAVRenderInfoClass@@@Z",
   "length": 587,
@@ -2896,7 +2466,7 @@
   "length": 111,
   "status": "none",
   "address": "0x940300",
-  "similarity": 0.69,
+  "similarity": 0.71,
   "window": "0x940130-0x9407E0"
  },
  {
@@ -3521,33 +3091,13 @@
  },
  {
   "object": "meshmdl.obj",
-  "function": "MeshModelClass::MeshModelClass",
-  "symbol": "??0MeshModelClass@@QAE@XZ",
-  "length": 131,
-  "status": "none",
-  "address": "0x958360",
-  "similarity": 0.74,
-  "window": "0x9582B0-0x958AB0"
- },
- {
-  "object": "meshmdl.obj",
-  "function": "MeshModelClass::MeshModelClass",
-  "symbol": "??0MeshModelClass@@QAE@ABV0@@Z",
-  "length": 156,
-  "status": "none",
-  "address": "0x958440",
-  "similarity": 0.73,
-  "window": "0x9582B0-0x958AB0"
- },
- {
-  "object": "meshmdl.obj",
   "function": "MeshModelClass::~MeshModelClass",
   "symbol": "??1MeshModelClass@@UAE@XZ",
-  "length": 212,
+  "length": 243,
   "status": "none",
   "address": "0x9586B0",
-  "similarity": 0.4,
-  "window": "0x9582B0-0x958AB0"
+  "similarity": 0.33,
+  "window": "0x958510-0x958AB0"
  },
  {
   "object": "meshmdl.obj",
@@ -3556,8 +3106,8 @@
   "length": 260,
   "status": "none",
   "address": "0x958510",
-  "similarity": 0.38,
-  "window": "0x9582B0-0x958AB0"
+  "similarity": 0.4,
+  "window": "0x958510-0x958AB0"
  },
  {
   "object": "meshmdl.obj",
@@ -3567,7 +3117,7 @@
   "status": "none",
   "address": "0x9588D0",
   "similarity": 0.28,
-  "window": "0x9582B0-0x958AB0"
+  "window": "0x958510-0x958AB0"
  },
  {
   "object": "meshmdl.obj",
@@ -3576,8 +3126,8 @@
   "length": 110,
   "status": "none",
   "address": "0x958750",
-  "similarity": 0.62,
-  "window": "0x9582B0-0x958AB0"
+  "similarity": 0.7,
+  "window": "0x958510-0x958AB0"
  },
  {
   "object": "meshmdl.obj",
@@ -3587,7 +3137,7 @@
   "status": "none",
   "address": "0x9589E0",
   "similarity": 0.82,
-  "window": "0x9582B0-0x958AB0"
+  "window": "0x958510-0x958AB0"
  },
  {
   "object": "meshmdl.obj",
@@ -3636,7 +3186,7 @@
   "length": 3403,
   "status": "none",
   "address": "0x95A482",
-  "similarity": 0.7,
+  "similarity": 0.71,
   "window": "0x95A200-0x95AF80"
  },
  {
@@ -5358,96 +4908,6 @@
   "address": "0x78FBB0",
   "similarity": 0.18,
   "window": "0x78F9E0-0x7901E0"
- },
- {
-  "object": "surfaceclass.obj",
-  "function": "SurfaceClass::PixelSize",
-  "symbol": "?PixelSize@SurfaceClass@@QAEIABUSurfaceDescription@1@@Z",
-  "length": 96,
-  "status": "none",
-  "address": "0x94D2B0",
-  "similarity": 0.39,
-  "window": "0x94CD90-0x94D590"
- },
- {
-  "object": "surfaceclass.obj",
-  "function": "SurfaceClass::Convert_Pixel",
-  "symbol": "?Convert_Pixel@SurfaceClass@@QAEXAAVVector3@@ABUSurfaceDescription@1@PBE@Z",
-  "length": 344,
-  "status": "none",
-  "address": "0x94D310",
-  "similarity": 0.8,
-  "window": "0x94CD90-0x94D590"
- },
- {
-  "object": "surfaceclass.obj",
-  "function": "SurfaceClass::Convert_Pixel",
-  "symbol": "?Convert_Pixel@SurfaceClass@@QAEXPAEABUSurfaceDescription@1@ABVVector3@@@Z",
-  "length": 284,
-  "status": "none",
-  "address": "0x94D470",
-  "similarity": 0.77,
-  "window": "0x94CD90-0x94D590"
- },
- {
-  "object": "surfaceclass.obj",
-  "function": "SurfaceClass::Clear",
-  "symbol": "?Clear@SurfaceClass@@QAEXXZ",
-  "length": 268,
-  "status": "none",
-  "address": "0x94D800",
-  "similarity": 0.63,
-  "window": "0x94D800-0x94DA30"
- },
- {
-  "object": "surfaceclass.obj",
-  "function": "SurfaceClass::Copy",
-  "symbol": "?Copy@SurfaceClass@@QAEXPBE@Z",
-  "length": 288,
-  "status": "none",
-  "address": "0x94D910",
-  "similarity": 0.78,
-  "window": "0x94D800-0x94DA30"
- },
- {
-  "object": "surfaceclass.obj",
-  "function": "SurfaceClass::CreateCopy",
-  "symbol": "?CreateCopy@SurfaceClass@@QAEPAEPAH00_N@Z",
-  "length": 384,
-  "status": "none",
-  "address": "0x94DBB0",
-  "similarity": 0.82,
-  "window": "0x94DBB0-0x94DD30"
- },
- {
-  "object": "surfaceclass.obj",
-  "function": "SurfaceClass::Get_Pixel",
-  "symbol": "?Get_Pixel@SurfaceClass@@QAEXAAVVector3@@HH@Z",
-  "length": 234,
-  "status": "none",
-  "address": "0x94E490",
-  "similarity": 0.88,
-  "window": "0x94E490-0x94E580"
- },
- {
-  "object": "surfaceclass.obj",
-  "function": "SurfaceClass::Is_Monochrome",
-  "symbol": "?Is_Monochrome@SurfaceClass@@QAE_NXZ",
-  "length": 488,
-  "status": "none",
-  "address": "0x94E880",
-  "similarity": 0.37,
-  "window": "0x94E880-0x94F080"
- },
- {
-  "object": "surfaceclass.obj",
-  "function": "SurfaceClass::Hue_Shift",
-  "symbol": "?Hue_Shift@SurfaceClass@@QAEXABVVector3@@@Z",
-  "length": 824,
-  "status": "none",
-  "address": "0x94F030",
-  "similarity": 0.11,
-  "window": "0x94E880-0x94F080"
  },
  {
   "object": "texproject.obj",
