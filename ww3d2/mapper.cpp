@@ -172,10 +172,11 @@ void ScaleTextureMapperClass::Apply(int uv_array_index)
 
 // Grid Mapper
 // HY 5/16/01
-GridTextureMapperClass::GridTextureMapperClass(float fps, unsigned int gridwidth_log2, unsigned int stage) :
-	TextureMapperClass(stage)
+GridTextureMapperClass::GridTextureMapperClass(float fps, unsigned int gridwidth_log2, unsigned int last_frame, unsigned int offset, unsigned int stage) :
+	TextureMapperClass(stage),
+	LastFrame(last_frame),
+	Offset(offset)
 {
-	LastFrame = 0;
 	initialize(fps, gridwidth_log2);
 }
 

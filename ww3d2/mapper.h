@@ -164,7 +164,7 @@ protected:
 class GridTextureMapperClass : public TextureMapperClass
 {
 public:
-	GridTextureMapperClass(float fps, unsigned int gridwidth_log2, unsigned int stage);
+	GridTextureMapperClass(float fps, unsigned int gridwidth_log2, unsigned int last_frame, unsigned int offset, unsigned int stage);
 	GridTextureMapperClass(const INIClass &ini, const char *section, unsigned int stage);
 	GridTextureMapperClass(const GridTextureMapperClass & src);
 
@@ -194,6 +194,7 @@ protected:
 	float				OOGridWidth;		// 1.0f / size of the side of the grid)
 	unsigned int	GridWidthLog2;		// log base 2 of size of the side of the grid
 	unsigned int	LastFrame;				// Last frame to use
+	unsigned int	Offset;				// Only affects initialization, but need to store it for copy CTors to work
 
 	// Temporal state
 	unsigned int	Remainder;			// used for timing calculations
@@ -388,7 +389,7 @@ public:
 class GridClassicEnvironmentMapperClass : public GridTextureMapperClass
 {
 public:
-	GridClassicEnvironmentMapperClass(float fps,unsigned int gridwidth, unsigned int stage):GridTextureMapperClass(fps,gridwidth,stage) { }
+	GridClassicEnvironmentMapperClass(float fps, unsigned int gridwidth_log2, unsigned int last_frame, unsigned int offset, unsigned int stage) : GridTextureMapperClass(fps, gridwidth_log2, last_frame, offset, stage) { }
 	GridClassicEnvironmentMapperClass(const INIClass &ini, const char *section, unsigned int stage) : GridTextureMapperClass(ini,section,stage) { }
 	GridClassicEnvironmentMapperClass(const GridTextureMapperClass & src) : GridTextureMapperClass(src) { }
 	virtual int	Mapper_ID(void) const { return MAPPER_ID_GRID_CLASSIC_ENVIRONMENT;}
@@ -400,7 +401,7 @@ public:
 class GridEnvironmentMapperClass : public GridTextureMapperClass
 {
 public:	
-	GridEnvironmentMapperClass(float fps,unsigned int gridwidth, unsigned int stage):GridTextureMapperClass(fps,gridwidth,stage) { }
+	GridEnvironmentMapperClass(float fps, unsigned int gridwidth_log2, unsigned int last_frame, unsigned int offset, unsigned int stage) : GridTextureMapperClass(fps, gridwidth_log2, last_frame, offset, stage) { }
 	GridEnvironmentMapperClass(const INIClass &ini, const char *section, unsigned int stage) : GridTextureMapperClass(ini,section,stage) { }
 	GridEnvironmentMapperClass(const GridTextureMapperClass & src) : GridTextureMapperClass(src) { }
 	virtual int	Mapper_ID(void) const { return MAPPER_ID_GRID_ENVIRONMENT;}
