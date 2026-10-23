@@ -30,16 +30,6 @@
   "window": "0x9FD3E0-0x9FD5F0"
  },
  {
-  "object": "AudibleSound.obj",
-  "function": "AudibleSoundClass::Convert_To_Filtered",
-  "symbol": "?Convert_To_Filtered@AudibleSoundClass@@UAEXXZ",
-  "length": 94,
-  "status": "none",
-  "address": "0x9FE2F0",
-  "similarity": 0.81,
-  "window": "0x9FE2F0-0x9FE350"
- },
- {
   "object": "AudioSaveLoad.obj",
   "function": "StaticAudioSaveLoadClass::Save",
   "symbol": "?Save@StaticAudioSaveLoadClass@@MAE_NAAVChunkSaveClass@@@Z",
@@ -81,73 +71,13 @@
  },
  {
   "object": "FilteredSound.obj",
-  "function": "FilteredSoundClass::FilteredSoundClass",
-  "symbol": "??0FilteredSoundClass@@QAE@XZ",
-  "length": 42,
-  "status": "none",
-  "address": "0x9DA480",
-  "similarity": 0.53,
-  "window": "0x9DA0C0-0x9F7760"
- },
- {
-  "object": "FilteredSound.obj",
-  "function": "FilteredSoundClass::FilteredSoundClass",
-  "symbol": "??0FilteredSoundClass@@QAE@ABV0@@Z",
-  "length": 59,
-  "status": "none",
-  "address": "0x9FFB30",
-  "similarity": 0.67,
-  "window": "0x9FFAB0-0xA002B0"
- },
- {
-  "object": "FilteredSound.obj",
-  "function": "FilteredSoundClass::Initialize_Miles_Handle",
-  "symbol": "?Initialize_Miles_Handle@FilteredSoundClass@@MAEXXZ",
-  "length": 165,
-  "status": "none",
-  "address": "0x9FFBD0",
-  "similarity": 0.42,
-  "window": "0x9FFAB0-0xA002B0"
- },
- {
-  "object": "FilteredSound.obj",
   "function": "FilteredSoundClass::Update_Volume",
   "symbol": "?Update_Volume@FilteredSoundClass@@UAEXXZ",
   "length": 310,
   "status": "none",
-  "address": "0x9FFCC0",
-  "similarity": 0.5,
-  "window": "0x9FFAB0-0xA002B0"
- },
- {
-  "object": "FilteredSound.obj",
-  "function": "?Load@?$SimplePersistFactoryClass@VFilteredSoundClass@@$0DAAAC@@@UBEPAVPersistClass@@AAVChunkLoadClass@@@Z",
-  "symbol": "?Load@?$SimplePersistFactoryClass@VFilteredSoundClass@@$0DAAAC@@@UBEPAVPersistClass@@AAVChunkLoadClass@@@Z",
-  "length": 159,
-  "status": "none",
-  "address": "0x9FFFC0",
-  "similarity": 0.79,
-  "window": "0x9FFAB0-0xA002B0"
- },
- {
-  "object": "Sound3D.obj",
-  "function": "Sound3DClass::Sound3DClass",
-  "symbol": "??0Sound3DClass@@QAE@XZ",
-  "length": 113,
-  "status": "none",
-  "address": "0x9DA480",
-  "similarity": 0.63,
-  "window": "0x9DA0C0-0x9F7760"
- },
- {
-  "object": "Sound3D.obj",
-  "function": "Sound3DClass::Sound3DClass",
-  "symbol": "??0Sound3DClass@@QAE@ABV0@@Z",
-  "length": 214,
-  "status": "none",
-  "address": "0x9F7C90",
-  "similarity": 0.89,
-  "window": "0x9F7C00-0x9F7DB0"
+  "address": "0xA036F0",
+  "similarity": 0.86,
+  "window": "0xA036F0-0xA03850"
  },
  {
   "object": "Sound3D.obj",
@@ -240,16 +170,6 @@
   "window": "0x9F7E80-0x9F8DE0"
  },
  {
-  "object": "Sound3D.obj",
-  "function": "?Load@?$SimplePersistFactoryClass@VSound3DClass@@$0DAAAD@@@UBEPAVPersistClass@@AAVChunkLoadClass@@@Z",
-  "symbol": "?Load@?$SimplePersistFactoryClass@VSound3DClass@@$0DAAAD@@@UBEPAVPersistClass@@AAVChunkLoadClass@@@Z",
-  "length": 226,
-  "status": "none",
-  "address": "0x9F9220",
-  "similarity": 0.82,
-  "window": "0x9F9210-0x9F9A10"
- },
- {
   "object": "SoundBuffer.obj",
   "function": "SoundBufferClass::Determine_Stats",
   "symbol": "?Determine_Stats@SoundBufferClass@@MAEXPAE@Z",
@@ -317,27 +237,7 @@
   "status": "none",
   "address": "0x9FFF50",
   "similarity": 0.55,
-  "window": "0x9FFF50-0xA00750"
- },
- {
-  "object": "SoundPseudo3D.obj",
-  "function": "?Load@?$SimplePersistFactoryClass@VSoundPseudo3DClass@@$0DAAAE@@@UBEPAVPersistClass@@AAVChunkLoadClass@@@Z",
-  "symbol": "?Load@?$SimplePersistFactoryClass@VSoundPseudo3DClass@@$0DAAAE@@@UBEPAVPersistClass@@AAVChunkLoadClass@@@Z",
-  "length": 149,
-  "status": "none",
-  "address": "0x9FFFC0",
-  "similarity": 0.9,
-  "window": "0x9FFF50-0xA00750"
- },
- {
-  "object": "SoundScene.obj",
-  "function": "SoundSceneClass::SoundSceneClass",
-  "symbol": "??0SoundSceneClass@@QAE@XZ",
-  "length": 399,
-  "status": "none",
-  "address": "0x9DADA0",
-  "similarity": 0.19,
-  "window": "0x9DA0C0-0x9F9580"
+  "window": "0x9FFF50-0x9FFFC0"
  },
  {
   "object": "SoundScene.obj",
@@ -576,7 +476,7 @@
   "length": 416,
   "status": "none",
   "address": "0x9F01C0",
-  "similarity": 0.48,
+  "similarity": 0.49,
   "window": "0x9EF990-0x9F0B00"
  },
  {
@@ -586,7 +486,7 @@
   "length": 465,
   "status": "none",
   "address": "0x9F0350",
-  "similarity": 0.38,
+  "similarity": 0.39,
   "window": "0x9EF990-0x9F0B00"
  },
  {
@@ -596,7 +496,7 @@
   "length": 549,
   "status": "none",
   "address": "0x9F0540",
-  "similarity": 0.39,
+  "similarity": 0.41,
   "window": "0x9EF990-0x9F0B00"
  },
  {

@@ -183,11 +183,16 @@ and fixed so far (importer `PATCHES`, see docs/imports.md):
 | `MeshModelClass` keeps `PolygonRendererList` (as Generals/Zero Hour) | `GapFiller` 24 bytes later | 6 |
 | `DazzleRenderObjClass` from Zero Hour (`current_scale`) | +4 at 0x124 | 25 |
 | `DX8Caps`: Zero Hour's twelve extra capability flags, not its `MaxSimultaneousTextures` | +12 from `VertexShaderVersion`, `DeviceId` too | 13 + 5 (wwshade) |
+| `RenderInfoClass`: Zero Hour's `Texture_Projector` after `light_environment` (not its alpha overrides) | the client's constructor (0x930F80) zeroes one more member; `SpecialRenderInfoClass` members from 0x124 | 14 |
+| `GridTextureMapperClass`: Zero Hour's `Offset` and five-argument constructors | +4 from 0x20 | 4, -2 in `meshmatdesc.cpp` (inlining flip, documented) |
+| `ShaderClass`: Zero Hour's `SSCAT_SCREEN`; `Get_SS_Category`, `Guess_Sort_Level` spliced from Zero Hour | the two functions | 2 |
+| `RenderObjClass` class IDs end as Zero Hour's (`CLASSID_SHDMESH` = 0x24) | `ShdMeshClass::Class_ID` at 0xA0A7E0 returns 0x24 | 0 (one more wwshade file compiles) |
+| WWLib `Pick_Random_Number`: unsigned, with a full-range mask guard (reconstructed) | the four `operator()(min, max)` compare unsigned | 4 (WWLib) |
 | Six more WW3D2 files from Zero Hour by batch trials (`tools/vc6/trial_all.py`): `aabtree`, `composite`, `dx8fvf`, `dynamesh`, `hanim`, `surfaceclass` | kept only because they gain and lose nothing | 26 |
 
-Still open: wwshade (13 of 46) needs more of Zero Hour's rendering interfaces (vertex-shader
-calls and render-state members on `DX8Wrapper`, `TextureBaseClass`/cube textures, shadow
-projectors on `RenderInfoClass`); the remaining near-misses (`TexProjectClass`, `MeshClass`,
+Still open: wwshade (13 of 46) needs Zero Hour's texture system (`TextureBaseClass`, Z and cube
+textures) and its `DX8Wrapper` shader state; Zero Hour's `dx8wrapper.obj` matches 12 client
+functions the tree lacks, so E&B's wrapper follows Zero Hour's; the remaining near-misses (`TexProjectClass`, `MeshClass`,
 `GridTextureMapperClass`, `WW3DAssetManager`, the particle buffer's constructor and line-group
 rendering, `CPUDetectClass::Init_Processor_Speed`: one swapped register pair) are code
 differences rather than layouts. Gaps split into linked and unlinked: docs/data/gaps-*-classified.md.

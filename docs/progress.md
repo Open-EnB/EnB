@@ -4,6 +4,28 @@ Newest first within each section. Dates are when the entry was written.
 
 ## 1. Log
 
+### 2026-10-23 (overnight): layouts, vtables, symbol map, app survey
+
+Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-report.md](overnight-report.md).
+
+* Byte-exact client functions in the tree 3,121 -> 3,408 (WW3D2 1,862 -> 2,060, WWAudio 184 -> 264,
+  WWLib 553 -> 557, wwshade 8 -> 13). Every fix with its evidence: [library-matching.md](library-matching.md)
+  §3.6.1. One loss accepted and documented (`meshmatdesc.cpp`, 2 functions, an inlining flip).
+* New tools: `tools/re/vtables.py` (client vtables aligned slot by slot; note VC6 orders overloaded
+  virtuals in reverse declaration order), `symbols.py` (docs/data/symbols.json, a Ghidra script,
+  [coverage.md](coverage.md): 6,100 symbols), `classify_gaps.py`, `app_inventory.py`
+  ([app-inventory.md](app-inventory.md)), `tools/vc6/trial.py`, `trial_all.py`, `layout.py`,
+  `sdk_patch.py`; three build VMs used in parallel, addressed by IP.
+* `importer.py refine` fixed: whole-file and header swaps had been accepted on a net gain; now no
+  previously matched function may be lost.
+* E&B's own code surveyed; proposal for where to start: [app-plan.md](app-plan.md) (decisions D6-D8).
+* Found: E&B's `DX8Wrapper` and texture classes follow Zero Hour's (vertex/pixel shader state, Z
+  textures): Zero Hour's `dx8wrapper.obj` matches 12 client functions the tree lacks. Moving the
+  texture system to Zero Hour's is the largest remaining WW3D2 step and unlocks wwshade.
+* Found: `importer.py assemble` restarts from the base copies (it is the pipeline's first stage),
+  so the tree cannot yet be rebuilt from the EA sources and the recorded decisions. The tree in
+  git is the authoritative result until a replay step exists.
+
 ### 2026-10-23: gaps (step 4), assembly comments
 
 * Gap locator (`tools/re/gaps.py`) and layout-difference finder (`tools/re/layoutdiff.py`,
@@ -89,26 +111,24 @@ Newest first within each section. Dates are when the entry was written.
 | A2 | 2026-10-22 | Names come from the client first (strings, RTTI, asserts), then from Westwood convention | the client is the only source of E&B's own names |
 | A3 | 2026-10-22 | EA clones live outside the repository, at `C:\EnBDevelopment\EA`; SDKs at `C:\EnBDevelopment\SDK` | they are references; what we import is copied in with its origin recorded |
 | D1 | 2026-10-22 | The repository is GPL v3 (EA's code, with EA's additional terms) | user |
-| D2 | 2026-10-22 | Install Visual C++ 6.0 as a tool for proving our work (byte-for-byte comparison) | user. Not installed yet: media needed ([toolchain.md](toolchain.md) §1) |
+| D2 | 2026-10-22 | Install Visual C++ 6.0 as a tool for proving our work (byte-for-byte comparison) | user. Installed: VC6 SP4 in Hyper-V VMs (three, 2026-10-23), the client's exact compiler build ([toolchain.md](toolchain.md) §1) |
 | D3 | 2026-10-22 | The code builds with both VC6 and modern MSVC | user |
 | D4 | 2026-10-22 | Import EA code file by file, as each file is verified against the client | user |
 | D5 | 2026-10-22 | SDKs: DirectX 8 from github.com/edgeforce/directx8, Miles and Bink from github.com/edgeforce/radtools | user. Checked: DX8 is 8.0 as the client; Bink matches; Miles usable with two fixes ([toolchain.md](toolchain.md) §2) |
 
 ## 3. Open decisions
 
-None. D1–D5 were settled on 2026-10-22 (table §2).
+* **D6-D8** (E&B's own code: where to start, how strictly to match, when to aim for a running
+  client): proposal in [app-plan.md](app-plan.md).
+* Whether to move WW3D2's texture system to Zero Hour's now (a large change across WW3D2; see the
+  log entry of 2026-10-23 overnight).
 
 ## 4. Next steps
 
-1. Start importing, file by file (D4): take the files where every function matches, from the
-   copy that matches, into `wwlib/`, `ww3d2/`, ...; record each in `docs/imports.md` with its
-   origin and match counts.
-2. Files with some unmatched functions: diff them (`objdiff.py`) and reconstruct E&B's version
-   until byte-exact. First candidate: `rc4.cpp` (library-matching.md §3.6).
-3. Vtable naming: find the vtables of the matched WW3D2/WWLib/WWAudio classes and name every slot
-   from the EA headers (library-matching.md §5.1).
-4. Call-graph propagation from the matched functions (§5.2).
-5. Start E&B's own code where prior work is strongest: `app\shared\auxdata` (the Delta classes;
-   the the reference decoder research has the address catalogue, field model and wire format),
-   `app\packets` (the packet classes, against the reference decoder's message models), and the task
-   kernel (`app\kernel`, `app\client\tasks`), which gives the program's skeleton.
+1. A `replay` step for the importer, so the tree can be rebuilt from the EA sources plus the
+   recorded decisions (copies, header swaps, splices, patches), and checked against git.
+2. WW3D2's texture classes and `DX8Wrapper` from Zero Hour (if agreed), then wwshade.
+3. The remaining WWAudio gaps (`WWAudioClass` 40, `SoundSceneClass` 12; `SoundPseudo3DClass` and
+   `FilteredSoundClass` +4 from 0x1A4) and WW3D2 near-misses (docs/data/gaps-*.md).
+4. `meshmatdesc.cpp`'s inlining flip (an app-region helper at 0x4E9CB0 that VC6 now inlines).
+5. E&B's own code, per the decisions on [app-plan.md](app-plan.md).
