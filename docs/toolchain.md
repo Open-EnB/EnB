@@ -89,6 +89,12 @@ The 30 functions the old import library lacks are: `AIL_3D_sample_length`, `AIL_
 `AIL_set_sample_processor`, `AIL_set_sample_user_data`, `AIL_set_stream_loop_block`,
 `AIL_set_stream_ms_position`, `AIL_stop_timer`, `AIL_unlock`, `AIL_unlock_mutex`.
 
+3. **`dllimport`:** E&B's build declared the Miles API `__declspec(dllimport)` (the client calls
+   Miles through the import table, `call dword ptr [__imp__AIL_...]`); this 6.1a `mss.h`
+   hard-codes plain `extern` (`#if 1 /*def __BORLANDC__*/`). `tools/vc6/sdk_patch.py` writes a
+   patched copy of the headers to `SDKadtools\include_enb` (outside the repository: the RAD
+   headers aren't ours to publish), and the build uses that. Worth 30 WWAudio functions.
+
 A Miles SDK whose `mss.h` declares `AIL_open_stream_by_sample` (6.1 or later, contemporary with
 Renegade, 2001–2002) would remove both fixes, but isn't required.
 

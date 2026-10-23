@@ -33,7 +33,7 @@ from easource import function_spans  # noqa: E402
 from objmatch import match_objects  # noqa: E402
 
 EA = r'C:\EnBDevelopment\EA'
-SDK_INCLUDES = [r'C:\EnBDevelopment\SDK\directx8\include', r'C:\EnBDevelopment\SDK\radtools\include']
+SDK_INCLUDES = [r'C:\EnBDevelopment\SDK\directx8\include', r'C:\EnBDevelopment\SDK\radtools\include_enb']
 STATE = os.path.join(REPO, 'docs', 'data', 'imports.json')
 WORK = os.path.join(os.environ.get('TEMP', '.'), 'enb_import')
 

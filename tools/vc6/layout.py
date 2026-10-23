@@ -72,25 +72,42 @@ def main():
     work = os.path.join(REPO, '.work', 'layout')
     os.makedirs(work, exist_ok=True)
     src = os.path.join(work, f'layout_{a.cls}.cpp')
-    lines = ['#define protected public', '#define private public', '#include <stddef.h>', '#include <stdio.h>',
-             f'#include "{header}"', 'int main(void)', '{',
-             f'\tprintf("sizeof({a.cls}) = 0x%X\\n", sizeof({a.cls}));']
-    for n in names:
-        lines.append(f'\tprintf("+0x%03X  {n}\\n", offsetof({a.cls}, {n}));')
-    lines += ['\treturn 0;', '}', '']
-    open(src, 'w', newline='\r\n').write('\n'.join(lines))
+    # The offsets go into a constant array; the object is only compiled, never linked, and the
+    # array is read back from it.
+    lines = ['#define protected public', '#define private public', '#include <stddef.h>',
+             f'#include "{header}"',
+             'extern "C" const unsigned int ENB_LAYOUT[] = {',
+             f'	sizeof({a.cls}),']
+    lines += [f'	offsetof({a.cls}, {n}),' for n in names]
+    lines += ['};', '']
+    open(src, 'w', newline='').write(chr(13).join(l + chr(10) for l in lines))
     incs = [os.path.join(REPO, d) for d in DEFAULT_INCLUDES] + a.includes + vc6_sdk()
-    vc6.sync([os.path.dirname(header), work] + incs)
-    exe = vc6.WORK + r'\layout.exe'
-    defines = ' '.join(f'/D "{d}"' for d in vc6.DEFAULT_DEFINES)   # the build's defines: NDEBUG changes layouts
-    cmd = ['cl /nologo /MT /O2 /Ob2 /w ' + defines + ' ' + ' '.join(f'/I "{i}"' for i in incs) + f' /Fe"{exe}" /Fo"{vc6.WORK}\\\\" "{src}"',
-           f'"{exe}"']
-    p = vc6.run_bat(cmd)
-    print(p.stdout + p.stderr)
+    out = os.path.join(work, 'obj_' + a.cls)
+    rc, text = vc6.compile_sources([src], incs, flags='/nologo /c /MT /W0 /O2 /Ob2', out=out)
+    objpath = os.path.join(out, f'layout_{a.cls}.obj')
+    if not os.path.exists(objpath):
+        print(text)
+        raise SystemExit('layout program did not compile')
+    values = read_array(objpath, '_ENB_LAYOUT', len(names) + 1)
+    print(f'sizeof({a.cls}) = 0x{values[0]:X}')
+    for n, v in zip(names, values[1:]):
+        print(f'+0x{v:03X}  {n}')
+
+
+def read_array(objpath, symbol, count):
+    """The dword values of a constant array defined in a COFF object."""
+    sys.path.insert(0, os.path.join(REPO, 'tools', 're'))
+    import struct
+    from objmatch import CoffObject
+    obj = CoffObject(objpath)
+    s = next(x for x in obj.symbols if x['name'] == symbol and x['section'] > 0)
+    sec = obj.sections[s['section'] - 1]
+    o = sec['raw'] + s['value']
+    return list(struct.unpack_from(f'<{count}I', obj.data, o))
 
 
 def vc6_sdk():
-    return [r'C:\EnBDevelopment\SDK\directx8\include', r'C:\EnBDevelopment\SDK\radtools\include']
+    return [r'C:\EnBDevelopment\SDK\directx8\include', r'C:\EnBDevelopment\SDK\radtools\include_enb']
 
 
 if __name__ == '__main__':

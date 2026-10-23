@@ -11,7 +11,7 @@ DATA="$(dirname "$TOOLS")/docs/data"
 WORK="${1:-${TEMP:-/tmp}/enb_bytematch}"
 EA=C:/EnBDevelopment/EA
 DX=C:/EnBDevelopment/SDK/directx8/include
-RAD=C:/EnBDevelopment/SDK/radtools/include
+RAD=C:/EnBDevelopment/SDK/radtools/include_enb   # tools/vc6/sdk_patch.py
 mkdir -p "$WORK"
 
 declare -A ROOT=(
