@@ -1,5 +1,5 @@
 /*
-**	Command & Conquer Renegade(tm)
+**	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.
 **
 **	This program is free software: you can redistribute it and/or modify
@@ -16,6 +16,7 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+// 08/07/02 KM Texture class redesign (revisited)
 #ifndef TEXTURETHUMBNAIL_H
 #define TEXTURETHUMBNAIL_H
 
@@ -28,6 +29,8 @@
 #include "hashtemplate.h"
 #include "dllist.h"
 #include "ww3dformat.h"
+
+#define GLOBAL_THUMBNAIL_MANAGER_FILENAME "global.th6"
 
 class ThumbnailManagerClass;
 
@@ -84,9 +87,11 @@ public:
 
 class ThumbnailManagerClass : public DLNodeClass<ThumbnailManagerClass>
 {
+	W3DMPO_GLUE(ThumbnailManagerClass);
+
 	friend ThumbnailClass;
 
-	bool CreateThumbnailIfNotFound;
+	static bool CreateThumbnailIfNotFound;
 	bool PerTextureTimeStampUsed;
 	StringClass ThumbnailFileName;
 	StringClass MixFileName;
@@ -94,8 +99,6 @@ class ThumbnailManagerClass : public DLNodeClass<ThumbnailManagerClass>
 	unsigned char* ThumbnailMemory;
 	bool Changed;
 	unsigned long DateTime;
-
-	static DLListClass<ThumbnailManagerClass> ThumbnailManagerList;
 
 	ThumbnailManagerClass(const char* thumbnail_filename, const char* mix_file_name);
 	~ThumbnailManagerClass();
@@ -110,13 +113,16 @@ class ThumbnailManagerClass : public DLNodeClass<ThumbnailManagerClass>
 	void Load();
 	void Save(bool force=false);
 public:
-	static void Add_Thumbnail_Manager(const char* thumbnail_filename, const char* mix_file_name);
-	static void Remove_Thumbnail_Manager(const char* thumbnail_filename);
-
 	ThumbnailClass* Peek_Thumbnail_Instance(const StringClass& name);
 
-	bool Is_Thumbnail_Created_If_Not_Found() const { return CreateThumbnailIfNotFound; }
-	void Create_Thumbnail_If_Not_Found(bool create) { CreateThumbnailIfNotFound=create; }
+	static void Add_Thumbnail_Manager(const char* thumbnail_filename, const char* mix_file_name);
+	static void Remove_Thumbnail_Manager(const char* thumbnail_filename);
+	static ThumbnailManagerClass* Peek_Thumbnail_Manager(const char* thumbnail_filename);
+
+	static ThumbnailClass* Peek_Thumbnail_Instance_From_Any_Manager(const StringClass& name);
+
+	static bool Is_Thumbnail_Created_If_Not_Found() { return CreateThumbnailIfNotFound; }
+	static void Create_Thumbnail_If_Not_Found(bool create) { CreateThumbnailIfNotFound=create; }
 
 	bool Is_Per_Texture_Time_Stamp_Used() const { return PerTextureTimeStampUsed; }
 	void Enable_Per_Texture_Time_Stamp(bool enable) { PerTextureTimeStampUsed=enable; }
@@ -124,8 +130,6 @@ public:
 	static void Pre_Init(bool display_message_box);
 	static void Init();
 	static void Deinit();
-
-	static DLListClass<ThumbnailManagerClass>& Peek_List() { return ThumbnailManagerList; }
 };
 
 // ----------------------------------------------------------------------------

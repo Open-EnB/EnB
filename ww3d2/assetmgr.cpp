@@ -300,7 +300,7 @@ static void Log_Textures(bool inited,unsigned& total_count, unsigned& total_mem)
 		if (tex->Is_Initialized()!=inited) continue;
 
 		D3DSURFACE_DESC desc;
-		IDirect3DTexture8* d3d_texture=tex->Peek_DX8_Texture();
+		IDirect3DTexture8* d3d_texture=tex->Peek_D3D_Texture();
 		if (!d3d_texture) continue;
 		DX8_ErrorCode(d3d_texture->GetLevelDesc(0,&desc));
 
@@ -940,7 +940,7 @@ HTreeClass *	WW3DAssetManager::Get_HTree(const char * name)
  *=============================================================================================*/
 TextureClass * WW3DAssetManager::Get_Texture(
 	const char * filename, 
-	TextureClass::MipCountType mip_level_count,
+	MipCountType mip_level_count,
 	WW3DFormat texture_format,
 	bool allow_compression)
 {
@@ -950,7 +950,7 @@ TextureClass * WW3DAssetManager::Get_Texture(
 	** We cannot currently mip-map bumpmaps
 	*/
 	if (texture_format==WW3D_FORMAT_U8V8) {
-		mip_level_count=TextureClass::MIP_LEVELS_1;
+		mip_level_count=MIP_LEVELS_1;
 	}
 
 	/*

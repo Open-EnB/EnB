@@ -1,5 +1,5 @@
 /*
-**	Command & Conquer Renegade(tm)
+**	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.
 **
 **	This program is free software: you can redistribute it and/or modify
@@ -26,12 +26,15 @@
  *                                                                                             *
  *              Original Author:: Greg Hjelstrom                                               *
  *                                                                                             *
- *                      $Author:: Jani_p                                                      $*
+ *                      $Author:: Kenny Mitchell                                               * 
+ *                                                                                             * 
+ *								$Modtime:: 08/05/02 10:03a                                             $*
  *                                                                                             *
- *                     $Modtime:: 11/29/01 1:00p                                              $*
+ *                    $Revision:: 22                                                          $*
  *                                                                                             *
- *                    $Revision:: 20                                                          $*
- *                                                                                             *
+ * 06/26/02 KM Matrix name change to avoid MAX conflicts                                       *
+ * 06/27/02 KM Render to shadow buffer texture support														*
+ * 08/05/02 KM Texture class redesign 
  *---------------------------------------------------------------------------------------------*
  * Functions:                                                                                  *
  *   TexProjectClass::TexProjectClass -- Constructor                                           *
@@ -186,6 +189,7 @@ TexProjectClass::TexProjectClass(void) :
 	MaterialPass(NULL),
 	Mapper1(NULL),
 	RenderTarget(NULL),
+	DepthStencilTarget(NULL),
 	HFov(90.0f),
 	VFov(90.0f),
 	XMin(-10.0f),
@@ -233,6 +237,7 @@ TexProjectClass::~TexProjectClass(void)
 	REF_PTR_RELEASE(Mapper1);
 	REF_PTR_RELEASE(MaterialPass);
 	REF_PTR_RELEASE(RenderTarget);
+	REF_PTR_RELEASE(DepthStencilTarget);
 }
 
 
@@ -571,8 +576,8 @@ void TexProjectClass::Init_Multiplicative(void)
 		*/
 		TextureClass * grad_tex = WW3DAssetManager::Get_Instance()->Get_Texture("MultProjectorGradient.tga");
 		if (grad_tex) {
-			grad_tex->Set_U_Addr_Mode(TextureClass::TEXTURE_ADDRESS_CLAMP);
-			grad_tex->Set_V_Addr_Mode(TextureClass::TEXTURE_ADDRESS_CLAMP);
+			grad_tex->Get_Filter().Set_U_Addr_Mode(TextureFilterClass::TEXTURE_ADDRESS_CLAMP);
+			grad_tex->Get_Filter().Set_V_Addr_Mode(TextureFilterClass::TEXTURE_ADDRESS_CLAMP);
 			MaterialPass->Set_Texture(grad_tex,1);
 			grad_tex->Release_Ref();
 		} else {
@@ -673,8 +678,8 @@ void TexProjectClass::Init_Additive(void)
 	*/
 	TextureClass * grad_tex = WW3DAssetManager::Get_Instance()->Get_Texture("AddProjectorGradient.tga");
 	if (grad_tex) {
-		grad_tex->Set_U_Addr_Mode(TextureClass::TEXTURE_ADDRESS_CLAMP);
-		grad_tex->Set_V_Addr_Mode(TextureClass::TEXTURE_ADDRESS_CLAMP);
+		grad_tex->Get_Filter().Set_U_Addr_Mode(TextureFilterClass::TEXTURE_ADDRESS_CLAMP);
+		grad_tex->Get_Filter().Set_V_Addr_Mode(TextureFilterClass::TEXTURE_ADDRESS_CLAMP);
 		MaterialPass->Set_Texture(grad_tex,1);
 		grad_tex->Release_Ref();
 	} else {
@@ -726,9 +731,10 @@ void TexProjectClass::Init_Additive(void)
  *=============================================================================================*/
 void TexProjectClass::Set_Texture(TextureClass * texture)
 {
-	if (texture != NULL) {
-		texture->Set_U_Addr_Mode(TextureClass::TEXTURE_ADDRESS_CLAMP);
-		texture->Set_V_Addr_Mode(TextureClass::TEXTURE_ADDRESS_CLAMP);	
+	if (texture != NULL) 
+	{
+		texture->Get_Filter().Set_U_Addr_Mode(TextureFilterClass::TEXTURE_ADDRESS_CLAMP);
+		texture->Get_Filter().Set_V_Addr_Mode(TextureFilterClass::TEXTURE_ADDRESS_CLAMP);	
 		MaterialPass->Set_Texture(texture);
 	}
 }
@@ -1104,23 +1110,35 @@ bool TexProjectClass::Compute_Ortho_Projection
  *                                                                                             *
  * HISTORY:                                                                                    *
  *   1/11/00    gth : Created.                                                                 *
+ *   5/16/02    kjm : Added optional custom depth/stencil target										  *
  *=============================================================================================*/
-bool TexProjectClass::Compute_Texture(RenderObjClass * model,SpecialRenderInfoClass * context)
+bool TexProjectClass::Compute_Texture
+(
+	RenderObjClass * model,
+	SpecialRenderInfoClass * context
+)
 {
-	if ((model == NULL) || (context == NULL)) {
+	if ((model == NULL) || (context == NULL)) 
+	{
 		return false;
 	}
 	/*
 	** Render to texture
 	*/
-	TextureClass * rtarget = Peek_Render_Target();
+	TextureClass * rtarget=NULL;
+	ZTextureClass* ztarget=NULL;
 
-	if (rtarget != NULL) {
+	Peek_Render_Target(&rtarget,&ztarget);
+
+	if (rtarget != NULL) 
+	{
+		// set projector for render context KJM
+		context->Texture_Projector=this;
 
 		/*
 		** Set the render target
 		*/
-		DX8Wrapper::Set_Render_Target(rtarget);
+		DX8Wrapper::Set_Render_Target_With_Z (rtarget,ztarget);
 
 		/*
 		** Set up the camera
@@ -1135,9 +1153,15 @@ bool TexProjectClass::Compute_Texture(RenderObjClass * model,SpecialRenderInfoCl
 			color.Set(1.0f,1.0f,1.0f);
 		}
 
-		WW3D::Begin_Render(true,false,color);	// false to zclear as we don't have z-buffer
+		bool zclear=ztarget!=NULL;
+
+		bool snapshot=WW3D::Is_Snapshot_Activated();
+		SNAPSHOT_SAY(("TexProjectCLass::Begin_Render()\n"));
+		WW3D::Begin_Render(true,zclear,color);	// false to zclear as we don't have z-buffer
 		WW3D::Render(*model,*context);
+		SNAPSHOT_SAY(("TexProjectCLass::End_Render()\n"));
 		WW3D::End_Render(false);
+		WW3D::Activate_Snapshot(snapshot);	// End_Render() ends the shapsnot, so restore the state
 
 		DX8Wrapper::Set_Render_Target((IDirect3DSurface8 *)NULL);
 
@@ -1188,10 +1212,15 @@ bool TexProjectClass::Needs_Render_Target(void)
  * HISTORY:                                                                                    *
  *   4/16/2001  gth : Created.                                                                 *
  *=============================================================================================*/
-void TexProjectClass::Set_Render_Target(TextureClass * render_target)
+void TexProjectClass::Set_Render_Target
+(
+	TextureClass* render_target,
+	ZTextureClass* zbuffer
+)
 {
 	REF_PTR_SET(RenderTarget,render_target);
 	Set_Texture(RenderTarget);
+	REF_PTR_SET(DepthStencilTarget,zbuffer);
 }
 
 /***********************************************************************************************
@@ -1205,9 +1234,23 @@ void TexProjectClass::Set_Render_Target(TextureClass * render_target)
  *                                                                                             *
  * HISTORY:                                                                                    *
  *   4/5/2001   gth : Created.                                                                 *
+ *   5/16/2002  kjm : Added optional custom zbuffer                                            *
  *=============================================================================================*/
-TextureClass * TexProjectClass::Peek_Render_Target(void)
+TextureClass* TexProjectClass::Peek_Render_Target
+(
+	TextureClass** rtarget, 
+	ZTextureClass** ztarget
+)
 {
+	// some uses of this function just want to know if a render target exists
+	if (rtarget==NULL) return RenderTarget;
+	
+	*rtarget=RenderTarget;
+
+	// don't set if pointer isn't supplied
+	if (ztarget!=NULL)
+		*ztarget=DepthStencilTarget;
+
 	return RenderTarget;
 }
 
@@ -1263,13 +1306,13 @@ void TexProjectClass::Pre_Render_Update(const Matrix3D & camera)
 	/*
 	** Mview-texture = PShadow * Mwrld-texture * Mcamera-vrld	
 	*/
-	Matrix3D world_to_texture;
-	Matrix3D tmp;
-	Matrix4	view_to_texture;
+	Matrix3D		world_to_texture;
+	Matrix3D		tmp;
+	Matrix4x4	view_to_texture;
 
 	Transform.Get_Orthogonal_Inverse(world_to_texture);
 	Matrix3D::Multiply(world_to_texture,camera,&tmp);
-	Matrix4::Multiply(Projection,tmp,&view_to_texture);
+	Matrix4x4::Multiply(Projection,tmp,&view_to_texture);
 
 	/*
 	** update the current intensity by iterating it towards the desired intensity

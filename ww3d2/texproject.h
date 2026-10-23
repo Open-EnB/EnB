@@ -1,5 +1,5 @@
 /*
-**	Command & Conquer Renegade(tm)
+**	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.
 **
 **	This program is free software: you can redistribute it and/or modify
@@ -26,12 +26,13 @@
  *                                                                                             *
  *              Original Author:: Greg Hjelstrom                                               *
  *                                                                                             *
- *                      $Author:: Greg_h                                                      $*
+ *                      $Author:: Kenny Mitchell                                               * 
+ *                                                                                             * 
+ *                     $Modtime:: 06/26/02 4:04p                                             $*
  *                                                                                             *
- *                     $Modtime:: 9/19/01 3:30p                                               $*
+ *                    $Revision:: 8                                                           $*
  *                                                                                             *
- *                    $Revision:: 7                                                           $*
- *                                                                                             *
+ * 06/27/02 KM Render to shadow buffer texture support														*
  *---------------------------------------------------------------------------------------------*
  * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
@@ -59,6 +60,8 @@ class RenderObjClass;
 class MaterialPassClass;
 class SurfaceClass;
 
+class TextureClass;
+class ZTextureClass;
 
 
 /**
@@ -144,6 +147,11 @@ public:
 	TextureClass *			Get_Texture(void) const;
 	TextureClass *			Peek_Texture(void) const;
 	
+
+	void						Set_DepthStencilBuffer(ZTextureClass* ztex);
+	ZTextureClass*			Get_DepthStencilBuffer() const;
+	ZTextureClass*			Peek_DepthStencilBuffer() const;
+
 	/*
 	** Automatic initialization of a TexProjectClass.
 	** First set up your projection parameters, give the projector a render target, then call Compute_Texture
@@ -155,8 +163,8 @@ public:
 	bool						Compute_Ortho_Projection(const AABoxClass & obj_box,const Matrix3D & tm,const Vector3 & lightdir,float znear=-1.0f,float zfar=-1.0f);
 
 	bool						Needs_Render_Target(void);
-	void						Set_Render_Target(TextureClass * render_target);
-	TextureClass *			Peek_Render_Target(void);
+	void						Set_Render_Target(TextureClass* render_target, ZTextureClass* ztarget=NULL);
+	TextureClass*			Peek_Render_Target(TextureClass** rtarget=NULL, ZTextureClass** ztarget=NULL);
 
 	bool						Compute_Texture(RenderObjClass * model,SpecialRenderInfoClass * context);
 
@@ -213,6 +221,7 @@ protected:
 	MaterialPassClass *		MaterialPass;
 	MatrixMapperClass *		Mapper1;
 	TextureClass *				RenderTarget;
+	ZTextureClass*				DepthStencilTarget;
 	
 	/*
 	** I have to remember all of these values so that I can properly initialize a CameraClass

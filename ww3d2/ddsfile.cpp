@@ -210,13 +210,35 @@ bool DDSFileClass::Load()
 }
 
 // ----------------------------------------------------------------------------
+
+WWINLINE static unsigned RGB565_To_ARGB8888(unsigned short rgb)
+{
+	unsigned rgba=0;
+	rgba|=unsigned(rgb&0x001f)<<3;
+	rgba|=unsigned(rgb&0x07e0)<<5;
+	rgba|=unsigned(rgb&0xf800)<<8;
+	return rgba;
+}
+
+WWINLINE static unsigned short ARGB8888_To_RGB565(unsigned argb_)
+{
+	unsigned char* argb=(unsigned char*)&argb_;
+	unsigned short rgb;
+	rgb=((argb[2])&0xf8)<<8;
+	rgb|=((argb[1])&0xfc)<<3;
+	rgb|=((argb[0])&0xf8)>>3;
+	return rgb;
+}
+
+
+// ----------------------------------------------------------------------------
 //
 // Copy mipmap level to D3D surface. The copying is performed using another
 // Copy_Level_To_Surface function (see below).
 //
 // ----------------------------------------------------------------------------
 
-void DDSFileClass::Copy_Level_To_Surface(unsigned level,IDirect3DSurface8* d3d_surface)
+void DDSFileClass::Copy_Level_To_Surface(unsigned level,IDirect3DSurface8* d3d_surface,const Vector3& hsv_shift)
 {
 	WWASSERT(d3d_surface);
 	// Verify that the destination surface size matches the source surface size
@@ -233,7 +255,8 @@ void DDSFileClass::Copy_Level_To_Surface(unsigned level,IDirect3DSurface8* d3d_s
 		surface_desc.Width,
 		surface_desc.Height,
 		reinterpret_cast<unsigned char*>(locked_rect.pBits),
-		locked_rect.Pitch);
+		locked_rect.Pitch,
+		hsv_shift);
 
 	// Finally, unlock the surface
 	DX8_ErrorCode(d3d_surface->UnlockRect());
@@ -249,21 +272,80 @@ void DDSFileClass::Copy_Level_To_Surface(unsigned level,IDirect3DSurface8* d3d_s
 //
 // ----------------------------------------------------------------------------
 
-void DDSFileClass::Copy_Level_To_Surface(
+void DDSFileClass::Copy_Level_To_Surface
+(
 	unsigned level,
 	WW3DFormat dest_format, 
 	unsigned dest_width, 
 	unsigned dest_height, 
 	unsigned char* dest_surface, 
-	unsigned dest_pitch)
+	unsigned dest_pitch,
+	const Vector3& hsv_shift
+)
 {
 	WWASSERT(DDSMemory);
 	WWASSERT(dest_surface);
 
+	if (!DDSMemory || !Get_Memory_Pointer(level))
+	{
+		WWASSERT_PRINT(DDSMemory,"Surface mip level pointer is missing\n");
+		return;
+	}
+
 	// If the format and size is a match just copy the contents
+	bool has_hsv_shift = hsv_shift[0]!=0.0f || hsv_shift[1]!=0.0f || hsv_shift[2]!=0.0f;
 	if (dest_format==Format && dest_width==Get_Width(level) && dest_height==Get_Height(level)) {
-		unsigned compressed_size=Get_Level_Size(level);
-		memcpy(dest_surface,Get_Memory_Pointer(level),compressed_size);
+		// If hue shift, we can't just copy...
+		if (has_hsv_shift) {
+			if (Format==WW3D_FORMAT_DXT1) {
+				const unsigned* src_ptr=reinterpret_cast<const unsigned*>(Get_Memory_Pointer(level));
+				unsigned* dest_ptr=reinterpret_cast<unsigned*>(dest_surface);
+				for (unsigned y=0;y<dest_height;y+=4) {
+					for (unsigned x=0;x<dest_width;x+=4) {
+						unsigned cols=*src_ptr++;		// Bytes 1-4 of color block
+						unsigned col0=RGB565_To_ARGB8888(unsigned short(cols>>16));
+						unsigned col1=RGB565_To_ARGB8888(unsigned short(cols&0xffff));
+						Recolor(col0,hsv_shift);
+						Recolor(col1,hsv_shift);
+						col0=ARGB8888_To_RGB565(col0);
+						col1=ARGB8888_To_RGB565(col1);
+						cols=unsigned(col0)<<16|col1;
+						*dest_ptr++=cols;
+
+						*dest_ptr++=*src_ptr++;		// Bytes 5-8 of color block
+					}
+				}
+			}
+			else if (Format==WW3D_FORMAT_DXT5) {
+				const unsigned* src_ptr=reinterpret_cast<const unsigned*>(Get_Memory_Pointer(level));
+				unsigned* dest_ptr=reinterpret_cast<unsigned*>(dest_surface);
+				for (unsigned y=0;y<dest_height;y+=4) {
+					for (unsigned x=0;x<dest_width;x+=4) {
+						*dest_ptr++=*src_ptr++;		// Bytes 1-4 of alpha block
+						*dest_ptr++=*src_ptr++;		// Bytes 5-8 of alpha block
+						unsigned cols=*src_ptr++;		// Bytes 1-4 of color block
+						unsigned col0=RGB565_To_ARGB8888(unsigned short(cols>>16));
+						unsigned col1=RGB565_To_ARGB8888(unsigned short(cols&0xffff));
+						Recolor(col0,hsv_shift);
+						Recolor(col1,hsv_shift);
+						col0=ARGB8888_To_RGB565(col0);
+						col1=ARGB8888_To_RGB565(col1);
+						cols=unsigned(col0)<<16|col1;
+						*dest_ptr++=cols;
+
+						*dest_ptr++=*src_ptr++;		// Bytes 5-8 of color block
+					}
+				}
+			}
+			else {
+				WWASSERT(0);
+			}
+
+		}
+		else {
+			unsigned compressed_size=Get_Level_Size(level);
+			memcpy(dest_surface,Get_Memory_Pointer(level),compressed_size);
+		}
 	}
 	else {
 		// If size matches, copy each pixel linearly with color space conversion
@@ -272,14 +354,40 @@ void DDSFileClass::Copy_Level_To_Surface(
 			// is DXT2, just copy the contents and create an empty alpha channel.
 			// This is needed on NVidia cards that have problems with DXT1 compression.
 			if (Format==WW3D_FORMAT_DXT1 && dest_format==WW3D_FORMAT_DXT2) {
-				const unsigned* src_ptr=reinterpret_cast<const unsigned*>(Get_Memory_Pointer(level));
-				unsigned* dest_ptr=reinterpret_cast<unsigned*>(dest_surface);
-				for (unsigned y=0;y<dest_height;y+=4) {
-					for (unsigned x=0;x<dest_width;x+=4) {
-						*dest_ptr++=0xffffffff;		// Bytes 1-4 of alpha block
-						*dest_ptr++=0xffffffff;		// Bytes 5-8 of alpha block
-						*dest_ptr++=*src_ptr++;		// Bytes 1-4 of color block
-						*dest_ptr++=*src_ptr++;		// Bytes 5-8 of color block
+				// If hue shift, we can't just copy...
+				if (has_hsv_shift) {
+					const unsigned* src_ptr=reinterpret_cast<const unsigned*>(Get_Memory_Pointer(level));
+					unsigned* dest_ptr=reinterpret_cast<unsigned*>(dest_surface);
+					for (unsigned y=0;y<dest_height;y+=4) {
+						for (unsigned x=0;x<dest_width;x+=4) {
+							*dest_ptr++=0xffffffff;		// Bytes 1-4 of alpha block
+							*dest_ptr++=0xffffffff;		// Bytes 5-8 of alpha block
+//							*dest_ptr++=*src_ptr++;		// Bytes 1-4 of color block
+
+							unsigned cols=*src_ptr++;	// Bytes 1-4 of color block
+							unsigned col0=RGB565_To_ARGB8888(unsigned short(cols>>16));
+							unsigned col1=RGB565_To_ARGB8888(unsigned short(cols&0xffff));
+							Recolor(col0,hsv_shift);
+							Recolor(col1,hsv_shift);
+							col0=ARGB8888_To_RGB565(col0);
+							col1=ARGB8888_To_RGB565(col1);
+							cols=unsigned(col0)<<16|col1;
+							*dest_ptr++=cols;
+
+							*dest_ptr++=*src_ptr++;		// Bytes 5-8 of color block
+						}
+					}
+				}
+				else {
+					const unsigned* src_ptr=reinterpret_cast<const unsigned*>(Get_Memory_Pointer(level));
+					unsigned* dest_ptr=reinterpret_cast<unsigned*>(dest_surface);
+					for (unsigned y=0;y<dest_height;y+=4) {
+						for (unsigned x=0;x<dest_width;x+=4) {
+							*dest_ptr++=0xffffffff;		// Bytes 1-4 of alpha block
+							*dest_ptr++=0xffffffff;		// Bytes 5-8 of alpha block
+							*dest_ptr++=*src_ptr++;		// Bytes 1-4 of color block
+							*dest_ptr++=*src_ptr++;		// Bytes 5-8 of color block
+						}
 					}
 				}
 			}
@@ -292,7 +400,7 @@ void DDSFileClass::Copy_Level_To_Surface(
 					unsigned char* dest_ptr=dest_surface;
 					dest_ptr+=y*dest_pitch;
 					for (unsigned x=0;x<dest_width;x+=4,dest_ptr+=dest_bpp*4) {
-						contains_alpha|=Get_4x4_Block(dest_ptr,dest_pitch,dest_format,level,x,y);
+						contains_alpha|=Get_4x4_Block(dest_ptr,dest_pitch,dest_format,level,x,y,hsv_shift);
 					}
 				}
 				if (Format==WW3D_FORMAT_DXT1 && contains_alpha) {
@@ -301,17 +409,6 @@ void DDSFileClass::Copy_Level_To_Surface(
 			}
 		}
 	}
-}
-
-// ----------------------------------------------------------------------------
-
-WWINLINE static unsigned RGB565_To_ARGB8888(unsigned short rgb)
-{
-	unsigned rgba=0;
-	rgba|=unsigned(rgb&0x001f)<<3;
-	rgba|=unsigned(rgb&0x07e0)<<5;
-	rgba|=unsigned(rgb&0xf800)<<8;
-	return rgba;
 }
 
 // ----------------------------------------------------------------------------
@@ -495,7 +592,8 @@ bool DDSFileClass::Get_4x4_Block(
 	WW3DFormat dest_format,				// Destination surface format, A8R8G8B8 is fastest
 	unsigned level,						// DDS mipmap level to copy from
 	unsigned source_x,					// DDS x offset to copy from, must be aligned by 4!
-	unsigned source_y) const			// DDS y offset to copy from, must be aligned by 4!
+	unsigned source_y,					// DDS y offset to copy from, must be aligned by 4!
+	const Vector3& hsv_shift) const
 {
 	// Verify the block alignment
 	WWASSERT((source_x&3)==0);
@@ -508,6 +606,7 @@ bool DDSFileClass::Get_4x4_Block(
 
 	unsigned dest_bpp=Get_Bytes_Per_Pixel(dest_format);
 
+	bool has_hsv_shift = hsv_shift[0]!=0.0f || hsv_shift[1]!=0.0f || hsv_shift[2]!=0.0f;
 	switch (Format) {
 	// Note that we don't currently really support alpha on DXT1 - all alpha textures should use DXT5.
 	// The reason for this is that when converting from DXT1 to 16 bit uncompressed texture we want
@@ -523,6 +622,11 @@ bool DDSFileClass::Get_4x4_Block(
 			// Even if we don't support alpha, decompression is different if source has alpha
 			unsigned dest_pixel=0;
 			if (col0>col1) {
+				if (has_hsv_shift) {
+					Recolor(col0,hsv_shift);
+					Recolor(col1,hsv_shift);
+				}
+
 				for (int y=0;y<4;++y) {
 					unsigned char* tmp_dest_ptr=dest_ptr;
 					dest_ptr+=dest_pitch;
@@ -543,6 +647,10 @@ bool DDSFileClass::Get_4x4_Block(
 				return false;	// No alpha found in the block
 			}
 			else {
+				if (has_hsv_shift) {
+					Recolor(col0,hsv_shift);
+					Recolor(col1,hsv_shift);
+				}
 				bool contains_alpha=false;
 				for (int y=0;y<4;++y) {
 					unsigned char* tmp_dest_ptr=dest_ptr;
@@ -602,6 +710,10 @@ bool DDSFileClass::Get_4x4_Block(
 			const unsigned char* color_block=alpha_block+8;
 			unsigned col0=RGB565_To_ARGB8888(*(unsigned short*)&color_block[0]);
 			unsigned col1=RGB565_To_ARGB8888(*(unsigned short*)&color_block[2]);
+			if (has_hsv_shift) {
+				Recolor(col0,hsv_shift);
+				Recolor(col1,hsv_shift);
+			}
 
 			unsigned dest_pixel=0;
 			unsigned bit_idx=0;

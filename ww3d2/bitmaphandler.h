@@ -1,5 +1,5 @@
 /*
-**	Command & Conquer Renegade(tm)
+**	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.
 **
 **	This program is free software: you can redistribute it and/or modify
@@ -25,6 +25,8 @@
 
 #include "always.h"
 #include "ww3dformat.h"
+#include "vector3.h"
+#include "colorspace.h"
 
 void Bitmap_Assert(bool condition);
 
@@ -77,6 +79,15 @@ public:
 		const unsigned char* palette,
 		unsigned palette_bpp);
 
+	WWINLINE static void Copy_Pixel(
+		unsigned char* dest_ptr,
+		WW3DFormat dest_format,
+		const unsigned char* src_ptr,
+		WW3DFormat src_format,
+		const unsigned char* palette,
+		unsigned palette_bpp,
+		const Vector3& hsv_shift);
+
 	WWINLINE static unsigned Combine_A8R8G8B8(
 		unsigned bgra1,
 		unsigned bgra2,
@@ -101,7 +112,8 @@ public:
 		unsigned src_pitch,
 		WW3DFormat src_format,
 		unsigned char* mip_surface,
-		unsigned mip_pitch);
+		unsigned mip_pitch,
+		const Vector3& hsv_shift=Vector3(0.0f,0.0f,0.0f));
 
 	static void Copy_Image(
 		unsigned char* dest_surface, 
@@ -116,7 +128,8 @@ public:
 		WW3DFormat src_surface_format,
 		const unsigned char* src_palette,
 		unsigned src_palette_bpp,
-		bool generate_mip_level);
+		bool generate_mip_level,
+		const Vector3& hsv_shift=Vector3(0.0f,0.0f,0.0f));
 
 };
 
@@ -424,6 +437,27 @@ WWINLINE void BitmapHandlerClass::Copy_Pixel(
 		Read_B8G8R8A8(b8g8r8a8,src_ptr,src_format,palette,palette_bpp);
 		Write_B8G8R8A8(dest_ptr,dest_format,b8g8r8a8);
 	}
+}
+
+// ----------------------------------------------------------------------------
+//
+// Copy pixel with HSV shift. The source and destination are always D3D-style BGRA.
+//
+// ----------------------------------------------------------------------------
+
+WWINLINE void BitmapHandlerClass::Copy_Pixel(
+	unsigned char* dest_ptr,
+	WW3DFormat dest_format,
+	const unsigned char* src_ptr,
+	WW3DFormat src_format,
+	const unsigned char* palette,
+	unsigned palette_bpp,
+	const Vector3& hsv_shift)
+{
+	unsigned b8g8r8a8;
+	Read_B8G8R8A8(b8g8r8a8,src_ptr,src_format,palette,palette_bpp);
+	Recolor(b8g8r8a8,hsv_shift);
+	Write_B8G8R8A8(dest_ptr,dest_format,b8g8r8a8);
 }
 
 WWINLINE unsigned BitmapHandlerClass::Combine_A8R8G8B8(

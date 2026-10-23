@@ -43,6 +43,7 @@ def main():
     ap.add_argument('--max-loss', type=int, default=0,
                     help='keep even if up to N functions are lost, when more are gained (for a refine pass to recover)')
     ap.add_argument('--libs', nargs='*', help='libraries to verify (default: the dependants of every library touched)')
+    ap.add_argument('--errors', help='write every compile error to this file (the console shows 15)')
     a = ap.parse_args()
 
     saved = []          # (lib, original name, bytes)
@@ -72,6 +73,11 @@ def main():
     trial = json.loads(json.dumps(state))
     importer.verify(trial, libs)
     errors = sorted({os.path.basename(e.replace(chr(92), '/'))[:160] for l in libs for e in trial[l].get('compile_errors', [])})
+    if a.errors:
+        with open(a.errors, 'w', encoding='utf-8') as f:
+            for l in libs:
+                for e in trial[l].get('compile_errors', []):
+                    f.write(f'{l}\t{e}\n')
     for e in errors[:15]:
         print('   ', e)
     gained = lost = 0

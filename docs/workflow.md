@@ -83,5 +83,19 @@ compiled into E&B's objects), so they run higher.
   library-matching.md.
 * **Patch anchors change when files change copy.** A `PATCHES` entry written for Zero Hour's file
   doesn't apply to Renegade's. `assemble` reports "patch ... no longer applies".
+* **`verify` keeps only the first 50 compile errors.** One badly broken file (e.g. a whole-file
+  swap) fills them and hides errors elsewhere: a library losing functions with no error listed
+  for that file usually means this. Fix the loud file first, or verify with it restored.
+* **A "none" for a callee proves nothing.** Byte matching masks call targets, so a function can
+  be absent from the evidence and still be what the client calls. Before patching a call site
+  to avoid a function, follow the client's call (it was so with Zero Hour's
+  `Peek_Thumbnail_Instance_From_Any_Manager`, 0x91AD40).
+* **Refine pairs functions by name.** A class renamed between copies (Renegade's
+  `TextureClass::Apply_Null` is Zero Hour's `TextureBaseClass::Apply_Null`) is never spliced; compare
+  such functions by hand. It also cannot add a function a file lacks: those are `PATCHES`.
+* **An emptied function gets inlined.** Code switched off in a copy (Generals' `#if 0` around
+  `ThumbnailManagerClass::Save`) lets VC6 inline what's left into its callers, and the callers stop
+  matching. A caller that matches the other copy's bytes, with a call where ours has none, points
+  at it.
 * **Clones share a computer name.** Always address the VMs by IP (`ENB_VC6_HOST` or
   `ENB_VC6_HOSTS`).

@@ -758,9 +758,9 @@ void WW3D::_Invalidate_Textures()
 void WW3D::Set_Texture_Filter(int texture_filter)
 {
 	if (texture_filter<0) texture_filter=0;
-	if (texture_filter>TextureClass::TEXTURE_FILTER_ANISOTROPIC) texture_filter=TextureClass::TEXTURE_FILTER_ANISOTROPIC;
+	if (texture_filter>TextureFilterClass::TEXTURE_FILTER_ANISOTROPIC) texture_filter=TextureFilterClass::TEXTURE_FILTER_ANISOTROPIC;
 	TextureFilter=texture_filter;
-	TextureClass::_Init_Filters((TextureClass::TextureFilterMode)TextureFilter);
+	TextureFilterClass::_Init_Filters((TextureFilterClass::TextureFilterMode)TextureFilter);
 }
 
 

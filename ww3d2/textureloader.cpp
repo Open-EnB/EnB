@@ -219,7 +219,7 @@ public:
 IDirect3DTexture8* Load_Compressed_Texture(
 	const StringClass& filename,
 	unsigned reduction_factor,
-	TextureClass::MipCountType mip_level_count,
+	MipCountType mip_level_count,
 	WW3DFormat dest_format)
 {
 	// If DDS file isn't available, use TGA file to convert to DDS.
@@ -240,7 +240,7 @@ IDirect3DTexture8* Load_Compressed_Texture(
 		width,
 		height,
 		dest_format,
-		(TextureClass::MipCountType)mips);
+		(MipCountType)mips);
 
 	for (unsigned level=0;level<mips;++level) {
 		IDirect3DSurface8* d3d_surface=NULL;
@@ -360,17 +360,12 @@ void TextureLoader::Validate_Texture_Size(unsigned& width, unsigned& height)
 	height=poweroftwoheight;
 }
 
-IDirect3DTexture8* TextureLoader::Load_Thumbnail(const StringClass& filename)//,WW3DFormat texture_format)
+IDirect3DTexture8* TextureLoader::Load_Thumbnail(const StringClass& filename, const Vector3& hsv_shift)//,WW3DFormat texture_format)
 {
 	WWASSERT(Is_DX8_Thread());
 
 	ThumbnailClass* thumb=NULL;
-	ThumbnailManagerClass* thumb_man=ThumbnailManagerClass::Peek_List().Head();
-	while (thumb_man) {
-		thumb=thumb_man->Peek_Thumbnail_Instance(filename);
-		if (thumb) break;
-		thumb_man=thumb_man->Succ();
-	}
+	thumb=ThumbnailManagerClass::Peek_Thumbnail_Instance_From_Any_Manager(filename);
 
 	// If no thumb is found return a missing texture
 	if (!thumb) {
@@ -393,7 +388,7 @@ IDirect3DTexture8* TextureLoader::Load_Thumbnail(const StringClass& filename)//,
 		thumb->Get_Width(),
 		thumb->Get_Height(),
 		dest_format,
-		TextureClass::MIP_LEVELS_ALL,
+		MIP_LEVELS_ALL,
 #ifdef USE_MANAGED_TEXTURES
 		D3DPOOL_MANAGED);
 #else
@@ -419,6 +414,7 @@ IDirect3DTexture8* TextureLoader::Load_Thumbnail(const StringClass& filename)//,
 	unsigned width=thumb->Get_Width();
 	unsigned height=thumb->Get_Height();
 
+	Vector3 hsv=hsv_shift;
 	for (level=0;level<sysmem_texture->GetLevelCount()-1;++level) {
 		BitmapHandlerClass::Copy_Image_Generate_Mipmap(
 			width,
@@ -430,7 +426,9 @@ IDirect3DTexture8* TextureLoader::Load_Thumbnail(const StringClass& filename)//,
 			src_pitch,
 			src_format,
 			(unsigned char*)locked_rects[level+1].pBits,	// mipmap
-			locked_rects[level+1].Pitch);// mipmap
+			locked_rects[level+1].Pitch,
+			hsv);
+		hsv=Vector3(0.0f,0.0f,0.0f);	// Only do the shift for the first level, as the mipmaps are based on it.
 
 		src_format=dest_format;
 		src_surface=(unsigned char*)locked_rects[level].pBits;
@@ -450,7 +448,7 @@ IDirect3DTexture8* TextureLoader::Load_Thumbnail(const StringClass& filename)//,
 		thumb->Get_Width(),
 		thumb->Get_Height(),
 		dest_format,
-		TextureClass::MIP_LEVELS_ALL,
+		TextureBaseClass::MIP_LEVELS_ALL,
 		D3DPOOL_DEFAULT);
 	DX8CALL(UpdateTexture(sysmem_texture,d3d_texture));
 	sysmem_texture->Release();
@@ -478,7 +476,7 @@ IDirect3DSurface8* TextureLoader::Load_Surface_Immediate(
 	bool compressed=Is_Format_Compressed(texture_format,allow_compression);
 
 	if (compressed) {
-		IDirect3DTexture8* comp_tex=Load_Compressed_Texture(filename,0,TextureClass::MIP_LEVELS_1,WW3D_FORMAT_UNKNOWN);
+		IDirect3DTexture8* comp_tex=Load_Compressed_Texture(filename,0,MIP_LEVELS_1,WW3D_FORMAT_UNKNOWN);
 		if (comp_tex) {
 			IDirect3DSurface8* d3d_surface=NULL;
 			DX8_ErrorCode(comp_tex->GetSurfaceLevel(0,&d3d_surface));
@@ -577,7 +575,7 @@ IDirect3DSurface8* TextureLoader::Load_Surface_Immediate(
 }
 
 
-void TextureLoader::Request_Thumbnail(TextureClass *tc)
+void TextureLoader::Request_Thumbnail(TextureBaseClass *tc)
 {
 	// Grab the foreground lock. This prevents the foreground thread
 	// from retiring any tasks related to this texture. It also
@@ -585,7 +583,7 @@ void TextureLoader::Request_Thumbnail(TextureClass *tc)
 	FastCriticalSectionClass::LockClass lock(_ForegroundCriticalSection);
 
 	// Has a Direct3D texture already been loaded?
-	if (tc->Peek_DX8_Texture()) {
+	if (tc->Peek_D3D_Texture()) {
 		return;
 	}
 
@@ -618,7 +616,7 @@ void TextureLoader::Request_Thumbnail(TextureClass *tc)
 }
 
 
-void TextureLoader::Request_Background_Loading(TextureClass *tc)
+void TextureLoader::Request_Background_Loading(TextureBaseClass *tc)
 {
 	// Grab the foreground lock. This prevents the foreground thread
 	// from retiring any tasks related to this texture. It also 
@@ -648,7 +646,7 @@ void TextureLoader::Request_Background_Loading(TextureClass *tc)
 }
 
 
-void TextureLoader::Request_Foreground_Loading(TextureClass *tc)
+void TextureLoader::Request_Foreground_Loading(TextureBaseClass *tc)
 {
 	// Grab the foreground lock. This prevents the foreground thread
 	// from retiring the load tasks for this texture. It also 
@@ -896,13 +894,13 @@ void TextureLoader::Begin_Load_And_Queue(TextureLoadTaskClass *task)
 }
 
 
-void TextureLoader::Load_Thumbnail(TextureClass *tc)
+void TextureLoader::Load_Thumbnail(TextureBaseClass *tc)
 {
 	// All D3D operations must run from main thread
 	WWASSERT(Is_DX8_Thread());
 
 	// load thumbnail texture
-	IDirect3DTexture8 *d3d_texture = Load_Thumbnail(tc->Get_Full_Path());
+	IDirect3DTexture8 *d3d_texture = Load_Thumbnail(tc->Get_Full_Path(),tc->Get_HSV_Shift());
 
 	// apply thumbnail to texture
 	tc->Apply_New_Surface(d3d_texture, false);
@@ -964,7 +962,7 @@ TextureLoadTaskClass::TextureLoadTaskClass()
 	// don't need to do much. The work of attaching a task to a texture is
 	// is done by Init() and Deinit().
 
-	for (int i = 0; i < TextureClass::MIP_LEVELS_MAX; ++i) {
+	for (int i = 0; i < MIP_LEVELS_MAX; ++i) {
 		LockedSurfacePtr[i]		= NULL;
 		LockedSurfacePitch[i]	= 0;
 	}
@@ -977,7 +975,7 @@ TextureLoadTaskClass::~TextureLoadTaskClass(void)
 }
 
 
-TextureLoadTaskClass *TextureLoadTaskClass::Create(TextureClass *tc, TaskType type, PriorityType priority)
+TextureLoadTaskClass *TextureLoadTaskClass::Create(TextureBaseClass *tc, TaskType type, PriorityType priority)
 {
 	// recycle or create a new texture load task with the given type 
 	// and priority, then associate the texture with the task.
@@ -1012,7 +1010,7 @@ void TextureLoadTaskClass::Delete_Free_Pool(void)
 }
 
 
-void TextureLoadTaskClass::Init(TextureClass* tc, TaskType type, PriorityType priority)
+void TextureLoadTaskClass::Init(TextureBaseClass* tc, TaskType type, PriorityType priority)
 {
 	WWASSERT(tc);
 
@@ -1029,14 +1027,25 @@ void TextureLoadTaskClass::Init(TextureClass* tc, TaskType type, PriorityType pr
 
 	D3DTexture		= 0;
 
-	Format			= Texture->Get_Texture_Format();
+	TextureClass* tex=Texture->As_TextureClass();
+
+	if (tex)
+	{
+		Format			= tex->Get_Texture_Format(); // don't assume format yet KM
+	}
+	else
+	{
+		Format			= WW3D_FORMAT_UNKNOWN;
+	}
+
 	Width				= 0;
 	Height			= 0;
 	MipLevelCount	= Texture->MipLevelCount;
 	Reduction		= Texture->Get_Reduction();
+	HSVShift			= Texture->Get_HSV_Shift();
 
 
-	for (int i = 0; i < TextureClass::MIP_LEVELS_MAX; ++i) {
+	for (int i = 0; i < MIP_LEVELS_MAX; ++i) {
 		LockedSurfacePtr[i]		= NULL;
 		LockedSurfacePitch[i]	= 0;
 	}
@@ -1063,7 +1072,7 @@ void TextureLoadTaskClass::Deinit()
 
 	WWASSERT(D3DTexture == NULL);
 
-	for (int i = 0; i < TextureClass::MIP_LEVELS_MAX; ++i) {
+	for (int i = 0; i < MIP_LEVELS_MAX; ++i) {
 		WWASSERT(LockedSurfacePtr[i] == NULL);
 	}
 
@@ -1215,13 +1224,7 @@ static bool	Get_Texture_Information(
 	unsigned& mip_count,
 	bool compressed)
 {
-	ThumbnailClass* thumb=NULL;
-	ThumbnailManagerClass* thumb_man=ThumbnailManagerClass::Peek_List().Head();
-	while (thumb_man) {
-		thumb=thumb_man->Peek_Thumbnail_Instance(filename);
-		if (thumb) break;
-		thumb_man=thumb_man->Succ();
-	}
+	ThumbnailClass* thumb=ThumbnailManagerClass::Peek_Thumbnail_Instance_From_Any_Manager(filename);
 	if (!thumb) {
 		if (compressed) {
 			DDSFileClass dds_file(filename, reduction);
@@ -1336,7 +1339,7 @@ bool TextureLoadTaskClass::Begin_Compressed_Load(void)
 		Width, 
 		Height, 
 		Format, 
-		(TextureClass::MipCountType)mip_level_count,
+		(MipCountType)mip_level_count,
 #ifdef USE_MANAGED_TEXTURES
 		D3DPOOL_MANAGED);
 #else

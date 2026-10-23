@@ -189,10 +189,14 @@ and fixed so far (importer `PATCHES`, see docs/imports.md):
 | `RenderObjClass` class IDs end as Zero Hour's (`CLASSID_SHDMESH` = 0x24) | `ShdMeshClass::Class_ID` at 0xA0A7E0 returns 0x24 | 0 (one more wwshade file compiles) |
 | WWLib `Pick_Random_Number`: unsigned, with a full-range mask guard (reconstructed) | the four `operator()(min, max)` compare unsigned | 4 (WWLib) |
 | Six more WW3D2 files from Zero Hour by batch trials (`tools/vc6/trial_all.py`): `aabtree`, `composite`, `dx8fvf`, `dynamesh`, `hanim`, `surfaceclass` | kept only because they gain and lose nothing | 26 |
+| Texture system (D9): Zero Hour's 06/27/02 "texture class abstraction" without its 08/05/02 redesign. `texture`, `texproject`, `dx8texman`, `bitmaphandler`, `texturethumbnail` (+ `colorspace.h`, `dx8list.h`, `formconv.h`) from Zero Hour, minus cube/volume textures, `IsReducible`/`allow_reduction`, the `Get_Asset_Type`/`Get_Texture_Memory_Usage` virtuals and Generals' `#if 0` around thumbnail `Load`/`Save`. `DX8Wrapper`, `textureloader`, `ddsfile` stay Renegade's with Zero Hour's 06/27/02 parts patched in (`KJM` blocks: Z textures, depth render targets, shader state, draw-call statistics; loader on `TextureBaseClass` with HSV shift; HSV in DDS copies). Renegade-API callers renamed (`MipCountType`, `TextureFilterClass`, `Peek_D3D_Texture`). Importer `TEXTURE_API_PATCHES` | vtables at 0xB119A0 (base, trackers, `TextureClass`, `ZTextureClass`: 6 slots each, no cube/volume tables); constructors 0x94B020 (`ret 0x14`, `D3DTexture` at +0x34), 0x94B240, 0x94B3D0; no caller of `D3DXCreateCubeTexture`/`D3DXCreateVolumeTexture`; no vtable for the load task; Zero Hour's dated change logs; `Peek_Thumbnail_Instance_From_Any_Manager` at 0x91AD40 with a static flag at 0xBFAEA5 | 88 (WW3D2) + 7 (wwshade), none lost |
 
-Still open: wwshade (13 of 46) needs Zero Hour's texture system (`TextureBaseClass`, Z and cube
-textures) and its `DX8Wrapper` shader state; Zero Hour's `dx8wrapper.obj` matches 12 client
-functions the tree lacks, so E&B's wrapper follows Zero Hour's; the remaining near-misses (`TexProjectClass`, `MeshClass`,
+Still open: wwshade (20 of 46) needs more of Zero Hour's WW3D2 (`DX8Wrapper::Apply_Default_State`,
+`Get_Ambient`, two vertex streams, `LightEnvironmentClass::Get_Max_Lights`, self-shadowed meshes,
+`VertexMaterialClass` parsers), each still to be checked against the client. In the texture files,
+`TextureClass`'s constructors, `Init`, `Apply` and `Get_Reduction` and `DX8Wrapper`'s device code
+are near-misses still (`Get_Reduction` has Renegade's body, unconfirmed; Renegade's
+`Set_Render_Target(TextureClass *)` is kept without evidence). The remaining near-misses (`TexProjectClass`, `MeshClass`,
 `GridTextureMapperClass`, `WW3DAssetManager`, the particle buffer's constructor and line-group
 rendering, `CPUDetectClass::Init_Processor_Speed`: one swapped register pair) are code
 differences rather than layouts. Gaps split into linked and unlinked: docs/data/gaps-*-classified.md.

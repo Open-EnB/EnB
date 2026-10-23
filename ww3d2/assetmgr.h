@@ -257,7 +257,7 @@ public:
 
 	virtual TextureClass *			Get_Texture(
 		const char * filename, 
-		TextureClass::MipCountType mip_level_count=TextureClass::MIP_LEVELS_ALL,
+		MipCountType mip_level_count=MIP_LEVELS_ALL,
 		WW3DFormat texture_format=WW3D_FORMAT_UNKNOWN,
 		bool allow_compression=true);
 

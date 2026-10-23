@@ -46,7 +46,7 @@ Build-VM tools in `tools/vc6`: `vc6.py` (compile in the VM), `bytematch_all.sh` 
 `docs/imports.md`), `annotations.py` (C-equivalent comments for assembly in imported files),
 `layout.py CLASS HEADER` (a class's member offsets as VC6 lays it out, read from an unlinked
 object), `trial.py COPY LIB/FILE...` (swap files to another EA copy, keep only if better;
-`--max-loss`), `trial_all.py LIB COPY...` (trial every differing header/source pair),
+`--max-loss`; `--errors FILE` writes every compile error, not just the first 15), `trial_all.py LIB COPY...` (trial every differing header/source pair),
 `sdk_patch.py` (the Miles header as E&B's build used it, outside the repository). Several VMs:
 `vc6.py discover`; `ENB_VC6_HOSTS` gives a job a subset of them (docs/toolchain.md §1.1).
 

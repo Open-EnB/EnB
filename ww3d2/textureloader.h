@@ -40,7 +40,7 @@ public:
 	static void Validate_Texture_Size(unsigned& width, unsigned& height);
 
 	static IDirect3DTexture8 * Load_Thumbnail(
-		const StringClass& filename);
+		const StringClass& filename,const Vector3& hsv_shift);
 //		WW3DFormat texture_format);	// Pass WW3D_FORMAT_UNKNOWN if you don't care
 
 	static IDirect3DSurface8 *		Load_Surface_Immediate(
@@ -48,18 +48,18 @@ public:
 		WW3DFormat surface_format,		// Pass WW3D_FORMAT_UNKNOWN if you don't care
 		bool allow_compression);
 
-	static void	Request_Thumbnail(TextureClass* tc);
+	static void	Request_Thumbnail(TextureBaseClass* tc);
 
 	// Adds a loading task to the system. The task if processed in a separate
 	// thread as soon as possible. The task will appear in finished tasks list
 	// when it's been completed. The texture will be refreshed on the next
 	// update call after appearing to the finished tasks list.
-	static void Request_Background_Loading(TextureClass* tc);
+	static void Request_Background_Loading(TextureBaseClass* tc);
 
 	// Textures can only be created and locked by the main thread so this function sends a request to the texture
 	// handling system to load the texture immediatelly next time it enters the main thread. If this function
 	// is called from the main thread the texture is loaded immediatelly.
-	static void Request_Foreground_Loading(TextureClass* tc);
+	static void Request_Foreground_Loading(TextureBaseClass* tc);
 
 	static void	Flush_Pending_Load_Tasks(void);
 	static void Update(void(*network_callback)(void) = NULL);
@@ -75,7 +75,7 @@ private:
 	static void Process_Foreground_Thumbnail	(TextureLoadTaskClass *task);
 
 	static void Begin_Load_And_Queue				(TextureLoadTaskClass *task);
-	static void Load_Thumbnail						(TextureClass *tc);
+	static void Load_Thumbnail						(TextureBaseClass *tc);
 
 	static bool TextureLoadSuspended;
 };
@@ -174,11 +174,11 @@ class TextureLoadTaskClass : public TextureLoadTaskListNodeClass
 		TextureLoadTaskClass(void);
 		~TextureLoadTaskClass(void);
 
-		static TextureLoadTaskClass *	Create			(TextureClass *tc, TaskType type, PriorityType priority);
+		static TextureLoadTaskClass *	Create			(TextureBaseClass *tc, TaskType type, PriorityType priority);
 		void						Destroy						(void);
 		static void				Delete_Free_Pool			(void);
 
-		void						Init							(TextureClass *tc, TaskType type, PriorityType priority);
+		void						Init							(TextureBaseClass *tc, TaskType type, PriorityType priority);
 		void						Deinit						(void);
 
 		TaskType					Get_Type						(void) const		{ return Type;				}
@@ -194,7 +194,7 @@ class TextureLoadTaskClass : public TextureLoadTaskListNodeClass
 		unsigned char *		Get_Locked_Surface_Ptr	(unsigned int level);
 		unsigned int			Get_Locked_Surface_Pitch(unsigned int level) const;
 
-		TextureClass *			Peek_Texture				(void)				{ return Texture;			}
+		TextureBaseClass *			Peek_Texture				(void)				{ return Texture;			}
 		IDirect3DTexture8	*	Peek_D3D_Texture			(void)				{ return D3DTexture;		}
 
 		void						Set_Type						(TaskType t)		{ Type		= t;			}
@@ -219,7 +219,7 @@ class TextureLoadTaskClass : public TextureLoadTaskListNodeClass
 
 		void						Apply							(bool initialize);
 		
-		TextureClass*			Texture;
+		TextureBaseClass*			Texture;
 		IDirect3DTexture8 *	D3DTexture;
 		WW3DFormat				Format;
 
@@ -227,9 +227,10 @@ class TextureLoadTaskClass : public TextureLoadTaskListNodeClass
 		unsigned	int			Height;
 		unsigned	int			MipLevelCount;
 		unsigned	int			Reduction;
+		Vector3					HSVShift;
 
-		unsigned char *		LockedSurfacePtr[TextureClass::MIP_LEVELS_MAX];
-		unsigned	int			LockedSurfacePitch[TextureClass::MIP_LEVELS_MAX];
+		unsigned char *		LockedSurfacePtr[MIP_LEVELS_MAX];
+		unsigned	int			LockedSurfacePitch[MIP_LEVELS_MAX];
 
 		TaskType					Type;
 		PriorityType			Priority;

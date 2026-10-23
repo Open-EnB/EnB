@@ -26,6 +26,7 @@
 #include "always.h"
 #include "ww3dformat.h"
 #include "wwstring.h"
+#include "vector3.h"
 
 struct IDirect3DSurface8;
 
@@ -196,14 +197,15 @@ public:
 	WW3DFormat Get_Format() const { return Format; }
 
 	// Copy pixels to the destination surface.
-	void Copy_Level_To_Surface(unsigned level,IDirect3DSurface8* d3d_surface);
+	void Copy_Level_To_Surface(unsigned level,IDirect3DSurface8* d3d_surface,const Vector3& hsv_shift=Vector3(0.0f,0.0f,0.0f));
 	void Copy_Level_To_Surface(
 		unsigned level,
 		WW3DFormat dest_format, 
 		unsigned dest_width, 
 		unsigned dest_height, 
 		unsigned char* dest_surface, 
-		unsigned dest_pitch);
+		unsigned dest_pitch,
+		const Vector3& hsv_shift=Vector3(0.0f,0.0f,0.0f));
 
 	// Get pixel in A8R8G8B8 format. This isn't the fastest possible way of reading data from DDS.
 	unsigned Get_Pixel(unsigned level,unsigned x,unsigned y) const;
@@ -217,7 +219,8 @@ public:
 		WW3DFormat dest_format,				// Destination surface format, A8R8G8B8 is fastest
 		unsigned level,						// DDS mipmap level to copy from
 		unsigned source_x,					// DDS x offset to copy from, must be aligned by 4!
-		unsigned source_y) const;			// DDS y offset to copy from, must be aligned by 4!
+		unsigned source_y,					// DDS y offset to copy from, must be aligned by 4!
+		const Vector3& hsv_shift=Vector3(0.0f,0.0f,0.0f)) const;
 
 	bool Load();
 	bool Is_Available() const { return !!LevelSizes; }

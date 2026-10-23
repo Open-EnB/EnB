@@ -102,6 +102,17 @@ D3DMATRIX						DX8Wrapper::old_world;
 D3DMATRIX						DX8Wrapper::old_view;
 D3DMATRIX						DX8Wrapper::old_prj;
 
+// shader system additions KJM v
+DWORD								DX8Wrapper::Vertex_Shader								= 0;
+DWORD								DX8Wrapper::Pixel_Shader								= 0;
+
+Vector4							DX8Wrapper::Vertex_Shader_Constants[MAX_VERTEX_SHADER_CONSTANTS];
+Vector4							DX8Wrapper::Pixel_Shader_Constants[MAX_PIXEL_SHADER_CONSTANTS];
+
+DWORD								DX8Wrapper::Vertex_Processing_Behavior				= 0;
+ZTextureClass*					DX8Wrapper::Shadow_Map[MAX_SHADOW_MAPS];
+// shader system additions KJM ^
+
 bool								DX8Wrapper::world_identity;
 unsigned							DX8Wrapper::RenderStates[256];
 unsigned							DX8Wrapper::TextureStageStates[MAX_TEXTURE_STAGES][32];
@@ -115,6 +126,7 @@ D3DCOLOR							DX8Wrapper::FogColor										= 0;
 IDirect3D8 *					DX8Wrapper::D3DInterface								= NULL;
 IDirect3DDevice8 *			DX8Wrapper::D3DDevice									= NULL;
 IDirect3DSurface8 *			DX8Wrapper::CurrentRenderTarget						= NULL;
+IDirect3DSurface8 *			DX8Wrapper::CurrentDepthBuffer						= NULL;
 IDirect3DSurface8 *			DX8Wrapper::DefaultRenderTarget						= NULL;
 IDirect3DSurface8 *			DX8Wrapper::DefaultDepthBuffer						= NULL;
 bool								DX8Wrapper::IsRenderToTexture							= false;
@@ -127,6 +139,7 @@ unsigned							DX8Wrapper::light_changes								= 0;
 unsigned							DX8Wrapper::texture_changes							= 0;
 unsigned							DX8Wrapper::render_state_changes						= 0;
 unsigned							DX8Wrapper::texture_stage_state_changes			= 0;
+unsigned							DX8Wrapper::draw_calls									= 0;
 unsigned							DX8Wrapper::_MainThreadID								= 0;
 bool								DX8Wrapper::CurrentDX8LightEnables[4];
 bool								DX8Wrapper::IsDeviceLost;
@@ -153,6 +166,7 @@ static unsigned				last_frame_texture_changes								= 0;
 static unsigned				last_frame_render_state_changes						= 0;
 static unsigned				last_frame_texture_stage_state_changes				= 0;
 static unsigned				last_frame_number_of_DX8_calls						= 0;
+static unsigned				last_frame_draw_calls									= 0;
 
 static D3DDISPLAYMODE DesktopMode;
 
@@ -335,7 +349,7 @@ void DX8Wrapper::Do_Onetime_Device_Dependent_Inits(void)
 	** Initalize any other subsystems inside of WW3D
 	*/
 	MissingTexture::_Init();
-	TextureClass::_Init_Filters((TextureClass::TextureFilterMode)WW3D::Get_Texture_Filter());
+	TextureFilterClass::_Init_Filters((TextureFilterClass::TextureFilterMode)WW3D::Get_Texture_Filter());
 	TheDX8MeshRenderer.Init();
 	BoxRenderObjClass::Init();
 	VertexMaterialClass::Init();
@@ -1390,6 +1404,7 @@ void DX8Wrapper::Reset_Statistics()
 	texture_changes = 0;
 	render_state_changes =0;
 	texture_stage_state_changes =0;
+	draw_calls =0;
 
 	number_of_DX8_calls = 0;
 	last_frame_matrix_changes = 0;
@@ -1401,6 +1416,7 @@ void DX8Wrapper::Reset_Statistics()
 	last_frame_render_state_changes = 0;
 	last_frame_texture_stage_state_changes = 0;
 	last_frame_number_of_DX8_calls = 0;
+	last_frame_draw_calls =0;
 }
 
 void DX8Wrapper::Begin_Statistics()
@@ -1414,6 +1430,7 @@ void DX8Wrapper::Begin_Statistics()
 	render_state_changes =0;
 	texture_stage_state_changes =0;
 	number_of_DX8_calls=0;
+	draw_calls=0;
 }
 
 void DX8Wrapper::End_Statistics()
@@ -1427,6 +1444,7 @@ void DX8Wrapper::End_Statistics()
 	last_frame_render_state_changes = render_state_changes;
 	last_frame_texture_stage_state_changes = texture_stage_state_changes;
 	last_frame_number_of_DX8_calls=number_of_DX8_calls;
+	last_frame_draw_calls=draw_calls;
 }
 
 unsigned DX8Wrapper::Get_Last_Frame_Matrix_Changes()			{ return last_frame_matrix_changes; }
@@ -1438,6 +1456,7 @@ unsigned DX8Wrapper::Get_Last_Frame_Texture_Changes()			{ return last_frame_text
 unsigned DX8Wrapper::Get_Last_Frame_Render_State_Changes()	{ return last_frame_render_state_changes; }
 unsigned DX8Wrapper::Get_Last_Frame_Texture_Stage_State_Changes()	{ return last_frame_texture_stage_state_changes; }
 unsigned DX8Wrapper::Get_Last_Frame_DX8_Calls()					{ return last_frame_number_of_DX8_calls; }
+unsigned DX8Wrapper::Get_Last_Frame_Draw_Calls()				{ return last_frame_draw_calls; }
 unsigned long DX8Wrapper::Get_FrameCount(void) {return FrameCount;}
 
 void DX8_Assert()
@@ -2063,7 +2082,7 @@ IDirect3DTexture8 * DX8Wrapper::_Create_DX8_Texture(
 	unsigned int width,
 	unsigned int height,
 	WW3DFormat format,
-	TextureClass::MipCountType mip_level_count,
+	MipCountType mip_level_count,
 	D3DPOOL pool,
 	bool rendertarget)
 {
@@ -2180,7 +2199,7 @@ IDirect3DTexture8 * DX8Wrapper::_Create_DX8_Texture(
 
 IDirect3DTexture8 * DX8Wrapper::_Create_DX8_Texture(
 	const char *filename,
-	TextureClass::MipCountType mip_level_count)
+	MipCountType mip_level_count)
 {
 	DX8_THREAD_ASSERT();
 	DX8_Assert();
@@ -2223,7 +2242,7 @@ IDirect3DTexture8 * DX8Wrapper::_Create_DX8_Texture(
 
 IDirect3DTexture8 * DX8Wrapper::_Create_DX8_Texture(
 	IDirect3DSurface8 *surface,
-	TextureClass::MipCountType mip_level_count)
+	MipCountType mip_level_count)
 {
 	DX8_THREAD_ASSERT();
 	DX8_Assert();
@@ -2245,12 +2264,90 @@ IDirect3DTexture8 * DX8Wrapper::_Create_DX8_Texture(
 	tex_surface->Release();
 
 	// Create mipmaps if needed
-	if (mip_level_count!=TextureClass::MIP_LEVELS_1) {
+	if (mip_level_count!=MIP_LEVELS_1) {
 		DX8_ErrorCode(D3DXFilterTexture(texture, NULL, 0, D3DX_FILTER_BOX));
 	}
 
 	return texture;
 
+}
+
+IDirect3DTexture8 * DX8Wrapper::_Create_DX8_ZTexture
+(
+	unsigned int width,
+	unsigned int height,
+	WW3DZFormat zformat,
+	MipCountType mip_level_count,
+	D3DPOOL pool
+)
+{
+	DX8_THREAD_ASSERT();
+	DX8_Assert();
+	IDirect3DTexture8* texture = NULL;
+
+	D3DFORMAT zfmt=WW3DZFormat_To_D3DFormat(zformat);
+
+	unsigned ret=DX8Wrapper::_Get_D3D_Device8()->CreateTexture
+	(
+		width,
+		height,
+		mip_level_count,
+		D3DUSAGE_DEPTHSTENCIL, 
+		zfmt, 
+		pool,
+		&texture
+	);
+
+	if (ret==D3DERR_NOTAVAILABLE) 
+	{
+		Non_Fatal_Log_DX8_ErrorCode(ret,__FILE__,__LINE__);
+		return NULL;
+	}
+
+	// If ran out of texture ram, try invalidating some textures and mesh cache.
+	if (ret==D3DERR_OUTOFVIDEOMEMORY) 
+	{
+		WWDEBUG_SAY(("Error: Out of memory while creating render target. Trying to release assets...\n"));
+		// Free all textures that haven't been used in the last 5 seconds
+		TextureClass::Invalidate_Old_Unused_Textures(5000);
+
+		// Invalidate the mesh cache
+		WW3D::_Invalidate_Mesh_Cache();
+
+		ret=DX8Wrapper::_Get_D3D_Device8()->CreateTexture
+		(
+			width,
+			height,
+			mip_level_count,
+			D3DUSAGE_DEPTHSTENCIL, 
+			zfmt, 
+			pool,
+			&texture
+		);
+
+		if (SUCCEEDED(ret)) 
+		{
+			WWDEBUG_SAY(("...Render target creation succesful.\n"));
+		}
+		else 
+		{
+			WWDEBUG_SAY(("...Render target creation failed.\n"));
+		}
+		if (ret==D3DERR_OUTOFVIDEOMEMORY) 
+		{
+			Non_Fatal_Log_DX8_ErrorCode(ret,__FILE__,__LINE__);
+			return NULL;
+		}
+	}
+
+	DX8_ErrorCode(ret);
+
+	texture->AddRef(); // don't release this texture
+
+	// Just return the texture, no reduction
+	// allowed for render targets.
+
+	return texture;
 }
 
 IDirect3DSurface8 * DX8Wrapper::_Create_DX8_Surface(unsigned int width, unsigned int height, WW3DFormat format)
@@ -2339,7 +2436,7 @@ void DX8Wrapper::_Update_Texture(TextureClass *system, TextureClass *video)
 	WWASSERT(video);
 	WWASSERT(system->Pool==TextureClass::POOL_SYSTEMMEM);
 	WWASSERT(video->Pool==TextureClass::POOL_DEFAULT);
-	DX8CALL(UpdateTexture(system->D3DTexture,video->D3DTexture));
+	DX8CALL(UpdateTexture(system->Peek_D3D_Base_Texture(),video->Peek_D3D_Base_Texture()));
 }
 
 void DX8Wrapper::Compute_Caps(WW3DFormat display_format)
@@ -2533,11 +2630,11 @@ DX8Wrapper::Create_Render_Target (int width, int height, WW3DFormat format)
 	//
 	//	Attempt to create the render target
 	//
-	TextureClass * tex = NEW_REF(TextureClass,(width,height,format,TextureClass::MIP_LEVELS_1,TextureClass::POOL_DEFAULT,true));
+	TextureClass * tex = NEW_REF(TextureClass,(width,height,format,MIP_LEVELS_1,TextureClass::POOL_DEFAULT,true));
 
 	// 3dfx drivers are lying in the CheckDeviceFormat call and claiming
 	// that they support render targets!
-	if (tex->Peek_DX8_Texture() == NULL) {
+	if (tex->Peek_D3D_Texture() == NULL) {
 		WWDEBUG_SAY(("DX8Wrapper - Render target creation failed!\r\n"));
 		REF_PTR_RELEASE(tex);
 	}
@@ -2553,6 +2650,115 @@ DX8Wrapper::Set_Render_Target (TextureClass * texture)
 	IDirect3DSurface8 * d3d_surf = texture->Get_D3D_Surface_Level();
 	WWASSERT(d3d_surf != NULL);
 	Set_Render_Target(d3d_surf);
+	d3d_surf->Release();
+
+	IsRenderToTexture = true;
+}
+
+void DX8Wrapper::Create_Render_Target
+(
+	int width, 
+	int height, 
+	WW3DFormat format,
+	WW3DZFormat zformat,
+	TextureClass** target,
+	ZTextureClass** depth_buffer
+)
+{
+	DX8_THREAD_ASSERT();
+	DX8_Assert();
+	number_of_DX8_calls++;
+
+	// Use the current display format if format isn't specified
+	if (format==WW3D_FORMAT_UNKNOWN) 
+	{
+		*target=NULL;
+		*depth_buffer=NULL;
+		return;
+/*		D3DDISPLAYMODE mode;
+		DX8CALL(GetDisplayMode(&mode));
+		format=D3DFormat_To_WW3DFormat(mode.Format);*/
+	}
+
+	// If render target format isn't supported return NULL
+	if (!Get_Current_Caps()->Support_Render_To_Texture_Format(format) ||
+		 !Get_Current_Caps()->Support_Depth_Stencil_Format(zformat)) 
+	{
+		WWDEBUG_SAY(("DX8Wrapper - Render target with depth format is not supported\r\n"));
+		return;
+	}
+
+	//	Note: We're going to force the width and height to be powers of two and equal
+	const D3DCAPS8& dx8caps=Get_Current_Caps()->Get_DX8_Caps();
+	float poweroftwosize = width;
+	if (height > 0 && height < width) 
+	{
+		poweroftwosize = height;
+	}
+	poweroftwosize = ::Find_POT (poweroftwosize);
+
+	if (poweroftwosize>dx8caps.MaxTextureWidth) 
+	{
+		poweroftwosize=dx8caps.MaxTextureWidth;
+	}
+
+	if (poweroftwosize>dx8caps.MaxTextureHeight) 
+	{
+		poweroftwosize=dx8caps.MaxTextureHeight;
+	}
+
+	width = height = poweroftwosize;
+
+	//	Attempt to create the render target
+	TextureClass* tex=NEW_REF(TextureClass,(width,height,format,MIP_LEVELS_1,TextureClass::POOL_DEFAULT,true));
+
+	// 3dfx drivers are lying in the CheckDeviceFormat call and claiming
+	// that they support render targets!
+	if (tex->Peek_D3D_Base_Texture() == NULL) 
+	{
+		WWDEBUG_SAY(("DX8Wrapper - Render target creation failed!\r\n"));
+		REF_PTR_RELEASE(tex);
+	}
+
+	*target=tex;
+
+	// attempt to create the depth stencil buffer
+	*depth_buffer=NEW_REF
+	(
+		ZTextureClass,
+		(
+			width,
+			height,
+			zformat,
+			MIP_LEVELS_1,
+			TextureClass::POOL_DEFAULT
+		)
+	);
+}
+
+void DX8Wrapper::Set_Render_Target_With_Z
+(
+	TextureClass* texture,
+	ZTextureClass* ztexture
+)
+{
+	WWASSERT(texture!=NULL);
+	IDirect3DSurface8 * d3d_surf = texture->Get_D3D_Surface_Level();
+	WWASSERT(d3d_surf != NULL);
+
+	IDirect3DSurface8* d3d_zbuf=NULL;
+	if (ztexture!=NULL)
+	{
+
+		d3d_zbuf=ztexture->Get_D3D_Surface_Level();
+		WWASSERT(d3d_zbuf!=NULL);
+		Set_Render_Target(d3d_surf,d3d_zbuf);
+		d3d_zbuf->Release();
+	}
+	else
+	{
+		Set_Render_Target(d3d_surf,true);
+	}
 	d3d_surf->Release();
 
 	IsRenderToTexture = true;
@@ -2591,26 +2797,31 @@ DX8Wrapper::Set_Render_Target(IDirect3DSwapChain8 *swap_chain)
 void
 DX8Wrapper::Set_Render_Target(IDirect3DSurface8 *render_target, bool use_default_depth_buffer)
 {
+//#ifndef _XBOX
 	DX8_THREAD_ASSERT();
 	DX8_Assert();
 
 	//
 	//	Should we restore the default render target set a new one?
 	//
-	if (render_target == NULL || render_target == DefaultRenderTarget) {
+	if (render_target == NULL || render_target == DefaultRenderTarget) 
+	{
 		// If there is currently a custom render target, default must NOT be NULL.
-		if (CurrentRenderTarget) {
+		if (CurrentRenderTarget) 
+		{
 			WWASSERT(DefaultRenderTarget!=NULL);
 		}
 
 		//
 		//	Restore the default render target
 		//
-		if (DefaultRenderTarget != NULL) {
+		if (DefaultRenderTarget != NULL) 
+		{
 			DX8CALL(SetRenderTarget (DefaultRenderTarget, DefaultDepthBuffer));
 			DefaultRenderTarget->Release ();
 			DefaultRenderTarget = NULL;
-			if (DefaultDepthBuffer) {
+			if (DefaultDepthBuffer) 
+			{
 				DefaultDepthBuffer->Release ();
 				DefaultDepthBuffer = NULL;
 			}
@@ -2619,18 +2830,28 @@ DX8Wrapper::Set_Render_Target(IDirect3DSurface8 *render_target, bool use_default
 		//
 		//	Release our hold on the "current" render target
 		//
-		if (CurrentRenderTarget != NULL) {
+		if (CurrentRenderTarget != NULL) 
+		{
 			CurrentRenderTarget->Release ();
 			CurrentRenderTarget = NULL;
 		}
 
-	} else if (render_target != CurrentRenderTarget) {
+		if (CurrentDepthBuffer!=NULL)
+		{
+			CurrentDepthBuffer->Release();
+			CurrentDepthBuffer=NULL;
+		}
+
+	} 
+	else if (render_target != CurrentRenderTarget) 
+	{
 		WWASSERT(DefaultRenderTarget==NULL);
 
 		//
 		//	We'll need the depth buffer later...
 		//
-		if (DefaultDepthBuffer == NULL) {
+		if (DefaultDepthBuffer == NULL) 
+		{
 //		IDirect3DSurface8 *depth_buffer = NULL;
 			DX8CALL(GetDepthStencilSurface (&DefaultDepthBuffer));
 		}
@@ -2638,16 +2859,24 @@ DX8Wrapper::Set_Render_Target(IDirect3DSurface8 *render_target, bool use_default
 		//
 		//	Get a pointer to the default render target (if necessary)
 		//
-		if (DefaultRenderTarget == NULL) {
+		if (DefaultRenderTarget == NULL) 
+		{
 			DX8CALL(GetRenderTarget (&DefaultRenderTarget));
 		}
 
 		//
 		//	Release our hold on the old "current" render target
 		//
-		if (CurrentRenderTarget != NULL) {
+		if (CurrentRenderTarget != NULL) 
+		{
 			CurrentRenderTarget->Release ();
 			CurrentRenderTarget = NULL;
+		}
+
+		if (CurrentDepthBuffer!=NULL)
+		{
+			CurrentDepthBuffer->Release();
+			CurrentDepthBuffer=NULL;
 		}
 
 		//
@@ -2655,15 +2884,19 @@ DX8Wrapper::Set_Render_Target(IDirect3DSurface8 *render_target, bool use_default
 		//
 		CurrentRenderTarget = render_target;
 		WWASSERT (CurrentRenderTarget != NULL);
-		if (CurrentRenderTarget != NULL) {
+		if (CurrentRenderTarget != NULL) 
+		{
 			CurrentRenderTarget->AddRef ();
 
 			//
 			//	Switch render targets
 			//
-			if (use_default_depth_buffer) {
+			if (use_default_depth_buffer) 
+			{
 				DX8CALL(SetRenderTarget (CurrentRenderTarget, DefaultDepthBuffer));
-			} else {
+			}
+			else 
+			{
 				DX8CALL(SetRenderTarget (CurrentRenderTarget, NULL));
 			}
 		}
@@ -2679,6 +2912,117 @@ DX8Wrapper::Set_Render_Target(IDirect3DSurface8 *render_target, bool use_default
 
 	IsRenderToTexture = false;
 	return ;
+//#endif // XBOX
+}
+
+
+void DX8Wrapper::Set_Render_Target
+(
+	IDirect3DSurface8* render_target, 
+	IDirect3DSurface8* depth_buffer 
+)
+{
+//#ifndef _XBOX
+	DX8_THREAD_ASSERT();
+	DX8_Assert();
+
+	//
+	//	Should we restore the default render target set a new one?
+	//
+	if (render_target == NULL || render_target == DefaultRenderTarget) 
+	{
+		// If there is currently a custom render target, default must NOT be NULL.
+		if (CurrentRenderTarget) 
+		{
+			WWASSERT(DefaultRenderTarget!=NULL);
+		}
+
+		//
+		//	Restore the default render target
+		//
+		if (DefaultRenderTarget != NULL) 
+		{
+			DX8CALL(SetRenderTarget (DefaultRenderTarget, DefaultDepthBuffer));
+			DefaultRenderTarget->Release ();
+			DefaultRenderTarget = NULL;
+			if (DefaultDepthBuffer) 
+			{
+				DefaultDepthBuffer->Release ();
+				DefaultDepthBuffer = NULL;
+			}
+		}
+
+		//
+		//	Release our hold on the "current" render target
+		//
+		if (CurrentRenderTarget != NULL) 
+		{
+			CurrentRenderTarget->Release ();
+			CurrentRenderTarget = NULL;
+		}
+
+		if (CurrentDepthBuffer!=NULL)
+		{
+			CurrentDepthBuffer->Release();
+			CurrentDepthBuffer=NULL;
+		}
+	}
+	else if (render_target != CurrentRenderTarget) 
+	{
+		WWASSERT(DefaultRenderTarget==NULL);
+
+		//
+		//	We'll need the depth buffer later...
+		//
+		if (DefaultDepthBuffer == NULL) 
+		{
+//		IDirect3DSurface8 *depth_buffer = NULL;
+			DX8CALL(GetDepthStencilSurface (&DefaultDepthBuffer));
+		}
+
+		//
+		//	Get a pointer to the default render target (if necessary)
+		//
+		if (DefaultRenderTarget == NULL) 
+		{
+			DX8CALL(GetRenderTarget (&DefaultRenderTarget));
+		}
+
+		//
+		//	Release our hold on the old "current" render target
+		//
+		if (CurrentRenderTarget != NULL) 
+		{
+			CurrentRenderTarget->Release ();
+			CurrentRenderTarget = NULL;
+		}
+
+		if (CurrentDepthBuffer!=NULL)
+		{
+			CurrentDepthBuffer->Release();
+			CurrentDepthBuffer=NULL;
+		}
+
+		//
+		//	Keep a copy of the current render target (for housekeeping)
+		//
+		CurrentRenderTarget = render_target;
+		CurrentDepthBuffer = depth_buffer;
+		WWASSERT (CurrentRenderTarget != NULL);
+		if (CurrentRenderTarget != NULL) 
+		{
+			CurrentRenderTarget->AddRef ();
+			CurrentDepthBuffer->AddRef();
+
+			//
+			//	Switch render targets
+			//
+			DX8CALL(SetRenderTarget (CurrentRenderTarget, CurrentDepthBuffer));
+		}
+	}
+
+	IsRenderToTexture=true;
+//#endif // XBOX
 }
 
 

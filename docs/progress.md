@@ -4,6 +4,26 @@ Newest first within each section. Dates are when the entry was written.
 
 ## 1. Log
 
+### 2026-10-23: D9 step 1, the texture system
+
+* E&B's texture system is Zero Hour's as of its 06/27/02 "texture class abstraction" (Kenny
+  Mitchell's change logs in Zero Hour's files), without the 08/05/02 "redesign (revisited)".
+  Client evidence: the vtables at 0xB119A0 (`TextureBaseClass`, the two trackers, `TextureClass`,
+  `ZTextureClass`, 6 slots each, no cube or volume tables); the base constructor 0x94B020 (5
+  arguments, `D3DTexture` at +0x34: no `IsReducible`); nothing calls `D3DXCreateCubeTexture`/
+  `D3DXCreateVolumeTexture`; the load task has no vtable; Zero Hour's byte-exact Z textures,
+  depth render targets, shader setters and draw-call statistics. Details: library-matching.md §3.6.1.
+* Done as Zero Hour's files where the client is Zero Hour's (`texture`, `texproject`,
+  `dx8texman`, `bitmaphandler`, `texturethumbnail` and four headers) and as Renegade's files with
+  Zero Hour's 06/27/02 parts patched in where it is Renegade's (`DX8Wrapper`, `textureloader`,
+  `ddsfile`). 122 patches (19 files) in importer.py's new `TEXTURE_API_PATCHES` block, each with its evidence.
+* Byte-exact client functions: WW3D2 2,060 -> 2,148, wwshade 13 -> 20; none lost (two inline
+  instances moved from `texture.obj` to other objects). `importer.py replay`: 0 files differ.
+* Work is on branch `d9-texture`. `trial.py --errors` writes every compile error.
+* Next: wwshade (its remaining errors are further Zero Hour WW3D2 features, each to be checked
+  against the client), then the texture near-misses (`TextureClass` constructors, `Init`,
+  `Apply`, `Get_Reduction`; `DX8Wrapper`'s device code).
+
 ### 2026-10-23: importer replay; decisions D6-D11
 
 * `importer.py replay` rebuilds every library in `.work/replay` from the EA copies plus the
@@ -149,7 +169,7 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 
 ## 4. Next steps
 
-1. WW3D2's texture classes and `DX8Wrapper` from Zero Hour (D9), then wwshade.
+1. D9 continued: wwshade (20 of 46; its errors name further Zero Hour WW3D2 features to check against the client), then the texture near-misses (`TextureClass` constructors, `Init`, `Apply`, `Get_Reduction`; `DX8Wrapper`'s device code). Texture classes done (2026-10-23).
 2. The remaining WWAudio gaps (`WWAudioClass` 40, `SoundSceneClass` 12; `SoundPseudo3DClass` and
    `FilteredSoundClass` +4 from 0x1A4) and WW3D2 near-misses (docs/data/gaps-*.md).
 3. `meshmatdesc.cpp`'s inlining flip (an app-region helper at 0x4E9CB0 that VC6 now inlines).

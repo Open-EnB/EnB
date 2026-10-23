@@ -71,6 +71,9 @@
 #define	VALUE_NAME_RENDER_DEVICE_TEXTURE_DEPTH		"RenderDeviceTextureDepth"
 
 const unsigned MAX_TEXTURE_STAGES=2;
+const unsigned MAX_VERTEX_SHADER_CONSTANTS=96;
+const unsigned MAX_PIXEL_SHADER_CONSTANTS=8;
+const unsigned MAX_SHADOW_MAPS=1;
 
 enum {
 	BUFFER_TYPE_DX8,
@@ -89,6 +92,7 @@ class DynamicVBAccessClass;
 class IndexBufferClass;
 class DynamicIBAccessClass;
 class TextureClass;
+class ZTextureClass;
 class LightClass;
 class SurfaceClass;
 class DX8Caps;
@@ -305,11 +309,19 @@ public:
 		unsigned int width,
 		unsigned int height,
 		WW3DFormat format,
-		TextureClass::MipCountType mip_level_count,
+		MipCountType mip_level_count,
 		D3DPOOL pool=D3DPOOL_MANAGED,
 		bool rendertarget=false);
-	static IDirect3DTexture8 * _Create_DX8_Texture(const char *filename, TextureClass::MipCountType mip_level_count);
-	static IDirect3DTexture8 * _Create_DX8_Texture(IDirect3DSurface8 *surface, TextureClass::MipCountType mip_level_count);
+	static IDirect3DTexture8 * _Create_DX8_Texture(const char *filename, MipCountType mip_level_count);
+	static IDirect3DTexture8 * _Create_DX8_Texture(IDirect3DSurface8 *surface, MipCountType mip_level_count);
+	static IDirect3DTexture8 * _Create_DX8_ZTexture
+	(
+		unsigned int width,
+		unsigned int height,
+		WW3DZFormat zformat,
+		MipCountType mip_level_count,
+		D3DPOOL pool=D3DPOOL_MANAGED
+	);
 
 	static IDirect3DSurface8 * _Create_DX8_Surface(unsigned int width, unsigned int height, WW3DFormat format);
 	static IDirect3DSurface8 * _Create_DX8_Surface(const char *filename);
@@ -345,6 +357,7 @@ public:
 	static unsigned Get_Last_Frame_Render_State_Changes();
 	static unsigned Get_Last_Frame_Texture_Stage_State_Changes();
 	static unsigned Get_Last_Frame_DX8_Calls();
+	static unsigned Get_Last_Frame_Draw_Calls();
 
 	static unsigned long Get_FrameCount(void);
 
@@ -391,8 +404,35 @@ public:
 
 	static void					Set_Render_Target (TextureClass * texture);
 	static void					Set_Render_Target (IDirect3DSurface8 *render_target, bool use_default_depth_buffer = false);
+	static void					Set_Render_Target (IDirect3DSurface8* render_target, IDirect3DSurface8* dpeth_buffer);
 	static void					Set_Render_Target (IDirect3DSwapChain8 *swap_chain);
 	static bool					Is_Render_To_Texture(void) { return IsRenderToTexture; }
+
+	// for depth map support KJM V
+	static void Create_Render_Target
+	(
+		int width, 
+		int height, 
+		WW3DFormat format,
+		WW3DZFormat zformat,
+		TextureClass** target,
+		ZTextureClass** depth_buffer
+	);
+	static void					Set_Render_Target_With_Z (TextureClass * texture, ZTextureClass* ztexture=NULL);
+
+	static void Set_Shadow_Map(int idx, ZTextureClass* ztex) { Shadow_Map[idx]=ztex; }
+	static ZTextureClass* Get_Shadow_Map(int idx) { return Shadow_Map[idx]; }
+	// for depth map support KJM ^
+
+	// shader system udpates KJM v
+	static void Set_Vertex_Shader(DWORD vertex_shader);
+	static void Set_Pixel_Shader(DWORD pixel_shader);
+
+	static void Set_Vertex_Shader_Constant(int reg, const void* data, int count);
+	static void Set_Pixel_Shader_Constant(int reg, const void* data, int count);
+
+	static DWORD Get_Vertex_Processing_Behavior() { return Vertex_Processing_Behavior; }
+	// shader system updates KJM ^
 
 	static IDirect3DDevice8* _Get_D3D_Device8() { return D3DDevice; }
 	static IDirect3D8* _Get_D3D8() { return D3DInterface; }
@@ -510,6 +550,18 @@ protected:
 	static unsigned						TextureStageStates[MAX_TEXTURE_STAGES][32];
 	static IDirect3DBaseTexture8 *	Textures[MAX_TEXTURE_STAGES];
 
+	// shader system updates KJM v
+	static DWORD							Vertex_Shader;
+	static DWORD							Pixel_Shader;
+
+	static Vector4							Vertex_Shader_Constants[MAX_VERTEX_SHADER_CONSTANTS];
+	static Vector4							Pixel_Shader_Constants[MAX_PIXEL_SHADER_CONSTANTS];
+
+	static DWORD							Vertex_Processing_Behavior;
+
+	static ZTextureClass*				Shadow_Map[MAX_SHADOW_MAPS];
+	// shader system updates KJM ^
+
 	// These fog settings are constant for all objects in a given scene,
 	// unlike the matching renderstates which vary based on shader settings.
 	static bool								FogEnable;
@@ -523,6 +575,7 @@ protected:
 	static unsigned						texture_changes;
 	static unsigned						render_state_changes;
 	static unsigned						texture_stage_state_changes;
+	static unsigned						draw_calls;
 	static bool								CurrentDX8LightEnables[4];
 
 	static unsigned long FrameCount;
@@ -535,6 +588,7 @@ protected:
 	static IDirect3DDevice8 *			D3DDevice;				//d3ddevice8;
 
 	static IDirect3DSurface8 *			CurrentRenderTarget;
+	static IDirect3DSurface8 *			CurrentDepthBuffer;
 	static IDirect3DSurface8 *			DefaultRenderTarget;
 	static IDirect3DSurface8 *			DefaultDepthBuffer;
 
@@ -550,6 +604,50 @@ protected:
 	friend class DX8IndexBufferClass;
 	friend class DX8VertexBufferClass;
 };
+
+// shader system updates KJM v
+WWINLINE void DX8Wrapper::Set_Vertex_Shader(DWORD vertex_shader)
+{
+#if 0 //(gth) some code is bypassing this acessor function so we can't count on this variable...
+	// may be incorrect if shaders are created and destroyed dynamically
+	if (Vertex_Shader==vertex_shader) return;
+#endif
+
+	Vertex_Shader=vertex_shader;
+	DX8CALL(SetVertexShader(Vertex_Shader));
+}
+
+WWINLINE void DX8Wrapper::Set_Pixel_Shader(DWORD pixel_shader)
+{
+	// may be incorrect if shaders are created and destroyed dynamically
+	if (Pixel_Shader==pixel_shader) return;
+
+	Pixel_Shader=pixel_shader;
+	DX8CALL(SetPixelShader(Pixel_Shader));
+}
+
+WWINLINE void DX8Wrapper::Set_Vertex_Shader_Constant(int reg, const void* data, int count)
+{
+	int memsize=sizeof(Vector4)*count;
+
+	// may be incorrect if shaders are created and destroyed dynamically
+	if (memcmp(data, &Vertex_Shader_Constants[reg],memsize)==0) return;
+
+	memcpy(&Vertex_Shader_Constants[reg],data,memsize);
+	DX8CALL(SetVertexShaderConstant(reg,data,count));
+}
+
+WWINLINE void DX8Wrapper::Set_Pixel_Shader_Constant(int reg, const void* data, int count)
+{
+	int memsize=sizeof(Vector4)*count;
+
+	// may be incorrect if shaders are created and destroyed dynamically
+	if (memcmp(data, &Pixel_Shader_Constants[reg],memsize)==0) return;
+
+	memcpy(&Pixel_Shader_Constants[reg],data,memsize);
+	DX8CALL(SetPixelShaderConstant(reg,data,count));
+}
+// shader system updates KJM ^
 
 
 WWINLINE void DX8Wrapper::_Set_DX8_Transform(D3DTRANSFORMSTATETYPE transform,const Matrix4& m)
