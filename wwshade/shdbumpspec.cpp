@@ -197,6 +197,8 @@ bool ShdBumpSpecDefClass::Load(ChunkLoadClass &cload)
 void ShdBumpSpecDefClass::Init()
 {
 	// select shader version
+	// E&B: always the DX6 version (0xA0C3B0 sets SHDVER_6 and calls Shd6BumpSpecClass::Init)
+#if 0
 	if ((DX8Wrapper::Get_Current_Caps()->Get_Pixel_Shader_Major_Version())==1 &&
 		 (DX8Wrapper::Get_Current_Caps()->Get_Pixel_Shader_Minor_Version())>=1)
 	{
@@ -207,6 +209,7 @@ void ShdBumpSpecDefClass::Init()
 		Version.Set(SHDVER_7);
 	}
 	else
+#endif
 	{
 		Version.Set(SHDVER_6);
 	}

@@ -237,7 +237,7 @@ public:
 	int Get_Vertex_Shader_Majon_Version() const { return 0xff&(VertexShaderVersion>>8); }
 	int Get_Vertex_Shader_Minor_Version() const { return 0xff&(VertexShaderVersion); }
 	int Get_Pixel_Shader_Majon_Version() const { return 0xff&(VertexShaderVersion>>8); }
-	int Get_Pixel_Shader_Minor_Version() const { return 0xff&(VertexShaderVersion); }
+	int Get_Pixel_Shader_Minor_Version() const { return 0xff&(PixelShaderVersion); }
 	int Get_Pixel_Shader_Major_Version() const { return 0xff&(PixelShaderVersion>>8); }
 	bool Support_Depth_Stencil_Format(WW3DZFormat format) const { return SupportDepthStencilFormat[format]; }
 

@@ -1010,6 +1010,11 @@ WWSHADE_API_PATCHES = {
          '\t\tfor (unsigned i=0;i<MeshMatDescClass::MAX_TEX_STAGES;++i) \n\t\t{\n\t\t\tSNAPSHOT_SAY(("Set_Texture(%d,%s)\\n"',
          "dx8renderer keeps 2 texture stages through MeshMatDescClass::MAX_TEX_STAGES, as Zero Hour changed it when MAX_TEXTURE_STAGES became 8 (its own copy's comment); with MAX_TEXTURE_STAGES there, 11 dx8renderer functions stop matching"),
     ],
+    ('ww3d2', 'dx8caps.h'): [
+        ('\tint Get_Pixel_Shader_Minor_Version() const { return 0xff&(VertexShaderVersion); }',
+         '\tint Get_Pixel_Shader_Minor_Version() const { return 0xff&(PixelShaderVersion); }',
+         "Zero Hour's Get_Pixel_Shader_Minor_Version reads PixelShaderVersion (Renegade's reads the vertex shader's): ShdBumpDiffDefClass::Init 0xA0B9B0 and ShdBumpSpecDefClass::Init take major and minor from the same field, +0x12C"),
+    ],
 }
 for _key, _edits in WWSHADE_API_PATCHES.items():
     PATCHES.setdefault(_key, []).extend(_edits)
@@ -1316,6 +1321,9 @@ WWSHADE_EARLY_PATCHES = {
         ('\tAmbient(that.Ambient),\n\tDiffuse(that.Diffuse),\n\tSpecular(that.Specular),\n\tDiffuse_Bumpiness(that.Diffuse_Bumpiness),\n\tSpecular_Bumpiness(that.Specular_Bumpiness)\n{\n\tTextureName=that.TextureName;\n\tBumpMapName=that.BumpMapName;\n}\n',
          '\tAmbient(0,0,0),\n\tDiffuse(1,1,1),\n\tSpecular(1,1,1),\n\tDiffuse_Bumpiness(1,0),\n\tSpecular_Bumpiness(1,0)\n{\n\tTextureName=that.TextureName;\n\tBumpMapName=that.BumpMapName;\n\n\tAmbient=that.Ambient;\n\tDiffuse=that.Diffuse;\n\tSpecular=that.Specular;\n\tDiffuse_Bumpiness=that.Diffuse_Bumpiness;\n\tSpecular_Bumpiness=that.Specular_Bumpiness;\n}\n',
          "ShdBumpSpecDefClass(const&) 0xA0BDE0: copy constructor initialises the members to the defaults and assigns them from that in its body (as ShdSimpleDefClass's)"),
+        ('void ShdBumpSpecDefClass::Init()\n{\n\t// select shader version\n\tif ((DX8Wrapper::Get_Current_Caps()->Get_Pixel_Shader_Major_Version())==1 &&\n\t\t (DX8Wrapper::Get_Current_Caps()->Get_Pixel_Shader_Minor_Version())>=1)\n\t{\n\t\tVersion.Set(SHDVER_8);\n\t}\n\telse if (DX8Wrapper::Get_Current_Caps()->Support_Dot3())\n\t{\n\t\tVersion.Set(SHDVER_7);\n\t}\n\telse\n\t{\n\t\tVersion.Set(SHDVER_6);\n\t}\n',
+         'void ShdBumpSpecDefClass::Init()\n{\n\t// select shader version\n\t// E&B: always the DX6 version (0xA0C3B0 sets SHDVER_6 and calls Shd6BumpSpecClass::Init)\n#if 0\n\tif ((DX8Wrapper::Get_Current_Caps()->Get_Pixel_Shader_Major_Version())==1 &&\n\t\t (DX8Wrapper::Get_Current_Caps()->Get_Pixel_Shader_Minor_Version())>=1)\n\t{\n\t\tVersion.Set(SHDVER_8);\n\t}\n\telse if (DX8Wrapper::Get_Current_Caps()->Support_Dot3())\n\t{\n\t\tVersion.Set(SHDVER_7);\n\t}\n\telse\n#endif\n\t{\n\t\tVersion.Set(SHDVER_6);\n\t}\n',
+         "E&B's bump specular shader always uses its DX6 version: ShdBumpSpecDefClass::Init 0xA0C3B0 sets SHDVER_6 (0xC40730 = 1) and jumps to Shd6BumpSpecClass::Init"),
     ],
 }
 for _key, _edits in WWSHADE_EARLY_PATCHES.items():

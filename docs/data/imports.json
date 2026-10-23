@@ -8255,6 +8255,7 @@
      "0xA0B450",
      "0xA0B680",
      "0xA0B8D0",
+     "0xA0B9B0",
      "0xA0BA30"
     ],
     "merged": [],
@@ -8595,7 +8596,7 @@
    "shdsimple.h": "Z",
    "shdsubmesh.h": "Z"
   },
-  "in_tree_total": 133,
+  "in_tree_total": 134,
   "totals": {
    "Z": 61
   }
