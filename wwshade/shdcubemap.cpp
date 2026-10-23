@@ -255,6 +255,7 @@ void Shd6CubeMapClass::Apply_Shared(int pass, RenderInfoClass& rinfo)
 	DX8Wrapper::Set_DX8_Render_State(D3DRS_EMISSIVEMATERIALSOURCE,D3DMCS_MATERIAL);
 
 	DX8Wrapper::Set_DX8_Material(Material);
+	ShdHWVertexShader::Unknown_Set_Lights();
 }
 
 //**********************************************************************************************

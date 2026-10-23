@@ -309,8 +309,8 @@
 },
 {
 "address": "0x4056E1",
-"symbol": "j_??_EGridCullSystemClass@@UAEPAXI@Z",
-"name": "j_??_EGridCullSystemClass@@UAEPAXI@Z",
+"symbol": "j_??_E?$TypedGridCullSystemClass@VSoundCullObjClass@@@@UAEPAXI@Z",
+"name": "j_??_E?$TypedGridCullSystemClass@VSoundCullObjClass@@@@UAEPAXI@Z",
 "kind": "thunk",
 "source": "thunk"
 },
@@ -729,8 +729,8 @@
 },
 {
 "address": "0x409511",
-"symbol": "j_??_E?$DynamicVectorClass@M@@UAEPAXI@Z",
-"name": "j_??_E?$DynamicVectorClass@M@@UAEPAXI@Z",
+"symbol": "j_??_ENamedPivotMapClass@@UAEPAXI@Z",
+"name": "j_??_ENamedPivotMapClass@@UAEPAXI@Z",
 "kind": "thunk",
 "source": "thunk"
 },
@@ -1226,8 +1226,8 @@
 },
 {
 "address": "0x40E9FD",
-"symbol": "j_??_EGridCullSystemClass@@UAEPAXI@Z",
-"name": "j_??_EGridCullSystemClass@@UAEPAXI@Z",
+"symbol": "j_??_E?$TypedGridCullSystemClass@VSoundCullObjClass@@@@UAEPAXI@Z",
+"name": "j_??_E?$TypedGridCullSystemClass@VSoundCullObjClass@@@@UAEPAXI@Z",
 "kind": "thunk",
 "source": "thunk"
 },
@@ -2108,8 +2108,8 @@
 },
 {
 "address": "0x417DD2",
-"symbol": "j_??_E?$DynamicVectorClass@M@@UAEPAXI@Z",
-"name": "j_??_E?$DynamicVectorClass@M@@UAEPAXI@Z",
+"symbol": "j_??_ENamedPivotMapClass@@UAEPAXI@Z",
+"name": "j_??_ENamedPivotMapClass@@UAEPAXI@Z",
 "kind": "thunk",
 "source": "thunk"
 },
@@ -2357,8 +2357,8 @@
 },
 {
 "address": "0x45B130",
-"symbol": "??_E?$DynamicVectorClass@M@@UAEPAXI@Z",
-"name": "??_E?$DynamicVectorClass@M@@UAEPAXI@Z",
+"symbol": "??_ENamedPivotMapClass@@UAEPAXI@Z",
+"name": "NamedPivotMapClass::vector deleting dtor",
 "kind": "function",
 "source": "vtable"
 },
@@ -3412,8 +3412,8 @@
 },
 {
 "address": "0x491FB0",
-"symbol": "??_EGridCullSystemClass@@UAEPAXI@Z",
-"name": "GridCullSystemClass::vector deleting dtor",
+"symbol": "??_E?$TypedGridCullSystemClass@VSoundCullObjClass@@@@UAEPAXI@Z",
+"name": "??_E?$TypedGridCullSystemClass@VSoundCullObjClass@@@@UAEPAXI@Z",
 "kind": "function",
 "source": "vtable"
 },
@@ -41141,7 +41141,8 @@
 "symbol": "?Apply_Shared@Shd6CubeMapClass@@UAEXHAAVRenderInfoClass@@@Z",
 "name": "Shd6CubeMapClass::Apply_Shared",
 "kind": "function",
-"source": "vtable"
+"source": "exact",
+"length": 246
 },
 {
 "address": "0xA0B040",
@@ -41432,6 +41433,14 @@
 "length": 282
 },
 {
+"address": "0xA0CD90",
+"symbol": "?Apply_Shared@Shd6GlossMaskClass@@UAEXHAAVRenderInfoClass@@@Z",
+"name": "Shd6GlossMaskClass::Apply_Shared",
+"kind": "function",
+"source": "exact",
+"length": 376
+},
+{
 "address": "0xA0D160",
 "symbol": "?Clone@ShdGlossMaskDefClass@@UBEPAVShdDefClass@@XZ",
 "name": "ShdGlossMaskDefClass::Clone",
@@ -41527,6 +41536,50 @@
 "length": 224
 },
 {
+"address": "0xA0D860",
+"symbol": "??_EShd6SimpleClass@@UAEPAXI@Z",
+"name": "Shd6SimpleClass::vector deleting dtor",
+"kind": "function",
+"source": "vtable"
+},
+{
+"address": "0xA0D910",
+"symbol": "?Apply_Shared@Shd6SimpleClass@@UAEXHAAVRenderInfoClass@@@Z",
+"name": "Shd6SimpleClass::Apply_Shared",
+"kind": "function",
+"source": "exact",
+"length": 234
+},
+{
+"address": "0xA0DA00",
+"symbol": "?Apply_Instance@Shd6SimpleClass@@UAEXHAAVRenderInfoClass@@@Z",
+"name": "Shd6SimpleClass::Apply_Instance",
+"kind": "function",
+"source": "exact",
+"length": 70
+},
+{
+"address": "0xA0DA50",
+"symbol": "?Get_Vertex_Stream_Count@Shd6SimpleClass@@UBEIXZ",
+"name": "Shd6SimpleClass::Get_Vertex_Stream_Count",
+"kind": "function",
+"source": "vtable"
+},
+{
+"address": "0xA0DA60",
+"symbol": "?Get_Vertex_Size@Shd6SimpleClass@@UBEII@Z",
+"name": "Shd6SimpleClass::Get_Vertex_Size",
+"kind": "function",
+"source": "vtable"
+},
+{
+"address": "0xA0DA70",
+"symbol": "?Copy_Vertex_Stream@Shd6SimpleClass@@UAEXIPAXABUVertexStreamStruct@@I@Z",
+"name": "Shd6SimpleClass::Copy_Vertex_Stream",
+"kind": "function",
+"source": "vtable"
+},
+{
 "address": "0xA0DB60",
 "symbol": "?Create@?$SimpleShdDefFactoryClass@VShdSimpleDefClass@@$00$1?ShdSimpleDefClassName@@3PADA@@UBEPAVShdDefClass@@XZ",
 "name": "?Create@?$SimpleShdDefFactoryClass@VShdSimpleDefClass@@$00$1?ShdSimpleDefClassName@@3PADA@@UBEPAVShdDefClass@@XZ",
@@ -41566,6 +41619,34 @@
 "address": "0xA0DC90",
 "symbol": "?Static_Sort_Index@ShdSimpleDefClass@@UBEHXZ",
 "name": "ShdSimpleDefClass::Static_Sort_Index",
+"kind": "function",
+"source": "vtable"
+},
+{
+"address": "0xA0DCA0",
+"symbol": "?Get_Pass_Count@Shd6SimpleClass@@UAEHXZ",
+"name": "Shd6SimpleClass::Get_Pass_Count",
+"kind": "function",
+"source": "vtable"
+},
+{
+"address": "0xA0DCB0",
+"symbol": "?Get_Texture_Count@Shd6SimpleClass@@UBEHXZ",
+"name": "Shd6SimpleClass::Get_Texture_Count",
+"kind": "function",
+"source": "vtable"
+},
+{
+"address": "0xA0DCC0",
+"symbol": "?Peek_Texture@Shd6SimpleClass@@UBEPAVTextureClass@@H@Z",
+"name": "Shd6SimpleClass::Peek_Texture",
+"kind": "function",
+"source": "vtable"
+},
+{
+"address": "0xA0DCD0",
+"symbol": "?Use_HW_Vertex_Processing@Shd6SimpleClass@@UBE_NXZ",
+"name": "Shd6SimpleClass::Use_HW_Vertex_Processing",
 "kind": "function",
 "source": "vtable"
 },
@@ -41873,6 +41954,14 @@
 "kind": "function",
 "source": "exact",
 "length": 64
+},
+{
+"address": "0xA0FC60",
+"symbol": "?Unknown_Set_Lights@ShdHWVertexShader@@SAXXZ",
+"name": "ShdHWVertexShader::Unknown_Set_Lights",
+"kind": "function",
+"source": "exact",
+"length": 504
 },
 {
 "address": "0xA159D0",
@@ -49012,8 +49101,8 @@
 },
 {
 "address": "0xAE7F40",
-"symbol": "??_7?$DynamicVectorClass@M@@6B@",
-"name": "??_7?$DynamicVectorClass@M@@6B@",
+"symbol": "??_7NamedPivotMapClass@@6B?$DynamicVectorClass@M@@@",
+"name": "??_7NamedPivotMapClass@@6B?$DynamicVectorClass@M@@@",
 "kind": "vtable",
 "source": "vtable"
 },
@@ -49075,8 +49164,8 @@
 },
 {
 "address": "0xAEA6D0",
-"symbol": "??_7GridCullSystemClass@@6B@",
-"name": "??_7GridCullSystemClass@@6B@",
+"symbol": "??_7?$TypedGridCullSystemClass@VSoundCullObjClass@@@@6B@",
+"name": "??_7?$TypedGridCullSystemClass@VSoundCullObjClass@@@@6B@",
 "kind": "vtable",
 "source": "vtable"
 },
@@ -50120,6 +50209,13 @@
 "address": "0xB16EC4",
 "symbol": "??_7ShdSimpleDefClass@@6BEditableClass@@@",
 "name": "??_7ShdSimpleDefClass@@6BEditableClass@@@",
+"kind": "vtable",
+"source": "vtable"
+},
+{
+"address": "0xB16F0C",
+"symbol": "??_7Shd6SimpleClass@@6B@",
+"name": "??_7Shd6SimpleClass@@6B@",
 "kind": "vtable",
 "source": "vtable"
 },

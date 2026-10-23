@@ -115,6 +115,8 @@ public:
 		Vector4&					diffuse
 	);
 
+	static void Unknown_Set_Lights();	// E&B; name not known
+
 private:
 	static bool Using_Hardware;
 };

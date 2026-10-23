@@ -8289,6 +8289,7 @@
      "0xA0AC10",
      "0xA0AD80",
      "0xA0AEC0",
+     "0xA0AF40",
      "0xA0B040",
      "0xA0B080",
      "0xA0B200"
@@ -8346,7 +8347,8 @@
      "0xA0B200",
      "0xA0C8E0",
      "0xA0CA50",
-     "0xA0CBC0"
+     "0xA0CBC0",
+     "0xA0CD90"
     ],
     "merged": [],
     "name": "shdglossmask.cpp"
@@ -8372,7 +8374,8 @@
      "0xA0F550",
      "0xA0F5A0",
      "0xA0F610",
-     "0xA0FC20"
+     "0xA0FC20",
+     "0xA0FC60"
     ],
     "merged": [],
     "name": "shdhwshader.cpp"
@@ -8511,6 +8514,8 @@
      "0xA0D4D0",
      "0xA0D620",
      "0xA0D780",
+     "0xA0D910",
+     "0xA0DA00",
      "0xA0DB60"
     ],
     "merged": [],
@@ -8578,7 +8583,7 @@
    "shdsimple.h": "Z",
    "shdsubmesh.h": "Z"
   },
-  "in_tree_total": 118,
+  "in_tree_total": 123,
   "totals": {
    "Z": 61
   }

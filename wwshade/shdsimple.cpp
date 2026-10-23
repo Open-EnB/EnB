@@ -241,6 +241,8 @@ void Shd6SimpleClass::Apply_Shared(int pass, RenderInfoClass& rinfo)
 	DX8Wrapper::Set_DX8_Render_State(D3DRS_SPECULARMATERIALSOURCE,D3DMCS_MATERIAL);
 	DX8Wrapper::Set_DX8_Render_State(D3DRS_EMISSIVEMATERIALSOURCE,D3DMCS_MATERIAL);
 
+	DX8Wrapper::Set_DX8_Material(Material);
+	ShdHWVertexShader::Unknown_Set_Lights();
 }
 
 //**********************************************************************************************
@@ -249,7 +251,6 @@ void Shd6SimpleClass::Apply_Shared(int pass, RenderInfoClass& rinfo)
 */
 void Shd6SimpleClass::Apply_Instance(int cur_pass, RenderInfoClass& rinfo)
 {
-	DX8Wrapper::Set_DX8_Material(Material);
 	DX8Wrapper::Set_Texture(0, Texture);
 }
 

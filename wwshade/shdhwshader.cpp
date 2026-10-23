@@ -508,3 +508,30 @@ void ShdHWVertexShader::Light
 	Light(rinfo,ambient,diffuse,specular);
 }
 
+//**********************************************************************************************
+//! E&B: sets the D3D lights from DX8Wrapper's render state for the fixed function shaders,
+//! light 0 with a white specular and DX8Wrapper's ambient colour. Name not known (0xA0FC60).
+void ShdHWVertexShader::Unknown_Set_Lights()
+{
+	RenderStateStruct state;
+	DX8Wrapper::Get_Render_State(state);
+
+	for (int i=0;i<4;i++)
+	{
+		if (state.LightEnable[i])
+		{
+			if (i==0)
+			{
+				const Vector3& amb=DX8Wrapper::Get_Ambient();
+				state.Lights[0].Specular.r=1.0f;
+				state.Lights[0].Specular.g=1.0f;
+				state.Lights[0].Specular.b=1.0f;
+				state.Lights[0].Ambient.r=amb.X;
+				state.Lights[0].Ambient.g=amb.Y;
+				state.Lights[0].Ambient.b=amb.Z;
+			}
+			DX8Wrapper::Set_DX8_Light(i,&state.Lights[i]);
+		}
+	}
+}
+

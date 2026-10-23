@@ -1090,6 +1090,9 @@ WWSHADE_EARLY_PATCHES = {
         ('\tDX8Wrapper::Set_Texture(0, Texture);\n',
          '\tDX8CALL(SetTexture(0, Texture));\n',
          'E&B\'s cube map shader: registered as "Cube Map (unsupported)" (0xBCB814, 0xA0B1B0), texture from D3DXCreateCubeTextureFromFileA (ctor 0xA0AD80), released in the dtor (0xA0AEC0), set with SetTexture (0xA0B040); base ctor without class id'),
+        ('\tDX8Wrapper::Set_DX8_Material(Material);\n}\n',
+         '\tDX8Wrapper::Set_DX8_Material(Material);\n\tShdHWVertexShader::Unknown_Set_Lights();\n}\n',
+         "E&B's light setup for the fixed function shaders (0xA0FC60, after Light in shdhwshader.obj; name not known), called at the end of Shd6CubeMapClass::Apply_Shared 0xA0AF40, Shd6SimpleClass and Shd6GlossMaskClass::Apply_Shared (0xA0CD90, 0xA0D910)"),
     ],
     ('wwshade', 'shdcubemap.h'): [
         ('\tTextureClass*\t\t\t\t\tTexture;\n',
@@ -1100,6 +1103,9 @@ WWSHADE_EARLY_PATCHES = {
         (':\tShdInterfaceClass(def,SHDDEF_CLASSID_GLOSSMASK),\n',
          ':\tShdInterfaceClass(def),\n',
          'base ctor without class id (ShdInterfaceClass ctor 0xA08E70 takes only def)'),
+        ('\tDX8Wrapper::Set_DX8_Material(Material);\n\n}\n',
+         '\tDX8Wrapper::Set_DX8_Material(Material);\n\tShdHWVertexShader::Unknown_Set_Lights();\n\n}\n',
+         "E&B's light setup for the fixed function shaders (0xA0FC60, after Light in shdhwshader.obj; name not known), called at the end of Shd6CubeMapClass::Apply_Shared 0xA0AF40, Shd6SimpleClass and Shd6GlossMaskClass::Apply_Shared (0xA0CD90, 0xA0D910)"),
     ],
     ('wwshade', 'shdinterface.cpp'): [
         ('ShdInterfaceClass::ShdInterfaceClass(const ShdDefClass * def, int class_id) : \n\tDefinition(NULL),\n\tClassID(class_id)\n{ \n',
@@ -1213,6 +1219,12 @@ WWSHADE_EARLY_PATCHES = {
         (':\tShdInterfaceClass(def,SHDDEF_CLASSID_SIMPLE),\n',
          ':\tShdInterfaceClass(def),\n',
          'base ctor without class id (Shd6SimpleClass ctor 0xA0D780)'),
+        ('\tDX8Wrapper::Set_DX8_Render_State(D3DRS_EMISSIVEMATERIALSOURCE,D3DMCS_MATERIAL);\n\n}\n',
+         '\tDX8Wrapper::Set_DX8_Render_State(D3DRS_EMISSIVEMATERIALSOURCE,D3DMCS_MATERIAL);\n\n\tDX8Wrapper::Set_DX8_Material(Material);\n\tShdHWVertexShader::Unknown_Set_Lights();\n}\n',
+         "E&B's light setup for the fixed function shaders (0xA0FC60, after Light in shdhwshader.obj; name not known), called at the end of Shd6CubeMapClass::Apply_Shared 0xA0AF40, Shd6SimpleClass and Shd6GlossMaskClass::Apply_Shared (0xA0CD90, 0xA0D910); E&B sets the material here, not in Apply_Instance (0xA0DA00 only sets the texture)"),
+        ('\tDX8Wrapper::Set_DX8_Material(Material);\n\tDX8Wrapper::Set_Texture(0, Texture);\n',
+         '\tDX8Wrapper::Set_Texture(0, Texture);\n',
+         'Shd6SimpleClass::Apply_Instance 0xA0DA00 only sets the texture; the material is set in Apply_Shared 0xA0D910'),
     ],
     ('wwshade', 'shdsubmesh.cpp'): [
         ('#include "shdlegacyw3d.h"\n',
@@ -1256,6 +1268,16 @@ WWSHADE_EARLY_PATCHES = {
         ('\tWW3DErrorType read_vertex_influences(ChunkLoadClass& cload);\n',
          '',
          "E&B's earlier ShdSubMeshClass: Shader at +0xA4 right after SxT (read_shader 0xA0EA97), no visible-polygon range or sorting flag, no legacy conversion or skin deformation, no vertex-influence chunk (shdsubmesh.obj 0xA0DCE0-0xA0EC30)"),
+    ],
+    ('wwshade', 'shdhwshader.h'): [
+        ('\t\tVector4&\t\t\t\t\tdiffuse\n\t);\n\nprivate:\n\tstatic bool Using_Hardware;',
+         '\t\tVector4&\t\t\t\t\tdiffuse\n\t);\n\n\tstatic void Unknown_Set_Lights();\t// E&B; name not known\n\nprivate:\n\tstatic bool Using_Hardware;',
+         "E&B's light setup for the fixed function shaders (0xA0FC60, after Light in shdhwshader.obj; name not known), called at the end of Shd6CubeMapClass::Apply_Shared 0xA0AF40, Shd6SimpleClass and Shd6GlossMaskClass::Apply_Shared (0xA0CD90, 0xA0D910)"),
+    ],
+    ('wwshade', 'shdhwshader.cpp'): [
+        ('void ShdHWVertexShader::Light\n(\n\tRenderInfoClass&\t\trinfo,\n\tVector4&\t\t\t\t\tambient,\n\tVector4&\t\t\t\t\tdiffuse\n)\n{\n\tVector4 specular(0,0,0,0);\n\tLight(rinfo,ambient,diffuse,specular);\n}\n',
+         "void ShdHWVertexShader::Light\n(\n\tRenderInfoClass&\t\trinfo,\n\tVector4&\t\t\t\t\tambient,\n\tVector4&\t\t\t\t\tdiffuse\n)\n{\n\tVector4 specular(0,0,0,0);\n\tLight(rinfo,ambient,diffuse,specular);\n}\n\n//**********************************************************************************************\n//! E&B: sets the D3D lights from DX8Wrapper's render state for the fixed function shaders,\n//! light 0 with a white specular and DX8Wrapper's ambient colour. Name not known (0xA0FC60).\nvoid ShdHWVertexShader::Unknown_Set_Lights()\n{\n\tRenderStateStruct state;\n\tDX8Wrapper::Get_Render_State(state);\n\n\tfor (int i=0;i<4;i++)\n\t{\n\t\tif (state.LightEnable[i])\n\t\t{\n\t\t\tif (i==0)\n\t\t\t{\n\t\t\t\tconst Vector3& amb=DX8Wrapper::Get_Ambient();\n\t\t\t\tstate.Lights[0].Specular.r=1.0f;\n\t\t\t\tstate.Lights[0].Specular.g=1.0f;\n\t\t\t\tstate.Lights[0].Specular.b=1.0f;\n\t\t\t\tstate.Lights[0].Ambient.r=amb.X;\n\t\t\t\tstate.Lights[0].Ambient.g=amb.Y;\n\t\t\t\tstate.Lights[0].Ambient.b=amb.Z;\n\t\t\t}\n\t\t\tDX8Wrapper::Set_DX8_Light(i,&state.Lights[i]);\n\t\t}\n\t}\n}\n",
+         "E&B's light setup for the fixed function shaders (0xA0FC60, after Light in shdhwshader.obj; name not known), called at the end of Shd6CubeMapClass::Apply_Shared 0xA0AF40, Shd6SimpleClass and Shd6GlossMaskClass::Apply_Shared (0xA0CD90, 0xA0D910)"),
     ],
 }
 for _key, _edits in WWSHADE_EARLY_PATCHES.items():
