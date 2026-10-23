@@ -19,7 +19,8 @@ Generated data ([data/](data/); regenerate with the tools in `tools/re`):
 | [data/rtti.txt](data/rtti.txt) | RTTI type names | `srctree.py` |
 | [data/asserts.txt](data/asserts.txt) | assert-like expressions with their (approximate) source file | `srctree.py` |
 | [data/library-versions.md](data/library-versions.md) | which EA copy each library file follows | `libversions.py` |
-| [data/bytematch-*.md](data/) (`ww3d2`, `wwlib`, `wwmath`, `wwaudio`, `wwsaveload`, `wwdebug`, `wwshade`) and `.json` | client functions proven byte-identical to EA source, per file and per copy | `tools/vc6/vc6.py`, `objmatch.py`, `matchreport.py` |
+| [data/bytematch-*.md](data/) (`ww3d2`, `wwlib`, `wwmath`, `wwaudio`, `wwsaveload`, `wwdebug`, `wwshade`) and `.json` | client functions proven byte-identical to EA source, per file and per copy | `tools/vc6/bytematch_all.sh` |
+| [data/bytematch-*.md](data/) (`libcmt`, `libcpmt`, `comsupp`, `d3dx8`) and `.json` | client functions proven to be Microsoft's precompiled libraries | `tools/vc6/runtime_match.sh` |
 | [data/funcmatch.md](data/funcmatch.md), [data/funcmatch.json](data/funcmatch.json) | client functions matched to EA functions | `funcmatch.py` |
 
 Addresses are virtual addresses in the retail client.exe, SHA-256 `249f8524…51c4`

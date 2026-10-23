@@ -98,16 +98,22 @@ class CoffObject:
 
 
 def demangle(name):
-    """Enough of MSVC demangling for reports: ?Method@Class@@... -> Class::Method."""
+    """Enough of MSVC demangling for reports and source lookup: ?Method@Class@@... -> Class::Method,
+    ??0Class@@... -> Class::Class, ??1Class@@... -> Class::~Class, ??4Class@@... -> Class::operator=."""
     if not name.startswith('?'):
         return name.lstrip('_').split('@')[0]
-    m = re.match(r'\?(\?[0-9A-Z_]|[^@]+)@([^@]*)@', name)
+    special = {'0': None, '1': '~', '4': 'operator=', '8': 'operator==', '9': 'operator!=',
+               'A': 'operator[]', 'H': 'operator+', 'G': 'operator-', 'D': 'operator*',
+               '_G': 'scalar deleting dtor', '_E': 'vector deleting dtor'}
+    m = re.match(r'\?\?(_[A-Z]|[0-9A-Z])([^@?]+)@', name)
+    if m and m.group(1) in special:
+        code, cls = m.group(1), m.group(2)
+        method = cls if code == '0' else '~' + cls if code == '1' else special[code]
+        return f'{cls}::{method}'
+    m = re.match(r'\?([^@?]+)@([^@?]*)@', name)
     if not m:
         return name
     method, cls = m.group(1), m.group(2)
-    special = {'?0': cls, '?1': '~' + cls, '?4': 'operator=', '?_G': 'scalar deleting dtor',
-               '?_E': 'vector deleting dtor'}
-    method = special.get(method, method)
     return f'{cls}::{method}' if cls else method
 
 

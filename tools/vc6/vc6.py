@@ -12,6 +12,7 @@ Paths given to compile must be under C:\\EnBDevelopment. Configuration: docs/too
 """
 import argparse
 import io
+import json
 import os
 import subprocess
 import sys
@@ -65,23 +66,57 @@ def under_root(path):
     return full, rel
 
 
+SYNC_CACHE = os.path.join(os.environ.get('TEMP', '.'), 'enb_vc6_synccache.json')
+
+
 def sync(dirs):
-    """Send the source files of each directory (not recursive into subdirectories) to the VM."""
+    """Send the source files of each directory (not recursive) to the VM.
+
+    Only files changed since the last sync are sent (a local cache of size and mtime per file),
+    and files deleted locally are deleted in the VM too. Delete the cache file to force a full
+    sync (for example after reverting the VM to a checkpoint).
+    """
+    try:
+        cache = json.load(open(SYNC_CACHE))
+    except (OSError, ValueError):
+        cache = {}
     buf = io.BytesIO()
     count = 0
+    removed = []
     with tarfile.open(fileobj=buf, mode='w') as tar:
         for d in sorted(set(dirs)):
             full, rel = under_root(d)
+            present = set()
             for f in os.listdir(full):
                 p = os.path.join(full, f)
                 if os.path.isfile(p) and f.lower().endswith(SOURCE_EXT):
-                    tar.add(p, arcname=os.path.join(rel, f).replace(BS, '/'))
-                    count += 1
-    local = os.path.join(os.environ.get('TEMP', '.'), 'enb_vc6_sync.tar')
-    open(local, 'wb').write(buf.getvalue())
+                    key = os.path.join(rel, f).replace(BS, '/')
+                    present.add(key)
+                    st = os.stat(p)
+                    stamp = [st.st_size, st.st_mtime_ns]
+                    if cache.get(key) != stamp:
+                        tar.add(p, arcname=key)
+                        cache[key] = stamp
+                        count += 1
+            prefix = rel.replace(BS, '/') + '/'
+            present_low = {k.lower() for k in present}
+            for key in [k for k in cache if k.startswith(prefix) and '/' not in k[len(prefix):]]:
+                if key not in present:
+                    if key.lower() in present_low:
+                        del cache[key]   # renamed by case only: the VM's file is the new one
+                        continue
+                    removed.append(key)
+                    del cache[key]
     ensure_work()
-    scp(local, remote(WORK + r'\sync.tar'))
-    ssh(f'cmd /c tar -xf "{WORK}\\sync.tar" -C "{ROOT}" && del "{WORK}\\sync.tar"')
+    if count:
+        local = os.path.join(os.environ.get('TEMP', '.'), 'enb_vc6_sync.tar')
+        open(local, 'wb').write(buf.getvalue())
+        scp(local, remote(WORK + r'\sync.tar'))
+        ssh(f'cmd /c tar -xf "{WORK}\\sync.tar" -C "{ROOT}" && del "{WORK}\\sync.tar"')
+    for i in range(0, len(removed), 40):
+        files = ' '.join('"' + ROOT + BS + k.replace('/', BS) + '"' for k in removed[i:i + 40])
+        ssh(f'cmd /c del /q {files} 2>nul', check=False)
+    json.dump(cache, open(SYNC_CACHE, 'w'))
     return count
 
 

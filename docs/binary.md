@@ -49,6 +49,11 @@ Linker 6.0, **incremental** (/INCREMENTAL): the app's functions are reached thro
 | ~0x429630–0x8C1B50 | E&B's own objects (`G\app\...`), all reached through thunks |
 | ~0x8C1B50–0xAE58DD | statically linked libraries, no thunks. From the string-anchored matches: WWMath near 0x8C8000, WW3D2 ~0x909000–0x9C5000, WWLib ~0x9C7000–0x9E9300, WWDebug ~0x9EA000–0x9EC000, WWAudio ~0x9EE000–0xA04000, WWSaveLoad 0xA049C0, wwshade ~0xA09000–0xA10000, then the CRT and the rest. Rough; see [data/funcmatch.md](data/funcmatch.md) |
 
+| 0xA420AC–0xAA1C00 | incremental-link padding (`int3`), 382 KB |
+| 0xAA1C00–0xAE2830 | compiler-generated C++ exception-handling stubs for E&B's code (259 KB) |
+
+What of this is precompiled or generated rather than written: [library-matching.md](library-matching.md) §3.7.
+
 Function discovery: thunk targets (app code), plus `call rel32` targets and padding after
 `ret` (library code). This finds about 30,000 functions (`tools/re/clientimage.py`).
 

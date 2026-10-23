@@ -1,0 +1,7472 @@
+{
+ "ww3d2": {
+  "base": "R",
+  "compile_errors": [
+   "C:\\EnBDevelopment\\EnB\\ww3d2\\static_sort_list.cpp(83) : error C2039: 'Get_Render_Hook' : is not a member of 'RenderObjClass'",
+   "C:\\EnBDevelopment\\EnB\\ww3d2\\static_sort_list.cpp(84) : error C2039: 'Get_Render_Hook' : is not a member of 'RenderObjClass'",
+   "C:\\EnBDevelopment\\EnB\\ww3d2\\static_sort_list.cpp(84) : error C2227: left of '->Pre_Render' must point to class/struct/union",
+   "C:\\EnBDevelopment\\EnB\\ww3d2\\static_sort_list.cpp(88) : error C2039: 'Get_Render_Hook' : is not a member of 'RenderObjClass'",
+   "C:\\EnBDevelopment\\EnB\\ww3d2\\static_sort_list.cpp(88) : error C2227: left of '->Post_Render' must point to class/struct/union",
+   "C:\\EnBDevelopment\\EnB\\ww3d2\\streak.cpp(712) : error C2039: 'mulVector3Array' : is not a member of 'Matrix3D'",
+   "C:\\EnBDevelopment\\EnB\\ww3d2\\streakRender.cpp(383) : error C2039: 'mul' : is not a member of 'Matrix3D'"
+  ],
+  "files": {
+   "aabtree": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 3,
+     "R": 30,
+     "Z": 3
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x447C40",
+     "0x92B5E0",
+     "0x9B2E60",
+     "0x9B2E90",
+     "0x9B2EF0",
+     "0x9B2F70",
+     "0x9B2FB0",
+     "0x9B3000",
+     "0x9B30C0",
+     "0x9B3160",
+     "0x9B3220",
+     "0x9B32B0",
+     "0x9B3560",
+     "0x9B3610",
+     "0x9B38F0",
+     "0x9B3A20",
+     "0x9B3B60",
+     "0x9B3C10",
+     "0x9B3CC0",
+     "0x9B3DC0",
+     "0x9B3F90",
+     "0x9B4170",
+     "0x9B4350",
+     "0x9B4540",
+     "0x9B46D0",
+     "0x9B48B0",
+     "0x9B4970",
+     "0x9B4A70",
+     "0x9B4A90"
+    ],
+    "merged": [],
+    "name": "aabtree.cpp"
+   },
+   "aabtreebuilder": {
+    "best": "Z",
+    "copy": "Z",
+    "expected": {
+     "G": 12,
+     "R": 18,
+     "Z": 20
+    },
+    "headers_from": "Z",
+    "in_tree": [
+     "0x42F250",
+     "0x9B4B30",
+     "0x9B4BD0",
+     "0x9B4CA0",
+     "0x9B4E50",
+     "0x9B4EA0",
+     "0x9B5060",
+     "0x9B52A0",
+     "0x9B5590",
+     "0x9B57C0",
+     "0x9B5860",
+     "0x9B5930",
+     "0x9B5AA0",
+     "0x9B5AE0",
+     "0x9B5B30",
+     "0x9B5B70",
+     "0x9B5BE0",
+     "0x9B5C50",
+     "0x9B5D00",
+     "0x9B5E90"
+    ],
+    "merged": [],
+    "name": "aabtreebuilder.cpp"
+   },
+   "agg_def": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 18,
+     "R": 25,
+     "Z": 23
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x9A3540",
+     "0x9A35A0",
+     "0x9A3720",
+     "0x9A37B0",
+     "0x9A38B0",
+     "0x9A3900",
+     "0x9A3A50",
+     "0x9A3AB0",
+     "0x9A3B00",
+     "0x9A3BA0",
+     "0x9A3FC0",
+     "0x9A4010",
+     "0x9A40B0",
+     "0x9A4120",
+     "0x9A4180",
+     "0x9A41E0",
+     "0x9A4250",
+     "0x9A4290",
+     "0x9A42F0",
+     "0x9A4370",
+     "0x9A43F0",
+     "0x9A4420",
+     "0x9A4470",
+     "0x9A4540"
+    ],
+    "merged": [],
+    "name": "agg_def.cpp"
+   },
+   "animatedsoundmgr": {
+    "best": "Z",
+    "copy": "R",
+    "expected": {
+     "G": 0,
+     "R": 14,
+     "Z": 18
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x48C500",
+     "0x48CA70",
+     "0x48CED0",
+     "0x48E940",
+     "0x4E6B10",
+     "0x510CC0",
+     "0x9093F0",
+     "0x9094A0",
+     "0x909500",
+     "0x909E60",
+     "0x9DA8C0",
+     "0xA0A6A0",
+     "0xA0A740"
+    ],
+    "merged": [],
+    "name": "animatedsoundmgr.cpp"
+   },
+   "animobj": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 12,
+     "R": 12,
+     "Z": 12
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x463030",
+     "0x463060",
+     "0x4630B0",
+     "0x4630E0",
+     "0x463100",
+     "0x463130",
+     "0x463150",
+     "0x4631A0",
+     "0x4631F0",
+     "0x463240",
+     "0x909500"
+    ],
+    "merged": [],
+    "name": "animobj.cpp"
+   },
+   "assetmgr": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 17,
+     "R": 39,
+     "Z": 19
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x48C500",
+     "0x48CA70",
+     "0x48CED0",
+     "0x48E940",
+     "0x48F680",
+     "0x510BE0",
+     "0x510CC0",
+     "0x53F1C0",
+     "0x6CE730",
+     "0x6CF410",
+     "0x909500",
+     "0x91C530",
+     "0x91C8C0",
+     "0x91D0D0",
+     "0x91D200",
+     "0x91D730",
+     "0x91D840",
+     "0x91D900",
+     "0x91D970",
+     "0x91E000",
+     "0x91E980",
+     "0x91E9A0",
+     "0x91E9D0",
+     "0x91EA10",
+     "0x91EB80",
+     "0x91EC00",
+     "0x91EC50",
+     "0x91ECA0",
+     "0x91ED10",
+     "0x91EDE0",
+     "0x91EE60",
+     "0x91EED0",
+     "0x91EEF0",
+     "0x91EF10",
+     "0x91EF30",
+     "0x91F010",
+     "0x91FE60",
+     "0x9CEFF0"
+    ],
+    "merged": [],
+    "name": "assetmgr.cpp"
+   },
+   "assetstatus": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 0,
+     "R": 15,
+     "Z": 15
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x48C500",
+     "0x48E940",
+     "0x909500",
+     "0x9A6BD0",
+     "0x9A6C10",
+     "0x9A6C70",
+     "0x9A6CA0",
+     "0x9A6CF0",
+     "0x9A6F10",
+     "0x9A7110",
+     "0x9A7310",
+     "0x9A7510",
+     "0x9A7700",
+     "0x9A78F0"
+    ],
+    "merged": [],
+    "name": "assetstatus.cpp"
+   },
+   "bitmaphandler": {
+    "best": "Z",
+    "copy": "R",
+    "expected": {
+     "G": 1,
+     "R": 1,
+     "Z": 7
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x99B1A0"
+    ],
+    "merged": [],
+    "name": "bitmaphandler.cpp"
+   },
+   "bmp2d": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 12,
+     "R": 14,
+     "Z": 13
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x462F30",
+     "0x463030",
+     "0x463060",
+     "0x4630B0",
+     "0x4630E0",
+     "0x463100",
+     "0x463130",
+     "0x463150",
+     "0x4631A0",
+     "0x4631F0",
+     "0x463240",
+     "0x497330",
+     "0x974B70"
+    ],
+    "merged": [],
+    "name": "bmp2d.cpp"
+   },
+   "boxrobj": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 15,
+     "R": 20,
+     "Z": 16
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x462F30",
+     "0x463030",
+     "0x463060",
+     "0x4630B0",
+     "0x4630E0",
+     "0x463100",
+     "0x463130",
+     "0x463150",
+     "0x4631A0",
+     "0x4631F0",
+     "0x463240",
+     "0x6E5460",
+     "0x998210",
+     "0x998340",
+     "0x998440",
+     "0x998980",
+     "0x99A830",
+     "0x99A8A0",
+     "0x99A900"
+    ],
+    "merged": [],
+    "name": "boxrobj.cpp"
+   },
+   "bw_render": {
+    "best": "G",
+    "copy": "G",
+    "expected": {
+     "G": 5,
+     "R": 0,
+     "Z": 5
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x9BE1C0",
+     "0x9BE2D0",
+     "0x9BE300",
+     "0x9BE480",
+     "0x9BE600"
+    ],
+    "merged": [],
+    "name": "bw_render.cpp"
+   },
+   "bwrender": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 5,
+     "R": 5,
+     "Z": 5
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x9BE1C0",
+     "0x9BE2D0",
+     "0x9BE300",
+     "0x9BE480",
+     "0x9BE600"
+    ],
+    "merged": [],
+    "name": "bwrender.cpp"
+   },
+   "camera": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 15,
+     "R": 16,
+     "Z": 14
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x462F30",
+     "0x463030",
+     "0x463060",
+     "0x4630B0",
+     "0x4630E0",
+     "0x463100",
+     "0x463130",
+     "0x463150",
+     "0x4631A0",
+     "0x4631F0",
+     "0x463240",
+     "0x943D50",
+     "0x9453A0",
+     "0x945970",
+     "0x945C00"
+    ],
+    "merged": [],
+    "name": "camera.cpp"
+   },
+   "collect": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 31,
+     "R": 33,
+     "Z": 31
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x463030",
+     "0x463060",
+     "0x4630B0",
+     "0x4630E0",
+     "0x463100",
+     "0x463130",
+     "0x463150",
+     "0x4631A0",
+     "0x4631F0",
+     "0x463240",
+     "0x47F260",
+     "0x48C500",
+     "0x48CA70",
+     "0x510CC0",
+     "0x6FD290",
+     "0x909500",
+     "0x991880",
+     "0x991940",
+     "0x991990",
+     "0x991A60",
+     "0x991AB0",
+     "0x991EE0",
+     "0x991F50",
+     "0x9920A0",
+     "0x992170",
+     "0x992250",
+     "0x992340",
+     "0x9925D0",
+     "0x992630",
+     "0x992740",
+     "0x9928F0",
+     "0x992DC0"
+    ],
+    "merged": [],
+    "name": "collect.cpp"
+   },
+   "coltest": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 10,
+     "R": 11,
+     "Z": 10
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x92D920",
+     "0x92D9A0",
+     "0x92DB30",
+     "0x92DBD0",
+     "0x92DCD0",
+     "0x92DF40",
+     "0x92E240",
+     "0x92E2F0",
+     "0x92E430",
+     "0x92E580"
+    ],
+    "merged": [],
+    "name": "coltest.cpp"
+   },
+   "composite": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 11,
+     "R": 22,
+     "Z": 12
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x462F30",
+     "0x463030",
+     "0x463060",
+     "0x4630B0",
+     "0x4630E0",
+     "0x463100",
+     "0x463130",
+     "0x463150",
+     "0x4631A0",
+     "0x4631F0",
+     "0x463240",
+     "0x9860D0",
+     "0x986100",
+     "0x986260",
+     "0x9862B0",
+     "0x986310",
+     "0x986370",
+     "0x9863D0",
+     "0x986430",
+     "0x986490",
+     "0x986550"
+    ],
+    "merged": [],
+    "name": "composite.cpp"
+   },
+   "dazzle": {
+    "best": "Z",
+    "copy": "R",
+    "expected": {
+     "G": 27,
+     "R": 35,
+     "Z": 37
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x447C40",
+     "0x462F30",
+     "0x463030",
+     "0x463060",
+     "0x4630B0",
+     "0x4630E0",
+     "0x463100",
+     "0x463130",
+     "0x463150",
+     "0x4631A0",
+     "0x4631F0",
+     "0x463240",
+     "0x48C500",
+     "0x510CC0",
+     "0x6CF410",
+     "0x96A000",
+     "0x96A080",
+     "0x96A110",
+     "0x96A1B0",
+     "0x96A310",
+     "0x96A390",
+     "0x96A3F0",
+     "0x96A420",
+     "0x96A9F0",
+     "0x96AA10",
+     "0x96AA40",
+     "0x96B5D0",
+     "0x96B700",
+     "0x96B910",
+     "0x96B9B0",
+     "0x96E3D0",
+     "0x96EAA0",
+     "0x96EE60",
+     "0x976880"
+    ],
+    "merged": [],
+    "name": "dazzle.cpp"
+   },
+   "ddsfile": {
+    "best": "Z",
+    "copy": "R",
+    "expected": {
+     "G": 4,
+     "R": 8,
+     "Z": 10
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x9A0AB0",
+     "0x9A0AE0",
+     "0x9A0B00",
+     "0x9A0B20",
+     "0x9A0B40",
+     "0x9A0B50",
+     "0x9A1AB0"
+    ],
+    "merged": [],
+    "name": "ddsfile.cpp"
+   },
+   "decalmsh": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 19,
+     "R": 29,
+     "Z": 21
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x447C40",
+     "0x9636F0",
+     "0x9637A0",
+     "0x9637F0",
+     "0x9B63A0",
+     "0x9B6460",
+     "0x9B6A20",
+     "0x9B6A70",
+     "0x9B6B40",
+     "0x9B6B80",
+     "0x9B6DB0",
+     "0x9B7130",
+     "0x9B7BF0",
+     "0x9B8180",
+     "0x9B8240",
+     "0x9B8270",
+     "0x9B88F0",
+     "0x9B8D90",
+     "0x9B9200",
+     "0x9B92B0",
+     "0x9B9300",
+     "0x9B9420",
+     "0x9B94D0",
+     "0x9B9540",
+     "0x9B98C0",
+     "0x9B9970",
+     "0x9B99D0",
+     "0x9BA3A0"
+    ],
+    "merged": [],
+    "name": "decalmsh.cpp"
+   },
+   "decalsys": {
+    "best": "Z",
+    "copy": "R",
+    "expected": {
+     "G": 16,
+     "R": 19,
+     "Z": 27
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x6F2C90",
+     "0x909500",
+     "0x940120",
+     "0x9811E0",
+     "0x9812D0",
+     "0x981370",
+     "0x9813F0",
+     "0x981450",
+     "0x981520",
+     "0x9816B0",
+     "0x981740",
+     "0x981820",
+     "0x9819C0",
+     "0x981CC0",
+     "0x981F20",
+     "0x981F50",
+     "0x981FC0",
+     "0x982100",
+     "0x982170",
+     "0x982210"
+    ],
+    "merged": [],
+    "name": "decalsys.cpp"
+   },
+   "distlod": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 16,
+     "R": 16,
+     "Z": 16
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x463030",
+     "0x463060",
+     "0x4630B0",
+     "0x4630E0",
+     "0x463100",
+     "0x463130",
+     "0x463150",
+     "0x4631A0",
+     "0x4631F0",
+     "0x463240",
+     "0x9A4A80",
+     "0x9A4B60",
+     "0x9A4C20",
+     "0x9A4CA0",
+     "0x9A4DD0"
+    ],
+    "merged": [],
+    "name": "distlod.cpp"
+   },
+   "dx8caps": {
+    "best": "Z",
+    "copy": "R",
+    "expected": {
+     "G": 1,
+     "R": 13,
+     "Z": 15
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x510BE0",
+     "0x510CC0",
+     "0x9AF3F0",
+     "0x9AF580",
+     "0x9AF8B0",
+     "0x9AF970",
+     "0x9AFD70",
+     "0x9AFE80",
+     "0x9AFE90",
+     "0x9AFEC0",
+     "0x9B00D0",
+     "0x9B2510"
+    ],
+    "merged": [],
+    "name": "dx8caps.cpp"
+   },
+   "dx8fvf": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 1,
+     "R": 1,
+     "Z": 1
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x48CA70"
+    ],
+    "merged": [],
+    "name": "dx8fvf.cpp"
+   },
+   "dx8indexbuffer": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 1,
+     "R": 20,
+     "Z": 1
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x950CC0",
+     "0x950D20",
+     "0x950D80",
+     "0x950E20",
+     "0x950FC0",
+     "0x951160",
+     "0x951210",
+     "0x9512C0",
+     "0x9513C0",
+     "0x951430",
+     "0x951490",
+     "0x951510",
+     "0x951580",
+     "0x9515E0",
+     "0x951620",
+     "0x9516F0",
+     "0x951790",
+     "0x9517D0",
+     "0x951900"
+    ],
+    "merged": [],
+    "name": "dx8indexbuffer.cpp"
+   },
+   "dx8polygonrenderer": {
+    "best": "G",
+    "copy": "R",
+    "expected": {
+     "G": 4,
+     "R": 3,
+     "Z": 4
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x9C4880",
+     "0x9C4920"
+    ],
+    "merged": [],
+    "name": "dx8polygonrenderer.cpp"
+   },
+   "dx8renderer": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 17,
+     "R": 32,
+     "Z": 26
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x494E10",
+     "0x497330",
+     "0x53F1C0",
+     "0x813880",
+     "0x909500",
+     "0x940120",
+     "0x977510",
+     "0x9776F0",
+     "0x9777F0",
+     "0x977830",
+     "0x9778D0",
+     "0x977A60",
+     "0x977B00",
+     "0x977CF0",
+     "0x977EC0",
+     "0x978170",
+     "0x9784B0",
+     "0x9784D0",
+     "0x978500",
+     "0x978910",
+     "0x978950",
+     "0x9789A0",
+     "0x9794A0",
+     "0x9795F0",
+     "0x979B40",
+     "0x97AAB0",
+     "0x97AB00",
+     "0x97B0E0",
+     "0x97B0F0",
+     "0x97B220",
+     "0x97B250",
+     "0x9CEFF0"
+    ],
+    "merged": [
+     {
+      "copy": "Z",
+      "function": "DX8FVFCategoryContainer::Find_Matching_Texture_Category"
+     },
+     {
+      "copy": "Z",
+      "function": "DX8FVFCategoryContainer::Insert_To_Texture_Category"
+     },
+     {
+      "copy": "Z",
+      "function": "DX8MeshRendererClass::Init"
+     },
+     {
+      "copy": "Z",
+      "function": "Textures_Material_And_Shader_Booking_Struct::Add_Textures_Material_And_Shader"
+     }
+    ],
+    "name": "dx8renderer.cpp"
+   },
+   "dx8rendererdebugger": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 0,
+     "R": 3,
+     "Z": 2
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x510CC0",
+     "0x9C4CF0"
+    ],
+    "merged": [],
+    "name": "dx8rendererdebugger.cpp"
+   },
+   "dx8texman": {
+    "best": "Z",
+    "copy": "R",
+    "expected": {
+     "G": 3,
+     "R": 3,
+     "Z": 4
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x995B80",
+     "0x995BD0"
+    ],
+    "merged": [],
+    "name": "dx8texman.cpp"
+   },
+   "dx8vertexbuffer": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 2,
+     "R": 20,
+     "Z": 2
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x94EF10",
+     "0x94EF80",
+     "0x94F030",
+     "0x94F0D0",
+     "0x94F240",
+     "0x94F2C0",
+     "0x94F3E0",
+     "0x94F790",
+     "0x94F800",
+     "0x94F8D0",
+     "0x94FAE0",
+     "0x94FC90",
+     "0x94FE70",
+     "0x950050",
+     "0x9503D0",
+     "0x950710",
+     "0x950750",
+     "0x950BB0",
+     "0x950C70"
+    ],
+    "merged": [],
+    "name": "dx8vertexbuffer.cpp"
+   },
+   "dx8wrapper": {
+    "best": "Z",
+    "copy": "R",
+    "expected": {
+     "G": 34,
+     "R": 73,
+     "Z": 74
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x48C500",
+     "0x48CA70",
+     "0x4E64E0",
+     "0x4E6820",
+     "0x4E6940",
+     "0x510CC0",
+     "0x53F1C0",
+     "0x6CE730",
+     "0x909500",
+     "0x921040",
+     "0x9217E0",
+     "0x921880",
+     "0x922C00",
+     "0x922C90",
+     "0x922F20",
+     "0x922F80",
+     "0x923070",
+     "0x923410",
+     "0x9237D0",
+     "0x923800",
+     "0x923B50",
+     "0x923B80",
+     "0x923C00",
+     "0x923C40",
+     "0x923D10",
+     "0x924210",
+     "0x924310",
+     "0x9243A0",
+     "0x9244A0",
+     "0x924630",
+     "0x924875",
+     "0x924E00",
+     "0x924EC0",
+     "0x924FF0",
+     "0x925410",
+     "0x925460",
+     "0x925480",
+     "0x925C50",
+     "0x925CC0",
+     "0x925F30",
+     "0x925F80",
+     "0x9266B0",
+     "0x926720",
+     "0x926A80",
+     "0x926DB0",
+     "0x926E40",
+     "0x927700",
+     "0x927AC0",
+     "0x927BF0",
+     "0x928410",
+     "0x928830",
+     "0x928950",
+     "0x9289F0",
+     "0x928AA0",
+     "0x928B90",
+     "0x928CD0",
+     "0x928DB0",
+     "0x928E90",
+     "0x928F80",
+     "0x928FB0",
+     "0x929010",
+     "0x929140",
+     "0x9291B0",
+     "0x9292A0",
+     "0x9293B0",
+     "0x929420",
+     "0x929480",
+     "0x929740",
+     "0x929880",
+     "0x929930",
+     "0x929A30",
+     "0x929A60",
+     "0x929D80"
+    ],
+    "merged": [
+     {
+      "copy": "Z",
+      "function": "DX8Wrapper::_Create_DX8_Surface"
+     }
+    ],
+    "name": "dx8wrapper.cpp"
+   },
+   "dynamesh": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 12,
+     "R": 24,
+     "Z": 13
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x462F30",
+     "0x463030",
+     "0x463060",
+     "0x4630B0",
+     "0x4630E0",
+     "0x463100",
+     "0x463130",
+     "0x463150",
+     "0x4631A0",
+     "0x4631F0",
+     "0x463240",
+     "0x490070",
+     "0x9750B0",
+     "0x975140",
+     "0x9751B0",
+     "0x9752F0",
+     "0x975350",
+     "0x975390",
+     "0x9753D0",
+     "0x975400",
+     "0x975480",
+     "0x975DB0",
+     "0x975DF0"
+    ],
+    "merged": [],
+    "name": "dynamesh.cpp"
+   },
+   "font3d": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 5,
+     "R": 12,
+     "Z": 9
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x982340",
+     "0x982380",
+     "0x9823E0",
+     "0x982420",
+     "0x982610",
+     "0x9829C0",
+     "0x982A30",
+     "0x982A80",
+     "0x982AB0",
+     "0x982AD0",
+     "0x982B70",
+     "0x982BA0"
+    ],
+    "merged": [],
+    "name": "font3d.cpp"
+   },
+   "formconv": {
+    "best": "Z",
+    "copy": "R",
+    "expected": {
+     "G": 2,
+     "R": 2,
+     "Z": 5
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x995960",
+     "0x995980"
+    ],
+    "merged": [],
+    "name": "formconv.cpp"
+   },
+   "framgrab": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 8,
+     "R": 8,
+     "Z": 8
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x99AB70",
+     "0x99AE40",
+     "0x99AEC0",
+     "0x99AF30",
+     "0x99AF90",
+     "0x99B000",
+     "0x99B070",
+     "0x99B0E0"
+    ],
+    "merged": [],
+    "name": "framgrab.cpp"
+   },
+   "hanim": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 17,
+     "R": 39,
+     "Z": 34
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x45CC90",
+     "0x45CE00",
+     "0x45D000",
+     "0x45D050",
+     "0x45D4B0",
+     "0x909500",
+     "0x931110",
+     "0x9311C0",
+     "0x931200",
+     "0x931270",
+     "0x931350",
+     "0x931370",
+     "0x9313B0",
+     "0x931410",
+     "0x931440",
+     "0x9314C0",
+     "0x9314F0",
+     "0x931630",
+     "0x931660",
+     "0x9317C0",
+     "0x931870",
+     "0x9318E0",
+     "0x931970",
+     "0x931BA0",
+     "0x931BE0",
+     "0x931C00",
+     "0x931C10",
+     "0x931C30",
+     "0x931C40",
+     "0x931C60",
+     "0x931C70",
+     "0x931C90",
+     "0x931CA0",
+     "0x931CE0",
+     "0x931D00",
+     "0x931D10",
+     "0x931D60",
+     "0x9CEFF0"
+    ],
+    "merged": [],
+    "name": "hanim.cpp"
+   },
+   "hanimmgr": {
+    "best": "Z",
+    "copy": "Z",
+    "expected": {
+     "G": 9,
+     "R": 12,
+     "Z": 15
+    },
+    "headers_from": "Z",
+    "in_tree": [
+     "0x42F250",
+     "0x909500",
+     "0x964810",
+     "0x964930",
+     "0x964980",
+     "0x964A30",
+     "0x964AE0",
+     "0x964B90",
+     "0x964BB0",
+     "0x964BE0",
+     "0x964C40",
+     "0x964C70",
+     "0x964DA0",
+     "0x964DC0",
+     "0x964E10"
+    ],
+    "merged": [],
+    "name": "hanimmgr.cpp"
+   },
+   "hcanim": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 5,
+     "R": 22,
+     "Z": 18
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x909500",
+     "0x987100",
+     "0x9C3A40",
+     "0x9C3A60",
+     "0x9C3C00",
+     "0x9C3C90",
+     "0x9C3D10",
+     "0x9C3D50",
+     "0x9C3DC0",
+     "0x9C4300",
+     "0x9C4330",
+     "0x9C4350",
+     "0x9C4400",
+     "0x9C4490",
+     "0x9C46E0",
+     "0x9C4720",
+     "0x9C4770",
+     "0x9C4790",
+     "0x9C47B0",
+     "0x9C47D0",
+     "0x9C47F0"
+    ],
+    "merged": [],
+    "name": "hcanim.cpp"
+   },
+   "hlod": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 32,
+     "R": 37,
+     "Z": 23
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x463030",
+     "0x463060",
+     "0x4630B0",
+     "0x4630E0",
+     "0x463130",
+     "0x463150",
+     "0x4631A0",
+     "0x4631F0",
+     "0x463240",
+     "0x909500",
+     "0x98AC20",
+     "0x98AD30",
+     "0x98AE10",
+     "0x98AE40",
+     "0x98AE80",
+     "0x98AF60",
+     "0x98B050",
+     "0x98B3A0",
+     "0x98B4A0",
+     "0x98B540",
+     "0x98B590",
+     "0x98B5D0",
+     "0x98B700",
+     "0x98B7D0",
+     "0x98B970",
+     "0x98B990",
+     "0x98B9F0",
+     "0x98BAD0",
+     "0x98BBE0",
+     "0x98C370",
+     "0x98E0D0",
+     "0x98E5D0",
+     "0x98E5F0",
+     "0x98E620",
+     "0x98FD80",
+     "0x98FF00"
+    ],
+    "merged": [],
+    "name": "hlod.cpp"
+   },
+   "hmdldef": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 4,
+     "R": 5,
+     "Z": 5
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x991EE0",
+     "0x9B5F50",
+     "0x9B6000",
+     "0x9B62A0"
+    ],
+    "merged": [],
+    "name": "hmdldef.cpp"
+   },
+   "hmorphanim": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 18,
+     "R": 31,
+     "Z": 29
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x909500",
+     "0x986A90",
+     "0x986AB0",
+     "0x986B10",
+     "0x986B40",
+     "0x986C10",
+     "0x986C70",
+     "0x986CD0",
+     "0x986DA0",
+     "0x986E70",
+     "0x9870B0",
+     "0x987100",
+     "0x987140",
+     "0x987180",
+     "0x987280",
+     "0x987390",
+     "0x9873C0",
+     "0x987730",
+     "0x987A20",
+     "0x987A70",
+     "0x987B90",
+     "0x987CC0",
+     "0x987FE0",
+     "0x988120",
+     "0x9882B0",
+     "0x988360",
+     "0x988410",
+     "0x9884A0",
+     "0x988610",
+     "0x9886B0",
+     "0x988840"
+    ],
+    "merged": [
+     {
+      "copy": "Z",
+      "function": "HMorphAnimClass::Create_New_Morph"
+     }
+    ],
+    "name": "hmorphanim.cpp"
+   },
+   "hrawanim": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 4,
+     "R": 19,
+     "Z": 14
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x909500",
+     "0x987100",
+     "0x9C2B90",
+     "0x9C2D10",
+     "0x9C2DB0",
+     "0x9C2E30",
+     "0x9C2E80",
+     "0x9C2EF0",
+     "0x9C31E0",
+     "0x9C3220",
+     "0x9C32C0",
+     "0x9C3300",
+     "0x9C3320",
+     "0x9C3480",
+     "0x9C35B0",
+     "0x9C38A0",
+     "0x9C3920",
+     "0x9C3990",
+     "0x9C39B0",
+     "0x9C39D0",
+     "0x9C39F0",
+     "0x9C3A10"
+    ],
+    "merged": [
+     {
+      "copy": "Z",
+      "function": "HRawAnimClass::Free"
+     }
+    ],
+    "name": "hrawanim.cpp"
+   },
+   "htree": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 2,
+     "R": 26,
+     "Z": 2
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x7E6E40",
+     "0x909500",
+     "0x988AD0",
+     "0x988AF0",
+     "0x988C60",
+     "0x988EC0",
+     "0x989060",
+     "0x989370",
+     "0x989490",
+     "0x9895B0",
+     "0x989670",
+     "0x989890",
+     "0x989BC0",
+     "0x98A000",
+     "0x98A050",
+     "0x98A070",
+     "0x98A0A0",
+     "0x98A130",
+     "0x98A150",
+     "0x98A170",
+     "0x98A190",
+     "0x98A210",
+     "0x98A720",
+     "0x98A800",
+     "0x98A980"
+    ],
+    "merged": [],
+    "name": "htree.cpp"
+   },
+   "htreemgr": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 2,
+     "R": 11,
+     "Z": 5
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x48E940",
+     "0x510CC0",
+     "0x909500",
+     "0x963EC0",
+     "0x963F00",
+     "0x964130",
+     "0x964310",
+     "0x964360",
+     "0x964380",
+     "0x9644A0"
+    ],
+    "merged": [],
+    "name": "htreemgr.cpp"
+   },
+   "intersec": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 4,
+     "R": 8,
+     "Z": 5
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x447C40",
+     "0x966D60",
+     "0x966D90",
+     "0x966FB0",
+     "0x9670F0",
+     "0x967410",
+     "0x9677E0"
+    ],
+    "merged": [],
+    "name": "intersec.cpp"
+   },
+   "layer": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 2,
+     "R": 10,
+     "Z": 10
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x967880",
+     "0x9678B0",
+     "0x967930",
+     "0x9679F0",
+     "0x967A50",
+     "0x967AC0",
+     "0x967AF0",
+     "0x967B10",
+     "0x967B60"
+    ],
+    "merged": [],
+    "name": "layer.cpp"
+   },
+   "light": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 11,
+     "R": 14,
+     "Z": 13
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x462F30",
+     "0x463030",
+     "0x463060",
+     "0x4630B0",
+     "0x4630E0",
+     "0x463100",
+     "0x463130",
+     "0x463150",
+     "0x4631A0",
+     "0x4631F0",
+     "0x463240",
+     "0x953FC0",
+     "0x954080"
+    ],
+    "merged": [],
+    "name": "light.cpp"
+   },
+   "lightenvironment": {
+    "best": "Z",
+    "copy": "Z",
+    "expected": {
+     "G": 3,
+     "R": 4,
+     "Z": 5
+    },
+    "headers_from": "Z",
+    "in_tree": [
+     "0x42F250",
+     "0x447C40",
+     "0x9852D0",
+     "0x9852F0",
+     "0x985760"
+    ],
+    "merged": [],
+    "name": "lightenvironment.cpp"
+   },
+   "line3d": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 11,
+     "R": 12,
+     "Z": 11
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x462F30",
+     "0x463030",
+     "0x463060",
+     "0x4630B0",
+     "0x4630E0",
+     "0x463100",
+     "0x463130",
+     "0x463150",
+     "0x4631A0",
+     "0x4631F0",
+     "0x463240"
+    ],
+    "merged": [],
+    "name": "line3d.cpp"
+   },
+   "linegrp": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 0,
+     "R": 12,
+     "Z": 10
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x97B6D0",
+     "0x97B750",
+     "0x97B820",
+     "0x97B960",
+     "0x97B980",
+     "0x97B9A0",
+     "0x97B9C0",
+     "0x97BA20",
+     "0x97BA50",
+     "0x97BAB0",
+     "0x97C1B0"
+    ],
+    "merged": [],
+    "name": "linegrp.cpp"
+   },
+   "mapper": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 1,
+     "R": 18,
+     "Z": 2
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x7E6E40",
+     "0x932150",
+     "0x932180",
+     "0x9321D0",
+     "0x932240",
+     "0x9322B0",
+     "0x932CC0",
+     "0x933820",
+     "0x933A80",
+     "0x933B20",
+     "0x933BE0",
+     "0x933C40",
+     "0x9356B0",
+     "0x935700",
+     "0x9357A0",
+     "0x935830",
+     "0x935FD0"
+    ],
+    "merged": [],
+    "name": "mapper.cpp"
+   },
+   "matinfo": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 14,
+     "R": 29,
+     "Z": 15
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x951A90",
+     "0x951AE0",
+     "0x951CC0",
+     "0x951D30",
+     "0x951D50",
+     "0x951E00",
+     "0x951E20",
+     "0x951EC0",
+     "0x951F90",
+     "0x951FE0",
+     "0x952030",
+     "0x952080",
+     "0x952300",
+     "0x952370",
+     "0x9523F0",
+     "0x952690",
+     "0x9526C0",
+     "0x952750",
+     "0x9527D0",
+     "0x952840",
+     "0x9528F0",
+     "0x952910",
+     "0x952920",
+     "0x952960",
+     "0x952990",
+     "0x953000",
+     "0x953170",
+     "0x953520"
+    ],
+    "merged": [],
+    "name": "matinfo.cpp"
+   },
+   "matpass": {
+    "best": "Z",
+    "copy": "Z",
+    "expected": {
+     "G": 1,
+     "R": 3,
+     "Z": 5
+    },
+    "headers_from": "Z",
+    "in_tree": [
+     "0x42F250",
+     "0x92E620",
+     "0x92E650",
+     "0x92E6C0",
+     "0x92E800",
+     "0x92E840",
+     "0x92E860",
+     "0x92E890",
+     "0x92E8C0"
+    ],
+    "merged": [],
+    "name": "matpass.cpp"
+   },
+   "matrixmapper": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 2,
+     "R": 9,
+     "Z": 4
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x447C40",
+     "0x511E00",
+     "0x53F1C0",
+     "0x9217E0",
+     "0x97F6D0",
+     "0x97F7A0",
+     "0x97F810",
+     "0x97F9E0"
+    ],
+    "merged": [],
+    "name": "matrixmapper.cpp"
+   },
+   "mesh": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 12,
+     "R": 15,
+     "Z": 12
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x462F30",
+     "0x463030",
+     "0x463060",
+     "0x4630B0",
+     "0x4630E0",
+     "0x463100",
+     "0x463130",
+     "0x463150",
+     "0x4631A0",
+     "0x4631F0",
+     "0x463240",
+     "0x58A640",
+     "0x909500",
+     "0x940120"
+    ],
+    "merged": [],
+    "name": "mesh.cpp"
+   },
+   "meshbuild": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 2,
+     "R": 2,
+     "Z": 2
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x447C40"
+    ],
+    "merged": [],
+    "name": "meshbuild.cpp"
+   },
+   "meshgeometry": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 8,
+     "R": 50,
+     "Z": 8
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x447C40",
+     "0x67FC20",
+     "0x929FD0",
+     "0x92A0A0",
+     "0x92A120",
+     "0x92A170",
+     "0x92A410",
+     "0x92A450",
+     "0x92A700",
+     "0x92A710",
+     "0x92A7A0",
+     "0x92A7B0",
+     "0x92A840",
+     "0x92A8E0",
+     "0x92A900",
+     "0x92A9B0",
+     "0x92AAE0",
+     "0x92AC40",
+     "0x92AD70",
+     "0x92AED0",
+     "0x92B330",
+     "0x92B390",
+     "0x92B5E0",
+     "0x92B920",
+     "0x92B9D0",
+     "0x92BA90",
+     "0x92BB60",
+     "0x92BC20",
+     "0x92BE50",
+     "0x92BF60",
+     "0x92C090",
+     "0x92C220",
+     "0x92C590",
+     "0x92C680",
+     "0x92C6B0",
+     "0x92C720",
+     "0x92C7B0",
+     "0x92C910",
+     "0x92C980",
+     "0x92CCE0",
+     "0x92D0C0",
+     "0x92D130",
+     "0x92D230",
+     "0x92D2B0",
+     "0x92D360",
+     "0x92D400",
+     "0x92D6A0",
+     "0x92D6D0",
+     "0x92D780"
+    ],
+    "merged": [],
+    "name": "meshgeometry.cpp"
+   },
+   "meshmatdesc": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 1,
+     "R": 25,
+     "Z": 1
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x497330",
+     "0x9460A0",
+     "0x946170",
+     "0x9461A0",
+     "0x946230",
+     "0x9462D0",
+     "0x9466A0",
+     "0x9466C0",
+     "0x946C00",
+     "0x946C80",
+     "0x946CC0",
+     "0x946D00",
+     "0x946D20",
+     "0x946DF0",
+     "0x946EB0",
+     "0x946F80",
+     "0x946FD0",
+     "0x947010",
+     "0x947060",
+     "0x947090",
+     "0x9470C0",
+     "0x947190",
+     "0x947250",
+     "0x9473F0",
+     "0x947490"
+    ],
+    "merged": [],
+    "name": "meshmatdesc.cpp"
+   },
+   "meshmdl": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 9,
+     "R": 21,
+     "Z": 9
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x909500",
+     "0x958AB0",
+     "0x958B90",
+     "0x958CC0",
+     "0x958F20",
+     "0x9596E0",
+     "0x959870",
+     "0x959890",
+     "0x959920",
+     "0x959940",
+     "0x959EC0",
+     "0x95A030",
+     "0x95AF80",
+     "0x95AFC0",
+     "0x95B010",
+     "0x95B040",
+     "0x95B510",
+     "0x95B570",
+     "0x95B6F0",
+     "0x95B8A0"
+    ],
+    "merged": [],
+    "name": "meshmdl.cpp"
+   },
+   "meshmdlio": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 8,
+     "R": 43,
+     "Z": 10
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x48CA70",
+     "0x497330",
+     "0x53F1C0",
+     "0x8138B0",
+     "0x953000",
+     "0x953170",
+     "0x953520",
+     "0x9B98C0",
+     "0x9B9970",
+     "0x9BB1A0",
+     "0x9BB6F0",
+     "0x9BB710",
+     "0x9BB950",
+     "0x9BBB00",
+     "0x9BBB40",
+     "0x9BBC80",
+     "0x9BBD10",
+     "0x9BBEC0",
+     "0x9BBF80",
+     "0x9BC0D0",
+     "0x9BC3A0",
+     "0x9BC710",
+     "0x9BC810",
+     "0x9BC8F0",
+     "0x9BC9B0",
+     "0x9BCE00",
+     "0x9BD140",
+     "0x9BD1C0",
+     "0x9BD480",
+     "0x9BD5A0",
+     "0x9BD630",
+     "0x9BD690",
+     "0x9BD7C0",
+     "0x9BD9C0",
+     "0x9BD9F0",
+     "0x9BDA50",
+     "0x9BDAB0",
+     "0x9BDD50",
+     "0x9BDD80",
+     "0x9BDDB0",
+     "0x9BDDE0",
+     "0x9BDE10"
+    ],
+    "merged": [],
+    "name": "meshmdlio.cpp"
+   },
+   "metalmap": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 5,
+     "R": 8,
+     "Z": 7
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x447C40",
+     "0x9A64B0",
+     "0x9A6520",
+     "0x9A6560",
+     "0x9A65C0",
+     "0x9A69F0",
+     "0x9A6B20"
+    ],
+    "merged": [],
+    "name": "metalmap.cpp"
+   },
+   "missingtexture": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 2,
+     "R": 3,
+     "Z": 2
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x9AF110",
+     "0x9AF1E0"
+    ],
+    "merged": [],
+    "name": "missingtexture.cpp"
+   },
+   "motchan": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 3,
+     "R": 22,
+     "Z": 3
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x9C65A0",
+     "0x9C6650",
+     "0x9C6760",
+     "0x9C67C0",
+     "0x9C6910",
+     "0x9C69F0",
+     "0x9C6B10",
+     "0x9C6CE0",
+     "0x9C6D60",
+     "0x9C6DE0",
+     "0x9C6E10",
+     "0x9C6E70",
+     "0x9C6F50",
+     "0x9C6FC0",
+     "0x9C70C0",
+     "0x9C71B0",
+     "0x9C72B0",
+     "0x9C73E0",
+     "0x9C7540",
+     "0x9C75A0",
+     "0x9C7720"
+    ],
+    "merged": [],
+    "name": "motchan.cpp"
+   },
+   "nullrobj": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 12,
+     "R": 17,
+     "Z": 13
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x462F30",
+     "0x463030",
+     "0x463060",
+     "0x4630B0",
+     "0x4630E0",
+     "0x463100",
+     "0x463130",
+     "0x463150",
+     "0x4631A0",
+     "0x4631F0",
+     "0x463240",
+     "0x941540",
+     "0x941560",
+     "0x941580",
+     "0x941670",
+     "0x9416A0"
+    ],
+    "merged": [],
+    "name": "nullrobj.cpp"
+   },
+   "part_buf": {
+    "best": "Z",
+    "copy": "R",
+    "expected": {
+     "G": 16,
+     "R": 17,
+     "Z": 25
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x462F30",
+     "0x463030",
+     "0x463060",
+     "0x4630B0",
+     "0x4630E0",
+     "0x463100",
+     "0x463130",
+     "0x463150",
+     "0x4631A0",
+     "0x4631F0",
+     "0x463240",
+     "0x963350",
+     "0x963370",
+     "0x9636F0",
+     "0x9637A0",
+     "0x9637F0"
+    ],
+    "merged": [],
+    "name": "part_buf.cpp"
+   },
+   "part_emt": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 20,
+     "R": 22,
+     "Z": 20
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x447C40",
+     "0x462F30",
+     "0x463030",
+     "0x463060",
+     "0x4630B0",
+     "0x4630E0",
+     "0x463100",
+     "0x463130",
+     "0x463150",
+     "0x4631A0",
+     "0x4631F0",
+     "0x463240",
+     "0x497330",
+     "0x909500",
+     "0x976880",
+     "0x97D450",
+     "0x97D4B0",
+     "0x97DBE0",
+     "0x97DC10",
+     "0x97E4D0",
+     "0x97F320"
+    ],
+    "merged": [],
+    "name": "part_emt.cpp"
+   },
+   "part_ldr": {
+    "best": "Z",
+    "copy": "R",
+    "expected": {
+     "G": 28,
+     "R": 29,
+     "Z": 67
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x914400",
+     "0x914410",
+     "0x914420",
+     "0x914440",
+     "0x914450",
+     "0x914460",
+     "0x914470",
+     "0x914480",
+     "0x9144B0",
+     "0x9144E0",
+     "0x9144F0",
+     "0x914500",
+     "0x914540",
+     "0x914EF0",
+     "0x914F20",
+     "0x914F70",
+     "0x915460",
+     "0x9154F0",
+     "0x915590",
+     "0x9155F0",
+     "0x9156D0",
+     "0x915BC0",
+     "0x916160",
+     "0x9161E0",
+     "0x916280",
+     "0x9162D0",
+     "0x917120",
+     "0x917530"
+    ],
+    "merged": [],
+    "name": "part_ldr.cpp"
+   },
+   "pivot": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 1,
+     "R": 3,
+     "Z": 1
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x9C5070",
+     "0x9C5120"
+    ],
+    "merged": [],
+    "name": "pivot.cpp"
+   },
+   "pointgr": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 18,
+     "R": 21,
+     "Z": 19
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x45CC90",
+     "0x45CE00",
+     "0x490070",
+     "0x511E00",
+     "0x9542B0",
+     "0x9544C0",
+     "0x954540",
+     "0x954600",
+     "0x954730",
+     "0x954750",
+     "0x9547F0",
+     "0x954820",
+     "0x9548B0",
+     "0x9548D0",
+     "0x955FE0",
+     "0x957370",
+     "0x9579F0",
+     "0x957E60",
+     "0x957ED0",
+     "0x957FE0"
+    ],
+    "merged": [],
+    "name": "pointgr.cpp"
+   },
+   "polyinfo": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 1,
+     "R": 2,
+     "Z": 1
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0xA039E0"
+    ],
+    "merged": [],
+    "name": "polyinfo.cpp"
+   },
+   "pot": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 0,
+     "R": 2,
+     "Z": 2
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x8C8F30",
+     "0x8C8F60"
+    ],
+    "merged": [],
+    "name": "pot.cpp"
+   },
+   "predlod": {
+    "best": "Z",
+    "copy": "R",
+    "expected": {
+     "G": 5,
+     "R": 7,
+     "Z": 9
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x909500",
+     "0x96F060",
+     "0x96F530",
+     "0x96F590",
+     "0x96F620",
+     "0x96F700"
+    ],
+    "merged": [],
+    "name": "predlod.cpp"
+   },
+   "projector": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 4,
+     "R": 9,
+     "Z": 4
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x964E20",
+     "0x964F30",
+     "0x964F80",
+     "0x964FB0",
+     "0x965020",
+     "0x965130",
+     "0x965250",
+     "0x965270"
+    ],
+    "merged": [],
+    "name": "projector.cpp"
+   },
+   "proto": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 2,
+     "R": 5,
+     "Z": 2
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x93E5D0",
+     "0x93E5F0",
+     "0x93E630",
+     "0x93E720"
+    ],
+    "merged": [],
+    "name": "proto.cpp"
+   },
+   "render2d": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 13,
+     "R": 66,
+     "Z": 57
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x447C40",
+     "0x957E60",
+     "0x957ED0",
+     "0x957FE0",
+     "0x96F7C0",
+     "0x96F920",
+     "0x96FA30",
+     "0x96FB20",
+     "0x96FB50",
+     "0x96FB80",
+     "0x96FC00",
+     "0x96FC30",
+     "0x96FC90",
+     "0x96FCD0",
+     "0x96FD10",
+     "0x96FD40",
+     "0x96FDF0",
+     "0x96FE50",
+     "0x96FE80",
+     "0x96FEA0",
+     "0x96FF00",
+     "0x96FF80",
+     "0x96FFB0",
+     "0x970100",
+     "0x970250",
+     "0x970370",
+     "0x970460",
+     "0x970560",
+     "0x970650",
+     "0x970890",
+     "0x970A60",
+     "0x970C30",
+     "0x970DD0",
+     "0x970F70",
+     "0x971120",
+     "0x9712E0",
+     "0x971470",
+     "0x971690",
+     "0x9718C0",
+     "0x971B20",
+     "0x971CE0",
+     "0x971D30",
+     "0x9721E0",
+     "0x972FA0",
+     "0x973110",
+     "0x973240",
+     "0x973360",
+     "0x973450",
+     "0x973570",
+     "0x973870",
+     "0x9738E0",
+     "0x973940",
+     "0x973AB0",
+     "0x973CF0",
+     "0x973DF0",
+     "0x973E30",
+     "0x973F10",
+     "0x973F70",
+     "0x974020",
+     "0x974050",
+     "0x974090",
+     "0x974180",
+     "0x9741E0",
+     "0x974220",
+     "0x974350"
+    ],
+    "merged": [],
+    "name": "render2d.cpp"
+   },
+   "render2dsentence": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 7,
+     "R": 47,
+     "Z": 7
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x909500",
+     "0x91FE60",
+     "0x9A80D0",
+     "0x9A8210",
+     "0x9A8310",
+     "0x9A8350",
+     "0x9A8380",
+     "0x9A8460",
+     "0x9A84B0",
+     "0x9A84E0",
+     "0x9A8520",
+     "0x9A8580",
+     "0x9A85A0",
+     "0x9A85D0",
+     "0x9A8C60",
+     "0x9A8CC0",
+     "0x9A8E90",
+     "0x9A9320",
+     "0x9A9430",
+     "0x9A9690",
+     "0x9A9B80",
+     "0x9A9BB0",
+     "0x9A9CC0",
+     "0x9A9DA0",
+     "0x9A9E00",
+     "0x9A9E70",
+     "0x9A9EE0",
+     "0x9A9FC0",
+     "0x9AA1D0",
+     "0x9AA250",
+     "0x9AA420",
+     "0x9AA4A0",
+     "0x9AA530",
+     "0x9AA570",
+     "0x9AA680",
+     "0x9AA820",
+     "0x9AAC80",
+     "0x9AAE00",
+     "0x9AAFA0",
+     "0x9AB210",
+     "0x9AB2D0",
+     "0x9AB460",
+     "0x9ABA50",
+     "0x9ABB30",
+     "0x9ABBA0",
+     "0x9ABC20"
+    ],
+    "merged": [],
+    "name": "render2dsentence.cpp"
+   },
+   "renderobjectrecycler": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 1,
+     "R": 1,
+     "Z": 1
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250"
+    ],
+    "merged": [],
+    "name": "renderobjectrecycler.cpp"
+   },
+   "rendobj": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 20,
+     "R": 28,
+     "Z": 27
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x447C40",
+     "0x4481E0",
+     "0x462F30",
+     "0x463030",
+     "0x463060",
+     "0x4630B0",
+     "0x4630E0",
+     "0x463100",
+     "0x463130",
+     "0x463150",
+     "0x4631A0",
+     "0x4631F0",
+     "0x463240",
+     "0x48C500",
+     "0x53F1C0",
+     "0x6CE730",
+     "0x6CF410",
+     "0x909500",
+     "0x941710",
+     "0x941BF0",
+     "0x941C00",
+     "0x941C20",
+     "0x941CF0",
+     "0x941E60",
+     "0x941E90",
+     "0x942040",
+     "0x942E20"
+    ],
+    "merged": [],
+    "name": "rendobj.cpp"
+   },
+   "rinfo": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 1,
+     "R": 1,
+     "Z": 1
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250"
+    ],
+    "merged": [],
+    "name": "rinfo.cpp"
+   },
+   "ringobj": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 45,
+     "R": 54,
+     "Z": 48
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x462F30",
+     "0x463030",
+     "0x463060",
+     "0x4630B0",
+     "0x4630E0",
+     "0x463100",
+     "0x463130",
+     "0x463150",
+     "0x4631A0",
+     "0x4631F0",
+     "0x463240",
+     "0x48C500",
+     "0x510CC0",
+     "0x909500",
+     "0x90F600",
+     "0x90F6B0",
+     "0x90F710",
+     "0x90F7B0",
+     "0x90F860",
+     "0x90F930",
+     "0x90F9A0",
+     "0x90FAC0",
+     "0x90FC30",
+     "0x90FCE0",
+     "0x90FD50",
+     "0x90FE10",
+     "0x90FEC0",
+     "0x90FF20",
+     "0x910020",
+     "0x910390",
+     "0x9105C0",
+     "0x910620",
+     "0x912850",
+     "0x9128A0",
+     "0x912970",
+     "0x912E10",
+     "0x912F50",
+     "0x913090",
+     "0x913500",
+     "0x913560",
+     "0x9135A0",
+     "0x913610",
+     "0x913730",
+     "0x913980",
+     "0x913AC0",
+     "0x913B80",
+     "0x913BE0",
+     "0x913CA0",
+     "0x913D70",
+     "0x913DE0",
+     "0x913F00",
+     "0x9140A0",
+     "0x914100"
+    ],
+    "merged": [],
+    "name": "ringobj.cpp"
+   },
+   "scene": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 17,
+     "R": 27,
+     "Z": 20
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x447C40",
+     "0x4481E0",
+     "0x495DE0",
+     "0x495E70",
+     "0x495EC0",
+     "0x495EF0",
+     "0x53F1C0",
+     "0x9653A0",
+     "0x965440",
+     "0x965450",
+     "0x965830",
+     "0x965900",
+     "0x9659B0",
+     "0x965A90",
+     "0x965BF0",
+     "0x965D40",
+     "0x965D80",
+     "0x965DC0",
+     "0x965E00",
+     "0x965E90",
+     "0x966160",
+     "0x9662E0",
+     "0x966370",
+     "0x9663F0",
+     "0x966460",
+     "0x966480"
+    ],
+    "merged": [],
+    "name": "scene.cpp"
+   },
+   "segline": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 17,
+     "R": 18,
+     "Z": 16
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x447C40",
+     "0x4481E0",
+     "0x462F30",
+     "0x463030",
+     "0x463060",
+     "0x4630B0",
+     "0x4630E0",
+     "0x463100",
+     "0x463130",
+     "0x463150",
+     "0x4631A0",
+     "0x4631F0",
+     "0x463240",
+     "0x9636F0",
+     "0x9637A0",
+     "0x9637F0",
+     "0x9988B0"
+    ],
+    "merged": [],
+    "name": "segline.cpp"
+   },
+   "seglinerenderer": {
+    "best": "Z",
+    "copy": "R",
+    "expected": {
+     "G": 7,
+     "R": 9,
+     "Z": 10
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x447C40",
+     "0x9BE7E0",
+     "0x9BE830",
+     "0x9BE890",
+     "0x9BE950",
+     "0x9BEA80",
+     "0x9BEA90",
+     "0x9BEAB0",
+     "0x9BEB00"
+    ],
+    "merged": [
+     {
+      "copy": "Z",
+      "function": "SegLineRendererClass::Set_Texture_Tile_Factor"
+     }
+    ],
+    "name": "seglinerenderer.cpp"
+   },
+   "shader": {
+    "best": "Z",
+    "copy": "R",
+    "expected": {
+     "G": 5,
+     "R": 7,
+     "Z": 10
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x53F1C0",
+     "0x93B3A0",
+     "0x93B3C0",
+     "0x93B460",
+     "0x93B4B0",
+     "0x93CDE0"
+    ],
+    "merged": [],
+    "name": "shader.cpp"
+   },
+   "shattersystem": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 34,
+     "R": 45,
+     "Z": 37
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x447C40",
+     "0x497330",
+     "0x67FC20",
+     "0x909500",
+     "0x943D50",
+     "0x9636F0",
+     "0x9637A0",
+     "0x9ABE20",
+     "0x9ABE60",
+     "0x9ABEC0",
+     "0x9AC150",
+     "0x9AC240",
+     "0x9AC2A0",
+     "0x9AC340",
+     "0x9AC3F0",
+     "0x9AC520",
+     "0x9AC550",
+     "0x9AC5A0",
+     "0x9AC620",
+     "0x9AC670",
+     "0x9AC6E0",
+     "0x9AC750",
+     "0x9AC7D0",
+     "0x9AC950",
+     "0x9AC9E0",
+     "0x9ACEF0",
+     "0x9AD050",
+     "0x9AD120",
+     "0x9AD2B0",
+     "0x9AD2F0",
+     "0x9AD330",
+     "0x9AD650",
+     "0x9AD810",
+     "0x9AD8E0",
+     "0x9AD930",
+     "0x9ADF30",
+     "0x9ADF70",
+     "0x9ADFC0",
+     "0x9AE000",
+     "0x9AE050",
+     "0x9AE900",
+     "0x9AEA80",
+     "0x9AEBA0",
+     "0x9AEC60"
+    ],
+    "merged": [],
+    "name": "shattersystem.cpp"
+   },
+   "snappts": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 2,
+     "R": 2,
+     "Z": 2
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x9C64C0"
+    ],
+    "merged": [],
+    "name": "snappts.cpp"
+   },
+   "sortingrenderer": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 4,
+     "R": 7,
+     "Z": 5
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x511E00",
+     "0x9832B0",
+     "0x984090",
+     "0x984BC0",
+     "0x984C50",
+     "0x984CE0"
+    ],
+    "merged": [],
+    "name": "sortingrenderer.cpp"
+   },
+   "soundrobj": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 16,
+     "R": 18,
+     "Z": 0
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x462F30",
+     "0x463030",
+     "0x463060",
+     "0x4630B0",
+     "0x4630E0",
+     "0x463100",
+     "0x463130",
+     "0x463150",
+     "0x4631A0",
+     "0x4631F0",
+     "0x463240",
+     "0x48C500",
+     "0x48CA70",
+     "0x510CC0",
+     "0x909500",
+     "0x982A30",
+     "0x9DA8C0",
+     "0x9FE4C0",
+     "0x9FE6B0"
+    ],
+    "merged": [],
+    "name": "soundrobj.cpp"
+   },
+   "sphereobj": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 42,
+     "R": 51,
+     "Z": 46
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x447C40",
+     "0x462F30",
+     "0x463030",
+     "0x463060",
+     "0x4630B0",
+     "0x4630E0",
+     "0x463100",
+     "0x463130",
+     "0x463150",
+     "0x4631A0",
+     "0x4631F0",
+     "0x463240",
+     "0x48C500",
+     "0x510CC0",
+     "0x909500",
+     "0x90ADF0",
+     "0x90D8B0",
+     "0x90D900",
+     "0x90D9F0",
+     "0x90DEC0",
+     "0x90DFE0",
+     "0x90E120",
+     "0x90E580",
+     "0x90E5F0",
+     "0x90E640",
+     "0x90E8E0",
+     "0x90EE00",
+     "0x90F0A0",
+     "0x90F180",
+     "0x90F240",
+     "0x90F320",
+     "0x90F400",
+     "0x90F470",
+     "0x90F600",
+     "0x90F6B0",
+     "0x90F710",
+     "0x90F7B0",
+     "0x90F860",
+     "0x90F930",
+     "0x90F9A0",
+     "0x90FAC0",
+     "0x90FC30",
+     "0x90FCE0",
+     "0x90FD50",
+     "0x90FE10",
+     "0x90FEC0",
+     "0x90FF20",
+     "0x910020",
+     "0x9102A0",
+     "0x910390"
+    ],
+    "merged": [],
+    "name": "sphereobj.cpp"
+   },
+   "static_sort_list": {
+    "best": "Z",
+    "copy": "Z",
+    "expected": {
+     "G": 0,
+     "R": 0,
+     "Z": 6
+    },
+    "headers_from": null,
+    "in_tree": [],
+    "merged": [],
+    "name": "static_sort_list.cpp"
+   },
+   "statistics": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 6,
+     "R": 8,
+     "Z": 6
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x48CA70",
+     "0x510BE0",
+     "0x510CC0",
+     "0x6CE730",
+     "0x993230",
+     "0x993260",
+     "0x9933A0"
+    ],
+    "merged": [],
+    "name": "statistics.cpp"
+   },
+   "streak": {
+    "best": "Z",
+    "copy": "Z",
+    "expected": {
+     "G": 19,
+     "R": 0,
+     "Z": 20
+    },
+    "headers_from": null,
+    "in_tree": [],
+    "merged": [],
+    "name": "streak.cpp"
+   },
+   "streakrender": {
+    "best": "G",
+    "copy": "G",
+    "expected": {
+     "G": 7,
+     "R": 0,
+     "Z": 3
+    },
+    "headers_from": null,
+    "in_tree": [],
+    "merged": [],
+    "name": "streakRender.cpp"
+   },
+   "stripoptimizer": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 2,
+     "R": 2,
+     "Z": 2
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x78F9B0"
+    ],
+    "merged": [],
+    "name": "stripoptimizer.cpp"
+   },
+   "surfaceclass": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 6,
+     "R": 20,
+     "Z": 6
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x490150",
+     "0x4902D0",
+     "0x94D590",
+     "0x94D5D0",
+     "0x94D610",
+     "0x94D680",
+     "0x94D6F0",
+     "0x94D720",
+     "0x94D780",
+     "0x94D7E0",
+     "0x94DA30",
+     "0x94DD30",
+     "0x94DEC0",
+     "0x94DFC0",
+     "0x94E2A0",
+     "0x94E580",
+     "0x94E5B0",
+     "0x94E5D0",
+     "0x94E710"
+    ],
+    "merged": [],
+    "name": "surfaceclass.cpp"
+   },
+   "texproject": {
+    "best": "Z",
+    "copy": "R",
+    "expected": {
+     "G": 14,
+     "R": 14,
+     "Z": 17
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x93D120",
+     "0x93D150",
+     "0x93D190",
+     "0x93D1B0",
+     "0x93D1E0",
+     "0x93D230",
+     "0x93D260",
+     "0x93D280",
+     "0x93D2C0",
+     "0x93D800",
+     "0x93DBF0",
+     "0x93E000",
+     "0x93E3A0"
+    ],
+    "merged": [],
+    "name": "texproject.cpp"
+   },
+   "texture": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 1,
+     "R": 5,
+     "Z": 1
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x53F1C0",
+     "0x9217E0",
+     "0x94C040",
+     "0x94C7B0"
+    ],
+    "merged": [],
+    "name": "texture.cpp"
+   },
+   "texturefilter": {
+    "best": "Z",
+    "copy": "Z",
+    "expected": {
+     "G": 0,
+     "R": 0,
+     "Z": 2
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x53F1C0",
+     "0x9217E0"
+    ],
+    "merged": [],
+    "name": "texturefilter.cpp"
+   },
+   "textureloader": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 4,
+     "R": 16,
+     "Z": 6
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x48CA70",
+     "0x948800",
+     "0x948820",
+     "0x948840",
+     "0x948870",
+     "0x9488A0",
+     "0x9488D0",
+     "0x9488E0",
+     "0x948910",
+     "0x948940",
+     "0x9489A0",
+     "0x948A00",
+     "0x948D10",
+     "0x948D30",
+     "0x9CEFF0"
+    ],
+    "merged": [],
+    "name": "textureloader.cpp"
+   },
+   "texturethumbnail": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 6,
+     "R": 13,
+     "Z": 13
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x48C500",
+     "0x48CA70",
+     "0x48E940",
+     "0x4E64E0",
+     "0x4E6820",
+     "0x4E6940",
+     "0x510CC0",
+     "0x53F1C0",
+     "0x909500",
+     "0x919130",
+     "0x9198C0",
+     "0x919CF0",
+     "0x919D30",
+     "0x91A730",
+     "0x91AED0",
+     "0x91B190",
+     "0x91B5D0"
+    ],
+    "merged": [
+     {
+      "copy": "Z",
+      "function": "Create_Hash_Name"
+     }
+    ],
+    "name": "texturethumbnail.cpp"
+   },
+   "txt": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 6,
+     "R": 6,
+     "Z": 6
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x683680",
+     "0x683760",
+     "0x683810",
+     "0x683880",
+     "0x8BE860"
+    ],
+    "merged": [],
+    "name": "txt.cpp"
+   },
+   "txt2d": {
+    "best": "G",
+    "copy": "G",
+    "expected": {
+     "G": 1,
+     "R": 0,
+     "Z": 1
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250"
+    ],
+    "merged": [],
+    "name": "txt2d.cpp"
+   },
+   "vertmaterial": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 5,
+     "R": 16,
+     "Z": 8
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x48C500",
+     "0x48CA70",
+     "0x53F1C0",
+     "0x9217E0",
+     "0x92ED90",
+     "0x92EE20",
+     "0x92EEB0",
+     "0x92EF40",
+     "0x92F0C0",
+     "0x92F0E0",
+     "0x92F100",
+     "0x930C10",
+     "0x930F30",
+     "0x930F60",
+     "0x932CC0"
+    ],
+    "merged": [],
+    "name": "vertmaterial.cpp"
+   },
+   "visrasterizer": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 6,
+     "R": 26,
+     "Z": 19
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x7E6E40",
+     "0x9636F0",
+     "0x9637A0",
+     "0x9637F0",
+     "0x993A80",
+     "0x993AE0",
+     "0x993EE0",
+     "0x993F80",
+     "0x994000",
+     "0x994090",
+     "0x9940B0",
+     "0x9941E0",
+     "0x9942E0",
+     "0x994300",
+     "0x9943E0",
+     "0x9944C0",
+     "0x994560",
+     "0x994AA0",
+     "0x994B10",
+     "0x994B90",
+     "0x994BF0",
+     "0x994C50",
+     "0x994CA0",
+     "0x995330",
+     "0x995490"
+    ],
+    "merged": [],
+    "name": "visrasterizer.cpp"
+   },
+   "w3d_dep": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 13,
+     "R": 13,
+     "Z": 13
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42A820",
+     "0x42A940",
+     "0x42A970",
+     "0x42C4E0",
+     "0x42CAB0",
+     "0x42CD30",
+     "0x42D050",
+     "0x42DB80",
+     "0x42F250",
+     "0x47CE60",
+     "0x4B53D0",
+     "0x4B56B0",
+     "0x909500"
+    ],
+    "merged": [],
+    "name": "w3d_dep.cpp"
+   },
+   "w3d_util": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 7,
+     "R": 7,
+     "Z": 7
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x995690",
+     "0x9956E0",
+     "0x995730",
+     "0x995790",
+     "0x9957E0",
+     "0x9958B0"
+    ],
+    "merged": [],
+    "name": "w3d_util.cpp"
+   },
+   "w3dexclusionlist": {
+    "best": "G",
+    "copy": "G",
+    "expected": {
+     "G": 4,
+     "R": 0,
+     "Z": 4
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x48CA70",
+     "0x48E940",
+     "0x909500"
+    ],
+    "merged": [],
+    "name": "w3dexclusionlist.cpp"
+   },
+   "ww3d": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 17,
+     "R": 23,
+     "Z": 23
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x909500",
+     "0x9175E0",
+     "0x917600",
+     "0x9178A0",
+     "0x917910",
+     "0x917930",
+     "0x917970",
+     "0x917990",
+     "0x9179F0",
+     "0x917A90",
+     "0x917BF0",
+     "0x917C50",
+     "0x918260",
+     "0x918830",
+     "0x918900",
+     "0x918930",
+     "0x918A00",
+     "0x918AE0",
+     "0x918C90",
+     "0x918CB0",
+     "0x918D70",
+     "0x918FB0"
+    ],
+    "merged": [],
+    "name": "ww3d.cpp"
+   },
+   "ww3dformat": {
+    "best": "Z",
+    "copy": "Z",
+    "expected": {
+     "G": 4,
+     "R": 10,
+     "Z": 12
+    },
+    "headers_from": "Z",
+    "in_tree": [
+     "0x42F250",
+     "0x48CA70",
+     "0x967BD0",
+     "0x968090",
+     "0x968310",
+     "0x968340",
+     "0x968620",
+     "0x9687F0",
+     "0x9688E0",
+     "0x9689A0",
+     "0x968AC0",
+     "0x968B20",
+     "0x968B70"
+    ],
+    "merged": [],
+    "name": "ww3dformat.cpp"
+   }
+  },
+  "headers": {
+   "aabtree.h": "R",
+   "aabtreebuilder.h": "R",
+   "agg_def.h": "R",
+   "animatedsoundmgr.h": "R",
+   "animobj.h": "R",
+   "assetmgr.h": "R",
+   "assetstatus.h": "R",
+   "bitmaphandler.h": "R",
+   "bmp2d.h": "R",
+   "boxrobj.h": "R",
+   "bw_render.h": "G",
+   "bwrender.h": "R",
+   "camera.h": "R",
+   "classid.h": "G",
+   "collect.h": "R",
+   "colorspace.h": "R",
+   "coltest.h": "R",
+   "coltype.h": "R",
+   "composite.h": "R",
+   "dazzle.h": "R",
+   "ddsfile.h": "R",
+   "decalmsh.h": "R",
+   "decalsys.h": "R",
+   "distlod.h": "R",
+   "dllist.h": "R",
+   "dx8caps.h": "R",
+   "dx8fvf.h": "R",
+   "dx8indexbuffer.h": "R",
+   "dx8list.h": "R",
+   "dx8polygonrenderer.h": "R",
+   "dx8renderer.h": "R",
+   "dx8rendererdebugger.h": "R",
+   "dx8texman.h": "R",
+   "dx8vertexbuffer.h": "R",
+   "dx8webbrowser.h": "G",
+   "dx8wrapper.h": "R",
+   "dynamesh.h": "R",
+   "font3d.h": "R",
+   "formconv.h": "R",
+   "framgrab.h": "R",
+   "hanim.h": "R",
+   "hanimmgr.h": "R",
+   "hcanim.h": "R",
+   "hlod.h": "R",
+   "hmdldef.h": "R",
+   "hmorphanim.h": "R",
+   "hrawanim.h": "R",
+   "htree.h": "R",
+   "htreemgr.h": "R",
+   "intersec.h": "R",
+   "intersec.inl": "R",
+   "inttest.h": "R",
+   "layer.h": "R",
+   "light.h": "R",
+   "lightenvironment.h": "R",
+   "line3d.h": "R",
+   "linegrp.h": "R",
+   "mapper.h": "R",
+   "matinfo.h": "R",
+   "matpass.h": "R",
+   "matrixmapper.h": "R",
+   "mesh.h": "R",
+   "meshbuild.h": "R",
+   "meshdam.h": "R",
+   "meshgeometry.h": "R",
+   "meshmatdesc.h": "R",
+   "meshmdl.h": "R",
+   "metalmap.h": "R",
+   "missingtexture.h": "R",
+   "motchan.h": "R",
+   "nullrobj.h": "R",
+   "part_buf.h": "R",
+   "part_emt.h": "R",
+   "part_ldr.h": "R",
+   "pivot.h": "R",
+   "pointgr.h": "R",
+   "polyinfo.h": "R",
+   "pot.h": "R",
+   "predlod.h": "R",
+   "prim_anim.h": "R",
+   "projector.h": "R",
+   "proto.h": "R",
+   "proxy.h": "R",
+   "rddesc.h": "R",
+   "render2d.h": "R",
+   "render2dsentence.h": "R",
+   "renderobjectrecycler.h": "R",
+   "rendobj.h": "R",
+   "rinfo.h": "R",
+   "ringobj.h": "R",
+   "robjlist.h": "R",
+   "scene.h": "R",
+   "segline.h": "R",
+   "seglinerenderer.h": "R",
+   "shader.h": "R",
+   "shattersystem.h": "R",
+   "shdlib.h": "Z",
+   "snappts.h": "R",
+   "sortingrenderer.h": "R",
+   "soundlibrarybridge.h": "Z",
+   "soundrobj.h": "R",
+   "sphereobj.h": "R",
+   "sr_util.h": "G",
+   "static_sort_list.h": "Z",
+   "statistics.h": "R",
+   "streak.h": "Z",
+   "streakRender.h": "G",
+   "stripoptimizer.h": "R",
+   "surfaceclass.h": "R",
+   "texfcach.h": "R",
+   "texproject.h": "R",
+   "textdraw.h": "R",
+   "texture.h": "R",
+   "texturefile.h": "G",
+   "texturefilter.h": "Z",
+   "textureloader.h": "R",
+   "texturethumbnail.h": "R",
+   "txt.h": "R",
+   "txt2d.h": "G",
+   "vertmaterial.h": "R",
+   "visrasterizer.h": "R",
+   "w3d_dep.h": "R",
+   "w3d_file.h": "R",
+   "w3d_obsolete.h": "R",
+   "w3d_util.h": "R",
+   "w3derr.h": "R",
+   "w3dexclusionlist.h": "G",
+   "ww3d.h": "R",
+   "ww3dformat.h": "R",
+   "ww3dids.h": "R",
+   "ww3dtrig.h": "R"
+  },
+  "in_tree_total": 1354,
+  "totals": {
+   "G": 548,
+   "R": 1322,
+   "Z": 914
+  }
+ },
+ "wwaudio": {
+  "base": "R",
+  "compile_errors": [],
+  "files": {
+   "audiblesound": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 7,
+     "R": 23,
+     "Z": 10
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x48C500",
+     "0x510CC0",
+     "0x909500",
+     "0x9DA8C0",
+     "0x9F7760",
+     "0x9F7800",
+     "0x9F7850",
+     "0x9F7900",
+     "0x9F79D0",
+     "0x9FD2B0",
+     "0x9FD2D0",
+     "0x9FD370",
+     "0x9FD390",
+     "0x9FD3C0",
+     "0x9FD840",
+     "0x9FDE80",
+     "0x9FDED0",
+     "0x9FDF10",
+     "0x9FE0A0",
+     "0x9FE0D0",
+     "0x9FE380",
+     "0x9FE4C0",
+     "0x9FE6B0",
+     "0x9FE720",
+     "0x9FE8B0",
+     "0x9FE900",
+     "0x9FE960",
+     "0x9FEC00",
+     "0x9FED70",
+     "0x9FED90",
+     "0x9FEFC0",
+     "0x9FF6B0",
+     "0x9FF6F0"
+    ],
+    "merged": [],
+    "name": "AudibleSound.cpp"
+   },
+   "audioevents": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 0,
+     "R": 9,
+     "Z": 0
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x909500",
+     "0x9DA8C0",
+     "0xA02620",
+     "0xA02680",
+     "0xA02710",
+     "0xA02780",
+     "0xA027E0",
+     "0xA02820"
+    ],
+    "merged": [],
+    "name": "AudioEvents.cpp"
+   },
+   "audiosaveload": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 3,
+     "R": 3,
+     "Z": 3
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x909500",
+     "0x9DA8C0"
+    ],
+    "merged": [],
+    "name": "AudioSaveLoad.cpp"
+   },
+   "filteredsound": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 4,
+     "R": 9,
+     "Z": 5
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x909500",
+     "0x914470",
+     "0x9DA8C0",
+     "0x9F7760",
+     "0x9F7800",
+     "0x9F7850",
+     "0x9F7900",
+     "0x9F79D0"
+    ],
+    "merged": [],
+    "name": "FilteredSound.cpp"
+   },
+   "listener": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 3,
+     "R": 8,
+     "Z": 4
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x909500",
+     "0x9DA8C0",
+     "0x9F7760",
+     "0x9F7800",
+     "0x9F7850",
+     "0x9F7900",
+     "0x9F79D0"
+    ],
+    "merged": [],
+    "name": "Listener.cpp"
+   },
+   "listenerhandle": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 3,
+     "R": 3,
+     "Z": 3
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x909500",
+     "0x9DA8C0"
+    ],
+    "merged": [],
+    "name": "listenerhandle.cpp"
+   },
+   "logicallistener": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 11,
+     "R": 15,
+     "Z": 12
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x909500",
+     "0x9DA8C0",
+     "0x9F7760",
+     "0x9F7800",
+     "0x9F7850",
+     "0xA02160",
+     "0xA021E0",
+     "0xA02200",
+     "0xA02230",
+     "0xA02360",
+     "0xA02390",
+     "0xA023C0",
+     "0xA02460",
+     "0xA02500"
+    ],
+    "merged": [],
+    "name": "LogicalListener.cpp"
+   },
+   "logicalsound": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 15,
+     "R": 20,
+     "Z": 16
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x909500",
+     "0x9DA8C0",
+     "0x9F7760",
+     "0x9F7800",
+     "0x9F7850",
+     "0xA01AD0",
+     "0xA01B60",
+     "0xA01B80",
+     "0xA01BC0",
+     "0xA01BE0",
+     "0xA01C00",
+     "0xA01C30",
+     "0xA01D30",
+     "0xA01D60",
+     "0xA01D90",
+     "0xA01DC0",
+     "0xA01DF0",
+     "0xA01F00",
+     "0xA01FE0"
+    ],
+    "merged": [],
+    "name": "LogicalSound.cpp"
+   },
+   "sound2dhandle": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 3,
+     "R": 3,
+     "Z": 3
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x909500",
+     "0x9DA8C0"
+    ],
+    "merged": [],
+    "name": "sound2dhandle.cpp"
+   },
+   "sound3d": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 3,
+     "R": 10,
+     "Z": 4
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x7E6E40",
+     "0x909500",
+     "0x9DA8C0",
+     "0x9F7760",
+     "0x9F7800",
+     "0x9F7850",
+     "0x9F7900",
+     "0x9F79D0",
+     "0x9F91C0"
+    ],
+    "merged": [],
+    "name": "Sound3D.cpp"
+   },
+   "sound3dhandle": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 3,
+     "R": 3,
+     "Z": 3
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x909500",
+     "0x9DA8C0"
+    ],
+    "merged": [],
+    "name": "sound3dhandle.cpp"
+   },
+   "soundbuffer": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 12,
+     "R": 12,
+     "Z": 12
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x48C500",
+     "0x909500",
+     "0x9FBC00",
+     "0x9FBDD0",
+     "0x9FBEE0",
+     "0x9FC310",
+     "0x9FC3A0",
+     "0x9FC3B0",
+     "0x9FC5C0",
+     "0x9FC660",
+     "0x9FC850"
+    ],
+    "merged": [],
+    "name": "SoundBuffer.cpp"
+   },
+   "soundhandle": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 5,
+     "R": 6,
+     "Z": 6
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x909500",
+     "0x9DA8C0",
+     "0xA03970",
+     "0xA039B0",
+     "0xA039E0"
+    ],
+    "merged": [],
+    "name": "soundhandle.cpp"
+   },
+   "soundpseudo3d": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 5,
+     "R": 10,
+     "Z": 6
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x909500",
+     "0x914470",
+     "0x9DA8C0",
+     "0x9F7760",
+     "0x9F7800",
+     "0x9F7850",
+     "0x9F7900",
+     "0x9F79D0",
+     "0x9FFB30"
+    ],
+    "merged": [],
+    "name": "SoundPseudo3D.cpp"
+   },
+   "soundscene": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 14,
+     "R": 35,
+     "Z": 17
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x494E10",
+     "0x495DB0",
+     "0x909500",
+     "0x940120",
+     "0x9CEFF0",
+     "0x9DA8C0",
+     "0x9F9580",
+     "0x9F95A0",
+     "0x9F95B0",
+     "0x9F95D0",
+     "0x9F95E0",
+     "0x9F9670",
+     "0x9F97D0",
+     "0x9F9F40",
+     "0x9FA4B0",
+     "0x9FA510",
+     "0x9FA580",
+     "0x9FA600",
+     "0x9FA6A0",
+     "0x9FAE00",
+     "0x9FAE20",
+     "0x9FAE40",
+     "0x9FAE90",
+     "0x9FAEC0",
+     "0x9FAF40",
+     "0x9FAFC0",
+     "0x9FB030",
+     "0x9FB110",
+     "0x9FB420",
+     "0x9FB480",
+     "0x9FB4E0",
+     "0x9FB570",
+     "0x9FB700",
+     "0x9FB720"
+    ],
+    "merged": [],
+    "name": "SoundScene.cpp"
+   },
+   "soundsceneobj": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 10,
+     "R": 17,
+     "Z": 12
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x7E6E40",
+     "0x909500",
+     "0x9DA8C0",
+     "0x9F7760",
+     "0x9F7800",
+     "0x9F7850",
+     "0xA00290",
+     "0xA005F0",
+     "0xA00990",
+     "0xA00A40",
+     "0xA00C70",
+     "0xA00D40",
+     "0xA00E40",
+     "0xA01010",
+     "0xA01160",
+     "0xA011E0"
+    ],
+    "merged": [],
+    "name": "SoundSceneObj.cpp"
+   },
+   "threads": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 1,
+     "R": 4,
+     "Z": 1
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x9FB850",
+     "0x9FB890",
+     "0x9FB8D0",
+     "0x9FB9C0"
+    ],
+    "merged": [],
+    "name": "Threads.cpp"
+   },
+   "wwaudio": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 12,
+     "R": 61,
+     "Z": 17
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x48C500",
+     "0x909500",
+     "0x9DA8C0",
+     "0x9EEE40",
+     "0x9EF0B0",
+     "0x9EF3E0",
+     "0x9EF840",
+     "0x9F0B00",
+     "0x9F0B80",
+     "0x9F0C50",
+     "0x9F0D50",
+     "0x9F0E90",
+     "0x9F0FA0",
+     "0x9F1B40",
+     "0x9F1DF0",
+     "0x9F1E20",
+     "0x9F1E60",
+     "0x9F2080",
+     "0x9F20C0",
+     "0x9F2140",
+     "0x9F2560",
+     "0x9F2600",
+     "0x9F2BB0",
+     "0x9F2C10",
+     "0x9F2C90",
+     "0x9F2CF0",
+     "0x9F2D70",
+     "0x9F2DE0",
+     "0x9F2F40",
+     "0x9F30B0",
+     "0x9F3220",
+     "0x9F3670",
+     "0x9F3690",
+     "0x9F36C0",
+     "0x9F36E0",
+     "0x9F3840",
+     "0x9F3870",
+     "0x9F3900",
+     "0x9F3AD0",
+     "0x9F3E20",
+     "0x9F3F20",
+     "0x9F40B0",
+     "0x9F4100",
+     "0x9F4130",
+     "0x9F4190",
+     "0x9F4690",
+     "0x9F4770",
+     "0x9F47A0",
+     "0x9F47D0",
+     "0x9F4A70",
+     "0x9F4B30",
+     "0x9F4BA0",
+     "0x9F4C00",
+     "0x9F4DA0",
+     "0x9F64C0",
+     "0x9F6670",
+     "0x9F67F0",
+     "0x9F6BD0",
+     "0x9F74C0",
+     "0x9F7560"
+    ],
+    "merged": [],
+    "name": "WWAudio.cpp"
+   }
+  },
+  "headers": {
+   "AABTreeSoundCullClass.h": "R",
+   "AudibleSound.h": "R",
+   "AudioEvents.h": "R",
+   "AudioSaveLoad.h": "R",
+   "FilteredSound.h": "R",
+   "Listener.h": "R",
+   "LogicalListener.h": "R",
+   "LogicalSound.h": "R",
+   "PriorityVector.h": "R",
+   "Sound3D.h": "R",
+   "SoundBuffer.h": "R",
+   "SoundChunkIDs.h": "R",
+   "SoundCullObj.h": "R",
+   "SoundDefinition.h": "R",
+   "SoundPseudo3D.h": "R",
+   "SoundScene.h": "R",
+   "SoundSceneObj.h": "R",
+   "StaticSoundCullObj.h": "R",
+   "Threads.h": "R",
+   "Utils.h": "R",
+   "WWAudio.h": "R",
+   "listenerhandle.h": "R",
+   "sound2dhandle.h": "R",
+   "sound3dhandle.h": "R",
+   "soundhandle.h": "R",
+   "soundstreamhandle.h": "R"
+  },
+  "in_tree_total": 182,
+  "totals": {
+   "G": 68,
+   "R": 171,
+   "Z": 81
+  }
+ },
+ "wwdebug": {
+  "base": "Z",
+  "compile_errors": [],
+  "files": {
+   "wwdebug": {
+    "best": "Z",
+    "copy": "Z",
+    "expected": {
+     "G": 2,
+     "R": 5,
+     "Z": 5
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x9EE7A0",
+     "0x9EE830",
+     "0x9EE880",
+     "0x9EE8D0",
+     "0x9EE920"
+    ],
+    "merged": [],
+    "name": "wwdebug.cpp"
+   },
+   "wwmemlog": {
+    "best": "R",
+    "copy": "Z",
+    "expected": {
+     "G": 11,
+     "R": 15,
+     "Z": 14
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x909500",
+     "0x9CEFF0",
+     "0x9ED150",
+     "0x9ED1A0",
+     "0x9ED200",
+     "0x9ED260",
+     "0x9ED4B0",
+     "0x9ED4D0",
+     "0x9EDB50",
+     "0x9EDDC0",
+     "0x9EE260",
+     "0x9EE3C0",
+     "0x9EE5E0",
+     "0x9EE6F0"
+    ],
+    "merged": [],
+    "name": "wwmemlog.cpp"
+   },
+   "wwprofile": {
+    "best": "Z",
+    "copy": "Z",
+    "expected": {
+     "G": 3,
+     "R": 15,
+     "Z": 48
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x48C500",
+     "0x48CA70",
+     "0x48CED0",
+     "0x48E940",
+     "0x510CC0",
+     "0x909500",
+     "0x9CEFF0",
+     "0x9E9F20",
+     "0x9E9F70",
+     "0x9E9FB0",
+     "0x9EA230",
+     "0x9EA260",
+     "0x9EA2A0",
+     "0x9EA310",
+     "0x9EA510",
+     "0x9EA790",
+     "0x9EA7E0",
+     "0x9EA810",
+     "0x9EA850",
+     "0x9EA8E0",
+     "0x9EAB50",
+     "0x9EABB0",
+     "0x9EAD70",
+     "0x9EADC0",
+     "0x9EAE00",
+     "0x9EAE80",
+     "0x9EB310",
+     "0x9EB350",
+     "0x9EB3A0",
+     "0x9EB3E0",
+     "0x9EB950",
+     "0x9EB970",
+     "0x9EB9A0",
+     "0x9EB9F0",
+     "0x9EBA00",
+     "0x9EBA40",
+     "0x9EBA80",
+     "0x9EBAD0",
+     "0x9EBB00",
+     "0x9EBB20",
+     "0x9EBB50",
+     "0x9EC0C0",
+     "0x9EC150",
+     "0x9EC330",
+     "0x9EC380",
+     "0x9EC3D0",
+     "0x9EC7B0",
+     "0x9ECB50",
+     "0x9ED130"
+    ],
+    "merged": [],
+    "name": "wwprofile.cpp"
+   }
+  },
+  "headers": {
+   "gamedebug.h": "new",
+   "wwdebug.h": "Z",
+   "wwhack.h": "Z",
+   "wwmemlog.h": "Z",
+   "wwprofile.h": "Z"
+  },
+  "in_tree_total": 67,
+  "totals": {
+   "G": 16,
+   "R": 34,
+   "Z": 65
+  }
+ },
+ "wwlib": {
+  "base": "R",
+  "compile_errors": [],
+  "files": {
+   "_convert": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 1,
+     "R": 1,
+     "Z": 1
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250"
+    ],
+    "merged": [],
+    "name": "_convert.cpp"
+   },
+   "argv": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 9,
+     "R": 10,
+     "Z": 9
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x9CF830",
+     "0x9CF860",
+     "0x9CF9F0",
+     "0x9CFB00",
+     "0x9CFC40",
+     "0x9CFC90",
+     "0x9CFCE0",
+     "0x9CFD90",
+     "0x9CFEB0",
+     "0x9CFF00"
+    ],
+    "merged": [],
+    "name": "argv.cpp"
+   },
+   "b64pipe": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 2,
+     "R": 2,
+     "Z": 2
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x9E6720",
+     "0x9E68B0"
+    ],
+    "merged": [],
+    "name": "b64pipe.cpp"
+   },
+   "b64straw": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 1,
+     "R": 1,
+     "Z": 1
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x9E6620"
+    ],
+    "merged": [],
+    "name": "b64straw.cpp"
+   },
+   "base64": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 2,
+     "R": 2,
+     "Z": 2
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x9E97C0",
+     "0x9E98E0"
+    ],
+    "merged": [],
+    "name": "base64.cpp"
+   },
+   "blit": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 9,
+     "R": 9,
+     "Z": 9
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x683680",
+     "0x683760",
+     "0x683810",
+     "0x683880",
+     "0x9E7C60",
+     "0x9E7C80",
+     "0x9E7D30",
+     "0x9E7E40",
+     "0x9E80A0"
+    ],
+    "merged": [],
+    "name": "blit.cpp"
+   },
+   "buff": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 3,
+     "R": 3,
+     "Z": 3
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x9DD000",
+     "0x9DD030",
+     "0x9DD050"
+    ],
+    "merged": [],
+    "name": "buff.cpp"
+   },
+   "bufffile": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 0,
+     "R": 8,
+     "Z": 8
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x9E7900",
+     "0x9E7920",
+     "0x9E7970",
+     "0x9E79A0",
+     "0x9E79E0",
+     "0x9E7A10",
+     "0x9E7B40",
+     "0x9E7BC0"
+    ],
+    "merged": [],
+    "name": "bufffile.cpp"
+   },
+   "chunkio": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 4,
+     "R": 16,
+     "Z": 16
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x9D3E40",
+     "0x9D3ED0",
+     "0x9D3F80",
+     "0x9D4010",
+     "0x9D4070",
+     "0x9D40E0",
+     "0x9D4150",
+     "0x9D4310",
+     "0x9D4370",
+     "0x9D43D0",
+     "0x9D43F0",
+     "0x9D4400",
+     "0x9D4430",
+     "0x9D44A0",
+     "0x9D4540"
+    ],
+    "merged": [],
+    "name": "chunkio.cpp"
+   },
+   "convert": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 27,
+     "R": 27,
+     "Z": 27
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x9DD0F0",
+     "0x9DD600",
+     "0x9DD650",
+     "0x9DD6B0",
+     "0x9DD6F0",
+     "0x9DD770",
+     "0x9DD7E0",
+     "0x9DD8A0",
+     "0x9DD900",
+     "0x9DD9B0",
+     "0x9DDA10",
+     "0x9DDA70",
+     "0x9DDAE0",
+     "0x9DDB40",
+     "0x9DDBB0",
+     "0x9DDC30",
+     "0x9DDCC0",
+     "0x9DDD40",
+     "0x9DDDD0",
+     "0x9DDE30",
+     "0x9DDEB0",
+     "0x9DDF30",
+     "0x9DDFB0",
+     "0x9DE030",
+     "0x9DE0D0",
+     "0x9DE170"
+    ],
+    "merged": [],
+    "name": "convert.cpp"
+   },
+   "cpudetect": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 20,
+     "R": 21,
+     "Z": 20
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x510BE0",
+     "0x510CC0",
+     "0x6CE730",
+     "0x9D4C00",
+     "0x9D4DC0",
+     "0x9D5160",
+     "0x9D5350",
+     "0x9D54A0",
+     "0x9D5800",
+     "0x9D58E0",
+     "0x9D5940",
+     "0x9D59B0",
+     "0x9D5B70",
+     "0x9D61F0",
+     "0x9D6240",
+     "0x9D6360",
+     "0x9D63B0",
+     "0x9D6450",
+     "0x9D64B0",
+     "0x9D71F0",
+     "0x9D75C0"
+    ],
+    "merged": [],
+    "name": "cpudetect.cpp"
+   },
+   "crc": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 2,
+     "R": 2,
+     "Z": 2
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x9D4710",
+     "0x9D4740"
+    ],
+    "merged": [],
+    "name": "crc.cpp"
+   },
+   "cstraw": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 1,
+     "R": 1,
+     "Z": 1
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x9E6190"
+    ],
+    "merged": [],
+    "name": "cstraw.cpp"
+   },
+   "data": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 4,
+     "R": 7,
+     "Z": 7
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x9E88A0",
+     "0x9E88E0",
+     "0x9E8A00",
+     "0x9E8B20",
+     "0x9E8B60",
+     "0x9E8BA0"
+    ],
+    "merged": [],
+    "name": "data.cpp"
+   },
+   "ddraw": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 11,
+     "R": 11,
+     "Z": 11
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x9E8BE0",
+     "0x9E8D80",
+     "0x9E8E00",
+     "0x9E8ED0",
+     "0x9E9030",
+     "0x9E90F0",
+     "0x9E9150",
+     "0x9E9220",
+     "0x9E92A0",
+     "0x9E9350"
+    ],
+    "merged": [],
+    "name": "ddraw.cpp"
+   },
+   "dib": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 0,
+     "R": 5,
+     "Z": 5
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x683680",
+     "0x683760",
+     "0x683810",
+     "0x683880"
+    ],
+    "merged": [],
+    "name": "dib.cpp"
+   },
+   "draw": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 0,
+     "R": 5,
+     "Z": 5
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x683680",
+     "0x683760",
+     "0x683810",
+     "0x683880"
+    ],
+    "merged": [],
+    "name": "draw.cpp"
+   },
+   "dsurface": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 19,
+     "R": 19,
+     "Z": 19
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x683680",
+     "0x9DCE10",
+     "0x9DF080",
+     "0x9DF270",
+     "0x9DF300",
+     "0x9DF370",
+     "0x9DF3C0",
+     "0x9DF430",
+     "0x9DF490",
+     "0x9DF7C0",
+     "0x9DF860",
+     "0x9DF960",
+     "0x9DF9F0",
+     "0x9DFA50",
+     "0x9DFAA0",
+     "0x9DFE30",
+     "0x9E0130",
+     "0x9E0180"
+    ],
+    "merged": [],
+    "name": "dsurface.cpp"
+   },
+   "except": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 0,
+     "R": 9,
+     "Z": 9
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x9CCD20",
+     "0x9CCD50",
+     "0x9CE430",
+     "0x9CE540",
+     "0x9CE670",
+     "0x9CE710",
+     "0x9CE750",
+     "0x9CE830",
+     "0x9CE910"
+    ],
+    "merged": [],
+    "name": "Except.cpp"
+   },
+   "fastallocator": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 0,
+     "R": 2,
+     "Z": 2
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x909500"
+    ],
+    "merged": [],
+    "name": "FastAllocator.cpp"
+   },
+   "ffactory": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 8,
+     "R": 13,
+     "Z": 13
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x48C500",
+     "0x48CA70",
+     "0x510CC0",
+     "0x919CF0",
+     "0x9D0720",
+     "0x9D0770",
+     "0x9D0780",
+     "0x9D07D0",
+     "0x9D0810",
+     "0x9D0890",
+     "0x9D0900",
+     "0x9D0AD0",
+     "0x9D0C60"
+    ],
+    "merged": [],
+    "name": "ffactory.cpp"
+   },
+   "gcd_lcm": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 2,
+     "R": 2,
+     "Z": 2
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x9E5DD0",
+     "0x9E5DF0"
+    ],
+    "merged": [],
+    "name": "gcd_lcm.cpp"
+   },
+   "hash": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 9,
+     "R": 9,
+     "Z": 9
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x9E53F0",
+     "0x9E5450",
+     "0x9E5470",
+     "0x9E54B0",
+     "0x9E5520",
+     "0x9E5570",
+     "0x9E5590",
+     "0x9E5600",
+     "0x9E5640"
+    ],
+    "merged": [],
+    "name": "hash.cpp"
+   },
+   "hsv": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 3,
+     "R": 3,
+     "Z": 3
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x9E8450",
+     "0x9E84E0",
+     "0x9E8530"
+    ],
+    "merged": [],
+    "name": "hsv.cpp"
+   },
+   "ini": {
+    "best": "Z",
+    "copy": "Z",
+    "expected": {
+     "G": 45,
+     "R": 61,
+     "Z": 66
+    },
+    "headers_from": "Z",
+    "in_tree": [
+     "0x42F250",
+     "0x48A120",
+     "0x726850",
+     "0x9C77F0",
+     "0x9C7850",
+     "0x9C78C0",
+     "0x9C79E0",
+     "0x9C7B10",
+     "0x9C7B50",
+     "0x9C7C10",
+     "0x9C7C60",
+     "0x9C7D30",
+     "0x9C7DA0",
+     "0x9C7EB0",
+     "0x9C7FC0",
+     "0x9C8020",
+     "0x9C82E0",
+     "0x9C8380",
+     "0x9C8BD0",
+     "0x9C8C70",
+     "0x9C8DD0",
+     "0x9C8F30",
+     "0x9C8FD0",
+     "0x9C9140",
+     "0x9C9200",
+     "0x9C93E0",
+     "0x9C9530",
+     "0x9C97E0",
+     "0x9C99B0",
+     "0x9C9B80",
+     "0x9C9C60",
+     "0x9C9DC0",
+     "0x9C9EB0",
+     "0x9CA150",
+     "0x9CA1C0",
+     "0x9CA370",
+     "0x9CA3C0",
+     "0x9CA5E0",
+     "0x9CA620",
+     "0x9CA770",
+     "0x9CA8F0",
+     "0x9CA930",
+     "0x9CAAB0",
+     "0x9CAAF0",
+     "0x9CAEA0",
+     "0x9CB020",
+     "0x9CB1A0",
+     "0x9CB2E0",
+     "0x9CB450",
+     "0x9CB630",
+     "0x9CB820",
+     "0x9CB860",
+     "0x9CBA00",
+     "0x9CBA40",
+     "0x9CBBB0",
+     "0x9CBC00",
+     "0x9CBD80",
+     "0x9CBDE0",
+     "0x9CBF60",
+     "0x9CC0D0",
+     "0x9CC200",
+     "0x9CC260",
+     "0x9CC350",
+     "0x9CC390",
+     "0x9CC5F0",
+     "0x9CC610",
+     "0x9CCC00"
+    ],
+    "merged": [],
+    "name": "ini.cpp"
+   },
+   "lcw": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 2,
+     "R": 2,
+     "Z": 2
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x9E9AF0",
+     "0x9E9CE0"
+    ],
+    "merged": [],
+    "name": "lcw.cpp"
+   },
+   "load": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 1,
+     "R": 1,
+     "Z": 1
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x9E9A20"
+    ],
+    "merged": [],
+    "name": "load.cpp"
+   },
+   "mixfile": {
+    "best": "Z",
+    "copy": "Z",
+    "expected": {
+     "G": 28,
+     "R": 41,
+     "Z": 47
+    },
+    "headers_from": "Z",
+    "in_tree": [
+     "0x42F250",
+     "0x48C500",
+     "0x48CA70",
+     "0x48CED0",
+     "0x4E64E0",
+     "0x4E6820",
+     "0x4E6940",
+     "0x510CC0",
+     "0x53F1C0",
+     "0x6CE730",
+     "0x909500",
+     "0x919CF0",
+     "0x9D7A60",
+     "0x9D7C80",
+     "0x9D7D50",
+     "0x9D7E20",
+     "0x9D8030",
+     "0x9D80E0",
+     "0x9D8100",
+     "0x9D8290",
+     "0x9D8370",
+     "0x9D8610",
+     "0x9D8760",
+     "0x9D8780",
+     "0x9D8AA0",
+     "0x9D8B40",
+     "0x9D8B60",
+     "0x9D8D30",
+     "0x9D8F50",
+     "0x9D9120",
+     "0x9D92D0",
+     "0x9D9370",
+     "0x9D9400",
+     "0x9D9760",
+     "0x9D99D0",
+     "0x9D9A70",
+     "0x9D9BD0",
+     "0x9D9C50",
+     "0x9D9E70",
+     "0x9D9F00",
+     "0x9DA050",
+     "0x9DA0B0",
+     "0x9DA5F0",
+     "0x9DA8C0",
+     "0x9DA920",
+     "0x9DAA00",
+     "0x9DAB30"
+    ],
+    "merged": [],
+    "name": "mixfile.cpp"
+   },
+   "mono": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 16,
+     "R": 16,
+     "Z": 16
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x9DE640",
+     "0x9DE680",
+     "0x9DE6B0",
+     "0x9DE6E0",
+     "0x9DE740",
+     "0x9DE790",
+     "0x9DE7C0",
+     "0x9DE820",
+     "0x9DE850",
+     "0x9DE8D0",
+     "0x9DE960",
+     "0x9DE9A0",
+     "0x9DE9E0",
+     "0x9DEA80",
+     "0x9DEB30",
+     "0x9DEB80"
+    ],
+    "merged": [],
+    "name": "mono.cpp"
+   },
+   "mpmath": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 52,
+     "R": 52,
+     "Z": 52
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x9E04E0",
+     "0x9E0520",
+     "0x9E05A0",
+     "0x9E0660",
+     "0x9E06E0",
+     "0x9E0770",
+     "0x9E07E0",
+     "0x9E0830",
+     "0x9E0870",
+     "0x9E08A0",
+     "0x9E08C0",
+     "0x9E08F0",
+     "0x9E0930",
+     "0x9E0970",
+     "0x9E0AA0",
+     "0x9E0BE0",
+     "0x9E0C20",
+     "0x9E0C40",
+     "0x9E0C60",
+     "0x9E0CB0",
+     "0x9E0CE0",
+     "0x9E0D00",
+     "0x9E0D50",
+     "0x9E0DC0",
+     "0x9E0E20",
+     "0x9E0E80",
+     "0x9E0EE0",
+     "0x9E10B0",
+     "0x9E1100",
+     "0x9E1310",
+     "0x9E1520",
+     "0x9E1640",
+     "0x9E1850",
+     "0x9E1A60",
+     "0x9E1CB0",
+     "0x9E1EC0",
+     "0x9E20D0",
+     "0x9E2130",
+     "0x9E21E0",
+     "0x9E23D0",
+     "0x9E26E0",
+     "0x9E2790",
+     "0x9E2830",
+     "0x9E2BC0",
+     "0x9E2BF0",
+     "0x9E2C10",
+     "0x9E2C80",
+     "0x9E2CE0",
+     "0x9E2E10",
+     "0x9E3150",
+     "0x9E31C0",
+     "0x9E3390"
+    ],
+    "merged": [],
+    "name": "mpmath.cpp"
+   },
+   "mpu": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 3,
+     "R": 3,
+     "Z": 3
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x9E7680",
+     "0x9E76C0",
+     "0x9E76F0"
+    ],
+    "merged": [],
+    "name": "mpu.cpp"
+   },
+   "msgloop": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 1,
+     "R": 1,
+     "Z": 1
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250"
+    ],
+    "merged": [],
+    "name": "msgloop.cpp"
+   },
+   "multilist": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 2,
+     "R": 9,
+     "Z": 2
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x9CEFF0",
+     "0x9D0F50",
+     "0x9D0FF0",
+     "0x9D1020",
+     "0x9D1040",
+     "0x9D1160",
+     "0x9D1270",
+     "0x9D13A0",
+     "0x9D1430"
+    ],
+    "merged": [],
+    "name": "multilist.cpp"
+   },
+   "mutex": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 7,
+     "R": 8,
+     "Z": 8
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x9CEE10",
+     "0x9CEE50",
+     "0x9CEEA0",
+     "0x9CEEF0",
+     "0x9CEF10",
+     "0x9CEF40",
+     "0x9CEF60",
+     "0x9CEFA0"
+    ],
+    "merged": [],
+    "name": "mutex.cpp"
+   },
+   "nstrdup": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 1,
+     "R": 1,
+     "Z": 1
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x9D05B0"
+    ],
+    "merged": [],
+    "name": "nstrdup.cpp"
+   },
+   "palette": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 10,
+     "R": 10,
+     "Z": 10
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x9E8200",
+     "0x9E8250",
+     "0x9E8280",
+     "0x9E82B0",
+     "0x9E82D0",
+     "0x9E8300",
+     "0x9E8350",
+     "0x9E8390",
+     "0x9E83E0"
+    ],
+    "merged": [],
+    "name": "palette.cpp"
+   },
+   "pcx": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 5,
+     "R": 6,
+     "Z": 6
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x683680",
+     "0x683760",
+     "0x683810",
+     "0x683880",
+     "0x9DE210"
+    ],
+    "merged": [],
+    "name": "pcx.cpp"
+   },
+   "pipe": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 4,
+     "R": 4,
+     "Z": 4
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x9E6560",
+     "0x9E65A0",
+     "0x9E65F0",
+     "0x9E6610"
+    ],
+    "merged": [],
+    "name": "pipe.cpp"
+   },
+   "pk": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 16,
+     "R": 16,
+     "Z": 16
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x9E6910",
+     "0x9E6970",
+     "0x9E6990",
+     "0x9E69B0",
+     "0x9E69E0",
+     "0x9E6A00",
+     "0x9E70E0",
+     "0x9E7210",
+     "0x9E73D0",
+     "0x9E7420",
+     "0x9E7480",
+     "0x9E74E0",
+     "0x9E7540",
+     "0x9E7590",
+     "0x9E75B0",
+     "0x9E7610"
+    ],
+    "merged": [],
+    "name": "pk.cpp"
+   },
+   "pkstraw": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 0,
+     "R": 1,
+     "Z": 1
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x9F367D"
+    ],
+    "merged": [],
+    "name": "pkstraw.cpp"
+   },
+   "random": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 7,
+     "R": 7,
+     "Z": 7
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x9CFFE0",
+     "0x9D0080",
+     "0x9D0130",
+     "0x9D0250",
+     "0x9D03B0",
+     "0x9D0410",
+     "0x9D0580"
+    ],
+    "merged": [],
+    "name": "random.cpp"
+   },
+   "rawfile": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 2,
+     "R": 18,
+     "Z": 10
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x683E40",
+     "0x684090",
+     "0x684110",
+     "0x6841A0",
+     "0x6841D0",
+     "0x6842E0",
+     "0x6843D0",
+     "0x684420",
+     "0x684540",
+     "0x6846C0",
+     "0x6848F0",
+     "0x684990",
+     "0x6849E0",
+     "0x684A60",
+     "0x684B50",
+     "0x684BE0",
+     "0x684C70",
+     "0x684D10",
+     "0x684DD0"
+    ],
+    "merged": [
+     {
+      "copy": "Z",
+      "function": "RawFileClass::Get_Date_Time"
+     }
+    ],
+    "name": "rawfile.cpp"
+   },
+   "rc4": {
+    "best": "Z",
+    "copy": "Z",
+    "expected": {
+     "G": 0,
+     "R": 0,
+     "Z": 2
+    },
+    "headers_from": "Z",
+    "in_tree": [
+     "0x9E0250",
+     "0x9E03B0"
+    ],
+    "merged": [],
+    "name": "rc4.cpp"
+   },
+   "readline": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 3,
+     "R": 3,
+     "Z": 3
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x9E6230",
+     "0x9E6300",
+     "0x9E63A0"
+    ],
+    "merged": [],
+    "name": "readline.cpp"
+   },
+   "realcrc": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 1,
+     "R": 1,
+     "Z": 1
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x9E53A0"
+    ],
+    "merged": [],
+    "name": "realcrc.cpp"
+   },
+   "registry": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 21,
+     "R": 33,
+     "Z": 33
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x48CA70",
+     "0x4E64E0",
+     "0x4E6820",
+     "0x4E6940",
+     "0x510CC0",
+     "0x53F1C0",
+     "0x909500",
+     "0x942E20",
+     "0x9D14C0",
+     "0x9D1580",
+     "0x9D1680",
+     "0x9D16A0",
+     "0x9D1730",
+     "0x9D17A0",
+     "0x9D17E0",
+     "0x9D1870",
+     "0x9D18A0",
+     "0x9D18D0",
+     "0x9D1900",
+     "0x9D19C0",
+     "0x9D1A30",
+     "0x9D1A70",
+     "0x9D1C20",
+     "0x9D1C40",
+     "0x9D1DB0",
+     "0x9D1E70",
+     "0x9D1EB0",
+     "0x9D20C0",
+     "0x9D22A0",
+     "0x9D22F0",
+     "0x9D25C0",
+     "0x9D2640"
+    ],
+    "merged": [],
+    "name": "registry.cpp"
+   },
+   "rgb": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 4,
+     "R": 4,
+     "Z": 4
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x9E8670",
+     "0x9E8700",
+     "0x9E8750"
+    ],
+    "merged": [],
+    "name": "rgb.cpp"
+   },
+   "rndstraw": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 0,
+     "R": 1,
+     "Z": 1
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250"
+    ],
+    "merged": [],
+    "name": "rndstraw.cpp"
+   },
+   "rndstrng": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 0,
+     "R": 2,
+     "Z": 2
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x909500"
+    ],
+    "merged": [],
+    "name": "rndstrng.cpp"
+   },
+   "sampler": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 6,
+     "R": 6,
+     "Z": 6
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x9D39F0",
+     "0x9D3A40",
+     "0x9D3B30",
+     "0x9D3C70",
+     "0x9D3CF0",
+     "0x9D3D40"
+    ],
+    "merged": [],
+    "name": "sampler.cpp"
+   },
+   "sha": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 4,
+     "R": 4,
+     "Z": 4
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x9E93B0",
+     "0x9E9450",
+     "0x9E94D0",
+     "0x9E9620"
+    ],
+    "merged": [],
+    "name": "sha.cpp"
+   },
+   "srandom": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 4,
+     "R": 4,
+     "Z": 4
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x9E3570",
+     "0x9E35A0",
+     "0x9E3610",
+     "0x9E36E0"
+    ],
+    "merged": [],
+    "name": "srandom.cpp"
+   },
+   "straw": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 3,
+     "R": 3,
+     "Z": 3
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x9E5760",
+     "0x9E57A0",
+     "0x9E57F0"
+    ],
+    "merged": [],
+    "name": "straw.cpp"
+   },
+   "strtok_r": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 1,
+     "R": 1,
+     "Z": 1
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x9DEBF0"
+    ],
+    "merged": [],
+    "name": "strtok_r.cpp"
+   },
+   "systimer": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 2,
+     "R": 2,
+     "Z": 2
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x9E7BF0",
+     "0x9E7C10"
+    ],
+    "merged": [],
+    "name": "systimer.cpp"
+   },
+   "tagblock": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 0,
+     "R": 1,
+     "Z": 0
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x9CEFF0"
+    ],
+    "merged": [],
+    "name": "tagblock.cpp"
+   },
+   "textfile": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 1,
+     "R": 3,
+     "Z": 3
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x510CC0",
+     "0x9E5EB0",
+     "0x9E6120"
+    ],
+    "merged": [],
+    "name": "textfile.cpp"
+   },
+   "thread": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 0,
+     "R": 7,
+     "Z": 7
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x9DEC70",
+     "0x9DECD0",
+     "0x9DEDA0",
+     "0x9DEE60",
+     "0x9DEF10",
+     "0x9DEF40",
+     "0x9DEF60"
+    ],
+    "merged": [],
+    "name": "thread.cpp"
+   },
+   "trim": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 0,
+     "R": 2,
+     "Z": 2
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x9DB030",
+     "0x9DB0A0"
+    ],
+    "merged": [],
+    "name": "trim.cpp"
+   },
+   "widestring": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 1,
+     "R": 9,
+     "Z": 6
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x9CEFF0",
+     "0x9E5820",
+     "0x9E5920",
+     "0x9E5990",
+     "0x9E5A10",
+     "0x9E5AA0",
+     "0x9E5BB0",
+     "0x9E5CD0",
+     "0x9E5DA0"
+    ],
+    "merged": [],
+    "name": "widestring.cpp"
+   },
+   "wwfile": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 0,
+     "R": 3,
+     "Z": 3
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x9D4610",
+     "0x9D4650",
+     "0x9D4680"
+    ],
+    "merged": [],
+    "name": "wwfile.cpp"
+   },
+   "wwfont": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 12,
+     "R": 12,
+     "Z": 12
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x9DB110",
+     "0x9DB190",
+     "0x9DB1C0",
+     "0x9DB1F0",
+     "0x9DB250",
+     "0x9DB270",
+     "0x9DB290",
+     "0x9DB2C0",
+     "0x9DB2F0",
+     "0x9DB340",
+     "0x9DB390"
+    ],
+    "merged": [],
+    "name": "wwfont.cpp"
+   },
+   "wwstring": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 0,
+     "R": 9,
+     "Z": 4
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x9CEFF0",
+     "0x9CF040",
+     "0x9CF2B0",
+     "0x9CF2D0",
+     "0x9CF3D0",
+     "0x9CF4B0",
+     "0x9CF530",
+     "0x9CF640",
+     "0x9CF750"
+    ],
+    "merged": [],
+    "name": "wwstring.cpp"
+   },
+   "xpipe": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 1,
+     "R": 4,
+     "Z": 4
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x9E6450",
+     "0x9E64B0",
+     "0x9E64E0",
+     "0x9E6510"
+    ],
+    "merged": [],
+    "name": "xpipe.cpp"
+   },
+   "xstraw": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 1,
+     "R": 3,
+     "Z": 3
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x9E5670",
+     "0x9E56D0",
+     "0x9E5730"
+    ],
+    "merged": [],
+    "name": "xstraw.cpp"
+   },
+   "xsurface": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 24,
+     "R": 24,
+     "Z": 24
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x9DBB30",
+     "0x9DBB60",
+     "0x9DBEE0",
+     "0x9DBF80",
+     "0x9DBFD0",
+     "0x9DC030",
+     "0x9DC060",
+     "0x9DC2E0",
+     "0x9DC320",
+     "0x9DC380",
+     "0x9DC4C0",
+     "0x9DC4F0",
+     "0x9DC670",
+     "0x9DC9E0",
+     "0x9DCA30",
+     "0x9DCB90",
+     "0x9DCBF0",
+     "0x9DCCD0",
+     "0x9DCD00",
+     "0x9DCD20",
+     "0x9DCD50",
+     "0x9DCD70",
+     "0x9DCDC0",
+     "0x9DCE10"
+    ],
+    "merged": [],
+    "name": "xsurface.cpp"
+   }
+  },
+  "headers": {
+   "CallbackHook.h": "R",
+   "Except.h": "R",
+   "FastAllocator.h": "R",
+   "LaunchWeb.h": "R",
+   "Notify.h": "R",
+   "Signaler.h": "R",
+   "TARGA.H": "R",
+   "WWCOMUtil.h": "R",
+   "_convert.h": "R",
+   "_mono.h": "R",
+   "_timer.h": "R",
+   "_xmouse.h": "R",
+   "always.h": "R",
+   "argv.h": "R",
+   "b64pipe.h": "R",
+   "b64straw.h": "R",
+   "base64.h": "R",
+   "bfiofile.h": "G",
+   "binheap.h": "R",
+   "bittype.h": "R",
+   "blit.h": "R",
+   "blitblit.h": "R",
+   "blitter.h": "R",
+   "blowfish.h": "R",
+   "blowpipe.h": "R",
+   "blwstraw.h": "R",
+   "bool.h": "R",
+   "borlandc.h": "R",
+   "bound.h": "R",
+   "bsearch.h": "R",
+   "bsurface.h": "R",
+   "buff.h": "R",
+   "bufffile.h": "R",
+   "chunkio.h": "R",
+   "convert.h": "R",
+   "cpudetect.h": "R",
+   "crandom.h": "Z",
+   "crc.h": "R",
+   "crcpipe.h": "R",
+   "crcstraw.h": "R",
+   "critsection.h": "R",
+   "cstraw.h": "R",
+   "data.h": "R",
+   "dib.h": "R",
+   "draw.h": "R",
+   "dsurface.h": "R",
+   "ffactory.h": "R",
+   "fixed.h": "R",
+   "font.h": "R",
+   "gcd_lcm.h": "R",
+   "global.h": "R",
+   "hash.h": "R",
+   "hashcalc.h": "R",
+   "hashlist.h": "R",
+   "hashtab.h": "R",
+   "hashtemplate.h": "R",
+   "hsv.h": "R",
+   "iff.h": "R",
+   "incdec.h": "R",
+   "index.h": "R",
+   "ini.h": "R",
+   "inisup.h": "R",
+   "int.h": "R",
+   "iostruct.h": "R",
+   "keyboard.h": "R",
+   "lcw.h": "R",
+   "lcwpipe.h": "R",
+   "listnode.h": "R",
+   "lzo.h": "R",
+   "lzo1x.h": "R",
+   "lzo_conf.h": "R",
+   "lzoconf.h": "R",
+   "lzopipe.h": "R",
+   "lzostraw.h": "R",
+   "md5.h": "R",
+   "mempool.h": "R",
+   "misc.h": "R",
+   "mixfile.h": "R",
+   "mmsys.h": "R",
+   "mono.h": "R",
+   "monodrvr.h": "R",
+   "mpmath.h": "R",
+   "mpu.h": "R",
+   "msgloop.h": "R",
+   "multilist.h": "R",
+   "mutex.h": "R",
+   "noinit.h": "R",
+   "notifier.h": "Z",
+   "nstrdup.h": "R",
+   "ntree.h": "R",
+   "obscure.h": "R",
+   "palette.h": "R",
+   "pcx.h": "R",
+   "pipe.h": "R",
+   "pk.h": "R",
+   "pkpipe.h": "R",
+   "pkstraw.h": "R",
+   "point.h": "R",
+   "ramfile.h": "R",
+   "random.h": "R",
+   "rawfile.h": "R",
+   "rc4.h": "R",
+   "rcfile.h": "R",
+   "readline.h": "R",
+   "realcrc.h": "R",
+   "ref_ptr.h": "R",
+   "refcount.h": "R",
+   "regexpr.h": "R",
+   "registry.h": "R",
+   "rgb.h": "R",
+   "rle.h": "R",
+   "rlerle.h": "R",
+   "rndstraw.h": "R",
+   "rndstrng.h": "R",
+   "rng.h": "R",
+   "rsacrypt.h": "R",
+   "sampler.h": "R",
+   "search.h": "R",
+   "sha.h": "R",
+   "shapeset.h": "R",
+   "shapipe.h": "R",
+   "sharebuf.h": "R",
+   "shastraw.h": "R",
+   "simplevec.h": "R",
+   "slist.h": "R",
+   "slnode.h": "R",
+   "smartptr.h": "R",
+   "srandom.h": "R",
+   "stimer.h": "R",
+   "stl.h": "R",
+   "straw.h": "R",
+   "strtok_r.h": "R",
+   "surface.h": "R",
+   "surfrect.h": "R",
+   "swap.h": "R",
+   "systimer.h": "R",
+   "tagblock.h": "R",
+   "textfile.h": "R",
+   "tgatodxt.h": "Z",
+   "thread.h": "R",
+   "timer.h": "R",
+   "trackwin.h": "R",
+   "trackxy.h": "R",
+   "trect.h": "R",
+   "trim.h": "R",
+   "uarray.h": "R",
+   "vector.h": "R",
+   "verchk.h": "R",
+   "visualc.h": "R",
+   "watcom.h": "R",
+   "widestring.h": "R",
+   "win.h": "R",
+   "wwfile.h": "R",
+   "wwfont.h": "R",
+   "wwmouse.h": "R",
+   "wwstring.h": "R",
+   "xmouse.h": "R",
+   "xpipe.h": "R",
+   "xstraw.h": "R",
+   "xsurface.h": "R"
+  },
+  "in_tree_total": 550,
+  "totals": {
+   "G": 394,
+   "R": 535,
+   "Z": 525
+  }
+ },
+ "wwmath": {
+  "base": "R",
+  "compile_errors": [],
+  "files": {
+   "aabox": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 4,
+     "R": 4,
+     "Z": 4
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x8E2EE0",
+     "0x8E2F60",
+     "0x8E2F80"
+    ],
+    "merged": [],
+    "name": "aabox.cpp"
+   },
+   "aabtreecull": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 55,
+     "R": 70,
+     "Z": 59
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x8D78C0",
+     "0x8D9000",
+     "0x8D91B0",
+     "0x8D92F0",
+     "0x8D9360",
+     "0x8D9430",
+     "0x8D94B0",
+     "0x8D9580",
+     "0x8D95C0",
+     "0x8D9600",
+     "0x8D9660",
+     "0x8D96A0",
+     "0x8D96E0",
+     "0x8D9A70",
+     "0x8D9CB0",
+     "0x8D9E50",
+     "0x8DA040",
+     "0x8DA090",
+     "0x8DA0C0",
+     "0x8DA110",
+     "0x8DA250",
+     "0x8DA480",
+     "0x8DA540",
+     "0x8DA640",
+     "0x8DA770",
+     "0x8DA7F0",
+     "0x8DAC20",
+     "0x8DADC0",
+     "0x8DB0A0",
+     "0x8DB0E0",
+     "0x8DB1F0",
+     "0x8DB290",
+     "0x8DB2D0",
+     "0x8DB380",
+     "0x8DB3C0",
+     "0x8DB3F0",
+     "0x8DB470",
+     "0x8DB4A0",
+     "0x8DB870",
+     "0x8DB880",
+     "0x8DBA90",
+     "0x8DBAF0",
+     "0x8DBD50",
+     "0x8DBD70",
+     "0x8DBD90",
+     "0x8DBFF0",
+     "0x8DC2B0",
+     "0x8DC480",
+     "0x8DC870",
+     "0x8DC990",
+     "0x8DCB60",
+     "0x8DCD30",
+     "0x8DCFC0",
+     "0x8DCFF0",
+     "0x8DD030",
+     "0x8DD090",
+     "0x8DD0D0",
+     "0x8DD120",
+     "0x8DD160",
+     "0x8DD1B0",
+     "0x8DD200",
+     "0x8DD250",
+     "0x8DD300",
+     "0x8DD3A0",
+     "0x8DD460",
+     "0x8DD580",
+     "0x8DD630",
+     "0x8DD6B0",
+     "0x9CEFF0"
+    ],
+    "merged": [],
+    "name": "aabtreecull.cpp"
+   },
+   "cardinalspline": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 17,
+     "R": 18,
+     "Z": 18
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x45CC90",
+     "0x45CE00",
+     "0x45D000",
+     "0x48A190",
+     "0x48A340",
+     "0x48A4E0",
+     "0x6F2050",
+     "0x6F22A0",
+     "0x6F23F0",
+     "0x8E09B0",
+     "0x8E0AD0",
+     "0x8E0DF0",
+     "0x8E0E60",
+     "0x8E0F40",
+     "0x8E1060",
+     "0x8E11F0",
+     "0x8E1260"
+    ],
+    "merged": [],
+    "name": "cardinalspline.cpp"
+   },
+   "catmullromspline": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 14,
+     "R": 14,
+     "Z": 14
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x48A190",
+     "0x48A340",
+     "0x48A4E0",
+     "0x6F2050",
+     "0x6F22A0",
+     "0x6F23F0",
+     "0x8D57E0",
+     "0x8D5AA0",
+     "0x8D5AD0",
+     "0x8D5B20",
+     "0x8D5CB0",
+     "0x8D5CE0",
+     "0x8D6DE0"
+    ],
+    "merged": [],
+    "name": "catmullromspline.cpp"
+   },
+   "colmath": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 3,
+     "R": 3,
+     "Z": 3
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x8E2220",
+     "0x8E2270",
+     "0x8E22A0"
+    ],
+    "merged": [],
+    "name": "colmath.cpp"
+   },
+   "colmathaabox": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 7,
+     "R": 9,
+     "Z": 8
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x447C40",
+     "0x8E22D0",
+     "0x8E2380",
+     "0x8E2450",
+     "0x8E2830",
+     "0x8E28E0",
+     "0x8E2B60",
+     "0x8E2DF0"
+    ],
+    "merged": [],
+    "name": "colmathaabox.cpp"
+   },
+   "colmathaabtri": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 5,
+     "R": 6,
+     "Z": 5
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x447C40",
+     "0x4481E0",
+     "0x8C9BD0",
+     "0x8CBC00",
+     "0x8CBD30"
+    ],
+    "merged": [],
+    "name": "colmathaabtri.cpp"
+   },
+   "colmathfrustum": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 4,
+     "R": 4,
+     "Z": 4
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x8E1EE0",
+     "0x8E2000",
+     "0x8E21A0"
+    ],
+    "merged": [],
+    "name": "colmathfrustum.cpp"
+   },
+   "colmathline": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 8,
+     "R": 8,
+     "Z": 8
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x8C8F90",
+     "0x8C9050",
+     "0x8C90E0",
+     "0x8C91E0",
+     "0x8C9370",
+     "0x8C9500",
+     "0x8C9770"
+    ],
+    "merged": [],
+    "name": "colmathline.cpp"
+   },
+   "colmathobbobb": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 11,
+     "R": 16,
+     "Z": 14
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x447C40",
+     "0x8C43E0",
+     "0x8C4F60",
+     "0x8C5020",
+     "0x8C50D0",
+     "0x8C51A0",
+     "0x8C5300",
+     "0x8C5460",
+     "0x8C6FD0",
+     "0x8C7100",
+     "0x8C72F0",
+     "0x8C74E0",
+     "0x8C8880",
+     "0x8C89B0",
+     "0x8C8B90"
+    ],
+    "merged": [],
+    "name": "colmathobbobb.cpp"
+   },
+   "colmathobbox": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 4,
+     "R": 5,
+     "Z": 4
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x447C40",
+     "0x8E1880",
+     "0x8E1980",
+     "0x8E1BF0"
+    ],
+    "merged": [],
+    "name": "colmathobbox.cpp"
+   },
+   "colmathobbtri": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 11,
+     "R": 12,
+     "Z": 11
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x447C40",
+     "0x4481E0",
+     "0x8CCBE0",
+     "0x8CF4D0",
+     "0x8CF690",
+     "0x8CF760",
+     "0x8D02A0",
+     "0x8D02E0",
+     "0x8D0510",
+     "0x8D0740",
+     "0x8D1BA0"
+    ],
+    "merged": [],
+    "name": "colmathobbtri.cpp"
+   },
+   "colmathplane": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 10,
+     "R": 10,
+     "Z": 10
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x8E2FA0",
+     "0x8E2FF0",
+     "0x8E30A0",
+     "0x8E3190",
+     "0x8E31D0",
+     "0x8E3280",
+     "0x8E3350",
+     "0x8E3470",
+     "0x8E34C0"
+    ],
+    "merged": [],
+    "name": "colmathplane.cpp"
+   },
+   "colmathsphere": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 1,
+     "R": 1,
+     "Z": 1
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250"
+    ],
+    "merged": [],
+    "name": "colmathsphere.cpp"
+   },
+   "cullsys": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 5,
+     "R": 5,
+     "Z": 5
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x8C8D70",
+     "0x8C8E40",
+     "0x8C8E60",
+     "0x8C8F20"
+    ],
+    "merged": [],
+    "name": "cullsys.cpp"
+   },
+   "curve": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 32,
+     "R": 32,
+     "Z": 32
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x8D3B60",
+     "0x8D3C90",
+     "0x8D3D70",
+     "0x8D3D90",
+     "0x8D3DC0",
+     "0x8D3E10",
+     "0x8D3E40",
+     "0x8D3F30",
+     "0x8D3F90",
+     "0x8D3FF0",
+     "0x8D40B0",
+     "0x8D4210",
+     "0x8D4330",
+     "0x8D4360",
+     "0x8D4440",
+     "0x8D4560",
+     "0x8D4620",
+     "0x8D4640",
+     "0x8D4670",
+     "0x8D46C0",
+     "0x8D46F0",
+     "0x8D47C0",
+     "0x8D4820",
+     "0x8D4930",
+     "0x8D4A00",
+     "0x8D4B60",
+     "0x8D4C10",
+     "0x8D4C40",
+     "0x8D50F0",
+     "0x8D5260",
+     "0x8D53C0"
+    ],
+    "merged": [],
+    "name": "curve.cpp"
+   },
+   "euler": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 1,
+     "R": 1,
+     "Z": 1
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250"
+    ],
+    "merged": [],
+    "name": "euler.cpp"
+   },
+   "frustum": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 2,
+     "R": 4,
+     "Z": 2
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x447C40",
+     "0x4481E0",
+     "0x8DD7A0"
+    ],
+    "merged": [],
+    "name": "frustum.cpp"
+   },
+   "gridcull": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 27,
+     "R": 31,
+     "Z": 29
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x8D6EF0",
+     "0x8D6FA0",
+     "0x8D7060",
+     "0x8D70A0",
+     "0x8D70D0",
+     "0x8D73C0",
+     "0x8D7420",
+     "0x8D74D0",
+     "0x8D76F0",
+     "0x8D78C0",
+     "0x8D79F0",
+     "0x8D7BA0",
+     "0x8D7CB0",
+     "0x8D7E10",
+     "0x8D8160",
+     "0x8D8300",
+     "0x8D84B0",
+     "0x8D8720",
+     "0x8D87F0",
+     "0x8D8820",
+     "0x8D8950",
+     "0x8D89E0",
+     "0x8D8B10",
+     "0x8D8BA0",
+     "0x8D8C30",
+     "0x8D8C60",
+     "0x8D8CB0",
+     "0x8D8D60",
+     "0x8D8EA0",
+     "0x9CEFF0"
+    ],
+    "merged": [],
+    "name": "gridcull.cpp"
+   },
+   "hermitespline": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 26,
+     "R": 26,
+     "Z": 26
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x48A190",
+     "0x48A340",
+     "0x48A4E0",
+     "0x6F2050",
+     "0x6F22A0",
+     "0x6F23F0",
+     "0x8D5FF0",
+     "0x8D60F0",
+     "0x8D6270",
+     "0x8D63E0",
+     "0x8D6400",
+     "0x8D64B0",
+     "0x8D6550",
+     "0x8D65A0",
+     "0x8D6600",
+     "0x8D6680",
+     "0x8D67C0",
+     "0x8D68D0",
+     "0x8D6900",
+     "0x8D69C0",
+     "0x8D6A30",
+     "0x8D6A50",
+     "0x8D6A90",
+     "0x8D6B20",
+     "0x8D6DE0"
+    ],
+    "merged": [],
+    "name": "hermitespline.cpp"
+   },
+   "lineseg": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 4,
+     "R": 6,
+     "Z": 4
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x447C40",
+     "0x8DE2E0",
+     "0x8DE470",
+     "0x8DE5C0",
+     "0x8DE690"
+    ],
+    "merged": [],
+    "name": "lineseg.cpp"
+   },
+   "lookuptable": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 7,
+     "R": 13,
+     "Z": 13
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x8DEF60",
+     "0x8DEFD0",
+     "0x8DF030",
+     "0x8DF0F0",
+     "0x8DF160",
+     "0x8DF1C0",
+     "0x8DF2A0",
+     "0x8DF430",
+     "0x8DF460",
+     "0x8DF4A0",
+     "0x8DF6B0",
+     "0x8DF750"
+    ],
+    "merged": [],
+    "name": "lookuptable.cpp"
+   },
+   "matrix3": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 17,
+     "R": 17,
+     "Z": 17
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x8C36E0",
+     "0x8C3740",
+     "0x8C37A0",
+     "0x8C3800",
+     "0x8C3860",
+     "0x8C38C0",
+     "0x8C3920",
+     "0x8C3980",
+     "0x8C39E0",
+     "0x8C3A40",
+     "0x8C3BA0",
+     "0x8C3CF0",
+     "0x8C3DE0",
+     "0x8C3ED0",
+     "0x8C4020",
+     "0x8C41D0"
+    ],
+    "merged": [],
+    "name": "matrix3.cpp"
+   },
+   "matrix3d": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 25,
+     "R": 29,
+     "Z": 25
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x447C40",
+     "0x69F3B0",
+     "0x8C2080",
+     "0x8C2100",
+     "0x8C2180",
+     "0x8C2200",
+     "0x8C2280",
+     "0x8C2300",
+     "0x8C2380",
+     "0x8C2400",
+     "0x8C2480",
+     "0x8C2500",
+     "0x8C2550",
+     "0x8C2580",
+     "0x8C25C0",
+     "0x8C26C0",
+     "0x8C2720",
+     "0x8C2780",
+     "0x8C29B0",
+     "0x8C2BD0",
+     "0x8C2C80",
+     "0x8C2CD0",
+     "0x8C2E80",
+     "0x8C2F30",
+     "0x8C2FC0",
+     "0x8C3180",
+     "0x8C33B0",
+     "0x8C3480"
+    ],
+    "merged": [],
+    "name": "matrix3d.cpp"
+   },
+   "matrix4": {
+    "best": "Z",
+    "copy": "R",
+    "expected": {
+     "G": 4,
+     "R": 4,
+     "Z": 6
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x8DE8F0",
+     "0x8DEB10",
+     "0x8DECC0"
+    ],
+    "merged": [],
+    "name": "matrix4.cpp"
+   },
+   "obbox": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 2,
+     "R": 2,
+     "Z": 2
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x447C40"
+    ],
+    "merged": [],
+    "name": "obbox.cpp"
+   },
+   "ode": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 3,
+     "R": 3,
+     "Z": 3
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x45CC90",
+     "0x45CE00",
+     "0x45D000"
+    ],
+    "merged": [],
+    "name": "ode.cpp"
+   },
+   "pot": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 2,
+     "R": 2,
+     "Z": 2
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x8C8F30",
+     "0x8C8F60"
+    ],
+    "merged": [],
+    "name": "pot.cpp"
+   },
+   "quat": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 19,
+     "R": 21,
+     "Z": 19
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x447C40",
+     "0x8D1C20",
+     "0x8D1C90",
+     "0x8D1CE0",
+     "0x8D1F40",
+     "0x8D2030",
+     "0x8D23C0",
+     "0x8D24E0",
+     "0x8D2580",
+     "0x8D2650",
+     "0x8D2710",
+     "0x8D2850",
+     "0x8D29A0",
+     "0x8D2AE0",
+     "0x8D2C10",
+     "0x8D2D50",
+     "0x8D2EA0",
+     "0x8D2F80",
+     "0x8D3060",
+     "0x8D3140"
+    ],
+    "merged": [],
+    "name": "quat.cpp"
+   },
+   "tcbspline": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 12,
+     "R": 12,
+     "Z": 12
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x6F2050",
+     "0x6F22A0",
+     "0x6F23F0",
+     "0x8DF9D0",
+     "0x8DFAA0",
+     "0x8DFAF0",
+     "0x8DFB10",
+     "0x8DFB50",
+     "0x8DFBA0",
+     "0x8E01A0",
+     "0x8E0230"
+    ],
+    "merged": [],
+    "name": "tcbspline.cpp"
+   },
+   "tri": {
+    "best": "G",
+    "copy": "G",
+    "expected": {
+     "G": 2,
+     "R": 1,
+     "Z": 2
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x8E1660",
+     "0x8E1730"
+    ],
+    "merged": [],
+    "name": "tri.cpp"
+   },
+   "v3_rnd": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 12,
+     "R": 12,
+     "Z": 12
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x447C40",
+     "0xA159D0",
+     "0xA15AE0",
+     "0xA15B50",
+     "0xA15B80",
+     "0xA15C70",
+     "0xA15E80",
+     "0xA15F90",
+     "0xA16020",
+     "0xA16070",
+     "0xA16160",
+     "0xA16180"
+    ],
+    "merged": [],
+    "name": "v3_rnd.cpp"
+   },
+   "vehiclecurve": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 3,
+     "R": 3,
+     "Z": 3
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x447C40",
+     "0x966160"
+    ],
+    "merged": [],
+    "name": "vehiclecurve.cpp"
+   },
+   "vp": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 22,
+     "R": 23,
+     "Z": 22
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x447C40",
+     "0x8D3260",
+     "0x8D3300",
+     "0x8D33C0",
+     "0x8D33F0",
+     "0x8D3410",
+     "0x8D3440",
+     "0x8D3470",
+     "0x8D34C0",
+     "0x8D3500",
+     "0x8D3570",
+     "0x8D35B0",
+     "0x8D3600",
+     "0x8D3650",
+     "0x8D36C0",
+     "0x8D37C0",
+     "0x8D37F0",
+     "0x8D3860",
+     "0x8D3950",
+     "0x8D3970",
+     "0x8D39B0",
+     "0x8D39F0"
+    ],
+    "merged": [],
+    "name": "vp.cpp"
+   },
+   "wwmath": {
+    "best": "R",
+    "copy": "R",
+    "expected": {
+     "G": 2,
+     "R": 2,
+     "Z": 2
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x8C1F10",
+     "0x8C1FC0"
+    ],
+    "merged": [],
+    "name": "wwmath.cpp"
+   }
+  },
+  "headers": {
+   "aabox.h": "R",
+   "aabtreecull.h": "R",
+   "aaplane.h": "R",
+   "cardinalspline.h": "R",
+   "castres.h": "R",
+   "catmullromspline.h": "R",
+   "colmath.h": "R",
+   "colmathaabox.h": "R",
+   "colmathfrustum.h": "R",
+   "colmathinlines.h": "R",
+   "colmathline.h": "R",
+   "colmathplane.h": "R",
+   "cullsys.h": "R",
+   "culltype.h": "R",
+   "curve.h": "R",
+   "euler.h": "R",
+   "frustum.h": "R",
+   "gridcull.h": "R",
+   "hermitespline.h": "R",
+   "lineseg.h": "R",
+   "lookuptable.h": "R",
+   "matrix3.h": "R",
+   "matrix3d.h": "R",
+   "matrix4.h": "R",
+   "normalcone.h": "R",
+   "obbox.h": "R",
+   "ode.h": "R",
+   "plane.h": "R",
+   "pot.h": "R",
+   "quat.h": "R",
+   "rect.h": "R",
+   "sphere.h": "R",
+   "tcbspline.h": "R",
+   "tri.h": "R",
+   "v3_rnd.h": "R",
+   "vector2.h": "R",
+   "vector2i.h": "R",
+   "vector3.h": "R",
+   "vector3i.h": "R",
+   "vector4.h": "R",
+   "vehiclecurve.h": "R",
+   "vp.h": "R",
+   "wwmath.h": "R",
+   "wwmathids.h": "R"
+  },
+  "in_tree_total": 367,
+  "totals": {
+   "G": 323,
+   "R": 366,
+   "Z": 342
+  }
+ },
+ "wwsaveload": {
+  "base": "Z",
+  "compile_errors": [],
+  "files": {
+   "definition": {
+    "best": "Z",
+    "copy": "Z",
+    "expected": {
+     "G": 3,
+     "R": 3,
+     "Z": 8
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x909500",
+     "0x9DA8C0",
+     "0xA06060",
+     "0xA060F0",
+     "0xA06190",
+     "0xA06200",
+     "0xA06270"
+    ],
+    "merged": [],
+    "name": "definition.cpp"
+   },
+   "definitionfactorymgr": {
+    "best": "Z",
+    "copy": "Z",
+    "expected": {
+     "G": 3,
+     "R": 3,
+     "Z": 3
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0xA07B40",
+     "0xA07B90",
+     "0xA07BE0"
+    ],
+    "merged": [],
+    "name": "definitionfactorymgr.cpp"
+   },
+   "definitionmgr": {
+    "best": "Z",
+    "copy": "Z",
+    "expected": {
+     "G": 11,
+     "R": 11,
+     "Z": 25
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x48C500",
+     "0x48CA70",
+     "0x48E940",
+     "0x909500",
+     "0x9DA8C0",
+     "0xA04A50",
+     "0xA04AA0",
+     "0xA04BA0",
+     "0xA04C20",
+     "0xA04F40",
+     "0xA04FE0",
+     "0xA05050",
+     "0xA050C0",
+     "0xA050E0",
+     "0xA05280",
+     "0xA05320",
+     "0xA054E0",
+     "0xA05550",
+     "0xA055E0",
+     "0xA05660",
+     "0xA056E0",
+     "0xA05840",
+     "0xA05870",
+     "0xA05910"
+    ],
+    "merged": [],
+    "name": "definitionmgr.cpp"
+   },
+   "parameter": {
+    "best": "Z",
+    "copy": "Z",
+    "expected": {
+     "G": 7,
+     "R": 7,
+     "Z": 7
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x48C500",
+     "0x48CA70",
+     "0x510CC0",
+     "0x53F1C0",
+     "0x909500",
+     "0x9DA8C0"
+    ],
+    "merged": [],
+    "name": "parameter.cpp"
+   },
+   "persistfactory": {
+    "best": "Z",
+    "copy": "Z",
+    "expected": {
+     "G": 2,
+     "R": 2,
+     "Z": 2
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0xA03C30"
+    ],
+    "merged": [],
+    "name": "persistfactory.cpp"
+   },
+   "pointerremap": {
+    "best": "Z",
+    "copy": "Z",
+    "expected": {
+     "G": 15,
+     "R": 16,
+     "Z": 16
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0xA062A0",
+     "0xA06320",
+     "0xA063A0",
+     "0xA063F0",
+     "0xA06460",
+     "0xA064F0",
+     "0xA06550",
+     "0xA065A0",
+     "0xA065F0",
+     "0xA06610",
+     "0xA06730",
+     "0xA068A0",
+     "0xA06A00",
+     "0xA06B60",
+     "0xA06E20"
+    ],
+    "merged": [],
+    "name": "pointerremap.cpp"
+   },
+   "saveload": {
+    "best": "R",
+    "copy": "Z",
+    "expected": {
+     "G": 6,
+     "R": 11,
+     "Z": 6
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x9CEFF0",
+     "0xA03CC0",
+     "0xA03D80",
+     "0xA03DD0",
+     "0xA03F50",
+     "0xA04110",
+     "0xA041A0",
+     "0xA041D0",
+     "0xA041F0",
+     "0xA042F0"
+    ],
+    "merged": [],
+    "name": "saveload.cpp"
+   },
+   "saveloadstatus": {
+    "best": "Z",
+    "copy": "Z",
+    "expected": {
+     "G": 5,
+     "R": 6,
+     "Z": 6
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x909500",
+     "0xA06ED0",
+     "0xA06F10",
+     "0xA06F30",
+     "0xA07000"
+    ],
+    "merged": [],
+    "name": "saveloadstatus.cpp"
+   },
+   "saveloadsubsystem": {
+    "best": "Z",
+    "copy": "Z",
+    "expected": {
+     "G": 4,
+     "R": 4,
+     "Z": 4
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0xA07A50",
+     "0xA07A80",
+     "0xA07AB0"
+    ],
+    "merged": [],
+    "name": "saveloadsubsystem.cpp"
+   },
+   "twiddler": {
+    "best": "Z",
+    "copy": "Z",
+    "expected": {
+     "G": 3,
+     "R": 3,
+     "Z": 15
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x909500",
+     "0x9DA8C0",
+     "0x9FE4C0",
+     "0xA07160",
+     "0xA07210",
+     "0xA07290",
+     "0xA072F0",
+     "0xA07370",
+     "0xA073A0",
+     "0xA07440",
+     "0xA07580",
+     "0xA075F0",
+     "0xA07820",
+     "0xA078D0"
+    ],
+    "merged": [],
+    "name": "twiddler.cpp"
+   },
+   "wwsaveload": {
+    "best": "Z",
+    "copy": "Z",
+    "expected": {
+     "G": 1,
+     "R": 1,
+     "Z": 1
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250"
+    ],
+    "merged": [],
+    "name": "wwsaveload.cpp"
+   }
+  },
+  "headers": {
+   "definition.h": "Z",
+   "definitionclassids.h": "Z",
+   "definitionfactory.h": "Z",
+   "definitionfactorymgr.h": "Z",
+   "definitionmgr.h": "Z",
+   "editable.h": "Z",
+   "parameter.h": "Z",
+   "parameterlist.h": "Z",
+   "parametertypes.h": "Z",
+   "persist.h": "Z",
+   "persistfactory.h": "Z",
+   "pointerremap.h": "Z",
+   "postloadable.h": "Z",
+   "saveload.h": "Z",
+   "saveloadids.h": "Z",
+   "saveloadstatus.h": "Z",
+   "saveloadsubsystem.h": "Z",
+   "simpledefinitionfactory.h": "Z",
+   "simpleparameter.h": "Z",
+   "twiddler.h": "Z",
+   "wwsaveload.h": "Z"
+  },
+  "in_tree_total": 80,
+  "totals": {
+   "G": 41,
+   "R": 49,
+   "Z": 75
+  }
+ },
+ "wwshade": {
+  "base": "Z",
+  "compile_errors": [
+   "C:\\EnBDevelopment\\EnB\\wwshade\\shd6bumpdiff.h(82) : error C2146: syntax error : missing ';' before identifier 'View_Projection_Matrix'",
+   "C:\\EnBDevelopment\\EnB\\wwshade\\shd6bumpdiff.h(82) : error C2501: 'View_Projection_Matrix' : missing storage-class or type specifiers",
+   "C:\\EnBDevelopment\\EnB\\wwshade\\shd7bumpdiff.h(82) : error C2146: syntax error : missing ';' before identifier 'View_Projection_Matrix'",
+   "C:\\EnBDevelopment\\EnB\\wwshade\\shd7bumpdiff.h(82) : error C2501: 'View_Projection_Matrix' : missing storage-class or type specifiers",
+   "C:\\EnBDevelopment\\EnB\\wwshade\\shd8bumpdiff.h(84) : error C2146: syntax error : missing ';' before identifier 'View_Projection_Matrix'",
+   "C:\\EnBDevelopment\\EnB\\wwshade\\shd8bumpdiff.h(84) : error C2501: 'View_Projection_Matrix' : missing storage-class or type specifiers",
+   "C:\\EnBDevelopment\\EnB\\wwshade\\shd8bumpdiff.h(96) : error C2146: syntax error : missing ';' before identifier 'Self_Shadow_Transform'",
+   "C:\\EnBDevelopment\\EnB\\wwshade\\shd8bumpdiff.h(96) : error C2501: 'Matrix4x4' : missing storage-class or type specifiers",
+   "C:\\EnBDevelopment\\EnB\\wwshade\\shd8bumpdiff.h(96) : error C2501: 'Self_Shadow_Transform' : missing storage-class or type specifiers",
+   "C:\\EnBDevelopment\\EnB\\wwshade\\shdbumpdiff.cpp(182) : error C2039: 'Get_Pixel_Shader_Major_Version' : is not a member of 'DX8Caps'",
+   "C:\\EnBDevelopment\\EnB\\wwshade\\shdbumpdiff.cpp(187) : error C2039: 'Support_Dot3' : is not a member of 'DX8Caps'",
+   "C:\\EnBDevelopment\\EnB\\wwshade\\shd6bumpspec.h(82) : error C2146: syntax error : missing ';' before identifier 'View_Projection_Matrix'",
+   "C:\\EnBDevelopment\\EnB\\wwshade\\shd6bumpspec.h(82) : error C2501: 'View_Projection_Matrix' : missing storage-class or type specifiers",
+   "C:\\EnBDevelopment\\EnB\\wwshade\\shd7bumpspec.h(82) : error C2146: syntax error : missing ';' before identifier 'View_Projection_Matrix'",
+   "C:\\EnBDevelopment\\EnB\\wwshade\\shd7bumpspec.h(82) : error C2501: 'View_Projection_Matrix' : missing storage-class or type specifiers",
+   "C:\\EnBDevelopment\\EnB\\wwshade\\shd8bumpspec.h(84) : error C2146: syntax error : missing ';' before identifier 'View_Projection_Matrix'",
+   "C:\\EnBDevelopment\\EnB\\wwshade\\shd8bumpspec.h(84) : error C2501: 'View_Projection_Matrix' : missing storage-class or type specifiers",
+   "C:\\EnBDevelopment\\EnB\\wwshade\\shd8bumpspec.h(97) : error C2146: syntax error : missing ';' before identifier 'Self_Shadow_Transform'",
+   "C:\\EnBDevelopment\\EnB\\wwshade\\shd8bumpspec.h(97) : error C2501: 'Matrix4x4' : missing storage-class or type specifiers",
+   "C:\\EnBDevelopment\\EnB\\wwshade\\shd8bumpspec.h(97) : error C2501: 'Self_Shadow_Transform' : missing storage-class or type specifiers",
+   "C:\\EnBDevelopment\\EnB\\wwshade\\shdbumpspec.cpp(194) : error C2039: 'Get_Pixel_Shader_Major_Version' : is not a member of 'DX8Caps'",
+   "C:\\EnBDevelopment\\EnB\\wwshade\\shdbumpspec.cpp(199) : error C2039: 'Support_Dot3' : is not a member of 'DX8Caps'",
+   "C:\\EnBDevelopment\\EnB\\wwshade\\shdcubemap.h(140) : error C2146: syntax error : missing ';' before identifier 'View_Projection_Matrix'",
+   "C:\\EnBDevelopment\\EnB\\wwshade\\shdcubemap.h(140) : error C2501: 'View_Projection_Matrix' : missing storage-class or type specifiers",
+   "C:\\EnBDevelopment\\EnB\\wwshade\\shdcubemap.cpp(181) : error C2039: 'View_Projection_Matrix' : is not a member of 'Shd6CubeMapClass'",
+   "C:\\EnBDevelopment\\EnB\\wwshade\\shdcubemap.cpp(181) : error C2146: syntax error : missing ';' before identifier 'View_Projection_Matrix'",
+   "C:\\EnBDevelopment\\EnB\\wwshade\\shdcubemap.cpp(181) : error C2501: 'Matrix4x4' : missing storage-class or type specifiers",
+   "C:\\EnBDevelopment\\EnB\\wwshade\\shdcubemap.cpp(181) : fatal error C1004: unexpected end of file found",
+   "C:\\EnBDevelopment\\EnB\\wwshade\\shddefmanager.cpp(225) : error C2065: 'W3D_CHUNK_SHDSUBMESH_SHADER_CLASSID' : undeclared identifier",
+   "C:\\EnBDevelopment\\EnB\\wwshade\\shddefmanager.cpp(230) : error C2065: 'W3D_CHUNK_SHDSUBMESH_SHADER_DEF' : undeclared identifier",
+   "C:\\EnBDevelopment\\EnB\\wwshade\\shdglossmask.h(140) : error C2146: syntax error : missing ';' before identifier 'View_Projection_Matrix'",
+   "C:\\EnBDevelopment\\EnB\\wwshade\\shdglossmask.h(140) : error C2501: 'View_Projection_Matrix' : missing storage-class or type specifiers",
+   "C:\\EnBDevelopment\\EnB\\wwshade\\shdglossmask.cpp(180) : error C2039: 'View_Projection_Matrix' : is not a member of 'Shd6GlossMaskClass'",
+   "C:\\EnBDevelopment\\EnB\\wwshade\\shdglossmask.cpp(180) : error C2146: syntax error : missing ';' before identifier 'View_Projection_Matrix'",
+   "C:\\EnBDevelopment\\EnB\\wwshade\\shdglossmask.cpp(180) : error C2501: 'Matrix4x4' : missing storage-class or type specifiers",
+   "C:\\EnBDevelopment\\EnB\\wwshade\\shdglossmask.cpp(180) : fatal error C1004: unexpected end of file found",
+   "C:\\EnBDevelopment\\EnB\\wwshade\\shdhwshader.cpp(425) : error C2039: 'Set_Vertex_Shader_Constant' : is not a member of 'DX8Wrapper'",
+   "C:\\EnBDevelopment\\EnB\\wwshade\\shdhwshader.cpp(425) : error C2065: 'Set_Vertex_Shader_Constant' : undeclared identifier",
+   "C:\\EnBDevelopment\\EnB\\wwshade\\shdhwshader.cpp(426) : error C2039: 'Set_Vertex_Shader_Constant' : is not a member of 'DX8Wrapper'",
+   "C:\\EnBDevelopment\\EnB\\wwshade\\shdhwshader.cpp(431) : error C2039: 'Get_Ambient' : is not a member of 'DX8Wrapper'",
+   "C:\\EnBDevelopment\\EnB\\wwshade\\shdhwshader.cpp(431) : error C2065: 'Get_Ambient' : undeclared identifier",
+   "C:\\EnBDevelopment\\EnB\\wwshade\\shdhwshader.cpp(431) : error C2440: 'initializing' : cannot convert from 'int' to 'const class Vector3 &'",
+   "C:\\EnBDevelopment\\EnB\\wwshade\\shdhwshader.cpp(481) : error C2039: 'Set_Vertex_Shader_Constant' : is not a member of 'DX8Wrapper'",
+   "C:\\EnBDevelopment\\EnB\\wwshade\\shdhwshader.cpp(482) : error C2039: 'Set_Vertex_Shader_Constant' : is not a member of 'DX8Wrapper'",
+   "C:\\EnBDevelopment\\EnB\\wwshade\\shdhwshader.cpp(491) : error C2039: 'Set_Vertex_Shader_Constant' : is not a member of 'DX8Wrapper'",
+   "C:\\EnBDevelopment\\EnB\\wwshade\\shdhwshader.cpp(492) : error C2039: 'Set_Vertex_Shader_Constant' : is not a member of 'DX8Wrapper'",
+   "C:\\EnBDevelopment\\EnB\\wwshade\\shdhwshader.cpp(493) : error C2039: 'Set_Vertex_Shader_Constant' : is not a member of 'DX8Wrapper'",
+   "C:\\EnBDevelopment\\EnB\\wwshade\\shdinterface.cpp(55) : error C2662: 'Add_Ref' : cannot convert 'this' pointer from 'const class ShdDefClass' to 'class RefCountClass &'",
+   "C:\\EnBDevelopment\\EnB\\wwshade\\shdinterface.cpp(55) : error C2662: 'Release_Ref' : cannot convert 'this' pointer from 'const class ShdDefClass' to 'class RefCountClass &'",
+   "C:\\EnBDevelopment\\EnB\\wwshade\\shdinterface.cpp(66) : error C2662: 'Release_Ref' : cannot convert 'this' pointer from 'const class ShdDefClass' to 'class RefCountClass &'"
+  ],
+  "files": {
+   "shdbumpdiff": {
+    "best": "Z",
+    "copy": "Z",
+    "expected": {
+     "Z": 7
+    },
+    "headers_from": null,
+    "in_tree": [],
+    "merged": [],
+    "name": "shdbumpdiff.cpp"
+   },
+   "shdbumpspec": {
+    "best": "Z",
+    "copy": "Z",
+    "expected": {
+     "Z": 8
+    },
+    "headers_from": null,
+    "in_tree": [],
+    "merged": [],
+    "name": "shdbumpspec.cpp"
+   },
+   "shdcubemap": {
+    "best": "Z",
+    "copy": "Z",
+    "expected": {
+     "Z": 8
+    },
+    "headers_from": null,
+    "in_tree": [],
+    "merged": [],
+    "name": "shdcubemap.cpp"
+   },
+   "shddef": {
+    "best": "Z",
+    "copy": "Z",
+    "expected": {
+     "Z": 6
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x909500",
+     "0x9DA8C0",
+     "0xA0B200",
+     "0xA0EFC0",
+     "0xA0F030"
+    ],
+    "merged": [],
+    "name": "shddef.cpp"
+   },
+   "shddefmanager": {
+    "best": "Z",
+    "copy": "Z",
+    "expected": {
+     "Z": 5
+    },
+    "headers_from": null,
+    "in_tree": [],
+    "merged": [],
+    "name": "shddefmanager.cpp"
+   },
+   "shdglossmask": {
+    "best": "Z",
+    "copy": "Z",
+    "expected": {
+     "Z": 7
+    },
+    "headers_from": null,
+    "in_tree": [],
+    "merged": [],
+    "name": "shdglossmask.cpp"
+   },
+   "shdhwshader": {
+    "best": "Z",
+    "copy": "Z",
+    "expected": {
+     "Z": 9
+    },
+    "headers_from": null,
+    "in_tree": [],
+    "merged": [],
+    "name": "shdhwshader.cpp"
+   },
+   "shdinterface": {
+    "best": "Z",
+    "copy": "Z",
+    "expected": {
+     "Z": 3
+    },
+    "headers_from": null,
+    "in_tree": [],
+    "merged": [],
+    "name": "shdinterface.cpp"
+   },
+   "shdlegacyw3d": {
+    "best": "Z",
+    "copy": "Z",
+    "expected": {
+     "Z": 4
+    },
+    "headers_from": null,
+    "in_tree": [],
+    "merged": [],
+    "name": "shdlegacyw3d.cpp"
+   },
+   "shdlib": {
+    "best": "Z",
+    "copy": "Z",
+    "expected": {
+     "Z": 1
+    },
+    "headers_from": null,
+    "in_tree": [],
+    "merged": [],
+    "name": "shdlib.cpp"
+   },
+   "shdloader": {
+    "best": "Z",
+    "copy": "Z",
+    "expected": {
+     "Z": 1
+    },
+    "headers_from": null,
+    "in_tree": [],
+    "merged": [],
+    "name": "shdloader.cpp"
+   },
+   "shdmesh": {
+    "best": "Z",
+    "copy": "Z",
+    "expected": {
+     "Z": 16
+    },
+    "headers_from": null,
+    "in_tree": [],
+    "merged": [],
+    "name": "shdmesh.cpp"
+   },
+   "shdrenderer": {
+    "best": "Z",
+    "copy": "Z",
+    "expected": {
+     "Z": 4
+    },
+    "headers_from": null,
+    "in_tree": [],
+    "merged": [],
+    "name": "shdrenderer.cpp"
+   },
+   "shdsimple": {
+    "best": "Z",
+    "copy": "Z",
+    "expected": {
+     "Z": 8
+    },
+    "headers_from": null,
+    "in_tree": [],
+    "merged": [],
+    "name": "shdsimple.cpp"
+   },
+   "shdsubmesh": {
+    "best": "Z",
+    "copy": "Z",
+    "expected": {
+     "Z": 3
+    },
+    "headers_from": null,
+    "in_tree": [],
+    "merged": [],
+    "name": "shdsubmesh.cpp"
+   }
+  },
+  "headers": {
+   "shd6bumpdiff.h": "Z",
+   "shd6bumpdiff_constants.h": "Z",
+   "shd6bumpspec.h": "Z",
+   "shd6bumpspec_constants.h": "Z",
+   "shd7bumpdiff.h": "Z",
+   "shd7bumpdiff_constants.h": "Z",
+   "shd7bumpspec.h": "Z",
+   "shd7bumpspec_constants.h": "Z",
+   "shd8bumpdiff.h": "Z",
+   "shd8bumpdiff_constants.h": "Z",
+   "shd8bumpspec.h": "Z",
+   "shd8bumpspec_constants.h": "Z",
+   "shdbumpdiff.h": "Z",
+   "shdbumpspec.h": "Z",
+   "shdclassids.h": "Z",
+   "shdcubemap.h": "Z",
+   "shddef.h": "Z",
+   "shddeffactory.h": "Z",
+   "shddefmanager.h": "Z",
+   "shddump.h": "Z",
+   "shdforcelinks.h": "Z",
+   "shdglossmask.h": "Z",
+   "shdhw_constants.h": "Z",
+   "shdhwshader.h": "Z",
+   "shdinterface.h": "Z",
+   "shdlegacyw3d.h": "Z",
+   "shdloader.h": "Z",
+   "shdmesh.h": "Z",
+   "shdrenderer.h": "Z",
+   "shdsimple.h": "Z",
+   "shdsubmesh.h": "Z"
+  },
+  "in_tree_total": 6,
+  "totals": {
+   "Z": 46
+  }
+ }
+}

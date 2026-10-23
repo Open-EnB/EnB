@@ -131,6 +131,12 @@ def balanced_args(text, start):
 
 def functions_in(text):
     """[(name, body_start, body_end)] for each top-level (or class-inline) function body."""
+    return [(n, s, e) for n, _, s, e in function_spans(text)]
+
+
+def function_spans(text):
+    """[(name, head_start, body_start, body_end)]: head_start is where the definition's text
+    begins (return type / template prefix), body_end the index of its closing brace."""
     clean = strip_comments(text)
     result = []
     depth = 0
@@ -147,7 +153,7 @@ def functions_in(text):
         if c == '{':
             head = clean[last_stmt_end:i].strip()
             kind, name = 'block', None
-            in_func = any(k == 'func' for k, _, _ in stack)
+            in_func = any(k == 'func' for k, _, _, _ in stack)
             if not in_func:
                 if re.match(r'^(template\s*<.*>\s*)?(class|struct|union|namespace|enum)\b', head, re.S) or \
                         re.search(r'\b(class|struct|union|enum)\s+\w*\s*(:[^{]*)?$', head, re.S):
@@ -159,18 +165,20 @@ def functions_in(text):
                     if m:
                         fname = re.sub(r'\s+', '', m.group(1))
                         if fname.split('::')[-1] not in KEYWORDS:
-                            scopes = [nm for k, nm, _ in stack if k == 'scope' and nm]
+                            scopes = [nm for k, nm, _, _ in stack if k == 'scope' and nm]
                             if '::' not in fname and scopes:
                                 fname = '::'.join(scopes[-1:] + [fname])
                             kind, name = 'func', fname
-            stack.append((kind, name, i))
+            seg = clean[last_stmt_end:i]
+            head = last_stmt_end + (len(seg) - len(seg.lstrip()))
+            stack.append((kind, name, i, head))
             depth += 1
             last_stmt_end = i + 1
         elif c == '}':
             if stack:
-                kind, name, start = stack.pop()
+                kind, name, start, head = stack.pop()
                 if kind == 'func':
-                    result.append((name, start, i))
+                    result.append((name, head, start, i))
             depth -= 1
             last_stmt_end = i + 1
         elif c == ';':

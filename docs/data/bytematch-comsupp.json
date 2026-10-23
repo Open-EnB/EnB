@@ -1,0 +1,106 @@
+{
+ "0xA401FE": {
+  "L": {
+   "object": "0002_comsupp.obj",
+   "function": "_com_issue_errorex",
+   "symbol": "?_com_issue_errorex@@YGXJPAUIUnknown@@ABU_GUID@@@Z",
+   "length": 97
+  }
+ },
+ "0xA4025F": {
+  "L": {
+   "object": "0002_comsupp.obj",
+   "function": "_com_dispatch_raw_method",
+   "symbol": "?_com_dispatch_raw_method@@YAJPAUIDispatch@@JGGPAXPBGZZ",
+   "length": 60
+  }
+ },
+ "0xA4029B": {
+  "L": {
+   "object": "0002_comsupp.obj",
+   "function": "_com_invoke_helper",
+   "symbol": "?_com_invoke_helper@@YAJPAUIDispatch@@JGGPAXPBGPADPAPAUIErrorInfo@@@Z",
+   "length": 1253
+  }
+ },
+ "0xA40780": {
+  "L": {
+   "object": "0002_comsupp.obj",
+   "function": "_com_dispatch_method",
+   "symbol": "?_com_dispatch_method@@YAJPAUIDispatch@@JGGPAXPBGZZ",
+   "length": 58
+  }
+ },
+ "0xA407F8": {
+  "L": {
+   "object": "0002_comsupp.obj",
+   "function": "_com_dispatch_raw_propput",
+   "symbol": "?_com_dispatch_raw_propput@@YAJPAUIDispatch@@JGZZ",
+   "length": 89
+  }
+ },
+ "0xA40851": {
+  "L": {
+   "object": "0002_comsupp.obj",
+   "function": "_com_dispatch_propput",
+   "symbol": "?_com_dispatch_propput@@YAJPAUIDispatch@@JGZZ",
+   "length": 87
+  }
+ },
+ "0xA408E6": {
+  "L": {
+   "object": "0000_comutil.obj",
+   "function": "_com_util::ConvertStringToBSTR",
+   "symbol": "?ConvertStringToBSTR@_com_util@@YGPAGPBD@Z",
+   "length": 117
+  }
+ },
+ "0xA4095B": {
+  "L": {
+   "object": "0000_comutil.obj",
+   "function": "_com_util::ConvertBSTRToString",
+   "symbol": "?ConvertBSTRToString@_com_util@@YGPADPAG@Z",
+   "length": 116
+  }
+ },
+ "0xA409CF": {
+  "L": {
+   "object": "0000_comutil.obj",
+   "function": "_variant_t::_variant_t",
+   "symbol": "??0_variant_t@@QAE@JG@Z",
+   "length": 92
+  }
+ },
+ "0xA40A2B": {
+  "L": {
+   "object": "0001_comraise.obj",
+   "function": "_com_raise_error",
+   "symbol": "?_com_raise_error@@YGXJPAUIErrorInfo@@@Z",
+   "length": 36
+  }
+ },
+ "0xA40A4F": {
+  "L": {
+   "object": "0001_comraise.obj",
+   "function": "_com_error::_com_error",
+   "symbol": "??0_com_error@@QAE@JPAUIErrorInfo@@_N@Z",
+   "length": 50
+  }
+ },
+ "0xA40A9D": {
+  "L": {
+   "object": "0001_comraise.obj",
+   "function": "_com_error::_com_error",
+   "symbol": "??0_com_error@@QAE@ABV0@@Z",
+   "length": 45
+  }
+ },
+ "0xA40ACA": {
+  "L": {
+   "object": "0001_comraise.obj",
+   "function": "_com_error::~_com_error",
+   "symbol": "??1_com_error@@UAE@XZ",
+   "length": 38
+  }
+ }
+}

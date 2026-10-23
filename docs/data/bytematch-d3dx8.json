@@ -1,0 +1,5018 @@
+{
+ "0x8E36B0": {
+  "L": {
+   "object": "0035_d3dx8tex.obj",
+   "function": "FI_Find",
+   "symbol": "?FI_Find@@YAPAUFormatInfo@@W4_D3DFORMAT@@@Z",
+   "length": 36
+  }
+ },
+ "0x8E36D4": {
+  "L": {
+   "object": "0035_d3dx8tex.obj",
+   "function": "FI_Score",
+   "symbol": "?FI_Score@@YAKPAUFormatInfo@@0@Z",
+   "length": 128
+  }
+ },
+ "0x8E3754": {
+  "L": {
+   "object": "0035_d3dx8tex.obj",
+   "function": "CheckTextureRequirements",
+   "symbol": "?CheckTextureRequirements@@YAJPAUIDirect3DDevice8@@PAI111KPAW4_D3DFORMAT@@W4_D3DPOOL@@I@Z",
+   "length": 994
+  }
+ },
+ "0x8E3B36": {
+  "L": {
+   "object": "0035_d3dx8tex.obj",
+   "function": "D3DXLoadSurfaceFromMemory",
+   "symbol": "_D3DXLoadSurfaceFromMemory@40",
+   "length": 566
+  }
+ },
+ "0x8E3D6C": {
+  "L": {
+   "object": "0035_d3dx8tex.obj",
+   "function": "D3DXLoadVolumeFromMemory",
+   "symbol": "_D3DXLoadVolumeFromMemory@44",
+   "length": 534
+  }
+ },
+ "0x8E3F82": {
+  "L": {
+   "object": "0035_d3dx8tex.obj",
+   "function": "D3DXCheckTextureRequirements",
+   "symbol": "_D3DXCheckTextureRequirements@28",
+   "length": 40
+  }
+ },
+ "0x8E3FAA": {
+  "L": {
+   "object": "0035_d3dx8tex.obj",
+   "function": "D3DXCreateTexture",
+   "symbol": "_D3DXCreateTexture@32",
+   "length": 102
+  }
+ },
+ "0x8E4010": {
+  "L": {
+   "object": "0035_d3dx8tex.obj",
+   "function": "D3DXCheckCubeTextureRequirements",
+   "symbol": "_D3DXCheckCubeTextureRequirements@24",
+   "length": 40
+  }
+ },
+ "0x8E4038": {
+  "L": {
+   "object": "0035_d3dx8tex.obj",
+   "function": "D3DXCreateCubeTexture",
+   "symbol": "_D3DXCreateCubeTexture@28",
+   "length": 95
+  }
+ },
+ "0x8E4097": {
+  "L": {
+   "object": "0035_d3dx8tex.obj",
+   "function": "D3DXCheckVolumeTextureRequirements",
+   "symbol": "_D3DXCheckVolumeTextureRequirements@32",
+   "length": 41
+  }
+ },
+ "0x8E40C0": {
+  "L": {
+   "object": "0035_d3dx8tex.obj",
+   "function": "D3DXCreateVolumeTexture",
+   "symbol": "_D3DXCreateVolumeTexture@36",
+   "length": 109
+  }
+ },
+ "0x8E412D": {
+  "L": {
+   "object": "0035_d3dx8tex.obj",
+   "function": "D3DXLoadSurfaceFromFileInMemory",
+   "symbol": "_D3DXLoadSurfaceFromFileInMemory@36",
+   "length": 182
+  }
+ },
+ "0x8E41E3": {
+  "L": {
+   "object": "0035_d3dx8tex.obj",
+   "function": "D3DXLoadSurfaceFromSurface",
+   "symbol": "_D3DXLoadSurfaceFromSurface@32",
+   "length": 285
+  }
+ },
+ "0x8E4300": {
+  "L": {
+   "object": "0035_d3dx8tex.obj",
+   "function": "D3DXLoadVolumeFromVolume",
+   "symbol": "_D3DXLoadVolumeFromVolume@32",
+   "length": 309
+  }
+ },
+ "0x8E4435": {
+  "L": {
+   "object": "0035_d3dx8tex.obj",
+   "function": "D3DXFilterTexture",
+   "symbol": "_D3DXFilterTexture@16",
+   "length": 305
+  }
+ },
+ "0x8E4566": {
+  "L": {
+   "object": "0035_d3dx8tex.obj",
+   "function": "D3DXFilterCubeTexture",
+   "symbol": "_D3DXFilterCubeTexture@16",
+   "length": 338
+  }
+ },
+ "0x8E46B8": {
+  "L": {
+   "object": "0035_d3dx8tex.obj",
+   "function": "D3DXFilterVolumeTexture",
+   "symbol": "_D3DXFilterVolumeTexture@16",
+   "length": 326
+  }
+ },
+ "0x8E47FE": {
+  "L": {
+   "object": "0035_d3dx8tex.obj",
+   "function": "D3DXLoadSurfaceFromFileA",
+   "symbol": "_D3DXLoadSurfaceFromFileA@32",
+   "length": 81
+  }
+ },
+ "0x8E484F": {
+  "L": {
+   "object": "0035_d3dx8tex.obj",
+   "function": "D3DXLoadSurfaceFromFileW",
+   "symbol": "_D3DXLoadSurfaceFromFileW@32",
+   "length": 81
+  }
+ },
+ "0x8E48A0": {
+  "L": {
+   "object": "0035_d3dx8tex.obj",
+   "function": "D3DXLoadSurfaceFromResourceA",
+   "symbol": "_D3DXLoadSurfaceFromResourceA@36",
+   "length": 84
+  }
+ },
+ "0x8E48F4": {
+  "L": {
+   "object": "0035_d3dx8tex.obj",
+   "function": "D3DXLoadSurfaceFromResourceW",
+   "symbol": "_D3DXLoadSurfaceFromResourceW@36",
+   "length": 84
+  }
+ },
+ "0x8E4948": {
+  "L": {
+   "object": "0035_d3dx8tex.obj",
+   "function": "D3DXCreateTextureFromFileInMemoryEx",
+   "symbol": "_D3DXCreateTextureFromFileInMemoryEx@60",
+   "length": 1041
+  }
+ },
+ "0x8E4D59": {
+  "L": {
+   "object": "0035_d3dx8tex.obj",
+   "function": "D3DXCreateCubeTextureFromFileInMemoryEx",
+   "symbol": "_D3DXCreateCubeTextureFromFileInMemoryEx@56",
+   "length": 1090
+  }
+ },
+ "0x8E519B": {
+  "L": {
+   "object": "0035_d3dx8tex.obj",
+   "function": "D3DXCreateTextureFromFileExA",
+   "symbol": "_D3DXCreateTextureFromFileExA@56",
+   "length": 99
+  }
+ },
+ "0x8E51FE": {
+  "L": {
+   "object": "0035_d3dx8tex.obj",
+   "function": "D3DXCreateTextureFromFileExW",
+   "symbol": "_D3DXCreateTextureFromFileExW@56",
+   "length": 99
+  }
+ },
+ "0x8E5261": {
+  "L": {
+   "object": "0035_d3dx8tex.obj",
+   "function": "D3DXCreateTextureFromResourceExA",
+   "symbol": "_D3DXCreateTextureFromResourceExA@60",
+   "length": 102
+  }
+ },
+ "0x8E52C7": {
+  "L": {
+   "object": "0035_d3dx8tex.obj",
+   "function": "D3DXCreateTextureFromResourceExW",
+   "symbol": "_D3DXCreateTextureFromResourceExW@60",
+   "length": 102
+  }
+ },
+ "0x8E5356": {
+  "L": {
+   "object": "0035_d3dx8tex.obj",
+   "function": "D3DXCreateCubeTextureFromFileExA",
+   "symbol": "_D3DXCreateCubeTextureFromFileExA@52",
+   "length": 96
+  }
+ },
+ "0x8E53B6": {
+  "L": {
+   "object": "0035_d3dx8tex.obj",
+   "function": "D3DXCreateCubeTextureFromFileExW",
+   "symbol": "_D3DXCreateCubeTextureFromFileExW@52",
+   "length": 96
+  }
+ },
+ "0x8E5416": {
+  "L": {
+   "object": "0035_d3dx8tex.obj",
+   "function": "D3DXCreateCubeTextureFromFileInMemory",
+   "symbol": "_D3DXCreateCubeTextureFromFileInMemory@16",
+   "length": 40
+  }
+ },
+ "0x8E5522": {
+  "L": {
+   "object": "0020_d3dxmath.obj",
+   "function": "WithinEpsilon",
+   "symbol": "?WithinEpsilon@@YAHMM@Z",
+   "length": 45
+  }
+ },
+ "0x8E554F": {
+  "L": {
+   "object": "0031_shapes.obj",
+   "function": "sincosf",
+   "symbol": "?sincosf@@YAXMPAM0@Z",
+   "length": 19
+  }
+ },
+ "0x8E5562": {
+  "L": {
+   "object": "0020_d3dxmath.obj",
+   "function": "D3DXVec2Hermite",
+   "symbol": "_D3DXVec2Hermite@24",
+   "length": 142
+  }
+ },
+ "0x8E55F0": {
+  "L": {
+   "object": "0020_d3dxmath.obj",
+   "function": "D3DXVec2CatmullRom",
+   "symbol": "_D3DXVec2CatmullRom@24",
+   "length": 175
+  }
+ },
+ "0x8E569F": {
+  "L": {
+   "object": "0020_d3dxmath.obj",
+   "function": "D3DXVec2BaryCentric",
+   "symbol": "_D3DXVec2BaryCentric@24",
+   "length": 67
+  }
+ },
+ "0x8E56E2": {
+  "L": {
+   "object": "0020_d3dxmath.obj",
+   "function": "D3DXVec2Transform",
+   "symbol": "_D3DXVec2Transform@12",
+   "length": 105
+  }
+ },
+ "0x8E574B": {
+  "L": {
+   "object": "0020_d3dxmath.obj",
+   "function": "D3DXVec2TransformNormal",
+   "symbol": "_D3DXVec2TransformNormal@12",
+   "length": 53
+  }
+ },
+ "0x8E5780": {
+  "L": {
+   "object": "0020_d3dxmath.obj",
+   "function": "D3DXVec3Hermite",
+   "symbol": "_D3DXVec3Hermite@24",
+   "length": 174
+  }
+ },
+ "0x8E582E": {
+  "L": {
+   "object": "0020_d3dxmath.obj",
+   "function": "D3DXVec3CatmullRom",
+   "symbol": "_D3DXVec3CatmullRom@24",
+   "length": 209
+  }
+ },
+ "0x8E5914": {
+  "L": {
+   "object": "0020_d3dxmath.obj",
+   "function": "D3DXVec3BaryCentric",
+   "symbol": "_D3DXVec3BaryCentric@24",
+   "length": 93
+  }
+ },
+ "0x8E5971": {
+  "L": {
+   "object": "0020_d3dxmath.obj",
+   "function": "D3DXVec3Transform",
+   "symbol": "_D3DXVec3Transform@12",
+   "length": 139
+  }
+ },
+ "0x8E5A19": {
+  "L": {
+   "object": "0026_btri.obj",
+   "function": "D3DXVECTOR2::D3DXVECTOR2",
+   "symbol": "??0D3DXVECTOR2@@QAE@MM@Z",
+   "length": 18
+  }
+ },
+ "0x8E5A2B": {
+  "L": {
+   "object": "0020_d3dxmath.obj",
+   "function": "D3DXVec3TransformNormal",
+   "symbol": "_D3DXVec3TransformNormal@12",
+   "length": 95
+  }
+ },
+ "0x8E5A8A": {
+  "L": {
+   "object": "0020_d3dxmath.obj",
+   "function": "??_0D3DXVECTOR2@@QAEAAU0@M@Z",
+   "symbol": "??_0D3DXVECTOR2@@QAEAAU0@M@Z",
+   "length": 23
+  }
+ },
+ "0x8E5AA1": {
+  "L": {
+   "object": "0020_d3dxmath.obj",
+   "function": "??KD3DXVECTOR2@@QBE?AU0@M@Z",
+   "symbol": "??KD3DXVECTOR2@@QBE?AU0@M@Z",
+   "length": 29
+  }
+ },
+ "0x8E5ABE": {
+  "L": {
+   "object": "0033_fontextr.obj",
+   "function": "D3DXVECTOR3::D3DXVECTOR3",
+   "symbol": "??0D3DXVECTOR3@@QAE@MMM@Z",
+   "length": 25
+  }
+ },
+ "0x8E5AD7": {
+  "L": {
+   "object": "0020_d3dxmath.obj",
+   "function": "D3DXVec4Cross",
+   "symbol": "_D3DXVec4Cross@16",
+   "length": 240
+  }
+ },
+ "0x8E5BC7": {
+  "L": {
+   "object": "0026_btri.obj",
+   "function": "??_0D3DXVECTOR3@@QAEAAU0@M@Z",
+   "symbol": "??_0D3DXVECTOR3@@QAEAAU0@M@Z",
+   "length": 31
+  }
+ },
+ "0x8E5BE6": {
+  "L": {
+   "object": "0025_loadutil.obj",
+   "function": "D3DXVECTOR3::operator-",
+   "symbol": "??GD3DXVECTOR3@@QBE?AU0@ABU0@@Z",
+   "length": 35
+  }
+ },
+ "0x8E5C09": {
+  "L": {
+   "object": "0020_d3dxmath.obj",
+   "function": "??KD3DXVECTOR3@@QBE?AU0@M@Z",
+   "symbol": "??KD3DXVECTOR3@@QBE?AU0@M@Z",
+   "length": 40
+  }
+ },
+ "0x8E5C31": {
+  "L": {
+   "object": "0020_d3dxmath.obj",
+   "function": "D3DXVec4Hermite",
+   "symbol": "_D3DXVec4Hermite@24",
+   "length": 209
+  }
+ },
+ "0x8E5D02": {
+  "L": {
+   "object": "0020_d3dxmath.obj",
+   "function": "D3DXVec4CatmullRom",
+   "symbol": "_D3DXVec4CatmullRom@24",
+   "length": 243
+  }
+ },
+ "0x8E5DF5": {
+  "L": {
+   "object": "0020_d3dxmath.obj",
+   "function": "D3DXVec4BaryCentric",
+   "symbol": "_D3DXVec4BaryCentric@24",
+   "length": 119
+  }
+ },
+ "0x8E5E6C": {
+  "L": {
+   "object": "0020_d3dxmath.obj",
+   "function": "D3DXVec4Transform",
+   "symbol": "_D3DXVec4Transform@12",
+   "length": 153
+  }
+ },
+ "0x8E5F05": {
+  "L": {
+   "object": "0020_d3dxmath.obj",
+   "function": "D3DXMatrixfDeterminant",
+   "symbol": "_D3DXMatrixfDeterminant@4",
+   "length": 202
+  }
+ },
+ "0x8E5FFC": {
+  "L": {
+   "object": "0020_d3dxmath.obj",
+   "function": "D3DXMatrixMultiply",
+   "symbol": "_D3DXMatrixMultiply@12",
+   "length": 227
+  }
+ },
+ "0x8E60DF": {
+  "L": {
+   "object": "0020_d3dxmath.obj",
+   "function": "D3DXMatrixTranspose",
+   "symbol": "_D3DXMatrixTranspose@8",
+   "length": 109
+  }
+ },
+ "0x8E614C": {
+  "L": {
+   "object": "0020_d3dxmath.obj",
+   "function": "D3DXMatrixInverse",
+   "symbol": "_D3DXMatrixInverse@12",
+   "length": 909
+  }
+ },
+ "0x8E64D9": {
+  "L": {
+   "object": "0020_d3dxmath.obj",
+   "function": "D3DXMatrixScaling",
+   "symbol": "_D3DXMatrixScaling@16",
+   "length": 92
+  }
+ },
+ "0x8E6535": {
+  "L": {
+   "object": "0020_d3dxmath.obj",
+   "function": "D3DXMatrixTranslation",
+   "symbol": "_D3DXMatrixTranslation@16",
+   "length": 92
+  }
+ },
+ "0x8E6591": {
+  "L": {
+   "object": "0020_d3dxmath.obj",
+   "function": "D3DXMatrixRotationX",
+   "symbol": "_D3DXMatrixRotationX@8",
+   "length": 122
+  }
+ },
+ "0x8E660B": {
+  "L": {
+   "object": "0020_d3dxmath.obj",
+   "function": "D3DXMatrixRotationY",
+   "symbol": "_D3DXMatrixRotationY@8",
+   "length": 123
+  }
+ },
+ "0x8E6686": {
+  "L": {
+   "object": "0020_d3dxmath.obj",
+   "function": "D3DXMatrixRotationZ",
+   "symbol": "_D3DXMatrixRotationZ@8",
+   "length": 124
+  }
+ },
+ "0x8E6722": {
+  "L": {
+   "object": "0020_d3dxmath.obj",
+   "function": "D3DXMatrixRotationQuaternion",
+   "symbol": "_D3DXMatrixRotationQuaternion@8",
+   "length": 226
+  }
+ },
+ "0x8E6804": {
+  "L": {
+   "object": "0020_d3dxmath.obj",
+   "function": "??_0D3DXQUATERNION@@QAEAAU0@M@Z",
+   "symbol": "??_0D3DXQUATERNION@@QAEAAU0@M@Z",
+   "length": 39
+  }
+ },
+ "0x8E6878": {
+  "L": {
+   "object": "0020_d3dxmath.obj",
+   "function": "D3DXPLANE::operator-",
+   "symbol": "??GD3DXPLANE@@QBE?AU0@XZ",
+   "length": 37
+  }
+ },
+ "0x8E689D": {
+  "L": {
+   "object": "0020_d3dxmath.obj",
+   "function": "D3DXMatrixAffineTransformation",
+   "symbol": "_D3DXMatrixAffineTransformation@20",
+   "length": 220
+  }
+ },
+ "0x8E6979": {
+  "L": {
+   "object": "0020_d3dxmath.obj",
+   "function": "D3DXMatrixPerspectiveRH",
+   "symbol": "_D3DXMatrixPerspectiveRH@20",
+   "length": 108
+  }
+ },
+ "0x8E69E5": {
+  "L": {
+   "object": "0020_d3dxmath.obj",
+   "function": "D3DXMatrixPerspectiveLH",
+   "symbol": "_D3DXMatrixPerspectiveLH@20",
+   "length": 108
+  }
+ },
+ "0x8E6A51": {
+  "L": {
+   "object": "0020_d3dxmath.obj",
+   "function": "D3DXMatrixPerspectiveFovRH",
+   "symbol": "_D3DXMatrixPerspectiveFovRH@20",
+   "length": 148
+  }
+ },
+ "0x8E6AE5": {
+  "L": {
+   "object": "0020_d3dxmath.obj",
+   "function": "D3DXMatrixPerspectiveFovLH",
+   "symbol": "_D3DXMatrixPerspectiveFovLH@20",
+   "length": 148
+  }
+ },
+ "0x8E6B79": {
+  "L": {
+   "object": "0020_d3dxmath.obj",
+   "function": "D3DXVec2LengthSq",
+   "symbol": "?D3DXVec2LengthSq@@YAMPBUD3DXVECTOR2@@@Z",
+   "length": 24
+  }
+ },
+ "0x8E6B91": {
+  "L": {
+   "object": "0020_d3dxmath.obj",
+   "function": "D3DXMatrixPerspectiveOffCenterRH",
+   "symbol": "_D3DXMatrixPerspectiveOffCenterRH@28",
+   "length": 157
+  }
+ },
+ "0x8E6C2E": {
+  "L": {
+   "object": "0020_d3dxmath.obj",
+   "function": "D3DXMatrixPerspectiveOffCenterLH",
+   "symbol": "_D3DXMatrixPerspectiveOffCenterLH@28",
+   "length": 161
+  }
+ },
+ "0x8E6CCF": {
+  "L": {
+   "object": "0020_d3dxmath.obj",
+   "function": "D3DXMatrixOrthoRH",
+   "symbol": "_D3DXMatrixOrthoRH@20",
+   "length": 114
+  }
+ },
+ "0x8E6D41": {
+  "L": {
+   "object": "0027_intersect.obj",
+   "function": "D3DXVec3LengthSq",
+   "symbol": "?D3DXVec3LengthSq@@YAMPBUD3DXVECTOR3@@@Z",
+   "length": 35
+  }
+ },
+ "0x8E6D81": {
+  "L": {
+   "object": "0020_d3dxmath.obj",
+   "function": "D3DXMatrixOrthoLH",
+   "symbol": "_D3DXMatrixOrthoLH@20",
+   "length": 116
+  }
+ },
+ "0x8E6DF5": {
+  "L": {
+   "object": "0027_intersect.obj",
+   "function": "D3DXVec3Cross",
+   "symbol": "?D3DXVec3Cross@@YAPAUD3DXVECTOR3@@PAU1@PBU1@1@Z",
+   "length": 76
+  }
+ },
+ "0x8E6E41": {
+  "L": {
+   "object": "0020_d3dxmath.obj",
+   "function": "D3DXVec3Subtract",
+   "symbol": "?D3DXVec3Subtract@@YAPAUD3DXVECTOR3@@PAU1@PBU1@1@Z",
+   "length": 37
+  }
+ },
+ "0x8E6E66": {
+  "L": {
+   "object": "0020_d3dxmath.obj",
+   "function": "D3DXMatrixOrthoOffCenterRH",
+   "symbol": "_D3DXMatrixOrthoOffCenterRH@28",
+   "length": 162
+  }
+ },
+ "0x8E6F08": {
+  "L": {
+   "object": "0020_d3dxmath.obj",
+   "function": "D3DXMatrixOrthoOffCenterLH",
+   "symbol": "_D3DXMatrixOrthoOffCenterLH@28",
+   "length": 164
+  }
+ },
+ "0x8E6FAC": {
+  "L": {
+   "object": "0026_btri.obj",
+   "function": "D3DXVec3Lerp",
+   "symbol": "?D3DXVec3Lerp@@YAPAUD3DXVECTOR3@@PAU1@PBU1@1M@Z",
+   "length": 55
+  }
+ },
+ "0x8E7011": {
+  "L": {
+   "object": "0020_d3dxmath.obj",
+   "function": "D3DXQuaternionRotationMatrix",
+   "symbol": "_D3DXQuaternionRotationMatrix@8",
+   "length": 308
+  }
+ },
+ "0x8E7145": {
+  "L": {
+   "object": "0029_loadx.obj",
+   "function": "D3DXMatrixIdentity",
+   "symbol": "?D3DXMatrixIdentity@@YAPAUD3DXMATRIX@@PAU1@@Z",
+   "length": 84
+  }
+ },
+ "0x8E71EC": {
+  "L": {
+   "object": "0020_d3dxmath.obj",
+   "function": "D3DXQuaternionRotationYawPitchRoll",
+   "symbol": "_D3DXQuaternionRotationYawPitchRoll@16",
+   "length": 217
+  }
+ },
+ "0x8E72C5": {
+  "L": {
+   "object": "0020_d3dxmath.obj",
+   "function": "D3DXQuaternionMultiply",
+   "symbol": "_D3DXQuaternionMultiply@12",
+   "length": 150
+  }
+ },
+ "0x8E735B": {
+  "L": {
+   "object": "0020_d3dxmath.obj",
+   "function": "D3DXQuaternionConjugate",
+   "symbol": "?D3DXQuaternionConjugate@@YAPAUD3DXQUATERNION@@PAU1@PBU1@@Z",
+   "length": 37
+  }
+ },
+ "0x8E73A5": {
+  "L": {
+   "object": "0020_d3dxmath.obj",
+   "function": "D3DXPlaneDotCoord",
+   "symbol": "?D3DXPlaneDotCoord@@YAMPBUD3DXPLANE@@PBUD3DXVECTOR3@@@Z",
+   "length": 32
+  }
+ },
+ "0x8E746E": {
+  "L": {
+   "object": "0020_d3dxmath.obj",
+   "function": "D3DXQuaternionInverse",
+   "symbol": "_D3DXQuaternionInverse@8",
+   "length": 127
+  }
+ },
+ "0x8E74ED": {
+  "L": {
+   "object": "0020_d3dxmath.obj",
+   "function": "D3DXQuaternionLn",
+   "symbol": "_D3DXQuaternionLn@8",
+   "length": 128
+  }
+ },
+ "0x8E756D": {
+  "L": {
+   "object": "0020_d3dxmath.obj",
+   "function": "D3DXQuaternionExp",
+   "symbol": "_D3DXQuaternionExp@8",
+   "length": 161
+  }
+ },
+ "0x8E760E": {
+  "L": {
+   "object": "0020_d3dxmath.obj",
+   "function": "D3DXQuaternionSlerp",
+   "symbol": "_D3DXQuaternionSlerp@16",
+   "length": 218
+  }
+ },
+ "0x8E76E8": {
+  "L": {
+   "object": "0020_d3dxmath.obj",
+   "function": "D3DXQuaternionSquad",
+   "symbol": "_D3DXQuaternionSquad@24",
+   "length": 87
+  }
+ },
+ "0x8E773F": {
+  "L": {
+   "object": "0020_d3dxmath.obj",
+   "function": "D3DXQuaternionBaryCentric",
+   "symbol": "_D3DXQuaternionBaryCentric@24",
+   "length": 140
+  }
+ },
+ "0x8E77CB": {
+  "L": {
+   "object": "0020_d3dxmath.obj",
+   "function": "D3DXPlaneNormalize",
+   "symbol": "_D3DXPlaneNormalize@8",
+   "length": 170
+  }
+ },
+ "0x8E7875": {
+  "L": {
+   "object": "0020_d3dxmath.obj",
+   "function": "D3DXPlaneIntersectLine",
+   "symbol": "_D3DXPlaneIntersectLine@16",
+   "length": 141
+  }
+ },
+ "0x8E7902": {
+  "L": {
+   "object": "0020_d3dxmath.obj",
+   "function": "D3DXPlaneFromPointNormal",
+   "symbol": "_D3DXPlaneFromPointNormal@12",
+   "length": 56
+  }
+ },
+ "0x8E793A": {
+  "L": {
+   "object": "0020_d3dxmath.obj",
+   "function": "D3DXColorAdjustSaturation",
+   "symbol": "_D3DXColorAdjustSaturation@12",
+   "length": 88
+  }
+ },
+ "0x8E7992": {
+  "L": {
+   "object": "0020_d3dxmath.obj",
+   "function": "D3DXColorAdjustContrast",
+   "symbol": "_D3DXColorAdjustContrast@12",
+   "length": 64
+  }
+ },
+ "0x8E79D2": {
+  "L": {
+   "object": "0020_d3dxmath.obj",
+   "function": "D3DXVec2Normalize",
+   "symbol": "_D3DXVec2Normalize@8",
+   "length": 148
+  }
+ },
+ "0x8E7A66": {
+  "L": {
+   "object": "0020_d3dxmath.obj",
+   "function": "D3DXVec2TransformCoord",
+   "symbol": "_D3DXVec2TransformCoord@12",
+   "length": 171
+  }
+ },
+ "0x8E7B11": {
+  "L": {
+   "object": "0020_d3dxmath.obj",
+   "function": "D3DXVec3Normalize",
+   "symbol": "_D3DXVec3Normalize@8",
+   "length": 167
+  }
+ },
+ "0x8E7BB8": {
+  "L": {
+   "object": "0020_d3dxmath.obj",
+   "function": "D3DXVec3TransformCoord",
+   "symbol": "_D3DXVec3TransformCoord@12",
+   "length": 208
+  }
+ },
+ "0x8E7C88": {
+  "L": {
+   "object": "0020_d3dxmath.obj",
+   "function": "D3DXVec3Project",
+   "symbol": "_D3DXVec3Project@24",
+   "length": 285
+  }
+ },
+ "0x8E7DA5": {
+  "L": {
+   "object": "0020_d3dxmath.obj",
+   "function": "D3DXVec3Unproject",
+   "symbol": "_D3DXVec3Unproject@24",
+   "length": 302
+  }
+ },
+ "0x8E7F5F": {
+  "L": {
+   "object": "0020_d3dxmath.obj",
+   "function": "D3DXMatrixRotationAxis",
+   "symbol": "_D3DXMatrixRotationAxis@12",
+   "length": 258
+  }
+ },
+ "0x8E8061": {
+  "L": {
+   "object": "0020_d3dxmath.obj",
+   "function": "D3DXMatrixRotationYawPitchRoll",
+   "symbol": "_D3DXMatrixRotationYawPitchRoll@16",
+   "length": 57
+  }
+ },
+ "0x8E809A": {
+  "L": {
+   "object": "0020_d3dxmath.obj",
+   "function": "D3DXMatrixTransformation",
+   "symbol": "_D3DXMatrixTransformation@28",
+   "length": 511
+  }
+ },
+ "0x8E8299": {
+  "L": {
+   "object": "0020_d3dxmath.obj",
+   "function": "D3DXMatrixLookAtRH",
+   "symbol": "_D3DXMatrixLookAtRH@16",
+   "length": 262
+  }
+ },
+ "0x8E839F": {
+  "L": {
+   "object": "0020_d3dxmath.obj",
+   "function": "D3DXMatrixLookAtLH",
+   "symbol": "_D3DXMatrixLookAtLH@16",
+   "length": 262
+  }
+ },
+ "0x8E84A5": {
+  "L": {
+   "object": "0020_d3dxmath.obj",
+   "function": "D3DXMatrixShadow",
+   "symbol": "_D3DXMatrixShadow@12",
+   "length": 222
+  }
+ },
+ "0x8E8583": {
+  "L": {
+   "object": "0020_d3dxmath.obj",
+   "function": "D3DXMatrixReflect",
+   "symbol": "_D3DXMatrixReflect@8",
+   "length": 191
+  }
+ },
+ "0x8E8642": {
+  "L": {
+   "object": "0020_d3dxmath.obj",
+   "function": "D3DXQuaternionToAxisAngle",
+   "symbol": "_D3DXQuaternionToAxisAngle@12",
+   "length": 125
+  }
+ },
+ "0x8E86BF": {
+  "L": {
+   "object": "0020_d3dxmath.obj",
+   "function": "D3DXQuaternionRotationAxis",
+   "symbol": "_D3DXQuaternionRotationAxis@12",
+   "length": 92
+  }
+ },
+ "0x8E871B": {
+  "L": {
+   "object": "0020_d3dxmath.obj",
+   "function": "D3DXPlaneFromPoints",
+   "symbol": "_D3DXPlaneFromPoints@16",
+   "length": 127
+  }
+ },
+ "0x8E879A": {
+  "L": {
+   "object": "0020_d3dxmath.obj",
+   "function": "D3DXPlaneTransform",
+   "symbol": "_D3DXPlaneTransform@12",
+   "length": 124
+  }
+ },
+ "0x8E8886": {
+  "L": {
+   "object": "0002_d3dx8core.obj",
+   "function": "D3DXAssembleShaderFromFileA",
+   "symbol": "_D3DXAssembleShaderFromFileA@20",
+   "length": 140
+  }
+ },
+ "0x8E8912": {
+  "L": {
+   "object": "0002_d3dx8core.obj",
+   "function": "D3DXAssembleShaderFromFileW",
+   "symbol": "_D3DXAssembleShaderFromFileW@20",
+   "length": 201
+  }
+ },
+ "0x8E89DB": {
+  "L": {
+   "object": "0002_d3dx8core.obj",
+   "function": "D3DXAssembleShader",
+   "symbol": "_D3DXAssembleShader@24",
+   "length": 100
+  }
+ },
+ "0x8E8A3F": {
+  "L": {
+   "object": "0002_d3dx8core.obj",
+   "function": "D3DXGetFVFVertexSize",
+   "symbol": "_D3DXGetFVFVertexSize@4",
+   "length": 168
+  }
+ },
+ "0x8E8AE7": {
+  "L": {
+   "object": "0002_d3dx8core.obj",
+   "function": "D3DXGetErrorStringA",
+   "symbol": "_D3DXGetErrorStringA@12",
+   "length": 574
+  }
+ },
+ "0x8E8D25": {
+  "L": {
+   "object": "0002_d3dx8core.obj",
+   "function": "D3DXGetErrorStringW",
+   "symbol": "_D3DXGetErrorStringW@12",
+   "length": 87
+  }
+ },
+ "0x8E8D7C": {
+  "L": {
+   "object": "0002_d3dx8core.obj",
+   "function": "D3DXCreateFontIndirect",
+   "symbol": "_D3DXCreateFontIndirect@12",
+   "length": 116
+  }
+ },
+ "0x8E8DF0": {
+  "L": {
+   "object": "0002_d3dx8core.obj",
+   "function": "D3DXCreateSprite",
+   "symbol": "_D3DXCreateSprite@8",
+   "length": 106
+  }
+ },
+ "0x8E8E5A": {
+  "L": {
+   "object": "0002_d3dx8core.obj",
+   "function": "D3DXCreateRenderToSurface",
+   "symbol": "_D3DXCreateRenderToSurface@28",
+   "length": 122
+  }
+ },
+ "0x8E8ED4": {
+  "L": {
+   "object": "0002_d3dx8core.obj",
+   "function": "D3DXCreateRenderToEnvMap",
+   "symbol": "_D3DXCreateRenderToEnvMap@24",
+   "length": 119
+  }
+ },
+ "0x8E8F4B": {
+  "L": {
+   "object": "0002_d3dx8core.obj",
+   "function": "D3DXCreateFont",
+   "symbol": "_D3DXCreateFont@12",
+   "length": 51
+  }
+ },
+ "0x8E8F88": {
+  "L": {
+   "object": "0038_cd3dxblt.obj",
+   "function": "CD3DXBlt::~CD3DXBlt",
+   "symbol": "??1CD3DXBlt@@QAE@XZ",
+   "length": 30
+  }
+ },
+ "0x8E8FA6": {
+  "L": {
+   "object": "0038_cd3dxblt.obj",
+   "function": "floorf",
+   "symbol": "_floorf",
+   "length": 17
+  }
+ },
+ "0x8E8FBA": {
+  "L": {
+   "object": "0038_cd3dxblt.obj",
+   "function": "TF_Row::~TF_Row",
+   "symbol": "??1TF_Row@@QAE@XZ",
+   "length": 34
+  }
+ },
+ "0x8E8FF8": {
+  "L": {
+   "object": "0038_cd3dxblt.obj",
+   "function": "TF_SetupTriangle",
+   "symbol": "?TF_SetupTriangle@@YAPAEIIH@Z",
+   "length": 673
+  }
+ },
+ "0x8E9299": {
+  "L": {
+   "object": "0038_cd3dxblt.obj",
+   "function": "CD3DXBlt::BltTriangle2D",
+   "symbol": "?BltTriangle2D@CD3DXBlt@@IAEJXZ",
+   "length": 950
+  }
+ },
+ "0x8E964F": {
+  "L": {
+   "object": "0038_cd3dxblt.obj",
+   "function": "CD3DXBlt::BltTriangle3D",
+   "symbol": "?BltTriangle3D@CD3DXBlt@@IAEJXZ",
+   "length": 1239
+  }
+ },
+ "0x8E9B46": {
+  "L": {
+   "object": "0038_cd3dxblt.obj",
+   "function": "D3DXCOLOR::operator+",
+   "symbol": "??HD3DXCOLOR@@QBE?AU0@ABU0@@Z",
+   "length": 44
+  }
+ },
+ "0x8E9B72": {
+  "L": {
+   "object": "0038_cd3dxblt.obj",
+   "function": "D3DXCOLOR::operator*",
+   "symbol": "??DD3DXCOLOR@@QBE?AU0@M@Z",
+   "length": 44
+  }
+ },
+ "0x8E9B9E": {
+  "L": {
+   "object": "0038_cd3dxblt.obj",
+   "function": "CD3DXBlt::BltSame_DXTn",
+   "symbol": "?BltSame_DXTn@CD3DXBlt@@IAEJXZ",
+   "length": 385
+  }
+ },
+ "0x8E9D25": {
+  "L": {
+   "object": "0038_cd3dxblt.obj",
+   "function": "CD3DXBlt::BltBox2D_A8R8G8B8",
+   "symbol": "?BltBox2D_A8R8G8B8@CD3DXBlt@@IAEJXZ",
+   "length": 350
+  }
+ },
+ "0x8E9E83": {
+  "L": {
+   "object": "0038_cd3dxblt.obj",
+   "function": "CD3DXBlt::BltBox2D_X8R8G8B8",
+   "symbol": "?BltBox2D_X8R8G8B8@CD3DXBlt@@IAEJXZ",
+   "length": 284
+  }
+ },
+ "0x8E9F9F": {
+  "L": {
+   "object": "0038_cd3dxblt.obj",
+   "function": "CD3DXBlt::BltBox2D_R5G6B5",
+   "symbol": "?BltBox2D_R5G6B5@CD3DXBlt@@IAEJXZ",
+   "length": 336
+  }
+ },
+ "0x8EA0EF": {
+  "L": {
+   "object": "0038_cd3dxblt.obj",
+   "function": "CD3DXBlt::BltBox2D_X1R5G5B5",
+   "symbol": "?BltBox2D_X1R5G5B5@CD3DXBlt@@IAEJXZ",
+   "length": 292
+  }
+ },
+ "0x8EA213": {
+  "L": {
+   "object": "0038_cd3dxblt.obj",
+   "function": "CD3DXBlt::BltBox2D_A1R5G5B5",
+   "symbol": "?BltBox2D_A1R5G5B5@CD3DXBlt@@IAEJXZ",
+   "length": 335
+  }
+ },
+ "0x8EA362": {
+  "L": {
+   "object": "0038_cd3dxblt.obj",
+   "function": "CD3DXBlt::BltBox2D_A4R4G4B4",
+   "symbol": "?BltBox2D_A4R4G4B4@CD3DXBlt@@IAEJXZ",
+   "length": 339
+  }
+ },
+ "0x8EA4B5": {
+  "L": {
+   "object": "0038_cd3dxblt.obj",
+   "function": "CD3DXBlt::BltBox2D_R3G3B2",
+   "symbol": "?BltBox2D_R3G3B2@CD3DXBlt@@IAEJXZ",
+   "length": 319
+  }
+ },
+ "0x8EA5F4": {
+  "L": {
+   "object": "0038_cd3dxblt.obj",
+   "function": "CD3DXBlt::BltBox2D_A8",
+   "symbol": "?BltBox2D_A8@CD3DXBlt@@IAEJXZ",
+   "length": 155
+  }
+ },
+ "0x8EA68F": {
+  "L": {
+   "object": "0038_cd3dxblt.obj",
+   "function": "CD3DXBlt::BltBox2D_A8R3G3B2",
+   "symbol": "?BltBox2D_A8R3G3B2@CD3DXBlt@@IAEJXZ",
+   "length": 332
+  }
+ },
+ "0x8EA7DB": {
+  "L": {
+   "object": "0038_cd3dxblt.obj",
+   "function": "CD3DXBlt::BltBox2D_X4R4G4B4",
+   "symbol": "?BltBox2D_X4R4G4B4@CD3DXBlt@@IAEJXZ",
+   "length": 289
+  }
+ },
+ "0x8EA908": {
+  "L": {
+   "object": "0038_cd3dxblt.obj",
+   "function": "CD3DXBlt::BltBox2D_A8L8",
+   "symbol": "?BltBox2D_A8L8@CD3DXBlt@@IAEJXZ",
+   "length": 332
+  }
+ },
+ "0x8EAA54": {
+  "L": {
+   "object": "0038_cd3dxblt.obj",
+   "function": "CD3DXBlt::BltBox2D_A4L4",
+   "symbol": "?BltBox2D_A4L4@CD3DXBlt@@IAEJXZ",
+   "length": 319
+  }
+ },
+ "0x8EABD5": {
+  "L": {
+   "object": "0038_cd3dxblt.obj",
+   "function": "CD3DXBlt::BltSame",
+   "symbol": "?BltSame@CD3DXBlt@@IAEJXZ",
+   "length": 306
+  }
+ },
+ "0x8EAD07": {
+  "L": {
+   "object": "0038_cd3dxblt.obj",
+   "function": "CD3DXBlt::BltCopy",
+   "symbol": "?BltCopy@CD3DXBlt@@IAEJXZ",
+   "length": 162
+  }
+ },
+ "0x8EADA9": {
+  "L": {
+   "object": "0038_cd3dxblt.obj",
+   "function": "CD3DXBlt::BltNone",
+   "symbol": "?BltNone@CD3DXBlt@@IAEJXZ",
+   "length": 373
+  }
+ },
+ "0x8EAF1E": {
+  "L": {
+   "object": "0038_cd3dxblt.obj",
+   "function": "CD3DXBlt::BltPoint",
+   "symbol": "?BltPoint@CD3DXBlt@@IAEJXZ",
+   "length": 406
+  }
+ },
+ "0x8EB0B4": {
+  "L": {
+   "object": "0038_cd3dxblt.obj",
+   "function": "CD3DXBlt::BltBox2D",
+   "symbol": "?BltBox2D@CD3DXBlt@@IAEJXZ",
+   "length": 917
+  }
+ },
+ "0x8EB449": {
+  "L": {
+   "object": "0038_cd3dxblt.obj",
+   "function": "CD3DXBlt::BltBox3D",
+   "symbol": "?BltBox3D@CD3DXBlt@@IAEJXZ",
+   "length": 937
+  }
+ },
+ "0x8EB7F2": {
+  "L": {
+   "object": "0038_cd3dxblt.obj",
+   "function": "LF_SetupLinear",
+   "symbol": "?LF_SetupLinear@@YAPAEIIH@Z",
+   "length": 209
+  }
+ },
+ "0x8EB8C3": {
+  "L": {
+   "object": "0038_cd3dxblt.obj",
+   "function": "CD3DXBlt::BltLinear2D",
+   "symbol": "?BltLinear2D@CD3DXBlt@@IAEJXZ",
+   "length": 833
+  }
+ },
+ "0x8EBC04": {
+  "L": {
+   "object": "0038_cd3dxblt.obj",
+   "function": "CD3DXBlt::BltLinear3D",
+   "symbol": "?BltLinear3D@CD3DXBlt@@IAEJXZ",
+   "length": 1613
+  }
+ },
+ "0x8EC251": {
+  "L": {
+   "object": "0038_cd3dxblt.obj",
+   "function": "CD3DXBlt::Blt",
+   "symbol": "?Blt@CD3DXBlt@@QAEJPAUD3DX_BLT@@0K@Z",
+   "length": 274
+  }
+ },
+ "0x8EC363": {
+  "L": {
+   "object": "0036_cd3dximage.obj",
+   "function": "CD3DXImage::CD3DXImage",
+   "symbol": "??0CD3DXImage@@QAE@XZ",
+   "length": 25
+  }
+ },
+ "0x8EC37C": {
+  "L": {
+   "object": "0036_cd3dximage.obj",
+   "function": "CD3DXImage::~CD3DXImage",
+   "symbol": "??1CD3DXImage@@QAE@XZ",
+   "length": 89
+  }
+ },
+ "0x8EC3F1": {
+  "L": {
+   "object": "0036_cd3dximage.obj",
+   "function": "CD3DXImage::LoadDIB",
+   "symbol": "?LoadDIB@CD3DXImage@@AAEJPBXK@Z",
+   "length": 1595
+  }
+ },
+ "0x8ECA2C": {
+  "L": {
+   "object": "0036_cd3dximage.obj",
+   "function": "d3dx_jpeg_error_exit",
+   "symbol": "?d3dx_jpeg_error_exit@@YAXPAUjpeg_common_struct@D3DX@@@Z",
+   "length": 28
+  }
+ },
+ "0x8ECA67": {
+  "L": {
+   "object": "0036_cd3dximage.obj",
+   "function": "d3dx_jpeg_fill_input_buffer",
+   "symbol": "?d3dx_jpeg_fill_input_buffer@@YAEPAUjpeg_decompress_struct@D3DX@@@Z",
+   "length": 21
+  }
+ },
+ "0x8ECA7C": {
+  "L": {
+   "object": "0036_cd3dximage.obj",
+   "function": "d3dx_jpeg_skip_input_data",
+   "symbol": "?d3dx_jpeg_skip_input_data@@YAXPAUjpeg_decompress_struct@D3DX@@J@Z",
+   "length": 17
+  }
+ },
+ "0x8ECA8E": {
+  "L": {
+   "object": "0036_cd3dximage.obj",
+   "function": "CD3DXImage::LoadJPG",
+   "symbol": "?LoadJPG@CD3DXImage@@AAEJPBXK@Z",
+   "length": 597
+  }
+ },
+ "0x8ECCE3": {
+  "L": {
+   "object": "0036_cd3dximage.obj",
+   "function": "CD3DXImage::LoadTGA",
+   "symbol": "?LoadTGA@CD3DXImage@@AAEJPBXK@Z",
+   "length": 1144
+  }
+ },
+ "0x8ED15B": {
+  "L": {
+   "object": "0036_cd3dximage.obj",
+   "function": "CD3DXImage::LoadPPM",
+   "symbol": "?LoadPPM@CD3DXImage@@AAEJPBXK@Z",
+   "length": 642
+  }
+ },
+ "0x8ED3DD": {
+  "L": {
+   "object": "0036_cd3dximage.obj",
+   "function": "d3dx_png_read_fn",
+   "symbol": "?d3dx_png_read_fn@@YAXPAUpng_struct_def@D3DX@@PAEI@Z",
+   "length": 67
+  }
+ },
+ "0x8ED42C": {
+  "L": {
+   "object": "0036_cd3dximage.obj",
+   "function": "CD3DXImage::LoadPNG",
+   "symbol": "?LoadPNG@CD3DXImage@@AAEJPBXK@Z",
+   "length": 1302
+  }
+ },
+ "0x8ED942": {
+  "L": {
+   "object": "0036_cd3dximage.obj",
+   "function": "CD3DXImage::LoadDDS",
+   "symbol": "?LoadDDS@CD3DXImage@@AAEJPBXK@Z",
+   "length": 787
+  }
+ },
+ "0x8EDC55": {
+  "L": {
+   "object": "0036_cd3dximage.obj",
+   "function": "CD3DXImage::LoadBMP",
+   "symbol": "?LoadBMP@CD3DXImage@@AAEJPBXK@Z",
+   "length": 48
+  }
+ },
+ "0x8EDC85": {
+  "L": {
+   "object": "0036_cd3dximage.obj",
+   "function": "CD3DXImage::Load",
+   "symbol": "?Load@CD3DXImage@@QAEJPBXKPAU_D3DXIMAGE_INFO@@@Z",
+   "length": 346
+  }
+ },
+ "0x8EDDDF": {
+  "L": {
+   "object": "0008_cd3dxfile.obj",
+   "function": "CD3DXFile::CD3DXFile",
+   "symbol": "??0CD3DXFile@@QAE@XZ",
+   "length": 18
+  }
+ },
+ "0x8EDDF1": {
+  "L": {
+   "object": "0008_cd3dxfile.obj",
+   "function": "CD3DXFile::Open",
+   "symbol": "?Open@CD3DXFile@@QAEJPBXH@Z",
+   "length": 281
+  }
+ },
+ "0x8EDF0A": {
+  "L": {
+   "object": "0008_cd3dxfile.obj",
+   "function": "CD3DXFile::Close",
+   "symbol": "?Close@CD3DXFile@@QAEJXZ",
+   "length": 65
+  }
+ },
+ "0x8EDF71": {
+  "L": {
+   "object": "0039_cd3dxresource.obj",
+   "function": "CD3DXResource::Close",
+   "symbol": "?Close@CD3DXResource@@QAEJXZ",
+   "length": 31
+  }
+ },
+ "0x8EDF90": {
+  "L": {
+   "object": "0039_cd3dxresource.obj",
+   "function": "CD3DXResource::Open",
+   "symbol": "?Open@CD3DXResource@@QAEJPAUHINSTANCE__@@PBXH@Z",
+   "length": 128
+  }
+ },
+ "0x8EE013": {
+  "L": {
+   "object": "0004_cd3dxfont.obj",
+   "function": "CD3DXFont::~CD3DXFont",
+   "symbol": "??1CD3DXFont@@QAE@XZ",
+   "length": 50
+  }
+ },
+ "0x8EE052": {
+  "L": {
+   "object": "0004_cd3dxfont.obj",
+   "function": "CD3DXFont::Initialize",
+   "symbol": "?Initialize@CD3DXFont@@QAEJPAUIDirect3DDevice8@@PBUtagLOGFONTA@@@Z",
+   "length": 82
+  }
+ },
+ "0x8EE0BB": {
+  "L": {
+   "object": "0004_cd3dxfont.obj",
+   "function": "CD3DXFont::GetDevice",
+   "symbol": "?GetDevice@CD3DXFont@@UAGJPAPAUIDirect3DDevice8@@@Z",
+   "length": 38
+  }
+ },
+ "0x8EE0E1": {
+  "L": {
+   "object": "0004_cd3dxfont.obj",
+   "function": "CD3DXFont::GetLogFont",
+   "symbol": "?GetLogFont@CD3DXFont@@UAGJPAUtagLOGFONTA@@@Z",
+   "length": 36
+  }
+ },
+ "0x8EE123": {
+  "L": {
+   "object": "0004_cd3dxfont.obj",
+   "function": "CD3DXFont::DrawTextA",
+   "symbol": "?DrawTextA@CD3DXFont@@UAGHPBDHPAUtagRECT@@KK@Z",
+   "length": 38
+  }
+ },
+ "0x8EE149": {
+  "L": {
+   "object": "0004_cd3dxfont.obj",
+   "function": "CD3DXFont::DrawTextW",
+   "symbol": "?DrawTextW@CD3DXFont@@UAGHPBGHPAUtagRECT@@KK@Z",
+   "length": 38
+  }
+ },
+ "0x8EE1D7": {
+  "L": {
+   "object": "0004_cd3dxfont.obj",
+   "function": "CD3DXFont::CD3DXFont",
+   "symbol": "??0CD3DXFont@@QAE@XZ",
+   "length": 27
+  }
+ },
+ "0x8EE1F2": {
+  "L": {
+   "object": "0006_cd3dxsprite.obj",
+   "function": "CD3DXSprite::~CD3DXSprite",
+   "symbol": "??1CD3DXSprite@@QAE@XZ",
+   "length": 64
+  }
+ },
+ "0x8EE23F": {
+  "L": {
+   "object": "0006_cd3dxsprite.obj",
+   "function": "CD3DXSprite::Initialize",
+   "symbol": "?Initialize@CD3DXSprite@@QAEJPAUIDirect3DDevice8@@@Z",
+   "length": 647
+  }
+ },
+ "0x8EE4EC": {
+  "L": {
+   "object": "0006_cd3dxsprite.obj",
+   "function": "CD3DXSprite::Begin",
+   "symbol": "?Begin@CD3DXSprite@@UAGJXZ",
+   "length": 61
+  }
+ },
+ "0x8EE536": {
+  "L": {
+   "object": "0006_cd3dxsprite.obj",
+   "function": "CD3DXSprite::End",
+   "symbol": "?End@CD3DXSprite@@UAGJXZ",
+   "length": 43
+  }
+ },
+ "0x8EE5C9": {
+  "L": {
+   "object": "0006_cd3dxsprite.obj",
+   "function": "CD3DXSprite::Draw",
+   "symbol": "?Draw@CD3DXSprite@@UAGJPAUIDirect3DTexture8@@PBUtagRECT@@PBUD3DXVECTOR2@@2M2K@Z",
+   "length": 215
+  }
+ },
+ "0x8EE6A0": {
+  "L": {
+   "object": "0006_cd3dxsprite.obj",
+   "function": "CD3DXSprite::DrawTransform",
+   "symbol": "?DrawTransform@CD3DXSprite@@UAGJPAUIDirect3DTexture8@@PBUtagRECT@@PBUD3DXMATRIX@@K@Z",
+   "length": 703
+  }
+ },
+ "0x8EE95F": {
+  "L": {
+   "object": "0006_cd3dxsprite.obj",
+   "function": "CD3DXSprite::CD3DXSprite",
+   "symbol": "??0CD3DXSprite@@QAE@XZ",
+   "length": 30
+  }
+ },
+ "0x8EE97D": {
+  "L": {
+   "object": "0009_cd3dxrendertosurface.obj",
+   "function": "CD3DXRenderToSurface::~CD3DXRenderToSurface",
+   "symbol": "??1CD3DXRenderToSurface@@QAE@XZ",
+   "length": 131
+  }
+ },
+ "0x8EEA00": {
+  "L": {
+   "object": "0009_cd3dxrendertosurface.obj",
+   "function": "CD3DXRenderToSurface::Init",
+   "symbol": "?Init@CD3DXRenderToSurface@@QAEJPAUIDirect3DDevice8@@IIW4_D3DFORMAT@@H1@Z",
+   "length": 79
+  }
+ },
+ "0x8EEA99": {
+  "L": {
+   "object": "0009_cd3dxrendertosurface.obj",
+   "function": "CD3DXRenderToSurface::GetDesc",
+   "symbol": "?GetDesc@CD3DXRenderToSurface@@UAGJPAU_D3DXRTS_DESC@@@Z",
+   "length": 36
+  }
+ },
+ "0x8EEABD": {
+  "L": {
+   "object": "0009_cd3dxrendertosurface.obj",
+   "function": "CD3DXRenderToSurface::BeginScene",
+   "symbol": "?BeginScene@CD3DXRenderToSurface@@UAGJPAUIDirect3DSurface8@@PBU_D3DVIEWPORT8@@@Z",
+   "length": 460
+  }
+ },
+ "0x8EEC89": {
+  "L": {
+   "object": "0009_cd3dxrendertosurface.obj",
+   "function": "CD3DXRenderToSurface::EndScene",
+   "symbol": "?EndScene@CD3DXRenderToSurface@@UAGJXZ",
+   "length": 184
+  }
+ },
+ "0x8EEDB4": {
+  "L": {
+   "object": "0009_cd3dxrendertosurface.obj",
+   "function": "CD3DXRenderToSurface::CD3DXRenderToSurface",
+   "symbol": "??0CD3DXRenderToSurface@@QAE@XZ",
+   "length": 39
+  }
+ },
+ "0x8EEDDB": {
+  "L": {
+   "object": "0010_cd3dxrendertoenvmap.obj",
+   "function": "CD3DXRenderToEnvMap::~CD3DXRenderToEnvMap",
+   "symbol": "??1CD3DXRenderToEnvMap@@QAE@XZ",
+   "length": 191
+  }
+ },
+ "0x8EEE9A": {
+  "L": {
+   "object": "0010_cd3dxrendertoenvmap.obj",
+   "function": "CD3DXRenderToEnvMap::Init",
+   "symbol": "?Init@CD3DXRenderToEnvMap@@QAEJPAUIDirect3DDevice8@@IW4_D3DFORMAT@@H1@Z",
+   "length": 84
+  }
+ },
+ "0x8EEEEE": {
+  "L": {
+   "object": "0010_cd3dxrendertoenvmap.obj",
+   "function": "CD3DXRenderToEnvMap::Begin",
+   "symbol": "?Begin@CD3DXRenderToEnvMap@@QAEJXZ",
+   "length": 120
+  }
+ },
+ "0x8EEF66": {
+  "L": {
+   "object": "0010_cd3dxrendertoenvmap.obj",
+   "function": "CD3DXRenderToEnvMap::BeginScene",
+   "symbol": "?BeginScene@CD3DXRenderToEnvMap@@QAEJW4_D3DCUBEMAP_FACES@@@Z",
+   "length": 312
+  }
+ },
+ "0x8EF09E": {
+  "L": {
+   "object": "0010_cd3dxrendertoenvmap.obj",
+   "function": "CD3DXRenderToEnvMap::EndScene",
+   "symbol": "?EndScene@CD3DXRenderToEnvMap@@QAEJXZ",
+   "length": 114
+  }
+ },
+ "0x8EF19C": {
+  "L": {
+   "object": "0010_cd3dxrendertoenvmap.obj",
+   "function": "CD3DXRenderToEnvMap::GetDesc",
+   "symbol": "?GetDesc@CD3DXRenderToEnvMap@@UAGJPAU_D3DXRTE_DESC@@@Z",
+   "length": 35
+  }
+ },
+ "0x8EF1BF": {
+  "L": {
+   "object": "0010_cd3dxrendertoenvmap.obj",
+   "function": "CD3DXRenderToEnvMap::BeginCube",
+   "symbol": "?BeginCube@CD3DXRenderToEnvMap@@UAGJPAUIDirect3DCubeTexture8@@@Z",
+   "length": 99
+  }
+ },
+ "0x8EF222": {
+  "L": {
+   "object": "0010_cd3dxrendertoenvmap.obj",
+   "function": "CD3DXRenderToEnvMap::BeginSphere",
+   "symbol": "?BeginSphere@CD3DXRenderToEnvMap@@UAGJPAUIDirect3DTexture8@@@Z",
+   "length": 68
+  }
+ },
+ "0x8EF266": {
+  "L": {
+   "object": "0010_cd3dxrendertoenvmap.obj",
+   "function": "CD3DXRenderToEnvMap::BeginHemisphere",
+   "symbol": "?BeginHemisphere@CD3DXRenderToEnvMap@@UAGJPAUIDirect3DTexture8@@0@Z",
+   "length": 100
+  }
+ },
+ "0x8EF2CA": {
+  "L": {
+   "object": "0010_cd3dxrendertoenvmap.obj",
+   "function": "CD3DXRenderToEnvMap::BeginParabolic",
+   "symbol": "?BeginParabolic@CD3DXRenderToEnvMap@@UAGJPAUIDirect3DTexture8@@0@Z",
+   "length": 105
+  }
+ },
+ "0x8EF333": {
+  "L": {
+   "object": "0010_cd3dxrendertoenvmap.obj",
+   "function": "CD3DXRenderToEnvMap::Face",
+   "symbol": "?Face@CD3DXRenderToEnvMap@@UAGJW4_D3DCUBEMAP_FACES@@@Z",
+   "length": 35
+  }
+ },
+ "0x8EF356": {
+  "L": {
+   "object": "0010_cd3dxrendertoenvmap.obj",
+   "function": "CD3DXRenderToEnvMap::End",
+   "symbol": "?End@CD3DXRenderToEnvMap@@UAGJXZ",
+   "length": 206
+  }
+ },
+ "0x8EF450": {
+  "L": {
+   "object": "0010_cd3dxrendertoenvmap.obj",
+   "function": "CD3DXRenderToEnvMap::CD3DXRenderToEnvMap",
+   "symbol": "??0CD3DXRenderToEnvMap@@QAE@XZ",
+   "length": 66
+  }
+ },
+ "0x8EF492": {
+  "L": {
+   "object": "0012_cd3dxassembler.obj",
+   "function": "CD3DXAssembler::CD3DXAssembler",
+   "symbol": "??0CD3DXAssembler@@QAE@XZ",
+   "length": 160
+  }
+ },
+ "0x8EF532": {
+  "L": {
+   "object": "0012_cd3dxassembler.obj",
+   "function": "CD3DXAssembler::~CD3DXAssembler",
+   "symbol": "??1CD3DXAssembler@@QAE@XZ",
+   "length": 128
+  }
+ },
+ "0x8EF5CE": {
+  "L": {
+   "object": "0012_cd3dxassembler.obj",
+   "function": "CD3DXAssembler::Error",
+   "symbol": "?Error@CD3DXAssembler@@QAAXPADZZ",
+   "length": 156
+  }
+ },
+ "0x8EF66A": {
+  "L": {
+   "object": "0012_cd3dxassembler.obj",
+   "function": "CD3DXAssembler::DecodeOpcode",
+   "symbol": "?DecodeOpcode@CD3DXAssembler@@QAEHXZ",
+   "length": 1597
+  }
+ },
+ "0x8EFCA7": {
+  "L": {
+   "object": "0012_cd3dxassembler.obj",
+   "function": "CD3DXAssembler::DecodeMask",
+   "symbol": "?DecodeMask@CD3DXAssembler@@QAEKPAD@Z",
+   "length": 169
+  }
+ },
+ "0x8EFD50": {
+  "L": {
+   "object": "0012_cd3dxassembler.obj",
+   "function": "CD3DXAssembler::DecodeSwizzle",
+   "symbol": "?DecodeSwizzle@CD3DXAssembler@@QAEKPAD@Z",
+   "length": 161
+  }
+ },
+ "0x8EFDF1": {
+  "L": {
+   "object": "0012_cd3dxassembler.obj",
+   "function": "CD3DXAssembler::DecodeRegister",
+   "symbol": "?DecodeRegister@CD3DXAssembler@@QAEKPADKH@Z",
+   "length": 886
+  }
+ },
+ "0x8F0167": {
+  "L": {
+   "object": "0012_cd3dxassembler.obj",
+   "function": "CD3DXAssembler::ValidateDstRegister",
+   "symbol": "?ValidateDstRegister@CD3DXAssembler@@QAEXK@Z",
+   "length": 142
+  }
+ },
+ "0x8F01F5": {
+  "L": {
+   "object": "0012_cd3dxassembler.obj",
+   "function": "CD3DXAssembler::ValidateSrcRegister",
+   "symbol": "?ValidateSrcRegister@CD3DXAssembler@@QAEXK@Z",
+   "length": 130
+  }
+ },
+ "0x8F0277": {
+  "L": {
+   "object": "0012_cd3dxassembler.obj",
+   "function": "CD3DXAssembler::SetConstant",
+   "symbol": "?SetConstant@CD3DXAssembler@@QAEXKPAUD3DXVECTOR4@@@Z",
+   "length": 169
+  }
+ },
+ "0x8F0320": {
+  "L": {
+   "object": "0012_cd3dxassembler.obj",
+   "function": "CD3DXAssembler::UpdateDebugText",
+   "symbol": "?UpdateDebugText@CD3DXAssembler@@QAEXXZ",
+   "length": 214
+  }
+ },
+ "0x8F03F6": {
+  "L": {
+   "object": "0012_cd3dxassembler.obj",
+   "function": "CD3DXAssembler::UpdateDebugFileLine",
+   "symbol": "?UpdateDebugFileLine@CD3DXAssembler@@QAEXXZ",
+   "length": 344
+  }
+ },
+ "0x8F054E": {
+  "L": {
+   "object": "0012_cd3dxassembler.obj",
+   "function": "CD3DXAssembler::Token",
+   "symbol": "?Token@CD3DXAssembler@@QAEHXZ",
+   "length": 1057
+  }
+ },
+ "0x8F096F": {
+  "L": {
+   "object": "0012_cd3dxassembler.obj",
+   "function": "CD3DXAssembler::Production",
+   "symbol": "?Production@CD3DXAssembler@@QAEXI@Z",
+   "length": 1973
+  }
+ },
+ "0x8F1124": {
+  "L": {
+   "object": "0012_cd3dxassembler.obj",
+   "function": "d3dxasm_parse",
+   "symbol": "?d3dxasm_parse@@YAHXZ",
+   "length": 1194
+  }
+ },
+ "0x8F15CE": {
+  "L": {
+   "object": "0012_cd3dxassembler.obj",
+   "function": "CD3DXAssembler::Assemble",
+   "symbol": "?Assemble@CD3DXAssembler@@QAEJPBXIPBDIKPAPAUID3DXBuffer@@22@Z",
+   "length": 1175
+  }
+ },
+ "0x8F1A72": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "D3DXCOLOR::D3DXCOLOR",
+   "symbol": "??0D3DXCOLOR@@QAE@K@Z",
+   "length": 86
+  }
+ },
+ "0x8F1AC8": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_V8U8::Decode",
+   "symbol": "?Decode@CD3DXCodec_V8U8@@UAEXIIPAUD3DXCOLOR@@@Z",
+   "length": 105
+  }
+ },
+ "0x8F1B31": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_L6V5U5::Decode",
+   "symbol": "?Decode@CD3DXCodec_L6V5U5@@UAEXIIPAUD3DXCOLOR@@@Z",
+   "length": 150
+  }
+ },
+ "0x8F1BC7": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_X8L8V8U8::Decode",
+   "symbol": "?Decode@CD3DXCodec_X8L8V8U8@@UAEXIIPAUD3DXCOLOR@@@Z",
+   "length": 120
+  }
+ },
+ "0x8F1C3F": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_Q8W8V8U8::Decode",
+   "symbol": "?Decode@CD3DXCodec_Q8W8V8U8@@UAEXIIPAUD3DXCOLOR@@@Z",
+   "length": 126
+  }
+ },
+ "0x8F1CBD": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_V16U16::Decode",
+   "symbol": "?Decode@CD3DXCodec_V16U16@@UAEXIIPAUD3DXCOLOR@@@Z",
+   "length": 106
+  }
+ },
+ "0x8F1D27": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_W11V11U10::Decode",
+   "symbol": "?Decode@CD3DXCodec_W11V11U10@@UAEXIIPAUD3DXCOLOR@@@Z",
+   "length": 159
+  }
+ },
+ "0x8F1DC6": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "D3DXCOLOR::operator-",
+   "symbol": "??GD3DXCOLOR@@QBE?AU0@ABU0@@Z",
+   "length": 44
+  }
+ },
+ "0x8F1DF2": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "D3DXCOLOR::operator==",
+   "symbol": "??8D3DXCOLOR@@QBEHABU0@@Z",
+   "length": 64
+  }
+ },
+ "0x8F1E74": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec::CD3DXCodec",
+   "symbol": "??0CD3DXCodec@@IAE@PAUD3DX_BLT@@IK@Z",
+   "length": 489
+  }
+ },
+ "0x8F2079": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec::ColorKey",
+   "symbol": "?ColorKey@CD3DXCodec@@IAEXPAUD3DXCOLOR@@@Z",
+   "length": 112
+  }
+ },
+ "0x8F20E9": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_R8G8B8::Encode",
+   "symbol": "?Encode@CD3DXCodec_R8G8B8@@UAEXIIPAUD3DXCOLOR@@@Z",
+   "length": 193
+  }
+ },
+ "0x8F21AA": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_A8R8G8B8::Encode",
+   "symbol": "?Encode@CD3DXCodec_A8R8G8B8@@UAEXIIPAUD3DXCOLOR@@@Z",
+   "length": 249
+  }
+ },
+ "0x8F22A3": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_X8R8G8B8::Encode",
+   "symbol": "?Encode@CD3DXCodec_X8R8G8B8@@UAEXIIPAUD3DXCOLOR@@@Z",
+   "length": 215
+  }
+ },
+ "0x8F237A": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_R5G6B5::Encode",
+   "symbol": "?Encode@CD3DXCodec_R5G6B5@@UAEXIIPAUD3DXCOLOR@@@Z",
+   "length": 215
+  }
+ },
+ "0x8F2451": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_X1R5G5B5::Encode",
+   "symbol": "?Encode@CD3DXCodec_X1R5G5B5@@UAEXIIPAUD3DXCOLOR@@@Z",
+   "length": 215
+  }
+ },
+ "0x8F2528": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_A1R5G5B5::Encode",
+   "symbol": "?Encode@CD3DXCodec_A1R5G5B5@@UAEXIIPAUD3DXCOLOR@@@Z",
+   "length": 243
+  }
+ },
+ "0x8F261B": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_A4R4G4B4::Encode",
+   "symbol": "?Encode@CD3DXCodec_A4R4G4B4@@UAEXIIPAUD3DXCOLOR@@@Z",
+   "length": 249
+  }
+ },
+ "0x8F2714": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_R3G3B2::Encode",
+   "symbol": "?Encode@CD3DXCodec_R3G3B2@@UAEXIIPAUD3DXCOLOR@@@Z",
+   "length": 209
+  }
+ },
+ "0x8F27E5": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_A8::Encode",
+   "symbol": "?Encode@CD3DXCodec_A8@@UAEXIIPAUD3DXCOLOR@@@Z",
+   "length": 130
+  }
+ },
+ "0x8F2867": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_A8R3G3B2::Encode",
+   "symbol": "?Encode@CD3DXCodec_A8R3G3B2@@UAEXIIPAUD3DXCOLOR@@@Z",
+   "length": 249
+  }
+ },
+ "0x8F2960": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_X4R4G4B4::Encode",
+   "symbol": "?Encode@CD3DXCodec_X4R4G4B4@@UAEXIIPAUD3DXCOLOR@@@Z",
+   "length": 215
+  }
+ },
+ "0x8F2A37": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_A8P8::Encode",
+   "symbol": "?Encode@CD3DXCodec_A8P8@@UAEXIIPAUD3DXCOLOR@@@Z",
+   "length": 253
+  }
+ },
+ "0x8F2B34": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_P8::Encode",
+   "symbol": "?Encode@CD3DXCodec_P8@@UAEXIIPAUD3DXCOLOR@@@Z",
+   "length": 186
+  }
+ },
+ "0x8F2BEE": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_L8::Encode",
+   "symbol": "?Encode@CD3DXCodec_L8@@UAEXIIPAUD3DXCOLOR@@@Z",
+   "length": 158
+  }
+ },
+ "0x8F2C8C": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_A8L8::Encode",
+   "symbol": "?Encode@CD3DXCodec_A8L8@@UAEXIIPAUD3DXCOLOR@@@Z",
+   "length": 208
+  }
+ },
+ "0x8F2D5C": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_A4L4::Encode",
+   "symbol": "?Encode@CD3DXCodec_A4L4@@UAEXIIPAUD3DXCOLOR@@@Z",
+   "length": 200
+  }
+ },
+ "0x8F2E24": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_V8U8::Encode",
+   "symbol": "?Encode@CD3DXCodec_V8U8@@UAEXIIPAUD3DXCOLOR@@@Z",
+   "length": 176
+  }
+ },
+ "0x8F2ED4": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_L6V5U5::Encode",
+   "symbol": "?Encode@CD3DXCodec_L6V5U5@@UAEXIIPAUD3DXCOLOR@@@Z",
+   "length": 223
+  }
+ },
+ "0x8F2FB3": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_X8L8V8U8::Encode",
+   "symbol": "?Encode@CD3DXCodec_X8L8V8U8@@UAEXIIPAUD3DXCOLOR@@@Z",
+   "length": 231
+  }
+ },
+ "0x8F309A": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_Q8W8V8U8::Encode",
+   "symbol": "?Encode@CD3DXCodec_Q8W8V8U8@@UAEXIIPAUD3DXCOLOR@@@Z",
+   "length": 273
+  }
+ },
+ "0x8F31AB": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_V16U16::Encode",
+   "symbol": "?Encode@CD3DXCodec_V16U16@@UAEXIIPAUD3DXCOLOR@@@Z",
+   "length": 177
+  }
+ },
+ "0x8F325C": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_W11V11U10::Encode",
+   "symbol": "?Encode@CD3DXCodec_W11V11U10@@UAEXIIPAUD3DXCOLOR@@@Z",
+   "length": 236
+  }
+ },
+ "0x8F3348": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_R8G8B8::Decode",
+   "symbol": "?Decode@CD3DXCodec_R8G8B8@@UAEXIIPAUD3DXCOLOR@@@Z",
+   "length": 140
+  }
+ },
+ "0x8F33D4": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_A8R8G8B8::Decode",
+   "symbol": "?Decode@CD3DXCodec_A8R8G8B8@@UAEXIIPAUD3DXCOLOR@@@Z",
+   "length": 162
+  }
+ },
+ "0x8F3476": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_X8R8G8B8::Decode",
+   "symbol": "?Decode@CD3DXCodec_X8R8G8B8@@UAEXIIPAUD3DXCOLOR@@@Z",
+   "length": 152
+  }
+ },
+ "0x8F350E": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_R5G6B5::Decode",
+   "symbol": "?Decode@CD3DXCodec_R5G6B5@@UAEXIIPAUD3DXCOLOR@@@Z",
+   "length": 165
+  }
+ },
+ "0x8F35B3": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_X1R5G5B5::Decode",
+   "symbol": "?Decode@CD3DXCodec_X1R5G5B5@@UAEXIIPAUD3DXCOLOR@@@Z",
+   "length": 162
+  }
+ },
+ "0x8F3655": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_A1R5G5B5::Decode",
+   "symbol": "?Decode@CD3DXCodec_A1R5G5B5@@UAEXIIPAUD3DXCOLOR@@@Z",
+   "length": 176
+  }
+ },
+ "0x8F3705": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_A4R4G4B4::Decode",
+   "symbol": "?Decode@CD3DXCodec_A4R4G4B4@@UAEXIIPAUD3DXCOLOR@@@Z",
+   "length": 175
+  }
+ },
+ "0x8F37B4": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_R3G3B2::Decode",
+   "symbol": "?Decode@CD3DXCodec_R3G3B2@@UAEXIIPAUD3DXCOLOR@@@Z",
+   "length": 162
+  }
+ },
+ "0x8F3856": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_A8::Decode",
+   "symbol": "?Decode@CD3DXCodec_A8@@UAEXIIPAUD3DXCOLOR@@@Z",
+   "length": 114
+  }
+ },
+ "0x8F38C8": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_A8R3G3B2::Decode",
+   "symbol": "?Decode@CD3DXCodec_A8R3G3B2@@UAEXIIPAUD3DXCOLOR@@@Z",
+   "length": 178
+  }
+ },
+ "0x8F397A": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_X4R4G4B4::Decode",
+   "symbol": "?Decode@CD3DXCodec_X4R4G4B4@@UAEXIIPAUD3DXCOLOR@@@Z",
+   "length": 159
+  }
+ },
+ "0x8F3A19": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_A8P8::Decode",
+   "symbol": "?Decode@CD3DXCodec_A8P8@@UAEXIIPAUD3DXCOLOR@@@Z",
+   "length": 135
+  }
+ },
+ "0x8F3AA0": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_P8::Decode",
+   "symbol": "?Decode@CD3DXCodec_P8@@UAEXIIPAUD3DXCOLOR@@@Z",
+   "length": 100
+  }
+ },
+ "0x8F3B04": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_L8::Decode",
+   "symbol": "?Decode@CD3DXCodec_L8@@UAEXIIPAUD3DXCOLOR@@@Z",
+   "length": 110
+  }
+ },
+ "0x8F3B72": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_A8L8::Decode",
+   "symbol": "?Decode@CD3DXCodec_A8L8@@UAEXIIPAUD3DXCOLOR@@@Z",
+   "length": 137
+  }
+ },
+ "0x8F3BFB": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_A4L4::Decode",
+   "symbol": "?Decode@CD3DXCodec_A4L4@@UAEXIIPAUD3DXCOLOR@@@Z",
+   "length": 137
+  }
+ },
+ "0x8F3C84": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodecYUV::CD3DXCodecYUV",
+   "symbol": "??0CD3DXCodecYUV@@QAE@PAUD3DX_BLT@@@Z",
+   "length": 209
+  }
+ },
+ "0x8F3D55": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodecYUV::Commit",
+   "symbol": "?Commit@CD3DXCodecYUV@@QAEJXZ",
+   "length": 499
+  }
+ },
+ "0x8F3F48": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodecYUV::Fetch",
+   "symbol": "?Fetch@CD3DXCodecYUV@@QAEJIIH@Z",
+   "length": 721
+  }
+ },
+ "0x8F4219": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodecYUV::Encode",
+   "symbol": "?Encode@CD3DXCodecYUV@@UAEXIIPAUD3DXCOLOR@@@Z",
+   "length": 120
+  }
+ },
+ "0x8F4291": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodecYUV::Decode",
+   "symbol": "?Decode@CD3DXCodecYUV@@UAEXIIPAUD3DXCOLOR@@@Z",
+   "length": 111
+  }
+ },
+ "0x8F4300": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodecDXT::CD3DXCodecDXT",
+   "symbol": "??0CD3DXCodecDXT@@QAE@PAUD3DX_BLT@@@Z",
+   "length": 279
+  }
+ },
+ "0x8F4417": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodecDXT::Commit",
+   "symbol": "?Commit@CD3DXCodecDXT@@QAEJXZ",
+   "length": 813
+  }
+ },
+ "0x8F4744": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodecDXT::Fetch",
+   "symbol": "?Fetch@CD3DXCodecDXT@@QAEJIIH@Z",
+   "length": 679
+  }
+ },
+ "0x8F49EB": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_R8G8B8::CD3DXCodec_R8G8B8",
+   "symbol": "??0CD3DXCodec_R8G8B8@@QAE@PAUD3DX_BLT@@@Z",
+   "length": 28
+  }
+ },
+ "0x8F4A28": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodecDXT::Encode",
+   "symbol": "?Encode@CD3DXCodecDXT@@UAEXIIPAUD3DXCOLOR@@@Z",
+   "length": 134
+  }
+ },
+ "0x8F4AEB": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodecDXT::Decode",
+   "symbol": "?Decode@CD3DXCodecDXT@@UAEXIIPAUD3DXCOLOR@@@Z",
+   "length": 116
+  }
+ },
+ "0x8F4D84": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_A8P8::CD3DXCodec_A8P8",
+   "symbol": "??0CD3DXCodec_A8P8@@QAE@PAUD3DX_BLT@@@Z",
+   "length": 28
+  }
+ },
+ "0x8F4DC1": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_P8::CD3DXCodec_P8",
+   "symbol": "??0CD3DXCodec_P8@@QAE@PAUD3DX_BLT@@@Z",
+   "length": 28
+  }
+ },
+ "0x8F5023": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodecYUV::~CD3DXCodecYUV",
+   "symbol": "??1CD3DXCodecYUV@@UAE@XZ",
+   "length": 69
+  }
+ },
+ "0x8F5068": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodecDXT::~CD3DXCodecDXT",
+   "symbol": "??1CD3DXCodecDXT@@UAE@XZ",
+   "length": 84
+  }
+ },
+ "0x8F5164": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec::Create",
+   "symbol": "?Create@CD3DXCodec@@SAPAV1@PAUD3DX_BLT@@@Z",
+   "length": 1552
+  }
+ },
+ "0x8F5893": {
+  "L": {
+   "object": "0043_jdapimin.obj",
+   "function": "jpeg_CreateDecompress",
+   "symbol": "_jpeg_CreateDecompress",
+   "length": 192
+  }
+ },
+ "0x8F595D": {
+  "L": {
+   "object": "0043_jdapimin.obj",
+   "function": "jpeg_set_marker_processor",
+   "symbol": "_jpeg_set_marker_processor",
+   "length": 93
+  }
+ },
+ "0x8F59BA": {
+  "L": {
+   "object": "0043_jdapimin.obj",
+   "function": "D3DX::default_decompress_parms",
+   "symbol": "?default_decompress_parms@D3DX@@YAXPAUjpeg_decompress_struct@1@@Z",
+   "length": 383
+  }
+ },
+ "0x8F5B39": {
+  "L": {
+   "object": "0043_jdapimin.obj",
+   "function": "jpeg_consume_input",
+   "symbol": "_jpeg_consume_input",
+   "length": 154
+  }
+ },
+ "0x8F5BD3": {
+  "L": {
+   "object": "0043_jdapimin.obj",
+   "function": "jpeg_input_complete",
+   "symbol": "_jpeg_input_complete",
+   "length": 56
+  }
+ },
+ "0x8F5C0B": {
+  "L": {
+   "object": "0043_jdapimin.obj",
+   "function": "jpeg_has_multiple_scans",
+   "symbol": "_jpeg_has_multiple_scans",
+   "length": 56
+  }
+ },
+ "0x8F5C43": {
+  "L": {
+   "object": "0043_jdapimin.obj",
+   "function": "jpeg_finish_decompress",
+   "symbol": "_jpeg_finish_decompress",
+   "length": 161
+  }
+ },
+ "0x8F5CE4": {
+  "L": {
+   "object": "0043_jdapimin.obj",
+   "function": "jpeg_read_header",
+   "symbol": "_jpeg_read_header",
+   "length": 99
+  }
+ },
+ "0x8F5D47": {
+  "L": {
+   "object": "0044_jdapistd.obj",
+   "function": "D3DX::output_pass_setup",
+   "symbol": "?output_pass_setup@D3DX@@YAEPAUjpeg_decompress_struct@1@@Z",
+   "length": 164
+  }
+ },
+ "0x8F5DEB": {
+  "L": {
+   "object": "0044_jdapistd.obj",
+   "function": "jpeg_read_scanlines",
+   "symbol": "_jpeg_read_scanlines",
+   "length": 132
+  }
+ },
+ "0x8F5E6F": {
+  "L": {
+   "object": "0044_jdapistd.obj",
+   "function": "jpeg_read_raw_data",
+   "symbol": "_jpeg_read_raw_data",
+   "length": 159
+  }
+ },
+ "0x8F5F0E": {
+  "L": {
+   "object": "0044_jdapistd.obj",
+   "function": "jpeg_start_output",
+   "symbol": "_jpeg_start_output",
+   "length": 90
+  }
+ },
+ "0x8F5F68": {
+  "L": {
+   "object": "0044_jdapistd.obj",
+   "function": "jpeg_finish_output",
+   "symbol": "_jpeg_finish_output",
+   "length": 125
+  }
+ },
+ "0x8F5FE5": {
+  "L": {
+   "object": "0044_jdapistd.obj",
+   "function": "jpeg_start_decompress",
+   "symbol": "_jpeg_start_decompress",
+   "length": 193
+  }
+ },
+ "0x8F60A6": {
+  "L": {
+   "object": "0051_jdmarker.obj",
+   "function": "D3DX::get_soi",
+   "symbol": "?get_soi@D3DX@@YAEPAUjpeg_decompress_struct@1@@Z",
+   "length": 142
+  }
+ },
+ "0x8F6134": {
+  "L": {
+   "object": "0051_jdmarker.obj",
+   "function": "D3DX::get_sof",
+   "symbol": "?get_sof@D3DX@@YAEPAUjpeg_decompress_struct@1@EE@Z",
+   "length": 763
+  }
+ },
+ "0x8F642F": {
+  "L": {
+   "object": "0051_jdmarker.obj",
+   "function": "D3DX::get_sos",
+   "symbol": "?get_sos@D3DX@@YAEPAUjpeg_decompress_struct@1@@Z",
+   "length": 745
+  }
+ },
+ "0x8F6718": {
+  "L": {
+   "object": "0051_jdmarker.obj",
+   "function": "D3DX::get_app0",
+   "symbol": "?get_app0@D3DX@@YAEPAUjpeg_decompress_struct@1@@Z",
+   "length": 572
+  }
+ },
+ "0x8F6954": {
+  "L": {
+   "object": "0051_jdmarker.obj",
+   "function": "D3DX::get_app14",
+   "symbol": "?get_app14@D3DX@@YAEPAUjpeg_decompress_struct@1@@Z",
+   "length": 378
+  }
+ },
+ "0x8F6ACE": {
+  "L": {
+   "object": "0051_jdmarker.obj",
+   "function": "D3DX::get_dac",
+   "symbol": "?get_dac@D3DX@@YAEPAUjpeg_decompress_struct@1@@Z",
+   "length": 343
+  }
+ },
+ "0x8F6C25": {
+  "L": {
+   "object": "0051_jdmarker.obj",
+   "function": "D3DX::get_dht",
+   "symbol": "?get_dht@D3DX@@YAEPAUjpeg_decompress_struct@1@@Z",
+   "length": 660
+  }
+ },
+ "0x8F6EB9": {
+  "L": {
+   "object": "0051_jdmarker.obj",
+   "function": "D3DX::get_dqt",
+   "symbol": "?get_dqt@D3DX@@YAEPAUjpeg_decompress_struct@1@@Z",
+   "length": 586
+  }
+ },
+ "0x8F7103": {
+  "L": {
+   "object": "0051_jdmarker.obj",
+   "function": "D3DX::get_dri",
+   "symbol": "?get_dri@D3DX@@YAEPAUjpeg_decompress_struct@1@@Z",
+   "length": 223
+  }
+ },
+ "0x8F71E2": {
+  "L": {
+   "object": "0051_jdmarker.obj",
+   "function": "D3DX::skip_variable",
+   "symbol": "?skip_variable@D3DX@@YAEPAUjpeg_decompress_struct@1@@Z",
+   "length": 156
+  }
+ },
+ "0x8F727E": {
+  "L": {
+   "object": "0051_jdmarker.obj",
+   "function": "D3DX::next_marker",
+   "symbol": "?next_marker@D3DX@@YAEPAUjpeg_decompress_struct@1@@Z",
+   "length": 215
+  }
+ },
+ "0x8F7355": {
+  "L": {
+   "object": "0051_jdmarker.obj",
+   "function": "D3DX::first_marker",
+   "symbol": "?first_marker@D3DX@@YAEPAUjpeg_decompress_struct@1@@Z",
+   "length": 152
+  }
+ },
+ "0x8F73ED": {
+  "L": {
+   "object": "0051_jdmarker.obj",
+   "function": "D3DX::read_markers",
+   "symbol": "?read_markers@D3DX@@YAHPAUjpeg_decompress_struct@1@@Z",
+   "length": 500
+  }
+ },
+ "0x8F75E1": {
+  "L": {
+   "object": "0051_jdmarker.obj",
+   "function": "D3DX::read_restart_marker",
+   "symbol": "?read_restart_marker@D3DX@@YAEPAUjpeg_decompress_struct@1@@Z",
+   "length": 126
+  }
+ },
+ "0x8F765F": {
+  "L": {
+   "object": "0051_jdmarker.obj",
+   "function": "jpeg_resync_to_restart",
+   "symbol": "_jpeg_resync_to_restart",
+   "length": 239
+  }
+ },
+ "0x8F774E": {
+  "L": {
+   "object": "0051_jdmarker.obj",
+   "function": "D3DX::reset_marker_reader",
+   "symbol": "?reset_marker_reader@D3DX@@YAXPAUjpeg_decompress_struct@1@@Z",
+   "length": 42
+  }
+ },
+ "0x8F7778": {
+  "L": {
+   "object": "0051_jdmarker.obj",
+   "function": "D3DX::jinit_marker_reader",
+   "symbol": "?jinit_marker_reader@D3DX@@YAXPAUjpeg_decompress_struct@1@@Z",
+   "length": 125
+  }
+ },
+ "0x8F77F5": {
+  "L": {
+   "object": "0058_jerror.obj",
+   "function": "D3DX::error_exit",
+   "symbol": "?error_exit@D3DX@@YAXPAUjpeg_common_struct@1@@Z",
+   "length": 27
+  }
+ },
+ "0x8F782D": {
+  "L": {
+   "object": "0058_jerror.obj",
+   "function": "D3DX::emit_message",
+   "symbol": "?emit_message@D3DX@@YAXPAUjpeg_common_struct@1@H@Z",
+   "length": 49
+  }
+ },
+ "0x8F785E": {
+  "L": {
+   "object": "0058_jerror.obj",
+   "function": "D3DX::format_message",
+   "symbol": "?format_message@D3DX@@YAXPAUjpeg_common_struct@1@PAD@Z",
+   "length": 151
+  }
+ },
+ "0x8F78F5": {
+  "L": {
+   "object": "0058_jerror.obj",
+   "function": "D3DX::reset_error_mgr",
+   "symbol": "?reset_error_mgr@D3DX@@YAXPAUjpeg_common_struct@1@@Z",
+   "length": 17
+  }
+ },
+ "0x8F7906": {
+  "L": {
+   "object": "0058_jerror.obj",
+   "function": "jpeg_std_error",
+   "symbol": "_jpeg_std_error",
+   "length": 76
+  }
+ },
+ "0x8F7952": {
+  "L": {
+   "object": "0094_pngerror.obj",
+   "function": "D3DX::png_format_buffer",
+   "symbol": "?png_format_buffer@D3DX@@YAXPAUpng_struct_def@1@PADPBD@Z",
+   "length": 135
+  }
+ },
+ "0x8F79E5": {
+  "L": {
+   "object": "0094_pngerror.obj",
+   "function": "png_set_error_fn",
+   "symbol": "_png_set_error_fn",
+   "length": 26
+  }
+ },
+ "0x8F7A07": {
+  "L": {
+   "object": "0094_pngerror.obj",
+   "function": "png_error",
+   "symbol": "_png_error",
+   "length": 35
+  }
+ },
+ "0x8F7A2A": {
+  "L": {
+   "object": "0094_pngerror.obj",
+   "function": "png_warning",
+   "symbol": "_png_warning",
+   "length": 21
+  }
+ },
+ "0x8F7A89": {
+  "L": {
+   "object": "0090_pngread.obj",
+   "function": "png_create_read_struct",
+   "symbol": "_png_create_read_struct",
+   "length": 259
+  }
+ },
+ "0x8F7B8C": {
+  "L": {
+   "object": "0090_pngread.obj",
+   "function": "png_read_init",
+   "symbol": "_png_read_init",
+   "length": 192
+  }
+ },
+ "0x8F7C4C": {
+  "L": {
+   "object": "0090_pngread.obj",
+   "function": "png_read_info",
+   "symbol": "_png_read_info",
+   "length": 372
+  }
+ },
+ "0x8F7DC0": {
+  "L": {
+   "object": "0090_pngread.obj",
+   "function": "png_read_update_info",
+   "symbol": "_png_read_update_info",
+   "length": 32
+  }
+ },
+ "0x8F7DE0": {
+  "L": {
+   "object": "0090_pngread.obj",
+   "function": "png_start_read_image",
+   "symbol": "_png_start_read_image",
+   "length": 18
+  }
+ },
+ "0x8F7DF2": {
+  "L": {
+   "object": "0090_pngread.obj",
+   "function": "png_read_row",
+   "symbol": "_png_read_row",
+   "length": 936
+  }
+ },
+ "0x8F819A": {
+  "L": {
+   "object": "0090_pngread.obj",
+   "function": "png_read_rows",
+   "symbol": "_png_read_rows",
+   "length": 122
+  }
+ },
+ "0x8F8214": {
+  "L": {
+   "object": "0090_pngread.obj",
+   "function": "png_read_image",
+   "symbol": "_png_read_image",
+   "length": 77
+  }
+ },
+ "0x8F8261": {
+  "L": {
+   "object": "0090_pngread.obj",
+   "function": "png_read_end",
+   "symbol": "_png_read_end",
+   "length": 256
+  }
+ },
+ "0x8F8361": {
+  "L": {
+   "object": "0090_pngread.obj",
+   "function": "png_read_destroy",
+   "symbol": "_png_read_destroy",
+   "length": 291
+  }
+ },
+ "0x8F8484": {
+  "L": {
+   "object": "0090_pngread.obj",
+   "function": "png_set_read_status_fn",
+   "symbol": "_png_set_read_status_fn",
+   "length": 15
+  }
+ },
+ "0x8F8493": {
+  "L": {
+   "object": "0090_pngread.obj",
+   "function": "png_destroy_read_struct",
+   "symbol": "_png_destroy_read_struct",
+   "length": 129
+  }
+ },
+ "0x8F8514": {
+  "L": {
+   "object": "0089_pngget.obj",
+   "function": "png_get_valid",
+   "symbol": "_png_get_valid",
+   "length": 26
+  }
+ },
+ "0x8F852E": {
+  "L": {
+   "object": "0089_pngget.obj",
+   "function": "png_get_rowbytes",
+   "symbol": "_png_get_rowbytes",
+   "length": 22
+  }
+ },
+ "0x8F8544": {
+  "L": {
+   "object": "0089_pngget.obj",
+   "function": "png_get_channels",
+   "symbol": "_png_get_channels",
+   "length": 22
+  }
+ },
+ "0x8F855A": {
+  "L": {
+   "object": "0089_pngget.obj",
+   "function": "png_get_signature",
+   "symbol": "_png_get_signature",
+   "length": 22
+  }
+ },
+ "0x8F8570": {
+  "L": {
+   "object": "0089_pngget.obj",
+   "function": "png_get_gAMA",
+   "symbol": "_png_get_gAMA",
+   "length": 41
+  }
+ },
+ "0x8F8599": {
+  "L": {
+   "object": "0089_pngget.obj",
+   "function": "png_get_sRGB",
+   "symbol": "_png_get_sRGB",
+   "length": 43
+  }
+ },
+ "0x8F85C4": {
+  "L": {
+   "object": "0089_pngget.obj",
+   "function": "png_get_IHDR",
+   "symbol": "_png_get_IHDR",
+   "length": 209
+  }
+ },
+ "0x8F8695": {
+  "L": {
+   "object": "0089_pngget.obj",
+   "function": "png_get_PLTE",
+   "symbol": "_png_get_PLTE",
+   "length": 51
+  }
+ },
+ "0x8F86C8": {
+  "L": {
+   "object": "0089_pngget.obj",
+   "function": "png_get_tRNS",
+   "symbol": "_png_get_tRNS",
+   "length": 103
+  }
+ },
+ "0x8F8738": {
+  "L": {
+   "object": "0098_pngtrans.obj",
+   "function": "png_set_packing",
+   "symbol": "_png_set_packing",
+   "length": 25
+  }
+ },
+ "0x8F8751": {
+  "L": {
+   "object": "0098_pngtrans.obj",
+   "function": "png_set_shift",
+   "symbol": "_png_set_shift",
+   "length": 25
+  }
+ },
+ "0x8F876A": {
+  "L": {
+   "object": "0098_pngtrans.obj",
+   "function": "png_set_interlace_handling",
+   "symbol": "_png_set_interlace_handling",
+   "length": 25
+  }
+ },
+ "0x8F8783": {
+  "L": {
+   "object": "0098_pngtrans.obj",
+   "function": "png_set_filler",
+   "symbol": "_png_set_filler",
+   "length": 77
+  }
+ },
+ "0x8F87D0": {
+  "L": {
+   "object": "0098_pngtrans.obj",
+   "function": "png_do_bgr",
+   "symbol": "_png_do_bgr",
+   "length": 191
+  }
+ },
+ "0x8F888F": {
+  "L": {
+   "object": "0092_pngrtran.obj",
+   "function": "png_set_crc_action",
+   "symbol": "_png_set_crc_action",
+   "length": 127
+  }
+ },
+ "0x8F8917": {
+  "L": {
+   "object": "0092_pngrtran.obj",
+   "function": "png_set_dither",
+   "symbol": "_png_set_dither",
+   "length": 1619
+  }
+ },
+ "0x8F8F6A": {
+  "L": {
+   "object": "0092_pngrtran.obj",
+   "function": "png_set_gamma",
+   "symbol": "_png_set_gamma",
+   "length": 54
+  }
+ },
+ "0x8F8FC4": {
+  "L": {
+   "object": "0092_pngrtran.obj",
+   "function": "png_read_transform_info",
+   "symbol": "_png_read_transform_info",
+   "length": 235
+  }
+ },
+ "0x8F90AF": {
+  "L": {
+   "object": "0092_pngrtran.obj",
+   "function": "png_do_unpack",
+   "symbol": "_png_do_unpack",
+   "length": 271
+  }
+ },
+ "0x8F91BE": {
+  "L": {
+   "object": "0092_pngrtran.obj",
+   "function": "png_do_unshift",
+   "symbol": "_png_do_unshift",
+   "length": 379
+  }
+ },
+ "0x8F9339": {
+  "L": {
+   "object": "0092_pngrtran.obj",
+   "function": "png_do_chop",
+   "symbol": "_png_do_chop",
+   "length": 68
+  }
+ },
+ "0x8F937D": {
+  "L": {
+   "object": "0092_pngrtran.obj",
+   "function": "png_do_read_filler",
+   "symbol": "_png_do_read_filler",
+   "length": 567
+  }
+ },
+ "0x8F95B4": {
+  "L": {
+   "object": "0092_pngrtran.obj",
+   "function": "png_build_grayscale_palette",
+   "symbol": "_png_build_grayscale_palette",
+   "length": 96
+  }
+ },
+ "0x8F9614": {
+  "L": {
+   "object": "0092_pngrtran.obj",
+   "function": "png_do_gamma",
+   "symbol": "_png_do_gamma",
+   "length": 882
+  }
+ },
+ "0x8F9986": {
+  "L": {
+   "object": "0092_pngrtran.obj",
+   "function": "png_do_expand_palette",
+   "symbol": "_png_do_expand_palette",
+   "length": 519
+  }
+ },
+ "0x8F9B8D": {
+  "L": {
+   "object": "0092_pngrtran.obj",
+   "function": "png_do_expand",
+   "symbol": "_png_do_expand",
+   "length": 851
+  }
+ },
+ "0x8F9EE0": {
+  "L": {
+   "object": "0092_pngrtran.obj",
+   "function": "png_do_dither",
+   "symbol": "_png_do_dither",
+   "length": 269
+  }
+ },
+ "0x8F9FED": {
+  "L": {
+   "object": "0092_pngrtran.obj",
+   "function": "png_build_gamma_table",
+   "symbol": "_png_build_gamma_table",
+   "length": 767
+  }
+ },
+ "0x8FA2EC": {
+  "L": {
+   "object": "0092_pngrtran.obj",
+   "function": "png_init_read_transformations",
+   "symbol": "_png_init_read_transformations",
+   "length": 277
+  }
+ },
+ "0x8FA401": {
+  "L": {
+   "object": "0092_pngrtran.obj",
+   "function": "png_do_read_transformations",
+   "symbol": "_png_do_read_transformations",
+   "length": 412
+  }
+ },
+ "0x8FA59D": {
+  "L": {
+   "object": "0088_pngset.obj",
+   "function": "png_set_gAMA",
+   "symbol": "_png_set_gAMA",
+   "length": 27
+  }
+ },
+ "0x8FA5B8": {
+  "L": {
+   "object": "0088_pngset.obj",
+   "function": "png_set_IHDR",
+   "symbol": "_png_set_IHDR",
+   "length": 162
+  }
+ },
+ "0x8FA65A": {
+  "L": {
+   "object": "0088_pngset.obj",
+   "function": "png_set_PLTE",
+   "symbol": "_png_set_PLTE",
+   "length": 36
+  }
+ },
+ "0x8FA67E": {
+  "L": {
+   "object": "0088_pngset.obj",
+   "function": "png_set_sRGB",
+   "symbol": "_png_set_sRGB",
+   "length": 27
+  }
+ },
+ "0x8FA699": {
+  "L": {
+   "object": "0088_pngset.obj",
+   "function": "png_set_sRGB_gAMA_and_cHRM",
+   "symbol": "_png_set_sRGB_gAMA_and_cHRM",
+   "length": 57
+  }
+ },
+ "0x8FA6D2": {
+  "L": {
+   "object": "0088_pngset.obj",
+   "function": "png_set_tRNS",
+   "symbol": "_png_set_tRNS",
+   "length": 71
+  }
+ },
+ "0x8FA719": {
+  "L": {
+   "object": "0088_pngset.obj",
+   "function": "png_permit_empty_plte",
+   "symbol": "_png_permit_empty_plte",
+   "length": 19
+  }
+ },
+ "0x8FA72C": {
+  "L": {
+   "object": "0096_pngrio.obj",
+   "function": "png_read_data",
+   "symbol": "_png_read_data",
+   "length": 40
+  }
+ },
+ "0x8FA754": {
+  "L": {
+   "object": "0096_pngrio.obj",
+   "function": "png_set_read_fn",
+   "symbol": "_png_set_read_fn",
+   "length": 63
+  }
+ },
+ "0x8FA799": {
+  "L": {
+   "object": "0087_png.obj",
+   "function": "png_set_sig_bytes",
+   "symbol": "_png_set_sig_bytes",
+   "length": 45
+  }
+ },
+ "0x8FA7C6": {
+  "L": {
+   "object": "0087_png.obj",
+   "function": "png_sig_cmp",
+   "symbol": "_png_sig_cmp",
+   "length": 72
+  }
+ },
+ "0x8FA80E": {
+  "L": {
+   "object": "0087_png.obj",
+   "function": "png_check_sig",
+   "symbol": "_png_check_sig",
+   "length": 24
+  }
+ },
+ "0x8FA826": {
+  "L": {
+   "object": "0087_png.obj",
+   "function": "png_zalloc",
+   "symbol": "_png_zalloc",
+   "length": 83
+  }
+ },
+ "0x8FA87E": {
+  "L": {
+   "object": "0087_png.obj",
+   "function": "png_reset_crc",
+   "symbol": "_png_reset_crc",
+   "length": 24
+  }
+ },
+ "0x8FA896": {
+  "L": {
+   "object": "0087_png.obj",
+   "function": "png_calculate_crc",
+   "symbol": "_png_calculate_crc",
+   "length": 63
+  }
+ },
+ "0x8FA8D5": {
+  "L": {
+   "object": "0087_png.obj",
+   "function": "png_info_init",
+   "symbol": "_png_info_init",
+   "length": 14
+  }
+ },
+ "0x8FA8FD": {
+  "L": {
+   "object": "0087_png.obj",
+   "function": "png_create_info_struct",
+   "symbol": "_png_create_info_struct",
+   "length": 34
+  }
+ },
+ "0x8FA91F": {
+  "L": {
+   "object": "0087_png.obj",
+   "function": "png_destroy_info_struct",
+   "symbol": "_png_destroy_info_struct",
+   "length": 39
+  }
+ },
+ "0x8FA946": {
+  "L": {
+   "object": "0005_cd3dxtext.obj",
+   "function": "CD3DXText::CD3DXText",
+   "symbol": "??0CD3DXText@@IAE@XZ",
+   "length": 63
+  }
+ },
+ "0x8FA985": {
+  "L": {
+   "object": "0005_cd3dxtext.obj",
+   "function": "CD3DXText::~CD3DXText",
+   "symbol": "??1CD3DXText@@IAE@XZ",
+   "length": 203
+  }
+ },
+ "0x8FAA6F": {
+  "L": {
+   "object": "0005_cd3dxtext.obj",
+   "function": "CD3DXText::Initialize",
+   "symbol": "?Initialize@CD3DXText@@IAEJPAUIDirect3DDevice8@@@Z",
+   "length": 442
+  }
+ },
+ "0x8FAC29": {
+  "L": {
+   "object": "0005_cd3dxtext.obj",
+   "function": "CD3DXText::Begin",
+   "symbol": "?Begin@CD3DXText@@QAEJXZ",
+   "length": 66
+  }
+ },
+ "0x8FAC6B": {
+  "L": {
+   "object": "0005_cd3dxtext.obj",
+   "function": "CD3DXText::End",
+   "symbol": "?End@CD3DXText@@QAEJXZ",
+   "length": 48
+  }
+ },
+ "0x8FAC9B": {
+  "L": {
+   "object": "0005_cd3dxtext.obj",
+   "function": "CD3DXText::Release",
+   "symbol": "?Release@CD3DXText@@QAEXXZ",
+   "length": 21
+  }
+ },
+ "0x8FACB0": {
+  "L": {
+   "object": "0005_cd3dxtext.obj",
+   "function": "CD3DXText::Create",
+   "symbol": "?Create@CD3DXText@@SAJPAUIDirect3DDevice8@@PAPAV1@@Z",
+   "length": 124
+  }
+ },
+ "0x8FAD2C": {
+  "L": {
+   "object": "0005_cd3dxtext.obj",
+   "function": "CD3DXText::DrawTextAW",
+   "symbol": "?DrawTextAW@CD3DXText@@QAEHPAUHFONT__@@PBXHPAUtagRECT@@KKH@Z",
+   "length": 1434
+  }
+ },
+ "0x8FB2E4": {
+  "L": {
+   "object": "0011_cd3dxstack.obj",
+   "function": "CD3DXDwStack::Push",
+   "symbol": "?Push@CD3DXDwStack@@QAEJK@Z",
+   "length": 110
+  }
+ },
+ "0x8FB39E": {
+  "L": {
+   "object": "0011_cd3dxstack.obj",
+   "function": "CD3DXSzStack::~CD3DXSzStack",
+   "symbol": "??1CD3DXSzStack@@QAE@XZ",
+   "length": 49
+  }
+ },
+ "0x8FB3CF": {
+  "L": {
+   "object": "0011_cd3dxstack.obj",
+   "function": "CD3DXSzStack::Push",
+   "symbol": "?Push@CD3DXSzStack@@QAEJPAD@Z",
+   "length": 175
+  }
+ },
+ "0x8FB4BA": {
+  "L": {
+   "object": "0007_cd3dxbuffer.obj",
+   "function": "CD3DXBuffer::~CD3DXBuffer",
+   "symbol": "??1CD3DXBuffer@@QAE@XZ",
+   "length": 21
+  }
+ },
+ "0x8FB4CF": {
+  "L": {
+   "object": "0007_cd3dxbuffer.obj",
+   "function": "CD3DXBuffer::Init",
+   "symbol": "?Init@CD3DXBuffer@@QAEJK@Z",
+   "length": 38
+  }
+ },
+ "0x8FB516": {
+  "L": {
+   "object": "0007_cd3dxbuffer.obj",
+   "function": "CD3DXBuffer::Grow",
+   "symbol": "?Grow@CD3DXBuffer@@IAEJK@Z",
+   "length": 85
+  }
+ },
+ "0x8FB56B": {
+  "L": {
+   "object": "0007_cd3dxbuffer.obj",
+   "function": "CD3DXStringBuffer::Init",
+   "symbol": "?Init@CD3DXStringBuffer@@QAEJK@Z",
+   "length": 36
+  }
+ },
+ "0x8FB594": {
+  "L": {
+   "object": "0007_cd3dxbuffer.obj",
+   "function": "CD3DXStringBuffer::AddString",
+   "symbol": "?AddString@CD3DXStringBuffer@@QAEJPAD@Z",
+   "length": 255
+  }
+ },
+ "0x8FB722": {
+  "L": {
+   "object": "0007_cd3dxbuffer.obj",
+   "function": "CD3DXBuffer::CD3DXBuffer",
+   "symbol": "??0CD3DXBuffer@@QAE@XZ",
+   "length": 24
+  }
+ },
+ "0x8FB73A": {
+  "L": {
+   "object": "0007_cd3dxbuffer.obj",
+   "function": "CD3DXStringBuffer::CD3DXStringBuffer",
+   "symbol": "??0CD3DXStringBuffer@@QAE@XZ",
+   "length": 22
+  }
+ },
+ "0x8FB750": {
+  "L": {
+   "object": "0007_cd3dxbuffer.obj",
+   "function": "D3DXCreateStringBuffer",
+   "symbol": "?D3DXCreateStringBuffer@@YAJKPAPAVCD3DXStringBuffer@@@Z",
+   "length": 86
+  }
+ },
+ "0x8FB7A6": {
+  "L": {
+   "object": "0041_s3tchelp.obj",
+   "function": "XXEncodeBlockRGB",
+   "symbol": "?XXEncodeBlockRGB@@YAXQAUS3TC_COLOR@@PAUS3TCBlockRGB@@@Z",
+   "length": 105
+  }
+ },
+ "0x8FB80F": {
+  "L": {
+   "object": "0041_s3tchelp.obj",
+   "function": "XXDecodeBlockRGB",
+   "symbol": "?XXDecodeBlockRGB@@YAXPAUS3TCBlockRGB@@QAUS3TC_COLOR@@@Z",
+   "length": 38
+  }
+ },
+ "0x8FB835": {
+  "L": {
+   "object": "0040_s3tc.obj",
+   "function": "ColorToFcolor",
+   "symbol": "?ColorToFcolor@@YAXPAUS3TC_COLOR@@PAUFCOLOR@@@Z",
+   "length": 50
+  }
+ },
+ "0x8FB867": {
+  "L": {
+   "object": "0040_s3tc.obj",
+   "function": "FcolorToColor",
+   "symbol": "?FcolorToColor@@YAXPAUFCOLOR@@PAUS3TC_COLOR@@@Z",
+   "length": 53
+  }
+ },
+ "0x8FB89C": {
+  "L": {
+   "object": "0040_s3tc.obj",
+   "function": "ColorToRGB",
+   "symbol": "?ColorToRGB@@YAXPAUS3TC_COLOR@@PAG@Z",
+   "length": 48
+  }
+ },
+ "0x8FB8CC": {
+  "L": {
+   "object": "0040_s3tc.obj",
+   "function": "RGBToColor",
+   "symbol": "?RGBToColor@@YAXPAGPAUS3TC_COLOR@@@Z",
+   "length": 77
+  }
+ },
+ "0x8FB919": {
+  "L": {
+   "object": "0040_s3tc.obj",
+   "function": "Square3x3",
+   "symbol": "?Square3x3@@YAXQAY02M0@Z",
+   "length": 159
+  }
+ },
+ "0x8FB9B8": {
+  "L": {
+   "object": "0040_s3tc.obj",
+   "function": "Quantize",
+   "symbol": "?Quantize@@YAXPAUFCOLOR@@0PAUS3TCBlockRGB@@H@Z",
+   "length": 139
+  }
+ },
+ "0x8FBA43": {
+  "L": {
+   "object": "0040_s3tc.obj",
+   "function": "ClipExtrema",
+   "symbol": "?ClipExtrema@@YAXPAUFCOLOR@@0@Z",
+   "length": 306
+  }
+ },
+ "0x8FBB75": {
+  "L": {
+   "object": "0040_s3tc.obj",
+   "function": "AllSame",
+   "symbol": "?AllSame@@YAXPAUS3TC_COLOR@@PAUS3TCBlockRGB@@G@Z",
+   "length": 97
+  }
+ },
+ "0x8FBBD6": {
+  "L": {
+   "object": "0040_s3tc.obj",
+   "function": "EncodeBlockRGBColorKey",
+   "symbol": "?EncodeBlockRGBColorKey@@YAXQAUS3TC_COLOR@@PAUS3TCBlockRGB@@U1@2@Z",
+   "length": 1175
+  }
+ },
+ "0x8FC06D": {
+  "L": {
+   "object": "0040_s3tc.obj",
+   "function": "DecodeBlockRGB",
+   "symbol": "?DecodeBlockRGB@@YAXPAUS3TCBlockRGB@@QAUS3TC_COLOR@@@Z",
+   "length": 233
+  }
+ },
+ "0x8FC156": {
+  "L": {
+   "object": "0040_s3tc.obj",
+   "function": "DecodeBlockAlpha4",
+   "symbol": "?DecodeBlockAlpha4@@YAXPAUS3TCBlockAlpha4@@QAUS3TC_COLOR@@@Z",
+   "length": 78
+  }
+ },
+ "0x8FC1A4": {
+  "L": {
+   "object": "0040_s3tc.obj",
+   "function": "DecodeBlockAlpha3",
+   "symbol": "?DecodeBlockAlpha3@@YAXPAUS3TCBlockAlpha3@@QAUS3TC_COLOR@@@Z",
+   "length": 256
+  }
+ },
+ "0x8FC2A4": {
+  "L": {
+   "object": "0040_s3tc.obj",
+   "function": "EncodeBlockRGB",
+   "symbol": "?EncodeBlockRGB@@YAXQAUS3TC_COLOR@@PAUS3TCBlockRGB@@@Z",
+   "length": 50
+  }
+ },
+ "0x8FC2D6": {
+  "L": {
+   "object": "0040_s3tc.obj",
+   "function": "EncodeBlockAlpha4",
+   "symbol": "?EncodeBlockAlpha4@@YAXQAUS3TC_COLOR@@PAUS3TCBlockAlpha4@@@Z",
+   "length": 89
+  }
+ },
+ "0x8FC32F": {
+  "L": {
+   "object": "0040_s3tc.obj",
+   "function": "EncodeBlockAlpha3",
+   "symbol": "?EncodeBlockAlpha3@@YAXQAUS3TC_COLOR@@PAUS3TCBlockAlpha3@@@Z",
+   "length": 342
+  }
+ },
+ "0x8FC485": {
+  "L": {
+   "object": "0067_jutils.obj",
+   "function": "D3DX::jdiv_round_up",
+   "symbol": "?jdiv_round_up@D3DX@@YAJJJ@Z",
+   "length": 16
+  }
+ },
+ "0x8FC495": {
+  "L": {
+   "object": "0067_jutils.obj",
+   "function": "D3DX::jround_up",
+   "symbol": "?jround_up@D3DX@@YAJJJ@Z",
+   "length": 24
+  }
+ },
+ "0x8FC4AD": {
+  "L": {
+   "object": "0067_jutils.obj",
+   "function": "D3DX::jcopy_sample_rows",
+   "symbol": "?jcopy_sample_rows@D3DX@@YAXPAPAEH0HHI@Z",
+   "length": 71
+  }
+ },
+ "0x8FC4F4": {
+  "L": {
+   "object": "0067_jutils.obj",
+   "function": "D3DX::jcopy_block_row",
+   "symbol": "?jcopy_block_row@D3DX@@YAXPAY0EA@F0I@Z",
+   "length": 34
+  }
+ },
+ "0x8FC516": {
+  "L": {
+   "object": "0067_jutils.obj",
+   "function": "D3DX::jzero_far",
+   "symbol": "?jzero_far@D3DX@@YAXPAXI@Z",
+   "length": 27
+  }
+ },
+ "0x8FC531": {
+  "L": {
+   "object": "0067_jutils.obj",
+   "function": "D3DX::IsMMX",
+   "symbol": "?IsMMX@D3DX@@YAHXZ",
+   "length": 49
+  }
+ },
+ "0x8FC562": {
+  "L": {
+   "object": "0049_jdinput.obj",
+   "function": "D3DX::initial_setup",
+   "symbol": "?initial_setup@D3DX@@YAXPAUjpeg_decompress_struct@1@@Z",
+   "length": 443
+  }
+ },
+ "0x8FC71D": {
+  "L": {
+   "object": "0049_jdinput.obj",
+   "function": "D3DX::per_scan_setup",
+   "symbol": "?per_scan_setup@D3DX@@YAXPAUjpeg_decompress_struct@1@@Z",
+   "length": 374
+  }
+ },
+ "0x8FC893": {
+  "L": {
+   "object": "0049_jdinput.obj",
+   "function": "D3DX::latch_quant_tables",
+   "symbol": "?latch_quant_tables@D3DX@@YAXPAUjpeg_decompress_struct@1@@Z",
+   "length": 146
+  }
+ },
+ "0x8FC925": {
+  "L": {
+   "object": "0049_jdinput.obj",
+   "function": "D3DX::start_input_pass",
+   "symbol": "?start_input_pass@D3DX@@YAXPAUjpeg_decompress_struct@1@@Z",
+   "length": 58
+  }
+ },
+ "0x8FC95F": {
+  "L": {
+   "object": "0049_jdinput.obj",
+   "function": "D3DX::consume_markers",
+   "symbol": "?consume_markers@D3DX@@YAHPAUjpeg_decompress_struct@1@@Z",
+   "length": 147
+  }
+ },
+ "0x8FC9F2": {
+  "L": {
+   "object": "0049_jdinput.obj",
+   "function": "D3DX::reset_input_controller",
+   "symbol": "?reset_input_controller@D3DX@@YAXPAUjpeg_decompress_struct@1@@Z",
+   "length": 55
+  }
+ },
+ "0x8FCA29": {
+  "L": {
+   "object": "0049_jdinput.obj",
+   "function": "D3DX::finish_input_pass",
+   "symbol": "?finish_input_pass@D3DX@@YAXPAUjpeg_decompress_struct@1@@Z",
+   "length": 17
+  }
+ },
+ "0x8FCA3A": {
+  "L": {
+   "object": "0049_jdinput.obj",
+   "function": "D3DX::jinit_input_controller",
+   "symbol": "?jinit_input_controller@D3DX@@YAXPAUjpeg_decompress_struct@1@@Z",
+   "length": 65
+  }
+ },
+ "0x8FCA7B": {
+  "L": {
+   "object": "0063_jmemmgr.obj",
+   "function": "D3DX::out_of_memory",
+   "symbol": "?out_of_memory@D3DX@@YAXPAUjpeg_common_struct@1@H@Z",
+   "length": 21
+  }
+ },
+ "0x8FCA90": {
+  "L": {
+   "object": "0063_jmemmgr.obj",
+   "function": "D3DX::alloc_small",
+   "symbol": "?alloc_small@D3DX@@YAPAXPAUjpeg_common_struct@1@HI@Z",
+   "length": 252
+  }
+ },
+ "0x8FCB8C": {
+  "L": {
+   "object": "0063_jmemmgr.obj",
+   "function": "D3DX::alloc_large",
+   "symbol": "?alloc_large@D3DX@@YAPAXPAUjpeg_common_struct@1@HI@Z",
+   "length": 142
+  }
+ },
+ "0x8FCC1A": {
+  "L": {
+   "object": "0063_jmemmgr.obj",
+   "function": "D3DX::alloc_sarray",
+   "symbol": "?alloc_sarray@D3DX@@YAPAPAEPAUjpeg_common_struct@1@HII@Z",
+   "length": 146
+  }
+ },
+ "0x8FCCAC": {
+  "L": {
+   "object": "0063_jmemmgr.obj",
+   "function": "D3DX::alloc_barray",
+   "symbol": "?alloc_barray@D3DX@@YAPAPAY0EA@FPAUjpeg_common_struct@1@HII@Z",
+   "length": 158
+  }
+ },
+ "0x8FCD4A": {
+  "L": {
+   "object": "0063_jmemmgr.obj",
+   "function": "D3DX::request_virt_sarray",
+   "symbol": "?request_virt_sarray@D3DX@@YAPAUjvirt_sarray_control@1@PAUjpeg_common_struct@1@HEIII@Z",
+   "length": 97
+  }
+ },
+ "0x8FCDAB": {
+  "L": {
+   "object": "0063_jmemmgr.obj",
+   "function": "D3DX::request_virt_barray",
+   "symbol": "?request_virt_barray@D3DX@@YAPAUjvirt_barray_control@1@PAUjpeg_common_struct@1@HEIII@Z",
+   "length": 97
+  }
+ },
+ "0x8FCE0C": {
+  "L": {
+   "object": "0063_jmemmgr.obj",
+   "function": "D3DX::realize_virt_arrays",
+   "symbol": "?realize_virt_arrays@D3DX@@YAXPAUjpeg_common_struct@1@@Z",
+   "length": 383
+  }
+ },
+ "0x8FCF8B": {
+  "L": {
+   "object": "0063_jmemmgr.obj",
+   "function": "D3DX::do_sarray_io",
+   "symbol": "?do_sarray_io@D3DX@@YAXPAUjpeg_common_struct@1@PAUjvirt_sarray_control@1@E@Z",
+   "length": 136
+  }
+ },
+ "0x8FD013": {
+  "L": {
+   "object": "0063_jmemmgr.obj",
+   "function": "D3DX::do_barray_io",
+   "symbol": "?do_barray_io@D3DX@@YAXPAUjpeg_common_struct@1@PAUjvirt_barray_control@1@E@Z",
+   "length": 139
+  }
+ },
+ "0x8FD09E": {
+  "L": {
+   "object": "0063_jmemmgr.obj",
+   "function": "D3DX::access_virt_sarray",
+   "symbol": "?access_virt_sarray@D3DX@@YAPAPAEPAUjpeg_common_struct@1@PAUjvirt_sarray_control@1@IIE@Z",
+   "length": 286
+  }
+ },
+ "0x8FD1BC": {
+  "L": {
+   "object": "0063_jmemmgr.obj",
+   "function": "D3DX::access_virt_barray",
+   "symbol": "?access_virt_barray@D3DX@@YAPAPAY0EA@FPAUjpeg_common_struct@1@PAUjvirt_barray_control@1@IIE@Z",
+   "length": 291
+  }
+ },
+ "0x8FD2DF": {
+  "L": {
+   "object": "0063_jmemmgr.obj",
+   "function": "D3DX::free_pool",
+   "symbol": "?free_pool@D3DX@@YAXPAUjpeg_common_struct@1@H@Z",
+   "length": 225
+  }
+ },
+ "0x8FD3C0": {
+  "L": {
+   "object": "0063_jmemmgr.obj",
+   "function": "D3DX::self_destruct",
+   "symbol": "?self_destruct@D3DX@@YAXPAUjpeg_common_struct@1@@Z",
+   "length": 48
+  }
+ },
+ "0x8FD3F0": {
+  "L": {
+   "object": "0063_jmemmgr.obj",
+   "function": "D3DX::jinit_memory_mgr",
+   "symbol": "?jinit_memory_mgr@D3DX@@YAXPAUjpeg_common_struct@1@@Z",
+   "length": 180
+  }
+ },
+ "0x8FD4A4": {
+  "L": {
+   "object": "0042_jcomapi.obj",
+   "function": "jpeg_abort",
+   "symbol": "_jpeg_abort",
+   "length": 34
+  }
+ },
+ "0x8FD4C6": {
+  "L": {
+   "object": "0042_jcomapi.obj",
+   "function": "jpeg_destroy",
+   "symbol": "_jpeg_destroy",
+   "length": 27
+  }
+ },
+ "0x8FD4E1": {
+  "L": {
+   "object": "0042_jcomapi.obj",
+   "function": "jpeg_alloc_quant_table",
+   "symbol": "_jpeg_alloc_quant_table",
+   "length": 28
+  }
+ },
+ "0x8FD4FD": {
+  "L": {
+   "object": "0042_jcomapi.obj",
+   "function": "jpeg_alloc_huff_table",
+   "symbol": "_jpeg_alloc_huff_table",
+   "length": 28
+  }
+ },
+ "0x8FD519": {
+  "L": {
+   "object": "0052_jdmaster.obj",
+   "function": "D3DX::use_merged_upsample",
+   "symbol": "?use_merged_upsample@D3DX@@YAEPAUjpeg_decompress_struct@1@@Z",
+   "length": 113
+  }
+ },
+ "0x8FD58A": {
+  "L": {
+   "object": "0052_jdmaster.obj",
+   "function": "jpeg_calc_output_dimensions",
+   "symbol": "_jpeg_calc_output_dimensions",
+   "length": 495
+  }
+ },
+ "0x8FD779": {
+  "L": {
+   "object": "0052_jdmaster.obj",
+   "function": "D3DX::prepare_range_limit_table",
+   "symbol": "?prepare_range_limit_table@D3DX@@YAXPAUjpeg_decompress_struct@1@@Z",
+   "length": 111
+  }
+ },
+ "0x8FD7E8": {
+  "L": {
+   "object": "0052_jdmaster.obj",
+   "function": "D3DX::master_selection",
+   "symbol": "?master_selection@D3DX@@YAXPAUjpeg_decompress_struct@1@@Z",
+   "length": 429
+  }
+ },
+ "0x8FD995": {
+  "L": {
+   "object": "0052_jdmaster.obj",
+   "function": "D3DX::prepare_for_output_pass",
+   "symbol": "?prepare_for_output_pass@D3DX@@YAXPAUjpeg_decompress_struct@1@@Z",
+   "length": 301
+  }
+ },
+ "0x8FDAC2": {
+  "L": {
+   "object": "0052_jdmaster.obj",
+   "function": "D3DX::finish_output_pass",
+   "symbol": "?finish_output_pass@D3DX@@YAXPAUjpeg_decompress_struct@1@@Z",
+   "length": 33
+  }
+ },
+ "0x8FDAE3": {
+  "L": {
+   "object": "0052_jdmaster.obj",
+   "function": "jpeg_new_colormap",
+   "symbol": "_jpeg_new_colormap",
+   "length": 99
+  }
+ },
+ "0x8FDB46": {
+  "L": {
+   "object": "0052_jdmaster.obj",
+   "function": "D3DX::jinit_master_decompress",
+   "symbol": "?jinit_master_decompress@D3DX@@YAXPAUjpeg_decompress_struct@1@@Z",
+   "length": 48
+  }
+ },
+ "0x8FDB76": {
+  "L": {
+   "object": "0110_inflate.obj",
+   "function": "inflateReset",
+   "symbol": "_inflateReset",
+   "length": 63
+  }
+ },
+ "0x8FDBB5": {
+  "L": {
+   "object": "0110_inflate.obj",
+   "function": "inflateEnd",
+   "symbol": "_inflateEnd",
+   "length": 62
+  }
+ },
+ "0x8FDBF3": {
+  "L": {
+   "object": "0110_inflate.obj",
+   "function": "inflateInit2_",
+   "symbol": "_inflateInit2_",
+   "length": 229
+  }
+ },
+ "0x8FDCD8": {
+  "L": {
+   "object": "0110_inflate.obj",
+   "function": "inflateInit_",
+   "symbol": "_inflateInit_",
+   "length": 23
+  }
+ },
+ "0x8FDCEF": {
+  "L": {
+   "object": "0110_inflate.obj",
+   "function": "inflate",
+   "symbol": "_inflate",
+   "length": 865
+  }
+ },
+ "0x8FE050": {
+  "L": {
+   "object": "0110_inflate.obj",
+   "function": "inflateSetDictionary",
+   "symbol": "_inflateSetDictionary",
+   "length": 121
+  }
+ },
+ "0x8FE0C9": {
+  "L": {
+   "object": "0110_inflate.obj",
+   "function": "inflateSync",
+   "symbol": "_inflateSync",
+   "length": 174
+  }
+ },
+ "0x8FE177": {
+  "L": {
+   "object": "0110_inflate.obj",
+   "function": "inflateSyncPoint",
+   "symbol": "_inflateSyncPoint",
+   "length": 34
+  }
+ },
+ "0x8FE199": {
+  "L": {
+   "object": "0095_pngmem.obj",
+   "function": "png_create_struct",
+   "symbol": "_png_create_struct",
+   "length": 66
+  }
+ },
+ "0x8FE1E8": {
+  "L": {
+   "object": "0095_pngmem.obj",
+   "function": "png_malloc",
+   "symbol": "_png_malloc",
+   "length": 54
+  }
+ },
+ "0x8FE21E": {
+  "L": {
+   "object": "0095_pngmem.obj",
+   "function": "png_free",
+   "symbol": "_png_free",
+   "length": 25
+  }
+ },
+ "0x8FE237": {
+  "L": {
+   "object": "0095_pngmem.obj",
+   "function": "png_memcpy_check",
+   "symbol": "_png_memcpy_check",
+   "length": 35
+  }
+ },
+ "0x8FE25A": {
+  "L": {
+   "object": "0095_pngmem.obj",
+   "function": "png_memset_check",
+   "symbol": "_png_memset_check",
+   "length": 51
+  }
+ },
+ "0x8FE28D": {
+  "L": {
+   "object": "0093_pngrutil.obj",
+   "function": "png_get_uint_32",
+   "symbol": "_png_get_uint_32",
+   "length": 35
+  }
+ },
+ "0x8FE2B0": {
+  "L": {
+   "object": "0093_pngrutil.obj",
+   "function": "png_get_uint_16",
+   "symbol": "_png_get_uint_16",
+   "length": 19
+  }
+ },
+ "0x8FE2C3": {
+  "L": {
+   "object": "0093_pngrutil.obj",
+   "function": "png_crc_read",
+   "symbol": "_png_crc_read",
+   "length": 36
+  }
+ },
+ "0x8FE2E7": {
+  "L": {
+   "object": "0093_pngrutil.obj",
+   "function": "png_crc_error",
+   "symbol": "_png_crc_error",
+   "length": 94
+  }
+ },
+ "0x8FE345": {
+  "L": {
+   "object": "0093_pngrutil.obj",
+   "function": "png_check_chunk_name",
+   "symbol": "_png_check_chunk_name",
+   "length": 98
+  }
+ },
+ "0x8FE3A7": {
+  "L": {
+   "object": "0093_pngrutil.obj",
+   "function": "png_combine_row",
+   "symbol": "_png_combine_row",
+   "length": 532
+  }
+ },
+ "0x8FE5BB": {
+  "L": {
+   "object": "0093_pngrutil.obj",
+   "function": "png_do_read_interlace",
+   "symbol": "_png_do_read_interlace",
+   "length": 713
+  }
+ },
+ "0x8FE884": {
+  "L": {
+   "object": "0093_pngrutil.obj",
+   "function": "png_read_filter_row",
+   "symbol": "_png_read_filter_row",
+   "length": 377
+  }
+ },
+ "0x8FE9FD": {
+  "L": {
+   "object": "0093_pngrutil.obj",
+   "function": "png_read_start_row",
+   "symbol": "_png_read_start_row",
+   "length": 412
+  }
+ },
+ "0x8FEB99": {
+  "L": {
+   "object": "0093_pngrutil.obj",
+   "function": "png_crc_finish",
+   "symbol": "_png_crc_finish",
+   "length": 140
+  }
+ },
+ "0x8FEC25": {
+  "L": {
+   "object": "0093_pngrutil.obj",
+   "function": "png_handle_IHDR",
+   "symbol": "_png_handle_IHDR",
+   "length": 503
+  }
+ },
+ "0x8FEE1C": {
+  "L": {
+   "object": "0093_pngrutil.obj",
+   "function": "png_handle_PLTE",
+   "symbol": "_png_handle_PLTE",
+   "length": 297
+  }
+ },
+ "0x8FEF45": {
+  "L": {
+   "object": "0093_pngrutil.obj",
+   "function": "png_handle_IEND",
+   "symbol": "_png_handle_IEND",
+   "length": 74
+  }
+ },
+ "0x8FEF8F": {
+  "L": {
+   "object": "0093_pngrutil.obj",
+   "function": "png_handle_gAMA",
+   "symbol": "_png_handle_gAMA",
+   "length": 256
+  }
+ },
+ "0x8FF08F": {
+  "L": {
+   "object": "0093_pngrutil.obj",
+   "function": "png_handle_sRGB",
+   "symbol": "_png_handle_sRGB",
+   "length": 239
+  }
+ },
+ "0x8FF17E": {
+  "L": {
+   "object": "0093_pngrutil.obj",
+   "function": "png_handle_tRNS",
+   "symbol": "_png_handle_tRNS",
+   "length": 409
+  }
+ },
+ "0x8FF317": {
+  "L": {
+   "object": "0093_pngrutil.obj",
+   "function": "png_handle_unknown",
+   "symbol": "_png_handle_unknown",
+   "length": 74
+  }
+ },
+ "0x8FF361": {
+  "L": {
+   "object": "0093_pngrutil.obj",
+   "function": "png_read_finish_row",
+   "symbol": "_png_read_finish_row",
+   "length": 549
+  }
+ },
+ "0x8FF58C": {
+  "L": {
+   "object": "0104_crc32.obj",
+   "function": "crc32",
+   "symbol": "_crc32",
+   "length": 265
+  }
+ },
+ "0x8FF6C6": {
+  "L": {
+   "object": "0064_jmemnobs.obj",
+   "function": "D3DX::jpeg_open_backing_store",
+   "symbol": "?jpeg_open_backing_store@D3DX@@YAXPAUjpeg_common_struct@1@PAUbacking_store_struct@1@J@Z",
+   "length": 20
+  }
+ },
+ "0x8FF6DE": {
+  "L": {
+   "object": "0050_jdmainct.obj",
+   "function": "D3DX::alloc_funny_pointers",
+   "symbol": "?alloc_funny_pointers@D3DX@@YAXPAUjpeg_decompress_struct@1@@Z",
+   "length": 168
+  }
+ },
+ "0x8FF786": {
+  "L": {
+   "object": "0050_jdmainct.obj",
+   "function": "D3DX::make_funny_pointers",
+   "symbol": "?make_funny_pointers@D3DX@@YAXPAUjpeg_decompress_struct@1@@Z",
+   "length": 305
+  }
+ },
+ "0x8FF8B7": {
+  "L": {
+   "object": "0050_jdmainct.obj",
+   "function": "D3DX::set_wraparound_pointers",
+   "symbol": "?set_wraparound_pointers@D3DX@@YAXPAUjpeg_decompress_struct@1@@Z",
+   "length": 212
+  }
+ },
+ "0x8FF98B": {
+  "L": {
+   "object": "0050_jdmainct.obj",
+   "function": "D3DX::set_bottom_pointers",
+   "symbol": "?set_bottom_pointers@D3DX@@YAXPAUjpeg_decompress_struct@1@@Z",
+   "length": 150
+  }
+ },
+ "0x8FFA21": {
+  "L": {
+   "object": "0050_jdmainct.obj",
+   "function": "D3DX::process_data_simple_main",
+   "symbol": "?process_data_simple_main@D3DX@@YAXPAUjpeg_decompress_struct@1@PAPAEPAII@Z",
+   "length": 104
+  }
+ },
+ "0x8FFA89": {
+  "L": {
+   "object": "0050_jdmainct.obj",
+   "function": "D3DX::process_data_context_main",
+   "symbol": "?process_data_context_main@D3DX@@YAXPAUjpeg_decompress_struct@1@PAPAEPAII@Z",
+   "length": 264
+  }
+ },
+ "0x8FFB91": {
+  "L": {
+   "object": "0050_jdmainct.obj",
+   "function": "D3DX::process_data_crank_post",
+   "symbol": "?process_data_crank_post@D3DX@@YAXPAUjpeg_decompress_struct@1@PAPAEPAII@Z",
+   "length": 35
+  }
+ },
+ "0x8FFBB4": {
+  "L": {
+   "object": "0050_jdmainct.obj",
+   "function": "D3DX::start_pass_main",
+   "symbol": "?start_pass_main@D3DX@@YAXPAUjpeg_decompress_struct@1@W4J_BUF_MODE@1@@Z",
+   "length": 104
+  }
+ },
+ "0x8FFC1C": {
+  "L": {
+   "object": "0050_jdmainct.obj",
+   "function": "D3DX::jinit_d_main_controller",
+   "symbol": "?jinit_d_main_controller@D3DX@@YAXPAUjpeg_decompress_struct@1@E@Z",
+   "length": 211
+  }
+ },
+ "0x8FFCEF": {
+  "L": {
+   "object": "0045_jdcoefct.obj",
+   "function": "D3DX::start_iMCU_row",
+   "symbol": "?start_iMCU_row@D3DX@@YAXPAUjpeg_decompress_struct@1@@Z",
+   "length": 63
+  }
+ },
+ "0x8FFD2E": {
+  "L": {
+   "object": "0045_jdcoefct.obj",
+   "function": "D3DX::start_input_pass",
+   "symbol": "?start_input_pass@D3DX@@YAXPAUjpeg_decompress_struct@1@@Z",
+   "length": 16
+  }
+ },
+ "0x8FFD3E": {
+  "L": {
+   "object": "0045_jdcoefct.obj",
+   "function": "D3DX::decompress_onepass",
+   "symbol": "?decompress_onepass@D3DX@@YAHPAUjpeg_decompress_struct@1@PAPAPAE@Z",
+   "length": 474
+  }
+ },
+ "0x8FFF1B": {
+  "L": {
+   "object": "0045_jdcoefct.obj",
+   "function": "D3DX::consume_data",
+   "symbol": "?consume_data@D3DX@@YAHPAUjpeg_decompress_struct@1@@Z",
+   "length": 415
+  }
+ },
+ "0x9000BA": {
+  "L": {
+   "object": "0045_jdcoefct.obj",
+   "function": "D3DX::decompress_data",
+   "symbol": "?decompress_data@D3DX@@YAHPAUjpeg_decompress_struct@1@PAPAPAE@Z",
+   "length": 358
+  }
+ },
+ "0x900220": {
+  "L": {
+   "object": "0045_jdcoefct.obj",
+   "function": "D3DX::smoothing_ok",
+   "symbol": "?smoothing_ok@D3DX@@YAEPAUjpeg_decompress_struct@1@@Z",
+   "length": 227
+  }
+ },
+ "0x900303": {
+  "L": {
+   "object": "0045_jdcoefct.obj",
+   "function": "D3DX::decompress_smooth_data",
+   "symbol": "?decompress_smooth_data@D3DX@@YAHPAUjpeg_decompress_struct@1@PAPAPAE@Z",
+   "length": 1304
+  }
+ },
+ "0x90081B": {
+  "L": {
+   "object": "0045_jdcoefct.obj",
+   "function": "D3DX::start_output_pass",
+   "symbol": "?start_output_pass@D3DX@@YAXPAUjpeg_decompress_struct@1@@Z",
+   "length": 59
+  }
+ },
+ "0x900856": {
+  "L": {
+   "object": "0045_jdcoefct.obj",
+   "function": "D3DX::jinit_d_coef_controller",
+   "symbol": "?jinit_d_coef_controller@D3DX@@YAXPAUjpeg_decompress_struct@1@E@Z",
+   "length": 248
+  }
+ },
+ "0x90094E": {
+  "L": {
+   "object": "0048_jdhuff.obj",
+   "function": "D3DX::jpeg_make_d_derived_tbl",
+   "symbol": "?jpeg_make_d_derived_tbl@D3DX@@YAXPAUjpeg_decompress_struct@1@PAUJHUFF_TBL@1@PAPAUd_derived_tbl@1@@Z",
+   "length": 419
+  }
+ },
+ "0x900AF1": {
+  "L": {
+   "object": "0048_jdhuff.obj",
+   "function": "D3DX::jpeg_fill_bit_buffer",
+   "symbol": "?jpeg_fill_bit_buffer@D3DX@@YAEPAUbitread_working_state@1@JHH@Z",
+   "length": 234
+  }
+ },
+ "0x900BDB": {
+  "L": {
+   "object": "0048_jdhuff.obj",
+   "function": "D3DX::jpeg_huff_decode",
+   "symbol": "?jpeg_huff_decode@D3DX@@YAHPAUbitread_working_state@1@JHPAUd_derived_tbl@1@H@Z",
+   "length": 230
+  }
+ },
+ "0x900CC1": {
+  "L": {
+   "object": "0048_jdhuff.obj",
+   "function": "D3DX::process_restart",
+   "symbol": "?process_restart@D3DX@@YAEPAUjpeg_decompress_struct@1@@Z",
+   "length": 94
+  }
+ },
+ "0x900D1F": {
+  "L": {
+   "object": "0048_jdhuff.obj",
+   "function": "D3DX::decode_mcu",
+   "symbol": "?decode_mcu@D3DX@@YAEPAUjpeg_decompress_struct@1@PAPAY0EA@F@Z",
+   "length": 973
+  }
+ },
+ "0x9010EC": {
+  "L": {
+   "object": "0048_jdhuff.obj",
+   "function": "D3DX::start_pass_huff_decoder",
+   "symbol": "?start_pass_huff_decoder@D3DX@@YAXPAUjpeg_decompress_struct@1@@Z",
+   "length": 303
+  }
+ },
+ "0x90121B": {
+  "L": {
+   "object": "0048_jdhuff.obj",
+   "function": "D3DX::jinit_huff_decoder",
+   "symbol": "?jinit_huff_decoder@D3DX@@YAXPAUjpeg_decompress_struct@1@@Z",
+   "length": 58
+  }
+ },
+ "0x901255": {
+  "L": {
+   "object": "0054_jdphuff.obj",
+   "function": "D3DX::process_restart",
+   "symbol": "?process_restart@D3DX@@YAEPAUjpeg_decompress_struct@1@@Z",
+   "length": 91
+  }
+ },
+ "0x9012B0": {
+  "L": {
+   "object": "0054_jdphuff.obj",
+   "function": "D3DX::decode_mcu_DC_first",
+   "symbol": "?decode_mcu_DC_first@D3DX@@YAEPAUjpeg_decompress_struct@1@PAPAY0EA@F@Z",
+   "length": 509
+  }
+ },
+ "0x9014AD": {
+  "L": {
+   "object": "0054_jdphuff.obj",
+   "function": "D3DX::decode_mcu_AC_first",
+   "symbol": "?decode_mcu_AC_first@D3DX@@YAEPAUjpeg_decompress_struct@1@PAPAY0EA@F@Z",
+   "length": 557
+  }
+ },
+ "0x9016DA": {
+  "L": {
+   "object": "0054_jdphuff.obj",
+   "function": "D3DX::decode_mcu_DC_refine",
+   "symbol": "?decode_mcu_DC_refine@D3DX@@YAEPAUjpeg_decompress_struct@1@PAPAY0EA@F@Z",
+   "length": 226
+  }
+ },
+ "0x9017BC": {
+  "L": {
+   "object": "0054_jdphuff.obj",
+   "function": "D3DX::decode_mcu_AC_refine",
+   "symbol": "?decode_mcu_AC_refine@D3DX@@YAEPAUjpeg_decompress_struct@1@PAPAY0EA@F@Z",
+   "length": 878
+  }
+ },
+ "0x901B2A": {
+  "L": {
+   "object": "0054_jdphuff.obj",
+   "function": "D3DX::start_pass_phuff_decoder",
+   "symbol": "?start_pass_phuff_decoder@D3DX@@YAXPAUjpeg_decompress_struct@1@@Z",
+   "length": 675
+  }
+ },
+ "0x901DCD": {
+  "L": {
+   "object": "0054_jdphuff.obj",
+   "function": "D3DX::jinit_phuff_decoder",
+   "symbol": "?jinit_phuff_decoder@D3DX@@YAXPAUjpeg_decompress_struct@1@@Z",
+   "length": 97
+  }
+ },
+ "0x901E2E": {
+  "L": {
+   "object": "0047_jddctmgr.obj",
+   "function": "D3DX::start_pass",
+   "symbol": "?start_pass@D3DX@@YAXPAUjpeg_decompress_struct@1@@Z",
+   "length": 439
+  }
+ },
+ "0x901FE5": {
+  "L": {
+   "object": "0047_jddctmgr.obj",
+   "function": "D3DX::jinit_inverse_dct",
+   "symbol": "?jinit_inverse_dct@D3DX@@YAXPAUjpeg_decompress_struct@1@@Z",
+   "length": 116
+  }
+ },
+ "0x902059": {
+  "L": {
+   "object": "0055_jdpostct.obj",
+   "function": "D3DX::post_process_1pass",
+   "symbol": "?post_process_1pass@D3DX@@YAXPAUjpeg_decompress_struct@1@PAPAPAEPAIIPAPAE2I@Z",
+   "length": 101
+  }
+ },
+ "0x9020BE": {
+  "L": {
+   "object": "0055_jdpostct.obj",
+   "function": "D3DX::post_process_prepass",
+   "symbol": "?post_process_prepass@D3DX@@YAXPAUjpeg_decompress_struct@1@PAPAPAEPAIIPAPAE2I@Z",
+   "length": 144
+  }
+ },
+ "0x90214E": {
+  "L": {
+   "object": "0055_jdpostct.obj",
+   "function": "D3DX::post_process_2pass",
+   "symbol": "?post_process_2pass@D3DX@@YAXPAUjpeg_decompress_struct@1@PAPAPAEPAIIPAPAE2I@Z",
+   "length": 140
+  }
+ },
+ "0x9021DA": {
+  "L": {
+   "object": "0055_jdpostct.obj",
+   "function": "D3DX::start_pass_dpost",
+   "symbol": "?start_pass_dpost@D3DX@@YAXPAUjpeg_decompress_struct@1@W4J_BUF_MODE@1@@Z",
+   "length": 166
+  }
+ },
+ "0x902280": {
+  "L": {
+   "object": "0055_jdpostct.obj",
+   "function": "D3DX::jinit_d_post_controller",
+   "symbol": "?jinit_d_post_controller@D3DX@@YAXPAUjpeg_decompress_struct@1@E@Z",
+   "length": 131
+  }
+ },
+ "0x902303": {
+  "L": {
+   "object": "0056_jdsample.obj",
+   "function": "D3DX::start_pass_upsample",
+   "symbol": "?start_pass_upsample@D3DX@@YAXPAUjpeg_decompress_struct@1@@Z",
+   "length": 26
+  }
+ },
+ "0x90231D": {
+  "L": {
+   "object": "0056_jdsample.obj",
+   "function": "D3DX::sep_upsample",
+   "symbol": "?sep_upsample@D3DX@@YAXPAUjpeg_decompress_struct@1@PAPAPAEPAIIPAPAE2I@Z",
+   "length": 198
+  }
+ },
+ "0x9023F6": {
+  "L": {
+   "object": "0056_jdsample.obj",
+   "function": "D3DX::int_upsample",
+   "symbol": "?int_upsample@D3DX@@YAXPAUjpeg_decompress_struct@1@PAUjpeg_component_info@1@PAPAEPAPAPAE@Z",
+   "length": 223
+  }
+ },
+ "0x9024D5": {
+  "L": {
+   "object": "0056_jdsample.obj",
+   "function": "D3DX::h2v1_upsample",
+   "symbol": "?h2v1_upsample@D3DX@@YAXPAUjpeg_decompress_struct@1@PAUjpeg_component_info@1@PAPAEPAPAPAE@Z",
+   "length": 87
+  }
+ },
+ "0x90252C": {
+  "L": {
+   "object": "0056_jdsample.obj",
+   "function": "D3DX::h2v2_upsample",
+   "symbol": "?h2v2_upsample@D3DX@@YAXPAUjpeg_decompress_struct@1@PAUjpeg_component_info@1@PAPAEPAPAPAE@Z",
+   "length": 106
+  }
+ },
+ "0x902596": {
+  "L": {
+   "object": "0056_jdsample.obj",
+   "function": "D3DX::h2v1_fancy_upsample",
+   "symbol": "?h2v1_fancy_upsample@D3DX@@YAXPAUjpeg_decompress_struct@1@PAUjpeg_component_info@1@PAPAEPAPAPAE@Z",
+   "length": 163
+  }
+ },
+ "0x902639": {
+  "L": {
+   "object": "0056_jdsample.obj",
+   "function": "D3DX::h2v2_fancy_upsample",
+   "symbol": "?h2v2_fancy_upsample@D3DX@@YAXPAUjpeg_decompress_struct@1@PAUjpeg_component_info@1@PAPAEPAPAPAE@Z",
+   "length": 263
+  }
+ },
+ "0x902740": {
+  "L": {
+   "object": "0056_jdsample.obj",
+   "function": "D3DX::jinit_upsampler",
+   "symbol": "?jinit_upsampler@D3DX@@YAXPAUjpeg_decompress_struct@1@@Z",
+   "length": 449
+  }
+ },
+ "0x902901": {
+  "L": {
+   "object": "0046_jdcolor.obj",
+   "function": "D3DX::build_ycc_rgb_table",
+   "symbol": "?build_ycc_rgb_table@D3DX@@YAXPAUjpeg_decompress_struct@1@@Z",
+   "length": 176
+  }
+ },
+ "0x9029B1": {
+  "L": {
+   "object": "0046_jdcolor.obj",
+   "function": "D3DX::null_convert",
+   "symbol": "?null_convert@D3DX@@YAXPAUjpeg_decompress_struct@1@PAPAPAEIPAPAEH@Z",
+   "length": 106
+  }
+ },
+ "0x902A1B": {
+  "L": {
+   "object": "0046_jdcolor.obj",
+   "function": "D3DX::grayscale_convert",
+   "symbol": "?grayscale_convert@D3DX@@YAXPAUjpeg_decompress_struct@1@PAPAPAEIPAPAEH@Z",
+   "length": 35
+  }
+ },
+ "0x902A3E": {
+  "L": {
+   "object": "0046_jdcolor.obj",
+   "function": "D3DX::ycck_cmyk_convert",
+   "symbol": "?ycck_cmyk_convert@D3DX@@YAXPAUjpeg_decompress_struct@1@PAPAPAEIPAPAEH@Z",
+   "length": 306
+  }
+ },
+ "0x902B71": {
+  "L": {
+   "object": "0046_jdcolor.obj",
+   "function": "D3DX::MYCbCr2RGB",
+   "symbol": "?MYCbCr2RGB@D3DX@@YAXHPAE000@Z",
+   "length": 317
+  }
+ },
+ "0x902CAE": {
+  "L": {
+   "object": "0046_jdcolor.obj",
+   "function": "D3DX::MYCbCrA2RGBA",
+   "symbol": "?MYCbCrA2RGBA@D3DX@@YAXHPAE0000@Z",
+   "length": 308
+  }
+ },
+ "0x902DE2": {
+  "L": {
+   "object": "0046_jdcolor.obj",
+   "function": "D3DX::MYCbCrA2RGBALegacy",
+   "symbol": "?MYCbCrA2RGBALegacy@D3DX@@YAXHPAE0000@Z",
+   "length": 322
+  }
+ },
+ "0x902F24": {
+  "L": {
+   "object": "0046_jdcolor.obj",
+   "function": "D3DX::ycc_rgb_convert",
+   "symbol": "?ycc_rgb_convert@D3DX@@YAXPAUjpeg_decompress_struct@1@PAPAPAEIPAPAEH@Z",
+   "length": 542
+  }
+ },
+ "0x903142": {
+  "L": {
+   "object": "0046_jdcolor.obj",
+   "function": "D3DX::jinit_color_deconverter",
+   "symbol": "?jinit_color_deconverter@D3DX@@YAXPAUjpeg_decompress_struct@1@@Z",
+   "length": 289
+  }
+ },
+ "0x903263": {
+  "L": {
+   "object": "0053_jdmerge.obj",
+   "function": "D3DX::build_ycc_rgb_table",
+   "symbol": "?build_ycc_rgb_table@D3DX@@YAXPAUjpeg_decompress_struct@1@@Z",
+   "length": 176
+  }
+ },
+ "0x903313": {
+  "L": {
+   "object": "0053_jdmerge.obj",
+   "function": "D3DX::start_pass_merged_upsample",
+   "symbol": "?start_pass_merged_upsample@D3DX@@YAXPAUjpeg_decompress_struct@1@@Z",
+   "length": 21
+  }
+ },
+ "0x903328": {
+  "L": {
+   "object": "0053_jdmerge.obj",
+   "function": "D3DX::merged_2v_upsample",
+   "symbol": "?merged_2v_upsample@D3DX@@YAXPAUjpeg_decompress_struct@1@PAPAPAEPAIIPAPAE2I@Z",
+   "length": 166
+  }
+ },
+ "0x9033CE": {
+  "L": {
+   "object": "0053_jdmerge.obj",
+   "function": "D3DX::merged_1v_upsample",
+   "symbol": "?merged_1v_upsample@D3DX@@YAXPAUjpeg_decompress_struct@1@PAPAPAEPAIIPAPAE2I@Z",
+   "length": 49
+  }
+ },
+ "0x9033FF": {
+  "L": {
+   "object": "0053_jdmerge.obj",
+   "function": "D3DX::h2v1_merged_upsample",
+   "symbol": "?h2v1_merged_upsample@D3DX@@YAXPAUjpeg_decompress_struct@1@PAPAPAEIPAPAE@Z",
+   "length": 342
+  }
+ },
+ "0x903555": {
+  "L": {
+   "object": "0053_jdmerge.obj",
+   "function": "D3DX::h2v2_merged_upsample",
+   "symbol": "?h2v2_merged_upsample@D3DX@@YAXPAUjpeg_decompress_struct@1@PAPAPAEIPAPAE@Z",
+   "length": 486
+  }
+ },
+ "0x90373B": {
+  "L": {
+   "object": "0053_jdmerge.obj",
+   "function": "D3DX::jinit_merged_upsampler",
+   "symbol": "?jinit_merged_upsampler@D3DX@@YAXPAUjpeg_decompress_struct@1@@Z",
+   "length": 117
+  }
+ },
+ "0x9037B0": {
+  "L": {
+   "object": "0066_jquant2.obj",
+   "function": "D3DX::prescan_quantize",
+   "symbol": "?prescan_quantize@D3DX@@YAXPAUjpeg_decompress_struct@1@PAPAE1H@Z",
+   "length": 108
+  }
+ },
+ "0x90381C": {
+  "L": {
+   "object": "0066_jquant2.obj",
+   "function": "D3DX::find_biggest_color_pop",
+   "symbol": "?find_biggest_color_pop@D3DX@@YAPAUbox@1@PAU21@H@Z",
+   "length": 41
+  }
+ },
+ "0x903845": {
+  "L": {
+   "object": "0066_jquant2.obj",
+   "function": "D3DX::find_biggest_volume",
+   "symbol": "?find_biggest_volume@D3DX@@YAPAUbox@1@PAU21@H@Z",
+   "length": 35
+  }
+ },
+ "0x903868": {
+  "L": {
+   "object": "0066_jquant2.obj",
+   "function": "D3DX::update_box",
+   "symbol": "?update_box@D3DX@@YAXPAUjpeg_decompress_struct@1@PAUbox@1@@Z",
+   "length": 824
+  }
+ },
+ "0x903BA0": {
+  "L": {
+   "object": "0066_jquant2.obj",
+   "function": "D3DX::median_cut",
+   "symbol": "?median_cut@D3DX@@YAHPAUjpeg_decompress_struct@1@PAUbox@1@HH@Z",
+   "length": 282
+  }
+ },
+ "0x903CBA": {
+  "L": {
+   "object": "0066_jquant2.obj",
+   "function": "D3DX::compute_color",
+   "symbol": "?compute_color@D3DX@@YAXPAUjpeg_decompress_struct@1@PAUbox@1@H@Z",
+   "length": 312
+  }
+ },
+ "0x903DF2": {
+  "L": {
+   "object": "0066_jquant2.obj",
+   "function": "D3DX::select_colors",
+   "symbol": "?select_colors@D3DX@@YAXPAUjpeg_decompress_struct@1@H@Z",
+   "length": 141
+  }
+ },
+ "0x903E7F": {
+  "L": {
+   "object": "0066_jquant2.obj",
+   "function": "D3DX::find_nearby_colors",
+   "symbol": "?find_nearby_colors@D3DX@@YAHPAUjpeg_decompress_struct@1@HHHQAE@Z",
+   "length": 384
+  }
+ },
+ "0x903FFF": {
+  "L": {
+   "object": "0066_jquant2.obj",
+   "function": "D3DX::find_best_colors",
+   "symbol": "?find_best_colors@D3DX@@YAXPAUjpeg_decompress_struct@1@HHHHQAE1@Z",
+   "length": 282
+  }
+ },
+ "0x904119": {
+  "L": {
+   "object": "0066_jquant2.obj",
+   "function": "D3DX::fill_inverse_cmap",
+   "symbol": "?fill_inverse_cmap@D3DX@@YAXPAUjpeg_decompress_struct@1@HHH@Z",
+   "length": 208
+  }
+ },
+ "0x9041E9": {
+  "L": {
+   "object": "0066_jquant2.obj",
+   "function": "D3DX::pass2_no_dither",
+   "symbol": "?pass2_no_dither@D3DX@@YAXPAUjpeg_decompress_struct@1@PAPAE1H@Z",
+   "length": 169
+  }
+ },
+ "0x904292": {
+  "L": {
+   "object": "0066_jquant2.obj",
+   "function": "D3DX::pass2_fs_dither",
+   "symbol": "?pass2_fs_dither@D3DX@@YAXPAUjpeg_decompress_struct@1@PAPAE1H@Z",
+   "length": 622
+  }
+ },
+ "0x904500": {
+  "L": {
+   "object": "0066_jquant2.obj",
+   "function": "D3DX::init_error_limit",
+   "symbol": "?init_error_limit@D3DX@@YAXPAUjpeg_decompress_struct@1@@Z",
+   "length": 144
+  }
+ },
+ "0x904590": {
+  "L": {
+   "object": "0066_jquant2.obj",
+   "function": "D3DX::finish_pass1",
+   "symbol": "?finish_pass1@D3DX@@YAXPAUjpeg_decompress_struct@1@@Z",
+   "length": 34
+  }
+ },
+ "0x9045B3": {
+  "L": {
+   "object": "0066_jquant2.obj",
+   "function": "D3DX::start_pass_2_quant",
+   "symbol": "?start_pass_2_quant@D3DX@@YAXPAUjpeg_decompress_struct@1@E@Z",
+   "length": 258
+  }
+ },
+ "0x9046B5": {
+  "L": {
+   "object": "0066_jquant2.obj",
+   "function": "D3DX::new_color_map_2_quant",
+   "symbol": "?new_color_map_2_quant@D3DX@@YAXPAUjpeg_decompress_struct@1@@Z",
+   "length": 15
+  }
+ },
+ "0x9046C4": {
+  "L": {
+   "object": "0066_jquant2.obj",
+   "function": "D3DX::jinit_2pass_quantizer",
+   "symbol": "?jinit_2pass_quantizer@D3DX@@YAXPAUjpeg_decompress_struct@1@@Z",
+   "length": 275
+  }
+ },
+ "0x9047D7": {
+  "L": {
+   "object": "0065_jquant1.obj",
+   "function": "D3DX::select_ncolors",
+   "symbol": "?select_ncolors@D3DX@@YAHPAUjpeg_decompress_struct@1@QAH@Z",
+   "length": 203
+  }
+ },
+ "0x9048A2": {
+  "L": {
+   "object": "0065_jquant1.obj",
+   "function": "D3DX::output_value",
+   "symbol": "?output_value@D3DX@@YAHPAUjpeg_decompress_struct@1@HHH@Z",
+   "length": 25
+  }
+ },
+ "0x9048BB": {
+  "L": {
+   "object": "0065_jquant1.obj",
+   "function": "D3DX::largest_input_value",
+   "symbol": "?largest_input_value@D3DX@@YAHPAUjpeg_decompress_struct@1@HHH@Z",
+   "length": 19
+  }
+ },
+ "0x9048CE": {
+  "L": {
+   "object": "0065_jquant1.obj",
+   "function": "D3DX::create_colormap",
+   "symbol": "?create_colormap@D3DX@@YAXPAUjpeg_decompress_struct@1@@Z",
+   "length": 285
+  }
+ },
+ "0x9049EB": {
+  "L": {
+   "object": "0065_jquant1.obj",
+   "function": "D3DX::create_colorindex",
+   "symbol": "?create_colorindex@D3DX@@YAXPAUjpeg_decompress_struct@1@@Z",
+   "length": 289
+  }
+ },
+ "0x904B0C": {
+  "L": {
+   "object": "0065_jquant1.obj",
+   "function": "D3DX::make_odither_array",
+   "symbol": "?make_odither_array@D3DX@@YAPAY0BA@HPAUjpeg_decompress_struct@1@H@Z",
+   "length": 98
+  }
+ },
+ "0x904B6E": {
+  "L": {
+   "object": "0065_jquant1.obj",
+   "function": "D3DX::create_odither_tables",
+   "symbol": "?create_odither_tables@D3DX@@YAXPAUjpeg_decompress_struct@1@@Z",
+   "length": 89
+  }
+ },
+ "0x904BC7": {
+  "L": {
+   "object": "0065_jquant1.obj",
+   "function": "D3DX::color_quantize",
+   "symbol": "?color_quantize@D3DX@@YAXPAUjpeg_decompress_struct@1@PAPAE1H@Z",
+   "length": 136
+  }
+ },
+ "0x904C4F": {
+  "L": {
+   "object": "0065_jquant1.obj",
+   "function": "D3DX::color_quantize3",
+   "symbol": "?color_quantize3@D3DX@@YAXPAUjpeg_decompress_struct@1@PAPAE1H@Z",
+   "length": 141
+  }
+ },
+ "0x904CDC": {
+  "L": {
+   "object": "0065_jquant1.obj",
+   "function": "D3DX::quantize_ord_dither",
+   "symbol": "?quantize_ord_dither@D3DX@@YAXPAUjpeg_decompress_struct@1@PAPAE1H@Z",
+   "length": 235
+  }
+ },
+ "0x904DC7": {
+  "L": {
+   "object": "0065_jquant1.obj",
+   "function": "D3DX::quantize3_ord_dither",
+   "symbol": "?quantize3_ord_dither@D3DX@@YAXPAUjpeg_decompress_struct@1@PAPAE1H@Z",
+   "length": 255
+  }
+ },
+ "0x904EC6": {
+  "L": {
+   "object": "0065_jquant1.obj",
+   "function": "D3DX::quantize_fs_dither",
+   "symbol": "?quantize_fs_dither@D3DX@@YAXPAUjpeg_decompress_struct@1@PAPAE1H@Z",
+   "length": 388
+  }
+ },
+ "0x90504A": {
+  "L": {
+   "object": "0065_jquant1.obj",
+   "function": "D3DX::alloc_fs_workspace",
+   "symbol": "?alloc_fs_workspace@D3DX@@YAXPAUjpeg_decompress_struct@1@@Z",
+   "length": 54
+  }
+ },
+ "0x905080": {
+  "L": {
+   "object": "0065_jquant1.obj",
+   "function": "D3DX::start_pass_1_quant",
+   "symbol": "?start_pass_1_quant@D3DX@@YAXPAUjpeg_decompress_struct@1@E@Z",
+   "length": 200
+  }
+ },
+ "0x905149": {
+  "L": {
+   "object": "0065_jquant1.obj",
+   "function": "D3DX::new_color_map_1_quant",
+   "symbol": "?new_color_map_1_quant@D3DX@@YAXPAUjpeg_decompress_struct@1@@Z",
+   "length": 20
+  }
+ },
+ "0x90515D": {
+  "L": {
+   "object": "0065_jquant1.obj",
+   "function": "D3DX::jinit_1pass_quantizer",
+   "symbol": "?jinit_1pass_quantizer@D3DX@@YAXPAUjpeg_decompress_struct@1@@Z",
+   "length": 137
+  }
+ },
+ "0x9051E6": {
+  "L": {
+   "object": "0107_infblock.obj",
+   "function": "D3DX::inflate_blocks_reset",
+   "symbol": "?inflate_blocks_reset@D3DX@@YAXPAUinflate_blocks_state@1@PAUz_stream_s@1@PAK@Z",
+   "length": 107
+  }
+ },
+ "0x905251": {
+  "L": {
+   "object": "0107_infblock.obj",
+   "function": "D3DX::inflate_blocks_new",
+   "symbol": "?inflate_blocks_new@D3DX@@YAPAUinflate_blocks_state@1@PAUz_stream_s@1@P6AKKPBEI@ZI@Z",
+   "length": 139
+  }
+ },
+ "0x9052DC": {
+  "L": {
+   "object": "0107_infblock.obj",
+   "function": "D3DX::inflate_blocks",
+   "symbol": "?inflate_blocks@D3DX@@YAHPAUinflate_blocks_state@1@PAUz_stream_s@1@H@Z",
+   "length": 2329
+  }
+ },
+ "0x905BF5": {
+  "L": {
+   "object": "0107_infblock.obj",
+   "function": "D3DX::inflate_blocks_free",
+   "symbol": "?inflate_blocks_free@D3DX@@YAHPAUinflate_blocks_state@1@PAUz_stream_s@1@@Z",
+   "length": 52
+  }
+ },
+ "0x905C29": {
+  "L": {
+   "object": "0107_infblock.obj",
+   "function": "D3DX::inflate_set_dictionary",
+   "symbol": "?inflate_set_dictionary@D3DX@@YAXPAUinflate_blocks_state@1@PBEI@Z",
+   "length": 49
+  }
+ },
+ "0x905C5A": {
+  "L": {
+   "object": "0107_infblock.obj",
+   "function": "D3DX::inflate_blocks_sync_point",
+   "symbol": "?inflate_blocks_sync_point@D3DX@@YAHPAUinflate_blocks_state@1@@Z",
+   "length": 13
+  }
+ },
+ "0x905C67": {
+  "L": {
+   "object": "0102_adler32.obj",
+   "function": "adler32",
+   "symbol": "_adler32",
+   "length": 281
+  }
+ },
+ "0x905D86": {
+  "L": {
+   "object": "0116_zutil.obj",
+   "function": "zError",
+   "symbol": "_zError",
+   "length": 17
+  }
+ },
+ "0x905D97": {
+  "L": {
+   "object": "0116_zutil.obj",
+   "function": "D3DX::zcalloc",
+   "symbol": "?zcalloc@D3DX@@YAPAXPAXII@Z",
+   "length": 16
+  }
+ },
+ "0x905DB2": {
+  "L": {
+   "object": "0062_jidctred.obj",
+   "function": "D3DX::jpeg_idct_4x4",
+   "symbol": "?jpeg_idct_4x4@D3DX@@YAXPAUjpeg_decompress_struct@1@PAUjpeg_component_info@1@PAFPAPAEI@Z",
+   "length": 789
+  }
+ },
+ "0x9060C7": {
+  "L": {
+   "object": "0062_jidctred.obj",
+   "function": "D3DX::jpeg_idct_2x2",
+   "symbol": "?jpeg_idct_2x2@D3DX@@YAXPAUjpeg_decompress_struct@1@PAUjpeg_component_info@1@PAFPAPAEI@Z",
+   "length": 446
+  }
+ },
+ "0x906285": {
+  "L": {
+   "object": "0062_jidctred.obj",
+   "function": "D3DX::jpeg_idct_1x1",
+   "symbol": "?jpeg_idct_1x1@D3DX@@YAXPAUjpeg_decompress_struct@1@PAUjpeg_component_info@1@PAFPAPAEI@Z",
+   "length": 61
+  }
+ },
+ "0x9062C2": {
+  "L": {
+   "object": "0061_jidctint.obj",
+   "function": "D3DX::jpeg_idct_islow",
+   "symbol": "?jpeg_idct_islow@D3DX@@YAXPAUjpeg_decompress_struct@1@PAUjpeg_component_info@1@PAFPAPAEI@Z",
+   "length": 76
+  }
+ },
+ "0x90630E": {
+  "L": {
+   "object": "0060_jidctfst.obj",
+   "function": "D3DX::jpeg_idct_ifast",
+   "symbol": "?jpeg_idct_ifast@D3DX@@YAXPAUjpeg_decompress_struct@1@PAUjpeg_component_info@1@PAFPAPAEI@Z",
+   "length": 76
+  }
+ },
+ "0x90635A": {
+  "L": {
+   "object": "0059_jidctflt.obj",
+   "function": "D3DX::jpeg_idct_float",
+   "symbol": "?jpeg_idct_float@D3DX@@YAXPAUjpeg_decompress_struct@1@PAUjpeg_component_info@1@PAFPAPAEI@Z",
+   "length": 993
+  }
+ },
+ "0x90673B": {
+  "L": {
+   "object": "0108_infcodes.obj",
+   "function": "D3DX::inflate_codes_new",
+   "symbol": "?inflate_codes_new@D3DX@@YAPAUinflate_codes_state@1@IIPAUinflate_huft_s@1@0PAUz_stream_s@1@@Z",
+   "length": 52
+  }
+ },
+ "0x90676F": {
+  "L": {
+   "object": "0108_infcodes.obj",
+   "function": "D3DX::inflate_codes",
+   "symbol": "?inflate_codes@D3DX@@YAHPAUinflate_blocks_state@1@PAUz_stream_s@1@H@Z",
+   "length": 1366
+  }
+ },
+ "0x906CC5": {
+  "L": {
+   "object": "0108_infcodes.obj",
+   "function": "D3DX::inflate_codes_free",
+   "symbol": "?inflate_codes_free@D3DX@@YAXPAUinflate_codes_state@1@PAUz_stream_s@1@@Z",
+   "length": 17
+  }
+ },
+ "0x906CD6": {
+  "L": {
+   "object": "0111_inftrees.obj",
+   "function": "D3DX::huft_build",
+   "symbol": "?huft_build@D3DX@@YAHPAIIIPBI1PAPAUinflate_huft_s@1@0PAU21@00@Z",
+   "length": 901
+  }
+ },
+ "0x90705B": {
+  "L": {
+   "object": "0111_inftrees.obj",
+   "function": "D3DX::inflate_trees_bits",
+   "symbol": "?inflate_trees_bits@D3DX@@YAHPAI0PAPAUinflate_huft_s@1@PAU21@PAUz_stream_s@1@@Z",
+   "length": 127
+  }
+ },
+ "0x9070DA": {
+  "L": {
+   "object": "0111_inftrees.obj",
+   "function": "D3DX::inflate_trees_dynamic",
+   "symbol": "?inflate_trees_dynamic@D3DX@@YAHIIPAI00PAPAUinflate_huft_s@1@1PAU21@PAUz_stream_s@1@@Z",
+   "length": 259
+  }
+ },
+ "0x9071DD": {
+  "L": {
+   "object": "0111_inftrees.obj",
+   "function": "D3DX::inflate_trees_fixed",
+   "symbol": "?inflate_trees_fixed@D3DX@@YAHPAI0PAPAUinflate_huft_s@1@1PAUz_stream_s@1@@Z",
+   "length": 47
+  }
+ },
+ "0x90720C": {
+  "L": {
+   "object": "0112_infutil.obj",
+   "function": "D3DX::inflate_flush",
+   "symbol": "?inflate_flush@D3DX@@YAHPAUinflate_blocks_state@1@PAUz_stream_s@1@H@Z",
+   "length": 277
+  }
+ },
+ "0x907321": {
+  "L": {
+   "object": "0072_piint.obj",
+   "function": "D3DX::pidct8x8llm",
+   "symbol": "?pidct8x8llm@D3DX@@YAXPAF00PAPAEIPAE@Z",
+   "length": 1261
+  }
+ },
+ "0x90780E": {
+  "L": {
+   "object": "0068_miint.obj",
+   "function": "D3DX::midct8x8llm",
+   "symbol": "?midct8x8llm@D3DX@@YAXPAF00PAPAEIPAE@Z",
+   "length": 1931
+  }
+ },
+ "0x907F99": {
+  "L": {
+   "object": "0073_pifst.obj",
+   "function": "D3DX::pidct8x8aan",
+   "symbol": "?pidct8x8aan@D3DX@@YAXPAF00PAPAEIPAE@Z",
+   "length": 937
+  }
+ },
+ "0x908342": {
+  "L": {
+   "object": "0069_mifst.obj",
+   "function": "D3DX::midct8x8aan",
+   "symbol": "?midct8x8aan@D3DX@@YAXPAF00PAPAEIPAE@Z",
+   "length": 3539
+  }
+ },
+ "0x909115": {
+  "L": {
+   "object": "0109_inffast.obj",
+   "function": "D3DX::inflate_fast",
+   "symbol": "?inflate_fast@D3DX@@YAHIIPAUinflate_huft_s@1@0PAUinflate_blocks_state@1@PAUz_stream_s@1@@Z",
+   "length": 682
+  }
+ },
+ "0x9B4B30": {
+  "L": {
+   "object": "0014_ccompiler.obj",
+   "function": "CNode::CNode",
+   "symbol": "??0CNode@@QAE@XZ",
+   "length": 22
+  }
+ },
+ "0xA3E6A7": {
+  "L": {
+   "object": "0106_gzio.obj",
+   "function": "gztell",
+   "symbol": "_gztell",
+   "length": 17
+  }
+ }
+}
