@@ -54,6 +54,8 @@
 //////////////////////////////////////////////////////////////////////////////////
 SimplePersistFactoryClass<Sound3DClass, CHUNKID_SOUND3D> _Sound3DPersistFactory;
 
+bool Sound3DClass::_UnknownDopplerFlag;
+
 
 enum
 {
@@ -177,6 +179,8 @@ Sound3DClass::Play (bool alloc_handle)
 bool
 Sound3DClass::On_Frame_Update (unsigned int milliseconds)
 {
+	MMSLockClass lock;
+
 	Matrix3D prev_tm = m_PrevTransform;
 
 	if (m_bDirty && (m_PhysWrapper != NULL)) {
@@ -184,39 +188,17 @@ Sound3DClass::On_Frame_Update (unsigned int milliseconds)
 		m_bDirty = false;
 	}
 
-	//
-	// Update the sound's position if its linked to a render object
-	//
 	Apply_Auto_Position ();
 
-	//
-	//	Make sure the transform is initialized
-	//
 	if (m_IsTransformInitted == false) {
 		prev_tm = m_Transform;
 	}
 
-// Disabling auto-velocity because hardware doppler is poor...
-#if 0
-
-	//
-	// Update the current velocity if we are 'auto-calcing'.
-	//
-	if (m_bAutoCalcVel && Get_Class_ID () != CLASSID_LISTENER) {
+	if (_UnknownDopplerFlag && m_bAutoCalcVel && Get_Class_ID () != CLASSID_LISTENER) {
 		Vector3 last_pos = prev_tm.Get_Translation ();
 		Vector3 curr_pos = m_Transform.Get_Translation ();
-
-		//
-		//	Don't update the velocity if we haven't moved (optimization -- Miles calls
-		// can be really slow)
-		//
 		if (last_pos != curr_pos) {
 			Vector3 curr_vel;
-
-			//
-			//	Extrapolate our current velocity given the last time slice and the distance
-			// we moved.
-			//
 			float secs_since_last_update = (TIMEGETTIME () - m_LastUpdate);
 			if (secs_since_last_update > 0) {
 				curr_vel = ((curr_pos - last_pos) / secs_since_last_update);
@@ -224,27 +206,18 @@ Sound3DClass::On_Frame_Update (unsigned int milliseconds)
 				curr_vel.Set (0, 0, 0);
 			}
 
-			Set_Velocity (curr_vel);
+			Set_Velocity (curr_vel, secs_since_last_update);
 		}
 	}
 
-#endif // doppler disable
-
-	//
-	// Remember when the last time we updated our 'auto-calc'
-	// variables.
-	//
 	m_LastUpdate = TIMEGETTIME ();
 	m_PrevTransform = m_Transform;
 
-	//
-	// If necessary, update the volume based on the distance
-	// from the edge of the dropoff radius.
-	//
 	if (m_SoundHandle != NULL) {
 		Update_Edge_Volume ();
 	}
 
+	Update_Miles_Transform ();
 	return AudibleSoundClass::On_Frame_Update ();
 }
 
@@ -331,12 +304,27 @@ Sound3DClass::Set_Listener_Transform (const Matrix3D &tm)
 {
 	//
 	//	If the transform has changed, then cache the new transform
-	// and update the sound's position in the "Mile's" world
 	//
 	if (m_ListenerTransform != tm) {
-		m_ListenerTransform = tm;
 
-		Update_Miles_Transform ();
+		//
+		//	E&B: track the listener's velocity for the Doppler effect (see Set_Velocity)
+		//
+		if (_UnknownDopplerFlag && m_bAutoCalcVel) {
+			m_Unknown148 = tm.Get_Translation () - m_ListenerTransform.Get_Translation ();
+
+			unsigned int now = TIMEGETTIME ();
+			if (m_Unknown160 == 0) {
+				m_Unknown160 = now;
+			}
+
+			float elapsed_ms = (now - m_Unknown160);
+			elapsed_ms = WWMath::Max (elapsed_ms, 1.0F);
+			m_Unknown148 /= elapsed_ms;
+			m_Unknown160 = now;
+		}
+
+		m_ListenerTransform = tm;
 	}
 
 	return ;
@@ -447,24 +435,75 @@ Sound3DClass::Set_Position (const Vector3 &position)
 //	Set_Velocity
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////
+//
+//	E&B: Set_Velocity's Doppler constants (names not known)
+//
+const float DOPPLER_SMOOTHING	= 0.85F;
+const float DOPPLER_SPEED		= 3.4F;
+const float DOPPLER_MS_SCALE	= 1.0F / 33.3F;
+
 void
 Sound3DClass::Set_Velocity (const Vector3 &velocity, float elapsed_ms)
 {
 	MMSLockClass lock;
 
+	Vector3 prev_vel = m_CurrentVelocity;
 	m_CurrentVelocity = velocity;
 	Set_Dirty ();
 
 	//
-	// Pass the sound's velocity onto miles
+	//	E&B: Doppler effect, as a pitch change
 	//
 	if (m_SoundHandle != NULL) {
 
-		//WWDEBUG_SAY (("Current Velocity: %.2f %.2f %.2f\n", m_CurrentVelocity.X, m_CurrentVelocity.Y, m_CurrentVelocity.Z));
-		::AIL_set_3D_velocity_vector (m_SoundHandle->Get_H3DSAMPLE (),
-												-m_CurrentVelocity.Y,
-												m_CurrentVelocity.Z,
-												m_CurrentVelocity.X);
+		//
+		//	The direction from the sound to the listener, and the sound's
+		// velocity relative to the listener's
+		//
+		Vector3 dir = m_ListenerTransform.Get_Translation () - m_Transform.Get_Translation ();
+		m_CurrentVelocity -= m_Unknown148;
+		m_CurrentVelocity.Normalize ();
+		dir.Normalize ();
+		float dot = Vector3::Dot_Product (dir, m_CurrentVelocity);
+
+		m_CurrentVelocity = velocity - m_Unknown148;
+		m_CurrentVelocity *= dot;
+		Vector3 vel = (m_CurrentVelocity * DOPPLER_SMOOTHING) + (prev_vel * (1.0F - DOPPLER_SMOOTHING));
+		m_CurrentVelocity = vel;
+
+		vel *= m_Unknown16C;
+		float speed = vel.Length ();
+		if (speed > DOPPLER_SPEED) {
+			speed = DOPPLER_SPEED;
+		}
+		if (dot > 0.0F) {
+			speed = DOPPLER_SPEED - speed;
+		} else {
+			speed = DOPPLER_SPEED + speed;
+		}
+		if (speed == 0.0F) {
+			speed = 1.0F;
+		}
+		float pitch = DOPPLER_SPEED / speed;
+
+		//
+		//	Change the pitch gradually
+		//
+		float curr_pitch = Get_Pitch_Factor ();
+		float step = elapsed_ms * 0.05F;
+		step *= DOPPLER_MS_SCALE;
+		if (pitch > curr_pitch + step) {
+			pitch = curr_pitch + step;
+		} else if (pitch < curr_pitch - step) {
+			pitch = curr_pitch - step;
+		}
+
+		if (pitch < m_Unknown164) {
+			pitch = m_Unknown164;
+		} else if (pitch > m_Unknown168) {
+			pitch = m_Unknown168;
+		}
+		Set_Pitch_Factor (pitch);
 	}
 
 	return ;

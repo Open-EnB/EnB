@@ -66,6 +66,8 @@ class Sound3DClass : public AudibleSoundClass
 		//////////////////////////////////////////////////////////////////////
 		friend class SoundSceneClass;
 
+		static bool			_UnknownDopplerFlag;	// E&B: enables the auto-velocity (Doppler) update in On_Frame_Update; the app sets it from its "Doppler_Enabled" setting (0x51461C)
+
 		//////////////////////////////////////////////////////////////////////
 		//	Public constructors/destructors
 		//////////////////////////////////////////////////////////////////////
@@ -193,14 +195,14 @@ class Sound3DClass : public AudibleSoundClass
 		bool						m_IsTransformInitted;
 		bool						m_bAutoCalcVel;
 		Vector3					m_CurrentVelocity;
-		Vector3					m_Unknown148;		// E&B: zeroed at construction, not copied; meaning not known		
+		Vector3					m_Unknown148;		// E&B: zeroed at construction, not copied; the listener's velocity per ms (Set_Listener_Transform), subtracted in Set_Velocity
 		float						m_MaxVolRadius;		
 		bool						m_IsStatic;
 		unsigned int			m_LastUpdate;
-		int						m_Unknown160;		// E&B: zeroed at construction, not copied; meaning not known
-		int						m_Unknown164;		// E&B: zeroed at construction, not copied; meaning not known
-		int						m_Unknown168;		// E&B: zeroed at construction, not copied; meaning not known
-		int						m_Unknown16C;		// E&B: zeroed at construction, not copied; meaning not known
+		int						m_Unknown160;		// E&B: zeroed at construction, not copied; the time of the listener's last move (Set_Listener_Transform)
+		float					m_Unknown164;		// E&B: zeroed at construction, not copied; Set_Velocity's lowest pitch factor
+		float					m_Unknown168;		// E&B: zeroed at construction, not copied; Set_Velocity's highest pitch factor
+		float					m_Unknown16C;		// E&B: zeroed at construction, not copied; Set_Velocity's velocity scale
 };
 
 

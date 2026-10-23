@@ -4793,6 +4793,7 @@
     "headers_from": null,
     "in_tree": [
      "0x42F250",
+     "0x447C40",
      "0x7E6E40",
      "0x909500",
      "0x9DA8C0",
@@ -4812,8 +4813,12 @@
      "0x9F7C90",
      "0x9F7DB0",
      "0x9F7E20",
+     "0x9F7E80",
      "0x9F8180",
+     "0x9F84A0",
+     "0x9F8630",
      "0x9F8680",
+     "0x9F8920",
      "0x9F8D00",
      "0x9F8D70",
      "0x9F8DE0",
@@ -5192,7 +5197,7 @@
    "soundhandle.h": "R",
    "soundstreamhandle.h": "R"
   },
-  "in_tree_total": 314,
+  "in_tree_total": 319,
   "totals": {
    "G": 72,
    "R": 205,
