@@ -1939,10 +1939,10 @@ WWAudioClass::Build_3D_Driver_List (void)
 	//
 	// Attempt to select one of the known drivers (in the following order).
 	//
-	if (	(Select_3D_Device (DRIVER3D_PSEUDO) == false) &&
+	if (	(Select_3D_Device (DRIVER3D_D3DSOUND) == false) &&
 			(Select_3D_Device (DRIVER3D_EAX) == false) &&
+			(Select_3D_Device (DRIVER3D_PSEUDO) == false) &&
 			(Select_3D_Device (DRIVER3D_A3D) == false) &&
-			(Select_3D_Device (DRIVER3D_D3DSOUND) == false) &&
 			(Select_3D_Device (DRIVER3D_DOLBY) == false))
 	{
 		//

@@ -214,8 +214,12 @@ WWAudioThreadsClass::Delayed_Release_Thread_Proc (LPVOID /*param*/)
 	//
 	while (::WaitForSingleObject (m_hDelayedReleaseEvent, timeout) == WAIT_TIMEOUT) {
 
-		{
+		//
+		//	E&B: not while Miles' background thread is running, and holding Miles' mutex
+		//
+		if (!::AIL_background ()) {
 			CriticalSectionClass::LockClass lock(m_ListMutex);
+			::AIL_lock_mutex ();
 
 			//
 			//	Loop through all the objects in our delay list, and
@@ -256,6 +260,8 @@ WWAudioThreadsClass::Delayed_Release_Thread_Proc (LPVOID /*param*/)
 					SAFE_DELETE (curr);
 				}
 			}
+
+			::AIL_unlock_mutex ();
 		}
 
 		//
