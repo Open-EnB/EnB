@@ -73,7 +73,9 @@ HEADER_EXT = ('.h', '.hpp', '.inl')
 # wwshade was also built with ENABLE_WWPROFILE: ShdMeshClass::Render 0xA09430 opens a
 # WWProfileSampleClass ("ShdMeshClass::Render", Start_Profile 0x9EA930, dtor 0x444160).
 LIB_FLAGS = {'wwshade': '/nologo /c /MT /W3 /O2 /Ob1 /GX /D _MBCS /D ENABLE_WWPROFILE',
-             'wwaudio': '/nologo /c /MT /W3 /O2 /Ob2 /D _MBCS',
+             # ENABLE_WWPROFILE also in WWAudio (+32 pairs: WWAudioClass, SoundSceneClass, sound buffers) and WWMath (+1)
+             'wwaudio': '/nologo /c /MT /W3 /O2 /Ob2 /D _MBCS /D ENABLE_WWPROFILE',
+             'wwmath': '/nologo /c /MT /W3 /O2 /Ob2 /D ENABLE_WWPROFILE',
              # WW3D2 too was built with ENABLE_WWPROFILE: +20 pairs (assetmgr, dazzle, sortingrenderer, ...)
              'ww3d2': '/nologo /c /MT /W3 /O2 /Ob2 /D ENABLE_WWPROFILE'}
 
