@@ -2,19 +2,19 @@
  "0x42F250": {
   "R": {
    "object": "soundhandle.obj",
-   "function": "YGXPAXIHP6EX0::?_H",
+   "function": "??_H@YGXPAXIHP6EX0@Z@Z",
    "symbol": "??_H@YGXPAXIHP6EX0@Z@Z",
    "length": 42
   },
   "G": {
    "object": "soundhandle.obj",
-   "function": "YGXPAXIHP6EX0::?_H",
+   "function": "??_H@YGXPAXIHP6EX0@Z@Z",
    "symbol": "??_H@YGXPAXIHP6EX0@Z@Z",
    "length": 42
   },
   "Z": {
    "object": "soundhandle.obj",
-   "function": "YGXPAXIHP6EX0::?_H",
+   "function": "??_H@YGXPAXIHP6EX0@Z@Z",
    "symbol": "??_H@YGXPAXIHP6EX0@Z@Z",
    "length": 42
   }
@@ -22,19 +22,19 @@
  "0x48C500": {
   "R": {
    "object": "WWAudio.obj",
-   "function": "?4StringClass",
+   "function": "StringClass::operator=",
    "symbol": "??4StringClass@@QAEABV0@ABV0@@Z",
    "length": 104
   },
   "G": {
    "object": "WWAudio.obj",
-   "function": "?4StringClass",
+   "function": "StringClass::operator=",
    "symbol": "??4StringClass@@QAEABV0@ABV0@@Z",
    "length": 104
   },
   "Z": {
    "object": "WWAudio.obj",
-   "function": "?4StringClass",
+   "function": "StringClass::operator=",
    "symbol": "??4StringClass@@QAEABV0@ABV0@@Z",
    "length": 104
   }
@@ -42,19 +42,19 @@
  "0x494E10": {
   "R": {
    "object": "SoundScene.obj",
-   "function": "?0GenericMultiListClass",
+   "function": "GenericMultiListClass::GenericMultiListClass",
    "symbol": "??0GenericMultiListClass@@QAE@XZ",
    "length": 39
   },
   "G": {
    "object": "SoundScene.obj",
-   "function": "?0GenericMultiListClass",
+   "function": "GenericMultiListClass::GenericMultiListClass",
    "symbol": "??0GenericMultiListClass@@QAE@XZ",
    "length": 39
   },
   "Z": {
    "object": "SoundScene.obj",
-   "function": "?0GenericMultiListClass",
+   "function": "GenericMultiListClass::GenericMultiListClass",
    "symbol": "??0GenericMultiListClass@@QAE@XZ",
    "length": 39
   }
@@ -62,19 +62,19 @@
  "0x495DB0": {
   "R": {
    "object": "SoundScene.obj",
-   "function": "?0MultiListNodeClass",
+   "function": "MultiListNodeClass::MultiListNodeClass",
    "symbol": "??0MultiListNodeClass@@QAE@XZ",
    "length": 19
   },
   "G": {
    "object": "SoundScene.obj",
-   "function": "?0MultiListNodeClass",
+   "function": "MultiListNodeClass::MultiListNodeClass",
    "symbol": "??0MultiListNodeClass@@QAE@XZ",
    "length": 19
   },
   "Z": {
    "object": "SoundScene.obj",
-   "function": "?0MultiListNodeClass",
+   "function": "MultiListNodeClass::MultiListNodeClass",
    "symbol": "??0MultiListNodeClass@@QAE@XZ",
    "length": 19
   }
@@ -102,7 +102,7 @@
  "0x7E6E40": {
   "R": {
    "object": "SoundSceneObj.obj",
-   "function": "YA?AVMatrix3D::?D",
+   "function": "??D@YA?AVMatrix3D@@ABV0@0@Z",
    "symbol": "??D@YA?AVMatrix3D@@ABV0@0@Z",
    "length": 477
   }
@@ -110,19 +110,19 @@
  "0x909500": {
   "R": {
    "object": "soundhandle.obj",
-   "function": "YGXPAXIHP6EX0::?_I",
+   "function": "??_I@YGXPAXIHP6EX0@Z@Z",
    "symbol": "??_I@YGXPAXIHP6EX0@Z@Z",
    "length": 49
   },
   "G": {
    "object": "soundhandle.obj",
-   "function": "YGXPAXIHP6EX0::?_I",
+   "function": "??_I@YGXPAXIHP6EX0@Z@Z",
    "symbol": "??_I@YGXPAXIHP6EX0@Z@Z",
    "length": 49
   },
   "Z": {
    "object": "soundhandle.obj",
-   "function": "YGXPAXIHP6EX0::?_I",
+   "function": "??_I@YGXPAXIHP6EX0@Z@Z",
    "symbol": "??_I@YGXPAXIHP6EX0@Z@Z",
    "length": 49
   }
@@ -180,19 +180,19 @@
  "0x9DA8C0": {
   "R": {
    "object": "soundhandle.obj",
-   "function": "WWAudioClass::?_E_LOGICAL_TYPE_STRUCT",
+   "function": "_LOGICAL_TYPE_STRUCT::vector deleting dtor",
    "symbol": "??_E_LOGICAL_TYPE_STRUCT@WWAudioClass@@QAEPAXI@Z",
    "length": 94
   },
   "G": {
    "object": "soundhandle.obj",
-   "function": "WWAudioClass::?_E_LOGICAL_TYPE_STRUCT",
+   "function": "_LOGICAL_TYPE_STRUCT::vector deleting dtor",
    "symbol": "??_E_LOGICAL_TYPE_STRUCT@WWAudioClass@@QAEPAXI@Z",
    "length": 94
   },
   "Z": {
    "object": "soundhandle.obj",
-   "function": "WWAudioClass::?_E_LOGICAL_TYPE_STRUCT",
+   "function": "_LOGICAL_TYPE_STRUCT::vector deleting dtor",
    "symbol": "??_E_LOGICAL_TYPE_STRUCT@WWAudioClass@@QAEPAXI@Z",
    "length": 94
   }
@@ -200,7 +200,7 @@
  "0x9EEE40": {
   "R": {
    "object": "WWAudio.obj",
-   "function": "?1WWAudioClass",
+   "function": "WWAudioClass::~WWAudioClass",
    "symbol": "??1WWAudioClass@@UAE@XZ",
    "length": 619
   }
@@ -211,6 +211,14 @@
    "function": "WWAudioClass::Flush_Cache",
    "symbol": "?Flush_Cache@WWAudioClass@@QAEXXZ",
    "length": 142
+  }
+ },
+ "0x9EF140": {
+  "R": {
+   "object": "WWAudio.obj",
+   "function": "WWAudioClass::Open_2D_Device",
+   "symbol": "?Open_2D_Device@WWAudioClass@@QAE?AW4DRIVER_TYPE_2D@1@PAUwaveformat_tag@@@Z",
+   "length": 669
   }
  },
  "0x9EF3E0": {
@@ -231,6 +239,22 @@
    "function": "WWAudioClass::Open_2D_Device",
    "symbol": "?Open_2D_Device@WWAudioClass@@QAE?AW4DRIVER_TYPE_2D@1@_NHH@Z",
    "length": 195
+  }
+ },
+ "0x9EF4B0": {
+  "R": {
+   "object": "WWAudio.obj",
+   "function": "WWAudioClass::Close_2D_Device",
+   "symbol": "?Close_2D_Device@WWAudioClass@@QAE_NXZ",
+   "length": 301
+  }
+ },
+ "0x9EF5E0": {
+  "R": {
+   "object": "WWAudio.obj",
+   "function": "WWAudioClass::Close_3D_Device",
+   "symbol": "?Close_3D_Device@WWAudioClass@@QAE_NXZ",
+   "length": 222
   }
  },
  "0x9EF840": {
@@ -289,6 +313,38 @@
    "length": 58
   }
  },
+ "0x9F11E0": {
+  "R": {
+   "object": "WWAudio.obj",
+   "function": "WWAudioClass::Release_2D_Handles",
+   "symbol": "?Release_2D_Handles@WWAudioClass@@IAEXXZ",
+   "length": 99
+  }
+ },
+ "0x9F1250": {
+  "R": {
+   "object": "WWAudio.obj",
+   "function": "WWAudioClass::Allocate_2D_Handles",
+   "symbol": "?Allocate_2D_Handles@WWAudioClass@@IAEXXZ",
+   "length": 258
+  }
+ },
+ "0x9F1820": {
+  "R": {
+   "object": "WWAudio.obj",
+   "function": "WWAudioClass::Get_Listener_Handle",
+   "symbol": "?Get_Listener_Handle@WWAudioClass@@IAEPAUh3DPOBJECT@@XZ",
+   "length": 34
+  }
+ },
+ "0x9F1A10": {
+  "R": {
+   "object": "WWAudio.obj",
+   "function": "WWAudioClass::Free_3D_Driver_List",
+   "symbol": "?Free_3D_Driver_List@WWAudioClass@@IAEXXZ",
+   "length": 291
+  }
+ },
  "0x9F1B40": {
   "R": {
    "object": "WWAudio.obj",
@@ -321,6 +377,22 @@
    "length": 164
   }
  },
+ "0x9F1F10": {
+  "R": {
+   "object": "WWAudio.obj",
+   "function": "WWAudioClass::Allocate_3D_Handles",
+   "symbol": "?Allocate_3D_Handles@WWAudioClass@@IAEXXZ",
+   "length": 245
+  }
+ },
+ "0x9F2010": {
+  "R": {
+   "object": "WWAudio.obj",
+   "function": "WWAudioClass::Release_3D_Handles",
+   "symbol": "?Release_3D_Handles@WWAudioClass@@IAEXXZ",
+   "length": 99
+  }
+ },
  "0x9F2080": {
   "R": {
    "object": "WWAudio.obj",
@@ -349,6 +421,22 @@
    "function": "WWAudioClass::ReAssign_3D_Handles",
    "symbol": "?ReAssign_3D_Handles@WWAudioClass@@IAEXXZ",
    "length": 96
+  }
+ },
+ "0x9F21A0": {
+  "R": {
+   "object": "WWAudio.obj",
+   "function": "WWAudioClass::Remove_2D_Sound_Handles",
+   "symbol": "?Remove_2D_Sound_Handles@WWAudioClass@@IAEXXZ",
+   "length": 70
+  }
+ },
+ "0x9F21F0": {
+  "R": {
+   "object": "WWAudio.obj",
+   "function": "WWAudioClass::Remove_3D_Sound_Handles",
+   "symbol": "?Remove_3D_Sound_Handles@WWAudioClass@@IAEXXZ",
+   "length": 70
   }
  },
  "0x9F2560": {
@@ -531,6 +619,14 @@
    "length": 54
   }
  },
+ "0x9F3940": {
+  "R": {
+   "object": "WWAudio.obj",
+   "function": "WWAudioClass::Load_From_Registry",
+   "symbol": "?Load_From_Registry@WWAudioClass@@QAE_NPBD@Z",
+   "length": 396
+  }
+ },
  "0x9F3AD0": {
   "R": {
    "object": "WWAudio.obj",
@@ -631,6 +727,22 @@
    "length": 505
   }
  },
+ "0x9F49D0": {
+  "R": {
+   "object": "WWAudio.obj",
+   "function": "WWAudioClass::Peek_2D_Sample",
+   "symbol": "?Peek_2D_Sample@WWAudioClass@@QAEPAVAudibleSoundClass@@H@Z",
+   "length": 73
+  }
+ },
+ "0x9F4A20": {
+  "R": {
+   "object": "WWAudio.obj",
+   "function": "WWAudioClass::Peek_3D_Sample",
+   "symbol": "?Peek_3D_Sample@WWAudioClass@@QAEPAVAudibleSoundClass@@H@Z",
+   "length": 73
+  }
+ },
  "0x9F4A70": {
   "R": {
    "object": "WWAudio.obj",
@@ -645,6 +757,14 @@
    "function": "WWAudioClass::Release_Virtual_Channel",
    "symbol": "?Release_Virtual_Channel@WWAudioClass@@QAEXPAVAudibleSoundClass@@H@Z",
    "length": 60
+  }
+ },
+ "0x9F4B70": {
+  "R": {
+   "object": "WWAudio.obj",
+   "function": "WWAudioClass::Set_Speaker_Type",
+   "symbol": "?Set_Speaker_Type@WWAudioClass@@QAEXH@Z",
+   "length": 31
   }
  },
  "0x9F4BA0": {
@@ -674,13 +794,13 @@
  "0x9F64C0": {
   "R": {
    "object": "WWAudio.obj",
-   "function": "?$VectorClass::Resize",
+   "function": "?Resize@?$VectorClass@U_CACHE_ENTRY_STRUCT@WWAudioClass@@@@UAE_NHPBU_CACHE_ENTRY_STRUCT@WWAudioClass@@@Z",
    "symbol": "?Resize@?$VectorClass@U_CACHE_ENTRY_STRUCT@WWAudioClass@@@@UAE_NHPBU_CACHE_ENTRY_STRUCT@WWAudioClass@@@Z",
    "length": 328
   },
   "Z": {
    "object": "WWAudio.obj",
-   "function": "?$VectorClass::Resize",
+   "function": "?Resize@?$VectorClass@U_CACHE_ENTRY_STRUCT@WWAudioClass@@@@UAE_NHPBU_CACHE_ENTRY_STRUCT@WWAudioClass@@@Z",
    "symbol": "?Resize@?$VectorClass@U_CACHE_ENTRY_STRUCT@WWAudioClass@@@@UAE_NHPBU_CACHE_ENTRY_STRUCT@WWAudioClass@@@Z",
    "length": 328
   }
@@ -688,13 +808,13 @@
  "0x9F6670": {
   "R": {
    "object": "WWAudio.obj",
-   "function": "?$DynamicVectorClass::Resize",
+   "function": "?Resize@?$DynamicVectorClass@U_CACHE_ENTRY_STRUCT@WWAudioClass@@@@UAE_NHPBU_CACHE_ENTRY_STRUCT@WWAudioClass@@@Z",
    "symbol": "?Resize@?$DynamicVectorClass@U_CACHE_ENTRY_STRUCT@WWAudioClass@@@@UAE_NHPBU_CACHE_ENTRY_STRUCT@WWAudioClass@@@Z",
    "length": 335
   },
   "Z": {
    "object": "WWAudio.obj",
-   "function": "?$DynamicVectorClass::Resize",
+   "function": "?Resize@?$DynamicVectorClass@U_CACHE_ENTRY_STRUCT@WWAudioClass@@@@UAE_NHPBU_CACHE_ENTRY_STRUCT@WWAudioClass@@@Z",
    "symbol": "?Resize@?$DynamicVectorClass@U_CACHE_ENTRY_STRUCT@WWAudioClass@@@@UAE_NHPBU_CACHE_ENTRY_STRUCT@WWAudioClass@@@Z",
    "length": 335
   }
@@ -702,19 +822,19 @@
  "0x9F67F0": {
   "R": {
    "object": "WWAudio.obj",
-   "function": "?$VectorClass::Resize",
+   "function": "?Resize@?$VectorClass@U_LOGICAL_TYPE_STRUCT@WWAudioClass@@@@UAE_NHPBU_LOGICAL_TYPE_STRUCT@WWAudioClass@@@Z",
    "symbol": "?Resize@?$VectorClass@U_LOGICAL_TYPE_STRUCT@WWAudioClass@@@@UAE_NHPBU_LOGICAL_TYPE_STRUCT@WWAudioClass@@@Z",
    "length": 526
   },
   "G": {
    "object": "WWAudio.obj",
-   "function": "?$VectorClass::Resize",
+   "function": "?Resize@?$VectorClass@U_LOGICAL_TYPE_STRUCT@WWAudioClass@@@@UAE_NHPBU_LOGICAL_TYPE_STRUCT@WWAudioClass@@@Z",
    "symbol": "?Resize@?$VectorClass@U_LOGICAL_TYPE_STRUCT@WWAudioClass@@@@UAE_NHPBU_LOGICAL_TYPE_STRUCT@WWAudioClass@@@Z",
    "length": 526
   },
   "Z": {
    "object": "WWAudio.obj",
-   "function": "?$VectorClass::Resize",
+   "function": "?Resize@?$VectorClass@U_LOGICAL_TYPE_STRUCT@WWAudioClass@@@@UAE_NHPBU_LOGICAL_TYPE_STRUCT@WWAudioClass@@@Z",
    "symbol": "?Resize@?$VectorClass@U_LOGICAL_TYPE_STRUCT@WWAudioClass@@@@UAE_NHPBU_LOGICAL_TYPE_STRUCT@WWAudioClass@@@Z",
    "length": 526
   }
@@ -722,19 +842,19 @@
  "0x9F6BD0": {
   "R": {
    "object": "WWAudio.obj",
-   "function": "WWAudioClass::?0_LOGICAL_TYPE_STRUCT",
+   "function": "_LOGICAL_TYPE_STRUCT::_LOGICAL_TYPE_STRUCT",
    "symbol": "??0_LOGICAL_TYPE_STRUCT@WWAudioClass@@QAE@XZ",
    "length": 40
   },
   "G": {
    "object": "WWAudio.obj",
-   "function": "WWAudioClass::?0_LOGICAL_TYPE_STRUCT",
+   "function": "_LOGICAL_TYPE_STRUCT::_LOGICAL_TYPE_STRUCT",
    "symbol": "??0_LOGICAL_TYPE_STRUCT@WWAudioClass@@QAE@XZ",
    "length": 40
   },
   "Z": {
    "object": "WWAudio.obj",
-   "function": "WWAudioClass::?0_LOGICAL_TYPE_STRUCT",
+   "function": "_LOGICAL_TYPE_STRUCT::_LOGICAL_TYPE_STRUCT",
    "symbol": "??0_LOGICAL_TYPE_STRUCT@WWAudioClass@@QAE@XZ",
    "length": 40
   }
@@ -742,19 +862,19 @@
  "0x9F74C0": {
   "R": {
    "object": "WWAudio.obj",
-   "function": "U_CACHE_ENTRY_STRUCT::?0?$VectorClass",
+   "function": "??0?$VectorClass@U_CACHE_ENTRY_STRUCT@WWAudioClass@@@@QAE@HPBU_CACHE_ENTRY_STRUCT@WWAudioClass@@@Z",
    "symbol": "??0?$VectorClass@U_CACHE_ENTRY_STRUCT@WWAudioClass@@@@QAE@HPBU_CACHE_ENTRY_STRUCT@WWAudioClass@@@Z",
    "length": 147
   },
   "G": {
    "object": "WWAudio.obj",
-   "function": "U_CACHE_ENTRY_STRUCT::?0?$VectorClass",
+   "function": "??0?$VectorClass@U_CACHE_ENTRY_STRUCT@WWAudioClass@@@@QAE@HPBU_CACHE_ENTRY_STRUCT@WWAudioClass@@@Z",
    "symbol": "??0?$VectorClass@U_CACHE_ENTRY_STRUCT@WWAudioClass@@@@QAE@HPBU_CACHE_ENTRY_STRUCT@WWAudioClass@@@Z",
    "length": 147
   },
   "Z": {
    "object": "WWAudio.obj",
-   "function": "U_CACHE_ENTRY_STRUCT::?0?$VectorClass",
+   "function": "??0?$VectorClass@U_CACHE_ENTRY_STRUCT@WWAudioClass@@@@QAE@HPBU_CACHE_ENTRY_STRUCT@WWAudioClass@@@Z",
    "symbol": "??0?$VectorClass@U_CACHE_ENTRY_STRUCT@WWAudioClass@@@@QAE@HPBU_CACHE_ENTRY_STRUCT@WWAudioClass@@@Z",
    "length": 147
   }
@@ -762,19 +882,19 @@
  "0x9F7560": {
   "R": {
    "object": "WWAudio.obj",
-   "function": "U_LOGICAL_TYPE_STRUCT::?0?$VectorClass",
+   "function": "??0?$VectorClass@U_LOGICAL_TYPE_STRUCT@WWAudioClass@@@@QAE@HPBU_LOGICAL_TYPE_STRUCT@WWAudioClass@@@Z",
    "symbol": "??0?$VectorClass@U_LOGICAL_TYPE_STRUCT@WWAudioClass@@@@QAE@HPBU_LOGICAL_TYPE_STRUCT@WWAudioClass@@@Z",
    "length": 230
   },
   "G": {
    "object": "WWAudio.obj",
-   "function": "U_LOGICAL_TYPE_STRUCT::?0?$VectorClass",
+   "function": "??0?$VectorClass@U_LOGICAL_TYPE_STRUCT@WWAudioClass@@@@QAE@HPBU_LOGICAL_TYPE_STRUCT@WWAudioClass@@@Z",
    "symbol": "??0?$VectorClass@U_LOGICAL_TYPE_STRUCT@WWAudioClass@@@@QAE@HPBU_LOGICAL_TYPE_STRUCT@WWAudioClass@@@Z",
    "length": 230
   },
   "Z": {
    "object": "WWAudio.obj",
-   "function": "U_LOGICAL_TYPE_STRUCT::?0?$VectorClass",
+   "function": "??0?$VectorClass@U_LOGICAL_TYPE_STRUCT@WWAudioClass@@@@QAE@HPBU_LOGICAL_TYPE_STRUCT@WWAudioClass@@@Z",
    "symbol": "??0?$VectorClass@U_LOGICAL_TYPE_STRUCT@WWAudioClass@@@@QAE@HPBU_LOGICAL_TYPE_STRUCT@WWAudioClass@@@Z",
    "length": 230
   }
@@ -876,13 +996,13 @@
  "0x9F9670": {
   "R": {
    "object": "SoundScene.obj",
-   "function": "?1SoundSceneClass",
+   "function": "SoundSceneClass::~SoundSceneClass",
    "symbol": "??1SoundSceneClass@@UAE@XZ",
    "length": 347
   },
   "Z": {
    "object": "SoundScene.obj",
-   "function": "?1SoundSceneClass",
+   "function": "SoundSceneClass::~SoundSceneClass",
    "symbol": "??1SoundSceneClass@@UAE@XZ",
    "length": 347
   }
@@ -910,7 +1030,7 @@
  "0x9F9F40": {
   "R": {
    "object": "SoundScene.obj",
-   "function": "SoundSceneClass::?_GAudibleInfoClass",
+   "function": "AudibleInfoClass::scalar deleting dtor",
    "symbol": "??_GAudibleInfoClass@SoundSceneClass@@UAEPAXI@Z",
    "length": 69
   }
@@ -918,13 +1038,13 @@
  "0x9FA4B0": {
   "R": {
    "object": "SoundScene.obj",
-   "function": "?_GSoundCullObjClass",
+   "function": "SoundCullObjClass::scalar deleting dtor",
    "symbol": "??_GSoundCullObjClass@@UAEPAXI@Z",
    "length": 92
   },
   "Z": {
    "object": "SoundScene.obj",
-   "function": "?_GSoundCullObjClass",
+   "function": "SoundCullObjClass::scalar deleting dtor",
    "symbol": "??_GSoundCullObjClass@@UAEPAXI@Z",
    "length": 92
   }
@@ -1096,13 +1216,13 @@
  "0x9FB420": {
   "R": {
    "object": "SoundScene.obj",
-   "function": "VSoundCullObjClass::?_G?$RefMultiListClass",
+   "function": "??_G?$RefMultiListClass@VSoundCullObjClass@@@@UAEPAXI@Z",
    "symbol": "??_G?$RefMultiListClass@VSoundCullObjClass@@@@UAEPAXI@Z",
    "length": 82
   },
   "Z": {
    "object": "SoundScene.obj",
-   "function": "VSoundCullObjClass::?_G?$RefMultiListClass",
+   "function": "??_G?$RefMultiListClass@VSoundCullObjClass@@@@UAEPAXI@Z",
    "symbol": "??_G?$RefMultiListClass@VSoundCullObjClass@@@@UAEPAXI@Z",
    "length": 82
   }
@@ -1110,7 +1230,7 @@
  "0x9FB480": {
   "R": {
    "object": "SoundScene.obj",
-   "function": "VLogicalSoundClass::?_G?$RefMultiListClass",
+   "function": "??_G?$RefMultiListClass@VLogicalSoundClass@@@@UAEPAXI@Z",
    "symbol": "??_G?$RefMultiListClass@VLogicalSoundClass@@@@UAEPAXI@Z",
    "length": 82
   }
@@ -1126,19 +1246,19 @@
  "0x9FB570": {
   "R": {
    "object": "SoundScene.obj",
-   "function": "?$TypedAABTreeCullSystemClass::Add_Object",
+   "function": "?Add_Object@?$TypedAABTreeCullSystemClass@VSoundCullObjClass@@@@UAEXPAVSoundCullObjClass@@H@Z",
    "symbol": "?Add_Object@?$TypedAABTreeCullSystemClass@VSoundCullObjClass@@@@UAEXPAVSoundCullObjClass@@H@Z",
    "length": 41
   },
   "G": {
    "object": "SoundScene.obj",
-   "function": "?$TypedAABTreeCullSystemClass::Add_Object",
+   "function": "?Add_Object@?$TypedAABTreeCullSystemClass@VSoundCullObjClass@@@@UAEXPAVSoundCullObjClass@@H@Z",
    "symbol": "?Add_Object@?$TypedAABTreeCullSystemClass@VSoundCullObjClass@@@@UAEXPAVSoundCullObjClass@@H@Z",
    "length": 41
   },
   "Z": {
    "object": "SoundScene.obj",
-   "function": "?$TypedAABTreeCullSystemClass::Add_Object",
+   "function": "?Add_Object@?$TypedAABTreeCullSystemClass@VSoundCullObjClass@@@@UAEXPAVSoundCullObjClass@@H@Z",
    "symbol": "?Add_Object@?$TypedAABTreeCullSystemClass@VSoundCullObjClass@@@@UAEXPAVSoundCullObjClass@@H@Z",
    "length": 41
   }
@@ -1146,19 +1266,19 @@
  "0x9FB700": {
   "R": {
    "object": "SoundScene.obj",
-   "function": "?$MultiListIterator::Remove_Current_Object",
+   "function": "?Remove_Current_Object@?$MultiListIterator@VLogicalListenerClass@@@@QAEXXZ",
    "symbol": "?Remove_Current_Object@?$MultiListIterator@VLogicalListenerClass@@@@QAEXXZ",
    "length": 25
   },
   "G": {
    "object": "SoundScene.obj",
-   "function": "?$MultiListIterator::Remove_Current_Object",
+   "function": "?Remove_Current_Object@?$MultiListIterator@VLogicalListenerClass@@@@QAEXXZ",
    "symbol": "?Remove_Current_Object@?$MultiListIterator@VLogicalListenerClass@@@@QAEXXZ",
    "length": 25
   },
   "Z": {
    "object": "SoundScene.obj",
-   "function": "?$MultiListIterator::Remove_Current_Object",
+   "function": "?Remove_Current_Object@?$MultiListIterator@VLogicalListenerClass@@@@QAEXXZ",
    "symbol": "?Remove_Current_Object@?$MultiListIterator@VLogicalListenerClass@@@@QAEXXZ",
    "length": 25
   }
@@ -1166,7 +1286,7 @@
  "0x9FB720": {
   "R": {
    "object": "SoundScene.obj",
-   "function": "?$ObjectPoolClass::Allocate_Object_Memory",
+   "function": "?Allocate_Object_Memory@?$ObjectPoolClass@VAudibleInfoClass@SoundSceneClass@@$0EA@@@QAEPAVAudibleInfoClass@SoundSceneClass@@XZ",
    "symbol": "?Allocate_Object_Memory@?$ObjectPoolClass@VAudibleInfoClass@SoundSceneClass@@$0EA@@@QAEPAVAudibleInfoClass@SoundSceneClass@@XZ",
    "length": 126
   }
@@ -1275,22 +1395,36 @@
    "length": 50
   }
  },
+ "0x9FC070": {
+  "R": {
+   "object": "SoundBuffer.obj",
+   "function": "SoundBufferClass::Load_From_Memory",
+   "symbol": "?Load_From_Memory@SoundBufferClass@@UAE_NPAEK@Z",
+   "length": 115
+  },
+  "Z": {
+   "object": "SoundBuffer.obj",
+   "function": "SoundBufferClass::Load_From_Memory",
+   "symbol": "?Load_From_Memory@SoundBufferClass@@UAE_NPAEK@Z",
+   "length": 115
+  }
+ },
  "0x9FC310": {
   "R": {
    "object": "SoundBuffer.obj",
-   "function": "?$DynamicVectorClass::Clear",
+   "function": "?Clear@?$DynamicVectorClass@VFileMappingClass@@@@UAEXXZ",
    "symbol": "?Clear@?$DynamicVectorClass@VFileMappingClass@@@@UAEXXZ",
    "length": 86
   },
   "G": {
    "object": "SoundBuffer.obj",
-   "function": "?$DynamicVectorClass::Clear",
+   "function": "?Clear@?$DynamicVectorClass@VFileMappingClass@@@@UAEXXZ",
    "symbol": "?Clear@?$DynamicVectorClass@VFileMappingClass@@@@UAEXXZ",
    "length": 86
   },
   "Z": {
    "object": "SoundBuffer.obj",
-   "function": "?$DynamicVectorClass::Clear",
+   "function": "?Clear@?$DynamicVectorClass@VFileMappingClass@@@@UAEXXZ",
    "symbol": "?Clear@?$DynamicVectorClass@VFileMappingClass@@@@UAEXXZ",
    "length": 86
   }
@@ -1298,19 +1432,19 @@
  "0x9FC3A0": {
   "R": {
    "object": "SoundBuffer.obj",
-   "function": "VFileMappingClass::?8?$VectorClass",
+   "function": "??8?$VectorClass@VFileMappingClass@@@@UBE_NABV0@@Z",
    "symbol": "??8?$VectorClass@VFileMappingClass@@@@UBE_NABV0@@Z",
    "length": 16
   },
   "G": {
    "object": "SoundBuffer.obj",
-   "function": "VFileMappingClass::?8?$VectorClass",
+   "function": "??8?$VectorClass@VFileMappingClass@@@@UBE_NABV0@@Z",
    "symbol": "??8?$VectorClass@VFileMappingClass@@@@UBE_NABV0@@Z",
    "length": 16
   },
   "Z": {
    "object": "SoundBuffer.obj",
-   "function": "VFileMappingClass::?8?$VectorClass",
+   "function": "??8?$VectorClass@VFileMappingClass@@@@UBE_NABV0@@Z",
    "symbol": "??8?$VectorClass@VFileMappingClass@@@@UBE_NABV0@@Z",
    "length": 16
   }
@@ -1318,19 +1452,19 @@
  "0x9FC3B0": {
   "R": {
    "object": "SoundBuffer.obj",
-   "function": "?$VectorClass::Resize",
+   "function": "?Resize@?$VectorClass@VFileMappingClass@@@@UAE_NHPBVFileMappingClass@@@Z",
    "symbol": "?Resize@?$VectorClass@VFileMappingClass@@@@UAE_NHPBVFileMappingClass@@@Z",
    "length": 528
   },
   "G": {
    "object": "SoundBuffer.obj",
-   "function": "?$VectorClass::Resize",
+   "function": "?Resize@?$VectorClass@VFileMappingClass@@@@UAE_NHPBVFileMappingClass@@@Z",
    "symbol": "?Resize@?$VectorClass@VFileMappingClass@@@@UAE_NHPBVFileMappingClass@@@Z",
    "length": 528
   },
   "Z": {
    "object": "SoundBuffer.obj",
-   "function": "?$VectorClass::Resize",
+   "function": "?Resize@?$VectorClass@VFileMappingClass@@@@UAE_NHPBVFileMappingClass@@@Z",
    "symbol": "?Resize@?$VectorClass@VFileMappingClass@@@@UAE_NHPBVFileMappingClass@@@Z",
    "length": 528
   }
@@ -1338,19 +1472,19 @@
  "0x9FC5C0": {
   "R": {
    "object": "SoundBuffer.obj",
-   "function": "?$VectorClass::Clear",
+   "function": "?Clear@?$VectorClass@VFileMappingClass@@@@UAEXXZ",
    "symbol": "?Clear@?$VectorClass@VFileMappingClass@@@@UAEXXZ",
    "length": 83
   },
   "G": {
    "object": "SoundBuffer.obj",
-   "function": "?$VectorClass::Clear",
+   "function": "?Clear@?$VectorClass@VFileMappingClass@@@@UAEXXZ",
    "symbol": "?Clear@?$VectorClass@VFileMappingClass@@@@UAEXXZ",
    "length": 83
   },
   "Z": {
    "object": "SoundBuffer.obj",
-   "function": "?$VectorClass::Clear",
+   "function": "?Clear@?$VectorClass@VFileMappingClass@@@@UAEXXZ",
    "symbol": "?Clear@?$VectorClass@VFileMappingClass@@@@UAEXXZ",
    "length": 83
   }
@@ -1358,19 +1492,19 @@
  "0x9FC660": {
   "R": {
    "object": "SoundBuffer.obj",
-   "function": "?$DynamicVectorClass::Resize",
+   "function": "?Resize@?$DynamicVectorClass@VFileMappingClass@@@@UAE_NHPBVFileMappingClass@@@Z",
    "symbol": "?Resize@?$DynamicVectorClass@VFileMappingClass@@@@UAE_NHPBVFileMappingClass@@@Z",
    "length": 352
   },
   "G": {
    "object": "SoundBuffer.obj",
-   "function": "?$DynamicVectorClass::Resize",
+   "function": "?Resize@?$DynamicVectorClass@VFileMappingClass@@@@UAE_NHPBVFileMappingClass@@@Z",
    "symbol": "?Resize@?$DynamicVectorClass@VFileMappingClass@@@@UAE_NHPBVFileMappingClass@@@Z",
    "length": 352
   },
   "Z": {
    "object": "SoundBuffer.obj",
-   "function": "?$DynamicVectorClass::Resize",
+   "function": "?Resize@?$DynamicVectorClass@VFileMappingClass@@@@UAE_NHPBVFileMappingClass@@@Z",
    "symbol": "?Resize@?$DynamicVectorClass@VFileMappingClass@@@@UAE_NHPBVFileMappingClass@@@Z",
    "length": 352
   }
@@ -1378,19 +1512,19 @@
  "0x9FC850": {
   "R": {
    "object": "SoundBuffer.obj",
-   "function": "?_EFileMappingClass",
+   "function": "FileMappingClass::vector deleting dtor",
    "symbol": "??_EFileMappingClass@@QAEPAXI@Z",
    "length": 97
   },
   "G": {
    "object": "SoundBuffer.obj",
-   "function": "?_EFileMappingClass",
+   "function": "FileMappingClass::vector deleting dtor",
    "symbol": "??_EFileMappingClass@@QAEPAXI@Z",
    "length": 97
   },
   "Z": {
    "object": "SoundBuffer.obj",
-   "function": "?_EFileMappingClass",
+   "function": "FileMappingClass::vector deleting dtor",
    "symbol": "??_EFileMappingClass@@QAEPAXI@Z",
    "length": 97
   }
@@ -1441,6 +1575,122 @@
    "function": "AudibleSoundClass::Set_Miles_Handle",
    "symbol": "?Set_Miles_Handle@AudibleSoundClass@@MAEXK@Z",
    "length": 111
+  }
+ },
+ "0x9FD9B0": {
+  "R": {
+   "object": "AudibleSound.obj",
+   "function": "AudibleSoundClass::Free_Miles_Handle",
+   "symbol": "?Free_Miles_Handle@AudibleSoundClass@@MAEXXZ",
+   "length": 61
+  },
+  "G": {
+   "object": "AudibleSound.obj",
+   "function": "AudibleSoundClass::Free_Miles_Handle",
+   "symbol": "?Free_Miles_Handle@AudibleSoundClass@@MAEXXZ",
+   "length": 61
+  },
+  "Z": {
+   "object": "AudibleSound.obj",
+   "function": "AudibleSoundClass::Free_Miles_Handle",
+   "symbol": "?Free_Miles_Handle@AudibleSoundClass@@MAEXXZ",
+   "length": 61
+  }
+ },
+ "0x9FD9F0": {
+  "R": {
+   "object": "AudibleSound.obj",
+   "function": "AudibleSoundClass::Get_Pan",
+   "symbol": "?Get_Pan@AudibleSoundClass@@UAEMXZ",
+   "length": 59
+  }
+ },
+ "0x9FDA30": {
+  "R": {
+   "object": "AudibleSound.obj",
+   "function": "AudibleSoundClass::Set_Pan",
+   "symbol": "?Set_Pan@AudibleSoundClass@@UAEXM@Z",
+   "length": 115
+  }
+ },
+ "0x9FDB10": {
+  "R": {
+   "object": "AudibleSound.obj",
+   "function": "AudibleSoundClass::Get_Playback_Rate",
+   "symbol": "?Get_Playback_Rate@AudibleSoundClass@@UAEHXZ",
+   "length": 37
+  },
+  "G": {
+   "object": "AudibleSound.obj",
+   "function": "AudibleSoundClass::Get_Playback_Rate",
+   "symbol": "?Get_Playback_Rate@AudibleSoundClass@@UAEHXZ",
+   "length": 37
+  },
+  "Z": {
+   "object": "AudibleSound.obj",
+   "function": "AudibleSoundClass::Get_Playback_Rate",
+   "symbol": "?Get_Playback_Rate@AudibleSoundClass@@UAEHXZ",
+   "length": 37
+  }
+ },
+ "0x9FDB40": {
+  "R": {
+   "object": "AudibleSound.obj",
+   "function": "AudibleSoundClass::Set_Playback_Rate",
+   "symbol": "?Set_Playback_Rate@AudibleSoundClass@@UAEXH@Z",
+   "length": 36
+  },
+  "G": {
+   "object": "AudibleSound.obj",
+   "function": "AudibleSoundClass::Set_Playback_Rate",
+   "symbol": "?Set_Playback_Rate@AudibleSoundClass@@UAEXH@Z",
+   "length": 36
+  },
+  "Z": {
+   "object": "AudibleSound.obj",
+   "function": "AudibleSoundClass::Set_Playback_Rate",
+   "symbol": "?Set_Playback_Rate@AudibleSoundClass@@UAEXH@Z",
+   "length": 36
+  }
+ },
+ "0x9FDB70": {
+  "R": {
+   "object": "AudibleSound.obj",
+   "function": "AudibleSoundClass::Get_Volume",
+   "symbol": "?Get_Volume@AudibleSoundClass@@UAEMXZ",
+   "length": 59
+  }
+ },
+ "0x9FDBB0": {
+  "R": {
+   "object": "AudibleSound.obj",
+   "function": "AudibleSoundClass::Internal_Set_Volume",
+   "symbol": "?Internal_Set_Volume@AudibleSoundClass@@MAEXM@Z",
+   "length": 116
+  }
+ },
+ "0x9FDC30": {
+  "R": {
+   "object": "AudibleSound.obj",
+   "function": "AudibleSoundClass::Set_Volume",
+   "symbol": "?Set_Volume@AudibleSoundClass@@UAEXM@Z",
+   "length": 94
+  }
+ },
+ "0x9FDCA0": {
+  "R": {
+   "object": "AudibleSound.obj",
+   "function": "AudibleSoundClass::Set_Loop_Count",
+   "symbol": "?Set_Loop_Count@AudibleSoundClass@@UAEXH@Z",
+   "length": 39
+  }
+ },
+ "0x9FDCD0": {
+  "R": {
+   "object": "AudibleSound.obj",
+   "function": "AudibleSoundClass::Set_Priority",
+   "symbol": "?Set_Priority@AudibleSoundClass@@UAEXM@Z",
+   "length": 75
   }
  },
  "0x9FDE80": {
@@ -1498,7 +1748,7 @@
  "0x9FE4C0": {
   "Z": {
    "object": "AudibleSound.obj",
-   "function": "?_GDefinitionClass",
+   "function": "DefinitionClass::scalar deleting dtor",
    "symbol": "??_GDefinitionClass@@UAEPAXI@Z",
    "length": 53
   }
@@ -1554,39 +1804,47 @@
  "0x9FFB30": {
   "R": {
    "object": "SoundPseudo3D.obj",
-   "function": "?0SoundPseudo3DClass",
+   "function": "SoundPseudo3DClass::SoundPseudo3DClass",
    "symbol": "??0SoundPseudo3DClass@@QAE@ABV0@@Z",
    "length": 49
   },
   "G": {
    "object": "SoundPseudo3D.obj",
-   "function": "?0SoundPseudo3DClass",
+   "function": "SoundPseudo3DClass::SoundPseudo3DClass",
    "symbol": "??0SoundPseudo3DClass@@QAE@ABV0@@Z",
    "length": 49
   },
   "Z": {
    "object": "SoundPseudo3D.obj",
-   "function": "?0SoundPseudo3DClass",
+   "function": "SoundPseudo3DClass::SoundPseudo3DClass",
    "symbol": "??0SoundPseudo3DClass@@QAE@ABV0@@Z",
    "length": 49
+  }
+ },
+ "0x9FFBF0": {
+  "R": {
+   "object": "SoundPseudo3D.obj",
+   "function": "SoundPseudo3DClass::Update_Pseudo_Volume",
+   "symbol": "?Update_Pseudo_Volume@SoundPseudo3DClass@@UAEXM@Z",
+   "length": 194
   }
  },
  "0xA00290": {
   "R": {
    "object": "SoundSceneObj.obj",
-   "function": "?0SoundSceneObjClass",
+   "function": "SoundSceneObjClass::SoundSceneObjClass",
    "symbol": "??0SoundSceneObjClass@@QAE@XZ",
    "length": 425
   },
   "G": {
    "object": "SoundSceneObj.obj",
-   "function": "?0SoundSceneObjClass",
+   "function": "SoundSceneObjClass::SoundSceneObjClass",
    "symbol": "??0SoundSceneObjClass@@QAE@XZ",
    "length": 425
   },
   "Z": {
    "object": "SoundSceneObj.obj",
-   "function": "?0SoundSceneObjClass",
+   "function": "SoundSceneObjClass::SoundSceneObjClass",
    "symbol": "??0SoundSceneObjClass@@QAE@XZ",
    "length": 425
   }
@@ -1594,7 +1852,7 @@
  "0xA005F0": {
   "R": {
    "object": "SoundSceneObj.obj",
-   "function": "?0SoundSceneObjClass",
+   "function": "SoundSceneObjClass::SoundSceneObjClass",
    "symbol": "??0SoundSceneObjClass@@QAE@ABV0@@Z",
    "length": 475
   }
@@ -1602,7 +1860,7 @@
  "0xA00990": {
   "R": {
    "object": "SoundSceneObj.obj",
-   "function": "?4SoundSceneObjClass",
+   "function": "SoundSceneObjClass::operator=",
    "symbol": "??4SoundSceneObjClass@@QAEABV0@ABV0@@Z",
    "length": 76
   }
@@ -1746,19 +2004,19 @@
  "0xA01AD0": {
   "R": {
    "object": "LogicalSound.obj",
-   "function": "?0LogicalSoundClass",
+   "function": "LogicalSoundClass::LogicalSoundClass",
    "symbol": "??0LogicalSoundClass@@QAE@XZ",
    "length": 72
   },
   "G": {
    "object": "LogicalSound.obj",
-   "function": "?0LogicalSoundClass",
+   "function": "LogicalSoundClass::LogicalSoundClass",
    "symbol": "??0LogicalSoundClass@@QAE@XZ",
    "length": 72
   },
   "Z": {
    "object": "LogicalSound.obj",
-   "function": "?0LogicalSoundClass",
+   "function": "LogicalSoundClass::LogicalSoundClass",
    "symbol": "??0LogicalSoundClass@@QAE@XZ",
    "length": 72
   }
@@ -1982,19 +2240,19 @@
  "0xA01FE0": {
   "R": {
    "object": "LogicalSound.obj",
-   "function": "?$SimplePersistFactoryClass::Load",
+   "function": "?Load@?$SimplePersistFactoryClass@VLogicalSoundClass@@$0DAAAH@@@UBEPAVPersistClass@@AAVChunkLoadClass@@@Z",
    "symbol": "?Load@?$SimplePersistFactoryClass@VLogicalSoundClass@@$0DAAAH@@@UBEPAVPersistClass@@AAVChunkLoadClass@@@Z",
    "length": 182
   },
   "G": {
    "object": "LogicalSound.obj",
-   "function": "?$SimplePersistFactoryClass::Load",
+   "function": "?Load@?$SimplePersistFactoryClass@VLogicalSoundClass@@$0DAAAH@@@UBEPAVPersistClass@@AAVChunkLoadClass@@@Z",
    "symbol": "?Load@?$SimplePersistFactoryClass@VLogicalSoundClass@@$0DAAAH@@@UBEPAVPersistClass@@AAVChunkLoadClass@@@Z",
    "length": 182
   },
   "Z": {
    "object": "LogicalSound.obj",
-   "function": "?$SimplePersistFactoryClass::Load",
+   "function": "?Load@?$SimplePersistFactoryClass@VLogicalSoundClass@@$0DAAAH@@@UBEPAVPersistClass@@AAVChunkLoadClass@@@Z",
    "symbol": "?Load@?$SimplePersistFactoryClass@VLogicalSoundClass@@$0DAAAH@@@UBEPAVPersistClass@@AAVChunkLoadClass@@@Z",
    "length": 182
   }
@@ -2002,19 +2260,19 @@
  "0xA02160": {
   "R": {
    "object": "LogicalListener.obj",
-   "function": "?0LogicalListenerClass",
+   "function": "LogicalListenerClass::LogicalListenerClass",
    "symbol": "??0LogicalListenerClass@@QAE@XZ",
    "length": 56
   },
   "G": {
    "object": "LogicalListener.obj",
-   "function": "?0LogicalListenerClass",
+   "function": "LogicalListenerClass::LogicalListenerClass",
    "symbol": "??0LogicalListenerClass@@QAE@XZ",
    "length": 56
   },
   "Z": {
    "object": "LogicalListener.obj",
-   "function": "?0LogicalListenerClass",
+   "function": "LogicalListenerClass::LogicalListenerClass",
    "symbol": "??0LogicalListenerClass@@QAE@XZ",
    "length": 56
   }
@@ -2150,19 +2408,19 @@
  "0xA02500": {
   "R": {
    "object": "LogicalListener.obj",
-   "function": "?$SimplePersistFactoryClass::Load",
+   "function": "?Load@?$SimplePersistFactoryClass@VLogicalListenerClass@@$0DAAAI@@@UBEPAVPersistClass@@AAVChunkLoadClass@@@Z",
    "symbol": "?Load@?$SimplePersistFactoryClass@VLogicalListenerClass@@$0DAAAI@@@UBEPAVPersistClass@@AAVChunkLoadClass@@@Z",
    "length": 166
   },
   "G": {
    "object": "LogicalListener.obj",
-   "function": "?$SimplePersistFactoryClass::Load",
+   "function": "?Load@?$SimplePersistFactoryClass@VLogicalListenerClass@@$0DAAAI@@@UBEPAVPersistClass@@AAVChunkLoadClass@@@Z",
    "symbol": "?Load@?$SimplePersistFactoryClass@VLogicalListenerClass@@$0DAAAI@@@UBEPAVPersistClass@@AAVChunkLoadClass@@@Z",
    "length": 166
   },
   "Z": {
    "object": "LogicalListener.obj",
-   "function": "?$SimplePersistFactoryClass::Load",
+   "function": "?Load@?$SimplePersistFactoryClass@VLogicalListenerClass@@$0DAAAI@@@UBEPAVPersistClass@@AAVChunkLoadClass@@@Z",
    "symbol": "?Load@?$SimplePersistFactoryClass@VLogicalListenerClass@@$0DAAAI@@@UBEPAVPersistClass@@AAVChunkLoadClass@@@Z",
    "length": 166
   }
@@ -2170,7 +2428,7 @@
  "0xA02620": {
   "R": {
    "object": "AudioEvents.obj",
-   "function": "?0AudioCallbackClass",
+   "function": "AudioCallbackClass::AudioCallbackClass",
    "symbol": "??0AudioCallbackClass@@QAE@XZ",
    "length": 41
   }
@@ -2178,7 +2436,7 @@
  "0xA02680": {
   "R": {
    "object": "AudioEvents.obj",
-   "function": "?_GAudioCallbackClass",
+   "function": "AudioCallbackClass::scalar deleting dtor",
    "symbol": "??_GAudioCallbackClass@@UAEPAXI@Z",
    "length": 135
   }
@@ -2186,7 +2444,7 @@
  "0xA02710": {
   "R": {
    "object": "AudioEvents.obj",
-   "function": "?1AudioCallbackClass",
+   "function": "AudioCallbackClass::~AudioCallbackClass",
    "symbol": "??1AudioCallbackClass@@UAE@XZ",
    "length": 104
   }
@@ -2215,22 +2473,70 @@
    "length": 59
   }
  },
+ "0xA02A90": {
+  "R": {
+   "object": "sound3dhandle.obj",
+   "function": "Sound3DHandleClass::Set_Sample_MS_Position",
+   "symbol": "?Set_Sample_MS_Position@Sound3DHandleClass@@UAEXK@Z",
+   "length": 83
+  },
+  "Z": {
+   "object": "sound3dhandle.obj",
+   "function": "Sound3DHandleClass::Set_Sample_MS_Position",
+   "symbol": "?Set_Sample_MS_Position@Sound3DHandleClass@@UAEXK@Z",
+   "length": 83
+  }
+ },
+ "0xA02AF0": {
+  "R": {
+   "object": "sound3dhandle.obj",
+   "function": "Sound3DHandleClass::Get_Sample_MS_Position",
+   "symbol": "?Get_Sample_MS_Position@Sound3DHandleClass@@UAEXPAJ0@Z",
+   "length": 169
+  },
+  "Z": {
+   "object": "sound3dhandle.obj",
+   "function": "Sound3DHandleClass::Get_Sample_MS_Position",
+   "symbol": "?Get_Sample_MS_Position@Sound3DHandleClass@@UAEXPAJ0@Z",
+   "length": 169
+  }
+ },
+ "0xA02E50": {
+  "R": {
+   "object": "Listener.obj",
+   "function": "Listener3DClass::Initialize_Miles_Handle",
+   "symbol": "?Initialize_Miles_Handle@Listener3DClass@@MAEXXZ",
+   "length": 86
+  },
+  "G": {
+   "object": "Listener.obj",
+   "function": "Listener3DClass::Initialize_Miles_Handle",
+   "symbol": "?Initialize_Miles_Handle@Listener3DClass@@MAEXXZ",
+   "length": 86
+  },
+  "Z": {
+   "object": "Listener.obj",
+   "function": "Listener3DClass::Initialize_Miles_Handle",
+   "symbol": "?Initialize_Miles_Handle@Listener3DClass@@MAEXXZ",
+   "length": 86
+  }
+ },
  "0xA03970": {
   "R": {
    "object": "soundhandle.obj",
-   "function": "?_GSoundHandleClass",
+   "function": "SoundHandleClass::scalar deleting dtor",
    "symbol": "??_GSoundHandleClass@@UAEPAXI@Z",
    "length": 59
   },
   "G": {
    "object": "soundhandle.obj",
-   "function": "?_GSoundHandleClass",
+   "function": "SoundHandleClass::scalar deleting dtor",
    "symbol": "??_GSoundHandleClass@@UAEPAXI@Z",
    "length": 59
   },
   "Z": {
    "object": "soundhandle.obj",
-   "function": "?_GSoundHandleClass",
+   "function": "SoundHandleClass::scalar deleting dtor",
    "symbol": "??_GSoundHandleClass@@UAEPAXI@Z",
    "length": 59
   }
@@ -2238,19 +2544,19 @@
  "0xA039B0": {
   "R": {
    "object": "soundhandle.obj",
-   "function": "?1SoundHandleClass",
+   "function": "SoundHandleClass::~SoundHandleClass",
    "symbol": "??1SoundHandleClass@@UAE@XZ",
    "length": 39
   },
   "G": {
    "object": "soundhandle.obj",
-   "function": "?1SoundHandleClass",
+   "function": "SoundHandleClass::~SoundHandleClass",
    "symbol": "??1SoundHandleClass@@UAE@XZ",
    "length": 39
   },
   "Z": {
    "object": "soundhandle.obj",
-   "function": "?1SoundHandleClass",
+   "function": "SoundHandleClass::~SoundHandleClass",
    "symbol": "??1SoundHandleClass@@UAE@XZ",
    "length": 39
   }

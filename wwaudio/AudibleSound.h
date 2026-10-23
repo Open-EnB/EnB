@@ -377,6 +377,8 @@ class AudibleSoundClass : public SoundSceneObjClass
 		float						m_Pan;
 		int						m_LoopCount;
 		int						m_LoopsLeft;
+		int						m_Unknown7C;		// E&B: 4 at construction; meaning not known
+		int						m_Unknown80;		// E&B: -1 at construction; meaning not known
 
 		// Offset and length information (in milliseconds)
 		unsigned long			m_Length;

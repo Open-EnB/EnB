@@ -118,6 +118,16 @@ PATCHES = {
          '\tvirtual ~SimpleSceneClass(void);\n\n\tvirtual int\tGet_Scene_ID(void)\t{\treturn SCENE_ID_SIMPLE;\t}',
          "SimpleSceneClass::Get_Scene_ID() (not const, so a new virtual, not an override: as in Zero Hour) returns SCENE_ID_SIMPLE (the client's slot 23 returns 1)"),
     ],
+    ('wwaudio', 'audiblesound.h'): [
+        ('\t\tint\t\t\t\t\t\tm_LoopsLeft;',
+         '\t\tint\t\t\t\t\t\tm_LoopsLeft;\n\t\tint\t\t\t\t\t\tm_Unknown7C;\t\t// E&B: 4 at construction; meaning not known\n\t\tint\t\t\t\t\t\tm_Unknown80;\t\t// E&B: -1 at construction; meaning not known',
+         'AudibleSoundClass has two E&B ints after m_LoopsLeft (+0x7C, +0x80; every later member is 8 bytes later in the client), set to 4 and -1 by both constructors (client 0x9FCA50, 0x9FCE60) and not copied by operator=. Meaning not known: named m_Unknown7C, m_Unknown80'),
+    ],
+    ('wwaudio', 'audiblesound.cpp'): [
+        ('\t\tm_LoopsLeft (0),',
+         '\t\tm_LoopsLeft (0),\n\t\tm_Unknown7C (4),\n\t\tm_Unknown80 (-1),',
+         'both constructors initialise them'),
+    ],
     ('ww3d2', 'rendobj.h'): [
         ('class RenderObjClass : public RefCountClass , public PersistClass, public MultiListObjectClass',
          """//////////////////////////////////////////////////////////////////////////////////

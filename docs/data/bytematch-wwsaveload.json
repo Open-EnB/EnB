@@ -2,19 +2,19 @@
  "0x42F250": {
   "R": {
    "object": "wwsaveload.obj",
-   "function": "YGXPAXIHP6EX0::?_H",
+   "function": "??_H@YGXPAXIHP6EX0@Z@Z",
    "symbol": "??_H@YGXPAXIHP6EX0@Z@Z",
    "length": 42
   },
   "G": {
    "object": "wwsaveload.obj",
-   "function": "YGXPAXIHP6EX0::?_H",
+   "function": "??_H@YGXPAXIHP6EX0@Z@Z",
    "symbol": "??_H@YGXPAXIHP6EX0@Z@Z",
    "length": 42
   },
   "Z": {
    "object": "wwsaveload.obj",
-   "function": "YGXPAXIHP6EX0::?_H",
+   "function": "??_H@YGXPAXIHP6EX0@Z@Z",
    "symbol": "??_H@YGXPAXIHP6EX0@Z@Z",
    "length": 42
   }
@@ -22,19 +22,19 @@
  "0x48C500": {
   "R": {
    "object": "parameter.obj",
-   "function": "?4StringClass",
+   "function": "StringClass::operator=",
    "symbol": "??4StringClass@@QAEABV0@ABV0@@Z",
    "length": 104
   },
   "G": {
    "object": "parameter.obj",
-   "function": "?4StringClass",
+   "function": "StringClass::operator=",
    "symbol": "??4StringClass@@QAEABV0@ABV0@@Z",
    "length": 104
   },
   "Z": {
    "object": "parameter.obj",
-   "function": "?4StringClass",
+   "function": "StringClass::operator=",
    "symbol": "??4StringClass@@QAEABV0@ABV0@@Z",
    "length": 104
   }
@@ -42,19 +42,19 @@
  "0x48CA70": {
   "R": {
    "object": "parameter.obj",
-   "function": "?4StringClass",
+   "function": "StringClass::operator=",
    "symbol": "??4StringClass@@QAEABV0@PBD@Z",
    "length": 88
   },
   "G": {
    "object": "parameter.obj",
-   "function": "?4StringClass",
+   "function": "StringClass::operator=",
    "symbol": "??4StringClass@@QAEABV0@PBD@Z",
    "length": 88
   },
   "Z": {
    "object": "parameter.obj",
-   "function": "?4StringClass",
+   "function": "StringClass::operator=",
    "symbol": "??4StringClass@@QAEABV0@PBD@Z",
    "length": 88
   }
@@ -62,19 +62,19 @@
  "0x48E940": {
   "R": {
    "object": "definitionmgr.obj",
-   "function": "?$HashTemplateKeyClass::Get_Hash_Value",
+   "function": "?Get_Hash_Value@?$HashTemplateKeyClass@VStringClass@@@@SAIABVStringClass@@@Z",
    "symbol": "?Get_Hash_Value@?$HashTemplateKeyClass@VStringClass@@@@SAIABVStringClass@@@Z",
    "length": 106
   },
   "G": {
    "object": "definitionmgr.obj",
-   "function": "?$HashTemplateKeyClass::Get_Hash_Value",
+   "function": "?Get_Hash_Value@?$HashTemplateKeyClass@VStringClass@@@@SAIABVStringClass@@@Z",
    "symbol": "?Get_Hash_Value@?$HashTemplateKeyClass@VStringClass@@@@SAIABVStringClass@@@Z",
    "length": 106
   },
   "Z": {
    "object": "definitionmgr.obj",
-   "function": "?$HashTemplateKeyClass::Get_Hash_Value",
+   "function": "?Get_Hash_Value@?$HashTemplateKeyClass@VStringClass@@@@SAIABVStringClass@@@Z",
    "symbol": "?Get_Hash_Value@?$HashTemplateKeyClass@VStringClass@@@@SAIABVStringClass@@@Z",
    "length": 106
   }
@@ -102,19 +102,19 @@
  "0x53F1C0": {
   "R": {
    "object": "parameter.obj",
-   "function": "?0StringClass",
+   "function": "StringClass::StringClass",
    "symbol": "??0StringClass@@QAE@H_N@Z",
    "length": 43
   },
   "G": {
    "object": "parameter.obj",
-   "function": "?0StringClass",
+   "function": "StringClass::StringClass",
    "symbol": "??0StringClass@@QAE@H_N@Z",
    "length": 43
   },
   "Z": {
    "object": "parameter.obj",
-   "function": "?0StringClass",
+   "function": "StringClass::StringClass",
    "symbol": "??0StringClass@@QAE@H_N@Z",
    "length": 43
   }
@@ -122,19 +122,19 @@
  "0x909500": {
   "R": {
    "object": "twiddler.obj",
-   "function": "YGXPAXIHP6EX0::?_I",
+   "function": "??_I@YGXPAXIHP6EX0@Z@Z",
    "symbol": "??_I@YGXPAXIHP6EX0@Z@Z",
    "length": 49
   },
   "G": {
    "object": "twiddler.obj",
-   "function": "YGXPAXIHP6EX0::?_I",
+   "function": "??_I@YGXPAXIHP6EX0@Z@Z",
    "symbol": "??_I@YGXPAXIHP6EX0@Z@Z",
    "length": 49
   },
   "Z": {
    "object": "twiddler.obj",
-   "function": "YGXPAXIHP6EX0::?_I",
+   "function": "??_I@YGXPAXIHP6EX0@Z@Z",
    "symbol": "??_I@YGXPAXIHP6EX0@Z@Z",
    "length": 49
   }
@@ -150,19 +150,19 @@
  "0x9DA8C0": {
   "R": {
    "object": "twiddler.obj",
-   "function": "EnumParameterClass::?_E_ENUM_VALUE",
+   "function": "_ENUM_VALUE::vector deleting dtor",
    "symbol": "??_E_ENUM_VALUE@EnumParameterClass@@QAEPAXI@Z",
    "length": 94
   },
   "G": {
    "object": "twiddler.obj",
-   "function": "EnumParameterClass::?_E_ENUM_VALUE",
+   "function": "_ENUM_VALUE::vector deleting dtor",
    "symbol": "??_E_ENUM_VALUE@EnumParameterClass@@QAEPAXI@Z",
    "length": 94
   },
   "Z": {
    "object": "twiddler.obj",
-   "function": "EnumParameterClass::?_E_ENUM_VALUE",
+   "function": "_ENUM_VALUE::vector deleting dtor",
    "symbol": "??_E_ENUM_VALUE@EnumParameterClass@@QAEPAXI@Z",
    "length": 94
   }
@@ -170,7 +170,7 @@
  "0x9FE4C0": {
   "Z": {
    "object": "twiddler.obj",
-   "function": "?_GDefinitionClass",
+   "function": "DefinitionClass::scalar deleting dtor",
    "symbol": "??_GDefinitionClass@@UAEPAXI@Z",
    "length": 53
   }
@@ -178,19 +178,19 @@
  "0xA03C30": {
   "R": {
    "object": "persistfactory.obj",
-   "function": "?0PersistFactoryClass",
+   "function": "PersistFactoryClass::PersistFactoryClass",
    "symbol": "??0PersistFactoryClass@@QAE@XZ",
    "length": 29
   },
   "G": {
    "object": "persistfactory.obj",
-   "function": "?0PersistFactoryClass",
+   "function": "PersistFactoryClass::PersistFactoryClass",
    "symbol": "??0PersistFactoryClass@@QAE@XZ",
    "length": 29
   },
   "Z": {
    "object": "persistfactory.obj",
-   "function": "?0PersistFactoryClass",
+   "function": "PersistFactoryClass::PersistFactoryClass",
    "symbol": "??0PersistFactoryClass@@QAE@XZ",
    "length": 29
   }
@@ -330,19 +330,19 @@
  "0xA04A50": {
   "R": {
    "object": "definitionmgr.obj",
-   "function": "?_GDefinitionMgrClass",
+   "function": "DefinitionMgrClass::scalar deleting dtor",
    "symbol": "??_GDefinitionMgrClass@@UAEPAXI@Z",
    "length": 43
   },
   "G": {
    "object": "definitionmgr.obj",
-   "function": "?_GDefinitionMgrClass",
+   "function": "DefinitionMgrClass::scalar deleting dtor",
    "symbol": "??_GDefinitionMgrClass@@UAEPAXI@Z",
    "length": 43
   },
   "Z": {
    "object": "definitionmgr.obj",
-   "function": "?_GDefinitionMgrClass",
+   "function": "DefinitionMgrClass::scalar deleting dtor",
    "symbol": "??_GDefinitionMgrClass@@UAEPAXI@Z",
    "length": 43
   }
@@ -576,19 +576,19 @@
  "0xA062A0": {
   "R": {
    "object": "pointerremap.obj",
-   "function": "?0PointerRemapClass",
+   "function": "PointerRemapClass::PointerRemapClass",
    "symbol": "??0PointerRemapClass@@QAE@XZ",
    "length": 120
   },
   "G": {
    "object": "pointerremap.obj",
-   "function": "?0PointerRemapClass",
+   "function": "PointerRemapClass::PointerRemapClass",
    "symbol": "??0PointerRemapClass@@QAE@XZ",
    "length": 120
   },
   "Z": {
    "object": "pointerremap.obj",
-   "function": "?0PointerRemapClass",
+   "function": "PointerRemapClass::PointerRemapClass",
    "symbol": "??0PointerRemapClass@@QAE@XZ",
    "length": 120
   }
@@ -596,19 +596,19 @@
  "0xA06320": {
   "R": {
    "object": "pointerremap.obj",
-   "function": "?1PointerRemapClass",
+   "function": "PointerRemapClass::~PointerRemapClass",
    "symbol": "??1PointerRemapClass@@QAE@XZ",
    "length": 119
   },
   "G": {
    "object": "pointerremap.obj",
-   "function": "?1PointerRemapClass",
+   "function": "PointerRemapClass::~PointerRemapClass",
    "symbol": "??1PointerRemapClass@@QAE@XZ",
    "length": 119
   },
   "Z": {
    "object": "pointerremap.obj",
-   "function": "?1PointerRemapClass",
+   "function": "PointerRemapClass::~PointerRemapClass",
    "symbol": "??1PointerRemapClass@@QAE@XZ",
    "length": 119
   }
@@ -770,19 +770,19 @@
  "0xA06730": {
   "R": {
    "object": "pointerremap.obj",
-   "function": "?$VectorClass::Resize",
+   "function": "?Resize@?$VectorClass@UPtrPairStruct@PointerRemapClass@@@@UAE_NHPBUPtrPairStruct@PointerRemapClass@@@Z",
    "symbol": "?Resize@?$VectorClass@UPtrPairStruct@PointerRemapClass@@@@UAE_NHPBUPtrPairStruct@PointerRemapClass@@@Z",
    "length": 208
   },
   "G": {
    "object": "pointerremap.obj",
-   "function": "?$VectorClass::Resize",
+   "function": "?Resize@?$VectorClass@UPtrPairStruct@PointerRemapClass@@@@UAE_NHPBUPtrPairStruct@PointerRemapClass@@@Z",
    "symbol": "?Resize@?$VectorClass@UPtrPairStruct@PointerRemapClass@@@@UAE_NHPBUPtrPairStruct@PointerRemapClass@@@Z",
    "length": 208
   },
   "Z": {
    "object": "pointerremap.obj",
-   "function": "?$VectorClass::Resize",
+   "function": "?Resize@?$VectorClass@UPtrPairStruct@PointerRemapClass@@@@UAE_NHPBUPtrPairStruct@PointerRemapClass@@@Z",
    "symbol": "?Resize@?$VectorClass@UPtrPairStruct@PointerRemapClass@@@@UAE_NHPBUPtrPairStruct@PointerRemapClass@@@Z",
    "length": 208
   }
@@ -790,19 +790,19 @@
  "0xA068A0": {
   "R": {
    "object": "pointerremap.obj",
-   "function": "?$DynamicVectorClass::Resize",
+   "function": "?Resize@?$DynamicVectorClass@UPtrPairStruct@PointerRemapClass@@@@UAE_NHPBUPtrPairStruct@PointerRemapClass@@@Z",
    "symbol": "?Resize@?$DynamicVectorClass@UPtrPairStruct@PointerRemapClass@@@@UAE_NHPBUPtrPairStruct@PointerRemapClass@@@Z",
    "length": 214
   },
   "G": {
    "object": "pointerremap.obj",
-   "function": "?$DynamicVectorClass::Resize",
+   "function": "?Resize@?$DynamicVectorClass@UPtrPairStruct@PointerRemapClass@@@@UAE_NHPBUPtrPairStruct@PointerRemapClass@@@Z",
    "symbol": "?Resize@?$DynamicVectorClass@UPtrPairStruct@PointerRemapClass@@@@UAE_NHPBUPtrPairStruct@PointerRemapClass@@@Z",
    "length": 214
   },
   "Z": {
    "object": "pointerremap.obj",
-   "function": "?$DynamicVectorClass::Resize",
+   "function": "?Resize@?$DynamicVectorClass@UPtrPairStruct@PointerRemapClass@@@@UAE_NHPBUPtrPairStruct@PointerRemapClass@@@Z",
    "symbol": "?Resize@?$DynamicVectorClass@UPtrPairStruct@PointerRemapClass@@@@UAE_NHPBUPtrPairStruct@PointerRemapClass@@@Z",
    "length": 214
   }
@@ -810,19 +810,19 @@
  "0xA06A00": {
   "R": {
    "object": "pointerremap.obj",
-   "function": "?$VectorClass::Resize",
+   "function": "?Resize@?$VectorClass@UPtrRemapStruct@PointerRemapClass@@@@UAE_NHPBUPtrRemapStruct@PointerRemapClass@@@Z",
    "symbol": "?Resize@?$VectorClass@UPtrRemapStruct@PointerRemapClass@@@@UAE_NHPBUPtrRemapStruct@PointerRemapClass@@@Z",
    "length": 196
   },
   "G": {
    "object": "pointerremap.obj",
-   "function": "?$VectorClass::Resize",
+   "function": "?Resize@?$VectorClass@UPtrRemapStruct@PointerRemapClass@@@@UAE_NHPBUPtrRemapStruct@PointerRemapClass@@@Z",
    "symbol": "?Resize@?$VectorClass@UPtrRemapStruct@PointerRemapClass@@@@UAE_NHPBUPtrRemapStruct@PointerRemapClass@@@Z",
    "length": 196
   },
   "Z": {
    "object": "pointerremap.obj",
-   "function": "?$VectorClass::Resize",
+   "function": "?Resize@?$VectorClass@UPtrRemapStruct@PointerRemapClass@@@@UAE_NHPBUPtrRemapStruct@PointerRemapClass@@@Z",
    "symbol": "?Resize@?$VectorClass@UPtrRemapStruct@PointerRemapClass@@@@UAE_NHPBUPtrRemapStruct@PointerRemapClass@@@Z",
    "length": 196
   }
@@ -830,19 +830,19 @@
  "0xA06B60": {
   "R": {
    "object": "pointerremap.obj",
-   "function": "?$DynamicVectorClass::Resize",
+   "function": "?Resize@?$DynamicVectorClass@UPtrRemapStruct@PointerRemapClass@@@@UAE_NHPBUPtrRemapStruct@PointerRemapClass@@@Z",
    "symbol": "?Resize@?$DynamicVectorClass@UPtrRemapStruct@PointerRemapClass@@@@UAE_NHPBUPtrRemapStruct@PointerRemapClass@@@Z",
    "length": 202
   },
   "G": {
    "object": "pointerremap.obj",
-   "function": "?$DynamicVectorClass::Resize",
+   "function": "?Resize@?$DynamicVectorClass@UPtrRemapStruct@PointerRemapClass@@@@UAE_NHPBUPtrRemapStruct@PointerRemapClass@@@Z",
    "symbol": "?Resize@?$DynamicVectorClass@UPtrRemapStruct@PointerRemapClass@@@@UAE_NHPBUPtrRemapStruct@PointerRemapClass@@@Z",
    "length": 202
   },
   "Z": {
    "object": "pointerremap.obj",
-   "function": "?$DynamicVectorClass::Resize",
+   "function": "?Resize@?$DynamicVectorClass@UPtrRemapStruct@PointerRemapClass@@@@UAE_NHPBUPtrRemapStruct@PointerRemapClass@@@Z",
    "symbol": "?Resize@?$DynamicVectorClass@UPtrRemapStruct@PointerRemapClass@@@@UAE_NHPBUPtrRemapStruct@PointerRemapClass@@@Z",
    "length": 202
   }
@@ -850,19 +850,19 @@
  "0xA06E20": {
   "R": {
    "object": "pointerremap.obj",
-   "function": "UPtrRemapStruct::?0?$VectorClass",
+   "function": "??0?$VectorClass@UPtrRemapStruct@PointerRemapClass@@@@QAE@HPBUPtrRemapStruct@PointerRemapClass@@@Z",
    "symbol": "??0?$VectorClass@UPtrRemapStruct@PointerRemapClass@@@@QAE@HPBUPtrRemapStruct@PointerRemapClass@@@Z",
    "length": 114
   },
   "G": {
    "object": "pointerremap.obj",
-   "function": "UPtrRemapStruct::?0?$VectorClass",
+   "function": "??0?$VectorClass@UPtrRemapStruct@PointerRemapClass@@@@QAE@HPBUPtrRemapStruct@PointerRemapClass@@@Z",
    "symbol": "??0?$VectorClass@UPtrRemapStruct@PointerRemapClass@@@@QAE@HPBUPtrRemapStruct@PointerRemapClass@@@Z",
    "length": 114
   },
   "Z": {
    "object": "pointerremap.obj",
-   "function": "UPtrRemapStruct::?0?$VectorClass",
+   "function": "??0?$VectorClass@UPtrRemapStruct@PointerRemapClass@@@@QAE@HPBUPtrRemapStruct@PointerRemapClass@@@Z",
    "symbol": "??0?$VectorClass@UPtrRemapStruct@PointerRemapClass@@@@QAE@HPBUPtrRemapStruct@PointerRemapClass@@@Z",
    "length": 114
   }
@@ -944,7 +944,7 @@
  "0xA07160": {
   "Z": {
    "object": "twiddler.obj",
-   "function": "?0TwiddlerClass",
+   "function": "TwiddlerClass::TwiddlerClass",
    "symbol": "??0TwiddlerClass@@QAE@XZ",
    "length": 118
   }
@@ -952,7 +952,7 @@
  "0xA07210": {
   "Z": {
    "object": "twiddler.obj",
-   "function": "?_GTwiddlerClass",
+   "function": "TwiddlerClass::scalar deleting dtor",
    "symbol": "??_GTwiddlerClass@@UAEPAXI@Z",
    "length": 114
   }
@@ -960,7 +960,7 @@
  "0xA07290": {
   "Z": {
    "object": "twiddler.obj",
-   "function": "?1TwiddlerClass",
+   "function": "TwiddlerClass::~TwiddlerClass",
    "symbol": "??1TwiddlerClass@@UAE@XZ",
    "length": 93
   }
@@ -1016,7 +1016,7 @@
  "0xA07820": {
   "Z": {
    "object": "twiddler.obj",
-   "function": "?$SimpleDefinitionFactoryClass::Create",
+   "function": "?Create@?$SimpleDefinitionFactoryClass@VTwiddlerClass@@$0OAAA@$1?TwiddlerClassName@@3PADA@@UBEPAVDefinitionClass@@XZ",
    "symbol": "?Create@?$SimpleDefinitionFactoryClass@VTwiddlerClass@@$0OAAA@$1?TwiddlerClassName@@3PADA@@UBEPAVDefinitionClass@@XZ",
    "length": 137
   }
@@ -1024,7 +1024,7 @@
  "0xA078D0": {
   "Z": {
    "object": "twiddler.obj",
-   "function": "?$SimplePersistFactoryClass::Load",
+   "function": "?Load@?$SimplePersistFactoryClass@VTwiddlerClass@@$0BAC@@@UBEPAVPersistClass@@AAVChunkLoadClass@@@Z",
    "symbol": "?Load@?$SimplePersistFactoryClass@VTwiddlerClass@@$0BAC@@@UBEPAVPersistClass@@AAVChunkLoadClass@@@Z",
    "length": 212
   }
@@ -1032,19 +1032,19 @@
  "0xA07A50": {
   "R": {
    "object": "saveloadsubsystem.obj",
-   "function": "?0SaveLoadSubSystemClass",
+   "function": "SaveLoadSubSystemClass::SaveLoadSubSystemClass",
    "symbol": "??0SaveLoadSubSystemClass@@QAE@XZ",
    "length": 30
   },
   "G": {
    "object": "saveloadsubsystem.obj",
-   "function": "?0SaveLoadSubSystemClass",
+   "function": "SaveLoadSubSystemClass::SaveLoadSubSystemClass",
    "symbol": "??0SaveLoadSubSystemClass@@QAE@XZ",
    "length": 30
   },
   "Z": {
    "object": "saveloadsubsystem.obj",
-   "function": "?0SaveLoadSubSystemClass",
+   "function": "SaveLoadSubSystemClass::SaveLoadSubSystemClass",
    "symbol": "??0SaveLoadSubSystemClass@@QAE@XZ",
    "length": 30
   }
@@ -1052,19 +1052,19 @@
  "0xA07A80": {
   "R": {
    "object": "saveloadsubsystem.obj",
-   "function": "?_GSaveLoadSubSystemClass",
+   "function": "SaveLoadSubSystemClass::scalar deleting dtor",
    "symbol": "??_GSaveLoadSubSystemClass@@UAEPAXI@Z",
    "length": 47
   },
   "G": {
    "object": "saveloadsubsystem.obj",
-   "function": "?_GSaveLoadSubSystemClass",
+   "function": "SaveLoadSubSystemClass::scalar deleting dtor",
    "symbol": "??_GSaveLoadSubSystemClass@@UAEPAXI@Z",
    "length": 47
   },
   "Z": {
    "object": "saveloadsubsystem.obj",
-   "function": "?_GSaveLoadSubSystemClass",
+   "function": "SaveLoadSubSystemClass::scalar deleting dtor",
    "symbol": "??_GSaveLoadSubSystemClass@@UAEPAXI@Z",
    "length": 47
   }
@@ -1072,19 +1072,19 @@
  "0xA07AB0": {
   "R": {
    "object": "saveloadsubsystem.obj",
-   "function": "?1SaveLoadSubSystemClass",
+   "function": "SaveLoadSubSystemClass::~SaveLoadSubSystemClass",
    "symbol": "??1SaveLoadSubSystemClass@@UAE@XZ",
    "length": 26
   },
   "G": {
    "object": "saveloadsubsystem.obj",
-   "function": "?1SaveLoadSubSystemClass",
+   "function": "SaveLoadSubSystemClass::~SaveLoadSubSystemClass",
    "symbol": "??1SaveLoadSubSystemClass@@UAE@XZ",
    "length": 26
   },
   "Z": {
    "object": "saveloadsubsystem.obj",
-   "function": "?1SaveLoadSubSystemClass",
+   "function": "SaveLoadSubSystemClass::~SaveLoadSubSystemClass",
    "symbol": "??1SaveLoadSubSystemClass@@UAE@XZ",
    "length": 26
   }

@@ -2,19 +2,19 @@
  "0x42F250": {
   "R": {
    "object": "wwfont.obj",
-   "function": "YGXPAXIHP6EX0::?_H",
+   "function": "??_H@YGXPAXIHP6EX0@Z@Z",
    "symbol": "??_H@YGXPAXIHP6EX0@Z@Z",
    "length": 42
   },
   "G": {
    "object": "wwfont.obj",
-   "function": "YGXPAXIHP6EX0::?_H",
+   "function": "??_H@YGXPAXIHP6EX0@Z@Z",
    "symbol": "??_H@YGXPAXIHP6EX0@Z@Z",
    "length": 42
   },
   "Z": {
    "object": "wwfont.obj",
-   "function": "YGXPAXIHP6EX0::?_H",
+   "function": "??_H@YGXPAXIHP6EX0@Z@Z",
    "symbol": "??_H@YGXPAXIHP6EX0@Z@Z",
    "length": 42
   }
@@ -50,19 +50,19 @@
  "0x48C500": {
   "R": {
    "object": "mixfile.obj",
-   "function": "?4StringClass",
+   "function": "StringClass::operator=",
    "symbol": "??4StringClass@@QAEABV0@ABV0@@Z",
    "length": 104
   },
   "G": {
    "object": "mixfile.obj",
-   "function": "?4StringClass",
+   "function": "StringClass::operator=",
    "symbol": "??4StringClass@@QAEABV0@ABV0@@Z",
    "length": 104
   },
   "Z": {
    "object": "mixfile.obj",
-   "function": "?4StringClass",
+   "function": "StringClass::operator=",
    "symbol": "??4StringClass@@QAEABV0@ABV0@@Z",
    "length": 104
   }
@@ -70,19 +70,19 @@
  "0x48CA70": {
   "R": {
    "object": "registry.obj",
-   "function": "?4StringClass",
+   "function": "StringClass::operator=",
    "symbol": "??4StringClass@@QAEABV0@PBD@Z",
    "length": 88
   },
   "G": {
    "object": "registry.obj",
-   "function": "?4StringClass",
+   "function": "StringClass::operator=",
    "symbol": "??4StringClass@@QAEABV0@PBD@Z",
    "length": 88
   },
   "Z": {
    "object": "registry.obj",
-   "function": "?4StringClass",
+   "function": "StringClass::operator=",
    "symbol": "??4StringClass@@QAEABV0@PBD@Z",
    "length": 88
   }
@@ -90,19 +90,19 @@
  "0x48CED0": {
   "R": {
    "object": "mixfile.obj",
-   "function": "?0StringClass",
+   "function": "StringClass::StringClass",
    "symbol": "??0StringClass@@QAE@PBD_N@Z",
    "length": 138
   },
   "G": {
    "object": "mixfile.obj",
-   "function": "?0StringClass",
+   "function": "StringClass::StringClass",
    "symbol": "??0StringClass@@QAE@PBD_N@Z",
    "length": 138
   },
   "Z": {
    "object": "mixfile.obj",
-   "function": "?0StringClass",
+   "function": "StringClass::StringClass",
    "symbol": "??0StringClass@@QAE@PBD_N@Z",
    "length": 138
   }
@@ -110,19 +110,19 @@
  "0x4E64E0": {
   "R": {
    "object": "registry.obj",
-   "function": "VStringClass::?8?$VectorClass",
+   "function": "??8?$VectorClass@VStringClass@@@@UBE_NABV0@@Z",
    "symbol": "??8?$VectorClass@VStringClass@@@@UBE_NABV0@@Z",
    "length": 119
   },
   "G": {
    "object": "registry.obj",
-   "function": "VStringClass::?8?$VectorClass",
+   "function": "??8?$VectorClass@VStringClass@@@@UBE_NABV0@@Z",
    "symbol": "??8?$VectorClass@VStringClass@@@@UBE_NABV0@@Z",
    "length": 119
   },
   "Z": {
    "object": "registry.obj",
-   "function": "VStringClass::?8?$VectorClass",
+   "function": "??8?$VectorClass@VStringClass@@@@UBE_NABV0@@Z",
    "symbol": "??8?$VectorClass@VStringClass@@@@UBE_NABV0@@Z",
    "length": 119
   }
@@ -130,19 +130,19 @@
  "0x4E6820": {
   "R": {
    "object": "registry.obj",
-   "function": "?$VectorClass::ID",
+   "function": "?ID@?$VectorClass@VStringClass@@@@UAEHABVStringClass@@@Z",
    "symbol": "?ID@?$VectorClass@VStringClass@@@@UAEHABVStringClass@@@Z",
    "length": 120
   },
   "G": {
    "object": "registry.obj",
-   "function": "?$VectorClass::ID",
+   "function": "?ID@?$VectorClass@VStringClass@@@@UAEHABVStringClass@@@Z",
    "symbol": "?ID@?$VectorClass@VStringClass@@@@UAEHABVStringClass@@@Z",
    "length": 120
   },
   "Z": {
    "object": "registry.obj",
-   "function": "?$VectorClass::ID",
+   "function": "?ID@?$VectorClass@VStringClass@@@@UAEHABVStringClass@@@Z",
    "symbol": "?ID@?$VectorClass@VStringClass@@@@UAEHABVStringClass@@@Z",
    "length": 120
   }
@@ -150,19 +150,19 @@
  "0x4E6940": {
   "R": {
    "object": "registry.obj",
-   "function": "?$DynamicVectorClass::ID",
+   "function": "?ID@?$DynamicVectorClass@VStringClass@@@@UAEHABVStringClass@@@Z",
    "symbol": "?ID@?$DynamicVectorClass@VStringClass@@@@UAEHABVStringClass@@@Z",
    "length": 104
   },
   "G": {
    "object": "registry.obj",
-   "function": "?$DynamicVectorClass::ID",
+   "function": "?ID@?$DynamicVectorClass@VStringClass@@@@UAEHABVStringClass@@@Z",
    "symbol": "?ID@?$DynamicVectorClass@VStringClass@@@@UAEHABVStringClass@@@Z",
    "length": 104
   },
   "Z": {
    "object": "registry.obj",
-   "function": "?$DynamicVectorClass::ID",
+   "function": "?ID@?$DynamicVectorClass@VStringClass@@@@UAEHABVStringClass@@@Z",
    "symbol": "?ID@?$DynamicVectorClass@VStringClass@@@@UAEHABVStringClass@@@Z",
    "length": 104
   }
@@ -170,19 +170,19 @@
  "0x510BE0": {
   "R": {
    "object": "cpudetect.obj",
-   "function": "?YStringClass",
+   "function": "??YStringClass@@QAEABV0@ABV0@@Z",
    "symbol": "??YStringClass@@QAEABV0@ABV0@@Z",
    "length": 166
   },
   "G": {
    "object": "cpudetect.obj",
-   "function": "?YStringClass",
+   "function": "??YStringClass@@QAEABV0@ABV0@@Z",
    "symbol": "??YStringClass@@QAEABV0@ABV0@@Z",
    "length": 166
   },
   "Z": {
    "object": "cpudetect.obj",
-   "function": "?YStringClass",
+   "function": "??YStringClass@@QAEABV0@ABV0@@Z",
    "symbol": "??YStringClass@@QAEABV0@ABV0@@Z",
    "length": 166
   }
@@ -210,19 +210,19 @@
  "0x53F1C0": {
   "R": {
    "object": "registry.obj",
-   "function": "?0StringClass",
+   "function": "StringClass::StringClass",
    "symbol": "??0StringClass@@QAE@H_N@Z",
    "length": 43
   },
   "G": {
    "object": "registry.obj",
-   "function": "?0StringClass",
+   "function": "StringClass::StringClass",
    "symbol": "??0StringClass@@QAE@H_N@Z",
    "length": 43
   },
   "Z": {
    "object": "registry.obj",
-   "function": "?0StringClass",
+   "function": "StringClass::StringClass",
    "symbol": "??0StringClass@@QAE@H_N@Z",
    "length": 43
   }
@@ -528,19 +528,19 @@
  "0x6CE730": {
   "R": {
    "object": "mixfile.obj",
-   "function": "?YStringClass",
+   "function": "??YStringClass@@QAEABV0@PBD@Z",
    "symbol": "??YStringClass@@QAEABV0@PBD@Z",
    "length": 122
   },
   "G": {
    "object": "mixfile.obj",
-   "function": "?YStringClass",
+   "function": "??YStringClass@@QAEABV0@PBD@Z",
    "symbol": "??YStringClass@@QAEABV0@PBD@Z",
    "length": 122
   },
   "Z": {
    "object": "mixfile.obj",
-   "function": "?YStringClass",
+   "function": "??YStringClass@@QAEABV0@PBD@Z",
    "symbol": "??YStringClass@@QAEABV0@PBD@Z",
    "length": 122
   }
@@ -548,13 +548,13 @@
  "0x726850": {
   "R": {
    "object": "ini.obj",
-   "function": "?0GenericList",
+   "function": "GenericList::GenericList",
    "symbol": "??0GenericList@@QAE@XZ",
    "length": 105
   },
   "Z": {
    "object": "ini.obj",
-   "function": "?0GenericList",
+   "function": "GenericList::GenericList",
    "symbol": "??0GenericList@@QAE@XZ",
    "length": 105
   }
@@ -562,19 +562,19 @@
  "0x909500": {
   "R": {
    "object": "rndstrng.obj",
-   "function": "YGXPAXIHP6EX0::?_I",
+   "function": "??_I@YGXPAXIHP6EX0@Z@Z",
    "symbol": "??_I@YGXPAXIHP6EX0@Z@Z",
    "length": 49
   },
   "G": {
    "object": "registry.obj",
-   "function": "YGXPAXIHP6EX0::?_I",
+   "function": "??_I@YGXPAXIHP6EX0@Z@Z",
    "symbol": "??_I@YGXPAXIHP6EX0@Z@Z",
    "length": 49
   },
   "Z": {
    "object": "rndstrng.obj",
-   "function": "YGXPAXIHP6EX0::?_I",
+   "function": "??_I@YGXPAXIHP6EX0@Z@Z",
    "symbol": "??_I@YGXPAXIHP6EX0@Z@Z",
    "length": 49
   }
@@ -582,13 +582,13 @@
  "0x919CF0": {
   "R": {
    "object": "mixfile.obj",
-   "function": "?_GSimpleFileFactoryClass",
+   "function": "SimpleFileFactoryClass::scalar deleting dtor",
    "symbol": "??_GSimpleFileFactoryClass@@UAEPAXI@Z",
    "length": 54
   },
   "Z": {
    "object": "mixfile.obj",
-   "function": "?_GSimpleFileFactoryClass",
+   "function": "SimpleFileFactoryClass::scalar deleting dtor",
    "symbol": "??_GSimpleFileFactoryClass@@UAEPAXI@Z",
    "length": 54
   }
@@ -596,19 +596,19 @@
  "0x942E20": {
   "R": {
    "object": "registry.obj",
-   "function": "?$DynamicVectorClass::Add",
+   "function": "?Add@?$DynamicVectorClass@VStringClass@@@@QAE_NABVStringClass@@@Z",
    "symbol": "?Add@?$DynamicVectorClass@VStringClass@@@@QAE_NABVStringClass@@@Z",
    "length": 169
   },
   "G": {
    "object": "registry.obj",
-   "function": "?$DynamicVectorClass::Add",
+   "function": "?Add@?$DynamicVectorClass@VStringClass@@@@QAE_NABVStringClass@@@Z",
    "symbol": "?Add@?$DynamicVectorClass@VStringClass@@@@QAE_NABVStringClass@@@Z",
    "length": 169
   },
   "Z": {
    "object": "registry.obj",
-   "function": "?$DynamicVectorClass::Add",
+   "function": "?Add@?$DynamicVectorClass@VStringClass@@@@QAE_NABVStringClass@@@Z",
    "symbol": "?Add@?$DynamicVectorClass@VStringClass@@@@QAE_NABVStringClass@@@Z",
    "length": 169
   }
@@ -616,19 +616,19 @@
  "0x9C77F0": {
   "R": {
    "object": "ini.obj",
-   "function": "?1INIEntry",
+   "function": "INIEntry::~INIEntry",
    "symbol": "??1INIEntry@@UAE@XZ",
    "length": 84
   },
   "G": {
    "object": "ini.obj",
-   "function": "?1INIEntry",
+   "function": "INIEntry::~INIEntry",
    "symbol": "??1INIEntry@@UAE@XZ",
    "length": 84
   },
   "Z": {
    "object": "ini.obj",
-   "function": "?1INIEntry",
+   "function": "INIEntry::~INIEntry",
    "symbol": "??1INIEntry@@UAE@XZ",
    "length": 84
   }
@@ -636,19 +636,19 @@
  "0x9C7850": {
   "R": {
    "object": "ini.obj",
-   "function": "?_GINIEntry",
+   "function": "INIEntry::scalar deleting dtor",
    "symbol": "??_GINIEntry@@UAEPAXI@Z",
    "length": 104
   },
   "G": {
    "object": "ini.obj",
-   "function": "?_GINIEntry",
+   "function": "INIEntry::scalar deleting dtor",
    "symbol": "??_GINIEntry@@UAEPAXI@Z",
    "length": 104
   },
   "Z": {
    "object": "ini.obj",
-   "function": "?_GINIEntry",
+   "function": "INIEntry::scalar deleting dtor",
    "symbol": "??_GINIEntry@@UAEPAXI@Z",
    "length": 104
   }
@@ -656,19 +656,19 @@
  "0x9C78C0": {
   "R": {
    "object": "ini.obj",
-   "function": "?1INISection",
+   "function": "INISection::~INISection",
    "symbol": "??1INISection@@UAE@XZ",
    "length": 279
   },
   "G": {
    "object": "ini.obj",
-   "function": "?1INISection",
+   "function": "INISection::~INISection",
    "symbol": "??1INISection@@UAE@XZ",
    "length": 279
   },
   "Z": {
    "object": "ini.obj",
-   "function": "?1INISection",
+   "function": "INISection::~INISection",
    "symbol": "??1INISection@@UAE@XZ",
    "length": 279
   }
@@ -676,19 +676,19 @@
  "0x9C79E0": {
   "R": {
    "object": "ini.obj",
-   "function": "?_GINISection",
+   "function": "INISection::scalar deleting dtor",
    "symbol": "??_GINISection@@UAEPAXI@Z",
    "length": 299
   },
   "G": {
    "object": "ini.obj",
-   "function": "?_GINISection",
+   "function": "INISection::scalar deleting dtor",
    "symbol": "??_GINISection@@UAEPAXI@Z",
    "length": 299
   },
   "Z": {
    "object": "ini.obj",
-   "function": "?_GINISection",
+   "function": "INISection::scalar deleting dtor",
    "symbol": "??_GINISection@@UAEPAXI@Z",
    "length": 299
   }
@@ -744,13 +744,13 @@
  "0x9C7C60": {
   "R": {
    "object": "ini.obj",
-   "function": "?0INIClass",
+   "function": "INIClass::INIClass",
    "symbol": "??0INIClass@@QAE@XZ",
    "length": 197
   },
   "Z": {
    "object": "ini.obj",
-   "function": "?0INIClass",
+   "function": "INIClass::INIClass",
    "symbol": "??0INIClass@@QAE@XZ",
    "length": 197
   }
@@ -758,13 +758,13 @@
  "0x9C7D30": {
   "R": {
    "object": "ini.obj",
-   "function": "?_GINIClass",
+   "function": "INIClass::scalar deleting dtor",
    "symbol": "??_GINIClass@@UAEPAXI@Z",
    "length": 108
   },
   "Z": {
    "object": "ini.obj",
-   "function": "?_GINIClass",
+   "function": "INIClass::scalar deleting dtor",
    "symbol": "??_GINIClass@@UAEPAXI@Z",
    "length": 108
   }
@@ -772,13 +772,13 @@
  "0x9C7DA0": {
   "R": {
    "object": "ini.obj",
-   "function": "?0INIClass",
+   "function": "INIClass::INIClass",
    "symbol": "??0INIClass@@QAE@AAVFileClass@@@Z",
    "length": 226
   },
   "Z": {
    "object": "ini.obj",
-   "function": "?0INIClass",
+   "function": "INIClass::INIClass",
    "symbol": "??0INIClass@@QAE@AAVFileClass@@@Z",
    "length": 226
   }
@@ -786,13 +786,13 @@
  "0x9C7EB0": {
   "R": {
    "object": "ini.obj",
-   "function": "?0INIClass",
+   "function": "INIClass::INIClass",
    "symbol": "??0INIClass@@QAE@PBD@Z",
    "length": 262
   },
   "Z": {
    "object": "ini.obj",
-   "function": "?0INIClass",
+   "function": "INIClass::INIClass",
    "symbol": "??0INIClass@@QAE@PBD@Z",
    "length": 262
   }
@@ -800,13 +800,13 @@
  "0x9C7FC0": {
   "R": {
    "object": "ini.obj",
-   "function": "?1INIClass",
+   "function": "INIClass::~INIClass",
    "symbol": "??1INIClass@@UAE@XZ",
    "length": 87
   },
   "Z": {
    "object": "ini.obj",
-   "function": "?1INIClass",
+   "function": "INIClass::~INIClass",
    "symbol": "??1INIClass@@UAE@XZ",
    "length": 87
   }
@@ -1650,19 +1650,19 @@
  "0x9CC5F0": {
   "R": {
    "object": "ini.obj",
-   "function": "HPAUINIEntry::?0?$IndexClass",
+   "function": "??0?$IndexClass@HPAUINIEntry@@@@QAE@XZ",
    "symbol": "??0?$IndexClass@HPAUINIEntry@@@@QAE@XZ",
    "length": 19
   },
   "G": {
    "object": "ini.obj",
-   "function": "HPAUINIEntry::?0?$IndexClass",
+   "function": "??0?$IndexClass@HPAUINIEntry@@@@QAE@XZ",
    "symbol": "??0?$IndexClass@HPAUINIEntry@@@@QAE@XZ",
    "length": 19
   },
   "Z": {
    "object": "ini.obj",
-   "function": "HPAUINIEntry::?0?$IndexClass",
+   "function": "??0?$IndexClass@HPAUINIEntry@@@@QAE@XZ",
    "symbol": "??0?$IndexClass@HPAUINIEntry@@@@QAE@XZ",
    "length": 19
   }
@@ -1670,19 +1670,19 @@
  "0x9CC610": {
   "R": {
    "object": "ini.obj",
-   "function": "?$IndexClass::Add_Index",
+   "function": "?Add_Index@?$IndexClass@HPAUINIEntry@@@@QAE_NABHABQAUINIEntry@@@Z",
    "symbol": "?Add_Index@?$IndexClass@HPAUINIEntry@@@@QAE_NABHABQAUINIEntry@@@Z",
    "length": 199
   },
   "G": {
    "object": "ini.obj",
-   "function": "?$IndexClass::Add_Index",
+   "function": "?Add_Index@?$IndexClass@HPAUINIEntry@@@@QAE_NABHABQAUINIEntry@@@Z",
    "symbol": "?Add_Index@?$IndexClass@HPAUINIEntry@@@@QAE_NABHABQAUINIEntry@@@Z",
    "length": 199
   },
   "Z": {
    "object": "ini.obj",
-   "function": "?$IndexClass::Add_Index",
+   "function": "?Add_Index@?$IndexClass@HPAUINIEntry@@@@QAE_NABHABQAUINIEntry@@@Z",
    "symbol": "?Add_Index@?$IndexClass@HPAUINIEntry@@@@QAE_NABHABQAUINIEntry@@@Z",
    "length": 199
   }
@@ -1836,19 +1836,19 @@
  "0x9CEE10": {
   "R": {
    "object": "mutex.obj",
-   "function": "?0MutexClass",
+   "function": "MutexClass::MutexClass",
    "symbol": "??0MutexClass@@QAE@PBD@Z",
    "length": 39
   },
   "G": {
    "object": "mutex.obj",
-   "function": "?0MutexClass",
+   "function": "MutexClass::MutexClass",
    "symbol": "??0MutexClass@@QAE@PBD@Z",
    "length": 39
   },
   "Z": {
    "object": "mutex.obj",
-   "function": "?0MutexClass",
+   "function": "MutexClass::MutexClass",
    "symbol": "??0MutexClass@@QAE@PBD@Z",
    "length": 39
   }
@@ -1876,19 +1876,19 @@
  "0x9CEEA0": {
   "R": {
    "object": "mutex.obj",
-   "function": "MutexClass::?0LockClass",
+   "function": "LockClass::LockClass",
    "symbol": "??0LockClass@MutexClass@@QAE@AAV1@H@Z",
    "length": 76
   },
   "G": {
    "object": "mutex.obj",
-   "function": "MutexClass::?0LockClass",
+   "function": "LockClass::LockClass",
    "symbol": "??0LockClass@MutexClass@@QAE@AAV1@H@Z",
    "length": 76
   },
   "Z": {
    "object": "mutex.obj",
-   "function": "MutexClass::?0LockClass",
+   "function": "LockClass::LockClass",
    "symbol": "??0LockClass@MutexClass@@QAE@AAV1@H@Z",
    "length": 76
   }
@@ -1896,13 +1896,13 @@
  "0x9CEEF0": {
   "R": {
    "object": "mutex.obj",
-   "function": "MutexClass::?1LockClass",
+   "function": "LockClass::~LockClass",
    "symbol": "??1LockClass@MutexClass@@QAE@XZ",
    "length": 26
   },
   "Z": {
    "object": "mutex.obj",
-   "function": "MutexClass::?1LockClass",
+   "function": "LockClass::~LockClass",
    "symbol": "??1LockClass@MutexClass@@QAE@XZ",
    "length": 26
   }
@@ -1910,19 +1910,19 @@
  "0x9CEF10": {
   "R": {
    "object": "mutex.obj",
-   "function": "?0CriticalSectionClass",
+   "function": "CriticalSectionClass::CriticalSectionClass",
    "symbol": "??0CriticalSectionClass@@QAE@XZ",
    "length": 39
   },
   "G": {
    "object": "mutex.obj",
-   "function": "?0CriticalSectionClass",
+   "function": "CriticalSectionClass::CriticalSectionClass",
    "symbol": "??0CriticalSectionClass@@QAE@XZ",
    "length": 39
   },
   "Z": {
    "object": "mutex.obj",
-   "function": "?0CriticalSectionClass",
+   "function": "CriticalSectionClass::CriticalSectionClass",
    "symbol": "??0CriticalSectionClass@@QAE@XZ",
    "length": 39
   }
@@ -1930,19 +1930,19 @@
  "0x9CEF40": {
   "R": {
    "object": "mutex.obj",
-   "function": "?1CriticalSectionClass",
+   "function": "CriticalSectionClass::~CriticalSectionClass",
    "symbol": "??1CriticalSectionClass@@QAE@XZ",
    "length": 25
   },
   "G": {
    "object": "mutex.obj",
-   "function": "?1CriticalSectionClass",
+   "function": "CriticalSectionClass::~CriticalSectionClass",
    "symbol": "??1CriticalSectionClass@@QAE@XZ",
    "length": 25
   },
   "Z": {
    "object": "mutex.obj",
-   "function": "?1CriticalSectionClass",
+   "function": "CriticalSectionClass::~CriticalSectionClass",
    "symbol": "??1CriticalSectionClass@@QAE@XZ",
    "length": 25
   }
@@ -1970,19 +1970,19 @@
  "0x9CEFA0": {
   "R": {
    "object": "mutex.obj",
-   "function": "CriticalSectionClass::?0LockClass",
+   "function": "LockClass::LockClass",
    "symbol": "??0LockClass@CriticalSectionClass@@QAE@AAV1@@Z",
    "length": 33
   },
   "G": {
    "object": "mutex.obj",
-   "function": "CriticalSectionClass::?0LockClass",
+   "function": "LockClass::LockClass",
    "symbol": "??0LockClass@CriticalSectionClass@@QAE@AAV1@@Z",
    "length": 33
   },
   "Z": {
    "object": "mutex.obj",
-   "function": "CriticalSectionClass::?0LockClass",
+   "function": "LockClass::LockClass",
    "symbol": "??0LockClass@CriticalSectionClass@@QAE@AAV1@@Z",
    "length": 33
   }
@@ -2086,19 +2086,19 @@
  "0x9CF830": {
   "R": {
    "object": "argv.obj",
-   "function": "?0ArgvClass",
+   "function": "ArgvClass::ArgvClass",
    "symbol": "??0ArgvClass@@QAE@_N0@Z",
    "length": 39
   },
   "G": {
    "object": "argv.obj",
-   "function": "?0ArgvClass",
+   "function": "ArgvClass::ArgvClass",
    "symbol": "??0ArgvClass@@QAE@_N0@Z",
    "length": 39
   },
   "Z": {
    "object": "argv.obj",
-   "function": "?0ArgvClass",
+   "function": "ArgvClass::ArgvClass",
    "symbol": "??0ArgvClass@@QAE@_N0@Z",
    "length": 39
   }
@@ -2274,19 +2274,19 @@
  "0x9CFFE0": {
   "R": {
    "object": "random.obj",
-   "function": "?RRandomClass",
+   "function": "??RRandomClass@@QAEHXZ",
    "symbol": "??RRandomClass@@QAEHXZ",
    "length": 24
   },
   "G": {
    "object": "random.obj",
-   "function": "?RRandomClass",
+   "function": "??RRandomClass@@QAEHXZ",
    "symbol": "??RRandomClass@@QAEHXZ",
    "length": 24
   },
   "Z": {
    "object": "random.obj",
-   "function": "?RRandomClass",
+   "function": "??RRandomClass@@QAEHXZ",
    "symbol": "??RRandomClass@@QAEHXZ",
    "length": 24
   }
@@ -2294,19 +2294,19 @@
  "0x9D0080": {
   "R": {
    "object": "random.obj",
-   "function": "?0Random2Class",
+   "function": "Random2Class::Random2Class",
    "symbol": "??0Random2Class@@QAE@I@Z",
    "length": 170
   },
   "G": {
    "object": "random.obj",
-   "function": "?0Random2Class",
+   "function": "Random2Class::Random2Class",
    "symbol": "??0Random2Class@@QAE@I@Z",
    "length": 170
   },
   "Z": {
    "object": "random.obj",
-   "function": "?0Random2Class",
+   "function": "Random2Class::Random2Class",
    "symbol": "??0Random2Class@@QAE@I@Z",
    "length": 170
   }
@@ -2314,19 +2314,19 @@
  "0x9D0130": {
   "R": {
    "object": "random.obj",
-   "function": "?RRandom2Class",
+   "function": "??RRandom2Class@@QAEHXZ",
    "symbol": "??RRandom2Class@@QAEHXZ",
    "length": 69
   },
   "G": {
    "object": "random.obj",
-   "function": "?RRandom2Class",
+   "function": "??RRandom2Class@@QAEHXZ",
    "symbol": "??RRandom2Class@@QAEHXZ",
    "length": 69
   },
   "Z": {
    "object": "random.obj",
-   "function": "?RRandom2Class",
+   "function": "??RRandom2Class@@QAEHXZ",
    "symbol": "??RRandom2Class@@QAEHXZ",
    "length": 69
   }
@@ -2334,19 +2334,19 @@
  "0x9D0250": {
   "R": {
    "object": "random.obj",
-   "function": "?RRandom3Class",
+   "function": "??RRandom3Class@@QAEHXZ",
    "symbol": "??RRandom3Class@@QAEHXZ",
    "length": 94
   },
   "G": {
    "object": "random.obj",
-   "function": "?RRandom3Class",
+   "function": "??RRandom3Class@@QAEHXZ",
    "symbol": "??RRandom3Class@@QAEHXZ",
    "length": 94
   },
   "Z": {
    "object": "random.obj",
-   "function": "?RRandom3Class",
+   "function": "??RRandom3Class@@QAEHXZ",
    "symbol": "??RRandom3Class@@QAEHXZ",
    "length": 94
   }
@@ -2354,19 +2354,19 @@
  "0x9D03B0": {
   "R": {
    "object": "random.obj",
-   "function": "?0Random4Class",
+   "function": "Random4Class::Random4Class",
    "symbol": "??0Random4Class@@QAE@I@Z",
    "length": 87
   },
   "G": {
    "object": "random.obj",
-   "function": "?0Random4Class",
+   "function": "Random4Class::Random4Class",
    "symbol": "??0Random4Class@@QAE@I@Z",
    "length": 87
   },
   "Z": {
    "object": "random.obj",
-   "function": "?0Random4Class",
+   "function": "Random4Class::Random4Class",
    "symbol": "??0Random4Class@@QAE@I@Z",
    "length": 87
   }
@@ -2374,19 +2374,19 @@
  "0x9D0410": {
   "R": {
    "object": "random.obj",
-   "function": "?RRandom4Class",
+   "function": "??RRandom4Class@@QAEHXZ",
    "symbol": "??RRandom4Class@@QAEHXZ",
    "length": 248
   },
   "G": {
    "object": "random.obj",
-   "function": "?RRandom4Class",
+   "function": "??RRandom4Class@@QAEHXZ",
    "symbol": "??RRandom4Class@@QAEHXZ",
    "length": 248
   },
   "Z": {
    "object": "random.obj",
-   "function": "?RRandom4Class",
+   "function": "??RRandom4Class@@QAEHXZ",
    "symbol": "??RRandom4Class@@QAEHXZ",
    "length": 248
   }
@@ -2434,13 +2434,13 @@
  "0x9D0720": {
   "R": {
    "object": "ffactory.obj",
-   "function": "?0file_auto_ptr",
+   "function": "file_auto_ptr::file_auto_ptr",
    "symbol": "??0file_auto_ptr@@QAE@PAVFileFactoryClass@@PBD@Z",
    "length": 71
   },
   "Z": {
    "object": "ffactory.obj",
-   "function": "?0file_auto_ptr",
+   "function": "file_auto_ptr::file_auto_ptr",
    "symbol": "??0file_auto_ptr@@QAE@PAVFileFactoryClass@@PBD@Z",
    "length": 71
   }
@@ -2448,13 +2448,13 @@
  "0x9D0770": {
   "R": {
    "object": "ffactory.obj",
-   "function": "?1file_auto_ptr",
+   "function": "file_auto_ptr::~file_auto_ptr",
    "symbol": "??1file_auto_ptr@@QAE@XZ",
    "length": 14
   },
   "Z": {
    "object": "ffactory.obj",
-   "function": "?1file_auto_ptr",
+   "function": "file_auto_ptr::~file_auto_ptr",
    "symbol": "??1file_auto_ptr@@QAE@XZ",
    "length": 14
   }
@@ -2476,19 +2476,19 @@
  "0x9D07D0": {
   "R": {
    "object": "ffactory.obj",
-   "function": "?0SimpleFileFactoryClass",
+   "function": "SimpleFileFactoryClass::SimpleFileFactoryClass",
    "symbol": "??0SimpleFileFactoryClass@@QAE@XZ",
    "length": 64
   },
   "G": {
    "object": "ffactory.obj",
-   "function": "?0SimpleFileFactoryClass",
+   "function": "SimpleFileFactoryClass::SimpleFileFactoryClass",
    "symbol": "??0SimpleFileFactoryClass@@QAE@XZ",
    "length": 64
   },
   "Z": {
    "object": "ffactory.obj",
-   "function": "?0SimpleFileFactoryClass",
+   "function": "SimpleFileFactoryClass::SimpleFileFactoryClass",
    "symbol": "??0SimpleFileFactoryClass@@QAE@XZ",
    "length": 64
   }
@@ -2590,7 +2590,7 @@
  "0x9D0F50": {
   "R": {
    "object": "multilist.obj",
-   "function": "?1MultiListObjectClass",
+   "function": "MultiListObjectClass::~MultiListObjectClass",
    "symbol": "??1MultiListObjectClass@@UAE@XZ",
    "length": 133
   }
@@ -2692,13 +2692,13 @@
  "0x9D1580": {
   "R": {
    "object": "registry.obj",
-   "function": "?0RegistryClass",
+   "function": "RegistryClass::RegistryClass",
    "symbol": "??0RegistryClass@@QAE@PBD_N@Z",
    "length": 123
   },
   "Z": {
    "object": "registry.obj",
-   "function": "?0RegistryClass",
+   "function": "RegistryClass::RegistryClass",
    "symbol": "??0RegistryClass@@QAE@PBD_N@Z",
    "length": 123
   }
@@ -2706,19 +2706,19 @@
  "0x9D1680": {
   "R": {
    "object": "registry.obj",
-   "function": "?1RegistryClass",
+   "function": "RegistryClass::~RegistryClass",
    "symbol": "??1RegistryClass@@QAE@XZ",
    "length": 25
   },
   "G": {
    "object": "registry.obj",
-   "function": "?1RegistryClass",
+   "function": "RegistryClass::~RegistryClass",
    "symbol": "??1RegistryClass@@QAE@XZ",
    "length": 25
   },
   "Z": {
    "object": "registry.obj",
-   "function": "?1RegistryClass",
+   "function": "RegistryClass::~RegistryClass",
    "symbol": "??1RegistryClass@@QAE@XZ",
    "length": 25
   }
@@ -3090,19 +3090,19 @@
  "0x9D39F0": {
   "R": {
    "object": "sampler.obj",
-   "function": "?0RandomSamplingClass",
+   "function": "RandomSamplingClass::RandomSamplingClass",
    "symbol": "??0RandomSamplingClass@@QAE@IE@Z",
    "length": 25
   },
   "G": {
    "object": "sampler.obj",
-   "function": "?0RandomSamplingClass",
+   "function": "RandomSamplingClass::RandomSamplingClass",
    "symbol": "??0RandomSamplingClass@@QAE@IE@Z",
    "length": 25
   },
   "Z": {
    "object": "sampler.obj",
-   "function": "?0RandomSamplingClass",
+   "function": "RandomSamplingClass::RandomSamplingClass",
    "symbol": "??0RandomSamplingClass@@QAE@IE@Z",
    "length": 25
   }
@@ -3170,19 +3170,19 @@
  "0x9D3CF0": {
   "R": {
    "object": "sampler.obj",
-   "function": "?0QMCSamplingClass",
+   "function": "QMCSamplingClass::QMCSamplingClass",
    "symbol": "??0QMCSamplingClass@@QAE@IE@Z",
    "length": 32
   },
   "G": {
    "object": "sampler.obj",
-   "function": "?0QMCSamplingClass",
+   "function": "QMCSamplingClass::QMCSamplingClass",
    "symbol": "??0QMCSamplingClass@@QAE@IE@Z",
    "length": 32
   },
   "Z": {
    "object": "sampler.obj",
-   "function": "?0QMCSamplingClass",
+   "function": "QMCSamplingClass::QMCSamplingClass",
    "symbol": "??0QMCSamplingClass@@QAE@IE@Z",
    "length": 32
   }
@@ -3480,19 +3480,19 @@
  "0x9D4710": {
   "R": {
    "object": "crc.obj",
-   "function": "?RCRCEngine",
+   "function": "??RCRCEngine@@QAEXD@Z",
    "symbol": "??RCRCEngine@@QAEXD@Z",
    "length": 47
   },
   "G": {
    "object": "crc.obj",
-   "function": "?RCRCEngine",
+   "function": "??RCRCEngine@@QAEXD@Z",
    "symbol": "??RCRCEngine@@QAEXD@Z",
    "length": 47
   },
   "Z": {
    "object": "crc.obj",
-   "function": "?RCRCEngine",
+   "function": "??RCRCEngine@@QAEXD@Z",
    "symbol": "??RCRCEngine@@QAEXD@Z",
    "length": 47
   }
@@ -3500,19 +3500,19 @@
  "0x9D4740": {
   "R": {
    "object": "crc.obj",
-   "function": "?RCRCEngine",
+   "function": "??RCRCEngine@@QAEJPBXH@Z",
    "symbol": "??RCRCEngine@@QAEJPBXH@Z",
    "length": 187
   },
   "G": {
    "object": "crc.obj",
-   "function": "?RCRCEngine",
+   "function": "??RCRCEngine@@QAEJPBXH@Z",
    "symbol": "??RCRCEngine@@QAEJPBXH@Z",
    "length": 187
   },
   "Z": {
    "object": "crc.obj",
-   "function": "?RCRCEngine",
+   "function": "??RCRCEngine@@QAEJPBXH@Z",
    "symbol": "??RCRCEngine@@QAEJPBXH@Z",
    "length": 187
   }
@@ -3868,13 +3868,13 @@
  "0x9D7A60": {
   "R": {
    "object": "mixfile.obj",
-   "function": "?0MixFileFactoryClass",
+   "function": "MixFileFactoryClass::MixFileFactoryClass",
    "symbol": "??0MixFileFactoryClass@@QAE@PBDPAVFileFactoryClass@@@Z",
    "length": 533
   },
   "Z": {
    "object": "mixfile.obj",
-   "function": "?0MixFileFactoryClass",
+   "function": "MixFileFactoryClass::MixFileFactoryClass",
    "symbol": "??0MixFileFactoryClass@@QAE@PBDPAVFileFactoryClass@@@Z",
    "length": 533
   }
@@ -3882,13 +3882,13 @@
  "0x9D7C80": {
   "R": {
    "object": "mixfile.obj",
-   "function": "?_GMixFileFactoryClass",
+   "function": "MixFileFactoryClass::scalar deleting dtor",
    "symbol": "??_GMixFileFactoryClass@@UAEPAXI@Z",
    "length": 203
   },
   "Z": {
    "object": "mixfile.obj",
-   "function": "?_GMixFileFactoryClass",
+   "function": "MixFileFactoryClass::scalar deleting dtor",
    "symbol": "??_GMixFileFactoryClass@@UAEPAXI@Z",
    "length": 203
   }
@@ -3896,13 +3896,13 @@
  "0x9D7D50": {
   "R": {
    "object": "mixfile.obj",
-   "function": "?1MixFileFactoryClass",
+   "function": "MixFileFactoryClass::~MixFileFactoryClass",
    "symbol": "??1MixFileFactoryClass@@UAE@XZ",
    "length": 204
   },
   "Z": {
    "object": "mixfile.obj",
-   "function": "?1MixFileFactoryClass",
+   "function": "MixFileFactoryClass::~MixFileFactoryClass",
    "symbol": "??1MixFileFactoryClass@@UAE@XZ",
    "length": 204
   }
@@ -4042,13 +4042,13 @@
  "0x9D8AA0": {
   "R": {
    "object": "mixfile.obj",
-   "function": "?0MixFileCreator",
+   "function": "MixFileCreator::MixFileCreator",
    "symbol": "??0MixFileCreator@@QAE@PBD@Z",
    "length": 151
   },
   "Z": {
    "object": "mixfile.obj",
-   "function": "?0MixFileCreator",
+   "function": "MixFileCreator::MixFileCreator",
    "symbol": "??0MixFileCreator@@QAE@PBD@Z",
    "length": 151
   }
@@ -4076,13 +4076,13 @@
  "0x9D8B60": {
   "R": {
    "object": "mixfile.obj",
-   "function": "?1MixFileCreator",
+   "function": "MixFileCreator::~MixFileCreator",
    "symbol": "??1MixFileCreator@@QAE@XZ",
    "length": 459
   },
   "Z": {
    "object": "mixfile.obj",
-   "function": "?1MixFileCreator",
+   "function": "MixFileCreator::~MixFileCreator",
    "symbol": "??1MixFileCreator@@QAE@XZ",
    "length": 459
   }
@@ -4158,19 +4158,19 @@
  "0x9D9370": {
   "R": {
    "object": "mixfile.obj",
-   "function": "?$DynamicVectorClass::Clear",
+   "function": "?Clear@?$DynamicVectorClass@UAddInfoStruct@MixFileFactoryClass@@@@UAEXXZ",
    "symbol": "?Clear@?$DynamicVectorClass@UAddInfoStruct@MixFileFactoryClass@@@@UAEXXZ",
    "length": 106
   },
   "G": {
    "object": "mixfile.obj",
-   "function": "?$DynamicVectorClass::Clear",
+   "function": "?Clear@?$DynamicVectorClass@UAddInfoStruct@MixFileFactoryClass@@@@UAEXXZ",
    "symbol": "?Clear@?$DynamicVectorClass@UAddInfoStruct@MixFileFactoryClass@@@@UAEXXZ",
    "length": 106
   },
   "Z": {
    "object": "mixfile.obj",
-   "function": "?$DynamicVectorClass::Clear",
+   "function": "?Clear@?$DynamicVectorClass@UAddInfoStruct@MixFileFactoryClass@@@@UAEXXZ",
    "symbol": "?Clear@?$DynamicVectorClass@UAddInfoStruct@MixFileFactoryClass@@@@UAEXXZ",
    "length": 106
   }
@@ -4178,19 +4178,19 @@
  "0x9D9400": {
   "R": {
    "object": "mixfile.obj",
-   "function": "?$DynamicVectorClass::Clear",
+   "function": "?Clear@?$DynamicVectorClass@UFileInfoStruct@MixFileCreator@@@@UAEXXZ",
    "symbol": "?Clear@?$DynamicVectorClass@UFileInfoStruct@MixFileCreator@@@@UAEXXZ",
    "length": 90
   },
   "G": {
    "object": "mixfile.obj",
-   "function": "?$DynamicVectorClass::Clear",
+   "function": "?Clear@?$DynamicVectorClass@UFileInfoStruct@MixFileCreator@@@@UAEXXZ",
    "symbol": "?Clear@?$DynamicVectorClass@UFileInfoStruct@MixFileCreator@@@@UAEXXZ",
    "length": 90
   },
   "Z": {
    "object": "mixfile.obj",
-   "function": "?$DynamicVectorClass::Clear",
+   "function": "?Clear@?$DynamicVectorClass@UFileInfoStruct@MixFileCreator@@@@UAEXXZ",
    "symbol": "?Clear@?$DynamicVectorClass@UFileInfoStruct@MixFileCreator@@@@UAEXXZ",
    "length": 90
   }
@@ -4198,19 +4198,19 @@
  "0x9D9760": {
   "R": {
    "object": "mixfile.obj",
-   "function": "?$VectorClass::Resize",
+   "function": "?Resize@?$VectorClass@UAddInfoStruct@MixFileFactoryClass@@@@UAE_NHPBUAddInfoStruct@MixFileFactoryClass@@@Z",
    "symbol": "?Resize@?$VectorClass@UAddInfoStruct@MixFileFactoryClass@@@@UAE_NHPBUAddInfoStruct@MixFileFactoryClass@@@Z",
    "length": 624
   },
   "G": {
    "object": "mixfile.obj",
-   "function": "?$VectorClass::Resize",
+   "function": "?Resize@?$VectorClass@UAddInfoStruct@MixFileFactoryClass@@@@UAE_NHPBUAddInfoStruct@MixFileFactoryClass@@@Z",
    "symbol": "?Resize@?$VectorClass@UAddInfoStruct@MixFileFactoryClass@@@@UAE_NHPBUAddInfoStruct@MixFileFactoryClass@@@Z",
    "length": 624
   },
   "Z": {
    "object": "mixfile.obj",
-   "function": "?$VectorClass::Resize",
+   "function": "?Resize@?$VectorClass@UAddInfoStruct@MixFileFactoryClass@@@@UAE_NHPBUAddInfoStruct@MixFileFactoryClass@@@Z",
    "symbol": "?Resize@?$VectorClass@UAddInfoStruct@MixFileFactoryClass@@@@UAE_NHPBUAddInfoStruct@MixFileFactoryClass@@@Z",
    "length": 624
   }
@@ -4218,19 +4218,19 @@
  "0x9D99D0": {
   "R": {
    "object": "mixfile.obj",
-   "function": "?$VectorClass::Clear",
+   "function": "?Clear@?$VectorClass@UAddInfoStruct@MixFileFactoryClass@@@@UAEXXZ",
    "symbol": "?Clear@?$VectorClass@UAddInfoStruct@MixFileFactoryClass@@@@UAEXXZ",
    "length": 103
   },
   "G": {
    "object": "mixfile.obj",
-   "function": "?$VectorClass::Clear",
+   "function": "?Clear@?$VectorClass@UAddInfoStruct@MixFileFactoryClass@@@@UAEXXZ",
    "symbol": "?Clear@?$VectorClass@UAddInfoStruct@MixFileFactoryClass@@@@UAEXXZ",
    "length": 103
   },
   "Z": {
    "object": "mixfile.obj",
-   "function": "?$VectorClass::Clear",
+   "function": "?Clear@?$VectorClass@UAddInfoStruct@MixFileFactoryClass@@@@UAEXXZ",
    "symbol": "?Clear@?$VectorClass@UAddInfoStruct@MixFileFactoryClass@@@@UAEXXZ",
    "length": 103
   }
@@ -4238,19 +4238,19 @@
  "0x9D9A70": {
   "R": {
    "object": "mixfile.obj",
-   "function": "?$DynamicVectorClass::Resize",
+   "function": "?Resize@?$DynamicVectorClass@UAddInfoStruct@MixFileFactoryClass@@@@UAE_NHPBUAddInfoStruct@MixFileFactoryClass@@@Z",
    "symbol": "?Resize@?$DynamicVectorClass@UAddInfoStruct@MixFileFactoryClass@@@@UAE_NHPBUAddInfoStruct@MixFileFactoryClass@@@Z",
    "length": 338
   },
   "G": {
    "object": "mixfile.obj",
-   "function": "?$DynamicVectorClass::Resize",
+   "function": "?Resize@?$DynamicVectorClass@UAddInfoStruct@MixFileFactoryClass@@@@UAE_NHPBUAddInfoStruct@MixFileFactoryClass@@@Z",
    "symbol": "?Resize@?$DynamicVectorClass@UAddInfoStruct@MixFileFactoryClass@@@@UAE_NHPBUAddInfoStruct@MixFileFactoryClass@@@Z",
    "length": 338
   },
   "Z": {
    "object": "mixfile.obj",
-   "function": "?$DynamicVectorClass::Resize",
+   "function": "?Resize@?$DynamicVectorClass@UAddInfoStruct@MixFileFactoryClass@@@@UAE_NHPBUAddInfoStruct@MixFileFactoryClass@@@Z",
    "symbol": "?Resize@?$DynamicVectorClass@UAddInfoStruct@MixFileFactoryClass@@@@UAE_NHPBUAddInfoStruct@MixFileFactoryClass@@@Z",
    "length": 338
   }
@@ -4258,19 +4258,19 @@
  "0x9D9BD0": {
   "R": {
    "object": "mixfile.obj",
-   "function": "MixFileFactoryClass::?0AddInfoStruct",
+   "function": "AddInfoStruct::AddInfoStruct",
    "symbol": "??0AddInfoStruct@MixFileFactoryClass@@QAE@XZ",
    "length": 66
   },
   "G": {
    "object": "mixfile.obj",
-   "function": "MixFileFactoryClass::?0AddInfoStruct",
+   "function": "AddInfoStruct::AddInfoStruct",
    "symbol": "??0AddInfoStruct@MixFileFactoryClass@@QAE@XZ",
    "length": 66
   },
   "Z": {
    "object": "mixfile.obj",
-   "function": "MixFileFactoryClass::?0AddInfoStruct",
+   "function": "AddInfoStruct::AddInfoStruct",
    "symbol": "??0AddInfoStruct@MixFileFactoryClass@@QAE@XZ",
    "length": 66
   }
@@ -4278,19 +4278,19 @@
  "0x9D9C50": {
   "R": {
    "object": "mixfile.obj",
-   "function": "?$VectorClass::Resize",
+   "function": "?Resize@?$VectorClass@UFileInfoStruct@MixFileCreator@@@@UAE_NHPBUFileInfoStruct@MixFileCreator@@@Z",
    "symbol": "?Resize@?$VectorClass@UFileInfoStruct@MixFileCreator@@@@UAE_NHPBUFileInfoStruct@MixFileCreator@@@Z",
    "length": 541
   },
   "G": {
    "object": "mixfile.obj",
-   "function": "?$VectorClass::Resize",
+   "function": "?Resize@?$VectorClass@UFileInfoStruct@MixFileCreator@@@@UAE_NHPBUFileInfoStruct@MixFileCreator@@@Z",
    "symbol": "?Resize@?$VectorClass@UFileInfoStruct@MixFileCreator@@@@UAE_NHPBUFileInfoStruct@MixFileCreator@@@Z",
    "length": 541
   },
   "Z": {
    "object": "mixfile.obj",
-   "function": "?$VectorClass::Resize",
+   "function": "?Resize@?$VectorClass@UFileInfoStruct@MixFileCreator@@@@UAE_NHPBUFileInfoStruct@MixFileCreator@@@Z",
    "symbol": "?Resize@?$VectorClass@UFileInfoStruct@MixFileCreator@@@@UAE_NHPBUFileInfoStruct@MixFileCreator@@@Z",
    "length": 541
   }
@@ -4298,19 +4298,19 @@
  "0x9D9E70": {
   "R": {
    "object": "mixfile.obj",
-   "function": "?$VectorClass::Clear",
+   "function": "?Clear@?$VectorClass@UFileInfoStruct@MixFileCreator@@@@UAEXXZ",
    "symbol": "?Clear@?$VectorClass@UFileInfoStruct@MixFileCreator@@@@UAEXXZ",
    "length": 87
   },
   "G": {
    "object": "mixfile.obj",
-   "function": "?$VectorClass::Clear",
+   "function": "?Clear@?$VectorClass@UFileInfoStruct@MixFileCreator@@@@UAEXXZ",
    "symbol": "?Clear@?$VectorClass@UFileInfoStruct@MixFileCreator@@@@UAEXXZ",
    "length": 87
   },
   "Z": {
    "object": "mixfile.obj",
-   "function": "?$VectorClass::Clear",
+   "function": "?Clear@?$VectorClass@UFileInfoStruct@MixFileCreator@@@@UAEXXZ",
    "symbol": "?Clear@?$VectorClass@UFileInfoStruct@MixFileCreator@@@@UAEXXZ",
    "length": 87
   }
@@ -4318,19 +4318,19 @@
  "0x9D9F00": {
   "R": {
    "object": "mixfile.obj",
-   "function": "?$DynamicVectorClass::Resize",
+   "function": "?Resize@?$DynamicVectorClass@UFileInfoStruct@MixFileCreator@@@@UAE_NHPBUFileInfoStruct@MixFileCreator@@@Z",
    "symbol": "?Resize@?$DynamicVectorClass@UFileInfoStruct@MixFileCreator@@@@UAE_NHPBUFileInfoStruct@MixFileCreator@@@Z",
    "length": 334
   },
   "G": {
    "object": "mixfile.obj",
-   "function": "?$DynamicVectorClass::Resize",
+   "function": "?Resize@?$DynamicVectorClass@UFileInfoStruct@MixFileCreator@@@@UAE_NHPBUFileInfoStruct@MixFileCreator@@@Z",
    "symbol": "?Resize@?$DynamicVectorClass@UFileInfoStruct@MixFileCreator@@@@UAE_NHPBUFileInfoStruct@MixFileCreator@@@Z",
    "length": 334
   },
   "Z": {
    "object": "mixfile.obj",
-   "function": "?$DynamicVectorClass::Resize",
+   "function": "?Resize@?$DynamicVectorClass@UFileInfoStruct@MixFileCreator@@@@UAE_NHPBUFileInfoStruct@MixFileCreator@@@Z",
    "symbol": "?Resize@?$DynamicVectorClass@UFileInfoStruct@MixFileCreator@@@@UAE_NHPBUFileInfoStruct@MixFileCreator@@@Z",
    "length": 334
   }
@@ -4338,19 +4338,19 @@
  "0x9DA050": {
   "R": {
    "object": "mixfile.obj",
-   "function": "MixFileCreator::?0FileInfoStruct",
+   "function": "FileInfoStruct::FileInfoStruct",
    "symbol": "??0FileInfoStruct@MixFileCreator@@QAE@XZ",
    "length": 40
   },
   "G": {
    "object": "mixfile.obj",
-   "function": "MixFileCreator::?0FileInfoStruct",
+   "function": "FileInfoStruct::FileInfoStruct",
    "symbol": "??0FileInfoStruct@MixFileCreator@@QAE@XZ",
    "length": 40
   },
   "Z": {
    "object": "mixfile.obj",
-   "function": "MixFileCreator::?0FileInfoStruct",
+   "function": "FileInfoStruct::FileInfoStruct",
    "symbol": "??0FileInfoStruct@MixFileCreator@@QAE@XZ",
    "length": 40
   }
@@ -4358,7 +4358,7 @@
  "0x9DA0B0": {
   "Z": {
    "object": "mixfile.obj",
-   "function": "?$VectorClass::Resize",
+   "function": "?Resize@?$VectorClass@UFileOffsetStruct@@@@UAE_NHPBUFileOffsetStruct@@@Z",
    "symbol": "?Resize@?$VectorClass@UFileOffsetStruct@@@@UAE_NHPBUFileOffsetStruct@@@Z",
    "length": 510
   }
@@ -4366,19 +4366,19 @@
  "0x9DA5F0": {
   "R": {
    "object": "mixfile.obj",
-   "function": "MixFileFactoryClass::?4AddInfoStruct",
+   "function": "AddInfoStruct::operator=",
    "symbol": "??4AddInfoStruct@MixFileFactoryClass@@QAEAAU01@ABU01@@Z",
    "length": 202
   },
   "G": {
    "object": "mixfile.obj",
-   "function": "MixFileFactoryClass::?4AddInfoStruct",
+   "function": "AddInfoStruct::operator=",
    "symbol": "??4AddInfoStruct@MixFileFactoryClass@@QAEAAU01@ABU01@@Z",
    "length": 202
   },
   "Z": {
    "object": "mixfile.obj",
-   "function": "MixFileFactoryClass::?4AddInfoStruct",
+   "function": "AddInfoStruct::operator=",
    "symbol": "??4AddInfoStruct@MixFileFactoryClass@@QAEAAU01@ABU01@@Z",
    "length": 202
   }
@@ -4386,7 +4386,7 @@
  "0x9DA8C0": {
   "Z": {
    "object": "mixfile.obj",
-   "function": "?_EFileOffsetStruct",
+   "function": "FileOffsetStruct::vector deleting dtor",
    "symbol": "??_EFileOffsetStruct@@QAEPAXI@Z",
    "length": 94
   }
@@ -4394,7 +4394,7 @@
  "0x9DA920": {
   "Z": {
    "object": "mixfile.obj",
-   "function": "?4FileOffsetStruct",
+   "function": "FileOffsetStruct::operator=",
    "symbol": "??4FileOffsetStruct@@QAEAAU0@ABU0@@Z",
    "length": 110
   }
@@ -4402,13 +4402,13 @@
  "0x9DAA00": {
   "R": {
    "object": "mixfile.obj",
-   "function": "UAddInfoStruct::?0?$VectorClass",
+   "function": "??0?$VectorClass@UAddInfoStruct@MixFileFactoryClass@@@@QAE@HPBUAddInfoStruct@MixFileFactoryClass@@@Z",
    "symbol": "??0?$VectorClass@UAddInfoStruct@MixFileFactoryClass@@@@QAE@HPBUAddInfoStruct@MixFileFactoryClass@@@Z",
    "length": 298
   },
   "Z": {
    "object": "mixfile.obj",
-   "function": "UAddInfoStruct::?0?$VectorClass",
+   "function": "??0?$VectorClass@UAddInfoStruct@MixFileFactoryClass@@@@QAE@HPBUAddInfoStruct@MixFileFactoryClass@@@Z",
    "symbol": "??0?$VectorClass@UAddInfoStruct@MixFileFactoryClass@@@@QAE@HPBUAddInfoStruct@MixFileFactoryClass@@@Z",
    "length": 298
   }
@@ -4416,7 +4416,7 @@
  "0x9DAB30": {
   "Z": {
    "object": "mixfile.obj",
-   "function": "UFileOffsetStruct::?0?$VectorClass",
+   "function": "??0?$VectorClass@UFileOffsetStruct@@@@QAE@HPBUFileOffsetStruct@@@Z",
    "symbol": "??0?$VectorClass@UFileOffsetStruct@@@@QAE@HPBUFileOffsetStruct@@@Z",
    "length": 219
   }
@@ -4452,19 +4452,19 @@
  "0x9DB110": {
   "R": {
    "object": "wwfont.obj",
-   "function": "?0WWFontClass",
+   "function": "WWFontClass::WWFontClass",
    "symbol": "??0WWFontClass@@QAE@PBX_NHPAVConvertClass@@PAE@Z",
    "length": 82
   },
   "G": {
    "object": "wwfont.obj",
-   "function": "?0WWFontClass",
+   "function": "WWFontClass::WWFontClass",
    "symbol": "??0WWFontClass@@QAE@PBX_NHPAVConvertClass@@PAE@Z",
    "length": 82
   },
   "Z": {
    "object": "wwfont.obj",
-   "function": "?0WWFontClass",
+   "function": "WWFontClass::WWFontClass",
    "symbol": "??0WWFontClass@@QAE@PBX_NHPAVConvertClass@@PAE@Z",
    "length": 82
   }
@@ -4872,19 +4872,19 @@
  "0x9DC4C0": {
   "R": {
    "object": "xsurface.obj",
-   "function": "?$BlitTrans::BlitForward",
+   "function": "?BlitForward@?$BlitTrans@E@@UBEXPAXPBXH@Z",
    "symbol": "?BlitForward@?$BlitTrans@E@@UBEXPAXPBXH@Z",
    "length": 45
   },
   "G": {
    "object": "xsurface.obj",
-   "function": "?$BlitTrans::BlitForward",
+   "function": "?BlitForward@?$BlitTrans@E@@UBEXPAXPBXH@Z",
    "symbol": "?BlitForward@?$BlitTrans@E@@UBEXPAXPBXH@Z",
    "length": 45
   },
   "Z": {
    "object": "xsurface.obj",
-   "function": "?$BlitTrans::BlitForward",
+   "function": "?BlitForward@?$BlitTrans@E@@UBEXPAXPBXH@Z",
    "symbol": "?BlitForward@?$BlitTrans@E@@UBEXPAXPBXH@Z",
    "length": 45
   }
@@ -5012,19 +5012,19 @@
  "0x9DCCD0": {
   "R": {
    "object": "xsurface.obj",
-   "function": "?$BlitPlain::BlitForward",
+   "function": "?BlitForward@?$BlitPlain@E@@UBEXPAXPBXH@Z",
    "symbol": "?BlitForward@?$BlitPlain@E@@UBEXPAXPBXH@Z",
    "length": 33
   },
   "G": {
    "object": "xsurface.obj",
-   "function": "?$BlitPlain::BlitForward",
+   "function": "?BlitForward@?$BlitPlain@E@@UBEXPAXPBXH@Z",
    "symbol": "?BlitForward@?$BlitPlain@E@@UBEXPAXPBXH@Z",
    "length": 33
   },
   "Z": {
    "object": "xsurface.obj",
-   "function": "?$BlitPlain::BlitForward",
+   "function": "?BlitForward@?$BlitPlain@E@@UBEXPAXPBXH@Z",
    "symbol": "?BlitForward@?$BlitPlain@E@@UBEXPAXPBXH@Z",
    "length": 33
   }
@@ -5032,19 +5032,19 @@
  "0x9DCD00": {
   "R": {
    "object": "xsurface.obj",
-   "function": "?$BlitPlain::BlitBackward",
+   "function": "?BlitBackward@?$BlitPlain@E@@UBEXPAXPBXH@Z",
    "symbol": "?BlitBackward@?$BlitPlain@E@@UBEXPAXPBXH@Z",
    "length": 26
   },
   "G": {
    "object": "xsurface.obj",
-   "function": "?$BlitPlain::BlitBackward",
+   "function": "?BlitBackward@?$BlitPlain@E@@UBEXPAXPBXH@Z",
    "symbol": "?BlitBackward@?$BlitPlain@E@@UBEXPAXPBXH@Z",
    "length": 26
   },
   "Z": {
    "object": "xsurface.obj",
-   "function": "?$BlitPlain::BlitBackward",
+   "function": "?BlitBackward@?$BlitPlain@E@@UBEXPAXPBXH@Z",
    "symbol": "?BlitBackward@?$BlitPlain@E@@UBEXPAXPBXH@Z",
    "length": 26
   }
@@ -5052,19 +5052,19 @@
  "0x9DCD20": {
   "R": {
    "object": "xsurface.obj",
-   "function": "?$BlitPlain::BlitForward",
+   "function": "?BlitForward@?$BlitPlain@G@@UBEXPAXPBXH@Z",
    "symbol": "?BlitForward@?$BlitPlain@G@@UBEXPAXPBXH@Z",
    "length": 36
   },
   "G": {
    "object": "xsurface.obj",
-   "function": "?$BlitPlain::BlitForward",
+   "function": "?BlitForward@?$BlitPlain@G@@UBEXPAXPBXH@Z",
    "symbol": "?BlitForward@?$BlitPlain@G@@UBEXPAXPBXH@Z",
    "length": 36
   },
   "Z": {
    "object": "xsurface.obj",
-   "function": "?$BlitPlain::BlitForward",
+   "function": "?BlitForward@?$BlitPlain@G@@UBEXPAXPBXH@Z",
    "symbol": "?BlitForward@?$BlitPlain@G@@UBEXPAXPBXH@Z",
    "length": 36
   }
@@ -5072,19 +5072,19 @@
  "0x9DCD50": {
   "R": {
    "object": "xsurface.obj",
-   "function": "?$BlitPlain::BlitBackward",
+   "function": "?BlitBackward@?$BlitPlain@G@@UBEXPAXPBXH@Z",
    "symbol": "?BlitBackward@?$BlitPlain@G@@UBEXPAXPBXH@Z",
    "length": 29
   },
   "G": {
    "object": "xsurface.obj",
-   "function": "?$BlitPlain::BlitBackward",
+   "function": "?BlitBackward@?$BlitPlain@G@@UBEXPAXPBXH@Z",
    "symbol": "?BlitBackward@?$BlitPlain@G@@UBEXPAXPBXH@Z",
    "length": 29
   },
   "Z": {
    "object": "xsurface.obj",
-   "function": "?$BlitPlain::BlitBackward",
+   "function": "?BlitBackward@?$BlitPlain@G@@UBEXPAXPBXH@Z",
    "symbol": "?BlitBackward@?$BlitPlain@G@@UBEXPAXPBXH@Z",
    "length": 29
   }
@@ -5092,19 +5092,19 @@
  "0x9DCD70": {
   "R": {
    "object": "xsurface.obj",
-   "function": "?$BlitTrans::BlitForward",
+   "function": "?BlitForward@?$BlitTrans@G@@UBEXPAXPBXH@Z",
    "symbol": "?BlitForward@?$BlitTrans@G@@UBEXPAXPBXH@Z",
    "length": 43
   },
   "G": {
    "object": "xsurface.obj",
-   "function": "?$BlitTrans::BlitForward",
+   "function": "?BlitForward@?$BlitTrans@G@@UBEXPAXPBXH@Z",
    "symbol": "?BlitForward@?$BlitTrans@G@@UBEXPAXPBXH@Z",
    "length": 43
   },
   "Z": {
    "object": "xsurface.obj",
-   "function": "?$BlitTrans::BlitForward",
+   "function": "?BlitForward@?$BlitTrans@G@@UBEXPAXPBXH@Z",
    "symbol": "?BlitForward@?$BlitTrans@G@@UBEXPAXPBXH@Z",
    "length": 43
   }
@@ -5112,19 +5112,19 @@
  "0x9DCDC0": {
   "R": {
    "object": "xsurface.obj",
-   "function": "?$BlitTrans::BlitForward",
+   "function": "?BlitForward@?$BlitTrans@I@@UBEXPAXPBXH@Z",
    "symbol": "?BlitForward@?$BlitTrans@I@@UBEXPAXPBXH@Z",
    "length": 40
   },
   "G": {
    "object": "xsurface.obj",
-   "function": "?$BlitTrans::BlitForward",
+   "function": "?BlitForward@?$BlitTrans@I@@UBEXPAXPBXH@Z",
    "symbol": "?BlitForward@?$BlitTrans@I@@UBEXPAXPBXH@Z",
    "length": 40
   },
   "Z": {
    "object": "xsurface.obj",
-   "function": "?$BlitTrans::BlitForward",
+   "function": "?BlitForward@?$BlitTrans@I@@UBEXPAXPBXH@Z",
    "symbol": "?BlitForward@?$BlitTrans@I@@UBEXPAXPBXH@Z",
    "length": 40
   }
@@ -5132,19 +5132,19 @@
  "0x9DCE10": {
   "R": {
    "object": "xsurface.obj",
-   "function": "?$TRect::Intersect",
+   "function": "?Intersect@?$TRect@H@@QBE?BV1@ABV1@PAH1@Z",
    "symbol": "?Intersect@?$TRect@H@@QBE?BV1@ABV1@PAH1@Z",
    "length": 303
   },
   "G": {
    "object": "xsurface.obj",
-   "function": "?$TRect::Intersect",
+   "function": "?Intersect@?$TRect@H@@QBE?BV1@ABV1@PAH1@Z",
    "symbol": "?Intersect@?$TRect@H@@QBE?BV1@ABV1@PAH1@Z",
    "length": 303
   },
   "Z": {
    "object": "xsurface.obj",
-   "function": "?$TRect::Intersect",
+   "function": "?Intersect@?$TRect@H@@QBE?BV1@ABV1@PAH1@Z",
    "symbol": "?Intersect@?$TRect@H@@QBE?BV1@ABV1@PAH1@Z",
    "length": 303
   }
@@ -5152,19 +5152,19 @@
  "0x9DD000": {
   "R": {
    "object": "buff.obj",
-   "function": "?0Buffer",
+   "function": "Buffer::Buffer",
    "symbol": "??0Buffer@@QAE@J@Z",
    "length": 45
   },
   "G": {
    "object": "buff.obj",
-   "function": "?0Buffer",
+   "function": "Buffer::Buffer",
    "symbol": "??0Buffer@@QAE@J@Z",
    "length": 45
   },
   "Z": {
    "object": "buff.obj",
-   "function": "?0Buffer",
+   "function": "Buffer::Buffer",
    "symbol": "??0Buffer@@QAE@J@Z",
    "length": 45
   }
@@ -5172,19 +5172,19 @@
  "0x9DD030": {
   "R": {
    "object": "buff.obj",
-   "function": "?0Buffer",
+   "function": "Buffer::Buffer",
    "symbol": "??0Buffer@@QAE@ABV0@@Z",
    "length": 23
   },
   "G": {
    "object": "buff.obj",
-   "function": "?0Buffer",
+   "function": "Buffer::Buffer",
    "symbol": "??0Buffer@@QAE@ABV0@@Z",
    "length": 23
   },
   "Z": {
    "object": "buff.obj",
-   "function": "?0Buffer",
+   "function": "Buffer::Buffer",
    "symbol": "??0Buffer@@QAE@ABV0@@Z",
    "length": 23
   }
@@ -5192,19 +5192,19 @@
  "0x9DD050": {
   "R": {
    "object": "buff.obj",
-   "function": "?4Buffer",
+   "function": "Buffer::operator=",
    "symbol": "??4Buffer@@QAEAAV0@ABV0@@Z",
    "length": 51
   },
   "G": {
    "object": "buff.obj",
-   "function": "?4Buffer",
+   "function": "Buffer::operator=",
    "symbol": "??4Buffer@@QAEAAV0@ABV0@@Z",
    "length": 51
   },
   "Z": {
    "object": "buff.obj",
-   "function": "?4Buffer",
+   "function": "Buffer::operator=",
    "symbol": "??4Buffer@@QAEAAV0@ABV0@@Z",
    "length": 51
   }
@@ -5212,19 +5212,19 @@
  "0x9DD0F0": {
   "R": {
    "object": "convert.obj",
-   "function": "?0ConvertClass",
+   "function": "ConvertClass::ConvertClass",
    "symbol": "??0ConvertClass@@QAE@ABVPaletteClass@@0ABVSurface@@@Z",
    "length": 1286
   },
   "G": {
    "object": "convert.obj",
-   "function": "?0ConvertClass",
+   "function": "ConvertClass::ConvertClass",
    "symbol": "??0ConvertClass@@QAE@ABVPaletteClass@@0ABVSurface@@@Z",
    "length": 1286
   },
   "Z": {
    "object": "convert.obj",
-   "function": "?0ConvertClass",
+   "function": "ConvertClass::ConvertClass",
    "symbol": "??0ConvertClass@@QAE@ABVPaletteClass@@0ABVSurface@@@Z",
    "length": 1286
   }
@@ -5232,19 +5232,19 @@
  "0x9DD600": {
   "R": {
    "object": "convert.obj",
-   "function": "?$BlitTransXlat::BlitForward",
+   "function": "?BlitForward@?$BlitTransXlat@G@@UBEXPAXPBXH@Z",
    "symbol": "?BlitForward@?$BlitTransXlat@G@@UBEXPAXPBXH@Z",
    "length": 70
   },
   "G": {
    "object": "convert.obj",
-   "function": "?$BlitTransXlat::BlitForward",
+   "function": "?BlitForward@?$BlitTransXlat@G@@UBEXPAXPBXH@Z",
    "symbol": "?BlitForward@?$BlitTransXlat@G@@UBEXPAXPBXH@Z",
    "length": 70
   },
   "Z": {
    "object": "convert.obj",
-   "function": "?$BlitTransXlat::BlitForward",
+   "function": "?BlitForward@?$BlitTransXlat@G@@UBEXPAXPBXH@Z",
    "symbol": "?BlitForward@?$BlitTransXlat@G@@UBEXPAXPBXH@Z",
    "length": 70
   }
@@ -5252,19 +5252,19 @@
  "0x9DD650": {
   "R": {
    "object": "convert.obj",
-   "function": "?$BlitTransZRemapXlat::BlitForward",
+   "function": "?BlitForward@?$BlitTransZRemapXlat@G@@UBEXPAXPBXH@Z",
    "symbol": "?BlitForward@?$BlitTransZRemapXlat@G@@UBEXPAXPBXH@Z",
    "length": 86
   },
   "G": {
    "object": "convert.obj",
-   "function": "?$BlitTransZRemapXlat::BlitForward",
+   "function": "?BlitForward@?$BlitTransZRemapXlat@G@@UBEXPAXPBXH@Z",
    "symbol": "?BlitForward@?$BlitTransZRemapXlat@G@@UBEXPAXPBXH@Z",
    "length": 86
   },
   "Z": {
    "object": "convert.obj",
-   "function": "?$BlitTransZRemapXlat::BlitForward",
+   "function": "?BlitForward@?$BlitTransZRemapXlat@G@@UBEXPAXPBXH@Z",
    "symbol": "?BlitForward@?$BlitTransZRemapXlat@G@@UBEXPAXPBXH@Z",
    "length": 86
   }
@@ -5272,19 +5272,19 @@
  "0x9DD6B0": {
   "R": {
    "object": "convert.obj",
-   "function": "?$BlitPlainXlat::BlitForward",
+   "function": "?BlitForward@?$BlitPlainXlat@G@@UBEXPAXPBXH@Z",
    "symbol": "?BlitForward@?$BlitPlainXlat@G@@UBEXPAXPBXH@Z",
    "length": 63
   },
   "G": {
    "object": "convert.obj",
-   "function": "?$BlitPlainXlat::BlitForward",
+   "function": "?BlitForward@?$BlitPlainXlat@G@@UBEXPAXPBXH@Z",
    "symbol": "?BlitForward@?$BlitPlainXlat@G@@UBEXPAXPBXH@Z",
    "length": 63
   },
   "Z": {
    "object": "convert.obj",
-   "function": "?$BlitPlainXlat::BlitForward",
+   "function": "?BlitForward@?$BlitPlainXlat@G@@UBEXPAXPBXH@Z",
    "symbol": "?BlitForward@?$BlitPlainXlat@G@@UBEXPAXPBXH@Z",
    "length": 63
   }
@@ -5292,19 +5292,19 @@
  "0x9DD6F0": {
   "R": {
    "object": "convert.obj",
-   "function": "?$RLEBlitTransZRemapXlat::Blit",
+   "function": "?Blit@?$RLEBlitTransZRemapXlat@G@@UBEXPAXPBXHH@Z",
    "symbol": "?Blit@?$RLEBlitTransZRemapXlat@G@@UBEXPAXPBXHH@Z",
    "length": 115
   },
   "G": {
    "object": "convert.obj",
-   "function": "?$RLEBlitTransZRemapXlat::Blit",
+   "function": "?Blit@?$RLEBlitTransZRemapXlat@G@@UBEXPAXPBXHH@Z",
    "symbol": "?Blit@?$RLEBlitTransZRemapXlat@G@@UBEXPAXPBXHH@Z",
    "length": 115
   },
   "Z": {
    "object": "convert.obj",
-   "function": "?$RLEBlitTransZRemapXlat::Blit",
+   "function": "?Blit@?$RLEBlitTransZRemapXlat@G@@UBEXPAXPBXHH@Z",
    "symbol": "?Blit@?$RLEBlitTransZRemapXlat@G@@UBEXPAXPBXHH@Z",
    "length": 115
   }
@@ -5312,19 +5312,19 @@
  "0x9DD770": {
   "R": {
    "object": "convert.obj",
-   "function": "?$RLEBlitTransXlat::Blit",
+   "function": "?Blit@?$RLEBlitTransXlat@G@@UBEXPAXPBXHH@Z",
    "symbol": "?Blit@?$RLEBlitTransXlat@G@@UBEXPAXPBXHH@Z",
    "length": 98
   },
   "G": {
    "object": "convert.obj",
-   "function": "?$RLEBlitTransXlat::Blit",
+   "function": "?Blit@?$RLEBlitTransXlat@G@@UBEXPAXPBXHH@Z",
    "symbol": "?Blit@?$RLEBlitTransXlat@G@@UBEXPAXPBXHH@Z",
    "length": 98
   },
   "Z": {
    "object": "convert.obj",
-   "function": "?$RLEBlitTransXlat::Blit",
+   "function": "?Blit@?$RLEBlitTransXlat@G@@UBEXPAXPBXHH@Z",
    "symbol": "?Blit@?$RLEBlitTransXlat@G@@UBEXPAXPBXHH@Z",
    "length": 98
   }
@@ -5332,19 +5332,19 @@
  "0x9DD7E0": {
   "R": {
    "object": "convert.obj",
-   "function": "?1ConvertClass",
+   "function": "ConvertClass::~ConvertClass",
    "symbol": "??1ConvertClass@@QAE@XZ",
    "length": 192
   },
   "G": {
    "object": "convert.obj",
-   "function": "?1ConvertClass",
+   "function": "ConvertClass::~ConvertClass",
    "symbol": "??1ConvertClass@@QAE@XZ",
    "length": 192
   },
   "Z": {
    "object": "convert.obj",
-   "function": "?1ConvertClass",
+   "function": "ConvertClass::~ConvertClass",
    "symbol": "??1ConvertClass@@QAE@XZ",
    "length": 192
   }
@@ -5392,19 +5392,19 @@
  "0x9DD9B0": {
   "R": {
    "object": "convert.obj",
-   "function": "?$BlitPlainXlat::BlitForward",
+   "function": "?BlitForward@?$BlitPlainXlat@E@@UBEXPAXPBXH@Z",
    "symbol": "?BlitForward@?$BlitPlainXlat@E@@UBEXPAXPBXH@Z",
    "length": 57
   },
   "G": {
    "object": "convert.obj",
-   "function": "?$BlitPlainXlat::BlitForward",
+   "function": "?BlitForward@?$BlitPlainXlat@E@@UBEXPAXPBXH@Z",
    "symbol": "?BlitForward@?$BlitPlainXlat@E@@UBEXPAXPBXH@Z",
    "length": 57
   },
   "Z": {
    "object": "convert.obj",
-   "function": "?$BlitPlainXlat::BlitForward",
+   "function": "?BlitForward@?$BlitPlainXlat@E@@UBEXPAXPBXH@Z",
    "symbol": "?BlitForward@?$BlitPlainXlat@E@@UBEXPAXPBXH@Z",
    "length": 57
   }
@@ -5412,19 +5412,19 @@
  "0x9DDA10": {
   "R": {
    "object": "convert.obj",
-   "function": "?$BlitTransXlat::BlitForward",
+   "function": "?BlitForward@?$BlitTransXlat@E@@UBEXPAXPBXH@Z",
    "symbol": "?BlitForward@?$BlitTransXlat@E@@UBEXPAXPBXH@Z",
    "length": 59
   },
   "G": {
    "object": "convert.obj",
-   "function": "?$BlitTransXlat::BlitForward",
+   "function": "?BlitForward@?$BlitTransXlat@E@@UBEXPAXPBXH@Z",
    "symbol": "?BlitForward@?$BlitTransXlat@E@@UBEXPAXPBXH@Z",
    "length": 59
   },
   "Z": {
    "object": "convert.obj",
-   "function": "?$BlitTransXlat::BlitForward",
+   "function": "?BlitForward@?$BlitTransXlat@E@@UBEXPAXPBXH@Z",
    "symbol": "?BlitForward@?$BlitTransXlat@E@@UBEXPAXPBXH@Z",
    "length": 59
   }
@@ -5432,19 +5432,19 @@
  "0x9DDA70": {
   "R": {
    "object": "convert.obj",
-   "function": "?$BlitTransZRemapXlat::BlitForward",
+   "function": "?BlitForward@?$BlitTransZRemapXlat@E@@UBEXPAXPBXH@Z",
    "symbol": "?BlitForward@?$BlitTransZRemapXlat@E@@UBEXPAXPBXH@Z",
    "length": 71
   },
   "G": {
    "object": "convert.obj",
-   "function": "?$BlitTransZRemapXlat::BlitForward",
+   "function": "?BlitForward@?$BlitTransZRemapXlat@E@@UBEXPAXPBXH@Z",
    "symbol": "?BlitForward@?$BlitTransZRemapXlat@E@@UBEXPAXPBXH@Z",
    "length": 71
   },
   "Z": {
    "object": "convert.obj",
-   "function": "?$BlitTransZRemapXlat::BlitForward",
+   "function": "?BlitForward@?$BlitTransZRemapXlat@E@@UBEXPAXPBXH@Z",
    "symbol": "?BlitForward@?$BlitTransZRemapXlat@E@@UBEXPAXPBXH@Z",
    "length": 71
   }
@@ -5452,19 +5452,19 @@
  "0x9DDAE0": {
   "R": {
    "object": "convert.obj",
-   "function": "?$BlitTransRemapDest::BlitForward",
+   "function": "?BlitForward@?$BlitTransRemapDest@E@@UBEXPAXPBXH@Z",
    "symbol": "?BlitForward@?$BlitTransRemapDest@E@@UBEXPAXPBXH@Z",
    "length": 50
   },
   "G": {
    "object": "convert.obj",
-   "function": "?$BlitTransRemapDest::BlitForward",
+   "function": "?BlitForward@?$BlitTransRemapDest@E@@UBEXPAXPBXH@Z",
    "symbol": "?BlitForward@?$BlitTransRemapDest@E@@UBEXPAXPBXH@Z",
    "length": 50
   },
   "Z": {
    "object": "convert.obj",
-   "function": "?$BlitTransRemapDest::BlitForward",
+   "function": "?BlitForward@?$BlitTransRemapDest@E@@UBEXPAXPBXH@Z",
    "symbol": "?BlitForward@?$BlitTransRemapDest@E@@UBEXPAXPBXH@Z",
    "length": 50
   }
@@ -5472,19 +5472,19 @@
  "0x9DDB40": {
   "R": {
    "object": "convert.obj",
-   "function": "?$BlitTransRemapXlat::BlitForward",
+   "function": "?BlitForward@?$BlitTransRemapXlat@E@@UBEXPAXPBXH@Z",
    "symbol": "?BlitForward@?$BlitTransRemapXlat@E@@UBEXPAXPBXH@Z",
    "length": 70
   },
   "G": {
    "object": "convert.obj",
-   "function": "?$BlitTransRemapXlat::BlitForward",
+   "function": "?BlitForward@?$BlitTransRemapXlat@E@@UBEXPAXPBXH@Z",
    "symbol": "?BlitForward@?$BlitTransRemapXlat@E@@UBEXPAXPBXH@Z",
    "length": 70
   },
   "Z": {
    "object": "convert.obj",
-   "function": "?$BlitTransRemapXlat::BlitForward",
+   "function": "?BlitForward@?$BlitTransRemapXlat@E@@UBEXPAXPBXH@Z",
    "symbol": "?BlitForward@?$BlitTransRemapXlat@E@@UBEXPAXPBXH@Z",
    "length": 70
   }
@@ -5492,19 +5492,19 @@
  "0x9DDBB0": {
   "R": {
    "object": "convert.obj",
-   "function": "?$RLEBlitTransXlat::Blit",
+   "function": "?Blit@?$RLEBlitTransXlat@E@@UBEXPAXPBXHH@Z",
    "symbol": "?Blit@?$RLEBlitTransXlat@E@@UBEXPAXPBXHH@Z",
    "length": 126
   },
   "G": {
    "object": "convert.obj",
-   "function": "?$RLEBlitTransXlat::Blit",
+   "function": "?Blit@?$RLEBlitTransXlat@E@@UBEXPAXPBXHH@Z",
    "symbol": "?Blit@?$RLEBlitTransXlat@E@@UBEXPAXPBXHH@Z",
    "length": 126
   },
   "Z": {
    "object": "convert.obj",
-   "function": "?$RLEBlitTransXlat::Blit",
+   "function": "?Blit@?$RLEBlitTransXlat@E@@UBEXPAXPBXHH@Z",
    "symbol": "?Blit@?$RLEBlitTransXlat@E@@UBEXPAXPBXHH@Z",
    "length": 126
   }
@@ -5512,19 +5512,19 @@
  "0x9DDC30": {
   "R": {
    "object": "convert.obj",
-   "function": "?$RLEBlitTransZRemapXlat::Blit",
+   "function": "?Blit@?$RLEBlitTransZRemapXlat@E@@UBEXPAXPBXHH@Z",
    "symbol": "?Blit@?$RLEBlitTransZRemapXlat@E@@UBEXPAXPBXHH@Z",
    "length": 137
   },
   "G": {
    "object": "convert.obj",
-   "function": "?$RLEBlitTransZRemapXlat::Blit",
+   "function": "?Blit@?$RLEBlitTransZRemapXlat@E@@UBEXPAXPBXHH@Z",
    "symbol": "?Blit@?$RLEBlitTransZRemapXlat@E@@UBEXPAXPBXHH@Z",
    "length": 137
   },
   "Z": {
    "object": "convert.obj",
-   "function": "?$RLEBlitTransZRemapXlat::Blit",
+   "function": "?Blit@?$RLEBlitTransZRemapXlat@E@@UBEXPAXPBXHH@Z",
    "symbol": "?Blit@?$RLEBlitTransZRemapXlat@E@@UBEXPAXPBXHH@Z",
    "length": 137
   }
@@ -5532,19 +5532,19 @@
  "0x9DDCC0": {
   "R": {
    "object": "convert.obj",
-   "function": "?$RLEBlitTransRemapDest::Blit",
+   "function": "?Blit@?$RLEBlitTransRemapDest@E@@UBEXPAXPBXHH@Z",
    "symbol": "?Blit@?$RLEBlitTransRemapDest@E@@UBEXPAXPBXHH@Z",
    "length": 116
   },
   "G": {
    "object": "convert.obj",
-   "function": "?$RLEBlitTransRemapDest::Blit",
+   "function": "?Blit@?$RLEBlitTransRemapDest@E@@UBEXPAXPBXHH@Z",
    "symbol": "?Blit@?$RLEBlitTransRemapDest@E@@UBEXPAXPBXHH@Z",
    "length": 116
   },
   "Z": {
    "object": "convert.obj",
-   "function": "?$RLEBlitTransRemapDest::Blit",
+   "function": "?Blit@?$RLEBlitTransRemapDest@E@@UBEXPAXPBXHH@Z",
    "symbol": "?Blit@?$RLEBlitTransRemapDest@E@@UBEXPAXPBXHH@Z",
    "length": 116
   }
@@ -5552,19 +5552,19 @@
  "0x9DDD40": {
   "R": {
    "object": "convert.obj",
-   "function": "?$RLEBlitTransRemapXlat::Blit",
+   "function": "?Blit@?$RLEBlitTransRemapXlat@E@@UBEXPAXPBXHH@Z",
    "symbol": "?Blit@?$RLEBlitTransRemapXlat@E@@UBEXPAXPBXHH@Z",
    "length": 136
   },
   "G": {
    "object": "convert.obj",
-   "function": "?$RLEBlitTransRemapXlat::Blit",
+   "function": "?Blit@?$RLEBlitTransRemapXlat@E@@UBEXPAXPBXHH@Z",
    "symbol": "?Blit@?$RLEBlitTransRemapXlat@E@@UBEXPAXPBXHH@Z",
    "length": 136
   },
   "Z": {
    "object": "convert.obj",
-   "function": "?$RLEBlitTransRemapXlat::Blit",
+   "function": "?Blit@?$RLEBlitTransRemapXlat@E@@UBEXPAXPBXHH@Z",
    "symbol": "?Blit@?$RLEBlitTransRemapXlat@E@@UBEXPAXPBXHH@Z",
    "length": 136
   }
@@ -5572,19 +5572,19 @@
  "0x9DDDD0": {
   "R": {
    "object": "convert.obj",
-   "function": "?$BlitTransDarken::BlitForward",
+   "function": "?BlitForward@?$BlitTransDarken@G@@UBEXPAXPBXH@Z",
    "symbol": "?BlitForward@?$BlitTransDarken@G@@UBEXPAXPBXH@Z",
    "length": 51
   },
   "G": {
    "object": "convert.obj",
-   "function": "?$BlitTransDarken::BlitForward",
+   "function": "?BlitForward@?$BlitTransDarken@G@@UBEXPAXPBXH@Z",
    "symbol": "?BlitForward@?$BlitTransDarken@G@@UBEXPAXPBXH@Z",
    "length": 51
   },
   "Z": {
    "object": "convert.obj",
-   "function": "?$BlitTransDarken::BlitForward",
+   "function": "?BlitForward@?$BlitTransDarken@G@@UBEXPAXPBXH@Z",
    "symbol": "?BlitForward@?$BlitTransDarken@G@@UBEXPAXPBXH@Z",
    "length": 51
   }
@@ -5592,19 +5592,19 @@
  "0x9DDE30": {
   "R": {
    "object": "convert.obj",
-   "function": "?$BlitTransLucent75::BlitForward",
+   "function": "?BlitForward@?$BlitTransLucent75@G@@UBEXPAXPBXH@Z",
    "symbol": "?BlitForward@?$BlitTransLucent75@G@@UBEXPAXPBXH@Z",
    "length": 90
   },
   "G": {
    "object": "convert.obj",
-   "function": "?$BlitTransLucent75::BlitForward",
+   "function": "?BlitForward@?$BlitTransLucent75@G@@UBEXPAXPBXH@Z",
    "symbol": "?BlitForward@?$BlitTransLucent75@G@@UBEXPAXPBXH@Z",
    "length": 90
   },
   "Z": {
    "object": "convert.obj",
-   "function": "?$BlitTransLucent75::BlitForward",
+   "function": "?BlitForward@?$BlitTransLucent75@G@@UBEXPAXPBXH@Z",
    "symbol": "?BlitForward@?$BlitTransLucent75@G@@UBEXPAXPBXH@Z",
    "length": 90
   }
@@ -5612,19 +5612,19 @@
  "0x9DDEB0": {
   "R": {
    "object": "convert.obj",
-   "function": "?$BlitTransLucent50::BlitForward",
+   "function": "?BlitForward@?$BlitTransLucent50@G@@UBEXPAXPBXH@Z",
    "symbol": "?BlitForward@?$BlitTransLucent50@G@@UBEXPAXPBXH@Z",
    "length": 86
   },
   "G": {
    "object": "convert.obj",
-   "function": "?$BlitTransLucent50::BlitForward",
+   "function": "?BlitForward@?$BlitTransLucent50@G@@UBEXPAXPBXH@Z",
    "symbol": "?BlitForward@?$BlitTransLucent50@G@@UBEXPAXPBXH@Z",
    "length": 86
   },
   "Z": {
    "object": "convert.obj",
-   "function": "?$BlitTransLucent50::BlitForward",
+   "function": "?BlitForward@?$BlitTransLucent50@G@@UBEXPAXPBXH@Z",
    "symbol": "?BlitForward@?$BlitTransLucent50@G@@UBEXPAXPBXH@Z",
    "length": 86
   }
@@ -5632,19 +5632,19 @@
  "0x9DDF30": {
   "R": {
    "object": "convert.obj",
-   "function": "?$BlitTransLucent25::BlitForward",
+   "function": "?BlitForward@?$BlitTransLucent25@G@@UBEXPAXPBXH@Z",
    "symbol": "?BlitForward@?$BlitTransLucent25@G@@UBEXPAXPBXH@Z",
    "length": 90
   },
   "G": {
    "object": "convert.obj",
-   "function": "?$BlitTransLucent25::BlitForward",
+   "function": "?BlitForward@?$BlitTransLucent25@G@@UBEXPAXPBXH@Z",
    "symbol": "?BlitForward@?$BlitTransLucent25@G@@UBEXPAXPBXH@Z",
    "length": 90
   },
   "Z": {
    "object": "convert.obj",
-   "function": "?$BlitTransLucent25::BlitForward",
+   "function": "?BlitForward@?$BlitTransLucent25@G@@UBEXPAXPBXH@Z",
    "symbol": "?BlitForward@?$BlitTransLucent25@G@@UBEXPAXPBXH@Z",
    "length": 90
   }
@@ -5652,19 +5652,19 @@
  "0x9DDFB0": {
   "R": {
    "object": "convert.obj",
-   "function": "?$RLEBlitTransDarken::Blit",
+   "function": "?Blit@?$RLEBlitTransDarken@G@@UBEXPAXPBXHH@Z",
    "symbol": "?Blit@?$RLEBlitTransDarken@G@@UBEXPAXPBXHH@Z",
    "length": 121
   },
   "G": {
    "object": "convert.obj",
-   "function": "?$RLEBlitTransDarken::Blit",
+   "function": "?Blit@?$RLEBlitTransDarken@G@@UBEXPAXPBXHH@Z",
    "symbol": "?Blit@?$RLEBlitTransDarken@G@@UBEXPAXPBXHH@Z",
    "length": 121
   },
   "Z": {
    "object": "convert.obj",
-   "function": "?$RLEBlitTransDarken::Blit",
+   "function": "?Blit@?$RLEBlitTransDarken@G@@UBEXPAXPBXHH@Z",
    "symbol": "?Blit@?$RLEBlitTransDarken@G@@UBEXPAXPBXHH@Z",
    "length": 121
   }
@@ -5672,19 +5672,19 @@
  "0x9DE030": {
   "R": {
    "object": "convert.obj",
-   "function": "?$RLEBlitTransLucent75::Blit",
+   "function": "?Blit@?$RLEBlitTransLucent75@G@@UBEXPAXPBXHH@Z",
    "symbol": "?Blit@?$RLEBlitTransLucent75@G@@UBEXPAXPBXHH@Z",
    "length": 159
   },
   "G": {
    "object": "convert.obj",
-   "function": "?$RLEBlitTransLucent75::Blit",
+   "function": "?Blit@?$RLEBlitTransLucent75@G@@UBEXPAXPBXHH@Z",
    "symbol": "?Blit@?$RLEBlitTransLucent75@G@@UBEXPAXPBXHH@Z",
    "length": 159
   },
   "Z": {
    "object": "convert.obj",
-   "function": "?$RLEBlitTransLucent75::Blit",
+   "function": "?Blit@?$RLEBlitTransLucent75@G@@UBEXPAXPBXHH@Z",
    "symbol": "?Blit@?$RLEBlitTransLucent75@G@@UBEXPAXPBXHH@Z",
    "length": 159
   }
@@ -5692,19 +5692,19 @@
  "0x9DE0D0": {
   "R": {
    "object": "convert.obj",
-   "function": "?$RLEBlitTransLucent50::Blit",
+   "function": "?Blit@?$RLEBlitTransLucent50@G@@UBEXPAXPBXHH@Z",
    "symbol": "?Blit@?$RLEBlitTransLucent50@G@@UBEXPAXPBXHH@Z",
    "length": 154
   },
   "G": {
    "object": "convert.obj",
-   "function": "?$RLEBlitTransLucent50::Blit",
+   "function": "?Blit@?$RLEBlitTransLucent50@G@@UBEXPAXPBXHH@Z",
    "symbol": "?Blit@?$RLEBlitTransLucent50@G@@UBEXPAXPBXHH@Z",
    "length": 154
   },
   "Z": {
    "object": "convert.obj",
-   "function": "?$RLEBlitTransLucent50::Blit",
+   "function": "?Blit@?$RLEBlitTransLucent50@G@@UBEXPAXPBXHH@Z",
    "symbol": "?Blit@?$RLEBlitTransLucent50@G@@UBEXPAXPBXHH@Z",
    "length": 154
   }
@@ -5712,19 +5712,19 @@
  "0x9DE170": {
   "R": {
    "object": "convert.obj",
-   "function": "?$RLEBlitTransLucent25::Blit",
+   "function": "?Blit@?$RLEBlitTransLucent25@G@@UBEXPAXPBXHH@Z",
    "symbol": "?Blit@?$RLEBlitTransLucent25@G@@UBEXPAXPBXHH@Z",
    "length": 159
   },
   "G": {
    "object": "convert.obj",
-   "function": "?$RLEBlitTransLucent25::Blit",
+   "function": "?Blit@?$RLEBlitTransLucent25@G@@UBEXPAXPBXHH@Z",
    "symbol": "?Blit@?$RLEBlitTransLucent25@G@@UBEXPAXPBXHH@Z",
    "length": 159
   },
   "Z": {
    "object": "convert.obj",
-   "function": "?$RLEBlitTransLucent25::Blit",
+   "function": "?Blit@?$RLEBlitTransLucent25@G@@UBEXPAXPBXHH@Z",
    "symbol": "?Blit@?$RLEBlitTransLucent25@G@@UBEXPAXPBXHH@Z",
    "length": 159
   }
@@ -5746,19 +5746,19 @@
  "0x9DE640": {
   "R": {
    "object": "mono.obj",
-   "function": "?0MonoClass",
+   "function": "MonoClass::MonoClass",
    "symbol": "??0MonoClass@@QAE@XZ",
    "length": 59
   },
   "G": {
    "object": "mono.obj",
-   "function": "?0MonoClass",
+   "function": "MonoClass::MonoClass",
    "symbol": "??0MonoClass@@QAE@XZ",
    "length": 59
   },
   "Z": {
    "object": "mono.obj",
-   "function": "?0MonoClass",
+   "function": "MonoClass::MonoClass",
    "symbol": "??0MonoClass@@QAE@XZ",
    "length": 59
   }
@@ -5766,19 +5766,19 @@
  "0x9DE680": {
   "R": {
    "object": "mono.obj",
-   "function": "?1MonoClass",
+   "function": "MonoClass::~MonoClass",
    "symbol": "??1MonoClass@@QAE@XZ",
    "length": 44
   },
   "G": {
    "object": "mono.obj",
-   "function": "?1MonoClass",
+   "function": "MonoClass::~MonoClass",
    "symbol": "??1MonoClass@@QAE@XZ",
    "length": 44
   },
   "Z": {
    "object": "mono.obj",
-   "function": "?1MonoClass",
+   "function": "MonoClass::~MonoClass",
    "symbol": "??1MonoClass@@QAE@XZ",
    "length": 44
   }
@@ -6086,13 +6086,13 @@
  "0x9DEC70": {
   "R": {
    "object": "thread.obj",
-   "function": "?0ThreadClass",
+   "function": "ThreadClass::ThreadClass",
    "symbol": "??0ThreadClass@@QAE@PBDP6AHHPAU_EXCEPTION_POINTERS@@@Z@Z",
    "length": 82
   },
   "Z": {
    "object": "thread.obj",
-   "function": "?0ThreadClass",
+   "function": "ThreadClass::ThreadClass",
    "symbol": "??0ThreadClass@@QAE@PBDP6AHHPAU_EXCEPTION_POINTERS@@@Z@Z",
    "length": 82
   }
@@ -6100,13 +6100,13 @@
  "0x9DECD0": {
   "R": {
    "object": "thread.obj",
-   "function": "?_GThreadClass",
+   "function": "ThreadClass::scalar deleting dtor",
    "symbol": "??_GThreadClass@@UAEPAXI@Z",
    "length": 207
   },
   "Z": {
    "object": "thread.obj",
-   "function": "?_GThreadClass",
+   "function": "ThreadClass::scalar deleting dtor",
    "symbol": "??_GThreadClass@@UAEPAXI@Z",
    "length": 207
   }
@@ -6114,13 +6114,13 @@
  "0x9DEDA0": {
   "R": {
    "object": "thread.obj",
-   "function": "?1ThreadClass",
+   "function": "ThreadClass::~ThreadClass",
    "symbol": "??1ThreadClass@@UAE@XZ",
    "length": 186
   },
   "Z": {
    "object": "thread.obj",
-   "function": "?1ThreadClass",
+   "function": "ThreadClass::~ThreadClass",
    "symbol": "??1ThreadClass@@UAE@XZ",
    "length": 186
   }
@@ -6184,19 +6184,19 @@
  "0x9DF080": {
   "R": {
    "object": "dsurface.obj",
-   "function": "?0DSurface",
+   "function": "DSurface::DSurface",
    "symbol": "??0DSurface@@QAE@HH_NPAU_DDPIXELFORMAT@@@Z",
    "length": 446
   },
   "G": {
    "object": "dsurface.obj",
-   "function": "?0DSurface",
+   "function": "DSurface::DSurface",
    "symbol": "??0DSurface@@QAE@HH_NPAU_DDPIXELFORMAT@@@Z",
    "length": 446
   },
   "Z": {
    "object": "dsurface.obj",
-   "function": "?0DSurface",
+   "function": "DSurface::DSurface",
    "symbol": "??0DSurface@@QAE@HH_NPAU_DDPIXELFORMAT@@@Z",
    "length": 446
   }
@@ -6204,19 +6204,19 @@
  "0x9DF270": {
   "R": {
    "object": "dsurface.obj",
-   "function": "?_GDSurface",
+   "function": "DSurface::scalar deleting dtor",
    "symbol": "??_GDSurface@@UAEPAXI@Z",
    "length": 130
   },
   "G": {
    "object": "dsurface.obj",
-   "function": "?_GDSurface",
+   "function": "DSurface::scalar deleting dtor",
    "symbol": "??_GDSurface@@UAEPAXI@Z",
    "length": 130
   },
   "Z": {
    "object": "dsurface.obj",
-   "function": "?_GDSurface",
+   "function": "DSurface::scalar deleting dtor",
    "symbol": "??_GDSurface@@UAEPAXI@Z",
    "length": 130
   }
@@ -6224,19 +6224,19 @@
  "0x9DF300": {
   "R": {
    "object": "dsurface.obj",
-   "function": "?1DSurface",
+   "function": "DSurface::~DSurface",
    "symbol": "??1DSurface@@UAE@XZ",
    "length": 98
   },
   "G": {
    "object": "dsurface.obj",
-   "function": "?1DSurface",
+   "function": "DSurface::~DSurface",
    "symbol": "??1DSurface@@UAE@XZ",
    "length": 98
   },
   "Z": {
    "object": "dsurface.obj",
-   "function": "?1DSurface",
+   "function": "DSurface::~DSurface",
    "symbol": "??1DSurface@@UAE@XZ",
    "length": 98
   }
@@ -6244,19 +6244,19 @@
  "0x9DF370": {
   "R": {
    "object": "dsurface.obj",
-   "function": "?0DSurface",
+   "function": "DSurface::DSurface",
    "symbol": "??0DSurface@@QAE@XZ",
    "length": 74
   },
   "G": {
    "object": "dsurface.obj",
-   "function": "?0DSurface",
+   "function": "DSurface::DSurface",
    "symbol": "??0DSurface@@QAE@XZ",
    "length": 74
   },
   "Z": {
    "object": "dsurface.obj",
-   "function": "?0DSurface",
+   "function": "DSurface::DSurface",
    "symbol": "??0DSurface@@QAE@XZ",
    "length": 74
   }
@@ -6324,19 +6324,19 @@
  "0x9DF7C0": {
   "R": {
    "object": "dsurface.obj",
-   "function": "?0DSurface",
+   "function": "DSurface::DSurface",
    "symbol": "??0DSurface@@QAE@PAUIDirectDrawSurface@@@Z",
    "length": 125
   },
   "G": {
    "object": "dsurface.obj",
-   "function": "?0DSurface",
+   "function": "DSurface::DSurface",
    "symbol": "??0DSurface@@QAE@PAUIDirectDrawSurface@@@Z",
    "length": 125
   },
   "Z": {
    "object": "dsurface.obj",
-   "function": "?0DSurface",
+   "function": "DSurface::DSurface",
    "symbol": "??0DSurface@@QAE@PAUIDirectDrawSurface@@@Z",
    "length": 125
   }
@@ -6504,7 +6504,7 @@
  "0x9E0250": {
   "Z": {
    "object": "rc4.obj",
-   "function": "?4RC4Class",
+   "function": "RC4Class::operator=",
    "symbol": "??4RC4Class@@QAEAAV0@ABV0@@Z",
    "length": 50
   }
@@ -7560,19 +7560,19 @@
  "0x9E3570": {
   "R": {
    "object": "srandom.obj",
-   "function": "?0SecureRandomClass",
+   "function": "SecureRandomClass::SecureRandomClass",
    "symbol": "??0SecureRandomClass@@QAE@XZ",
    "length": 28
   },
   "G": {
    "object": "srandom.obj",
-   "function": "?0SecureRandomClass",
+   "function": "SecureRandomClass::SecureRandomClass",
    "symbol": "??0SecureRandomClass@@QAE@XZ",
    "length": 28
   },
   "Z": {
    "object": "srandom.obj",
-   "function": "?0SecureRandomClass",
+   "function": "SecureRandomClass::SecureRandomClass",
    "symbol": "??0SecureRandomClass@@QAE@XZ",
    "length": 28
   }
@@ -7660,19 +7660,19 @@
  "0x9E53F0": {
   "R": {
    "object": "hash.obj",
-   "function": "?0HashTableClass",
+   "function": "HashTableClass::HashTableClass",
    "symbol": "??0HashTableClass@@QAE@H@Z",
    "length": 56
   },
   "G": {
    "object": "hash.obj",
-   "function": "?0HashTableClass",
+   "function": "HashTableClass::HashTableClass",
    "symbol": "??0HashTableClass@@QAE@H@Z",
    "length": 56
   },
   "Z": {
    "object": "hash.obj",
-   "function": "?0HashTableClass",
+   "function": "HashTableClass::HashTableClass",
    "symbol": "??0HashTableClass@@QAE@H@Z",
    "length": 56
   }
@@ -7874,13 +7874,13 @@
  "0x9E5730": {
   "R": {
    "object": "xstraw.obj",
-   "function": "?1FileStraw",
+   "function": "FileStraw::~FileStraw",
    "symbol": "??1FileStraw@@UAE@XZ",
    "length": 48
   },
   "Z": {
    "object": "xstraw.obj",
-   "function": "?1FileStraw",
+   "function": "FileStraw::~FileStraw",
    "symbol": "??1FileStraw@@UAE@XZ",
    "length": 48
   }
@@ -7888,19 +7888,19 @@
  "0x9E5760": {
   "R": {
    "object": "straw.obj",
-   "function": "?1Straw",
+   "function": "Straw::~Straw",
    "symbol": "??1Straw@@UAE@XZ",
    "length": 50
   },
   "G": {
    "object": "straw.obj",
-   "function": "?1Straw",
+   "function": "Straw::~Straw",
    "symbol": "??1Straw@@UAE@XZ",
    "length": 50
   },
   "Z": {
    "object": "straw.obj",
-   "function": "?1Straw",
+   "function": "Straw::~Straw",
    "symbol": "??1Straw@@UAE@XZ",
    "length": 50
   }
@@ -8222,13 +8222,13 @@
  "0x9E64B0": {
   "R": {
    "object": "xpipe.obj",
-   "function": "?1FilePipe",
+   "function": "FilePipe::~FilePipe",
    "symbol": "??1FilePipe@@UAE@XZ",
    "length": 48
   },
   "Z": {
    "object": "xpipe.obj",
-   "function": "?1FilePipe",
+   "function": "FilePipe::~FilePipe",
    "symbol": "??1FilePipe@@UAE@XZ",
    "length": 48
   }
@@ -8264,19 +8264,19 @@
  "0x9E6560": {
   "R": {
    "object": "pipe.obj",
-   "function": "?1Pipe",
+   "function": "Pipe::~Pipe",
    "symbol": "??1Pipe@@UAE@XZ",
    "length": 50
   },
   "G": {
    "object": "pipe.obj",
-   "function": "?1Pipe",
+   "function": "Pipe::~Pipe",
    "symbol": "??1Pipe@@UAE@XZ",
    "length": 50
   },
   "Z": {
    "object": "pipe.obj",
-   "function": "?1Pipe",
+   "function": "Pipe::~Pipe",
    "symbol": "??1Pipe@@UAE@XZ",
    "length": 50
   }
@@ -8404,19 +8404,19 @@
  "0x9E6910": {
   "R": {
    "object": "pk.obj",
-   "function": "?0PKey",
+   "function": "PKey::PKey",
    "symbol": "??0PKey@@QAE@PBX0@Z",
    "length": 81
   },
   "G": {
    "object": "pk.obj",
-   "function": "?0PKey",
+   "function": "PKey::PKey",
    "symbol": "??0PKey@@QAE@PBX0@Z",
    "length": 81
   },
   "Z": {
    "object": "pk.obj",
-   "function": "?0PKey",
+   "function": "PKey::PKey",
    "symbol": "??0PKey@@QAE@PBX0@Z",
    "length": 81
   }
@@ -8564,19 +8564,19 @@
  "0x9E73D0": {
   "R": {
    "object": "pk.obj",
-   "function": "?$Int::Inverse",
+   "function": "?Inverse@?$Int@$0EA@@@QBE?AV1@ABV1@@Z",
    "symbol": "?Inverse@?$Int@$0EA@@@QBE?AV1@ABV1@@Z",
    "length": 79
   },
   "G": {
    "object": "pk.obj",
-   "function": "?$Int::Inverse",
+   "function": "?Inverse@?$Int@$0EA@@@QBE?AV1@ABV1@@Z",
    "symbol": "?Inverse@?$Int@$0EA@@@QBE?AV1@ABV1@@Z",
    "length": 79
   },
   "Z": {
    "object": "pk.obj",
-   "function": "?$Int::Inverse",
+   "function": "?Inverse@?$Int@$0EA@@@QBE?AV1@ABV1@@Z",
    "symbol": "?Inverse@?$Int@$0EA@@@QBE?AV1@ABV1@@Z",
    "length": 79
   }
@@ -8584,19 +8584,19 @@
  "0x9E7420": {
   "R": {
    "object": "pk.obj",
-   "function": "?$Int::Randomize",
+   "function": "?Randomize@?$Int@$0EA@@@QAEXAAVStraw@@ABV1@1@Z",
    "symbol": "?Randomize@?$Int@$0EA@@@QAEXAAVStraw@@ABV1@1@Z",
    "length": 39
   },
   "G": {
    "object": "pk.obj",
-   "function": "?$Int::Randomize",
+   "function": "?Randomize@?$Int@$0EA@@@QAEXAAVStraw@@ABV1@1@Z",
    "symbol": "?Randomize@?$Int@$0EA@@@QAEXAAVStraw@@ABV1@1@Z",
    "length": 39
   },
   "Z": {
    "object": "pk.obj",
-   "function": "?$Int::Randomize",
+   "function": "?Randomize@?$Int@$0EA@@@QAEXAAVStraw@@ABV1@1@Z",
    "symbol": "?Randomize@?$Int@$0EA@@@QAEXAAVStraw@@ABV1@1@Z",
    "length": 39
   }
@@ -8604,19 +8604,19 @@
  "0x9E7480": {
   "R": {
    "object": "pk.obj",
-   "function": "$0EA::?H?$Int",
+   "function": "??H?$Int@$0EA@@@QBE?AV0@G@Z",
    "symbol": "??H?$Int@$0EA@@@QBE?AV0@G@Z",
    "length": 92
   },
   "G": {
    "object": "pk.obj",
-   "function": "$0EA::?H?$Int",
+   "function": "??H?$Int@$0EA@@@QBE?AV0@G@Z",
    "symbol": "??H?$Int@$0EA@@@QBE?AV0@G@Z",
    "length": 92
   },
   "Z": {
    "object": "pk.obj",
-   "function": "$0EA::?H?$Int",
+   "function": "??H?$Int@$0EA@@@QBE?AV0@G@Z",
    "symbol": "??H?$Int@$0EA@@@QBE?AV0@G@Z",
    "length": 92
   }
@@ -8624,19 +8624,19 @@
  "0x9E74E0": {
   "R": {
    "object": "pk.obj",
-   "function": "$0EA::?D?$Int",
+   "function": "??D?$Int@$0EA@@@QBE?AV0@G@Z",
    "symbol": "??D?$Int@$0EA@@@QBE?AV0@G@Z",
    "length": 84
   },
   "G": {
    "object": "pk.obj",
-   "function": "$0EA::?D?$Int",
+   "function": "??D?$Int@$0EA@@@QBE?AV0@G@Z",
    "symbol": "??D?$Int@$0EA@@@QBE?AV0@G@Z",
    "length": 84
   },
   "Z": {
    "object": "pk.obj",
-   "function": "$0EA::?D?$Int",
+   "function": "??D?$Int@$0EA@@@QBE?AV0@G@Z",
    "symbol": "??D?$Int@$0EA@@@QBE?AV0@G@Z",
    "length": 84
   }
@@ -8644,19 +8644,19 @@
  "0x9E7540": {
   "R": {
    "object": "pk.obj",
-   "function": "$0EA::?6?$Int",
+   "function": "??6?$Int@$0EA@@@QBE?AV0@H@Z",
    "symbol": "??6?$Int@$0EA@@@QBE?AV0@H@Z",
    "length": 75
   },
   "G": {
    "object": "pk.obj",
-   "function": "$0EA::?6?$Int",
+   "function": "??6?$Int@$0EA@@@QBE?AV0@H@Z",
    "symbol": "??6?$Int@$0EA@@@QBE?AV0@H@Z",
    "length": 75
   },
   "Z": {
    "object": "pk.obj",
-   "function": "$0EA::?6?$Int",
+   "function": "??6?$Int@$0EA@@@QBE?AV0@H@Z",
    "symbol": "??6?$Int@$0EA@@@QBE?AV0@H@Z",
    "length": 75
   }
@@ -8664,19 +8664,19 @@
  "0x9E7590": {
   "R": {
    "object": "pk.obj",
-   "function": "$0EA::?O?$Int",
+   "function": "??O?$Int@$0EA@@@QBEHABV0@@Z",
    "symbol": "??O?$Int@$0EA@@@QBEHABV0@@Z",
    "length": 28
   },
   "G": {
    "object": "pk.obj",
-   "function": "$0EA::?O?$Int",
+   "function": "??O?$Int@$0EA@@@QBEHABV0@@Z",
    "symbol": "??O?$Int@$0EA@@@QBEHABV0@@Z",
    "length": 28
   },
   "Z": {
    "object": "pk.obj",
-   "function": "$0EA::?O?$Int",
+   "function": "??O?$Int@$0EA@@@QBEHABV0@@Z",
    "symbol": "??O?$Int@$0EA@@@QBEHABV0@@Z",
    "length": 28
   }
@@ -8684,19 +8684,19 @@
  "0x9E75B0": {
   "R": {
    "object": "pk.obj",
-   "function": "V?$Int::?0?$RemainderTable",
+   "function": "??0?$RemainderTable@V?$Int@$0EA@@@@@QAE@ABV?$Int@$0EA@@@@Z",
    "symbol": "??0?$RemainderTable@V?$Int@$0EA@@@@@QAE@ABV?$Int@$0EA@@@@Z",
    "length": 91
   },
   "G": {
    "object": "pk.obj",
-   "function": "V?$Int::?0?$RemainderTable",
+   "function": "??0?$RemainderTable@V?$Int@$0EA@@@@@QAE@ABV?$Int@$0EA@@@@Z",
    "symbol": "??0?$RemainderTable@V?$Int@$0EA@@@@@QAE@ABV?$Int@$0EA@@@@Z",
    "length": 91
   },
   "Z": {
    "object": "pk.obj",
-   "function": "V?$Int::?0?$RemainderTable",
+   "function": "??0?$RemainderTable@V?$Int@$0EA@@@@@QAE@ABV?$Int@$0EA@@@@Z",
    "symbol": "??0?$RemainderTable@V?$Int@$0EA@@@@@QAE@ABV?$Int@$0EA@@@@Z",
    "length": 91
   }
@@ -8704,19 +8704,19 @@
  "0x9E7610": {
   "R": {
    "object": "pk.obj",
-   "function": "?$RemainderTable::Increment",
+   "function": "?Increment@?$RemainderTable@V?$Int@$0EA@@@@@QAEXG@Z",
    "symbol": "?Increment@?$RemainderTable@V?$Int@$0EA@@@@@QAEXG@Z",
    "length": 108
   },
   "G": {
    "object": "pk.obj",
-   "function": "?$RemainderTable::Increment",
+   "function": "?Increment@?$RemainderTable@V?$Int@$0EA@@@@@QAEXG@Z",
    "symbol": "?Increment@?$RemainderTable@V?$Int@$0EA@@@@@QAEXG@Z",
    "length": 108
   },
   "Z": {
    "object": "pk.obj",
-   "function": "?$RemainderTable::Increment",
+   "function": "?Increment@?$RemainderTable@V?$Int@$0EA@@@@@QAEXG@Z",
    "symbol": "?Increment@?$RemainderTable@V?$Int@$0EA@@@@@QAEXG@Z",
    "length": 108
   }
@@ -8784,13 +8784,13 @@
  "0x9E7900": {
   "R": {
    "object": "bufffile.obj",
-   "function": "?0BufferedFileClass",
+   "function": "BufferedFileClass::BufferedFileClass",
    "symbol": "??0BufferedFileClass@@QAE@XZ",
    "length": 32
   },
   "Z": {
    "object": "bufffile.obj",
-   "function": "?0BufferedFileClass",
+   "function": "BufferedFileClass::BufferedFileClass",
    "symbol": "??0BufferedFileClass@@QAE@XZ",
    "length": 32
   }
@@ -8798,13 +8798,13 @@
  "0x9E7920": {
   "R": {
    "object": "bufffile.obj",
-   "function": "?_GBufferedFileClass",
+   "function": "BufferedFileClass::scalar deleting dtor",
    "symbol": "??_GBufferedFileClass@@UAEPAXI@Z",
    "length": 70
   },
   "Z": {
    "object": "bufffile.obj",
-   "function": "?_GBufferedFileClass",
+   "function": "BufferedFileClass::scalar deleting dtor",
    "symbol": "??_GBufferedFileClass@@UAEPAXI@Z",
    "length": 70
   }
@@ -8812,13 +8812,13 @@
  "0x9E7970": {
   "R": {
    "object": "bufffile.obj",
-   "function": "?0BufferedFileClass",
+   "function": "BufferedFileClass::BufferedFileClass",
    "symbol": "??0BufferedFileClass@@QAE@PBD@Z",
    "length": 39
   },
   "Z": {
    "object": "bufffile.obj",
-   "function": "?0BufferedFileClass",
+   "function": "BufferedFileClass::BufferedFileClass",
    "symbol": "??0BufferedFileClass@@QAE@PBD@Z",
    "length": 39
   }
@@ -8826,13 +8826,13 @@
  "0x9E79A0": {
   "R": {
    "object": "bufffile.obj",
-   "function": "?1BufferedFileClass",
+   "function": "BufferedFileClass::~BufferedFileClass",
    "symbol": "??1BufferedFileClass@@UAE@XZ",
    "length": 50
   },
   "Z": {
    "object": "bufffile.obj",
-   "function": "?1BufferedFileClass",
+   "function": "BufferedFileClass::~BufferedFileClass",
    "symbol": "??1BufferedFileClass@@UAE@XZ",
    "length": 50
   }
@@ -9036,19 +9036,19 @@
  "0x9E8200": {
   "R": {
    "object": "palette.obj",
-   "function": "?0PaletteClass",
+   "function": "PaletteClass::PaletteClass",
    "symbol": "??0PaletteClass@@QAE@ABVRGBClass@@@Z",
    "length": 72
   },
   "G": {
    "object": "palette.obj",
-   "function": "?0PaletteClass",
+   "function": "PaletteClass::PaletteClass",
    "symbol": "??0PaletteClass@@QAE@ABVRGBClass@@@Z",
    "length": 72
   },
   "Z": {
    "object": "palette.obj",
-   "function": "?0PaletteClass",
+   "function": "PaletteClass::PaletteClass",
    "symbol": "??0PaletteClass@@QAE@ABVRGBClass@@@Z",
    "length": 72
   }
@@ -9056,19 +9056,19 @@
  "0x9E8250": {
   "R": {
    "object": "palette.obj",
-   "function": "?0PaletteClass",
+   "function": "PaletteClass::PaletteClass",
    "symbol": "??0PaletteClass@@QAE@PAE@Z",
    "length": 48
   },
   "G": {
    "object": "palette.obj",
-   "function": "?0PaletteClass",
+   "function": "PaletteClass::PaletteClass",
    "symbol": "??0PaletteClass@@QAE@PAE@Z",
    "length": 48
   },
   "Z": {
    "object": "palette.obj",
-   "function": "?0PaletteClass",
+   "function": "PaletteClass::PaletteClass",
    "symbol": "??0PaletteClass@@QAE@PAE@Z",
    "length": 48
   }
@@ -9076,19 +9076,19 @@
  "0x9E8280": {
   "R": {
    "object": "palette.obj",
-   "function": "?8PaletteClass",
+   "function": "PaletteClass::operator==",
    "symbol": "??8PaletteClass@@QBEHABV0@@Z",
    "length": 39
   },
   "G": {
    "object": "palette.obj",
-   "function": "?8PaletteClass",
+   "function": "PaletteClass::operator==",
    "symbol": "??8PaletteClass@@QBEHABV0@@Z",
    "length": 39
   },
   "Z": {
    "object": "palette.obj",
-   "function": "?8PaletteClass",
+   "function": "PaletteClass::operator==",
    "symbol": "??8PaletteClass@@QBEHABV0@@Z",
    "length": 39
   }
@@ -9096,19 +9096,19 @@
  "0x9E82B0": {
   "R": {
    "object": "palette.obj",
-   "function": "?4PaletteClass",
+   "function": "PaletteClass::operator=",
    "symbol": "??4PaletteClass@@QAEAAV0@ABV0@@Z",
    "length": 26
   },
   "G": {
    "object": "palette.obj",
-   "function": "?4PaletteClass",
+   "function": "PaletteClass::operator=",
    "symbol": "??4PaletteClass@@QAEAAV0@ABV0@@Z",
    "length": 26
   },
   "Z": {
    "object": "palette.obj",
-   "function": "?4PaletteClass",
+   "function": "PaletteClass::operator=",
    "symbol": "??4PaletteClass@@QAEAAV0@ABV0@@Z",
    "length": 26
   }
@@ -9256,19 +9256,19 @@
  "0x9E8530": {
   "R": {
    "object": "hsv.obj",
-   "function": "?BHSVClass",
+   "function": "??BHSVClass@@QBE?AVRGBClass@@XZ",
    "symbol": "??BHSVClass@@QBE?AVRGBClass@@XZ",
    "length": 277
   },
   "G": {
    "object": "hsv.obj",
-   "function": "?BHSVClass",
+   "function": "??BHSVClass@@QBE?AVRGBClass@@XZ",
    "symbol": "??BHSVClass@@QBE?AVRGBClass@@XZ",
    "length": 277
   },
   "Z": {
    "object": "hsv.obj",
-   "function": "?BHSVClass",
+   "function": "??BHSVClass@@QBE?AVRGBClass@@XZ",
    "symbol": "??BHSVClass@@QBE?AVRGBClass@@XZ",
    "length": 277
   }
@@ -9316,19 +9316,19 @@
  "0x9E8750": {
   "R": {
    "object": "rgb.obj",
-   "function": "?BRGBClass",
+   "function": "??BRGBClass@@QBE?AVHSVClass@@XZ",
    "symbol": "??BRGBClass@@QBE?AVHSVClass@@XZ",
    "length": 321
   },
   "G": {
    "object": "rgb.obj",
-   "function": "?BRGBClass",
+   "function": "??BRGBClass@@QBE?AVHSVClass@@XZ",
    "symbol": "??BRGBClass@@QBE?AVHSVClass@@XZ",
    "length": 321
   },
   "Z": {
    "object": "rgb.obj",
-   "function": "?BRGBClass",
+   "function": "??BRGBClass@@QBE?AVHSVClass@@XZ",
    "symbol": "??BRGBClass@@QBE?AVHSVClass@@XZ",
    "length": 321
   }

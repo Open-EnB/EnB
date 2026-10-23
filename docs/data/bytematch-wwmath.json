@@ -2,19 +2,19 @@
  "0x42F250": {
   "R": {
    "object": "vp.obj",
-   "function": "YGXPAXIHP6EX0::?_H",
+   "function": "??_H@YGXPAXIHP6EX0@Z@Z",
    "symbol": "??_H@YGXPAXIHP6EX0@Z@Z",
    "length": 42
   },
   "G": {
    "object": "vp.obj",
-   "function": "YGXPAXIHP6EX0::?_H",
+   "function": "??_H@YGXPAXIHP6EX0@Z@Z",
    "symbol": "??_H@YGXPAXIHP6EX0@Z@Z",
    "length": 42
   },
   "Z": {
    "object": "vp.obj",
-   "function": "YGXPAXIHP6EX0::?_H",
+   "function": "??_H@YGXPAXIHP6EX0@Z@Z",
    "symbol": "??_H@YGXPAXIHP6EX0@Z@Z",
    "length": 42
   }
@@ -62,19 +62,19 @@
  "0x45CC90": {
   "R": {
    "object": "ode.obj",
-   "function": "M::?8?$VectorClass",
+   "function": "??8?$VectorClass@M@@UBE_NABV0@@Z",
    "symbol": "??8?$VectorClass@M@@UBE_NABV0@@Z",
    "length": 62
   },
   "G": {
    "object": "ode.obj",
-   "function": "M::?8?$VectorClass",
+   "function": "??8?$VectorClass@M@@UBE_NABV0@@Z",
    "symbol": "??8?$VectorClass@M@@UBE_NABV0@@Z",
    "length": 62
   },
   "Z": {
    "object": "ode.obj",
-   "function": "M::?8?$VectorClass",
+   "function": "??8?$VectorClass@M@@UBE_NABV0@@Z",
    "symbol": "??8?$VectorClass@M@@UBE_NABV0@@Z",
    "length": 62
   }
@@ -82,19 +82,19 @@
  "0x45CE00": {
   "R": {
    "object": "ode.obj",
-   "function": "?$VectorClass::ID",
+   "function": "?ID@?$VectorClass@M@@UAEHABM@Z",
    "symbol": "?ID@?$VectorClass@M@@UAEHABM@Z",
    "length": 66
   },
   "G": {
    "object": "ode.obj",
-   "function": "?$VectorClass::ID",
+   "function": "?ID@?$VectorClass@M@@UAEHABM@Z",
    "symbol": "?ID@?$VectorClass@M@@UAEHABM@Z",
    "length": 66
   },
   "Z": {
    "object": "ode.obj",
-   "function": "?$VectorClass::ID",
+   "function": "?ID@?$VectorClass@M@@UAEHABM@Z",
    "symbol": "?ID@?$VectorClass@M@@UAEHABM@Z",
    "length": 66
   }
@@ -102,19 +102,19 @@
  "0x45D000": {
   "R": {
    "object": "ode.obj",
-   "function": "?$DynamicVectorClass::ID",
+   "function": "?ID@?$DynamicVectorClass@M@@UAEHABM@Z",
    "symbol": "?ID@?$DynamicVectorClass@M@@UAEHABM@Z",
    "length": 52
   },
   "G": {
    "object": "ode.obj",
-   "function": "?$DynamicVectorClass::ID",
+   "function": "?ID@?$DynamicVectorClass@M@@UAEHABM@Z",
    "symbol": "?ID@?$DynamicVectorClass@M@@UAEHABM@Z",
    "length": 52
   },
   "Z": {
    "object": "ode.obj",
-   "function": "?$DynamicVectorClass::ID",
+   "function": "?ID@?$DynamicVectorClass@M@@UAEHABM@Z",
    "symbol": "?ID@?$DynamicVectorClass@M@@UAEHABM@Z",
    "length": 52
   }
@@ -122,19 +122,19 @@
  "0x48A190": {
   "R": {
    "object": "hermitespline.obj",
-   "function": "VTangentsClass::?8?$VectorClass",
+   "function": "??8?$VectorClass@VTangentsClass@HermiteSpline1DClass@@@@UBE_NABV0@@Z",
    "symbol": "??8?$VectorClass@VTangentsClass@HermiteSpline1DClass@@@@UBE_NABV0@@Z",
    "length": 87
   },
   "G": {
    "object": "hermitespline.obj",
-   "function": "VTangentsClass::?8?$VectorClass",
+   "function": "??8?$VectorClass@VTangentsClass@HermiteSpline1DClass@@@@UBE_NABV0@@Z",
    "symbol": "??8?$VectorClass@VTangentsClass@HermiteSpline1DClass@@@@UBE_NABV0@@Z",
    "length": 87
   },
   "Z": {
    "object": "hermitespline.obj",
-   "function": "VTangentsClass::?8?$VectorClass",
+   "function": "??8?$VectorClass@VTangentsClass@HermiteSpline1DClass@@@@UBE_NABV0@@Z",
    "symbol": "??8?$VectorClass@VTangentsClass@HermiteSpline1DClass@@@@UBE_NABV0@@Z",
    "length": 87
   }
@@ -142,19 +142,19 @@
  "0x48A340": {
   "R": {
    "object": "hermitespline.obj",
-   "function": "?$VectorClass::ID",
+   "function": "?ID@?$VectorClass@VTangentsClass@HermiteSpline1DClass@@@@UAEHABVTangentsClass@HermiteSpline1DClass@@@Z",
    "symbol": "?ID@?$VectorClass@VTangentsClass@HermiteSpline1DClass@@@@UAEHABVTangentsClass@HermiteSpline1DClass@@@Z",
    "length": 81
   },
   "G": {
    "object": "hermitespline.obj",
-   "function": "?$VectorClass::ID",
+   "function": "?ID@?$VectorClass@VTangentsClass@HermiteSpline1DClass@@@@UAEHABVTangentsClass@HermiteSpline1DClass@@@Z",
    "symbol": "?ID@?$VectorClass@VTangentsClass@HermiteSpline1DClass@@@@UAEHABVTangentsClass@HermiteSpline1DClass@@@Z",
    "length": 81
   },
   "Z": {
    "object": "hermitespline.obj",
-   "function": "?$VectorClass::ID",
+   "function": "?ID@?$VectorClass@VTangentsClass@HermiteSpline1DClass@@@@UAEHABVTangentsClass@HermiteSpline1DClass@@@Z",
    "symbol": "?ID@?$VectorClass@VTangentsClass@HermiteSpline1DClass@@@@UAEHABVTangentsClass@HermiteSpline1DClass@@@Z",
    "length": 81
   }
@@ -162,19 +162,19 @@
  "0x48A4E0": {
   "R": {
    "object": "hermitespline.obj",
-   "function": "?$DynamicVectorClass::ID",
+   "function": "?ID@?$DynamicVectorClass@VTangentsClass@HermiteSpline1DClass@@@@UAEHABVTangentsClass@HermiteSpline1DClass@@@Z",
    "symbol": "?ID@?$DynamicVectorClass@VTangentsClass@HermiteSpline1DClass@@@@UAEHABVTangentsClass@HermiteSpline1DClass@@@Z",
    "length": 67
   },
   "G": {
    "object": "hermitespline.obj",
-   "function": "?$DynamicVectorClass::ID",
+   "function": "?ID@?$DynamicVectorClass@VTangentsClass@HermiteSpline1DClass@@@@UAEHABVTangentsClass@HermiteSpline1DClass@@@Z",
    "symbol": "?ID@?$DynamicVectorClass@VTangentsClass@HermiteSpline1DClass@@@@UAEHABVTangentsClass@HermiteSpline1DClass@@@Z",
    "length": 67
   },
   "Z": {
    "object": "hermitespline.obj",
-   "function": "?$DynamicVectorClass::ID",
+   "function": "?ID@?$DynamicVectorClass@VTangentsClass@HermiteSpline1DClass@@@@UAEHABVTangentsClass@HermiteSpline1DClass@@@Z",
    "symbol": "?ID@?$DynamicVectorClass@VTangentsClass@HermiteSpline1DClass@@@@UAEHABVTangentsClass@HermiteSpline1DClass@@@Z",
    "length": 67
   }
@@ -202,19 +202,19 @@
  "0x6F2050": {
   "R": {
    "object": "tcbspline.obj",
-   "function": "VTangentsClass::?8?$VectorClass",
+   "function": "??8?$VectorClass@VTangentsClass@HermiteSpline3DClass@@@@UBE_NABV0@@Z",
    "symbol": "??8?$VectorClass@VTangentsClass@HermiteSpline3DClass@@@@UBE_NABV0@@Z",
    "length": 147
   },
   "G": {
    "object": "tcbspline.obj",
-   "function": "VTangentsClass::?8?$VectorClass",
+   "function": "??8?$VectorClass@VTangentsClass@HermiteSpline3DClass@@@@UBE_NABV0@@Z",
    "symbol": "??8?$VectorClass@VTangentsClass@HermiteSpline3DClass@@@@UBE_NABV0@@Z",
    "length": 147
   },
   "Z": {
    "object": "tcbspline.obj",
-   "function": "VTangentsClass::?8?$VectorClass",
+   "function": "??8?$VectorClass@VTangentsClass@HermiteSpline3DClass@@@@UBE_NABV0@@Z",
    "symbol": "??8?$VectorClass@VTangentsClass@HermiteSpline3DClass@@@@UBE_NABV0@@Z",
    "length": 147
   }
@@ -222,19 +222,19 @@
  "0x6F22A0": {
   "R": {
    "object": "tcbspline.obj",
-   "function": "?$VectorClass::ID",
+   "function": "?ID@?$VectorClass@VTangentsClass@HermiteSpline3DClass@@@@UAEHABVTangentsClass@HermiteSpline3DClass@@@Z",
    "symbol": "?ID@?$VectorClass@VTangentsClass@HermiteSpline3DClass@@@@UAEHABVTangentsClass@HermiteSpline3DClass@@@Z",
    "length": 142
   },
   "G": {
    "object": "tcbspline.obj",
-   "function": "?$VectorClass::ID",
+   "function": "?ID@?$VectorClass@VTangentsClass@HermiteSpline3DClass@@@@UAEHABVTangentsClass@HermiteSpline3DClass@@@Z",
    "symbol": "?ID@?$VectorClass@VTangentsClass@HermiteSpline3DClass@@@@UAEHABVTangentsClass@HermiteSpline3DClass@@@Z",
    "length": 142
   },
   "Z": {
    "object": "tcbspline.obj",
-   "function": "?$VectorClass::ID",
+   "function": "?ID@?$VectorClass@VTangentsClass@HermiteSpline3DClass@@@@UAEHABVTangentsClass@HermiteSpline3DClass@@@Z",
    "symbol": "?ID@?$VectorClass@VTangentsClass@HermiteSpline3DClass@@@@UAEHABVTangentsClass@HermiteSpline3DClass@@@Z",
    "length": 142
   }
@@ -242,19 +242,19 @@
  "0x6F23F0": {
   "R": {
    "object": "tcbspline.obj",
-   "function": "?$DynamicVectorClass::ID",
+   "function": "?ID@?$DynamicVectorClass@VTangentsClass@HermiteSpline3DClass@@@@UAEHABVTangentsClass@HermiteSpline3DClass@@@Z",
    "symbol": "?ID@?$DynamicVectorClass@VTangentsClass@HermiteSpline3DClass@@@@UAEHABVTangentsClass@HermiteSpline3DClass@@@Z",
    "length": 127
   },
   "G": {
    "object": "tcbspline.obj",
-   "function": "?$DynamicVectorClass::ID",
+   "function": "?ID@?$DynamicVectorClass@VTangentsClass@HermiteSpline3DClass@@@@UAEHABVTangentsClass@HermiteSpline3DClass@@@Z",
    "symbol": "?ID@?$DynamicVectorClass@VTangentsClass@HermiteSpline3DClass@@@@UAEHABVTangentsClass@HermiteSpline3DClass@@@Z",
    "length": 127
   },
   "Z": {
    "object": "tcbspline.obj",
-   "function": "?$DynamicVectorClass::ID",
+   "function": "?ID@?$DynamicVectorClass@VTangentsClass@HermiteSpline3DClass@@@@UAEHABVTangentsClass@HermiteSpline3DClass@@@Z",
    "symbol": "?ID@?$DynamicVectorClass@VTangentsClass@HermiteSpline3DClass@@@@UAEHABVTangentsClass@HermiteSpline3DClass@@@Z",
    "length": 127
   }
@@ -1344,19 +1344,19 @@
  "0x8C8D70": {
   "R": {
    "object": "cullsys.obj",
-   "function": "?0CullableClass",
+   "function": "CullableClass::CullableClass",
    "symbol": "??0CullableClass@@QAE@XZ",
    "length": 47
   },
   "G": {
    "object": "cullsys.obj",
-   "function": "?0CullableClass",
+   "function": "CullableClass::CullableClass",
    "symbol": "??0CullableClass@@QAE@XZ",
    "length": 47
   },
   "Z": {
    "object": "cullsys.obj",
-   "function": "?0CullableClass",
+   "function": "CullableClass::CullableClass",
    "symbol": "??0CullableClass@@QAE@XZ",
    "length": 47
   }
@@ -2584,19 +2584,19 @@
  "0x8D3B60": {
   "R": {
    "object": "curve.obj",
-   "function": "?0Curve3DClass",
+   "function": "Curve3DClass::Curve3DClass",
    "symbol": "??0Curve3DClass@@QAE@ABV0@@Z",
    "length": 220
   },
   "G": {
    "object": "curve.obj",
-   "function": "?0Curve3DClass",
+   "function": "Curve3DClass::Curve3DClass",
    "symbol": "??0Curve3DClass@@QAE@ABV0@@Z",
    "length": 220
   },
   "Z": {
    "object": "curve.obj",
-   "function": "?0Curve3DClass",
+   "function": "Curve3DClass::Curve3DClass",
    "symbol": "??0Curve3DClass@@QAE@ABV0@@Z",
    "length": 220
   }
@@ -2604,19 +2604,19 @@
  "0x8D3C90": {
   "R": {
    "object": "curve.obj",
-   "function": "?4Curve3DClass",
+   "function": "Curve3DClass::operator=",
    "symbol": "??4Curve3DClass@@QAEAAV0@ABV0@@Z",
    "length": 179
   },
   "G": {
    "object": "curve.obj",
-   "function": "?4Curve3DClass",
+   "function": "Curve3DClass::operator=",
    "symbol": "??4Curve3DClass@@QAEAAV0@ABV0@@Z",
    "length": 179
   },
   "Z": {
    "object": "curve.obj",
-   "function": "?4Curve3DClass",
+   "function": "Curve3DClass::operator=",
    "symbol": "??4Curve3DClass@@QAEAAV0@ABV0@@Z",
    "length": 179
   }
@@ -2864,19 +2864,19 @@
  "0x8D4440": {
   "R": {
    "object": "curve.obj",
-   "function": "?0Curve1DClass",
+   "function": "Curve1DClass::Curve1DClass",
    "symbol": "??0Curve1DClass@@QAE@ABV0@@Z",
    "length": 201
   },
   "G": {
    "object": "curve.obj",
-   "function": "?0Curve1DClass",
+   "function": "Curve1DClass::Curve1DClass",
    "symbol": "??0Curve1DClass@@QAE@ABV0@@Z",
    "length": 201
   },
   "Z": {
    "object": "curve.obj",
-   "function": "?0Curve1DClass",
+   "function": "Curve1DClass::Curve1DClass",
    "symbol": "??0Curve1DClass@@QAE@ABV0@@Z",
    "length": 201
   }
@@ -2884,19 +2884,19 @@
  "0x8D4560": {
   "R": {
    "object": "curve.obj",
-   "function": "?4Curve1DClass",
+   "function": "Curve1DClass::operator=",
    "symbol": "??4Curve1DClass@@QAEAAV0@ABV0@@Z",
    "length": 158
   },
   "G": {
    "object": "curve.obj",
-   "function": "?4Curve1DClass",
+   "function": "Curve1DClass::operator=",
    "symbol": "??4Curve1DClass@@QAEAAV0@ABV0@@Z",
    "length": 158
   },
   "Z": {
    "object": "curve.obj",
-   "function": "?4Curve1DClass",
+   "function": "Curve1DClass::operator=",
    "symbol": "??4Curve1DClass@@QAEAAV0@ABV0@@Z",
    "length": 158
   }
@@ -3144,19 +3144,19 @@
  "0x8D50F0": {
   "R": {
    "object": "curve.obj",
-   "function": "VKeyClass::?8?$VectorClass",
+   "function": "??8?$VectorClass@VKeyClass@Curve1DClass@@@@UBE_NABV0@@Z",
    "symbol": "??8?$VectorClass@VKeyClass@Curve1DClass@@@@UBE_NABV0@@Z",
    "length": 100
   },
   "G": {
    "object": "curve.obj",
-   "function": "VKeyClass::?8?$VectorClass",
+   "function": "??8?$VectorClass@VKeyClass@Curve1DClass@@@@UBE_NABV0@@Z",
    "symbol": "??8?$VectorClass@VKeyClass@Curve1DClass@@@@UBE_NABV0@@Z",
    "length": 100
   },
   "Z": {
    "object": "curve.obj",
-   "function": "VKeyClass::?8?$VectorClass",
+   "function": "??8?$VectorClass@VKeyClass@Curve1DClass@@@@UBE_NABV0@@Z",
    "symbol": "??8?$VectorClass@VKeyClass@Curve1DClass@@@@UBE_NABV0@@Z",
    "length": 100
   }
@@ -3164,19 +3164,19 @@
  "0x8D5260": {
   "R": {
    "object": "curve.obj",
-   "function": "?$VectorClass::ID",
+   "function": "?ID@?$VectorClass@VKeyClass@Curve1DClass@@@@UAEHABVKeyClass@Curve1DClass@@@Z",
    "symbol": "?ID@?$VectorClass@VKeyClass@Curve1DClass@@@@UAEHABVKeyClass@Curve1DClass@@@Z",
    "length": 95
   },
   "G": {
    "object": "curve.obj",
-   "function": "?$VectorClass::ID",
+   "function": "?ID@?$VectorClass@VKeyClass@Curve1DClass@@@@UAEHABVKeyClass@Curve1DClass@@@Z",
    "symbol": "?ID@?$VectorClass@VKeyClass@Curve1DClass@@@@UAEHABVKeyClass@Curve1DClass@@@Z",
    "length": 95
   },
   "Z": {
    "object": "curve.obj",
-   "function": "?$VectorClass::ID",
+   "function": "?ID@?$VectorClass@VKeyClass@Curve1DClass@@@@UAEHABVKeyClass@Curve1DClass@@@Z",
    "symbol": "?ID@?$VectorClass@VKeyClass@Curve1DClass@@@@UAEHABVKeyClass@Curve1DClass@@@Z",
    "length": 95
   }
@@ -3184,19 +3184,19 @@
  "0x8D53C0": {
   "R": {
    "object": "curve.obj",
-   "function": "?$DynamicVectorClass::ID",
+   "function": "?ID@?$DynamicVectorClass@VKeyClass@Curve1DClass@@@@UAEHABVKeyClass@Curve1DClass@@@Z",
    "symbol": "?ID@?$DynamicVectorClass@VKeyClass@Curve1DClass@@@@UAEHABVKeyClass@Curve1DClass@@@Z",
    "length": 80
   },
   "G": {
    "object": "curve.obj",
-   "function": "?$DynamicVectorClass::ID",
+   "function": "?ID@?$DynamicVectorClass@VKeyClass@Curve1DClass@@@@UAEHABVKeyClass@Curve1DClass@@@Z",
    "symbol": "?ID@?$DynamicVectorClass@VKeyClass@Curve1DClass@@@@UAEHABVKeyClass@Curve1DClass@@@Z",
    "length": 80
   },
   "Z": {
    "object": "curve.obj",
-   "function": "?$DynamicVectorClass::ID",
+   "function": "?ID@?$DynamicVectorClass@VKeyClass@Curve1DClass@@@@UAEHABVKeyClass@Curve1DClass@@@Z",
    "symbol": "?ID@?$DynamicVectorClass@VKeyClass@Curve1DClass@@@@UAEHABVKeyClass@Curve1DClass@@@Z",
    "length": 80
   }
@@ -3324,19 +3324,19 @@
  "0x8D5FF0": {
   "R": {
    "object": "hermitespline.obj",
-   "function": "?4HermiteSpline3DClass",
+   "function": "HermiteSpline3DClass::operator=",
    "symbol": "??4HermiteSpline3DClass@@QAEABV0@ABV0@@Z",
    "length": 212
   },
   "G": {
    "object": "hermitespline.obj",
-   "function": "?4HermiteSpline3DClass",
+   "function": "HermiteSpline3DClass::operator=",
    "symbol": "??4HermiteSpline3DClass@@QAEABV0@ABV0@@Z",
    "length": 212
   },
   "Z": {
    "object": "hermitespline.obj",
-   "function": "?4HermiteSpline3DClass",
+   "function": "HermiteSpline3DClass::operator=",
    "symbol": "??4HermiteSpline3DClass@@QAEABV0@ABV0@@Z",
    "length": 212
   }
@@ -3684,19 +3684,19 @@
  "0x8D6DE0": {
   "R": {
    "object": "hermitespline.obj",
-   "function": "?_GHermiteSpline1DClass",
+   "function": "HermiteSpline1DClass::scalar deleting dtor",
    "symbol": "??_GHermiteSpline1DClass@@UAEPAXI@Z",
    "length": 80
   },
   "G": {
    "object": "hermitespline.obj",
-   "function": "?_GHermiteSpline1DClass",
+   "function": "HermiteSpline1DClass::scalar deleting dtor",
    "symbol": "??_GHermiteSpline1DClass@@UAEPAXI@Z",
    "length": 80
   },
   "Z": {
    "object": "hermitespline.obj",
-   "function": "?_GHermiteSpline1DClass",
+   "function": "HermiteSpline1DClass::scalar deleting dtor",
    "symbol": "??_GHermiteSpline1DClass@@UAEPAXI@Z",
    "length": 80
   }
@@ -3704,19 +3704,19 @@
  "0x8D6EF0": {
   "R": {
    "object": "gridcull.obj",
-   "function": "?0GridLinkClass",
+   "function": "GridLinkClass::GridLinkClass",
    "symbol": "??0GridLinkClass@@QAE@PAVGridCullSystemClass@@@Z",
    "length": 33
   },
   "G": {
    "object": "gridcull.obj",
-   "function": "?0GridLinkClass",
+   "function": "GridLinkClass::GridLinkClass",
    "symbol": "??0GridLinkClass@@QAE@PAVGridCullSystemClass@@@Z",
    "length": 33
   },
   "Z": {
    "object": "gridcull.obj",
-   "function": "?0GridLinkClass",
+   "function": "GridLinkClass::GridLinkClass",
    "symbol": "??0GridLinkClass@@QAE@PAVGridCullSystemClass@@@Z",
    "length": 33
   }
@@ -3724,19 +3724,19 @@
  "0x8D6FA0": {
   "R": {
    "object": "gridcull.obj",
-   "function": "?0GridCullSystemClass",
+   "function": "GridCullSystemClass::GridCullSystemClass",
    "symbol": "??0GridCullSystemClass@@QAE@XZ",
    "length": 182
   },
   "G": {
    "object": "gridcull.obj",
-   "function": "?0GridCullSystemClass",
+   "function": "GridCullSystemClass::GridCullSystemClass",
    "symbol": "??0GridCullSystemClass@@QAE@XZ",
    "length": 182
   },
   "Z": {
    "object": "gridcull.obj",
-   "function": "?0GridCullSystemClass",
+   "function": "GridCullSystemClass::GridCullSystemClass",
    "symbol": "??0GridCullSystemClass@@QAE@XZ",
    "length": 182
   }
@@ -3744,19 +3744,19 @@
  "0x8D7060": {
   "R": {
    "object": "gridcull.obj",
-   "function": "?_GGridCullSystemClass",
+   "function": "GridCullSystemClass::scalar deleting dtor",
    "symbol": "??_GGridCullSystemClass@@UAEPAXI@Z",
    "length": 61
   },
   "G": {
    "object": "gridcull.obj",
-   "function": "?_GGridCullSystemClass",
+   "function": "GridCullSystemClass::scalar deleting dtor",
    "symbol": "??_GGridCullSystemClass@@UAEPAXI@Z",
    "length": 61
   },
   "Z": {
    "object": "gridcull.obj",
-   "function": "?_GGridCullSystemClass",
+   "function": "GridCullSystemClass::scalar deleting dtor",
    "symbol": "??_GGridCullSystemClass@@UAEPAXI@Z",
    "length": 61
   }
@@ -3764,19 +3764,19 @@
  "0x8D70A0": {
   "R": {
    "object": "gridcull.obj",
-   "function": "?1GridCullSystemClass",
+   "function": "GridCullSystemClass::~GridCullSystemClass",
    "symbol": "??1GridCullSystemClass@@UAE@XZ",
    "length": 41
   },
   "G": {
    "object": "gridcull.obj",
-   "function": "?1GridCullSystemClass",
+   "function": "GridCullSystemClass::~GridCullSystemClass",
    "symbol": "??1GridCullSystemClass@@UAE@XZ",
    "length": 41
   },
   "Z": {
    "object": "gridcull.obj",
-   "function": "?1GridCullSystemClass",
+   "function": "GridCullSystemClass::~GridCullSystemClass",
    "symbol": "??1GridCullSystemClass@@UAE@XZ",
    "length": 41
   }
@@ -4252,7 +4252,7 @@
  "0x8D8EA0": {
   "R": {
    "object": "gridcull.obj",
-   "function": "?$ObjectPoolClass::Allocate_Object_Memory",
+   "function": "?Allocate_Object_Memory@?$ObjectPoolClass@VGridLinkClass@@$0BAA@@@QAEPAVGridLinkClass@@XZ",
    "symbol": "?Allocate_Object_Memory@?$ObjectPoolClass@VGridLinkClass@@$0BAA@@@QAEPAVGridLinkClass@@XZ",
    "length": 126
   }
@@ -4260,7 +4260,7 @@
  "0x8D9000": {
   "R": {
    "object": "aabtreecull.obj",
-   "function": "?0AABTreeCullSystemClass",
+   "function": "AABTreeCullSystemClass::AABTreeCullSystemClass",
    "symbol": "??0AABTreeCullSystemClass@@QAE@XZ",
    "length": 397
   }
@@ -4268,7 +4268,7 @@
  "0x8D91B0": {
   "R": {
    "object": "aabtreecull.obj",
-   "function": "?1AABTreeCullSystemClass",
+   "function": "AABTreeCullSystemClass::~AABTreeCullSystemClass",
    "symbol": "??1AABTreeCullSystemClass@@UAE@XZ",
    "length": 319
   }
@@ -4276,7 +4276,7 @@
  "0x8D92F0": {
   "R": {
    "object": "aabtreecull.obj",
-   "function": "?_GAABTreeNodeClass",
+   "function": "AABTreeNodeClass::scalar deleting dtor",
    "symbol": "??_GAABTreeNodeClass@@QAEPAXI@Z",
    "length": 106
   }
@@ -4812,19 +4812,19 @@
  "0x8DB3C0": {
   "R": {
    "object": "aabtreecull.obj",
-   "function": "?0AABTreeNodeClass",
+   "function": "AABTreeNodeClass::AABTreeNodeClass",
    "symbol": "??0AABTreeNodeClass@@QAE@XZ",
    "length": 40
   },
   "G": {
    "object": "aabtreecull.obj",
-   "function": "?0AABTreeNodeClass",
+   "function": "AABTreeNodeClass::AABTreeNodeClass",
    "symbol": "??0AABTreeNodeClass@@QAE@XZ",
    "length": 40
   },
   "Z": {
    "object": "aabtreecull.obj",
-   "function": "?0AABTreeNodeClass",
+   "function": "AABTreeNodeClass::AABTreeNodeClass",
    "symbol": "??0AABTreeNodeClass@@QAE@XZ",
    "length": 40
   }
@@ -4832,7 +4832,7 @@
  "0x8DB3F0": {
   "R": {
    "object": "aabtreecull.obj",
-   "function": "?1AABTreeNodeClass",
+   "function": "AABTreeNodeClass::~AABTreeNodeClass",
    "symbol": "??1AABTreeNodeClass@@QAE@XZ",
    "length": 126
   }
@@ -5160,19 +5160,19 @@
  "0x8DCFC0": {
   "R": {
    "object": "aabtreecull.obj",
-   "function": "?0AABTreeIterator",
+   "function": "AABTreeIterator::AABTreeIterator",
    "symbol": "??0AABTreeIterator@@QAE@PAVAABTreeCullSystemClass@@@Z",
    "length": 18
   },
   "G": {
    "object": "aabtreecull.obj",
-   "function": "?0AABTreeIterator",
+   "function": "AABTreeIterator::AABTreeIterator",
    "symbol": "??0AABTreeIterator@@QAE@PAVAABTreeCullSystemClass@@@Z",
    "length": 18
   },
   "Z": {
    "object": "aabtreecull.obj",
-   "function": "?0AABTreeIterator",
+   "function": "AABTreeIterator::AABTreeIterator",
    "symbol": "??0AABTreeIterator@@QAE@PAVAABTreeCullSystemClass@@@Z",
    "length": 18
   }
@@ -5340,19 +5340,19 @@
  "0x8DD250": {
   "R": {
    "object": "aabtreecull.obj",
-   "function": "?$SimpleVecClass::Resize",
+   "function": "?Resize@?$SimpleVecClass@VAABoxClass@@@@UAE_NH@Z",
    "symbol": "?Resize@?$SimpleVecClass@VAABoxClass@@@@UAE_NH@Z",
    "length": 173
   },
   "G": {
    "object": "aabtreecull.obj",
-   "function": "?$SimpleVecClass::Resize",
+   "function": "?Resize@?$SimpleVecClass@VAABoxClass@@@@UAE_NH@Z",
    "symbol": "?Resize@?$SimpleVecClass@VAABoxClass@@@@UAE_NH@Z",
    "length": 173
   },
   "Z": {
    "object": "aabtreecull.obj",
-   "function": "?$SimpleVecClass::Resize",
+   "function": "?Resize@?$SimpleVecClass@VAABoxClass@@@@UAE_NH@Z",
    "symbol": "?Resize@?$SimpleVecClass@VAABoxClass@@@@UAE_NH@Z",
    "length": 173
   }
@@ -5360,19 +5360,19 @@
  "0x8DD300": {
   "R": {
    "object": "aabtreecull.obj",
-   "function": "?$SimpleVecClass::Uninitialised_Grow",
+   "function": "?Uninitialised_Grow@?$SimpleVecClass@VAABoxClass@@@@UAE_NH@Z",
    "symbol": "?Uninitialised_Grow@?$SimpleVecClass@VAABoxClass@@@@UAE_NH@Z",
    "length": 80
   },
   "G": {
    "object": "aabtreecull.obj",
-   "function": "?$SimpleVecClass::Uninitialised_Grow",
+   "function": "?Uninitialised_Grow@?$SimpleVecClass@VAABoxClass@@@@UAE_NH@Z",
    "symbol": "?Uninitialised_Grow@?$SimpleVecClass@VAABoxClass@@@@UAE_NH@Z",
    "length": 80
   },
   "Z": {
    "object": "aabtreecull.obj",
-   "function": "?$SimpleVecClass::Uninitialised_Grow",
+   "function": "?Uninitialised_Grow@?$SimpleVecClass@VAABoxClass@@@@UAE_NH@Z",
    "symbol": "?Uninitialised_Grow@?$SimpleVecClass@VAABoxClass@@@@UAE_NH@Z",
    "length": 80
   }
@@ -5380,19 +5380,19 @@
  "0x8DD3A0": {
   "R": {
    "object": "aabtreecull.obj",
-   "function": "?$SimpleDynVecClass::Resize",
+   "function": "?Resize@?$SimpleDynVecClass@VAABoxClass@@@@UAE_NH@Z",
    "symbol": "?Resize@?$SimpleDynVecClass@VAABoxClass@@@@UAE_NH@Z",
    "length": 179
   },
   "G": {
    "object": "aabtreecull.obj",
-   "function": "?$SimpleDynVecClass::Resize",
+   "function": "?Resize@?$SimpleDynVecClass@VAABoxClass@@@@UAE_NH@Z",
    "symbol": "?Resize@?$SimpleDynVecClass@VAABoxClass@@@@UAE_NH@Z",
    "length": 179
   },
   "Z": {
    "object": "aabtreecull.obj",
-   "function": "?$SimpleDynVecClass::Resize",
+   "function": "?Resize@?$SimpleDynVecClass@VAABoxClass@@@@UAE_NH@Z",
    "symbol": "?Resize@?$SimpleDynVecClass@VAABoxClass@@@@UAE_NH@Z",
    "length": 179
   }
@@ -5400,19 +5400,19 @@
  "0x8DD460": {
   "R": {
    "object": "aabtreecull.obj",
-   "function": "?$SimpleDynVecClass::Add",
+   "function": "?Add@?$SimpleDynVecClass@VAABoxClass@@@@QAE_NABVAABoxClass@@H@Z",
    "symbol": "?Add@?$SimpleDynVecClass@VAABoxClass@@@@QAE_NABVAABoxClass@@H@Z",
    "length": 123
   },
   "G": {
    "object": "aabtreecull.obj",
-   "function": "?$SimpleDynVecClass::Add",
+   "function": "?Add@?$SimpleDynVecClass@VAABoxClass@@@@QAE_NABVAABoxClass@@H@Z",
    "symbol": "?Add@?$SimpleDynVecClass@VAABoxClass@@@@QAE_NABVAABoxClass@@H@Z",
    "length": 123
   },
   "Z": {
    "object": "aabtreecull.obj",
-   "function": "?$SimpleDynVecClass::Add",
+   "function": "?Add@?$SimpleDynVecClass@VAABoxClass@@@@QAE_NABVAABoxClass@@H@Z",
    "symbol": "?Add@?$SimpleDynVecClass@VAABoxClass@@@@QAE_NABVAABoxClass@@H@Z",
    "length": 123
   }
@@ -5420,7 +5420,7 @@
  "0x8DD580": {
   "R": {
    "object": "aabtreecull.obj",
-   "function": "?$ObjectPoolClass::Allocate_Object_Memory",
+   "function": "?Allocate_Object_Memory@?$ObjectPoolClass@VAABTreeNodeClass@@$0BAA@@@QAEPAVAABTreeNodeClass@@XZ",
    "symbol": "?Allocate_Object_Memory@?$ObjectPoolClass@VAABTreeNodeClass@@$0BAA@@@QAEPAVAABTreeNodeClass@@XZ",
    "length": 126
   }
@@ -5428,7 +5428,7 @@
  "0x8DD630": {
   "R": {
    "object": "aabtreecull.obj",
-   "function": "?$ObjectPoolClass::Allocate_Object_Memory",
+   "function": "?Allocate_Object_Memory@?$ObjectPoolClass@VAABTreeLinkClass@@$0BAA@@@QAEPAVAABTreeLinkClass@@XZ",
    "symbol": "?Allocate_Object_Memory@?$ObjectPoolClass@VAABTreeLinkClass@@$0BAA@@@QAEPAVAABTreeLinkClass@@XZ",
    "length": 126
   }
@@ -5436,19 +5436,19 @@
  "0x8DD6B0": {
   "R": {
    "object": "aabtreecull.obj",
-   "function": "VAABoxClass::?0?$SimpleVecClass",
+   "function": "??0?$SimpleVecClass@VAABoxClass@@@@QAE@H@Z",
    "symbol": "??0?$SimpleVecClass@VAABoxClass@@@@QAE@H@Z",
    "length": 151
   },
   "G": {
    "object": "aabtreecull.obj",
-   "function": "VAABoxClass::?0?$SimpleVecClass",
+   "function": "??0?$SimpleVecClass@VAABoxClass@@@@QAE@H@Z",
    "symbol": "??0?$SimpleVecClass@VAABoxClass@@@@QAE@H@Z",
    "length": 151
   },
   "Z": {
    "object": "aabtreecull.obj",
-   "function": "VAABoxClass::?0?$SimpleVecClass",
+   "function": "??0?$SimpleVecClass@VAABoxClass@@@@QAE@H@Z",
    "symbol": "??0?$SimpleVecClass@VAABoxClass@@@@QAE@H@Z",
    "length": 151
   }
@@ -5580,7 +5580,7 @@
  "0x8DEE60": {
   "Z": {
    "object": "matrix4.obj",
-   "function": "YAHABVMatrix4x4::?8",
+   "function": "??8@YAHABVMatrix4x4@@0@Z",
    "symbol": "??8@YAHABVMatrix4x4@@0@Z",
    "length": 90
   }
@@ -5588,7 +5588,7 @@
  "0x8DEEC0": {
   "Z": {
    "object": "matrix4.obj",
-   "function": "YAHABVMatrix4x4::?9",
+   "function": "??9@YAHABVMatrix4x4@@0@Z",
    "symbol": "??9@YAHABVMatrix4x4@@0@Z",
    "length": 90
   }
@@ -5610,13 +5610,13 @@
  "0x8DEFD0": {
   "R": {
    "object": "lookuptable.obj",
-   "function": "VLookupTableClass::?_G?$RefMultiListClass",
+   "function": "??_G?$RefMultiListClass@VLookupTableClass@@@@UAEPAXI@Z",
    "symbol": "??_G?$RefMultiListClass@VLookupTableClass@@@@UAEPAXI@Z",
    "length": 86
   },
   "Z": {
    "object": "lookuptable.obj",
-   "function": "VLookupTableClass::?_G?$RefMultiListClass",
+   "function": "??_G?$RefMultiListClass@VLookupTableClass@@@@UAEPAXI@Z",
    "symbol": "??_G?$RefMultiListClass@VLookupTableClass@@@@UAEPAXI@Z",
    "length": 86
   }
@@ -5624,19 +5624,19 @@
  "0x8DF030": {
   "R": {
    "object": "lookuptable.obj",
-   "function": "?0LookupTableClass",
+   "function": "LookupTableClass::LookupTableClass",
    "symbol": "??0LookupTableClass@@QAE@H@Z",
    "length": 178
   },
   "G": {
    "object": "lookuptable.obj",
-   "function": "?0LookupTableClass",
+   "function": "LookupTableClass::LookupTableClass",
    "symbol": "??0LookupTableClass@@QAE@H@Z",
    "length": 178
   },
   "Z": {
    "object": "lookuptable.obj",
-   "function": "?0LookupTableClass",
+   "function": "LookupTableClass::LookupTableClass",
    "symbol": "??0LookupTableClass@@QAE@H@Z",
    "length": 178
   }
@@ -5644,19 +5644,19 @@
  "0x8DF0F0": {
   "R": {
    "object": "lookuptable.obj",
-   "function": "?_GLookupTableClass",
+   "function": "LookupTableClass::scalar deleting dtor",
    "symbol": "??_GLookupTableClass@@UAEPAXI@Z",
    "length": 107
   },
   "G": {
    "object": "lookuptable.obj",
-   "function": "?_GLookupTableClass",
+   "function": "LookupTableClass::scalar deleting dtor",
    "symbol": "??_GLookupTableClass@@UAEPAXI@Z",
    "length": 107
   },
   "Z": {
    "object": "lookuptable.obj",
-   "function": "?_GLookupTableClass",
+   "function": "LookupTableClass::scalar deleting dtor",
    "symbol": "??_GLookupTableClass@@UAEPAXI@Z",
    "length": 107
   }
@@ -5664,19 +5664,19 @@
  "0x8DF160": {
   "R": {
    "object": "lookuptable.obj",
-   "function": "?1LookupTableClass",
+   "function": "LookupTableClass::~LookupTableClass",
    "symbol": "??1LookupTableClass@@UAE@XZ",
    "length": 86
   },
   "G": {
    "object": "lookuptable.obj",
-   "function": "?1LookupTableClass",
+   "function": "LookupTableClass::~LookupTableClass",
    "symbol": "??1LookupTableClass@@UAE@XZ",
    "length": 86
   },
   "Z": {
    "object": "lookuptable.obj",
-   "function": "?1LookupTableClass",
+   "function": "LookupTableClass::~LookupTableClass",
    "symbol": "??1LookupTableClass@@UAE@XZ",
    "length": 86
   }
@@ -6276,19 +6276,19 @@
  "0x8E2270": {
   "R": {
    "object": "colmath.obj",
-   "function": "CollisionMath::?0ColmathStatsStruct",
+   "function": "ColmathStatsStruct::ColmathStatsStruct",
    "symbol": "??0ColmathStatsStruct@CollisionMath@@QAE@XZ",
    "length": 46
   },
   "G": {
    "object": "colmath.obj",
-   "function": "CollisionMath::?0ColmathStatsStruct",
+   "function": "ColmathStatsStruct::ColmathStatsStruct",
    "symbol": "??0ColmathStatsStruct@CollisionMath@@QAE@XZ",
    "length": 46
   },
   "Z": {
    "object": "colmath.obj",
-   "function": "CollisionMath::?0ColmathStatsStruct",
+   "function": "ColmathStatsStruct::ColmathStatsStruct",
    "symbol": "??0ColmathStatsStruct@CollisionMath@@QAE@XZ",
    "length": 46
   }
@@ -6678,19 +6678,19 @@
  "0x966160": {
   "R": {
    "object": "vehiclecurve.obj",
-   "function": "VehicleCurveClass::?4_ArcInfoStruct",
+   "function": "_ArcInfoStruct::operator=",
    "symbol": "??4_ArcInfoStruct@VehicleCurveClass@@QAEAAU01@ABU01@@Z",
    "length": 85
   },
   "G": {
    "object": "vehiclecurve.obj",
-   "function": "VehicleCurveClass::?4_ArcInfoStruct",
+   "function": "_ArcInfoStruct::operator=",
    "symbol": "??4_ArcInfoStruct@VehicleCurveClass@@QAEAAU01@ABU01@@Z",
    "length": 85
   },
   "Z": {
    "object": "vehiclecurve.obj",
-   "function": "VehicleCurveClass::?4_ArcInfoStruct",
+   "function": "_ArcInfoStruct::operator=",
    "symbol": "??4_ArcInfoStruct@VehicleCurveClass@@QAEAAU01@ABU01@@Z",
    "length": 85
   }
@@ -6706,19 +6706,19 @@
  "0xA159D0": {
   "R": {
    "object": "v3_rnd.obj",
-   "function": "?0Vector3SolidBoxRandomizer",
+   "function": "Vector3SolidBoxRandomizer::Vector3SolidBoxRandomizer",
    "symbol": "??0Vector3SolidBoxRandomizer@@QAE@ABVVector3@@@Z",
    "length": 109
   },
   "G": {
    "object": "v3_rnd.obj",
-   "function": "?0Vector3SolidBoxRandomizer",
+   "function": "Vector3SolidBoxRandomizer::Vector3SolidBoxRandomizer",
    "symbol": "??0Vector3SolidBoxRandomizer@@QAE@ABVVector3@@@Z",
    "length": 109
   },
   "Z": {
    "object": "v3_rnd.obj",
-   "function": "?0Vector3SolidBoxRandomizer",
+   "function": "Vector3SolidBoxRandomizer::Vector3SolidBoxRandomizer",
    "symbol": "??0Vector3SolidBoxRandomizer@@QAE@ABVVector3@@@Z",
    "length": 109
   }
@@ -6826,19 +6826,19 @@
  "0xA15F90": {
   "R": {
    "object": "v3_rnd.obj",
-   "function": "?0Vector3SolidCylinderRandomizer",
+   "function": "Vector3SolidCylinderRandomizer::Vector3SolidCylinderRandomizer",
    "symbol": "??0Vector3SolidCylinderRandomizer@@QAE@MM@Z",
    "length": 81
   },
   "G": {
    "object": "v3_rnd.obj",
-   "function": "?0Vector3SolidCylinderRandomizer",
+   "function": "Vector3SolidCylinderRandomizer::Vector3SolidCylinderRandomizer",
    "symbol": "??0Vector3SolidCylinderRandomizer@@QAE@MM@Z",
    "length": 81
   },
   "Z": {
    "object": "v3_rnd.obj",
-   "function": "?0Vector3SolidCylinderRandomizer",
+   "function": "Vector3SolidCylinderRandomizer::Vector3SolidCylinderRandomizer",
    "symbol": "??0Vector3SolidCylinderRandomizer@@QAE@MM@Z",
    "length": 81
   }
