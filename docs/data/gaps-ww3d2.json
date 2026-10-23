@@ -440,16 +440,6 @@
   "window": "0x99A470-0x99A4F0"
  },
  {
-  "object": "camera.obj",
-  "function": "CameraClass::Apply",
-  "symbol": "?Apply@CameraClass@@QAEXXZ",
-  "length": 1264,
-  "status": "none",
-  "address": "0x945440",
-  "similarity": 0.88,
-  "window": "0x945440-0x945930"
- },
- {
   "object": "collect.obj",
   "function": "CollectionClass::Render",
   "symbol": "?Render@CollectionClass@@UAEXAAVRenderInfoClass@@@Z",
@@ -600,16 +590,6 @@
   "window": "0x9A2050-0x9A2850"
  },
  {
-  "object": "decalmsh.obj",
-  "function": "RigidDecalMeshClass::Create_Decal",
-  "symbol": "?Create_Decal@RigidDecalMeshClass@@UAE_NPAVDecalGeneratorClass@@ABVOBBoxClass@@AAV?$SimpleDynVecClass@K@@PBV?$DynamicVectorClass@VVector3@@@@@Z",
-  "length": 2458,
-  "status": "none",
-  "address": "0x9B7250",
-  "similarity": 0.91,
-  "window": "0x9B7250-0x9B7BF0"
- },
- {
   "object": "decalsys.obj",
   "function": "DecalGeneratorClass::Set_Mesh_Transform",
   "symbol": "?Set_Mesh_Transform@DecalGeneratorClass@@QAEXABVMatrix3D@@@Z",
@@ -671,93 +651,13 @@
  },
  {
   "object": "dx8caps.obj",
-  "function": "DX8Caps::DX8Caps",
-  "symbol": "??0DX8Caps@@QAE@PAUIDirect3D8@@PAUIDirect3DDevice8@@W4WW3DFormat@@ABU_D3DADAPTER_IDENTIFIER8@@@Z",
-  "length": 266,
-  "status": "none",
-  "address": "0x9AFEF0",
-  "similarity": 0.8,
-  "window": "0x9AFEF0-0x9B00D0"
- },
- {
-  "object": "dx8caps.obj",
-  "function": "DX8Caps::DX8Caps",
-  "symbol": "??0DX8Caps@@QAE@PAUIDirect3D8@@ABU_D3DCAPS8@@W4WW3DFormat@@ABU_D3DADAPTER_IDENTIFIER8@@@Z",
-  "length": 203,
-  "status": "none",
-  "address": "0x9B0000",
-  "similarity": 0.81,
-  "window": "0x9AFEF0-0x9B00D0"
- },
- {
-  "object": "dx8caps.obj",
   "function": "DX8Caps::Compute_Caps",
   "symbol": "?Compute_Caps@DX8Caps@@QAEXW4WW3DFormat@@ABU_D3DADAPTER_IDENTIFIER8@@@Z",
   "length": 4944,
   "status": "none",
   "address": "0x9B0160",
   "similarity": 0.42,
-  "window": "0x9B0160-0x9B2510"
- },
- {
-  "object": "dx8caps.obj",
-  "function": "DX8Caps::Check_Bumpmap_Support",
-  "symbol": "?Check_Bumpmap_Support@DX8Caps@@AAEXABU_D3DCAPS8@@@Z",
-  "length": 418,
-  "status": "none",
-  "address": "0x9B1620",
-  "similarity": 0.77,
-  "window": "0x9B0160-0x9B2510"
- },
- {
-  "object": "dx8caps.obj",
-  "function": "DX8Caps::Check_Texture_Compression_Support",
-  "symbol": "?Check_Texture_Compression_Support@DX8Caps@@AAEXABU_D3DCAPS8@@@Z",
-  "length": 233,
-  "status": "none",
-  "address": "0x9B17D0",
-  "similarity": 0.78,
-  "window": "0x9B0160-0x9B2510"
- },
- {
-  "object": "dx8caps.obj",
-  "function": "DX8Caps::Check_Texture_Format_Support",
-  "symbol": "?Check_Texture_Format_Support@DX8Caps@@AAEXW4WW3DFormat@@ABU_D3DCAPS8@@@Z",
-  "length": 423,
-  "status": "none",
-  "address": "0x9B18C0",
-  "similarity": 0.84,
-  "window": "0x9B0160-0x9B2510"
- },
- {
-  "object": "dx8caps.obj",
-  "function": "DX8Caps::Check_Render_To_Texture_Support",
-  "symbol": "?Check_Render_To_Texture_Support@DX8Caps@@AAEXW4WW3DFormat@@ABU_D3DCAPS8@@@Z",
-  "length": 423,
-  "status": "none",
-  "address": "0x9B1A70",
-  "similarity": 0.84,
-  "window": "0x9B0160-0x9B2510"
- },
- {
-  "object": "dx8caps.obj",
-  "function": "DX8Caps::Check_Shader_Support",
-  "symbol": "?Check_Shader_Support@DX8Caps@@AAEXABU_D3DCAPS8@@@Z",
-  "length": 231,
-  "status": "none",
-  "address": "0x9B1DC0",
-  "similarity": 0.8,
-  "window": "0x9B0160-0x9B2510"
- },
- {
-  "object": "dx8caps.obj",
-  "function": "DX8Caps::Check_Driver_Version_Status",
-  "symbol": "?Check_Driver_Version_Status@DX8Caps@@AAEXXZ",
-  "length": 1625,
-  "status": "none",
-  "address": "0x9B1EB0",
-  "similarity": 0.65,
-  "window": "0x9B0160-0x9B2510"
+  "window": "0x9B0160-0x9B1620"
  },
  {
   "object": "dx8caps.obj",
@@ -766,7 +666,7 @@
   "length": 2087,
   "status": "none",
   "address": "0x9B2540",
-  "similarity": 0.45,
+  "similarity": 0.52,
   "window": "0x9B2540-0x9B2D40"
  },
  {
@@ -1146,7 +1046,7 @@
   "length": 804,
   "status": "none",
   "address": "0x9214E7",
-  "similarity": 0.74,
+  "similarity": 0.75,
   "window": "0x921140-0x9217E0"
  },
  {
@@ -1157,7 +1057,7 @@
   "status": "none",
   "address": "0x921C20",
   "similarity": 0.64,
-  "window": "0x921C20-0x922C00"
+  "window": "0x921C20-0x922730"
  },
  {
   "object": "dx8wrapper.obj",
@@ -1166,8 +1066,8 @@
   "length": 274,
   "status": "none",
   "address": "0x921DA0",
-  "similarity": 0.42,
-  "window": "0x921C20-0x922C00"
+  "similarity": 0.46,
+  "window": "0x921C20-0x922730"
  },
  {
   "object": "dx8wrapper.obj",
@@ -1177,7 +1077,7 @@
   "status": "none",
   "address": "0x921EF0",
   "similarity": 0.26,
-  "window": "0x921C20-0x922C00"
+  "window": "0x921C20-0x922730"
  },
  {
   "object": "dx8wrapper.obj",
@@ -1187,7 +1087,7 @@
   "status": "none",
   "address": "0x9226A0",
   "similarity": 0.21,
-  "window": "0x921C20-0x922C00"
+  "window": "0x921C20-0x922730"
  },
  {
   "object": "dx8wrapper.obj",
@@ -1197,7 +1097,7 @@
   "status": "none",
   "address": "0x921C50",
   "similarity": 0.26,
-  "window": "0x921C20-0x922C00"
+  "window": "0x921C20-0x922730"
  },
  {
   "object": "dx8wrapper.obj",
@@ -1205,19 +1105,9 @@
   "symbol": "?Release_Device@DX8Wrapper@@KAXXZ",
   "length": 132,
   "status": "none",
-  "address": "0x922730",
-  "similarity": 0.07,
-  "window": "0x921C20-0x922C00"
- },
- {
-  "object": "dx8wrapper.obj",
-  "function": "DX8Wrapper::Enumerate_Devices",
-  "symbol": "?Enumerate_Devices@DX8Wrapper@@KAXXZ",
-  "length": 1224,
-  "status": "none",
   "address": null,
   "similarity": null,
-  "window": "0x921C20-0x922C00"
+  "window": "0x921C20-0x922730"
  },
  {
   "object": "dx8wrapper.obj",
@@ -1367,17 +1257,7 @@
   "status": "none",
   "address": "0x926110",
   "similarity": 0.83,
-  "window": "0x926110-0x9261C0"
- },
- {
-  "object": "dx8wrapper.obj",
-  "function": "DX8Wrapper::Compute_Caps",
-  "symbol": "?Compute_Caps@DX8Wrapper@@KAXW4WW3DFormat@@@Z",
-  "length": 119,
-  "status": "none",
-  "address": "0x926140",
-  "similarity": 0.67,
-  "window": "0x926110-0x9261C0"
+  "window": "0x926110-0x926140"
  },
  {
   "object": "dx8wrapper.obj",
@@ -2318,16 +2198,6 @@
   "address": "0x951DB0",
   "similarity": 0.88,
   "window": "0x951DB0-0x951E00"
- },
- {
-  "object": "matpass.obj",
-  "function": "MaterialPassClass::Install_Materials",
-  "symbol": "?Install_Materials@MaterialPassClass@@UBEXXZ",
-  "length": 223,
-  "status": "none",
-  "address": "0x92E720",
-  "similarity": 0.63,
-  "window": "0x92E720-0x92E800"
  },
  {
   "object": "matrixmapper.obj",
