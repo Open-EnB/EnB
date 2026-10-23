@@ -42,7 +42,7 @@ incs() {  # include flags for copy $1: its own WW libraries, then the SDKs
 }
 
 # flags where a library's differ from vc6.py's default (importer.py LIB_FLAGS)
-declare -A LIBFLAGS=( [wwshade]="/nologo /c /MT /W3 /O2 /Ob1 /GX /D _MBCS" [wwaudio]="/nologo /c /MT /W3 /O2 /Ob2 /D _MBCS" )
+declare -A LIBFLAGS=( [wwshade]="/nologo /c /MT /W3 /O2 /Ob1 /GX /D _MBCS /D ENABLE_WWPROFILE" [wwaudio]="/nologo /c /MT /W3 /O2 /Ob2 /D _MBCS" )
 
 for lib in wwlib wwdebug wwmath wwsaveload wwaudio ww3d2 wwshade; do
   runs=""

@@ -146,6 +146,8 @@ more, loses none. Zero Hour's copy alone: 46 -> 61. `importer.py LIB_FLAGS` and
 none lost; wwshade: nothing gained or lost yet (0xA0EC30 then differs only in a null test the
 client keeps after the call).
 
+**wwshade was built with `ENABLE_WWPROFILE`** (2026-10-23): `ShdMeshClass::Render` 0xA09430 opens a `WWProfileSampleClass` (`IsRoot` 0, `Enabled` from the manager; `Start_Profile` 0x9EA930, dtor 0x444160, which E&B's own code calls 212 times). E&B's `ShdDX8RendererClass::Flush` 0xA08060 has no sampler (patched out). +2, none lost.
+
 **Results (2026-10-22): 2,708 distinct client functions are byte-identical to EA source**,
 about 568 KB of code. Of the first 2,650 counted: 325 under 32 bytes, 461 of 32–63, 698 of
 64–127, 568 of 128–255, 598 of 256 or more. Short functions are weaker evidence on their own, but
@@ -210,7 +212,7 @@ and fixed so far (importer `PATCHES`, see docs/imports.md):
 | E&B's shader definition defaults (importer `WWSHADE_EARLY_PATCHES`): `Ambient` starts at 0,0,0 in Simple, Gloss Mask, Bump Diffuse and Bump Specular; the cube map's `Ambient` stays 1,1,1 and its `Diffuse` starts at 0,0,0. Every copy constructor initialises the members to those defaults and assigns them from `that` in its body, after the texture names (Zero Hour's `ShdSimpleDefClass` copy constructor already does) | default/copy constructors: cube map 0xA0A840/0xA0A900, Bump Diffuse 0xA0B370/0xA0B450, Bump Specular 0xA0BCF0/0xA0BDE0, Gloss Mask 0xA0C680/0xA0C740, Simple 0xA0D290 (found by their vtable stores; gaps.py paired several elsewhere). `Create` 0xA0AD00 and the dtor 0xA0AA30 differ only in relocations (twins of the other definitions', vtable-placed) | 9 (wwshade), none lost |
 | Shader versions: Zero Hour's `DX8Caps::Get_Pixel_Shader_Minor_Version` (reads `PixelShaderVersion`; Renegade's reads the vertex shader's), and E&B's Bump Specular always on its DX6 version (`ShdBumpSpecDefClass::Init`'s selection under `#if 0`) | `ShdBumpDiffDefClass::Init` 0xA0B9B0 takes major and minor from +0x12C; `ShdBumpSpecDefClass::Init` 0xA0C3B0 stores 1 (`SHDVER_6`) to 0xC40730 and jumps to `Shd6BumpSpecClass::Init` (ours is the same 15 bytes, too short to be counted) | 1 (wwshade). The pair (shdbumpspec, 0xA0B9B0) is lost: a twin of Bump Diffuse's `Init`, still matched there |
 
-Still open: wwshade (134 client functions in the tree, Zero Hour's copy alone 61). `shdlegacyw3d.cpp`/`.h` are not in the client and were dropped (D13). Not rebuilt yet: `ShdMeshClass::Render` (0xA09430, a static guard), `ShdMeshClass::Load_W3D` (0xA0A380, the name set inline), the `ShdMeshClass` ctor (0xA08F80). The client's `MeshClass::Cast_Ray` (0x940530) has no translucency test at all (a WW3D2 near-miss). In the texture files,
+Still open: wwshade (136 client functions in the tree, Zero Hour's copy alone 61). `shdlegacyw3d.cpp`/`.h` are not in the client and were dropped (D13). Not rebuilt yet: `ShdMeshClass::Render` (0xA09430, a static guard), `ShdMeshClass::Load_W3D` (0xA0A380, the name set inline), the `ShdMeshClass` ctor (0xA08F80). The client's `MeshClass::Cast_Ray` (0x940530) has no translucency test at all (a WW3D2 near-miss). In the texture files,
 `TextureClass`'s constructors, `Init`, `Apply` and `Get_Reduction` and `DX8Wrapper`'s device code
 are near-misses still (`Get_Reduction` has Renegade's body, unconfirmed; Renegade's
 `Set_Render_Target(TextureClass *)` is kept without evidence). The remaining near-misses (`TexProjectClass`, `MeshClass`,

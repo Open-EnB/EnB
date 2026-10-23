@@ -212,8 +212,6 @@ ShdRendererNodeClass* ShdDX8RendererClass::Register_Mesh
 /////////////////////////////////////////////////////////////////////////////////////
 void ShdDX8RendererClass::Flush()
 {
-	WWPROFILE("ShdDX8RendererClass::Flush");
-
 	DX8Wrapper::Invalidate_Cached_Render_States();
 	DX8Wrapper::Apply_Default_State();
 	DX8Wrapper::Apply_Render_State_Changes();
