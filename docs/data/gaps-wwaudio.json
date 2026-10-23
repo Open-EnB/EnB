@@ -1070,26 +1070,6 @@
   "window": "0xA007D0-0xA00990"
  },
  {
-  "object": "SoundSceneObj.obj",
-  "function": "SoundSceneObjClass::Attach_To_Object",
-  "symbol": "?Attach_To_Object@SoundSceneObjClass@@UAEXPAVRenderObjClass@@PBD@Z",
-  "length": 81,
-  "status": "none",
-  "address": "0xA009E0",
-  "similarity": 0.85,
-  "window": "0xA009E0-0xA00A40"
- },
- {
-  "object": "SoundSceneObj.obj",
-  "function": "SoundSceneObjClass::Apply_Auto_Position",
-  "symbol": "?Apply_Auto_Position@SoundSceneObjClass@@UAEXXZ",
-  "length": 471,
-  "status": "none",
-  "address": "0xA00A90",
-  "similarity": 0.91,
-  "window": "0xA00A90-0xA00C70"
- },
- {
   "object": "Threads.obj",
   "function": "WWAudioThreadsClass::Delayed_Release_Thread_Proc",
   "symbol": "?Delayed_Release_Thread_Proc@WWAudioThreadsClass@@CAXPAX@Z",

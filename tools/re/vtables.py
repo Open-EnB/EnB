@@ -90,6 +90,15 @@ def find_in_client(img, slots, known, rdata):
     return best[1], best[0]
 
 
+def vptr_stored(img, candidates):
+    """The candidates that the code stores as a vtable pointer (an immediate operand in .text):
+    constructors and destructors write the table's start, never an address inside it."""
+    t0, t1, raw = img.section('.text')
+    text = img.data[raw:raw + (t1 - t0)]
+    return [c for c in candidates
+            if any(text.find(bytes([0xC7, m]) + struct.pack('<I', c)) >= 0 for m in (0x00, 0x01, 0x02, 0x03, 0x06, 0x07))]
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--objs', required=True)
@@ -116,6 +125,11 @@ def main():
         base, score = find_in_client(img, slots, known, rdata)
         if not base:
             continue
+        # E&B may have inserted or removed slots before the anchors: prefer the nearby address
+        # that the code actually stores as a vtable pointer.
+        stored = vptr_stored(img, [base + 4 * k for k in range(-4, 5)])
+        if stored and base not in stored:
+            base = min(stored, key=lambda c: abs(c - base))
         n = len(slots) + 16
         client = [struct.unpack_from('<I', img.data, img.offset(base) + 4 * i)[0] for i in range(n)]
         # stop the client table where it stops pointing into .text

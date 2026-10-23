@@ -425,10 +425,33 @@ def compile_and_match(paths, tag):
 
 
 def verify(state, libs=None):
-    for lib in libs or state:
+    """Compile and byte-match the libraries; the libraries are spread over the build VMs."""
+    import concurrent.futures as cf
+    import queue
+    libs = [l for l in (libs or list(state)) if l in state]
+    image()                                  # load the client once, before the threads
+    free = queue.Queue()
+    for h in vc6.hosts():
+        free.put(h)
+
+    def one(lib):
+        host = free.get()
+        try:
+            vc6.use_host(host)
+            s = state[lib]
+            paths = [os.path.join(dest(lib), f['name']) for f in s['files'].values()]
+            found, text = compile_and_match(paths, f'verify-{lib}')
+            return lib, found, text
+        finally:
+            free.put(host)
+
+    # biggest first, so the long WW3D2 compile overlaps with the rest
+    order = sorted(libs, key=lambda l: -len(state[l]['files']))
+    with cf.ThreadPoolExecutor(max(1, len(vc6.hosts()))) as ex:
+        results = {lib: (found, text) for lib, found, text in ex.map(one, order)}
+    for lib in libs:
         s = state[lib]
-        paths = [os.path.join(dest(lib), f['name']) for f in s['files'].values()]
-        found, text = compile_and_match(paths, f'verify-{lib}')
+        found, text = results[lib]
         errors = [l for l in text.splitlines() if ' error ' in l]
         total = set()
         short = 0

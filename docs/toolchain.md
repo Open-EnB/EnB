@@ -32,6 +32,15 @@ the compiler and linker versions. Default flags `/nologo /c /MT /W3 /O2 /Ob2`, d
 _WINDOWS WIN32_LEAN_AND_MEAN WINVER=0x400 NDEBUG`: the client's (library-matching.md §3.5).
 Compiling WW3D2 (115 files) takes about 30 seconds.
 
+**Several VMs (2026-10-23).** The user added two clones of the VM. Clones keep the computer name
+(`DESKTOP-1J2STKG`), so the name resolves to whichever registered last: the tools address VMs by
+IP only. `python tools/vc6/vc6.py discover` finds them (SSH on the Default Switch network,
+192.168.192.0/20, that accepts the key and has VC6) and writes `.work/vc6_hosts.json`; rerun it
+after the VMs restart (their addresses come from DHCP). Each VM has its own sync cache; a missing
+file reported by the compiler makes the wrapper resync that VM once. `importer.py verify` spreads
+the libraries over the VMs (all seven in about 50 seconds). All three were checked to stamp build
+8799 (SP4).
+
 ### 1.2 Which VC6 built the client: SP4
 
 Every object records the build of the compiler's back end (`C2.DLL`) in `@comp.id`, and the

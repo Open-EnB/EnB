@@ -110,8 +110,6 @@ Each function our source compiles that the client does not contain byte for byte
 | SoundScene.obj | `SoundSceneClass::Remove_Logical_Listener` | 57 | none | 0x9FADA0 | 0.59 |
 | SoundScene.obj | `SoundSceneClass::Add_Logical_Listener` | 62 | none | 0x9FAD30 | 0.49 |
 | SoundScene.obj | `SoundSceneClass::SoundSceneClass` | 399 | none | 0x9DADA0 | 0.19 |
-| SoundSceneObj.obj | `SoundSceneObjClass::Apply_Auto_Position` | 471 | none | 0xA00A90 | 0.91 |
-| SoundSceneObj.obj | `SoundSceneObjClass::Attach_To_Object` | 81 | none | 0xA009E0 | 0.85 |
 | SoundSceneObj.obj | `SoundSceneObjClass::~SoundSceneObjClass` | 244 | none | 0xA007D0 | 0.37 |
 | Threads.obj | `WWAudioThreadsClass::Delayed_Release_Thread_Proc` | 369 | none | 0x9FBA30 | 0.66 |
 | WWAudio.obj | `WWAudioClass::Load_From_Registry` | 393 | none | 0x9F3940 | 0.82 |

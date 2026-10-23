@@ -6,7 +6,13 @@ files only) into a tar, copies it over SSH, compiles, and brings the objects bac
 
     python vc6.py compile [--flags "..."] [-I dir]... [-D name]... [--sync dir]... --out DIR file.cpp...
     python vc6.py run "command"            run a command in the VM after VCVARS32
-    python vc6.py check                    print compiler and linker versions
+    python vc6.py check                    print compiler and linker versions (every VM)
+    python vc6.py discover                 find the build VMs (SSH on the Default Switch) and save
+                                           their addresses in .work/vc6_hosts.json
+
+Several identical VMs (clones) can be used at once: each is addressed by IP (clones share a
+computer name, so names are not reliable), has its own sync cache, and a thread chooses its VM
+with use_host(). Without a hosts file, ENB_VC6_HOST or the first discovered VM is used.
 
 Paths given to compile must be under C:\\EnBDevelopment. Configuration: docs/toolchain.md §1.1.
 """
@@ -17,9 +23,37 @@ import os
 import subprocess
 import sys
 import tarfile
+import threading
 import time
 
-HOST = os.environ.get('ENB_VC6_HOST', 'Daniel@DESKTOP-1J2STKG.mshome.net')
+USER = 'Daniel'
+HOSTS_FILE = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))),
+                          '.work', 'vc6_hosts.json')
+_local = threading.local()
+
+
+def hosts():
+    """The build VMs, as user@ip."""
+    if os.environ.get('ENB_VC6_HOST'):
+        return [os.environ['ENB_VC6_HOST']]
+    try:
+        return json.load(open(HOSTS_FILE))
+    except (OSError, ValueError):
+        raise SystemExit(f'no build VMs known: run `python vc6.py discover` (or set ENB_VC6_HOST)')
+
+
+def use_host(host):
+    """Choose the VM this thread works with."""
+    _local.host = host
+
+
+def current_host():
+    return getattr(_local, 'host', None) or hosts()[0]
+
+
+def _tag():
+    """A file-name-safe tag for this VM and thread (local temporary files)."""
+    return current_host().split('@')[-1].replace('.', '_') + f'_{threading.get_ident()}'
 KEY = os.path.expanduser(os.environ.get('ENB_VC6_KEY', '~/.ssh/enb_vc6'))
 VCVARS = r'C:\Program Files (x86)\Microsoft Visual Studio\VC98\Bin\VCVARS32.BAT'
 ROOT = r'C:\EnBDevelopment'
@@ -39,7 +73,7 @@ def ssh_args():
 
 
 def ssh(command, check=True):
-    p = subprocess.run(['ssh'] + ssh_args() + [HOST, command], capture_output=True, text=True,
+    p = subprocess.run(['ssh'] + ssh_args() + [current_host(), command], capture_output=True, text=True,
                        encoding='latin1')
     if check and p.returncode != 0:
         sys.stderr.write(p.stdout + p.stderr)
@@ -55,7 +89,7 @@ def scp(src, dst):
 
 def remote(path):
     """scp target for a Windows path in the VM."""
-    return f"{HOST}:{path.replace(BS, '/')}"
+    return f"{current_host()}:{path.replace(BS, '/')}"
 
 
 def under_root(path):
@@ -66,7 +100,8 @@ def under_root(path):
     return full, rel
 
 
-SYNC_CACHE = os.path.join(os.environ.get('TEMP', '.'), 'enb_vc6_synccache.json')
+def sync_cache_path():
+    return os.path.join(os.environ.get('TEMP', '.'), 'enb_vc6_synccache_' + current_host().split('@')[-1] + '.json')
 
 
 def sync(dirs):
@@ -77,7 +112,7 @@ def sync(dirs):
     sync (for example after reverting the VM to a checkpoint).
     """
     try:
-        cache = json.load(open(SYNC_CACHE))
+        cache = json.load(open(sync_cache_path()))
     except (OSError, ValueError):
         cache = {}
     buf = io.BytesIO()
@@ -109,35 +144,35 @@ def sync(dirs):
                     del cache[key]
     ensure_work()
     if count:
-        local = os.path.join(os.environ.get('TEMP', '.'), 'enb_vc6_sync.tar')
+        local = os.path.join(os.environ.get('TEMP', '.'), f'enb_vc6_sync_{_tag()}.tar')
         open(local, 'wb').write(buf.getvalue())
         scp(local, remote(WORK + r'\sync.tar'))
         ssh(f'cmd /c tar -xf "{WORK}\\sync.tar" -C "{ROOT}" && del "{WORK}\\sync.tar"')
     for i in range(0, len(removed), 40):
         files = ' '.join('"' + ROOT + BS + k.replace('/', BS) + '"' for k in removed[i:i + 40])
         ssh(f'cmd /c del /q {files} 2>nul', check=False)
-    json.dump(cache, open(SYNC_CACHE, 'w'))
+    json.dump(cache, open(sync_cache_path(), 'w'))
     return count
 
 
-_work_ready = False
+_work_ready = set()
 
 
 def ensure_work():
-    global _work_ready
-    if not _work_ready:
+    if current_host() not in _work_ready:
         ssh(f'cmd /c if not exist "{WORK}" mkdir "{WORK}"')
-        _work_ready = True
+        _work_ready.add(current_host())
 
 
 def run_bat(lines):
     """Run batch lines in the VM after VCVARS32; returns the CompletedProcess."""
     ensure_work()
     bat = '@echo off\r\ncall "' + VCVARS + '" >nul\r\n' + '\r\n'.join(lines) + '\r\n'
-    local = os.path.join(os.environ.get('TEMP', '.'), 'enb_vc6_run.bat')
+    name = f'run_{_tag()}.bat'
+    local = os.path.join(os.environ.get('TEMP', '.'), 'enb_vc6_' + name)
     open(local, 'w', newline='').write(bat)
-    scp(local, remote(WORK + r'\run.bat'))
-    return ssh(f'cmd /c "{WORK}\\run.bat"', check=False)
+    scp(local, remote(WORK + '\\' + name))
+    return ssh(f'cmd /c "{WORK}\\{name}"', check=False)
 
 
 def compile_sources(sources, includes=(), defines=None, flags=DEFAULT_FLAGS, out='.', extra_sync=()):
@@ -146,8 +181,39 @@ def compile_sources(sources, includes=(), defines=None, flags=DEFAULT_FLAGS, out
     srcs = [under_root(s) for s in sources]
     incs = [under_root(i) for i in includes]
     # extra_sync: directories reached only through relative #include paths (not on the -I list)
-    sync([os.path.dirname(f) for f, _ in srcs] + [f for f, _ in incs] + [under_root(d)[0] for d in extra_sync])
-    stamp = time.strftime('%Y%m%d%H%M%S')
+    dirs = [os.path.dirname(f) for f, _ in srcs] + [f for f, _ in incs] + [under_root(d)[0] for d in extra_sync]
+    sync(dirs)
+    rc, text = _compile(srcs, incs, defines, flags, out)
+    if 'C1083' in text and _missing_local_file(text):
+        # A file the VM should have is missing (the VM's copy and the sync cache disagree):
+        # forget the cache and send everything again, once.
+        reset_sync_cache()
+        sync(dirs)
+        rc, text = _compile(srcs, incs, defines, flags, out)
+    return rc, text
+
+
+def reset_sync_cache():
+    try:
+        os.remove(sync_cache_path())
+    except OSError:
+        pass
+
+
+def _missing_local_file(text):
+    """True if a C1083 error names a file that exists on this side under ROOT."""
+    import re
+    for m in re.finditer(r"Cannot open (?:include|source) file: '([^']+)'", text):
+        name = m.group(1)
+        if os.path.isabs(name) and os.path.exists(name):
+            return True
+        if not os.path.isabs(name):
+            return True   # relative names: can't tell cheaply, assume the VM is out of date
+    return False
+
+
+def _compile(srcs, incs, defines, flags, out):
+    stamp = time.strftime('%Y%m%d%H%M%S') + f'_{os.getpid()}_{int(time.time() * 1000) % 1000}'
     objdir = f'{WORK}\\obj_{stamp}'
     cmd = [flags] + [f'/I "{f}"' for f, _ in incs] + [f'/D "{d}"' for d in defines]
     cmd += [f'/Fo"{objdir}\\\\"'] + [f'"{f}"' for f, _ in srcs]
@@ -180,6 +246,7 @@ def main():
     r = sub.add_parser('run')
     r.add_argument('command')
     sub.add_parser('check')
+    sub.add_parser('discover')
     a = ap.parse_args()
     if a.cmd == 'compile':
         rc, text = compile_sources(a.sources, a.includes, a.defines, a.flags, a.out, a.sync)
@@ -190,8 +257,41 @@ def main():
         print(p.stdout + p.stderr)
         sys.exit(p.returncode)
     if a.cmd == 'check':
-        p = run_bat(['cl 2>&1 | findstr /i version', 'link 2>&1 | findstr /i version'])
-        print(p.stdout + p.stderr)
+        for h in hosts():
+            use_host(h)
+            p = run_bat(['cl 2>&1 | findstr /i version', 'link 2>&1 | findstr /i version'])
+            print(h, ' | '.join(l.strip() for l in (p.stdout + p.stderr).splitlines() if l.strip()))
+    if a.cmd == 'discover':
+        discover()
+
+
+def discover(network='192.168.192.0/20'):
+    """Find the build VMs: SSH on the Default Switch network that accepts our key and has VC6."""
+    import concurrent.futures as cf
+    import ipaddress
+    import socket
+
+    def probe(ip):
+        s = socket.socket()
+        s.settimeout(0.5)
+        try:
+            s.connect((str(ip), 22))
+            return str(ip)
+        except OSError:
+            return None
+        finally:
+            s.close()
+    with cf.ThreadPoolExecutor(512) as ex:
+        found = [r for r in ex.map(probe, ipaddress.ip_network(network).hosts()) if r]
+    good = []
+    for ip in found:
+        p = subprocess.run(['ssh'] + ssh_args() + ['-o', 'StrictHostKeyChecking=accept-new', f'{USER}@{ip}',
+                           f'cmd /c if exist "{VCVARS}" echo vc6'], capture_output=True, text=True)
+        if 'vc6' in p.stdout:
+            good.append(f'{USER}@{ip}')
+    os.makedirs(os.path.dirname(HOSTS_FILE), exist_ok=True)
+    json.dump(good, open(HOSTS_FILE, 'w'), indent=1)
+    print(f'{len(good)} build VMs: {", ".join(good)} -> {HOSTS_FILE}')
 
 
 if __name__ == '__main__':
