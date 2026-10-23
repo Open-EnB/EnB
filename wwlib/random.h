@@ -235,7 +235,7 @@ int Pick_Random_Number(T & generator, int minval, int maxval)
 	**	limited to the range of significant bits returned by the
 	**	random number algorithm.
 	*/
-	int magnitude = maxval - minval;
+	unsigned int magnitude = (unsigned int)(maxval - minval);
 	int highbit = T::SIGNIFICANT_BITS-1;
 	while ((magnitude & (1 << highbit)) == 0 && highbit > 0) {
 		highbit--;
@@ -245,14 +245,15 @@ int Pick_Random_Number(T & generator, int minval, int maxval)
 	**	Create a full bit mask pattern that has all bits set that just
 	**	barely covers the magnitude of the number range desired.
 	*/
-	int mask = ~( (~0L) << (highbit+1));
+	unsigned int mask = ~( (~0L) << (highbit+1));
+	if (mask == 0) mask = ~0U;
 
 	/*
 	**	Keep picking random numbers until it fits within the magnitude desired. With a 
 	**	good random number generator, it will have to perform this loop an average
 	**	of one and a half times.
 	*/
-	int pick = magnitude+1;
+	unsigned int pick = magnitude+1;
 	while (pick > magnitude) {
 		pick = generator() & mask;
 	}

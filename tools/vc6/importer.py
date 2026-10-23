@@ -211,6 +211,17 @@ PATCHES = {
          '\tMaterialInfoClass\t*\t\t\t\t\t\t\t\t\tMatInfo;\n\n\t// E&B (as Generals and Zero Hour): the polygon renderers of this model\n\tDX8PolygonRendererList\t\t\t\t\t\t\t\tPolygonRendererList;',
          "MeshModelClass keeps the PolygonRendererList member Renegade's later revision removed (Generals and Zero Hour have it after MatInfo): GapFiller is 24 bytes (a MultiListClass) later in the client"),
     ],
+    ('wwlib', 'random.h'): [
+        ('\tint magnitude = maxval - minval;',
+         '\tunsigned int magnitude = (unsigned int)(maxval - minval);',
+         "E&B's Pick_Random_Number works in unsigned arithmetic and guards the full-range mask: all four operator()(min, max) at 0x9D0000, 0x9D0180, 0x9D02B0, 0x9D0510 compare unsigned (jbe/ja) and reload an all-ones mask when the shift leaves none (variant A in .work/random)"),
+        ('\tint mask = ~( (~0L) << (highbit+1));',
+         '\tunsigned int mask = ~( (~0L) << (highbit+1));\n\tif (mask == 0) mask = ~0U;',
+         'the mask, unsigned, all ones when the range needs every bit'),
+        ('\tint pick = magnitude+1;',
+         '\tunsigned int pick = magnitude+1;',
+         'and the pick, compared unsigned with the magnitude'),
+    ],
     ('ww3d2', 'dx8caps.h'): [
         ('\tbool SupportRenderToTextureFormat[WW3D_FORMAT_COUNT];',
          '\tbool SupportRenderToTextureFormat[WW3D_FORMAT_COUNT];\n\tbool SupportDepthStencilFormat[WW3D_ZFORMAT_COUNT];',
@@ -226,6 +237,9 @@ PATCHES = {
          "and Zero Hour's Get_Pixel_Shader_Major_Version (Renegade's is misspelt Majon) and Support_Depth_Stencil_Format"),
     ],
     ('ww3d2', 'rendobj.h'): [
+        ('\t\tCLASSID_RENEGADE_TERRAIN,',
+         '\t\tCLASSID_SHDMESH,\t\t\t\t// mesh class that uses the scaleable shader system',
+         "E&B's class IDs end as Zero Hour's: ShdMeshClass::Class_ID (0xA0A7E0, in the table with ShdMeshClass::Render) returns 0x24, CLASSID_LAND + 1, where Renegade has CLASSID_RENEGADE_TERRAIN (unused in the libraries)"),
         ('class RenderObjClass : public RefCountClass , public PersistClass, public MultiListObjectClass',
          """//////////////////////////////////////////////////////////////////////////////////
 // RenderHookClass (as in Zero Hour)

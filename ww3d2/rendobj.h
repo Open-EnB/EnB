@@ -193,7 +193,7 @@ public:
 		CLASSID_SOUND,
 		CLASSID_SEGLINETRAIL,
 		CLASSID_LAND,
-		CLASSID_RENEGADE_TERRAIN,
+		CLASSID_SHDMESH,				// mesh class that uses the scaleable shader system
 		CLASSID_LAST					= 0x0000FFFF
 	};
 

@@ -6088,11 +6088,15 @@
     "headers_from": null,
     "in_tree": [
      "0x9CFFE0",
+     "0x9D0000",
      "0x9D0080",
      "0x9D0130",
+     "0x9D0180",
      "0x9D0250",
+     "0x9D02B0",
      "0x9D03B0",
      "0x9D0410",
+     "0x9D0510",
      "0x9D0580"
     ],
     "merged": [],
@@ -6781,7 +6785,7 @@
    "xstraw.h": "R",
    "xsurface.h": "R"
   },
-  "in_tree_total": 553,
+  "in_tree_total": 557,
   "totals": {
    "G": 394,
    "R": 535,
@@ -8084,14 +8088,11 @@
    "C:\\EnBDevelopment\\EnB\\wwshade\\shdlegacyw3d.cpp(412) : error C2039: 'Parse_Mapping_Args' : is not a member of 'VertexMaterialClass'",
    "C:\\EnBDevelopment\\EnB\\wwshade\\shdlegacyw3d.cpp(503) : error C2039: 'Set_Vertex_Shader' : is not a member of 'DX8Wrapper'",
    "C:\\EnBDevelopment\\EnB\\wwshade\\shdlegacyw3d.cpp(503) : error C2065: 'Set_Vertex_Shader' : undeclared identifier",
-   "C:\\EnBDevelopment\\EnB\\wwshade\\shdmesh.h(79) : error C2065: 'CLASSID_SHDMESH' : undeclared identifier",
-   "C:\\EnBDevelopment\\EnB\\wwshade\\shdmesh.h(79) : error C2065: 'CLASSID_SHDMESH' : undeclared identifier",
    "C:\\EnBDevelopment\\EnB\\wwshade\\shdmesh.cpp(157) : error C2065: 'Set_Is_Self_Shadowed' : undeclared identifier",
    "C:\\EnBDevelopment\\EnB\\wwshade\\shdmesh.cpp(160) : error C2039: 'Texture_Projector' : is not a member of 'RenderInfoClass'",
    "C:\\EnBDevelopment\\EnB\\wwshade\\shdmesh.cpp(164) : error C2065: 'Is_Self_Shadowed' : undeclared identifier",
    "C:\\EnBDevelopment\\EnB\\wwshade\\shdmesh.cpp(168) : error C2065: 'Unset_Is_Self_Shadowed' : undeclared identifier",
    "C:\\EnBDevelopment\\EnB\\wwshade\\shdmesh.cpp(222) : error C2039: 'CheckTranslucent' : is not a member of 'RayCollisionTestClass'",
-   "C:\\EnBDevelopment\\EnB\\wwshade\\shdmesh.h(79) : error C2065: 'CLASSID_SHDMESH' : undeclared identifier",
    "C:\\EnBDevelopment\\EnB\\wwshade\\shdrenderer.cpp(289) : error C2248: 'Invalidate_Cached_Render_States' : cannot access protected member declared in class 'DX8Wrapper'",
    "C:\\EnBDevelopment\\EnB\\wwshade\\shdrenderer.cpp(290) : error C2039: 'Apply_Default_State' : is not a member of 'DX8Wrapper'",
    "C:\\EnBDevelopment\\EnB\\wwshade\\shdrenderer.cpp(290) : error C2065: 'Apply_Default_State' : undeclared identifier",
@@ -8253,7 +8254,9 @@
      "Z": 1
     },
     "headers_from": null,
-    "in_tree": [],
+    "in_tree": [
+     "0x42F250"
+    ],
     "merged": [],
     "name": "shdloader.cpp"
    },
