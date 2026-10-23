@@ -171,7 +171,9 @@ WWAudioClass::WWAudioClass (bool lite)
 	  m_CachedIsDialogEnabled (true),
 	  m_CachedIsCinematicSoundEnabled (true),
 	  m_CachedAreSoundEffectsEnabled (true),
-	  AudioIni (NULL)
+	  AudioIni (NULL),
+	  m_Unknown19A5 (false),
+	  m_Unknown19A6 (false)
 {
 	::InitializeCriticalSection (&MMSLockClass::_MSSLockCriticalSection);
 
@@ -2236,6 +2238,10 @@ WWAudioClass::Remove_3D_Sound_Handles (void)
 void
 WWAudioClass::Set_Dialog_Volume (float volume)
 {
+	if (m_Unknown19A6) {
+		return ;
+	}
+
 	m_DialogVolume = volume;
 	m_DialogVolume = min (1.0F, m_DialogVolume);
 	m_DialogVolume = max (0.0F, m_DialogVolume);
@@ -2261,6 +2267,10 @@ WWAudioClass::Set_Dialog_Volume (float volume)
 void
 WWAudioClass::Set_Cinematic_Volume (float volume)
 {
+	if (m_Unknown19A6) {
+		return ;
+	}
+
 	m_CinematicVolume = volume;
 	m_CinematicVolume = min (1.0F, m_CinematicVolume);
 	m_CinematicVolume = max (0.0F, m_CinematicVolume);
@@ -2288,6 +2298,10 @@ WWAudioClass::Set_Cinematic_Volume (float volume)
 void
 WWAudioClass::Set_Sound_Effects_Volume (float volume)
 {
+	if (m_Unknown19A6) {
+		return ;
+	}
+
 	m_RealSoundVolume = volume;
 	m_RealSoundVolume = min (1.0F, m_RealSoundVolume);
 	m_RealSoundVolume = max (0.0F, m_RealSoundVolume);
@@ -2305,6 +2319,10 @@ WWAudioClass::Set_Sound_Effects_Volume (float volume)
 void
 WWAudioClass::Set_Music_Volume (float volume)
 {
+	if (m_Unknown19A6) {
+		return ;
+	}
+
 	m_RealMusicVolume = volume;
 	m_RealMusicVolume = min (1.0F, m_RealMusicVolume);
 	m_RealMusicVolume = max (0.0F, m_RealMusicVolume);
@@ -3461,6 +3479,23 @@ WWAudioClass::Set_Active_Sound_Page (SOUND_PAGE page)
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 //
+//	Unknown_Resume_All
+//
+////////////////////////////////////////////////////////////////////////////////////////////
+void
+WWAudioClass::Unknown_Resume_All (void)
+{
+	m_Unknown19A5 = false;
+	for (int index = 0; index < m_Playlist[m_CurrPage].Count (); index ++) {
+		m_Playlist[m_CurrPage][index]->Resume ();
+	}
+
+	return ;
+}
+
+
+////////////////////////////////////////////////////////////////////////////////////////////
+//
 //	Fade_Non_Dialog_In
 //
 ////////////////////////////////////////////////////////////////////////////////////////////
@@ -3758,19 +3793,12 @@ void
 WWAudioClass::Temp_Disable_Audio (bool onoff)
 {
 	if (onoff) {
-		m_CachedIsMusicEnabled				= m_IsMusicEnabled;
-		m_CachedIsDialogEnabled				= m_IsDialogEnabled;
-		m_CachedIsCinematicSoundEnabled	= m_IsCinematicSoundEnabled;
-		m_CachedAreSoundEffectsEnabled	= m_AreSoundEffectsEnabled;
-		Allow_Sound_Effects (false);
-		Allow_Music (false);
-		Allow_Dialog (false);
-		Allow_Cinematic_Sound (false);
+		Set_Sound_Effects_Volume (0);
+		Set_Music_Volume (0);
+		Set_Dialog_Volume (0);
+		m_Unknown19A6 = true;
 	} else {
-		Allow_Sound_Effects (m_CachedAreSoundEffectsEnabled);
-		Allow_Music (m_CachedIsMusicEnabled);
-		Allow_Dialog (m_CachedIsDialogEnabled);
-		Allow_Cinematic_Sound (m_CachedIsCinematicSoundEnabled);
+		m_Unknown19A6 = false;
 	}
 
 	return ;

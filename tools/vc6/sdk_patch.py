@@ -10,6 +10,9 @@ Changes:
   mss.h  The Miles API is declared __declspec(dllimport), as in the client: its Miles calls go
          through the import table (call dword ptr [__imp__AIL_...]). This 6.1a header hard-codes
          plain `extern` (`#if 1 /*def __BORLANDC__*/`); docs/toolchain.md §2.
+  mss.h  AIL_startup() calls MSS_auto_cleanup() first, as the client's WWAudioClass constructor
+         does (0x9EEC54 calls MSS_auto_cleanup 0xA03A30, then AIL_startup); this header has the
+         macro commented out ("ODCODENOTE Remove").
 """
 import os
 import shutil
@@ -19,7 +22,9 @@ SRC = os.path.join(SDK, 'include')
 DST = os.path.join(SDK, 'include_enb')
 
 PATCHES = {
-    'mss.h': [('#if 1 /*def __BORLANDC__*/', '#if 0 /*def __BORLANDC__*/ /* EnB: dllimport, as the client */')],
+    'mss.h': [('#if 1 /*def __BORLANDC__*/', '#if 0 /*def __BORLANDC__*/ /* EnB: dllimport, as the client */'),
+              ('//#define AIL_startup() (MSS_auto_cleanup(),AIL_startup())',
+               '#define AIL_startup() (MSS_auto_cleanup(),AIL_startup()) /* EnB: as the client */')],
 }
 
 

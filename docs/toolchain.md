@@ -95,6 +95,14 @@ The 30 functions the old import library lacks are: `AIL_3D_sample_length`, `AIL_
    patched copy of the headers to `SDK\radtools\include_enb` (outside the repository: the RAD
    headers aren't ours to publish), and the build uses that. Worth 30 WWAudio functions.
 
+4. **`MSS_auto_cleanup`:** E&B's `mss.h` had `#define AIL_startup() (MSS_auto_cleanup(),AIL_startup())`
+   active; this one has it commented out ("ODCODENOTE Remove"). The client's `WWAudioClass`
+   constructor calls `MSS_auto_cleanup` (0xA03A30) before `AIL_startup` (0x9EEC54). `sdk_patch.py`
+   restores the macro (worth the constructor). `MSS_auto_cleanup` is a static member of the SDK's
+   `mss32.lib` (it sits just before the Miles import thunks: `atexit` of a wrapper at 0xA03A40 that
+   tail-calls `AIL_shutdown` through the thunk, then `return 0`); the import library generated from
+   the `.def` (fix 1) lacks it, so a full link needs a small object providing it.
+
 A Miles SDK whose `mss.h` declares `AIL_open_stream_by_sample` (6.1 or later, contemporary with
 Renegade, 2001–2002) would remove both fixes, but isn't required.
 

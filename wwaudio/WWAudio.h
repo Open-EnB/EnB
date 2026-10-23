@@ -327,6 +327,7 @@ public:
 	bool					Are_New_Sounds_Enabled (void)	const		{ return m_AreNewSoundsEnabled; }
 
 	void					Temp_Disable_Audio (bool onoff);
+	void					Unknown_Resume_All (void);	// E&B; name not known
 
 	//////////////////////////////////////////////////////////////////////
 	//	Update methods
@@ -728,6 +729,8 @@ private:
 	INIClass											  *AudioIni;
 
 	bool													m_ForceDisable;
+	bool													m_Unknown19A5;	// E&B: sounds started while set are queued paused (AudibleSoundClass::Play 0x9FD419); set by the app, cleared by Unknown_Resume_All
+	bool													m_Unknown19A6;	// E&B: set by Temp_Disable_Audio (true); the volume setters do nothing while set
 };
 
 
