@@ -41,8 +41,12 @@ incs() {  # include flags for copy $1: its own WW libraries, then the SDKs
   echo "$out -I $DX -I $RAD"
 }
 
+# flags where a library's differ from vc6.py's default (importer.py LIB_FLAGS)
+declare -A LIBFLAGS=( [wwshade]="/nologo /c /MT /W3 /O2 /Ob1 /GX" )
+
 for lib in wwlib wwdebug wwmath wwsaveload wwaudio ww3d2 wwshade; do
   runs=""
+  fl=${LIBFLAGS[$lib]:-}
   for t in R G Z; do
     n=${NAME[$t:$lib]:-}
     [ -z "$n" ] && continue
@@ -50,7 +54,7 @@ for lib in wwlib wwdebug wwmath wwsaveload wwaudio ww3d2 wwshade; do
     ls "$src"/*.cpp >/dev/null 2>&1 || continue
     out="$WORK/$t-$lib"
     rm -rf "$out"
-    python "$HERE/vc6.py" compile --out "$out" ${SYNC[$t]} $(incs $t) "$src"/*.cpp > "$out.log" 2>&1
+    python "$HERE/vc6.py" compile --out "$out" ${fl:+--flags "$fl"} ${SYNC[$t]} $(incs $t) "$src"/*.cpp > "$out.log" 2>&1
     nobj=$(ls "$out"/*.obj 2>/dev/null | wc -l)
     nsrc=$(ls "$src"/*.cpp | wc -l)
     [ "$nobj" -eq 0 ] && { echo "$t $lib: nothing compiled"; continue; }
@@ -58,6 +62,6 @@ for lib in wwlib wwdebug wwmath wwsaveload wwaudio ww3d2 wwshade; do
     python "$TOOLS/re/objmatch.py" -q --json "$out.json" "$out"/*.obj
     runs="$runs $t=$out.json"
   done
-  [ -n "$runs" ] && python "$TOOLS/re/matchreport.py" --title "$lib" --flags "/MT /W3 /O2 /Ob2" \
+  [ -n "$runs" ] && python "$TOOLS/re/matchreport.py" --title "$lib" --flags "${fl:-/MT /W3 /O2 /Ob2}" \
     --out "$DATA/bytematch-$lib" $runs | sed "s/^/  -> /"
 done

@@ -141,7 +141,7 @@ protected:
 
 	D3DMATERIAL8*					Material;
 
-	TextureClass*					Texture;
+	IDirect3DCubeTexture8*			Texture;
 
 	Vector4							Ambient;
 	Vector4							Diffuse;

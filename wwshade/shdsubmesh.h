@@ -84,8 +84,6 @@ public:
 	void							Create_Decal(DecalGeneratorClass * generator);
 	void							Delete_Decal(uint32 decal_id);
 
-	void							Init_From_Legacy_Mesh_Model(MeshModelClass* model,int first_polygon);
-
 	/////////////////////////////////////////////////////////////////////////////////////
 	// Load from a W3D File
 	/////////////////////////////////////////////////////////////////////////////////////
@@ -97,15 +95,6 @@ public:
 	const Vector3*				Get_Tangent_Basis_T_Array() { return T ? T->Get_Array() : NULL; }
 	const Vector3*				Get_Tangent_Basis_SxT_Array() { return SxT ? SxT->Get_Array() : NULL; }
 
-	// First and last visible polygon. Default is both zero, which means that all polygons
-	// are visible.
-	int							Get_First_Visible_Polygon() const { return FirstVisiblePolygon; }
-	int							Get_Visible_Polygon_Count() const { return VisiblePolygonCount; }
-	bool							Is_Sorting() const { return Sorting; }
-
-	void							Get_Deformed_Vertices(Vector3 *dst_vert, Vector3 *dst_norm, const HTreeClass* htree);
-	void							Get_Deformed_Vertices(Vector3 *dst_vert, const HTreeClass* htree);
-
 protected:
 	ShareBufferClass<Vector2> *						UV[MAX_TEXTURE_STAGES];
 	ShareBufferClass<unsigned> *						Diffuse;
@@ -113,10 +102,6 @@ protected:
 	ShareBufferClass<Vector3>*							S;
 	ShareBufferClass<Vector3>*							T;
 	ShareBufferClass<Vector3>*							SxT;
-
-	int														FirstVisiblePolygon;
-	int														VisiblePolygonCount;
-	bool											Sorting;
 
 	// MeshClass will set this for skins so that they can get the bone transforms
 //	void							Set_HTree(const HTreeClass * htree);
@@ -139,7 +124,6 @@ protected:
 	WW3DErrorType read_tangent_basis_s(ChunkLoadClass& cload);
 	WW3DErrorType read_tangent_basis_t(ChunkLoadClass& cload);
 	WW3DErrorType read_tangent_basis_sxt(ChunkLoadClass& cload);
-	WW3DErrorType read_vertex_influences(ChunkLoadClass& cload);
 
 	WW3DErrorType read_triangles(ChunkLoadClass& cload);
 	WW3DErrorType read_vertex_shade_indices(ChunkLoadClass& cload);

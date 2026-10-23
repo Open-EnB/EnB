@@ -95,6 +95,22 @@
    "length": 24
   }
  },
+ "0x47E770": {
+  "Z": {
+   "object": "shdrenderer.obj",
+   "function": "?Resize@?$VectorClass@VVector3@@@@UAE_NHPBVVector3@@@Z",
+   "symbol": "?Resize@?$VectorClass@VVector3@@@@UAE_NHPBVVector3@@@Z",
+   "length": 227
+  }
+ },
+ "0x47F300": {
+  "Z": {
+   "object": "shdsimple.obj",
+   "function": "DX8Wrapper::Set_DX8_Render_State",
+   "symbol": "?Set_DX8_Render_State@DX8Wrapper@@SAXW4_D3DRENDERSTATETYPE@@I@Z",
+   "length": 191
+  }
+ },
  "0x48C500": {
   "Z": {
    "object": "shdmesh.obj",
@@ -103,12 +119,20 @@
    "length": 104
   }
  },
- "0x494E10": {
+ "0x4E6A90": {
   "Z": {
-   "object": "shdrenderer.obj",
-   "function": "GenericMultiListClass::GenericMultiListClass",
-   "symbol": "??0GenericMultiListClass@@QAE@XZ",
-   "length": 39
+   "object": "shdmesh.obj",
+   "function": "StringClass::vector deleting dtor",
+   "symbol": "??_EStringClass@@QAEPAXI@Z",
+   "length": 84
+  }
+ },
+ "0x4E6B10": {
+  "Z": {
+   "object": "shdlegacyw3d.obj",
+   "function": "??_FStringClass@@QAEXXZ",
+   "symbol": "??_FStringClass@@QAEXXZ",
+   "length": 31
   }
  },
  "0x510CC0": {
@@ -119,44 +143,36 @@
    "length": 39
   }
  },
- "0x53F1C0": {
+ "0xA07D90": {
   "Z": {
-   "object": "shdsimple.obj",
-   "function": "StringClass::StringClass",
-   "symbol": "??0StringClass@@QAE@H_N@Z",
-   "length": 43
+   "object": "shdrenderer.obj",
+   "function": "ShdRendererClass::Init",
+   "symbol": "?Init@ShdRendererClass@@SAXXZ",
+   "length": 97
   }
  },
- "0x909500": {
+ "0xA07E40": {
   "Z": {
-   "object": "shdsubmesh.obj",
-   "function": "??_I@YGXPAXIHP6EX0@Z@Z",
-   "symbol": "??_I@YGXPAXIHP6EX0@Z@Z",
-   "length": 49
+   "object": "shdrenderer.obj",
+   "function": "ShdRendererClass::Shutdown",
+   "symbol": "?Shutdown@ShdRendererClass@@SAXXZ",
+   "length": 32
   }
  },
- "0x951D30": {
+ "0xA080A0": {
   "Z": {
-   "object": "shdsimple.obj",
-   "function": "ShdSimpleDefClass::Create",
-   "symbol": "?Create@ShdSimpleDefClass@@UBEPAVShdInterfaceClass@@XZ",
-   "length": 31
+   "object": "shdrenderer.obj",
+   "function": "MeshContainerClass::MeshContainerClass",
+   "symbol": "??0MeshContainerClass@ShdDX8RendererClass@@QAE@XZ",
+   "length": 97
   }
  },
- "0x9DA8C0": {
+ "0xA08A80": {
   "Z": {
-   "object": "shdsubmesh.obj",
-   "function": "_ENUM_VALUE::vector deleting dtor",
-   "symbol": "??_E_ENUM_VALUE@EnumParameterClass@@QAEPAXI@Z",
-   "length": 94
-  }
- },
- "0x9F36E0": {
-  "Z": {
-   "object": "shdbumpspec.obj",
-   "function": "?Create@?$SimpleShdDefFactoryClass@VShdBumpSpecDefClass@@$02$1?ShdBumpSpecDefClassName@@3PADA@@UBEPAVShdDefClass@@XZ",
-   "symbol": "?Create@?$SimpleShdDefFactoryClass@VShdBumpSpecDefClass@@$02$1?ShdBumpSpecDefClassName@@3PADA@@UBEPAVShdDefClass@@XZ",
-   "length": 24
+   "object": "shdrenderer.obj",
+   "function": "??1?$MultiListClass@VRendererListContainerClass@@@@UAE@XZ",
+   "symbol": "??1?$MultiListClass@VRendererListContainerClass@@@@UAE@XZ",
+   "length": 98
   }
  },
  "0xA08D30": {
@@ -167,12 +183,36 @@
    "length": 18
   }
  },
+ "0xA08DB0": {
+  "Z": {
+   "object": "shddefmanager.obj",
+   "function": "ShdDefManagerClass::Create_ShdDefClass_Instance",
+   "symbol": "?Create_ShdDefClass_Instance@ShdDefManagerClass@@SAPAVShdDefClass@@K@Z",
+   "length": 27
+  }
+ },
  "0xA08DD0": {
   "Z": {
    "object": "shddefmanager.obj",
    "function": "ShdDefManagerClass::Save_Shader",
    "symbol": "?Save_Shader@ShdDefManagerClass@@SAXAAVChunkSaveClass@@PAVShdDefClass@@@Z",
    "length": 80
+  }
+ },
+ "0xA08E20": {
+  "Z": {
+   "object": "shddefmanager.obj",
+   "function": "ShdDefManagerClass::Load_Shader",
+   "symbol": "?Load_Shader@ShdDefManagerClass@@SAXAAVChunkLoadClass@@PAPAVShdDefClass@@@Z",
+   "length": 78
+  }
+ },
+ "0xA08F00": {
+  "Z": {
+   "object": "shdinterface.obj",
+   "function": "ShdInterfaceClass::~ShdInterfaceClass",
+   "symbol": "??1ShdInterfaceClass@@UAE@XZ",
+   "length": 91
   }
  },
  "0xA0A6A0": {
@@ -263,6 +303,22 @@
    "length": 244
   }
  },
+ "0xA0C4F0": {
+  "Z": {
+   "object": "shdbumpspec.obj",
+   "function": "?Create@?$SimpleShdDefFactoryClass@VShdBumpSpecDefClass@@$02$1?ShdBumpSpecDefClassName@@3PADA@@UBEPAVShdDefClass@@XZ",
+   "symbol": "?Create@?$SimpleShdDefFactoryClass@VShdBumpSpecDefClass@@$02$1?ShdBumpSpecDefClassName@@3PADA@@UBEPAVShdDefClass@@XZ",
+   "length": 87
+  }
+ },
+ "0xA0C590": {
+  "Z": {
+   "object": "shdbumpspec.obj",
+   "function": "ShdBumpSpecDefClass::Clone",
+   "symbol": "?Clone@ShdBumpSpecDefClass@@UBEPAVShdDefClass@@XZ",
+   "length": 93
+  }
+ },
  "0xA0C8E0": {
   "Z": {
    "object": "shdglossmask.obj",
@@ -279,6 +335,14 @@
    "length": 208
   }
  },
+ "0xA0D350": {
+  "Z": {
+   "object": "shdsimple.obj",
+   "function": "ShdSimpleDefClass::ShdSimpleDefClass",
+   "symbol": "??0ShdSimpleDefClass@@QAE@ABV0@@Z",
+   "length": 271
+  }
+ },
  "0xA0D4D0": {
   "Z": {
    "object": "shdsimple.obj",
@@ -293,6 +357,46 @@
    "function": "ShdSimpleDefClass::Load",
    "symbol": "?Load@ShdSimpleDefClass@@UAE_NAAVChunkLoadClass@@@Z",
    "length": 180
+  }
+ },
+ "0xA0DB60": {
+  "Z": {
+   "object": "shdsimple.obj",
+   "function": "?Create@?$SimpleShdDefFactoryClass@VShdSimpleDefClass@@$00$1?ShdSimpleDefClassName@@3PADA@@UBEPAVShdDefClass@@XZ",
+   "symbol": "?Create@?$SimpleShdDefFactoryClass@VShdSimpleDefClass@@$00$1?ShdSimpleDefClassName@@3PADA@@UBEPAVShdDefClass@@XZ",
+   "length": 87
+  }
+ },
+ "0xA0ED50": {
+  "Z": {
+   "object": "shddef.obj",
+   "function": "ShdDefClass::ShdDefClass",
+   "symbol": "??0ShdDefClass@@QAE@ABV0@@Z",
+   "length": 300
+  }
+ },
+ "0xA0EE80": {
+  "Z": {
+   "object": "shddef.obj",
+   "function": "ShdDefClass::~ShdDefClass",
+   "symbol": "??1ShdDefClass@@UAE@XZ",
+   "length": 89
+  }
+ },
+ "0xA0EF50": {
+  "Z": {
+   "object": "shddef.obj",
+   "function": "ShdDefClass::Save",
+   "symbol": "?Save@ShdDefClass@@UAE_NAAVChunkSaveClass@@@Z",
+   "length": 46
+  }
+ },
+ "0xA0EF80": {
+  "Z": {
+   "object": "shddef.obj",
+   "function": "ShdDefClass::Load",
+   "symbol": "?Load@ShdDefClass@@UAE_NAAVChunkLoadClass@@@Z",
+   "length": 54
   }
  },
  "0xA0EFC0": {
@@ -335,6 +439,14 @@
    "length": 53
   }
  },
+ "0xA0F340": {
+  "Z": {
+   "object": "shdhwshader.obj",
+   "function": "ShdHWVertexShader::Create",
+   "symbol": "?Create@ShdHWVertexShader@@QAEKPADPAK@Z",
+   "length": 146
+  }
+ },
  "0xA0F3E0": {
   "Z": {
    "object": "shdhwshader.obj",
@@ -349,6 +461,14 @@
    "function": "ShdHWPixelShader::Destroy",
    "symbol": "?Destroy@ShdHWPixelShader@@QAEXXZ",
    "length": 53
+  }
+ },
+ "0xA0F550": {
+  "Z": {
+   "object": "shdhwshader.obj",
+   "function": "ShdHWPixelShader::Create",
+   "symbol": "?Create@ShdHWPixelShader@@QAEKPAD@Z",
+   "length": 72
   }
  },
  "0xA0F5A0": {

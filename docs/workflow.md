@@ -117,5 +117,18 @@ compiled into E&B's objects), so they run higher.
   a Zero Hour WW3D2 feature is not evidence for it: check the calling function in the client
   first (for `CheckTranslucent` the client has Renegade's test; `MultiListIterator::Last` and
   `get_deformed_vertices` are used only by code the client does not have).
+* **Not every library was built with the same flags.** wwshade was built `/GX /Ob1`, the
+  others `/Ob2` without `/GX` (library-matching.md §3.5). Signs of a flag difference rather than
+  a source difference: EH prologs (`push -1; push handler; mov eax, fs:[0]`) in the client but not
+  in ours, or a caller that calls what ours inlines in every function of a file. Compile with
+  `importer.compile_and_match` (it takes `LIB_FLAGS`), not `vc6.py` defaults, and give a new
+  library's flags to `bytematch_all.sh` too.
+* **A twin function is not a match.** Small functions that only `new` and call a constructor
+  (`MeshClass::Clone` 0x93ED00 and `ShdMeshClass::Clone`) or return a constant match each other
+  across libraries. When a fix "loses" an address in another library's region, check that the
+  address is still matched in its own library (`imports.json`) before counting it as a loss.
+* **The client may lack a whole module.** Strings registered by a file (`REGISTER_SHDDEF`
+  names), force-link lists and loop bounds over class ids tell which modules are linked: E&B
+  has no LegacyW3D shader, so its compile errors needed no fix.
 * **Clones share a computer name.** Always address the VMs by IP (`ENB_VC6_HOST` or
   `ENB_VC6_HOSTS`).

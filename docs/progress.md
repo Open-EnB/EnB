@@ -4,6 +4,38 @@ Newest first within each section. Dates are when the entry was written.
 
 ## 1. Log
 
+### 2026-10-23: D9 step 3, E&B's earlier wwshade; wwshade's flags
+
+* **wwshade was built `/GX /Ob1`** (the other libraries `/Ob2`, no `/GX`): EH frames in its
+  functions; on the tree, `/GX` +16 own functions, `/Ob1` +15 more, none lost; Zero Hour's copy
+  alone 46 -> 61. `importer.py` `LIB_FLAGS`/`flags_for` and `bytematch_all.sh` `LIBFLAGS` carry it;
+  bm2 evidence regenerated. Kept by the user (D12).
+* The client's wwshade rebuilt where it is earlier than Zero Hour's (importer
+  `WWSHADE_EARLY_PATCHES`, 69 patches, each with its address): renderer node on
+  `MultiListObjectClass` only, `MeshContainerClass` with a visible list per pass, no list
+  containers, sorting or skins; `ShdInterfaceClass(def)` without class id or comparison/opacity
+  virtuals; `ShdSubMeshClass` without visible range, sorting, legacy conversion, skins, influence
+  chunk; no LegacyW3D shader or legacy loader (class ids 1..5, 5 force links, one loader);
+  E&B's "Cube Map (unsupported)" shader on a D3DX cube texture. WW3D2: Zero Hour's fill light
+  (`lightenvironment.obj` now complete). WWLib: Zero Hour's const `RefCountClass`.
+* Byte-exact: wwshade 56 -> 118, WW3D2 2,173 -> 2,179 (+7 pairs), others unchanged, against
+  `.work/sub_base_imports.json`. wwshade's 20 lost pairs are mispairings (other libraries' inline
+  copies, still matched there; `0x93ED00` Renegade's `MeshClass::Clone`, which only the old
+  no-`/GX` `ShdMeshClass::Clone` matched; the real 0xA092C0 now matches). `replay`: 0 differences.
+  `report` regenerated.
+* `shdlegacyw3d.cpp`/`.h` dropped (D13): importer `NOT_LINKED` keeps them out of plan, assemble and
+  the state. wwshade now compiles with 0 errors; nothing gained or lost.
+* `symbols.json` regenerated (6,317 -> 6,438 names; 0x93ED00 is now `MeshClass::Clone`).
+* Not yet refreshed: the plan-time "best copy alone" totals and per-file `expected` counts in
+  `imports.json` still come from the old no-`/GX` wwshade evidence (verify prints 46, and 3 files
+  "below their copy"); a `refine --lib wwshade` against the new bm2 should update them.
+* Commit: this entry's work, on master. Nothing pushed.
+* Next session: E&B helper 0xA0FC60 (lights from the render state, end of three `Apply_Shared`);
+  cube map definition functions (0xA0A840-0xA0AD60, a `.dds` path); `ShdMeshClass` ctor, `Render`,
+  `Load_W3D`.
+* Outside git: `.work/sub_*.py` (edits as applied, variants, `sub_mkspec.py` diff -> addpatch spec,
+  `sub_cmp.py` pair comparison, `sub_flags.py` compile with given flags).
+
 ### 2026-10-23: tools for the next sessions (client.py, vtables.py, addpatch.py, tryvariants.py)
 
 * New `tools/re/client.py` (`dis`, `name`, `refs`, `callers`): the lookups the wwshade step
@@ -242,6 +274,8 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 | D9 | 2026-10-23 | Move WW3D2's texture classes and `DX8Wrapper` to Zero Hour's as of 06/27/02, minus its later redesign (08/05/02: cube/volume textures, LOD reduction, virtual load tasks), one evidence-checked step at a time | user; overnight finding: Zero Hour's `dx8wrapper.obj` matches 12 client functions the tree lacks, and it unlocks wwshade. Reworded by the user 2026-10-23 after step 1 showed the client has the 06/27/02 abstraction but not the 08/05/02 redesign (library-matching.md §3.6.1) |
 | D10 | 2026-10-23 | E&B's unknown additions keep neutral names (`m_UnknownXX`, evidence in a comment) until the code that uses them is rebuilt | user |
 | D11 | 2026-10-23 | Compiler-generated code (STL template instances): extend the corpus as each app file needs it, not ahead of the app work | user |
+| D12 | 2026-10-23 | Compile each library with the flags E&B used, wherever byte evidence shows them (wwshade: `/GX /Ob1`; importer `LIB_FLAGS`, `bytematch_all.sh` `LIBFLAGS`) | user: "match how E&B built things whenever you have evidence to support it" |
+| D13 | 2026-10-23 | EA files the client does not link are dropped from the tree (importer `NOT_LINKED`, with the evidence): first `shdlegacyw3d.cpp`/`.h` | user |
 
 ## 3. Open decisions
 
@@ -249,7 +283,7 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 
 ## 4. Next steps
 
-1. D9 continued: wwshade (56 in the tree; next, the client's older `ShdSubMeshClass` and renderer node, see the 2026-10-23 step 2 entry), then the texture near-misses (`TextureClass` constructors, `Init`, `Apply`, `Get_Reduction`; `DX8Wrapper`'s device code). Texture classes done; wwshade's WW3D2 features done (2026-10-23).
+1. D9 continued: wwshade (118 in the tree; next, the E&B helper 0xA0FC60, the cube map definition, `ShdMeshClass` ctor/`Render`/`Load_W3D`; see the step 3 entry), then the texture near-misses (`TextureClass` constructors, `Init`, `Apply`, `Get_Reduction`; `DX8Wrapper`'s device code). Texture classes done; wwshade's WW3D2 features done (2026-10-23).
 2. The remaining WWAudio gaps (`WWAudioClass` 40, `SoundSceneClass` 12; `SoundPseudo3DClass` and
    `FilteredSoundClass` +4 from 0x1A4) and WW3D2 near-misses (docs/data/gaps-*.md).
 3. `meshmatdesc.cpp`'s inlining flip (an app-region helper at 0x4E9CB0 that VC6 now inlines).

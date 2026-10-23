@@ -180,7 +180,7 @@ ShdInterfaceClass* ShdGlossMaskDefClass::Create() const
 Matrix4x4				Shd6GlossMaskClass::View_Projection_Matrix;
 
 Shd6GlossMaskClass::Shd6GlossMaskClass(const ShdDefClass* def)
-:	ShdInterfaceClass(def,SHDDEF_CLASSID_GLOSSMASK),
+:	ShdInterfaceClass(def),
 	Texture(NULL)
 {
 	ShdGlossMaskDefClass* Definition=(ShdGlossMaskDefClass*)def;

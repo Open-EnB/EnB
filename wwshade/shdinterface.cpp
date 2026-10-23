@@ -48,10 +48,9 @@
 
 	@param 
 */
-ShdInterfaceClass::ShdInterfaceClass(const ShdDefClass * def, int class_id) : 
-	Definition(NULL),
-	ClassID(class_id)
-{ 
+ShdInterfaceClass::ShdInterfaceClass(const ShdDefClass * def) :
+	Definition(NULL)
+{
 	REF_PTR_SET(Definition,def); 
 }
 

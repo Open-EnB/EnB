@@ -1975,12 +1975,19 @@
     "headers_from": null,
     "in_tree": [
      "0x42F250",
+     "0x447C40",
      "0x984E90",
      "0x984F60",
      "0x985230",
      "0x9852D0",
+     "0x9852F0",
+     "0x9853B0",
      "0x9853F0",
-     "0x985760"
+     "0x985430",
+     "0x985660",
+     "0x985760",
+     "0x985790",
+     "0x985840"
     ],
     "merged": [],
     "name": "lightenvironment.cpp"
@@ -4451,7 +4458,7 @@
    "ww3dids.h": "R",
    "ww3dtrig.h": "R"
   },
-  "in_tree_total": 2173,
+  "in_tree_total": 2179,
   "totals": {
    "G": 548,
    "R": 1322,
@@ -8230,17 +8237,7 @@
  },
  "wwshade": {
   "base": "Z",
-  "compile_errors": [
-   "C:\\EnBDevelopment\\EnB\\wwshade\\shdcubemap.cpp(196) : error C2039: 'TEX_CUBEMAP' : is not a member of 'TextureBaseClass'",
-   "C:\\EnBDevelopment\\EnB\\wwshade\\shdcubemap.cpp(196) : error C2065: 'TEX_CUBEMAP' : undeclared identifier",
-   "C:\\EnBDevelopment\\EnB\\wwshade\\shdinterface.cpp(55) : error C2662: 'Add_Ref' : cannot convert 'this' pointer from 'const class ShdDefClass' to 'class RefCountClass &'",
-   "C:\\EnBDevelopment\\EnB\\wwshade\\shdinterface.cpp(55) : error C2662: 'Release_Ref' : cannot convert 'this' pointer from 'const class ShdDefClass' to 'class RefCountClass &'",
-   "C:\\EnBDevelopment\\EnB\\wwshade\\shdinterface.cpp(66) : error C2662: 'Release_Ref' : cannot convert 'this' pointer from 'const class ShdDefClass' to 'class RefCountClass &'",
-   "C:\\EnBDevelopment\\EnB\\wwshade\\shdlegacyw3d.cpp(402) : error C2039: 'Parse_W3dVertexMaterialStruct' : is not a member of 'VertexMaterialClass'",
-   "C:\\EnBDevelopment\\EnB\\wwshade\\shdlegacyw3d.cpp(412) : error C2039: 'Parse_Mapping_Args' : is not a member of 'VertexMaterialClass'",
-   "C:\\EnBDevelopment\\EnB\\wwshade\\shdrenderer.cpp(343) : error C2039: 'Last' : is not a member of 'MultiListIterator<class RendererListContainerClass>'",
-   "C:\\EnBDevelopment\\EnB\\wwshade\\shdsubmesh.cpp(895) : error C2065: 'get_deformed_vertices' : undeclared identifier"
-  ],
+  "compile_errors": [],
   "files": {
    "shdbumpdiff": {
     "best": "Z",
@@ -8251,11 +8248,10 @@
     "headers_from": null,
     "in_tree": [
      "0x42F250",
-     "0x909500",
-     "0x9DA8C0",
      "0xA0B200",
      "0xA0B680",
-     "0xA0B8D0"
+     "0xA0B8D0",
+     "0xA0BA30"
     ],
     "merged": [],
     "name": "shdbumpdiff.cpp"
@@ -8269,12 +8265,12 @@
     "headers_from": null,
     "in_tree": [
      "0x42F250",
-     "0x909500",
-     "0x9DA8C0",
-     "0x9F36E0",
      "0xA0B200",
      "0xA0C030",
-     "0xA0C2B0"
+     "0xA0C2B0",
+     "0xA0C3E0",
+     "0xA0C4F0",
+     "0xA0C590"
     ],
     "merged": [],
     "name": "shdbumpspec.cpp"
@@ -8286,7 +8282,17 @@
      "Z": 8
     },
     "headers_from": null,
-    "in_tree": [],
+    "in_tree": [
+     "0x42F250",
+     "0x47F300",
+     "0xA0AAA0",
+     "0xA0AC10",
+     "0xA0AD80",
+     "0xA0AEC0",
+     "0xA0B040",
+     "0xA0B080",
+     "0xA0B200"
+    ],
     "merged": [],
     "name": "shdcubemap.cpp"
    },
@@ -8299,9 +8305,11 @@
     "headers_from": null,
     "in_tree": [
      "0x42F250",
-     "0x909500",
-     "0x9DA8C0",
      "0xA0B200",
+     "0xA0ED50",
+     "0xA0EE80",
+     "0xA0EF50",
+     "0xA0EF80",
      "0xA0EFC0",
      "0xA0F030"
     ],
@@ -8317,10 +8325,10 @@
     "headers_from": null,
     "in_tree": [
      "0x42F250",
-     "0x909500",
-     "0x9DA8C0",
      "0xA08D30",
-     "0xA08DD0"
+     "0xA08DB0",
+     "0xA08DD0",
+     "0xA08E20"
     ],
     "merged": [],
     "name": "shddefmanager.cpp"
@@ -8334,13 +8342,11 @@
     "headers_from": null,
     "in_tree": [
      "0x42F250",
-     "0x53F1C0",
-     "0x909500",
-     "0x9217E0",
-     "0x9DA8C0",
+     "0x47F300",
      "0xA0B200",
      "0xA0C8E0",
-     "0xA0CA50"
+     "0xA0CA50",
+     "0xA0CBC0"
     ],
     "merged": [],
     "name": "shdglossmask.cpp"
@@ -8356,12 +8362,16 @@
      "0x42F250",
      "0x447C40",
      "0x982F00",
+     "0x984A20",
      "0xA0F0F0",
      "0xA0F1F0",
      "0xA0F300",
+     "0xA0F340",
      "0xA0F3E0",
      "0xA0F510",
+     "0xA0F550",
      "0xA0F5A0",
+     "0xA0F610",
      "0xA0FC20"
     ],
     "merged": [],
@@ -8374,20 +8384,13 @@
      "Z": 3
     },
     "headers_from": null,
-    "in_tree": [],
+    "in_tree": [
+     "0x42F250",
+     "0xA08E70",
+     "0xA08F00"
+    ],
     "merged": [],
     "name": "shdinterface.cpp"
-   },
-   "shdlegacyw3d": {
-    "best": "Z",
-    "copy": "Z",
-    "expected": {
-     "Z": 4
-    },
-    "headers_from": null,
-    "in_tree": [],
-    "merged": [],
-    "name": "shdlegacyw3d.cpp"
    },
    "shdlib": {
     "best": "Z",
@@ -8410,7 +8413,8 @@
     },
     "headers_from": null,
     "in_tree": [
-     "0x42F250"
+     "0x42F250",
+     "0xA08B70"
     ],
     "merged": [],
     "name": "shdloader.cpp"
@@ -8424,6 +8428,7 @@
     "headers_from": null,
     "in_tree": [
      "0x42F250",
+     "0x4627F0",
      "0x462F30",
      "0x463030",
      "0x463060",
@@ -8438,9 +8443,11 @@
      "0x463340",
      "0x463370",
      "0x48C500",
+     "0x4E6A90",
      "0x510CC0",
-     "0x909500",
-     "0x93ED00",
+     "0xA09090",
+     "0xA091D0",
+     "0xA092C0",
      "0xA09390",
      "0xA09400",
      "0xA09580",
@@ -8448,6 +8455,7 @@
      "0xA09840",
      "0xA099D0",
      "0xA09B90",
+     "0xA09D60",
      "0xA09FB0",
      "0xA0A150",
      "0xA0A6A0",
@@ -8463,7 +8471,28 @@
      "Z": 4
     },
     "headers_from": null,
-    "in_tree": [],
+    "in_tree": [
+     "0x42F250",
+     "0xA07D90",
+     "0xA07E00",
+     "0xA07E40",
+     "0xA07E60",
+     "0xA07EA0",
+     "0xA07F30",
+     "0xA07FD0",
+     "0xA08060",
+     "0xA080A0",
+     "0xA08130",
+     "0xA081D0",
+     "0xA08240",
+     "0xA08270",
+     "0xA082D0",
+     "0xA08640",
+     "0xA08750",
+     "0xA08790",
+     "0xA08A20",
+     "0xA08A80"
+    ],
     "merged": [],
     "name": "shdrenderer.cpp"
    },
@@ -8476,14 +8505,13 @@
     "headers_from": null,
     "in_tree": [
      "0x42F250",
-     "0x53F1C0",
-     "0x909500",
-     "0x9217E0",
-     "0x951D30",
-     "0x9DA8C0",
+     "0x47F300",
      "0xA0B200",
+     "0xA0D350",
      "0xA0D4D0",
-     "0xA0D620"
+     "0xA0D620",
+     "0xA0D780",
+     "0xA0DB60"
     ],
     "merged": [],
     "name": "shdsimple.cpp"
@@ -8495,7 +8523,25 @@
      "Z": 3
     },
     "headers_from": null,
-    "in_tree": [],
+    "in_tree": [
+     "0x42F250",
+     "0xA0DCE0",
+     "0xA0DD50",
+     "0xA0DDD0",
+     "0xA0DF30",
+     "0xA0E040",
+     "0xA0E310",
+     "0xA0E470",
+     "0xA0E4E0",
+     "0xA0E5D0",
+     "0xA0E6C0",
+     "0xA0E7B0",
+     "0xA0E8A0",
+     "0xA0E990",
+     "0xA0EA10",
+     "0xA0EA70",
+     "0xA0EB20"
+    ],
     "merged": [],
     "name": "shdsubmesh.cpp"
    }
@@ -8526,14 +8572,13 @@
    "shdhw_constants.h": "Z",
    "shdhwshader.h": "Z",
    "shdinterface.h": "Z",
-   "shdlegacyw3d.h": "Z",
    "shdloader.h": "Z",
    "shdmesh.h": "Z",
    "shdrenderer.h": "Z",
    "shdsimple.h": "Z",
    "shdsubmesh.h": "Z"
   },
-  "in_tree_total": 56,
+  "in_tree_total": 118,
   "totals": {
    "Z": 46
   }

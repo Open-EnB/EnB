@@ -512,34 +512,6 @@ void ShdMeshClass::Get_Obj_Space_Bounding_Box(AABoxClass & box) const
 	}
 }
 
-void ShdMeshClass::Init_From_Legacy_Mesh(MeshClass* mesh)
-{
-	Set_Name(mesh->Get_Name());
-	MeshModelClass* model=mesh->Peek_Model();
-	if (model) 
-	{
-		int first_poly=0;
-		int sub_mesh_count=0;
-		while (first_poly<model->Get_Polygon_Count()) {
-			sub_mesh_count++;
-			ShdSubMeshClass * sub_mesh = NEW_REF( ShdSubMeshClass, () );
-			sub_mesh->Init_From_Legacy_Mesh_Model(model,first_poly);
-			SubMeshes.Resize(sub_mesh_count);
-			SubMeshes[sub_mesh_count-1].Mesh=sub_mesh;
-			SubMeshes[sub_mesh_count-1].Renderer=NULL;
-			if (sub_mesh->Get_Visible_Polygon_Count()==0) break;
-			first_poly+=sub_mesh->Get_Visible_Polygon_Count();
-		}
-	}
-
-	// Pull interesting stuff out of the w3d attributes bits
-	Set_Collision_Type(mesh->Get_Collision_Type());
-	Set_Hidden(mesh->Is_Hidden());
-	Set_Translucent(mesh->Is_Translucent());	
-}
-
-
-
 /*********************************************************************************************** 
  * ShdMeshClass::Load -- creates a shader mesh out of a shader mesh chunk in a .w3d file       * 
  *                                                                                             * 
@@ -643,27 +615,6 @@ WW3DErrorType ShdMeshClass::Load_W3D(ChunkLoadClass& cload)
 	int col_bits = (hdr.Attributes & W3D_MESH_FLAG_COLLISION_TYPE_MASK) >> W3D_MESH_FLAG_COLLISION_TYPE_SHIFT;
 	Set_Collision_Type( col_bits << 1 );
 	Set_Hidden(hdr.Attributes & W3D_MESH_FLAG_HIDDEN);
-	
-	for (i=0;i<SubMeshes.Length(); i++) { 
-		bool shadow = (hdr.Attributes & W3D_MESH_FLAG_CAST_SHADOW) == W3D_MESH_FLAG_CAST_SHADOW;
-		SubMeshes[i].Mesh->Set_Flag(MeshGeometryClass::CAST_SHADOW,shadow);
-	}
-	
-	// Indicate whether this mesh is translucent.  The mesh is considered translucent
-	// if sorting has been enabled (alpha blending on pass 0) or if pass0 contains alpha-test.
-	// This flag is used to determine if the mesh can cast a geometric shadow.
-	bool is_translucent = false;
-	for (i=0;i<SubMeshes.Length(); i++) { 
-		if (SubMeshes[i].Mesh) {
-			if (SubMeshes[i].Mesh->Is_Sorting()) {
-				Set_Translucent(true);
-			}
-			ShdInterfaceClass * shader = SubMeshes[i].Mesh->Peek_Shader();
-			if ((shader) && (!shader->Is_Opaque())) {
-				Set_Translucent(true);
-			}
-		}
-	}
 
 	return WW3D_ERROR_OK;
 }

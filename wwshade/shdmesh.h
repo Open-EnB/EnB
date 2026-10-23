@@ -115,7 +115,6 @@ public:
 	/////////////////////////////////////////////////////////////////////////////
 	// MeshClass Interface
 	/////////////////////////////////////////////////////////////////////////////
-	void								Init_From_Legacy_Mesh(MeshClass* mesh);
 //	WW3DErrorType					Init(const MeshBuilderClass & builder,MaterialInfoClass * matinfo,const char * name,const char * hmodelname);
 	WW3DErrorType					Load_W3D(ChunkLoadClass & cload);
 	void								Generate_Culling_Tree(void);

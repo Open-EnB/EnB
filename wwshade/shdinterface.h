@@ -93,17 +93,14 @@ struct VertexStreamStruct
 class ShdInterfaceClass : public RefCountClass
 {
 public:
-	ShdInterfaceClass(const ShdDefClass * def,int class_id);
+	// E&B: no class id; the shader's type is its definition's (ShdInterfaceClass ctor 0xA08E70
+	// takes only def, ret 4; Shd6CubeMapClass's Material at +0xC follows Definition at +8)
+	ShdInterfaceClass(const ShdDefClass * def);
 	virtual ~ShdInterfaceClass(void);
-	
-	const ShdDefClass *		Peek_Definition(void);	
 
-	WWINLINE int			Get_Class_ID() const { return ClassID; }
+	const ShdDefClass *		Peek_Definition(void);
 
-	// For rendering efficiency, all shaders should implement comparison operator that the renderer
-	// can use to sort the meshes.
-	virtual bool Greater_Than	(const ShdInterfaceClass& s,int pass) const { return true; }
-	virtual bool Similar_Enough	(const ShdInterfaceClass& s,int pass) const { return true; }
+	// E&B: no Greater_Than/Similar_Enough (Shd6SimpleClass vtable 0xB16F0C: Get_Pass_Count in slot 2)
 
 	virtual int					Get_Pass_Count(void) = 0;
 	virtual bool				Pass_Selection(ShdMeshClass*, RenderInfoClass*,int) { return true; }
@@ -126,15 +123,11 @@ public:
 	// the buffer than the shader itself.
 	virtual void				Copy_Vertex_Stream(unsigned stream, void* dest_buffer, const VertexStreamStruct& vss, unsigned vertex_count) = 0;
 
-	// Return whether this shader is opaque.  This property is used to determine whether
-	// geometric shadows should be cast from an object for example.  Alpha-Test shaders should
-	// return false to Is_Opaque.
-	virtual bool				Is_Opaque(void) const { return true; }
+	// E&B: no Is_Opaque (Shd6SimpleClass's table ends with Copy_Vertex_Stream, slot 11)
 
 protected:
 
 	const ShdDefClass *		Definition;
-	int	ClassID;
 
 };
 

@@ -38,6 +38,7 @@
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #include <d3dx8math.h>
+#include <d3dx8tex.h>
 #include "dx8fvf.h"
 #include "dx8wrapper.h"
 #include "assetmgr.h"
@@ -54,7 +55,7 @@
 #include "wwhack.h"
 
 DECLARE_FORCE_LINK(CubeMapShader);
-REGISTER_SHDDEF(ShdCubeMapDefClass,SHDDEF_CLASSID_CUBEMAP,"Cube Map");
+REGISTER_SHDDEF(ShdCubeMapDefClass,SHDDEF_CLASSID_CUBEMAP,"Cube Map (unsupported)");
 
 
 // Save-Load methods for ShdDefClass
@@ -181,18 +182,16 @@ ShdInterfaceClass* ShdCubeMapDefClass::Create() const
 Matrix4x4				Shd6CubeMapClass::View_Projection_Matrix;
 
 Shd6CubeMapClass::Shd6CubeMapClass(const ShdDefClass* def)
-:	ShdInterfaceClass(def,SHDDEF_CLASSID_CUBEMAP),
+:	ShdInterfaceClass(def),
 	Texture(NULL)
 {
 	ShdCubeMapDefClass* Definition=(ShdCubeMapDefClass*)def;
 
-	Texture=WW3DAssetManager::Get_Instance()->Get_Texture
+	D3DXCreateCubeTextureFromFile
 	(
+		DX8Wrapper::_Get_D3D_Device8(),
 		Definition->Get_Texture_Name(),
-		MIP_LEVELS_ALL,
-		WW3D_FORMAT_UNKNOWN,
-		true,
-		TextureBaseClass::TEX_CUBEMAP
+		&Texture
 	);
 
 	const Vector3& a=Definition->Get_Ambient();
@@ -214,7 +213,7 @@ Shd6CubeMapClass::Shd6CubeMapClass(const ShdDefClass* def)
 
 Shd6CubeMapClass::~Shd6CubeMapClass()
 {
-	REF_PTR_RELEASE(Texture);
+	Texture->Release();
 }
 
 void Shd6CubeMapClass::Init()
@@ -264,7 +263,7 @@ void Shd6CubeMapClass::Apply_Shared(int pass, RenderInfoClass& rinfo)
 */
 void Shd6CubeMapClass::Apply_Instance(int cur_pass, RenderInfoClass& rinfo)
 {
-	DX8Wrapper::Set_Texture(0, Texture);
+	DX8CALL(SetTexture(0, Texture));
 }
 
 unsigned Shd6CubeMapClass::Get_Vertex_Stream_Count() const

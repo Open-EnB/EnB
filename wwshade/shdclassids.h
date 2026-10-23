@@ -51,7 +51,8 @@ enum
 	SHDDEF_CLASSID_BUMPSPEC,
 	SHDDEF_CLASSID_BUMPDIFF,
 	SHDDEF_CLASSID_CUBEMAP,
-	SHDDEF_CLASSID_LEGACYW3D,
+	// E&B: no LEGACYW3D (ShdRendererClass::Init_Shaders 0xA07E00 loops 1..5; MeshCategories
+	// has 6 entries, 0xA07EC2), as shddump.h's Shader_ClassIDs
 	SHDDEF_CLASSID_LAST,
 };
 

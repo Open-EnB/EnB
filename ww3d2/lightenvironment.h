@@ -90,6 +90,9 @@ public:
 	void					Reset(const Vector3 & object_center,const Vector3 & scene_ambient);
 	void					Add_Light(const LightClass & light);
 	void					Pre_Render_Update(const Matrix3D & camera_tm);
+	void					Add_Fill_Light(void);
+	void					Calculate_Fill_Light(void);
+	void					Set_Fill_Intensity(float intensity)			{ FillIntensity = intensity; }
 
 	/*
 	** Accessors 
@@ -142,6 +145,9 @@ protected:
 
 	Vector3				OutputAmbient;					// scene ambient + lights' ambients
 	OutputLightStruct	OutputLights[MAX_LIGHTS];	// ouput lights
+
+	InputLightStruct 	FillLight;						// Used to store the calculated fill light
+	float					FillIntensity;					// Used to determine how strong the fill light should be
 
 };
 

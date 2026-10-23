@@ -177,7 +177,7 @@ ShdInterfaceClass* ShdSimpleDefClass::Create() const
 Matrix4x4				Shd6SimpleClass::View_Projection_Matrix;
 
 Shd6SimpleClass::Shd6SimpleClass(const ShdDefClass* def)
-:	ShdInterfaceClass(def,SHDDEF_CLASSID_SIMPLE),
+:	ShdInterfaceClass(def),
 	Texture(NULL)
 {
 	ShdSimpleDefClass* Definition=(ShdSimpleDefClass*)def;

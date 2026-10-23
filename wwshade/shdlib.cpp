@@ -71,5 +71,4 @@ void SHD_Register_Loader()
 {
 	WW3DAssetManager::Get_Instance()->Register_Prototype_Loader(&_ShdMeshLoader);
 //	WW3DAssetManager::Get_Instance()->Register_Prototype_Loader(&_ShdMeshLegacyLoader);
-	WW3DAssetManager::Get_Instance()->Register_Prototype_Loader(&_MeshLoader);
 }
