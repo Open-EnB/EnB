@@ -74,7 +74,7 @@ enum
 
 ShdBumpSpecDefClass::ShdBumpSpecDefClass() 
 :	ShdDefClass(SHDDEF_CLASSID_BUMPSPEC),
-	Ambient(1,1,1),
+	Ambient(0,0,0),
 	Diffuse(1,1,1),
 	Specular(1,1,1),
 	Diffuse_Bumpiness(1,0),
@@ -95,14 +95,20 @@ ShdBumpSpecDefClass::ShdBumpSpecDefClass()
 
 ShdBumpSpecDefClass::ShdBumpSpecDefClass(const ShdBumpSpecDefClass& that)
 :	ShdDefClass(that),
-	Ambient(that.Ambient),
-	Diffuse(that.Diffuse),
-	Specular(that.Specular),
-	Diffuse_Bumpiness(that.Diffuse_Bumpiness),
-	Specular_Bumpiness(that.Specular_Bumpiness)
+	Ambient(0,0,0),
+	Diffuse(1,1,1),
+	Specular(1,1,1),
+	Diffuse_Bumpiness(1,0),
+	Specular_Bumpiness(1,0)
 {
 	TextureName=that.TextureName;
 	BumpMapName=that.BumpMapName;
+
+	Ambient=that.Ambient;
+	Diffuse=that.Diffuse;
+	Specular=that.Specular;
+	Diffuse_Bumpiness=that.Diffuse_Bumpiness;
+	Specular_Bumpiness=that.Specular_Bumpiness;
 }
 
 ShdBumpSpecDefClass::~ShdBumpSpecDefClass()

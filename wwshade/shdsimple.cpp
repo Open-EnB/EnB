@@ -69,7 +69,7 @@ enum
 
 ShdSimpleDefClass::ShdSimpleDefClass() 
 :	ShdDefClass(SHDDEF_CLASSID_SIMPLE),
-	Ambient(1,1,1),
+	Ambient(0,0,0),
 	Diffuse(1,1,1)
 {
 	NAMED_TEXTURE_FILENAME_PARAM(ShdSimpleDefClass, TextureName, "Texture Name", "Targa Files", ".tga");

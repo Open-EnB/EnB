@@ -70,7 +70,7 @@ enum
 
 ShdGlossMaskDefClass::ShdGlossMaskDefClass() 
 :	ShdDefClass(SHDDEF_CLASSID_GLOSSMASK),
-	Ambient(1,1,1),
+	Ambient(0,0,0),
 	Diffuse(1,1,1),
 	Specular(1,1,1)
 {
@@ -83,11 +83,15 @@ ShdGlossMaskDefClass::ShdGlossMaskDefClass()
 
 ShdGlossMaskDefClass::ShdGlossMaskDefClass(const ShdGlossMaskDefClass& that)
 :	ShdDefClass(that),
-	Ambient(that.Ambient),
-	Diffuse(that.Diffuse),
-	Specular(that.Specular)
+	Ambient(0,0,0),
+	Diffuse(1,1,1),
+	Specular(1,1,1)
 {
 	TextureName=that.TextureName;
+
+	Ambient=that.Ambient;
+	Diffuse=that.Diffuse;
+	Specular=that.Specular;
 }
 
 ShdGlossMaskDefClass::~ShdGlossMaskDefClass()

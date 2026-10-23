@@ -73,7 +73,7 @@ enum
 
 ShdBumpDiffDefClass::ShdBumpDiffDefClass() 
 :	ShdDefClass(SHDDEF_CLASSID_BUMPDIFF),
-	Ambient(1,1,1),
+	Ambient(0,0,0),
 	Diffuse(1,1,1),
 	Diffuse_Bumpiness(1,0)
 {
@@ -89,12 +89,16 @@ ShdBumpDiffDefClass::ShdBumpDiffDefClass()
 
 ShdBumpDiffDefClass::ShdBumpDiffDefClass(const ShdBumpDiffDefClass& that)
 :	ShdDefClass(that),
-	Ambient(that.Ambient),
-	Diffuse(that.Diffuse),
-	Diffuse_Bumpiness(that.Diffuse_Bumpiness)
+	Ambient(0,0,0),
+	Diffuse(1,1,1),
+	Diffuse_Bumpiness(1,0)
 {
 	TextureName=that.TextureName;
 	BumpMapName=that.BumpMapName;
+
+	Ambient=that.Ambient;
+	Diffuse=that.Diffuse;
+	Diffuse_Bumpiness=that.Diffuse_Bumpiness;
 }
 
 ShdBumpDiffDefClass::~ShdBumpDiffDefClass()

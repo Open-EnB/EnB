@@ -1112,6 +1112,12 @@ WWSHADE_EARLY_PATCHES = {
         ('\tDX8Wrapper::Set_DX8_Material(Material);\n\n}\n',
          '\tDX8Wrapper::Set_DX8_Material(Material);\n\tShdHWVertexShader::Unknown_Set_Lights();\n\n}\n',
          "E&B's light setup for the fixed function shaders (0xA0FC60, after Light in shdhwshader.obj; name not known), called at the end of Shd6CubeMapClass::Apply_Shared 0xA0AF40, Shd6SimpleClass and Shd6GlossMaskClass::Apply_Shared (0xA0CD90, 0xA0D910)"),
+        (':\tShdDefClass(SHDDEF_CLASSID_GLOSSMASK),\n\tAmbient(1,1,1),\n',
+         ':\tShdDefClass(SHDDEF_CLASSID_GLOSSMASK),\n\tAmbient(0,0,0),\n',
+         "E&B's definitions start Ambient at 0,0,0: ShdGlossMaskDefClass() 0xA0C680 (+0x1C..0x24 zero)"),
+        ('\tAmbient(that.Ambient),\n\tDiffuse(that.Diffuse),\n\tSpecular(that.Specular)\n{\n\tTextureName=that.TextureName;\n}\n',
+         '\tAmbient(0,0,0),\n\tDiffuse(1,1,1),\n\tSpecular(1,1,1)\n{\n\tTextureName=that.TextureName;\n\n\tAmbient=that.Ambient;\n\tDiffuse=that.Diffuse;\n\tSpecular=that.Specular;\n}\n',
+         "ShdGlossMaskDefClass(const&) 0xA0C740: copy constructor initialises the members to the defaults and assigns them from that in its body (as ShdSimpleDefClass's)"),
     ],
     ('wwshade', 'shdinterface.cpp'): [
         ('ShdInterfaceClass::ShdInterfaceClass(const ShdDefClass * def, int class_id) : \n\tDefinition(NULL),\n\tClassID(class_id)\n{ \n',
@@ -1231,6 +1237,9 @@ WWSHADE_EARLY_PATCHES = {
         ('\tDX8Wrapper::Set_DX8_Material(Material);\n\tDX8Wrapper::Set_Texture(0, Texture);\n',
          '\tDX8Wrapper::Set_Texture(0, Texture);\n',
          'Shd6SimpleClass::Apply_Instance 0xA0DA00 only sets the texture; the material is set in Apply_Shared 0xA0D910'),
+        (':\tShdDefClass(SHDDEF_CLASSID_SIMPLE),\n\tAmbient(1,1,1),\n',
+         ':\tShdDefClass(SHDDEF_CLASSID_SIMPLE),\n\tAmbient(0,0,0),\n',
+         "E&B's definitions start Ambient at 0,0,0: ShdSimpleDefClass() 0xA0D290 (+0x1C..0x24 zero)"),
     ],
     ('wwshade', 'shdsubmesh.cpp'): [
         ('#include "shdlegacyw3d.h"\n',
@@ -1284,6 +1293,22 @@ WWSHADE_EARLY_PATCHES = {
         ('void ShdHWVertexShader::Light\n(\n\tRenderInfoClass&\t\trinfo,\n\tVector4&\t\t\t\t\tambient,\n\tVector4&\t\t\t\t\tdiffuse\n)\n{\n\tVector4 specular(0,0,0,0);\n\tLight(rinfo,ambient,diffuse,specular);\n}\n',
          "void ShdHWVertexShader::Light\n(\n\tRenderInfoClass&\t\trinfo,\n\tVector4&\t\t\t\t\tambient,\n\tVector4&\t\t\t\t\tdiffuse\n)\n{\n\tVector4 specular(0,0,0,0);\n\tLight(rinfo,ambient,diffuse,specular);\n}\n\n//**********************************************************************************************\n//! E&B: sets the D3D lights from DX8Wrapper's render state for the fixed function shaders,\n//! light 0 with a white specular and DX8Wrapper's ambient colour. Name not known (0xA0FC60).\nvoid ShdHWVertexShader::Unknown_Set_Lights()\n{\n\tRenderStateStruct state;\n\tDX8Wrapper::Get_Render_State(state);\n\n\tfor (int i=0;i<4;i++)\n\t{\n\t\tif (state.LightEnable[i])\n\t\t{\n\t\t\tif (i==0)\n\t\t\t{\n\t\t\t\tconst Vector3& amb=DX8Wrapper::Get_Ambient();\n\t\t\t\tstate.Lights[0].Specular.r=1.0f;\n\t\t\t\tstate.Lights[0].Specular.g=1.0f;\n\t\t\t\tstate.Lights[0].Specular.b=1.0f;\n\t\t\t\tstate.Lights[0].Ambient.r=amb.X;\n\t\t\t\tstate.Lights[0].Ambient.g=amb.Y;\n\t\t\t\tstate.Lights[0].Ambient.b=amb.Z;\n\t\t\t}\n\t\t\tDX8Wrapper::Set_DX8_Light(i,&state.Lights[i]);\n\t\t}\n\t}\n}\n",
          "E&B's light setup for the fixed function shaders (0xA0FC60, after Light in shdhwshader.obj; name not known), called at the end of Shd6CubeMapClass::Apply_Shared 0xA0AF40, Shd6SimpleClass and Shd6GlossMaskClass::Apply_Shared (0xA0CD90, 0xA0D910)"),
+    ],
+    ('wwshade', 'shdbumpdiff.cpp'): [
+        (':\tShdDefClass(SHDDEF_CLASSID_BUMPDIFF),\n\tAmbient(1,1,1),\n',
+         ':\tShdDefClass(SHDDEF_CLASSID_BUMPDIFF),\n\tAmbient(0,0,0),\n',
+         "E&B's definitions start Ambient at 0,0,0: ShdBumpDiffDefClass() 0xA0B370 (+0x20..0x28 zero)"),
+        ('\tAmbient(that.Ambient),\n\tDiffuse(that.Diffuse),\n\tDiffuse_Bumpiness(that.Diffuse_Bumpiness)\n{\n\tTextureName=that.TextureName;\n\tBumpMapName=that.BumpMapName;\n}\n',
+         '\tAmbient(0,0,0),\n\tDiffuse(1,1,1),\n\tDiffuse_Bumpiness(1,0)\n{\n\tTextureName=that.TextureName;\n\tBumpMapName=that.BumpMapName;\n\n\tAmbient=that.Ambient;\n\tDiffuse=that.Diffuse;\n\tDiffuse_Bumpiness=that.Diffuse_Bumpiness;\n}\n',
+         "ShdBumpDiffDefClass(const&) 0xA0B450: copy constructor initialises the members to the defaults and assigns them from that in its body (as ShdSimpleDefClass's)"),
+    ],
+    ('wwshade', 'shdbumpspec.cpp'): [
+        (':\tShdDefClass(SHDDEF_CLASSID_BUMPSPEC),\n\tAmbient(1,1,1),\n',
+         ':\tShdDefClass(SHDDEF_CLASSID_BUMPSPEC),\n\tAmbient(0,0,0),\n',
+         "E&B's definitions start Ambient at 0,0,0: ShdBumpSpecDefClass() 0xA0BCF0 (+0x20..0x28 zero)"),
+        ('\tAmbient(that.Ambient),\n\tDiffuse(that.Diffuse),\n\tSpecular(that.Specular),\n\tDiffuse_Bumpiness(that.Diffuse_Bumpiness),\n\tSpecular_Bumpiness(that.Specular_Bumpiness)\n{\n\tTextureName=that.TextureName;\n\tBumpMapName=that.BumpMapName;\n}\n',
+         '\tAmbient(0,0,0),\n\tDiffuse(1,1,1),\n\tSpecular(1,1,1),\n\tDiffuse_Bumpiness(1,0),\n\tSpecular_Bumpiness(1,0)\n{\n\tTextureName=that.TextureName;\n\tBumpMapName=that.BumpMapName;\n\n\tAmbient=that.Ambient;\n\tDiffuse=that.Diffuse;\n\tSpecular=that.Specular;\n\tDiffuse_Bumpiness=that.Diffuse_Bumpiness;\n\tSpecular_Bumpiness=that.Specular_Bumpiness;\n}\n',
+         "ShdBumpSpecDefClass(const&) 0xA0BDE0: copy constructor initialises the members to the defaults and assigns them from that in its body (as ShdSimpleDefClass's)"),
     ],
 }
 for _key, _edits in WWSHADE_EARLY_PATCHES.items():
