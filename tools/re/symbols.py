@@ -27,7 +27,7 @@ import sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from clientimage import ClientImage  # noqa: E402
 from objmatch import CoffObject, demangle, match_objects  # noqa: E402
-from vtables import find_in_client, vptr_stored, vtables_in  # noqa: E402
+from vtables import confident, find_in_client, vptr_stored, vtables_in  # noqa: E402
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 DATA = os.path.normpath(os.path.join(HERE, '..', '..', 'docs', 'data'))
@@ -82,8 +82,8 @@ def main():
             continue
     vt_named = 0
     for vt, slots in tables.items():
-        base, score = find_in_client(img, slots, known, rdata)
-        if not base or score < 2:
+        base, score, score_own, rarest = find_in_client(img, slots, known, rdata, vt[4:].split('@@')[0])
+        if not base or score < 2 or not confident(score_own, rarest):
             continue
         stored = vptr_stored(img, [base + 4 * k for k in range(-4, 5)])
         if stored and base not in stored:

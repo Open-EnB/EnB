@@ -29,10 +29,12 @@ in `tools/vc6/importer.py` (`PATCHES`, `APPENDS`, `NEW_FILES`, `RECONSTRUCTED`).
    declaration order, so it shows the true layout. Then look for the EA copy that has the member
    or virtual. Unknown E&B additions get neutral names (`m_UnknownXX`), with the evidence in a
    comment.
-3. **Write it as a `PATCHES` entry** (old text, new text, reason) in `importer.py`, and apply it to
-   the tree file. Use a Python script saved in `.work/`, not an inline heredoc: escapes such as
-   `\t`, `\r\n` and `\x` get mangled by the shell. Match the file's own line endings and tabs.
-   Every anchor must occur exactly once.
+3. **Write it as a patch** (old text, new text, reason with the client address) in a spec file in
+   `.work/`, and apply it with `tools/vc6/addpatch.py --block NAME SPEC.py`: it applies it to the
+   tree file and records it in that `importer.py` block (the current block for wwshade's WW3D2:
+   `WWSHADE_API_PATCHES`). Write the spec with a file tool, not a shell heredoc: escapes such as
+   `\t`, `\r\n` and `\x` get mangled by the shell. Every anchor must occur exactly once. To find
+   one function's form quickly, try variants first: `tools/vc6/tryvariants.py LIB FILE V.py`.
 4. **Check.**
    * Save `docs/data/imports.json` first.
    * Run `importer.py verify --lib ...` for every library that includes the changed header.
@@ -67,10 +69,13 @@ compiled into E&B's objects), so they run higher.
   a function splice is not. Run a verify of the affected libraries before committing.
 * **VC6 lists overloaded virtuals in reverse declaration order.** Read the client's slots with
   that in mind. Not knowing it produced a wrong "unknown virtual" once, corrected the same night.
-* **`vtables.py` artefacts.**
-  * A client table showing exactly 16 more slots than ours, all at the end, means the reader ran
-    into the next table; it isn't E&B virtuals.
-  * A class reported against `RenderObjClass`'s own table (0xAE84F8) wasn't found at all.
+* **`vtables.py` and classes whose own code doesn't match yet.** Inherited slots alone don't
+  identify a table: the tool now says "not placed" (or warns "only inherited slots") instead
+  of reporting the base class's table (it used to put such classes on `RenderObjClass`'s
+  0xAE84F8). Seed it with any method's client address: `--seed Class=ADDR` (`client.py refs`
+  finds the table holding a known method). Tables now end at the next table the code stores,
+  so the old "16 extra slots" over-read is gone. Run it after regenerating `symbols.json`
+  (`symbols.py`): its anchors come from there too.
 * **`gaps.py` can misplace a whole object.** It anchors on matched neighbours. If the only match
   is a shared helper (`??_H` vector iterators), the object's gaps land in the wrong region. This
   happened with `rinfo.obj`, placed in the app region: find the real code by an instruction

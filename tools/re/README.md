@@ -8,6 +8,7 @@ pass `--client PATH` otherwise. EA's repositories are expected at `C:\EnBDevelop
 | Tool | Does | Writes |
 |---|---|---|
 | `clientimage.py` | Loads client.exe: sections, strings, the incremental-link thunk table, function starts, references to a set of dwords, disassembly | (module) |
+| `client.py dis\|name\|refs\|callers ADDR...` | Quick lookups with every address named (symbols.json, then gaps reports as `~Name?`, thunks followed): one function's disassembly, what an address is, every dword reference in any section (vtables, data), every direct call or jump (also through thunks) with the calling function | stdout |
 | `easource.py` | Indexes EA's Westwood sources: string literals, `#define` strings and assert expressions, by enclosing function. `LIBRARIES` lists the library copies used | (module) |
 | `srctree.py` | Source paths, `Class::Method` names, RTTI names, assert expressions from the client | `docs/data/source-paths.txt`, `class-methods.txt`, `rtti.txt`, `asserts.txt` |
 | `libversions.py` | Per library file: which EA copy (Renegade, Generals, Zero Hour) the client follows | `docs/data/library-versions.md` |
@@ -18,7 +19,7 @@ pass `--client PATH` otherwise. EA's repositories are expected at `C:\EnBDevelop
 | `libextract.py LIB OUTDIR` | Extracts the object files from a static library (.lib) for byte matching (`tools/vc6/runtime_match.sh`) | OUTDIR |
 | `gaps.py --title T --out OUT file.obj...` | Locates the client's version of each function that isn't byte-exact (between its matched neighbours) and scores the similarity: the reconstruction worklist | OUT.md, OUT.json |
 | `layoutdiff.py --gaps G.json --objs DIR` | For located gaps, tallies member-offset differences per class (`[reg+X]` here, `[reg+Y]` in the client): finds headers whose class layout differs from E&B's | stdout |
-| `vtables.py --objs DIR [--class C]` | Finds the client's copy of each compiled vtable and aligns the slots: E&B's added or removed virtuals | stdout, `--json` |
+| `vtables.py --objs DIR [--class C] [--seed C=ADDR] [--list]` | Finds the client's copy of each compiled vtable and aligns the slots: E&B's added or removed virtuals. Anchors on proven functions and symbols.json, weighting the class's own and rare slots; places nothing on slots most tables share. `--seed` gives the table (or any method in it) for a class whose own code doesn't match yet; `--list` prints both sides slot by slot, named | stdout, `--json` |
 | `classify_gaps.py --gaps G.json --objs DIR` | Splits a library's gaps into linked-but-different and probably-unlinked (by references from code proven to be in the client) | `gaps-*-classified.md` |
 | `symbols.py --objs DIR...` | Symbol map of client.exe from every proof (exact, vtable, strings, thunks), a Ghidra labelling script and a coverage report | `docs/data/symbols.json`, `ghidra_symbols.py`, `docs/coverage.md` |
 | `app_inventory.py` | E&B's own functions: source file (by `__FILE__` references), `Class::Method` names, RTTI vtables | `docs/app-inventory.md`, `docs/data/app-functions.json` |
@@ -47,6 +48,9 @@ Build-VM tools in `tools/vc6`: `vc6.py` (compile in the VM), `bytematch_all.sh` 
 `layout.py CLASS HEADER` (a class's member offsets as VC6 lays it out, read from an unlinked
 object), `trial.py COPY LIB/FILE...` (swap files to another EA copy, keep only if better;
 `--max-loss`; `--errors FILE` writes every compile error, not just the first 15), `trial_all.py LIB COPY...` (trial every differing header/source pair),
+`addpatch.py --block NAME SPEC.py` (apply patches to the tree and record them in one of `importer.py`'s
+patch blocks; creates the block with `--title`), `tryvariants.py LIB FILE VARIANTS.py` (compile
+variants of one file alone and report the client functions each gains or loses),
 `sdk_patch.py` (the Miles header as E&B's build used it, outside the repository). Several VMs:
 `vc6.py discover`; `ENB_VC6_HOSTS` gives a job a subset of them (docs/toolchain.md §1.1).
 
