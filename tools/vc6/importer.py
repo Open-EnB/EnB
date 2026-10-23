@@ -67,7 +67,11 @@ HEADER_EXT = ('.h', '.hpp', '.inl')
 # EH frames (handlers at 0xAE0630+); /GX gains 16 of wwshade's own functions over no /GX (losing
 # only out-of-line copies of other libraries' inline functions), and /Ob1 /GX 15 more over
 # /Ob2 /GX, none lost (2026-10-23, docs/library-matching.md 3.5).
-LIB_FLAGS = {'wwshade': '/nologo /c /MT /W3 /O2 /Ob1 /GX'}
+# wwshade and WWAudio were built with _MBCS: _tcsclen in StringClass(const TCHAR*) is a call to
+# _mbslen (0xA2BCAB), whose only callers are ShdDefClass(classid) 0xA0EC30, the ShdMeshClass ctor
+# 0xA08F80 and WWAudioClass 0x9F1BA0, 0x9F3700; WWAudio /D _MBCS gains those two, none lost.
+LIB_FLAGS = {'wwshade': '/nologo /c /MT /W3 /O2 /Ob1 /GX /D _MBCS',
+             'wwaudio': '/nologo /c /MT /W3 /O2 /Ob2 /D _MBCS'}
 
 
 # EA files the client does not link: not imported (plan, assemble) and dropped from the state.

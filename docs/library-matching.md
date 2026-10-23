@@ -139,6 +139,13 @@ no `/GX` (it loses only out-of-line copies of other libraries' inline functions)
 more, loses none. Zero Hour's copy alone: 46 -> 61. `importer.py LIB_FLAGS` and
 `bytematch_all.sh LIBFLAGS` carry it.
 
+**wwshade and WWAudio were built with `_MBCS`** (2026-10-23): `StringClass(const TCHAR*)`'s
+`_tcsclen` is a call to `_mbslen` (0xA2BCAB) in the client, and its only four callers are
+`ShdDefClass(classid)` 0xA0EC30, the `ShdMeshClass` ctor 0xA08F80 and `WWAudioClass` 0x9F1BA0,
+0x9F3700 (every other library inlines `strlen` there). WWAudio with `/D _MBCS`: +2 (those two),
+none lost; wwshade: nothing gained or lost yet (0xA0EC30 then differs only in a null test the
+client keeps after the call).
+
 **Results (2026-10-22): 2,708 distinct client functions are byte-identical to EA source**,
 about 568 KB of code. Of the first 2,650 counted: 325 under 32 bytes, 461 of 32–63, 698 of
 64–127, 568 of 128–255, 598 of 256 or more. Short functions are weaker evidence on their own, but
