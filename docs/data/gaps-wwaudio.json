@@ -91,33 +91,13 @@
  },
  {
   "object": "FilteredSound.obj",
-  "function": "Sound3DClass::Make_Static",
-  "symbol": "?Make_Static@Sound3DClass@@UAEX_N@Z",
-  "length": 13,
-  "status": "none",
-  "address": "0x9F7A90",
-  "similarity": 0.77,
-  "window": "0x9F7A50-0x9F7AC0"
- },
- {
-  "object": "FilteredSound.obj",
-  "function": "SoundPseudo3DClass::Set_Max_Vol_Radius",
-  "symbol": "?Set_Max_Vol_Radius@SoundPseudo3DClass@@UAEXM@Z",
-  "length": 13,
-  "status": "none",
-  "address": "0x9FFAA0",
-  "similarity": 0.77,
-  "window": "0x9FFA90-0xA00290"
- },
- {
-  "object": "FilteredSound.obj",
   "function": "FilteredSoundClass::FilteredSoundClass",
   "symbol": "??0FilteredSoundClass@@QAE@ABV0@@Z",
   "length": 59,
   "status": "none",
   "address": "0x9FFB30",
   "similarity": 0.67,
-  "window": "0x9FFA90-0xA00290"
+  "window": "0x9FFAB0-0xA002B0"
  },
  {
   "object": "FilteredSound.obj",
@@ -127,7 +107,7 @@
   "status": "none",
   "address": "0x9FFBD0",
   "similarity": 0.42,
-  "window": "0x9FFA90-0xA00290"
+  "window": "0x9FFAB0-0xA002B0"
  },
  {
   "object": "FilteredSound.obj",
@@ -137,7 +117,7 @@
   "status": "none",
   "address": "0x9FFCC0",
   "similarity": 0.5,
-  "window": "0x9FFA90-0xA00290"
+  "window": "0x9FFAB0-0xA002B0"
  },
  {
   "object": "FilteredSound.obj",
@@ -147,13 +127,13 @@
   "status": "none",
   "address": "0x9FFFC0",
   "similarity": 0.79,
-  "window": "0x9FFA90-0xA00290"
+  "window": "0x9FFAB0-0xA002B0"
  },
  {
   "object": "Sound3D.obj",
   "function": "Sound3DClass::Sound3DClass",
   "symbol": "??0Sound3DClass@@QAE@XZ",
-  "length": 83,
+  "length": 113,
   "status": "none",
   "address": "0x9DA480",
   "similarity": 0.63,
@@ -163,31 +143,11 @@
   "object": "Sound3D.obj",
   "function": "Sound3DClass::Sound3DClass",
   "symbol": "??0Sound3DClass@@QAE@ABV0@@Z",
-  "length": 184,
+  "length": 214,
   "status": "none",
   "address": "0x9F7C90",
-  "similarity": 0.67,
-  "window": "0x9F7C00-0x9F91C0"
- },
- {
-  "object": "Sound3D.obj",
-  "function": "Sound3DClass::operator=",
-  "symbol": "??4Sound3DClass@@QAEABV0@ABV0@@Z",
-  "length": 105,
-  "status": "none",
-  "address": "0x9F7DB0",
-  "similarity": 0.79,
-  "window": "0x9F7C00-0x9F91C0"
- },
- {
-  "object": "Sound3D.obj",
-  "function": "Sound3DClass::Play",
-  "symbol": "?Play@Sound3DClass@@UAE_N_N@Z",
-  "length": 92,
-  "status": "none",
-  "address": "0x9F7E20",
-  "similarity": 0.63,
-  "window": "0x9F7C00-0x9F91C0"
+  "similarity": 0.89,
+  "window": "0x9F7C00-0x9F7DB0"
  },
  {
   "object": "Sound3D.obj",
@@ -195,9 +155,9 @@
   "symbol": "?On_Frame_Update@Sound3DClass@@MAE_NI@Z",
   "length": 274,
   "status": "none",
-  "address": "0x9F7D80",
-  "similarity": 0.34,
-  "window": "0x9F7C00-0x9F91C0"
+  "address": "0x9F7E80",
+  "similarity": 0.3,
+  "window": "0x9F7E80-0x9F8DE0"
  },
  {
   "object": "Sound3D.obj",
@@ -207,7 +167,7 @@
   "status": "none",
   "address": "0x9F8180",
   "similarity": 0.79,
-  "window": "0x9F7C00-0x9F91C0"
+  "window": "0x9F7E80-0x9F8DE0"
  },
  {
   "object": "Sound3D.obj",
@@ -217,7 +177,7 @@
   "status": "none",
   "address": "0x9F8350",
   "similarity": 0.38,
-  "window": "0x9F7C00-0x9F91C0"
+  "window": "0x9F7E80-0x9F8DE0"
  },
  {
   "object": "Sound3D.obj",
@@ -227,7 +187,7 @@
   "status": "none",
   "address": "0x9F8630",
   "similarity": 0.43,
-  "window": "0x9F7C00-0x9F91C0"
+  "window": "0x9F7E80-0x9F8DE0"
  },
  {
   "object": "Sound3D.obj",
@@ -237,7 +197,7 @@
   "status": "none",
   "address": "0x9F8680",
   "similarity": 0.92,
-  "window": "0x9F7C00-0x9F91C0"
+  "window": "0x9F7E80-0x9F8DE0"
  },
  {
   "object": "Sound3D.obj",
@@ -247,7 +207,7 @@
   "status": "none",
   "address": "0x9F8760",
   "similarity": 0.37,
-  "window": "0x9F7C00-0x9F91C0"
+  "window": "0x9F7E80-0x9F8DE0"
  },
  {
   "object": "Sound3D.obj",
@@ -255,9 +215,9 @@
   "symbol": "?Set_Velocity@Sound3DClass@@UAEXABVVector3@@@Z",
   "length": 106,
   "status": "none",
-  "address": "0x9F7C50",
-  "similarity": 0.45,
-  "window": "0x9F7C00-0x9F91C0"
+  "address": "0x9F8D00",
+  "similarity": 0.36,
+  "window": "0x9F7E80-0x9F8DE0"
  },
  {
   "object": "Sound3D.obj",
@@ -265,9 +225,9 @@
   "symbol": "?Set_DropOff_Radius@Sound3DClass@@UAEXM@Z",
   "length": 97,
   "status": "none",
-  "address": "0x9F8D00",
-  "similarity": 0.51,
-  "window": "0x9F7C00-0x9F91C0"
+  "address": "0x9F8D70",
+  "similarity": 0.54,
+  "window": "0x9F7E80-0x9F8DE0"
  },
  {
   "object": "Sound3D.obj",
@@ -275,68 +235,18 @@
   "symbol": "?Set_Max_Vol_Radius@Sound3DClass@@UAEXM@Z",
   "length": 97,
   "status": "none",
-  "address": "0x9F8D70",
-  "similarity": 0.49,
-  "window": "0x9F7C00-0x9F91C0"
- },
- {
-  "object": "Sound3D.obj",
-  "function": "Sound3DClass::Initialize_Miles_Handle",
-  "symbol": "?Initialize_Miles_Handle@Sound3DClass@@MAEXXZ",
-  "length": 345,
-  "status": "none",
-  "address": "0x9F8DE0",
-  "similarity": 0.85,
-  "window": "0x9F7C00-0x9F91C0"
- },
- {
-  "object": "Sound3D.obj",
-  "function": "Sound3DClass::Add_To_Scene",
-  "symbol": "?Add_To_Scene@Sound3DClass@@UAEX_N@Z",
-  "length": 65,
-  "status": "none",
-  "address": "0x9F8F70",
-  "similarity": 0.87,
-  "window": "0x9F7C00-0x9F91C0"
- },
- {
-  "object": "Sound3D.obj",
-  "function": "Sound3DClass::Remove_From_Scene",
-  "symbol": "?Remove_From_Scene@Sound3DClass@@UAEXXZ",
-  "length": 68,
-  "status": "none",
-  "address": "0x9F8FC0",
-  "similarity": 0.9,
-  "window": "0x9F7C00-0x9F91C0"
- },
- {
-  "object": "Sound3D.obj",
-  "function": "Sound3DClass::Save",
-  "symbol": "?Save@Sound3DClass@@UAE_NAAVChunkSaveClass@@@Z",
-  "length": 189,
-  "status": "none",
-  "address": "0x9F9030",
-  "similarity": 0.93,
-  "window": "0x9F7C00-0x9F91C0"
- },
- {
-  "object": "Sound3D.obj",
-  "function": "Sound3DClass::Load",
-  "symbol": "?Load@Sound3DClass@@UAE_NAAVChunkLoadClass@@@Z",
-  "length": 200,
-  "status": "none",
-  "address": "0x9F90F0",
-  "similarity": 0.52,
-  "window": "0x9F7C00-0x9F91C0"
+  "address": "0x9F84A0",
+  "similarity": 0.1,
+  "window": "0x9F7E80-0x9F8DE0"
  },
  {
   "object": "Sound3D.obj",
   "function": "?Load@?$SimplePersistFactoryClass@VSound3DClass@@$0DAAAD@@@UBEPAVPersistClass@@AAVChunkLoadClass@@@Z",
   "symbol": "?Load@?$SimplePersistFactoryClass@VSound3DClass@@$0DAAAD@@@UBEPAVPersistClass@@AAVChunkLoadClass@@@Z",
-  "length": 196,
+  "length": 226,
   "status": "none",
   "address": "0x9F9220",
-  "similarity": 0.77,
+  "similarity": 0.82,
   "window": "0x9F9210-0x9F9A10"
  },
  {

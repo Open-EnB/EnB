@@ -199,6 +199,8 @@ class Sound3DClass : public AudibleSoundClass
 		unsigned int			m_LastUpdate;
 		int						m_Unknown160;		// E&B: zeroed at construction, not copied; meaning not known
 		int						m_Unknown164;		// E&B: zeroed at construction, not copied; meaning not known
+		int						m_Unknown168;		// E&B: zeroed at construction, not copied; meaning not known
+		int						m_Unknown16C;		// E&B: zeroed at construction, not copied; meaning not known
 };
 
 

@@ -175,7 +175,7 @@ and fixed so far (importer `PATCHES`, see docs/imports.md):
 | `SceneClass`/`SimpleSceneClass`: Zero Hour's `Get_Scene_ID` virtuals (not its virtual `Render`) | vtable at 0xB120FC, slots 2 and 23 | 8 |
 | Miles API declared `dllimport` (SDK header patched outside the repository) | the client calls Miles through the import table | 30 (WWAudio) |
 | `AudibleSoundClass`: two E&B ints after `m_LoopsLeft` (4 and -1 at construction; `m_Unknown7C`, `m_Unknown80`) | +8 from `m_Length`; both constructors | 31 (WWAudio) |
-| `Sound3DClass`: E&B fields after `m_CurrentVelocity` (12 bytes) and after `m_LastUpdate` (two ints) | +12 from `m_MaxVolRadius`; the constructors zero them | 9 (WWAudio) |
+| `Sound3DClass`: E&B fields after `m_CurrentVelocity` (12 bytes) and after `m_LastUpdate` (four ints) | +12 from `m_MaxVolRadius`; the constructors zero them (the copy constructor at 0x9F7C90 up to +0x16C) | 9 + 10 (WWAudio) |
 | `RingRenderObjClass`, `SphereRenderObjClass` from Zero Hour (LOD support); `Matrix4x4`/`Matrix3x3` as aliases of Renegade's `Matrix4`/`Matrix3` | +0x34/+0x40 shifts | 28 + 31 |
 | `ParticleBufferClass`: Zero Hour's line-group `GroupID` buffer and `CurrentGroupID`, not its `FutureStartTime`; `NewParticleStruct::GroupID` | +4 from `PingPongPosition` | 19 + 1 |
 | `ParticleEmitterClass`: Zero Hour's code, but E&B keeps the future start time in the emitter (`FutureStartTime`, ms; `Reset()` starts `EmitRemain` from it) and takes and keeps the definition's flag (`UnknownFlag`) | the constructor (0x97D180, `ret 0x78`), copy constructor and `Create_From_Definition` | 10 |

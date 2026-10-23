@@ -126,18 +126,18 @@ PATCHES = {
     ('wwaudio', 'sound3d.h'): [
         ('\t\tVector3\t\t\t\t\tm_CurrentVelocity;',
          '\t\tVector3\t\t\t\t\tm_CurrentVelocity;\n\t\tVector3\t\t\t\t\tm_Unknown148;\t\t// E&B: zeroed at construction, not copied; meaning not known',
-         'Sound3DClass has E&B fields: 12 bytes after m_CurrentVelocity (+0x148) and two ints after m_LastUpdate (+0x160, +0x164), all zeroed by the constructors (client 0x9F76A0, 0x9F7C90, 0x9F9220) and not copied by operator=. Meaning not known: m_Unknown148 (a Vector3 by size), m_Unknown160, m_Unknown164'),
+         'Sound3DClass has E&B fields: 12 bytes after m_CurrentVelocity (+0x148) and four ints after m_LastUpdate (+0x160 to +0x16C), all zeroed by the constructors (client 0x9F76A0, 0x9F7C90, 0x9F9220) and not copied by operator=. Meaning not known: m_Unknown148 (a Vector3 by size), m_Unknown160 to m_Unknown16C'),
         ('\t\tunsigned int\t\t\tm_LastUpdate;',
-         '\t\tunsigned int\t\t\tm_LastUpdate;\n\t\tint\t\t\t\t\t\tm_Unknown160;\t\t// E&B: zeroed at construction, not copied; meaning not known\n\t\tint\t\t\t\t\t\tm_Unknown164;\t\t// E&B: zeroed at construction, not copied; meaning not known',
-         'the two ints at the end'),
+         '\t\tunsigned int\t\t\tm_LastUpdate;\n\t\tint\t\t\t\t\t\tm_Unknown160;\t\t// E&B: zeroed at construction, not copied; meaning not known\n\t\tint\t\t\t\t\t\tm_Unknown164;\t\t// E&B: zeroed at construction, not copied; meaning not known\n\t\tint\t\t\t\t\t\tm_Unknown168;\t\t// E&B: zeroed at construction, not copied; meaning not known\n\t\tint\t\t\t\t\t\tm_Unknown16C;\t\t// E&B: zeroed at construction, not copied; meaning not known',
+         'the four ints at the end'),
     ],
     ('wwaudio', 'sound3d.cpp'): [
         ('\t  m_CurrentVelocity (0, 0, 0),',
          '\t  m_CurrentVelocity (0, 0, 0),\n\t  m_Unknown148 (0, 0, 0),',
          'both constructors zero m_Unknown148'),
         ('\t  m_LastUpdate (0),',
-         '\t  m_LastUpdate (0),\n\t  m_Unknown160 (0),\n\t  m_Unknown164 (0),',
-         'and m_Unknown160, m_Unknown164'),
+         '\t  m_LastUpdate (0),\n\t  m_Unknown160 (0),\n\t  m_Unknown164 (0),\n\t  m_Unknown168 (0),\n\t  m_Unknown16C (0),',
+         'and m_Unknown160 to m_Unknown16C'),
     ],
     ('wwmath', 'matrix4.h'): [
         ('#endif /*MATRIX4_H*/',

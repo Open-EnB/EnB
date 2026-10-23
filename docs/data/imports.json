@@ -4410,6 +4410,7 @@
      "0x9FE100",
      "0x9FE120",
      "0x9FE290",
+     "0x9FE2F0",
      "0x9FE350",
      "0x9FE380",
      "0x9FE4C0",
@@ -4498,7 +4499,11 @@
      "0x9F7BF0",
      "0x9FF9E0",
      "0x9FFA10",
-     "0x9FFAA0"
+     "0x9FFAA0",
+     "0xA03530",
+     "0xA035C0",
+     "0xA03640",
+     "0xA03850"
     ],
     "merged": [],
     "name": "FilteredSound.cpp"
@@ -4644,6 +4649,7 @@
      "0x7E6E40",
      "0x909500",
      "0x9DA8C0",
+     "0x9F76A0",
      "0x9F7760",
      "0x9F7800",
      "0x9F7850",
@@ -4656,6 +4662,7 @@
      "0x9F7A90",
      "0x9F7AC0",
      "0x9F7BF0",
+     "0x9F7C90",
      "0x9F7DB0",
      "0x9F7E20",
      "0x9F8DE0",
@@ -4663,7 +4670,8 @@
      "0x9F8FC0",
      "0x9F9030",
      "0x9F90F0",
-     "0x9F91C0"
+     "0x9F91C0",
+     "0x9F9220"
     ],
     "merged": [],
     "name": "Sound3D.cpp"
@@ -4764,7 +4772,8 @@
      "0x9FFAA0",
      "0x9FFB30",
      "0x9FFBF0",
-     "0x9FFDF0"
+     "0x9FFDF0",
+     "0x9FFFC0"
     ],
     "merged": [],
     "name": "SoundPseudo3D.cpp"
@@ -4786,6 +4795,7 @@
      "0x940120",
      "0x9CEFF0",
      "0x9DA8C0",
+     "0x9F93F0",
      "0x9F9580",
      "0x9F95A0",
      "0x9F95B0",
@@ -4988,7 +4998,7 @@
    "soundhandle.h": "R",
    "soundstreamhandle.h": "R"
   },
-  "in_tree_total": 254,
+  "in_tree_total": 264,
   "totals": {
    "G": 68,
    "R": 171,
