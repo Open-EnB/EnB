@@ -1401,6 +1401,7 @@
      "0x42F250",
      "0x909500",
      "0x964810",
+     "0x964860",
      "0x964930",
      "0x964980",
      "0x964A30",
@@ -1414,7 +1415,12 @@
      "0x964DC0",
      "0x964E10"
     ],
-    "merged": [],
+    "merged": [
+     {
+      "copy": "R",
+      "function": "HAnimManagerClass::~HAnimManagerClass"
+     }
+    ],
     "name": "hanimmgr.cpp"
    },
    "hcanim": {
@@ -1836,7 +1842,7 @@
    },
    "lightenvironment": {
     "best": "Z",
-    "copy": "Z",
+    "copy": "R",
     "expected": {
      "G": 3,
      "R": 4,
@@ -1845,10 +1851,11 @@
     "headers_from": "Z",
     "in_tree": [
      "0x42F250",
-     "0x447C40",
+     "0x984E90",
+     "0x984F60",
      "0x985230",
      "0x9852D0",
-     "0x9852F0",
+     "0x9853F0",
      "0x985760"
     ],
     "merged": [],
@@ -2449,18 +2456,37 @@
      "0x463240",
      "0x463340",
      "0x463370",
+     "0x95C2E0",
      "0x95C310",
+     "0x95D890",
      "0x95D8D0",
+     "0x95DA60",
      "0x95DB30",
+     "0x95E990",
      "0x95EA10",
      "0x95EA80",
+     "0x95EAD0",
+     "0x95EC70",
+     "0x95EC90",
+     "0x95ECB0",
+     "0x95ECD0",
+     "0x95ECF0",
+     "0x95ED10",
+     "0x95ED40",
+     "0x95ED60",
      "0x95EF40",
      "0x95F550",
      "0x95F970",
      "0x95FE50",
      "0x960470",
      "0x960920",
+     "0x960CF0",
+     "0x960D10",
      "0x960F10",
+     "0x960F80",
+     "0x961D10",
+     "0x9623E0",
+     "0x9624A0",
      "0x962AC0",
      "0x962CE0",
      "0x962E20",
@@ -4183,7 +4209,7 @@
    "ww3dids.h": "R",
    "ww3dtrig.h": "R"
   },
-  "in_tree_total": 1921,
+  "in_tree_total": 1943,
   "totals": {
    "G": 548,
    "R": 1322,
@@ -7994,11 +8020,11 @@
    "C:\\EnBDevelopment\\EnB\\wwshade\\shdglossmask.cpp(234) : error C2065: 'Set_Vertex_Shader' : undeclared identifier",
    "C:\\EnBDevelopment\\EnB\\wwshade\\shdglossmask.cpp(237) : error C2039: 'Support_ModAlphaAddClr' : is not a member of 'DX8Caps'",
    "C:\\EnBDevelopment\\EnB\\wwshade\\shdglossmask.cpp(286) : error C2039: 'Support_ModAlphaAddClr' : is not a member of 'DX8Caps'",
+   "C:\\EnBDevelopment\\EnB\\wwshade\\shdhwshader.cpp(403) : error C2039: 'Get_Max_Lights' : is not a member of 'LightEnvironmentClass'",
+   "C:\\EnBDevelopment\\EnB\\wwshade\\shdhwshader.cpp(403) : error C2065: 'Get_Max_Lights' : undeclared identifier",
    "C:\\EnBDevelopment\\EnB\\wwshade\\shdhwshader.cpp(425) : error C2039: 'Set_Vertex_Shader_Constant' : is not a member of 'DX8Wrapper'",
    "C:\\EnBDevelopment\\EnB\\wwshade\\shdhwshader.cpp(425) : error C2065: 'Set_Vertex_Shader_Constant' : undeclared identifier",
-   "C:\\EnBDevelopment\\EnB\\wwshade\\shdhwshader.cpp(426) : error C2039: 'Set_Vertex_Shader_Constant' : is not a member of 'DX8Wrapper'",
-   "C:\\EnBDevelopment\\EnB\\wwshade\\shdhwshader.cpp(431) : error C2039: 'Get_Ambient' : is not a member of 'DX8Wrapper'",
-   "C:\\EnBDevelopment\\EnB\\wwshade\\shdhwshader.cpp(431) : error C2065: 'Get_Ambient' : undeclared identifier"
+   "C:\\EnBDevelopment\\EnB\\wwshade\\shdhwshader.cpp(426) : error C2039: 'Set_Vertex_Shader_Constant' : is not a member of 'DX8Wrapper'"
   ],
   "files": {
    "shdbumpdiff": {

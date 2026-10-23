@@ -403,6 +403,7 @@ class ParticleBufferClass : public RenderObjClass
 		ShareBufferClass<Vector4> *	TailDiffuse;	// Only used for line groups
 		ShareBufferClass<uint8> *		Orientation;
 		ShareBufferClass<unsigned int> *	APT;
+		ShareBufferClass<unsigned char> * GroupID;	// Only used for lines (as in Zero Hour)
 
 		// Do we keep two ping-pong position buffers (for collision and possibly other effects
 		// which need the previous frames position as well as this frames)
@@ -435,6 +436,8 @@ class ParticleBufferClass : public RenderObjClass
 
 		// Projected area, used for LOD purposes
 		float									ProjectedArea;
+
+		unsigned char						CurrentGroupID;	// as in Zero Hour
 		
 		// Total Active Particle Buffer Count
 		static unsigned int				TotalActiveCount;

@@ -40,6 +40,8 @@ def main():
     ap.add_argument('copy', choices=['R', 'G', 'Z'])
     ap.add_argument('files', nargs='+', help='LIB/FILE')
     ap.add_argument('--keep-if-better', action='store_true')
+    ap.add_argument('--max-loss', type=int, default=0,
+                    help='keep even if up to N functions are lost, when more are gained (for a refine pass to recover)')
     ap.add_argument('--libs', nargs='*', help='libraries to verify (default: the dependants of every library touched)')
     a = ap.parse_args()
 
@@ -80,7 +82,7 @@ def main():
         lost += x
         print(f'{l:11s} {len(before[l]):5d} -> {len(after):5d}   gained {g}, lost {x}')
 
-    if a.keep_if_better and gained > 0 and lost == 0:
+    if a.keep_if_better and gained > lost and lost <= a.max_loss:
         for lib, new in placed:
             f = trial[lib]['files'].get(importer.key_of(new))
             if new.lower().endswith('.cpp') and f:
@@ -88,7 +90,7 @@ def main():
             else:
                 trial[lib].setdefault('headers', {})[new] = a.copy
         importer.save_state(trial)
-        print(f'KEPT: {gained} gained, none lost')
+        print(f'KEPT: {gained} gained, {lost} lost')
         return
     for lib, new in placed:
         p = os.path.join(importer.dest(lib), new)

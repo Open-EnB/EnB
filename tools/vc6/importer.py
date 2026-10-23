@@ -160,6 +160,14 @@ PATCHES = {
          "Matrix3x3 (Zero Hour's name for Matrix3) as an alias, for the Zero Hour code imported beside "
          "Renegade's WWMath"),
     ],
+    ('ww3d2', 'part_buf.h'): [
+        ('\t\tShareBufferClass<unsigned int> *\tAPT;',
+         '\t\tShareBufferClass<unsigned int> *\tAPT;\n\t\tShareBufferClass<unsigned char> * GroupID;\t// Only used for lines (as in Zero Hour)',
+         "ParticleBufferClass has Zero Hour's line-group members: the GroupID buffer pointer after APT (every member from PingPongPosition, +0x204, is 4 bytes later in the client) and CurrentGroupID at the end; not Zero Hour's FutureStartTime (members before +0x204 don't move)"),
+        ('\t\tfloat\t\t\t\t\t\t\t\t\tProjectedArea;',
+         '\t\tfloat\t\t\t\t\t\t\t\t\tProjectedArea;\n\n\t\tunsigned char\t\t\t\t\t\tCurrentGroupID;\t// as in Zero Hour',
+         'CurrentGroupID at the end'),
+    ],
     ('ww3d2', 'rendobj.h'): [
         ('class RenderObjClass : public RefCountClass , public PersistClass, public MultiListObjectClass',
          """//////////////////////////////////////////////////////////////////////////////////
@@ -578,12 +586,14 @@ def try_with_headers(state, lib, f, c, k, donor):
     return None
 
 
-def refine(state, ev, libs=None):
+def refine(state, ev, libs=None, only=None):
     for lib in libs or state:
         s = state[lib]
         gained = 0
         for k, f in sorted(s['files'].items()):
             if (lib, f['name'].lower()) in RECONSTRUCTED:
+                continue
+            if only and k not in only:
                 continue
             path = os.path.join(dest(lib), f['name'])
             cur = set(f.get('in_tree', []))
@@ -702,6 +712,7 @@ def main():
     ap.add_argument('command', choices=['plan', 'assemble', 'verify', 'refine', 'report', 'all'])
     ap.add_argument('--evidence', help="bytematch_all.sh's work directory")
     ap.add_argument('--lib', action='append', help='limit verify/refine to these libraries')
+    ap.add_argument('--file', action='append', help='limit refine to these source files (e.g. lightenvironment.cpp)')
     a = ap.parse_args()
     if a.command in ('plan', 'assemble', 'refine', 'all') and not a.evidence:
         raise SystemExit('--evidence is required')
@@ -715,7 +726,7 @@ def main():
     if a.command in ('verify', 'all'):
         save_state(verify(state, a.lib))
     if a.command in ('refine', 'all'):
-        save_state(refine(state, ev, a.lib))
+        save_state(refine(state, ev, a.lib, [key_of(f) for f in a.file] if a.file else None))
     if a.command in ('report', 'all'):
         report(state)
 

@@ -98,7 +98,6 @@ HAnimManagerClass::~HAnimManagerClass(void)
 	delete AnimPtrTable;
 	AnimPtrTable = NULL;
 
-	Reset_Missing();
 	delete MissingAnimTable;
 	MissingAnimTable = NULL;
 }
