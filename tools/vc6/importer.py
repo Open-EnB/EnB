@@ -144,6 +144,22 @@ PATCHES = {
          '\t  m_LastUpdate (0),\n\t  m_Unknown160 (0),\n\t  m_Unknown164 (0),',
          'and m_Unknown160, m_Unknown164'),
     ],
+    ('wwmath', 'matrix4.h'): [
+        ('#endif /*MATRIX4_H*/',
+         '// Zero Hour calls this class Matrix4x4; code taken from Zero Hour (sphereobj.cpp, wwshade) uses\n'
+         '// that name. The class is the same, so the name is an alias here.\n'
+         'typedef Matrix4 Matrix4x4;\n\n#endif /*MATRIX4_H*/',
+         "Matrix4x4 (Zero Hour's name for Matrix4) as an alias, for the Zero Hour code imported beside "
+         "Renegade's WWMath; E&B's own name for the class is not known"),
+    ],
+    ('wwmath', 'matrix3.h'): [
+        ('#endif /*Matrix3_H*/',
+         '// Zero Hour calls this class Matrix3x3; code taken from Zero Hour uses that name. The class\n'
+         '// is the same, so the name is an alias here.\n'
+         'typedef Matrix3 Matrix3x3;\n\n#endif /*Matrix3_H*/',
+         "Matrix3x3 (Zero Hour's name for Matrix3) as an alias, for the Zero Hour code imported beside "
+         "Renegade's WWMath"),
+    ],
     ('ww3d2', 'rendobj.h'): [
         ('class RenderObjClass : public RefCountClass , public PersistClass, public MultiListObjectClass',
          """//////////////////////////////////////////////////////////////////////////////////

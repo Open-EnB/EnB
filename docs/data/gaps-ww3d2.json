@@ -1,25 +1,5 @@
 [
  {
-  "object": "agg_def.obj",
-  "function": "AggregateDefClass::Find_Subobject",
-  "symbol": "?Find_Subobject@AggregateDefClass@@MAEPAVRenderObjClass@@AAV2@QAY0CA@$$CBD1@Z",
-  "length": 240,
-  "status": "none",
-  "address": "0x9A3960",
-  "similarity": 0.65,
-  "window": "0x9A3960-0x9A3A50"
- },
- {
-  "object": "agg_def.obj",
-  "function": "AggregateDefClass::Build_Subobject_List",
-  "symbol": "?Build_Subobject_List@AggregateDefClass@@MAEXAAVRenderObjClass@@0@Z",
-  "length": 867,
-  "status": "none",
-  "address": "0x9A3C50",
-  "similarity": 0.85,
-  "window": "0x9A3C50-0x9A3FC0"
- },
- {
   "object": "animatedsoundmgr.obj",
   "function": "StringClass::vector deleting dtor",
   "symbol": "??_EStringClass@@QAEPAXI@Z",
@@ -81,36 +61,6 @@
  },
  {
   "object": "animobj.obj",
-  "function": "RenderObjClass::Set_Has_User_Lighting",
-  "symbol": "?Set_Has_User_Lighting@RenderObjClass@@UAEX_N@Z",
-  "length": 33,
-  "status": "none",
-  "address": "0x9C65A0",
-  "similarity": 0.53,
-  "window": "0x9C4A10-0x9C6CA0"
- },
- {
-  "object": "animobj.obj",
-  "function": "RenderObjClass::Get_Bounding_Sphere",
-  "symbol": "?Get_Bounding_Sphere@RenderObjClass@@UBEABVSphereClass@@XZ",
-  "length": 24,
-  "status": "none",
-  "address": "0x9C5840",
-  "similarity": 0.63,
-  "window": "0x9C4A10-0x9C6CA0"
- },
- {
-  "object": "animobj.obj",
-  "function": "RenderObjClass::Get_Bounding_Box",
-  "symbol": "?Get_Bounding_Box@RenderObjClass@@UBEABVAABoxClass@@XZ",
-  "length": 24,
-  "status": "none",
-  "address": "0x9C5860",
-  "similarity": 0.63,
-  "window": "0x9C4A10-0x9C6CA0"
- },
- {
-  "object": "animobj.obj",
   "function": "Animatable3DObjClass::Render",
   "symbol": "?Render@Animatable3DObjClass@@UAEXAAVRenderInfoClass@@@Z",
   "length": 122,
@@ -162,22 +112,12 @@
  {
   "object": "animobj.obj",
   "function": "Animatable3DObjClass::Get_Bone_Transform",
-  "symbol": "?Get_Bone_Transform@Animatable3DObjClass@@UAEABVMatrix3D@@PBD@Z",
-  "length": 52,
-  "status": "none",
-  "address": "0x9C5CB0",
-  "similarity": 0.92,
-  "window": "0x9C5CB0-0x9C5D80"
- },
- {
-  "object": "animobj.obj",
-  "function": "Animatable3DObjClass::Get_Bone_Transform",
   "symbol": "?Get_Bone_Transform@Animatable3DObjClass@@UAEABVMatrix3D@@H@Z",
   "length": 75,
   "status": "none",
   "address": "0x9C5CF0",
   "similarity": 0.89,
-  "window": "0x9C5CB0-0x9C5D80"
+  "window": "0x9C5CF0-0x9C5D80"
  },
  {
   "object": "animobj.obj",
@@ -447,7 +387,7 @@
   "status": "none",
   "address": "0x4634F0",
   "similarity": 0.06,
-  "window": "0x463260-0x463A60"
+  "window": "0x463390-0x463B90"
  },
  {
   "object": "bmp2d.obj",
@@ -457,7 +397,7 @@
   "status": "none",
   "address": "0x463790",
   "similarity": 0.07,
-  "window": "0x463260-0x463A60"
+  "window": "0x463390-0x463B90"
  },
  {
   "object": "bmp2d.obj",
@@ -465,19 +405,9 @@
   "symbol": "?Get_UV_Array_By_Index@MeshMatDescClass@@QAEPAVVector2@@H_N@Z",
   "length": 139,
   "status": "none",
-  "address": "0x4632F0",
+  "address": "0x4633E0",
   "similarity": 0.16,
-  "window": "0x463260-0x463A60"
- },
- {
-  "object": "boxrobj.obj",
-  "function": "BoxRenderObjClass::render_box",
-  "symbol": "?render_box@BoxRenderObjClass@@IAEXAAVRenderInfoClass@@ABVVector3@@1@Z",
-  "length": 732,
-  "status": "none",
-  "address": "0x9989D0",
-  "similarity": 0.76,
-  "window": "0x9989B0-0x998D80"
+  "window": "0x463390-0x463B90"
  },
  {
   "object": "boxrobj.obj",
@@ -486,18 +416,8 @@
   "length": 165,
   "status": "none",
   "address": "0x998CC0",
-  "similarity": 0.7,
-  "window": "0x9989B0-0x998D80"
- },
- {
-  "object": "boxrobj.obj",
-  "function": "AABoxRenderObjClass::AABoxRenderObjClass",
-  "symbol": "??0AABoxRenderObjClass@@QAE@ABVAABoxClass@@@Z",
-  "length": 306,
-  "status": "none",
-  "address": "0x9990E0",
-  "similarity": 0.92,
-  "window": "0x9990E0-0x999220"
+  "similarity": 0.71,
+  "window": "0x998CB0-0x998D80"
  },
  {
   "object": "boxrobj.obj",
@@ -511,86 +431,6 @@
  },
  {
   "object": "boxrobj.obj",
-  "function": "AABoxRenderObjClass::Set_Transform",
-  "symbol": "?Set_Transform@AABoxRenderObjClass@@UAEXABVMatrix3D@@@Z",
-  "length": 27,
-  "status": "none",
-  "address": "0x9996D0",
-  "similarity": 0.9,
-  "window": "0x9995D0-0x9996F0"
- },
- {
-  "object": "boxrobj.obj",
-  "function": "AABoxRenderObjClass::Set_Position",
-  "symbol": "?Set_Position@AABoxRenderObjClass@@UAEXABVVector3@@@Z",
-  "length": 27,
-  "status": "none",
-  "address": null,
-  "similarity": null,
-  "window": "0x9995D0-0x9996F0"
- },
- {
-  "object": "boxrobj.obj",
-  "function": "AABoxRenderObjClass::Cast_Ray",
-  "symbol": "?Cast_Ray@AABoxRenderObjClass@@UAE_NAAVRayCollisionTestClass@@@Z",
-  "length": 83,
-  "status": "none",
-  "address": "0x999770",
-  "similarity": 0.86,
-  "window": "0x999770-0x9999C0"
- },
- {
-  "object": "boxrobj.obj",
-  "function": "AABoxRenderObjClass::Cast_AABox",
-  "symbol": "?Cast_AABox@AABoxRenderObjClass@@UAE_NAAVAABoxCollisionTestClass@@@Z",
-  "length": 73,
-  "status": "none",
-  "address": "0x9997D0",
-  "similarity": 0.88,
-  "window": "0x999770-0x9999C0"
- },
- {
-  "object": "boxrobj.obj",
-  "function": "AABoxRenderObjClass::Cast_OBBox",
-  "symbol": "?Cast_OBBox@AABoxRenderObjClass@@UAE_NAAVOBBoxCollisionTestClass@@@Z",
-  "length": 111,
-  "status": "none",
-  "address": "0x999820",
-  "similarity": 0.89,
-  "window": "0x999770-0x9999C0"
- },
- {
-  "object": "boxrobj.obj",
-  "function": "AABoxRenderObjClass::Intersect_AABox",
-  "symbol": "?Intersect_AABox@AABoxRenderObjClass@@UAE_NAAVAABoxIntersectionTestClass@@@Z",
-  "length": 50,
-  "status": "none",
-  "address": "0x999890",
-  "similarity": 0.93,
-  "window": "0x999770-0x9999C0"
- },
- {
-  "object": "boxrobj.obj",
-  "function": "AABoxRenderObjClass::Intersect_OBBox",
-  "symbol": "?Intersect_OBBox@AABoxRenderObjClass@@UAE_NAAVOBBoxIntersectionTestClass@@@Z",
-  "length": 50,
-  "status": "none",
-  "address": "0x9998D0",
-  "similarity": 0.93,
-  "window": "0x999770-0x9999C0"
- },
- {
-  "object": "boxrobj.obj",
-  "function": "OBBoxRenderObjClass::OBBoxRenderObjClass",
-  "symbol": "??0OBBoxRenderObjClass@@QAE@ABVOBBoxClass@@@Z",
-  "length": 404,
-  "status": "none",
-  "address": "0x999E00",
-  "similarity": 0.91,
-  "window": "0x999E00-0x999FA0"
- },
- {
-  "object": "boxrobj.obj",
   "function": "OBBoxRenderObjClass::Special_Render",
   "symbol": "?Special_Render@OBBoxRenderObjClass@@UAEXAAVSpecialRenderInfoClass@@@Z",
   "length": 60,
@@ -600,94 +440,14 @@
   "window": "0x99A470-0x99A4F0"
  },
  {
-  "object": "boxrobj.obj",
-  "function": "OBBoxRenderObjClass::Set_Transform",
-  "symbol": "?Set_Transform@OBBoxRenderObjClass@@UAEXABVMatrix3D@@@Z",
-  "length": 27,
+  "object": "camera.obj",
+  "function": "CameraClass::Apply",
+  "symbol": "?Apply@CameraClass@@QAEXXZ",
+  "length": 1264,
   "status": "none",
-  "address": "0x99A4B0",
-  "similarity": 0.9,
-  "window": "0x99A470-0x99A4F0"
- },
- {
-  "object": "boxrobj.obj",
-  "function": "OBBoxRenderObjClass::Set_Position",
-  "symbol": "?Set_Position@OBBoxRenderObjClass@@UAEXABVVector3@@@Z",
-  "length": 27,
-  "status": "none",
-  "address": "0x99A4D0",
-  "similarity": 0.9,
-  "window": "0x99A470-0x99A4F0"
- },
- {
-  "object": "boxrobj.obj",
-  "function": "OBBoxRenderObjClass::Cast_Ray",
-  "symbol": "?Cast_Ray@OBBoxRenderObjClass@@UAE_NAAVRayCollisionTestClass@@@Z",
-  "length": 83,
-  "status": "none",
-  "address": "0x99A5A0",
-  "similarity": 0.86,
-  "window": "0x99A5A0-0x99A830"
- },
- {
-  "object": "boxrobj.obj",
-  "function": "OBBoxRenderObjClass::Cast_AABox",
-  "symbol": "?Cast_AABox@OBBoxRenderObjClass@@UAE_NAAVAABoxCollisionTestClass@@@Z",
-  "length": 111,
-  "status": "none",
-  "address": "0x99A600",
-  "similarity": 0.89,
-  "window": "0x99A5A0-0x99A830"
- },
- {
-  "object": "boxrobj.obj",
-  "function": "OBBoxRenderObjClass::Cast_OBBox",
-  "symbol": "?Cast_OBBox@OBBoxRenderObjClass@@UAE_NAAVOBBoxCollisionTestClass@@@Z",
-  "length": 111,
-  "status": "none",
-  "address": "0x99A670",
-  "similarity": 0.89,
-  "window": "0x99A5A0-0x99A830"
- },
- {
-  "object": "boxrobj.obj",
-  "function": "OBBoxRenderObjClass::Intersect_AABox",
-  "symbol": "?Intersect_AABox@OBBoxRenderObjClass@@UAE_NAAVAABoxIntersectionTestClass@@@Z",
-  "length": 50,
-  "status": "none",
-  "address": "0x99A6E0",
-  "similarity": 0.93,
-  "window": "0x99A5A0-0x99A830"
- },
- {
-  "object": "boxrobj.obj",
-  "function": "OBBoxRenderObjClass::Intersect_OBBox",
-  "symbol": "?Intersect_OBBox@OBBoxRenderObjClass@@UAE_NAAVOBBoxIntersectionTestClass@@@Z",
-  "length": 50,
-  "status": "none",
-  "address": "0x99A720",
-  "similarity": 0.93,
-  "window": "0x99A5A0-0x99A830"
- },
- {
-  "object": "boxrobj.obj",
-  "function": "OBBoxRenderObjClass::Get_Box",
-  "symbol": "?Get_Box@OBBoxRenderObjClass@@QAEAAVOBBoxClass@@XZ",
-  "length": 26,
-  "status": "none",
-  "address": "0x99A810",
-  "similarity": 0.91,
-  "window": "0x99A5A0-0x99A830"
- },
- {
-  "object": "collect.obj",
-  "function": "CollectionClass::operator=",
-  "symbol": "??4CollectionClass@@QAEAAV0@ABV0@@Z",
-  "length": 594,
-  "status": "none",
-  "address": "0x9907B7",
-  "similarity": 0.6,
-  "window": "0x990740-0x9909A0"
+  "address": "0x945440",
+  "similarity": 0.88,
+  "window": "0x945440-0x945930"
  },
  {
   "object": "collect.obj",
@@ -696,7 +456,7 @@
   "length": 86,
   "status": "none",
   "address": "0x990C40",
-  "similarity": 0.85,
+  "similarity": 0.87,
   "window": "0x990C40-0x990D50"
  },
  {
@@ -706,68 +466,8 @@
   "length": 86,
   "status": "none",
   "address": "0x990CA0",
-  "similarity": 0.85,
+  "similarity": 0.87,
   "window": "0x990C40-0x990D50"
- },
- {
-  "object": "collect.obj",
-  "function": "CollectionClass::Add_Sub_Object",
-  "symbol": "?Add_Sub_Object@CollectionClass@@UAEHPAVRenderObjClass@@@Z",
-  "length": 184,
-  "status": "none",
-  "address": "0x990D90",
-  "similarity": 0.86,
-  "window": "0x990D90-0x990FC0"
- },
- {
-  "object": "collect.obj",
-  "function": "CollectionClass::Remove_Sub_Object",
-  "symbol": "?Remove_Sub_Object@CollectionClass@@UAEHPAVRenderObjClass@@@Z",
-  "length": 359,
-  "status": "none",
-  "address": "0x990E50",
-  "similarity": 0.89,
-  "window": "0x990D90-0x990FC0"
- },
- {
-  "object": "collect.obj",
-  "function": "CollectionClass::Cast_Ray",
-  "symbol": "?Cast_Ray@CollectionClass@@UAE_NAAVRayCollisionTestClass@@@Z",
-  "length": 72,
-  "status": "none",
-  "address": null,
-  "similarity": null,
-  "window": "0x990D90-0x990FC0"
- },
- {
-  "object": "collect.obj",
-  "function": "CollectionClass::Scale",
-  "symbol": "?Scale@CollectionClass@@UAEXM@Z",
-  "length": 56,
-  "status": "none",
-  "address": "0x991260",
-  "similarity": 0.73,
-  "window": "0x991220-0x9917A0"
- },
- {
-  "object": "collect.obj",
-  "function": "CollectionClass::Scale",
-  "symbol": "?Scale@CollectionClass@@UAEXMMM@Z",
-  "length": 68,
-  "status": "none",
-  "address": "0x991730",
-  "similarity": 0.46,
-  "window": "0x991220-0x9917A0"
- },
- {
-  "object": "collect.obj",
-  "function": "CollectionClass::Update_Obj_Space_Bounding_Volumes",
-  "symbol": "?Update_Obj_Space_Bounding_Volumes@CollectionClass@@UAEXXZ",
-  "length": 1149,
-  "status": "none",
-  "address": "0x9912B0",
-  "similarity": 0.86,
-  "window": "0x991220-0x9917A0"
  },
  {
   "object": "collect.obj",
@@ -775,9 +475,9 @@
   "symbol": "?Update_Sub_Object_Transforms@CollectionClass@@MAEXXZ",
   "length": 97,
   "status": "none",
-  "address": null,
-  "similarity": null,
-  "window": "0x991220-0x9917A0"
+  "address": "0x991730",
+  "similarity": 0.89,
+  "window": "0x991730-0x9917A0"
  },
  {
   "object": "collect.obj",
@@ -805,9 +505,9 @@
   "symbol": "??0CompositeRenderObjClass@@QAE@ABV0@@Z",
   "length": 285,
   "status": "none",
-  "address": "0x77C050",
-  "similarity": 0.1,
-  "window": "0x77C020-0x77C820"
+  "address": "0x985EF0",
+  "similarity": 0.48,
+  "window": "0x985EF0-0x986050"
  },
  {
   "object": "composite.obj",
@@ -815,49 +515,9 @@
   "symbol": "?Set_Base_Model_Name@CompositeRenderObjClass@@UAEXPBD@Z",
   "length": 83,
   "status": "none",
-  "address": "0x77C030",
-  "similarity": 0.25,
-  "window": "0x77C020-0x77C820"
- },
- {
-  "object": "composite.obj",
-  "function": "CompositeRenderObjClass::Cast_Ray",
-  "symbol": "?Cast_Ray@CompositeRenderObjClass@@UAE_NAAVRayCollisionTestClass@@@Z",
-  "length": 90,
-  "status": "none",
-  "address": "0x77C080",
-  "similarity": 0.03,
-  "window": "0x77C020-0x77C820"
- },
- {
-  "object": "composite.obj",
-  "function": "CompositeRenderObjClass::Create_Decal",
-  "symbol": "?Create_Decal@CompositeRenderObjClass@@UAEXPAVDecalGeneratorClass@@@Z",
-  "length": 76,
-  "status": "none",
-  "address": null,
-  "similarity": null,
-  "window": "0x77C020-0x77C820"
- },
- {
-  "object": "composite.obj",
-  "function": "CompositeRenderObjClass::Update_Obj_Space_Bounding_Volumes",
-  "symbol": "?Update_Obj_Space_Bounding_Volumes@CompositeRenderObjClass@@UAEXXZ",
-  "length": 1015,
-  "status": "none",
-  "address": null,
-  "similarity": null,
-  "window": "0x77C020-0x77C820"
- },
- {
-  "object": "composite.obj",
-  "function": "CompositeRenderObjClass::Set_User_Data",
-  "symbol": "?Set_User_Data@CompositeRenderObjClass@@UAEXPAX_N@Z",
-  "length": 95,
-  "status": "none",
-  "address": null,
-  "similarity": null,
-  "window": "0x77C020-0x77C820"
+  "address": "0x986150",
+  "similarity": 0.89,
+  "window": "0x986140-0x986260"
  },
  {
   "object": "dazzle.obj",
@@ -945,8 +605,8 @@
   "symbol": "?Scale@DazzleRenderObjClass@@UAEXM@Z",
   "length": 19,
   "status": "none",
-  "address": "0x96E380",
-  "similarity": 0.6,
+  "address": "0x96BAB0",
+  "similarity": 0.86,
   "window": "0x96B9D0-0x96E3D0"
  },
  {
@@ -975,8 +635,8 @@
   "symbol": "??4DazzleRenderObjClass@@QAEAAV0@ABV0@@Z",
   "length": 201,
   "status": "none",
-  "address": "0x96BF30",
-  "similarity": 0.22,
+  "address": "0x96BAA0",
+  "similarity": 0.25,
   "window": "0x96B9D0-0x96E3D0"
  },
  {
@@ -985,8 +645,8 @@
   "symbol": "?Get_Obj_Space_Bounding_Sphere@DazzleRenderObjClass@@UBEXAAVSphereClass@@@Z",
   "length": 26,
   "status": "none",
-  "address": "0x96BEC0",
-  "similarity": 0.45,
+  "address": "0x96BF80",
+  "similarity": 0.58,
   "window": "0x96B9D0-0x96E3D0"
  },
  {
@@ -995,8 +655,8 @@
   "symbol": "?Get_Obj_Space_Bounding_Box@DazzleRenderObjClass@@UBEXAAVAABoxClass@@@Z",
   "length": 44,
   "status": "none",
-  "address": "0x96E3B0",
-  "similarity": 0.32,
+  "address": "0x96BEC0",
+  "similarity": 0.47,
   "window": "0x96B9D0-0x96E3D0"
  },
  {
@@ -1005,8 +665,8 @@
   "symbol": "?Set_Layer@DazzleRenderObjClass@@QAEXPAVDazzleLayerClass@@@Z",
   "length": 71,
   "status": "none",
-  "address": "0x96BF90",
-  "similarity": 0.36,
+  "address": "0x96BF30",
+  "similarity": 0.79,
   "window": "0x96B9D0-0x96E3D0"
  },
  {
@@ -1015,8 +675,8 @@
   "symbol": "?Clone@DazzleRenderObjClass@@UBEPAVRenderObjClass@@XZ",
   "length": 34,
   "status": "none",
-  "address": "0x96BAD0",
-  "similarity": 0.37,
+  "address": "0x96BF90",
+  "similarity": 0.92,
   "window": "0x96B9D0-0x96E3D0"
  },
  {
@@ -1065,8 +725,8 @@
   "symbol": "?Get_Type_Name@DazzleRenderObjClass@@SAPBDI@Z",
   "length": 36,
   "status": "none",
-  "address": null,
-  "similarity": null,
+  "address": "0x96E380",
+  "similarity": 0.76,
   "window": "0x96B9D0-0x96E3D0"
  },
  {
@@ -1127,17 +787,7 @@
   "status": "none",
   "address": "0x96EC30",
   "similarity": 0.81,
-  "window": "0x96EC30-0x96EE60"
- },
- {
-  "object": "dazzle.obj",
-  "function": "DazzleVisibilityClass::Compute_Dazzle_Visibility",
-  "symbol": "?Compute_Dazzle_Visibility@DazzleVisibilityClass@@UBEMAAVRenderInfoClass@@PAVDazzleRenderObjClass@@ABVVector3@@@Z",
-  "length": 116,
-  "status": "none",
-  "address": "0x96EC80",
-  "similarity": 0.87,
-  "window": "0x96EC30-0x96EE60"
+  "window": "0x96EC30-0x96EC80"
  },
  {
   "object": "dazzle.obj",
@@ -1147,7 +797,7 @@
   "status": "none",
   "address": "0x96ED00",
   "similarity": 0.91,
-  "window": "0x96EC30-0x96EE60"
+  "window": "0x96ED00-0x96EE60"
  },
  {
   "object": "dazzle.obj",
@@ -1157,7 +807,7 @@
   "status": "none",
   "address": "0x96ED30",
   "similarity": 0.65,
-  "window": "0x96EC30-0x96EE60"
+  "window": "0x96ED00-0x96EE60"
  },
  {
   "object": "ddsfile.obj",
@@ -1210,6 +860,16 @@
   "window": "0x9A2050-0x9A2850"
  },
  {
+  "object": "decalmsh.obj",
+  "function": "RigidDecalMeshClass::Create_Decal",
+  "symbol": "?Create_Decal@RigidDecalMeshClass@@UAE_NPAVDecalGeneratorClass@@ABVOBBoxClass@@AAV?$SimpleDynVecClass@K@@PBV?$DynamicVectorClass@VVector3@@@@@Z",
+  "length": 2458,
+  "status": "none",
+  "address": "0x9B7250",
+  "similarity": 0.91,
+  "window": "0x9B7250-0x9B7BF0"
+ },
+ {
   "object": "decalsys.obj",
   "function": "DecalGeneratorClass::Set_Mesh_Transform",
   "symbol": "?Set_Mesh_Transform@DecalGeneratorClass@@QAEXABVMatrix3D@@@Z",
@@ -1218,96 +878,6 @@
   "address": "0x981490",
   "similarity": 0.89,
   "window": "0x981480-0x981520"
- },
- {
-  "object": "decalsys.obj",
-  "function": "MultiFixedPoolDecalSystemClass::Lock_Decal_Generator",
-  "symbol": "?Lock_Decal_Generator@MultiFixedPoolDecalSystemClass@@UAEPAVDecalGeneratorClass@@XZ",
-  "length": 357,
-  "status": "none",
-  "address": "0x981A40",
-  "similarity": 0.9,
-  "window": "0x981A40-0x981CC0"
- },
- {
-  "object": "decalsys.obj",
-  "function": "MultiFixedPoolDecalSystemClass::Unlock_Decal_Generator",
-  "symbol": "?Unlock_Decal_Generator@MultiFixedPoolDecalSystemClass@@UAEXPAVDecalGeneratorClass@@@Z",
-  "length": 263,
-  "status": "none",
-  "address": "0x981BB0",
-  "similarity": 0.85,
-  "window": "0x981A40-0x981CC0"
- },
- {
-  "object": "decalsys.obj",
-  "function": "MultiFixedPoolDecalSystemClass::Clear_Decal_Slot",
-  "symbol": "?Clear_Decal_Slot@MultiFixedPoolDecalSystemClass@@QAEXKK@Z",
-  "length": 124,
-  "status": "none",
-  "address": "0x981D20",
-  "similarity": 0.83,
-  "window": "0x981D20-0x981F20"
- },
- {
-  "object": "decalsys.obj",
-  "function": "MultiFixedPoolDecalSystemClass::Clear_Pool",
-  "symbol": "?Clear_Pool@MultiFixedPoolDecalSystemClass@@QAEXK@Z",
-  "length": 166,
-  "status": "none",
-  "address": "0x981DA0",
-  "similarity": 0.86,
-  "window": "0x981D20-0x981F20"
- },
- {
-  "object": "decalsys.obj",
-  "function": "MultiFixedPoolDecalSystemClass::Clear_All_Decals",
-  "symbol": "?Clear_All_Decals@MultiFixedPoolDecalSystemClass@@QAEXXZ",
-  "length": 204,
-  "status": "none",
-  "address": "0x981E50",
-  "similarity": 0.84,
-  "window": "0x981D20-0x981F20"
- },
- {
-  "object": "decalsys.obj",
-  "function": "LogicalDecalClass::Set",
-  "symbol": "?Set@LogicalDecalClass@MultiFixedPoolDecalSystemClass@@QAEXPAVDecalGeneratorClass@@@Z",
-  "length": 176,
-  "status": "none",
-  "address": "0x981FF0",
-  "similarity": 0.62,
-  "window": "0x981FF0-0x982100"
- },
- {
-  "object": "decalsys.obj",
-  "function": "LogicalDecalClass::Clear",
-  "symbol": "?Clear@LogicalDecalClass@MultiFixedPoolDecalSystemClass@@QAEXK@Z",
-  "length": 74,
-  "status": "none",
-  "address": "0x9820F0",
-  "similarity": 0.23,
-  "window": "0x981FF0-0x982100"
- },
- {
-  "object": "distlod.obj",
-  "function": "DistLODClass::Render",
-  "symbol": "?Render@DistLODClass@@UAEXAAVRenderInfoClass@@@Z",
-  "length": 562,
-  "status": "none",
-  "address": "0x9A5490",
-  "similarity": 0.48,
-  "window": "0x9A5250-0x9A56C0"
- },
- {
-  "object": "distlod.obj",
-  "function": "DistLODClass::Special_Render",
-  "symbol": "?Special_Render@DistLODClass@@UAEXAAVSpecialRenderInfoClass@@@Z",
-  "length": 544,
-  "status": "none",
-  "address": null,
-  "similarity": null,
-  "window": "0x9A5250-0x9A56C0"
  },
  {
   "object": "distlod.obj",
@@ -1350,154 +920,114 @@
   "window": "0x9A5840-0x9A5970"
  },
  {
-  "object": "distlod.obj",
-  "function": "DistLODClass::Peek_Animation",
-  "symbol": "?Peek_Animation@DistLODClass@@UAEPAVHAnimClass@@XZ",
-  "length": 16,
+  "object": "dx8caps.obj",
+  "function": "DX8Caps::Get_Matrox_Device",
+  "symbol": "?Get_Matrox_Device@DX8Caps@@CA?AW4DeviceTypeMatrox@1@I@Z",
+  "length": 148,
   "status": "none",
-  "address": null,
-  "similarity": null,
-  "window": "0x9A5840-0x9A5970"
+  "address": "0x9AFDC0",
+  "similarity": 0.38,
+  "window": "0x9AFDC0-0x9AFE80"
  },
  {
-  "object": "distlod.obj",
-  "function": "DistLODClass::Get_Bone_Name",
-  "symbol": "?Get_Bone_Name@DistLODClass@@UAEPBDH@Z",
-  "length": 24,
+  "object": "dx8caps.obj",
+  "function": "DX8Caps::DX8Caps",
+  "symbol": "??0DX8Caps@@QAE@PAUIDirect3D8@@PAUIDirect3DDevice8@@W4WW3DFormat@@ABU_D3DADAPTER_IDENTIFIER8@@@Z",
+  "length": 266,
   "status": "none",
-  "address": null,
-  "similarity": null,
-  "window": "0x9A5980-0x9A5990"
+  "address": "0x9AFEF0",
+  "similarity": 0.8,
+  "window": "0x9AFEF0-0x9B00D0"
  },
  {
-  "object": "distlod.obj",
-  "function": "DistLODClass::Capture_Bone",
-  "symbol": "?Capture_Bone@DistLODClass@@UAEXH@Z",
-  "length": 63,
+  "object": "dx8caps.obj",
+  "function": "DX8Caps::DX8Caps",
+  "symbol": "??0DX8Caps@@QAE@PAUIDirect3D8@@ABU_D3DCAPS8@@W4WW3DFormat@@ABU_D3DADAPTER_IDENTIFIER8@@@Z",
+  "length": 203,
   "status": "none",
-  "address": "0x9A59D0",
-  "similarity": 0.19,
-  "window": "0x9A59D0-0x9A5A10"
+  "address": "0x9B0000",
+  "similarity": 0.81,
+  "window": "0x9AFEF0-0x9B00D0"
  },
  {
-  "object": "distlod.obj",
-  "function": "DistLODClass::Is_Bone_Captured",
-  "symbol": "?Is_Bone_Captured@DistLODClass@@UBE_NH@Z",
-  "length": 24,
+  "object": "dx8caps.obj",
+  "function": "DX8Caps::Compute_Caps",
+  "symbol": "?Compute_Caps@DX8Caps@@QAEXW4WW3DFormat@@ABU_D3DADAPTER_IDENTIFIER8@@@Z",
+  "length": 4944,
   "status": "none",
-  "address": "0x9A5A90",
-  "similarity": 0.9,
-  "window": "0x9A5A50-0x9A6250"
+  "address": "0x9B0160",
+  "similarity": 0.42,
+  "window": "0x9B0160-0x9B2510"
  },
  {
-  "object": "distlod.obj",
-  "function": "DistLODClass::Control_Bone",
-  "symbol": "?Control_Bone@DistLODClass@@UAEXHABVMatrix3D@@_N@Z",
-  "length": 73,
+  "object": "dx8caps.obj",
+  "function": "DX8Caps::Check_Bumpmap_Support",
+  "symbol": "?Check_Bumpmap_Support@DX8Caps@@AAEXABU_D3DCAPS8@@@Z",
+  "length": 418,
   "status": "none",
-  "address": "0x9A5AB0",
-  "similarity": 0.91,
-  "window": "0x9A5A50-0x9A6250"
+  "address": "0x9B1620",
+  "similarity": 0.77,
+  "window": "0x9B0160-0x9B2510"
  },
  {
-  "object": "distlod.obj",
-  "function": "DistLODClass::Cast_Ray",
-  "symbol": "?Cast_Ray@DistLODClass@@UAE_NAAVRayCollisionTestClass@@@Z",
-  "length": 49,
+  "object": "dx8caps.obj",
+  "function": "DX8Caps::Check_Texture_Compression_Support",
+  "symbol": "?Check_Texture_Compression_Support@DX8Caps@@AAEXABU_D3DCAPS8@@@Z",
+  "length": 233,
   "status": "none",
-  "address": "0x9A5B00",
-  "similarity": 0.9,
-  "window": "0x9A5A50-0x9A6250"
+  "address": "0x9B17D0",
+  "similarity": 0.78,
+  "window": "0x9B0160-0x9B2510"
  },
  {
-  "object": "distlod.obj",
-  "function": "DistLODClass::Cast_AABox",
-  "symbol": "?Cast_AABox@DistLODClass@@UAE_NAAVAABoxCollisionTestClass@@@Z",
-  "length": 49,
+  "object": "dx8caps.obj",
+  "function": "DX8Caps::Check_Texture_Format_Support",
+  "symbol": "?Check_Texture_Format_Support@DX8Caps@@AAEXW4WW3DFormat@@ABU_D3DCAPS8@@@Z",
+  "length": 423,
   "status": "none",
-  "address": "0x9A5B40",
-  "similarity": 0.9,
-  "window": "0x9A5A50-0x9A6250"
+  "address": "0x9B18C0",
+  "similarity": 0.84,
+  "window": "0x9B0160-0x9B2510"
  },
  {
-  "object": "distlod.obj",
-  "function": "DistLODClass::Cast_OBBox",
-  "symbol": "?Cast_OBBox@DistLODClass@@UAE_NAAVOBBoxCollisionTestClass@@@Z",
-  "length": 49,
+  "object": "dx8caps.obj",
+  "function": "DX8Caps::Check_Render_To_Texture_Support",
+  "symbol": "?Check_Render_To_Texture_Support@DX8Caps@@AAEXW4WW3DFormat@@ABU_D3DCAPS8@@@Z",
+  "length": 423,
   "status": "none",
-  "address": "0x9A5B80",
-  "similarity": 0.9,
-  "window": "0x9A5A50-0x9A6250"
+  "address": "0x9B1A70",
+  "similarity": 0.84,
+  "window": "0x9B0160-0x9B2510"
  },
  {
-  "object": "distlod.obj",
-  "function": "DistLODClass::Get_Num_Snap_Points",
-  "symbol": "?Get_Num_Snap_Points@DistLODClass@@UAEHXZ",
-  "length": 16,
+  "object": "dx8caps.obj",
+  "function": "DX8Caps::Check_Shader_Support",
+  "symbol": "?Check_Shader_Support@DX8Caps@@AAEXABU_D3DCAPS8@@@Z",
+  "length": 231,
   "status": "none",
-  "address": "0x9A5BC0",
-  "similarity": 0.29,
-  "window": "0x9A5A50-0x9A6250"
+  "address": "0x9B1DC0",
+  "similarity": 0.8,
+  "window": "0x9B0160-0x9B2510"
  },
  {
-  "object": "distlod.obj",
-  "function": "DistLODClass::Get_Snap_Point",
-  "symbol": "?Get_Snap_Point@DistLODClass@@UAEXHPAVVector3@@@Z",
-  "length": 29,
+  "object": "dx8caps.obj",
+  "function": "DX8Caps::Check_Driver_Version_Status",
+  "symbol": "?Check_Driver_Version_Status@DX8Caps@@AAEXXZ",
+  "length": 1625,
   "status": "none",
-  "address": "0x9A5C40",
-  "similarity": 0.24,
-  "window": "0x9A5A50-0x9A6250"
+  "address": "0x9B1EB0",
+  "similarity": 0.65,
+  "window": "0x9B0160-0x9B2510"
  },
  {
-  "object": "distlod.obj",
-  "function": "DistLODClass::Scale",
-  "symbol": "?Scale@DistLODClass@@UAEXM@Z",
-  "length": 65,
+  "object": "dx8caps.obj",
+  "function": "DX8Caps::Vendor_Specific_Hacks",
+  "symbol": "?Vendor_Specific_Hacks@DX8Caps@@AAEXABU_D3DADAPTER_IDENTIFIER8@@@Z",
+  "length": 2087,
   "status": "none",
-  "address": "0x9A5BF0",
-  "similarity": 0.91,
-  "window": "0x9A5A50-0x9A6250"
- },
- {
-  "object": "distlod.obj",
-  "function": "DistLODClass::Scale",
-  "symbol": "?Scale@DistLODClass@@UAEXMMM@Z",
-  "length": 73,
-  "status": "none",
-  "address": "0x9A5A50",
-  "similarity": 0.68,
-  "window": "0x9A5A50-0x9A6250"
- },
- {
-  "object": "distlod.obj",
-  "function": "DistLODClass::Update_Lod",
-  "symbol": "?Update_Lod@DistLODClass@@AAEXABVCameraClass@@@Z",
-  "length": 517,
-  "status": "none",
-  "address": "0x9A5C90",
-  "similarity": 0.87,
-  "window": "0x9A5A50-0x9A6250"
- },
- {
-  "object": "distlod.obj",
-  "function": "DistLODClass::Increment_Lod",
-  "symbol": "?Increment_Lod@DistLODClass@@AAEXXZ",
-  "length": 108,
-  "status": "none",
-  "address": "0x9A5EA0",
-  "similarity": 0.86,
-  "window": "0x9A5A50-0x9A6250"
- },
- {
-  "object": "distlod.obj",
-  "function": "DistLODClass::Decrement_Lod",
-  "symbol": "?Decrement_Lod@DistLODClass@@AAEXXZ",
-  "length": 117,
-  "status": "none",
-  "address": "0x9A5F10",
-  "similarity": 0.89,
-  "window": "0x9A5A50-0x9A6250"
+  "address": "0x9B2540",
+  "similarity": 0.45,
+  "window": "0x9B2540-0x9B2D40"
  },
  {
   "object": "dx8fvf.obj",
@@ -2006,7 +1536,7 @@
   "length": 274,
   "status": "none",
   "address": "0x921DA0",
-  "similarity": 0.43,
+  "similarity": 0.42,
   "window": "0x921C20-0x922C00"
  },
  {
@@ -2216,7 +1746,7 @@
   "length": 119,
   "status": "none",
   "address": "0x926140",
-  "similarity": 0.7,
+  "similarity": 0.67,
   "window": "0x926110-0x9261C0"
  },
  {
@@ -2341,93 +1871,13 @@
  },
  {
   "object": "dynamesh.obj",
-  "function": "DynamicMeshClass::Render",
-  "symbol": "?Render@DynamicMeshClass@@UAEXAAVRenderInfoClass@@@Z",
-  "length": 477,
-  "status": "none",
-  "address": "0x975E30",
-  "similarity": 0.91,
-  "window": "0x975E30-0x976320"
- },
- {
-  "object": "dynamesh.obj",
-  "function": "DynamicMeshClass::End_Vertex",
-  "symbol": "?End_Vertex@DynamicMeshClass@@QAE_NXZ",
-  "length": 775,
-  "status": "none",
-  "address": "0x976010",
-  "similarity": 0.91,
-  "window": "0x975E30-0x976320"
- },
- {
-  "object": "dynamesh.obj",
   "function": "DynamicMeshClass::Reset",
   "symbol": "?Reset@DynamicMeshClass@@UAEXXZ",
   "length": 235,
   "status": "none",
-  "address": "0x976760",
-  "similarity": 0.39,
+  "address": "0x9753AF",
+  "similarity": 0.24,
   "window": "0x9748B0-0x977880"
- },
- {
-  "object": "dynamesh.obj",
-  "function": "DynamicMeshClass::Resize",
-  "symbol": "?Resize@DynamicMeshClass@@QAEXHH@Z",
-  "length": 131,
-  "status": "none",
-  "address": null,
-  "similarity": null,
-  "window": "0x976760-0x9767F0"
- },
- {
-  "object": "dynamesh.obj",
-  "function": "DynamicMeshClass::Translate_Vertices",
-  "symbol": "?Translate_Vertices@DynamicMeshClass@@QAEXABVVector3@@@Z",
-  "length": 121,
-  "status": "none",
-  "address": "0x976970",
-  "similarity": 0.91,
-  "window": "0x976970-0x976F30"
- },
- {
-  "object": "dynamesh.obj",
-  "function": "DynamicMeshClass::Set_Vertex_Material",
-  "symbol": "?Set_Vertex_Material@DynamicMeshClass@@QAEHHH@Z",
-  "length": 102,
-  "status": "none",
-  "address": "0x9769F0",
-  "similarity": 0.9,
-  "window": "0x976970-0x976F30"
- },
- {
-  "object": "dynamesh.obj",
-  "function": "DynamicMeshClass::Set_Vertex_Material",
-  "symbol": "?Set_Vertex_Material@DynamicMeshClass@@QAEHPAVVertexMaterialClass@@_NH@Z",
-  "length": 615,
-  "status": "none",
-  "address": "0x976A60",
-  "similarity": 0.81,
-  "window": "0x976970-0x976F30"
- },
- {
-  "object": "dynamesh.obj",
-  "function": "DynamicMeshClass::Set_Texture",
-  "symbol": "?Set_Texture@DynamicMeshClass@@QAEHHH@Z",
-  "length": 97,
-  "status": "none",
-  "address": "0x976D40",
-  "similarity": 0.21,
-  "window": "0x976970-0x976F30"
- },
- {
-  "object": "dynamesh.obj",
-  "function": "DynamicMeshClass::Set_Texture",
-  "symbol": "?Set_Texture@DynamicMeshClass@@QAEHPAVTextureClass@@_NH@Z",
-  "length": 493,
-  "status": "none",
-  "address": null,
-  "similarity": null,
-  "window": "0x976970-0x976F30"
  },
  {
   "object": "font3d.obj",
@@ -2531,143 +1981,13 @@
  },
  {
   "object": "hlod.obj",
-  "function": "HLodDefClass::Initialize",
-  "symbol": "?Initialize@HLodDefClass@@QAEXAAVHLodClass@@@Z",
-  "length": 568,
-  "status": "none",
-  "address": "0x98B160",
-  "similarity": 0.87,
-  "window": "0x98B160-0x98B3A0"
- },
- {
-  "object": "hlod.obj",
-  "function": "HLodClass::HLodClass",
-  "symbol": "??0HLodClass@@QAE@PBDPAPAVRenderObjClass@@H@Z",
-  "length": 1088,
-  "status": "none",
-  "address": "0x98BF30",
-  "similarity": 0.77,
-  "window": "0x98BF30-0x98C370"
- },
- {
-  "object": "hlod.obj",
-  "function": "HLodClass::HLodClass",
-  "symbol": "??0HLodClass@@QAE@ABVHLodDefClass@@@Z",
-  "length": 884,
-  "status": "none",
-  "address": "0x98C420",
-  "similarity": 0.87,
-  "window": "0x98C420-0x98CD60"
- },
- {
-  "object": "hlod.obj",
-  "function": "HLodClass::HLodClass",
-  "symbol": "??0HLodClass@@QAE@ABVHModelDefClass@@@Z",
-  "length": 629,
-  "status": "none",
-  "address": "0x98C7A0",
-  "similarity": 0.86,
-  "window": "0x98C420-0x98CD60"
- },
- {
-  "object": "hlod.obj",
-  "function": "HLodClass::operator=",
-  "symbol": "??4HLodClass@@QAEAAV0@ABV0@@Z",
-  "length": 819,
-  "status": "none",
-  "address": "0x98CA20",
-  "similarity": 0.87,
-  "window": "0x98C420-0x98CD60"
- },
- {
-  "object": "hlod.obj",
-  "function": "HLodClass::Get_Obj_Space_Bounding_Box",
-  "symbol": "?Get_Obj_Space_Bounding_Box@HLodClass@@UBEXAAVAABoxClass@@@Z",
-  "length": 288,
-  "status": "none",
-  "address": "0x98CF90",
-  "similarity": 0.74,
-  "window": "0x98CF90-0x98D2B0"
- },
- {
-  "object": "hlod.obj",
-  "function": "HLodClass::Get_Obj_Space_Bounding_Sphere",
-  "symbol": "?Get_Obj_Space_Bounding_Sphere@HLodClass@@UBEXAAVSphereClass@@@Z",
-  "length": 83,
-  "status": "none",
-  "address": "0x98D240",
-  "similarity": 0.31,
-  "window": "0x98CF90-0x98D2B0"
- },
- {
-  "object": "hlod.obj",
-  "function": "HLodClass::Get_Bounding_Sphere",
-  "symbol": "?Get_Bounding_Sphere@HLodClass@@UBEABVSphereClass@@XZ",
-  "length": 192,
-  "status": "none",
-  "address": "0x98D110",
-  "similarity": 0.66,
-  "window": "0x98CF90-0x98D2B0"
- },
- {
-  "object": "hlod.obj",
-  "function": "HLodClass::Get_Bounding_Box",
-  "symbol": "?Get_Bounding_Box@HLodClass@@UBEABVAABoxClass@@XZ",
-  "length": 98,
-  "status": "none",
-  "address": null,
-  "similarity": null,
-  "window": "0x98CF90-0x98D2B0"
- },
- {
-  "object": "hlod.obj",
-  "function": "HLodClass::Set_Max_Screen_Size",
-  "symbol": "?Set_Max_Screen_Size@HLodClass@@UAEXHM@Z",
-  "length": 98,
-  "status": "none",
-  "address": null,
-  "similarity": null,
-  "window": "0x98CF90-0x98D2B0"
- },
- {
-  "object": "hlod.obj",
-  "function": "HLodClass::Set_LOD_Bias",
-  "symbol": "?Set_LOD_Bias@HLodClass@@UAEXM@Z",
-  "length": 85,
-  "status": "none",
-  "address": "0x98D2F0",
-  "similarity": 0.87,
-  "window": "0x98D2E0-0x98D350"
- },
- {
-  "object": "hlod.obj",
   "function": "HLodClass::Include_NULL_Lod",
   "symbol": "?Include_NULL_Lod@HLodClass@@UAEX_N@Z",
   "length": 1532,
   "status": "none",
   "address": "0x98D510",
-  "similarity": 0.74,
+  "similarity": 0.75,
   "window": "0x98D510-0x98DAA0"
- },
- {
-  "object": "hlod.obj",
-  "function": "HLodClass::Get_Num_Polys",
-  "symbol": "?Get_Num_Polys@HLodClass@@UBEHXZ",
-  "length": 162,
-  "status": "none",
-  "address": "0x98DCA0",
-  "similarity": 0.88,
-  "window": "0x98DCA0-0x98DF20"
- },
- {
-  "object": "hlod.obj",
-  "function": "HLodClass::Render",
-  "symbol": "?Render@HLodClass@@UAEXAAVRenderInfoClass@@@Z",
-  "length": 232,
-  "status": "none",
-  "address": "0x98DD50",
-  "similarity": 0.87,
-  "window": "0x98DCA0-0x98DF20"
  },
  {
   "object": "hlod.obj",
@@ -2676,28 +1996,8 @@
   "length": 158,
   "status": "none",
   "address": "0x98DE40",
-  "similarity": 0.85,
-  "window": "0x98DCA0-0x98DF20"
- },
- {
-  "object": "hlod.obj",
-  "function": "HLodClass::Remove_Sub_Object",
-  "symbol": "?Remove_Sub_Object@HLodClass@@UAEHPAVRenderObjClass@@@Z",
-  "length": 406,
-  "status": "none",
-  "address": "0x98E0F0",
-  "similarity": 0.83,
-  "window": "0x98E0F0-0x98E290"
- },
- {
-  "object": "hlod.obj",
-  "function": "HLodClass::Add_Sub_Object_To_Bone",
-  "symbol": "?Add_Sub_Object_To_Bone@HLodClass@@UAEHPAVRenderObjClass@@H@Z",
-  "length": 285,
-  "status": "none",
-  "address": "0x98E4B0",
-  "similarity": 0.86,
-  "window": "0x98E4B0-0x98E5D0"
+  "similarity": 0.87,
+  "window": "0x98DE40-0x98DF20"
  },
  {
   "object": "hlod.obj",
@@ -2706,8 +2006,8 @@
   "length": 151,
   "status": "none",
   "address": "0x98E680",
-  "similarity": 0.87,
-  "window": "0x98E660-0x98ECF0"
+  "similarity": 0.9,
+  "window": "0x98E660-0x98E9A0"
  },
  {
   "object": "hlod.obj",
@@ -2716,8 +2016,8 @@
   "length": 151,
   "status": "none",
   "address": "0x98E720",
-  "similarity": 0.87,
-  "window": "0x98E660-0x98ECF0"
+  "similarity": 0.9,
+  "window": "0x98E660-0x98E9A0"
  },
  {
   "object": "hlod.obj",
@@ -2726,8 +2026,8 @@
   "length": 151,
   "status": "none",
   "address": "0x98E7C0",
-  "similarity": 0.87,
-  "window": "0x98E660-0x98ECF0"
+  "similarity": 0.9,
+  "window": "0x98E660-0x98E9A0"
  },
  {
   "object": "hlod.obj",
@@ -2736,8 +2036,8 @@
   "length": 151,
   "status": "none",
   "address": "0x98E860",
-  "similarity": 0.87,
-  "window": "0x98E660-0x98ECF0"
+  "similarity": 0.9,
+  "window": "0x98E660-0x98E9A0"
  },
  {
   "object": "hlod.obj",
@@ -2746,78 +2046,8 @@
   "length": 151,
   "status": "none",
   "address": "0x98E900",
-  "similarity": 0.87,
-  "window": "0x98E660-0x98ECF0"
- },
- {
-  "object": "hlod.obj",
-  "function": "HLodClass::Prepare_LOD",
-  "symbol": "?Prepare_LOD@HLodClass@@UAEXAAVCameraClass@@@Z",
-  "length": 198,
-  "status": "none",
-  "address": "0x98E9A0",
-  "similarity": 0.78,
-  "window": "0x98E660-0x98ECF0"
- },
- {
-  "object": "hlod.obj",
-  "function": "HLodClass::Recalculate_Static_LOD_Factors",
-  "symbol": "?Recalculate_Static_LOD_Factors@HLodClass@@UAEXXZ",
-  "length": 230,
-  "status": "none",
-  "address": "0x98EA70",
-  "similarity": 0.82,
-  "window": "0x98E660-0x98ECF0"
- },
- {
-  "object": "hlod.obj",
-  "function": "HLodClass::Increment_LOD",
-  "symbol": "?Increment_LOD@HLodClass@@UAEXXZ",
-  "length": 193,
-  "status": "none",
-  "address": "0x98EB60",
-  "similarity": 0.88,
-  "window": "0x98E660-0x98ECF0"
- },
- {
-  "object": "hlod.obj",
-  "function": "HLodClass::Decrement_LOD",
-  "symbol": "?Decrement_LOD@HLodClass@@UAEXXZ",
-  "length": 183,
-  "status": "none",
-  "address": "0x98EC30",
-  "similarity": 0.86,
-  "window": "0x98E660-0x98ECF0"
- },
- {
-  "object": "hlod.obj",
-  "function": "HLodClass::Set_LOD_Level",
-  "symbol": "?Set_LOD_Level@HLodClass@@UAEXH@Z",
-  "length": 210,
-  "status": "none",
-  "address": "0x98ED30",
-  "similarity": 0.88,
-  "window": "0x98ED30-0x98EE30"
- },
- {
-  "object": "hlod.obj",
-  "function": "HLodClass::Get_Current_LOD",
-  "symbol": "?Get_Current_LOD@HLodClass@@UAEPAVRenderObjClass@@XZ",
-  "length": 47,
-  "status": "none",
-  "address": "0x98EF30",
-  "similarity": 0.83,
-  "window": "0x98EF30-0x98F030"
- },
- {
-  "object": "hlod.obj",
-  "function": "HLodClass::Scale",
-  "symbol": "?Scale@HLodClass@@UAEXM@Z",
-  "length": 205,
-  "status": "none",
-  "address": "0x98EF60",
-  "similarity": 0.83,
-  "window": "0x98EF30-0x98F030"
+  "similarity": 0.9,
+  "window": "0x98E660-0x98E9A0"
  },
  {
   "object": "hlod.obj",
@@ -2825,49 +2055,9 @@
   "symbol": "?Update_Sub_Object_Transforms@HLodClass@@MAEXXZ",
   "length": 316,
   "status": "none",
-  "address": "0x98F920",
-  "similarity": 0.19,
-  "window": "0x98F090-0x98F9E0"
- },
- {
-  "object": "hlod.obj",
-  "function": "HLodClass::Update_Obj_Space_Bounding_Volumes",
-  "symbol": "?Update_Obj_Space_Bounding_Volumes@HLodClass@@MAEXXZ",
-  "length": 1861,
-  "status": "none",
-  "address": "0x98F1D0",
-  "similarity": 0.87,
-  "window": "0x98F090-0x98F9E0"
- },
- {
-  "object": "hlod.obj",
-  "function": "HLodClass::add_lod_model",
-  "symbol": "?add_lod_model@HLodClass@@IAEXHPAVRenderObjClass@@H@Z",
-  "length": 182,
-  "status": "none",
-  "address": "0x98F8A1",
-  "similarity": 0.23,
-  "window": "0x98F090-0x98F9E0"
- },
- {
-  "object": "hlod.obj",
-  "function": "HLodClass::Create_Decal",
-  "symbol": "?Create_Decal@HLodClass@@UAEXPAVDecalGeneratorClass@@@Z",
-  "length": 144,
-  "status": "none",
   "address": null,
   "similarity": null,
-  "window": "0x98F090-0x98F9E0"
- },
- {
-  "object": "hlod.obj",
-  "function": "HLodClass::Set_Hidden",
-  "symbol": "?Set_Hidden@HLodClass@@UAEXH@Z",
-  "length": 95,
-  "status": "none",
-  "address": "0x98FB10",
-  "similarity": 0.87,
-  "window": "0x98FA70-0x98FD80"
+  "window": "0x98F090-0x98F1D0"
  },
  {
   "object": "hmorphanim.obj",
@@ -2890,96 +2080,6 @@
   "window": "0x9C2C50-0x9C2D10"
  },
  {
-  "object": "intersec.obj",
-  "function": "IntersectionClass::Intersect_Screen_Point_RenderObject",
-  "symbol": "?Intersect_Screen_Point_RenderObject@IntersectionClass@@QAE_NMMABVLayerClass@@PAVRenderObjClass@@PAVIntersectionResultClass@@@Z",
-  "length": 485,
-  "status": "none",
-  "address": "0x966500",
-  "similarity": 0.92,
-  "window": "0x965F10-0x966710"
- },
- {
-  "object": "intersec.obj",
-  "function": "IntersectionClass::Intersect_RenderObject",
-  "symbol": "?Intersect_RenderObject@IntersectionClass@@QAE_NPAVRenderObjClass@@PAVIntersectionResultClass@@@Z",
-  "length": 32,
-  "status": "none",
-  "address": "0x9666F0",
-  "similarity": 0.22,
-  "window": "0x965F10-0x966710"
- },
- {
-  "object": "intersec.obj",
-  "function": "IntersectionClass::Intersect_Layer",
-  "symbol": "?Intersect_Layer@IntersectionClass@@QAE_NABVLayerClass@@_N@Z",
-  "length": 359,
-  "status": "none",
-  "address": "0x966BF0",
-  "similarity": 0.92,
-  "window": "0x966BF0-0x966D60"
- },
- {
-  "object": "intersec.obj",
-  "function": "IntersectionClass::Intersect_Hierarchy_Sphere",
-  "symbol": "?Intersect_Hierarchy_Sphere@IntersectionClass@@QAE_NPAVRenderObjClass@@PAVIntersectionResultClass@@@Z",
-  "length": 96,
-  "status": "none",
-  "address": "0x967010",
-  "similarity": 0.25,
-  "window": "0x967010-0x9670F0"
- },
- {
-  "object": "intersec.obj",
-  "function": "IntersectionClass::Append_Hierarchy_Objects",
-  "symbol": "?Append_Hierarchy_Objects@IntersectionClass@@QAEXHAAHPAPAVRenderObjClass@@PAV2@_N3@Z",
-  "length": 224,
-  "status": "none",
-  "address": null,
-  "similarity": null,
-  "window": "0x967010-0x9670F0"
- },
- {
-  "object": "intersec.obj",
-  "function": "IntersectionClass::Intersect_Sub_Object",
-  "symbol": "?Intersect_Sub_Object@IntersectionClass@@QAEPAVRenderObjClass@@MMAAVLayerClass@@PAV2@PAVIntersectionResultClass@@@Z",
-  "length": 603,
-  "status": "none",
-  "address": "0x9671B0",
-  "similarity": 0.92,
-  "window": "0x9671B0-0x967410"
- },
- {
-  "object": "intersec.obj",
-  "function": "IntersectionClass::Intersect_Object_Array",
-  "symbol": "?Intersect_Object_Array@IntersectionClass@@QAE_NHPAPAVRenderObjClass@@PAVIntersectionResultClass@@1_N2@Z",
-  "length": 854,
-  "status": "none",
-  "address": "0x967480",
-  "similarity": 0.88,
-  "window": "0x967480-0x9677E0"
- },
- {
-  "object": "light.obj",
-  "function": "LightClass::Notify_Added",
-  "symbol": "?Notify_Added@LightClass@@UAEXPAVSceneClass@@@Z",
-  "length": 29,
-  "status": "none",
-  "address": "0x4632F0",
-  "similarity": 0.34,
-  "window": "0x463260-0x463A60"
- },
- {
-  "object": "light.obj",
-  "function": "LightClass::Notify_Removed",
-  "symbol": "?Notify_Removed@LightClass@@UAEXPAVSceneClass@@@Z",
-  "length": 31,
-  "status": "none",
-  "address": "0x4633E0",
-  "similarity": 0.3,
-  "window": "0x463260-0x463A60"
- },
- {
   "object": "light.obj",
   "function": "LightClass::Is_Within_Attenuation_Radius",
   "symbol": "?Is_Within_Attenuation_Radius@LightClass@@QAE_NABVVector3@@@Z",
@@ -2987,7 +2087,7 @@
   "status": "none",
   "address": "0x463790",
   "similarity": 0.17,
-  "window": "0x463260-0x463A60"
+  "window": "0x463390-0x463B90"
  },
  {
   "object": "light.obj",
@@ -2995,9 +2095,9 @@
   "symbol": "?Compute_Lighting@LightClass@@QAEXABVVector3@@0PAV2@1@Z",
   "length": 951,
   "status": "none",
-  "address": "0x463320",
+  "address": "0x4633C0",
   "similarity": 0.05,
-  "window": "0x463260-0x463A60"
+  "window": "0x463390-0x463B90"
  },
  {
   "object": "lightenvironment.obj",
@@ -3078,56 +2178,6 @@
   "address": "0x985840",
   "similarity": 0.69,
   "window": "0x985780-0x985F80"
- },
- {
-  "object": "line3d.obj",
-  "function": "Line3DClass::Render",
-  "symbol": "?Render@Line3DClass@@UAEXAAVRenderInfoClass@@@Z",
-  "length": 1040,
-  "status": "none",
-  "address": "0x4637C0",
-  "similarity": 0.05,
-  "window": "0x463260-0x463A60"
- },
- {
-  "object": "line3d.obj",
-  "function": "Line3DClass::Scale",
-  "symbol": "?Scale@Line3DClass@@UAEXM@Z",
-  "length": 110,
-  "status": "none",
-  "address": "0x4632D0",
-  "similarity": 0.1,
-  "window": "0x463260-0x463A60"
- },
- {
-  "object": "line3d.obj",
-  "function": "Line3DClass::Scale",
-  "symbol": "?Scale@Line3DClass@@UAEXMMM@Z",
-  "length": 110,
-  "status": "none",
-  "address": "0x463790",
-  "similarity": 0.09,
-  "window": "0x463260-0x463A60"
- },
- {
-  "object": "line3d.obj",
-  "function": "Line3DClass::Reset",
-  "symbol": "?Reset@Line3DClass@@QAEXABVVector3@@0@Z",
-  "length": 280,
-  "status": "none",
-  "address": "0x463320",
-  "similarity": 0.13,
-  "window": "0x463260-0x463A60"
- },
- {
-  "object": "line3d.obj",
-  "function": "Line3DClass::Reset",
-  "symbol": "?Reset@Line3DClass@@QAEXABVVector3@@0M@Z",
-  "length": 308,
-  "status": "none",
-  "address": "0x4632B0",
-  "similarity": 0.17,
-  "window": "0x463260-0x463A60"
  },
  {
   "object": "linegrp.obj",
@@ -3720,6 +2770,16 @@
   "window": "0x951DB0-0x951E00"
  },
  {
+  "object": "matpass.obj",
+  "function": "MaterialPassClass::Install_Materials",
+  "symbol": "?Install_Materials@MaterialPassClass@@UBEXXZ",
+  "length": 223,
+  "status": "none",
+  "address": "0x92E720",
+  "similarity": 0.63,
+  "window": "0x92E720-0x92E800"
+ },
+ {
   "object": "matrixmapper.obj",
   "function": "MatrixMapperClass::MatrixMapperClass",
   "symbol": "??0MatrixMapperClass@@QAE@H@Z",
@@ -3745,9 +2805,9 @@
   "symbol": "??0MeshClass@@QAE@XZ",
   "length": 148,
   "status": "none",
-  "address": "0x9093C0",
-  "similarity": 0.34,
-  "window": "0x908D00-0x909500"
+  "address": "0x93E7B0",
+  "similarity": 0.44,
+  "window": "0x93E420-0x93EC20"
  },
  {
   "object": "mesh.obj",
@@ -3755,9 +2815,9 @@
   "symbol": "??_GMeshClass@@UAEPAXI@Z",
   "length": 270,
   "status": "none",
-  "address": "0x909115",
-  "similarity": 0.04,
-  "window": "0x908D00-0x909500"
+  "address": "0x93E990",
+  "similarity": 0.5,
+  "window": "0x93E420-0x93EC20"
  },
  {
   "object": "mesh.obj",
@@ -3765,9 +2825,9 @@
   "symbol": "??0MeshClass@@QAE@ABV0@@Z",
   "length": 212,
   "status": "none",
-  "address": null,
-  "similarity": null,
-  "window": "0x908D00-0x909500"
+  "address": "0x93EA50",
+  "similarity": 0.65,
+  "window": "0x93E420-0x93EC20"
  },
  {
   "object": "mesh.obj",
@@ -3775,9 +2835,9 @@
   "symbol": "??4MeshClass@@AAEAAV0@ABV0@@Z",
   "length": 174,
   "status": "none",
-  "address": null,
-  "similarity": null,
-  "window": "0x908D00-0x909500"
+  "address": "0x93EAF0",
+  "similarity": 0.46,
+  "window": "0x93E420-0x93EC20"
  },
  {
   "object": "mesh.obj",
@@ -3785,9 +2845,9 @@
   "symbol": "??1MeshClass@@UAE@XZ",
   "length": 245,
   "status": "none",
-  "address": null,
-  "similarity": null,
-  "window": "0x908D00-0x909500"
+  "address": "0x93E630",
+  "similarity": 0.34,
+  "window": "0x93E420-0x93EC20"
  },
  {
   "object": "mesh.obj",
@@ -3795,9 +2855,9 @@
   "symbol": "?Free@MeshClass@@IAEXXZ",
   "length": 100,
   "status": "none",
-  "address": null,
-  "similarity": null,
-  "window": "0x908D00-0x909500"
+  "address": "0x93ECB0",
+  "similarity": 0.67,
+  "window": "0x93ECB0-0x93ED40"
  },
  {
   "object": "mesh.obj",
@@ -3805,9 +2865,9 @@
   "symbol": "?Clone@MeshClass@@UBEPAVRenderObjClass@@XZ",
   "length": 34,
   "status": "none",
-  "address": null,
-  "similarity": null,
-  "window": "0x908D00-0x909500"
+  "address": "0x93ED00",
+  "similarity": 0.92,
+  "window": "0x93ECB0-0x93ED40"
  },
  {
   "object": "mesh.obj",
@@ -3815,9 +2875,9 @@
   "symbol": "?Scale@MeshClass@@UAEXM@Z",
   "length": 221,
   "status": "none",
-  "address": null,
-  "similarity": null,
-  "window": "0x908D00-0x909500"
+  "address": "0x93EDD0",
+  "similarity": 0.57,
+  "window": "0x93EDD0-0x93EF80"
  },
  {
   "object": "mesh.obj",
@@ -3827,47 +2887,7 @@
   "status": "none",
   "address": null,
   "similarity": null,
-  "window": "0x908D00-0x909500"
- },
- {
-  "object": "mesh.obj",
-  "function": "MeshClass::Get_Deformed_Vertices",
-  "symbol": "?Get_Deformed_Vertices@MeshClass@@QAEXPAVVector3@@0@Z",
-  "length": 43,
-  "status": "none",
-  "address": null,
-  "similarity": null,
-  "window": "0x908D00-0x909500"
- },
- {
-  "object": "mesh.obj",
-  "function": "MeshClass::Get_Deformed_Vertices",
-  "symbol": "?Get_Deformed_Vertices@MeshClass@@QAEXPAVVector3@@@Z",
-  "length": 38,
-  "status": "none",
-  "address": null,
-  "similarity": null,
-  "window": "0x908D00-0x909500"
- },
- {
-  "object": "mesh.obj",
-  "function": "MeshClass::Compose_Deformed_Vertex_Buffer",
-  "symbol": "?Compose_Deformed_Vertex_Buffer@MeshClass@@QAEXPAUVertexFormatXYZNDUV2@@PBVVector2@@1PBI@Z",
-  "length": 53,
-  "status": "none",
-  "address": null,
-  "similarity": null,
-  "window": "0x908D00-0x909500"
- },
- {
-  "object": "mesh.obj",
-  "function": "MeshClass::Create_Decal",
-  "symbol": "?Create_Decal@MeshClass@@UAEXPAVDecalGeneratorClass@@@Z",
-  "length": 808,
-  "status": "none",
-  "address": null,
-  "similarity": null,
-  "window": "0x908D00-0x909500"
+  "window": "0x93EDD0-0x93EF80"
  },
  {
   "object": "mesh.obj",
@@ -3875,9 +2895,9 @@
   "symbol": "?Render@MeshClass@@UAEXAAVRenderInfoClass@@@Z",
   "length": 587,
   "status": "none",
-  "address": null,
-  "similarity": null,
-  "window": "0x908D00-0x909500"
+  "address": "0x93F390",
+  "similarity": 0.64,
+  "window": "0x93F390-0x940120"
  },
  {
   "object": "mesh.obj",
@@ -3885,9 +2905,9 @@
   "symbol": "?Render_Material_Pass@MeshClass@@QAEXPAVMaterialPassClass@@PAVIndexBufferClass@@@Z",
   "length": 2750,
   "status": "none",
-  "address": null,
-  "similarity": null,
-  "window": "0x908D00-0x909500"
+  "address": "0x93F620",
+  "similarity": 0.62,
+  "window": "0x93F390-0x940120"
  },
  {
   "object": "mesh.obj",
@@ -3895,9 +2915,9 @@
   "symbol": "?Set_Index_Buffer_Index_Offset@DX8Wrapper@@SAXI@Z",
   "length": 42,
   "status": "none",
-  "address": null,
-  "similarity": null,
-  "window": "0x908D00-0x909500"
+  "address": "0x9402C0",
+  "similarity": 0.38,
+  "window": "0x940130-0x9407E0"
  },
  {
   "object": "mesh.obj",
@@ -3905,9 +2925,9 @@
   "symbol": "?Special_Render@MeshClass@@UAEXAAVSpecialRenderInfoClass@@@Z",
   "length": 386,
   "status": "none",
-  "address": null,
-  "similarity": null,
-  "window": "0x908D00-0x909500"
+  "address": "0x940130",
+  "similarity": 0.84,
+  "window": "0x940130-0x9407E0"
  },
  {
   "object": "mesh.obj",
@@ -3915,9 +2935,9 @@
   "symbol": "?Make_Unique@MeshClass@@QAEXXZ",
   "length": 111,
   "status": "none",
-  "address": null,
-  "similarity": null,
-  "window": "0x908D00-0x909500"
+  "address": "0x940300",
+  "similarity": 0.69,
+  "window": "0x940130-0x9407E0"
  },
  {
   "object": "mesh.obj",
@@ -3925,9 +2945,9 @@
   "symbol": "?Load_W3D@MeshClass@@QAE?AW4WW3DErrorType@@AAVChunkLoadClass@@@Z",
   "length": 476,
   "status": "none",
-  "address": null,
-  "similarity": null,
-  "window": "0x908D00-0x909500"
+  "address": "0x940380",
+  "similarity": 0.85,
+  "window": "0x940130-0x9407E0"
  },
  {
   "object": "mesh.obj",
@@ -3935,49 +2955,9 @@
   "symbol": "?Cast_Ray@MeshClass@@UAE_NAAVRayCollisionTestClass@@@Z",
   "length": 708,
   "status": "none",
-  "address": null,
-  "similarity": null,
-  "window": "0x908D00-0x909500"
- },
- {
-  "object": "mesh.obj",
-  "function": "MeshClass::Cast_AABox",
-  "symbol": "?Cast_AABox@MeshClass@@UAE_NAAVAABoxCollisionTestClass@@@Z",
-  "length": 77,
-  "status": "none",
-  "address": null,
-  "similarity": null,
-  "window": "0x908D00-0x909500"
- },
- {
-  "object": "mesh.obj",
-  "function": "MeshClass::Cast_OBBox",
-  "symbol": "?Cast_OBBox@MeshClass@@UAE_NAAVOBBoxCollisionTestClass@@@Z",
-  "length": 370,
-  "status": "none",
-  "address": null,
-  "similarity": null,
-  "window": "0x908D00-0x909500"
- },
- {
-  "object": "mesh.obj",
-  "function": "MeshClass::Intersect_AABox",
-  "symbol": "?Intersect_AABox@MeshClass@@UAE_NAAVAABoxIntersectionTestClass@@@Z",
-  "length": 392,
-  "status": "none",
-  "address": null,
-  "similarity": null,
-  "window": "0x908D00-0x909500"
- },
- {
-  "object": "mesh.obj",
-  "function": "MeshClass::Intersect_OBBox",
-  "symbol": "?Intersect_OBBox@MeshClass@@UAE_NAAVOBBoxIntersectionTestClass@@@Z",
-  "length": 409,
-  "status": "none",
-  "address": null,
-  "similarity": null,
-  "window": "0x908D00-0x909500"
+  "address": "0x940530",
+  "similarity": 0.89,
+  "window": "0x940130-0x9407E0"
  },
  {
   "object": "mesh.obj",
@@ -3985,19 +2965,9 @@
   "symbol": "?Add_Dependencies_To_List@MeshClass@@MAEXAAV?$DynamicVectorClass@VStringClass@@@@_N@Z",
   "length": 327,
   "status": "none",
-  "address": null,
-  "similarity": null,
-  "window": "0x908D00-0x909500"
- },
- {
-  "object": "mesh.obj",
-  "function": "MeshClass::Update_Cached_Bounding_Volumes",
-  "symbol": "?Update_Cached_Bounding_Volumes@MeshClass@@MBEXXZ",
-  "length": 289,
-  "status": "none",
-  "address": null,
-  "similarity": null,
-  "window": "0x908D00-0x909500"
+  "address": "0x940D50",
+  "similarity": 0.8,
+  "window": "0x940D50-0x940EB0"
  },
  {
   "object": "mesh.obj",
@@ -4005,9 +2975,9 @@
   "symbol": "?Get_User_Lighting_Array@MeshClass@@QAEPAI_N@Z",
   "length": 62,
   "status": "none",
-  "address": null,
-  "similarity": null,
-  "window": "0x908D00-0x909500"
+  "address": "0x941230",
+  "similarity": 0.42,
+  "window": "0x9410D0-0x9418D0"
  },
  {
   "object": "mesh.obj",
@@ -4015,9 +2985,9 @@
   "symbol": "?Peek_FVF_Category_Container@MeshClass@@IAEPAVDX8FVFCategoryContainer@@XZ",
   "length": 54,
   "status": "none",
-  "address": null,
-  "similarity": null,
-  "window": "0x908D00-0x909500"
+  "address": "0x941310",
+  "similarity": 0.54,
+  "window": "0x9410D0-0x9418D0"
  },
  {
   "object": "mesh.obj",
@@ -4025,9 +2995,9 @@
   "symbol": "?Install_User_Lighting_Array@MeshClass@@QAEXPAVVector4@@@Z",
   "length": 290,
   "status": "none",
-  "address": null,
-  "similarity": null,
-  "window": "0x908D00-0x909500"
+  "address": "0x941400",
+  "similarity": 0.28,
+  "window": "0x9410D0-0x9418D0"
  },
  {
   "object": "mesh.obj",
@@ -4035,9 +3005,9 @@
   "symbol": "?setup_materials_for_user_lighting@MeshClass@@IAEXXZ",
   "length": 410,
   "status": "none",
-  "address": null,
-  "similarity": null,
-  "window": "0x908D00-0x909500"
+  "address": "0x941390",
+  "similarity": 0.15,
+  "window": "0x9410D0-0x9418D0"
  },
  {
   "object": "mesh.obj",
@@ -4045,9 +3015,9 @@
   "symbol": "?setup_material_for_user_lighting@MeshClass@@IAEXPAVVertexMaterialClass@@@Z",
   "length": 96,
   "status": "none",
-  "address": null,
-  "similarity": null,
-  "window": "0x908D00-0x909500"
+  "address": "0x941270",
+  "similarity": 0.22,
+  "window": "0x9410D0-0x9418D0"
  },
  {
   "object": "mesh.obj",
@@ -4055,19 +3025,19 @@
   "symbol": "?Save_User_Lighting@MeshClass@@UAEXAAVChunkSaveClass@@@Z",
   "length": 69,
   "status": "none",
-  "address": null,
-  "similarity": null,
-  "window": "0x908D00-0x909500"
+  "address": "0x941530",
+  "similarity": 0.49,
+  "window": "0x9410D0-0x9418D0"
  },
  {
   "object": "mesh.obj",
   "function": "MeshClass::Load_User_Lighting",
   "symbol": "?Load_User_Lighting@MeshClass@@UAEXAAVChunkLoadClass@@@Z",
-  "length": 176,
+  "length": 191,
   "status": "none",
-  "address": null,
-  "similarity": null,
-  "window": "0x908D00-0x909500"
+  "address": "0x941160",
+  "similarity": 0.22,
+  "window": "0x9410D0-0x9418D0"
  },
  {
   "object": "meshbuild.obj",
@@ -4775,8 +3745,8 @@
   "symbol": "?Set_LOD_Bias@ParticleBufferClass@@UAEXM@Z",
   "length": 43,
   "status": "none",
-  "address": null,
-  "similarity": null,
+  "address": "0x95C2C0",
+  "similarity": 0.56,
   "window": "0x95BB10-0x95C310"
  },
  {
@@ -4846,7 +3816,7 @@
   "length": 529,
   "status": "none",
   "address": "0x95DDE0",
-  "similarity": 0.21,
+  "similarity": 0.22,
   "window": "0x95DC90-0x95EA10"
  },
  {
@@ -4876,27 +3846,7 @@
   "length": 57,
   "status": "none",
   "address": "0x95E9D0",
-  "similarity": 0.3,
-  "window": "0x95DC90-0x95EA10"
- },
- {
-  "object": "part_buf.obj",
-  "function": "ParticleBufferClass::Notify_Added",
-  "symbol": "?Notify_Added@ParticleBufferClass@@UAEXPAVSceneClass@@@Z",
-  "length": 29,
-  "status": "none",
-  "address": "0x95E9F0",
-  "similarity": 0.65,
-  "window": "0x95DC90-0x95EA10"
- },
- {
-  "object": "part_buf.obj",
-  "function": "ParticleBufferClass::Notify_Removed",
-  "symbol": "?Notify_Removed@ParticleBufferClass@@UAEXPAVSceneClass@@@Z",
-  "length": 31,
-  "status": "none",
-  "address": "0x95E410",
-  "similarity": 0.11,
+  "similarity": 0.34,
   "window": "0x95DC90-0x95EA10"
  },
  {
@@ -4906,7 +3856,7 @@
   "length": 411,
   "status": "none",
   "address": "0x95EAD0",
-  "similarity": 0.86,
+  "similarity": 0.9,
   "window": "0x95EAD0-0x95EF40"
  },
  {
@@ -5091,53 +4041,13 @@
  },
  {
   "object": "part_emt.obj",
-  "function": "ParticleEmitterClass::Set_Hidden",
-  "symbol": "?Set_Hidden@ParticleEmitterClass@@UAEXH@Z",
-  "length": 45,
-  "status": "none",
-  "address": "0x97D4F0",
-  "similarity": 0.8,
-  "window": "0x97D4D0-0x97DBE0"
- },
- {
-  "object": "part_emt.obj",
-  "function": "ParticleEmitterClass::Set_Visible",
-  "symbol": "?Set_Visible@ParticleEmitterClass@@UAEXH@Z",
-  "length": 45,
-  "status": "none",
-  "address": "0x97D520",
-  "similarity": 0.8,
-  "window": "0x97D4D0-0x97DBE0"
- },
- {
-  "object": "part_emt.obj",
-  "function": "ParticleEmitterClass::Set_Animation_Hidden",
-  "symbol": "?Set_Animation_Hidden@ParticleEmitterClass@@UAEXH@Z",
-  "length": 45,
-  "status": "none",
-  "address": "0x97D550",
-  "similarity": 0.8,
-  "window": "0x97D4D0-0x97DBE0"
- },
- {
-  "object": "part_emt.obj",
-  "function": "ParticleEmitterClass::Set_Force_Visible",
-  "symbol": "?Set_Force_Visible@ParticleEmitterClass@@UAEXH@Z",
-  "length": 45,
-  "status": "none",
-  "address": "0x97D580",
-  "similarity": 0.8,
-  "window": "0x97D4D0-0x97DBE0"
- },
- {
-  "object": "part_emt.obj",
   "function": "ParticleEmitterClass::Set_LOD_Bias",
   "symbol": "?Set_LOD_Bias@ParticleEmitterClass@@UAEXM@Z",
   "length": 26,
   "status": "none",
   "address": "0x97D5B0",
-  "similarity": 0.76,
-  "window": "0x97D4D0-0x97DBE0"
+  "similarity": 0.83,
+  "window": "0x97D5B0-0x97DBE0"
  },
  {
   "object": "part_emt.obj",
@@ -5147,7 +4057,7 @@
   "status": "none",
   "address": "0x97D620",
   "similarity": 0.57,
-  "window": "0x97D4D0-0x97DBE0"
+  "window": "0x97D5B0-0x97DBE0"
  },
  {
   "object": "part_emt.obj",
@@ -5157,7 +4067,7 @@
   "status": "none",
   "address": "0x97D820",
   "similarity": 0.57,
-  "window": "0x97D4D0-0x97DBE0"
+  "window": "0x97D5B0-0x97DBE0"
  },
  {
   "object": "part_emt.obj",
@@ -5166,8 +4076,8 @@
   "length": 655,
   "status": "none",
   "address": "0x97D910",
-  "similarity": 0.77,
-  "window": "0x97D4D0-0x97DBE0"
+  "similarity": 0.8,
+  "window": "0x97D5B0-0x97DBE0"
  },
  {
   "object": "part_emt.obj",
@@ -5177,7 +4087,7 @@
   "status": "none",
   "address": "0x97DC90",
   "similarity": 0.81,
-  "window": "0x97DC40-0x97E180"
+  "window": "0x97DC40-0x97DDF0"
  },
  {
   "object": "part_emt.obj",
@@ -5185,29 +4095,9 @@
   "symbol": "?Restart@ParticleEmitterClass@@UAEXXZ",
   "length": 156,
   "status": "none",
-  "address": "0x97E0B0",
-  "similarity": 0.9,
-  "window": "0x97DC40-0x97E180"
- },
- {
-  "object": "part_emt.obj",
-  "function": "ParticleEmitterClass::Notify_Added",
-  "symbol": "?Notify_Added@ParticleEmitterClass@@UAEXPAVSceneClass@@@Z",
-  "length": 65,
-  "status": "none",
-  "address": "0x97DDF0",
-  "similarity": 0.94,
-  "window": "0x97DC40-0x97E180"
- },
- {
-  "object": "part_emt.obj",
-  "function": "ParticleEmitterClass::Notify_Removed",
-  "symbol": "?Notify_Removed@ParticleEmitterClass@@UAEXPAVSceneClass@@@Z",
-  "length": 45,
-  "status": "none",
-  "address": "0x97DE40",
-  "similarity": 0.93,
-  "window": "0x97DC40-0x97E180"
+  "address": "0x97DCD0",
+  "similarity": 0.87,
+  "window": "0x97DC40-0x97DDF0"
  },
  {
   "object": "part_emt.obj",
@@ -5216,8 +4106,8 @@
   "length": 124,
   "status": "none",
   "address": "0x97DE70",
-  "similarity": 0.89,
-  "window": "0x97DC40-0x97E180"
+  "similarity": 0.91,
+  "window": "0x97DE70-0x97E180"
  },
  {
   "object": "part_emt.obj",
@@ -5226,8 +4116,8 @@
   "length": 275,
   "status": "none",
   "address": "0x97DEF0",
-  "similarity": 0.73,
-  "window": "0x97DC40-0x97E180"
+  "similarity": 0.77,
+  "window": "0x97DE70-0x97E180"
  },
  {
   "object": "part_emt.obj",
@@ -5237,7 +4127,7 @@
   "status": "none",
   "address": "0x97E010",
   "similarity": 0.9,
-  "window": "0x97DC40-0x97E180"
+  "window": "0x97DE70-0x97E180"
  },
  {
   "object": "part_emt.obj",
@@ -5245,9 +4135,9 @@
   "symbol": "?Start@ParticleEmitterClass@@QAEXXZ",
   "length": 156,
   "status": "none",
-  "address": "0x97DCD0",
-  "similarity": 0.87,
-  "window": "0x97DC40-0x97E180"
+  "address": "0x97E0B0",
+  "similarity": 0.9,
+  "window": "0x97DE70-0x97E180"
  },
  {
   "object": "part_emt.obj",
@@ -5283,10 +4173,10 @@
   "object": "part_emt.obj",
   "function": "ParticleEmitterClass::Build_Definition",
   "symbol": "?Build_Definition@ParticleEmitterClass@@QBEPAVParticleEmitterDefClass@@XZ",
-  "length": 1284,
+  "length": 1287,
   "status": "none",
   "address": "0x97EDE0",
-  "similarity": 0.61,
+  "similarity": 0.66,
   "window": "0x97E530-0x97F320"
  },
  {
@@ -5296,7 +4186,7 @@
   "length": 238,
   "status": "none",
   "address": "0x97F390",
-  "similarity": 0.48,
+  "similarity": 0.49,
   "window": "0x97F390-0x97FB90"
  },
  {
@@ -5311,113 +4201,13 @@
  },
  {
   "object": "part_ldr.obj",
-  "function": "ParticleEmitterDefClass::operator=",
-  "symbol": "??4ParticleEmitterDefClass@@QAEABV0@ABV0@@Z",
-  "length": 1172,
-  "status": "none",
-  "address": "0x914850",
-  "similarity": 0.95,
-  "window": "0x914850-0x914CF0"
- },
- {
-  "object": "part_ldr.obj",
-  "function": "ParticleEmitterDefClass::Set_Velocity_Random",
-  "symbol": "?Set_Velocity_Random@ParticleEmitterDefClass@@UAEXPAVVector3Randomizer@@@Z",
-  "length": 65,
-  "status": "none",
-  "address": "0x914E50",
-  "similarity": 0.9,
-  "window": "0x914E50-0x914EF0"
- },
- {
-  "object": "part_ldr.obj",
-  "function": "ParticleEmitterDefClass::Set_Creation_Volume",
-  "symbol": "?Set_Creation_Volume@ParticleEmitterDefClass@@UAEXPAVVector3Randomizer@@@Z",
-  "length": 65,
-  "status": "none",
-  "address": "0x914EA0",
-  "similarity": 0.9,
-  "window": "0x914E50-0x914EF0"
- },
- {
-  "object": "part_ldr.obj",
-  "function": "ParticleEmitterDefClass::Set_Texture_Filename",
-  "symbol": "?Set_Texture_Filename@ParticleEmitterDefClass@@UAEXPBD@Z",
-  "length": 32,
-  "status": "none",
-  "address": "0x914F50",
-  "similarity": 0.36,
-  "window": "0x914F50-0x914F70"
- },
- {
-  "object": "part_ldr.obj",
-  "function": "ParticleEmitterDefClass::Load_W3D",
-  "symbol": "?Load_W3D@ParticleEmitterDefClass@@UAE?AW4WW3DErrorType@@AAVChunkLoadClass@@@Z",
-  "length": 272,
-  "status": "none",
-  "address": "0x914FB0",
-  "similarity": 0.46,
-  "window": "0x914FB0-0x915460"
- },
- {
-  "object": "part_ldr.obj",
-  "function": "ParticleEmitterDefClass::Initialize_To_Ver2",
-  "symbol": "?Initialize_To_Ver2@ParticleEmitterDefClass@@MAEXXZ",
-  "length": 145,
-  "status": "none",
-  "address": "0x915160",
-  "similarity": 0.1,
-  "window": "0x914FB0-0x915460"
- },
- {
-  "object": "part_ldr.obj",
   "function": "ParticleEmitterDefClass::Convert_To_Ver2",
   "symbol": "?Convert_To_Ver2@ParticleEmitterDefClass@@MAEXXZ",
   "length": 767,
   "status": "none",
-  "address": null,
-  "similarity": null,
-  "window": "0x914FB0-0x915460"
- },
- {
-  "object": "part_ldr.obj",
-  "function": "ParticleEmitterDefClass::Read_InfoV2",
-  "symbol": "?Read_InfoV2@ParticleEmitterDefClass@@MAE?AW4WW3DErrorType@@AAVChunkLoadClass@@@Z",
-  "length": 188,
-  "status": "none",
-  "address": "0x915840",
-  "similarity": 0.16,
-  "window": "0x915780-0x915BC0"
- },
- {
-  "object": "part_ldr.obj",
-  "function": "ParticleEmitterDefClass::Read_Props",
-  "symbol": "?Read_Props@ParticleEmitterDefClass@@MAE?AW4WW3DErrorType@@AAVChunkLoadClass@@@Z",
-  "length": 887,
-  "status": "none",
-  "address": null,
-  "similarity": null,
-  "window": "0x915780-0x915BC0"
- },
- {
-  "object": "part_ldr.obj",
-  "function": "ParticleEmitterDefClass::Save_W3D",
-  "symbol": "?Save_W3D@ParticleEmitterDefClass@@UAE?AW4WW3DErrorType@@AAVChunkSaveClass@@@Z",
-  "length": 205,
-  "status": "none",
-  "address": "0x916090",
-  "similarity": 0.67,
-  "window": "0x916090-0x916160"
- },
- {
-  "object": "part_ldr.obj",
-  "function": "ParticleEmitterDefClass::Save_Props",
-  "symbol": "?Save_Props@ParticleEmitterDefClass@@MAE?AW4WW3DErrorType@@AAVChunkSaveClass@@@Z",
-  "length": 315,
-  "status": "none",
-  "address": "0x916320",
-  "similarity": 0.8,
-  "window": "0x916320-0x916460"
+  "address": "0x915160",
+  "similarity": 0.82,
+  "window": "0x915160-0x915460"
  },
  {
   "object": "part_ldr.obj",
@@ -5458,26 +4248,6 @@
   "address": "0xA03C30",
   "similarity": 0.43,
   "window": "0xA03A10-0xA04210"
- },
- {
-  "object": "predlod.obj",
-  "function": "PredictiveLODOptimizerClass::Add_Object",
-  "symbol": "?Add_Object@PredictiveLODOptimizerClass@@SAXPAVRenderObjClass@@@Z",
-  "length": 185,
-  "status": "none",
-  "address": "0x96F0C0",
-  "similarity": 0.67,
-  "window": "0x96F0C0-0x96F530"
- },
- {
-  "object": "predlod.obj",
-  "function": "PredictiveLODOptimizerClass::Optimize_LODs",
-  "symbol": "?Optimize_LODs@PredictiveLODOptimizerClass@@SAXM@Z",
-  "length": 915,
-  "status": "none",
-  "address": "0x96F180",
-  "similarity": 0.71,
-  "window": "0x96F0C0-0x96F530"
  },
  {
   "object": "proto.obj",
@@ -5571,43 +4341,13 @@
  },
  {
   "object": "rendobj.obj",
-  "function": "RenderObjClass::operator=",
-  "symbol": "??4RenderObjClass@@QAEAAV0@ABV0@@Z",
-  "length": 140,
-  "status": "none",
-  "address": "0x53EA40",
-  "similarity": 0.16,
-  "window": "0x53E9C0-0x53F1C0"
- },
- {
-  "object": "rendobj.obj",
-  "function": "RenderObjClass::Get_Screen_Size",
-  "symbol": "?Get_Screen_Size@RenderObjClass@@UAEMAAVCameraClass@@@Z",
-  "length": 245,
-  "status": "none",
-  "address": "0x53EA70",
-  "similarity": 0.11,
-  "window": "0x53E9C0-0x53F1C0"
- },
- {
-  "object": "rendobj.obj",
   "function": "RenderObjClass::Validate_Transform",
   "symbol": "?Validate_Transform@RenderObjClass@@UBEXXZ",
   "length": 206,
   "status": "none",
-  "address": "0x53EB00",
-  "similarity": 0.02,
-  "window": "0x53E9C0-0x53F1C0"
- },
- {
-  "object": "rendobj.obj",
-  "function": "RenderObjClass::Add_Sub_Object_To_Bone",
-  "symbol": "?Add_Sub_Object_To_Bone@RenderObjClass@@UAEHPAV1@PBD@Z",
-  "length": 38,
-  "status": "none",
-  "address": null,
-  "similarity": null,
-  "window": "0x53E9C0-0x53F1C0"
+  "address": "0x941D90",
+  "similarity": 0.92,
+  "window": "0x941D90-0x941E60"
  },
  {
   "object": "rendobj.obj",
@@ -5615,189 +4355,69 @@
   "symbol": "?Remove_Sub_Objects_From_Bone@RenderObjClass@@UAEHPBD@Z",
   "length": 113,
   "status": "none",
-  "address": null,
-  "similarity": null,
-  "window": "0x53E9C0-0x53F1C0"
- },
- {
-  "object": "rendobj.obj",
-  "function": "RenderObjClass::Prepare_LOD",
-  "symbol": "?Prepare_LOD@RenderObjClass@@UAEXAAVCameraClass@@@Z",
-  "length": 27,
-  "status": "none",
-  "address": null,
-  "similarity": null,
-  "window": "0x53E9C0-0x53F1C0"
- },
- {
-  "object": "rendobj.obj",
-  "function": "RenderObjClass::Calculate_Cost_Value_Arrays",
-  "symbol": "?Calculate_Cost_Value_Arrays@RenderObjClass@@UBEHMPAM0@Z",
-  "length": 40,
-  "status": "none",
-  "address": null,
-  "similarity": null,
-  "window": "0x53E9C0-0x53F1C0"
- },
- {
-  "object": "rendobj.obj",
-  "function": "RenderObjClass::Update_Sub_Object_Bits",
-  "symbol": "?Update_Sub_Object_Bits@RenderObjClass@@MAEXXZ",
-  "length": 160,
-  "status": "none",
-  "address": null,
-  "similarity": null,
-  "window": "0x53E9C0-0x53F1C0"
- },
- {
-  "object": "rendobj.obj",
-  "function": "RenderObjClass::Add",
-  "symbol": "?Add@RenderObjClass@@UAEXPAVSceneClass@@@Z",
-  "length": 18,
-  "status": "none",
-  "address": null,
-  "similarity": null,
-  "window": "0x53E9C0-0x53F1C0"
- },
- {
-  "object": "rendobj.obj",
-  "function": "RenderObjClass::Remove",
-  "symbol": "?Remove@RenderObjClass@@UAEXXZ",
-  "length": 33,
-  "status": "none",
-  "address": null,
-  "similarity": null,
-  "window": "0x53E9C0-0x53F1C0"
- },
- {
-  "object": "rendobj.obj",
-  "function": "RenderObjClass::Update_Cached_Bounding_Volumes",
-  "symbol": "?Update_Cached_Bounding_Volumes@RenderObjClass@@MBEXXZ",
-  "length": 227,
-  "status": "none",
-  "address": null,
-  "similarity": null,
-  "window": "0x53E9C0-0x53F1C0"
- },
- {
-  "object": "rendobj.obj",
-  "function": "RenderObjClass::Intersect",
-  "symbol": "?Intersect@RenderObjClass@@UAE_NPAVIntersectionClass@@PAVIntersectionResultClass@@@Z",
-  "length": 636,
-  "status": "none",
-  "address": null,
-  "similarity": null,
-  "window": "0x53E9C0-0x53F1C0"
- },
- {
-  "object": "rendobj.obj",
-  "function": "RenderObjClass::Intersect_Sphere",
-  "symbol": "?Intersect_Sphere@RenderObjClass@@UAE_NPAVIntersectionClass@@PAVIntersectionResultClass@@@Z",
-  "length": 316,
-  "status": "none",
-  "address": null,
-  "similarity": null,
-  "window": "0x53E9C0-0x53F1C0"
- },
- {
-  "object": "rendobj.obj",
-  "function": "RenderObjClass::Intersect_Sphere_Quick",
-  "symbol": "?Intersect_Sphere_Quick@RenderObjClass@@UAE_NPAVIntersectionClass@@PAVIntersectionResultClass@@@Z",
-  "length": 165,
-  "status": "none",
-  "address": null,
-  "similarity": null,
-  "window": "0x53E9C0-0x53F1C0"
- },
- {
-  "object": "rendobj.obj",
-  "function": "RenderObjClass::Build_Dependency_List",
-  "symbol": "?Build_Dependency_List@RenderObjClass@@UAE_NAAV?$DynamicVectorClass@VStringClass@@@@_N@Z",
-  "length": 112,
-  "status": "none",
-  "address": null,
-  "similarity": null,
-  "window": "0x53E9C0-0x53F1C0"
- },
- {
-  "object": "rendobj.obj",
-  "function": "RenderObjClass::Build_Texture_List",
-  "symbol": "?Build_Texture_List@RenderObjClass@@UAE_NAAV?$DynamicVectorClass@VStringClass@@@@_N@Z",
-  "length": 114,
-  "status": "none",
-  "address": null,
-  "similarity": null,
-  "window": "0x53E9C0-0x53F1C0"
- },
- {
-  "object": "rendobj.obj",
-  "function": "RenderObjClass::Add_Dependencies_To_List",
-  "symbol": "?Add_Dependencies_To_List@RenderObjClass@@MAEXAAV?$DynamicVectorClass@VStringClass@@@@_N@Z",
-  "length": 631,
-  "status": "none",
-  "address": null,
-  "similarity": null,
-  "window": "0x53E9C0-0x53F1C0"
+  "address": "0x941F90",
+  "similarity": 0.65,
+  "window": "0x941F90-0x942020"
  },
  {
   "object": "rendobj.obj",
   "function": "RenderObjPersistFactoryClass::Load",
   "symbol": "?Load@RenderObjPersistFactoryClass@@EBEPAVPersistClass@@AAVChunkLoadClass@@@Z",
-  "length": 457,
+  "length": 512,
   "status": "none",
-  "address": "0x53F200",
-  "similarity": 0.12,
-  "window": "0x53F1F0-0x53F9F0"
+  "address": "0x942B20",
+  "similarity": 0.42,
+  "window": "0x942AC0-0x942E20"
  },
  {
   "object": "rendobj.obj",
   "function": "RenderObjPersistFactoryClass::Save",
   "symbol": "?Save@RenderObjPersistFactoryClass@@EBEXAAVChunkSaveClass@@PAVPersistClass@@@Z",
-  "length": 303,
+  "length": 297,
   "status": "none",
-  "address": "0x53F770",
-  "similarity": 0.16,
-  "window": "0x53F1F0-0x53F9F0"
+  "address": "0x942CF0",
+  "similarity": 0.87,
+  "window": "0x942AC0-0x942E20"
  },
  {
   "object": "rendobj.obj",
   "function": "RenderObjClass::Save_User_Lighting",
-  "symbol": "?Save_User_Lighting@RenderObjClass@@UAEXAAVChunkSaveClass@@@Z",
-  "length": 362,
+  "symbol": "?Save_User_Lighting@RenderObjClass@@QAEXAAVChunkSaveClass@@@Z",
+  "length": 347,
   "status": "none",
-  "address": "0x53F250",
-  "similarity": 0.15,
-  "window": "0x53F1F0-0x53F9F0"
+  "address": "0x942AC0",
+  "similarity": 0.1,
+  "window": "0x942AC0-0x942E20"
  },
  {
   "object": "rendobj.obj",
   "function": "RenderObjClass::Save_Sub_Object_User_Lighting",
   "symbol": "?Save_Sub_Object_User_Lighting@RenderObjClass@@IAEXAAVChunkSaveClass@@PAV1@H@Z",
-  "length": 145,
+  "length": 141,
   "status": "none",
-  "address": "0x53F330",
-  "similarity": 0.25,
-  "window": "0x53F1F0-0x53F9F0"
+  "address": "0x942B10",
+  "similarity": 0.09,
+  "window": "0x942AC0-0x942E20"
  },
  {
   "object": "rendobj.obj",
   "function": "RenderObjClass::Load_User_Lighting",
-  "symbol": "?Load_User_Lighting@RenderObjClass@@UAEXAAVChunkLoadClass@@@Z",
+  "symbol": "?Load_User_Lighting@RenderObjClass@@QAEXAAVChunkLoadClass@@@Z",
   "length": 76,
   "status": "none",
-  "address": "0x53F510",
-  "similarity": 0.23,
-  "window": "0x53F1F0-0x53F9F0"
+  "address": "0x942E00",
+  "similarity": 0.22,
+  "window": "0x942AC0-0x942E20"
  },
  {
   "object": "rendobj.obj",
   "function": "RenderObjClass::Load_Sub_Object_User_Lighting",
   "symbol": "?Load_Sub_Object_User_Lighting@RenderObjClass@@IAEXAAVChunkLoadClass@@@Z",
-  "length": 279,
+  "length": 335,
   "status": "none",
-  "address": "0x53F800",
-  "similarity": 0.15,
-  "window": "0x53F1F0-0x53F9F0"
+  "address": "0x942E10",
+  "similarity": 0.03,
+  "window": "0x942AC0-0x942E20"
  },
  {
   "object": "rinfo.obj",
@@ -5871,46 +4491,6 @@
  },
  {
   "object": "ringobj.obj",
-  "function": "RingRenderObjClass::Set_Hidden",
-  "symbol": "?Set_Hidden@RingRenderObjClass@@UAEXH@Z",
-  "length": 115,
-  "status": "none",
-  "address": "0x90AF60",
-  "similarity": 0.82,
-  "window": "0x909540-0x90F600"
- },
- {
-  "object": "ringobj.obj",
-  "function": "RingRenderObjClass::Set_Visible",
-  "symbol": "?Set_Visible@RingRenderObjClass@@UAEXH@Z",
-  "length": 115,
-  "status": "none",
-  "address": "0x90AFE0",
-  "similarity": 0.82,
-  "window": "0x909540-0x90F600"
- },
- {
-  "object": "ringobj.obj",
-  "function": "RingRenderObjClass::Set_Animation_Hidden",
-  "symbol": "?Set_Animation_Hidden@RingRenderObjClass@@UAEXH@Z",
-  "length": 115,
-  "status": "none",
-  "address": "0x90B060",
-  "similarity": 0.82,
-  "window": "0x909540-0x90F600"
- },
- {
-  "object": "ringobj.obj",
-  "function": "RingRenderObjClass::Set_Force_Visible",
-  "symbol": "?Set_Force_Visible@RingRenderObjClass@@UAEXH@Z",
-  "length": 115,
-  "status": "none",
-  "address": "0x90B0E0",
-  "similarity": 0.82,
-  "window": "0x909540-0x90F600"
- },
- {
-  "object": "ringobj.obj",
   "function": "RingRenderObjClass::RingRenderObjClass",
   "symbol": "??0RingRenderObjClass@@QAE@ABUW3dRingStruct@@@Z",
   "length": 571,
@@ -5975,7 +4555,7 @@
   "symbol": "?Get_Num_Polys@RingRenderObjClass@@UBEHXZ",
   "length": 23,
   "status": "none",
-  "address": "0x90D2A0",
+  "address": "0x90C0B0",
   "similarity": 0.77,
   "window": "0x909540-0x90F600"
  },
@@ -6025,8 +4605,8 @@
   "symbol": "?Render@RingRenderObjClass@@UAEXAAVRenderInfoClass@@@Z",
   "length": 790,
   "status": "none",
-  "address": "0x90D680",
-  "similarity": 0.14,
+  "address": "0x90AF60",
+  "similarity": 0.16,
   "window": "0x909540-0x90F600"
  },
  {
@@ -6035,8 +4615,8 @@
   "symbol": "?Get_Default_Color@RingRenderObjClass@@QBE?AVVector3@@XZ",
   "length": 79,
   "status": "none",
-  "address": "0x90D540",
-  "similarity": 0.68,
+  "address": "0x90D140",
+  "similarity": 0.14,
   "window": "0x909540-0x90F600"
  },
  {
@@ -6045,8 +4625,8 @@
   "symbol": "?Get_Default_Alpha@RingRenderObjClass@@QBEMXZ",
   "length": 26,
   "status": "none",
-  "address": "0x90D590",
-  "similarity": 0.69,
+  "address": "0x90A0A0",
+  "similarity": 0.58,
   "window": "0x909540-0x90F600"
  },
  {
@@ -6055,7 +4635,7 @@
   "symbol": "?Get_Default_Inner_Scale@RingRenderObjClass@@QBE?AVVector2@@XZ",
   "length": 61,
   "status": "none",
-  "address": "0x90D5B0",
+  "address": "0x90D540",
   "similarity": 0.36,
   "window": "0x909540-0x90F600"
  },
@@ -6065,8 +4645,8 @@
   "symbol": "?Get_Default_Outer_Scale@RingRenderObjClass@@QBE?AVVector2@@XZ",
   "length": 61,
   "status": "none",
-  "address": "0x90AF30",
-  "similarity": 0.32,
+  "address": "0x90D5B0",
+  "similarity": 0.36,
   "window": "0x909540-0x90F600"
  },
  {
@@ -6077,26 +4657,6 @@
   "status": "none",
   "address": "0x90CF50",
   "similarity": 0.69,
-  "window": "0x909540-0x90F600"
- },
- {
-  "object": "ringobj.obj",
-  "function": "RingRenderObjClass::Set_Transform",
-  "symbol": "?Set_Transform@RingRenderObjClass@@UAEXABVMatrix3D@@@Z",
-  "length": 27,
-  "status": "none",
-  "address": "0x90D030",
-  "similarity": 0.9,
-  "window": "0x909540-0x90F600"
- },
- {
-  "object": "ringobj.obj",
-  "function": "RingRenderObjClass::Set_Position",
-  "symbol": "?Set_Position@RingRenderObjClass@@UAEXABVVector3@@@Z",
-  "length": 27,
-  "status": "none",
-  "address": "0x90A0B0",
-  "similarity": 0.49,
   "window": "0x909540-0x90F600"
  },
  {
@@ -6125,18 +4685,8 @@
   "symbol": "?Get_Obj_Space_Bounding_Box@RingRenderObjClass@@UBEXAAVAABoxClass@@@Z",
   "length": 60,
   "status": "none",
-  "address": "0x90D140",
-  "similarity": 0.65,
-  "window": "0x909540-0x90F600"
- },
- {
-  "object": "ringobj.obj",
-  "function": "RingRenderObjClass::Update_On_Visibilty",
-  "symbol": "?Update_On_Visibilty@RingRenderObjClass@@IAEXXZ",
-  "length": 87,
-  "status": "none",
-  "address": "0x90D2B0",
-  "similarity": 0.43,
+  "address": "0x90AF00",
+  "similarity": 0.42,
   "window": "0x909540-0x90F600"
  },
  {
@@ -6155,8 +4705,8 @@
   "symbol": "??0RingPrototypeClass@@QAE@PAVRingRenderObjClass@@@Z",
   "length": 866,
   "status": "none",
-  "address": "0x90DB20",
-  "similarity": 0.39,
+  "address": "0x90B160",
+  "similarity": 0.19,
   "window": "0x909540-0x90F600"
  },
  {
@@ -6165,8 +4715,8 @@
   "symbol": "?Create@RingPrototypeClass@@UAEPAVRenderObjClass@@XZ",
   "length": 832,
   "status": "none",
-  "address": "0x90E230",
-  "similarity": 0.45,
+  "address": "0x90DB20",
+  "similarity": 0.12,
   "window": "0x909540-0x90F600"
  },
  {
@@ -6176,7 +4726,7 @@
   "length": 943,
   "status": "none",
   "address": "0x965460",
-  "similarity": 0.63,
+  "similarity": 0.64,
   "window": "0x965460-0x965830"
  },
  {
@@ -6196,18 +4746,8 @@
   "length": 197,
   "status": "none",
   "address": "0x965F40",
-  "similarity": 0.47,
-  "window": "0x965F40-0x966160"
- },
- {
-  "object": "scene.obj",
-  "function": "SimpleSceneClass::Compute_Point_Visibility",
-  "symbol": "?Compute_Point_Visibility@SimpleSceneClass@@UAEMAAVRenderInfoClass@@ABVVector3@@@Z",
-  "length": 332,
-  "status": "none",
-  "address": null,
-  "similarity": null,
-  "window": "0x965F40-0x966160"
+  "similarity": 0.51,
+  "window": "0x965F40-0x966010"
  },
  {
   "object": "scene.obj",
@@ -6216,7 +4756,7 @@
   "length": 226,
   "status": "none",
   "address": "0x9661C0",
-  "similarity": 0.65,
+  "similarity": 0.67,
   "window": "0x9661C0-0x9662E0"
  },
  {
@@ -6226,38 +4766,8 @@
   "length": 150,
   "status": "none",
   "address": "0x9695A0",
-  "similarity": 0.8,
+  "similarity": 0.83,
   "window": "0x9695A0-0x9696A0"
- },
- {
-  "object": "segline.obj",
-  "function": "SegmentedLineClass::Get_Obj_Space_Bounding_Sphere",
-  "symbol": "?Get_Obj_Space_Bounding_Sphere@SegmentedLineClass@@UBEXAAVSphereClass@@@Z",
-  "length": 83,
-  "status": "none",
-  "address": "0x969640",
-  "similarity": 0.97,
-  "window": "0x9695A0-0x9696A0"
- },
- {
-  "object": "segline.obj",
-  "function": "SegmentedLineClass::Prepare_LOD",
-  "symbol": "?Prepare_LOD@SegmentedLineClass@@UAEXAAVCameraClass@@@Z",
-  "length": 101,
-  "status": "none",
-  "address": null,
-  "similarity": null,
-  "window": "0x969A90-0x969B00"
- },
- {
-  "object": "segline.obj",
-  "function": "SegmentedLineClass::Get_Value",
-  "symbol": "?Get_Value@SegmentedLineClass@@UBEMXZ",
-  "length": 83,
-  "status": "none",
-  "address": "0x969B40",
-  "similarity": 0.8,
-  "window": "0x969B40-0x969BB0"
  },
  {
   "object": "segline.obj",
@@ -6266,18 +4776,8 @@
   "length": 76,
   "status": "none",
   "address": "0x969C50",
-  "similarity": 0.83,
-  "window": "0x969C30-0x96A430"
- },
- {
-  "object": "segline.obj",
-  "function": "SegmentedLineClass::Cast_Ray",
-  "symbol": "?Cast_Ray@SegmentedLineClass@@UAE_NAAVRayCollisionTestClass@@@Z",
-  "length": 572,
-  "status": "none",
-  "address": "0x969CA0",
-  "similarity": 0.95,
-  "window": "0x969C30-0x96A430"
+  "similarity": 0.86,
+  "window": "0x969C30-0x969CA0"
  },
  {
   "object": "seglinerenderer.obj",
@@ -6328,16 +4828,6 @@
   "address": "0x93D140",
   "similarity": 0.29,
   "window": "0x93CE00-0x93D600"
- },
- {
-  "object": "shattersystem.obj",
-  "function": "ShatterSystem::Process_Clip_Pools",
-  "symbol": "?Process_Clip_Pools@ShatterSystem@@KAXABVMatrix3D@@PAVMeshClass@@AAVMeshMtlParamsClass@@@Z",
-  "length": 2184,
-  "status": "none",
-  "address": "0x9AE070",
-  "similarity": 0.9,
-  "window": "0x9AE070-0x9AE900"
  },
  {
   "object": "sortingrenderer.obj",
@@ -6485,9 +4975,9 @@
   "symbol": "?Clone@SoundRenderObjClass@@UBEPAVRenderObjClass@@XZ",
   "length": 331,
   "status": "none",
-  "address": null,
-  "similarity": null,
-  "window": "0x463080-0x4630B0"
+  "address": "0x463790",
+  "similarity": 0.15,
+  "window": "0x463390-0x463B90"
  },
  {
   "object": "soundrobj.obj",
@@ -6495,9 +4985,9 @@
   "symbol": "?Set_Name@SoundRenderObjClass@@UAEXPBD@Z",
   "length": 83,
   "status": "none",
-  "address": null,
-  "similarity": null,
-  "window": "0x463080-0x4630B0"
+  "address": "0x4633A0",
+  "similarity": 0.35,
+  "window": "0x463390-0x463B90"
  },
  {
   "object": "soundrobj.obj",
@@ -6505,9 +4995,9 @@
   "symbol": "??_GSoundRenderObjClass@@UAEPAXI@Z",
   "length": 198,
   "status": "none",
-  "address": null,
-  "similarity": null,
-  "window": "0x463080-0x4630B0"
+  "address": "0x4633E0",
+  "similarity": 0.21,
+  "window": "0x463390-0x463B90"
  },
  {
   "object": "soundrobj.obj",
@@ -6515,9 +5005,9 @@
   "symbol": "??0SoundRenderObjClass@@QAE@ABV0@@Z",
   "length": 307,
   "status": "none",
-  "address": "0x4633A0",
-  "similarity": 0.21,
-  "window": "0x4631C0-0x463A60"
+  "address": "0x4634A0",
+  "similarity": 0.19,
+  "window": "0x463390-0x463B90"
  },
  {
   "object": "soundrobj.obj",
@@ -6525,9 +5015,9 @@
   "symbol": "??1SoundRenderObjClass@@UAE@XZ",
   "length": 177,
   "status": "none",
-  "address": "0x463270",
-  "similarity": 0.27,
-  "window": "0x4631C0-0x463A60"
+  "address": "0x4633C0",
+  "similarity": 0.22,
+  "window": "0x463390-0x463B90"
  },
  {
   "object": "soundrobj.obj",
@@ -6535,9 +5025,9 @@
   "symbol": "??4SoundRenderObjClass@@QAEABV0@ABV0@@Z",
   "length": 239,
   "status": "none",
-  "address": "0x4632F0",
+  "address": "0x463410",
   "similarity": 0.12,
-  "window": "0x4631C0-0x463A60"
+  "window": "0x463390-0x463B90"
  },
  {
   "object": "soundrobj.obj",
@@ -6545,9 +5035,9 @@
   "symbol": "?Set_Sound@SoundRenderObjClass@@UAEXPAVAudibleSoundDefinitionClass@@@Z",
   "length": 96,
   "status": "none",
-  "address": "0x4633E0",
-  "similarity": 0.13,
-  "window": "0x4631C0-0x463A60"
+  "address": "0x4634F0",
+  "similarity": 0.03,
+  "window": "0x463390-0x463B90"
  },
  {
   "object": "soundrobj.obj",
@@ -6555,9 +5045,9 @@
   "symbol": "?On_Frame_Update@SoundRenderObjClass@@UAEXXZ",
   "length": 68,
   "status": "none",
-  "address": "0x4632B0",
-  "similarity": 0.39,
-  "window": "0x4631C0-0x463A60"
+  "address": "0x463440",
+  "similarity": 0.34,
+  "window": "0x463390-0x463B90"
  },
  {
   "object": "soundrobj.obj",
@@ -6565,9 +5055,9 @@
   "symbol": "?Set_Hidden@SoundRenderObjClass@@UAEXH@Z",
   "length": 82,
   "status": "none",
-  "address": "0x463340",
-  "similarity": 0.31,
-  "window": "0x4631C0-0x463A60"
+  "address": "0x4637C0",
+  "similarity": 0.06,
+  "window": "0x463390-0x463B90"
  },
  {
   "object": "soundrobj.obj",
@@ -6575,9 +5065,9 @@
   "symbol": "?Set_Visible@SoundRenderObjClass@@UAEXH@Z",
   "length": 82,
   "status": "none",
-  "address": "0x463370",
-  "similarity": 0.31,
-  "window": "0x4631C0-0x463A60"
+  "address": null,
+  "similarity": null,
+  "window": "0x463390-0x463B90"
  },
  {
   "object": "soundrobj.obj",
@@ -6585,9 +5075,9 @@
   "symbol": "?Set_Animation_Hidden@SoundRenderObjClass@@UAEXH@Z",
   "length": 82,
   "status": "none",
-  "address": "0x463440",
-  "similarity": 0.31,
-  "window": "0x4631C0-0x463A60"
+  "address": null,
+  "similarity": null,
+  "window": "0x463390-0x463B90"
  },
  {
   "object": "soundrobj.obj",
@@ -6595,9 +5085,9 @@
   "symbol": "?Set_Force_Visible@SoundRenderObjClass@@UAEXH@Z",
   "length": 82,
   "status": "none",
-  "address": "0x4634A0",
-  "similarity": 0.3,
-  "window": "0x4631C0-0x463A60"
+  "address": null,
+  "similarity": null,
+  "window": "0x463390-0x463B90"
  },
  {
   "object": "soundrobj.obj",
@@ -6605,9 +5095,9 @@
   "symbol": "?Update_On_Visibilty@SoundRenderObjClass@@MAEXXZ",
   "length": 164,
   "status": "none",
-  "address": "0x4633C0",
-  "similarity": 0.22,
-  "window": "0x4631C0-0x463A60"
+  "address": null,
+  "similarity": null,
+  "window": "0x463390-0x463B90"
  },
  {
   "object": "soundrobj.obj",
@@ -6615,9 +5105,9 @@
   "symbol": "?Get_Sound@SoundRenderObjClass@@UBEPAVAudibleSoundClass@@XZ",
   "length": 20,
   "status": "none",
-  "address": "0x463320",
-  "similarity": 0.43,
-  "window": "0x4631C0-0x463A60"
+  "address": null,
+  "similarity": null,
+  "window": "0x463390-0x463B90"
  },
  {
   "object": "soundrobj.obj",
@@ -6625,9 +5115,9 @@
   "symbol": "?Set_Flag@SoundRenderObjClass@@QAEXK_N@Z",
   "length": 47,
   "status": "none",
-  "address": "0x463410",
-  "similarity": 0.17,
-  "window": "0x4631C0-0x463A60"
+  "address": null,
+  "similarity": null,
+  "window": "0x463390-0x463B90"
  },
  {
   "object": "soundrobj.obj",
@@ -6635,9 +5125,9 @@
   "symbol": "?Notify_Added@SoundRenderObjClass@@UAEXPAVSceneClass@@@Z",
   "length": 39,
   "status": "none",
-  "address": "0x463790",
-  "similarity": 0.28,
-  "window": "0x4631C0-0x463A60"
+  "address": null,
+  "similarity": null,
+  "window": "0x463390-0x463B90"
  },
  {
   "object": "soundrobj.obj",
@@ -6645,9 +5135,9 @@
   "symbol": "?Notify_Removed@SoundRenderObjClass@@UAEXPAVSceneClass@@@Z",
   "length": 41,
   "status": "none",
-  "address": "0x4632D0",
-  "similarity": 0.27,
-  "window": "0x4631C0-0x463A60"
+  "address": null,
+  "similarity": null,
+  "window": "0x463390-0x463B90"
  },
  {
   "object": "soundrobj.obj",
@@ -6655,9 +5145,9 @@
   "symbol": "?Set_Transform@SoundRenderObjClass@@UAEXABVMatrix3D@@@Z",
   "length": 44,
   "status": "none",
-  "address": "0x4631D0",
-  "similarity": 0.18,
-  "window": "0x4631C0-0x463A60"
+  "address": null,
+  "similarity": null,
+  "window": "0x463390-0x463B90"
  },
  {
   "object": "soundrobj.obj",
@@ -6665,9 +5155,9 @@
   "symbol": "?Set_Position@SoundRenderObjClass@@UAEXABVVector3@@@Z",
   "length": 44,
   "status": "none",
-  "address": "0x463220",
-  "similarity": 0.18,
-  "window": "0x4631C0-0x463A60"
+  "address": null,
+  "similarity": null,
+  "window": "0x463390-0x463B90"
  },
  {
   "object": "soundrobj.obj",
@@ -6675,9 +5165,9 @@
   "symbol": "??0SoundRenderObjDefClass@@QAE@XZ",
   "length": 84,
   "status": "none",
-  "address": "0x463290",
-  "similarity": 0.19,
-  "window": "0x4631C0-0x463A60"
+  "address": null,
+  "similarity": null,
+  "window": "0x463390-0x463B90"
  },
  {
   "object": "soundrobj.obj",
@@ -6685,9 +5175,9 @@
   "symbol": "??_GSoundRenderObjDefClass@@UAEPAXI@Z",
   "length": 105,
   "status": "none",
-  "address": "0x4634F0",
-  "similarity": 0.1,
-  "window": "0x4631C0-0x463A60"
+  "address": null,
+  "similarity": null,
+  "window": "0x463390-0x463B90"
  },
  {
   "object": "soundrobj.obj",
@@ -6695,9 +5185,9 @@
   "symbol": "??0SoundRenderObjDefClass@@QAE@AAVSoundRenderObjClass@@@Z",
   "length": 205,
   "status": "none",
-  "address": "0x4637C0",
-  "similarity": 0.08,
-  "window": "0x4631C0-0x463A60"
+  "address": null,
+  "similarity": null,
+  "window": "0x463390-0x463B90"
  },
  {
   "object": "soundrobj.obj",
@@ -6707,7 +5197,7 @@
   "status": "none",
   "address": null,
   "similarity": null,
-  "window": "0x4631C0-0x463A60"
+  "window": "0x463390-0x463B90"
  },
  {
   "object": "soundrobj.obj",
@@ -6717,7 +5207,7 @@
   "status": "none",
   "address": null,
   "similarity": null,
-  "window": "0x4631C0-0x463A60"
+  "window": "0x463390-0x463B90"
  },
  {
   "object": "soundrobj.obj",
@@ -6727,7 +5217,7 @@
   "status": "none",
   "address": null,
   "similarity": null,
-  "window": "0x4631C0-0x463A60"
+  "window": "0x463390-0x463B90"
  },
  {
   "object": "soundrobj.obj",
@@ -6737,7 +5227,7 @@
   "status": "none",
   "address": "0x463490",
   "similarity": 0.12,
-  "window": "0x4631C0-0x463A60"
+  "window": "0x463390-0x463B90"
  },
  {
   "object": "soundrobj.obj",
@@ -6747,7 +5237,7 @@
   "status": "none",
   "address": null,
   "similarity": null,
-  "window": "0x4631C0-0x463A60"
+  "window": "0x463390-0x463B90"
  },
  {
   "object": "soundrobj.obj",
@@ -6757,7 +5247,7 @@
   "status": "none",
   "address": null,
   "similarity": null,
-  "window": "0x4631C0-0x463A60"
+  "window": "0x463390-0x463B90"
  },
  {
   "object": "soundrobj.obj",
@@ -6767,7 +5257,7 @@
   "status": "none",
   "address": null,
   "similarity": null,
-  "window": "0x4631C0-0x463A60"
+  "window": "0x463390-0x463B90"
  },
  {
   "object": "soundrobj.obj",
@@ -6777,7 +5267,7 @@
   "status": "none",
   "address": null,
   "similarity": null,
-  "window": "0x4631C0-0x463A60"
+  "window": "0x463390-0x463B90"
  },
  {
   "object": "soundrobj.obj",
@@ -6787,7 +5277,7 @@
   "status": "none",
   "address": null,
   "similarity": null,
-  "window": "0x4631C0-0x463A60"
+  "window": "0x463390-0x463B90"
  },
  {
   "object": "soundrobj.obj",
@@ -6797,7 +5287,7 @@
   "status": "none",
   "address": null,
   "similarity": null,
-  "window": "0x4631C0-0x463A60"
+  "window": "0x463390-0x463B90"
  },
  {
   "object": "soundrobj.obj",
@@ -6807,7 +5297,7 @@
   "status": "none",
   "address": null,
   "similarity": null,
-  "window": "0x4631C0-0x463A60"
+  "window": "0x463390-0x463B90"
  },
  {
   "object": "soundrobj.obj",
@@ -6817,7 +5307,7 @@
   "status": "none",
   "address": null,
   "similarity": null,
-  "window": "0x4631C0-0x463A60"
+  "window": "0x463390-0x463B90"
  },
  {
   "object": "soundrobj.obj",
@@ -6827,7 +5317,7 @@
   "status": "none",
   "address": null,
   "similarity": null,
-  "window": "0x4631C0-0x463A60"
+  "window": "0x463390-0x463B90"
  },
  {
   "object": "soundrobj.obj",
@@ -6837,7 +5327,7 @@
   "status": "none",
   "address": null,
   "similarity": null,
-  "window": "0x4631C0-0x463A60"
+  "window": "0x463390-0x463B90"
  },
  {
   "object": "sphereobj.obj",
@@ -6871,46 +5361,6 @@
  },
  {
   "object": "sphereobj.obj",
-  "function": "SphereRenderObjClass::Set_Hidden",
-  "symbol": "?Set_Hidden@SphereRenderObjClass@@UAEXH@Z",
-  "length": 115,
-  "status": "none",
-  "address": "0x90AF60",
-  "similarity": 0.82,
-  "window": "0x90AF00-0x90D8B0"
- },
- {
-  "object": "sphereobj.obj",
-  "function": "SphereRenderObjClass::Set_Visible",
-  "symbol": "?Set_Visible@SphereRenderObjClass@@UAEXH@Z",
-  "length": 115,
-  "status": "none",
-  "address": "0x90AFE0",
-  "similarity": 0.82,
-  "window": "0x90AF00-0x90D8B0"
- },
- {
-  "object": "sphereobj.obj",
-  "function": "SphereRenderObjClass::Set_Animation_Hidden",
-  "symbol": "?Set_Animation_Hidden@SphereRenderObjClass@@UAEXH@Z",
-  "length": 115,
-  "status": "none",
-  "address": "0x90B060",
-  "similarity": 0.82,
-  "window": "0x90AF00-0x90D8B0"
- },
- {
-  "object": "sphereobj.obj",
-  "function": "SphereRenderObjClass::Set_Force_Visible",
-  "symbol": "?Set_Force_Visible@SphereRenderObjClass@@UAEXH@Z",
-  "length": 115,
-  "status": "none",
-  "address": "0x90B0E0",
-  "similarity": 0.82,
-  "window": "0x90AF00-0x90D8B0"
- },
- {
-  "object": "sphereobj.obj",
   "function": "SphereRenderObjClass::scalar deleting dtor",
   "symbol": "??_GSphereRenderObjClass@@UAEPAXI@Z",
   "length": 388,
@@ -6926,7 +5376,7 @@
   "length": 596,
   "status": "none",
   "address": "0x90B470",
-  "similarity": 0.38,
+  "similarity": 0.39,
   "window": "0x90AF00-0x90D8B0"
  },
  {
@@ -7051,26 +5501,6 @@
  },
  {
   "object": "sphereobj.obj",
-  "function": "SphereRenderObjClass::Set_Transform",
-  "symbol": "?Set_Transform@SphereRenderObjClass@@UAEXABVMatrix3D@@@Z",
-  "length": 27,
-  "status": "none",
-  "address": "0x90D030",
-  "similarity": 0.9,
-  "window": "0x90AF00-0x90D8B0"
- },
- {
-  "object": "sphereobj.obj",
-  "function": "SphereRenderObjClass::Set_Position",
-  "symbol": "?Set_Position@SphereRenderObjClass@@UAEXABVVector3@@@Z",
-  "length": 27,
-  "status": "none",
-  "address": "0x90AF30",
-  "similarity": 0.45,
-  "window": "0x90AF00-0x90D8B0"
- },
- {
-  "object": "sphereobj.obj",
   "function": "SphereRenderObjClass::update_cached_box",
   "symbol": "?update_cached_box@SphereRenderObjClass@@MAEXXZ",
   "length": 120,
@@ -7151,22 +5581,12 @@
  },
  {
   "object": "sphereobj.obj",
-  "function": "SphereRenderObjClass::Update_On_Visibilty",
-  "symbol": "?Update_On_Visibilty@SphereRenderObjClass@@IAEXXZ",
-  "length": 87,
-  "status": "none",
-  "address": "0x90D680",
-  "similarity": 0.81,
-  "window": "0x90AF00-0x90D8B0"
- },
- {
-  "object": "sphereobj.obj",
   "function": "SphereRenderObjClass::animate",
   "symbol": "?animate@SphereRenderObjClass@@IAEXXZ",
   "length": 454,
   "status": "none",
   "address": "0x90D6E0",
-  "similarity": 0.59,
+  "similarity": 0.6,
   "window": "0x90AF00-0x90D8B0"
  },
  {
@@ -7176,7 +5596,7 @@
   "length": 875,
   "status": "none",
   "address": "0x90DB20",
-  "similarity": 0.78,
+  "similarity": 0.79,
   "window": "0x90DB20-0x90DEC0"
  },
  {
@@ -7227,7 +5647,7 @@
   "status": "none",
   "address": "0x4633A0",
   "similarity": 0.18,
-  "window": "0x463260-0x463A60"
+  "window": "0x463390-0x463B90"
  },
  {
   "object": "streak.obj",
@@ -7235,9 +5655,9 @@
   "symbol": "??0StreakLineClass@@QAE@ABV0@@Z",
   "length": 280,
   "status": "none",
-  "address": "0x4632F0",
+  "address": "0x4633E0",
   "similarity": 0.2,
-  "window": "0x463260-0x463A60"
+  "window": "0x463390-0x463B90"
  },
  {
   "object": "streak.obj",
@@ -7245,9 +5665,9 @@
   "symbol": "??4StreakLineClass@@QAEAAV0@ABV0@@Z",
   "length": 209,
   "status": "none",
-  "address": "0x463270",
-  "similarity": 0.29,
-  "window": "0x463260-0x463A60"
+  "address": "0x4634A0",
+  "similarity": 0.28,
+  "window": "0x463390-0x463B90"
  },
  {
   "object": "streak.obj",
@@ -7257,7 +5677,7 @@
   "status": "none",
   "address": "0x463790",
   "similarity": 0.4,
-  "window": "0x463260-0x463A60"
+  "window": "0x463390-0x463B90"
  },
  {
   "object": "streak.obj",
@@ -7265,9 +5685,9 @@
   "symbol": "?Set_Locs@StreakLineClass@@IAEXIPAVVector3@@@Z",
   "length": 197,
   "status": "none",
-  "address": "0x4634A0",
+  "address": "0x463440",
   "similarity": 0.19,
-  "window": "0x463260-0x463A60"
+  "window": "0x463390-0x463B90"
  },
  {
   "object": "streak.obj",
@@ -7275,9 +5695,9 @@
   "symbol": "?Set_Widths@StreakLineClass@@IAEXIPAM@Z",
   "length": 152,
   "status": "none",
-  "address": "0x463320",
+  "address": "0x4633C0",
   "similarity": 0.16,
-  "window": "0x463260-0x463A60"
+  "window": "0x463390-0x463B90"
  },
  {
   "object": "streak.obj",
@@ -7285,9 +5705,9 @@
   "symbol": "?Set_Colors@StreakLineClass@@IAEXIPAVVector4@@@Z",
   "length": 181,
   "status": "none",
-  "address": "0x463440",
-  "similarity": 0.2,
-  "window": "0x463260-0x463A60"
+  "address": "0x4634F0",
+  "similarity": 0.08,
+  "window": "0x463390-0x463B90"
  },
  {
   "object": "streak.obj",
@@ -7295,9 +5715,9 @@
   "symbol": "?Set_LocsWidthsColors@StreakLineClass@@QAEXIPAVVector3@@PAMPAVVector4@@PAI@Z",
   "length": 292,
   "status": "none",
-  "address": "0x4632B0",
-  "similarity": 0.16,
-  "window": "0x463260-0x463A60"
+  "address": "0x463410",
+  "similarity": 0.1,
+  "window": "0x463390-0x463B90"
  },
  {
   "object": "streak.obj",
@@ -7305,9 +5725,9 @@
   "symbol": "?Set_Point_Location@StreakLineClass@@QAEXIABVVector3@@@Z",
   "length": 72,
   "status": "none",
-  "address": "0x4633C0",
-  "similarity": 0.26,
-  "window": "0x463260-0x463A60"
+  "address": "0x4637C0",
+  "similarity": 0.03,
+  "window": "0x463390-0x463B90"
  },
  {
   "object": "streak.obj",
@@ -7315,9 +5735,9 @@
   "symbol": "?Get_Point_Location@StreakLineClass@@QAEXIAAVVector3@@@Z",
   "length": 67,
   "status": "none",
-  "address": "0x4632D0",
-  "similarity": 0.23,
-  "window": "0x463260-0x463A60"
+  "address": null,
+  "similarity": null,
+  "window": "0x463390-0x463B90"
  },
  {
   "object": "streak.obj",
@@ -7325,9 +5745,9 @@
   "symbol": "?Add_Point@StreakLineClass@@QAEXABVVector3@@@Z",
   "length": 105,
   "status": "none",
-  "address": "0x463290",
-  "similarity": 0.16,
-  "window": "0x463260-0x463A60"
+  "address": "0x463490",
+  "similarity": 0.03,
+  "window": "0x463390-0x463B90"
  },
  {
   "object": "streak.obj",
@@ -7335,9 +5755,9 @@
   "symbol": "?Delete_Point@StreakLineClass@@QAEXI@Z",
   "length": 110,
   "status": "none",
-  "address": "0x4633E0",
-  "similarity": 0.16,
-  "window": "0x463260-0x463A60"
+  "address": null,
+  "similarity": null,
+  "window": "0x463390-0x463B90"
  },
  {
   "object": "streak.obj",
@@ -7345,9 +5765,9 @@
   "symbol": "?Get_Shader@StreakLineClass@@QAE?AVShaderClass@@XZ",
   "length": 15,
   "status": "none",
-  "address": "0x463410",
-  "similarity": 0.11,
-  "window": "0x463260-0x463A60"
+  "address": null,
+  "similarity": null,
+  "window": "0x463390-0x463B90"
  },
  {
   "object": "streak.obj",
@@ -7355,9 +5775,9 @@
   "symbol": "?Get_Color@StreakLineClass@@QAEXAAVVector3@@@Z",
   "length": 33,
   "status": "none",
-  "address": "0x4634F0",
-  "similarity": 0.05,
-  "window": "0x463260-0x463A60"
+  "address": null,
+  "similarity": null,
+  "window": "0x463390-0x463B90"
  },
  {
   "object": "streak.obj",
@@ -7365,9 +5785,9 @@
   "symbol": "?Get_UV_Offset_Rate@StreakLineClass@@QAE?AVVector2@@XZ",
   "length": 36,
   "status": "none",
-  "address": "0x4637C0",
-  "similarity": 0.04,
-  "window": "0x463260-0x463A60"
+  "address": null,
+  "similarity": null,
+  "window": "0x463390-0x463B90"
  },
  {
   "object": "streak.obj",
@@ -7377,7 +5797,7 @@
   "status": "none",
   "address": null,
   "similarity": null,
-  "window": "0x463260-0x463A60"
+  "window": "0x463390-0x463B90"
  },
  {
   "object": "streak.obj",
@@ -7387,7 +5807,7 @@
   "status": "none",
   "address": null,
   "similarity": null,
-  "window": "0x463260-0x463A60"
+  "window": "0x463390-0x463B90"
  },
  {
   "object": "streak.obj",
@@ -7397,7 +5817,7 @@
   "status": "none",
   "address": null,
   "similarity": null,
-  "window": "0x463260-0x463A60"
+  "window": "0x463390-0x463B90"
  },
  {
   "object": "streak.obj",
@@ -7407,7 +5827,7 @@
   "status": "none",
   "address": null,
   "similarity": null,
-  "window": "0x463260-0x463A60"
+  "window": "0x463390-0x463B90"
  },
  {
   "object": "streak.obj",
@@ -7417,7 +5837,7 @@
   "status": "none",
   "address": null,
   "similarity": null,
-  "window": "0x463260-0x463A60"
+  "window": "0x463390-0x463B90"
  },
  {
   "object": "streak.obj",
@@ -7427,7 +5847,7 @@
   "status": "none",
   "address": null,
   "similarity": null,
-  "window": "0x463260-0x463A60"
+  "window": "0x463390-0x463B90"
  },
  {
   "object": "streak.obj",
@@ -7437,7 +5857,7 @@
   "status": "none",
   "address": null,
   "similarity": null,
-  "window": "0x463260-0x463A60"
+  "window": "0x463390-0x463B90"
  },
  {
   "object": "streak.obj",
@@ -7447,7 +5867,7 @@
   "status": "none",
   "address": null,
   "similarity": null,
-  "window": "0x463260-0x463A60"
+  "window": "0x463390-0x463B90"
  },
  {
   "object": "streak.obj",
@@ -7457,7 +5877,7 @@
   "status": "none",
   "address": null,
   "similarity": null,
-  "window": "0x463260-0x463A60"
+  "window": "0x463390-0x463B90"
  },
  {
   "object": "streak.obj",
@@ -7467,7 +5887,7 @@
   "status": "none",
   "address": null,
   "similarity": null,
-  "window": "0x463260-0x463A60"
+  "window": "0x463390-0x463B90"
  },
  {
   "object": "streak.obj",
@@ -7477,7 +5897,7 @@
   "status": "none",
   "address": null,
   "similarity": null,
-  "window": "0x463260-0x463A60"
+  "window": "0x463390-0x463B90"
  },
  {
   "object": "streak.obj",
@@ -7487,7 +5907,7 @@
   "status": "none",
   "address": null,
   "similarity": null,
-  "window": "0x463260-0x463A60"
+  "window": "0x463390-0x463B90"
  },
  {
   "object": "streak.obj",
@@ -7497,7 +5917,7 @@
   "status": "none",
   "address": null,
   "similarity": null,
-  "window": "0x463260-0x463A60"
+  "window": "0x463390-0x463B90"
  },
  {
   "object": "streak.obj",
@@ -7507,7 +5927,7 @@
   "status": "none",
   "address": null,
   "similarity": null,
-  "window": "0x463260-0x463A60"
+  "window": "0x463390-0x463B90"
  },
  {
   "object": "streak.obj",
@@ -7517,7 +5937,7 @@
   "status": "none",
   "address": null,
   "similarity": null,
-  "window": "0x463260-0x463A60"
+  "window": "0x463390-0x463B90"
  },
  {
   "object": "streak.obj",
@@ -7527,7 +5947,7 @@
   "status": "none",
   "address": null,
   "similarity": null,
-  "window": "0x463260-0x463A60"
+  "window": "0x463390-0x463B90"
  },
  {
   "object": "streak.obj",
@@ -7537,17 +5957,7 @@
   "status": "none",
   "address": null,
   "similarity": null,
-  "window": "0x463260-0x463A60"
- },
- {
-  "object": "streak.obj",
-  "function": "StreakLineClass::Get_Obj_Space_Bounding_Sphere",
-  "symbol": "?Get_Obj_Space_Bounding_Sphere@StreakLineClass@@UBEXAAVSphereClass@@@Z",
-  "length": 83,
-  "status": "none",
-  "address": null,
-  "similarity": null,
-  "window": "0x463260-0x463A60"
+  "window": "0x463390-0x463B90"
  },
  {
   "object": "streak.obj",
@@ -7557,7 +5967,7 @@
   "status": "none",
   "address": null,
   "similarity": null,
-  "window": "0x463260-0x463A60"
+  "window": "0x463390-0x463B90"
  },
  {
   "object": "streak.obj",
@@ -7565,9 +5975,9 @@
   "symbol": "?Prepare_LOD@StreakLineClass@@UAEXAAVCameraClass@@@Z",
   "length": 101,
   "status": "none",
-  "address": "0x463490",
-  "similarity": 0.04,
-  "window": "0x463260-0x463A60"
+  "address": null,
+  "similarity": null,
+  "window": "0x463390-0x463B90"
  },
  {
   "object": "streak.obj",
@@ -7577,7 +5987,7 @@
   "status": "none",
   "address": null,
   "similarity": null,
-  "window": "0x463260-0x463A60"
+  "window": "0x463390-0x463B90"
  },
  {
   "object": "streak.obj",
@@ -7587,7 +5997,7 @@
   "status": "none",
   "address": null,
   "similarity": null,
-  "window": "0x463260-0x463A60"
+  "window": "0x463390-0x463B90"
  },
  {
   "object": "streak.obj",
@@ -7597,7 +6007,7 @@
   "status": "none",
   "address": null,
   "similarity": null,
-  "window": "0x463260-0x463A60"
+  "window": "0x463390-0x463B90"
  },
  {
   "object": "streak.obj",
@@ -7607,7 +6017,7 @@
   "status": "none",
   "address": null,
   "similarity": null,
-  "window": "0x463260-0x463A60"
+  "window": "0x463390-0x463B90"
  },
  {
   "object": "streak.obj",
@@ -7617,7 +6027,7 @@
   "status": "none",
   "address": null,
   "similarity": null,
-  "window": "0x463260-0x463A60"
+  "window": "0x463390-0x463B90"
  },
  {
   "object": "streak.obj",
@@ -7627,7 +6037,7 @@
   "status": "none",
   "address": null,
   "similarity": null,
-  "window": "0x463260-0x463A60"
+  "window": "0x463390-0x463B90"
  },
  {
   "object": "streak.obj",
@@ -7637,7 +6047,7 @@
   "status": "none",
   "address": null,
   "similarity": null,
-  "window": "0x463260-0x463A60"
+  "window": "0x463390-0x463B90"
  },
  {
   "object": "streak.obj",
@@ -7647,7 +6057,7 @@
   "status": "none",
   "address": null,
   "similarity": null,
-  "window": "0x463260-0x463A60"
+  "window": "0x463390-0x463B90"
  },
  {
   "object": "streakRender.obj",
@@ -7938,26 +6348,6 @@
   "address": "0x93D730",
   "similarity": 0.47,
   "window": "0x93D2E0-0x93D800"
- },
- {
-  "object": "texproject.obj",
-  "function": "TexProjectClass::Compute_Perspective_Projection",
-  "symbol": "?Compute_Perspective_Projection@TexProjectClass@@QAE_NPAVRenderObjClass@@ABVVector3@@MM@Z",
-  "length": 86,
-  "status": "none",
-  "address": "0x93D4C0",
-  "similarity": 0.32,
-  "window": "0x93D2E0-0x93D800"
- },
- {
-  "object": "texproject.obj",
-  "function": "TexProjectClass::Compute_Ortho_Projection",
-  "symbol": "?Compute_Ortho_Projection@TexProjectClass@@QAE_NPAVRenderObjClass@@ABVVector3@@MM@Z",
-  "length": 86,
-  "status": "none",
-  "address": "0x93DB90",
-  "similarity": 0.95,
-  "window": "0x93DB90-0x93DBF0"
  },
  {
   "object": "texproject.obj",
@@ -9246,7 +7636,7 @@
   "length": 939,
   "status": "none",
   "address": "0x917C80",
-  "similarity": 0.53,
+  "similarity": 0.54,
   "window": "0x917C80-0x918260"
  },
  {

@@ -1026,4 +1026,8 @@ WWINLINE void Matrix3::Rotate_AABox_Extent(const Vector3 & extent,Vector3 * set_
 	}
 }
 
+// Zero Hour calls this class Matrix3x3; code taken from Zero Hour uses that name. The class
+// is the same, so the name is an alias here.
+typedef Matrix3 Matrix3x3;
+
 #endif /*Matrix3_H*/

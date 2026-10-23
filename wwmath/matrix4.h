@@ -794,4 +794,8 @@ WWINLINE void	Matrix4::Transform_Vector(const Matrix4 & A,const Vector4 & in,Vec
 }
 
 
+// Zero Hour calls this class Matrix4x4; code taken from Zero Hour (sphereobj.cpp, wwshade) uses
+// that name. The class is the same, so the name is an alias here.
+typedef Matrix4 Matrix4x4;
+
 #endif /*MATRIX4_H*/

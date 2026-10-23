@@ -2,7 +2,7 @@
  "0x42F250": {
   "Z": {
    "object": "shdsubmesh.obj",
-   "function": "YGXPAXIHP6EX0::?_H",
+   "function": "??_H@YGXPAXIHP6EX0@Z@Z",
    "symbol": "??_H@YGXPAXIHP6EX0@Z@Z",
    "length": 42
   }
@@ -98,7 +98,7 @@
  "0x48C500": {
   "Z": {
    "object": "shdmesh.obj",
-   "function": "?4StringClass",
+   "function": "StringClass::operator=",
    "symbol": "??4StringClass@@QAEABV0@ABV0@@Z",
    "length": 104
   }
@@ -106,7 +106,7 @@
  "0x494E10": {
   "Z": {
    "object": "shdrenderer.obj",
-   "function": "?0GenericMultiListClass",
+   "function": "GenericMultiListClass::GenericMultiListClass",
    "symbol": "??0GenericMultiListClass@@QAE@XZ",
    "length": 39
   }
@@ -122,7 +122,7 @@
  "0x53F1C0": {
   "Z": {
    "object": "shdsimple.obj",
-   "function": "?0StringClass",
+   "function": "StringClass::StringClass",
    "symbol": "??0StringClass@@QAE@H_N@Z",
    "length": 43
   }
@@ -130,7 +130,7 @@
  "0x909500": {
   "Z": {
    "object": "shdsubmesh.obj",
-   "function": "YGXPAXIHP6EX0::?_I",
+   "function": "??_I@YGXPAXIHP6EX0@Z@Z",
    "symbol": "??_I@YGXPAXIHP6EX0@Z@Z",
    "length": 49
   }
@@ -146,7 +146,7 @@
  "0x9DA8C0": {
   "Z": {
    "object": "shdsubmesh.obj",
-   "function": "EnumParameterClass::?_E_ENUM_VALUE",
+   "function": "_ENUM_VALUE::vector deleting dtor",
    "symbol": "??_E_ENUM_VALUE@EnumParameterClass@@QAEPAXI@Z",
    "length": 94
   }
@@ -154,7 +154,7 @@
  "0x9F36E0": {
   "Z": {
    "object": "shdbumpspec.obj",
-   "function": "?$SimpleShdDefFactoryClass::Create",
+   "function": "?Create@?$SimpleShdDefFactoryClass@VShdBumpSpecDefClass@@$02$1?ShdBumpSpecDefClassName@@3PADA@@UBEPAVShdDefClass@@XZ",
    "symbol": "?Create@?$SimpleShdDefFactoryClass@VShdBumpSpecDefClass@@$02$1?ShdBumpSpecDefClassName@@3PADA@@UBEPAVShdDefClass@@XZ",
    "length": 24
   }
@@ -178,7 +178,7 @@
  "0xA0A6A0": {
   "Z": {
    "object": "shdmesh.obj",
-   "function": "?$SimpleVecClass::Resize",
+   "function": "?Resize@?$SimpleVecClass@UShdSubMeshStruct@@@@UAE_NH@Z",
    "symbol": "?Resize@?$SimpleVecClass@UShdSubMeshStruct@@@@UAE_NH@Z",
    "length": 151
   }
@@ -186,7 +186,7 @@
  "0xA0A740": {
   "Z": {
    "object": "shdmesh.obj",
-   "function": "?$SimpleVecClass::Uninitialised_Grow",
+   "function": "?Uninitialised_Grow@?$SimpleVecClass@UShdSubMeshStruct@@@@UAE_NH@Z",
    "symbol": "?Uninitialised_Grow@?$SimpleVecClass@UShdSubMeshStruct@@@@UAE_NH@Z",
    "length": 55
   }
