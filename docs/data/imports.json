@@ -4524,6 +4524,7 @@
      "0x9FD370",
      "0x9FD390",
      "0x9FD3C0",
+     "0x9FD3E0",
      "0x9FD5F0",
      "0x9FD670",
      "0x9FD710",
@@ -5191,7 +5192,7 @@
    "soundhandle.h": "R",
    "soundstreamhandle.h": "R"
   },
-  "in_tree_total": 313,
+  "in_tree_total": 314,
   "totals": {
    "G": 72,
    "R": 205,

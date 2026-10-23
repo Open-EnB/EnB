@@ -479,6 +479,18 @@ AudibleSoundClass::Play (bool alloc_handle)
 	}
 
 	//
+	//	E&B: while the audio system is paused, a sound other than music starts paused
+	//
+	if (WWAudioClass::Get_Instance ()->m_Unknown19A5 && m_Type != TYPE_MUSIC) {
+		WWAudioClass::Get_Instance ()->Add_To_Playlist (this);
+		m_State				= STATE_PAUSED;
+		m_Timestamp			= TIMEGETTIME ();
+		m_LoopsLeft			= m_LoopCount;
+		m_CurrentPosition	= 0;
+		return true;
+	}
+
+	//
 	// If we don't have a valid handle already, try to get one from miles
 	//
 	if (alloc_handle && (m_pConvertedFormat == NULL)) {

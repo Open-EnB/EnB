@@ -177,6 +177,9 @@ PATCHES = {
         ('\t\tm_LoopsLeft (0),',
          '\t\tm_LoopsLeft (0),\n\t\tm_Unknown7C (4),\n\t\tm_Unknown80 (-1),',
          'both constructors initialise them'),
+        ('\tif (Verify_Playability () == false) {\n\t\treturn false;\n\t}\n',
+         '\tif (Verify_Playability () == false) {\n\t\treturn false;\n\t}\n\n\t//\n\t//\tE&B: while the audio system is paused, a sound other than music starts paused\n\t//\n\tif (WWAudioClass::Get_Instance ()->m_Unknown19A5 && m_Type != TYPE_MUSIC) {\n\t\tWWAudioClass::Get_Instance ()->Add_To_Playlist (this);\n\t\tm_State\t\t\t\t= STATE_PAUSED;\n\t\tm_Timestamp\t\t\t= TIMEGETTIME ();\n\t\tm_LoopsLeft\t\t\t= m_LoopCount;\n\t\tm_CurrentPosition\t= 0;\n\t\treturn true;\n\t}\n',
+         'AudibleSoundClass::Play 0x9FD3E0: while WWAudioClass +0x19A5 is set (0x9FD419) and the type is not music (+0x48), adds the sound to the playlist as STATE_PAUSED (0x9FD430), resets the timestamp and loop count, zeroes the position and returns true'),
     ],
     ('wwaudio', 'sound3d.h'): [
         ('\t\tVector3\t\t\t\t\tm_CurrentVelocity;',
