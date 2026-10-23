@@ -94,21 +94,16 @@ PATCHES = {
     ],
     ('ww3d2', 'w3d_file.h'): [
         ('FutureStartTime; // Whether to start a particle in the future or not\n\tuint32\t\t\t\tPadding[9];',
-         'FutureStartTime; // Whether to start a particle in the future or not\n'
-         '\tbool\t\t\t\t\tUnknownFlag;\t\t// E&B: set by ParticleEmitterDefClass::Set_Unknown_Flag; meaning not known\n'
-         '\tuint8\t\t\t\tUnknownPad[3];\n'
-         '\tuint32\t\t\t\tPadding[8];',
-         "W3dEmitterExtraInfoStruct (Zero Hour's) keeps its 40 bytes, but E&B uses the byte after "
-         "FutureStartTime as a bool flag (ParticleEmitterDefClass's extra virtual, vtable slot 19 at "
-         "0x914520, sets it); named UnknownFlag"),
+         'FutureStartTime; // Whether to start a particle in the future or not\n\tuint8\t\t\t\t\tUnknownFlag;\t\t// E&B: see ParticleEmitterDefClass::Set_Unknown_Flag; meaning not known\n\tuint8\t\t\t\t\tUnknownPad[3];\n\tuint32\t\t\t\tPadding[8];',
+         "W3dEmitterExtraInfoStruct (Zero Hour's) keeps its 40 bytes, but E&B uses the byte after FutureStartTime as a flag (set by ParticleEmitterDefClass's extra virtual, vtable slot 19 at 0x914520; passed to every emitter the definition creates); named UnknownFlag"),
     ],
     ('ww3d2', 'part_ldr.h'): [
         ('virtual void\t\t\tSet_Future_Start_Time (float value)\t\t\t{ m_ExtraInfo.FutureStartTime = value; }',
-         'virtual void\t\t\tSet_Future_Start_Time (float value)\t\t\t{ m_ExtraInfo.FutureStartTime = value; }\n'
-         '\t\tvirtual void\t\t\tSet_Unknown_Flag (uint8 value)\t\t\t\t{ m_ExtraInfo.UnknownFlag = value; }\t// E&B; name not known',
-         "ParticleEmitterDefClass has an extra virtual after Set_Future_Start_Time (the client's vtable "
-         "at 0xB10920, slot 19) that stores a byte argument as a bool: named Set_Unknown_Flag. A uint8 "
-         "argument into a bool member reproduces the client's test/setne"),
+         'virtual void\t\t\tSet_Future_Start_Time (float value)\t\t\t{ m_ExtraInfo.FutureStartTime = value; }\n\t\tvirtual void\t\t\tSet_Unknown_Flag (bool value)\t\t\t\t{ m_ExtraInfo.UnknownFlag = value ? 1 : 0; }\t// E&B; name not known',
+         "ParticleEmitterDefClass has an extra virtual after Set_Future_Start_Time (the client's vtable at 0xB10920, slot 19) setting the flag: named Set_Unknown_Flag. A bool argument stored as `? 1 : 0` into a uint8 reproduces the client's test/setne"),
+        ('float\t\t\t\t\t\tGet_Future_Start_Time (void) const\t{ return m_ExtraInfo.FutureStartTime; }',
+         'float\t\t\tGet_Future_Start_Time (void) const\t{ return m_ExtraInfo.FutureStartTime; }\n\t\tbool\t\t\tGet_Unknown_Flag (void) const\t\t{ return m_ExtraInfo.UnknownFlag != 0; }\t// E&B; name not known',
+         'and a getter (ParticleEmitterClass::Create_From_Definition reads the byte and tests it)'),
     ],
     ('ww3d2', 'scene.h'): [
         ('\tvirtual ~SceneClass(void);',
@@ -167,6 +162,49 @@ PATCHES = {
         ('\t\tfloat\t\t\t\t\t\t\t\t\tProjectedArea;',
          '\t\tfloat\t\t\t\t\t\t\t\t\tProjectedArea;\n\n\t\tunsigned char\t\t\t\t\t\tCurrentGroupID;\t// as in Zero Hour',
          'CurrentGroupID at the end'),
+        ('\tunsigned int\tTimeStamp;\t// Millisecond time at creation.\n',
+         '\tunsigned int\tTimeStamp;\t// Millisecond time at creation.\n\tunsigned char\tGroupID;\t\t// Group ID of the particle (as in Zero Hour)\n',
+         "NewParticleStruct has Zero Hour's GroupID (E&B's emitter, Zero Hour's code, sets it)"),
+        ('\t\tvoid Set_Emitter(ParticleEmitterClass *emitter);',
+         '\t\tvoid Set_Emitter(ParticleEmitterClass *emitter);\n\t\tvoid Set_Current_GroupID(unsigned char grp) { CurrentGroupID = grp; }',
+         "Zero Hour's Set_Current_GroupID"),
+    ],
+    ('ww3d2', 'part_emt.h'): [
+        ('\t\t\tconst W3dEmitterLinePropertiesStruct * line_props = NULL);',
+         '\t\t\tconst W3dEmitterLinePropertiesStruct * line_props = NULL,\n\t\t\tbool unknown_flag = false);',
+         "ParticleEmitterClass (Zero Hour's) takes one more constructor argument, a bool after line_props (the client's constructor, 0x97D180, ends `ret 0x78`), kept in UnknownFlag"),
+        ('Get_Future_Start_Time (void) const { return Buffer->Get_Future_Start_Time(); }',
+         'Get_Future_Start_Time (void) const { return FutureStartTime / 1000.0f; }',
+         'E&B keeps the future start time in the emitter (ms), not in the buffer as Zero Hour does'),
+        ('GroupID;\t\t\t\t// The group ID of a particle. A start causes the group ID to increment.',
+         'GroupID;\t\t\t\t// The group ID of a particle. A start causes the group ID to increment.\n\t\tunsigned int\t\t\t\tFutureStartTime;\t\t// E&B: future start time in milliseconds (Zero Hour keeps it in the buffer)',
+         'FutureStartTime (+0xF4): the constructor stores future_start * 1000 there; Reset() starts EmitRemain from it'),
+        ('bool\t\t\t\t\t\t\tIsInvisible;',
+         "bool\t\t\t\t\t\t\tIsInvisible;\n\t\tbool\t\t\t\t\t\t\tUnknownFlag;\t\t\t// E&B: from the definition's flag; meaning not known",
+         'UnknownFlag (+0xFD), copied by the copy constructor'),
+    ],
+    ('ww3d2', 'part_emt.cpp'): [
+        ('\t\t\tconst W3dEmitterLinePropertiesStruct * line_props\n',
+         '\t\t\tconst W3dEmitterLinePropertiesStruct * line_props,\n\t\t\tbool unknown_flag\n',
+         'the extra constructor argument'),
+        ('\tGroupID(0),\n\tBuffer(NULL),\n\tIsInvisible(false)',
+         '\tGroupID(0),\n\tFutureStartTime((unsigned int)(future_start * 1000.0f)),\n\tBuffer(NULL),\n\tIsInvisible(false),\n\tUnknownFlag(unknown_flag)',
+         'the constructor initialises FutureStartTime and UnknownFlag'),
+        ('\tGroupID(0),\n\tBuffer(NULL),\n\tIsInvisible(src.IsInvisible)',
+         '\tGroupID(0),\n\tFutureStartTime(src.FutureStartTime),\n\tBuffer(NULL),\n\tIsInvisible(src.IsInvisible),\n\tUnknownFlag(src.UnknownFlag)',
+         'the copy constructor copies them'),
+        ('accel/1000000.0f,max_age, future_start, tex, shader,',
+         'accel/1000000.0f,max_age, tex, shader,',
+         "the buffer is not given the future start time (E&B's buffer has no FutureStartTime)"),
+        ('\tEmitRemain = 0;\t',
+         '\tEmitRemain = FutureStartTime;\t',
+         'Reset() starts EmitRemain from FutureStartTime (the client loads +0xF4 there)'),
+        ('\t\t\tMIP_LEVELS_ALL,',
+         '\t\t\tTextureClass::MIP_LEVELS_ALL,',
+         "Renegade's texture API (MIP_LEVELS_ALL is TextureClass's)"),
+        ('\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tdefinition.Get_Line_Properties ()) );',
+         '\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tdefinition.Get_Line_Properties (),\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tdefinition.Get_Unknown_Flag ()) );',
+         "Create_From_Definition passes the definition's flag"),
     ],
     ('ww3d2', 'rendobj.h'): [
         ('class RenderObjClass : public RefCountClass , public PersistClass, public MultiListObjectClass',

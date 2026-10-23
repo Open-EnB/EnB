@@ -62,6 +62,7 @@ struct NewParticleStruct
 	Vector3			Position;	// Particle position in worldspace.
 	Vector3			Velocity;	// Particle velocity in worldspace.
 	unsigned int	TimeStamp;	// Millisecond time at creation.
+	unsigned char	GroupID;		// Group ID of the particle (as in Zero Hour)
 
 	// These are needed by DynamicVectorClass (will probably never be used).
 	bool operator != (const NewParticleStruct & p)
@@ -164,6 +165,7 @@ class ParticleBufferClass : public RenderObjClass
 		// called only by the emitter's copy constructor after it clones a
 		// buffer.
 		void Set_Emitter(ParticleEmitterClass *emitter);
+		void Set_Current_GroupID(unsigned char grp) { CurrentGroupID = grp; }
 
 		// from RenderObj...
       virtual bool	Is_Complete(void)		{ return IsEmitterDead && !NonNewNum && !NewNum; }

@@ -1798,8 +1798,8 @@ struct W3dEmitterInfoStruct
 struct W3dEmitterExtraInfoStruct
 {
 	float32				FutureStartTime; // Whether to start a particle in the future or not
-	bool					UnknownFlag;		// E&B: set by ParticleEmitterDefClass::Set_Unknown_Flag; meaning not known
-	uint8				UnknownPad[3];
+	uint8					UnknownFlag;		// E&B: see ParticleEmitterDefClass::Set_Unknown_Flag; meaning not known
+	uint8					UnknownPad[3];
 	uint32				Padding[8];
 };
 

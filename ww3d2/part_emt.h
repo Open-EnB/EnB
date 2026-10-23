@@ -1,5 +1,5 @@
 /*
-**	Command & Conquer Renegade(tm)
+**	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.
 **
 **	This program is free software: you can redistribute it and/or modify
@@ -26,9 +26,9 @@
  *                                                                         * 
  *                      $Author:: Vss_sync                                $* 
  *                                                                         * 
- *                     $Modtime:: 10/26/01 2:56p                          $* 
+ *                     $Modtime:: 8/29/01 7:29p                           $* 
  *                                                                         * 
- *                    $Revision:: 11                                      $* 
+ *                    $Revision:: 10                                      $* 
  *                                                                         * 
  *-------------------------------------------------------------------------* 
  * Functions:                                                              * 
@@ -85,8 +85,8 @@ void Copy_Emitter_Property_Struct
 	dest.Values			= NULL;
 
 	if (dest.NumKeyFrames > 0) {
-		dest.KeyTimes	=  new float[dest.NumKeyFrames];
-		dest.Values		=  new T[dest.NumKeyFrames];
+		dest.KeyTimes	=  W3DNEWARRAY float[dest.NumKeyFrames];
+		dest.Values		=  W3DNEWARRAY T[dest.NumKeyFrames];
 		::memcpy (dest.KeyTimes, src.KeyTimes, sizeof (float) * dest.NumKeyFrames);
 		::memcpy (dest.Values, src.Values, sizeof (T) * dest.NumKeyFrames);
 	}
@@ -116,12 +116,13 @@ class ParticleEmitterClass : public RenderObjClass
 			ParticlePropertyStruct<float> &rotation, float orient_rnd,
 			ParticlePropertyStruct<float> &frames,
 			ParticlePropertyStruct<float> &blur_times,
-			Vector3 accel, float max_age, TextureClass *tex,
+			Vector3 accel, float max_age, float future_start, TextureClass *tex,
 			ShaderClass shader = ShaderClass::_PresetAdditiveSpriteShader, 
 			int max_particles = 0, int max_buffer_size = -1, bool pingpong = false,
 			int render_mode = W3D_EMITTER_RENDER_MODE_TRI_PARTICLES,
 			int frame_mode = W3D_EMITTER_FRAME_MODE_1x1,
-			const W3dEmitterLinePropertiesStruct * line_props = NULL);
+			const W3dEmitterLinePropertiesStruct * line_props = NULL,
+			bool unknown_flag = false);
 				
 		ParticleEmitterClass(const ParticleEmitterClass & src);
 		ParticleEmitterClass & operator = (const ParticleEmitterClass &);
@@ -160,7 +161,7 @@ class ParticleEmitterClass : public RenderObjClass
 		virtual void			Set_Animation_Hidden(int onoff)	{ RenderObjClass::Set_Animation_Hidden (onoff); Update_On_Visibilty (); }
 		virtual void			Set_Force_Visible(int onoff)		{ RenderObjClass::Set_Force_Visible (onoff); Update_On_Visibilty (); }
 
-		virtual void				Set_LOD_Bias(float bias)			{ if (Buffer) Buffer->Set_LOD_Bias(bias); }
+		virtual void			Set_LOD_Bias(float bias)			{ if (Buffer) Buffer->Set_LOD_Bias(bias); }
 
 
 		// These are not part of the renderobject interface:
@@ -170,6 +171,12 @@ class ParticleEmitterClass : public RenderObjClass
 		void						Start(void);
 		void						Stop(void);
 		bool						Is_Stopped(void);
+
+		// Yet another way to make an emitter stop rendering (besides setting Hidden or Animation_Hidden).
+		// We added this because we needed a way independent from the other two. This would be appropriate
+		// to set, for example, when setting RINFO_OVERRIDE_ADDITIONAL_PASSES_ONLY on the container.
+		void						Set_Invisible(bool onoff)	{ IsInvisible = onoff; }
+		bool						Is_Invisible(void)			{ return IsInvisible; }
 		
 		// Change starting position/velocity/acceleration parameters:
 		void Set_Position_Randomizer(Vector3Randomizer *rand);
@@ -229,6 +236,7 @@ class ParticleEmitterClass : public RenderObjClass
 		float						Get_Particle_Size (void) const	{ return Buffer->Get_Particle_Size(); }
 		Vector3					Get_Acceleration (void) const		{ return Buffer->Get_Acceleration (); }
 		float						Get_Lifetime (void) const			{ return Buffer->Get_Lifetime (); }
+		float						Get_Future_Start_Time (void) const { return FutureStartTime / 1000.0f; }
 		Vector3					Get_End_Color (void) const			{ return Buffer->Get_End_Color (); }
 		float						Get_End_Opacity (void) const		{ return Buffer->Get_End_Opacity (); }
 		TextureClass *			Get_Texture (void) const			{ return Buffer->Get_Texture (); }
@@ -325,10 +333,16 @@ class ParticleEmitterClass : public RenderObjClass
 		char *						UserString;
 		bool							RemoveOnComplete;	// Should this emitter destroy itself when it completes?
 		bool							IsInScene;
+		unsigned char				GroupID;				// The group ID of a particle. A start causes the group ID to increment.
+		unsigned int				FutureStartTime;		// E&B: future start time in milliseconds (Zero Hour keeps it in the buffer)		
 
 		// This pointer is used only for sending new particles to the particle
 		// buffer and for informing the buffer when the emitter is destroyed.
 		ParticleBufferClass *	Buffer;
+
+		// See comments on Set/Is_Invisible
+		bool							IsInvisible;
+		bool							UnknownFlag;			// E&B: from the definition's flag; meaning not known
 
 		// This is used to set the global behavior of emitters...
 		// Should they be removed from the scene when they complete their

@@ -144,7 +144,8 @@ class ParticleEmitterDefClass
 		unsigned int			Get_Burst_Size (void) const			{ return m_InfoV2.BurstSize; }
 		float						Get_Outward_Vel (void) const			{ return m_InfoV2.OutwardVel; }
 		float						Get_Vel_Inherit (void) const			{ return m_InfoV2.VelInherit; }
-		float						Get_Future_Start_Time (void) const	{ return m_ExtraInfo.FutureStartTime; }
+		float			Get_Future_Start_Time (void) const	{ return m_ExtraInfo.FutureStartTime; }
+		bool			Get_Unknown_Flag (void) const		{ return m_ExtraInfo.UnknownFlag != 0; }	// E&B; name not known
 
 		virtual void			Set_Render_Mode (int mode)						{ m_InfoV2.RenderMode = mode; } // values in w3d_file.h
 		virtual void			Set_Frame_Mode (int mode)						{ m_InfoV2.FrameMode = mode; } // values in w3d_file.h 
@@ -161,7 +162,7 @@ class ParticleEmitterDefClass
 		virtual void			Set_Outward_Vel (float value)					{ m_InfoV2.OutwardVel = value; }
 		virtual void			Set_Vel_Inherit (float value)					{ m_InfoV2.VelInherit = value; }
 		virtual void			Set_Future_Start_Time (float value)			{ m_ExtraInfo.FutureStartTime = value; }
-		virtual void			Set_Unknown_Flag (uint8 value)				{ m_ExtraInfo.UnknownFlag = value; }	// E&B; name not known
+		virtual void			Set_Unknown_Flag (bool value)				{ m_ExtraInfo.UnknownFlag = value ? 1 : 0; }	// E&B; name not known
 
 		void						Get_Shader (ShaderClass &shader) const		{ W3dUtilityClass::Convert_Shader (m_InfoV2.Shader, &shader); }
 		virtual void			Set_Shader (const ShaderClass &shader)		{ W3dUtilityClass::Convert_Shader (shader, &m_InfoV2.Shader); }
