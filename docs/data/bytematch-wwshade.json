@@ -1,0 +1,370 @@
+{
+ "0x42F250": {
+  "Z": {
+   "object": "shdsubmesh.obj",
+   "function": "YGXPAXIHP6EX0::?_H",
+   "symbol": "??_H@YGXPAXIHP6EX0@Z@Z",
+   "length": 42
+  }
+ },
+ "0x447C40": {
+  "Z": {
+   "object": "shdhwshader.obj",
+   "function": "WWMath::Inv_Sqrt",
+   "symbol": "?Inv_Sqrt@WWMath@@SIMM@Z",
+   "length": 82
+  }
+ },
+ "0x463030": {
+  "Z": {
+   "object": "shdmesh.obj",
+   "function": "RenderObjClass::Is_Really_Visible",
+   "symbol": "?Is_Really_Visible@RenderObjClass@@UAEHXZ",
+   "length": 21
+  }
+ },
+ "0x463060": {
+  "Z": {
+   "object": "shdmesh.obj",
+   "function": "RenderObjClass::Is_Not_Hidden_At_All",
+   "symbol": "?Is_Not_Hidden_At_All@RenderObjClass@@UAEHXZ",
+   "length": 21
+  }
+ },
+ "0x4630B0": {
+  "Z": {
+   "object": "shdmesh.obj",
+   "function": "RenderObjClass::Set_Visible",
+   "symbol": "?Set_Visible@RenderObjClass@@UAEXH@Z",
+   "length": 29
+  }
+ },
+ "0x4630E0": {
+  "Z": {
+   "object": "shdmesh.obj",
+   "function": "RenderObjClass::Is_Hidden",
+   "symbol": "?Is_Hidden@RenderObjClass@@UBEHXZ",
+   "length": 12
+  }
+ },
+ "0x463100": {
+  "Z": {
+   "object": "shdmesh.obj",
+   "function": "RenderObjClass::Set_Hidden",
+   "symbol": "?Set_Hidden@RenderObjClass@@UAEXH@Z",
+   "length": 29
+  }
+ },
+ "0x463130": {
+  "Z": {
+   "object": "shdmesh.obj",
+   "function": "RenderObjClass::Is_Animation_Hidden",
+   "symbol": "?Is_Animation_Hidden@RenderObjClass@@UBEHXZ",
+   "length": 12
+  }
+ },
+ "0x463150": {
+  "Z": {
+   "object": "shdmesh.obj",
+   "function": "RenderObjClass::Set_Animation_Hidden",
+   "symbol": "?Set_Animation_Hidden@RenderObjClass@@UAEXH@Z",
+   "length": 29
+  }
+ },
+ "0x4631A0": {
+  "Z": {
+   "object": "shdmesh.obj",
+   "function": "RenderObjClass::Set_Force_Visible",
+   "symbol": "?Set_Force_Visible@RenderObjClass@@UAEXH@Z",
+   "length": 29
+  }
+ },
+ "0x4631F0": {
+  "Z": {
+   "object": "shdmesh.obj",
+   "function": "RenderObjClass::Set_Translucent",
+   "symbol": "?Set_Translucent@RenderObjClass@@UAEXH@Z",
+   "length": 29
+  }
+ },
+ "0x463240": {
+  "Z": {
+   "object": "shdmesh.obj",
+   "function": "RenderObjClass::Set_Collision_Type",
+   "symbol": "?Set_Collision_Type@RenderObjClass@@UAEXH@Z",
+   "length": 24
+  }
+ },
+ "0x48C500": {
+  "Z": {
+   "object": "shdmesh.obj",
+   "function": "?4StringClass",
+   "symbol": "??4StringClass@@QAEABV0@ABV0@@Z",
+   "length": 104
+  }
+ },
+ "0x494E10": {
+  "Z": {
+   "object": "shdrenderer.obj",
+   "function": "?0GenericMultiListClass",
+   "symbol": "??0GenericMultiListClass@@QAE@XZ",
+   "length": 39
+  }
+ },
+ "0x510CC0": {
+  "Z": {
+   "object": "shdmesh.obj",
+   "function": "StringClass::Get_Length",
+   "symbol": "?Get_Length@StringClass@@QBEHXZ",
+   "length": 39
+  }
+ },
+ "0x53F1C0": {
+  "Z": {
+   "object": "shdsimple.obj",
+   "function": "?0StringClass",
+   "symbol": "??0StringClass@@QAE@H_N@Z",
+   "length": 43
+  }
+ },
+ "0x909500": {
+  "Z": {
+   "object": "shdsubmesh.obj",
+   "function": "YGXPAXIHP6EX0::?_I",
+   "symbol": "??_I@YGXPAXIHP6EX0@Z@Z",
+   "length": 49
+  }
+ },
+ "0x951D30": {
+  "Z": {
+   "object": "shdsimple.obj",
+   "function": "ShdSimpleDefClass::Create",
+   "symbol": "?Create@ShdSimpleDefClass@@UBEPAVShdInterfaceClass@@XZ",
+   "length": 31
+  }
+ },
+ "0x9DA8C0": {
+  "Z": {
+   "object": "shdsubmesh.obj",
+   "function": "EnumParameterClass::?_E_ENUM_VALUE",
+   "symbol": "??_E_ENUM_VALUE@EnumParameterClass@@QAEPAXI@Z",
+   "length": 94
+  }
+ },
+ "0x9F36E0": {
+  "Z": {
+   "object": "shdbumpspec.obj",
+   "function": "?$SimpleShdDefFactoryClass::Create",
+   "symbol": "?Create@?$SimpleShdDefFactoryClass@VShdBumpSpecDefClass@@$02$1?ShdBumpSpecDefClassName@@3PADA@@UBEPAVShdDefClass@@XZ",
+   "length": 24
+  }
+ },
+ "0xA08D30": {
+  "Z": {
+   "object": "shddefmanager.obj",
+   "function": "ShdDefManagerClass::Get_Next",
+   "symbol": "?Get_Next@ShdDefManagerClass@@SAPAVShdDefFactoryClass@@PAV2@@Z",
+   "length": 18
+  }
+ },
+ "0xA08DD0": {
+  "Z": {
+   "object": "shddefmanager.obj",
+   "function": "ShdDefManagerClass::Save_Shader",
+   "symbol": "?Save_Shader@ShdDefManagerClass@@SAXAAVChunkSaveClass@@PAVShdDefClass@@@Z",
+   "length": 80
+  }
+ },
+ "0xA0A6A0": {
+  "Z": {
+   "object": "shdmesh.obj",
+   "function": "?$SimpleVecClass::Resize",
+   "symbol": "?Resize@?$SimpleVecClass@UShdSubMeshStruct@@@@UAE_NH@Z",
+   "length": 151
+  }
+ },
+ "0xA0A740": {
+  "Z": {
+   "object": "shdmesh.obj",
+   "function": "?$SimpleVecClass::Uninitialised_Grow",
+   "symbol": "?Uninitialised_Grow@?$SimpleVecClass@UShdSubMeshStruct@@@@UAE_NH@Z",
+   "length": 55
+  }
+ },
+ "0xA0AAA0": {
+  "Z": {
+   "object": "shdcubemap.obj",
+   "function": "ShdCubeMapDefClass::Save",
+   "symbol": "?Save@ShdCubeMapDefClass@@UAE_NAAVChunkSaveClass@@@Z",
+   "length": 365
+  }
+ },
+ "0xA0AC10": {
+  "Z": {
+   "object": "shdcubemap.obj",
+   "function": "ShdCubeMapDefClass::Load",
+   "symbol": "?Load@ShdCubeMapDefClass@@UAE_NAAVChunkLoadClass@@@Z",
+   "length": 208
+  }
+ },
+ "0xA0B080": {
+  "Z": {
+   "object": "shdcubemap.obj",
+   "function": "Shd6CubeMapClass::Copy_Vertex_Stream",
+   "symbol": "?Copy_Vertex_Stream@Shd6CubeMapClass@@UAEXIPAXABUVertexStreamStruct@@I@Z",
+   "length": 156
+  }
+ },
+ "0xA0B200": {
+  "Z": {
+   "object": "shdsimple.obj",
+   "function": "ShdDefClass::Uses_UV_Channel",
+   "symbol": "?Uses_UV_Channel@ShdDefClass@@UBE_NH@Z",
+   "length": 14
+  }
+ },
+ "0xA0B680": {
+  "Z": {
+   "object": "shdbumpdiff.obj",
+   "function": "ShdBumpDiffDefClass::Save",
+   "symbol": "?Save@ShdBumpDiffDefClass@@UAE_NAAVChunkSaveClass@@@Z",
+   "length": 580
+  }
+ },
+ "0xA0B8D0": {
+  "Z": {
+   "object": "shdbumpdiff.obj",
+   "function": "ShdBumpDiffDefClass::Load",
+   "symbol": "?Load@ShdBumpDiffDefClass@@UAE_NAAVChunkLoadClass@@@Z",
+   "length": 216
+  }
+ },
+ "0xA0B9B0": {
+  "Z": {
+   "object": "shdbumpspec.obj",
+   "function": "ShdBumpSpecDefClass::Init",
+   "symbol": "?Init@ShdBumpSpecDefClass@@UAEXXZ",
+   "length": 89
+  }
+ },
+ "0xA0C030": {
+  "Z": {
+   "object": "shdbumpspec.obj",
+   "function": "ShdBumpSpecDefClass::Save",
+   "symbol": "?Save@ShdBumpSpecDefClass@@UAE_NAAVChunkSaveClass@@@Z",
+   "length": 634
+  }
+ },
+ "0xA0C2B0": {
+  "Z": {
+   "object": "shdbumpspec.obj",
+   "function": "ShdBumpSpecDefClass::Load",
+   "symbol": "?Load@ShdBumpSpecDefClass@@UAE_NAAVChunkLoadClass@@@Z",
+   "length": 244
+  }
+ },
+ "0xA0C8E0": {
+  "Z": {
+   "object": "shdglossmask.obj",
+   "function": "ShdGlossMaskDefClass::Save",
+   "symbol": "?Save@ShdGlossMaskDefClass@@UAE_NAAVChunkSaveClass@@@Z",
+   "length": 365
+  }
+ },
+ "0xA0CA50": {
+  "Z": {
+   "object": "shdglossmask.obj",
+   "function": "ShdGlossMaskDefClass::Load",
+   "symbol": "?Load@ShdGlossMaskDefClass@@UAE_NAAVChunkLoadClass@@@Z",
+   "length": 208
+  }
+ },
+ "0xA0D4D0": {
+  "Z": {
+   "object": "shdsimple.obj",
+   "function": "ShdSimpleDefClass::Save",
+   "symbol": "?Save@ShdSimpleDefClass@@UAE_NAAVChunkSaveClass@@@Z",
+   "length": 336
+  }
+ },
+ "0xA0D620": {
+  "Z": {
+   "object": "shdsimple.obj",
+   "function": "ShdSimpleDefClass::Load",
+   "symbol": "?Load@ShdSimpleDefClass@@UAE_NAAVChunkLoadClass@@@Z",
+   "length": 180
+  }
+ },
+ "0xA0EFC0": {
+  "Z": {
+   "object": "shddef.obj",
+   "function": "ShdDefClass::Save_Variables",
+   "symbol": "?Save_Variables@ShdDefClass@@AAE_NAAVChunkSaveClass@@@Z",
+   "length": 111
+  }
+ },
+ "0xA0F030": {
+  "Z": {
+   "object": "shddef.obj",
+   "function": "ShdDefClass::Load_Variables",
+   "symbol": "?Load_Variables@ShdDefClass@@AAE_NAAVChunkLoadClass@@@Z",
+   "length": 112
+  }
+ },
+ "0xA0F0F0": {
+  "Z": {
+   "object": "shdhwshader.obj",
+   "function": "ShdHWShader::Shell_Run",
+   "symbol": "?Shell_Run@ShdHWShader@@IAEXPAD@Z",
+   "length": 249
+  }
+ },
+ "0xA0F1F0": {
+  "Z": {
+   "object": "shdhwshader.obj",
+   "function": "ShdHWShader::Preprocess_And_Assemble_Shader_From_File",
+   "symbol": "?Preprocess_And_Assemble_Shader_From_File@ShdHWShader@@IAEXPADPAPAUID3DXBuffer@@1@Z",
+   "length": 148
+  }
+ },
+ "0xA0F300": {
+  "Z": {
+   "object": "shdhwshader.obj",
+   "function": "ShdHWVertexShader::Destroy",
+   "symbol": "?Destroy@ShdHWVertexShader@@QAEXXZ",
+   "length": 53
+  }
+ },
+ "0xA0F3E0": {
+  "Z": {
+   "object": "shdhwshader.obj",
+   "function": "ShdHWVertexShader::Create",
+   "symbol": "?Create@ShdHWVertexShader@@QAEKPAK0@Z",
+   "length": 187
+  }
+ },
+ "0xA0F510": {
+  "Z": {
+   "object": "shdhwshader.obj",
+   "function": "ShdHWPixelShader::Destroy",
+   "symbol": "?Destroy@ShdHWPixelShader@@QAEXXZ",
+   "length": 53
+  }
+ },
+ "0xA0F5A0": {
+  "Z": {
+   "object": "shdhwshader.obj",
+   "function": "ShdHWPixelShader::Create",
+   "symbol": "?Create@ShdHWPixelShader@@QAEKPAK@Z",
+   "length": 111
+  }
+ },
+ "0xA0FC20": {
+  "Z": {
+   "object": "shdhwshader.obj",
+   "function": "ShdHWVertexShader::Light",
+   "symbol": "?Light@ShdHWVertexShader@@SAXAAVRenderInfoClass@@AAVVector4@@1@Z",
+   "length": 64
+  }
+ }
+}

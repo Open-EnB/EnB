@@ -1,0 +1,6926 @@
+{
+ "0x42F250": {
+  "R": {
+   "object": "vp.obj",
+   "function": "YGXPAXIHP6EX0::?_H",
+   "symbol": "??_H@YGXPAXIHP6EX0@Z@Z",
+   "length": 42
+  },
+  "G": {
+   "object": "vp.obj",
+   "function": "YGXPAXIHP6EX0::?_H",
+   "symbol": "??_H@YGXPAXIHP6EX0@Z@Z",
+   "length": 42
+  },
+  "Z": {
+   "object": "vp.obj",
+   "function": "YGXPAXIHP6EX0::?_H",
+   "symbol": "??_H@YGXPAXIHP6EX0@Z@Z",
+   "length": 42
+  }
+ },
+ "0x447C40": {
+  "R": {
+   "object": "vp.obj",
+   "function": "WWMath::Inv_Sqrt",
+   "symbol": "?Inv_Sqrt@WWMath@@SIMM@Z",
+   "length": 82
+  },
+  "G": {
+   "object": "vp.obj",
+   "function": "WWMath::Inv_Sqrt",
+   "symbol": "?Inv_Sqrt@WWMath@@SIMM@Z",
+   "length": 82
+  },
+  "Z": {
+   "object": "vp.obj",
+   "function": "WWMath::Inv_Sqrt",
+   "symbol": "?Inv_Sqrt@WWMath@@SIMM@Z",
+   "length": 82
+  }
+ },
+ "0x4481E0": {
+  "R": {
+   "object": "frustum.obj",
+   "function": "Vector3::Normalize",
+   "symbol": "?Normalize@Vector3@@QAEXXZ",
+   "length": 84
+  },
+  "G": {
+   "object": "colmathobbtri.obj",
+   "function": "Vector3::Normalize",
+   "symbol": "?Normalize@Vector3@@QAEXXZ",
+   "length": 84
+  },
+  "Z": {
+   "object": "colmathobbtri.obj",
+   "function": "Vector3::Normalize",
+   "symbol": "?Normalize@Vector3@@QAEXXZ",
+   "length": 84
+  }
+ },
+ "0x45CC90": {
+  "R": {
+   "object": "ode.obj",
+   "function": "M::?8?$VectorClass",
+   "symbol": "??8?$VectorClass@M@@UBE_NABV0@@Z",
+   "length": 62
+  },
+  "G": {
+   "object": "ode.obj",
+   "function": "M::?8?$VectorClass",
+   "symbol": "??8?$VectorClass@M@@UBE_NABV0@@Z",
+   "length": 62
+  },
+  "Z": {
+   "object": "ode.obj",
+   "function": "M::?8?$VectorClass",
+   "symbol": "??8?$VectorClass@M@@UBE_NABV0@@Z",
+   "length": 62
+  }
+ },
+ "0x45CE00": {
+  "R": {
+   "object": "ode.obj",
+   "function": "?$VectorClass::ID",
+   "symbol": "?ID@?$VectorClass@M@@UAEHABM@Z",
+   "length": 66
+  },
+  "G": {
+   "object": "ode.obj",
+   "function": "?$VectorClass::ID",
+   "symbol": "?ID@?$VectorClass@M@@UAEHABM@Z",
+   "length": 66
+  },
+  "Z": {
+   "object": "ode.obj",
+   "function": "?$VectorClass::ID",
+   "symbol": "?ID@?$VectorClass@M@@UAEHABM@Z",
+   "length": 66
+  }
+ },
+ "0x45D000": {
+  "R": {
+   "object": "ode.obj",
+   "function": "?$DynamicVectorClass::ID",
+   "symbol": "?ID@?$DynamicVectorClass@M@@UAEHABM@Z",
+   "length": 52
+  },
+  "G": {
+   "object": "ode.obj",
+   "function": "?$DynamicVectorClass::ID",
+   "symbol": "?ID@?$DynamicVectorClass@M@@UAEHABM@Z",
+   "length": 52
+  },
+  "Z": {
+   "object": "ode.obj",
+   "function": "?$DynamicVectorClass::ID",
+   "symbol": "?ID@?$DynamicVectorClass@M@@UAEHABM@Z",
+   "length": 52
+  }
+ },
+ "0x48A190": {
+  "R": {
+   "object": "hermitespline.obj",
+   "function": "VTangentsClass::?8?$VectorClass",
+   "symbol": "??8?$VectorClass@VTangentsClass@HermiteSpline1DClass@@@@UBE_NABV0@@Z",
+   "length": 87
+  },
+  "G": {
+   "object": "hermitespline.obj",
+   "function": "VTangentsClass::?8?$VectorClass",
+   "symbol": "??8?$VectorClass@VTangentsClass@HermiteSpline1DClass@@@@UBE_NABV0@@Z",
+   "length": 87
+  },
+  "Z": {
+   "object": "hermitespline.obj",
+   "function": "VTangentsClass::?8?$VectorClass",
+   "symbol": "??8?$VectorClass@VTangentsClass@HermiteSpline1DClass@@@@UBE_NABV0@@Z",
+   "length": 87
+  }
+ },
+ "0x48A340": {
+  "R": {
+   "object": "hermitespline.obj",
+   "function": "?$VectorClass::ID",
+   "symbol": "?ID@?$VectorClass@VTangentsClass@HermiteSpline1DClass@@@@UAEHABVTangentsClass@HermiteSpline1DClass@@@Z",
+   "length": 81
+  },
+  "G": {
+   "object": "hermitespline.obj",
+   "function": "?$VectorClass::ID",
+   "symbol": "?ID@?$VectorClass@VTangentsClass@HermiteSpline1DClass@@@@UAEHABVTangentsClass@HermiteSpline1DClass@@@Z",
+   "length": 81
+  },
+  "Z": {
+   "object": "hermitespline.obj",
+   "function": "?$VectorClass::ID",
+   "symbol": "?ID@?$VectorClass@VTangentsClass@HermiteSpline1DClass@@@@UAEHABVTangentsClass@HermiteSpline1DClass@@@Z",
+   "length": 81
+  }
+ },
+ "0x48A4E0": {
+  "R": {
+   "object": "hermitespline.obj",
+   "function": "?$DynamicVectorClass::ID",
+   "symbol": "?ID@?$DynamicVectorClass@VTangentsClass@HermiteSpline1DClass@@@@UAEHABVTangentsClass@HermiteSpline1DClass@@@Z",
+   "length": 67
+  },
+  "G": {
+   "object": "hermitespline.obj",
+   "function": "?$DynamicVectorClass::ID",
+   "symbol": "?ID@?$DynamicVectorClass@VTangentsClass@HermiteSpline1DClass@@@@UAEHABVTangentsClass@HermiteSpline1DClass@@@Z",
+   "length": 67
+  },
+  "Z": {
+   "object": "hermitespline.obj",
+   "function": "?$DynamicVectorClass::ID",
+   "symbol": "?ID@?$DynamicVectorClass@VTangentsClass@HermiteSpline1DClass@@@@UAEHABVTangentsClass@HermiteSpline1DClass@@@Z",
+   "length": 67
+  }
+ },
+ "0x69F3B0": {
+  "R": {
+   "object": "matrix3d.obj",
+   "function": "Matrix3D::Rotate_X",
+   "symbol": "?Rotate_X@Matrix3D@@QAEXM@Z",
+   "length": 109
+  },
+  "G": {
+   "object": "matrix3d.obj",
+   "function": "Matrix3D::Rotate_X",
+   "symbol": "?Rotate_X@Matrix3D@@QAEXM@Z",
+   "length": 109
+  },
+  "Z": {
+   "object": "matrix3d.obj",
+   "function": "Matrix3D::Rotate_X",
+   "symbol": "?Rotate_X@Matrix3D@@QAEXM@Z",
+   "length": 109
+  }
+ },
+ "0x6F2050": {
+  "R": {
+   "object": "tcbspline.obj",
+   "function": "VTangentsClass::?8?$VectorClass",
+   "symbol": "??8?$VectorClass@VTangentsClass@HermiteSpline3DClass@@@@UBE_NABV0@@Z",
+   "length": 147
+  },
+  "G": {
+   "object": "tcbspline.obj",
+   "function": "VTangentsClass::?8?$VectorClass",
+   "symbol": "??8?$VectorClass@VTangentsClass@HermiteSpline3DClass@@@@UBE_NABV0@@Z",
+   "length": 147
+  },
+  "Z": {
+   "object": "tcbspline.obj",
+   "function": "VTangentsClass::?8?$VectorClass",
+   "symbol": "??8?$VectorClass@VTangentsClass@HermiteSpline3DClass@@@@UBE_NABV0@@Z",
+   "length": 147
+  }
+ },
+ "0x6F22A0": {
+  "R": {
+   "object": "tcbspline.obj",
+   "function": "?$VectorClass::ID",
+   "symbol": "?ID@?$VectorClass@VTangentsClass@HermiteSpline3DClass@@@@UAEHABVTangentsClass@HermiteSpline3DClass@@@Z",
+   "length": 142
+  },
+  "G": {
+   "object": "tcbspline.obj",
+   "function": "?$VectorClass::ID",
+   "symbol": "?ID@?$VectorClass@VTangentsClass@HermiteSpline3DClass@@@@UAEHABVTangentsClass@HermiteSpline3DClass@@@Z",
+   "length": 142
+  },
+  "Z": {
+   "object": "tcbspline.obj",
+   "function": "?$VectorClass::ID",
+   "symbol": "?ID@?$VectorClass@VTangentsClass@HermiteSpline3DClass@@@@UAEHABVTangentsClass@HermiteSpline3DClass@@@Z",
+   "length": 142
+  }
+ },
+ "0x6F23F0": {
+  "R": {
+   "object": "tcbspline.obj",
+   "function": "?$DynamicVectorClass::ID",
+   "symbol": "?ID@?$DynamicVectorClass@VTangentsClass@HermiteSpline3DClass@@@@UAEHABVTangentsClass@HermiteSpline3DClass@@@Z",
+   "length": 127
+  },
+  "G": {
+   "object": "tcbspline.obj",
+   "function": "?$DynamicVectorClass::ID",
+   "symbol": "?ID@?$DynamicVectorClass@VTangentsClass@HermiteSpline3DClass@@@@UAEHABVTangentsClass@HermiteSpline3DClass@@@Z",
+   "length": 127
+  },
+  "Z": {
+   "object": "tcbspline.obj",
+   "function": "?$DynamicVectorClass::ID",
+   "symbol": "?ID@?$DynamicVectorClass@VTangentsClass@HermiteSpline3DClass@@@@UAEHABVTangentsClass@HermiteSpline3DClass@@@Z",
+   "length": 127
+  }
+ },
+ "0x8C1F10": {
+  "R": {
+   "object": "wwmath.obj",
+   "function": "WWMath::Init",
+   "symbol": "?Init@WWMath@@SAXXZ",
+   "length": 147
+  },
+  "G": {
+   "object": "wwmath.obj",
+   "function": "WWMath::Init",
+   "symbol": "?Init@WWMath@@SAXXZ",
+   "length": 147
+  },
+  "Z": {
+   "object": "wwmath.obj",
+   "function": "WWMath::Init",
+   "symbol": "?Init@WWMath@@SAXXZ",
+   "length": 147
+  }
+ },
+ "0x8C1FC0": {
+  "R": {
+   "object": "wwmath.obj",
+   "function": "WWMath::Random_Float",
+   "symbol": "?Random_Float@WWMath@@SAMXZ",
+   "length": 27
+  },
+  "G": {
+   "object": "wwmath.obj",
+   "function": "WWMath::Random_Float",
+   "symbol": "?Random_Float@WWMath@@SAMXZ",
+   "length": 27
+  },
+  "Z": {
+   "object": "wwmath.obj",
+   "function": "WWMath::Random_Float",
+   "symbol": "?Random_Float@WWMath@@SAMXZ",
+   "length": 27
+  }
+ },
+ "0x8C2080": {
+  "R": {
+   "object": "matrix3d.obj",
+   "function": "$E25",
+   "symbol": "_$E25",
+   "length": 121
+  },
+  "G": {
+   "object": "matrix3d.obj",
+   "function": "$E26",
+   "symbol": "_$E26",
+   "length": 121
+  },
+  "Z": {
+   "object": "matrix3d.obj",
+   "function": "$E26",
+   "symbol": "_$E26",
+   "length": 121
+  }
+ },
+ "0x8C2100": {
+  "R": {
+   "object": "matrix3d.obj",
+   "function": "$E28",
+   "symbol": "_$E28",
+   "length": 121
+  },
+  "G": {
+   "object": "matrix3d.obj",
+   "function": "$E29",
+   "symbol": "_$E29",
+   "length": 121
+  },
+  "Z": {
+   "object": "matrix3d.obj",
+   "function": "$E29",
+   "symbol": "_$E29",
+   "length": 121
+  }
+ },
+ "0x8C2180": {
+  "R": {
+   "object": "matrix3d.obj",
+   "function": "$E31",
+   "symbol": "_$E31",
+   "length": 121
+  },
+  "G": {
+   "object": "matrix3d.obj",
+   "function": "$E32",
+   "symbol": "_$E32",
+   "length": 121
+  },
+  "Z": {
+   "object": "matrix3d.obj",
+   "function": "$E32",
+   "symbol": "_$E32",
+   "length": 121
+  }
+ },
+ "0x8C2200": {
+  "R": {
+   "object": "matrix3d.obj",
+   "function": "$E34",
+   "symbol": "_$E34",
+   "length": 121
+  },
+  "G": {
+   "object": "matrix3d.obj",
+   "function": "$E35",
+   "symbol": "_$E35",
+   "length": 121
+  },
+  "Z": {
+   "object": "matrix3d.obj",
+   "function": "$E35",
+   "symbol": "_$E35",
+   "length": 121
+  }
+ },
+ "0x8C2280": {
+  "R": {
+   "object": "matrix3d.obj",
+   "function": "$E37",
+   "symbol": "_$E37",
+   "length": 121
+  },
+  "G": {
+   "object": "matrix3d.obj",
+   "function": "$E38",
+   "symbol": "_$E38",
+   "length": 121
+  },
+  "Z": {
+   "object": "matrix3d.obj",
+   "function": "$E38",
+   "symbol": "_$E38",
+   "length": 121
+  }
+ },
+ "0x8C2300": {
+  "R": {
+   "object": "matrix3d.obj",
+   "function": "$E40",
+   "symbol": "_$E40",
+   "length": 121
+  },
+  "G": {
+   "object": "matrix3d.obj",
+   "function": "$E41",
+   "symbol": "_$E41",
+   "length": 121
+  },
+  "Z": {
+   "object": "matrix3d.obj",
+   "function": "$E41",
+   "symbol": "_$E41",
+   "length": 121
+  }
+ },
+ "0x8C2380": {
+  "R": {
+   "object": "matrix3d.obj",
+   "function": "$E43",
+   "symbol": "_$E43",
+   "length": 121
+  },
+  "G": {
+   "object": "matrix3d.obj",
+   "function": "$E44",
+   "symbol": "_$E44",
+   "length": 121
+  },
+  "Z": {
+   "object": "matrix3d.obj",
+   "function": "$E44",
+   "symbol": "_$E44",
+   "length": 121
+  }
+ },
+ "0x8C2400": {
+  "R": {
+   "object": "matrix3d.obj",
+   "function": "$E46",
+   "symbol": "_$E46",
+   "length": 121
+  },
+  "G": {
+   "object": "matrix3d.obj",
+   "function": "$E47",
+   "symbol": "_$E47",
+   "length": 121
+  },
+  "Z": {
+   "object": "matrix3d.obj",
+   "function": "$E47",
+   "symbol": "_$E47",
+   "length": 121
+  }
+ },
+ "0x8C2480": {
+  "R": {
+   "object": "matrix3d.obj",
+   "function": "$E49",
+   "symbol": "_$E49",
+   "length": 121
+  },
+  "G": {
+   "object": "matrix3d.obj",
+   "function": "$E50",
+   "symbol": "_$E50",
+   "length": 121
+  },
+  "Z": {
+   "object": "matrix3d.obj",
+   "function": "$E50",
+   "symbol": "_$E50",
+   "length": 121
+  }
+ },
+ "0x8C2500": {
+  "R": {
+   "object": "matrix3d.obj",
+   "function": "Matrix3D::Set",
+   "symbol": "?Set@Matrix3D@@QAEXABVMatrix3@@ABVVector3@@@Z",
+   "length": 80
+  },
+  "G": {
+   "object": "matrix3d.obj",
+   "function": "Matrix3D::Set",
+   "symbol": "?Set@Matrix3D@@QAEXABVMatrix3@@ABVVector3@@@Z",
+   "length": 80
+  },
+  "Z": {
+   "object": "matrix3d.obj",
+   "function": "Matrix3D::Set",
+   "symbol": "?Set@Matrix3D@@QAEXABVMatrix3x3@@ABVVector3@@@Z",
+   "length": 80
+  }
+ },
+ "0x8C2550": {
+  "R": {
+   "object": "matrix3d.obj",
+   "function": "Matrix3D::Set",
+   "symbol": "?Set@Matrix3D@@QAEXABVQuaternion@@ABVVector3@@@Z",
+   "length": 38
+  },
+  "G": {
+   "object": "matrix3d.obj",
+   "function": "Matrix3D::Set",
+   "symbol": "?Set@Matrix3D@@QAEXABVQuaternion@@ABVVector3@@@Z",
+   "length": 38
+  },
+  "Z": {
+   "object": "matrix3d.obj",
+   "function": "Matrix3D::Set",
+   "symbol": "?Set@Matrix3D@@QAEXABVQuaternion@@ABVVector3@@@Z",
+   "length": 38
+  }
+ },
+ "0x8C2580": {
+  "R": {
+   "object": "matrix3d.obj",
+   "function": "Matrix3D::Set_Rotation",
+   "symbol": "?Set_Rotation@Matrix3D@@QAEXABVMatrix3@@@Z",
+   "length": 59
+  },
+  "G": {
+   "object": "matrix3d.obj",
+   "function": "Matrix3D::Set_Rotation",
+   "symbol": "?Set_Rotation@Matrix3D@@QAEXABVMatrix3@@@Z",
+   "length": 59
+  },
+  "Z": {
+   "object": "matrix3d.obj",
+   "function": "Matrix3D::Set_Rotation",
+   "symbol": "?Set_Rotation@Matrix3D@@QAEXABVMatrix3x3@@@Z",
+   "length": 59
+  }
+ },
+ "0x8C25C0": {
+  "R": {
+   "object": "matrix3d.obj",
+   "function": "Matrix3D::Set_Rotation",
+   "symbol": "?Set_Rotation@Matrix3D@@QAEXABVQuaternion@@@Z",
+   "length": 205
+  },
+  "G": {
+   "object": "matrix3d.obj",
+   "function": "Matrix3D::Set_Rotation",
+   "symbol": "?Set_Rotation@Matrix3D@@QAEXABVQuaternion@@@Z",
+   "length": 205
+  },
+  "Z": {
+   "object": "matrix3d.obj",
+   "function": "Matrix3D::Set_Rotation",
+   "symbol": "?Set_Rotation@Matrix3D@@QAEXABVQuaternion@@@Z",
+   "length": 205
+  }
+ },
+ "0x8C26C0": {
+  "R": {
+   "object": "matrix3d.obj",
+   "function": "Matrix3D::Rotate_Vector",
+   "symbol": "?Rotate_Vector@Matrix3D@@QBE?AVVector3@@ABV2@@Z",
+   "length": 81
+  },
+  "G": {
+   "object": "matrix3d.obj",
+   "function": "Matrix3D::Rotate_Vector",
+   "symbol": "?Rotate_Vector@Matrix3D@@QBE?AVVector3@@ABV2@@Z",
+   "length": 81
+  },
+  "Z": {
+   "object": "matrix3d.obj",
+   "function": "Matrix3D::Rotate_Vector",
+   "symbol": "?Rotate_Vector@Matrix3D@@QBE?AVVector3@@ABV2@@Z",
+   "length": 81
+  }
+ },
+ "0x8C2720": {
+  "R": {
+   "object": "matrix3d.obj",
+   "function": "Matrix3D::Inverse_Rotate_Vector",
+   "symbol": "?Inverse_Rotate_Vector@Matrix3D@@QBE?AVVector3@@ABV2@@Z",
+   "length": 81
+  },
+  "G": {
+   "object": "matrix3d.obj",
+   "function": "Matrix3D::Inverse_Rotate_Vector",
+   "symbol": "?Inverse_Rotate_Vector@Matrix3D@@QBE?AVVector3@@ABV2@@Z",
+   "length": 81
+  },
+  "Z": {
+   "object": "matrix3d.obj",
+   "function": "Matrix3D::Inverse_Rotate_Vector",
+   "symbol": "?Inverse_Rotate_Vector@Matrix3D@@QBE?AVVector3@@ABV2@@Z",
+   "length": 81
+  }
+ },
+ "0x8C2780": {
+  "R": {
+   "object": "matrix3d.obj",
+   "function": "Matrix3D::Look_At",
+   "symbol": "?Look_At@Matrix3D@@QAEXABVVector3@@0M@Z",
+   "length": 547
+  }
+ },
+ "0x8C29B0": {
+  "R": {
+   "object": "matrix3d.obj",
+   "function": "Matrix3D::Obj_Look_At",
+   "symbol": "?Obj_Look_At@Matrix3D@@QAEXABVVector3@@0M@Z",
+   "length": 520
+  },
+  "G": {
+   "object": "matrix3d.obj",
+   "function": "Matrix3D::Obj_Look_At",
+   "symbol": "?Obj_Look_At@Matrix3D@@QAEXABVVector3@@0M@Z",
+   "length": 520
+  },
+  "Z": {
+   "object": "matrix3d.obj",
+   "function": "Matrix3D::Obj_Look_At",
+   "symbol": "?Obj_Look_At@Matrix3D@@QAEXABVVector3@@0M@Z",
+   "length": 520
+  }
+ },
+ "0x8C2BD0": {
+  "R": {
+   "object": "matrix3d.obj",
+   "function": "Matrix3D::Get_Orthogonal_Inverse",
+   "symbol": "?Get_Orthogonal_Inverse@Matrix3D@@QBEXAAV1@@Z",
+   "length": 162
+  },
+  "G": {
+   "object": "matrix3d.obj",
+   "function": "Matrix3D::Get_Orthogonal_Inverse",
+   "symbol": "?Get_Orthogonal_Inverse@Matrix3D@@QBEXAAV1@@Z",
+   "length": 162
+  },
+  "Z": {
+   "object": "matrix3d.obj",
+   "function": "Matrix3D::Get_Orthogonal_Inverse",
+   "symbol": "?Get_Orthogonal_Inverse@Matrix3D@@QBEXAAV1@@Z",
+   "length": 162
+  }
+ },
+ "0x8C2C80": {
+  "R": {
+   "object": "matrix3d.obj",
+   "function": "Matrix3D::Copy_3x3_Matrix",
+   "symbol": "?Copy_3x3_Matrix@Matrix3D@@QAEXQAY02M@Z",
+   "length": 72
+  },
+  "G": {
+   "object": "matrix3d.obj",
+   "function": "Matrix3D::Copy_3x3_Matrix",
+   "symbol": "?Copy_3x3_Matrix@Matrix3D@@QAEXQAY02M@Z",
+   "length": 72
+  },
+  "Z": {
+   "object": "matrix3d.obj",
+   "function": "Matrix3D::Copy_3x3_Matrix",
+   "symbol": "?Copy_3x3_Matrix@Matrix3D@@QAEXQAY02M@Z",
+   "length": 72
+  }
+ },
+ "0x8C2CD0": {
+  "R": {
+   "object": "matrix3d.obj",
+   "function": "Matrix3D::Multiply",
+   "symbol": "?Multiply@Matrix3D@@SAXABV1@0PAV1@@Z",
+   "length": 424
+  }
+ },
+ "0x8C2E80": {
+  "R": {
+   "object": "matrix3d.obj",
+   "function": "Matrix3D::Transform_Min_Max_AABox",
+   "symbol": "?Transform_Min_Max_AABox@Matrix3D@@QBEXABVVector3@@0PAV2@1@Z",
+   "length": 167
+  },
+  "G": {
+   "object": "matrix3d.obj",
+   "function": "Matrix3D::Transform_Min_Max_AABox",
+   "symbol": "?Transform_Min_Max_AABox@Matrix3D@@QBEXABVVector3@@0PAV2@1@Z",
+   "length": 167
+  },
+  "Z": {
+   "object": "matrix3d.obj",
+   "function": "Matrix3D::Transform_Min_Max_AABox",
+   "symbol": "?Transform_Min_Max_AABox@Matrix3D@@QBEXABVVector3@@0PAV2@1@Z",
+   "length": 167
+  }
+ },
+ "0x8C2F30": {
+  "R": {
+   "object": "matrix3d.obj",
+   "function": "Matrix3D::Transform_Center_Extent_AABox",
+   "symbol": "?Transform_Center_Extent_AABox@Matrix3D@@QBEXABVVector3@@0PAV2@1@Z",
+   "length": 141
+  },
+  "G": {
+   "object": "matrix3d.obj",
+   "function": "Matrix3D::Transform_Center_Extent_AABox",
+   "symbol": "?Transform_Center_Extent_AABox@Matrix3D@@QBEXABVVector3@@0PAV2@1@Z",
+   "length": 141
+  },
+  "Z": {
+   "object": "matrix3d.obj",
+   "function": "Matrix3D::Transform_Center_Extent_AABox",
+   "symbol": "?Transform_Center_Extent_AABox@Matrix3D@@QBEXABVVector3@@0PAV2@1@Z",
+   "length": 141
+  }
+ },
+ "0x8C2FC0": {
+  "R": {
+   "object": "matrix3d.obj",
+   "function": "Matrix3D::Is_Orthogonal",
+   "symbol": "?Is_Orthogonal@Matrix3D@@QBEHXZ",
+   "length": 439
+  },
+  "G": {
+   "object": "matrix3d.obj",
+   "function": "Matrix3D::Is_Orthogonal",
+   "symbol": "?Is_Orthogonal@Matrix3D@@QBEHXZ",
+   "length": 439
+  },
+  "Z": {
+   "object": "matrix3d.obj",
+   "function": "Matrix3D::Is_Orthogonal",
+   "symbol": "?Is_Orthogonal@Matrix3D@@QBEHXZ",
+   "length": 439
+  }
+ },
+ "0x8C3180": {
+  "R": {
+   "object": "matrix3d.obj",
+   "function": "Matrix3D::Re_Orthogonalize",
+   "symbol": "?Re_Orthogonalize@Matrix3D@@QAEXXZ",
+   "length": 554
+  },
+  "G": {
+   "object": "matrix3d.obj",
+   "function": "Matrix3D::Re_Orthogonalize",
+   "symbol": "?Re_Orthogonalize@Matrix3D@@QAEXXZ",
+   "length": 554
+  },
+  "Z": {
+   "object": "matrix3d.obj",
+   "function": "Matrix3D::Re_Orthogonalize",
+   "symbol": "?Re_Orthogonalize@Matrix3D@@QAEXXZ",
+   "length": 554
+  }
+ },
+ "0x8C33B0": {
+  "R": {
+   "object": "matrix3d.obj",
+   "function": "Lerp",
+   "symbol": "?Lerp@@YA?AVMatrix3D@@ABV1@0M@Z",
+   "length": 194
+  }
+ },
+ "0x8C3480": {
+  "R": {
+   "object": "matrix3d.obj",
+   "function": "Matrix3D::Solve_Linear_System",
+   "symbol": "?Solve_Linear_System@Matrix3D@@SA_NAAV1@@Z",
+   "length": 600
+  },
+  "G": {
+   "object": "matrix3d.obj",
+   "function": "Matrix3D::Solve_Linear_System",
+   "symbol": "?Solve_Linear_System@Matrix3D@@SA_NAAV1@@Z",
+   "length": 600
+  },
+  "Z": {
+   "object": "matrix3d.obj",
+   "function": "Matrix3D::Solve_Linear_System",
+   "symbol": "?Solve_Linear_System@Matrix3D@@SA_NAAV1@@Z",
+   "length": 600
+  }
+ },
+ "0x8C36E0": {
+  "R": {
+   "object": "matrix3.obj",
+   "function": "$E22",
+   "symbol": "_$E22",
+   "length": 91
+  },
+  "G": {
+   "object": "matrix3.obj",
+   "function": "$E23",
+   "symbol": "_$E23",
+   "length": 91
+  },
+  "Z": {
+   "object": "matrix3.obj",
+   "function": "$E23",
+   "symbol": "_$E23",
+   "length": 91
+  }
+ },
+ "0x8C3740": {
+  "R": {
+   "object": "matrix3.obj",
+   "function": "$E25",
+   "symbol": "_$E25",
+   "length": 91
+  },
+  "G": {
+   "object": "matrix3.obj",
+   "function": "$E26",
+   "symbol": "_$E26",
+   "length": 91
+  },
+  "Z": {
+   "object": "matrix3.obj",
+   "function": "$E26",
+   "symbol": "_$E26",
+   "length": 91
+  }
+ },
+ "0x8C37A0": {
+  "R": {
+   "object": "matrix3.obj",
+   "function": "$E28",
+   "symbol": "_$E28",
+   "length": 91
+  },
+  "G": {
+   "object": "matrix3.obj",
+   "function": "$E29",
+   "symbol": "_$E29",
+   "length": 91
+  },
+  "Z": {
+   "object": "matrix3.obj",
+   "function": "$E29",
+   "symbol": "_$E29",
+   "length": 91
+  }
+ },
+ "0x8C3800": {
+  "R": {
+   "object": "matrix3.obj",
+   "function": "$E31",
+   "symbol": "_$E31",
+   "length": 91
+  },
+  "G": {
+   "object": "matrix3.obj",
+   "function": "$E32",
+   "symbol": "_$E32",
+   "length": 91
+  },
+  "Z": {
+   "object": "matrix3.obj",
+   "function": "$E32",
+   "symbol": "_$E32",
+   "length": 91
+  }
+ },
+ "0x8C3860": {
+  "R": {
+   "object": "matrix3.obj",
+   "function": "$E34",
+   "symbol": "_$E34",
+   "length": 91
+  },
+  "G": {
+   "object": "matrix3.obj",
+   "function": "$E35",
+   "symbol": "_$E35",
+   "length": 91
+  },
+  "Z": {
+   "object": "matrix3.obj",
+   "function": "$E35",
+   "symbol": "_$E35",
+   "length": 91
+  }
+ },
+ "0x8C38C0": {
+  "R": {
+   "object": "matrix3.obj",
+   "function": "$E37",
+   "symbol": "_$E37",
+   "length": 91
+  },
+  "G": {
+   "object": "matrix3.obj",
+   "function": "$E38",
+   "symbol": "_$E38",
+   "length": 91
+  },
+  "Z": {
+   "object": "matrix3.obj",
+   "function": "$E38",
+   "symbol": "_$E38",
+   "length": 91
+  }
+ },
+ "0x8C3920": {
+  "R": {
+   "object": "matrix3.obj",
+   "function": "$E40",
+   "symbol": "_$E40",
+   "length": 91
+  },
+  "G": {
+   "object": "matrix3.obj",
+   "function": "$E41",
+   "symbol": "_$E41",
+   "length": 91
+  },
+  "Z": {
+   "object": "matrix3.obj",
+   "function": "$E41",
+   "symbol": "_$E41",
+   "length": 91
+  }
+ },
+ "0x8C3980": {
+  "R": {
+   "object": "matrix3.obj",
+   "function": "$E43",
+   "symbol": "_$E43",
+   "length": 91
+  },
+  "G": {
+   "object": "matrix3.obj",
+   "function": "$E44",
+   "symbol": "_$E44",
+   "length": 91
+  },
+  "Z": {
+   "object": "matrix3.obj",
+   "function": "$E44",
+   "symbol": "_$E44",
+   "length": 91
+  }
+ },
+ "0x8C39E0": {
+  "R": {
+   "object": "matrix3.obj",
+   "function": "$E46",
+   "symbol": "_$E46",
+   "length": 91
+  },
+  "G": {
+   "object": "matrix3.obj",
+   "function": "$E47",
+   "symbol": "_$E47",
+   "length": 91
+  },
+  "Z": {
+   "object": "matrix3.obj",
+   "function": "$E47",
+   "symbol": "_$E47",
+   "length": 91
+  }
+ },
+ "0x8C3A40": {
+  "R": {
+   "object": "matrix3.obj",
+   "function": "$E49",
+   "symbol": "_$E49",
+   "length": 91
+  },
+  "G": {
+   "object": "matrix3.obj",
+   "function": "$E50",
+   "symbol": "_$E50",
+   "length": 91
+  },
+  "Z": {
+   "object": "matrix3.obj",
+   "function": "$E50",
+   "symbol": "_$E50",
+   "length": 91
+  }
+ },
+ "0x8C3BA0": {
+  "R": {
+   "object": "matrix3.obj",
+   "function": "Matrix3::Set",
+   "symbol": "?Set@Matrix3@@QAEXABVQuaternion@@@Z",
+   "length": 205
+  },
+  "G": {
+   "object": "matrix3.obj",
+   "function": "Matrix3::Set",
+   "symbol": "?Set@Matrix3@@QAEXABVQuaternion@@@Z",
+   "length": 205
+  },
+  "Z": {
+   "object": "matrix3.obj",
+   "function": "Matrix3x3::Set",
+   "symbol": "?Set@Matrix3x3@@QAEXABVQuaternion@@@Z",
+   "length": 205
+  }
+ },
+ "0x8C3CF0": {
+  "R": {
+   "object": "matrix3.obj",
+   "function": "Matrix3::Multiply",
+   "symbol": "?Multiply@Matrix3@@SAXABVMatrix3D@@ABV1@PAV1@@Z",
+   "length": 231
+  },
+  "G": {
+   "object": "matrix3.obj",
+   "function": "Matrix3::Multiply",
+   "symbol": "?Multiply@Matrix3@@SAXABVMatrix3D@@ABV1@PAV1@@Z",
+   "length": 231
+  },
+  "Z": {
+   "object": "matrix3.obj",
+   "function": "Matrix3x3::Multiply",
+   "symbol": "?Multiply@Matrix3x3@@SAXABVMatrix3D@@ABV1@PAV1@@Z",
+   "length": 231
+  }
+ },
+ "0x8C3DE0": {
+  "R": {
+   "object": "matrix3.obj",
+   "function": "Matrix3::Multiply",
+   "symbol": "?Multiply@Matrix3@@SAXABV1@ABVMatrix3D@@PAV1@@Z",
+   "length": 231
+  },
+  "G": {
+   "object": "matrix3.obj",
+   "function": "Matrix3::Multiply",
+   "symbol": "?Multiply@Matrix3@@SAXABV1@ABVMatrix3D@@PAV1@@Z",
+   "length": 231
+  },
+  "Z": {
+   "object": "matrix3.obj",
+   "function": "Matrix3x3::Multiply",
+   "symbol": "?Multiply@Matrix3x3@@SAXABV1@ABVMatrix3D@@PAV1@@Z",
+   "length": 231
+  }
+ },
+ "0x8C3ED0": {
+  "R": {
+   "object": "matrix3.obj",
+   "function": "Matrix3::Multiply",
+   "symbol": "?Multiply@Matrix3@@SAXABV1@0PAV1@@Z",
+   "length": 322
+  },
+  "G": {
+   "object": "matrix3.obj",
+   "function": "Matrix3::Multiply",
+   "symbol": "?Multiply@Matrix3@@SAXABV1@0PAV1@@Z",
+   "length": 322
+  },
+  "Z": {
+   "object": "matrix3.obj",
+   "function": "Matrix3x3::Multiply",
+   "symbol": "?Multiply@Matrix3x3@@SAXABV1@0PAV1@@Z",
+   "length": 322
+  }
+ },
+ "0x8C4020": {
+  "R": {
+   "object": "matrix3.obj",
+   "function": "Matrix3::Is_Orthogonal",
+   "symbol": "?Is_Orthogonal@Matrix3@@QBEHXZ",
+   "length": 427
+  },
+  "G": {
+   "object": "matrix3.obj",
+   "function": "Matrix3::Is_Orthogonal",
+   "symbol": "?Is_Orthogonal@Matrix3@@QBEHXZ",
+   "length": 427
+  },
+  "Z": {
+   "object": "matrix3.obj",
+   "function": "Matrix3x3::Is_Orthogonal",
+   "symbol": "?Is_Orthogonal@Matrix3x3@@QBEHXZ",
+   "length": 427
+  }
+ },
+ "0x8C41D0": {
+  "R": {
+   "object": "matrix3.obj",
+   "function": "Matrix3::Re_Orthogonalize",
+   "symbol": "?Re_Orthogonalize@Matrix3@@QAEXXZ",
+   "length": 527
+  },
+  "G": {
+   "object": "matrix3.obj",
+   "function": "Matrix3::Re_Orthogonalize",
+   "symbol": "?Re_Orthogonalize@Matrix3@@QAEXXZ",
+   "length": 527
+  },
+  "Z": {
+   "object": "matrix3.obj",
+   "function": "Matrix3x3::Re_Orthogonalize",
+   "symbol": "?Re_Orthogonalize@Matrix3x3@@QAEXXZ",
+   "length": 527
+  }
+ },
+ "0x8C43E0": {
+  "R": {
+   "object": "colmathobbobb.obj",
+   "function": "intersect_obb_obb",
+   "symbol": "?intersect_obb_obb@@YA_NAAUObbIntersectionStruct@@@Z",
+   "length": 2935
+  },
+  "G": {
+   "object": "colmathobbobb.obj",
+   "function": "intersect_obb_obb",
+   "symbol": "?intersect_obb_obb@@YA_NAAUObbIntersectionStruct@@@Z",
+   "length": 2935
+  },
+  "Z": {
+   "object": "colmathobbobb.obj",
+   "function": "intersect_obb_obb",
+   "symbol": "?intersect_obb_obb@@YA_NAAUObbIntersectionStruct@@@Z",
+   "length": 2935
+  }
+ },
+ "0x8C4F60": {
+  "R": {
+   "object": "colmathobbobb.obj",
+   "function": "obb_intersect_box0_basis",
+   "symbol": "?obb_intersect_box0_basis@@YA_NAAUObbIntersectionStruct@@H@Z",
+   "length": 186
+  },
+  "G": {
+   "object": "colmathobbobb.obj",
+   "function": "obb_intersect_box0_basis",
+   "symbol": "?obb_intersect_box0_basis@@YA_NAAUObbIntersectionStruct@@H@Z",
+   "length": 186
+  },
+  "Z": {
+   "object": "colmathobbobb.obj",
+   "function": "obb_intersect_box0_basis",
+   "symbol": "?obb_intersect_box0_basis@@YA_NAAUObbIntersectionStruct@@H@Z",
+   "length": 186
+  }
+ },
+ "0x8C5020": {
+  "R": {
+   "object": "colmathobbobb.obj",
+   "function": "obb_intersect_box1_basis",
+   "symbol": "?obb_intersect_box1_basis@@YA_NAAUObbIntersectionStruct@@H@Z",
+   "length": 176
+  },
+  "G": {
+   "object": "colmathobbobb.obj",
+   "function": "obb_intersect_box1_basis",
+   "symbol": "?obb_intersect_box1_basis@@YA_NAAUObbIntersectionStruct@@H@Z",
+   "length": 176
+  },
+  "Z": {
+   "object": "colmathobbobb.obj",
+   "function": "obb_intersect_box1_basis",
+   "symbol": "?obb_intersect_box1_basis@@YA_NAAUObbIntersectionStruct@@H@Z",
+   "length": 176
+  }
+ },
+ "0x8C50D0": {
+  "R": {
+   "object": "colmathobbobb.obj",
+   "function": "CollisionMath::Intersection_Test",
+   "symbol": "?Intersection_Test@CollisionMath@@SA_NABVOBBoxClass@@0@Z",
+   "length": 199
+  },
+  "G": {
+   "object": "colmathobbobb.obj",
+   "function": "CollisionMath::Intersection_Test",
+   "symbol": "?Intersection_Test@CollisionMath@@SA_NABVOBBoxClass@@0@Z",
+   "length": 199
+  },
+  "Z": {
+   "object": "colmathobbobb.obj",
+   "function": "CollisionMath::Intersection_Test",
+   "symbol": "?Intersection_Test@CollisionMath@@SA_NABVOBBoxClass@@0@Z",
+   "length": 199
+  }
+ },
+ "0x8C51A0": {
+  "R": {
+   "object": "colmathobbobb.obj",
+   "function": "CollisionMath::Intersection_Test",
+   "symbol": "?Intersection_Test@CollisionMath@@SA_NABVOBBoxClass@@ABVAABoxClass@@@Z",
+   "length": 350
+  },
+  "G": {
+   "object": "colmathobbobb.obj",
+   "function": "CollisionMath::Intersection_Test",
+   "symbol": "?Intersection_Test@CollisionMath@@SA_NABVOBBoxClass@@ABVAABoxClass@@@Z",
+   "length": 350
+  },
+  "Z": {
+   "object": "colmathobbobb.obj",
+   "function": "CollisionMath::Intersection_Test",
+   "symbol": "?Intersection_Test@CollisionMath@@SA_NABVOBBoxClass@@ABVAABoxClass@@@Z",
+   "length": 350
+  }
+ },
+ "0x8C5300": {
+  "R": {
+   "object": "colmathobbobb.obj",
+   "function": "CollisionMath::Intersection_Test",
+   "symbol": "?Intersection_Test@CollisionMath@@SA_NABVAABoxClass@@ABVOBBoxClass@@@Z",
+   "length": 350
+  },
+  "G": {
+   "object": "colmathobbobb.obj",
+   "function": "CollisionMath::Intersection_Test",
+   "symbol": "?Intersection_Test@CollisionMath@@SA_NABVAABoxClass@@ABVOBBoxClass@@@Z",
+   "length": 350
+  },
+  "Z": {
+   "object": "colmathobbobb.obj",
+   "function": "CollisionMath::Intersection_Test",
+   "symbol": "?Intersection_Test@CollisionMath@@SA_NABVAABoxClass@@ABVOBBoxClass@@@Z",
+   "length": 350
+  }
+ },
+ "0x8C5460": {
+  "R": {
+   "object": "colmathobbobb.obj",
+   "function": "collide_obb_obb",
+   "symbol": "?collide_obb_obb@@YA_NAAUObbCollisionStruct@@PAUCastResultStruct@@@Z",
+   "length": 7020
+  }
+ },
+ "0x8C6FD0": {
+  "R": {
+   "object": "colmathobbobb.obj",
+   "function": "obb_separation_test",
+   "symbol": "?obb_separation_test@@YA_NAAUObbCollisionStruct@@MMMM@Z",
+   "length": 303
+  },
+  "Z": {
+   "object": "colmathobbobb.obj",
+   "function": "obb_separation_test",
+   "symbol": "?obb_separation_test@@YA_NAAUObbCollisionStruct@@MMMM@Z",
+   "length": 303
+  }
+ },
+ "0x8C7100": {
+  "R": {
+   "object": "colmathobbobb.obj",
+   "function": "obb_check_box0_basis",
+   "symbol": "?obb_check_box0_basis@@YA_NAAUObbCollisionStruct@@H@Z",
+   "length": 494
+  },
+  "Z": {
+   "object": "colmathobbobb.obj",
+   "function": "obb_check_box0_basis",
+   "symbol": "?obb_check_box0_basis@@YA_NAAUObbCollisionStruct@@H@Z",
+   "length": 494
+  }
+ },
+ "0x8C72F0": {
+  "R": {
+   "object": "colmathobbobb.obj",
+   "function": "obb_check_box1_basis",
+   "symbol": "?obb_check_box1_basis@@YA_NAAUObbCollisionStruct@@H@Z",
+   "length": 493
+  },
+  "Z": {
+   "object": "colmathobbobb.obj",
+   "function": "obb_check_box1_basis",
+   "symbol": "?obb_check_box1_basis@@YA_NAAUObbCollisionStruct@@H@Z",
+   "length": 493
+  }
+ },
+ "0x8C74E0": {
+  "R": {
+   "object": "colmathobbobb.obj",
+   "function": "compute_contact_point",
+   "symbol": "?compute_contact_point@@YAXAAUObbCollisionStruct@@PAUCastResultStruct@@@Z",
+   "length": 5012
+  }
+ },
+ "0x8C8880": {
+  "R": {
+   "object": "colmathobbobb.obj",
+   "function": "CollisionMath::Collide",
+   "symbol": "?Collide@CollisionMath@@SA_NABVOBBoxClass@@ABVVector3@@01PAUCastResultStruct@@@Z",
+   "length": 298
+  },
+  "G": {
+   "object": "colmathobbobb.obj",
+   "function": "CollisionMath::Collide",
+   "symbol": "?Collide@CollisionMath@@SA_NABVOBBoxClass@@ABVVector3@@01PAUCastResultStruct@@@Z",
+   "length": 298
+  },
+  "Z": {
+   "object": "colmathobbobb.obj",
+   "function": "CollisionMath::Collide",
+   "symbol": "?Collide@CollisionMath@@SA_NABVOBBoxClass@@ABVVector3@@01PAUCastResultStruct@@@Z",
+   "length": 298
+  }
+ },
+ "0x8C89B0": {
+  "R": {
+   "object": "colmathobbobb.obj",
+   "function": "CollisionMath::Collide",
+   "symbol": "?Collide@CollisionMath@@SA_NABVOBBoxClass@@ABVVector3@@ABVAABoxClass@@1PAUCastResultStruct@@@Z",
+   "length": 465
+  },
+  "G": {
+   "object": "colmathobbobb.obj",
+   "function": "CollisionMath::Collide",
+   "symbol": "?Collide@CollisionMath@@SA_NABVOBBoxClass@@ABVVector3@@ABVAABoxClass@@1PAUCastResultStruct@@@Z",
+   "length": 465
+  },
+  "Z": {
+   "object": "colmathobbobb.obj",
+   "function": "CollisionMath::Collide",
+   "symbol": "?Collide@CollisionMath@@SA_NABVOBBoxClass@@ABVVector3@@ABVAABoxClass@@1PAUCastResultStruct@@@Z",
+   "length": 465
+  }
+ },
+ "0x8C8B90": {
+  "R": {
+   "object": "colmathobbobb.obj",
+   "function": "CollisionMath::Collide",
+   "symbol": "?Collide@CollisionMath@@SA_NABVAABoxClass@@ABVVector3@@ABVOBBoxClass@@1PAUCastResultStruct@@@Z",
+   "length": 465
+  },
+  "G": {
+   "object": "colmathobbobb.obj",
+   "function": "CollisionMath::Collide",
+   "symbol": "?Collide@CollisionMath@@SA_NABVAABoxClass@@ABVVector3@@ABVOBBoxClass@@1PAUCastResultStruct@@@Z",
+   "length": 465
+  },
+  "Z": {
+   "object": "colmathobbobb.obj",
+   "function": "CollisionMath::Collide",
+   "symbol": "?Collide@CollisionMath@@SA_NABVAABoxClass@@ABVVector3@@ABVOBBoxClass@@1PAUCastResultStruct@@@Z",
+   "length": 465
+  }
+ },
+ "0x8C8D70": {
+  "R": {
+   "object": "cullsys.obj",
+   "function": "?0CullableClass",
+   "symbol": "??0CullableClass@@QAE@XZ",
+   "length": 47
+  },
+  "G": {
+   "object": "cullsys.obj",
+   "function": "?0CullableClass",
+   "symbol": "??0CullableClass@@QAE@XZ",
+   "length": 47
+  },
+  "Z": {
+   "object": "cullsys.obj",
+   "function": "?0CullableClass",
+   "symbol": "??0CullableClass@@QAE@XZ",
+   "length": 47
+  }
+ },
+ "0x8C8E40": {
+  "R": {
+   "object": "cullsys.obj",
+   "function": "CullableClass::Set_Culling_System",
+   "symbol": "?Set_Culling_System@CullableClass@@QAEXPAVCullSystemClass@@@Z",
+   "length": 17
+  },
+  "G": {
+   "object": "cullsys.obj",
+   "function": "CullableClass::Set_Culling_System",
+   "symbol": "?Set_Culling_System@CullableClass@@QAEXPAVCullSystemClass@@@Z",
+   "length": 17
+  },
+  "Z": {
+   "object": "cullsys.obj",
+   "function": "CullableClass::Set_Culling_System",
+   "symbol": "?Set_Culling_System@CullableClass@@QAEXPAVCullSystemClass@@@Z",
+   "length": 17
+  }
+ },
+ "0x8C8E60": {
+  "R": {
+   "object": "cullsys.obj",
+   "function": "CullableClass::Get_Culling_System",
+   "symbol": "?Get_Culling_System@CullableClass@@QBEPAVCullSystemClass@@XZ",
+   "length": 14
+  },
+  "G": {
+   "object": "cullsys.obj",
+   "function": "CullableClass::Get_Culling_System",
+   "symbol": "?Get_Culling_System@CullableClass@@QBEPAVCullSystemClass@@XZ",
+   "length": 14
+  },
+  "Z": {
+   "object": "cullsys.obj",
+   "function": "CullableClass::Get_Culling_System",
+   "symbol": "?Get_Culling_System@CullableClass@@QBEPAVCullSystemClass@@XZ",
+   "length": 14
+  }
+ },
+ "0x8C8F20": {
+  "R": {
+   "object": "cullsys.obj",
+   "function": "CullSystemClass::Add_To_Collection",
+   "symbol": "?Add_To_Collection@CullSystemClass@@IAEXPAVCullableClass@@@Z",
+   "length": 16
+  },
+  "G": {
+   "object": "cullsys.obj",
+   "function": "CullSystemClass::Add_To_Collection",
+   "symbol": "?Add_To_Collection@CullSystemClass@@IAEXPAVCullableClass@@@Z",
+   "length": 16
+  },
+  "Z": {
+   "object": "cullsys.obj",
+   "function": "CullSystemClass::Add_To_Collection",
+   "symbol": "?Add_To_Collection@CullSystemClass@@IAEXPAVCullableClass@@@Z",
+   "length": 16
+  }
+ },
+ "0x8C8F30": {
+  "R": {
+   "object": "pot.obj",
+   "function": "Find_POT",
+   "symbol": "?Find_POT@@YAHH@Z",
+   "length": 44
+  },
+  "G": {
+   "object": "pot.obj",
+   "function": "Find_POT",
+   "symbol": "?Find_POT@@YAHH@Z",
+   "length": 44
+  },
+  "Z": {
+   "object": "pot.obj",
+   "function": "Find_POT",
+   "symbol": "?Find_POT@@YAHH@Z",
+   "length": 44
+  }
+ },
+ "0x8C8F60": {
+  "R": {
+   "object": "pot.obj",
+   "function": "Find_POT_Log2",
+   "symbol": "?Find_POT_Log2@@YAII@Z",
+   "length": 38
+  },
+  "G": {
+   "object": "pot.obj",
+   "function": "Find_POT_Log2",
+   "symbol": "?Find_POT_Log2@@YAII@Z",
+   "length": 38
+  },
+  "Z": {
+   "object": "pot.obj",
+   "function": "Find_POT_Log2",
+   "symbol": "?Find_POT_Log2@@YAII@Z",
+   "length": 38
+  }
+ },
+ "0x8C8F90": {
+  "R": {
+   "object": "colmathline.obj",
+   "function": "$E24",
+   "symbol": "_$E24",
+   "length": 181
+  },
+  "G": {
+   "object": "colmathline.obj",
+   "function": "$E25",
+   "symbol": "_$E25",
+   "length": 181
+  },
+  "Z": {
+   "object": "colmathline.obj",
+   "function": "$E25",
+   "symbol": "_$E25",
+   "length": 181
+  }
+ },
+ "0x8C9050": {
+  "R": {
+   "object": "colmathline.obj",
+   "function": "CollisionMath::Collide",
+   "symbol": "?Collide@CollisionMath@@SA_NABVLineSegClass@@ABVAAPlaneClass@@PAUCastResultStruct@@@Z",
+   "length": 134
+  },
+  "G": {
+   "object": "colmathline.obj",
+   "function": "CollisionMath::Collide",
+   "symbol": "?Collide@CollisionMath@@SA_NABVLineSegClass@@ABVAAPlaneClass@@PAUCastResultStruct@@@Z",
+   "length": 134
+  },
+  "Z": {
+   "object": "colmathline.obj",
+   "function": "CollisionMath::Collide",
+   "symbol": "?Collide@CollisionMath@@SA_NABVLineSegClass@@ABVAAPlaneClass@@PAUCastResultStruct@@@Z",
+   "length": 134
+  }
+ },
+ "0x8C90E0": {
+  "R": {
+   "object": "colmathline.obj",
+   "function": "CollisionMath::Collide",
+   "symbol": "?Collide@CollisionMath@@SA_NABVLineSegClass@@ABVPlaneClass@@PAUCastResultStruct@@@Z",
+   "length": 245
+  },
+  "G": {
+   "object": "colmathline.obj",
+   "function": "CollisionMath::Collide",
+   "symbol": "?Collide@CollisionMath@@SA_NABVLineSegClass@@ABVPlaneClass@@PAUCastResultStruct@@@Z",
+   "length": 245
+  },
+  "Z": {
+   "object": "colmathline.obj",
+   "function": "CollisionMath::Collide",
+   "symbol": "?Collide@CollisionMath@@SA_NABVLineSegClass@@ABVPlaneClass@@PAUCastResultStruct@@@Z",
+   "length": 245
+  }
+ },
+ "0x8C91E0": {
+  "R": {
+   "object": "colmathline.obj",
+   "function": "CollisionMath::Collide",
+   "symbol": "?Collide@CollisionMath@@SA_NABVLineSegClass@@ABVTriClass@@PAUCastResultStruct@@@Z",
+   "length": 400
+  },
+  "G": {
+   "object": "colmathline.obj",
+   "function": "CollisionMath::Collide",
+   "symbol": "?Collide@CollisionMath@@SA_NABVLineSegClass@@ABVTriClass@@PAUCastResultStruct@@@Z",
+   "length": 400
+  },
+  "Z": {
+   "object": "colmathline.obj",
+   "function": "CollisionMath::Collide",
+   "symbol": "?Collide@CollisionMath@@SA_NABVLineSegClass@@ABVTriClass@@PAUCastResultStruct@@@Z",
+   "length": 400
+  }
+ },
+ "0x8C9370": {
+  "R": {
+   "object": "colmathline.obj",
+   "function": "CollisionMath::Collide",
+   "symbol": "?Collide@CollisionMath@@SA_NABVLineSegClass@@ABVSphereClass@@PAUCastResultStruct@@@Z",
+   "length": 388
+  },
+  "G": {
+   "object": "colmathline.obj",
+   "function": "CollisionMath::Collide",
+   "symbol": "?Collide@CollisionMath@@SA_NABVLineSegClass@@ABVSphereClass@@PAUCastResultStruct@@@Z",
+   "length": 388
+  },
+  "Z": {
+   "object": "colmathline.obj",
+   "function": "CollisionMath::Collide",
+   "symbol": "?Collide@CollisionMath@@SA_NABVLineSegClass@@ABVSphereClass@@PAUCastResultStruct@@@Z",
+   "length": 388
+  }
+ },
+ "0x8C9500": {
+  "R": {
+   "object": "colmathline.obj",
+   "function": "CollisionMath::Collide",
+   "symbol": "?Collide@CollisionMath@@SA_NABVLineSegClass@@ABVAABoxClass@@PAUCastResultStruct@@@Z",
+   "length": 616
+  },
+  "G": {
+   "object": "colmathline.obj",
+   "function": "CollisionMath::Collide",
+   "symbol": "?Collide@CollisionMath@@SA_NABVLineSegClass@@ABVAABoxClass@@PAUCastResultStruct@@@Z",
+   "length": 616
+  },
+  "Z": {
+   "object": "colmathline.obj",
+   "function": "CollisionMath::Collide",
+   "symbol": "?Collide@CollisionMath@@SA_NABVLineSegClass@@ABVAABoxClass@@PAUCastResultStruct@@@Z",
+   "length": 616
+  }
+ },
+ "0x8C9770": {
+  "R": {
+   "object": "colmathline.obj",
+   "function": "CollisionMath::Collide",
+   "symbol": "?Collide@CollisionMath@@SA_NABVLineSegClass@@ABVOBBoxClass@@PAUCastResultStruct@@@Z",
+   "length": 1089
+  },
+  "G": {
+   "object": "colmathline.obj",
+   "function": "CollisionMath::Collide",
+   "symbol": "?Collide@CollisionMath@@SA_NABVLineSegClass@@ABVOBBoxClass@@PAUCastResultStruct@@@Z",
+   "length": 1089
+  },
+  "Z": {
+   "object": "colmathline.obj",
+   "function": "CollisionMath::Collide",
+   "symbol": "?Collide@CollisionMath@@SA_NABVLineSegClass@@ABVOBBoxClass@@PAUCastResultStruct@@@Z",
+   "length": 1089
+  }
+ },
+ "0x8C9BD0": {
+  "R": {
+   "object": "colmathaabtri.obj",
+   "function": "CollisionMath::Collide",
+   "symbol": "?Collide@CollisionMath@@SA_NABVAABoxClass@@ABVVector3@@ABVTriClass@@PAUCastResultStruct@@@Z",
+   "length": 8232
+  }
+ },
+ "0x8CBC00": {
+  "R": {
+   "object": "colmathaabtri.obj",
+   "function": "aabtri_separation_test",
+   "symbol": "?aabtri_separation_test@@YA_NMMM@Z",
+   "length": 279
+  },
+  "G": {
+   "object": "colmathaabtri.obj",
+   "function": "aabtri_separation_test",
+   "symbol": "?aabtri_separation_test@@YA_NMMM@Z",
+   "length": 279
+  },
+  "Z": {
+   "object": "colmathaabtri.obj",
+   "function": "aabtri_separation_test",
+   "symbol": "?aabtri_separation_test@@YA_NMMM@Z",
+   "length": 279
+  }
+ },
+ "0x8CBD30": {
+  "R": {
+   "object": "colmathaabtri.obj",
+   "function": "CollisionMath::Intersection_Test",
+   "symbol": "?Intersection_Test@CollisionMath@@SA_NABVAABoxClass@@ABVTriClass@@@Z",
+   "length": 3760
+  },
+  "G": {
+   "object": "colmathaabtri.obj",
+   "function": "CollisionMath::Intersection_Test",
+   "symbol": "?Intersection_Test@CollisionMath@@SA_NABVAABoxClass@@ABVTriClass@@@Z",
+   "length": 3760
+  },
+  "Z": {
+   "object": "colmathaabtri.obj",
+   "function": "CollisionMath::Intersection_Test",
+   "symbol": "?Intersection_Test@CollisionMath@@SA_NABVAABoxClass@@ABVTriClass@@@Z",
+   "length": 3760
+  }
+ },
+ "0x8CCBE0": {
+  "R": {
+   "object": "colmathobbtri.obj",
+   "function": "CollisionMath::Collide",
+   "symbol": "?Collide@CollisionMath@@SA_NABVOBBoxClass@@ABVVector3@@ABVTriClass@@1PAUCastResultStruct@@@Z",
+   "length": 10472
+  }
+ },
+ "0x8CF4D0": {
+  "R": {
+   "object": "colmathobbtri.obj",
+   "function": "BTCollisionStruct::Reset",
+   "symbol": "?Reset@BTCollisionStruct@@QAEXXZ",
+   "length": 442
+  },
+  "G": {
+   "object": "colmathobbtri.obj",
+   "function": "BTCollisionStruct::Reset",
+   "symbol": "?Reset@BTCollisionStruct@@QAEXXZ",
+   "length": 442
+  },
+  "Z": {
+   "object": "colmathobbtri.obj",
+   "function": "BTCollisionStruct::Reset",
+   "symbol": "?Reset@BTCollisionStruct@@QAEXXZ",
+   "length": 442
+  }
+ },
+ "0x8CF690": {
+  "R": {
+   "object": "colmathobbtri.obj",
+   "function": "obbtri_collision_separation_test",
+   "symbol": "?obbtri_collision_separation_test@@YA_NAAUBTCollisionStruct@@MMM@Z",
+   "length": 204
+  },
+  "G": {
+   "object": "colmathobbtri.obj",
+   "function": "obbtri_collision_separation_test",
+   "symbol": "?obbtri_collision_separation_test@@YA_NAAUBTCollisionStruct@@MMM@Z",
+   "length": 204
+  },
+  "Z": {
+   "object": "colmathobbtri.obj",
+   "function": "obbtri_collision_separation_test",
+   "symbol": "?obbtri_collision_separation_test@@YA_NAAUBTCollisionStruct@@MMM@Z",
+   "length": 204
+  }
+ },
+ "0x8CF760": {
+  "R": {
+   "object": "colmathobbtri.obj",
+   "function": "obbtri_compute_contact_point",
+   "symbol": "?obbtri_compute_contact_point@@YAXAAUBTCollisionStruct@@PAUCastResultStruct@@@Z",
+   "length": 2880
+  },
+  "G": {
+   "object": "colmathobbtri.obj",
+   "function": "obbtri_compute_contact_point",
+   "symbol": "?obbtri_compute_contact_point@@YAXAAUBTCollisionStruct@@PAUCastResultStruct@@@Z",
+   "length": 2880
+  },
+  "Z": {
+   "object": "colmathobbtri.obj",
+   "function": "obbtri_compute_contact_point",
+   "symbol": "?obbtri_compute_contact_point@@YAXAAUBTCollisionStruct@@PAUCastResultStruct@@@Z",
+   "length": 2880
+  }
+ },
+ "0x8D02A0": {
+  "R": {
+   "object": "colmathobbtri.obj",
+   "function": "eval_side",
+   "symbol": "?eval_side@@YAMMH@Z",
+   "length": 61
+  },
+  "G": {
+   "object": "colmathobbtri.obj",
+   "function": "eval_side",
+   "symbol": "?eval_side@@YAMMH@Z",
+   "length": 61
+  },
+  "Z": {
+   "object": "colmathobbtri.obj",
+   "function": "eval_side",
+   "symbol": "?eval_side@@YAMMH@Z",
+   "length": 61
+  }
+ },
+ "0x8D02E0": {
+  "R": {
+   "object": "colmathobbtri.obj",
+   "function": "eval_A1_point",
+   "symbol": "?eval_A1_point@@YAXABUBTCollisionStruct@@PAMH@Z",
+   "length": 550
+  },
+  "G": {
+   "object": "colmathobbtri.obj",
+   "function": "eval_A1_point",
+   "symbol": "?eval_A1_point@@YAXABUBTCollisionStruct@@PAMH@Z",
+   "length": 550
+  },
+  "Z": {
+   "object": "colmathobbtri.obj",
+   "function": "eval_A1_point",
+   "symbol": "?eval_A1_point@@YAXABUBTCollisionStruct@@PAMH@Z",
+   "length": 550
+  }
+ },
+ "0x8D0510": {
+  "R": {
+   "object": "colmathobbtri.obj",
+   "function": "eval_A2_point",
+   "symbol": "?eval_A2_point@@YAXABUBTCollisionStruct@@PAMH@Z",
+   "length": 550
+  },
+  "G": {
+   "object": "colmathobbtri.obj",
+   "function": "eval_A2_point",
+   "symbol": "?eval_A2_point@@YAXABUBTCollisionStruct@@PAMH@Z",
+   "length": 550
+  },
+  "Z": {
+   "object": "colmathobbtri.obj",
+   "function": "eval_A2_point",
+   "symbol": "?eval_A2_point@@YAXABUBTCollisionStruct@@PAMH@Z",
+   "length": 550
+  }
+ },
+ "0x8D0740": {
+  "R": {
+   "object": "colmathobbtri.obj",
+   "function": "CollisionMath::Intersection_Test",
+   "symbol": "?Intersection_Test@CollisionMath@@SA_NABVOBBoxClass@@ABVTriClass@@@Z",
+   "length": 5205
+  },
+  "G": {
+   "object": "colmathobbtri.obj",
+   "function": "CollisionMath::Intersection_Test",
+   "symbol": "?Intersection_Test@CollisionMath@@SA_NABVOBBoxClass@@ABVTriClass@@@Z",
+   "length": 5205
+  },
+  "Z": {
+   "object": "colmathobbtri.obj",
+   "function": "CollisionMath::Intersection_Test",
+   "symbol": "?Intersection_Test@CollisionMath@@SA_NABVOBBoxClass@@ABVTriClass@@@Z",
+   "length": 5205
+  }
+ },
+ "0x8D1BA0": {
+  "R": {
+   "object": "colmathobbtri.obj",
+   "function": "obbtri_intersection_separation_test",
+   "symbol": "?obbtri_intersection_separation_test@@YA_NAAUBTIntersectStruct@@MM@Z",
+   "length": 119
+  },
+  "G": {
+   "object": "colmathobbtri.obj",
+   "function": "obbtri_intersection_separation_test",
+   "symbol": "?obbtri_intersection_separation_test@@YA_NAAUBTIntersectStruct@@MM@Z",
+   "length": 119
+  },
+  "Z": {
+   "object": "colmathobbtri.obj",
+   "function": "obbtri_intersection_separation_test",
+   "symbol": "?obbtri_intersection_separation_test@@YA_NAAUBTIntersectStruct@@MM@Z",
+   "length": 119
+  }
+ },
+ "0x8D1C20": {
+  "R": {
+   "object": "quat.obj",
+   "function": "Quaternion::Normalize",
+   "symbol": "?Normalize@Quaternion@@QAEXXZ",
+   "length": 107
+  },
+  "G": {
+   "object": "quat.obj",
+   "function": "Quaternion::Normalize",
+   "symbol": "?Normalize@Quaternion@@QAEXXZ",
+   "length": 107
+  },
+  "Z": {
+   "object": "quat.obj",
+   "function": "Quaternion::Normalize",
+   "symbol": "?Normalize@Quaternion@@QAEXXZ",
+   "length": 107
+  }
+ },
+ "0x8D1C90": {
+  "R": {
+   "object": "quat.obj",
+   "function": "Quaternion::Make_Closest",
+   "symbol": "?Make_Closest@Quaternion@@QAEAAV1@ABV1@@Z",
+   "length": 80
+  },
+  "G": {
+   "object": "quat.obj",
+   "function": "Quaternion::Make_Closest",
+   "symbol": "?Make_Closest@Quaternion@@QAEAAV1@ABV1@@Z",
+   "length": 80
+  },
+  "Z": {
+   "object": "quat.obj",
+   "function": "Quaternion::Make_Closest",
+   "symbol": "?Make_Closest@Quaternion@@QAEAAV1@ABV1@@Z",
+   "length": 80
+  }
+ },
+ "0x8D1CE0": {
+  "R": {
+   "object": "quat.obj",
+   "function": "Trackball",
+   "symbol": "?Trackball@@YA?AVQuaternion@@MMMMM@Z",
+   "length": 600
+  },
+  "G": {
+   "object": "quat.obj",
+   "function": "Trackball",
+   "symbol": "?Trackball@@YA?AVQuaternion@@MMMMM@Z",
+   "length": 600
+  },
+  "Z": {
+   "object": "quat.obj",
+   "function": "Trackball",
+   "symbol": "?Trackball@@YA?AVQuaternion@@MMMMM@Z",
+   "length": 600
+  }
+ },
+ "0x8D1F40": {
+  "R": {
+   "object": "quat.obj",
+   "function": "Axis_To_Quat",
+   "symbol": "?Axis_To_Quat@@YA?AVQuaternion@@ABVVector3@@M@Z",
+   "length": 225
+  }
+ },
+ "0x8D2030": {
+  "R": {
+   "object": "quat.obj",
+   "function": "Fast_Slerp",
+   "symbol": "?Fast_Slerp@@YAXAAVQuaternion@@ABV1@1M@Z",
+   "length": 906
+  },
+  "G": {
+   "object": "quat.obj",
+   "function": "Fast_Slerp",
+   "symbol": "?Fast_Slerp@@YAXAAVQuaternion@@ABV1@1M@Z",
+   "length": 906
+  },
+  "Z": {
+   "object": "quat.obj",
+   "function": "Fast_Slerp",
+   "symbol": "?Fast_Slerp@@YAXAAVQuaternion@@ABV1@1M@Z",
+   "length": 906
+  }
+ },
+ "0x8D23C0": {
+  "R": {
+   "object": "quat.obj",
+   "function": "Slerp",
+   "symbol": "?Slerp@@YAXAAVQuaternion@@ABV1@1M@Z",
+   "length": 277
+  },
+  "G": {
+   "object": "quat.obj",
+   "function": "Slerp",
+   "symbol": "?Slerp@@YAXAAVQuaternion@@ABV1@1M@Z",
+   "length": 277
+  },
+  "Z": {
+   "object": "quat.obj",
+   "function": "Slerp",
+   "symbol": "?Slerp@@YAXAAVQuaternion@@ABV1@1M@Z",
+   "length": 277
+  }
+ },
+ "0x8D24E0": {
+  "R": {
+   "object": "quat.obj",
+   "function": "Slerp_Setup",
+   "symbol": "?Slerp_Setup@@YAXABVQuaternion@@0PAUSlerpInfoStruct@@@Z",
+   "length": 145
+  },
+  "G": {
+   "object": "quat.obj",
+   "function": "Slerp_Setup",
+   "symbol": "?Slerp_Setup@@YAXABVQuaternion@@0PAUSlerpInfoStruct@@@Z",
+   "length": 145
+  },
+  "Z": {
+   "object": "quat.obj",
+   "function": "Slerp_Setup",
+   "symbol": "?Slerp_Setup@@YAXABVQuaternion@@0PAUSlerpInfoStruct@@@Z",
+   "length": 145
+  }
+ },
+ "0x8D2580": {
+  "R": {
+   "object": "quat.obj",
+   "function": "Cached_Slerp",
+   "symbol": "?Cached_Slerp@@YA?AVQuaternion@@ABV1@0MPAUSlerpInfoStruct@@@Z",
+   "length": 203
+  },
+  "G": {
+   "object": "quat.obj",
+   "function": "Cached_Slerp",
+   "symbol": "?Cached_Slerp@@YA?AVQuaternion@@ABV1@0MPAUSlerpInfoStruct@@@Z",
+   "length": 203
+  },
+  "Z": {
+   "object": "quat.obj",
+   "function": "Cached_Slerp",
+   "symbol": "?Cached_Slerp@@YA?AVQuaternion@@ABV1@0MPAUSlerpInfoStruct@@@Z",
+   "length": 203
+  }
+ },
+ "0x8D2650": {
+  "R": {
+   "object": "quat.obj",
+   "function": "Cached_Slerp",
+   "symbol": "?Cached_Slerp@@YAXABVQuaternion@@0MPAUSlerpInfoStruct@@PAV1@@Z",
+   "length": 177
+  },
+  "G": {
+   "object": "quat.obj",
+   "function": "Cached_Slerp",
+   "symbol": "?Cached_Slerp@@YAXABVQuaternion@@0MPAUSlerpInfoStruct@@PAV1@@Z",
+   "length": 177
+  },
+  "Z": {
+   "object": "quat.obj",
+   "function": "Cached_Slerp",
+   "symbol": "?Cached_Slerp@@YAXABVQuaternion@@0MPAUSlerpInfoStruct@@PAV1@@Z",
+   "length": 177
+  }
+ },
+ "0x8D2710": {
+  "R": {
+   "object": "quat.obj",
+   "function": "Build_Quaternion",
+   "symbol": "?Build_Quaternion@@YA?AVQuaternion@@ABVMatrix3D@@@Z",
+   "length": 311
+  },
+  "G": {
+   "object": "quat.obj",
+   "function": "Build_Quaternion",
+   "symbol": "?Build_Quaternion@@YA?AVQuaternion@@ABVMatrix3D@@@Z",
+   "length": 311
+  },
+  "Z": {
+   "object": "quat.obj",
+   "function": "Build_Quaternion",
+   "symbol": "?Build_Quaternion@@YA?AVQuaternion@@ABVMatrix3D@@@Z",
+   "length": 311
+  }
+ },
+ "0x8D2850": {
+  "R": {
+   "object": "quat.obj",
+   "function": "Build_Quaternion",
+   "symbol": "?Build_Quaternion@@YA?AVQuaternion@@ABVMatrix3@@@Z",
+   "length": 330
+  },
+  "G": {
+   "object": "quat.obj",
+   "function": "Build_Quaternion",
+   "symbol": "?Build_Quaternion@@YA?AVQuaternion@@ABVMatrix3@@@Z",
+   "length": 330
+  },
+  "Z": {
+   "object": "quat.obj",
+   "function": "Build_Quaternion",
+   "symbol": "?Build_Quaternion@@YA?AVQuaternion@@ABVMatrix3x3@@@Z",
+   "length": 330
+  }
+ },
+ "0x8D29A0": {
+  "R": {
+   "object": "quat.obj",
+   "function": "Build_Quaternion",
+   "symbol": "?Build_Quaternion@@YA?AVQuaternion@@ABVMatrix4@@@Z",
+   "length": 311
+  },
+  "G": {
+   "object": "quat.obj",
+   "function": "Build_Quaternion",
+   "symbol": "?Build_Quaternion@@YA?AVQuaternion@@ABVMatrix4@@@Z",
+   "length": 311
+  },
+  "Z": {
+   "object": "quat.obj",
+   "function": "Build_Quaternion",
+   "symbol": "?Build_Quaternion@@YA?AVQuaternion@@ABVMatrix4x4@@@Z",
+   "length": 311
+  }
+ },
+ "0x8D2AE0": {
+  "R": {
+   "object": "quat.obj",
+   "function": "Build_Matrix3",
+   "symbol": "?Build_Matrix3@@YA?AVMatrix3@@ABVQuaternion@@@Z",
+   "length": 303
+  },
+  "G": {
+   "object": "quat.obj",
+   "function": "Build_Matrix3",
+   "symbol": "?Build_Matrix3@@YA?AVMatrix3@@ABVQuaternion@@@Z",
+   "length": 303
+  },
+  "Z": {
+   "object": "quat.obj",
+   "function": "Build_Matrix3",
+   "symbol": "?Build_Matrix3@@YA?AVMatrix3x3@@ABVQuaternion@@@Z",
+   "length": 303
+  }
+ },
+ "0x8D2C10": {
+  "R": {
+   "object": "quat.obj",
+   "function": "Build_Matrix3D",
+   "symbol": "?Build_Matrix3D@@YA?AVMatrix3D@@ABVQuaternion@@@Z",
+   "length": 314
+  }
+ },
+ "0x8D2D50": {
+  "R": {
+   "object": "quat.obj",
+   "function": "Build_Matrix4",
+   "symbol": "?Build_Matrix4@@YA?AVMatrix4@@ABVQuaternion@@@Z",
+   "length": 330
+  },
+  "G": {
+   "object": "quat.obj",
+   "function": "Build_Matrix4",
+   "symbol": "?Build_Matrix4@@YA?AVMatrix4@@ABVQuaternion@@@Z",
+   "length": 330
+  },
+  "Z": {
+   "object": "quat.obj",
+   "function": "Build_Matrix4",
+   "symbol": "?Build_Matrix4@@YA?AVMatrix4x4@@ABVQuaternion@@@Z",
+   "length": 330
+  }
+ },
+ "0x8D2EA0": {
+  "R": {
+   "object": "quat.obj",
+   "function": "Quaternion::Rotate_X",
+   "symbol": "?Rotate_X@Quaternion@@QAEXM@Z",
+   "length": 215
+  },
+  "G": {
+   "object": "quat.obj",
+   "function": "Quaternion::Rotate_X",
+   "symbol": "?Rotate_X@Quaternion@@QAEXM@Z",
+   "length": 215
+  },
+  "Z": {
+   "object": "quat.obj",
+   "function": "Quaternion::Rotate_X",
+   "symbol": "?Rotate_X@Quaternion@@QAEXM@Z",
+   "length": 215
+  }
+ },
+ "0x8D2F80": {
+  "R": {
+   "object": "quat.obj",
+   "function": "Quaternion::Rotate_Y",
+   "symbol": "?Rotate_Y@Quaternion@@QAEXM@Z",
+   "length": 213
+  },
+  "G": {
+   "object": "quat.obj",
+   "function": "Quaternion::Rotate_Y",
+   "symbol": "?Rotate_Y@Quaternion@@QAEXM@Z",
+   "length": 213
+  },
+  "Z": {
+   "object": "quat.obj",
+   "function": "Quaternion::Rotate_Y",
+   "symbol": "?Rotate_Y@Quaternion@@QAEXM@Z",
+   "length": 213
+  }
+ },
+ "0x8D3060": {
+  "R": {
+   "object": "quat.obj",
+   "function": "Quaternion::Rotate_Z",
+   "symbol": "?Rotate_Z@Quaternion@@QAEXM@Z",
+   "length": 215
+  },
+  "G": {
+   "object": "quat.obj",
+   "function": "Quaternion::Rotate_Z",
+   "symbol": "?Rotate_Z@Quaternion@@QAEXM@Z",
+   "length": 215
+  },
+  "Z": {
+   "object": "quat.obj",
+   "function": "Quaternion::Rotate_Z",
+   "symbol": "?Rotate_Z@Quaternion@@QAEXM@Z",
+   "length": 215
+  }
+ },
+ "0x8D3140": {
+  "R": {
+   "object": "quat.obj",
+   "function": "Quaternion::Randomize",
+   "symbol": "?Randomize@Quaternion@@QAEXXZ",
+   "length": 211
+  },
+  "G": {
+   "object": "quat.obj",
+   "function": "Quaternion::Randomize",
+   "symbol": "?Randomize@Quaternion@@QAEXXZ",
+   "length": 211
+  },
+  "Z": {
+   "object": "quat.obj",
+   "function": "Quaternion::Randomize",
+   "symbol": "?Randomize@Quaternion@@QAEXXZ",
+   "length": 211
+  }
+ },
+ "0x8D3260": {
+  "R": {
+   "object": "vp.obj",
+   "function": "VectorProcessorClass::Transform",
+   "symbol": "?Transform@VectorProcessorClass@@SAXPAVVector3@@PBV2@ABVMatrix3D@@H@Z",
+   "length": 152
+  }
+ },
+ "0x8D3300": {
+  "R": {
+   "object": "vp.obj",
+   "function": "VectorProcessorClass::Transform",
+   "symbol": "?Transform@VectorProcessorClass@@SAXPAVVector4@@PBVVector3@@ABVMatrix4@@H@Z",
+   "length": 188
+  },
+  "G": {
+   "object": "vp.obj",
+   "function": "VectorProcessorClass::Transform",
+   "symbol": "?Transform@VectorProcessorClass@@SAXPAVVector4@@PBVVector3@@ABVMatrix4@@H@Z",
+   "length": 188
+  },
+  "Z": {
+   "object": "vp.obj",
+   "function": "VectorProcessorClass::Transform",
+   "symbol": "?Transform@VectorProcessorClass@@SAXPAVVector4@@PBVVector3@@ABVMatrix4x4@@H@Z",
+   "length": 188
+  }
+ },
+ "0x8D33C0": {
+  "R": {
+   "object": "vp.obj",
+   "function": "VectorProcessorClass::Copy",
+   "symbol": "?Copy@VectorProcessorClass@@SAXPAVVector2@@PBV2@H@Z",
+   "length": 42
+  },
+  "G": {
+   "object": "vp.obj",
+   "function": "VectorProcessorClass::Copy",
+   "symbol": "?Copy@VectorProcessorClass@@SAXPAVVector2@@PBV2@H@Z",
+   "length": 42
+  },
+  "Z": {
+   "object": "vp.obj",
+   "function": "VectorProcessorClass::Copy",
+   "symbol": "?Copy@VectorProcessorClass@@SAXPAVVector2@@PBV2@H@Z",
+   "length": 42
+  }
+ },
+ "0x8D33F0": {
+  "R": {
+   "object": "vp.obj",
+   "function": "VectorProcessorClass::Copy",
+   "symbol": "?Copy@VectorProcessorClass@@SAXPAIPBIH@Z",
+   "length": 23
+  },
+  "G": {
+   "object": "vp.obj",
+   "function": "VectorProcessorClass::Copy",
+   "symbol": "?Copy@VectorProcessorClass@@SAXPAIPBIH@Z",
+   "length": 23
+  },
+  "Z": {
+   "object": "vp.obj",
+   "function": "VectorProcessorClass::Copy",
+   "symbol": "?Copy@VectorProcessorClass@@SAXPAIPBIH@Z",
+   "length": 23
+  }
+ },
+ "0x8D3410": {
+  "R": {
+   "object": "vp.obj",
+   "function": "VectorProcessorClass::Copy",
+   "symbol": "?Copy@VectorProcessorClass@@SAXPAVVector3@@PBV2@H@Z",
+   "length": 41
+  },
+  "G": {
+   "object": "vp.obj",
+   "function": "VectorProcessorClass::Copy",
+   "symbol": "?Copy@VectorProcessorClass@@SAXPAVVector3@@PBV2@H@Z",
+   "length": 41
+  },
+  "Z": {
+   "object": "vp.obj",
+   "function": "VectorProcessorClass::Copy",
+   "symbol": "?Copy@VectorProcessorClass@@SAXPAVVector3@@PBV2@H@Z",
+   "length": 41
+  }
+ },
+ "0x8D3440": {
+  "R": {
+   "object": "vp.obj",
+   "function": "VectorProcessorClass::Copy",
+   "symbol": "?Copy@VectorProcessorClass@@SAXPAVVector4@@PBV2@H@Z",
+   "length": 38
+  },
+  "G": {
+   "object": "vp.obj",
+   "function": "VectorProcessorClass::Copy",
+   "symbol": "?Copy@VectorProcessorClass@@SAXPAVVector4@@PBV2@H@Z",
+   "length": 38
+  },
+  "Z": {
+   "object": "vp.obj",
+   "function": "VectorProcessorClass::Copy",
+   "symbol": "?Copy@VectorProcessorClass@@SAXPAVVector4@@PBV2@H@Z",
+   "length": 38
+  }
+ },
+ "0x8D3470": {
+  "R": {
+   "object": "vp.obj",
+   "function": "VectorProcessorClass::Copy",
+   "symbol": "?Copy@VectorProcessorClass@@SAXPAVVector4@@PBVVector3@@PBMH@Z",
+   "length": 65
+  },
+  "G": {
+   "object": "vp.obj",
+   "function": "VectorProcessorClass::Copy",
+   "symbol": "?Copy@VectorProcessorClass@@SAXPAVVector4@@PBVVector3@@PBMH@Z",
+   "length": 65
+  },
+  "Z": {
+   "object": "vp.obj",
+   "function": "VectorProcessorClass::Copy",
+   "symbol": "?Copy@VectorProcessorClass@@SAXPAVVector4@@PBVVector3@@PBMH@Z",
+   "length": 65
+  }
+ },
+ "0x8D34C0": {
+  "R": {
+   "object": "vp.obj",
+   "function": "VectorProcessorClass::Copy",
+   "symbol": "?Copy@VectorProcessorClass@@SAXPAVVector4@@PBVVector3@@MH@Z",
+   "length": 58
+  },
+  "G": {
+   "object": "vp.obj",
+   "function": "VectorProcessorClass::Copy",
+   "symbol": "?Copy@VectorProcessorClass@@SAXPAVVector4@@PBVVector3@@MH@Z",
+   "length": 58
+  },
+  "Z": {
+   "object": "vp.obj",
+   "function": "VectorProcessorClass::Copy",
+   "symbol": "?Copy@VectorProcessorClass@@SAXPAVVector4@@PBVVector3@@MH@Z",
+   "length": 58
+  }
+ },
+ "0x8D3500": {
+  "R": {
+   "object": "vp.obj",
+   "function": "VectorProcessorClass::Copy",
+   "symbol": "?Copy@VectorProcessorClass@@SAXPAVVector4@@ABVVector3@@PBMH@Z",
+   "length": 59
+  },
+  "G": {
+   "object": "vp.obj",
+   "function": "VectorProcessorClass::Copy",
+   "symbol": "?Copy@VectorProcessorClass@@SAXPAVVector4@@ABVVector3@@PBMH@Z",
+   "length": 59
+  },
+  "Z": {
+   "object": "vp.obj",
+   "function": "VectorProcessorClass::Copy",
+   "symbol": "?Copy@VectorProcessorClass@@SAXPAVVector4@@ABVVector3@@PBMH@Z",
+   "length": 59
+  }
+ },
+ "0x8D3570": {
+  "R": {
+   "object": "vp.obj",
+   "function": "VectorProcessorClass::CopyIndexed",
+   "symbol": "?CopyIndexed@VectorProcessorClass@@SAXPAVVector2@@PBV2@PBIH@Z",
+   "length": 53
+  },
+  "G": {
+   "object": "vp.obj",
+   "function": "VectorProcessorClass::CopyIndexed",
+   "symbol": "?CopyIndexed@VectorProcessorClass@@SAXPAVVector2@@PBV2@PBIH@Z",
+   "length": 53
+  },
+  "Z": {
+   "object": "vp.obj",
+   "function": "VectorProcessorClass::CopyIndexed",
+   "symbol": "?CopyIndexed@VectorProcessorClass@@SAXPAVVector2@@PBV2@PBIH@Z",
+   "length": 53
+  }
+ },
+ "0x8D35B0": {
+  "R": {
+   "object": "vp.obj",
+   "function": "VectorProcessorClass::CopyIndexed",
+   "symbol": "?CopyIndexed@VectorProcessorClass@@SAXPAVVector3@@PBV2@PBIH@Z",
+   "length": 65
+  },
+  "G": {
+   "object": "vp.obj",
+   "function": "VectorProcessorClass::CopyIndexed",
+   "symbol": "?CopyIndexed@VectorProcessorClass@@SAXPAVVector3@@PBV2@PBIH@Z",
+   "length": 65
+  },
+  "Z": {
+   "object": "vp.obj",
+   "function": "VectorProcessorClass::CopyIndexed",
+   "symbol": "?CopyIndexed@VectorProcessorClass@@SAXPAVVector3@@PBV2@PBIH@Z",
+   "length": 65
+  }
+ },
+ "0x8D3600": {
+  "R": {
+   "object": "vp.obj",
+   "function": "VectorProcessorClass::CopyIndexed",
+   "symbol": "?CopyIndexed@VectorProcessorClass@@SAXPAVVector4@@PBV2@PBIH@Z",
+   "length": 69
+  },
+  "G": {
+   "object": "vp.obj",
+   "function": "VectorProcessorClass::CopyIndexed",
+   "symbol": "?CopyIndexed@VectorProcessorClass@@SAXPAVVector4@@PBV2@PBIH@Z",
+   "length": 69
+  },
+  "Z": {
+   "object": "vp.obj",
+   "function": "VectorProcessorClass::CopyIndexed",
+   "symbol": "?CopyIndexed@VectorProcessorClass@@SAXPAVVector4@@PBV2@PBIH@Z",
+   "length": 69
+  }
+ },
+ "0x8D3650": {
+  "R": {
+   "object": "vp.obj",
+   "function": "VectorProcessorClass::CopyIndexed",
+   "symbol": "?CopyIndexed@VectorProcessorClass@@SAXPAEPBEPBIH@Z",
+   "length": 50
+  },
+  "G": {
+   "object": "vp.obj",
+   "function": "VectorProcessorClass::CopyIndexed",
+   "symbol": "?CopyIndexed@VectorProcessorClass@@SAXPAEPBEPBIH@Z",
+   "length": 50
+  },
+  "Z": {
+   "object": "vp.obj",
+   "function": "VectorProcessorClass::CopyIndexed",
+   "symbol": "?CopyIndexed@VectorProcessorClass@@SAXPAEPBEPBIH@Z",
+   "length": 50
+  }
+ },
+ "0x8D36C0": {
+  "R": {
+   "object": "vp.obj",
+   "function": "VectorProcessorClass::Clamp",
+   "symbol": "?Clamp@VectorProcessorClass@@SAXPAVVector4@@PBV2@MMH@Z",
+   "length": 252
+  },
+  "G": {
+   "object": "vp.obj",
+   "function": "VectorProcessorClass::Clamp",
+   "symbol": "?Clamp@VectorProcessorClass@@SAXPAVVector4@@PBV2@MMH@Z",
+   "length": 252
+  },
+  "Z": {
+   "object": "vp.obj",
+   "function": "VectorProcessorClass::Clamp",
+   "symbol": "?Clamp@VectorProcessorClass@@SAXPAVVector4@@PBV2@MMH@Z",
+   "length": 252
+  }
+ },
+ "0x8D37C0": {
+  "R": {
+   "object": "vp.obj",
+   "function": "VectorProcessorClass::Clear",
+   "symbol": "?Clear@VectorProcessorClass@@SAXPAVVector3@@H@Z",
+   "length": 37
+  },
+  "G": {
+   "object": "vp.obj",
+   "function": "VectorProcessorClass::Clear",
+   "symbol": "?Clear@VectorProcessorClass@@SAXPAVVector3@@H@Z",
+   "length": 37
+  },
+  "Z": {
+   "object": "vp.obj",
+   "function": "VectorProcessorClass::Clear",
+   "symbol": "?Clear@VectorProcessorClass@@SAXPAVVector3@@H@Z",
+   "length": 37
+  }
+ },
+ "0x8D37F0": {
+  "R": {
+   "object": "vp.obj",
+   "function": "VectorProcessorClass::Normalize",
+   "symbol": "?Normalize@VectorProcessorClass@@SAXPAVVector3@@H@Z",
+   "length": 105
+  },
+  "G": {
+   "object": "vp.obj",
+   "function": "VectorProcessorClass::Normalize",
+   "symbol": "?Normalize@VectorProcessorClass@@SAXPAVVector3@@H@Z",
+   "length": 105
+  },
+  "Z": {
+   "object": "vp.obj",
+   "function": "VectorProcessorClass::Normalize",
+   "symbol": "?Normalize@VectorProcessorClass@@SAXPAVVector3@@H@Z",
+   "length": 105
+  }
+ },
+ "0x8D3860": {
+  "R": {
+   "object": "vp.obj",
+   "function": "VectorProcessorClass::MinMax",
+   "symbol": "?MinMax@VectorProcessorClass@@SAXPAVVector3@@AAV2@1H@Z",
+   "length": 226
+  },
+  "G": {
+   "object": "vp.obj",
+   "function": "VectorProcessorClass::MinMax",
+   "symbol": "?MinMax@VectorProcessorClass@@SAXPAVVector3@@AAV2@1H@Z",
+   "length": 226
+  },
+  "Z": {
+   "object": "vp.obj",
+   "function": "VectorProcessorClass::MinMax",
+   "symbol": "?MinMax@VectorProcessorClass@@SAXPAVVector3@@AAV2@1H@Z",
+   "length": 226
+  }
+ },
+ "0x8D3950": {
+  "R": {
+   "object": "vp.obj",
+   "function": "VectorProcessorClass::MulAdd",
+   "symbol": "?MulAdd@VectorProcessorClass@@SAXPAMMMH@Z",
+   "length": 32
+  },
+  "G": {
+   "object": "vp.obj",
+   "function": "VectorProcessorClass::MulAdd",
+   "symbol": "?MulAdd@VectorProcessorClass@@SAXPAMMMH@Z",
+   "length": 32
+  },
+  "Z": {
+   "object": "vp.obj",
+   "function": "VectorProcessorClass::MulAdd",
+   "symbol": "?MulAdd@VectorProcessorClass@@SAXPAMMMH@Z",
+   "length": 32
+  }
+ },
+ "0x8D3970": {
+  "R": {
+   "object": "vp.obj",
+   "function": "VectorProcessorClass::DotProduct",
+   "symbol": "?DotProduct@VectorProcessorClass@@SAXPAMABVVector3@@PBV2@H@Z",
+   "length": 59
+  },
+  "G": {
+   "object": "vp.obj",
+   "function": "VectorProcessorClass::DotProduct",
+   "symbol": "?DotProduct@VectorProcessorClass@@SAXPAMABVVector3@@PBV2@H@Z",
+   "length": 59
+  },
+  "Z": {
+   "object": "vp.obj",
+   "function": "VectorProcessorClass::DotProduct",
+   "symbol": "?DotProduct@VectorProcessorClass@@SAXPAMABVVector3@@PBV2@H@Z",
+   "length": 59
+  }
+ },
+ "0x8D39B0": {
+  "R": {
+   "object": "vp.obj",
+   "function": "VectorProcessorClass::ClampMin",
+   "symbol": "?ClampMin@VectorProcessorClass@@SAXPAM0MH@Z",
+   "length": 51
+  },
+  "G": {
+   "object": "vp.obj",
+   "function": "VectorProcessorClass::ClampMin",
+   "symbol": "?ClampMin@VectorProcessorClass@@SAXPAM0MH@Z",
+   "length": 51
+  },
+  "Z": {
+   "object": "vp.obj",
+   "function": "VectorProcessorClass::ClampMin",
+   "symbol": "?ClampMin@VectorProcessorClass@@SAXPAM0MH@Z",
+   "length": 51
+  }
+ },
+ "0x8D39F0": {
+  "R": {
+   "object": "vp.obj",
+   "function": "VectorProcessorClass::Power",
+   "symbol": "?Power@VectorProcessorClass@@SAXPAM0MH@Z",
+   "length": 45
+  },
+  "G": {
+   "object": "vp.obj",
+   "function": "VectorProcessorClass::Power",
+   "symbol": "?Power@VectorProcessorClass@@SAXPAM0MH@Z",
+   "length": 45
+  },
+  "Z": {
+   "object": "vp.obj",
+   "function": "VectorProcessorClass::Power",
+   "symbol": "?Power@VectorProcessorClass@@SAXPAM0MH@Z",
+   "length": 45
+  }
+ },
+ "0x8D3B60": {
+  "R": {
+   "object": "curve.obj",
+   "function": "?0Curve3DClass",
+   "symbol": "??0Curve3DClass@@QAE@ABV0@@Z",
+   "length": 220
+  },
+  "G": {
+   "object": "curve.obj",
+   "function": "?0Curve3DClass",
+   "symbol": "??0Curve3DClass@@QAE@ABV0@@Z",
+   "length": 220
+  },
+  "Z": {
+   "object": "curve.obj",
+   "function": "?0Curve3DClass",
+   "symbol": "??0Curve3DClass@@QAE@ABV0@@Z",
+   "length": 220
+  }
+ },
+ "0x8D3C90": {
+  "R": {
+   "object": "curve.obj",
+   "function": "?4Curve3DClass",
+   "symbol": "??4Curve3DClass@@QAEAAV0@ABV0@@Z",
+   "length": 179
+  },
+  "G": {
+   "object": "curve.obj",
+   "function": "?4Curve3DClass",
+   "symbol": "??4Curve3DClass@@QAEAAV0@ABV0@@Z",
+   "length": 179
+  },
+  "Z": {
+   "object": "curve.obj",
+   "function": "?4Curve3DClass",
+   "symbol": "??4Curve3DClass@@QAEAAV0@ABV0@@Z",
+   "length": 179
+  }
+ },
+ "0x8D3D70": {
+  "R": {
+   "object": "curve.obj",
+   "function": "Curve3DClass::Get_Start_Time",
+   "symbol": "?Get_Start_Time@Curve3DClass@@QAEMXZ",
+   "length": 21
+  },
+  "G": {
+   "object": "curve.obj",
+   "function": "Curve3DClass::Get_Start_Time",
+   "symbol": "?Get_Start_Time@Curve3DClass@@QAEMXZ",
+   "length": 21
+  },
+  "Z": {
+   "object": "curve.obj",
+   "function": "Curve3DClass::Get_Start_Time",
+   "symbol": "?Get_Start_Time@Curve3DClass@@QAEMXZ",
+   "length": 21
+  }
+ },
+ "0x8D3D90": {
+  "R": {
+   "object": "curve.obj",
+   "function": "Curve3DClass::Get_End_Time",
+   "symbol": "?Get_End_Time@Curve3DClass@@QAEMXZ",
+   "length": 25
+  },
+  "G": {
+   "object": "curve.obj",
+   "function": "Curve3DClass::Get_End_Time",
+   "symbol": "?Get_End_Time@Curve3DClass@@QAEMXZ",
+   "length": 25
+  },
+  "Z": {
+   "object": "curve.obj",
+   "function": "Curve3DClass::Get_End_Time",
+   "symbol": "?Get_End_Time@Curve3DClass@@QAEMXZ",
+   "length": 25
+  }
+ },
+ "0x8D3DC0": {
+  "R": {
+   "object": "curve.obj",
+   "function": "Curve3DClass::Get_Key",
+   "symbol": "?Get_Key@Curve3DClass@@UAEXHPAVVector3@@PAM@Z",
+   "length": 65
+  },
+  "G": {
+   "object": "curve.obj",
+   "function": "Curve3DClass::Get_Key",
+   "symbol": "?Get_Key@Curve3DClass@@UAEXHPAVVector3@@PAM@Z",
+   "length": 65
+  },
+  "Z": {
+   "object": "curve.obj",
+   "function": "Curve3DClass::Get_Key",
+   "symbol": "?Get_Key@Curve3DClass@@UAEXHPAVVector3@@PAM@Z",
+   "length": 65
+  }
+ },
+ "0x8D3E10": {
+  "R": {
+   "object": "curve.obj",
+   "function": "Curve3DClass::Set_Key",
+   "symbol": "?Set_Key@Curve3DClass@@UAEXHABVVector3@@@Z",
+   "length": 35
+  },
+  "G": {
+   "object": "curve.obj",
+   "function": "Curve3DClass::Set_Key",
+   "symbol": "?Set_Key@Curve3DClass@@UAEXHABVVector3@@@Z",
+   "length": 35
+  },
+  "Z": {
+   "object": "curve.obj",
+   "function": "Curve3DClass::Set_Key",
+   "symbol": "?Set_Key@Curve3DClass@@UAEXHABVVector3@@@Z",
+   "length": 35
+  }
+ },
+ "0x8D3E40": {
+  "R": {
+   "object": "curve.obj",
+   "function": "Curve3DClass::Add_Key",
+   "symbol": "?Add_Key@Curve3DClass@@UAEHABVVector3@@M@Z",
+   "length": 226
+  },
+  "G": {
+   "object": "curve.obj",
+   "function": "Curve3DClass::Add_Key",
+   "symbol": "?Add_Key@Curve3DClass@@UAEHABVVector3@@M@Z",
+   "length": 226
+  },
+  "Z": {
+   "object": "curve.obj",
+   "function": "Curve3DClass::Add_Key",
+   "symbol": "?Add_Key@Curve3DClass@@UAEHABVVector3@@M@Z",
+   "length": 226
+  }
+ },
+ "0x8D3F30": {
+  "R": {
+   "object": "curve.obj",
+   "function": "Curve3DClass::Remove_Key",
+   "symbol": "?Remove_Key@Curve3DClass@@UAEXH@Z",
+   "length": 76
+  },
+  "G": {
+   "object": "curve.obj",
+   "function": "Curve3DClass::Remove_Key",
+   "symbol": "?Remove_Key@Curve3DClass@@UAEXH@Z",
+   "length": 76
+  },
+  "Z": {
+   "object": "curve.obj",
+   "function": "Curve3DClass::Remove_Key",
+   "symbol": "?Remove_Key@Curve3DClass@@UAEXH@Z",
+   "length": 76
+  }
+ },
+ "0x8D3F90": {
+  "R": {
+   "object": "curve.obj",
+   "function": "Curve3DClass::Find_Interval",
+   "symbol": "?Find_Interval@Curve3DClass@@IAEXMPAH0PAM@Z",
+   "length": 93
+  },
+  "G": {
+   "object": "curve.obj",
+   "function": "Curve3DClass::Find_Interval",
+   "symbol": "?Find_Interval@Curve3DClass@@IAEXMPAH0PAM@Z",
+   "length": 93
+  },
+  "Z": {
+   "object": "curve.obj",
+   "function": "Curve3DClass::Find_Interval",
+   "symbol": "?Find_Interval@Curve3DClass@@IAEXMPAH0PAM@Z",
+   "length": 93
+  }
+ },
+ "0x8D3FF0": {
+  "R": {
+   "object": "curve.obj",
+   "function": "Curve3DClass::Save",
+   "symbol": "?Save@Curve3DClass@@UAE_NAAVChunkSaveClass@@@Z",
+   "length": 181
+  },
+  "G": {
+   "object": "curve.obj",
+   "function": "Curve3DClass::Save",
+   "symbol": "?Save@Curve3DClass@@UAE_NAAVChunkSaveClass@@@Z",
+   "length": 181
+  },
+  "Z": {
+   "object": "curve.obj",
+   "function": "Curve3DClass::Save",
+   "symbol": "?Save@Curve3DClass@@UAE_NAAVChunkSaveClass@@@Z",
+   "length": 181
+  }
+ },
+ "0x8D40B0": {
+  "R": {
+   "object": "curve.obj",
+   "function": "Curve3DClass::Load",
+   "symbol": "?Load@Curve3DClass@@UAE_NAAVChunkLoadClass@@@Z",
+   "length": 337
+  },
+  "G": {
+   "object": "curve.obj",
+   "function": "Curve3DClass::Load",
+   "symbol": "?Load@Curve3DClass@@UAE_NAAVChunkLoadClass@@@Z",
+   "length": 337
+  },
+  "Z": {
+   "object": "curve.obj",
+   "function": "Curve3DClass::Load",
+   "symbol": "?Load@Curve3DClass@@UAE_NAAVChunkLoadClass@@@Z",
+   "length": 337
+  }
+ },
+ "0x8D4210": {
+  "R": {
+   "object": "curve.obj",
+   "function": "LinearCurve3DClass::Evaluate",
+   "symbol": "?Evaluate@LinearCurve3DClass@@UAEXMPAVVector3@@@Z",
+   "length": 264
+  },
+  "G": {
+   "object": "curve.obj",
+   "function": "LinearCurve3DClass::Evaluate",
+   "symbol": "?Evaluate@LinearCurve3DClass@@UAEXMPAVVector3@@@Z",
+   "length": 264
+  },
+  "Z": {
+   "object": "curve.obj",
+   "function": "LinearCurve3DClass::Evaluate",
+   "symbol": "?Evaluate@LinearCurve3DClass@@UAEXMPAVVector3@@@Z",
+   "length": 264
+  }
+ },
+ "0x8D4330": {
+  "R": {
+   "object": "curve.obj",
+   "function": "LinearCurve3DClass::Save",
+   "symbol": "?Save@LinearCurve3DClass@@UAE_NAAVChunkSaveClass@@@Z",
+   "length": 42
+  },
+  "G": {
+   "object": "curve.obj",
+   "function": "LinearCurve3DClass::Save",
+   "symbol": "?Save@LinearCurve3DClass@@UAE_NAAVChunkSaveClass@@@Z",
+   "length": 42
+  },
+  "Z": {
+   "object": "curve.obj",
+   "function": "LinearCurve3DClass::Save",
+   "symbol": "?Save@LinearCurve3DClass@@UAE_NAAVChunkSaveClass@@@Z",
+   "length": 42
+  }
+ },
+ "0x8D4360": {
+  "R": {
+   "object": "curve.obj",
+   "function": "LinearCurve3DClass::Load",
+   "symbol": "?Load@LinearCurve3DClass@@UAE_NAAVChunkLoadClass@@@Z",
+   "length": 66
+  },
+  "G": {
+   "object": "curve.obj",
+   "function": "LinearCurve3DClass::Load",
+   "symbol": "?Load@LinearCurve3DClass@@UAE_NAAVChunkLoadClass@@@Z",
+   "length": 66
+  },
+  "Z": {
+   "object": "curve.obj",
+   "function": "LinearCurve3DClass::Load",
+   "symbol": "?Load@LinearCurve3DClass@@UAE_NAAVChunkLoadClass@@@Z",
+   "length": 66
+  }
+ },
+ "0x8D4440": {
+  "R": {
+   "object": "curve.obj",
+   "function": "?0Curve1DClass",
+   "symbol": "??0Curve1DClass@@QAE@ABV0@@Z",
+   "length": 201
+  },
+  "G": {
+   "object": "curve.obj",
+   "function": "?0Curve1DClass",
+   "symbol": "??0Curve1DClass@@QAE@ABV0@@Z",
+   "length": 201
+  },
+  "Z": {
+   "object": "curve.obj",
+   "function": "?0Curve1DClass",
+   "symbol": "??0Curve1DClass@@QAE@ABV0@@Z",
+   "length": 201
+  }
+ },
+ "0x8D4560": {
+  "R": {
+   "object": "curve.obj",
+   "function": "?4Curve1DClass",
+   "symbol": "??4Curve1DClass@@QAEAAV0@ABV0@@Z",
+   "length": 158
+  },
+  "G": {
+   "object": "curve.obj",
+   "function": "?4Curve1DClass",
+   "symbol": "??4Curve1DClass@@QAEAAV0@ABV0@@Z",
+   "length": 158
+  },
+  "Z": {
+   "object": "curve.obj",
+   "function": "?4Curve1DClass",
+   "symbol": "??4Curve1DClass@@QAEAAV0@ABV0@@Z",
+   "length": 158
+  }
+ },
+ "0x8D4620": {
+  "R": {
+   "object": "curve.obj",
+   "function": "Curve1DClass::Get_Start_Time",
+   "symbol": "?Get_Start_Time@Curve1DClass@@QAEMXZ",
+   "length": 21
+  },
+  "G": {
+   "object": "curve.obj",
+   "function": "Curve1DClass::Get_Start_Time",
+   "symbol": "?Get_Start_Time@Curve1DClass@@QAEMXZ",
+   "length": 21
+  },
+  "Z": {
+   "object": "curve.obj",
+   "function": "Curve1DClass::Get_Start_Time",
+   "symbol": "?Get_Start_Time@Curve1DClass@@QAEMXZ",
+   "length": 21
+  }
+ },
+ "0x8D4640": {
+  "R": {
+   "object": "curve.obj",
+   "function": "Curve1DClass::Get_End_Time",
+   "symbol": "?Get_End_Time@Curve1DClass@@QAEMXZ",
+   "length": 25
+  },
+  "G": {
+   "object": "curve.obj",
+   "function": "Curve1DClass::Get_End_Time",
+   "symbol": "?Get_End_Time@Curve1DClass@@QAEMXZ",
+   "length": 25
+  },
+  "Z": {
+   "object": "curve.obj",
+   "function": "Curve1DClass::Get_End_Time",
+   "symbol": "?Get_End_Time@Curve1DClass@@QAEMXZ",
+   "length": 25
+  }
+ },
+ "0x8D4670": {
+  "R": {
+   "object": "curve.obj",
+   "function": "Curve1DClass::Get_Key",
+   "symbol": "?Get_Key@Curve1DClass@@UAEXHPAM0PAI@Z",
+   "length": 70
+  },
+  "G": {
+   "object": "curve.obj",
+   "function": "Curve1DClass::Get_Key",
+   "symbol": "?Get_Key@Curve1DClass@@UAEXHPAM0PAI@Z",
+   "length": 70
+  },
+  "Z": {
+   "object": "curve.obj",
+   "function": "Curve1DClass::Get_Key",
+   "symbol": "?Get_Key@Curve1DClass@@UAEXHPAM0PAI@Z",
+   "length": 70
+  }
+ },
+ "0x8D46C0": {
+  "R": {
+   "object": "curve.obj",
+   "function": "Curve1DClass::Set_Key",
+   "symbol": "?Set_Key@Curve1DClass@@UAEXHMI@Z",
+   "length": 34
+  },
+  "G": {
+   "object": "curve.obj",
+   "function": "Curve1DClass::Set_Key",
+   "symbol": "?Set_Key@Curve1DClass@@UAEXHMI@Z",
+   "length": 34
+  },
+  "Z": {
+   "object": "curve.obj",
+   "function": "Curve1DClass::Set_Key",
+   "symbol": "?Set_Key@Curve1DClass@@UAEXHMI@Z",
+   "length": 34
+  }
+ },
+ "0x8D46F0": {
+  "R": {
+   "object": "curve.obj",
+   "function": "Curve1DClass::Add_Key",
+   "symbol": "?Add_Key@Curve1DClass@@UAEHMMI@Z",
+   "length": 204
+  },
+  "G": {
+   "object": "curve.obj",
+   "function": "Curve1DClass::Add_Key",
+   "symbol": "?Add_Key@Curve1DClass@@UAEHMMI@Z",
+   "length": 204
+  },
+  "Z": {
+   "object": "curve.obj",
+   "function": "Curve1DClass::Add_Key",
+   "symbol": "?Add_Key@Curve1DClass@@UAEHMMI@Z",
+   "length": 204
+  }
+ },
+ "0x8D47C0": {
+  "R": {
+   "object": "curve.obj",
+   "function": "Curve1DClass::Remove_Key",
+   "symbol": "?Remove_Key@Curve1DClass@@UAEXH@Z",
+   "length": 70
+  },
+  "G": {
+   "object": "curve.obj",
+   "function": "Curve1DClass::Remove_Key",
+   "symbol": "?Remove_Key@Curve1DClass@@UAEXH@Z",
+   "length": 70
+  },
+  "Z": {
+   "object": "curve.obj",
+   "function": "Curve1DClass::Remove_Key",
+   "symbol": "?Remove_Key@Curve1DClass@@UAEXH@Z",
+   "length": 70
+  }
+ },
+ "0x8D4820": {
+  "R": {
+   "object": "curve.obj",
+   "function": "Curve1DClass::Find_Interval",
+   "symbol": "?Find_Interval@Curve1DClass@@IAEXMPAH0PAM@Z",
+   "length": 262
+  },
+  "G": {
+   "object": "curve.obj",
+   "function": "Curve1DClass::Find_Interval",
+   "symbol": "?Find_Interval@Curve1DClass@@IAEXMPAH0PAM@Z",
+   "length": 262
+  },
+  "Z": {
+   "object": "curve.obj",
+   "function": "Curve1DClass::Find_Interval",
+   "symbol": "?Find_Interval@Curve1DClass@@IAEXMPAH0PAM@Z",
+   "length": 262
+  }
+ },
+ "0x8D4930": {
+  "R": {
+   "object": "curve.obj",
+   "function": "Curve1DClass::Save",
+   "symbol": "?Save@Curve1DClass@@UAE_NAAVChunkSaveClass@@@Z",
+   "length": 198
+  },
+  "G": {
+   "object": "curve.obj",
+   "function": "Curve1DClass::Save",
+   "symbol": "?Save@Curve1DClass@@UAE_NAAVChunkSaveClass@@@Z",
+   "length": 198
+  },
+  "Z": {
+   "object": "curve.obj",
+   "function": "Curve1DClass::Save",
+   "symbol": "?Save@Curve1DClass@@UAE_NAAVChunkSaveClass@@@Z",
+   "length": 198
+  }
+ },
+ "0x8D4A00": {
+  "R": {
+   "object": "curve.obj",
+   "function": "Curve1DClass::Load",
+   "symbol": "?Load@Curve1DClass@@UAE_NAAVChunkLoadClass@@@Z",
+   "length": 349
+  },
+  "G": {
+   "object": "curve.obj",
+   "function": "Curve1DClass::Load",
+   "symbol": "?Load@Curve1DClass@@UAE_NAAVChunkLoadClass@@@Z",
+   "length": 349
+  },
+  "Z": {
+   "object": "curve.obj",
+   "function": "Curve1DClass::Load",
+   "symbol": "?Load@Curve1DClass@@UAE_NAAVChunkLoadClass@@@Z",
+   "length": 349
+  }
+ },
+ "0x8D4B60": {
+  "R": {
+   "object": "curve.obj",
+   "function": "LinearCurve1DClass::Evaluate",
+   "symbol": "?Evaluate@LinearCurve1DClass@@UAEXMPAM@Z",
+   "length": 157
+  },
+  "G": {
+   "object": "curve.obj",
+   "function": "LinearCurve1DClass::Evaluate",
+   "symbol": "?Evaluate@LinearCurve1DClass@@UAEXMPAM@Z",
+   "length": 157
+  },
+  "Z": {
+   "object": "curve.obj",
+   "function": "LinearCurve1DClass::Evaluate",
+   "symbol": "?Evaluate@LinearCurve1DClass@@UAEXMPAM@Z",
+   "length": 157
+  }
+ },
+ "0x8D4C10": {
+  "R": {
+   "object": "curve.obj",
+   "function": "LinearCurve1DClass::Save",
+   "symbol": "?Save@LinearCurve1DClass@@UAE_NAAVChunkSaveClass@@@Z",
+   "length": 42
+  },
+  "G": {
+   "object": "curve.obj",
+   "function": "LinearCurve1DClass::Save",
+   "symbol": "?Save@LinearCurve1DClass@@UAE_NAAVChunkSaveClass@@@Z",
+   "length": 42
+  },
+  "Z": {
+   "object": "curve.obj",
+   "function": "LinearCurve1DClass::Save",
+   "symbol": "?Save@LinearCurve1DClass@@UAE_NAAVChunkSaveClass@@@Z",
+   "length": 42
+  }
+ },
+ "0x8D4C40": {
+  "R": {
+   "object": "curve.obj",
+   "function": "LinearCurve1DClass::Load",
+   "symbol": "?Load@LinearCurve1DClass@@UAE_NAAVChunkLoadClass@@@Z",
+   "length": 66
+  },
+  "G": {
+   "object": "curve.obj",
+   "function": "LinearCurve1DClass::Load",
+   "symbol": "?Load@LinearCurve1DClass@@UAE_NAAVChunkLoadClass@@@Z",
+   "length": 66
+  },
+  "Z": {
+   "object": "curve.obj",
+   "function": "LinearCurve1DClass::Load",
+   "symbol": "?Load@LinearCurve1DClass@@UAE_NAAVChunkLoadClass@@@Z",
+   "length": 66
+  }
+ },
+ "0x8D50F0": {
+  "R": {
+   "object": "curve.obj",
+   "function": "VKeyClass::?8?$VectorClass",
+   "symbol": "??8?$VectorClass@VKeyClass@Curve1DClass@@@@UBE_NABV0@@Z",
+   "length": 100
+  },
+  "G": {
+   "object": "curve.obj",
+   "function": "VKeyClass::?8?$VectorClass",
+   "symbol": "??8?$VectorClass@VKeyClass@Curve1DClass@@@@UBE_NABV0@@Z",
+   "length": 100
+  },
+  "Z": {
+   "object": "curve.obj",
+   "function": "VKeyClass::?8?$VectorClass",
+   "symbol": "??8?$VectorClass@VKeyClass@Curve1DClass@@@@UBE_NABV0@@Z",
+   "length": 100
+  }
+ },
+ "0x8D5260": {
+  "R": {
+   "object": "curve.obj",
+   "function": "?$VectorClass::ID",
+   "symbol": "?ID@?$VectorClass@VKeyClass@Curve1DClass@@@@UAEHABVKeyClass@Curve1DClass@@@Z",
+   "length": 95
+  },
+  "G": {
+   "object": "curve.obj",
+   "function": "?$VectorClass::ID",
+   "symbol": "?ID@?$VectorClass@VKeyClass@Curve1DClass@@@@UAEHABVKeyClass@Curve1DClass@@@Z",
+   "length": 95
+  },
+  "Z": {
+   "object": "curve.obj",
+   "function": "?$VectorClass::ID",
+   "symbol": "?ID@?$VectorClass@VKeyClass@Curve1DClass@@@@UAEHABVKeyClass@Curve1DClass@@@Z",
+   "length": 95
+  }
+ },
+ "0x8D53C0": {
+  "R": {
+   "object": "curve.obj",
+   "function": "?$DynamicVectorClass::ID",
+   "symbol": "?ID@?$DynamicVectorClass@VKeyClass@Curve1DClass@@@@UAEHABVKeyClass@Curve1DClass@@@Z",
+   "length": 80
+  },
+  "G": {
+   "object": "curve.obj",
+   "function": "?$DynamicVectorClass::ID",
+   "symbol": "?ID@?$DynamicVectorClass@VKeyClass@Curve1DClass@@@@UAEHABVKeyClass@Curve1DClass@@@Z",
+   "length": 80
+  },
+  "Z": {
+   "object": "curve.obj",
+   "function": "?$DynamicVectorClass::ID",
+   "symbol": "?ID@?$DynamicVectorClass@VKeyClass@Curve1DClass@@@@UAEHABVKeyClass@Curve1DClass@@@Z",
+   "length": 80
+  }
+ },
+ "0x8D57E0": {
+  "R": {
+   "object": "catmullromspline.obj",
+   "function": "CatmullRomSpline3DClass::Update_Tangents",
+   "symbol": "?Update_Tangents@CatmullRomSpline3DClass@@UAEXXZ",
+   "length": 680
+  },
+  "G": {
+   "object": "catmullromspline.obj",
+   "function": "CatmullRomSpline3DClass::Update_Tangents",
+   "symbol": "?Update_Tangents@CatmullRomSpline3DClass@@UAEXXZ",
+   "length": 680
+  },
+  "Z": {
+   "object": "catmullromspline.obj",
+   "function": "CatmullRomSpline3DClass::Update_Tangents",
+   "symbol": "?Update_Tangents@CatmullRomSpline3DClass@@UAEXXZ",
+   "length": 680
+  }
+ },
+ "0x8D5AA0": {
+  "R": {
+   "object": "catmullromspline.obj",
+   "function": "CatmullRomSpline3DClass::Save",
+   "symbol": "?Save@CatmullRomSpline3DClass@@UAE_NAAVChunkSaveClass@@@Z",
+   "length": 42
+  },
+  "G": {
+   "object": "catmullromspline.obj",
+   "function": "CatmullRomSpline3DClass::Save",
+   "symbol": "?Save@CatmullRomSpline3DClass@@UAE_NAAVChunkSaveClass@@@Z",
+   "length": 42
+  },
+  "Z": {
+   "object": "catmullromspline.obj",
+   "function": "CatmullRomSpline3DClass::Save",
+   "symbol": "?Save@CatmullRomSpline3DClass@@UAE_NAAVChunkSaveClass@@@Z",
+   "length": 42
+  }
+ },
+ "0x8D5AD0": {
+  "R": {
+   "object": "catmullromspline.obj",
+   "function": "CatmullRomSpline3DClass::Load",
+   "symbol": "?Load@CatmullRomSpline3DClass@@UAE_NAAVChunkLoadClass@@@Z",
+   "length": 66
+  },
+  "G": {
+   "object": "catmullromspline.obj",
+   "function": "CatmullRomSpline3DClass::Load",
+   "symbol": "?Load@CatmullRomSpline3DClass@@UAE_NAAVChunkLoadClass@@@Z",
+   "length": 66
+  },
+  "Z": {
+   "object": "catmullromspline.obj",
+   "function": "CatmullRomSpline3DClass::Load",
+   "symbol": "?Load@CatmullRomSpline3DClass@@UAE_NAAVChunkLoadClass@@@Z",
+   "length": 66
+  }
+ },
+ "0x8D5B20": {
+  "R": {
+   "object": "catmullromspline.obj",
+   "function": "CatmullRomSpline1DClass::Update_Tangents",
+   "symbol": "?Update_Tangents@CatmullRomSpline1DClass@@UAEXXZ",
+   "length": 379
+  },
+  "G": {
+   "object": "catmullromspline.obj",
+   "function": "CatmullRomSpline1DClass::Update_Tangents",
+   "symbol": "?Update_Tangents@CatmullRomSpline1DClass@@UAEXXZ",
+   "length": 379
+  },
+  "Z": {
+   "object": "catmullromspline.obj",
+   "function": "CatmullRomSpline1DClass::Update_Tangents",
+   "symbol": "?Update_Tangents@CatmullRomSpline1DClass@@UAEXXZ",
+   "length": 379
+  }
+ },
+ "0x8D5CB0": {
+  "R": {
+   "object": "catmullromspline.obj",
+   "function": "CatmullRomSpline1DClass::Save",
+   "symbol": "?Save@CatmullRomSpline1DClass@@UAE_NAAVChunkSaveClass@@@Z",
+   "length": 42
+  },
+  "G": {
+   "object": "catmullromspline.obj",
+   "function": "CatmullRomSpline1DClass::Save",
+   "symbol": "?Save@CatmullRomSpline1DClass@@UAE_NAAVChunkSaveClass@@@Z",
+   "length": 42
+  },
+  "Z": {
+   "object": "catmullromspline.obj",
+   "function": "CatmullRomSpline1DClass::Save",
+   "symbol": "?Save@CatmullRomSpline1DClass@@UAE_NAAVChunkSaveClass@@@Z",
+   "length": 42
+  }
+ },
+ "0x8D5CE0": {
+  "R": {
+   "object": "catmullromspline.obj",
+   "function": "CatmullRomSpline1DClass::Load",
+   "symbol": "?Load@CatmullRomSpline1DClass@@UAE_NAAVChunkLoadClass@@@Z",
+   "length": 66
+  },
+  "G": {
+   "object": "catmullromspline.obj",
+   "function": "CatmullRomSpline1DClass::Load",
+   "symbol": "?Load@CatmullRomSpline1DClass@@UAE_NAAVChunkLoadClass@@@Z",
+   "length": 66
+  },
+  "Z": {
+   "object": "catmullromspline.obj",
+   "function": "CatmullRomSpline1DClass::Load",
+   "symbol": "?Load@CatmullRomSpline1DClass@@UAE_NAAVChunkLoadClass@@@Z",
+   "length": 66
+  }
+ },
+ "0x8D5FF0": {
+  "R": {
+   "object": "hermitespline.obj",
+   "function": "?4HermiteSpline3DClass",
+   "symbol": "??4HermiteSpline3DClass@@QAEABV0@ABV0@@Z",
+   "length": 212
+  },
+  "G": {
+   "object": "hermitespline.obj",
+   "function": "?4HermiteSpline3DClass",
+   "symbol": "??4HermiteSpline3DClass@@QAEABV0@ABV0@@Z",
+   "length": 212
+  },
+  "Z": {
+   "object": "hermitespline.obj",
+   "function": "?4HermiteSpline3DClass",
+   "symbol": "??4HermiteSpline3DClass@@QAEABV0@ABV0@@Z",
+   "length": 212
+  }
+ },
+ "0x8D60F0": {
+  "R": {
+   "object": "hermitespline.obj",
+   "function": "HermiteSpline3DClass::Evaluate",
+   "symbol": "?Evaluate@HermiteSpline3DClass@@UAEXMPAVVector3@@@Z",
+   "length": 377
+  },
+  "G": {
+   "object": "hermitespline.obj",
+   "function": "HermiteSpline3DClass::Evaluate",
+   "symbol": "?Evaluate@HermiteSpline3DClass@@UAEXMPAVVector3@@@Z",
+   "length": 377
+  },
+  "Z": {
+   "object": "hermitespline.obj",
+   "function": "HermiteSpline3DClass::Evaluate",
+   "symbol": "?Evaluate@HermiteSpline3DClass@@UAEXMPAVVector3@@@Z",
+   "length": 377
+  }
+ },
+ "0x8D6270": {
+  "R": {
+   "object": "hermitespline.obj",
+   "function": "HermiteSpline3DClass::Evaluate_Derivative",
+   "symbol": "?Evaluate_Derivative@HermiteSpline3DClass@@UAEXMPAVVector3@@@Z",
+   "length": 361
+  },
+  "G": {
+   "object": "hermitespline.obj",
+   "function": "HermiteSpline3DClass::Evaluate_Derivative",
+   "symbol": "?Evaluate_Derivative@HermiteSpline3DClass@@UAEXMPAVVector3@@@Z",
+   "length": 361
+  },
+  "Z": {
+   "object": "hermitespline.obj",
+   "function": "HermiteSpline3DClass::Evaluate_Derivative",
+   "symbol": "?Evaluate_Derivative@HermiteSpline3DClass@@UAEXMPAVVector3@@@Z",
+   "length": 361
+  }
+ },
+ "0x8D63E0": {
+  "R": {
+   "object": "hermitespline.obj",
+   "function": "HermiteSpline3DClass::Set_Key",
+   "symbol": "?Set_Key@HermiteSpline3DClass@@UAEXHABVVector3@@@Z",
+   "length": 28
+  },
+  "G": {
+   "object": "hermitespline.obj",
+   "function": "HermiteSpline3DClass::Set_Key",
+   "symbol": "?Set_Key@HermiteSpline3DClass@@UAEXHABVVector3@@@Z",
+   "length": 28
+  },
+  "Z": {
+   "object": "hermitespline.obj",
+   "function": "HermiteSpline3DClass::Set_Key",
+   "symbol": "?Set_Key@HermiteSpline3DClass@@UAEXHABVVector3@@@Z",
+   "length": 28
+  }
+ },
+ "0x8D6400": {
+  "R": {
+   "object": "hermitespline.obj",
+   "function": "HermiteSpline3DClass::Add_Key",
+   "symbol": "?Add_Key@HermiteSpline3DClass@@UAEHABVVector3@@M@Z",
+   "length": 163
+  },
+  "G": {
+   "object": "hermitespline.obj",
+   "function": "HermiteSpline3DClass::Add_Key",
+   "symbol": "?Add_Key@HermiteSpline3DClass@@UAEHABVVector3@@M@Z",
+   "length": 163
+  },
+  "Z": {
+   "object": "hermitespline.obj",
+   "function": "HermiteSpline3DClass::Add_Key",
+   "symbol": "?Add_Key@HermiteSpline3DClass@@UAEHABVVector3@@M@Z",
+   "length": 163
+  }
+ },
+ "0x8D64B0": {
+  "R": {
+   "object": "hermitespline.obj",
+   "function": "HermiteSpline3DClass::Remove_Key",
+   "symbol": "?Remove_Key@HermiteSpline3DClass@@UAEXH@Z",
+   "length": 115
+  },
+  "G": {
+   "object": "hermitespline.obj",
+   "function": "HermiteSpline3DClass::Remove_Key",
+   "symbol": "?Remove_Key@HermiteSpline3DClass@@UAEXH@Z",
+   "length": 115
+  },
+  "Z": {
+   "object": "hermitespline.obj",
+   "function": "HermiteSpline3DClass::Remove_Key",
+   "symbol": "?Remove_Key@HermiteSpline3DClass@@UAEXH@Z",
+   "length": 115
+  }
+ },
+ "0x8D6550": {
+  "R": {
+   "object": "hermitespline.obj",
+   "function": "HermiteSpline3DClass::Set_Tangents",
+   "symbol": "?Set_Tangents@HermiteSpline3DClass@@UAEXHABVVector3@@0@Z",
+   "length": 69
+  },
+  "G": {
+   "object": "hermitespline.obj",
+   "function": "HermiteSpline3DClass::Set_Tangents",
+   "symbol": "?Set_Tangents@HermiteSpline3DClass@@UAEXHABVVector3@@0@Z",
+   "length": 69
+  },
+  "Z": {
+   "object": "hermitespline.obj",
+   "function": "HermiteSpline3DClass::Set_Tangents",
+   "symbol": "?Set_Tangents@HermiteSpline3DClass@@UAEXHABVVector3@@0@Z",
+   "length": 69
+  }
+ },
+ "0x8D65A0": {
+  "R": {
+   "object": "hermitespline.obj",
+   "function": "HermiteSpline3DClass::Get_Tangents",
+   "symbol": "?Get_Tangents@HermiteSpline3DClass@@UAEXHPAVVector3@@0@Z",
+   "length": 69
+  },
+  "G": {
+   "object": "hermitespline.obj",
+   "function": "HermiteSpline3DClass::Get_Tangents",
+   "symbol": "?Get_Tangents@HermiteSpline3DClass@@UAEXHPAVVector3@@0@Z",
+   "length": 69
+  },
+  "Z": {
+   "object": "hermitespline.obj",
+   "function": "HermiteSpline3DClass::Get_Tangents",
+   "symbol": "?Get_Tangents@HermiteSpline3DClass@@UAEXHPAVVector3@@0@Z",
+   "length": 69
+  }
+ },
+ "0x8D6600": {
+  "R": {
+   "object": "hermitespline.obj",
+   "function": "HermiteSpline3DClass::Save",
+   "symbol": "?Save@HermiteSpline3DClass@@UAE_NAAVChunkSaveClass@@@Z",
+   "length": 119
+  },
+  "G": {
+   "object": "hermitespline.obj",
+   "function": "HermiteSpline3DClass::Save",
+   "symbol": "?Save@HermiteSpline3DClass@@UAE_NAAVChunkSaveClass@@@Z",
+   "length": 119
+  },
+  "Z": {
+   "object": "hermitespline.obj",
+   "function": "HermiteSpline3DClass::Save",
+   "symbol": "?Save@HermiteSpline3DClass@@UAE_NAAVChunkSaveClass@@@Z",
+   "length": 119
+  }
+ },
+ "0x8D6680": {
+  "R": {
+   "object": "hermitespline.obj",
+   "function": "HermiteSpline3DClass::Load",
+   "symbol": "?Load@HermiteSpline3DClass@@UAE_NAAVChunkLoadClass@@@Z",
+   "length": 288
+  },
+  "G": {
+   "object": "hermitespline.obj",
+   "function": "HermiteSpline3DClass::Load",
+   "symbol": "?Load@HermiteSpline3DClass@@UAE_NAAVChunkLoadClass@@@Z",
+   "length": 288
+  },
+  "Z": {
+   "object": "hermitespline.obj",
+   "function": "HermiteSpline3DClass::Load",
+   "symbol": "?Load@HermiteSpline3DClass@@UAE_NAAVChunkLoadClass@@@Z",
+   "length": 288
+  }
+ },
+ "0x8D67C0": {
+  "R": {
+   "object": "hermitespline.obj",
+   "function": "HermiteSpline1DClass::Evaluate",
+   "symbol": "?Evaluate@HermiteSpline1DClass@@UAEXMPAM@Z",
+   "length": 261
+  },
+  "G": {
+   "object": "hermitespline.obj",
+   "function": "HermiteSpline1DClass::Evaluate",
+   "symbol": "?Evaluate@HermiteSpline1DClass@@UAEXMPAM@Z",
+   "length": 261
+  },
+  "Z": {
+   "object": "hermitespline.obj",
+   "function": "HermiteSpline1DClass::Evaluate",
+   "symbol": "?Evaluate@HermiteSpline1DClass@@UAEXMPAM@Z",
+   "length": 261
+  }
+ },
+ "0x8D68D0": {
+  "R": {
+   "object": "hermitespline.obj",
+   "function": "HermiteSpline1DClass::Set_Key",
+   "symbol": "?Set_Key@HermiteSpline1DClass@@UAEXHMI@Z",
+   "length": 33
+  },
+  "G": {
+   "object": "hermitespline.obj",
+   "function": "HermiteSpline1DClass::Set_Key",
+   "symbol": "?Set_Key@HermiteSpline1DClass@@UAEXHMI@Z",
+   "length": 33
+  },
+  "Z": {
+   "object": "hermitespline.obj",
+   "function": "HermiteSpline1DClass::Set_Key",
+   "symbol": "?Set_Key@HermiteSpline1DClass@@UAEXHMI@Z",
+   "length": 33
+  }
+ },
+ "0x8D6900": {
+  "R": {
+   "object": "hermitespline.obj",
+   "function": "HermiteSpline1DClass::Add_Key",
+   "symbol": "?Add_Key@HermiteSpline1DClass@@UAEHMMI@Z",
+   "length": 181
+  },
+  "G": {
+   "object": "hermitespline.obj",
+   "function": "HermiteSpline1DClass::Add_Key",
+   "symbol": "?Add_Key@HermiteSpline1DClass@@UAEHMMI@Z",
+   "length": 181
+  },
+  "Z": {
+   "object": "hermitespline.obj",
+   "function": "HermiteSpline1DClass::Add_Key",
+   "symbol": "?Add_Key@HermiteSpline1DClass@@UAEHMMI@Z",
+   "length": 181
+  }
+ },
+ "0x8D69C0": {
+  "R": {
+   "object": "hermitespline.obj",
+   "function": "HermiteSpline1DClass::Remove_Key",
+   "symbol": "?Remove_Key@HermiteSpline1DClass@@UAEXH@Z",
+   "length": 70
+  },
+  "G": {
+   "object": "hermitespline.obj",
+   "function": "HermiteSpline1DClass::Remove_Key",
+   "symbol": "?Remove_Key@HermiteSpline1DClass@@UAEXH@Z",
+   "length": 70
+  },
+  "Z": {
+   "object": "hermitespline.obj",
+   "function": "HermiteSpline1DClass::Remove_Key",
+   "symbol": "?Remove_Key@HermiteSpline1DClass@@UAEXH@Z",
+   "length": 70
+  }
+ },
+ "0x8D6A30": {
+  "R": {
+   "object": "hermitespline.obj",
+   "function": "HermiteSpline1DClass::Set_Tangents",
+   "symbol": "?Set_Tangents@HermiteSpline1DClass@@UAEXHMM@Z",
+   "length": 28
+  },
+  "G": {
+   "object": "hermitespline.obj",
+   "function": "HermiteSpline1DClass::Set_Tangents",
+   "symbol": "?Set_Tangents@HermiteSpline1DClass@@UAEXHMM@Z",
+   "length": 28
+  },
+  "Z": {
+   "object": "hermitespline.obj",
+   "function": "HermiteSpline1DClass::Set_Tangents",
+   "symbol": "?Set_Tangents@HermiteSpline1DClass@@UAEXHMM@Z",
+   "length": 28
+  }
+ },
+ "0x8D6A50": {
+  "R": {
+   "object": "hermitespline.obj",
+   "function": "HermiteSpline1DClass::Get_Tangents",
+   "symbol": "?Get_Tangents@HermiteSpline1DClass@@UAEXHPAM0@Z",
+   "length": 34
+  },
+  "G": {
+   "object": "hermitespline.obj",
+   "function": "HermiteSpline1DClass::Get_Tangents",
+   "symbol": "?Get_Tangents@HermiteSpline1DClass@@UAEXHPAM0@Z",
+   "length": 34
+  },
+  "Z": {
+   "object": "hermitespline.obj",
+   "function": "HermiteSpline1DClass::Get_Tangents",
+   "symbol": "?Get_Tangents@HermiteSpline1DClass@@UAEXHPAM0@Z",
+   "length": 34
+  }
+ },
+ "0x8D6A90": {
+  "R": {
+   "object": "hermitespline.obj",
+   "function": "HermiteSpline1DClass::Save",
+   "symbol": "?Save@HermiteSpline1DClass@@UAE_NAAVChunkSaveClass@@@Z",
+   "length": 133
+  },
+  "G": {
+   "object": "hermitespline.obj",
+   "function": "HermiteSpline1DClass::Save",
+   "symbol": "?Save@HermiteSpline1DClass@@UAE_NAAVChunkSaveClass@@@Z",
+   "length": 133
+  },
+  "Z": {
+   "object": "hermitespline.obj",
+   "function": "HermiteSpline1DClass::Save",
+   "symbol": "?Save@HermiteSpline1DClass@@UAE_NAAVChunkSaveClass@@@Z",
+   "length": 133
+  }
+ },
+ "0x8D6B20": {
+  "R": {
+   "object": "hermitespline.obj",
+   "function": "HermiteSpline1DClass::Load",
+   "symbol": "?Load@HermiteSpline1DClass@@UAE_NAAVChunkLoadClass@@@Z",
+   "length": 252
+  },
+  "G": {
+   "object": "hermitespline.obj",
+   "function": "HermiteSpline1DClass::Load",
+   "symbol": "?Load@HermiteSpline1DClass@@UAE_NAAVChunkLoadClass@@@Z",
+   "length": 252
+  },
+  "Z": {
+   "object": "hermitespline.obj",
+   "function": "HermiteSpline1DClass::Load",
+   "symbol": "?Load@HermiteSpline1DClass@@UAE_NAAVChunkLoadClass@@@Z",
+   "length": 252
+  }
+ },
+ "0x8D6DE0": {
+  "R": {
+   "object": "hermitespline.obj",
+   "function": "?_GHermiteSpline1DClass",
+   "symbol": "??_GHermiteSpline1DClass@@UAEPAXI@Z",
+   "length": 80
+  },
+  "G": {
+   "object": "hermitespline.obj",
+   "function": "?_GHermiteSpline1DClass",
+   "symbol": "??_GHermiteSpline1DClass@@UAEPAXI@Z",
+   "length": 80
+  },
+  "Z": {
+   "object": "hermitespline.obj",
+   "function": "?_GHermiteSpline1DClass",
+   "symbol": "??_GHermiteSpline1DClass@@UAEPAXI@Z",
+   "length": 80
+  }
+ },
+ "0x8D6EF0": {
+  "R": {
+   "object": "gridcull.obj",
+   "function": "?0GridLinkClass",
+   "symbol": "??0GridLinkClass@@QAE@PAVGridCullSystemClass@@@Z",
+   "length": 33
+  },
+  "G": {
+   "object": "gridcull.obj",
+   "function": "?0GridLinkClass",
+   "symbol": "??0GridLinkClass@@QAE@PAVGridCullSystemClass@@@Z",
+   "length": 33
+  },
+  "Z": {
+   "object": "gridcull.obj",
+   "function": "?0GridLinkClass",
+   "symbol": "??0GridLinkClass@@QAE@PAVGridCullSystemClass@@@Z",
+   "length": 33
+  }
+ },
+ "0x8D6FA0": {
+  "R": {
+   "object": "gridcull.obj",
+   "function": "?0GridCullSystemClass",
+   "symbol": "??0GridCullSystemClass@@QAE@XZ",
+   "length": 182
+  },
+  "G": {
+   "object": "gridcull.obj",
+   "function": "?0GridCullSystemClass",
+   "symbol": "??0GridCullSystemClass@@QAE@XZ",
+   "length": 182
+  },
+  "Z": {
+   "object": "gridcull.obj",
+   "function": "?0GridCullSystemClass",
+   "symbol": "??0GridCullSystemClass@@QAE@XZ",
+   "length": 182
+  }
+ },
+ "0x8D7060": {
+  "R": {
+   "object": "gridcull.obj",
+   "function": "?_GGridCullSystemClass",
+   "symbol": "??_GGridCullSystemClass@@UAEPAXI@Z",
+   "length": 61
+  },
+  "G": {
+   "object": "gridcull.obj",
+   "function": "?_GGridCullSystemClass",
+   "symbol": "??_GGridCullSystemClass@@UAEPAXI@Z",
+   "length": 61
+  },
+  "Z": {
+   "object": "gridcull.obj",
+   "function": "?_GGridCullSystemClass",
+   "symbol": "??_GGridCullSystemClass@@UAEPAXI@Z",
+   "length": 61
+  }
+ },
+ "0x8D70A0": {
+  "R": {
+   "object": "gridcull.obj",
+   "function": "?1GridCullSystemClass",
+   "symbol": "??1GridCullSystemClass@@UAE@XZ",
+   "length": 41
+  },
+  "G": {
+   "object": "gridcull.obj",
+   "function": "?1GridCullSystemClass",
+   "symbol": "??1GridCullSystemClass@@UAE@XZ",
+   "length": 41
+  },
+  "Z": {
+   "object": "gridcull.obj",
+   "function": "?1GridCullSystemClass",
+   "symbol": "??1GridCullSystemClass@@UAE@XZ",
+   "length": 41
+  }
+ },
+ "0x8D70D0": {
+  "R": {
+   "object": "gridcull.obj",
+   "function": "GridCullSystemClass::Collect_Objects",
+   "symbol": "?Collect_Objects@GridCullSystemClass@@UAEXABVVector3@@@Z",
+   "length": 750
+  },
+  "G": {
+   "object": "gridcull.obj",
+   "function": "GridCullSystemClass::Collect_Objects",
+   "symbol": "?Collect_Objects@GridCullSystemClass@@UAEXABVVector3@@@Z",
+   "length": 750
+  },
+  "Z": {
+   "object": "gridcull.obj",
+   "function": "GridCullSystemClass::Collect_Objects",
+   "symbol": "?Collect_Objects@GridCullSystemClass@@UAEXABVVector3@@@Z",
+   "length": 750
+  }
+ },
+ "0x8D73C0": {
+  "R": {
+   "object": "gridcull.obj",
+   "function": "GridCullSystemClass::clamp_indices_to_grid",
+   "symbol": "?clamp_indices_to_grid@GridCullSystemClass@@IAEXPAH00@Z",
+   "length": 84
+  },
+  "G": {
+   "object": "gridcull.obj",
+   "function": "GridCullSystemClass::clamp_indices_to_grid",
+   "symbol": "?clamp_indices_to_grid@GridCullSystemClass@@IAEXPAH00@Z",
+   "length": 84
+  },
+  "Z": {
+   "object": "gridcull.obj",
+   "function": "GridCullSystemClass::clamp_indices_to_grid",
+   "symbol": "?clamp_indices_to_grid@GridCullSystemClass@@IAEXPAH00@Z",
+   "length": 84
+  }
+ },
+ "0x8D7420": {
+  "R": {
+   "object": "gridcull.obj",
+   "function": "GridCullSystemClass::map_point_to_cell",
+   "symbol": "?map_point_to_cell@GridCullSystemClass@@IAE_NABVVector3@@AAH11@Z",
+   "length": 170
+  },
+  "G": {
+   "object": "gridcull.obj",
+   "function": "GridCullSystemClass::map_point_to_cell",
+   "symbol": "?map_point_to_cell@GridCullSystemClass@@IAE_NABVVector3@@AAH11@Z",
+   "length": 170
+  },
+  "Z": {
+   "object": "gridcull.obj",
+   "function": "GridCullSystemClass::map_point_to_cell",
+   "symbol": "?map_point_to_cell@GridCullSystemClass@@IAE_NABVVector3@@AAH11@Z",
+   "length": 170
+  }
+ },
+ "0x8D74D0": {
+  "R": {
+   "object": "gridcull.obj",
+   "function": "GridCullSystemClass::Collect_Objects",
+   "symbol": "?Collect_Objects@GridCullSystemClass@@UAEXABVAABoxClass@@@Z",
+   "length": 529
+  },
+  "G": {
+   "object": "gridcull.obj",
+   "function": "GridCullSystemClass::Collect_Objects",
+   "symbol": "?Collect_Objects@GridCullSystemClass@@UAEXABVAABoxClass@@@Z",
+   "length": 529
+  },
+  "Z": {
+   "object": "gridcull.obj",
+   "function": "GridCullSystemClass::Collect_Objects",
+   "symbol": "?Collect_Objects@GridCullSystemClass@@UAEXABVAABoxClass@@@Z",
+   "length": 529
+  }
+ },
+ "0x8D76F0": {
+  "R": {
+   "object": "gridcull.obj",
+   "function": "GridCullSystemClass::init_volume",
+   "symbol": "?init_volume@GridCullSystemClass@@IAEXABVVector3@@0PAUVolumeStruct@1@@Z",
+   "length": 458
+  },
+  "G": {
+   "object": "gridcull.obj",
+   "function": "GridCullSystemClass::init_volume",
+   "symbol": "?init_volume@GridCullSystemClass@@IAEXABVVector3@@0PAUVolumeStruct@1@@Z",
+   "length": 458
+  },
+  "Z": {
+   "object": "gridcull.obj",
+   "function": "GridCullSystemClass::init_volume",
+   "symbol": "?init_volume@GridCullSystemClass@@IAEXABVVector3@@0PAUVolumeStruct@1@@Z",
+   "length": 458
+  }
+ },
+ "0x8D78C0": {
+  "R": {
+   "object": "gridcull.obj",
+   "function": "CollisionMath::Overlap_Test",
+   "symbol": "?Overlap_Test@CollisionMath@@SA?AW4OverlapType@1@ABVAABoxClass@@0@Z",
+   "length": 296
+  },
+  "G": {
+   "object": "gridcull.obj",
+   "function": "CollisionMath::Overlap_Test",
+   "symbol": "?Overlap_Test@CollisionMath@@SA?AW4OverlapType@1@ABVAABoxClass@@0@Z",
+   "length": 296
+  },
+  "Z": {
+   "object": "gridcull.obj",
+   "function": "CollisionMath::Overlap_Test",
+   "symbol": "?Overlap_Test@CollisionMath@@SA?AW4OverlapType@1@ABVAABoxClass@@0@Z",
+   "length": 296
+  }
+ },
+ "0x8D79F0": {
+  "R": {
+   "object": "gridcull.obj",
+   "function": "GridCullSystemClass::Collect_Objects",
+   "symbol": "?Collect_Objects@GridCullSystemClass@@UAEXABVOBBoxClass@@@Z",
+   "length": 431
+  },
+  "G": {
+   "object": "gridcull.obj",
+   "function": "GridCullSystemClass::Collect_Objects",
+   "symbol": "?Collect_Objects@GridCullSystemClass@@UAEXABVOBBoxClass@@@Z",
+   "length": 431
+  },
+  "Z": {
+   "object": "gridcull.obj",
+   "function": "GridCullSystemClass::Collect_Objects",
+   "symbol": "?Collect_Objects@GridCullSystemClass@@UAEXABVOBBoxClass@@@Z",
+   "length": 431
+  }
+ },
+ "0x8D7BA0": {
+  "R": {
+   "object": "gridcull.obj",
+   "function": "OBBoxClass::Compute_Axis_Aligned_Extent",
+   "symbol": "?Compute_Axis_Aligned_Extent@OBBoxClass@@QBEXPAVVector3@@@Z",
+   "length": 270
+  },
+  "G": {
+   "object": "gridcull.obj",
+   "function": "OBBoxClass::Compute_Axis_Aligned_Extent",
+   "symbol": "?Compute_Axis_Aligned_Extent@OBBoxClass@@QBEXPAVVector3@@@Z",
+   "length": 270
+  },
+  "Z": {
+   "object": "gridcull.obj",
+   "function": "OBBoxClass::Compute_Axis_Aligned_Extent",
+   "symbol": "?Compute_Axis_Aligned_Extent@OBBoxClass@@QBEXPAVVector3@@@Z",
+   "length": 270
+  }
+ },
+ "0x8D7CB0": {
+  "R": {
+   "object": "gridcull.obj",
+   "function": "GridCullSystemClass::Collect_Objects",
+   "symbol": "?Collect_Objects@GridCullSystemClass@@UAEXABVFrustumClass@@@Z",
+   "length": 344
+  },
+  "G": {
+   "object": "gridcull.obj",
+   "function": "GridCullSystemClass::Collect_Objects",
+   "symbol": "?Collect_Objects@GridCullSystemClass@@UAEXABVFrustumClass@@@Z",
+   "length": 344
+  },
+  "Z": {
+   "object": "gridcull.obj",
+   "function": "GridCullSystemClass::Collect_Objects",
+   "symbol": "?Collect_Objects@GridCullSystemClass@@UAEXABVFrustumClass@@@Z",
+   "length": 344
+  }
+ },
+ "0x8D7E10": {
+  "R": {
+   "object": "gridcull.obj",
+   "function": "GridCullSystemClass::Re_Partition",
+   "symbol": "?Re_Partition@GridCullSystemClass@@UAEXABVVector3@@0M@Z",
+   "length": 846
+  },
+  "G": {
+   "object": "gridcull.obj",
+   "function": "GridCullSystemClass::Re_Partition",
+   "symbol": "?Re_Partition@GridCullSystemClass@@UAEXABVVector3@@0M@Z",
+   "length": 846
+  },
+  "Z": {
+   "object": "gridcull.obj",
+   "function": "GridCullSystemClass::Re_Partition",
+   "symbol": "?Re_Partition@GridCullSystemClass@@UAEXABVVector3@@0M@Z",
+   "length": 846
+  }
+ },
+ "0x8D8160": {
+  "R": {
+   "object": "gridcull.obj",
+   "function": "GridCullSystemClass::Collect_And_Unlink_All",
+   "symbol": "?Collect_And_Unlink_All@GridCullSystemClass@@IAEXXZ",
+   "length": 403
+  },
+  "G": {
+   "object": "gridcull.obj",
+   "function": "GridCullSystemClass::Collect_And_Unlink_All",
+   "symbol": "?Collect_And_Unlink_All@GridCullSystemClass@@IAEXXZ",
+   "length": 403
+  },
+  "Z": {
+   "object": "gridcull.obj",
+   "function": "GridCullSystemClass::Collect_And_Unlink_All",
+   "symbol": "?Collect_And_Unlink_All@GridCullSystemClass@@IAEXXZ",
+   "length": 403
+  }
+ },
+ "0x8D8300": {
+  "R": {
+   "object": "gridcull.obj",
+   "function": "GridCullSystemClass::Update_Culling",
+   "symbol": "?Update_Culling@GridCullSystemClass@@UAEXPAVCullableClass@@@Z",
+   "length": 419
+  },
+  "G": {
+   "object": "gridcull.obj",
+   "function": "GridCullSystemClass::Update_Culling",
+   "symbol": "?Update_Culling@GridCullSystemClass@@UAEXPAVCullableClass@@@Z",
+   "length": 419
+  },
+  "Z": {
+   "object": "gridcull.obj",
+   "function": "GridCullSystemClass::Update_Culling",
+   "symbol": "?Update_Culling@GridCullSystemClass@@UAEXPAVCullableClass@@@Z",
+   "length": 419
+  }
+ },
+ "0x8D84B0": {
+  "R": {
+   "object": "gridcull.obj",
+   "function": "GridCullSystemClass::Load",
+   "symbol": "?Load@GridCullSystemClass@@UAEXAAVChunkLoadClass@@@Z",
+   "length": 622
+  },
+  "G": {
+   "object": "gridcull.obj",
+   "function": "GridCullSystemClass::Load",
+   "symbol": "?Load@GridCullSystemClass@@UAEXAAVChunkLoadClass@@@Z",
+   "length": 622
+  },
+  "Z": {
+   "object": "gridcull.obj",
+   "function": "GridCullSystemClass::Load",
+   "symbol": "?Load@GridCullSystemClass@@UAEXAAVChunkLoadClass@@@Z",
+   "length": 622
+  }
+ },
+ "0x8D8720": {
+  "R": {
+   "object": "gridcull.obj",
+   "function": "GridCullSystemClass::Save",
+   "symbol": "?Save@GridCullSystemClass@@UAEXAAVChunkSaveClass@@@Z",
+   "length": 196
+  },
+  "G": {
+   "object": "gridcull.obj",
+   "function": "GridCullSystemClass::Save",
+   "symbol": "?Save@GridCullSystemClass@@UAEXAAVChunkSaveClass@@@Z",
+   "length": 196
+  },
+  "Z": {
+   "object": "gridcull.obj",
+   "function": "GridCullSystemClass::Save",
+   "symbol": "?Save@GridCullSystemClass@@UAEXAAVChunkSaveClass@@@Z",
+   "length": 196
+  }
+ },
+ "0x8D87F0": {
+  "R": {
+   "object": "gridcull.obj",
+   "function": "GridCullSystemClass::Reset_Statistics",
+   "symbol": "?Reset_Statistics@GridCullSystemClass@@QAEXXZ",
+   "length": 30
+  },
+  "G": {
+   "object": "gridcull.obj",
+   "function": "GridCullSystemClass::Reset_Statistics",
+   "symbol": "?Reset_Statistics@GridCullSystemClass@@QAEXXZ",
+   "length": 30
+  },
+  "Z": {
+   "object": "gridcull.obj",
+   "function": "GridCullSystemClass::Reset_Statistics",
+   "symbol": "?Reset_Statistics@GridCullSystemClass@@QAEXXZ",
+   "length": 30
+  }
+ },
+ "0x8D8820": {
+  "R": {
+   "object": "gridcull.obj",
+   "function": "GridCullSystemClass::Add_Object_Internal",
+   "symbol": "?Add_Object_Internal@GridCullSystemClass@@IAEXPAVCullableClass@@@Z",
+   "length": 299
+  },
+  "Z": {
+   "object": "gridcull.obj",
+   "function": "GridCullSystemClass::Add_Object_Internal",
+   "symbol": "?Add_Object_Internal@GridCullSystemClass@@IAEXPAVCullableClass@@@Z",
+   "length": 299
+  }
+ },
+ "0x8D8950": {
+  "R": {
+   "object": "gridcull.obj",
+   "function": "GridCullSystemClass::Remove_Object_Internal",
+   "symbol": "?Remove_Object_Internal@GridCullSystemClass@@IAEXPAVCullableClass@@@Z",
+   "length": 136
+  },
+  "Z": {
+   "object": "gridcull.obj",
+   "function": "GridCullSystemClass::Remove_Object_Internal",
+   "symbol": "?Remove_Object_Internal@GridCullSystemClass@@IAEXPAVCullableClass@@@Z",
+   "length": 136
+  }
+ },
+ "0x8D89E0": {
+  "R": {
+   "object": "gridcull.obj",
+   "function": "GridCullSystemClass::link_object",
+   "symbol": "?link_object@GridCullSystemClass@@IAEXPAVCullableClass@@@Z",
+   "length": 295
+  },
+  "G": {
+   "object": "gridcull.obj",
+   "function": "GridCullSystemClass::link_object",
+   "symbol": "?link_object@GridCullSystemClass@@IAEXPAVCullableClass@@@Z",
+   "length": 295
+  },
+  "Z": {
+   "object": "gridcull.obj",
+   "function": "GridCullSystemClass::link_object",
+   "symbol": "?link_object@GridCullSystemClass@@IAEXPAVCullableClass@@@Z",
+   "length": 295
+  }
+ },
+ "0x8D8B10": {
+  "R": {
+   "object": "gridcull.obj",
+   "function": "GridCullSystemClass::link_object",
+   "symbol": "?link_object@GridCullSystemClass@@IAEXPAVCullableClass@@H@Z",
+   "length": 141
+  },
+  "G": {
+   "object": "gridcull.obj",
+   "function": "GridCullSystemClass::link_object",
+   "symbol": "?link_object@GridCullSystemClass@@IAEXPAVCullableClass@@H@Z",
+   "length": 141
+  },
+  "Z": {
+   "object": "gridcull.obj",
+   "function": "GridCullSystemClass::link_object",
+   "symbol": "?link_object@GridCullSystemClass@@IAEXPAVCullableClass@@H@Z",
+   "length": 141
+  }
+ },
+ "0x8D8BA0": {
+  "R": {
+   "object": "gridcull.obj",
+   "function": "GridCullSystemClass::unlink_object",
+   "symbol": "?unlink_object@GridCullSystemClass@@IAEXPAVCullableClass@@@Z",
+   "length": 130
+  },
+  "G": {
+   "object": "gridcull.obj",
+   "function": "GridCullSystemClass::unlink_object",
+   "symbol": "?unlink_object@GridCullSystemClass@@IAEXPAVCullableClass@@@Z",
+   "length": 130
+  },
+  "Z": {
+   "object": "gridcull.obj",
+   "function": "GridCullSystemClass::unlink_object",
+   "symbol": "?unlink_object@GridCullSystemClass@@IAEXPAVCullableClass@@@Z",
+   "length": 130
+  }
+ },
+ "0x8D8C30": {
+  "R": {
+   "object": "gridcull.obj",
+   "function": "GridCullSystemClass::link_object_to_list",
+   "symbol": "?link_object_to_list@GridCullSystemClass@@IAEXPAPAVCullableClass@@PAV2@@Z",
+   "length": 42
+  },
+  "G": {
+   "object": "gridcull.obj",
+   "function": "GridCullSystemClass::link_object_to_list",
+   "symbol": "?link_object_to_list@GridCullSystemClass@@IAEXPAPAVCullableClass@@PAV2@@Z",
+   "length": 42
+  },
+  "Z": {
+   "object": "gridcull.obj",
+   "function": "GridCullSystemClass::link_object_to_list",
+   "symbol": "?link_object_to_list@GridCullSystemClass@@IAEXPAPAVCullableClass@@PAV2@@Z",
+   "length": 42
+  }
+ },
+ "0x8D8C60": {
+  "R": {
+   "object": "gridcull.obj",
+   "function": "GridCullSystemClass::unlink_object_from_list",
+   "symbol": "?unlink_object_from_list@GridCullSystemClass@@IAEXPAPAVCullableClass@@PAV2@@Z",
+   "length": 67
+  },
+  "G": {
+   "object": "gridcull.obj",
+   "function": "GridCullSystemClass::unlink_object_from_list",
+   "symbol": "?unlink_object_from_list@GridCullSystemClass@@IAEXPAPAVCullableClass@@PAV2@@Z",
+   "length": 67
+  },
+  "Z": {
+   "object": "gridcull.obj",
+   "function": "GridCullSystemClass::unlink_object_from_list",
+   "symbol": "?unlink_object_from_list@GridCullSystemClass@@IAEXPAPAVCullableClass@@PAV2@@Z",
+   "length": 67
+  }
+ },
+ "0x8D8CB0": {
+  "R": {
+   "object": "gridcull.obj",
+   "function": "GridCullSystemClass::collect_objects_in_leaf",
+   "symbol": "?collect_objects_in_leaf@GridCullSystemClass@@IAEXABVVector3@@PAVCullableClass@@@Z",
+   "length": 165
+  },
+  "G": {
+   "object": "gridcull.obj",
+   "function": "GridCullSystemClass::collect_objects_in_leaf",
+   "symbol": "?collect_objects_in_leaf@GridCullSystemClass@@IAEXABVVector3@@PAVCullableClass@@@Z",
+   "length": 165
+  },
+  "Z": {
+   "object": "gridcull.obj",
+   "function": "GridCullSystemClass::collect_objects_in_leaf",
+   "symbol": "?collect_objects_in_leaf@GridCullSystemClass@@IAEXABVVector3@@PAVCullableClass@@@Z",
+   "length": 165
+  }
+ },
+ "0x8D8D60": {
+  "R": {
+   "object": "gridcull.obj",
+   "function": "GridCullSystemClass::collect_objects_in_leaf",
+   "symbol": "?collect_objects_in_leaf@GridCullSystemClass@@IAEXABVAABoxClass@@PAVCullableClass@@@Z",
+   "length": 192
+  },
+  "G": {
+   "object": "gridcull.obj",
+   "function": "GridCullSystemClass::collect_objects_in_leaf",
+   "symbol": "?collect_objects_in_leaf@GridCullSystemClass@@IAEXABVAABoxClass@@PAVCullableClass@@@Z",
+   "length": 192
+  },
+  "Z": {
+   "object": "gridcull.obj",
+   "function": "GridCullSystemClass::collect_objects_in_leaf",
+   "symbol": "?collect_objects_in_leaf@GridCullSystemClass@@IAEXABVAABoxClass@@PAVCullableClass@@@Z",
+   "length": 192
+  }
+ },
+ "0x8D8EA0": {
+  "R": {
+   "object": "gridcull.obj",
+   "function": "?$ObjectPoolClass::Allocate_Object_Memory",
+   "symbol": "?Allocate_Object_Memory@?$ObjectPoolClass@VGridLinkClass@@$0BAA@@@QAEPAVGridLinkClass@@XZ",
+   "length": 126
+  }
+ },
+ "0x8D9000": {
+  "R": {
+   "object": "aabtreecull.obj",
+   "function": "?0AABTreeCullSystemClass",
+   "symbol": "??0AABTreeCullSystemClass@@QAE@XZ",
+   "length": 397
+  }
+ },
+ "0x8D91B0": {
+  "R": {
+   "object": "aabtreecull.obj",
+   "function": "?1AABTreeCullSystemClass",
+   "symbol": "??1AABTreeCullSystemClass@@UAE@XZ",
+   "length": 319
+  }
+ },
+ "0x8D92F0": {
+  "R": {
+   "object": "aabtreecull.obj",
+   "function": "?_GAABTreeNodeClass",
+   "symbol": "??_GAABTreeNodeClass@@QAEPAXI@Z",
+   "length": 106
+  }
+ },
+ "0x8D9360": {
+  "R": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeCullSystemClass::Add_Object_Internal",
+   "symbol": "?Add_Object_Internal@AABTreeCullSystemClass@@IAEXPAVCullableClass@@H@Z",
+   "length": 116
+  },
+  "Z": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeCullSystemClass::Add_Object_Internal",
+   "symbol": "?Add_Object_Internal@AABTreeCullSystemClass@@IAEXPAVCullableClass@@H@Z",
+   "length": 116
+  }
+ },
+ "0x8D9430": {
+  "R": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeCullSystemClass::Remove_Object_Internal",
+   "symbol": "?Remove_Object_Internal@AABTreeCullSystemClass@@IAEXPAVCullableClass@@@Z",
+   "length": 125
+  },
+  "Z": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeCullSystemClass::Remove_Object_Internal",
+   "symbol": "?Remove_Object_Internal@AABTreeCullSystemClass@@IAEXPAVCullableClass@@@Z",
+   "length": 125
+  }
+ },
+ "0x8D94B0": {
+  "R": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeCullSystemClass::Update_Culling",
+   "symbol": "?Update_Culling@AABTreeCullSystemClass@@UAEXPAVCullableClass@@@Z",
+   "length": 98
+  },
+  "G": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeCullSystemClass::Update_Culling",
+   "symbol": "?Update_Culling@AABTreeCullSystemClass@@UAEXPAVCullableClass@@@Z",
+   "length": 98
+  },
+  "Z": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeCullSystemClass::Update_Culling",
+   "symbol": "?Update_Culling@AABTreeCullSystemClass@@UAEXPAVCullableClass@@@Z",
+   "length": 98
+  }
+ },
+ "0x8D9580": {
+  "R": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeCullSystemClass::Collect_Objects",
+   "symbol": "?Collect_Objects@AABTreeCullSystemClass@@UAEXABVFrustumClass@@@Z",
+   "length": 19
+  },
+  "G": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeCullSystemClass::Collect_Objects",
+   "symbol": "?Collect_Objects@AABTreeCullSystemClass@@UAEXABVFrustumClass@@@Z",
+   "length": 19
+  },
+  "Z": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeCullSystemClass::Collect_Objects",
+   "symbol": "?Collect_Objects@AABTreeCullSystemClass@@UAEXABVFrustumClass@@@Z",
+   "length": 19
+  }
+ },
+ "0x8D95C0": {
+  "R": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeCullSystemClass::Partition_Node_Count",
+   "symbol": "?Partition_Node_Count@AABTreeCullSystemClass@@QBEHXZ",
+   "length": 52
+  },
+  "G": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeCullSystemClass::Partition_Node_Count",
+   "symbol": "?Partition_Node_Count@AABTreeCullSystemClass@@QBEHXZ",
+   "length": 52
+  },
+  "Z": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeCullSystemClass::Partition_Node_Count",
+   "symbol": "?Partition_Node_Count@AABTreeCullSystemClass@@QBEHXZ",
+   "length": 52
+  }
+ },
+ "0x8D9600": {
+  "R": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeCullSystemClass::Partition_Tree_Depth",
+   "symbol": "?Partition_Tree_Depth@AABTreeCullSystemClass@@QBEHXZ",
+   "length": 68
+  },
+  "G": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeCullSystemClass::Partition_Tree_Depth",
+   "symbol": "?Partition_Tree_Depth@AABTreeCullSystemClass@@QBEHXZ",
+   "length": 68
+  },
+  "Z": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeCullSystemClass::Partition_Tree_Depth",
+   "symbol": "?Partition_Tree_Depth@AABTreeCullSystemClass@@QBEHXZ",
+   "length": 68
+  }
+ },
+ "0x8D9660": {
+  "R": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeCullSystemClass::Partition_Node_Count_Recursive",
+   "symbol": "?Partition_Node_Count_Recursive@AABTreeCullSystemClass@@IBEHPAVAABTreeNodeClass@@@Z",
+   "length": 55
+  },
+  "G": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeCullSystemClass::Partition_Node_Count_Recursive",
+   "symbol": "?Partition_Node_Count_Recursive@AABTreeCullSystemClass@@IBEHPAVAABTreeNodeClass@@@Z",
+   "length": 55
+  },
+  "Z": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeCullSystemClass::Partition_Node_Count_Recursive",
+   "symbol": "?Partition_Node_Count_Recursive@AABTreeCullSystemClass@@IBEHPAVAABTreeNodeClass@@@Z",
+   "length": 55
+  }
+ },
+ "0x8D96A0": {
+  "R": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeCullSystemClass::Partition_Tree_Depth_Recursive",
+   "symbol": "?Partition_Tree_Depth_Recursive@AABTreeCullSystemClass@@IBEXPAVAABTreeNodeClass@@HAAH@Z",
+   "length": 62
+  },
+  "G": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeCullSystemClass::Partition_Tree_Depth_Recursive",
+   "symbol": "?Partition_Tree_Depth_Recursive@AABTreeCullSystemClass@@IBEXPAVAABTreeNodeClass@@HAAH@Z",
+   "length": 62
+  },
+  "Z": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeCullSystemClass::Partition_Tree_Depth_Recursive",
+   "symbol": "?Partition_Tree_Depth_Recursive@AABTreeCullSystemClass@@IBEXPAVAABTreeNodeClass@@HAAH@Z",
+   "length": 62
+  }
+ },
+ "0x8D96E0": {
+  "R": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeCullSystemClass::Add_Object_Recursive",
+   "symbol": "?Add_Object_Recursive@AABTreeCullSystemClass@@IAEXPAVAABTreeNodeClass@@PAVCullableClass@@@Z",
+   "length": 899
+  },
+  "G": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeCullSystemClass::Add_Object_Recursive",
+   "symbol": "?Add_Object_Recursive@AABTreeCullSystemClass@@IAEXPAVAABTreeNodeClass@@PAVCullableClass@@@Z",
+   "length": 899
+  },
+  "Z": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeCullSystemClass::Add_Object_Recursive",
+   "symbol": "?Add_Object_Recursive@AABTreeCullSystemClass@@IAEXPAVAABTreeNodeClass@@PAVCullableClass@@@Z",
+   "length": 899
+  }
+ },
+ "0x8D9A70": {
+  "R": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeCullSystemClass::Add_Loaded_Object",
+   "symbol": "?Add_Loaded_Object@AABTreeCullSystemClass@@IAEXPAVAABTreeNodeClass@@PAVCullableClass@@@Z",
+   "length": 565
+  },
+  "Z": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeCullSystemClass::Add_Loaded_Object",
+   "symbol": "?Add_Loaded_Object@AABTreeCullSystemClass@@IAEXPAVAABTreeNodeClass@@PAVCullableClass@@@Z",
+   "length": 565
+  }
+ },
+ "0x8D9CB0": {
+  "R": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeCullSystemClass::Re_Partition",
+   "symbol": "?Re_Partition@AABTreeCullSystemClass@@QAEXXZ",
+   "length": 415
+  }
+ },
+ "0x8D9E50": {
+  "R": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeCullSystemClass::Re_Partition",
+   "symbol": "?Re_Partition@AABTreeCullSystemClass@@QAEXABVAABoxClass@@AAV?$SimpleDynVecClass@VAABoxClass@@@@@Z",
+   "length": 457
+  }
+ },
+ "0x8DA040": {
+  "R": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeCullSystemClass::Get_Node_Bounds",
+   "symbol": "?Get_Node_Bounds@AABTreeCullSystemClass@@QAEXHPAVAABoxClass@@@Z",
+   "length": 71
+  },
+  "G": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeCullSystemClass::Get_Node_Bounds",
+   "symbol": "?Get_Node_Bounds@AABTreeCullSystemClass@@QAEXHPAVAABoxClass@@@Z",
+   "length": 71
+  },
+  "Z": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeCullSystemClass::Get_Node_Bounds",
+   "symbol": "?Get_Node_Bounds@AABTreeCullSystemClass@@QAEXHPAVAABoxClass@@@Z",
+   "length": 71
+  }
+ },
+ "0x8DA090": {
+  "R": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeCullSystemClass::Reset_Statistics",
+   "symbol": "?Reset_Statistics@AABTreeCullSystemClass@@QAEXXZ",
+   "length": 18
+  },
+  "G": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeCullSystemClass::Reset_Statistics",
+   "symbol": "?Reset_Statistics@AABTreeCullSystemClass@@QAEXXZ",
+   "length": 18
+  },
+  "Z": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeCullSystemClass::Reset_Statistics",
+   "symbol": "?Reset_Statistics@AABTreeCullSystemClass@@QAEXXZ",
+   "length": 18
+  }
+ },
+ "0x8DA0C0": {
+  "R": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeCullSystemClass::Collect_Objects_Recursive",
+   "symbol": "?Collect_Objects_Recursive@AABTreeCullSystemClass@@IAEXPAVAABTreeNodeClass@@@Z",
+   "length": 66
+  },
+  "G": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeCullSystemClass::Collect_Objects_Recursive",
+   "symbol": "?Collect_Objects_Recursive@AABTreeCullSystemClass@@IAEXPAVAABTreeNodeClass@@@Z",
+   "length": 66
+  },
+  "Z": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeCullSystemClass::Collect_Objects_Recursive",
+   "symbol": "?Collect_Objects_Recursive@AABTreeCullSystemClass@@IAEXPAVAABTreeNodeClass@@@Z",
+   "length": 66
+  }
+ },
+ "0x8DA110": {
+  "R": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeCullSystemClass::Collect_Objects_Recursive",
+   "symbol": "?Collect_Objects_Recursive@AABTreeCullSystemClass@@IAEXPAVAABTreeNodeClass@@ABVVector3@@@Z",
+   "length": 317
+  },
+  "G": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeCullSystemClass::Collect_Objects_Recursive",
+   "symbol": "?Collect_Objects_Recursive@AABTreeCullSystemClass@@IAEXPAVAABTreeNodeClass@@ABVVector3@@@Z",
+   "length": 317
+  },
+  "Z": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeCullSystemClass::Collect_Objects_Recursive",
+   "symbol": "?Collect_Objects_Recursive@AABTreeCullSystemClass@@IAEXPAVAABTreeNodeClass@@ABVVector3@@@Z",
+   "length": 317
+  }
+ },
+ "0x8DA250": {
+  "R": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeCullSystemClass::Collect_Objects_Recursive",
+   "symbol": "?Collect_Objects_Recursive@AABTreeCullSystemClass@@IAEXPAVAABTreeNodeClass@@ABVAABoxClass@@@Z",
+   "length": 545
+  },
+  "G": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeCullSystemClass::Collect_Objects_Recursive",
+   "symbol": "?Collect_Objects_Recursive@AABTreeCullSystemClass@@IAEXPAVAABTreeNodeClass@@ABVAABoxClass@@@Z",
+   "length": 545
+  },
+  "Z": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeCullSystemClass::Collect_Objects_Recursive",
+   "symbol": "?Collect_Objects_Recursive@AABTreeCullSystemClass@@IAEXPAVAABTreeNodeClass@@ABVAABoxClass@@@Z",
+   "length": 545
+  }
+ },
+ "0x8DA480": {
+  "R": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeCullSystemClass::Collect_Objects_Recursive",
+   "symbol": "?Collect_Objects_Recursive@AABTreeCullSystemClass@@IAEXPAVAABTreeNodeClass@@ABVOBBoxClass@@@Z",
+   "length": 191
+  },
+  "G": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeCullSystemClass::Collect_Objects_Recursive",
+   "symbol": "?Collect_Objects_Recursive@AABTreeCullSystemClass@@IAEXPAVAABTreeNodeClass@@ABVOBBoxClass@@@Z",
+   "length": 191
+  },
+  "Z": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeCullSystemClass::Collect_Objects_Recursive",
+   "symbol": "?Collect_Objects_Recursive@AABTreeCullSystemClass@@IAEXPAVAABTreeNodeClass@@ABVOBBoxClass@@@Z",
+   "length": 191
+  }
+ },
+ "0x8DA540": {
+  "R": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeCullSystemClass::Collect_Objects_Recursive",
+   "symbol": "?Collect_Objects_Recursive@AABTreeCullSystemClass@@IAEXPAVAABTreeNodeClass@@ABVFrustumClass@@H@Z",
+   "length": 255
+  },
+  "G": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeCullSystemClass::Collect_Objects_Recursive",
+   "symbol": "?Collect_Objects_Recursive@AABTreeCullSystemClass@@IAEXPAVAABTreeNodeClass@@ABVFrustumClass@@H@Z",
+   "length": 255
+  },
+  "Z": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeCullSystemClass::Collect_Objects_Recursive",
+   "symbol": "?Collect_Objects_Recursive@AABTreeCullSystemClass@@IAEXPAVAABTreeNodeClass@@ABVFrustumClass@@H@Z",
+   "length": 255
+  }
+ },
+ "0x8DA640": {
+  "R": {
+   "object": "aabtreecull.obj",
+   "function": "CollisionMath::Overlap_Test",
+   "symbol": "?Overlap_Test@CollisionMath@@SA?AW4OverlapType@1@ABVPlaneClass@@ABVAABoxClass@@@Z",
+   "length": 294
+  },
+  "G": {
+   "object": "aabtreecull.obj",
+   "function": "CollisionMath::Overlap_Test",
+   "symbol": "?Overlap_Test@CollisionMath@@SA?AW4OverlapType@1@ABVPlaneClass@@ABVAABoxClass@@@Z",
+   "length": 294
+  },
+  "Z": {
+   "object": "aabtreecull.obj",
+   "function": "CollisionMath::Overlap_Test",
+   "symbol": "?Overlap_Test@CollisionMath@@SA?AW4OverlapType@1@ABVPlaneClass@@ABVAABoxClass@@@Z",
+   "length": 294
+  }
+ },
+ "0x8DA770": {
+  "R": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeCullSystemClass::Collect_Objects_Recursive",
+   "symbol": "?Collect_Objects_Recursive@AABTreeCullSystemClass@@IAEXPAVAABTreeNodeClass@@ABVSphereClass@@@Z",
+   "length": 125
+  },
+  "G": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeCullSystemClass::Collect_Objects_Recursive",
+   "symbol": "?Collect_Objects_Recursive@AABTreeCullSystemClass@@IAEXPAVAABTreeNodeClass@@ABVSphereClass@@@Z",
+   "length": 125
+  },
+  "Z": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeCullSystemClass::Collect_Objects_Recursive",
+   "symbol": "?Collect_Objects_Recursive@AABTreeCullSystemClass@@IAEXPAVAABTreeNodeClass@@ABVSphereClass@@@Z",
+   "length": 125
+  }
+ },
+ "0x8DA7F0": {
+  "R": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeCullSystemClass::Update_Bounding_Boxes_Recursive",
+   "symbol": "?Update_Bounding_Boxes_Recursive@AABTreeCullSystemClass@@IAEXPAVAABTreeNodeClass@@@Z",
+   "length": 1058
+  },
+  "G": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeCullSystemClass::Update_Bounding_Boxes_Recursive",
+   "symbol": "?Update_Bounding_Boxes_Recursive@AABTreeCullSystemClass@@IAEXPAVAABTreeNodeClass@@@Z",
+   "length": 1058
+  },
+  "Z": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeCullSystemClass::Update_Bounding_Boxes_Recursive",
+   "symbol": "?Update_Bounding_Boxes_Recursive@AABTreeCullSystemClass@@IAEXPAVAABTreeNodeClass@@@Z",
+   "length": 1058
+  }
+ },
+ "0x8DAC20": {
+  "R": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeCullSystemClass::Load",
+   "symbol": "?Load@AABTreeCullSystemClass@@UAEXAAVChunkLoadClass@@@Z",
+   "length": 414
+  }
+ },
+ "0x8DADC0": {
+  "R": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeCullSystemClass::Load_Nodes",
+   "symbol": "?Load_Nodes@AABTreeCullSystemClass@@IAEXPAVAABTreeNodeClass@@AAVChunkLoadClass@@@Z",
+   "length": 726
+  }
+ },
+ "0x8DB0A0": {
+  "R": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeCullSystemClass::Save",
+   "symbol": "?Save@AABTreeCullSystemClass@@UAEXAAVChunkSaveClass@@@Z",
+   "length": 63
+  },
+  "G": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeCullSystemClass::Save",
+   "symbol": "?Save@AABTreeCullSystemClass@@UAEXAAVChunkSaveClass@@@Z",
+   "length": 63
+  },
+  "Z": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeCullSystemClass::Save",
+   "symbol": "?Save@AABTreeCullSystemClass@@UAEXAAVChunkSaveClass@@@Z",
+   "length": 63
+  }
+ },
+ "0x8DB0E0": {
+  "R": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeCullSystemClass::Save_Nodes",
+   "symbol": "?Save_Nodes@AABTreeCullSystemClass@@IAEXPAVAABTreeNodeClass@@AAVChunkSaveClass@@@Z",
+   "length": 271
+  },
+  "G": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeCullSystemClass::Save_Nodes",
+   "symbol": "?Save_Nodes@AABTreeCullSystemClass@@IAEXPAVAABTreeNodeClass@@AAVChunkSaveClass@@@Z",
+   "length": 271
+  },
+  "Z": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeCullSystemClass::Save_Nodes",
+   "symbol": "?Save_Nodes@AABTreeCullSystemClass@@IAEXPAVAABTreeNodeClass@@AAVChunkSaveClass@@@Z",
+   "length": 271
+  }
+ },
+ "0x8DB1F0": {
+  "R": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeCullSystemClass::Load_Object_Linkage",
+   "symbol": "?Load_Object_Linkage@AABTreeCullSystemClass@@QAEXAAVChunkLoadClass@@PAVCullableClass@@@Z",
+   "length": 151
+  },
+  "Z": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeCullSystemClass::Load_Object_Linkage",
+   "symbol": "?Load_Object_Linkage@AABTreeCullSystemClass@@QAEXAAVChunkLoadClass@@PAVCullableClass@@@Z",
+   "length": 151
+  }
+ },
+ "0x8DB290": {
+  "R": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeCullSystemClass::Save_Object_Linkage",
+   "symbol": "?Save_Object_Linkage@AABTreeCullSystemClass@@QAEXAAVChunkSaveClass@@PAVCullableClass@@@Z",
+   "length": 58
+  },
+  "G": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeCullSystemClass::Save_Object_Linkage",
+   "symbol": "?Save_Object_Linkage@AABTreeCullSystemClass@@QAEXAAVChunkSaveClass@@PAVCullableClass@@@Z",
+   "length": 58
+  },
+  "Z": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeCullSystemClass::Save_Object_Linkage",
+   "symbol": "?Save_Object_Linkage@AABTreeCullSystemClass@@QAEXAAVChunkSaveClass@@PAVCullableClass@@@Z",
+   "length": 58
+  }
+ },
+ "0x8DB2D0": {
+  "R": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeCullSystemClass::Re_Index_Nodes",
+   "symbol": "?Re_Index_Nodes@AABTreeCullSystemClass@@IAEXXZ",
+   "length": 175
+  },
+  "G": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeCullSystemClass::Re_Index_Nodes",
+   "symbol": "?Re_Index_Nodes@AABTreeCullSystemClass@@IAEXXZ",
+   "length": 175
+  },
+  "Z": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeCullSystemClass::Re_Index_Nodes",
+   "symbol": "?Re_Index_Nodes@AABTreeCullSystemClass@@IAEXXZ",
+   "length": 175
+  }
+ },
+ "0x8DB380": {
+  "R": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeCullSystemClass::Re_Index_Nodes_Recursive",
+   "symbol": "?Re_Index_Nodes_Recursive@AABTreeCullSystemClass@@IAEXPAVAABTreeNodeClass@@AAH@Z",
+   "length": 59
+  },
+  "G": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeCullSystemClass::Re_Index_Nodes_Recursive",
+   "symbol": "?Re_Index_Nodes_Recursive@AABTreeCullSystemClass@@IAEXPAVAABTreeNodeClass@@AAH@Z",
+   "length": 59
+  },
+  "Z": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeCullSystemClass::Re_Index_Nodes_Recursive",
+   "symbol": "?Re_Index_Nodes_Recursive@AABTreeCullSystemClass@@IAEXPAVAABTreeNodeClass@@AAH@Z",
+   "length": 59
+  }
+ },
+ "0x8DB3C0": {
+  "R": {
+   "object": "aabtreecull.obj",
+   "function": "?0AABTreeNodeClass",
+   "symbol": "??0AABTreeNodeClass@@QAE@XZ",
+   "length": 40
+  },
+  "G": {
+   "object": "aabtreecull.obj",
+   "function": "?0AABTreeNodeClass",
+   "symbol": "??0AABTreeNodeClass@@QAE@XZ",
+   "length": 40
+  },
+  "Z": {
+   "object": "aabtreecull.obj",
+   "function": "?0AABTreeNodeClass",
+   "symbol": "??0AABTreeNodeClass@@QAE@XZ",
+   "length": 40
+  }
+ },
+ "0x8DB3F0": {
+  "R": {
+   "object": "aabtreecull.obj",
+   "function": "?1AABTreeNodeClass",
+   "symbol": "??1AABTreeNodeClass@@QAE@XZ",
+   "length": 126
+  }
+ },
+ "0x8DB470": {
+  "R": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeNodeClass::Compute_Bounding_Box",
+   "symbol": "?Compute_Bounding_Box@AABTreeNodeClass@@QAEXXZ",
+   "length": 36
+  },
+  "G": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeNodeClass::Compute_Bounding_Box",
+   "symbol": "?Compute_Bounding_Box@AABTreeNodeClass@@QAEXXZ",
+   "length": 36
+  },
+  "Z": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeNodeClass::Compute_Bounding_Box",
+   "symbol": "?Compute_Bounding_Box@AABTreeNodeClass@@QAEXXZ",
+   "length": 36
+  }
+ },
+ "0x8DB4A0": {
+  "R": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeNodeClass::Compute_Local_Bounding_Box",
+   "symbol": "?Compute_Local_Bounding_Box@AABTreeNodeClass@@QAEXXZ",
+   "length": 966
+  },
+  "G": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeNodeClass::Compute_Local_Bounding_Box",
+   "symbol": "?Compute_Local_Bounding_Box@AABTreeNodeClass@@QAEXXZ",
+   "length": 966
+  },
+  "Z": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeNodeClass::Compute_Local_Bounding_Box",
+   "symbol": "?Compute_Local_Bounding_Box@AABTreeNodeClass@@QAEXXZ",
+   "length": 966
+  }
+ },
+ "0x8DB870": {
+  "R": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeNodeClass::Compute_Volume",
+   "symbol": "?Compute_Volume@AABTreeNodeClass@@QAEMXZ",
+   "length": 16
+  },
+  "G": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeNodeClass::Compute_Volume",
+   "symbol": "?Compute_Volume@AABTreeNodeClass@@QAEMXZ",
+   "length": 16
+  },
+  "Z": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeNodeClass::Compute_Volume",
+   "symbol": "?Compute_Volume@AABTreeNodeClass@@QAEMXZ",
+   "length": 16
+  }
+ },
+ "0x8DB880": {
+  "R": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeNodeClass::Add_Object",
+   "symbol": "?Add_Object@AABTreeNodeClass@@QAEXPAVCullableClass@@_N@Z",
+   "length": 519
+  },
+  "G": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeNodeClass::Add_Object",
+   "symbol": "?Add_Object@AABTreeNodeClass@@QAEXPAVCullableClass@@_N@Z",
+   "length": 519
+  },
+  "Z": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeNodeClass::Add_Object",
+   "symbol": "?Add_Object@AABTreeNodeClass@@QAEXPAVCullableClass@@_N@Z",
+   "length": 519
+  }
+ },
+ "0x8DBA90": {
+  "R": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeNodeClass::Remove_Object",
+   "symbol": "?Remove_Object@AABTreeNodeClass@@QAEXPAVCullableClass@@@Z",
+   "length": 93
+  },
+  "G": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeNodeClass::Remove_Object",
+   "symbol": "?Remove_Object@AABTreeNodeClass@@QAEXPAVCullableClass@@@Z",
+   "length": 93
+  },
+  "Z": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeNodeClass::Remove_Object",
+   "symbol": "?Remove_Object@AABTreeNodeClass@@QAEXPAVCullableClass@@@Z",
+   "length": 93
+  }
+ },
+ "0x8DBAF0": {
+  "R": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeNodeClass::Transfer_Objects",
+   "symbol": "?Transfer_Objects@AABTreeNodeClass@@QAEXPAV1@@Z",
+   "length": 607
+  },
+  "G": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeNodeClass::Transfer_Objects",
+   "symbol": "?Transfer_Objects@AABTreeNodeClass@@QAEXPAV1@@Z",
+   "length": 607
+  },
+  "Z": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeNodeClass::Transfer_Objects",
+   "symbol": "?Transfer_Objects@AABTreeNodeClass@@QAEXPAV1@@Z",
+   "length": 607
+  }
+ },
+ "0x8DBD50": {
+  "R": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeNodeClass::Object_Count",
+   "symbol": "?Object_Count@AABTreeNodeClass@@QAEHXZ",
+   "length": 21
+  },
+  "G": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeNodeClass::Object_Count",
+   "symbol": "?Object_Count@AABTreeNodeClass@@QAEHXZ",
+   "length": 21
+  },
+  "Z": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeNodeClass::Object_Count",
+   "symbol": "?Object_Count@AABTreeNodeClass@@QAEHXZ",
+   "length": 21
+  }
+ },
+ "0x8DBD70": {
+  "R": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeNodeClass::Peek_Object",
+   "symbol": "?Peek_Object@AABTreeNodeClass@@QAEPAVCullableClass@@H@Z",
+   "length": 31
+  },
+  "G": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeNodeClass::Peek_Object",
+   "symbol": "?Peek_Object@AABTreeNodeClass@@QAEPAVCullableClass@@H@Z",
+   "length": 31
+  },
+  "Z": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeNodeClass::Peek_Object",
+   "symbol": "?Peek_Object@AABTreeNodeClass@@QAEPAVCullableClass@@H@Z",
+   "length": 31
+  }
+ },
+ "0x8DBD90": {
+  "R": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeNodeClass::Partition",
+   "symbol": "?Partition@AABTreeNodeClass@@QAEXXZ",
+   "length": 598
+  },
+  "G": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeNodeClass::Partition",
+   "symbol": "?Partition@AABTreeNodeClass@@QAEXXZ",
+   "length": 598
+  },
+  "Z": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeNodeClass::Partition",
+   "symbol": "?Partition@AABTreeNodeClass@@QAEXXZ",
+   "length": 598
+  }
+ },
+ "0x8DBFF0": {
+  "R": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeNodeClass::Split_Objects",
+   "symbol": "?Split_Objects@AABTreeNodeClass@@QAEXABUSplitChoiceStruct@1@PAV1@1@Z",
+   "length": 698
+  },
+  "G": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeNodeClass::Split_Objects",
+   "symbol": "?Split_Objects@AABTreeNodeClass@@QAEXABUSplitChoiceStruct@1@PAV1@1@Z",
+   "length": 698
+  },
+  "Z": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeNodeClass::Split_Objects",
+   "symbol": "?Split_Objects@AABTreeNodeClass@@QAEXABUSplitChoiceStruct@1@PAV1@1@Z",
+   "length": 698
+  }
+ },
+ "0x8DC2B0": {
+  "R": {
+   "object": "aabtreecull.obj",
+   "function": "AABoxClass::Add_Box",
+   "symbol": "?Add_Box@AABoxClass@@QAEXABV1@@Z",
+   "length": 404
+  },
+  "G": {
+   "object": "aabtreecull.obj",
+   "function": "AABoxClass::Add_Box",
+   "symbol": "?Add_Box@AABoxClass@@QAEXABV1@@Z",
+   "length": 404
+  },
+  "Z": {
+   "object": "aabtreecull.obj",
+   "function": "AABoxClass::Add_Box",
+   "symbol": "?Add_Box@AABoxClass@@QAEXABV1@@Z",
+   "length": 404
+  }
+ },
+ "0x8DC480": {
+  "R": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeNodeClass::Partition",
+   "symbol": "?Partition@AABTreeNodeClass@@QAEXABVAABoxClass@@AAV?$SimpleDynVecClass@VAABoxClass@@@@@Z",
+   "length": 997
+  },
+  "G": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeNodeClass::Partition",
+   "symbol": "?Partition@AABTreeNodeClass@@QAEXABVAABoxClass@@AAV?$SimpleDynVecClass@VAABoxClass@@@@@Z",
+   "length": 997
+  },
+  "Z": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeNodeClass::Partition",
+   "symbol": "?Partition@AABTreeNodeClass@@QAEXABVAABoxClass@@AAV?$SimpleDynVecClass@VAABoxClass@@@@@Z",
+   "length": 997
+  }
+ },
+ "0x8DC870": {
+  "R": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeNodeClass::Split_Boxes",
+   "symbol": "?Split_Boxes@AABTreeNodeClass@@QAEXABUSplitChoiceStruct@1@AAV?$SimpleDynVecClass@VAABoxClass@@@@11@Z",
+   "length": 279
+  },
+  "G": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeNodeClass::Split_Boxes",
+   "symbol": "?Split_Boxes@AABTreeNodeClass@@QAEXABUSplitChoiceStruct@1@AAV?$SimpleDynVecClass@VAABoxClass@@@@11@Z",
+   "length": 279
+  },
+  "Z": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeNodeClass::Split_Boxes",
+   "symbol": "?Split_Boxes@AABTreeNodeClass@@QAEXABUSplitChoiceStruct@1@AAV?$SimpleDynVecClass@VAABoxClass@@@@11@Z",
+   "length": 279
+  }
+ },
+ "0x8DC990": {
+  "R": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeNodeClass::Select_Splitting_Plane",
+   "symbol": "?Select_Splitting_Plane@AABTreeNodeClass@@QAEXPAUSplitChoiceStruct@1@AAV?$SimpleDynVecClass@VAABoxClass@@@@@Z",
+   "length": 464
+  },
+  "G": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeNodeClass::Select_Splitting_Plane",
+   "symbol": "?Select_Splitting_Plane@AABTreeNodeClass@@QAEXPAUSplitChoiceStruct@1@AAV?$SimpleDynVecClass@VAABoxClass@@@@@Z",
+   "length": 464
+  },
+  "Z": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeNodeClass::Select_Splitting_Plane",
+   "symbol": "?Select_Splitting_Plane@AABTreeNodeClass@@QAEXPAUSplitChoiceStruct@1@AAV?$SimpleDynVecClass@VAABoxClass@@@@@Z",
+   "length": 464
+  }
+ },
+ "0x8DCB60": {
+  "R": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeNodeClass::Select_Splitting_Plane_Brute_Force",
+   "symbol": "?Select_Splitting_Plane_Brute_Force@AABTreeNodeClass@@QAEXPAUSplitChoiceStruct@1@AAV?$SimpleDynVecClass@VAABoxClass@@@@@Z",
+   "length": 456
+  },
+  "G": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeNodeClass::Select_Splitting_Plane_Brute_Force",
+   "symbol": "?Select_Splitting_Plane_Brute_Force@AABTreeNodeClass@@QAEXPAUSplitChoiceStruct@1@AAV?$SimpleDynVecClass@VAABoxClass@@@@@Z",
+   "length": 456
+  },
+  "Z": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeNodeClass::Select_Splitting_Plane_Brute_Force",
+   "symbol": "?Select_Splitting_Plane_Brute_Force@AABTreeNodeClass@@QAEXPAUSplitChoiceStruct@1@AAV?$SimpleDynVecClass@VAABoxClass@@@@@Z",
+   "length": 456
+  }
+ },
+ "0x8DCD30": {
+  "R": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeNodeClass::Compute_Score",
+   "symbol": "?Compute_Score@AABTreeNodeClass@@QAEXPAUSplitChoiceStruct@1@AAV?$SimpleDynVecClass@VAABoxClass@@@@@Z",
+   "length": 649
+  },
+  "G": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeNodeClass::Compute_Score",
+   "symbol": "?Compute_Score@AABTreeNodeClass@@QAEXPAUSplitChoiceStruct@1@AAV?$SimpleDynVecClass@VAABoxClass@@@@@Z",
+   "length": 649
+  },
+  "Z": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeNodeClass::Compute_Score",
+   "symbol": "?Compute_Score@AABTreeNodeClass@@QAEXPAUSplitChoiceStruct@1@AAV?$SimpleDynVecClass@VAABoxClass@@@@@Z",
+   "length": 649
+  }
+ },
+ "0x8DCFC0": {
+  "R": {
+   "object": "aabtreecull.obj",
+   "function": "?0AABTreeIterator",
+   "symbol": "??0AABTreeIterator@@QAE@PAVAABTreeCullSystemClass@@@Z",
+   "length": 18
+  },
+  "G": {
+   "object": "aabtreecull.obj",
+   "function": "?0AABTreeIterator",
+   "symbol": "??0AABTreeIterator@@QAE@PAVAABTreeCullSystemClass@@@Z",
+   "length": 18
+  },
+  "Z": {
+   "object": "aabtreecull.obj",
+   "function": "?0AABTreeIterator",
+   "symbol": "??0AABTreeIterator@@QAE@PAVAABTreeCullSystemClass@@@Z",
+   "length": 18
+  }
+ },
+ "0x8DCFF0": {
+  "R": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeIterator::Enter_Parent",
+   "symbol": "?Enter_Parent@AABTreeIterator@@QAE_NXZ",
+   "length": 54
+  },
+  "G": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeIterator::Enter_Parent",
+   "symbol": "?Enter_Parent@AABTreeIterator@@QAE_NXZ",
+   "length": 54
+  },
+  "Z": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeIterator::Enter_Parent",
+   "symbol": "?Enter_Parent@AABTreeIterator@@QAE_NXZ",
+   "length": 54
+  }
+ },
+ "0x8DD030": {
+  "R": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeIterator::Enter_Sibling",
+   "symbol": "?Enter_Sibling@AABTreeIterator@@QAE_NXZ",
+   "length": 88
+  },
+  "G": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeIterator::Enter_Sibling",
+   "symbol": "?Enter_Sibling@AABTreeIterator@@QAE_NXZ",
+   "length": 88
+  },
+  "Z": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeIterator::Enter_Sibling",
+   "symbol": "?Enter_Sibling@AABTreeIterator@@QAE_NXZ",
+   "length": 88
+  }
+ },
+ "0x8DD090": {
+  "R": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeIterator::Has_Front_Child",
+   "symbol": "?Has_Front_Child@AABTreeIterator@@QAE_NXZ",
+   "length": 49
+  },
+  "G": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeIterator::Has_Front_Child",
+   "symbol": "?Has_Front_Child@AABTreeIterator@@QAE_NXZ",
+   "length": 49
+  },
+  "Z": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeIterator::Has_Front_Child",
+   "symbol": "?Has_Front_Child@AABTreeIterator@@QAE_NXZ",
+   "length": 49
+  }
+ },
+ "0x8DD0D0": {
+  "R": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeIterator::Enter_Front_Child",
+   "symbol": "?Enter_Front_Child@AABTreeIterator@@QAE_NXZ",
+   "length": 67
+  },
+  "G": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeIterator::Enter_Front_Child",
+   "symbol": "?Enter_Front_Child@AABTreeIterator@@QAE_NXZ",
+   "length": 67
+  },
+  "Z": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeIterator::Enter_Front_Child",
+   "symbol": "?Enter_Front_Child@AABTreeIterator@@QAE_NXZ",
+   "length": 67
+  }
+ },
+ "0x8DD120": {
+  "R": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeIterator::Has_Back_Child",
+   "symbol": "?Has_Back_Child@AABTreeIterator@@QAE_NXZ",
+   "length": 49
+  },
+  "G": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeIterator::Has_Back_Child",
+   "symbol": "?Has_Back_Child@AABTreeIterator@@QAE_NXZ",
+   "length": 49
+  },
+  "Z": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeIterator::Has_Back_Child",
+   "symbol": "?Has_Back_Child@AABTreeIterator@@QAE_NXZ",
+   "length": 49
+  }
+ },
+ "0x8DD160": {
+  "R": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeIterator::Enter_Back_Child",
+   "symbol": "?Enter_Back_Child@AABTreeIterator@@QAE_NXZ",
+   "length": 54
+  },
+  "G": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeIterator::Enter_Back_Child",
+   "symbol": "?Enter_Back_Child@AABTreeIterator@@QAE_NXZ",
+   "length": 54
+  },
+  "Z": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeIterator::Enter_Back_Child",
+   "symbol": "?Enter_Back_Child@AABTreeIterator@@QAE_NXZ",
+   "length": 54
+  }
+ },
+ "0x8DD1B0": {
+  "R": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeIterator::Get_Current_Box",
+   "symbol": "?Get_Current_Box@AABTreeIterator@@QAEXPAVAABoxClass@@@Z",
+   "length": 72
+  },
+  "G": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeIterator::Get_Current_Box",
+   "symbol": "?Get_Current_Box@AABTreeIterator@@QAEXPAVAABoxClass@@@Z",
+   "length": 72
+  },
+  "Z": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeIterator::Get_Current_Box",
+   "symbol": "?Get_Current_Box@AABTreeIterator@@QAEXPAVAABoxClass@@@Z",
+   "length": 72
+  }
+ },
+ "0x8DD200": {
+  "R": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeIterator::validate",
+   "symbol": "?validate@AABTreeIterator@@AAEXXZ",
+   "length": 26
+  },
+  "G": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeIterator::validate",
+   "symbol": "?validate@AABTreeIterator@@AAEXXZ",
+   "length": 26
+  },
+  "Z": {
+   "object": "aabtreecull.obj",
+   "function": "AABTreeIterator::validate",
+   "symbol": "?validate@AABTreeIterator@@AAEXXZ",
+   "length": 26
+  }
+ },
+ "0x8DD250": {
+  "R": {
+   "object": "aabtreecull.obj",
+   "function": "?$SimpleVecClass::Resize",
+   "symbol": "?Resize@?$SimpleVecClass@VAABoxClass@@@@UAE_NH@Z",
+   "length": 173
+  },
+  "G": {
+   "object": "aabtreecull.obj",
+   "function": "?$SimpleVecClass::Resize",
+   "symbol": "?Resize@?$SimpleVecClass@VAABoxClass@@@@UAE_NH@Z",
+   "length": 173
+  },
+  "Z": {
+   "object": "aabtreecull.obj",
+   "function": "?$SimpleVecClass::Resize",
+   "symbol": "?Resize@?$SimpleVecClass@VAABoxClass@@@@UAE_NH@Z",
+   "length": 173
+  }
+ },
+ "0x8DD300": {
+  "R": {
+   "object": "aabtreecull.obj",
+   "function": "?$SimpleVecClass::Uninitialised_Grow",
+   "symbol": "?Uninitialised_Grow@?$SimpleVecClass@VAABoxClass@@@@UAE_NH@Z",
+   "length": 80
+  },
+  "G": {
+   "object": "aabtreecull.obj",
+   "function": "?$SimpleVecClass::Uninitialised_Grow",
+   "symbol": "?Uninitialised_Grow@?$SimpleVecClass@VAABoxClass@@@@UAE_NH@Z",
+   "length": 80
+  },
+  "Z": {
+   "object": "aabtreecull.obj",
+   "function": "?$SimpleVecClass::Uninitialised_Grow",
+   "symbol": "?Uninitialised_Grow@?$SimpleVecClass@VAABoxClass@@@@UAE_NH@Z",
+   "length": 80
+  }
+ },
+ "0x8DD3A0": {
+  "R": {
+   "object": "aabtreecull.obj",
+   "function": "?$SimpleDynVecClass::Resize",
+   "symbol": "?Resize@?$SimpleDynVecClass@VAABoxClass@@@@UAE_NH@Z",
+   "length": 179
+  },
+  "G": {
+   "object": "aabtreecull.obj",
+   "function": "?$SimpleDynVecClass::Resize",
+   "symbol": "?Resize@?$SimpleDynVecClass@VAABoxClass@@@@UAE_NH@Z",
+   "length": 179
+  },
+  "Z": {
+   "object": "aabtreecull.obj",
+   "function": "?$SimpleDynVecClass::Resize",
+   "symbol": "?Resize@?$SimpleDynVecClass@VAABoxClass@@@@UAE_NH@Z",
+   "length": 179
+  }
+ },
+ "0x8DD460": {
+  "R": {
+   "object": "aabtreecull.obj",
+   "function": "?$SimpleDynVecClass::Add",
+   "symbol": "?Add@?$SimpleDynVecClass@VAABoxClass@@@@QAE_NABVAABoxClass@@H@Z",
+   "length": 123
+  },
+  "G": {
+   "object": "aabtreecull.obj",
+   "function": "?$SimpleDynVecClass::Add",
+   "symbol": "?Add@?$SimpleDynVecClass@VAABoxClass@@@@QAE_NABVAABoxClass@@H@Z",
+   "length": 123
+  },
+  "Z": {
+   "object": "aabtreecull.obj",
+   "function": "?$SimpleDynVecClass::Add",
+   "symbol": "?Add@?$SimpleDynVecClass@VAABoxClass@@@@QAE_NABVAABoxClass@@H@Z",
+   "length": 123
+  }
+ },
+ "0x8DD580": {
+  "R": {
+   "object": "aabtreecull.obj",
+   "function": "?$ObjectPoolClass::Allocate_Object_Memory",
+   "symbol": "?Allocate_Object_Memory@?$ObjectPoolClass@VAABTreeNodeClass@@$0BAA@@@QAEPAVAABTreeNodeClass@@XZ",
+   "length": 126
+  }
+ },
+ "0x8DD630": {
+  "R": {
+   "object": "aabtreecull.obj",
+   "function": "?$ObjectPoolClass::Allocate_Object_Memory",
+   "symbol": "?Allocate_Object_Memory@?$ObjectPoolClass@VAABTreeLinkClass@@$0BAA@@@QAEPAVAABTreeLinkClass@@XZ",
+   "length": 126
+  }
+ },
+ "0x8DD6B0": {
+  "R": {
+   "object": "aabtreecull.obj",
+   "function": "VAABoxClass::?0?$SimpleVecClass",
+   "symbol": "??0?$SimpleVecClass@VAABoxClass@@@@QAE@H@Z",
+   "length": 151
+  },
+  "G": {
+   "object": "aabtreecull.obj",
+   "function": "VAABoxClass::?0?$SimpleVecClass",
+   "symbol": "??0?$SimpleVecClass@VAABoxClass@@@@QAE@H@Z",
+   "length": 151
+  },
+  "Z": {
+   "object": "aabtreecull.obj",
+   "function": "VAABoxClass::?0?$SimpleVecClass",
+   "symbol": "??0?$SimpleVecClass@VAABoxClass@@@@QAE@H@Z",
+   "length": 151
+  }
+ },
+ "0x8DD7A0": {
+  "R": {
+   "object": "frustum.obj",
+   "function": "FrustumClass::Init",
+   "symbol": "?Init@FrustumClass@@QAEXABVMatrix3D@@ABVVector2@@1MM@Z",
+   "length": 2871
+  }
+ },
+ "0x8DE2E0": {
+  "R": {
+   "object": "lineseg.obj",
+   "function": "LineSegClass::Set",
+   "symbol": "?Set@LineSegClass@@QAEXABV1@ABVMatrix3D@@@Z",
+   "length": 398
+  },
+  "G": {
+   "object": "lineseg.obj",
+   "function": "LineSegClass::Set",
+   "symbol": "?Set@LineSegClass@@QAEXABV1@ABVMatrix3D@@@Z",
+   "length": 398
+  },
+  "Z": {
+   "object": "lineseg.obj",
+   "function": "LineSegClass::Set",
+   "symbol": "?Set@LineSegClass@@QAEXABV1@ABVMatrix3D@@@Z",
+   "length": 398
+  }
+ },
+ "0x8DE470": {
+  "R": {
+   "object": "lineseg.obj",
+   "function": "LineSegClass::Set_Random",
+   "symbol": "?Set_Random@LineSegClass@@QAEXABVVector3@@0@Z",
+   "length": 327
+  }
+ },
+ "0x8DE5C0": {
+  "R": {
+   "object": "lineseg.obj",
+   "function": "LineSegClass::Find_Point_Closest_To",
+   "symbol": "?Find_Point_Closest_To@LineSegClass@@QBE?AVVector3@@ABV2@@Z",
+   "length": 197
+  },
+  "G": {
+   "object": "lineseg.obj",
+   "function": "LineSegClass::Find_Point_Closest_To",
+   "symbol": "?Find_Point_Closest_To@LineSegClass@@QBE?AVVector3@@ABV2@@Z",
+   "length": 197
+  },
+  "Z": {
+   "object": "lineseg.obj",
+   "function": "LineSegClass::Find_Point_Closest_To",
+   "symbol": "?Find_Point_Closest_To@LineSegClass@@QBE?AVVector3@@ABV2@@Z",
+   "length": 197
+  }
+ },
+ "0x8DE690": {
+  "R": {
+   "object": "lineseg.obj",
+   "function": "LineSegClass::Find_Intersection",
+   "symbol": "?Find_Intersection@LineSegClass@@QBE_NABV1@PAVVector3@@PAM12@Z",
+   "length": 598
+  }
+ },
+ "0x8DE8F0": {
+  "R": {
+   "object": "matrix4.obj",
+   "function": "Matrix4::Multiply",
+   "symbol": "?Multiply@Matrix4@@SAXABV1@0PAV1@@Z",
+   "length": 532
+  },
+  "G": {
+   "object": "matrix4.obj",
+   "function": "Matrix4::Multiply",
+   "symbol": "?Multiply@Matrix4@@SAXABV1@0PAV1@@Z",
+   "length": 532
+  },
+  "Z": {
+   "object": "matrix4.obj",
+   "function": "Matrix4x4::Multiply",
+   "symbol": "?Multiply@Matrix4x4@@SAXABV1@0PAV1@@Z",
+   "length": 532
+  }
+ },
+ "0x8DEB10": {
+  "R": {
+   "object": "matrix4.obj",
+   "function": "Matrix4::Multiply",
+   "symbol": "?Multiply@Matrix4@@SAXABVMatrix3D@@ABV1@PAV1@@Z",
+   "length": 425
+  },
+  "G": {
+   "object": "matrix4.obj",
+   "function": "Matrix4::Multiply",
+   "symbol": "?Multiply@Matrix4@@SAXABVMatrix3D@@ABV1@PAV1@@Z",
+   "length": 425
+  },
+  "Z": {
+   "object": "matrix4.obj",
+   "function": "Matrix4x4::Multiply",
+   "symbol": "?Multiply@Matrix4x4@@SAXABVMatrix3D@@ABV1@PAV1@@Z",
+   "length": 425
+  }
+ },
+ "0x8DECC0": {
+  "R": {
+   "object": "matrix4.obj",
+   "function": "Matrix4::Multiply",
+   "symbol": "?Multiply@Matrix4@@SAXABV1@ABVMatrix3D@@PAV1@@Z",
+   "length": 416
+  },
+  "G": {
+   "object": "matrix4.obj",
+   "function": "Matrix4::Multiply",
+   "symbol": "?Multiply@Matrix4@@SAXABV1@ABVMatrix3D@@PAV1@@Z",
+   "length": 416
+  },
+  "Z": {
+   "object": "matrix4.obj",
+   "function": "Matrix4x4::Multiply",
+   "symbol": "?Multiply@Matrix4x4@@SAXABV1@ABVMatrix3D@@PAV1@@Z",
+   "length": 416
+  }
+ },
+ "0x8DEE60": {
+  "Z": {
+   "object": "matrix4.obj",
+   "function": "YAHABVMatrix4x4::?8",
+   "symbol": "??8@YAHABVMatrix4x4@@0@Z",
+   "length": 90
+  }
+ },
+ "0x8DEEC0": {
+  "Z": {
+   "object": "matrix4.obj",
+   "function": "YAHABVMatrix4x4::?9",
+   "symbol": "??9@YAHABVMatrix4x4@@0@Z",
+   "length": 90
+  }
+ },
+ "0x8DEF60": {
+  "R": {
+   "object": "lookuptable.obj",
+   "function": "$E15",
+   "symbol": "_$E15",
+   "length": 99
+  },
+  "Z": {
+   "object": "lookuptable.obj",
+   "function": "$E15",
+   "symbol": "_$E15",
+   "length": 99
+  }
+ },
+ "0x8DEFD0": {
+  "R": {
+   "object": "lookuptable.obj",
+   "function": "VLookupTableClass::?_G?$RefMultiListClass",
+   "symbol": "??_G?$RefMultiListClass@VLookupTableClass@@@@UAEPAXI@Z",
+   "length": 86
+  },
+  "Z": {
+   "object": "lookuptable.obj",
+   "function": "VLookupTableClass::?_G?$RefMultiListClass",
+   "symbol": "??_G?$RefMultiListClass@VLookupTableClass@@@@UAEPAXI@Z",
+   "length": 86
+  }
+ },
+ "0x8DF030": {
+  "R": {
+   "object": "lookuptable.obj",
+   "function": "?0LookupTableClass",
+   "symbol": "??0LookupTableClass@@QAE@H@Z",
+   "length": 178
+  },
+  "G": {
+   "object": "lookuptable.obj",
+   "function": "?0LookupTableClass",
+   "symbol": "??0LookupTableClass@@QAE@H@Z",
+   "length": 178
+  },
+  "Z": {
+   "object": "lookuptable.obj",
+   "function": "?0LookupTableClass",
+   "symbol": "??0LookupTableClass@@QAE@H@Z",
+   "length": 178
+  }
+ },
+ "0x8DF0F0": {
+  "R": {
+   "object": "lookuptable.obj",
+   "function": "?_GLookupTableClass",
+   "symbol": "??_GLookupTableClass@@UAEPAXI@Z",
+   "length": 107
+  },
+  "G": {
+   "object": "lookuptable.obj",
+   "function": "?_GLookupTableClass",
+   "symbol": "??_GLookupTableClass@@UAEPAXI@Z",
+   "length": 107
+  },
+  "Z": {
+   "object": "lookuptable.obj",
+   "function": "?_GLookupTableClass",
+   "symbol": "??_GLookupTableClass@@UAEPAXI@Z",
+   "length": 107
+  }
+ },
+ "0x8DF160": {
+  "R": {
+   "object": "lookuptable.obj",
+   "function": "?1LookupTableClass",
+   "symbol": "??1LookupTableClass@@UAE@XZ",
+   "length": 86
+  },
+  "G": {
+   "object": "lookuptable.obj",
+   "function": "?1LookupTableClass",
+   "symbol": "??1LookupTableClass@@UAE@XZ",
+   "length": 86
+  },
+  "Z": {
+   "object": "lookuptable.obj",
+   "function": "?1LookupTableClass",
+   "symbol": "??1LookupTableClass@@UAE@XZ",
+   "length": 86
+  }
+ },
+ "0x8DF1C0": {
+  "R": {
+   "object": "lookuptable.obj",
+   "function": "LookupTableClass::Init",
+   "symbol": "?Init@LookupTableClass@@QAEXPBDPAVCurve1DClass@@@Z",
+   "length": 215
+  },
+  "G": {
+   "object": "lookuptable.obj",
+   "function": "LookupTableClass::Init",
+   "symbol": "?Init@LookupTableClass@@QAEXPBDPAVCurve1DClass@@@Z",
+   "length": 215
+  },
+  "Z": {
+   "object": "lookuptable.obj",
+   "function": "LookupTableClass::Init",
+   "symbol": "?Init@LookupTableClass@@QAEXPBDPAVCurve1DClass@@@Z",
+   "length": 215
+  }
+ },
+ "0x8DF2A0": {
+  "R": {
+   "object": "lookuptable.obj",
+   "function": "LookupTableMgrClass::Init",
+   "symbol": "?Init@LookupTableMgrClass@@SAXXZ",
+   "length": 258
+  },
+  "Z": {
+   "object": "lookuptable.obj",
+   "function": "LookupTableMgrClass::Init",
+   "symbol": "?Init@LookupTableMgrClass@@SAXXZ",
+   "length": 258
+  }
+ },
+ "0x8DF430": {
+  "R": {
+   "object": "lookuptable.obj",
+   "function": "LookupTableMgrClass::Add_Table",
+   "symbol": "?Add_Table@LookupTableMgrClass@@SA_NPAVLookupTableClass@@@Z",
+   "length": 38
+  },
+  "Z": {
+   "object": "lookuptable.obj",
+   "function": "LookupTableMgrClass::Add_Table",
+   "symbol": "?Add_Table@LookupTableMgrClass@@SA_NPAVLookupTableClass@@@Z",
+   "length": 38
+  }
+ },
+ "0x8DF460": {
+  "R": {
+   "object": "lookuptable.obj",
+   "function": "LookupTableMgrClass::Remove_Table",
+   "symbol": "?Remove_Table@LookupTableMgrClass@@SA_NPAVLookupTableClass@@@Z",
+   "length": 54
+  },
+  "Z": {
+   "object": "lookuptable.obj",
+   "function": "LookupTableMgrClass::Remove_Table",
+   "symbol": "?Remove_Table@LookupTableMgrClass@@SA_NPAVLookupTableClass@@@Z",
+   "length": 54
+  }
+ },
+ "0x8DF4A0": {
+  "R": {
+   "object": "lookuptable.obj",
+   "function": "LookupTableMgrClass::Get_Table",
+   "symbol": "?Get_Table@LookupTableMgrClass@@SAPAVLookupTableClass@@PBD_N@Z",
+   "length": 515
+  },
+  "Z": {
+   "object": "lookuptable.obj",
+   "function": "LookupTableMgrClass::Get_Table",
+   "symbol": "?Get_Table@LookupTableMgrClass@@SAPAVLookupTableClass@@PBD_N@Z",
+   "length": 515
+  }
+ },
+ "0x8DF6B0": {
+  "R": {
+   "object": "lookuptable.obj",
+   "function": "LookupTableMgrClass::Save_Table_Desc",
+   "symbol": "?Save_Table_Desc@LookupTableMgrClass@@SAXAAVChunkSaveClass@@PAVCurve1DClass@@ABVVector2@@2@Z",
+   "length": 150
+  },
+  "G": {
+   "object": "lookuptable.obj",
+   "function": "LookupTableMgrClass::Save_Table_Desc",
+   "symbol": "?Save_Table_Desc@LookupTableMgrClass@@SAXAAVChunkSaveClass@@PAVCurve1DClass@@ABVVector2@@2@Z",
+   "length": 150
+  },
+  "Z": {
+   "object": "lookuptable.obj",
+   "function": "LookupTableMgrClass::Save_Table_Desc",
+   "symbol": "?Save_Table_Desc@LookupTableMgrClass@@SAXAAVChunkSaveClass@@PAVCurve1DClass@@ABVVector2@@2@Z",
+   "length": 150
+  }
+ },
+ "0x8DF750": {
+  "R": {
+   "object": "lookuptable.obj",
+   "function": "LookupTableMgrClass::Load_Table_Desc",
+   "symbol": "?Load_Table_Desc@LookupTableMgrClass@@SAXAAVChunkLoadClass@@PAPAVCurve1DClass@@PAVVector2@@2@Z",
+   "length": 255
+  },
+  "G": {
+   "object": "lookuptable.obj",
+   "function": "LookupTableMgrClass::Load_Table_Desc",
+   "symbol": "?Load_Table_Desc@LookupTableMgrClass@@SAXAAVChunkLoadClass@@PAPAVCurve1DClass@@PAVVector2@@2@Z",
+   "length": 255
+  },
+  "Z": {
+   "object": "lookuptable.obj",
+   "function": "LookupTableMgrClass::Load_Table_Desc",
+   "symbol": "?Load_Table_Desc@LookupTableMgrClass@@SAXAAVChunkLoadClass@@PAPAVCurve1DClass@@PAVVector2@@2@Z",
+   "length": 255
+  }
+ },
+ "0x8DF9D0": {
+  "R": {
+   "object": "tcbspline.obj",
+   "function": "TCBSpline3DClass::Add_Key",
+   "symbol": "?Add_Key@TCBSpline3DClass@@UAEHABVVector3@@M@Z",
+   "length": 199
+  },
+  "G": {
+   "object": "tcbspline.obj",
+   "function": "TCBSpline3DClass::Add_Key",
+   "symbol": "?Add_Key@TCBSpline3DClass@@UAEHABVVector3@@M@Z",
+   "length": 199
+  },
+  "Z": {
+   "object": "tcbspline.obj",
+   "function": "TCBSpline3DClass::Add_Key",
+   "symbol": "?Add_Key@TCBSpline3DClass@@UAEHABVVector3@@M@Z",
+   "length": 199
+  }
+ },
+ "0x8DFAA0": {
+  "R": {
+   "object": "tcbspline.obj",
+   "function": "TCBSpline3DClass::Remove_Key",
+   "symbol": "?Remove_Key@TCBSpline3DClass@@UAEXH@Z",
+   "length": 80
+  },
+  "G": {
+   "object": "tcbspline.obj",
+   "function": "TCBSpline3DClass::Remove_Key",
+   "symbol": "?Remove_Key@TCBSpline3DClass@@UAEXH@Z",
+   "length": 80
+  },
+  "Z": {
+   "object": "tcbspline.obj",
+   "function": "TCBSpline3DClass::Remove_Key",
+   "symbol": "?Remove_Key@TCBSpline3DClass@@UAEXH@Z",
+   "length": 80
+  }
+ },
+ "0x8DFAF0": {
+  "R": {
+   "object": "tcbspline.obj",
+   "function": "TCBSpline3DClass::Clear_Keys",
+   "symbol": "?Clear_Keys@TCBSpline3DClass@@UAEXXZ",
+   "length": 19
+  },
+  "G": {
+   "object": "tcbspline.obj",
+   "function": "TCBSpline3DClass::Clear_Keys",
+   "symbol": "?Clear_Keys@TCBSpline3DClass@@UAEXXZ",
+   "length": 19
+  },
+  "Z": {
+   "object": "tcbspline.obj",
+   "function": "TCBSpline3DClass::Clear_Keys",
+   "symbol": "?Clear_Keys@TCBSpline3DClass@@UAEXXZ",
+   "length": 19
+  }
+ },
+ "0x8DFB10": {
+  "R": {
+   "object": "tcbspline.obj",
+   "function": "TCBSpline3DClass::Set_TCB_Params",
+   "symbol": "?Set_TCB_Params@TCBSpline3DClass@@UAEXHMMM@Z",
+   "length": 49
+  },
+  "G": {
+   "object": "tcbspline.obj",
+   "function": "TCBSpline3DClass::Set_TCB_Params",
+   "symbol": "?Set_TCB_Params@TCBSpline3DClass@@UAEXHMMM@Z",
+   "length": 49
+  },
+  "Z": {
+   "object": "tcbspline.obj",
+   "function": "TCBSpline3DClass::Set_TCB_Params",
+   "symbol": "?Set_TCB_Params@TCBSpline3DClass@@UAEXHMMM@Z",
+   "length": 49
+  }
+ },
+ "0x8DFB50": {
+  "R": {
+   "object": "tcbspline.obj",
+   "function": "TCBSpline3DClass::Get_TCB_Params",
+   "symbol": "?Get_TCB_Params@TCBSpline3DClass@@UAEXHPAM00@Z",
+   "length": 70
+  },
+  "G": {
+   "object": "tcbspline.obj",
+   "function": "TCBSpline3DClass::Get_TCB_Params",
+   "symbol": "?Get_TCB_Params@TCBSpline3DClass@@UAEXHPAM00@Z",
+   "length": 70
+  },
+  "Z": {
+   "object": "tcbspline.obj",
+   "function": "TCBSpline3DClass::Get_TCB_Params",
+   "symbol": "?Get_TCB_Params@TCBSpline3DClass@@UAEXHPAM00@Z",
+   "length": 70
+  }
+ },
+ "0x8DFBA0": {
+  "R": {
+   "object": "tcbspline.obj",
+   "function": "TCBSpline3DClass::Update_Tangents",
+   "symbol": "?Update_Tangents@TCBSpline3DClass@@UAEXXZ",
+   "length": 1515
+  },
+  "G": {
+   "object": "tcbspline.obj",
+   "function": "TCBSpline3DClass::Update_Tangents",
+   "symbol": "?Update_Tangents@TCBSpline3DClass@@UAEXXZ",
+   "length": 1515
+  },
+  "Z": {
+   "object": "tcbspline.obj",
+   "function": "TCBSpline3DClass::Update_Tangents",
+   "symbol": "?Update_Tangents@TCBSpline3DClass@@UAEXXZ",
+   "length": 1515
+  }
+ },
+ "0x8E01A0": {
+  "R": {
+   "object": "tcbspline.obj",
+   "function": "TCBSpline3DClass::Save",
+   "symbol": "?Save@TCBSpline3DClass@@UAE_NAAVChunkSaveClass@@@Z",
+   "length": 138
+  },
+  "G": {
+   "object": "tcbspline.obj",
+   "function": "TCBSpline3DClass::Save",
+   "symbol": "?Save@TCBSpline3DClass@@UAE_NAAVChunkSaveClass@@@Z",
+   "length": 138
+  },
+  "Z": {
+   "object": "tcbspline.obj",
+   "function": "TCBSpline3DClass::Save",
+   "symbol": "?Save@TCBSpline3DClass@@UAE_NAAVChunkSaveClass@@@Z",
+   "length": 138
+  }
+ },
+ "0x8E0230": {
+  "R": {
+   "object": "tcbspline.obj",
+   "function": "TCBSpline3DClass::Load",
+   "symbol": "?Load@TCBSpline3DClass@@UAE_NAAVChunkLoadClass@@@Z",
+   "length": 281
+  },
+  "G": {
+   "object": "tcbspline.obj",
+   "function": "TCBSpline3DClass::Load",
+   "symbol": "?Load@TCBSpline3DClass@@UAE_NAAVChunkLoadClass@@@Z",
+   "length": 281
+  },
+  "Z": {
+   "object": "tcbspline.obj",
+   "function": "TCBSpline3DClass::Load",
+   "symbol": "?Load@TCBSpline3DClass@@UAE_NAAVChunkLoadClass@@@Z",
+   "length": 281
+  }
+ },
+ "0x8E09B0": {
+  "R": {
+   "object": "cardinalspline.obj",
+   "function": "CardinalSpline3DClass::Add_Key",
+   "symbol": "?Add_Key@CardinalSpline3DClass@@UAEHABVVector3@@M@Z",
+   "length": 142
+  },
+  "G": {
+   "object": "cardinalspline.obj",
+   "function": "CardinalSpline3DClass::Add_Key",
+   "symbol": "?Add_Key@CardinalSpline3DClass@@UAEHABVVector3@@M@Z",
+   "length": 142
+  },
+  "Z": {
+   "object": "cardinalspline.obj",
+   "function": "CardinalSpline3DClass::Add_Key",
+   "symbol": "?Add_Key@CardinalSpline3DClass@@UAEHABVVector3@@M@Z",
+   "length": 142
+  }
+ },
+ "0x8E0AD0": {
+  "R": {
+   "object": "cardinalspline.obj",
+   "function": "CardinalSpline3DClass::Update_Tangents",
+   "symbol": "?Update_Tangents@CardinalSpline3DClass@@UAEXXZ",
+   "length": 777
+  },
+  "Z": {
+   "object": "cardinalspline.obj",
+   "function": "CardinalSpline3DClass::Update_Tangents",
+   "symbol": "?Update_Tangents@CardinalSpline3DClass@@UAEXXZ",
+   "length": 777
+  }
+ },
+ "0x8E0DF0": {
+  "R": {
+   "object": "cardinalspline.obj",
+   "function": "CardinalSpline3DClass::Save",
+   "symbol": "?Save@CardinalSpline3DClass@@UAE_NAAVChunkSaveClass@@@Z",
+   "length": 104
+  },
+  "G": {
+   "object": "cardinalspline.obj",
+   "function": "CardinalSpline3DClass::Save",
+   "symbol": "?Save@CardinalSpline3DClass@@UAE_NAAVChunkSaveClass@@@Z",
+   "length": 104
+  },
+  "Z": {
+   "object": "cardinalspline.obj",
+   "function": "CardinalSpline3DClass::Save",
+   "symbol": "?Save@CardinalSpline3DClass@@UAE_NAAVChunkSaveClass@@@Z",
+   "length": 104
+  }
+ },
+ "0x8E0E60": {
+  "R": {
+   "object": "cardinalspline.obj",
+   "function": "CardinalSpline3DClass::Load",
+   "symbol": "?Load@CardinalSpline3DClass@@UAE_NAAVChunkLoadClass@@@Z",
+   "length": 212
+  },
+  "G": {
+   "object": "cardinalspline.obj",
+   "function": "CardinalSpline3DClass::Load",
+   "symbol": "?Load@CardinalSpline3DClass@@UAE_NAAVChunkLoadClass@@@Z",
+   "length": 212
+  },
+  "Z": {
+   "object": "cardinalspline.obj",
+   "function": "CardinalSpline3DClass::Load",
+   "symbol": "?Load@CardinalSpline3DClass@@UAE_NAAVChunkLoadClass@@@Z",
+   "length": 212
+  }
+ },
+ "0x8E0F40": {
+  "R": {
+   "object": "cardinalspline.obj",
+   "function": "CardinalSpline1DClass::Add_Key",
+   "symbol": "?Add_Key@CardinalSpline1DClass@@UAEHMM@Z",
+   "length": 144
+  },
+  "G": {
+   "object": "cardinalspline.obj",
+   "function": "CardinalSpline1DClass::Add_Key",
+   "symbol": "?Add_Key@CardinalSpline1DClass@@UAEHMM@Z",
+   "length": 144
+  },
+  "Z": {
+   "object": "cardinalspline.obj",
+   "function": "CardinalSpline1DClass::Add_Key",
+   "symbol": "?Add_Key@CardinalSpline1DClass@@UAEHMM@Z",
+   "length": 144
+  }
+ },
+ "0x8E1060": {
+  "R": {
+   "object": "cardinalspline.obj",
+   "function": "CardinalSpline1DClass::Update_Tangents",
+   "symbol": "?Update_Tangents@CardinalSpline1DClass@@UAEXXZ",
+   "length": 383
+  },
+  "G": {
+   "object": "cardinalspline.obj",
+   "function": "CardinalSpline1DClass::Update_Tangents",
+   "symbol": "?Update_Tangents@CardinalSpline1DClass@@UAEXXZ",
+   "length": 383
+  },
+  "Z": {
+   "object": "cardinalspline.obj",
+   "function": "CardinalSpline1DClass::Update_Tangents",
+   "symbol": "?Update_Tangents@CardinalSpline1DClass@@UAEXXZ",
+   "length": 383
+  }
+ },
+ "0x8E11F0": {
+  "R": {
+   "object": "cardinalspline.obj",
+   "function": "CardinalSpline1DClass::Save",
+   "symbol": "?Save@CardinalSpline1DClass@@UAE_NAAVChunkSaveClass@@@Z",
+   "length": 104
+  },
+  "G": {
+   "object": "cardinalspline.obj",
+   "function": "CardinalSpline1DClass::Save",
+   "symbol": "?Save@CardinalSpline1DClass@@UAE_NAAVChunkSaveClass@@@Z",
+   "length": 104
+  },
+  "Z": {
+   "object": "cardinalspline.obj",
+   "function": "CardinalSpline1DClass::Save",
+   "symbol": "?Save@CardinalSpline1DClass@@UAE_NAAVChunkSaveClass@@@Z",
+   "length": 104
+  }
+ },
+ "0x8E1260": {
+  "R": {
+   "object": "cardinalspline.obj",
+   "function": "CardinalSpline1DClass::Load",
+   "symbol": "?Load@CardinalSpline1DClass@@UAE_NAAVChunkLoadClass@@@Z",
+   "length": 212
+  },
+  "G": {
+   "object": "cardinalspline.obj",
+   "function": "CardinalSpline1DClass::Load",
+   "symbol": "?Load@CardinalSpline1DClass@@UAE_NAAVChunkLoadClass@@@Z",
+   "length": 212
+  },
+  "Z": {
+   "object": "cardinalspline.obj",
+   "function": "CardinalSpline1DClass::Load",
+   "symbol": "?Load@CardinalSpline1DClass@@UAE_NAAVChunkLoadClass@@@Z",
+   "length": 212
+  }
+ },
+ "0x8E1660": {
+  "R": {
+   "object": "tri.obj",
+   "function": "TriClass::Find_Dominant_Plane",
+   "symbol": "?Find_Dominant_Plane@TriClass@@QBEXPAH0@Z",
+   "length": 196
+  },
+  "G": {
+   "object": "tri.obj",
+   "function": "TriClass::Find_Dominant_Plane",
+   "symbol": "?Find_Dominant_Plane@TriClass@@QBEXPAH0@Z",
+   "length": 196
+  },
+  "Z": {
+   "object": "tri.obj",
+   "function": "TriClass::Find_Dominant_Plane",
+   "symbol": "?Find_Dominant_Plane@TriClass@@QBEXPAH0@Z",
+   "length": 196
+  }
+ },
+ "0x8E1730": {
+  "G": {
+   "object": "tri.obj",
+   "function": "TriClass::Contains_Point",
+   "symbol": "?Contains_Point@TriClass@@QBE_NABVVector3@@@Z",
+   "length": 327
+  },
+  "Z": {
+   "object": "tri.obj",
+   "function": "TriClass::Contains_Point",
+   "symbol": "?Contains_Point@TriClass@@QBE_NABVVector3@@@Z",
+   "length": 327
+  }
+ },
+ "0x8E1880": {
+  "R": {
+   "object": "colmathobbox.obj",
+   "function": "CollisionMath::Overlap_Test",
+   "symbol": "?Overlap_Test@CollisionMath@@SA?AW4OverlapType@1@ABVOBBoxClass@@ABVVector3@@@Z",
+   "length": 247
+  },
+  "G": {
+   "object": "colmathobbox.obj",
+   "function": "CollisionMath::Overlap_Test",
+   "symbol": "?Overlap_Test@CollisionMath@@SA?AW4OverlapType@1@ABVOBBoxClass@@ABVVector3@@@Z",
+   "length": 247
+  },
+  "Z": {
+   "object": "colmathobbox.obj",
+   "function": "CollisionMath::Overlap_Test",
+   "symbol": "?Overlap_Test@CollisionMath@@SA?AW4OverlapType@1@ABVOBBoxClass@@ABVVector3@@@Z",
+   "length": 247
+  }
+ },
+ "0x8E1980": {
+  "R": {
+   "object": "colmathobbox.obj",
+   "function": "CollisionMath::Overlap_Test",
+   "symbol": "?Overlap_Test@CollisionMath@@SA?AW4OverlapType@1@ABVOBBoxClass@@ABVLineSegClass@@@Z",
+   "length": 142
+  },
+  "G": {
+   "object": "colmathobbox.obj",
+   "function": "CollisionMath::Overlap_Test",
+   "symbol": "?Overlap_Test@CollisionMath@@SA?AW4OverlapType@1@ABVOBBoxClass@@ABVLineSegClass@@@Z",
+   "length": 142
+  },
+  "Z": {
+   "object": "colmathobbox.obj",
+   "function": "CollisionMath::Overlap_Test",
+   "symbol": "?Overlap_Test@CollisionMath@@SA?AW4OverlapType@1@ABVOBBoxClass@@ABVLineSegClass@@@Z",
+   "length": 142
+  }
+ },
+ "0x8E1BF0": {
+  "R": {
+   "object": "colmathobbox.obj",
+   "function": "CollisionMath::Collide",
+   "symbol": "?Collide@CollisionMath@@SA_NABVOBBoxClass@@ABVVector3@@ABVPlaneClass@@PAUCastResultStruct@@@Z",
+   "length": 737
+  }
+ },
+ "0x8E1EE0": {
+  "R": {
+   "object": "colmathfrustum.obj",
+   "function": "CollisionMath::Overlap_Test",
+   "symbol": "?Overlap_Test@CollisionMath@@SA?AW4OverlapType@1@ABVFrustumClass@@ABVVector3@@@Z",
+   "length": 123
+  },
+  "G": {
+   "object": "colmathfrustum.obj",
+   "function": "CollisionMath::Overlap_Test",
+   "symbol": "?Overlap_Test@CollisionMath@@SA?AW4OverlapType@1@ABVFrustumClass@@ABVVector3@@@Z",
+   "length": 123
+  },
+  "Z": {
+   "object": "colmathfrustum.obj",
+   "function": "CollisionMath::Overlap_Test",
+   "symbol": "?Overlap_Test@CollisionMath@@SA?AW4OverlapType@1@ABVFrustumClass@@ABVVector3@@@Z",
+   "length": 123
+  }
+ },
+ "0x8E2000": {
+  "R": {
+   "object": "colmathfrustum.obj",
+   "function": "CollisionMath::Overlap_Test",
+   "symbol": "?Overlap_Test@CollisionMath@@SA?AW4OverlapType@1@ABVFrustumClass@@ABVAABoxClass@@@Z",
+   "length": 323
+  },
+  "G": {
+   "object": "colmathfrustum.obj",
+   "function": "CollisionMath::Overlap_Test",
+   "symbol": "?Overlap_Test@CollisionMath@@SA?AW4OverlapType@1@ABVFrustumClass@@ABVAABoxClass@@@Z",
+   "length": 323
+  },
+  "Z": {
+   "object": "colmathfrustum.obj",
+   "function": "CollisionMath::Overlap_Test",
+   "symbol": "?Overlap_Test@CollisionMath@@SA?AW4OverlapType@1@ABVFrustumClass@@ABVAABoxClass@@@Z",
+   "length": 323
+  }
+ },
+ "0x8E21A0": {
+  "R": {
+   "object": "colmathfrustum.obj",
+   "function": "CollisionMath::Overlap_Test",
+   "symbol": "?Overlap_Test@CollisionMath@@SA?AW4OverlapType@1@ABVFrustumClass@@ABVOBBoxClass@@AAH@Z",
+   "length": 124
+  },
+  "G": {
+   "object": "colmathfrustum.obj",
+   "function": "CollisionMath::Overlap_Test",
+   "symbol": "?Overlap_Test@CollisionMath@@SA?AW4OverlapType@1@ABVFrustumClass@@ABVOBBoxClass@@AAH@Z",
+   "length": 124
+  },
+  "Z": {
+   "object": "colmathfrustum.obj",
+   "function": "CollisionMath::Overlap_Test",
+   "symbol": "?Overlap_Test@CollisionMath@@SA?AW4OverlapType@1@ABVFrustumClass@@ABVOBBoxClass@@AAH@Z",
+   "length": 124
+  }
+ },
+ "0x8E2220": {
+  "R": {
+   "object": "colmath.obj",
+   "function": "$E4",
+   "symbol": "_$E4",
+   "length": 73
+  },
+  "G": {
+   "object": "colmath.obj",
+   "function": "$E4",
+   "symbol": "_$E4",
+   "length": 73
+  },
+  "Z": {
+   "object": "colmath.obj",
+   "function": "$E4",
+   "symbol": "_$E4",
+   "length": 73
+  }
+ },
+ "0x8E2270": {
+  "R": {
+   "object": "colmath.obj",
+   "function": "CollisionMath::?0ColmathStatsStruct",
+   "symbol": "??0ColmathStatsStruct@CollisionMath@@QAE@XZ",
+   "length": 46
+  },
+  "G": {
+   "object": "colmath.obj",
+   "function": "CollisionMath::?0ColmathStatsStruct",
+   "symbol": "??0ColmathStatsStruct@CollisionMath@@QAE@XZ",
+   "length": 46
+  },
+  "Z": {
+   "object": "colmath.obj",
+   "function": "CollisionMath::?0ColmathStatsStruct",
+   "symbol": "??0ColmathStatsStruct@CollisionMath@@QAE@XZ",
+   "length": 46
+  }
+ },
+ "0x8E22A0": {
+  "R": {
+   "object": "colmath.obj",
+   "function": "ColmathStatsStruct::Reset",
+   "symbol": "?Reset@ColmathStatsStruct@CollisionMath@@QAEXXZ",
+   "length": 44
+  },
+  "G": {
+   "object": "colmath.obj",
+   "function": "ColmathStatsStruct::Reset",
+   "symbol": "?Reset@ColmathStatsStruct@CollisionMath@@QAEXXZ",
+   "length": 44
+  },
+  "Z": {
+   "object": "colmath.obj",
+   "function": "ColmathStatsStruct::Reset",
+   "symbol": "?Reset@ColmathStatsStruct@CollisionMath@@QAEXXZ",
+   "length": 44
+  }
+ },
+ "0x8E22D0": {
+  "R": {
+   "object": "colmathaabox.obj",
+   "function": "CollisionMath::Intersection_Test",
+   "symbol": "?Intersection_Test@CollisionMath@@SA_NABVAABoxClass@@0@Z",
+   "length": 161
+  },
+  "G": {
+   "object": "colmathaabox.obj",
+   "function": "CollisionMath::Intersection_Test",
+   "symbol": "?Intersection_Test@CollisionMath@@SA_NABVAABoxClass@@0@Z",
+   "length": 161
+  },
+  "Z": {
+   "object": "colmathaabox.obj",
+   "function": "CollisionMath::Intersection_Test",
+   "symbol": "?Intersection_Test@CollisionMath@@SA_NABVAABoxClass@@0@Z",
+   "length": 161
+  }
+ },
+ "0x8E2380": {
+  "R": {
+   "object": "colmathaabox.obj",
+   "function": "CollisionMath::Overlap_Test",
+   "symbol": "?Overlap_Test@CollisionMath@@SA?AW4OverlapType@1@ABVAABoxClass@@ABVSphereClass@@@Z",
+   "length": 199
+  },
+  "G": {
+   "object": "colmathaabox.obj",
+   "function": "CollisionMath::Overlap_Test",
+   "symbol": "?Overlap_Test@CollisionMath@@SA?AW4OverlapType@1@ABVAABoxClass@@ABVSphereClass@@@Z",
+   "length": 199
+  },
+  "Z": {
+   "object": "colmathaabox.obj",
+   "function": "CollisionMath::Overlap_Test",
+   "symbol": "?Overlap_Test@CollisionMath@@SA?AW4OverlapType@1@ABVAABoxClass@@ABVSphereClass@@@Z",
+   "length": 199
+  }
+ },
+ "0x8E2450": {
+  "R": {
+   "object": "colmathaabox.obj",
+   "function": "CollisionMath::Overlap_Test",
+   "symbol": "?Overlap_Test@CollisionMath@@SA?AW4OverlapType@1@ABVAABoxClass@@ABVLineSegClass@@@Z",
+   "length": 982
+  },
+  "G": {
+   "object": "colmathaabox.obj",
+   "function": "CollisionMath::Overlap_Test",
+   "symbol": "?Overlap_Test@CollisionMath@@SA?AW4OverlapType@1@ABVAABoxClass@@ABVLineSegClass@@@Z",
+   "length": 982
+  },
+  "Z": {
+   "object": "colmathaabox.obj",
+   "function": "CollisionMath::Overlap_Test",
+   "symbol": "?Overlap_Test@CollisionMath@@SA?AW4OverlapType@1@ABVAABoxClass@@ABVLineSegClass@@@Z",
+   "length": 982
+  }
+ },
+ "0x8E2830": {
+  "R": {
+   "object": "colmathaabox.obj",
+   "function": "CollisionMath::Overlap_Test",
+   "symbol": "?Overlap_Test@CollisionMath@@SA?AW4OverlapType@1@ABVAABoxClass@@ABVTriClass@@@Z",
+   "length": 171
+  },
+  "G": {
+   "object": "colmathaabox.obj",
+   "function": "CollisionMath::Overlap_Test",
+   "symbol": "?Overlap_Test@CollisionMath@@SA?AW4OverlapType@1@ABVAABoxClass@@ABVTriClass@@@Z",
+   "length": 171
+  },
+  "Z": {
+   "object": "colmathaabox.obj",
+   "function": "CollisionMath::Overlap_Test",
+   "symbol": "?Overlap_Test@CollisionMath@@SA?AW4OverlapType@1@ABVAABoxClass@@ABVTriClass@@@Z",
+   "length": 171
+  }
+ },
+ "0x8E28E0": {
+  "R": {
+   "object": "colmathaabox.obj",
+   "function": "CollisionMath::Collide",
+   "symbol": "?Collide@CollisionMath@@SA_NABVAABoxClass@@ABVVector3@@ABVPlaneClass@@PAUCastResultStruct@@@Z",
+   "length": 629
+  }
+ },
+ "0x8E2B60": {
+  "R": {
+   "object": "colmathaabox.obj",
+   "function": "CollisionMath::Collide",
+   "symbol": "?Collide@CollisionMath@@SA_NABVAABoxClass@@ABVVector3@@0PAUCastResultStruct@@@Z",
+   "length": 650
+  },
+  "Z": {
+   "object": "colmathaabox.obj",
+   "function": "CollisionMath::Collide",
+   "symbol": "?Collide@CollisionMath@@SA_NABVAABoxClass@@ABVVector3@@0PAUCastResultStruct@@@Z",
+   "length": 650
+  }
+ },
+ "0x8E2DF0": {
+  "R": {
+   "object": "colmathaabox.obj",
+   "function": "aab_separation_test",
+   "symbol": "?aab_separation_test@@YA_NAAUAABCollisionStruct@@H@Z",
+   "length": 235
+  },
+  "G": {
+   "object": "colmathaabox.obj",
+   "function": "aab_separation_test",
+   "symbol": "?aab_separation_test@@YA_NAAUAABCollisionStruct@@H@Z",
+   "length": 235
+  },
+  "Z": {
+   "object": "colmathaabox.obj",
+   "function": "aab_separation_test",
+   "symbol": "?aab_separation_test@@YA_NAAUAABCollisionStruct@@H@Z",
+   "length": 235
+  }
+ },
+ "0x8E2EE0": {
+  "R": {
+   "object": "aabox.obj",
+   "function": "AABoxClass::Init_Random",
+   "symbol": "?Init_Random@AABoxClass@@QAEXMMMM@Z",
+   "length": 126
+  },
+  "G": {
+   "object": "aabox.obj",
+   "function": "AABoxClass::Init_Random",
+   "symbol": "?Init_Random@AABoxClass@@QAEXMMMM@Z",
+   "length": 126
+  },
+  "Z": {
+   "object": "aabox.obj",
+   "function": "AABoxClass::Init_Random",
+   "symbol": "?Init_Random@AABoxClass@@QAEXMMMM@Z",
+   "length": 126
+  }
+ },
+ "0x8E2F60": {
+  "R": {
+   "object": "aabox.obj",
+   "function": "AABoxClass::Transform",
+   "symbol": "?Transform@AABoxClass@@SAXABVMatrix3D@@ABV1@PAV1@@Z",
+   "length": 28
+  },
+  "G": {
+   "object": "aabox.obj",
+   "function": "AABoxClass::Transform",
+   "symbol": "?Transform@AABoxClass@@SAXABVMatrix3D@@ABV1@PAV1@@Z",
+   "length": 28
+  },
+  "Z": {
+   "object": "aabox.obj",
+   "function": "AABoxClass::Transform",
+   "symbol": "?Transform@AABoxClass@@SAXABVMatrix3D@@ABV1@PAV1@@Z",
+   "length": 28
+  }
+ },
+ "0x8E2F80": {
+  "R": {
+   "object": "aabox.obj",
+   "function": "MinMaxAABoxClass::Init_Empty",
+   "symbol": "?Init_Empty@MinMaxAABoxClass@@QAEXXZ",
+   "length": 28
+  },
+  "G": {
+   "object": "aabox.obj",
+   "function": "MinMaxAABoxClass::Init_Empty",
+   "symbol": "?Init_Empty@MinMaxAABoxClass@@QAEXXZ",
+   "length": 28
+  },
+  "Z": {
+   "object": "aabox.obj",
+   "function": "MinMaxAABoxClass::Init_Empty",
+   "symbol": "?Init_Empty@MinMaxAABoxClass@@QAEXXZ",
+   "length": 28
+  }
+ },
+ "0x8E2FA0": {
+  "R": {
+   "object": "colmathplane.obj",
+   "function": "CollisionMath::Overlap_Test",
+   "symbol": "?Overlap_Test@CollisionMath@@SA?AW4OverlapType@1@ABVAAPlaneClass@@ABVVector3@@@Z",
+   "length": 67
+  },
+  "G": {
+   "object": "colmathplane.obj",
+   "function": "CollisionMath::Overlap_Test",
+   "symbol": "?Overlap_Test@CollisionMath@@SA?AW4OverlapType@1@ABVAAPlaneClass@@ABVVector3@@@Z",
+   "length": 67
+  },
+  "Z": {
+   "object": "colmathplane.obj",
+   "function": "CollisionMath::Overlap_Test",
+   "symbol": "?Overlap_Test@CollisionMath@@SA?AW4OverlapType@1@ABVAAPlaneClass@@ABVVector3@@@Z",
+   "length": 67
+  }
+ },
+ "0x8E2FF0": {
+  "R": {
+   "object": "colmathplane.obj",
+   "function": "CollisionMath::Overlap_Test",
+   "symbol": "?Overlap_Test@CollisionMath@@SA?AW4OverlapType@1@ABVAAPlaneClass@@ABVLineSegClass@@@Z",
+   "length": 169
+  },
+  "G": {
+   "object": "colmathplane.obj",
+   "function": "CollisionMath::Overlap_Test",
+   "symbol": "?Overlap_Test@CollisionMath@@SA?AW4OverlapType@1@ABVAAPlaneClass@@ABVLineSegClass@@@Z",
+   "length": 169
+  },
+  "Z": {
+   "object": "colmathplane.obj",
+   "function": "CollisionMath::Overlap_Test",
+   "symbol": "?Overlap_Test@CollisionMath@@SA?AW4OverlapType@1@ABVAAPlaneClass@@ABVLineSegClass@@@Z",
+   "length": 169
+  }
+ },
+ "0x8E30A0": {
+  "R": {
+   "object": "colmathplane.obj",
+   "function": "CollisionMath::Overlap_Test",
+   "symbol": "?Overlap_Test@CollisionMath@@SA?AW4OverlapType@1@ABVAAPlaneClass@@ABVTriClass@@@Z",
+   "length": 239
+  },
+  "G": {
+   "object": "colmathplane.obj",
+   "function": "CollisionMath::Overlap_Test",
+   "symbol": "?Overlap_Test@CollisionMath@@SA?AW4OverlapType@1@ABVAAPlaneClass@@ABVTriClass@@@Z",
+   "length": 239
+  },
+  "Z": {
+   "object": "colmathplane.obj",
+   "function": "CollisionMath::Overlap_Test",
+   "symbol": "?Overlap_Test@CollisionMath@@SA?AW4OverlapType@1@ABVAAPlaneClass@@ABVTriClass@@@Z",
+   "length": 239
+  }
+ },
+ "0x8E3190": {
+  "R": {
+   "object": "colmathplane.obj",
+   "function": "CollisionMath::Overlap_Test",
+   "symbol": "?Overlap_Test@CollisionMath@@SA?AW4OverlapType@1@ABVAAPlaneClass@@ABVSphereClass@@@Z",
+   "length": 55
+  },
+  "G": {
+   "object": "colmathplane.obj",
+   "function": "CollisionMath::Overlap_Test",
+   "symbol": "?Overlap_Test@CollisionMath@@SA?AW4OverlapType@1@ABVAAPlaneClass@@ABVSphereClass@@@Z",
+   "length": 55
+  },
+  "Z": {
+   "object": "colmathplane.obj",
+   "function": "CollisionMath::Overlap_Test",
+   "symbol": "?Overlap_Test@CollisionMath@@SA?AW4OverlapType@1@ABVAAPlaneClass@@ABVSphereClass@@@Z",
+   "length": 55
+  }
+ },
+ "0x8E31D0": {
+  "R": {
+   "object": "colmathplane.obj",
+   "function": "CollisionMath::Overlap_Test",
+   "symbol": "?Overlap_Test@CollisionMath@@SA?AW4OverlapType@1@ABVAAPlaneClass@@ABVAABoxClass@@@Z",
+   "length": 158
+  },
+  "G": {
+   "object": "colmathplane.obj",
+   "function": "CollisionMath::Overlap_Test",
+   "symbol": "?Overlap_Test@CollisionMath@@SA?AW4OverlapType@1@ABVAAPlaneClass@@ABVAABoxClass@@@Z",
+   "length": 158
+  },
+  "Z": {
+   "object": "colmathplane.obj",
+   "function": "CollisionMath::Overlap_Test",
+   "symbol": "?Overlap_Test@CollisionMath@@SA?AW4OverlapType@1@ABVAAPlaneClass@@ABVAABoxClass@@@Z",
+   "length": 158
+  }
+ },
+ "0x8E3280": {
+  "R": {
+   "object": "colmathplane.obj",
+   "function": "CollisionMath::Overlap_Test",
+   "symbol": "?Overlap_Test@CollisionMath@@SA?AW4OverlapType@1@ABVPlaneClass@@ABVLineSegClass@@@Z",
+   "length": 199
+  },
+  "G": {
+   "object": "colmathplane.obj",
+   "function": "CollisionMath::Overlap_Test",
+   "symbol": "?Overlap_Test@CollisionMath@@SA?AW4OverlapType@1@ABVPlaneClass@@ABVLineSegClass@@@Z",
+   "length": 199
+  },
+  "Z": {
+   "object": "colmathplane.obj",
+   "function": "CollisionMath::Overlap_Test",
+   "symbol": "?Overlap_Test@CollisionMath@@SA?AW4OverlapType@1@ABVPlaneClass@@ABVLineSegClass@@@Z",
+   "length": 199
+  }
+ },
+ "0x8E3350": {
+  "R": {
+   "object": "colmathplane.obj",
+   "function": "CollisionMath::Overlap_Test",
+   "symbol": "?Overlap_Test@CollisionMath@@SA?AW4OverlapType@1@ABVPlaneClass@@ABVTriClass@@@Z",
+   "length": 283
+  },
+  "G": {
+   "object": "colmathplane.obj",
+   "function": "CollisionMath::Overlap_Test",
+   "symbol": "?Overlap_Test@CollisionMath@@SA?AW4OverlapType@1@ABVPlaneClass@@ABVTriClass@@@Z",
+   "length": 283
+  },
+  "Z": {
+   "object": "colmathplane.obj",
+   "function": "CollisionMath::Overlap_Test",
+   "symbol": "?Overlap_Test@CollisionMath@@SA?AW4OverlapType@1@ABVPlaneClass@@ABVTriClass@@@Z",
+   "length": 283
+  }
+ },
+ "0x8E3470": {
+  "R": {
+   "object": "colmathplane.obj",
+   "function": "CollisionMath::Overlap_Test",
+   "symbol": "?Overlap_Test@CollisionMath@@SA?AW4OverlapType@1@ABVPlaneClass@@ABVSphereClass@@@Z",
+   "length": 76
+  },
+  "G": {
+   "object": "colmathplane.obj",
+   "function": "CollisionMath::Overlap_Test",
+   "symbol": "?Overlap_Test@CollisionMath@@SA?AW4OverlapType@1@ABVPlaneClass@@ABVSphereClass@@@Z",
+   "length": 76
+  },
+  "Z": {
+   "object": "colmathplane.obj",
+   "function": "CollisionMath::Overlap_Test",
+   "symbol": "?Overlap_Test@CollisionMath@@SA?AW4OverlapType@1@ABVPlaneClass@@ABVSphereClass@@@Z",
+   "length": 76
+  }
+ },
+ "0x8E34C0": {
+  "R": {
+   "object": "colmathplane.obj",
+   "function": "CollisionMath::Overlap_Test",
+   "symbol": "?Overlap_Test@CollisionMath@@SA?AW4OverlapType@1@ABVPlaneClass@@ABVOBBoxClass@@@Z",
+   "length": 490
+  },
+  "G": {
+   "object": "colmathplane.obj",
+   "function": "CollisionMath::Overlap_Test",
+   "symbol": "?Overlap_Test@CollisionMath@@SA?AW4OverlapType@1@ABVPlaneClass@@ABVOBBoxClass@@@Z",
+   "length": 490
+  },
+  "Z": {
+   "object": "colmathplane.obj",
+   "function": "CollisionMath::Overlap_Test",
+   "symbol": "?Overlap_Test@CollisionMath@@SA?AW4OverlapType@1@ABVPlaneClass@@ABVOBBoxClass@@@Z",
+   "length": 490
+  }
+ },
+ "0x966160": {
+  "R": {
+   "object": "vehiclecurve.obj",
+   "function": "VehicleCurveClass::?4_ArcInfoStruct",
+   "symbol": "??4_ArcInfoStruct@VehicleCurveClass@@QAEAAU01@ABU01@@Z",
+   "length": 85
+  },
+  "G": {
+   "object": "vehiclecurve.obj",
+   "function": "VehicleCurveClass::?4_ArcInfoStruct",
+   "symbol": "??4_ArcInfoStruct@VehicleCurveClass@@QAEAAU01@ABU01@@Z",
+   "length": 85
+  },
+  "Z": {
+   "object": "vehiclecurve.obj",
+   "function": "VehicleCurveClass::?4_ArcInfoStruct",
+   "symbol": "??4_ArcInfoStruct@VehicleCurveClass@@QAEAAU01@ABU01@@Z",
+   "length": 85
+  }
+ },
+ "0x9CEFF0": {
+  "R": {
+   "object": "gridcull.obj",
+   "function": "FastCriticalSectionClass::Thread_Safe_Set_Flag",
+   "symbol": "?Thread_Safe_Set_Flag@FastCriticalSectionClass@@AAEXXZ",
+   "length": 52
+  }
+ },
+ "0xA159D0": {
+  "R": {
+   "object": "v3_rnd.obj",
+   "function": "?0Vector3SolidBoxRandomizer",
+   "symbol": "??0Vector3SolidBoxRandomizer@@QAE@ABVVector3@@@Z",
+   "length": 109
+  },
+  "G": {
+   "object": "v3_rnd.obj",
+   "function": "?0Vector3SolidBoxRandomizer",
+   "symbol": "??0Vector3SolidBoxRandomizer@@QAE@ABVVector3@@@Z",
+   "length": 109
+  },
+  "Z": {
+   "object": "v3_rnd.obj",
+   "function": "?0Vector3SolidBoxRandomizer",
+   "symbol": "??0Vector3SolidBoxRandomizer@@QAE@ABVVector3@@@Z",
+   "length": 109
+  }
+ },
+ "0xA15AE0": {
+  "R": {
+   "object": "v3_rnd.obj",
+   "function": "Vector3SolidBoxRandomizer::Get_Vector",
+   "symbol": "?Get_Vector@Vector3SolidBoxRandomizer@@UAEXAAVVector3@@@Z",
+   "length": 104
+  },
+  "G": {
+   "object": "v3_rnd.obj",
+   "function": "Vector3SolidBoxRandomizer::Get_Vector",
+   "symbol": "?Get_Vector@Vector3SolidBoxRandomizer@@UAEXAAVVector3@@@Z",
+   "length": 104
+  },
+  "Z": {
+   "object": "v3_rnd.obj",
+   "function": "Vector3SolidBoxRandomizer::Get_Vector",
+   "symbol": "?Get_Vector@Vector3SolidBoxRandomizer@@UAEXAAVVector3@@@Z",
+   "length": 104
+  }
+ },
+ "0xA15B50": {
+  "R": {
+   "object": "v3_rnd.obj",
+   "function": "Vector3SolidBoxRandomizer::Get_Maximum_Extent",
+   "symbol": "?Get_Maximum_Extent@Vector3SolidBoxRandomizer@@UAEMXZ",
+   "length": 43
+  },
+  "G": {
+   "object": "v3_rnd.obj",
+   "function": "Vector3SolidBoxRandomizer::Get_Maximum_Extent",
+   "symbol": "?Get_Maximum_Extent@Vector3SolidBoxRandomizer@@UAEMXZ",
+   "length": 43
+  },
+  "Z": {
+   "object": "v3_rnd.obj",
+   "function": "Vector3SolidBoxRandomizer::Get_Maximum_Extent",
+   "symbol": "?Get_Maximum_Extent@Vector3SolidBoxRandomizer@@UAEMXZ",
+   "length": 43
+  }
+ },
+ "0xA15B80": {
+  "R": {
+   "object": "v3_rnd.obj",
+   "function": "Vector3SolidBoxRandomizer::Scale",
+   "symbol": "?Scale@Vector3SolidBoxRandomizer@@UAEXM@Z",
+   "length": 58
+  },
+  "G": {
+   "object": "v3_rnd.obj",
+   "function": "Vector3SolidBoxRandomizer::Scale",
+   "symbol": "?Scale@Vector3SolidBoxRandomizer@@UAEXM@Z",
+   "length": 58
+  },
+  "Z": {
+   "object": "v3_rnd.obj",
+   "function": "Vector3SolidBoxRandomizer::Scale",
+   "symbol": "?Scale@Vector3SolidBoxRandomizer@@UAEXM@Z",
+   "length": 58
+  }
+ },
+ "0xA15C70": {
+  "R": {
+   "object": "v3_rnd.obj",
+   "function": "Vector3SolidSphereRandomizer::Get_Vector",
+   "symbol": "?Get_Vector@Vector3SolidSphereRandomizer@@UAEXAAVVector3@@@Z",
+   "length": 286
+  },
+  "G": {
+   "object": "v3_rnd.obj",
+   "function": "Vector3SolidSphereRandomizer::Get_Vector",
+   "symbol": "?Get_Vector@Vector3SolidSphereRandomizer@@UAEXAAVVector3@@@Z",
+   "length": 286
+  },
+  "Z": {
+   "object": "v3_rnd.obj",
+   "function": "Vector3SolidSphereRandomizer::Get_Vector",
+   "symbol": "?Get_Vector@Vector3SolidSphereRandomizer@@UAEXAAVVector3@@@Z",
+   "length": 286
+  }
+ },
+ "0xA15E80": {
+  "R": {
+   "object": "v3_rnd.obj",
+   "function": "Vector3HollowSphereRandomizer::Get_Vector",
+   "symbol": "?Get_Vector@Vector3HollowSphereRandomizer@@UAEXAAVVector3@@@Z",
+   "length": 195
+  },
+  "G": {
+   "object": "v3_rnd.obj",
+   "function": "Vector3HollowSphereRandomizer::Get_Vector",
+   "symbol": "?Get_Vector@Vector3HollowSphereRandomizer@@UAEXAAVVector3@@@Z",
+   "length": 195
+  },
+  "Z": {
+   "object": "v3_rnd.obj",
+   "function": "Vector3HollowSphereRandomizer::Get_Vector",
+   "symbol": "?Get_Vector@Vector3HollowSphereRandomizer@@UAEXAAVVector3@@@Z",
+   "length": 195
+  }
+ },
+ "0xA15F90": {
+  "R": {
+   "object": "v3_rnd.obj",
+   "function": "?0Vector3SolidCylinderRandomizer",
+   "symbol": "??0Vector3SolidCylinderRandomizer@@QAE@MM@Z",
+   "length": 81
+  },
+  "G": {
+   "object": "v3_rnd.obj",
+   "function": "?0Vector3SolidCylinderRandomizer",
+   "symbol": "??0Vector3SolidCylinderRandomizer@@QAE@MM@Z",
+   "length": 81
+  },
+  "Z": {
+   "object": "v3_rnd.obj",
+   "function": "?0Vector3SolidCylinderRandomizer",
+   "symbol": "??0Vector3SolidCylinderRandomizer@@QAE@MM@Z",
+   "length": 81
+  }
+ },
+ "0xA16020": {
+  "R": {
+   "object": "v3_rnd.obj",
+   "function": "Vector3SolidCylinderRandomizer::Clone",
+   "symbol": "?Clone@Vector3SolidCylinderRandomizer@@UBEPAVVector3Randomizer@@XZ",
+   "length": 47
+  },
+  "G": {
+   "object": "v3_rnd.obj",
+   "function": "Vector3SolidCylinderRandomizer::Clone",
+   "symbol": "?Clone@Vector3SolidCylinderRandomizer@@UBEPAVVector3Randomizer@@XZ",
+   "length": 47
+  },
+  "Z": {
+   "object": "v3_rnd.obj",
+   "function": "Vector3SolidCylinderRandomizer::Clone",
+   "symbol": "?Clone@Vector3SolidCylinderRandomizer@@UBEPAVVector3Randomizer@@XZ",
+   "length": 47
+  }
+ },
+ "0xA16070": {
+  "R": {
+   "object": "v3_rnd.obj",
+   "function": "Vector3SolidCylinderRandomizer::Get_Vector",
+   "symbol": "?Get_Vector@Vector3SolidCylinderRandomizer@@UAEXAAVVector3@@@Z",
+   "length": 239
+  },
+  "G": {
+   "object": "v3_rnd.obj",
+   "function": "Vector3SolidCylinderRandomizer::Get_Vector",
+   "symbol": "?Get_Vector@Vector3SolidCylinderRandomizer@@UAEXAAVVector3@@@Z",
+   "length": 239
+  },
+  "Z": {
+   "object": "v3_rnd.obj",
+   "function": "Vector3SolidCylinderRandomizer::Get_Vector",
+   "symbol": "?Get_Vector@Vector3SolidCylinderRandomizer@@UAEXAAVVector3@@@Z",
+   "length": 239
+  }
+ },
+ "0xA16160": {
+  "R": {
+   "object": "v3_rnd.obj",
+   "function": "Vector3SolidCylinderRandomizer::Get_Maximum_Extent",
+   "symbol": "?Get_Maximum_Extent@Vector3SolidCylinderRandomizer@@UAEMXZ",
+   "length": 23
+  },
+  "G": {
+   "object": "v3_rnd.obj",
+   "function": "Vector3SolidCylinderRandomizer::Get_Maximum_Extent",
+   "symbol": "?Get_Maximum_Extent@Vector3SolidCylinderRandomizer@@UAEMXZ",
+   "length": 23
+  },
+  "Z": {
+   "object": "v3_rnd.obj",
+   "function": "Vector3SolidCylinderRandomizer::Get_Maximum_Extent",
+   "symbol": "?Get_Maximum_Extent@Vector3SolidCylinderRandomizer@@UAEMXZ",
+   "length": 23
+  }
+ },
+ "0xA16180": {
+  "R": {
+   "object": "v3_rnd.obj",
+   "function": "Vector3SolidCylinderRandomizer::Scale",
+   "symbol": "?Scale@Vector3SolidCylinderRandomizer@@UAEXM@Z",
+   "length": 48
+  },
+  "G": {
+   "object": "v3_rnd.obj",
+   "function": "Vector3SolidCylinderRandomizer::Scale",
+   "symbol": "?Scale@Vector3SolidCylinderRandomizer@@UAEXM@Z",
+   "length": 48
+  },
+  "Z": {
+   "object": "v3_rnd.obj",
+   "function": "Vector3SolidCylinderRandomizer::Scale",
+   "symbol": "?Scale@Vector3SolidCylinderRandomizer@@UAEXM@Z",
+   "length": 48
+  }
+ }
+}

@@ -1,0 +1,824 @@
+{
+ "0x42F250": {
+  "R": {
+   "object": "wwmemlog.obj",
+   "function": "YGXPAXIHP6EX0::?_H",
+   "symbol": "??_H@YGXPAXIHP6EX0@Z@Z",
+   "length": 42
+  },
+  "G": {
+   "object": "wwmemlog.obj",
+   "function": "YGXPAXIHP6EX0::?_H",
+   "symbol": "??_H@YGXPAXIHP6EX0@Z@Z",
+   "length": 42
+  },
+  "Z": {
+   "object": "wwprofile.obj",
+   "function": "YGXPAXIHP6EX0::?_H",
+   "symbol": "??_H@YGXPAXIHP6EX0@Z@Z",
+   "length": 42
+  }
+ },
+ "0x48C500": {
+  "Z": {
+   "object": "wwprofile.obj",
+   "function": "?4StringClass",
+   "symbol": "??4StringClass@@QAEABV0@ABV0@@Z",
+   "length": 104
+  }
+ },
+ "0x48CA70": {
+  "Z": {
+   "object": "wwprofile.obj",
+   "function": "?4StringClass",
+   "symbol": "??4StringClass@@QAEABV0@PBD@Z",
+   "length": 88
+  }
+ },
+ "0x48CED0": {
+  "Z": {
+   "object": "wwprofile.obj",
+   "function": "?0StringClass",
+   "symbol": "??0StringClass@@QAE@PBD_N@Z",
+   "length": 138
+  }
+ },
+ "0x48E940": {
+  "Z": {
+   "object": "wwprofile.obj",
+   "function": "?$HashTemplateKeyClass::Get_Hash_Value",
+   "symbol": "?Get_Hash_Value@?$HashTemplateKeyClass@VStringClass@@@@SAIABVStringClass@@@Z",
+   "length": 106
+  }
+ },
+ "0x510CC0": {
+  "R": {
+   "object": "wwprofile.obj",
+   "function": "StringClass::Get_Length",
+   "symbol": "?Get_Length@StringClass@@QBEHXZ",
+   "length": 39
+  },
+  "Z": {
+   "object": "wwprofile.obj",
+   "function": "StringClass::Get_Length",
+   "symbol": "?Get_Length@StringClass@@QBEHXZ",
+   "length": 39
+  }
+ },
+ "0x909500": {
+  "R": {
+   "object": "wwmemlog.obj",
+   "function": "YGXPAXIHP6EX0::?_I",
+   "symbol": "??_I@YGXPAXIHP6EX0@Z@Z",
+   "length": 49
+  },
+  "G": {
+   "object": "wwmemlog.obj",
+   "function": "YGXPAXIHP6EX0::?_I",
+   "symbol": "??_I@YGXPAXIHP6EX0@Z@Z",
+   "length": 49
+  },
+  "Z": {
+   "object": "wwprofile.obj",
+   "function": "YGXPAXIHP6EX0::?_I",
+   "symbol": "??_I@YGXPAXIHP6EX0@Z@Z",
+   "length": 49
+  }
+ },
+ "0x9CEFF0": {
+  "R": {
+   "object": "wwprofile.obj",
+   "function": "FastCriticalSectionClass::Thread_Safe_Set_Flag",
+   "symbol": "?Thread_Safe_Set_Flag@FastCriticalSectionClass@@AAEXXZ",
+   "length": 52
+  }
+ },
+ "0x9E9F20": {
+  "Z": {
+   "object": "wwprofile.obj",
+   "function": "$E67",
+   "symbol": "_$E67",
+   "length": 78
+  }
+ },
+ "0x9E9F70": {
+  "R": {
+   "object": "wwprofile.obj",
+   "function": "WWProfile_Get_System_Time",
+   "symbol": "?WWProfile_Get_System_Time@@YAIXZ",
+   "length": 54
+  },
+  "Z": {
+   "object": "wwprofile.obj",
+   "function": "WWProfile_Get_System_Time",
+   "symbol": "?WWProfile_Get_System_Time@@YAIXZ",
+   "length": 54
+  }
+ },
+ "0x9E9FB0": {
+  "Z": {
+   "object": "wwprofile.obj",
+   "function": "?0WWProfileHierachyNodeClass",
+   "symbol": "??0WWProfileHierachyNodeClass@@QAE@PBDPAV0@@Z",
+   "length": 629
+  }
+ },
+ "0x9EA230": {
+  "Z": {
+   "object": "wwprofile.obj",
+   "function": "?0WWProfileHierachyNodeClass",
+   "symbol": "??0WWProfileHierachyNodeClass@@QAE@IPAV0@@Z",
+   "length": 44
+  }
+ },
+ "0x9EA260": {
+  "Z": {
+   "object": "wwprofile.obj",
+   "function": "?1WWProfileHierachyNodeClass",
+   "symbol": "??1WWProfileHierachyNodeClass@@QAE@XZ",
+   "length": 53
+  }
+ },
+ "0x9EA2A0": {
+  "Z": {
+   "object": "wwprofile.obj",
+   "function": "WWProfileHierachyNodeClass::Clone_Hierarchy",
+   "symbol": "?Clone_Hierarchy@WWProfileHierachyNodeClass@@QAEPAV1@PAV1@@Z",
+   "length": 110
+  }
+ },
+ "0x9EA310": {
+  "Z": {
+   "object": "wwprofile.obj",
+   "function": "WWProfileHierachyNodeClass::Write_To_File",
+   "symbol": "?Write_To_File@WWProfileHierachyNodeClass@@QAEXPAVFileClass@@H@Z",
+   "length": 511
+  }
+ },
+ "0x9EA510": {
+  "Z": {
+   "object": "wwprofile.obj",
+   "function": "WWProfileHierachyNodeClass::Add_To_String_Compact",
+   "symbol": "?Add_To_String_Compact@WWProfileHierachyNodeClass@@QAEXAAVStringClass@@H@Z",
+   "length": 628
+  }
+ },
+ "0x9EA790": {
+  "Z": {
+   "object": "wwprofile.obj",
+   "function": "WWProfileHierachyNodeClass::Get_Sub_Node",
+   "symbol": "?Get_Sub_Node@WWProfileHierachyNodeClass@@QAEPAV1@PBD@Z",
+   "length": 79
+  }
+ },
+ "0x9EA7E0": {
+  "Z": {
+   "object": "wwprofile.obj",
+   "function": "WWProfileHierachyNodeClass::Reset",
+   "symbol": "?Reset@WWProfileHierachyNodeClass@@QAEXXZ",
+   "length": 34
+  }
+ },
+ "0x9EA810": {
+  "R": {
+   "object": "wwprofile.obj",
+   "function": "WWProfileHierachyNodeClass::Call",
+   "symbol": "?Call@WWProfileHierachyNodeClass@@QAEXXZ",
+   "length": 50
+  },
+  "Z": {
+   "object": "wwprofile.obj",
+   "function": "WWProfileHierachyNodeClass::Call",
+   "symbol": "?Call@WWProfileHierachyNodeClass@@QAEXXZ",
+   "length": 50
+  }
+ },
+ "0x9EA850": {
+  "R": {
+   "object": "wwprofile.obj",
+   "function": "WWProfileHierachyNodeClass::Return",
+   "symbol": "?Return@WWProfileHierachyNodeClass@@QAE_NXZ",
+   "length": 99
+  },
+  "Z": {
+   "object": "wwprofile.obj",
+   "function": "WWProfileHierachyNodeClass::Return",
+   "symbol": "?Return@WWProfileHierachyNodeClass@@QAE_NXZ",
+   "length": 99
+  }
+ },
+ "0x9EA8E0": {
+  "R": {
+   "object": "wwprofile.obj",
+   "function": "$E66",
+   "symbol": "_$E66",
+   "length": 75
+  },
+  "G": {
+   "object": "wwprofile.obj",
+   "function": "$E6",
+   "symbol": "_$E6",
+   "length": 75
+  },
+  "Z": {
+   "object": "wwprofile.obj",
+   "function": "$E72",
+   "symbol": "_$E72",
+   "length": 75
+  }
+ },
+ "0x9EAB50": {
+  "R": {
+   "object": "wwprofile.obj",
+   "function": "WWProfileManager::Reset",
+   "symbol": "?Reset@WWProfileManager@@SAXXZ",
+   "length": 90
+  },
+  "Z": {
+   "object": "wwprofile.obj",
+   "function": "WWProfileManager::Reset",
+   "symbol": "?Reset@WWProfileManager@@SAXXZ",
+   "length": 90
+  }
+ },
+ "0x9EABB0": {
+  "Z": {
+   "object": "wwprofile.obj",
+   "function": "WWProfileManager::Increment_Frame_Counter",
+   "symbol": "?Increment_Frame_Counter@WWProfileManager@@SAXXZ",
+   "length": 419
+  }
+ },
+ "0x9EAD70": {
+  "R": {
+   "object": "wwprofile.obj",
+   "function": "WWProfileManager::Get_Time_Since_Reset",
+   "symbol": "?Get_Time_Since_Reset@WWProfileManager@@SAMXZ",
+   "length": 69
+  },
+  "Z": {
+   "object": "wwprofile.obj",
+   "function": "WWProfileManager::Get_Time_Since_Reset",
+   "symbol": "?Get_Time_Since_Reset@WWProfileManager@@SAMXZ",
+   "length": 69
+  }
+ },
+ "0x9EADC0": {
+  "R": {
+   "object": "wwprofile.obj",
+   "function": "WWProfileManager::Get_Iterator",
+   "symbol": "?Get_Iterator@WWProfileManager@@SAPAVWWProfileIterator@@XZ",
+   "length": 33
+  },
+  "G": {
+   "object": "wwprofile.obj",
+   "function": "WWProfileManager::Get_Iterator",
+   "symbol": "?Get_Iterator@WWProfileManager@@SAPAVWWProfileIterator@@XZ",
+   "length": 33
+  },
+  "Z": {
+   "object": "wwprofile.obj",
+   "function": "WWProfileManager::Get_Iterator",
+   "symbol": "?Get_Iterator@WWProfileManager@@SAPAVWWProfileIterator@@XZ",
+   "length": 33
+  }
+ },
+ "0x9EAE00": {
+  "R": {
+   "object": "wwprofile.obj",
+   "function": "WWProfileManager::Begin_Collecting",
+   "symbol": "?Begin_Collecting@WWProfileManager@@SAXXZ",
+   "length": 117
+  },
+  "Z": {
+   "object": "wwprofile.obj",
+   "function": "WWProfileManager::Begin_Collecting",
+   "symbol": "?Begin_Collecting@WWProfileManager@@SAXXZ",
+   "length": 117
+  }
+ },
+ "0x9EB310": {
+  "Z": {
+   "object": "wwprofile.obj",
+   "function": "?_GWWProfileHierachyNodeClass",
+   "symbol": "??_GWWProfileHierachyNodeClass@@QAEPAXI@Z",
+   "length": 53
+  }
+ },
+ "0x9EB350": {
+  "Z": {
+   "object": "wwprofile.obj",
+   "function": "Read_Int",
+   "symbol": "?Read_Int@@YAIPADIIAAI@Z",
+   "length": 73
+  }
+ },
+ "0x9EB3A0": {
+  "Z": {
+   "object": "wwprofile.obj",
+   "function": "Read_String",
+   "symbol": "?Read_String@@YAIPADII0@Z",
+   "length": 62
+  }
+ },
+ "0x9EB3E0": {
+  "Z": {
+   "object": "wwprofile.obj",
+   "function": "Read_Float",
+   "symbol": "?Read_Float@@YAIPADIIAAM@Z",
+   "length": 211
+  }
+ },
+ "0x9EB950": {
+  "Z": {
+   "object": "wwprofile.obj",
+   "function": "Read_Line",
+   "symbol": "?Read_Line@@YAIPADII@Z",
+   "length": 32
+  }
+ },
+ "0x9EB970": {
+  "R": {
+   "object": "wwprofile.obj",
+   "function": "WWProfileManager::Get_In_Order_Iterator",
+   "symbol": "?Get_In_Order_Iterator@WWProfileManager@@SAPAVWWProfileInOrderIterator@@XZ",
+   "length": 24
+  },
+  "G": {
+   "object": "wwprofile.obj",
+   "function": "WWProfileManager::Get_In_Order_Iterator",
+   "symbol": "?Get_In_Order_Iterator@WWProfileManager@@SAPAVWWProfileInOrderIterator@@XZ",
+   "length": 24
+  },
+  "Z": {
+   "object": "wwprofile.obj",
+   "function": "WWProfileManager::Get_In_Order_Iterator",
+   "symbol": "?Get_In_Order_Iterator@WWProfileManager@@SAPAVWWProfileInOrderIterator@@XZ",
+   "length": 24
+  }
+ },
+ "0x9EB9A0": {
+  "Z": {
+   "object": "wwprofile.obj",
+   "function": "?0WWProfileIterator",
+   "symbol": "??0WWProfileIterator@@IAE@PAVWWProfileHierachyNodeClass@@@Z",
+   "length": 17
+  }
+ },
+ "0x9EB9F0": {
+  "Z": {
+   "object": "wwprofile.obj",
+   "function": "WWProfileIterator::Enter_Child",
+   "symbol": "?Enter_Child@WWProfileIterator@@QAEXXZ",
+   "length": 12
+  }
+ },
+ "0x9EBA00": {
+  "Z": {
+   "object": "wwprofile.obj",
+   "function": "WWProfileIterator::Enter_Child",
+   "symbol": "?Enter_Child@WWProfileIterator@@QAEXH@Z",
+   "length": 52
+  }
+ },
+ "0x9EBA40": {
+  "Z": {
+   "object": "wwprofile.obj",
+   "function": "WWProfileIterator::Enter_Parent",
+   "symbol": "?Enter_Parent@WWProfileIterator@@QAEXXZ",
+   "length": 20
+  }
+ },
+ "0x9EBA80": {
+  "Z": {
+   "object": "wwprofile.obj",
+   "function": "WWProfileInOrderIterator::Next",
+   "symbol": "?Next@WWProfileInOrderIterator@@QAEXXZ",
+   "length": 59
+  }
+ },
+ "0x9EBAD0": {
+  "R": {
+   "object": "wwprofile.obj",
+   "function": "?0WWTimeItClass",
+   "symbol": "??0WWTimeItClass@@QAE@PBD@Z",
+   "length": 40
+  },
+  "Z": {
+   "object": "wwprofile.obj",
+   "function": "?0WWTimeItClass",
+   "symbol": "??0WWTimeItClass@@QAE@PBD@Z",
+   "length": 40
+  }
+ },
+ "0x9EBB00": {
+  "R": {
+   "object": "wwprofile.obj",
+   "function": "?1WWTimeItClass",
+   "symbol": "??1WWTimeItClass@@QAE@XZ",
+   "length": 32
+  },
+  "Z": {
+   "object": "wwprofile.obj",
+   "function": "?1WWTimeItClass",
+   "symbol": "??1WWTimeItClass@@QAE@XZ",
+   "length": 32
+  }
+ },
+ "0x9EBB20": {
+  "R": {
+   "object": "wwprofile.obj",
+   "function": "?0WWMeasureItClass",
+   "symbol": "??0WWMeasureItClass@@QAE@PAM@Z",
+   "length": 41
+  },
+  "Z": {
+   "object": "wwprofile.obj",
+   "function": "?0WWMeasureItClass",
+   "symbol": "??0WWMeasureItClass@@QAE@PAM@Z",
+   "length": 41
+  }
+ },
+ "0x9EBB50": {
+  "R": {
+   "object": "wwprofile.obj",
+   "function": "?1WWMeasureItClass",
+   "symbol": "??1WWMeasureItClass@@QAE@XZ",
+   "length": 71
+  },
+  "Z": {
+   "object": "wwprofile.obj",
+   "function": "?1WWMeasureItClass",
+   "symbol": "??1WWMeasureItClass@@QAE@XZ",
+   "length": 71
+  }
+ },
+ "0x9EC0C0": {
+  "Z": {
+   "object": "wwprofile.obj",
+   "function": "?0WWProfileHierachyInfoClass",
+   "symbol": "??0WWProfileHierachyInfoClass@@QAE@PBDPAV0@@Z",
+   "length": 139
+  }
+ },
+ "0x9EC150": {
+  "Z": {
+   "object": "wwprofile.obj",
+   "function": "?1WWProfileHierachyInfoClass",
+   "symbol": "??1WWProfileHierachyInfoClass@@QAE@XZ",
+   "length": 60
+  }
+ },
+ "0x9EC330": {
+  "Z": {
+   "object": "wwprofile.obj",
+   "function": "VStringClass::?1?$HashTemplateClass",
+   "symbol": "??1?$HashTemplateClass@VStringClass@@I@@QAE@XZ",
+   "length": 74
+  }
+ },
+ "0x9EC380": {
+  "Z": {
+   "object": "wwprofile.obj",
+   "function": "IVStringClass::?1?$HashTemplateClass",
+   "symbol": "??1?$HashTemplateClass@IVStringClass@@@@QAE@XZ",
+   "length": 74
+  }
+ },
+ "0x9EC3D0": {
+  "Z": {
+   "object": "wwprofile.obj",
+   "function": "?$HashTemplateClass::Get",
+   "symbol": "?Get@?$HashTemplateClass@IVStringClass@@@@QBE_NABIAAVStringClass@@@Z",
+   "length": 188
+  }
+ },
+ "0x9EC7B0": {
+  "Z": {
+   "object": "wwprofile.obj",
+   "function": "?$HashTemplateClass::?_EEntry",
+   "symbol": "??_EEntry@?$HashTemplateClass@IVStringClass@@@@QAEPAXI@Z",
+   "length": 101
+  }
+ },
+ "0x9ECB50": {
+  "Z": {
+   "object": "wwprofile.obj",
+   "function": "?$HashTemplateClass::Alloc_Entry",
+   "symbol": "?Alloc_Entry@?$HashTemplateClass@IVStringClass@@@@AAEHXZ",
+   "length": 618
+  }
+ },
+ "0x9ED130": {
+  "Z": {
+   "object": "wwprofile.obj",
+   "function": "?$HashTemplateKeyClass::Get_Hash_Value",
+   "symbol": "?Get_Hash_Value@?$HashTemplateKeyClass@I@@SAIABI@Z",
+   "length": 26
+  }
+ },
+ "0x9ED150": {
+  "R": {
+   "object": "wwmemlog.obj",
+   "function": "?4ActiveCategoryStackClass",
+   "symbol": "??4ActiveCategoryStackClass@@QAEAAV0@ABV0@@Z",
+   "length": 72
+  },
+  "G": {
+   "object": "wwmemlog.obj",
+   "function": "?4ActiveCategoryStackClass",
+   "symbol": "??4ActiveCategoryStackClass@@QAEAAV0@ABV0@@Z",
+   "length": 72
+  },
+  "Z": {
+   "object": "wwmemlog.obj",
+   "function": "?4ActiveCategoryStackClass",
+   "symbol": "??4ActiveCategoryStackClass@@QAEAAV0@ABV0@@Z",
+   "length": 72
+  }
+ },
+ "0x9ED1A0": {
+  "R": {
+   "object": "wwmemlog.obj",
+   "function": "ActiveCategoryClass::Get_Active_Stack",
+   "symbol": "?Get_Active_Stack@ActiveCategoryClass@@IAEAAVActiveCategoryStackClass@@XZ",
+   "length": 93
+  },
+  "G": {
+   "object": "wwmemlog.obj",
+   "function": "ActiveCategoryClass::Get_Active_Stack",
+   "symbol": "?Get_Active_Stack@ActiveCategoryClass@@IAEAAVActiveCategoryStackClass@@XZ",
+   "length": 93
+  },
+  "Z": {
+   "object": "wwmemlog.obj",
+   "function": "ActiveCategoryClass::Get_Active_Stack",
+   "symbol": "?Get_Active_Stack@ActiveCategoryClass@@IAEAAVActiveCategoryStackClass@@XZ",
+   "length": 93
+  }
+ },
+ "0x9ED200": {
+  "R": {
+   "object": "wwmemlog.obj",
+   "function": "MemLogClass::Get_Current_Allocated_Memory",
+   "symbol": "?Get_Current_Allocated_Memory@MemLogClass@@QAEHH@Z",
+   "length": 92
+  },
+  "Z": {
+   "object": "wwmemlog.obj",
+   "function": "MemLogClass::Get_Current_Allocated_Memory",
+   "symbol": "?Get_Current_Allocated_Memory@MemLogClass@@QAEHH@Z",
+   "length": 92
+  }
+ },
+ "0x9ED260": {
+  "R": {
+   "object": "wwmemlog.obj",
+   "function": "MemLogClass::Get_Peak_Allocated_Memory",
+   "symbol": "?Get_Peak_Allocated_Memory@MemLogClass@@QAEHH@Z",
+   "length": 93
+  },
+  "Z": {
+   "object": "wwmemlog.obj",
+   "function": "MemLogClass::Get_Peak_Allocated_Memory",
+   "symbol": "?Get_Peak_Allocated_Memory@MemLogClass@@QAEHH@Z",
+   "length": 93
+  }
+ },
+ "0x9ED4B0": {
+  "R": {
+   "object": "wwmemlog.obj",
+   "function": "ActiveCategoryStackClass::Push",
+   "symbol": "?Push@ActiveCategoryStackClass@@QAEXH@Z",
+   "length": 25
+  },
+  "G": {
+   "object": "wwmemlog.obj",
+   "function": "ActiveCategoryStackClass::Push",
+   "symbol": "?Push@ActiveCategoryStackClass@@QAEXH@Z",
+   "length": 25
+  },
+  "Z": {
+   "object": "wwmemlog.obj",
+   "function": "ActiveCategoryStackClass::Push",
+   "symbol": "?Push@ActiveCategoryStackClass@@QAEXH@Z",
+   "length": 25
+  }
+ },
+ "0x9ED4D0": {
+  "R": {
+   "object": "wwmemlog.obj",
+   "function": "MemLogClass::Register_Memory_Released",
+   "symbol": "?Register_Memory_Released@MemLogClass@@QAEXHH@Z",
+   "length": 99
+  },
+  "Z": {
+   "object": "wwmemlog.obj",
+   "function": "MemLogClass::Register_Memory_Released",
+   "symbol": "?Register_Memory_Released@MemLogClass@@QAEXHH@Z",
+   "length": 99
+  }
+ },
+ "0x9EDB50": {
+  "R": {
+   "object": "wwmemlog.obj",
+   "function": "ActiveCategoryStackClass::Init",
+   "symbol": "?Init@ActiveCategoryStackClass@@QAEXH@Z",
+   "length": 33
+  },
+  "G": {
+   "object": "wwmemlog.obj",
+   "function": "ActiveCategoryStackClass::Init",
+   "symbol": "?Init@ActiveCategoryStackClass@@QAEXH@Z",
+   "length": 33
+  },
+  "Z": {
+   "object": "wwmemlog.obj",
+   "function": "ActiveCategoryStackClass::Init",
+   "symbol": "?Init@ActiveCategoryStackClass@@QAEXH@Z",
+   "length": 33
+  }
+ },
+ "0x9EDDC0": {
+  "R": {
+   "object": "wwmemlog.obj",
+   "function": "?0ActiveCategoryStackClass",
+   "symbol": "??0ActiveCategoryStackClass@@QAE@XZ",
+   "length": 75
+  },
+  "G": {
+   "object": "wwmemlog.obj",
+   "function": "?0ActiveCategoryStackClass",
+   "symbol": "??0ActiveCategoryStackClass@@QAE@XZ",
+   "length": 75
+  },
+  "Z": {
+   "object": "wwmemlog.obj",
+   "function": "?0ActiveCategoryStackClass",
+   "symbol": "??0ActiveCategoryStackClass@@QAE@XZ",
+   "length": 75
+  }
+ },
+ "0x9EE260": {
+  "R": {
+   "object": "wwmemlog.obj",
+   "function": "VActiveCategoryStackClass::?0?$VectorClass",
+   "symbol": "??0?$VectorClass@VActiveCategoryStackClass@@@@QAE@HPBVActiveCategoryStackClass@@@Z",
+   "length": 308
+  },
+  "G": {
+   "object": "wwmemlog.obj",
+   "function": "VActiveCategoryStackClass::?0?$VectorClass",
+   "symbol": "??0?$VectorClass@VActiveCategoryStackClass@@@@QAE@HPBVActiveCategoryStackClass@@@Z",
+   "length": 308
+  },
+  "Z": {
+   "object": "wwmemlog.obj",
+   "function": "VActiveCategoryStackClass::?0?$VectorClass",
+   "symbol": "??0?$VectorClass@VActiveCategoryStackClass@@@@QAE@HPBVActiveCategoryStackClass@@@Z",
+   "length": 308
+  }
+ },
+ "0x9EE3C0": {
+  "R": {
+   "object": "wwmemlog.obj",
+   "function": "?$VectorClass::Resize",
+   "symbol": "?Resize@?$VectorClass@VActiveCategoryStackClass@@@@UAE_NHPBVActiveCategoryStackClass@@@Z",
+   "length": 535
+  },
+  "G": {
+   "object": "wwmemlog.obj",
+   "function": "?$VectorClass::Resize",
+   "symbol": "?Resize@?$VectorClass@VActiveCategoryStackClass@@@@UAE_NHPBVActiveCategoryStackClass@@@Z",
+   "length": 535
+  },
+  "Z": {
+   "object": "wwmemlog.obj",
+   "function": "?$VectorClass::Resize",
+   "symbol": "?Resize@?$VectorClass@VActiveCategoryStackClass@@@@UAE_NHPBVActiveCategoryStackClass@@@Z",
+   "length": 535
+  }
+ },
+ "0x9EE5E0": {
+  "R": {
+   "object": "wwmemlog.obj",
+   "function": "?$VectorClass::Clear",
+   "symbol": "?Clear@?$VectorClass@VActiveCategoryStackClass@@@@UAEXXZ",
+   "length": 40
+  },
+  "G": {
+   "object": "wwmemlog.obj",
+   "function": "?$VectorClass::Clear",
+   "symbol": "?Clear@?$VectorClass@VActiveCategoryStackClass@@@@UAEXXZ",
+   "length": 40
+  },
+  "Z": {
+   "object": "wwmemlog.obj",
+   "function": "?$VectorClass::Clear",
+   "symbol": "?Clear@?$VectorClass@VActiveCategoryStackClass@@@@UAEXXZ",
+   "length": 40
+  }
+ },
+ "0x9EE6F0": {
+  "R": {
+   "object": "wwmemlog.obj",
+   "function": "?_EActiveCategoryStackClass",
+   "symbol": "??_EActiveCategoryStackClass@@UAEPAXI@Z",
+   "length": 163
+  },
+  "G": {
+   "object": "wwmemlog.obj",
+   "function": "?_EActiveCategoryStackClass",
+   "symbol": "??_EActiveCategoryStackClass@@UAEPAXI@Z",
+   "length": 163
+  },
+  "Z": {
+   "object": "wwmemlog.obj",
+   "function": "?_EActiveCategoryStackClass",
+   "symbol": "??_EActiveCategoryStackClass@@UAEPAXI@Z",
+   "length": 163
+  }
+ },
+ "0x9EE7A0": {
+  "R": {
+   "object": "wwdebug.obj",
+   "function": "Convert_System_Error_To_String",
+   "symbol": "?Convert_System_Error_To_String@@YAXHPADH@Z",
+   "length": 33
+  },
+  "G": {
+   "object": "wwdebug.obj",
+   "function": "Convert_System_Error_To_String",
+   "symbol": "?Convert_System_Error_To_String@@YAXHPADH@Z",
+   "length": 33
+  },
+  "Z": {
+   "object": "wwdebug.obj",
+   "function": "Convert_System_Error_To_String",
+   "symbol": "?Convert_System_Error_To_String@@YAXHPADH@Z",
+   "length": 33
+  }
+ },
+ "0x9EE830": {
+  "R": {
+   "object": "wwdebug.obj",
+   "function": "WWDebug_Printf",
+   "symbol": "?WWDebug_Printf@@YAXPBDZZ",
+   "length": 68
+  },
+  "Z": {
+   "object": "wwdebug.obj",
+   "function": "WWDebug_Printf",
+   "symbol": "?WWDebug_Printf@@YAXPBDZZ",
+   "length": 68
+  }
+ },
+ "0x9EE880": {
+  "R": {
+   "object": "wwdebug.obj",
+   "function": "WWDebug_Printf_Warning",
+   "symbol": "?WWDebug_Printf_Warning@@YAXPBDZZ",
+   "length": 68
+  },
+  "Z": {
+   "object": "wwdebug.obj",
+   "function": "WWDebug_Printf_Warning",
+   "symbol": "?WWDebug_Printf_Warning@@YAXPBDZZ",
+   "length": 68
+  }
+ },
+ "0x9EE8D0": {
+  "R": {
+   "object": "wwdebug.obj",
+   "function": "WWDebug_Printf_Error",
+   "symbol": "?WWDebug_Printf_Error@@YAXPBDZZ",
+   "length": 68
+  },
+  "Z": {
+   "object": "wwdebug.obj",
+   "function": "WWDebug_Printf_Error",
+   "symbol": "?WWDebug_Printf_Error@@YAXPBDZZ",
+   "length": 68
+  }
+ },
+ "0x9EE920": {
+  "R": {
+   "object": "wwdebug.obj",
+   "function": "WWDebug_Check_Trigger",
+   "symbol": "?WWDebug_Check_Trigger@@YA_NH@Z",
+   "length": 23
+  },
+  "G": {
+   "object": "wwdebug.obj",
+   "function": "WWDebug_Check_Trigger",
+   "symbol": "?WWDebug_Check_Trigger@@YA_NH@Z",
+   "length": 23
+  },
+  "Z": {
+   "object": "wwdebug.obj",
+   "function": "WWDebug_Check_Trigger",
+   "symbol": "?WWDebug_Check_Trigger@@YA_NH@Z",
+   "length": 23
+  }
+ }
+}
