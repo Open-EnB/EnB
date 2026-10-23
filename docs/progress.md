@@ -4,6 +4,21 @@ Newest first within each section. Dates are when the entry was written.
 
 ## 1. Log
 
+### 2026-10-23: importer replay
+
+* `importer.py replay` rebuilds every library in `.work/replay` from the EA copies plus the
+  decisions in `docs/data/imports.json` (header origins, source copies, splices, then PATCHES,
+  annotations, APPENDS, NEW_FILES, RECONSTRUCTED), and compares the result with the repository
+  file by file. It now reproduces the git tree exactly: 7 libraries, 0 files differ.
+* The first run found records that disagreed with the tree; the records were fixed, not the tree
+  (no source file changed, so no compiled byte changed): `lightenvironment` kept a stale
+  `headers_from: Z` after f8cad49 returned its header to Renegade's; seven header origins swapped
+  by refine had never been written to the `headers` map; `predlod.h` (Z) and `streak.h` (G) were
+  recorded under the wrong copy (they differ only in the banner line); `INI.H`'s spelling.
+* The `headers` map is now the one authority for header origins; `trial.py` and refine's header
+  swaps keep it and `headers_from` in step. Replay is part of the fix loop
+  ([workflow.md](workflow.md) §2 step 5).
+
 ### 2026-10-23 (overnight): layouts, vtables, symbol map, app survey
 
 Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-report.md](overnight-report.md).
@@ -125,10 +140,8 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 
 ## 4. Next steps
 
-1. A `replay` step for the importer, so the tree can be rebuilt from the EA sources plus the
-   recorded decisions (copies, header swaps, splices, patches), and checked against git.
-2. WW3D2's texture classes and `DX8Wrapper` from Zero Hour (if agreed), then wwshade.
-3. The remaining WWAudio gaps (`WWAudioClass` 40, `SoundSceneClass` 12; `SoundPseudo3DClass` and
+1. WW3D2's texture classes and `DX8Wrapper` from Zero Hour (if agreed), then wwshade.
+2. The remaining WWAudio gaps (`WWAudioClass` 40, `SoundSceneClass` 12; `SoundPseudo3DClass` and
    `FilteredSoundClass` +4 from 0x1A4) and WW3D2 near-misses (docs/data/gaps-*.md).
-4. `meshmatdesc.cpp`'s inlining flip (an app-region helper at 0x4E9CB0 that VC6 now inlines).
-5. E&B's own code, per the decisions on [app-plan.md](app-plan.md).
+3. `meshmatdesc.cpp`'s inlining flip (an app-region helper at 0x4E9CB0 that VC6 now inlines).
+4. E&B's own code, per the decisions on [app-plan.md](app-plan.md).

@@ -6,6 +6,11 @@ Z Zero Hour) and every source file, the client functions it reproduces byte for 
 
     python importer.py plan     --evidence DIR     choose a base copy per library and a copy per file
     python importer.py assemble --evidence DIR     copy the chosen files into the repository
+                                                   (restarts every library from its base copy)
+    python importer.py replay [--out DIR]          rebuild the libraries from the EA copies and the
+                                                   decisions recorded in imports.json, into DIR
+                                                   (default .work/replay), and compare with the
+                                                   repository; exit status 1 if anything differs
     python importer.py verify                      compile the repository's libraries, byte-match them
     python importer.py refine   --evidence DIR     swap files / splice functions from other copies
                                                    where that adds matches and loses none
@@ -556,6 +561,88 @@ def assemble(state):
     return state
 
 
+# ------------------------------------------------------------------------------------------ replay
+
+def read(path):
+    return open(path, encoding='latin1', newline='').read()
+
+
+def replay(state, out):
+    """Rebuild the libraries under `out` from the EA copies and the decisions recorded in the state
+    (each header's origin, each source file's copy, spliced functions), then the local changes
+    (PATCHES, annotations, APPENDS, NEW_FILES, RECONSTRUCTED from the repository). The `headers`
+    map is the authority for headers; `headers_from` on a file only records why one was swapped.
+    Returns the steps that failed."""
+    problems = []
+    kept = {(rlib, rname): open(os.path.join(dest(rlib), rname), 'rb').read() for rlib, rname in RECONSTRUCTED}
+    for lib, s in state.items():
+        d = os.path.join(out, lib)
+        if os.path.isdir(d):
+            shutil.rmtree(d)
+        os.makedirs(d)
+
+        def place(name, src):
+            for old in [n for n in os.listdir(d) if n.lower() == name.lower()]:
+                os.remove(os.path.join(d, old))
+            shutil.copy2(src, os.path.join(d, name))
+
+        for name, c in sorted(s.get('headers', {}).items()):
+            if c not in COPY_ROOT:
+                continue
+            hs = headers(lib, c)
+            if name.lower() not in hs:
+                problems.append(f'{lib}/{name}: no such header in {c}')
+                continue
+            place(name, hs[name.lower()][1])
+        for k, f in sorted(s['files'].items()):
+            if f['copy'] not in COPY_ROOT:
+                continue
+            text = read(source_files(lib, f['copy'])[k][1])
+            for m in f['merged']:
+                text, done = splice(text, read(source_files(lib, m['copy'])[k][1]), [m['function']])
+                if not done:
+                    problems.append(f'{lib}/{f["name"]}: splice of {m["function"]} from {m["copy"]} failed')
+            open(os.path.join(d, f['name']), 'w', encoding='latin1', newline='').write(text)
+        for name in os.listdir(d):
+            p = os.path.join(d, name)
+            try:
+                apply_patches(lib, p, name)
+                annotations.apply(lib, p, name)
+            except SystemExit as e:
+                problems.append(str(e))
+            for (alib, aname), (text, _) in APPENDS.items():
+                if alib == lib and aname == name.lower():
+                    with open(p, 'a', newline='\r\n') as fp:
+                        fp.write(text)
+        for (nlib, nname), text in NEW_FILES.items():
+            if nlib == lib:
+                open(os.path.join(d, nname), 'w', newline='\r\n').write(text)
+        for (rlib, rname), data in kept.items():
+            if rlib == lib:
+                for old in [n for n in os.listdir(d) if n.lower() == rname.lower()]:
+                    os.remove(os.path.join(d, old))
+                open(os.path.join(d, rname), 'wb').write(data)
+    return problems
+
+
+def compare_tree(out, libs):
+    """Files that differ between `out` and the repository: (lib, name, what)."""
+    diffs = []
+    for lib in libs:
+        mine = {n.lower(): n for n in os.listdir(os.path.join(out, lib))}
+        repo = {n.lower(): n for n in os.listdir(dest(lib))}
+        for low in sorted(set(mine) | set(repo)):
+            if low not in repo:
+                diffs.append((lib, mine[low], 'only in replay'))
+            elif low not in mine:
+                diffs.append((lib, repo[low], 'only in repository'))
+            elif mine[low] != repo[low]:
+                diffs.append((lib, repo[low], f'name case differs ({mine[low]})'))
+            elif open(os.path.join(out, lib, mine[low]), 'rb').read() != open(os.path.join(dest(lib), repo[low]), 'rb').read():
+                diffs.append((lib, repo[low], 'content differs'))
+    return diffs
+
+
 # ------------------------------------------------------------------------------------------ verify
 
 _img = None
@@ -697,6 +784,11 @@ def try_with_headers(state, lib, f, c, k, donor):
             state[l]['in_tree_total'] = trial[l]['in_tree_total']
             for kk, ff in state[l]['files'].items():
                 ff['in_tree'] = trial[l]['files'][kk].get('in_tree', [])
+        hs = state[lib].setdefault('headers', {})
+        for n, _ in pairs:
+            for old in [x for x in hs if x.lower() == n.lower()]:
+                del hs[old]
+            hs[n] = c
         return got
     for n, _ in pairs:
         os.remove(os.path.join(d, n))
@@ -829,7 +921,9 @@ def report(state):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument('command', choices=['plan', 'assemble', 'verify', 'refine', 'report', 'all'])
+    ap.add_argument('command', choices=['plan', 'assemble', 'replay', 'verify', 'refine', 'report', 'all'])
+    ap.add_argument('--out', default=os.path.join(REPO, '.work', 'replay'),
+                    help='replay: where to rebuild the libraries (default .work/replay)')
     ap.add_argument('--evidence', help="bytematch_all.sh's work directory")
     ap.add_argument('--lib', action='append', help='limit verify/refine to these libraries')
     ap.add_argument('--file', action='append', help='limit refine to these source files (e.g. lightenvironment.cpp)')
@@ -843,6 +937,16 @@ def main():
     state = load_state()
     if a.command in ('assemble', 'all'):
         save_state(assemble(state))
+    if a.command == 'replay':
+        problems = replay(state, a.out)
+        for p in problems:
+            print('  problem:', p)
+        diffs = compare_tree(a.out, list(state))
+        for lib, name, what in diffs:
+            print(f'  {lib}/{name}: {what}')
+        print(f'replay into {a.out}: {len(problems)} problems, {len(diffs)} files differ from the repository')
+        if problems or diffs:
+            raise SystemExit(1)
     if a.command in ('verify', 'all'):
         save_state(verify(state, a.lib))
     if a.command in ('refine', 'all'):

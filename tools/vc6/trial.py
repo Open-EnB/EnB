@@ -88,7 +88,13 @@ def main():
             if new.lower().endswith('.cpp') and f:
                 f['copy'], f['name'], f['merged'] = a.copy, new, []
             else:
-                trial[lib].setdefault('headers', {})[new] = a.copy
+                hs = trial[lib].setdefault('headers', {})
+                for old in [x for x in hs if x.lower() == new.lower()]:
+                    del hs[old]
+                hs[new] = a.copy
+                f = trial[lib]['files'].get(importer.key_of(new))
+                if f:   # a header swapped with (or back to) its source file's copy
+                    f['headers_from'] = a.copy if a.copy != f['copy'] else None
         importer.save_state(trial)
         print(f'KEPT: {gained} gained, {lost} lost')
         return

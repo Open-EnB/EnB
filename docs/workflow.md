@@ -42,7 +42,8 @@ in `tools/vc6/importer.py` (`PATCHES`, `APPENDS`, `NEW_FILES`, `RECONSTRUCTED`).
 5. **Keep or drop.**
    * Keep the change only if it gains and loses nothing. Any accepted loss must be written down,
      in the commit message and in docs/library-matching.md.
-   * Then run `importer.py report`, commit, and add a row to docs/library-matching.md §3.6.1.
+   * Then run `importer.py report` and `importer.py replay` (it must report 0 differences),
+     commit, and add a row to docs/library-matching.md §3.6.1.
 6. **Then refine.** `importer.py refine --evidence .work/bm2 --lib L --file F.cpp` often
    splices in the other copy's functions once the header fits.
 
@@ -52,14 +53,16 @@ compiled into E&B's objects), so they run higher.
 
 ## 3. Known traps
 
-* **No replay.** `importer.py assemble` restarts every library from its base copy. It is not a
-  rebuild of the tree. Some decisions aren't replayed:
-  * whole-file and header swaps made by `trial.py` and `trial_all.py`, which record `copy` but not
-    `headers_from`;
-  * refine's splices.
-
-  The git tree is authoritative until a replay step exists. Don't run `assemble` on a tree with
-  uncommitted work; if you do, `git checkout -- <lib>` restores it.
+* **`assemble` is not a rebuild; `replay` is.** `importer.py assemble` restarts every library
+  from its base copy and drops every later decision. Don't run it on a tree with work in it; if
+  you do, `git checkout -- <lib>` restores it. `importer.py replay` rebuilds the libraries in
+  `.work/replay` from the EA copies plus what `imports.json` records, then compares them with
+  the repository file by file (no VM needed, a few seconds). Run it before committing: a
+  difference means a decision isn't recorded (or is recorded wrongly), and the record must be
+  fixed, not the tree.
+* **Header origins live in one place.** In each library's `headers` map in `imports.json`. A
+  file's `headers_from` only says that its header was swapped along with it. `trial.py` and
+  refine's header swaps update both; a hand-made header change must update `headers` too.
 * **Refine checks only the file it refines.** A header swap is checked across every library, but
   a function splice is not. Run a verify of the affected libraries before committing.
 * **VC6 lists overloaded virtuals in reverse declaration order.** Read the client's slots with
