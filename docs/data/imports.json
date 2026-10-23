@@ -2407,7 +2407,7 @@
    },
    "part_ldr": {
     "best": "Z",
-    "copy": "R",
+    "copy": "Z",
     "expected": {
      "G": 28,
      "R": 29,
@@ -2416,6 +2416,7 @@
     "headers_from": null,
     "in_tree": [
      "0x42F250",
+     "0x914310",
      "0x914400",
      "0x914410",
      "0x914420",
@@ -2428,7 +2429,21 @@
      "0x9144E0",
      "0x9144F0",
      "0x914500",
+     "0x914510",
      "0x914540",
+     "0x914580",
+     "0x9145B0",
+     "0x9145E0",
+     "0x914610",
+     "0x914640",
+     "0x914650",
+     "0x914660",
+     "0x914670",
+     "0x914680",
+     "0x9146A0",
+     "0x9146E0",
+     "0x9147E0",
+     "0x914CF0",
      "0x914EF0",
      "0x914F20",
      "0x914F70",
@@ -2438,11 +2453,35 @@
      "0x9155F0",
      "0x9156D0",
      "0x915BC0",
+     "0x915D30",
+     "0x915D80",
+     "0x915E90",
+     "0x915F70",
+     "0x916050",
      "0x916160",
      "0x9161E0",
      "0x916280",
      "0x9162D0",
+     "0x916460",
+     "0x916600",
+     "0x9166B0",
+     "0x916760",
+     "0x9167B0",
+     "0x9168A0",
+     "0x916980",
+     "0x916AB0",
+     "0x916BD0",
+     "0x916CB0",
+     "0x916D90",
+     "0x916E90",
+     "0x916F70",
+     "0x917050",
      "0x917120",
+     "0x9171C0",
+     "0x917260",
+     "0x917300",
+     "0x9173A0",
+     "0x917450",
      "0x917530"
     ],
     "merged": [],
@@ -3844,7 +3883,7 @@
    "nullrobj.h": "R",
    "part_buf.h": "R",
    "part_emt.h": "R",
-   "part_ldr.h": "R",
+   "part_ldr.h": "Z",
    "pivot.h": "R",
    "pointgr.h": "R",
    "polyinfo.h": "R",
@@ -3893,7 +3932,7 @@
    "vertmaterial.h": "R",
    "visrasterizer.h": "R",
    "w3d_dep.h": "R",
-   "w3d_file.h": "R",
+   "w3d_file.h": "Z",
    "w3d_obsolete.h": "R",
    "w3d_util.h": "R",
    "w3derr.h": "R",
@@ -3903,7 +3942,7 @@
    "ww3dids.h": "R",
    "ww3dtrig.h": "R"
   },
-  "in_tree_total": 1681,
+  "in_tree_total": 1720,
   "totals": {
    "G": 548,
    "R": 1322,
@@ -7598,8 +7637,6 @@
    "C:\\EnBDevelopment\\EnB\\wwshade\\shdcubemap.cpp(181) : error C2146: syntax error : missing ';' before identifier 'View_Projection_Matrix'",
    "C:\\EnBDevelopment\\EnB\\wwshade\\shdcubemap.cpp(181) : error C2501: 'Matrix4x4' : missing storage-class or type specifiers",
    "C:\\EnBDevelopment\\EnB\\wwshade\\shdcubemap.cpp(181) : fatal error C1004: unexpected end of file found",
-   "C:\\EnBDevelopment\\EnB\\wwshade\\shddefmanager.cpp(225) : error C2065: 'W3D_CHUNK_SHDSUBMESH_SHADER_CLASSID' : undeclared identifier",
-   "C:\\EnBDevelopment\\EnB\\wwshade\\shddefmanager.cpp(230) : error C2065: 'W3D_CHUNK_SHDSUBMESH_SHADER_DEF' : undeclared identifier",
    "C:\\EnBDevelopment\\EnB\\wwshade\\shdglossmask.h(140) : error C2146: syntax error : missing ';' before identifier 'View_Projection_Matrix'",
    "C:\\EnBDevelopment\\EnB\\wwshade\\shdglossmask.h(140) : error C2501: 'View_Projection_Matrix' : missing storage-class or type specifiers",
    "C:\\EnBDevelopment\\EnB\\wwshade\\shdglossmask.cpp(180) : error C2039: 'View_Projection_Matrix' : is not a member of 'Shd6GlossMaskClass'",
@@ -7619,7 +7656,9 @@
    "C:\\EnBDevelopment\\EnB\\wwshade\\shdhwshader.cpp(493) : error C2039: 'Set_Vertex_Shader_Constant' : is not a member of 'DX8Wrapper'",
    "C:\\EnBDevelopment\\EnB\\wwshade\\shdinterface.cpp(55) : error C2662: 'Add_Ref' : cannot convert 'this' pointer from 'const class ShdDefClass' to 'class RefCountClass &'",
    "C:\\EnBDevelopment\\EnB\\wwshade\\shdinterface.cpp(55) : error C2662: 'Release_Ref' : cannot convert 'this' pointer from 'const class ShdDefClass' to 'class RefCountClass &'",
-   "C:\\EnBDevelopment\\EnB\\wwshade\\shdinterface.cpp(66) : error C2662: 'Release_Ref' : cannot convert 'this' pointer from 'const class ShdDefClass' to 'class RefCountClass &'"
+   "C:\\EnBDevelopment\\EnB\\wwshade\\shdinterface.cpp(66) : error C2662: 'Release_Ref' : cannot convert 'this' pointer from 'const class ShdDefClass' to 'class RefCountClass &'",
+   "C:\\EnBDevelopment\\EnB\\wwshade\\shdlegacyw3d.cpp(402) : error C2039: 'Parse_W3dVertexMaterialStruct' : is not a member of 'VertexMaterialClass'",
+   "C:\\EnBDevelopment\\EnB\\wwshade\\shdlegacyw3d.cpp(412) : error C2039: 'Parse_Mapping_Args' : is not a member of 'VertexMaterialClass'"
   ],
   "files": {
    "shdbumpdiff": {
@@ -7680,7 +7719,13 @@
      "Z": 5
     },
     "headers_from": null,
-    "in_tree": [],
+    "in_tree": [
+     "0x42F250",
+     "0x909500",
+     "0x9DA8C0",
+     "0xA08D30",
+     "0xA08DD0"
+    ],
     "merged": [],
     "name": "shddefmanager.cpp"
    },
@@ -7735,7 +7780,9 @@
      "Z": 1
     },
     "headers_from": null,
-    "in_tree": [],
+    "in_tree": [
+     "0x42F250"
+    ],
     "merged": [],
     "name": "shdlib.cpp"
    },
@@ -7828,7 +7875,7 @@
    "shdsimple.h": "Z",
    "shdsubmesh.h": "Z"
   },
-  "in_tree_total": 6,
+  "in_tree_total": 8,
   "totals": {
    "Z": 46
   }

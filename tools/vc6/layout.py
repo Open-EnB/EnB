@@ -82,7 +82,8 @@ def main():
     incs = [os.path.join(REPO, d) for d in DEFAULT_INCLUDES] + a.includes + vc6_sdk()
     vc6.sync([os.path.dirname(header), work] + incs)
     exe = vc6.WORK + r'\layout.exe'
-    cmd = ['cl /nologo /MT /O2 /Ob2 /w ' + ' '.join(f'/I "{i}"' for i in incs) + f' /Fe"{exe}" /Fo"{vc6.WORK}\\\\" "{src}"',
+    defines = ' '.join(f'/D "{d}"' for d in vc6.DEFAULT_DEFINES)   # the build's defines: NDEBUG changes layouts
+    cmd = ['cl /nologo /MT /O2 /Ob2 /w ' + defines + ' ' + ' '.join(f'/I "{i}"' for i in incs) + f' /Fe"{exe}" /Fo"{vc6.WORK}\\\\" "{src}"',
            f'"{exe}"']
     p = vc6.run_bat(cmd)
     print(p.stdout + p.stderr)

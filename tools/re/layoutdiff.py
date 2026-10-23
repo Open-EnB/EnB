@@ -25,6 +25,23 @@ from objmatch import CoffObject  # noqa: E402
 DISP = re.compile(r'([+-]) 0x([0-9a-f]+)\]')
 
 
+def unchanged_displacements(left, right):
+    """Displacements ([reg+X], not esp/ebp) in aligned instructions that are identical on both sides."""
+    out = []
+    sm = difflib.SequenceMatcher(None, [norm(t) for _, _, t in left], [norm(t) for _, _, t in right],
+                                 autojunk=False)
+    for op, i1, i2, j1, j2 in sm.get_opcodes():
+        if op != 'equal':
+            continue
+        for k in range(i2 - i1):
+            a = left[i1 + k][2]
+            if 'esp' in a or 'ebp' in a:
+                continue
+            for sign, x in DISP.findall(a):
+                out.append(int(x, 16) * (-1 if sign == '-' else 1))
+    return out
+
+
 def displacement_pairs(left, right):
     """[(x, y, text)] for aligned instruction pairs that differ only in one displacement."""
     out = []
@@ -50,6 +67,7 @@ def main():
     ap.add_argument('--objs', required=True)
     ap.add_argument('--min-sim', type=float, default=0.6)
     ap.add_argument('--top', type=int, default=30)
+    ap.add_argument('--cls', help='one class: list every displacement, moved and unchanged')
     a = ap.parse_args()
     img = ClientImage()
     objs = {}
@@ -68,6 +86,11 @@ def main():
         left = obj_lines(obj, sec, s, e)
         right = client_lines(img, int(g['address'], 16), e - s)
         cls = g['function'].split('::')[0] if '::' in g['function'] else '(free functions)'
+        if a.cls and cls != a.cls:
+            continue
+        if a.cls:
+            for x in unchanged_displacements(left, right):
+                per_class[cls].setdefault('same', collections.Counter())[x] += 1
         for x, y, text in displacement_pairs(left, right):
             entry = per_class[cls]
             entry['functions'].add(g['function'])
@@ -76,6 +99,18 @@ def main():
                 entry['frame'] += 1
             else:
                 entry['pairs'][(x, y)] += 1
+    if a.cls:
+        e = per_class.get(a.cls)
+        if not e:
+            raise SystemExit('no gaps for that class')
+        moved = collections.defaultdict(collections.Counter)
+        for (x, y), n in e['pairs'].items():
+            moved[x][y] += n
+        for x in sorted(set(moved) | set(e.get('same', {}))):
+            same = e.get('same', {}).get(x, 0)
+            mv = ', '.join(f'-> +0x{y:X} ({y - x:+d}) x{n}' for y, n in moved[x].most_common(3)) if x in moved else ''
+            print(f'+0x{x:04X}  unchanged x{same:<4d} {mv}')
+        return
     rows = sorted(per_class.items(), key=lambda kv: -sum(kv[1]['pairs'].values()))
     for cls, e in rows[:a.top]:
         if not e['pairs']:

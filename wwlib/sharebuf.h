@@ -52,6 +52,7 @@ class ShareBufferClass : public RefCountClass
 {
 	public:
 		ShareBufferClass(int count);
+		ShareBufferClass(int count, const char* msg);
 		ShareBufferClass(const ShareBufferClass & that);
 		~ShareBufferClass(void);
 
@@ -85,6 +86,14 @@ class ShareBufferClass : public RefCountClass
 
 template <class T>
 ShareBufferClass<T>::ShareBufferClass(int count) :
+	Count(count)
+{
+	assert(Count > 0);
+	Array = new T[Count];
+}
+
+template <class T> 
+ShareBufferClass<T>::ShareBufferClass(int count, const char* /*msg*/) :
 	Count(count)
 {
 	assert(Count > 0);
