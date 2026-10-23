@@ -59,9 +59,7 @@
 #include "Ini.h"
 
 
-#ifdef G_CODE_BASE
 #include "..\wwlib\argv.h"
-#endif
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1380,6 +1378,17 @@ WWAudioClass::Add_To_Playlist (AudibleSoundClass *sound)
 		if (already_added == false) {
 			sound->Add_Ref ();
 			m_Playlist[m_CurrPage].Add (sound);
+		} else if (m_CompletedSounds.Count () > 0) {
+
+			//
+			//	E&B: a sound played again before it was freed is no longer completed
+			//
+			for (int index = 0; index < m_CompletedSounds.Count (); index ++) {
+				if (sound == m_CompletedSounds[index]) {
+					m_CompletedSounds.Delete (index);
+					break;
+				}
+			}
 		}
 	}
 
@@ -2401,7 +2410,6 @@ WWAudioClass::Is_Disabled (void) const
 	if (_firsttime) {
 		_firsttime = false;
 
-		#ifdef G_CODE_BASE
 		//
 		// Use command line arguement.
 		//
@@ -2409,7 +2417,6 @@ WWAudioClass::Is_Disabled (void) const
 		if (argv.Find("-NOAUDIO")) {
 			_disabled = true;
 		}
-		#endif
 
 		//
 		//	Read the disabled key from the registry
