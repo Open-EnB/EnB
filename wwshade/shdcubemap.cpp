@@ -73,7 +73,7 @@ enum
 ShdCubeMapDefClass::ShdCubeMapDefClass() 
 :	ShdDefClass(SHDDEF_CLASSID_CUBEMAP),
 	Ambient(1,1,1),
-	Diffuse(1,1,1),
+	Diffuse(0,0,0),
 	Specular(0,0,0)
 {
 	NAMED_TEXTURE_FILENAME_PARAM(ShdCubeMapDefClass, TextureName, "Texture Name", "Targa Files", ".tga");
@@ -85,11 +85,15 @@ ShdCubeMapDefClass::ShdCubeMapDefClass()
 
 ShdCubeMapDefClass::ShdCubeMapDefClass(const ShdCubeMapDefClass& that)
 :	ShdDefClass(that),
-	Ambient(that.Ambient),
-	Diffuse(that.Diffuse),
-	Specular(that.Specular)
+	Ambient(1,1,1),
+	Diffuse(0,0,0),
+	Specular(0,0,0)
 {
 	TextureName=that.TextureName;
+
+	Ambient=that.Ambient;
+	Diffuse=that.Diffuse;
+	Specular=that.Specular;
 }
 
 ShdCubeMapDefClass::~ShdCubeMapDefClass()

@@ -1093,6 +1093,12 @@ WWSHADE_EARLY_PATCHES = {
         ('\tDX8Wrapper::Set_DX8_Material(Material);\n}\n',
          '\tDX8Wrapper::Set_DX8_Material(Material);\n\tShdHWVertexShader::Unknown_Set_Lights();\n}\n',
          "E&B's light setup for the fixed function shaders (0xA0FC60, after Light in shdhwshader.obj; name not known), called at the end of Shd6CubeMapClass::Apply_Shared 0xA0AF40, Shd6SimpleClass and Shd6GlossMaskClass::Apply_Shared (0xA0CD90, 0xA0D910)"),
+        ('\tAmbient(1,1,1),\n\tDiffuse(1,1,1),\n\tSpecular(0,0,0)\n{\n\tNAMED_TEXTURE_FILENAME_PARAM',
+         '\tAmbient(1,1,1),\n\tDiffuse(0,0,0),\n\tSpecular(0,0,0)\n{\n\tNAMED_TEXTURE_FILENAME_PARAM',
+         "E&B's cube map definition: ShdCubeMapDefClass() 0xA0A840 sets Diffuse (+0x28) to 0,0,0"),
+        ('\tAmbient(that.Ambient),\n\tDiffuse(that.Diffuse),\n\tSpecular(that.Specular)\n{\n\tTextureName=that.TextureName;\n}\n',
+         '\tAmbient(1,1,1),\n\tDiffuse(0,0,0),\n\tSpecular(0,0,0)\n{\n\tTextureName=that.TextureName;\n\n\tAmbient=that.Ambient;\n\tDiffuse=that.Diffuse;\n\tSpecular=that.Specular;\n}\n',
+         "ShdCubeMapDefClass(const&) 0xA0A900 initialises Ambient 1,1,1, Diffuse and Specular 0,0,0, then assigns from that (as ShdSimpleDefClass's copy ctor)"),
     ],
     ('wwshade', 'shdcubemap.h'): [
         ('\tTextureClass*\t\t\t\t\tTexture;\n',

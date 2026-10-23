@@ -8285,6 +8285,8 @@
     "in_tree": [
      "0x42F250",
      "0x47F300",
+     "0xA0A840",
+     "0xA0A900",
      "0xA0AAA0",
      "0xA0AC10",
      "0xA0AD80",
@@ -8583,7 +8585,7 @@
    "shdsimple.h": "Z",
    "shdsubmesh.h": "Z"
   },
-  "in_tree_total": 123,
+  "in_tree_total": 125,
   "totals": {
    "Z": 61
   }
