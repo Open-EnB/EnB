@@ -143,3 +143,27 @@ compiled into E&B's objects), so they run higher.
   the file and its `imports.json` entry if not.
 * **Clones share a computer name.** Always address the VMs by IP (`ENB_VC6_HOST` or
   `ENB_VC6_HOSTS`).
+* **`objdiff.py` shows import calls as `call REL`.** Our `call dword ptr [__imp__AIL_lock@0]`
+  and a direct `call rel32` look the same in its left column; the client's shows as
+  `call dword ptr [REL]`. A difference there is not real until `tools/re/objrel.py OBJ SYMBOL`
+  shows a non-`__imp__` target. Lines with immediates like `0xffffffff` against the client's
+  `REL` are display only too.
+* **A changed base signature shows up as hidden virtuals.** When a derived class's vtable keeps
+  the base's function in a slot and has an extra empty slot of its own (`ret 4`), check the base
+  function's `ret N`: E&B gave `Sound3DClass::Set_Velocity` a second argument (`ret 8`), so the
+  unchanged one-argument overrides in `SoundPseudo3DClass` and `Listener3DClass` became new
+  virtuals. Each sits where its declaration puts it among the class's own slots.
+* **Many callers missing, one inline to blame.** If a small function inlines everywhere in ours
+  but the client calls it, look for code compiled out in ours that makes it bigger in E&B's:
+  restoring `Is_Disabled`'s `#ifdef G_CODE_BASE` block stopped the inlining and matched 13
+  callers at once. The reverse (an `operator==` the client calls out of line in one place)
+  can depend on how the condition is written (`!=` keeps it out of line).
+* **Operand order and statement splits matter in float code.** `elapsed * 0.05F * K` loads the
+  constant first; the client's `step = elapsed * 0.05F; step *= K;` loads `elapsed` first.
+  `sound == list[i]` and `list[i] == sound` compare in different operand orders; a temporary
+  (`int max = obj->m;` before the call) changes register use. When a reconstruction differs only
+  in a few loads, `tools/vc6/trydiff.py` keeps the variant's object for `objdiff.py`.
+* **REA can't decompile vtable-only functions.** Ghidra defines no function at an address only
+  reached through a vtable; `batch_decompile` then fails with "no loaded source mapping". Work from
+  `client.py dis` for those. A batch result over the token limit is saved to a file: read its
+  `normalized_result.items[].pseudocode`, and check it isn't Ghidra's log (failed items carry it).

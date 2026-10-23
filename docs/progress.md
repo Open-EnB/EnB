@@ -4,6 +4,69 @@ Newest first within each section. Dates are when the entry was written.
 
 ## 1. Log
 
+### 2026-10-23: WWAudio complete (0 gaps); wwshade's ShdMeshClass
+
+* WWAudio 298 -> 351, every function our source compiles now byte-exact (`gaps-wwaudio`: 0);
+  wwshade 136 -> 138; WW3D2 2,202 unchanged in every verify. All in importer `PATCHES` (wwaudio)
+  and `WWSHADE_EARLY_PATCHES` (wwshade), one commit per step, each in library-matching.md §3.6.1.
+* E&B's WWAudio changes found (names not known keep D10 names):
+  * `Sound3DClass`: a software Doppler effect. `Set_Velocity` takes a second float (elapsed ms)
+    and sets the pitch from the velocity relative to the listener (constants 0.85, 3.4, 1/33.3);
+    `On_Frame_Update` re-enables Renegade's `#if 0` auto-velocity behind `_UnknownDopplerFlag`
+    (0xC404F8, the app's "Doppler_Enabled", 0x51461C) and alone updates Miles;
+    `Set_Listener_Transform` tracks the listener velocity (`m_Unknown148`, `m_Unknown160`);
+    `m_Unknown164/168/16C` are floats. The one-argument `Set_Velocity` of `SoundPseudo3DClass` and
+    `Listener3DClass` therefore hide it (new vtable slots): the session's first guess, a non-const
+    `Vector3 &` in `SoundPseudo3DClass`, was replaced (same bytes).
+  * `WWAudioClass`: a pause-all flag (`m_Unknown19A5`, set by the app; `AudibleSoundClass::Play`
+    queues sounds paused; `Unknown_Resume_All` 0x9F4720 resumes) and a volume lock
+    (`m_Unknown19A6`, set by the new `Temp_Disable_Audio`); a per-kind instance limit
+    (`AudibleSoundClass::m_Unknown80` kind, `m_Unknown7C` maximum, default 4) in
+    `Reprioritize_Playlist` (`Unknown_Count_Instances` 0x9F1090), `Get_2D_Sample`, `Get_3D_Sample`;
+    the `-NOAUDIO` check (`#ifdef G_CODE_BASE` compiled: it stops `Is_Disabled` being inlined, +13
+    callers); `Add_To_Playlist` drops replayed sounds from `m_CompletedSounds`; providers tried
+    D3DSOUND, EAX, PSEUDO, A3D, DOLBY.
+  * `SoundSceneObjClass`: a deferred release (destructor queues `m_UserObj`/`m_AttachedObject`;
+    flushed by `WWAudioClass::On_Frame_Update` and `Shutdown`).
+  * Miles: E&B's `mss.h` had `AIL_startup()` call `MSS_auto_cleanup()` (`sdk_patch.py` restores
+    it; toolchain.md §2 fix 4: a full link needs `MSS_auto_cleanup`, a static member of the SDK's
+    mss32.lib, which the generated import library lacks). Also the Miles lock or mutex in several
+    functions, and `Delayed_Release_Thread_Proc` skips passes while `AIL_background()`.
+* `AudioSaveLoad.cpp`/`.h` dropped (D13: no save/load subsystem in the client). Accepted loss:
+  its three pairs, shared helpers still matched by other files.
+* wwshade: `ShdMeshClass::Update_Cached_Bounding_Volumes` (`operator *`, as `MeshClass`) and
+  `Load_W3D` (`Name` set inline, no sub-mesh names). `Render` already matched (stale note fixed).
+  `Get_Num_Vertices`, `Get_Sub_Mesh_Count`, `Peek_Sub_Mesh` are not in the client.
+* The `"UnNamed"` null test (open question below): ruled out `/GF` off, `/Gf`, `/Oa`, `/Ow`, `/Op`,
+  `_NO_INLINING`, and the literal as a const pointer, pointer variable, array, cast or with an
+  explicit hint. The client threads the same jump in WWAudio's `Add_Logical_Type` (a variable
+  string), not with the literal.
+* Tools: `tools/vc6/trydiff.py` (compile one variant, keep its object for `objdiff.py`),
+  `tools/re/objrel.py` (a function's relocations by symbol). Five traps added to workflow.md §3.
+* `symbols.json` 6,494 -> 6,551; `gaps-wwaudio` (0) and `gaps-wwshade` (5) regenerated.
+* Commits: d32f1b3..(this handoff) on master. Nothing pushed.
+* Verified: every step by `importer.py verify` for each library including the changed header
+  (pair sets compared before and after; WW3D2 whenever a WWAudio header changed) and `replay`
+  (0 differences). Nothing run live; nothing waits on the user.
+* Decisions: none taken by the user this session; D10 and D13 applied.
+* Open questions:
+  1. `G_CODE_BASE`: kept as a patch removing the two `#ifdef`s in `WWAudio.cpp`; defining it for
+     WWAudio (`LIB_FLAGS`) gives the same bytes. Recommendation: keep the patch (only this file uses
+     it, so the bytes can't tell a project-wide define from a local change).
+  2. Names for the E&B members now understood (`m_Unknown148` the listener's velocity,
+     `m_Unknown164/168` the pitch range, `m_Unknown19A5` pause-all, ...): D10 allows renaming once
+     their code is rebuilt. Recommendation: keep the neutral names with the comments now in the
+     headers, since E&B's real names are still unknown; rename only if the app code shows them.
+  3. The `"UnNamed"` null test (above). Recommendation: leave it; the only two functions affected
+     are these constructors.
+* Next step: WW3D2 near-misses and the texture ones (D9: `TextureClass` constructors, `Init`,
+  `Apply`, `Get_Reduction`; `DX8Wrapper` device code). Start by regenerating
+  `docs/data/gaps-ww3d2` (`gaps.py --title ww3d2 --out docs/data/gaps-ww3d2
+  %TEMP%\enb_import\verify-ww3d2\*.obj`) and take its highest-similarity entries, checking each
+  pairing against the vtable first (the WWAudio pairings were often wrong).
+* Outside git: the REA session (client.exe, analysed) may still be open; `.work/*_spec.py`,
+  `*_v.py` as applied; `.work/pc_*.c` pseudocode; `.work/pairs_cmp.py`.
+
 ### 2026-10-23: wwshade's E&B code; `_MBCS` and `ENABLE_WWPROFILE` builds
 
 * Last session's regenerated evidence had gone to `%TEMP%\enb_bytematch`, not `.work/bm2`
@@ -325,13 +388,17 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 
 ## 3. Open decisions
 
-* None. (D7 is to be revisited with the user if byte-exactness of E&B's code becomes too costly.)
+* `G_CODE_BASE` in WWAudio: a patch removing its two `#ifdef`s (now) or `/D G_CODE_BASE` in `LIB_FLAGS`; same bytes. Recommendation: keep the patch (2026-10-23 entry).
+* Renaming E&B members whose use is now rebuilt (`m_Unknown148`, `m_Unknown164/168/16C`, `m_Unknown19A5/19A6`, ...; D10). Recommendation: keep the neutral names until the app code shows E&B's.
+* (D7 is to be revisited with the user if byte-exactness of E&B's code becomes too costly.)
 
 ## 4. Next steps
 
-1. D9 continued: wwshade (136 in the tree; next `ShdMeshClass` `Load_W3D`/`Update_Cached_Bounding_Volumes`/ctor and the `"UnNamed"` null test; see the 2026-10-23 wwshade entry), then the texture near-misses (`TextureClass` constructors, `Init`, `Apply`, `Get_Reduction`; `DX8Wrapper`'s device code). Texture classes done; wwshade's WW3D2 features done (2026-10-23).
-2. The remaining WWAudio gaps (fewer since the `ENABLE_WWPROFILE` build, +32; were `WWAudioClass` 40, `SoundSceneClass` 12; `SoundPseudo3DClass` and
-   `FilteredSoundClass` +4 from 0x1A4) and WW3D2 near-misses (docs/data/gaps-*.md).
-3. `meshmatdesc.cpp`'s inlining flip (an app-region helper at 0x4E9CB0 that VC6 now inlines).
-4. E&B's own code (D6, D7): first the per-file workflow script ([app-plan.md](app-plan.md) §2),
+1. D9 continued: the texture near-misses (`TextureClass` constructors, `Init`, `Apply`,
+   `Get_Reduction`; `DX8Wrapper`'s device code) and the other WW3D2 near-misses
+   (docs/data/gaps-ww3d2, regenerate first). wwshade: 138 in the tree, left only the two
+   `"UnNamed"` constructors (open question) and an inline `Set_DX8_Texture_Stage_State` copy.
+   WWAudio done (0 gaps, 2026-10-23).
+2. `meshmatdesc.cpp`'s inlining flip (an app-region helper at 0x4E9CB0 that VC6 now inlines).
+3. E&B's own code (D6, D7): first the per-file workflow script ([app-plan.md](app-plan.md) §2),
    then `app\shared\auxdata`.

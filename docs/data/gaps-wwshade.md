@@ -6,8 +6,6 @@ Each function our source compiles that the client does not contain byte for byte
 |---|---|---|---|---|---|
 | shdcubemap.obj | `DX8Wrapper::Set_DX8_Texture_Stage_State` | 207 | none | 0xA0B220 | 0.23 |
 | shddef.obj | `ShdDefClass::ShdDefClass` | 223 | none | 0xA0AAA0 | 0.28 |
-| shdmesh.obj | `ShdMeshClass::Get_Num_Vertices` | 36 | none | 0x4E69D0 | 0.39 |
-| shdmesh.obj | `ShdMeshClass::ShdMeshClass` | 233 | none | 0x4E6580 | 0.21 |
-| shdmesh.obj | `ShdMeshClass::Update_Cached_Bounding_Volumes` | 240 | none | 0x4E67B0 | 0.11 |
-| shdmesh.obj | `ShdMeshClass::Load_W3D` | 780 | none | 0x4E6940 | 0.1 |
-| shdmesh.obj | `ShdMeshClass::Peek_Sub_Mesh` | 16 | none | 0x4E68C0 | 0.06 |
+| shdmesh.obj | `ShdMeshClass::ShdMeshClass` | 233 | none | 0x510BE0 | 0.23 |
+| shdmesh.obj | `ShdMeshClass::Get_Num_Vertices` | 36 | none | 0x510D40 | 0.02 |
+| shdmesh.obj | `ShdMeshClass::Peek_Sub_Mesh` | 16 | none | - | - |

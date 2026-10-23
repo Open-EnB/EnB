@@ -15,6 +15,7 @@ pass `--client PATH` otherwise. EA's repositories are expected at `C:\EnBDevelop
 | `funcmatch.py` | Matches client functions to EA functions by the strings they share | `docs/data/funcmatch.md`, `funcmatch.json` |
 | `objmatch.py file.obj...` | Finds each function of compiled objects in client.exe byte for byte (relocated fields masked): `exact`, `multiple`, `none`, `short` | stdout, `--json` |
 | `objdiff.py file.obj SYMBOL ADDRESS` | Instruction-level diff of one compiled function against the client's at ADDRESS (`--list` lists an object's functions) | stdout |
+| `objrel.py file.obj SYMBOL` | One compiled function's relocations, with the symbols they point to: tells an import call (`__imp__...`) from a direct one where objdiff shows both as `call REL` | stdout |
 | `matchreport.py TAG=run.json...` | Combines objmatch runs of several EA copies into a per-file report | `docs/data/bytematch-*.md`, `.json` |
 | `libextract.py LIB OUTDIR` | Extracts the object files from a static library (.lib) for byte matching (`tools/vc6/runtime_match.sh`) | OUTDIR |
 | `gaps.py --title T --out OUT file.obj...` | Locates the client's version of each function that isn't byte-exact (between its matched neighbours) and scores the similarity: the reconstruction worklist | OUT.md, OUT.json |
@@ -50,7 +51,8 @@ object), `trial.py COPY LIB/FILE...` (swap files to another EA copy, keep only i
 `--max-loss`; `--errors FILE` writes every compile error, not just the first 15), `trial_all.py LIB COPY...` (trial every differing header/source pair),
 `addpatch.py --block NAME SPEC.py` (apply patches to the tree and record them in one of `importer.py`'s
 patch blocks; creates the block with `--title`), `tryvariants.py LIB FILE VARIANTS.py` (compile
-variants of one file alone and report the client functions each gains or loses),
+variants of one file alone and report the client functions each gains or loses), `trydiff.py LIB FILE VARIANTS.py NAME` (compile one of those variants and keep its object, to
+`objdiff.py` it when no variant gains),
 `sdk_patch.py` (the Miles header as E&B's build used it, outside the repository). Several VMs:
 `vc6.py discover`; `ENB_VC6_HOSTS` gives a job a subset of them (docs/toolchain.md §1.1).
 
