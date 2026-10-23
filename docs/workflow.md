@@ -133,7 +133,7 @@ compiled into E&B's objects), so they run higher.
 * **`bytematch_all.sh` writes to `%TEMP%\enb_bytematch` unless given a directory.** Run it as
   `tools/vc6/bytematch_all.sh .work/bm2`, or the evidence `refine`/`assemble` read stays old
   (it did after the wwshade flag change: refine and the plan counts still saw 46, not 61).
-  After new evidence, `.work/refresh_expected.py .work/bm2 LIB` refreshes a library's plan
+  After new evidence, `tools/vc6/refresh_expected.py .work/bm2 LIB` refreshes a library's plan
   totals and per-file `expected` counts without touching its tree decisions.
 * **Clones share a computer name.** Always address the VMs by IP (`ENB_VC6_HOST` or
   `ENB_VC6_HOSTS`).
