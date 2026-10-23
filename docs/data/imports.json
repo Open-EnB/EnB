@@ -4282,10 +4282,12 @@
      "0x9F79E0",
      "0x9F7A20",
      "0x9F7A40",
+     "0x9F7A90",
      "0x9F7AC0",
      "0x9F7BF0",
      "0x9FF9E0",
-     "0x9FFA10"
+     "0x9FFA10",
+     "0x9FFAA0"
     ],
     "merged": [],
     "name": "FilteredSound.cpp"
@@ -4312,6 +4314,7 @@
      "0x9F79E0",
      "0x9F7A20",
      "0x9F7A40",
+     "0x9F7A90",
      "0x9F7AC0",
      "0x9F7BF0",
      "0xA02E50"
@@ -4439,8 +4442,16 @@
      "0x9F79E0",
      "0x9F7A20",
      "0x9F7A40",
+     "0x9F7A90",
      "0x9F7AC0",
      "0x9F7BF0",
+     "0x9F7DB0",
+     "0x9F7E20",
+     "0x9F8DE0",
+     "0x9F8F70",
+     "0x9F8FC0",
+     "0x9F9030",
+     "0x9F90F0",
      "0x9F91C0"
     ],
     "merged": [],
@@ -4534,10 +4545,12 @@
      "0x9F79E0",
      "0x9F7A20",
      "0x9F7A40",
+     "0x9F7A90",
      "0x9F7AC0",
      "0x9F7BF0",
      "0x9FF9E0",
      "0x9FFA10",
+     "0x9FFAA0",
      "0x9FFB30",
      "0x9FFBF0",
      "0x9FFDF0"
@@ -4764,7 +4777,7 @@
    "soundhandle.h": "R",
    "soundstreamhandle.h": "R"
   },
-  "in_tree_total": 245,
+  "in_tree_total": 254,
   "totals": {
    "G": 68,
    "R": 171,

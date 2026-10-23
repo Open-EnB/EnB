@@ -192,10 +192,13 @@ class Sound3DClass : public AudibleSoundClass
 		//////////////////////////////////////////////////////////////////////
 		bool						m_IsTransformInitted;
 		bool						m_bAutoCalcVel;
-		Vector3					m_CurrentVelocity;		
+		Vector3					m_CurrentVelocity;
+		Vector3					m_Unknown148;		// E&B: zeroed at construction, not copied; meaning not known		
 		float						m_MaxVolRadius;		
 		bool						m_IsStatic;
 		unsigned int			m_LastUpdate;
+		int						m_Unknown160;		// E&B: zeroed at construction, not copied; meaning not known
+		int						m_Unknown164;		// E&B: zeroed at construction, not copied; meaning not known
 };
 
 

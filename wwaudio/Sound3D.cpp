@@ -81,8 +81,11 @@ enum
 Sound3DClass::Sound3DClass (void)
 	: m_bAutoCalcVel (true),
 	  m_CurrentVelocity (0, 0, 0),
+	  m_Unknown148 (0, 0, 0),
 	  m_MaxVolRadius (0),
 	  m_LastUpdate (0),
+	  m_Unknown160 (0),
+	  m_Unknown164 (0),
 	  m_IsStatic (false),
 	  m_IsTransformInitted (false)
 {
@@ -98,8 +101,11 @@ Sound3DClass::Sound3DClass (void)
 Sound3DClass::Sound3DClass (const Sound3DClass &src)
 	: m_bAutoCalcVel (true),
 	  m_CurrentVelocity (0, 0, 0),
+	  m_Unknown148 (0, 0, 0),
 	  m_MaxVolRadius (0),
 	  m_LastUpdate (0),
+	  m_Unknown160 (0),
+	  m_Unknown164 (0),
 	  m_IsStatic (false),
 	  m_IsTransformInitted (false),
 	  AudibleSoundClass (src)
