@@ -806,6 +806,11 @@ TEXTURE_API_PATCHES = {
          '\t// If the thumbnail hash table file is available, init hash table',
          '(Load: the same)'),
     ],
+    ('wwaudio', 'soundpseudo3d.h'): [
+        ('\t\tvirtual void\t\t\tSet_Velocity (const Vector3 &velocity)\t\t\t{ }',
+         "\t\tvirtual void\t\t\tSet_Velocity (Vector3 &velocity)\t\t\t\t\t{ }\t// E&B: does not override Sound3DClass's (signature not known, one 4-byte argument)",
+         "SoundPseudo3DClass's vtable 0xB15EE4 keeps Sound3DClass::Set_Velocity 0x9F8920 in slot 97 and has a new empty virtual (0x9FFA90, ret 4) in slot 105, its first own slot, emitted between Set_Transform and Set_Max_Vol_Radius (this declaration's place); Update_Pseudo_Volume and the later slots move up one (0x1A8/0x1AC in 0x9FFBD0, 0x9FFCC0)"),
+    ],
 }
 for _key, _edits in TEXTURE_API_PATCHES.items():
     PATCHES.setdefault(_key, []).extend(_edits)

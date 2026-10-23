@@ -4647,6 +4647,7 @@
      "0xA03530",
      "0xA035C0",
      "0xA03640",
+     "0xA036F0",
      "0xA03850"
     ],
     "merged": [],
@@ -4922,8 +4923,11 @@
      "0x9FFA10",
      "0x9FFAA0",
      "0x9FFB30",
+     "0x9FFBD0",
      "0x9FFBF0",
+     "0x9FFCC0",
      "0x9FFDF0",
+     "0x9FFF70",
      "0x9FFFC0"
     ],
     "merged": [],
@@ -5176,7 +5180,7 @@
    "soundhandle.h": "R",
    "soundstreamhandle.h": "R"
   },
-  "in_tree_total": 298,
+  "in_tree_total": 302,
   "totals": {
    "G": 72,
    "R": 205,
