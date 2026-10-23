@@ -4,6 +4,37 @@ Newest first within each section. Dates are when the entry was written.
 
 ## 1. Log
 
+### 2026-10-23: tools for the next sessions (client.py, vtables.py, addpatch.py, tryvariants.py)
+
+* New `tools/re/client.py` (`dis`, `name`, `refs`, `callers`): the lookups the wwshade step
+  wrote as throwaway scripts, with addresses named from symbols.json, the gaps reports and
+  the thunk table.
+* `vtables.py`: anchors also from symbols.json (by plain name for string-proven ones), through
+  incremental-link thunks; the class's own and rare slots weigh more; a table on slots that
+  most tables share is "not placed" instead of a base class's table; tables end at the next
+  stored vtable; `--seed Class=ADDR` and `--list`. Checked on ww3d2 against the old version:
+  no primary table moved except `XSurface` (now 0xAFC29C, 16 own anchors) and
+  `TexProjectClass` (0xB11120, all 8 slots); `SoundRenderObjClass`/`StreakLineClass` no longer
+  land on `RenderObjClass`'s table; reported differences 214 -> 57.
+* `symbols.json` regenerated (6,100 -> 6,317 names, this session's matches included).
+  Removed: the names of an E&B class derived from `TexProjectClass` (table 0xAEA764, its
+  `Pre_Render_Update` 0x4941A0), which the old alignment had given `TexProjectClass`'s, and
+  `StreakLineClass::Clone` on a shared stub (0x9CCD10).
+* Promoted from `.work`: `tools/vc6/addpatch.py --block NAME SPEC.py` (apply patches and record
+  them in an importer block; replaces the `d9_`/`ws_addpatch.py` copies) and
+  `tools/vc6/tryvariants.py LIB FILE V.py` (one file's variants compiled alone). Both tested:
+  a new block replays with 0 differences; a no-op variant gains and loses nothing.
+* REA tested: its first request runs Ghidra's full analysis (over 2 minutes), every session.
+  A `close_binary` snapshot (14 KB) only caches answers already given; reopening with it, a new
+  address waited over 2 minutes again. Names set in REA are lost on close. CLAUDE.md's tool
+  order now says so (client.py first, REA only for pseudocode, opened early). CLAUDE.md is not
+  tracked by git.
+* Commits: 60e66ab (wwshade's WW3D2, merged into master by fast-forward), 8501576 (tools),
+  this entry. Nothing pushed.
+* Next session: start with the step-2 entry's "Next" (the client's older `ShdSubMeshClass` and
+  renderer node). Find `shdsubmesh.obj` in the client with `client.py refs`/`callers` from the
+  node constructor's calls (0xA082D0), and the classes' tables with `vtables.py --seed`.
+
 ### 2026-10-23: D9 step 2, wwshade's WW3D2
 
 * Each wwshade compile error checked against the client before adding anything: the Zero Hour
@@ -35,10 +66,10 @@ Newest first within each section. Dates are when the entry was written.
   in the client (gaps.py misplaces it). Then `TEX_CUBEMAP`, `const Add_Ref`, the
   `VertexMaterialClass` parsers. The client's `MeshClass::Cast_Ray` (0x940530) has no
   translucency test: a WW3D2 near-miss.
-* Outside git: `.work/ws_*.py` (`ws_addpatch.py` records into `WWSHADE_API_PATCHES`,
-  `ws_spec*.py` the patches, `ws_try.py` one-file variants, `ws_verify.sh`, `ws_dis.py`/
-  `ws_refs.py`/`ws_callers.py`/`ws_findptr.py` client lookups), baseline
-  `.work/ws_base_imports.json`.
+* Outside git: `.work/ws_spec*.py` (the patches as applied), `ws_verify.sh` (verify ww3d2,
+  wwaudio, wwshade and compare with the baseline `.work/ws_base_imports.json`). The other
+  `ws_*.py` helpers are superseded by `tools/re/client.py`, `tools/vc6/addpatch.py` and
+  `tryvariants.py` (next entry).
 
 ### 2026-10-23: D9 step 1, the texture system
 
