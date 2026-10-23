@@ -285,6 +285,8 @@ Sound3DClass::Update_Edge_Volume (void)
 		//	Update the sound volume
 		//
 		Internal_Set_Volume (m_RealVolume * percent);
+	} else if (distance < falloff_start) {
+		Internal_Set_Volume (m_RealVolume);
 	}
 
 	return ;
@@ -349,6 +351,7 @@ Sound3DClass::Set_Listener_Transform (const Matrix3D &tm)
 void
 Sound3DClass::Update_Miles_Transform (void)
 {
+	MMSLockClass lock;
 	//
 	// Do we have a valid miles handle?
 	//
@@ -476,7 +479,7 @@ Sound3DClass::Set_Velocity (const Vector3 &velocity)
 void
 Sound3DClass::Set_DropOff_Radius (float radius)
 {
-	//MMSLockClass lock;
+	MMSLockClass lock;
 
 	m_DropOffRadius = radius;
 	Set_Dirty ();
@@ -500,6 +503,7 @@ Sound3DClass::Set_DropOff_Radius (float radius)
 void
 Sound3DClass::Set_Max_Vol_Radius (float radius)
 {
+	MMSLockClass lock;
 	m_MaxVolRadius = radius;
 	Set_Dirty ();
 
