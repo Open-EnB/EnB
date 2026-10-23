@@ -1,5 +1,5 @@
 /*
-**	Command & Conquer Renegade(tm)
+**	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.
 **
 **	This program is free software: you can redistribute it and/or modify
@@ -46,6 +46,7 @@ public:
 	StringClass secondary_texture_name;
 	StringClass lensflare_name;
 	float halo_intensity;
+	float halo_intensity_pow;
 	float halo_scale_x;
 	float halo_scale_y;
 	float dazzle_size_pow;
@@ -91,13 +92,13 @@ public:
 		flare_uv(0)
 	{
 		if (flare_count) {
-			flare_locations=new float[flare_count];
+			flare_locations=W3DNEWARRAY float[flare_count];
 			memcpy(flare_locations,lic.flare_locations,sizeof(float)*flare_count);
-			flare_sizes=new float[flare_count];
+			flare_sizes=W3DNEWARRAY float[flare_count];
 			memcpy(flare_sizes,lic.flare_sizes,sizeof(float)*flare_count);
-			flare_colors=new Vector3[flare_count];
+			flare_colors=W3DNEWARRAY Vector3[flare_count];
 			memcpy(flare_colors,lic.flare_colors,sizeof(Vector3)*flare_count);
-			flare_uv=new Vector4[flare_count];
+			flare_uv=W3DNEWARRAY Vector4[flare_count];
 			memcpy(flare_uv,lic.flare_uv,sizeof(Vector4)*flare_count);
 		}
 	}
@@ -152,6 +153,7 @@ public:
 		float& halo_intensity,
 		const Vector3& camera_dir,
 		const Vector3& dazzle_dir,
+		const Vector3& dir_to_dazzle,
 		float distance) const;
 
 	void Set_Dazzle_Shader(const ShaderClass& s);	// Set shader for the dazzle type
@@ -248,6 +250,7 @@ class DazzleRenderObjClass : public RenderObjClass
 	Vector3 dazzle_color;
 	Vector3 halo_color;
 	float	  lensflare_intensity;
+	float	current_scale;
 	float visibility;
 	bool on_list;	// This is used to avoid insterting a dazzle into a list twice.
 	float radius;	// Used to cast rays against
@@ -281,7 +284,7 @@ public:
 	virtual void 					Set_Transform(const Matrix3D &m); 
    virtual void					Get_Obj_Space_Bounding_Sphere(SphereClass & sphere) const;
    virtual void					Get_Obj_Space_Bounding_Box(AABoxClass & box) const;
-	virtual void					Scale(float scale) 															{ radius*=scale; };	
+	virtual void					Scale(float scale) 															{ current_scale*=scale; };	
 
 	void Set_Dazzle_Color(const Vector3& col) { dazzle_color=col; }
 	void Set_Halo_Color(const Vector3& col) { halo_color=col; }
@@ -355,21 +358,22 @@ public:
 ** information needed to construct a particular instance of a dazzle.  Prototypes are
 ** stored in the asset manager and used to construct render objects when needed.
 */
-class DazzlePrototypeClass : public PrototypeClass
+class DazzlePrototypeClass : public W3DMPO, public PrototypeClass
 {
+	W3DMPO_GLUE(DazzlePrototypeClass)
 public:
 	DazzlePrototypeClass(void) : DazzleType(0)				{ }
-	virtual ~DazzlePrototypeClass(void)							{ }
 	
 	virtual const char *			Get_Name(void) const			{ return Name; }
-	virtual int						Get_Class_ID(void) const	{ return RenderObjClass::CLASSID_DAZZLE; }
+	virtual int								Get_Class_ID(void) const	{ return RenderObjClass::CLASSID_DAZZLE; }
 	virtual RenderObjClass *	Create(void);
+	virtual void							DeleteSelf()							{ delete this; }
 
 	WW3DErrorType					Load_W3D(ChunkLoadClass & cload);
 	
 private:
 
-	StringClass						Name;
+	StringClass				Name;
 	int								DazzleType;
 };
 

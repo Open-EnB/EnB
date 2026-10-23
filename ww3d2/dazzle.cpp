@@ -1,5 +1,5 @@
 /*
-**	Command & Conquer Renegade(tm)
+**	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.
 **
 **	This program is free software: you can redistribute it and/or modify
@@ -26,12 +26,13 @@
  *                                                                                             *
  *              Original Author:: Jani Penttinen                                               *
  *                                                                                             *
- *                      $Author:: Steve_t                                                     $*
+ *                       $Author:: Kenny Mitchell                                               * 
+ *                                                                                             * 
+ *                     $Modtime:: 06/26/02 4:04p                                             $*
  *                                                                                             *
- *                     $Modtime:: 1/02/02 2:55p                                               $*
+ *                    $Revision:: 32                                                          $*
  *                                                                                             *
- *                    $Revision:: 31                                                          $*
- *                                                                                             *
+ * 06/26/02 KM Matrix name change to avoid MAX conflicts                                       *
  *---------------------------------------------------------------------------------------------*
  * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
@@ -80,6 +81,7 @@ const char* DAZZLE_LIST_STRING="Dazzles_List";
 const char* DAZZLE_INTENSITY_POW_STRING = "DazzleIntensityPow";
 const char* DAZZLE_SIZE_POW_STRING = "DazzleSizePow";
 const char* DAZZLE_AREA_STRING =		"DazzleArea";		// Something like 0.05 is a good starting point for a dazzle...
+const char* HALO_INTENSITY_POW = "HaloIntensityPow";
 
 // Halo and dazzle are scaled by these values
 const char* HALO_SCALE_X_STRING =	"HaloScaleX";
@@ -502,8 +504,12 @@ void DazzleTypeClass::Calculate_Intensities(
 	float& halo_intensity,
 	const Vector3& camera_dir,
 	const Vector3& dazzle_dir,
+	const Vector3& dir_to_dazzle,
 	float distance) const
 {
+	float dot = -Vector3::Dot_Product(dir_to_dazzle,camera_dir);
+	dazzle_intensity = dot;	
+
 	if (ic.use_camera_translation && distance>(fadeout_end_sqr)) {
 		dazzle_intensity=0.0f;
 		return;
@@ -526,6 +532,15 @@ void DazzleTypeClass::Calculate_Intensities(
 	}
 	else {
 		dazzle_intensity=0.0f;
+	}	
+
+	if (ic.halo_intensity_pow > WWMATH_EPSILON) {		
+		if (dot > 0.0f) {			
+			float scale = powf(dot, ic.halo_intensity_pow);
+			halo_intensity *= scale;
+		} else {
+			halo_intensity = 0.0f;
+		}
 	}
 
 	dazzle_intensity*=ic.dazzle_intensity;
@@ -570,10 +585,10 @@ void DazzleRenderObjClass::Init_From_INI(const INIClass* ini)
 		ini->Get_String(lic.texture_name,section_name,LENSFLARE_TEXTURE_STRING);
 		lic.flare_count=ini->Get_Int(section_name,FLARE_COUNT_STRING,0);
 		if (lic.flare_count) {
-			lic.flare_locations=new float[lic.flare_count];	// Flare location is 1D
-			lic.flare_sizes=new float[lic.flare_count];
-			lic.flare_colors=new Vector3[lic.flare_count];
-			lic.flare_uv=new Vector4[lic.flare_count];
+			lic.flare_locations=W3DNEWARRAY float[lic.flare_count];	// Flare location is 1D
+			lic.flare_sizes=W3DNEWARRAY float[lic.flare_count];
+			lic.flare_colors=W3DNEWARRAY Vector3[lic.flare_count];
+			lic.flare_uv=W3DNEWARRAY Vector4[lic.flare_count];
 		}
 		else {
 			lic.flare_locations=NULL;
@@ -619,6 +634,7 @@ void DazzleRenderObjClass::Init_From_INI(const INIClass* ini)
 		ini->Get_String(dic.primary_texture_name,section_name,DAZZLE_TEXTURE_STRING);
 		ini->Get_String(dic.secondary_texture_name,section_name,HALO_TEXTURE_STRING);
 		dic.halo_intensity=ini->Get_Float(section_name,HALO_INTENSITY_STRING,0.95f);
+		dic.halo_intensity_pow=ini->Get_Float(section_name,HALO_INTENSITY_POW, 0.0f);
 		dic.halo_scale_x=ini->Get_Float(section_name,HALO_SCALE_X_STRING,2.0f);
 		dic.halo_scale_y=ini->Get_Float(section_name,HALO_SCALE_Y_STRING,2.0f);
 		dic.dazzle_area=ini->Get_Float(section_name,DAZZLE_AREA_STRING,0.05f);
@@ -667,7 +683,7 @@ void DazzleRenderObjClass::Init_Type(const DazzleInitClass& i)
 
 	if (i.type>=type_count) {
 		unsigned new_count=i.type+1;
-		DazzleTypeClass** new_types=new DazzleTypeClass*[new_count];
+		DazzleTypeClass** new_types=W3DNEWARRAY DazzleTypeClass*[new_count];
 		for (unsigned a=0;a<type_count;++a) {
 			new_types[a]=types[a];
 		}
@@ -679,7 +695,7 @@ void DazzleRenderObjClass::Init_Type(const DazzleInitClass& i)
 		type_count=new_count;
 	}
 	delete types[i.type];
-	types[i.type]=new DazzleTypeClass(i);
+	types[i.type]=W3DNEW DazzleTypeClass(i);
 }
 
 // ----------------------------------------------------------------------------
@@ -690,7 +706,7 @@ void DazzleRenderObjClass::Init_Lensflare(const LensflareInitClass& i)
 
 	if (i.type>=lensflare_count) {
 		unsigned new_count=i.type+1;
-		LensflareTypeClass** new_lensflares=new LensflareTypeClass*[new_count];
+		LensflareTypeClass** new_lensflares=W3DNEWARRAY LensflareTypeClass*[new_count];
 		for (unsigned a=0;a<lensflare_count;++a) {
 			new_lensflares[a]=lensflares[a];
 		}
@@ -702,7 +718,7 @@ void DazzleRenderObjClass::Init_Lensflare(const LensflareInitClass& i)
 		lensflare_count=new_count;
 	}
 	delete lensflares[i.type];
-	lensflares[i.type]=new LensflareTypeClass(i);
+	lensflares[i.type]=W3DNEW LensflareTypeClass(i);
 }
 
 // ----------------------------------------------------------------------------
@@ -758,7 +774,8 @@ DazzleRenderObjClass::DazzleRenderObjClass(unsigned t)
 	halo_color(1.0f,1.0f,1.0f),
 	lensflare_intensity(1.0f),
 	on_list(false),
-	visibility(0.0f)
+	visibility(0.0f),
+	current_scale(1.0f)
 {
 	if (types && types[t]) {
 		radius = types[t]->radius;
@@ -785,7 +802,8 @@ DazzleRenderObjClass::DazzleRenderObjClass(const char * type_name)
 	halo_color(1.0f,1.0f,1.0f),
 	lensflare_intensity(1.0f),
 	on_list(false),
-	visibility(0.0f)
+	visibility(0.0f),
+	current_scale(1.0f)
 {
 	int id = Get_Type_ID(type_name);
 	if (types && types[id]) {
@@ -815,7 +833,8 @@ DazzleRenderObjClass::DazzleRenderObjClass(const DazzleRenderObjClass & src)
 	lensflare_intensity(src.lensflare_intensity),
 	on_list(false),
 	visibility(src.visibility),
-	radius(src.radius)
+	radius(src.radius),
+	current_scale(src.current_scale)
 {
 	creation_time = WW3D::Get_Sync_Time();
 }
@@ -832,19 +851,21 @@ DazzleRenderObjClass& DazzleRenderObjClass::operator = (const DazzleRenderObjCla
 	visibility=src.visibility;
 	radius=src.radius;
 	creation_time = WW3D::Get_Sync_Time();
+	current_scale = src.current_scale;
 	return *this;
 }
 
 void DazzleRenderObjClass::Get_Obj_Space_Bounding_Sphere(SphereClass & sphere) const
 {
 	sphere.Center.Set(0,0,0);
-	sphere.Radius = radius;
+	sphere.Radius = radius * current_scale;
 }
 
 void DazzleRenderObjClass::Get_Obj_Space_Bounding_Box(AABoxClass & box) const
 {
 	box.Center.Set(0,0,0);
 	box.Extent.Set(radius,radius,radius);
+	box.Extent *= current_scale;
 }
 
 void DazzleRenderObjClass::Set_Layer(DazzleLayerClass *layer)
@@ -921,7 +942,7 @@ void DazzleRenderObjClass::Render(RenderInfoClass & rinfo)
 //			Get_Transform().Get_Translation(&position);
 //			visibility = _VisibilityHandler->Compute_Dazzle_Visibility(rinfo,this,position);
 
-			Matrix4 view_transform,projection_transform;
+			Matrix4x4 view_transform,projection_transform;
 			DX8Wrapper::Get_Transform(D3DTS_VIEW,view_transform);
 			DX8Wrapper::Get_Transform(D3DTS_PROJECTION,projection_transform);
 			Vector3 camera_loc(rinfo.Camera.Get_Position());
@@ -939,18 +960,16 @@ void DazzleRenderObjClass::Render(RenderInfoClass & rinfo)
 			transformed_loc[3]=1.0f;
 			current_vloc=Vector3(transformed_loc[0],transformed_loc[1],transformed_loc[2]);
 
-			float dazzle_intensity;
+			float dazzle_intensity=1.0f;
 			Vector3 dir;
 			dir=camera_loc-loc;
 			current_distance=dir.Length2();
-			dir.Normalize();
-			dazzle_intensity=-Vector3::Dot_Product(dir,camera_dir);
-//			dazzle_intensity*=visibility;
+			dir.Normalize();			
 
 			float dazzle_size;
 			current_halo_intensity=1.0f;
 			const DazzleTypeClass* params=types[type];
-			params->Calculate_Intensities(dazzle_intensity,dazzle_size,current_halo_intensity,camera_dir,current_dir,current_distance);
+			params->Calculate_Intensities(dazzle_intensity,dazzle_size,current_halo_intensity,camera_dir,current_dir,dir,current_distance);
 
 			unsigned time_ms=WW3D::Get_Frame_Time();
 			if (time_ms==0) time_ms=1;
@@ -996,12 +1015,12 @@ void DazzleRenderObjClass::Render(RenderInfoClass & rinfo)
 void DazzleRenderObjClass::Render_Dazzle(CameraClass* camera)
 {
 	WWPROFILE("Dazzle::Render");
-	Matrix4 old_view_transform;
-	Matrix4 old_world_transform;
-	Matrix4 old_projection_transform;
-	Matrix4 view_transform;
-	Matrix4 world_transform;
-	Matrix4 projection_transform;
+	Matrix4x4 old_view_transform;
+	Matrix4x4 old_world_transform;
+	Matrix4x4 old_projection_transform;
+	Matrix4x4 view_transform;
+	Matrix4x4 world_transform;
+	Matrix4x4 projection_transform;
 	DX8Wrapper::Get_Transform(D3DTS_VIEW,view_transform);
 	DX8Wrapper::Get_Transform(D3DTS_WORLD,world_transform);
 	DX8Wrapper::Get_Transform(D3DTS_PROJECTION,projection_transform);
@@ -1028,10 +1047,14 @@ void DazzleRenderObjClass::Render_Dazzle(CameraClass* camera)
 //	unsigned time_ms=WW3D::Get_Frame_Time();
 //	if (time_ms==0) time_ms=1;
 
+	// Do NOT scale halo by current scale
+	// because it uses screen parallel primitives
+	// and if it's too big it will be visible until
+	// it collides with the near clip plane and then pop and vanish
 	float halo_scale_x=types[type]->ic.halo_scale_x;
 	float halo_scale_y=types[type]->ic.halo_scale_y;
-	float dazzle_scale_x=types[type]->ic.dazzle_scale_x;
-	float dazzle_scale_y=types[type]->ic.dazzle_scale_y;
+	float dazzle_scale_x=types[type]->ic.dazzle_scale_x * current_scale;
+	float dazzle_scale_y=types[type]->ic.dazzle_scale_y * current_scale;
 
 	// Allocate some arrays for the dazzle rendering
 	int vertex_count=4;
@@ -1124,28 +1147,34 @@ void DazzleRenderObjClass::Render_Dazzle(CameraClass* camera)
 
 			unsigned color=DX8Wrapper::Convert_Color(col,1.0f);
 
-			dl=current_vloc+(halo_dxt-halo_dyt)*halo_size;
+			Vector3 offset;			
+
+			offset = (halo_dxt - halo_dyt) * halo_size;
+			dl = current_vloc + offset;
 			reinterpret_cast<Vector3&>(vertex->x)=dl;
 			vertex->u1=0.0f;
 			vertex->v1=0.0f;
 			vertex->diffuse=color;
 			vertex++;
 
-			dl=current_vloc+(halo_dxt+halo_dyt)*halo_size;
+			offset = (halo_dxt + halo_dyt) * halo_size;  
+			dl =current_vloc + offset;
 			reinterpret_cast<Vector3&>(vertex->x)=dl;
 			vertex->u1=1.0f;
 			vertex->v1=0.0f;
 			vertex->diffuse=color;
 			vertex++;
 
-			dl=current_vloc-(halo_dxt-halo_dyt)*halo_size;
+			offset = -(halo_dxt - halo_dyt) * halo_size;
+			dl = current_vloc + offset;
 			reinterpret_cast<Vector3&>(vertex->x)=dl;
 			vertex->u1=1.0f;
 			vertex->v1=1.0f;
 			vertex->diffuse=color;
 			vertex++;
 
-			dl=current_vloc-(halo_dxt+halo_dyt)*halo_size;
+			offset = -(halo_dxt + halo_dyt) * halo_size;
+			dl=current_vloc + offset;
 			reinterpret_cast<Vector3&>(vertex->x)=dl;
 			vertex->u1=0.0f;
 			vertex->v1=1.0f;
@@ -1195,7 +1224,7 @@ void DazzleRenderObjClass::Render_Dazzle(CameraClass* camera)
 
 	DX8Wrapper::Set_World_Identity();
 	DX8Wrapper::Set_View_Identity();
-	DX8Wrapper::Set_Transform(D3DTS_PROJECTION,Matrix4(true));
+	DX8Wrapper::Set_Transform(D3DTS_PROJECTION,Matrix4x4(true));
 
 	if (halo_poly_count) {
 		DX8Wrapper::Set_Index_Buffer(ib_access,dazzle_vertex_count);
@@ -1529,7 +1558,7 @@ DazzleLayerClass::DazzleLayerClass(void) :
 		// are initialized
 		WWASSERT(type_count);
 
-		visible_lists = new DazzleRenderObjClass *[type_count];
+		visible_lists = W3DNEWARRAY DazzleRenderObjClass *[type_count];
 		for (unsigned int i = 0; i < type_count; i++) {
 			visible_lists[i] = NULL;
 		}
@@ -1539,7 +1568,7 @@ DazzleLayerClass::DazzleLayerClass(void) :
 DazzleLayerClass::~DazzleLayerClass(void)
 {
 	// NOTE - this destructor must be called BEFORE DeInit().
-	WWASSERT(type_count);
+//	WWASSERT(type_count);
 
 	for (unsigned int i = 0; i < type_count; i++) {
 		Clear_Visible_List(i);
@@ -1697,7 +1726,7 @@ WW3DErrorType DazzlePrototypeClass::Load_W3D(ChunkLoadClass & cload)
 
 PrototypeClass * DazzleLoaderClass::Load_W3D(ChunkLoadClass & cload)
 {
-	DazzlePrototypeClass * new_proto = new DazzlePrototypeClass;
+	DazzlePrototypeClass * new_proto = W3DNEW DazzlePrototypeClass;
 	new_proto->Load_W3D(cload);
 	return new_proto;
 }
