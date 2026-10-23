@@ -439,7 +439,7 @@ void ShdMeshClass::Update_Cached_Bounding_Volumes(void) const
 {
 	Get_Obj_Space_Bounding_Sphere(CachedBoundingSphere);
 
-	Matrix3D::Transform_Vector(Get_Transform(),CachedBoundingSphere.Center,&CachedBoundingSphere.Center);
+	CachedBoundingSphere.Center = Get_Transform() * CachedBoundingSphere.Center;
 
 	// If we are camera-aligned or -oriented, we don't know which way we are facing at this point,
 	// so the box we return needs to contain the sphere. Otherewise do the normal computation.
@@ -539,7 +539,7 @@ WW3DErrorType ShdMeshClass::Load_W3D(ChunkLoadClass& cload)
 	char buf[MAX_PATH];
 	cload.Read(buf,cload.Cur_Chunk_Length());
 	cload.Close_Chunk();
-	Set_Name(buf);
+	Name=buf;
 
 	// open header
 	W3dShdMeshHeaderStruct hdr;
@@ -600,10 +600,6 @@ WW3DErrorType ShdMeshClass::Load_W3D(ChunkLoadClass& cload)
 
 			ssmesh->Load_W3D(cload);
 			
-			// assign each sub-mesh with a name in the format: <parentmesh>.<index>
-			StringClass tmp;
-			tmp.Format("%s.%d",Name,i);
-			ssmesh->Set_Name(tmp);
 			
 			i++;
 		}

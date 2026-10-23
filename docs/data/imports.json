@@ -8529,8 +8529,10 @@
      "0xA099D0",
      "0xA09B90",
      "0xA09D60",
+     "0xA09ED0",
      "0xA09FB0",
      "0xA0A150",
+     "0xA0A380",
      "0xA0A6A0",
      "0xA0A740"
     ],
@@ -8654,7 +8656,7 @@
    "shdsimple.h": "Z",
    "shdsubmesh.h": "Z"
   },
-  "in_tree_total": 136,
+  "in_tree_total": 138,
   "totals": {
    "Z": 62
   }
