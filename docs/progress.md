@@ -30,9 +30,24 @@ Newest first within each section. Dates are when the entry was written.
   `ShdBumpSpecDefClass::Init` was a twin match undoing an E&B patch, reverted (trap added).
 * `docs/data/gaps-wwshade.*` generated for the first time (7 left), `gaps-wwaudio` regenerated (48);
   `symbols.json` 6,438 -> 6,494.
-* Commits: this entry's work, on master. Nothing pushed.
-* Next: `ShdMeshClass` `Load_W3D` 0xA0A380, `Update_Cached_Bounding_Volumes` 0xA09ED0, ctor; then
-  the WWAudio gaps that are left after the profile build (regenerate `gaps-wwaudio`), WW3D2 near-misses.
+* Commits: 23bd311..66236bf on master. Nothing pushed.
+* Verified: every step by `importer.py verify` (pair sets compared before/after) and `replay`
+  (0 differences). Nothing run live; nothing waits on the user.
+* Decisions: D14 (user): `ENABLE_WWPROFILE` in WWDebug too (neutral, none lost; soft). The other
+  flag changes apply D12 (user); the helper's neutral name applies D10.
+* Open questions:
+  1. The `"UnNamed"` null test (above). Recommendation: leave it until `ShdMeshClass`'s ctor is
+     worked on; it is the same issue in both functions.
+* Next step: `ShdMeshClass::Update_Cached_Bounding_Volumes` 0xA09ED0, then `Load_W3D` 0xA0A380:
+  `python tools/re/objdiff.py %TEMP%\enb_import\verify-wwshade\shdmesh.obj
+  "?Update_Cached_Bounding_Volumes@ShdMeshClass@@MBEXXZ" 0xA09ED0`
+  (gaps-wwshade pairs `ShdMeshClass` with app-region addresses; use the vtable/ctor addresses).
+  After that, the 48 WWAudio gaps (`docs/data/gaps-wwaudio.md`, regenerated this session).
+* Outside git: `.work/bm2` is the current evidence (new flags); `.work/bm2_prev`,
+  `.work/bm2_old_noGX` older sets (deletable). Specs as applied: `.work/{lights,cdef,defs,
+  gm_inst,caps,bsinit,prof,w3prof}_spec.py`; `.work/pairs_cmp.py` (pair-set diff of two
+  `imports.json`), `.work/sub_flags.py` (compile a library with given flags). VMs:
+  `.work/vc6_hosts.json` (192.168.193.108, .202.231, .207.76).
 
 ### 2026-10-23: D9 step 3, E&B's earlier wwshade; wwshade's flags
 
@@ -306,6 +321,7 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 | D11 | 2026-10-23 | Compiler-generated code (STL template instances): extend the corpus as each app file needs it, not ahead of the app work | user |
 | D12 | 2026-10-23 | Compile each library with the flags E&B used, wherever byte evidence shows them (wwshade: `/GX /Ob1`; importer `LIB_FLAGS`, `bytematch_all.sh` `LIBFLAGS`) | user: "match how E&B built things whenever you have evidence to support it" |
 | D13 | 2026-10-23 | EA files the client does not link are dropped from the tree (importer `NOT_LINKED`, with the evidence): first `shdlegacyw3d.cpp`/`.h` | user |
+| D14 | 2026-10-23 | `ENABLE_WWPROFILE` in WWDebug too, although its bytes are neutral (verify: 67 before and after, none lost): consistent with a project-wide define. Soft: drop it if it ever costs a match | user |
 
 ## 3. Open decisions
 

@@ -76,6 +76,8 @@ LIB_FLAGS = {'wwshade': '/nologo /c /MT /W3 /O2 /Ob1 /GX /D _MBCS /D ENABLE_WWPR
              # ENABLE_WWPROFILE also in WWAudio (+32 pairs: WWAudioClass, SoundSceneClass, sound buffers) and WWMath (+1)
              'wwaudio': '/nologo /c /MT /W3 /O2 /Ob2 /D _MBCS /D ENABLE_WWPROFILE',
              'wwmath': '/nologo /c /MT /W3 /O2 /Ob2 /D ENABLE_WWPROFILE',
+             # WWDebug: neutral in the bytes; set for consistency with a project-wide define (D14, soft)
+             'wwdebug': '/nologo /c /MT /W3 /O2 /Ob2 /D ENABLE_WWPROFILE',
              # WW3D2 too was built with ENABLE_WWPROFILE: +20 pairs (assetmgr, dazzle, sortingrenderer, ...)
              'ww3d2': '/nologo /c /MT /W3 /O2 /Ob2 /D ENABLE_WWPROFILE'}
 
