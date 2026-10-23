@@ -1708,40 +1708,79 @@ WWAudioClass::Get_2D_Sample (const AudibleSoundClass &sound_obj)
 	HSAMPLE lowest_pri_sample				= NULL;
 	HSAMPLE free_sample						= (HSAMPLE)INVALID_MILES_HANDLE;
 
+	//
+	//	E&B: the sounds of the same kind (m_Unknown80) that already hold a handle, and the
+	// one of them with the lowest runtime priority
+	//
+	int instance_count						= 0;
+	float lowest_instance_priority		= sound_obj.Get_Runtime_Priority ();
+	HSAMPLE lowest_instance_sample			= NULL;
+	AudibleSoundClass *lowest_instance_sound = NULL;
+
+	//
+	//	E&B: only sound effects give up their handle to a sound that is not a sound effect
+	//
+	if (sound_obj.Get_Type () != AudibleSoundClass::TYPE_SOUND_EFFECT) {
+		lowest_priority			= 99999.9F;
+		lowest_runtime_priority = 99999.9F;
+	}
+
 	// Loop through all the available sample handles and try to find
 	// one that isn't being used to play a sound.
 	bool found = false;
-	for (int index = 0; (index < m_2DSampleHandles.Count ()) && !found; index ++) {
+	for (int index = 0; index < m_2DSampleHandles.Count (); index ++) {
 
 		HSAMPLE sample = m_2DSampleHandles[index];
 		if (sample != NULL) {
 
 			// Get a pointer to the object that is currently using this sample
-			AudibleSoundClass *sound_obj = (AudibleSoundClass *)::AIL_sample_user_data (sample, INFO_OBJECT_PTR);
-			if (sound_obj == NULL) {
+			AudibleSoundClass *playing_obj = (AudibleSoundClass *)::AIL_sample_user_data (sample, INFO_OBJECT_PTR);
+			if (playing_obj == NULL) {
 
 				// Return this sample handle to the caller
-				free_sample = sample;
-				found = true;
-			} else {
+				if (!found) {
+					free_sample = sample;
+					found = true;
+				}
+			} else if (playing_obj->Get_Type () == AudibleSoundClass::TYPE_SOUND_EFFECT) {
+
+				float runtime_priority	= playing_obj->Get_Runtime_Priority ();
+				if (sound_obj.m_Unknown80 != -1 && sound_obj.m_Unknown80 == playing_obj->m_Unknown80) {
+					instance_count ++;
+					if (runtime_priority < lowest_instance_priority) {
+						lowest_instance_sample		= sample;
+						lowest_instance_sound		= playing_obj;
+						lowest_instance_priority	= runtime_priority;
+					}
+				}
 
 				//
 				//	Determine if this sound's priority is lesser then the sound we want to play.
 				// This is done by comparing both the designer-specified priority and the current
 				// runtime priority (which is calculated by distance to the listener).
 				//
-				float priority				= sound_obj->Get_Priority ();
-				float runtime_priority	= sound_obj->Get_Runtime_Priority ();
+				float priority				= playing_obj->Get_Priority ();
 				if (	(priority < lowest_priority) ||
 						(priority == lowest_priority && runtime_priority <= lowest_runtime_priority))
 				{
 					lowest_priority			= priority;
-					lowest_pri_sound			= sound_obj;
+					lowest_pri_sound			= playing_obj;
 					lowest_pri_sample			= sample;
 					lowest_runtime_priority = runtime_priority;
 				}
 			}
 		}
+	}
+
+	//
+	//	E&B: too many sounds of this kind are playing: take the handle of the least important one
+	//
+	if (instance_count >= sound_obj.m_Unknown7C) {
+		if (lowest_instance_sound != NULL) {
+			lowest_instance_sound->Free_Miles_Handle ();
+			return lowest_instance_sample;
+		}
+		return (HSAMPLE)INVALID_MILES_HANDLE;
 	}
 
 	// Steal the sample handle from the lower priority
@@ -1773,44 +1812,74 @@ WWAudioClass::Get_3D_Sample (const Sound3DClass &sound_obj)
 	float lowest_priority					= sound_obj.Get_Priority ();
 	float lowest_runtime_priority			= sound_obj.Get_Runtime_Priority ();
 	AudibleSoundClass *lowest_pri_sound = NULL;
-	H3DSAMPLE lowest_pri_sample			= NULL;
-	H3DSAMPLE free_sample					= (H3DSAMPLE)INVALID_MILES_HANDLE;
+	H3DSAMPLE lowest_pri_sample				= NULL;
+	H3DSAMPLE free_sample						= (H3DSAMPLE)INVALID_MILES_HANDLE;
 
+	//
+	//	E&B: the sounds of the same kind (m_Unknown80) that already hold a handle, and the
+	// one of them with the lowest runtime priority
+	//
+	int instance_count						= 0;
+	float lowest_instance_priority		= sound_obj.Get_Runtime_Priority ();
+	H3DSAMPLE lowest_instance_sample			= NULL;
+	AudibleSoundClass *lowest_instance_sound = NULL;
 
 	// Loop through all the available sample handles and try to find
 	// one that isn't being used to play a sound.
 	bool found = false;
-	for (int index = 0; (index < m_3DSampleHandles.Count ()) && !found; index ++) {
+	for (int index = 0; index < m_3DSampleHandles.Count (); index ++) {
 
 		H3DSAMPLE sample = m_3DSampleHandles[index];
 		if (sample != NULL) {
 
 			// Get a pointer to the object that is currently using this sample
-			AudibleSoundClass *sound_obj = (AudibleSoundClass *)::AIL_3D_object_user_data (sample, INFO_OBJECT_PTR);
-			if (sound_obj == NULL) {
+			AudibleSoundClass *playing_obj = (AudibleSoundClass *)::AIL_3D_object_user_data (sample, INFO_OBJECT_PTR);
+			if (playing_obj == NULL) {
 
 				// Return this sample handle to the caller
-				free_sample = sample;
-				found = true;
+				if (!found) {
+					free_sample = sample;
+					found = true;
+				}
 			} else {
+
+				float runtime_priority	= playing_obj->Get_Runtime_Priority ();
+				if (sound_obj.m_Unknown80 != -1 && sound_obj.m_Unknown80 == playing_obj->m_Unknown80) {
+					instance_count ++;
+					if (runtime_priority < lowest_instance_priority) {
+						lowest_instance_sample		= sample;
+						lowest_instance_sound		= playing_obj;
+						lowest_instance_priority	= runtime_priority;
+					}
+				}
 
 				//
 				//	Determine if this sound's priority is lesser then the sound we want to play.
 				// This is done by comparing both the designer-specified priority and the current
 				// runtime priority (which is calculated by distance to the listener).
 				//
-				float priority				= sound_obj->Get_Priority ();
-				float runtime_priority	= sound_obj->Get_Runtime_Priority ();
+				float priority				= playing_obj->Get_Priority ();
 				if (	(priority < lowest_priority) ||
 						(priority == lowest_priority && runtime_priority <= lowest_runtime_priority))
 				{
 					lowest_priority			= priority;
-					lowest_pri_sound			= sound_obj;
+					lowest_pri_sound			= playing_obj;
 					lowest_pri_sample			= sample;
 					lowest_runtime_priority = runtime_priority;
 				}
 			}
 		}
+	}
+
+	//
+	//	E&B: too many sounds of this kind are playing: take the handle of the least important one
+	//
+	if (instance_count >= sound_obj.m_Unknown7C) {
+		if (lowest_instance_sound != NULL) {
+			lowest_instance_sound->Free_Miles_Handle ();
+			return lowest_instance_sample;
+		}
+		return (H3DSAMPLE)INVALID_MILES_HANDLE;
 	}
 
 	// Steal the sample handle from the lower priority
