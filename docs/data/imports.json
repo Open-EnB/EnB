@@ -4602,23 +4602,6 @@
     "merged": [],
     "name": "AudioEvents.cpp"
    },
-   "audiosaveload": {
-    "best": "R",
-    "copy": "R",
-    "expected": {
-     "G": 3,
-     "R": 3,
-     "Z": 3
-    },
-    "headers_from": null,
-    "in_tree": [
-     "0x42F250",
-     "0x909500",
-     "0x9DA8C0"
-    ],
-    "merged": [],
-    "name": "AudioSaveLoad.cpp"
-   },
    "filteredsound": {
     "best": "R",
     "copy": "R",
@@ -5207,7 +5190,6 @@
    "AABTreeSoundCullClass.h": "R",
    "AudibleSound.h": "R",
    "AudioEvents.h": "R",
-   "AudioSaveLoad.h": "R",
    "FilteredSound.h": "R",
    "Listener.h": "R",
    "LogicalListener.h": "R",

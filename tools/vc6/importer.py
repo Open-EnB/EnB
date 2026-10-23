@@ -89,6 +89,11 @@ NOT_LINKED = {
         'no LegacyW3D shader in the client: no "LegacyW3D" string, SHD_Force_Links (0xA08C70) links 5 '
         'shaders, ShdRendererClass::Init_Shaders (0xA07E00) loops class ids 1..5, one prototype loader',
     ('wwshade', 'shdlegacyw3d.h'): 'its header (included by nothing else in E&B\'s wwshade)',
+    ('wwaudio', 'audiosaveload.cpp'):
+        'no audio save/load subsystem in the client: no "StaticAudioSaveLoadClass" or '
+        '"DynamicAudioSaveLoadClass" string (their Name()), no "SaveLoadSubSystem"; its only pairs were shared '
+        'helpers matched by other files (0x42F250, 0x909500, 0x9DA8C0)',
+    ('wwaudio', 'audiosaveload.h'): 'its header (included by nothing else in the tree)',
 }
 
 
