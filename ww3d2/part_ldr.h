@@ -161,6 +161,7 @@ class ParticleEmitterDefClass
 		virtual void			Set_Outward_Vel (float value)					{ m_InfoV2.OutwardVel = value; }
 		virtual void			Set_Vel_Inherit (float value)					{ m_InfoV2.VelInherit = value; }
 		virtual void			Set_Future_Start_Time (float value)			{ m_ExtraInfo.FutureStartTime = value; }
+		virtual void			Set_Unknown_Flag (uint8 value)				{ m_ExtraInfo.UnknownFlag = value; }	// E&B; name not known
 
 		void						Get_Shader (ShaderClass &shader) const		{ W3dUtilityClass::Convert_Shader (m_InfoV2.Shader, &shader); }
 		virtual void			Set_Shader (const ShaderClass &shader)		{ W3dUtilityClass::Convert_Shader (shader, &m_InfoV2.Shader); }

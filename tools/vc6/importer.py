@@ -92,6 +92,32 @@ PATCHES = {
          'template <class T> \nShareBufferClass<T>::ShareBufferClass(const ShareBufferClass<T> & that) :',
          'its definition (the same body as the one-argument constructor)'),
     ],
+    ('ww3d2', 'w3d_file.h'): [
+        ('FutureStartTime; // Whether to start a particle in the future or not\n\tuint32\t\t\t\tPadding[9];',
+         'FutureStartTime; // Whether to start a particle in the future or not\n'
+         '\tbool\t\t\t\t\tUnknownFlag;\t\t// E&B: set by ParticleEmitterDefClass::Set_Unknown_Flag; meaning not known\n'
+         '\tuint8\t\t\t\tUnknownPad[3];\n'
+         '\tuint32\t\t\t\tPadding[8];',
+         "W3dEmitterExtraInfoStruct (Zero Hour's) keeps its 40 bytes, but E&B uses the byte after "
+         "FutureStartTime as a bool flag (ParticleEmitterDefClass's extra virtual, vtable slot 19 at "
+         "0x914520, sets it); named UnknownFlag"),
+    ],
+    ('ww3d2', 'part_ldr.h'): [
+        ('virtual void\t\t\tSet_Future_Start_Time (float value)\t\t\t{ m_ExtraInfo.FutureStartTime = value; }',
+         'virtual void\t\t\tSet_Future_Start_Time (float value)\t\t\t{ m_ExtraInfo.FutureStartTime = value; }\n'
+         '\t\tvirtual void\t\t\tSet_Unknown_Flag (uint8 value)\t\t\t\t{ m_ExtraInfo.UnknownFlag = value; }\t// E&B; name not known',
+         "ParticleEmitterDefClass has an extra virtual after Set_Future_Start_Time (the client's vtable "
+         "at 0xB10920, slot 19) that stores a byte argument as a bool: named Set_Unknown_Flag. A uint8 "
+         "argument into a bool member reproduces the client's test/setne"),
+    ],
+    ('ww3d2', 'scene.h'): [
+        ('\tvirtual ~SceneClass(void);',
+         '\tvirtual ~SceneClass(void);\n\n\t///////////////////////////////////////////////////////////////////////////////////\n\t// RTTI information.\n\t///////////////////////////////////////////////////////////////////////////////////\n\tenum {\n\t\tSCENE_ID_UNKOWN = 0xFFFFFFFF,\n\t\tSCENE_ID_SCENE = 0,\n\t\tSCENE_ID_SIMPLE,\n\n\t\tSCENE_ID_LAST = 0x0000FFFF,\n\t};\n\tvirtual int\t\t\t\t\tGet_Scene_ID(void) const\t{\treturn SCENE_ID_SCENE;\t}',
+         "SceneClass has Zero Hour's scene IDs: Get_Scene_ID() const (returns SCENE_ID_SCENE) right after the destructor, as in the client's vtable (0xB120FC, slot 2). Zero Hour's virtual Render is not in the client"),
+        ('\tvirtual ~SimpleSceneClass(void);',
+         '\tvirtual ~SimpleSceneClass(void);\n\n\tvirtual int\tGet_Scene_ID(void)\t{\treturn SCENE_ID_SIMPLE;\t}',
+         "SimpleSceneClass::Get_Scene_ID() (not const, so a new virtual, not an override: as in Zero Hour) returns SCENE_ID_SIMPLE (the client's slot 23 returns 1)"),
+    ],
     ('ww3d2', 'rendobj.h'): [
         ('class RenderObjClass : public RefCountClass , public PersistClass, public MultiListObjectClass',
          """//////////////////////////////////////////////////////////////////////////////////

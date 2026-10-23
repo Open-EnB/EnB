@@ -1,0 +1,6617 @@
+[
+ {
+  "class": "?$DynamicVectorClass@G",
+  "client_vtable": "0xB125C8",
+  "slots": 6,
+  "client_slots": 22,
+  "anchored": 3,
+  "differences": [
+   {
+    "op": "replace",
+    "ours": [
+     "?ID@?$DynamicVectorClass@G@@UAEHPBG@Z"
+    ],
+    "client": [
+     "0x973D80",
+     "0x974260",
+     "0x973DF0",
+     "0x973E30",
+     "0x973EE0",
+     "0x973F10",
+     "0x973F50",
+     "0x973110",
+     "0x973360",
+     "0x975080",
+     "0x975070",
+     "0x409E44",
+     "0x942DF0",
+     "0x942E00",
+     "0x942E10",
+     "0x406573",
+     "0x974BF0"
+    ],
+    "client_slot": 5,
+    "our_slot": 5,
+    "after": "?ID@?$DynamicVectorClass@G@@UAEHABG@Z"
+   }
+  ]
+ },
+ {
+  "class": "?$DynamicVectorClass@UPendingSurfaceStruct@Render2DSentenceClass",
+  "client_vtable": "0xB14218",
+  "slots": 6,
+  "client_slots": 22,
+  "anchored": 2,
+  "differences": [
+   {
+    "op": "replace",
+    "ours": [
+     "?ID@?$DynamicVectorClass@UPendingSurfaceStruct@Render2DSentenceClass@@@@UAEHABUPendingSurfaceStruct@Render2DSentenceClass@@@Z",
+     "?ID@?$DynamicVectorClass@UPendingSurfaceStruct@Render2DSentenceClass@@@@UAEHPBUPendingSurfaceStruct@Render2DSentenceClass@@@Z"
+    ],
+    "client": [
+     "0x9AB4C0",
+     "0x9AA8A0",
+     "0x9AB820",
+     "0x9AAC60",
+     "0x9AAE00",
+     "0x9AA7C0",
+     "0x9AAF70",
+     "0x9AA7F0",
+     "0x9AB7D0",
+     "0x9AAC60",
+     "0x9AAC80",
+     "0x9AAD90",
+     "0x9AADC0",
+     "0x9AADD0",
+     "0x9AB870",
+     "0x9AAF80",
+     "0x9AAFA0",
+     "0x9AB210"
+    ],
+    "client_slot": 4,
+    "our_slot": 4,
+    "after": "?Clear@?$DynamicVectorClass@UPendingSurfaceStruct@Render2DSentenceClass@@@@UAEXXZ"
+   }
+  ]
+ },
+ {
+  "class": "?$DynamicVectorClass@USentenceDataStruct@Render2DSentenceClass",
+  "client_vtable": "0xB14230",
+  "slots": 6,
+  "client_slots": 22,
+  "anchored": 1,
+  "differences": [
+   {
+    "op": "replace",
+    "ours": [
+     "?Clear@?$DynamicVectorClass@USentenceDataStruct@Render2DSentenceClass@@@@UAEXXZ",
+     "?ID@?$DynamicVectorClass@USentenceDataStruct@Render2DSentenceClass@@@@UAEHABUSentenceDataStruct@Render2DSentenceClass@@@Z",
+     "?ID@?$DynamicVectorClass@USentenceDataStruct@Render2DSentenceClass@@@@UAEHPBUSentenceDataStruct@Render2DSentenceClass@@@Z"
+    ],
+    "client": [
+     "0x9AA7C0",
+     "0x9AAF70",
+     "0x9AA7F0",
+     "0x9AB7D0",
+     "0x9AAC60",
+     "0x9AAC80",
+     "0x9AAD90",
+     "0x9AADC0",
+     "0x9AADD0",
+     "0x9AB870",
+     "0x9AAF80",
+     "0x9AAFA0",
+     "0x9AB210",
+     "0x9AB290",
+     "0x9AB2A0",
+     "0x9AB9B0",
+     "0x9AB4D0",
+     "0x9AB4F0",
+     "0x9AB5B0"
+    ],
+    "client_slot": 3,
+    "our_slot": 3,
+    "after": "?Resize@?$DynamicVectorClass@USentenceDataStruct@Render2DSentenceClass@@@@UAE_NHPBUSentenceDataStruct@Render2DSentenceClass@@@Z"
+   }
+  ]
+ },
+ {
+  "class": "?$DynamicVectorClass@VProxyClass",
+  "client_vtable": "0xB136E0",
+  "slots": 6,
+  "client_slots": 22,
+  "anchored": 4,
+  "differences": [
+   {
+    "op": "replace",
+    "ours": [
+     "?ID@?$DynamicVectorClass@VProxyClass@@@@UAEHPBVProxyClass@@@Z"
+    ],
+    "client": [
+     "0x9921D0",
+     "0x992C20",
+     "0x992250",
+     "0x992340",
+     "0x9925D0",
+     "0x992630",
+     "0x992710",
+     "0x992D20",
+     "0x9929C0",
+     "0x992A00",
+     "0x992AB0",
+     "0x992AE0",
+     "0x992B20",
+     "0x406573",
+     "0x992F30",
+     "0x991EE0",
+     "0x408436"
+    ],
+    "client_slot": 5,
+    "our_slot": 5,
+    "after": "?ID@?$DynamicVectorClass@VProxyClass@@@@UAEHABVProxyClass@@@Z"
+   }
+  ]
+ },
+ {
+  "class": "?$DynamicVectorClass@VRenderDeviceDescClass",
+  "client_vtable": "0xB10C30",
+  "slots": 6,
+  "client_slots": 18,
+  "anchored": 3,
+  "differences": [
+   {
+    "op": "insert",
+    "ours": [],
+    "client": [
+     "0x929BD0",
+     "0x928FB0",
+     "0x929010",
+     "0x929110",
+     "0x929140",
+     "0x929190",
+     "0x929C70",
+     "0x929460",
+     "0x929480",
+     "0x929930",
+     "0x929A20",
+     "0x929A30"
+    ],
+    "client_slot": 6,
+    "our_slot": 6,
+    "after": "?ID@?$DynamicVectorClass@VRenderDeviceDescClass@@@@UAEHPBVRenderDeviceDescClass@@@Z"
+   }
+  ]
+ },
+ {
+  "class": "?$DynamicVectorClass@VResolutionDescClass",
+  "client_vtable": "0xB10C80",
+  "slots": 6,
+  "client_slots": 6,
+  "anchored": 3,
+  "differences": []
+ },
+ {
+  "class": "?$DynamicVectorClass@VShaderClass",
+  "client_vtable": "0xB11AC8",
+  "slots": 6,
+  "client_slots": 22,
+  "anchored": 1,
+  "differences": [
+   {
+    "op": "replace",
+    "ours": [
+     "?Clear@?$DynamicVectorClass@VShaderClass@@@@UAEXXZ",
+     "?ID@?$DynamicVectorClass@VShaderClass@@@@UAEHABVShaderClass@@@Z",
+     "?ID@?$DynamicVectorClass@VShaderClass@@@@UAEHPBVShaderClass@@@Z"
+    ],
+    "client": [
+     "0x952A60",
+     "0x953270",
+     "0x952A90",
+     "0x9533E0",
+     "0x952FC0",
+     "0x953000",
+     "0x9530E0",
+     "0x953110",
+     "0x953150",
+     "0x9535E0",
+     "0x954180",
+     "0x954190",
+     "0x954220",
+     "0x954280",
+     "0x954270",
+     "0x409E44",
+     "0x953FB0",
+     "0x953FC0",
+     "0x954080"
+    ],
+    "client_slot": 3,
+    "our_slot": 3,
+    "after": "?Resize@?$DynamicVectorClass@VShaderClass@@@@UAE_NHPBVShaderClass@@@Z"
+   }
+  ]
+ },
+ {
+  "class": "?$DynamicVectorClass@VVector2",
+  "client_vtable": "0xB125B0",
+  "slots": 6,
+  "client_slots": 22,
+  "anchored": 3,
+  "differences": [
+   {
+    "op": "replace",
+    "ours": [
+     "?ID@?$DynamicVectorClass@VVector2@@@@UAEHPBVVector2@@@Z"
+    ],
+    "client": [
+     "0x973DD0",
+     "0x9742B0",
+     "0x973DF0",
+     "0x973F70",
+     "0x973D50",
+     "0x974020",
+     "0x973D80",
+     "0x974260",
+     "0x973DF0",
+     "0x973E30",
+     "0x973EE0",
+     "0x973F10",
+     "0x973F50",
+     "0x973110",
+     "0x973360",
+     "0x975080",
+     "0x975070"
+    ],
+    "client_slot": 5,
+    "our_slot": 5,
+    "after": "?ID@?$DynamicVectorClass@VVector2@@@@UAEHABVVector2@@@Z"
+   }
+  ]
+ },
+ {
+  "class": "?$LERPAnimationChannelClass@M",
+  "client_vtable": "0xB10630",
+  "slots": 4,
+  "client_slots": 20,
+  "anchored": 3,
+  "differences": [
+   {
+    "op": "insert",
+    "ours": [],
+    "client": [
+     "0x90B2F0",
+     "0x90FAC0",
+     "0x90F930",
+     "0x90F9A0",
+     "0x910240",
+     "0x90FD50",
+     "0x90FCE0",
+     "0x90EFF0",
+     "0x9CCD10",
+     "0x90FEC0",
+     "0x90FF20",
+     "0x9101A0",
+     "0x90F7B0",
+     "0x90F6B0",
+     "0x90EF70",
+     "0x9CCD10"
+    ],
+    "client_slot": 4,
+    "our_slot": 4,
+    "after": "?Load@?$PrimitiveAnimationChannelClass@M@@UAEXAAVChunkLoadClass@@@Z"
+   }
+  ]
+ },
+ {
+  "class": "?$LERPAnimationChannelClass@VVector2",
+  "client_vtable": "0xB108C8",
+  "slots": 4,
+  "client_slots": 20,
+  "anchored": 3,
+  "differences": [
+   {
+    "op": "insert",
+    "ours": [],
+    "client": [
+     "0x914000",
+     "0x913AC0",
+     "0x913B80",
+     "0x914040",
+     "0x913BE0",
+     "0x913B80",
+     "0x913A10",
+     "0x9CCD10",
+     "0x913D70",
+     "0x913DE0",
+     "0x912970",
+     "0x912F30",
+     "0x912F40",
+     "0x913180",
+     "0x9134E0",
+     "0x912850"
+    ],
+    "client_slot": 4,
+    "our_slot": 4,
+    "after": "?Load@?$PrimitiveAnimationChannelClass@VVector2@@@@UAEXAAVChunkLoadClass@@@Z"
+   }
+  ]
+ },
+ {
+  "class": "?$LERPAnimationChannelClass@VVector3",
+  "client_vtable": "0xB10640",
+  "slots": 4,
+  "client_slots": 20,
+  "anchored": 3,
+  "differences": [
+   {
+    "op": "insert",
+    "ours": [],
+    "client": [
+     "0x910240",
+     "0x90FD50",
+     "0x90FCE0",
+     "0x90EFF0",
+     "0x9CCD10",
+     "0x90FEC0",
+     "0x90FF20",
+     "0x9101A0",
+     "0x90F7B0",
+     "0x90F6B0",
+     "0x90EF70",
+     "0x9CCD10",
+     "0x90F930",
+     "0x90F9A0",
+     "0x90EEF0",
+     "0x9CCD10"
+    ],
+    "client_slot": 4,
+    "our_slot": 4,
+    "after": "?Load@?$PrimitiveAnimationChannelClass@VVector3@@@@UAEXAAVChunkLoadClass@@@Z"
+   }
+  ]
+ },
+ {
+  "class": "?$PrimitiveAnimationChannelClass@M",
+  "client_vtable": "0xB10630",
+  "slots": 4,
+  "client_slots": 20,
+  "anchored": 2,
+  "differences": [
+   {
+    "op": "insert",
+    "ours": [],
+    "client": [
+     "0x90B2F0",
+     "0x90FAC0",
+     "0x90F930",
+     "0x90F9A0",
+     "0x910240",
+     "0x90FD50",
+     "0x90FCE0",
+     "0x90EFF0",
+     "0x9CCD10",
+     "0x90FEC0",
+     "0x90FF20",
+     "0x9101A0",
+     "0x90F7B0",
+     "0x90F6B0",
+     "0x90EF70",
+     "0x9CCD10"
+    ],
+    "client_slot": 4,
+    "our_slot": 4,
+    "after": "?Load@?$PrimitiveAnimationChannelClass@M@@UAEXAAVChunkLoadClass@@@Z"
+   }
+  ]
+ },
+ {
+  "class": "?$PrimitiveAnimationChannelClass@UAlphaVectorStruct",
+  "client_vtable": "0xB10620",
+  "slots": 4,
+  "client_slots": 20,
+  "anchored": 2,
+  "differences": [
+   {
+    "op": "insert",
+    "ours": [],
+    "client": [
+     "0x90B370",
+     "0x910020",
+     "0x90FEC0",
+     "0x90FF20",
+     "0x90B2F0",
+     "0x90FAC0",
+     "0x90F930",
+     "0x90F9A0",
+     "0x910240",
+     "0x90FD50",
+     "0x90FCE0",
+     "0x90EFF0",
+     "0x9CCD10",
+     "0x90FEC0",
+     "0x90FF20",
+     "0x9101A0"
+    ],
+    "client_slot": 4,
+    "our_slot": 4,
+    "after": "?Load@?$PrimitiveAnimationChannelClass@UAlphaVectorStruct@@@@UAEXAAVChunkLoadClass@@@Z"
+   }
+  ]
+ },
+ {
+  "class": "?$PrimitiveAnimationChannelClass@VVector2",
+  "client_vtable": "0xB108C8",
+  "slots": 4,
+  "client_slots": 20,
+  "anchored": 2,
+  "differences": [
+   {
+    "op": "insert",
+    "ours": [],
+    "client": [
+     "0x914000",
+     "0x913AC0",
+     "0x913B80",
+     "0x914040",
+     "0x913BE0",
+     "0x913B80",
+     "0x913A10",
+     "0x9CCD10",
+     "0x913D70",
+     "0x913DE0",
+     "0x912970",
+     "0x912F30",
+     "0x912F40",
+     "0x913180",
+     "0x9134E0",
+     "0x912850"
+    ],
+    "client_slot": 4,
+    "our_slot": 4,
+    "after": "?Load@?$PrimitiveAnimationChannelClass@VVector2@@@@UAEXAAVChunkLoadClass@@@Z"
+   }
+  ]
+ },
+ {
+  "class": "?$PrimitiveAnimationChannelClass@VVector3",
+  "client_vtable": "0xB10640",
+  "slots": 4,
+  "client_slots": 20,
+  "anchored": 2,
+  "differences": [
+   {
+    "op": "insert",
+    "ours": [],
+    "client": [
+     "0x910240",
+     "0x90FD50",
+     "0x90FCE0",
+     "0x90EFF0",
+     "0x9CCD10",
+     "0x90FEC0",
+     "0x90FF20",
+     "0x9101A0",
+     "0x90F7B0",
+     "0x90F6B0",
+     "0x90EF70",
+     "0x9CCD10",
+     "0x90F930",
+     "0x90F9A0",
+     "0x90EEF0",
+     "0x9CCD10"
+    ],
+    "client_slot": 4,
+    "our_slot": 4,
+    "after": "?Load@?$PrimitiveAnimationChannelClass@VVector3@@@@UAEXAAVChunkLoadClass@@@Z"
+   }
+  ]
+ },
+ {
+  "class": "?$SimpleDynVecClass@VKeyClass@?$PrimitiveAnimationChannelClass@M",
+  "client_vtable": "0xB10650",
+  "slots": 3,
+  "client_slots": 19,
+  "anchored": 2,
+  "differences": [
+   {
+    "op": "insert",
+    "ours": [],
+    "client": [
+     "0x90EFF0",
+     "0x9CCD10",
+     "0x90FEC0",
+     "0x90FF20",
+     "0x9101A0",
+     "0x90F7B0",
+     "0x90F6B0",
+     "0x90EF70",
+     "0x9CCD10",
+     "0x90F930",
+     "0x90F9A0",
+     "0x90EEF0",
+     "0x9CCD10",
+     "0x90F400",
+     "0x90F470",
+     "0x910160"
+    ],
+    "client_slot": 3,
+    "our_slot": 3,
+    "after": "?Uninitialised_Grow@?$SimpleVecClass@VKeyClass@?$PrimitiveAnimationChannelClass@M@@@@UAE_NH@Z"
+   }
+  ]
+ },
+ {
+  "class": "?$SimpleDynVecClass@VKeyClass@?$PrimitiveAnimationChannelClass@UAlphaVectorStruct",
+  "client_vtable": "0xB106BC",
+  "slots": 3,
+  "client_slots": 19,
+  "anchored": 2,
+  "differences": [
+   {
+    "op": "insert",
+    "ours": [],
+    "client": [
+     "0x90D9F0",
+     "0x90E210",
+     "0x90E220",
+     "0x90E230",
+     "0x90E560",
+     "0x90D8B0",
+     "0x9CCD10",
+     "0x9CCD10",
+     "0x9142C0",
+     "0x9142B0",
+     "0x409E44",
+     "0x942DF0",
+     "0x942E00",
+     "0x942E10",
+     "0x406573",
+     "0x910A80"
+    ],
+    "client_slot": 3,
+    "our_slot": 3,
+    "after": "?Uninitialised_Grow@?$SimpleVecClass@VKeyClass@?$PrimitiveAnimationChannelClass@UAlphaVectorStruct@@@@@@UAE_NH@Z"
+   }
+  ]
+ },
+ {
+  "class": "?$SimpleDynVecClass@VKeyClass@?$PrimitiveAnimationChannelClass@VVector2",
+  "client_vtable": "0xB108E4",
+  "slots": 3,
+  "client_slots": 19,
+  "anchored": 2,
+  "differences": [
+   {
+    "op": "insert",
+    "ours": [],
+    "client": [
+     "0x913A10",
+     "0x9CCD10",
+     "0x913D70",
+     "0x913DE0",
+     "0x912970",
+     "0x912F30",
+     "0x912F40",
+     "0x913180",
+     "0x9134E0",
+     "0x912850",
+     "0x9142F0",
+     "0x917450",
+     "0x9146C0",
+     "0x914FB0",
+     "0x916090",
+     "0x914F20"
+    ],
+    "client_slot": 3,
+    "our_slot": 3,
+    "after": "?Uninitialised_Grow@?$SimpleVecClass@VKeyClass@?$PrimitiveAnimationChannelClass@VVector2@@@@@@UAE_NH@Z"
+   }
+  ]
+ },
+ {
+  "class": "?$SimpleDynVecClass@VKeyClass@?$PrimitiveAnimationChannelClass@VVector3",
+  "client_vtable": "0xB1066C",
+  "slots": 3,
+  "client_slots": 19,
+  "anchored": 2,
+  "differences": [
+   {
+    "op": "insert",
+    "ours": [],
+    "client": [
+     "0x90EF70",
+     "0x9CCD10",
+     "0x90F930",
+     "0x90F9A0",
+     "0x90EEF0",
+     "0x9CCD10",
+     "0x90F400",
+     "0x90F470",
+     "0x910160",
+     "0x90F600",
+     "0x90F6B0",
+     "0x910200",
+     "0x90FC30",
+     "0x90FCE0",
+     "0x9100C0",
+     "0x90F0A0"
+    ],
+    "client_slot": 3,
+    "our_slot": 3,
+    "after": "?Uninitialised_Grow@?$SimpleVecClass@VKeyClass@?$PrimitiveAnimationChannelClass@VVector3@@@@@@UAE_NH@Z"
+   }
+  ]
+ },
+ {
+  "class": "?$SimpleDynVecClass@VPolygonClass",
+  "client_vtable": "0xB142F8",
+  "slots": 3,
+  "client_slots": 12,
+  "anchored": 2,
+  "differences": [
+   {
+    "op": "insert",
+    "ours": [],
+    "client": [
+     "0x9AEF80",
+     "0x9AEA80",
+     "0x9AEBA0",
+     "0x9AF060",
+     "0x9AEE50",
+     "0x9AEE10",
+     "0x9AF020",
+     "0x9AED80",
+     "0x9AEE10"
+    ],
+    "client_slot": 3,
+    "our_slot": 3,
+    "after": "?Uninitialised_Grow@?$SimpleVecClass@VPolygonClass@@@@UAE_NH@Z"
+   }
+  ]
+ },
+ {
+  "class": "?$SimpleDynVecClass@VShaderClass",
+  "client_vtable": "0xB143A4",
+  "slots": 3,
+  "client_slots": 19,
+  "anchored": 2,
+  "differences": [
+   {
+    "op": "insert",
+    "ours": [],
+    "client": [
+     "0x9B9E00",
+     "0x9B9300",
+     "0x9B92B0",
+     "0x9B9F00",
+     "0x9B9600",
+     "0x9B9690",
+     "0x9B9FA0",
+     "0x9B9760",
+     "0x9B97F0",
+     "0x9BA040",
+     "0x9B98C0",
+     "0x9B9970",
+     "0x9BA0E0",
+     "0x9B9A90",
+     "0x9B9B30",
+     "0x406573"
+    ],
+    "client_slot": 3,
+    "our_slot": 3,
+    "after": "?Uninitialised_Grow@?$SimpleVecClass@VShaderClass@@@@UAE_NH@Z"
+   }
+  ]
+ },
+ {
+  "class": "?$SimpleDynVecClass@VVector2",
+  "client_vtable": "0xB14380",
+  "slots": 3,
+  "client_slots": 19,
+  "anchored": 2,
+  "differences": [
+   {
+    "op": "insert",
+    "ours": [],
+    "client": [
+     "0x9B9FE0",
+     "0x9B9830",
+     "0x9B97F0",
+     "0x9B9F40",
+     "0x9B96D0",
+     "0x9B9690",
+     "0x9B9EA0",
+     "0x9B9540",
+     "0x9B94D0",
+     "0x9B9E00",
+     "0x9B9300",
+     "0x9B92B0",
+     "0x9B9F00",
+     "0x9B9600",
+     "0x9B9690",
+     "0x9B9FA0"
+    ],
+    "client_slot": 3,
+    "our_slot": 3,
+    "after": "?Uninitialised_Grow@?$SimpleVecClass@VVector2@@@@UAE_NH@Z"
+   }
+  ]
+ },
+ {
+  "class": "?$SimpleDynVecClass@VVector3",
+  "client_vtable": "0xB12040",
+  "slots": 3,
+  "client_slots": 9,
+  "anchored": 2,
+  "differences": [
+   {
+    "op": "insert",
+    "ours": [],
+    "client": [
+     "0x963BB0",
+     "0x963960",
+     "0x9639F0",
+     "0x963AB0",
+     "0x9636F0",
+     "0x9637A0"
+    ],
+    "client_slot": 3,
+    "our_slot": 3,
+    "after": "?Uninitialised_Grow@?$SimpleVecClass@VVector3@@@@UAE_NH@Z"
+   }
+  ]
+ },
+ {
+  "class": "?$SimpleDynVecClass@VVector3i16",
+  "client_vtable": "0xB143B0",
+  "slots": 3,
+  "client_slots": 19,
+  "anchored": 2,
+  "differences": [
+   {
+    "op": "insert",
+    "ours": [],
+    "client": [
+     "0x9B9F00",
+     "0x9B9600",
+     "0x9B9690",
+     "0x9B9FA0",
+     "0x9B9760",
+     "0x9B97F0",
+     "0x9BA040",
+     "0x9B98C0",
+     "0x9B9970",
+     "0x9BA0E0",
+     "0x9B9A90",
+     "0x9B9B30",
+     "0x406573",
+     "0x9B8250",
+     "0x9B8470",
+     "0x9B8A10"
+    ],
+    "client_slot": 3,
+    "our_slot": 3,
+    "after": "?Uninitialised_Grow@?$SimpleVecClass@VVector3i16@@@@UAE_NH@Z"
+   }
+  ]
+ },
+ {
+  "class": "?$SimpleDynVecClass@VVector4",
+  "client_vtable": "0xB12034",
+  "slots": 3,
+  "client_slots": 12,
+  "anchored": 2,
+  "differences": [
+   {
+    "op": "insert",
+    "ours": [],
+    "client": [
+     "0x963AF0",
+     "0x9637F0",
+     "0x9637A0",
+     "0x963BB0",
+     "0x963960",
+     "0x9639F0",
+     "0x963AB0",
+     "0x9636F0",
+     "0x9637A0"
+    ],
+    "client_slot": 3,
+    "our_slot": 3,
+    "after": "?Uninitialised_Grow@?$SimpleVecClass@VVector4@@@@UAE_NH@Z"
+   }
+  ]
+ },
+ {
+  "class": "?$SimplePersistFactoryClass@VLightClass",
+  "client_vtable": "0xB11AF8",
+  "slots": 4,
+  "client_slots": 20,
+  "anchored": 1,
+  "differences": [
+   {
+    "op": "replace",
+    "ours": [
+     "?Save@?$SimplePersistFactoryClass@VLightClass@@$0BAAAB@@@UBEXAAVChunkSaveClass@@PAVPersistClass@@@Z"
+    ],
+    "client": [
+     "0x954220",
+     "0x954280",
+     "0x954270",
+     "0x409E44",
+     "0x953FB0",
+     "0x953FC0",
+     "0x954080",
+     "0x406573",
+     "0x9536E0",
+     "0x953A30",
+     "0x4149D4",
+     "0x403FA3",
+     "0x40EA57",
+     "0x417FC1",
+     "0x40507E",
+     "0x40DB7F",
+     "0x40CBA8"
+    ],
+    "client_slot": 3,
+    "our_slot": 3,
+    "after": "?Load@?$SimplePersistFactoryClass@VLightClass@@$0BAAAB@@@UBEPAVPersistClass@@AAVChunkLoadClass@@@Z"
+   }
+  ]
+ },
+ {
+  "class": "?$SimpleVecClass@VKeyClass@?$PrimitiveAnimationChannelClass@M",
+  "client_vtable": "0xB106A4",
+  "slots": 3,
+  "client_slots": 19,
+  "anchored": 2,
+  "differences": [
+   {
+    "op": "insert",
+    "ours": [],
+    "client": [
+     "0x9100C0",
+     "0x90F0A0",
+     "0x90F180",
+     "0x910100",
+     "0x90F240",
+     "0x90F180",
+     "0x90D9F0",
+     "0x90E210",
+     "0x90E220",
+     "0x90E230",
+     "0x90E560",
+     "0x90D8B0",
+     "0x9CCD10",
+     "0x9CCD10",
+     "0x9142C0",
+     "0x9142B0"
+    ],
+    "client_slot": 3,
+    "our_slot": 3,
+    "after": "?Uninitialised_Grow@?$SimpleVecClass@VKeyClass@?$PrimitiveAnimationChannelClass@M@@@@UAE_NH@Z"
+   }
+  ]
+ },
+ {
+  "class": "?$SimpleVecClass@VKeyClass@?$PrimitiveAnimationChannelClass@UAlphaVectorStruct",
+  "client_vtable": "0xB106B0",
+  "slots": 3,
+  "client_slots": 19,
+  "anchored": 2,
+  "differences": [
+   {
+    "op": "insert",
+    "ours": [],
+    "client": [
+     "0x910100",
+     "0x90F240",
+     "0x90F180",
+     "0x90D9F0",
+     "0x90E210",
+     "0x90E220",
+     "0x90E230",
+     "0x90E560",
+     "0x90D8B0",
+     "0x9CCD10",
+     "0x9CCD10",
+     "0x9142C0",
+     "0x9142B0",
+     "0x409E44",
+     "0x942DF0",
+     "0x942E00"
+    ],
+    "client_slot": 3,
+    "our_slot": 3,
+    "after": "?Uninitialised_Grow@?$SimpleVecClass@VKeyClass@?$PrimitiveAnimationChannelClass@UAlphaVectorStruct@@@@@@UAE_NH@Z"
+   }
+  ]
+ },
+ {
+  "class": "?$SimpleVecClass@VKeyClass@?$PrimitiveAnimationChannelClass@VVector2",
+  "client_vtable": "0xB108D8",
+  "slots": 3,
+  "client_slots": 19,
+  "anchored": 2,
+  "differences": [
+   {
+    "op": "insert",
+    "ours": [],
+    "client": [
+     "0x914040",
+     "0x913BE0",
+     "0x913B80",
+     "0x913A10",
+     "0x9CCD10",
+     "0x913D70",
+     "0x913DE0",
+     "0x912970",
+     "0x912F30",
+     "0x912F40",
+     "0x913180",
+     "0x9134E0",
+     "0x912850",
+     "0x9142F0",
+     "0x917450",
+     "0x9146C0"
+    ],
+    "client_slot": 3,
+    "our_slot": 3,
+    "after": "?Uninitialised_Grow@?$SimpleVecClass@VKeyClass@?$PrimitiveAnimationChannelClass@VVector2@@@@@@UAE_NH@Z"
+   }
+  ]
+ },
+ {
+  "class": "?$SimpleVecClass@VKeyClass@?$PrimitiveAnimationChannelClass@VVector3",
+  "client_vtable": "0xB10698",
+  "slots": 3,
+  "client_slots": 19,
+  "anchored": 2,
+  "differences": [
+   {
+    "op": "insert",
+    "ours": [],
+    "client": [
+     "0x910200",
+     "0x90FC30",
+     "0x90FCE0",
+     "0x9100C0",
+     "0x90F0A0",
+     "0x90F180",
+     "0x910100",
+     "0x90F240",
+     "0x90F180",
+     "0x90D9F0",
+     "0x90E210",
+     "0x90E220",
+     "0x90E230",
+     "0x90E560",
+     "0x90D8B0",
+     "0x9CCD10"
+    ],
+    "client_slot": 3,
+    "our_slot": 3,
+    "after": "?Uninitialised_Grow@?$SimpleVecClass@VKeyClass@?$PrimitiveAnimationChannelClass@VVector3@@@@@@UAE_NH@Z"
+   }
+  ]
+ },
+ {
+  "class": "?$SimpleVecClass@VPolygonClass",
+  "client_vtable": "0xB14304",
+  "slots": 3,
+  "client_slots": 9,
+  "anchored": 2,
+  "differences": [
+   {
+    "op": "insert",
+    "ours": [],
+    "client": [
+     "0x9AF060",
+     "0x9AEE50",
+     "0x9AEE10",
+     "0x9AF020",
+     "0x9AED80",
+     "0x9AEE10"
+    ],
+    "client_slot": 3,
+    "our_slot": 3,
+    "after": "?Uninitialised_Grow@?$SimpleVecClass@VPolygonClass@@@@UAE_NH@Z"
+   }
+  ]
+ },
+ {
+  "class": "?$SimpleVecClass@VShaderClass",
+  "client_vtable": "0xB14414",
+  "slots": 3,
+  "client_slots": 19,
+  "anchored": 2,
+  "differences": [
+   {
+    "op": "insert",
+    "ours": [],
+    "client": [
+     "0x9BA180",
+     "0x9B9C40",
+     "0x9B9CE0",
+     "0x9B9DC0",
+     "0x9B9200",
+     "0x9B92B0",
+     "0x9BE140",
+     "0x9BDE90",
+     "0x9BE010",
+     "0x9BDE40",
+     "0x9BE0C0",
+     "0x9BDE70",
+     "0x9BE0F0",
+     "0x9BDE90",
+     "0x9BDED0",
+     "0x9BDF80"
+    ],
+    "client_slot": 3,
+    "our_slot": 3,
+    "after": "?Uninitialised_Grow@?$SimpleVecClass@VShaderClass@@@@UAE_NH@Z"
+   }
+  ]
+ },
+ {
+  "class": "?$SimpleVecClass@VVector2",
+  "client_vtable": "0xB143D4",
+  "slots": 3,
+  "client_slots": 19,
+  "anchored": 2,
+  "differences": [
+   {
+    "op": "insert",
+    "ours": [],
+    "client": [
+     "0x9BA0E0",
+     "0x9B9A90",
+     "0x9B9B30",
+     "0x406573",
+     "0x9B8250",
+     "0x9B8470",
+     "0x9B8A10",
+     "0x9B8D90",
+     "0x9B8230",
+     "0x9B8240",
+     "0x9BA1C0",
+     "0x9B9D20",
+     "0x9B9CE0",
+     "0x9B9E60",
+     "0x9B9420",
+     "0x9B94D0"
+    ],
+    "client_slot": 3,
+    "our_slot": 3,
+    "after": "?Uninitialised_Grow@?$SimpleVecClass@VVector2@@@@UAE_NH@Z"
+   }
+  ]
+ },
+ {
+  "class": "?$SimpleVecClass@VVector3",
+  "client_vtable": "0xB12058",
+  "slots": 3,
+  "client_slots": 3,
+  "anchored": 2,
+  "differences": []
+ },
+ {
+  "class": "?$SimpleVecClass@VVector3i16",
+  "client_vtable": "0xB1442C",
+  "slots": 3,
+  "client_slots": 15,
+  "anchored": 2,
+  "differences": [
+   {
+    "op": "insert",
+    "ours": [],
+    "client": [
+     "0x9BE140",
+     "0x9BDE90",
+     "0x9BE010",
+     "0x9BDE40",
+     "0x9BE0C0",
+     "0x9BDE70",
+     "0x9BE0F0",
+     "0x9BDE90",
+     "0x9BDED0",
+     "0x9BDF80",
+     "0x9BDFB0",
+     "0x9BDFF0"
+    ],
+    "client_slot": 3,
+    "our_slot": 3,
+    "after": "?Uninitialised_Grow@?$SimpleVecClass@VVector3i16@@@@UAE_NH@Z"
+   }
+  ]
+ },
+ {
+  "class": "?$SimpleVecClass@VVector4",
+  "client_vtable": "0xB10CF8",
+  "slots": 3,
+  "client_slots": 14,
+  "anchored": 2,
+  "differences": [
+   {
+    "op": "insert",
+    "ours": [],
+    "client": [
+     "0x92D910",
+     "0x406573",
+     "0x92A120",
+     "0x92C980",
+     "0x92C090",
+     "0x92C220",
+     "0x92C590",
+     "0x406573",
+     "0x92D7D0",
+     "0x406573",
+     "0x92D8D0"
+    ],
+    "client_slot": 3,
+    "our_slot": 3,
+    "after": "?Uninitialised_Grow@?$SimpleVecClass@VVector4@@@@UAE_NH@Z"
+   }
+  ]
+ },
+ {
+  "class": "?$VectorClass@G",
+  "client_vtable": "0xB125E0",
+  "slots": 6,
+  "client_slots": 22,
+  "anchored": 3,
+  "differences": [
+   {
+    "op": "replace",
+    "ours": [
+     "?ID@?$VectorClass@G@@UAEHPBG@Z"
+    ],
+    "client": [
+     "0x973F50",
+     "0x973110",
+     "0x973360",
+     "0x975080",
+     "0x975070",
+     "0x409E44",
+     "0x942DF0",
+     "0x942E00",
+     "0x942E10",
+     "0x406573",
+     "0x974BF0",
+     "0x974FF0",
+     "0x974BE0",
+     "0x403FA3",
+     "0x40EA57",
+     "0x417FC1",
+     "0x40507E"
+    ],
+    "client_slot": 5,
+    "our_slot": 5,
+    "after": "?ID@?$VectorClass@G@@UAEHABG@Z"
+   }
+  ]
+ },
+ {
+  "class": "?$VectorClass@UPendingSurfaceStruct@Render2DSentenceClass",
+  "client_vtable": "0xB14260",
+  "slots": 6,
+  "client_slots": 22,
+  "anchored": 2,
+  "differences": [
+   {
+    "op": "replace",
+    "ours": [
+     "?ID@?$VectorClass@UPendingSurfaceStruct@Render2DSentenceClass@@@@UAEHABUPendingSurfaceStruct@Render2DSentenceClass@@@Z",
+     "?ID@?$VectorClass@UPendingSurfaceStruct@Render2DSentenceClass@@@@UAEHPBUPendingSurfaceStruct@Render2DSentenceClass@@@Z"
+    ],
+    "client": [
+     "0x9AB290",
+     "0x9AB2A0",
+     "0x9AB9B0",
+     "0x9AB4D0",
+     "0x9AB4F0",
+     "0x9AB5B0",
+     "0x9AB5E0",
+     "0x9AB5F0",
+     "0x9AB780",
+     "0x91FF20",
+     "0x9AAB80",
+     "0x9AA770",
+     "0x9AAC30",
+     "0x9AA7A0",
+     "0x406573",
+     "0x9A9CA0",
+     "0x9AB730",
+     "0x9AA920"
+    ],
+    "client_slot": 4,
+    "our_slot": 4,
+    "after": "?Clear@?$VectorClass@UPendingSurfaceStruct@Render2DSentenceClass@@@@UAEXXZ"
+   }
+  ]
+ },
+ {
+  "class": "?$VectorClass@USentenceDataStruct@Render2DSentenceClass",
+  "client_vtable": "0xB14248",
+  "slots": 6,
+  "client_slots": 22,
+  "anchored": 1,
+  "differences": [
+   {
+    "op": "replace",
+    "ours": [
+     "?Clear@?$VectorClass@USentenceDataStruct@Render2DSentenceClass@@@@UAEXXZ",
+     "?ID@?$VectorClass@USentenceDataStruct@Render2DSentenceClass@@@@UAEHABUSentenceDataStruct@Render2DSentenceClass@@@Z",
+     "?ID@?$VectorClass@USentenceDataStruct@Render2DSentenceClass@@@@UAEHPBUSentenceDataStruct@Render2DSentenceClass@@@Z"
+    ],
+    "client": [
+     "0x9AAD90",
+     "0x9AADC0",
+     "0x9AADD0",
+     "0x9AB870",
+     "0x9AAF80",
+     "0x9AAFA0",
+     "0x9AB210",
+     "0x9AB290",
+     "0x9AB2A0",
+     "0x9AB9B0",
+     "0x9AB4D0",
+     "0x9AB4F0",
+     "0x9AB5B0",
+     "0x9AB5E0",
+     "0x9AB5F0",
+     "0x9AB780",
+     "0x91FF20",
+     "0x9AAB80",
+     "0x9AA770"
+    ],
+    "client_slot": 3,
+    "our_slot": 3,
+    "after": "?Resize@?$VectorClass@USentenceDataStruct@Render2DSentenceClass@@@@UAE_NHPBUSentenceDataStruct@Render2DSentenceClass@@@Z"
+   }
+  ]
+ },
+ {
+  "class": "?$VectorClass@VProxyClass",
+  "client_vtable": "0xB136F8",
+  "slots": 6,
+  "client_slots": 22,
+  "anchored": 4,
+  "differences": [
+   {
+    "op": "replace",
+    "ours": [
+     "?ID@?$VectorClass@VProxyClass@@@@UAEHPBVProxyClass@@@Z"
+    ],
+    "client": [
+     "0x992710",
+     "0x992D20",
+     "0x9929C0",
+     "0x992A00",
+     "0x992AB0",
+     "0x992AE0",
+     "0x992B20",
+     "0x406573",
+     "0x992F30",
+     "0x991EE0",
+     "0x408436",
+     "0x419029",
+     "0x4033F5",
+     "0x4132BE",
+     "0x414F0B",
+     "0x9920A0",
+     "0x992050"
+    ],
+    "client_slot": 5,
+    "our_slot": 5,
+    "after": "?ID@?$VectorClass@VProxyClass@@@@UAEHABVProxyClass@@@Z"
+   }
+  ]
+ },
+ {
+  "class": "?$VectorClass@VProxyRecordClass",
+  "client_vtable": "0xB13234",
+  "slots": 6,
+  "client_slots": 22,
+  "anchored": 1,
+  "differences": [
+   {
+    "op": "replace",
+    "ours": [
+     "?Clear@?$VectorClass@VProxyRecordClass@@@@UAEXXZ",
+     "?ID@?$VectorClass@VProxyRecordClass@@@@UAEHABVProxyRecordClass@@@Z",
+     "?ID@?$VectorClass@VProxyRecordClass@@@@UAEHPBVProxyRecordClass@@@Z"
+    ],
+    "client": [
+     "0x990020",
+     "0x990050",
+     "0x990060",
+     "0x990130",
+     "0x98FEE0",
+     "0x98FF00",
+     "0x990020",
+     "0x990050",
+     "0x990060",
+     "0x9901F0",
+     "0x9901E0",
+     "0x409E44",
+     "0x942DF0",
+     "0x942E00",
+     "0x942E10",
+     "0x406573",
+     "0x98BDF0",
+     "0x98CF60",
+     "0x98BDD0"
+    ],
+    "client_slot": 3,
+    "our_slot": 3,
+    "after": "?Resize@?$VectorClass@VProxyRecordClass@@@@UAE_NHPBVProxyRecordClass@@@Z"
+   }
+  ]
+ },
+ {
+  "class": "?$VectorClass@VRenderDeviceDescClass",
+  "client_vtable": "0xB10C60",
+  "slots": 6,
+  "client_slots": 6,
+  "anchored": 3,
+  "differences": []
+ },
+ {
+  "class": "?$VectorClass@VResolutionDescClass",
+  "client_vtable": "0xB10C48",
+  "slots": 6,
+  "client_slots": 12,
+  "anchored": 3,
+  "differences": [
+   {
+    "op": "replace",
+    "ours": [
+     "?ID@?$VectorClass@VResolutionDescClass@@@@UAEHPBVResolutionDescClass@@@Z"
+    ],
+    "client": [
+     "0x929190",
+     "0x929C70",
+     "0x929460",
+     "0x929480",
+     "0x929930",
+     "0x929A20",
+     "0x929A30"
+    ],
+    "client_slot": 5,
+    "our_slot": 5,
+    "after": "?ID@?$VectorClass@VResolutionDescClass@@@@UAEHABVResolutionDescClass@@@Z"
+   }
+  ]
+ },
+ {
+  "class": "?$VectorClass@VShaderClass",
+  "client_vtable": "0xB11AE0",
+  "slots": 6,
+  "client_slots": 22,
+  "anchored": 1,
+  "differences": [
+   {
+    "op": "replace",
+    "ours": [
+     "?Clear@?$VectorClass@VShaderClass@@@@UAEXXZ",
+     "?ID@?$VectorClass@VShaderClass@@@@UAEHABVShaderClass@@@Z",
+     "?ID@?$VectorClass@VShaderClass@@@@UAEHPBVShaderClass@@@Z"
+    ],
+    "client": [
+     "0x9530E0",
+     "0x953110",
+     "0x953150",
+     "0x9535E0",
+     "0x954180",
+     "0x954190",
+     "0x954220",
+     "0x954280",
+     "0x954270",
+     "0x409E44",
+     "0x953FB0",
+     "0x953FC0",
+     "0x954080",
+     "0x406573",
+     "0x9536E0",
+     "0x953A30",
+     "0x4149D4",
+     "0x403FA3",
+     "0x40EA57"
+    ],
+    "client_slot": 3,
+    "our_slot": 3,
+    "after": "?Resize@?$VectorClass@VShaderClass@@@@UAE_NHPBVShaderClass@@@Z"
+   }
+  ]
+ },
+ {
+  "class": "?$VectorClass@VVector2",
+  "client_vtable": "0xB11D00",
+  "slots": 6,
+  "client_slots": 13,
+  "anchored": 3,
+  "differences": [
+   {
+    "op": "replace",
+    "ours": [
+     "?ID@?$VectorClass@VVector2@@@@UAEHPBVVector2@@@Z"
+    ],
+    "client": [
+     "0x958050",
+     "0x954520",
+     "0x958070",
+     "0x957AB0",
+     "0x957AF0",
+     "0x957BA0",
+     "0x957BD0",
+     "0x957C10"
+    ],
+    "client_slot": 5,
+    "our_slot": 5,
+    "after": "?ID@?$VectorClass@VVector2@@@@UAEHABVVector2@@@Z"
+   }
+  ]
+ },
+ {
+  "class": "AABoxRenderObjClass",
+  "client_vtable": "0xB13B8C",
+  "slots": 114,
+  "client_slots": 130,
+  "anchored": 22,
+  "differences": [
+   {
+    "op": "replace",
+    "ours": [
+     "RenderObjClass::Get_Bounding_Sphere",
+     "RenderObjClass::Get_Bounding_Box",
+     "AABoxRenderObjClass::Get_Obj_Space_Bounding_Sphere",
+     "AABoxRenderObjClass::Get_Obj_Space_Bounding_Box",
+     "RenderObjClass::Update_Obj_Space_Bounding_Volumes"
+    ],
+    "client": [
+     "0x406D89",
+     "0x41001E",
+     "0x999910",
+     "0x999980",
+     "0x40D55D"
+    ],
+    "client_slot": 60,
+    "our_slot": 60,
+    "after": "RenderObjClass::Intersect_Sphere_Quick"
+   },
+   {
+    "op": "replace",
+    "ours": [
+     "RenderObjClass::Create_Decal",
+     "RenderObjClass::Delete_Decal",
+     "RenderObjClass::Get_Material_Info",
+     "RenderObjClass::Set_User_Data",
+     "RenderObjClass::Get_User_Data",
+     "RenderObjClass::Get_Num_Snap_Points",
+     "RenderObjClass::Get_Snap_Point"
+    ],
+    "client": [
+     "0x4078DD",
+     "0x406C58",
+     "0x4072B6",
+     "0x4154BA",
+     "0x4142C7",
+     "0x40B938",
+     "0x4183D1"
+    ],
+    "client_slot": 80,
+    "our_slot": 80,
+    "after": "RenderObjClass::Build_Texture_List"
+   },
+   {
+    "op": "replace",
+    "ours": [
+     "RenderObjClass::Scale",
+     "RenderObjClass::Scale",
+     "RenderObjClass::Get_Sort_Level",
+     "RenderObjClass::Set_Sort_Level",
+     "RenderObjClass::Is_Really_Visible",
+     "RenderObjClass::Is_Not_Hidden_At_All",
+     "RenderObjClass::Is_Visible",
+     "RenderObjClass::Set_Visible",
+     "RenderObjClass::Is_Hidden",
+     "RenderObjClass::Set_Hidden",
+     "RenderObjClass::Is_Animation_Hidden",
+     "RenderObjClass::Set_Animation_Hidden",
+     "RenderObjClass::Is_Force_Visible",
+     "RenderObjClass::Set_Force_Visible",
+     "RenderObjClass::Is_Translucent",
+     "RenderObjClass::Set_Translucent",
+     "RenderObjClass::Get_Collision_Type",
+     "RenderObjClass::Set_Collision_Type",
+     "RenderObjClass::Is_Complete",
+     "RenderObjClass::Is_In_Scene",
+     "RenderObjClass::Get_Native_Screen_Size",
+     "RenderObjClass::Set_Native_Screen_Size"
+    ],
+    "client": [
+     "0x4148E4",
+     "0x40654B",
+     "0x406348",
+     "0x411A04",
+     "0x40B8D9",
+     "0x40D706",
+     "0x410D2A",
+     "0x401424",
+     "0x417085",
+     "0x412184",
+     "0x40E2E6",
+     "0x4017CB",
+     "0x4085FD",
+     "0x414759",
+     "0x416D79",
+     "0x409A2A",
+     "0x404890",
+     "0x40CE41",
+     "0x41583E",
+     "0x4182A0",
+     "0x41562C",
+     "0x40C752"
+    ],
+    "client_slot": 88,
+    "our_slot": 88,
+    "after": "RenderObjClass::Get_Screen_Size"
+   },
+   {
+    "op": "insert",
+    "ours": [],
+    "client": [
+     "0x99AB20",
+     "0x99AB10",
+     "0x409E44",
+     "0x942DF0",
+     "0x942E00",
+     "0x942E10",
+     "0x406573",
+     "0x999AE0",
+     "0x99A100",
+     "0x99A2F0",
+     "0x998870",
+     "0x998880",
+     "0x417FC1",
+     "0x40507E",
+     "0x998860",
+     "0x99A300"
+    ],
+    "client_slot": 114,
+    "our_slot": 114,
+    "after": "AABoxRenderObjClass::update_cached_box"
+   }
+  ]
+ },
+ {
+  "class": "AggregateDefClass",
+  "client_vtable": "0xB13F58",
+  "slots": 19,
+  "client_slots": 35,
+  "anchored": 18,
+  "differences": [
+   {
+    "op": "insert",
+    "ours": [],
+    "client": [
+     "0x9A4900",
+     "0x9A4650",
+     "0x9A47D0",
+     "0x9A4600",
+     "0x9A4880",
+     "0x9A4630",
+     "0x9A48B0",
+     "0x9A4650",
+     "0x9A4690",
+     "0x9A4740",
+     "0x9A4770",
+     "0x9A47B0",
+     "0x9A45C0",
+     "0x9A4520",
+     "0x9A4530",
+     "0x9A4540"
+    ],
+    "client_slot": 19,
+    "our_slot": 19,
+    "after": "AggregateDefClass::Build_Subobject_List"
+   }
+  ]
+ },
+ {
+  "class": "AggregateLoaderClass",
+  "client_vtable": "0xB13F50",
+  "slots": 2,
+  "client_slots": 18,
+  "anchored": 1,
+  "differences": [
+   {
+    "op": "insert",
+    "ours": [],
+    "client": [
+     "0x9A35A0",
+     "0x9A4010",
+     "0x9A4290",
+     "0x9A40B0",
+     "0x9A4120",
+     "0x9A4180",
+     "0x9A4250",
+     "0x9A42F0",
+     "0x9A4370",
+     "0x9A43F0",
+     "0x9A4420",
+     "0x9A3A50",
+     "0x9A3960",
+     "0x9A38B0",
+     "0x9A41E0",
+     "0x9A3B00"
+    ],
+    "client_slot": 2,
+    "our_slot": 2,
+    "after": "AggregateLoaderClass::Load_W3D"
+   }
+  ]
+ },
+ {
+  "class": "AggregatePrototypeClass",
+  "client_vtable": "0xB13FD4",
+  "slots": 6,
+  "client_slots": 22,
+  "anchored": 1,
+  "differences": [
+   {
+    "op": "replace",
+    "ours": [
+     "AggregatePrototypeClass::Get_Definition",
+     "AggregatePrototypeClass::Set_Definition"
+    ],
+    "client": [
+     "0x9A45A0",
+     "0x9A45B0",
+     "0x9A4970",
+     "0x9A4A80",
+     "0x9A4B10",
+     "0x9A4AF0",
+     "0x9A4B00",
+     "0x9A4990",
+     "0x9A5FA0",
+     "0x9A5F90",
+     "0x409E44",
+     "0x942DF0",
+     "0x942E00",
+     "0x942E10",
+     "0x406573",
+     "0x9A5040",
+     "0x9A4F80",
+     "0x9A4FB0"
+    ],
+    "client_slot": 4,
+    "our_slot": 4,
+    "after": "AggregatePrototypeClass::Create"
+   }
+  ]
+ },
+ {
+  "class": "AlphaVectorChannel",
+  "client_vtable": "0xB10620",
+  "slots": 4,
+  "client_slots": 20,
+  "anchored": 3,
+  "differences": [
+   {
+    "op": "insert",
+    "ours": [],
+    "client": [
+     "0x90B370",
+     "0x910020",
+     "0x90FEC0",
+     "0x90FF20",
+     "0x90B2F0",
+     "0x90FAC0",
+     "0x90F930",
+     "0x90F9A0",
+     "0x910240",
+     "0x90FD50",
+     "0x90FCE0",
+     "0x90EFF0",
+     "0x9CCD10",
+     "0x90FEC0",
+     "0x90FF20",
+     "0x9101A0"
+    ],
+    "client_slot": 4,
+    "our_slot": 4,
+    "after": "?Load@?$PrimitiveAnimationChannelClass@UAlphaVectorStruct@@@@UAEXAAVChunkLoadClass@@@Z"
+   }
+  ]
+ },
+ {
+  "class": "Animatable3DObjClass",
+  "client_vtable": "0xB14560",
+  "slots": 117,
+  "client_slots": 117,
+  "anchored": 40,
+  "differences": [
+   {
+    "op": "replace",
+    "ours": [
+     "Animatable3DObjClass::Update_Sub_Object_Transforms",
+     "Animatable3DObjClass::Set_Animation",
+     "Animatable3DObjClass::Set_Animation",
+     "Animatable3DObjClass::Set_Animation"
+    ],
+    "client": [
+     "0x941F90",
+     "0x9C5DD0",
+     "0x9C5BB0",
+     "0x9C5A80",
+     "0x9C5980"
+    ],
+    "client_slot": 35,
+    "our_slot": 35,
+    "after": "RenderObjClass::Remove_Sub_Objects_From_Bone"
+   },
+   {
+    "op": "delete",
+    "ours": [
+     "RenderObjClass::Unknown_Virtual_40"
+    ],
+    "client": [],
+    "client_slot": 41,
+    "our_slot": 40,
+    "after": "Animatable3DObjClass::Set_Animation"
+   },
+   {
+    "op": "replace",
+    "ours": [
+     "RenderObjClass::Get_Bounding_Sphere",
+     "RenderObjClass::Get_Bounding_Box",
+     "CompositeRenderObjClass::Get_Obj_Space_Bounding_Sphere",
+     "CompositeRenderObjClass::Get_Obj_Space_Bounding_Box"
+    ],
+    "client": [
+     "0x406D89",
+     "0x41001E",
+     "0x411897",
+     "0x40A1A0"
+    ],
+    "client_slot": 60,
+    "our_slot": 60,
+    "after": "RenderObjClass::Intersect_Sphere_Quick"
+   },
+   {
+    "op": "replace",
+    "ours": [
+     "RenderObjClass::Scale",
+     "RenderObjClass::Scale",
+     "RenderObjClass::Get_Sort_Level",
+     "RenderObjClass::Set_Sort_Level",
+     "RenderObjClass::Is_Really_Visible",
+     "RenderObjClass::Is_Not_Hidden_At_All",
+     "RenderObjClass::Is_Visible",
+     "RenderObjClass::Set_Visible",
+     "RenderObjClass::Is_Hidden",
+     "RenderObjClass::Set_Hidden",
+     "RenderObjClass::Is_Animation_Hidden",
+     "RenderObjClass::Set_Animation_Hidden",
+     "RenderObjClass::Is_Force_Visible",
+     "RenderObjClass::Set_Force_Visible",
+     "RenderObjClass::Is_Translucent",
+     "RenderObjClass::Set_Translucent",
+     "RenderObjClass::Get_Collision_Type",
+     "RenderObjClass::Set_Collision_Type",
+     "RenderObjClass::Is_Complete",
+     "RenderObjClass::Is_In_Scene",
+     "RenderObjClass::Get_Native_Screen_Size",
+     "RenderObjClass::Set_Native_Screen_Size"
+    ],
+    "client": [
+     "0x4148E4",
+     "0x40654B",
+     "0x406348",
+     "0x411A04",
+     "0x40B8D9",
+     "0x40D706",
+     "0x410D2A",
+     "0x401424",
+     "0x417085",
+     "0x412184",
+     "0x40E2E6",
+     "0x4017CB",
+     "0x4085FD",
+     "0x414759",
+     "0x416D79",
+     "0x409A2A",
+     "0x404890",
+     "0x40CE41",
+     "0x41583E",
+     "0x4182A0",
+     "0x41562C",
+     "0x40C752"
+    ],
+    "client_slot": 88,
+    "our_slot": 88,
+    "after": "RenderObjClass::Get_Screen_Size"
+   }
+  ]
+ },
+ {
+  "class": "AudibleSoundDefinitionClass",
+  "client_vtable": "0xB15DE8",
+  "slots": 34,
+  "client_slots": 50,
+  "anchored": 4,
+  "differences": [
+   {
+    "op": "replace",
+    "ours": [
+     "DefinitionClass::Get_Name",
+     "DefinitionClass::Set_Name",
+     "DefinitionClass::Is_Valid_Config",
+     "AudibleSoundDefinitionClass::Create_Sound",
+     "AudibleSoundDefinitionClass::Initialize_From_Sound",
+     "AudibleSoundDefinitionClass::Get_Filename",
+     "AudibleSoundDefinitionClass::Get_Display_Text",
+     "AudibleSoundDefinitionClass::Get_Max_Vol_Radius",
+     "AudibleSoundDefinitionClass::Get_DropOff_Radius",
+     "AudibleSoundDefinitionClass::Get_Sphere_Color",
+     "AudibleSoundDefinitionClass::Get_Volume",
+     "AudibleSoundDefinitionClass::Get_Volume_Randomizer",
+     "AudibleSoundDefinitionClass::Get_Start_Offset",
+     "AudibleSoundDefinitionClass::Get_Pitch_Factor",
+     "AudibleSoundDefinitionClass::Get_Pitch_Factor_Randomizer",
+     "AudibleSoundDefinitionClass::Get_Virtual_Channel",
+     "AudibleSoundDefinitionClass::Set_Volume",
+     "AudibleSoundDefinitionClass::Set_Volume_Randomizer",
+     "AudibleSoundDefinitionClass::Set_Max_Vol_Radius",
+     "AudibleSoundDefinitionClass::Set_DropOff_Radius",
+     "AudibleSoundDefinitionClass::Set_Start_Offset",
+     "AudibleSoundDefinitionClass::Set_Pitch_Factor",
+     "AudibleSoundDefinitionClass::Set_Pitch_Factor_Randomizer",
+     "AudibleSoundDefinitionClass::Set_Virtual_Channel",
+     "AudibleSoundDefinitionClass::Create_Logical"
+    ],
+    "client": [
+     "0x9FE500",
+     "0x9FE510",
+     "0x9FE570",
+     "0x9FED90",
+     "0x9FE720",
+     "0x9FE580",
+     "0x9FE590",
+     "0x9FE5A0",
+     "0x9FE5B0",
+     "0x9FE5C0",
+     "0x9FE5D0",
+     "0x9FE5E0",
+     "0x9FE5F0",
+     "0x9FE600",
+     "0x9FE610",
+     "0x9FE620",
+     "0x9FE630",
+     "0x9FE640",
+     "0x9FE650",
+     "0x9FE660",
+     "0x9FE670",
+     "0x9FE680",
+     "0x9FE690",
+     "0x9FE6A0",
+     "0x9FEFC0",
+     "0x9FE490",
+     "0x9FE4A0",
+     "0x9FE4B0",
+     "0x9FE4C0",
+     "0x409E44",
+     "0x9CCD10",
+     "0xA06060",
+     "0xA060F0",
+     "0x9CCD10",
+     "0x9FE560",
+     "0xA06270",
+     "0x9CCD10",
+     "0x9FE500",
+     "0x9FE510",
+     "0x9FE570",
+     "0x9FE490"
+    ],
+    "client_slot": 9,
+    "our_slot": 9,
+    "after": "AudibleSoundDefinitionClass::Create"
+   }
+  ]
+ },
+ {
+  "class": "BSurface",
+  "client_vtable": "0xAFC230",
+  "slots": 22,
+  "client_slots": 22,
+  "anchored": 11,
+  "differences": [
+   {
+    "op": "replace",
+    "ours": [
+     "XSurface::Draw_Rect",
+     "BSurface::Lock",
+     "XSurface::Unlock",
+     "XSurface::Is_Locked",
+     "BSurface::Bytes_Per_Pixel",
+     "BSurface::Stride",
+     "Surface::Get_Rect",
+     "Surface::Get_Width",
+     "Surface::Get_Height",
+     "XSurface::Is_Direct_Draw"
+    ],
+    "client": [
+     "0x9DBEB0",
+     "0x416A59",
+     "0x418A93",
+     "0x40633E",
+     "0x41868D",
+     "0x411130",
+     "0x4095DE",
+     "0x40E4B2",
+     "0x40D90E",
+     "0x40B97E"
+    ],
+    "client_slot": 12,
+    "our_slot": 12,
+    "after": "XSurface::Draw_Rect"
+   }
+  ]
+ },
+ {
+  "class": "Bitmap2DObjClass",
+  "client_vtable": "0xB12618",
+  "slots": 123,
+  "client_slots": 139,
+  "anchored": 25,
+  "differences": [
+   {
+    "op": "replace",
+    "ours": [
+     "RenderObjClass::Get_Bounding_Sphere",
+     "RenderObjClass::Get_Bounding_Box",
+     "DynamicMeshClass::Get_Obj_Space_Bounding_Sphere",
+     "DynamicMeshClass::Get_Obj_Space_Bounding_Box",
+     "RenderObjClass::Update_Obj_Space_Bounding_Volumes"
+    ],
+    "client": [
+     "0x406D89",
+     "0x41001E",
+     "0x4071C6",
+     "0x40D34B",
+     "0x40D55D"
+    ],
+    "client_slot": 60,
+    "our_slot": 60,
+    "after": "RenderObjClass::Intersect_Sphere_Quick"
+   },
+   {
+    "op": "replace",
+    "ours": [
+     "RenderObjClass::Create_Decal",
+     "RenderObjClass::Delete_Decal",
+     "DynamicMeshClass::Get_Material_Info",
+     "RenderObjClass::Set_User_Data",
+     "RenderObjClass::Get_User_Data",
+     "RenderObjClass::Get_Num_Snap_Points",
+     "RenderObjClass::Get_Snap_Point"
+    ],
+    "client": [
+     "0x4078DD",
+     "0x406C58",
+     "0x40D936",
+     "0x4154BA",
+     "0x4142C7",
+     "0x40B938",
+     "0x4183D1"
+    ],
+    "client_slot": 80,
+    "our_slot": 80,
+    "after": "RenderObjClass::Build_Texture_List"
+   },
+   {
+    "op": "replace",
+    "ours": [
+     "RenderObjClass::Scale",
+     "RenderObjClass::Scale",
+     "DynamicMeshClass::Get_Sort_Level",
+     "DynamicMeshClass::Set_Sort_Level",
+     "RenderObjClass::Is_Really_Visible",
+     "RenderObjClass::Is_Not_Hidden_At_All",
+     "RenderObjClass::Is_Visible",
+     "RenderObjClass::Set_Visible",
+     "RenderObjClass::Is_Hidden",
+     "RenderObjClass::Set_Hidden",
+     "RenderObjClass::Is_Animation_Hidden",
+     "RenderObjClass::Set_Animation_Hidden",
+     "RenderObjClass::Is_Force_Visible",
+     "RenderObjClass::Set_Force_Visible",
+     "RenderObjClass::Is_Translucent",
+     "RenderObjClass::Set_Translucent",
+     "RenderObjClass::Get_Collision_Type",
+     "RenderObjClass::Set_Collision_Type",
+     "RenderObjClass::Is_Complete",
+     "RenderObjClass::Is_In_Scene",
+     "RenderObjClass::Get_Native_Screen_Size",
+     "RenderObjClass::Set_Native_Screen_Size"
+    ],
+    "client": [
+     "0x4148E4",
+     "0x40654B",
+     "0x40E09D",
+     "0x40FBC3",
+     "0x40B8D9",
+     "0x40D706",
+     "0x410D2A",
+     "0x401424",
+     "0x417085",
+     "0x412184",
+     "0x40E2E6",
+     "0x4017CB",
+     "0x4085FD",
+     "0x414759",
+     "0x416D79",
+     "0x409A2A",
+     "0x404890",
+     "0x40CE41",
+     "0x41583E",
+     "0x4182A0",
+     "0x41562C",
+     "0x40C752"
+    ],
+    "client_slot": 88,
+    "our_slot": 88,
+    "after": "RenderObjClass::Get_Screen_Size"
+   },
+   {
+    "op": "replace",
+    "ours": [
+     "DynamicMeshClass::Peek_Material_Info",
+     "DynamicMeshClass::Set_Material_Info",
+     "DynamicMeshClass::Get_Num_Vertices"
+    ],
+    "client": [
+     "0x417341",
+     "0x40F925",
+     "0x4142E0"
+    ],
+    "client_slot": 113,
+    "our_slot": 113,
+    "after": "RenderObjClass::Update_Sub_Object_Bits"
+   },
+   {
+    "op": "insert",
+    "ours": [],
+    "client": [
+     "0x9750A0",
+     "0x975090",
+     "0x409E44",
+     "0x942DF0",
+     "0x942E00",
+     "0x942E10",
+     "0x406573",
+     "0x974C90",
+     "0x974C30",
+     "0x974C80",
+     "0x403FA3",
+     "0x40EA57",
+     "0x417FC1",
+     "0x40507E",
+     "0x40C8B0",
+     "0x975E30"
+    ],
+    "client_slot": 123,
+    "our_slot": 123,
+    "after": "DynamicScreenMeshClass::Set_Aspect"
+   }
+  ]
+ },
+ {
+  "class": "BoxLoaderClass",
+  "client_vtable": "0xB13F44",
+  "slots": 2,
+  "client_slots": 18,
+  "anchored": 1,
+  "differences": [
+   {
+    "op": "insert",
+    "ours": [],
+    "client": [
+     "0x99AE40",
+     "0x9A3520",
+     "0x9A4470",
+     "0x9A35A0",
+     "0x9A4010",
+     "0x9A4290",
+     "0x9A40B0",
+     "0x9A4120",
+     "0x9A4180",
+     "0x9A4250",
+     "0x9A42F0",
+     "0x9A4370",
+     "0x9A43F0",
+     "0x9A4420",
+     "0x9A3A50",
+     "0x9A3960"
+    ],
+    "client_slot": 2,
+    "our_slot": 2,
+    "after": "BoxLoaderClass::Load_W3D"
+   }
+  ]
+ },
+ {
+  "class": "BoxPrototypeClass",
+  "client_vtable": "0xB13F34",
+  "slots": 4,
+  "client_slots": 20,
+  "anchored": 2,
+  "differences": [
+   {
+    "op": "insert",
+    "ours": [],
+    "client": [
+     "0x99AAF0",
+     "0x99A830",
+     "0x99AE40",
+     "0x9A3520",
+     "0x9A4470",
+     "0x9A35A0",
+     "0x9A4010",
+     "0x9A4290",
+     "0x9A40B0",
+     "0x9A4120",
+     "0x9A4180",
+     "0x9A4250",
+     "0x9A42F0",
+     "0x9A4370",
+     "0x9A43F0",
+     "0x9A4420"
+    ],
+    "client_slot": 4,
+    "our_slot": 4,
+    "after": "BoxPrototypeClass::Create"
+   }
+  ]
+ },
+ {
+  "class": "BoxRenderObjClass",
+  "client_vtable": "0xB139AC",
+  "slots": 114,
+  "client_slots": 130,
+  "anchored": 20,
+  "differences": [
+   {
+    "op": "replace",
+    "ours": [
+     "RenderObjClass::Get_Bounding_Sphere",
+     "RenderObjClass::Get_Bounding_Box",
+     "RenderObjClass::Get_Obj_Space_Bounding_Sphere",
+     "RenderObjClass::Get_Obj_Space_Bounding_Box",
+     "RenderObjClass::Update_Obj_Space_Bounding_Volumes"
+    ],
+    "client": [
+     "0x406D89",
+     "0x41001E",
+     "0x9422A0",
+     "0x9422C0",
+     "0x40D55D"
+    ],
+    "client_slot": 60,
+    "our_slot": 60,
+    "after": "RenderObjClass::Intersect_Sphere_Quick"
+   },
+   {
+    "op": "replace",
+    "ours": [
+     "RenderObjClass::Create_Decal",
+     "RenderObjClass::Delete_Decal",
+     "RenderObjClass::Get_Material_Info",
+     "RenderObjClass::Set_User_Data",
+     "RenderObjClass::Get_User_Data",
+     "RenderObjClass::Get_Num_Snap_Points",
+     "RenderObjClass::Get_Snap_Point"
+    ],
+    "client": [
+     "0x4078DD",
+     "0x406C58",
+     "0x4072B6",
+     "0x4154BA",
+     "0x4142C7",
+     "0x40B938",
+     "0x4183D1"
+    ],
+    "client_slot": 80,
+    "our_slot": 80,
+    "after": "RenderObjClass::Build_Texture_List"
+   },
+   {
+    "op": "replace",
+    "ours": [
+     "RenderObjClass::Scale",
+     "RenderObjClass::Scale",
+     "RenderObjClass::Get_Sort_Level",
+     "RenderObjClass::Set_Sort_Level",
+     "RenderObjClass::Is_Really_Visible",
+     "RenderObjClass::Is_Not_Hidden_At_All",
+     "RenderObjClass::Is_Visible",
+     "RenderObjClass::Set_Visible",
+     "RenderObjClass::Is_Hidden",
+     "RenderObjClass::Set_Hidden",
+     "RenderObjClass::Is_Animation_Hidden",
+     "RenderObjClass::Set_Animation_Hidden",
+     "RenderObjClass::Is_Force_Visible",
+     "RenderObjClass::Set_Force_Visible",
+     "RenderObjClass::Is_Translucent",
+     "RenderObjClass::Set_Translucent",
+     "RenderObjClass::Get_Collision_Type",
+     "RenderObjClass::Set_Collision_Type",
+     "RenderObjClass::Is_Complete",
+     "RenderObjClass::Is_In_Scene",
+     "RenderObjClass::Get_Native_Screen_Size",
+     "RenderObjClass::Set_Native_Screen_Size"
+    ],
+    "client": [
+     "0x4148E4",
+     "0x40654B",
+     "0x406348",
+     "0x411A04",
+     "0x40B8D9",
+     "0x40D706",
+     "0x410D2A",
+     "0x401424",
+     "0x417085",
+     "0x412184",
+     "0x40E2E6",
+     "0x4017CB",
+     "0x4085FD",
+     "0x414759",
+     "0x416D79",
+     "0x409A2A",
+     "0x404890",
+     "0x40CE41",
+     "0x41583E",
+     "0x4182A0",
+     "0x41562C",
+     "0x40C752"
+    ],
+    "client_slot": 88,
+    "our_slot": 88,
+    "after": "RenderObjClass::Get_Screen_Size"
+   },
+   {
+    "op": "replace",
+    "ours": [
+     "purecall"
+    ],
+    "client": [
+     "0x9CCD10",
+     "0x99AB60",
+     "0x99AB50",
+     "0x409E44",
+     "0x942DF0",
+     "0x942E00",
+     "0x942E10",
+     "0x406573",
+     "0x998E70",
+     "0x999310",
+     "0x999490",
+     "0x998870",
+     "0x998880",
+     "0x417FC1",
+     "0x40507E",
+     "0x998860",
+     "0x9994A0"
+    ],
+    "client_slot": 113,
+    "our_slot": 113,
+    "after": "RenderObjClass::Update_Sub_Object_Bits"
+   }
+  ]
+ },
+ {
+  "class": "BufferStraw",
+  "client_vtable": "0xB10E94",
+  "slots": 3,
+  "client_slots": 19,
+  "anchored": 2,
+  "differences": [
+   {
+    "op": "insert",
+    "ours": [],
+    "client": [
+     "0x9308B0",
+     "0x9E57A0",
+     "0x9E57F0",
+     "0x406573",
+     "0x9306C0",
+     "0x9306B0",
+     "0x9CCD10",
+     "0x404FED",
+     "0x9CCD10",
+     "0x412CF6",
+     "0x9305B0",
+     "0x9CCD10",
+     "0x9320A0",
+     "0x931DF0",
+     "0x931F70",
+     "0x931DA0"
+    ],
+    "client_slot": 3,
+    "our_slot": 3,
+    "after": "BufferStraw::Get"
+   }
+  ]
+ },
+ {
+  "class": "BumpEnvTextureMapperClass",
+  "client_vtable": "0xB10E5C",
+  "slots": 8,
+  "client_slots": 24,
+  "anchored": 1,
+  "differences": [
+   {
+    "op": "replace",
+    "ours": [
+     "BumpEnvTextureMapperClass::Clone",
+     "BumpEnvTextureMapperClass::Mapper_ID",
+     "LinearOffsetTextureMapperClass::Is_Time_Variant",
+     "BumpEnvTextureMapperClass::Apply",
+     "TextureMapperClass::Needs_Normals"
+    ],
+    "client": [
+     "0x9305B0",
+     "0x938840",
+     "0x406573",
+     "0x930630",
+     "0x9305E0",
+     "0x9305F0",
+     "0x404FED",
+     "0x9348B0",
+     "0x412CF6",
+     "0x930620",
+     "0x934F60",
+     "0x9308D0",
+     "0x9E57A0",
+     "0x9E5670",
+     "0x9308B0",
+     "0x9E57A0",
+     "0x9E57F0",
+     "0x406573",
+     "0x9306C0",
+     "0x9306B0",
+     "0x9CCD10"
+    ],
+    "client_slot": 3,
+    "our_slot": 3,
+    "after": "LinearOffsetTextureMapperClass::Reset"
+   }
+  ]
+ },
+ {
+  "class": "CameraClass",
+  "client_vtable": "0xB117D0",
+  "slots": 113,
+  "client_slots": 113,
+  "anchored": 20,
+  "differences": [
+   {
+    "op": "replace",
+    "ours": [
+     "RenderObjClass::Get_Bounding_Sphere",
+     "RenderObjClass::Get_Bounding_Box"
+    ],
+    "client": [
+     "0x406D89",
+     "0x41001E"
+    ],
+    "client_slot": 60,
+    "our_slot": 60,
+    "after": "RenderObjClass::Intersect_Sphere_Quick"
+   },
+   {
+    "op": "replace",
+    "ours": [
+     "RenderObjClass::Create_Decal",
+     "RenderObjClass::Delete_Decal",
+     "RenderObjClass::Get_Material_Info",
+     "RenderObjClass::Set_User_Data",
+     "RenderObjClass::Get_User_Data",
+     "RenderObjClass::Get_Num_Snap_Points",
+     "RenderObjClass::Get_Snap_Point"
+    ],
+    "client": [
+     "0x4078DD",
+     "0x406C58",
+     "0x4072B6",
+     "0x4154BA",
+     "0x4142C7",
+     "0x40B938",
+     "0x4183D1"
+    ],
+    "client_slot": 80,
+    "our_slot": 80,
+    "after": "RenderObjClass::Build_Texture_List"
+   },
+   {
+    "op": "replace",
+    "ours": [
+     "RenderObjClass::Scale",
+     "RenderObjClass::Scale",
+     "RenderObjClass::Get_Sort_Level",
+     "RenderObjClass::Set_Sort_Level",
+     "RenderObjClass::Is_Really_Visible",
+     "RenderObjClass::Is_Not_Hidden_At_All",
+     "RenderObjClass::Is_Visible",
+     "RenderObjClass::Set_Visible",
+     "RenderObjClass::Is_Hidden",
+     "RenderObjClass::Set_Hidden",
+     "RenderObjClass::Is_Animation_Hidden",
+     "RenderObjClass::Set_Animation_Hidden",
+     "RenderObjClass::Is_Force_Visible",
+     "RenderObjClass::Set_Force_Visible",
+     "RenderObjClass::Is_Translucent",
+     "RenderObjClass::Set_Translucent",
+     "RenderObjClass::Get_Collision_Type",
+     "RenderObjClass::Set_Collision_Type",
+     "RenderObjClass::Is_Complete",
+     "RenderObjClass::Is_In_Scene",
+     "RenderObjClass::Get_Native_Screen_Size",
+     "RenderObjClass::Set_Native_Screen_Size"
+    ],
+    "client": [
+     "0x4148E4",
+     "0x40654B",
+     "0x406348",
+     "0x411A04",
+     "0x40B8D9",
+     "0x40D706",
+     "0x410D2A",
+     "0x401424",
+     "0x417085",
+     "0x412184",
+     "0x40E2E6",
+     "0x4017CB",
+     "0x4085FD",
+     "0x414759",
+     "0x416D79",
+     "0x409A2A",
+     "0x404890",
+     "0x40CE41",
+     "0x41583E",
+     "0x4182A0",
+     "0x41562C",
+     "0x40C752"
+    ],
+    "client_slot": 88,
+    "our_slot": 88,
+    "after": "RenderObjClass::Get_Screen_Size"
+   }
+  ]
+ },
+ {
+  "class": "CollectionClass",
+  "client_vtable": "0xB134F8",
+  "slots": 116,
+  "client_slots": 132,
+  "anchored": 41,
+  "differences": [
+   {
+    "op": "replace",
+    "ours": [
+     "RenderObjClass::Get_Bounding_Sphere",
+     "RenderObjClass::Get_Bounding_Box"
+    ],
+    "client": [
+     "0x406D89",
+     "0x41001E"
+    ],
+    "client_slot": 60,
+    "our_slot": 60,
+    "after": "RenderObjClass::Intersect_Sphere_Quick"
+   },
+   {
+    "op": "replace",
+    "ours": [
+     "RenderObjClass::Get_Sort_Level",
+     "RenderObjClass::Set_Sort_Level",
+     "RenderObjClass::Is_Really_Visible",
+     "RenderObjClass::Is_Not_Hidden_At_All",
+     "RenderObjClass::Is_Visible",
+     "RenderObjClass::Set_Visible",
+     "RenderObjClass::Is_Hidden",
+     "RenderObjClass::Set_Hidden",
+     "RenderObjClass::Is_Animation_Hidden",
+     "RenderObjClass::Set_Animation_Hidden",
+     "RenderObjClass::Is_Force_Visible",
+     "RenderObjClass::Set_Force_Visible",
+     "RenderObjClass::Is_Translucent",
+     "RenderObjClass::Set_Translucent",
+     "RenderObjClass::Get_Collision_Type",
+     "RenderObjClass::Set_Collision_Type",
+     "RenderObjClass::Is_Complete",
+     "RenderObjClass::Is_In_Scene",
+     "RenderObjClass::Get_Native_Screen_Size",
+     "RenderObjClass::Set_Native_Screen_Size"
+    ],
+    "client": [
+     "0x406348",
+     "0x411A04",
+     "0x40B8D9",
+     "0x40D706",
+     "0x410D2A",
+     "0x401424",
+     "0x417085",
+     "0x412184",
+     "0x40E2E6",
+     "0x4017CB",
+     "0x4085FD",
+     "0x414759",
+     "0x416D79",
+     "0x409A2A",
+     "0x404890",
+     "0x40CE41",
+     "0x41583E",
+     "0x4182A0",
+     "0x41562C",
+     "0x40C752"
+    ],
+    "client_slot": 90,
+    "our_slot": 90,
+    "after": "CollectionClass::Scale"
+   },
+   {
+    "op": "insert",
+    "ours": [],
+    "client": [
+     "0x992D70",
+     "0x9929C0",
+     "0x992B40",
+     "0x992200",
+     "0x992BF0",
+     "0x992230",
+     "0x992CA0",
+     "0x992250",
+     "0x992740",
+     "0x992170",
+     "0x9928F0",
+     "0x9921D0",
+     "0x992C20",
+     "0x992250",
+     "0x992340",
+     "0x9925D0"
+    ],
+    "client_slot": 116,
+    "our_slot": 116,
+    "after": "CollectionClass::Snap_Point_Count"
+   }
+  ]
+ },
+ {
+  "class": "CollectionLoaderClass",
+  "client_vtable": "0xB134D8",
+  "slots": 2,
+  "client_slots": 18,
+  "anchored": 1,
+  "differences": [
+   {
+    "op": "insert",
+    "ours": [],
+    "client": [
+     "0x992F50",
+     "0x992F40",
+     "0x409E44",
+     "0x942DF0",
+     "0x942E00",
+     "0x942E10",
+     "0x406573",
+     "0x9902E0",
+     "0x990B00",
+     "0x990BF0",
+     "0x986140",
+     "0x986150",
+     "0x986A50",
+     "0x9861B0",
+     "0x990C00",
+     "0x990C40"
+    ],
+    "client_slot": 2,
+    "our_slot": 2,
+    "after": "CollectionLoaderClass::Load_W3D"
+   }
+  ]
+ },
+ {
+  "class": "CollectionPrototypeClass",
+  "client_vtable": "0xB13748",
+  "slots": 4,
+  "client_slots": 10,
+  "anchored": 1,
+  "differences": [
+   {
+    "op": "insert",
+    "ours": [],
+    "client": [
+     "0x9939E0",
+     "0x993900",
+     "0x9938C0",
+     "0x9939A0",
+     "0x993820",
+     "0x9938C0"
+    ],
+    "client_slot": 4,
+    "our_slot": 4,
+    "after": "CollectionPrototypeClass::Create"
+   }
+  ]
+ },
+ {
+  "class": "CompositeRenderObjClass",
+  "client_vtable": "0xB12F70",
+  "slots": 113,
+  "client_slots": 129,
+  "anchored": 32,
+  "differences": [
+   {
+    "op": "replace",
+    "ours": [
+     "RenderObjClass::Get_Bounding_Sphere",
+     "RenderObjClass::Get_Bounding_Box",
+     "CompositeRenderObjClass::Get_Obj_Space_Bounding_Sphere",
+     "CompositeRenderObjClass::Get_Obj_Space_Bounding_Box"
+    ],
+    "client": [
+     "0x406D89",
+     "0x41001E",
+     "0x411897",
+     "0x40A1A0"
+    ],
+    "client_slot": 60,
+    "our_slot": 60,
+    "after": "RenderObjClass::Intersect_Sphere_Quick"
+   },
+   {
+    "op": "replace",
+    "ours": [
+     "RenderObjClass::Scale",
+     "RenderObjClass::Scale",
+     "RenderObjClass::Get_Sort_Level",
+     "RenderObjClass::Set_Sort_Level",
+     "RenderObjClass::Is_Really_Visible",
+     "RenderObjClass::Is_Not_Hidden_At_All",
+     "RenderObjClass::Is_Visible",
+     "RenderObjClass::Set_Visible",
+     "RenderObjClass::Is_Hidden",
+     "RenderObjClass::Set_Hidden",
+     "RenderObjClass::Is_Animation_Hidden",
+     "RenderObjClass::Set_Animation_Hidden",
+     "RenderObjClass::Is_Force_Visible",
+     "RenderObjClass::Set_Force_Visible",
+     "RenderObjClass::Is_Translucent",
+     "RenderObjClass::Set_Translucent",
+     "RenderObjClass::Get_Collision_Type",
+     "RenderObjClass::Set_Collision_Type",
+     "RenderObjClass::Is_Complete",
+     "RenderObjClass::Is_In_Scene",
+     "RenderObjClass::Get_Native_Screen_Size",
+     "RenderObjClass::Set_Native_Screen_Size"
+    ],
+    "client": [
+     "0x4148E4",
+     "0x40654B",
+     "0x406348",
+     "0x411A04",
+     "0x40B8D9",
+     "0x40D706",
+     "0x410D2A",
+     "0x401424",
+     "0x417085",
+     "0x412184",
+     "0x40E2E6",
+     "0x4017CB",
+     "0x4085FD",
+     "0x414759",
+     "0x416D79",
+     "0x409A2A",
+     "0x404890",
+     "0x40CE41",
+     "0x41583E",
+     "0x4182A0",
+     "0x41562C",
+     "0x40C752"
+    ],
+    "client_slot": 88,
+    "our_slot": 88,
+    "after": "RenderObjClass::Get_Screen_Size"
+   },
+   {
+    "op": "insert",
+    "ours": [],
+    "client": [
+     "0x988A20",
+     "0x9888E0",
+     "0x9887D0",
+     "0x9889E0",
+     "0x988710",
+     "0x9887D0",
+     "0x988AB0",
+     "0x986F80",
+     "0x406573",
+     "0x9870B0",
+     "0x987030",
+     "0x987040",
+     "0x987050",
+     "0x987060",
+     "0x987070",
+     "0x988360"
+    ],
+    "client_slot": 113,
+    "our_slot": 113,
+    "after": "RenderObjClass::Update_Sub_Object_Bits"
+   }
+  ]
+ },
+ {
+  "class": "DX8RigidFVFCategoryContainer",
+  "client_vtable": "0xB12C78",
+  "slots": 7,
+  "client_slots": 23,
+  "anchored": 1,
+  "differences": [
+   {
+    "op": "replace",
+    "ours": [
+     "DX8RigidFVFCategoryContainer::Render_Delayed_Procedural_Material_Passes"
+    ],
+    "client": [
+     "0x977C20",
+     "0x979750",
+     "0x9797A0",
+     "0x979BC0",
+     "0x979790",
+     "0x979AC0",
+     "0x979620",
+     "0x979740",
+     "0x97B730",
+     "0x97CF70",
+     "0x97D060",
+     "0x97D0A0",
+     "0x97F5D0",
+     "0x97F5C0",
+     "0x409E44",
+     "0x942DF0",
+     "0x942E00"
+    ],
+    "client_slot": 6,
+    "our_slot": 6,
+    "after": "DX8RigidFVFCategoryContainer::Add_Delayed_Visible_Material_Pass"
+   }
+  ]
+ },
+ {
+  "class": "DazzleLayerClass",
+  "client_vtable": "0xB12590",
+  "slots": 2,
+  "client_slots": 18,
+  "anchored": 1,
+  "differences": [
+   {
+    "op": "replace",
+    "ours": [
+     "DazzleLayerClass::Clear_Visible_List"
+    ],
+    "client": [
+     "0x96EC30",
+     "0x96EF00",
+     "0x96EEE0",
+     "0x96EEF0",
+     "0x96ED00",
+     "0x96F920",
+     "0x96FB80",
+     "0x974300",
+     "0x957E60",
+     "0x974090",
+     "0x973DA0",
+     "0x974180",
+     "0x973DD0",
+     "0x9742B0",
+     "0x973DF0",
+     "0x973F70",
+     "0x973D50"
+    ],
+    "client_slot": 1,
+    "our_slot": 1,
+    "after": "DazzleLayerClass::Get_Visible_Item_Count"
+   }
+  ]
+ },
+ {
+  "class": "DazzleLoaderClass",
+  "client_vtable": "0xB12380",
+  "slots": 2,
+  "client_slots": 18,
+  "anchored": 1,
+  "differences": [
+   {
+    "op": "insert",
+    "ours": [],
+    "client": [
+     "0x96F000",
+     "0x96EF30",
+     "0x96EFC0",
+     "0x96EC80",
+     "0x96A310",
+     "0x96A900",
+     "0x96AA70",
+     "0x96F050",
+     "0x96F040",
+     "0x409E44",
+     "0x96EA90",
+     "0x942E00",
+     "0x942E10",
+     "0x406573",
+     "0x96BAD0",
+     "0x96BF90"
+    ],
+    "client_slot": 2,
+    "our_slot": 2,
+    "after": "DazzleLoaderClass::Load_W3D"
+   }
+  ]
+ },
+ {
+  "class": "DazzlePrototypeClass",
+  "client_vtable": "0xB12598",
+  "slots": 4,
+  "client_slots": 20,
+  "anchored": 1,
+  "differences": [
+   {
+    "op": "insert",
+    "ours": [],
+    "client": [
+     "0x96F920",
+     "0x96FB80",
+     "0x974300",
+     "0x957E60",
+     "0x974090",
+     "0x973DA0",
+     "0x974180",
+     "0x973DD0",
+     "0x9742B0",
+     "0x973DF0",
+     "0x973F70",
+     "0x973D50",
+     "0x974020",
+     "0x973D80",
+     "0x974260",
+     "0x973DF0"
+    ],
+    "client_slot": 4,
+    "our_slot": 4,
+    "after": "DazzlePrototypeClass::Create"
+   }
+  ]
+ },
+ {
+  "class": "DazzleRenderObjClass",
+  "client_vtable": "0xAE84F8",
+  "slots": 113,
+  "client_slots": 113,
+  "anchored": 18,
+  "differences": [
+   {
+    "op": "replace",
+    "ours": [
+     "RenderObjClass::Get_Bounding_Sphere",
+     "RenderObjClass::Get_Bounding_Box",
+     "DazzleRenderObjClass::Get_Obj_Space_Bounding_Sphere",
+     "DazzleRenderObjClass::Get_Obj_Space_Bounding_Box",
+     "RenderObjClass::Update_Obj_Space_Bounding_Volumes"
+    ],
+    "client": [
+     "0x406D89",
+     "0x41001E",
+     "0x9422A0",
+     "0x9422C0",
+     "0x40D55D"
+    ],
+    "client_slot": 60,
+    "our_slot": 60,
+    "after": "RenderObjClass::Intersect_Sphere_Quick"
+   },
+   {
+    "op": "replace",
+    "ours": [
+     "RenderObjClass::Create_Decal",
+     "RenderObjClass::Delete_Decal",
+     "RenderObjClass::Get_Material_Info",
+     "RenderObjClass::Set_User_Data",
+     "RenderObjClass::Get_User_Data",
+     "RenderObjClass::Get_Num_Snap_Points",
+     "RenderObjClass::Get_Snap_Point"
+    ],
+    "client": [
+     "0x4078DD",
+     "0x406C58",
+     "0x4072B6",
+     "0x4154BA",
+     "0x4142C7",
+     "0x40B938",
+     "0x4183D1"
+    ],
+    "client_slot": 80,
+    "our_slot": 80,
+    "after": "RenderObjClass::Build_Texture_List"
+   },
+   {
+    "op": "replace",
+    "ours": [
+     "RenderObjClass::Scale",
+     "DazzleRenderObjClass::Scale",
+     "RenderObjClass::Get_Sort_Level",
+     "RenderObjClass::Set_Sort_Level",
+     "RenderObjClass::Is_Really_Visible",
+     "RenderObjClass::Is_Not_Hidden_At_All",
+     "RenderObjClass::Is_Visible",
+     "RenderObjClass::Set_Visible",
+     "RenderObjClass::Is_Hidden",
+     "RenderObjClass::Set_Hidden",
+     "RenderObjClass::Is_Animation_Hidden",
+     "RenderObjClass::Set_Animation_Hidden",
+     "RenderObjClass::Is_Force_Visible",
+     "RenderObjClass::Set_Force_Visible",
+     "RenderObjClass::Is_Translucent",
+     "RenderObjClass::Set_Translucent",
+     "RenderObjClass::Get_Collision_Type",
+     "RenderObjClass::Set_Collision_Type",
+     "RenderObjClass::Is_Complete",
+     "RenderObjClass::Is_In_Scene",
+     "RenderObjClass::Get_Native_Screen_Size",
+     "RenderObjClass::Set_Native_Screen_Size"
+    ],
+    "client": [
+     "0x4148E4",
+     "0x40654B",
+     "0x406348",
+     "0x411A04",
+     "0x40B8D9",
+     "0x40D706",
+     "0x410D2A",
+     "0x401424",
+     "0x417085",
+     "0x412184",
+     "0x40E2E6",
+     "0x4017CB",
+     "0x4085FD",
+     "0x414759",
+     "0x416D79",
+     "0x409A2A",
+     "0x404890",
+     "0x40CE41",
+     "0x41583E",
+     "0x4182A0",
+     "0x41562C",
+     "0x40C752"
+    ],
+    "client_slot": 88,
+    "our_slot": 88,
+    "after": "RenderObjClass::Get_Screen_Size"
+   }
+  ]
+ },
+ {
+  "class": "DecalGeneratorClass",
+  "client_vtable": "0xB1207C",
+  "slots": 6,
+  "client_slots": 6,
+  "anchored": 4,
+  "differences": []
+ },
+ {
+  "class": "DecalSystemClass",
+  "client_vtable": "0xB12EF4",
+  "slots": 5,
+  "client_slots": 21,
+  "anchored": 1,
+  "differences": [
+   {
+    "op": "replace",
+    "ours": [
+     "DecalSystemClass::Unlock_Decal_Generator",
+     "DecalSystemClass::Decal_Mesh_Destroyed",
+     "DecalSystemClass::Generate_Decal_Id"
+    ],
+    "client": [
+     "0x9812A0",
+     "0x981190",
+     "0x9811A0",
+     "0x981370",
+     "0x964FB0",
+     "0x965010",
+     "0x965020",
+     "0x965130",
+     "0x965270",
+     "0x982300",
+     "0x9816B0",
+     "0x981A40",
+     "0x981BB0",
+     "0x981CC0",
+     "0x40CCCA",
+     "0x406573",
+     "0x982380",
+     "0x406573",
+     "0x982A30"
+    ],
+    "client_slot": 2,
+    "our_slot": 2,
+    "after": "DecalSystemClass::Lock_Decal_Generator"
+   }
+  ]
+ },
+ {
+  "class": "DefaultStaticSortListClass",
+  "client_vtable": "0xB12CB4",
+  "slots": 3,
+  "client_slots": 19,
+  "anchored": 2,
+  "differences": [
+   {
+    "op": "insert",
+    "ours": [],
+    "client": [
+     "0x97F5D0",
+     "0x97F5C0",
+     "0x409E44",
+     "0x942DF0",
+     "0x942E00",
+     "0x942E10",
+     "0x406573",
+     "0x97D600",
+     "0x97DCA0",
+     "0x97D480",
+     "0x97D490",
+     "0x97F350",
+     "0x417FC1",
+     "0x40507E",
+     "0x40DB7F",
+     "0x97D4A0"
+    ],
+    "client_slot": 3,
+    "our_slot": 3,
+    "after": "DefaultStaticSortListClass::Render_And_Clear"
+   }
+  ]
+ },
+ {
+  "class": "DefinitionClass",
+  "client_vtable": "0xB15E7C",
+  "slots": 12,
+  "client_slots": 28,
+  "anchored": 3,
+  "differences": [
+   {
+    "op": "replace",
+    "ours": [
+     "purecall",
+     "DefinitionClass::Get_Name",
+     "DefinitionClass::Set_Name",
+     "DefinitionClass::Is_Valid_Config"
+    ],
+    "client": [
+     "0x9CCD10",
+     "0x9FE500",
+     "0x9FE510",
+     "0x9FE570",
+     "0x9FE490",
+     "0x9FE4A0",
+     "0x9FE4B0",
+     "0x9FF8F0",
+     "0x9FFFB0",
+     "0x9FFFC0",
+     "0xA00060",
+     "0x406573",
+     "0xA000C0",
+     "0xA000B0",
+     "0x409E44",
+     "0x9FFFA0",
+     "0x9F9030",
+     "0x9F90F0",
+     "0x9FFAF0",
+     "0x9F7AB0"
+    ],
+    "client_slot": 8,
+    "our_slot": 8,
+    "after": "DefinitionClass::Set_ID"
+   }
+  ]
+ },
+ {
+  "class": "DistLODClass",
+  "client_vtable": "0xB1401C",
+  "slots": 117,
+  "client_slots": 117,
+  "anchored": 55,
+  "differences": [
+   {
+    "op": "replace",
+    "ours": [
+     "RenderObjClass::Get_Bounding_Sphere",
+     "RenderObjClass::Get_Bounding_Box",
+     "CompositeRenderObjClass::Get_Obj_Space_Bounding_Sphere",
+     "CompositeRenderObjClass::Get_Obj_Space_Bounding_Box"
+    ],
+    "client": [
+     "0x406D89",
+     "0x41001E",
+     "0x411897",
+     "0x40A1A0"
+    ],
+    "client_slot": 60,
+    "our_slot": 60,
+    "after": "RenderObjClass::Intersect_Sphere_Quick"
+   },
+   {
+    "op": "replace",
+    "ours": [
+     "RenderObjClass::Get_Sort_Level",
+     "RenderObjClass::Set_Sort_Level",
+     "RenderObjClass::Is_Really_Visible",
+     "RenderObjClass::Is_Not_Hidden_At_All",
+     "RenderObjClass::Is_Visible",
+     "RenderObjClass::Set_Visible",
+     "RenderObjClass::Is_Hidden",
+     "RenderObjClass::Set_Hidden",
+     "RenderObjClass::Is_Animation_Hidden",
+     "RenderObjClass::Set_Animation_Hidden",
+     "RenderObjClass::Is_Force_Visible",
+     "RenderObjClass::Set_Force_Visible",
+     "RenderObjClass::Is_Translucent",
+     "RenderObjClass::Set_Translucent",
+     "RenderObjClass::Get_Collision_Type",
+     "RenderObjClass::Set_Collision_Type",
+     "RenderObjClass::Is_Complete",
+     "RenderObjClass::Is_In_Scene",
+     "RenderObjClass::Get_Native_Screen_Size",
+     "RenderObjClass::Set_Native_Screen_Size"
+    ],
+    "client": [
+     "0x406348",
+     "0x411A04",
+     "0x40B8D9",
+     "0x40D706",
+     "0x410D2A",
+     "0x401424",
+     "0x417085",
+     "0x412184",
+     "0x40E2E6",
+     "0x4017CB",
+     "0x4085FD",
+     "0x414759",
+     "0x416D79",
+     "0x409A2A",
+     "0x404890",
+     "0x40CE41",
+     "0x41583E",
+     "0x4182A0",
+     "0x41562C",
+     "0x40C752"
+    ],
+    "client_slot": 90,
+    "our_slot": 90,
+    "after": "DistLODClass::Scale"
+   }
+  ]
+ },
+ {
+  "class": "DistLODLoaderClass",
+  "client_vtable": "0xB13FEC",
+  "slots": 2,
+  "client_slots": 18,
+  "anchored": 1,
+  "differences": [
+   {
+    "op": "insert",
+    "ours": [],
+    "client": [
+     "0x9A4B10",
+     "0x9A4AF0",
+     "0x9A4B00",
+     "0x9A4990",
+     "0x9A5FA0",
+     "0x9A5F90",
+     "0x409E44",
+     "0x942DF0",
+     "0x942E00",
+     "0x942E10",
+     "0x406573",
+     "0x9A5040",
+     "0x9A4F80",
+     "0x9A4FB0",
+     "0x986140",
+     "0x986150"
+    ],
+    "client_slot": 2,
+    "our_slot": 2,
+    "after": "DistLODLoaderClass::Load_W3D"
+   }
+  ]
+ },
+ {
+  "class": "DistLODPrototypeClass",
+  "client_vtable": "0xB13FF4",
+  "slots": 4,
+  "client_slots": 20,
+  "anchored": 1,
+  "differences": [
+   {
+    "op": "insert",
+    "ours": [],
+    "client": [
+     "0x9A5FA0",
+     "0x9A5F90",
+     "0x409E44",
+     "0x942DF0",
+     "0x942E00",
+     "0x942E10",
+     "0x406573",
+     "0x9A5040",
+     "0x9A4F80",
+     "0x9A4FB0",
+     "0x986140",
+     "0x986150",
+     "0x986A50",
+     "0x9861B0",
+     "0x9A5230",
+     "0x9A5250"
+    ],
+    "client_slot": 4,
+    "our_slot": 4,
+    "after": "DistLODPrototypeClass::Create"
+   }
+  ]
+ },
+ {
+  "class": "DynamicMeshClass",
+  "client_vtable": "0xAFF350",
+  "slots": 122,
+  "client_slots": 125,
+  "anchored": 24,
+  "differences": [
+   {
+    "op": "replace",
+    "ours": [
+     "RenderObjClass::Get_Bounding_Sphere",
+     "RenderObjClass::Get_Bounding_Box",
+     "DynamicMeshClass::Get_Obj_Space_Bounding_Sphere",
+     "DynamicMeshClass::Get_Obj_Space_Bounding_Box",
+     "RenderObjClass::Update_Obj_Space_Bounding_Volumes"
+    ],
+    "client": [
+     "0x406D89",
+     "0x41001E",
+     "0x4071C6",
+     "0x40D34B",
+     "0x40D55D"
+    ],
+    "client_slot": 60,
+    "our_slot": 60,
+    "after": "RenderObjClass::Intersect_Sphere_Quick"
+   },
+   {
+    "op": "replace",
+    "ours": [
+     "RenderObjClass::Create_Decal",
+     "RenderObjClass::Delete_Decal",
+     "DynamicMeshClass::Get_Material_Info",
+     "RenderObjClass::Set_User_Data",
+     "RenderObjClass::Get_User_Data",
+     "RenderObjClass::Get_Num_Snap_Points",
+     "RenderObjClass::Get_Snap_Point"
+    ],
+    "client": [
+     "0x4078DD",
+     "0x406C58",
+     "0x40D936",
+     "0x4154BA",
+     "0x4142C7",
+     "0x40B938",
+     "0x4183D1"
+    ],
+    "client_slot": 80,
+    "our_slot": 80,
+    "after": "RenderObjClass::Build_Texture_List"
+   },
+   {
+    "op": "replace",
+    "ours": [
+     "RenderObjClass::Scale",
+     "RenderObjClass::Scale",
+     "DynamicMeshClass::Get_Sort_Level",
+     "DynamicMeshClass::Set_Sort_Level",
+     "RenderObjClass::Is_Really_Visible",
+     "RenderObjClass::Is_Not_Hidden_At_All",
+     "RenderObjClass::Is_Visible",
+     "RenderObjClass::Set_Visible",
+     "RenderObjClass::Is_Hidden",
+     "RenderObjClass::Set_Hidden",
+     "RenderObjClass::Is_Animation_Hidden",
+     "RenderObjClass::Set_Animation_Hidden",
+     "RenderObjClass::Is_Force_Visible",
+     "RenderObjClass::Set_Force_Visible",
+     "RenderObjClass::Is_Translucent",
+     "RenderObjClass::Set_Translucent",
+     "RenderObjClass::Get_Collision_Type",
+     "RenderObjClass::Set_Collision_Type",
+     "RenderObjClass::Is_Complete",
+     "RenderObjClass::Is_In_Scene",
+     "RenderObjClass::Get_Native_Screen_Size",
+     "RenderObjClass::Set_Native_Screen_Size"
+    ],
+    "client": [
+     "0x4148E4",
+     "0x40654B",
+     "0x40E09D",
+     "0x40FBC3",
+     "0x40B8D9",
+     "0x40D706",
+     "0x410D2A",
+     "0x401424",
+     "0x417085",
+     "0x412184",
+     "0x40E2E6",
+     "0x4017CB",
+     "0x4085FD",
+     "0x414759",
+     "0x416D79",
+     "0x409A2A",
+     "0x404890",
+     "0x40CE41",
+     "0x41583E",
+     "0x4182A0",
+     "0x41562C",
+     "0x40C752"
+    ],
+    "client_slot": 88,
+    "our_slot": 88,
+    "after": "RenderObjClass::Get_Screen_Size"
+   },
+   {
+    "op": "replace",
+    "ours": [
+     "DynamicMeshClass::Peek_Material_Info",
+     "DynamicMeshClass::Set_Material_Info",
+     "DynamicMeshClass::Get_Num_Vertices",
+     "DynamicMeshClass::Reset"
+    ],
+    "client": [
+     "0x417341",
+     "0x40F925",
+     "0x4142E0",
+     "0x415AFA"
+    ],
+    "client_slot": 113,
+    "our_slot": 113,
+    "after": "RenderObjClass::Update_Sub_Object_Bits"
+   },
+   {
+    "op": "replace",
+    "ours": [
+     "DynamicMeshClass::Change_Vertex_Color",
+     "DynamicMeshClass::Flip_Face"
+    ],
+    "client": [
+     "0x414132",
+     "0x411757",
+     "0x4032F1",
+     "0x414C3B",
+     "0x401285"
+    ],
+    "client_slot": 120,
+    "our_slot": 120,
+    "after": "DynamicMeshClass::Get_Vertex"
+   }
+  ]
+ },
+ {
+  "class": "DynamicMeshModel",
+  "client_vtable": "0xB12A0C",
+  "slots": 8,
+  "client_slots": 24,
+  "anchored": 6,
+  "differences": [
+   {
+    "op": "insert",
+    "ours": [],
+    "client": [
+     "0x9770A0",
+     "0x977090",
+     "0x409E44",
+     "0x942DF0",
+     "0x942E00",
+     "0x942E10",
+     "0x406573",
+     "0x976400",
+     "0x976880",
+     "0x40B0B9",
+     "0x403FA3",
+     "0x40EA57",
+     "0x417FC1",
+     "0x40507E",
+     "0x40C8B0",
+     "0x975E30"
+    ],
+    "client_slot": 8,
+    "our_slot": 8,
+    "after": "DynamicMeshModel::Compute_Vertex_Normals"
+   }
+  ]
+ },
+ {
+  "class": "DynamicScreenMeshClass",
+  "client_vtable": "0xB12618",
+  "slots": 123,
+  "client_slots": 139,
+  "anchored": 25,
+  "differences": [
+   {
+    "op": "replace",
+    "ours": [
+     "RenderObjClass::Get_Bounding_Sphere",
+     "RenderObjClass::Get_Bounding_Box",
+     "DynamicMeshClass::Get_Obj_Space_Bounding_Sphere",
+     "DynamicMeshClass::Get_Obj_Space_Bounding_Box",
+     "RenderObjClass::Update_Obj_Space_Bounding_Volumes"
+    ],
+    "client": [
+     "0x406D89",
+     "0x41001E",
+     "0x4071C6",
+     "0x40D34B",
+     "0x40D55D"
+    ],
+    "client_slot": 60,
+    "our_slot": 60,
+    "after": "RenderObjClass::Intersect_Sphere_Quick"
+   },
+   {
+    "op": "replace",
+    "ours": [
+     "RenderObjClass::Create_Decal",
+     "RenderObjClass::Delete_Decal",
+     "DynamicMeshClass::Get_Material_Info",
+     "RenderObjClass::Set_User_Data",
+     "RenderObjClass::Get_User_Data",
+     "RenderObjClass::Get_Num_Snap_Points",
+     "RenderObjClass::Get_Snap_Point"
+    ],
+    "client": [
+     "0x4078DD",
+     "0x406C58",
+     "0x40D936",
+     "0x4154BA",
+     "0x4142C7",
+     "0x40B938",
+     "0x4183D1"
+    ],
+    "client_slot": 80,
+    "our_slot": 80,
+    "after": "RenderObjClass::Build_Texture_List"
+   },
+   {
+    "op": "replace",
+    "ours": [
+     "RenderObjClass::Scale",
+     "RenderObjClass::Scale",
+     "DynamicMeshClass::Get_Sort_Level",
+     "DynamicMeshClass::Set_Sort_Level",
+     "RenderObjClass::Is_Really_Visible",
+     "RenderObjClass::Is_Not_Hidden_At_All",
+     "RenderObjClass::Is_Visible",
+     "RenderObjClass::Set_Visible",
+     "RenderObjClass::Is_Hidden",
+     "RenderObjClass::Set_Hidden",
+     "RenderObjClass::Is_Animation_Hidden",
+     "RenderObjClass::Set_Animation_Hidden",
+     "RenderObjClass::Is_Force_Visible",
+     "RenderObjClass::Set_Force_Visible",
+     "RenderObjClass::Is_Translucent",
+     "RenderObjClass::Set_Translucent",
+     "RenderObjClass::Get_Collision_Type",
+     "RenderObjClass::Set_Collision_Type",
+     "RenderObjClass::Is_Complete",
+     "RenderObjClass::Is_In_Scene",
+     "RenderObjClass::Get_Native_Screen_Size",
+     "RenderObjClass::Set_Native_Screen_Size"
+    ],
+    "client": [
+     "0x4148E4",
+     "0x40654B",
+     "0x40E09D",
+     "0x40FBC3",
+     "0x40B8D9",
+     "0x40D706",
+     "0x410D2A",
+     "0x401424",
+     "0x417085",
+     "0x412184",
+     "0x40E2E6",
+     "0x4017CB",
+     "0x4085FD",
+     "0x414759",
+     "0x416D79",
+     "0x409A2A",
+     "0x404890",
+     "0x40CE41",
+     "0x41583E",
+     "0x4182A0",
+     "0x41562C",
+     "0x40C752"
+    ],
+    "client_slot": 88,
+    "our_slot": 88,
+    "after": "RenderObjClass::Get_Screen_Size"
+   },
+   {
+    "op": "replace",
+    "ours": [
+     "DynamicMeshClass::Peek_Material_Info",
+     "DynamicMeshClass::Set_Material_Info",
+     "DynamicMeshClass::Get_Num_Vertices"
+    ],
+    "client": [
+     "0x417341",
+     "0x40F925",
+     "0x4142E0"
+    ],
+    "client_slot": 113,
+    "our_slot": 113,
+    "after": "RenderObjClass::Update_Sub_Object_Bits"
+   },
+   {
+    "op": "insert",
+    "ours": [],
+    "client": [
+     "0x9750A0",
+     "0x975090",
+     "0x409E44",
+     "0x942DF0",
+     "0x942E00",
+     "0x942E10",
+     "0x406573",
+     "0x974C90",
+     "0x974C30",
+     "0x974C80",
+     "0x403FA3",
+     "0x40EA57",
+     "0x417FC1",
+     "0x40507E",
+     "0x40C8B0",
+     "0x975E30"
+    ],
+    "client_slot": 123,
+    "our_slot": 123,
+    "after": "DynamicScreenMeshClass::Set_Aspect"
+   }
+  ]
+ },
+ {
+  "class": "EdgeMapperClass",
+  "client_vtable": "0xB11024",
+  "slots": 8,
+  "client_slots": 24,
+  "anchored": 1,
+  "differences": [
+   {
+    "op": "replace",
+    "ours": [
+     "EdgeMapperClass::Clone",
+     "EdgeMapperClass::Mapper_ID",
+     "EdgeMapperClass::Is_Time_Variant",
+     "EdgeMapperClass::Apply",
+     "EdgeMapperClass::Needs_Normals"
+    ],
+    "client": [
+     "0x935770",
+     "0x935FE0",
+     "0x406573",
+     "0x936140",
+     "0x9306B0",
+     "0x9CCD10",
+     "0x404FED",
+     "0x9CCD10",
+     "0x412CF6",
+     "0x930650",
+     "0x936160",
+     "0x406573",
+     "0x938D30",
+     "0x938C70",
+     "0x938C80",
+     "0x938D20",
+     "0x9322F0",
+     "0x938F10",
+     "0x9305B0",
+     "0x938F20",
+     "0x406573"
+    ],
+    "client_slot": 3,
+    "our_slot": 3,
+    "after": "EdgeMapperClass::Reset"
+   }
+  ]
+ },
+ {
+  "class": "HCompressedAnimClass",
+  "client_vtable": "0xB144E8",
+  "slots": 22,
+  "client_slots": 38,
+  "anchored": 10,
+  "differences": [
+   {
+    "op": "replace",
+    "ours": [
+     "HAnimClass::Has_Embedded_Sounds",
+     "HAnimClass::Set_Has_Embedded_Sounds"
+    ],
+    "client": [
+     "0x987000",
+     "0x987010",
+     "0x987020",
+     "0x9C4880",
+     "0x9C64B0",
+     "0x9C64A0",
+     "0x409E44",
+     "0x942DF0",
+     "0x942E00",
+     "0x942E10",
+     "0x406573",
+     "0x9C5320",
+     "0x9CCD10",
+     "0x416897",
+     "0x986140",
+     "0x986150",
+     "0x986A50",
+     "0x9861B0"
+    ],
+    "client_slot": 20,
+    "our_slot": 20,
+    "after": "HCompressedAnimClass::Has_Visibility"
+   }
+  ]
+ },
+ {
+  "class": "HLodClass",
+  "client_vtable": "0xB1327C",
+  "slots": 132,
+  "client_slots": 148,
+  "anchored": 68,
+  "differences": [
+   {
+    "op": "replace",
+    "ours": [
+     "HLodClass::Update_Sub_Object_Transforms",
+     "HLodClass::Set_Animation"
+    ],
+    "client": [
+     "0x941F90",
+     "0x98F090",
+     "0x98E660"
+    ],
+    "client_slot": 35,
+    "our_slot": 35,
+    "after": "RenderObjClass::Remove_Sub_Objects_From_Bone"
+   },
+   {
+    "op": "delete",
+    "ours": [
+     "RenderObjClass::Unknown_Virtual_40"
+    ],
+    "client": [],
+    "client_slot": 41,
+    "our_slot": 40,
+    "after": "HLodClass::Set_Animation"
+   },
+   {
+    "op": "replace",
+    "ours": [
+     "RenderObjClass::Get_Sort_Level",
+     "RenderObjClass::Set_Sort_Level",
+     "RenderObjClass::Is_Really_Visible",
+     "RenderObjClass::Is_Not_Hidden_At_All",
+     "RenderObjClass::Is_Visible",
+     "RenderObjClass::Set_Visible",
+     "RenderObjClass::Is_Hidden"
+    ],
+    "client": [
+     "0x406348",
+     "0x411A04",
+     "0x40B8D9",
+     "0x40D706",
+     "0x410D2A",
+     "0x401424",
+     "0x417085"
+    ],
+    "client_slot": 90,
+    "our_slot": 90,
+    "after": "HLodClass::Scale"
+   },
+   {
+    "op": "replace",
+    "ours": [
+     "RenderObjClass::Is_Animation_Hidden",
+     "RenderObjClass::Set_Animation_Hidden",
+     "RenderObjClass::Is_Force_Visible",
+     "RenderObjClass::Set_Force_Visible",
+     "RenderObjClass::Is_Translucent",
+     "RenderObjClass::Set_Translucent",
+     "RenderObjClass::Get_Collision_Type",
+     "RenderObjClass::Set_Collision_Type",
+     "RenderObjClass::Is_Complete",
+     "RenderObjClass::Is_In_Scene",
+     "RenderObjClass::Get_Native_Screen_Size",
+     "RenderObjClass::Set_Native_Screen_Size"
+    ],
+    "client": [
+     "0x40E2E6",
+     "0x4017CB",
+     "0x4085FD",
+     "0x414759",
+     "0x416D79",
+     "0x409A2A",
+     "0x404890",
+     "0x40CE41",
+     "0x41583E",
+     "0x4182A0",
+     "0x41562C",
+     "0x40C752"
+    ],
+    "client_slot": 98,
+    "our_slot": 98,
+    "after": "HLodClass::Set_Hidden"
+   },
+   {
+    "op": "insert",
+    "ours": [],
+    "client": [
+     "0x98F920"
+    ],
+    "client_slot": 128,
+    "our_slot": 128,
+    "after": "HLodClass::Get_Additional_Model_Bone"
+   },
+   {
+    "op": "insert",
+    "ours": [],
+    "client": [
+     "0x98C370",
+     "0x98FBC0",
+     "0x98FDE0",
+     "0x98FB70",
+     "0x98FEA0",
+     "0x98FBA0",
+     "0x990090",
+     "0x98FBC0",
+     "0x98FC20",
+     "0x98FCE0",
+     "0x98FD10",
+     "0x98FD60",
+     "0x9900E0",
+     "0x98FBC0",
+     "0x98FDE0"
+    ],
+    "client_slot": 133,
+    "our_slot": 132,
+    "after": "HLodClass::Get_Proxy"
+   }
+  ]
+ },
+ {
+  "class": "HLodLoaderClass",
+  "client_vtable": "0xB13214",
+  "slots": 2,
+  "client_slots": 18,
+  "anchored": 1,
+  "differences": [
+   {
+    "op": "insert",
+    "ours": [],
+    "client": [
+     "0x98AD30",
+     "0x98AD10",
+     "0x98AD20",
+     "0x98ADE0",
+     "0x406573",
+     "0x9901D0",
+     "0x98B990",
+     "0x98FEE0",
+     "0x98FF00",
+     "0x990020",
+     "0x990050",
+     "0x990060",
+     "0x990130",
+     "0x98FEE0",
+     "0x98FF00",
+     "0x990020"
+    ],
+    "client_slot": 2,
+    "our_slot": 2,
+    "after": "HLodLoaderClass::Load_W3D"
+   }
+  ]
+ },
+ {
+  "class": "HModelLoaderClass",
+  "client_vtable": "0xB1114C",
+  "slots": 2,
+  "client_slots": 18,
+  "anchored": 1,
+  "differences": [
+   {
+    "op": "insert",
+    "ours": [],
+    "client": [
+     "0x93E5F0",
+     "0x93E660",
+     "0x93E670",
+     "0x93E680",
+     "0x93E7E0",
+     "0x93E790",
+     "0x93E7A0",
+     "0x93E7B0",
+     "0x941270",
+     "0x9411A0",
+     "0x941160",
+     "0x941230",
+     "0x9410D0",
+     "0x941160",
+     "0x9412E0",
+     "0x9412D0"
+    ],
+    "client_slot": 2,
+    "our_slot": 2,
+    "after": "HModelLoaderClass::Load_W3D"
+   }
+  ]
+ },
+ {
+  "class": "HMorphAnimClass",
+  "client_vtable": "0xB13154",
+  "slots": 22,
+  "client_slots": 38,
+  "anchored": 3,
+  "differences": [
+   {
+    "op": "replace",
+    "ours": [
+     "HMorphAnimClass::Get_Visibility",
+     "HMorphAnimClass::Get_Num_Pivots",
+     "HMorphAnimClass::Is_Node_Motion_Present",
+     "HAnimClass::Has_X_Translation",
+     "HAnimClass::Has_Y_Translation",
+     "HAnimClass::Has_Z_Translation",
+     "HAnimClass::Has_Rotation",
+     "HAnimClass::Has_Visibility",
+     "HAnimClass::Has_Embedded_Sounds",
+     "HAnimClass::Set_Has_Embedded_Sounds"
+    ],
+    "client": [
+     "0x987080",
+     "0x9870A0",
+     "0x987090",
+     "0x986FB0",
+     "0x986FC0",
+     "0x986FD0",
+     "0x986FE0",
+     "0x986FF0",
+     "0x987000",
+     "0x987010",
+     "0x987020",
+     "0x988AC0",
+     "0x986F80",
+     "0x406573",
+     "0x987100",
+     "0x9CCD10",
+     "0x9CCD10",
+     "0x9CCD10",
+     "0x9CCD10",
+     "0x9CCD10",
+     "0x9CCD10",
+     "0x986F90",
+     "0x9CCD10",
+     "0x986FA0",
+     "0x9CCD10",
+     "0x9CCD10"
+    ],
+    "client_slot": 12,
+    "our_slot": 12,
+    "after": "HMorphAnimClass::Get_Transform"
+   }
+  ]
+ },
+ {
+  "class": "HRawAnimClass",
+  "client_vtable": "0xB14480",
+  "slots": 22,
+  "client_slots": 23,
+  "anchored": 10,
+  "differences": [
+   {
+    "op": "replace",
+    "ours": [
+     "HAnimClass::Has_Embedded_Sounds",
+     "HAnimClass::Set_Has_Embedded_Sounds"
+    ],
+    "client": [
+     "0x987000",
+     "0x987010",
+     "0x987020"
+    ],
+    "client_slot": 20,
+    "our_slot": 20,
+    "after": "HRawAnimClass::Has_Visibility"
+   }
+  ]
+ },
+ {
+  "class": "HTreeIterator",
+  "client_vtable": "0xB10BF0",
+  "slots": 5,
+  "client_slots": 21,
+  "anchored": 1,
+  "differences": [
+   {
+    "op": "replace",
+    "ours": [
+     "HTreeIterator::Current_Item_Name"
+    ],
+    "client": [
+     "0x91EF50",
+     "0x91D9E0",
+     "0x91D9A0",
+     "0x91D9B0",
+     "0x91D9C0",
+     "0x91D9D0",
+     "0x9200A0",
+     "0x91FF20",
+     "0x91FF60",
+     "0x920010",
+     "0x920040",
+     "0x920080",
+     "0x929EC0",
+     "0x929460",
+     "0x929A60",
+     "0x928E90",
+     "0x929BC0"
+    ],
+    "client_slot": 4,
+    "our_slot": 4,
+    "after": "HTreeIterator::Is_Done"
+   }
+  ]
+ },
+ {
+  "class": "LightClass",
+  "client_vtable": "0xAE9FC8",
+  "slots": 5,
+  "client_slots": 5,
+  "anchored": 2,
+  "differences": []
+ },
+ {
+  "class": "LightClass",
+  "client_vtable": "0xAE9FE0",
+  "slots": 114,
+  "client_slots": 114,
+  "anchored": 24,
+  "differences": [
+   {
+    "op": "replace",
+    "ours": [
+     "RenderObjClass::Get_Bounding_Sphere",
+     "RenderObjClass::Get_Bounding_Box"
+    ],
+    "client": [
+     "0x406D89",
+     "0x41001E"
+    ],
+    "client_slot": 60,
+    "our_slot": 60,
+    "after": "RenderObjClass::Intersect_Sphere_Quick"
+   },
+   {
+    "op": "replace",
+    "ours": [
+     "RenderObjClass::Create_Decal",
+     "RenderObjClass::Delete_Decal",
+     "RenderObjClass::Get_Material_Info",
+     "RenderObjClass::Set_User_Data",
+     "RenderObjClass::Get_User_Data",
+     "RenderObjClass::Get_Num_Snap_Points",
+     "RenderObjClass::Get_Snap_Point"
+    ],
+    "client": [
+     "0x4078DD",
+     "0x406C58",
+     "0x4072B6",
+     "0x4154BA",
+     "0x4142C7",
+     "0x40B938",
+     "0x4183D1"
+    ],
+    "client_slot": 80,
+    "our_slot": 80,
+    "after": "RenderObjClass::Build_Texture_List"
+   },
+   {
+    "op": "replace",
+    "ours": [
+     "RenderObjClass::Scale",
+     "RenderObjClass::Scale",
+     "RenderObjClass::Get_Sort_Level",
+     "RenderObjClass::Set_Sort_Level",
+     "RenderObjClass::Is_Really_Visible",
+     "RenderObjClass::Is_Not_Hidden_At_All",
+     "RenderObjClass::Is_Visible",
+     "RenderObjClass::Set_Visible",
+     "RenderObjClass::Is_Hidden",
+     "RenderObjClass::Set_Hidden",
+     "RenderObjClass::Is_Animation_Hidden",
+     "RenderObjClass::Set_Animation_Hidden",
+     "RenderObjClass::Is_Force_Visible",
+     "RenderObjClass::Set_Force_Visible",
+     "RenderObjClass::Is_Translucent",
+     "RenderObjClass::Set_Translucent",
+     "RenderObjClass::Get_Collision_Type",
+     "RenderObjClass::Set_Collision_Type",
+     "RenderObjClass::Is_Complete",
+     "RenderObjClass::Is_In_Scene",
+     "RenderObjClass::Get_Native_Screen_Size",
+     "RenderObjClass::Set_Native_Screen_Size"
+    ],
+    "client": [
+     "0x4148E4",
+     "0x40654B",
+     "0x406348",
+     "0x411A04",
+     "0x40B8D9",
+     "0x40D706",
+     "0x410D2A",
+     "0x401424",
+     "0x417085",
+     "0x412184",
+     "0x40E2E6",
+     "0x4017CB",
+     "0x4085FD",
+     "0x414759",
+     "0x416D79",
+     "0x409A2A",
+     "0x404890",
+     "0x40CE41",
+     "0x41583E",
+     "0x4182A0",
+     "0x41562C",
+     "0x40C752"
+    ],
+    "client_slot": 88,
+    "our_slot": 88,
+    "after": "RenderObjClass::Get_Screen_Size"
+   }
+  ]
+ },
+ {
+  "class": "Line3DClass",
+  "client_vtable": "0xB115E8",
+  "slots": 113,
+  "client_slots": 113,
+  "anchored": 25,
+  "differences": [
+   {
+    "op": "replace",
+    "ours": [
+     "RenderObjClass::Get_Bounding_Sphere",
+     "RenderObjClass::Get_Bounding_Box"
+    ],
+    "client": [
+     "0x406D89",
+     "0x41001E"
+    ],
+    "client_slot": 60,
+    "our_slot": 60,
+    "after": "RenderObjClass::Intersect_Sphere_Quick"
+   },
+   {
+    "op": "replace",
+    "ours": [
+     "RenderObjClass::Create_Decal",
+     "RenderObjClass::Delete_Decal",
+     "RenderObjClass::Get_Material_Info",
+     "RenderObjClass::Set_User_Data",
+     "RenderObjClass::Get_User_Data",
+     "RenderObjClass::Get_Num_Snap_Points",
+     "RenderObjClass::Get_Snap_Point"
+    ],
+    "client": [
+     "0x4078DD",
+     "0x406C58",
+     "0x4072B6",
+     "0x4154BA",
+     "0x4142C7",
+     "0x40B938",
+     "0x4183D1"
+    ],
+    "client_slot": 80,
+    "our_slot": 80,
+    "after": "RenderObjClass::Build_Texture_List"
+   },
+   {
+    "op": "replace",
+    "ours": [
+     "RenderObjClass::Get_Sort_Level",
+     "RenderObjClass::Set_Sort_Level",
+     "RenderObjClass::Is_Really_Visible",
+     "RenderObjClass::Is_Not_Hidden_At_All",
+     "RenderObjClass::Is_Visible",
+     "RenderObjClass::Set_Visible",
+     "RenderObjClass::Is_Hidden",
+     "RenderObjClass::Set_Hidden",
+     "RenderObjClass::Is_Animation_Hidden",
+     "RenderObjClass::Set_Animation_Hidden",
+     "RenderObjClass::Is_Force_Visible",
+     "RenderObjClass::Set_Force_Visible",
+     "RenderObjClass::Is_Translucent",
+     "RenderObjClass::Set_Translucent",
+     "RenderObjClass::Get_Collision_Type",
+     "RenderObjClass::Set_Collision_Type",
+     "RenderObjClass::Is_Complete",
+     "RenderObjClass::Is_In_Scene",
+     "RenderObjClass::Get_Native_Screen_Size",
+     "RenderObjClass::Set_Native_Screen_Size"
+    ],
+    "client": [
+     "0x406348",
+     "0x411A04",
+     "0x40B8D9",
+     "0x40D706",
+     "0x410D2A",
+     "0x401424",
+     "0x417085",
+     "0x412184",
+     "0x40E2E6",
+     "0x4017CB",
+     "0x4085FD",
+     "0x414759",
+     "0x416D79",
+     "0x409A2A",
+     "0x404890",
+     "0x40CE41",
+     "0x41583E",
+     "0x4182A0",
+     "0x41562C",
+     "0x40C752"
+    ],
+    "client_slot": 90,
+    "our_slot": 90,
+    "after": "Line3DClass::Scale"
+   }
+  ]
+ },
+ {
+  "class": "LinearOffsetTextureMapperClass",
+  "client_vtable": "0xB10E5C",
+  "slots": 8,
+  "client_slots": 24,
+  "anchored": 1,
+  "differences": [
+   {
+    "op": "replace",
+    "ours": [
+     "LinearOffsetTextureMapperClass::Clone",
+     "LinearOffsetTextureMapperClass::Mapper_ID",
+     "LinearOffsetTextureMapperClass::Is_Time_Variant",
+     "LinearOffsetTextureMapperClass::Apply",
+     "TextureMapperClass::Needs_Normals"
+    ],
+    "client": [
+     "0x9305B0",
+     "0x938840",
+     "0x406573",
+     "0x930630",
+     "0x9305E0",
+     "0x9305F0",
+     "0x404FED",
+     "0x9348B0",
+     "0x412CF6",
+     "0x930620",
+     "0x934F60",
+     "0x9308D0",
+     "0x9E57A0",
+     "0x9E5670",
+     "0x9308B0",
+     "0x9E57A0",
+     "0x9E57F0",
+     "0x406573",
+     "0x9306C0",
+     "0x9306B0",
+     "0x9CCD10"
+    ],
+    "client_slot": 3,
+    "our_slot": 3,
+    "after": "LinearOffsetTextureMapperClass::Reset"
+   }
+  ]
+ },
+ {
+  "class": "MeshClass",
+  "client_vtable": "0xB111A4",
+  "slots": 115,
+  "client_slots": 131,
+  "anchored": 31,
+  "differences": [
+   {
+    "op": "replace",
+    "ours": [
+     "RenderObjClass::Get_Bounding_Sphere",
+     "RenderObjClass::Get_Bounding_Box"
+    ],
+    "client": [
+     "0x406D89",
+     "0x41001E"
+    ],
+    "client_slot": 60,
+    "our_slot": 60,
+    "after": "RenderObjClass::Intersect_Sphere_Quick"
+   },
+   {
+    "op": "replace",
+    "ours": [
+     "RenderObjClass::Set_User_Data",
+     "RenderObjClass::Get_User_Data",
+     "RenderObjClass::Get_Num_Snap_Points",
+     "RenderObjClass::Get_Snap_Point"
+    ],
+    "client": [
+     "0x4154BA",
+     "0x4142C7",
+     "0x40B938",
+     "0x4183D1"
+    ],
+    "client_slot": 83,
+    "our_slot": 83,
+    "after": "MeshClass::Get_Material_Info"
+   },
+   {
+    "op": "replace",
+    "ours": [
+     "RenderObjClass::Is_Really_Visible",
+     "RenderObjClass::Is_Not_Hidden_At_All",
+     "RenderObjClass::Is_Visible",
+     "RenderObjClass::Set_Visible",
+     "RenderObjClass::Is_Hidden",
+     "RenderObjClass::Set_Hidden",
+     "RenderObjClass::Is_Animation_Hidden",
+     "RenderObjClass::Set_Animation_Hidden",
+     "RenderObjClass::Is_Force_Visible",
+     "RenderObjClass::Set_Force_Visible",
+     "RenderObjClass::Is_Translucent",
+     "RenderObjClass::Set_Translucent",
+     "RenderObjClass::Get_Collision_Type",
+     "RenderObjClass::Set_Collision_Type",
+     "RenderObjClass::Is_Complete",
+     "RenderObjClass::Is_In_Scene",
+     "RenderObjClass::Get_Native_Screen_Size",
+     "RenderObjClass::Set_Native_Screen_Size",
+     "MeshClass::Add_Dependencies_To_List"
+    ],
+    "client": [
+     "0x40B8D9",
+     "0x40D706",
+     "0x410D2A",
+     "0x401424",
+     "0x417085",
+     "0x412184",
+     "0x40E2E6",
+     "0x4017CB",
+     "0x4085FD",
+     "0x414759",
+     "0x416D79",
+     "0x409A2A",
+     "0x404890",
+     "0x40CE41",
+     "0x41583E",
+     "0x4182A0",
+     "0x41562C",
+     "0x40C752",
+     "0x940D60"
+    ],
+    "client_slot": 92,
+    "our_slot": 92,
+    "after": "MeshClass::Set_Sort_Level"
+   },
+   {
+    "op": "replace",
+    "ours": [
+     "MeshClass::Save_User_Lighting",
+     "MeshClass::Load_User_Lighting"
+    ],
+    "client": [
+     "0x941310",
+     "0x9416A0",
+     "0x941700",
+     "0x9416F0",
+     "0x409E44",
+     "0x942DF0",
+     "0x942E00",
+     "0x942E10",
+     "0x406573",
+     "0x941390",
+     "0x9414C0",
+     "0x9414B0",
+     "0x941380",
+     "0x40EA57",
+     "0x417FC1",
+     "0x40507E",
+     "0x40DB7F",
+     "0x941530"
+    ],
+    "client_slot": 113,
+    "our_slot": 113,
+    "after": "RenderObjClass::Update_Sub_Object_Bits"
+   }
+  ]
+ },
+ {
+  "class": "MeshGeometryClass",
+  "client_vtable": "0xB10D08",
+  "slots": 6,
+  "client_slots": 10,
+  "anchored": 4,
+  "differences": [
+   {
+    "op": "insert",
+    "ours": [],
+    "client": [
+     "0x406573",
+     "0x92D7D0",
+     "0x406573",
+     "0x92D8D0"
+    ],
+    "client_slot": 6,
+    "our_slot": 6,
+    "after": "MeshGeometryClass::Compute_Bounds"
+   }
+  ]
+ },
+ {
+  "class": "MeshModelClass",
+  "client_vtable": "0xB10D08",
+  "slots": 6,
+  "client_slots": 10,
+  "anchored": 3,
+  "differences": [
+   {
+    "op": "insert",
+    "ours": [],
+    "client": [
+     "0x406573",
+     "0x92D7D0",
+     "0x406573",
+     "0x92D8D0"
+    ],
+    "client_slot": 6,
+    "our_slot": 6,
+    "after": "MeshGeometryClass::Compute_Bounds"
+   }
+  ]
+ },
+ {
+  "class": "ModelArrayClass@HLodClass",
+  "client_vtable": "0xB13490",
+  "slots": 6,
+  "client_slots": 22,
+  "anchored": 1,
+  "differences": [
+   {
+    "op": "replace",
+    "ours": [
+     "??8?$VectorClass@VModelNodeClass@HLodClass@@@@UBE_NABV0@@Z",
+     "?Resize@?$DynamicVectorClass@VModelNodeClass@HLodClass@@@@UAE_NHPBVModelNodeClass@HLodClass@@@Z",
+     "?Clear@?$DynamicVectorClass@VModelNodeClass@HLodClass@@@@UAEXXZ",
+     "?ID@?$DynamicVectorClass@VModelNodeClass@HLodClass@@@@UAEHABVModelNodeClass@HLodClass@@@Z",
+     "?ID@?$DynamicVectorClass@VModelNodeClass@HLodClass@@@@UAEHPBVModelNodeClass@HLodClass@@@Z"
+    ],
+    "client": [
+     "0x98FBC0",
+     "0x98FDE0",
+     "0x98FB70",
+     "0x98FEA0",
+     "0x98FBA0",
+     "0x990090",
+     "0x98FBC0",
+     "0x98FC20",
+     "0x98FCE0",
+     "0x98FD10",
+     "0x98FD60",
+     "0x9900E0",
+     "0x98FBC0",
+     "0x98FDE0",
+     "0x98FB70",
+     "0x98FEA0",
+     "0x98FBA0",
+     "0x990220",
+     "0x991F50",
+     "0x992F50",
+     "0x992F40"
+    ],
+    "client_slot": 1,
+    "our_slot": 1,
+    "after": "ModelArrayClass::vector deleting dtor"
+   }
+  ]
+ },
+ {
+  "class": "MultiFixedPoolDecalSystemClass",
+  "client_vtable": "0xB006F4",
+  "slots": 5,
+  "client_slots": 5,
+  "anchored": 3,
+  "differences": [
+   {
+    "op": "replace",
+    "ours": [
+     "MultiFixedPoolDecalSystemClass::Generate_Decal_Id"
+    ],
+    "client": [
+     "0x40CCCA"
+    ],
+    "client_slot": 4,
+    "our_slot": 4,
+    "after": "MultiFixedPoolDecalSystemClass::Decal_Mesh_Destroyed"
+   }
+  ]
+ },
+ {
+  "class": "Null3DObjClass",
+  "client_vtable": "0xB11388",
+  "slots": 113,
+  "client_slots": 117,
+  "anchored": 22,
+  "differences": [
+   {
+    "op": "replace",
+    "ours": [
+     "RenderObjClass::Get_Bounding_Sphere",
+     "RenderObjClass::Get_Bounding_Box"
+    ],
+    "client": [
+     "0x406D89",
+     "0x41001E"
+    ],
+    "client_slot": 60,
+    "our_slot": 60,
+    "after": "RenderObjClass::Intersect_Sphere_Quick"
+   },
+   {
+    "op": "replace",
+    "ours": [
+     "RenderObjClass::Create_Decal",
+     "RenderObjClass::Delete_Decal",
+     "RenderObjClass::Get_Material_Info",
+     "RenderObjClass::Set_User_Data",
+     "RenderObjClass::Get_User_Data",
+     "RenderObjClass::Get_Num_Snap_Points",
+     "RenderObjClass::Get_Snap_Point"
+    ],
+    "client": [
+     "0x4078DD",
+     "0x406C58",
+     "0x4072B6",
+     "0x4154BA",
+     "0x4142C7",
+     "0x40B938",
+     "0x4183D1"
+    ],
+    "client_slot": 80,
+    "our_slot": 80,
+    "after": "RenderObjClass::Build_Texture_List"
+   },
+   {
+    "op": "replace",
+    "ours": [
+     "RenderObjClass::Scale",
+     "RenderObjClass::Scale",
+     "RenderObjClass::Get_Sort_Level",
+     "RenderObjClass::Set_Sort_Level",
+     "RenderObjClass::Is_Really_Visible",
+     "RenderObjClass::Is_Not_Hidden_At_All",
+     "RenderObjClass::Is_Visible",
+     "RenderObjClass::Set_Visible",
+     "RenderObjClass::Is_Hidden",
+     "RenderObjClass::Set_Hidden",
+     "RenderObjClass::Is_Animation_Hidden",
+     "RenderObjClass::Set_Animation_Hidden",
+     "RenderObjClass::Is_Force_Visible",
+     "RenderObjClass::Set_Force_Visible",
+     "RenderObjClass::Is_Translucent",
+     "RenderObjClass::Set_Translucent",
+     "RenderObjClass::Get_Collision_Type",
+     "RenderObjClass::Set_Collision_Type",
+     "RenderObjClass::Is_Complete",
+     "RenderObjClass::Is_In_Scene",
+     "RenderObjClass::Get_Native_Screen_Size",
+     "RenderObjClass::Set_Native_Screen_Size"
+    ],
+    "client": [
+     "0x4148E4",
+     "0x40654B",
+     "0x406348",
+     "0x411A04",
+     "0x40B8D9",
+     "0x40D706",
+     "0x410D2A",
+     "0x401424",
+     "0x417085",
+     "0x412184",
+     "0x40E2E6",
+     "0x4017CB",
+     "0x4085FD",
+     "0x414759",
+     "0x416D79",
+     "0x409A2A",
+     "0x404890",
+     "0x40CE41",
+     "0x41583E",
+     "0x4182A0",
+     "0x41562C",
+     "0x40C752"
+    ],
+    "client_slot": 88,
+    "our_slot": 88,
+    "after": "RenderObjClass::Get_Screen_Size"
+   },
+   {
+    "op": "insert",
+    "ours": [],
+    "client": [
+     "0x941650",
+     "0x9415C0",
+     "0x9415D0",
+     "0x9415E0"
+    ],
+    "client_slot": 113,
+    "our_slot": 113,
+    "after": "RenderObjClass::Update_Sub_Object_Bits"
+   }
+  ]
+ },
+ {
+  "class": "NullLoaderClass",
+  "client_vtable": "0xB11368",
+  "slots": 2,
+  "client_slots": 18,
+  "anchored": 1,
+  "differences": [
+   {
+    "op": "insert",
+    "ours": [],
+    "client": [
+     "0x941700",
+     "0x9416F0",
+     "0x409E44",
+     "0x942DF0",
+     "0x942E00",
+     "0x942E10",
+     "0x406573",
+     "0x941390",
+     "0x9414C0",
+     "0x9414B0",
+     "0x941380",
+     "0x40EA57",
+     "0x417FC1",
+     "0x40507E",
+     "0x40DB7F",
+     "0x941530"
+    ],
+    "client_slot": 2,
+    "our_slot": 2,
+    "after": "NullLoaderClass::Load_W3D"
+   }
+  ]
+ },
+ {
+  "class": "NullPrototypeClass",
+  "client_vtable": "0xB1154C",
+  "slots": 4,
+  "client_slots": 4,
+  "anchored": 1,
+  "differences": []
+ },
+ {
+  "class": "OBBoxRenderObjClass",
+  "client_vtable": "0xB13D6C",
+  "slots": 114,
+  "client_slots": 130,
+  "anchored": 22,
+  "differences": [
+   {
+    "op": "replace",
+    "ours": [
+     "RenderObjClass::Get_Bounding_Sphere",
+     "RenderObjClass::Get_Bounding_Box",
+     "OBBoxRenderObjClass::Get_Obj_Space_Bounding_Sphere",
+     "OBBoxRenderObjClass::Get_Obj_Space_Bounding_Box",
+     "RenderObjClass::Update_Obj_Space_Bounding_Volumes"
+    ],
+    "client": [
+     "0x406D89",
+     "0x41001E",
+     "0x99A760",
+     "0x99A7D0",
+     "0x40D55D"
+    ],
+    "client_slot": 60,
+    "our_slot": 60,
+    "after": "RenderObjClass::Intersect_Sphere_Quick"
+   },
+   {
+    "op": "replace",
+    "ours": [
+     "RenderObjClass::Create_Decal",
+     "RenderObjClass::Delete_Decal",
+     "RenderObjClass::Get_Material_Info",
+     "RenderObjClass::Set_User_Data",
+     "RenderObjClass::Get_User_Data",
+     "RenderObjClass::Get_Num_Snap_Points",
+     "RenderObjClass::Get_Snap_Point"
+    ],
+    "client": [
+     "0x4078DD",
+     "0x406C58",
+     "0x4072B6",
+     "0x4154BA",
+     "0x4142C7",
+     "0x40B938",
+     "0x4183D1"
+    ],
+    "client_slot": 80,
+    "our_slot": 80,
+    "after": "RenderObjClass::Build_Texture_List"
+   },
+   {
+    "op": "replace",
+    "ours": [
+     "RenderObjClass::Scale",
+     "RenderObjClass::Scale",
+     "RenderObjClass::Get_Sort_Level",
+     "RenderObjClass::Set_Sort_Level",
+     "RenderObjClass::Is_Really_Visible",
+     "RenderObjClass::Is_Not_Hidden_At_All",
+     "RenderObjClass::Is_Visible",
+     "RenderObjClass::Set_Visible",
+     "RenderObjClass::Is_Hidden",
+     "RenderObjClass::Set_Hidden",
+     "RenderObjClass::Is_Animation_Hidden",
+     "RenderObjClass::Set_Animation_Hidden",
+     "RenderObjClass::Is_Force_Visible",
+     "RenderObjClass::Set_Force_Visible",
+     "RenderObjClass::Is_Translucent",
+     "RenderObjClass::Set_Translucent",
+     "RenderObjClass::Get_Collision_Type",
+     "RenderObjClass::Set_Collision_Type",
+     "RenderObjClass::Is_Complete",
+     "RenderObjClass::Is_In_Scene",
+     "RenderObjClass::Get_Native_Screen_Size",
+     "RenderObjClass::Set_Native_Screen_Size"
+    ],
+    "client": [
+     "0x4148E4",
+     "0x40654B",
+     "0x406348",
+     "0x411A04",
+     "0x40B8D9",
+     "0x40D706",
+     "0x410D2A",
+     "0x401424",
+     "0x417085",
+     "0x412184",
+     "0x40E2E6",
+     "0x4017CB",
+     "0x4085FD",
+     "0x414759",
+     "0x416D79",
+     "0x409A2A",
+     "0x404890",
+     "0x40CE41",
+     "0x41583E",
+     "0x4182A0",
+     "0x41562C",
+     "0x40C752"
+    ],
+    "client_slot": 88,
+    "our_slot": 88,
+    "after": "RenderObjClass::Get_Screen_Size"
+   },
+   {
+    "op": "insert",
+    "ours": [],
+    "client": [
+     "0x99A8D0",
+     "0x99A8F0",
+     "0x99A900",
+     "0x99A910",
+     "0x99AAF0",
+     "0x99A830",
+     "0x99AE40",
+     "0x9A3520",
+     "0x9A4470",
+     "0x9A35A0",
+     "0x9A4010",
+     "0x9A4290",
+     "0x9A40B0",
+     "0x9A4120",
+     "0x9A4180",
+     "0x9A4250"
+    ],
+    "client_slot": 114,
+    "our_slot": 114,
+    "after": "OBBoxRenderObjClass::update_cached_box"
+   }
+  ]
+ },
+ {
+  "class": "ParticleBufferClass",
+  "client_vtable": "0xB11E64",
+  "slots": 113,
+  "client_slots": 128,
+  "anchored": 18,
+  "differences": [
+   {
+    "op": "replace",
+    "ours": [
+     "RenderObjClass::Get_Bounding_Sphere",
+     "RenderObjClass::Get_Bounding_Box"
+    ],
+    "client": [
+     "0x406D89",
+     "0x41001E"
+    ],
+    "client_slot": 60,
+    "our_slot": 60,
+    "after": "RenderObjClass::Intersect_Sphere_Quick"
+   },
+   {
+    "op": "replace",
+    "ours": [
+     "RenderObjClass::Create_Decal",
+     "RenderObjClass::Delete_Decal",
+     "RenderObjClass::Get_Material_Info",
+     "RenderObjClass::Set_User_Data",
+     "RenderObjClass::Get_User_Data",
+     "RenderObjClass::Get_Num_Snap_Points",
+     "RenderObjClass::Get_Snap_Point"
+    ],
+    "client": [
+     "0x4078DD",
+     "0x406C58",
+     "0x4072B6",
+     "0x4154BA",
+     "0x4142C7",
+     "0x40B938",
+     "0x4183D1"
+    ],
+    "client_slot": 80,
+    "our_slot": 80,
+    "after": "RenderObjClass::Build_Texture_List"
+   },
+   {
+    "op": "replace",
+    "ours": [
+     "RenderObjClass::Scale",
+     "ParticleBufferClass::Scale",
+     "RenderObjClass::Get_Sort_Level",
+     "RenderObjClass::Set_Sort_Level",
+     "RenderObjClass::Is_Really_Visible",
+     "RenderObjClass::Is_Not_Hidden_At_All",
+     "RenderObjClass::Is_Visible",
+     "RenderObjClass::Set_Visible",
+     "RenderObjClass::Is_Hidden",
+     "RenderObjClass::Set_Hidden",
+     "RenderObjClass::Is_Animation_Hidden",
+     "RenderObjClass::Set_Animation_Hidden",
+     "RenderObjClass::Is_Force_Visible",
+     "RenderObjClass::Set_Force_Visible",
+     "RenderObjClass::Is_Translucent",
+     "RenderObjClass::Set_Translucent",
+     "RenderObjClass::Get_Collision_Type",
+     "RenderObjClass::Set_Collision_Type"
+    ],
+    "client": [
+     "0x4148E4",
+     "0x95E8B0",
+     "0x406348",
+     "0x411A04",
+     "0x40B8D9",
+     "0x40D706",
+     "0x410D2A",
+     "0x401424",
+     "0x417085",
+     "0x412184",
+     "0x40E2E6",
+     "0x4017CB",
+     "0x4085FD",
+     "0x414759",
+     "0x416D79",
+     "0x409A2A",
+     "0x404890",
+     "0x40CE41"
+    ],
+    "client_slot": 88,
+    "our_slot": 88,
+    "after": "RenderObjClass::Get_Screen_Size"
+   },
+   {
+    "op": "insert",
+    "ours": [],
+    "client": [
+     "0x963BF0",
+     "0x963A20",
+     "0x9639F0",
+     "0x963B50",
+     "0x9638B0",
+     "0x92D780",
+     "0x963AF0",
+     "0x9637F0",
+     "0x9637A0",
+     "0x963BB0",
+     "0x963960",
+     "0x9639F0",
+     "0x963AB0",
+     "0x9636F0",
+     "0x9637A0"
+    ],
+    "client_slot": 113,
+    "our_slot": 113,
+    "after": "RenderObjClass::Update_Sub_Object_Bits"
+   }
+  ]
+ },
+ {
+  "class": "ParticleEmitterClass",
+  "client_vtable": "0xB123BC",
+  "slots": 117,
+  "client_slots": 133,
+  "anchored": 17,
+  "differences": [
+   {
+    "op": "replace",
+    "ours": [
+     "ParticleEmitterClass::Class_ID",
+     "ParticleEmitterClass::Get_Name",
+     "ParticleEmitterClass::Set_Name",
+     "RenderObjClass::Get_Base_Model_Name",
+     "RenderObjClass::Set_Base_Model_Name",
+     "RenderObjClass::Get_Num_Polys",
+     "ParticleEmitterClass::Render",
+     "RenderObjClass::Special_Render",
+     "ParticleEmitterClass::On_Frame_Update",
+     "ParticleEmitterClass::Restart",
+     "RenderObjClass::Add",
+     "RenderObjClass::Remove"
+    ],
+    "client": [
+     "0x96BAA0",
+     "0x403FA3",
+     "0x40EA57",
+     "0x417FC1",
+     "0x40507E",
+     "0x40DB7F",
+     "0x96BFC0",
+     "0x96E700",
+     "0x41262F",
+     "0x40C64E",
+     "0x942140",
+     "0x942160"
+    ],
+    "client_slot": 3,
+    "our_slot": 3,
+    "after": "ParticleEmitterClass::Clone"
+   },
+   {
+    "op": "replace",
+    "ours": [
+     "RenderObjClass::Get_Container",
+     "RenderObjClass::Validate_Transform",
+     "RenderObjClass::Set_Transform"
+    ],
+    "client": [
+     "0x941C10",
+     "0x941D90",
+     "0x96E270"
+    ],
+    "client_slot": 18,
+    "our_slot": 18,
+    "after": "RenderObjClass::Set_Container"
+   },
+   {
+    "op": "replace",
+    "ours": [
+     "RenderObjClass::Get_Bounding_Sphere",
+     "RenderObjClass::Get_Bounding_Box",
+     "ParticleEmitterClass::Get_Obj_Space_Bounding_Sphere",
+     "ParticleEmitterClass::Get_Obj_Space_Bounding_Box",
+     "RenderObjClass::Update_Obj_Space_Bounding_Volumes"
+    ],
+    "client": [
+     "0x406D89",
+     "0x41001E",
+     "0x96BEC0",
+     "0x96BEE0",
+     "0x40D55D"
+    ],
+    "client_slot": 60,
+    "our_slot": 60,
+    "after": "RenderObjClass::Intersect_Sphere_Quick"
+   },
+   {
+    "op": "replace",
+    "ours": [
+     "RenderObjClass::Create_Decal",
+     "RenderObjClass::Delete_Decal",
+     "RenderObjClass::Get_Material_Info",
+     "RenderObjClass::Set_User_Data",
+     "RenderObjClass::Get_User_Data",
+     "RenderObjClass::Get_Num_Snap_Points",
+     "RenderObjClass::Get_Snap_Point"
+    ],
+    "client": [
+     "0x4078DD",
+     "0x406C58",
+     "0x4072B6",
+     "0x4154BA",
+     "0x4142C7",
+     "0x40B938",
+     "0x4183D1"
+    ],
+    "client_slot": 80,
+    "our_slot": 80,
+    "after": "RenderObjClass::Build_Texture_List"
+   },
+   {
+    "op": "replace",
+    "ours": [
+     "RenderObjClass::Scale",
+     "ParticleEmitterClass::Scale",
+     "RenderObjClass::Get_Sort_Level",
+     "RenderObjClass::Set_Sort_Level",
+     "RenderObjClass::Is_Really_Visible",
+     "RenderObjClass::Is_Not_Hidden_At_All",
+     "RenderObjClass::Is_Visible",
+     "ParticleEmitterClass::Set_Visible",
+     "RenderObjClass::Is_Hidden",
+     "ParticleEmitterClass::Set_Hidden",
+     "RenderObjClass::Is_Animation_Hidden",
+     "ParticleEmitterClass::Set_Animation_Hidden",
+     "RenderObjClass::Is_Force_Visible",
+     "ParticleEmitterClass::Set_Force_Visible",
+     "RenderObjClass::Is_Translucent",
+     "RenderObjClass::Set_Translucent",
+     "RenderObjClass::Get_Collision_Type",
+     "RenderObjClass::Set_Collision_Type",
+     "ParticleEmitterClass::Is_Complete",
+     "RenderObjClass::Is_In_Scene",
+     "RenderObjClass::Get_Native_Screen_Size",
+     "RenderObjClass::Set_Native_Screen_Size",
+     "ParticleEmitterClass::Add_Dependencies_To_List",
+     "ParticleEmitterClass::Update_Cached_Bounding_Volumes"
+    ],
+    "client": [
+     "0x4148E4",
+     "0x96BAB0",
+     "0x406348",
+     "0x411A04",
+     "0x40B8D9",
+     "0x40D706",
+     "0x410D2A",
+     "0x401424",
+     "0x417085",
+     "0x412184",
+     "0x40E2E6",
+     "0x4017CB",
+     "0x4085FD",
+     "0x414759",
+     "0x416D79",
+     "0x409A2A",
+     "0x404890",
+     "0x40CE41",
+     "0x41583E",
+     "0x4182A0",
+     "0x41562C",
+     "0x40C752",
+     "0x942840",
+     "0x9421B0"
+    ],
+    "client_slot": 88,
+    "our_slot": 88,
+    "after": "RenderObjClass::Get_Screen_Size"
+   },
+   {
+    "op": "replace",
+    "ours": [
+     "ParticleEmitterClass::Emit",
+     "ParticleEmitterClass::Get_User_Type",
+     "ParticleEmitterClass::Get_User_String",
+     "ParticleEmitterClass::Update_On_Visibilty"
+    ],
+    "client": [
+     "0x96E750",
+     "0x96E770",
+     "0x96E780",
+     "0x96E970",
+     "0x96EC00",
+     "0x96EC30",
+     "0x96EF00",
+     "0x96EEE0",
+     "0x96EEF0",
+     "0x96ED00",
+     "0x96F920",
+     "0x96FB80",
+     "0x974300",
+     "0x957E60",
+     "0x974090",
+     "0x973DA0",
+     "0x974180",
+     "0x973DD0",
+     "0x9742B0",
+     "0x973DF0"
+    ],
+    "client_slot": 113,
+    "our_slot": 113,
+    "after": "RenderObjClass::Update_Sub_Object_Bits"
+   }
+  ]
+ },
+ {
+  "class": "ParticleEmitterDefClass",
+  "client_vtable": "0xB10920",
+  "slots": 79,
+  "client_slots": 95,
+  "anchored": 14,
+  "differences": [
+   {
+    "op": "insert",
+    "ours": [],
+    "client": [
+     "0x914520"
+    ],
+    "client_slot": 19,
+    "our_slot": 19,
+    "after": "ParticleEmitterDefClass::Set_Future_Start_Time"
+   },
+   {
+    "op": "insert",
+    "ours": [],
+    "client": [
+     "0x9174F0",
+     "0x9174C0",
+     "0x9174D0",
+     "0x917440",
+     "0x9174E0",
+     "0x91B9B0",
+     "0x919CF0",
+     "0x9D0C60",
+     "0x9D0EC0",
+     "0x91C510",
+     "0x91D270",
+     "0x91D220",
+     "0x91D150",
+     "0x91D200",
+     "0x91D4B0"
+    ],
+    "client_slot": 80,
+    "our_slot": 79,
+    "after": "ParticleEmitterDefClass::Free_Props"
+   }
+  ]
+ },
+ {
+  "class": "ParticleEmitterLoaderClass",
+  "client_vtable": "0xB10918",
+  "slots": 2,
+  "client_slots": 18,
+  "anchored": 1,
+  "differences": [
+   {
+    "op": "insert",
+    "ours": [],
+    "client": [
+     "0x9146C0",
+     "0x914FB0",
+     "0x916090",
+     "0x914F20",
+     "0x914400",
+     "0x914410",
+     "0x914F50",
+     "0x914420",
+     "0x914430",
+     "0x914440",
+     "0x914450",
+     "0x914460",
+     "0x914470",
+     "0x914480",
+     "0x9144B0",
+     "0x9144E0"
+    ],
+    "client_slot": 2,
+    "our_slot": 2,
+    "after": "ParticleEmitterLoaderClass::Load_W3D"
+   }
+  ]
+ },
+ {
+  "class": "ProjectorClass",
+  "client_vtable": "0xB1207C",
+  "slots": 6,
+  "client_slots": 6,
+  "anchored": 4,
+  "differences": []
+ },
+ {
+  "class": "ProxyArrayClass",
+  "client_vtable": "0xB13234",
+  "slots": 6,
+  "client_slots": 22,
+  "anchored": 1,
+  "differences": [
+   {
+    "op": "replace",
+    "ours": [
+     "?Clear@?$VectorClass@VProxyRecordClass@@@@UAEXXZ",
+     "?ID@?$VectorClass@VProxyRecordClass@@@@UAEHABVProxyRecordClass@@@Z",
+     "?ID@?$VectorClass@VProxyRecordClass@@@@UAEHPBVProxyRecordClass@@@Z"
+    ],
+    "client": [
+     "0x990020",
+     "0x990050",
+     "0x990060",
+     "0x990130",
+     "0x98FEE0",
+     "0x98FF00",
+     "0x990020",
+     "0x990050",
+     "0x990060",
+     "0x9901F0",
+     "0x9901E0",
+     "0x409E44",
+     "0x942DF0",
+     "0x942E00",
+     "0x942E10",
+     "0x406573",
+     "0x98BDF0",
+     "0x98CF60",
+     "0x98BDD0"
+    ],
+    "client_slot": 3,
+    "our_slot": 3,
+    "after": "?Resize@?$VectorClass@VProxyRecordClass@@@@UAE_NHPBVProxyRecordClass@@@Z"
+   }
+  ]
+ },
+ {
+  "class": "RObjIterator",
+  "client_vtable": "0xB10BA8",
+  "slots": 6,
+  "client_slots": 22,
+  "anchored": 3,
+  "differences": [
+   {
+    "op": "insert",
+    "ours": [],
+    "client": [
+     "0x91D800",
+     "0x91D7C0",
+     "0x91D7D0",
+     "0x9CCD10",
+     "0x9CCD10",
+     "0x91D900",
+     "0x91D8C0",
+     "0x91D8D0",
+     "0x91D8E0",
+     "0x91D8F0",
+     "0x91D880",
+     "0x91D8A0",
+     "0x91D950",
+     "0x91D7C0",
+     "0x91D7D0",
+     "0x91EF30"
+    ],
+    "client_slot": 6,
+    "our_slot": 6,
+    "after": "RObjIterator::Current_Item_Class_ID"
+   }
+  ]
+ },
+ {
+  "class": "Render2DClass",
+  "client_vtable": "0xB125A8",
+  "slots": 2,
+  "client_slots": 18,
+  "anchored": 1,
+  "differences": [
+   {
+    "op": "insert",
+    "ours": [],
+    "client": [
+     "0x974300",
+     "0x957E60",
+     "0x974090",
+     "0x973DA0",
+     "0x974180",
+     "0x973DD0",
+     "0x9742B0",
+     "0x973DF0",
+     "0x973F70",
+     "0x973D50",
+     "0x974020",
+     "0x973D80",
+     "0x974260",
+     "0x973DF0",
+     "0x973E30",
+     "0x973EE0"
+    ],
+    "client_slot": 2,
+    "our_slot": 2,
+    "after": "Render2DClass::Reset"
+   }
+  ]
+ },
+ {
+  "class": "Render2DSentenceClass",
+  "client_vtable": "0xB141FC",
+  "slots": 1,
+  "client_slots": 17,
+  "anchored": 1,
+  "differences": [
+   {
+    "op": "insert",
+    "ours": [],
+    "client": [
+     "0x9ABA00",
+     "0x9AB4D0",
+     "0x9AB610",
+     "0x9AA8D0",
+     "0x9AB6D0",
+     "0x9AA900",
+     "0x9AB910",
+     "0x9AAF80",
+     "0x9AB2D0",
+     "0x9AA820",
+     "0x9AB4C0",
+     "0x9AA8A0",
+     "0x9AB820",
+     "0x9AAC60",
+     "0x9AAE00",
+     "0x9AA7C0"
+    ],
+    "client_slot": 1,
+    "our_slot": 1,
+    "after": "Render2DSentenceClass::Reset"
+   }
+  ]
+ },
+ {
+  "class": "Render2DTextClass",
+  "client_vtable": "0xB125F8",
+  "slots": 2,
+  "client_slots": 18,
+  "anchored": 1,
+  "differences": [
+   {
+    "op": "insert",
+    "ours": [],
+    "client": [
+     "0x975080",
+     "0x975070",
+     "0x409E44",
+     "0x942DF0",
+     "0x942E00",
+     "0x942E10",
+     "0x406573",
+     "0x974BF0",
+     "0x974FF0",
+     "0x974BE0",
+     "0x403FA3",
+     "0x40EA57",
+     "0x417FC1",
+     "0x40507E",
+     "0x40C8B0",
+     "0x975E30"
+    ],
+    "client_slot": 2,
+    "our_slot": 2,
+    "after": "Render2DTextClass::Reset"
+   }
+  ]
+ },
+ {
+  "class": "RenderObjClass",
+  "client_vtable": "0xAE84F8",
+  "slots": 113,
+  "client_slots": 113,
+  "anchored": 19,
+  "differences": [
+   {
+    "op": "replace",
+    "ours": [
+     "RenderObjClass::Get_Bounding_Sphere",
+     "RenderObjClass::Get_Bounding_Box",
+     "RenderObjClass::Get_Obj_Space_Bounding_Sphere",
+     "RenderObjClass::Get_Obj_Space_Bounding_Box",
+     "RenderObjClass::Update_Obj_Space_Bounding_Volumes"
+    ],
+    "client": [
+     "0x406D89",
+     "0x41001E",
+     "0x9422A0",
+     "0x9422C0",
+     "0x40D55D"
+    ],
+    "client_slot": 60,
+    "our_slot": 60,
+    "after": "RenderObjClass::Intersect_Sphere_Quick"
+   },
+   {
+    "op": "replace",
+    "ours": [
+     "RenderObjClass::Create_Decal",
+     "RenderObjClass::Delete_Decal",
+     "RenderObjClass::Get_Material_Info",
+     "RenderObjClass::Set_User_Data",
+     "RenderObjClass::Get_User_Data",
+     "RenderObjClass::Get_Num_Snap_Points",
+     "RenderObjClass::Get_Snap_Point"
+    ],
+    "client": [
+     "0x4078DD",
+     "0x406C58",
+     "0x4072B6",
+     "0x4154BA",
+     "0x4142C7",
+     "0x40B938",
+     "0x4183D1"
+    ],
+    "client_slot": 80,
+    "our_slot": 80,
+    "after": "RenderObjClass::Build_Texture_List"
+   },
+   {
+    "op": "replace",
+    "ours": [
+     "RenderObjClass::Scale",
+     "RenderObjClass::Scale",
+     "RenderObjClass::Get_Sort_Level",
+     "RenderObjClass::Set_Sort_Level",
+     "RenderObjClass::Is_Really_Visible",
+     "RenderObjClass::Is_Not_Hidden_At_All",
+     "RenderObjClass::Is_Visible",
+     "RenderObjClass::Set_Visible",
+     "RenderObjClass::Is_Hidden",
+     "RenderObjClass::Set_Hidden",
+     "RenderObjClass::Is_Animation_Hidden",
+     "RenderObjClass::Set_Animation_Hidden",
+     "RenderObjClass::Is_Force_Visible",
+     "RenderObjClass::Set_Force_Visible",
+     "RenderObjClass::Is_Translucent",
+     "RenderObjClass::Set_Translucent",
+     "RenderObjClass::Get_Collision_Type",
+     "RenderObjClass::Set_Collision_Type",
+     "RenderObjClass::Is_Complete",
+     "RenderObjClass::Is_In_Scene",
+     "RenderObjClass::Get_Native_Screen_Size",
+     "RenderObjClass::Set_Native_Screen_Size"
+    ],
+    "client": [
+     "0x4148E4",
+     "0x40654B",
+     "0x406348",
+     "0x411A04",
+     "0x40B8D9",
+     "0x40D706",
+     "0x410D2A",
+     "0x401424",
+     "0x417085",
+     "0x412184",
+     "0x40E2E6",
+     "0x4017CB",
+     "0x4085FD",
+     "0x414759",
+     "0x416D79",
+     "0x409A2A",
+     "0x404890",
+     "0x40CE41",
+     "0x41583E",
+     "0x4182A0",
+     "0x41562C",
+     "0x40C752"
+    ],
+    "client_slot": 88,
+    "our_slot": 88,
+    "after": "RenderObjClass::Get_Screen_Size"
+   }
+  ]
+ },
+ {
+  "class": "RigidDecalMeshClass",
+  "client_vtable": "0xB14358",
+  "slots": 7,
+  "client_slots": 23,
+  "anchored": 3,
+  "differences": [
+   {
+    "op": "insert",
+    "ours": [],
+    "client": [
+     "0x9BA120",
+     "0x9B9B70",
+     "0x9B9B30",
+     "0x9BA080",
+     "0x9B99D0",
+     "0x9B9970",
+     "0x9B9FE0",
+     "0x9B9830",
+     "0x9B97F0",
+     "0x9B9F40",
+     "0x9B96D0",
+     "0x9B9690",
+     "0x9B9EA0",
+     "0x9B9540",
+     "0x9B94D0",
+     "0x9B9E00"
+    ],
+    "client_slot": 7,
+    "our_slot": 7,
+    "after": "RigidDecalMeshClass::Get_Decal_ID"
+   }
+  ]
+ },
+ {
+  "class": "RingLoaderClass",
+  "client_vtable": "0xB10910",
+  "slots": 2,
+  "client_slots": 18,
+  "anchored": 1,
+  "differences": [
+   {
+    "op": "insert",
+    "ours": [],
+    "client": [
+     "0x9142F0",
+     "0x917450",
+     "0x9146C0",
+     "0x914FB0",
+     "0x916090",
+     "0x914F20",
+     "0x914400",
+     "0x914410",
+     "0x914F50",
+     "0x914420",
+     "0x914430",
+     "0x914440",
+     "0x914450",
+     "0x914460",
+     "0x914470",
+     "0x914480"
+    ],
+    "client_slot": 2,
+    "our_slot": 2,
+    "after": "RingLoaderClass::Load_W3D"
+   }
+  ]
+ },
+ {
+  "class": "RingRenderObjClass",
+  "client_vtable": "0xAE84F8",
+  "slots": 114,
+  "client_slots": 113,
+  "anchored": 17,
+  "differences": [
+   {
+    "op": "replace",
+    "ours": [
+     "RenderObjClass::Get_Bounding_Sphere",
+     "RenderObjClass::Get_Bounding_Box",
+     "RingRenderObjClass::Get_Obj_Space_Bounding_Sphere",
+     "RingRenderObjClass::Get_Obj_Space_Bounding_Box",
+     "RenderObjClass::Update_Obj_Space_Bounding_Volumes"
+    ],
+    "client": [
+     "0x406D89",
+     "0x41001E",
+     "0x9422A0",
+     "0x9422C0",
+     "0x40D55D"
+    ],
+    "client_slot": 60,
+    "our_slot": 60,
+    "after": "RenderObjClass::Intersect_Sphere_Quick"
+   },
+   {
+    "op": "replace",
+    "ours": [
+     "RenderObjClass::Create_Decal",
+     "RenderObjClass::Delete_Decal",
+     "RenderObjClass::Get_Material_Info",
+     "RenderObjClass::Set_User_Data",
+     "RenderObjClass::Get_User_Data",
+     "RenderObjClass::Get_Num_Snap_Points",
+     "RenderObjClass::Get_Snap_Point"
+    ],
+    "client": [
+     "0x4078DD",
+     "0x406C58",
+     "0x4072B6",
+     "0x4154BA",
+     "0x4142C7",
+     "0x40B938",
+     "0x4183D1"
+    ],
+    "client_slot": 80,
+    "our_slot": 80,
+    "after": "RenderObjClass::Build_Texture_List"
+   },
+   {
+    "op": "replace",
+    "ours": [
+     "RenderObjClass::Scale",
+     "RenderObjClass::Scale",
+     "RenderObjClass::Get_Sort_Level",
+     "RenderObjClass::Set_Sort_Level",
+     "RenderObjClass::Is_Really_Visible",
+     "RenderObjClass::Is_Not_Hidden_At_All",
+     "RenderObjClass::Is_Visible",
+     "RingRenderObjClass::Set_Visible",
+     "RenderObjClass::Is_Hidden",
+     "RingRenderObjClass::Set_Hidden",
+     "RenderObjClass::Is_Animation_Hidden",
+     "RingRenderObjClass::Set_Animation_Hidden",
+     "RenderObjClass::Is_Force_Visible",
+     "RingRenderObjClass::Set_Force_Visible",
+     "RenderObjClass::Is_Translucent",
+     "RenderObjClass::Set_Translucent",
+     "RenderObjClass::Get_Collision_Type",
+     "RenderObjClass::Set_Collision_Type",
+     "RenderObjClass::Is_Complete",
+     "RenderObjClass::Is_In_Scene",
+     "RenderObjClass::Get_Native_Screen_Size",
+     "RenderObjClass::Set_Native_Screen_Size"
+    ],
+    "client": [
+     "0x4148E4",
+     "0x40654B",
+     "0x406348",
+     "0x411A04",
+     "0x40B8D9",
+     "0x40D706",
+     "0x410D2A",
+     "0x401424",
+     "0x417085",
+     "0x412184",
+     "0x40E2E6",
+     "0x4017CB",
+     "0x4085FD",
+     "0x414759",
+     "0x416D79",
+     "0x409A2A",
+     "0x404890",
+     "0x40CE41",
+     "0x41583E",
+     "0x4182A0",
+     "0x41562C",
+     "0x40C752"
+    ],
+    "client_slot": 88,
+    "our_slot": 88,
+    "after": "RenderObjClass::Get_Screen_Size"
+   },
+   {
+    "op": "delete",
+    "ours": [
+     "RingRenderObjClass::update_cached_box"
+    ],
+    "client": [],
+    "client_slot": 113,
+    "our_slot": 113,
+    "after": "RenderObjClass::Update_Sub_Object_Bits"
+   }
+  ]
+ },
+ {
+  "class": "RotateTextureMapperClass",
+  "client_vtable": "0xB10F88",
+  "slots": 8,
+  "client_slots": 5,
+  "anchored": 1,
+  "differences": [
+   {
+    "op": "replace",
+    "ours": [
+     "RotateTextureMapperClass::Clone",
+     "RotateTextureMapperClass::Mapper_ID",
+     "RotateTextureMapperClass::Is_Time_Variant",
+     "RotateTextureMapperClass::Apply",
+     "TextureMapperClass::Needs_Normals"
+    ],
+    "client": [
+     "0x9305B0",
+     "0x933C50"
+    ],
+    "client_slot": 3,
+    "our_slot": 3,
+    "after": "RotateTextureMapperClass::Reset"
+   }
+  ]
+ },
+ {
+  "class": "ScaleTextureMapperClass",
+  "client_vtable": "0xB10F00",
+  "slots": 8,
+  "client_slots": 24,
+  "anchored": 1,
+  "differences": [
+   {
+    "op": "replace",
+    "ours": [
+     "ScaleTextureMapperClass::Mapper_ID",
+     "TextureMapperClass::Is_Time_Variant",
+     "ScaleTextureMapperClass::Apply",
+     "TextureMapperClass::Needs_Normals"
+    ],
+    "client": [
+     "0x404FED",
+     "0x9322F0",
+     "0x412CF6",
+     "0x9305B0",
+     "0x932990",
+     "0x406573",
+     "0x932B20",
+     "0x932A90",
+     "0x932AA0",
+     "0x9305C0",
+     "0x9322F0",
+     "0x932CC0",
+     "0x9305B0",
+     "0x932CE0",
+     "0x406573",
+     "0x932F10",
+     "0x932E70",
+     "0x932E80",
+     "0x9305D0",
+     "0x933060"
+    ],
+    "client_slot": 4,
+    "our_slot": 4,
+    "after": "ScaleTextureMapperClass::Clone"
+   }
+  ]
+ },
+ {
+  "class": "SceneClass",
+  "client_vtable": "0xB120A4",
+  "slots": 22,
+  "client_slots": 38,
+  "anchored": 4,
+  "differences": [
+   {
+    "op": "replace",
+    "ours": [
+     "purecall",
+     "purecall",
+     "SceneClass::Set_Ambient_Light",
+     "SceneClass::Get_Ambient_Light",
+     "SceneClass::Set_Fog_Enable",
+     "SceneClass::Get_Fog_Enable",
+     "SceneClass::Set_Fog_Color",
+     "SceneClass::Get_Fog_Color",
+     "SceneClass::Set_Fog_Range",
+     "SceneClass::Get_Fog_Range",
+     "purecall",
+     "purecall",
+     "SceneClass::Compute_Point_Visibility"
+    ],
+    "client": [
+     "0x9CCD10",
+     "0x9CCD10",
+     "0x401E97",
+     "0x401442",
+     "0x40259F",
+     "0x402EC8",
+     "0x40B848",
+     "0x403DC3",
+     "0x401E15",
+     "0x419231",
+     "0x9CCD10",
+     "0x9CCD10",
+     "0x9653F0"
+    ],
+    "client_slot": 4,
+    "our_slot": 4,
+    "after": "SceneClass::Remove_Render_Object"
+   },
+   {
+    "op": "replace",
+    "ours": [
+     "purecall",
+     "SceneClass::Pre_Render_Processing",
+     "SceneClass::Post_Render_Processing"
+    ],
+    "client": [
+     "0x9CCD10",
+     "0x40766C",
+     "0x965400",
+     "0x406573",
+     "0x965A90",
+     "0x9653E0",
+     "0x965D80",
+     "0x965DC0",
+     "0x966370",
+     "0x9663D0",
+     "0x401E97",
+     "0x401442",
+     "0x40259F",
+     "0x402EC8",
+     "0x40B848",
+     "0x403DC3",
+     "0x401E15",
+     "0x419231",
+     "0x965E00"
+    ],
+    "client_slot": 19,
+    "our_slot": 19,
+    "after": "SceneClass::Load"
+   }
+  ]
+ },
+ {
+  "class": "ScreenMapperClass",
+  "client_vtable": "0xB10E5C",
+  "slots": 8,
+  "client_slots": 24,
+  "anchored": 1,
+  "differences": [
+   {
+    "op": "replace",
+    "ours": [
+     "ScreenMapperClass::Clone",
+     "ScreenMapperClass::Mapper_ID",
+     "LinearOffsetTextureMapperClass::Is_Time_Variant",
+     "ScreenMapperClass::Apply",
+     "TextureMapperClass::Needs_Normals"
+    ],
+    "client": [
+     "0x9305B0",
+     "0x938840",
+     "0x406573",
+     "0x930630",
+     "0x9305E0",
+     "0x9305F0",
+     "0x404FED",
+     "0x9348B0",
+     "0x412CF6",
+     "0x930620",
+     "0x934F60",
+     "0x9308D0",
+     "0x9E57A0",
+     "0x9E5670",
+     "0x9308B0",
+     "0x9E57A0",
+     "0x9E57F0",
+     "0x406573",
+     "0x9306C0",
+     "0x9306B0",
+     "0x9CCD10"
+    ],
+    "client_slot": 3,
+    "our_slot": 3,
+    "after": "LinearOffsetTextureMapperClass::Reset"
+   }
+  ]
+ },
+ {
+  "class": "SegmentedLineClass",
+  "client_vtable": "0xB05CAC",
+  "slots": 113,
+  "client_slots": 113,
+  "anchored": 27,
+  "differences": [
+   {
+    "op": "replace",
+    "ours": [
+     "RenderObjClass::Get_Bounding_Sphere",
+     "RenderObjClass::Get_Bounding_Box",
+     "SegmentedLineClass::Get_Obj_Space_Bounding_Sphere"
+    ],
+    "client": [
+     "0x406D89",
+     "0x41001E",
+     "0x969640"
+    ],
+    "client_slot": 60,
+    "our_slot": 60,
+    "after": "RenderObjClass::Intersect_Sphere_Quick"
+   },
+   {
+    "op": "replace",
+    "ours": [
+     "RenderObjClass::Create_Decal",
+     "RenderObjClass::Delete_Decal",
+     "RenderObjClass::Get_Material_Info",
+     "RenderObjClass::Set_User_Data",
+     "RenderObjClass::Get_User_Data",
+     "RenderObjClass::Get_Num_Snap_Points",
+     "RenderObjClass::Get_Snap_Point"
+    ],
+    "client": [
+     "0x4078DD",
+     "0x406C58",
+     "0x4072B6",
+     "0x4154BA",
+     "0x4142C7",
+     "0x40B938",
+     "0x4183D1"
+    ],
+    "client_slot": 80,
+    "our_slot": 80,
+    "after": "RenderObjClass::Build_Texture_List"
+   },
+   {
+    "op": "replace",
+    "ours": [
+     "RenderObjClass::Scale",
+     "RenderObjClass::Scale",
+     "RenderObjClass::Get_Sort_Level",
+     "RenderObjClass::Set_Sort_Level",
+     "RenderObjClass::Is_Really_Visible",
+     "RenderObjClass::Is_Not_Hidden_At_All",
+     "RenderObjClass::Is_Visible",
+     "RenderObjClass::Set_Visible",
+     "RenderObjClass::Is_Hidden",
+     "RenderObjClass::Set_Hidden",
+     "RenderObjClass::Is_Animation_Hidden",
+     "RenderObjClass::Set_Animation_Hidden",
+     "RenderObjClass::Is_Force_Visible",
+     "RenderObjClass::Set_Force_Visible",
+     "RenderObjClass::Is_Translucent",
+     "RenderObjClass::Set_Translucent",
+     "RenderObjClass::Get_Collision_Type",
+     "RenderObjClass::Set_Collision_Type",
+     "RenderObjClass::Is_Complete",
+     "RenderObjClass::Is_In_Scene",
+     "RenderObjClass::Get_Native_Screen_Size",
+     "RenderObjClass::Set_Native_Screen_Size"
+    ],
+    "client": [
+     "0x4148E4",
+     "0x40654B",
+     "0x406348",
+     "0x411A04",
+     "0x40B8D9",
+     "0x40D706",
+     "0x410D2A",
+     "0x401424",
+     "0x417085",
+     "0x412184",
+     "0x40E2E6",
+     "0x4017CB",
+     "0x4085FD",
+     "0x414759",
+     "0x416D79",
+     "0x409A2A",
+     "0x404890",
+     "0x40CE41",
+     "0x41583E",
+     "0x4182A0",
+     "0x41562C",
+     "0x40C752"
+    ],
+    "client_slot": 88,
+    "our_slot": 88,
+    "after": "RenderObjClass::Get_Screen_Size"
+   }
+  ]
+ },
+ {
+  "class": "SimpleFileFactoryClass",
+  "client_vtable": "0xB10A78",
+  "slots": 3,
+  "client_slots": 19,
+  "anchored": 1,
+  "differences": [
+   {
+    "op": "replace",
+    "ours": [
+     "SimpleFileFactoryClass::Return_File"
+    ],
+    "client": [
+     "0x9D0EC0",
+     "0x91C510",
+     "0x91D270",
+     "0x91D220",
+     "0x91D150",
+     "0x91D200",
+     "0x91D4B0",
+     "0x91D730",
+     "0x91D7A0",
+     "0x91D820",
+     "0x91D840",
+     "0x91DA00",
+     "0x4045AC",
+     "0x91DE00",
+     "0x91E000",
+     "0x91E110",
+     "0x91E420"
+    ],
+    "client_slot": 2,
+    "our_slot": 2,
+    "after": "SimpleFileFactoryClass::Get_File"
+   }
+  ]
+ },
+ {
+  "class": "SimpleSceneClass",
+  "client_vtable": "0xB12100",
+  "slots": 24,
+  "client_slots": 35,
+  "anchored": 9,
+  "differences": [
+   {
+    "op": "replace",
+    "ours": [
+     "SimpleSceneClass::Destroy_Iterator",
+     "SceneClass::Set_Ambient_Light",
+     "SceneClass::Get_Ambient_Light",
+     "SceneClass::Set_Fog_Enable",
+     "SceneClass::Get_Fog_Enable",
+     "SceneClass::Set_Fog_Color",
+     "SceneClass::Get_Fog_Color",
+     "SceneClass::Set_Fog_Range",
+     "SceneClass::Get_Fog_Range"
+    ],
+    "client": [
+     "0x9663D0",
+     "0x401E97",
+     "0x401442",
+     "0x40259F",
+     "0x402EC8",
+     "0x40B848",
+     "0x403DC3",
+     "0x401E15",
+     "0x419231"
+    ],
+    "client_slot": 5,
+    "our_slot": 5,
+    "after": "SimpleSceneClass::Create_Iterator"
+   },
+   {
+    "op": "insert",
+    "ours": [],
+    "client": [
+     "0x41856B"
+    ],
+    "client_slot": 22,
+    "our_slot": 22,
+    "after": "SimpleSceneClass::Post_Render_Processing"
+   },
+   {
+    "op": "replace",
+    "ours": [
+     "SimpleSceneClass::Visibility_Check"
+    ],
+    "client": [
+     "0x965F40",
+     "0x966420",
+     "0x966440",
+     "0x966450",
+     "0x966460",
+     "0x966480",
+     "0x9663B0",
+     "0x9CCD10",
+     "0x9CCD10",
+     "0x9CCD10",
+     "0x9CCD10"
+    ],
+    "client_slot": 24,
+    "our_slot": 23,
+    "after": "SimpleSceneClass::Remove_All_Render_Objects"
+   }
+  ]
+ },
+ {
+  "class": "SimpleSceneIterator",
+  "client_vtable": "0xB12164",
+  "slots": 5,
+  "client_slots": 10,
+  "anchored": 2,
+  "differences": [
+   {
+    "op": "insert",
+    "ours": [],
+    "client": [
+     "0x9663B0",
+     "0x9CCD10",
+     "0x9CCD10",
+     "0x9CCD10",
+     "0x9CCD10"
+    ],
+    "client_slot": 5,
+    "our_slot": 5,
+    "after": "SimpleSceneIterator::Current_Item"
+   }
+  ]
+ },
+ {
+  "class": "SkinDecalMeshClass",
+  "client_vtable": "0xB143EC",
+  "slots": 7,
+  "client_slots": 23,
+  "anchored": 4,
+  "differences": [
+   {
+    "op": "insert",
+    "ours": [],
+    "client": [
+     "0x9BA1C0",
+     "0x9B9D20",
+     "0x9B9CE0",
+     "0x9B9E60",
+     "0x9B9420",
+     "0x9B94D0",
+     "0x9BA180",
+     "0x9B9C40",
+     "0x9B9CE0",
+     "0x9B9DC0",
+     "0x9B9200",
+     "0x9B92B0",
+     "0x9BE140",
+     "0x9BDE90",
+     "0x9BE010",
+     "0x9BDE40"
+    ],
+    "client_slot": 7,
+    "our_slot": 7,
+    "after": "SkinDecalMeshClass::Get_Decal_ID"
+   }
+  ]
+ },
+ {
+  "class": "SoundRenderObjClass",
+  "client_vtable": "0xAE84F8",
+  "slots": 117,
+  "client_slots": 113,
+  "anchored": 17,
+  "differences": [
+   {
+    "op": "replace",
+    "ours": [
+     "RenderObjClass::Get_Bounding_Sphere",
+     "RenderObjClass::Get_Bounding_Box",
+     "RenderObjClass::Get_Obj_Space_Bounding_Sphere",
+     "RenderObjClass::Get_Obj_Space_Bounding_Box",
+     "RenderObjClass::Update_Obj_Space_Bounding_Volumes"
+    ],
+    "client": [
+     "0x406D89",
+     "0x41001E",
+     "0x9422A0",
+     "0x9422C0",
+     "0x40D55D"
+    ],
+    "client_slot": 60,
+    "our_slot": 60,
+    "after": "RenderObjClass::Intersect_Sphere_Quick"
+   },
+   {
+    "op": "replace",
+    "ours": [
+     "RenderObjClass::Create_Decal",
+     "RenderObjClass::Delete_Decal",
+     "RenderObjClass::Get_Material_Info",
+     "RenderObjClass::Set_User_Data",
+     "RenderObjClass::Get_User_Data",
+     "RenderObjClass::Get_Num_Snap_Points",
+     "RenderObjClass::Get_Snap_Point"
+    ],
+    "client": [
+     "0x4078DD",
+     "0x406C58",
+     "0x4072B6",
+     "0x4154BA",
+     "0x4142C7",
+     "0x40B938",
+     "0x4183D1"
+    ],
+    "client_slot": 80,
+    "our_slot": 80,
+    "after": "RenderObjClass::Build_Texture_List"
+   },
+   {
+    "op": "replace",
+    "ours": [
+     "RenderObjClass::Scale",
+     "RenderObjClass::Scale",
+     "RenderObjClass::Get_Sort_Level",
+     "RenderObjClass::Set_Sort_Level",
+     "RenderObjClass::Is_Really_Visible",
+     "RenderObjClass::Is_Not_Hidden_At_All",
+     "RenderObjClass::Is_Visible",
+     "SoundRenderObjClass::Set_Visible",
+     "RenderObjClass::Is_Hidden",
+     "SoundRenderObjClass::Set_Hidden",
+     "RenderObjClass::Is_Animation_Hidden",
+     "SoundRenderObjClass::Set_Animation_Hidden",
+     "RenderObjClass::Is_Force_Visible",
+     "SoundRenderObjClass::Set_Force_Visible",
+     "RenderObjClass::Is_Translucent",
+     "RenderObjClass::Set_Translucent",
+     "RenderObjClass::Get_Collision_Type",
+     "RenderObjClass::Set_Collision_Type",
+     "RenderObjClass::Is_Complete",
+     "RenderObjClass::Is_In_Scene",
+     "RenderObjClass::Get_Native_Screen_Size",
+     "RenderObjClass::Set_Native_Screen_Size"
+    ],
+    "client": [
+     "0x4148E4",
+     "0x40654B",
+     "0x406348",
+     "0x411A04",
+     "0x40B8D9",
+     "0x40D706",
+     "0x410D2A",
+     "0x401424",
+     "0x417085",
+     "0x412184",
+     "0x40E2E6",
+     "0x4017CB",
+     "0x4085FD",
+     "0x414759",
+     "0x416D79",
+     "0x409A2A",
+     "0x404890",
+     "0x40CE41",
+     "0x41583E",
+     "0x4182A0",
+     "0x41562C",
+     "0x40C752"
+    ],
+    "client_slot": 88,
+    "our_slot": 88,
+    "after": "RenderObjClass::Get_Screen_Size"
+   },
+   {
+    "op": "delete",
+    "ours": [
+     "SoundRenderObjClass::Set_Sound",
+     "SoundRenderObjClass::Get_Sound",
+     "SoundRenderObjClass::Peek_Sound",
+     "SoundRenderObjClass::Update_On_Visibilty"
+    ],
+    "client": [],
+    "client_slot": 113,
+    "our_slot": 113,
+    "after": "RenderObjClass::Update_Sub_Object_Bits"
+   }
+  ]
+ },
+ {
+  "class": "SphereLoaderClass",
+  "client_vtable": "0xB106D8",
+  "slots": 2,
+  "client_slots": 18,
+  "anchored": 1,
+  "differences": [
+   {
+    "op": "insert",
+    "ours": [],
+    "client": [
+     "0x9CCD10",
+     "0x9CCD10",
+     "0x9142C0",
+     "0x9142B0",
+     "0x409E44",
+     "0x942DF0",
+     "0x942E00",
+     "0x942E10",
+     "0x406573",
+     "0x910A80",
+     "0x911AF0",
+     "0x911B20",
+     "0x911680",
+     "0x911690",
+     "0x417FC1",
+     "0x40507E"
+    ],
+    "client_slot": 2,
+    "our_slot": 2,
+    "after": "SphereLoaderClass::Load_W3D"
+   }
+  ]
+ },
+ {
+  "class": "SphereRenderObjClass",
+  "client_vtable": "0xAE84F8",
+  "slots": 114,
+  "client_slots": 113,
+  "anchored": 16,
+  "differences": [
+   {
+    "op": "replace",
+    "ours": [
+     "RenderObjClass::Get_Bounding_Sphere",
+     "RenderObjClass::Get_Bounding_Box",
+     "SphereRenderObjClass::Get_Obj_Space_Bounding_Sphere",
+     "SphereRenderObjClass::Get_Obj_Space_Bounding_Box",
+     "RenderObjClass::Update_Obj_Space_Bounding_Volumes"
+    ],
+    "client": [
+     "0x406D89",
+     "0x41001E",
+     "0x9422A0",
+     "0x9422C0",
+     "0x40D55D"
+    ],
+    "client_slot": 60,
+    "our_slot": 60,
+    "after": "RenderObjClass::Intersect_Sphere_Quick"
+   },
+   {
+    "op": "replace",
+    "ours": [
+     "RenderObjClass::Create_Decal",
+     "RenderObjClass::Delete_Decal",
+     "RenderObjClass::Get_Material_Info",
+     "RenderObjClass::Set_User_Data",
+     "RenderObjClass::Get_User_Data",
+     "RenderObjClass::Get_Num_Snap_Points",
+     "RenderObjClass::Get_Snap_Point"
+    ],
+    "client": [
+     "0x4078DD",
+     "0x406C58",
+     "0x4072B6",
+     "0x4154BA",
+     "0x4142C7",
+     "0x40B938",
+     "0x4183D1"
+    ],
+    "client_slot": 80,
+    "our_slot": 80,
+    "after": "RenderObjClass::Build_Texture_List"
+   },
+   {
+    "op": "replace",
+    "ours": [
+     "RenderObjClass::Scale",
+     "RenderObjClass::Scale",
+     "RenderObjClass::Get_Sort_Level",
+     "RenderObjClass::Set_Sort_Level",
+     "RenderObjClass::Is_Really_Visible",
+     "RenderObjClass::Is_Not_Hidden_At_All",
+     "RenderObjClass::Is_Visible",
+     "SphereRenderObjClass::Set_Visible",
+     "RenderObjClass::Is_Hidden",
+     "SphereRenderObjClass::Set_Hidden",
+     "RenderObjClass::Is_Animation_Hidden",
+     "SphereRenderObjClass::Set_Animation_Hidden",
+     "RenderObjClass::Is_Force_Visible",
+     "SphereRenderObjClass::Set_Force_Visible",
+     "RenderObjClass::Is_Translucent",
+     "RenderObjClass::Set_Translucent",
+     "RenderObjClass::Get_Collision_Type",
+     "RenderObjClass::Set_Collision_Type",
+     "RenderObjClass::Is_Complete",
+     "RenderObjClass::Is_In_Scene",
+     "RenderObjClass::Get_Native_Screen_Size",
+     "RenderObjClass::Set_Native_Screen_Size"
+    ],
+    "client": [
+     "0x4148E4",
+     "0x40654B",
+     "0x406348",
+     "0x411A04",
+     "0x40B8D9",
+     "0x40D706",
+     "0x410D2A",
+     "0x401424",
+     "0x417085",
+     "0x412184",
+     "0x40E2E6",
+     "0x4017CB",
+     "0x4085FD",
+     "0x414759",
+     "0x416D79",
+     "0x409A2A",
+     "0x404890",
+     "0x40CE41",
+     "0x41583E",
+     "0x4182A0",
+     "0x41562C",
+     "0x40C752"
+    ],
+    "client_slot": 88,
+    "our_slot": 88,
+    "after": "RenderObjClass::Get_Screen_Size"
+   },
+   {
+    "op": "delete",
+    "ours": [
+     "SphereRenderObjClass::update_cached_box"
+    ],
+    "client": [],
+    "client_slot": 113,
+    "our_slot": 113,
+    "after": "RenderObjClass::Update_Sub_Object_Bits"
+   }
+  ]
+ },
+ {
+  "class": "Straw",
+  "client_vtable": "0xB10EA0",
+  "slots": 3,
+  "client_slots": 19,
+  "anchored": 2,
+  "differences": [
+   {
+    "op": "insert",
+    "ours": [],
+    "client": [
+     "0x406573",
+     "0x9306C0",
+     "0x9306B0",
+     "0x9CCD10",
+     "0x404FED",
+     "0x9CCD10",
+     "0x412CF6",
+     "0x9305B0",
+     "0x9CCD10",
+     "0x9320A0",
+     "0x931DF0",
+     "0x931F70",
+     "0x931DA0",
+     "0x932020",
+     "0x931DD0",
+     "0x932050"
+    ],
+    "client_slot": 3,
+    "our_slot": 3,
+    "after": "Straw::Get"
+   }
+  ]
+ },
+ {
+  "class": "StreakLineClass",
+  "client_vtable": "0xAE84F8",
+  "slots": 113,
+  "client_slots": 113,
+  "anchored": 17,
+  "differences": [
+   {
+    "op": "replace",
+    "ours": [
+     "RenderObjClass::Get_Bounding_Sphere",
+     "RenderObjClass::Get_Bounding_Box",
+     "StreakLineClass::Get_Obj_Space_Bounding_Sphere",
+     "StreakLineClass::Get_Obj_Space_Bounding_Box",
+     "RenderObjClass::Update_Obj_Space_Bounding_Volumes",
+     "StreakLineClass::Prepare_LOD",
+     "RenderObjClass::Recalculate_Static_LOD_Factors",
+     "StreakLineClass::Increment_LOD",
+     "StreakLineClass::Decrement_LOD",
+     "StreakLineClass::Get_Cost",
+     "StreakLineClass::Get_Value",
+     "StreakLineClass::Get_Post_Increment_Value",
+     "StreakLineClass::Set_LOD_Level",
+     "StreakLineClass::Get_LOD_Level",
+     "StreakLineClass::Get_LOD_Count",
+     "RenderObjClass::Set_LOD_Bias"
+    ],
+    "client": [
+     "0x406D89",
+     "0x41001E",
+     "0x9422A0",
+     "0x9422C0",
+     "0x40D55D",
+     "0x942020",
+     "0x411BB7",
+     "0x409C3C",
+     "0x40903E",
+     "0x942040",
+     "0x411A54",
+     "0x40AE61",
+     "0x408F03",
+     "0x40F015",
+     "0x407A4A",
+     "0x40EF7F"
+    ],
+    "client_slot": 60,
+    "our_slot": 60,
+    "after": "RenderObjClass::Intersect_Sphere_Quick"
+   },
+   {
+    "op": "replace",
+    "ours": [
+     "RenderObjClass::Create_Decal",
+     "RenderObjClass::Delete_Decal",
+     "RenderObjClass::Get_Material_Info",
+     "RenderObjClass::Set_User_Data",
+     "RenderObjClass::Get_User_Data",
+     "RenderObjClass::Get_Num_Snap_Points",
+     "RenderObjClass::Get_Snap_Point"
+    ],
+    "client": [
+     "0x4078DD",
+     "0x406C58",
+     "0x4072B6",
+     "0x4154BA",
+     "0x4142C7",
+     "0x40B938",
+     "0x4183D1"
+    ],
+    "client_slot": 80,
+    "our_slot": 80,
+    "after": "RenderObjClass::Build_Texture_List"
+   },
+   {
+    "op": "replace",
+    "ours": [
+     "RenderObjClass::Scale",
+     "RenderObjClass::Scale",
+     "RenderObjClass::Get_Sort_Level",
+     "RenderObjClass::Set_Sort_Level",
+     "RenderObjClass::Is_Really_Visible",
+     "RenderObjClass::Is_Not_Hidden_At_All",
+     "RenderObjClass::Is_Visible",
+     "RenderObjClass::Set_Visible",
+     "RenderObjClass::Is_Hidden",
+     "RenderObjClass::Set_Hidden",
+     "RenderObjClass::Is_Animation_Hidden",
+     "RenderObjClass::Set_Animation_Hidden",
+     "RenderObjClass::Is_Force_Visible",
+     "RenderObjClass::Set_Force_Visible",
+     "RenderObjClass::Is_Translucent",
+     "RenderObjClass::Set_Translucent",
+     "RenderObjClass::Get_Collision_Type",
+     "RenderObjClass::Set_Collision_Type",
+     "RenderObjClass::Is_Complete",
+     "RenderObjClass::Is_In_Scene",
+     "RenderObjClass::Get_Native_Screen_Size",
+     "RenderObjClass::Set_Native_Screen_Size"
+    ],
+    "client": [
+     "0x4148E4",
+     "0x40654B",
+     "0x406348",
+     "0x411A04",
+     "0x40B8D9",
+     "0x40D706",
+     "0x410D2A",
+     "0x401424",
+     "0x417085",
+     "0x412184",
+     "0x40E2E6",
+     "0x4017CB",
+     "0x4085FD",
+     "0x414759",
+     "0x416D79",
+     "0x409A2A",
+     "0x404890",
+     "0x40CE41",
+     "0x41583E",
+     "0x4182A0",
+     "0x41562C",
+     "0x40C752"
+    ],
+    "client_slot": 88,
+    "our_slot": 88,
+    "after": "RenderObjClass::Get_Screen_Size"
+   }
+  ]
+ },
+ {
+  "class": "TexProjectClass",
+  "client_vtable": "0xAEA764",
+  "slots": 8,
+  "client_slots": 8,
+  "anchored": 4,
+  "differences": []
+ },
+ {
+  "class": "WW3DAssetManager",
+  "client_vtable": "0xB10A84",
+  "slots": 30,
+  "client_slots": 46,
+  "anchored": 11,
+  "differences": [
+   {
+    "op": "replace",
+    "ours": [
+     "WW3DAssetManager::Get_HAnim",
+     "WW3DAssetManager::Add_Anim",
+     "WW3DAssetManager::Get_Texture"
+    ],
+    "client": [
+     "0x91DA00",
+     "0x4045AC",
+     "0x91DE00"
+    ],
+    "client_slot": 10,
+    "our_slot": 10,
+    "after": "WW3DAssetManager::Create_HAnim_Iterator"
+   },
+   {
+    "op": "insert",
+    "ours": [],
+    "client": [
+     "0x91FE00",
+     "0x91FBF0",
+     "0x91FBB0",
+     "0x91F050",
+     "0x91F5D0",
+     "0x91F640",
+     "0x91F730",
+     "0x91F760",
+     "0x91F860",
+     "0x91F8C0",
+     "0x91F8E0",
+     "0x91F970",
+     "0x91F9D0",
+     "0x91FA60",
+     "0x91FAF0",
+     "0x91FB00"
+    ],
+    "client_slot": 30,
+    "our_slot": 30,
+    "after": "WW3DAssetManager::Release_All_FontChars"
+   }
+  ]
+ },
+ {
+  "class": "XSurface",
+  "client_vtable": "0xAFC230",
+  "slots": 22,
+  "client_slots": 22,
+  "anchored": 11,
+  "differences": [
+   {
+    "op": "replace",
+    "ours": [
+     "XSurface::Draw_Rect",
+     "XSurface::Lock",
+     "XSurface::Unlock",
+     "XSurface::Is_Locked",
+     "purecall",
+     "purecall",
+     "Surface::Get_Rect",
+     "Surface::Get_Width",
+     "Surface::Get_Height",
+     "XSurface::Is_Direct_Draw"
+    ],
+    "client": [
+     "0x9DBEB0",
+     "0x416A59",
+     "0x418A93",
+     "0x40633E",
+     "0x41868D",
+     "0x411130",
+     "0x4095DE",
+     "0x40E4B2",
+     "0x40D90E",
+     "0x40B97E"
+    ],
+    "client_slot": 12,
+    "our_slot": 12,
+    "after": "XSurface::Draw_Rect"
+   }
+  ]
+ }
+]
