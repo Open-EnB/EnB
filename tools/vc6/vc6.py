@@ -33,7 +33,10 @@ _local = threading.local()
 
 
 def hosts():
-    """The build VMs, as user@ip."""
+    """The build VMs, as user@ip. ENB_VC6_HOSTS (comma-separated) or ENB_VC6_HOST restricts a
+    process to some of them, so two jobs can run side by side on different VMs."""
+    if os.environ.get('ENB_VC6_HOSTS'):
+        return [h.strip() for h in os.environ['ENB_VC6_HOSTS'].split(',') if h.strip()]
     if os.environ.get('ENB_VC6_HOST'):
         return [os.environ['ENB_VC6_HOST']]
     try:
