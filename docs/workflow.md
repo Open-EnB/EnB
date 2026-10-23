@@ -130,5 +130,10 @@ compiled into E&B's objects), so they run higher.
 * **The client may lack a whole module.** Strings registered by a file (`REGISTER_SHDDEF`
   names), force-link lists and loop bounds over class ids tell which modules are linked: E&B
   has no LegacyW3D shader, so its compile errors needed no fix.
+* **`bytematch_all.sh` writes to `%TEMP%\enb_bytematch` unless given a directory.** Run it as
+  `tools/vc6/bytematch_all.sh .work/bm2`, or the evidence `refine`/`assemble` read stays old
+  (it did after the wwshade flag change: refine and the plan counts still saw 46, not 61).
+  After new evidence, `.work/refresh_expected.py .work/bm2 LIB` refreshes a library's plan
+  totals and per-file `expected` counts without touching its tree decisions.
 * **Clones share a computer name.** Always address the VMs by IP (`ENB_VC6_HOST` or
   `ENB_VC6_HOSTS`).
