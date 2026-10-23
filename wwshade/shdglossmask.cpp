@@ -292,8 +292,6 @@ void Shd6GlossMaskClass::Apply_Instance(int cur_pass, RenderInfoClass& rinfo)
 	{
 		DX8Wrapper::Set_Texture(1, Texture);
 	}
-
-	DX8Wrapper::Set_DX8_Material(Material);
 }
 
 unsigned Shd6GlossMaskClass::Get_Vertex_Stream_Count() const

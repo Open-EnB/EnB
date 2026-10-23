@@ -8356,7 +8356,8 @@
      "0xA0C8E0",
      "0xA0CA50",
      "0xA0CBC0",
-     "0xA0CD90"
+     "0xA0CD90",
+     "0xA0CF10"
     ],
     "merged": [],
     "name": "shdglossmask.cpp"
@@ -8592,7 +8593,7 @@
    "shdsimple.h": "Z",
    "shdsubmesh.h": "Z"
   },
-  "in_tree_total": 132,
+  "in_tree_total": 133,
   "totals": {
    "Z": 61
   }

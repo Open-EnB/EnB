@@ -1118,6 +1118,9 @@ WWSHADE_EARLY_PATCHES = {
         ('\tAmbient(that.Ambient),\n\tDiffuse(that.Diffuse),\n\tSpecular(that.Specular)\n{\n\tTextureName=that.TextureName;\n}\n',
          '\tAmbient(0,0,0),\n\tDiffuse(1,1,1),\n\tSpecular(1,1,1)\n{\n\tTextureName=that.TextureName;\n\n\tAmbient=that.Ambient;\n\tDiffuse=that.Diffuse;\n\tSpecular=that.Specular;\n}\n',
          "ShdGlossMaskDefClass(const&) 0xA0C740: copy constructor initialises the members to the defaults and assigns them from that in its body (as ShdSimpleDefClass's)"),
+        ('\t\tDX8Wrapper::Set_Texture(1, Texture);\n\t}\n\n\tDX8Wrapper::Set_DX8_Material(Material);\n}\n',
+         '\t\tDX8Wrapper::Set_Texture(1, Texture);\n\t}\n}\n',
+         'Shd6GlossMaskClass::Apply_Instance 0xA0CF10 sets only the textures; the material is set in Apply_Shared 0xA0CD90'),
     ],
     ('wwshade', 'shdinterface.cpp'): [
         ('ShdInterfaceClass::ShdInterfaceClass(const ShdDefClass * def, int class_id) : \n\tDefinition(NULL),\n\tClassID(class_id)\n{ \n',
