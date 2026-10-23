@@ -246,6 +246,19 @@ PATCHES = {
          'GridTextureMapperClass::GridTextureMapperClass(float fps, unsigned int gridwidth_log2, unsigned int last_frame, unsigned int offset, unsigned int stage) :\n\tTextureMapperClass(stage),\n\tLastFrame(last_frame),\n\tOffset(offset)\n{\n\tinitialize(fps, gridwidth_log2);\n}',
          "and Zero Hour's constructor for it"),
     ],
+    ('ww3d2', 'rinfo.h'): [
+        ('class LightEnvironmentClass;',
+         'class LightEnvironmentClass;\nclass TexProjectClass;',
+         "RenderInfoClass has Zero Hour's Texture_Projector after light_environment (not its three alpha overrides): the client's constructor (0x930F80) zeroes one more member, and every member from +0x14 is 4 bytes later (SpecialRenderInfoClass's own from 0x124)"),
+        ('\tLightEnvironmentClass*\t\tlight_environment;',
+         '\tLightEnvironmentClass*\t\tlight_environment;\n\n\tTexProjectClass*\t\t\t\tTexture_Projector;',
+         'the member'),
+    ],
+    ('ww3d2', 'rinfo.cpp'): [
+        ('\tlight_environment(0),',
+         '\tlight_environment(0),\n\tTexture_Projector(NULL),',
+         'initialised to NULL, as in Zero Hour'),
+    ],
     ('ww3d2', 'dx8caps.h'): [
         ('\tbool SupportRenderToTextureFormat[WW3D_FORMAT_COUNT];',
          '\tbool SupportRenderToTextureFormat[WW3D_FORMAT_COUNT];\n\tbool SupportDepthStencilFormat[WW3D_ZFORMAT_COUNT];',

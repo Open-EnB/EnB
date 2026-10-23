@@ -55,6 +55,7 @@
 
 class MaterialPassClass;
 class LightEnvironmentClass;
+class TexProjectClass;
 class VisRasterizerClass;
 class BWRenderClass;
 
@@ -100,6 +101,8 @@ public:
 	float								fog_end;
 
 	LightEnvironmentClass*		light_environment;
+
+	TexProjectClass*				Texture_Projector;
 
 protected:
 	MaterialPassClass*			AdditionalMaterialPassArray[MAX_ADDITIONAL_MATERIAL_PASSES];

@@ -51,6 +51,7 @@ RenderInfoClass::RenderInfoClass(CameraClass & cam) :
 	fog_end(0.0f),
 	fog_scale(0.0f),
 	light_environment(0),
+	Texture_Projector(NULL),
 	AdditionalMaterialPassCount(0),
 	RejectedMaterialPasses(0),
 	OverrideFlagLevel(0)
