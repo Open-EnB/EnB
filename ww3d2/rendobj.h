@@ -296,6 +296,11 @@ public:
 															float percentage)											{ }
 	virtual void					Set_Animation( HAnimComboClass * anim_combo)							{ }
 
+	//
+	// E&B: a virtual with no arguments and an empty body, in vtable slot 40 (between the
+	// Set_Animation overloads and Peek_Animation). Its name is not known.
+	//
+	virtual void					Unknown_Virtual_40( void )											{ }
 	virtual HAnimClass *			Peek_Animation( void )														{ return NULL; }
 	virtual int						Get_Num_Bones(void)															{ return 0; }
 	virtual const char *			Get_Bone_Name(int bone_index)												{ return NULL; }
@@ -415,8 +420,8 @@ public:
 	virtual void					Set_Animation_Hidden(int onoff)											{ if (onoff) { Bits &= ~IS_NOT_ANIMATION_HIDDEN; } else { Bits |= IS_NOT_ANIMATION_HIDDEN; } }
 	virtual int						Is_Force_Visible(void) const												{ return Bits & IS_FORCE_VISIBLE; }
 	virtual void					Set_Force_Visible(int onoff)          									{ if (onoff) { Bits |= IS_FORCE_VISIBLE; } else { Bits &= ~IS_FORCE_VISIBLE; } }
-	virtual int						Has_User_Lighting(void) const												{ return Bits & HAS_USER_LIGHTING; }
-	virtual void					Set_Has_User_Lighting(bool onoff)										{ if (onoff) { Bits |= HAS_USER_LIGHTING; } else { Bits &= ~HAS_USER_LIGHTING; } }
+	int								Has_User_Lighting(void) const												{ return Bits & HAS_USER_LIGHTING; }
+	void								Set_Has_User_Lighting(bool onoff)										{ if (onoff) { Bits |= HAS_USER_LIGHTING; } else { Bits &= ~HAS_USER_LIGHTING; } }
 
 	virtual int						Is_Translucent(void) const													{ return Bits & IS_TRANSLUCENT; }
 	virtual void					Set_Translucent(int onoff)													{ if (onoff) { Bits |= IS_TRANSLUCENT; } else { Bits &= ~IS_TRANSLUCENT; } }
@@ -440,8 +445,8 @@ public:
 	virtual bool					Save (ChunkSaveClass &csave);
 	virtual bool					Load (ChunkLoadClass &cload);
 
-	virtual void					Save_User_Lighting (ChunkSaveClass & csave);
-	virtual void					Load_User_Lighting (ChunkLoadClass & cload);
+	void								Save_User_Lighting (ChunkSaveClass & csave);
+	void								Load_User_Lighting (ChunkLoadClass & cload);
 
 protected:
 
