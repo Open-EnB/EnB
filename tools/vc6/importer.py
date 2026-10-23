@@ -188,6 +188,9 @@ PATCHES = {
         ('\t\tunsigned int\t\t\tm_LastUpdate;',
          '\t\tunsigned int\t\t\tm_LastUpdate;\n\t\tint\t\t\t\t\t\tm_Unknown160;\t\t// E&B: zeroed at construction, not copied; meaning not known\n\t\tint\t\t\t\t\t\tm_Unknown164;\t\t// E&B: zeroed at construction, not copied; meaning not known\n\t\tint\t\t\t\t\t\tm_Unknown168;\t\t// E&B: zeroed at construction, not copied; meaning not known\n\t\tint\t\t\t\t\t\tm_Unknown16C;\t\t// E&B: zeroed at construction, not copied; meaning not known',
          'the four ints at the end'),
+        ('\t\tvirtual void\t\t\tSet_Velocity (const Vector3 &velocity);',
+         '\t\tvirtual void\t\t\tSet_Velocity (const Vector3 &velocity, float elapsed_ms);\t// E&B: second argument (the time since the last update)',
+         "Sound3DClass::Set_Velocity 0x9F8920 takes a second float (ret 8; [ebp+0xC] read at 0x9F8C69, scaled by 0.05/33.3), and Sound3DClass::On_Frame_Update 0x9F7E80 passes the elapsed time (call [vtbl+0x184] with two arguments). So the one-argument Set_Velocity of SoundPseudo3DClass and Listener3DClass no longer override it: SoundPseudo3DClass's vtable 0xB15EE4 keeps 0x9F8920 in slot 97 and has the empty one-argument virtual (0x9FFA90, ret 4) as its first own slot (105); Listener3DClass's vtable 0xB163D0 has it (0xA02DE0, ret 4) as its last slot (121), after Set_Sample_Playback_Rate"),
     ],
     ('wwaudio', 'sound3d.cpp'): [
         ('\t  m_CurrentVelocity (0, 0, 0),',
@@ -208,6 +211,9 @@ PATCHES = {
         ('\t\tInternal_Set_Volume (m_RealVolume * percent);\n\t}\n',
          '\t\tInternal_Set_Volume (m_RealVolume * percent);\n\t} else if (distance < falloff_start) {\n\t\tInternal_Set_Volume (m_RealVolume);\n\t}\n',
          'Sound3DClass::Update_Edge_Volume 0x9F8180 restores the full volume inside the falloff start (Internal_Set_Volume(m_RealVolume) at 0x9F8337)'),
+        ('Sound3DClass::Set_Velocity (const Vector3 &velocity)\n',
+         'Sound3DClass::Set_Velocity (const Vector3 &velocity, float elapsed_ms)\n',
+         '(the definition: the same)'),
     ],
     ('wwmath', 'matrix4.h'): [
         ('#endif /*MATRIX4_H*/',
@@ -821,11 +827,6 @@ TEXTURE_API_PATCHES = {
          '\t// If the thumbnail hash table file is available, init hash table',
          '(Load: the same)'),
     ],
-    ('wwaudio', 'soundpseudo3d.h'): [
-        ('\t\tvirtual void\t\t\tSet_Velocity (const Vector3 &velocity)\t\t\t{ }',
-         "\t\tvirtual void\t\t\tSet_Velocity (Vector3 &velocity)\t\t\t\t\t{ }\t// E&B: does not override Sound3DClass's (signature not known, one 4-byte argument)",
-         "SoundPseudo3DClass's vtable 0xB15EE4 keeps Sound3DClass::Set_Velocity 0x9F8920 in slot 97 and has a new empty virtual (0x9FFA90, ret 4) in slot 105, its first own slot, emitted between Set_Transform and Set_Max_Vol_Radius (this declaration's place); Update_Pseudo_Volume and the later slots move up one (0x1A8/0x1AC in 0x9FFBD0, 0x9FFCC0)"),
-    ],
     ('wwaudio', 'wwaudio.h'): [
         ('\tbool\t\t\t\t\t\t\t\t\t\t\t\t\tm_ForceDisable;\n',
          '\tbool\t\t\t\t\t\t\t\t\t\t\t\t\tm_ForceDisable;\n\tbool\t\t\t\t\t\t\t\t\t\t\t\t\tm_Unknown19A5;\t// E&B: sounds started while set are queued paused (AudibleSoundClass::Play 0x9FD419); set by the app, cleared by Unknown_Resume_All\n\tbool\t\t\t\t\t\t\t\t\t\t\t\t\tm_Unknown19A6;\t// E&B: set by Temp_Disable_Audio (true); the volume setters do nothing while set\n',
@@ -856,6 +857,14 @@ TEXTURE_API_PATCHES = {
         ('\tif (onoff) {\n\t\tm_CachedIsMusicEnabled\t\t\t\t= m_IsMusicEnabled;\n\t\tm_CachedIsDialogEnabled\t\t\t\t= m_IsDialogEnabled;\n\t\tm_CachedIsCinematicSoundEnabled\t= m_IsCinematicSoundEnabled;\n\t\tm_CachedAreSoundEffectsEnabled\t= m_AreSoundEffectsEnabled;\n\t\tAllow_Sound_Effects (false);\n\t\tAllow_Music (false);\n\t\tAllow_Dialog (false);\n\t\tAllow_Cinematic_Sound (false);\n\t} else {\n\t\tAllow_Sound_Effects (m_CachedAreSoundEffectsEnabled);\n\t\tAllow_Music (m_CachedIsMusicEnabled);\n\t\tAllow_Dialog (m_CachedIsDialogEnabled);\n\t\tAllow_Cinematic_Sound (m_CachedIsCinematicSoundEnabled);\n\t}\n',
          '\tif (onoff) {\n\t\tSet_Sound_Effects_Volume (0);\n\t\tSet_Music_Volume (0);\n\t\tSet_Dialog_Volume (0);\n\t\tm_Unknown19A6 = true;\n\t} else {\n\t\tm_Unknown19A6 = false;\n\t}\n',
          "WWAudioClass::Temp_Disable_Audio 0x9F4C50: E&B's sets the sound effect, music and dialog volumes to 0 (inlined, each guarded by +0x19A6) and then sets +0x19A6; off only clears it"),
+    ],
+    ('wwaudio', 'listener.h'): [
+        ('\t\tvirtual void\t\t\tSet_Velocity (const Vector3 &velocity) { }\n',
+         '\n',
+         '(Listener3DClass: its one-argument Set_Velocity is declared last, after Set_Sample_Playback_Rate, as its vtable slot shows)'),
+        ('\t\tvirtual void\t\t\tSet_Sample_Playback_Rate (S32 rate)\t\t{ }\n',
+         "\t\tvirtual void\t\t\tSet_Sample_Playback_Rate (S32 rate)\t\t{ }\n\t\tvirtual void\t\t\tSet_Velocity (const Vector3 &velocity) { }\t// E&B: hides Sound3DClass's two-argument Set_Velocity; last vtable slot (0xA02DE0)\n",
+         '(the same)'),
     ],
 }
 for _key, _edits in TEXTURE_API_PATCHES.items():

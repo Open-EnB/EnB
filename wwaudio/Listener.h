@@ -106,7 +106,7 @@ class Listener3DClass : public Sound3DClass
 		//////////////////////////////////////////////////////////////////////
 		//	Velocity methods
 		//////////////////////////////////////////////////////////////////////				
-		virtual void			Set_Velocity (const Vector3 &velocity) { }
+
 
 
 	protected:
@@ -128,6 +128,7 @@ class Listener3DClass : public Sound3DClass
 		virtual void			Get_Sample_MS_Position (S32 *len, S32 *pos) { }
 		virtual S32				Get_Sample_Playback_Rate (void)			{ return 0; }
 		virtual void			Set_Sample_Playback_Rate (S32 rate)		{ }
+		virtual void			Set_Velocity (const Vector3 &velocity) { }	// E&B: hides Sound3DClass's two-argument Set_Velocity; last vtable slot (0xA02DE0)
 
 		//////////////////////////////////////////////////////////////////////
 		//	Handle information

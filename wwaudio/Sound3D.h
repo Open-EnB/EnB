@@ -125,7 +125,7 @@ class Sound3DClass : public AudibleSoundClass
 		//
 		// The velocity settings are in meters per millisecond.
 		//
-		virtual void			Set_Velocity (const Vector3 &velocity);
+		virtual void			Set_Velocity (const Vector3 &velocity, float elapsed_ms);	// E&B: second argument (the time since the last update)
 		virtual Vector3		Get_Velocity (void) const							{ return m_CurrentVelocity; }
 		virtual void			Get_Velocity (Vector3 &velocity) const			{ velocity = m_CurrentVelocity; }
 

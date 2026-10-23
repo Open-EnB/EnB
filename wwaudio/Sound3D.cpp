@@ -448,7 +448,7 @@ Sound3DClass::Set_Position (const Vector3 &position)
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////
 void
-Sound3DClass::Set_Velocity (const Vector3 &velocity)
+Sound3DClass::Set_Velocity (const Vector3 &velocity, float elapsed_ms)
 {
 	MMSLockClass lock;
 
