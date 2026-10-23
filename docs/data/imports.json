@@ -4815,9 +4815,11 @@
      "0x9F7E20",
      "0x9F7E80",
      "0x9F8180",
+     "0x9F8350",
      "0x9F84A0",
      "0x9F8630",
      "0x9F8680",
+     "0x9F8760",
      "0x9F8920",
      "0x9F8D00",
      "0x9F8D70",
@@ -5197,7 +5199,7 @@
    "soundhandle.h": "R",
    "soundstreamhandle.h": "R"
   },
-  "in_tree_total": 319,
+  "in_tree_total": 321,
   "totals": {
    "G": 72,
    "R": 205,

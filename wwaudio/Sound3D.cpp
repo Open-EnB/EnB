@@ -280,7 +280,6 @@ Sound3DClass::Set_Transform (const Matrix3D &transform)
 
 
 	// Update our internal transform
-	m_PrevTransform	= m_Transform;
 	m_Transform			= transform;
 	Set_Dirty ();
 
@@ -289,7 +288,6 @@ Sound3DClass::Set_Transform (const Matrix3D &transform)
 		m_IsTransformInitted = true;
 	}
 
-	Update_Miles_Transform ();
 	return ;
 }
 
@@ -389,6 +387,8 @@ Sound3DClass::Update_Miles_Transform (void)
 void
 Sound3DClass::Set_Position (const Vector3 &position)
 {
+	MMSLockClass lock;
+
 	//
 	// Pass the sound's position onto miles
 	//
@@ -407,22 +407,6 @@ Sound3DClass::Set_Position (const Vector3 &position)
 		if (m_IsTransformInitted == false) {
 			m_PrevTransform = m_Transform;
 			m_IsTransformInitted = true;
-		}
-
-		if (m_SoundHandle != NULL) {
-
-			//
-			//	Transform the sound's position into 'listener-space'
-			//
-			Vector3 sound_pos	= position;
-			Vector3 listener_space_pos;
-			Matrix3D::Inverse_Transform_Vector (m_ListenerTransform, sound_pos, &listener_space_pos);
-
-			//
-			//	Update the object's position inside of Miles
-			//
-			::AIL_set_3D_position (m_SoundHandle->Get_H3DSAMPLE (), -listener_space_pos.Y,
-					listener_space_pos.Z, listener_space_pos.X);
 		}
 	}
 
