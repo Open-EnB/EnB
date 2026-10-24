@@ -274,6 +274,14 @@ public:
 	static bool					Are_Static_Sort_Lists_Enabled(void)		{ return AreStaticSortListsEnabled; }
 	static void					Enable_Munge_Sort_On_Load(bool onoff)	{ MungeSortOnLoad=onoff; }
 	static bool					Is_Munge_Sort_On_Load_Enabled(void)		{ return MungeSortOnLoad; }
+
+	/*
+	** Overbright modify on load - when this mode is set meshes will be
+	** modified at load time. All shaders which originally had the primary
+	** gradient set to MODULATE will be changed to MODULATE2X instead.
+	*/
+	static void					Enable_Overbright_Modify_On_Load(bool onoff)	{ OverbrightModifyOnLoad = onoff; }
+	static bool					Is_Overbright_Modify_On_Load_Enabled(void)	{ return OverbrightModifyOnLoad; }
 	static void					Add_To_Static_Sort_List(RenderObjClass *robj, unsigned int sort_level);
 	static void					Render_And_Clear_Static_Sort_Lists(RenderInfoClass & rinfo);
 	static void					Override_Current_Static_Sort_Lists(RefRenderObjListClass *sort_list, unsigned int min_sort, unsigned int max_sort);
@@ -329,6 +337,8 @@ private:
 
 	static bool							AreStaticSortListsEnabled;
 	static bool							MungeSortOnLoad;
+
+	static bool							OverbrightModifyOnLoad;
 
 	static FrameGrabClass *			Movie;
 	static bool							PauseRecord;

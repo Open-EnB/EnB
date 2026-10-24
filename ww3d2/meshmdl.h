@@ -281,6 +281,7 @@ protected:
 	unsigned int get_sort_flags(int pass) const;
 	unsigned int get_sort_flags(void) const;
 	void compute_static_sort_levels(void);
+	void modify_for_overbright(void);
 
 	// mat info support
 	void install_materials(MeshLoadContextClass * loadinfo);

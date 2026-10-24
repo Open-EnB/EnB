@@ -1603,6 +1603,13 @@ void MeshModelClass::post_process()
 	}
 #endif
 
+	// skinned meshes should not have cull trees
+	if (Get_Flag(MeshGeometryClass::SKIN)) {
+		if (CullTree) {
+			REF_PTR_RELEASE(CullTree);
+		}
+	}
+
 	// turn off backface culling if the mesh is supposed to be two-sided
 	if (Get_Flag(MeshGeometryClass::TWO_SIDED)) {
 
@@ -1622,6 +1629,12 @@ void MeshModelClass::post_process()
 	// if default isn't set
 	if (Get_Flag(SORT) && SortLevel==SORT_LEVEL_NONE && WW3D::Is_Munge_Sort_On_Load_Enabled()) {
 		compute_static_sort_levels();
+	}
+
+	// If we need to, modify the mesh model to support overbrightening (change all
+	// GRADIENT_MODULATE to GRADIENT_MODULATE2X)
+	if (WW3D::Is_Overbright_Modify_On_Load_Enabled()) {
+		modify_for_overbright();
 	}
 }
 
@@ -1774,6 +1787,33 @@ void MeshModelClass::compute_static_sort_levels(void)
 	};
 }
 
+void MeshModelClass::modify_for_overbright(void)
+{
+	// Iterate over all passes
+	int pass_cnt = Get_Pass_Count();
+	for (int pass_idx = 0; pass_idx < pass_cnt; pass_idx++) {
+
+		// First do single shader
+		ShaderClass shader = Get_Single_Shader(pass_idx);
+		if (shader.Get_Primary_Gradient() == ShaderClass::GRADIENT_MODULATE) {
+			shader.Set_Primary_Gradient(ShaderClass::GRADIENT_MODULATE2X);
+			Set_Single_Shader(shader, pass_idx);
+		}
+
+		// Now do all other shaders
+		if (Has_Shader_Array(pass_idx)) {
+			int p_cnt = Get_Polygon_Count();
+			for (int p_idx = 0; p_idx < p_cnt; p_idx++) {
+				shader = Get_Shader(p_idx, pass_idx);
+				if (shader.Get_Primary_Gradient() == ShaderClass::GRADIENT_MODULATE) {
+					shader.Set_Primary_Gradient(ShaderClass::GRADIENT_MODULATE2X);
+					Set_Shader(p_idx, shader, pass_idx);
+				}
+			}
+		}
+	}
+
+}
 
 void MeshModelClass::install_materials(MeshLoadContextClass * context)
 {

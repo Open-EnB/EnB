@@ -185,6 +185,8 @@ float														WW3D::DecalRejectionDistance = 1000000.0f;
 bool														WW3D::AreStaticSortListsEnabled = false;
 bool														WW3D::MungeSortOnLoad = false;
 
+bool														WW3D::OverbrightModifyOnLoad = false;
+
 FrameGrabClass *										WW3D::Movie = NULL;
 bool														WW3D::PauseRecord;
 bool														WW3D::RecordNextFrame;
