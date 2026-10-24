@@ -3158,6 +3158,14 @@ RECONSTRUCTED = {
                                      "0x6F9C30, Light 0x6F9870 exact; Ship 0x6F66E0, Harvestable 0x6F9ED0, "
                                      "ManufacturingLab 0x6FA6F0, Player 0x752510 not), Ship's narrow Add "
                                      "0x6F8C70, the CREATE factory 0x6F6000 (not exact)",
+    ('app', 'shared/stars.h'): 'StarLayerClass (0x20 bytes) and StarFieldClass (RenderObjClass, 0xA4 bytes, vtable 0xAEA258; descriptive names, D24): the star field from stars.ini (M2.4)',
+    ('app', 'shared/stars.cpp'): 'the star field, client 0x481A20-0x482FC0 (asserts lines 96/97, D25): layer ctor/dtor/Render/Load 0x481A20/0x481A50/0x481B70/0x481DB0, field ctor/dtor/Free_Layers/Init/Render/Get_Num_Polys/Get_Cost 0x4826E0/0x482790/0x482920/0x4829E0/0x482D80/0x482E00/0x482E20; Load and Init NOT EXACT (M2.4)',
+    ('app', 'shared/spln_db.h'): "SplineDatabaseClass (descriptive name after the mailslot \\\\.\\mailslot\\G\\SplineDatabaseUpdate, D24): named 1D curves from splines.wsd (M2.4); not the client's layout",
+    ('app', 'shared/spln_db.cpp'): "the spline database, client 0x485000-0x48A000 (39 asserts), functional from VIDTEST's loader 0x41CB20/0x41F620-0x420100 (NOT EXACT, D42; M2.4)",
+    ('app', 'shared/heightfield.h'): "HeightFieldClass (descriptive, D24; PROVISIONAL file name: no assert or __FILE__): the land's [HEIGHTMAP] (M2.4); not the client's layout",
+    ('app', 'shared/heightfield.cpp'): 'the height field, client 0x4634A0-0x465D30 (PROVISIONAL file name), functional from VIDTEST 0x402420/0x4026B0/0x402AE0 (NOT EXACT, D42; M2.4)',
+    ('app', 'shared/land.h'): 'LandClass (the client\'s "(LandClass*)obj"; vtable 0xAE8994; PROVISIONAL file name): the terrain render object and its decorations (M2.4); not the client\'s layout',
+    ('app', 'shared/land.cpp'): 'the terrain, client 0x4668F0-0x47A2F0 (PROVISIONAL file name; profile label Land::Update_Lightmap_ManualThreaded 0x46DA70), functional after VIDTEST 0x405410-0x416170 (NOT EXACT, D42; M2.4)',
 }
 
 # Text appended to imported files (after everything, so no existing line moves).
