@@ -103,3 +103,30 @@ void* FastAllocatorGeneral::Alloc(unsigned int n)
 	return ((unsigned int*)pMemory)+1; //return ptr to bytes after it back to user.
 }
 
+// E&B's Free (0x9DAF60, out of line): the malloc path under the 0xE00 lock, the usage counter under the
+// 0xE04 lock afterwards (see Alloc)
+void FastAllocatorGeneral::Free(void* pAlloc)
+{
+	if (pAlloc) {
+		unsigned int* n = ((unsigned int*)pAlloc)-1; //Subtract four bytes and the count is stored there.
+
+		unsigned size=*n;
+
+		if (size<MAX_ALLOC_SIZE) {
+			unsigned index=size/ALLOC_STEP;
+			FastCriticalSectionClass::LockClass lock(CriticalSections[index]);
+			allocators[index].Free(n);
+		}
+		else {
+			FastCriticalSectionClass::LockClass lock(m_UnknownE00);
+			AllocatedWithMallocCount--;
+			AllocatedWithMalloc-=size;
+			::free(n);
+		}
+		{
+			FastCriticalSectionClass::LockClass lock(m_UnknownE04);
+			ActualMemoryUsage-=size;
+		}
+	}
+}
+

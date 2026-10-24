@@ -402,31 +402,6 @@ protected:
 //
 // ----------------------------------------------------------------------------
 
-WWINLINE void FastAllocatorGeneral::Free(void* pAlloc)
-{
-   if (pAlloc) {
-      unsigned int* n = ((unsigned int*)pAlloc)-1; //Subtract four bytes and the count is stored there.
-
-#ifdef MEMORY_OVERWRITE_TEST
-		WWASSERT(*((unsigned int*)((char*)n+*n)-1)==0xabbac0de);
-#endif
-
-		unsigned size=*n;
-		ActualMemoryUsage-=size;
-
-		if (size<MAX_ALLOC_SIZE) {
-			int index=size/ALLOC_STEP;
-			FastCriticalSectionClass::LockClass lock(CriticalSections[index]);
-         allocators[index].Free(n);
-		}
-      else {
-			AllocatedWithMallocCount--;
-			AllocatedWithMalloc-=size;
-         ::free(n);
-		}
-   }
-}
-
 //ANSI C requires:
 //  (1) realloc(NULL, newsize) is equivalent to malloc(newsize).
 //  (2) realloc(pblock, 0) is equivalent to free(pblock) (except that NULL is returned).
