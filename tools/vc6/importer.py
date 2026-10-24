@@ -1691,6 +1691,11 @@ WWSHADE_API_PATCHES = {
          '\t\tWW3D::Enable_Texturing(old_enable);\n\t}\n\n\t// Any stuff that needs to get done after anything else\n\tPost_Render_Processing(rinfo);\n}\n',
          "E&B's SceneClass::Render calls Zero Hour's Pre_Render_Processing (vtable +0x54) first and Post_Render_Processing (+0x58) last (0x965460)"),
     ],
+    ('ww3d2', 'textureloader.cpp'): [
+        ('\t\t\tGet_Locked_Surface_Ptr(level),\n\t\t\tGet_Locked_Surface_Pitch(level));\n\n\t\twidth\t\t>>= 1;\n',
+         '\t\t\tGet_Locked_Surface_Ptr(level),\n\t\t\tGet_Locked_Surface_Pitch(level),\n\t\t\tHSVShift);\n\n\t\twidth\t\t>>= 1;\n',
+         "E&B's Load_Compressed_Mipmap passes the task's HSVShift to Copy_Level_To_Surface (Zero Hour's argument; not its Reduction pre-loop): 0x94AC00 pushes &HSVShift (+0x28) where the default would build a zero Vector3"),
+    ],
 }
 for _key, _edits in WWSHADE_API_PATCHES.items():
     PATCHES.setdefault(_key, []).extend(_edits)

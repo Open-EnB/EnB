@@ -1460,7 +1460,8 @@ bool TextureLoadTaskClass::Load_Compressed_Mipmap(void)
 			width,
 			height,
 			Get_Locked_Surface_Ptr(level),
-			Get_Locked_Surface_Pitch(level));
+			Get_Locked_Surface_Pitch(level),
+			HSVShift);
 
 		width		>>= 1;
 		height	>>= 1;
