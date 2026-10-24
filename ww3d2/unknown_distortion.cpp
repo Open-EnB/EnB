@@ -26,9 +26,11 @@
 
 
 /*
-** The objects to draw this frame (0xC0BAA8), and whether the hardware can draw them (0xC0BAD8)
+** The objects to draw this frame (0xC0BAA8), and whether the hardware can draw them (0xC0BAD8).
+** The list has external linkage: as a file static, VC6 loads the inlined Add's vtable before the
+** growth sum (0x995E20, 0x996180 differ); SoundSceneObjClass's global list has the client's order.
 */
-static DynamicVectorClass<UnknownDistortionClass *>	DistortionList;
+DynamicVectorClass<UnknownDistortionClass *>			DistortionList;
 static bool														DistortionEnabled;
 
 
@@ -301,6 +303,8 @@ void UnknownRippleClass::Unknown_Distort(Vector2 & uv, UnknownDistortionClass * 
 	float dx = uv.X - 0.5f;
 	float r2 = dx * dx + dy * dy;
 	float angle = (float)WW3D::Get_Sync_Time() * m_Unknown0C + r2;
-	uv.X += (float)exp(-r2 * m_Unknown08) * WWMath::Sin(angle) * m_Unknown10;
-	uv.Y += WWMath::Sin(angle) * m_Unknown10 * (float)exp(-r2 * m_Unknown08);
+	// Both offsets are computed before either is added (Y's sine and exponential first), and the two
+	// exponentials are not merged: math.h's inline expf in Y does both (0x997DE0)
+	uv += Vector2((float)exp(-r2 * m_Unknown08) * WWMath::Sin(angle) * m_Unknown10,
+		WWMath::Sin(angle) * m_Unknown10 * expf(-r2 * m_Unknown08));
 }
