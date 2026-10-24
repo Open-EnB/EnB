@@ -1920,16 +1920,6 @@
   "window": "0x463390-0x463B90"
  },
  {
-  "object": "sphereobj.obj",
-  "function": "SphereRenderObjClass::Init_Material",
-  "symbol": "?Init_Material@SphereRenderObjClass@@IAEXXZ",
-  "length": 210,
-  "status": "none",
-  "address": "0x90BF80",
-  "similarity": 0.82,
-  "window": "0x90BF80-0x90C070"
- },
- {
   "object": "streak.obj",
   "function": "StreakLineClass::StreakLineClass",
   "symbol": "??0StreakLineClass@@QAE@XZ",
@@ -2543,40 +2533,40 @@
   "object": "texture.obj",
   "function": "TextureBaseClass::_Get_Total_Locked_Surface_Size",
   "symbol": "?_Get_Total_Locked_Surface_Size@TextureBaseClass@@SAHXZ",
-  "length": 293,
+  "length": 260,
   "status": "none",
   "address": "0x94C390",
-  "similarity": 0.49,
+  "similarity": 0.46,
   "window": "0x94C090-0x94C7B0"
  },
  {
   "object": "texture.obj",
   "function": "TextureBaseClass::_Get_Total_Texture_Size",
   "symbol": "?_Get_Total_Texture_Size@TextureBaseClass@@SAHXZ",
-  "length": 307,
+  "length": 274,
   "status": "none",
   "address": "0x94C280",
-  "similarity": 0.37,
+  "similarity": 0.3,
   "window": "0x94C090-0x94C7B0"
  },
  {
   "object": "texture.obj",
   "function": "TextureBaseClass::_Get_Total_Lightmap_Texture_Size",
   "symbol": "?_Get_Total_Lightmap_Texture_Size@TextureBaseClass@@SAHXZ",
-  "length": 293,
+  "length": 260,
   "status": "none",
   "address": "0x94C4F0",
-  "similarity": 0.49,
+  "similarity": 0.46,
   "window": "0x94C090-0x94C7B0"
  },
  {
   "object": "texture.obj",
   "function": "TextureBaseClass::_Get_Total_Procedural_Texture_Size",
   "symbol": "?_Get_Total_Procedural_Texture_Size@TextureBaseClass@@SAHXZ",
-  "length": 293,
+  "length": 260,
   "status": "none",
   "address": "0x94C650",
-  "similarity": 0.49,
+  "similarity": 0.46,
   "window": "0x94C090-0x94C7B0"
  },
  {
@@ -2613,29 +2603,19 @@
   "object": "texture.obj",
   "function": "TextureClass::TextureClass",
   "symbol": "??0TextureClass@@QAE@PAUIDirect3DBaseTexture8@@@Z",
-  "length": 275,
+  "length": 267,
   "status": "none",
   "address": "0x94CC30",
-  "similarity": 0.19,
-  "window": "0x94CA20-0x94CF40"
- },
- {
-  "object": "texture.obj",
-  "function": "TextureClass::Init",
-  "symbol": "?Init@TextureClass@@UAEXXZ",
-  "length": 238,
-  "status": "none",
-  "address": "0x94CC60",
-  "similarity": 0.06,
+  "similarity": 0.08,
   "window": "0x94CA20-0x94CF40"
  },
  {
   "object": "texture.obj",
   "function": "TextureClass::Apply_New_Surface",
   "symbol": "?Apply_New_Surface@TextureClass@@UAEXPAUIDirect3DBaseTexture8@@_N1@Z",
-  "length": 200,
+  "length": 184,
   "status": "none",
-  "address": "0x94CC90",
+  "address": "0x94CC60",
   "similarity": 0.15,
   "window": "0x94CA20-0x94CF40"
  },
@@ -2643,37 +2623,17 @@
   "object": "texture.obj",
   "function": "TextureClass::Apply",
   "symbol": "?Apply@TextureClass@@UAEXI@Z",
-  "length": 196,
+  "length": 187,
   "status": "none",
-  "address": null,
-  "similarity": null,
-  "window": "0x94CA20-0x94CF40"
- },
- {
-  "object": "texture.obj",
-  "function": "TextureClass::Get_Surface_Level",
-  "symbol": "?Get_Surface_Level@TextureClass@@QAEPAVSurfaceClass@@I@Z",
-  "length": 113,
-  "status": "none",
-  "address": null,
-  "similarity": null,
+  "address": "0x94CC90",
+  "similarity": 0.11,
   "window": "0x94CA20-0x94CF40"
  },
  {
   "object": "texture.obj",
   "function": "TextureClass::Get_Level_Description",
   "symbol": "?Get_Level_Description@TextureClass@@QAEXAAUSurfaceDescription@SurfaceClass@@I@Z",
-  "length": 141,
-  "status": "none",
-  "address": null,
-  "similarity": null,
-  "window": "0x94CA20-0x94CF40"
- },
- {
-  "object": "texture.obj",
-  "function": "TextureClass::Get_D3D_Surface_Level",
-  "symbol": "?Get_D3D_Surface_Level@TextureClass@@QAEPAUIDirect3DSurface8@@I@Z",
-  "length": 74,
+  "length": 124,
   "status": "none",
   "address": null,
   "similarity": null,
@@ -2683,7 +2643,7 @@
   "object": "texture.obj",
   "function": "TextureClass::Get_Texture_Memory_Usage",
   "symbol": "?Get_Texture_Memory_Usage@TextureClass@@QBEIXZ",
-  "length": 125,
+  "length": 92,
   "status": "none",
   "address": null,
   "similarity": null,
@@ -2701,43 +2661,23 @@
  },
  {
   "object": "texture.obj",
-  "function": "ZTextureClass::Apply",
-  "symbol": "?Apply@ZTextureClass@@UAEXI@Z",
-  "length": 100,
-  "status": "none",
-  "address": "0x94D190",
-  "similarity": 0.64,
-  "window": "0x94D150-0x94D950"
- },
- {
-  "object": "texture.obj",
   "function": "ZTextureClass::Apply_New_Surface",
   "symbol": "?Apply_New_Surface@ZTextureClass@@UAEXPAUIDirect3DBaseTexture8@@_N1@Z",
-  "length": 200,
+  "length": 184,
   "status": "none",
   "address": "0x94D1F0",
-  "similarity": 0.48,
-  "window": "0x94D150-0x94D950"
- },
- {
-  "object": "texture.obj",
-  "function": "ZTextureClass::Get_D3D_Surface_Level",
-  "symbol": "?Get_D3D_Surface_Level@ZTextureClass@@QAEPAUIDirect3DSurface8@@I@Z",
-  "length": 74,
-  "status": "none",
-  "address": "0x94D5D0",
-  "similarity": 0.41,
-  "window": "0x94D150-0x94D950"
+  "similarity": 0.5,
+  "window": "0x94D1F0-0x94D9F0"
  },
  {
   "object": "texture.obj",
   "function": "ZTextureClass::Get_Texture_Memory_Usage",
   "symbol": "?Get_Texture_Memory_Usage@ZTextureClass@@QBEIXZ",
-  "length": 125,
+  "length": 92,
   "status": "none",
   "address": "0x94D680",
   "similarity": 0.27,
-  "window": "0x94D150-0x94D950"
+  "window": "0x94D1F0-0x94D9F0"
  },
  {
   "object": "texturefilter.obj",
@@ -2767,7 +2707,7 @@
   "status": "none",
   "address": "0x949260",
   "similarity": 0.68,
-  "window": "0x949260-0x949BA0"
+  "window": "0x949260-0x9497B0"
  },
  {
   "object": "textureloader.obj",
@@ -2777,7 +2717,7 @@
   "status": "none",
   "address": "0x9493F0",
   "similarity": 0.45,
-  "window": "0x949260-0x949BA0"
+  "window": "0x949260-0x9497B0"
  },
  {
   "object": "textureloader.obj",
@@ -2787,27 +2727,7 @@
   "status": "none",
   "address": "0x949550",
   "similarity": 0.62,
-  "window": "0x949260-0x949BA0"
- },
- {
-  "object": "textureloader.obj",
-  "function": "TextureLoader::Flush_Pending_Load_Tasks",
-  "symbol": "?Flush_Pending_Load_Tasks@TextureLoader@@SAXXZ",
-  "length": 470,
-  "status": "none",
-  "address": "0x9497B0",
-  "similarity": 0.64,
-  "window": "0x949260-0x949BA0"
- },
- {
-  "object": "textureloader.obj",
-  "function": "TextureLoader::Update",
-  "symbol": "?Update@TextureLoader@@SAXP6AXXZ@Z",
-  "length": 485,
-  "status": "none",
-  "address": "0x949990",
-  "similarity": 0.71,
-  "window": "0x949260-0x949BA0"
+  "window": "0x949260-0x9497B0"
  },
  {
   "object": "textureloader.obj",

@@ -757,6 +757,12 @@ TEXTURE_API_PATCHES = {
         ('\tLastAccessed=WW3D::Get_Sync_Time(); \n',
          '',
          'TextureBaseClass::Peek_D3D_Base_Texture does not set LastAccessed in E&B: its inlined copies in ZTextureClass::Apply (0x94D190), TextureClass::Init (0x94B920), Get_Surface_Level (0x94BB50) and Get_D3D_Surface_Level (0x94BBB0) read the texture pointer only'),
+        ('\tif (TextureLoadTask) {\n',
+         '\t// E&B: the inactivation-time extension of the version below (0x94BA13), and the thumbnail\n\t// task tested before the load task (0x94BA3A)\n\t// If the texture has recently been inactivated, increase the inactivation time (this texture obviously\n\t// should not have been inactivated yet).\n\tif (InactivationTime && LastInactivationSyncTime) {\n\t\tif ((WW3D::Get_Sync_Time()-LastInactivationSyncTime)<InactivationTime) {\n\t\t\tExtendedInactivationTime=3*InactivationTime;\n\t\t}\n\t\tLastInactivationSyncTime=0;\n\t}\n\n\tif (ThumbnailLoadTask) {\n',
+         "TextureBaseClass::Invalidate as E&B has it (0x94BA10, inlined in Set_HSV_Shift 0x94C150): the inactivation-time extension of the commented-out 'battlefield version' first (0x94BA13), then the thumbnail task tested before the load task (0x94BA3A)"),
+        ('\t}\n\tif (ThumbnailLoadTask) {\n\t\treturn;\n',
+         '\t}\n\tif (TextureLoadTask) {\n\t\treturn;\n',
+         "TextureBaseClass::Invalidate as E&B has it (0x94BA10, inlined in Set_HSV_Shift 0x94C150): the inactivation-time extension of the commented-out 'battlefield version' first (0x94BA13), then the thumbnail task tested before the load task (0x94BA3A)"),
     ],
     ('ww3d2', 'textureloader.h'): [
         ('\t\tunsigned char *\t\tLockedSurfacePtr[TextureClass::MIP_LEVELS_MAX];\n\t\tunsigned\tint\t\t\tLockedSurfacePitch[TextureClass::MIP_LEVELS_MAX];',

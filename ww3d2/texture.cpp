@@ -191,10 +191,21 @@ void TextureBaseClass::Invalidate_Old_Unused_Textures(unsigned invalidation_time
 */
 void TextureBaseClass::Invalidate()
 {
-	if (TextureLoadTask) {
+	// E&B: the inactivation-time extension of the version below (0x94BA13), and the thumbnail
+	// task tested before the load task (0x94BA3A)
+	// If the texture has recently been inactivated, increase the inactivation time (this texture obviously
+	// should not have been inactivated yet).
+	if (InactivationTime && LastInactivationSyncTime) {
+		if ((WW3D::Get_Sync_Time()-LastInactivationSyncTime)<InactivationTime) {
+			ExtendedInactivationTime=3*InactivationTime;
+		}
+		LastInactivationSyncTime=0;
+	}
+
+	if (ThumbnailLoadTask) {
 		return;
 	}
-	if (ThumbnailLoadTask) {
+	if (TextureLoadTask) {
 		return;
 	}
 
