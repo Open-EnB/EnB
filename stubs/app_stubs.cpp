@@ -100,50 +100,48 @@ void KVListClass::Add(KVPairClass *item)
 	STUB_CALLED("KVListClass::Add (0x4B6760)");
 }
 
-// 0x4B7FC0
-KVPairStringClass::KVPairStringClass(const char *key, StringValueClass *accessor, bool even, bool odd) :
-	KVPairClass(key, even, odd),
-	Accessor(accessor),
-	m_Unknown10(NULL)
-{
-	STUB_CALLED("KVPairStringClass::KVPairStringClass (0x4B7FC0)");
-}
-
-// KVPairTemplateClass<float> (vtable 0xAE7860): the destructor and six virtuals
+// KVPairTemplateClass<float> (vtable 0xAE7860): the destructor and six virtuals (the client's are
+// in a client object, 0x4484C0-0x448B10; the slots are described in kv_pair.h)
 KVPairTemplateClass<float>::~KVPairTemplateClass()
 {
 	STUB_CALLED("KVPairTemplateClass<float>::~KVPairTemplateClass");
 }
 
-void KVPairTemplateClass<float>::Unknown_04()
+KVPairClass *KVPairTemplateClass<float>::Clone() const
 {
-	STUB_CALLED("KVPairTemplateClass<float>::Unknown_04");
+	STUB_CALLED("KVPairTemplateClass<float>::Clone (0x4484C0)");
+	return 0;
 }
 
-const char *KVPairTemplateClass<float>::Unknown_08() const
+const char *KVPairTemplateClass<float>::Get_Type_Name() const
 {
-	STUB_CALLED("KVPairTemplateClass<float>::Unknown_08");
-	return "";
+	return "float";		// 0x448580, not a stub
 }
 
-void KVPairTemplateClass<float>::Unknown_0C()
+char *KVPairTemplateClass<float>::Get_Value_String(char *buf, int size) const
 {
-	STUB_CALLED("KVPairTemplateClass<float>::Unknown_0C");
+	STUB_CALLED("KVPairTemplateClass<float>::Get_Value_String (0x4485A0)");
+	if (size > 0) {
+		buf[0] = 0;
+	}
+	return buf;
 }
 
-void KVPairTemplateClass<float>::Unknown_10()
+bool KVPairTemplateClass<float>::Set_Value_String(const char *text)
 {
-	STUB_CALLED("KVPairTemplateClass<float>::Unknown_10");
+	STUB_CALLED("KVPairTemplateClass<float>::Set_Value_String (0x448B10)");
+	return false;
 }
 
-void KVPairTemplateClass<float>::Unknown_14()
+bool KVPairTemplateClass<float>::Is_Changed() const
 {
-	STUB_CALLED("KVPairTemplateClass<float>::Unknown_14");
+	STUB_CALLED("KVPairTemplateClass<float>::Is_Changed (0x4485D0)");
+	return false;
 }
 
-void KVPairTemplateClass<float>::Unknown_18()
+void KVPairTemplateClass<float>::Update_Saved()
 {
-	STUB_CALLED("KVPairTemplateClass<float>::Unknown_18");
+	STUB_CALLED("KVPairTemplateClass<float>::Update_Saved (0x448610)");
 }
 
 // The per-class global (time: 0xBE3AA4, data), specialised before the constructor uses it; the
@@ -166,42 +164,4 @@ template<> DeltaTemplateClass<DurationClass>::DeltaTemplateClass(const char *nam
 template<> void DeltaTemplateClass<DurationClass>::Unknown_00(DeltaChildVisitorClass *visitor)
 {
 	STUB_CALLED("DeltaTemplateClass<DurationClass>::Unknown_00");
-}
-
-// KVPairStringClass (vtable 0xAEB810): the stub constructor above emits the vtable, which needs
-// the destructor and the six virtuals.
-KVPairStringClass::~KVPairStringClass()
-{
-	STUB_CALLED("KVPairStringClass::~KVPairStringClass (0x4B80E0)");
-}
-
-void KVPairStringClass::Unknown_04()
-{
-	STUB_CALLED("KVPairStringClass::Unknown_04 (0x4B8250)");
-}
-
-const char *KVPairStringClass::Unknown_08() const
-{
-	STUB_CALLED("KVPairStringClass::Unknown_08 (0x4B8090)");
-	return "";
-}
-
-void KVPairStringClass::Unknown_0C()
-{
-	STUB_CALLED("KVPairStringClass::Unknown_0C (0x4B8360)");
-}
-
-void KVPairStringClass::Unknown_10()
-{
-	STUB_CALLED("KVPairStringClass::Unknown_10 (0x4B83A0)");
-}
-
-void KVPairStringClass::Unknown_14()
-{
-	STUB_CALLED("KVPairStringClass::Unknown_14 (0x4B83D0)");
-}
-
-void KVPairStringClass::Unknown_18()
-{
-	STUB_CALLED("KVPairStringClass::Unknown_18 (0x4B8450)");
 }

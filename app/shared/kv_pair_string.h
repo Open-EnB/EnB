@@ -36,16 +36,17 @@ class KVPairStringClass : public KVPairClass
 {
 public:
 	KVPairStringClass(const char *key, StringValueClass *accessor, bool even = true, bool odd = true);	// 0x4B7FC0
+	KVPairStringClass(const KVPairStringClass &that);							// 0x4B8170 (line 44)
 	virtual ~KVPairStringClass();													// +0x00 0x4B80E0 (deleting 0x4B80B0)
-	virtual void Unknown_04();														// +0x04 0x4B8250
-	virtual const char *Unknown_08() const;										// +0x08 0x4B8090
-	virtual void Unknown_0C();														// +0x0C 0x4B8360
-	virtual void Unknown_10();														// +0x10 0x4B83A0
-	virtual void Unknown_14();														// +0x14 0x4B83D0
-	virtual void Unknown_18();														// +0x18 0x4B8450
+	virtual KVPairClass *Clone() const;											// +0x04 0x4B8250
+	virtual const char *Get_Type_Name() const;									// +0x08 0x4B8090
+	virtual char *Get_Value_String(char *buf, int size) const;				// +0x0C 0x4B8360
+	virtual bool Set_Value_String(const char *text);							// +0x10 0x4B83A0
+	virtual bool Is_Changed() const;												// +0x14 0x4B83D0
+	virtual void Update_Saved();													// +0x18 0x4B8450
 
 	StringValueClass *Accessor;		// +0x0C
-	char *m_Unknown10;					// +0x10 a strdup copy
+	char *m_Unknown10;					// +0x10 the saved value (strdup)
 };
 
 #endif //__KV_PAIR_STRING_H

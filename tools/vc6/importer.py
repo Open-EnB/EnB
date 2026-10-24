@@ -3098,6 +3098,10 @@ RECONSTRUCTED = {
     ('app', 'shared/kv_pair_string.h'): "StringValueClass (the string accessor, vtable 0xAEB150) and "
                                         "KVPairStringClass's declaration (vtable 0xAEB810, size 0x14; ctor "
                                         "0x4B7FC0: 'key && accessor')",
+    ('app', 'shared/kv_pair_string.cpp'): "KVPairStringClass, client 0x4B7FC0-0x4B84A0: the constructor "
+                                          "(line 22, D25), destructor, Get_Type_Name, the value-string "
+                                          "slots, Is_Changed, Update_Saved; the copy constructor (line 44) "
+                                          "and Clone not exact",
     ('app', 'shared/kv_list.h'): "KVListClass's declaration, only Add 0x4B6760 (the assert's 'item', line 23)",
     ('app', 'shared/auxdata/encode.cpp'): "RecordTableClass (D24; Records from the asserts), client "
                                           "0x4A9A70-0x4A9C1A: ctor (line 512, D25), dtor, Unknown_Sum, "

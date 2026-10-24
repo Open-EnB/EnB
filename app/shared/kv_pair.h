@@ -26,12 +26,14 @@ class KVPairClass
 public:
 	KVPairClass(const char *key, bool even, bool odd);						// 0x4B7EB0
 	virtual ~KVPairClass();															// +0x00 0x4B7F50 (deleting 0x4B7F20)
-	virtual void Unknown_04() = 0;
-	virtual const char *Unknown_08() const = 0;									// the value's type name ("char *": 0x4B8090)
-	virtual void Unknown_0C() = 0;
-	virtual void Unknown_10() = 0;
-	virtual void Unknown_14() = 0;
-	virtual void Unknown_18() = 0;
+	// The slots' purposes from the string and float pairs (kv_pair_string.cpp; the float pair's
+	// 0x4484C0-0x448610); the names are descriptive guesses (D10).
+	virtual KVPairClass *Clone() const = 0;									// +0x04 a copy (accessor cloned)
+	virtual const char *Get_Type_Name() const = 0;							// +0x08 ("char *": 0x4B8090, "float")
+	virtual char *Get_Value_String(char *buf, int size) const = 0;		// +0x0C the value as text, into buf
+	virtual bool Set_Value_String(const char *text) = 0;					// +0x10 parses text into the value
+	virtual bool Is_Changed() const = 0;										// +0x14 the value differs from the saved one
+	virtual void Update_Saved() = 0;											// +0x18 saves the current value
 
 	PermString Key;					// +0x04
 	bool m_Unknown08;					// +0x08 the encoder's even bits (KVEncoderBaseClass::Unknown_Test)
@@ -61,12 +63,12 @@ public:
 	{
 	}
 	virtual ~KVPairTemplateClass();
-	virtual void Unknown_04();
-	virtual const char *Unknown_08() const;
-	virtual void Unknown_0C();
-	virtual void Unknown_10();
-	virtual void Unknown_14();
-	virtual void Unknown_18();
+	virtual KVPairClass *Clone() const;
+	virtual const char *Get_Type_Name() const;
+	virtual char *Get_Value_String(char *buf, int size) const;
+	virtual bool Set_Value_String(const char *text);
+	virtual bool Is_Changed() const;
+	virtual void Update_Saved();
 
 	KVAccessorClass<T> *Accessor;		// +0x0C
 	T Value;									// +0x10

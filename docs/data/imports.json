@@ -219,6 +219,21 @@
     "merged": [],
     "name": "shared/kv_pair.cpp"
    },
+   "kv_pair_string": {
+    "ambiguous": [],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x4B7FC0",
+     "0x4B80E0",
+     "0x4B8360",
+     "0x4B83A0",
+     "0x4B83D0",
+     "0x4B8450"
+    ],
+    "merged": [],
+    "name": "shared/kv_pair_string.cpp"
+   },
    "linearbu": {
     "ambiguous": [],
     "copy": "reconstructed",
@@ -330,6 +345,7 @@
    "shared/auxdata/delta_interpolator.h": "reconstructed",
    "shared/auxdata/delta_string.h": "reconstructed",
    "shared/auxdata/delta_template.h": "reconstructed",
+   "shared/auxdata/encode.h": "reconstructed",
    "shared/auxdata/linearbu.h": "reconstructed",
    "shared/auxdata/lookup.h": "reconstructed",
    "shared/auxdata/name.h": "reconstructed",
@@ -342,7 +358,7 @@
    "shared/money.h": "reconstructed",
    "shared/unknown_debug.h": "reconstructed"
   },
-  "in_tree_total": 154,
+  "in_tree_total": 160,
   "totals": {}
  },
  "ww3d2": {
