@@ -448,7 +448,8 @@ static void Apply_Render_State(RenderStateStruct& render_state)
 	if (render_state.Textures[6]) render_state.Textures[6]->Apply();
 	if (render_state.Textures[7]) render_state.Textures[7]->Apply();
 */
-	for (unsigned i=0;i<MAX_TEXTURE_STAGES;++i) {
+	for (int i=0;i<DX8Wrapper::Get_Current_Caps()->Get_Max_Textures_Per_Pass();++i) 
+	{
 		DX8Wrapper::Set_Texture(i,render_state.Textures[i]);
 	}
 

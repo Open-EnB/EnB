@@ -1540,6 +1540,9 @@ WWSHADE_API_PATCHES = {
         ('\tREF_PTR_RELEASE(state->sorting_state.material);\n\tfor (i=0;i<MAX_TEXTURE_STAGES;++i) {\n',
          '\tREF_PTR_RELEASE(state->sorting_state.material);\n\tfor (i=0;i<DX8Wrapper::Get_Current_Caps()->Get_Max_Textures_Per_Pass();++i) \n\t{\n',
          "E&B's sorting Release_Refs releases textures up to the device's texture stages (Zero Hour's): 0x983300 loops to CurrentCaps (0xC006A0) +0x124, Get_Max_Textures_Per_Pass"),
+        ('\tfor (unsigned i=0;i<MAX_TEXTURE_STAGES;++i) {\n\t\tDX8Wrapper::Set_Texture(i,render_state.Textures[i]);\n',
+         '\tfor (int i=0;i<DX8Wrapper::Get_Current_Caps()->Get_Max_Textures_Per_Pass();++i) \n\t{\n\t\tDX8Wrapper::Set_Texture(i,render_state.Textures[i]);\n',
+         "E&B's sorting Apply_Render_State sets textures up to the device's texture stages (Zero Hour's loop; lights and transforms stay in Renegade's order): 0x983BF0 compares the stage with CurrentCaps (0xC006A0) +0x124"),
     ],
     ('ww3d2', 'dx8vertexbuffer.h'): [
         ('\tVertexBufferClass(unsigned type, unsigned FVF, unsigned short VertexCount);\n',
