@@ -219,6 +219,7 @@ bool														WW3D::IsTexturingEnabled=true;
 
 static HWND												_Hwnd = NULL;		// Not a member to hide windows from WW3D users
 static int												_TextureReduction = 0;
+static bool												_LargeTextureExtraReductionEnabled = false;
 int														WW3D::LastFrameMemoryAllocations;
 int														WW3D::LastFrameMemoryFrees;
 
@@ -1673,6 +1674,19 @@ void WW3D::Enable_Texturing(bool b)
 int	WW3D::Get_Texture_Reduction( void )
 {
 	return _TextureReduction;
+}
+
+void WW3D::Enable_Large_Texture_Extra_Reduction(bool onoff)
+{
+	if (_LargeTextureExtraReductionEnabled != onoff) {
+		_LargeTextureExtraReductionEnabled = onoff;
+		_Invalidate_Textures();
+	}
+}
+
+bool WW3D::Is_Large_Texture_Extra_Reduction_Enabled(void)
+{
+	return _LargeTextureExtraReductionEnabled;
 }
 
 /***********************************************************************************************

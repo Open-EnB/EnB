@@ -200,6 +200,8 @@ public:
 	*/
 	static void					Set_Texture_Reduction( int value );
 	static int					Get_Texture_Reduction( void );
+	static void					Enable_Large_Texture_Extra_Reduction(bool onoff);
+	static bool					Is_Large_Texture_Extra_Reduction_Enabled(void);
 	static void					_Invalidate_Mesh_Cache();
 	static void					_Invalidate_Textures();
 

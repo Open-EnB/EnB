@@ -611,6 +611,12 @@ TEXTURE_API_PATCHES = {
         ('\tbool success = DX8Wrapper::Set_Render_Device(dev,width,height,bits,windowed,resize_window);\n\tif (success) {\n\t\treturn WW3D_ERROR_OK;\n\t} else {\n',
          '\tbool success = DX8Wrapper::Set_Render_Device(dev,width,height,bits,windowed,resize_window);\n\tif (success) {\n\t\tUnknown_Reset_Distortion_List();\n\t\treturn WW3D_ERROR_OK;\n\t} else {\n',
          "WW3D::Set_Render_Device (both overloads, 0x917790 and 0x9177E0) calls an E&B function (0x995DC0) on success; the two overloads are now byte-identical apart from their relocated callees, so objmatch finds each at both addresses ('multiple') and verify cannot credit them. The E&B module (ww3d2/unknown_distortion.cpp, D19: a screen-distortion effect; its list is enabled when DX8Caps::SupportCubemaps and the width is at most 1024); neutral name (D10)"),
+        ('static int\t\t\t\t\t\t\t\t\t\t\t\t_TextureReduction = 0;\n',
+         'static int\t\t\t\t\t\t\t\t\t\t\t\t_TextureReduction = 0;\nstatic bool\t\t\t\t\t\t\t\t\t\t\t\t_LargeTextureExtraReductionEnabled = false;\n',
+         "Zero Hour's flag (0xBFAE84, after _TextureReduction 0xBFAE80; E&B has no _TextureMinDim)"),
+        ('int\tWW3D::Get_Texture_Reduction( void )\n{\n\treturn _TextureReduction;\n}\n',
+         'int\tWW3D::Get_Texture_Reduction( void )\n{\n\treturn _TextureReduction;\n}\n\nvoid WW3D::Enable_Large_Texture_Extra_Reduction(bool onoff)\n{\n\tif (_LargeTextureExtraReductionEnabled != onoff) {\n\t\t_LargeTextureExtraReductionEnabled = onoff;\n\t\t_Invalidate_Textures();\n\t}\n}\n\nbool WW3D::Is_Large_Texture_Extra_Reduction_Enabled(void)\n{\n\treturn _LargeTextureExtraReductionEnabled;\n}\n',
+         "Zero Hour's (0x918DA0 with _Invalidate_Textures inlined, 0x918E60), placed as the client orders them"),
     ],
     ('ww3d2', 'assetmgr.h'): [
         ('\t\tTextureClass::MipCountType mip_level_count=TextureClass::MIP_LEVELS_ALL,',
@@ -778,6 +784,9 @@ TEXTURE_API_PATCHES = {
         ('\t\t\t}\n\t\t}\n\t}\n}\n\n\n',
          "\t\t\t}\n\t\t}\n\t}\n}\n\n// E&B (name not known): last frame's count of textures applied (0x94B910)\nunsigned TextureBaseClass::Unknown_Get_Textures_Applied_Last_Frame()\n{\n\treturn UnknownTexturesAppliedLastFrame;\n}\n\n\n",
          "TextureBaseClass::Invalidate_Old_Unused_Textures (0x94B770): E&B keeps last frame's TexturesAppliedPerFrame (0xC01294) and zeroes the count before the thumbnail test; Unknown_Get_Textures_Applied_Last_Frame (0x94B910, too short for byte matching) returns it"),
+        ('\tif (MipLevelCount==MIP_LEVELS_1) return 0;\n\n\tint reduction=WW3D::Get_Texture_Reduction();\n\tif (MipLevelCount && reduction>MipLevelCount) {\n',
+         "\tif (MipLevelCount==MIP_LEVELS_1) return 0;\n\tif (Width <= 32 || Height <= 32) return 0;\n\n\tint reduction=WW3D::Get_Texture_Reduction();\n\n\t// 'large texture extra reduction' causes textures above 256x256 to be reduced one more step.\n\tif (WW3D::Is_Large_Texture_Extra_Reduction_Enabled() && (Width > 256 || Height > 256)) {\n\t\treduction++;\n\t}\n\tif (MipLevelCount && reduction>MipLevelCount) {\n",
+         "Zero Hour's body: the client's Get_Reduction 0x94BC20 tests Width/Height (+0x2C/+0x30) against 32 and 256 and calls Is_Large_Texture_Extra_Reduction_Enabled 0x918E60"),
     ],
     ('ww3d2', 'textureloader.h'): [
         ('\t\tunsigned char *\t\tLockedSurfacePtr[TextureClass::MIP_LEVELS_MAX];\n\t\tunsigned\tint\t\t\tLockedSurfacePitch[TextureClass::MIP_LEVELS_MAX];',
@@ -1225,6 +1234,11 @@ TEXTURE_API_PATCHES = {
         ('\tSphereShader.Set_Cull_Mode(ShaderClass::CULL_MODE_DISABLE);\n',
          '\t// E&B keeps backface culling on (0x90C037 copies the preset unchanged)\n\t//SphereShader.Set_Cull_Mode(ShaderClass::CULL_MODE_DISABLE);\n',
          'SphereRenderObjClass::Init_Material (0x90BF80): E&B keeps backface culling on; the shader is the alpha preset unchanged (0x90C037)'),
+    ],
+    ('ww3d2', 'ww3d.h'): [
+        ('\tstatic int\t\t\t\t\tGet_Texture_Reduction( void );\n',
+         '\tstatic int\t\t\t\t\tGet_Texture_Reduction( void );\n\tstatic void\t\t\t\t\tEnable_Large_Texture_Extra_Reduction(bool onoff);\n\tstatic bool\t\t\t\t\tIs_Large_Texture_Extra_Reduction_Enabled(void);\n',
+         "Zero Hour's: Enable_Large_Texture_Extra_Reduction 0x918DA0 and Is_Large_Texture_Extra_Reduction_Enabled 0x918E60 follow Get_Texture_Reduction 0x918D90 (no Get_Texture_Min_Dimension); Get_Reduction 0x94BC20 calls it"),
     ],
 }
 for _key, _edits in TEXTURE_API_PATCHES.items():

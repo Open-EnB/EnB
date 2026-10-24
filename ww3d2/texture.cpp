@@ -395,8 +395,14 @@ unsigned TextureBaseClass::Get_Reduction() const
 	// don't reduce if the texture is too small already or
 	// has no mip map levels
 	if (MipLevelCount==MIP_LEVELS_1) return 0;
+	if (Width <= 32 || Height <= 32) return 0;
 
 	int reduction=WW3D::Get_Texture_Reduction();
+
+	// 'large texture extra reduction' causes textures above 256x256 to be reduced one more step.
+	if (WW3D::Is_Large_Texture_Extra_Reduction_Enabled() && (Width > 256 || Height > 256)) {
+		reduction++;
+	}
 	if (MipLevelCount && reduction>MipLevelCount) {
 		reduction=MipLevelCount;
 	}
