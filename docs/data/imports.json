@@ -3252,6 +3252,8 @@
      "0x9A8580",
      "0x9A85A0",
      "0x9A85D0",
+     "0x9A86D0",
+     "0x9A89D0",
      "0x9A8C60",
      "0x9A8CC0",
      "0x9A8D10",
@@ -4731,7 +4733,7 @@
    "ww3dids.h": "R",
    "ww3dtrig.h": "R"
   },
-  "in_tree_total": 2413,
+  "in_tree_total": 2415,
   "totals": {
    "G": 548,
    "R": 1323,

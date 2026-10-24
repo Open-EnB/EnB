@@ -1654,6 +1654,14 @@ WWSHADE_API_PATCHES = {
          '\tvoid\t\t\t\t\t\t\tInstall_Materials(void) const;\n',
          "E&B's MaterialPassClass::Install_Materials is not virtual and there is no UnInstall_Materials (Renegade's, not Zero Hour's MW change): MeshClass::Render_Material_Pass 0x93F620 calls 0x92E720 directly, and 0x92E720 is in no vtable the client stores"),
     ],
+    ('ww3d2', 'render2dsentence.cpp'): [
+        ('\tif (row_index == 0) {\n\t\treturn text;\n\t}\n\n\tif (!DX8Wrapper::Is_Initted()) {\n\t\treturn text;\n\t}\n\n',
+         '\tif (row_index == 0) {\n\t\treturn text;\n\t}\n\n\t// E&B: no DX8Wrapper::Is_Initted() test here (0x9A86D0)\n\n',
+         "E&B's Find_Row_Start 0x9A86D0 and Get_Formatted_Text_Extents 0x9A89D0 have no DX8Wrapper::Is_Initted test (Render, Get_Text_Extents and Build_Sentence keep theirs): neither reads IsInitted"),
+        ('Render2DSentenceClass::Get_Formatted_Text_Extents (const WCHAR *text, int *row_count)\n{\n\tif (!DX8Wrapper::Is_Initted()) {\n\t\tVector2 temp(0,0);\n\t\treturn(temp);\n\t}\n',
+         'Render2DSentenceClass::Get_Formatted_Text_Extents (const WCHAR *text, int *row_count)\n{\n\t// E&B: no DX8Wrapper::Is_Initted() test here (0x9A89D0)\n',
+         "E&B's Find_Row_Start 0x9A86D0 and Get_Formatted_Text_Extents 0x9A89D0 have no DX8Wrapper::Is_Initted test (Render, Get_Text_Extents and Build_Sentence keep theirs): neither reads IsInitted"),
+    ],
 }
 for _key, _edits in WWSHADE_API_PATCHES.items():
     PATCHES.setdefault(_key, []).extend(_edits)

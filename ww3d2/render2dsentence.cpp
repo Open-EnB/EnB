@@ -312,9 +312,7 @@ Render2DSentenceClass::Find_Row_Start( const WCHAR * text, int row_index )
 		return text;
 	}
 
-	if (!DX8Wrapper::Is_Initted()) {
-		return text;
-	}
+	// E&B: no DX8Wrapper::Is_Initted() test here (0x9A86D0)
 
 	const WCHAR *retval = NULL;
 
@@ -389,10 +387,7 @@ Render2DSentenceClass::Find_Row_Start( const WCHAR * text, int row_index )
 Vector2
 Render2DSentenceClass::Get_Formatted_Text_Extents (const WCHAR *text, int *row_count)
 {
-	if (!DX8Wrapper::Is_Initted()) {
-		Vector2 temp(0,0);
-		return(temp);
-	}
+	// E&B: no DX8Wrapper::Is_Initted() test here (0x9A89D0)
 	
 	float max_x_pos	= 0;
 	float x_pos			= 0;
