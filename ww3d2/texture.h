@@ -147,7 +147,7 @@ public:
 	void Invalidate();
 
 	// texture accessors (dx8)
-	IDirect3DBaseTexture8 *Peek_D3D_Base_Texture() const;
+	IDirect3DBaseTexture8 *Peek_D3D_Base_Texture() const { return D3DTexture; }
 	void Set_D3D_Base_Texture(IDirect3DBaseTexture8* tex);
 
 	PoolType Get_Pool() const { return Pool; }

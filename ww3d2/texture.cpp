@@ -271,15 +271,6 @@ void TextureBaseClass::Invalidate()
 }
 
 //**********************************************************************************************
-//! Returns a pointer to the d3d texture
-/*! 
-*/
-IDirect3DBaseTexture8 * TextureBaseClass::Peek_D3D_Base_Texture() const 
-{ 	
-	return D3DTexture; 
-}
-
-//**********************************************************************************************
 //! Set the d3d texture pointer.  Handles ref counts properly.
 /*! 
 */
