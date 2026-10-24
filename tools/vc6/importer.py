@@ -1662,6 +1662,11 @@ WWSHADE_API_PATCHES = {
          'Render2DSentenceClass::Get_Formatted_Text_Extents (const WCHAR *text, int *row_count)\n{\n\t// E&B: no DX8Wrapper::Is_Initted() test here (0x9A89D0)\n',
          "E&B's Find_Row_Start 0x9A86D0 and Get_Formatted_Text_Extents 0x9A89D0 have no DX8Wrapper::Is_Initted test (Render, Get_Text_Extents and Build_Sentence keep theirs): neither reads IsInitted"),
     ],
+    ('ww3d2', 'scene.cpp'): [
+        ('\t\tif (robj->Is_Really_Visible()) {\n\n\t\t\trobj->Render(rinfo);\n\t\t}\n',
+         '\t\tif (robj->Is_Really_Visible()) {\n\t\t\tif (robj->Get_Render_Hook()) {\n\t\t\t\tif (robj->Get_Render_Hook()->Pre_Render(robj, rinfo)) {\n\t\t\t\t\trobj->Render(rinfo);\n\t\t\t\t}\n\t\t\t\trobj->Get_Render_Hook()->Post_Render(robj, rinfo);\n\t\t\t} else {\n\t\t\t\trobj->Render(rinfo);\n\t\t\t}\n\t\t}\n',
+         "E&B's SimpleSceneClass::Customized_Render goes through the object's render hook (Zero Hour's; not its light-environment change): 0x9661C0 tests RenderHook (+0x88), calls Pre_Render (slot 1), Render only if it returns true, then Post_Render (slot 2)"),
+    ],
 }
 for _key, _edits in WWSHADE_API_PATCHES.items():
     PATCHES.setdefault(_key, []).extend(_edits)

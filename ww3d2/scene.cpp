@@ -570,8 +570,14 @@ void SimpleSceneClass::Customized_Render(RenderInfoClass & rinfo)
 		RenderObjClass * robj = it.Peek_Obj();
 
 		if (robj->Is_Really_Visible()) {
-
-			robj->Render(rinfo);
+			if (robj->Get_Render_Hook()) {
+				if (robj->Get_Render_Hook()->Pre_Render(robj, rinfo)) {
+					robj->Render(rinfo);
+				}
+				robj->Get_Render_Hook()->Post_Render(robj, rinfo);
+			} else {
+				robj->Render(rinfo);
+			}
 		}
 	}
 }
