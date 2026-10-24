@@ -434,6 +434,9 @@ public:
 	void								Set_Sub_Object_Transforms_Dirty(bool onoff)							{ if (onoff) { Bits |= SUBOBJ_TRANSFORMS_DIRTY; } else { Bits &= ~SUBOBJ_TRANSFORMS_DIRTY; } }
 	bool								Are_Sub_Object_Transforms_Dirty(void)									{ return (Bits & SUBOBJ_TRANSFORMS_DIRTY) != 0; }
 
+	void								Set_Ignore_LOD_Cost(bool onoff)											{ if (onoff) { Bits |= IGNORE_LOD_COST; } else { Bits &= ~IGNORE_LOD_COST; } }
+	bool								Is_Ignoring_LOD_Cost(void)													{ return (Bits & IGNORE_LOD_COST) != 0; }
+
 	void								Set_Is_Self_Shadowed()														{ Bits|=IS_SELF_SHADOWED; }
 	void								Unset_Is_Self_Shadowed()													{ Bits&=~IS_SELF_SHADOWED; }
 	int								Is_Self_Shadowed() const													{ return (Bits&IS_SELF_SHADOWED); }
@@ -470,6 +473,7 @@ protected:
 		BOUNDING_VOLUMES_VALID =	0x00002000,		
 		IS_TRANSLUCENT =				0x00004000,			// is additive or alpha blended on any poly
 		//IS_VERTEX_PROCESSOR =		0x00008000,			// is or has a vertex processor, OBSOLETE!
+		IGNORE_LOD_COST =				0x00008000,			// used to define if we should ignore object from LOD calculations
 		SUBOBJS_MATCH_LOD =			0x00010000,			// force sub-objects to have same LOD level
 		SUBOBJ_TRANSFORMS_DIRTY =	0x00020000,			// my sub-objects need me to update their transform
 		HAS_USER_LIGHTING =			0x00040000,			// the user has installed a static lighting solve.

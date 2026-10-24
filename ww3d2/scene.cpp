@@ -208,6 +208,9 @@ void SceneClass::Remove_Render_Object(RenderObjClass * obj)
  *=============================================================================================*/
 void SceneClass::Render(RenderInfoClass & rinfo)
 {
+	// Any stuff that needs to get done before anything else
+	Pre_Render_Processing(rinfo);
+
 	DX8Wrapper::Set_Fog(FogEnabled, FogColor, FogStart, FogEnd);
 
 	if (Get_Extra_Pass_Polygon_Mode()==EXTRA_PASS_DISABLE) {
@@ -236,6 +239,9 @@ void SceneClass::Render(RenderInfoClass & rinfo)
 
 		WW3D::Enable_Texturing(old_enable);
 	}
+
+	// Any stuff that needs to get done after anything else
+	Post_Render_Processing(rinfo);
 }
 
 /***********************************************************************************************
@@ -459,7 +465,7 @@ void SimpleSceneClass::Visibility_Check(CameraClass * camera)
 		}
 
 		// Prepare visible objects for LOD:
-		if (robj->Is_Really_Visible()) {
+		if(robj->Is_Really_Visible() && !robj->Is_Ignoring_LOD_Cost()) {
 			robj->Prepare_LOD(*camera);
 		}
 	}

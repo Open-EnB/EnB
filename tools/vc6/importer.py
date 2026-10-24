@@ -1370,6 +1370,12 @@ WWSHADE_API_PATCHES = {
         ('\tbool\t\t\t\t\t\t\t\tAre_Sub_Object_Transforms_Dirty(void)\t\t\t\t\t\t\t\t\t{ return (Bits & SUBOBJ_TRANSFORMS_DIRTY) != 0; }\n',
          '\tbool\t\t\t\t\t\t\t\tAre_Sub_Object_Transforms_Dirty(void)\t\t\t\t\t\t\t\t\t{ return (Bits & SUBOBJ_TRANSFORMS_DIRTY) != 0; }\n\n\tvoid\t\t\t\t\t\t\t\tSet_Is_Self_Shadowed()\t\t\t\t\t\t\t\t\t\t\t\t\t\t{ Bits|=IS_SELF_SHADOWED; }\n\tvoid\t\t\t\t\t\t\t\tUnset_Is_Self_Shadowed()\t\t\t\t\t\t\t\t\t\t\t\t\t{ Bits&=~IS_SELF_SHADOWED; }\n\tint\t\t\t\t\t\t\t\tIs_Self_Shadowed() const\t\t\t\t\t\t\t\t\t\t\t\t\t{ return (Bits&IS_SELF_SHADOWED); }\n',
          "Zero Hour's self-shadow accessors, used by ShdMeshClass::Render (0xA09430)"),
+        ('\t\t//IS_VERTEX_PROCESSOR =\t\t0x00008000,\t\t\t// is or has a vertex processor, OBSOLETE!\n',
+         '\t\t//IS_VERTEX_PROCESSOR =\t\t0x00008000,\t\t\t// is or has a vertex processor, OBSOLETE!\n\t\tIGNORE_LOD_COST =\t\t\t\t0x00008000,\t\t\t// used to define if we should ignore object from LOD calculations\n',
+         "E&B's RenderObjClass has Zero Hour's IGNORE_LOD_COST bit (0x8000) and accessors: SimpleSceneClass::Visibility_Check 0x965F40 skips Prepare_LOD when Bits (+0x18) bit 15 is set"),
+        ('\tbool\t\t\t\t\t\t\t\tAre_Sub_Object_Transforms_Dirty(void)\t\t\t\t\t\t\t\t\t{ return (Bits & SUBOBJ_TRANSFORMS_DIRTY) != 0; }\n\n',
+         '\tbool\t\t\t\t\t\t\t\tAre_Sub_Object_Transforms_Dirty(void)\t\t\t\t\t\t\t\t\t{ return (Bits & SUBOBJ_TRANSFORMS_DIRTY) != 0; }\n\n\tvoid\t\t\t\t\t\t\t\tSet_Ignore_LOD_Cost(bool onoff)\t\t\t\t\t\t\t\t\t\t\t{ if (onoff) { Bits |= IGNORE_LOD_COST; } else { Bits &= ~IGNORE_LOD_COST; } }\n\tbool\t\t\t\t\t\t\t\tIs_Ignoring_LOD_Cost(void)\t\t\t\t\t\t\t\t\t\t\t\t\t{ return (Bits & IGNORE_LOD_COST) != 0; }\n\n',
+         "E&B's RenderObjClass has Zero Hour's IGNORE_LOD_COST bit (0x8000) and accessors: SimpleSceneClass::Visibility_Check 0x965F40 skips Prepare_LOD when Bits (+0x18) bit 15 is set"),
     ],
     ('ww3d2', 'lightenvironment.h'): [
         ('\tstatic float\t\tGet_Lighting_LOD_Cutoff(void);\n',
@@ -1666,6 +1672,15 @@ WWSHADE_API_PATCHES = {
         ('\t\tif (robj->Is_Really_Visible()) {\n\n\t\t\trobj->Render(rinfo);\n\t\t}\n',
          '\t\tif (robj->Is_Really_Visible()) {\n\t\t\tif (robj->Get_Render_Hook()) {\n\t\t\t\tif (robj->Get_Render_Hook()->Pre_Render(robj, rinfo)) {\n\t\t\t\t\trobj->Render(rinfo);\n\t\t\t\t}\n\t\t\t\trobj->Get_Render_Hook()->Post_Render(robj, rinfo);\n\t\t\t} else {\n\t\t\t\trobj->Render(rinfo);\n\t\t\t}\n\t\t}\n',
          "E&B's SimpleSceneClass::Customized_Render goes through the object's render hook (Zero Hour's; not its light-environment change): 0x9661C0 tests RenderHook (+0x88), calls Pre_Render (slot 1), Render only if it returns true, then Post_Render (slot 2)"),
+        ('\t\tif (robj->Is_Really_Visible()) {\n\t\t\trobj->Prepare_LOD(*camera);\n',
+         '\t\tif(robj->Is_Really_Visible() && !robj->Is_Ignoring_LOD_Cost()) {\n\t\t\trobj->Prepare_LOD(*camera);\n',
+         "E&B's RenderObjClass has Zero Hour's IGNORE_LOD_COST bit (0x8000) and accessors: SimpleSceneClass::Visibility_Check 0x965F40 skips Prepare_LOD when Bits (+0x18) bit 15 is set"),
+        ('void SceneClass::Render(RenderInfoClass & rinfo)\n{\n\tDX8Wrapper::Set_Fog(FogEnabled, FogColor, FogStart, FogEnd);\n',
+         'void SceneClass::Render(RenderInfoClass & rinfo)\n{\n\t// Any stuff that needs to get done before anything else\n\tPre_Render_Processing(rinfo);\n\n\tDX8Wrapper::Set_Fog(FogEnabled, FogColor, FogStart, FogEnd);\n',
+         "E&B's SceneClass::Render calls Zero Hour's Pre_Render_Processing (vtable +0x54) first and Post_Render_Processing (+0x58) last (0x965460)"),
+        ('\t\tWW3D::Enable_Texturing(old_enable);\n\t}\n}\n',
+         '\t\tWW3D::Enable_Texturing(old_enable);\n\t}\n\n\t// Any stuff that needs to get done after anything else\n\tPost_Render_Processing(rinfo);\n}\n',
+         "E&B's SceneClass::Render calls Zero Hour's Pre_Render_Processing (vtable +0x54) first and Post_Render_Processing (+0x58) last (0x965460)"),
     ],
 }
 for _key, _edits in WWSHADE_API_PATCHES.items():
