@@ -3964,23 +3964,6 @@
     "merged": [],
     "name": "polyinfo.cpp"
    },
-   "pot": {
-    "ambiguous": [],
-    "best": "R",
-    "copy": "R",
-    "expected": {
-     "G": 0,
-     "R": 2,
-     "Z": 2
-    },
-    "headers_from": null,
-    "in_tree": [
-     "0x8C8F30",
-     "0x8C8F60"
-    ],
-    "merged": [],
-    "name": "pot.cpp"
-   },
    "predlod": {
     "ambiguous": [
      "0x96F6C0"
@@ -5864,7 +5847,7 @@
    "ww3dids.h": "R",
    "ww3dtrig.h": "R"
   },
-  "in_tree_total": 2477,
+  "in_tree_total": 2475,
   "totals": {
    "G": 548,
    "R": 1323,

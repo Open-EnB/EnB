@@ -221,6 +221,9 @@ NOT_LINKED = {
         'members themselves, Apply 0x94BC80 sets the filter states inline), and Set_Mip_Mapping 0x94CA20, '
         '_Init_Filters 0x94CA30 and _Set_Default_*_Filter 0x94CC30/0x94CC60/0x94CC90 lie inside texture.obj',
     ('ww3d2', 'texturefilter.h'): 'its header (MipCountType moved to texture.h, the only file that included it)',
+    ('ww3d2', 'pot.cpp'):
+        'D55: identical to wwmath\'s pot.cpp; both matched the same two client functions (Find_POT, Find_POT_Log2), '
+        'and a program linking both libraries fails on the duplicate. wwmath\'s copy supplies them; ww3d2/pot.h stays',
 }
 
 
