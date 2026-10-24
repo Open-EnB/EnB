@@ -41,6 +41,7 @@
 #include "bitmaphandler.h"
 
 bool TextureLoader::TextureLoadSuspended;
+unsigned TextureLoader::_UnknownInvalidationTime;
 
 #define USE_MANAGED_TEXTURES
 
@@ -299,6 +300,8 @@ void TextureLoader::Init()
 
 	_TextureLoadThread.Execute();
 	_TextureLoadThread.Set_Priority(-4);
+
+	_UnknownInvalidationTime = 0;
 }
 
 
@@ -817,7 +820,7 @@ void TextureLoader::Update(void (*network_callback)(void))
 		}
 	}
 
-	TextureClass::Invalidate_Old_Unused_Textures(0);
+	TextureClass::Invalidate_Old_Unused_Textures(_UnknownInvalidationTime);
 }
 
 void TextureLoader::Suspend_Texture_Load()

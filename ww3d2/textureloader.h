@@ -33,6 +33,10 @@ class TextureLoadTaskClass;
 class TextureLoader
 {
 public:
+	// E&B (name not known): the time after which unused textures are invalidated, passed to
+	// TextureClass::Invalidate_Old_Unused_Textures by Update; set by the application
+	static unsigned _UnknownInvalidationTime;
+
 	static void Init(void);
 	static void Deinit(void);
 
