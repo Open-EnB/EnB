@@ -357,3 +357,8 @@ Added 2026-10-24 (overnight run; details in `.work/night/item*/report.md`):
   `client.py dis` instead.
 * **Running a built exe from Python.** `subprocess` on Windows can't start a relative path written
   with `/`; make it absolute (`compare.py --exe`).
+* **Linking: LIBCPMT, not LIBCP.** With `/MT` the C++ library is `LIBCPMT.LIB`; `LIBCP.LIB` is the
+  single-threaded one and lacks `std::_Lockit::_Lockit()`. The VMs have only VC98's libraries:
+  `tools/vc6/build.py` copies the DX8 SDK libs over. Its unresolved list covers only what the
+  libraries reference among themselves; a program's own code adds more, and LIB members are
+  pulled only on demand.
