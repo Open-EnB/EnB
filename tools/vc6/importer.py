@@ -3037,8 +3037,11 @@ RECONSTRUCTED = {
                                       "HasWildcard (name.cpp's asserts and code)",
     ('app', 'shared/auxdata/name.cpp'): "NameClass, client 0x4AD380-0x4ADB9B: 11 functions, asserts on the client's "
                                         "lines 138-177 (D25)",
-    ('app', 'shared/auxdata/permstr.h'): "PermString (the client's name, 0x4ADFF0's message), only what name.cpp "
-                                         "uses: one interned pointer, Find 0x4ADE20",
+    ('app', 'shared/auxdata/permstr.h'): "PermString (the client's name, 0x4ADFF0's message): one interned "
+                                         "pointer; PermStringInitClass, the counted initialiser each including "
+                                         "file holds (0x4A60A0, 0x4ADC50)",
+    ('app', 'shared/auxdata/permstr.cpp'): "PermString's table, client 0x4ADC50-0x4AE3C5: 8 functions, asserts on "
+                                           "the client's lines 63-213 (D25)",
     ('app', 'shared/auxdata/lookup.h'): "LookupClass (D24), only what delta.cpp uses: ctor 0x4AC250, a vector at +0 "
                                         "and a map at +0x10 (size 0x20), element types placeholders",
     ('app', 'shared/auxdata/delta_money.cpp'): "the money field's Read 0x4A7470 and Write 0x4A74F0 "
