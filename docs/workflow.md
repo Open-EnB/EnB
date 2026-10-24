@@ -39,7 +39,8 @@ in `tools/vc6/importer.py` (`PATCHES`, `APPENDS`, `NEW_FILES`, `RECONSTRUCTED`).
 4. **Check.**
    * Save `docs/data/imports.json` first.
    * Run `importer.py verify --lib ...` for every library that includes the changed header.
-     WWLib headers reach every library.
+     WWLib headers reach every library. Add `--pool K` to build on K VMs leased from
+     `tools/vc6/pool.py` instead of the three fixed ones (released at the end; toolchain.md §1.3).
    * Compare the sets of `(file, address)` pairs before and after. Compare sets, not totals:
      a total can stay level while functions are traded.
 5. **Keep or drop.**

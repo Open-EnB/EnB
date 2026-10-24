@@ -12,6 +12,8 @@ Z Zero Hour) and every source file, the client functions it reproduces byte for 
                                                    (default .work/replay), and compare with the
                                                    repository; exit status 1 if anything differs
     python importer.py verify                      compile the repository's libraries, byte-match them
+                          [--pool K [--holder-pid P]]  on K VMs leased from pool.py (agent
+                                                   importer-<pid>), released afterwards
     python importer.py refine   --evidence DIR     swap files / splice functions from other copies
                                                    where that adds matches and loses none
     python importer.py report                      write docs/imports.md
@@ -3477,6 +3479,39 @@ def report(state):
     print('docs/imports.md written')
 
 
+import contextlib  # noqa: E402
+
+
+@contextlib.contextmanager
+def pool_lease(count, holder_pid=None):
+    """Lease `count` VMs from pool.py as agent importer-<pid>, point vc6.hosts() at them through
+    ENB_VC6_HOSTS for the block, and release the lease afterwards (stopping idle VMs is pool.py's
+    job). pool.py runs as a child process: it never takes the importer lock, so the lock this
+    process holds cannot deadlock it."""
+    import subprocess
+    pool = [sys.executable, os.path.join(HERE, 'pool.py')]
+    agent = f'importer-{os.getpid()}'
+    cmd = pool + ['lease', '--agent', agent, '--count', str(count)]
+    if holder_pid:
+        cmd += ['--holder-pid', str(holder_pid)]
+    old = os.environ.get('ENB_VC6_HOSTS')
+    try:
+        out = subprocess.run(cmd, stdout=subprocess.PIPE, text=True)
+        line = [l for l in out.stdout.splitlines() if l.startswith('ENB_VC6_HOSTS=')]
+        if out.returncode or not line:
+            raise SystemExit(f'pool.py lease failed (exit {out.returncode}): {out.stdout.strip()}')
+        os.environ['ENB_VC6_HOSTS'] = line[-1].split('=', 1)[1]
+        print(f'verify on pool VMs ({agent}): {os.environ["ENB_VC6_HOSTS"]}', flush=True)
+        yield os.environ['ENB_VC6_HOSTS']
+    finally:
+        if old is None:
+            os.environ.pop('ENB_VC6_HOSTS', None)
+        else:
+            os.environ['ENB_VC6_HOSTS'] = old
+        rel = subprocess.run(pool + ['release', '--agent', agent], stdout=subprocess.PIPE, text=True)
+        print(f'pool: {rel.stdout.strip()}', flush=True)
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('command', choices=['plan', 'assemble', 'replay', 'verify', 'refine', 'report', 'all'])
@@ -3487,6 +3522,10 @@ def main():
     ap.add_argument('--file', action='append', help='limit refine to these source files (e.g. lightenvironment.cpp)')
     ap.add_argument('--lock-wait', type=int, default=LOCK_WAIT,
                     help='seconds to wait for another importer run to finish (default %(default)s)')
+    ap.add_argument('--pool', type=int, metavar='K',
+                    help='verify: lease K VMs from pool.py for this run (sets ENB_VC6_HOSTS), release after')
+    ap.add_argument('--holder-pid', type=int,
+                    help="--pool: the lease's long-lived holder pid (default pool.py's: $ENB_HOLDER_PID, $CLAUDE_PID)")
     a = ap.parse_args()
     if a.command in ('plan', 'assemble', 'refine', 'all') and not a.evidence:
         raise SystemExit('--evidence is required')
@@ -3509,7 +3548,11 @@ def main():
         if problems or diffs:
             raise SystemExit(1)
     if a.command in ('verify', 'all'):
-        save_state(verify(state, a.lib))
+        if a.pool:
+            with pool_lease(a.pool, a.holder_pid):
+                save_state(verify(state, a.lib))
+        else:
+            save_state(verify(state, a.lib))
     if a.command in ('refine', 'all'):
         save_state(refine(state, ev, a.lib, [key_of(f) for f in a.file] if a.file else None))
     if a.command in ('report', 'all'):

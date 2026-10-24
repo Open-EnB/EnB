@@ -105,6 +105,15 @@ holds what and the holder pid. Every start, stop or delete checks the name prefi
 VM's only disk is a differencing child of the base in `Tools\VMPool`, and `destroy` refuses
 leased VMs. The pool never touches `.work/vc6_hosts.json` or vc6.py's defaults.
 
+**`importer.py verify --pool K [--holder-pid P]`** (opt-in; without it verify uses the default
+hosts as before) leases K VMs as agent `importer-<pid>`, sets `ENB_VC6_HOSTS` for the run and
+releases the lease in a `finally` (it leaves stopping idle VMs to `stop-idle`/`reclaim`). The
+holder is `--holder-pid`, else pool.py's own default (`$ENB_HOLDER_PID`, `$CLAUDE_PID`). pool.py
+runs as a child process, which is safe under the importer lock because pool.py never takes it.
+Tested (2026-10-24): `verify --lib wwdebug --pool 1` on `enb-vc6-01` (81, pairs unchanged) and
+`verify --lib ww3d2 --pool 2` on `enb-vc6-01`/`02` (2,477, pairs unchanged, about 100 s); both
+leases released (`pool.py list`: free).
+
 Measured (2026-10-24, `enb-vc6-01`): creating a clone 16 s; `lease` of a stopped clone, start
 to SSH and `cl` answering, 20 s; a compile stamps `@comp.id` build 8799; the differencing disk
 is 2.2 GB after first boot and a compile (2.17 GB of it from the first boot). Tested (2026-10-24): `reclaim` released fake leases whose holder pid had exited, whose pid
