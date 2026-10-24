@@ -1537,6 +1537,9 @@ WWSHADE_API_PATCHES = {
         ('\tREF_PTR_RELEASE(state->sorting_state.material);\n\tfor (unsigned i=0;i<MAX_TEXTURE_STAGES;++i) {\n',
          '\tREF_PTR_RELEASE(state->sorting_state.material);\n\tfor (i=0;i<MAX_TEXTURE_STAGES;++i) {\n',
          "The stream loop's int i (Zero Hour's) is reused by the texture loop, as in Zero Hour; VC6 leaks for-loop variables, so a second declaration does not compile"),
+        ('\tREF_PTR_RELEASE(state->sorting_state.material);\n\tfor (i=0;i<MAX_TEXTURE_STAGES;++i) {\n',
+         '\tREF_PTR_RELEASE(state->sorting_state.material);\n\tfor (i=0;i<DX8Wrapper::Get_Current_Caps()->Get_Max_Textures_Per_Pass();++i) \n\t{\n',
+         "E&B's sorting Release_Refs releases textures up to the device's texture stages (Zero Hour's): 0x983300 loops to CurrentCaps (0xC006A0) +0x124, Get_Max_Textures_Per_Pass"),
     ],
     ('ww3d2', 'dx8vertexbuffer.h'): [
         ('\tVertexBufferClass(unsigned type, unsigned FVF, unsigned short VertexCount);\n',
