@@ -1,6 +1,6 @@
 {
  "app": {
-  "ambiguous_total": 31,
+  "ambiguous_total": 47,
   "base": "reconstructed",
   "compile_errors": [],
   "files": {
@@ -226,6 +226,18 @@
     "merged": [],
     "name": "shared/auxdata/encode.cpp"
    },
+   "heightfield": {
+    "ambiguous": [
+     "0x4AE1B0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x447C40"
+    ],
+    "merged": [],
+    "name": "shared/heightfield.cpp"
+   },
    "kv_encoder_base": {
     "ambiguous": [
      "0x42A6C0",
@@ -310,6 +322,43 @@
     ],
     "merged": [],
     "name": "shared/kv_pair_string.cpp"
+   },
+   "land": {
+    "ambiguous": [
+     "0x45CB00",
+     "0x45CB40",
+     "0x45CC10",
+     "0x45CCE0",
+     "0x45CDC0",
+     "0x45CF20",
+     "0x462BF0",
+     "0x48A7F0",
+     "0x48A960",
+     "0x48AB30"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42F250",
+     "0x447C40",
+     "0x4627F0",
+     "0x462F30",
+     "0x463030",
+     "0x463060",
+     "0x4630B0",
+     "0x4630E0",
+     "0x463100",
+     "0x463130",
+     "0x463150",
+     "0x4631A0",
+     "0x4631F0",
+     "0x463240",
+     "0x463340",
+     "0x463370",
+     "0x7F0EC0"
+    ],
+    "merged": [],
+    "name": "shared/land.cpp"
    },
    "linearbu": {
     "ambiguous": [],
@@ -415,6 +464,78 @@
     "merged": [],
     "name": "shared/auxdata/policy.cpp"
    },
+   "spln_db": {
+    "ambiguous": [
+     "0x45CB00",
+     "0x45CB40",
+     "0x45CBE0",
+     "0x45CCE0",
+     "0x45CDC0",
+     "0x45CF20",
+     "0x48A7F0",
+     "0x48A960",
+     "0x48AB30"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42F250",
+     "0x4893F0",
+     "0x48A190",
+     "0x48A210",
+     "0x48A340",
+     "0x48A3F0",
+     "0x48A4E0",
+     "0x48ACF0"
+    ],
+    "merged": [],
+    "name": "shared/spln_db.cpp"
+   },
+   "stars": {
+    "ambiguous": [
+     "0x42A900",
+     "0x42AAE0",
+     "0x42AFF0",
+     "0x4333D0",
+     "0x436420",
+     "0x436730",
+     "0x44D580",
+     "0x45CC10",
+     "0x462BF0",
+     "0x46BE90",
+     "0x474080",
+     "0x483600"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42F250",
+     "0x4627F0",
+     "0x462F30",
+     "0x463030",
+     "0x463060",
+     "0x4630B0",
+     "0x4630E0",
+     "0x463100",
+     "0x463130",
+     "0x463150",
+     "0x4631A0",
+     "0x4631F0",
+     "0x463240",
+     "0x463340",
+     "0x463370",
+     "0x481A20",
+     "0x481A50",
+     "0x481B70",
+     "0x4826E0",
+     "0x482790",
+     "0x482920",
+     "0x482D80",
+     "0x482E20"
+    ],
+    "merged": [],
+    "name": "shared/stars.cpp"
+   },
    "unknown_root": {
     "ambiguous": [
      "0x42B2F0"
@@ -447,15 +568,19 @@
    "shared/auxdata/permstr.h": "reconstructed",
    "shared/auxdata/unknown_root.h": "reconstructed",
    "shared/duration.h": "reconstructed",
+   "shared/heightfield.h": "reconstructed",
    "shared/kv_encoder_base.h": "reconstructed",
    "shared/kv_list.h": "reconstructed",
    "shared/kv_pair.h": "reconstructed",
    "shared/kv_pair_string.h": "reconstructed",
+   "shared/land.h": "reconstructed",
    "shared/money.h": "reconstructed",
+   "shared/spln_db.h": "reconstructed",
+   "shared/stars.h": "reconstructed",
    "shared/strconv_lib.h": "reconstructed",
    "shared/unknown_debug.h": "reconstructed"
   },
-  "in_tree_total": 199,
+  "in_tree_total": 230,
   "totals": {}
  },
  "ww3d2": {

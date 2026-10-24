@@ -7,10 +7,10 @@ are listed here until better evidence raises their tag. Regenerate with
 
 | Score | Meaning | Names |
 |---|---|---|
-| 5 | the client names it | 0 |
+| 5 | the client names it | 2 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 24 |
-| 3 | by convention from a client-named file or sibling | 13 |
-| 2 | describes what the code does | 0 |
+| 3 | by convention from a client-named file or sibling | 15 |
+| 2 | describes what the code does | 33 |
 | 1 | neutral placeholder | 174 |
 
 ## For review (score 3 and below)
@@ -191,6 +191,39 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `m_Unknown7C` | `tests/capharness/auxreplay/auxreplay.cpp:168` | untagged neutral name (D10) |
 | 1 | `m_Unknown98` | `tests/capharness/auxreplay/auxreplay.cpp:286` | untagged neutral name (D10) |
 | 1 | `Unknown_All` | `tests/capharness/auxreplay/auxreplay.cpp:287` | untagged neutral name (D10) |
+| 2 | `Next_Token` | `app/shared/heightfield.cpp:61` | ours, the PGM tokenizer |
+| 2 | `heightfield.h` | `app/shared/heightfield.h:28` | describes the class; no assert or __FILE__ names the file |
+| 2 | `HeightFieldClass` | `app/shared/heightfield.h:36` | after land.ini's [HEIGHTMAP] / HEIGHT_MAP; the client names no class |
+| 2 | `Load` | `app/shared/heightfield.h:43` | methods and members describe what they do / hold (VIDTEST 0x402420, 0x4026B0, 0x402AE0) |
+| 2 | `LandVertexStruct` | `app/shared/land.cpp:34` | ours |
+| 2 | `Int_Min` | `app/shared/land.cpp:43` | ours |
+| 2 | `DecoPartStruct` | `app/shared/land.cpp:615` | ours (VIDTEST 0x416170 batches the prototypes) |
+| 2 | `DecoVertexStruct` | `app/shared/land.cpp:627` | ours |
+| 2 | `DecoInstanceStruct` | `app/shared/land.cpp:634` | ours |
+| 2 | `land.h` | `app/shared/land.h:37` | after LandClass; no assert or __FILE__ names the file |
+| 2 | `LandLightingStruct` | `app/shared/land.h:58` | the record Update_Lighting hands the land (VIDTEST esp+0x74) |
+| 2 | `Create` | `app/shared/land.h:80` | Create, Load_Assets, Create_Decorations, Update_Patches, Set_Dirty, Update_Lightmap_Full describe VIDTEST 0x4068F0, 0x405750, 0x415C40, 0x4078F0, +0x136, 0x40A9F0 |
+| 2 | `Field` | `app/shared/land.h:108` | members describe what they hold (VIDTEST offsets in land.h's header) |
+| 2 | `Read_String` | `app/shared/spln_db.cpp:94` | VIDTEST 0x420100 |
+| 2 | `Read_Curve` | `app/shared/spln_db.cpp:116` | VIDTEST 0x41FCB0 / 0x41FDA0 |
+| 2 | `SplineDatabaseClass` | `app/shared/spln_db.h:41` | after the mailslot "\\.\mailslot\G\SplineDatabaseUpdate"; the class name is not in the client |
+| 2 | `Load` | `app/shared/spln_db.h:55` | loads a .wsd (assert 'database_filename' is the client's argument name) |
+| 2 | `Get_Spline` | `app/shared/spln_db.h:61` | lookup by name (assert 'spline_name') |
+| 2 | `Get_Color_Splines` | `app/shared/spln_db.h:63` | name_R / name_G / name_B (VIDTEST 0x41D030; assert 'base_name') |
+| 2 | `Evaluate_Color` | `app/shared/spln_db.h:66` | ours, the three curves at t |
+| 2 | `EntryStruct` | `app/shared/spln_db.h:70` | one spline (the client's assert 'EntryArray[i]' names the array) |
+| 2 | `Load_Entry` | `app/shared/spln_db.h:80` | reads chunk 0x810 / 0x811 (VIDTEST 0x41F960) |
+| 2 | `Find` | `app/shared/spln_db.h:82` | name lookup (VIDTEST 0x41CFF0) |
+| 2 | `StarLayerClass` | `app/shared/stars.h:42` | one stars.ini layer (Texture, NumStars, ...); the client names no class |
+| 2 | `Render` | `app/shared/stars.h:49` | draws the first max_polys polygons (0x481B70) |
+| 2 | `Load` | `app/shared/stars.h:51` | reads one ini section (0x481DB0, assert 'section') |
+| 2 | `Get_Num_Polys` | `app/shared/stars.h:53` | polygons of all its stars (inlined in 0x4829E0 / 0x482D80) |
+| 2 | `PointGroup` | `app/shared/stars.h:56` | members after their WW3D types and the ini keys |
+| 2 | `StarFieldClass` | `app/shared/stars.h:67` | the RenderObjClass holding the layers (vtable 0xAEA258); the client names no class |
+| 2 | `Init` | `app/shared/stars.h:79` | loads stars.ini for a system number (0x4829E0) |
+| 2 | `Free_Layers` | `app/shared/stars.h:81` | deletes the layers (0x482920) |
+| 2 | `Set_Budget` | `app/shared/stars.h:83` | the polygon budget at +0xA0 |
+| 2 | `std:` | `app/shared/stars.h:88` | Layers (+0x8C), TotalPolys (+0x9C), Budget (+0xA0) |
 | 3 | `DeltaShipClass` | `app/client/aux_roots.h:524` | the client's root string "Ship", Westwood XxxClass (D24); structure = Net-7 AuxShipIndex / C# ShipObject (C# fields = ours (same names, same order); Net-7 Construct 58 children = ours) |
 | 3 | `DeltaComponentClass` | `app/client/aux_roots.h:593` | the client's root string "Component", Westwood XxxClass (D24); structure = C# ComponentObject (C# fields = ours (same names, same order)) |
 | 3 | `DeltaLightClass` | `app/client/aux_roots.h:603` | the client's root string "Light", Westwood XxxClass (D24); structure = C# LightObject (C# fields = ours (same names, same order)) |
@@ -204,3 +237,5 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `DeltaStargateClass` | `app/client/aux_roots.h:1172` | the client's root string "Stargate", Westwood XxxClass (D24); structure = C# StargateObject (C# fields = ours (same names, same order)) |
 | 3 | `DeltaArrayClass` | `app/shared/auxdata/delta_array.h:25` | by convention (D24) from the client's file delta_array.h |
 | 3 | `DeltaItemArrayClass` | `app/shared/auxdata/delta_item_array.h:25` | by convention (D24) from the client's file delta_item_array.h |
+| 3 | `spln_db.h` | `app/shared/spln_db.h:32` | header of the client's app\shared\spln_db.cpp (assert __FILE__) |
+| 3 | `stars.h` | `app/shared/stars.h:28` | header of the client's app\shared\stars.cpp (assert __FILE__) |
