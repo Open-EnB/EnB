@@ -1510,6 +1510,7 @@ bool TextureLoadTaskClass::Load_Uncompressed_Mipmap(void)
 	unsigned char * converted_surface	= NULL;
 
 	// No paletted format allowed when generating mipmaps
+	Vector3 hsv_shift=HSVShift;
 	if (	src_format	== WW3D_FORMAT_A1R5G5B5 
 		|| src_format	== WW3D_FORMAT_R5G6B5 
 		|| src_format	== WW3D_FORMAT_A4R4G4B4 
@@ -1534,7 +1535,9 @@ bool TextureLoadTaskClass::Load_Uncompressed_Mipmap(void)
 			src_format,
 			(unsigned char*)targa.GetPalette(),
 			targa.Header.CMapDepth>>3,
-			false);
+			false,
+			hsv_shift);
+		hsv_shift=Vector3(0.0f,0.0f,0.0f);
 
 		src_surface	= converted_surface;
 		src_format	= WW3D_FORMAT_A8R8G8B8;	//dest_format;
@@ -1560,7 +1563,9 @@ bool TextureLoadTaskClass::Load_Uncompressed_Mipmap(void)
 			src_format,
 			NULL,
 			0,
-			true);
+			true,
+			hsv_shift);
+		hsv_shift=Vector3(0.0f,0.0f,0.0f);
 
 		width			>>= 1;
 		height		>>= 1;

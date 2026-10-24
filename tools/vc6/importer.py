@@ -1695,6 +1695,15 @@ WWSHADE_API_PATCHES = {
         ('\t\t\tGet_Locked_Surface_Ptr(level),\n\t\t\tGet_Locked_Surface_Pitch(level));\n\n\t\twidth\t\t>>= 1;\n',
          '\t\t\tGet_Locked_Surface_Ptr(level),\n\t\t\tGet_Locked_Surface_Pitch(level),\n\t\t\tHSVShift);\n\n\t\twidth\t\t>>= 1;\n',
          "E&B's Load_Compressed_Mipmap passes the task's HSVShift to Copy_Level_To_Surface (Zero Hour's argument; not its Reduction pre-loop): 0x94AC00 pushes &HSVShift (+0x28) where the default would build a zero Vector3"),
+        ('\t// No paletted format allowed when generating mipmaps\n\tif (\tsrc_format\t== WW3D_FORMAT_A1R5G5B5 \n',
+         '\t// No paletted format allowed when generating mipmaps\n\tVector3 hsv_shift=HSVShift;\n\tif (\tsrc_format\t== WW3D_FORMAT_A1R5G5B5 \n',
+         "E&B's Load_Uncompressed_Mipmap applies the task's HSV shift once (Zero Hour's hsv_shift local, cleared after the first copy; not its Reduction pre-loop): 0x94ACC0 copies HSVShift (+0x28..+0x30) into a local, passes it to Copy_Image and zeroes it afterwards"),
+        ('\t\t\ttarga.Header.CMapDepth>>3,\n\t\t\tfalse);\n\n\t\tsrc_surface\t= converted_surface;\n',
+         '\t\t\ttarga.Header.CMapDepth>>3,\n\t\t\tfalse,\n\t\t\thsv_shift);\n\t\thsv_shift=Vector3(0.0f,0.0f,0.0f);\n\n\t\tsrc_surface\t= converted_surface;\n',
+         "E&B's Load_Uncompressed_Mipmap applies the task's HSV shift once (Zero Hour's hsv_shift local, cleared after the first copy; not its Reduction pre-loop): 0x94ACC0 copies HSVShift (+0x28..+0x30) into a local, passes it to Copy_Image and zeroes it afterwards"),
+        ('\t\t\tNULL,\n\t\t\t0,\n\t\t\ttrue);\n\n\t\twidth\t\t\t>>= 1;\n',
+         '\t\t\tNULL,\n\t\t\t0,\n\t\t\ttrue,\n\t\t\thsv_shift);\n\t\thsv_shift=Vector3(0.0f,0.0f,0.0f);\n\n\t\twidth\t\t\t>>= 1;\n',
+         "E&B's Load_Uncompressed_Mipmap applies the task's HSV shift once (Zero Hour's hsv_shift local, cleared after the first copy; not its Reduction pre-loop): 0x94ACC0 copies HSVShift (+0x28..+0x30) into a local, passes it to Copy_Image and zeroes it afterwards"),
     ],
 }
 for _key, _edits in WWSHADE_API_PATCHES.items():
