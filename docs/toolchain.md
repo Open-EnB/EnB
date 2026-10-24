@@ -61,6 +61,36 @@ also unexplained.
 
 The installed VM is now SP4. The VM has a checkpoint with base VC6 (RTM), taken before SP5; SP4 was installed on top of that checkpoint.
 
+### 1.3 The VM pool (2026-10-24)
+
+**`tools/vc6/pool.py`** runs build VMs on demand, so agents don't share the three fixed VMs.
+Pool VMs are `enb-vc6-NN`: differencing disks `Tools\VMPool\enb-vc6-NN.vhdx` over the read-only
+base `Tools\VMPool\base-vc6.vhdx` (prepared from the `VC6 SP4 (8799)` snapshot: Windows Update,
+Defender, SysMain and WSearch off, fixed pagefile; never attach it to a VM or clear its
+read-only flag). Hardware is copied from `Win10` (generation 2, Secure Boot `MicrosoftWindows`,
+4 GB dynamic memory, 8 vCPU, `Default Switch`); automatic checkpoints are off and the stop
+action is shut down.
+
+    python tools/vc6/pool.py lease --agent NAME [--count K]   # prints ENB_VC6_HOSTS=Daniel@ip,...
+    ENB_VC6_HOSTS=Daniel@ip python tools/vc6/vc6.py compile ...
+    python tools/vc6/pool.py release --agent NAME
+    python tools/vc6/pool.py stop-idle [--minutes 10]        # shut down unleased idle VMs
+    python tools/vc6/pool.py list | create [N] | destroy VM... | destroy --all-free
+
+`lease` reuses free VMs (running ones first), creates clones when short (cap `--max`, default 5),
+starts them, waits for the address (Hyper-V's KVP), SSH with the key and `cl`, and clears
+vc6.py's sync cache for that IP, so the first compile sends the tree (each leasee syncs its own;
+no warm cache, user decision). The host key of a pool IP is accepted on first sight
+(`accept-new`). Leases are by agent name in `.work/pool/leases.json` (lock `leases.lock`,
+taken over when its process is dead or it is older than 2 minutes); they don't expire, so
+`list` shows who holds what. Every start, stop or delete checks the name prefix and that the
+VM's only disk is a differencing child of the base in `Tools\VMPool`, and `destroy` refuses
+leased VMs. The pool never touches `.work/vc6_hosts.json` or vc6.py's defaults.
+
+Measured (2026-10-24, `enb-vc6-01`): creating a clone 16 s; `lease` of a stopped clone, start
+to SSH and `cl` answering, 20 s; a compile stamps `@comp.id` build 8799; the differencing disk
+is 2.2 GB after first boot and a compile (2.17 GB of it from the first boot).
+
 ## 2. Third-party SDKs (D5)
 
 Cloned to `C:\EnBDevelopment\SDK` (outside the repository, like the EA clones).

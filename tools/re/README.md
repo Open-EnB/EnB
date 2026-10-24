@@ -56,6 +56,8 @@ variants of one file alone and report the client functions each gains or loses),
 `objdiff.py` it when no variant gains),
 `sdk_patch.py` (the Miles header as E&B's build used it, outside the repository). Several VMs:
 `vc6.py discover`; `ENB_VC6_HOSTS` gives a job a subset of them (docs/toolchain.md §1.1).
+`pool.py` (a Hyper-V pool of differencing clones: `lease --agent NAME` starts VMs and prints
+`ENB_VC6_HOSTS=...`; `release`, `stop-idle`, `list`, `create`, `destroy`; docs/toolchain.md §1.3).
 
 `tools/stl/stl_corpus.cpp`: explicit VC6 standard-library instantiations, compiled and matched
 to measure the template code in E&B's app region (docs/app-plan.md).
