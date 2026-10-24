@@ -22,6 +22,18 @@ byte-identical in client.exe once relocations are masked; "~ 0x… (0.9)" is a m
 similarity to a client function. Names in *italics* are names I gave from the evidence; the
 binary has no symbols.
 
+**Corrections from running the original (M2.1, 2026-10-24).** A d3d8.dll proxy in a copy of
+EBCONFIG (`tools/harness/run_reference.py`, `d3d8shot.c`) logged the original's frames and file
+opens. Where this document says otherwise, these win:
+* O1 settled: `Build_Scenes`' first store, `mov byte [TheInstance+0x4074],1` at 0x423F44, is
+  `Set_WW3D_Load_On_Demand(true)` (not the asset manager's +0x101D). mu02, MU02A, about 50 sub-files
+  and `BST29A-1.w3d` load on demand, with `..\NAME.w3d` retries for the missing `astro01`,
+  `PPVT01A`, `jvc-p01`. Our build loads the same chain.
+* O4 settled: the original opens `e&bologo_low.dds` and the logo shows.
+* `river4_256.pld` IS opened by the original (§2.1 says no `.pld` is referenced).
+* O7: on the host the original wrote `FreeTextureRam=-3145728`, `TextureReduction=2`; ours
+  fixes it (D53).
+
 ## 1. Program flow
 
 ### 1.1 WinMain (0x4235C0)
@@ -1035,7 +1047,7 @@ addresses are often wrong guesses (for example 0x4026B0 = client 0x4637C0 is lis
 
 ### 7.1 Open questions
 
-* **O1** How `mu02` gets loaded (§2.1). Find out with Procmon on the original, or by stepping
+* **O1** (settled, see the corrections at the top) How `mu02` gets loaded (§2.1). Find out with Procmon on the original, or by stepping
   through the 2002 `Load_3D_Assets`. It decides whether our build needs an explicit
   `Load_3D_Assets("mu02.w3d")`.
 * **O2** The static camera: does MU02A's `CAMERA` bone move? There is no anim file, so probably not.
@@ -1043,7 +1055,7 @@ addresses are often wrong guesses (for example 0x4026B0 = client 0x4637C0 is lis
 * **O3** 0x446080: which WW3D bool setter it is (it invalidates `TheDX8MeshRenderer`). Also asset
   manager +0x101D, and the caps byte +0xDD used for `Enable_Large_Texture_Extra_Reduction`. All
   three need a look at the 2002 WW3D layout against the tree's.
-* **O4** `bologo_low.tga` against `E&BOLogo_low.dds`: is the logo missing in the original too?
+* **O4** (settled: the logo loads as `e&bologo_low.dds`) `bologo_low.tga` against `E&BOLogo_low.dds`: is the logo missing in the original too?
 * **O5** The default lighting without splines (§2.4) and the exact spline sum for the sky/ambient:
   read the asm (0x4252C5-0x4257B8) when M2.4 implements it.
 * **O6** The 2002 vs 2004 differences in Land render (0x410B90 ~ 0.65), decorations and star init:

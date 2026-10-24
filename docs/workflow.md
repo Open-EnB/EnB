@@ -376,3 +376,12 @@ Added 2026-10-24 (overnight run; details in `.work/night/item*/report.md`):
 * **VC6 explicit instantiation.** A constructor can't be instantiated on its own (C2909), nor the
   class after the header's `extern template` (C2949): use an explicit specialisation, with its
   static members specialised before the constructor (C2908).
+* **Never run a program in the game's install folder.** ThumbnailManager writes
+  `..\data\client\mixfiles\*.th6` relative to the working directory, which from `EBCONFIG` is the
+  real game's data. Keep the working directory in `build/` and point a file factory at the art
+  (`vidtest -art DIR`); run originals in a copy (`build/programs/vidtest/ref_ebconfig/`).
+* **Rendering W3D models.** An HLOD's LOD 0 can be empty: set every HLOD, recursively, to
+  `Get_LOD_Count()-1`. Call `SortingRendererClass::Flush()` before a back-buffer screenshot taken
+  before `End_Render`, or alpha geometry is missing.
+* **Capturing an original program.** A d3d8.dll proxy in a copy of its folder (d3d8.dll is not a
+  KnownDLL) reads its back buffer and logs its file opens (`tools/harness/run_reference.py`).
