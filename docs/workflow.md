@@ -325,3 +325,16 @@ Added 2026-10-24 (overnight run; details in `.work/night/item*/report.md`):
   (`e:\build\beta\G\app\...`) and must come out byte-identical, so app sources are compiled through
   `vc6.py`'s `source_alias` (§2.1). Headers' strings are relative (`..\shared/auxdata/...`): the
   first app header with an assert needs E&B's project-directory include form worked out first.
+* **App code forms (2026-10-24, auxdata).** VC6 `/Ob2` inlines functions defined *later* in the
+  same file, so an inlined helper needn't be defined above its callers. Operand order changes
+  bytes (`Pos > size` vs `size < Pos`), and so does a store in the constructor body vs the
+  member-init list (`GrowBy`, `HasWildcard` needed the body). `if (g()) return true; return false;`
+  gives test/setne where `return g();` gives neg/sbb. Overloaded virtuals are laid out in reverse
+  declaration order. An explicit specialisation declaration doesn't stop VC6 inlining a template
+  member; `extern template` does (warning C4231).
+* **appfile.py match.** It puts the draft's folder first on the include path (a scratch copy of a
+  tree header hides the tree's), ignores `// @ADDR` markers on in-class inline functions (define
+  them out of class to check), and reports explicit specialisations as "exact (no marker)".
+* **Docs are UTF-8.** Never write a doc as Latin-1/cp1252: a `§` written that way made
+  progress.md invalid UTF-8 (fixed in fdd1fbd) and the Edit tool then refuses the file. If it
+  happens, repair it (`.work/day/fix_utf8.py`), don't work around it.
