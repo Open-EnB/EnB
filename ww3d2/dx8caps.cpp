@@ -621,10 +621,13 @@ void DX8Caps::Compute_Caps(WW3DFormat display_format, const D3DADAPTER_IDENTIFIE
 		adapter_id.DeviceIdentifier.Data4[7]));
 
 
+	SupportPointSprites = (Caps.MaxPointSize > 1.0f);
 	SupportNPatches = ((Caps.DevCaps&D3DDEVCAPS_NPATCHES)==D3DDEVCAPS_NPATCHES);
 	SupportZBias = ((Caps.RasterCaps&D3DPRASTERCAPS_ZBIAS)==D3DPRASTERCAPS_ZBIAS);
 	supportGamma=((Caps.Caps2&D3DCAPS2_FULLSCREENGAMMA)==D3DCAPS2_FULLSCREENGAMMA);
-
+	SupportModAlphaAddClr = (Caps.TextureOpCaps & D3DTEXOPCAPS_MODULATEALPHA_ADDCOLOR) == D3DTEXOPCAPS_MODULATEALPHA_ADDCOLOR;
+	SupportDot3=(Caps.TextureOpCaps & D3DTEXOPCAPS_DOTPRODUCT3) == D3DTEXOPCAPS_DOTPRODUCT3;
+	SupportCubemaps=(Caps.TextureCaps & D3DPTEXTURECAPS_CUBEMAP) == D3DPTEXTURECAPS_CUBEMAP;
 	SupportAnisotropicFiltering=
 		(Caps.TextureFilterCaps&D3DPTFILTERCAPS_MAGFANISOTROPIC) && (Caps.TextureFilterCaps&D3DPTFILTERCAPS_MINFANISOTROPIC);
 
@@ -632,10 +635,13 @@ void DX8Caps::Compute_Caps(WW3DFormat display_format, const D3DADAPTER_IDENTIFIE
 	DXLOG(("NPatch support: %s\r\n",SupportNPatches ? "Yes" : "No"));
 	DXLOG(("ZBias support: %s\r\n",SupportZBias ? "Yes" : "No"));
 	DXLOG(("Gamma support: %s\r\n",supportGamma ? "Yes" : "No"));
+	DXLOG(("ModAlphaAddClr support: %s\r\n",SupportModAlphaAddClr ? "Yes" : "No"));
+	DXLOG(("Dot3 support: %s\r\n",SupportDot3 ? "Yes" : "No"));
 	DXLOG(("Anisotropic filtering support: %s\r\n",SupportAnisotropicFiltering ? "Yes" : "No"));
 
 	Check_Texture_Format_Support(display_format,Caps);
 	Check_Render_To_Texture_Support(display_format,Caps);
+	Check_Depth_Stencil_Support(display_format,Caps);
 	Check_Texture_Compression_Support(Caps);
 	Check_Bumpmap_Support(Caps);
 	Check_Shader_Support(Caps);
@@ -661,6 +667,57 @@ void DX8Caps::Check_Bumpmap_Support(const D3DCAPS8& caps)
 	SupportBumpEnvmapLuminance=!!(caps.TextureOpCaps & D3DTEXOPCAPS_BUMPENVMAPLUMINANCE);
 	DXLOG(("Bumpmap support: %s\r\n",SupportBumpEnvmap ? "Yes" : "No"));
 	DXLOG(("Bumpmap luminance support: %s\r\n",SupportBumpEnvmapLuminance ? "Yes" : "No"));
+}
+
+// ----------------------------------------------------------------------------
+//
+// Check depth stencil format support (Zero Hour's)
+//
+// ----------------------------------------------------------------------------
+
+void DX8Caps::Check_Depth_Stencil_Support(WW3DFormat display_format, const D3DCAPS8& caps)
+{
+	if (display_format==WW3D_FORMAT_UNKNOWN) 
+	{
+		for (unsigned i=0;i<WW3D_ZFORMAT_COUNT;++i) 
+		{
+			SupportDepthStencilFormat[i]=false;
+		}
+		return;
+	}
+
+	D3DFORMAT d3d_display_format=WW3DFormat_To_D3DFormat(display_format);
+	
+	for (unsigned i=0;i<WW3D_ZFORMAT_COUNT;++i) 
+	{
+		if (i==WW3D_ZFORMAT_UNKNOWN) 
+		{
+			SupportDepthStencilFormat[i]=false;
+		}
+		else 
+		{
+			WW3DZFormat format=(WW3DZFormat)i;
+			SupportDepthStencilFormat[i]=SUCCEEDED
+			(
+				Direct3D->CheckDeviceFormat
+				(
+					caps.AdapterOrdinal,
+					caps.DeviceType,
+					d3d_display_format,
+					D3DUSAGE_DEPTHSTENCIL,
+					D3DRTYPE_TEXTURE,
+					WW3DZFormat_To_D3DFormat(format)
+				)
+			);
+
+			if (SupportDepthStencilFormat[i]) 
+			{
+				StringClass name(0,true);
+				Get_WW3D_ZFormat_Name(format,name);
+				DXLOG(("Supports depth stencil format: %s\r\n",name));
+			}
+		}
+	}
 }
 
 // ----------------------------------------------------------------------------

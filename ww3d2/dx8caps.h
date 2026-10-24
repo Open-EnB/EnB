@@ -273,6 +273,7 @@ private:
 	void Init_Caps(IDirect3DDevice8* D3DDevice);
 	void Check_Texture_Format_Support(WW3DFormat display_format,const D3DCAPS8& caps);
 	void Check_Render_To_Texture_Support(WW3DFormat display_format,const D3DCAPS8& caps);
+	void Check_Depth_Stencil_Support(WW3DFormat display_format, const D3DCAPS8& caps);
 	void Check_Texture_Compression_Support(const D3DCAPS8& caps);
 	void Check_Bumpmap_Support(const D3DCAPS8& caps);
 	void Check_Shader_Support(const D3DCAPS8& caps);
