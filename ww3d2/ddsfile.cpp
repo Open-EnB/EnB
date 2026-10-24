@@ -182,6 +182,12 @@ bool DDSFileClass::Load()
 	file->Open();
 	// Data size is file size minus the header and info block
 	unsigned size=file->Size()-SurfaceDesc.Size-4;
+
+	if (!size)
+	{
+		return false;
+	}
+
 	// Skip mip levels if reduction factor is not zero
 	unsigned level_size=Calculate_DXTC_Surface_Size(SurfaceDesc.Width,SurfaceDesc.Height,Format);
 	unsigned skipped_offset=0;
@@ -197,7 +203,8 @@ bool DDSFileClass::Load()
 	unsigned seek_size=file->Seek(SurfaceDesc.Size+4+skipped_offset);
 	WWASSERT(seek_size==(SurfaceDesc.Size+4+skipped_offset));
 
-	if (size) {
+	if (size && size<0x80000000) 
+	{
 		// Allocate memory for the data excluding the headers
 		DDSMemory=new unsigned char[size];
 		// Read data

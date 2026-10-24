@@ -1705,6 +1705,14 @@ WWSHADE_API_PATCHES = {
          '\t\t\tNULL,\n\t\t\t0,\n\t\t\ttrue,\n\t\t\thsv_shift);\n\t\thsv_shift=Vector3(0.0f,0.0f,0.0f);\n\n\t\twidth\t\t\t>>= 1;\n',
          "E&B's Load_Uncompressed_Mipmap applies the task's HSV shift once (Zero Hour's hsv_shift local, cleared after the first copy; not its Reduction pre-loop): 0x94ACC0 copies HSVShift (+0x28..+0x30) into a local, passes it to Copy_Image and zeroes it afterwards"),
     ],
+    ('ww3d2', 'ddsfile.cpp'): [
+        ('\tunsigned size=file->Size()-SurfaceDesc.Size-4;\n\t// Skip mip levels if reduction factor is not zero\n',
+         '\tunsigned size=file->Size()-SurfaceDesc.Size-4;\n\n\tif (!size)\n\t{\n\t\treturn false;\n\t}\n\n\t// Skip mip levels if reduction factor is not zero\n',
+         "E&B's DDSFileClass::Load has Zero Hour's size guards: 0x9A0B80 returns false when the data size is 0 (je after the size computation) and allocates only below 0x80000000"),
+        ('\tif (size) {\n\t\t// Allocate memory for the data excluding the headers\n',
+         '\tif (size && size<0x80000000) \n\t{\n\t\t// Allocate memory for the data excluding the headers\n',
+         "E&B's DDSFileClass::Load has Zero Hour's size guards: 0x9A0B80 returns false when the data size is 0 (je after the size computation) and allocates only below 0x80000000"),
+    ],
 }
 for _key, _edits in WWSHADE_API_PATCHES.items():
     PATCHES.setdefault(_key, []).extend(_edits)
