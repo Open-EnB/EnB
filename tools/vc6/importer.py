@@ -817,6 +817,9 @@ TEXTURE_API_PATCHES = {
         ('//**********************************************************************************************\n//! Get texture memory usage\n/*! \n*/\nunsigned TextureClass::Get_Texture_Memory_Usage() const\n{\n\tint size=0;\n\tif (!Peek_D3D_Texture()) return 0;\n\tfor (unsigned i=0;i<Peek_D3D_Texture()->GetLevelCount();++i) \n\t{\n\t\tD3DSURFACE_DESC desc;\n\t\tDX8_ErrorCode(Peek_D3D_Texture()->GetLevelDesc(i,&desc));\n\t\tsize+=desc.Size;\n\t}\n\treturn size;\n}\n\n',
          '',
          "TextureClass uses TextureBaseClass's Get_Texture_Memory_Usage (0x94C1D0)"),
+        ('\treturn texture_count;\n}\n\n/*************************************************************************\n**                             TextureClass\n*************************************************************************/\n',
+         '\treturn texture_count;\n}\n\n// E&B: compiled here, not in texturefilter.cpp (0x94CA20, inlined by Load_Texture 0x94CCC0)\n//**********************************************************************************************\n//! Set mip mapping filter (legacy)\n/*!\n*/\nvoid TextureFilterClass::Set_Mip_Mapping(FilterType mipmap)\n{\n//\tif (mipmap != FILTER_TYPE_NONE && Get_Mip_Level_Count() <= 1 && Is_Initialized()) \n//\t{\n//\t\tWWASSERT_PRINT(0, "Trying to enable MipMapping on texture w/o Mip levels!\\n");\n//\t\treturn;\n//\t}\n\tMipMapFilter=mipmap;\n}\n\n/*************************************************************************\n**                             TextureClass\n*************************************************************************/\n',
+         "E&B compiles Set_Mip_Mapping in texture.cpp: its out-of-line copy is at 0x94CA20, inside texture.obj's range (after _Get_Total_Locked_Surface_Count 0x94C980, before _Init_Filters 0x94CA30), and Load_Texture 0x94CCC0 and the name constructor 0x94B3D0 inline it. The rest of the filter code is the user's call (proposal, 2026-10-24)"),
     ],
     ('ww3d2', 'textureloader.h'): [
         ('\t\tunsigned char *\t\tLockedSurfacePtr[TextureClass::MIP_LEVELS_MAX];\n\t\tunsigned\tint\t\t\tLockedSurfacePitch[TextureClass::MIP_LEVELS_MAX];',
@@ -1269,6 +1272,11 @@ TEXTURE_API_PATCHES = {
         ('\tstatic int\t\t\t\t\tGet_Texture_Reduction( void );\n',
          '\tstatic int\t\t\t\t\tGet_Texture_Reduction( void );\n\tstatic void\t\t\t\t\tEnable_Large_Texture_Extra_Reduction(bool onoff);\n\tstatic bool\t\t\t\t\tIs_Large_Texture_Extra_Reduction_Enabled(void);\n',
          "Zero Hour's: Enable_Large_Texture_Extra_Reduction 0x918DA0 and Is_Large_Texture_Extra_Reduction_Enabled 0x918E60 follow Get_Texture_Reduction 0x918D90 (no Get_Texture_Min_Dimension); Get_Reduction 0x94BC20 calls it"),
+    ],
+    ('ww3d2', 'texturefilter.cpp'): [
+        ('//**********************************************************************************************\n//! Set mip mapping filter (legacy)\n/*!\n*/\nvoid TextureFilterClass::Set_Mip_Mapping(FilterType mipmap)\n{\n//\tif (mipmap != FILTER_TYPE_NONE && Get_Mip_Level_Count() <= 1 && Is_Initialized()) \n//\t{\n//\t\tWWASSERT_PRINT(0, "Trying to enable MipMapping on texture w/o Mip levels!\\n");\n//\t\treturn;\n//\t}\n\tMipMapFilter=mipmap;\n}\n\n',
+         '',
+         "E&B compiles Set_Mip_Mapping in texture.cpp: its out-of-line copy is at 0x94CA20, inside texture.obj's range (after _Get_Total_Locked_Surface_Count 0x94C980, before _Init_Filters 0x94CA30), and Load_Texture 0x94CCC0 and the name constructor 0x94B3D0 inline it. The rest of the filter code is the user's call (proposal, 2026-10-24)"),
     ],
 }
 for _key, _edits in TEXTURE_API_PATCHES.items():

@@ -636,6 +636,21 @@ int TextureBaseClass::_Get_Total_Locked_Surface_Count()
 	return texture_count;
 }
 
+// E&B: compiled here, not in texturefilter.cpp (0x94CA20, inlined by Load_Texture 0x94CCC0)
+//**********************************************************************************************
+//! Set mip mapping filter (legacy)
+/*!
+*/
+void TextureFilterClass::Set_Mip_Mapping(FilterType mipmap)
+{
+//	if (mipmap != FILTER_TYPE_NONE && Get_Mip_Level_Count() <= 1 && Is_Initialized()) 
+//	{
+//		WWASSERT_PRINT(0, "Trying to enable MipMapping on texture w/o Mip levels!\n");
+//		return;
+//	}
+	MipMapFilter=mipmap;
+}
+
 /*************************************************************************
 **                             TextureClass
 *************************************************************************/

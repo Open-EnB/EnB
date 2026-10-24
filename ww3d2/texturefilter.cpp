@@ -199,20 +199,6 @@ void TextureFilterClass::_Init_Filters(TextureFilterMode filter_type)
 
 
 //**********************************************************************************************
-//! Set mip mapping filter (legacy)
-/*!
-*/
-void TextureFilterClass::Set_Mip_Mapping(FilterType mipmap)
-{
-//	if (mipmap != FILTER_TYPE_NONE && Get_Mip_Level_Count() <= 1 && Is_Initialized()) 
-//	{
-//		WWASSERT_PRINT(0, "Trying to enable MipMapping on texture w/o Mip levels!\n");
-//		return;
-//	}
-	MipMapFilter=mipmap;
-}
-
-//**********************************************************************************************
 //! Set default min filter (legacy)
 /*!
 */
