@@ -1000,9 +1000,17 @@ void Animatable3DObjClass::Single_Anim_Progress (void)
 		// 
 		// Update the frame number and sync time
 		//
+		float oldprev = ModeAnim.PrevFrame;
 		ModeAnim.PrevFrame		= ModeAnim.Frame;
 		ModeAnim.Frame				= Compute_Current_Frame();
 		ModeAnim.LastSyncTime	= WW3D::Get_Sync_Time();
+
+		if (ModeAnim.Frame == ModeAnim.PrevFrame) {
+			// This function was somehow called twice per frame.
+			// Since ModeAnim.Frame hasn't changed, reset the ModeAnim.PrevFrame.
+			// If you don't do this sounds won't be triggered properly because Frame and PrevFrame will be the same.
+			ModeAnim.PrevFrame = oldprev;
+		}
 	
 		//
 		// Force the heirarchy to be recalculated
