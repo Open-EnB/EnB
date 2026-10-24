@@ -3024,7 +3024,7 @@ RECONSTRUCTED = {
     ('app', 'shared/auxdata/bitset.h'): "BitSetClass's declaration (Buffer, NumBits from the asserts; NumBytes a guess)",
     ('app', 'shared/auxdata/delta.cpp'): "DeltaClass and DeltaCompoundClass (D24; the reference decoder's DeltaBase, "
                                          "DeltaCompound), client 0x4A4D40-0x4A6040: Get_Lookup's assert on the "
-                                         "client's line 227 (D25); Unknown_20 0x4A53A0 and Add 0x4A5670 not exact",
+                                         "client's line 227 (D25); Add 0x4A5670 not exact",
     ('app', 'shared/auxdata/delta.h'): "DeltaClass (vtable 0xAEAD70, size 0x84; ctor 0x4A4D40) and DeltaCompoundClass "
                                        "(vtable 0xAEABE4, size 0x9C): layout from the constructors and delta.cpp; "
                                        "the visitor's Add_String 0x4B48A0 (delta_string.cpp's Unknown_00)",

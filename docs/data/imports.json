@@ -43,6 +43,7 @@
      "0x4A51A0",
      "0x4A5270",
      "0x4A5300",
+     "0x4A53A0",
      "0x4A5410",
      "0x4A5490",
      "0x4A5510",
@@ -189,7 +190,7 @@
    "shared/money.h": "reconstructed",
    "shared/unknown_debug.h": "reconstructed"
   },
-  "in_tree_total": 91,
+  "in_tree_total": 92,
   "totals": {}
  },
  "ww3d2": {

@@ -191,8 +191,8 @@ void DeltaCompoundClass::Unknown_20()
 		for (int i = 0; i < count; i++) {
 			Children[i]->Unknown_20();
 		}
-		DeltaClass::Unknown_20();
 	}
+	DeltaClass::Unknown_20();
 }
 
 
@@ -260,9 +260,10 @@ void DeltaCompoundClass::Add(DeltaClass *child)
 **	~DeltaCompoundClass, its first user, as the client has it. 0x4A5880-0x4A6040 are the std::vector
 **	and std::map instances these functions need (D11).
 **
+**	DeltaCompoundClass::Unknown_20 (0x4A53A0) calls DeltaClass::Unknown_20 after the if, not inside
+**	it: inside, VC6 saves esi/edi in the branch where the client saves them first.
+**
 **	Not byte-exact yet:
-**	  DeltaCompoundClass::Unknown_20 (0x4A53A0): the client saves esi/edi before the first test of
-**	    m_Unknown70 and compares it in memory at the end; VC6 here saves them inside the branch.
 **	  DeltaCompoundClass::Add (0x4A5670): push_back inlined, but the client calls size()
 **	    (0x4A58C0) out of line inside the inlined insert, which VC6 here inlines.
 */
