@@ -207,7 +207,8 @@ void SegLineRendererClass::Render
 	const Matrix3D & transform,
 	unsigned int num_points,
 	Vector3 * points,
-	const SphereClass & obj_sphere
+	const SphereClass & obj_sphere,
+	Vector4 * rgbas
 )
 {
 	Matrix4 view;

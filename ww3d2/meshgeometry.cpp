@@ -216,7 +216,15 @@ MeshGeometryClass & MeshGeometryClass::operator = (const MeshGeometryClass & tha
 		REF_PTR_SET(PlaneEq,that.PlaneEq);
 		REF_PTR_SET(VertexShadeIdx,that.VertexShadeIdx);
 		REF_PTR_SET(VertexBoneLink,that.VertexBoneLink);
-		REF_PTR_SET(CullTree,that.CullTree);
+
+		// Clone the cull tree..
+		REF_PTR_RELEASE(CullTree);
+
+		if (that.CullTree) {
+			CullTree = NEW_REF(AABTreeClass, ());
+			*CullTree = *that.CullTree;
+			CullTree->Set_Mesh(this);
+		}
 	}
 	return * this;
 }

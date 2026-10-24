@@ -980,6 +980,9 @@ TEXTURE_API_PATCHES = {
         ('\tif (raytest.IgnoreTranslucentMeshes && Is_Translucent()!=0) return false;\n\tif (Is_Animation_Hidden()) return false;\n',
          '\tif (Is_Animation_Hidden()) return false;\n',
          'MeshClass::Cast_Ray 0x940530: no IgnoreTranslucentMeshes test (collision type, then Is_Animation_Hidden, then StartBad)'),
+        ('void MeshClass::Make_Unique()\n{\n\tif (Model->Num_Refs()==1) return;\n',
+         'void MeshClass::Make_Unique(bool force_meshmdl_clone)\n{\n\t// Usually we will not clone the mesh model if it is already unique - force_meshmdl_clone will\n\t// force it to be cloned in any case. This is used in some special situations, for example if we\n\t// want to change this mesh and it may have already been rendered, we need to clone the mesh\n\t// model regardless of whether there is another mesh using it.\n\tif (Model->Num_Refs()==1 && !force_meshmdl_clone) return;\n',
+         "Zero Hour's MeshClass::Make_Unique(bool force_meshmdl_clone): 0x940300 tests the argument when the model has one reference"),
     ],
     ('ww3d2', 'meshmdlio.cpp'): [
         ('\t\tSSCAT_ADDITIVE_BF\t\t= (1 << ShaderClass::SSCAT_ADDITIVE),\n',
@@ -988,6 +991,26 @@ TEXTURE_API_PATCHES = {
         ('\tcase (SSCAT_ADDITIVE_BF | SSCAT_ALPHA_TEST_BF):\n',
          '\tcase SSCAT_SCREEN_BF:\n',
          "MeshModelClass::compute_static_sort_levels 0x9BD260: Zero Hour's screen-blend case (case 8 -> SORT_LEVEL_BIN2)"),
+    ],
+    ('ww3d2', 'seglinerenderer.h'): [
+        ('\t\t\t\t\t\t\t\t\t\tVector3 * points,\n\t\t\t\t\t\t\t\t\t\tconst SphereClass & obj_sphere);\n',
+         '\t\t\t\t\t\t\t\t\t\tVector3 * points,\n\t\t\t\t\t\t\t\t\t\tconst SphereClass & obj_sphere,\n\t\t\t\t\t\t\t\t\t\tVector4 * rgbas = 0);\n',
+         "Zero Hour's per-point colours argument: SegmentedLineClass::Render_Seg_Line 0x969C50 and Render 0x9695A0 push a sixth argument 0 to SegLineRendererClass::Render 0x9BEB20"),
+    ],
+    ('ww3d2', 'seglinerenderer.cpp'): [
+        ('\tVector3 * points,\n\tconst SphereClass & obj_sphere\n',
+         '\tVector3 * points,\n\tconst SphereClass & obj_sphere,\n\tVector4 * rgbas\n',
+         "Zero Hour's per-point colours argument (unused here): SegLineRendererClass::Render 0x9BEB20 takes six arguments"),
+    ],
+    ('ww3d2', 'mesh.h'): [
+        ('\tvoid\t\t\t\t\t\t\t\tMake_Unique();\n',
+         '\tvoid\t\t\t\t\t\t\t\tMake_Unique(bool force_meshmdl_clone = false);\n',
+         "Zero Hour's MeshClass::Make_Unique(bool force_meshmdl_clone): 0x940300 tests the argument when the model has one reference"),
+    ],
+    ('ww3d2', 'meshgeometry.cpp'): [
+        ('\t\tREF_PTR_SET(VertexBoneLink,that.VertexBoneLink);\n\t\tREF_PTR_SET(CullTree,that.CullTree);\n\t}\n\treturn * this;\n}\n',
+         '\t\tREF_PTR_SET(VertexBoneLink,that.VertexBoneLink);\n\n\t\t// Clone the cull tree..\n\t\tREF_PTR_RELEASE(CullTree);\n\n\t\tif (that.CullTree) {\n\t\t\tCullTree = NEW_REF(AABTreeClass, ());\n\t\t\t*CullTree = *that.CullTree;\n\t\t\tCullTree->Set_Mesh(this);\n\t\t}\n\t}\n\treturn * this;\n}\n',
+         "Zero Hour's MeshGeometryClass::operator=: 0x92A200 releases CullTree and clones the source's (new of 0x1C bytes)"),
     ],
 }
 for _key, _edits in TEXTURE_API_PATCHES.items():

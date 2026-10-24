@@ -164,7 +164,7 @@ public:
 	void								Replace_Texture(TextureClass* texture,TextureClass* new_texture);
 	void								Replace_VertexMaterial(VertexMaterialClass* vmat,VertexMaterialClass* new_vmat);
 
-	void								Make_Unique();
+	void								Make_Unique(bool force_meshmdl_clone = false);
 	unsigned							Get_Debug_Id() const { return  MeshDebugId; }
 
 	void								Set_Debugger_Disable(bool b) { IsDisabledByDebugger=b; }

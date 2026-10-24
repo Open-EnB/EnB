@@ -121,7 +121,8 @@ public:
 										const Matrix3D & transform,
 										unsigned int point_count,
 										Vector3 * points,
-										const SphereClass & obj_sphere);
+										const SphereClass & obj_sphere,
+										Vector4 * rgbas = 0);
 
 	void					Reset_Line(void);
 
