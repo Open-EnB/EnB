@@ -8665,6 +8665,97 @@
   "base": "Z",
   "compile_errors": [],
   "files": {
+   "shd6bumpdiff": {
+    "best": "Z",
+    "copy": "Z",
+    "expected": {},
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x47F300",
+     "0xA0FF60",
+     "0xA100F0",
+     "0xA10560"
+    ],
+    "merged": [],
+    "name": "shd6bumpdiff.cpp"
+   },
+   "shd6bumpspec": {
+    "best": "Z",
+    "copy": "Z",
+    "expected": {},
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x47F300",
+     "0xA12AD0",
+     "0xA12C70",
+     "0xA13200"
+    ],
+    "merged": [],
+    "name": "shd6bumpspec.cpp"
+   },
+   "shd7bumpdiff": {
+    "best": "Z",
+    "copy": "Z",
+    "expected": {},
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x47F300",
+     "0xA10A40",
+     "0xA10C40",
+     "0xA11210"
+    ],
+    "merged": [],
+    "name": "shd7bumpdiff.cpp"
+   },
+   "shd7bumpspec": {
+    "best": "Z",
+    "copy": "Z",
+    "expected": {},
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x47F300",
+     "0xA136E0",
+     "0xA13910",
+     "0xA13F70"
+    ],
+    "merged": [],
+    "name": "shd7bumpspec.cpp"
+   },
+   "shd8bumpdiff": {
+    "best": "Z",
+    "copy": "Z",
+    "expected": {},
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0xA118D0",
+     "0xA11B00",
+     "0xA12100",
+     "0xA126D0"
+    ],
+    "merged": [],
+    "name": "shd8bumpdiff.cpp"
+   },
+   "shd8bumpspec": {
+    "best": "Z",
+    "copy": "Z",
+    "expected": {},
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0xA14620",
+     "0xA14870",
+     "0xA14C70",
+     "0xA15240",
+     "0xA15580"
+    ],
+    "merged": [],
+    "name": "shd8bumpspec.cpp"
+   },
    "shdbumpdiff": {
     "best": "Z",
     "copy": "Z",
@@ -9038,7 +9129,7 @@
    "shdsimple.h": "Z",
    "shdsubmesh.h": "Z"
   },
-  "in_tree_total": 138,
+  "in_tree_total": 159,
   "totals": {
    "Z": 62
   }

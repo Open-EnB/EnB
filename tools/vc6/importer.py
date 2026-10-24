@@ -2910,6 +2910,36 @@ SHD_BUMP_PATCHES = {
          '\tvoid\t\t\t\t\t\t\t\tCompute_Texture_Coordinate(const Vector3 & point,Vector3 * set_stq);\n\n\tMatrixMapperClass*\t\t\tPeek_Mapper() const { return Mapper; }\n\nprotected:\n',
          "Zero Hour's ProjectorClass::Peek_Mapper (06/26/02 KM projector.h), used by wwshade's Shd8BumpDiffClass/Shd8BumpSpecClass::Setup_Self_Shadow_Info: 0xA126D0 copies [[[mesh+0xA4]+0xC8]+0x14], 16 DWORDs (ShdMeshClass::Texture_Projector, ProjectorClass::Mapper at +0xC8, MatrixMapperClass::ViewToTexture at +0x14), as Peek_Texture_Projector()->Peek_Mapper()->Get_Texture_Transform(); inline, no other code changes"),
     ],
+    ('wwshade', 'shd6bumpdiff.cpp'): [
+        (':\tShdInterfaceClass(def,SHDDEF_CLASSID_BUMPDIFF),\n',
+         ':\tShdInterfaceClass(def),\n',
+         'base ctor without class id: the constructor 0xA0FF60 (0xA0FF84) pushes only def for ShdInterfaceClass::ShdInterfaceClass 0xA08E70 (ret 4)'),
+    ],
+    ('wwshade', 'shd6bumpspec.cpp'): [
+        (':\tShdInterfaceClass(def,SHDDEF_CLASSID_BUMPSPEC),\n',
+         ':\tShdInterfaceClass(def),\n',
+         'base ctor without class id: the constructor 0xA12AD0 (0xA12AF4) pushes only def for ShdInterfaceClass::ShdInterfaceClass 0xA08E70 (ret 4)'),
+    ],
+    ('wwshade', 'shd7bumpdiff.cpp'): [
+        (':\tShdInterfaceClass(def,SHDDEF_CLASSID_BUMPDIFF),\n',
+         ':\tShdInterfaceClass(def),\n',
+         'base ctor without class id: the constructor 0xA10A40 (0xA10A64) pushes only def for ShdInterfaceClass::ShdInterfaceClass 0xA08E70 (ret 4)'),
+    ],
+    ('wwshade', 'shd7bumpspec.cpp'): [
+        (':\tShdInterfaceClass(def,SHDDEF_CLASSID_BUMPSPEC),\n',
+         ':\tShdInterfaceClass(def),\n',
+         'base ctor without class id: the constructor 0xA136E0 (0xA13703) pushes only def for ShdInterfaceClass::ShdInterfaceClass 0xA08E70 (ret 4)'),
+    ],
+    ('wwshade', 'shd8bumpdiff.cpp'): [
+        (':\tShdInterfaceClass(def,SHDDEF_CLASSID_BUMPDIFF),\n',
+         ':\tShdInterfaceClass(def),\n',
+         'base ctor without class id: the constructor 0xA118D0 (0xA118F4) pushes only def for ShdInterfaceClass::ShdInterfaceClass 0xA08E70 (ret 4)'),
+    ],
+    ('wwshade', 'shd8bumpspec.cpp'): [
+        (':\tShdInterfaceClass(def,SHDDEF_CLASSID_BUMPSPEC),\n',
+         ':\tShdInterfaceClass(def),\n',
+         'base ctor without class id: the constructor 0xA14620 (0xA14644) pushes only def for ShdInterfaceClass::ShdInterfaceClass 0xA08E70 (ret 4)'),
+    ],
 }
 for _key, _edits in SHD_BUMP_PATCHES.items():
     PATCHES.setdefault(_key, []).extend(_edits)
