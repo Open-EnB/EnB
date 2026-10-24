@@ -5614,6 +5614,31 @@
     "merged": [],
     "name": "SoundSceneObj.cpp"
    },
+   "soundstreamhandle": {
+    "copy": "R",
+    "expected": {
+     "G": 0,
+     "R": 0,
+     "Z": 0
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x909500",
+     "0x9DA8C0",
+     "0xA03200",
+     "0xA03290",
+     "0xA032D0",
+     "0xA032E0",
+     "0xA03300",
+     "0xA03320",
+     "0xA033C0",
+     "0xA033F0",
+     "0xA03430"
+    ],
+    "merged": [],
+    "name": "soundstreamhandle.cpp"
+   },
    "threads": {
     "best": "R",
     "copy": "R",
@@ -5632,6 +5657,18 @@
     ],
     "merged": [],
     "name": "Threads.cpp"
+   },
+   "utils": {
+    "copy": "R",
+    "expected": {
+     "G": 0,
+     "R": 0,
+     "Z": 0
+    },
+    "headers_from": null,
+    "in_tree": [],
+    "merged": [],
+    "name": "Utils.cpp"
    },
    "wwaudio": {
     "best": "R",
@@ -5796,7 +5833,7 @@
    "soundhandle.h": "R",
    "soundstreamhandle.h": "R"
   },
-  "in_tree_total": 351,
+  "in_tree_total": 360,
   "totals": {
    "G": 72,
    "R": 205,
@@ -6059,6 +6096,30 @@
     ],
     "merged": [],
     "name": "blit.cpp"
+   },
+   "blowfish": {
+    "copy": "R",
+    "expected": {
+     "G": 0,
+     "R": 0,
+     "Z": 0
+    },
+    "headers_from": null,
+    "in_tree": [],
+    "merged": [],
+    "name": "blowfish.cpp"
+   },
+   "blwstraw": {
+    "copy": "R",
+    "expected": {
+     "G": 0,
+     "R": 0,
+     "Z": 0
+    },
+    "headers_from": null,
+    "in_tree": [],
+    "merged": [],
+    "name": "blwstraw.cpp"
    },
    "buff": {
     "best": "R",
@@ -6564,6 +6625,18 @@
     ],
     "merged": [],
     "name": "ini.cpp"
+   },
+   "int": {
+    "copy": "R",
+    "expected": {
+     "G": 0,
+     "R": 0,
+     "Z": 0
+    },
+    "headers_from": null,
+    "in_tree": [],
+    "merged": [],
+    "name": "int.cpp"
    },
    "lcw": {
     "best": "R",
@@ -7200,6 +7273,18 @@
     "merged": [],
     "name": "sha.cpp"
    },
+   "slnode": {
+    "copy": "R",
+    "expected": {
+     "G": 0,
+     "R": 0,
+     "Z": 0
+    },
+    "headers_from": null,
+    "in_tree": [],
+    "merged": [],
+    "name": "slnode.cpp"
+   },
    "srandom": {
     "best": "R",
     "copy": "R",
@@ -7217,6 +7302,18 @@
     ],
     "merged": [],
     "name": "srandom.cpp"
+   },
+   "stimer": {
+    "copy": "R",
+    "expected": {
+     "G": 0,
+     "R": 0,
+     "Z": 0
+    },
+    "headers_from": null,
+    "in_tree": [],
+    "merged": [],
+    "name": "stimer.cpp"
    },
    "straw": {
     "best": "R",
@@ -7280,6 +7377,40 @@
     ],
     "merged": [],
     "name": "tagblock.cpp"
+   },
+   "targa": {
+    "copy": "R",
+    "expected": {
+     "G": 0,
+     "R": 0,
+     "Z": 0
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x9D28E0",
+     "0x9D2920",
+     "0x9D2980",
+     "0x9D2BE0",
+     "0x9D2C10",
+     "0x9D2EA0",
+     "0x9D2FF0",
+     "0x9D3320",
+     "0x9D33D0",
+     "0x9D3460",
+     "0x9D34B0",
+     "0x9D3510",
+     "0x9D3520",
+     "0x9D3660",
+     "0x9D3810",
+     "0x9D3890",
+     "0x9D38E0",
+     "0x9D3920",
+     "0x9D3970",
+     "0x9D3990",
+     "0x9D39B0"
+    ],
+    "merged": [],
+    "name": "TARGA.CPP"
    },
    "textfile": {
     "best": "R",
@@ -7357,6 +7488,18 @@
     ],
     "merged": [],
     "name": "widestring.cpp"
+   },
+   "win": {
+    "copy": "R",
+    "expected": {
+     "G": 0,
+     "R": 0,
+     "Z": 0
+    },
+    "headers_from": null,
+    "in_tree": [],
+    "merged": [],
+    "name": "win.cpp"
    },
    "wwfile": {
     "best": "R",
@@ -7660,7 +7803,7 @@
    "xstraw.h": "R",
    "xsurface.h": "R"
   },
-  "in_tree_total": 565,
+  "in_tree_total": 586,
   "totals": {
    "G": 394,
    "R": 535,
@@ -8674,6 +8817,18 @@
     "merged": [],
     "name": "definition.cpp"
    },
+   "definitionfactory": {
+    "copy": "Z",
+    "expected": {
+     "G": 0,
+     "R": 0,
+     "Z": 0
+    },
+    "headers_from": null,
+    "in_tree": [],
+    "merged": [],
+    "name": "definitionfactory.cpp"
+   },
    "definitionfactorymgr": {
     "best": "Z",
     "copy": "Z",
@@ -9115,6 +9270,16 @@
     "merged": [],
     "name": "shddef.cpp"
    },
+   "shddeffactory": {
+    "copy": "Z",
+    "expected": {
+     "Z": 0
+    },
+    "headers_from": null,
+    "in_tree": [],
+    "merged": [],
+    "name": "shddeffactory.cpp"
+   },
    "shddefmanager": {
     "best": "Z",
     "copy": "Z",
@@ -9131,6 +9296,16 @@
     ],
     "merged": [],
     "name": "shddefmanager.cpp"
+   },
+   "shdforcelinks": {
+    "copy": "Z",
+    "expected": {
+     "Z": 0
+    },
+    "headers_from": null,
+    "in_tree": [],
+    "merged": [],
+    "name": "shdforcelinks.cpp"
    },
    "shdglossmask": {
     "best": "Z",

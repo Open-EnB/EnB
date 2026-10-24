@@ -13,6 +13,9 @@ Changes:
   mss.h  AIL_startup() calls MSS_auto_cleanup() first, as the client's WWAudioClass constructor
          does (0x9EEC54 calls MSS_auto_cleanup 0xA03A30, then AIL_startup); this header has the
          macro commented out ("ODCODENOTE Remove").
+  mss.h  Declares AIL_open_stream_by_sample (6.1a lacks it): the client imports
+         _AIL_open_stream_by_sample@16 and Renegade's soundstreamhandle.cpp calls it (L2, D49);
+         docs/toolchain.md "Miles fixes" 2.
 """
 import os
 import shutil
@@ -24,7 +27,11 @@ DST = os.path.join(SDK, 'include_enb')
 PATCHES = {
     'mss.h': [('#if 1 /*def __BORLANDC__*/', '#if 0 /*def __BORLANDC__*/ /* EnB: dllimport, as the client */'),
               ('//#define AIL_startup() (MSS_auto_cleanup(),AIL_startup())',
-               '#define AIL_startup() (MSS_auto_cleanup(),AIL_startup()) /* EnB: as the client */')],
+               '#define AIL_startup() (MSS_auto_cleanup(),AIL_startup()) /* EnB: as the client */'),
+              ('DXDEC HSTREAM AILCALL AIL_open_stream(HDIGDRIVER dig, char const FAR * filename, S32 stream_mem);',
+               'DXDEC HSTREAM AILCALL AIL_open_stream(HDIGDRIVER dig, char const FAR * filename, S32 stream_mem);\r\n'
+               "/* EnB: the client imports _AIL_open_stream_by_sample@16 (Mss32.dll); Renegade's soundstreamhandle.cpp calls it */\r\n"
+               'DXDEC HSTREAM AILCALL AIL_open_stream_by_sample(HDIGDRIVER dig, HSAMPLE S, char const FAR * filename, S32 stream_mem);')],
 }
 
 

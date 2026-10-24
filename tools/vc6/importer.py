@@ -3144,6 +3144,28 @@ NEW_FILES = {
 ''',
 }
 
+# EA source files imported without byte evidence (D49, L2's link step): no copy's compiled code
+# matches a client function (so `plan` would leave them out), but the libraries reference their
+# symbols, and the client has the code. Each is taken from its library's base copy (as assemble
+# does for a file the base copy has); `plan` keeps them and `importer.py add` brings one into the
+# tree without `assemble` (copy, PATCHES/annotations/APPENDS, state entry).
+EXTRA_FILES = {
+    ('wwlib', 'targa.cpp'): ('R', "Targa (ww3d2's texture loader, thumbnails, Make_Screen_Shot). Renegade's, "
+                                  "not Zero Hour's: the client's Targa::YFlip (0x9D33D0, called by "
+                                  "WW3D::Make_Screen_Shot 0x9182C0) is the byte-swap loop, not ZH's asm _swapBytes"),
+    ('wwlib', 'int.cpp'): ('R', 'Int<64> statics (Error, Carry, Borrow, Remainder) for pk.cpp; R = Z but for the banner'),
+    ('wwlib', 'blwstraw.cpp'): ('R', 'BlowStraw for pkstraw.cpp; R = Z but for the banner'),
+    ('wwlib', 'blowfish.cpp'): ('R', 'BlowfishEngine for blwstraw.cpp/pkstraw.cpp; R = G = Z but for the banner'),
+    ('wwlib', 'stimer.cpp'): ('R', 'SystemTimerClass for ddraw.cpp; R = Z but for the banner (G differs)'),
+    ('wwlib', 'slnode.cpp'): ('R', 'DEFINE_AUTO_POOL(GenericSLNode) for wwlib, wwsaveload, ww3d2; R = G = Z but for the banner'),
+    ('wwlib', 'win.cpp'): ('R', 'MainWindow, ProgramInstance (set by the program); R = Z but for the banner'),
+    ('wwsaveload', 'definitionfactory.cpp'): ('Z', 'DefinitionFactoryClass ctor/dtor (twiddler.cpp, wwaudio); R = G = Z but for the banner'),
+    ('wwaudio', 'soundstreamhandle.cpp'): ('R', 'SoundStreamHandleClass (AudibleSound.cpp); R = G = Z but for the banner'),
+    ('wwaudio', 'Utils.cpp'): ('R', 'MMSLockClass::_MSSLockCriticalSection (WWAudio.cpp); R = G = Z but for the banner'),
+    ('wwshade', 'shddeffactory.cpp'): ('Z', 'ShdDefFactoryClass ctor/dtor for the five shader definitions; Z only'),
+    ('wwshade', 'shdforcelinks.cpp'): ('Z', 'SHD_Force_Links (client 0xA08C70) for shdrenderer.cpp; Z only'),
+}
+
 
 # ------------------------------------------------------------------------------------------ evidence
 
@@ -3233,6 +3255,9 @@ def plan(ev):
                 continue
             files[k] = {'copy': best, 'expected': {c: len(copies[c].get(k, {})) for c in copies},
                         'merged': []}
+        for (xlib, xname), (xc, _) in EXTRA_FILES.items():
+            if xlib == lib and key_of(xname) not in files:
+                files[key_of(xname)] = {'copy': xc, 'expected': {c: 0 for c in copies}, 'merged': []}
         state[lib] = {'base': base, 'totals': total, 'files': files}
         swaps = sum(1 for f in files.values() if f['copy'] != base)
         print(f"{lib:11s} base {base} ({', '.join(f'{c}={n}' for c, n in total.items())}); "
@@ -3329,6 +3354,38 @@ def assemble(state):
                 s['files'][k]['name'] = rname
         s['headers'] = origin
         print(f'{lib:11s} {len(s["files"])} sources, {len(origin)} headers')
+    return state
+
+
+def add_extra(state, libs=None):
+    """Bring EXTRA_FILES' entries that the tree lacks into it, without assemble: copy the file
+    from its EA copy, apply its PATCHES, annotations and APPENDS, and record it in the state (as
+    replay will rebuild it). Refuses a file the tree already has under another origin."""
+    for (lib, name), (c, why) in EXTRA_FILES.items():
+        if libs and lib not in libs:
+            continue
+        s = state[lib]
+        k = key_of(name)
+        if k in s['files']:
+            continue
+        srcs = source_files(lib, c)
+        if k not in srcs:
+            raise SystemExit(f'{lib}/{name}: not in {COPY_NAME[c]}')
+        real, src = srcs[k]
+        d = dest(lib)
+        if [n for n in os.listdir(d) if n.lower() == real.lower()]:
+            raise SystemExit(f'{lib}/{real} is already in the tree but not in the state')
+        p = os.path.join(d, real)
+        shutil.copy2(src, p)
+        apply_patches(lib, p, real)
+        annotations.apply(lib, p, real)
+        for (alib, aname), (text, _) in APPENDS.items():
+            if alib == lib and aname == real.lower():
+                with open(p, 'a', newline='\r\n') as fp:
+                    fp.write(text)
+        s['files'][k] = {'copy': c, 'name': real, 'expected': {x: 0 for x in LIB_DIR[lib]}, 'merged': [],
+                         'headers_from': None}
+        print(f'{lib:11s} added {real} from {COPY_NAME[c]}: {why}')
     return state
 
 
@@ -3744,7 +3801,8 @@ def pool_lease(count, holder_pid=None):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument('command', choices=['plan', 'assemble', 'replay', 'verify', 'refine', 'report', 'all'])
+    ap.add_argument('command', choices=['plan', 'assemble', 'add', 'replay', 'verify', 'refine', 'report', 'all'],
+                    help='add: bring EXTRA_FILES (imported without evidence) into the tree, no assemble')
     ap.add_argument('--out', default=os.path.join(REPO, '.work', 'replay'),
                     help='replay: where to rebuild the libraries (default .work/replay)')
     ap.add_argument('--evidence', help="bytematch_all.sh's work directory")
@@ -3767,6 +3825,8 @@ def main():
     state = load_state()
     if a.command in ('assemble', 'all'):
         save_state(assemble(state))
+    if a.command == 'add':
+        save_state(add_extra(state, a.lib))
     if a.command == 'replay':
         problems = replay(state, a.out)
         for p in problems:
