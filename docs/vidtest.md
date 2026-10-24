@@ -303,7 +303,9 @@ stars.
 
 **Fill Rate** (state 0, 0x426D80). The first frame stores `timeGetTime()`. It counts frames; after
 the 61st (counter > 60):
-`FillRateFPS = ftol(60 / ((timeGetTime() - t0) * 0.001))`, then state 1.
+`FillRateFPS = ftol(60 / ((timeGetTime() - t0) * 0.001))`, then state 1. (M2.3: the counter starts
+at -1, so 62 frames are rendered and timed while the numerator stays 60; 0.001 is a float constant,
+0x426DBF.)
 
 **Polygon Budget** (state 1, 0x424F00). The first entry renders 10 warm-up frames and sets the
 counter to 0, then starts the timer (GetTickCount). Every 15 frames:

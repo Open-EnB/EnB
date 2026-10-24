@@ -395,4 +395,10 @@ Added 2026-10-24 (overnight run; details in `.work/night/item*/report.md`):
 * **Unattended runs on the host: no modal dialogs.** The user's desktop is live. A modal MessageBox
   (e.g. WW3D's "hardware does not support the requested settings") waits for a click (2026-10-24:
   two reached the user). Every test run routes message boxes to the log. Full-screen test runs are
-  fine (user, 2026-10-24).
+  fine (user, 2026-10-24). vidtest's `-nomsgbox` (implied by `-frames`/`-shot`/`-shots`) does this.
+* **E&BConfig and VIDTEST.** E&BConfig starts VIDTEST with a command line that has no program name,
+  so the CRT's argument parsing drops `-device` and both programs use device 0. Its registry writes
+  (HKLM `Software\Westwood Studios\Earth and Beyond\Render`, 32-bit) go to HKCU VirtualStore
+  unless it runs elevated. `PeakPolyRate` is about polygons per frame times frames presented, since
+  the whole run takes about a second on a modern GPU. `build.py link` reports stub compile errors
+  while another builder has uncommitted app/ headers.
