@@ -777,6 +777,13 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 | D39 | 2026-10-24 | `extern template class DeltaTemplateClass<DurationClass>;` stays in delta_template.h (warning C4231 accepted); `template class ...` instantiations go into delta_time.cpp / delta_money.cpp when their constructors 0x4A8150 / 0x4A7080 are rebuilt | user |
 | D40 | 2026-10-24 | `DeltaCompoundClass::Add` 0x4A5670 (D11): check the client's other `vector<T*>::insert` copies for the out-of-line `size()` 0x4A58C0 before changing the STL corpus | user |
 | D41 | 2026-10-24 | Header `__FILE__` strings in app code: leave them for now (ours include `..\duration.h`; the string differs, bytes and lines match through the relocation); run app compiles in `e:\build\beta\G\app\<dir>` with `/I ..` and the client's include spellings when strings are compared (whole-image check) or the project directory's name is known | user |
+| D42 | 2026-10-24 | Milestones M1 (capture harness on the rebuilt auxdata and wwudp classes) and M2 (working VIDTEST on the tree's libraries) drive the work until both are met; then back to the kernel ([milestones.md](milestones.md)). Functional code on their path that isn't byte-exact yet is allowed, marked `// NOT EXACT:` (P1) | user |
+| D43 | 2026-10-24 | The 13 AuxData root constructors are generated from the extracted schemas in the client's code form, then verified like any app file (P2) | user |
+| D44 | 2026-10-24 | Missing functions at link time are stubbed in `stubs/` only, never in library files; each stub logs its first call (P3) | user |
+| D45 | 2026-10-24 | New programs: `tests/capharness/`, `tools/harness/` (Python side), `programs/vidtest/` for VIDTEST's own code (WinMain, tests, `results.ini`: no source path survives in VIDTEST.EXE). VIDTEST's E&B scene classes follow the client's layout (`app/shared/stars.cpp`, `spline.cpp`, ...): they share the client's strings, including `\\.\mailslot\G\...` (P4) | user |
+| D46 | 2026-10-24 | VIDTEST's E&B classes (Land, stars, decorations, splines) are rebuilt from the client's 2004 versions where the client has them, byte-exact there; VIDTEST's 2002 code only where the client lacks it (P5) | user |
+| D47 | 2026-10-24 | M1's transport gate uses the EA captures; the Net-7 TCP recordings are tested at message level unless their transport is in `app\wwudp` (P6) | user |
+| D48 | 2026-10-24 | Build on pool VMs; run vidtest on the host (the VMs have no 3D hardware). Running the tree's own programs unattended is allowed, as E&B's own code is (P7) | user |
 
 ## 3. Open decisions
 
@@ -796,6 +803,9 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 
 ## 4. Next steps
 
+0. **Milestones M1 and M2 come first (D42)**: [milestones.md](milestones.md) §6 gives the order
+   (M1.0, M1.1 and M2.0; then the link step L1/L2; then M1.2-M1.4 with M2.1-M2.3; then M1.5, M2.4).
+   Steps 2 and 7 below are now part of them.
 1. Done (2026-10-24): D22 (PS), wwshade 138 -> 159 (e8f39a8, 0de15b9). Left: the shaders' Init,
    destructors, Copy_Vertex_Stream and Peek_Texture are byte-exact but identical across files
    (objmatch `multiple`), so verify cannot credit them.

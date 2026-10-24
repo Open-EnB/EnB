@@ -34,7 +34,7 @@ apply here unchanged.
 
 | Where | What |
 |---|---|
-| `C:\EnBDevelopment\enbserver3\ENB-Packets-Live` | Original Westwood/EA server captures (EA-UDP; annotated and decrypted text dumps). About 190,000 game messages. The reference for what the real server sent |
+| `C:\EnBDevelopment\Live-Era-Data\enbserver3\ENB-Packets-Live` | Original Westwood/EA server captures (EA-UDP; annotated and decrypted text dumps). About 190,000 game messages. The reference for what the real server sent |
 | `C:\EnBDevelopment\the reference traces\captures` | Net-7 recordings (2026-10-19, 2026-10-21) |
 
 ## 4. Other code
