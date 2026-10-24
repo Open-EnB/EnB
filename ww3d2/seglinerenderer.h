@@ -125,6 +125,7 @@ public:
 										Vector4 * rgbas = 0);
 
 	void					Reset_Line(void);
+	void					Scale(float scale);
 
 private:
 

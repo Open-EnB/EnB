@@ -1163,17 +1163,25 @@ void ParticleBufferClass::Scale(float scale)
 	// Scale all size keyframes, keyframe deltas, random size entries,
 	// MaxSize and SizeRandom.
 	unsigned int i;
-	for (i = 0; i < NumSizeKeyFrames; i++) {
-		SizeKeyFrameValues[i] *= scale;
-		SizeKeyFrameDeltas[i] *= scale;
+	if (NumSizeKeyFrames) {
+		for (i = 0; i < NumSizeKeyFrames; i++) {
+			SizeKeyFrameValues[i] *= scale;
+			SizeKeyFrameDeltas[i] *= scale;
+		}
+	} else {
+		SizeKeyFrameValues[0] *= scale;		
 	}
 	if (RandomSizeEntries) {
 		for (i = 0; i <= NumRandomSizeEntriesMinus1; i++) {
 			RandomSizeEntries[i] *= scale;
 		}
 	}
+	if (LineRenderer) {
+		LineRenderer->Scale(scale);
+	}
 	MaxSize *= scale;
 	SizeRandom *= scale;
+	Accel *= scale;
 }
 
 
@@ -2456,8 +2464,10 @@ void ParticleBufferClass::Update_Cached_Bounding_Volumes(void) const
 	((ParticleBufferClass *)this)->Update_Bounding_Box();
 
 	// Update cached bounding box and sphere according to the bounding box:
-	CachedBoundingSphere.Init(BoundingBox.Center, BoundingBox.Extent.Length());
+	CachedBoundingSphere.Radius = BoundingBox.Extent.Length();
+	CachedBoundingSphere.Center = Get_Transform() * BoundingBox.Center;
 	CachedBoundingBox = BoundingBox;
+	CachedBoundingBox.Transform(Get_Transform());
 	Validate_Cached_Bounding_Volumes();
 }
 

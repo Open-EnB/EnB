@@ -1225,6 +1225,12 @@ void SegLineRendererClass::subdivision_util(unsigned int point_cnt, const Vector
 	*p_sub_point_cnt = sub_pidx;
 }
 
+void SegLineRendererClass::Scale(float scale)
+{
+	Width *= scale;
+	NoiseAmplitude *= scale;
+}
+
 
 
 #endif //0
