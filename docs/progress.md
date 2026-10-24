@@ -789,12 +789,10 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 | D51 | 2026-10-24 | Miles: `mss32.lib` is generated from the game's own `Mss32.dll` exports (`.def` + `lib /def`, [toolchain.md](toolchain.md) Miles fixes), not stubbed and not the SDK's older lib | user |
 | D52 | 2026-10-24 | M1's AUX_DATA totals for the Alex sessions come from `tools/harness/convert.py`'s datagram files (4,289 / 366), the 4 messages the reference decoder lost reported as "not in the reference decoder" | user |
 | D53 | 2026-10-24 | VIDTEST O7: our vidtest fixes the signed `FreeTextureRam` comparison (GPUs reporting 2 GB or more), rather than copying the original's `TextureReduction=2` | user |
+| D54 | 2026-10-24 | A function whose compiled bytes occur at several places in client.exe, all identical copies (objmatch `multiple`, e.g. template leaf Reads), counts as "exact, ambiguous address" in a separate column beside each library's pair count; the `(file, address)` pair counts and the before/after pair rule are unchanged | user |
 
 ## 3. Open decisions
 
-* P-a (proposed 2026-10-24, explained to the user, not yet decided): functions whose compiled bytes
-  occur at several identical places in client.exe (objmatch `multiple`, e.g. template leaf Reads) get
-  their own "exact, ambiguous address" total beside each library's pair count; pair counts unchanged.
 * (D7 is to be revisited with the user if byte-exactness of E&B's code becomes too costly.)
 * Decided as D41: header `__FILE__` strings in app code: the client's `..\shared/duration.h`
   needs cl run in a directory one below `app` with `/I ..` and `#include "shared/duration.h"`. Options:
