@@ -29,7 +29,7 @@ file.
 | Virtual "V" prefix for abstract interfaces (inferred) | `VGadgetClass`, `VSlotDataClass`, `VClientObjectClass`, `VRadarDataClass`, `VCameraModuleClass`, `VToolTipClass` |
 | `PAV` prefix (meaning unknown) | `PAVRadarDataClass`, `PAVNavigationDataClass`, `PAVStarmapDataClass`, `PAVGutterDataClass`, `PAVEmoteDataClass` |
 | STL is used freely | `Data->FlagList.size() > 0`, `find_result == Data->Listeners.end()`, `!INI.Load(filename.c_str())`, `i->second` |
-| Not every class has the suffix | `MainView`, `AttribDir`, `DynObj`, `CordMgr`, `CordCon`, `ENBAssetManager`, `CallbackManager`, `ControlKeysManager`, `GuildRecruitConfirmSectorPacket` |
+| Not every class has the suffix | `MainView`, `AttribDir`, `DynObj`, `CordMgr`, `CordCon`, `ENBAssetManager`, `CallbackManager`, `ControlKeysManager`, `GuildRecruitConfirmSectorPacket`, `PermString` (D37) |
 | Some modules use camelCase methods | `CordCon::handlePacket`, `CordCon::buildMsgHeader`, `CordCon::pump` (`app/wwudp`, the UDP layer: a different author) |
 | Asserts on | Release build keeps assert expressions and `__FILE__` paths; `WWMath::Is_Valid_Float(...)` checks are common |
 

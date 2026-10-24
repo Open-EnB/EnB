@@ -738,11 +738,16 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 | D34 | 2026-10-24 | Keep evidence-backed changes that gain nothing countable when the client's form is shown: first `DazzlePrototypeClass`'s Renegade virtual destructor (0x96EF00 has the client's form but is too short to count; vtable 0xB12598 has 4 slots) | user |
 | D35 | 2026-10-24 | texture.h's comment on the protected `D3DTexture` cites 0x94B660 (c35cc34), not `Apply` 0x94BC80 (D29) | user |
 | D36 | 2026-10-24 | VIDTEST.EXE is rebuilt as a working program, not byte-exact: proof that the tree links into a small app that loads E&B's original art and renders a 3D scene (the 2002 library variant and incremental link aren't needed for that). E&BConfig.exe not pursued | user |
+| D37 | 2026-10-24 | App class names from the auxdata work: `DeltaClass`, `DeltaCompoundClass`, `DeltaTemplateClass`, `NameClass`, `LookupClass`, `LinearBufferClass`, `MoneyClass`, `DurationClass`; `PermString` keeps the client's own name (its debug message at 0x4ADFF0), without the suffix; the header of the assert functions is `app/shared/unknown_debug.h` (`Unknown_Assert_Failed`, `Unknown_Fail_If_Report`, D10) | user (accepted builders' proposals) |
+| D38 | 2026-10-24 | Names chosen from behaviour stand: `Is_Parent_Of`, `Is_Parent_Or_Same`, `Match_Parts` (name.cpp), `Unknown_Set_Size` (linearbu.cpp), `StringValueClass`, `Add_String` (delta_string.cpp, delta.h), `PermStringInitClass` (permstr.h), `Unknown_Debug_Printf` 0x509DC0 (dbgmgr.cpp) | user |
+| D39 | 2026-10-24 | `extern template class DeltaTemplateClass<DurationClass>;` stays in delta_template.h (warning C4231 accepted); `template class ...` instantiations go into delta_time.cpp / delta_money.cpp when their constructors 0x4A8150 / 0x4A7080 are rebuilt | user |
+| D40 | 2026-10-24 | `DeltaCompoundClass::Add` 0x4A5670 (D11): check the client's other `vector<T*>::insert` copies for the out-of-line `size()` 0x4A58C0 before changing the STL corpus | user |
+| D41 | 2026-10-24 | Header `__FILE__` strings in app code: leave them for now (ours include `..\duration.h`; the string differs, bytes and lines match through the relocation); run app compiles in `e:\build\beta\G\app\<dir>` with `/I ..` and the client's include spellings when strings are compared (whole-image check) or the project directory's name is known | user |
 
 ## 3. Open decisions
 
 * (D7 is to be revisited with the user if byte-exactness of E&B's code becomes too costly.)
-* Header `__FILE__` strings in app code (proposed 2026-10-24): the client's `..\shared/duration.h`
+* Decided as D41: header `__FILE__` strings in app code: the client's `..\shared/duration.h`
   needs cl run in a directory one below `app` with `/I ..` and `#include "shared/duration.h"`. Options:
   (a) leave it: ours include `..\duration.h`, string differs, bytes and lines match (relocation);
   (b) vc6.py runs app compiles in `e:\build\beta\G\app\<dir>` with `/I ..` and the tree uses the
