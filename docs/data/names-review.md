@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 24 |
 | 3 | by convention from a client-named file or sibling | 13 |
 | 2 | describes what the code does | 0 |
-| 1 | neutral placeholder | 167 |
+| 1 | neutral placeholder | 174 |
 
 ## For review (score 3 and below)
 
@@ -184,6 +184,13 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `m_Unknown98` | `tests/capharness/auxdata_smoke/auxdata_smoke.cpp:52` | untagged neutral name (D10) |
 | 1 | `Unknown_All` | `tests/capharness/auxdata_smoke/auxdata_smoke.cpp:53` | untagged neutral name (D10) |
 | 1 | `m_Unknown70` | `tests/capharness/auxdata_smoke/auxdata_smoke.cpp:93` | untagged neutral name (D10) |
+| 1 | `Unknown_3C` | `tests/capharness/auxreplay/auxreplay.cpp:76` | untagged neutral name (D10) |
+| 1 | `Unknown_40` | `tests/capharness/auxreplay/auxreplay.cpp:77` | untagged neutral name (D10) |
+| 1 | `Unknown_44` | `tests/capharness/auxreplay/auxreplay.cpp:78` | untagged neutral name (D10) |
+| 1 | `UnknownRootClass` | `tests/capharness/auxreplay/auxreplay.cpp:82` | untagged neutral name (D10) |
+| 1 | `m_Unknown7C` | `tests/capharness/auxreplay/auxreplay.cpp:168` | untagged neutral name (D10) |
+| 1 | `m_Unknown98` | `tests/capharness/auxreplay/auxreplay.cpp:286` | untagged neutral name (D10) |
+| 1 | `Unknown_All` | `tests/capharness/auxreplay/auxreplay.cpp:287` | untagged neutral name (D10) |
 | 3 | `DeltaShipClass` | `app/client/aux_roots.h:524` | the client's root string "Ship", Westwood XxxClass (D24); structure = Net-7 AuxShipIndex / C# ShipObject (C# fields = ours (same names, same order); Net-7 Construct 58 children = ours) |
 | 3 | `DeltaComponentClass` | `app/client/aux_roots.h:593` | the client's root string "Component", Westwood XxxClass (D24); structure = C# ComponentObject (C# fields = ours (same names, same order)) |
 | 3 | `DeltaLightClass` | `app/client/aux_roots.h:603` | the client's root string "Light", Westwood XxxClass (D24); structure = C# LightObject (C# fields = ours (same names, same order)) |

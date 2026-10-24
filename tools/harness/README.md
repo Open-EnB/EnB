@@ -90,6 +90,51 @@ capharness (M1.0 skeleton) on every trace, checked by compare.py: message counts
 direction and opcode equal the reference decoder's summary for all 8 traces (alex3, alex7, capture_1..3, the
 three Net-7 sessions); its datagram counts equal compare.py's for both datagram files.
 
+## AuxData round trip and values (M1.3, gates (b) and (c))
+
+```
+python tools/vc6/build.py --lib app [--out DIR]                   # app.lib with app/client/aux_roots.cpp
+ENB_VC6_HOSTS=Daniel@<ip> python tools/harness/auxreplay.py build [--out DIR] [--app-sources]
+python tools/harness/auxreplay.py run capture_1 [--out DIR]      # also capture_2, capture_3, alex3, alex7
+python tools/harness/auxreplay.py run alex3 --dump [--out DIR]   # the messages rebuilt from the EA dump (D52)
+```
+
+* **tests/capharness/auxreplay** links the generated roots (`app/client/aux_roots.h`, tools/re/auxroots.py)
+  and the auxdata library. Per channel it makes a root for each CREATE (0x0004: the type byte at
+  offset 10, through the factory 0x6F6000's cases; a repeated id replaces the object, as the reference decoder's
+  `aux-census`) and one Player root (game id 0). Each AUX_DATA (0x001B) goes through the packet
+  entry 0x7364C0's body: `LinearBufferClass(payload + 6, len - 6, 0x400, false)`, then
+  `root->Decode(buf, base)` (0x4A3FA0). The roots are wrapped (`Tracked<R>`) so that the
+  notifications that reach the root (Unknown_3C updated, Unknown_40 defaulted, Unknown_44 cleared)
+  give the three lists the message carried; these are re-encoded in the message's form
+  (`RecordTableClass` for the tree form, `DeltaListSetClass` for the record form) and compared byte
+  for byte. It prints a census like `aux-census` and writes every touched leaf (U index path value
+  as Write gives it, D, X) to `.work/harness/auxreplay/NAME.out.txt`. Asserts go to
+  `NAME.stubs.log` (the stub G_ASSERT) and are counted.
+* **auxreplay.py** prepares the message file from the trace (or, `--dump`, from convert.py's
+  reading of an Alex dump), builds (`--app-sources` compiles the two new app files into the program
+  for an older app.lib), runs, and compares the values with the reference decoder's `aux-log --first`
+  (`.work/harness/ref/NAME.aux-log-first.txt`): it replays the U/D/X lines over a per-object state
+  (unknown, default, value; reset by a CREATE), prints each change in tree order as aux-log does
+  (ints `N (0xN)`, floats G6, colours `AuxColor { R = .., G = .., B = .. }`, text other than ASCII
+  as `?`) and compares the sequences per channel, ignoring time and object description.
+
+Results (2026-10-24):
+
+| Trace | AUX_DATA | decoded, no assert | re-encoded byte for byte | values equal aux-log |
+|---|---|---|---|---|
+| capture_1 | 34,070 | 34,070 | 34,069 (1: below) | 681,376 of 681,376 |
+| capture_2 | 4,741 | 4,741 | 4,741 | 147,771 of 147,771 |
+| capture_3 | 5,167 | 5,167 | 5,167 | 337,019 of 337,019 |
+| alex3 (trace / dump) | 4,286 / 4,289 (+1 before its CREATE) | all | all | 37,601 of 37,601 (trace) |
+| alex7 (trace / dump) | 365 / 366 (+6 before their CREATE) | all | all | 34,626 of 34,626 (trace) |
+
+The one message the client's encoder can't give back: capture_1's AUX_DATA #24128 (Hulk
+3837051, `7b8c3a00 0500 01 080c0955`). The root marks Equipped and Cargo cleared, but Cargo's own
+header byte is 0x55: whole + defaulted, with bits 4 and 6 set besides (the client's BitSetClass(4)
+writes them 0). The client decodes it (Cargo defaulted) without an assert; our encoder writes
+`0c 08 04 09 05`. the reference decoder keeps the header byte as read, so its census passes it.
+
 ## vidtest (L2, M2)
 
 ```
