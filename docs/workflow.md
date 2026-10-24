@@ -348,3 +348,12 @@ Added 2026-10-24 (overnight run; details in `.work/night/item*/report.md`):
   so an exact match shows PREFIX with a larger client size (`Pop_Prefix`, `Get_Rest`,
   `~KVPairClass`): check the bytes. It pairs markers with functions by name, so same-named
   overloads get mixed up: rename them while drafting.
+* **EA-UDP ack lists.** An ack list follows when bit 0 of the datagram's type byte is set (type 3
+  exists too, not only 1): byte 5 is the entry count, then one header byte, then 4-byte entries
+  (flag, channel, 16-bit big-endian seq). the reference decoder's `the reference importer` guesses the block start instead
+  and loses 28 / 12 messages in the Alex dumps; use `tools/harness/convert.py`'s datagram files.
+  The Alex dumps also lose bytes in the middle (not the end) of 3 datagrams per file (`X` lines).
+* **Garbled pseudocode at 0x4A9400.** Ghidra's output for the tree-form decoder is wrong; read
+  `client.py dis` instead.
+* **Running a built exe from Python.** `subprocess` on Windows can't start a relative path written
+  with `/`; make it absolute (`compare.py --exe`).
