@@ -1023,7 +1023,10 @@ TextureClass::TextureClass(IDirect3DBaseTexture8* d3d_texture)
 	Initialized=true;
 	IsProcedural=true;
 	
-	Set_D3D_Base_Texture(d3d_texture);
+	// E&B: stores and AddRefs the texture itself, as Renegade does (0x94B660: no Release of an old
+	// texture and no LastAccessed store, i.e. no inlined Set_D3D_Base_Texture)
+	D3DTexture=d3d_texture;
+	D3DTexture->AddRef();
 	IDirect3DSurface8* surface;
 	DX8_ErrorCode(Peek_D3D_Texture()->GetSurfaceLevel(0,&surface));
 	D3DSURFACE_DESC d3d_desc;

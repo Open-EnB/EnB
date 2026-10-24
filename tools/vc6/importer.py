@@ -2808,6 +2808,9 @@ TEXTURE_FILTER_PATCHES = {
         ('\n\tif (tex->Get_Filter().Get_Mip_Mapping() == TextureFilterClass::FILTER_TYPE_NONE) texinfo->Attributes |= W3DTEXTURE_NO_LOD;\n\tif (tex->Get_Filter().Get_U_Addr_Mode() == TextureFilterClass::TEXTURE_ADDRESS_CLAMP) texinfo->Attributes |= W3DTEXTURE_CLAMP_U;\n\tif (tex->Get_Filter().Get_V_Addr_Mode() == TextureFilterClass::TEXTURE_ADDRESS_CLAMP) texinfo->Attributes |= W3DTEXTURE_CLAMP_V;\n}',
          '\n\tif (tex->Get_Mip_Mapping() == TextureClass::FILTER_TYPE_NONE) texinfo->Attributes |= W3DTEXTURE_NO_LOD;\n\tif (tex->Get_U_Addr_Mode() == TextureClass::TEXTURE_ADDRESS_CLAMP) texinfo->Attributes |= W3DTEXTURE_CLAMP_U;\n\tif (tex->Get_V_Addr_Mode() == TextureClass::TEXTURE_ADDRESS_CLAMP) texinfo->Attributes |= W3DTEXTURE_CLAMP_V;\n}',
          "D9: E&B has no TextureFilterClass (Zero Hour's 08/05/02 KM 'Texture filter class abstraction' redesign); its TextureClass keeps Renegade's five filter members and accessors: the four constructors 0x94B240, 0x94B3D0, 0x94B5B0, 0x94B660 store Min/Mag/Mip/U/V at TextureClass offsets, Set_Mip_Mapping 0x94CA20, _Init_Filters 0x94CA30 and _Set_Default_*_Filter 0x94CC30/0x94CC60/0x94CC90 are inside texture.obj, and the client has no out-of-line TextureFilterClass constructor or Apply"),
+        ('\tSet_D3D_Base_Texture(d3d_texture);\n\tIDirect3DSurface8* surface;\n',
+         '\t// E&B: stores and AddRefs the texture itself, as Renegade does (0x94B660: no Release of an old\n\t// texture and no LastAccessed store, i.e. no inlined Set_D3D_Base_Texture)\n\tD3DTexture=d3d_texture;\n\tD3DTexture->AddRef();\n\tIDirect3DSurface8* surface;\n',
+         "E&B's TextureClass(IDirect3DBaseTexture8*) 0x94B660 stores d3d_texture to D3DTexture (+0x34) and calls its AddRef, as Renegade's constructor does; Zero Hour's Set_D3D_Base_Texture would also release the old texture and set LastAccessed (+0x1C)"),
     ],
 }
 for _key, _edits in TEXTURE_FILTER_PATCHES.items():
