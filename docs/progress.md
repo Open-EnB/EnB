@@ -4,6 +4,35 @@ Newest first within each section. Dates are when the entry was written.
 
 ## 1. Log
 
+### 2026-10-24: the Delta object model (app\shared\auxdata); app 11 -> 39
+
+* `delta.cpp`/`delta.h` (845c0c9): `DeltaClass` (the reference decoder's DeltaBase; D24 name, D10
+  `Unknown_XX` virtuals/`m_UnknownXX` members) and `DeltaCompoundClass`. Layout from the ctor
+  0x4A4D40: vtable 0xAEADC8 (a one-slot interface, `_purecall`) then 0xAEAD70 (18 slots); +0x04 a
+  per-class global (0xBE3A78; the compound's 0xBE3A74), +0x08 `Name` and +0x3C `FullName` (NameClass,
+  0x34 bytes, ctor 0x4AD380), +0x70 a 0/1/2 state, +0x74 `Parent`, +0x78 the slot in the parent,
+  +0x7C a running index, +0x80 = 0x3FF; size 0x84. Compound: vtable 0xAEABE4 (19 slots, +0x48 new),
+  `Children` std::vector at +0x84, `Lookup` +0x94 (the assert's name, made by `Get_Lookup`, line
+  227), +0x98 the subtree's index count; size 0x9C; its ctor is inline (0x4A6110 inlines it).
+  0xAEAB88 is a class derived from it (dtor 0x4A3D00), not DeltaCompound itself. 21 functions; not
+  exact: `Unknown_20` 0x4A53A0 (register-save placement) and `Add` 0x4A5670 (the client calls
+  vector::size 0x4A58C0 out of line inside the inlined insert).
+* Slots 0x2C/0x30 are `Read`/`Write` (the leaves' overrides use linearbu's 0x4AACE0/0x4AAFC0);
+  `Read`'s second parameter is an 8-byte base the time field subtracts (`const DurationClass &`).
+  Leaves are `DeltaTemplateClass<T>` (delta_template.h, whose `__FILE__` is absolute).
+* `delta_money.cpp` (5ced1fe, 2: the 8-byte money at +0x88), `delta_time.cpp` (6641861, 2: 4 bytes on
+  the wire; `duration.h`'s `As_Int` with `FAIL_IF(Time > INT_MAX)` on line 190), `lookup.cpp`
+  (8588371, 3 index accessors at lines 67/78/90). New headers holding only what is used: name.h,
+  lookup.h, linearbu.h, delta_template.h, `app/shared/money.h`, `app/shared/duration.h`.
+* Header `__FILE__`: `..\shared/duration.h` is an include directory `..` plus
+  `"shared/duration.h"` (VC6 joins them with `\`), so E&B ran cl in a directory one below `app`
+  (e.g. `app\client`). Ours include `..\duration.h` relative to the .cpp: the string differs, the
+  bytes don't (relocation). Open: see §3 (header `__FILE__` strings).
+* Drafts in `.work/day/B/`: `i1.cpp` (`DeltaInterpolatorClass::Set` 0x4A6590, same length as the
+  client's, one `pop esi` scheduled differently; fields `EndTime` +0xA0, `ChangePerTick` +0x130,
+  `StartValue` +0x1B8 from the ctor's strings, `LastTime` +0x240), `d2.cpp` (delta.cpp's misses),
+  `vary.py` (variant runner for appfile drafts).
+
 ### 2026-10-24: D23, E&B's own code in the importer (`app`); bitset.cpp, app 0 -> 11
 
 * The importer has a non-EA library `app` (`APP_LIBS`): every file `RECONSTRUCTED`, paths under
@@ -687,6 +716,12 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 ## 3. Open decisions
 
 * (D7 is to be revisited with the user if byte-exactness of E&B's code becomes too costly.)
+* Header `__FILE__` strings in app code (proposed 2026-10-24): the client's `..\shared/duration.h`
+  needs cl run in a directory one below `app` with `/I ..` and `#include "shared/duration.h"`. Options:
+  (a) leave it: ours include `..\duration.h`, string differs, bytes and lines match (relocation);
+  (b) vc6.py runs app compiles in `e:\build\beta\G\app\<dir>` with `/I ..` and the tree uses the
+  client's include spellings. Recommendation: (a) now, (b) when strings are compared (whole-image
+  check) or the project directory's name is known.
 
 ## 4. Next steps
 
@@ -700,12 +735,12 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
      `app/shared/unknown_debug.h` (G_ASSERT, FAIL_IF). Left from it: the debug functions
      0x4E9410/0x4E9450 themselves (they call a reporter 0x4BC260 on an object at 0xBDA908) and
      E&B's operator new/delete 0x4E9CB0/0x4E9D10 in the same object.
-   * `app\shared\auxdata`, the Delta object model: the reference decoder's `client-re-notes.md` address
-     catalogue (`DeltaBase` ctor 0x4A4D40, `DeltaCompound::Add` 0x4A5670, the leaf types and their
-     vtables), `auxdata.md` (wire format, the 11 root schemas), `the reference game model` (schemas, codec and
-     typed classes: the specification for the C++ classes). Start with `DeltaBase`'s layout, then
-     the small leaves (`delta_money`, `delta_time`, `delta_string`) and `lookup.cpp`, then
-     `encode.cpp`/`policy.cpp`.
+   * In progress (2026-10-24, 845c0c9..8588371, app 11 -> 39): `app\shared\auxdata`'s Delta object
+     model: delta.cpp (21; `Unknown_20` and `Add` left), delta_money.cpp and delta_time.cpp (Read/
+     Write), lookup.cpp (3 of 6+). Next: delta_interpolator.cpp (`.work/day/B/i1.cpp`, one
+     scheduling difference), delta_string.cpp (14), the rest of lookup.cpp, then name.cpp,
+     permstr.cpp, linearbu.cpp, then `encode.cpp`/`policy.cpp`. Lead: the reference decoder's
+     `client-re-notes.md` (addresses, leaf vtables), `auxdata.md`, `the reference game model`.
    * Then `app\wwudp` (`CordMgr`, `CordCon`; `EnB.Transports` describes the transport), the
      kernel and tasks (`KernelClass::Run_One_Cycle`; `login.md`: `LoginTaskClass`, the login and
      character-select screens), then `app\packets` (`the reference protocol table`'s message models; `actions.md`).
