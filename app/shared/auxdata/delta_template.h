@@ -24,7 +24,7 @@
 template<class T> class DeltaTemplateClass : public DeltaClass
 {
 public:
-	virtual bool Read(LinearBufferClass &buf, int b);		// +0x2C (float: 0x4A6DF0)
+	virtual bool Read(LinearBufferClass &buf, const DurationClass &base);	// +0x2C (float: 0x4A6DF0)
 	virtual bool Write(LinearBufferClass &buf);				// +0x30 (float: 0x4A6E60)
 
 	T Value;			// +0x84, or +0x88 for an 8-aligned T (MoneyClass)

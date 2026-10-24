@@ -3039,6 +3039,11 @@ RECONSTRUCTED = {
     ('app', 'shared/auxdata/linearbu.h'): "LinearBufferClass (D24), only what the delta files use: Read "
                                           "0x4AACE0, Write 0x4AAFC0",
     ('app', 'shared/money.h'): "MoneyClass (D24), only what delta_money.cpp uses: 8 bytes, 8-aligned",
+    ('app', 'shared/auxdata/delta_time.cpp'): "the time field's Read 0x4A81D0 and Write 0x4A8270 "
+                                              "(DeltaTemplateClass<DurationClass> specialisations), asserts on "
+                                              "the client's lines 31 and 58 (D25)",
+    ('app', 'shared/duration.h'): "DurationClass (D24; Time from the FAIL_IF), only what the delta files use: "
+                                  "As_Int's FAIL_IF on the client's line 190 (D25)",
 }
 
 # Text appended to imported files (after everything, so no existing line moves).

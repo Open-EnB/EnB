@@ -23,6 +23,7 @@
 #include "name.h"
 
 class LinearBufferClass;
+class DurationClass;
 
 class DeltaClass;
 class DeltaCompoundClass;
@@ -68,14 +69,15 @@ public:
 	virtual ~DeltaClass() {}															// +0x04 0x4A5150
 	virtual void Accept(DeltaVisitorClass &visitor);								// +0x08 0x4A4FE0
 	virtual bool Unknown_0C(LinearBufferClass &buf);							// +0x0C 0x4A4EC0, Unknown_38 then Write
-	virtual bool Unknown_10(LinearBufferClass &buf, int b);					// +0x10 0x4A4E80, Read then Unknown_3C
+	virtual bool Unknown_10(LinearBufferClass &buf, const DurationClass &base);	// +0x10 0x4A4E80, Read then Unknown_3C
 	virtual void Set_Parent(DeltaClass *parent, int slot, int &index);		// +0x14 0x4A5000
 	virtual void Unknown_18();															// +0x18 0x4A4DB0
 	virtual void Unknown_1C();															// +0x1C 0x4A4DD0
 	virtual void Unknown_20();															// +0x20 0x4A4DF0
 	virtual DeltaClass *As_Delta() { return this; }								// +0x24 0x4A3C50
 	virtual DeltaCompoundClass *As_Compound();									// +0x28 0x4A4E30
-	virtual bool Read(LinearBufferClass &, int) { return true; }			// +0x2C 0x4A3C70 (the leaves read their value)
+	virtual bool Read(LinearBufferClass &, const DurationClass &) { return true; }	// +0x2C 0x4A3C70 (the leaves read their value;
+																								// the time field subtracts the 8-byte base from its value, 0x4A81D0)
 	virtual bool Write(LinearBufferClass &) { return true; }				// +0x30 0x4A3C90 (the leaves write it)
 	virtual void Unknown_34(DeltaClass *delta);									// +0x34 0x4A4EF0
 	virtual void Unknown_38(DeltaClass *delta);									// +0x38 0x4A4FB0
@@ -105,7 +107,7 @@ public:
 	virtual ~DeltaCompoundClass();													// +0x04 0x4A5070
 	virtual void Accept(DeltaVisitorClass &visitor);								// +0x08 0x4A5650
 	virtual bool Unknown_0C(LinearBufferClass &buf);							// +0x0C 0x4A5270
-	virtual bool Unknown_10(LinearBufferClass &buf, int b);					// +0x10 0x4A5300
+	virtual bool Unknown_10(LinearBufferClass &buf, const DurationClass &base);	// +0x10 0x4A5300
 	virtual void Set_Parent(DeltaClass *parent, int slot, int &index);		// +0x14 0x4A51A0
 	virtual void Unknown_18();															// +0x18 0x4A5410
 	virtual void Unknown_1C();															// +0x1C 0x4A5490

@@ -62,7 +62,7 @@
 
 
 
-template<> bool DeltaTemplateClass<MoneyClass>::Read(LinearBufferClass &buf, int)
+template<> bool DeltaTemplateClass<MoneyClass>::Read(LinearBufferClass &buf, const DurationClass &)
 {
 	MoneyClass value;
 	if (buf.Read(&value, sizeof(value)) != sizeof(value)) {

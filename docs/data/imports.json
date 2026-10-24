@@ -60,6 +60,16 @@
     ],
     "merged": [],
     "name": "shared/auxdata/delta_money.cpp"
+   },
+   "delta_time": {
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x4A81D0",
+     "0x4A8270"
+    ],
+    "merged": [],
+    "name": "shared/auxdata/delta_time.cpp"
    }
   },
   "headers": {
@@ -69,10 +79,11 @@
    "shared/auxdata/linearbu.h": "reconstructed",
    "shared/auxdata/lookup.h": "reconstructed",
    "shared/auxdata/name.h": "reconstructed",
+   "shared/duration.h": "reconstructed",
    "shared/money.h": "reconstructed",
    "shared/unknown_debug.h": "reconstructed"
   },
-  "in_tree_total": 34,
+  "in_tree_total": 36,
   "totals": {}
  },
  "ww3d2": {

@@ -46,9 +46,9 @@ DeltaCompoundClass *DeltaClass::As_Compound()
 	return 0;
 }
 
-bool DeltaClass::Unknown_10(LinearBufferClass &buf, int b)
+bool DeltaClass::Unknown_10(LinearBufferClass &buf, const DurationClass &base)
 {
-	if (!Read(buf, b)) {
+	if (!Read(buf, base)) {
 		return false;
 	}
 	Unknown_3C(this);
@@ -169,14 +169,14 @@ bool DeltaCompoundClass::Unknown_0C(LinearBufferClass &buf)
 }
 
 
-bool DeltaCompoundClass::Unknown_10(LinearBufferClass &buf, int b)
+bool DeltaCompoundClass::Unknown_10(LinearBufferClass &buf, const DurationClass &base)
 {
-	if (!DeltaClass::Unknown_10(buf, b)) {
+	if (!DeltaClass::Unknown_10(buf, base)) {
 		return false;
 	}
 	int count = Children.size();
 	for (int i = 0; i < count; i++) {
-		if (!Children[i]->Unknown_10(buf, b)) {
+		if (!Children[i]->Unknown_10(buf, base)) {
 			return false;
 		}
 	}
