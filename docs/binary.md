@@ -21,7 +21,7 @@ From the Rich header:
 |---|---|---|---|
 | 11 (C++ compiler, VC6) | 8799 | 1054 | **Visual C++ 6.0**, build 8799 = **Service Pack 4**, confirmed by compiling ([toolchain.md](toolchain.md) §1.2): E&B's and Westwood's C++ |
 | 10 (C compiler, VC6) | 8797, 8799 | 202 | VC6 C objects |
-| 4 | 8447 | 96 | MASM 6.x-era objects (CRT assembler, or Westwood's `.asm`) |
+| 4 | 8447 | 96 | import-library members made by LIB 6.00.8447 (SP4's): 81 mss32 + 9 binkw32 imports + 2x3 descriptors ([toolchain.md](toolchain.md) §1.2, 2026-10-24) |
 | 19 | 8022, 8034 | 35 | import libraries |
 | 14 | 7299 | 45 | VC6 resource/old linker objects |
 | 28, 29 | 8830 | 1, 66 | objects from a newer toolchain: likely DirectX 8 SDK or Miles/Bink static libraries |

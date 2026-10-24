@@ -646,21 +646,14 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 | D30 | 2026-10-24 | Build VMs come from a pool of differencing clones of `Tools\VMPool\base-vc6.vhdx`, no warm sync cache (each leasee syncs its tree), cap 5; the old fixed clones are retired | user (04:40, 06:25); done 87f38c3, c7b8bcc; clones retired 07:00 ([toolchain.md](toolchain.md) §1.3) |
 | D31 | 2026-10-24 | Sessions release their leased VMs in the handoff skill; `pool.py lease`/`create` reclaim orphaned leases first | user (06:25); done 6e298b5 |
 | D32 | 2026-10-24 | Builders stay serial (one at a time); parallel worktrees not needed yet | user |
+| D33 | 2026-10-24 | Keep the neutral names from the night's item 7b: `MEM_CLIENTOBJECT`..`MEM_PARTICLES` (from the client's name table 0xBCB228), `FastAllocatorGeneral::m_UnknownE00`..`m_UnknownE20`, `Unknown_Reset_Statistics` (D10) | user |
+| D34 | 2026-10-24 | Keep evidence-backed changes that gain nothing countable when the client's form is shown: first `DazzlePrototypeClass`'s Renegade virtual destructor (0x96EF00 has the client's form but is too short to count; vtable 0xB12598 has 4 slots) | user |
+| D35 | 2026-10-24 | texture.h's comment on the protected `D3DTexture` cites 0x94B660 (c35cc34), not `Apply` 0x94BC80 (D29) | user |
+| D36 | 2026-10-24 | VIDTEST.EXE is rebuilt as a working program, not byte-exact: proof that the tree links into a small app that loads E&B's original art and renders a 3D scene (the 2002 library variant and incremental link aren't needed for that). E&BConfig.exe not pursued | user |
 
 ## 3. Open decisions
 
 * (D7 is to be revisited with the user if byte-exactness of E&B's code becomes too costly.)
-* From the 2026-10-24 night (builders' proposals, not yet answered):
-  1. Item 7b (a): keep the neutral names `MEM_CLIENTOBJECT`..`MEM_PARTICLES` (from the client's
-     strings), `m_UnknownE00`..`m_UnknownE20`, `Unknown_Reset_Statistics` (D10). Recommended: yes.
-  2. Item 7b (b): keep the Dazzle destructor change although it gains 0 (0x96EF00 is the client's
-     form but too short to count; spec `.work/night/item7b/spec_dazzle.py`). Recommended: yes.
-  3. Item 8a: texture.h's comment still cites `Apply` 0x94BC80 for the protected `D3DTexture`
-     (D29: c35cc34/0x94B660 is the real need). Leave it, or reword it in the next texture change?
-  4. VIDTEST.EXE / E&BConfig.exe (`.work/ebconfig/assessment.md`): pursue? Both need a September
-     2002 variant of the libraries (a second patch set or a branch); E&BConfig also a VC6 SP5 VM
-     and static MFC 4.2. Recommended: not now; if ever, VIDTEST first, after the stub-link proof
-     (§4 item 7).
 
 ## 4. Next steps
 
@@ -684,6 +677,10 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
    `Update_Movie_Capture` 0x918B20, `Create_Device`'s format retry, `CreateBrowser`'s app callers
    0x7CA5C0/0x7CAD00 (E&B's `querydata`). wwshade: the two `"UnNamed"` constructors (D17).
 6. Tools: `--pool K` for `bytematch_all.sh` and `importer.py refine`.
-7. VIDTEST stub-link proof (assessment §3), if §3 item 4 is answered yes: link VIDTEST's library
-   part (or a stub app) against the tree's objects and compare the library zone's functions and
-   order.
+7. D36, a working VIDTEST: link the tree's libraries into an executable for the first time (a
+   link step the project hasn't done; the client's link settings in [binary.md](binary.md)), with a
+   new small app (WinMain, device setup through `WW3D::Init`/`Set_Render_Device`, an asset manager
+   pointed at `EBCONFIG`'s art, a camera and a scene) that loads E&B's W3D/DDS/TGA files and renders
+   them. VIDTEST's own behaviour is the spec (`.work/ebconfig/assessment.md` §1: command line
+   `-device -resx -resy -depth -windowed -filter`, `results.ini` output); its E&B game classes
+   (Land, stars, decorations, splines) are optional extras, not needed for the first scene.
