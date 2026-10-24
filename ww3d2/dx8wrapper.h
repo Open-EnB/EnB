@@ -540,6 +540,7 @@ protected:
 	*/
 
 	static RenderStateStruct			render_state;
+	static Matrix4						DX8Transforms[D3DTS_WORLD+1];
 	static unsigned						render_state_changed;
 
 	static bool								IsInitted;
@@ -676,9 +677,14 @@ WWINLINE void DX8Wrapper::Set_Ambient(const Vector3& color)
 
 WWINLINE void DX8Wrapper::_Set_DX8_Transform(D3DTRANSFORMSTATETYPE transform,const Matrix4& m)
 {
-	SNAPSHOT_SAY(("DX8 - SetTransform\n"));
-	DX8_RECORD_MATRIX_CHANGE();
-	DX8CALL(SetTransform(transform,(D3DMATRIX*)&m));
+	WWASSERT(transform<=D3DTS_WORLD);
+	if (m!=DX8Transforms[transform]) 
+	{
+		DX8Transforms[transform]=m;
+		SNAPSHOT_SAY(("DX8 - SetTransform\n"));
+		DX8_RECORD_MATRIX_CHANGE();
+		DX8CALL(SetTransform(transform,(D3DMATRIX*)&m));
+	}
 }
 
 
