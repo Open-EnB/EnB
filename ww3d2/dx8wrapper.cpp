@@ -536,16 +536,25 @@ bool DX8Wrapper::Reset_Device(void)
 		// Release all non-MANAGED stuff
 		WW3D::_Invalidate_Textures();
 
-		Set_Vertex_Buffer (NULL);
+		for (unsigned i=0;i<MAX_VERTEX_STREAMS;++i)
+		{
+			Set_Vertex_Buffer (NULL,i);
+		}
 		Set_Index_Buffer (NULL, 0);
 		DynamicVBAccessClass::_Deinit();
 		DynamicIBAccessClass::_Deinit();
 		DX8TextureManagerClass::Release_Textures();
+		SHD_SHUTDOWN_SHADERS;
 
 		// Reset frame count to reflect the flipping chain being reset by Reset()
 		FrameCount = 0;
 
 		DX8CALL(Reset(&_PresentParameters));
+		SHD_INIT_SHADERS;
+
+		memset(Vertex_Shader_Constants,0,sizeof(Vector4)*MAX_VERTEX_SHADER_CONSTANTS);
+		memset(Pixel_Shader_Constants,0,sizeof(Vector4)*MAX_PIXEL_SHADER_CONSTANTS);
+
 		DX8TextureManagerClass::Recreate_Textures();
 		Invalidate_Cached_Render_States();
 		Set_Default_Global_Render_States();
