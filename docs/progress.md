@@ -4,6 +4,40 @@ Newest first within each section. Dates are when the entry was written.
 
 ## 1. Log
 
+### 2026-10-23: D19's distortion draw rebuilt (not byte-exact); its neighbours are uncountable
+
+* `UnknownDistortionClass::Unknown_Render_Distortion` (0x9961E0) written from the client's
+  disassembly (0a4514e): the camera-facing square projected to whole pixels, the on-screen part
+  of the back buffer copied to a `TextureClass` (clamp, no filtering), world/view/projection set to
+  identity with `_PresetOpaque2DShader` (depth always) and PRELIT_NODIFFUSE, a grid of 8-pixel
+  cells in three function-static `DynamicVectorClass` lists with each texture coordinate sent
+  through `Unknown_Distort`, drawn through the dynamic VB/IB, view and projection restored. Kept
+  as the client has them: uv0 scaled by the width only, uv1 by the height only; the early returns
+  for fewer than 2 cells leave the view and projection unrestored.
+* Not byte-exact: 6,672 bytes vs 6,759; 369 of ~1,530 instructions differ with stack offsets and
+  relocations masked. Left: the view restore (the client builds a `??_H` Matrix4 temporary, ours
+  doesn't), the index loop's rotation and registers, the static guards' registers, a frame 0x18
+  bytes bigger in the client (0x208 vs 0x1F0: locals not found). Forms that did help: early
+  returns with their own cleanup copies; `Get_Translation(Vector3 *)`; `y1 >= height ? ... : y1`;
+  `sw`/`sh` before the clamped size; a `Vector2 offset` temporary; `i0`/`i1` index locals.
+  Tried and worse: `RefCountPtr` locals (the client doesn't null-check texture or back buffer),
+  `Vector2` sum for the vertex, `for (int ...)` loops, hoisted `v`, index-count orderings.
+* Neighbours 0x997EA0..0x9981A0: no source needed. They are
+  `DynamicVectorClass<UnknownDistortionClass *>`'s template members (plus static cleanups
+  0x997C50/90/D0, 0x997D90, 0x998120); our object compiles each byte-identical, but the client has
+  33-140 identical copies, so `multiple`, 0 counted (new trap in workflow.md §3). 0x9981F0 is an
+  8-byte `this`-adjusting thunk (too short to count).
+* `Unknown_Add_To_Distortion_List` 0x995E20: only `add ecx, eax` vs `add eax, ecx` (registers).
+* Verified: `importer.py verify --lib ww3d2` 0 errors, 2,362 in tree (unchanged); pair sets +12
+  (template instances in unknown_distortion), 0 lost; `report`; `replay` 0 differences.
+* Tools: none in tools/. Scratch in `.work/`: `dist_compile.py` (compile the file alone, objdiff the
+  draw), `dist_mask.py` (diff with esp offsets/relocations/immediates masked), `dist_try.py`
+  (score variants), `dist_head.py` (exact sets vs HEAD), `objmatch_all.py` (objmatch without the
+  5-address cap), `dist_v*.py` variant specs, `imports.before-draw.json`.
+* Decisions: none. Open: item 1 rewritten.
+* Next step: another open item (WW3D2 near-misses, `GapFillerClass`, `_Get_Total_*_Size`), or the
+  draw's frame size if a lead turns up.
+
 ### 2026-10-23: saved Ghidra pseudocode (`pseudocode.py`); REA timeouts confirmed
 
 * REA's raised timeouts (3d44d68) work: the first `batch_decompile` came back after Ghidra's
@@ -543,8 +577,12 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 
 ## 4. Next steps
 
-1. D19's distortion draw 0x9961E0 and its neighbours 0x997EA0..0x9981A0, from the saved
-   pseudocode (`python tools/re/pseudocode.py --show 0x9961E0`).
+1. D19's distortion draw 0x9961E0: rebuilt (0a4514e) but not byte-exact (369 masked rows; see
+   library-matching.md §3.6.1). Its neighbours 0x997EA0..0x9981A0 need no source: they are
+   `DynamicVectorClass<UnknownDistortionClass *>`'s template members, which our object already
+   compiles byte-identical, but their bytes recur 33-140 times in the client, so they stay
+   `multiple` and uncounted (workflow.md §3). Left in the module: the draw, the ripple 0x997DE0,
+   `Unknown_Add_To_Distortion_List` 0x995E20, `Render` 0x996180 (register allocation).
 2. WW3D2 near-misses (docs/data/gaps-ww3d2, 347): the clusters of the 2026-10-23 near-miss entry
    (`GapFillerClass`; textures under D9; mapper, particles and `Set_Render_Device` done, see the
    2026-10-23 entries for what is left of each).

@@ -196,6 +196,12 @@ compiled into E&B's objects), so they run higher.
   addresses (`multiple`), and `verify` credits neither (`WW3D::Set_Render_Device`, 0x917790 and
   0x9177E0). Check with `objmatch.py OBJ`: both found exactly at their two client addresses is the
   evidence; record the change with a 0 gain.
+* **Pointer/POD template instances are never counted.** `VectorClass<T *>` / `DynamicVectorClass<T *>`
+  members (`Clear`, `ID`, `Resize`, `operator==`, deleting destructors) and `??_G` of empty bases
+  compile to the same bytes for every `T`, so the client has 30-140 copies and `objmatch` reports
+  `multiple` with only the first 5 addresses. To see whether a gap's address is among them, run a
+  copy of `objmatch.py` without the `[:5]` cap (D19's 0x997EA0..0x9981A0, 2026-10-23); don't try
+  to rebuild them.
 * **A copy's low evidence count can be its own headers' fault.** Zero Hour's `mapper.cpp` matched
   only 2 client functions in `.work/bm2` (compiled with Zero Hour's own WW3D2 headers), yet
   swapped into the tree it matched all of them (+56): the client's vtables had Zero Hour's slot
