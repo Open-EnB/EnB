@@ -113,6 +113,26 @@
     ],
     "merged": [],
     "name": "shared/auxdata/lookup.cpp"
+   },
+   "name": {
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42F250",
+     "0x4AD380",
+     "0x4AD3F0",
+     "0x4AD460",
+     "0x4AD4B0",
+     "0x4AD500",
+     "0x4AD610",
+     "0x4AD6F0",
+     "0x4AD7D0",
+     "0x4AD890",
+     "0x4AD9F0",
+     "0x4ADB80"
+    ],
+    "merged": [],
+    "name": "shared/auxdata/name.cpp"
    }
   },
   "headers": {
@@ -124,11 +144,12 @@
    "shared/auxdata/linearbu.h": "reconstructed",
    "shared/auxdata/lookup.h": "reconstructed",
    "shared/auxdata/name.h": "reconstructed",
+   "shared/auxdata/permstr.h": "reconstructed",
    "shared/duration.h": "reconstructed",
    "shared/money.h": "reconstructed",
    "shared/unknown_debug.h": "reconstructed"
   },
-  "in_tree_total": 55,
+  "in_tree_total": 67,
   "totals": {}
  },
  "ww3d2": {

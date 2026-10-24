@@ -3033,8 +3033,12 @@ RECONSTRUCTED = {
                                                 "Set, Clone; asserts on the client's lines 28-130 (D25)",
     ('app', 'shared/auxdata/delta_string.h'): "DeltaStringClass (vtable 0xAEB0E4, size 0x88) and the string value "
                                               "interface StringValueClass (vtable 0xAEB150)",
-    ('app', 'shared/auxdata/name.h'): "NameClass (D24), only what delta.cpp uses: size 0x34, name.cpp's 0x4AD380, "
-                                      "0x4AD460, 0x4AD9F0",
+    ('app', 'shared/auxdata/name.h'): "NameClass (D24), size 0x34: Name, Parts[MAX_NAME_LENGTH], Count, "
+                                      "HasWildcard (name.cpp's asserts and code)",
+    ('app', 'shared/auxdata/name.cpp'): "NameClass, client 0x4AD380-0x4ADB9B: 11 functions, asserts on the client's "
+                                        "lines 138-177 (D25)",
+    ('app', 'shared/auxdata/permstr.h'): "PermString (the client's name, 0x4ADFF0's message), only what name.cpp "
+                                         "uses: one interned pointer, Find 0x4ADE20",
     ('app', 'shared/auxdata/lookup.h'): "LookupClass (D24), only what delta.cpp uses: ctor 0x4AC250, a vector at +0 "
                                         "and a map at +0x10 (size 0x20), element types placeholders",
     ('app', 'shared/auxdata/delta_money.cpp'): "the money field's Read 0x4A7470 and Write 0x4A74F0 "
