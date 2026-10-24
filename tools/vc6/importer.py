@@ -79,7 +79,9 @@ LIB_FLAGS = {'wwshade': '/nologo /c /MT /W3 /O2 /Ob1 /GX /D _MBCS /D ENABLE_WWPR
              # WWDebug: neutral in the bytes; set for consistency with a project-wide define (D14, soft)
              'wwdebug': '/nologo /c /MT /W3 /O2 /Ob2 /D ENABLE_WWPROFILE',
              # WW3D2 too was built with ENABLE_WWPROFILE: +20 pairs (assetmgr, dazzle, sortingrenderer, ...)
-             'ww3d2': '/nologo /c /MT /W3 /O2 /Ob2 /D ENABLE_WWPROFILE'}
+             # and with USE_WWSHADE: dx8wrapper calls SHD_Init 0xA07CE0 / SHD_Shutdown 0xA07CF0 (0x921551, 0x921E90),
+             # WW3D::Render SHD_Flush 0xA07D20 (0x917F15), the asset manager SHD_Register_Loader 0xA07D30 (0x91C4E3)
+             'ww3d2': '/nologo /c /MT /W3 /O2 /Ob2 /D ENABLE_WWPROFILE /D USE_WWSHADE'}
 
 
 # EA files the client does not link: not imported (plan, assemble) and dropped from the state.
@@ -564,6 +566,27 @@ TEXTURE_API_PATCHES = {
         ('D3DMATRIX\t\t\t\t\t\tDX8Wrapper::old_prj;',
          'D3DMATRIX\t\t\t\t\t\tDX8Wrapper::old_prj;\n\n// shader system additions KJM v\nDWORD\t\t\t\t\t\t\t\tDX8Wrapper::Vertex_Shader\t\t\t\t\t\t\t\t= 0;\nDWORD\t\t\t\t\t\t\t\tDX8Wrapper::Pixel_Shader\t\t\t\t\t\t\t\t= 0;\n\nVector4\t\t\t\t\t\t\tDX8Wrapper::Vertex_Shader_Constants[MAX_VERTEX_SHADER_CONSTANTS];\nVector4\t\t\t\t\t\t\tDX8Wrapper::Pixel_Shader_Constants[MAX_PIXEL_SHADER_CONSTANTS];\n\nDWORD\t\t\t\t\t\t\t\tDX8Wrapper::Vertex_Processing_Behavior\t\t\t\t= 0;\nZTextureClass*\t\t\t\t\tDX8Wrapper::Shadow_Map[MAX_SHADOW_MAPS];\n// shader system additions KJM ^',
          "Zero Hour's 06/27/02 additions (see dx8wrapper.h): their statics (the two Vector4 arrays' initialisers are byte-exact, 0x920D70 and 0x920E70)"),
+        ('\t\tfor (int b=0; b<32;b++) {\n\t\t\tTextureStageStates[a][b]=0x12345678;\n\t\t}\n\t\tTextures[a]=NULL;\n\t}\n\tShaderClass::Invalidate();',
+         '\t\tfor (int b=0; b<32;b++) {\n\t\t\tTextureStageStates[a][b]=0x12345678;\n\t\t}\n\t}\n\tShaderClass::Invalidate();',
+         "D9: Invalidate_Cached_Render_States 0x921C20 fills RenderStates and TextureStageStates (0x100 dwords each) and sets ShaderClass's dirty byte; no Textures[a]=NULL"),
+        ('\telse\n\t{\n\t\tSet_Render_Target(d3d_surf,true);\n\t}\n\td3d_surf->Release();',
+         '\telse\n\t{\n\t\tSet_Render_Target(d3d_surf,false);\n\t}\n\td3d_surf->Release();',
+         'D9: Set_Render_Target_With_Z 0x926A20 (called by TexProjectClass::Compute_Texture 0x93DF4F) passes use_default_depth_buffer=false (push 0) when there is no ztexture'),
+        ('\tfor (int i = 0; i < MAX_TEXTURE_STAGES; i++) {\n\t\tif (Textures[i]) {\n\t\t\tTextures[i]->Release();\n\t\t\tTextures[i] = NULL;\n\t\t}\n\t}\n',
+         '\tif (CurrentCaps)\n\t{\n\t\tint max=CurrentCaps->Get_Max_Textures_Per_Pass();\n\t\tfor (int i = 0; i < max; i++)\n\t\t{\n\t\t\tif (Textures[i])\n\t\t\t{\n\t\t\t\tTextures[i]->Release();\n\t\t\t\tTextures[i] = NULL;\n\t\t\t}\n\t\t}\n\t}\n',
+         'D9: Shutdown 0x9213C0 releases Textures[] up to CurrentCaps->Get_Max_Textures_Per_Pass() ([CurrentCaps+0x124], tested for NULL first), as Zero Hour'),
+        ('#include "bound.h"\n',
+         '#include "bound.h"\n#include "shdlib.h"\n',
+         "D9: E&B's WW3D2 was built with USE_WWSHADE (SHD_Init 0xA07CE0, SHD_Shutdown 0xA07CF0 called from dx8wrapper); Zero Hour's dx8wrapper.cpp includes shdlib.h"),
+        ('\tBoxRenderObjClass::Shutdown();\n\tTheDX8MeshRenderer.Shutdown();',
+         '\tBoxRenderObjClass::Shutdown();\n\tSHD_SHUTDOWN;\n\tTheDX8MeshRenderer.Shutdown();',
+         'D9: SHD_SHUTDOWN between BoxRenderObjClass::Shutdown and TheDX8MeshRenderer.Shutdown (call 0xA07CF0 at 0x921E90), as Zero Hour'),
+        ('\tTheDX8MeshRenderer.Init();\n\tBoxRenderObjClass::Init();',
+         '\tTheDX8MeshRenderer.Init();\n\tSHD_INIT;\n\tBoxRenderObjClass::Init();',
+         'D9: SHD_INIT after TheDX8MeshRenderer.Init (call 0xA07CE0 at 0x921551, Do_Onetime_Device_Dependent_Inits 0x9214B0), as Zero Hour'),
+        ('\t// If we try to clear a stencil buffer which is not there, the entire call will fail\n\tbool has_stencil = (\t_PresentParameters.AutoDepthStencilFormat == D3DFMT_D15S1 ||\n\t\t\t\t\t\t\t\t_PresentParameters.AutoDepthStencilFormat == D3DFMT_D24S8 ||\n\t\t\t\t\t\t\t\t_PresentParameters.AutoDepthStencilFormat == D3DFMT_D24X4S4);\n\n\tDWORD flags = 0;\n\tif (clear_color) flags |= D3DCLEAR_TARGET;\n\tif (clear_z_stencil) flags |= D3DCLEAR_ZBUFFER;\n\tif (clear_z_stencil && has_stencil) flags |= D3DCLEAR_STENCIL;\n\tif (flags)\n\t{\n\t\tDX8CALL(Clear(0, NULL, flags, Convert_Color(color,0.0f), z, stencil));\n\t}',
+         '\t// If we try to clear a stencil buffer which is not there, the entire call will fail\n\t// KJM fixed this to get format from back buffer (incase render to texture is used)\n\t/*bool has_stencil = (\t_PresentParameters.AutoDepthStencilFormat == D3DFMT_D15S1 ||\n\t\t\t\t\t\t\t\t_PresentParameters.AutoDepthStencilFormat == D3DFMT_D24S8 ||\n\t\t\t\t\t\t\t\t_PresentParameters.AutoDepthStencilFormat == D3DFMT_D24X4S4);*/\n\tbool has_stencil=false;\n\tIDirect3DSurface8* depthbuffer;\n\n\t_Get_D3D_Device8()->GetDepthStencilSurface(&depthbuffer);\n\tnumber_of_DX8_calls++;\n\n\tif (depthbuffer)\n\t{\n\t\tD3DSURFACE_DESC desc;\n\t\tdepthbuffer->GetDesc(&desc);\n\t\thas_stencil=\n\t\t(\n\t\t\tdesc.Format==D3DFMT_D15S1 ||\n\t\t\tdesc.Format==D3DFMT_D24S8 ||\n\t\t\tdesc.Format==D3DFMT_D24X4S4\n\t\t);\n\n\t\t// release ref\n\t\tdepthbuffer->Release();\n\t}\n\n\tDWORD flags = 0;\n\tif (clear_color) flags |= D3DCLEAR_TARGET;\n\tif (clear_z_stencil) flags |= D3DCLEAR_ZBUFFER;\n\tif (clear_z_stencil && has_stencil) flags |= D3DCLEAR_STENCIL;\n\tif (flags)\n\t{\n\t\tDX8CALL(Clear(0, NULL, flags, Convert_Color(color,0.0f), z, stencil));\n\t}',
+         'D9: Clear 0x924CC0 reads the stencil format from GetDepthStencilSurface (vtable +0x84) and its GetDesc, counting the call, as Zero Hour; E&B keeps the 5-argument form (no dest_alpha; Convert_Color(color,0))'),
     ],
     ('ww3d2', 'font3d.cpp'): [
         ('\t\tTexture = NEW_REF(TextureClass,(_surface,TextureClass::MIP_LEVELS_1));',
@@ -1410,6 +1433,9 @@ WWSHADE_API_PATCHES = {
         ('void DX8Wrapper::Set_Light_Environment(LightEnvironmentClass* light_env)\n{\n\tif (light_env) {\n',
          'void DX8Wrapper::Set_Light_Environment(LightEnvironmentClass* light_env, bool unknown_set_lights)\n{\n\tLight_Environment=light_env;\n\n\tif (unknown_set_lights && light_env) {\n',
          "The client's Set_Light_Environment (0x926460) takes a second argument (E&B's; no EA copy has it): it always stores light_env in Zero Hour's Light_Environment (0xC00648) and sets the device lights only when the flag is set; mesh (0x93F639) and dx8renderer (0x97A32D) pass 1, ShdDX8RendererNodeClass::Flush (0xA089C2) passes 0. The body is otherwise Renegade's. Parameter name unknown (D10)"),
+        ('\tfor (i=0;i<MAX_TEXTURE_STAGES;++i) REF_PTR_RELEASE(render_state.Textures[i]);\n\n\tTextureLoader::Deinit();',
+         '\tfor (i=0;i<CurrentCaps->Get_Max_Textures_Per_Pass();++i) REF_PTR_RELEASE(render_state.Textures[i]);\n\n\tTextureLoader::Deinit();',
+         'D9: Do_Onetime_Device_Dependent_Shutdowns 0x921DA0 loops render_state.Textures to CurrentCaps->Get_Max_Textures_Per_Pass() (cmp edi,[eax+0x124] each pass), as Zero Hour'),
     ],
     ('ww3d2', 'ww3d.cpp'): [
         ('\tVector3 ambient = scene->Get_Ambient_Light();\n\tDX8Wrapper::Set_DX8_Render_State(D3DRS_AMBIENT, DX8Wrapper::Convert_Color(ambient,0.0f));\n',

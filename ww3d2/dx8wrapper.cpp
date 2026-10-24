@@ -74,6 +74,7 @@
 #include "formconv.h"
 #include "dx8texman.h"
 #include "bound.h"
+#include "shdlib.h"
 
 const int DEFAULT_RESOLUTION_WIDTH = 800;
 const int DEFAULT_RESOLUTION_HEIGHT = 600;
@@ -324,10 +325,16 @@ void DX8Wrapper::Shutdown(void)
 		D3DInterface=NULL;
 
 	}
-	for (int i = 0; i < MAX_TEXTURE_STAGES; i++) {
-		if (Textures[i]) {
-			Textures[i]->Release();
-			Textures[i] = NULL;
+	if (CurrentCaps)
+	{
+		int max=CurrentCaps->Get_Max_Textures_Per_Pass();
+		for (int i = 0; i < max; i++)
+		{
+			if (Textures[i])
+			{
+				Textures[i]->Release();
+				Textures[i] = NULL;
+			}
 		}
 	}
 
@@ -356,6 +363,7 @@ void DX8Wrapper::Do_Onetime_Device_Dependent_Inits(void)
 	MissingTexture::_Init();
 	TextureFilterClass::_Init_Filters((TextureFilterClass::TextureFilterMode)WW3D::Get_Texture_Filter());
 	TheDX8MeshRenderer.Init();
+	SHD_INIT;
 	BoxRenderObjClass::Init();
 	VertexMaterialClass::Init();
 	PointGroupClass::_Init(); // This needs the VertexMaterialClass to be initted
@@ -398,7 +406,6 @@ void DX8Wrapper::Invalidate_Cached_Render_States(void)
 		for (int b=0; b<32;b++) {
 			TextureStageStates[a][b]=0x12345678;
 		}
-		Textures[a]=NULL;
 	}
 	ShaderClass::Invalidate();
 }
@@ -416,7 +423,7 @@ void DX8Wrapper::Do_Onetime_Device_Dependent_Shutdowns(void)
 	if (render_state.index_buffer) render_state.index_buffer->Release_Engine_Ref();
 	REF_PTR_RELEASE(render_state.index_buffer);
 	REF_PTR_RELEASE(render_state.material);
-	for (i=0;i<MAX_TEXTURE_STAGES;++i) REF_PTR_RELEASE(render_state.Textures[i]);
+	for (i=0;i<CurrentCaps->Get_Max_Textures_Per_Pass();++i) REF_PTR_RELEASE(render_state.Textures[i]);
 
 	TextureLoader::Deinit();
 	SortingRendererClass::Deinit();
@@ -426,6 +433,7 @@ void DX8Wrapper::Do_Onetime_Device_Dependent_Shutdowns(void)
 	PointGroupClass::_Shutdown();
 	VertexMaterialClass::Shutdown();
 	BoxRenderObjClass::Shutdown();
+	SHD_SHUTDOWN;
 	TheDX8MeshRenderer.Shutdown();
 	MissingTexture::_Deinit();
 
@@ -1600,9 +1608,30 @@ void DX8Wrapper::Clear(bool clear_color, bool clear_z_stencil, const Vector3 &co
 {
 	DX8_THREAD_ASSERT();
 	// If we try to clear a stencil buffer which is not there, the entire call will fail
-	bool has_stencil = (	_PresentParameters.AutoDepthStencilFormat == D3DFMT_D15S1 ||
+	// KJM fixed this to get format from back buffer (incase render to texture is used)
+	/*bool has_stencil = (	_PresentParameters.AutoDepthStencilFormat == D3DFMT_D15S1 ||
 								_PresentParameters.AutoDepthStencilFormat == D3DFMT_D24S8 ||
-								_PresentParameters.AutoDepthStencilFormat == D3DFMT_D24X4S4);
+								_PresentParameters.AutoDepthStencilFormat == D3DFMT_D24X4S4);*/
+	bool has_stencil=false;
+	IDirect3DSurface8* depthbuffer;
+
+	_Get_D3D_Device8()->GetDepthStencilSurface(&depthbuffer);
+	number_of_DX8_calls++;
+
+	if (depthbuffer)
+	{
+		D3DSURFACE_DESC desc;
+		depthbuffer->GetDesc(&desc);
+		has_stencil=
+		(
+			desc.Format==D3DFMT_D15S1 ||
+			desc.Format==D3DFMT_D24S8 ||
+			desc.Format==D3DFMT_D24X4S4
+		);
+
+		// release ref
+		depthbuffer->Release();
+	}
 
 	DWORD flags = 0;
 	if (clear_color) flags |= D3DCLEAR_TARGET;
@@ -2782,7 +2811,7 @@ void DX8Wrapper::Set_Render_Target_With_Z
 	}
 	else
 	{
-		Set_Render_Target(d3d_surf,true);
+		Set_Render_Target(d3d_surf,false);
 	}
 	d3d_surf->Release();
 
