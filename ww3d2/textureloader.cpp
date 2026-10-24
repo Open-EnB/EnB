@@ -39,6 +39,7 @@
 #include "texturethumbnail.h"
 #include "ddsfile.h"
 #include "bitmaphandler.h"
+#include "wwprofile.h"
 
 bool TextureLoader::TextureLoadSuspended;
 unsigned TextureLoader::_UnknownInvalidationTime;
@@ -621,6 +622,7 @@ void TextureLoader::Request_Thumbnail(TextureBaseClass *tc)
 
 void TextureLoader::Request_Background_Loading(TextureBaseClass *tc)
 {
+	WWPROFILE(("TextureLoader::Request_Background_Loading()"));
 	// Grab the foreground lock. This prevents the foreground thread
 	// from retiring any tasks related to this texture. It also 
 	// serializes calls to Request_Background_Loading from other
@@ -651,6 +653,7 @@ void TextureLoader::Request_Background_Loading(TextureBaseClass *tc)
 
 void TextureLoader::Request_Foreground_Loading(TextureBaseClass *tc)
 {
+	WWPROFILE(("TextureLoader::Request_Foreground_Loading()"));
 	// Grab the foreground lock. This prevents the foreground thread
 	// from retiring the load tasks for this texture. It also 
 	// serializes calls to Request_Foreground_Loading from other
