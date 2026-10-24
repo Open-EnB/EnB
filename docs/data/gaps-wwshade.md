@@ -4,8 +4,11 @@ Each function our source compiles that the client does not contain byte for byte
 
 | Object | Function | Length | Status | Client | Similarity |
 |---|---|---|---|---|---|
-| shdcubemap.obj | `DX8Wrapper::Set_DX8_Texture_Stage_State` | 207 | none | 0xA0B220 | 0.23 |
+| shdcubemap.obj | `Shd6CubeMapClass::Apply_Shared` | 234 | none | 0xA0AF40 | 0.77 |
+| shdcubemap.obj | `DX8Wrapper::Set_DX8_Texture_Stage_State` | 207 | none | 0xA0AF20 | 0.05 |
 | shddef.obj | `ShdDefClass::ShdDefClass` | 223 | none | 0xA0AAA0 | 0.28 |
+| shdglossmask.obj | `Shd6GlossMaskClass::Apply_Shared` | 368 | none | 0xA0CD90 | 0.82 |
 | shdmesh.obj | `ShdMeshClass::ShdMeshClass` | 233 | none | 0x510BE0 | 0.23 |
 | shdmesh.obj | `ShdMeshClass::Get_Num_Vertices` | 36 | none | 0x510D40 | 0.02 |
 | shdmesh.obj | `ShdMeshClass::Peek_Sub_Mesh` | 16 | none | - | - |
+| shdsimple.obj | `Shd6SimpleClass::Apply_Shared` | 225 | none | 0xA0D910 | 0.74 |

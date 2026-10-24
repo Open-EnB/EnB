@@ -110,7 +110,7 @@ def main():
     ap.add_argument('--out', required=True)
     a = ap.parse_args()
     img = ClientImage()
-    starts, _ = img.function_starts()
+    starts, _ = img.function_starts(verified=True)
     rows = []
     seen = set()
     for p in sorted(a.objects):

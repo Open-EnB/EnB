@@ -80,16 +80,6 @@
   "window": "0x42F280-0x42FA80"
  },
  {
-  "object": "cullsys.obj",
-  "function": "CullableClass::Set_Cull_Box",
-  "symbol": "?Set_Cull_Box@CullableClass@@QAEXABVAABoxClass@@_N@Z",
-  "length": 72,
-  "status": "none",
-  "address": "0x8C8DC0",
-  "similarity": 0.34,
-  "window": "0x8C8DA0-0x8C8E40"
- },
- {
   "object": "euler.obj",
   "function": "EulerAnglesClass::EulerAnglesClass",
   "symbol": "??0EulerAnglesClass@@QAE@ABVMatrix3D@@H@Z",

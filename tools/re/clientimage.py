@@ -83,29 +83,24 @@ class ClientImage:
             va += 1; o += 1; misses += 1
         return out
 
-    def function_starts(self):
+    def function_starts(self, verified=False):
         """Function entry points, and the incremental thunk table.
 
         Objects the linker placed incrementally (the app's own code, up to about 0x8C2000) are
         reached through thunks. Code pulled from static libraries after them (WW3D2, WWLib, the
         CRT, ...) is not, so there a start is a direct `call rel32` target, or the first byte
         after inter-function padding (int3 / nop runs ending on a 16-byte boundary).
+
+        By default a call target is any `E8` byte's rel32 target, so an E8 inside another
+        instruction adds a false start, often mid-instruction (0x95A482 is one). `verified=True`
+        keeps only the targets of `call rel32` instructions decoded by a linear sweep from the
+        thunk targets and padding starts.
         """
         start, end, raw = self.section('.text')
         thunks = self.incremental_thunks()
         starts = set(thunks.values())
         lib_start = max(starts)
         body = self.data[raw:raw + (end - start)]
-        unpack = struct.unpack_from
-        calls = collections.Counter()
-        for m in re.finditer(rb'\xE8', body):
-            o = m.start()
-            if o + 5 > len(body):
-                break
-            target = start + o + 5 + unpack('<i', body, o + 1)[0]
-            if lib_start <= target < end:
-                calls[target] += 1
-        starts |= set(calls)
         lib_off = lib_start - start
         for m in re.finditer(rb'(?:\xCC|\x90){1,15}', body[lib_off:]):
             va = lib_start + m.end()
@@ -113,7 +108,37 @@ class ClientImage:
                 prev = body[lib_off + m.start() - 1]
                 if prev in (0xC3, 0xC2, 0xCC, 0xE9) or body[lib_off + m.start() - 3] == 0xC2:
                     starts.add(va)
+        if verified:
+            calls = self._swept_calls(sorted(starts | {start}), start, end, body)
+        else:
+            unpack = struct.unpack_from
+            calls = set()
+            for m in re.finditer(rb'\xE8', body):
+                o = m.start()
+                if o + 5 > len(body):
+                    break
+                calls.add(start + o + 5 + unpack('<i', body, o + 1)[0])
+        starts |= {c for c in calls if lib_start <= c < end}
         return sorted(starts), thunks
+
+    def _swept_calls(self, seeds, start, end, body):
+        """Targets of the `call rel32` instructions met disassembling linearly from each seed to
+        the next (skipping a byte wherever decoding fails)."""
+        if self._md is None:
+            import capstone
+            self._md = capstone.Cs(capstone.CS_ARCH_X86, capstone.CS_MODE_32)
+        calls = set()
+        for k, s in enumerate(seeds):
+            e = seeds[k + 1] if k + 1 < len(seeds) else end
+            va = s
+            while va < e:
+                for addr, size, mn, op in self._md.disasm_lite(body[va - start:e - start], va):
+                    if mn == 'call' and size == 5 and body[addr - start] == 0xE8:
+                        calls.add(int(op, 16))
+                    va = addr + size
+                if va < e:
+                    va += 1
+        return calls
 
     def dword_refs(self, targets):
         """Every place in .text whose 4 bytes equal one of `targets`: {target: [VA, ...]}."""

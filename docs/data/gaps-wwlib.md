@@ -42,10 +42,6 @@ Each function our source compiles that the client does not contain byte for byte
 | pkstraw.obj | `PKStraw::PKStraw` | 98 | none | 0x9F2F40 | 0.19 |
 | pkstraw.obj | `PKStraw::Get` | 455 | none | 0x9F3700 | 0.14 |
 | pkstraw.obj | `PKStraw::Key` | 32 | none | 0x9F3E20 | 0.02 |
-| random.obj | `??RRandom3Class@@QAEHHH@Z` | 230 | none | 0x9D02B0 | 0.66 |
-| random.obj | `??RRandom2Class@@QAEHHH@Z` | 159 | none | 0x9D0180 | 0.61 |
-| random.obj | `??RRandomClass@@QAEHHH@Z` | 106 | none | 0x9D0000 | 0.47 |
-| random.obj | `??RRandom4Class@@QAEHHH@Z` | 94 | none | 0x9D0510 | 0.38 |
 | rawfile.obj | `RawFileClass::~RawFileClass` | 113 | none | 0x683FB0 | 0.52 |
 | rawfile.obj | `RawFileClass::RawFileClass` | 173 | none | 0x683BE0 | 0.5 |
 | rawfile.obj | `RawFileClass::RawFileClass` | 162 | none | 0x683EA0 | 0.49 |

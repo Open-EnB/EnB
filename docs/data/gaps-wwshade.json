@@ -1,13 +1,23 @@
 [
  {
   "object": "shdcubemap.obj",
+  "function": "Shd6CubeMapClass::Apply_Shared",
+  "symbol": "?Apply_Shared@Shd6CubeMapClass@@UAEXHAAVRenderInfoClass@@@Z",
+  "length": 234,
+  "status": "none",
+  "address": "0xA0AF40",
+  "similarity": 0.77,
+  "window": "0xA0AF20-0xA0B040"
+ },
+ {
+  "object": "shdcubemap.obj",
   "function": "DX8Wrapper::Set_DX8_Texture_Stage_State",
   "symbol": "?Set_DX8_Texture_Stage_State@DX8Wrapper@@SAXIW4_D3DTEXTURESTAGESTATETYPE@@I@Z",
   "length": 207,
   "status": "none",
-  "address": "0xA0B220",
-  "similarity": 0.23,
-  "window": "0xA0A040-0xA0BA10"
+  "address": "0xA0AF20",
+  "similarity": 0.05,
+  "window": "0xA0AF20-0xA0B040"
  },
  {
   "object": "shddef.obj",
@@ -18,6 +28,16 @@
   "address": "0xA0AAA0",
   "similarity": 0.28,
   "window": "0xA0AA00-0xA0B200"
+ },
+ {
+  "object": "shdglossmask.obj",
+  "function": "Shd6GlossMaskClass::Apply_Shared",
+  "symbol": "?Apply_Shared@Shd6GlossMaskClass@@UAEXHAAVRenderInfoClass@@@Z",
+  "length": 368,
+  "status": "none",
+  "address": "0xA0CD90",
+  "similarity": 0.82,
+  "window": "0xA0CCE0-0xA0CF10"
  },
  {
   "object": "shdmesh.obj",
@@ -48,5 +68,15 @@
   "address": null,
   "similarity": null,
   "window": "0x510CF0-0x5114F0"
+ },
+ {
+  "object": "shdsimple.obj",
+  "function": "Shd6SimpleClass::Apply_Shared",
+  "symbol": "?Apply_Shared@Shd6SimpleClass@@UAEXHAAVRenderInfoClass@@@Z",
+  "length": 225,
+  "status": "none",
+  "address": "0xA0D910",
+  "similarity": 0.74,
+  "window": "0xA0D860-0xA0DA00"
  }
 ]

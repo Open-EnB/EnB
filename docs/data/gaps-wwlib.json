@@ -380,46 +380,6 @@
   "window": "0x9F368D-0x9F3E8D"
  },
  {
-  "object": "random.obj",
-  "function": "??RRandomClass@@QAEHHH@Z",
-  "symbol": "??RRandomClass@@QAEHHH@Z",
-  "length": 106,
-  "status": "none",
-  "address": "0x9D0000",
-  "similarity": 0.47,
-  "window": "0x9D0000-0x9D0080"
- },
- {
-  "object": "random.obj",
-  "function": "??RRandom2Class@@QAEHHH@Z",
-  "symbol": "??RRandom2Class@@QAEHHH@Z",
-  "length": 159,
-  "status": "none",
-  "address": "0x9D0180",
-  "similarity": 0.61,
-  "window": "0x9D0180-0x9D0250"
- },
- {
-  "object": "random.obj",
-  "function": "??RRandom3Class@@QAEHHH@Z",
-  "symbol": "??RRandom3Class@@QAEHHH@Z",
-  "length": 230,
-  "status": "none",
-  "address": "0x9D02B0",
-  "similarity": 0.66,
-  "window": "0x9D02B0-0x9D03B0"
- },
- {
-  "object": "random.obj",
-  "function": "??RRandom4Class@@QAEHHH@Z",
-  "symbol": "??RRandom4Class@@QAEHHH@Z",
-  "length": 94,
-  "status": "none",
-  "address": "0x9D0510",
-  "similarity": 0.38,
-  "window": "0x9D0510-0x9D0580"
- },
- {
   "object": "rawfile.obj",
   "function": "RawFileClass::RawFileClass",
   "symbol": "??0RawFileClass@@QAE@XZ",

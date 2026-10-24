@@ -12,7 +12,6 @@ Each function our source compiles that the client does not contain byte for byte
 | colmathsphere.obj | `CollisionMath::Overlap_Test` | 341 | none | 0x42F820 | 0.14 |
 | colmathsphere.obj | `CollisionMath::Overlap_Test` | 125 | none | 0x42F290 | 0.12 |
 | colmathsphere.obj | `CollisionMath::Overlap_Test` | 108 | none | 0x42F7E0 | 0.11 |
-| cullsys.obj | `CullableClass::Set_Cull_Box` | 72 | none | 0x8C8DC0 | 0.34 |
 | euler.obj | `EulerAnglesClass::EulerAnglesClass` | 26 | none | 0x42F290 | 0.3 |
 | euler.obj | `EulerAnglesClass::From_Matrix` | 663 | none | 0x42F2F0 | 0.08 |
 | euler.obj | `EulerAnglesClass::To_Matrix` | 608 | none | 0x42F940 | 0.03 |
