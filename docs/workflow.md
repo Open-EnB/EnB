@@ -163,6 +163,12 @@ compiled into E&B's objects), so they run higher.
   `sound == list[i]` and `list[i] == sound` compare in different operand orders; a temporary
   (`int max = obj->m;` before the call) changes register use. When a reconstruction differs only
   in a few loads, `tools/vc6/trydiff.py` keeps the variant's object for `objdiff.py`.
+* **REA's Ghidra startup can exceed its deadline.** On 2026-10-23 every `batch_decompile` failed with
+  `provider_timeout` ("did not finish importing and analyzing the target within its 330000 ms startup
+  deadline"), retries included; the failure arrives only after the background task ends, as a saved
+  JSON whose items carry `error`, not `pseudocode`. The fix is `REA_GHIDRA_STARTUP_TIMEOUT_MS` (e.g.
+  900000) in the environment that starts the REA server, then a restart; check an item's `status`
+  before reading the file.
 * **REA can't decompile vtable-only functions.** Ghidra defines no function at an address only
   reached through a vtable; `batch_decompile` then fails with "no loaded source mapping". Work from
   `client.py dis` for those. A batch result over the token limit is saved to a file: read its
