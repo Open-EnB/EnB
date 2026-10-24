@@ -667,6 +667,9 @@ TEXTURE_API_PATCHES = {
         ('int\tWW3D::Get_Texture_Reduction( void )\n{\n\treturn _TextureReduction;\n}\n',
          'int\tWW3D::Get_Texture_Reduction( void )\n{\n\treturn _TextureReduction;\n}\n\nvoid WW3D::Enable_Large_Texture_Extra_Reduction(bool onoff)\n{\n\tif (_LargeTextureExtraReductionEnabled != onoff) {\n\t\t_LargeTextureExtraReductionEnabled = onoff;\n\t\t_Invalidate_Textures();\n\t}\n}\n\nbool WW3D::Is_Large_Texture_Extra_Reduction_Enabled(void)\n{\n\treturn _LargeTextureExtraReductionEnabled;\n}\n',
          "Zero Hour's (0x918DA0 with _Invalidate_Textures inlined, 0x918E60), placed as the client orders them"),
+        ('\nvoid WW3D::_Invalidate_Mesh_Cache()\n',
+         '\n// E&B (name not known, D10): 0x9179D0 calls DX8Wrapper::Unknown_Restore_Device (0x921C50) and maps\n// its result to an error code (neg/sbb/and 0xFB/add 5: true -> 0, false -> 5).\nWW3DErrorType WW3D::Unknown_Restore_Device(void)\n{\n\treturn DX8Wrapper::Unknown_Restore_Device() ? WW3D_ERROR_OK : WW3D_ERROR_INITIALIZATION_FAILED;\n}\n\nvoid WW3D::_Invalidate_Mesh_Cache()\n',
+         'E&B: 0x9179D0 returns WW3D_ERROR_OK when DX8Wrapper::Unknown_Restore_Device (0x921C50) succeeds, else 5 (WW3D_ERROR_INITIALIZATION_FAILED)'),
     ],
     ('ww3d2', 'assetmgr.h'): [
         ('\t\tTextureClass::MipCountType mip_level_count=TextureClass::MIP_LEVELS_ALL,',
@@ -1334,6 +1337,9 @@ TEXTURE_API_PATCHES = {
         ('\tstatic int\t\t\t\t\tGet_Texture_Reduction( void );\n',
          '\tstatic int\t\t\t\t\tGet_Texture_Reduction( void );\n\tstatic void\t\t\t\t\tEnable_Large_Texture_Extra_Reduction(bool onoff);\n\tstatic bool\t\t\t\t\tIs_Large_Texture_Extra_Reduction_Enabled(void);\n',
          "Zero Hour's: Enable_Large_Texture_Extra_Reduction 0x918DA0 and Is_Large_Texture_Extra_Reduction_Enabled 0x918E60 follow Get_Texture_Reduction 0x918D90 (no Get_Texture_Min_Dimension); Get_Reduction 0x94BC20 calls it"),
+        ('\tstatic void\t\t\t\t\t_Invalidate_Mesh_Cache();\n',
+         '\t// E&B (name not known, D10): 0x9179D0, DX8Wrapper::Unknown_Restore_Device as an error code\n\tstatic WW3DErrorType\t\tUnknown_Restore_Device(void);\n\tstatic void\t\t\t\t\t_Invalidate_Mesh_Cache();\n',
+         'E&B: a WW3D function at 0x9179D0 (between Registry_Load_Render_Device 0x9179A0 and _Invalidate_Mesh_Cache 0x9179E0), called from the app at 0x4439B6'),
     ],
     ('ww3d2', 'texturefilter.cpp'): [
         ('//**********************************************************************************************\n//! Set mip mapping filter (legacy)\n/*!\n*/\nvoid TextureFilterClass::Set_Mip_Mapping(FilterType mipmap)\n{\n//\tif (mipmap != FILTER_TYPE_NONE && Get_Mip_Level_Count() <= 1 && Is_Initialized()) \n//\t{\n//\t\tWWASSERT_PRINT(0, "Trying to enable MipMapping on texture w/o Mip levels!\\n");\n//\t\treturn;\n//\t}\n\tMipMapFilter=mipmap;\n}\n\n',

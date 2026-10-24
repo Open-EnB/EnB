@@ -202,6 +202,8 @@ public:
 	static int					Get_Texture_Reduction( void );
 	static void					Enable_Large_Texture_Extra_Reduction(bool onoff);
 	static bool					Is_Large_Texture_Extra_Reduction_Enabled(void);
+	// E&B (name not known, D10): 0x9179D0, DX8Wrapper::Unknown_Restore_Device as an error code
+	static WW3DErrorType		Unknown_Restore_Device(void);
 	static void					_Invalidate_Mesh_Cache();
 	static void					_Invalidate_Textures();
 

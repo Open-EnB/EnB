@@ -742,6 +742,13 @@ bool WW3D::Registry_Load_Render_Device( const char * sub_key, char *device, int 
 	return DX8Wrapper::Registry_Load_Render_Device(sub_key,device,device_len,width,height,depth,windowed,texture_depth);
 }
 
+// E&B (name not known, D10): 0x9179D0 calls DX8Wrapper::Unknown_Restore_Device (0x921C50) and maps
+// its result to an error code (neg/sbb/and 0xFB/add 5: true -> 0, false -> 5).
+WW3DErrorType WW3D::Unknown_Restore_Device(void)
+{
+	return DX8Wrapper::Unknown_Restore_Device() ? WW3D_ERROR_OK : WW3D_ERROR_INITIALIZATION_FAILED;
+}
+
 void WW3D::_Invalidate_Mesh_Cache()
 {
 	TheDX8MeshRenderer.Invalidate();
