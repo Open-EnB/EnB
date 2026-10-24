@@ -321,3 +321,7 @@ Added 2026-10-24 (overnight run; details in `.work/night/item*/report.md`):
 * **Line endings of generated files.** A generated tree file (e.g. D22's shader headers) written
   with mixed CRLF and LF shows as modified in `git status` with an empty diff. Write CRLF
   throughout (Python `open(..., 'w', newline='')` with `\r\n`), like the EA files.
+* **App `__FILE__` strings.** A `.cpp`'s `__FILE__` in the client is absolute
+  (`e:\build\beta\G\app\...`) and must come out byte-identical, so app sources are compiled through
+  `vc6.py`'s `source_alias` (§2.1). Headers' strings are relative (`..\shared/auxdata/...`): the
+  first app header with an assert needs E&B's project-directory include form worked out first.
