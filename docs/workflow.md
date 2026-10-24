@@ -57,6 +57,42 @@ Counting: the "in tree" totals that verify prints count each client function onc
 `(file, address)` pairs in `imports.json` also include app-region duplicates (inline functions
 compiled into E&B's objects), so they run higher.
 
+### 2.1 Adding an app file (E&B's own code, D23)
+
+E&B's files are the importer's non-EA library `app` (`APP_LIBS` in importer.py): no EA copy,
+every file in `RECONSTRUCTED`, under `app/` as in `e:\build\beta\G\app\...` (A1, lower-case
+directories).
+
+1. **Draft.** `python tools/re/appfile.py show app\shared\auxdata\x.cpp` gives the window, its
+   asserts and their lines; `draft FILE --out .work/<item>/` writes a skeleton with `// @0xADDR`
+   markers and the saved pseudocode. Write the C++ (names: conventions.md §1, D10, D24), with
+   `#line N` before each assert in the draft, and run `appfile.py match DRAFT.cpp [-I DIR]` until
+   every marker is EXACT.
+2. **Tree file.** Write it at its client path (`app/shared/auxdata/x.cpp`, its header beside it)
+   with the Write tool, CRLF. The asserts sit on the client's `__LINE__` through the layout (blank
+   lines, comments; no `#line`, D25), so little fits above the first assert: put the
+   reconstruction notes at the end of the file (as bitset.cpp does) and check with
+   `grep -n 'G_ASSERT\|FAIL_IF'`. The assert macros: `#include "..\unknown_debug.h"` (relative).
+3. **Record.** Add `('app', 'shared/auxdata/x.cpp')` and its header to `RECONSTRUCTED` with the
+   evidence (lower-case paths with `/`); `load_state` makes the state entry from them. Two app
+   `.cpp` files may not share a base name (it is the file key; `load_state` refuses it).
+4. **Verify** as in §2: `importer.py verify --lib app` (`/MT /W3 /O2 /Ob2 /GX`, no `NDEBUG`,
+   matched within 0x401000-0x8C1B50 only), pairs_cmp, `report`, `replay`, commit. Functions too
+   short to search for (objmatch `short`: bitset's 10-byte destructor) aren't counted by verify:
+   show them with `appfile.py match` on a copy with markers on the blank lines before each
+   function (so no assert moves; `.work/night/item10/mark.py`), and say so in the commit.
+
+`__FILE__`: the client's strings are absolute (`e:\build\beta\G\app\shared\auxdata\bitset.cpp`),
+and VC6's `__FILE__` is the source path exactly as cl was given it (case kept). So verify names
+app sources to cl as `e:\build\beta\G\...` (`vc6.compile_sources(source_alias=...)`: in the VM,
+`subst E:` of `C:\EnBDevelopment\_vc6\alias_e`, whose `build\beta\G` is a junction to the
+repository; every compile repeats the setup). Check a new file's string in the obj under
+`%TEMP%\enb_import\verify-app\`. appfile.py drafts compile under their own path: their string
+differs, their bytes don't (the string is reached through a relocation). Headers' strings in
+the client are relative (`..\shared/auxdata/auxdata.h`, `..\..\wwlib\ref_ptr.h`): E&B's
+compiles ran in a project directory with relative includes. Work out that form when the first
+header with asserts is rebuilt.
+
 ## 3. Known traps
 
 * **`assemble` is not a rebuild; `replay` is.** `importer.py assemble` restarts every library
