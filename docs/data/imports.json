@@ -21,13 +21,45 @@
     ],
     "merged": [],
     "name": "shared/auxdata/bitset.cpp"
+   },
+   "delta": {
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x4A4D40",
+     "0x4A4DB0",
+     "0x4A4DD0",
+     "0x4A4DF0",
+     "0x4A4E80",
+     "0x4A4EC0",
+     "0x4A4EF0",
+     "0x4A4F20",
+     "0x4A4F50",
+     "0x4A4F80",
+     "0x4A4FB0",
+     "0x4A5000",
+     "0x4A5070",
+     "0x4A5170",
+     "0x4A51A0",
+     "0x4A5270",
+     "0x4A5300",
+     "0x4A5410",
+     "0x4A5490",
+     "0x4A5510",
+     "0x4A55D0"
+    ],
+    "merged": [],
+    "name": "shared/auxdata/delta.cpp"
    }
   },
   "headers": {
    "shared/auxdata/bitset.h": "reconstructed",
+   "shared/auxdata/delta.h": "reconstructed",
+   "shared/auxdata/lookup.h": "reconstructed",
+   "shared/auxdata/name.h": "reconstructed",
    "shared/unknown_debug.h": "reconstructed"
   },
-  "in_tree_total": 11,
+  "in_tree_total": 32,
   "totals": {}
  },
  "ww3d2": {
