@@ -21,6 +21,10 @@ Z Zero Hour) and every source file, the client functions it reproduces byte for 
 State (what came from where, what was merged, what matches) is kept in docs/data/imports.json.
 Imported files are not edited except by splicing whole function definitions from another copy,
 and by the patches in PATCHES (each documented in docs/imports.md).
+
+E&B's own code is the non-EA library `app` (D23, APP_LIBS): all its files RECONSTRUCTED, in
+subdirectories as in e:\\build\\beta\\G\\app; verify (`--lib app`), replay and report handle it,
+plan/assemble/refine skip it.
 """
 import argparse
 import collections
@@ -152,6 +156,24 @@ LIB_DIR = {
 LIBS = list(LIB_DIR)
 HEADER_EXT = ('.h', '.hpp', '.inl')
 
+# Non-EA libraries (D23): E&B's own code, which no EA copy has. Every file is in RECONSTRUCTED
+# (written from the client, docs/workflow.md "Adding an app file"). The directory mirrors E&B's
+# e:\build\beta\G\<lib>\... (A1: the repository root stands for G\, directories in lower case), so
+# the file names in RECONSTRUCTED and imports.json are paths relative to <lib> with '/'
+# (`shared/auxdata/bitset.cpp`); file keys stay the base name (key_of), so two .cpp files of one
+# such library may not share a base name (load_state refuses it). Per library: the defines
+# (vc6's, without NDEBUG: the client keeps E&B's asserts), the client range verify searches (the
+# app region, docs/binary.md; objmatch region) and the __FILE__ root: the sources are named to cl
+# under e:\build\beta\G (vc6.compile_sources source_alias), so __FILE__ is the client's string.
+# Their state entry (base 'reconstructed', no evidence totals) is derived from RECONSTRUCTED by
+# load_state; plan, assemble and refine leave them alone. Not in LIBS (the EA libraries), so the
+# libraries' include paths don't see them.
+APP_LIBS = {
+    'app': {'defines': [d for d in vc6.DEFAULT_DEFINES if d != 'NDEBUG'],
+            'region': (0x401000, 0x8C1B50),
+            'file_root': r'e:\build\beta\G'},
+}
+
 # Compile flags where a library's differ from vc6.DEFAULT_FLAGS. wwshade (Zero Hour's newer
 # library) was built with exception handling and without automatic inlining: its functions have
 # EH frames (handlers at 0xAE0630+); /GX gains 16 of wwshade's own functions over no /GX (losing
@@ -173,7 +195,11 @@ LIB_FLAGS = {'wwshade': '/nologo /c /MT /W3 /O2 /Ob1 /GX /D _MBCS /D ENABLE_WWPR
              # WW3D2 too was built with ENABLE_WWPROFILE: +20 pairs (assetmgr, dazzle, sortingrenderer, ...)
              # and with USE_WWSHADE: dx8wrapper calls SHD_Init 0xA07CE0 / SHD_Shutdown 0xA07CF0 (0x921551, 0x921E90),
              # WW3D::Render SHD_Flush 0xA07D20 (0x917F15), the asset manager SHD_Register_Loader 0xA07D30 (0x91C4E3)
-             'ww3d2': '/nologo /c /MT /W3 /O2 /Ob2 /D ENABLE_WWPROFILE /D USE_WWSHADE'}
+             'ww3d2': '/nologo /c /MT /W3 /O2 /Ob2 /D ENABLE_WWPROFILE /D USE_WWSHADE',
+             # E&B's own code (D23): /GX (the STL corpus matches 533 functions with it, 501 without,
+             # docs/app-plan.md 1; bitset.cpp 12/12 either way), otherwise the libraries' flags;
+             # NDEBUG off through APP_LIBS' defines. tools/re/appfile.py's APP_FLAGS is the same.
+             'app': '/nologo /c /MT /W3 /O2 /Ob2 /GX'}
 
 
 # EA files the client does not link: not imported (plan, assemble) and dropped from the state.
@@ -211,9 +237,20 @@ def drop_not_linked(state):
     return state
 
 
+def lib_of(path):
+    """The library a file belongs to: an APP_LIBS library for files anywhere under its directory,
+    else the file's directory name."""
+    full = os.path.abspath(path)
+    try:
+        top = os.path.relpath(full, REPO).split(os.sep)[0].lower()
+    except ValueError:  # another drive
+        top = ''
+    return top if top in APP_LIBS else os.path.basename(os.path.dirname(full)).lower()
+
+
 def flags_for(paths):
     """The compile flags of the library the files belong to (all from one library)."""
-    libs = {os.path.basename(os.path.dirname(os.path.abspath(p))).lower() for p in paths}
+    libs = {lib_of(p) for p in paths}
     flags = {LIB_FLAGS.get(l, vc6.DEFAULT_FLAGS) for l in libs}
     assert len(flags) == 1, f'files of libraries with different flags in one compile: {sorted(libs)}'
     return flags.pop()
@@ -2978,6 +3015,13 @@ RECONSTRUCTED = {
     ('wwshade', 'shd8bumpspec.psh_code.h'): "shd8bumpspec_psh_code, client .data 0xBCE3F0-0xBCE4CB (Shd8BumpSpecClass::Init 0xA147A0)",
     ('wwshade', 'shd8ssbumpspec.vsh_code.h'): "shd8ssbumpspec_vsh_code, client .data 0xBCE4CC-0xBCEB7B (Shd8BumpSpecClass::Init 0xA147A0)",
     ('wwshade', 'shd8ssbumpspec.psh_code.h'): "shd8ssbumpspec_psh_code, client .data 0xBCEB7C-0xBCEBB7 (Shd8BumpSpecClass::Init 0xA147A0)",
+    # E&B's own code (D23, APP_LIBS): paths under app\, as in e:\build\beta\G\app\...
+    ('app', 'shared/unknown_debug.h'): "E&B's assert macros G_ASSERT (0x4E9410) and FAIL_IF (0x4E9450); "
+                                       "the header's name is unknown (its object, in app\\shared between "
+                                       "event.cpp and ini_manager.cpp, has no __FILE__ string): neutral (D10)",
+    ('app', 'shared/auxdata/bitset.cpp'): "BitSetClass (D24), client 0x4A47B0-0x4A4C4B: 12 functions, the "
+                                          "asserts on the client's lines (D25)",
+    ('app', 'shared/auxdata/bitset.h'): "BitSetClass's declaration (Buffer, NumBits from the asserts; NumBytes a guess)",
 }
 
 # Text appended to imported files (after everything, so no existing line moves).
@@ -3064,7 +3108,30 @@ def headers(lib, copy):
 # ------------------------------------------------------------------------------------------ state
 
 def load_state():
-    return drop_not_linked(json.load(open(STATE))) if os.path.exists(STATE) else {}
+    return app_state(drop_not_linked(json.load(open(STATE))) if os.path.exists(STATE) else {})
+
+
+def app_state(state):
+    """The APP_LIBS libraries' entries, from RECONSTRUCTED: one file per .cpp (keeping its last
+    verify result), every other file a header of origin 'reconstructed'."""
+    for lib in APP_LIBS:
+        names = sorted(n for l, n in RECONSTRUCTED if l == lib)
+        if not names:
+            continue
+        s = state.setdefault(lib, {})
+        s['base'], s['totals'] = 'reconstructed', {}
+        old, s['files'] = s.get('files', {}), {}
+        for n in names:
+            if not n.endswith('.cpp'):
+                continue
+            k = key_of(n)
+            if k in s['files']:
+                raise SystemExit(f'{lib}: {n} and {s["files"][k]["name"]} share the key {k} (see APP_LIBS)')
+            s['files'][k] = {'copy': 'reconstructed', 'name': n, 'expected': {}, 'merged': []}
+            if 'in_tree' in old.get(k, {}):
+                s['files'][k]['in_tree'] = old[k]['in_tree']
+        s['headers'] = {n: 'reconstructed' for n in names if not n.endswith('.cpp')}
+    return state
 
 
 def save_state(state):
@@ -3120,6 +3187,8 @@ def apply_patches(lib, path, name):
 
 def assemble(state):
     for lib, s in state.items():
+        if lib in APP_LIBS:
+            continue  # no EA copy: the tree's files are the only source
         d = dest(lib)
         kept = {}
         for (rlib, rname) in RECONSTRUCTED:
@@ -3249,16 +3318,27 @@ def replay(state, out):
             if rlib == lib:
                 for old in [n for n in os.listdir(d) if n.lower() == rname.lower()]:
                     os.remove(os.path.join(d, old))
+                os.makedirs(os.path.dirname(os.path.join(d, rname)), exist_ok=True)  # APP_LIBS' subdirectories
                 open(os.path.join(d, rname), 'wb').write(data)
     return problems
+
+
+def tree_files(root):
+    """{path relative to root in lower case: that path}, '/'-separated, subdirectories included."""
+    files = {}
+    for d, _, names in os.walk(root):
+        for n in names:
+            r = os.path.relpath(os.path.join(d, n), root).replace(os.sep, '/')
+            files[r.lower()] = r
+    return files
 
 
 def compare_tree(out, libs):
     """Files that differ between `out` and the repository: (lib, name, what)."""
     diffs = []
     for lib in libs:
-        mine = {n.lower(): n for n in os.listdir(os.path.join(out, lib))}
-        repo = {n.lower(): n for n in os.listdir(dest(lib))}
+        mine = tree_files(os.path.join(out, lib))
+        repo = tree_files(dest(lib))
         for low in sorted(set(mine) | set(repo)):
             if low not in repo:
                 diffs.append((lib, mine[low], 'only in replay'))
@@ -3293,10 +3373,17 @@ def compile_and_match(paths, tag):
     out = os.path.join(WORK, tag)
     if os.path.isdir(out):
         shutil.rmtree(out)
-    rc, text = vc6.compile_sources(paths, tree_includes(), out=out, flags=flags_for(paths))
+    app = APP_LIBS.get(lib_of(paths[0])) if paths else None
+    if app:
+        root = dest(lib_of(paths[0]))
+        rc, text = vc6.compile_sources(paths, tree_includes(), defines=app['defines'], out=out,
+                                       flags=flags_for(paths), extra_sync=[d for d, _, _ in os.walk(root)],
+                                       source_alias=(REPO, app['file_root']))
+    else:
+        rc, text = vc6.compile_sources(paths, tree_includes(), out=out, flags=flags_for(paths))
     objs = [os.path.join(out, f) for f in os.listdir(out)] if os.path.isdir(out) else []
     found = collections.defaultdict(set)
-    for r in match_objects(image(), objs) if objs else []:
+    for r in match_objects(image(), objs, app and app['region']) if objs else []:
         if r['status'] == 'exact':
             found[key_of(r['object'])].add(r['addresses'][0])
     for p in paths:
@@ -3343,7 +3430,7 @@ def verify(state, libs=None):
         s['in_tree_total'] = len(total)
         s['compile_errors'] = errors[:50]
         print(f'{lib:11s} in tree: {len(total)} client functions (best copy alone: '
-              f'{max(s["totals"].values())}); {short} files below their copy; {len(errors)} errors')
+              f'{max(s["totals"].values(), default=0)}); {short} files below their copy; {len(errors)} errors')
     return state
 
 
@@ -3518,7 +3605,7 @@ def report(state):
         other = sum(1 for f in files.values() if f['copy'] != s['base'])
         merged = sum(len(f['merged']) for f in files.values())
         lines.append(f"| {lib} | {COPY_NAME[s['base']]} | {len(files)} | {other} | {merged} | "
-                     f"{s.get('in_tree_total', '?')} | {max(s['totals'].values())} |")
+                     f"{s.get('in_tree_total', '?')} | {max(s['totals'].values(), default='-')} |")
     lines += ['', '## Local changes', '']
     for (lib, name), edits in PATCHES.items():
         for _, _, why in edits:

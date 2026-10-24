@@ -1,4 +1,35 @@
 {
+ "app": {
+  "base": "reconstructed",
+  "compile_errors": [],
+  "files": {
+   "bitset": {
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x4A47B0",
+     "0x4A4870",
+     "0x4A4980",
+     "0x4A49C0",
+     "0x4A4A30",
+     "0x4A4AA0",
+     "0x4A4B10",
+     "0x4A4B80",
+     "0x4A4BB0",
+     "0x4A4C00",
+     "0x4A4C30"
+    ],
+    "merged": [],
+    "name": "shared/auxdata/bitset.cpp"
+   }
+  },
+  "headers": {
+   "shared/auxdata/bitset.h": "reconstructed",
+   "shared/unknown_debug.h": "reconstructed"
+  },
+  "in_tree_total": 11,
+  "totals": {}
+ },
  "ww3d2": {
   "base": "R",
   "compile_errors": [],

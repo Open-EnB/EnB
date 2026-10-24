@@ -178,22 +178,51 @@ def run_bat(lines):
     return ssh(f'cmd /c "{WORK}\\{name}"', check=False)
 
 
-def compile_sources(sources, includes=(), defines=None, flags=DEFAULT_FLAGS, out='.', extra_sync=()):
-    """Compile sources in the VM; objects land in `out`. Returns (returncode, compiler output)."""
+def compile_sources(sources, includes=(), defines=None, flags=DEFAULT_FLAGS, out='.', extra_sync=(),
+                    source_alias=None):
+    """Compile sources in the VM; objects land in `out`. Returns (returncode, compiler output).
+
+    source_alias=(local_dir, alias): name the sources under local_dir to cl as alias\\... instead,
+    so __FILE__ is the alias path (E&B's app: `e:\\build\\beta\\G` for the repository root, the
+    client's __FILE__ strings). See _alias_setup."""
     defines = DEFAULT_DEFINES if defines is None else defines
     srcs = [under_root(s) for s in sources]
     incs = [under_root(i) for i in includes]
     # extra_sync: directories reached only through relative #include paths (not on the -I list)
     dirs = [os.path.dirname(f) for f, _ in srcs] + [f for f, _ in incs] + [under_root(d)[0] for d in extra_sync]
     sync(dirs)
-    rc, text = _compile(srcs, incs, defines, flags, out)
+    setup = []
+    if source_alias:
+        setup, srcs = _alias_setup(srcs, *source_alias)
+    rc, text = _compile(srcs, incs, defines, flags, out, setup)
     if 'C1083' in text and _missing_local_file(text):
         # A file the VM should have is missing (the VM's copy and the sync cache disagree):
         # forget the cache and send everything again, once.
         reset_sync_cache()
         sync(dirs)
-        rc, text = _compile(srcs, incs, defines, flags, out)
+        rc, text = _compile(srcs, incs, defines, flags, out, setup)
     return rc, text
+
+
+def _alias_setup(srcs, local_dir, alias):
+    """Batch lines that make `alias` (drive:\\dir...) reach local_dir in the VM, and the sources
+    renamed under it. VC6's __FILE__ is the source path exactly as cl was given it (case kept), so
+    a source named e:\\build\\beta\\G\\app\\x.cpp gets that string. The VM has only C:, so the
+    drive is a subst of WORK\\alias_<drive>, under which a directory junction (mklink /J, no admin
+    rights needed) stands for the rest of the alias. Idempotent: every compile repeats it (a subst
+    may not outlive the SSH session)."""
+    local_dir = os.path.abspath(local_dir)
+    drive, rest = alias[:2], alias[2:].strip(BS)
+    base = f'{WORK}\\alias_{drive[0].lower()}'
+    link = base + BS + rest
+    setup = [f'if not exist "{os.path.dirname(link)}" mkdir "{os.path.dirname(link)}"',
+             f'if not exist "{link}" mklink /J "{link}" "{local_dir}" >nul',
+             f'if not exist {drive}\\{rest}\\ subst {drive.upper()} "{base}"']
+    renamed = []
+    for full, rel in srcs:
+        r = os.path.relpath(full, local_dir)
+        renamed.append((alias + BS + r if not r.startswith('..') else full, rel))
+    return setup, renamed
 
 
 def reset_sync_cache():
@@ -215,12 +244,12 @@ def _missing_local_file(text):
     return False
 
 
-def _compile(srcs, incs, defines, flags, out):
+def _compile(srcs, incs, defines, flags, out, setup=()):
     stamp = time.strftime('%Y%m%d%H%M%S') + f'_{os.getpid()}_{int(time.time() * 1000) % 1000}'
     objdir = f'{WORK}\\obj_{stamp}'
     cmd = [flags] + [f'/I "{f}"' for f, _ in incs] + [f'/D "{d}"' for d in defines]
     cmd += [f'/Fo"{objdir}\\\\"'] + [f'"{f}"' for f, _ in srcs]
-    p = run_bat([f'mkdir "{objdir}"', 'cl ' + ' '.join(cmd),
+    p = run_bat(list(setup) + [f'mkdir "{objdir}"', 'cl ' + ' '.join(cmd),
                  f'cd /d "{objdir}" && tar -cf ..\\obj_{stamp}.tar *.obj 2>nul'])
     os.makedirs(out, exist_ok=True)
     local = os.path.join(out, 'objs.tar')

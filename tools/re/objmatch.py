@@ -117,9 +117,14 @@ def demangle(name):
     return f'{cls}::{method}' if cls else method
 
 
-def match_objects(img, paths):
+def match_objects(img, paths, region=None):
+    """region=(lo, hi): search only [lo, hi) of .text (E&B's app region for app files: a pattern
+    that also occurs in the libraries is still exact there)."""
     start, end, raw = img.section('.text')
     text = img.data[raw:raw + (end - start)]
+    if region:
+        lo, hi = max(region[0], start), min(region[1], end)
+        text, start = text[lo - start:hi - start], lo
     results = []
     for path in paths:
         obj = CoffObject(path)
