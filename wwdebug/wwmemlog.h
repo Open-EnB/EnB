@@ -72,6 +72,13 @@ enum
 	MEM_RENDERER,			// dx8 renderer
 	MEM_NETWORK,
 	MEM_BINK,
+	// E&B's categories, named from the client's name table (0xBCB228)
+	MEM_CLIENTOBJECT,
+	MEM_EFFECTS,
+	MEM_PROTOTYPES,
+	MEM_MAKEUNIQUE,
+	MEM_MESHES,
+	MEM_PARTICLES,
 
 	MEM_COUNT
 };

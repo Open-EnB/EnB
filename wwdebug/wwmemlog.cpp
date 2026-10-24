@@ -114,10 +114,12 @@ static char * _MemoryCategoryNames[] =
 	"Renderer",
 	"Network",
 	"BINK",
-	"<undefined>",
-	"<undefined>",
-	"<undefined>",
-	"<undefined>",
+	"ClientObject",
+	"Effects",
+	"Prototypes",
+	"MakeUnique",
+	"Meshes",
+	"Particles",
 };
 
 

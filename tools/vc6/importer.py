@@ -1450,6 +1450,16 @@ TEXTURE_API_PATCHES = {
          '\t\telse {\n\t\t\tpos++;\n\t\t}\n\t}\n\n\treturn pos;\n}\n',
          "E&B's Read_Frame (inlined in WWProfileManager::Load_Profile_Log 0x9EB4C0) returns pos after the frame loop: the client stores the loop index (0x9EB90D mov [esp+0x14], ebp) with no Read_Line call; Renegade calls Read_Line"),
     ],
+    ('wwdebug', 'wwmemlog.h'): [
+        ('\tMEM_NETWORK,\n\tMEM_BINK,\n\n\tMEM_COUNT\n',
+         "\tMEM_NETWORK,\n\tMEM_BINK,\n\t// E&B's categories, named from the client's name table (0xBCB228)\n\tMEM_CLIENTOBJECT,\n\tMEM_EFFECTS,\n\tMEM_PROTOTYPES,\n\tMEM_MAKEUNIQUE,\n\tMEM_MESHES,\n\tMEM_PARTICLES,\n\n\tMEM_COUNT\n",
+         'E&B\'s memory log has 23 categories: WWMemoryLogClass::Get_Log (inlined in Get_Current_Allocated_Memory 0x9ED700) news a 0xCC-byte MemLogClass and clears 0x17 counters, and the category name table at 0xBCB228 lists 23 names, BINK then ClientObject, Effects, Prototypes, MakeUnique, Meshes, Particles (no "<undefined>" padding)'),
+    ],
+    ('wwdebug', 'wwmemlog.cpp'): [
+        ('\t"BINK",\n\t"<undefined>",\n\t"<undefined>",\n\t"<undefined>",\n\t"<undefined>",\n',
+         '\t"BINK",\n\t"ClientObject",\n\t"Effects",\n\t"Prototypes",\n\t"MakeUnique",\n\t"Meshes",\n\t"Particles",\n',
+         'E&B\'s memory log has 23 categories: WWMemoryLogClass::Get_Log (inlined in Get_Current_Allocated_Memory 0x9ED700) news a 0xCC-byte MemLogClass and clears 0x17 counters, and the category name table at 0xBCB228 lists 23 names, BINK then ClientObject, Effects, Prototypes, MakeUnique, Meshes, Particles (no "<undefined>" padding)'),
+    ],
 }
 for _key, _edits in TEXTURE_API_PATCHES.items():
     PATCHES.setdefault(_key, []).extend(_edits)

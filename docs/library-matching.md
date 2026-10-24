@@ -305,6 +305,7 @@ and fixed so far (importer `PATCHES`, see docs/imports.md):
 | `DDSFileClass` ctor tests its file calls: `Open` called twice with the second result tested, `Read(header,4)` tested, a zero surface-description read is an error | 0x9A0907/0x9A0912, 0x9A093B, 0x9A0952 | 1 |
 | `DX8TextureManagerClass::Release_Textures` releases and clears each `D3DTexture` inline under a NULL test (Renegade's direct access; `texture.h` gets Renegade's `friend DX8TextureManagerClass`) | 0x995C70 | 1 |
 | wwdebug: `Read_Frame` (inlined in `WWProfileManager::Load_Profile_Log`) returns `pos`, not `Read_Line(...)` | 0x9EB90D `mov [esp+0x14], ebp` | 1 |
+| wwdebug: the memory log has E&B's 23 categories (`MEM_CLIENTOBJECT` .. `MEM_PARTICLES` after `MEM_BINK`, named from the client's name table; no `"<undefined>"` padding) | name table 0xBCB228; `Get_Log` news 0xCC bytes, clears 0x17 counters (0x9ED734) | 11 |
 
 Still open (2026-10-23): wwshade (138 client functions in the tree): the two `"UnNamed"` constructors, left as near-misses (D17), and an inline `Set_DX8_Texture_Stage_State` copy. `shdlegacyw3d.cpp`/`.h` are not in the client and were dropped (D13); so were WWAudio's `AudioSaveLoad.cpp`/`.h` (no save/load subsystem in the client; accepted loss: its three pairs 0x42F250, 0x909500, 0x9DA8C0, shared helpers still matched by other files). WW3D2 (2,242 in the tree; 407 gaps in docs/data/gaps-ww3d2): in the texture files, `TextureClass`'s constructors, `Init`, `Apply` and `Get_Reduction` and `DX8Wrapper`'s device code
 are near-misses still (Renegade's
