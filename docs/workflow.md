@@ -362,3 +362,17 @@ Added 2026-10-24 (overnight run; details in `.work/night/item*/report.md`):
   `tools/vc6/build.py` copies the DX8 SDK libs over. Its unresolved list covers only what the
   libraries reference among themselves; a program's own code adds more, and LIB members are
   pulled only on demand.
+* **Running the tree's programs.** `WW3DAssetManager` must exist before `WW3D::Init`, or
+  `Set_Render_Device` crashes in `ShatterSystem::Init`. d3d8.dll is loaded at run time (no import).
+  Windowed `-depth 16` still gets the desktop's 32-bit back buffer. Screenshots: read the program's
+  own D3D back buffer. A screen-DC grab captures whatever window is on top (the user's screen),
+  and PrintWindow gives black for D3D8 windows.
+* **Stubs and vtables.** A stub constructor makes the stub file emit that class's vtable, so every
+  virtual then needs a stub too; check by linking every object, not only the .lib members.
+  `build.py`'s default `--report` overwrites `.work/milestones/l1/unresolved.txt`.
+* **mss32.lib.** VC6's `lib /def` drops the leading underscore of stdcall names, so imports don't
+  bind to Mss32.dll's `_AIL_x@n` exports; `tools/vc6/mkmss32.py` links a dummy DLL and keeps its
+  import library.
+* **VC6 explicit instantiation.** A constructor can't be instantiated on its own (C2909), nor the
+  class after the header's `extern template` (C2949): use an explicit specialisation, with its
+  static members specialised before the constructor (C2908).
