@@ -4,6 +4,69 @@ Newest first within each section. Dates are when the entry was written.
 
 ## 1. Log
 
+### 2026-10-24 (overnight): Zero Hour's dated edits, D9 finished, wwlib's E&B allocator; 3,925 -> 4,062
+
+Unattended run 00:02-07:40 PDT: a coordinator and one builder subagent at a time (no parallel
+builds: `verify` shares `%TEMP%\enb_import` and the VMs' scratch), queue and log in
+`.work/night/plan.md`, a heartbeat every 30 min, each builder's report in
+`.work/night/item*/report.md`. 65 commits `2f6c80c..e88f4e9`, none pushed. Morning report:
+[overnight-report-2.md](overnight-report-2.md).
+
+* D9's texture leftovers (items 1, 6f): `Get_Reduction` 0x94BC20, `TextureClass::Apply` E&B's
+  form 0x94BC80, `Get_Texture_Memory_Usage` one non-virtual base function with Generals' split
+  body 0x94C1D0, `Set_Mip_Mapping` compiled in texture.cpp 0x94CA20 (a658d43..11e300b); Zero Hour's
+  08/05/02 `TextureFilterClass` dropped for Renegade's five filter members, all four constructors
+  0x94B240/0x94B3D0/0x94B5B0/0x94B660 exact, texturefilter.cpp/.h `NOT_LINKED` (8f10486, c35cc34,
+  new block `TEXTURE_FILTER_PATCHES`).
+* `DX8Wrapper` device code (item 2, 4ae710d..854e5f5, +25): WW3D2 built `/D USE_WWSHADE`,
+  `Reset_Device` E&B's body, E&B's lost-device restore `Unknown_Restore_Device` 0x921C50 (D10),
+  transform cache, `Init` zeroing; `Create_Device` without `DX8Wrapper_PreserveFPU` 0x921EF0 (9f11db9).
+* Zero Hour-only edits in Renegade-based files (items 3, 6b, 6d, 6e): `//DMS`, ZH-tagged and
+  commented-out code found by diffing every EA copy and by scanning the client's log/profile
+  strings (`.work/night/item6b/strscan.py`, `fdiff.py`; `item6d/zhall.py` splices every
+  differing donor function and reports gained/lost). `GapFillerClass` 0x959A80, animobj, scenes,
+  sorting loops to `Get_Max_Textures_Per_Pass`, texture loader HSV shift, DDS guards, dx8caps
+  (Matrox Parhelia), `Alter_Avatar_HTree` 0x98A2D0, `ShaderClass::Apply` with `GRADIENT_MODULATE2X`
+  0x93B510, `post_process` 0x9BCC40, WW3D's static sort lists and `SHD_FLUSH` (fdd0a81),
+  `Post_Load_Process` 0x9475E0 (b02b85e), `WW3D::Init` 0x917660.
+* Dated-comment sweep (item 6i, `.work/night/item6i/dated.py`: 1,116 dated comments + 1,770 VSS
+  `$Modtime`s against the client's bytes) fixed D9's cutoff: Zero Hour's KM/KJM (shader system)
+  line is in through 08/01/02; the 08/05/02+ texture redesign and the Generals team's MW/GTH
+  changes are out, whatever their date. D9 reworded accordingly (§2). Gain: the asset manager's
+  07/01/02 shader-loader registration 0x91C2C0 (a2a0fcc).
+* `dx8webbrowser.cpp` from Zero Hour (item 6k, 761d6ac, +19): `BrowserEngine.tlh`/`.tli` generated
+  by VC6 from E&B's own `BrowserEngine.dll` (same GUIDs as EA's, plus `querydata` and
+  `Post_MultiPart_Form`) as reconstructed files (D21); vc6.py syncs `.tlh`/`.tli`.
+* Distortion (item 5, 11f65aa): external linkage of the list and an inline `expf` give 0x995E20,
+  0x996180, 0x997DE0; the draw 0x9961E0 is still 369 masked rows.
+* wwdebug/wwlib (item 7b): the memory log's 23 categories (client name table 0xBCB228, c7fc28c,
+  +11), `FastAllocatorGeneral`'s 0xE30-byte E&B layout with out-of-line `Alloc` 0x9DAE10, `Free`
+  0x9DAF60, `Unknown_Reset_Statistics` 0x9DADA0 (9850f75..debed6b), `Read_Frame` 0x9EB4C0.
+* Item 4: the meshmatdesc "inlining flip" did not exist: 0x4E9CB0 is E&B's `::operator new`
+  (`FastAllocatorGeneral::Get_Allocator()->Alloc`), never inlined; the three fragile functions
+  differ in index load order that moves with the number of symbols declared before the classes
+  (noise). Only 0x947310 is lost (D18).
+* Tools: `gaps.py` and every tool use verified function starts (98a0280, 78b0a74; symbols 6,736 ->
+  6,858, gaps rows 652 -> 593); importer lock `.work/locks/importer.lock` (8c0516a); VM pool
+  `tools/vc6/pool.py` (87f38c3, orphan reclaim 6e298b5) and `importer.py verify --pool K`
+  (c7b8bcc); `tools/re/appfile.py` for E&B's own files (5df8a3e: `app\shared\auxdata\bitset.cpp`
+  12/12 exact as a draft in `.work/night/item7/try/`, not in the tree).
+* Old build VMs retired (07:00): the two `VC6 SP4 (8799)` clones removed, `Tools\VMClones\1,2`
+  deleted; `.work/vc6_hosts.json` lists only Win10 (192.168.193.108); `enb-vc6-01/02` stopped, free.
+* E&BConfig.exe / VIDTEST.EXE assessment (`.work/ebconfig/assessment.md`): neither is a quick
+  win; open question in §3.
+* Verified: each commit by its builder (verify of the affected libraries, pair sets vs
+  `.work/night/imports.start.json`, `replay` 0 differences), cumulative pairs checked by the
+  coordinator after each item. In-tree counts: WW3D2 2,362 -> 2,477, WWDebug 67 -> 81, WWLib 557
+  -> 565; WWAudio 351, WWMath 370, WWSaveLoad 80, wwshade 138 unchanged; total 3,925 -> 4,062
+  (+137). Lost pairs, all COMDAT duplicates still matched elsewhere (D20): (animatedsoundmgr,
+  0x6CF410), (meshmatdesc, 0x497330), (meshmdl, 0x909500), (ww3d, 0x909500), (texturefilter,
+  0x42F250/0x53F1C0/0x9217E0; file dropped; 0x94CA30 moved to texture), (wwmemlog and wwprofile,
+  0x9CEFF0).
+* Decisions: D20-D32 (user, during the night; §2), D9 reworded, D18 kept. Open: §3.
+* Next step: D22 (PS, §4 item 1), from `.work/night/item6i/report.md` (PS) and its trial script
+  `.work/night/item6i/shdtry.py`.
+
 ### 2026-10-23: D19's distortion draw rebuilt (not byte-exact); its neighbours are uncountable
 
 * `UnknownDistortionClass::Unknown_Render_Distortion` (0x9961E0) written from the client's
@@ -552,14 +615,14 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 | A2 | 2026-10-22 | Names come from the client first (strings, RTTI, asserts), then from Westwood convention | the client is the only source of E&B's own names |
 | A3 | 2026-10-22 | EA clones live outside the repository, at `C:\EnBDevelopment\EA`; SDKs at `C:\EnBDevelopment\SDK` | they are references; what we import is copied in with its origin recorded |
 | D1 | 2026-10-22 | The repository is GPL v3 (EA's code, with EA's additional terms) | user |
-| D2 | 2026-10-22 | Install Visual C++ 6.0 as a tool for proving our work (byte-for-byte comparison) | user. Installed: VC6 SP4 in Hyper-V VMs (three, 2026-10-23), the client's exact compiler build ([toolchain.md](toolchain.md) §1) |
+| D2 | 2026-10-22 | Install Visual C++ 6.0 as a tool for proving our work (byte-for-byte comparison) | user. Installed: VC6 SP4 in Hyper-V VMs (three, 2026-10-23; since 2026-10-24 Win10 plus the pool, D30), the client's exact compiler build ([toolchain.md](toolchain.md) §1) |
 | D3 | 2026-10-22 | The code builds with both VC6 and modern MSVC | user |
 | D4 | 2026-10-22 | Import EA code file by file, as each file is verified against the client | user |
 | D5 | 2026-10-22 | SDKs: DirectX 8 from github.com/edgeforce/directx8, Miles and Bink from github.com/edgeforce/radtools | user. Checked: DX8 is 8.0 as the client; Bink matches; Miles usable with two fixes ([toolchain.md](toolchain.md) §2) |
 | D6 | 2026-10-23 | E&B's own code starts with `app\shared\auxdata`, then `app\wwudp`, then the task kernel (`app\kernel`: `KernelClass::Run_One_Cycle`, the loop running the current, background and pending-delete tasks; with `app\main` and `app\client\tasks`), then `app\packets` ([app-plan.md](app-plan.md) §3) | user |
 | D7 | 2026-10-23 | E&B's own code is held to byte-exactness everywhere, like the libraries. Check in with the user periodically if this becomes too costly | user |
 | D8 | 2026-10-23 | No hybrid client (reconstructed functions patched into the retail one) for now: its results would need the user to validate them. Open to it again if it can be shown to verify results better than byte matching, without the user | user |
-| D9 | 2026-10-23 | Move WW3D2's texture classes and `DX8Wrapper` to Zero Hour's as of 06/27/02, minus its later redesign (08/05/02: cube/volume textures, LOD reduction, virtual load tasks), one evidence-checked step at a time | user; overnight finding: Zero Hour's `dx8wrapper.obj` matches 12 client functions the tree lacks, and it unlocks wwshade. Reworded by the user 2026-10-23 after step 1 showed the client has the 06/27/02 abstraction but not the 08/05/02 redesign (library-matching.md §3.6.1) |
+| D9 | 2026-10-23 | E&B follows Zero Hour's KM/KJM (shader system) line through 08/01/02, without the 08/05/02+ texture redesign and without the Generals team's MW/GTH changes. So `TextureFilterClass` (08/05/02 KM) is dropped: `TextureClass` has Renegade's five filter members (texturefilter.cpp/.h `NOT_LINKED`) | user; overnight finding: Zero Hour's `dx8wrapper.obj` matches 12 client functions the tree lacks, and it unlocks wwshade. Reworded by the user 2026-10-23 after step 1 showed the client has the 06/27/02 abstraction but not the 08/05/02 redesign (library-matching.md §3.6.1), and again 2026-10-24 after the dated-comment sweep (`.work/night/item6i/report.md`: bytes place every dated ZH edit; MW 0/3, GTH 10/12 absent); filter members folded in by the user 2026-10-24 (all four constructors exact, 8f10486) |
 | D10 | 2026-10-23 | E&B's unknown additions keep neutral names (`m_UnknownXX`, evidence in a comment) until the code that uses them is rebuilt | user |
 | D11 | 2026-10-23 | Compiler-generated code (STL template instances): extend the corpus as each app file needs it, not ahead of the app work | user |
 | D12 | 2026-10-23 | Compile each library with the flags E&B used, wherever byte evidence shows them (wwshade: `/GX /Ob1`; importer `LIB_FLAGS`, `bytematch_all.sh` `LIBFLAGS`) | user: "match how E&B built things whenever you have evidence to support it" |
@@ -569,27 +632,58 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 | D16 | 2026-10-23 | E&B members whose use is now rebuilt (`m_Unknown148`, `m_Unknown164/168/16C`, `m_Unknown19A5/19A6`, ...) keep their D10 names, with the comments in the headers, until the app code shows E&B's names | user |
 | D17 | 2026-10-23 | The two wwshade `"UnNamed"` constructors are left as near-misses; revisit only on new evidence | user |
 | D19 | 2026-10-23 | E&B's screen-distortion module in WW3D2 (0x995D20-0x998200, between dx8texman.cpp and boxrobj.cpp; first described as a cube-map list) is rebuilt as `ww3d2/unknown_distortion.cpp`/`.h` (a reconstructed file), neutral names (D10) until E&B's own turn up; the function `WW3D::Set_Render_Device` calls is `Unknown_Reset_Distortion_List` | user (name chosen after the module turned out not to be about cube maps) |
-| D18 | 2026-10-23 | Don't include `matrix4.h` first in `ww3d2/meshmatdesc.cpp` (it would win back `Make_UV_Array_Unique` 0x947310, but no EA copy has that order). Keep it on record until a better fix is found; revisit if it becomes WW3D2's last outstanding item | user |
+| D18 | 2026-10-23 | Don't include `matrix4.h` first in `ww3d2/meshmatdesc.cpp` (it would win back `Make_UV_Array_Unique` 0x947310, but no EA copy has that order). Keep it on record until a better fix is found; revisit if it becomes WW3D2's last outstanding item | user; kept 2026-10-24 after item 4 showed the cause is symbol-count noise, not an inlining flip |
+| D20 | 2026-10-24 | Losing a COMDAT-duplicate `(file, address)` pair, where the helper stays matched in another file, is not a loss. Name each such pair in the commit message | user (03:40) |
+| D21 | 2026-10-24 | `dx8webbrowser.cpp`'s type library: `BrowserEngine.tlh`/`.tli` generated by VC6 from E&B's own `BrowserEngine.dll` are committed as reconstructed files, `#include` instead of `#import` (original kept as a comment); no binaries in the repository (option A) | user (04:40); done 761d6ac |
+| D22 | 2026-10-24 | Import Zero Hour's shd6/shd7/shd8 bump shaders into wwshade, with the shader headers rebuilt as text from the client as reconstructed files (PS) | user (06:25); not yet done |
+| D23 | 2026-10-24 | E&B's own files enter the importer as a non-EA library `app` (all reconstructed, `/GX`, `NDEBUG` off, verify limited to the app region) | user (06:25); not yet done |
+| D24 | 2026-10-24 | App classes the client doesn't name get Westwood `XxxClass` names (`BitSetClass`) | user (06:25); conventions.md §1 |
+| D25 | 2026-10-24 | App asserts sit on their real `__LINE__` through the file layout (blank lines, comments) in tree files; `#line` only in drafts | user (06:38) |
+| D26 | 2026-10-24 | `USE_WWSHADE`: WW3D2 built with it (under D12, evidence: the `SHD_*` wrapper calls); wwshade too, as a soft consistency setting like D14 (neutral in the bytes) | user (03:47, 06:25); done 4ae710d, 7ecb645 |
+| D27 | 2026-10-24 | Verified function starts (decoded call targets) are the default for every tool | user (03:47); done 78b0a74 |
+| D28 | 2026-10-24 | Keep ww3d.h's unused Renegade `MinStaticSortLevel`/`MaxStaticSortLevel` declarations (noise compensation for meshmatdesc after fdd0a81, not evidence); revisit when the noise is understood | user (06:25) |
+| D29 | 2026-10-24 | Keep 62b895b's protected `D3DTexture` (needed by c35cc34, which writes it as 0x94B660 does); patch reasons reworded | user (06:38); done e88f4e9 |
+| D30 | 2026-10-24 | Build VMs come from a pool of differencing clones of `Tools\VMPool\base-vc6.vhdx`, no warm sync cache (each leasee syncs its tree), cap 5; the old fixed clones are retired | user (04:40, 06:25); done 87f38c3, c7b8bcc; clones retired 07:00 ([toolchain.md](toolchain.md) §1.3) |
+| D31 | 2026-10-24 | Sessions release their leased VMs in the handoff skill; `pool.py lease`/`create` reclaim orphaned leases first | user (06:25); done 6e298b5 |
+| D32 | 2026-10-24 | Builders stay serial (one at a time); parallel worktrees not needed yet | user |
 
 ## 3. Open decisions
 
 * (D7 is to be revisited with the user if byte-exactness of E&B's code becomes too costly.)
+* From the 2026-10-24 night (builders' proposals, not yet answered):
+  1. Item 7b (a): keep the neutral names `MEM_CLIENTOBJECT`..`MEM_PARTICLES` (from the client's
+     strings), `m_UnknownE00`..`m_UnknownE20`, `Unknown_Reset_Statistics` (D10). Recommended: yes.
+  2. Item 7b (b): keep the Dazzle destructor change although it gains 0 (0x96EF00 is the client's
+     form but too short to count; spec `.work/night/item7b/spec_dazzle.py`). Recommended: yes.
+  3. Item 8a: texture.h's comment still cites `Apply` 0x94BC80 for the protected `D3DTexture`
+     (D29: c35cc34/0x94B660 is the real need). Leave it, or reword it in the next texture change?
+  4. VIDTEST.EXE / E&BConfig.exe (`.work/ebconfig/assessment.md`): pursue? Both need a September
+     2002 variant of the libraries (a second patch set or a branch); E&BConfig also a VC6 SP5 VM
+     and static MFC 4.2. Recommended: not now; if ever, VIDTEST first, after the stub-link proof
+     (§4 item 7).
 
 ## 4. Next steps
 
-1. D19's distortion draw 0x9961E0: rebuilt (0a4514e) but not byte-exact (369 masked rows; see
-   library-matching.md §3.6.1). Its neighbours 0x997EA0..0x9981A0 need no source: they are
-   `DynamicVectorClass<UnknownDistortionClass *>`'s template members, which our object already
-   compiles byte-identical, but their bytes recur 33-140 times in the client, so they stay
-   `multiple` and uncounted (workflow.md §3). Left in the module: the draw, the ripple 0x997DE0,
-   `Unknown_Add_To_Distortion_List` 0x995E20, `Render` 0x996180 (register allocation).
-2. WW3D2 near-misses (docs/data/gaps-ww3d2, 347): the clusters of the 2026-10-23 near-miss entry
-   (`GapFillerClass`; textures under D9; mapper, particles and `Set_Render_Device` done, see the
-   2026-10-23 entries for what is left of each).
-   Last of all: D18's byte-only meshmatdesc fix (0x947310), if nothing better is found.
-   D9's `TextureClass` constructors, `Init`, `Apply`, `Get_Reduction` and `DX8Wrapper`'s device
-   code are still open. wwshade: 138, left only the two `"UnNamed"` constructors (D17) and an
-   inline `Set_DX8_Texture_Stage_State` copy. WWAudio done (0 gaps).
-3. `meshmatdesc.cpp`'s inlining flip (an app-region helper at 0x4E9CB0 that VC6 now inlines).
-4. E&B's own code (D6, D7): first the per-file workflow script ([app-plan.md](app-plan.md) §2),
-   then `app\shared\auxdata`.
+1. D22 (PS): Zero Hour's shd6/shd7/shd8 bump shaders into wwshade, +19 (0xA0FF60..0xA15580,
+   `.work/night/item6i/shdtry.py`). Needs a class-id-less `ShdInterfaceClass(def)`, shd8's
+   `Setup_Self_Shadow_Info` calls `Peek_Mapper` (ZH lacks it), and the shader headers rebuilt as
+   `char[]` text from the client (from 0x7CB8FE) as reconstructed files.
+2. D23: the importer's non-EA library `app`; move `bitset.cpp` (12/12 exact draft in
+   `.work/night/item7/try/`) and its header into the tree under D24/D25; then `lookup.cpp` (6
+   functions, all with asserts) or `delta_money`/`delta_time` (need `DeltaBase`'s layout: ctor
+   0x4A4D40; the reference decoder's docs/research/auxdata.md §3, [prior-work.md](prior-work.md)). Tool: `tools/re/appfile.py`.
+3. `WW3D::Make_Screen_Shot` 0x9182C0: Zero Hour's gamma/format plus E&B's JPG case through a wwlib
+   JPEG writer (ctor 0x9E3850, dtor 0x9E3860, save 0x9E3870; class after srandom.cpp); 0.85, only
+   register scheduling left (`.work/night/item7b/v_mss.py`, `run_mss.py`).
+4. D19's distortion draw 0x9961E0 (369 masked rows): the client builds 6 `??_H` Transpose temps
+   with out-of-line `Vector4()`, ours 5; look for missing inline calls/temporaries earlier in the
+   function (fits the 0x18-bigger frame).
+5. `PointGroupClass::Render` 0x954960 (slot shuffle in inlined Transpose temps); the meshmatdesc
+   noise mechanism (then drop D28's declarations and revisit D18).
+   Other WW3D2 leads: `Process_Foreground_Load` 0x949C60 (inline budget), `Compute_Caps` 0x9B0160,
+   `Update_Movie_Capture` 0x918B20, `Create_Device`'s format retry, `CreateBrowser`'s app callers
+   0x7CA5C0/0x7CAD00 (E&B's `querydata`). wwshade: the two `"UnNamed"` constructors (D17).
+6. Tools: `--pool K` for `bytematch_all.sh` and `importer.py refine`.
+7. VIDTEST stub-link proof (assessment §3), if §3 item 4 is answered yes: link VIDTEST's library
+   part (or a stub app) against the tree's objects and compare the library zone's functions and
+   order.

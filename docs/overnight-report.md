@@ -80,6 +80,11 @@ the tool and docs READMEs, and project memory. Wrote this report.
   `meshmatdesc.cpp`. With some header changes, VC6 inlines a small app-region helper (0x4E9CB0)
   into `Install_UV_Array`, which the client calls instead. Zero Hour's `shader.h` causes the same
   flip. I don't understand why yet.
+  *Correction (2026-10-24):* 0x4E9CB0 is E&B's `::operator new`
+  (`FastAllocatorGeneral::Get_Allocator()->Alloc`) and is never inlined. The three functions
+  differ in index load order, which moves with the number of symbols declared before
+  meshmatdesc.h's classes (noise). The documented loss is now only 0x947310 (D18);
+  see workflow.md §3.
 * **The tree can't yet be rebuilt from the EA sources.** `importer.py assemble` is the
   pipeline's first stage: it restarts every library from its base copy. Nothing replays the
   recorded decisions (copies, header swaps, splices, patches) on top. Tonight's trial showed 49

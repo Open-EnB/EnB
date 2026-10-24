@@ -15,6 +15,7 @@
 | [app-inventory.md](app-inventory.md) | E&B's own code: functions by source file, names, RTTI (generated) |
 | [app-plan.md](app-plan.md) | Proposal for reconstructing E&B's own code (decisions D6-D8) |
 | [overnight-report.md](overnight-report.md) | Report of the 2026-10-23 overnight session |
+| [overnight-report-2.md](overnight-report-2.md) | Report of the 2026-10-24 overnight run |
 
 Generated data ([data/](data/); regenerate with the tools in `tools/re`):
 

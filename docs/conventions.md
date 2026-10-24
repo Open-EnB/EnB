@@ -41,6 +41,10 @@ its inconsistencies (`MainView`, not `MainViewClass`; `CordCon::handlePacket`, n
 name (`m_Unknown7C`, after its offset; `UnknownFlag`) with its evidence in a comment. It keeps that
 name until the code that uses it is rebuilt; it is not guessed from the app code beforehand.
 
+**App classes the client doesn't name** (D24, user 2026-10-24): Westwood `XxxClass` style, as
+the client's own named classes are (`BitSetClass` for `app\shared\auxdata\bitset.cpp`, members
+from its asserts: `Buffer`, `NumBits`). A name the client later shows replaces it.
+
 ## 2. Westwood (WWVegas / Renegade) style
 
 ### Files

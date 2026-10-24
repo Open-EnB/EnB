@@ -21,7 +21,8 @@ in `tools/vc6/importer.py` (`PATCHES`, `APPENDS`, `NEW_FILES`, `RECONSTRUCTED`).
 
 1. **Find it.**
    * `python tools/re/gaps.py --title ww3d2 --out docs/data/gaps-ww3d2 %TEMP%\enb_import\verify-ww3d2\*.obj`
-     locates the functions that aren't byte-exact.
+     locates the functions that aren't byte-exact. Its pairings (and the `gaps-*.json` rows) can
+     be wrong: confirm a pair with `objdiff.py` before working on it (§3).
    * `layoutdiff.py --gaps ... --objs ...` ranks classes by consistent member-offset shifts.
    * `vtables.py --objs ... [--class C]` aligns vtables.
    * `objdiff.py OBJ SYMBOL ADDRESS` shows one function's instruction-level difference.
@@ -40,7 +41,8 @@ in `tools/vc6/importer.py` (`PATCHES`, `APPENDS`, `NEW_FILES`, `RECONSTRUCTED`).
    * Save `docs/data/imports.json` first.
    * Run `importer.py verify --lib ...` for every library that includes the changed header.
      WWLib headers reach every library. Add `--pool K` to build on K VMs leased from
-     `tools/vc6/pool.py` instead of the three fixed ones (released at the end; toolchain.md §1.3).
+     `tools/vc6/pool.py` instead of the default host (Win10 only since the old clones were retired on
+     2026-10-24; released at the end; toolchain.md §1.3).
    * Compare the sets of `(file, address)` pairs before and after. Compare sets, not totals:
      a total can stay level while functions are traded.
 5. **Keep or drop.**
@@ -84,10 +86,16 @@ compiled into E&B's objects), so they run higher.
   pattern instead.
 * **`gaps.py` can pair overloads wrongly.** For example, the default constructor was paired with
   the client's copy constructor. Check the argument count (`ret N`, `[esp+N]`) before trusting a
-  diff.
-* **Inlining is fragile in some files.** `meshmatdesc.cpp` flips VC6's automatic inlining of an
-  app-region helper (0x4E9CB0) when unrelated headers change: the documented loss in
-  library-matching.md.
+  diff. It also swaps neighbours (`Render`/`Special_Render`), pairs a function with an unrelated
+  one (asset manager ctor 0x909E60 vs the real 0x91C2C0; `Set_D3D_Base_Texture` vs a deleting
+  dtor 0x94D5D0; `Set_Shader` 0xA03C50) or with template dtors (PivotMap, PKStraw, FileStraw):
+  confirm with `objdiff.py` and `vtables.py` (2026-10-24).
+* **meshmatdesc.cpp's index load order is noise.** Its three fragile functions (0x946EB0,
+  0x947490, 0x947310) differ only in the load order of `UVSource[pass][stage]` index arguments,
+  and that order moves with the number of symbols declared before meshmatdesc.h's classes
+  (matrix4.h, refcount.h, even a dummy class): unrelated header edits (ww3d.h inline accessors)
+  cycle which of them match. Not evidence (D18, D28). Corrected 2026-10-24: 0x4E9CB0, earlier
+  blamed as an inlined app helper, is E&B's `::operator new` and is never inlined.
 * **Patch anchors change when files change copy.** A `PATCHES` entry written for Zero Hour's file
   doesn't apply to Renegade's. `assemble` reports "patch ... no longer applies".
 * **`verify` keeps only the first 50 compile errors.** One badly broken file (e.g. a whole-file
@@ -214,3 +222,63 @@ compiled into E&B's objects), so they run higher.
   addpatch spec (one patch per hunk, `old` unique both as a plain substring and at a line start);
   `git checkout` the files and run `addpatch.py`, then `cmp` against a backup of the edited files.
   A Python heredoc in Bash mangles `\n` in patch scripts: write them with the file tool.
+  (`"\a"`/`"\b"` in non-raw strings become control characters too.) For many mechanical caller
+  edits, transform the whole file and cut hunks with difflib, widening context until each is
+  unique (`.work/night/item6f/spec.py`); a short line can be a substring of a longer one.
+
+Added 2026-10-24 (overnight run; details in `.work/night/item*/report.md`):
+
+* **Check every EA copy for removed code.** A "register scheduling only" near-miss with a
+  one-sided trailing block, or a callee-saved register shift, is usually extra or missing code:
+  diff Renegade, Generals and Zero Hour (`//DMS`, ZH-tagged and commented-out lines, Renegade-only
+  hacks like `b_wire` "(gth) Renegade-specific hack", HY "Earth and beyond" comments). With a
+  Renegade base, Zero Hour's tagged edits are often in the client: scan the client's log, profile
+  and device strings against the copies (`.work/night/item6b/strscan.py`). Zero Hour's file-header
+  history lines list changes without inline markers: diff the dated topic against the client.
+* **Dates and authors place Zero Hour's edits (D9).** KM/KJM through 08/01/02 are in; 08/05/02+
+  and every MW/GTH (Generals team) change are out, whatever the date. Use the bytes, not the
+  client's PE timestamp (2004).
+* **Enum values are evidence.** The client mapping gradient mode 5 showed Zero Hour's
+  `GRADIENT_MODULATE2X` in shader.h.
+* **Inline budget.** Trivial accessors consume VC6's inline budget even when their bytes equal a
+  field read; an inlining switch late in a body can hinge on accessor-vs-field earlier.
+  `WWINLINE` in an EA header doesn't mean E&B inlined it: if the client calls it out of line, move
+  it to the .cpp. Check a `malloc`'d class size for extra E&B members (0xE30).
+* **Linkage shows in inlined code.** An inlined `DynamicVectorClass::Add` on a global list orders
+  its registers by linkage (file-static vs external/class-static), not by chance. Two
+  `(float)exp` of one argument get merged, `expf` doesn't: when the client recomputes an `exp`,
+  try `expf`.
+* **`__LINE__` is an immediate.** E&B's asserts push it unrelocated, so app asserts must sit on
+  the client's lines (D25).
+* **COMDAT duplicates.** A gain that drops an unused helper can lose a duplicate
+  `(file, 0x6CF410/0x909500/...)` pair: not a loss if the helper stays matched elsewhere (D20);
+  name it in the commit message.
+* **Replay and later blocks.** A patch whose anchor a later importer block rewrites (e.g.
+  `WWSHADE_API_PATCHES`, `TEXTURE_FILTER_PATCHES`) fails in replay: put it in that later block.
+  Stop chained commands on a replay failure.
+* **Line endings.** `sed -i` in Git Bash turns CRLF tree files to LF (replay: "content differs"):
+  use Python with `newline=''` or the Edit tool. Git's "LF will be replaced by CRLF" warning for
+  importer.py is harmless. The Write tool drops tabs on whitespace-only spec lines: build anchors
+  with `"\t"` or slice them from the tree text.
+* **Tool quirks.** `tryvariants.py` edits one file only: test header changes with a
+  backup/restore script around it (`.work/night/item1/hack_h.py`). `objdiff.py` with a plain name
+  can pick a prefix-matching function: pass the mangled name. `verify --lib` takes one library per
+  flag. `client.py callers` on a hot function crashes on cp1252 stdout: set
+  `PYTHONIOENCODING=utf-8` and redirect. In Git Bash, `"app\shared\auxdata\$f.cpp"` swallows `$f`:
+  use `/`.
+* **Function starts are verified by default** (78b0a74, D27): `clientimage.function_starts()`
+  keeps only decoded call targets. Pass `verified=False` only to audit, or to clean earlier
+  outputs (pseudocode.py). Comparing generated outputs before and after a tool change: snapshot
+  the verify objects first and run both sides on the snapshot.
+* **`symbols.json` and bytematch lag.** They don't name recent matches: read names from the verify
+  objects (`.work/night/item6i/names.py`).
+* **The importer lock and child processes.** A script holding the lock that runs `importer.py`,
+  `trial.py`, `tryvariants.py` or `trydiff.py` as a child deadlocks until `--lock-wait`: run
+  children from an unlocked parent (as `trial_all.py`) or call in-process. `zhall.py` holds the
+  lock for its whole run (~15 min for ww3d2); read-only `objdiff.py` on verify objects still works.
+  Killing it mid-run leaves a spliced tree file and the lock: `git status`, restore, delete the
+  lock. A transient `PermissionError` on tree writes can do the same: retry, then `git status`.
+* **Type libraries.** vc6.py syncs only `SOURCE_EXT` (a DLL `#import` fails C1083; `.tlh`/`.tli`
+  were added). `#import` writes absolute `c:\enbdevelopment\_vc6\obj_*\` paths into the `.tlh`:
+  strip them before committing. E&B's `BrowserEngine.dll` differs from EA's (same GUIDs, extra
+  methods): generate from E&B's (D21).

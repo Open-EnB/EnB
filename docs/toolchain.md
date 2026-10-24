@@ -41,6 +41,12 @@ file reported by the compiler makes the wrapper resync that VM once. `importer.p
 the libraries over the VMs (all seven in about 50 seconds). All three were checked to stamp build
 8799 (SP4).
 
+**Now (2026-10-24): Win10 plus the pool.** The two clones (`VC6 SP4 (8799)`) were retired at
+07:00 (user decision D30: Hyper-V VMs removed, `Tools\VMClones\1` and `2` deleted, 24.0 + 25.2 GB).
+`.work/vc6_hosts.json` lists only Win10 (192.168.193.108), the default host for every tool; more
+VMs come from the pool (§1.3): `importer.py verify --pool K`. `vc6.py discover` still rewrites
+`.work/vc6_hosts.json` after a restart.
+
 ### 1.2 Which VC6 built the client: SP4
 
 Every object records the build of the compiler's back end (`C2.DLL`) in `@comp.id`, and the
@@ -55,15 +61,19 @@ linker copies these into the Rich header. Measured with a test file (C++ and C, 
 
 **The client was built with Visual C++ 6.0 Service Pack 4.** The compiler stamp matches, and so
 does the CRT mix. `LINK.EXE` in SP4 is 6.00.8447. The client's Rich header has 96 objects with
-product id 4, build 8447, which our test executable doesn't produce; what they are (likely
-objects from a library built with that linker's toolset) is open. The 8798 C++ objects (3) are
-also unexplained.
+product id 4, build 8447, which our test executable doesn't produce. They are import-library
+members (Linker600 import objects): the client's mss32 imports (81) and binkw32 imports (9) plus
+2x3 descriptors = 96; E&BConfig.exe has 80 mss32 imports + 3 descriptors = 83 id-4 entries (build
+8168), VIDTEST.EXE imports neither and has none (2026-10-24, `.work/ebconfig/assessment.md` §1). So
+they are the Miles/Bink SDK import libraries, not compiled code. The 8798 C++ objects (3) are
+still unexplained; they occur in all three executables (a prebuilt library common to them).
 
 The installed VM is now SP4. The VM has a checkpoint with base VC6 (RTM), taken before SP5; SP4 was installed on top of that checkpoint.
 
 ### 1.3 The VM pool (2026-10-24)
 
-**`tools/vc6/pool.py`** runs build VMs on demand, so agents don't share the three fixed VMs.
+**`tools/vc6/pool.py`** runs build VMs on demand, so agents don't share fixed VMs (since
+2026-10-24 the only fixed one is Win10, §1.1).
 Pool VMs are `enb-vc6-NN`: differencing disks `Tools\VMPool\enb-vc6-NN.vhdx` over the read-only
 base `Tools\VMPool\base-vc6.vhdx` (prepared from the `VC6 SP4 (8799)` snapshot: Windows Update,
 Defender, SysMain and WSearch off, fixed pagefile; never attach it to a VM or clear its
