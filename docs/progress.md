@@ -4,6 +4,30 @@ Newest first within each section. Dates are when the entry was written.
 
 ## 1. Log
 
+### 2026-10-23: saved Ghidra pseudocode (`pseudocode.py`); REA timeouts confirmed
+
+* REA's raised timeouts (3d44d68) work: the first `batch_decompile` came back after Ghidra's
+  analysis (285 s), moved to a background task at Claude Code's 120 s mark. Correction to the
+  entry below: the distortion session's retries did **not** work. All four REA calls (line groups
+  0x97BAF0/0x97C900/0x97C360; distortion 0x9961E0 and 0x997EA0..0x9981A0) failed with
+  `provider_timeout`, hidden because the ~85 KB-per-item error payloads overflowed the result.
+* Then 0x9961E0 failed differently: Ghidra defines no function there (reached only from the
+  vtable at `.rdata` 0xB13984) and REA can't create one. So: `tools/re/pseudocode.py` +
+  `tools/re/ghidra/DecompileTargets.java` (20541ad) run Ghidra headless, create a function at
+  every `clientimage.py` start, name them as `client.py` does, and save pseudocode for every start
+  not byte-exact to `.work/pseudo/`: 25,063 ok, 0 failed, 119 refused (false starts
+  mid-instruction, all in the library region). Full run 80 s once the project exists.
+* CLAUDE.md: the saved pseudocode is now step 3 of the tool order, ahead of REA (user).
+  workflow.md §3: the vtable-only trap updated, one new (Ghidra's dotted-path and `&` limits).
+* Noticed, not followed up: gaps-ww3d2 places `~MeshModelClass::Init_For_NPatch_Rendering?` at
+  0x95A482, mid-instruction; the location is probably wrong.
+* Verified: the run's counts above; spot checks of 0x9961E0 (28 KB) and 0x97BAF0 (callees named).
+  No library changed, no `importer.py verify` needed.
+* Next step: rebuild the distortion draw 0x9961E0 (D19) from
+  `python tools/re/pseudocode.py --show 0x9961E0`, then its neighbours 0x997EA0..0x9981A0.
+* Outside git: `.work/pseudo/` (59 MB, `index.tsv`), `.work/ghidra/` (inputs, a copy of
+  client.exe, `headless.log`), the Ghidra project in `%LOCALAPPDATA%\EnB\ghidra`.
+
 ### 2026-10-23: WW3D2 particles, textures, line groups (after the mapper swap)
 
 * WW3D2 2,310 -> 2,352 (+42); gaps 347 -> 316; `symbols.json` 6,703 -> 6,736 (none gone). Every step
@@ -519,13 +543,15 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 
 ## 4. Next steps
 
-1. WW3D2 near-misses (docs/data/gaps-ww3d2, 347): the clusters of the 2026-10-23 near-miss entry
+1. D19's distortion draw 0x9961E0 and its neighbours 0x997EA0..0x9981A0, from the saved
+   pseudocode (`python tools/re/pseudocode.py --show 0x9961E0`).
+2. WW3D2 near-misses (docs/data/gaps-ww3d2, 347): the clusters of the 2026-10-23 near-miss entry
    (`GapFillerClass`; textures under D9; mapper, particles and `Set_Render_Device` done, see the
    2026-10-23 entries for what is left of each).
    Last of all: D18's byte-only meshmatdesc fix (0x947310), if nothing better is found.
    D9's `TextureClass` constructors, `Init`, `Apply`, `Get_Reduction` and `DX8Wrapper`'s device
    code are still open. wwshade: 138, left only the two `"UnNamed"` constructors (D17) and an
    inline `Set_DX8_Texture_Stage_State` copy. WWAudio done (0 gaps).
-2. `meshmatdesc.cpp`'s inlining flip (an app-region helper at 0x4E9CB0 that VC6 now inlines).
-3. E&B's own code (D6, D7): first the per-file workflow script ([app-plan.md](app-plan.md) §2),
+3. `meshmatdesc.cpp`'s inlining flip (an app-region helper at 0x4E9CB0 that VC6 now inlines).
+4. E&B's own code (D6, D7): first the per-file workflow script ([app-plan.md](app-plan.md) §2),
    then `app\shared\auxdata`.
