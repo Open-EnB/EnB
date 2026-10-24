@@ -82,7 +82,7 @@ C++ harness itself stays small.
 |---|---|---|---|
 | **M1.0** Inputs | **Mostly done already** in the reference decoder: the message-level inputs are the `ea\*.trace.jsonl` imports above, and the checks exist (`the reference decoder roundtrip`; `aux-census`: all 43,978 decode, re-encode and match the typed model; `aux-log --first`: every field value and change, the reference for (c)). Left: (1) a datagram-level file for gate (a): `tools/harness/convert.py` reads the Alex dumps (`session: <id> rc4 key: <8 bytes>`, then `C->S`/`S->C seq <n> len <hex>` and the decrypted datagram, checksum first), the same parse as `EnB.Trace/Ea/the reference importer.cs`, which keeps only the messages; (2) save `aux-census` and `aux-log --first` output per capture under `.work/harness/ref/`; (3) the harness skeleton reads trace.jsonl and the datagram file and counts messages | counts equal the reference decoder's. **Done 2026-10-24** (tools/harness/README.md): the ack list is decoded (type bit 0: count in byte 5, one header byte, 4-byte entries), so blocks fill every datagram; the .dgram files hold all 26,078 / 2,779 the reference decoder messages in order plus 28 / 12 that the reference importer's start-offset guess lost (4 of them AUX_DATA); capharness's counts equal the reference decoder's `dump --summary` for all 8 traces | small |
 | **M1.1** Decode path | Map the receive path from `AuxDataPacketClass::Process_Packet` 0x7364C0 to the leaves, and list every function on it that isn't byte-exact yet (encode.cpp's codecs 0x4A9400 / 0x4A8FD0 / 0x4A9710, the rest of the leaf types: item arrays, interpolators, records, policy where the decoders call it) | a list in this file, each function with its status. **Done 2026-10-24: §2.3** | small |
-| **M1.2** auxdata completion | The functions from M1.1, byte-exact where possible and functional where not (P1). This includes the remaining items in progress.md §4 step 2: the time field, the encoder `Add` functions, kv_pair_string, kv_list, the encode.cpp and policy.cpp rules | harness (b) passes on a hand-built root | large |
+| **M1.2** auxdata completion | The functions from M1.1, byte-exact where possible and functional where not (P1). This includes the remaining items in progress.md §4 step 2: the time field, the encoder `Add` functions, kv_pair_string, kv_list, the encode.cpp and policy.cpp rules | harness (b) passes on a hand-built root. **Decode path 2026-10-24** (§2.3): encode.cpp's codecs and lookup.cpp's build exact apart from 0x4A9400 (functional), app 136 -> 145 pairs (ambiguous 16 -> 19); 0x4A3FA0 and 0x4B0860 functional in stubs/ (objects unattributed); the leaf Reads are the template's; the packet entry and the encoder side (0x4A3D50, `RecordTableClass::Add`, the records, kv_list, kv_pair_string) are open | large |
 | **M1.3** Root schemas | The 13 root classes' constructors. A generator turns the extracted schema into C++ in the client's form (one `Add` per node, in order), and verify checks the result against the client (P2) | (b) and (c) pass on the EA captures | medium |
 | **M1.4** wwudp | `CordMgr`, `CordCon`, bandwidth accounting: handshake (SYN1/ACK1/SYN2/ACK2), checksum, block types, fragments, sequence and resend handling, ack lists, close. Socket and timer behind the class's own interface, replaced by a replay socket in the harness | harness (a) passes | large |
 | **M1.5** Net-7 recordings | Message-level replay of the TCP recordings, plus (d). Whether the client's TCP transport is also in `app\wwudp` is checked here (P6) | (d) passes | small |
@@ -117,25 +117,25 @@ indirect calls are resolved: the Delta slots over all 87 Delta vtables. Ghidra's
 
 | Layer | Address | Name / class | Size | Source | Status | Reached |
 |---|---|---|---|---|---|---|
-| entry | 0x7364C0 | `AuxDataPacketClass::Process_Packet` | 315 | app\client\cpacket.cpp (not in tree) | missing | opcode 0x1B |
+| entry | 0x7364C0 | `AuxDataPacketClass::Process_Packet` | 315 | app\client\cpacket.cpp (not in tree) | missing: not rebuilt (it needs the packet base class, `ClientClass` +0x10C0 / +0x12C0, 0x727070 and the profiler; the harness does its body: `LinearBufferClass(data, len, 0x400, false)`, then `root->Decode(buf, base)`) | opcode 0x1B |
 | entry | 0x736650 | `AuxDataPlayerVarPacketClass::Process_Packet` (0x1C, also calls 0x4A3FA0) | 199 | cpacket.cpp | missing | opcode 0x1C |
 | entry | 0x727070 | find game object by id? (99 callers) | 137 | app\client\client.cpp | missing | id ≠ 0 |
 | entry | 0x4AABE0 / 0x4AACB0 | `LinearBufferClass` ctor / dtor | 149 / 17 | auxdata/linearbu.cpp | exact | direct |
-| select | 0x4A3FA0 | root Decode(buf, base)?: the encoding byte | 58 | unattributed object 0x4A3990-0x4A4780 (also compound base ctor 0x4A3BD0) | missing | direct |
-| select | 0x4A9B80 | get tree codec (`[0xBE3B00]`) | 6 | encode.cpp | missing | direct |
-| select | 0x4A9190, 0x4A9970, 0x4A99E0 | static init: record codec, tree codec factory | 11, 27, 67 | encode.cpp | missing | CRT init |
-| tree | 0x4A9350 | TreeCodec::Decode? | 46 | encode.cpp | missing | 0xAEB2AC slot 0 |
-| tree | 0x4A9390 | TreeCodec Visit(leaf)? | 72 | encode.cpp | missing | 0xAEB2A0 slot 0 |
-| tree | 0x4A9400 | TreeCodec Visit(compound)? (assert line 401) | 784 | encode.cpp | missing | 0xAEB2A0 slot 1 |
-| tree | 0x4A9710 | header bits? | 243 | encode.cpp | missing | 0xAEB2AC slot 1 |
-| record | 0x4A8FD0 | RecordCodec::Decode? (3 id lists) | 352 | encode.cpp | missing | 0xAEB29C slot 0 |
+| select | 0x4A3FA0 | `DeltaCompoundClass::Decode(buf, base)`: the encoding byte | 58 | unattributed object 0x4A3990-0x4A4780 (also compound base ctor 0x4A3BD0) | functional, byte-exact under appfile.py match; in stubs/app_stubs.cpp until the object has a file (not counted) | direct |
+| select | 0x4A9B80 | `Get_Tree_Codec` (`[0xBE3B00]`) | 6 | encode.cpp | in tree (`short`: too short to count) | direct |
+| select | 0x4A9190, 0x4A9970, 0x4A99E0 | static init: `RecordCodec`, `TreeCodecHolder`, `TreeCodecHolderClass` ctor | 11, 27, 67 | encode.cpp | 0x4A99E0 exact; the two initialisers in tree (`short`) | CRT init |
+| tree | 0x4A9350 | `TreeCodecClass::Decode` | 46 | encode.cpp | exact | 0xAEB2AC slot 0 |
+| tree | 0x4A9390 | `TreeCodecClass::Visit(DeltaClass *)` | 72 | encode.cpp | exact | 0xAEB2A0 slot 0 |
+| tree | 0x4A9400 | `TreeCodecClass::Visit(DeltaCompoundClass *)` (assert line 401) | 622 | encode.cpp | functional, NOT EXACT (same instructions; VC6 duplicates the early epilogues) | 0xAEB2A0 slot 1 |
+| tree | 0x4A9710 | `TreeCodecClass::Read_Header` | 243 | encode.cpp | exact | 0xAEB2AC slot 1 |
+| record | 0x4A8FD0 | `RecordCodecClass::Decode` (3 id lists) | 352 | encode.cpp | exact | 0xAEB29C slot 0 |
 | record | 0x4A5510 | `DeltaCompoundClass::Get_Lookup` | 136 | auxdata/delta.cpp | exact | direct |
 | record | 0x4AC850 | `LookupClass::Get_Delta(int)` | 89 | auxdata/lookup.cpp | exact | direct |
-| record | 0x4AC250 | `LookupClass::LookupClass(owner)` | 271 | lookup.h declares it | missing | first use |
-| record | 0x4AC3B0 / 0x4AC560 | lookup builder Visit(leaf) / Visit(compound)? | 327 / 340 | lookup.cpp | missing | 0xAEB318 slots 0/1 |
-| record | 0x4ACC60, 0x4ACF30, 0x4ACF00, 0x4ACBB0 | std::vector / map instances? | 521, 613, 22, 14 | lookup.cpp | missing | direct |
-| record | 0x4AD280, 0x4AD300 | std::map helpers? | 81, 23 | name.cpp object ("not rebuilt" range) | missing | direct |
-| record | 0x4B0860 | visit each child (`child->Accept(visitor)`) | 68 | unattributed | missing | direct |
+| record | 0x4AC250 | `LookupClass::LookupClass(owner)` | 271 | lookup.cpp | exact | first use |
+| record | 0x4AC3B0 / 0x4AC560 | `LookupBuilderClass::Visit` (leaf / compound) | 327 / 340 | lookup.cpp | exact | 0xAEB318 slots 0/1 |
+| record | 0x4ACC60, 0x4ACF30, 0x4ACF00, 0x4ACBB0 | `vector::insert`, map `_Insert`, `pair` ctor, `begin` | 521, 613, 22, 14 | lookup.cpp (STL instances) | 0x4ACF30 exact; the other three exact, ambiguous address (D54) | direct |
+| record | 0x4AD280, 0x4AD300 | map `_Dec`, ? | 81, 23 | name.cpp object ("not rebuilt" range) | in tree via lookup.cpp's map (`multiple`, copies differ in their `_Nil`) | direct |
+| record | 0x4B0860 | `DeltaVisitorClass::Visit_Children` | 68 | unattributed | functional, in stubs/app_stubs.cpp until the object has a file | direct |
 | record | 0x4ADBB0 / 0x4ADE20 | `NameClass::Get_Rest` / PermString intern | 119 / 359 | auxdata/permstr.cpp | exact | direct |
 | delta | 0x4A4FE0 / 0x4A5650 | `DeltaClass::Accept` / `DeltaCompoundClass::Accept` | 14 / 15 | auxdata/delta.cpp | in tree (3 identical copies: `multiple`) | slot +0x08 |
 | delta | 0x4A4E80 / 0x4A5300 | `DeltaClass` / `DeltaCompoundClass::Unknown_10` | 42 / 113 | delta.cpp | exact | slot +0x10 |
@@ -143,14 +143,14 @@ indirect calls are resolved: the Delta slots over all 87 Delta vtables. Ghidra's
 | delta | 0x4A4F20, 0x4A4F50, 0x4A4F80 | `DeltaClass::Unknown_3C` / `_40` / `_44` | 27, 27, 20 | delta.cpp | exact | slots +0x3C/+0x40/+0x44 |
 | delta | 0x4A68E0 | interpolator `Unknown_3C` override (vtable 0xAEAE54) | 51 | auxdata/delta_interpolator.cpp | exact | slot +0x3C |
 | delta | 0x4A3C70 | `DeltaClass::Read` default (compounds) | 5 | delta.h (inline) | in tree (26 copies) | slot +0x2C |
-| leaf | 0x4A6DF0 | `DeltaTemplateClass<float>::Read` (0xAEAEB0, 4 bytes) | 66 | delta_template.h | in tree (`multiple`) | slot +0x2C |
+| leaf | 0x4A6DF0 | `DeltaTemplateClass<float>::Read` (0xAEAEB0, 4 bytes) | 66 | delta_template.h | exact, ambiguous address (D54: 18 copies, the same apart from the header's `__FILE__` directory) | slot +0x2C |
 | leaf | 0x4A7470 | money Read (0xAEAFB8, 8) | 85 | delta_money.cpp | exact | slot +0x2C |
 | leaf | 0x4A7CA0 | string Read (0xAEB0E4, length + text) | 219 | delta_string.cpp | exact | slot +0x2C |
 | leaf | 0x4A81D0 | time Read (0xAEB1EC, 4, minus base) | 114 | delta_time.cpp | exact | slot +0x2C |
-| leaf | 0x7013F0, 0x702B70, 0x702D90, 0x702FB0, 0x7031D0, 0x703C90, 0x7040F0, 0x704310, 0x704530, 0x704BF0, 0x704E10, 0x705030, 0x705390 | 4-byte template Reads (int32 0xB00D34, ...) | 13 × 66 | unattributed object 0x7008B0-0x70A010 (after co.cpp) | missing (bytes = 0x4A6DF0's) | slot +0x2C |
-| leaf | 0x757D50, 0x757F70, 0x7578D0, 0x758770 | 4-byte template Reads | 4 × 66 | unattributed object 0x751BE0-0x75A4E0 (Player ctor's) | missing (bytes = 0x4A6DF0's) | slot +0x2C |
-| leaf | 0x757B00 | 16-byte Read (0xB03694) | 116 | same object | missing | slot +0x2C |
-| leaf | 0x703490, 0x703EC0, 0x706F60, 0x705640 | bool (1), color (12), 0xB016DC (12), 0xB01A40 (20) Reads | 66, 95, 106, 155 | 0x700xxx object | missing | slot +0x2C |
+| leaf | 0x7013F0, 0x702B70, 0x702D90, 0x702FB0, 0x7031D0, 0x703C90, 0x7040F0, 0x704310, 0x704530, 0x704BF0, 0x704E10, 0x705030, 0x705390 | 4-byte template Reads (int32 0xB00D34, ...) | 13 × 66 | unattributed object 0x7008B0-0x70A010 (after co.cpp) | functional: the template's Read (delta_template.h), byte-identical to 0x4A6DF0; counted when M1.3's files instantiate it | slot +0x2C |
+| leaf | 0x757D50, 0x757F70, 0x7578D0, 0x758770 | 4-byte template Reads | 4 × 66 | unattributed object 0x751BE0-0x75A4E0 (Player ctor's) | functional, as above | slot +0x2C |
+| leaf | 0x757B00 | 16-byte Read (0xB03694) | 116 | same object | functional: the template's Read for a 16-byte T whose constructor zeroes it (M1.3 supplies T) | slot +0x2C |
+| leaf | 0x703490, 0x703EC0, 0x706F60, 0x705640 | bool (1), color (12), 0xB016DC (12), 0xB01A40 (20) Reads | 66, 95, 106, 155 | 0x700xxx object | functional: the template's Read with T's size (1, 12, 12, 20; 0x705640's T starts as {1.0f, 0, 0, -1, 0}); M1.3 supplies the types | slot +0x2C |
 | helper | 0x4AACE0 | `LinearBufferClass::Read(dst, n)` | 135 | linearbu.cpp | exact | everywhere |
 | helper | 0x4AB280 / 0x4AB2A0 | `LinearBufferClass::Get_Pos` / seek? | 4 / 43 | linearbu.cpp | in tree (12 copies) / exact | from 0x4A9710 |
 | helper | 0x4A47B0, 0x4A4AA0 / 0x4A4960 | `BitSetClass` ctor, bit test / dtor | 136, 72 / 10 | auxdata/bitset.cpp | exact / in tree (5 copies) | from 0x4A9400/0x4A9710 |
