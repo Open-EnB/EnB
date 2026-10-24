@@ -56,7 +56,6 @@ void SHD_Force_Links ()
 	FORCE_LINK (BumpSpecShader);
 	FORCE_LINK (BumpDiffShader);
 	FORCE_LINK (CubeMapShader);
-	FORCE_LINK (LegacyW3DShader);
 
 	return ;
 }

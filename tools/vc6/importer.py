@@ -2107,6 +2107,11 @@ WWSHADE_API_PATCHES = {
          '\t\tTextureTrackerClass *track=it.Peek_Obj();\t\t\n\t\tif (track->Get_Texture()->D3DTexture != NULL) {\n\t\t\ttrack->Get_Texture()->D3DTexture->Release();\n\t\t\ttrack->Get_Texture()->D3DTexture=NULL;\n\t\t}\n',
          "E&B's DX8TextureManagerClass::Release_Textures 0x995C70 releases each tracked texture's D3DTexture inline under a NULL test and clears it (no Set_D3D_Base_Texture call, no LastAccessed store), Renegade's direct access with ZH's tracker classes"),
     ],
+    ('wwshade', 'shdforcelinks.cpp'): [
+        ('\tFORCE_LINK (CubeMapShader);\n\tFORCE_LINK (LegacyW3DShader);\n',
+         '\tFORCE_LINK (CubeMapShader);\n',
+         'no LegacyW3D shader in the client (shdlegacyw3d.cpp is NOT_LINKED): SHD_Force_Links 0xA08C70 calls four force-link functions and tail-jumps to a fifth (0xA0D240, 0xA0C630, 0xA0BC80, 0xA0B300, 0xA0A7F0)'),
+    ],
 }
 for _key, _edits in WWSHADE_API_PATCHES.items():
     PATCHES.setdefault(_key, []).extend(_edits)
