@@ -1281,13 +1281,6 @@
 "source": "thunk"
 },
 {
-"address": "0x40EFF7",
-"symbol": "j_??_ESegmentedLineClass@@UAEPAXI@Z",
-"name": "j_??_ESegmentedLineClass@@UAEPAXI@Z",
-"kind": "thunk",
-"source": "thunk"
-},
-{
 "address": "0x40F015",
 "symbol": "j_?Get_LOD_Level@RenderObjClass@@UBEHXZ",
 "name": "j_?Get_LOD_Level@RenderObjClass@@UBEHXZ",
@@ -1410,13 +1403,6 @@
 "address": "0x410096",
 "symbol": "j_?Class_ID@DynamicMeshClass@@UBEHXZ",
 "name": "j_?Class_ID@DynamicMeshClass@@UBEHXZ",
-"kind": "thunk",
-"source": "thunk"
-},
-{
-"address": "0x410186",
-"symbol": "j_?Render@SegmentedLineClass@@UAEXAAVRenderInfoClass@@@Z",
-"name": "j_?Render@SegmentedLineClass@@UAEXAAVRenderInfoClass@@@Z",
 "kind": "thunk",
 "source": "thunk"
 },
@@ -2236,13 +2222,6 @@
 "address": "0x418BEC",
 "symbol": "j_?Lock@XSurface@@UBEPAXV?$TPoint2D@H@@@Z",
 "name": "j_?Lock@XSurface@@UBEPAXV?$TPoint2D@H@@@Z",
-"kind": "thunk",
-"source": "thunk"
-},
-{
-"address": "0x4190EC",
-"symbol": "j_??_ESegmentedLineClass@@UAEPAXI@Z",
-"name": "j_??_ESegmentedLineClass@@UAEPAXI@Z",
 "kind": "thunk",
 "source": "thunk"
 },
@@ -4402,20 +4381,6 @@
 "address": "0x7B3E80",
 "symbol": "?Class_ID@SegmentedLineClass@@UBEHXZ",
 "name": "SegmentedLineClass::Class_ID",
-"kind": "function",
-"source": "vtable"
-},
-{
-"address": "0x7B3EA0",
-"symbol": "??_ESegmentedLineClass@@UAEPAXI@Z",
-"name": "SegmentedLineClass::vector deleting dtor",
-"kind": "function",
-"source": "vtable"
-},
-{
-"address": "0x7B43F0",
-"symbol": "?Render@SegmentedLineClass@@UAEXAAVRenderInfoClass@@@Z",
-"name": "SegmentedLineClass::Render",
 "kind": "function",
 "source": "vtable"
 },
@@ -16293,6 +16258,14 @@
 "length": 133
 },
 {
+"address": "0x92A200",
+"symbol": "??4MeshGeometryClass@@QAEAAV0@ABV0@@Z",
+"name": "MeshGeometryClass::operator=",
+"kind": "function",
+"source": "exact",
+"length": 519
+},
+{
 "address": "0x92A410",
 "symbol": "??1MeshGeometryClass@@UAE@XZ",
 "name": "MeshGeometryClass::~MeshGeometryClass",
@@ -17822,12 +17795,28 @@
 "length": 37
 },
 {
+"address": "0x93E690",
+"symbol": "?Load_W3D@MeshLoaderClass@@UAEPAVPrototypeClass@@AAVChunkLoadClass@@@Z",
+"name": "MeshLoaderClass::Load_W3D",
+"kind": "function",
+"source": "exact",
+"length": 136
+},
+{
 "address": "0x93E720",
 "symbol": "?Load_W3D@HModelLoaderClass@@UAEPAVPrototypeClass@@AAVChunkLoadClass@@@Z",
 "name": "HModelLoaderClass::Load_W3D",
 "kind": "function",
 "source": "exact",
 "length": 100
+},
+{
+"address": "0x93E920",
+"symbol": "??0MeshClass@@QAE@XZ",
+"name": "MeshClass::MeshClass",
+"kind": "function",
+"source": "exact",
+"length": 95
 },
 {
 "address": "0x93E980",
@@ -17838,10 +17827,35 @@
 },
 {
 "address": "0x93E990",
-"symbol": "??_EMeshClass@@UAEPAXI@Z",
-"name": "MeshClass::vector deleting dtor",
+"symbol": "??_GMeshClass@@UAEPAXI@Z",
+"name": "MeshClass::scalar deleting dtor",
 "kind": "function",
-"source": "vtable"
+"source": "exact",
+"length": 187
+},
+{
+"address": "0x93EA50",
+"symbol": "??0MeshClass@@QAE@ABV0@@Z",
+"name": "MeshClass::MeshClass",
+"kind": "function",
+"source": "exact",
+"length": 156
+},
+{
+"address": "0x93EAF0",
+"symbol": "??4MeshClass@@AAEAAV0@ABV0@@Z",
+"name": "MeshClass::operator=",
+"kind": "function",
+"source": "exact",
+"length": 128
+},
+{
+"address": "0x93EB70",
+"symbol": "??1MeshClass@@UAE@XZ",
+"name": "MeshClass::~MeshClass",
+"kind": "function",
+"source": "exact",
+"length": 166
 },
 {
 "address": "0x93EC20",
@@ -17852,11 +17866,20 @@
 "length": 143
 },
 {
+"address": "0x93ECB0",
+"symbol": "?Free@MeshClass@@IAEXXZ",
+"name": "MeshClass::Free",
+"kind": "function",
+"source": "exact",
+"length": 67
+},
+{
 "address": "0x93ED00",
 "symbol": "?Clone@MeshClass@@UBEPAVRenderObjClass@@XZ",
 "name": "MeshClass::Clone",
 "kind": "function",
-"source": "vtable"
+"source": "exact",
+"length": 34
 },
 {
 "address": "0x93ED30",
@@ -17958,7 +17981,8 @@
 "symbol": "?Render@MeshClass@@UAEXAAVRenderInfoClass@@@Z",
 "name": "MeshClass::Render",
 "kind": "function",
-"source": "vtable"
+"source": "exact",
+"length": 641
 },
 {
 "address": "0x940120",
@@ -17977,11 +18001,28 @@
 "length": 386
 },
 {
+"address": "0x940300",
+"symbol": "?Make_Unique@MeshClass@@QAEX_N@Z",
+"name": "MeshClass::Make_Unique",
+"kind": "function",
+"source": "exact",
+"length": 121
+},
+{
+"address": "0x940380",
+"symbol": "?Load_W3D@MeshClass@@QAE?AW4WW3DErrorType@@AAVChunkLoadClass@@@Z",
+"name": "MeshClass::Load_W3D",
+"kind": "function",
+"source": "exact",
+"length": 426
+},
+{
 "address": "0x940530",
 "symbol": "?Cast_Ray@MeshClass@@UAE_NAAVRayCollisionTestClass@@@Z",
 "name": "MeshClass::Cast_Ray",
 "kind": "function",
-"source": "vtable"
+"source": "exact",
+"length": 674
 },
 {
 "address": "0x9407E0",
@@ -18073,8 +18114,8 @@
 },
 {
 "address": "0x941310",
-"symbol": "?Save_User_Lighting@MeshClass@@UAEXAAVChunkSaveClass@@@Z",
-"name": "MeshClass::Save_User_Lighting",
+"symbol": "?Unknown_Virtual_113@MeshClass@@UAEHXZ",
+"name": "MeshClass::Unknown_Virtual_113",
 "kind": "function",
 "source": "vtable"
 },
@@ -18451,6 +18492,36 @@
 "kind": "function",
 "source": "exact",
 "length": 631
+},
+{
+"address": "0x942AF0",
+"symbol": "??_ERenderObjPersistFactoryClass@@UAEPAXI@Z",
+"name": "RenderObjPersistFactoryClass::vector deleting dtor",
+"kind": "function",
+"source": "vtable"
+},
+{
+"address": "0x942B10",
+"symbol": "?Chunk_ID@RenderObjPersistFactoryClass@@EBEKXZ",
+"name": "RenderObjPersistFactoryClass::Chunk_ID",
+"kind": "function",
+"source": "vtable"
+},
+{
+"address": "0x942B20",
+"symbol": "?Load@RenderObjPersistFactoryClass@@EBEPAVPersistClass@@AAVChunkLoadClass@@@Z",
+"name": "RenderObjPersistFactoryClass::Load",
+"kind": "function",
+"source": "exact",
+"length": 449
+},
+{
+"address": "0x942CF0",
+"symbol": "?Save@RenderObjPersistFactoryClass@@EBEXAAVChunkSaveClass@@PAVPersistClass@@@Z",
+"name": "RenderObjPersistFactoryClass::Save",
+"kind": "function",
+"source": "exact",
+"length": 255
 },
 {
 "address": "0x942E20",
@@ -19274,6 +19345,22 @@
 "kind": "function",
 "source": "exact",
 "length": 224
+},
+{
+"address": "0x94A080",
+"symbol": "??0TextureLoadTaskClass@@QAE@XZ",
+"name": "TextureLoadTaskClass::TextureLoadTaskClass",
+"kind": "function",
+"source": "exact",
+"length": 79
+},
+{
+"address": "0x94A120",
+"symbol": "?Create@TextureLoadTaskClass@@SAPAV1@PAVTextureBaseClass@@W4TaskType@1@W4PriorityType@1@@Z",
+"name": "TextureLoadTaskClass::Create",
+"kind": "function",
+"source": "exact",
+"length": 183
 },
 {
 "address": "0x94A1E0",
@@ -20607,6 +20694,30 @@
 "kind": "function",
 "source": "exact",
 "length": 206
+},
+{
+"address": "0x958510",
+"symbol": "??1MeshModelClass@@UAE@XZ",
+"name": "MeshModelClass::~MeshModelClass",
+"kind": "function",
+"source": "exact",
+"length": 176
+},
+{
+"address": "0x9586B0",
+"symbol": "?Reset@MeshModelClass@@QAEXHHH@Z",
+"name": "MeshModelClass::Reset",
+"kind": "function",
+"source": "exact",
+"length": 148
+},
+{
+"address": "0x958750",
+"symbol": "?Register_For_Rendering@MeshModelClass@@QAEXXZ",
+"name": "MeshModelClass::Register_For_Rendering",
+"kind": "function",
+"source": "exact",
+"length": 143
 },
 {
 "address": "0x9589E0",
@@ -22354,6 +22465,14 @@
 "length": 28
 },
 {
+"address": "0x9695A0",
+"symbol": "?Render@SegmentedLineClass@@UAEXAAVRenderInfoClass@@@Z",
+"name": "SegmentedLineClass::Render",
+"kind": "function",
+"source": "exact",
+"length": 152
+},
+{
 "address": "0x969640",
 "symbol": "?Get_Obj_Space_Bounding_Sphere@SegmentedLineClass@@UBEXAAVSphereClass@@@Z",
 "name": "SegmentedLineClass::Get_Obj_Space_Bounding_Sphere",
@@ -22436,6 +22555,14 @@
 "name": "SegmentedLineClass::Get_LOD_Count",
 "kind": "function",
 "source": "vtable"
+},
+{
+"address": "0x969C50",
+"symbol": "?Render_Seg_Line@SegmentedLineClass@@IAEXAAVRenderInfoClass@@@Z",
+"name": "SegmentedLineClass::Render_Seg_Line",
+"kind": "function",
+"source": "exact",
+"length": 78
 },
 {
 "address": "0x969CA0",
@@ -23783,12 +23910,28 @@
 "length": 61
 },
 {
+"address": "0x9770F0",
+"symbol": "_$E216",
+"name": "$E216",
+"kind": "function",
+"source": "exact",
+"length": 177
+},
+{
 "address": "0x977510",
 "symbol": "??0DX8TextureCategoryClass@@QAE@PAVDX8FVFCategoryContainer@@PAPAVTextureClass@@VShaderClass@@PAVVertexMaterialClass@@H@Z",
 "name": "DX8TextureCategoryClass::DX8TextureCategoryClass",
 "kind": "function",
 "source": "exact",
 "length": 168
+},
+{
+"address": "0x9775E0",
+"symbol": "??1DX8TextureCategoryClass@@UAE@XZ",
+"name": "DX8TextureCategoryClass::~DX8TextureCategoryClass",
+"kind": "function",
+"source": "exact",
+"length": 261
 },
 {
 "address": "0x9776F0",
@@ -23911,6 +24054,14 @@
 "length": 799
 },
 {
+"address": "0x978820",
+"symbol": "?Define_FVF@DX8FVFCategoryContainer@@SAIPAVMeshModelClass@@_N@Z",
+"name": "DX8FVFCategoryContainer::Define_FVF",
+"kind": "function",
+"source": "exact",
+"length": 232
+},
+{
 "address": "0x978910",
 "symbol": "??0DX8RigidFVFCategoryContainer@@QAE@I_N@Z",
 "name": "DX8RigidFVFCategoryContainer::DX8RigidFVFCategoryContainer",
@@ -23958,10 +24109,11 @@
 },
 {
 "address": "0x978B70",
-"symbol": "?Add_Mesh@DX8RigidFVFCategoryContainer@@UAEXPAVMeshClass@@@Z",
+"symbol": "?Add_Mesh@DX8RigidFVFCategoryContainer@@UAEXPAVMeshModelClass@@@Z",
 "name": "DX8RigidFVFCategoryContainer::Add_Mesh",
 "kind": "function",
-"source": "vtable"
+"source": "exact",
+"length": 1109
 },
 {
 "address": "0x978FD0",
@@ -23978,6 +24130,14 @@
 "kind": "function",
 "source": "exact",
 "length": 27
+},
+{
+"address": "0x979180",
+"symbol": "?Generate_Texture_Categories@DX8FVFCategoryContainer@@IAEXAAVVertex_Split_Table@@I@Z",
+"name": "DX8FVFCategoryContainer::Generate_Texture_Categories",
+"kind": "function",
+"source": "exact",
+"length": 799
 },
 {
 "address": "0x9794A0",
@@ -24065,10 +24225,19 @@
 },
 {
 "address": "0x979BC0",
-"symbol": "?Add_Mesh@DX8SkinFVFCategoryContainer@@UAEXPAVMeshClass@@@Z",
+"symbol": "?Add_Mesh@DX8SkinFVFCategoryContainer@@UAEXPAVMeshModelClass@@@Z",
 "name": "DX8SkinFVFCategoryContainer::Add_Mesh",
 "kind": "function",
-"source": "vtable"
+"source": "exact",
+"length": 261
+},
+{
+"address": "0x979CD0",
+"symbol": "?Add_Mesh@DX8TextureCategoryClass@@QAEIAAVVertex_Split_Table@@IIPAVIndexBufferClass@@I@Z",
+"name": "DX8TextureCategoryClass::Add_Mesh",
+"kind": "function",
+"source": "exact",
+"length": 1363
 },
 {
 "address": "0x97A230",
@@ -24087,6 +24256,14 @@
 "length": 33
 },
 {
+"address": "0x97AA00",
+"symbol": "??1DX8MeshRendererClass@@QAE@XZ",
+"name": "DX8MeshRendererClass::~DX8MeshRendererClass",
+"kind": "function",
+"source": "exact",
+"length": 162
+},
+{
 "address": "0x97AAB0",
 "symbol": "?Init@DX8MeshRendererClass@@QAEXXZ",
 "name": "DX8MeshRendererClass::Init",
@@ -24101,6 +24278,30 @@
 "kind": "function",
 "source": "exact",
 "length": 78
+},
+{
+"address": "0x97ABA0",
+"symbol": "?Unregister_Mesh_Type@DX8MeshRendererClass@@QAEXPAVMeshModelClass@@@Z",
+"name": "DX8MeshRendererClass::Unregister_Mesh_Type",
+"kind": "function",
+"source": "exact",
+"length": 105
+},
+{
+"address": "0x97AC10",
+"symbol": "?Register_Mesh_Type@DX8MeshRendererClass@@QAEXPAVMeshModelClass@@@Z",
+"name": "DX8MeshRendererClass::Register_Mesh_Type",
+"kind": "function",
+"source": "exact",
+"length": 562
+},
+{
+"address": "0x97AE50",
+"symbol": "?Add_Rigid_Mesh_To_Container@@YAXPAV?$MultiListClass@VDX8FVFCategoryContainer@@@@IPAVMeshModelClass@@@Z",
+"name": "Add_Rigid_Mesh_To_Container",
+"kind": "function",
+"source": "exact",
+"length": 212
 },
 {
 "address": "0x97AF40",
@@ -24141,6 +24342,14 @@
 "kind": "function",
 "source": "exact",
 "length": 124
+},
+{
+"address": "0x97B2D0",
+"symbol": "?Invalidate@DX8MeshRendererClass@@QAEXXZ",
+"name": "DX8MeshRendererClass::Invalidate",
+"kind": "function",
+"source": "exact",
+"length": 256
 },
 {
 "address": "0x97B6D0",
@@ -30499,6 +30708,14 @@
 "length": 160
 },
 {
+"address": "0x9BD260",
+"symbol": "?compute_static_sort_levels@MeshModelClass@@IAEXXZ",
+"name": "MeshModelClass::compute_static_sort_levels",
+"kind": "function",
+"source": "exact",
+"length": 311
+},
+{
 "address": "0x9BD480",
 "symbol": "?install_materials@MeshModelClass@@IAEXPAVMeshLoadContextClass@@@Z",
 "name": "MeshModelClass::install_materials",
@@ -31109,12 +31326,28 @@
 "length": 28
 },
 {
+"address": "0x9C4820",
+"symbol": "??0DX8PolygonRendererClass@@QAE@IPAVMeshModelClass@@PAVDX8TextureCategoryClass@@II_N@Z",
+"name": "DX8PolygonRendererClass::DX8PolygonRendererClass",
+"kind": "function",
+"source": "exact",
+"length": 82
+},
+{
 "address": "0x9C4880",
 "symbol": "??_GDX8PolygonRendererClass@@UAEPAXI@Z",
 "name": "DX8PolygonRendererClass::scalar deleting dtor",
 "kind": "function",
 "source": "exact",
 "length": 51
+},
+{
+"address": "0x9C48C0",
+"symbol": "??0DX8PolygonRendererClass@@QAE@ABV0@PAVMeshModelClass@@@Z",
+"name": "DX8PolygonRendererClass::DX8PolygonRendererClass",
+"kind": "function",
+"source": "exact",
+"length": 95
 },
 {
 "address": "0x9C4920",
@@ -50068,13 +50301,6 @@
 "source": "vtable"
 },
 {
-"address": "0xB05CAC",
-"symbol": "??_7SegmentedLineClass@@6BRefCountClass@@@",
-"name": "??_7SegmentedLineClass@@6BRefCountClass@@@",
-"kind": "vtable",
-"source": "vtable"
-},
-{
 "address": "0xB0C680",
 "symbol": "??_7Curve3DClass@@6B@",
 "name": "??_7Curve3DClass@@6B@",
@@ -50334,6 +50560,13 @@
 "source": "vtable"
 },
 {
+"address": "0xB11578",
+"symbol": "??_7RenderObjPersistFactoryClass@@6B@",
+"name": "??_7RenderObjPersistFactoryClass@@6B@",
+"kind": "vtable",
+"source": "vtable"
+},
+{
 "address": "0xB115E8",
 "symbol": "??_7Line3DClass@@6BRefCountClass@@@",
 "name": "??_7Line3DClass@@6BRefCountClass@@@",
@@ -50407,6 +50640,13 @@
 "address": "0xB12164",
 "symbol": "??_7SimpleSceneIterator@@6B@",
 "name": "??_7SimpleSceneIterator@@6B@",
+"kind": "vtable",
+"source": "vtable"
+},
+{
+"address": "0xB121BC",
+"symbol": "??_7SegmentedLineClass@@6BRefCountClass@@@",
+"name": "??_7SegmentedLineClass@@6BRefCountClass@@@",
 "kind": "vtable",
 "source": "vtable"
 },

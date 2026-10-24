@@ -167,3 +167,15 @@ compiled into E&B's objects), so they run higher.
   reached through a vtable; `batch_decompile` then fails with "no loaded source mapping". Work from
   `client.py dis` for those. A batch result over the token limit is saved to a file: read its
   `normalized_result.items[].pseudocode`, and check it isn't Ghidra's log (failed items carry it).
+* **A displacement difference can belong to another class.** `DX8PolygonRendererClass`'s
+  constructor differed only in `lea ecx,[eax+0xAC]` (client 0x84): the register held the *mesh*
+  argument, so the layout that differed was `MeshClass`'s (in fact the list lived in
+  `MeshModelClass` in E&B). Trace the register to its source before patching a header.
+* **`objdiff.py` marks relocated operands as differences.** Our object shows a relocated field as
+  `0` / `[0]` (or `[esi + REL]`), the client as `REL`: those `*` lines are not differences. Real
+  ones are other instructions, extra pushes, or code only one side has.
+* **Edit first, generate the spec after.** For a change spanning many hunks, edit the tree files
+  directly (scripts in `.work/`), verify, then `tools/vc6/mkspec.py` turns `git diff` into an
+  addpatch spec (one patch per hunk, `old` unique both as a plain substring and at a line start);
+  `git checkout` the files and run `addpatch.py`, then `cmp` against a backup of the edited files.
+  A Python heredoc in Bash mangles `\n` in patch scripts: write them with the file tool.

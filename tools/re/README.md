@@ -50,7 +50,7 @@ Build-VM tools in `tools/vc6`: `vc6.py` (compile in the VM), `bytematch_all.sh` 
 object), `trial.py COPY LIB/FILE...` (swap files to another EA copy, keep only if better;
 `--max-loss`; `--errors FILE` writes every compile error, not just the first 15), `trial_all.py LIB COPY...` (trial every differing header/source pair),
 `addpatch.py --block NAME SPEC.py` (apply patches to the tree and record them in one of `importer.py`'s
-patch blocks; creates the block with `--title`), `tryvariants.py LIB FILE VARIANTS.py` (compile
+patch blocks; creates the block with `--title`), `mkspec.py SPEC.py REASONS.py` (turn uncommitted edits of tree files into an addpatch spec, one patch per diff hunk; then `git checkout` the files and run addpatch), `tryvariants.py LIB FILE VARIANTS.py` (compile
 variants of one file alone and report the client functions each gains or loses), `trydiff.py LIB FILE VARIANTS.py NAME` (compile one of those variants and keep its object, to
 `objdiff.py` it when no variant gains),
 `sdk_patch.py` (the Miles header as E&B's build used it, outside the repository). Several VMs:

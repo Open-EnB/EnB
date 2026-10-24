@@ -290,76 +290,6 @@
   "window": "0x9B2540-0x9B2D40"
  },
  {
-  "object": "dx8polygonrenderer.obj",
-  "function": "DX8PolygonRendererClass::DX8PolygonRendererClass",
-  "symbol": "??0DX8PolygonRendererClass@@QAE@IPAVMeshClass@@PAVDX8TextureCategoryClass@@II_N@Z",
-  "length": 82,
-  "status": "none",
-  "address": "0x9C4820",
-  "similarity": 0.94,
-  "window": "0x9C4080-0x9C4880"
- },
- {
-  "object": "dx8polygonrenderer.obj",
-  "function": "DX8PolygonRendererClass::DX8PolygonRendererClass",
-  "symbol": "??0DX8PolygonRendererClass@@QAE@ABV0@PAVMeshClass@@@Z",
-  "length": 95,
-  "status": "none",
-  "address": "0x9C48C0",
-  "similarity": 0.89,
-  "window": "0x9C48C0-0x9C4920"
- },
- {
-  "object": "dx8polygonrenderer.obj",
-  "function": "DX8PolygonRendererClass::Log",
-  "symbol": "?Log@DX8PolygonRendererClass@@QAEXXZ",
-  "length": 108,
-  "status": "none",
-  "address": "0x9C4940",
-  "similarity": 0.73,
-  "window": "0x9C4940-0x9C5140"
- },
- {
-  "object": "dx8renderer.obj",
-  "function": "$E218",
-  "symbol": "_$E218",
-  "length": 86,
-  "status": "none",
-  "address": "0x9774A0",
-  "similarity": 0.77,
-  "window": "0x976D10-0x977510"
- },
- {
-  "object": "dx8renderer.obj",
-  "function": "$E216",
-  "symbol": "_$E216",
-  "length": 213,
-  "status": "none",
-  "address": "0x9770F0",
-  "similarity": 0.68,
-  "window": "0x976D10-0x977510"
- },
- {
-  "object": "dx8renderer.obj",
-  "function": "DX8TextureCategoryClass::~DX8TextureCategoryClass",
-  "symbol": "??1DX8TextureCategoryClass@@UAE@XZ",
-  "length": 323,
-  "status": "none",
-  "address": "0x9775E0",
-  "similarity": 0.6,
-  "window": "0x9775C0-0x9776F0"
- },
- {
-  "object": "dx8renderer.obj",
-  "function": "DX8FVFCategoryContainer::Define_FVF",
-  "symbol": "?Define_FVF@DX8FVFCategoryContainer@@SAIPAVMeshModelClass@@PAI_N@Z",
-  "length": 240,
-  "status": "none",
-  "address": "0x978820",
-  "similarity": 0.51,
-  "window": "0x978820-0x978910"
- },
- {
   "object": "dx8renderer.obj",
   "function": "DX8RigidFVFCategoryContainer::Render",
   "symbol": "?Render@DX8RigidFVFCategoryContainer@@UAEXXZ",
@@ -391,143 +321,13 @@
  },
  {
   "object": "dx8renderer.obj",
-  "function": "DX8RigidFVFCategoryContainer::Add_Mesh",
-  "symbol": "?Add_Mesh@DX8RigidFVFCategoryContainer@@UAEXPAVMeshClass@@@Z",
-  "length": 1145,
-  "status": "none",
-  "address": "0x978B70",
-  "similarity": 0.64,
-  "window": "0x978B70-0x978FD0"
- },
- {
-  "object": "dx8renderer.obj",
   "function": "MeshMatDescClass::Get_Color_Array",
   "symbol": "?Get_Color_Array@MeshMatDescClass@@QAEPAIH_N@Z",
   "length": 107,
   "status": "none",
-  "address": null,
-  "similarity": null,
-  "window": "0x978B70-0x978FD0"
- },
- {
-  "object": "dx8renderer.obj",
-  "function": "DX8FVFCategoryContainer::Generate_Texture_Categories",
-  "symbol": "?Generate_Texture_Categories@DX8FVFCategoryContainer@@IAEXAAVVertex_Split_Table@@I@Z",
-  "length": 803,
-  "status": "none",
-  "address": "0x979180",
-  "similarity": 0.8,
-  "window": "0x979180-0x9794A0"
- },
- {
-  "object": "dx8renderer.obj",
-  "function": "DX8SkinFVFCategoryContainer::Add_Mesh",
-  "symbol": "?Add_Mesh@DX8SkinFVFCategoryContainer@@UAEXPAVMeshClass@@@Z",
-  "length": 268,
-  "status": "none",
-  "address": "0x979BC0",
-  "similarity": 0.45,
-  "window": "0x979BC0-0x97A230"
- },
- {
-  "object": "dx8renderer.obj",
-  "function": "DX8TextureCategoryClass::Add_Mesh",
-  "symbol": "?Add_Mesh@DX8TextureCategoryClass@@QAEIAAVVertex_Split_Table@@IIPAVIndexBufferClass@@I@Z",
-  "length": 1363,
-  "status": "none",
-  "address": "0x979CD0",
-  "similarity": 0.82,
-  "window": "0x979BC0-0x97A230"
- },
- {
-  "object": "dx8renderer.obj",
-  "function": "DX8MeshRendererClass::DX8MeshRendererClass",
-  "symbol": "??0DX8MeshRendererClass@@QAE@XZ",
-  "length": 49,
-  "status": "none",
-  "address": "0x97A9D0",
-  "similarity": 0.88,
-  "window": "0x97A9D0-0x97AAB0"
- },
- {
-  "object": "dx8renderer.obj",
-  "function": "DX8MeshRendererClass::~DX8MeshRendererClass",
-  "symbol": "??1DX8MeshRendererClass@@QAE@XZ",
-  "length": 194,
-  "status": "none",
-  "address": "0x97AA00",
-  "similarity": 0.72,
-  "window": "0x97A9D0-0x97AAB0"
- },
- {
-  "object": "dx8renderer.obj",
-  "function": "DX8MeshRendererClass::Unregister_Mesh_Type",
-  "symbol": "?Unregister_Mesh_Type@DX8MeshRendererClass@@QAEXPAVMeshClass@@@Z",
-  "length": 279,
-  "status": "none",
-  "address": "0x97ABA0",
-  "similarity": 0.36,
-  "window": "0x97AB50-0x97AF40"
- },
- {
-  "object": "dx8renderer.obj",
-  "function": "DX8MeshRendererClass::Register_Mesh_Type",
-  "symbol": "?Register_Mesh_Type@DX8MeshRendererClass@@QAEXPAVMeshClass@@@Z",
-  "length": 864,
-  "status": "none",
-  "address": "0x97AC10",
-  "similarity": 0.32,
-  "window": "0x97AB50-0x97AF40"
- },
- {
-  "object": "dx8renderer.obj",
-  "function": "?Get_Hash_Value@?$HashTemplateKeyClass@UMeshRegKeyStruct@@@@SAIABUMeshRegKeyStruct@@@Z",
-  "symbol": "?Get_Hash_Value@?$HashTemplateKeyClass@UMeshRegKeyStruct@@@@SAIABUMeshRegKeyStruct@@@Z",
-  "length": 31,
-  "status": "none",
-  "address": "0x97AF30",
-  "similarity": 0.17,
-  "window": "0x97AB50-0x97AF40"
- },
- {
-  "object": "dx8renderer.obj",
-  "function": "Add_Rigid_Mesh_To_Container",
-  "symbol": "?Add_Rigid_Mesh_To_Container@@YAXPAV?$MultiListClass@VDX8FVFCategoryContainer@@@@IPAVMeshClass@@@Z",
-  "length": 215,
-  "status": "none",
-  "address": "0x97AE50",
-  "similarity": 0.74,
-  "window": "0x97AB50-0x97AF40"
- },
- {
-  "object": "dx8renderer.obj",
-  "function": "DX8MeshRendererClass::Invalidate",
-  "symbol": "?Invalidate@DX8MeshRendererClass@@QAEXXZ",
-  "length": 299,
-  "status": "none",
-  "address": "0x97B2D0",
-  "similarity": 0.46,
-  "window": "0x97B2D0-0x97BAD0"
- },
- {
-  "object": "dx8renderer.obj",
-  "function": "?Remove@?$HashTemplateClass@UMeshRegKeyStruct@@PAVMeshClass@@@@QAEXABUMeshRegKeyStruct@@ABQAVMeshClass@@@Z",
-  "symbol": "?Remove@?$HashTemplateClass@UMeshRegKeyStruct@@PAVMeshClass@@@@QAEXABUMeshRegKeyStruct@@ABQAVMeshClass@@@Z",
-  "length": 199,
-  "status": "none",
-  "address": "0x97B4D0",
-  "similarity": 0.24,
-  "window": "0x97B2D0-0x97BAD0"
- },
- {
-  "object": "dx8renderer.obj",
-  "function": "?Re_Hash@?$HashTemplateClass@UMeshRegKeyStruct@@PAVMeshClass@@@@AAEXXZ",
-  "symbol": "?Re_Hash@?$HashTemplateClass@UMeshRegKeyStruct@@PAVMeshClass@@@@AAEXXZ",
-  "length": 408,
-  "status": "none",
-  "address": "0x97BA60",
-  "similarity": 0.11,
-  "window": "0x97B2D0-0x97BAD0"
+  "address": "0x9771F0",
+  "similarity": 0.29,
+  "window": "0x9768B0-0x97BBD0"
  },
  {
   "object": "dx8texman.obj",
@@ -1483,7 +1283,7 @@
   "object": "mapper.obj",
   "function": "Reset_All_Texture_Mappers",
   "symbol": "?Reset_All_Texture_Mappers@@YAXPAVRenderObjClass@@_N@Z",
-  "length": 298,
+  "length": 300,
   "status": "none",
   "address": null,
   "similarity": null,
@@ -1511,193 +1311,13 @@
  },
  {
   "object": "mesh.obj",
-  "function": "MeshClass::MeshClass",
-  "symbol": "??0MeshClass@@QAE@XZ",
-  "length": 148,
-  "status": "none",
-  "address": "0x93E7B0",
-  "similarity": 0.44,
-  "window": "0x93E420-0x93EC20"
- },
- {
-  "object": "mesh.obj",
-  "function": "MeshClass::scalar deleting dtor",
-  "symbol": "??_GMeshClass@@UAEPAXI@Z",
-  "length": 270,
-  "status": "none",
-  "address": "0x93E990",
-  "similarity": 0.5,
-  "window": "0x93E420-0x93EC20"
- },
- {
-  "object": "mesh.obj",
-  "function": "MeshClass::MeshClass",
-  "symbol": "??0MeshClass@@QAE@ABV0@@Z",
-  "length": 212,
-  "status": "none",
-  "address": "0x93EA50",
-  "similarity": 0.65,
-  "window": "0x93E420-0x93EC20"
- },
- {
-  "object": "mesh.obj",
-  "function": "MeshClass::operator=",
-  "symbol": "??4MeshClass@@AAEAAV0@ABV0@@Z",
-  "length": 174,
-  "status": "none",
-  "address": "0x93EAF0",
-  "similarity": 0.46,
-  "window": "0x93E420-0x93EC20"
- },
- {
-  "object": "mesh.obj",
-  "function": "MeshClass::~MeshClass",
-  "symbol": "??1MeshClass@@UAE@XZ",
-  "length": 245,
-  "status": "none",
-  "address": "0x93E630",
-  "similarity": 0.34,
-  "window": "0x93E420-0x93EC20"
- },
- {
-  "object": "mesh.obj",
-  "function": "MeshClass::Free",
-  "symbol": "?Free@MeshClass@@IAEXXZ",
-  "length": 100,
-  "status": "none",
-  "address": "0x93ECB0",
-  "similarity": 0.67,
-  "window": "0x93ECB0-0x93ED40"
- },
- {
-  "object": "mesh.obj",
-  "function": "MeshClass::Clone",
-  "symbol": "?Clone@MeshClass@@UBEPAVRenderObjClass@@XZ",
-  "length": 34,
-  "status": "none",
-  "address": "0x93ED00",
-  "similarity": 0.92,
-  "window": "0x93ECB0-0x93ED40"
- },
- {
-  "object": "mesh.obj",
-  "function": "MeshClass::Render",
-  "symbol": "?Render@MeshClass@@UAEXAAVRenderInfoClass@@@Z",
-  "length": 642,
-  "status": "none",
-  "address": "0x93F390",
-  "similarity": 0.78,
-  "window": "0x93F390-0x940120"
- },
- {
-  "object": "mesh.obj",
   "function": "MeshClass::Render_Material_Pass",
   "symbol": "?Render_Material_Pass@MeshClass@@QAEXPAVMaterialPassClass@@PAVIndexBufferClass@@@Z",
-  "length": 2784,
+  "length": 2811,
   "status": "none",
   "address": "0x93F620",
-  "similarity": 0.66,
-  "window": "0x93F390-0x940120"
- },
- {
-  "object": "mesh.obj",
-  "function": "MeshClass::Make_Unique",
-  "symbol": "?Make_Unique@MeshClass@@QAEXXZ",
-  "length": 111,
-  "status": "none",
-  "address": "0x940300",
-  "similarity": 0.71,
-  "window": "0x9402C0-0x9407E0"
- },
- {
-  "object": "mesh.obj",
-  "function": "MeshClass::Load_W3D",
-  "symbol": "?Load_W3D@MeshClass@@QAE?AW4WW3DErrorType@@AAVChunkLoadClass@@@Z",
-  "length": 476,
-  "status": "none",
-  "address": "0x940380",
-  "similarity": 0.85,
-  "window": "0x9402C0-0x9407E0"
- },
- {
-  "object": "mesh.obj",
-  "function": "MeshClass::Cast_Ray",
-  "symbol": "?Cast_Ray@MeshClass@@UAE_NAAVRayCollisionTestClass@@@Z",
-  "length": 708,
-  "status": "none",
-  "address": "0x940530",
-  "similarity": 0.89,
-  "window": "0x9402C0-0x9407E0"
- },
- {
-  "object": "mesh.obj",
-  "function": "MeshClass::Get_User_Lighting_Array",
-  "symbol": "?Get_User_Lighting_Array@MeshClass@@QAEPAI_N@Z",
-  "length": 62,
-  "status": "none",
-  "address": "0x941230",
-  "similarity": 0.42,
-  "window": "0x9410D0-0x9418D0"
- },
- {
-  "object": "mesh.obj",
-  "function": "MeshClass::Peek_FVF_Category_Container",
-  "symbol": "?Peek_FVF_Category_Container@MeshClass@@IAEPAVDX8FVFCategoryContainer@@XZ",
-  "length": 54,
-  "status": "none",
-  "address": "0x941310",
-  "similarity": 0.54,
-  "window": "0x9410D0-0x9418D0"
- },
- {
-  "object": "mesh.obj",
-  "function": "MeshClass::Install_User_Lighting_Array",
-  "symbol": "?Install_User_Lighting_Array@MeshClass@@QAEXPAVVector4@@@Z",
-  "length": 290,
-  "status": "none",
-  "address": "0x941400",
-  "similarity": 0.28,
-  "window": "0x9410D0-0x9418D0"
- },
- {
-  "object": "mesh.obj",
-  "function": "MeshClass::setup_materials_for_user_lighting",
-  "symbol": "?setup_materials_for_user_lighting@MeshClass@@IAEXXZ",
-  "length": 410,
-  "status": "none",
-  "address": "0x941390",
-  "similarity": 0.15,
-  "window": "0x9410D0-0x9418D0"
- },
- {
-  "object": "mesh.obj",
-  "function": "MeshClass::setup_material_for_user_lighting",
-  "symbol": "?setup_material_for_user_lighting@MeshClass@@IAEXPAVVertexMaterialClass@@@Z",
-  "length": 96,
-  "status": "none",
-  "address": "0x941270",
-  "similarity": 0.22,
-  "window": "0x9410D0-0x9418D0"
- },
- {
-  "object": "mesh.obj",
-  "function": "MeshClass::Save_User_Lighting",
-  "symbol": "?Save_User_Lighting@MeshClass@@UAEXAAVChunkSaveClass@@@Z",
-  "length": 69,
-  "status": "none",
-  "address": "0x941530",
-  "similarity": 0.49,
-  "window": "0x9410D0-0x9418D0"
- },
- {
-  "object": "mesh.obj",
-  "function": "MeshClass::Load_User_Lighting",
-  "symbol": "?Load_User_Lighting@MeshClass@@UAEXAAVChunkLoadClass@@@Z",
-  "length": 191,
-  "status": "none",
-  "address": "0x941160",
-  "similarity": 0.22,
-  "window": "0x9410D0-0x9418D0"
+  "similarity": 0.74,
+  "window": "0x93F620-0x940120"
  },
  {
   "object": "meshbuild.obj",
@@ -2171,16 +1791,6 @@
  },
  {
   "object": "meshgeometry.obj",
-  "function": "MeshGeometryClass::operator=",
-  "symbol": "??4MeshGeometryClass@@QAEAAV0@ABV0@@Z",
-  "length": 473,
-  "status": "none",
-  "address": "0x92A200",
-  "similarity": 0.78,
-  "window": "0x92A200-0x92A410"
- },
- {
-  "object": "meshgeometry.obj",
   "function": "MeshGeometryClass::cast_ray_brute_force",
   "symbol": "?cast_ray_brute_force@MeshGeometryClass@@IAE_NAAVRayCollisionTestClass@@@Z",
   "length": 260,
@@ -2231,43 +1841,13 @@
  },
  {
   "object": "meshmdl.obj",
-  "function": "MeshModelClass::~MeshModelClass",
-  "symbol": "??1MeshModelClass@@UAE@XZ",
-  "length": 243,
-  "status": "none",
-  "address": "0x9586B0",
-  "similarity": 0.33,
-  "window": "0x958510-0x9589E0"
- },
- {
-  "object": "meshmdl.obj",
   "function": "MeshModelClass::operator=",
   "symbol": "??4MeshModelClass@@QAEAAV0@ABV0@@Z",
-  "length": 260,
+  "length": 273,
   "status": "none",
-  "address": "0x958510",
-  "similarity": 0.4,
-  "window": "0x958510-0x9589E0"
- },
- {
-  "object": "meshmdl.obj",
-  "function": "MeshModelClass::Reset",
-  "symbol": "?Reset@MeshModelClass@@QAEXHHH@Z",
-  "length": 118,
-  "status": "none",
-  "address": "0x9588D0",
-  "similarity": 0.28,
-  "window": "0x958510-0x9589E0"
- },
- {
-  "object": "meshmdl.obj",
-  "function": "MeshModelClass::Register_For_Rendering",
-  "symbol": "?Register_For_Rendering@MeshModelClass@@QAEXXZ",
-  "length": 110,
-  "status": "none",
-  "address": "0x958750",
-  "similarity": 0.7,
-  "window": "0x958510-0x9589E0"
+  "address": null,
+  "similarity": null,
+  "window": "0x9585C0-0x9586B0"
  },
  {
   "object": "meshmdl.obj",
@@ -2340,16 +1920,6 @@
   "window": "0x9BCC40-0x9BCE00"
  },
  {
-  "object": "meshmdlio.obj",
-  "function": "MeshModelClass::compute_static_sort_levels",
-  "symbol": "?compute_static_sort_levels@MeshModelClass@@IAEXXZ",
-  "length": 311,
-  "status": "none",
-  "address": "0x9BD260",
-  "similarity": 0.88,
-  "window": "0x9BD260-0x9BD480"
- },
- {
   "object": "part_buf.obj",
   "function": "ParticleBufferClass::ParticleBufferClass",
   "symbol": "??0ParticleBufferClass@@QAE@PAVParticleEmitterClass@@IAAU?$ParticlePropertyStruct@VVector3@@@@AAU?$ParticlePropertyStruct@M@@22M22VVector3@@MPAVTextureClass@@VShaderClass@@_NHHPBUW3dEmitterLinePropertiesStruct@@@Z",
@@ -2393,7 +1963,7 @@
   "object": "part_buf.obj",
   "function": "ParticleBufferClass::Render_Line",
   "symbol": "?Render_Line@ParticleBufferClass@@IAEXAAVRenderInfoClass@@@Z",
-  "length": 529,
+  "length": 530,
   "status": "none",
   "address": "0x95DDE0",
   "similarity": 0.22,
@@ -2520,16 +2090,6 @@
   "window": "0xA03A10-0xA04210"
  },
  {
-  "object": "proto.obj",
-  "function": "MeshLoaderClass::Load_W3D",
-  "symbol": "?Load_W3D@MeshLoaderClass@@UAEPAVPrototypeClass@@AAVChunkLoadClass@@@Z",
-  "length": 136,
-  "status": "none",
-  "address": "0x93E660",
-  "similarity": 0.7,
-  "window": "0x93E660-0x93E720"
- },
- {
   "object": "render2dsentence.obj",
   "function": "Render2DSentenceClass::Find_Row_Start",
   "symbol": "?Find_Row_Start@Render2DSentenceClass@@QAEPBGPBGH@Z",
@@ -2600,66 +2160,6 @@
   "window": "0x42F280-0x42FA80"
  },
  {
-  "object": "rendobj.obj",
-  "function": "RenderObjPersistFactoryClass::Load",
-  "symbol": "?Load@RenderObjPersistFactoryClass@@EBEPAVPersistClass@@AAVChunkLoadClass@@@Z",
-  "length": 512,
-  "status": "none",
-  "address": "0x942B20",
-  "similarity": 0.42,
-  "window": "0x942AC0-0x942E20"
- },
- {
-  "object": "rendobj.obj",
-  "function": "RenderObjPersistFactoryClass::Save",
-  "symbol": "?Save@RenderObjPersistFactoryClass@@EBEXAAVChunkSaveClass@@PAVPersistClass@@@Z",
-  "length": 297,
-  "status": "none",
-  "address": "0x942CF0",
-  "similarity": 0.87,
-  "window": "0x942AC0-0x942E20"
- },
- {
-  "object": "rendobj.obj",
-  "function": "RenderObjClass::Save_User_Lighting",
-  "symbol": "?Save_User_Lighting@RenderObjClass@@QAEXAAVChunkSaveClass@@@Z",
-  "length": 347,
-  "status": "none",
-  "address": "0x942AC0",
-  "similarity": 0.1,
-  "window": "0x942AC0-0x942E20"
- },
- {
-  "object": "rendobj.obj",
-  "function": "RenderObjClass::Save_Sub_Object_User_Lighting",
-  "symbol": "?Save_Sub_Object_User_Lighting@RenderObjClass@@IAEXAAVChunkSaveClass@@PAV1@H@Z",
-  "length": 141,
-  "status": "none",
-  "address": "0x942B10",
-  "similarity": 0.09,
-  "window": "0x942AC0-0x942E20"
- },
- {
-  "object": "rendobj.obj",
-  "function": "RenderObjClass::Load_User_Lighting",
-  "symbol": "?Load_User_Lighting@RenderObjClass@@QAEXAAVChunkLoadClass@@@Z",
-  "length": 76,
-  "status": "none",
-  "address": "0x942E00",
-  "similarity": 0.22,
-  "window": "0x942AC0-0x942E20"
- },
- {
-  "object": "rendobj.obj",
-  "function": "RenderObjClass::Load_Sub_Object_User_Lighting",
-  "symbol": "?Load_Sub_Object_User_Lighting@RenderObjClass@@IAEXAAVChunkLoadClass@@@Z",
-  "length": 335,
-  "status": "none",
-  "address": "0x942E10",
-  "similarity": 0.03,
-  "window": "0x942AC0-0x942E20"
- },
- {
   "object": "scene.obj",
   "function": "SceneClass::Render",
   "symbol": "?Render@SceneClass@@IAEXAAVRenderInfoClass@@@Z",
@@ -2700,30 +2200,10 @@
   "window": "0x9661C0-0x9662E0"
  },
  {
-  "object": "segline.obj",
-  "function": "SegmentedLineClass::Render",
-  "symbol": "?Render@SegmentedLineClass@@UAEXAAVRenderInfoClass@@@Z",
-  "length": 150,
-  "status": "none",
-  "address": "0x9695A0",
-  "similarity": 0.83,
-  "window": "0x9695A0-0x9696A0"
- },
- {
-  "object": "segline.obj",
-  "function": "SegmentedLineClass::Render_Seg_Line",
-  "symbol": "?Render_Seg_Line@SegmentedLineClass@@IAEXAAVRenderInfoClass@@@Z",
-  "length": 76,
-  "status": "none",
-  "address": "0x969C50",
-  "similarity": 0.86,
-  "window": "0x969C30-0x969CA0"
- },
- {
   "object": "seglinerenderer.obj",
   "function": "SegLineRendererClass::Render",
-  "symbol": "?Render@SegLineRendererClass@@QAEXAAVRenderInfoClass@@ABVMatrix3D@@IPAVVector3@@ABVSphereClass@@@Z",
-  "length": 12749,
+  "symbol": "?Render@SegLineRendererClass@@QAEXAAVRenderInfoClass@@ABVMatrix3D@@IPAVVector3@@ABVSphereClass@@PAVVector4@@@Z",
+  "length": 12741,
   "status": "none",
   "address": "0x9BEB20",
   "similarity": 0.17,
@@ -3493,7 +2973,7 @@
   "object": "streak.obj",
   "function": "StreakLineClass::Render",
   "symbol": "?Render@StreakLineClass@@UAEXAAVRenderInfoClass@@@Z",
-  "length": 193,
+  "length": 195,
   "status": "none",
   "address": null,
   "similarity": null,
@@ -3573,7 +3053,7 @@
   "object": "streak.obj",
   "function": "StreakLineClass::Render_Seg_Line",
   "symbol": "?Render_Seg_Line@StreakLineClass@@IAEXAAVRenderInfoClass@@@Z",
-  "length": 76,
+  "length": 78,
   "status": "none",
   "address": null,
   "similarity": null,
@@ -4058,26 +3538,6 @@
   "address": "0x949C60",
   "similarity": 0.7,
   "window": "0x949C60-0x949E20"
- },
- {
-  "object": "textureloader.obj",
-  "function": "TextureLoadTaskClass::TextureLoadTaskClass",
-  "symbol": "??0TextureLoadTaskClass@@QAE@XZ",
-  "length": 70,
-  "status": "none",
-  "address": "0x94A0D0",
-  "similarity": 0.36,
-  "window": "0x94A080-0x94A1E0"
- },
- {
-  "object": "textureloader.obj",
-  "function": "TextureLoadTaskClass::Create",
-  "symbol": "?Create@TextureLoadTaskClass@@SAPAV1@PAVTextureBaseClass@@W4TaskType@1@W4PriorityType@1@@Z",
-  "length": 174,
-  "status": "none",
-  "address": "0x94A120",
-  "similarity": 0.8,
-  "window": "0x94A080-0x94A1E0"
  },
  {
   "object": "textureloader.obj",

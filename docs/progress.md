@@ -4,6 +4,49 @@ Newest first within each section. Dates are when the entry was written.
 
 ## 1. Log
 
+### 2026-10-23: WW3D2 near-misses: mesh rendering per mesh model
+
+* WW3D2 2,202 -> 2,242, none lost (pair sets compared at every step); wwshade 138 unchanged.
+  Five commits, 0941037..c5fcd0e; each fix a row in library-matching.md §3.6.1.
+* Decisions D15-D17 recorded (the three open questions of the previous entry, all as recommended).
+* The main find: E&B's mesh rendering is **per mesh model**, as in Generals: polygon renderers live
+  in `MeshModelClass` (+0x84; the member was already declared, the code still used `MeshClass`'s
+  list) and `DX8MeshRendererClass::Register_Mesh_Type`/`Unregister_Mesh_Type` take the model and
+  keep a `_RegisteredMeshList` (0xC07618). `MeshClass` has no user lighting and no list of its own
+  (size 0xA8); nor has `RenderObjClass` any user-lighting persistence (Generals' factory
+  `Save`/`Load`). Kept from Renegade: the sort-level test, the delayed material passes, the
+  gap-filler removal. New importer block `MESH_MODEL_RENDERER_PATCHES` (91 patches, written with
+  the new `tools/vc6/mkspec.py`). +34.
+* `MeshClass`'s vtable has one virtual of its own (slot 113, 0x941310, returns 0x750) where
+  Renegade has `Save_User_Lighting`/`Load_User_Lighting`: `Unknown_Virtual_113` (D10).
+* Smaller Zero Hour pieces (importer `PATCHES`): `compute_static_sort_levels`' screen case,
+  `SegLineRendererClass::Render`'s `rgbas` argument, `MeshClass::Make_Unique(bool)`,
+  `MeshGeometryClass::operator=` cloning the cull tree, `TextureLoadTaskClass`'s `HSVShift`
+  zeroed; `MeshClass::Cast_Ray` without `IgnoreTranslucentMeshes`. +10.
+* Clusters found, not started (each a session):
+  1. `mapper.cpp` (~50 gaps): the client's `LinearOffsetTextureMapperClass` constructor 0x9329F0 is
+     Zero Hour's (start offset +0x28, clamp flag +0x30, five arguments), yet Zero Hour's
+     `mapper.cpp` matches only 2 functions (Renegade's 18): E&B has ZH's members without its
+     texture-matrix `Apply`. `vtables.py` mis-seeds the class (0xB10E4C): seed it.
+  2. Particles: `PointGroupClass::Render` takes a second argument (the transform, `[esi+0x1C]`,
+     from `ParticleBufferClass::Render_Particles` 0x95DC90); `ParticleEmitterClass` has E&B fields
+     at +0xE4 and +0xFD (`Emit` 0x97E330, `Build_Definition` 0x97EDE0).
+  3. `WW3D::Set_Render_Device` (0x917790, 0x9177E0) calls an unknown E&B function 0x995DC0 on
+     success (reads the device resolution, compares with 0x400).
+  4. Texture (D9): the client's `Peek_D3D_Base_Texture` seems not to set `LastAccessed`
+     (`ZTextureClass::Apply` 0x94D190); `TextureLoadTaskClass::Begin_*_Load` differ in argument
+     evaluation only (Zero Hour's versions are the excluded 08/05/02 redesign).
+  5. `GapFillerClass` (3 functions, 0.75-0.78): register scheduling only; cause not found.
+* Tools: `tools/vc6/mkspec.py` (tree edits -> addpatch spec). Three traps added to workflow.md §3.
+* `symbols.json` 6,551 -> 6,580; `gaps-ww3d2` regenerated (407 gaps, 461 at the start).
+* Verified: every step by `importer.py verify` for ww3d2 and wwshade (pair sets before/after),
+  `report`, and `replay` (0 differences). Nothing run live; nothing waits on the user.
+* Decisions: D15-D17 taken by the user this session (as recommended).
+* Open questions: none new.
+* Next step: one of the clusters above; mapper.cpp has the most functions. Start by seeding its
+  vtables (`vtables.py --class LinearOffsetTextureMapperClass --seed ...=0x9329F0 --list`) and
+  comparing the constructors against Zero Hour's member list.
+
 ### 2026-10-23: WWAudio complete (0 gaps); wwshade's ShdMeshClass
 
 * WWAudio 298 -> 351, every function our source compiles now byte-exact (`gaps-wwaudio`: 0);
@@ -395,11 +438,11 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 
 ## 4. Next steps
 
-1. D9 continued: the texture near-misses (`TextureClass` constructors, `Init`, `Apply`,
-   `Get_Reduction`; `DX8Wrapper`'s device code) and the other WW3D2 near-misses
-   (docs/data/gaps-ww3d2, regenerate first). wwshade: 138 in the tree, left only the two
-   `"UnNamed"` constructors (left, D17) and an inline `Set_DX8_Texture_Stage_State` copy.
-   WWAudio done (0 gaps, 2026-10-23).
+1. WW3D2 near-misses (docs/data/gaps-ww3d2): the clusters of the 2026-10-23 near-miss entry
+   (mapper, particles, `Set_Render_Device`'s E&B call, textures under D9, `GapFillerClass`).
+   D9's `TextureClass` constructors, `Init`, `Apply`, `Get_Reduction` and `DX8Wrapper`'s device
+   code are still open. wwshade: 138, left only the two `"UnNamed"` constructors (D17) and an
+   inline `Set_DX8_Texture_Stage_State` copy. WWAudio done (0 gaps).
 2. `meshmatdesc.cpp`'s inlining flip (an app-region helper at 0x4E9CB0 that VC6 now inlines).
 3. E&B's own code (D6, D7): first the per-file workflow script ([app-plan.md](app-plan.md) §2),
    then `app\shared\auxdata`.
