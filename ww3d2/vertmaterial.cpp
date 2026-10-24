@@ -614,7 +614,7 @@ WW3DErrorType VertexMaterialClass::Load_W3D(ChunkLoadClass & cload)
 
 		case W3DVERTMAT_STAGE0_MAPPING_WS_CLASSIC_ENV:
 			{
-				WSClassicEnvironmentMapperClass *mapper = NEW_REF(WSClassicEnvironmentMapperClass,(0));
+				WSClassicEnvironmentMapperClass *mapper = NEW_REF(WSClassicEnvironmentMapperClass,(mapping0_arg_ini, "Args", 0));
 				Set_Mapper(mapper,0);
 				mapper->Release_Ref();
 			}
@@ -622,7 +622,7 @@ WW3DErrorType VertexMaterialClass::Load_W3D(ChunkLoadClass & cload)
 
 		case W3DVERTMAT_STAGE0_MAPPING_WS_ENVIRONMENT:
 			{
-				WSEnvironmentMapperClass *mapper = NEW_REF(WSEnvironmentMapperClass,(0));
+				WSEnvironmentMapperClass *mapper = NEW_REF(WSEnvironmentMapperClass,(mapping0_arg_ini, "Args", 0));
 				Set_Mapper(mapper,0);
 				mapper->Release_Ref();
 			}
@@ -672,6 +672,24 @@ WW3DErrorType VertexMaterialClass::Load_W3D(ChunkLoadClass & cload)
 			mapper->Release_Ref();
 		}
 		break;
+
+		case W3DVERTMAT_STAGE0_MAPPING_GRID_WS_CLASSIC_ENV:
+			{
+				GridWSClassicEnvironmentMapperClass *mapper =
+					NEW_REF(GridWSClassicEnvironmentMapperClass,(mapping0_arg_ini, "Args", 0));
+				Set_Mapper(mapper,0);
+				mapper->Release_Ref();
+			}
+			break;
+
+		case W3DVERTMAT_STAGE0_MAPPING_GRID_WS_ENVIRONMENT:
+			{
+				GridWSEnvironmentMapperClass *mapper =
+					NEW_REF(GridWSEnvironmentMapperClass,(mapping0_arg_ini, "Args", 0));
+				Set_Mapper(mapper,0);
+				mapper->Release_Ref();
+			}
+			break;
 
 		default:
 				WWDEBUG_SAY(("Unsupported mapper in %s\n",name));
@@ -774,7 +792,7 @@ WW3DErrorType VertexMaterialClass::Load_W3D(ChunkLoadClass & cload)
 
 		case W3DVERTMAT_STAGE1_MAPPING_WS_CLASSIC_ENV:
 			{
-				WSClassicEnvironmentMapperClass *mapper = NEW_REF(WSClassicEnvironmentMapperClass,(1));
+				WSClassicEnvironmentMapperClass *mapper = NEW_REF(WSClassicEnvironmentMapperClass,(mapping1_arg_ini, "Args", 1));
 				Set_Mapper(mapper,1);
 				mapper->Release_Ref();
 			}
@@ -782,7 +800,7 @@ WW3DErrorType VertexMaterialClass::Load_W3D(ChunkLoadClass & cload)
 
 		case W3DVERTMAT_STAGE1_MAPPING_WS_ENVIRONMENT:
 			{
-				WSEnvironmentMapperClass *mapper = NEW_REF(WSEnvironmentMapperClass,(1));
+				WSEnvironmentMapperClass *mapper = NEW_REF(WSEnvironmentMapperClass,(mapping1_arg_ini, "Args", 1));
 				Set_Mapper(mapper,1);
 				mapper->Release_Ref();
 			}
@@ -828,6 +846,24 @@ WW3DErrorType VertexMaterialClass::Load_W3D(ChunkLoadClass & cload)
 			{
 				BumpEnvTextureMapperClass *mapper =
 					NEW_REF(BumpEnvTextureMapperClass,(mapping1_arg_ini, "Args", 1));
+				Set_Mapper(mapper,1);
+				mapper->Release_Ref();
+			}
+			break;
+
+		case W3DVERTMAT_STAGE1_MAPPING_GRID_WS_CLASSIC_ENV:
+			{
+				GridWSClassicEnvironmentMapperClass *mapper =
+					NEW_REF(GridWSClassicEnvironmentMapperClass,(mapping1_arg_ini, "Args", 1));
+				Set_Mapper(mapper,1);
+				mapper->Release_Ref();
+			}
+			break;
+
+		case W3DVERTMAT_STAGE1_MAPPING_GRID_WS_ENVIRONMENT:
+			{
+				GridWSEnvironmentMapperClass *mapper =
+					NEW_REF(GridWSEnvironmentMapperClass,(mapping1_arg_ini, "Args", 1));
 				Set_Mapper(mapper,1);
 				mapper->Release_Ref();
 			}

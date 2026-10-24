@@ -353,25 +353,6 @@ PATCHES = {
          '\t\tSSCAT_ADDITIVE,\n\t\tSSCAT_SCREEN,\n\t\tSSCAT_OTHER',
          "Zero Hour's SSCAT_SCREEN static sort category (src ONE, dest ONE_MINUS_SRC_COLOR): ShaderClass::Get_SS_Category (0x93CE00) and Guess_Sort_Level (0x93CE90) test for it"),
     ],
-    ('ww3d2', 'mapper.h'): [
-        ('\tGridTextureMapperClass(float fps, unsigned int gridwidth_log2, unsigned int stage);',
-         '\tGridTextureMapperClass(float fps, unsigned int gridwidth_log2, unsigned int last_frame, unsigned int offset, unsigned int stage);',
-         "GridTextureMapperClass has Zero Hour's Offset (the starting frame, after LastFrame) and its constructor taking last_frame and offset: every member from +0x20 is 4 bytes later in the client"),
-        ('\tunsigned int\tLastFrame;\t\t\t\t// Last frame to use',
-         '\tunsigned int\tLastFrame;\t\t\t\t// Last frame to use\n\tunsigned int\tOffset;\t\t\t\t// Only affects initialization, but need to store it for copy CTors to work',
-         'the Offset member'),
-        ('\tGridClassicEnvironmentMapperClass(float fps,unsigned int gridwidth, unsigned int stage):GridTextureMapperClass(fps,gridwidth,stage) { }',
-         '\tGridClassicEnvironmentMapperClass(float fps, unsigned int gridwidth_log2, unsigned int last_frame, unsigned int offset, unsigned int stage) : GridTextureMapperClass(fps, gridwidth_log2, last_frame, offset, stage) { }',
-         'the grid environment mappers pass them on, as in Zero Hour'),
-        ('\tGridEnvironmentMapperClass(float fps,unsigned int gridwidth, unsigned int stage):GridTextureMapperClass(fps,gridwidth,stage) { }',
-         '\tGridEnvironmentMapperClass(float fps, unsigned int gridwidth_log2, unsigned int last_frame, unsigned int offset, unsigned int stage) : GridTextureMapperClass(fps, gridwidth_log2, last_frame, offset, stage) { }',
-         '(both)'),
-    ],
-    ('ww3d2', 'mapper.cpp'): [
-        ('GridTextureMapperClass::GridTextureMapperClass(float fps, unsigned int gridwidth_log2, unsigned int stage) :\n\tTextureMapperClass(stage)\n{\n\tLastFrame = 0;\n\tinitialize(fps, gridwidth_log2);\n}',
-         'GridTextureMapperClass::GridTextureMapperClass(float fps, unsigned int gridwidth_log2, unsigned int last_frame, unsigned int offset, unsigned int stage) :\n\tTextureMapperClass(stage),\n\tLastFrame(last_frame),\n\tOffset(offset)\n{\n\tinitialize(fps, gridwidth_log2);\n}',
-         "and Zero Hour's constructor for it"),
-    ],
     ('ww3d2', 'rinfo.h'): [
         ('class LightEnvironmentClass;',
          'class LightEnvironmentClass;\nclass TexProjectClass;',
@@ -1858,6 +1839,46 @@ MESH_MODEL_RENDERER_PATCHES = {
 for _key, _edits in MESH_MODEL_RENDERER_PATCHES.items():
     PATCHES.setdefault(_key, []).extend(_edits)
 # end of MESH_MODEL_RENDERER_PATCHES
+# Zero Hour's texture mappers (mapper.cpp, matrixmapper.cpp are Zero Hour's copies): what other files need for them
+MAPPER_PATCHES = {
+    ('wwmath', 'matrix4.h'): [
+        ('\tWWINLINE explicit Matrix4(const Vector4 & v0, const Vector4 & v1, const Vector4 & v2, const Vector4 & v3);\n\t\n',
+         '\tWWINLINE explicit Matrix4(const Vector4 & v0, const Vector4 & v1, const Vector4 & v2, const Vector4 & v3);\n\tWWINLINE explicit Matrix4(\tfloat m11,float m12,float m13,float m14,\n\t\t\t\t\t\t\t\t\t\tfloat m21,float m22,float m23,float m24,\n\t\t\t\t\t\t\t\t\t\tfloat m31,float m32,float m33,float m34,  \n\t\t\t\t\t\t\t\t\t\tfloat m41,float m42,float m43,float m44 ); \n\t\n',
+         "Zero Hour's 16-float Matrix4 constructor and Init (NH, 11/06/2001: older than E&B's WW3D2), used by Zero Hour's mapper.cpp, whose texture-matrix mappers the client has (ScaleTextureMapperClass::Apply 0x9322F0 calls Calculate_Texture_Matrix, vtable slot 8, then sets D3DTS_TEXTURE0+Stage)"),
+        ('\tWWINLINE void\t\tInit(const Vector4 & v0, const Vector4 & v1, const Vector4 & v2, const Vector4 & v3);\n\n',
+         '\tWWINLINE void\t\tInit(const Vector4 & v0, const Vector4 & v1, const Vector4 & v2, const Vector4 & v3);\n\tWWINLINE void\t\tInit(\tfloat m11,float m12,float m13,float m14,\n\t\t\t\t\t\t\t\t\tfloat m21,float m22,float m23,float m24,\n\t\t\t\t\t\t\t\t\tfloat m31,float m32,float m33,float m34,  \n\t\t\t\t\t\t\t\t\tfloat m41,float m42,float m43,float m44 ); \n\n',
+         "Zero Hour's 16-float Matrix4 constructor and Init (NH, 11/06/2001: older than E&B's WW3D2), used by Zero Hour's mapper.cpp, whose texture-matrix mappers the client has (ScaleTextureMapperClass::Apply 0x9322F0 calls Calculate_Texture_Matrix, vtable slot 8, then sets D3DTS_TEXTURE0+Stage)"),
+        ('\tInit(r0,r1,r2,r3);\n}\n\n\n/***********************************************************************************************\n * Matrix4::Make_Identity -- Initializes the matrix to Identity                                *\n',
+         '\tInit(r0,r1,r2,r3);\n}\n\n/*********************************************************************************************** \n * Matrix4::Matrix4 -- Constructor                                                             * \n *                                                                                             * \n * INPUT:                                                                                      * \n *                                                                                             * \n * OUTPUT:                                                                                     * \n *                                                                                             * \n * WARNINGS:                                                                                   * \n *                                                                                             * \n * HISTORY:                                                                                    * \n *   11/06/2001 NH  : Created.                                                                 * \n *=============================================================================================*/\nWWINLINE Matrix4::Matrix4(float m11,float m12,float m13,float m14, float m21,float m22,float m23,float m24,\n\tfloat m31,float m32,float m33,float m34, float m41,float m42,float m43,float m44 )\n{\n\tInit(m11, m12, m13, m14, m21, m22, m23, m24, m31, m32, m33, m34, m41, m42, m43, m44);\n}\n\n\n/***********************************************************************************************\n * Matrix4::Make_Identity -- Initializes the matrix to Identity                                *\n',
+         "Zero Hour's 16-float Matrix4 constructor and Init (NH, 11/06/2001: older than E&B's WW3D2), used by Zero Hour's mapper.cpp, whose texture-matrix mappers the client has (ScaleTextureMapperClass::Apply 0x9322F0 calls Calculate_Texture_Matrix, vtable slot 8, then sets D3DTS_TEXTURE0+Stage)"),
+        ('\tRow[0] = r0; Row[1] = r1; Row[2] = r2; Row[3] = r3; \n}\n',
+         '\tRow[0] = r0; Row[1] = r1; Row[2] = r2; Row[3] = r3; \n}\n\n/***********************************************************************************************\n * Matrix4::Init -- Initializes the rows from the given 16 floats                              *\n *                                                                                             *\n * INPUT:                                                                                      *\n *                                                                                             *\n * OUTPUT:                                                                                     *\n *                                                                                             *\n * WARNINGS:                                                                                   *\n *                                                                                             *\n * HISTORY:                                                                                    *\n *   11/6/01    NH : Created.                                                                  *\n *=============================================================================================*/\nWWINLINE void Matrix4::Init(float m11,float m12,float m13,float m14, float m21,float m22,float m23,float m24,\n\tfloat m31,float m32,float m33,float m34, float m41,float m42,float m43,float m44)\n{\n\tRow[0].Set(m11,m12,m13,m14);\n\tRow[1].Set(m21,m22,m23,m24);\n\tRow[2].Set(m31,m32,m33,m34);\n\tRow[3].Set(m41,m42,m43,m44);\n}\n',
+         "Zero Hour's 16-float Matrix4 constructor and Init (NH, 11/06/2001: older than E&B's WW3D2), used by Zero Hour's mapper.cpp, whose texture-matrix mappers the client has (ScaleTextureMapperClass::Apply 0x9322F0 calls Calculate_Texture_Matrix, vtable slot 8, then sets D3DTS_TEXTURE0+Stage)"),
+    ],
+    ('ww3d2', 'vertmaterial.cpp'): [
+        ('\t\t\t\tWSClassicEnvironmentMapperClass *mapper = NEW_REF(WSClassicEnvironmentMapperClass,(0));\n',
+         '\t\t\t\tWSClassicEnvironmentMapperClass *mapper = NEW_REF(WSClassicEnvironmentMapperClass,(mapping0_arg_ini, "Args", 0));\n',
+         "VertexMaterialClass::Load_W3D (0x92F2A0) keeps Renegade's single function but builds Zero Hour's mappers: the WS environment mappers from the Args INI (WSEnvMapperClass(ini, section, stage) 0x936070, called for both WS cases of each stage) and Zero Hour's GRID_WS cases (0x130000/0x140000, 0x1300/0x1400; GridWSClassicEnvironmentMapperClass 0x93A010, GridWSEnvironmentMapperClass 0x93A9C0)"),
+        ('\t\t\t\tWSEnvironmentMapperClass *mapper = NEW_REF(WSEnvironmentMapperClass,(0));\n',
+         '\t\t\t\tWSEnvironmentMapperClass *mapper = NEW_REF(WSEnvironmentMapperClass,(mapping0_arg_ini, "Args", 0));\n',
+         "VertexMaterialClass::Load_W3D (0x92F2A0) keeps Renegade's single function but builds Zero Hour's mappers: the WS environment mappers from the Args INI (WSEnvMapperClass(ini, section, stage) 0x936070, called for both WS cases of each stage) and Zero Hour's GRID_WS cases (0x130000/0x140000, 0x1300/0x1400; GridWSClassicEnvironmentMapperClass 0x93A010, GridWSEnvironmentMapperClass 0x93A9C0)"),
+        ('\t\t}\n\t\tbreak;\n\n\t\tdefault:\n',
+         '\t\t}\n\t\tbreak;\n\n\t\tcase W3DVERTMAT_STAGE0_MAPPING_GRID_WS_CLASSIC_ENV:\n\t\t\t{\n\t\t\t\tGridWSClassicEnvironmentMapperClass *mapper =\n\t\t\t\t\tNEW_REF(GridWSClassicEnvironmentMapperClass,(mapping0_arg_ini, "Args", 0));\n\t\t\t\tSet_Mapper(mapper,0);\n\t\t\t\tmapper->Release_Ref();\n\t\t\t}\n\t\t\tbreak;\n\n\t\tcase W3DVERTMAT_STAGE0_MAPPING_GRID_WS_ENVIRONMENT:\n\t\t\t{\n\t\t\t\tGridWSEnvironmentMapperClass *mapper =\n\t\t\t\t\tNEW_REF(GridWSEnvironmentMapperClass,(mapping0_arg_ini, "Args", 0));\n\t\t\t\tSet_Mapper(mapper,0);\n\t\t\t\tmapper->Release_Ref();\n\t\t\t}\n\t\t\tbreak;\n\n\t\tdefault:\n',
+         "VertexMaterialClass::Load_W3D (0x92F2A0) keeps Renegade's single function but builds Zero Hour's mappers: the WS environment mappers from the Args INI (WSEnvMapperClass(ini, section, stage) 0x936070, called for both WS cases of each stage) and Zero Hour's GRID_WS cases (0x130000/0x140000, 0x1300/0x1400; GridWSClassicEnvironmentMapperClass 0x93A010, GridWSEnvironmentMapperClass 0x93A9C0)"),
+        ('\t\t\t\tWSClassicEnvironmentMapperClass *mapper = NEW_REF(WSClassicEnvironmentMapperClass,(1));\n',
+         '\t\t\t\tWSClassicEnvironmentMapperClass *mapper = NEW_REF(WSClassicEnvironmentMapperClass,(mapping1_arg_ini, "Args", 1));\n',
+         "VertexMaterialClass::Load_W3D (0x92F2A0) keeps Renegade's single function but builds Zero Hour's mappers: the WS environment mappers from the Args INI (WSEnvMapperClass(ini, section, stage) 0x936070, called for both WS cases of each stage) and Zero Hour's GRID_WS cases (0x130000/0x140000, 0x1300/0x1400; GridWSClassicEnvironmentMapperClass 0x93A010, GridWSEnvironmentMapperClass 0x93A9C0)"),
+        ('\t\t\t\tWSEnvironmentMapperClass *mapper = NEW_REF(WSEnvironmentMapperClass,(1));\n',
+         '\t\t\t\tWSEnvironmentMapperClass *mapper = NEW_REF(WSEnvironmentMapperClass,(mapping1_arg_ini, "Args", 1));\n',
+         "VertexMaterialClass::Load_W3D (0x92F2A0) keeps Renegade's single function but builds Zero Hour's mappers: the WS environment mappers from the Args INI (WSEnvMapperClass(ini, section, stage) 0x936070, called for both WS cases of each stage) and Zero Hour's GRID_WS cases (0x130000/0x140000, 0x1300/0x1400; GridWSClassicEnvironmentMapperClass 0x93A010, GridWSEnvironmentMapperClass 0x93A9C0)"),
+        ('\t\t\t\t\tNEW_REF(BumpEnvTextureMapperClass,(mapping1_arg_ini, "Args", 1));\n\t\t\t\tSet_Mapper(mapper,1);\n',
+         '\t\t\t\t\tNEW_REF(BumpEnvTextureMapperClass,(mapping1_arg_ini, "Args", 1));\n\t\t\t\tSet_Mapper(mapper,1);\n\t\t\t\tmapper->Release_Ref();\n\t\t\t}\n\t\t\tbreak;\n\n\t\tcase W3DVERTMAT_STAGE1_MAPPING_GRID_WS_CLASSIC_ENV:\n\t\t\t{\n\t\t\t\tGridWSClassicEnvironmentMapperClass *mapper =\n\t\t\t\t\tNEW_REF(GridWSClassicEnvironmentMapperClass,(mapping1_arg_ini, "Args", 1));\n\t\t\t\tSet_Mapper(mapper,1);\n\t\t\t\tmapper->Release_Ref();\n\t\t\t}\n\t\t\tbreak;\n\n\t\tcase W3DVERTMAT_STAGE1_MAPPING_GRID_WS_ENVIRONMENT:\n\t\t\t{\n\t\t\t\tGridWSEnvironmentMapperClass *mapper =\n\t\t\t\t\tNEW_REF(GridWSEnvironmentMapperClass,(mapping1_arg_ini, "Args", 1));\n\t\t\t\tSet_Mapper(mapper,1);\n',
+         "VertexMaterialClass::Load_W3D (0x92F2A0) keeps Renegade's single function but builds Zero Hour's mappers: the WS environment mappers from the Args INI (WSEnvMapperClass(ini, section, stage) 0x936070, called for both WS cases of each stage) and Zero Hour's GRID_WS cases (0x130000/0x140000, 0x1300/0x1400; GridWSClassicEnvironmentMapperClass 0x93A010, GridWSEnvironmentMapperClass 0x93A9C0)"),
+    ],
+}
+for _key, _edits in MAPPER_PATCHES.items():
+    PATCHES.setdefault(_key, []).extend(_edits)
+# end of MAPPER_PATCHES
 # Files reconstructed by us from the client (no EA copy matches): `assemble` keeps the repository's
 # version, and refine leaves them alone. Each entry: (library, file) -> what was done.
 RECONSTRUCTED = {

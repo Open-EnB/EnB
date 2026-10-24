@@ -81,11 +81,19 @@ public:
 	WWINLINE explicit Matrix4(const Matrix3D & m);
 	WWINLINE explicit Matrix4(const Matrix3 & m);
 	WWINLINE explicit Matrix4(const Vector4 & v0, const Vector4 & v1, const Vector4 & v2, const Vector4 & v3);
+	WWINLINE explicit Matrix4(	float m11,float m12,float m13,float m14,
+										float m21,float m22,float m23,float m24,
+										float m31,float m32,float m33,float m34,  
+										float m41,float m42,float m43,float m44 ); 
 	
 	WWINLINE void		Make_Identity(void);
 	WWINLINE void		Init(const Matrix3D & m);
 	WWINLINE void		Init(const Matrix3 & m);
 	WWINLINE void		Init(const Vector4 & v0, const Vector4 & v1, const Vector4 & v2, const Vector4 & v3);
+	WWINLINE void		Init(	float m11,float m12,float m13,float m14,
+									float m21,float m22,float m23,float m24,
+									float m31,float m32,float m33,float m34,  
+									float m41,float m42,float m43,float m44 ); 
 
 	/*
 	** Projection matrices.  The znear and zfar parameters are positive values indicating the
@@ -253,6 +261,24 @@ WWINLINE Matrix4::Matrix4(const Vector4 & r0, const Vector4 & r1, const Vector4 
 	Init(r0,r1,r2,r3);
 }
 
+/*********************************************************************************************** 
+ * Matrix4::Matrix4 -- Constructor                                                             * 
+ *                                                                                             * 
+ * INPUT:                                                                                      * 
+ *                                                                                             * 
+ * OUTPUT:                                                                                     * 
+ *                                                                                             * 
+ * WARNINGS:                                                                                   * 
+ *                                                                                             * 
+ * HISTORY:                                                                                    * 
+ *   11/06/2001 NH  : Created.                                                                 * 
+ *=============================================================================================*/
+WWINLINE Matrix4::Matrix4(float m11,float m12,float m13,float m14, float m21,float m22,float m23,float m24,
+	float m31,float m32,float m33,float m34, float m41,float m42,float m43,float m44 )
+{
+	Init(m11, m12, m13, m14, m21, m22, m23, m24, m31, m32, m33, m34, m41, m42, m43, m44);
+}
+
 
 /***********************************************************************************************
  * Matrix4::Make_Identity -- Initializes the matrix to Identity                                *
@@ -308,6 +334,27 @@ WWINLINE void Matrix4::Init(const Matrix3D & m)
 WWINLINE void Matrix4::Init(const Vector4 & r0, const Vector4 & r1, const Vector4 & r2, const Vector4 & r3)
 {
 	Row[0] = r0; Row[1] = r1; Row[2] = r2; Row[3] = r3; 
+}
+
+/***********************************************************************************************
+ * Matrix4::Init -- Initializes the rows from the given 16 floats                              *
+ *                                                                                             *
+ * INPUT:                                                                                      *
+ *                                                                                             *
+ * OUTPUT:                                                                                     *
+ *                                                                                             *
+ * WARNINGS:                                                                                   *
+ *                                                                                             *
+ * HISTORY:                                                                                    *
+ *   11/6/01    NH : Created.                                                                  *
+ *=============================================================================================*/
+WWINLINE void Matrix4::Init(float m11,float m12,float m13,float m14, float m21,float m22,float m23,float m24,
+	float m31,float m32,float m33,float m34, float m41,float m42,float m43,float m44)
+{
+	Row[0].Set(m11,m12,m13,m14);
+	Row[1].Set(m21,m22,m23,m24);
+	Row[2].Set(m31,m32,m33,m34);
+	Row[3].Set(m41,m42,m43,m44);
 }
 
 

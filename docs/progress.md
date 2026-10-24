@@ -4,6 +4,42 @@ Newest first within each section. Dates are when the entry was written.
 
 ## 1. Log
 
+### 2026-10-23: WW3D2 texture mappers from Zero Hour
+
+* WW3D2 2,242 -> 2,310 (+68 client functions); gaps 407 -> 347; mapper.obj, matrixmapper.obj and
+  vertmaterial.obj now have no gaps. Other libraries unchanged (full `verify`, 0 errors).
+* The previous entry was wrong about the cluster: the client *has* Zero Hour's texture-matrix
+  mappers. The vtables (`vtables.py --seed`, 0xB10EAC/0xB10F00/0xB10F24) are in Zero Hour's slot
+  order with `Calculate_Texture_Matrix` at slot 8, and `ScaleTextureMapperClass::Apply` 0x9322F0
+  (inherited by `LinearOffsetTextureMapperClass`) sets `D3DTS_TEXTURE0+Stage`. Zero Hour's copy
+  matched only 2 functions in the evidence because of its own headers; against the tree it
+  matches everything. Trap added to workflow.md §3.
+* Done: `mapper.cpp`/`.h` and `matrixmapper.cpp`/`.h` swapped to Zero Hour's (`trial.py`); the
+  Renegade-copy Grid patches in `PATCHES` dropped (Zero Hour has them). New importer block
+  `MAPPER_PATCHES`: Zero Hour's 16-float `Matrix4` constructor/`Init` (11/2001), and
+  `VertexMaterialClass::Load_W3D` (0x92F2A0) building the WS mappers from the Args INI plus the
+  `GRID_WS` cases (Renegade's single function otherwise).
+* Pair sets against the session's baseline: 71 gained; 3 lost, of which 2 are not real
+  (`LinearOffsetTextureMapperClass::Reset` 0x932CC0 stays matched in mapper.obj, only
+  vertmaterial's twin went; `operator*(Matrix3D)` 0x7E6E40 is an app-region duplicate still matched
+  in 4 files). The real loss: `MeshMatDescClass::Make_UV_Array_Unique` 0x947310 (register
+  allocation only; meshmatdesc.cpp's known fragility, now that `mapper.h` includes `matrix4.h`).
+  meshmatdesc.cpp gained 2 at the same time (0x946EB0, 0x947490), net +1. Accepted and
+  written down (library-matching.md §3.6.1), as for the Grid change.
+* `symbols.json` 6,580 -> 6,703 (none gone); `gaps-ww3d2`, `imports.md`, `coverage.md` regenerated.
+* Verified: `importer.py verify` (all libraries), pair sets, `report`, `replay` (0 differences).
+  Nothing run live.
+* Open question (D18, proposed): include `matrix4.h` first in meshmatdesc.cpp. `tryvariants.py`:
+  it wins 0x947310 back and loses nothing in that file. No EA copy has that include order, so it
+  is a byte-only fix. Recommendation: don't, unless the user wants every byte-only fix taken; the
+  loss is recorded either way.
+* Next step: one of the remaining clusters (particles, `Set_Render_Device`'s E&B call, textures
+  under D9, `GapFillerClass`).
+* Outside git: `.work/m4_16f.py`, `vm_ws_edit.py` (the edits as made), `mapper_spec.py`,
+  `mapper_reasons.py`, `mapper_drop_patches.py`, `mapper_docs.py`; `.work/mapper_edited/` (edited
+  files, matched the addpatch result); `.work/imports.mapper-base.json` (the baseline);
+  `.work/mmd_variants.py` (the meshmatdesc variants). REA not opened.
+
 ### 2026-10-23: WW3D2 near-misses: mesh rendering per mesh model
 
 * WW3D2 2,202 -> 2,242, none lost (pair sets compared at every step); wwshade 138 unchanged.
@@ -439,11 +475,12 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 ## 3. Open decisions
 
 * (D7 is to be revisited with the user if byte-exactness of E&B's code becomes too costly.)
+* D18 (proposed 2026-10-23): include `matrix4.h` first in `ww3d2/meshmatdesc.cpp` to win back `Make_UV_Array_Unique` 0x947310 (byte-only, no EA copy does so). Recommendation: no.
 
 ## 4. Next steps
 
-1. WW3D2 near-misses (docs/data/gaps-ww3d2): the clusters of the 2026-10-23 near-miss entry
-   (mapper, particles, `Set_Render_Device`'s E&B call, textures under D9, `GapFillerClass`).
+1. WW3D2 near-misses (docs/data/gaps-ww3d2, 347): the clusters of the 2026-10-23 near-miss entry
+   (particles, `Set_Render_Device`'s E&B call, textures under D9, `GapFillerClass`; mapper done).
    D9's `TextureClass` constructors, `Init`, `Apply`, `Get_Reduction` and `DX8Wrapper`'s device
    code are still open. wwshade: 138, left only the two `"UnNamed"` constructors (D17) and an
    inline `Set_DX8_Texture_Stage_State` copy. WWAudio done (0 gaps).

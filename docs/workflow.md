@@ -174,6 +174,11 @@ compiled into E&B's objects), so they run higher.
 * **`objdiff.py` marks relocated operands as differences.** Our object shows a relocated field as
   `0` / `[0]` (or `[esi + REL]`), the client as `REL`: those `*` lines are not differences. Real
   ones are other instructions, extra pushes, or code only one side has.
+* **A copy's low evidence count can be its own headers' fault.** Zero Hour's `mapper.cpp` matched
+  only 2 client functions in `.work/bm2` (compiled with Zero Hour's own WW3D2 headers), yet
+  swapped into the tree it matched all of them (+56): the client's vtables had Zero Hour's slot
+  order all along. Before concluding "E&B has X without Y" from the evidence, read the client's
+  vtable (`vtables.py --seed`) and `trial.py` the copy against the current tree.
 * **Edit first, generate the spec after.** For a change spanning many hunks, edit the tree files
   directly (scripts in `.work/`), verify, then `tools/vc6/mkspec.py` turns `git diff` into an
   addpatch spec (one patch per hunk, `old` unique both as a plain substring and at a line start);

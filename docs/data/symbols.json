@@ -287,6 +287,13 @@
 "source": "thunk"
 },
 {
+"address": "0x404FED",
+"symbol": "j_?Is_Time_Variant@TextureMapperClass@@UAE_NXZ",
+"name": "j_?Is_Time_Variant@TextureMapperClass@@UAE_NXZ",
+"kind": "thunk",
+"source": "thunk"
+},
+{
 "address": "0x40507E",
 "symbol": "j_?Set_Base_Model_Name@RenderObjClass@@UAEXPBD@Z",
 "name": "j_?Set_Base_Model_Name@RenderObjClass@@UAEXPBD@Z",
@@ -1666,6 +1673,13 @@
 "source": "thunk"
 },
 {
+"address": "0x412CF6",
+"symbol": "j_?Reset@TextureMapperClass@@UAEXXZ",
+"name": "j_?Reset@TextureMapperClass@@UAEXXZ",
+"kind": "thunk",
+"source": "thunk"
+},
+{
 "address": "0x412DA0",
 "symbol": "j_?Get_Hash_Value@?$HashTemplateKeyClass@VStringClass@@@@SAIABVStringClass@@@Z",
 "name": "j_?Get_Hash_Value@?$HashTemplateKeyClass@VStringClass@@@@SAIABVStringClass@@@Z",
@@ -2477,6 +2491,20 @@
 "address": "0x45D530",
 "symbol": "??_E?$VectorClass@UWeightInfoStruct@NamedPivotMapClass@@@@UAEPAXI@Z",
 "name": "??_E?$VectorClass@UWeightInfoStruct@NamedPivotMapClass@@@@UAEPAXI@Z",
+"kind": "function",
+"source": "vtable"
+},
+{
+"address": "0x45D6D0",
+"symbol": "?Is_Time_Variant@TextureMapperClass@@UAE_NXZ",
+"name": "TextureMapperClass::Is_Time_Variant",
+"kind": "function",
+"source": "vtable"
+},
+{
+"address": "0x45D6F0",
+"symbol": "?Reset@TextureMapperClass@@UAEXXZ",
+"name": "TextureMapperClass::Reset",
 "kind": "function",
 "source": "vtable"
 },
@@ -16993,11 +17021,77 @@
 "length": 321
 },
 {
+"address": "0x92F2A0",
+"symbol": "?Load_W3D@VertexMaterialClass@@QAE?AW4WW3DErrorType@@AAVChunkLoadClass@@@Z",
+"name": "VertexMaterialClass::Load_W3D",
+"kind": "function",
+"source": "exact",
+"length": 4872
+},
+{
+"address": "0x9305B0",
+"symbol": "?Needs_Normals@TextureMapperClass@@UAE_NXZ",
+"name": "TextureMapperClass::Needs_Normals",
+"kind": "function",
+"source": "vtable"
+},
+{
+"address": "0x9305C0",
+"symbol": "?Is_Time_Variant@LinearOffsetTextureMapperClass@@UAE_NXZ",
+"name": "LinearOffsetTextureMapperClass::Is_Time_Variant",
+"kind": "function",
+"source": "vtable"
+},
+{
+"address": "0x9305D0",
+"symbol": "?Is_Time_Variant@GridTextureMapperClass@@UAE_NXZ",
+"name": "GridTextureMapperClass::Is_Time_Variant",
+"kind": "function",
+"source": "vtable"
+},
+{
+"address": "0x9306B0",
+"symbol": "?Mapper_ID@TextureMapperClass@@UBEHXZ",
+"name": "TextureMapperClass::Mapper_ID",
+"kind": "function",
+"source": "vtable"
+},
+{
+"address": "0x930850",
+"symbol": "?Mapper_ID@ScreenMapperClass@@UBEHXZ",
+"name": "ScreenMapperClass::Mapper_ID",
+"kind": "function",
+"source": "vtable"
+},
+{
+"address": "0x930860",
+"symbol": "?Clone@ScreenMapperClass@@UBEPAVTextureMapperClass@@XZ",
+"name": "ScreenMapperClass::Clone",
+"kind": "function",
+"source": "exact",
+"length": 44
+},
+{
+"address": "0x930890",
+"symbol": "??_EScreenMapperClass@@UAEPAXI@Z",
+"name": "ScreenMapperClass::vector deleting dtor",
+"kind": "function",
+"source": "vtable"
+},
+{
 "address": "0x9308B0",
 "symbol": "??_EStraw@@UAEPAXI@Z",
 "name": "Straw::vector deleting dtor",
 "kind": "function",
 "source": "vtable"
+},
+{
+"address": "0x930910",
+"symbol": "?Apply@VertexMaterialClass@@ABEXXZ",
+"name": "VertexMaterialClass::Apply",
+"kind": "function",
+"source": "exact",
+"length": 758
 },
 {
 "address": "0x930C10",
@@ -17344,12 +17438,26 @@
 "length": 55
 },
 {
+"address": "0x9321C0",
+"symbol": "?Mapper_ID@ScaleTextureMapperClass@@UBEHXZ",
+"name": "ScaleTextureMapperClass::Mapper_ID",
+"kind": "function",
+"source": "vtable"
+},
+{
 "address": "0x9321D0",
 "symbol": "?Clone@ScaleTextureMapperClass@@UBEPAVTextureMapperClass@@XZ",
 "name": "ScaleTextureMapperClass::Clone",
 "kind": "function",
 "source": "exact",
 "length": 66
+},
+{
+"address": "0x932220",
+"symbol": "??_EScaleTextureMapperClass@@UAEPAXI@Z",
+"name": "ScaleTextureMapperClass::vector deleting dtor",
+"kind": "function",
+"source": "vtable"
 },
 {
 "address": "0x932240",
@@ -17368,11 +17476,65 @@
 "length": 52
 },
 {
-"address": "0x932B40",
-"symbol": "LinearOffsetTextureMapperClass::LinearOffsetTextureMapperClass",
+"address": "0x9322F0",
+"symbol": "?Apply@ScaleTextureMapperClass@@UAEXH@Z",
+"name": "ScaleTextureMapperClass::Apply",
+"kind": "function",
+"source": "vtable"
+},
+{
+"address": "0x932990",
+"symbol": "?Calculate_Texture_Matrix@ScaleTextureMapperClass@@UAEXAAVMatrix4@@@Z",
+"name": "ScaleTextureMapperClass::Calculate_Texture_Matrix",
+"kind": "function",
+"source": "exact",
+"length": 83
+},
+{
+"address": "0x9329F0",
+"symbol": "??0LinearOffsetTextureMapperClass@@QAE@ABVVector2@@0_N0I@Z",
 "name": "LinearOffsetTextureMapperClass::LinearOffsetTextureMapperClass",
 "kind": "function",
-"source": "strings"
+"source": "exact",
+"length": 145
+},
+{
+"address": "0x932A90",
+"symbol": "?Mapper_ID@LinearOffsetTextureMapperClass@@UBEHXZ",
+"name": "LinearOffsetTextureMapperClass::Mapper_ID",
+"kind": "function",
+"source": "vtable"
+},
+{
+"address": "0x932AA0",
+"symbol": "?Clone@LinearOffsetTextureMapperClass@@UBEPAVTextureMapperClass@@XZ",
+"name": "LinearOffsetTextureMapperClass::Clone",
+"kind": "function",
+"source": "exact",
+"length": 123
+},
+{
+"address": "0x932B20",
+"symbol": "??_ELinearOffsetTextureMapperClass@@UAEPAXI@Z",
+"name": "LinearOffsetTextureMapperClass::vector deleting dtor",
+"kind": "function",
+"source": "vtable"
+},
+{
+"address": "0x932B40",
+"symbol": "??0LinearOffsetTextureMapperClass@@QAE@ABVINIClass@@PBDI@Z",
+"name": "LinearOffsetTextureMapperClass::LinearOffsetTextureMapperClass",
+"kind": "function",
+"source": "exact",
+"length": 257
+},
+{
+"address": "0x932C50",
+"symbol": "??0LinearOffsetTextureMapperClass@@QAE@ABV0@@Z",
+"name": "LinearOffsetTextureMapperClass::LinearOffsetTextureMapperClass",
+"kind": "function",
+"source": "exact",
+"length": 109
 },
 {
 "address": "0x932CC0",
@@ -17383,6 +17545,14 @@
 "length": 17
 },
 {
+"address": "0x932CE0",
+"symbol": "?Calculate_Texture_Matrix@LinearOffsetTextureMapperClass@@UAEXAAVMatrix4@@@Z",
+"name": "LinearOffsetTextureMapperClass::Calculate_Texture_Matrix",
+"kind": "function",
+"source": "exact",
+"length": 317
+},
+{
 "address": "0x932E20",
 "symbol": "??0GridTextureMapperClass@@QAE@MIIII@Z",
 "name": "GridTextureMapperClass::GridTextureMapperClass",
@@ -17391,11 +17561,65 @@
 "length": 75
 },
 {
+"address": "0x932E70",
+"symbol": "?Mapper_ID@GridTextureMapperClass@@UBEHXZ",
+"name": "GridTextureMapperClass::Mapper_ID",
+"kind": "function",
+"source": "vtable"
+},
+{
+"address": "0x932E80",
+"symbol": "?Clone@GridTextureMapperClass@@UBEPAVTextureMapperClass@@XZ",
+"name": "GridTextureMapperClass::Clone",
+"kind": "function",
+"source": "exact",
+"length": 142
+},
+{
+"address": "0x932F10",
+"symbol": "??_EGridTextureMapperClass@@UAEPAXI@Z",
+"name": "GridTextureMapperClass::vector deleting dtor",
+"kind": "function",
+"source": "vtable"
+},
+{
 "address": "0x932F30",
-"symbol": "GridTextureMapperClass::GridTextureMapperClass",
+"symbol": "??0GridTextureMapperClass@@QAE@ABVINIClass@@PBDI@Z",
 "name": "GridTextureMapperClass::GridTextureMapperClass",
 "kind": "function",
-"source": "strings"
+"source": "exact",
+"length": 145
+},
+{
+"address": "0x932FD0",
+"symbol": "??0GridTextureMapperClass@@QAE@ABV0@@Z",
+"name": "GridTextureMapperClass::GridTextureMapperClass",
+"kind": "function",
+"source": "exact",
+"length": 129
+},
+{
+"address": "0x933060",
+"symbol": "?Apply@GridTextureMapperClass@@UAEXH@Z",
+"name": "GridTextureMapperClass::Apply",
+"kind": "function",
+"source": "vtable"
+},
+{
+"address": "0x933700",
+"symbol": "?Reset@GridTextureMapperClass@@UAEXXZ",
+"name": "GridTextureMapperClass::Reset",
+"kind": "function",
+"source": "exact",
+"length": 52
+},
+{
+"address": "0x933740",
+"symbol": "?Calculate_Texture_Matrix@GridTextureMapperClass@@UAEXAAVMatrix4@@@Z",
+"name": "GridTextureMapperClass::Calculate_Texture_Matrix",
+"kind": "function",
+"source": "exact",
+"length": 217
 },
 {
 "address": "0x933820",
@@ -17404,6 +17628,14 @@
 "kind": "function",
 "source": "exact",
 "length": 17
+},
+{
+"address": "0x933840",
+"symbol": "?initialize@GridTextureMapperClass@@IAEXMI@Z",
+"name": "GridTextureMapperClass::initialize",
+"kind": "function",
+"source": "exact",
+"length": 242
 },
 {
 "address": "0x933940",
@@ -17422,12 +17654,41 @@
 "length": 82
 },
 {
+"address": "0x933A00",
+"symbol": "??0RotateTextureMapperClass@@QAE@MABVVector2@@0I@Z",
+"name": "RotateTextureMapperClass::RotateTextureMapperClass",
+"kind": "function",
+"source": "exact",
+"length": 105
+},
+{
+"address": "0x933A70",
+"symbol": "?Mapper_ID@RotateTextureMapperClass@@UBEHXZ",
+"name": "RotateTextureMapperClass::Mapper_ID",
+"kind": "function",
+"source": "vtable"
+},
+{
 "address": "0x933A80",
 "symbol": "?Clone@RotateTextureMapperClass@@UBEPAVTextureMapperClass@@XZ",
 "name": "RotateTextureMapperClass::Clone",
 "kind": "function",
 "source": "exact",
 "length": 106
+},
+{
+"address": "0x933AF0",
+"symbol": "?Is_Time_Variant@RotateTextureMapperClass@@UAE_NXZ",
+"name": "RotateTextureMapperClass::Is_Time_Variant",
+"kind": "function",
+"source": "vtable"
+},
+{
+"address": "0x933B00",
+"symbol": "??_ERotateTextureMapperClass@@UAEPAXI@Z",
+"name": "RotateTextureMapperClass::vector deleting dtor",
+"kind": "function",
+"source": "vtable"
 },
 {
 "address": "0x933B20",
@@ -17454,6 +17715,221 @@
 "length": 16
 },
 {
+"address": "0x933C50",
+"symbol": "?Calculate_Texture_Matrix@RotateTextureMapperClass@@UAEXAAVMatrix4@@@Z",
+"name": "RotateTextureMapperClass::Calculate_Texture_Matrix",
+"kind": "function",
+"source": "exact",
+"length": 267
+},
+{
+"address": "0x933D60",
+"symbol": "??0SineLinearOffsetTextureMapperClass@@QAE@ABVVector3@@0ABVVector2@@I@Z",
+"name": "SineLinearOffsetTextureMapperClass::SineLinearOffsetTextureMapperClass",
+"kind": "function",
+"source": "exact",
+"length": 119
+},
+{
+"address": "0x933DE0",
+"symbol": "?Mapper_ID@SineLinearOffsetTextureMapperClass@@UBEHXZ",
+"name": "SineLinearOffsetTextureMapperClass::Mapper_ID",
+"kind": "function",
+"source": "vtable"
+},
+{
+"address": "0x933DF0",
+"symbol": "?Clone@SineLinearOffsetTextureMapperClass@@UBEPAVTextureMapperClass@@XZ",
+"name": "SineLinearOffsetTextureMapperClass::Clone",
+"kind": "function",
+"source": "exact",
+"length": 124
+},
+{
+"address": "0x933E70",
+"symbol": "?Is_Time_Variant@SineLinearOffsetTextureMapperClass@@UAE_NXZ",
+"name": "SineLinearOffsetTextureMapperClass::Is_Time_Variant",
+"kind": "function",
+"source": "vtable"
+},
+{
+"address": "0x933E80",
+"symbol": "??_ESineLinearOffsetTextureMapperClass@@UAEPAXI@Z",
+"name": "SineLinearOffsetTextureMapperClass::vector deleting dtor",
+"kind": "function",
+"source": "vtable"
+},
+{
+"address": "0x933EA0",
+"symbol": "??0SineLinearOffsetTextureMapperClass@@QAE@ABVINIClass@@PBDI@Z",
+"name": "SineLinearOffsetTextureMapperClass::SineLinearOffsetTextureMapperClass",
+"kind": "function",
+"source": "exact",
+"length": 239
+},
+{
+"address": "0x933F90",
+"symbol": "??0SineLinearOffsetTextureMapperClass@@QAE@ABV0@@Z",
+"name": "SineLinearOffsetTextureMapperClass::SineLinearOffsetTextureMapperClass",
+"kind": "function",
+"source": "exact",
+"length": 110
+},
+{
+"address": "0x934000",
+"symbol": "?Reset@SineLinearOffsetTextureMapperClass@@UAEXXZ",
+"name": "SineLinearOffsetTextureMapperClass::Reset",
+"kind": "function",
+"source": "exact",
+"length": 16
+},
+{
+"address": "0x934010",
+"symbol": "?Calculate_Texture_Matrix@SineLinearOffsetTextureMapperClass@@UAEXAAVMatrix4@@@Z",
+"name": "SineLinearOffsetTextureMapperClass::Calculate_Texture_Matrix",
+"kind": "function",
+"source": "exact",
+"length": 187
+},
+{
+"address": "0x9340D0",
+"symbol": "??0StepLinearOffsetTextureMapperClass@@QAE@ABVVector2@@M_N0I@Z",
+"name": "StepLinearOffsetTextureMapperClass::StepLinearOffsetTextureMapperClass",
+"kind": "function",
+"source": "exact",
+"length": 116
+},
+{
+"address": "0x934150",
+"symbol": "?Mapper_ID@StepLinearOffsetTextureMapperClass@@UBEHXZ",
+"name": "StepLinearOffsetTextureMapperClass::Mapper_ID",
+"kind": "function",
+"source": "vtable"
+},
+{
+"address": "0x934160",
+"symbol": "?Clone@StepLinearOffsetTextureMapperClass@@UBEPAVTextureMapperClass@@XZ",
+"name": "StepLinearOffsetTextureMapperClass::Clone",
+"kind": "function",
+"source": "exact",
+"length": 116
+},
+{
+"address": "0x9341E0",
+"symbol": "?Is_Time_Variant@StepLinearOffsetTextureMapperClass@@UAE_NXZ",
+"name": "StepLinearOffsetTextureMapperClass::Is_Time_Variant",
+"kind": "function",
+"source": "vtable"
+},
+{
+"address": "0x9341F0",
+"symbol": "??_EStepLinearOffsetTextureMapperClass@@UAEPAXI@Z",
+"name": "StepLinearOffsetTextureMapperClass::vector deleting dtor",
+"kind": "function",
+"source": "vtable"
+},
+{
+"address": "0x934210",
+"symbol": "??0StepLinearOffsetTextureMapperClass@@QAE@ABVINIClass@@PBDI@Z",
+"name": "StepLinearOffsetTextureMapperClass::StepLinearOffsetTextureMapperClass",
+"kind": "function",
+"source": "exact",
+"length": 211
+},
+{
+"address": "0x9342F0",
+"symbol": "??0StepLinearOffsetTextureMapperClass@@QAE@ABV0@@Z",
+"name": "StepLinearOffsetTextureMapperClass::StepLinearOffsetTextureMapperClass",
+"kind": "function",
+"source": "exact",
+"length": 102
+},
+{
+"address": "0x934360",
+"symbol": "?Reset@StepLinearOffsetTextureMapperClass@@UAEXXZ",
+"name": "StepLinearOffsetTextureMapperClass::Reset",
+"kind": "function",
+"source": "exact",
+"length": 20
+},
+{
+"address": "0x934380",
+"symbol": "?Calculate_Texture_Matrix@StepLinearOffsetTextureMapperClass@@UAEXAAVMatrix4@@@Z",
+"name": "StepLinearOffsetTextureMapperClass::Calculate_Texture_Matrix",
+"kind": "function",
+"source": "exact",
+"length": 349
+},
+{
+"address": "0x9344E0",
+"symbol": "??0ZigZagLinearOffsetTextureMapperClass@@QAE@ABVVector2@@M0I@Z",
+"name": "ZigZagLinearOffsetTextureMapperClass::ZigZagLinearOffsetTextureMapperClass",
+"kind": "function",
+"source": "exact",
+"length": 166
+},
+{
+"address": "0x934590",
+"symbol": "?Mapper_ID@ZigZagLinearOffsetTextureMapperClass@@UBEHXZ",
+"name": "ZigZagLinearOffsetTextureMapperClass::Mapper_ID",
+"kind": "function",
+"source": "vtable"
+},
+{
+"address": "0x9345A0",
+"symbol": "?Clone@ZigZagLinearOffsetTextureMapperClass@@UBEPAVTextureMapperClass@@XZ",
+"name": "ZigZagLinearOffsetTextureMapperClass::Clone",
+"kind": "function",
+"source": "exact",
+"length": 112
+},
+{
+"address": "0x934610",
+"symbol": "?Is_Time_Variant@ZigZagLinearOffsetTextureMapperClass@@UAE_NXZ",
+"name": "ZigZagLinearOffsetTextureMapperClass::Is_Time_Variant",
+"kind": "function",
+"source": "vtable"
+},
+{
+"address": "0x934620",
+"symbol": "??_EZigZagLinearOffsetTextureMapperClass@@UAEPAXI@Z",
+"name": "ZigZagLinearOffsetTextureMapperClass::vector deleting dtor",
+"kind": "function",
+"source": "vtable"
+},
+{
+"address": "0x934640",
+"symbol": "??0ZigZagLinearOffsetTextureMapperClass@@QAE@ABVINIClass@@PBDI@Z",
+"name": "ZigZagLinearOffsetTextureMapperClass::ZigZagLinearOffsetTextureMapperClass",
+"kind": "function",
+"source": "exact",
+"length": 241
+},
+{
+"address": "0x934740",
+"symbol": "??0ZigZagLinearOffsetTextureMapperClass@@QAE@ABV0@@Z",
+"name": "ZigZagLinearOffsetTextureMapperClass::ZigZagLinearOffsetTextureMapperClass",
+"kind": "function",
+"source": "exact",
+"length": 98
+},
+{
+"address": "0x9347B0",
+"symbol": "?Reset@ZigZagLinearOffsetTextureMapperClass@@UAEXXZ",
+"name": "ZigZagLinearOffsetTextureMapperClass::Reset",
+"kind": "function",
+"source": "exact",
+"length": 16
+},
+{
+"address": "0x9347C0",
+"symbol": "?Calculate_Texture_Matrix@ZigZagLinearOffsetTextureMapperClass@@UAEXAAVMatrix4@@@Z",
+"name": "ZigZagLinearOffsetTextureMapperClass::Calculate_Texture_Matrix",
+"kind": "function",
+"source": "exact",
+"length": 235
+},
+{
 "address": "0x9356B0",
 "symbol": "??0EdgeMapperClass@@QAE@I@Z",
 "name": "EdgeMapperClass::EdgeMapperClass",
@@ -17462,12 +17938,40 @@
 "length": 60
 },
 {
+"address": "0x9356F0",
+"symbol": "?Mapper_ID@EdgeMapperClass@@UBEHXZ",
+"name": "EdgeMapperClass::Mapper_ID",
+"kind": "function",
+"source": "vtable"
+},
+{
 "address": "0x935700",
 "symbol": "?Clone@EdgeMapperClass@@UBEPAVTextureMapperClass@@XZ",
 "name": "EdgeMapperClass::Clone",
 "kind": "function",
 "source": "exact",
 "length": 84
+},
+{
+"address": "0x935760",
+"symbol": "?Is_Time_Variant@EdgeMapperClass@@UAE_NXZ",
+"name": "EdgeMapperClass::Is_Time_Variant",
+"kind": "function",
+"source": "vtable"
+},
+{
+"address": "0x935770",
+"symbol": "?Needs_Normals@EdgeMapperClass@@UAE_NXZ",
+"name": "EdgeMapperClass::Needs_Normals",
+"kind": "function",
+"source": "vtable"
+},
+{
+"address": "0x935780",
+"symbol": "??_EEdgeMapperClass@@UAEPAXI@Z",
+"name": "EdgeMapperClass::vector deleting dtor",
+"kind": "function",
+"source": "vtable"
 },
 {
 "address": "0x9357A0",
@@ -17486,6 +17990,14 @@
 "length": 73
 },
 {
+"address": "0x935880",
+"symbol": "?Apply@EdgeMapperClass@@UAEXH@Z",
+"name": "EdgeMapperClass::Apply",
+"kind": "function",
+"source": "exact",
+"length": 1871
+},
+{
 "address": "0x935FD0",
 "symbol": "?Reset@EdgeMapperClass@@UAEXXZ",
 "name": "EdgeMapperClass::Reset",
@@ -17494,11 +18006,221 @@
 "length": 16
 },
 {
-"address": "0x939200",
-"symbol": "BumpEnvTextureMapperClass::BumpEnvTextureMapperClass",
+"address": "0x935FE0",
+"symbol": "?Calculate_Texture_Matrix@EdgeMapperClass@@UAEXAAVMatrix4@@@Z",
+"name": "EdgeMapperClass::Calculate_Texture_Matrix",
+"kind": "function",
+"source": "exact",
+"length": 140
+},
+{
+"address": "0x936070",
+"symbol": "??0WSEnvMapperClass@@QAE@ABVINIClass@@PBDI@Z",
+"name": "WSEnvMapperClass::WSEnvMapperClass",
+"kind": "function",
+"source": "exact",
+"length": 199
+},
+{
+"address": "0x936160",
+"symbol": "?Calculate_Texture_Matrix@WSEnvMapperClass@@UAEXAAVMatrix4@@@Z",
+"name": "WSEnvMapperClass::Calculate_Texture_Matrix",
+"kind": "function",
+"source": "exact",
+"length": 897
+},
+{
+"address": "0x938190",
+"symbol": "?Apply@ScreenMapperClass@@UAEXH@Z",
+"name": "ScreenMapperClass::Apply",
+"kind": "function",
+"source": "exact",
+"length": 1709
+},
+{
+"address": "0x938840",
+"symbol": "?Calculate_Texture_Matrix@ScreenMapperClass@@UAEXAAVMatrix4@@@Z",
+"name": "ScreenMapperClass::Calculate_Texture_Matrix",
+"kind": "function",
+"source": "exact",
+"length": 926
+},
+{
+"address": "0x938BE0",
+"symbol": "??0RandomTextureMapperClass@@QAE@MABVVector2@@I@Z",
+"name": "RandomTextureMapperClass::RandomTextureMapperClass",
+"kind": "function",
+"source": "exact",
+"length": 142
+},
+{
+"address": "0x938C70",
+"symbol": "?Mapper_ID@RandomTextureMapperClass@@UBEHXZ",
+"name": "RandomTextureMapperClass::Mapper_ID",
+"kind": "function",
+"source": "vtable"
+},
+{
+"address": "0x938C80",
+"symbol": "?Clone@RandomTextureMapperClass@@UBEPAVTextureMapperClass@@XZ",
+"name": "RandomTextureMapperClass::Clone",
+"kind": "function",
+"source": "exact",
+"length": 151
+},
+{
+"address": "0x938D20",
+"symbol": "?Is_Time_Variant@RandomTextureMapperClass@@UAE_NXZ",
+"name": "RandomTextureMapperClass::Is_Time_Variant",
+"kind": "function",
+"source": "vtable"
+},
+{
+"address": "0x938D30",
+"symbol": "??_ERandomTextureMapperClass@@UAEPAXI@Z",
+"name": "RandomTextureMapperClass::vector deleting dtor",
+"kind": "function",
+"source": "vtable"
+},
+{
+"address": "0x938D50",
+"symbol": "??0RandomTextureMapperClass@@QAE@ABVINIClass@@PBDI@Z",
+"name": "RandomTextureMapperClass::RandomTextureMapperClass",
+"kind": "function",
+"source": "exact",
+"length": 236
+},
+{
+"address": "0x938E40",
+"symbol": "??0RandomTextureMapperClass@@QAE@ABV0@@Z",
+"name": "RandomTextureMapperClass::RandomTextureMapperClass",
+"kind": "function",
+"source": "exact",
+"length": 140
+},
+{
+"address": "0x938ED0",
+"symbol": "?randomize@RandomTextureMapperClass@@IAEXXZ",
+"name": "RandomTextureMapperClass::randomize",
+"kind": "function",
+"source": "exact",
+"length": 50
+},
+{
+"address": "0x938F10",
+"symbol": "?Reset@RandomTextureMapperClass@@UAEXXZ",
+"name": "RandomTextureMapperClass::Reset",
+"kind": "function",
+"source": "exact",
+"length": 16
+},
+{
+"address": "0x938F20",
+"symbol": "?Calculate_Texture_Matrix@RandomTextureMapperClass@@UAEXAAVMatrix4@@@Z",
+"name": "RandomTextureMapperClass::Calculate_Texture_Matrix",
+"kind": "function",
+"source": "exact",
+"length": 296
+},
+{
+"address": "0x939050",
+"symbol": "??0BumpEnvTextureMapperClass@@QAE@MMABVVector2@@0_N0I@Z",
 "name": "BumpEnvTextureMapperClass::BumpEnvTextureMapperClass",
 "kind": "function",
-"source": "strings"
+"source": "exact",
+"length": 165
+},
+{
+"address": "0x939100",
+"symbol": "?Mapper_ID@BumpEnvTextureMapperClass@@UBEHXZ",
+"name": "BumpEnvTextureMapperClass::Mapper_ID",
+"kind": "function",
+"source": "vtable"
+},
+{
+"address": "0x939110",
+"symbol": "?Clone@BumpEnvTextureMapperClass@@UBEPAVTextureMapperClass@@XZ",
+"name": "BumpEnvTextureMapperClass::Clone",
+"kind": "function",
+"source": "exact",
+"length": 147
+},
+{
+"address": "0x9391B0",
+"symbol": "??0TextureMapperClass@@QAE@ABV0@@Z",
+"name": "TextureMapperClass::TextureMapperClass",
+"kind": "function",
+"source": "exact",
+"length": 34
+},
+{
+"address": "0x9391E0",
+"symbol": "??_EBumpEnvTextureMapperClass@@UAEPAXI@Z",
+"name": "BumpEnvTextureMapperClass::vector deleting dtor",
+"kind": "function",
+"source": "vtable"
+},
+{
+"address": "0x939200",
+"symbol": "??0BumpEnvTextureMapperClass@@QAE@AAVINIClass@@PADI@Z",
+"name": "BumpEnvTextureMapperClass::BumpEnvTextureMapperClass",
+"kind": "function",
+"source": "exact",
+"length": 100
+},
+{
+"address": "0x939270",
+"symbol": "??0BumpEnvTextureMapperClass@@QAE@ABV0@@Z",
+"name": "BumpEnvTextureMapperClass::BumpEnvTextureMapperClass",
+"kind": "function",
+"source": "exact",
+"length": 130
+},
+{
+"address": "0x939300",
+"symbol": "?Apply@BumpEnvTextureMapperClass@@UAEXH@Z",
+"name": "BumpEnvTextureMapperClass::Apply",
+"kind": "function",
+"source": "exact",
+"length": 1092
+},
+{
+"address": "0x939750",
+"symbol": "?Reset_All_Texture_Mappers@@YAXPAVRenderObjClass@@_N@Z",
+"name": "Reset_All_Texture_Mappers",
+"kind": "function",
+"source": "exact",
+"length": 300
+},
+{
+"address": "0x9398E0",
+"symbol": "?Needs_Normals@GridWSEnvMapperClass@@UAE_NXZ",
+"name": "GridWSEnvMapperClass::Needs_Normals",
+"kind": "function",
+"source": "vtable"
+},
+{
+"address": "0x9398F0",
+"symbol": "??_EGridWSEnvMapperClass@@UAEPAXI@Z",
+"name": "GridWSEnvMapperClass::vector deleting dtor",
+"kind": "function",
+"source": "vtable"
+},
+{
+"address": "0x9399A0",
+"symbol": "??0GridWSEnvMapperClass@@QAE@ABVINIClass@@PBDI@Z",
+"name": "GridWSEnvMapperClass::GridWSEnvMapperClass",
+"kind": "function",
+"source": "exact",
+"length": 295
+},
+{
+"address": "0x939AD0",
+"symbol": "?Calculate_Texture_Matrix@GridWSEnvMapperClass@@UAEXAAVMatrix4@@@Z",
+"name": "GridWSEnvMapperClass::Calculate_Texture_Matrix",
+"kind": "function",
+"source": "exact",
+"length": 1039
 },
 {
 "address": "0x93B3A0",
@@ -19061,6 +19783,14 @@
 "length": 191
 },
 {
+"address": "0x946EB0",
+"symbol": "?Set_Texture@MeshMatDescClass@@QAEXHPAVTextureClass@@HH@Z",
+"name": "MeshMatDescClass::Set_Texture",
+"kind": "function",
+"source": "exact",
+"length": 196
+},
+{
 "address": "0x946F80",
 "symbol": "?Get_Material@MeshMatDescClass@@QBEPAVVertexMaterialClass@@HH@Z",
 "name": "MeshMatDescClass::Get_Material",
@@ -19139,6 +19869,14 @@
 "kind": "function",
 "source": "exact",
 "length": 147
+},
+{
+"address": "0x947490",
+"symbol": "?Install_UV_Array@MeshMatDescClass@@QAEXHHPAVVector2@@H@Z",
+"name": "MeshMatDescClass::Install_UV_Array",
+"kind": "function",
+"source": "exact",
+"length": 323
 },
 {
 "address": "0x9485C0",
@@ -24743,6 +25481,28 @@
 "length": 271
 },
 {
+"address": "0x97F5E0",
+"symbol": "??0MatrixMapperClass@@QAE@H@Z",
+"name": "MatrixMapperClass::MatrixMapperClass",
+"kind": "function",
+"source": "exact",
+"length": 177
+},
+{
+"address": "0x97F6A0",
+"symbol": "?Clone@MatrixMapperClass@@UBEPAVTextureMapperClass@@XZ",
+"name": "MatrixMapperClass::Clone",
+"kind": "function",
+"source": "vtable"
+},
+{
+"address": "0x97F6B0",
+"symbol": "??_EMatrixMapperClass@@UAEPAXI@Z",
+"name": "MatrixMapperClass::vector deleting dtor",
+"kind": "function",
+"source": "vtable"
+},
+{
 "address": "0x97F6D0",
 "symbol": "?Set_Texture_Transform@MatrixMapperClass@@QAEXABVMatrix3D@@M@Z",
 "name": "MatrixMapperClass::Set_Texture_Transform",
@@ -24773,6 +25533,78 @@
 "kind": "function",
 "source": "exact",
 "length": 103
+},
+{
+"address": "0x97FA50",
+"symbol": "?Apply@MatrixMapperClass@@UAEXH@Z",
+"name": "MatrixMapperClass::Apply",
+"kind": "function",
+"source": "exact",
+"length": 3856
+},
+{
+"address": "0x980960",
+"symbol": "?Calculate_Texture_Matrix@MatrixMapperClass@@UAEXAAVMatrix4@@@Z",
+"name": "MatrixMapperClass::Calculate_Texture_Matrix",
+"kind": "function",
+"source": "exact",
+"length": 117
+},
+{
+"address": "0x9809E0",
+"symbol": "??0CompositeMatrixMapperClass@@QAE@PAVTextureMapperClass@@I@Z",
+"name": "CompositeMatrixMapperClass::CompositeMatrixMapperClass",
+"kind": "function",
+"source": "exact",
+"length": 194
+},
+{
+"address": "0x980AB0",
+"symbol": "?Clone@CompositeMatrixMapperClass@@UBEPAVTextureMapperClass@@XZ",
+"name": "CompositeMatrixMapperClass::Clone",
+"kind": "function",
+"source": "exact",
+"length": 392
+},
+{
+"address": "0x980C40",
+"symbol": "??_GCompositeMatrixMapperClass@@UAEPAXI@Z",
+"name": "CompositeMatrixMapperClass::scalar deleting dtor",
+"kind": "function",
+"source": "exact",
+"length": 71
+},
+{
+"address": "0x980C90",
+"symbol": "??0CompositeMatrixMapperClass@@QAE@ABV0@@Z",
+"name": "CompositeMatrixMapperClass::CompositeMatrixMapperClass",
+"kind": "function",
+"source": "exact",
+"length": 370
+},
+{
+"address": "0x980E10",
+"symbol": "??1CompositeMatrixMapperClass@@UAE@XZ",
+"name": "CompositeMatrixMapperClass::~CompositeMatrixMapperClass",
+"kind": "function",
+"source": "exact",
+"length": 50
+},
+{
+"address": "0x980E50",
+"symbol": "?Apply@CompositeMatrixMapperClass@@UAEXH@Z",
+"name": "CompositeMatrixMapperClass::Apply",
+"kind": "function",
+"source": "exact",
+"length": 477
+},
+{
+"address": "0x981030",
+"symbol": "?Calculate_Texture_Matrix@CompositeMatrixMapperClass@@UAEXAAVMatrix4@@@Z",
+"name": "CompositeMatrixMapperClass::Calculate_Texture_Matrix",
+"kind": "function",
+"source": "exact",
+"length": 332
 },
 {
 "address": "0x9811E0",
@@ -50532,9 +51364,93 @@
 "source": "vtable"
 },
 {
+"address": "0xB10E4C",
+"symbol": "??_7ScreenMapperClass@@6B@",
+"name": "??_7ScreenMapperClass@@6B@",
+"kind": "vtable",
+"source": "vtable"
+},
+{
 "address": "0xB10EA0",
 "symbol": "??_7Straw@@6B@",
 "name": "??_7Straw@@6B@",
+"kind": "vtable",
+"source": "vtable"
+},
+{
+"address": "0xB10F00",
+"symbol": "??_7ScaleTextureMapperClass@@6B@",
+"name": "??_7ScaleTextureMapperClass@@6B@",
+"kind": "vtable",
+"source": "vtable"
+},
+{
+"address": "0xB10F24",
+"symbol": "??_7LinearOffsetTextureMapperClass@@6B@",
+"name": "??_7LinearOffsetTextureMapperClass@@6B@",
+"kind": "vtable",
+"source": "vtable"
+},
+{
+"address": "0xB10F48",
+"symbol": "??_7GridTextureMapperClass@@6B@",
+"name": "??_7GridTextureMapperClass@@6B@",
+"kind": "vtable",
+"source": "vtable"
+},
+{
+"address": "0xB10F78",
+"symbol": "??_7RotateTextureMapperClass@@6B@",
+"name": "??_7RotateTextureMapperClass@@6B@",
+"kind": "vtable",
+"source": "vtable"
+},
+{
+"address": "0xB10FA8",
+"symbol": "??_7SineLinearOffsetTextureMapperClass@@6B@",
+"name": "??_7SineLinearOffsetTextureMapperClass@@6B@",
+"kind": "vtable",
+"source": "vtable"
+},
+{
+"address": "0xB10FCC",
+"symbol": "??_7StepLinearOffsetTextureMapperClass@@6B@",
+"name": "??_7StepLinearOffsetTextureMapperClass@@6B@",
+"kind": "vtable",
+"source": "vtable"
+},
+{
+"address": "0xB10FF0",
+"symbol": "??_7ZigZagLinearOffsetTextureMapperClass@@6B@",
+"name": "??_7ZigZagLinearOffsetTextureMapperClass@@6B@",
+"kind": "vtable",
+"source": "vtable"
+},
+{
+"address": "0xB11014",
+"symbol": "??_7EdgeMapperClass@@6B@",
+"name": "??_7EdgeMapperClass@@6B@",
+"kind": "vtable",
+"source": "vtable"
+},
+{
+"address": "0xB1105C",
+"symbol": "??_7RandomTextureMapperClass@@6B@",
+"name": "??_7RandomTextureMapperClass@@6B@",
+"kind": "vtable",
+"source": "vtable"
+},
+{
+"address": "0xB11080",
+"symbol": "??_7BumpEnvTextureMapperClass@@6B@",
+"name": "??_7BumpEnvTextureMapperClass@@6B@",
+"kind": "vtable",
+"source": "vtable"
+},
+{
+"address": "0xB110A4",
+"symbol": "??_7GridWSEnvMapperClass@@6B@",
+"name": "??_7GridWSEnvMapperClass@@6B@",
 "kind": "vtable",
 "source": "vtable"
 },
@@ -50724,6 +51640,20 @@
 "address": "0xB12CD8",
 "symbol": "??_7ParticleEmitterClass@@6BRefCountClass@@@",
 "name": "??_7ParticleEmitterClass@@6BRefCountClass@@@",
+"kind": "vtable",
+"source": "vtable"
+},
+{
+"address": "0xB12EAC",
+"symbol": "??_7MatrixMapperClass@@6B@",
+"name": "??_7MatrixMapperClass@@6B@",
+"kind": "vtable",
+"source": "vtable"
+},
+{
+"address": "0xB12ED0",
+"symbol": "??_7CompositeMatrixMapperClass@@6B@",
+"name": "??_7CompositeMatrixMapperClass@@6B@",
 "kind": "vtable",
 "source": "vtable"
 },
