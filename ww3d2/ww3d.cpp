@@ -121,6 +121,11 @@
 #endif
 
 
+// E&B (name and module not known): called when a render device is set (0x995DC0); resets a
+// per-frame list of objects and enables it if the device supports cube maps and the
+// resolution is at most 1024 wide
+void Unknown_Reset_Cube_Map_List(void);
+
 const char* DAZZLE_INI_FILENAME="DAZZLE.INI";
 
 #define DEFAULT_DEBUG_SHADER_BITS	(		SHADE_CNST(\
@@ -387,6 +392,7 @@ WW3DErrorType WW3D::Set_Render_Device( const char * dev_name, int width, int hei
 {
 	bool success = DX8Wrapper::Set_Render_Device(dev_name,width,height,bits,windowed,resize_window);
 	if (success) {
+		Unknown_Reset_Cube_Map_List();
 		return WW3D_ERROR_OK;
 	} else {
 		return WW3D_ERROR_INITIALIZATION_FAILED;
@@ -433,6 +439,7 @@ WW3DErrorType WW3D::Set_Render_Device(int dev, int width, int height, int bits, 
 {
 	bool success = DX8Wrapper::Set_Render_Device(dev,width,height,bits,windowed,resize_window);
 	if (success) {
+		Unknown_Reset_Cube_Map_List();
 		return WW3D_ERROR_OK;
 	} else {
 		return WW3D_ERROR_INITIALIZATION_FAILED;
