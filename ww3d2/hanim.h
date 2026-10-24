@@ -114,7 +114,8 @@ public:
 	virtual bool				Has_Z_Translation (int pividx)	{ return true; }
 	virtual bool				Has_Rotation (int pividx)			{ return true; }
 	virtual bool				Has_Visibility (int pividx)		{ return true; }
-	virtual int					Class_ID(void)	const															{ return CLASSID_UNKNOWNANIM; }
+	// E&B: no Class_ID virtual here (the client's anim vtables go from Has_Visibility to Has_Embedded_Sounds)
+//	virtual int					Class_ID(void)	const															{ return CLASSID_UNKNOWNANIM; }
 
 	// Animated sound-triggering support
 	virtual bool				Has_Embedded_Sounds (void) const			{ if (EmbeddedSoundBoneIndex < 0) return false; return true;}

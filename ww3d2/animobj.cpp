@@ -476,6 +476,12 @@ void Animatable3DObjClass::Set_Animation(HAnimClass * motion, float frame, int m
 		ModeAnim.Frame = frame;		
 		ModeAnim.LastSyncTime = WW3D::Get_Sync_Time();
 		ModeAnim.AnimMode = mode;
+
+		const char* sound_name = AnimatedSoundMgrClass::Get_Embedded_Sound_Name(motion);
+		if (sound_name) {
+			int bone_index = Get_Bone_Index(sound_name);
+			motion->Set_Embedded_Sound_Bone_Index(bone_index);
+		}
 	} else {
 		CurMotionMode = BASE_POSE;
 		Release();
@@ -520,10 +526,20 @@ void Animatable3DObjClass::Set_Animation
 
 	if ( ModeInterp.Motion0 != NULL ) {
 		ModeInterp.Motion0->Add_Ref();
+		const char* sound_name = AnimatedSoundMgrClass::Get_Embedded_Sound_Name(motion0);
+		if (sound_name) {
+			int bone_index = Get_Bone_Index(sound_name);
+			motion0->Set_Embedded_Sound_Bone_Index(bone_index);
+		}
 	}
 
 	if ( ModeInterp.Motion1 != NULL ) {
 		ModeInterp.Motion1->Add_Ref();
+		const char* sound_name = AnimatedSoundMgrClass::Get_Embedded_Sound_Name(motion1);
+		if (sound_name) {
+			int bone_index = Get_Bone_Index(sound_name);
+			motion1->Set_Embedded_Sound_Bone_Index(bone_index);
+		}
 	}
 }
 
@@ -550,6 +566,19 @@ void Animatable3DObjClass::Set_Animation
 	CurMotionMode = MULTIPLE_ANIM;
 	ModeCombo.AnimCombo = anim_combo;
 	Set_Hierarchy_Valid(false);
+
+	if (anim_combo) {
+		int count = anim_combo->Get_Num_Anims();
+		for (int index = 0; index < count; index ++) {
+			HAnimClass *motion = anim_combo->Peek_Motion(index);
+
+			const char* sound_name = AnimatedSoundMgrClass::Get_Embedded_Sound_Name(motion);
+			if (sound_name) {
+				int bone_index = Get_Bone_Index(sound_name);
+				motion->Set_Embedded_Sound_Bone_Index(bone_index);
+			}
+		}
+	}
 }						 
 
 

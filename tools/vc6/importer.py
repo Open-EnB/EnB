@@ -1584,6 +1584,22 @@ WWSHADE_API_PATCHES = {
          '\tint Get_Pixel_Shader_Minor_Version() const { return 0xff&(PixelShaderVersion); }',
          "Zero Hour's Get_Pixel_Shader_Minor_Version reads PixelShaderVersion (Renegade's reads the vertex shader's): ShdBumpDiffDefClass::Init 0xA0B9B0 and ShdBumpSpecDefClass::Init take major and minor from the same field, +0x12C"),
     ],
+    ('ww3d2', 'animobj.cpp'): [
+        ('\t\tModeAnim.LastSyncTime = WW3D::Get_Sync_Time();\n\t\tModeAnim.AnimMode = mode;\n\t} else {\n',
+         '\t\tModeAnim.LastSyncTime = WW3D::Get_Sync_Time();\n\t\tModeAnim.AnimMode = mode;\n\n\t\tconst char* sound_name = AnimatedSoundMgrClass::Get_Embedded_Sound_Name(motion);\n\t\tif (sound_name) {\n\t\t\tint bone_index = Get_Bone_Index(sound_name);\n\t\t\tmotion->Set_Embedded_Sound_Bone_Index(bone_index);\n\t\t}\n\t} else {\n',
+         "E&B's Set_Animation overloads look up each motion's embedded-sound bone (Zero Hour's): 0x9C5980, 0x9C5A80 and 0x9C5BB0 call AnimatedSoundMgrClass::Get_Embedded_Sound_Name 0x909D30, then Get_Bone_Index and HAnimClass::Set_Embedded_Sound_Bone_Index; not Zero Hour's srj frameRateMultiplier/animDirection stores"),
+        ('\tif ( ModeInterp.Motion0 != NULL ) {\n\t\tModeInterp.Motion0->Add_Ref();\n\t}\n\n\tif ( ModeInterp.Motion1 != NULL ) {\n\t\tModeInterp.Motion1->Add_Ref();\n\t}\n',
+         '\tif ( ModeInterp.Motion0 != NULL ) {\n\t\tModeInterp.Motion0->Add_Ref();\n\t\tconst char* sound_name = AnimatedSoundMgrClass::Get_Embedded_Sound_Name(motion0);\n\t\tif (sound_name) {\n\t\t\tint bone_index = Get_Bone_Index(sound_name);\n\t\t\tmotion0->Set_Embedded_Sound_Bone_Index(bone_index);\n\t\t}\n\t}\n\n\tif ( ModeInterp.Motion1 != NULL ) {\n\t\tModeInterp.Motion1->Add_Ref();\n\t\tconst char* sound_name = AnimatedSoundMgrClass::Get_Embedded_Sound_Name(motion1);\n\t\tif (sound_name) {\n\t\t\tint bone_index = Get_Bone_Index(sound_name);\n\t\t\tmotion1->Set_Embedded_Sound_Bone_Index(bone_index);\n\t\t}\n\t}\n',
+         "E&B's Set_Animation overloads look up each motion's embedded-sound bone (Zero Hour's): 0x9C5980, 0x9C5A80 and 0x9C5BB0 call AnimatedSoundMgrClass::Get_Embedded_Sound_Name 0x909D30, then Get_Bone_Index and HAnimClass::Set_Embedded_Sound_Bone_Index; not Zero Hour's srj frameRateMultiplier/animDirection stores"),
+        ('\tModeCombo.AnimCombo = anim_combo;\n\tSet_Hierarchy_Valid(false);\n',
+         '\tModeCombo.AnimCombo = anim_combo;\n\tSet_Hierarchy_Valid(false);\n\n\tif (anim_combo) {\n\t\tint count = anim_combo->Get_Num_Anims();\n\t\tfor (int index = 0; index < count; index ++) {\n\t\t\tHAnimClass *motion = anim_combo->Peek_Motion(index);\n\n\t\t\tconst char* sound_name = AnimatedSoundMgrClass::Get_Embedded_Sound_Name(motion);\n\t\t\tif (sound_name) {\n\t\t\t\tint bone_index = Get_Bone_Index(sound_name);\n\t\t\t\tmotion->Set_Embedded_Sound_Bone_Index(bone_index);\n\t\t\t}\n\t\t}\n\t}\n',
+         "E&B's Set_Animation overloads look up each motion's embedded-sound bone (Zero Hour's): 0x9C5980, 0x9C5A80 and 0x9C5BB0 call AnimatedSoundMgrClass::Get_Embedded_Sound_Name 0x909D30, then Get_Bone_Index and HAnimClass::Set_Embedded_Sound_Bone_Index; not Zero Hour's srj frameRateMultiplier/animDirection stores"),
+    ],
+    ('ww3d2', 'hanim.h'): [
+        ('\tvirtual int\t\t\t\t\tClass_ID(void)\tconst\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t{ return CLASSID_UNKNOWNANIM; }\n',
+         "\t// E&B: no Class_ID virtual here (the client's anim vtables go from Has_Visibility to Has_Embedded_Sounds)\n//\tvirtual int\t\t\t\t\tClass_ID(void)\tconst\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t{ return CLASSID_UNKNOWNANIM; }\n",
+         "E&B's HAnimClass has no Class_ID virtual (Generals' addition): the client's HRawAnimClass 0xB14480 and HCompressedAnimClass 0xB144E8 vtables have 23 slots with Has_Embedded_Sounds 0x987000 (tests EmbeddedSoundBoneIndex >= 0) right after Has_Visibility, and Set_Animation 0x9C5980 calls Set_Embedded_Sound_Bone_Index through slot 0x54"),
+    ],
 }
 for _key, _edits in WWSHADE_API_PATCHES.items():
     PATCHES.setdefault(_key, []).extend(_edits)
