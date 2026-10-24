@@ -136,16 +136,17 @@ MeshModelClass & MeshModelClass::operator = (const MeshModelClass & that)
 		}
 
 		if (that.AlternateMatDesc != NULL) {
-			AlternateMatDesc = new MeshMatDescClass(*(that.AlternateMatDesc));
+			AlternateMatDesc = W3DNEW MeshMatDescClass(*(that.AlternateMatDesc));
 		}
 
 		clone_materials(that);
 
 		if (GapFiller) {
-			delete[] GapFiller;
-				GapFiller=NULL;
+			// DMS - using approriate deallocation method
+			delete GapFiller;
+			GapFiller=NULL;
 		}
-		if (that.GapFiller) GapFiller=new GapFillerClass(*that.GapFiller);
+		if (that.GapFiller) GapFiller=W3DNEW GapFillerClass(*that.GapFiller);
 	}
 	return * this;
 }
