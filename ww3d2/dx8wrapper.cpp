@@ -1790,7 +1790,11 @@ void DX8Wrapper::Draw_Sorting_IB_VB(
 		0,
 		static_cast<DX8VertexBufferClass*>(dyn_vb_access.VertexBuffer)->Get_DX8_Vertex_Buffer(),
 		dyn_vb_access.FVF_Info().Get_FVF_Size()));
-	DX8CALL(SetVertexShader(dyn_vb_access.FVF_Info().Get_FVF()));
+	// If using FVF format VB, set the FVF as vertex shader (may not be needed here KM)
+	unsigned fvf=dyn_vb_access.FVF_Info().Get_FVF();
+	if (fvf!=0) {
+		DX8CALL(SetVertexShader(fvf));
+	}
 	DX8_RECORD_VERTEX_BUFFER_CHANGE();
 
 	unsigned index_count=0;
@@ -1823,6 +1827,7 @@ void DX8Wrapper::Draw_Sorting_IB_VB(
 		dyn_vb_access.VertexBufferOffset));
 	DX8_RECORD_INDEX_BUFFER_CHANGE();
 
+	DX8_RECORD_DRAW_CALLS();
 	DX8CALL(DrawIndexedPrimitive(
 		D3DPT_TRIANGLELIST,
 		0,		// start vertex
@@ -1929,6 +1934,7 @@ void DX8Wrapper::Draw(
 		case BUFFER_TYPE_DYNAMIC_DX8:
 			{
 				DX8_RECORD_RENDER(polygon_count,vertex_count,render_state.shader);
+				DX8_RECORD_DRAW_CALLS();
 				DX8CALL(DrawIndexedPrimitive(
 					(D3DPRIMITIVETYPE)primitive_type,
 					min_vertex_index,
@@ -2215,15 +2221,28 @@ IDirect3DTexture8 * DX8Wrapper::_Create_DX8_Texture(
 	// We should never run out of video memory when allocating a non-rendertarget texture.
 	// However, it seems to happen sometimes when there are a lot of textures in memory and so
 	// if it happens we'll release assets and try again (anything is better than crashing).
-	unsigned ret=D3DXCreateTexture(
-		DX8Wrapper::_Get_D3D_Device8(),
-		width,
-		height,
-		mip_level_count,
-		0,
-		WW3DFormat_To_D3DFormat(format),
-		pool,
-		&texture);
+	unsigned ret;
+	if (width!=height) {
+		ret=DX8Wrapper::_Get_D3D_Device8()->CreateTexture(
+			width,
+			height,
+			mip_level_count,
+			0,
+			WW3DFormat_To_D3DFormat(format),
+			pool,
+			&texture);
+	}
+	else {
+		ret=D3DXCreateTexture(
+			DX8Wrapper::_Get_D3D_Device8(),
+			width,
+			height,
+			mip_level_count,
+			0,
+			WW3DFormat_To_D3DFormat(format),
+			pool,
+			&texture);
+	}
 
 	// If ran out of texture ram, try invalidating some textures and mesh cache.
 	if (ret==D3DERR_OUTOFVIDEOMEMORY) {

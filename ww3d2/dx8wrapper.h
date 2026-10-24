@@ -107,6 +107,7 @@ class DX8Caps;
 #define DX8_RECORD_TEXTURE_CHANGE()				texture_changes++
 #define DX8_RECORD_RENDER_STATE_CHANGE()		render_state_changes++
 #define DX8_RECORD_TEXTURE_STAGE_STATE_CHANGE() texture_stage_state_changes++
+#define DX8_RECORD_DRAW_CALLS()					draw_calls++
 
 extern unsigned number_of_DX8_calls;
 extern bool _DX8SingleThreaded;
