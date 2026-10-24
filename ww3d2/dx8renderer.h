@@ -53,7 +53,6 @@
 #include "shader.h"
 #include "dx8wrapper.h"
 #include "meshmatdesc.h"
-#include "hashtemplate.h"
 
 class IndexBufferClass;
 class VertexBufferClass;
@@ -182,7 +181,7 @@ public:
 	DX8FVFCategoryContainer(unsigned FVF,bool sorting);
 	virtual ~DX8FVFCategoryContainer();
 
-	static unsigned Define_FVF(MeshModelClass* mmc,unsigned int * user_lighting,bool enable_lighting);
+	static unsigned Define_FVF(MeshModelClass* mmc,bool enable_lighting);
 	bool Is_Sorting() const { return sorting; }
 
 	void Change_Polygon_Renderer_Texture(
@@ -201,7 +200,7 @@ public:
 	void Remove_Texture_Category(DX8TextureCategoryClass* tex_category);
 
 	virtual void Render(void)=0;
-	virtual void Add_Mesh(MeshClass* mmc)=0;
+	virtual void Add_Mesh(MeshModelClass* mmc)=0;
 	virtual void Log(bool only_visible)=0;
 	virtual bool Check_If_Mesh_Fits(MeshModelClass* mmc)=0;
 
@@ -239,7 +238,7 @@ public:
 	DX8RigidFVFCategoryContainer(unsigned FVF,bool sorting);
 	~DX8RigidFVFCategoryContainer();
 
-	void Add_Mesh(MeshClass* mmc);
+	void Add_Mesh(MeshModelClass* mmc);
 	void Log(bool only_visible);
 	bool Check_If_Mesh_Fits(MeshModelClass* mmc);
 
@@ -275,7 +274,7 @@ public:
 	~DX8SkinFVFCategoryContainer();
 
 	void Render(void);
-	void Add_Mesh(MeshClass* mmc);
+	void Add_Mesh(MeshModelClass* mmc);
 	void Log(bool only_visible);
 	bool Check_If_Mesh_Fits(MeshModelClass* mmc);
 
@@ -298,30 +297,6 @@ private:
 };
 
 
-/**
-** MeshRegKeyStruct, _RegisteredMeshTable
-** This hash table is used to map model+lighting pointer pairs back to meshes
-** which are registered with the mesh rendering system.  Whenever a mesh is using
-** the same model and lighting array, it can simply clone the polygon renderers
-** and re-use the vb and ib data.
-*/
-struct MeshRegKeyStruct
-{
-	MeshRegKeyStruct(void) : Model(NULL), UserLighting(NULL) {}
-	MeshRegKeyStruct(MeshModelClass * mdl,unsigned int * lighting) : Model(mdl), UserLighting(lighting) {}
-	bool operator == (const MeshRegKeyStruct & that) { return ((Model == that.Model) && (UserLighting == that.UserLighting)); }
-
-	MeshModelClass *	Model;
-	unsigned int *		UserLighting;
-};
-
-
-inline unsigned int HashTemplateKeyClass<MeshRegKeyStruct>::Get_Hash_Value(const MeshRegKeyStruct& key)
-{
-	unsigned int hval = (unsigned int)(key.Model) + (unsigned int)(key.UserLighting);
-	hval = hval + (hval>>5) + (hval>>10) + (hval >> 20);
-	return hval;
-}
 
 
 
@@ -348,8 +323,8 @@ public:
 	void						Log_Statistics_String(bool only_visible);
 	static void				Request_Log_Statistics();
 
-	void						Register_Mesh_Type(MeshClass* mesh);
-	void						Unregister_Mesh_Type(MeshClass* mesh);
+	void						Register_Mesh_Type(MeshModelClass* mmc);
+	void						Unregister_Mesh_Type(MeshModelClass* mmc);
 	
 	void						Set_Camera(CameraClass* cam) { camera=cam; }
 	CameraClass *			Peek_Camera(void)	{ return camera; }
@@ -372,8 +347,6 @@ protected:
 	FVFCategoryList *									texture_category_container_list_skin;
 
 	DecalMeshClass *									visible_decal_meshes;
-
-	HashTemplateClass<MeshRegKeyStruct,MeshClass*> _RegisteredMeshTable;
 
 };
 

@@ -143,15 +143,6 @@ static SimpleDynVecClass<uint32> temp_apt;
 */
 static DynamicVectorClass<Vector3>	_TempVertexBuffer;
 
-/*
-** Chunk ID's for saving user lighting
-*/
-enum 
-{
-	CHUNKID_USER_LIGHTING_ARRAY = 0x07520213,
-};
-
-
 /***********************************************************************************************
  * MeshClass::MeshClass -- Constructor for MeshClass                                           *
  *                                                                                             *
@@ -173,8 +164,7 @@ MeshClass::MeshClass(void) :
 	BaseVertexOffset(0),
 	NextVisibleSkin(NULL),
 	IsDisabledByDebugger(false),
-	MeshDebugId(MeshDebugIdCount++),
-	UserLighting(NULL)
+	MeshDebugId(MeshDebugIdCount++)
 {
 }
 
@@ -200,8 +190,7 @@ MeshClass::MeshClass(const MeshClass & that) :
 	BaseVertexOffset(that.BaseVertexOffset),
 	NextVisibleSkin(NULL),
 	IsDisabledByDebugger(false),
-	MeshDebugId(MeshDebugIdCount++),
-	UserLighting(NULL)
+	MeshDebugId(MeshDebugIdCount++)
 {
 	REF_PTR_SET(Model,that.Model);					// mesh instances share models by default
 }
@@ -223,8 +212,6 @@ MeshClass & MeshClass::operator = (const MeshClass & that)
 {
 	if (this != &that) {
 
-		TheDX8MeshRenderer.Unregister_Mesh_Type(this);
-
 		RenderObjClass::operator = (that);
 
 		REF_PTR_SET(Model,that.Model);				// mesh instances share models by default
@@ -233,11 +220,6 @@ MeshClass & MeshClass::operator = (const MeshClass & that)
 		// just dont copy the decals or light environment
 		REF_PTR_RELEASE(DecalMesh);
 		LightEnvironment = NULL;
-
-		if (UserLighting != NULL) {
-			delete[] UserLighting;
-			UserLighting = NULL;
-		}
 	}
 	return * this;
 }
@@ -257,7 +239,6 @@ MeshClass & MeshClass::operator = (const MeshClass & that)
  *=============================================================================================*/
 MeshClass::~MeshClass(void) 
 {
-	TheDX8MeshRenderer.Unregister_Mesh_Type(this);
 	Free();
 }
 
@@ -300,10 +281,6 @@ void MeshClass::Free(void)
 {
 	REF_PTR_RELEASE(Model);
 	REF_PTR_RELEASE(DecalMesh);
-	if (UserLighting != NULL) {
-		delete[] UserLighting;
-		UserLighting = NULL;
-	}
 }
 
 
@@ -723,9 +700,8 @@ void MeshClass::Render(RenderInfoClass & rinfo)
 			/*
 			** If this mesh model has never been rendered, we need to generate the DX8 datastructures
 			*/
-			if (PolygonRendererList.Is_Empty()) {
+			if (Model->PolygonRendererList.Is_Empty()) {
 				Model->Register_For_Rendering();
-				TheDX8MeshRenderer.Register_Mesh_Type(this);
 			}
 
 			/*
@@ -736,7 +712,7 @@ void MeshClass::Render(RenderInfoClass & rinfo)
 			/*
 			** Look up the FVF container that this mesh is in
 			*/
-			DX8FVFCategoryContainer * fvf_container = PolygonRendererList.Peek_Head()->Get_Texture_Category()->Get_Container();
+			DX8FVFCategoryContainer * fvf_container = Model->PolygonRendererList.Peek_Head()->Get_Texture_Category()->Get_Container();
 			
 			/*
 			** Check if we should render the base passes.  One special case here: if
@@ -759,7 +735,7 @@ void MeshClass::Render(RenderInfoClass & rinfo)
 				/*
 				** Link each polygon renderer for this mesh into the visible list
 				*/
-				DX8PolygonRendererListIterator it(&(PolygonRendererList));
+				DX8PolygonRendererListIterator it(&(Model->PolygonRendererList));
 				while (!it.Is_Done()) {
 					DX8PolygonRendererClass* polygon_renderer=it.Peek_Obj();
 					polygon_renderer->Get_Texture_Category()->Add_Render_Task(polygon_renderer,this);
@@ -851,7 +827,7 @@ void MeshClass::Render_Material_Pass(MaterialPassClass * pass,IndexBufferClass *
 		SNAPSHOT_SAY(("Set_World_Identity\n"));
 		DX8Wrapper::Set_World_Identity();
 
-		DX8PolygonRendererListIterator it(&PolygonRendererList);
+		DX8PolygonRendererListIterator it(&Model->PolygonRendererList);
 		while (!it.Is_Done()) {
 			it.Peek_Obj()->Render(BaseVertexOffset);
 			it.Next();
@@ -922,7 +898,7 @@ void MeshClass::Render_Material_Pass(MaterialPassClass * pass,IndexBufferClass *
 			/*
 			** Render
 			*/
-			int vertex_offset = PolygonRendererList.Peek_Head()->Get_Vertex_Offset();
+			int vertex_offset = Model->PolygonRendererList.Peek_Head()->Get_Vertex_Offset();
 			pass->Install_Materials();
 			
 			DX8Wrapper::Set_Transform(D3DTS_WORLD,Get_Transform());
@@ -945,7 +921,7 @@ void MeshClass::Render_Material_Pass(MaterialPassClass * pass,IndexBufferClass *
 		SNAPSHOT_SAY(("Set_World_Transform\n"));
 		DX8Wrapper::Set_Transform(D3DTS_WORLD,Transform);
 
-		DX8PolygonRendererListIterator it(&PolygonRendererList);
+		DX8PolygonRendererListIterator it(&Model->PolygonRendererList);
 		while (!it.Is_Done()) {
 			it.Peek_Obj()->Render(BaseVertexOffset);
 			it.Next();
@@ -1497,104 +1473,9 @@ void MeshClass::Set_Sort_Level(int level)
 	}
 }
 
-unsigned int * MeshClass::Get_User_Lighting_Array(bool alloc)
+int MeshClass::Unknown_Virtual_113(void)
 {
-	if (alloc && (UserLighting == NULL)) {
-		UserLighting = new unsigned int[Model->Get_Vertex_Count()];
-	}
-	return UserLighting;
-}
-
-DX8FVFCategoryContainer* MeshClass::Peek_FVF_Category_Container()
-{
-	if (PolygonRendererList.Is_Empty()) return NULL;
-	DX8PolygonRendererClass* polygon_renderer=PolygonRendererList.Get_Head();
-	WWASSERT(polygon_renderer);
-	DX8TextureCategoryClass* texture_category=polygon_renderer->Get_Texture_Category();
-	WWASSERT(texture_category);
-	DX8FVFCategoryContainer* fvf_category=texture_category->Get_Container();
-	WWASSERT(fvf_category);
-	return fvf_category;
-}
-
-void MeshClass::Install_User_Lighting_Array(Vector4 * lighting)
-{
-	Get_User_Lighting_Array(true);
-	
-	for (int vi=0; vi<Model->Get_Vertex_Count(); vi++) {
-		UserLighting[vi] = DX8Wrapper::Convert_Color(lighting[vi]);
-	}
-	
-	setup_materials_for_user_lighting();
-}
-
-void MeshClass::setup_materials_for_user_lighting(void)
-{
-	/*
-	** Modify the vertex materials to use the solve if necessary
-	*/
-	for (int pass=0; pass<Model->Get_Pass_Count(); pass++) {
-		if (Model->Has_Material_Array(pass)) {
-			
-			int vidx = 0;
-			VertexMaterialClass * mtl = Model->Peek_Material(0,pass);
-			setup_material_for_user_lighting(mtl); 
-
-			while (vidx < Model->Get_Vertex_Count()) {
-				VertexMaterialClass * next_mtl = Model->Peek_Material(vidx,pass);
-				if (next_mtl != mtl) {
-					setup_material_for_user_lighting(next_mtl);
-					mtl = next_mtl;
-				}
-				vidx++;
-			}
-		
-		} else {
-
-			setup_material_for_user_lighting(Model->Peek_Single_Material(pass));
-		
-		}		
-	}
-}
-
-
-void MeshClass::setup_material_for_user_lighting(VertexMaterialClass * mtl)
-{
-	// (gth) The terrain pre-lit stuff *must* use the diffuse and ambient arrays (to get vertex alpha
-	// working).  So, for now we'll plug the color array into diffuse and ambient and the light
-	// environment will be set up so that ambient_light = 1,1,1
-	Vector3 emissive;
-	mtl->Get_Emissive(&emissive);
-	if (emissive == Vector3(0,0,0)) {
-		mtl->Set_Ambient_Color_Source(VertexMaterialClass::COLOR1);
-		mtl->Set_Diffuse_Color_Source(VertexMaterialClass::COLOR1);
-	}
-}
-
-
-void MeshClass::Save_User_Lighting (ChunkSaveClass & csave)
-{
-	if (UserLighting != NULL) {
-		csave.Begin_Chunk(CHUNKID_USER_LIGHTING_ARRAY);
-		csave.Write(&(UserLighting[0]),Model->Get_Vertex_Count() * 4);
-		csave.End_Chunk();
-	}
-}
-
-void MeshClass::Load_User_Lighting (ChunkLoadClass & cload)
-{
-	while (cload.Open_Chunk()) {
-		if (	(cload.Cur_Chunk_ID() == CHUNKID_USER_LIGHTING_ARRAY) && 
-				(cload.Cur_Chunk_Length() == (unsigned)(Model->Get_Vertex_Count() * 4)) ) 
-		{
-			unsigned int * lighting = Get_User_Lighting_Array(true);
-			cload.Read(lighting,Model->Get_Vertex_Count() * 4);
-			setup_materials_for_user_lighting();
-		}
-		cload.Close_Chunk();
-	}
-
-	Set_Has_User_Lighting(true);
+	return 0x750;
 }
 
 

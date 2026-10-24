@@ -170,14 +170,9 @@ public:
 	void								Set_Debugger_Disable(bool b) { IsDisabledByDebugger=b; }
 	bool								Is_Disabled_By_Debugger() const { return IsDisabledByDebugger; }
 
-	/*
-	** User Lighting feature, meshes can have a user lighting array.
-	*/
-	void								Install_User_Lighting_Array(Vector4 * lighting);
-	unsigned int *					Get_User_Lighting_Array(bool alloc = false);
-
-	virtual void					Save_User_Lighting (ChunkSaveClass & csave);
-	virtual void					Load_User_Lighting (ChunkLoadClass & cload);
+	// E&B: MeshClass's one virtual of its own (vtable slot 113, 0x941310: returns 0x750), where
+	// Renegade has Save_User_Lighting and Load_User_Lighting. Name unknown (D10).
+	virtual int						Unknown_Virtual_113(void);
 
 protected:
 
@@ -185,12 +180,9 @@ protected:
 
 	virtual void					Add_Dependencies_To_List (DynamicVectorClass<StringClass> &file_list, bool textures_only = false);
 	virtual void					Update_Cached_Bounding_Volumes(void) const;
-	DX8FVFCategoryContainer*	Peek_FVF_Category_Container(void);
 
 	void								install_materials(MeshLoadInfoClass * loadinfo);
 	void								clone_materials(const MeshClass & srcmesh);
-	void								setup_materials_for_user_lighting(void);
-	void								setup_material_for_user_lighting(VertexMaterialClass * mtl);
 
 	MeshModelClass *				Model;
 	DecalMeshClass *				DecalMesh;
@@ -201,11 +193,6 @@ protected:
 
 	unsigned							MeshDebugId;
 	bool								IsDisabledByDebugger;
-
-	unsigned int *					UserLighting;			// optional array of user lighting values
-
-	// DX8 Mesh rendering system data
-	DX8PolygonRendererList		PolygonRendererList;
 
 	friend class MeshBuilderClass;
 	friend class DX8MeshRendererClass;

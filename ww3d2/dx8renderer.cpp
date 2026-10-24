@@ -74,6 +74,7 @@ static DynamicVectorClass<Vector3>				_TempNormalBuffer;
 
 static TextureCategoryList							texture_category_delete_list;
 static FVFCategoryList								fvf_category_container_delete_list;
+static MultiListClass<MeshModelClass>			_RegisteredMeshList;
 
 
 // helper data structure
@@ -214,7 +215,7 @@ DX8TextureCategoryClass::~DX8TextureCategoryClass()
 {
 	// Unregistering the mesh where polygon renderers are connected to kills all polygon renderers
 	while (DX8PolygonRendererClass* p_renderer=PolygonRendererList.Get_Head()) {
-		TheDX8MeshRenderer.Unregister_Mesh_Type(p_renderer->Get_Mesh_Class());
+		TheDX8MeshRenderer.Unregister_Mesh_Type(p_renderer->Get_Mesh_Model_Class());
 	}
 	for (int a=0;a<MeshMatDescClass::MAX_TEX_STAGES;++a) 
 	{
@@ -676,7 +677,7 @@ void DX8FVFCategoryContainer::Change_Polygon_Renderer_Material(
 
 // ----------------------------------------------------------------------------
 
-unsigned DX8FVFCategoryContainer::Define_FVF(MeshModelClass* mmc,unsigned int * user_lighting,bool enable_lighting)
+unsigned DX8FVFCategoryContainer::Define_FVF(MeshModelClass* mmc,bool enable_lighting)
 {
 	if ((!!mmc->Get_Flag(MeshGeometryClass::SORT)) && WW3D::Is_Sorting_Enabled()) {
 		return dynamic_fvf_type;
@@ -686,7 +687,7 @@ unsigned DX8FVFCategoryContainer::Define_FVF(MeshModelClass* mmc,unsigned int * 
 
 	int tex_coord_count=mmc->Get_UV_Array_Count();
 
-	if (mmc->Get_Color_Array(0,false) || (user_lighting != NULL)) {
+	if (mmc->Get_Color_Array(0,false)) {
 		fvf|=D3DFVF_DIFFUSE;
 	}
 	if (mmc->Get_Color_Array(1,false)) {
@@ -829,7 +830,6 @@ bool DX8RigidFVFCategoryContainer::Check_If_Mesh_Fits(MeshModelClass* mmc)
 
 class Vertex_Split_Table
 {
-	MeshClass* mesh;
 	MeshModelClass* mmc;
 	bool npatch_enable;
 	unsigned polygon_count;
@@ -838,14 +838,12 @@ class Vertex_Split_Table
 	bool allocated_polygon_array;
 
 public:
-	Vertex_Split_Table(MeshClass* mesh_)
+	Vertex_Split_Table(MeshModelClass* mmc_)
 		:
-		mesh(mesh_),
-		mmc(NULL),
+		mmc(mmc_),
 		npatch_enable(false),
 		allocated_polygon_array(false)
 	{
-		mmc = mesh_->Peek_Model();
 		if (DX8Wrapper::Get_Current_Caps()->Support_NPatches() && mmc->Needs_Vertex_Normals()) {
 			if (mmc->Get_Flag(MeshGeometryClass::ALLOW_NPATCHES)) {
 				npatch_enable=true;
@@ -894,9 +892,6 @@ public:
 
 	const unsigned* Get_Color_Array(unsigned index) const
 	{
-		if ((index == 0) && (mesh->Get_User_Lighting_Array() != NULL)) {
-			return mesh->Get_User_Lighting_Array();
-		}
 		return mmc->Get_Color_Array(index,false);
 	}
 
@@ -973,11 +968,6 @@ public:
 		return mmc;
 	}
 
-	MeshClass * Get_Mesh_Class()
-	{
-		return mesh;
-	}
-
 	unsigned short* Get_Polygon_Array(unsigned pass)
 	{
 		return (unsigned short*)polygon_array;
@@ -986,12 +976,11 @@ public:
 
 // ----------------------------------------------------------------------------
 
-void DX8RigidFVFCategoryContainer::Add_Mesh(MeshClass* mesh_)
+void DX8RigidFVFCategoryContainer::Add_Mesh(MeshModelClass* mmc_)
 {
-	MeshModelClass * mmc_ = mesh_->Peek_Model();
 	WWASSERT(Check_If_Mesh_Fits(mmc_));
 
-	Vertex_Split_Table split_table(mesh_);
+	Vertex_Split_Table split_table(mmc_);
 	int needed_vertices=split_table.Get_Vertex_Count();
 
 	/*
@@ -1432,9 +1421,9 @@ void DX8SkinFVFCategoryContainer::Reset()
 
 // ----------------------------------------------------------------------------
 
-void DX8SkinFVFCategoryContainer::Add_Mesh(MeshClass* mesh)
+void DX8SkinFVFCategoryContainer::Add_Mesh(MeshModelClass* mmc)
 {
-	Vertex_Split_Table split_table(mesh);
+	Vertex_Split_Table split_table(mmc);
 
 	Generate_Texture_Categories(split_table,0);
 }
@@ -1517,7 +1506,7 @@ unsigned DX8TextureCategoryClass::Add_Mesh(
 
 				DX8PolygonRendererClass* p_renderer=new DX8PolygonRendererClass(
 					index_count,
-					split_table.Get_Mesh_Class(),
+					split_table.Get_Mesh_Model_Class(),
 					this,
 					vertex_offset,
 					index_offset,
@@ -1556,7 +1545,7 @@ unsigned DX8TextureCategoryClass::Add_Mesh(
 		if (!stripify ) {
 			DX8PolygonRendererClass* p_renderer=new DX8PolygonRendererClass(
 				index_count,
-				split_table.Get_Mesh_Class(),
+				split_table.Get_Mesh_Model_Class(),
 				this,
 				vertex_offset,
 				index_offset,
@@ -1829,18 +1818,17 @@ void DX8MeshRendererClass::Clear_Pending_Delete_Lists()
 
 // ----------------------------------------------------------------------------
 
-static void Add_Rigid_Mesh_To_Container(FVFCategoryList* container_list,unsigned fvf,MeshClass* mesh)
+static void Add_Rigid_Mesh_To_Container(FVFCategoryList* container_list,unsigned fvf,MeshModelClass* mmc)
 {
 	WWASSERT(container_list);
 	DX8FVFCategoryContainer * container = NULL;
-	MeshModelClass * mmc = mesh->Peek_Model();
 	bool sorting=((!!mmc->Get_Flag(MeshModelClass::SORT)) && WW3D::Is_Sorting_Enabled() && (mmc->Get_Sort_Level() == SORT_LEVEL_NONE));
 
 	FVFCategoryListIterator it(container_list);
 	while (!it.Is_Done()) {
 		container = it.Peek_Obj();
 		if (sorting==container->Is_Sorting() && container->Check_If_Mesh_Fits(mmc)) {
-			container->Add_Mesh(mesh);
+			container->Add_Mesh(mmc);
 			return;
 		}
 		it.Next();
@@ -1848,20 +1836,19 @@ static void Add_Rigid_Mesh_To_Container(FVFCategoryList* container_list,unsigned
 
 	container=new DX8RigidFVFCategoryContainer(fvf,sorting);
 	container_list->Add_Tail(container);
-	container->Add_Mesh(mesh);
+	container->Add_Mesh(mmc);
 }
 
 // ----------------------------------------------------------------------------
 
-void DX8MeshRendererClass::Unregister_Mesh_Type(MeshClass* mesh)
+void DX8MeshRendererClass::Unregister_Mesh_Type(MeshModelClass* mmc)
 {
-	while (DX8PolygonRendererClass* n=mesh->PolygonRendererList.Remove_Head()) {
+	while (DX8PolygonRendererClass* n=mmc->PolygonRendererList.Remove_Head()) {
 		delete n;
 	}
-	_RegisteredMeshTable.Remove(MeshRegKeyStruct(mesh->Peek_Model(),mesh->Get_User_Lighting_Array()),mesh);
+	_RegisteredMeshList.Remove(mmc);
 
 	// Also remove the gap filler!
-	MeshModelClass * mmc = mesh->Peek_Model();
 	if (mmc->GapFiller) {
 		GapFillerClass* gf=mmc->GapFiller;
 		mmc->GapFiller=NULL;
@@ -1870,10 +1857,9 @@ void DX8MeshRendererClass::Unregister_Mesh_Type(MeshClass* mesh)
 }
 
 
-void DX8MeshRendererClass::Register_Mesh_Type(MeshClass* mesh)
+void DX8MeshRendererClass::Register_Mesh_Type(MeshModelClass* mmc)
 {
 	WWMEMLOG(MEM_GEOMETRY);
-	MeshModelClass * mmc = mesh->Peek_Model();
 #ifdef ENABLE_CATEGORY_LOG
 	WWDEBUG_SAY(("Registering mesh: %s (%d polys, %d verts + %d gap polygons)\n",mmc->Get_Name(),mmc->Get_Polygon_Count(),mmc->Get_Vertex_Count(),mmc->Get_Gap_Filler_Polygon_Count()));
 #endif
@@ -1891,7 +1877,7 @@ void DX8MeshRendererClass::Register_Mesh_Type(MeshClass* mesh)
 		while (!it.Is_Done()) {
 			DX8FVFCategoryContainer * container = it.Peek_Obj();
 			if (sorting==container->Is_Sorting() && container->Check_If_Mesh_Fits(mmc)) {
-				container->Add_Mesh(mesh);
+				container->Add_Mesh(mmc);
 				return;
 			}
 			it.Next();
@@ -1899,29 +1885,21 @@ void DX8MeshRendererClass::Register_Mesh_Type(MeshClass* mesh)
 
 		DX8FVFCategoryContainer * new_container=new DX8SkinFVFCategoryContainer(sorting);
 		texture_category_container_list_skin->Add_Tail(new_container);
-		new_container->Add_Mesh(mesh);
+		new_container->Add_Mesh(mmc);
 	
 	} else {
 
-		unsigned int * user_lighting = mesh->Get_User_Lighting_Array();
-		MeshClass * existing_mesh = _RegisteredMeshTable.Get(MeshRegKeyStruct(mmc,user_lighting));
-		if (existing_mesh != NULL) {
+		/*
+		** We should never try to add the same mesh model to the system twice.
+		*/
+		WWASSERT_PRINT(_RegisteredMeshList.Contains(mmc) == false,("Mesh name: %s",mmc->Get_Name()));
 
-			// We found another instance of this mesh model so we can simply clone the poly renderers
-			DX8PolygonRendererListIterator it(&(existing_mesh->PolygonRendererList));
-			while (!it.Is_Done()) {
-				DX8PolygonRendererClass * src_renderer=it.Peek_Obj();
-				DX8PolygonRendererClass * new_renderer = new DX8PolygonRendererClass(*src_renderer,mesh);
-				src_renderer->Get_Texture_Category()->Add_Polygon_Renderer(new_renderer);
-				it.Next();
-			}
+		/*
+		** If the previous step didn't add the mesh, then we have to actually process this mesh
+		*/
+		if (!_RegisteredMeshList.Contains(mmc)) {
 
-		} else {
-
-			// This mesh model either is not registered yet or has been registered with a 
-			// different user lighting array.  Simply add it into the system as if it is a 
-			// completely unique mesh.
-			unsigned fvf=DX8FVFCategoryContainer::Define_FVF(mmc,user_lighting,enable_lighting);
+			unsigned fvf=DX8FVFCategoryContainer::Define_FVF(mmc,enable_lighting);
 
 			/*
 			** Search for an existing FVF Category Container that matches this mesh
@@ -1932,7 +1910,7 @@ void DX8MeshRendererClass::Register_Mesh_Type(MeshClass* mesh)
 				DX8FVFCategoryContainer * container=list->Peek_Head();
 				if (container && container->Get_FVF()!=fvf) continue;
 
-				Add_Rigid_Mesh_To_Container(list,fvf,mesh);
+				Add_Rigid_Mesh_To_Container(list,fvf,mmc);
 				break;
 			}
 
@@ -1944,14 +1922,14 @@ void DX8MeshRendererClass::Register_Mesh_Type(MeshClass* mesh)
 				*/
 				FVFCategoryList * new_fvf_category = new FVFCategoryList();
 				texture_category_container_lists_rigid.Add(new_fvf_category);
-				Add_Rigid_Mesh_To_Container(new_fvf_category,fvf,mesh);
+				Add_Rigid_Mesh_To_Container(new_fvf_category,fvf,mmc);
 			}
 
 			/*
 			** Done processing the mesh, add its polygon renderers to the global registered mesh list
 			*/
-			if (mesh->PolygonRendererList.Is_Empty() == false) {
-				_RegisteredMeshTable.Insert(MeshRegKeyStruct(mmc,user_lighting),mesh);
+			if (mmc->PolygonRendererList.Is_Empty() == false) {
+				_RegisteredMeshList.Add_Tail(mmc);
 			}
 			else {
 				WWDEBUG_SAY(("Error: Register_Mesh_Type failed! file: %s line: %d\r\n",__FILE__,__LINE__));
@@ -2084,7 +2062,7 @@ static void Invalidate_FVF_Category_Container_List(FVFCategoryList& list)
 void DX8MeshRendererClass::Invalidate()
 {
 	WWMEMLOG(MEM_RENDERER);
-	_RegisteredMeshTable.Remove_All();
+	_RegisteredMeshList.Reset_List();
 
 	for (int i=0;i<texture_category_container_lists_rigid.Count();++i) {
 		Invalidate_FVF_Category_Container_List(*texture_category_container_lists_rigid[i]);

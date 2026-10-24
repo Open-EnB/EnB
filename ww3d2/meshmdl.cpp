@@ -104,6 +104,7 @@ MeshModelClass::MeshModelClass(const MeshModelClass & that) :
 MeshModelClass::~MeshModelClass(void)
 {
 //	WWDEBUG_SAY(("Note: Mesh %s was never used\n",Get_Name()));
+	TheDX8MeshRenderer.Unregister_Mesh_Type(this);
 
 	Reset(0,0,0);
 	REF_PTR_RELEASE(MatInfo);
@@ -120,6 +121,9 @@ MeshModelClass::~MeshModelClass(void)
 MeshModelClass & MeshModelClass::operator = (const MeshModelClass & that)
 {
 	if (this != &that) {
+		// Remove all polygon renderers, this will remove the mesh from the rendering system.
+		// The mesh will be initialized to rendering system the next time it is rendered.
+		TheDX8MeshRenderer.Unregister_Mesh_Type(this);
 
 		MeshGeometryClass::operator = (that);
 
@@ -148,9 +152,17 @@ MeshModelClass & MeshModelClass::operator = (const MeshModelClass & that)
 
 void MeshModelClass::Reset(int polycount,int vertcount,int passcount)
 {
+	//DMS - We must delete the gapfiller object BEFORE the geometry is reset.  Otherwise,
+	// the number of stages and passes gets reset and the gapfiller cannot deallocate properly.
+	delete GapFiller;
+	GapFiller=NULL;
+
 	Reset_Geometry(polycount,vertcount);
 
 	// Release everything we have and reset to initial state
+
+	TheDX8MeshRenderer.Unregister_Mesh_Type(this);
+
 	MatInfo->Reset();
 	DefMatDesc->Reset(polycount,vertcount,passcount);
 	if (AlternateMatDesc != NULL) {
@@ -158,9 +170,6 @@ void MeshModelClass::Reset(int polycount,int vertcount,int passcount)
 		AlternateMatDesc = NULL;
 	}
 	CurMatDesc = DefMatDesc;
-
-	delete GapFiller;
-	GapFiller=NULL;
 
 	return ;
 }
@@ -187,6 +196,8 @@ void MeshModelClass::Register_For_Rendering()
 			GapFiller=NULL;
 		}
 	}
+
+	TheDX8MeshRenderer.Register_Mesh_Type(this);
 }
 
 void MeshModelClass::Replace_Texture(TextureClass* texture,TextureClass* new_texture)

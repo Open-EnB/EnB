@@ -63,7 +63,7 @@ class DX8TextureCategoryClass;
 */
 class DX8PolygonRendererClass : public MultiListObjectClass 
 {
-	MeshClass *						mesh;
+	MeshModelClass *				mmc;
 	DX8TextureCategoryClass *	texture_category;			
 	unsigned							index_offset;				// absolute index of index 0 for our parent mesh
 	unsigned							vertex_offset;				// absolute index of vertex 0 for our parent mesh
@@ -75,12 +75,12 @@ class DX8PolygonRendererClass : public MultiListObjectClass
 public:
 	DX8PolygonRendererClass(
 		unsigned index_count,
-		MeshClass* mesh_,
+		MeshModelClass* mmc_,
 		DX8TextureCategoryClass* tex_cat,
 		unsigned vertex_offset,
 		unsigned index_offset,
 		bool strip);
-	DX8PolygonRendererClass(const DX8PolygonRendererClass& src,MeshClass * mesh_);
+	DX8PolygonRendererClass(const DX8PolygonRendererClass& src,MeshModelClass * mmc_);
 	~DX8PolygonRendererClass();
 
 	void								Render(/*const Matrix3D & tm,*/int base_vertex_offset);
@@ -90,8 +90,7 @@ public:
 	unsigned							Get_Vertex_Offset(void)	{ return vertex_offset; }
 	unsigned							Get_Index_Offset(void)	{ return index_offset; }
 
-	MeshClass*						Get_Mesh_Class() { return mesh; }
-//	MeshModelClass*				Get_Mesh_Model_Class() { return mesh->Peek_Model(); }
+	MeshModelClass*				Get_Mesh_Model_Class() { return mmc; }
 	
 	DX8TextureCategoryClass*	Get_Texture_Category() { return texture_category; }
 	void								Set_Texture_Category(DX8TextureCategoryClass* tc) { texture_category=tc; }

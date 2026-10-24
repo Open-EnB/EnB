@@ -46,13 +46,13 @@
 
 DX8PolygonRendererClass::DX8PolygonRendererClass(
 	unsigned index_count_,
-	MeshClass* mesh_,
+	MeshModelClass* mmc_,
 	DX8TextureCategoryClass* tex_cat,
 	unsigned vertex_offset_,
 	unsigned index_offset_,
 	bool strip_)
 	:
-	mesh(mesh_), 
+	mmc(mmc_), 
 	texture_category(tex_cat),
 	index_offset(index_offset_),
 	vertex_offset(vertex_offset_),
@@ -62,12 +62,12 @@ DX8PolygonRendererClass::DX8PolygonRendererClass(
 	strip(strip_)
 {
 	WWASSERT(index_count);
-	mesh->PolygonRendererList.Add_Tail(this);
+	mmc->PolygonRendererList.Add_Tail(this);
 }
 
-DX8PolygonRendererClass::DX8PolygonRendererClass(const DX8PolygonRendererClass& src,MeshClass* mesh_)
+DX8PolygonRendererClass::DX8PolygonRendererClass(const DX8PolygonRendererClass& src,MeshModelClass* mmc_)
 	:
-	mesh(mesh_), 
+	mmc(mmc_), 
 	texture_category(src.texture_category),
 	index_offset(src.index_offset),
 	vertex_offset(src.vertex_offset),
@@ -76,7 +76,7 @@ DX8PolygonRendererClass::DX8PolygonRendererClass(const DX8PolygonRendererClass& 
 	index_count(src.index_count),
 	strip(src.strip)
 {
-	mesh->PolygonRendererList.Add_Tail(this);
+	mmc->PolygonRendererList.Add_Tail(this);
 }
 
 DX8PolygonRendererClass::~DX8PolygonRendererClass()
@@ -96,7 +96,7 @@ void DX8PolygonRendererClass::Log()
 		index_offset,
 		min_vertex_index,
 		vertex_index_range,
-		mesh->Get_Name());
+		mmc->Get_Name());
 
 /*	work.Format(
 		"		Index count: %d (%d polys) i_offset: %d min_vi: %d vi_range: %d ident: %d (%s)\n",
