@@ -187,11 +187,66 @@ already exact.
 
 | Item | Content | Done when |
 |---|---|---|
-| **L1** Libraries | `tools/vc6/build.py`: compile each library completely, every file and not only the ones that match, with its verify flags, then `LIB` it into `wwlib.lib`, `ww3d2.lib`, and so on, plus `app.lib`. Runs on a pool VM (`--pool`); the output goes to `build/` (git-ignored) | eight `.lib` files |
+| **L1** Libraries | `tools/vc6/build.py`: compile each library completely, every file and not only the ones that match, with its verify flags, then `LIB` it into `wwlib.lib`, `ww3d2.lib`, and so on, plus `app.lib`. Runs on a pool VM (`--pool`); the output goes to `build/` (git-ignored) | eight `.lib` files. **Done 2026-10-24: §3.1** |
 | **L2** First executable | Link a minimal WinMain against them with LIBCMT, `d3dx8.lib`, winmm, ws2_32 and the rest. Fix the unresolved externals: NOT_LINKED files, declared-only functions (D28-type declarations), E&B hooks the libraries call back into. Each fix is either a real function or a stub under `stubs/` that is listed and logs when it is called (P3) | a linked `.exe` that starts, `WW3D::Init` succeeds, and the window clears to a colour |
 
 L2's stub list doubles as a to-do list: each stub marks a function the client has and we haven't
 written yet.
+
+### 3.1 L1 results (2026-10-24)
+
+**Done.** `python tools/vc6/build.py --pool 1` (about 50 s on one VM) compiles every committed
+`.cpp` of the eight libraries with verify's flags, defines, include paths and, for `app`, the
+`e:\build\beta\G` `__FILE__` alias (all imported from importer.py), runs `LIB`, and writes
+`build/<lib>/` (git-ignored): the `.lib`, `obj/`, `cl.log`, `symbols.txt`, `members.txt`,
+`summary.json`. It refuses to build a library with uncommitted changes (`--allow-dirty`
+overrides). `build.py unresolved` then lists the unresolved externals into
+`.work/milestones/l1/unresolved.txt`, with a heuristic cause per symbol.
+
+Every file compiles: the tree holds exactly the files verify compiles (assemble only copied files
+with evidence), so "every file" and "verify's files" are the same set today.
+
+| Library | Files compiled | Failed | Warnings | .lib bytes | Members |
+|---|---|---|---|---|---|
+| wwdebug | 3 | 0 | 0 | 95,800 | 3 |
+| wwlib | 66 | 0 | 0 | 732,476 | 66 |
+| wwmath | 35 | 0 | 0 | 602,930 | 35 |
+| wwsaveload | 11 | 0 | 0 | 289,302 | 11 |
+| wwaudio | 17 | 0 | 0 | 655,642 | 17 |
+| ww3d2 | 109 | 0 | 7 (6 × C4530 in w3d_dep.cpp's iostream use without /GX, 1 × C4101) | 4,265,406 | 109 |
+| wwshade | 20 | 0 | 0 | 467,188 | 20 |
+| app | 14 | 0 | 3 (C4231, `extern template` in delta_template.h) | 170,324 | 14 |
+
+**Unresolved externals: 125 symbols** (referenced, defined by none of the eight libraries nor by
+LIBCMT, LIBCPMT, OLDNAMES, kernel32, user32, gdi32, advapi32, ole32, oleaut32, uuid, winmm,
+ws2_32, d3d8, d3dx8, dxguid). By cause:
+
+* **Miles: 66** (wwaudio: 65 `AIL_*` plus `MSS_auto_cleanup`). Needs `mss32.lib` (not in the SDK
+  directory) or stubs.
+* **More system libraries: 12.** VFW32 (8 `AVIFile*`/`AVIStream*`, ww3d2 framgrab.cpp), COMSUPP
+  (3 `_com_*`, ww3d2 dx8webbrowser.cpp), ddraw.lib (`DirectDrawCreate`, wwlib ddraw.cpp).
+* **EA files never imported (no byte evidence): 27 symbols from 12 files.** wwlib `TARGA.CPP` (9,
+  for ww3d2's texture loader and screenshots, `Targa::Open(const char*, long)` included),
+  `int.cpp` (4, `Int<64>` statics for pk.cpp), `blwstraw.cpp` (2), `blowfish.cpp`, `stimer.cpp`,
+  `slnode.cpp` (`DEFINE_AUTO_POOL(GenericSLNode)`, for wwlib, wwsaveload, ww3d2), `win.cpp`
+  (`MainWindow`, `ProgramInstance`: likely set by E&B's WinMain); wwsaveload
+  `definitionfactory.cpp` (2, also used by wwaudio); wwaudio `soundstreamhandle.cpp`, `Utils.cpp`
+  (`MMSLockClass` critical section); wwshade `shddeffactory.cpp` (2), `shdforcelinks.cpp`
+  (`SHD_Force_Links`, which the client has at 0xA08C70). Each is either imported as is (it has no
+  pairs to lose) or checked against the client first.
+* **Declared only: 1 in the libraries.** `ListenerHandleClass::Initialize(SoundBufferClass *)`
+  (wwaudio listenerhandle.h, no definition in any EA copy).
+* **app: 19.** E&B debug hooks from `unknown_debug.h` (`Unknown_Assert_Failed`,
+  `Unknown_Fail_If_Report`, `Unknown_Debug_Printf`, `Unknown_Get_Ticks`) and the globals
+  `DeltaUnknownGlobal`, `DeltaCompoundUnknownGlobal`, `DeltaStringClass::UnknownGlobal`; the
+  missing auxdata functions of §2.3 (`LookupClass::LookupClass`, `RecordTableClass::Add`,
+  `KVListClass::Add`, `KVPairStringClass` ctor, `KVPairTemplateClass<float>`'s dtor and six
+  virtuals, `DeltaTemplateClass<DurationClass>` ctor).
+
+Nothing in the list points at a failed compile, a NOT_LINKED file or a header/body mismatch. The
+list is L2's starting to-do list. Caveat: a library-only link resolves only what the objects
+reference; L2's `WinMain` will add references (WW3D::Init's callees are already in), and a
+`.lib` pulls members only on demand, so some of these may never be needed by a minimal program.
 
 ## 4. M2: VIDTEST
 
