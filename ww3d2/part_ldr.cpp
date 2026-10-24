@@ -1674,13 +1674,14 @@ ParticleEmitterDefClass::Save_Extra_Info (ChunkSaveClass & chunk_save)
 	// Begin a chunk that identifies the extra info
 	if (chunk_save.Begin_Chunk (W3D_CHUNK_EMITTER_EXTRA_INFO) == TRUE) {
 
-		W3dEmitterExtraInfoStruct data;
+		// Write the extra info structure out to the chunk
+		if (chunk_save.Write (&m_ExtraInfo, sizeof (m_ExtraInfo)) == sizeof (m_ExtraInfo))
+		{
+			// Success!
+			ret_val = WW3D_ERROR_OK;
+		}
 
-		memset(&data, 0, sizeof(data));
-		data.FutureStartTime = Get_Future_Start_Time();
-		bool success = (chunk_save.Write (&data, sizeof (data)) == sizeof (data));		
-		ret_val = success ? WW3D_ERROR_OK : WW3D_ERROR_SAVE_FAILED;
-		
+		// End the chunk
 		chunk_save.End_Chunk ();
 	}
 

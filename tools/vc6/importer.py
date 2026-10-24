@@ -1141,6 +1141,14 @@ TEXTURE_API_PATCHES = {
          'void\tLineGroupClass::Render(RenderInfoClass &rinfo, const Matrix3D &transform)\n',
          "LineGroupClass::Render's transform argument (the body that uses it is not rebuilt yet)"),
     ],
+    ('ww3d2', 'part_ldr.cpp'): [
+        ('\t\tW3dEmitterExtraInfoStruct data;\n',
+         '\t\t// Write the extra info structure out to the chunk\n\t\tif (chunk_save.Write (&m_ExtraInfo, sizeof (m_ExtraInfo)) == sizeof (m_ExtraInfo))\n\t\t{\n\t\t\t// Success!\n\t\t\tret_val = WW3D_ERROR_OK;\n\t\t}\n',
+         "ParticleEmitterDefClass::Save_Extra_Info (0x916A60) writes m_ExtraInfo itself (0x28 bytes at +0x1E0, so E&B's flag is saved too), in the form of Save_Line_Properties"),
+        ('\t\tmemset(&data, 0, sizeof(data));\n\t\tdata.FutureStartTime = Get_Future_Start_Time();\n\t\tbool success = (chunk_save.Write (&data, sizeof (data)) == sizeof (data));\t\t\n\t\tret_val = success ? WW3D_ERROR_OK : WW3D_ERROR_SAVE_FAILED;\n\t\t\n',
+         '\t\t// End the chunk\n',
+         "ParticleEmitterDefClass::Save_Extra_Info (0x916A60) writes m_ExtraInfo itself (0x28 bytes at +0x1E0, so E&B's flag is saved too), in the form of Save_Line_Properties"),
+    ],
 }
 for _key, _edits in TEXTURE_API_PATCHES.items():
     PATCHES.setdefault(_key, []).extend(_edits)
