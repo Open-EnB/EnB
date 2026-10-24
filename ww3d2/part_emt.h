@@ -311,6 +311,11 @@ class ParticleEmitterClass : public RenderObjClass
 		void Initialize_Particle(NewParticleStruct * newpart, unsigned int age,
 			const Quaternion & quat, const Vector3 & orig);
 
+		// E&B (names not known): Create_New_Particles and Initialize_Particle without the
+		// emitter transform, used by Emit when UnknownFlag is set (0x97EB80, 0x97ECB0).
+		void Unknown_Create_New_Particles(void);
+		void Unknown_Initialize_Particle(NewParticleStruct * newpart, unsigned int age);
+
 		unsigned int				EmitRate;			// Emission rate (1/milliseconds).
 		unsigned int				BurstSize;			// Burst size (how many particles in each emission).
 		unsigned int				OneTimeBurstSize;	// Burst size for a one-time burst.

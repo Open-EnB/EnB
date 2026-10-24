@@ -106,13 +106,14 @@ ParticleEmitterClass::ParticleEmitterClass(float emit_rate, unsigned int burst_s
 	RemoveOnComplete(DefaultRemoveOnComplete),
 	IsInScene(false),
 	GroupID(0),
-	FutureStartTime((unsigned int)(future_start * 1000.0f)),
+	FutureStartTime(future_start > 0.0f ? (unsigned int)(future_start * 1000.0f) : 0U),
 	Buffer(NULL),
 	IsInvisible(false),
 	UnknownFlag(unknown_flag)
 {
 	max_age		= max_age	> 	0.0f ? max_age : 1.0f;
 	VelRand->Scale(0.001f);
+	EmitRemain = FutureStartTime;
 
 	// The maximum number of particles is determined by the emission rate, burst size and lifetime.
 	// However, it is capped both by the particle cap and by the maximum buffer size, if these are
@@ -520,14 +521,18 @@ void ParticleEmitterClass::Set_Velocity_Inheritance_Factor(float inh_factor)
 // buffer On_Frame_Update() function to avoid order dependence.
 void ParticleEmitterClass::Emit(void)
 {
-	WWPROFILE("PartlicleEmitter::Emit");
+	WWPROFILE("ParticleEmitter::Emit");
 #ifdef WWDEBUG
 	if (DebugDisable == true) {
 		return;
 	}
 #endif
 
-	if (Active && !IsComplete) {
+	if (UnknownFlag) {
+		if (Active && !IsComplete) {
+			Unknown_Create_New_Particles();
+		}
+	} else if (Active && !IsComplete) {
 		Quaternion curr_quat;   // Quaternion form of orientation.
 		Vector3 curr_orig;      // Origin.
 	   
@@ -596,9 +601,9 @@ void ParticleEmitterClass::Create_New_Particles(const Quaternion & curr_quat, co
 	// The interpolation factor (0: start of interval: 1: end of interval).
    // Possibly negative at this point, but after the delta is added to it, it
    // will be positive.
-	float fl_frametime = (float)frametime;
-   float alpha = 1 - ((float)EmitRemain / fl_frametime);
-   float d_alpha = (float)EmitRate / fl_frametime;
+	float oo_frametime = 1.0f / (float)frametime;
+   float alpha = 1 - ((float)EmitRemain * oo_frametime);
+   float d_alpha = (float)EmitRate * oo_frametime;
 
    // Setup the slerp between the two quaternions.
    SlerpInfoStruct slerp_info;
@@ -609,7 +614,7 @@ void ParticleEmitterClass::Create_New_Particles(const Quaternion & curr_quat, co
 	// to pass this into the following Initialize_Particle() calls without
 	// having to set it as an argument for each call.
 	if (VelInheritFactor) {
-		InheritedWorldSpaceEmitterVel = (curr_orig - PrevOrig) * (VelInheritFactor / fl_frametime);
+		InheritedWorldSpaceEmitterVel = (curr_orig - PrevOrig) * (oo_frametime * VelInheritFactor);
 	} else {
 		InheritedWorldSpaceEmitterVel.Set(0.0, 0.0, 0.0);
 	}
@@ -623,7 +628,7 @@ void ParticleEmitterClass::Create_New_Particles(const Quaternion & curr_quat, co
       // the moment of particle creation.
       alpha += d_alpha;
       quat = Cached_Slerp(PrevQ, curr_quat, alpha, &slerp_info);
-      Vector3::Lerp(PrevOrig, curr_orig, alpha, &orig);
+      orig = Lerp(PrevOrig, curr_orig, alpha);
 
 		// Initialize BurstSize new particles with the given age and emitter
 		// transform (expressed as a quaternion and origin vector), and add it
@@ -712,6 +717,95 @@ void ParticleEmitterClass::Initialize_Particle(NewParticleStruct * newpart,
 }
 
 
+// E&B: Create_New_Particles without the emitter transform: the particles are created in
+// emitter space (0x97EB80).
+void ParticleEmitterClass::Unknown_Create_New_Particles(void)
+{
+	unsigned int frametime = WW3D::Get_Frame_Time();
+	if (frametime > 100 * EmitRate) {	// If the loop will run over 100 times
+		unsigned int buf_size = Buffer->Get_Buffer_Size();
+		unsigned int gcd = Greatest_Common_Divisor(buf_size, BurstSize);
+		unsigned int bursts = buf_size / gcd;
+		unsigned int cycle_time = EmitRate * bursts;
+		if (cycle_time > 1) {
+			frametime = frametime % cycle_time;
+		} else {
+			frametime = 1;
+		}
+	}
+
+	EmitRemain += frametime;
+
+	for (; EmitRemain > EmitRate;) {
+
+		EmitRemain -= EmitRate;
+
+		unsigned int age = WW3D::Get_Sync_Time() - EmitRemain;
+		unsigned int burst_size = BurstSize;
+		if (OneTimeBurst) {
+			burst_size = OneTimeBurstSize;
+			OneTimeBurst = false;
+		}
+
+		if ( ParticlesLeft > 0 ) {			// if we are counting,
+			if (burst_size > (unsigned int)ParticlesLeft) {
+				burst_size = (unsigned int)ParticlesLeft;
+				ParticlesLeft = 0;
+			} else {
+				ParticlesLeft -= burst_size;
+			}
+			if ( ParticlesLeft <= 0 ) {	// count and if done
+				IsComplete = true;			// stop
+			}
+		}
+
+		for (unsigned int i = 0; i < burst_size; i++) {
+			Unknown_Initialize_Particle(Buffer->Add_Uninitialized_New_Particle(), age);
+		}
+
+		if (IsComplete) break;
+	}
+}
+
+
+// E&B: Initialize_Particle without the emitter transform: position and velocity stay in
+// emitter space, and no velocity is inherited (0x97ECB0).
+void ParticleEmitterClass::Unknown_Initialize_Particle(NewParticleStruct * newpart, unsigned int timestamp)
+{
+	newpart->TimeStamp = timestamp;
+
+	if (PosRand) {
+		PosRand->Get_Vector(newpart->Position);
+	} else {
+		newpart->Position.Set(0.0, 0.0, 0.0);
+	}
+
+	if (VelRand) {
+		VelRand->Get_Vector(newpart->Velocity);
+	} else {
+		newpart->Velocity.Set(0.0, 0.0, 0.0);
+	}
+
+	if (OutwardVel) {
+		Vector3 outwards;
+		float pos_l2 = newpart->Position.Length2();
+		if (pos_l2) {
+			outwards = newpart->Position * (OutwardVel * WWMath::Inv_Sqrt(pos_l2));
+		} else {
+			outwards.X = OutwardVel;
+			outwards.Y = 0.0f;
+			outwards.Z = 0.0f;
+		}
+
+		newpart->Velocity += outwards;
+	}
+
+	newpart->Velocity += BaseVel;
+
+	newpart->GroupID = GroupID;
+}
+
+
 ParticleEmitterDefClass *
 ParticleEmitterClass::Build_Definition (void) const
 {	
@@ -744,6 +838,7 @@ ParticleEmitterClass::Build_Definition (void) const
 		pdefinition->Set_Outward_Vel (Get_Outwards_Vel ());
 		pdefinition->Set_Vel_Inherit (Get_Velocity_Inherit ());
 		pdefinition->Set_Shader (Get_Shader ());
+		pdefinition->Set_Unknown_Flag (UnknownFlag);
 		
 		//
 		//	Pass the creation volume onto the definition
