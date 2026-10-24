@@ -162,7 +162,10 @@ void DX8TextureManagerClass::Release_Textures()
 	while (!it.Is_Done())
 	{
 		TextureTrackerClass *track=it.Peek_Obj();		
-		track->Release();
+		if (track->Get_Texture()->D3DTexture != NULL) {
+			track->Get_Texture()->D3DTexture->Release();
+			track->Get_Texture()->D3DTexture=NULL;
+		}
 		it.Next();
 	}
 }

@@ -53,13 +53,18 @@ DDSFileClass::DDSFileClass(const char* name,unsigned reduction_factor)
 	}
 
 	file->Open();
+	if (!file->Open()) {
+		return;
+	}
 	DateTime=file->Get_Date_Time();
 	char header[4];
-	file->Read(header,4);
+	if (!file->Read(header,4)) {
+		return;
+	}
 	// Now, we read DDSURFACEDESC2 defining the compressed data
 	unsigned read_bytes=file->Read(&SurfaceDesc,sizeof(LegacyDDSURFACEDESC2));
 	// Verify the structure size matches the read size
-	if (read_bytes!=SurfaceDesc.Size) {
+	if (read_bytes==0 || read_bytes!=SurfaceDesc.Size) {
 		StringClass tmp(0,true);
 		tmp.Format("File %s loading failed.\nTried to read %d bytes, got %d. (SurfDesc.size=%d)\n",name,sizeof(LegacyDDSURFACEDESC2),read_bytes,SurfaceDesc.Size);
 		WWASSERT_PRINT(0,tmp);

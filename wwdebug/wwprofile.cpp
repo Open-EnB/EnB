@@ -802,7 +802,7 @@ static unsigned Read_Frame(char* memory,unsigned pos,unsigned maxpos,WWProfileHi
 		}
 	}
 
-	return Read_Line(memory,pos,maxpos);
+	return pos;
 }
 
 void WWProfileManager::Load_Profile_Log(const char* filename, WWProfileHierachyInfoClass**& array, unsigned& count)

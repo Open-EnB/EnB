@@ -89,6 +89,7 @@ class TextureBaseClass : public RefCountClass
 	friend class LoaderThreadClass;
 	friend class DX8TextureTrackerClass;  //(gth) so it can call Poke_Texture, 
 	friend class DX8ZTextureTrackerClass;
+	friend class DX8TextureManagerClass;	// E&B: Release_Textures (0x995C70)
 
 public:
 

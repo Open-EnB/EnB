@@ -477,57 +477,82 @@ void DX8Wrapper::Do_Onetime_Device_Dependent_Shutdowns(void)
 
 bool DX8Wrapper::Create_Device(void)
 {
-	WWASSERT(D3DDevice == NULL);	// for now, once you've created a device, you're stuck with it!
+	WWASSERT(D3DDevice==NULL);	// for now, once you've created a device, you're stuck with it!
 
 	D3DCAPS8 caps;
-	if (FAILED( D3DInterface->GetDeviceCaps(
-		CurRenderDevice,
-		WW3D_DEVTYPE,
-		&caps))) {
+	if 
+	(
+		FAILED
+		(
+			D3DInterface->GetDeviceCaps
+			(
+				CurRenderDevice,
+				WW3D_DEVTYPE,
+				&caps
+			)
+		)
+	)
+	{
 		return false;
 	}
 
 	::ZeroMemory(&CurrentAdapterIdentifier, sizeof(D3DADAPTER_IDENTIFIER8));
-	if (FAILED( D3DInterface->GetAdapterIdentifier(CurRenderDevice,D3DENUM_NO_WHQL_LEVEL,&CurrentAdapterIdentifier))) {
+	
+	if
+	(
+		FAILED
+		( 
+			D3DInterface->GetAdapterIdentifier
+			(
+				CurRenderDevice,
+				D3DENUM_NO_WHQL_LEVEL,
+				&CurrentAdapterIdentifier
+			)
+			)	
+	) 
+	{
 		return false;
 	}
 
-	unsigned vertex_processing_type=D3DCREATE_SOFTWARE_VERTEXPROCESSING;
-	if (caps.DevCaps&D3DDEVCAPS_HWTRANSFORMANDLIGHT) {
-		vertex_processing_type=D3DCREATE_MIXED_VERTEXPROCESSING;
-	}
+#ifndef _XBOX
+	
+	Vertex_Processing_Behavior=(caps.DevCaps&D3DDEVCAPS_HWTRANSFORMANDLIGHT) ?
+		D3DCREATE_MIXED_VERTEXPROCESSING : D3DCREATE_SOFTWARE_VERTEXPROCESSING;
+
+	// enable this when all 'get' dx calls are removed KJM
+	/*if (caps.DevCaps&D3DDEVCAPS_PUREDEVICE)
+	{
+		Vertex_Processing_Behavior|=D3DCREATE_PUREDEVICE;
+	}*/
+
+#else // XBOX
+	Vertex_Processing_Behavior=D3DCREATE_PUREDEVICE;
+#endif // XBOX
 
 #ifdef CREATE_DX8_MULTI_THREADED
-	vertex_processing_type|=D3DCREATE_MULTITHREADED;
+	Vertex_Processing_Behavior|=D3DCREATE_MULTITHREADED;
 	_DX8SingleThreaded=false;
 #else
 	_DX8SingleThreaded=true;
 #endif
 
+
 #ifdef CREATE_DX8_FPU_PRESERVE
-	vertex_processing_type|=D3DCREATE_FPU_PRESERVE;
+	Vertex_Processing_Behavior|=D3DCREATE_FPU_PRESERVE;
 #endif
 
-	// JANI HACK! Some objects flicker on ATI Radeons. This can be fixed by locking the back buffer before flipping.
-	// For this to work the back buffers need to be created as lockable!
-	DX8Caps dx8_caps(
-		D3DInterface,
-		caps, 
-		D3DFormat_To_WW3DFormat(_PresentParameters.BackBufferFormat), 
-		CurrentAdapterIdentifier);
-	if (dx8_caps.Get_Vendor()==DX8Caps::VENDOR_ATI) {
-		_PresentParameters.Flags=D3DPRESENTFLAG_LOCKABLE_BACKBUFFER;
-	}
-
-	HRESULT hr = D3DInterface->CreateDevice(
+	HRESULT hr=D3DInterface->CreateDevice
+	(
 		CurRenderDevice,
 		WW3D_DEVTYPE,
 		_Hwnd,
-		vertex_processing_type,
+		Vertex_Processing_Behavior,
 		&_PresentParameters,
-		&D3DDevice );
+		&D3DDevice 
+	);
 
-	if (FAILED(hr)) {
+	if (FAILED(hr)) 
+	{
 		// The device selection may fail because the device lied that it supports 32 bit zbuffer with 16 bit
 		// display. This happens at least on Voodoo2.
 
@@ -536,21 +561,29 @@ bool DX8Wrapper::Create_Device(void)
 			_PresentParameters.BackBufferFormat==D3DFMT_A1R5G5B5) &&
 			(_PresentParameters.AutoDepthStencilFormat==D3DFMT_D32 ||
 			_PresentParameters.AutoDepthStencilFormat==D3DFMT_D24S8 ||
-			_PresentParameters.AutoDepthStencilFormat==D3DFMT_D24X8)) {
+			_PresentParameters.AutoDepthStencilFormat==D3DFMT_D24X8)) 
+		{
+			_PresentParameters.AutoDepthStencilFormat=D3DFMT_D16;
+			hr = D3DInterface->CreateDevice
+			(
+				CurRenderDevice,
+				WW3D_DEVTYPE,
+				_Hwnd,
+				Vertex_Processing_Behavior,
+				&_PresentParameters,
+				&D3DDevice 
+			);
 
-				_PresentParameters.AutoDepthStencilFormat=D3DFMT_D16;
-				hr = D3DInterface->CreateDevice(
-					CurRenderDevice,
-					WW3D_DEVTYPE,
-					_Hwnd,
-					vertex_processing_type,
-					&_PresentParameters,
-					&D3DDevice );
-				if (FAILED(hr)) {
-					return false;
-				}
+			if (FAILED(hr)) 
+			{
+				return false;
 			}
+        }
+		else 
+		{
+				return false;
 		}
+	}
 
 	/*
 	** Initialize all subsystems
