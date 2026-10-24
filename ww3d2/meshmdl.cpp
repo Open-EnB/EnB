@@ -773,6 +773,8 @@ void GapFillerClass::Shrink_Buffers()
 
 void MeshModelClass::Init_For_NPatch_Rendering()
 {
+	if (!DX8Wrapper::Get_Current_Caps()->Support_NPatches()) return;
+	if (!Get_Flag(MeshGeometryClass::ALLOW_NPATCHES)) return;
 	if (GapFiller) return;
 
 	const Vector3* locations=Get_Vertex_Array();

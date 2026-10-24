@@ -2074,6 +2074,9 @@ MESH_MODEL_RENDERER_PATCHES = {
         ('\t\tdelete[] ShaderArray[pass];\n\t}\n\n\tREF_PTR_RELEASE(mmc);\n}\n',
          '\t\tdelete[] ShaderArray[pass];\n\t}\n\n\t// DMS - Removed - See constructor for details.\n//\tREF_PTR_RELEASE(mmc);\n}\n',
          "E&B's gap filler holds no reference to its mesh model (Zero Hour's DMS fix): the constructors 0x959A80 and 0x959C00 store mmc without Add_Ref, the destructor 0x959DB0 ends without releasing it"),
+        ('void MeshModelClass::Init_For_NPatch_Rendering()\n{\n\tif (GapFiller) return;\n',
+         'void MeshModelClass::Init_For_NPatch_Rendering()\n{\n\tif (!DX8Wrapper::Get_Current_Caps()->Support_NPatches()) return;\n\tif (!Get_Flag(MeshGeometryClass::ALLOW_NPATCHES)) return;\n\tif (GapFiller) return;\n',
+         "E&B's Init_For_NPatch_Rendering starts with Zero Hour's two early returns: 0x95A200 tests DX8Wrapper's current caps (SupportNPatches, +0xDF) and the ALLOW_NPATCHES flag (0x10000) before GapFiller"),
     ],
     ('ww3d2', 'dx8polygonrenderer.h'): [
         ('\tMeshClass *\t\t\t\t\t\tmesh;\n',
