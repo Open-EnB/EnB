@@ -161,10 +161,10 @@ void UnknownDistortionClass::Unknown_Render_Distortion(CameraClass & camera)
 		back_buffer->Release_Ref();
 		return;
 	}
-	texture->Get_Filter().Set_U_Addr_Mode(TextureFilterClass::TEXTURE_ADDRESS_CLAMP);
-	texture->Get_Filter().Set_V_Addr_Mode(TextureFilterClass::TEXTURE_ADDRESS_CLAMP);
-	texture->Get_Filter().Set_Min_Filter(TextureFilterClass::FILTER_TYPE_NONE);
-	texture->Get_Filter().Set_Mag_Filter(TextureFilterClass::FILTER_TYPE_NONE);
+	texture->Set_U_Addr_Mode(TextureClass::TEXTURE_ADDRESS_CLAMP);
+	texture->Set_V_Addr_Mode(TextureClass::TEXTURE_ADDRESS_CLAMP);
+	texture->Set_Min_Filter(TextureClass::FILTER_TYPE_NONE);
+	texture->Set_Mag_Filter(TextureClass::FILTER_TYPE_NONE);
 	SurfaceClass * surface = texture->Get_Surface_Level();
 	surface->Copy(0, 0, cx0, cy0, w, h, back_buffer);
 

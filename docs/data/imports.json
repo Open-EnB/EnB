@@ -4183,7 +4183,10 @@
      "0x9217E0",
      "0x94B020",
      "0x94B1C0",
+     "0x94B240",
      "0x94B360",
+     "0x94B3D0",
+     "0x94B5B0",
      "0x94B770",
      "0x94B920",
      "0x94BA10",
@@ -4208,6 +4211,7 @@
      "0x94C840",
      "0x94C8E0",
      "0x94C980",
+     "0x94CA30",
      "0x94CCC0",
      "0x94CF40",
      "0x94CF80",
@@ -4217,24 +4221,6 @@
     ],
     "merged": [],
     "name": "texture.cpp"
-   },
-   "texturefilter": {
-    "best": "Z",
-    "copy": "Z",
-    "expected": {
-     "G": 0,
-     "R": 0,
-     "Z": 2
-    },
-    "headers_from": null,
-    "in_tree": [
-     "0x42F250",
-     "0x53F1C0",
-     "0x9217E0",
-     "0x94CA30"
-    ],
-    "merged": [],
-    "name": "texturefilter.cpp"
    },
    "textureloader": {
     "best": "R",
@@ -4780,7 +4766,6 @@
    "textdraw.h": "R",
    "texture.h": "Z",
    "texturefile.h": "G",
-   "texturefilter.h": "Z",
    "textureloader.h": "R",
    "texturethumbnail.h": "Z",
    "txt.h": "R",
@@ -4799,7 +4784,7 @@
    "ww3dids.h": "R",
    "ww3dtrig.h": "R"
   },
-  "in_tree_total": 2470,
+  "in_tree_total": 2473,
   "totals": {
    "G": 548,
    "R": 1323,

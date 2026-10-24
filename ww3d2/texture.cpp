@@ -627,12 +627,13 @@ int TextureBaseClass::_Get_Total_Locked_Surface_Count()
 	return texture_count;
 }
 
-// E&B: compiled here, not in texturefilter.cpp (0x94CA20, inlined by Load_Texture 0x94CCC0)
+// E&B (D9): TextureClass's filter code, as in Renegade, where the client has it: Set_Mip_Mapping 0x94CA20
+// (inlined by Load_Texture 0x94CCC0), _Init_Filters 0x94CA30, _Set_Default_*_Filter 0x94CC30/60/90
 //**********************************************************************************************
 //! Set mip mapping filter (legacy)
 /*!
 */
-void TextureFilterClass::Set_Mip_Mapping(FilterType mipmap)
+void TextureClass::Set_Mip_Mapping(FilterType mipmap)
 {
 //	if (mipmap != FILTER_TYPE_NONE && Get_Mip_Level_Count() <= 1 && Is_Initialized()) 
 //	{
@@ -640,6 +641,149 @@ void TextureFilterClass::Set_Mip_Mapping(FilterType mipmap)
 //		return;
 //	}
 	MipMapFilter=mipmap;
+}
+
+unsigned _MinTextureFilters[MAX_TEXTURE_STAGES][TextureClass::FILTER_TYPE_COUNT];
+unsigned _MagTextureFilters[MAX_TEXTURE_STAGES][TextureClass::FILTER_TYPE_COUNT];
+unsigned _MipMapFilters[MAX_TEXTURE_STAGES][TextureClass::FILTER_TYPE_COUNT];
+
+//**********************************************************************************************
+//! Init filters (legacy)
+/*!
+*/
+void TextureClass::_Init_Filters(TextureFilterMode filter_type)
+{
+	const D3DCAPS8& dx8caps=DX8Wrapper::Get_Current_Caps()->Get_DX8_Caps();
+
+#ifndef _XBOX
+   	_MinTextureFilters[0][FILTER_TYPE_NONE]=D3DTEXF_POINT;
+   	_MagTextureFilters[0][FILTER_TYPE_NONE]=D3DTEXF_POINT;
+   	_MipMapFilters[0][FILTER_TYPE_NONE]=D3DTEXF_NONE;
+   
+   	_MinTextureFilters[0][FILTER_TYPE_FAST]=D3DTEXF_LINEAR;
+   	_MagTextureFilters[0][FILTER_TYPE_FAST]=D3DTEXF_LINEAR;
+   	_MipMapFilters[0][FILTER_TYPE_FAST]=D3DTEXF_POINT;
+   
+   	_MagTextureFilters[0][FILTER_TYPE_BEST]=D3DTEXF_POINT;
+   	_MinTextureFilters[0][FILTER_TYPE_BEST]=D3DTEXF_POINT;
+   	_MipMapFilters[0][FILTER_TYPE_BEST]=D3DTEXF_POINT;
+#else
+	_MinTextureFilters[0][FILTER_TYPE_NONE]=D3DTEXF_ANISOTROPIC;
+	_MagTextureFilters[0][FILTER_TYPE_NONE]=D3DTEXF_ANISOTROPIC;
+	_MipMapFilters[0][FILTER_TYPE_NONE]=D3DTEXF_LINEAR;
+
+	_MinTextureFilters[0][FILTER_TYPE_FAST]=D3DTEXF_ANISOTROPIC;
+	_MagTextureFilters[0][FILTER_TYPE_FAST]=D3DTEXF_ANISOTROPIC;
+	_MipMapFilters[0][FILTER_TYPE_FAST]=D3DTEXF_LINEAR;
+
+	_MagTextureFilters[0][FILTER_TYPE_BEST]=D3DTEXF_ANISOTROPIC;
+	_MinTextureFilters[0][FILTER_TYPE_BEST]=D3DTEXF_ANISOTROPIC;
+	_MipMapFilters[0][FILTER_TYPE_BEST]=D3DTEXF_LINEAR;
+#endif
+
+#ifndef _XBOX
+	if (dx8caps.TextureFilterCaps&D3DPTFILTERCAPS_MAGFLINEAR) _MagTextureFilters[0][FILTER_TYPE_BEST]=D3DTEXF_LINEAR;
+	if (dx8caps.TextureFilterCaps&D3DPTFILTERCAPS_MINFLINEAR) _MinTextureFilters[0][FILTER_TYPE_BEST]=D3DTEXF_LINEAR;
+
+	// Set anisotropic filtering only if requested and available
+	if (filter_type==TEXTURE_FILTER_ANISOTROPIC) {
+		if (dx8caps.TextureFilterCaps&D3DPTFILTERCAPS_MAGFANISOTROPIC) _MagTextureFilters[0][FILTER_TYPE_BEST]=D3DTEXF_ANISOTROPIC;
+		if (dx8caps.TextureFilterCaps&D3DPTFILTERCAPS_MINFANISOTROPIC) _MinTextureFilters[0][FILTER_TYPE_BEST]=D3DTEXF_ANISOTROPIC;
+	}
+
+	// Set linear mip filter only if requested trilinear or anisotropic, and linear available
+	if (filter_type==TEXTURE_FILTER_ANISOTROPIC || filter_type==TEXTURE_FILTER_TRILINEAR) {
+		if (dx8caps.TextureFilterCaps&D3DPTFILTERCAPS_MIPFLINEAR) _MipMapFilters[0][FILTER_TYPE_BEST]=D3DTEXF_LINEAR;
+	}
+#endif
+
+	// For stages above zero, set best filter to the same as the stage zero, except if anisotropic
+	for (int i=1;i<MAX_TEXTURE_STAGES;++i) {
+/*		_MinTextureFilters[i][FILTER_TYPE_NONE]=D3DTEXF_POINT;
+		_MagTextureFilters[i][FILTER_TYPE_NONE]=D3DTEXF_POINT;
+		_MipMapFilters[i][FILTER_TYPE_NONE]=D3DTEXF_NONE;
+
+		_MinTextureFilters[i][FILTER_TYPE_FAST]=D3DTEXF_LINEAR;
+		_MagTextureFilters[i][FILTER_TYPE_FAST]=D3DTEXF_LINEAR;
+		_MipMapFilters[i][FILTER_TYPE_FAST]=D3DTEXF_POINT;
+
+		_MagTextureFilters[i][FILTER_TYPE_BEST]=D3DTEXF_LINEAR;
+		_MinTextureFilters[i][FILTER_TYPE_BEST]=D3DTEXF_LINEAR;
+		_MipMapFilters[i][FILTER_TYPE_BEST]=D3DTEXF_POINT;
+*/
+		_MinTextureFilters[i][FILTER_TYPE_NONE]=_MinTextureFilters[i-1][FILTER_TYPE_NONE];
+		_MagTextureFilters[i][FILTER_TYPE_NONE]=_MagTextureFilters[i-1][FILTER_TYPE_NONE];
+		_MipMapFilters[i][FILTER_TYPE_NONE]=_MipMapFilters[i-1][FILTER_TYPE_NONE];
+
+		_MinTextureFilters[i][FILTER_TYPE_FAST]=_MinTextureFilters[i-1][FILTER_TYPE_FAST];
+		_MagTextureFilters[i][FILTER_TYPE_FAST]=_MagTextureFilters[i-1][FILTER_TYPE_FAST];
+		_MipMapFilters[i][FILTER_TYPE_FAST]=_MipMapFilters[i-1][FILTER_TYPE_FAST];
+
+		if (_MagTextureFilters[i-1][FILTER_TYPE_BEST]==D3DTEXF_ANISOTROPIC) {
+			_MagTextureFilters[i][FILTER_TYPE_BEST]=D3DTEXF_LINEAR;
+		}
+		else {
+			_MagTextureFilters[i][FILTER_TYPE_BEST]=_MagTextureFilters[i-1][FILTER_TYPE_BEST];
+		}
+
+		if (_MinTextureFilters[i-1][FILTER_TYPE_BEST]==D3DTEXF_ANISOTROPIC) {
+			_MinTextureFilters[i][FILTER_TYPE_BEST]=D3DTEXF_LINEAR;
+		}
+		else {
+			_MinTextureFilters[i][FILTER_TYPE_BEST]=_MinTextureFilters[i-1][FILTER_TYPE_BEST];
+		}
+		_MipMapFilters[i][FILTER_TYPE_BEST]=_MipMapFilters[i-1][FILTER_TYPE_BEST];
+
+
+	}
+
+	// Set default to best. The level of best filter mode is controlled by the input parameter.
+	for (i=0;i<MAX_TEXTURE_STAGES;++i) {
+		_MinTextureFilters[i][FILTER_TYPE_DEFAULT]=_MinTextureFilters[i][FILTER_TYPE_BEST];
+		_MagTextureFilters[i][FILTER_TYPE_DEFAULT]=_MagTextureFilters[i][FILTER_TYPE_BEST];
+		_MipMapFilters[i][FILTER_TYPE_DEFAULT]=_MipMapFilters[i][FILTER_TYPE_BEST];
+
+		DX8Wrapper::Set_DX8_Texture_Stage_State(i,D3DTSS_MAXANISOTROPY,2);
+	}
+
+}
+
+
+//**********************************************************************************************
+//! Set default min filter (legacy)
+/*!
+*/
+void TextureClass::_Set_Default_Min_Filter(FilterType filter)
+{
+	for (int i=0;i<MAX_TEXTURE_STAGES;++i) 
+	{
+		_MinTextureFilters[i][FILTER_TYPE_DEFAULT]=_MinTextureFilters[i][filter];
+	}
+}
+
+
+//**********************************************************************************************
+//! Set default mag filter (legacy)
+/*!
+*/
+void TextureClass::_Set_Default_Mag_Filter(FilterType filter)
+{
+	for (int i=0;i<MAX_TEXTURE_STAGES;++i) 
+	{
+		_MagTextureFilters[i][FILTER_TYPE_DEFAULT]=_MagTextureFilters[i][filter];
+	}
+}
+
+//**********************************************************************************************
+//! Set default mip filter (legacy)
+/*!
+*/
+void TextureClass::_Set_Default_Mip_Filter(FilterType filter)
+{
+	for (int i=0;i<MAX_TEXTURE_STAGES;++i) 
+	{
+		_MipMapFilters[i][FILTER_TYPE_DEFAULT]=_MipMapFilters[i][filter];
+	}
 }
 
 /*************************************************************************
@@ -655,7 +799,11 @@ TextureClass::TextureClass
 	bool rendertarget
 )
 :	TextureBaseClass(width, height, mip_level_count, pool, rendertarget),
-	Filter(mip_level_count),
+	TextureMinFilter(FILTER_TYPE_DEFAULT),
+	TextureMagFilter(FILTER_TYPE_DEFAULT),
+	MipMapFilter((mip_level_count!=MIP_LEVELS_1) ? FILTER_TYPE_DEFAULT : FILTER_TYPE_NONE),
+	UAddressMode(TEXTURE_ADDRESS_REPEAT),
+	VAddressMode(TEXTURE_ADDRESS_REPEAT),
 	TextureFormat(format)
 {
 	Initialized=true;
@@ -724,7 +872,11 @@ TextureClass::TextureClass
 	bool allow_compression
 )
 :	TextureBaseClass(0, 0, mip_level_count),
-	Filter(mip_level_count),
+	TextureMinFilter(FILTER_TYPE_DEFAULT),
+	TextureMagFilter(FILTER_TYPE_DEFAULT),
+	MipMapFilter((mip_level_count!=MIP_LEVELS_1) ? FILTER_TYPE_DEFAULT : FILTER_TYPE_NONE),
+	UAddressMode(TEXTURE_ADDRESS_REPEAT),
+	VAddressMode(TEXTURE_ADDRESS_REPEAT),
 	TextureFormat(texture_format)
 {
 	IsCompressionAllowed=allow_compression;
@@ -755,7 +907,7 @@ TextureClass::TextureClass
 		{
 			IsCompressionAllowed=false;
 			MipLevelCount=MIP_LEVELS_1;
-			Filter.Set_Mip_Mapping(TextureFilterClass::FILTER_TYPE_NONE);
+			Set_Mip_Mapping(FILTER_TYPE_NONE);
 		}
 		break;
 	default:	break;
@@ -771,9 +923,9 @@ TextureClass::TextureClass
 
 			// Set bilinear filtering for lightmaps (they are very stretched and
 			// low detail so we don't care for anisotropic or trilinear filtering...)
-			Filter.Set_Min_Filter(TextureFilterClass::FILTER_TYPE_FAST);
-			Filter.Set_Mag_Filter(TextureFilterClass::FILTER_TYPE_FAST);
-			if (mip_level_count!=MIP_LEVELS_1) Filter.Set_Mip_Mapping(TextureFilterClass::FILTER_TYPE_FAST);
+			TextureMinFilter=FILTER_TYPE_FAST;
+			TextureMagFilter=FILTER_TYPE_FAST;
+			if (mip_level_count!=MIP_LEVELS_1) MipMapFilter=FILTER_TYPE_FAST;
 			break;
 		}
 	}
@@ -817,7 +969,11 @@ TextureClass::TextureClass
 	MipCountType mip_level_count
 )
 :  TextureBaseClass(0,0,mip_level_count),
-	Filter(mip_level_count),
+	TextureMinFilter(FILTER_TYPE_DEFAULT),
+	TextureMagFilter(FILTER_TYPE_DEFAULT),
+	MipMapFilter((mip_level_count!=MIP_LEVELS_1) ? FILTER_TYPE_DEFAULT : FILTER_TYPE_NONE),
+	UAddressMode(TEXTURE_ADDRESS_REPEAT),
+	VAddressMode(TEXTURE_ADDRESS_REPEAT),
 	TextureFormat(surface->Get_Surface_Format())
 {
 	IsProcedural=true;
@@ -858,7 +1014,11 @@ TextureClass::TextureClass(IDirect3DBaseTexture8* d3d_texture)
 		0,
 		((MipCountType)d3d_texture->GetLevelCount())
 	),
-	Filter((MipCountType)d3d_texture->GetLevelCount())
+	TextureMinFilter(FILTER_TYPE_DEFAULT),
+	TextureMagFilter(FILTER_TYPE_DEFAULT),
+	MipMapFilter((d3d_texture->GetLevelCount()!=1) ? FILTER_TYPE_DEFAULT : FILTER_TYPE_NONE),
+	UAddressMode(TEXTURE_ADDRESS_REPEAT),
+	VAddressMode(TEXTURE_ADDRESS_REPEAT)
 {
 	Initialized=true;
 	IsProcedural=true;
@@ -971,11 +1131,6 @@ void TextureClass::Apply_New_Surface
 }
 
 
-// E&B: TextureClass::Apply sets the filter states itself (below)
-extern unsigned _MinTextureFilters[MAX_TEXTURE_STAGES][TextureFilterClass::FILTER_TYPE_COUNT];
-extern unsigned _MagTextureFilters[MAX_TEXTURE_STAGES][TextureFilterClass::FILTER_TYPE_COUNT];
-extern unsigned _MipMapFilters[MAX_TEXTURE_STAGES][TextureFilterClass::FILTER_TYPE_COUNT];
-
 //**********************************************************************************************
 //! Apply texture states
 /*! 
@@ -1047,29 +1202,29 @@ void TextureClass::Apply(unsigned int stage)
 
 	// E&B: the filter states set here, as Renegade does (0x94BC80 inlines them; Zero Hour's
 	// TextureFilterClass::Apply is its 08/05/02 redesign)
-	DX8Wrapper::Set_DX8_Texture_Stage_State(stage,D3DTSS_MINFILTER,_MinTextureFilters[stage][Filter.Get_Min_Filter()]);
-	DX8Wrapper::Set_DX8_Texture_Stage_State(stage,D3DTSS_MAGFILTER,_MagTextureFilters[stage][Filter.Get_Mag_Filter()]);
-	DX8Wrapper::Set_DX8_Texture_Stage_State(stage,D3DTSS_MIPFILTER,_MipMapFilters[stage][Filter.Get_Mip_Mapping()]);
+	DX8Wrapper::Set_DX8_Texture_Stage_State(stage,D3DTSS_MINFILTER,_MinTextureFilters[stage][TextureMinFilter]);
+	DX8Wrapper::Set_DX8_Texture_Stage_State(stage,D3DTSS_MAGFILTER,_MagTextureFilters[stage][TextureMagFilter]);
+	DX8Wrapper::Set_DX8_Texture_Stage_State(stage,D3DTSS_MIPFILTER,_MipMapFilters[stage][MipMapFilter]);
 
-	switch (Filter.Get_U_Addr_Mode()) {
+	switch (Get_U_Addr_Mode()) {
 
-		case TextureFilterClass::TEXTURE_ADDRESS_REPEAT:
+		case TEXTURE_ADDRESS_REPEAT:
 			DX8Wrapper::Set_DX8_Texture_Stage_State(stage, D3DTSS_ADDRESSU, D3DTADDRESS_WRAP);
 			break;
 
-		case TextureFilterClass::TEXTURE_ADDRESS_CLAMP:
+		case TEXTURE_ADDRESS_CLAMP:
 			DX8Wrapper::Set_DX8_Texture_Stage_State(stage, D3DTSS_ADDRESSU, D3DTADDRESS_CLAMP);
 			break;
 
 	}
 
-	switch (Filter.Get_V_Addr_Mode()) {
+	switch (Get_V_Addr_Mode()) {
 
-		case TextureFilterClass::TEXTURE_ADDRESS_REPEAT:
+		case TEXTURE_ADDRESS_REPEAT:
 			DX8Wrapper::Set_DX8_Texture_Stage_State(stage, D3DTSS_ADDRESSV, D3DTADDRESS_WRAP);
 			break;
 
-		case TextureFilterClass::TEXTURE_ADDRESS_CLAMP:
+		case TEXTURE_ADDRESS_CLAMP:
 			DX8Wrapper::Set_DX8_Texture_Stage_State(stage, D3DTSS_ADDRESSV, D3DTADDRESS_CLAMP);
 			break;
 
@@ -1231,12 +1386,12 @@ TextureClass* Load_Texture(ChunkLoadClass & cload)
 
 			if (no_lod) 
 			{
-				newtex->Get_Filter().Set_Mip_Mapping(TextureFilterClass::FILTER_TYPE_NONE);
+				newtex->Set_Mip_Mapping(TextureClass::FILTER_TYPE_NONE);
 			}
 			bool u_clamp = ((texinfo.Attributes & W3DTEXTURE_CLAMP_U) != 0);
-			newtex->Get_Filter().Set_U_Addr_Mode(u_clamp ? TextureFilterClass::TEXTURE_ADDRESS_CLAMP : TextureFilterClass::TEXTURE_ADDRESS_REPEAT);
+			newtex->Set_U_Addr_Mode(u_clamp ? TextureClass::TEXTURE_ADDRESS_CLAMP : TextureClass::TEXTURE_ADDRESS_REPEAT);
 			bool v_clamp = ((texinfo.Attributes & W3DTEXTURE_CLAMP_V) != 0);
-			newtex->Get_Filter().Set_V_Addr_Mode(v_clamp ? TextureFilterClass::TEXTURE_ADDRESS_CLAMP : TextureFilterClass::TEXTURE_ADDRESS_REPEAT);
+			newtex->Set_V_Addr_Mode(v_clamp ? TextureClass::TEXTURE_ADDRESS_CLAMP : TextureClass::TEXTURE_ADDRESS_REPEAT);
 
 		} else 
 		{
@@ -1255,9 +1410,9 @@ void setup_texture_attributes(TextureClass * tex, W3dTextureInfoStruct * texinfo
 {
 	texinfo->Attributes = 0;
 
-	if (tex->Get_Filter().Get_Mip_Mapping() == TextureFilterClass::FILTER_TYPE_NONE) texinfo->Attributes |= W3DTEXTURE_NO_LOD;
-	if (tex->Get_Filter().Get_U_Addr_Mode() == TextureFilterClass::TEXTURE_ADDRESS_CLAMP) texinfo->Attributes |= W3DTEXTURE_CLAMP_U;
-	if (tex->Get_Filter().Get_V_Addr_Mode() == TextureFilterClass::TEXTURE_ADDRESS_CLAMP) texinfo->Attributes |= W3DTEXTURE_CLAMP_V;
+	if (tex->Get_Mip_Mapping() == TextureClass::FILTER_TYPE_NONE) texinfo->Attributes |= W3DTEXTURE_NO_LOD;
+	if (tex->Get_U_Addr_Mode() == TextureClass::TEXTURE_ADDRESS_CLAMP) texinfo->Attributes |= W3DTEXTURE_CLAMP_U;
+	if (tex->Get_V_Addr_Mode() == TextureClass::TEXTURE_ADDRESS_CLAMP) texinfo->Attributes |= W3DTEXTURE_CLAMP_V;
 }
 
 

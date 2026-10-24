@@ -54,7 +54,24 @@
 #include "ww3dformat.h"
 #include "wwstring.h"
 #include "vector3.h"
-#include "texturefilter.h"
+
+// E&B (D9): no texturefilter.h (Zero Hour's 08/05/02 TextureFilterClass abstraction); its MipCountType
+enum MipCountType 
+{
+	MIP_LEVELS_ALL=0,		// generate all mipmap levels down to 1x1 size
+	MIP_LEVELS_1,			// no mipmapping at all (just one mip level)
+	MIP_LEVELS_2,
+	MIP_LEVELS_3,
+	MIP_LEVELS_4,
+	MIP_LEVELS_5,
+	MIP_LEVELS_6,
+	MIP_LEVELS_7,
+	MIP_LEVELS_8,
+	MIP_LEVELS_10,
+	MIP_LEVELS_11,
+	MIP_LEVELS_12,
+	MIP_LEVELS_MAX			// This isn't to be used (use MIP_LEVELS_ALL instead), it is just an enum for creating static tables etc.
+};
 
 struct IDirect3DBaseTexture8;
 struct IDirect3DTexture8;
@@ -257,6 +274,27 @@ class TextureClass : public TextureBaseClass
 
 public:
 
+	// E&B (D9): Renegade's filter state and accessors, no TextureFilterClass (0x94B240 and the other
+	// constructors store the five members at TextureClass offsets)
+	enum FilterType {
+		FILTER_TYPE_NONE,
+		FILTER_TYPE_FAST,
+		FILTER_TYPE_BEST,
+		FILTER_TYPE_DEFAULT,
+		FILTER_TYPE_COUNT
+	};
+
+	enum TextureFilterMode {
+		TEXTURE_FILTER_BILINEAR,
+		TEXTURE_FILTER_TRILINEAR,
+		TEXTURE_FILTER_ANISOTROPIC
+	};
+
+	enum TxtAddrMode {
+		TEXTURE_ADDRESS_REPEAT=0,
+		TEXTURE_ADDRESS_CLAMP
+	};
+
 	// Create texture with desired height, width and format.
 	TextureClass
 	(
@@ -299,7 +337,26 @@ public:
 	IDirect3DSurface8 *Get_D3D_Surface_Level(unsigned int level = 0);
 	void Get_Level_Description( SurfaceClass::SurfaceDescription & desc, unsigned int level = 0 );
 	
-	TextureFilterClass& Get_Filter() { return Filter; }
+	// Filter and MIPmap settings:
+	FilterType Get_Min_Filter(void) const { return TextureMinFilter; }
+	FilterType Get_Mag_Filter(void) const { return TextureMagFilter; }
+	FilterType Get_Mip_Mapping(void) const { return MipMapFilter; }
+	void Set_Min_Filter(FilterType filter) { TextureMinFilter=filter; }
+	void Set_Mag_Filter(FilterType filter) { TextureMagFilter=filter; }
+	void Set_Mip_Mapping(FilterType mipmap);
+
+	// Texture address mode
+	TxtAddrMode Get_U_Addr_Mode(void) const { return UAddressMode; }
+	TxtAddrMode Get_V_Addr_Mode(void) const { return VAddressMode; }
+	void Set_U_Addr_Mode(TxtAddrMode mode) { UAddressMode=mode; }
+	void Set_V_Addr_Mode(TxtAddrMode mode) { VAddressMode=mode; }
+
+	// This needs to be called after device has been created
+	static void _Init_Filters(TextureFilterMode texture_filter);
+
+	static void _Set_Default_Min_Filter(FilterType filter);
+	static void _Set_Default_Mag_Filter(FilterType filter);
+	static void _Set_Default_Mip_Filter(FilterType filter);
 
 	WW3DFormat Get_Texture_Format() const { return TextureFormat; }
 
@@ -311,8 +368,12 @@ protected:
 
 	WW3DFormat				TextureFormat;
 
-	// legacy
-	TextureFilterClass	Filter;
+	// State not contained in the Direct3D texture object:
+	FilterType TextureMinFilter;
+	FilterType TextureMagFilter;
+	FilterType MipMapFilter;
+	TxtAddrMode UAddressMode;
+	TxtAddrMode VAddressMode;
 };
 
 class ZTextureClass : public TextureBaseClass
