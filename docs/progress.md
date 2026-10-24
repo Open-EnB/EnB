@@ -46,6 +46,10 @@ Newest first within each section. Dates are when the entry was written.
 * Next step: one of the clusters above; mapper.cpp has the most functions. Start by seeding its
   vtables (`vtables.py --class LinearOffsetTextureMapperClass --seed ...=0x9329F0 --list`) and
   comparing the constructors against Zero Hour's member list.
+* Outside git: `.work/mmr_*.py`, `rendobj_edit.py`, `*_spec.py`, `*_reasons.py` (edits and specs
+  as applied); `.work/mmr_edited/` (edited files, matched the replayed tree); `.work/odbatch.py`
+  (condensed objdiffs of the top gaps), `.work/fn.py` (print one function). VMs at
+  192.168.193.108, .202.231, .207.76 (`vc6.py check` passed). REA not opened this session.
 
 ### 2026-10-23: WWAudio complete (0 gaps); wwshade's ShdMeshClass
 
