@@ -4,6 +4,32 @@ Newest first within each section. Dates are when the entry was written.
 
 ## 1. Log
 
+### 2026-10-24: auxdata continued: interpolator, string, name, permstr, linearbu; app 39 -> 92
+
+* `delta_interpolator.cpp`/`.h` (83c2f38, 7): `DeltaInterpolatorClass` (vtable 0xAEAE54, size 0x250;
+  `EndTime` +0xA0, `ChangePerTick` +0x130, `StartValue` +0x1B8, `LastTime` +0x240, `LastValue` +0x248,
+  a flag +0x24C). Set 0x4A6590 needed a user-defined `DurationClass::operator=` (duration.h: the
+  implicit copy schedules the two stores after the vtable load). The time field's constructor
+  is out of line (0x4A8150) where the float fields' inline: `extern template class
+  DeltaTemplateClass<DurationClass>;` in delta_template.h (VC6 extension, C4231) gives it; an explicit
+  specialisation declaration of the constructor is ignored by VC6. Unknown_00 0x4A6930 left.
+* `delta_string.cpp`/`.h` (bb3b4cf, 9): `DeltaStringClass` (0xAEB0E4, `String` +0x84), its value
+  object for the encoder (`DeltaStringValueClass` 0xAEB13C on `StringValueClass` 0xAEB150) and
+  `DeltaChildVisitorClass::Add_String` (kv_encoder_base.cpp's 0x4B48A0) in delta.h.
+* `name.cpp` + `permstr.h` (28c1e60, 12): `NameClass` = `Name`, `Parts[MAX_NAME_LENGTH]` (10),
+  `Count` (-1 until `Split`), `HasWildcard`; `PermString` (the client's name, from 0x4ADFF0's message)
+  is one interned pointer. `Append` adds `rhs.Count` inside its copy loop (the client's bug, kept).
+* `permstr.cpp` (cc9dd7b, 6): the hash table (`s_Table`/`s_Size` 1511/`s_Count`), a counted
+  `PermStringInitClass` static in permstr.h (every including object has one: the client's 0x4A60A0,
+  0x4ADC50 ...), `Find` (one-at-a-time hash).
+* `linearbu.cpp` (300dff7, 18 + 3 four-byte getters at markers): `LinearBufferClass` size 0x1C
+  (`Buffer`, +4 unknown, `Size`, `Capacity`, `GrowBy`, `Pos`, `OwnsBuffer`).
+* delta.cpp's `Unknown_20` 0x4A53A0 (cba68ae): the base call goes after the `if`. `Add` 0x4A5670 is
+  still not exact: the client calls `size()` 0x4A58C0 out of line in `_Last = S + size() + M` and
+  lays out the `_Last - P < M` branch's calls differently: a different `<vector>` form (D11).
+* VC6 inlines functions defined later in the same file (NameClass::Match_Parts, permstr's
+  Is_Prime and entry constructor, linearbu's Seek/Read/Grow). Drafts: `.work/day/C/`.
+
 ### 2026-10-24: the Delta object model (app\shared\auxdata); app 11 -> 39
 
 * `delta.cpp`/`delta.h` (845c0c9): `DeltaClass` (the reference decoder's DeltaBase; D24 name, D10
@@ -735,12 +761,16 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
      `app/shared/unknown_debug.h` (G_ASSERT, FAIL_IF). Left from it: the debug functions
      0x4E9410/0x4E9450 themselves (they call a reporter 0x4BC260 on an object at 0xBDA908) and
      E&B's operator new/delete 0x4E9CB0/0x4E9D10 in the same object.
-   * In progress (2026-10-24, 845c0c9..8588371, app 11 -> 39): `app\shared\auxdata`'s Delta object
-     model: delta.cpp (21; `Unknown_20` and `Add` left), delta_money.cpp and delta_time.cpp (Read/
-     Write), lookup.cpp (3 of 6+). Next: delta_interpolator.cpp (`.work/day/B/i1.cpp`, one
-     scheduling difference), delta_string.cpp (14), the rest of lookup.cpp, then name.cpp,
-     permstr.cpp, linearbu.cpp, then `encode.cpp`/`policy.cpp`. Lead: the reference decoder's
-     `client-re-notes.md` (addresses, leaf vtables), `auxdata.md`, `the reference game model`.
+   * In progress (2026-10-24, 845c0c9..cba68ae, app 11 -> 92): `app\shared\auxdata`'s Delta object
+     model: delta.cpp (22; `Add` left, a `<vector>` form, D11), delta_money.cpp and delta_time.cpp
+     (Read/Write; their constructors 0x4A7080/0x4A8150 and neighbours not yet), lookup.cpp (3 of 6+),
+     delta_interpolator.cpp (7; Unknown_00 0x4A6930 and its value object 0x4A6AF0/0x4A6B30 left),
+     delta_string.cpp (9 + 3), name.cpp (11; 0x4ADBB0, probably name.cpp's, left), permstr.cpp (8),
+     linearbu.cpp (21). Next: the rest of lookup.cpp, the time/money fields' constructors and
+     neighbours (with `template class` instantiations in their .cpp), the float template's
+     Read/Write (delta_template.h line 110), then `encode.cpp`/`policy.cpp`, kv_encoder_base.cpp
+     and kv_pair.cpp (the Unknown_00 visitors). Lead: the reference decoder's `client-re-notes.md`
+     (addresses, leaf vtables), `auxdata.md`, `the reference game model`.
    * Then `app\wwudp` (`CordMgr`, `CordCon`; `EnB.Transports` describes the transport), the
      kernel and tasks (`KernelClass::Run_One_Cycle`; `login.md`: `LoginTaskClass`, the login and
      character-select screens), then `app\packets` (`the reference protocol table`'s message models; `actions.md`).
