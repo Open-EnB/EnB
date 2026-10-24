@@ -410,4 +410,19 @@ Added 2026-10-24 (overnight run; details in `.work/night/item*/report.md`):
   `{}` one stores it first (0x4AA210). An init list stores members before the vtable, assignments
   in the body store the vtable first (0x4A8370). VC6 reuses dead argument slots for later locals:
   one shared variable can be what matches (0x4A91E0).
-* **build.py builds committed files only.** A new uncommitted .cpp shows up as unresolved symbols.
+* **build.py builds committed files only.** A new uncommitted .cpp shows up as unresolved symbols. Without
+  `--report`, `build.py` overwrites `.work/milestones/l1/unresolved.txt`.
+* **The client's Delta model has no "default" state.** Updated and defaulted both set
+  `m_Unknown70 = 2`; a harness keeps its own unknown/default/value state. `DeltaCompoundClass::
+  Unknown_18` recurses into children only when `m_Unknown70 == 0`, `Unknown_1C` only when it is
+  non-zero: expand compounds to their leaves yourself. The Player root derives from the second
+  root class (vtable 0xAEAC40, ctor 0x4A3FF0, with the update collector), not from 0xAEAB88.
+* **appfile.py match and includes.** A header included by a relative path (`#include "..\x.h"`)
+  is found next to the including file, so a copy in the draft folder doesn't shadow it. App files
+  that include WW3D2 headers need `-I` for every library directory.
+* **Custom render objects.** Don't override `Get_Num_Polys` or `Get_Cost` unless the client's class
+  does (the land vtable 0xAE8994 doesn't): an override takes polygon budget from the other scenes.
+* **Shared tree, two builders.** "Wait until the other's tree is clean" deadlocked two builders for
+  an hour. The rule is: the other builder's changes must not be compiled into your verify (their
+  untracked files aren't, unless importer.py lists them); commit only your own hunks; keep the
+  uncommitted window short. When in doubt the coordinator sets a turn order.
