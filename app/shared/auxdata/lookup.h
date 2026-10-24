@@ -25,6 +25,7 @@
 
 class DeltaClass;
 class DeltaCompoundClass;
+class NameClass;
 
 class LookupClass
 {
@@ -36,9 +37,11 @@ public:
 	DeltaClass *Get_Delta(int index) const;				// 0x4AC850
 	bool Unknown_Test_70(int index) const;				// 0x4AC8D0, the field's m_Unknown70 != 0
 	bool Unknown_Test_70_Above_1(int index) const;		// 0x4AC960, the field's m_Unknown70 > 1
+	DeltaClass *Find(const NameClass &name);				// 0x4AC9F0 (no wildcards)
 
 	std::vector<DeltaClass *> Entries;					// +0x00 (the name is a guess)
-	std::map<int, int> m_Unknown10;						// +0x10 key and value types not known yet
+	std::map<const char *, DeltaClass *> m_Unknown10;	// +0x10 the fields by their interned names
+																// (the key copied to a temporary: an rvalue pointer)
 };
 
 #endif //__LOOKUP_H

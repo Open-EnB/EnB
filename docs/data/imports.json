@@ -186,7 +186,9 @@
     "in_tree": [
      "0x4AC850",
      "0x4AC8D0",
-     "0x4AC960"
+     "0x4AC960",
+     "0x4AC9F0",
+     "0x4AD240"
     ],
     "merged": [],
     "name": "shared/auxdata/lookup.cpp"
@@ -245,7 +247,7 @@
    "shared/money.h": "reconstructed",
    "shared/unknown_debug.h": "reconstructed"
   },
-  "in_tree_total": 127,
+  "in_tree_total": 129,
   "totals": {}
  },
  "ww3d2": {

@@ -40,6 +40,7 @@ public:
 
 	// DeltaCompoundClass::Unknown_00 (0x4A55D0) passes the whole name on as a string.
 	const char *Get_String() const { return Name.Get_String(); }
+	bool Is_Wildcard() const { return HasWildcard; }				// (LookupClass's asserts)
 
 	void Split() const;														// 0x4AD890
 

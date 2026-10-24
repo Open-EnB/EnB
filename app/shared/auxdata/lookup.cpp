@@ -95,11 +95,28 @@ bool LookupClass::Unknown_Test_70_Above_1(int index) const
 }
 
 
+
+
+
+
+DeltaClass *LookupClass::Find(const NameClass &name)
+{
+	G_ASSERT(!name.Is_Wildcard());
+	std::map<const char *, DeltaClass *>::iterator i = m_Unknown10.find(name.Get_String());
+	if (i == m_Unknown10.end()) {
+		return 0;
+	}
+	return (*i).second;
+}
+
+
+
 /*
 **	Reconstruction notes
 **
 **	client.exe: LookupClass's index accessors 0x4AC850, 0x4AC8D0 and 0x4AC960, asserts on the
 **	client's lines 67, 78 and 90 (D25). Not rebuilt yet: the constructor 0x4AC250, 0x4AC3B0,
-**	0x4AC560, 0x4AC720 (name.cpp/permstr.cpp callers) and the name lookups 0x4AC9F0 and 0x4ACA90
-**	(asserts "!name.Is_Wildcard()" at lines 104 and 111, the map at +0x10).
+**	0x4AC560, 0x4AC720 (name.cpp/permstr.cpp callers) and the name tests 0x4ACA90 and 0x4ACB20
+**	(lines 111 and 120: they call the map's find 0x4ACBD0 out of line, ours inline it). Find
+**	0x4AC9F0 (line 104): the map is keyed by the interned name pointer (_Lbound 0x4AD240).
 */
