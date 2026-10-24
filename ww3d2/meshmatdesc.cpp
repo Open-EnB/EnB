@@ -853,6 +853,9 @@ void MeshMatDescClass::Post_Load_Process(bool lighting_enabled,MeshModelClass * 
 	for (pass=0; pass<PassCount; pass++) {
 		bool kill_pass = false;
 
+		/*
+		// HY: Earth and beyond uses a different fallback from Renegade with regards to bump environment maps
+		// we keep the pass but change it to an unbumped environment
 		if ( (Shader[pass].Get_Primary_Gradient() == ShaderClass::GRADIENT_BUMPENVMAP) &&
 			  (!DX8Wrapper::Is_Initted() || DX8Wrapper::Get_Current_Caps()->Support_Bump_Envmap() == false) )
 		{
@@ -864,6 +867,7 @@ void MeshMatDescClass::Post_Load_Process(bool lighting_enabled,MeshModelClass * 
 		{
 			kill_pass = true;
 		}
+		*/
 
 		if (kill_pass) {
 			if (Material[pass] != NULL) {
@@ -931,35 +935,7 @@ void MeshMatDescClass::Post_Load_Process(bool lighting_enabled,MeshModelClass * 
 				}
 			}
 		}
-	}
-	
-	// HACK: force meshes which are named b_wire and using texture razorw.tga to use alpha-test
-	// These meshes will follow the given pattern:
-	// - there will be a single vertex material, shader, and texture for the first pass
-	// - the texture will be named razorw.tga
-	// - the mesh name will contain b_wire
-#pragma message("(gth) Renegade-specific hack, forcing b_wire mesh to use alpha-test...")
-	if (	(parent != NULL) &&
-			(PassCount == 1) &&
-			(Has_Shader_Array(0) == false) && 
-			(Has_Texture_Array(0,0) == false) && 
-			(Has_Material_Array(0) == false)) 
-	{
-		if (strstr(parent->Get_Name(),"B_WIRE")) {
-			TextureClass * tex = Peek_Single_Texture(0,0);
-			if (tex && stricmp(tex->Get_Texture_Name(),"razorw.tga") == 0) {
-				ShaderClass	shader = Get_Single_Shader(0);
-				shader.Set_Alpha_Test(ShaderClass::ALPHATEST_ENABLE);
-				shader.Set_Dst_Blend_Func(ShaderClass::DSTBLEND_ZERO);
-				shader.Set_Src_Blend_Func(ShaderClass::SRCBLEND_ONE);
-				shader.Set_Depth_Mask(ShaderClass::DEPTH_WRITE_ENABLE);
-				Set_Single_Shader(shader,0);
-
-				parent->Set_Flag(MeshGeometryClass::SORT,false);
-
-			}
-		}
-	}
+	}	
 }
 
 void MeshMatDescClass::Configure_Material(VertexMaterialClass * mtl,int pass,bool lighting_enabled)
