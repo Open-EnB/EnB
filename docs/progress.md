@@ -661,10 +661,21 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
    `.work/night/item6i/shdtry.py`). Needs a class-id-less `ShdInterfaceClass(def)`, shd8's
    `Setup_Self_Shadow_Info` calls `Peek_Mapper` (ZH lacks it), and the shader headers rebuilt as
    `char[]` text from the client (from 0x7CB8FE) as reconstructed files.
-2. D23: the importer's non-EA library `app`; move `bitset.cpp` (12/12 exact draft in
-   `.work/night/item7/try/`) and its header into the tree under D24/D25; then `lookup.cpp` (6
-   functions, all with asserts) or `delta_money`/`delta_time` (need `DeltaBase`'s layout: ctor
-   0x4A4D40; the reference decoder's docs/research/auxdata.md §3, [prior-work.md](prior-work.md)). Tool: `tools/re/appfile.py`.
+2. E&B's own code (D6, D7), in D6's order and led by what [prior-work.md](prior-work.md) already
+   gives us. Tool: `tools/re/appfile.py` (done: `bitset.cpp` 12/12 exact as a draft in
+   `.work/night/item7/try/`).
+   * First D23: the importer's non-EA library `app`; move `bitset.cpp` and its header into the
+     tree under D24/D25 (proves the path).
+   * `app\shared\auxdata`, the Delta object model: the reference decoder's `client-re-notes.md` address
+     catalogue (`DeltaBase` ctor 0x4A4D40, `DeltaCompound::Add` 0x4A5670, the leaf types and their
+     vtables), `auxdata.md` (wire format, the 11 root schemas), `the reference game model` (schemas, codec and
+     typed classes: the specification for the C++ classes). Start with `DeltaBase`'s layout, then
+     the small leaves (`delta_money`, `delta_time`, `delta_string`) and `lookup.cpp`, then
+     `encode.cpp`/`policy.cpp`.
+   * Then `app\wwudp` (`CordMgr`, `CordCon`; `EnB.Transports` describes the transport), the
+     kernel and tasks (`KernelClass::Run_One_Cycle`; `login.md`: `LoginTaskClass`, the login and
+     character-select screens), then `app\packets` (`the reference protocol table`'s message models; `actions.md`).
+     Test packet code against `the reference decoder` and the EA captures ([prior-work.md](prior-work.md) §2-3).
 3. `WW3D::Make_Screen_Shot` 0x9182C0: Zero Hour's gamma/format plus E&B's JPG case through a wwlib
    JPEG writer (ctor 0x9E3850, dtor 0x9E3860, save 0x9E3870; class after srandom.cpp); 0.85, only
    register scheduling left (`.work/night/item7b/v_mss.py`, `run_mss.py`).
