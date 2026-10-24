@@ -168,7 +168,9 @@ compiled into E&B's objects), so they run higher.
   deadline"), retries included; the failure arrives only after the background task ends, as a saved
   JSON whose items carry `error`, not `pseudocode`. The fix is `REA_GHIDRA_STARTUP_TIMEOUT_MS` (e.g.
   900000) in the environment that starts the REA server, then a restart; check an item's `status`
-  before reading the file.
+  before reading the file. Set since 2026-10-23: `REA_GHIDRA_STARTUP_TIMEOUT_MS=900000` in the `rea`
+  server's `env` (`~/.claude.json`) and `MCP_TOOL_TIMEOUT=1200000` in `~/.claude/settings.json` `env`
+  (Claude Code's own tool-call limit, kept above REA's).
 * **REA can't decompile vtable-only functions.** Ghidra defines no function at an address only
   reached through a vtable; `batch_decompile` then fails with "no loaded source mapping". Work from
   `client.py dis` for those. A batch result over the token limit is saved to a file: read its
