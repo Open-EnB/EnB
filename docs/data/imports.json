@@ -139,6 +139,11 @@
     "copy": "reconstructed",
     "expected": {},
     "in_tree": [
+     "0x4A8FD0",
+     "0x4A9350",
+     "0x4A9390",
+     "0x4A9710",
+     "0x4A99E0",
      "0x4A9A70",
      "0x4A9B30",
      "0x4A9BA0",
@@ -317,7 +322,7 @@
    "shared/money.h": "reconstructed",
    "shared/unknown_debug.h": "reconstructed"
   },
-  "in_tree_total": 136,
+  "in_tree_total": 141,
   "totals": {}
  },
  "ww3d2": {

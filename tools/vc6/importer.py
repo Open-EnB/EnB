@@ -3097,7 +3097,11 @@ RECONSTRUCTED = {
     ('app', 'shared/kv_list.h'): "KVListClass's declaration, only Add 0x4B6760 (the assert's 'item', line 23)",
     ('app', 'shared/auxdata/encode.cpp'): "RecordTableClass (D24; Records from the asserts), client "
                                           "0x4A9A70-0x4A9C1A: ctor (line 512, D25), dtor, Unknown_Sum, "
-                                          "Unknown_All; the rest of the file not rebuilt",
+                                          "Unknown_All; the decoders (M1.2): RecordCodecClass::Decode "
+                                          "0x4A8FD0 (vtable 0xAEB29C), TreeCodecClass (vtables 0xAEB2AC, "
+                                          "0xAEB2A0): Decode 0x4A9350, Visit 0x4A9390 / 0x4A9400 (line 401, "
+                                          "not exact), Read_Header 0x4A9710, its holder 0x4A99E0, "
+                                          "Get_Tree_Codec 0x4A9B80; the rest of the file not rebuilt",
     ('app', 'shared/auxdata/policy.cpp'): "CompiledPolicyClass (D24; Compiled, Size from the asserts): dtor "
                                           "0x4AE850, Get_Action 0x4AED50 (line 334, D25); PolicyClass::"
                                           "Get_Action 0x4AF490 (line 444); the rest of the file not rebuilt",
