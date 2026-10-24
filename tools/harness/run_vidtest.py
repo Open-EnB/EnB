@@ -6,7 +6,9 @@
 
 frames: vidtest renders --frames frames, saves its client area to shot.bmp and quits by itself.
 close:  vidtest runs until this script posts WM_CLOSE to its window (after --seconds), as a user
-        closing the window would; vidtest saves shot.bmp itself at frame 30.
+        closing the window would; vidtest saves shot.bmp itself at frame 30. As VIDTEST, a close before
+        the end of the tests exits with -3 (docs/vidtest.md 1.2); if the tests (about 2 s) ended first,
+        with 1. Either is accepted.
 The screenshot is vidtest's own (its D3D back buffer, read before the frame is presented): never a
 screen grab, which would read whatever window happens to be on top.
 Then: the exit code must be 0, vidtest.log must show WW3D::Init and Set_Render_Device = 0, and
@@ -88,7 +90,8 @@ def main():
     rc = ctypes.c_int32(rc).value
     log = open(os.path.join(cwd, 'vidtest.log'), encoding='latin1').read() if os.path.exists(os.path.join(cwd, 'vidtest.log')) else ''
     print(log.rstrip())
-    checks = {'exit code 0': rc == 0,
+    want_rc = (-3, 1) if a.mode == 'close' else (0,)
+    checks = {f'exit code in {want_rc}': rc in want_rc,
               'WW3D::Init = 0': 'WW3D::Init = 0' in log,
               'Set_Render_Device = 0': any(l.startswith('WW3D::Set_Render_Device') and l.endswith('= 0')
                                            for l in log.splitlines()),
