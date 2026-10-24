@@ -2481,33 +2481,13 @@
  },
  {
   "object": "texture.obj",
-  "function": "TextureBaseClass::Invalidate_Old_Unused_Textures",
-  "symbol": "?Invalidate_Old_Unused_Textures@TextureBaseClass@@SAXI@Z",
-  "length": 309,
-  "status": "none",
-  "address": "0x94B770",
-  "similarity": 0.49,
-  "window": "0x94B240-0x94BA80"
- },
- {
-  "object": "texture.obj",
-  "function": "TextureBaseClass::Invalidate",
-  "symbol": "?Invalidate@TextureBaseClass@@QAEXXZ",
-  "length": 59,
-  "status": "none",
-  "address": "0x94BA10",
-  "similarity": 0.53,
-  "window": "0x94B240-0x94BA80"
- },
- {
-  "object": "texture.obj",
   "function": "TextureBaseClass::Set_D3D_Base_Texture",
   "symbol": "?Set_D3D_Base_Texture@TextureBaseClass@@QAEXPAUIDirect3DBaseTexture8@@@Z",
   "length": 45,
   "status": "none",
-  "address": "0x94B390",
-  "similarity": 0.33,
-  "window": "0x94B240-0x94BA80"
+  "address": "0x94D5D0",
+  "similarity": 0.45,
+  "window": "0x94A820-0x94D9F0"
  },
  {
   "object": "texture.obj",
@@ -2521,23 +2501,13 @@
  },
  {
   "object": "texture.obj",
-  "function": "TextureBaseClass::Set_HSV_Shift",
-  "symbol": "?Set_HSV_Shift@TextureBaseClass@@QAEXABVVector3@@@Z",
-  "length": 82,
-  "status": "none",
-  "address": "0x94C150",
-  "similarity": 0.63,
-  "window": "0x94C090-0x94C7B0"
- },
- {
-  "object": "texture.obj",
   "function": "TextureBaseClass::_Get_Total_Locked_Surface_Size",
   "symbol": "?_Get_Total_Locked_Surface_Size@TextureBaseClass@@SAHXZ",
   "length": 260,
   "status": "none",
   "address": "0x94C390",
   "similarity": 0.46,
-  "window": "0x94C090-0x94C7B0"
+  "window": "0x94C1D0-0x94C7B0"
  },
  {
   "object": "texture.obj",
@@ -2547,7 +2517,7 @@
   "status": "none",
   "address": "0x94C280",
   "similarity": 0.3,
-  "window": "0x94C090-0x94C7B0"
+  "window": "0x94C1D0-0x94C7B0"
  },
  {
   "object": "texture.obj",
@@ -2557,7 +2527,7 @@
   "status": "none",
   "address": "0x94C4F0",
   "similarity": 0.46,
-  "window": "0x94C090-0x94C7B0"
+  "window": "0x94C1D0-0x94C7B0"
  },
  {
   "object": "texture.obj",
@@ -2567,7 +2537,7 @@
   "status": "none",
   "address": "0x94C650",
   "similarity": 0.46,
-  "window": "0x94C090-0x94C7B0"
+  "window": "0x94C1D0-0x94C7B0"
  },
  {
   "object": "texture.obj",

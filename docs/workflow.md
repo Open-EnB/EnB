@@ -174,6 +174,11 @@ compiled into E&B's objects), so they run higher.
 * **`objdiff.py` marks relocated operands as differences.** Our object shows a relocated field as
   `0` / `[0]` (or `[esi + REL]`), the client as `REL`: those `*` lines are not differences. Real
   ones are other instructions, extra pushes, or code only one side has.
+* **Adding the same call to twin overloads makes them uncountable.** `objmatch` wildcards call
+  targets, so two overloads that differ only in their callees become one pattern found at both
+  addresses (`multiple`), and `verify` credits neither (`WW3D::Set_Render_Device`, 0x917790 and
+  0x9177E0). Check with `objmatch.py OBJ`: both found exactly at their two client addresses is the
+  evidence; record the change with a 0 gain.
 * **A copy's low evidence count can be its own headers' fault.** Zero Hour's `mapper.cpp` matched
   only 2 client functions in `.work/bm2` (compiled with Zero Hour's own WW3D2 headers), yet
   swapped into the tree it matched all of them (+56): the client's vtables had Zero Hour's slot

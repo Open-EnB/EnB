@@ -4,6 +4,46 @@ Newest first within each section. Dates are when the entry was written.
 
 ## 1. Log
 
+### 2026-10-23: WW3D2 particles, textures, line groups (after the mapper swap)
+
+* WW3D2 2,310 -> 2,352 (+42); gaps 347 -> 316; `symbols.json` 6,703 -> 6,736 (none gone). Every step
+  verified by pair sets (`importer.py verify`), `replay` (0 differences) and committed on its own
+  (dbdb1d6..7eaf120); each fix is a row in library-matching.md §3.6.1. Full verify at the end: all
+  seven libraries 0 errors, WW3D2 the only one changed.
+* D18 taken (user): meshmatdesc's byte-only include-order fix is not applied; kept on record.
+* Particles (cluster 2 of the near-miss entry, done but for one function):
+  * `PointGroupClass::Render` and `LineGroupClass::Render` take the object's transform (E&B; the
+    app passes static matrices). `LineGroupClass::Render` rebuilt with three E&B members (transform
+    setup, index fill, vertex fill; names not known, D10): all four match.
+  * `ParticleEmitterClass`: emitter-space emission when `UnknownFlag` (+0xFD) is set (two E&B
+    members), constructor (`FutureStartTime` and `EmitRemain`), `Create_New_Particles`
+    (reciprocal frame time, by-value lerp), `Build_Definition` passing the flag,
+    `Unknown_Get_Position` (0x97E260).
+  * `ParticleBufferClass`: Zero Hour's line groups (`GroupID`, `Render_Line`), E&B's bounds in
+    object space (`Update_Cached_Bounding_Volumes`), Zero Hour's `Scale` (+
+    `SegLineRendererClass::Scale`). `ParticleEmitterDefClass::Save_Extra_Info` writes `m_ExtraInfo`.
+  * Left: `PointGroupClass::Render` (0x954960) matches structurally but its block-scope stack
+    slots are placed differently throughout; no lead.
+* `WW3D::Set_Render_Device` (cluster 3): both overloads call E&B's `Unknown_Reset_Cube_Map_List`
+  (0x995DC0). Matched in fact but not counted: the overloads are now twins (objmatch `multiple`).
+  The E&B module behind it is not rebuilt (D19 below).
+* Textures (cluster 4, D9): `Peek_D3D_Base_Texture` without `LastAccessed` (+4, `TextureClass::Init`
+  among them), E&B's `Invalidate` (Zero Hour's commented-out "battlefield version" plus the
+  load-task test), `Invalidate_Old_Unused_Textures` keeping last frame's count (+ an E&B getter),
+  `Get_Texture_Information` taking a `StringClass &`, `TextureLoader::_UnknownInvalidationTime`
+  (0xC01290, set by the app). Left: the four `_Get_Total_*_Size` functions inline two different
+  memory-usage bodies split on `Initialized` (not found in any EA copy); the `TextureClass`
+  constructors, `Apply`, `Get_Reduction` and `DX8Wrapper`'s device code as before.
+* Not started: `GapFillerClass` (cluster 5).
+* Tools: none new. One trap added to workflow.md §3 (twin overloads after an added call).
+* Verified: as above. Nothing run live. REA opened once (Ghidra hit its 330 s startup deadline on
+  the first batch; the retry worked but was not needed in the end); closed.
+* Decisions: D18 (user). Open: D19 (proposed below).
+* Next step: D19's module if the user agrees; else `GapFillerClass`, the `_Get_Total_*_Size`
+  family, or the remaining D9 texture items.
+* Outside git: `.work/*_edit.py`, `*_variants*.py`, `*_spec.py`, `*_reasons.py`, `*_edited/` for
+  each step; `.work/imports.mapper-base.json` (the session's baseline), `.work/pairs_cmp.py`.
+
 ### 2026-10-23: WW3D2 texture mappers from Zero Hour
 
 * WW3D2 2,242 -> 2,310 (+68 client functions); gaps 407 -> 347; mapper.obj, matrixmapper.obj and
@@ -475,11 +515,18 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 ## 3. Open decisions
 
 * (D7 is to be revisited with the user if byte-exactness of E&B's code becomes too costly.)
+* D19 (proposed 2026-10-23): E&B's cube-map list module in WW3D2 (0x995D20-0x995ECA, between
+  dx8texman.cpp and an E&B render object whose constructor is 0x995ED0) has no file name in the
+  client (no WW3D2 assert paths survive). Proposal: rebuild it as a new tree file with a neutral
+  name (`ww3d2/unknown_cubemaplist.cpp`/`.h`, importer `NEW_FILES`), placed in the build after
+  dx8texman, and rename it once E&B's name turns up. Recommendation: yes, with the render object
+  investigated first, since it may share the file.
 
 ## 4. Next steps
 
 1. WW3D2 near-misses (docs/data/gaps-ww3d2, 347): the clusters of the 2026-10-23 near-miss entry
-   (particles, `Set_Render_Device`'s E&B call, textures under D9, `GapFillerClass`; mapper done).
+   (`GapFillerClass`; textures under D9; mapper, particles and `Set_Render_Device` done, see the
+   2026-10-23 entries for what is left of each).
    Last of all: D18's byte-only meshmatdesc fix (0x947310), if nothing better is found.
    D9's `TextureClass` constructors, `Init`, `Apply`, `Get_Reduction` and `DX8Wrapper`'s device
    code are still open. wwshade: 138, left only the two `"UnNamed"` constructors (D17) and an

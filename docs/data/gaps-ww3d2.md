@@ -252,15 +252,12 @@ Each function our source compiles that the client does not contain byte for byte
 | stripoptimizer.obj | `Stripify::generateTriangleList` | 705 | none | 0x78F640 | 0.1 |
 | stripoptimizer.obj | `StripOptimizerClass::Combine_Strips` | 191 | none | 0x78F970 | 0.06 |
 | stripoptimizer.obj | `Stripify::stripify` | 1565 | none | 0x78F990 | 0.02 |
-| texture.obj | `TextureBaseClass::Set_HSV_Shift` | 82 | none | 0x94C150 | 0.63 |
-| texture.obj | `TextureBaseClass::Invalidate` | 59 | none | 0x94BA10 | 0.53 |
 | texture.obj | `ZTextureClass::Apply_New_Surface` | 184 | none | 0x94D1F0 | 0.5 |
-| texture.obj | `TextureBaseClass::Invalidate_Old_Unused_Textures` | 309 | none | 0x94B770 | 0.49 |
 | texture.obj | `TextureBaseClass::Get_Reduction` | 33 | none | 0x94BC20 | 0.49 |
 | texture.obj | `TextureBaseClass::_Get_Total_Locked_Surface_Size` | 260 | none | 0x94C390 | 0.46 |
 | texture.obj | `TextureBaseClass::_Get_Total_Lightmap_Texture_Size` | 260 | none | 0x94C4F0 | 0.46 |
 | texture.obj | `TextureBaseClass::_Get_Total_Procedural_Texture_Size` | 260 | none | 0x94C650 | 0.46 |
-| texture.obj | `TextureBaseClass::Set_D3D_Base_Texture` | 45 | none | 0x94B390 | 0.33 |
+| texture.obj | `TextureBaseClass::Set_D3D_Base_Texture` | 45 | none | 0x94D5D0 | 0.45 |
 | texture.obj | `TextureBaseClass::_Get_Total_Texture_Size` | 274 | none | 0x94C280 | 0.3 |
 | texture.obj | `ZTextureClass::Get_Texture_Memory_Usage` | 92 | none | 0x94D680 | 0.27 |
 | texture.obj | `TextureClass::TextureClass` | 139 | none | 0x94CA20 | 0.16 |

@@ -12820,6 +12820,14 @@
 "length": 84
 },
 {
+"address": "0x90BF80",
+"symbol": "?Init_Material@SphereRenderObjClass@@IAEXXZ",
+"name": "SphereRenderObjClass::Init_Material",
+"kind": "function",
+"source": "exact",
+"length": 197
+},
+{
 "address": "0x90C050",
 "symbol": "?Get_Num_Polys@SphereRenderObjClass@@UBEHXZ",
 "name": "SphereRenderObjClass::Get_Num_Polys",
@@ -14523,7 +14531,8 @@
 "symbol": "?Save_Extra_Info@ParticleEmitterDefClass@@MAE?AW4WW3DErrorType@@AAVChunkSaveClass@@@Z",
 "name": "ParticleEmitterDefClass::Save_Extra_Info",
 "kind": "function",
-"source": "vtable"
+"source": "exact",
+"length": 68
 },
 {
 "address": "0x916AB0",
@@ -15450,8 +15459,8 @@
 },
 {
 "address": "0x920DB0",
-"symbol": "_$E245",
-"name": "$E245",
+"symbol": "_$E246",
+"name": "$E246",
 "kind": "function",
 "source": "exact",
 "length": 176
@@ -20053,6 +20062,22 @@
 "source": "strings"
 },
 {
+"address": "0x9497B0",
+"symbol": "?Flush_Pending_Load_Tasks@TextureLoader@@SAXXZ",
+"name": "TextureLoader::Flush_Pending_Load_Tasks",
+"kind": "function",
+"source": "exact",
+"length": 475
+},
+{
+"address": "0x949990",
+"symbol": "?Update@TextureLoader@@SAXP6AXXZ@Z",
+"name": "TextureLoader::Update",
+"kind": "function",
+"source": "exact",
+"length": 490
+},
+{
 "address": "0x949BA0",
 "symbol": "?Process_Foreground_Thumbnail@TextureLoader@@CAXPAVTextureLoadTaskClass@@@Z",
 "name": "TextureLoader::Process_Foreground_Thumbnail",
@@ -20173,6 +20198,30 @@
 "length": 42
 },
 {
+"address": "0x94A6F0",
+"symbol": "?Begin_Compressed_Load@TextureLoadTaskClass@@AAE_NXZ",
+"name": "TextureLoadTaskClass::Begin_Compressed_Load",
+"kind": "function",
+"source": "exact",
+"length": 416
+},
+{
+"address": "0x94A890",
+"symbol": "?Get_Texture_Information@@YA_NABVStringClass@@IAAI1AAW4WW3DFormat@@1_N@Z",
+"name": "Get_Texture_Information",
+"kind": "function",
+"source": "exact",
+"length": 487
+},
+{
+"address": "0x94AA80",
+"symbol": "?Begin_Uncompressed_Load@TextureLoadTaskClass@@AAE_NXZ",
+"name": "TextureLoadTaskClass::Begin_Uncompressed_Load",
+"kind": "function",
+"source": "exact",
+"length": 193
+},
+{
 "address": "0x94AB50",
 "symbol": "?Lock_Surfaces@TextureLoadTaskClass@@AAEXXZ",
 "name": "TextureLoadTaskClass::Lock_Surfaces",
@@ -20213,6 +20262,30 @@
 "length": 41
 },
 {
+"address": "0x94B770",
+"symbol": "?Invalidate_Old_Unused_Textures@TextureBaseClass@@SAXI@Z",
+"name": "TextureBaseClass::Invalidate_Old_Unused_Textures",
+"kind": "function",
+"source": "exact",
+"length": 404
+},
+{
+"address": "0x94B920",
+"symbol": "?Init@TextureClass@@UAEXXZ",
+"name": "TextureClass::Init",
+"kind": "function",
+"source": "exact",
+"length": 230
+},
+{
+"address": "0x94BA10",
+"symbol": "?Invalidate@TextureBaseClass@@QAEXXZ",
+"name": "TextureBaseClass::Invalidate",
+"kind": "function",
+"source": "exact",
+"length": 98
+},
+{
 "address": "0x94BA80",
 "symbol": "?Load_Locked_Surface@TextureBaseClass@@IAEXXZ",
 "name": "TextureBaseClass::Load_Locked_Surface",
@@ -20235,6 +20308,22 @@
 "kind": "function",
 "source": "exact",
 "length": 80
+},
+{
+"address": "0x94BB50",
+"symbol": "?Get_Surface_Level@TextureClass@@QAEPAVSurfaceClass@@I@Z",
+"name": "TextureClass::Get_Surface_Level",
+"kind": "function",
+"source": "exact",
+"length": 96
+},
+{
+"address": "0x94BBB0",
+"symbol": "?Get_D3D_Surface_Level@TextureClass@@QAEPAUIDirect3DSurface8@@I@Z",
+"name": "TextureClass::Get_D3D_Surface_Level",
+"kind": "function",
+"source": "exact",
+"length": 57
 },
 {
 "address": "0x94BBF0",
@@ -20267,6 +20356,14 @@
 "kind": "function",
 "source": "exact",
 "length": 76
+},
+{
+"address": "0x94C150",
+"symbol": "?Set_HSV_Shift@TextureBaseClass@@QAEXABVVector3@@@Z",
+"name": "TextureBaseClass::Set_HSV_Shift",
+"kind": "function",
+"source": "exact",
+"length": 121
 },
 {
 "address": "0x94C7B0",
@@ -20339,6 +20436,14 @@
 "kind": "function",
 "source": "exact",
 "length": 37
+},
+{
+"address": "0x94D190",
+"symbol": "?Apply@ZTextureClass@@UAEXI@Z",
+"name": "ZTextureClass::Apply",
+"kind": "function",
+"source": "exact",
+"length": 92
 },
 {
 "address": "0x94D2B0",
@@ -21619,10 +21724,11 @@
 },
 {
 "address": "0x95BA90",
-"symbol": "ParticleBufferClass::ParticleBufferClass",
+"symbol": "??0ParticleBufferClass@@QAE@PAVParticleEmitterClass@@IAAU?$ParticlePropertyStruct@VVector3@@@@AAU?$ParticlePropertyStruct@M@@22M22VVector3@@MPAVTextureClass@@VShaderClass@@_NHHPBUW3dEmitterLinePropertiesStruct@@@Z",
 "name": "ParticleBufferClass::ParticleBufferClass",
 "kind": "function",
-"source": "strings"
+"source": "exact",
+"length": 2092
 },
 {
 "address": "0x95C2D0",
@@ -21653,6 +21759,22 @@
 "name": "ParticleBufferClass::vector deleting dtor",
 "kind": "function",
 "source": "vtable"
+},
+{
+"address": "0x95C360",
+"symbol": "??0ParticleBufferClass@@QAE@ABV0@@Z",
+"name": "ParticleBufferClass::ParticleBufferClass",
+"kind": "function",
+"source": "exact",
+"length": 4268
+},
+{
+"address": "0x95D430",
+"symbol": "??1ParticleBufferClass@@UAE@XZ",
+"name": "ParticleBufferClass::~ParticleBufferClass",
+"kind": "function",
+"source": "exact",
+"length": 1120
 },
 {
 "address": "0x95D890",
@@ -21702,11 +21824,36 @@
 "length": 339
 },
 {
+"address": "0x95DC90",
+"symbol": "?Render_Particles@ParticleBufferClass@@IAEXAAVRenderInfoClass@@@Z",
+"name": "ParticleBufferClass::Render_Particles",
+"kind": "function",
+"source": "exact",
+"length": 334
+},
+{
+"address": "0x95DDE0",
+"symbol": "?Render_Line@ParticleBufferClass@@IAEXAAVRenderInfoClass@@@Z",
+"name": "ParticleBufferClass::Render_Line",
+"kind": "function",
+"source": "exact",
+"length": 1574
+},
+{
+"address": "0x95E500",
+"symbol": "?Render_Line_Group@ParticleBufferClass@@IAEXAAVRenderInfoClass@@@Z",
+"name": "ParticleBufferClass::Render_Line_Group",
+"kind": "function",
+"source": "exact",
+"length": 940
+},
+{
 "address": "0x95E8B0",
 "symbol": "?Scale@ParticleBufferClass@@UAEXM@Z",
 "name": "ParticleBufferClass::Scale",
 "kind": "function",
-"source": "vtable"
+"source": "exact",
+"length": 223
 },
 {
 "address": "0x95E990",
@@ -21902,7 +22049,8 @@
 "symbol": "?Update_Cached_Bounding_Volumes@ParticleBufferClass@@MBEXXZ",
 "name": "ParticleBufferClass::Update_Cached_Bounding_Volumes",
 "kind": "function",
-"source": "vtable"
+"source": "exact",
+"length": 338
 },
 {
 "address": "0x960F10",
@@ -21927,6 +22075,14 @@
 "kind": "function",
 "source": "exact",
 "length": 853
+},
+{
+"address": "0x962070",
+"symbol": "?Get_New_Particles@ParticleBufferClass@@IAEXXZ",
+"name": "ParticleBufferClass::Get_New_Particles",
+"kind": "function",
+"source": "exact",
+"length": 868
 },
 {
 "address": "0x9623E0",
@@ -22194,6 +22350,20 @@
 "address": "0x963B50",
 "symbol": "??_E?$SimpleDynVecClass@VVector4@@@@UAEPAXI@Z",
 "name": "??_E?$SimpleDynVecClass@VVector4@@@@UAEPAXI@Z",
+"kind": "function",
+"source": "vtable"
+},
+{
+"address": "0x963BB0",
+"symbol": "??_E?$SimpleVecClass@E@@UAEPAXI@Z",
+"name": "??_E?$SimpleVecClass@E@@UAEPAXI@Z",
+"kind": "function",
+"source": "vtable"
+},
+{
+"address": "0x963BF0",
+"symbol": "??_E?$SimpleDynVecClass@E@@UAEPAXI@Z",
+"name": "??_E?$SimpleDynVecClass@E@@UAEPAXI@Z",
 "kind": "function",
 "source": "vtable"
 },
@@ -25170,12 +25340,44 @@
 "length": 12
 },
 {
+"address": "0x97BAF0",
+"symbol": "?Render@LineGroupClass@@QAEXAAVRenderInfoClass@@ABVMatrix3D@@@Z",
+"name": "LineGroupClass::Render",
+"kind": "function",
+"source": "exact",
+"length": 1678
+},
+{
 "address": "0x97C1B0",
 "symbol": "?Get_Polygon_Count@LineGroupClass@@QAEHXZ",
 "name": "LineGroupClass::Get_Polygon_Count",
 "kind": "function",
 "source": "exact",
 "length": 28
+},
+{
+"address": "0x97C1D0",
+"symbol": "?Unknown_Fill_Indices@LineGroupClass@@IAEXPAVDynamicIBAccessClass@@@Z",
+"name": "LineGroupClass::Unknown_Fill_Indices",
+"kind": "function",
+"source": "exact",
+"length": 394
+},
+{
+"address": "0x97C360",
+"symbol": "?Unknown_Fill_Vertices@LineGroupClass@@IAEXPAVDynamicVBAccessClass@@PBVVector3@@@Z",
+"name": "LineGroupClass::Unknown_Fill_Vertices",
+"kind": "function",
+"source": "exact",
+"length": 1431
+},
+{
+"address": "0x97C900",
+"symbol": "?Unknown_Set_Transforms@LineGroupClass@@IAEXABVMatrix4@@ABVMatrix3D@@PAVVector3@@@Z",
+"name": "LineGroupClass::Unknown_Set_Transforms",
+"kind": "function",
+"source": "exact",
+"length": 1535
 },
 {
 "address": "0x97CF10",
@@ -25219,10 +25421,11 @@
 },
 {
 "address": "0x97D180",
-"symbol": "ParticleEmitterClass::ParticleEmitterClass",
+"symbol": "??0ParticleEmitterClass@@QAE@MIPAVVector3Randomizer@@VVector3@@0MMAAU?$ParticlePropertyStruct@VVector3@@@@AAU?$ParticlePropertyStruct@M@@33M331MMPAVTextureClass@@VShaderClass@@HH_NHHPBUW3dEmitterLinePropertiesStruct@@6@Z",
 "name": "ParticleEmitterClass::ParticleEmitterClass",
 "kind": "function",
-"source": "strings"
+"source": "exact",
+"length": 718
 },
 {
 "address": "0x97D450",
@@ -25409,6 +25612,14 @@
 "length": 36
 },
 {
+"address": "0x97E260",
+"symbol": "?Unknown_Get_Position@ParticleEmitterClass@@QBEXPAVVector3@@@Z",
+"name": "ParticleEmitterClass::Unknown_Get_Position",
+"kind": "function",
+"source": "exact",
+"length": 70
+},
+{
 "address": "0x97E2B0",
 "symbol": "?Set_Base_Velocity@ParticleEmitterClass@@QAEXABVVector3@@@Z",
 "name": "ParticleEmitterClass::Set_Base_Velocity",
@@ -25433,6 +25644,14 @@
 "length": 13
 },
 {
+"address": "0x97E330",
+"symbol": "?Emit@ParticleEmitterClass@@UAEXXZ",
+"name": "ParticleEmitterClass::Emit",
+"kind": "function",
+"source": "exact",
+"length": 412
+},
+{
 "address": "0x97E4D0",
 "symbol": "?Update_Cached_Bounding_Volumes@ParticleEmitterClass@@EBEXXZ",
 "name": "ParticleEmitterClass::Update_Cached_Bounding_Volumes",
@@ -25441,12 +25660,44 @@
 "length": 92
 },
 {
+"address": "0x97E530",
+"symbol": "?Create_New_Particles@ParticleEmitterClass@@AAEXABVQuaternion@@ABVVector3@@@Z",
+"name": "ParticleEmitterClass::Create_New_Particles",
+"kind": "function",
+"source": "exact",
+"length": 735
+},
+{
 "address": "0x97E810",
 "symbol": "?Initialize_Particle@ParticleEmitterClass@@AAEXPAUNewParticleStruct@@IABVQuaternion@@ABVVector3@@@Z",
 "name": "ParticleEmitterClass::Initialize_Particle",
 "kind": "function",
 "source": "exact",
 "length": 866
+},
+{
+"address": "0x97EB80",
+"symbol": "?Unknown_Create_New_Particles@ParticleEmitterClass@@AAEXXZ",
+"name": "ParticleEmitterClass::Unknown_Create_New_Particles",
+"kind": "function",
+"source": "exact",
+"length": 293
+},
+{
+"address": "0x97ECB0",
+"symbol": "?Unknown_Initialize_Particle@ParticleEmitterClass@@AAEXPAUNewParticleStruct@@I@Z",
+"name": "ParticleEmitterClass::Unknown_Initialize_Particle",
+"kind": "function",
+"source": "exact",
+"length": 302
+},
+{
+"address": "0x97EDE0",
+"symbol": "?Build_Definition@ParticleEmitterClass@@QBEPAVParticleEmitterDefClass@@XZ",
+"name": "ParticleEmitterClass::Build_Definition",
+"kind": "function",
+"source": "exact",
+"length": 1333
 },
 {
 "address": "0x97F320",
@@ -51511,6 +51762,13 @@
 "source": "vtable"
 },
 {
+"address": "0xB12028",
+"symbol": "??_7?$SimpleDynVecClass@E@@6B@",
+"name": "??_7?$SimpleDynVecClass@E@@6B@",
+"kind": "vtable",
+"source": "vtable"
+},
+{
 "address": "0xB12034",
 "symbol": "??_7?$SimpleDynVecClass@VVector4@@@@6B@",
 "name": "??_7?$SimpleDynVecClass@VVector4@@@@6B@",
@@ -51521,6 +51779,13 @@
 "address": "0xB12040",
 "symbol": "??_7?$SimpleDynVecClass@VVector3@@@@6B@",
 "name": "??_7?$SimpleDynVecClass@VVector3@@@@6B@",
+"kind": "vtable",
+"source": "vtable"
+},
+{
+"address": "0xB1204C",
+"symbol": "??_7?$SimpleVecClass@E@@6B@",
+"name": "??_7?$SimpleVecClass@E@@6B@",
 "kind": "vtable",
 "source": "vtable"
 },
