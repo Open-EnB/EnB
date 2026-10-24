@@ -160,6 +160,8 @@ public:
 	void Clean() { Dirty=false; };
 
 	void Set_HSV_Shift(const Vector3 &hsv_shift);
+	// E&B: not virtual, one for every texture class (0x94C1D0)
+	unsigned Get_Texture_Memory_Usage() const;
 	const Vector3& Get_HSV_Shift() { return HSVShift; }
 
 	bool Is_Compression_Allowed() const { return IsCompressionAllowed; }
@@ -302,8 +304,6 @@ public:
 	WW3DFormat Get_Texture_Format() const { return TextureFormat; }
 
 	virtual void Apply(unsigned int stage);
-
-	unsigned Get_Texture_Memory_Usage() const;
 
 	virtual TextureClass* As_TextureClass() { return this; }
 

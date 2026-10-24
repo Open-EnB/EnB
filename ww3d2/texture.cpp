@@ -432,6 +432,34 @@ void TextureBaseClass::Set_HSV_Shift(const Vector3 &hsv_shift)
 	HSVShift=hsv_shift;
 }
 
+// E&B: Generals' helper and Get_Texture_Memory_Usage, on TextureBaseClass (0x94C1D0)
+static int Calculate_Texture_Memory_Usage(const TextureBaseClass* texture,int red_factor=0)
+{
+	// Set performance statistics
+
+	int size=0;
+	IDirect3DTexture8* d3d_texture=texture->Peek_D3D_Texture();
+	if (!d3d_texture) return 0;
+	for (unsigned i=red_factor;i<d3d_texture->GetLevelCount();++i) {
+		D3DSURFACE_DESC desc;
+		DX8_ErrorCode(d3d_texture->GetLevelDesc(i,&desc));
+		size+=desc.Size;
+	}
+	return size;
+}
+
+//**********************************************************************************************
+//! Get texture memory usage
+/*! 
+*/
+unsigned TextureBaseClass::Get_Texture_Memory_Usage() const
+{
+	if (/*!ReductionEnabled || */!Initialized) return Calculate_Texture_Memory_Usage(this,0);
+//	unsigned reduction=WW3D::Get_Texture_Reduction();
+//	if (CurrentReductionFactor>reduction) reduction=CurrentReductionFactor;
+	return Calculate_Texture_Memory_Usage(this,0);//reduction);
+}
+
 //**********************************************************************************************
 //! Get total locked surface size
 /*! KM
@@ -1090,23 +1118,6 @@ IDirect3DSurface8 *TextureClass::Get_D3D_Surface_Level(unsigned int level)
 	IDirect3DSurface8 *d3d_surface = NULL;
 	DX8_ErrorCode(Peek_D3D_Texture()->GetSurfaceLevel(level, &d3d_surface));
 	return d3d_surface;
-}
-
-//**********************************************************************************************
-//! Get texture memory usage
-/*! 
-*/
-unsigned TextureClass::Get_Texture_Memory_Usage() const
-{
-	int size=0;
-	if (!Peek_D3D_Texture()) return 0;
-	for (unsigned i=0;i<Peek_D3D_Texture()->GetLevelCount();++i) 
-	{
-		D3DSURFACE_DESC desc;
-		DX8_ErrorCode(Peek_D3D_Texture()->GetLevelDesc(i,&desc));
-		size+=desc.Size;
-	}
-	return size;
 }
 
 
