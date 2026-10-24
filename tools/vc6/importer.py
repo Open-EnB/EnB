@@ -2902,6 +2902,18 @@ TEXTURE_FILTER_PATCHES = {
 for _key, _edits in TEXTURE_FILTER_PATCHES.items():
     PATCHES.setdefault(_key, []).extend(_edits)
 # end of TEXTURE_FILTER_PATCHES
+# D22 (PS): Zero Hour's shd6/shd7/shd8 bump-diffuse and bump-specular shaders in wwshade, with the
+# shdpp.exe headers rebuilt from the client (RECONSTRUCTED) and E&B's base constructor without class id
+SHD_BUMP_PATCHES = {
+    ('ww3d2', 'projector.h'): [
+        ('\tvoid\t\t\t\t\t\t\t\tCompute_Texture_Coordinate(const Vector3 & point,Vector3 * set_stq);\n\nprotected:\n',
+         '\tvoid\t\t\t\t\t\t\t\tCompute_Texture_Coordinate(const Vector3 & point,Vector3 * set_stq);\n\n\tMatrixMapperClass*\t\t\tPeek_Mapper() const { return Mapper; }\n\nprotected:\n',
+         "Zero Hour's ProjectorClass::Peek_Mapper (06/26/02 KM projector.h), used by wwshade's Shd8BumpDiffClass/Shd8BumpSpecClass::Setup_Self_Shadow_Info: 0xA126D0 copies [[[mesh+0xA4]+0xC8]+0x14], 16 DWORDs (ShdMeshClass::Texture_Projector, ProjectorClass::Mapper at +0xC8, MatrixMapperClass::ViewToTexture at +0x14), as Peek_Texture_Projector()->Peek_Mapper()->Get_Texture_Transform(); inline, no other code changes"),
+    ],
+}
+for _key, _edits in SHD_BUMP_PATCHES.items():
+    PATCHES.setdefault(_key, []).extend(_edits)
+# end of SHD_BUMP_PATCHES
 # Files reconstructed by us from the client (no EA copy matches): `assemble` keeps the repository's
 # version, and refine leaves them alone. Each entry: (library, file) -> what was done.
 RECONSTRUCTED = {
@@ -2919,6 +2931,23 @@ RECONSTRUCTED = {
                                     "dx8webbrowser.cpp instead of the #import; E&B's interface has "
                                     "CreateBrowser's querydata and Zero Hour's lacks it",
     ('ww3d2', 'BrowserEngine.tli'): "the inline wrappers generated with BrowserEngine.tlh",
+    # D22: shdpp.exe's outputs for Zero Hour's bump shaders (EA's release has the .vsh/.psh, not these):
+    # the pre-processed shader text as DWORDs plus a 0 terminator, copied from the client's .data
+    # (rebuilt and checked byte for byte by .work/d22/gen_headers.py)
+    ('wwshade', 'shd6bumpdiff.vsh_code.h'): "shd6bumpdiff_vsh_code, client .data 0xBCB8FC-0xBCBB9F (Shd6BumpDiffClass::Init 0xA10090)",
+    ('wwshade', 'shd7bumpdiffpass0.vsh_code.h'): "shd7bumpdiffpass0_vsh_code, client .data 0xBCBBA0-0xBCBFEB (Shd7BumpDiffClass::Init 0xA10BA0)",
+    ('wwshade', 'shd7bumpdiffpass1.vsh_code.h'): "shd7bumpdiffpass1_vsh_code, client .data 0xBCBFEC-0xBCC43B (Shd7BumpDiffClass::Init 0xA10BA0)",
+    ('wwshade', 'shd8bumpdiff.vsh_code.h'): "shd8bumpdiff_vsh_code, client .data 0xBCC43C-0xBCC8FB (Shd8BumpDiffClass::Init 0xA11A30)",
+    ('wwshade', 'shd8bumpdiff.psh_code.h'): "shd8bumpdiff_psh_code, client .data 0xBCC8FC-0xBCC99F (Shd8BumpDiffClass::Init 0xA11A30)",
+    ('wwshade', 'shd8ssbumpdiff.vsh_code.h'): "shd8ssbumpdiff_vsh_code, client .data 0xBCC9A0-0xBCD04F (Shd8BumpDiffClass::Init 0xA11A30)",
+    ('wwshade', 'shd8ssbumpdiff.psh_code.h'): "shd8ssbumpdiff_psh_code, client .data 0xBCD050-0xBCD08B (Shd8BumpDiffClass::Init 0xA11A30)",
+    ('wwshade', 'shd6bumpspec.vsh_code.h'): "shd6bumpspec_vsh_code, client .data 0xBCD08C-0xBCD51F (Shd6BumpSpecClass::Init 0xA12C10)",
+    ('wwshade', 'shd7bumpspecpass0.vsh_code.h'): "shd7bumpspecpass0_vsh_code, client .data 0xBCD520-0xBCD973 (Shd7BumpSpecClass::Init 0xA13870)",
+    ('wwshade', 'shd7bumpspecpass1.vsh_code.h'): "shd7bumpspecpass1_vsh_code, client .data 0xBCD974-0xBCDDAB (Shd7BumpSpecClass::Init 0xA13870)",
+    ('wwshade', 'shd8bumpspec.vsh_code.h'): "shd8bumpspec_vsh_code, client .data 0xBCDDAC-0xBCE3EF (Shd8BumpSpecClass::Init 0xA147A0)",
+    ('wwshade', 'shd8bumpspec.psh_code.h'): "shd8bumpspec_psh_code, client .data 0xBCE3F0-0xBCE4CB (Shd8BumpSpecClass::Init 0xA147A0)",
+    ('wwshade', 'shd8ssbumpspec.vsh_code.h'): "shd8ssbumpspec_vsh_code, client .data 0xBCE4CC-0xBCEB7B (Shd8BumpSpecClass::Init 0xA147A0)",
+    ('wwshade', 'shd8ssbumpspec.psh_code.h'): "shd8ssbumpspec_psh_code, client .data 0xBCEB7C-0xBCEBB7 (Shd8BumpSpecClass::Init 0xA147A0)",
 }
 
 # Text appended to imported files (after everything, so no existing line moves).

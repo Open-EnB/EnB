@@ -70,6 +70,8 @@ public:
 	const OBBoxClass &			Get_Bounding_Volume(void) const { return WorldBoundingVolume; }
 	void								Compute_Texture_Coordinate(const Vector3 & point,Vector3 * set_stq);
 
+	MatrixMapperClass*			Peek_Mapper() const { return Mapper; }
+
 protected:
 
 	virtual void					Update_WS_Bounding_Volume(void);

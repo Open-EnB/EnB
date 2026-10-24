@@ -1,0 +1,145 @@
+// EnB reconstruction: the output of Westwood's shader pre-processor (shdpp.exe, in Zero
+// Hour's WWShade) for shd8bumpdiff.vsh, which EA's release does not include. Rebuilt from
+// client.exe .data 0xBCC43C-0xBCC8FB (1216 bytes): the pre-processed shader source text
+// (1209 characters and its NUL, zero padded to a DWORD), packed little-endian into DWORDs
+// and followed by shdpp's 0x00000000 terminator, in shdpp's own form ("DWORD %s[]={",
+// "0x%08x", ",\t0x00000000"; its strings). A DWORD array, not char[]: the caller
+// needs ShdHWVertexShader/ShdHWPixelShader::Create(DWORD*), which assembles it with
+// D3DXAssembleShader(code, strlen(code)) (0xA0F3E0, 0xA0F5A0); a char[] would bind to
+// the file-name overload. Used by shd8bumpdiff.cpp, Shd8BumpDiffClass::Init 0xA11A30 (0xA11A94).
+// The text has the same instructions, in the same order, as Zero Hour's shd8bumpdiff.vsh,
+// with the #define names substituted and comments and directives gone (blank lines left);
+// it reads:
+//
+//
+//
+//	vs.1.1
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//	dp4 r11.x, v0, c[1]
+//	dp4 r11.y, v0, c[2]
+//	dp4 r11.z, v0, c[3]
+//	dp4 r11.w, v0, c[4]
+//	mov oPos, r11
+//
+//	dp3 r1.x, v4, c[12]
+//	dp3 r1.y, v4, c[13]
+//	dp3 r1.z, v4, c[14]
+//	dp3 r2.x, v5, c[12]
+//	dp3 r2.y, v5, c[13]
+//	dp3 r2.z, v5, c[14]
+//	dp3 r3.x, v6, c[12]
+//	dp3 r3.y, v6, c[13]
+//	dp3 r3.z, v6, c[14]
+//
+//	dp3 r4.x, r1.xyz, c[16]
+//	dp3 r4.y, r2.xyz, c[16]
+//	dp3 r4.z, r3.xyz, c[16]
+//
+//	dp3 r4.w, r4, r4
+//	rsq r4.w, r4.w
+//	mul r4, r4, r4.w
+//	dp3 r10.x, v1, c[12]
+//	dp3 r10.y, v1, c[13]
+//	dp3 r10.z, v1, c[14]
+//
+//	dp3 r10.w, r10, r10
+//	rsq r10.w, r10.w
+//	mul r10, r10, r10.w
+//
+//	dp3 r5.w, r10, c[16]	
+//	max r5.w, r5.w, c[0].x	
+//	mul r5.w, r5.w, c[20].w	
+//
+//	dp3 r6.w, r10, c[17]	
+//	max r6.w, r6.w, c[0].x	
+//	mul r6.w, r6.w, c[21].w	
+//
+//	dp3 r7.w, r10, c[18]	
+//	max r7.w, r7.w, c[0].x	
+//	mul r7.w, r7.w, c[22].w	
+//
+//	dp3 r8.w, r10, c[19]	
+//	max r8.w, r8.w, c[0].x	
+//	mul r8.w, r8.w, c[23].w	
+//
+//	mul r9, c[20], r5.w
+//	mad r9, c[21], r6.w, r9
+//	mad r9, c[22], r7.w, r9
+//	mad r9, c[23], r8.w, r9
+//
+//	mul r9, r9, v2
+//	mul r9, r9, c[25]
+//	add oD1, r9, c[24]
+//
+//	add r4, r4, c[0].yyy
+//	mul r4, r4, c[0].zzz
+//
+//	mul r4, r4, c[27].xxx
+//	add oD0, r4, c[27].yyy
+//
+//	add r5.w, c[0].y, -r5.w
+//	add r6.w, c[0].y, -r6.w
+//	mul r5.w, c[20], r5.w
+//	mul r6.w, c[21], r6.w
+//	add oD0.w, r5.w, r6.w
+//	mov oT0, v3
+//	mov oT1, v3
+//
+
+DWORD shd8bumpdiff_vsh_code[]={
+0x73760a0a,	0x312e312e,	0x0a0a0a0a,	0x0a0a0a0a,	0x0a0a0a0a,	0x0a0a0a0a,	0x0a0a0a0a,	0x20347064,
+0x2e313172,	0x76202c78,	0x63202c30,	0x0a5d315b,	0x20347064,	0x2e313172,	0x76202c79,	0x63202c30,
+0x0a5d325b,	0x20347064,	0x2e313172,	0x76202c7a,	0x63202c30,	0x0a5d335b,	0x20347064,	0x2e313172,
+0x76202c77,	0x63202c30,	0x0a5d345b,	0x20766f6d,	0x736f506f,	0x3172202c,	0x640a0a31,	0x72203370,
+0x2c782e31,	0x2c347620,	0x315b6320,	0x640a5d32,	0x72203370,	0x2c792e31,	0x2c347620,	0x315b6320,
+0x640a5d33,	0x72203370,	0x2c7a2e31,	0x2c347620,	0x315b6320,	0x640a5d34,	0x72203370,	0x2c782e32,
+0x2c357620,	0x315b6320,	0x640a5d32,	0x72203370,	0x2c792e32,	0x2c357620,	0x315b6320,	0x640a5d33,
+0x72203370,	0x2c7a2e32,	0x2c357620,	0x315b6320,	0x640a5d34,	0x72203370,	0x2c782e33,	0x2c367620,
+0x315b6320,	0x640a5d32,	0x72203370,	0x2c792e33,	0x2c367620,	0x315b6320,	0x640a5d33,	0x72203370,
+0x2c7a2e33,	0x2c367620,	0x315b6320,	0x0a0a5d34,	0x20337064,	0x782e3472,	0x3172202c,	0x7a79782e,
+0x5b63202c,	0x0a5d3631,	0x20337064,	0x792e3472,	0x3272202c,	0x7a79782e,	0x5b63202c,	0x0a5d3631,
+0x20337064,	0x7a2e3472,	0x3372202c,	0x7a79782e,	0x5b63202c,	0x0a5d3631,	0x3370640a,	0x2e347220,
+0x72202c77,	0x72202c34,	0x73720a34,	0x34722071,	0x202c772e,	0x772e3472,	0x6c756d0a,	0x2c347220,
+0x2c347220,	0x2e347220,	0x70640a77,	0x31722033,	0x2c782e30,	0x2c317620,	0x315b6320,	0x640a5d32,
+0x72203370,	0x792e3031,	0x3176202c,	0x5b63202c,	0x0a5d3331,	0x20337064,	0x2e303172,	0x76202c7a,
+0x63202c31,	0x5d34315b,	0x70640a0a,	0x31722033,	0x2c772e30,	0x30317220,	0x3172202c,	0x73720a30,
+0x31722071,	0x2c772e30,	0x30317220,	0x6d0a772e,	0x72206c75,	0x202c3031,	0x2c303172,	0x30317220,
+0x0a0a772e,	0x20337064,	0x772e3572,	0x3172202c,	0x63202c30,	0x5d36315b,	0x616d0a09,	0x35722078,
+0x202c772e,	0x772e3572,	0x5b63202c,	0x782e5d30,	0x756d0a09,	0x3572206c,	0x202c772e,	0x772e3572,
+0x5b63202c,	0x2e5d3032,	0x0a0a0977,	0x20337064,	0x772e3672,	0x3172202c,	0x63202c30,	0x5d37315b,
+0x616d0a09,	0x36722078,	0x202c772e,	0x772e3672,	0x5b63202c,	0x782e5d30,	0x756d0a09,	0x3672206c,
+0x202c772e,	0x772e3672,	0x5b63202c,	0x2e5d3132,	0x0a0a0977,	0x20337064,	0x772e3772,	0x3172202c,
+0x63202c30,	0x5d38315b,	0x616d0a09,	0x37722078,	0x202c772e,	0x772e3772,	0x5b63202c,	0x782e5d30,
+0x756d0a09,	0x3772206c,	0x202c772e,	0x772e3772,	0x5b63202c,	0x2e5d3232,	0x0a0a0977,	0x20337064,
+0x772e3872,	0x3172202c,	0x63202c30,	0x5d39315b,	0x616d0a09,	0x38722078,	0x202c772e,	0x772e3872,
+0x5b63202c,	0x782e5d30,	0x756d0a09,	0x3872206c,	0x202c772e,	0x772e3872,	0x5b63202c,	0x2e5d3332,
+0x0a0a0977,	0x206c756d,	0x202c3972,	0x30325b63,	0x72202c5d,	0x0a772e35,	0x2064616d,	0x202c3972,
+0x31325b63,	0x72202c5d,	0x2c772e36,	0x0a397220,	0x2064616d,	0x202c3972,	0x32325b63,	0x72202c5d,
+0x2c772e37,	0x0a397220,	0x2064616d,	0x202c3972,	0x33325b63,	0x72202c5d,	0x2c772e38,	0x0a397220,
+0x6c756d0a,	0x2c397220,	0x2c397220,	0x0a327620,	0x206c756d,	0x202c3972,	0x202c3972,	0x35325b63,
+0x64610a5d,	0x446f2064,	0x72202c31,	0x63202c39,	0x5d34325b,	0x64610a0a,	0x34722064,	0x3472202c,
+0x5b63202c,	0x792e5d30,	0x6d0a7979,	0x72206c75,	0x72202c34,	0x63202c34,	0x2e5d305b,	0x0a7a7a7a,
+0x6c756d0a,	0x2c347220,	0x2c347220,	0x325b6320,	0x782e5d37,	0x610a7878,	0x6f206464,	0x202c3044,
+0x202c3472,	0x37325b63,	0x79792e5d,	0x610a0a79,	0x72206464,	0x2c772e35,	0x305b6320,	0x2c792e5d,
+0x35722d20,	0x610a772e,	0x72206464,	0x2c772e36,	0x305b6320,	0x2c792e5d,	0x36722d20,	0x6d0a772e,
+0x72206c75,	0x2c772e35,	0x325b6320,	0x202c5d30,	0x772e3572,	0x6c756d0a,	0x2e367220,	0x63202c77,
+0x5d31325b,	0x3672202c,	0x610a772e,	0x6f206464,	0x772e3044,	0x3572202c,	0x202c772e,	0x772e3672,
+0x766f6d0a,	0x30546f20,	0x3376202c,	0x766f6d0a,	0x31546f20,	0x3376202c,	0x0000000a,	0x00000000};
