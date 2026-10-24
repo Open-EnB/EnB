@@ -25,20 +25,20 @@
 class DurationClass
 {
 public:
-	// (the rest of the class, not rebuilt yet, goes here: As_Int's FAIL_IF stays on line 190)
+	DurationClass() {}
+	DurationClass(__int64 time) : Time(time) {}
 
+	// user-defined (the interpolator's Set 0x4A6590 stores both halves before the vtable load;
+	// the implicit copy schedules the stores after it)
+	DurationClass &operator=(const DurationClass &that) { Time = that.Time; return *this; }
 
+	bool operator==(const DurationClass &that) const { return Time == that.Time; }
+	bool operator!=(const DurationClass &that) const { return Time != that.Time; }
+	bool operator<(const DurationClass &that) const { return Time < that.Time; }
+	bool operator>=(const DurationClass &that) const { return Time >= that.Time; }
+	DurationClass operator-(const DurationClass &that) const { return DurationClass(Time - that.Time); }
 
-
-
-
-
-
-
-
-
-
-
+	// (the rest of the class, not rebuilt yet: As_Int's FAIL_IF stays on line 190)
 
 
 

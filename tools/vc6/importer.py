@@ -3034,8 +3034,10 @@ RECONSTRUCTED = {
     ('app', 'shared/auxdata/delta_money.cpp'): "the money field's Read 0x4A7470 and Write 0x4A74F0 "
                                                "(DeltaTemplateClass<MoneyClass> specialisations), asserts on "
                                                "the client's lines 69 and 86 (D25)",
-    ('app', 'shared/auxdata/delta_template.h'): "DeltaTemplateClass<T> (D24), only what delta_money.cpp uses: "
-                                                "Read/Write (slots 0x2C/0x30) and the value after DeltaClass",
+    ('app', 'shared/auxdata/delta_template.h'): "DeltaTemplateClass<T> (D24), only what the delta files use: "
+                                                "Read/Write (slots 0x2C/0x30), the value after DeltaClass, the "
+                                                "constructor (inlined for float in 0x4A6110; the time field's "
+                                                "out of line, 0x4A8150: extern template), Set_Value (0x4A6590)",
     ('app', 'shared/auxdata/linearbu.h'): "LinearBufferClass (D24), only what the delta files use: Read "
                                           "0x4AACE0, Write 0x4AAFC0",
     ('app', 'shared/money.h'): "MoneyClass (D24), only what delta_money.cpp uses: 8 bytes, 8-aligned",
@@ -3045,7 +3047,14 @@ RECONSTRUCTED = {
     ('app', 'shared/auxdata/lookup.cpp'): "LookupClass's index accessors 0x4AC850, 0x4AC8D0, 0x4AC960, "
                                           "asserts on the client's lines 67, 78 and 90 (D25)",
     ('app', 'shared/duration.h'): "DurationClass (D24; Time from the FAIL_IF), only what the delta files use: "
-                                  "As_Int's FAIL_IF on the client's line 190 (D25)",
+                                  "As_Int's FAIL_IF on the client's line 190 (D25); a user-defined operator= "
+                                  "(0x4A6590's and 0x4A6380's scheduling), comparisons, operator-",
+    ('app', 'shared/auxdata/delta_interpolator.cpp'): "DeltaInterpolatorClass (D24), client 0x4A6110-0x4A6913: "
+                                                      "ctor, Get_Change, Update, both Set, Set_Change, Unknown_3C; "
+                                                      "asserts on the client's lines 111-113 and 159 (D25); "
+                                                      "Unknown_00 0x4A6930 not rebuilt",
+    ('app', 'shared/auxdata/delta_interpolator.h'): "DeltaInterpolatorClass (vtable 0xAEAE54, size 0x250; fields "
+                                                    "from the ctor's strings), Get_Value's assert on line 54 (D25)",
 }
 
 # Text appended to imported files (after everything, so no existing line moves).

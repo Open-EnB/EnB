@@ -7,9 +7,9 @@
 **	string, from the float field's Read 0x4A6DF0, line 110)
 **
 **	A leaf field holding one value of type T (the float field's vtable 0xAEAEB0 overrides slots 0,
-**	1, 0x2C and 0x30 of DeltaClass's). Only what delta_money.cpp uses so far: the generic Read and
-**	Write (asserts at lines 110 and later) and the rest are not rebuilt yet, so the asserts' lines
-**	are not kept here yet. The client doesn't name the template (D24).
+**	1, 0x2C and 0x30 of DeltaClass's). Only what the delta files use so far: the constructor,
+**	Set_Value, and the generic Read and Write (asserts at lines 110 and later, not rebuilt yet, so
+**	the asserts' lines are not kept here yet). The client doesn't name the template (D24).
 */
 
 #if defined(_MSC_VER)
@@ -20,14 +20,44 @@
 #define __DELTA_TEMPLATE_H
 
 #include "delta.h"
+#include "..\duration.h"
 
 template<class T> class DeltaTemplateClass : public DeltaClass
 {
 public:
+	// float's is inlined in 0x4A6110 (DeltaClass, Value, the vtable, then +0x04); the time and money
+	// fields' are out of line (0x4A8150, 0x4A7080: see the extern template below)
+	DeltaTemplateClass(const char *name, const T &value = T());
+
 	virtual bool Read(LinearBufferClass &buf, const DurationClass &base);	// +0x2C (float: 0x4A6DF0)
 	virtual bool Write(LinearBufferClass &buf);				// +0x30 (float: 0x4A6E60)
 
+	// stores the value and reports the change through Unknown_34 (inlined in 0x4A6590)
+	void Set_Value(const T &value)
+	{
+		if (Value != value) {
+			Value = value;
+			Unknown_34(this);
+		}
+	}
+
 	T Value;			// +0x84, or +0x88 for an 8-aligned T (MoneyClass)
+
+	static int UnknownGlobal;	// the per-class global at +0x04 (float: 0xC416F0, time: 0xBE3AA4)
 };
+
+template<class T> int DeltaTemplateClass<T>::UnknownGlobal;
+
+template<class T> DeltaTemplateClass<T>::DeltaTemplateClass(const char *name, const T &value) :
+	DeltaClass(name),
+	Value(value)
+{
+	m_Unknown04 = UnknownGlobal;
+}
+
+// The interpolator's constructor 0x4A6110 calls the time field's constructor (0x4A8150) where it
+// inlines the float fields': VC6's extern template (C4231) gives that; delta_time.cpp's object
+// holds the instance.
+extern template class DeltaTemplateClass<DurationClass>;
 
 #endif //__DELTA_TEMPLATE_H
