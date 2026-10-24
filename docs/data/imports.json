@@ -70,6 +70,17 @@
     ],
     "merged": [],
     "name": "shared/auxdata/delta_time.cpp"
+   },
+   "lookup": {
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x4AC850",
+     "0x4AC8D0",
+     "0x4AC960"
+    ],
+    "merged": [],
+    "name": "shared/auxdata/lookup.cpp"
    }
   },
   "headers": {
@@ -83,7 +94,7 @@
    "shared/money.h": "reconstructed",
    "shared/unknown_debug.h": "reconstructed"
   },
-  "in_tree_total": 36,
+  "in_tree_total": 39,
   "totals": {}
  },
  "ww3d2": {

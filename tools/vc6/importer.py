@@ -3042,6 +3042,8 @@ RECONSTRUCTED = {
     ('app', 'shared/auxdata/delta_time.cpp'): "the time field's Read 0x4A81D0 and Write 0x4A8270 "
                                               "(DeltaTemplateClass<DurationClass> specialisations), asserts on "
                                               "the client's lines 31 and 58 (D25)",
+    ('app', 'shared/auxdata/lookup.cpp'): "LookupClass's index accessors 0x4AC850, 0x4AC8D0, 0x4AC960, "
+                                          "asserts on the client's lines 67, 78 and 90 (D25)",
     ('app', 'shared/duration.h'): "DurationClass (D24; Time from the FAIL_IF), only what the delta files use: "
                                   "As_Int's FAIL_IF on the client's line 190 (D25)",
 }
