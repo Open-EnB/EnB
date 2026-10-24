@@ -1323,7 +1323,7 @@ WWINLINE void DX8Wrapper::Release_Render_State()
 	REF_PTR_RELEASE(render_state.material);
 
 	
-	for (i=0;i<MAX_TEXTURE_STAGES;++i) 
+	for (i=0;i<CurrentCaps->Get_Max_Textures_Per_Pass();++i) 
 	{
 		REF_PTR_RELEASE(render_state.Textures[i]);
 	}

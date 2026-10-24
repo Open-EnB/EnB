@@ -1437,6 +1437,9 @@ WWSHADE_API_PATCHES = {
         ('const unsigned MAX_TEXTURE_STAGES=2;\n',
          'const unsigned MAX_TEXTURE_STAGES=8;\n',
          "Zero Hour's MAX_TEXTURE_STAGES=8: the client's render_state.Textures runs 0xBFFC88-0xBFFCA8 (8 pointers, Lights follow at 0xBFFCA8, Set_Light_Environment 0x9265CB), Invalidate_Cached_Render_States (0x921C20) fills 0x100 dwords of TextureStageStates (8x32), ShdSubMeshClass keeps UV[8] at +0x74 (ShdDX8RendererNodeClass constructor, 0xA083BE)"),
+        ('\tREF_PTR_RELEASE(render_state.material);\n\n\t\n\tfor (i=0;i<MAX_TEXTURE_STAGES;++i) \n\t{\n\t\tREF_PTR_RELEASE(render_state.Textures[i]);\n\t}\n}\n',
+         '\tREF_PTR_RELEASE(render_state.material);\n\n\t\n\tfor (i=0;i<CurrentCaps->Get_Max_Textures_Per_Pass();++i) \n\t{\n\t\tREF_PTR_RELEASE(render_state.Textures[i]);\n\t}\n}\n',
+         "E&B's DX8Wrapper::Release_Render_State releases textures up to the device's texture stages: the copy in the sorting renderer, 0x984740, loops to CurrentCaps +0x124 (Get_Max_Textures_Per_Pass)"),
     ],
     ('ww3d2', 'dx8wrapper.cpp'): [
         ('ZTextureClass*\t\t\t\t\tDX8Wrapper::Shadow_Map[MAX_SHADOW_MAPS];\n',
