@@ -109,5 +109,13 @@ python tools/harness/symbolize.py build/programs/vidtest/vidtest.map build/progr
   user would. It prints the stub log (`stubs.log`, D44). `vidtest.log` lists every file the
   libraries asked the file factory for (`file: NAME found|MISSING`).
 * **bmp2png.py** converts a screenshot to `.png` (no Pillow needed).
+* **run_reference.py** runs the ORIGINAL `VIDTEST.EXE` for reference frames: `build` compiles
+  `d3d8shot.c` on a pool VM into `build/d3d8shot/d3d8.dll`; `run` copies EBCONFIG to
+  `build/programs/vidtest/ref_ebconfig/` (once: the original writes `results.ini` into its own
+  folder), puts the proxy beside the copy's `VIDTEST.EXE` and runs it there. The proxy passes
+  everything to the system's d3d8.dll, saves the program's own back buffer at chosen `Present`
+  calls (`--every 50`, `--frames 1,10,30`; never a screen grab) and logs the program's
+  `CreateFileA` calls. Output: `build/programs/vidtest/ref/` (`d3d8shot.log`, `frame_NNNNN.bmp`
+  and `.png`, `results.ini`, `run.txt`).
 * **symbolize.py** names the addresses of vidtest's crash report (`CRASH:` lines in its log: the
   exception address and the stack words that point into its code) with the linker map.

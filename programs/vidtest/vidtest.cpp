@@ -19,10 +19,13 @@
 **	  -shot2 FILE  a second screenshot, of frame -shot2frame N (default: half of -shotframe)
 **	  -log FILE    init results (default vidtest.log)
 **	  -art DIR     the folder the assets are read from (default the EBCONFIG install folder)
-**	  -w3d FILE    the file to load (default bst29a.w3d); -model NAME (default BST29A)
+**	  -w3d FILE    the file to load first (default bst29a.w3d; "none": only load on demand);
+**	               -model NAME (default BST29A)
+**	  -noondemand  leave WW3D_Load_On_Demand off (VIDTEST turns it on: see Build_Scene)
 **	  -anim NAME   the animation (default MODEL.MODEL-1; "none" for none)
 **	  -camdir X,Y,Z  the direction from the model to the camera (default 1,-1,0.4)
 **	  -camdist F   the camera distance in bounding-sphere radii (default 2.2)
+**	  -cambone B   instead: the camera on the model's bone B (mu02's "camera", as the polygon test)
 **	  -noscene     L2's behaviour: only clear each frame
 **	  -clear R,G,B the clear colour (default 0,0,0; with -noscene 0,0,0.5)
 **	  -resx N -resy N -depth N -windowed B -device NAME   as VIDTEST
@@ -334,8 +337,17 @@ static int Build_Scene(WW3DAssetManager *assets, int resx, int resy, SimpleScene
 {
 	const char *w3d = Arg_String("-w3d", "bst29a.w3d");
 	const char *name = Arg_String("-model", "BST29A");
-	bool loaded = assets->Load_3D_Assets(w3d);
-	Log("Load_3D_Assets(\"%s\") = %d\n", w3d, (int)loaded);
+	// Build_Scenes' first store (0x423F44, mov byte [TheInstance+0x4074], 1) is
+	// Set_WW3D_Load_On_Demand(true). That is how mu02 and BST29A-1 get loaded (O1): Create_Render_Obj
+	// and Get_HAnim load "NAME.w3d" (then "..\NAME.w3d") when the name isn't known yet.
+	if (!Arg_Present("-noondemand")) {
+		assets->Set_WW3D_Load_On_Demand(true);
+	}
+	Log("WW3D_Load_On_Demand = %d\n", (int)assets->Get_WW3D_Load_On_Demand());
+	if (stricmp(w3d, "none") != 0) {
+		bool loaded = assets->Load_3D_Assets(w3d);
+		Log("Load_3D_Assets(\"%s\") = %d\n", w3d, (int)loaded);
+	}
 	RenderObjClass *model = assets->Create_Render_Obj(name);
 	Log("Create_Render_Obj(\"%s\") = %p\n", name, model);
 	if (!model) {
@@ -356,7 +368,7 @@ static int Build_Scene(WW3DAssetManager *assets, int resx, int resy, SimpleScene
 		HAnimClass *anim = assets->Get_HAnim(anim_arg);
 		Log("Get_HAnim(\"%s\") = %p\n", anim_arg, anim);
 		if (!anim) {
-			// VIDTEST loads no animation file (load on demand is off); see O1
+			// Only with -noondemand (VIDTEST loads no animation file itself, O1)
 			char file[256];
 			const char *dot = strchr(anim_arg, '.');
 			_snprintf(file, sizeof(file) - 1, "%s.w3d", dot ? dot + 1 : anim_arg);
@@ -400,14 +412,26 @@ static int Build_Scene(WW3DAssetManager *assets, int resx, int resy, SimpleScene
 	Vector3 eye = sphere.Center + dir * dist;
 	Matrix3D tm(1);
 	tm.Look_At(eye, sphere.Center, 0.0f);
-	CameraClass *camera = new CameraClass;
-	camera->Set_Transform(tm);
 	float znear = dist - radius * 1.5f;
 	if (znear < 1.0f) znear = 1.0f;
-	camera->Set_Clip_Planes(znear, dist + radius * 2.0f);
+	float zfar = dist + radius * 2.0f;
+	const char *bone = Arg_String("-cambone", NULL);
+	if (bone) {
+		// The polygon test's camera (0x425A80, docs/vidtest.md 2.2): the model's camera bone,
+		// turned from Max's camera axes by Rotate_Y(-90) then Rotate_Z(-90); the space scene's
+		// clip planes 100..100000. A first look for M2.2, not checked against the asm yet.
+		tm = model->Get_Bone_Transform(bone);
+		tm.Rotate_Y(-1.5707963f);
+		tm.Rotate_Z(-1.5707963f);
+		eye = tm.Get_Translation();
+		znear = 100.0f;
+		zfar = 100000.0f;
+	}
+	CameraClass *camera = new CameraClass;
+	camera->Set_Transform(tm);
+	camera->Set_Clip_Planes(znear, zfar);
 	camera->Set_View_Plane(0.7853982f, 0.5759587f);
-	Log("  camera at (%f, %f, %f), clip %f..%f, screen %dx%d\n", eye.X, eye.Y, eye.Z, znear,
-		dist + radius * 2.0f, resx, resy);
+	Log("  camera at (%f, %f, %f), clip %f..%f, screen %dx%d\n", eye.X, eye.Y, eye.Z, znear, zfar, resx, resy);
 
 	*set_scene = scene;
 	*set_camera = camera;
