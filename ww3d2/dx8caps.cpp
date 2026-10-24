@@ -194,7 +194,9 @@ static const char* DeviceNamesMatrox[]={
 	"Millennium II AGP",
 	"Millennium II PCI",
 	"Mystique",
-	"Millennium"
+	"Millennium",
+	"Parhelia",
+	"Parhelia AGP 8X"
 };
 
 static const char* DeviceNamesPowerVR[]={
@@ -424,6 +426,9 @@ DX8Caps::DeviceTypeMatrox DX8Caps::Get_Matrox_Device(unsigned device_id)
 	case 0x051B: return DEVICE_MATROX_MILLENNIUM_II_PCI;
 	case 0x051A: return DEVICE_MATROX_MYSTIQUE;
 	case 0x0519: return DEVICE_MATROX_MILLENNIUM;
+	case 0x0527: return DEVICE_MATROX_PARHELIA;
+	case 0x0528: return DEVICE_MATROX_PARHELIA_AGP8X;
+
 	default: return DEVICE_MATROX_UNKNOWN;
 	}
 }

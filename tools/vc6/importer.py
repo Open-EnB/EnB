@@ -1598,6 +1598,9 @@ WWSHADE_API_PATCHES = {
         ('\tint Get_Pixel_Shader_Minor_Version() const { return 0xff&(VertexShaderVersion); }',
          '\tint Get_Pixel_Shader_Minor_Version() const { return 0xff&(PixelShaderVersion); }',
          "Zero Hour's Get_Pixel_Shader_Minor_Version reads PixelShaderVersion (Renegade's reads the vertex shader's): ShdBumpDiffDefClass::Init 0xA0B9B0 and ShdBumpSpecDefClass::Init take major and minor from the same field, +0x12C"),
+        ('\t\tDEVICE_MATROX_MYSTIQUE,\n\t\tDEVICE_MATROX_MILLENNIUM\n\t};\n',
+         '\t\tDEVICE_MATROX_MYSTIQUE,\n\t\tDEVICE_MATROX_MILLENNIUM,\n\t\tDEVICE_MATROX_PARHELIA,\n\t\tDEVICE_MATROX_PARHELIA_AGP8X\n\t};\n',
+         "E&B knows Zero Hour's Matrox Parhelia devices: the client's Matrox name table (0xBC4BE0) ends with 'Parhelia AGP 8X' (0xBC4C94), and Get_Matrox_Device 0x9AFDC0 maps 0x0527/0x0528"),
     ],
     ('ww3d2', 'animobj.cpp'): [
         ('\t\tModeAnim.LastSyncTime = WW3D::Get_Sync_Time();\n\t\tModeAnim.AnimMode = mode;\n\t} else {\n',
@@ -1735,6 +1738,12 @@ WWSHADE_API_PATCHES = {
         ("\t\tMaxDisplayHeight=1024;\n\n\t\t// No fog on scene capture cards! (They don't like fog color changes in mid-frame)\n",
          '\t\tMaxDisplayHeight=1024;\n\n\t\t// E&B: distortion effects off on PowerVR (the flag at +0x121, SupportCubemaps here)\n\t\tDXLOG(("Disabling distortion effects on PowerVR Kyro cards\\r\\n"));\n\t\tSupportCubemaps=false;\n\n\t\t// No fog on scene capture cards! (They don\'t like fog color changes in mid-frame)\n',
          "E&B logs 'Disabling distortion effects on PowerVR Kyro cards' and clears +0x121 (SupportCubemaps) before IsFogAllowed (0x9B2DA0..0x9B2DD3)"),
+        ('\t"Millennium"\n};\n',
+         '\t"Millennium",\n\t"Parhelia",\n\t"Parhelia AGP 8X"\n};\n',
+         "E&B knows Zero Hour's Matrox Parhelia devices: the client's Matrox name table (0xBC4BE0) ends with 'Parhelia AGP 8X' (0xBC4C94), and Get_Matrox_Device 0x9AFDC0 maps 0x0527/0x0528"),
+        ('\tcase 0x0519: return DEVICE_MATROX_MILLENNIUM;\n\tdefault: return DEVICE_MATROX_UNKNOWN;\n',
+         '\tcase 0x0519: return DEVICE_MATROX_MILLENNIUM;\n\tcase 0x0527: return DEVICE_MATROX_PARHELIA;\n\tcase 0x0528: return DEVICE_MATROX_PARHELIA_AGP8X;\n\n\tdefault: return DEVICE_MATROX_UNKNOWN;\n',
+         "E&B knows Zero Hour's Matrox Parhelia devices: the client's Matrox name table (0xBC4BE0) ends with 'Parhelia AGP 8X' (0xBC4C94), and Get_Matrox_Device 0x9AFDC0 maps 0x0527/0x0528"),
     ],
 }
 for _key, _edits in WWSHADE_API_PATCHES.items():
