@@ -1188,6 +1188,11 @@ TEXTURE_API_PATCHES = {
          '\t\t// End the chunk\n',
          "ParticleEmitterDefClass::Save_Extra_Info (0x916A60) writes m_ExtraInfo itself (0x28 bytes at +0x1E0, so E&B's flag is saved too), in the form of Save_Line_Properties"),
     ],
+    ('ww3d2', 'sphereobj.cpp'): [
+        ('\tSphereShader.Set_Cull_Mode(ShaderClass::CULL_MODE_DISABLE);\n',
+         '\t// E&B keeps backface culling on (0x90C037 copies the preset unchanged)\n\t//SphereShader.Set_Cull_Mode(ShaderClass::CULL_MODE_DISABLE);\n',
+         'SphereRenderObjClass::Init_Material (0x90BF80): E&B keeps backface culling on; the shader is the alpha preset unchanged (0x90C037)'),
+    ],
 }
 for _key, _edits in TEXTURE_API_PATCHES.items():
     PATCHES.setdefault(_key, []).extend(_edits)

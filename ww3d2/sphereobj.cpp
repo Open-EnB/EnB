@@ -363,7 +363,8 @@ void SphereRenderObjClass::Init_Material (void)
 	
 	// (gth) Looks like sphere's were coded with backwards normals! Quick fix (though expensive)
 	// is to turn off backface culling...  ug...
-	SphereShader.Set_Cull_Mode(ShaderClass::CULL_MODE_DISABLE);
+	// E&B keeps backface culling on (0x90C037 copies the preset unchanged)
+	//SphereShader.Set_Cull_Mode(ShaderClass::CULL_MODE_DISABLE);
 
 }	// Init_Material
 
