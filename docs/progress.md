@@ -29,10 +29,9 @@ Newest first within each section. Dates are when the entry was written.
 * `symbols.json` 6,580 -> 6,703 (none gone); `gaps-ww3d2`, `imports.md`, `coverage.md` regenerated.
 * Verified: `importer.py verify` (all libraries), pair sets, `report`, `replay` (0 differences).
   Nothing run live.
-* Open question (D18, proposed): include `matrix4.h` first in meshmatdesc.cpp. `tryvariants.py`:
-  it wins 0x947310 back and loses nothing in that file. No EA copy has that include order, so it
-  is a byte-only fix. Recommendation: don't, unless the user wants every byte-only fix taken; the
-  loss is recorded either way.
+* D18 (user): don't include `matrix4.h` first in meshmatdesc.cpp, though `tryvariants.py` shows it
+  wins 0x947310 back and loses nothing in that file (no EA copy has that include order). Kept on
+  record; revisit if it becomes WW3D2's last outstanding item.
 * Next step: one of the remaining clusters (particles, `Set_Render_Device`'s E&B call, textures
   under D9, `GapFillerClass`).
 * Outside git: `.work/m4_16f.py`, `vm_ws_edit.py` (the edits as made), `mapper_spec.py`,
@@ -471,16 +470,17 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 | D15 | 2026-10-23 | `G_CODE_BASE` in WWAudio stays an importer patch removing its two `#ifdef`s, not a `/D` in `LIB_FLAGS` (same bytes) | user: only `WWAudio.cpp` uses it, so the bytes can't show a project-wide define |
 | D16 | 2026-10-23 | E&B members whose use is now rebuilt (`m_Unknown148`, `m_Unknown164/168/16C`, `m_Unknown19A5/19A6`, ...) keep their D10 names, with the comments in the headers, until the app code shows E&B's names | user |
 | D17 | 2026-10-23 | The two wwshade `"UnNamed"` constructors are left as near-misses; revisit only on new evidence | user |
+| D18 | 2026-10-23 | Don't include `matrix4.h` first in `ww3d2/meshmatdesc.cpp` (it would win back `Make_UV_Array_Unique` 0x947310, but no EA copy has that order). Keep it on record until a better fix is found; revisit if it becomes WW3D2's last outstanding item | user |
 
 ## 3. Open decisions
 
 * (D7 is to be revisited with the user if byte-exactness of E&B's code becomes too costly.)
-* D18 (proposed 2026-10-23): include `matrix4.h` first in `ww3d2/meshmatdesc.cpp` to win back `Make_UV_Array_Unique` 0x947310 (byte-only, no EA copy does so). Recommendation: no.
 
 ## 4. Next steps
 
 1. WW3D2 near-misses (docs/data/gaps-ww3d2, 347): the clusters of the 2026-10-23 near-miss entry
    (particles, `Set_Render_Device`'s E&B call, textures under D9, `GapFillerClass`; mapper done).
+   Last of all: D18's byte-only meshmatdesc fix (0x947310), if nothing better is found.
    D9's `TextureClass` constructors, `Init`, `Apply`, `Get_Reduction` and `DX8Wrapper`'s device
    code are still open. wwshade: 138, left only the two `"UnNamed"` constructors (D17) and an
    inline `Set_DX8_Texture_Stage_State` copy. WWAudio done (0 gaps).
