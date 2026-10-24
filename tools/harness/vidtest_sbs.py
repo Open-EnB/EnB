@@ -44,7 +44,7 @@ def run(extra):
     if os.path.isdir(SHOTS):
         shutil.rmtree(SHOTS)
     # vidtest takes the first occurrence of an argument, so the extra arguments come first
-    args = [EXE] + extra + ['-resx', '640', '-resy', '480', '-depth', '32', '-windowed', '1',
+    args = [EXE, '-nomsgbox'] + extra + ['-resx', '640', '-resy', '480', '-depth', '32', '-windowed', '1',
                             '-shots', ','.join(str(n) for n in frames), '-shotdir', 'shots']
     env = dict(os.environ, ENB_STUB_LOG=os.path.join(OUT, 'stubs.log'))
     t0 = time.time()

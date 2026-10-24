@@ -20,7 +20,8 @@
 **	VIDTEST's arguments (1.3): -device NAME -resx N (640) -resy N (480) -depth N (16) -windowed B (true)
 **	-sync B (false) -filter N (0).
 **	Test options (ours, not VIDTEST's):
-**	  -art DIR       the folder the assets are read from (default the EBCONFIG install folder; VIDTEST
+**	  -art DIR       the folder the assets are read from (default the working directory if it holds
+**	                 mu01a.w3d, as VIDTEST, else the EBCONFIG install folder; VIDTEST
 **	                 reads its working directory, but this program must never run in the install)
 **	  -frames N      quit by itself (exit code 0) after N presented frames (default 0: run the tests)
 **	  -shot FILE     save the back buffer of presented frame -shotframe N to FILE (.bmp)
@@ -32,6 +33,7 @@
 **	  -noondemand    leave WW3D_Load_On_Demand off (VIDTEST turns it on: Build_Scenes)
 **	  -state N       start in test state N (0 fill rate, 1 polygon, 2 land) instead of 0
 **	  -noscene       L2's test: no scenes, every frame only clears to dark blue
+**	  -nomsgbox      VIDTEST's message boxes go to the log instead (implied by -frames, -shot, -shots)
 **	Exit code (VIDTEST's, 1.1): 1 tests finished, -3 aborted by a key or a window close, -1 video mode
 **	not supported, -2 scene build failed; ours: 0 after -frames N, 11 window, 12 WW3D::Init,
 **	13 no device, 15 Begin_Render/End_Render, 16 screenshot.
@@ -216,6 +218,20 @@ static bool Arg_Present(const char *name)
 		if (stricmp(Args[i], name) == 0) return true;
 	}
 	return false;
+}
+
+/*
+** VIDTEST's message boxes (1.1 steps 7, 8). Ours: with -nomsgbox, or any of our test options
+** (-frames, -shot, -shots), the text goes to the log and the box's default answer (IDOK) is returned:
+** an unattended run never blocks on a modal box on the user's desktop.
+*/
+static int Message_Box(const char *text, const char *caption, UINT flags)
+{
+	if (Arg_Present("-nomsgbox") || Arg_Present("-frames") || Arg_Present("-shot") || Arg_Present("-shots")) {
+		Log("message box (not shown): %s: %s\n", caption, text);
+		return IDOK;
+	}
+	return MessageBoxA(NULL, text, caption, flags);
 }
 
 static Vector3 Arg_Vector(const char *name, const Vector3 &def)
@@ -1093,8 +1109,12 @@ static int Run(HINSTANCE instance, int show)
 	WWMath::Init();
 
 	// The art folder, read through our file factory (VIDTEST reads its working directory)
+	// Without -art: the working directory when it holds VIDTEST's art (as VIDTEST, e.g. started by
+	// E&BConfig in a copy of EBCONFIG), else the install folder (read only)
+	const char *defart = GetFileAttributesA("mu01a.w3d") != (DWORD)-1 ? ".\\"
+		: "C:\\Program Files (x86)\\EA GAMES\\Earth & Beyond\\EBCONFIG";
 	char art[MAX_PATH];
-	strncpy(art, Arg_String("-art", "C:\\Program Files (x86)\\EA GAMES\\Earth & Beyond\\EBCONFIG"), MAX_PATH - 2);
+	strncpy(art, Arg_String("-art", defart), MAX_PATH - 2);
 	art[MAX_PATH - 2] = 0;
 	if (art[0] && art[strlen(art) - 1] != '\\') strcat(art, "\\");
 	ArtFiles.Inner.Set_Sub_Directory(art);
@@ -1124,7 +1144,7 @@ static int Run(HINSTANCE instance, int show)
 
 	int result;
 	if (!Setup_Device()) {
-		MessageBoxA(NULL, "Your hardware does not support the requested video mode settings.", "E&B Video Test",
+		Message_Box("Your hardware does not support the requested video mode settings.", "E&B Video Test",
 			MB_ICONINFORMATION);
 		result = -1;
 	} else if (Arg_Present("-noscene")) {
@@ -1143,7 +1163,7 @@ static int Run(HINSTANCE instance, int show)
 		result = (int)msg.wParam;
 	} else if (!Build_Scenes()) {
 		Log("Build_Scenes failed\n");
-		MessageBoxA(NULL, "Failed to build the scenes required for the test.", "E&B Video Test", MB_ICONEXCLAMATION);
+		Message_Box("Failed to build the scenes required for the test.", "E&B Video Test", MB_ICONEXCLAMATION);
 		result = -2;
 	} else {
 		// TODO(M2.4): new SplineDatabase(NULL), Load("splines.wsd")

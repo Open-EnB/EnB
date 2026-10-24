@@ -71,13 +71,13 @@ def main():
     if a.check == 'clear':
         a.extra = ['-noscene'] + a.extra
     if a.mode == 'frames':
-        args = [a.exe, '-frames', str(a.frames), '-shot', 'shot.bmp'] + a.extra
+        args = [a.exe, '-nomsgbox', '-frames', str(a.frames), '-shot', 'shot.bmp'] + a.extra
         if a.check == 'model':
             args += ['-shot2', 'shot2.bmp']
         p = subprocess.Popen(args, cwd=cwd, env=env)
         rc = p.wait(a.timeout)
     else:
-        p = subprocess.Popen([a.exe, '-shot', 'shot.bmp', '-shotframe', '30'] + a.extra, cwd=cwd, env=env)
+        p = subprocess.Popen([a.exe, '-nomsgbox', '-shot', 'shot.bmp', '-shotframe', '30'] + a.extra, cwd=cwd, env=env)
         hwnd = 0
         t0 = time.time()
         while not hwnd and time.time() - t0 < a.timeout:

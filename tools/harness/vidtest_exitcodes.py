@@ -11,11 +11,16 @@ never in the install) with E&BConfig's command line form, after deleting results
           in VIDTEST's order (compared with --ref, the original's file from run_reference.py)
   close   WM_CLOSE posted to the window while the tests run: exit -3, no results.ini
   key     WM_KEYDOWN (space) posted instead: exit -3, no results.ini
-  mode    an unsupported video mode (-resx/-resy 100000): exit -1, no results.ini. vidtest then shows
-          VIDTEST's message box ("Your hardware does not support..."); this script closes it (IDOK)
-          and prints its text
+  mode    Setup_Device fails (a device name WW3D doesn't have, windowed 800x600): exit -1, no
+          results.ini, and VIDTEST's "Your hardware does not support..." in vidtest's log.
+  res     the same through an absurd windowed mode (-resx/-resy 100000): exit -1. WW3D first sizes
+          the window to it, so it briefly covers the screen.
+  scenes  Build_Scenes fails (-art an empty folder: no font.tga): exit -2, no results.ini, and
+          "Failed to build the scenes..." in the log.
 
-The window and the message box are found by the process id (never by grabbing the screen).
+Every run passes -nomsgbox: vidtest logs its message boxes instead of showing them (a modal box
+would wait for a click on the user's desktop). Should one still appear, this script closes it (IDOK).
+The window and any message box are found by the process id (never by grabbing the screen).
 Exit 0 when every case passes.
 """
 import argparse
@@ -125,23 +130,27 @@ def main():
     ap.add_argument('--exe', default=os.path.join(REPO, 'build', 'programs', 'vidtest', 'vidtest.exe'))
     ap.add_argument('--dir', default=os.path.join(REPO, 'build', 'programs', 'vidtest', 'exitcodes'))
     ap.add_argument('--ref', default=os.path.join(REPO, 'build', 'programs', 'vidtest', 'ref_800', 'results.ini'))
-    ap.add_argument('--case', action='append', choices=['finish', 'close', 'key', 'mode'])
+    ap.add_argument('--case', action='append', choices=['finish', 'close', 'key', 'mode', 'res', 'scenes'])
     ap.add_argument('--delay', type=float, default=0.3, help='seconds after the window appears (close, key)')
     a = ap.parse_args()
     exe = os.path.abspath(a.exe)
     wd = os.path.abspath(a.dir)
-    os.makedirs(wd, exist_ok=True)
-    base = ['-device', DEVICE, '-resx', '800', '-resy', '600', '-depth', '32', '-windowed', 'yes', '-filter', '1']
+    os.makedirs(os.path.join(wd, 'noart'), exist_ok=True)
+    base = ['-nomsgbox', '-device', DEVICE, '-resx', '800', '-resy', '600', '-depth', '32', '-windowed', 'yes',
+            '-filter', '1']
     cases = {
         'finish': (base, None, 1, True),
         'close': (base, 'close', -3, False),
         'key': (base, 'key', -3, False),
-        'mode': (['-device', DEVICE, '-resx', '100000', '-resy', '100000', '-depth', '32', '-windowed', 'yes',
-                  '-filter', '1'], 'dialog', -1, False),
+        'mode': (['-nomsgbox', '-device', 'No Such Device', '-resx', '800', '-resy', '600', '-depth', '32',
+                  '-windowed', 'yes', '-filter', '1'], 'dialog', -1, False),
+        'scenes': (base + ['-art', os.path.join(wd, 'noart')], None, -2, False),
+        'res': (['-nomsgbox', '-device', DEVICE, '-resx', '100000', '-resy', '100000', '-depth', '32',
+                 '-windowed', 'yes', '-filter', '1'], 'dialog', -1, False),
     }
     ok = True
     ini = os.path.join(wd, 'results.ini')
-    for name in a.case or ['finish', 'close', 'key', 'mode']:
+    for name in a.case or ['finish', 'close', 'key', 'mode', 'res', 'scenes']:
         args, action, want, want_ini = cases[name]
         if os.path.exists(ini):
             os.remove(ini)
@@ -155,7 +164,7 @@ def main():
         log = os.path.join(wd, f'vidtest_{name}.log')
         if os.path.exists(log):
             for line in open(log, 'r', encoding='latin-1'):
-                if line.startswith(('frames presented', 'WW3D::Set_Render_Device')):
+                if line.startswith(('frames presented', 'WW3D::Set_Render_Device', 'message box')):
                     print('    log:', line.strip())
         if name == 'finish' and has_ini:
             ours = read_ini(ini)
