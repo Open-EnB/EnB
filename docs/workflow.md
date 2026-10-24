@@ -402,3 +402,12 @@ Added 2026-10-24 (overnight run; details in `.work/night/item*/report.md`):
   unless it runs elevated. `PeakPolyRate` is about polygons per frame times frames presented, since
   the whole run takes about a second on a modern GPU. `build.py link` reports stub compile errors
   while another builder has uncommitted app/ headers.
+* **D54's ambiguous count.** Each E&B project keeps its own copy of a header's `__FILE__` (absolute
+  in auxdata, relative in client files), so the "identical copies" test compares C strings without
+  their directory. Copies that differ by EH-handler references or per-instantiation `_Nil` statics
+  or vtables are not identical and don't count.
+* **VC6 constructor and destructor forms.** An implicit destructor stores no vtable; an explicit
+  `{}` one stores it first (0x4AA210). An init list stores members before the vtable, assignments
+  in the body store the vtable first (0x4A8370). VC6 reuses dead argument slots for later locals:
+  one shared variable can be what matches (0x4A91E0).
+* **build.py builds committed files only.** A new uncommitted .cpp shows up as unresolved symbols.
