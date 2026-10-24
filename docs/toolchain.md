@@ -145,8 +145,10 @@ Cloned to `C:\EnBDevelopment\SDK` (outside the repository, like the EA clones).
 
 ### Miles fixes
 
-1. **Import library:** generate `mss32.lib` from the game's own `Mss32.dll` exports (a `.def` file
-   and `lib /def`), rather than using the SDK's older one. This is exact by construction: it
+1. **Import library:** generate `mss32.lib` from the game's own `Mss32.dll` exports, rather than
+   using the SDK's older one: `tools/vc6/mkmss32.py` writes a `.def` and links a dummy DLL, keeping
+   LINK's import library (`lib /def` in VC6 drops the leading underscore of `_AIL_x@n`, so its
+   imports don't bind; D51). This is exact by construction: it
    lists what the DLL the client runs against exports.
 2. **`AIL_open_stream_by_sample`:** one declaration to add, from its decorated name
    (`_AIL_open_stream_by_sample@16`: four 32-bit arguments) and Renegade's call site in WWAudio.
