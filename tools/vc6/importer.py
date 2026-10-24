@@ -3069,7 +3069,9 @@ RECONSTRUCTED = {
                                "operator!= (DeltaTemplateClass<MoneyClass>::Set_Value)",
     ('app', 'shared/auxdata/delta_time.cpp'): "the time field's Read 0x4A81D0 and Write 0x4A8270 "
                                               "(DeltaTemplateClass<DurationClass> specialisations), asserts on "
-                                              "the client's lines 31 and 58 (D25)",
+                                              "the client's lines 31 and 58 (D25); the constructor 0x4A8150 and "
+                                              "Unknown_00 0x4A8330 with DurationAccessorClass (vtable 0xAEB244; "
+                                              "Get / Set not exact) and the unsigned int pair they instantiate",
     ('app', 'shared/auxdata/lookup.cpp'): "LookupClass's index accessors 0x4AC850, 0x4AC8D0, 0x4AC960, "
                                           "asserts on the client's lines 67, 78 and 90 (D25); Find 0x4AC9F0 "
                                           "(line 104; the map keyed by the interned name, _Lbound 0x4AD240); "
@@ -3102,6 +3104,9 @@ RECONSTRUCTED = {
                                           "(line 22, D25), destructor, Get_Type_Name, the value-string "
                                           "slots, Is_Changed, Update_Saved; the copy constructor (line 44) "
                                           "and Clone not exact",
+    ('app', 'shared/strconv_lib.h'): "the key/value pairs' value <-> text conversions (name assumed "
+                                     "from strconv_lib.cpp, whose object holds them: 0x4A30A0-0x4A35F0); "
+                                     "only float and unsigned int declared, defined in stubs/",
     ('app', 'shared/kv_list.h'): "KVListClass's declaration, only Add 0x4B6760 (the assert's 'item', line 23)",
     ('app', 'shared/auxdata/encode.cpp'): "RecordTableClass (D24; Records from the asserts), client "
                                           "0x4A9A70-0x4A9C1A: ctor (line 512, D25), dtor, Unknown_Sum, "

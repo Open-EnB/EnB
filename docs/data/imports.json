@@ -1,6 +1,6 @@
 {
  "app": {
-  "ambiguous_total": 21,
+  "ambiguous_total": 23,
   "base": "reconstructed",
   "compile_errors": [],
   "files": {
@@ -66,12 +66,14 @@
    "delta_interpolator": {
     "ambiguous": [
      "0x42B2F0",
+     "0x448610",
      "0x4A6DF0",
      "0x4A6E60"
     ],
     "copy": "reconstructed",
     "expected": {},
     "in_tree": [
+     "0x4485D0",
      "0x4A6110",
      "0x4A6330",
      "0x4A6380",
@@ -121,13 +123,18 @@
    },
    "delta_time": {
     "ambiguous": [
-     "0x42B2F0"
+     "0x42B2F0",
+     "0x448610",
+     "0x4A8880"
     ],
     "copy": "reconstructed",
     "expected": {},
     "in_tree": [
      "0x4A81D0",
-     "0x4A8270"
+     "0x4A8270",
+     "0x4A8330",
+     "0x4A8370",
+     "0x4A8630"
     ],
     "merged": [],
     "name": "shared/auxdata/delta_time.cpp"
@@ -356,9 +363,10 @@
    "shared/kv_pair.h": "reconstructed",
    "shared/kv_pair_string.h": "reconstructed",
    "shared/money.h": "reconstructed",
+   "shared/strconv_lib.h": "reconstructed",
    "shared/unknown_debug.h": "reconstructed"
   },
-  "in_tree_total": 160,
+  "in_tree_total": 164,
   "totals": {}
  },
  "ww3d2": {

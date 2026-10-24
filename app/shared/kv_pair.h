@@ -19,6 +19,7 @@
 #define __KV_PAIR_H
 
 #include "auxdata\permstr.h"
+#include "strconv_lib.h"
 
 // vtable 0xAEB7EC (the destructor, then six pure slots), size 0x0C
 class KVPairClass
@@ -62,6 +63,13 @@ public:
 		Value(accessor->Get())
 	{
 	}
+	// Clone's copy: the accessor cloned, the saved value kept (the time pair's 0x4A8770)
+	KVPairTemplateClass(const KVPairTemplateClass<T> &that) :
+		KVPairClass(that.Key.Get_String(), that.m_Unknown08, that.m_Unknown09),
+		Accessor(that.Accessor->Clone()),
+		Value(that.Value)
+	{
+	}
 	virtual ~KVPairTemplateClass();
 	virtual KVPairClass *Clone() const;
 	virtual const char *Get_Type_Name() const;
@@ -71,7 +79,49 @@ public:
 	virtual void Update_Saved();
 
 	KVAccessorClass<T> *Accessor;		// +0x0C
-	T Value;									// +0x10
+	T Value;									// +0x10 the saved value
 };
+
+// The bodies (the time field's unsigned int pair in delta_time.cpp's object: 0x4A8770-0x4A8990,
+// vtable 0xAEB26C; the float pair's in a client object, 0x4484C0-0x448B10, vtable 0xAE7860)
+template<class T> KVPairTemplateClass<T>::~KVPairTemplateClass()
+{
+	delete Accessor;
+}
+
+template<class T> KVPairClass *KVPairTemplateClass<T>::Clone() const
+{
+	return new KVPairTemplateClass<T>(*this);
+}
+
+template<class T> const char *KVPairTemplateClass<T>::Get_Type_Name() const
+{
+	return Type_Name((T *)0);
+}
+
+template<class T> char *KVPairTemplateClass<T>::Get_Value_String(char *buf, int size) const
+{
+	return Value_To_String(buf, size, Accessor->Get());
+}
+
+template<class T> bool KVPairTemplateClass<T>::Set_Value_String(const char *text)
+{
+	T value;
+	if (String_To_Value(text, &value)) {
+		Accessor->Set(value);
+		return true;
+	}
+	return false;
+}
+
+template<class T> bool KVPairTemplateClass<T>::Is_Changed() const
+{
+	return Value != Accessor->Get();
+}
+
+template<class T> void KVPairTemplateClass<T>::Update_Saved()
+{
+	Value = Accessor->Get();
+}
 
 #endif //__KV_PAIR_H

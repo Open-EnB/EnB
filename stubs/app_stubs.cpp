@@ -10,6 +10,7 @@
 #include <windows.h>
 #include <stdio.h>
 #include <stdarg.h>
+#include <stdlib.h>
 #include "stub_log.h"
 
 #include "unknown_debug.h"
@@ -19,8 +20,10 @@
 #include "delta.h"
 #include "linearbu.h"
 #include "encode.h"
+#include "strconv_lib.h"
 #include "delta_string.h"
 #include "duration.h"
+#include "money.h"
 #include "delta_template.h"
 
 // ------------------------------------------------------------------------- E&B debug hooks
@@ -100,68 +103,49 @@ void KVListClass::Add(KVPairClass *item)
 	STUB_CALLED("KVListClass::Add (0x4B6760)");
 }
 
-// KVPairTemplateClass<float> (vtable 0xAE7860): the destructor and six virtuals (the client's are
-// in a client object, 0x4484C0-0x448B10; the slots are described in kv_pair.h)
-KVPairTemplateClass<float>::~KVPairTemplateClass()
-{
-	STUB_CALLED("KVPairTemplateClass<float>::~KVPairTemplateClass");
-}
+// ------------------------------------------------------------------------- strconv_lib.h
 
-KVPairClass *KVPairTemplateClass<float>::Clone() const
+// The value <-> text conversions the key/value pairs use. Not stubs: the client's behaviour
+// (0x4A3200 / 0x4A3240 / 0x4A3590 / 0x4A35C0), here until strconv_lib.cpp is rebuilt.
+char *Value_To_String(char *buf, int size, float value)
 {
-	STUB_CALLED("KVPairTemplateClass<float>::Clone (0x4484C0)");
-	return 0;
-}
-
-const char *KVPairTemplateClass<float>::Get_Type_Name() const
-{
-	return "float";		// 0x448580, not a stub
-}
-
-char *KVPairTemplateClass<float>::Get_Value_String(char *buf, int size) const
-{
-	STUB_CALLED("KVPairTemplateClass<float>::Get_Value_String (0x4485A0)");
-	if (size > 0) {
-		buf[0] = 0;
-	}
+	sprintf(buf, "%f", value);
 	return buf;
 }
 
-bool KVPairTemplateClass<float>::Set_Value_String(const char *text)
+bool String_To_Value(const char *text, float *value)
 {
-	STUB_CALLED("KVPairTemplateClass<float>::Set_Value_String (0x448B10)");
+	*value = (float)atof(text);
+	return true;
+}
+
+char *Value_To_String(char *buf, int size, unsigned int value)
+{
+	sprintf(buf, "%u", value);
+	return buf;
+}
+
+bool String_To_Value(const char *text, unsigned int *value)
+{
+	return sscanf(text, "%u", value) == 1;
+}
+
+// MoneyClass's (money.cpp, 0x4F0AB0 / 0x4F0BE0 / 0x4F0640)
+const char *Type_Name(MoneyClass *)
+{
+	STUB_CALLED("Type_Name(MoneyClass *) (0x4F0AB0)");
+	return "MoneyClass";
+}
+
+char *Value_To_String(char *buf, int size, const MoneyClass &value)
+{
+	STUB_CALLED("Value_To_String(MoneyClass) (0x4F0BE0)");
+	sprintf(buf, "%I64d", value.m_Unknown00);
+	return buf;
+}
+
+bool String_To_Value(const char *text, MoneyClass *value)
+{
+	STUB_CALLED("String_To_Value(MoneyClass) (0x4F0640)");
 	return false;
-}
-
-bool KVPairTemplateClass<float>::Is_Changed() const
-{
-	STUB_CALLED("KVPairTemplateClass<float>::Is_Changed (0x4485D0)");
-	return false;
-}
-
-void KVPairTemplateClass<float>::Update_Saved()
-{
-	STUB_CALLED("KVPairTemplateClass<float>::Update_Saved (0x448610)");
-}
-
-// The per-class global (time: 0xBE3AA4, data), specialised before the constructor uses it; the
-// constructor's vtable also needs the visitor slot, below (the `extern template` keeps both out of
-// the header's instantiation).
-template<> int DeltaTemplateClass<DurationClass>::UnknownGlobal = 0;
-
-// DeltaTemplateClass<DurationClass>'s constructor (the client's 0x4A8150). Not a stub: the body is
-// delta_template.h's, repeated; delta_interpolator.cpp declares the instance `extern template`
-// (VC6's C4231, as the client inlines it there) and delta_time.cpp, which holds it in the client,
-// doesn't instantiate it yet. VC6 can't instantiate the constructor alone (C2909) nor the class after that
-// `extern` (C2949), so this is an explicit specialisation with the template's body (same symbol).
-template<> DeltaTemplateClass<DurationClass>::DeltaTemplateClass(const char *name, const DurationClass &value) :
-	DeltaClass(name),
-	Value(value)
-{
-	m_Unknown04 = UnknownGlobal;
-}
-
-template<> void DeltaTemplateClass<DurationClass>::Unknown_00(DeltaChildVisitorClass *visitor)
-{
-	STUB_CALLED("DeltaTemplateClass<DurationClass>::Unknown_00");
 }
