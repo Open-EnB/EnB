@@ -5,7 +5,9 @@ jumps to other functions, addresses of data and strings) is a wildcard, because 
 fixed at link time. The pattern is searched for in client.exe's .text. Results per function:
 
   exact      found once: this is the function, unchanged
-  multiple   found more than once (short or common code; not proof on its own)
+  multiple   found more than once (short or common code; not proof on its own). `count` gives
+             the number of copies (`addresses` lists the first 5), `identical` whether all
+             copies are the same function, relocated fields included (REL32 targets compared)
   none       not found: the client's function differs, is inlined, or was not linked
 
     python objmatch.py [--client PATH] [--json OUT] file.obj...
@@ -96,6 +98,50 @@ class CoffObject:
                 fixed += 1
         return b''.join(parts), fixed, len(body)
 
+    def relocated(self, sec, start, length):
+        """[(offset in the function, size, type)] of the relocated fields of a function."""
+        out = []
+        for va, _, typ in self.sections[sec]['relocs']:
+            if start <= va < start + length:
+                out.append((va - start, RELOC_SIZE.get(typ, 4), typ))
+        return out
+
+
+def same_copies(text, base, hits, relocs, img=None):
+    """True if every copy found at `hits` (VAs; text[0] is at VA `base`) is the same function,
+    the masked fields included: a relative call/jump (REL32) must reach the same target, any
+    other relocated field must hold the same value. Two functions that differ only in their
+    callees (or vtables) match one masked pattern but are not identical copies. One exception
+    (with `img`): an absolute reference to a C string compares the string, minus any directory
+    part, because each E&B project has its own copy of a header's `__FILE__` (0x4A6DF0's is
+    `e:\\build\\beta\\G\\app\\shared\\auxdata\\delta_template.h`, 0x7013F0's
+    `..\\shared/auxdata/delta_template.h`)."""
+    def cstring(va):
+        o = img.offset(va)
+        if o is None:
+            return None
+        end = img.data.find(b'\0', o, o + 512)
+        s = img.data[o:end] if end > o else b''
+        if not s or any(c < 0x20 or c > 0x7E for c in s):
+            return None
+        return ('str', re.split(rb'[\\/]', s)[-1].lower())
+
+    def fields(h):
+        o = h - base
+        out = []
+        for k, n, typ in relocs:
+            raw = text[o + k:o + k + n]
+            if typ == 0x14 and n == 4:
+                out.append(h + k + 4 + struct.unpack('<i', raw)[0])
+            elif typ == 0x06 and n == 4 and img is not None:
+                va = struct.unpack('<I', raw)[0]
+                out.append(cstring(va) or va)
+            else:
+                out.append(bytes(raw))
+        return out
+    first = fields(hits[0])
+    return all(fields(h) == first for h in hits[1:])
+
 
 def demangle(name):
     """Enough of MSVC demangling for reports and source lookup: ?Method@Class@@... -> Class::Method,
@@ -136,9 +182,13 @@ def match_objects(img, paths, region=None):
                 r['status'] = 'short'
                 r['addresses'] = []
             else:
-                hits = [start + m.start() for m in re.finditer(pat, text, re.S)][:5]
-                r['addresses'] = [f'0x{a:06X}' for a in hits]
+                hits = [start + m.start() for m in re.finditer(pat, text, re.S)]
+                r['addresses'] = [f'0x{a:06X}' for a in hits[:5]]
                 r['status'] = 'exact' if len(hits) == 1 else 'multiple' if hits else 'none'
+                if len(hits) > 1:
+                    # every copy, and whether they are all the same function (D54)
+                    r['count'] = len(hits)
+                    r['identical'] = same_copies(text, start, hits, obj.relocated(sec, s, length), img)
             results.append(r)
     return results
 

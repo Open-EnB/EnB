@@ -3229,8 +3229,9 @@ def app_state(state):
             if k in s['files']:
                 raise SystemExit(f'{lib}: {n} and {s["files"][k]["name"]} share the key {k} (see APP_LIBS)')
             s['files'][k] = {'copy': 'reconstructed', 'name': n, 'expected': {}, 'merged': []}
-            if 'in_tree' in old.get(k, {}):
-                s['files'][k]['in_tree'] = old[k]['in_tree']
+            for kept in ('in_tree', 'ambiguous'):
+                if kept in old.get(k, {}):
+                    s['files'][k][kept] = old[k][kept]
         s['headers'] = {n: 'reconstructed' for n in names if not n.endswith('.cpp')}
     return state
 
@@ -3503,8 +3504,11 @@ def tree_includes():
     return [dest(l) for l in LIBS if os.path.isdir(dest(l))] + SDK_INCLUDES
 
 
-def compile_and_match(paths, tag):
-    """Compile files from the repository; {file key: set(addresses)} plus compiler output."""
+def compile_and_match(paths, tag, ambiguous=None):
+    """Compile files from the repository; {file key: set(addresses)} plus compiler output.
+    `ambiguous` (a dict, optional) receives {file key: set(first address)} of the functions found
+    at several places in client.exe whose copies are all identical (objmatch `multiple` with
+    `identical`; D54's "exact, ambiguous address"). They are never pairs."""
     hold_lock()
     out = os.path.join(WORK, tag)
     if os.path.isdir(out):
@@ -3522,6 +3526,8 @@ def compile_and_match(paths, tag):
     for r in match_objects(image(), objs, app and app['region']) if objs else []:
         if r['status'] == 'exact':
             found[key_of(r['object'])].add(r['addresses'][0])
+        elif r['status'] == 'multiple' and r.get('identical') and ambiguous is not None:
+            ambiguous.setdefault(key_of(r['object']), set()).add(r['addresses'][0])
     for p in paths:
         found.setdefault(key_of(p), set())
     return found, text
@@ -3543,30 +3549,37 @@ def verify(state, libs=None):
             vc6.use_host(host)
             s = state[lib]
             paths = [os.path.join(dest(lib), f['name']) for f in s['files'].values()]
-            found, text = compile_and_match(paths, f'verify-{lib}')
-            return lib, found, text
+            amb = {}
+            found, text = compile_and_match(paths, f'verify-{lib}', amb)
+            return lib, found, text, amb
         finally:
             free.put(host)
 
     # biggest first, so the long WW3D2 compile overlaps with the rest
     order = sorted(libs, key=lambda l: -len(state[l]['files']))
     with cf.ThreadPoolExecutor(max(1, len(vc6.hosts()))) as ex:
-        results = {lib: (found, text) for lib, found, text in ex.map(one, order)}
+        results = {lib: (found, text, amb) for lib, found, text, amb in ex.map(one, order)}
     for lib in libs:
         s = state[lib]
-        found, text = results[lib]
+        found, text, amb = results[lib]
         errors = [l for l in text.splitlines() if ' error ' in l]
         total = set()
+        ambiguous = set()
         short = 0
         for k, f in s['files'].items():
             f['in_tree'] = sorted(found.get(k, set()))
             total |= found.get(k, set())
+            # D54: exact, ambiguous address (identical copies); not pairs
+            f['ambiguous'] = sorted(amb.get(k, set()))
+            ambiguous |= amb.get(k, set())
             if len(f['in_tree']) < f['expected'].get(f['copy'], 0):
                 short += 1
         s['in_tree_total'] = len(total)
+        s['ambiguous_total'] = len(ambiguous)
         s['compile_errors'] = errors[:50]
         print(f'{lib:11s} in tree: {len(total)} client functions (best copy alone: '
-              f'{max(s["totals"].values(), default=0)}); {short} files below their copy; {len(errors)} errors')
+              f'{max(s["totals"].values(), default=0)}), {len(ambiguous)} exact with an ambiguous address; '
+              f'{short} files below their copy; {len(errors)} errors')
     return state
 
 
@@ -3634,8 +3647,10 @@ def try_with_headers(state, lib, f, c, k, donor):
     if all(before[l] <= after[l] for l in before) and sum(map(len, after.values())) > sum(map(len, before.values())):
         for l in state:
             state[l]['in_tree_total'] = trial[l]['in_tree_total']
+            state[l]['ambiguous_total'] = trial[l].get('ambiguous_total', 0)
             for kk, ff in state[l]['files'].items():
                 ff['in_tree'] = trial[l]['files'][kk].get('in_tree', [])
+                ff['ambiguous'] = trial[l]['files'][kk].get('ambiguous', [])
         hs = state[lib].setdefault('headers', {})
         for n, _ in pairs:
             for old in [x for x in hs if x.lower() == n.lower()]:
@@ -3734,14 +3749,17 @@ def report(state):
              'function definitions from other copies where that adds byte-exact functions without '
              'losing any. "In tree": client functions our own source reproduces byte for byte '
              '(compiled with VC6 SP4, `/MT /W3 /O2 /Ob2`). See docs/library-matching.md Â§3.5.', '']
-    lines += ['## Summary', '', '| Library | Base copy | Source files | From another copy | Functions merged | In tree | Best single copy |',
-              '|---|---|---|---|---|---|---|']
+    lines += ['## Summary', '', '"Exact, ambiguous address" (D54): functions whose compiled bytes occur at several places '
+              'in client.exe, all copies identical (relocated fields included), so no single address can be '
+              'credited; counted once per client function, never as pairs.', '',
+              '| Library | Base copy | Source files | From another copy | Functions merged | In tree | Exact, ambiguous address | Best single copy |',
+              '|---|---|---|---|---|---|---|---|']
     for lib, s in state.items():
         files = s['files']
         other = sum(1 for f in files.values() if f['copy'] != s['base'])
         merged = sum(len(f['merged']) for f in files.values())
         lines.append(f"| {lib} | {COPY_NAME[s['base']]} | {len(files)} | {other} | {merged} | "
-                     f"{s.get('in_tree_total', '?')} | {max(s['totals'].values(), default='-')} |")
+                     f"{s.get('in_tree_total', '?')} | {s.get('ambiguous_total', '?')} | {max(s['totals'].values(), default='-')} |")
     lines += ['', '## Local changes', '']
     for (lib, name), edits in PATCHES.items():
         for _, _, why in edits:
@@ -3761,11 +3779,12 @@ def report(state):
         if s.get('compile_errors'):
             lines += ['Compile errors in the tree (first few):', '']
             lines += [f'    {e.strip()[:160]}' for e in s['compile_errors'][:8]] + ['']
-        lines += ['| File | From | In tree | R | G | Z | Merged functions |', '|---|---|---|---|---|---|---|']
+        lines += ['| File | From | In tree | Ambiguous | R | G | Z | Merged functions |', '|---|---|---|---|---|---|---|---|']
         for k, f in sorted(s['files'].items()):
             exp = f['expected']
             merged = '; '.join(f"{m['function']} ({m['copy']})" for m in f['merged'])
             lines.append(f"| {f.get('name', k)} | {f['copy']}{'+h' if f.get('headers_from') else ''} | {len(f.get('in_tree', []))} | "
+                         f"{len(f['ambiguous']) if 'ambiguous' in f else '?'} | "
                          + ' | '.join(str(exp.get(c, '-')) for c in 'RGZ') + f' | {merged} |')
     open(os.path.join(REPO, 'docs', 'imports.md'), 'w', encoding='utf-8').write('\n'.join(lines) + '\n')
     print('docs/imports.md written')

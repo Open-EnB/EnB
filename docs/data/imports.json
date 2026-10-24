@@ -1,9 +1,11 @@
 {
  "app": {
+  "ambiguous_total": 16,
   "base": "reconstructed",
   "compile_errors": [],
   "files": {
    "bitset": {
+    "ambiguous": [],
     "copy": "reconstructed",
     "expected": {},
     "in_tree": [
@@ -23,6 +25,15 @@
     "name": "shared/auxdata/bitset.cpp"
    },
    "delta": {
+    "ambiguous": [
+     "0x42A900",
+     "0x42AFF0",
+     "0x42B2F0",
+     "0x4333D0",
+     "0x436730",
+     "0x4A4FE0",
+     "0x4A5650"
+    ],
     "copy": "reconstructed",
     "expected": {},
     "in_tree": [
@@ -53,6 +64,11 @@
     "name": "shared/auxdata/delta.cpp"
    },
    "delta_interpolator": {
+    "ambiguous": [
+     "0x42B2F0",
+     "0x4A6DF0",
+     "0x4A6E60"
+    ],
     "copy": "reconstructed",
     "expected": {},
     "in_tree": [
@@ -71,6 +87,9 @@
     "name": "shared/auxdata/delta_interpolator.cpp"
    },
    "delta_money": {
+    "ambiguous": [
+     "0x42B2F0"
+    ],
     "copy": "reconstructed",
     "expected": {},
     "in_tree": [
@@ -81,6 +100,9 @@
     "name": "shared/auxdata/delta_money.cpp"
    },
    "delta_string": {
+    "ambiguous": [
+     "0x42B2F0"
+    ],
     "copy": "reconstructed",
     "expected": {},
     "in_tree": [
@@ -98,6 +120,9 @@
     "name": "shared/auxdata/delta_string.cpp"
    },
    "delta_time": {
+    "ambiguous": [
+     "0x42B2F0"
+    ],
     "copy": "reconstructed",
     "expected": {},
     "in_tree": [
@@ -108,6 +133,9 @@
     "name": "shared/auxdata/delta_time.cpp"
    },
    "encode": {
+    "ambiguous": [
+     "0x42B2F0"
+    ],
     "copy": "reconstructed",
     "expected": {},
     "in_tree": [
@@ -120,6 +148,14 @@
     "name": "shared/auxdata/encode.cpp"
    },
    "kv_encoder_base": {
+    "ambiguous": [
+     "0x42A6C0",
+     "0x42B2F0",
+     "0x443F30",
+     "0x444190",
+     "0x49CB70",
+     "0x4ACBB0"
+    ],
     "copy": "reconstructed",
     "expected": {},
     "in_tree": [
@@ -158,6 +194,7 @@
     "name": "shared/kv_encoder_base.cpp"
    },
    "kv_pair": {
+    "ambiguous": [],
     "copy": "reconstructed",
     "expected": {},
     "in_tree": [
@@ -167,6 +204,7 @@
     "name": "shared/kv_pair.cpp"
    },
    "linearbu": {
+    "ambiguous": [],
     "copy": "reconstructed",
     "expected": {},
     "in_tree": [
@@ -193,6 +231,9 @@
     "name": "shared/auxdata/linearbu.cpp"
    },
    "lookup": {
+    "ambiguous": [
+     "0x42B2F0"
+    ],
     "copy": "reconstructed",
     "expected": {},
     "in_tree": [
@@ -206,6 +247,7 @@
     "name": "shared/auxdata/lookup.cpp"
    },
    "name": {
+    "ambiguous": [],
     "copy": "reconstructed",
     "expected": {},
     "in_tree": [
@@ -227,6 +269,10 @@
     "name": "shared/auxdata/name.cpp"
    },
    "permstr": {
+    "ambiguous": [
+     "0x4ADD40",
+     "0x4AE1B0"
+    ],
     "copy": "reconstructed",
     "expected": {},
     "in_tree": [
@@ -241,6 +287,7 @@
     "name": "shared/auxdata/permstr.cpp"
    },
    "policy": {
+    "ambiguous": [],
     "copy": "reconstructed",
     "expected": {},
     "in_tree": [
@@ -274,10 +321,14 @@
   "totals": {}
  },
  "ww3d2": {
+  "ambiguous_total": 164,
   "base": "R",
   "compile_errors": [],
   "files": {
    "aabtree": {
+    "ambiguous": [
+     "0x45CC10"
+    ],
     "best": "R",
     "copy": "Z",
     "expected": {
@@ -323,6 +374,9 @@
     "name": "aabtree.cpp"
    },
    "aabtreebuilder": {
+    "ambiguous": [
+     "0x9B4B50"
+    ],
     "best": "Z",
     "copy": "Z",
     "expected": {
@@ -357,6 +411,16 @@
     "name": "aabtreebuilder.cpp"
    },
    "agg_def": {
+    "ambiguous": [
+     "0x45CB00",
+     "0x45CB40",
+     "0x45CCE0",
+     "0x45CDC0",
+     "0x45CF20",
+     "0x48A7F0",
+     "0x48A960",
+     "0x48AB30"
+    ],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -398,6 +462,24 @@
     "name": "agg_def.cpp"
    },
    "animatedsoundmgr": {
+    "ambiguous": [
+     "0x45CB00",
+     "0x45CB40",
+     "0x45CCE0",
+     "0x45CDC0",
+     "0x45CF20",
+     "0x48A7F0",
+     "0x48A960",
+     "0x48AAC0",
+     "0x48AB30",
+     "0x48F8D0",
+     "0x8DF850",
+     "0x8DF8E0",
+     "0x90A250",
+     "0x90A2E0",
+     "0x90A790",
+     "0x90A8A0"
+    ],
     "best": "Z",
     "copy": "Z",
     "expected": {
@@ -431,6 +513,9 @@
     "name": "animatedsoundmgr.cpp"
    },
    "animobj": {
+    "ambiguous": [
+     "0x45CC10"
+    ],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -488,6 +573,35 @@
     "name": "animobj.cpp"
    },
    "assetmgr": {
+    "ambiguous": [
+     "0x42FC60",
+     "0x42FE90",
+     "0x430090",
+     "0x4301A0",
+     "0x430260",
+     "0x430340",
+     "0x45CB00",
+     "0x45CB40",
+     "0x45CCE0",
+     "0x45CDC0",
+     "0x45CF20",
+     "0x48A7F0",
+     "0x48A960",
+     "0x48AAC0",
+     "0x48AB30",
+     "0x4E5A00",
+     "0x8DF850",
+     "0x8DF8E0",
+     "0x90A250",
+     "0x90A790",
+     "0x9190B0",
+     "0x91BFB0",
+     "0x91F640",
+     "0x91F760",
+     "0x91F860",
+     "0x91F8E0",
+     "0x91F970"
+    ],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -558,6 +672,11 @@
     "name": "assetmgr.cpp"
    },
    "assetstatus": {
+    "ambiguous": [
+     "0x90A790",
+     "0x90A8A0",
+     "0x91BFB0"
+    ],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -587,6 +706,7 @@
     "name": "assetstatus.cpp"
    },
    "bitmaphandler": {
+    "ambiguous": [],
     "best": "Z",
     "copy": "Z",
     "expected": {
@@ -610,6 +730,14 @@
     "name": "bitmaphandler.cpp"
    },
    "bmp2d": {
+    "ambiguous": [
+     "0x45CC10",
+     "0x462BF0",
+     "0x497350",
+     "0x67E880",
+     "0x92D670",
+     "0x92D7D0"
+    ],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -644,6 +772,13 @@
     "name": "bmp2d.cpp"
    },
    "boxrobj": {
+    "ambiguous": [
+     "0x45CC10",
+     "0x462BF0",
+     "0x941390",
+     "0x999910",
+     "0x999980"
+    ],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -710,6 +845,10 @@
     "name": "boxrobj.cpp"
    },
    "bw_render": {
+    "ambiguous": [
+     "0x9BE190",
+     "0x9BE220"
+    ],
     "best": "G",
     "copy": "G",
     "expected": {
@@ -729,6 +868,10 @@
     "name": "bw_render.cpp"
    },
    "bwrender": {
+    "ambiguous": [
+     "0x9BE190",
+     "0x9BE220"
+    ],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -748,6 +891,12 @@
     "name": "bwrender.cpp"
    },
    "camera": {
+    "ambiguous": [
+     "0x45CC10",
+     "0x462BF0",
+     "0x941390",
+     "0x943290"
+    ],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -809,6 +958,25 @@
     "name": "camera.cpp"
    },
    "collect": {
+    "ambiguous": [
+     "0x45CB00",
+     "0x45CB40",
+     "0x45CC10",
+     "0x45CCE0",
+     "0x45CDC0",
+     "0x45CF20",
+     "0x462BF0",
+     "0x47D0F0",
+     "0x47E6E0",
+     "0x47E8E0",
+     "0x47E9F0",
+     "0x48A7F0",
+     "0x48A960",
+     "0x48AB30",
+     "0x990650",
+     "0x9921D0",
+     "0x992C20"
+    ],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -887,6 +1055,7 @@
     "name": "collect.cpp"
    },
    "coltest": {
+    "ambiguous": [],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -912,6 +1081,12 @@
     "name": "coltest.cpp"
    },
    "composite": {
+    "ambiguous": [
+     "0x45CC10",
+     "0x462BF0",
+     "0x941390",
+     "0x986150"
+    ],
     "best": "R",
     "copy": "Z",
     "expected": {
@@ -962,6 +1137,13 @@
     "name": "composite.cpp"
    },
    "dazzle": {
+    "ambiguous": [
+     "0x45CC10",
+     "0x462BF0",
+     "0x8DF850",
+     "0x8DF8E0",
+     "0x941390"
+    ],
     "best": "Z",
     "copy": "Z",
     "expected": {
@@ -1044,6 +1226,7 @@
     "name": "dazzle.cpp"
    },
    "ddsfile": {
+    "ambiguous": [],
     "best": "Z",
     "copy": "R",
     "expected": {
@@ -1076,6 +1259,19 @@
     "name": "ddsfile.cpp"
    },
    "decalmsh": {
+    "ambiguous": [
+     "0x45CC10",
+     "0x8DD750",
+     "0x8DD780",
+     "0x8DF850",
+     "0x8DF8E0",
+     "0x90A250",
+     "0x910360",
+     "0x9141A0",
+     "0x993820",
+     "0x9938C0",
+     "0x993900"
+    ],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -1122,6 +1318,10 @@
     "name": "decalmsh.cpp"
    },
    "decalsys": {
+    "ambiguous": [
+     "0x4E5A00",
+     "0x72C040"
+    ],
     "best": "Z",
     "copy": "R",
     "expected": {
@@ -1165,6 +1365,10 @@
     "name": "decalsys.cpp"
    },
    "distlod": {
+    "ambiguous": [
+     "0x45CC10",
+     "0x4F5E90"
+    ],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -1239,6 +1443,7 @@
     "name": "distlod.cpp"
    },
    "dx8caps": {
+    "ambiguous": [],
     "best": "Z",
     "copy": "R",
     "expected": {
@@ -1278,6 +1483,7 @@
     "name": "dx8caps.cpp"
    },
    "dx8fvf": {
+    "ambiguous": [],
     "best": "R",
     "copy": "Z",
     "expected": {
@@ -1295,6 +1501,10 @@
     "name": "dx8fvf.cpp"
    },
    "dx8indexbuffer": {
+    "ambiguous": [
+     "0x45CC10",
+     "0x9511D0"
+    ],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -1329,6 +1539,7 @@
     "name": "dx8indexbuffer.cpp"
    },
    "dx8polygonrenderer": {
+    "ambiguous": [],
     "best": "G",
     "copy": "R",
     "expected": {
@@ -1349,6 +1560,21 @@
     "name": "dx8polygonrenderer.cpp"
    },
    "dx8renderer": {
+    "ambiguous": [
+     "0x45CB00",
+     "0x45CC10",
+     "0x45CDC0",
+     "0x47D0F0",
+     "0x47E6E0",
+     "0x47E8E0",
+     "0x47E9F0",
+     "0x8DF850",
+     "0x8DF8E0",
+     "0x90A250",
+     "0x92D7D0",
+     "0x977940",
+     "0x97AB05"
+    ],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -1439,6 +1665,9 @@
     "name": "dx8renderer.cpp"
    },
    "dx8rendererdebugger": {
+    "ambiguous": [
+     "0x9190B0"
+    ],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -1461,6 +1690,7 @@
     "name": "dx8rendererdebugger.cpp"
    },
    "dx8texman": {
+    "ambiguous": [],
     "best": "Z",
     "copy": "Z",
     "expected": {
@@ -1481,6 +1711,10 @@
     "name": "dx8texman.cpp"
    },
    "dx8vertexbuffer": {
+    "ambiguous": [
+     "0x45CC10",
+     "0x94F090"
+    ],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -1524,6 +1758,11 @@
     "name": "dx8vertexbuffer.cpp"
    },
    "dx8webbrowser": {
+    "ambiguous": [
+     "0x604150",
+     "0x7C9E90",
+     "0x7E1CC0"
+    ],
     "best": "Z",
     "copy": "Z",
     "expected": {},
@@ -1554,6 +1793,15 @@
     "name": "dx8webbrowser.cpp"
    },
    "dx8wrapper": {
+    "ambiguous": [
+     "0x45CB00",
+     "0x45CB40",
+     "0x45CDC0",
+     "0x494680",
+     "0x656410",
+     "0x921140",
+     "0x929C70"
+    ],
     "best": "Z",
     "copy": "R",
     "expected": {
@@ -1691,6 +1939,15 @@
     "name": "dx8wrapper.cpp"
    },
    "dynamesh": {
+    "ambiguous": [
+     "0x45CC10",
+     "0x462BF0",
+     "0x48AAC0",
+     "0x67E880",
+     "0x92D670",
+     "0x92D7D0",
+     "0x941390"
+    ],
     "best": "R",
     "copy": "Z",
     "expected": {
@@ -1757,6 +2014,9 @@
     "name": "dynamesh.cpp"
    },
    "font3d": {
+    "ambiguous": [
+     "0x45CC10"
+    ],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -1784,6 +2044,7 @@
     "name": "font3d.cpp"
    },
    "formconv": {
+    "ambiguous": [],
     "best": "Z",
     "copy": "Z",
     "expected": {
@@ -1803,6 +2064,7 @@
     "name": "formconv.cpp"
    },
    "framgrab": {
+    "ambiguous": [],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -1825,6 +2087,19 @@
     "name": "framgrab.cpp"
    },
    "hanim": {
+    "ambiguous": [
+     "0x45CB00",
+     "0x45CB40",
+     "0x45CBE0",
+     "0x45CC10",
+     "0x45CCE0",
+     "0x45CDC0",
+     "0x45CF20",
+     "0x48A7F0",
+     "0x48A960",
+     "0x48AB30",
+     "0x931490"
+    ],
     "best": "R",
     "copy": "Z",
     "expected": {
@@ -1878,6 +2153,7 @@
     "name": "hanim.cpp"
    },
    "hanimmgr": {
+    "ambiguous": [],
     "best": "Z",
     "copy": "Z",
     "expected": {
@@ -1913,6 +2189,9 @@
     "name": "hanimmgr.cpp"
    },
    "hcanim": {
+    "ambiguous": [
+     "0x45CC10"
+    ],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -1950,6 +2229,21 @@
     "name": "hcanim.cpp"
    },
    "hlod": {
+    "ambiguous": [
+     "0x45CB00",
+     "0x45CBE0",
+     "0x45CC10",
+     "0x45CDC0",
+     "0x48A210",
+     "0x48A3F0",
+     "0x494680",
+     "0x969640",
+     "0x98BA10",
+     "0x98FBC0",
+     "0x98FD10",
+     "0x98FEA0",
+     "0x990060"
+    ],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -2065,6 +2359,16 @@
     "name": "hlod.cpp"
    },
    "hmdldef": {
+    "ambiguous": [
+     "0x45CB00",
+     "0x45CC10",
+     "0x45CDC0",
+     "0x47D0F0",
+     "0x47E6E0",
+     "0x47E8E0",
+     "0x47E9F0",
+     "0x9B5F60"
+    ],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -2084,6 +2388,14 @@
     "name": "hmdldef.cpp"
    },
    "hmorphanim": {
+    "ambiguous": [
+     "0x45CC10",
+     "0x8DD750",
+     "0x910360",
+     "0x988710",
+     "0x9887D0",
+     "0x9888E0"
+    ],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -2136,6 +2448,10 @@
     "name": "hmorphanim.cpp"
    },
    "hrawanim": {
+    "ambiguous": [
+     "0x45CC10",
+     "0x9C2B70"
+    ],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -2179,6 +2495,10 @@
     "name": "hrawanim.cpp"
    },
    "htree": {
+    "ambiguous": [
+     "0x96F6C0",
+     "0x988C20"
+    ],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -2220,6 +2540,11 @@
     "name": "htree.cpp"
    },
    "htreemgr": {
+    "ambiguous": [
+     "0x90A790",
+     "0x91BFB0",
+     "0x963FF0"
+    ],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -2245,6 +2570,7 @@
     "name": "htreemgr.cpp"
    },
    "intersec": {
+    "ambiguous": [],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -2277,6 +2603,10 @@
     "name": "intersec.cpp"
    },
    "layer": {
+    "ambiguous": [
+     "0x457FA0",
+     "0x459176"
+    ],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -2301,6 +2631,13 @@
     "name": "layer.cpp"
    },
    "light": {
+    "ambiguous": [
+     "0x45CC10",
+     "0x462BF0",
+     "0x8D54B0",
+     "0x941390",
+     "0x943290"
+    ],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -2342,6 +2679,7 @@
     "name": "light.cpp"
    },
    "lightenvironment": {
+    "ambiguous": [],
     "best": "Z",
     "copy": "R",
     "expected": {
@@ -2370,6 +2708,12 @@
     "name": "lightenvironment.cpp"
    },
    "line3d": {
+    "ambiguous": [
+     "0x45CC10",
+     "0x462BF0",
+     "0x941390",
+     "0x943290"
+    ],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -2411,6 +2755,11 @@
     "name": "line3d.cpp"
    },
    "linegrp": {
+    "ambiguous": [
+     "0x954830",
+     "0x954860",
+     "0x954890"
+    ],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -2441,6 +2790,17 @@
     "name": "linegrp.cpp"
    },
    "mapper": {
+    "ambiguous": [
+     "0x45CC10",
+     "0x9322F0",
+     "0x9348B0",
+     "0x934F60",
+     "0x934FB0",
+     "0x937900",
+     "0x939880",
+     "0x939910",
+     "0x939F50"
+    ],
     "best": "R",
     "copy": "Z",
     "expected": {
@@ -2531,6 +2891,18 @@
     "name": "mapper.cpp"
    },
    "matinfo": {
+    "ambiguous": [
+     "0x45CB00",
+     "0x45CB40",
+     "0x45CC10",
+     "0x45CCE0",
+     "0x45CDC0",
+     "0x45CF20",
+     "0x48A7F0",
+     "0x48A960",
+     "0x48AAC0",
+     "0x48AB30"
+    ],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -2576,6 +2948,9 @@
     "name": "matinfo.cpp"
    },
    "matpass": {
+    "ambiguous": [
+     "0x45CC10"
+    ],
     "best": "Z",
     "copy": "Z",
     "expected": {
@@ -2600,6 +2975,9 @@
     "name": "matpass.cpp"
    },
    "matrixmapper": {
+    "ambiguous": [
+     "0x45CC10"
+    ],
     "best": "R",
     "copy": "Z",
     "expected": {
@@ -2633,6 +3011,20 @@
     "name": "matrixmapper.cpp"
    },
    "mesh": {
+    "ambiguous": [
+     "0x45CB00",
+     "0x45CC10",
+     "0x45CDC0",
+     "0x462BF0",
+     "0x47D0F0",
+     "0x47E6E0",
+     "0x47E8E0",
+     "0x47E9F0",
+     "0x8DF850",
+     "0x8DF8E0",
+     "0x90A250",
+     "0x941390"
+    ],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -2699,6 +3091,12 @@
     "name": "mesh.cpp"
    },
    "meshbuild": {
+    "ambiguous": [
+     "0x45CB00",
+     "0x45CDC0",
+     "0x494680",
+     "0x499720"
+    ],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -2715,6 +3113,12 @@
     "name": "meshbuild.cpp"
    },
    "meshgeometry": {
+    "ambiguous": [
+     "0x45CC10",
+     "0x92D050",
+     "0x92D670",
+     "0x92D7D0"
+    ],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -2782,6 +3186,17 @@
     "name": "meshgeometry.cpp"
    },
    "meshmatdesc": {
+    "ambiguous": [
+     "0x45CC10",
+     "0x92D7D0",
+     "0x945CA0",
+     "0x945D20",
+     "0x945DA0",
+     "0x945E10",
+     "0x945E60",
+     "0x945E90",
+     "0x946130"
+    ],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -2825,6 +3240,29 @@
     "name": "meshmatdesc.cpp"
    },
    "meshmdl": {
+    "ambiguous": [
+     "0x45CB00",
+     "0x45CB40",
+     "0x45CC10",
+     "0x45CCE0",
+     "0x45CDC0",
+     "0x45CF20",
+     "0x47D0F0",
+     "0x47E6E0",
+     "0x47E8E0",
+     "0x47E9F0",
+     "0x48A7F0",
+     "0x48A960",
+     "0x48AB30",
+     "0x656410",
+     "0x70AC60",
+     "0x8D4D60",
+     "0x8D4DE0",
+     "0x8D4F00",
+     "0x8D4F90",
+     "0x8D5090",
+     "0x92D7D0"
+    ],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -2871,6 +3309,21 @@
     "name": "meshmdl.cpp"
    },
    "meshmdlio": {
+    "ambiguous": [
+     "0x45CB00",
+     "0x45CB40",
+     "0x45CC10",
+     "0x45CCE0",
+     "0x45CDC0",
+     "0x45CF20",
+     "0x48A7F0",
+     "0x48A960",
+     "0x48AAC0",
+     "0x48AB30",
+     "0x497350",
+     "0x92D670",
+     "0x92D7D0"
+    ],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -2938,6 +3391,7 @@
     "name": "meshmdlio.cpp"
    },
    "metalmap": {
+    "ambiguous": [],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -2961,6 +3415,7 @@
     "name": "metalmap.cpp"
    },
    "missingtexture": {
+    "ambiguous": [],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -2978,6 +3433,13 @@
     "name": "missingtexture.cpp"
    },
    "motchan": {
+    "ambiguous": [
+     "0x9C2B70",
+     "0x9C65D0",
+     "0x9C6780",
+     "0x9C68D0",
+     "0x9C7040"
+    ],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -3014,6 +3476,11 @@
     "name": "motchan.cpp"
    },
    "nullrobj": {
+    "ambiguous": [
+     "0x45CC10",
+     "0x462BF0",
+     "0x941390"
+    ],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -3052,6 +3519,15 @@
     "name": "nullrobj.cpp"
    },
    "part_buf": {
+    "ambiguous": [
+     "0x45CC10",
+     "0x462BF0",
+     "0x6B7AC0",
+     "0x6B7AF0",
+     "0x8DD750",
+     "0x92D7D0",
+     "0x941390"
+    ],
     "best": "Z",
     "copy": "R",
     "expected": {
@@ -3156,6 +3632,13 @@
     "name": "part_buf.cpp"
    },
    "part_emt": {
+    "ambiguous": [
+     "0x45CC10",
+     "0x462BF0",
+     "0x6602F0",
+     "0x941390",
+     "0x97DCD0"
+    ],
     "best": "R",
     "copy": "Z",
     "expected": {
@@ -3226,6 +3709,10 @@
     "name": "part_emt.cpp"
    },
    "part_ldr": {
+    "ambiguous": [
+     "0x914430",
+     "0x915C70"
+    ],
     "best": "Z",
     "copy": "Z",
     "expected": {
@@ -3321,6 +3808,7 @@
     "name": "part_ldr.cpp"
    },
    "pivot": {
+    "ambiguous": [],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -3338,6 +3826,28 @@
     "name": "pivot.cpp"
    },
    "pointgr": {
+    "ambiguous": [
+     "0x45CB40",
+     "0x45CBE0",
+     "0x45CCE0",
+     "0x45CDC0",
+     "0x47D0F0",
+     "0x47E6E0",
+     "0x47E8E0",
+     "0x5BAF50",
+     "0x5BAFA0",
+     "0x5BB0C0",
+     "0x5BB110",
+     "0x656410",
+     "0x8D4D60",
+     "0x8D4DE0",
+     "0x8D4F00",
+     "0x8DF850",
+     "0x8DF8E0",
+     "0x954830",
+     "0x954860",
+     "0x954890"
+    ],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -3373,6 +3883,9 @@
     "name": "pointgr.cpp"
    },
    "polyinfo": {
+    "ambiguous": [
+     "0x931490"
+    ],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -3389,6 +3902,7 @@
     "name": "polyinfo.cpp"
    },
    "pot": {
+    "ambiguous": [],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -3405,6 +3919,9 @@
     "name": "pot.cpp"
    },
    "predlod": {
+    "ambiguous": [
+     "0x96F6C0"
+    ],
     "best": "Z",
     "copy": "R",
     "expected": {
@@ -3428,6 +3945,7 @@
     "name": "predlod.cpp"
    },
    "projector": {
+    "ambiguous": [],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -3451,6 +3969,7 @@
     "name": "projector.cpp"
    },
    "proto": {
+    "ambiguous": [],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -3471,6 +3990,18 @@
     "name": "proto.cpp"
    },
    "render2d": {
+    "ambiguous": [
+     "0x45CB00",
+     "0x45CB40",
+     "0x45CBE0",
+     "0x45CCE0",
+     "0x45CDC0",
+     "0x45CF20",
+     "0x48A7F0",
+     "0x48A960",
+     "0x48AB30",
+     "0x973D80"
+    ],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -3551,6 +4082,25 @@
     "name": "render2d.cpp"
    },
    "render2dsentence": {
+    "ambiguous": [
+     "0x45CB00",
+     "0x45CB40",
+     "0x45CBE0",
+     "0x45CC10",
+     "0x45CCE0",
+     "0x45CDC0",
+     "0x45CF20",
+     "0x48A210",
+     "0x48A3F0",
+     "0x48A7F0",
+     "0x48A960",
+     "0x48AB30",
+     "0x494680",
+     "0x62A5D0",
+     "0x990060",
+     "0x9AA8A0",
+     "0x9AB870"
+    ],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -3615,6 +4165,7 @@
     "name": "render2dsentence.cpp"
    },
    "renderobjectrecycler": {
+    "ambiguous": [],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -3630,6 +4181,13 @@
     "name": "renderobjectrecycler.cpp"
    },
    "rendobj": {
+    "ambiguous": [
+     "0x45CC10",
+     "0x462BF0",
+     "0x6602F0",
+     "0x941390",
+     "0x9422A0"
+    ],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -3696,6 +4254,7 @@
     "name": "rendobj.cpp"
    },
    "rinfo": {
+    "ambiguous": [],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -3717,6 +4276,28 @@
     "name": "rinfo.cpp"
    },
    "ringobj": {
+    "ambiguous": [
+     "0x45CC10",
+     "0x462BF0",
+     "0x499720",
+     "0x62A5D0",
+     "0x8DD750",
+     "0x8DD780",
+     "0x90AF30",
+     "0x90AF60",
+     "0x90AFE0",
+     "0x90B060",
+     "0x90B0E0",
+     "0x90CF50",
+     "0x90D220",
+     "0x90D240",
+     "0x90D250",
+     "0x90D260",
+     "0x90D680",
+     "0x910360",
+     "0x9141A0",
+     "0x941390"
+    ],
     "best": "R",
     "copy": "Z",
     "expected": {
@@ -3816,6 +4397,10 @@
     "name": "ringobj.cpp"
    },
    "scene": {
+    "ambiguous": [
+     "0x45CC10",
+     "0x4E5A00"
+    ],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -3861,6 +4446,13 @@
     "name": "scene.cpp"
    },
    "segline": {
+    "ambiguous": [
+     "0x45CC10",
+     "0x462BF0",
+     "0x90D240",
+     "0x941390",
+     "0x969640"
+    ],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -3932,6 +4524,10 @@
     "name": "segline.cpp"
    },
    "seglinerenderer": {
+    "ambiguous": [
+     "0x474560",
+     "0x931490"
+    ],
     "best": "Z",
     "copy": "R",
     "expected": {
@@ -3962,6 +4558,7 @@
     "name": "seglinerenderer.cpp"
    },
    "shader": {
+    "ambiguous": [],
     "best": "Z",
     "copy": "R",
     "expected": {
@@ -3995,6 +4592,17 @@
     "name": "shader.cpp"
    },
    "shattersystem": {
+    "ambiguous": [
+     "0x45CC10",
+     "0x48AAC0",
+     "0x497350",
+     "0x62A5D0",
+     "0x8DD750",
+     "0x8DF850",
+     "0x8DF8E0",
+     "0x90A250",
+     "0x92D7D0"
+    ],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -4055,6 +4663,7 @@
     "name": "shattersystem.cpp"
    },
    "snappts": {
+    "ambiguous": [],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -4071,6 +4680,9 @@
     "name": "snappts.cpp"
    },
    "sortingrenderer": {
+    "ambiguous": [
+     "0x91B9D0"
+    ],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -4106,6 +4718,12 @@
     "name": "sortingrenderer.cpp"
    },
    "soundrobj": {
+    "ambiguous": [
+     "0x45CC10",
+     "0x462BF0",
+     "0x941390",
+     "0x9FE510"
+    ],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -4142,6 +4760,28 @@
     "name": "soundrobj.cpp"
    },
    "sphereobj": {
+    "ambiguous": [
+     "0x45CC10",
+     "0x462BF0",
+     "0x62A5D0",
+     "0x70AC60",
+     "0x8DD750",
+     "0x8DD780",
+     "0x90AF00",
+     "0x90AF30",
+     "0x90AF60",
+     "0x90AFE0",
+     "0x90B060",
+     "0x90B0E0",
+     "0x90CF50",
+     "0x90D220",
+     "0x90D240",
+     "0x90D250",
+     "0x90D260",
+     "0x90D680",
+     "0x910360",
+     "0x941390"
+    ],
     "best": "R",
     "copy": "Z",
     "expected": {
@@ -4242,6 +4882,7 @@
     "name": "sphereobj.cpp"
    },
    "static_sort_list": {
+    "ambiguous": [],
     "best": "Z",
     "copy": "Z",
     "expected": {
@@ -4263,6 +4904,12 @@
     "name": "static_sort_list.cpp"
    },
    "statistics": {
+    "ambiguous": [
+     "0x8DD750",
+     "0x993820",
+     "0x9938C0",
+     "0x993900"
+    ],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -4287,6 +4934,20 @@
     "name": "statistics.cpp"
    },
    "streak": {
+    "ambiguous": [
+     "0x45CC10",
+     "0x462BF0",
+     "0x8DD750",
+     "0x8DD780",
+     "0x8DF850",
+     "0x8DF8E0",
+     "0x90A250",
+     "0x90A2E0",
+     "0x90D240",
+     "0x9141A0",
+     "0x941390",
+     "0x969640"
+    ],
     "best": "Z",
     "copy": "Z",
     "expected": {
@@ -4324,6 +4985,10 @@
     "name": "streak.cpp"
    },
    "streakrender": {
+    "ambiguous": [
+     "0x474560",
+     "0x931490"
+    ],
     "best": "G",
     "copy": "G",
     "expected": {
@@ -4347,6 +5012,7 @@
     "name": "streakRender.cpp"
    },
    "stripoptimizer": {
+    "ambiguous": [],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -4363,6 +5029,9 @@
     "name": "stripoptimizer.cpp"
    },
    "surfaceclass": {
+    "ambiguous": [
+     "0x45CC10"
+    ],
     "best": "R",
     "copy": "Z",
     "expected": {
@@ -4406,6 +5075,10 @@
     "name": "surfaceclass.cpp"
    },
    "texproject": {
+    "ambiguous": [
+     "0x45CC10",
+     "0x466BC0"
+    ],
     "best": "Z",
     "copy": "Z",
     "expected": {
@@ -4446,6 +5119,9 @@
     "name": "texproject.cpp"
    },
    "texture": {
+    "ambiguous": [
+     "0x45CC10"
+    ],
     "best": "R",
     "copy": "Z",
     "expected": {
@@ -4501,6 +5177,9 @@
     "name": "texture.cpp"
    },
    "textureloader": {
+    "ambiguous": [
+     "0x94A0D0"
+    ],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -4562,6 +5241,17 @@
     "name": "textureloader.cpp"
    },
    "texturethumbnail": {
+    "ambiguous": [
+     "0x45CB40",
+     "0x48F720",
+     "0x48F8D0",
+     "0x90A790",
+     "0x90A8A0",
+     "0x9190B0",
+     "0x91AC10",
+     "0x91B9D0",
+     "0x91BFB0"
+    ],
     "best": "R",
     "copy": "Z",
     "expected": {
@@ -4607,6 +5297,7 @@
     "name": "texturethumbnail.cpp"
    },
    "txt": {
+    "ambiguous": [],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -4627,6 +5318,7 @@
     "name": "txt.cpp"
    },
    "txt2d": {
+    "ambiguous": [],
     "best": "G",
     "copy": "G",
     "expected": {
@@ -4642,6 +5334,25 @@
     "name": "txt2d.cpp"
    },
    "unknown_distortion": {
+    "ambiguous": [
+     "0x45CB00",
+     "0x45CB40",
+     "0x45CBE0",
+     "0x45CC10",
+     "0x45CCE0",
+     "0x45CDC0",
+     "0x45CF20",
+     "0x462BF0",
+     "0x47D0F0",
+     "0x47E6E0",
+     "0x47E8E0",
+     "0x47E9F0",
+     "0x48A7F0",
+     "0x48A960",
+     "0x48AB30",
+     "0x941390",
+     "0x973D80"
+    ],
     "best": "reconstructed",
     "copy": "reconstructed",
     "expected": {},
@@ -4691,6 +5402,12 @@
     "name": "unknown_distortion.cpp"
    },
    "vertmaterial": {
+    "ambiguous": [
+     "0x45CC10",
+     "0x45D730",
+     "0x930670",
+     "0x930780"
+    ],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -4745,6 +5462,12 @@
     "name": "vertmaterial.cpp"
    },
    "visrasterizer": {
+    "ambiguous": [
+     "0x8DD750",
+     "0x910360",
+     "0x9141A0",
+     "0x994AD0"
+    ],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -4787,6 +5510,10 @@
     "name": "visrasterizer.cpp"
    },
    "w3d_dep": {
+    "ambiguous": [
+     "0x42B2F0",
+     "0x4ACBB0"
+    ],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -4814,6 +5541,10 @@
     "name": "w3d_dep.cpp"
    },
    "w3d_util": {
+    "ambiguous": [
+     "0x995610",
+     "0x995650"
+    ],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -4835,6 +5566,10 @@
     "name": "w3d_util.cpp"
    },
    "w3dexclusionlist": {
+    "ambiguous": [
+     "0x90A790",
+     "0x91BFB0"
+    ],
     "best": "G",
     "copy": "G",
     "expected": {
@@ -4853,6 +5588,9 @@
     "name": "w3dexclusionlist.cpp"
    },
    "ww3d": {
+    "ambiguous": [
+     "0x9190B0"
+    ],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -4900,6 +5638,7 @@
     "name": "ww3d.cpp"
    },
    "ww3dformat": {
+    "ambiguous": [],
     "best": "Z",
     "copy": "Z",
     "expected": {
@@ -5070,10 +5809,19 @@
   }
  },
  "wwaudio": {
+  "ambiguous_total": 32,
   "base": "R",
   "compile_errors": [],
   "files": {
    "audiblesound": {
+    "ambiguous": [
+     "0x45CC10",
+     "0x6E48A0",
+     "0x8D54B0",
+     "0x9F7AE0",
+     "0x9F7B10",
+     "0x9FE510"
+    ],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -5163,6 +5911,16 @@
     "name": "AudibleSound.cpp"
    },
    "audioevents": {
+    "ambiguous": [
+     "0x45CB00",
+     "0x45CB40",
+     "0x45CCE0",
+     "0x45CDC0",
+     "0x45CF20",
+     "0x48A7F0",
+     "0x48A960",
+     "0x48AB30"
+    ],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -5186,6 +5944,15 @@
     "name": "AudioEvents.cpp"
    },
    "filteredsound": {
+    "ambiguous": [
+     "0x45CC10",
+     "0x6E48A0",
+     "0x8D54B0",
+     "0x914430",
+     "0x9F7AE0",
+     "0x9F7B10",
+     "0x9F7B90"
+    ],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -5223,6 +5990,12 @@
     "name": "FilteredSound.cpp"
    },
    "listener": {
+    "ambiguous": [
+     "0x45CC10",
+     "0x9F7AE0",
+     "0x9F7B10",
+     "0x9F7B90"
+    ],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -5254,6 +6027,7 @@
     "name": "Listener.cpp"
    },
    "listenerhandle": {
+    "ambiguous": [],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -5271,6 +6045,11 @@
     "name": "listenerhandle.cpp"
    },
    "logicallistener": {
+    "ambiguous": [
+     "0x4536D0",
+     "0x45CC10",
+     "0x8D54B0"
+    ],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -5300,6 +6079,10 @@
     "name": "LogicalListener.cpp"
    },
    "logicalsound": {
+    "ambiguous": [
+     "0x45CC10",
+     "0x8D54B0"
+    ],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -5334,6 +6117,7 @@
     "name": "LogicalSound.cpp"
    },
    "sound2dhandle": {
+    "ambiguous": [],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -5352,6 +6136,13 @@
     "name": "sound2dhandle.cpp"
    },
    "sound3d": {
+    "ambiguous": [
+     "0x45CC10",
+     "0x8D54B0",
+     "0x9F7AE0",
+     "0x9F7B10",
+     "0x9F7B90"
+    ],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -5405,6 +6196,7 @@
     "name": "Sound3D.cpp"
    },
    "sound3dhandle": {
+    "ambiguous": [],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -5425,6 +6217,15 @@
     "name": "sound3dhandle.cpp"
    },
    "soundbuffer": {
+    "ambiguous": [
+     "0x45CC10",
+     "0x47D0F0",
+     "0x990650",
+     "0x9FBC70",
+     "0x9FBD30",
+     "0x9FBD90",
+     "0x9FC7D0"
+    ],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -5457,6 +6258,7 @@
     "name": "SoundBuffer.cpp"
    },
    "soundhandle": {
+    "ambiguous": [],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -5477,6 +6279,15 @@
     "name": "soundhandle.cpp"
    },
    "soundpseudo3d": {
+    "ambiguous": [
+     "0x45CC10",
+     "0x6E48A0",
+     "0x8D54B0",
+     "0x914430",
+     "0x9F7AE0",
+     "0x9F7B10",
+     "0x9F7B90"
+    ],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -5516,6 +6327,9 @@
     "name": "SoundPseudo3D.cpp"
    },
    "soundscene": {
+    "ambiguous": [
+     "0x45CC10"
+    ],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -5577,6 +6391,18 @@
     "name": "SoundScene.cpp"
    },
    "soundsceneobj": {
+    "ambiguous": [
+     "0x45CB00",
+     "0x45CB40",
+     "0x45CC10",
+     "0x45CCE0",
+     "0x45CDC0",
+     "0x45CF20",
+     "0x48A7F0",
+     "0x48A960",
+     "0x48AAC0",
+     "0x48AB30"
+    ],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -5615,6 +6441,7 @@
     "name": "SoundSceneObj.cpp"
    },
    "soundstreamhandle": {
+    "ambiguous": [],
     "copy": "R",
     "expected": {
      "G": 0,
@@ -5640,6 +6467,7 @@
     "name": "soundstreamhandle.cpp"
    },
    "threads": {
+    "ambiguous": [],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -5659,6 +6487,7 @@
     "name": "Threads.cpp"
    },
    "utils": {
+    "ambiguous": [],
     "copy": "R",
     "expected": {
      "G": 0,
@@ -5671,6 +6500,25 @@
     "name": "Utils.cpp"
    },
    "wwaudio": {
+    "ambiguous": [
+     "0x45CB00",
+     "0x45CB40",
+     "0x45CBE0",
+     "0x45CCE0",
+     "0x45CDC0",
+     "0x45CF20",
+     "0x48A7F0",
+     "0x48A960",
+     "0x48AAC0",
+     "0x48AB30",
+     "0x494680",
+     "0x988710",
+     "0x9887D0",
+     "0x9888E0",
+     "0x9D9480",
+     "0x9DA2B0",
+     "0x9F5F00"
+    ],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -5841,10 +6689,12 @@
   }
  },
  "wwdebug": {
+  "ambiguous_total": 16,
   "base": "Z",
   "compile_errors": [],
   "files": {
    "wwdebug": {
+    "ambiguous": [],
     "best": "Z",
     "copy": "Z",
     "expected": {
@@ -5864,6 +6714,16 @@
     "name": "wwdebug.cpp"
    },
    "wwmemlog": {
+    "ambiguous": [
+     "0x45CB40",
+     "0x45CCE0",
+     "0x45CDC0",
+     "0x48A7F0",
+     "0x48A960",
+     "0x4944A0",
+     "0x494680",
+     "0x9ED820"
+    ],
     "best": "R",
     "copy": "Z",
     "expected": {
@@ -5903,6 +6763,16 @@
     "name": "wwmemlog.cpp"
    },
    "wwprofile": {
+    "ambiguous": [
+     "0x8DF850",
+     "0x8DF8E0",
+     "0x90A250",
+     "0x90A2E0",
+     "0x90A790",
+     "0x90A8A0",
+     "0x9190B0",
+     "0x91BFB0"
+    ],
     "best": "Z",
     "copy": "Z",
     "expected": {
@@ -5985,10 +6855,12 @@
   }
  },
  "wwlib": {
+  "ambiguous_total": 51,
   "base": "R",
   "compile_errors": [],
   "files": {
    "_convert": {
+    "ambiguous": [],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -6004,6 +6876,7 @@
     "name": "_convert.cpp"
    },
    "argv": {
+    "ambiguous": [],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -6028,6 +6901,7 @@
     "name": "argv.cpp"
    },
    "b64pipe": {
+    "ambiguous": [],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -6044,6 +6918,7 @@
     "name": "b64pipe.cpp"
    },
    "b64straw": {
+    "ambiguous": [],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -6059,6 +6934,7 @@
     "name": "b64straw.cpp"
    },
    "base64": {
+    "ambiguous": [],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -6075,6 +6951,7 @@
     "name": "base64.cpp"
    },
    "blit": {
+    "ambiguous": [],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -6098,6 +6975,7 @@
     "name": "blit.cpp"
    },
    "blowfish": {
+    "ambiguous": [],
     "copy": "R",
     "expected": {
      "G": 0,
@@ -6110,6 +6988,7 @@
     "name": "blowfish.cpp"
    },
    "blwstraw": {
+    "ambiguous": [],
     "copy": "R",
     "expected": {
      "G": 0,
@@ -6122,6 +7001,10 @@
     "name": "blwstraw.cpp"
    },
    "buff": {
+    "ambiguous": [
+     "0x9DCF40",
+     "0x9DD090"
+    ],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -6139,6 +7022,7 @@
     "name": "buff.cpp"
    },
    "bufffile": {
+    "ambiguous": [],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -6161,6 +7045,10 @@
     "name": "bufffile.cpp"
    },
    "chunkio": {
+    "ambiguous": [
+     "0x9D3DE0",
+     "0x9D41C0"
+    ],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -6191,6 +7079,9 @@
     "name": "chunkio.cpp"
    },
    "convert": {
+    "ambiguous": [
+     "0x9DCCB0"
+    ],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -6232,6 +7123,7 @@
     "name": "convert.cpp"
    },
    "cpudetect": {
+    "ambiguous": [],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -6267,6 +7159,7 @@
     "name": "cpudetect.cpp"
    },
    "crc": {
+    "ambiguous": [],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -6283,6 +7176,7 @@
     "name": "crc.cpp"
    },
    "cstraw": {
+    "ambiguous": [],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -6298,6 +7192,7 @@
     "name": "cstraw.cpp"
    },
    "data": {
+    "ambiguous": [],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -6319,6 +7214,7 @@
     "name": "data.cpp"
    },
    "ddraw": {
+    "ambiguous": [],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -6344,6 +7240,7 @@
     "name": "ddraw.cpp"
    },
    "dib": {
+    "ambiguous": [],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -6363,6 +7260,9 @@
     "name": "dib.cpp"
    },
    "draw": {
+    "ambiguous": [
+     "0x468730"
+    ],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -6382,6 +7282,7 @@
     "name": "draw.cpp"
    },
    "dsurface": {
+    "ambiguous": [],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -6415,6 +7316,16 @@
     "name": "dsurface.cpp"
    },
    "except": {
+    "ambiguous": [
+     "0x45CB00",
+     "0x45CB40",
+     "0x45CCE0",
+     "0x45CDC0",
+     "0x45CF20",
+     "0x48A7F0",
+     "0x48A960",
+     "0x48AB30"
+    ],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -6438,6 +7349,7 @@
     "name": "Except.cpp"
    },
    "fastallocator": {
+    "ambiguous": [],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -6463,6 +7375,9 @@
     "name": "FastAllocator.cpp"
    },
    "ffactory": {
+    "ambiguous": [
+     "0x4E5A00"
+    ],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -6490,6 +7405,7 @@
     "name": "ffactory.cpp"
    },
    "gcd_lcm": {
+    "ambiguous": [],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -6506,6 +7422,9 @@
     "name": "gcd_lcm.cpp"
    },
    "hash": {
+    "ambiguous": [
+     "0x463790"
+    ],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -6529,6 +7448,7 @@
     "name": "hash.cpp"
    },
    "hsv": {
+    "ambiguous": [],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -6546,6 +7466,14 @@
     "name": "hsv.cpp"
    },
    "ini": {
+    "ambiguous": [
+     "0x457FA0",
+     "0x4873E0",
+     "0x9CC470",
+     "0x9CC970",
+     "0x9CCA00",
+     "0x9CCBD0"
+    ],
     "best": "Z",
     "copy": "Z",
     "expected": {
@@ -6627,6 +7555,7 @@
     "name": "ini.cpp"
    },
    "int": {
+    "ambiguous": [],
     "copy": "R",
     "expected": {
      "G": 0,
@@ -6639,6 +7568,7 @@
     "name": "int.cpp"
    },
    "lcw": {
+    "ambiguous": [],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -6655,6 +7585,7 @@
     "name": "lcw.cpp"
    },
    "load": {
+    "ambiguous": [],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -6670,6 +7601,22 @@
     "name": "load.cpp"
    },
    "mixfile": {
+    "ambiguous": [
+     "0x45CB00",
+     "0x45CB40",
+     "0x45CBE0",
+     "0x45CDC0",
+     "0x47D0F0",
+     "0x494680",
+     "0x656410",
+     "0x656890",
+     "0x656A70",
+     "0x990650",
+     "0x9D9480",
+     "0x9DA2B0",
+     "0x9DA560",
+     "0x9DA750"
+    ],
     "best": "Z",
     "copy": "Z",
     "expected": {
@@ -6731,6 +7678,7 @@
     "name": "mixfile.cpp"
    },
    "mono": {
+    "ambiguous": [],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -6761,6 +7709,7 @@
     "name": "mono.cpp"
    },
    "mpmath": {
+    "ambiguous": [],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -6827,6 +7776,7 @@
     "name": "mpmath.cpp"
    },
    "mpu": {
+    "ambiguous": [],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -6844,6 +7794,20 @@
     "name": "mpu.cpp"
    },
    "msgloop": {
+    "ambiguous": [
+     "0x45CB00",
+     "0x45CB40",
+     "0x45CBE0",
+     "0x45CCE0",
+     "0x45CDC0",
+     "0x45CF20",
+     "0x48A7F0",
+     "0x48A960",
+     "0x48AB30",
+     "0x98FBC0",
+     "0x98FD10",
+     "0x98FEA0"
+    ],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -6859,6 +7823,7 @@
     "name": "msgloop.cpp"
    },
    "multilist": {
+    "ambiguous": [],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -6882,6 +7847,7 @@
     "name": "multilist.cpp"
    },
    "mutex": {
+    "ambiguous": [],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -6904,6 +7870,7 @@
     "name": "mutex.cpp"
    },
    "nstrdup": {
+    "ambiguous": [],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -6919,6 +7886,7 @@
     "name": "nstrdup.cpp"
    },
    "palette": {
+    "ambiguous": [],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -6943,6 +7911,7 @@
     "name": "palette.cpp"
    },
    "pcx": {
+    "ambiguous": [],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -6963,6 +7932,7 @@
     "name": "pcx.cpp"
    },
    "pipe": {
+    "ambiguous": [],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -6981,6 +7951,7 @@
     "name": "pipe.cpp"
    },
    "pk": {
+    "ambiguous": [],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -7011,6 +7982,7 @@
     "name": "pk.cpp"
    },
    "pkstraw": {
+    "ambiguous": [],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -7026,6 +7998,9 @@
     "name": "pkstraw.cpp"
    },
    "random": {
+    "ambiguous": [
+     "0x4F6190"
+    ],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -7051,6 +8026,7 @@
     "name": "random.cpp"
    },
    "rawfile": {
+    "ambiguous": [],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -7089,6 +8065,7 @@
     "name": "rawfile.cpp"
    },
    "rc4": {
+    "ambiguous": [],
     "best": "Z",
     "copy": "reconstructed",
     "expected": {
@@ -7108,6 +8085,7 @@
     "name": "rc4.cpp"
    },
    "readline": {
+    "ambiguous": [],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -7125,6 +8103,7 @@
     "name": "readline.cpp"
    },
    "realcrc": {
+    "ambiguous": [],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -7140,6 +8119,10 @@
     "name": "realcrc.cpp"
    },
    "registry": {
+    "ambiguous": [
+     "0x45CB40",
+     "0x9D1700"
+    ],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -7187,6 +8170,7 @@
     "name": "registry.cpp"
    },
    "rgb": {
+    "ambiguous": [],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -7205,6 +8189,7 @@
     "name": "rgb.cpp"
    },
    "rndstraw": {
+    "ambiguous": [],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -7220,6 +8205,7 @@
     "name": "rndstraw.cpp"
    },
    "rndstrng": {
+    "ambiguous": [],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -7236,6 +8222,9 @@
     "name": "rndstrng.cpp"
    },
    "sampler": {
+    "ambiguous": [
+     "0x9D3AF0"
+    ],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -7256,6 +8245,7 @@
     "name": "sampler.cpp"
    },
    "sha": {
+    "ambiguous": [],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -7274,6 +8264,7 @@
     "name": "sha.cpp"
    },
    "slnode": {
+    "ambiguous": [],
     "copy": "R",
     "expected": {
      "G": 0,
@@ -7286,6 +8277,7 @@
     "name": "slnode.cpp"
    },
    "srandom": {
+    "ambiguous": [],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -7304,6 +8296,9 @@
     "name": "srandom.cpp"
    },
    "stimer": {
+    "ambiguous": [
+     "0x9E9A70"
+    ],
     "copy": "R",
     "expected": {
      "G": 0,
@@ -7316,6 +8311,7 @@
     "name": "stimer.cpp"
    },
    "straw": {
+    "ambiguous": [],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -7333,6 +8329,7 @@
     "name": "straw.cpp"
    },
    "strtok_r": {
+    "ambiguous": [],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -7348,6 +8345,7 @@
     "name": "strtok_r.cpp"
    },
    "systimer": {
+    "ambiguous": [],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -7364,6 +8362,19 @@
     "name": "systimer.cpp"
    },
    "tagblock": {
+    "ambiguous": [
+     "0x42FC60",
+     "0x42FE90",
+     "0x430090",
+     "0x4301A0",
+     "0x430260",
+     "0x430340",
+     "0x91F640",
+     "0x91F760",
+     "0x91F860",
+     "0x91F8E0",
+     "0x91F970"
+    ],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -7379,6 +8390,7 @@
     "name": "tagblock.cpp"
    },
    "targa": {
+    "ambiguous": [],
     "copy": "R",
     "expected": {
      "G": 0,
@@ -7413,6 +8425,7 @@
     "name": "TARGA.CPP"
    },
    "textfile": {
+    "ambiguous": [],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -7430,6 +8443,7 @@
     "name": "textfile.cpp"
    },
    "thread": {
+    "ambiguous": [],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -7451,6 +8465,7 @@
     "name": "thread.cpp"
    },
    "trim": {
+    "ambiguous": [],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -7467,6 +8482,7 @@
     "name": "trim.cpp"
    },
    "widestring": {
+    "ambiguous": [],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -7490,6 +8506,7 @@
     "name": "widestring.cpp"
    },
    "win": {
+    "ambiguous": [],
     "copy": "R",
     "expected": {
      "G": 0,
@@ -7502,6 +8519,7 @@
     "name": "win.cpp"
    },
    "wwfile": {
+    "ambiguous": [],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -7519,6 +8537,7 @@
     "name": "wwfile.cpp"
    },
    "wwfont": {
+    "ambiguous": [],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -7545,6 +8564,7 @@
     "name": "wwfont.cpp"
    },
    "wwstring": {
+    "ambiguous": [],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -7568,6 +8588,7 @@
     "name": "wwstring.cpp"
    },
    "xpipe": {
+    "ambiguous": [],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -7586,6 +8607,7 @@
     "name": "xpipe.cpp"
    },
    "xstraw": {
+    "ambiguous": [],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -7603,6 +8625,10 @@
     "name": "xstraw.cpp"
    },
    "xsurface": {
+    "ambiguous": [
+     "0x468730",
+     "0x9DCCB0"
+    ],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -7811,10 +8837,12 @@
   }
  },
  "wwmath": {
+  "ambiguous_total": 39,
   "base": "R",
   "compile_errors": [],
   "files": {
    "aabox": {
+    "ambiguous": [],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -7833,6 +8861,12 @@
     "name": "aabox.cpp"
    },
    "aabtreecull": {
+    "ambiguous": [
+     "0x430450",
+     "0x70AC60",
+     "0x8DD750",
+     "0x8DD780"
+    ],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -7917,6 +8951,20 @@
     "name": "aabtreecull.cpp"
    },
    "cardinalspline": {
+    "ambiguous": [
+     "0x45CB00",
+     "0x45CB40",
+     "0x45CBE0",
+     "0x45CCE0",
+     "0x45CDC0",
+     "0x45CF20",
+     "0x48A210",
+     "0x48A3F0",
+     "0x4944A0",
+     "0x8D54B0",
+     "0x8E0AA0",
+     "0x8E0AC0"
+    ],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -7949,6 +8997,15 @@
     "name": "cardinalspline.cpp"
    },
    "catmullromspline": {
+    "ambiguous": [
+     "0x45CB00",
+     "0x45CBE0",
+     "0x45CDC0",
+     "0x48A210",
+     "0x48A3F0",
+     "0x4944A0",
+     "0x8D54B0"
+    ],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -7977,6 +9034,7 @@
     "name": "catmullromspline.cpp"
    },
    "colmath": {
+    "ambiguous": [],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -7994,6 +9052,7 @@
     "name": "colmath.cpp"
    },
    "colmathaabox": {
+    "ambiguous": [],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -8017,6 +9076,7 @@
     "name": "colmathaabox.cpp"
    },
    "colmathaabtri": {
+    "ambiguous": [],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -8037,6 +9097,7 @@
     "name": "colmathaabtri.cpp"
    },
    "colmathfrustum": {
+    "ambiguous": [],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -8055,6 +9116,7 @@
     "name": "colmathfrustum.cpp"
    },
    "colmathline": {
+    "ambiguous": [],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -8077,6 +9139,7 @@
     "name": "colmathline.cpp"
    },
    "colmathobbobb": {
+    "ambiguous": [],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -8107,6 +9170,7 @@
     "name": "colmathobbobb.cpp"
    },
    "colmathobbox": {
+    "ambiguous": [],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -8126,6 +9190,7 @@
     "name": "colmathobbox.cpp"
    },
    "colmathobbtri": {
+    "ambiguous": [],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -8152,6 +9217,7 @@
     "name": "colmathobbtri.cpp"
    },
    "colmathplane": {
+    "ambiguous": [],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -8176,6 +9242,7 @@
     "name": "colmathplane.cpp"
    },
    "colmathsphere": {
+    "ambiguous": [],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -8191,6 +9258,10 @@
     "name": "colmathsphere.cpp"
    },
    "cullsys": {
+    "ambiguous": [
+     "0x45CC10",
+     "0x8C8EC0"
+    ],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -8211,6 +9282,20 @@
     "name": "cullsys.cpp"
    },
    "curve": {
+    "ambiguous": [
+     "0x45CB00",
+     "0x45CDC0",
+     "0x47D0F0",
+     "0x656410",
+     "0x656890",
+     "0x656A70",
+     "0x8D4D60",
+     "0x8D4DE0",
+     "0x8D4F00",
+     "0x8D4F90",
+     "0x8D5090",
+     "0x8D54B0"
+    ],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -8257,6 +9342,7 @@
     "name": "curve.cpp"
    },
    "euler": {
+    "ambiguous": [],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -8272,6 +9358,7 @@
     "name": "euler.cpp"
    },
    "frustum": {
+    "ambiguous": [],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -8290,6 +9377,7 @@
     "name": "frustum.cpp"
    },
    "gridcull": {
+    "ambiguous": [],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -8335,6 +9423,15 @@
     "name": "gridcull.cpp"
    },
    "hermitespline": {
+    "ambiguous": [
+     "0x45CB00",
+     "0x45CBE0",
+     "0x45CDC0",
+     "0x48A210",
+     "0x48A3F0",
+     "0x4944A0",
+     "0x8D54B0"
+    ],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -8375,6 +9472,7 @@
     "name": "hermitespline.cpp"
    },
    "lineseg": {
+    "ambiguous": [],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -8395,6 +9493,12 @@
     "name": "lineseg.cpp"
    },
    "lookuptable": {
+    "ambiguous": [
+     "0x45CC10",
+     "0x8DF3B0",
+     "0x8DF850",
+     "0x8DF8E0"
+    ],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -8422,6 +9526,10 @@
     "name": "lookuptable.cpp"
    },
    "matrix3": {
+    "ambiguous": [
+     "0x8C3AA0",
+     "0x8C3B20"
+    ],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -8453,6 +9561,7 @@
     "name": "matrix3.cpp"
    },
    "matrix3d": {
+    "ambiguous": [],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -8496,6 +9605,7 @@
     "name": "matrix3d.cpp"
    },
    "matrix4": {
+    "ambiguous": [],
     "best": "Z",
     "copy": "Z",
     "expected": {
@@ -8516,6 +9626,7 @@
     "name": "matrix4.cpp"
    },
    "obbox": {
+    "ambiguous": [],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -8532,6 +9643,13 @@
     "name": "obbox.cpp"
    },
    "ode": {
+    "ambiguous": [
+     "0x45CB00",
+     "0x45CB40",
+     "0x45CCE0",
+     "0x45CDC0",
+     "0x45CF20"
+    ],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -8549,6 +9667,7 @@
     "name": "ode.cpp"
    },
    "pot": {
+    "ambiguous": [],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -8565,6 +9684,7 @@
     "name": "pot.cpp"
    },
    "quat": {
+    "ambiguous": [],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -8600,6 +9720,18 @@
     "name": "quat.cpp"
    },
    "tcbspline": {
+    "ambiguous": [
+     "0x45CB00",
+     "0x45CDC0",
+     "0x47D0F0",
+     "0x47E6E0",
+     "0x47E8E0",
+     "0x47E9F0",
+     "0x4944A0",
+     "0x656890",
+     "0x656A70",
+     "0x8D54B0"
+    ],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -8626,6 +9758,7 @@
     "name": "tcbspline.cpp"
    },
    "tri": {
+    "ambiguous": [],
     "best": "G",
     "copy": "G",
     "expected": {
@@ -8642,6 +9775,9 @@
     "name": "tri.cpp"
    },
    "v3_rnd": {
+    "ambiguous": [
+     "0xA15DA0"
+    ],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -8668,6 +9804,13 @@
     "name": "v3_rnd.cpp"
    },
    "vehiclecurve": {
+    "ambiguous": [
+     "0x45CB00",
+     "0x45CDC0",
+     "0x494680",
+     "0x8D54B0",
+     "0x9921D0"
+    ],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -8685,6 +9828,9 @@
     "name": "vehiclecurve.cpp"
    },
    "vp": {
+    "ambiguous": [
+     "0x8D3540"
+    ],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -8722,6 +9868,7 @@
     "name": "vp.cpp"
    },
    "wwmath": {
+    "ambiguous": [],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -8792,10 +9939,12 @@
   }
  },
  "wwsaveload": {
+  "ambiguous_total": 34,
   "base": "Z",
   "compile_errors": [],
   "files": {
    "definition": {
+    "ambiguous": [],
     "best": "Z",
     "copy": "Z",
     "expected": {
@@ -8818,6 +9967,7 @@
     "name": "definition.cpp"
    },
    "definitionfactory": {
+    "ambiguous": [],
     "copy": "Z",
     "expected": {
      "G": 0,
@@ -8830,6 +9980,7 @@
     "name": "definitionfactory.cpp"
    },
    "definitionfactorymgr": {
+    "ambiguous": [],
     "best": "Z",
     "copy": "Z",
     "expected": {
@@ -8847,6 +9998,18 @@
     "name": "definitionfactorymgr.cpp"
    },
    "definitionmgr": {
+    "ambiguous": [
+     "0x45CB00",
+     "0x45CB40",
+     "0x45CCE0",
+     "0x45CDC0",
+     "0x45CF20",
+     "0x48A7F0",
+     "0x48A960",
+     "0x48AB30",
+     "0x90A790",
+     "0x91BFB0"
+    ],
     "best": "Z",
     "copy": "Z",
     "expected": {
@@ -8886,6 +10049,12 @@
     "name": "definitionmgr.cpp"
    },
    "parameter": {
+    "ambiguous": [
+     "0x45CBE0",
+     "0x494680",
+     "0x9D9480",
+     "0x9DA2B0"
+    ],
     "best": "Z",
     "copy": "Z",
     "expected": {
@@ -8907,6 +10076,7 @@
     "name": "parameter.cpp"
    },
    "persistfactory": {
+    "ambiguous": [],
     "best": "Z",
     "copy": "Z",
     "expected": {
@@ -8923,6 +10093,18 @@
     "name": "persistfactory.cpp"
    },
    "pointerremap": {
+    "ambiguous": [
+     "0x45CB00",
+     "0x45CB40",
+     "0x45CBE0",
+     "0x45CDC0",
+     "0x48A7F0",
+     "0x48A960",
+     "0x48AB30",
+     "0x98FBC0",
+     "0x98FD10",
+     "0x98FEA0"
+    ],
     "best": "Z",
     "copy": "Z",
     "expected": {
@@ -8953,6 +10135,23 @@
     "name": "pointerremap.cpp"
    },
    "saveload": {
+    "ambiguous": [
+     "0x42FC60",
+     "0x42FE90",
+     "0x430090",
+     "0x4301A0",
+     "0x430260",
+     "0x430340",
+     "0x91F640",
+     "0x91F760",
+     "0x91F860",
+     "0x91F8E0",
+     "0x91F970",
+     "0xA040B0",
+     "0xA040D0",
+     "0xA04140",
+     "0xA04160"
+    ],
     "best": "R",
     "copy": "Z",
     "expected": {
@@ -8978,6 +10177,7 @@
     "name": "saveload.cpp"
    },
    "saveloadstatus": {
+    "ambiguous": [],
     "best": "Z",
     "copy": "Z",
     "expected": {
@@ -8998,6 +10198,7 @@
     "name": "saveloadstatus.cpp"
    },
    "saveloadsubsystem": {
+    "ambiguous": [],
     "best": "Z",
     "copy": "Z",
     "expected": {
@@ -9016,6 +10217,18 @@
     "name": "saveloadsubsystem.cpp"
    },
    "twiddler": {
+    "ambiguous": [
+     "0x45CB00",
+     "0x45CB40",
+     "0x45CCE0",
+     "0x45CDC0",
+     "0x45CF20",
+     "0x48A7F0",
+     "0x48A960",
+     "0x48AB30",
+     "0x8D54B0",
+     "0x9FE510"
+    ],
     "best": "Z",
     "copy": "Z",
     "expected": {
@@ -9045,6 +10258,7 @@
     "name": "twiddler.cpp"
    },
    "wwsaveload": {
+    "ambiguous": [],
     "best": "Z",
     "copy": "Z",
     "expected": {
@@ -9091,10 +10305,15 @@
   }
  },
  "wwshade": {
+  "ambiguous_total": 8,
   "base": "Z",
   "compile_errors": [],
   "files": {
    "shd6bumpdiff": {
+    "ambiguous": [
+     "0x45CC10",
+     "0xA0CFD0"
+    ],
     "best": "Z",
     "copy": "Z",
     "expected": {},
@@ -9110,6 +10329,10 @@
     "name": "shd6bumpdiff.cpp"
    },
    "shd6bumpspec": {
+    "ambiguous": [
+     "0x45CC10",
+     "0xA0CFD0"
+    ],
     "best": "Z",
     "copy": "Z",
     "expected": {},
@@ -9125,6 +10348,11 @@
     "name": "shd6bumpspec.cpp"
    },
    "shd7bumpdiff": {
+    "ambiguous": [
+     "0x45CC10",
+     "0xA115C0",
+     "0xA11730"
+    ],
     "best": "Z",
     "copy": "Z",
     "expected": {},
@@ -9140,6 +10368,11 @@
     "name": "shd7bumpdiff.cpp"
    },
    "shd7bumpspec": {
+    "ambiguous": [
+     "0x45CC10",
+     "0xA115C0",
+     "0xA11730"
+    ],
     "best": "Z",
     "copy": "Z",
     "expected": {},
@@ -9155,6 +10388,11 @@
     "name": "shd7bumpspec.cpp"
    },
    "shd8bumpdiff": {
+    "ambiguous": [
+     "0x45CC10",
+     "0xA115C0",
+     "0xA11730"
+    ],
     "best": "Z",
     "copy": "Z",
     "expected": {},
@@ -9170,6 +10408,11 @@
     "name": "shd8bumpdiff.cpp"
    },
    "shd8bumpspec": {
+    "ambiguous": [
+     "0x45CC10",
+     "0xA115C0",
+     "0xA11730"
+    ],
     "best": "Z",
     "copy": "Z",
     "expected": {},
@@ -9186,6 +10429,9 @@
     "name": "shd8bumpspec.cpp"
    },
    "shdbumpdiff": {
+    "ambiguous": [
+     "0x45CC10"
+    ],
     "best": "Z",
     "copy": "Z",
     "expected": {
@@ -9206,6 +10452,9 @@
     "name": "shdbumpdiff.cpp"
    },
    "shdbumpspec": {
+    "ambiguous": [
+     "0x45CC10"
+    ],
     "best": "Z",
     "copy": "Z",
     "expected": {
@@ -9227,6 +10476,9 @@
     "name": "shdbumpspec.cpp"
    },
    "shdcubemap": {
+    "ambiguous": [
+     "0x45CC10"
+    ],
     "best": "Z",
     "copy": "Z",
     "expected": {
@@ -9251,6 +10503,10 @@
     "name": "shdcubemap.cpp"
    },
    "shddef": {
+    "ambiguous": [
+     "0x45CC10",
+     "0x9FE510"
+    ],
     "best": "Z",
     "copy": "Z",
     "expected": {
@@ -9271,6 +10527,7 @@
     "name": "shddef.cpp"
    },
    "shddeffactory": {
+    "ambiguous": [],
     "copy": "Z",
     "expected": {
      "Z": 0
@@ -9281,6 +10538,7 @@
     "name": "shddeffactory.cpp"
    },
    "shddefmanager": {
+    "ambiguous": [],
     "best": "Z",
     "copy": "Z",
     "expected": {
@@ -9298,6 +10556,7 @@
     "name": "shddefmanager.cpp"
    },
    "shdforcelinks": {
+    "ambiguous": [],
     "copy": "Z",
     "expected": {
      "Z": 0
@@ -9308,6 +10567,10 @@
     "name": "shdforcelinks.cpp"
    },
    "shdglossmask": {
+    "ambiguous": [
+     "0x45CC10",
+     "0xA0CFD0"
+    ],
     "best": "Z",
     "copy": "Z",
     "expected": {
@@ -9330,6 +10593,7 @@
     "name": "shdglossmask.cpp"
    },
    "shdhwshader": {
+    "ambiguous": [],
     "best": "Z",
     "copy": "Z",
     "expected": {
@@ -9357,6 +10621,9 @@
     "name": "shdhwshader.cpp"
    },
    "shdinterface": {
+    "ambiguous": [
+     "0x45CC10"
+    ],
     "best": "Z",
     "copy": "Z",
     "expected": {
@@ -9372,6 +10639,7 @@
     "name": "shdinterface.cpp"
    },
    "shdlib": {
+    "ambiguous": [],
     "best": "Z",
     "copy": "Z",
     "expected": {
@@ -9385,6 +10653,7 @@
     "name": "shdlib.cpp"
    },
    "shdloader": {
+    "ambiguous": [],
     "best": "Z",
     "copy": "Z",
     "expected": {
@@ -9399,6 +10668,11 @@
     "name": "shdloader.cpp"
    },
    "shdmesh": {
+    "ambiguous": [
+     "0x45CC10",
+     "0x462BF0",
+     "0x986150"
+    ],
     "best": "Z",
     "copy": "Z",
     "expected": {
@@ -9448,6 +10722,9 @@
     "name": "shdmesh.cpp"
    },
    "shdrenderer": {
+    "ambiguous": [
+     "0x45CC10"
+    ],
     "best": "Z",
     "copy": "Z",
     "expected": {
@@ -9480,6 +10757,10 @@
     "name": "shdrenderer.cpp"
    },
    "shdsimple": {
+    "ambiguous": [
+     "0x45CC10",
+     "0xA0CFD0"
+    ],
     "best": "Z",
     "copy": "Z",
     "expected": {
@@ -9503,6 +10784,10 @@
     "name": "shdsimple.cpp"
    },
    "shdsubmesh": {
+    "ambiguous": [
+     "0x45CC10",
+     "0x92D050"
+    ],
     "best": "Z",
     "copy": "Z",
     "expected": {
