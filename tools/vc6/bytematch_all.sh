@@ -42,7 +42,9 @@ incs() {  # include flags for copy $1: its own WW libraries, then the SDKs
 }
 
 # flags where a library's differ from vc6.py's default (importer.py LIB_FLAGS)
-declare -A LIBFLAGS=( [wwshade]="/nologo /c /MT /W3 /O2 /Ob1 /GX /D _MBCS /D ENABLE_WWPROFILE" [wwaudio]="/nologo /c /MT /W3 /O2 /Ob2 /D _MBCS /D ENABLE_WWPROFILE" [wwmath]="/nologo /c /MT /W3 /O2 /Ob2 /D ENABLE_WWPROFILE" [wwdebug]="/nologo /c /MT /W3 /O2 /Ob2 /D ENABLE_WWPROFILE" [ww3d2]="/nologo /c /MT /W3 /O2 /Ob2 /D ENABLE_WWPROFILE /D USE_WWSHADE" )
+# USE_WWSHADE in wwshade: neutral in the bytes (verify 138 before and after, none lost); set for
+# consistency with the project-wide define WW3D2 needs (4ae710d).
+declare -A LIBFLAGS=( [wwshade]="/nologo /c /MT /W3 /O2 /Ob1 /GX /D _MBCS /D ENABLE_WWPROFILE /D USE_WWSHADE"[wwaudio]="/nologo /c /MT /W3 /O2 /Ob2 /D _MBCS /D ENABLE_WWPROFILE" [wwmath]="/nologo /c /MT /W3 /O2 /Ob2 /D ENABLE_WWPROFILE" [wwdebug]="/nologo /c /MT /W3 /O2 /Ob2 /D ENABLE_WWPROFILE" [ww3d2]="/nologo /c /MT /W3 /O2 /Ob2 /D ENABLE_WWPROFILE /D USE_WWSHADE" )
 
 for lib in wwlib wwdebug wwmath wwsaveload wwaudio ww3d2 wwshade; do
   runs=""

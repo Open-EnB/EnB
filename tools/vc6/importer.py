@@ -162,7 +162,9 @@ HEADER_EXT = ('.h', '.hpp', '.inl')
 # 0xA08F80 and WWAudioClass 0x9F1BA0, 0x9F3700; WWAudio /D _MBCS gains those two, none lost.
 # wwshade was also built with ENABLE_WWPROFILE: ShdMeshClass::Render 0xA09430 opens a
 # WWProfileSampleClass ("ShdMeshClass::Render", Start_Profile 0x9EA930, dtor 0x444160).
-LIB_FLAGS = {'wwshade': '/nologo /c /MT /W3 /O2 /Ob1 /GX /D _MBCS /D ENABLE_WWPROFILE',
+# USE_WWSHADE in wwshade: neutral in the bytes (verify 138 before and after, none lost); set for
+# consistency with the project-wide define WW3D2 needs (4ae710d).
+LIB_FLAGS = {'wwshade': '/nologo /c /MT /W3 /O2 /Ob1 /GX /D _MBCS /D ENABLE_WWPROFILE /D USE_WWSHADE',
              # ENABLE_WWPROFILE also in WWAudio (+32 pairs: WWAudioClass, SoundSceneClass, sound buffers) and WWMath (+1)
              'wwaudio': '/nologo /c /MT /W3 /O2 /Ob2 /D _MBCS /D ENABLE_WWPROFILE',
              'wwmath': '/nologo /c /MT /W3 /O2 /Ob2 /D ENABLE_WWPROFILE',
