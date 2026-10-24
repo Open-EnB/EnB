@@ -2030,6 +2030,8 @@ void DX8Wrapper::Draw_Strip(
 
 void DX8Wrapper::Apply_Render_State_Changes()
 {
+	SNAPSHOT_SAY(("DX8Wrapper::Apply_Render_State_Changes()\n"));
+	
 	if (!render_state_changed) return;
 	if (render_state_changed&SHADER_CHANGED) {
 		SNAPSHOT_SAY(("DX8 - apply shader\n"));
@@ -2037,21 +2039,29 @@ void DX8Wrapper::Apply_Render_State_Changes()
 	}
 
 	unsigned mask=TEXTURE0_CHANGED;
-	for (unsigned i=0;i<MAX_TEXTURE_STAGES;++i,mask<<=1) {
-		if (render_state_changed&mask) {
+	for (int i=0;i<CurrentCaps->Get_Max_Textures_Per_Pass();++i,mask<<=1) 
+	{
+		if (render_state_changed&mask) 
+		{
 			SNAPSHOT_SAY(("DX8 - apply texture %d (%s)\n",i,render_state.Textures[i] ? render_state.Textures[i]->Get_Full_Path() : "NULL"));
-			if (render_state.Textures[i]) render_state.Textures[i]->Apply(i);
-			else TextureClass::Apply_Null(i);
-		}
-		else {
-			SNAPSHOT_SAY(("DX8 - texture %d not changed (%s)\n",i,render_state.Textures[i] ? render_state.Textures[i]->Get_Full_Path() : "NULL"));
+
+			if (render_state.Textures[i]) 
+			{
+				render_state.Textures[i]->Apply(i);
+			}
+			else 
+			{
+				TextureBaseClass::Apply_Null(i);
+			}
 		}
 	}
 
-	if (render_state_changed&MATERIAL_CHANGED) {
+	if (render_state_changed&MATERIAL_CHANGED) 
+	{
 		SNAPSHOT_SAY(("DX8 - apply material\n"));
 		VertexMaterialClass* material=const_cast<VertexMaterialClass*>(render_state.material);
-		if (material) {
+		if (material) 
+		{
 			material->Apply();
 		}
 		else VertexMaterialClass::Apply_Null();
@@ -2064,10 +2074,28 @@ void DX8Wrapper::Apply_Render_State_Changes()
 			if (render_state_changed&mask) {
 				SNAPSHOT_SAY(("DX8 - apply light %d\n",index));
 				if (render_state.LightEnable[index]) {
+#ifdef MESH_RENDER_SNAPSHOT_ENABLED		
+					if ( WW3D::Is_Snapshot_Activated() ) {
+						D3DLIGHT8 * light = &(render_state.Lights[index]);
+						static char * _light_types[] = { "Unknown", "Point","Spot", "Directional" };
+						WWASSERT((light->Type >= 0) && (light->Type <= 3));					
+
+						SNAPSHOT_SAY((" type = %s amb = %4.2f,%4.2f,%4.2f  diff = %4.2f,%4.2f,%4.2f spec = %4.2f, %4.2f, %4.2f\n",
+							_light_types[light->Type],
+							light->Ambient.r,light->Ambient.g,light->Ambient.b,
+							light->Diffuse.r,light->Diffuse.g,light->Diffuse.b,
+							light->Specular.r,light->Specular.g,light->Specular.b ));
+						SNAPSHOT_SAY((" pos = %f, %f, %f  dir = %f, %f, %f\n",
+							light->Position.x, light->Position.y, light->Position.z,
+							light->Direction.x, light->Direction.y, light->Direction.z ));
+					}
+#endif
+
 					Set_DX8_Light(index,&render_state.Lights[index]);
 				}
 				else {
 					Set_DX8_Light(index,NULL);
+					SNAPSHOT_SAY((" clearing light to NULL\n"));
 				}
 			}
 		}
@@ -2097,7 +2125,7 @@ void DX8Wrapper::Apply_Render_State_Changes()
 						// If the VB format is FVF, set the FVF as a vertex shader
 						unsigned fvf=render_state.vertex_buffers[i]->FVF_Info().Get_FVF();
 						if (fvf!=0) {
-							Set_Vertex_Shader(fvf);
+							DX8CALL(SetVertexShader(fvf));
 						}
 					}
 					break;
@@ -2140,6 +2168,8 @@ void DX8Wrapper::Apply_Render_State_Changes()
 	}
 
 	render_state_changed&=((unsigned)WORLD_IDENTITY|(unsigned)VIEW_IDENTITY);
+
+	SNAPSHOT_SAY(("DX8Wrapper::Apply_Render_State_Changes() - finished\n"));
 }
 
 IDirect3DTexture8 * DX8Wrapper::_Create_DX8_Texture(
