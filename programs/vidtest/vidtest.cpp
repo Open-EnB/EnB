@@ -32,6 +32,7 @@
 **	  -log FILE      init results (default vidtest.log)
 **	  -noondemand    leave WW3D_Load_On_Demand off (VIDTEST turns it on: Build_Scenes)
 **	  -state N       start in test state N (0 fill rate, 1 polygon, 2 land) instead of 0
+**	  -noscene       L2's test: no scenes, every frame only clears to dark blue
 **	Exit code (VIDTEST's, 1.1): 1 tests finished, -3 aborted by a key or a window close, -1 video mode
 **	not supported, -2 scene build failed; ours: 0 after -frames N, 11 window, 12 WW3D::Init,
 **	13 no device, 15 Begin_Render/End_Render, 16 screenshot.
@@ -456,7 +457,8 @@ static void End_Frame(void)
 		// End_Render draws the sorted (alpha) polygons first; draw them now so the screenshot has them
 		SortingRendererClass::Flush();
 		bool ok = Save_Back_Buffer(name);
-		Log("screenshot %s of frame %d (state %d): %s\n", name, Presented, TestState, ok ? "saved" : "failed");
+		Log("screenshot %s of frame %d (state %d, sync time %u, timeGetTime %lu): %s\n", name, Presented, TestState,
+			WW3D::Get_Sync_Time(), timeGetTime(), ok ? "saved" : "failed");
 		if (!ok) Result = 16;
 	}
 	WW3DErrorType e = WW3D::End_Render(true);
@@ -1103,6 +1105,20 @@ static int Run(HINSTANCE instance, int show)
 		MessageBoxA(NULL, "Your hardware does not support the requested video mode settings.", "E&B Video Test",
 			MB_ICONINFORMATION);
 		result = -1;
+	} else if (Arg_Present("-noscene")) {
+		// Ours (L2's test): no scenes, every frame only clears to dark blue (0, 0, 0.5)
+		MSG msg;
+		for (;;) {
+			while (!PeekMessageA(&msg, NULL, 0, 0, PM_NOREMOVE)) {
+				WW3D::Sync(GetTickCount());
+				Begin_Frame(true, true, Vector3(0.0f, 0.0f, 0.5f));
+				End_Frame();
+			}
+			if (!GetMessageA(&msg, NULL, 0, 0)) break;
+			TranslateMessage(&msg);
+			DispatchMessageA(&msg);
+		}
+		result = (int)msg.wParam;
 	} else if (!Build_Scenes()) {
 		Log("Build_Scenes failed\n");
 		MessageBoxA(NULL, "Failed to build the scenes required for the test.", "E&B Video Test", MB_ICONEXCLAMATION);

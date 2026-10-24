@@ -96,19 +96,25 @@ three Net-7 sessions); its datagram counts equal compare.py's for both datagram 
 python tools/vc6/build.py link [--program vidtest]           # after build.py and mkmss32.py lib
 python tools/harness/run_vidtest.py [--frames 120 | --mode close --seconds 3] [-- -depth 16 ...]
 python tools/harness/symbolize.py build/programs/vidtest/vidtest.map build/programs/vidtest/vidtest.log
+python tools/harness/vidtest_sbs.py run; python tools/harness/vidtest_sbs.py sbs [N ...]
 ```
 
 * **run_vidtest.py** runs `build/programs/vidtest/vidtest.exe` on the host (D48) and checks it:
   exit code 0, `WW3D::Init` and `Set_Render_Device` = 0 in `vidtest.log`, `WW3D::Shutdown` = 0,
   and vidtest's own screenshot (`shot.bmp`, its D3D back buffer: never a screen grab).
-  `--check model` (default, M2.1): the model (BST29A from EBCONFIG, read through vidtest's file
-  factory; `-art DIR`, `-w3d`, `-model`, `-anim`, `-camdir`, `-camdist`, `-clear` choose another)
-  covers at least 2% of the pixels with at least 200 colours; a second screenshot `shot2.bmp` at
-  half the frames shows whether the animation moves; both are also written as `.png`.
+  Since M2.2 vidtest runs VIDTEST's scenes and tests (art from EBCONFIG through its file factory,
+  `-art DIR`; options in the header of `programs/vidtest/vidtest.cpp`). `--check model` (default):
+  at least 2% of the pixels drawn with at least 200 colours; frame 120 is the polygon test, the
+  second screenshot `shot2.bmp` (frame 60) the fill rate test; both are also written as `.png`.
   `--check clear` is L2's test (`-noscene`, the clear colour). `--mode close` posts `WM_CLOSE` as a
-  user would. It prints the stub log (`stubs.log`, D44). `vidtest.log` lists every file the
+  user would and expects VIDTEST's exit code -3 (or 1 when the tests, about 2 s, ended first). It prints the stub log (`stubs.log`, D44). `vidtest.log` lists every file the
   libraries asked the file factory for (`file: NAME found|MISSING`).
 * **bmp2png.py** converts a screenshot to `.png` (no Pillow needed).
+* **vidtest_sbs.py** compares our vidtest with the original frame by frame (M2.2): `run` starts
+  vidtest with the reference's arguments and `-shots` set to the frames in `ref/` (one number per
+  Present, from 1, as run_reference.py counts them; vidtest runs its tests to the end), `sbs` writes
+  ours (left) and the original's (right) side by side to `build/programs/vidtest/sbs/` and prints
+  the share of pixels that differ.
 * **run_reference.py** runs the ORIGINAL `VIDTEST.EXE` for reference frames: `build` compiles
   `d3d8shot.c` on a pool VM into `build/d3d8shot/d3d8.dll`; `run` copies EBCONFIG to
   `build/programs/vidtest/ref_ebconfig/` (once: the original writes `results.ini` into its own
