@@ -133,6 +133,9 @@ public:
 	// Scale this HTree by a constant factor:
 	void					Scale(float factor);
 
+	// Morph the bones on the HTree based on the scale passed in
+	static HTreeClass *	Alter_Avatar_HTree( const HTreeClass *tree, Vector3 &scale );
+
 	// Morph the bones on the HTree using weights from a number of other HTrees
 	static HTreeClass *	Create_Morphed( int num_morph_sources,
 													 const float morph_weights[],

@@ -918,7 +918,63 @@ void HTreeClass::Get_Bone_Control(int boneindex, Matrix3D & relative_tm) const
 	return ;
 }
 
+HTreeClass * HTreeClass::Alter_Avatar_HTree( const HTreeClass *tree, Vector3 &scale)
+{
+	// This is a specific list of pivot names used in the avatar meshes that we need to special case for scaling
+	// The reason is due to the fact that we want to scale the avatar's bone structure with differing amount for
+	// each axis, and with the T-pos of the avatar skeleton, undesirable results are caused due to the arms and hands
+	// being stretched out on the Y-axis instead of the Z-axis like the rest of the bodies. Hence, the list of pivots
+	// below are ones that I will special case and scale them based on the Z-axis scaling factor instead of the Y-axis
+	// scaling factor.
+	char * flip_list[] = { " RIGHTFOREARM", " RIGHTHAND", " LEFTFOREARM", " LEFTHAND", "RIGHTINDEX", "RIGHTFINGERS", "RIGHTTHUMB", "LEFTINDEX", "LEFTFINGERS", "LEFTTHUMB", 0 };
+		
+	// Clone the new tree with the tree that is passed in
+	HTreeClass * new_tree = new HTreeClass( *tree );
 
+	// Go through each of the pivots and calculate and transform the pivots to match the desired scaling factor
+	for(int pi = 0; pi < new_tree->NumPivots; ++pi) {
+		PivotClass piv = tree->Pivot[pi];
+		Vector3 adjusted_scale = scale;
+		
+		// If there is no parent, skip
+		if(!piv.Parent) continue;
+
+		// If the pivot is on the flip list, use the Z scale to scale both the Z & Y axis 
+		int index = 0;
+		while(true) {
+			if(!flip_list[index]) {
+				break;
+			} else if(strcmp(piv.Name, flip_list[index]) == 0) {
+				adjusted_scale.Y = scale.Z;
+				break;
+			}
+			++index;
+		}
+
+		// Get the positions of the pivot and the pivot's parent in worldspace & apply the altering scale to it
+		Vector3 pivot_pos = piv.Transform.Get_Translation();
+		Vector3 pivot_parent_pos = piv.Parent->Transform.Get_Translation();
+		pivot_pos.Scale(adjusted_scale);
+		pivot_parent_pos.Scale(adjusted_scale);
+
+		// Get the pivot's parent's inverse transform
+		Matrix3D parent_inverse_transform;
+		piv.Parent->Transform.Get_Inverse(parent_inverse_transform);
+
+		// Get the new desired vector in worldspace
+		Vector3 new_relative_vector = pivot_pos - pivot_parent_pos;
+
+		// Rotate the new vector by the pivot's parent's inverse transform to put it in local space 
+		new_relative_vector = parent_inverse_transform.Rotate_Vector(new_relative_vector);
+
+		// Store the final result in the new HTree
+		new_tree->Pivot[pi].BaseTransform.Set_Translation( new_relative_vector );
+	}
+
+	return new_tree;
+}
+
+// Morph the bones on the HTree using weights from a number of other HTrees
 
 // Morph the bones on the HTree using weights from a number of other HTrees
 HTreeClass * HTreeClass::Create_Morphed(	int num_morph_sources,
