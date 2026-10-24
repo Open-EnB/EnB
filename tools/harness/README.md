@@ -89,3 +89,19 @@ the reference decoder's 4,286 / 365.
 capharness (M1.0 skeleton) on every trace, checked by compare.py: message counts and bytes per
 direction and opcode equal the reference decoder's summary for all 8 traces (alex3, alex7, capture_1..3, the
 three Net-7 sessions); its datagram counts equal compare.py's for both datagram files.
+
+## vidtest (L2, M2)
+
+```
+python tools/vc6/build.py link [--program vidtest]           # after build.py and mkmss32.py lib
+python tools/harness/run_vidtest.py [--frames 120 | --mode close --seconds 3] [-- -depth 16 ...]
+python tools/harness/symbolize.py build/programs/vidtest/vidtest.map build/programs/vidtest/vidtest.log
+```
+
+* **run_vidtest.py** runs `build/programs/vidtest/vidtest.exe` on the host (D48) and checks it:
+  exit code 0, `WW3D::Init` and `Set_Render_Device` = 0 in `vidtest.log`, `WW3D::Shutdown` = 0,
+  and the clear colour in vidtest's own screenshot (`shot.bmp`, its D3D back buffer: never a
+  screen grab). `--mode close` posts `WM_CLOSE` as a user would. It prints the stub log
+  (`stubs.log`, D44).
+* **symbolize.py** names the addresses of vidtest's crash report (`CRASH:` lines in its log: the
+  exception address and the stack words that point into its code) with the linker map.

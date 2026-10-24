@@ -188,7 +188,7 @@ already exact.
 | Item | Content | Done when |
 |---|---|---|
 | **L1** Libraries | `tools/vc6/build.py`: compile each library completely, every file and not only the ones that match, with its verify flags, then `LIB` it into `wwlib.lib`, `ww3d2.lib`, and so on, plus `app.lib`. Runs on a pool VM (`--pool`); the output goes to `build/` (git-ignored) | eight `.lib` files. **Done 2026-10-24: §3.1** |
-| **L2** First executable | Link a minimal WinMain against them with LIBCMT, `d3dx8.lib`, winmm, ws2_32 and the rest. Fix the unresolved externals: NOT_LINKED files, declared-only functions (D28-type declarations), E&B hooks the libraries call back into. Each fix is either a real function or a stub under `stubs/` that is listed and logs when it is called (P3) | a linked `.exe` that starts, `WW3D::Init` succeeds, and the window clears to a colour |
+| **L2** First executable | Link a minimal WinMain against them with LIBCMT, `d3dx8.lib`, winmm, ws2_32 and the rest. Fix the unresolved externals: NOT_LINKED files, declared-only functions (D28-type declarations), E&B hooks the libraries call back into. Each fix is either a real function or a stub under `stubs/` that is listed and logs when it is called (P3) | a linked `.exe` that starts, `WW3D::Init` succeeds, and the window clears to a colour. **Done 2026-10-24: §3.2** |
 
 L2's stub list doubles as a to-do list: each stub marks a function the client has and we haven't
 written yet.
@@ -247,6 +247,84 @@ Nothing in the list points at a failed compile, a NOT_LINKED file or a header/bo
 list is L2's starting to-do list. Caveat: a library-only link resolves only what the objects
 reference; L2's `WinMain` will add references (WW3D::Init's callees are already in), and a
 `.lib` pulls members only on demand, so some of these may never be needed by a minimal program.
+
+### 3.2 L2 results (2026-10-24)
+
+**Done.** `build/programs/vidtest/vidtest.exe` (913,408 bytes) starts on the host, `WW3D::Init`
+and `WW3D::Set_Render_Device` return `WW3D_ERROR_OK` on the RTX 3060 Ti (640x480, windowed, 32
+and 16 bpp), every frame clears to dark blue (0, 0, 0.5), and it exits with code 0 both after
+`-frames N` and when its window is closed. No stub was called and none was linked.
+
+**How it is built and run** (after `build.py` and `mkmss32.py lib`, on a leased VM):
+
+```
+python tools/vc6/build.py link --program vidtest          # -> build/programs/vidtest/
+python tools/harness/run_vidtest.py --frames 120          # or --mode close, or -- -depth 16
+```
+
+The link line `build.py link` writes (`link.rsp`, in the VM):
+
+```
+link /nologo /subsystem:windows /machine:ix86 /incremental:no /nodefaultlib /out:vidtest.exe
+     /map:vidtest.map obj\*.obj app.lib wwshade.lib ww3d2.lib wwaudio.lib wwsaveload.lib
+     wwmath.lib wwlib.lib wwdebug.lib mss32.lib stubs.lib LIBCMT.LIB LIBCPMT.LIB OLDNAMES.LIB
+     KERNEL32.LIB USER32.LIB GDI32.LIB ADVAPI32.LIB OLE32.LIB OLEAUT32.LIB UUID.LIB WINMM.LIB
+     WS2_32.LIB VFW32.LIB COMSUPP.LIB d3d8.lib d3dx8.lib dxguid.lib ddraw.lib
+```
+
+`programs/vidtest/vidtest.cpp` is compiled with WW3D2's flags (`/MT /W3 /O2 /Ob2 /D
+ENABLE_WWPROFILE /D USE_WWSHADE`, vc6's defines), `stubs/*.cpp` the same plus `/GX`, into
+`stubs.lib`, so a stub is linked only when something references it. The map shows what the
+program pulled: 82 ww3d2 objects, 33 wwlib, 22 wwmath, 22 wwshade, 10 wwsaveload, 3 wwdebug,
+62 from d3dx8; none from wwaudio or app (no Miles import: `AnimatedSoundMgrClass::Initialize`
+doesn't reach it). d3d8.dll is loaded at run time by `DX8Wrapper::Init`, as in Renegade.
+
+**What it took.**
+
+* **D49: the 12 EA files** (§3.1), imported by `importer.py add` (`EXTRA_FILES`; plan keeps them),
+  each from its library's base copy: wwlib's seven and wwaudio's two from Renegade, wwsaveload's
+  and wwshade's from Zero Hour. `TARGA.CPP` is Renegade's on evidence: the client's `YFlip`
+  (0x9D33D0) is the byte loop, Zero Hour's is an asm `_swapBytes`. `soundstreamhandle.cpp` needs
+  `AIL_open_stream_by_sample`, which `sdk_patch.py` now declares (toolchain.md Miles fix 2).
+  verify: **+33 pairs, none lost**: TARGA.CPP 21 (wwlib 565 -> 586), soundstreamhandle.cpp 12
+  (wwaudio 351 -> 360).
+* **wwshade's `SHD_Force_Links`** called `_Force_Link_LegacyW3DShader` (shdlegacyw3d.cpp is
+  NOT_LINKED); the client's (0xA08C70) links five shaders, so that line is patched out.
+* **D51: `mss32.lib`** from the game's `Mss32.dll` (344 exports): `tools/vc6/mkmss32.py def` writes
+  `tools/vc6/mss32.def`, `mkmss32.py lib` builds `build/mss32/mss32.lib`. VC6's `lib /def` can't
+  (it imports every .def name with the name type "no prefix": `AIL_shutdown@0` would import
+  "AIL_shutdown@0", the DLL exports "_AIL_shutdown@0"), so the script links a stub DLL with one
+  empty `dllexport` per name and keeps LINK's import library, plus `MSS_auto_cleanup`. A probe
+  built against it ran `AIL_startup`/`AIL_shutdown` in the game's DLL.
+* **D50:** VFW32, COMSUPP and ddraw on the link line.
+* **WinMain needs the asset manager first.** Without `new WW3DAssetManager` before `WW3D::Init`
+  (VIDTEST's step 4), `Set_Render_Device` crashed in `ShatterSystem::Init` (it asks the asset
+  manager for htrees during device creation). The crash report vidtest writes (`CRASH:` lines,
+  named by `tools/harness/symbolize.py`) found it.
+
+**Unresolved externals, library level** (`build.py unresolved`, every object of the eight
+libraries, `.work/milestones/l2/unresolved.txt`): **125 -> 20, all 20 defined by `stubs/`.** A
+link of every library object (not `.lib` members on demand) with all stubs resolves too, apart from
+one duplicate: `Find_POT`/`Find_POT_Log2` are in both `ww3d2/pot.cpp` and `wwmath/pot.cpp`
+(proposal below).
+
+**Stubs** (`stubs/`, D44; each logs its first call to OutputDebugString, stderr and
+`ENB_STUB_LOG`/`stubs.log`; asserts log every call):
+
+| File | Stub | Client | Linked into vidtest | Called |
+|---|---|---|---|---|
+| app_stubs.cpp | `Unknown_Assert_Failed`, `Unknown_Fail_If_Report` (log each call: expr, file, line) | 0x4E9410, 0x4E9450 | no | no |
+| app_stubs.cpp | `Unknown_Debug_Printf` (logs the text), `Unknown_Get_Ticks` (returns `GetTickCount()`) | ? | no | no |
+| app_stubs.cpp | `LookupClass::LookupClass` (members default-constructed), `KVListClass::Add`, `RecordTableClass::Add`, `KVPairStringClass::KVPairStringClass` | 0x4AC250, 0x4B6760, 0x4A9C30, 0x4B7FC0 | no | no |
+| app_stubs.cpp | `KVPairTemplateClass<float>`: destructor, `Unknown_04`..`Unknown_18` (7) | vtable 0xAE7860 | no | no |
+| app_stubs.cpp | `KVPairStringClass`: destructor, `Unknown_04`..`Unknown_18` (7; the stub constructor's vtable needs them) | 0x4B80E0, 0x4B8250.. | no | no |
+| app_stubs.cpp | `DeltaTemplateClass<DurationClass>::Unknown_00` | ? | no | no |
+| app_stubs.cpp | data, can't log: `DeltaUnknownGlobal`, `DeltaCompoundUnknownGlobal`, `DeltaStringClass::UnknownGlobal` (0xBE3A9C), `DeltaTemplateClass<DurationClass>::UnknownGlobal` (0xBE3AA4), all 0 | | no | |
+| app_stubs.cpp | not a stub: `DeltaTemplateClass<DurationClass>`'s constructor, the header's body as an explicit specialisation (VC6 can't instantiate it after the header's `extern template`) | 0x4A8150 | no | |
+| wwaudio_stubs.cpp | `ListenerHandleClass::Initialize` (declared in listenerhandle.h, defined in no EA copy; does nothing) | ? | no | no |
+
+24 logging stubs, 4 data stubs, 1 real definition; none linked into or called by vidtest. They
+are the app library's link to-do list for M1 (§2.3) and the first audio one.
 
 ## 4. M2: VIDTEST
 
