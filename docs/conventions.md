@@ -41,6 +41,15 @@ its inconsistencies (`MainView`, not `MainViewClass`; `CordCon::handlePacket`, n
 name (`m_Unknown7C`, after its offset; `UnknownFlag`) with its evidence in a comment. It keeps that
 name until the code that uses it is rebuilt; it is not guessed from the app code beforehand.
 
+**Name certainty** (decision D56): a name chosen without the client's own evidence gets a tag
+comment where it is declared: `// NAME n: evidence`. 5 = the client names it (RTTI, assert,
+`__FILE__`, a `Class::Method` string); 4 = EA's Westwood source names it, or a Net-7 /
+the reference decoder name confirmed by matching structure; 3 = built by convention from a client-named
+file or sibling (D24, a `.h` paired with a known `.cpp`); 2 = describes what the code does;
+1 = neutral placeholder. Names scoring 3 or below (and untagged `Unknown*` names, counted as 1)
+are listed in the generated `docs/data/names-review.md` (`python tools/re/names.py`); raise the tag
+when better evidence turns up. Example: `// NAME 2: encode.cpp is the client's; header name assumed`.
+
 **App classes the client doesn't name** (D24, user 2026-10-24): Westwood `XxxClass` style, as
 the client's own named classes are (`BitSetClass` for `app\shared\auxdata\bitset.cpp`, members
 from its asserts: `Buffer`, `NumBits`). A name the client later shows replaces it.
