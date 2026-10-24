@@ -1,6 +1,6 @@
 {
  "app": {
-  "ambiguous_total": 23,
+  "ambiguous_total": 24,
   "base": "reconstructed",
   "compile_errors": [],
   "files": {
@@ -215,6 +215,20 @@
     ],
     "merged": [],
     "name": "shared/kv_encoder_base.cpp"
+   },
+   "kv_list": {
+    "ambiguous": [
+     "0x42A900",
+     "0x42B2C0",
+     "0x436420",
+     "0x4ACBB0",
+     "0x4E3EE0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [],
+    "merged": [],
+    "name": "shared/kv_list.cpp"
    },
    "kv_pair": {
     "ambiguous": [],

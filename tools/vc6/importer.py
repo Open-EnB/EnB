@@ -3107,7 +3107,10 @@ RECONSTRUCTED = {
     ('app', 'shared/strconv_lib.h'): "the key/value pairs' value <-> text conversions (name assumed "
                                      "from strconv_lib.cpp, whose object holds them: 0x4A30A0-0x4A35F0); "
                                      "only float and unsigned int declared, defined in stubs/",
-    ('app', 'shared/kv_list.h'): "KVListClass's declaration, only Add 0x4B6760 (the assert's 'item', line 23)",
+    ('app', 'shared/kv_list.h'): "KVListClass (D24), functional: the pairs in order and a key index (a std::map "
+                                 "for the client's SGI-style hash_map, 0x4B62B0)",
+    ('app', 'shared/kv_list.cpp'): "KVListClass, client 0x4B62B0-0x4B6D90, functional (NOT EXACT): Add "
+                                   "0x4B6760 and the lookups, asserts on the client's lines 23-113 (D25)",
     ('app', 'shared/auxdata/encode.cpp'): "RecordTableClass (D24; Records from the asserts), client "
                                           "0x4A9A70-0x4A9C1A: ctor (line 512, D25), dtor, Unknown_Sum, "
                                           "Unknown_All; the decoders (M1.2): RecordCodecClass::Decode "

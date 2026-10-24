@@ -8,6 +8,7 @@
 */
 
 #include <windows.h>
+#include <mmsystem.h>
 #include <stdio.h>
 #include <stdarg.h>
 #include <stdlib.h>
@@ -55,12 +56,19 @@ void Unknown_Debug_Printf(const char *format, ...)
 	Stub_Log_Line("Unknown_Debug_Printf: %s", text);
 }
 
-// delta_interpolator.cpp's clock (a DurationClass tick count). The real one is not located yet;
-// the system's millisecond count stands in.
+// The aux-data clock (0x4A3B40, in the root's object 0x4A3990-0x4A4780, not attributed yet):
+// milliseconds since its first call (timeGetTime). Not a stub: the client's behaviour.
+#pragma comment(lib, "winmm.lib")
+static bool TicksFirst = true;			// 0xB72FF8
+static DWORD TicksStart;				// 0xBE3A6C
 unsigned int Unknown_Get_Ticks()
 {
-	STUB_CALLED("Unknown_Get_Ticks");
-	return GetTickCount();
+	if (TicksFirst) {
+		TicksStart = timeGetTime();
+		TicksFirst = false;
+		return 0;
+	}
+	return timeGetTime() - TicksStart;
 }
 
 // ------------------------------------------------------------------------- globals (data)
@@ -95,12 +103,6 @@ bool DeltaCompoundClass::Decode(LinearBufferClass &buf, const DurationClass &bas
 		codec = Get_Tree_Codec();
 	}
 	return codec->Decode(this, buf, base);
-}
-
-// 0x4B6760
-void KVListClass::Add(KVPairClass *item)
-{
-	STUB_CALLED("KVListClass::Add (0x4B6760)");
 }
 
 // ------------------------------------------------------------------------- strconv_lib.h
