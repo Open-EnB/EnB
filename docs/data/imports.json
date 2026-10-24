@@ -5609,7 +5609,6 @@
      "0x48E940",
      "0x510CC0",
      "0x909500",
-     "0x9CEFF0",
      "0x9E9F20",
      "0x9E9F70",
      "0x9E9FB0",
@@ -5645,6 +5644,8 @@
      "0x9EBB00",
      "0x9EBB20",
      "0x9EBB50",
+     "0x9EBBA0",
+     "0x9EBD80",
      "0x9EC0C0",
      "0x9EC150",
      "0x9EC330",
@@ -5665,7 +5666,7 @@
    "wwmemlog.h": "Z",
    "wwprofile.h": "Z"
   },
-  "in_tree_total": 79,
+  "in_tree_total": 81,
   "totals": {
    "G": 16,
    "R": 34,
@@ -6112,7 +6113,13 @@
     "headers_from": null,
     "in_tree": [
      "0x42F250",
-     "0x909500"
+     "0x909500",
+     "0x9CEFF0",
+     "0x9DAC10",
+     "0x9DAC40",
+     "0x9DACE0",
+     "0x9DAD20",
+     "0x9DAD60"
     ],
     "merged": [],
     "name": "FastAllocator.cpp"
@@ -7376,7 +7383,7 @@
    "xstraw.h": "R",
    "xsurface.h": "R"
   },
-  "in_tree_total": 557,
+  "in_tree_total": 562,
   "totals": {
    "G": 394,
    "R": 535,

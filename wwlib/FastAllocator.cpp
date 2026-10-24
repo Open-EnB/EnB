@@ -30,12 +30,42 @@ FastAllocatorGeneral* FastAllocatorGeneral::Get_Allocator()
 	return generalAllocator;
 }
 
-FastAllocatorGeneral::FastAllocatorGeneral() : MemoryLeakLogEnabled(false), AllocatedWithMalloc(0), AllocatedWithMallocCount(0), ActualMemoryUsage(0)
+FastAllocatorGeneral::FastAllocatorGeneral() : m_UnknownE04(0), MemoryLeakLogEnabled(false), AllocatedWithMalloc(0), AllocatedWithMallocCount(0), ActualMemoryUsage(0), m_UnknownE18(0), m_UnknownE1C(0)
 {
 	int alloc_size=ALLOC_STEP;
 	for (int i=0;i<MAX_ALLOC_SIZE/ALLOC_STEP;++i) {
 	   allocators[i].Init(alloc_size);
 		alloc_size+=ALLOC_STEP;
 	}
+}
+
+unsigned FastAllocatorGeneral::Get_Total_Heap_Size()
+{
+	int size=AllocatedWithMalloc;
+	for (int i=0;i<MAX_ALLOC_SIZE/ALLOC_STEP;++i) {
+		FastCriticalSectionClass::LockClass lock(CriticalSections[i]);
+		size+=allocators[i].Get_Heap_Size();
+	}
+	return size;
+}
+
+unsigned FastAllocatorGeneral::Get_Total_Allocated_Size()
+{
+	int size=AllocatedWithMalloc;
+	for (int i=0;i<MAX_ALLOC_SIZE/ALLOC_STEP;++i) {
+		FastCriticalSectionClass::LockClass lock(CriticalSections[i]);
+		size+=allocators[i].Get_Allocated_Size();
+	}
+	return size;
+}
+
+unsigned FastAllocatorGeneral::Get_Total_Allocation_Count()
+{
+	int count=AllocatedWithMallocCount;
+	for (int i=0;i<MAX_ALLOC_SIZE/ALLOC_STEP;++i) {
+		FastCriticalSectionClass::LockClass lock(CriticalSections[i]);
+		count+=allocators[i].Get_Allocation_Count();
+	}
+	return count;
 }
 

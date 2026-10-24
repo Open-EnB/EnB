@@ -377,43 +377,18 @@ public:
 protected:
    FastFixedAllocator allocators[MAX_ALLOC_SIZE/ALLOC_STEP];
 	FastCriticalSectionClass CriticalSections[MAX_ALLOC_SIZE/ALLOC_STEP];
+	FastCriticalSectionClass m_UnknownE00;	// E&B: locked by 0x9DADA0 around m_UnknownE20[3]
+	unsigned m_UnknownE04;					// E&B: zeroed by the ctor (0x9DAC8A)
 	bool MemoryLeakLogEnabled;
 
 	unsigned AllocatedWithMalloc;
 	unsigned AllocatedWithMallocCount;
 	unsigned ActualMemoryUsage;
+	unsigned m_UnknownE18;					// E&B: zeroed by the ctor (0x9DACA8)
+	unsigned m_UnknownE1C;					// E&B: zeroed by the ctor (0x9DACAE)
+	unsigned m_UnknownE20[4];				// E&B: not set by the ctor; [3] read and cleared by 0x9DADA0
 };
 ///////////////////////////////////////////////////////////////////////////////
-
-WWINLINE unsigned FastAllocatorGeneral::Get_Total_Heap_Size()
-{
-	int size=AllocatedWithMalloc;
-	for (int i=0;i<MAX_ALLOC_SIZE/ALLOC_STEP;++i) {
-		FastCriticalSectionClass::LockClass lock(CriticalSections[i]);
-		size+=allocators[i].Get_Heap_Size();
-	}
-	return size;
-}
-
-WWINLINE unsigned FastAllocatorGeneral::Get_Total_Allocated_Size()
-{
-	int size=AllocatedWithMalloc;
-	for (int i=0;i<MAX_ALLOC_SIZE/ALLOC_STEP;++i) {
-		FastCriticalSectionClass::LockClass lock(CriticalSections[i]);
-		size+=allocators[i].Get_Allocated_Size();
-	}
-	return size;
-}
-
-WWINLINE unsigned FastAllocatorGeneral::Get_Total_Allocation_Count()
-{
-	int count=AllocatedWithMallocCount;
-	for (int i=0;i<MAX_ALLOC_SIZE/ALLOC_STEP;++i) {
-		FastCriticalSectionClass::LockClass lock(CriticalSections[i]);
-		count+=allocators[i].Get_Allocation_Count();
-	}
-	return count;
-}
 
 // ----------------------------------------------------------------------------
 //
