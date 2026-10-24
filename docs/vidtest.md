@@ -31,6 +31,13 @@ opens. Where this document says otherwise, these win:
   `PPVT01A`, `jvc-p01`. Our build loads the same chain.
 * O4 settled: the original opens `e&bologo_low.dds` and the logo shows.
 * `river4_256.pld` IS opened by the original (§2.1 says no `.pld` is referenced).
+* O3 settled (M2.2): `Build_Scenes`' library switches are 0x446080(false) = `WW3D::Enable_Sorting`,
+  0x5EFFD8 `Enable_Static_Sort_Lists(true)`, 0x5EFFD9 `Enable_Munge_Sort_On_Load(true)`, 0x5C60AC
+  `Set_Thumbnail_Enabled(false)`, 0x5EFFD7 `Set_Screen_UV_Bias(true)`, 0x5EFFDA
+  `Enable_Overbright_Modify_On_Load(true)` (turned on after the loading screen). The caps byte
+  +0xDD is `Support_DXTC`.
+* The stars add 2,000 polygons to Max Polys at star budget 200 (30,729 in the original's frame 300
+  against 28,729 without stars).
 * O7: on the host the original wrote `FreeTextureRam=-3145728`, `TextureReduction=2`; ours
   fixes it (D53).
 
@@ -1052,7 +1059,7 @@ addresses are often wrong guesses (for example 0x4026B0 = client 0x4637C0 is lis
   `Load_3D_Assets("mu02.w3d")`.
 * **O2** The static camera: does MU02A's `CAMERA` bone move? There is no anim file, so probably not.
   Check against screenshots of the original's polygon test.
-* **O3** 0x446080: which WW3D bool setter it is (it invalidates `TheDX8MeshRenderer`). Also asset
+* **O3** (settled, see the corrections at the top) 0x446080: which WW3D bool setter it is (it invalidates `TheDX8MeshRenderer`). Also asset
   manager +0x101D, and the caps byte +0xDD used for `Enable_Large_Texture_Extra_Reduction`. All
   three need a look at the 2002 WW3D layout against the tree's.
 * **O4** (settled: the logo loads as `e&bologo_low.dds`) `bologo_low.tga` against `E&BOLogo_low.dds`: is the logo missing in the original too?

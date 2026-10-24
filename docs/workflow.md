@@ -385,3 +385,10 @@ Added 2026-10-24 (overnight run; details in `.work/night/item*/report.md`):
   before `End_Render`, or alpha geometry is missing.
 * **Capturing an original program.** A d3d8.dll proxy in a copy of its folder (d3d8.dll is not a
   KnownDLL) reads its back buffer and logs its file opens (`tools/harness/run_reference.py`).
+  Put its options before the subcommand: `run_reference.py --frames 1,30 run -- -resx 800`.
+* **VIDTEST's look depends on library switches.** Without `Enable_Overbright_Modify_On_Load` the
+  models are dim (62.5% of frame 300 differs; about 3% with it). Ships appear only with the
+  PredictiveLODOptimizer running each frame. The overlay's texture animations start at a phase
+  set by the machine's uptime: not a bug. `-sync` has no visible effect when windowed. A
+  full-screen quad needs vertices (1,1), (1,-1), (-1,-1), (-1,1) and indices 0,2,1,0,3,2, or
+  it is culled.
