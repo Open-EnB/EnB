@@ -3,13 +3,23 @@ demand, leased to agents, stopped when idle.
 
     python pool.py list                          pool VMs: state, IP, lease, disk size
     python pool.py create [N]                    N new clones (next free numbers), left stopped
-    python pool.py lease --agent NAME [--count K]
-                                                 lease K VMs (stopped/free ones first, create if
-                                                 short), start them, wait for SSH and cl, print
+    python pool.py lease --agent NAME [--count K] [--holder-pid PID]
+                                                 lease K VMs (free ones first, create if short),
+                                                 start them, wait for SSH and cl, print
                                                  ENB_VC6_HOSTS=Daniel@ip,...
     python pool.py release --agent NAME | VM...  end leases (VMs keep running until stop-idle)
     python pool.py stop-idle [--minutes M]       shut down unleased VMs idle for M minutes (10)
+    python pool.py reclaim [--max-age H] [--prune [--keep K]]
+                                                 release orphaned leases, stop idle free VMs,
+                                                 report unsafe ones, optionally destroy spare
+                                                 stopped ones (also run by lease and create)
     python pool.py destroy VM... | --all-free    delete unleased pool VMs and their disks
+
+A lease records its holder: a long-lived process (--holder-pid, else $ENB_HOLDER_PID, else
+$CLAUDE_PID: the agent session's claude.exe; never the short-lived `python pool.py` itself) with
+its start time, the machine, $CLAUDE_CODE_SESSION_ID and the lease time. A lease is orphaned when
+that process is gone (or its pid now names a process started later) or the lease is older than
+--max-age hours (8).
 
 Use the printed line as the environment of vc6.py / importer.py:
     ENB_VC6_HOSTS=Daniel@172.x.x.x python tools/vc6/vc6.py check
@@ -44,8 +54,11 @@ SWITCH = 'Default Switch'
 STATE_DIR = os.path.join(REPO, '.work', 'pool')
 STATE = os.path.join(STATE_DIR, 'leases.json')
 LOCK = os.path.join(STATE_DIR, 'leases.lock')
-LOCK_STALE = 120                # seconds
+LOCK_STALE = 900                # seconds; a live holder may stop or create several VMs
 DEFAULT_MAX = 5                 # 32 GB host, 4 GB startup per VM, three non-pool VMs
+MAX_AGE = 8                     # hours after which any lease counts as orphaned
+KEEP = 2                        # free stopped VMs `--prune` keeps
+IDLE_MIN = 10                   # minutes a free running VM may idle before reclaim stops it
 
 
 # ---------------------------------------------------------------- PowerShell
@@ -134,14 +147,66 @@ def get_vm(name):
 # ---------------------------------------------------------------- state and lock
 
 def _pid_alive(pid):
+    """importer.py's test (8c0516a): os.kill(pid, 0) would terminate the process on Windows."""
     k = ctypes.windll.kernel32
-    h = k.OpenProcess(0x1000, False, pid)        # PROCESS_QUERY_LIMITED_INFORMATION
+    h = k.OpenProcess(0x1000, False, int(pid))   # PROCESS_QUERY_LIMITED_INFORMATION
     if not h:
-        return False
+        return ctypes.GetLastError() == 5         # access denied: it exists
     code = ctypes.c_ulong()
     ok = k.GetExitCodeProcess(h, ctypes.byref(code))
     k.CloseHandle(h)
-    return bool(ok) and code.value == 259         # STILL_ACTIVE
+    return not ok or code.value == 259            # STILL_ACTIVE
+
+
+def _pid_started(pid):
+    """The process's creation time (FILETIME ticks), or None if it can't be read."""
+    k = ctypes.windll.kernel32
+    h = k.OpenProcess(0x1000, False, int(pid))
+    if not h:
+        return None
+    t = [ctypes.c_ulonglong() for _ in range(4)]
+    ok = k.GetProcessTimes(h, *[ctypes.byref(x) for x in t])
+    k.CloseHandle(h)
+    return t[0].value if ok else None
+
+
+def holder(pid_arg):
+    """What a new lease records about its holder (see the module docstring)."""
+    import socket
+    src, pid = None, None
+    for s, v in (('--holder-pid', pid_arg), ('ENB_HOLDER_PID', os.environ.get('ENB_HOLDER_PID')),
+                 ('CLAUDE_PID', os.environ.get('CLAUDE_PID'))):
+        if v:
+            src, pid = s, int(v)
+            break
+    if pid is not None and not _pid_alive(pid):
+        raise SystemExit(f'holder pid {pid} (from {src}) is not running')
+    if pid is None:
+        print('pool: no --holder-pid, ENB_HOLDER_PID or CLAUDE_PID: this lease expires only by age',
+              file=sys.stderr)
+    return {'holder_pid': pid, 'holder_src': src, 'holder_start': _pid_started(pid) if pid else None,
+            'machine': socket.gethostname(), 'session': os.environ.get('CLAUDE_CODE_SESSION_ID'),
+            'lease_pid': os.getpid(), 'lease_time': time.time()}
+
+
+def orphaned(s, max_age):
+    """Why lease s has no holder any more, or None."""
+    import socket
+    if not s.get('agent'):
+        return None
+    t = s.get('lease_time')
+    if t is None and s.get('since'):           # leases from before holders were recorded
+        t = time.time() - ago(s['since'])
+    if t is not None and time.time() - t > max_age * 3600:
+        return f'older than {max_age:g} h'
+    pid = s.get('holder_pid')
+    if pid and s.get('machine') == socket.gethostname():
+        if not _pid_alive(pid):
+            return f'holder pid {pid} is gone'
+        st = _pid_started(pid)
+        if s.get('holder_start') and st and st != s['holder_start']:
+            return f'holder pid {pid} now names another process'
+    return None
 
 
 class Lock:
@@ -150,7 +215,7 @@ class Lock:
 
     def __enter__(self):
         os.makedirs(STATE_DIR, exist_ok=True)
-        deadline = time.time() + 300
+        deadline = time.time() + LOCK_STALE
         while True:
             try:
                 fd = os.open(LOCK, os.O_CREAT | os.O_EXCL | os.O_WRONLY)
@@ -292,6 +357,69 @@ def reset_sync_cache(ip):
     vc6.reset_sync_cache()
 
 
+def idle_secs(v, s):
+    idle = ago(s['released']) if s.get('released') else v['Uptime']
+    return min(idle, v['Uptime'])
+
+
+def destroy_vm(v, state):
+    """Delete pool VM v (unleased, checked) and its disk. Call with the lock held."""
+    n = v['Name']
+    checked(v)
+    disk = v['Disks'][0]['Path']
+    stop_vm(n, hard=True)
+    ps(f'Remove-VM -Name {q(n)} -Force')
+    os.remove(disk)          # checked() proved it is a differencing child in POOL_DIR
+    cfg = os.path.join(POOL_DIR, n)
+    if os.path.isdir(cfg) and same(os.path.dirname(cfg), POOL_DIR):
+        import shutil
+        shutil.rmtree(cfg, ignore_errors=True)
+    state.pop(n, None)
+    print(f'destroyed {n}')
+
+
+def release_orphans(state, max_age):
+    """End leases whose holder is gone (orphaned()). Call with the lock held; saves."""
+    for n, s in list(state.items()):
+        why = orphaned(s, max_age)
+        if why:
+            print(f"reclaim: releasing {n} (leased by {s['agent']} since {s.get('since')}): {why}",
+                  file=sys.stderr)
+            state[n] = {'agent': None, 'released': now(), 'reclaimed': why}
+    save(state)
+
+
+def tidy(state, idle_min, keep=None, exclude=()):
+    """Among free pool VMs not in exclude: report unsafe ones (never touched), stop running ones
+    idle for idle_min minutes, and with keep set destroy stopped ones beyond the keep
+    lowest-numbered. Free entries of VMs that no longer exist are dropped. Call with the lock
+    held; saves."""
+    vms = pool_vms()
+    have = {v['Name'] for v in vms}
+    for n in [n for n, s in state.items() if n not in have and not s.get('agent')]:
+        del state[n]
+    for v in vms:
+        s = state.get(v['Name'], {})
+        if s.get('agent'):
+            continue
+        why = safety(v)
+        if why:
+            print(f"reclaim: {v['Name']} is free but NOT SAFE, left alone: {why}", file=sys.stderr)
+            continue
+        if v['Name'] in exclude or v['State'] != 'Running':
+            continue
+        idle = idle_secs(v, s)
+        if idle >= idle_min * 60:
+            print(f"reclaim: stopping {v['Name']} (free, idle {idle / 60:.0f} min)", file=sys.stderr)
+            stop_vm(v['Name'])
+    if keep is not None:
+        spare = [v for v in pool_vms() if v['State'] == 'Off' and v['Name'] not in exclude
+                 and not state.get(v['Name'], {}).get('agent') and not safety(v)]
+        for v in spare[keep:]:
+            destroy_vm(v, state)
+    save(state)
+
+
 # ---------------------------------------------------------------- commands
 
 def cmd_list(a):
@@ -302,6 +430,8 @@ def cmd_list(a):
     for v in vms:
         s = state.get(v['Name'], {})
         lease = f"leased by {s['agent']} since {s['since']}" if s.get('agent') else 'free'
+        if s.get('agent'):
+            lease += f" (holder pid {s['holder_pid']})" if s.get('holder_pid') else ' (no holder pid)'
         size = sum(d['Size'] for d in v['Disks']) / 2**30
         why = safety(v)
         print(f"{v['Name']}  {v['State']:<8} {ipv4(v) or '-':<16} {lease:<48} disk {size:5.2f} GB"
@@ -310,12 +440,27 @@ def cmd_list(a):
 
 def cmd_create(a):
     with Lock():
+        state = load()
+        release_orphans(state, a.max_age)
+        tidy(state, a.idle_minutes, a.keep if a.prune else None)
+        spare = [v['Name'] for v in pool_vms() if not state.get(v['Name'], {}).get('agent') and not safety(v)]
+        if spare:
+            print(f"note: free VMs exist ({', '.join(spare)}); lease reuses them before creating", file=sys.stderr)
         create(a.n, a.max)
 
 
-def cmd_lease(a):
+def cmd_reclaim(a):
     with Lock():
         state = load()
+        release_orphans(state, a.max_age)
+        tidy(state, a.idle_minutes, a.keep if a.prune else None)
+
+
+def cmd_lease(a):
+    who = holder(a.holder_pid)
+    with Lock():
+        state = load()
+        release_orphans(state, a.max_age)
         vms = pool_vms()
         free = [v for v in vms if not state.get(v['Name'], {}).get('agent') and not safety(v)]
         # running free VMs first (no boot), then stopped ones
@@ -324,8 +469,9 @@ def cmd_lease(a):
         if len(names) < a.count:
             names += create(a.count - len(names), a.max)
         for n in names:
-            state[n] = {'agent': a.agent, 'since': now()}
+            state[n] = dict(who, agent=a.agent, since=now())
         save(state)
+        tidy(state, a.idle_minutes, a.keep if a.prune else None, exclude=names)
     try:
         for n in names:
             start_vm(n)
@@ -370,8 +516,7 @@ def cmd_stop_idle(a):
             s = state.get(v['Name'], {})
             if v['State'] != 'Running' or s.get('agent') or safety(v):
                 continue
-            idle = ago(s['released']) if s.get('released') else v['Uptime']
-            idle = min(idle, v['Uptime'])
+            idle = idle_secs(v, s)
             if idle >= a.minutes * 60:
                 print(f"stopping {v['Name']} (idle {idle / 60:.0f} min)")
                 stop_vm(v['Name'])
@@ -392,16 +537,7 @@ def cmd_destroy(a):
                 raise SystemExit(f'{n} is leased by {state[n]["agent"]}: release it first')
             checked(vms[n])
         for n in names:
-            disk = vms[n]['Disks'][0]['Path']
-            stop_vm(n, hard=True)
-            ps(f'Remove-VM -Name {q(n)} -Force')
-            os.remove(disk)          # checked() proved it is a differencing child in POOL_DIR
-            cfg = os.path.join(POOL_DIR, n)
-            if os.path.isdir(cfg) and same(os.path.dirname(cfg), POOL_DIR):
-                import shutil
-                shutil.rmtree(cfg, ignore_errors=True)
-            state.pop(n, None)
-            print(f'destroyed {n}')
+            destroy_vm(vms[n], state)
         save(state)
 
 
@@ -412,11 +548,19 @@ def main():
     c = sub.add_parser('create')
     c.add_argument('n', nargs='?', type=int, default=1)
     c.add_argument('--max', type=int, default=DEFAULT_MAX)
+    rc = sub.add_parser('reclaim')
     le = sub.add_parser('lease')
     le.add_argument('--agent', required=True)
     le.add_argument('--count', type=int, default=1)
     le.add_argument('--max', type=int, default=DEFAULT_MAX)
     le.add_argument('--timeout', type=int, default=600, help='seconds to wait for each VM')
+    le.add_argument('--holder-pid', type=int,
+                    help='long-lived process whose exit orphans the lease (default $ENB_HOLDER_PID, $CLAUDE_PID)')
+    for x in (c, rc, le):
+        x.add_argument('--max-age', type=float, default=MAX_AGE, help='hours after which a lease is orphaned')
+        x.add_argument('--idle-minutes', type=float, default=IDLE_MIN, help='stop free VMs idle this long')
+        x.add_argument('--prune', action='store_true', help='destroy free stopped VMs beyond --keep')
+        x.add_argument('--keep', type=int, default=KEEP)
     r = sub.add_parser('release')
     r.add_argument('--agent')
     r.add_argument('vms', nargs='*')
@@ -431,7 +575,7 @@ def main():
     if a.cmd == 'destroy' and bool(a.vms) == a.all_free:
         ap.error('destroy needs VM names or --all-free (not both)')
     {'list': cmd_list, 'create': cmd_create, 'lease': cmd_lease, 'release': cmd_release,
-     'stop-idle': cmd_stop_idle, 'destroy': cmd_destroy}[a.cmd](a)
+     'stop-idle': cmd_stop_idle, 'destroy': cmd_destroy, 'reclaim': cmd_reclaim}[a.cmd](a)
 
 
 if __name__ == '__main__':

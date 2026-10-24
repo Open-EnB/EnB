@@ -75,6 +75,7 @@ action is shut down.
     ENB_VC6_HOSTS=Daniel@ip python tools/vc6/vc6.py compile ...
     python tools/vc6/pool.py release --agent NAME
     python tools/vc6/pool.py stop-idle [--minutes 10]        # shut down unleased idle VMs
+    python tools/vc6/pool.py reclaim [--max-age 8] [--prune [--keep 2]]
     python tools/vc6/pool.py list | create [N] | destroy VM... | destroy --all-free
 
 `lease` reuses free VMs (running ones first), creates clones when short (cap `--max`, default 5),
@@ -82,14 +83,36 @@ starts them, waits for the address (Hyper-V's KVP), SSH with the key and `cl`, a
 vc6.py's sync cache for that IP, so the first compile sends the tree (each leasee syncs its own;
 no warm cache, user decision). The host key of a pool IP is accepted on first sight
 (`accept-new`). Leases are by agent name in `.work/pool/leases.json` (lock `leases.lock`,
-taken over when its process is dead or it is older than 2 minutes); they don't expire, so
-`list` shows who holds what. Every start, stop or delete checks the name prefix and that the
+taken over when its process is dead or it is older than 15 minutes, as a live holder may stop
+or create several VMs under it).
+
+**Orphans (user decision 2026-10-24).** Sessions release their VMs in the handoff skill
+(`release --agent NAME`, then `stop-idle --minutes 0`). For sessions that never hand off, each
+lease records its holder: a long-lived pid with its start time, the machine, the Claude Code
+session id (`CLAUDE_CODE_SESSION_ID`) and the lease time. The holder is `--holder-pid`, else
+`$ENB_HOLDER_PID`, else `$CLAUDE_PID` (Claude Code's `claude.exe`, set in every agent shell); not
+the `python pool.py lease` process, which exits at once, nor its parent shell, which Claude Code
+starts per command. Subagents share the session's `claude.exe`, so a subagent's lease outlives
+the subagent until its release, the session's exit or the age limit. A lease is orphaned when
+the holder pid is gone, names a process started later (pid reuse), or the lease is older than
+`--max-age` hours (8; also the only test for leases without a holder pid). `reclaim`, which
+`lease` and `create` run first, releases orphaned leases; reports free VMs that fail the safety
+check and never touches them; stops free running VMs idle `--idle-minutes` (10; `lease` spares
+the ones it just took); with `--prune` destroys free stopped VMs beyond the `--keep`
+lowest-numbered (2); and drops free entries of VMs that no longer exist. `lease` then reuses
+free VMs, running ones first, stopped ones next, before creating any clone. `list` shows who
+holds what and the holder pid. Every start, stop or delete checks the name prefix and that the
 VM's only disk is a differencing child of the base in `Tools\VMPool`, and `destroy` refuses
 leased VMs. The pool never touches `.work/vc6_hosts.json` or vc6.py's defaults.
 
 Measured (2026-10-24, `enb-vc6-01`): creating a clone 16 s; `lease` of a stopped clone, start
 to SSH and `cl` answering, 20 s; a compile stamps `@comp.id` build 8799; the differencing disk
-is 2.2 GB after first boot and a compile (2.17 GB of it from the first boot).
+is 2.2 GB after first boot and a compile (2.17 GB of it from the first boot). Tested (2026-10-24): `reclaim` released fake leases whose holder pid had exited, whose pid
+had a different start time, and one 10 h old, and kept one held by the live `claude.exe`;
+`lease` then reused the stopped `enb-vc6-01` (SSH and `cl` in 6 s) with `$CLAUDE_PID` as holder;
+`reclaim --idle-minutes 0` and `stop-idle --minutes 0` each stopped it once released;
+`create 2` made `enb-vc6-02`/`03`, `reclaim --prune` destroyed `03` (keep 2) and `destroy
+enb-vc6-02` the other, VM, disk and config folder each gone, non-pool VMs untouched.
 
 ## 2. Third-party SDKs (D5)
 

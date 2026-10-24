@@ -17,7 +17,10 @@ prepare the handoff and tell the user to run `/clear` (or start a new session).
 2. **Collect facts, don't recall them.** Run `git status --short`, `git log --oneline -15`,
    and `git diff --stat`. List uncommitted work explicitly. Never claim something was
    committed, built or tested unless a command in this session showed it.
-3. **Write the handoff** (keep it under about 60 lines; prefer links to prose):
+3. **Release VMs this session leased.** Run `python tools/vc6/pool.py release --agent <name>`
+   for each agent name this session leased under, then `python tools/vc6/pool.py stop-idle
+   --minutes 0`. Run `python tools/vc6/pool.py list` and report any VM still leased (by whom).
+4. **Write the handoff** (keep it under about 60 lines; prefer links to prose):
    - **Done**: what changed, with commit hashes or file paths.
    - **Verified vs not**: separate "tested live by the user", "tests/build pass", and
      "written but not run". The user does the live testing; say what is waiting on them.
@@ -28,9 +31,9 @@ prepare the handoff and tell the user to run `/clear` (or start a new session).
    - **Traps found**: anything that cost time this session (also add to the repo's
      known-traps doc if it has one).
    - **State outside git**: scratch files, VM addresses, running processes, captures.
-4. **Don't duplicate.** If a fact already lives in a design doc, link to its section.
+5. **Don't duplicate.** If a fact already lives in a design doc, link to its section.
    Update milestone/status tables in place instead of restating them.
-5. **Report to the user** in five lines or fewer: what you wrote and where, what is
+6. **Report to the user** in five lines or fewer: what you wrote and where, what is
    uncommitted, and the single prompt to paste into the new session, e.g.
    `Read CLAUDE.md and the handoff, then continue with <next step>.`
-6. Ask before committing the handoff file(s). Never push.
+7. Ask before committing the handoff file(s). Never push.
