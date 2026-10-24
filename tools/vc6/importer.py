@@ -857,6 +857,12 @@ TEXTURE_API_PATCHES = {
         ('\tPriority\t\t\t(PRIORITY_LOW),\n\tState\t\t\t\t(STATE_NONE)\n{\n',
          '\tPriority\t\t\t(PRIORITY_LOW),\n\tState\t\t\t\t(STATE_NONE),\n\tHSVShift\t\t\t(0.0f,0.0f,0.0f)\t\n{\n',
          "Zero Hour's TextureLoadTaskClass constructor zeroes HSVShift (+0x28..+0x30): inlined in TextureLoadTaskClass::Create 0x94A120"),
+        ('\tconst char* filename,\n',
+         '\tconst StringClass& filename,\n',
+         "Get_Texture_Information takes the texture's path as a const StringClass & (0x94A890 passes it on to Peek_Thumbnail_Instance_From_Any_Manager; Begin_Compressed_Load 0x94A6F0 and Begin_Uncompressed_Load 0x94AA80 push the string's address); Begin_Uncompressed_Load takes the already valid dest_format when Format is unknown (0x94AB03). The out-of-line StringClass::operator= copy (0x48CA70) this file emitted is still matched in 18 other files"),
+        ('\t\tFormat = Get_Valid_Texture_Format(dest_format, false);\n',
+         '\t\tFormat = dest_format;\n',
+         "Get_Texture_Information takes the texture's path as a const StringClass & (0x94A890 passes it on to Peek_Thumbnail_Instance_From_Any_Manager; Begin_Compressed_Load 0x94A6F0 and Begin_Uncompressed_Load 0x94AA80 push the string's address); Begin_Uncompressed_Load takes the already valid dest_format when Format is unknown (0x94AB03). The out-of-line StringClass::operator= copy (0x48CA70) this file emitted is still matched in 18 other files"),
     ],
     ('ww3d2', 'ddsfile.h'): [
         ('\t\tunsigned dest_pitch);',

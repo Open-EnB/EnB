@@ -1217,7 +1217,7 @@ void TextureLoadTaskClass::Apply(bool initialize)
 }
 
 static bool	Get_Texture_Information(
-	const char* filename,
+	const StringClass& filename,
 	unsigned reduction,
 	unsigned& w,
 	unsigned& h,
@@ -1380,7 +1380,7 @@ bool TextureLoadTaskClass::Begin_Uncompressed_Load(void)
 	Height	= height;
 
 	if (Format == WW3D_FORMAT_UNKNOWN) {
-		Format = Get_Valid_Texture_Format(dest_format, false);
+		Format = dest_format;
 	} else {
 		Format = Get_Valid_Texture_Format(Format, false);
 	}
