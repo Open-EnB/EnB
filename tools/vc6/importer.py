@@ -3031,6 +3031,14 @@ RECONSTRUCTED = {
                                       "0x4AD460, 0x4AD9F0",
     ('app', 'shared/auxdata/lookup.h'): "LookupClass (D24), only what delta.cpp uses: ctor 0x4AC250, a vector at +0 "
                                         "and a map at +0x10 (size 0x20), element types placeholders",
+    ('app', 'shared/auxdata/delta_money.cpp'): "the money field's Read 0x4A7470 and Write 0x4A74F0 "
+                                               "(DeltaTemplateClass<MoneyClass> specialisations), asserts on "
+                                               "the client's lines 69 and 86 (D25)",
+    ('app', 'shared/auxdata/delta_template.h'): "DeltaTemplateClass<T> (D24), only what delta_money.cpp uses: "
+                                                "Read/Write (slots 0x2C/0x30) and the value after DeltaClass",
+    ('app', 'shared/auxdata/linearbu.h'): "LinearBufferClass (D24), only what the delta files use: Read "
+                                          "0x4AACE0, Write 0x4AAFC0",
+    ('app', 'shared/money.h'): "MoneyClass (D24), only what delta_money.cpp uses: 8 bytes, 8-aligned",
 }
 
 # Text appended to imported files (after everything, so no existing line moves).

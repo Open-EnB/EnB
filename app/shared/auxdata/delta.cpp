@@ -46,9 +46,9 @@ DeltaCompoundClass *DeltaClass::As_Compound()
 	return 0;
 }
 
-bool DeltaClass::Unknown_10(int a, int b)
+bool DeltaClass::Unknown_10(LinearBufferClass &buf, int b)
 {
-	if (!Unknown_2C(a, b)) {
+	if (!Read(buf, b)) {
 		return false;
 	}
 	Unknown_3C(this);
@@ -56,10 +56,10 @@ bool DeltaClass::Unknown_10(int a, int b)
 }
 
 
-bool DeltaClass::Unknown_0C(int a)
+bool DeltaClass::Unknown_0C(LinearBufferClass &buf)
 {
 	Unknown_38(this);
-	if (Unknown_30(a)) {
+	if (Write(buf)) {
 		return true;
 	}
 	return false;
@@ -154,14 +154,14 @@ void DeltaCompoundClass::Set_Parent(DeltaClass *parent, int slot, int &index)
 }
 
 
-bool DeltaCompoundClass::Unknown_0C(int a)
+bool DeltaCompoundClass::Unknown_0C(LinearBufferClass &buf)
 {
-	if (!DeltaClass::Unknown_0C(a)) {
+	if (!DeltaClass::Unknown_0C(buf)) {
 		return false;
 	}
 	int count = Children.size();
 	for (int i = 0; i < count; i++) {
-		if (!Children[i]->Unknown_0C(a)) {
+		if (!Children[i]->Unknown_0C(buf)) {
 			return false;
 		}
 	}
@@ -169,14 +169,14 @@ bool DeltaCompoundClass::Unknown_0C(int a)
 }
 
 
-bool DeltaCompoundClass::Unknown_10(int a, int b)
+bool DeltaCompoundClass::Unknown_10(LinearBufferClass &buf, int b)
 {
-	if (!DeltaClass::Unknown_10(a, b)) {
+	if (!DeltaClass::Unknown_10(buf, b)) {
 		return false;
 	}
 	int count = Children.size();
 	for (int i = 0; i < count; i++) {
-		if (!Children[i]->Unknown_10(a, b)) {
+		if (!Children[i]->Unknown_10(buf, b)) {
 			return false;
 		}
 	}
