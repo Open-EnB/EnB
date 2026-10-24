@@ -2660,6 +2660,32 @@ MAPPER_PATCHES = {
 for _key, _edits in MAPPER_PATCHES.items():
     PATCHES.setdefault(_key, []).extend(_edits)
 # end of MAPPER_PATCHES
+# Zero Hour's dx8webbrowser.cpp (header 'Earth And Beyond', Darren Schueller) with E&B's BrowserEngine.dll
+# interface: the generated type library headers instead of the #import, and E&B's edits (item 6k, proposal PW option A)
+WEBBROWSER_PATCHES = {
+    ('ww3d2', 'dx8webbrowser.cpp'): [
+        ('#import "..\\..\\..\\..\\..\\run\\BrowserEngine.DLL" no_namespace\n',
+         '// EnB import: the type library of E&B\'s own release\\BrowserEngine.dll (sha256\n// 1b14db3c347a8bcd35f5548a8e360874f702ffc1379ec30fb6e5e7a7b99f2efb, not in the repository), as VC6 generates it from\n//#import "BrowserEngine.DLL" no_namespace\n#include "BrowserEngine.tlh"\n',
+         "the #import of BrowserEngine.DLL becomes an #include of the headers VC6 generates from E&B's own release\\BrowserEngine.dll (sha256 1b14db3c...): the client's DX8WebBrowser functions 0x920230-0x920C20 use its interface (IFEBrowserEngine2 GUID ee883b17-0778-4b18-a12b-e44c0d298412)"),
+        ('int updateticks, LONG options, LPDISPATCH gamedispatch)\n{',
+         'int updateticks, LONG options, LPDISPATCH gamedispatch, const char* querydata)\n{',
+         "DX8WebBrowser::CreateBrowser (0x9205C0) takes a tenth argument, passed as the last BSTR of E&B's IFEBrowserEngine2::CreateBrowser (querydata in E&B's type library)"),
+        ('\t\t_bstr_t brsname(browsername);\n\t\tpBrowser->CreateBrowser(brsname, _bstr_t(url), reinterpret_cast<long>(hWnd), x, y, w, h, options, gamedispatch);\n',
+         '\t\t_bstr_t brsname(browsername);\n\t\tif(querydata == 0)\n\t\t\tquerydata = "";\n\t\t_bstr_t qdata(querydata);\n\t\tpBrowser->CreateBrowser(brsname, _bstr_t(url), reinterpret_cast<long>(hWnd), x, y, w, h, options, gamedispatch, qdata);\n',
+         'DX8WebBrowser::CreateBrowser (0x9205C0) replaces a NULL tenth argument with "" (0xBDA908) and builds a named _bstr_t of it (inline ctor, copied by value into the call) before the url temporary'),
+        ('\t\t// Create an instance of the browser control\n\t\tHRESULT hr = pBrowser.CreateInstance(__uuidof(FEBrowserEngine2));\n\n\t\tif(hr == REGDB_E_CLASSNOTREG)\n\t\t{\n\t\t\tHMODULE lib = ::LoadLibrary("BrowserEngine.DLL");\n\t\t\tif(lib)\n\t\t\t{\n\t\t\t\tFARPROC proc = ::GetProcAddress(lib,"DllRegisterServer");\n\t\t\t\tif(proc)\n\t\t\t\t{\n\t\t\t\t\tproc();\n\t\t\t\t\t// Create an instance of the browser control\n\t\t\t\t\thr = pBrowser.CreateInstance(__uuidof(FEBrowserEngine2));\n\t\t\t\t}\n\t\t\t\tFreeLibrary(lib);\n\t\t\t}\n\t\t}\n',
+         '\t\tHRESULT hr = S_FALSE;\n\t\tHMODULE lib = ::LoadLibrary("BrowserEngine.DLL");\n\t\tif(lib)\n\t\t{\n\t\t\tFARPROC proc = ::GetProcAddress(lib,"DllRegisterServer");\n\t\t\tif(proc)\n\t\t\t{\n\t\t\t\tproc();\n\t\t\t\t// Create an instance of the browser control\n\t\t\t\thr = pBrowser.CreateInstance(__uuidof(FEBrowserEngine2));\n\t\t\t}\n\t\t\tFreeLibrary(lib);\n\t\t}\n',
+         'DX8WebBrowser::Initialize (0x920240) loads BrowserEngine.DLL and calls its DllRegisterServer every time, with no first CreateInstance: hr starts as S_FALSE (1) and only the CreateInstance after the registration sets it'),
+    ],
+    ('ww3d2', 'dx8webbrowser.h'): [
+        ('LPDISPATCH gamedispatch = 0);',
+         'LPDISPATCH gamedispatch = 0, const char* querydata = 0);',
+         "DX8WebBrowser::CreateBrowser (0x9205C0) takes a tenth argument (querydata, after E&B's type library)"),
+    ],
+}
+for _key, _edits in WEBBROWSER_PATCHES.items():
+    PATCHES.setdefault(_key, []).extend(_edits)
+# end of WEBBROWSER_PATCHES
 # Files reconstructed by us from the client (no EA copy matches): `assemble` keeps the repository's
 # version, and refine leaves them alone. Each entry: (library, file) -> what was done.
 RECONSTRUCTED = {
@@ -2672,6 +2698,11 @@ RECONSTRUCTED = {
                                          "dx8texman.cpp and boxrobj.cpp), written from the client: the per-frame list, "
                                          "the distortion render object and the ripple function; names neutral (D10)",
     ('ww3d2', 'unknown_distortion.h'): "its classes (D19, D10)",
+    ('ww3d2', 'BrowserEngine.tlh'): "VC6's #import output for E&B's own release\\BrowserEngine.dll "
+                                    "(sha256 1b14db3c...; not in the repository), included by "
+                                    "dx8webbrowser.cpp instead of the #import; E&B's interface has "
+                                    "CreateBrowser's querydata and Zero Hour's lacks it",
+    ('ww3d2', 'BrowserEngine.tli'): "the inline wrappers generated with BrowserEngine.tlh",
 }
 
 # Text appended to imported files (after everything, so no existing line moves).

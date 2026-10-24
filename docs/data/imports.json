@@ -1247,6 +1247,36 @@
     "merged": [],
     "name": "dx8vertexbuffer.cpp"
    },
+   "dx8webbrowser": {
+    "best": "Z",
+    "copy": "Z",
+    "expected": {},
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x7E0560",
+     "0x7E05B0",
+     "0x920230",
+     "0x920240",
+     "0x920510",
+     "0x920560",
+     "0x920590",
+     "0x9205C0",
+     "0x920770",
+     "0x920790",
+     "0x9207F0",
+     "0x920910",
+     "0x920990",
+     "0x920A10",
+     "0x920A80",
+     "0x920B10",
+     "0x920B90",
+     "0x920C20",
+     "0x920D00"
+    ],
+    "merged": [],
+    "name": "dx8webbrowser.cpp"
+   },
    "dx8wrapper": {
     "best": "Z",
     "copy": "R",
@@ -4634,6 +4664,8 @@
    }
   },
   "headers": {
+   "BrowserEngine.tlh": "reconstructed",
+   "BrowserEngine.tli": "reconstructed",
    "aabtree.h": "Z",
    "aabtreebuilder.h": "Z",
    "agg_def.h": "R",
@@ -4767,7 +4799,7 @@
    "ww3dids.h": "R",
    "ww3dtrig.h": "R"
   },
-  "in_tree_total": 2451,
+  "in_tree_total": 2470,
   "totals": {
    "G": 548,
    "R": 1323,

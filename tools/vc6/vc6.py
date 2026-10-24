@@ -61,7 +61,7 @@ KEY = os.path.expanduser(os.environ.get('ENB_VC6_KEY', '~/.ssh/enb_vc6'))
 VCVARS = r'C:\Program Files (x86)\Microsoft Visual Studio\VC98\Bin\VCVARS32.BAT'
 ROOT = r'C:\EnBDevelopment'
 WORK = ROOT + r'\_vc6'          # scratch area in the VM (and the tar drop)
-SOURCE_EXT = ('.c', '.cpp', '.h', '.hpp', '.inl', '.inc', '.asm', '.def', '.rc')
+SOURCE_EXT = ('.c', '.cpp', '.h', '.hpp', '.inl', '.inc', '.asm', '.def', '.rc', '.tlh', '.tli')
 
 # The flags the client's libraries were built with: Renegade's release configuration (static CRT,
 # no /GX, no /G6). Proven by byte matching (docs/library-matching.md 3.5). Override with --flags.
