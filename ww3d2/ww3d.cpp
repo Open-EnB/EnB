@@ -1803,20 +1803,9 @@ void WW3D::Release_Debug_Resources(void)
 
 WW3DErrorType WW3D::On_Deactivate_App(void)
 {
-#ifdef WW3D_DX8
-	assert(!IsRendering);
+	_Invalidate_Textures();
+	_Invalidate_Mesh_Cache();
 
-	if ( Gerd == NULL )
-		return WW3D_ERROR_OK;
-
-	if ( IsWindowed )
-		return WW3D_ERROR_OK;
-
-	if ( !Gerd->isWindowOpen() )
-		return WW3D_ERROR_OK;
-
-	Gerd->closeWindow();
-#endif //WW3D_DX8
 	return WW3D_ERROR_OK;
 }
 

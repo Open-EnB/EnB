@@ -453,6 +453,9 @@ void MeshModelClass::Enable_Alternate_Material_Description(bool onoff)
 			
 			if (Get_Flag(SORT) && WW3D::Is_Munge_Sort_On_Load_Enabled())
 				compute_static_sort_levels();
+
+			if (WW3D::Is_Overbright_Modify_On_Load_Enabled())
+				modify_for_overbright();
 			
 			// TODO: Invalidate just this meshes DX8 data!!!
 			TheDX8MeshRenderer.Invalidate();
@@ -463,6 +466,9 @@ void MeshModelClass::Enable_Alternate_Material_Description(bool onoff)
 
 			if (Get_Flag(SORT) && WW3D::Is_Munge_Sort_On_Load_Enabled())
 				compute_static_sort_levels();
+
+			if (WW3D::Is_Overbright_Modify_On_Load_Enabled())
+				modify_for_overbright();
 
 			// TODO: Invalidate this meshes DX8 data!!!
 			TheDX8MeshRenderer.Invalidate();
