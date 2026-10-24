@@ -385,11 +385,12 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 | D12 | 2026-10-23 | Compile each library with the flags E&B used, wherever byte evidence shows them (wwshade: `/GX /Ob1`; importer `LIB_FLAGS`, `bytematch_all.sh` `LIBFLAGS`) | user: "match how E&B built things whenever you have evidence to support it" |
 | D13 | 2026-10-23 | EA files the client does not link are dropped from the tree (importer `NOT_LINKED`, with the evidence): first `shdlegacyw3d.cpp`/`.h`; then WWAudio's `AudioSaveLoad.cpp`/`.h` (2026-10-23) | user |
 | D14 | 2026-10-23 | `ENABLE_WWPROFILE` in WWDebug too, although its bytes are neutral (verify: 67 before and after, none lost): consistent with a project-wide define. Soft: drop it if it ever costs a match | user |
+| D15 | 2026-10-23 | `G_CODE_BASE` in WWAudio stays an importer patch removing its two `#ifdef`s, not a `/D` in `LIB_FLAGS` (same bytes) | user: only `WWAudio.cpp` uses it, so the bytes can't show a project-wide define |
+| D16 | 2026-10-23 | E&B members whose use is now rebuilt (`m_Unknown148`, `m_Unknown164/168/16C`, `m_Unknown19A5/19A6`, ...) keep their D10 names, with the comments in the headers, until the app code shows E&B's names | user |
+| D17 | 2026-10-23 | The two wwshade `"UnNamed"` constructors are left as near-misses; revisit only on new evidence | user |
 
 ## 3. Open decisions
 
-* `G_CODE_BASE` in WWAudio: a patch removing its two `#ifdef`s (now) or `/D G_CODE_BASE` in `LIB_FLAGS`; same bytes. Recommendation: keep the patch (2026-10-23 entry).
-* Renaming E&B members whose use is now rebuilt (`m_Unknown148`, `m_Unknown164/168/16C`, `m_Unknown19A5/19A6`, ...; D10). Recommendation: keep the neutral names until the app code shows E&B's.
 * (D7 is to be revisited with the user if byte-exactness of E&B's code becomes too costly.)
 
 ## 4. Next steps
@@ -397,7 +398,7 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 1. D9 continued: the texture near-misses (`TextureClass` constructors, `Init`, `Apply`,
    `Get_Reduction`; `DX8Wrapper`'s device code) and the other WW3D2 near-misses
    (docs/data/gaps-ww3d2, regenerate first). wwshade: 138 in the tree, left only the two
-   `"UnNamed"` constructors (open question) and an inline `Set_DX8_Texture_Stage_State` copy.
+   `"UnNamed"` constructors (left, D17) and an inline `Set_DX8_Texture_Stage_State` copy.
    WWAudio done (0 gaps, 2026-10-23).
 2. `meshmatdesc.cpp`'s inlining flip (an app-region helper at 0x4E9CB0 that VC6 now inlines).
 3. E&B's own code (D6, D7): first the per-file workflow script ([app-plan.md](app-plan.md) §2),
