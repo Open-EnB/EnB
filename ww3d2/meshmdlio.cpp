@@ -1745,6 +1745,7 @@ void MeshModelClass::compute_static_sort_levels(void)
 		SSCAT_OPAQUE_BF		= (1 << ShaderClass::SSCAT_OPAQUE),
 		SSCAT_ALPHA_TEST_BF	= (1 << ShaderClass::SSCAT_ALPHA_TEST),
 		SSCAT_ADDITIVE_BF		= (1 << ShaderClass::SSCAT_ADDITIVE),
+		SSCAT_SCREEN_BF		= (1 << ShaderClass::SSCAT_SCREEN),
 		SSCAT_OTHER_BF			= (1 << ShaderClass::SSCAT_OTHER)
 	};
 
@@ -1763,7 +1764,7 @@ void MeshModelClass::compute_static_sort_levels(void)
 		SortLevel = SORT_LEVEL_BIN3;
 		break;
 
-	case (SSCAT_ADDITIVE_BF | SSCAT_ALPHA_TEST_BF):
+	case SSCAT_SCREEN_BF:
 		SortLevel = SORT_LEVEL_BIN2;
 		break;
 		

@@ -445,8 +445,6 @@ public:
 	virtual bool					Save (ChunkSaveClass &csave);
 	virtual bool					Load (ChunkLoadClass &cload);
 
-	void								Save_User_Lighting (ChunkSaveClass & csave);
-	void								Load_User_Lighting (ChunkLoadClass & cload);
 
 protected:
 
@@ -459,8 +457,6 @@ protected:
 	void								Invalidate_Cached_Bounding_Volumes(void) const						{ Bits &= ~BOUNDING_VOLUMES_VALID; }
 	void								Validate_Cached_Bounding_Volumes(void)	const							{ Bits |= BOUNDING_VOLUMES_VALID; }
 
-	void								Save_Sub_Object_User_Lighting(ChunkSaveClass & csave,RenderObjClass * sub_obj,int bone_index);
-	void								Load_Sub_Object_User_Lighting(ChunkLoadClass & cload);
 
 
 	enum 

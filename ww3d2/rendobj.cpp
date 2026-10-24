@@ -1164,7 +1164,6 @@ class RenderObjPersistFactoryClass : public PersistFactoryClass
 	enum 
 	{
 		RENDOBJFACTORY_CHUNKID_VARIABLES		= 0x00555040,
-		RENDOBJFACTORY_CHUNKID_USERLIGHTING,
 
 		RENDOBJFACTORY_VARIABLE_OBJPOINTER	= 0x00,
 		RENDOBJFACTORY_VARIABLE_NAME,
@@ -1182,7 +1181,6 @@ uint32 RenderObjPersistFactoryClass::Chunk_ID(void) const
 PersistClass *	RenderObjPersistFactoryClass::Load(ChunkLoadClass & cload) const
 {
 	RenderObjClass * old_obj = NULL;
-	RenderObjClass * new_obj = NULL;
 	Matrix3D tm(1);
 	char name[64];
 
@@ -1190,7 +1188,7 @@ PersistClass *	RenderObjPersistFactoryClass::Load(ChunkLoadClass & cload) const
 		switch (cload.Cur_Chunk_ID()) {
 
 			case RENDOBJFACTORY_CHUNKID_VARIABLES:
-			{
+			
 				while (cload.Open_Micro_Chunk()) {
 					switch(cload.Cur_Micro_Chunk_ID()) {
 						READ_MICRO_CHUNK(cload,RENDOBJFACTORY_VARIABLE_OBJPOINTER,old_obj);	
@@ -1198,41 +1196,6 @@ PersistClass *	RenderObjPersistFactoryClass::Load(ChunkLoadClass & cload) const
 						READ_MICRO_CHUNK_STRING(cload,RENDOBJFACTORY_VARIABLE_NAME,name,sizeof(name));
 					}
 					cload.Close_Micro_Chunk();	
-				}
-				
-				// if the object we saved didn't have a name, replace it with null
-				if (strlen(name) == 0) {
-					static int count = 0;
-					if ( ++count < 10 ) {
-						WWDEBUG_SAY(("RenderObjPersistFactory attempted to load an un-named render object!\r\n"));
-						WWDEBUG_SAY(("Replacing it with a NULL render object!\r\n"));
-					}
-					strcpy(name,"NULL");
-				}
-
-				new_obj = WW3DAssetManager::Get_Instance()->Create_Render_Obj(name);
-				
-				if (new_obj == NULL) {
-					static int count = 0;
-					if ( ++count < 10 ) {
-						WWDEBUG_SAY(("RenderObjPersistFactory failed to create object: %s!!\r\n",name));
-						WWDEBUG_SAY(("Either the asset for this object is gone or you tried to save a procedural object.\r\n"));
-						WWDEBUG_SAY(("Replacing it with a NULL render object!\r\n"));
-					}
-					strcpy(name,"NULL");
-					new_obj = WW3DAssetManager::Get_Instance()->Create_Render_Obj(name);
-				}
-
-				WWASSERT(new_obj != NULL);
-				if (new_obj) {
-					new_obj->Set_Transform(tm);
-				}
-				break;
-			}
-
-			case RENDOBJFACTORY_CHUNKID_USERLIGHTING:
-				if (new_obj != NULL) {
-					new_obj->Load_User_Lighting(cload);
 				}
 				break;
 
@@ -1243,7 +1206,34 @@ PersistClass *	RenderObjPersistFactoryClass::Load(ChunkLoadClass & cload) const
 		cload.Close_Chunk();
 	}
 	
+	// if the object we saved didn't have a name, replace it with null
+	if (strlen(name) == 0) {
+		static int count = 0;
+		if ( ++count < 10 ) {
+			WWDEBUG_SAY(("RenderObjPersistFactory attempted to load an un-named render object!\r\n"));
+			WWDEBUG_SAY(("Replacing it with a NULL render object!\r\n"));
+		}
+		strcpy(name,"NULL");
+	}
 
+	RenderObjClass * new_obj = WW3DAssetManager::Get_Instance()->Create_Render_Obj(name);
+	
+	if (new_obj == NULL) {
+		static int count = 0;
+		if ( ++count < 10 ) {
+			WWDEBUG_SAY(("RenderObjPersistFactory failed to create object: %s!!\r\n",name));
+			WWDEBUG_SAY(("Either the asset for this object is gone or you tried to save a procedural object.\r\n"));
+			WWDEBUG_SAY(("Replacing it with a NULL render object!\r\n"));
+		}
+		strcpy(name,"NULL");
+		new_obj = WW3DAssetManager::Get_Instance()->Create_Render_Obj(name);
+	}
+
+	WWASSERT(new_obj != NULL);
+	if (new_obj) {
+		new_obj->Set_Transform(tm);
+	}
+	
 	SaveLoadSystemClass::Register_Pointer(old_obj,new_obj);
 	return new_obj;
 }
@@ -1259,12 +1249,6 @@ void RenderObjPersistFactoryClass::Save(ChunkSaveClass & csave,PersistClass * ob
 	WRITE_MICRO_CHUNK_STRING(csave,RENDOBJFACTORY_VARIABLE_NAME,name);
 	WRITE_MICRO_CHUNK(csave,RENDOBJFACTORY_VARIABLE_TRANSFORM,tm);
 	csave.End_Chunk();
-
-	if (robj->Has_User_Lighting()) {
-		csave.Begin_Chunk(RENDOBJFACTORY_CHUNKID_USERLIGHTING);
-		robj->Save_User_Lighting(csave);
-		csave.End_Chunk();
-	}
 }
 
 
@@ -1295,127 +1279,3 @@ bool RenderObjClass::Load (ChunkLoadClass &cload)
 	return true;
 }
 
-
-/***********************************************************************
-**
-** RenderObj User-Lighting save-load. 
-**
-***********************************************************************/
-enum
-{
-	CHUNKID_SUBOBJ_USER_LIGHTING = 0x02191159,
-	CHUNKID_SUBOBJ_NAME,
-	CHUNKD_SUBOBJ_BONE_INDEX,
-	CHUNKID_SUBOBJ_LIGHTING_DATA
-};
-
-void RenderObjClass::Save_User_Lighting (ChunkSaveClass & csave)
-{
-	if (Has_User_Lighting()) {
-		for (int bi=0; bi<Get_Num_Bones(); bi++) {
-			int bone_obj_count = Get_Num_Sub_Objects_On_Bone(bi);
-			for (int ri=0; ri<bone_obj_count; ri++) {
-				RenderObjClass * sub_obj = Get_Sub_Object_On_Bone(ri,bi);
-
-				if (	sub_obj && 
-						(sub_obj->Class_ID() == RenderObjClass::CLASSID_MESH) && 
-						(sub_obj->Has_User_Lighting())) 
-				{
-					csave.Begin_Chunk(CHUNKID_SUBOBJ_USER_LIGHTING);
-					Save_Sub_Object_User_Lighting(csave,sub_obj,bi);
-					csave.End_Chunk();
-
-					REF_PTR_RELEASE(sub_obj);
-				}
-			}
-		}
-	}
-}
-
-void RenderObjClass::Save_Sub_Object_User_Lighting(ChunkSaveClass & csave,RenderObjClass * sub_obj,int bone_index)
-{
-	csave.Begin_Chunk(CHUNKID_SUBOBJ_NAME);
-	const char * name = sub_obj->Get_Name();
-	csave.Write(name,strlen(name) + 1);
-	csave.End_Chunk();
-
-	csave.Begin_Chunk(CHUNKD_SUBOBJ_BONE_INDEX);
-	csave.Write(&bone_index,sizeof(int));
-	csave.End_Chunk();
-
-	csave.Begin_Chunk(CHUNKID_SUBOBJ_LIGHTING_DATA);
-	sub_obj->Save_User_Lighting(csave);
-	csave.End_Chunk();
-
-	Set_Has_User_Lighting(true);
-}
-
-void RenderObjClass::Load_User_Lighting (ChunkLoadClass & cload)
-{
-	while (cload.Open_Chunk()) {
-	
-		switch (cload.Cur_Chunk_ID()) {
-			case CHUNKID_SUBOBJ_USER_LIGHTING:
-				Load_Sub_Object_User_Lighting(cload);
-				break;
-		}
-
-		cload.Close_Chunk();
-		Set_Has_User_Lighting(true);
-	}
-}
-
-void RenderObjClass::Load_Sub_Object_User_Lighting(ChunkLoadClass & cload)
-{
-	const int BUFFER_SIZE = 256;
-	char tmp_string[BUFFER_SIZE];
-	int bone_index;
-
-	/*
-	** Load the name of the object
-	*/
-	cload.Open_Chunk();
-
-	WWASSERT(cload.Cur_Chunk_ID() == CHUNKID_SUBOBJ_NAME);
-	WWASSERT(cload.Cur_Chunk_Length() < BUFFER_SIZE);
-
-	cload.Read(tmp_string,cload.Cur_Chunk_Length());
-	tmp_string[BUFFER_SIZE-1] = 0;
-	cload.Close_Chunk();
-
-	/*
-	** Load the bone index for the object
-	*/
-	cload.Open_Chunk();
-	WWASSERT(cload.Cur_Chunk_ID() == CHUNKD_SUBOBJ_BONE_INDEX);
-	cload.Read(&bone_index,sizeof(int));
-	cload.Close_Chunk();
-
-	if ((bone_index < 0) || (bone_index >= Get_Num_Bones())) {
-		WWDEBUG_SAY(("Invalid Bone Index %d referenced in Object %s.\r\n",bone_index, tmp_string));
-		WWASSERT(0);
-		return;
-	}
-
-	/*
-	** Find the object and tell it to load its lighting data
-	*/
-	cload.Open_Chunk();
-	WWASSERT(cload.Cur_Chunk_ID() == CHUNKID_SUBOBJ_LIGHTING_DATA);
-	
-	RenderObjClass * obj = NULL;
-	int bone_obj_count = Get_Num_Sub_Objects_On_Bone(bone_index);
-	for (int obj_index=0; (obj_index<bone_obj_count) && (obj == NULL); obj_index++) {
-		RenderObjClass * sub_obj = Get_Sub_Object_On_Bone(obj_index,bone_index);
-		if (stricmp(sub_obj->Get_Name(), tmp_string) == 0) {
-			obj = sub_obj;
-		}
-		REF_PTR_RELEASE(sub_obj);
-	}
-
-	if (obj != NULL) {
-		obj->Load_User_Lighting(cload);
-	}
-
-	cload.Close_Chunk();
-}
