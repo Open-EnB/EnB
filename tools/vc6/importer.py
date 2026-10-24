@@ -2117,6 +2117,10 @@ RECONSTRUCTED = {
                           "Print_State and operator= are Zero Hour's. All 5 functions byte-exact "
                           "(docs/library-matching.md §3.6)",
     ('wwlib', 'rc4.h'): "InitialKey / InitialKeyBuilt statics added; Prepare_Key_8bytes/16bytes removed",
+    ('ww3d2', 'unknown_distortion.cpp'): "E&B's screen-distortion module (D19; client 0x995D20-0x998200, between "
+                                         "dx8texman.cpp and boxrobj.cpp), written from the client: the per-frame list, "
+                                         "the distortion render object and the ripple function; names neutral (D10)",
+    ('ww3d2', 'unknown_distortion.h'): "its classes (D19, D10)",
 }
 
 # Text appended to imported files (after everything, so no existing line moves).

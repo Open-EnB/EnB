@@ -4269,6 +4269,40 @@
     "merged": [],
     "name": "txt2d.cpp"
    },
+   "unknown_distortion": {
+    "best": "reconstructed",
+    "copy": "reconstructed",
+    "expected": {},
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x462F30",
+     "0x463030",
+     "0x463060",
+     "0x4630B0",
+     "0x4630E0",
+     "0x463100",
+     "0x463130",
+     "0x463150",
+     "0x4631A0",
+     "0x4631F0",
+     "0x463240",
+     "0x463340",
+     "0x463370",
+     "0x995DC0",
+     "0x995E80",
+     "0x995ED0",
+     "0x995F10",
+     "0x995FD0",
+     "0x996040",
+     "0x9960F0",
+     "0x997D10",
+     "0x997D30",
+     "0x997D60"
+    ],
+    "merged": [],
+    "name": "unknown_distortion.cpp"
+   },
    "vertmaterial": {
     "best": "R",
     "copy": "R",
@@ -4618,6 +4652,7 @@
    "texturethumbnail.h": "Z",
    "txt.h": "R",
    "txt2d.h": "G",
+   "unknown_distortion.h": "reconstructed",
    "vertmaterial.h": "R",
    "visrasterizer.h": "R",
    "w3d_dep.h": "R",
@@ -4631,7 +4666,7 @@
    "ww3dids.h": "R",
    "ww3dtrig.h": "R"
   },
-  "in_tree_total": 2352,
+  "in_tree_total": 2362,
   "totals": {
    "G": 548,
    "R": 1323,
