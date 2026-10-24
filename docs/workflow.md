@@ -338,3 +338,13 @@ Added 2026-10-24 (overnight run; details in `.work/night/item*/report.md`):
 * **Docs are UTF-8.** Never write a doc as Latin-1/cp1252: a `§` written that way made
   progress.md invalid UTF-8 (fixed in fdd1fbd) and the Edit tool then refuses the file. If it
   happens, repair it (`.work/day/fix_utf8.py`), don't work around it.
+* **Templates and statics in app code.** VC6 compiles a class template's virtual functions whenever
+  the class is instantiated (adding a virtual to `DeltaTemplateClass` compiled `Set_Value` for
+  money: `MoneyClass` needed `operator!=`). A virtual call on a member object is devirtualised
+  unless cast to a reference (`((DeltaClass &)EndTime).Unknown_00(v)`). A static function is
+  called directly, without an incremental-link thunk, and its code sits right after the first
+  function that calls it out of line (the join 0x4B43E0 follows `Pop_Prefix`).
+* **appfile.py sizes and names.** Its client size can include a following static or initialiser,
+  so an exact match shows PREFIX with a larger client size (`Pop_Prefix`, `Get_Rest`,
+  `~KVPairClass`): check the bytes. It pairs markers with functions by name, so same-named
+  overloads get mixed up: rename them while drafting.
