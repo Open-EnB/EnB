@@ -3051,12 +3051,15 @@ RECONSTRUCTED = {
                                                 "Read/Write (slots 0x2C/0x30), the value after DeltaClass, the "
                                                 "constructor (inlined for float in 0x4A6110; the time field's "
                                                 "out of line, 0x4A8150: extern template), Set_Value (0x4A6590), the "
-                                                "generic Write/Read (asserts on the client's lines 91 and 110, D25)",
+                                                "generic Write/Read (asserts on the client's lines 91 and 110, D25), "
+                                                "Unknown_00 (float: 0x4A6C90) and its accessor (float: vtable "
+                                                "0xAEAF1C, Set 0x4A6F00)",
     ('app', 'shared/auxdata/linearbu.h'): "LinearBufferClass (D24), size 0x1C: Buffer, Size, Capacity, GrowBy, "
                                           "Pos, OwnsBuffer (linearbu.cpp's asserts and code)",
     ('app', 'shared/auxdata/linearbu.cpp'): "LinearBufferClass, client 0x4AAB60-0x4AB536: 21 functions, asserts on "
                                             "the client's lines 22-310 (D25)",
-    ('app', 'shared/money.h'): "MoneyClass (D24), only what delta_money.cpp uses: 8 bytes, 8-aligned",
+    ('app', 'shared/money.h'): "MoneyClass (D24), only what delta_money.cpp uses: 8 bytes, 8-aligned; "
+                               "operator!= (DeltaTemplateClass<MoneyClass>::Set_Value)",
     ('app', 'shared/auxdata/delta_time.cpp'): "the time field's Read 0x4A81D0 and Write 0x4A8270 "
                                               "(DeltaTemplateClass<DurationClass> specialisations), asserts on "
                                               "the client's lines 31 and 58 (D25)",

@@ -20,6 +20,9 @@
 class MoneyClass
 {
 public:
+	// DeltaTemplateClass<MoneyClass>::Set_Value compares (VC6 instantiates it with the class's virtuals)
+	bool operator!=(const MoneyClass &that) const { return m_Unknown00 != that.m_Unknown00; }
+
 	__int64 m_Unknown00;		// +0x00 read and written as 8 bytes
 };
 

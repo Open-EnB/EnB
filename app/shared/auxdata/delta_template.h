@@ -31,6 +31,7 @@ public:
 	// fields' are out of line (0x4A8150, 0x4A7080: see the extern template below)
 	DeltaTemplateClass(const char *name, const T &value = T());
 
+	virtual void Unknown_00(DeltaChildVisitorClass *visitor);					// +0x00 (float: 0x4A6C90)
 	virtual bool Read(LinearBufferClass &buf, const DurationClass &base);	// +0x2C (float: 0x4A6DF0)
 	virtual bool Write(LinearBufferClass &buf);				// +0x30 (float: 0x4A6E60)
 
@@ -84,7 +85,6 @@ extern template class DeltaTemplateClass<DurationClass>;
 
 
 
-
 template<class T> bool DeltaTemplateClass<T>::Write(LinearBufferClass &buf)
 {
 	if (buf.Write(&Value, sizeof(Value)) != sizeof(Value)) {
@@ -112,6 +112,23 @@ template<class T> bool DeltaTemplateClass<T>::Read(LinearBufferClass &buf, const
 	}
 	Value = value;
 	return true;
+}
+
+// The field's value for the encoder (float: vtable 0xAEAF1C)
+template<class T> class DeltaTemplateAccessorClass : public KVAccessorClass<T>
+{
+public:
+	DeltaTemplateAccessorClass(DeltaTemplateClass<T> *owner) : Owner(owner) {}
+	virtual const T &Get() { return Owner->Value; }								// float: 0x4A6EE0
+	virtual void Set(const T &value) { Owner->Set_Value(value); }			// float: 0x4A6F00
+	virtual KVAccessorClass<T> *Clone() const { return new DeltaTemplateAccessorClass<T>(Owner); }	// float: 0x4A6F40
+
+	DeltaTemplateClass<T> *Owner;		// +0x04
+};
+
+template<class T> void DeltaTemplateClass<T>::Unknown_00(DeltaChildVisitorClass *visitor)
+{
+	visitor->Add_Value(m_Unknown80, Name.Get_String(), new DeltaTemplateAccessorClass<T>(this));
 }
 
 #endif //__DELTA_TEMPLATE_H

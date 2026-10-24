@@ -64,7 +64,8 @@
      "0x4A67D0",
      "0x4A68E0",
      "0x4A6930",
-     "0x4A6B30"
+     "0x4A6B30",
+     "0x4A6F00"
     ],
     "merged": [],
     "name": "shared/auxdata/delta_interpolator.cpp"
@@ -243,7 +244,7 @@
    "shared/money.h": "reconstructed",
    "shared/unknown_debug.h": "reconstructed"
   },
-  "in_tree_total": 125,
+  "in_tree_total": 126,
   "totals": {}
  },
  "ww3d2": {
