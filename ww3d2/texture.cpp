@@ -937,6 +937,11 @@ void TextureClass::Apply_New_Surface
 }
 
 
+// E&B: TextureClass::Apply sets the filter states itself (below)
+extern unsigned _MinTextureFilters[MAX_TEXTURE_STAGES][TextureFilterClass::FILTER_TYPE_COUNT];
+extern unsigned _MagTextureFilters[MAX_TEXTURE_STAGES][TextureFilterClass::FILTER_TYPE_COUNT];
+extern unsigned _MipMapFilters[MAX_TEXTURE_STAGES][TextureFilterClass::FILTER_TYPE_COUNT];
+
 //**********************************************************************************************
 //! Apply texture states
 /*! 
@@ -947,7 +952,25 @@ void TextureClass::Apply(unsigned int stage)
 	// XBOX always initializes textures at creation time.
 	if (!Initialized) 
 	{
-		Init();
+		// E&B: the "battlefield" code Zero Hour comments out, gated on triangle drawing and thumbnails (0x94BC80)
+		if (MipLevelCount==MIP_LEVELS_1) 
+		{
+			Init();
+		}
+		else if (DX8Wrapper::_Is_Triangle_Draw_Enabled() && TexturesAppliedPerFrame>=MAX_TEXTURES_APPLIED_PER_FRAME && WW3D::Get_Thumbnail_Enabled()) 
+		{
+			if (!Peek_D3D_Base_Texture()) 
+			{
+				WW3DFormat format=TextureFormat;
+				Load_Locked_Surface();
+				TextureFormat=format;
+			}
+		}
+		else 
+		{
+			TexturesAppliedPerFrame++;
+			Init();
+		}
 
 		/* was in battlefield// Non-thumbnailed textures are always initialized when used
 		if (MipLevelCount==MIP_LEVELS_1) 
@@ -981,14 +1004,42 @@ void TextureClass::Apply(unsigned int stage)
 	// Set texture itself
 	if (WW3D::Is_Texturing_Enabled()) 
 	{
-		DX8Wrapper::Set_DX8_Texture(stage, Peek_D3D_Base_Texture());
+		DX8Wrapper::Set_DX8_Texture(stage, D3DTexture);
 	}
 	else 
 	{
 		DX8Wrapper::Set_DX8_Texture(stage, NULL);
 	}
 
-	Filter.Apply(stage);
+	// E&B: the filter states set here, as Renegade does (0x94BC80 inlines them; Zero Hour's
+	// TextureFilterClass::Apply is its 08/05/02 redesign)
+	DX8Wrapper::Set_DX8_Texture_Stage_State(stage,D3DTSS_MINFILTER,_MinTextureFilters[stage][Filter.Get_Min_Filter()]);
+	DX8Wrapper::Set_DX8_Texture_Stage_State(stage,D3DTSS_MAGFILTER,_MagTextureFilters[stage][Filter.Get_Mag_Filter()]);
+	DX8Wrapper::Set_DX8_Texture_Stage_State(stage,D3DTSS_MIPFILTER,_MipMapFilters[stage][Filter.Get_Mip_Mapping()]);
+
+	switch (Filter.Get_U_Addr_Mode()) {
+
+		case TextureFilterClass::TEXTURE_ADDRESS_REPEAT:
+			DX8Wrapper::Set_DX8_Texture_Stage_State(stage, D3DTSS_ADDRESSU, D3DTADDRESS_WRAP);
+			break;
+
+		case TextureFilterClass::TEXTURE_ADDRESS_CLAMP:
+			DX8Wrapper::Set_DX8_Texture_Stage_State(stage, D3DTSS_ADDRESSU, D3DTADDRESS_CLAMP);
+			break;
+
+	}
+
+	switch (Filter.Get_V_Addr_Mode()) {
+
+		case TextureFilterClass::TEXTURE_ADDRESS_REPEAT:
+			DX8Wrapper::Set_DX8_Texture_Stage_State(stage, D3DTSS_ADDRESSV, D3DTADDRESS_WRAP);
+			break;
+
+		case TextureFilterClass::TEXTURE_ADDRESS_CLAMP:
+			DX8Wrapper::Set_DX8_Texture_Stage_State(stage, D3DTSS_ADDRESSV, D3DTADDRESS_CLAMP);
+			break;
+
+	}
 }
 
 //**********************************************************************************************

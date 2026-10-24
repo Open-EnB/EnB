@@ -215,10 +215,11 @@ protected:
 	int Width;
 	int Height;
 
-private:
-
 	// Direct3D texture object
+	// E&B: protected, not private: TextureClass::Apply (0x94BC80) reads it directly (same layout)
 	IDirect3DBaseTexture8 *D3DTexture;
+
+private:
 
 	// Name
 	StringClass Name;
