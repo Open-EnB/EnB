@@ -3090,6 +3090,9 @@ RECONSTRUCTED = {
                                         "KVPairStringClass's declaration (vtable 0xAEB810, size 0x14; ctor "
                                         "0x4B7FC0: 'key && accessor')",
     ('app', 'shared/kv_list.h'): "KVListClass's declaration, only Add 0x4B6760 (the assert's 'item', line 23)",
+    ('app', 'shared/auxdata/encode.cpp'): "RecordTableClass (D24; Records from the asserts), client "
+                                          "0x4A9A70-0x4A9C1A: ctor (line 512, D25), dtor, Unknown_Sum, "
+                                          "Unknown_All; the rest of the file not rebuilt",
 }
 
 # Text appended to imported files (after everything, so no existing line moves).
