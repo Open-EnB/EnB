@@ -73,6 +73,7 @@
 #include "predlod.h"
 #include "statistics.h"
 #include "rect.h"
+#include "dx8caps.h"
 
 static FILE *		LogFile = NULL;
 static bool			Quit = false;
@@ -384,6 +385,9 @@ static unsigned				PeakPolyRate = 0;			// 0x5EF174
 static int					FillRateFPS = 0;			// 0x5EF178
 static float				TimeOfDay = 0;				// 0x5EF190
 static bool					TestsFinished = false;		// 0x5EF188
+// Setup_Device's values for results.ini (TODO M2.3: VIDTEST puts them into its INIClass here)
+static int					FreeTextureRam = 0;
+static int					TextureReduction = 0;
 
 // The frame-time ring (0x423E70, 2,000 slots at 0x5ED1E0): the frames presented in the last second
 static DWORD				FrameTimes[2000];
@@ -878,7 +882,19 @@ static bool Setup_Device(void)
 	}
 	WW3D::Set_Ext_Swap_Interval(sync ? 1 : 0);
 	WW3D::Set_Texture_Filter(filter);
-	// TODO(M2.3): FreeTextureRam, TextureReduction (D53) and the Info keys go to results.ini
+	// The texture reduction from the free texture memory. VIDTEST compares the value as a signed int,
+	// so a GPU reporting 2 GB or more gets 2 (O7); ours compares it unsigned (D53).
+	unsigned ram = DX8Wrapper::Get_Free_Texture_RAM();
+	FreeTextureRam = (int)ram;
+	TextureReduction = ram < 8000000 ? 2 : ram < 16000000 ? 1 : 0;
+	WW3D::Set_Texture_Reduction(TextureReduction);
+	// caps byte +0xDD: any DXTn format supported (DX8Caps), here Support_DXTC
+	const DX8Caps *caps = DX8Wrapper::Get_Current_Caps();
+	WW3D::Enable_Large_Texture_Extra_Reduction(!(caps && caps->Support_DXTC()));
+	Log("free texture RAM %d (unsigned %u): texture reduction %d; DXTC %d\n", FreeTextureRam, ram, TextureReduction,
+		caps ? (int)caps->Support_DXTC() : -1);
+	// TODO(M2.3): Info FreeTextureRam, Device, Width, Height, BitDepth, Windowed and Results
+	// TextureReduction go to results.ini
 	return true;
 }
 
