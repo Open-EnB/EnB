@@ -176,6 +176,8 @@ public:
 	// calling with relatively small (just few seconds) time override to free up everything
 	// but the currently used textures.
 	static void Invalidate_Old_Unused_Textures(unsigned inactive_time_override);
+	// E&B (name not known): last frame's count of textures applied (0x94B910)
+	static unsigned Unknown_Get_Textures_Applied_Last_Frame();
 
 	// Apply this texture's settings into D3D
 	virtual void Apply(unsigned int stage)=0;

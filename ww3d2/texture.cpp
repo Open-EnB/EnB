@@ -72,6 +72,8 @@ static unsigned unused_texture_id;
 
 // This throttles submissions to the background texture loading queue.
 static unsigned TexturesAppliedPerFrame;
+// E&B (name not known): last frame's TexturesAppliedPerFrame (0xC01294)
+static unsigned UnknownTexturesAppliedLastFrame;
 const unsigned MAX_TEXTURES_APPLIED_PER_FRAME=2;
 
 
@@ -139,13 +141,15 @@ TextureBaseClass::~TextureBaseClass(void)
 */
 void TextureBaseClass::Invalidate_Old_Unused_Textures(unsigned invalidation_time_override)
 {
+	// E&B: keep last frame's count, then zero it, whether thumbnails are enabled or not
+	UnknownTexturesAppliedLastFrame=TexturesAppliedPerFrame;
+	// Zero the texture apply count in this function because this is called every frame...(this wasn't in E&B main branch KJM)
+	TexturesAppliedPerFrame=0;
+
 	// (gth) If thumbnails are not enabled, then we don't run this code.
 	if (WW3D::Get_Thumbnail_Enabled() == false) {
 		return;
 	}
-
-	// Zero the texture apply count in this function because this is called every frame...(this wasn't in E&B main branch KJM)
-	TexturesAppliedPerFrame=0;
 
 	unsigned synctime=WW3D::Get_Sync_Time();
 	HashTemplateIterator<StringClass,TextureClass*> ite(WW3DAssetManager::Get_Instance()->Texture_Hash());
@@ -179,6 +183,12 @@ void TextureBaseClass::Invalidate_Old_Unused_Textures(unsigned invalidation_time
 			}
 		}
 	}
+}
+
+// E&B (name not known): last frame's count of textures applied (0x94B910)
+unsigned TextureBaseClass::Unknown_Get_Textures_Applied_Last_Frame()
+{
+	return UnknownTexturesAppliedLastFrame;
 }
 
 
