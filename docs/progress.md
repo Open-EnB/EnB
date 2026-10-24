@@ -4,6 +4,40 @@ Newest first within each section. Dates are when the entry was written.
 
 ## 1. Log
 
+### 2026-10-24: the kv encoder, the interpolator's Unknown_00, encode.cpp and policy.cpp starts; app 92 -> 136
+
+* `app/shared/kv_encoder_base.cpp`/`.h` (22cfb49, with the interpolator below: 33): `KVEncoderBaseClass`
+  (vtable 0xAEB62C, the destructor only; `Data` +4, the pair list +8) and its Data (0x3C bytes:
+  `PrefixList` list<string> +0, `FlagList` list<int> +0xC, `Flags` +0x18, the joined prefix +0x1C, the
+  last key +0x2C). Exact: dtor, Make_Key, Get/Set/Push/Pop_Flags, Push/Pop/Set_Prefix, the static join
+  0x4B43E0 (called directly, no thunk; inlined in Push_Prefix and Set_Prefix), Unknown_Test 0x4B4820
+  (the even 0x155 and odd 0x2AA bits of `Flags & mask`), Add_String 0x4B48A0, plus the STL instances
+  they use. The constructor 0x4B3850 differs in register allocation only (`this` in ebx).
+* `kv_pair.cpp`/`.h` (`KVPairClass`, vtable 0xAEB7EC: dtor + 6 pure; the key a `PermString`, two
+  flags), `kv_pair_string.h` (`StringValueClass` moved here from delta_string.h, `KVPairStringClass`),
+  `kv_list.h`; the typed accessor/pair templates `KVAccessorClass<T>`/`KVPairTemplateClass<T>`
+  (float: 0xAE78D0/0xAE7860) and the member template `Add_Value<T>` in the encoder header.
+  `DeltaChildVisitorClass` now derives from `KVEncoderBaseClass` (slot 0 is the base's destructor).
+* `delta_interpolator.cpp`: Unknown_00 0x4A6930 (EndTime/ChangePerTick through their vtables via
+  `((DeltaClass &)EndTime).Unknown_00`, then "CurrentValue") and `DeltaInterpolatorValueClass`
+  (0xAEAF08: Get 0x4A6B30 exact, Clone 0x4A6AF0 exact but a twin). `delta_template.h` (e0952d6):
+  the generic Write/Read (lines 91/110) and `Unknown_00` with `DeltaTemplateAccessorClass<T>`
+  (Set 0x4A6F00); the float Read/Write/Unknown_00 are exact but `multiple` (int twins in game
+  code), so uncounted. MoneyClass got `operator!=` (VC6 instantiates a template's virtuals with the
+  class, so Set_Value is compiled for money).
+* name.cpp `Get_Rest` 0x4ADBB0 (c410fef); lookup.cpp `Find` 0x4AC9F0 (3383224): the map at +0x10 is
+  `std::map<const char *, DeltaClass *>` (the key copied to a temporary). The name tests
+  0x4ACA90/0x4ACB20 call find 0x4ACBD0 out of line; every variant tried inlines it.
+* `encode.cpp` (be443af, 4): `RecordTableClass` (`Records` +0, `Count` +4; ctor line 512, dtor, two
+  loops over the records' slots 4/8). `policy.cpp` (6065697, 3): `CompiledPolicyClass` dtor 0x4AE850,
+  `Get_Action(int id, int *value)` 0x4AED50 (line 334), `PolicyClass::Get_Action` 0x4AF490 (444).
+* Not done: the time/money constructors 0x4A8150/0x4A7080 (byte-identical to each other: `multiple`,
+  0 countable; and `template class X<DurationClass>;` in delta_time.cpp is error C2949 next to
+  delta_template.h's `extern template`: §3), the time field's Unknown_00
+  0x4A8330/0x4A8630 and accessor 0xAEB244 (ticks to wall-clock time, a guarded static).
+  Drafts and scripts: `.work/day/D/` (`layout.py` lays a tree file out so asserts land on given
+  lines; `m.sh` runs appfile match with the mirror's include dirs).
+
 ### 2026-10-24: auxdata continued: interpolator, string, name, permstr, linearbu; app 39 -> 92
 
 * `delta_interpolator.cpp`/`.h` (83c2f38, 7): `DeltaInterpolatorClass` (vtable 0xAEAE54, size 0x250;
@@ -753,6 +787,12 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
   (b) vc6.py runs app compiles in `e:\build\beta\G\app\<dir>` with `/I ..` and the tree uses the
   client's include spellings. Recommendation: (a) now, (b) when strings are compared (whole-image
   check) or the project directory's name is known.
+* D39 as written doesn't compile: VC6 refuses `template class DeltaTemplateClass<DurationClass>;` in
+  delta_time.cpp next to delta_template.h's `extern template` (C2949), and the ctor-only form needs a
+  return type (C2909). Options: (a) move the `extern template` into its users (delta_interpolator.cpp
+  today; `.work/day/D/e1.py` does it, exact and compiling); (b) guard it with a macro delta_time.cpp
+  defines; (c) wait. Recommendation: (c) for now, then (a): the two constructors compile
+  byte-identical to each other (`multiple`), so verify credits neither yet.
 
 ## 4. Next steps
 
@@ -766,16 +806,18 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
      `app/shared/unknown_debug.h` (G_ASSERT, FAIL_IF). Left from it: the debug functions
      0x4E9410/0x4E9450 themselves (they call a reporter 0x4BC260 on an object at 0xBDA908) and
      E&B's operator new/delete 0x4E9CB0/0x4E9D10 in the same object.
-   * In progress (2026-10-24, 845c0c9..cba68ae, app 11 -> 92): `app\shared\auxdata`'s Delta object
-     model: delta.cpp (22; `Add` left, a `<vector>` form, D11), delta_money.cpp and delta_time.cpp
-     (Read/Write; their constructors 0x4A7080/0x4A8150 and neighbours not yet), lookup.cpp (3 of 6+),
-     delta_interpolator.cpp (7; Unknown_00 0x4A6930 and its value object 0x4A6AF0/0x4A6B30 left),
-     delta_string.cpp (9 + 3), name.cpp (11; 0x4ADBB0, probably name.cpp's, left), permstr.cpp (8),
-     linearbu.cpp (21). Next: the rest of lookup.cpp, the time/money fields' constructors and
-     neighbours (with `template class` instantiations in their .cpp), the float template's
-     Read/Write (delta_template.h line 110), then `encode.cpp`/`policy.cpp`, kv_encoder_base.cpp
-     and kv_pair.cpp (the Unknown_00 visitors). Lead: the reference decoder's `client-re-notes.md`
-     (addresses, leaf vtables), `auxdata.md`, `the reference game model`.
+   * In progress (2026-10-24, 845c0c9..6065697, app 11 -> 136): `app\shared\auxdata`'s Delta object
+     model: delta.cpp (22; `Add` left, a `<vector>` form, D11/D40), delta_money.cpp and delta_time.cpp
+     (Read/Write; their constructors 0x4A7080/0x4A8150 are twins, uncounted), lookup.cpp (5; the name
+     tests 0x4ACA90/0x4ACB20 left), delta_interpolator.cpp (9), delta_template.h (generic Read/Write,
+     Unknown_00 and its accessor), delta_string.cpp (9 + 3), name.cpp (12), permstr.cpp (8),
+     linearbu.cpp (21), encode.cpp (4 of ~30), policy.cpp (3 of ~20); `app\shared`'s
+     kv_encoder_base.cpp (13 + STL; the constructor 0x4B3850 left) and kv_pair.cpp (2). Next: the time
+     field's Unknown_00 0x4A8330 / Add_Value 0x4A8630 / accessor 0xAEB244, kv_encoder_base's other Add
+     functions 0x4B4A70-0x4B5370 (their accessors are 0x4B0Cxx-0x4B10xx classes: kv_util.cpp?),
+     kv_pair_string.cpp and kv_list.cpp (Add 0x4B6760), encode.cpp's Add 0x4A9C30 and the records'
+     classes, policy.cpp's rules. Lead: the reference decoder's `client-re-notes.md` (addresses, leaf
+     vtables, the codecs 0x4A9400/0x4A9710/0x4A8FD0), `auxdata.md`, `the reference game model`.
    * Then `app\wwudp` (`CordMgr`, `CordCon`; `EnB.Transports` describes the transport), the
      kernel and tasks (`KernelClass::Run_One_Cycle`; `login.md`: `LoginTaskClass`, the login and
      character-select screens), then `app\packets` (`the reference protocol table`'s message models; `actions.md`).
