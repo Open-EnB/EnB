@@ -956,7 +956,8 @@ TextureLoadTaskClass::TextureLoadTaskClass()
 	Reduction		(0),
 	Type				(TASK_NONE),
 	Priority			(PRIORITY_LOW),
-	State				(STATE_NONE)
+	State				(STATE_NONE),
+	HSVShift			(0.0f,0.0f,0.0f)	
 {
 	// because texture load tasks are pooled, the constructor and destructor
 	// don't need to do much. The work of attaching a task to a texture is

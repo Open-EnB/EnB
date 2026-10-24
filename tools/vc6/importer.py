@@ -828,6 +828,9 @@ TEXTURE_API_PATCHES = {
         ('\tIDirect3DTexture8 *d3d_texture = Load_Thumbnail(tc->Get_Full_Path());',
          '\tIDirect3DTexture8 *d3d_texture = Load_Thumbnail(tc->Get_Full_Path(),tc->Get_HSV_Shift());',
          "passes the HSV shift (Zero Hour's line; Zero Hour's Get_Asset_Type check below it is from the 08/05/02 redesign)"),
+        ('\tPriority\t\t\t(PRIORITY_LOW),\n\tState\t\t\t\t(STATE_NONE)\n{\n',
+         '\tPriority\t\t\t(PRIORITY_LOW),\n\tState\t\t\t\t(STATE_NONE),\n\tHSVShift\t\t\t(0.0f,0.0f,0.0f)\t\n{\n',
+         "Zero Hour's TextureLoadTaskClass constructor zeroes HSVShift (+0x28..+0x30): inlined in TextureLoadTaskClass::Create 0x94A120"),
     ],
     ('ww3d2', 'ddsfile.h'): [
         ('\t\tunsigned dest_pitch);',

@@ -233,6 +233,7 @@ and fixed so far (importer `PATCHES`, see docs/imports.md):
 | `SegLineRendererClass::Render` (importer `PATCHES`): Zero Hour's sixth argument `Vector4 * rgbas = 0` | callers `SegmentedLineClass::Render_Seg_Line` 0x969C50 and `Render` 0x9695A0 push 0 | 2 (ww3d2), none lost |
 | `MeshClass::Make_Unique` (importer `PATCHES`): Zero Hour's `bool force_meshmdl_clone` | 0x940300 tests the argument | 1 (ww3d2), none lost |
 | `MeshGeometryClass::operator=` (importer `PATCHES`): Zero Hour's: the cull tree is cloned, not shared | 0x92A200 (`new` of 0x1C bytes, `Set_Mesh`) | 1 (ww3d2), none lost |
+| `TextureLoadTaskClass` constructor (importer `PATCHES`): Zero Hour's `HSVShift(0,0,0)` | inlined in `TextureLoadTaskClass::Create` 0x94A120 (+0x28..+0x30 zeroed) | 2 (ww3d2), none lost |
 
 Still open: wwshade (138 client functions in the tree, Zero Hour's copy alone 61). `shdlegacyw3d.cpp`/`.h` are not in the client and were dropped (D13); so were WWAudio's `AudioSaveLoad.cpp`/`.h` (no save/load subsystem in the client; accepted loss: its three pairs 0x42F250, 0x909500, 0x9DA8C0, shared helpers still matched by other files). Not rebuilt yet: the `ShdMeshClass` ctor (0xA08F80; the `"UnNamed"` null test, see progress.md). `ShdMeshClass::Render` 0xA09430 matches since the `ENABLE_WWPROFILE` build. The client's `MeshClass::Cast_Ray` (0x940530) has no translucency test at all (a WW3D2 near-miss). In the texture files,
 `TextureClass`'s constructors, `Init`, `Apply` and `Get_Reduction` and `DX8Wrapper`'s device code
