@@ -392,8 +392,7 @@ Added 2026-10-24 (overnight run; details in `.work/night/item*/report.md`):
   set by the machine's uptime: not a bug. `-sync` has no visible effect when windowed. A
   full-screen quad needs vertices (1,1), (1,-1), (-1,-1), (-1,1) and indices 0,2,1,0,3,2, or
   it is culled.
-* **Unattended runs on the host: no message boxes, no full screen.** The user's desktop is live. A
-  modal MessageBox (e.g. WW3D's "hardware does not support the requested settings") waits for a click,
-  and a full-screen mode switch takes over the display (2026-10-24: two such boxes reached the user).
-  Test runs pass `-windowed yes` and route message boxes to the log; full-screen runs only with the
-  user watching.
+* **Unattended runs on the host: no modal dialogs.** The user's desktop is live. A modal MessageBox
+  (e.g. WW3D's "hardware does not support the requested settings") waits for a click (2026-10-24:
+  two reached the user). Every test run routes message boxes to the log. Full-screen test runs are
+  fine (user, 2026-10-24).
