@@ -1111,8 +1111,8 @@ bool MeshGeometryClass::cast_ray_brute_force(RayCollisionTestClass & raytest)
 		tri.N = (Vector3 *)&(norms[srtri]);
 #endif
 		
-		hit = hit | CollisionMath::Collide(raytest.Ray, tri, raytest.Result);
-		if (hit) {
+		if (CollisionMath::Collide(raytest.Ray, tri, raytest.Result)) {
+			hit = true;
 			raytest.Result->SurfaceType = Get_Poly_Surface_Type (srtri);
 		}
 	
@@ -2023,4 +2023,22 @@ void MeshGeometryClass::Scale(const Vector3 &sc)
 	}
 	// pnormals are plane equations...
 	Set_Flag(DIRTY_PLANES,true);
+
+	// the cull tree is invalid, release it and make a new one
+	if (CullTree) {
+		// If the scale is uniform, we can scale the cull tree, which is a lot faster than creating a new one
+		if (fabs(sc[0]-sc[1])<WWMATH_EPSILON && fabs(sc[0]-sc[2])<WWMATH_EPSILON) {
+			// create a copy of the old culltree
+			AABTreeClass *temp = NEW_REF(AABTreeClass, ());
+			*temp = *CullTree;
+			temp->Set_Mesh(this);
+			REF_PTR_SET(CullTree, temp);
+			REF_PTR_RELEASE(temp);
+			CullTree->Scale(sc[0]);
+		}
+		else {
+			REF_PTR_RELEASE(CullTree);
+			Generate_Culling_Tree();
+		}
+	}
 }
