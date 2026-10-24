@@ -3190,7 +3190,7 @@ void DX8Wrapper::Set_Gamma(float gamma,float bright,float contrast,bool calibrat
 		ramp.blue[i]=(WORD) (out*65535);
 	}
 
-	if (Get_Current_Caps()->Support_Gamma())	{
+	if (Get_Current_Caps()->Support_Gamma() && !IsWindowed)	{
 		DX8Wrapper::_Get_D3D_Device8()->SetGammaRamp(flag,&ramp);
 	} else {
 		HWND hwnd = GetDesktopWindow();

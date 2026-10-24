@@ -602,6 +602,9 @@ TEXTURE_API_PATCHES = {
         ("\t// if it happens we'll release assets and try again (anything is better than crashing).\n\tunsigned ret=D3DXCreateTexture(\n\t\tDX8Wrapper::_Get_D3D_Device8(),\n\t\twidth,\n\t\theight,\n\t\tmip_level_count,\n\t\t0,\n\t\tWW3DFormat_To_D3DFormat(format),\n\t\tpool,\n\t\t&texture);\n",
          "\t// if it happens we'll release assets and try again (anything is better than crashing).\n\tunsigned ret;\n\tif (width!=height) {\n\t\tret=DX8Wrapper::_Get_D3D_Device8()->CreateTexture(\n\t\t\twidth,\n\t\t\theight,\n\t\t\tmip_level_count,\n\t\t\t0,\n\t\t\tWW3DFormat_To_D3DFormat(format),\n\t\t\tpool,\n\t\t\t&texture);\n\t}\n\telse {\n\t\tret=D3DXCreateTexture(\n\t\t\tDX8Wrapper::_Get_D3D_Device8(),\n\t\t\twidth,\n\t\t\theight,\n\t\t\tmip_level_count,\n\t\t\t0,\n\t\t\tWW3DFormat_To_D3DFormat(format),\n\t\t\tpool,\n\t\t\t&texture);\n\t}\n",
          'D9, E&B: _Create_DX8_Texture 0x925980 creates a non-square, non-render-target texture with IDirect3DDevice8::CreateTexture (vtable +0x50, 0x925B11) and only a square one with D3DXCreateTexture (cmp width,height; je at 0x925B08); no EA copy has this'),
+        ('\tif (Get_Current_Caps()->Support_Gamma())\t{',
+         '\tif (Get_Current_Caps()->Support_Gamma() && !IsWindowed)\t{',
+         "E&B: Set_Gamma 0x926E80 uses the device's SetGammaRamp only in full screen: tests [CurrentCaps+0xDE] (Support_Gamma) and then IsWindowed (0xC0063D, as Flip_To_Primary 0x924AE0 reads it) before the GDI fallback; no EA copy has the IsWindowed test"),
     ],
     ('ww3d2', 'font3d.cpp'): [
         ('\t\tTexture = NEW_REF(TextureClass,(_surface,TextureClass::MIP_LEVELS_1));',
