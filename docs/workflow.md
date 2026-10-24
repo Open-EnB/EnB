@@ -282,3 +282,6 @@ Added 2026-10-24 (overnight run; details in `.work/night/item*/report.md`):
   were added). `#import` writes absolute `c:\enbdevelopment\_vc6\obj_*\` paths into the `.tlh`:
   strip them before committing. E&B's `BrowserEngine.dll` differs from EA's (same GUIDs, extra
   methods): generate from E&B's (D21).
+* **Line endings of generated files.** A generated tree file (e.g. D22's shader headers) written
+  with mixed CRLF and LF shows as modified in `git status` with an empty diff. Write CRLF
+  throughout (Python `open(..., 'w', newline='')` with `\r\n`), like the EA files.
