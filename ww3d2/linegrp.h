@@ -49,6 +49,7 @@
 #include "vector2.h"
 
 class RenderInfoClass;
+class Matrix3D;
 class TextureClass;
 
 template <class T> class ShareBufferClass;
@@ -105,7 +106,8 @@ public:
 	LineModeType			Get_Line_Mode(void);
 	int						Get_Polygon_Count(void);
 
-	void						Render(RenderInfoClass &rinfo);
+	// E&B passes the object's transform; its use (an E&B member at 0x97C900) is not rebuilt yet
+	void						Render(RenderInfoClass &rinfo, const Matrix3D &transform);
 
 protected:
 

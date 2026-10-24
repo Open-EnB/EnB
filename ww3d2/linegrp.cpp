@@ -225,7 +225,7 @@ LineGroupClass::LineModeType LineGroupClass::Get_Line_Mode(void)
 	return LineMode;
 }
 
-void	LineGroupClass::Render(RenderInfoClass &rinfo)
+void	LineGroupClass::Render(RenderInfoClass &rinfo, const Matrix3D &transform)
 {
 	int i;
 

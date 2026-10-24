@@ -1103,6 +1103,22 @@ TEXTURE_API_PATCHES = {
         ("\t\t\tprev_pos[NewEnd] = new_particle.Position;\n\t\t}\n\n\t\t// Advance the 'end of new particles' index.\n",
          "\t\t\tprev_pos[NewEnd] = new_particle.Position;\n\t\t}\n\n\t\t// upate the group id\n\t\tids[NewEnd] = new_particle.GroupID;\n\n\t\t// Advance the 'end of new particles' index.\n",
          "ParticleBufferClass has Zero Hour's line groups: GroupID initialised, allocated (both constructors 0x95BA90/0x95C360: new ShareBufferClass<unsigned char> into +0x204) and released (destructor 0x95D430), CurrentGroupID zeroed (+0x2B4), Get_New_Particles (0x962070) storing each particle's group, Zero Hour's Render_Line (0x95DDE0: per-group runs with colours); E&B takes the line's end point from the emitter's Unknown_Get_Position (0x95E290) into a zeroed vector"),
+        ('\tLineGroup->Render(rinfo);\t\n',
+         '\tLineGroup->Render(rinfo, Transform);\t\n',
+         'ParticleBufferClass::Render_Line_Group passes its Transform to LineGroupClass::Render (0x95E885)'),
+    ],
+    ('ww3d2', 'linegrp.h'): [
+        ('class RenderInfoClass;\nclass TextureClass;\n',
+         'class RenderInfoClass;\nclass Matrix3D;\nclass TextureClass;\n',
+         "LineGroupClass::Render takes the object's transform (E&B): 0x97BAF0 ends ret 8 and passes it to an E&B member (0x97C900, not rebuilt yet); callers ParticleBufferClass::Render_Line_Group (0x95E885, &Transform) and the app (0x6BAEDF)"),
+        ('\tvoid\t\t\t\t\t\tRender(RenderInfoClass &rinfo);\n',
+         "\t// E&B passes the object's transform; its use (an E&B member at 0x97C900) is not rebuilt yet\n\tvoid\t\t\t\t\t\tRender(RenderInfoClass &rinfo, const Matrix3D &transform);\n",
+         "LineGroupClass::Render takes the object's transform (E&B): 0x97BAF0 ends ret 8 and passes it to an E&B member (0x97C900, not rebuilt yet); callers ParticleBufferClass::Render_Line_Group (0x95E885, &Transform) and the app (0x6BAEDF)"),
+    ],
+    ('ww3d2', 'linegrp.cpp'): [
+        ('void\tLineGroupClass::Render(RenderInfoClass &rinfo)\n',
+         'void\tLineGroupClass::Render(RenderInfoClass &rinfo, const Matrix3D &transform)\n',
+         "LineGroupClass::Render's transform argument (the body that uses it is not rebuilt yet)"),
     ],
 }
 for _key, _edits in TEXTURE_API_PATCHES.items():

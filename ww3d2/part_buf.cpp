@@ -1153,7 +1153,7 @@ void ParticleBufferClass::Render_Line_Group(RenderInfoClass & rinfo)
 	
 	LineGroup->Set_Arrays(Position[pingpong], TailPosition,Diffuse,TailDiffuse, apt, Size, UCoord, active_point_count);
 	Update_Bounding_Box();	
-	LineGroup->Render(rinfo);	
+	LineGroup->Render(rinfo, Transform);	
 }
 
 // Scales the size of the individual particles but doesn't affect their
