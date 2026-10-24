@@ -1649,6 +1649,11 @@ WWSHADE_API_PATCHES = {
          'void HLodClass::Add_Lod_Model(int lod,RenderObjClass * robj,int boneindex)\n',
          "E&B's HLodClass has Zero Hour's virtual Add_Lod_Model after Get_Additional_Model_Bone: the client vtable 0xB1327C has 133 slots, slot 128 is 0x98F920 (the add-model body, without Zero Hour's gth bone-index check), and Include_NULL_Lod 0x98D510 calls Is_NULL_Lod_Included through +0x204"),
     ],
+    ('ww3d2', 'matpass.h'): [
+        ('\t/// MW: Had to make this virtual so app can perform direct/custom D3D setup.\n\tvirtual void\tInstall_Materials(void) const;\n\tvirtual void\tUnInstall_Materials(void) const { };\t///< reset/cleanup D3D states\n',
+         '\tvoid\t\t\t\t\t\t\tInstall_Materials(void) const;\n',
+         "E&B's MaterialPassClass::Install_Materials is not virtual and there is no UnInstall_Materials (Renegade's, not Zero Hour's MW change): MeshClass::Render_Material_Pass 0x93F620 calls 0x92E720 directly, and 0x92E720 is in no vtable the client stores"),
+    ],
 }
 for _key, _edits in WWSHADE_API_PATCHES.items():
     PATCHES.setdefault(_key, []).extend(_edits)
