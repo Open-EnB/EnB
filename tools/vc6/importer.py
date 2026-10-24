@@ -3093,6 +3093,9 @@ RECONSTRUCTED = {
     ('app', 'shared/auxdata/encode.cpp'): "RecordTableClass (D24; Records from the asserts), client "
                                           "0x4A9A70-0x4A9C1A: ctor (line 512, D25), dtor, Unknown_Sum, "
                                           "Unknown_All; the rest of the file not rebuilt",
+    ('app', 'shared/auxdata/policy.cpp'): "CompiledPolicyClass (D24; Compiled, Size from the asserts): dtor "
+                                          "0x4AE850, Get_Action 0x4AED50 (line 334, D25); PolicyClass::"
+                                          "Get_Action 0x4AF490 (line 444); the rest of the file not rebuilt",
 }
 
 # Text appended to imported files (after everything, so no existing line moves).
