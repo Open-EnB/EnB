@@ -255,7 +255,6 @@ void TextureBaseClass::Invalidate()
 */
 IDirect3DBaseTexture8 * TextureBaseClass::Peek_D3D_Base_Texture() const 
 { 	
-	LastAccessed=WW3D::Get_Sync_Time(); 
 	return D3DTexture; 
 }
 

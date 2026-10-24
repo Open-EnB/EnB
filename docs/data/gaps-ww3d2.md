@@ -78,7 +78,6 @@ Each function our source compiles that the client does not contain byte for byte
 | hlod.obj | `HLodClass::Include_NULL_Lod` | 1532 | none | 0x98D510 | 0.75 |
 | light.obj | `LightClass::Is_Within_Attenuation_Radius` | 126 | none | 0x463790 | 0.17 |
 | light.obj | `LightClass::Compute_Lighting` | 951 | none | 0x4633C0 | 0.05 |
-| linegrp.obj | `LineGroupClass::Render` | 4491 | none | 0x97BAF0 | 0.13 |
 | mesh.obj | `MeshClass::Render_Material_Pass` | 2811 | none | 0x93F620 | 0.74 |
 | meshbuild.obj | `FaceClass::Reset` | 152 | none | 0x431DE0 | 0.29 |
 | meshbuild.obj | `VertClass::Reset` | 168 | none | 0x42FBA0 | 0.26 |
@@ -139,21 +138,7 @@ Each function our source compiles that the client does not contain byte for byte
 | meshmdl.obj | `MeshModelClass::Enable_Alternate_Material_Description` | 103 | none | - | - |
 | meshmdlio.obj | `MeshModelClass::post_process` | 518 | none | 0x9BCC40 | 0.45 |
 | meshmdlio.obj | `MeshModelClass::Load_W3D` | 1379 | none | 0x9BAA00 | 0.39 |
-| part_buf.obj | `ParticleBufferClass::Render_Particles` | 330 | none | 0x95DC90 | 0.89 |
-| part_buf.obj | `ParticleBufferClass::ParticleBufferClass` | 4204 | none | 0x95C360 | 0.84 |
-| part_buf.obj | `ParticleBufferClass::~ParticleBufferClass` | 1091 | none | 0x95D430 | 0.78 |
-| part_buf.obj | `ParticleBufferClass::Render_Line_Group` | 936 | none | 0x95E500 | 0.74 |
-| part_buf.obj | `ParticleBufferClass::Get_New_Particles` | 833 | none | 0x962070 | 0.54 |
-| part_buf.obj | `ParticleBufferClass::Update_Cached_Bounding_Volumes` | 166 | none | 0x960DB0 | 0.52 |
-| part_buf.obj | `ParticleBufferClass::Render_Line` | 530 | none | 0x95DDE0 | 0.22 |
-| part_buf.obj | `ParticleBufferClass::Scale` | 131 | none | 0x95E410 | 0.09 |
-| part_buf.obj | `ParticleBufferClass::ParticleBufferClass` | 2020 | none | 0x95C2D0 | 0.04 |
-| part_emt.obj | `ParticleEmitterClass::Build_Definition` | 1319 | none | 0x97EDE0 | 0.91 |
-| part_emt.obj | `ParticleEmitterClass::Emit` | 368 | none | 0x97E330 | 0.87 |
-| part_emt.obj | `ParticleEmitterClass::Create_New_Particles` | 713 | none | 0x97E530 | 0.73 |
-| part_emt.obj | `ParticleEmitterClass::ParticleEmitterClass` | 685 | none | 0x97D180 | 0.7 |
-| part_ldr.obj | `ParticleEmitterDefClass::Save_Extra_Info` | 111 | none | 0x916A60 | 0.34 |
-| pointgr.obj | `PointGroupClass::Render` | 4776 | none | 0x954960 | 0.48 |
+| pointgr.obj | `PointGroupClass::Render` | 5348 | none | 0x954960 | 0.65 |
 | polyinfo.obj | `PolygonInfoClass::Set_Shader` | 57 | none | 0xA03C50 | 0.49 |
 | polyinfo.obj | `PolygonInfoClass::~PolygonInfoClass` | 60 | none | 0xA03C30 | 0.43 |
 | render2dsentence.obj | `Render2DSentenceClass::Find_Row_Start` | 777 | none | 0x9A86D0 | 0.69 |
@@ -167,8 +152,8 @@ Each function our source compiles that the client does not contain byte for byte
 | scene.obj | `SceneClass::Render` | 943 | none | 0x965460 | 0.64 |
 | scene.obj | `??_G?$RefMultiListClass@VRenderObjClass@@@@UAEPAXI@Z` | 86 | none | 0x964F30 | 0.59 |
 | scene.obj | `SimpleSceneClass::Visibility_Check` | 197 | none | 0x965F40 | 0.51 |
-| seglinerenderer.obj | `SegLineRendererClass::Render` | 12741 | none | 0x9BEB20 | 0.17 |
-| seglinerenderer.obj | `SegLineRendererClass::subdivision_util` | 1238 | none | - | - |
+| seglinerenderer.obj | `SegLineRendererClass::Render` | 12741 | none | 0x9BFFEE | 0.25 |
+| seglinerenderer.obj | `SegLineRendererClass::subdivision_util` | 1238 | none | 0x9C2390 | 0.11 |
 | shader.obj | `ShaderClass::Apply` | 4072 | none | 0x93B510 | 0.34 |
 | sortingrenderer.obj | `DX8Wrapper::Release_Render_State` | 193 | none | 0x984740 | 0.65 |
 | sortingrenderer.obj | `Apply_Render_State` | 978 | none | 0x983BF0 | 0.56 |
@@ -295,8 +280,6 @@ Each function our source compiles that the client does not contain byte for byte
 | texture.obj | `Load_Texture` | 649 | none | - | - |
 | texturefilter.obj | `TextureFilterClass::Apply` | 731 | none | 0x9214E7 | 0.22 |
 | texturefilter.obj | `TextureFilterClass::TextureFilterClass` | 43 | none | 0x921000 | 0.16 |
-| textureloader.obj | `TextureLoadTaskClass::Begin_Uncompressed_Load` | 193 | none | 0x94AA80 | 0.84 |
-| textureloader.obj | `TextureLoadTaskClass::Begin_Compressed_Load` | 418 | none | 0x94A6F0 | 0.8 |
 | textureloader.obj | `TextureLoader::Update` | 485 | none | 0x949990 | 0.71 |
 | textureloader.obj | `TextureLoader::Process_Foreground_Load` | 505 | none | 0x949C60 | 0.7 |
 | textureloader.obj | `TextureLoader::Request_Thumbnail` | 403 | none | 0x949260 | 0.68 |
@@ -305,7 +288,6 @@ Each function our source compiles that the client does not contain byte for byte
 | textureloader.obj | `TextureLoader::Flush_Pending_Load_Tasks` | 470 | none | 0x9497B0 | 0.64 |
 | textureloader.obj | `TextureLoader::Request_Foreground_Loading` | 617 | none | 0x949550 | 0.62 |
 | textureloader.obj | `TextureLoader::Request_Background_Loading` | 352 | none | 0x9493F0 | 0.45 |
-| textureloader.obj | `Get_Texture_Information` | 551 | none | 0x94A890 | 0.4 |
 | texturethumbnail.obj | `AddInfoStruct::vector deleting dtor` | 117 | none | 0x91BD10 | 0.24 |
 | texturethumbnail.obj | `FileInfoStruct::vector deleting dtor` | 102 | none | 0x91B9D0 | 0.22 |
 | texturethumbnail.obj | `??0?$VectorClass@VStringClass@@@@QAE@HPBVStringClass@@@Z` | 219 | none | - | - |
@@ -339,8 +321,6 @@ Each function our source compiles that the client does not contain byte for byte
 | w3dexclusionlist.obj | `?Exists@?$HashTemplateClass@VStringClass@@H@@QBE_NABVStringC` | 235 | none | - | - |
 | ww3d.obj | `WW3D::Render` | 855 | none | 0x917C80 | 0.71 |
 | ww3d.obj | `WW3D::Update_Movie_Capture` | 332 | none | 0x918B20 | 0.68 |
-| ww3d.obj | `WW3D::Set_Render_Device` | 48 | none | 0x917790 | 0.61 |
-| ww3d.obj | `WW3D::Set_Render_Device` | 48 | none | 0x9177E0 | 0.61 |
 | ww3d.obj | `WW3D::Init` | 294 | none | 0x917660 | 0.51 |
 | ww3d.obj | `WW3D::Shutdown` | 84 | none | 0x917830 | 0.44 |
 | ww3d.obj | `WW3D::Override_Current_Static_Sort_Lists` | 45 | none | 0x918FE0 | 0.4 |

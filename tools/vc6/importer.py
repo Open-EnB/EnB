@@ -754,6 +754,9 @@ TEXTURE_API_PATCHES = {
         ('\tfor (ite.First ();!ite.Is_Done();ite.Next ()) \n\t{\n\t\t// Get the current texture\n\t\tTextureBaseClass* tex=ite.Peek_Value();\n\t\tif (!tex->Initialized) \n\t\t{\n\t\t\ttotal_locked_surface_size+=tex->Get_Texture_Memory_Usage();',
          '\tfor (ite.First ();!ite.Is_Done();ite.Next ()) \n\t{\n\t\t// Get the current texture\n\t\tTextureClass* tex=ite.Peek_Value();\n\t\tif (!tex->Initialized) \n\t\t{\n\t\t\ttotal_locked_surface_size+=tex->Get_Texture_Memory_Usage();',
          "TextureClass* (Renegade's form): Get_Texture_Memory_Usage is TextureClass's, not a virtual of the base"),
+        ('\tLastAccessed=WW3D::Get_Sync_Time(); \n',
+         '',
+         'TextureBaseClass::Peek_D3D_Base_Texture does not set LastAccessed in E&B: its inlined copies in ZTextureClass::Apply (0x94D190), TextureClass::Init (0x94B920), Get_Surface_Level (0x94BB50) and Get_D3D_Surface_Level (0x94BBB0) read the texture pointer only'),
     ],
     ('ww3d2', 'textureloader.h'): [
         ('\t\tunsigned char *\t\tLockedSurfacePtr[TextureClass::MIP_LEVELS_MAX];\n\t\tunsigned\tint\t\t\tLockedSurfacePitch[TextureClass::MIP_LEVELS_MAX];',
