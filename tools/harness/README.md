@@ -100,8 +100,14 @@ python tools/harness/symbolize.py build/programs/vidtest/vidtest.map build/progr
 
 * **run_vidtest.py** runs `build/programs/vidtest/vidtest.exe` on the host (D48) and checks it:
   exit code 0, `WW3D::Init` and `Set_Render_Device` = 0 in `vidtest.log`, `WW3D::Shutdown` = 0,
-  and the clear colour in vidtest's own screenshot (`shot.bmp`, its D3D back buffer: never a
-  screen grab). `--mode close` posts `WM_CLOSE` as a user would. It prints the stub log
-  (`stubs.log`, D44).
+  and vidtest's own screenshot (`shot.bmp`, its D3D back buffer: never a screen grab).
+  `--check model` (default, M2.1): the model (BST29A from EBCONFIG, read through vidtest's file
+  factory; `-art DIR`, `-w3d`, `-model`, `-anim`, `-camdir`, `-camdist`, `-clear` choose another)
+  covers at least 2% of the pixels with at least 200 colours; a second screenshot `shot2.bmp` at
+  half the frames shows whether the animation moves; both are also written as `.png`.
+  `--check clear` is L2's test (`-noscene`, the clear colour). `--mode close` posts `WM_CLOSE` as a
+  user would. It prints the stub log (`stubs.log`, D44). `vidtest.log` lists every file the
+  libraries asked the file factory for (`file: NAME found|MISSING`).
+* **bmp2png.py** converts a screenshot to `.png` (no Pillow needed).
 * **symbolize.py** names the addresses of vidtest's crash report (`CRASH:` lines in its log: the
   exception address and the stack words that point into its code) with the linker map.

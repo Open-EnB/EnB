@@ -6,14 +6,28 @@
 **	WW3D::Set_Render_Device, a render loop, then WW3D::Shutdown and WWMath::Shutdown. No scenes
 **	yet: each frame only clears to a colour.
 **
+**	M2.1 (docs/milestones.md 4.2, docs/vidtest.md 7.2): one model. The assets are read from the
+**	EBCONFIG folder through a SimpleFileFactoryClass (read only; the working directory, where the
+**	log and screenshots go, stays this program's own), Load_3D_Assets("bst29a.w3d"),
+**	Create_Render_Obj("BST29A") with its BST29A.BST29A-1 loop, a SimpleSceneClass with VIDTEST's
+**	space-scene ambient (0.5) and its sun light (docs/vidtest.md 2), a camera framing the model.
+**
 **	Test options (ours, not VIDTEST's):
 **	  -frames N    quit by itself after N frames (default 0: run until the window is closed)
 **	  -shot FILE   save the back buffer of frame -shotframe N to FILE (.bmp)
 **	               (default N: the -frames count, else 60)
+**	  -shot2 FILE  a second screenshot, of frame -shot2frame N (default: half of -shotframe)
 **	  -log FILE    init results (default vidtest.log)
+**	  -art DIR     the folder the assets are read from (default the EBCONFIG install folder)
+**	  -w3d FILE    the file to load (default bst29a.w3d); -model NAME (default BST29A)
+**	  -anim NAME   the animation (default MODEL.MODEL-1; "none" for none)
+**	  -camdir X,Y,Z  the direction from the model to the camera (default 1,-1,0.4)
+**	  -camdist F   the camera distance in bounding-sphere radii (default 2.2)
+**	  -noscene     L2's behaviour: only clear each frame
+**	  -clear R,G,B the clear colour (default 0,0,0; with -noscene 0,0,0.5)
 **	  -resx N -resy N -depth N -windowed B -device NAME   as VIDTEST
 **	Exit code: 0 on success, 10+ on an init failure (11 window, 12 WW3D::Init, 13 no device,
-**	14 Set_Render_Device, 15 Begin_Render/End_Render, 16 screenshot).
+**	14 Set_Render_Device, 15 Begin_Render/End_Render, 16 screenshot, 17 model not created).
 */
 
 #include <windows.h>
@@ -29,6 +43,16 @@
 #include "vector3.h"
 #include "wwdebug.h"
 #include "win.h"
+#include "ffactory.h"
+#include "wwfile.h"
+#include "scene.h"
+#include "camera.h"
+#include "light.h"
+#include "rendobj.h"
+#include "hanim.h"
+#include "sphere.h"
+#include "matrix3d.h"
+#include "sortingrenderer.h"
 
 static FILE *		LogFile = NULL;
 static bool			Quit = false;
@@ -57,6 +81,33 @@ static void Debug_Assert(const char *message)
 {
 	Log("[wwassert] %s\n", message);
 }
+
+/*
+** The file factory (ours: VIDTEST sets none and reads from its working directory, docs/vidtest.md
+** 1.1 step 4). Requests go to a SimpleFileFactoryClass on the art folder, and each one is logged
+** with whether the file exists (open question O1: which files the 2004 loaders ask for).
+*/
+class LoggingFileFactoryClass : public FileFactoryClass
+{
+public:
+	SimpleFileFactoryClass	Inner;
+	int						Requests;
+
+	LoggingFileFactoryClass(void) : Requests(0) {}
+	virtual FileClass * Get_File(char const *filename)
+	{
+		FileClass *file = Inner.Get_File(filename);
+		Requests++;
+		Log("file: %s %s\n", filename ? filename : "(null)", (file && file->Is_Available()) ? "found" : "MISSING");
+		return file;
+	}
+	virtual void Return_File(FileClass *file)
+	{
+		Inner.Return_File(file);
+	}
+};
+
+static LoggingFileFactoryClass	ArtFiles;
 
 /*
 ** A crash report for unattended runs (ours, not VIDTEST's): the exception, the registers and the
@@ -135,6 +186,22 @@ static bool Arg_Bool(const char *name, bool def)
 	const char *s = Arg_String(name, NULL);
 	if (!s) return def;
 	return s[0] == 'T' || s[0] == 't' || s[0] == '1' || s[0] == 'Y' || s[0] == 'y';
+}
+
+static bool Arg_Present(const char *name)
+{
+	for (int i = 0; i < ArgCount; i++) {
+		if (stricmp(Args[i], name) == 0) return true;
+	}
+	return false;
+}
+
+static Vector3 Arg_Vector(const char *name, const Vector3 &def)
+{
+	const char *s = Arg_String(name, NULL);
+	Vector3 v = def;
+	if (s) sscanf(s, "%f,%f,%f", &v.X, &v.Y, &v.Z);
+	return v;
 }
 
 static LRESULT CALLBACK Wnd_Proc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
@@ -253,6 +320,102 @@ static bool Save_Back_Buffer(const char *filename)
 	return ok;
 }
 
+/*
+** One model in a scene (M2.1). VIDTEST's space scene (docs/vidtest.md 2): a SimpleSceneClass with
+** ambient (0.5, 0.5, 0.5) and the sun: a directional LightClass, intensity 1, ambient 0, diffuse
+** and specular 1, far attenuation 1e6/1e6, spot direction (0, 0, -1), forced visible, at
+** (0, 0, 6000) with an identity rotation. The 3D camera's view plane is VIDTEST's (45 x 33
+** degrees); its position is ours: on -camdir from the bounding sphere's centre, -camdist radii
+** away, looking at the centre. Like Max_LOD_And_Cost (0x424AA0), an HLOD is set to its finest
+** LOD and gets the "%s.%s-1" animation in ANIM_MODE_LOOP.
+*/
+static int Build_Scene(WW3DAssetManager *assets, int resx, int resy, SimpleSceneClass **set_scene,
+	CameraClass **set_camera, LightClass **set_sun, RenderObjClass **set_model)
+{
+	const char *w3d = Arg_String("-w3d", "bst29a.w3d");
+	const char *name = Arg_String("-model", "BST29A");
+	bool loaded = assets->Load_3D_Assets(w3d);
+	Log("Load_3D_Assets(\"%s\") = %d\n", w3d, (int)loaded);
+	RenderObjClass *model = assets->Create_Render_Obj(name);
+	Log("Create_Render_Obj(\"%s\") = %p\n", name, model);
+	if (!model) {
+		return 17;
+	}
+	Log("  class id %d, name %s, sub objects %d, polys %d\n", model->Class_ID(), model->Get_Name(),
+		model->Get_Num_Sub_Objects(), model->Get_Num_Polys());
+	if (model->Class_ID() == RenderObjClass::CLASSID_HLOD) {
+		model->Set_LOD_Level(model->Get_LOD_Count() - 1);
+		Log("  LOD level %d of %d, cost %f\n", model->Get_LOD_Level(), model->Get_LOD_Count(), model->Get_Cost());
+	}
+
+	char anim_name[256];
+	_snprintf(anim_name, sizeof(anim_name) - 1, "%s.%s-1", name, name);
+	anim_name[sizeof(anim_name) - 1] = 0;
+	const char *anim_arg = Arg_String("-anim", anim_name);
+	if (stricmp(anim_arg, "none") != 0) {
+		HAnimClass *anim = assets->Get_HAnim(anim_arg);
+		Log("Get_HAnim(\"%s\") = %p\n", anim_arg, anim);
+		if (!anim) {
+			// VIDTEST loads no animation file (load on demand is off); see O1
+			char file[256];
+			const char *dot = strchr(anim_arg, '.');
+			_snprintf(file, sizeof(file) - 1, "%s.w3d", dot ? dot + 1 : anim_arg);
+			file[sizeof(file) - 1] = 0;
+			Log("Load_3D_Assets(\"%s\") = %d\n", file, (int)assets->Load_3D_Assets(file));
+			anim = assets->Get_HAnim(anim_arg);
+			Log("Get_HAnim(\"%s\") = %p\n", anim_arg, anim);
+		}
+		if (anim) {
+			Log("  %d frames at %f fps\n", anim->Get_Num_Frames(), anim->Get_Frame_Rate());
+			model->Set_Animation(anim, 0, RenderObjClass::ANIM_MODE_LOOP);
+			anim->Release_Ref();
+		}
+	}
+
+	model->Set_Transform(Matrix3D(true));
+	SphereClass sphere;
+	model->Get_Obj_Space_Bounding_Sphere(sphere);
+	Log("  bounding sphere centre (%f, %f, %f) radius %f\n", sphere.Center.X, sphere.Center.Y,
+		sphere.Center.Z, sphere.Radius);
+	float radius = sphere.Radius > 0 ? sphere.Radius : 100.0f;
+
+	SimpleSceneClass *scene = new SimpleSceneClass;
+	scene->Set_Ambient_Light(Vector3(0.5f, 0.5f, 0.5f));
+
+	LightClass *sun = new LightClass(LightClass::DIRECTIONAL);
+	sun->Set_Intensity(1.0f);
+	sun->Set_Ambient(Vector3(0, 0, 0));
+	sun->Set_Diffuse(Vector3(1, 1, 1));
+	sun->Set_Specular(Vector3(1, 1, 1));
+	sun->Set_Far_Attenuation_Range(1000000.0, 1000000.0);
+	sun->Set_Spot_Direction(Vector3(0, 0, -1));
+	sun->Set_Force_Visible(1);
+	sun->Set_Position(Vector3(0, 0, 6000));
+	scene->Add_Render_Object(sun);
+	scene->Add_Render_Object(model);
+
+	Vector3 dir = Arg_Vector("-camdir", Vector3(1.0f, -1.0f, 0.4f));
+	dir.Normalize();
+	float dist = radius * (float)atof(Arg_String("-camdist", "2.2"));
+	Vector3 eye = sphere.Center + dir * dist;
+	Matrix3D tm(1);
+	tm.Look_At(eye, sphere.Center, 0.0f);
+	CameraClass *camera = new CameraClass;
+	camera->Set_Transform(tm);
+	float znear = dist - radius * 1.5f;
+	if (znear < 1.0f) znear = 1.0f;
+	camera->Set_Clip_Planes(znear, dist + radius * 2.0f);
+	camera->Set_View_Plane(0.7853982f, 0.5759587f);
+	Log("  camera at (%f, %f, %f), clip %f..%f, screen %dx%d\n", eye.X, eye.Y, eye.Z, znear,
+		dist + radius * 2.0f, resx, resy);
+
+	*set_scene = scene;
+	*set_camera = camera;
+	*set_sun = sun;
+	*set_model = model;
+	return 0;
+}
+
 static int Run(HINSTANCE instance, int show)
 {
 	int frames = Arg_Int("-frames", 0);
@@ -294,6 +457,15 @@ static int Run(HINSTANCE instance, int show)
 
 	// As VIDTEST (docs/vidtest.md 1.1 step 4): the asset manager exists before WW3D::Init
 	// (DX8Wrapper's device setup reaches ShatterSystem::Init, which asks it for htrees).
+	// The art folder, read through our file factory (VIDTEST reads its working directory)
+	char art[MAX_PATH];
+	strncpy(art, Arg_String("-art", "C:\\Program Files (x86)\\EA GAMES\\Earth & Beyond\\EBCONFIG"), MAX_PATH - 2);
+	art[MAX_PATH - 2] = 0;
+	if (art[0] && art[strlen(art) - 1] != '\\') strcat(art, "\\");
+	ArtFiles.Inner.Set_Sub_Directory(art);
+	_TheFileFactory = &ArtFiles;
+	Log("art folder: %s\n", art);
+
 	WW3DAssetManager *assets = new WW3DAssetManager;
 	assets->Set_Activate_Fog_On_Load(true);
 	Log("WW3DAssetManager created\n");
@@ -329,9 +501,24 @@ static int Run(HINSTANCE instance, int show)
 		return 14;
 	}
 
-	// The clear colour: dark blue (0, 0, 0.5)
-	Vector3 clear(0.0f, 0.0f, 0.5f);
+	bool noscene = Arg_Present("-noscene");
+	const char *shot2 = Arg_String("-shot2", NULL);
+	int shot2_frame = Arg_Int("-shot2frame", shot_frame / 2);
+
+	SimpleSceneClass *scene = NULL;
+	CameraClass *camera = NULL;
+	LightClass *sun = NULL;
+	RenderObjClass *model = NULL;
 	int result = 0;
+	if (!noscene) {
+		result = Build_Scene(assets, resx, resy, &scene, &camera, &sun, &model);
+		if (result) {
+			noscene = true;
+		}
+	}
+
+	// The clear colour: L2's dark blue (0, 0, 0.5); with the model, black (as VIDTEST's polygon test)
+	Vector3 clear = Arg_Vector("-clear", Vector3(0.0f, 0.0f, noscene ? 0.5f : 0.0f));
 	int frame = 0;
 	MSG msg;
 	while (!Quit) {
@@ -346,10 +533,23 @@ static int Run(HINSTANCE instance, int show)
 		if (Quit) break;
 		WW3D::Sync(GetTickCount());
 		WW3DErrorType b = WW3D::Begin_Render(true, true, clear);
-		if (shot && frame + 1 == shot_frame && b == WW3D_ERROR_OK) {
-			bool ok = Save_Back_Buffer(shot);
-			Log("screenshot %s of frame %d: %s\n", shot, frame + 1, ok ? "saved" : "failed");
+		if (scene && b == WW3D_ERROR_OK) {
+			WW3DErrorType r = WW3D::Render(scene, camera);
+			if (frame == 0) Log("first WW3D::Render = %d\n", (int)r);
+		}
+		bool want1 = shot && frame + 1 == shot_frame;
+		bool want2 = shot2 && frame + 1 == shot2_frame;
+		if ((want1 || want2) && b == WW3D_ERROR_OK) {
+			// End_Render draws the sorted (alpha) polygons first; draw them now so the
+			// screenshot has them (the second Flush in End_Render then has nothing left)
+			SortingRendererClass::Flush();
+			const char *name = want1 ? shot : shot2;
+			bool ok = Save_Back_Buffer(name);
+			Log("screenshot %s of frame %d: %s\n", name, frame + 1, ok ? "saved" : "failed");
 			if (!ok) result = 16;
+			if (model && model->Peek_Animation()) {
+				Log("  animation %s\n", model->Peek_Animation()->Get_Name());
+			}
 		}
 		WW3DErrorType e = WW3D::End_Render(true);
 		if (b != WW3D_ERROR_OK || e != WW3D_ERROR_OK) {
@@ -366,6 +566,13 @@ static int Run(HINSTANCE instance, int show)
 		}
 	}
 	Log("frames rendered: %d\n", frame);
+
+	// Release the scene before WW3D::Shutdown (VIDTEST's Release_Scenes, docs/vidtest.md 2)
+	if (sun) sun->Release_Ref();
+	if (camera) camera->Release_Ref();
+	if (scene) scene->Release_Ref();
+	if (model) model->Release_Ref();
+	Log("scene released; file requests: %d\n", ArtFiles.Requests);
 
 	err = WW3D::Shutdown();
 	Log("WW3D::Shutdown = %d\n", (int)err);
