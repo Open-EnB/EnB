@@ -50,6 +50,10 @@
 
 class RenderInfoClass;
 class Matrix3D;
+class Matrix4;
+class Vector3;
+class DynamicIBAccessClass;
+class DynamicVBAccessClass;
 class TextureClass;
 
 template <class T> class ShareBufferClass;
@@ -110,6 +114,12 @@ public:
 	void						Render(RenderInfoClass &rinfo, const Matrix3D &transform);
 
 protected:
+
+	// E&B (names not known): Render's transform setup, index fill and vertex fill
+	void						Unknown_Fill_Indices(DynamicIBAccessClass * iba);
+	void						Unknown_Fill_Vertices(DynamicVBAccessClass * vba, const Vector3 * offset);
+	void						Unknown_Set_Transforms(const Matrix4 & view, const Matrix3D & transform, Vector3 * offset);
+
 
 	ShareBufferClass<Vector3> *			StartLineLoc;	// World/cameraspace point locs
 	ShareBufferClass<Vector3> *			EndLineLoc;	// World/cameraspace point locs

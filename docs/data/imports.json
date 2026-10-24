@@ -2084,7 +2084,11 @@
      "0x97BA20",
      "0x97BA50",
      "0x97BAB0",
-     "0x97C1B0"
+     "0x97BAF0",
+     "0x97C1B0",
+     "0x97C1D0",
+     "0x97C360",
+     "0x97C900"
     ],
     "merged": [],
     "name": "linegrp.cpp"
@@ -4614,7 +4618,7 @@
    "ww3dids.h": "R",
    "ww3dtrig.h": "R"
   },
-  "in_tree_total": 2334,
+  "in_tree_total": 2338,
   "totals": {
    "G": 548,
    "R": 1323,

@@ -272,7 +272,7 @@ void	LineGroupClass::Render(RenderInfoClass &rinfo, const Matrix3D &transform)
 	const static Vector3 offset_b = Vector3(WWMath::Cos(7 * WWMATH_PI / 6),		WWMath::Sin(7 * WWMATH_PI / 6), 0);
 	const static Vector3 offset_c = Vector3(WWMath::Cos(11 * WWMATH_PI / 6),	WWMath::Sin(11 * WWMATH_PI / 6), 0);
 
-	static Vector3 offset[3];
+	Vector3 offset[3];
 	
 	offset[0].Set(offset_a);
 	offset[1].Set(offset_b);
@@ -282,21 +282,8 @@ void	LineGroupClass::Render(RenderInfoClass &rinfo, const Matrix3D &transform)
 	Matrix4 view;
 	DX8Wrapper::Get_Transform(D3DTS_VIEW, view);
 
-	Matrix4 identity(true);
-	DX8Wrapper::Set_Transform(D3DTS_WORLD, identity);	
-
-	// if the points are in world space, transform the offsets
-	if (Get_Flag(TRANSFORM)) {
-		Matrix3D xform_mat;
-		xform_mat = rinfo.Camera.Get_Transform();
-		xform_mat.Set_Translation(Vector3(0, 0, 0));
-		xform_mat.Get_Orthogonal_Inverse(xform_mat);
-		for (i = 0; i < 3; i++) {
-			Matrix3D::Transform_Vector(xform_mat, offset[i], &offset[i]);
-		}
-	} else {
-		DX8Wrapper::Set_Transform(D3DTS_VIEW, identity);
-	}
+	// Set the world and view transforms, and bring the offsets into the lines' space
+	Unknown_Set_Transforms(view, transform, offset);
 	
 	int num_tris=0;
 	int num_indices=0;
@@ -320,150 +307,13 @@ void	LineGroupClass::Render(RenderInfoClass &rinfo, const Matrix3D &transform)
 
 	DynamicIBAccessClass iba(sort?BUFFER_TYPE_DYNAMIC_SORTING:BUFFER_TYPE_DYNAMIC_DX8,num_indices);
 
-	{
-		DynamicIBAccessClass::WriteLockClass lock(&iba);
-		unsigned short *ibptr = lock.Get_Index_Array();
-		unsigned short j, idx;
-
-		switch (LineMode)	{
-			case TETRAHEDRON:
-				for (j=0; j<LineCount; j++) {
-					idx = 4 * j;
-					// apex, offset[1], offset[0]
-					*ibptr++	= idx + 0;
-					*ibptr++	= idx + 2;
-					*ibptr++	= idx + 1;			
-					// apex, offset[2], offset[1]
-					*ibptr++	= idx + 0;
-					*ibptr++	= idx + 3;
-					*ibptr++	= idx + 2;
-					// apex, offset[0], offset[2]
-					*ibptr++	= idx + 0;
-					*ibptr++	= idx + 1;
-					*ibptr++	= idx + 3;
-					// offset[0-3]
-					*ibptr++	= idx + 1;
-					*ibptr++	= idx + 2;
-					*ibptr++	= idx + 3;
-				}
-				break;
-			case PRISM:
-				for (j=0; j<LineCount; j++) {
-					idx = 6 * j;
-					// starting cap 0,1,2
-					*ibptr++ = idx + 0;
-					*ibptr++ = idx + 1;
-					*ibptr++ = idx + 2;
-					// left side
-					*ibptr++ = idx + 0;
-					*ibptr++ = idx + 3;
-					*ibptr++ = idx + 1;
-					*ibptr++ = idx + 1;
-					*ibptr++ = idx + 3;
-					*ibptr++ = idx + 4;
-					// bottom side
-					*ibptr++ = idx + 1;
-					*ibptr++ = idx + 4;
-					*ibptr++ = idx + 5;
-					*ibptr++ = idx + 1;
-					*ibptr++ = idx + 5;
-					*ibptr++ = idx + 2;
-					// right side
-					*ibptr++ = idx + 0;
-					*ibptr++ = idx + 2;
-					*ibptr++ = idx + 5;
-					*ibptr++ = idx + 0;
-					*ibptr++ = idx + 5;
-					*ibptr++ = idx + 3;
-					// end cap
-					*ibptr++ = idx + 3;
-					*ibptr++ = idx + 5;
-					*ibptr++ = idx + 4;
-				}			
-				break;
-		}		
-	}	// writing to ib
+	Unknown_Fill_Indices(&iba);
 
 	// make the vertex buffers	
 
 	DynamicVBAccessClass vba(sort ? BUFFER_TYPE_DYNAMIC_SORTING : BUFFER_TYPE_DYNAMIC_DX8,dynamic_fvf_type,num_vertices);
 
-	{
-		DynamicVBAccessClass::WriteLockClass lock(&vba);
-
-		VertexFormatXYZNDUV2 *vb = lock.Get_Formatted_Vertex_Array();
-
-		Vector3 loc, start, end;
-		int point, j;
-		float size = DefaultLineSize;
-		Vector4 diffuse(DefaultLineColor.X, DefaultLineColor.Y, DefaultLineColor.Z, DefaultLineAlpha);		
-		float ucoord = DefaultLineUCoord;
-		Vector4 taildiffuse = DefaultTailDiffuse;
-
-		for (i = 0; i < LineCount; i++)
-		{
-			point = (ALT) ? ALT->Get_Element(i) : i;
-			if (LineSize)		size			= LineSize->Get_Element(point);
-			if (LineDiffuse)	diffuse		= LineDiffuse->Get_Element(point);
-			if (LineUCoord)	ucoord		= LineUCoord->Get_Element(point);
-			if (TailDiffuse)	taildiffuse	= TailDiffuse->Get_Element(point);
-
-			end.Set(EndLineLoc->Get_Element(point));
-			start.Set(StartLineLoc->Get_Element(point));
-
-			switch (LineMode) {
-				case TETRAHEDRON:
-					// apex
-					vb->x			= end.X;
-					vb->y			= end.Y;
-					vb->z			= end.Z;
-					vb->diffuse	= DX8Wrapper::Convert_Color(taildiffuse);
-					vb->u1		= ucoord;
-					vb->v1		= 1.0f;
-					vb++;
-
-					for (j=0; j<3; j++) {
-						loc.Set(start + size * offset[j]);
-						vb->x			= loc.X;
-						vb->y			= loc.Y;
-						vb->z			= loc.Z;
-						vb->diffuse	= DX8Wrapper::Convert_Color(diffuse);
-						vb->u1		= ucoord;
-						vb->v1		= 0.0f;
-						vb++;				
-					}
-					break;
-			case PRISM:
-					// start cap
-					for (j = 0; j < 3; j++) {
-						loc.Set(start + size * offset[j]);
-						vb->x			= loc.X;
-						vb->y			= loc.Y;
-						vb->z			= loc.Z;
-						vb->diffuse	= DX8Wrapper::Convert_Color(diffuse);
-						vb->u1		= ucoord;
-						vb->v1		= 0.0f;
-						vb++;				
-					}
-					// Do not merge loops. The vb has to be written in a specific order
-					// (This is to optimize AGP memory write)
-
-					// end cap 
-					for (j=0; j<3; j++) {
-						loc.Set(end + size * offset[j]);
-						vb->x			= loc.X;
-						vb->y			= loc.Y;
-						vb->z			= loc.Z;
-						vb->diffuse	= DX8Wrapper::Convert_Color(taildiffuse);
-						vb->u1		= ucoord;
-						vb->v1		= 1.0f;
-						vb++;				
-					}
-					break;
-			}
-
-		}
-	} // writing to vb
+	Unknown_Fill_Vertices(&vba, offset);
 
 	DX8Wrapper::Set_Index_Buffer(iba, 0);
 	DX8Wrapper::Set_Vertex_Buffer(vba);
@@ -490,4 +340,171 @@ int LineGroupClass::Get_Polygon_Count(void)
 	}
 	WWASSERT(0);
 	return 0;
+}
+
+// E&B: Render's index-buffer block, as a member (0x97C1D0; name not known)
+void LineGroupClass::Unknown_Fill_Indices(DynamicIBAccessClass * iba)
+{
+	DynamicIBAccessClass::WriteLockClass lock(iba);
+	unsigned short *ibptr = lock.Get_Index_Array();
+	unsigned short j, idx;
+
+	switch (LineMode)	{
+		case TETRAHEDRON:
+			for (j=0; j<LineCount; j++) {
+				idx = 4 * j;
+				// apex, offset[1], offset[0]
+				*ibptr++	= idx + 0;
+				*ibptr++	= idx + 2;
+				*ibptr++	= idx + 1;			
+				// apex, offset[2], offset[1]
+				*ibptr++	= idx + 0;
+				*ibptr++	= idx + 3;
+				*ibptr++	= idx + 2;
+				// apex, offset[0], offset[2]
+				*ibptr++	= idx + 0;
+				*ibptr++	= idx + 1;
+				*ibptr++	= idx + 3;
+				// offset[0-3]
+				*ibptr++	= idx + 1;
+				*ibptr++	= idx + 2;
+				*ibptr++	= idx + 3;
+			}
+			break;
+		case PRISM:
+			for (j=0; j<LineCount; j++) {
+				idx = 6 * j;
+				// starting cap 0,1,2
+				*ibptr++ = idx + 0;
+				*ibptr++ = idx + 1;
+				*ibptr++ = idx + 2;
+				// left side
+				*ibptr++ = idx + 0;
+				*ibptr++ = idx + 3;
+				*ibptr++ = idx + 1;
+				*ibptr++ = idx + 1;
+				*ibptr++ = idx + 3;
+				*ibptr++ = idx + 4;
+				// bottom side
+				*ibptr++ = idx + 1;
+				*ibptr++ = idx + 4;
+				*ibptr++ = idx + 5;
+				*ibptr++ = idx + 1;
+				*ibptr++ = idx + 5;
+				*ibptr++ = idx + 2;
+				// right side
+				*ibptr++ = idx + 0;
+				*ibptr++ = idx + 2;
+				*ibptr++ = idx + 5;
+				*ibptr++ = idx + 0;
+				*ibptr++ = idx + 5;
+				*ibptr++ = idx + 3;
+				// end cap
+				*ibptr++ = idx + 3;
+				*ibptr++ = idx + 5;
+				*ibptr++ = idx + 4;
+			}			
+			break;
+	}		
+}
+
+
+// E&B: Render's vertex-buffer block, as a member (0x97C360; name not known)
+void LineGroupClass::Unknown_Fill_Vertices(DynamicVBAccessClass * vba, const Vector3 * offset)
+{
+	int i;
+	DynamicVBAccessClass::WriteLockClass lock(vba);
+
+	VertexFormatXYZNDUV2 *vb = lock.Get_Formatted_Vertex_Array();
+
+	Vector3 loc, start, end;
+	int point, j;
+	float size = DefaultLineSize;
+	Vector4 diffuse(DefaultLineColor.X, DefaultLineColor.Y, DefaultLineColor.Z, DefaultLineAlpha);		
+	float ucoord = DefaultLineUCoord;
+	Vector4 taildiffuse = DefaultTailDiffuse;
+
+	for (i = 0; i < LineCount; i++)
+	{
+		point = (ALT) ? ALT->Get_Element(i) : i;
+		if (LineSize)		size			= LineSize->Get_Element(point);
+		if (LineDiffuse)	diffuse		= LineDiffuse->Get_Element(point);
+		if (LineUCoord)	ucoord		= LineUCoord->Get_Element(point);
+		if (TailDiffuse)	taildiffuse	= TailDiffuse->Get_Element(point);
+
+		end.Set(EndLineLoc->Get_Element(point));
+		start.Set(StartLineLoc->Get_Element(point));
+
+		switch (LineMode) {
+			case TETRAHEDRON:
+				// apex
+				vb->x			= end.X;
+				vb->y			= end.Y;
+				vb->z			= end.Z;
+				vb->diffuse	= DX8Wrapper::Convert_Color(taildiffuse);
+				vb->u1		= ucoord;
+				vb->v1		= 1.0f;
+				vb++;
+
+				for (j=0; j<3; j++) {
+					loc.Set(start + size * offset[j]);
+					vb->x			= loc.X;
+					vb->y			= loc.Y;
+					vb->z			= loc.Z;
+					vb->diffuse	= DX8Wrapper::Convert_Color(diffuse);
+					vb->u1		= ucoord;
+					vb->v1		= 0.0f;
+					vb++;				
+				}
+				break;
+		case PRISM:
+				// start cap
+				for (j = 0; j < 3; j++) {
+					loc.Set(start + size * offset[j]);
+					vb->x			= loc.X;
+					vb->y			= loc.Y;
+					vb->z			= loc.Z;
+					vb->diffuse	= DX8Wrapper::Convert_Color(diffuse);
+					vb->u1		= ucoord;
+					vb->v1		= 0.0f;
+					vb++;				
+				}
+				// Do not merge loops. The vb has to be written in a specific order
+				// (This is to optimize AGP memory write)
+
+				// end cap 
+				for (j=0; j<3; j++) {
+					loc.Set(end + size * offset[j]);
+					vb->x			= loc.X;
+					vb->y			= loc.Y;
+					vb->z			= loc.Z;
+					vb->diffuse	= DX8Wrapper::Convert_Color(taildiffuse);
+					vb->u1		= ucoord;
+					vb->v1		= 1.0f;
+					vb++;				
+				}
+				break;
+		}
+
+	}
+}
+
+
+// E&B: sets the world and view transforms for Render and, when the lines are in world space,
+// turns the view-space offsets by the inverse of the view and object rotations
+// (0x97C900; name not known)
+void LineGroupClass::Unknown_Set_Transforms(const Matrix4 & view, const Matrix3D & transform, Vector3 * offset)
+{
+	static Matrix4 identity(true);
+
+	if (Get_Flag(TRANSFORM)) {
+		Matrix3 rot = Matrix3(view) * Matrix3(transform);
+		for (int i = 0; i < 3; i++) {
+			Matrix3::Transpose_Rotate_Vector(rot, offset[i], &offset[i]);
+		}
+		DX8Wrapper::Set_Transform(D3DTS_WORLD, Matrix4(transform));
+	} else {
+		DX8Wrapper::Set_Transform(D3DTS_VIEW, identity);
+		DX8Wrapper::Set_Transform(D3DTS_WORLD, identity);
+	}
 }
