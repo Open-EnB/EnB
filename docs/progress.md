@@ -53,7 +53,7 @@ Newest first within each section. Dates are when the entry was written.
 * Header `__FILE__`: `..\shared/duration.h` is an include directory `..` plus
   `"shared/duration.h"` (VC6 joins them with `\`), so E&B ran cl in a directory one below `app`
   (e.g. `app\client`). Ours include `..\duration.h` relative to the .cpp: the string differs, the
-  bytes don't (relocation). Open: see ง3 (header `__FILE__` strings).
+  bytes don't (relocation). Open: see ยง3 (header `__FILE__` strings).
 * Drafts in `.work/day/B/`: `i1.cpp` (`DeltaInterpolatorClass::Set` 0x4A6590, same length as the
   client's, one `pop esi` scheduled differently; fields `EndTime` +0xA0, `ChangePerTick` +0x130,
   `StartValue` +0x1B8 from the ctor's strings, `LastTime` +0x240), `d2.cpp` (delta.cpp's misses),
