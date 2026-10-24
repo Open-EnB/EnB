@@ -6120,6 +6120,7 @@
      "0x9DACE0",
      "0x9DAD20",
      "0x9DAD60",
+     "0x9DADA0",
      "0x9DAE10",
      "0x9DAF60"
     ],
@@ -7385,7 +7386,7 @@
    "xstraw.h": "R",
    "xsurface.h": "R"
   },
-  "in_tree_total": 564,
+  "in_tree_total": 565,
   "totals": {
    "G": 394,
    "R": 535,

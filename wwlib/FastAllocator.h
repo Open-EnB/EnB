@@ -371,6 +371,7 @@ public:
 	unsigned Get_Total_Allocated_Size();
 	unsigned Get_Total_Allocation_Count();
 	unsigned Get_Total_Actual_Memory_Usage() { return ActualMemoryUsage; }
+	void Unknown_Reset_Statistics();	// E&B (0x9DADA0)
 
 	static FastAllocatorGeneral* Get_Allocator();
 

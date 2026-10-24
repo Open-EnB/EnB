@@ -69,6 +69,24 @@ unsigned FastAllocatorGeneral::Get_Total_Allocation_Count()
 	return count;
 }
 
+// E&B (name not known): latches and clears the usage counters (0x9DADA0; called from the app at 0x53EE47
+// and 0x6A1599)
+void FastAllocatorGeneral::Unknown_Reset_Statistics()
+{
+	{
+		FastCriticalSectionClass::LockClass lock(m_UnknownE00);
+		m_UnknownE20[2]=m_UnknownE20[3];
+		m_UnknownE20[3]=0;
+	}
+	{
+		FastCriticalSectionClass::LockClass lock(m_UnknownE04);
+		m_UnknownE18=m_UnknownE1C;
+		m_UnknownE20[0]=m_UnknownE20[1];
+		m_UnknownE1C=0;
+		m_UnknownE20[1]=0;
+	}
+}
+
 // E&B's Alloc (0x9DAE10, out of line): no re-entrancy counter; usage statistics under their own lock,
 // the malloc path under another (both locks and the extra counters are E&B additions)
 void* FastAllocatorGeneral::Alloc(unsigned int n)
