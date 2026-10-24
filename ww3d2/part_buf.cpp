@@ -177,13 +177,15 @@ ParticleBufferClass::ParticleBufferClass
 	UCoord(NULL),
 	TailPosition(NULL),
 	APT(NULL),
+	GroupID(NULL),
 	PingPongPosition(pingpong),
 	Velocity(NULL),
 	TimeStamp(NULL),
 	Emitter(emitter),
 	DecimationThreshold(0U),
 	ProjectedArea(0.0f),
-	DefaultTailDiffuse(0,0,0,0)
+	DefaultTailDiffuse(0,0,0,0),
+	CurrentGroupID(0)
 {
 	LodCount = 17;
 	LodBias = 1.0f;
@@ -300,6 +302,7 @@ ParticleBufferClass::ParticleBufferClass
 		Position[1] = NEW_REF( ShareBufferClass<Vector3> , (MaxNum) );
 	}
 	APT = NEW_REF( ShareBufferClass<unsigned int> , (MaxNum) );
+	GroupID = NEW_REF( ShareBufferClass<unsigned char> , (MaxNum) );
 	Velocity = new Vector3[MaxNum]; 
 	TimeStamp = new unsigned int[MaxNum];
 
@@ -391,6 +394,7 @@ ParticleBufferClass::ParticleBufferClass(const ParticleBufferClass & src) :
 	UCoord(NULL),
 	TailPosition(NULL),
 	APT(NULL),
+	GroupID(NULL),
 	PingPongPosition(src.PingPongPosition),
 	Velocity(NULL),
 	TimeStamp(NULL),
@@ -675,6 +679,7 @@ ParticleBufferClass::ParticleBufferClass(const ParticleBufferClass & src) :
 		Position[1] = NEW_REF( ShareBufferClass<Vector3> , (MaxNum) );
 	}
 	APT = NEW_REF( ShareBufferClass<unsigned int> , (MaxNum) );
+	GroupID = NEW_REF( ShareBufferClass<unsigned char> , (MaxNum) );
 	Velocity = new Vector3[MaxNum]; 
 	TimeStamp = new unsigned int[MaxNum];
 
@@ -749,6 +754,7 @@ ParticleBufferClass::~ParticleBufferClass(void)
 	REF_PTR_RELEASE(UCoord);
 	REF_PTR_RELEASE(TailPosition);
 	REF_PTR_RELEASE(APT);
+	REF_PTR_RELEASE(GroupID);
 
 	if (Velocity)	delete [] Velocity;
 	if (TimeStamp)	delete [] TimeStamp;
@@ -960,6 +966,9 @@ void ParticleBufferClass::Render_Particles(RenderInfoClass & rinfo)
 
 void ParticleBufferClass::Render_Line(RenderInfoClass & rinfo)
 {
+
+	LineRenderer->Set_Freeze_Random(Is_Freeze_Random());
+
 	// Look up the array to use
 	int pingpong = 0;
 	if (PingPongPosition) {
@@ -968,7 +977,20 @@ void ParticleBufferClass::Render_Line(RenderInfoClass & rinfo)
 
 	// Unroll the circular buffer while skipping LOD'd particles
 	static SimpleDynVecClass<Vector3> tmp_points;
+	static SimpleDynVecClass<Vector4> tmp_diffuse;
+	static SimpleDynVecClass<unsigned char> tmp_id;
+
 	Vector3 * positions = Position[pingpong]->Get_Array();
+	Vector4 * diffuse = 0;
+	Vector4 default_diffuse(0, 0, 0, 0);
+	unsigned char *ids = GroupID->Get_Array();
+	Combine_Color_And_Alpha();
+	if (Diffuse) {		
+		diffuse = Diffuse->Get_Array();
+	} else {
+		default_diffuse.Set(ColorKeyFrameValues[0].X, ColorKeyFrameValues[0].Y, ColorKeyFrameValues[0].Z,
+								  AlphaKeyFrameValues[0]);
+	}
 
 	unsigned int sub1_end;		// End of subrange 1.
 	unsigned int sub2_start;	// Start of subrange 2.
@@ -983,27 +1005,69 @@ void ParticleBufferClass::Render_Line(RenderInfoClass & rinfo)
 	}
 
 	tmp_points.Delete_All(false);
-	
+	tmp_diffuse.Delete_All(false);
+	tmp_id.Delete_All(false);
+
+	Vector4 *last_color = &default_diffuse;
+	unsigned char last_id = 0;
+
 	for (i = Start; i < sub1_end; i++) {
 		if (PermutationArray[i & 0xF] >= DecimationThreshold) {
 			tmp_points.Add(positions[i]);
+			last_color = diffuse ? &diffuse[i] : &default_diffuse;
+			tmp_diffuse.Add(*last_color);
+			last_id = ids[i];
+			tmp_id.Add(last_id);
 		}
 	}
+	
 	for (i = sub2_start; i < End; i++) {
 		if (PermutationArray[i & 0xF] >= DecimationThreshold) {
 			tmp_points.Add(positions[i]);
+			last_color = diffuse ? &diffuse[i] : &default_diffuse;
+			tmp_diffuse.Add(*last_color);
+			last_id = ids[i];
+			tmp_id.Add(last_id);
 		}
 	}
+
+	// add in the emitter's position too for the source	
+	if (Emitter && !Emitter->Is_Stopped() && (last_id == CurrentGroupID)) {
+		Vector3 pos(0.0f, 0.0f, 0.0f);
+		Emitter->Unknown_Get_Position(&pos);
+		tmp_points.Add(pos);
+		// it has the color of the last point
+		tmp_diffuse.Add(*last_color);
+		tmp_id.Add(last_id);
+	}	
 
 	// If we got any points, render them
 	if (tmp_points.Count() > 0) {
 		SphereClass bounding_sphere;
 		Get_Obj_Space_Bounding_Sphere(bounding_sphere);
-		LineRenderer->Render(rinfo,
-									Transform,
-									tmp_points.Count(),
-									&(tmp_points[0]),
-									bounding_sphere);
+
+		// Draw line segments only if they are in the same group
+		int count = tmp_points.Count();
+		int start = 0;
+		int end = 0;		
+
+		while (end < count) {
+			// detect contiguous runs of IDs
+			while ( (end < count) && (tmp_id[start] == tmp_id[end])) {
+				end++;
+			}
+
+			// render from start, excluding end
+			if (end - start > 1) {
+				LineRenderer->Render(rinfo,
+											Transform,
+											end - start,
+											&(tmp_points[start]),
+											bounding_sphere,
+											&(tmp_diffuse[start]));
+			}
+			start = end;
+		}
 	}
 }
 
@@ -2770,6 +2834,7 @@ void ParticleBufferClass::Get_New_Particles(void)
 		prev_pos = NULL;
 	}
 
+	unsigned char * ids = GroupID->Get_Array();
 	for (; NewParticleQueueCount;) {
 
 		// Get particle off new particle queue:
@@ -2801,6 +2866,9 @@ void ParticleBufferClass::Get_New_Particles(void)
 		if (PingPongPosition) {
 			prev_pos[NewEnd] = new_particle.Position;
 		}
+
+		// upate the group id
+		ids[NewEnd] = new_particle.GroupID;
 
 		// Advance the 'end of new particles' index.
 		NewEnd++;

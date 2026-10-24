@@ -499,6 +499,18 @@ Vector3Randomizer *ParticleEmitterClass::Get_Velocity_Random (void) const
 	return randomizer;
 }
 
+// E&B: the origin for emitter-space particles, the world position otherwise (0x97E260).
+void ParticleEmitterClass::Unknown_Get_Position(Vector3 * pos) const
+{
+	if (pos != NULL) {
+		if (UnknownFlag) {
+			pos->Set(0.0f, 0.0f, 0.0f);
+		} else {
+			*pos = Get_Position();
+		}
+	}
+}
+
 void ParticleEmitterClass::Set_Base_Velocity(const Vector3& base_vel)
 {
 	BaseVel = base_vel * 0.001f;	// Convert from seconds to ms

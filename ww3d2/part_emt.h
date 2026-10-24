@@ -172,6 +172,10 @@ class ParticleEmitterClass : public RenderObjClass
 		void						Stop(void);
 		bool						Is_Stopped(void);
 
+		// E&B (name not known): the emitter's position as its particles see it: the origin when
+		// they are created in emitter space (UnknownFlag), the world position otherwise (0x97E260).
+		void						Unknown_Get_Position(Vector3 * pos) const;
+
 		// Yet another way to make an emitter stop rendering (besides setting Hidden or Animation_Hidden).
 		// We added this because we needed a way independent from the other two. This would be appropriate
 		// to set, for example, when setting RINFO_OVERRIDE_ADDITIONAL_PASSES_ONLY on the container.
