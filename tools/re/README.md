@@ -9,6 +9,7 @@ pass `--client PATH` otherwise. EA's repositories are expected at `C:\EnBDevelop
 |---|---|---|
 | `clientimage.py` | Loads client.exe: sections, strings, the incremental-link thunk table, function starts, references to a set of dwords, disassembly | (module) |
 | `client.py dis\|name\|refs\|callers ADDR...` | Quick lookups with every address named (symbols.json, then gaps reports as `~Name?`, thunks followed): one function's disassembly, what an address is, every dword reference in any section (vtables, data), every direct call or jump (also through thunks) with the calling function | stdout |
+| `pseudocode.py [ADDR...] [--show]` | Ghidra pseudocode ahead of need: runs Ghidra 12.1 headless (`ghidra/DecompileTargets.java`), creates a function at every known start (REA misses vtable-only ones), names them as `client.py` does, and decompiles every function not yet byte-exact, or the given ones. First run about 5 min of analysis; later runs reuse the project in `%LOCALAPPDATA%\EnB\ghidra` | `.work/pseudo/XXXXXXXX.c`, `index.tsv` |
 | `easource.py` | Indexes EA's Westwood sources: string literals, `#define` strings and assert expressions, by enclosing function. `LIBRARIES` lists the library copies used | (module) |
 | `srctree.py` | Source paths, `Class::Method` names, RTTI names, assert expressions from the client | `docs/data/source-paths.txt`, `class-methods.txt`, `rtti.txt`, `asserts.txt` |
 | `libversions.py` | Per library file: which EA copy (Renegade, Generals, Zero Hour) the client follows | `docs/data/library-versions.md` |

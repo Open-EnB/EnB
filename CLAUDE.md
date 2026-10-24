@@ -32,9 +32,13 @@ Do not read whole docs "to familiarize"; use `grep -n '^#'` and open the section
    Instruction-level questions: `tools/re/client.py dis|name|refs|callers` (seconds, names
    resolved). Vtables: `vtables.py --class C --list`, with `--seed C=ADDR` when C's own code
    doesn't match yet.
-3. REA MCP server (`mcp__rea__*`) only when pseudocode genuinely helps (long functions, control
-   flow). Its first request in a session runs Ghidra's full analysis of client.exe: over 2
-   minutes, every session (the project is discarded on close; a `close_binary` snapshot only
+3. Pseudocode: `python tools/re/pseudocode.py --show ADDR` prints Ghidra's saved output from
+   `.work/pseudo/` (every function not yet byte-exact, vtable-only ones included). Missing (fresh
+   clone)? `python tools/re/pseudocode.py` rebuilds it (~4 min analysis the first time, then ~80 s).
+   After `symbols.json` gains names, delete `.work/pseudo/` and rerun so calls show them.
+4. REA MCP server (`mcp__rea__*`) only when the saved pseudocode isn't enough (xrefs, call graphs,
+   interactive questions). Its first request in a session runs Ghidra's full analysis of
+   client.exe: about 5 minutes (285 s measured), every session (the project is discarded on close; a `close_binary` snapshot only
    caches answers already given, not the analysis: tested 2026-10-23). So open it early and
    keep working with `client.py` meanwhile; batch addresses into one `batch_decompile`.
    Don't spend calls on `set_addresses_names`: names are lost on close. Record confirmed

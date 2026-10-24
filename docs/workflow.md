@@ -171,10 +171,19 @@ compiled into E&B's objects), so they run higher.
   before reading the file. Set since 2026-10-23: `REA_GHIDRA_STARTUP_TIMEOUT_MS=900000` in the `rea`
   server's `env` (`~/.claude.json`) and `MCP_TOOL_TIMEOUT=1200000` in `~/.claude/settings.json` `env`
   (Claude Code's own tool-call limit, kept above REA's).
-* **REA can't decompile vtable-only functions.** Ghidra defines no function at an address only
-  reached through a vtable; `batch_decompile` then fails with "no loaded source mapping". Work from
-  `client.py dis` for those. A batch result over the token limit is saved to a file: read its
-  `normalized_result.items[].pseudocode`, and check it isn't Ghidra's log (failed items carry it).
+* **REA can't decompile vtable-only functions.** Ghidra's auto-analysis defines no function at an
+  address only reached through a vtable (0x9961E0, the distortion draw, referenced only from
+  `.rdata` 0xB13984), and REA has no tool to create one: `batch_decompile` fails with "No procedure
+  exists at the requested address" (or "no loaded source mapping"), `resolve_containing_procedure`
+  says `not_in_procedure`. Use `tools/re/pseudocode.py` instead: it runs Ghidra headless, creates a
+  function at every start `clientimage.py` knows, and saves pseudocode to `.work/pseudo/`
+  (`--show ADDR` prints it). A batch result over the token limit is saved to a file: read its
+  `normalized_result.items[].pseudocode`, and check it isn't Ghidra's log (failed items carry it,
+  ~85 KB each, so even an all-error batch overflows and hides the error message).
+* **Ghidra refuses a project path with a `.`-prefixed element** ("Path element starting with '.'
+  is not permitted"), so a headless project can't live in `.work/`; `pseudocode.py` keeps it in
+  `%LOCALAPPDATA%\EnB\ghidra`. Passing the install path's `Earth & Beyond` to `analyzeHeadless.bat`
+  is also unsafe (`&`): it works on a copy, `.work/ghidra/client.exe`.
 * **A displacement difference can belong to another class.** `DX8PolygonRendererClass`'s
   constructor differed only in `lea ecx,[eax+0xAC]` (client 0x84): the register held the *mesh*
   argument, so the layout that differed was `MeshClass`'s (in fact the list lived in
