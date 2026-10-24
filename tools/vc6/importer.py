@@ -1507,6 +1507,14 @@ TEXTURE_API_PATCHES = {
          '\treturn count;\n}\n\n// E&B (name not known): latches and clears the usage counters (0x9DADA0; called from the app at 0x53EE47\n// and 0x6A1599)\nvoid FastAllocatorGeneral::Unknown_Reset_Statistics()\n{\n\t{\n\t\tFastCriticalSectionClass::LockClass lock(m_UnknownE00);\n\t\tm_UnknownE20[2]=m_UnknownE20[3];\n\t\tm_UnknownE20[3]=0;\n\t}\n\t{\n\t\tFastCriticalSectionClass::LockClass lock(m_UnknownE04);\n\t\tm_UnknownE18=m_UnknownE1C;\n\t\tm_UnknownE20[0]=m_UnknownE20[1];\n\t\tm_UnknownE1C=0;\n\t\tm_UnknownE20[1]=0;\n\t}\n}\n',
          "E&B's FastAllocatorGeneral has a function at 0x9DADA0 (after Get_Total_Allocation_Count 0x9DAD60, before Alloc 0x9DAE10) that copies 0xE2C to 0xE28 and clears it under the 0xE00 lock, then copies 0xE1C/0xE24 to 0xE18/0xE20 and clears them under the 0xE04 lock; name unknown (D10)"),
     ],
+    ('ww3d2', 'dazzle.h'): [
+        ('\tDazzlePrototypeClass(void) : DazzleType(0)\t\t\t\t{ }\n\t\n',
+         '\tDazzlePrototypeClass(void) : DazzleType(0)\t\t\t\t{ }\n\tvirtual ~DazzlePrototypeClass(void)\t\t\t\t\t\t\t{ }\n\t\n',
+         "E&B's DazzlePrototypeClass is Renegade's: its vtable 0xB12598 has four slots (scalar deleting dtor 0x96EF00, Get_Name 0x96EEE0, Get_Class_ID 0x96EEF0, Create 0x96ED00; no ZH DeleteSelf), and the scalar deleting dtor stores the class's own vptr before freeing Name (a user-declared destructor)"),
+        ('\tvirtual void\t\t\t\t\t\t\tDeleteSelf()\t\t\t\t\t\t\t{ delete this; }\n',
+         '',
+         "E&B's DazzlePrototypeClass is Renegade's: its vtable 0xB12598 has four slots (scalar deleting dtor 0x96EF00, Get_Name 0x96EEE0, Get_Class_ID 0x96EEF0, Create 0x96ED00; no ZH DeleteSelf), and the scalar deleting dtor stores the class's own vptr before freeing Name (a user-declared destructor)"),
+    ],
 }
 for _key, _edits in TEXTURE_API_PATCHES.items():
     PATCHES.setdefault(_key, []).extend(_edits)

@@ -363,11 +363,11 @@ class DazzlePrototypeClass : public W3DMPO, public PrototypeClass
 	W3DMPO_GLUE(DazzlePrototypeClass)
 public:
 	DazzlePrototypeClass(void) : DazzleType(0)				{ }
+	virtual ~DazzlePrototypeClass(void)							{ }
 	
 	virtual const char *			Get_Name(void) const			{ return Name; }
 	virtual int								Get_Class_ID(void) const	{ return RenderObjClass::CLASSID_DAZZLE; }
 	virtual RenderObjClass *	Create(void);
-	virtual void							DeleteSelf()							{ delete this; }
 
 	WW3DErrorType					Load_W3D(ChunkLoadClass & cload);
 	
