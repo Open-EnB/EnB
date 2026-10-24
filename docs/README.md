@@ -15,6 +15,7 @@
 | [app-inventory.md](app-inventory.md) | E&B's own code: functions by source file, names, RTTI (generated) |
 | [app-plan.md](app-plan.md) | Proposal for reconstructing E&B's own code (decisions D6-D8) |
 | [milestones.md](milestones.md) | Milestones M1 (capture harness) and M2 (working VIDTEST): plan and proposals |
+| [vidtest.md](vidtest.md) | VIDTEST.EXE's functional spec: program flow, scenes, tests and results.ini, E&B scene classes, library API, function table (M2.0) |
 | [overnight-report.md](overnight-report.md) | Report of the 2026-10-23 overnight session |
 | [overnight-report-2.md](overnight-report-2.md) | Report of the 2026-10-24 overnight run |
 
