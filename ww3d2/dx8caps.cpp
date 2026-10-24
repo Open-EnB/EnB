@@ -947,6 +947,15 @@ void DX8Caps::Vendor_Specific_Hacks(const D3DADAPTER_IDENTIFIER8& adapter_id)
 			SupportTextureFormat[WW3D_FORMAT_DXT4]|
 			SupportTextureFormat[WW3D_FORMAT_DXT5];
 	}
+	if (VendorId==VENDOR_MATROX) {
+		// G400 and G550 claim support for ModAlphaAddClr but argument limitations make it unusable.
+		if (DeviceId==DEVICE_MATROX_G400 ||
+			DeviceId==DEVICE_MATROX_G550) {
+			DXLOG(("ModAlphaAddClr disabled Matrox G400 and G550 cards (cannot put texture in 2nd arg)\r\n"));
+			SupportModAlphaAddClr = false;
+		}
+	}
+
 	if (VendorId==VENDOR_ATI) {
 		// Rage Pro doesn't handle multitexturing well enough...
 		// It also doesn't really handle render-to-texture...
@@ -965,9 +974,8 @@ void DX8Caps::Vendor_Specific_Hacks(const D3DADAPTER_IDENTIFIER8& adapter_id)
 		// The driver support is bad and the card seems to suffer quite a bit from
 		// lock-ups and rendering errors. These ease up when multitexturing and
 		// render-to-texture are disabled.
+		// However, E&B requires multitexturing, so renabling it.
 		if (DeviceId==DEVICE_ATI_RAGE_128_PRO_GL) {
-			DXLOG(("Disabling multitexturing on ATI Rage 128 Pro GL\r\n"));			
-			MaxTexturesPerPass=1;
 			CanDoMultiPass=false;
 
 			DXLOG(("Disabling render-to-texture on ATI Rage 128 Pro GL\r\n"));
@@ -989,6 +997,8 @@ void DX8Caps::Vendor_Specific_Hacks(const D3DADAPTER_IDENTIFIER8& adapter_id)
 			DXLOG(("Maximum screen resolution limited to 1280 x 1024 on ATI Rage 128 cards\r\n"));			
 			MaxDisplayWidth=1280;
 			MaxDisplayHeight=1024;
+			DXLOG(("ModAlphaAddClr disabled ATI Rage 128 cards (cannot put texture in 2nd arg)\r\n"));
+			SupportModAlphaAddClr = false;
 		}
 
 		if (DeviceId==DEVICE_ATI_MOBILITY_RADEON ||
@@ -1038,6 +1048,10 @@ void DX8Caps::Vendor_Specific_Hacks(const D3DADAPTER_IDENTIFIER8& adapter_id)
 		DXLOG(("Maximum screen resolution limited to 1280 x 1024 on PowerVR Kyro cards\r\n"));			
 		MaxDisplayWidth=1280;
 		MaxDisplayHeight=1024;
+
+		// E&B: distortion effects off on PowerVR (the flag at +0x121, SupportCubemaps here)
+		DXLOG(("Disabling distortion effects on PowerVR Kyro cards\r\n"));
+		SupportCubemaps=false;
 
 		// No fog on scene capture cards! (They don't like fog color changes in mid-frame)
 		IsFogAllowed=false;

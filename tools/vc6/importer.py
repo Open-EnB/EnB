@@ -1722,6 +1722,20 @@ WWSHADE_API_PATCHES = {
          '\tif (size && size<0x80000000) \n\t{\n\t\t// Allocate memory for the data excluding the headers\n',
          "E&B's DDSFileClass::Load has Zero Hour's size guards: 0x9A0B80 returns false when the data size is 0 (je after the size computation) and allocates only below 0x80000000"),
     ],
+    ('ww3d2', 'dx8caps.cpp'): [
+        ("\tif (VendorId==VENDOR_ATI) {\n\t\t// Rage Pro doesn't handle multitexturing well enough...\n",
+         '\tif (VendorId==VENDOR_MATROX) {\n\t\t// G400 and G550 claim support for ModAlphaAddClr but argument limitations make it unusable.\n\t\tif (DeviceId==DEVICE_MATROX_G400 ||\n\t\t\tDeviceId==DEVICE_MATROX_G550) {\n\t\t\tDXLOG(("ModAlphaAddClr disabled Matrox G400 and G550 cards (cannot put texture in 2nd arg)\\r\\n"));\n\t\t\tSupportModAlphaAddClr = false;\n\t\t}\n\t}\n\n\tif (VendorId==VENDOR_ATI) {\n\t\t// Rage Pro doesn\'t handle multitexturing well enough...\n',
+         "E&B's Vendor_Specific_Hacks 0x9B2540: its log strings (0xBC570C..0xBC5A20) have Zero Hour's Matrox G400/G550 and ATI Rage 128 ModAlphaAddClr lines, no 'Disabling multitexturing on ATI Rage 128 Pro GL' (Zero Hour's 'E&B requires multitexturing' change) and no GeForce2 MX limit"),
+        ('\t\tif (DeviceId==DEVICE_ATI_RAGE_128_PRO_GL) {\n\t\t\tDXLOG(("Disabling multitexturing on ATI Rage 128 Pro GL\\r\\n"));\t\t\t\n\t\t\tMaxTexturesPerPass=1;\n',
+         '\t\t// However, E&B requires multitexturing, so renabling it.\n\t\tif (DeviceId==DEVICE_ATI_RAGE_128_PRO_GL) {\n',
+         "E&B's Vendor_Specific_Hacks 0x9B2540: its log strings (0xBC570C..0xBC5A20) have Zero Hour's Matrox G400/G550 and ATI Rage 128 ModAlphaAddClr lines, no 'Disabling multitexturing on ATI Rage 128 Pro GL' (Zero Hour's 'E&B requires multitexturing' change) and no GeForce2 MX limit"),
+        ('\t\t\tDXLOG(("Maximum screen resolution limited to 1280 x 1024 on ATI Rage 128 cards\\r\\n"));\t\t\t\n\t\t\tMaxDisplayWidth=1280;\n\t\t\tMaxDisplayHeight=1024;\n',
+         '\t\t\tDXLOG(("Maximum screen resolution limited to 1280 x 1024 on ATI Rage 128 cards\\r\\n"));\t\t\t\n\t\t\tMaxDisplayWidth=1280;\n\t\t\tMaxDisplayHeight=1024;\n\t\t\tDXLOG(("ModAlphaAddClr disabled ATI Rage 128 cards (cannot put texture in 2nd arg)\\r\\n"));\n\t\t\tSupportModAlphaAddClr = false;\n',
+         "E&B's Vendor_Specific_Hacks 0x9B2540: its log strings (0xBC570C..0xBC5A20) have Zero Hour's Matrox G400/G550 and ATI Rage 128 ModAlphaAddClr lines, no 'Disabling multitexturing on ATI Rage 128 Pro GL' (Zero Hour's 'E&B requires multitexturing' change) and no GeForce2 MX limit"),
+        ("\t\tMaxDisplayHeight=1024;\n\n\t\t// No fog on scene capture cards! (They don't like fog color changes in mid-frame)\n",
+         '\t\tMaxDisplayHeight=1024;\n\n\t\t// E&B: distortion effects off on PowerVR (the flag at +0x121, SupportCubemaps here)\n\t\tDXLOG(("Disabling distortion effects on PowerVR Kyro cards\\r\\n"));\n\t\tSupportCubemaps=false;\n\n\t\t// No fog on scene capture cards! (They don\'t like fog color changes in mid-frame)\n',
+         "E&B logs 'Disabling distortion effects on PowerVR Kyro cards' and clears +0x121 (SupportCubemaps) before IsFogAllowed (0x9B2DA0..0x9B2DD3)"),
+    ],
 }
 for _key, _edits in WWSHADE_API_PATCHES.items():
     PATCHES.setdefault(_key, []).extend(_edits)

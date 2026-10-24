@@ -991,7 +991,8 @@
      "0x9B1A70",
      "0x9B1DC0",
      "0x9B1EB0",
-     "0x9B2510"
+     "0x9B2510",
+     "0x9B2540"
     ],
     "merged": [],
     "name": "dx8caps.cpp"
@@ -4744,7 +4745,7 @@
    "ww3dids.h": "R",
    "ww3dtrig.h": "R"
   },
-  "in_tree_total": 2426,
+  "in_tree_total": 2427,
   "totals": {
    "G": 548,
    "R": 1323,
