@@ -784,9 +784,17 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 | D46 | 2026-10-24 | VIDTEST's E&B classes (Land, stars, decorations, splines) are rebuilt from the client's 2004 versions where the client has them, byte-exact there; VIDTEST's 2002 code only where the client lacks it (P5) | user |
 | D47 | 2026-10-24 | M1's transport gate uses the EA captures; the Net-7 TCP recordings are tested at message level unless their transport is in `app\wwudp` (P6) | user |
 | D48 | 2026-10-24 | Build on pool VMs; run vidtest on the host (the VMs have no 3D hardware). Running the tree's own programs unattended is allowed, as E&B's own code is (P7) | user |
+| D49 | 2026-10-24 | L2: the 12 EA files never imported (wwlib TARGA.CPP, int.cpp, blwstraw.cpp, blowfish.cpp, stimer.cpp, slnode.cpp, win.cpp; wwsaveload definitionfactory.cpp; wwaudio soundstreamhandle.cpp, Utils.cpp; wwshade shddeffactory.cpp, shdforcelinks.cpp) are imported as they are, each checked with a verify ([milestones.md](milestones.md) §3.1) | user |
+| D50 | 2026-10-24 | L2's link line adds vfw32, comsupp and ddraw | user |
+| D51 | 2026-10-24 | Miles: `mss32.lib` is generated from the game's own `Mss32.dll` exports (`.def` + `lib /def`, [toolchain.md](toolchain.md) Miles fixes), not stubbed and not the SDK's older lib | user |
+| D52 | 2026-10-24 | M1's AUX_DATA totals for the Alex sessions come from `tools/harness/convert.py`'s datagram files (4,289 / 366), the 4 messages the reference decoder lost reported as "not in the reference decoder" | user |
+| D53 | 2026-10-24 | VIDTEST O7: our vidtest fixes the signed `FreeTextureRam` comparison (GPUs reporting 2 GB or more), rather than copying the original's `TextureReduction=2` | user |
 
 ## 3. Open decisions
 
+* P-a (proposed 2026-10-24, explained to the user, not yet decided): functions whose compiled bytes
+  occur at several identical places in client.exe (objmatch `multiple`, e.g. template leaf Reads) get
+  their own "exact, ambiguous address" total beside each library's pair count; pair counts unchanged.
 * (D7 is to be revisited with the user if byte-exactness of E&B's code becomes too costly.)
 * Decided as D41: header `__FILE__` strings in app code: the client's `..\shared/duration.h`
   needs cl run in a directory one below `app` with `/I ..` and `#include "shared/duration.h"`. Options:
