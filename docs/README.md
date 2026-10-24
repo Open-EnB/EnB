@@ -27,6 +27,7 @@ Generated data ([data/](data/); regenerate with the tools in `tools/re`):
 | [data/class-methods.txt](data/class-methods.txt) | every `Class::Method` named in a string | `srctree.py` |
 | [data/rtti.txt](data/rtti.txt) | RTTI type names | `srctree.py` |
 | [data/asserts.txt](data/asserts.txt) | assert-like expressions with their (approximate) source file | `srctree.py` |
+| [data/names-review.md](data/names-review.md) | names scoring 3 or below under D56 (tagged `// NAME n:` or neutral `Unknown*`), lowest first, with their evidence | `names.py` |
 | [data/library-versions.md](data/library-versions.md) | which EA copy each library file follows | `libversions.py` |
 | [data/bytematch-*.md](data/) (`ww3d2`, `wwlib`, `wwmath`, `wwaudio`, `wwsaveload`, `wwdebug`, `wwshade`) and `.json` | client functions proven byte-identical to EA source, per file and per copy | `tools/vc6/bytematch_all.sh` |
 | [data/bytematch-*.md](data/) (`libcmt`, `libcpmt`, `comsupp`, `d3dx8`) and `.json` | client functions proven to be Microsoft's precompiled libraries | `tools/vc6/runtime_match.sh` |
