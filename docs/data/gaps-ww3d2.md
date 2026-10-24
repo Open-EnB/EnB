@@ -5,21 +5,9 @@ Each function our source compiles that the client does not contain byte for byte
 | Object | Function | Length | Status | Client | Similarity |
 |---|---|---|---|---|---|
 | animatedsoundmgr.obj | `StringClass::vector deleting dtor` | 94 | none | 0x90A790 | 0.71 |
-| animatedsoundmgr.obj | `AnimatedSoundMgrClass::Initialize` | 1548 | none | 0x909540 | 0.58 |
-| animatedsoundmgr.obj | `AnimatedSoundMgrClass::Trigger_Sound` | 300 | none | 0x909F90 | 0.57 |
 | animatedsoundmgr.obj | `WeightInfoStruct::vector deleting dtor` | 111 | none | 0x90A730 | 0.4 |
-| animatedsoundmgr.obj | `?Insert@?$HashTemplateClass@VStringClass@@PAUAnimSoundList@A` | 326 | none | 0x90A8A0 | 0.18 |
-| animatedsoundmgr.obj | `Is_In_Param_List` | 232 | none | - | - |
-| animobj.obj | `Animatable3DObjClass::Set_Animation` | 222 | none | 0x9C5980 | 0.77 |
-| animobj.obj | `Animatable3DObjClass::Render` | 122 | none | 0x9C57B0 | 0.58 |
-| animobj.obj | `Animatable3DObjClass::Special_Render` | 98 | none | 0x9C5700 | 0.57 |
-| animobj.obj | `Animatable3DObjClass::Update_Sub_Object_Transforms` | 652 | none | 0x9C5DD0 | 0.5 |
-| animobj.obj | `Animatable3DObjClass::Set_Animation` | 227 | none | 0x9C5A80 | 0.42 |
-| animobj.obj | `Animatable3DObjClass::Single_Anim_Progress` | 56 | none | 0x9C63A0 | 0.41 |
-| animobj.obj | `Animatable3DObjClass::Set_Animation` | 143 | none | 0x9C5BB0 | 0.34 |
 | assetmgr.obj | `ProxyClass::vector deleting dtor` | 100 | none | 0x920010 | 0.39 |
 | assetmgr.obj | `?Allocate_Object_Memory@?$ObjectPoolClass@VGenericSLNode@@$0` | 126 | none | 0x91FF20 | 0.22 |
-| assetmgr.obj | `WW3DAssetManager::WW3DAssetManager` | 582 | none | 0x909E60 | 0.17 |
 | bmp2d.obj | `MeshMatDescClass::Get_UV_Array_By_Index` | 139 | none | 0x4633E0 | 0.16 |
 | bmp2d.obj | `Bitmap2DObjClass::Bitmap2DObjClass` | 787 | none | 0x463790 | 0.07 |
 | bmp2d.obj | `DynamicMeshClass::Change_Vertex_Color` | 1000 | none | 0x4634F0 | 0.06 |
@@ -27,15 +15,10 @@ Each function our source compiles that the client does not contain byte for byte
 | collect.obj | `?Resize@?$VectorClass@VVector3@@@@UAE_NHPBVVector3@@@Z` | 231 | none | 0x992A00 | 0.47 |
 | collect.obj | `?Resize@?$DynamicVectorClass@VVector3@@@@UAE_NHPBVVector3@@@` | 240 | none | 0x992B40 | 0.4 |
 | dazzle.obj | `DazzlePrototypeClass::scalar deleting dtor` | 40 | none | 0x96EF00 | 0.7 |
-| ddsfile.obj | `DDSFileClass::Load` | 249 | none | 0x9A0B80 | 0.57 |
 | ddsfile.obj | `DDSFileClass::DDSFileClass` | 536 | none | 0x9A0870 | 0.5 |
-| dx8caps.obj | `DX8Caps::Vendor_Specific_Hacks` | 2087 | none | 0x9B2540 | 0.52 |
-| dx8caps.obj | `DX8Caps::Compute_Caps` | 4944 | none | 0x9B0160 | 0.42 |
-| dx8caps.obj | `DX8Caps::Get_Matrox_Device` | 148 | none | 0x9AFDC0 | 0.38 |
-| dx8renderer.obj | `Matrix4::Matrix4` | 103 | none | 0x9789E0 | 0.34 |
+| dx8caps.obj | `DX8Caps::Compute_Caps` | 5264 | none | 0x9B0160 | 0.53 |
+| dx8renderer.obj | `DX8Wrapper::Set_DX8_Render_State` | 136 | none | 0x979750 | 0.35 |
 | dx8renderer.obj | `MeshMatDescClass::Get_Color_Array` | 107 | none | 0x9771F0 | 0.29 |
-| dx8renderer.obj | `DX8RigidFVFCategoryContainer::Render` | 1053 | none | 0x9789F0 | 0.23 |
-| dx8renderer.obj | `DX8Wrapper::Set_DX8_Render_State` | 136 | none | - | - |
 | dx8texman.obj | `DX8TextureManagerClass::Release_Textures` | 41 | none | 0x995C70 | 0.34 |
 | dx8wrapper.obj | `DX8Wrapper::Set_Render_Target` | 40 | none | 0x90C0B0 | 0.51 |
 | dx8wrapper.obj | `DX8Wrapper::Create_Device` | 810 | none | 0x921EF0 | 0.26 |
@@ -54,10 +37,8 @@ Each function our source compiles that the client does not contain byte for byte
 | hanim.obj | `?Clear@?$VectorClass@UWeightInfoStruct@NamedPivotMapClass@@@` | 96 | none | 0x931DA0 | 0.26 |
 | hanimmgr.obj | `HAnimManagerClass::Free_All_Anims_With_Exclusion_List` | 130 | none | 0x965400 | 0.35 |
 | hanimmgr.obj | `HAnimManagerClass::Create_Asset_List` | 375 | none | 0x964380 | 0.28 |
-| hlod.obj | `HLodClass::Include_NULL_Lod` | 1532 | none | 0x98D510 | 0.75 |
 | light.obj | `LightClass::Is_Within_Attenuation_Radius` | 126 | none | 0x463790 | 0.17 |
 | light.obj | `LightClass::Compute_Lighting` | 951 | none | 0x4633C0 | 0.05 |
-| mesh.obj | `MeshClass::Render_Material_Pass` | 2811 | none | 0x93F620 | 0.74 |
 | meshbuild.obj | `FaceClass::Reset` | 152 | none | 0x431DE0 | 0.29 |
 | meshbuild.obj | `VertClass::Reset` | 168 | none | 0x42FBA0 | 0.26 |
 | meshbuild.obj | `MeshBuilderClass::MeshBuilderClass` | 178 | none | 0x447DD0 | 0.21 |
@@ -105,35 +86,18 @@ Each function our source compiles that the client does not contain byte for byte
 | meshbuild.obj | `?ID@?$VectorClass@VHashItem@?$UniqueArrayClass@VFaceClass@Me` | 44 | none | - | - |
 | meshbuild.obj | `?Add@?$DynamicVectorClass@VHashItem@?$UniqueArrayClass@VFace` | 858 | none | - | - |
 | meshbuild.obj | `??0?$VectorClass@VHashItem@?$UniqueArrayClass@VFaceClass@Mes` | 225 | none | - | - |
-| meshgeometry.obj | `MeshGeometryClass::cast_ray_brute_force` | 260 | none | 0x92BD40 | 0.42 |
-| meshgeometry.obj | `MeshGeometryClass::Scale` | 217 | none | 0x92D460 | 0.19 |
 | meshmatdesc.obj | `MeshMatDescClass::Make_UV_Array_Unique` | 210 | none | 0x947310 | 0.8 |
-| meshmatdesc.obj | `MeshMatDescClass::Post_Load_Process` | 4308 | none | 0x9475E0 | 0.57 |
-| meshmdl.obj | `MeshModelClass::Init_For_NPatch_Rendering` | 3403 | none | 0x95A200 | 0.7 |
-| meshmdl.obj | `MeshModelClass::operator=` | 273 | none | - | - |
-| meshmdl.obj | `MeshModelClass::Enable_Alternate_Material_Description` | 103 | none | - | - |
-| meshmdlio.obj | `MeshModelClass::post_process` | 518 | none | 0x9BCC40 | 0.45 |
-| meshmdlio.obj | `MeshModelClass::Load_W3D` | 1379 | none | 0x9BAA00 | 0.39 |
 | pointgr.obj | `PointGroupClass::Render` | 5348 | none | 0x954960 | 0.65 |
 | polyinfo.obj | `PolygonInfoClass::Set_Shader` | 57 | none | 0xA03C50 | 0.49 |
 | polyinfo.obj | `PolygonInfoClass::~PolygonInfoClass` | 60 | none | 0xA03C30 | 0.43 |
-| render2dsentence.obj | `Render2DSentenceClass::Find_Row_Start` | 777 | none | 0x9A86D0 | 0.69 |
-| render2dsentence.obj | `Render2DSentenceClass::Get_Formatted_Text_Extents` | 681 | none | 0x9A89D0 | 0.61 |
 | renderobjectrecycler.obj | `RenderObjectRecyclerClass::Return_Render_Object` | 35 | none | 0x42F7E0 | 0.47 |
 | renderobjectrecycler.obj | `RenderObjectRecyclerClass::Insert_Inactive_Model` | 35 | none | 0x42F800 | 0.47 |
 | renderobjectrecycler.obj | `RenderObjectRecyclerClass::Reset_Model` | 131 | none | 0x42F820 | 0.27 |
 | renderobjectrecycler.obj | `RenderObjectRecyclerClass::Reset` | 64 | none | 0x42F290 | 0.13 |
 | renderobjectrecycler.obj | `RenderObjectRecyclerClass::Get_Render_Object` | 298 | none | 0x42F2F0 | 0.1 |
-| scene.obj | `SimpleSceneClass::Customized_Render` | 226 | none | 0x9661C0 | 0.67 |
-| scene.obj | `SceneClass::Render` | 943 | none | 0x965460 | 0.64 |
 | scene.obj | `??_G?$RefMultiListClass@VRenderObjClass@@@@UAEPAXI@Z` | 86 | none | 0x964F30 | 0.59 |
-| scene.obj | `SimpleSceneClass::Visibility_Check` | 197 | none | 0x965F40 | 0.51 |
 | seglinerenderer.obj | `SegLineRendererClass::Render` | 12741 | none | 0x9BEB20 | 0.32 |
 | seglinerenderer.obj | `SegLineRendererClass::subdivision_util` | 1238 | none | 0x9C2390 | 0.11 |
-| shader.obj | `ShaderClass::Apply` | 4072 | none | 0x93B510 | 0.34 |
-| sortingrenderer.obj | `DX8Wrapper::Release_Render_State` | 193 | none | 0x984740 | 0.65 |
-| sortingrenderer.obj | `Apply_Render_State` | 978 | none | 0x983BF0 | 0.56 |
-| sortingrenderer.obj | `Release_Refs` | 152 | none | 0x983300 | 0.5 |
 | soundrobj.obj | `SoundRenderObjClass::Set_Name` | 83 | none | 0x4633A0 | 0.35 |
 | soundrobj.obj | `SoundRenderObjClass::On_Frame_Update` | 68 | none | 0x463440 | 0.34 |
 | soundrobj.obj | `SoundRenderObjClass::~SoundRenderObjClass` | 177 | none | 0x4633C0 | 0.22 |
@@ -229,18 +193,8 @@ Each function our source compiles that the client does not contain byte for byte
 | stripoptimizer.obj | `Stripify::stripify` | 1565 | none | 0x78F990 | 0.02 |
 | texture.obj | `TextureBaseClass::Set_D3D_Base_Texture` | 45 | none | 0x94D5D0 | 0.45 |
 | texture.obj | `ZTextureClass::Get_Texture_Memory_Usage` | 92 | none | 0x94D680 | 0.27 |
-| texture.obj | `TextureClass::TextureClass` | 139 | none | 0x94CA20 | 0.16 |
-| texture.obj | `TextureClass::TextureClass` | 252 | none | 0x94CA30 | 0.15 |
-| texture.obj | `TextureClass::Get_Level_Description` | 124 | none | 0x94CC60 | 0.13 |
-| texture.obj | `TextureClass::TextureClass` | 267 | none | 0x94CC30 | 0.08 |
-| texture.obj | `TextureClass::TextureClass` | 464 | none | - | - |
-| texturefilter.obj | `TextureFilterClass::Apply` | 731 | none | 0x9214B0 | 0.23 |
-| texturefilter.obj | `TextureFilterClass::TextureFilterClass` | 43 | none | 0x921000 | 0.16 |
+| texture.obj | `TextureClass::Get_Level_Description` | 124 | none | 0x94CC30 | 0.13 |
 | textureloader.obj | `TextureLoader::Process_Foreground_Load` | 505 | none | 0x949C60 | 0.7 |
-| textureloader.obj | `TextureLoadTaskClass::Load_Compressed_Mipmap` | 221 | none | 0x94AC00 | 0.68 |
-| textureloader.obj | `TextureLoadTaskClass::Load_Uncompressed_Mipmap` | 788 | none | 0x94ACC0 | 0.67 |
-| textureloader.obj | `TextureLoader::Request_Foreground_Loading` | 617 | none | 0x949550 | 0.62 |
-| textureloader.obj | `TextureLoader::Request_Background_Loading` | 352 | none | 0x9493F0 | 0.45 |
 | texturethumbnail.obj | `AddInfoStruct::vector deleting dtor` | 117 | none | 0x91BD10 | 0.24 |
 | texturethumbnail.obj | `FileInfoStruct::vector deleting dtor` | 102 | none | 0x91B9D0 | 0.22 |
 | texturethumbnail.obj | `??0?$VectorClass@VStringClass@@@@QAE@HPBVStringClass@@@Z` | 219 | none | - | - |
@@ -273,15 +227,5 @@ Each function our source compiles that the client does not contain byte for byte
 | w3dexclusionlist.obj | `W3DExclusionListClass::~W3DExclusionListClass` | 154 | none | 0x48C590 | 0.04 |
 | w3dexclusionlist.obj | `W3DExclusionListClass::Is_Excluded` | 377 | none | - | - |
 | w3dexclusionlist.obj | `?Exists@?$HashTemplateClass@VStringClass@@H@@QBE_NABVStringC` | 235 | none | - | - |
-| ww3d.obj | `WW3D::Render` | 855 | none | 0x917C80 | 0.71 |
 | ww3d.obj | `WW3D::Update_Movie_Capture` | 332 | none | 0x918B20 | 0.68 |
-| ww3d.obj | `WW3D::Init` | 294 | none | 0x917660 | 0.51 |
-| ww3d.obj | `WW3D::Shutdown` | 84 | none | 0x917830 | 0.44 |
-| ww3d.obj | `WW3D::Override_Current_Static_Sort_Lists` | 45 | none | 0x918FE0 | 0.4 |
-| ww3d.obj | `WW3D::Render` | 448 | none | 0x917F70 | 0.38 |
-| ww3d.obj | `WW3D::Add_To_Static_Sort_List` | 59 | none | 0x919120 | 0.33 |
-| ww3d.obj | `WW3D::Render_And_Clear_Static_Sort_Lists` | 166 | none | 0x9190B0 | 0.3 |
-| ww3d.obj | `WW3D::Reset_Current_Static_Sort_Lists_To_Default` | 31 | none | 0x919070 | 0.29 |
 | ww3d.obj | `WW3D::Make_Screen_Shot` | 576 | none | 0x9182C0 | 0.24 |
-| ww3d.obj | `??_E?$RefMultiListClass@VRenderObjClass@@@@UAEPAXI@Z` | 207 | none | 0x917730 | 0.1 |
-| ww3d.obj | `WW3D::Flush` | 182 | none | - | - |

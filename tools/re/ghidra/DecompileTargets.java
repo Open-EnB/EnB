@@ -43,6 +43,18 @@ public class DecompileTargets extends GhidraScript {
 		int timeout = args.length > 3 ? Integer.parseInt(args[3]) : 60;
 		Files.createDirectories(out);
 
+		// Functions earlier runs created at false starts (pseudocode.py lists them): remove them,
+		// so the functions containing them get their whole body back.
+		int dropped = 0;
+		if (args.length > 4) {
+			for (String[] r : read(Paths.get(args[4]))) {
+				if (currentProgram.getFunctionManager().removeFunction(toAddr(Long.parseLong(r[0], 16))))
+					dropped++;
+			}
+		}
+		if (dropped > 0)
+			println("removed " + dropped + " functions at false starts");
+
 		// Every function first, so the pseudocode of one names its calls into the others.
 		int named = 0;
 		for (String[] r : names) {

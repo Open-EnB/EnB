@@ -78,7 +78,7 @@ def main():
 
     matches = []
     for fn, scores in per_client.items():
-        ranked = sorted(scores.items(), key=lambda kv: -kv[1])
+        ranked = sorted(scores.items(), key=lambda kv: (-kv[1], kv[0]))   # ties: by name, so reruns agree
         (best, score), second = ranked[0], (ranked[1][1] if len(ranked) > 1 else 0.0)
         n = len(evidence[fn][best])
         if score >= 2 or (score >= 1 and n >= 1 and second < score):
@@ -96,8 +96,10 @@ def main():
     claims = collections.defaultdict(list)
     for m in matches:
         claims[(m['lib'], m['file'], m['function'])].append(m)
+    rank = {'high': 0, 'medium': 1, 'ambiguous': 2, 'low': 3}
     for group in claims.values():
-        group.sort(key=lambda m: -m['score'])
+        # ties: the claimant whose own match is clearer, then the lowest address (reruns agree)
+        group.sort(key=lambda m: (-m['score'], rank[m['confidence']], m['client']))
         for m in group:
             m['claimants'] = len(group)
         for m in group[1:]:

@@ -17,6 +17,7 @@ have a file unless they are named on the command line. .work/pseudo/index.tsv ho
 target: address, ok/failed/no_function, length or error.
 """
 import argparse
+import bisect
 import glob
 import hashlib
 import json
@@ -72,6 +73,35 @@ def merge_index(new_path):
     return rows
 
 
+def false_start_leftovers(img, starts, exact):
+    """What runs before clientimage's verified starts left at false ones (an E8 byte inside
+    another instruction taken for a call target): those addresses that still have pseudocode
+    (DecompileTargets.java created a function there), and the functions containing them, whose
+    pseudocode those cut short. The only use of the raw starts (verified=False)."""
+    false = sorted(set(img.function_starts(verified=False)[0]) - set(starts))
+    index = os.path.join(OUT, 'index.tsv')
+    indexed = {int(line.split('\t', 1)[0], 16) for line in open(index, encoding='utf-8')
+               if line.strip()} if os.path.exists(index) else set()
+    purge = [va for va in false if va in indexed or os.path.exists(os.path.join(OUT, key(va) + '.c'))]
+    redo = {starts[bisect.bisect_right(starts, va) - 1] for va in purge} - set(exact)
+    if purge:
+        print(f'{len(purge)} functions at false starts to remove; {len(redo)} containing functions to decompile again')
+    return purge, redo
+
+
+def remove_outputs(addrs):
+    """Deletes these addresses' pseudocode and index lines."""
+    gone = {key(va) for va in addrs}
+    for k in gone:
+        path = os.path.join(OUT, k + '.c')
+        if os.path.exists(path):
+            os.remove(path)
+    index = os.path.join(OUT, 'index.tsv')
+    rows = list(open(index, encoding='utf-8'))
+    with open(index, 'w', encoding='utf-8') as f:
+        f.writelines(line for line in rows if line.split('\t', 1)[0] not in gone)
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument('addrs', nargs='*', type=parse_addr)
@@ -91,11 +121,13 @@ def main():
     os.makedirs(WORK, exist_ok=True)
     os.makedirs(OUT, exist_ok=True)
     os.makedirs(PROJECT_DIR, exist_ok=True)
+    drop = []
     if args.addrs:
         targets = args.addrs
     else:
+        drop, redo = false_start_leftovers(img, starts, exact)
         done = {int(os.path.basename(p)[:-2], 16) for p in glob.glob(os.path.join(OUT, '*.c'))}
-        targets = [s for s in starts if s not in exact and s not in done]
+        targets = sorted({s for s in starts if s not in exact and s not in done} | redo)
     if args.limit:
         targets = targets[:args.limit]
     if not targets:
@@ -109,6 +141,8 @@ def main():
                 f.write(f'{va:X}\t{n}\n')
     with open(os.path.join(WORK, 'targets.tsv'), 'w', encoding='utf-8') as f:
         f.writelines(f'{key(va)}\t{names.of(va) or ""}\n' for va in targets)
+    with open(os.path.join(WORK, 'drop.tsv'), 'w', encoding='utf-8') as f:
+        f.writelines(f'{key(va)}\n' for va in drop)
 
     # A copy under .work: the install path's '&' breaks analyzeHeadless.bat's argument passing.
     exe = os.path.join(WORK, PROGRAM)
@@ -121,7 +155,8 @@ def main():
         cmd += ['-import', exe]
     cmd += ['-scriptPath', os.path.join(HERE, 'ghidra'),
             '-postScript', 'DecompileTargets.java',
-            os.path.join(WORK, 'names.tsv'), os.path.join(WORK, 'targets.tsv'), OUT, str(args.timeout)]
+            os.path.join(WORK, 'names.tsv'), os.path.join(WORK, 'targets.tsv'), OUT, str(args.timeout),
+            os.path.join(WORK, 'drop.tsv')]
     log = os.path.join(WORK, 'headless.log')
     print(f'decompiling {len(targets)} functions; Ghidra log: {log}', flush=True)
     with open(log, 'w', encoding='utf-8', errors='replace') as f:
@@ -131,6 +166,8 @@ def main():
         sys.exit(f'Ghidra exited with {rc} and wrote no results; see {log}')
     run = {line.split('\t', 1)[0]: line.split('\t')[1] for line in open(new, encoding='utf-8') if line.strip()}
     merge_index(new)
+    if drop:
+        remove_outputs(drop)
     counts = {s: sum(1 for v in run.values() if v == s) for s in ('ok', 'failed', 'no_function')}
     print(f'ok {counts["ok"]}, failed {counts["failed"]}, no function {counts["no_function"]} '
           f'(of {len(targets)}); pseudocode in {OUT}')

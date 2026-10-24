@@ -83,7 +83,7 @@ class ClientImage:
             va += 1; o += 1; misses += 1
         return out
 
-    def function_starts(self, verified=False):
+    def function_starts(self, verified=True):
         """Function entry points, and the incremental thunk table.
 
         Objects the linker placed incrementally (the app's own code, up to about 0x8C2000) are
@@ -91,10 +91,11 @@ class ClientImage:
         CRT, ...) is not, so there a start is a direct `call rel32` target, or the first byte
         after inter-function padding (int3 / nop runs ending on a 16-byte boundary).
 
-        By default a call target is any `E8` byte's rel32 target, so an E8 inside another
-        instruction adds a false start, often mid-instruction (0x95A482 is one). `verified=True`
-        keeps only the targets of `call rel32` instructions decoded by a linear sweep from the
-        thunk targets and padding starts.
+        A call target counts only when a linear sweep from the thunk targets and padding starts
+        decodes a `call rel32` instruction there (every tool uses this). `verified=False` takes
+        any `E8` byte's rel32 target instead: 216 more starts, all false (an E8 inside another
+        instruction, often landing mid-instruction, 0x95A482 is one); kept only for auditing the
+        difference (and pseudocode.py's cleanup of functions earlier runs made at those).
         """
         start, end, raw = self.section('.text')
         thunks = self.incremental_thunks()

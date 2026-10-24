@@ -11,46 +11,6 @@
  },
  {
   "object": "animatedsoundmgr.obj",
-  "function": "AnimatedSoundMgrClass::Initialize",
-  "symbol": "?Initialize@AnimatedSoundMgrClass@@SAXPBD@Z",
-  "length": 1548,
-  "status": "none",
-  "address": "0x909540",
-  "similarity": 0.58,
-  "window": "0x909540-0x909B60"
- },
- {
-  "object": "animatedsoundmgr.obj",
-  "function": "Is_In_Param_List",
-  "symbol": "?Is_In_Param_List@@YA_NPAVStringClass@@HPBD@Z",
-  "length": 232,
-  "status": "none",
-  "address": null,
-  "similarity": null,
-  "window": "0x909540-0x909B60"
- },
- {
-  "object": "animatedsoundmgr.obj",
-  "function": "AnimatedSoundMgrClass::Trigger_Sound",
-  "symbol": "?Trigger_Sound@AnimatedSoundMgrClass@@SAMPAVHAnimClass@@MMABVMatrix3D@@@Z",
-  "length": 300,
-  "status": "none",
-  "address": "0x909F90",
-  "similarity": 0.57,
-  "window": "0x909F90-0x90A1D0"
- },
- {
-  "object": "animatedsoundmgr.obj",
-  "function": "?Insert@?$HashTemplateClass@VStringClass@@PAUAnimSoundList@AnimatedSoundMgrClass@@@@QAEXABVStringClass@@ABQAUAnimSoundList@AnimatedSoundMgrClass@@@Z",
-  "symbol": "?Insert@?$HashTemplateClass@VStringClass@@PAUAnimSoundList@AnimatedSoundMgrClass@@@@QAEXABVStringClass@@ABQAUAnimSoundList@AnimatedSoundMgrClass@@@Z",
-  "length": 326,
-  "status": "none",
-  "address": "0x90A8A0",
-  "similarity": 0.18,
-  "window": "0x90A250-0x90AA50"
- },
- {
-  "object": "animatedsoundmgr.obj",
   "function": "WeightInfoStruct::vector deleting dtor",
   "symbol": "??_EWeightInfoStruct@NamedPivotMapClass@@QAEPAXI@Z",
   "length": 111,
@@ -58,86 +18,6 @@
   "address": "0x90A730",
   "similarity": 0.4,
   "window": "0x90A250-0x90AA50"
- },
- {
-  "object": "animobj.obj",
-  "function": "Animatable3DObjClass::Render",
-  "symbol": "?Render@Animatable3DObjClass@@UAEXAAVRenderInfoClass@@@Z",
-  "length": 122,
-  "status": "none",
-  "address": "0x9C57B0",
-  "similarity": 0.58,
-  "window": "0x9C5700-0x9C5880"
- },
- {
-  "object": "animobj.obj",
-  "function": "Animatable3DObjClass::Special_Render",
-  "symbol": "?Special_Render@Animatable3DObjClass@@UAEXAAVSpecialRenderInfoClass@@@Z",
-  "length": 98,
-  "status": "none",
-  "address": "0x9C5700",
-  "similarity": 0.57,
-  "window": "0x9C5700-0x9C5880"
- },
- {
-  "object": "animobj.obj",
-  "function": "Animatable3DObjClass::Set_Animation",
-  "symbol": "?Set_Animation@Animatable3DObjClass@@UAEXPAVHAnimClass@@MH@Z",
-  "length": 222,
-  "status": "none",
-  "address": "0x9C5980",
-  "similarity": 0.77,
-  "window": "0x9C5980-0x9C5C90"
- },
- {
-  "object": "animobj.obj",
-  "function": "Animatable3DObjClass::Set_Animation",
-  "symbol": "?Set_Animation@Animatable3DObjClass@@UAEXPAVHAnimClass@@M0MM@Z",
-  "length": 227,
-  "status": "none",
-  "address": "0x9C5A80",
-  "similarity": 0.42,
-  "window": "0x9C5980-0x9C5C90"
- },
- {
-  "object": "animobj.obj",
-  "function": "Animatable3DObjClass::Set_Animation",
-  "symbol": "?Set_Animation@Animatable3DObjClass@@UAEXPAVHAnimComboClass@@@Z",
-  "length": 143,
-  "status": "none",
-  "address": "0x9C5BB0",
-  "similarity": 0.34,
-  "window": "0x9C5980-0x9C5C90"
- },
- {
-  "object": "animobj.obj",
-  "function": "Animatable3DObjClass::Update_Sub_Object_Transforms",
-  "symbol": "?Update_Sub_Object_Transforms@Animatable3DObjClass@@MAEXXZ",
-  "length": 652,
-  "status": "none",
-  "address": "0x9C5DD0",
-  "similarity": 0.5,
-  "window": "0x9C5DD0-0x9C60E0"
- },
- {
-  "object": "animobj.obj",
-  "function": "Animatable3DObjClass::Single_Anim_Progress",
-  "symbol": "?Single_Anim_Progress@Animatable3DObjClass@@IAEXXZ",
-  "length": 56,
-  "status": "none",
-  "address": "0x9C63A0",
-  "similarity": 0.41,
-  "window": "0x9C63A0-0x9C6400"
- },
- {
-  "object": "assetmgr.obj",
-  "function": "WW3DAssetManager::WW3DAssetManager",
-  "symbol": "??0WW3DAssetManager@@QAE@XZ",
-  "length": 582,
-  "status": "none",
-  "address": "0x909E60",
-  "similarity": 0.17,
-  "window": "0x908D00-0x91C530"
  },
  {
   "object": "assetmgr.obj",
@@ -240,74 +120,14 @@
   "window": "0x9A02B0-0x9A0AB0"
  },
  {
-  "object": "ddsfile.obj",
-  "function": "DDSFileClass::Load",
-  "symbol": "?Load@DDSFileClass@@QAE_NXZ",
-  "length": 249,
-  "status": "none",
-  "address": "0x9A0B80",
-  "similarity": 0.57,
-  "window": "0x9A0B80-0x9A0CA0"
- },
- {
-  "object": "dx8caps.obj",
-  "function": "DX8Caps::Get_Matrox_Device",
-  "symbol": "?Get_Matrox_Device@DX8Caps@@CA?AW4DeviceTypeMatrox@1@I@Z",
-  "length": 148,
-  "status": "none",
-  "address": "0x9AFDC0",
-  "similarity": 0.38,
-  "window": "0x9AFDC0-0x9AFE80"
- },
- {
   "object": "dx8caps.obj",
   "function": "DX8Caps::Compute_Caps",
   "symbol": "?Compute_Caps@DX8Caps@@QAEXW4WW3DFormat@@ABU_D3DADAPTER_IDENTIFIER8@@@Z",
-  "length": 4944,
+  "length": 5264,
   "status": "none",
   "address": "0x9B0160",
-  "similarity": 0.42,
+  "similarity": 0.53,
   "window": "0x9B0160-0x9B1620"
- },
- {
-  "object": "dx8caps.obj",
-  "function": "DX8Caps::Vendor_Specific_Hacks",
-  "symbol": "?Vendor_Specific_Hacks@DX8Caps@@AAEXABU_D3DADAPTER_IDENTIFIER8@@@Z",
-  "length": 2087,
-  "status": "none",
-  "address": "0x9B2540",
-  "similarity": 0.52,
-  "window": "0x9B2540-0x9B2D40"
- },
- {
-  "object": "dx8renderer.obj",
-  "function": "DX8RigidFVFCategoryContainer::Render",
-  "symbol": "?Render@DX8RigidFVFCategoryContainer@@UAEXXZ",
-  "length": 1053,
-  "status": "none",
-  "address": "0x9789F0",
-  "similarity": 0.23,
-  "window": "0x9789E0-0x978AF0"
- },
- {
-  "object": "dx8renderer.obj",
-  "function": "Matrix4::Matrix4",
-  "symbol": "??0Matrix4@@QAE@ABV0@@Z",
-  "length": 103,
-  "status": "none",
-  "address": "0x9789E0",
-  "similarity": 0.34,
-  "window": "0x9789E0-0x978AF0"
- },
- {
-  "object": "dx8renderer.obj",
-  "function": "DX8Wrapper::Set_DX8_Render_State",
-  "symbol": "?Set_DX8_Render_State@DX8Wrapper@@SAXW4_D3DRENDERSTATETYPE@@I@Z",
-  "length": 136,
-  "status": "none",
-  "address": null,
-  "similarity": null,
-  "window": "0x9789E0-0x978AF0"
  },
  {
   "object": "dx8renderer.obj",
@@ -317,6 +137,16 @@
   "status": "none",
   "address": "0x9771F0",
   "similarity": 0.29,
+  "window": "0x9768B0-0x97BBD0"
+ },
+ {
+  "object": "dx8renderer.obj",
+  "function": "DX8Wrapper::Set_DX8_Render_State",
+  "symbol": "?Set_DX8_Render_State@DX8Wrapper@@SAXW4_D3DRENDERSTATETYPE@@I@Z",
+  "length": 136,
+  "status": "none",
+  "address": "0x979750",
+  "similarity": 0.35,
   "window": "0x9768B0-0x97BBD0"
  },
  {
@@ -500,16 +330,6 @@
   "window": "0x964010-0x965620"
  },
  {
-  "object": "hlod.obj",
-  "function": "HLodClass::Include_NULL_Lod",
-  "symbol": "?Include_NULL_Lod@HLodClass@@UAEX_N@Z",
-  "length": 1532,
-  "status": "none",
-  "address": "0x98D510",
-  "similarity": 0.75,
-  "window": "0x98D510-0x98DAA0"
- },
- {
   "object": "light.obj",
   "function": "LightClass::Is_Within_Attenuation_Radius",
   "symbol": "?Is_Within_Attenuation_Radius@LightClass@@QAE_NABVVector3@@@Z",
@@ -528,16 +348,6 @@
   "address": "0x4633C0",
   "similarity": 0.05,
   "window": "0x463390-0x463B90"
- },
- {
-  "object": "mesh.obj",
-  "function": "MeshClass::Render_Material_Pass",
-  "symbol": "?Render_Material_Pass@MeshClass@@QAEXPAVMaterialPassClass@@PAVIndexBufferClass@@@Z",
-  "length": 2811,
-  "status": "none",
-  "address": "0x93F620",
-  "similarity": 0.74,
-  "window": "0x93F620-0x940120"
  },
  {
   "object": "meshbuild.obj",
@@ -1010,26 +820,6 @@
   "window": "0x447CA0-0x4484A0"
  },
  {
-  "object": "meshgeometry.obj",
-  "function": "MeshGeometryClass::cast_ray_brute_force",
-  "symbol": "?cast_ray_brute_force@MeshGeometryClass@@IAE_NAAVRayCollisionTestClass@@@Z",
-  "length": 260,
-  "status": "none",
-  "address": "0x92BD40",
-  "similarity": 0.42,
-  "window": "0x92BD40-0x92BE50"
- },
- {
-  "object": "meshgeometry.obj",
-  "function": "MeshGeometryClass::Scale",
-  "symbol": "?Scale@MeshGeometryClass@@QAEXABVVector3@@@Z",
-  "length": 217,
-  "status": "none",
-  "address": "0x92D460",
-  "similarity": 0.19,
-  "window": "0x92D460-0x92D6A0"
- },
- {
   "object": "meshmatdesc.obj",
   "function": "MeshMatDescClass::Make_UV_Array_Unique",
   "symbol": "?Make_UV_Array_Unique@MeshMatDescClass@@QAEXHH@Z",
@@ -1038,66 +828,6 @@
   "address": "0x947310",
   "similarity": 0.8,
   "window": "0x947310-0x9473F0"
- },
- {
-  "object": "meshmatdesc.obj",
-  "function": "MeshMatDescClass::Post_Load_Process",
-  "symbol": "?Post_Load_Process@MeshMatDescClass@@QAEX_NPAVMeshModelClass@@@Z",
-  "length": 4308,
-  "status": "none",
-  "address": "0x9475E0",
-  "similarity": 0.57,
-  "window": "0x9475E0-0x9485C0"
- },
- {
-  "object": "meshmdl.obj",
-  "function": "MeshModelClass::operator=",
-  "symbol": "??4MeshModelClass@@QAEAAV0@ABV0@@Z",
-  "length": 273,
-  "status": "none",
-  "address": null,
-  "similarity": null,
-  "window": "0x9585C0-0x9586B0"
- },
- {
-  "object": "meshmdl.obj",
-  "function": "MeshModelClass::Enable_Alternate_Material_Description",
-  "symbol": "?Enable_Alternate_Material_Description@MeshModelClass@@QAEX_N@Z",
-  "length": 103,
-  "status": "none",
-  "address": null,
-  "similarity": null,
-  "window": "0x9598A0-0x959920"
- },
- {
-  "object": "meshmdl.obj",
-  "function": "MeshModelClass::Init_For_NPatch_Rendering",
-  "symbol": "?Init_For_NPatch_Rendering@MeshModelClass@@QAEXXZ",
-  "length": 3403,
-  "status": "none",
-  "address": "0x95A200",
-  "similarity": 0.7,
-  "window": "0x95A200-0x95AF80"
- },
- {
-  "object": "meshmdlio.obj",
-  "function": "MeshModelClass::Load_W3D",
-  "symbol": "?Load_W3D@MeshModelClass@@UAE?AW4WW3DErrorType@@AAVChunkLoadClass@@@Z",
-  "length": 1379,
-  "status": "none",
-  "address": "0x9BAA00",
-  "similarity": 0.39,
-  "window": "0x9B90C0-0x9BAD80"
- },
- {
-  "object": "meshmdlio.obj",
-  "function": "MeshModelClass::post_process",
-  "symbol": "?post_process@MeshModelClass@@IAEXXZ",
-  "length": 518,
-  "status": "none",
-  "address": "0x9BCC40",
-  "similarity": 0.45,
-  "window": "0x9BCC40-0x9BCE00"
  },
  {
   "object": "pointgr.obj",
@@ -1128,26 +858,6 @@
   "address": "0xA03C30",
   "similarity": 0.43,
   "window": "0xA03A10-0xA04210"
- },
- {
-  "object": "render2dsentence.obj",
-  "function": "Render2DSentenceClass::Find_Row_Start",
-  "symbol": "?Find_Row_Start@Render2DSentenceClass@@QAEPBGPBGH@Z",
-  "length": 777,
-  "status": "none",
-  "address": "0x9A86D0",
-  "similarity": 0.69,
-  "window": "0x9A86D0-0x9A8C60"
- },
- {
-  "object": "render2dsentence.obj",
-  "function": "Render2DSentenceClass::Get_Formatted_Text_Extents",
-  "symbol": "?Get_Formatted_Text_Extents@Render2DSentenceClass@@QAE?AVVector2@@PBGPAH@Z",
-  "length": 681,
-  "status": "none",
-  "address": "0x9A89D0",
-  "similarity": 0.61,
-  "window": "0x9A86D0-0x9A8C60"
  },
  {
   "object": "renderobjectrecycler.obj",
@@ -1201,16 +911,6 @@
  },
  {
   "object": "scene.obj",
-  "function": "SceneClass::Render",
-  "symbol": "?Render@SceneClass@@IAEXAAVRenderInfoClass@@@Z",
-  "length": 943,
-  "status": "none",
-  "address": "0x965460",
-  "similarity": 0.64,
-  "window": "0x965460-0x965830"
- },
- {
-  "object": "scene.obj",
   "function": "??_G?$RefMultiListClass@VRenderObjClass@@@@UAEPAXI@Z",
   "symbol": "??_G?$RefMultiListClass@VRenderObjClass@@@@UAEPAXI@Z",
   "length": 86,
@@ -1218,26 +918,6 @@
   "address": "0x964F30",
   "similarity": 0.59,
   "window": "0x964BA0-0x966CA0"
- },
- {
-  "object": "scene.obj",
-  "function": "SimpleSceneClass::Visibility_Check",
-  "symbol": "?Visibility_Check@SimpleSceneClass@@UAEXPAVCameraClass@@@Z",
-  "length": 197,
-  "status": "none",
-  "address": "0x965F40",
-  "similarity": 0.51,
-  "window": "0x965F40-0x966010"
- },
- {
-  "object": "scene.obj",
-  "function": "SimpleSceneClass::Customized_Render",
-  "symbol": "?Customized_Render@SimpleSceneClass@@MAEXAAVRenderInfoClass@@@Z",
-  "length": 226,
-  "status": "none",
-  "address": "0x9661C0",
-  "similarity": 0.67,
-  "window": "0x9661C0-0x9662E0"
  },
  {
   "object": "seglinerenderer.obj",
@@ -1258,46 +938,6 @@
   "address": "0x9C2390",
   "similarity": 0.11,
   "window": "0x9BEB20-0x9C2B50"
- },
- {
-  "object": "shader.obj",
-  "function": "ShaderClass::Apply",
-  "symbol": "?Apply@ShaderClass@@AAEXXZ",
-  "length": 4072,
-  "status": "none",
-  "address": "0x93B510",
-  "similarity": 0.34,
-  "window": "0x93B510-0x93CDE0"
- },
- {
-  "object": "sortingrenderer.obj",
-  "function": "Release_Refs",
-  "symbol": "?Release_Refs@@YAXPAUSortingNodeStruct@@@Z",
-  "length": 152,
-  "status": "none",
-  "address": "0x983300",
-  "similarity": 0.5,
-  "window": "0x983300-0x9833B0"
- },
- {
-  "object": "sortingrenderer.obj",
-  "function": "Apply_Render_State",
-  "symbol": "?Apply_Render_State@@YAXAAURenderStateStruct@@@Z",
-  "length": 978,
-  "status": "none",
-  "address": "0x983BF0",
-  "similarity": 0.56,
-  "window": "0x983BF0-0x983FE0"
- },
- {
-  "object": "sortingrenderer.obj",
-  "function": "DX8Wrapper::Release_Render_State",
-  "symbol": "?Release_Render_State@DX8Wrapper@@SAXXZ",
-  "length": 193,
-  "status": "none",
-  "address": "0x984740",
-  "similarity": 0.65,
-  "window": "0x984740-0x984820"
  },
  {
   "object": "soundrobj.obj",
@@ -2241,53 +1881,13 @@
  },
  {
   "object": "texture.obj",
-  "function": "TextureClass::TextureClass",
-  "symbol": "??0TextureClass@@QAE@IIW4WW3DFormat@@W4MipCountType@@W4PoolType@TextureBaseClass@@_N@Z",
-  "length": 252,
-  "status": "none",
-  "address": "0x94CA30",
-  "similarity": 0.15,
-  "window": "0x94CA20-0x94CCC0"
- },
- {
-  "object": "texture.obj",
-  "function": "TextureClass::TextureClass",
-  "symbol": "??0TextureClass@@QAE@PBD0W4MipCountType@@W4WW3DFormat@@_N@Z",
-  "length": 464,
-  "status": "none",
-  "address": null,
-  "similarity": null,
-  "window": "0x94CA20-0x94CCC0"
- },
- {
-  "object": "texture.obj",
-  "function": "TextureClass::TextureClass",
-  "symbol": "??0TextureClass@@QAE@PAVSurfaceClass@@W4MipCountType@@@Z",
-  "length": 139,
-  "status": "none",
-  "address": "0x94CA20",
-  "similarity": 0.16,
-  "window": "0x94CA20-0x94CCC0"
- },
- {
-  "object": "texture.obj",
-  "function": "TextureClass::TextureClass",
-  "symbol": "??0TextureClass@@QAE@PAUIDirect3DBaseTexture8@@@Z",
-  "length": 267,
-  "status": "none",
-  "address": "0x94CC30",
-  "similarity": 0.08,
-  "window": "0x94CA20-0x94CCC0"
- },
- {
-  "object": "texture.obj",
   "function": "TextureClass::Get_Level_Description",
   "symbol": "?Get_Level_Description@TextureClass@@QAEXAAUSurfaceDescription@SurfaceClass@@I@Z",
   "length": 124,
   "status": "none",
-  "address": "0x94CC60",
+  "address": "0x94CC30",
   "similarity": 0.13,
-  "window": "0x94CA20-0x94CCC0"
+  "window": "0x94CC30-0x94CCC0"
  },
  {
   "object": "texture.obj",
@@ -2300,46 +1900,6 @@
   "window": "0x94D1F0-0x94D9F0"
  },
  {
-  "object": "texturefilter.obj",
-  "function": "TextureFilterClass::TextureFilterClass",
-  "symbol": "??0TextureFilterClass@@QAE@W4MipCountType@@@Z",
-  "length": 43,
-  "status": "none",
-  "address": "0x921000",
-  "similarity": 0.16,
-  "window": "0x920FE0-0x9217E0"
- },
- {
-  "object": "texturefilter.obj",
-  "function": "TextureFilterClass::Apply",
-  "symbol": "?Apply@TextureFilterClass@@QAEXI@Z",
-  "length": 731,
-  "status": "none",
-  "address": "0x9214B0",
-  "similarity": 0.23,
-  "window": "0x920FE0-0x9217E0"
- },
- {
-  "object": "textureloader.obj",
-  "function": "TextureLoader::Request_Background_Loading",
-  "symbol": "?Request_Background_Loading@TextureLoader@@SAXPAVTextureBaseClass@@@Z",
-  "length": 352,
-  "status": "none",
-  "address": "0x9493F0",
-  "similarity": 0.45,
-  "window": "0x9493F0-0x9497B0"
- },
- {
-  "object": "textureloader.obj",
-  "function": "TextureLoader::Request_Foreground_Loading",
-  "symbol": "?Request_Foreground_Loading@TextureLoader@@SAXPAVTextureBaseClass@@@Z",
-  "length": 617,
-  "status": "none",
-  "address": "0x949550",
-  "similarity": 0.62,
-  "window": "0x9493F0-0x9497B0"
- },
- {
   "object": "textureloader.obj",
   "function": "TextureLoader::Process_Foreground_Load",
   "symbol": "?Process_Foreground_Load@TextureLoader@@CAXPAVTextureLoadTaskClass@@@Z",
@@ -2348,26 +1908,6 @@
   "address": "0x949C60",
   "similarity": 0.7,
   "window": "0x949C60-0x949E20"
- },
- {
-  "object": "textureloader.obj",
-  "function": "TextureLoadTaskClass::Load_Compressed_Mipmap",
-  "symbol": "?Load_Compressed_Mipmap@TextureLoadTaskClass@@AAE_NXZ",
-  "length": 221,
-  "status": "none",
-  "address": "0x94AC00",
-  "similarity": 0.68,
-  "window": "0x94AC00-0x94B400"
- },
- {
-  "object": "textureloader.obj",
-  "function": "TextureLoadTaskClass::Load_Uncompressed_Mipmap",
-  "symbol": "?Load_Uncompressed_Mipmap@TextureLoadTaskClass@@AAE_NXZ",
-  "length": 788,
-  "status": "none",
-  "address": "0x94ACC0",
-  "similarity": 0.67,
-  "window": "0x94AC00-0x94B400"
  },
  {
   "object": "texturethumbnail.obj",
@@ -2691,66 +2231,6 @@
  },
  {
   "object": "ww3d.obj",
-  "function": "WW3D::Init",
-  "symbol": "?Init@WW3D@@SA?AW4WW3DErrorType@@PAXPAD_N@Z",
-  "length": 294,
-  "status": "none",
-  "address": "0x917660",
-  "similarity": 0.51,
-  "window": "0x917660-0x9178A0"
- },
- {
-  "object": "ww3d.obj",
-  "function": "??_E?$RefMultiListClass@VRenderObjClass@@@@UAEPAXI@Z",
-  "symbol": "??_E?$RefMultiListClass@VRenderObjClass@@@@UAEPAXI@Z",
-  "length": 207,
-  "status": "none",
-  "address": "0x917730",
-  "similarity": 0.1,
-  "window": "0x917660-0x9178A0"
- },
- {
-  "object": "ww3d.obj",
-  "function": "WW3D::Shutdown",
-  "symbol": "?Shutdown@WW3D@@SA?AW4WW3DErrorType@@XZ",
-  "length": 84,
-  "status": "none",
-  "address": "0x917830",
-  "similarity": 0.44,
-  "window": "0x917660-0x9178A0"
- },
- {
-  "object": "ww3d.obj",
-  "function": "WW3D::Render",
-  "symbol": "?Render@WW3D@@SA?AW4WW3DErrorType@@PAVSceneClass@@PAVCameraClass@@_N2ABVVector3@@@Z",
-  "length": 855,
-  "status": "none",
-  "address": "0x917C80",
-  "similarity": 0.71,
-  "window": "0x917C80-0x918120"
- },
- {
-  "object": "ww3d.obj",
-  "function": "WW3D::Render",
-  "symbol": "?Render@WW3D@@SA?AW4WW3DErrorType@@AAVRenderObjClass@@AAVRenderInfoClass@@@Z",
-  "length": 448,
-  "status": "none",
-  "address": "0x917F70",
-  "similarity": 0.38,
-  "window": "0x917C80-0x918120"
- },
- {
-  "object": "ww3d.obj",
-  "function": "WW3D::Flush",
-  "symbol": "?Flush@WW3D@@SAXAAVRenderInfoClass@@@Z",
-  "length": 182,
-  "status": "none",
-  "address": null,
-  "similarity": null,
-  "window": "0x917C80-0x918120"
- },
- {
-  "object": "ww3d.obj",
   "function": "WW3D::Make_Screen_Shot",
   "symbol": "?Make_Screen_Shot@WW3D@@SAXPBD@Z",
   "length": 576,
@@ -2768,45 +2248,5 @@
   "address": "0x918B20",
   "similarity": 0.68,
   "window": "0x918B10-0x918C90"
- },
- {
-  "object": "ww3d.obj",
-  "function": "WW3D::Add_To_Static_Sort_List",
-  "symbol": "?Add_To_Static_Sort_List@WW3D@@SAXPAVRenderObjClass@@I@Z",
-  "length": 59,
-  "status": "none",
-  "address": "0x919120",
-  "similarity": 0.33,
-  "window": "0x918FD0-0x9197D0"
- },
- {
-  "object": "ww3d.obj",
-  "function": "WW3D::Render_And_Clear_Static_Sort_Lists",
-  "symbol": "?Render_And_Clear_Static_Sort_Lists@WW3D@@SAXAAVRenderInfoClass@@@Z",
-  "length": 166,
-  "status": "none",
-  "address": "0x9190B0",
-  "similarity": 0.3,
-  "window": "0x918FD0-0x9197D0"
- },
- {
-  "object": "ww3d.obj",
-  "function": "WW3D::Override_Current_Static_Sort_Lists",
-  "symbol": "?Override_Current_Static_Sort_Lists@WW3D@@SAXPAV?$RefMultiListClass@VRenderObjClass@@@@II@Z",
-  "length": 45,
-  "status": "none",
-  "address": "0x918FE0",
-  "similarity": 0.4,
-  "window": "0x918FD0-0x9197D0"
- },
- {
-  "object": "ww3d.obj",
-  "function": "WW3D::Reset_Current_Static_Sort_Lists_To_Default",
-  "symbol": "?Reset_Current_Static_Sort_Lists_To_Default@WW3D@@SAXXZ",
-  "length": 31,
-  "status": "none",
-  "address": "0x919070",
-  "similarity": 0.29,
-  "window": "0x918FD0-0x9197D0"
  }
 ]
