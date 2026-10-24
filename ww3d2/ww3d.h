@@ -58,6 +58,7 @@ class		FrameGrabClass;
 class		VertexMaterialClass;
 class		ExtraMaterialPassClass;
 class		RenderInfoClass;
+class 	StaticSortListClass;
 class		RenderDeviceDescClass;
 class		StringClass;
 class		LightEnvironmentClass;
@@ -284,7 +285,7 @@ public:
 	static bool					Is_Overbright_Modify_On_Load_Enabled(void)	{ return OverbrightModifyOnLoad; }
 	static void					Add_To_Static_Sort_List(RenderObjClass *robj, unsigned int sort_level);
 	static void					Render_And_Clear_Static_Sort_Lists(RenderInfoClass & rinfo);
-	static void					Override_Current_Static_Sort_Lists(RefRenderObjListClass *sort_list, unsigned int min_sort, unsigned int max_sort);
+	static void					Override_Current_Static_Sort_Lists(StaticSortListClass * sort_list);
 	static void					Reset_Current_Static_Sort_Lists_To_Default(void);
 
 	static bool					Is_Snapshot_Activated()						{ return SnapshotActivated; }
@@ -378,8 +379,8 @@ private:
 	// pointer is so the application can temporarily set a different set of
 	// static sort lists to be used temporarily. This and the min/max sort
 	// levels are for specialised uses.
-	static RefRenderObjListClass *DefaultStaticSortLists;
-	static RefRenderObjListClass *CurrentStaticSortLists;
+	static StaticSortListClass * DefaultStaticSortLists;
+	static StaticSortListClass * CurrentStaticSortLists;
 	static unsigned int MinStaticSortLevel;
 	static unsigned int MaxStaticSortLevel;
 
