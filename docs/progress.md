@@ -24,9 +24,9 @@ Newest first within each section. Dates are when the entry was written.
     `SegLineRendererClass::Scale`). `ParticleEmitterDefClass::Save_Extra_Info` writes `m_ExtraInfo`.
   * Left: `PointGroupClass::Render` (0x954960) matches structurally but its block-scope stack
     slots are placed differently throughout; no lead.
-* `WW3D::Set_Render_Device` (cluster 3): both overloads call E&B's `Unknown_Reset_Cube_Map_List`
+* `WW3D::Set_Render_Device` (cluster 3): both overloads call E&B's `Unknown_Reset_Distortion_List`
   (0x995DC0). Matched in fact but not counted: the overloads are now twins (objmatch `multiple`).
-  The E&B module behind it is not rebuilt (D19 below).
+  The E&B module behind it (a screen-distortion effect) is D19.
 * Textures (cluster 4, D9): `Peek_D3D_Base_Texture` without `LastAccessed` (+4, `TextureClass::Init`
   among them), E&B's `Invalidate` (Zero Hour's commented-out "battlefield version" plus the
   load-task test), `Invalidate_Old_Unused_Textures` keeping last frame's count (+ an E&B getter),
@@ -510,17 +510,12 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 | D15 | 2026-10-23 | `G_CODE_BASE` in WWAudio stays an importer patch removing its two `#ifdef`s, not a `/D` in `LIB_FLAGS` (same bytes) | user: only `WWAudio.cpp` uses it, so the bytes can't show a project-wide define |
 | D16 | 2026-10-23 | E&B members whose use is now rebuilt (`m_Unknown148`, `m_Unknown164/168/16C`, `m_Unknown19A5/19A6`, ...) keep their D10 names, with the comments in the headers, until the app code shows E&B's names | user |
 | D17 | 2026-10-23 | The two wwshade `"UnNamed"` constructors are left as near-misses; revisit only on new evidence | user |
+| D19 | 2026-10-23 | E&B's screen-distortion module in WW3D2 (0x995D20-0x998200, between dx8texman.cpp and boxrobj.cpp; first described as a cube-map list) is rebuilt as `ww3d2/unknown_distortion.cpp`/`.h` (a reconstructed file), neutral names (D10) until E&B's own turn up; the function `WW3D::Set_Render_Device` calls is `Unknown_Reset_Distortion_List` | user (name chosen after the module turned out not to be about cube maps) |
 | D18 | 2026-10-23 | Don't include `matrix4.h` first in `ww3d2/meshmatdesc.cpp` (it would win back `Make_UV_Array_Unique` 0x947310, but no EA copy has that order). Keep it on record until a better fix is found; revisit if it becomes WW3D2's last outstanding item | user |
 
 ## 3. Open decisions
 
 * (D7 is to be revisited with the user if byte-exactness of E&B's code becomes too costly.)
-* D19 (proposed 2026-10-23): E&B's cube-map list module in WW3D2 (0x995D20-0x995ECA, between
-  dx8texman.cpp and an E&B render object whose constructor is 0x995ED0) has no file name in the
-  client (no WW3D2 assert paths survive). Proposal: rebuild it as a new tree file with a neutral
-  name (`ww3d2/unknown_cubemaplist.cpp`/`.h`, importer `NEW_FILES`), placed in the build after
-  dx8texman, and rename it once E&B's name turns up. Recommendation: yes, with the render object
-  investigated first, since it may share the file.
 
 ## 4. Next steps
 
