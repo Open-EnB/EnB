@@ -35,6 +35,7 @@ public:
 	bool Is_Parent_Or_Same(const NameClass &that) const;			// 0x4AD6F0
 	bool Match_Parts(const NameClass &that) const;					// 0x4AD7D0 (this name's parts against that's)
 	NameClass &Append(const NameClass &rhs);							// 0x4AD9F0 ("this.rhs")
+	PermString Get_Rest() const;											// 0x4ADBB0 (after the first dot, or "")
 	PermString Get_First() const;											// 0x4ADB80
 
 	// DeltaCompoundClass::Unknown_00 (0x4A55D0) passes the whole name on as a string.

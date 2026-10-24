@@ -3035,7 +3035,7 @@ RECONSTRUCTED = {
                                               "interface StringValueClass (vtable 0xAEB150)",
     ('app', 'shared/auxdata/name.h'): "NameClass (D24), size 0x34: Name, Parts[MAX_NAME_LENGTH], Count, "
                                       "HasWildcard (name.cpp's asserts and code)",
-    ('app', 'shared/auxdata/name.cpp'): "NameClass, client 0x4AD380-0x4ADB9B: 11 functions, asserts on the client's "
+    ('app', 'shared/auxdata/name.cpp'): "NameClass, client 0x4AD380-0x4ADC25: 12 functions, asserts on the client's "
                                         "lines 138-177 (D25)",
     ('app', 'shared/auxdata/permstr.h'): "PermString (the client's name, 0x4ADFF0's message): one interned "
                                          "pointer; PermStringInitClass, the counted initialiser each including "

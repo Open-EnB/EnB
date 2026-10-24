@@ -191,6 +191,18 @@ PermString NameClass::Get_First() const
 	return Parts[0];
 }
 
+PermString NameClass::Get_Rest() const
+{
+	char buffer[256];
+	strcpy(buffer, Name.Get_String());
+	char *dot = strchr(buffer, '.');
+	if (dot == 0) {
+		return PermString("");
+	}
+	*dot = 0;
+	return PermString(dot + 1);
+}
+
 /*
 **	Reconstruction notes
 **
@@ -199,7 +211,7 @@ PermString NameClass::Get_First() const
 **	0x4AD500, Is_Parent_Of 0x4AD610 (fewer parts, all matching), Is_Parent_Or_Same 0x4AD6F0,
 **	Match_Parts 0x4AD7D0 (the first Count parts; '*' matches any part; the three before inline it,
 **	although it is defined after them), Split 0x4AD890 (asserts on the client's lines 138, 140, 153,
-**	158), Append 0x4AD9F0 (line 177), Get_First 0x4ADB80. Wildcard's static is constructed on first
+**	158), Append 0x4AD9F0 (line 177), Get_First 0x4ADB80, Get_Rest 0x4ADBB0. Wildcard's static is constructed on first
 **	use (guard 0xBE3B28, the PermString at 0xBE3B24, its atexit 0x4AD870).
 **	Append adds rhs.Count to Count inside the copy loop, as the client does (the bytes have the
 **	update in the loop): with more than one part the later parts land past the copied ones.
