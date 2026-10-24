@@ -572,7 +572,13 @@ HashTemplateClass<TriangleSide,SideIndexInfo> SideHash;
 
 GapFillerClass::GapFillerClass(MeshModelClass* mmc_) : mmc(NULL), PolygonCount(0)
 {
-	REF_PTR_SET(mmc,mmc_);
+	//DMS - We cannot take a reference to the mesh model here!  This is because the mesh model
+	// class OWNS the GapFiller class (allocated via NEW).  If we take a reference here, there
+	// will be an extra reference on the parent object, which will result in the parent object
+	// not being destroyed.
+	//
+//	REF_PTR_SET(mmc,mmc_);
+	mmc = mmc_;
 
 	ArraySize=mmc->Get_Polygon_Count()*6;	// Each side of each triangle can have 2 polygons added, in the worst case
 	PolygonArray=new TriIndex[ArraySize];
@@ -598,7 +604,13 @@ GapFillerClass::GapFillerClass(MeshModelClass* mmc_) : mmc(NULL), PolygonCount(0
 
 GapFillerClass::GapFillerClass(const GapFillerClass& that) : mmc(NULL), PolygonCount(that.PolygonCount)
 {
-	REF_PTR_SET(mmc,that.mmc);
+	//DMS - We cannot take a reference to the mesh model here!  This is because the mesh model
+	// class OWNS the GapFiller class (allocated via NEW).  If we take a reference here, there
+	// will be an extra reference on the parent object, which will result in the parent object
+	// not being destroyed.
+	//
+//	REF_PTR_SET(mmc,that.mmc);
+	mmc = that.mmc;
 
 	ArraySize=that.ArraySize;
 	PolygonArray=new TriIndex[ArraySize];
@@ -664,7 +676,8 @@ GapFillerClass::~GapFillerClass()
 		delete[] ShaderArray[pass];
 	}
 
-	REF_PTR_RELEASE(mmc);
+	// DMS - Removed - See constructor for details.
+//	REF_PTR_RELEASE(mmc);
 }
 
 // ----------------------------------------------------------------------------
