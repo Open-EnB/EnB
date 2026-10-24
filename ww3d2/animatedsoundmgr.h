@@ -92,11 +92,10 @@ private:
 	///////////////////////////////////////////////////////////////////
 	struct AnimSoundInfo
 	{
-		AnimSoundInfo() : Frame(0), SoundName(), Is2D(false), IsStop(false) {}
+		AnimSoundInfo() : Frame(0), SoundName(), Is2D(false) {}
 		int			Frame;
 		StringClass	SoundName;
 		bool			Is2D;
-		bool			IsStop;
 	};
 
 	typedef AnimSoundInfo								ANIM_SOUND_INFO;

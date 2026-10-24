@@ -336,7 +336,7 @@ AnimatedSoundMgrClass::Initialize (const char *ini_filename)
 					StringClass *param_list = NULL;
 					int param_count = ::Build_List_From_String (value, ",", &param_list);
 
-					// if ((param_count >= 2) && (param_count <= 3)) 
+					if ((param_count >= 2) && (param_count <= 3)) 
 					{
 						action_frame		= ::atoi (param_list[0]);
 						definition_name	= param_list[1];
@@ -353,23 +353,8 @@ AnimatedSoundMgrClass::Initialize (const char *ini_filename)
 						//
 						// "2D" check
 						//
-						// if ((param_count == 3) && (atoi(param_list[2]) == 2)) {
-						// 	sound_info->Is2D = true;
-						// }
-						//
-						sound_info->Is2D = false;
-						if ( Is_In_Param_List( param_list, param_count, "2D" ) )
-						{
+						if ((param_count == 3) && (atoi(param_list[2]) == 2)) {
 							sound_info->Is2D = true;
-						}
-
-						//
-						// "STOP" check
-						//
-						sound_info->IsStop = false;
-						if ( Is_In_Param_List( param_list, param_count, "STOP" ) )
-						{
-							sound_info->IsStop = true;
 						}
 
 						sound_list->Add_Sound_Info (sound_info);
@@ -519,28 +504,15 @@ AnimatedSoundMgrClass::Trigger_Sound
 				//if (WWMath::Fabs (new_frame - old_frame) < 3.0F) {
 					
 					//
-					// Stop the audio?
+					//	Play the audio
 					//
-					if (sound_list->List[index]->IsStop == true) 
+					if (sound_list->List[index]->Is2D == true) 
 					{
-						//
-						// Stop the audio
-						//
-						SoundLibrary->Stop_Playing_Audio( sound_list->List[index]->SoundName.Peek_Buffer() );
-					}
-					else
+						SoundLibrary->Play_2D_Audio(sound_list->List[index]->SoundName.Peek_Buffer());
+					} 
+					else 
 					{
-						//
-						//	Play the audio
-						//
-						if (sound_list->List[index]->Is2D == true) 
-						{
-							SoundLibrary->Play_2D_Audio(sound_list->List[index]->SoundName.Peek_Buffer());
-						} 
-						else 
-						{
-							SoundLibrary->Play_3D_Audio(sound_list->List[index]->SoundName.Peek_Buffer(), tm);
-						}
+						SoundLibrary->Play_3D_Audio(sound_list->List[index]->SoundName.Peek_Buffer(), tm);
 					}
 
 					//WWDEBUG_SAY (("Triggering Sound %d %s\n", GetTickCount (), sound_list->List[index]->SoundName));

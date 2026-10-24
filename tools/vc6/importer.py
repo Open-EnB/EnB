@@ -1958,6 +1958,22 @@ WWSHADE_API_PATCHES = {
          '\tRegister_Prototype_Loader(&_DazzleLoader);\n\n\tSHD_REG_LOADER;\n\t\n\t// allocate the hash table and clear it.\n',
          'Zero Hour\'s 07/01/02 KM "Shader library integration": E&B\'s WW3DAssetManager ctor ends its loader list with SHD_REG_LOADER (0x91C4E3 calls SHD_Register_Loader 0xA07D30) before allocating the hash table'),
     ],
+    ('ww3d2', 'animatedsoundmgr.cpp'): [
+        ('\t\t\t\t\t// if ((param_count >= 2) && (param_count <= 3)) \n\t\t\t\t\t{\n',
+         '\t\t\t\t\tif ((param_count >= 2) && (param_count <= 3)) \n\t\t\t\t\t{\n',
+         'E&B parses animated sounds in the form Zero Hour comments out: Initialize 0x909540 takes an entry only for 2 or 3 parameters (cmp 2 / jl, cmp 3 / jg) and sets Is2D only when the third one\'s atoi is 2 (0x909A17..0x909A33); no Is_In_Param_List "2D"/"STOP" checks, no IsStop store'),
+        ('\t\t\t\t\t\t//\n\t\t\t\t\t\t// "2D" check\n\t\t\t\t\t\t//\n\t\t\t\t\t\t// if ((param_count == 3) && (atoi(param_list[2]) == 2)) {\n\t\t\t\t\t\t// \tsound_info->Is2D = true;\n\t\t\t\t\t\t// }\n\t\t\t\t\t\t//\n\t\t\t\t\t\tsound_info->Is2D = false;\n\t\t\t\t\t\tif ( Is_In_Param_List( param_list, param_count, "2D" ) )\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\tsound_info->Is2D = true;\n\t\t\t\t\t\t}\n\n\t\t\t\t\t\t//\n\t\t\t\t\t\t// "STOP" check\n\t\t\t\t\t\t//\n\t\t\t\t\t\tsound_info->IsStop = false;\n\t\t\t\t\t\tif ( Is_In_Param_List( param_list, param_count, "STOP" ) )\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\tsound_info->IsStop = true;\n\t\t\t\t\t\t}\n\n',
+         '\t\t\t\t\t\t//\n\t\t\t\t\t\t// "2D" check\n\t\t\t\t\t\t//\n\t\t\t\t\t\tif ((param_count == 3) && (atoi(param_list[2]) == 2)) {\n\t\t\t\t\t\t\tsound_info->Is2D = true;\n\t\t\t\t\t\t}\n\n',
+         'E&B parses animated sounds in the form Zero Hour comments out: Initialize 0x909540 takes an entry only for 2 or 3 parameters (cmp 2 / jl, cmp 3 / jg) and sets Is2D only when the third one\'s atoi is 2 (0x909A17..0x909A33); no Is_In_Param_List "2D"/"STOP" checks, no IsStop store'),
+        ('\t\t\t\t\t//\n\t\t\t\t\t// Stop the audio?\n\t\t\t\t\t//\n\t\t\t\t\tif (sound_list->List[index]->IsStop == true) \n\t\t\t\t\t{\n\t\t\t\t\t\t//\n\t\t\t\t\t\t// Stop the audio\n\t\t\t\t\t\t//\n\t\t\t\t\t\tSoundLibrary->Stop_Playing_Audio( sound_list->List[index]->SoundName.Peek_Buffer() );\n\t\t\t\t\t}\n\t\t\t\t\telse\n\t\t\t\t\t{\n\t\t\t\t\t\t//\n\t\t\t\t\t\t//\tPlay the audio\n\t\t\t\t\t\t//\n\t\t\t\t\t\tif (sound_list->List[index]->Is2D == true) \n\t\t\t\t\t\t{\n\t\t\t\t\t\t\tSoundLibrary->Play_2D_Audio(sound_list->List[index]->SoundName.Peek_Buffer());\n\t\t\t\t\t\t} \n\t\t\t\t\t\telse \n\t\t\t\t\t\t{\n\t\t\t\t\t\t\tSoundLibrary->Play_3D_Audio(sound_list->List[index]->SoundName.Peek_Buffer(), tm);\n\t\t\t\t\t\t}\n\t\t\t\t\t}\n',
+         '\t\t\t\t\t//\n\t\t\t\t\t//\tPlay the audio\n\t\t\t\t\t//\n\t\t\t\t\tif (sound_list->List[index]->Is2D == true) \n\t\t\t\t\t{\n\t\t\t\t\t\tSoundLibrary->Play_2D_Audio(sound_list->List[index]->SoundName.Peek_Buffer());\n\t\t\t\t\t} \n\t\t\t\t\telse \n\t\t\t\t\t{\n\t\t\t\t\t\tSoundLibrary->Play_3D_Audio(sound_list->List[index]->SoundName.Peek_Buffer(), tm);\n\t\t\t\t\t}\n',
+         "E&B's Trigger_Sound 0x909F90 only plays the sound (2D through bridge slot 1, 3D through slot 0): no IsStop test or Stop_Playing_Audio call"),
+    ],
+    ('ww3d2', 'animatedsoundmgr.h'): [
+        ('\t\tAnimSoundInfo() : Frame(0), SoundName(), Is2D(false), IsStop(false) {}\n\t\tint\t\t\tFrame;\n\t\tStringClass\tSoundName;\n\t\tbool\t\t\tIs2D;\n\t\tbool\t\t\tIsStop;\n',
+         '\t\tAnimSoundInfo() : Frame(0), SoundName(), Is2D(false) {}\n\t\tint\t\t\tFrame;\n\t\tStringClass\tSoundName;\n\t\tbool\t\t\tIs2D;\n',
+         "E&B's AnimSoundInfo has no IsStop flag: the constructor inlined in Initialize 0x909540 zeroes Frame and Is2D (+8) only"),
+    ],
 }
 for _key, _edits in WWSHADE_API_PATCHES.items():
     PATCHES.setdefault(_key, []).extend(_edits)
