@@ -112,6 +112,8 @@
 #include "wwprofile.h"
 #include "assetstatus.h"
 
+#include "shdlib.h"
+
 /*
 ** Static member variable which keeps track of the single instanced asset manager
 */
@@ -223,6 +225,8 @@ WW3DAssetManager::WW3DAssetManager(void) :
 	Register_Prototype_Loader(&_AggregateLoader);
 	Register_Prototype_Loader(&_NullLoader);
 	Register_Prototype_Loader(&_DazzleLoader);
+
+	SHD_REG_LOADER;
 	
 	// allocate the hash table and clear it.
 	PrototypeHashTable = new PrototypeClass * [PROTOTYPE_HASH_TABLE_SIZE];

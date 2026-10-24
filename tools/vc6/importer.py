@@ -1832,6 +1832,14 @@ WWSHADE_API_PATCHES = {
          'void MeshModelClass::Enable_Alternate_Material_Description(bool onoff)\n{\n\tif ((onoff == true) && (AlternateMatDesc != NULL)) {\n\t\tif (CurMatDesc != AlternateMatDesc) {\n\t\t\tCurMatDesc = AlternateMatDesc;\n\t\t\t\n\t\t\tif (Get_Flag(SORT) && WW3D::Is_Munge_Sort_On_Load_Enabled())\n\t\t\t\tcompute_static_sort_levels();\n\n\t\t\tif (WW3D::Is_Overbright_Modify_On_Load_Enabled())\n\t\t\t\tmodify_for_overbright();\n\t\t\t\n\t\t\t// TODO: Invalidate just this meshes DX8 data!!!\n\t\t\tTheDX8MeshRenderer.Invalidate();\n\t\t}\n\t} else {\n\t\tif (CurMatDesc != DefMatDesc) {\n\t\t\tCurMatDesc = DefMatDesc;\n\n\t\t\tif (Get_Flag(SORT) && WW3D::Is_Munge_Sort_On_Load_Enabled())\n\t\t\t\tcompute_static_sort_levels();\n\n\t\t\tif (WW3D::Is_Overbright_Modify_On_Load_Enabled())\n\t\t\t\tmodify_for_overbright();\n\n\t\t\t// TODO: Invalidate this meshes DX8 data!!!\n\t\t\tTheDX8MeshRenderer.Invalidate();\n\t\t}\n\t}\n}',
          "MeshModelClass::Enable_Alternate_Material_Description is Zero Hour's: 0x9598A0 also runs the overbright modify (WW3D 0xBFAE52, modify_for_overbright 0x9BD3A0) after the static sort levels"),
     ],
+    ('ww3d2', 'assetmgr.cpp'): [
+        ('#include "assetstatus.h"\n',
+         '#include "assetstatus.h"\n\n#include "shdlib.h"\n',
+         'Zero Hour\'s 07/01/02 KM "Shader library integration": E&B\'s WW3DAssetManager ctor ends its loader list with SHD_REG_LOADER (0x91C4E3 calls SHD_Register_Loader 0xA07D30) before allocating the hash table'),
+        ('\tRegister_Prototype_Loader(&_DazzleLoader);\n\t\n\t// allocate the hash table and clear it.\n',
+         '\tRegister_Prototype_Loader(&_DazzleLoader);\n\n\tSHD_REG_LOADER;\n\t\n\t// allocate the hash table and clear it.\n',
+         'Zero Hour\'s 07/01/02 KM "Shader library integration": E&B\'s WW3DAssetManager ctor ends its loader list with SHD_REG_LOADER (0x91C4E3 calls SHD_Register_Loader 0xA07D30) before allocating the hash table'),
+    ],
 }
 for _key, _edits in WWSHADE_API_PATCHES.items():
     PATCHES.setdefault(_key, []).extend(_edits)
