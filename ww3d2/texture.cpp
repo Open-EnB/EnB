@@ -922,7 +922,7 @@ void TextureClass::Apply_New_Surface
 
 	WWASSERT(d3d_texture);
 	IDirect3DSurface8* surface;
-	DX8_ErrorCode(Peek_D3D_Texture()->GetSurfaceLevel(0,&surface));
+	DX8_ErrorCode(((IDirect3DTexture8*)d3d_texture)->GetSurfaceLevel(0,&surface));
 	D3DSURFACE_DESC d3d_desc;
 	::ZeroMemory(&d3d_desc, sizeof(D3DSURFACE_DESC));
 	DX8_ErrorCode(surface->GetDesc(&d3d_desc));
@@ -1351,9 +1351,9 @@ void ZTextureClass::Apply_New_Surface
 	if (initialized) Initialized=true;
 	if (disable_auto_invalidation) InactivationTime = 0;
 
-	WWASSERT(Peek_D3D_Texture());
+	WWASSERT(d3d_texture);
 	IDirect3DSurface8* surface;
-	DX8_ErrorCode(Peek_D3D_Texture()->GetSurfaceLevel(0,&surface));
+	DX8_ErrorCode(((IDirect3DTexture8*)d3d_texture)->GetSurfaceLevel(0,&surface));
 	D3DSURFACE_DESC d3d_desc;
 	::ZeroMemory(&d3d_desc, sizeof(D3DSURFACE_DESC));
 	DX8_ErrorCode(surface->GetDesc(&d3d_desc));
