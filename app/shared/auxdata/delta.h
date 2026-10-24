@@ -28,6 +28,7 @@ class DurationClass;
 class DeltaClass;
 class DeltaCompoundClass;
 class LookupClass;
+class StringValueClass;
 
 // Double dispatch (DeltaClass::Accept 0x4A4FE0 calls slot 0, DeltaCompoundClass::Accept 0x4A5650
 // slot 1). VC6 lays out overloaded virtuals in reverse declaration order, so this order gives
@@ -46,6 +47,9 @@ class DeltaChildVisitorClass
 public:
 	virtual void Unknown_00() = 0;
 	virtual void Unknown_04(int mask, const char *name, DeltaClass *child) = 0;
+
+	// kv_encoder_base.cpp's 0x4B48A0 (DeltaStringClass::Unknown_00 0x4A7E60 calls it): takes the value
+	void Add_String(int mask, const char *name, StringValueClass *value);
 };
 
 // The base DeltaClass's constructor stores first (vtable 0xAEADC8: one slot, _purecall).

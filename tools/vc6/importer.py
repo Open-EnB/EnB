@@ -3026,7 +3026,13 @@ RECONSTRUCTED = {
                                          "DeltaCompound), client 0x4A4D40-0x4A6040: Get_Lookup's assert on the "
                                          "client's line 227 (D25); Unknown_20 0x4A53A0 and Add 0x4A5670 not exact",
     ('app', 'shared/auxdata/delta.h'): "DeltaClass (vtable 0xAEAD70, size 0x84; ctor 0x4A4D40) and DeltaCompoundClass "
-                                       "(vtable 0xAEABE4, size 0x9C): layout from the constructors and delta.cpp",
+                                       "(vtable 0xAEABE4, size 0x9C): layout from the constructors and delta.cpp; "
+                                       "the visitor's Add_String 0x4B48A0 (delta_string.cpp's Unknown_00)",
+    ('app', 'shared/auxdata/delta_string.cpp'): "DeltaStringClass (D24; String from the asserts), client "
+                                                "0x4A78F0-0x4A8082: 9 functions and DeltaStringValueClass's Get, "
+                                                "Set, Clone; asserts on the client's lines 28-130 (D25)",
+    ('app', 'shared/auxdata/delta_string.h'): "DeltaStringClass (vtable 0xAEB0E4, size 0x88) and the string value "
+                                              "interface StringValueClass (vtable 0xAEB150)",
     ('app', 'shared/auxdata/name.h'): "NameClass (D24), only what delta.cpp uses: size 0x34, name.cpp's 0x4AD380, "
                                       "0x4AD460, 0x4AD9F0",
     ('app', 'shared/auxdata/lookup.h'): "LookupClass (D24), only what delta.cpp uses: ctor 0x4AC250, a vector at +0 "

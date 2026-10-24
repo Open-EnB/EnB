@@ -76,6 +76,23 @@
     "merged": [],
     "name": "shared/auxdata/delta_money.cpp"
    },
+   "delta_string": {
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x4A78F0",
+     "0x4A79E0",
+     "0x4A7A10",
+     "0x4A7AA0",
+     "0x4A7BB0",
+     "0x4A7CA0",
+     "0x4A7DC0",
+     "0x4A7E60",
+     "0x4A7F50"
+    ],
+    "merged": [],
+    "name": "shared/auxdata/delta_string.cpp"
+   },
    "delta_time": {
     "copy": "reconstructed",
     "expected": {},
@@ -102,6 +119,7 @@
    "shared/auxdata/bitset.h": "reconstructed",
    "shared/auxdata/delta.h": "reconstructed",
    "shared/auxdata/delta_interpolator.h": "reconstructed",
+   "shared/auxdata/delta_string.h": "reconstructed",
    "shared/auxdata/delta_template.h": "reconstructed",
    "shared/auxdata/linearbu.h": "reconstructed",
    "shared/auxdata/lookup.h": "reconstructed",
@@ -110,7 +128,7 @@
    "shared/money.h": "reconstructed",
    "shared/unknown_debug.h": "reconstructed"
   },
-  "in_tree_total": 46,
+  "in_tree_total": 55,
   "totals": {}
  },
  "ww3d2": {
