@@ -15,8 +15,7 @@
 **	TODO(M2.4): E&B's own scene classes are not written yet: the Land (land.ini), its decorations,
 **	the star field (stars.ini) and the spline database (splines.wsd). They are left out of the scenes
 **	behind the "E&B scene classes" section below, which marks every place VIDTEST calls them.
-**	TODO(M2.3): the measurements of the tests are made, but results.ini is not written yet
-**	(Write_Results only logs the values and posts the quit).
+**	M2.3: results.ini (Info, Results) is written to the working directory as VIDTEST does (3).
 **
 **	VIDTEST's arguments (1.3): -device NAME -resx N (640) -resy N (480) -depth N (16) -windowed B (true)
 **	-sync B (false) -filter N (0).
@@ -75,6 +74,7 @@
 #include "statistics.h"
 #include "rect.h"
 #include "dx8caps.h"
+#include "ini.h"
 
 static FILE *		LogFile = NULL;
 static bool			Quit = false;
@@ -386,9 +386,12 @@ static unsigned				PeakPolyRate = 0;			// 0x5EF174
 static int					FillRateFPS = 0;			// 0x5EF178
 static float				TimeOfDay = 0;				// 0x5EF190
 static bool					TestsFinished = false;		// 0x5EF188
-// Setup_Device's values for results.ini (TODO M2.3: VIDTEST puts them into its INIClass here)
-static int					FreeTextureRam = 0;
-static int					TextureReduction = 0;
+// results.ini (3): Setup_Device puts [Info] FreeTextureRam first, so [Info] comes before [Results];
+// Write_Results adds the test results and saves it. INIClass::Save(name) writes through
+// _TheWritingFileFactory (the default one: the working directory), never through the art factory.
+static INIClass				ResultsIni;					// VIDTEST's global INIClass
+static unsigned				FreeTextureRam = 0;
+static int					TextureReduction = 0;		// 0x5EF1A0
 
 // The frame-time ring (0x423E70, 2,000 slots at 0x5ED1E0): the frames presented in the last second
 static DWORD				FrameTimes[2000];
@@ -745,7 +748,7 @@ static void Render_Land(void)
 }
 
 /*
-** The tests (docs/vidtest.md 3). The measurements are VIDTEST's; results.ini is M2.3.
+** The tests (docs/vidtest.md 3). The measurements are VIDTEST's.
 */
 static void Fill_Rate_Test(void)
 {
@@ -754,8 +757,9 @@ static void Fill_Rate_Test(void)
 	Render_Fill_Rate();
 	if (FillCounter > 60) {
 		TestState++;
-		FillRateFPS = (int)(60.0 / ((timeGetTime() - t0) * 0.001));
-		Log("fill rate test: %d FPS\n", FillRateFPS);
+		// 0x426DBF: fild of the unsigned (zero-extended) time, fmul 0.001f, fdivr 60.0f, ftol
+		FillRateFPS = (int)(60.0f / ((double)(timeGetTime() - t0) * 0.001f));
+		Log("fill rate test: %d FPS (peak %u KPoly/s)\n", FillRateFPS, PeakPolyRate);
 	}
 }
 
@@ -773,8 +777,8 @@ static void Polygon_Test(void)
 			TestState++;
 			StarBudget--;
 			SpaceBudget--;
-			Log("polygon test: budget %d, star budget %d (%.0f fps at the end)\n", SpaceBudget * 1000,
-				StarBudget * 200, fps);
+			Log("polygon test: budget %d, star budget %d (%.0f fps at the end, peak %u KPoly/s)\n",
+				SpaceBudget * 1000, StarBudget * 200, fps, PeakPolyRate);
 			Vector3 tmp;
 			Update_Lighting(&tmp, true);				// the land lightmap's full build
 		} else {
@@ -825,19 +829,30 @@ static void Land_Test(void)
 			Land_Set_Dirty(Land);
 		}
 		TestState++;
-		Log("land test: LOD %d, budget %d (%.0f fps at the end)\n", LandLOD, LandBudget * 1000, fps);
+		Log("land test: LOD %d, budget %d (%.0f fps at the end, peak %u KPoly/s)\n", LandLOD, LandBudget * 1000,
+			fps, PeakPolyRate);
 	}
 	LandCounter++;
 	Render_Land();
 }
 
 /*
-** Write_Results (0x427FC0). TODO(M2.3): write results.ini; for now the values are logged.
+** Write_Results (0x427FC0): the results into the INIClass, Save("results.ini") to the working
+** directory, quit with 1. Frame calls it on every frame in the finished state, the window
+** procedure on a key or a close after the end (each time it saves again).
 */
 static void Write_Results(void)
 {
-	Log("results: FillRateFPS=%d PolyBudget=%d LandPolyBudget=%d LandLOD=%d StarBudget=%d PeakPolyRate=%u\n",
-		FillRateFPS, SpaceBudget * 1000, LandBudget * 1000, LandLOD, StarBudget * 200, PeakPolyRate);
+	ResultsIni.Put_Int("Results", "FillRateFPS", FillRateFPS);
+	ResultsIni.Put_Int("Results", "PolyBudget", SpaceBudget * 1000);
+	ResultsIni.Put_Int("Results", "LandPolyBudget", LandBudget * 1000);
+	ResultsIni.Put_Int("Results", "LandLOD", LandLOD);
+	ResultsIni.Put_Int("Results", "StarBudget", StarBudget * 200);
+	ResultsIni.Put_Int("Info", "PeakPolyRate", (int)PeakPolyRate);
+	int saved = ResultsIni.Save("results.ini");
+	Log("results: FillRateFPS=%d PolyBudget=%d LandPolyBudget=%d LandLOD=%d StarBudget=%d PeakPolyRate=%u; "
+		"results.ini %d bytes\n", FillRateFPS, SpaceBudget * 1000, LandBudget * 1000, LandLOD, StarBudget * 200,
+		PeakPolyRate, saved);
 	PostQuitMessage(1);
 }
 
@@ -853,10 +868,8 @@ static void Frame(void)
 		case 1:		Polygon_Test(); break;
 		case 2:		Land_Test(); break;
 		default:
-			if (!TestsFinished) {
-				TestsFinished = true;
-				Write_Results();
-			}
+			TestsFinished = true;								// 0x5EF188
+			Write_Results();
 			break;
 	}
 }
@@ -886,17 +899,26 @@ static bool Setup_Device(void)
 	WW3D::Set_Texture_Filter(filter);
 	// The texture reduction from the free texture memory. VIDTEST compares the value as a signed int,
 	// so a GPU reporting 2 GB or more gets 2 (O7); ours compares it unsigned (D53).
+	// VIDTEST writes the value with Put_Int (signed: -3145728 on the host); ours writes it unsigned
+	// (D53). E&BConfig reads it with Get_Int (atoi), which wraps it back to the same int.
 	unsigned ram = DX8Wrapper::Get_Free_Texture_RAM();
-	FreeTextureRam = (int)ram;
+	FreeTextureRam = ram;
+	char value[16];
+	sprintf(value, "%u", ram);
+	ResultsIni.Put_String("Info", "FreeTextureRam", value);
 	TextureReduction = ram < 8000000 ? 2 : ram < 16000000 ? 1 : 0;
+	ResultsIni.Put_Int("Results", "TextureReduction", TextureReduction);
 	WW3D::Set_Texture_Reduction(TextureReduction);
 	// caps byte +0xDD: any DXTn format supported (DX8Caps), here Support_DXTC
 	const DX8Caps *caps = DX8Wrapper::Get_Current_Caps();
 	WW3D::Enable_Large_Texture_Extra_Reduction(!(caps && caps->Support_DXTC()));
-	Log("free texture RAM %d (unsigned %u): texture reduction %d; DXTC %d\n", FreeTextureRam, ram, TextureReduction,
+	Log("free texture RAM %u (signed %d): texture reduction %d; DXTC %d\n", ram, (int)ram, TextureReduction,
 		caps ? (int)caps->Support_DXTC() : -1);
-	// TODO(M2.3): Info FreeTextureRam, Device, Width, Height, BitDepth, Windowed and Results
-	// TextureReduction go to results.ini
+	ResultsIni.Put_String("Info", "Device", device);
+	ResultsIni.Put_Int("Info", "Width", ResX);
+	ResultsIni.Put_Int("Info", "Height", ResY);
+	ResultsIni.Put_Int("Info", "BitDepth", depth);
+	ResultsIni.Put_Bool("Info", "Windowed", windowed);
 	return true;
 }
 
