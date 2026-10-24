@@ -17,6 +17,7 @@
 #include "kv_pair_string.h"
 #include "lookup.h"
 #include "delta.h"
+#include "linearbu.h"
 #include "delta_string.h"
 #include "duration.h"
 #include "delta_template.h"
@@ -74,6 +75,38 @@ void DeltaVisitorClass::Visit_Children(DeltaCompoundClass *delta)
 	for (int i = 0; i < count; i++) {
 		delta->Children[i]->Accept(*this);
 	}
+}
+
+// DeltaCompoundClass::Decode (0x4A3FA0, the root's decode: one byte picks the codec). Not a stub:
+// the client's function, byte for byte (checked with appfile.py match), but its object
+// (0x4A3990-0x4A4780, the root class, vtable 0xAEAB88) is not attributed to a file yet. The
+// codec declarations repeat encode.cpp's (the client's header is not known).
+class __declspec(novtable) DeltaCodecClass
+{
+public:
+	virtual bool Decode(DeltaCompoundClass *root, LinearBufferClass &buf, const DurationClass &base) = 0;
+};
+
+class RecordCodecClass : public DeltaCodecClass
+{
+public:
+	virtual bool Decode(DeltaCompoundClass *root, LinearBufferClass &buf, const DurationClass &base);
+};
+
+extern RecordCodecClass RecordCodec;		// encode.cpp, 0xBE3AB4
+DeltaCodecClass *Get_Tree_Codec();			// encode.cpp, 0x4A9B80
+
+bool DeltaCompoundClass::Decode(LinearBufferClass &buf, const DurationClass &base)
+{
+	char encoding;
+	buf.Read(&encoding, 1);
+	DeltaCodecClass *codec;
+	if (encoding == 0) {
+		codec = &RecordCodec;
+	} else {
+		codec = Get_Tree_Codec();
+	}
+	return codec->Decode(this, buf, base);
 }
 
 // 0x4B6760
