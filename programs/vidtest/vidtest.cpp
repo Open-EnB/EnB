@@ -12,9 +12,10 @@
 **	the command line, and the test state machine as far as the scenes switch (fill rate quads,
 **	polygon scene, land scene).
 **
-**	TODO(M2.4): E&B's own scene classes are not written yet: the Land (land.ini), its decorations,
-**	the star field (stars.ini) and the spline database (splines.wsd). They are left out of the scenes
-**	behind the "E&B scene classes" section below, which marks every place VIDTEST calls them.
+**	M2.4: E&B's own scene classes from app\shared (the "E&B scene classes" section below): the star
+**	field (stars.cpp, stars.ini), the spline database (spln_db.cpp, splines.wsd) for the lighting, and
+**	the Land (land.cpp, heightfield.cpp: land.ini, the river height field, lightmap, LOD) with its
+**	decorations (decoration.ini).
 **	M2.3: results.ini (Info, Results) is written to the working directory as VIDTEST does (3).
 **
 **	VIDTEST's arguments (1.3): -device NAME -resx N (640) -resy N (480) -depth N (16) -windowed B (true)
@@ -31,6 +32,7 @@
 **	                 numbering of tools/harness/run_reference.py (one per Present, from 1)
 **	  -log FILE      init results (default vidtest.log)
 **	  -noondemand    leave WW3D_Load_On_Demand off (VIDTEST turns it on: Build_Scenes)
+**	  -sunangle A    fix the sun's angle at A degrees (0..180; VIDTEST's turns with GetTickCount)
 **	  -state N       start in test state N (0 fill rate, 1 polygon, 2 land) instead of 0
 **	  -noscene       L2's test: no scenes, every frame only clears to dark blue
 **	  -nomsgbox      VIDTEST's message boxes go to the log instead (implied by -frames, -shot, -shots)
@@ -77,6 +79,9 @@
 #include "rect.h"
 #include "dx8caps.h"
 #include "ini.h"
+#include "stars.h"							// app\shared (M2.4)
+#include "spln_db.h"						// app\shared (M2.4)
+#include "land.h"							// app\shared (M2.4)
 
 static FILE *		LogFile = NULL;
 static bool			Quit = false;
@@ -341,26 +346,25 @@ static bool Save_Back_Buffer(const char *filename)
 
 /*
 ** ------------------------------------------------------------------------------------------------
-** The E&B scene classes (TODO M2.4, docs/vidtest.md 4). VIDTEST builds a star field (stars.cpp,
-** StarField 0x4228A0 with budget 200, Init 0x422B20) into the star scene, a Land
+** The E&B scene classes (M2.4, docs/vidtest.md 4; app\shared). VIDTEST builds a star field
+** (stars.cpp, StarField 0x4228A0 with budget 200, Init 0x422B20) into the star scene, a Land
 ** (Create("land.ini", true) 0x4068F0) with its decorations (0x415C40) into the land scene, and
-** loads splines.wsd (SplineDatabase 0x41C660) for the lighting curves. None of them exists yet:
-** these placeholders keep the calls in VIDTEST's places and do nothing, so the star scene is empty,
-** the land scene holds only the sun and mu02, and Update_Lighting uses its no-spline defaults.
+** loads splines.wsd (SplineDatabase 0x41C660) for the lighting curves.
 ** ------------------------------------------------------------------------------------------------
 */
-struct StarFieldTodo { int Budget; };						// TODO(M2.4): StarField (0xA4 bytes)
-struct LandTodo { bool Dirty; };							// TODO(M2.4): Land (0x1228 bytes)
-
-static StarFieldTodo	StarFieldPlaceholder = { 200 };
-static LandTodo		LandPlaceholder = { false };
-
-static int Stars_Get_Num_Polys(StarFieldTodo *)	{ return 0; }		// TODO(M2.4): vtable +0x20
-static void Stars_Set_Budget(StarFieldTodo *s, int n)	{ s->Budget = n; }	// TODO(M2.4): field +0xA0
-static void Land_Set_Dirty(LandTodo *l)			{ l->Dirty = true; }	// TODO(M2.4): field +0x136
-static void Land_Update_Patches(LandTodo *, CameraClass *, int)	{ }		// TODO(M2.4): 0x4078F0
-static void Land_Update_Lightmap(LandTodo *, bool)	{ }				// TODO(M2.4): 0x40A9F0 / 0x40AB10
-static bool Splines_Loaded(void)					{ return false; }	// TODO(M2.4): splines.wsd
+static int Stars_Get_Num_Polys(StarFieldClass *s)	{ return s->Get_Num_Polys(); }	// vtable +0x20
+static void Stars_Set_Budget(StarFieldClass *s, int n)	{ s->Set_Budget(n); }	// field +0xA0
+static void Land_Set_Dirty(LandClass *l)			{ if (l) l->Set_Dirty(); }	// field +0x136
+static void Land_Update_Patches(LandClass *l, CameraClass *c, int lod)	{ if (l) l->Update_Patches(*c, lod); }	// 0x4078F0
+static void Land_Update_Lightmap(LandClass *l, const LandLightingStruct &lighting, bool full)	// 0x40A9F0 / 0x40AB10
+{
+	if (l == NULL) return;
+	if (full) l->Update_Lightmap_Full(lighting);
+	else l->Update_Lightmap_ManualThreaded(lighting);
+}
+static SplineDatabaseClass *	Splines = NULL;			// 0x5EF19C: splines.wsd
+static char					ArtDir[MAX_PATH] = "";	// ours: the -art folder (VIDTEST opens splines.wsd in its working directory)
+static bool Splines_Loaded(void)					{ return Splines != NULL && Splines->Is_Loaded(); }
 
 /*
 ** ------------------------------------------------------------------------------------------------
@@ -384,8 +388,8 @@ static SimpleSceneClass *	LandScene = NULL;			// 0x5EF140
 static RenderObjClass *		Mu01a = NULL;				// 0x5EF170
 static RenderObjClass *		Back01 = NULL;				// 0x5EF164
 static RenderObjClass *		Mu02 = NULL;				// 0x5EF160
-static StarFieldTodo *		StarField = NULL;			// 0x5EF16C
-static LandTodo *			Land = NULL;				// 0x5EF168
+static StarFieldClass *		StarField = NULL;			// 0x5EF16C
+static LandClass *			Land = NULL;				// 0x5EF168
 
 static int					TestState = 0;				// 0x5EF15C: 0 fill, 1 polygon, 2 land, 3 done
 static unsigned char		SpaceBudget = 9;			// 0x5C5508 byte 0 (x1000 polygons)
@@ -600,12 +604,16 @@ static void Draw_Overlay(void)
 }
 
 /*
-** Update_Lighting (0x4250B0): the sun goes round once every 125.7 s. Without the spline database
-** (TODO M2.4) the colours are the defaults of docs/vidtest.md 2.4 (read from pseudocode, unchecked).
+** Update_Lighting (0x4250B0): the sun goes round once every 125.7 s. The colours at the time of day:
+** light = LightColor.Earth x LightIntensity.Sun, sky = SkyColor.Earth x SkyIntensity.Sun, emissive =
+** SkyEmissive.Default (each an _R/_G/_B curve of the spline database); without splines (1, 1, 0.2),
+** (0, 0, 0.3) and (0.1, 0.1, 0.1) (the asm's initial values). The sun's diffuse is the clamped light,
+** the land scene's ambient the clamped sky + emissive, *out (the fog and clear colour) the clamped sky.
 */
 static void Update_Lighting(Vector3 *out, bool full)
 {
 	float a = (float)fmod(GetTickCount() * 5e-5, 2 * WWMATH_PI);
+	if (Arg_Present("-sunangle")) a = Arg_Int("-sunangle", 90) * WWMATH_PI / 180;	// ours (test option)
 	if (a > WWMATH_PI) a = 2 * WWMATH_PI - a;
 	Vector3 sun((float)cos(a), 0.0f, (float)sin(a));
 	sun.Normalize();
@@ -616,17 +624,32 @@ static void Update_Lighting(Vector3 *out, bool full)
 	}
 	TimeOfDay = (WWMATH_PI / 2 - e) / WWMATH_PI + 0.5f;
 	Vector3 light(1.0f, 1.0f, 0.2f);
-	Vector3 sky = Vector3(0.1f, 0.1f, 0.1f) + Vector3(0.0f, 0.0f, 0.3f);
+	Vector3 sky(0.0f, 0.0f, 0.3f);
+	Vector3 emissive(0.1f, 0.1f, 0.1f);
 	if (Splines_Loaded()) {
-		// TODO(M2.4): LightColor.Earth x LightIntensity.Sun, SkyColor.Earth x SkyIntensity.Sun
-		// + SkyEmissive.Default, each _R/_G/_B curve at TimeOfDay
+		Vector3 c, i;
+		Splines->Evaluate_Color("LightColor.Earth", TimeOfDay, &c.X, &c.Y, &c.Z);
+		Splines->Evaluate_Color("LightIntensity.Sun", TimeOfDay, &i.X, &i.Y, &i.Z);
+		light.Set(c.X * i.X, c.Y * i.Y, c.Z * i.Z);
+		Splines->Evaluate_Color("SkyColor.Earth", TimeOfDay, &c.X, &c.Y, &c.Z);
+		Splines->Evaluate_Color("SkyIntensity.Sun", TimeOfDay, &i.X, &i.Y, &i.Z);
+		sky.Set(c.X * i.X, c.Y * i.Y, c.Z * i.Z);
+		Splines->Evaluate_Color("SkyEmissive.Default", TimeOfDay, &emissive.X, &emissive.Y, &emissive.Z);
 	}
 	Sun->Set_Spot_Direction(-sun);
 	Vector3 diffuse(WWMath::Clamp(light.X), WWMath::Clamp(light.Y), WWMath::Clamp(light.Z));
 	Sun->Set_Diffuse(diffuse);
-	LandScene->Set_Ambient_Light(sky);
-	Land_Update_Lightmap(Land, full);
+	Vector3 ambient = sky + emissive;
+	LandScene->Set_Ambient_Light(Vector3(WWMath::Clamp(ambient.X), WWMath::Clamp(ambient.Y), WWMath::Clamp(ambient.Z)));
 	*out = Vector3(WWMath::Clamp(sky.X), WWMath::Clamp(sky.Y), WWMath::Clamp(sky.Z));
+	LandLightingStruct lighting;								// the record at esp+0x74
+	lighting.LightColor = diffuse;
+	lighting.SunDirection = sun;
+	lighting.SunAngle = WWMATH_PI / 2 - e;
+	lighting.ShadowBias = 0.005f;
+	lighting.SkyColor = *out;
+	lighting.Valid = true;
+	Land_Update_Lightmap(Land, lighting, full);
 }
 
 /*
@@ -1018,8 +1041,9 @@ static bool Build_Scenes(void)
 	float polys = Back01->Get_Cost();
 
 	StarScene = new SimpleSceneClass;
-	StarField = &StarFieldPlaceholder;							// TODO(M2.4): new StarField(200), Init(0)
-	// TODO(M2.4): StarScene->Add_Render_Object(StarField)
+	StarField = new StarFieldClass(200);						// 0x4228A0 (client 0x4826E0)
+	StarField->Init(0);										// 0x422B20 (client 0x4829E0): stars.ini
+	StarScene->Add_Render_Object(StarField);
 	polys += (float)Stars_Get_Num_Polys(StarField);
 
 	SpaceScene = new SimpleSceneClass;
@@ -1036,8 +1060,13 @@ static bool Build_Scenes(void)
 	LandScene = new SimpleSceneClass;
 	LandScene->Set_Ambient_Light(Vector3(0.5f, 0.5f, 0.5f));
 	LandScene->Add_Render_Object(Sun);
-	Land = &LandPlaceholder;									// TODO(M2.4): Land::Create("land.ini", true)
-	// TODO(M2.4): Create_Decorations(0); LandScene->Add_Render_Object(Land)
+	Land = LandClass::Create("land.ini", true);				// 0x4068F0
+	Log("LandClass::Create(\"land.ini\") = %p\n", Land);
+	if (Land) {
+		bool decos = Land->Create_Decorations(0);				// 0x415C40
+		Log("Create_Decorations(0) = %d\n", (int)decos);
+		LandScene->Add_Render_Object(Land);
+	}
 	LandScene->Add_Render_Object(Mu02);
 	return true;
 }
@@ -1058,8 +1087,8 @@ static void Release_Scenes(void)
 	REF_PTR_RELEASE(Back01);
 	REF_PTR_RELEASE(Mu01a);
 	REF_PTR_RELEASE(Mu02);
-	StarField = NULL;
-	Land = NULL;
+	REF_PTR_RELEASE(StarField);
+	REF_PTR_RELEASE(Land);
 }
 
 static int Run(HINSTANCE instance, int show)
@@ -1118,6 +1147,7 @@ static int Run(HINSTANCE instance, int show)
 	art[MAX_PATH - 2] = 0;
 	if (art[0] && art[strlen(art) - 1] != '\\') strcat(art, "\\");
 	ArtFiles.Inner.Set_Sub_Directory(art);
+	strcpy(ArtDir, art);
 	_TheFileFactory = &ArtFiles;
 	Log("art folder: %s\n", art);
 
@@ -1166,7 +1196,12 @@ static int Run(HINSTANCE instance, int show)
 		Message_Box("Failed to build the scenes required for the test.", "E&B Video Test", MB_ICONEXCLAMATION);
 		result = -2;
 	} else {
-		// TODO(M2.4): new SplineDatabase(NULL), Load("splines.wsd")
+		Splines = new SplineDatabaseClass(NULL);							// 0x41C660
+		char wsd[MAX_PATH];
+		_snprintf(wsd, MAX_PATH, "%ssplines.wsd", ArtDir);
+		wsd[MAX_PATH - 1] = 0;
+		bool loaded = Splines->Load(wsd);									// 0x41CB20
+		Log("splines: Load(\"%s\") = %d, %d entries\n", wsd, (int)loaded, Splines->Get_Count());
 		TestState = Arg_Int("-state", 0);
 		MSG msg;
 		for (;;) {
@@ -1182,6 +1217,8 @@ static int Run(HINSTANCE instance, int show)
 	}
 
 	Release_Scenes();
+	delete Splines;															// 0x41C880
+	Splines = NULL;
 	if (Text) {
 		delete Text;
 		Text = NULL;
