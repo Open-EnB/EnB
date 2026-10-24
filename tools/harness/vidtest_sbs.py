@@ -3,7 +3,8 @@
     python tools/harness/vidtest_sbs.py run [-- extra vidtest arguments]
     python tools/harness/vidtest_sbs.py sbs [N ...]
 
-run: starts build/programs/vidtest/vidtest.exe with the reference's arguments (640x480x32 windowed)
+run: starts build/programs/vidtest/vidtest.exe with the reference's arguments (640x480x32 windowed;
+     extra arguments, e.g. `-- -resx 800 -resy 600` for a reference run at that size, override them)
      and `-shots` set to the frame numbers saved in build/programs/vidtest/ref/ (run_reference.py),
      so both programs save the same presented frames (numbered from 1, one per Present). vidtest runs
      its tests to the end and exits with 1. Frames go to build/programs/vidtest/shots/.
@@ -42,8 +43,9 @@ def run(extra):
         raise SystemExit('no reference frames: run_reference.py run')
     if os.path.isdir(SHOTS):
         shutil.rmtree(SHOTS)
-    args = [EXE, '-resx', '640', '-resy', '480', '-depth', '32', '-windowed', '1',
-            '-shots', ','.join(str(n) for n in frames), '-shotdir', 'shots'] + extra
+    # vidtest takes the first occurrence of an argument, so the extra arguments come first
+    args = [EXE] + extra + ['-resx', '640', '-resy', '480', '-depth', '32', '-windowed', '1',
+                            '-shots', ','.join(str(n) for n in frames), '-shotdir', 'shots']
     env = dict(os.environ, ENB_STUB_LOG=os.path.join(OUT, 'stubs.log'))
     t0 = time.time()
     p = subprocess.Popen(args, cwd=OUT, env=env)
