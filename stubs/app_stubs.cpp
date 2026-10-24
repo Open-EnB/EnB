@@ -56,54 +56,11 @@ void Unknown_Debug_Printf(const char *format, ...)
 	Stub_Log_Line("Unknown_Debug_Printf: %s", text);
 }
 
-// The aux-data clock (0x4A3B40, in the root's object 0x4A3990-0x4A4780, not attributed yet):
-// milliseconds since its first call (timeGetTime). Not a stub: the client's behaviour.
-#pragma comment(lib, "winmm.lib")
-static bool TicksFirst = true;			// 0xB72FF8
-static DWORD TicksStart;				// 0xBE3A6C
-unsigned int Unknown_Get_Ticks()
-{
-	if (TicksFirst) {
-		TicksStart = timeGetTime();
-		TicksFirst = false;
-		return 0;
-	}
-	return timeGetTime() - TicksStart;
-}
-
 // ------------------------------------------------------------------------- globals (data)
 
 int DeltaUnknownGlobal = 0;					// delta.h
 int DeltaCompoundUnknownGlobal = 0;			// delta.h
 int DeltaStringClass::UnknownGlobal = 0;	// 0xBE3A9C
-
-// ------------------------------------------------------------------------- auxdata (M1.2)
-
-// DeltaVisitorClass::Visit_Children (0x4B0860). Not a stub: the client's function, whose object
-// (0x4AF.../0x4B0...) isn't attributed to a file yet, so it can't go into the tree.
-void DeltaVisitorClass::Visit_Children(DeltaCompoundClass *delta)
-{
-	int count = delta->Children.size();
-	for (int i = 0; i < count; i++) {
-		delta->Children[i]->Accept(*this);
-	}
-}
-
-// DeltaCompoundClass::Decode (0x4A3FA0, the root's decode: one byte picks the codec, encode.h).
-// Not a stub: the client's function, byte for byte (checked with appfile.py match), but its
-// object (0x4A3990-0x4A4780, the root class, vtable 0xAEAB88) is not attributed to a file yet.
-bool DeltaCompoundClass::Decode(LinearBufferClass &buf, const DurationClass &base)
-{
-	char encoding;
-	buf.Read(&encoding, 1);
-	DeltaCodecClass *codec;
-	if (encoding == 0) {
-		codec = &RecordCodec;
-	} else {
-		codec = Get_Tree_Codec();
-	}
-	return codec->Decode(this, buf, base);
-}
 
 // ------------------------------------------------------------------------- strconv_lib.h
 

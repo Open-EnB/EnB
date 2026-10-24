@@ -124,8 +124,8 @@ public:
 	void Add(DeltaClass *child);														// 0x4A5670
 	LookupClass *Get_Lookup();															// 0x4A5510
 	// 0x4A3FA0: one byte picks the decoder (0 the record form, else the tree form, encode.cpp).
-	// In the client a member of the root class (vtable 0xAEAB88, derived from this one; its object
-	// 0x4A3990-0x4A4780 is not attributed): declared here for the harness until M1.3 rebuilds it
+	// Defined in the root's object 0x4A3990-0x4A4780 (unknown_root.cpp, UnknownRootClass's, derived
+	// from this one); which class the client declared it in isn't known
 	bool Decode(LinearBufferClass &buf, const DurationClass &base);
 
 	std::vector<DeltaClass *> Children;		// +0x84

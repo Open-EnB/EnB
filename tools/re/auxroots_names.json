@@ -1,0 +1,434 @@
+{
+ "0xaeae54": {
+  "children": 3,
+  "cs": "Ramp",
+  "evidence": "C# fields = ours (same names, same order); Net-7 Construct 3 children = ours",
+  "kind": "struct",
+  "net7": "AuxPercent",
+  "path": "Ship.EnergyPercent"
+ },
+ "0xb008f0": {
+  "children": 8,
+  "cs": "HulkObject",
+  "evidence": "C# fields = ours (same names, same order); Net-7 Construct 8 children = ours",
+  "kind": "struct",
+  "net7": "AuxHulkIndex",
+  "path": "Hulk"
+ },
+ "0xb0094c": {
+  "children": 58,
+  "cs": "ShipObject",
+  "evidence": "C# fields = ours (same names, same order); Net-7 Construct 58 children = ours",
+  "kind": "struct",
+  "net7": "AuxShipIndex",
+  "path": "Ship"
+ },
+ "0xb00ab0": {
+  "children": 15,
+  "cs": "ShipStats",
+  "evidence": "C# fields = ours (same names, same order); Net-7 Construct 15 children = ours",
+  "kind": "struct",
+  "net7": "AuxStats",
+  "path": "Ship.BaseStats"
+ },
+ "0xb00b0c": {
+  "children": 15,
+  "cs": null,
+  "evidence": "Net-7 Construct 16 children != ours 15",
+  "kind": "array",
+  "net7": "AuxBuffs",
+  "path": "Ship.BuffArray"
+ },
+ "0xb00b68": {
+  "children": 2,
+  "cs": "ShipLegos",
+  "evidence": "C# fields = ours (same names, same order); Net-7 Construct 2 children = ours",
+  "kind": "struct",
+  "net7": "AuxLego",
+  "path": "Ship.Legos"
+ },
+ "0xb00bc4": {
+  "children": 15,
+  "cs": null,
+  "evidence": "Net-7 Construct 5 children != ours 10; Net-7 Construct 5 children != ours 15; Net-7 Construct 5 children = ours",
+  "kind": "array",
+  "net7": "AuxDamage",
+  "path": "Ship.DamageSpot"
+ },
+ "0xb00c20": {
+  "children": 4,
+  "cs": null,
+  "evidence": "Net-7 Construct 4 children = ours",
+  "kind": "array",
+  "net7": "AuxQuadrantDamage",
+  "path": "Ship.VisibleQuadrantDamagePercent"
+ },
+ "0xb00c7c": {
+  "children": 11,
+  "cs": "ShipInventory",
+  "evidence": "C# fields = ours (same names, same order); Net-7 Construct 11 children = ours",
+  "kind": "struct",
+  "net7": "AuxShipInv",
+  "path": "Ship.Inventory"
+ },
+ "0xb00cd8": {
+  "children": 4,
+  "cs": "ShipShake",
+  "evidence": "C# fields = ours (same names, same order); Net-7 Construct 4 children = ours",
+  "kind": "struct",
+  "net7": "AuxShake",
+  "path": "Ship.Shake"
+ },
+ "0xb00de4": {
+  "children": 18,
+  "cs": null,
+  "evidence": "Net-7 Construct 18 children = ours",
+  "kind": "array",
+  "net7": "AuxAttachments",
+  "path": "Ship.Legos.Attachments"
+ },
+ "0xb00e40": {
+  "children": 20,
+  "cs": null,
+  "evidence": "Net-7 Construct 20 children = ours",
+  "kind": "array",
+  "net7": "AuxMounts",
+  "path": "Ship.Inventory.Mounts"
+ },
+ "0xb00e9c": {
+  "children": 20,
+  "cs": null,
+  "evidence": "Net-7 Construct 20 children = ours",
+  "kind": "array",
+  "net7": "AuxMountBoneNames",
+  "path": "Ship.Inventory.MountBoneNames"
+ },
+ "0xb00ef8": {
+  "children": 20,
+  "cs": null,
+  "evidence": "Net-7 Construct 20 children = ours",
+  "kind": "array",
+  "net7": "AuxEquipInv",
+  "path": "Ship.Inventory.Equipped"
+ },
+ "0xb00f54": {
+  "children": 40,
+  "cs": null,
+  "evidence": "Net-7 Construct 1 children != ours 2; Net-7 Construct 1 children = ours; Net-7 Construct 128 children = ours; Net-7 Construct 2 children != ours 1; Net-7 Construct 20 children != ours 1; Net-7 Construct 20 children = ours; Net-7 Construct 40 children = ours; Net-7 Construct 6 children = ours; Net-7 Construct 8 children = ours; Net-7 Construct 96 children = ours",
+  "kind": "array",
+  "net7": "AuxInventory1/AuxInventory20/AuxInventory40/AuxInventory6/AuxOverflowInv/AuxRewardInv/AuxSecureInv/AuxVendorInv",
+  "path": "Ship.Inventory.Cargo"
+ },
+ "0xb00fb0": {
+  "children": 7,
+  "cs": "LightObject",
+  "evidence": "C# fields = ours (same names, same order)",
+  "kind": "struct",
+  "net7": null,
+  "path": "Light"
+ },
+ "0xb01064": {
+  "children": 3,
+  "cs": "DecorationObject",
+  "evidence": "C# fields = ours (same names, same order)",
+  "kind": "struct",
+  "net7": null,
+  "path": "Decoration"
+ },
+ "0xb010c0": {
+  "children": 4,
+  "cs": "HarvestableObject",
+  "evidence": "C# fields = ours (same names, same order); Net-7 Construct 4 children = ours",
+  "kind": "struct",
+  "net7": "AuxHarvestable",
+  "path": "Harvestable"
+ },
+ "0xb0111c": {
+  "children": 10,
+  "cs": "Item",
+  "evidence": "C# fields = ours (same names, same order); Net-7 Construct 10 children = ours",
+  "kind": "struct",
+  "net7": "AuxItem",
+  "path": "Ship.Inventory.Cargo.#"
+ },
+ "0xb01178": {
+  "children": 21,
+  "cs": "ManufacturingLabObject",
+  "evidence": "C# fields = ours (same names, same order); Net-7 Construct 21 children = ours",
+  "kind": "struct",
+  "net7": "AuxManufacturingIndex",
+  "path": "ManufacturingLab"
+ },
+ "0xb01284": {
+  "children": 500,
+  "cs": null,
+  "evidence": "Net-7 Construct None children != ours 15; Net-7 Construct None children != ours 500",
+  "kind": "array",
+  "net7": "AuxKnownFormulas/AuxPreviousAttempts",
+  "path": "ManufacturingLab.KnownFormula"
+ },
+ "0xb012e0": {
+  "children": 2,
+  "cs": null,
+  "evidence": "Net-7 Construct 2 children = ours",
+  "kind": "array",
+  "net7": "AuxPrimaryCategories",
+  "path": "ManufacturingLab.PrimaryCategories"
+ },
+ "0xb01444": {
+  "children": 2,
+  "cs": "ItemCategoryGroup",
+  "evidence": "Net-7 Construct 2 = ours; AuxPrimaryCategories holds PrimaryCategory[2] (Init(0), Init(1)); C# fields = ours (same names, same order)",
+  "kind": "struct",
+  "net7": "AuxPrimaryCategory",
+  "path": "ManufacturingLab.PrimaryCategories.#"
+ },
+ "0xb014a0": {
+  "children": 3,
+  "cs": "ItemCategoryEntry",
+  "evidence": "Net-7 Construct 3 = ours; AuxCategories holds Category[5]; C# fields = ours (same names, same order)",
+  "kind": "struct",
+  "net7": "AuxCategory",
+  "path": "ManufacturingLab.PrimaryCategories.#.Categories.#"
+ },
+ "0xb014fc": {
+  "children": 5,
+  "cs": null,
+  "evidence": "Net-7 Construct 5 = ours; AuxPrimaryCategory.Categories.Init(1) = our child 1",
+  "kind": "array",
+  "net7": "AuxCategories",
+  "path": "ManufacturingLab.PrimaryCategories.#.Categories"
+ },
+ "0xb01558": {
+  "children": 5,
+  "cs": null,
+  "evidence": "Net-7 Construct 5 = ours; AuxCategory.SubCategories.Init(1) = our child 1",
+  "kind": "array",
+  "net7": "AuxSubCategories",
+  "path": "ManufacturingLab.PrimaryCategories.#.Categories.#.Subcategories"
+ },
+ "0xb015b4": {
+  "children": 3,
+  "cs": "Formula",
+  "evidence": "C# fields = ours (same names, same order); Net-7 Construct 3 children = ours",
+  "kind": "struct",
+  "net7": "AuxKnownFormula",
+  "path": "ManufacturingLab.KnownFormula.#"
+ },
+ "0xb01610": {
+  "children": 1,
+  "cs": "ComponentObject",
+  "evidence": "C# fields = ours (same names, same order)",
+  "kind": "struct",
+  "net7": null,
+  "path": "Component"
+ },
+ "0xb01680": {
+  "children": 4,
+  "cs": "LegoAttachment",
+  "evidence": "C# fields = ours (same names, same order); Net-7 Construct 4 children = ours",
+  "kind": "struct",
+  "net7": "AuxAttachment",
+  "path": "Ship.Legos.Attachments.#"
+ },
+ "0xb01734": {
+  "children": 14,
+  "cs": "EquippedItem",
+  "evidence": "C# fields differ (4 vs 14); Net-7 Construct 14 children = ours",
+  "kind": "struct",
+  "net7": "AuxEquipItem",
+  "path": "Ship.Inventory.Equipped.#"
+ },
+ "0xb01790": {
+  "children": 4,
+  "cs": "ItemEffects",
+  "evidence": "C# fields = ours (same names, same order); Net-7 Construct 4 children = ours",
+  "kind": "struct",
+  "net7": "AuxEffect",
+  "path": "Ship.Inventory.Equipped.#.Effects"
+ },
+ "0xb01be8": {
+  "children": 3,
+  "cs": "ItemSubcategoryEntry",
+  "evidence": "Net-7 Construct 3 = ours; AuxSubCategories holds SubCategory[5]; C# fields = ours (same names, same order)",
+  "kind": "struct",
+  "net7": "AuxSubCategory",
+  "path": "ManufacturingLab.PrimaryCategories.#.Categories.#.Subcategories.#"
+ },
+ "0xb01e60": {
+  "children": 5,
+  "cs": "Buff",
+  "evidence": "C# fields = ours (same names, same order); Net-7 Construct 5 children = ours",
+  "kind": "struct",
+  "net7": "AuxBuff",
+  "path": "Ship.BuffArray.#"
+ },
+ "0xb01ebc": {
+  "children": 5,
+  "cs": null,
+  "evidence": "Net-7 Construct 4 children != ours 5",
+  "kind": "array",
+  "net7": "AuxElements",
+  "path": "Ship.BuffArray.#.Elements"
+ },
+ "0xb01f74": {
+  "children": 5,
+  "cs": "BuffElement",
+  "evidence": "Net-7 Construct 5 = ours; the element of AuxElements (Net-7 sizes that 4, the client 5); C# fields = ours (same names, same order)",
+  "kind": "struct",
+  "net7": "AuxElement",
+  "path": "Ship.BuffArray.#.Elements.#"
+ },
+ "0xb03360": {
+  "children": 18,
+  "cs": "PilotData",
+  "evidence": "C# fields = ours (same names, same order); Net-7 Construct 18 children = ours",
+  "kind": "struct",
+  "net7": "AuxPlayerIndex",
+  "path": "Player"
+ },
+ "0xb033bc": {
+  "children": 2,
+  "cs": "PilotReputation",
+  "evidence": "C# fields = ours (same names, same order); Net-7 Construct 2 children = ours",
+  "kind": "struct",
+  "net7": "AuxReputation",
+  "path": "Player.Reputation"
+ },
+ "0xb03418": {
+  "children": 12,
+  "cs": null,
+  "evidence": "Net-7 Construct 12 children = ours",
+  "kind": "array",
+  "net7": "AuxMissions",
+  "path": "Player.Missions"
+ },
+ "0xb03474": {
+  "children": 16,
+  "cs": "PilotRpgInfo",
+  "evidence": "C# fields = ours (same names, same order); Net-7 Construct 16 children = ours",
+  "kind": "struct",
+  "net7": "AuxRPGInfo",
+  "path": "Player.RPGInfo"
+ },
+ "0xb034d0": {
+  "children": 170,
+  "cs": null,
+  "evidence": "Net-7 Construct 170 children = ours",
+  "kind": "array",
+  "net7": "AuxSkillAbilities",
+  "path": "Player.RPGInfo.SkillAbilities"
+ },
+ "0xb0352c": {
+  "children": 64,
+  "cs": null,
+  "evidence": "Net-7 Construct 64 children = ours",
+  "kind": "array",
+  "net7": "AuxSkills",
+  "path": "Player.RPGInfo.Skills"
+ },
+ "0xb03638": {
+  "children": 7,
+  "cs": "Skill",
+  "evidence": "C# fields = ours (same names, same order); Net-7 Construct 7 children = ours",
+  "kind": "struct",
+  "net7": "AuxSkill",
+  "path": "Player.RPGInfo.Skills.#"
+ },
+ "0xb036ec": {
+  "children": 7,
+  "cs": "SkillAbility",
+  "evidence": "C# fields = ours (same names, same order); Net-7 Construct 7 children = ours",
+  "kind": "struct",
+  "net7": "AuxSkillAbility",
+  "path": "Player.RPGInfo.SkillAbilities.#"
+ },
+ "0xb03748": {
+  "children": 19,
+  "cs": "Mission",
+  "evidence": "C# fields = ours (same names, same order); Net-7 Construct 19 children = ours",
+  "kind": "struct",
+  "net7": "AuxMission",
+  "path": "Player.Missions.#"
+ },
+ "0xb037a4": {
+  "children": 2,
+  "cs": "MissionStage",
+  "evidence": "C# fields = ours (same names, same order); Net-7 Construct 2 children = ours",
+  "kind": "struct",
+  "net7": "AuxMissionStage",
+  "path": "Player.Missions.#.Stages.#"
+ },
+ "0xb03800": {
+  "children": 20,
+  "cs": null,
+  "evidence": "Net-7 Construct 20 children = ours",
+  "kind": "array",
+  "net7": "AuxMissionStages",
+  "path": "Player.Missions.#.Stages"
+ },
+ "0xb0385c": {
+  "children": 32,
+  "cs": null,
+  "evidence": "Net-7 Construct 32 children = ours",
+  "kind": "array",
+  "net7": "AuxFactions",
+  "path": "Player.Reputation.Faction"
+ },
+ "0xb038b8": {
+  "children": 11,
+  "cs": "PilotGroupInfo",
+  "evidence": "C# fields = ours (same names, same order); Net-7 Construct 11 children = ours",
+  "kind": "struct",
+  "net7": "AuxGroupInfo",
+  "path": "Player.GroupInfo"
+ },
+ "0xb03914": {
+  "children": 5,
+  "cs": null,
+  "evidence": "Net-7 Construct 5 children = ours",
+  "kind": "array",
+  "net7": "AuxGroupMembers",
+  "path": "Player.GroupInfo.Members"
+ },
+ "0xb039c8": {
+  "children": 4,
+  "cs": "GroupMember",
+  "evidence": "C# fields = ours (same names, same order); Net-7 Construct 4 children = ours",
+  "kind": "struct",
+  "net7": "AuxGroupMember",
+  "path": "Player.GroupInfo.Members.#"
+ },
+ "0xb03b14": {
+  "children": 3,
+  "cs": "FactionStanding",
+  "evidence": "C# fields = ours (same names, same order); Net-7 Construct 3 children = ours",
+  "kind": "struct",
+  "net7": "AuxFaction",
+  "path": "Player.Reputation.Faction.#"
+ },
+ "Planet": {
+  "children": 1,
+  "cs": "PlanetObject",
+  "evidence": "C# fields = ours (same names, same order)",
+  "kind": "struct",
+  "net7": null,
+  "path": "Planet"
+ },
+ "Starbase": {
+  "children": 1,
+  "cs": "StarbaseObject",
+  "evidence": "C# fields = ours (same names, same order)",
+  "kind": "struct",
+  "net7": null,
+  "path": "Starbase"
+ },
+ "Stargate": {
+  "children": 1,
+  "cs": "StargateObject",
+  "evidence": "C# fields = ours (same names, same order)",
+  "kind": "struct",
+  "net7": null,
+  "path": "Stargate"
+ }
+}

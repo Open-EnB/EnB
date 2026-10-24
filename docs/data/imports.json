@@ -1,9 +1,65 @@
 {
  "app": {
-  "ambiguous_total": 24,
+  "ambiguous_total": 31,
   "base": "reconstructed",
   "compile_errors": [],
   "files": {
+   "aux_roots": {
+    "ambiguous": [
+     "0x42B2F0",
+     "0x448610",
+     "0x4487D0",
+     "0x448800",
+     "0x455FB0",
+     "0x499720",
+     "0x4A6DF0",
+     "0x4A6E60",
+     "0x4A76A0",
+     "0x4A8880",
+     "0x703F40",
+     "0x705B70"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x4485D0",
+     "0x4A6330",
+     "0x4A6F00",
+     "0x4A71E0",
+     "0x6F66B0",
+     "0x6F85F0",
+     "0x6F86B0",
+     "0x6F8C70",
+     "0x6F9870",
+     "0x6F9C30",
+     "0x6FB760",
+     "0x6FBDA0",
+     "0x7017D0",
+     "0x7026C0",
+     "0x703330",
+     "0x703490",
+     "0x703500",
+     "0x705710",
+     "0x705E90",
+     "0x707630",
+     "0x709D30",
+     "0x753810",
+     "0x7538B0",
+     "0x753BA0",
+     "0x754580",
+     "0x754DB0",
+     "0x754FB0",
+     "0x755CA0",
+     "0x757990",
+     "0x757B00",
+     "0x757BA0",
+     "0x759D80",
+     "0x8C0FD0",
+     "0x8C1520"
+    ],
+    "merged": [],
+    "name": "client/aux_roots.cpp"
+   },
    "bitset": {
     "ambiguous": [],
     "copy": "reconstructed",
@@ -358,12 +414,30 @@
     ],
     "merged": [],
     "name": "shared/auxdata/policy.cpp"
+   },
+   "unknown_root": {
+    "ambiguous": [
+     "0x42B2F0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x4A3B40",
+     "0x4A3BD0",
+     "0x4A3FA0",
+     "0x4B0860"
+    ],
+    "merged": [],
+    "name": "shared/auxdata/unknown_root.cpp"
    }
   },
   "headers": {
+   "client/aux_roots.h": "reconstructed",
    "shared/auxdata/bitset.h": "reconstructed",
    "shared/auxdata/delta.h": "reconstructed",
+   "shared/auxdata/delta_array.h": "reconstructed",
    "shared/auxdata/delta_interpolator.h": "reconstructed",
+   "shared/auxdata/delta_item_array.h": "reconstructed",
    "shared/auxdata/delta_string.h": "reconstructed",
    "shared/auxdata/delta_template.h": "reconstructed",
    "shared/auxdata/encode.h": "reconstructed",
@@ -371,6 +445,7 @@
    "shared/auxdata/lookup.h": "reconstructed",
    "shared/auxdata/name.h": "reconstructed",
    "shared/auxdata/permstr.h": "reconstructed",
+   "shared/auxdata/unknown_root.h": "reconstructed",
    "shared/duration.h": "reconstructed",
    "shared/kv_encoder_base.h": "reconstructed",
    "shared/kv_list.h": "reconstructed",
@@ -380,7 +455,7 @@
    "shared/strconv_lib.h": "reconstructed",
    "shared/unknown_debug.h": "reconstructed"
   },
-  "in_tree_total": 164,
+  "in_tree_total": 199,
   "totals": {}
  },
  "ww3d2": {
