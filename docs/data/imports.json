@@ -6119,7 +6119,8 @@
      "0x9DAC40",
      "0x9DACE0",
      "0x9DAD20",
-     "0x9DAD60"
+     "0x9DAD60",
+     "0x9DAE10"
     ],
     "merged": [],
     "name": "FastAllocator.cpp"
@@ -7383,7 +7384,7 @@
    "xstraw.h": "R",
    "xsurface.h": "R"
   },
-  "in_tree_total": 562,
+  "in_tree_total": 563,
   "totals": {
    "G": 394,
    "R": 535,

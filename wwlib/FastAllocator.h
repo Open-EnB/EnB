@@ -327,7 +327,7 @@ WWINLINE void FastFixedAllocator::Init(unsigned int n)
 
 WWINLINE void FastFixedAllocator::grow()
 {
-   Chunk* n = new Chunk;
+   Chunk* n = (Chunk*)::malloc(sizeof(Chunk));	// E&B: malloc (0x9DAEA7 push 0x1FF4)
    n->next  = chunks;
    chunks   = n;
 	TotalHeapSize+=sizeof(Chunk);
@@ -378,7 +378,7 @@ protected:
    FastFixedAllocator allocators[MAX_ALLOC_SIZE/ALLOC_STEP];
 	FastCriticalSectionClass CriticalSections[MAX_ALLOC_SIZE/ALLOC_STEP];
 	FastCriticalSectionClass m_UnknownE00;	// E&B: locked by 0x9DADA0 around m_UnknownE20[3]
-	unsigned m_UnknownE04;					// E&B: zeroed by the ctor (0x9DAC8A)
+	FastCriticalSectionClass m_UnknownE04;	// E&B: locks Alloc's usage counters (0x9DAE1D)
 	bool MemoryLeakLogEnabled;
 
 	unsigned AllocatedWithMalloc;
@@ -395,46 +395,6 @@ protected:
 //
 //
 // ----------------------------------------------------------------------------
-
-WWINLINE void* FastAllocatorGeneral::Alloc(unsigned int n)
-{
-   void* pMemory;
-	static int re_entrancy=0;
-	re_entrancy++;
-
-   //We actually allocate n+4 bytes. We store the # allocated 
-   //in the first 4 bytes, and return the ptr to the rest back
-   //to the user.
-   n += sizeof(unsigned int); 
-#ifdef MEMORY_OVERWRITE_TEST
-	n+=sizeof(unsigned int);
-#endif
-
-	if (re_entrancy==1) {
-		ActualMemoryUsage+=n;
-	}
-	if (n<MAX_ALLOC_SIZE) {
-		int index=(n)/ALLOC_STEP;
-		{
-			FastCriticalSectionClass::LockClass lock(CriticalSections[index]);
-			pMemory = allocators[index].Alloc();
-		}
-	}
-   else {
-		if (re_entrancy==1) {
-			AllocatedWithMalloc+=n;
-			AllocatedWithMallocCount++;
-		}
-      pMemory = ::malloc(n);
-	}
-#ifdef MEMORY_OVERWRITE_TEST
-	*((unsigned int*)((char*)pMemory+n)-1)=0xabbac0de;
-#endif
-
-	re_entrancy--;
-   *((unsigned int*)pMemory) = n;     //Write modified (augmented by 4) count into first four bytes.
-   return ((unsigned int*)pMemory)+1; //return ptr to bytes after it back to user.
-}
 
 // ----------------------------------------------------------------------------
 //

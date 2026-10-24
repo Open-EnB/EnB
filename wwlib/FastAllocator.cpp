@@ -30,7 +30,7 @@ FastAllocatorGeneral* FastAllocatorGeneral::Get_Allocator()
 	return generalAllocator;
 }
 
-FastAllocatorGeneral::FastAllocatorGeneral() : m_UnknownE04(0), MemoryLeakLogEnabled(false), AllocatedWithMalloc(0), AllocatedWithMallocCount(0), ActualMemoryUsage(0), m_UnknownE18(0), m_UnknownE1C(0)
+FastAllocatorGeneral::FastAllocatorGeneral() : MemoryLeakLogEnabled(false), AllocatedWithMalloc(0), AllocatedWithMallocCount(0), ActualMemoryUsage(0), m_UnknownE18(0), m_UnknownE1C(0)
 {
 	int alloc_size=ALLOC_STEP;
 	for (int i=0;i<MAX_ALLOC_SIZE/ALLOC_STEP;++i) {
@@ -67,5 +67,39 @@ unsigned FastAllocatorGeneral::Get_Total_Allocation_Count()
 		count+=allocators[i].Get_Allocation_Count();
 	}
 	return count;
+}
+
+// E&B's Alloc (0x9DAE10, out of line): no re-entrancy counter; usage statistics under their own lock,
+// the malloc path under another (both locks and the extra counters are E&B additions)
+void* FastAllocatorGeneral::Alloc(unsigned int n)
+{
+	void* pMemory;
+
+	//We actually allocate n+4 bytes. We store the # allocated
+	//in the first 4 bytes, and return the ptr to the rest back
+	//to the user.
+	n += sizeof(unsigned int);
+
+	{
+		FastCriticalSectionClass::LockClass lock(m_UnknownE04);
+		ActualMemoryUsage+=n;
+		m_UnknownE1C+=n;
+		m_UnknownE20[1]++;
+	}
+	if (n<MAX_ALLOC_SIZE) {
+		unsigned index=n/ALLOC_STEP;
+		FastCriticalSectionClass::LockClass lock(CriticalSections[index]);
+		m_UnknownE1C+=n;
+		pMemory = allocators[index].Alloc();
+	}
+	else {
+		FastCriticalSectionClass::LockClass lock(m_UnknownE00);
+		AllocatedWithMalloc+=n;
+		AllocatedWithMallocCount++;
+		pMemory = ::malloc(n);
+	}
+
+	*((unsigned int*)pMemory) = n;     //Write modified (augmented by 4) count into first four bytes.
+	return ((unsigned int*)pMemory)+1; //return ptr to bytes after it back to user.
 }
 
