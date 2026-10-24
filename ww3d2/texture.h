@@ -236,7 +236,7 @@ protected:
 	int Height;
 
 	// Direct3D texture object
-	// E&B: protected, not private: TextureClass::Apply (0x94BC80) reads it directly (same layout)
+	// E&B: protected, not private: TextureClass(IDirect3DBaseTexture8*) writes it directly, as the client constructor 0x94B660 does (c35cc34); TextureClass::Apply (0x94BC80) also reads it (same layout)
 	IDirect3DBaseTexture8 *D3DTexture;
 
 private:

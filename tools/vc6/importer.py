@@ -884,7 +884,7 @@ TEXTURE_API_PATCHES = {
          "\tstatic void Invalidate_Old_Unused_Textures(unsigned inactive_time_override);\n\t// E&B (name not known): last frame's count of textures applied (0x94B910)\n\tstatic unsigned Unknown_Get_Textures_Applied_Last_Frame();\n\n",
          'TextureBaseClass::Unknown_Get_Textures_Applied_Last_Frame (E&B, name not known, D10; called by the app at 0x53EC23 and 0x6A1317)'),
         ('private:\n\n\t// Direct3D texture object\n\tIDirect3DBaseTexture8 *D3DTexture;\n',
-         '\t// Direct3D texture object\n\t// E&B: protected, not private: TextureClass::Apply (0x94BC80) reads it directly (same layout)\n\tIDirect3DBaseTexture8 *D3DTexture;\n\nprivate:\n',
+         '\t// Direct3D texture object\n\t// E&B: protected, not private: TextureClass(IDirect3DBaseTexture8*) writes it directly, as the client constructor 0x94B660 does (c35cc34); TextureClass::Apply (0x94BC80) also reads it (same layout)\n\tIDirect3DBaseTexture8 *D3DTexture;\n\nprivate:\n',
          'required because TextureClass(IDirect3DBaseTexture8*) writes D3DTexture (+0x34) directly, as the client\'s constructor does (0x94B660, c35cc34); TextureClass::Apply 0x94BC80 also passes it itself; access only, layout unchanged'),
         ('\tvoid Set_HSV_Shift(const Vector3 &hsv_shift);\n',
          '\tvoid Set_HSV_Shift(const Vector3 &hsv_shift);\n\t// E&B: not virtual, one for every texture class (0x94C1D0)\n\tunsigned Get_Texture_Memory_Usage() const;\n',
