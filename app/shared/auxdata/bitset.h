@@ -28,6 +28,7 @@ public:
 	bool operator==(const BitSetClass &other) const;				// 0x4A4A30
 
 	bool Is_Set(unsigned int pos) const;								// 0x4A4AA0
+	bool operator[](unsigned int pos) const { return Is_Set(pos); }	// encode.cpp's assert on line 660 (b[1])
 	void Set(unsigned int pos);											// 0x4A4B10
 	void Set_All();															// 0x4A4B80
 	void Clear(unsigned int pos);											// 0x4A4BB0

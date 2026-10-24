@@ -18,6 +18,7 @@
 #include "lookup.h"
 #include "delta.h"
 #include "linearbu.h"
+#include "encode.h"
 #include "delta_string.h"
 #include "duration.h"
 #include "delta_template.h"
@@ -77,25 +78,9 @@ void DeltaVisitorClass::Visit_Children(DeltaCompoundClass *delta)
 	}
 }
 
-// DeltaCompoundClass::Decode (0x4A3FA0, the root's decode: one byte picks the codec). Not a stub:
-// the client's function, byte for byte (checked with appfile.py match), but its object
-// (0x4A3990-0x4A4780, the root class, vtable 0xAEAB88) is not attributed to a file yet. The
-// codec declarations repeat encode.cpp's (the client's header is not known).
-class __declspec(novtable) DeltaCodecClass
-{
-public:
-	virtual bool Decode(DeltaCompoundClass *root, LinearBufferClass &buf, const DurationClass &base) = 0;
-};
-
-class RecordCodecClass : public DeltaCodecClass
-{
-public:
-	virtual bool Decode(DeltaCompoundClass *root, LinearBufferClass &buf, const DurationClass &base);
-};
-
-extern RecordCodecClass RecordCodec;		// encode.cpp, 0xBE3AB4
-DeltaCodecClass *Get_Tree_Codec();			// encode.cpp, 0x4A9B80
-
+// DeltaCompoundClass::Decode (0x4A3FA0, the root's decode: one byte picks the codec, encode.h).
+// Not a stub: the client's function, byte for byte (checked with appfile.py match), but its
+// object (0x4A3990-0x4A4780, the root class, vtable 0xAEAB88) is not attributed to a file yet.
 bool DeltaCompoundClass::Decode(LinearBufferClass &buf, const DurationClass &base)
 {
 	char encoding;
@@ -113,18 +98,6 @@ bool DeltaCompoundClass::Decode(LinearBufferClass &buf, const DurationClass &bas
 void KVListClass::Add(KVPairClass *item)
 {
 	STUB_CALLED("KVListClass::Add (0x4B6760)");
-}
-
-// declared in encode.cpp (the client's header is not known); 0x4A9C30
-class RecordTableClass
-{
-public:
-	void Add(DeltaClass **list, int id);
-};
-
-void RecordTableClass::Add(DeltaClass **list, int id)
-{
-	STUB_CALLED("RecordTableClass::Add (0x4A9C30)");
 }
 
 // 0x4B7FC0

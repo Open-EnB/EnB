@@ -3105,7 +3105,16 @@ RECONSTRUCTED = {
                                           "0x4A8FD0 (vtable 0xAEB29C), TreeCodecClass (vtables 0xAEB2AC, "
                                           "0xAEB2A0): Decode 0x4A9350, Visit 0x4A9390 / 0x4A9400 (line 401, "
                                           "not exact), Read_Header 0x4A9710, its holder 0x4A99E0, "
-                                          "Get_Tree_Codec 0x4A9B80; the rest of the file not rebuilt",
+                                          "Get_Tree_Codec 0x4A9B80; the encoder side: the record-form "
+                                          "writer 0x4A91E0, Add 0x4A9C30 (lines 568-597, not exact), the "
+                                          "records 0x4AA110-0x4AA320 (line 660) and their pools "
+                                          "(mempool.h), DeltaListClass 0x4AA710 / 0x4AA750 (not exact); "
+                                          "the update collector 0x4A8990-0x4A8FC0 not rebuilt",
+    ('app', 'shared/auxdata/encode.h'): "encode.cpp's declarations (name assumed: the root's codec "
+                                        "select 0x4A3FA0, in another object, uses RecordCodec and "
+                                        "Get_Tree_Codec): the codecs (vtables 0xAEB29C, 0xAEB2AC/0xAEB2A0), "
+                                        "the field lists (pool 0xBE3AE8), the records (vtables 0xAEB2E4, "
+                                        "0xAEB2C4, 0xAEB2D4; pools 0xBE3AD0, 0xBE3AB8), RecordTableClass",
     ('app', 'shared/auxdata/policy.cpp'): "CompiledPolicyClass (D24; Compiled, Size from the asserts): dtor "
                                           "0x4AE850, Get_Action 0x4AED50 (line 334, D25); PolicyClass::"
                                           "Get_Action 0x4AF490 (line 444); the rest of the file not rebuilt",

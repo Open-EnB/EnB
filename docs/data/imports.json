@@ -1,6 +1,6 @@
 {
  "app": {
-  "ambiguous_total": 19,
+  "ambiguous_total": 21,
   "base": "reconstructed",
   "compile_errors": [],
   "files": {
@@ -134,20 +134,31 @@
    },
    "encode": {
     "ambiguous": [
-     "0x42B2F0"
+     "0x42B2F0",
+     "0x430450",
+     "0x4A91B0"
     ],
     "copy": "reconstructed",
     "expected": {},
     "in_tree": [
      "0x4A8FD0",
+     "0x4A91E0",
      "0x4A9350",
      "0x4A9390",
      "0x4A9710",
+     "0x4A9920",
      "0x4A99E0",
      "0x4A9A70",
      "0x4A9B30",
      "0x4A9BA0",
-     "0x4A9BE0"
+     "0x4A9BE0",
+     "0x4AA110",
+     "0x4AA210",
+     "0x4AA290",
+     "0x4AA320",
+     "0x4AA710",
+     "0x4AA8E0",
+     "0x4AAA00"
     ],
     "merged": [],
     "name": "shared/auxdata/encode.cpp"
@@ -331,7 +342,7 @@
    "shared/money.h": "reconstructed",
    "shared/unknown_debug.h": "reconstructed"
   },
-  "in_tree_total": 145,
+  "in_tree_total": 154,
   "totals": {}
  },
  "ww3d2": {
