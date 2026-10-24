@@ -21,6 +21,7 @@
 
 #include <vector>
 #include "name.h"
+#include "..\kv_encoder_base.h"
 
 class LinearBufferClass;
 class DurationClass;
@@ -28,7 +29,6 @@ class DurationClass;
 class DeltaClass;
 class DeltaCompoundClass;
 class LookupClass;
-class StringValueClass;
 
 // Double dispatch (DeltaClass::Accept 0x4A4FE0 calls slot 0, DeltaCompoundClass::Accept 0x4A5650
 // slot 1). VC6 lays out overloaded virtuals in reverse declaration order, so this order gives
@@ -40,16 +40,14 @@ public:
 	virtual void Visit(DeltaClass *delta) = 0;				// +0x00
 };
 
-// The argument of DeltaClass's slot 0: DeltaCompoundClass::Unknown_00 (0x4A55D0) calls its slot 1
-// once per child.
-class DeltaChildVisitorClass
+// The argument of DeltaClass's slot 0, an encoder (the leaves call KVEncoderBaseClass's members on
+// it). DeltaCompoundClass::Unknown_00 (0x4A55D0) calls its slot 1 once per child: a slot the
+// encoder base's vtable (0xAEB62C, the destructor only) doesn't have, so the encoders the fields
+// are given derive from it.
+class DeltaChildVisitorClass : public KVEncoderBaseClass
 {
 public:
-	virtual void Unknown_00() = 0;
 	virtual void Unknown_04(int mask, const char *name, DeltaClass *child) = 0;
-
-	// kv_encoder_base.cpp's 0x4B48A0 (DeltaStringClass::Unknown_00 0x4A7E60 calls it): takes the value
-	void Add_String(int mask, const char *name, StringValueClass *value);
 };
 
 // The base DeltaClass's constructor stores first (vtable 0xAEADC8: one slot, _purecall).

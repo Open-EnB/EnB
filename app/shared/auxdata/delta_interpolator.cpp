@@ -170,6 +170,45 @@ void DeltaInterpolatorClass::Unknown_3C(DeltaClass *delta)
 	DeltaCompoundClass::Unknown_3C(delta);
 }
 
+// the time since the first call (0x4A3B40, timeGetTime through a pointer; not rebuilt yet)
+unsigned int Unknown_Get_Ticks();
+
+// The interpolator's value for the encoder (vtable 0xAEAF08): read-only
+class DeltaInterpolatorValueClass : public KVAccessorClass<float>
+{
+public:
+	DeltaInterpolatorValueClass(DeltaInterpolatorClass *owner) : Owner(owner) {}
+	virtual const float &Get();
+	virtual void Set(const float &) {}
+	virtual KVAccessorClass<float> *Clone() const;
+
+	DeltaInterpolatorClass *Owner;		// +0x04
+	float Value;								// +0x08 the value Get read last
+};
+
+void DeltaInterpolatorClass::Unknown_00(DeltaChildVisitorClass *visitor)
+{
+	visitor->Push_Prefix(Name.Get_String());
+	visitor->Push_Flags();
+	visitor->Set_Flags(visitor->Get_Flags() & m_Unknown80);
+	((DeltaClass &)EndTime).Unknown_00(visitor);
+	((DeltaClass &)ChangePerTick).Unknown_00(visitor);
+	visitor->Add_Value(4, "CurrentValue", new DeltaInterpolatorValueClass(this));
+	visitor->Pop_Flags();
+	visitor->Pop_Prefix();
+}
+
+KVAccessorClass<float> *DeltaInterpolatorValueClass::Clone() const
+{
+	return new DeltaInterpolatorValueClass(Owner);
+}
+
+const float &DeltaInterpolatorValueClass::Get()
+{
+	Value = Owner->Get_Value(DurationClass(Unknown_Get_Ticks()));
+	return Value;
+}
+
 /*
 **	Reconstruction notes
 **
@@ -181,8 +220,11 @@ void DeltaInterpolatorClass::Unknown_3C(DeltaClass *delta)
 **	Unknown_3C 0x4A68E0. The forms the bytes decide: DurationClass's user-defined operator= (Set
 **	stores both halves of EndTime before the vtable load; Update loads EndTime before the test of
 **	the change), `change >= 0.0f` tested first in Update.
-**	Not rebuilt yet: Unknown_00 0x4A6930 (a visitor with a "CurrentValue" child: a helper object,
-**	vtable 0xAEAF08, holds the interpolator; its methods 0x4A6AF0 and 0x4A6B30, Get_Value inlined),
-**	and this object's initialisers 0x4A6070 (a guarded static, atexit 0x42B320), 0x4A60A0 (a
-**	permstr.cpp object at 0xBE3A90, 0x4AE1E0/0x4AE2D0).
+**	Unknown_00 0x4A6930: the encoder's prefix and flags pushed, EndTime and ChangePerTick through
+**	their vtables (the casts give the virtual calls; StartValue isn't encoded), then "CurrentValue"
+**	as a DeltaInterpolatorValueClass (vtable 0xAEAF08; KVEncoderBaseClass::Add_Value inlined):
+**	Clone 0x4A6AF0, Get 0x4A6B30 (Get_Value inlined, at the time 0x4A3B40 gives), Set 0x4A6BF0
+**	empty; its destructors 0x4A6C10/0x4A6C40 are the compiler's. Not rebuilt yet: this object's
+**	initialisers 0x4A6070 (a guarded static, atexit 0x42B320), 0x4A60A0 (a permstr.cpp object at
+**	0xBE3A90, 0x4AE1E0/0x4AE2D0).
 */

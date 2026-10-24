@@ -62,7 +62,9 @@
      "0x4A6590",
      "0x4A67A0",
      "0x4A67D0",
-     "0x4A68E0"
+     "0x4A68E0",
+     "0x4A6930",
+     "0x4A6B30"
     ],
     "merged": [],
     "name": "shared/auxdata/delta_interpolator.cpp"
@@ -103,6 +105,53 @@
     ],
     "merged": [],
     "name": "shared/auxdata/delta_time.cpp"
+   },
+   "kv_encoder_base": {
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42A820",
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30",
+     "0x42CAB0",
+     "0x42CD30",
+     "0x42CF30",
+     "0x42D050",
+     "0x433700",
+     "0x4B3B10",
+     "0x4B3B90",
+     "0x4B3C00",
+     "0x4B3D60",
+     "0x4B3F30",
+     "0x4B3F70",
+     "0x4B3FC0",
+     "0x4B4050",
+     "0x4B40F0",
+     "0x4B4300",
+     "0x4B43E0",
+     "0x4B45B0",
+     "0x4B4820",
+     "0x4B48A0",
+     "0x4B53D0",
+     "0x4B54E0",
+     "0x4B5560",
+     "0x4B55F0",
+     "0x4B56B0",
+     "0x4B5740",
+     "0x4B58D0"
+    ],
+    "merged": [],
+    "name": "shared/kv_encoder_base.cpp"
+   },
+   "kv_pair": {
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x4B7EB0"
+    ],
+    "merged": [],
+    "name": "shared/kv_pair.cpp"
    },
    "linearbu": {
     "copy": "reconstructed",
@@ -187,10 +236,14 @@
    "shared/auxdata/name.h": "reconstructed",
    "shared/auxdata/permstr.h": "reconstructed",
    "shared/duration.h": "reconstructed",
+   "shared/kv_encoder_base.h": "reconstructed",
+   "shared/kv_list.h": "reconstructed",
+   "shared/kv_pair.h": "reconstructed",
+   "shared/kv_pair_string.h": "reconstructed",
    "shared/money.h": "reconstructed",
    "shared/unknown_debug.h": "reconstructed"
   },
-  "in_tree_total": 92,
+  "in_tree_total": 125,
   "totals": {}
  },
  "ww3d2": {

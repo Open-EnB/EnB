@@ -3050,7 +3050,8 @@ RECONSTRUCTED = {
     ('app', 'shared/auxdata/delta_template.h'): "DeltaTemplateClass<T> (D24), only what the delta files use: "
                                                 "Read/Write (slots 0x2C/0x30), the value after DeltaClass, the "
                                                 "constructor (inlined for float in 0x4A6110; the time field's "
-                                                "out of line, 0x4A8150: extern template), Set_Value (0x4A6590)",
+                                                "out of line, 0x4A8150: extern template), Set_Value (0x4A6590), the "
+                                                "generic Write/Read (asserts on the client's lines 91 and 110, D25)",
     ('app', 'shared/auxdata/linearbu.h'): "LinearBufferClass (D24), size 0x1C: Buffer, Size, Capacity, GrowBy, "
                                           "Pos, OwnsBuffer (linearbu.cpp's asserts and code)",
     ('app', 'shared/auxdata/linearbu.cpp'): "LinearBufferClass, client 0x4AAB60-0x4AB536: 21 functions, asserts on "
@@ -3067,9 +3068,24 @@ RECONSTRUCTED = {
     ('app', 'shared/auxdata/delta_interpolator.cpp'): "DeltaInterpolatorClass (D24), client 0x4A6110-0x4A6913: "
                                                       "ctor, Get_Change, Update, both Set, Set_Change, Unknown_3C; "
                                                       "asserts on the client's lines 111-113 and 159 (D25); "
-                                                      "Unknown_00 0x4A6930 not rebuilt",
+                                                      "Unknown_00 0x4A6930 and its value object "
+                                                      "(vtable 0xAEAF08: Clone 0x4A6AF0, Get 0x4A6B30)",
     ('app', 'shared/auxdata/delta_interpolator.h'): "DeltaInterpolatorClass (vtable 0xAEAE54, size 0x250; fields "
                                                     "from the ctor's strings), Get_Value's assert on line 54 (D25)",
+    ('app', 'shared/kv_encoder_base.h'): "KVEncoderBaseClass (D24; vtable 0xAEB62C, size 0x0C: Data, the pair "
+                                         "list) and its Data (0x3C bytes: PrefixList and FlagList from the "
+                                         "asserts, Flags, two strings); Add_Value<T> (inlined in 0x4A6930)",
+    ('app', 'shared/kv_encoder_base.cpp'): "KVEncoderBaseClass, client 0x4B3850-0x4B4A0B: 13 functions, asserts "
+                                           "on the client's lines 45-130 (D25); the constructor 0x4B3850 not "
+                                           "exact (register allocation)",
+    ('app', 'shared/kv_pair.h'): "KVPairClass (D24; vtable 0xAEB7EC, size 0x0C: the interned key, two flags), "
+                                 "the typed accessor and pair templates (float: vtables 0xAE78D0, 0xAE7860)",
+    ('app', 'shared/kv_pair.cpp'): "KVPairClass's constructor 0x4B7EB0 (assert on the client's line 20, D25) "
+                                   "and destructor 0x4B7F50",
+    ('app', 'shared/kv_pair_string.h'): "StringValueClass (the string accessor, vtable 0xAEB150) and "
+                                        "KVPairStringClass's declaration (vtable 0xAEB810, size 0x14; ctor "
+                                        "0x4B7FC0: 'key && accessor')",
+    ('app', 'shared/kv_list.h'): "KVListClass's declaration, only Add 0x4B6760 (the assert's 'item', line 23)",
 }
 
 # Text appended to imported files (after everything, so no existing line moves).

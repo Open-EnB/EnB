@@ -19,17 +19,7 @@
 #define __DELTA_STRING_H
 
 #include "delta.h"
-
-// The string value interface kv_encoder_base.cpp's 0x4B48A0 takes (vtable 0xAEB150: the destructor
-// and three pure slots); probably a kv header's, kept here until that code is rebuilt.
-class StringValueClass
-{
-public:
-	virtual ~StringValueClass() {}									// +0x00 0x4A7F00
-	virtual const char *Get() const = 0;							// +0x04
-	virtual void Set(const char *value) = 0;						// +0x08
-	virtual StringValueClass *Clone() const = 0;					// +0x0C
-};
+#include "..\kv_pair_string.h"
 
 // vtable 0xAEB0E4, size 0x88
 class DeltaStringClass : public DeltaClass

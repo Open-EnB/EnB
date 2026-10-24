@@ -8,8 +8,8 @@
 **
 **	A leaf field holding one value of type T (the float field's vtable 0xAEAEB0 overrides slots 0,
 **	1, 0x2C and 0x30 of DeltaClass's). Only what the delta files use so far: the constructor,
-**	Set_Value, and the generic Read and Write (asserts at lines 110 and later, not rebuilt yet, so
-**	the asserts' lines are not kept here yet). The client doesn't name the template (D24).
+**	Set_Value, and the generic Write and Read (the float field's 0x4A6E60 and 0x4A6DF0, asserts on
+**	the client's lines 91 and 110, D25). The client doesn't name the template (D24).
 */
 
 #if defined(_MSC_VER)
@@ -21,6 +21,8 @@
 
 #include "delta.h"
 #include "..\duration.h"
+#include "linearbu.h"
+#include "..\unknown_debug.h"
 
 template<class T> class DeltaTemplateClass : public DeltaClass
 {
@@ -59,5 +61,57 @@ template<class T> DeltaTemplateClass<T>::DeltaTemplateClass(const char *name, co
 // inlines the float fields': VC6's extern template (C4231) gives that; delta_time.cpp's object
 // holds the instance.
 extern template class DeltaTemplateClass<DurationClass>;
+
+// (the lines down to Write hold code of the client's header not rebuilt yet: its asserts are on
+// lines 91 and 110)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+template<class T> bool DeltaTemplateClass<T>::Write(LinearBufferClass &buf)
+{
+	if (buf.Write(&Value, sizeof(Value)) != sizeof(Value)) {
+		G_ASSERT(0);
+		return false;
+	}
+	return true;
+}
+
+
+
+
+
+
+
+
+
+
+template<class T> bool DeltaTemplateClass<T>::Read(LinearBufferClass &buf, const DurationClass &)
+{
+	T value;
+	if (buf.Read(&value, sizeof(value)) != sizeof(value)) {
+		G_ASSERT(0);
+		return false;
+	}
+	Value = value;
+	return true;
+}
 
 #endif //__DELTA_TEMPLATE_H
