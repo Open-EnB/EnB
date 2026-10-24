@@ -66,10 +66,14 @@ int DeltaStringClass::UnknownGlobal = 0;	// 0xBE3A9C
 
 // ------------------------------------------------------------------------- auxdata (M1.2)
 
-// 0x4AC250 (the members are default-constructed, so the object is usable, but empty)
-LookupClass::LookupClass(DeltaCompoundClass *owner)
+// DeltaVisitorClass::Visit_Children (0x4B0860). Not a stub: the client's function, whose object
+// (0x4AF.../0x4B0...) isn't attributed to a file yet, so it can't go into the tree.
+void DeltaVisitorClass::Visit_Children(DeltaCompoundClass *delta)
 {
-	STUB_CALLED("LookupClass::LookupClass (0x4AC250)");
+	int count = delta->Children.size();
+	for (int i = 0; i < count; i++) {
+		delta->Children[i]->Accept(*this);
+	}
 }
 
 // 0x4B6760

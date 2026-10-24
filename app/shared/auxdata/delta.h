@@ -38,6 +38,10 @@ class DeltaVisitorClass
 public:
 	virtual void Visit(DeltaCompoundClass *delta) = 0;		// +0x04
 	virtual void Visit(DeltaClass *delta) = 0;				// +0x00
+
+	// 0x4B0860 (in an object not attributed yet; called from encode.cpp, lookup.cpp and
+	// 0x4AB7D0/0x4ABA70): each child's Accept(*this), in order
+	void Visit_Children(DeltaCompoundClass *delta);
 };
 
 // The argument of DeltaClass's slot 0, an encoder (the leaves call KVEncoderBaseClass's members on

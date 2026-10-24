@@ -3032,7 +3032,9 @@ RECONSTRUCTED = {
                                          "client's line 227 (D25); Add 0x4A5670 not exact",
     ('app', 'shared/auxdata/delta.h'): "DeltaClass (vtable 0xAEAD70, size 0x84; ctor 0x4A4D40) and DeltaCompoundClass "
                                        "(vtable 0xAEABE4, size 0x9C): layout from the constructors and delta.cpp; "
-                                       "the visitor's Add_String 0x4B48A0 (delta_string.cpp's Unknown_00)",
+                                       "the visitor's Add_String 0x4B48A0 (delta_string.cpp's Unknown_00); "
+                                       "DeltaVisitorClass::Visit_Children 0x4B0860 (declared; its object "
+                                       "is not attributed)",
     ('app', 'shared/auxdata/delta_string.cpp'): "DeltaStringClass (D24; String from the asserts), client "
                                                 "0x4A78F0-0x4A8082: 9 functions and DeltaStringValueClass's Get, "
                                                 "Set, Clone; asserts on the client's lines 28-130 (D25)",
@@ -3070,7 +3072,9 @@ RECONSTRUCTED = {
                                               "the client's lines 31 and 58 (D25)",
     ('app', 'shared/auxdata/lookup.cpp'): "LookupClass's index accessors 0x4AC850, 0x4AC8D0, 0x4AC960, "
                                           "asserts on the client's lines 67, 78 and 90 (D25); Find 0x4AC9F0 "
-                                          "(line 104; the map keyed by the interned name, _Lbound 0x4AD240)",
+                                          "(line 104; the map keyed by the interned name, _Lbound 0x4AD240); "
+                                          "the constructor 0x4AC250 and its LookupBuilderClass (vtable "
+                                          "0xAEB318: Visit 0x4AC3B0 / 0x4AC560), the map's _Insert 0x4ACF30",
     ('app', 'shared/duration.h'): "DurationClass (D24; Time from the FAIL_IF), only what the delta files use: "
                                   "As_Int's FAIL_IF on the client's line 190 (D25); a user-defined operator= "
                                   "(0x4A6590's and 0x4A6380's scheduling), comparisons, operator-",
