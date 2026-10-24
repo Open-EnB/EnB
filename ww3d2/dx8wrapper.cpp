@@ -75,6 +75,7 @@
 #include "dx8texman.h"
 #include "bound.h"
 #include "shdlib.h"
+#include "dx8webbrowser.h"
 
 const int DEFAULT_RESOLUTION_WIDTH = 800;
 const int DEFAULT_RESOLUTION_HEIGHT = 600;
@@ -408,6 +409,25 @@ void DX8Wrapper::Invalidate_Cached_Render_States(void)
 		}
 	}
 	ShaderClass::Invalidate();
+}
+
+// E&B (name not known, D10): restores a lost device. 0x921C50, called from ww3d.obj (0x9179D0)
+// and inlined into End_Scene 0x924890.
+bool DX8Wrapper::Unknown_Restore_Device(void)
+{
+	if (IsDeviceLost) {
+		HRESULT hr=_Get_D3D_Device8()->TestCooperativeLevel();
+		if (hr==D3DERR_DEVICENOTRESET) {
+			Reset_Device();
+			hr=_Get_D3D_Device8()->TestCooperativeLevel();
+			if (hr==D3D_OK) {
+				IsDeviceLost=false;
+				return true;
+			}
+		}
+		return false;
+	}
+	return true;
 }
 
 void DX8Wrapper::Do_Onetime_Device_Dependent_Shutdowns(void)
@@ -1504,23 +1524,9 @@ void DX8Wrapper::End_Scene(bool flip_frames)
 	DX8_THREAD_ASSERT();
 	DX8CALL(EndScene());
 
-	if (flip_frames) {
-		// JANI HACK! Some objects flicker on ATI Radeons. This can be fixed by locking the back buffer before flipping.
-		// Remember that for this to work the back buffers need to have been create as lockable!
-		if (Get_Current_Caps()->Get_Vendor()==DX8Caps::VENDOR_ATI) {
-			IDirect3DSurface8 * bb;
-			DX8CALL(GetBackBuffer(0,D3DBACKBUFFER_TYPE_MONO,&bb));
-			D3DLOCKED_RECT rect;
-			HRESULT res=bb->LockRect(
-					&rect,
-					NULL,
-					D3DLOCK_READONLY);
-			if (res==D3D_OK) {
-				bb->UnlockRect();
-				bb->Release();
-			}
-		}
+	DX8WebBrowser::Render(0);
 
+	if (flip_frames) {
 		DX8_Assert();
 		HRESULT hr;
 		{
@@ -1536,28 +1542,18 @@ void DX8Wrapper::End_Scene(bool flip_frames)
 		}
 		else {
 			IsDeviceLost=true;
-		}
-
-		// If the device was lost we need to check for cooperative level and possibly reset the device
-		if (hr==D3DERR_DEVICELOST) {
-			hr=_Get_D3D_Device8()->TestCooperativeLevel();
-			if (hr==D3DERR_DEVICENOTRESET) {
-				Reset_Device();
-			}
-			else {
+			Unknown_Restore_Device();
+			if (IsDeviceLost) {
 				// Sleep it not active
 				ThreadClass::Sleep_Ms(200);
 			}
-		}
-		else {
-			DX8_ErrorCode(hr);
 		}
 	}
 
 	// Each frame, release all of the buffers and textures.
 	Set_Vertex_Buffer(NULL);
 	Set_Index_Buffer(NULL,0);
-	for (unsigned i=0;i<MAX_TEXTURE_STAGES;++i) Set_Texture(i,NULL);
+	for (int i=0;i<CurrentCaps->Get_Max_Textures_Per_Pass();++i) Set_Texture(i,NULL);
 	Set_Material(NULL);
 }
 

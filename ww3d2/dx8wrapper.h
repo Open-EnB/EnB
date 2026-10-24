@@ -217,6 +217,9 @@ public:
 	static void	Do_Onetime_Device_Dependent_Inits(void);
 	static void Do_Onetime_Device_Dependent_Shutdowns(void);
 
+	// E&B (name not known, D10): 0x921C50, called from ww3d.obj (0x9179D0) and inlined into End_Scene
+	static bool Unknown_Restore_Device(void);
+
 	static bool Is_Device_Lost() { return IsDeviceLost; }
 	static bool Is_Initted(void) { return IsInitted; }
 
