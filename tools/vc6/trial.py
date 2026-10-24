@@ -45,6 +45,7 @@ def main():
     ap.add_argument('--libs', nargs='*', help='libraries to verify (default: the dependants of every library touched)')
     ap.add_argument('--errors', help='write every compile error to this file (the console shows 15)')
     a = ap.parse_args()
+    importer.hold_lock()  # it swaps tree files and writes WORK and imports.json
 
     saved = []          # (lib, original name, bytes)
     placed = []         # (lib, new name)

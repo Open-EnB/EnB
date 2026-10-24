@@ -24,6 +24,7 @@ def main():
     if len(sys.argv) != 4:
         raise SystemExit(__doc__)
     lib, name, spec = sys.argv[1:4]
+    importer.hold_lock()  # it edits a tree file and writes WORK
     variants = runpy.run_path(spec)['V']
     real = [x for x in os.listdir(importer.dest(lib)) if x.lower() == name.lower()]
     if not real:

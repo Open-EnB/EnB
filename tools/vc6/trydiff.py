@@ -23,6 +23,7 @@ def main():
     if len(sys.argv) != 5:
         raise SystemExit(__doc__)
     lib, name, spec, var = sys.argv[1:5]
+    importer.hold_lock()  # it edits a tree file and writes WORK
     d = importer.dest(lib)
     real = [x for x in os.listdir(d) if x.lower() == name.lower()]
     if not real:
