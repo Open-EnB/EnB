@@ -721,7 +721,7 @@ int PointGroupClass::Get_Polygon_Count(void)
  *   02/08/2001 HY  : Upgraded to DX8                                     *
  *========================================================================*/
 static SimpleVecClass<unsigned long> remap;
-void PointGroupClass::Render(RenderInfoClass &rinfo)
+void PointGroupClass::Render(RenderInfoClass &rinfo, const Matrix3D &transform)
 {
 	// NB: the winding for pointgroups is wrong, but we
 	// are disabling culling for particles anyway
@@ -847,12 +847,13 @@ void PointGroupClass::Render(RenderInfoClass &rinfo)
 		// Not using vector processor class because we are discarding w
 		// Not using T&L in DX8 because we don't want DX8 to transform
 		// 3 times per particle when we can do it once
+		Matrix3D view3d(view[0][0],view[0][1],view[0][2],view[0][3],
+			view[1][0],view[1][1],view[1][2],view[1][3],
+			view[2][0],view[2][1],view[2][2],view[2][3]);
+		Matrix3D mtx = view3d * transform;
 		for (int i=0; i<PointCount; i++)
 		{			
-			Vector4 result=view*current_loc[i];
-			transformed_loc[i].X=result.X;
-			transformed_loc[i].Y=result.Y;
-			transformed_loc[i].Z=result.Z;
+			transformed_loc[i] = mtx * current_loc[i];
 		}		
 		current_loc = &transformed_loc[0];				
 	} // if transform

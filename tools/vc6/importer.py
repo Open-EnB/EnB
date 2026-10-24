@@ -996,6 +996,30 @@ TEXTURE_API_PATCHES = {
          '\t\tREF_PTR_SET(VertexBoneLink,that.VertexBoneLink);\n\n\t\t// Clone the cull tree..\n\t\tREF_PTR_RELEASE(CullTree);\n\n\t\tif (that.CullTree) {\n\t\t\tCullTree = NEW_REF(AABTreeClass, ());\n\t\t\t*CullTree = *that.CullTree;\n\t\t\tCullTree->Set_Mesh(this);\n\t\t}\n\t}\n\treturn * this;\n}\n',
          "Zero Hour's MeshGeometryClass::operator=: 0x92A200 releases CullTree and clones the source's (new of 0x1C bytes)"),
     ],
+    ('ww3d2', 'pointgr.h'): [
+        ('class RenderInfoClass;\nclass TextureClass;\n',
+         'class RenderInfoClass;\nclass Matrix3D;\nclass TextureClass;\n',
+         "PointGroupClass::Render takes the object's transform (E&B): 0x954960 ends ret 8; ParticleBufferClass::Render_Particles (0x95DDC6) pushes &Transform (+0x1C), the two app callers (0x481D08, 0x6BAE8C) push static matrices"),
+        ('\tvoid\t\t\t\t\t\tRender(RenderInfoClass &rinfo);\n',
+         '\tvoid\t\t\t\t\t\tRender(RenderInfoClass &rinfo, const Matrix3D &transform);\n',
+         "PointGroupClass::Render takes the object's transform (E&B): 0x954960 ends ret 8; ParticleBufferClass::Render_Particles (0x95DDC6) pushes &Transform (+0x1C), the two app callers (0x481D08, 0x6BAE8C) push static matrices"),
+    ],
+    ('ww3d2', 'pointgr.cpp'): [
+        ('void PointGroupClass::Render(RenderInfoClass &rinfo)\n',
+         'void PointGroupClass::Render(RenderInfoClass &rinfo, const Matrix3D &transform)\n',
+         'PointGroupClass::Render (0x954960) transforms the points by the first three rows of the view matrix times the transform (Matrix3D operator* at 0x9554D6, then Matrix3D * Vector3 per point into transformed_loc); the rest of the function is still a near-miss (block-scope stack slots placed differently)'),
+        ('\t\t// 3 times per particle when we can do it once\n\t\tfor (int i=0; i<PointCount; i++)\n',
+         '\t\t// 3 times per particle when we can do it once\n\t\tMatrix3D view3d(view[0][0],view[0][1],view[0][2],view[0][3],\n\t\t\tview[1][0],view[1][1],view[1][2],view[1][3],\n\t\t\tview[2][0],view[2][1],view[2][2],view[2][3]);\n\t\tMatrix3D mtx = view3d * transform;\n\t\tfor (int i=0; i<PointCount; i++)\n',
+         'PointGroupClass::Render (0x954960) transforms the points by the first three rows of the view matrix times the transform (Matrix3D operator* at 0x9554D6, then Matrix3D * Vector3 per point into transformed_loc); the rest of the function is still a near-miss (block-scope stack slots placed differently)'),
+        ('\t\t\tVector4 result=view*current_loc[i];\n\t\t\ttransformed_loc[i].X=result.X;\n\t\t\ttransformed_loc[i].Y=result.Y;\n\t\t\ttransformed_loc[i].Z=result.Z;\n',
+         '\t\t\ttransformed_loc[i] = mtx * current_loc[i];\n',
+         'PointGroupClass::Render (0x954960) transforms the points by the first three rows of the view matrix times the transform (Matrix3D operator* at 0x9554D6, then Matrix3D * Vector3 per point into transformed_loc); the rest of the function is still a near-miss (block-scope stack slots placed differently)'),
+    ],
+    ('ww3d2', 'part_buf.cpp'): [
+        ('\tPointGroup->Render(rinfo);\t\n',
+         '\tPointGroup->Render(rinfo, Transform);\t\n',
+         'ParticleBufferClass::Render_Particles passes its Transform to PointGroupClass::Render (0x95DDC6)'),
+    ],
 }
 for _key, _edits in TEXTURE_API_PATCHES.items():
     PATCHES.setdefault(_key, []).extend(_edits)

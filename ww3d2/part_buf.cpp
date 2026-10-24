@@ -954,7 +954,7 @@ void ParticleBufferClass::Render_Particles(RenderInfoClass & rinfo)
 
 	PointGroup->Set_Arrays(Position[pingpong], Diffuse, apt, Size, Orientation, Frame, active_point_count);
 	Update_Bounding_Box();	
-	PointGroup->Render(rinfo);	
+	PointGroup->Render(rinfo, Transform);	
 }
 
 

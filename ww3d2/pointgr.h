@@ -49,6 +49,7 @@
 
 class VertexMaterialClass;
 class RenderInfoClass;
+class Matrix3D;
 class TextureClass;
 
 /*
@@ -119,7 +120,7 @@ public:
 
 	int						Get_Polygon_Count(void);
 
-	void						Render(RenderInfoClass &rinfo);
+	void						Render(RenderInfoClass &rinfo, const Matrix3D &transform);
 
 protected:
 	// Update arrays.
