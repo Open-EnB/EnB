@@ -103,6 +103,32 @@
     "merged": [],
     "name": "shared/auxdata/delta_time.cpp"
    },
+   "linearbu": {
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x4AAB60",
+     "0x4AABE0",
+     "0x4AACB0",
+     "0x4AACE0",
+     "0x4AADA0",
+     "0x4AAE90",
+     "0x4AAFC0",
+     "0x4AB0D0",
+     "0x4AB140",
+     "0x4AB180",
+     "0x4AB1F0",
+     "0x4AB230",
+     "0x4AB2A0",
+     "0x4AB2E0",
+     "0x4AB330",
+     "0x4AB3C0",
+     "0x4AB430",
+     "0x4AB460"
+    ],
+    "merged": [],
+    "name": "shared/auxdata/linearbu.cpp"
+   },
    "lookup": {
     "copy": "reconstructed",
     "expected": {},
@@ -163,7 +189,7 @@
    "shared/money.h": "reconstructed",
    "shared/unknown_debug.h": "reconstructed"
   },
-  "in_tree_total": 73,
+  "in_tree_total": 91,
   "totals": {}
  },
  "ww3d2": {
