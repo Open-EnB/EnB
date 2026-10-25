@@ -89,7 +89,8 @@ BLOB_FORMS = {
     0xB00A00: ('three floats (a colour), constructor empty',
                'float R; float G; float B; NAME() {} NAME(const NAME &v) { R = v.R; G = v.G; B = v.B; }'),
     0xB01A40: ('20 bytes, constructed {1.0f, 0, 0, -1, 0} (0x705640)',
-               'float F00; int I04; int I08; int I0C; int I10; NAME() : F00(1.0f), I04(0), I08(0), I0C(-1), I10(0) {}'),
+               'float F00; int I04; int I08; int I0C; int I10; NAME() : F00(1.0f), I04(0), I08(0), I0C(-1), I10(0) {} '
+               'NAME(const NAME &v) { F00 = v.F00; I04 = v.I04; I08 = v.I08; I0C = v.I0C; I10 = v.I10; }'),
     0xB03694: ('16 bytes, zeroed (0x757B00)',
                'int I00; int I04; int I08; int I0C; NAME() : I00(0), I04(0), I08(0), I0C(0) {}'),
 }

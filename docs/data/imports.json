@@ -45,8 +45,11 @@
      "0x703490",
      "0x703500",
      "0x703550",
+     "0x703780",
      "0x7045F0",
+     "0x7054C0",
      "0x705710",
+     "0x705AD0",
      "0x705E90",
      "0x707430",
      "0x707630",
@@ -975,7 +978,7 @@
    "wwudp/udp.h": "reconstructed",
    "wwudp/wtime.h": "reconstructed"
   },
-  "in_tree_total": 420,
+  "in_tree_total": 423,
   "totals": {}
  },
  "ww3d2": {

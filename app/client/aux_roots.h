@@ -131,7 +131,7 @@ inline const char *Type_Name(UnknownB018F4Enum *) { return "UnknownB018F4Enum"; 
 inline char *Value_To_String(char *buf, int size, UnknownB018F4Enum value) { _snprintf(buf, size, "%d", (int)value); return buf; }
 inline bool String_To_Value(const char *text, UnknownB018F4Enum *value) { int v; if (sscanf(text, "%d", &v) != 1) return false; *value = (UnknownB018F4Enum)v; return true; }
 // NAME 1: the value type of the leaf vtable 0xB01A40 (no name in the client, Net-7 or C#)
-struct UnknownB01A40Type { float F00; int I04; int I08; int I0C; int I10; UnknownB01A40Type() : F00(1.0f), I04(0), I08(0), I0C(-1), I10(0) {} };	// vtable 0xB01A40, 20 bytes, constructed {1.0f, 0, 0, -1, 0} (0x705640)
+struct UnknownB01A40Type { float F00; int I04; int I08; int I0C; int I10; UnknownB01A40Type() : F00(1.0f), I04(0), I08(0), I0C(-1), I10(0) {} UnknownB01A40Type(const UnknownB01A40Type &v) { F00 = v.F00; I04 = v.I04; I08 = v.I08; I0C = v.I0C; I10 = v.I10; } };	// vtable 0xB01A40, 20 bytes, constructed {1.0f, 0, 0, -1, 0} (0x705640)
 inline bool operator!=(const UnknownB01A40Type &a, const UnknownB01A40Type &b) { return memcmp(&a, &b, sizeof(a)) != 0; }
 inline const char *Type_Name(UnknownB01A40Type *) { return "UnknownB01A40Type"; }
 inline char *Value_To_String(char *buf, int size, const UnknownB01A40Type &value) { return Unknown_Hex_String(buf, size, (const unsigned char *)&value, sizeof(value)); }
