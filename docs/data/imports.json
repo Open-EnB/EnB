@@ -622,6 +622,7 @@
      "0x42A820",
      "0x42AB30",
      "0x8696C0",
+     "0x869790",
      "0x86E8A0",
      "0x86E8D0",
      "0x86E960",
@@ -938,6 +939,7 @@
    "common/unknown_rate.h": "reconstructed",
    "kernel/kernel.h": "reconstructed",
    "packets/pk.h": "reconstructed",
+   "packets/pk_classes.h": "reconstructed",
    "shared/auxdata/bitset.h": "reconstructed",
    "shared/auxdata/delta.h": "reconstructed",
    "shared/auxdata/delta_array.h": "reconstructed",
@@ -970,7 +972,7 @@
    "wwudp/udp.h": "reconstructed",
    "wwudp/wtime.h": "reconstructed"
   },
-  "in_tree_total": 416,
+  "in_tree_total": 417,
   "totals": {}
  },
  "ww3d2": {

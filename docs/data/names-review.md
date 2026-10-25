@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
 | 3 | by convention from a client-named file or sibling | 65 |
 | 2 | describes what the code does | 547 |
-| 1 | neutral placeholder | 416 |
+| 1 | neutral placeholder | 415 |
 
 ## For review (score 3 and below)
 
@@ -142,11 +142,11 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Pre_Run` | `app/kernel/kernel.h:56` | Run_One_Cycle's order |
 | 1 | `Cycle_Focus` | `app/kernel/kernel.h:74` | what it does |
 | 1 | `Remove_Running` | `app/kernel/kernel.h:86` | what it does |
-| 1 | `Unknown_8B4510` | `app/packets/pk.cpp:8` | wwonline's 64-bit htonl (a byte-order probe, then two htonl) |
-| 1 | `Unknown_8B4560` | `app/packets/pk.cpp:9` | wwonline's 64-bit ntohl |
-| 1 | `Unknown_Create_Packet` | `app/packets/pk.cpp:12` | untagged neutral name (D10) |
-| 1 | `Unknown_869790` | `app/packets/pk.cpp:15` | untagged neutral name (D10) |
-| 1 | `Unknown_PacketDataClass` | `app/packets/pk.cpp:25` | untagged neutral name (D10) |
+| 1 | `Unknown_8B4510` | `app/packets/pk.cpp:9` | wwonline's 64-bit htonl (a byte-order probe, then two htonl) |
+| 1 | `Unknown_8B4560` | `app/packets/pk.cpp:10` | wwonline's 64-bit ntohl |
+| 1 | `Unknown_Create_Packet` | `app/packets/pk.cpp:13` | untagged neutral name (D10) |
+| 1 | `Unknown_869790` | `app/packets/pk.cpp:16` | untagged neutral name (D10) |
+| 1 | `Unknown_PacketDataClass` | `app/packets/pk.cpp:1091` | untagged neutral name (D10) |
 | 1 | `Unknown_14` | `app/packets/pk.cpp:1342` | untagged neutral name (D10) |
 | 1 | `Unknown_PacketDataClass` | `app/packets/pk.h:29` | neutral placeholder (D10) |
 | 1 | `PacketHeaderClass` | `app/packets/pk.h:38` | describes what it is |
@@ -429,7 +429,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_BFAEE0` | `tests/capharness/udpreplay/conn_replay.cpp:86` | untagged neutral name (D10) |
 | 1 | `Unknown_8B4510` | `tests/capharness/udpreplay/conn_replay.cpp:99` | untagged neutral name (D10) |
 | 1 | `Unknown_8B4560` | `tests/capharness/udpreplay/conn_replay.cpp:100` | untagged neutral name (D10) |
-| 1 | `Unknown_869790` | `tests/capharness/udpreplay/conn_replay.cpp:126` | untagged neutral name (D10) |
 | 1 | `UnknownLogClass` | `tests/capharness/udpreplay/udpreplay.cpp:68` | untagged neutral name (D10) |
 | 1 | `Unknown_4BC130` | `tests/capharness/udpreplay/udpreplay.cpp:71` | untagged neutral name (D10) |
 | 1 | `UnknownLog` | `tests/capharness/udpreplay/udpreplay.cpp:73` | untagged neutral name (D10) |

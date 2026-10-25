@@ -99,42 +99,43 @@ static unsigned __int64 Swap64(unsigned __int64 v)
 unsigned __int64 Unknown_8B4510(unsigned __int64 value) { return Swap64(value); }
 unsigned __int64 Unknown_8B4560(unsigned __int64 value) { return Swap64(value); }
 
-// A packet that keeps its message: Build gives it back as a raw message (as a packet class's Build
-// writes its fields into one).
-class TestPacketClass : public PacketClass
-{
-public:
-	TestPacketClass(const unsigned char *msg, int size) : Bytes(msg, msg + size) { Connection = 0; Serial = 0; }
-	virtual RawPacketClass *Build()
-	{
-		RawPacketClass *raw = (RawPacketClass *)new char[sizeof(RawPacketClass)];
-		memset(raw, 0, sizeof(RawPacketClass));
-		memcpy(&raw->Header, &Bytes[0], sizeof(PacketHeaderClass));
-		if (Bytes.size() > 4) {
-			new (&raw->Data) LinearBufferClass(&Bytes[4], (int)Bytes.size() - 4, 0x400, true);
-		} else {
-			new (&raw->Data) LinearBufferClass(0x10, 0x400);
-		}
-		raw->Channel = -1;
-		raw->Reliable = true;
-		return raw;
-	}
-	std::vector<unsigned char> Bytes;
-};
+// The packets the client's factory made (pk.cpp: Unknown_Create_Packet, the generated switch, a
+// class of pk_classes.h): their constructors aren't rebuilt, so pk_ctor_stubs.cpp's hand each raw
+// message here; the harness keeps the bytes per packet and builds a raw message back from them.
+static std::map<PacketClass *, std::vector<unsigned char> > Packets;
 
-// The switch 0x869790 (pk.cpp's Unknown_Create_Packet wraps the message in a RawPacketClass first).
-PacketClass *Unknown_869790(RawPacketClass *raw)
+void Conn_Record(PacketClass *packet, RawPacketClass *raw)
 {
+	packet->Connection = 0;
+	packet->Serial = 0;
 	short size = raw->Header.Size;
-	if (size < 4) {
-		return 0;		// no header (Conn_Deliver counts a message under 4 bytes)
-	}
-	std::vector<unsigned char> msg(size);
+	std::vector<unsigned char> &msg = Packets[packet];
+	msg.resize(size < 4 ? 4 : size);
 	memcpy(&msg[0], &raw->Header, 4);
 	if (size > 4) {
 		memcpy(&msg[4], raw->Data.Buffer, size - 4);
 	}
-	return new TestPacketClass(&msg[0], size);
+}
+
+static RawPacketClass *Build_Raw(const std::vector<unsigned char> &bytes)
+{
+	RawPacketClass *raw = (RawPacketClass *)new char[sizeof(RawPacketClass)];
+	memset(raw, 0, sizeof(RawPacketClass));
+	memcpy(&raw->Header, &bytes[0], sizeof(PacketHeaderClass));
+	if (bytes.size() > 4) {
+		new (&raw->Data) LinearBufferClass(&bytes[4], (int)bytes.size() - 4, 0x400, true);
+	} else {
+		new (&raw->Data) LinearBufferClass(0x10, 0x400);
+	}
+	raw->Channel = -1;
+	raw->Reliable = true;
+	return raw;
+}
+
+static void Delete_Packet(PacketClass *p)
+{
+	Packets.erase(p);
+	delete p;
 }
 
 // ------------------------------------------------------------------------- the memory transport
@@ -213,6 +214,9 @@ int Conn_Deliver(FILE *out, int n, const char *dir, const char *name, CordCon *c
 		PacketClass *p = udp->Receive();
 		if (con->BytesRead_ != read_before && con->BytesRead_ - read_before < 4) {
 			Conn_Short++;
+			if (p) {
+				Packets.erase(p);
+			}
 			fprintf(out, "Y %d %s %s %d\n", n, dir, name, con->BytesRead_ - read_before);
 			delete p;
 			continue;
@@ -223,10 +227,18 @@ int Conn_Deliver(FILE *out, int n, const char *dir, const char *name, CordCon *c
 		if (p->Connection != udp) {
 			Conn_Errors++;
 		}
-		if (!Stream.Send_Packet(p)) {
+		std::map<PacketClass *, std::vector<unsigned char> >::iterator it = Packets.find(p);
+		if (it == Packets.end()) {
+			Conn_Errors++;
+			delete p;
+			continue;
+		}
+		RawPacketClass *raw = Build_Raw(it->second);
+		if (!Stream.Send_Message(raw)) {
 			Conn_Errors++;
 		}
-		delete p;
+		delete raw;
+		Delete_Packet(p);
 		for (int guard = 0; guard < 100000; guard++) {
 			PacketClass *q = Stream.Receive();
 			if (q == 0) {
@@ -235,19 +247,19 @@ int Conn_Deliver(FILE *out, int n, const char *dir, const char *name, CordCon *c
 				}
 				continue;
 			}
-			TestPacketClass *t = (TestPacketClass *)q;
 			if (q->Connection != &Stream) {
 				Conn_Errors++;
 			}
-			short size = *(short *)&t->Bytes[0];
-			unsigned short opcode = *(unsigned short *)&t->Bytes[2];
+			std::vector<unsigned char> &bytes = Packets[q];
+			short size = *(short *)&bytes[0];
+			unsigned short opcode = *(unsigned short *)&bytes[2];
 			fprintf(out, "M %d %s %s %d %d ", n, dir, name, (int)size, (int)opcode);
-			for (size_t i = 4; i < t->Bytes.size(); i++) {
-				fprintf(out, "%02x", t->Bytes[i]);
+			for (size_t i = 4; i < bytes.size(); i++) {
+				fprintf(out, "%02x", bytes[i]);
 			}
 			fprintf(out, "\n");
 			delivered++;
-			delete q;
+			Delete_Packet(q);
 		}
 		if (!Stream.Pipe.empty() || Stream.Ring.Get_Used() != 0) {
 			Conn_Errors++;
