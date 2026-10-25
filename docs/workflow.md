@@ -498,3 +498,8 @@ Added 2026-10-24 (overnight run; details in `.work/night/item*/report.md`):
 * **The client's message pump never sees WM_QUIT** (0x443E90, inlined in Process_Messages): it tests
   for it only after GetMessage returns nonzero. A posted quit doesn't stop the kernel; tests set
   `Quit` directly (kernel-map.md §1's "WM_QUIT sets +0x0C" doesn't happen in practice).
+* **wwudp/packet forms.** Calls to `CordCon::Is_Closed` compare with true (`cmp bl, 1`) in Connect,
+  Is_Connected and the destructor but are a plain test in Send_Data and Receive. Output parameters
+  the caller converts through a 64-bit `fild` must be `unsigned`. Blank stretches inside a function
+  (Get(char **)'s FAIL_IFs 12 and 4 lines apart) need padding inside it, not only before it; pk.cpp's
+  small helpers between two asserts take single blank separators to fit the client's lines.
