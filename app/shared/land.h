@@ -146,6 +146,7 @@ protected:
 		DX8IndexBufferClass *	IndexBuffer;
 		int							Vertices;
 		int							Polys;
+		bool							Shadow;					// the trees' shadows, drawn after them (VIDTEST 0x410B90) // NAME 2: ours
 		int							Patch;					// drawn while this patch's level is below 3 (VIDTEST 0x410B90: +0x24 < 3) // NAME 2: ours
 	};
 	DynamicVectorClass<DecoBatchStruct *>	DecoBatches;	// the decorations, batched (VIDTEST 0x416170)

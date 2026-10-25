@@ -10,7 +10,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 2 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 24 |
 | 3 | by convention from a client-named file or sibling | 51 |
-| 2 | describes what the code does | 220 |
+| 2 | describes what the code does | 222 |
 | 1 | neutral placeholder | 180 |
 
 ## For review (score 3 and below)
@@ -387,13 +387,15 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `LandVertexStruct` | `app/shared/land.cpp:31` | ours |
 | 2 | `Int_Min` | `app/shared/land.cpp:40` | ours |
 | 2 | `DecoPartStruct` | `app/shared/land.cpp:620` | ours (VIDTEST 0x416170 batches the prototypes) |
-| 2 | `DecoVertexStruct` | `app/shared/land.cpp:632` | ours |
-| 2 | `DecoInstanceStruct` | `app/shared/land.cpp:639` | ours |
+| 2 | `DecoVertexStruct` | `app/shared/land.cpp:633` | ours |
+| 2 | `DecoInstanceStruct` | `app/shared/land.cpp:640` | ours |
+| 2 | `Find_Deco_Mesh` | `app/shared/land.cpp:651` | ours |
 | 2 | `land.h` | `app/shared/land.h:37` | after LandClass; no assert or __FILE__ names the file |
 | 2 | `LandLightingStruct` | `app/shared/land.h:58` | the record Update_Lighting hands the land (VIDTEST esp+0x74) |
 | 2 | `Create` | `app/shared/land.h:80` | Create, Load_Assets, Create_Decorations, Update_Patches, Set_Dirty, Update_Lightmap_Full describe VIDTEST 0x4068F0, 0x405750, 0x415C40, 0x4078F0, +0x136, 0x40A9F0 |
 | 2 | `Field` | `app/shared/land.h:108` | members describe what they hold (VIDTEST offsets in land.h's header) |
-| 2 | `Patch` | `app/shared/land.h:149` | ours |
+| 2 | `Shadow` | `app/shared/land.h:149` | ours |
+| 2 | `Patch` | `app/shared/land.h:150` | ours |
 | 2 | `Read_String` | `app/shared/spln_db.cpp:91` | VIDTEST 0x420100 |
 | 2 | `Read_Curve` | `app/shared/spln_db.cpp:113` | VIDTEST 0x41FCB0 / 0x41FDA0 |
 | 2 | `SplineDatabaseClass` | `app/shared/spln_db.h:41` | after the mailslot "\\.\mailslot\G\SplineDatabaseUpdate"; the class name is not in the client |

@@ -355,6 +355,7 @@
      "0x463240",
      "0x463340",
      "0x463370",
+     "0x47F300",
      "0x7F0EC0"
     ],
     "merged": [],
@@ -580,7 +581,7 @@
    "shared/strconv_lib.h": "reconstructed",
    "shared/unknown_debug.h": "reconstructed"
   },
-  "in_tree_total": 230,
+  "in_tree_total": 231,
   "totals": {}
  },
  "ww3d2": {

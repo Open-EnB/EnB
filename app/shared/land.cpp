@@ -625,6 +625,7 @@ struct DecoPartStruct	// NAME 2: ours (VIDTEST 0x416170 batches the prototypes)
 	ShaderClass					Shader;
 	VertexMaterialClass *	Material;
 	int							Batch;
+	bool							Shadow;
 	bool operator == (const DecoPartStruct &that) const	{ return Model == that.Model && Batch == that.Batch; }
 	bool operator != (const DecoPartStruct &that) const	{ return !(*this == that); }
 };
@@ -640,7 +641,32 @@ struct DecoInstanceStruct	// NAME 2: ours
 {
 	int		Proto;
 	Matrix3D	Transform;
+	Matrix3D	Shadow;			// the shadow mesh's: on the ground (VIDTEST 0x416170)
 };
+
+/*
+** VIDTEST 0x418400: the first mesh under robj whose name holds ".D" or ".d" (tree) or ".S" or ".s"
+** (its shadow), depth first; add-reffed
+*/
+static RenderObjClass *Find_Deco_Mesh(RenderObjClass *robj, bool tree)	// NAME 2: ours
+{
+	if (robj == NULL) return NULL;
+	if (robj->Class_ID() == RenderObjClass::CLASSID_MESH) {
+		const char *name = robj->Get_Name();
+		if (name != NULL && (strstr(name, tree ? ".d" : ".s") != NULL || strstr(name, tree ? ".D" : ".S") != NULL)) {
+			robj->Add_Ref();
+			return robj;
+		}
+		return NULL;
+	}
+	for (int i = 0; i < robj->Get_Num_Sub_Objects(); i++) {
+		RenderObjClass *sub = robj->Get_Sub_Object(i);
+		RenderObjClass *found = Find_Deco_Mesh(sub, tree);
+		REF_PTR_RELEASE(sub);
+		if (found != NULL) return found;
+	}
+	return NULL;
+}
 
 bool LandClass::Create_Decorations(int set)
 {
@@ -671,20 +697,13 @@ bool LandClass::Create_Decorations(int set)
 		if (robj == NULL) continue;
 		robj->Set_Transform(Matrix3D(true));
 		keep.Add(robj);
-		DynamicVectorClass<RenderObjClass *> meshes;
-		if (robj->Class_ID() == RenderObjClass::CLASSID_MESH) {
-			robj->Add_Ref();
-			meshes.Add(robj);
-		}
-		for (int s = 0; s < robj->Get_Num_Sub_Objects(); s++) {
-			RenderObjClass *sub = robj->Get_Sub_Object(s);
-			if (sub != NULL && sub->Class_ID() == RenderObjClass::CLASSID_MESH) {
-				meshes.Add(sub);
-			} else {
-				REF_PTR_RELEASE(sub);
-			}
-		}
-		for (int m = 0; m < meshes.Count(); m++) {
+		// the tree is the first mesh named ".D"/".d", its shadow the first ".S"/".s" (VIDTEST 0x418400:
+		// TDTREE01A.DTREE, 6 polygons, and TDTREE01A.STREE, one triangle)
+		RenderObjClass *meshes[2];
+		meshes[0] = Find_Deco_Mesh(robj, true);
+		meshes[1] = Find_Deco_Mesh(robj, false);
+		for (int m = 0; m < 2; m++) {
+			if (meshes[m] == NULL) continue;
 			MeshModelClass *model = ((MeshClass *)meshes[m])->Peek_Model();
 			if (model != NULL && model->Get_Vertex_Count() > 0 && model->Get_Polygon_Count() > 0) {
 				DecoPartStruct part;
@@ -696,6 +715,7 @@ bool LandClass::Create_Decorations(int set)
 				part.Shader = model->Has_Shader_Array(0) ? model->Get_Shader(0, 0) : model->Get_Single_Shader(0);
 				part.Material = model->Peek_Single_Material(0);
 				part.Batch = -1;
+				part.Shadow = (m == 1);
 				parts.Add(part);
 			}
 			meshes[m]->Release_Ref();
@@ -709,7 +729,7 @@ bool LandClass::Create_Decorations(int set)
 	for (int i = 0; i < parts.Count(); i++) {
 		for (int k = 0; k < kinds.Count(); k++) {
 			if (kinds[k]->Texture == parts[i].Texture && kinds[k]->Material == parts[i].Material
-				&& kinds[k]->Shader == parts[i].Shader) {
+				&& kinds[k]->Shader == parts[i].Shader && kinds[k]->Shadow == parts[i].Shadow) {
 				parts[i].Batch = k;
 				break;
 			}
@@ -736,13 +756,51 @@ bool LandClass::Create_Decorations(int set)
 		Matrix3D tm(true);
 		tm.Set_Translation(pos);
 		tm.Rotate_Z(angle);
+
+		// the shadow (VIDTEST 0x416170): the matrix turned so that its z axis follows the ground's
+		// normal n, by the quaternion (z x n) sin(a/2), cos(a/2) with a = acos(z.n), not normalised
+		// (as VIDTEST's), each column v going to q v q*; lifted 3 units along n
+		Matrix3D shadow = tm;
+		{
+			float spacing = Field->Get_Spacing();
+			float half_extent = Field->Get_Extent() * 0.5f;
+			int ni = Int_Max(0, Int_Min(Field->Get_Size() - 1, (int)((pos.X + half_extent) / spacing + 0.5f)));
+			int nj = Int_Max(0, Int_Min(Field->Get_Size() - 1, (int)((pos.Y + half_extent) / spacing + 0.5f)));
+			Vector3 n = Field->Get_Normal(ni, nj);
+			Vector3 z(tm[0][2], tm[1][2], tm[2][2]);
+			Vector3 axis;
+			Vector3::Cross_Product(z, n, &axis);
+			if (axis.Length2() > 0.0001f) {
+				float a = (float)acos(WWMath::Clamp(Vector3::Dot_Product(z, n), -1.0f, 1.0f)) * 0.5f;
+				float w = (float)cos(a);
+				Vector3 q = axis * (float)sin(a);
+				for (int c = 0; c < 3; c++) {
+					Vector3 col(tm[0][c], tm[1][c], tm[2][c]);
+					Vector3 t;
+					Vector3::Cross_Product(q, col, &t);
+					t += col * w;									// the vector part of q v
+					float tw = -Vector3::Dot_Product(q, col);		// its scalar part
+					Vector3 x;
+					Vector3::Cross_Product(t, -q, &x);
+					Vector3 r = (-q) * tw + t * w + x;				// (q v) q*
+					shadow[0][c] = r.X;
+					shadow[1][c] = r.Y;
+					shadow[2][c] = r.Z;
+				}
+			}
+			shadow.Set_Translation(pos + n * 3.0f);
+		}
 		for (int r = 0; r < 3; r++) {
 			tm[r][0] *= scale;
 			tm[r][1] *= scale;
 			tm[r][2] *= scale;
+			shadow[r][0] *= scale;
+			shadow[r][1] *= scale;
+			shadow[r][2] *= scale;
 		}
 		instances[d].Proto = p;
 		instances[d].Transform = tm;
+		instances[d].Shadow = shadow;
 	}
 
 	// the patch each decoration stands on: VIDTEST keeps them per patch and draws a patch's only while
@@ -778,11 +836,15 @@ bool LandClass::Create_Decorations(int set)
 				if (batch->Material) batch->Material->Add_Ref();
 				// VIDTEST's trees are alpha tested and write depth, without blending (its draws:
 				// ALPHATESTENABLE, ALPHAREF 0x60, ZWRITEENABLE, ALPHABLENDENABLE off)
+				// (the shadows keep their mesh's shader: blended, no depth writes)
 				batch->Shader = kinds[k]->Shader;
-				batch->Shader.Set_Alpha_Test(ShaderClass::ALPHATEST_ENABLE);
-				batch->Shader.Set_Src_Blend_Func(ShaderClass::SRCBLEND_ONE);
-				batch->Shader.Set_Dst_Blend_Func(ShaderClass::DSTBLEND_ZERO);
-				batch->Shader.Set_Depth_Mask(ShaderClass::DEPTH_WRITE_ENABLE);
+				batch->Shadow = kinds[k]->Shadow;
+				if (!batch->Shadow) {
+					batch->Shader.Set_Alpha_Test(ShaderClass::ALPHATEST_ENABLE);
+					batch->Shader.Set_Src_Blend_Func(ShaderClass::SRCBLEND_ONE);
+					batch->Shader.Set_Dst_Blend_Func(ShaderClass::DSTBLEND_ZERO);
+					batch->Shader.Set_Depth_Mask(ShaderClass::DEPTH_WRITE_ENABLE);
+				}
 				batch->Vertices = verts;
 				batch->Polys = polys;
 				batch->Patch = patch;
@@ -800,7 +862,8 @@ bool LandClass::Create_Decorations(int set)
 							if (parts[i].Batch != k) continue;
 							MeshModelClass *model = parts[i].Model;
 							Matrix3D tm;
-							Matrix3D::Multiply(instances[n].Transform, parts[i].Transform, &tm);
+							Matrix3D::Multiply(parts[i].Shadow ? instances[n].Shadow : instances[n].Transform,
+								parts[i].Transform, &tm);
 							const Vector3 *pos = model->Get_Vertex_Array();
 							const Vector3 *nrm = model->Get_Vertex_Normal_Array();
 							const Vector2 *uv = model->Get_UV_Array(0, 0);
@@ -845,17 +908,24 @@ void LandClass::Render_Decorations(RenderInfoClass &rinfo)
 {
 	Matrix3D identity(true);
 	DX8Wrapper::Set_Transform(D3DTS_WORLD, identity);
-	for (int i = 0; i < DecoBatches.Count(); i++) {
-		DecoBatchStruct *batch = DecoBatches[i];
-		if (PatchLevel == NULL || PatchLevel[batch->Patch] >= 3) continue;		// also 0xFF: culled
-		DX8Wrapper::Set_Material(batch->Material);
-		DX8Wrapper::Set_Shader(batch->Shader);
-		DX8Wrapper::Set_Texture(0, batch->Texture);
-		DX8Wrapper::Set_Vertex_Buffer(batch->VertexBuffer);
-		DX8Wrapper::Set_Index_Buffer(batch->IndexBuffer, 0);
-		DX8Wrapper::Draw_Triangles(0, (unsigned short)batch->Polys, 0, (unsigned short)batch->Vertices);
-		CurrentPolys += batch->Polys;
+	// the trees of every patch, then their shadows with a depth bias (VIDTEST 0x410B90's two loops;
+	// the original's shadow draws: D3DRS_ZBIAS 1)
+	for (int pass = 0; pass < 2; pass++) {
+		if (pass == 1) DX8Wrapper::Set_DX8_Render_State(D3DRS_ZBIAS, 1);
+		for (int i = 0; i < DecoBatches.Count(); i++) {
+			DecoBatchStruct *batch = DecoBatches[i];
+			if (batch->Shadow != (pass == 1)) continue;
+			if (PatchLevel == NULL || PatchLevel[batch->Patch] >= 3) continue;		// also 0xFF: culled
+			DX8Wrapper::Set_Material(batch->Material);
+			DX8Wrapper::Set_Shader(batch->Shader);
+			DX8Wrapper::Set_Texture(0, batch->Texture);
+			DX8Wrapper::Set_Vertex_Buffer(batch->VertexBuffer);
+			DX8Wrapper::Set_Index_Buffer(batch->IndexBuffer, 0);
+			DX8Wrapper::Draw_Triangles(0, (unsigned short)batch->Polys, 0, (unsigned short)batch->Vertices);
+			CurrentPolys += batch->Polys;
+		}
 	}
+	DX8Wrapper::Set_DX8_Render_State(D3DRS_ZBIAS, 0);
 }
 
 /*
