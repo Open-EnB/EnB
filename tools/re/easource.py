@@ -7,7 +7,7 @@ consistent. Comments and preprocessor lines are stripped first so they do not un
 import os
 import re
 
-EA_ROOT = r'C:\EnBDevelopment\EA'
+from roots import EA_ROOT  # all external roots: tools/re/roots.py
 
 # Library copies the matcher knows about: (tag, path under EA_ROOT, library name).
 LIBRARIES = [

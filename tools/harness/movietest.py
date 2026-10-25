@@ -22,8 +22,10 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.dirname(os.path.dirname(HERE))
 WORK = os.path.join(REPO, '.work', 'harness', 'movietest')
 SOURCES = [r'app\kernel\kernel.cpp', r'app\client\tasks\tsk_movie.cpp']
-EA_BINKMOVIE = r'C:\EnBDevelopment\EA\CnC_Renegade\Code\BinkMovie'
-GAME = r'C:\Program Files (x86)\EA GAMES\Earth & Beyond'
+sys.path.insert(0, os.path.join(REPO, 'tools', 're'))
+import roots  # noqa: E402
+EA_BINKMOVIE = os.path.join(roots.EA_ROOT, 'CnC_Renegade', 'Code', 'BinkMovie')
+GAME = roots.RETAIL_INSTALL
 BINK_DLL = os.path.join(GAME, 'release', 'binkw32.dll')
 MOVIES = os.path.join(GAME, 'Data', 'client', 'mixfiles')
 

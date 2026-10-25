@@ -34,10 +34,12 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.dirname(os.path.dirname(HERE))
 WORK = os.path.join(REPO, '.work', 'harness', 'auxreplay')
 REF = os.path.join(REPO, '.work', 'harness', 'ref')
-CAPS = r'C:\EnBDevelopment\the reference traces\captures'
-SCHEMA = r'C:\EnBDevelopment\the reference decoder\src\Shared\the reference game model\Schema\client-auxdata.json'
+sys.path.insert(0, os.path.join(REPO, 'tools', 're'))
+import roots  # noqa: E402
+CAPS = roots.N7_CAPTURES
+SCHEMA = roots.N7_SCHEMA
 TRACES = {n: os.path.join(CAPS, 'ea', n + '.trace.jsonl') for n in ('capture_1', 'capture_2', 'capture_3', 'alex3', 'alex7')}
-LIVE = r'C:\EnBDevelopment\Live-Era-Data\enbserver3\ENB-Packets-Live'
+LIVE = roots.LIVE_PACKETS
 DUMPS = {'alex3': os.path.join(LIVE, 'Alex3-fixed.txt.txt'), 'alex7': os.path.join(LIVE, 'Alex7-fixed.txt.txt')}
 OP_CREATE, OP_AUX = 0x0004, 0x001B
 

@@ -1,5 +1,5 @@
 """Name hints for the generated aux-data classes (M1.3, D56): matches each client compound
-(by vtable) to Net-7's C++ AuxClasses (C:/EnBDevelopment/Net7/Net7/AuxClasses) and
+(by vtable) to Net-7's C++ AuxClasses (tools/re/roots.py: NET7_AUXCLASSES) and
 the reference decoder's typed C# classes (src/Shared/the reference game model/Objects) by structure, never by guess:
 each root is walked top-down; a child compound at index i takes the class of the Net-7 member
 `X.Init(i, this, ...)` and of the C# property `[AuxField(i)]`; a match is confirmed when the child
@@ -13,10 +13,13 @@ auxroots.py uses for the class names (D24 Westwood style: Delta + Net-7's name w
 Class; roots Delta + the client's root string + Class) and their `// NAME n:` tags.
 """
 import glob, json, os, re, collections
+import roots
 
-N7 = r'C:\EnBDevelopment\Net7\Net7\AuxClasses'
-CS = r'C:\EnBDevelopment\the reference decoder\src\Shared\the reference game model\Objects'
-EXT = r'C:\EnBDevelopment\EnB\.work\auxroots.json'
+REPO = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+N7 = roots.NET7_AUXCLASSES
+CS = roots.N7_OBJECTS
+EXT = os.path.join(REPO, '.work', 'auxroots.json')
 
 # ---- Net-7
 n7 = {}

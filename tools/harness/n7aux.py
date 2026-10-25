@@ -35,7 +35,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 import auxreplay as AR  # noqa: E402
 
-the reference decoder = r'C:\EnBDevelopment\the reference decoder\src\Harness\the reference decoder\bin\Release\net10.0\the reference decoder.exe'
+the reference decoder = AR.roots.refdecoder_EXE
 SESSIONS = ['session_2026-10-19_023139', 'session_2026-10-19_115352', 'session_2026-10-21_111654']
 MEMBERS = 'Player.GroupInfo.Members'
 EA_MEMBERS = b'\x05'        # EA's form ends with Members' header: Whole | Default

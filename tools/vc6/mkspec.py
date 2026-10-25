@@ -1,6 +1,6 @@
 """Turn uncommitted tree edits into an addpatch.py spec: one (lib, file, old, new, why) per diff hunk.
 
-    python .work/mkspec.py OUT_SPEC.py REASONS.py
+    python tools/vc6/mkspec.py OUT_SPEC.py REASONS.py
 
 REASONS.py defines R = {'lib/file': 'why', ...}. Hunks are applied in file order; each hunk's
 `old` is widened with unchanged context lines (never into a neighbouring hunk) until it occurs

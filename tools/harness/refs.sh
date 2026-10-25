@@ -1,8 +1,11 @@
 #!/bin/sh
 # Saves the reference decoder's reference outputs per trace under .work/harness/ref/ (tools/harness/README.md)
+# external roots: tools/re/roots.py (refdecoder_EXE, N7_CAPTURES)
+HERE=$(cd "$(dirname "$0")" && pwd)
+REPO=$(cd "$HERE/../.." && pwd)
 N7=/c/EnBDevelopment/the reference decoder/src/Harness/the reference decoder/bin/Release/net10.0/the reference decoder.exe
 CAP=/c/EnBDevelopment/the reference traces/captures
-OUT=/c/EnBDevelopment/EnB/.work/harness/ref
+OUT=$REPO/.work/harness/ref
 mkdir -p $OUT
 for f in $CAP/ea/*.trace.jsonl $CAP/session_*.trace.jsonl; do
   b=$(basename $f .trace.jsonl)
