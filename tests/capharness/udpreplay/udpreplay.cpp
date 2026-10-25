@@ -37,6 +37,20 @@
 #include "cordmgr.h"
 #include "udp.h"
 
+// ------------------------------------------------------------------------- E&B's log (cordmgr.cpp)
+
+class UnknownLogClass
+{
+public:
+	void Unknown_4BC130(const char *category, const char *file, int line, const char *format, ...);
+};
+UnknownLogClass UnknownLog;
+static int LogLines = 0;
+void UnknownLogClass::Unknown_4BC130(const char *, const char *, int, const char *, ...)
+{
+	LogLines++;
+}
+
 // ------------------------------------------------------------------------- the replay socket
 
 struct ReplayState
@@ -148,9 +162,13 @@ static void Make_Side(Session *s, Side &side, bool server)
 	side.OutSock = new UDP();
 	Replay[side.Sock].FromIp = server ? CLIENT_IP : SERVER_IP;
 	Replay[side.Sock].FromPort = server ? 1024 : 3500;
-	side.Mgr.Sockets_.push_back(side.Sock);
-	side.Con = new CordCon(server ? CLIENT_IP : SERVER_IP, server ? 1024 : 3500, s->Id, s->Key, side.OutSock, server);
-	side.Mgr.Connections_.push_back(side.Con);
+	CordDataSocketClass ds = { side.Sock, 0, 0, 0 };
+	side.Mgr.DataSockets_.Add(ds);
+	unsigned int key[2];
+	memcpy(key, s->Key, 8);
+	side.Con = new CordCon(server ? CLIENT_IP : SERVER_IP, server ? 1024 : 3500, s->Id, 0, server, side.OutSock, 0,
+		key[0], key[1]);
+	side.Mgr.Connections_.Add(side.Con);
 }
 
 static Session *Get_Session(const std::string &name)

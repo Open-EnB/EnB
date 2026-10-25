@@ -27,26 +27,23 @@
 **	the session key (8 bytes), the encrypted length (4), the datagram counter (2), 0 (2)
 **	(CordCon::Encrypt_Data 0x854D00, WWLib's RC4Class).
 **
-**	Layout (from the constructor's users; the constructor 0x84F640 is not rebuilt):
-**	  +0x00 Ip_ (host order), +0x04 Port_, +0x08 Session_, +0x10 Udp_, +0x20 Key_[8],
-**	  +0x30 Channels_ (std::vector), +0x40 Active_ (channels in use, in first-use order),
-**	  +0x50 Ready_ (channels with received messages, in arrival order), +0x5C Queued_,
-**	  +0x60 AcksPending_, +0x64 ResendsPending_, +0x74 BytesRead_, +0x78 BytesAcked_,
-**	  +0x80 DupAcks_, +0x88 PacketsIn_, +0x8C PacketsOut_, +0x90 HeaderOut_, +0x94 HeaderIn_,
-**	  +0xA4 LastReceive_, +0xB0 CloseState_, +0xB4 CloseSeq_, +0xB8 IsServer_.
-**	This reconstruction keeps the members and their roles, not the byte layout (NOT EXACT, D42):
-**	the client's lists are WWOnline's wlib ArrayList / LinkedList (the bounds-checked Get with a
-**	cached cursor), here std::vector.
+**	Layout: the client's, member for member (CordCon 0xBC bytes, constructor 0x84F640; the channel
+**	0x78, constructor 0x84DFC0; the message records 0x30), from the constructors and the code
+**	that uses them. The client's lists are WWOnline's wlib LinkedList / ArrayList, inlined
+**	(the bounds-checked get with a cached cursor); CordListClass / CordArrayClass below are
+**	stand-ins with their layout.
 */
 
 #if defined(_MSC_VER)
 #pragma once
 #endif
 
-#ifndef CORDCON_H
+#ifndef CORDCON_H  // NAME 3 [cordcon.h]: header name assumed from the client's cordcon.cpp
 #define CORDCON_H
 
 #include <vector>
+#include <string.h>
+#include "mempool.h"
 
 class UDP;
 
@@ -54,55 +51,195 @@ class UDP;
 #define CORD_FRAGMENT_SIZE			200	// NAME 2 [CORD_FRAGMENT_SIZE]: the fragment size in write 0x850C70 / examinePacket
 #define CORD_MAX_PACKET				500	// NAME 2 [CORD_MAX_PACKET]: pumpInternal's datagram limit (examinePacket: < 0x1F5)
 
+// Stand-ins with the layout of WWOnline's wlib LinkedList<T> (0x14 bytes: Entries, Head, Tail,
+// Current, CurIndex; nodes {T, Next, Prev}) and ArrayList<T> (0xC: Entries_, Slots_, Vector_),
+// whose inlined code the client has (EA's copy: Generals Tools\matchbot\wlib). Not EA's code:
+// only what CordCon needs, with the same field order and the cursor lookup of getPointer.
+template <class T> class CordListClass		// NAME 1 [CordListClass]: stand-in for wlib's LinkedList<T>
+{
+public:
+	struct NodeType { T Node; NodeType *Next; NodeType *Prev; };
+	CordListClass() : Entries(0), Head(0), Tail(0), Current(0), CurIndex(-1) {}
+	~CordListClass() { Clear(); }
+	void Clear()
+	{
+		NodeType *temp = Head;
+		while (temp) {
+			NodeType *del = temp;
+			temp = temp->Next;
+			delete del;
+		}
+		Entries = 0;
+		CurIndex = -1;
+		Head = Tail = Current = 0;
+	}
+	int Length() const { return Entries; }
+	T *Get(int pos)
+	{
+		if (Entries == 0 || pos < 0 || pos >= Entries) {
+			return 0;
+		}
+		if (pos == 0) {
+			return &Head->Node;
+		}
+		if (pos == Entries - 1) {
+			return &Tail->Node;
+		}
+		if (pos == CurIndex) {
+			return &Current->Node;
+		}
+		if (pos == CurIndex + 1) {
+			CurIndex++;
+			Current = Current->Next;
+			return &Current->Node;
+		}
+		if (pos == CurIndex - 1) {
+			CurIndex--;
+			Current = Current->Prev;
+			return &Current->Node;
+		}
+		NodeType *n = Head->Next;
+		for (int i = 1; i < pos; i++) {
+			n = n->Next;
+		}
+		Current = n;
+		CurIndex = pos;
+		return &n->Node;
+	}
+	void Add_Tail(const T &v)
+	{
+		NodeType *n = new NodeType;
+		n->Node = v;
+		n->Next = 0;
+		n->Prev = Tail;
+		if (Tail) {
+			Tail->Next = n;
+		} else {
+			Head = n;
+		}
+		Tail = n;
+		Entries++;
+	}
+	void Remove(int pos)
+	{
+		if (pos < 0 || pos >= Entries) {
+			return;
+		}
+		NodeType *n = Head;
+		for (int i = 0; i < pos; i++) {
+			n = n->Next;
+		}
+		if (n->Prev) { n->Prev->Next = n->Next; } else { Head = n->Next; }
+		if (n->Next) { n->Next->Prev = n->Prev; } else { Tail = n->Prev; }
+		delete n;
+		Entries--;
+		Current = 0;
+		CurIndex = -1;
+	}
+private:
+	int Entries;			// +0x00 NAME 4: wlib's name (EA's Generals Tools matchbot wlib)
+	NodeType *Head;			// +0x04 NAME 4: wlib's name (EA's Generals Tools matchbot wlib)
+	NodeType *Tail;			// +0x08 NAME 4: wlib's name (EA's Generals Tools matchbot wlib)
+	NodeType *Current;		// +0x0C NAME 4: wlib's name (EA's Generals Tools matchbot wlib)
+	int CurIndex;			// +0x10 NAME 4: wlib's name (EA's Generals Tools matchbot wlib)
+};
+
+template <class T> class CordArrayClass		// NAME 1 [CordArrayClass]: stand-in for wlib's ArrayList<T>
+{
+public:
+	CordArrayClass() : Entries_(0), Slots_(0), Vector_(0) {}
+	~CordArrayClass() { delete [] Vector_; }
+	void Clear() { Entries_ = 0; }
+	int Length() const { return Entries_; }
+	T &operator[](int i) { return Vector_[i]; }
+	T *Get_Pointer(int pos) { if (pos < 0 || pos >= Entries_) { return 0; } return &Vector_[pos]; }
+	bool Get(T &v, int pos) { if (pos < 0 || pos >= Entries_) { return false; } v = Vector_[pos]; return true; }
+	void Add(const T &v)
+	{
+		if (Entries_ == Slots_) {
+			int slots = Slots_ ? Slots_ * 2 : 8;
+			T *p = new T[slots];
+			for (int i = 0; i < Entries_; i++) {
+				p[i] = Vector_[i];
+			}
+			delete [] Vector_;
+			Vector_ = p;
+			Slots_ = slots;
+		}
+		Vector_[Entries_++] = v;
+	}
+	void Remove(int pos)
+	{
+		if (pos < 0 || pos >= Entries_) {
+			return;
+		}
+		for (int i = pos + 1; i < Entries_; i++) {
+			Vector_[i - 1] = Vector_[i];
+		}
+		Entries_--;
+	}
+private:
+	int Entries_;			// +0x00 NAME 4: wlib's name (EA's Generals Tools matchbot wlib)
+	int Slots_;				// +0x04 NAME 4: wlib's name (EA's Generals Tools matchbot wlib)
+	T *Vector_;				// +0x08 NAME 4: wlib's name (EA's Generals Tools matchbot wlib)
+};
+
 // One message, sent or received (0x30 bytes in the client: the records of a channel's send queue
 // and sent list, and the nodes of its receive list; write 0x850C70, handlePacket 0x851AE0).
-struct CordMessageClass		// NAME 2: describes what it holds
+class CordMessageClass		// NAME 2: describes what it holds
 {
-	unsigned int SentTime[2];		// +0x00 (a Wtime: 0x8BA850 / 0x8BA870)
-	int SendCount;					// +0x08 0 = never sent
-	unsigned int Length;			// +0x0C this record's bytes (a fragment's)
-	unsigned int TotalLength;		// +0x10 the whole message's
-	int Priority;					// +0x14
-	unsigned int Seq;				// +0x18
-	unsigned char *Data;			// +0x1C
-	unsigned char *Fragments;		// +0x20 received: one flag per fragment
-	unsigned int Time;				// +0x24 received: when complete (0 = not yet)
-	int FragIndex;					// +0x28 sent
-	int Flags;						// +0x2C bit 0 fragmented, bit 1 first on the channel (block flag 0x20)
+public:
+	CordMessageClass();				// 0x85BE00 (another object, 0x85AEC0-0x85C600: unknown_cordmsg.cpp)
+	~CordMessageClass();			// 0x85BEA0
+	void Free();					// 0x85BEC0: deletes Data and Fragments
+
+	unsigned int SentTime[2];		// NAME 2: +0x00 (a Wtime: 0x8BA850 / 0x8BA870)
+	int SendCount;					// NAME 2: +0x08 0 = never sent
+	unsigned int Length;			// NAME 2: +0x0C this record's bytes (a fragment's)
+	unsigned int TotalLength;		// NAME 2: +0x10 the whole message's
+	int Priority;					// NAME 2: +0x14
+	unsigned int Seq;				// NAME 2: +0x18
+	unsigned char *Data;			// NAME 2: +0x1C
+	unsigned char *Fragments;		// NAME 2: +0x20 received: one flag per fragment
+	unsigned int Time;				// NAME 2: +0x24 received: when complete (0 = not yet)
+	int FragIndex;					// NAME 2: +0x28 sent
+	int Flags;						// NAME 2: +0x2C bit 0 fragmented, bit 1 first on the channel (block flag 0x20)
 };
 
 // One channel of a connection (0x78 bytes; constructor 0x84DFC0, made 8 or 2 at a time when a
 // datagram names a channel the connection doesn't have yet).
-class CordChannelClass		// NAME 2: describes what it is (the client's name not found)
+class CordChannelClass : public AutoPoolClass<CordChannelClass, 1024>	// NAME 2: describes what it is (the client's name not found)
 {
 public:
-	CordChannelClass(int index);
+	CordChannelClass();
 	~CordChannelClass();
+	void Reset();								// 0x84E770 (inlined in the constructor): unused, everything dropped
 
-	int Mode;									// +0x00 0 unused, 3 reliable ordered, 4 sequenced, 1, 5 (datagram counter)
-	unsigned int LastWrite;						// +0x04
-	unsigned int NextSeq;						// +0x08 the next sequence number to send
-	int Priority;								// +0x0C
-	std::vector<CordMessageClass> Queue;		// +0x10 written, not sent
-	std::vector<CordMessageClass> Sent;			// +0x20 sent, waiting for an ack
-	int Written;								// +0x30
-	unsigned int Delivered;						// +0x34 mode 3: the next sequence number read() delivers
-	unsigned int Expected;						// +0x38 mode 3: the first sequence number not received in order
-	unsigned int NextSequenced;					// +0x3C mode 4: older ones are dropped
-	unsigned int LastSeq;						// +0x40
-	std::vector<CordMessageClass> Incoming;		// +0x44 received, not read
-	std::vector<unsigned int> ToAck;			// +0x58
-	std::vector<unsigned int> Missing;			// +0x64 resend requests to send
-	int Index;									// +0x70
+	int Mode;									// NAME 2: +0x00 0 unused, 3 reliable ordered, 4 sequenced, 1, 5 (channel 0)
+	unsigned int LastWrite;						// NAME 2: +0x04
+	unsigned int NextSeq;						// NAME 2: +0x08 the next sequence number to send
+	int Priority;								// NAME 2: +0x0C
+	std::vector<CordMessageClass> Queue;		// NAME 2: +0x10 written, not sent
+	std::vector<CordMessageClass> Sent;			// NAME 2: +0x20 sent, waiting for an ack
+	int Written;								// NAME 2: +0x30
+	unsigned int Delivered;						// NAME 2: +0x34 mode 3: the next sequence number read() delivers
+	unsigned int Expected;						// NAME 2: +0x38 mode 3: the first sequence number not received in order
+	unsigned int NextSequenced;					// NAME 2: +0x3C mode 4: older ones are dropped
+	unsigned int LastSeq;						// NAME 2: +0x40
+	CordListClass<CordMessageClass> Incoming;	// NAME 2: +0x44 received, not read
+	CordArrayClass<unsigned int> ToAck;			// NAME 2: +0x58
+	CordArrayClass<unsigned int> Missing;		// NAME 2: +0x64 resend requests to send
+	int Index;									// NAME 2: +0x70
 	bool IsClosed;								// +0x74 NAME 2: write() refuses while set; the constructor sets it, openc clears it
 };
 
+// CordCon, 0xBC bytes in the client (constructor 0x84F640, 9 arguments): the members in its order.
 class CordCon
 {
 public:
-	CordCon(unsigned int ip, unsigned short port, int session, const unsigned char key[8], UDP *udp,
-		bool is_server);
-	virtual ~CordCon();
+	CordCon(unsigned int ip, unsigned short port, int session, unsigned short unknown0c, bool is_server,
+		UDP *udp, int stats_arg, unsigned int key_lo, unsigned int key_hi);
+	~CordCon();
 
 	// Queues a message on an open channel, in 200-byte records. 0x850C70
 	bool write(int channel, const void *data, unsigned int len, int priority);
@@ -123,38 +260,53 @@ public:
 	void Encrypt_Data(unsigned char *data, int len, unsigned short counter);			// 0x854D00
 	bool examinePacket(unsigned char *data, int datalen);								// 0x8514D0
 	bool buildHeader(unsigned char *out, int *len, unsigned short *counter);			// 0x8551F0
-	bool buildMsgHeader(unsigned char *out, int *len, unsigned int size, int channel,
-		unsigned int seq, int frag, int flags);											// 0x854FC0
+	bool buildMsgHeader(unsigned char *out, int *len, int size, int channel, unsigned int seq,
+		unsigned char frag, char flags);												// 0x854FC0
 
 	CordChannelClass *Get_Channel(int channel);	// NAME 2: grows Channels_ as the client does
 
-	unsigned int Ip_;
-	unsigned short Port_;
-	int Session_;
-	UDP *Udp_;
-	unsigned char Key_[8];
-	std::vector<CordChannelClass *> Channels_;
-	std::vector<CordChannelClass *> Active_;
-	std::vector<CordChannelClass *> Ready_;
-	int Queued_;
-	int AcksPending_;
-	int ResendsPending_;
-	int BytesRead_;
-	int BytesAcked_;
-	int DupAcks_;
-	int PacketsIn_;
-	unsigned short PacketsOut_;
-	unsigned char HeaderOut_;
-	unsigned char HeaderIn_;
-	unsigned int LastReceive_;
-	int CloseState_;
-	unsigned int CloseSeq_;
-	bool IsServer_;
+	unsigned int Ip_;							// NAME 2: +0x00 (host order)
+	unsigned short Port_;						// NAME 2: +0x04
+	int Session_;								// NAME 2: +0x08
+	unsigned short Unknown0C;					// +0x0C (the constructor's 4th argument)
+	UDP *Udp_;									// +0x10
+	int Unknown14;								// +0x14
+	int Unknown18;								// +0x18
+	int Unknown1C;								// +0x1C
+	__int64 Key_;								// NAME 2: +0x20 the RC4 session key (Encrypt_Data tests it as one 64-bit value)
+	int OpenChannels_;							// NAME 2: +0x28
+	std::vector<CordChannelClass *> Channels_;	// NAME 2: +0x2C
+	std::vector<CordChannelClass *> Active_;	// NAME 2: +0x3C channels in use, in first-use order
+	std::vector<CordChannelClass *> Ready_;		// NAME 2: +0x4C channels with received messages, in arrival order
+	int Queued_;								// NAME 2: +0x5C
+	int AcksPending_;							// NAME 2: +0x60
+	int ResendsPending_;						// NAME 2: +0x64
+	void *Stats_;								// NAME 2: +0x68 a 0x4C-byte object (constructor 0x85BF30): round trip, bandwidth
+	int BytesSent_;								// NAME 2: +0x6C
+	int BytesResent_;							// NAME 2: +0x70
+	int BytesRead_;								// NAME 2: +0x74
+	int BytesAcked_;							// NAME 2: +0x78
+	int Resends_;								// NAME 2: +0x7C
+	int DupAcks_;								// NAME 2: +0x80
+	int MessagesSent_;							// NAME 2: +0x84
+	int PacketsIn_;								// NAME 2: +0x88
+	int PacketsOut_;							// NAME 2: +0x8C the datagram counter (the wire's bytes 3-4)
+	int Quality_;								// NAME 2: +0x90 sent as the header byte: a running percentage (pumpInternal)
+	int HeaderIn_;								// NAME 2: +0x94 the peer's header byte
+	int Unknown98;								// +0x98
+	int ExpireCountdown_;						// NAME 2: +0x9C pumpInternal drops expired unreliable records every 8 calls
+	unsigned int LastSend_;						// NAME 2: +0xA0
+	unsigned int LastReceive_;					// NAME 2: +0xA4
+	unsigned int LastPump_;						// NAME 2: +0xA8
+	bool UnknownAC;								// +0xAC
+	int CloseState_;							// NAME 2: +0xB0 0 open, 1 close asked, 2 CLOSE sent, 3 peer closing, 4 closed
+	unsigned int CloseSeq_;						// NAME 2: +0xB4
+	bool IsServer_;								// NAME 2: +0xB8
 
 	// The harness's counters (not the client's).
-	int AcksMatched_;
-	int ResendRequests_;
-	int Rejected_;
+	int AcksMatched_;	// NAME 2: describes its role
+	int ResendRequests_;	// NAME 2: describes its role
+	int Rejected_;	// NAME 2: describes its role
 
 private:
 	void Add_Channels(int count);

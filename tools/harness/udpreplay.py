@@ -37,7 +37,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.dirname(os.path.dirname(HERE))
 WORK = os.path.join(REPO, '.work', 'harness', 'udpreplay')
 CAPS = r'C:\EnBDevelopment\the reference traces\captures'
-WWUDP = [r'app\wwudp\cordcon.cpp', r'app\wwudp\cordmgr.cpp']
+WWUDP = [r'app\wwudp\cordcon.cpp', r'app\wwudp\cordmgr.cpp', r'app\wwudp\unknown_cordmsg.cpp']
 sys.path.insert(0, HERE)
 import convert as C  # noqa: E402
 

@@ -16,7 +16,7 @@
 #pragma once
 #endif
 
-#ifndef UDP_HEADER
+#ifndef UDP_HEADER  // NAME 4 [udp.h]: wnet's udp.h (EA's Generals Tools matchbot wnet); its place here assumed
 #define UDP_HEADER
 
 #include <winsock.h>
