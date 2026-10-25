@@ -173,7 +173,10 @@ bool LandClass::Load_Assets(const char *ini_name)
 								n++;
 							}
 						}
-						unsigned char *c = Colors + ((size - 1 - j) * size + i) * 3;	// the TGA's rows run the PGM's way
+						// with FLIP_TGA the TGA's rows in file order (bottom-up) are the field's rows: the
+						// original's lightmap texel (i, j) is the colour of the file's row j (d3d8shot dump of
+						// its lightmap, 0.994 correlation; flipped, as before, 0.01)
+						unsigned char *c = Colors + (j * size + i) * 3;
 						c[0] = (unsigned char)(r / n);
 						c[1] = (unsigned char)(g / n);
 						c[2] = (unsigned char)(b / n);
@@ -202,11 +205,14 @@ bool LandClass::Load_Assets(const char *ini_name)
 	Load_PLD();
 	Upload_Lightmap();
 
-	// the material and shader: lighting off (the lightmap is the colour), the detail map scaled 2x
+	// the material and shader: lighting off (the lightmap is the colour), the detail map scaled 2x;
+	// culled and fogged as VIDTEST's land (its draws: D3DRS_CULLMODE CW, FOGENABLE with the scene's
+	// fog colour; d3d8shot draw dump of frames 500/900, M2.4)
 	Material = new VertexMaterialClass;
 	Material->Set_Lighting(false);
 	Shader = ShaderClass::_PresetOpaqueShader;
-	Shader.Set_Cull_Mode(ShaderClass::CULL_MODE_DISABLE);
+	Shader.Set_Cull_Mode(ShaderClass::CULL_MODE_ENABLE);
+	Shader.Set_Fog_Func(ShaderClass::FOG_ENABLE);
 	Shader.Set_Texturing(ShaderClass::TEXTURING_ENABLE);
 	Shader.Set_Primary_Gradient(ShaderClass::GRADIENT_DISABLE);
 	if (DetailTexture != NULL) {
@@ -257,15 +263,17 @@ void LandClass::Build_Buffers(void)
 				LandVertexStruct *base = v + px * per_patch;
 				for (int y = 0; y < side; y++) {
 					for (int x = 0; x < side; x++) {
-						int i = Int_Min(px * g + x, size - 1);
-						int j = Int_Min(py * g + y, size - 1);
+						// as the original's land (d3d8shot dump): size + 1 vertices a side, from -extent/2 to
+						// +extent/2, the last row and column at the clamped field's heights, uv = index / size
+						int i = px * g + x;
+						int j = py * g + y;
 						Vector3 p = Field->Get_Vertex(i, j);
 						LandVertexStruct &o = base[y * side + x];
 						o.X = p.X;
 						o.Y = p.Y;
 						o.Z = p.Z;
-						o.U1 = (i + 0.5f) * inv;
-						o.V1 = (j + 0.5f) * inv;
+						o.U1 = i * inv;
+						o.V1 = j * inv;
 						o.U2 = o.U1 * DetailScaleX;
 						o.V2 = o.V1 * DetailScaleY;
 					}
@@ -716,10 +724,12 @@ bool LandClass::Create_Decorations(int set)
 	Random4Class random(0x1105);
 	DecoInstanceStruct *instances = new DecoInstanceStruct[count];
 	for (int d = 0; d < count; d++) {
-		int p = (int)(((unsigned int)random()) % (unsigned int)protos);
+		// VIDTEST 0x415C40's order: the prototype (Pick_Random_Number, no draw for one prototype), the
+		// scale, then v before u (the second draw is the sample's first coordinate), the angle
+		int p = random(0, protos - 1);
 		float scale = min_scale + (max_scale - min_scale) * random.Get_Float();
-		float u = random.Get_Float();
 		float v = random.Get_Float();
+		float u = random.Get_Float();
 		float angle = random.Get_Float() * 2.0f * WWMATH_PI;
 		Vector3 pos;
 		Field->Sample(&pos, u, v);
@@ -735,34 +745,47 @@ bool LandClass::Create_Decorations(int set)
 		instances[d].Transform = tm;
 	}
 
-	// fill the buffers, kind by kind, in chunks
-	for (int k = 0; k < kinds.Count(); k++) {
-		int d = 0;
-		while (d < count) {
-			// how many instances fit
-			int verts = 0, polys = 0, end = d;
-			while (end < count) {
-				int v = 0, t = 0;
-				for (int i = first_part[instances[end].Proto]; i < first_part[instances[end].Proto + 1]; i++) {
+	// the patch each decoration stands on: VIDTEST keeps them per patch and draws a patch's only while
+	// its level is below 3 (0x410B90; the original draws no trees at Land LOD 1, one draw per visible
+	// patch at LOD 7: d3d8shot draw dump, M2.4)
+	float patch_size = PatchGridWidth * Field->Get_Spacing();
+	float half = Field->Get_Extent() * 0.5f;
+	int *patch_of = new int[count];
+	for (d = 0; d < count; d++) {
+		Vector3 t = instances[d].Transform.Get_Translation();
+		int px = Int_Max(0, Int_Min(PatchCount - 1, (int)((t.X + half) / patch_size)));
+		int py = Int_Max(0, Int_Min(PatchCount - 1, (int)((t.Y + half) / patch_size)));
+		patch_of[d] = py * PatchCount + px;
+	}
+
+	// fill the buffers, patch by patch, kind by kind
+	for (int patch = 0; patch < PatchCount * PatchCount; patch++) {
+		for (int k = 0; k < kinds.Count(); k++) {
+			int verts = 0, polys = 0;
+			for (int d = 0; d < count; d++) {
+				if (patch_of[d] != patch) continue;
+				for (int i = first_part[instances[d].Proto]; i < first_part[instances[d].Proto + 1]; i++) {
 					if (parts[i].Batch != k) continue;
-					v += parts[i].Model->Get_Vertex_Count();
-					t += parts[i].Model->Get_Polygon_Count();
+					verts += parts[i].Model->Get_Vertex_Count();
+					polys += parts[i].Model->Get_Polygon_Count();
 				}
-				if (verts + v > 65000 || (polys + t) * 3 > 65000) break;
-				verts += v;
-				polys += t;
-				end++;
 			}
-			if (end == d) break;
-			if (polys > 0) {
+			if (polys > 0 && verts <= 65000 && polys * 3 <= 65000) {
 				DecoBatchStruct *batch = new DecoBatchStruct;
 				batch->Texture = kinds[k]->Texture;
 				if (batch->Texture) batch->Texture->Add_Ref();
 				batch->Material = kinds[k]->Material;
 				if (batch->Material) batch->Material->Add_Ref();
+				// VIDTEST's trees are alpha tested and write depth, without blending (its draws:
+				// ALPHATESTENABLE, ALPHAREF 0x60, ZWRITEENABLE, ALPHABLENDENABLE off)
 				batch->Shader = kinds[k]->Shader;
+				batch->Shader.Set_Alpha_Test(ShaderClass::ALPHATEST_ENABLE);
+				batch->Shader.Set_Src_Blend_Func(ShaderClass::SRCBLEND_ONE);
+				batch->Shader.Set_Dst_Blend_Func(ShaderClass::DSTBLEND_ZERO);
+				batch->Shader.Set_Depth_Mask(ShaderClass::DEPTH_WRITE_ENABLE);
 				batch->Vertices = verts;
 				batch->Polys = polys;
+				batch->Patch = patch;
 				batch->VertexBuffer = new DX8VertexBufferClass(DX8_FVF_XYZNUV1, (unsigned short)verts);
 				batch->IndexBuffer = new DX8IndexBufferClass((unsigned short)(polys * 3));
 				{
@@ -771,7 +794,8 @@ bool LandClass::Create_Decorations(int set)
 					DecoVertexStruct *out = (DecoVertexStruct *)vlock.Get_Vertex_Array();
 					unsigned short *idx = ilock.Get_Index_Array();
 					int base = 0;
-					for (int n = d; n < end; n++) {
+					for (int n = 0; n < count; n++) {
+						if (patch_of[n] != patch) continue;
 						for (int i = first_part[instances[n].Proto]; i < first_part[instances[n].Proto + 1]; i++) {
 							if (parts[i].Batch != k) continue;
 							MeshModelClass *model = parts[i].Model;
@@ -804,9 +828,9 @@ bool LandClass::Create_Decorations(int set)
 				}
 				DecoBatches.Add(batch);
 			}
-			d = end;
 		}
 	}
+	delete [] patch_of;
 	delete [] instances;
 	for (i = 0; i < parts.Count(); i++) {
 		parts[i].Model->Release_Ref();
@@ -823,6 +847,7 @@ void LandClass::Render_Decorations(RenderInfoClass &rinfo)
 	DX8Wrapper::Set_Transform(D3DTS_WORLD, identity);
 	for (int i = 0; i < DecoBatches.Count(); i++) {
 		DecoBatchStruct *batch = DecoBatches[i];
+		if (PatchLevel == NULL || PatchLevel[batch->Patch] >= 3) continue;		// also 0xFF: culled
 		DX8Wrapper::Set_Material(batch->Material);
 		DX8Wrapper::Set_Shader(batch->Shader);
 		DX8Wrapper::Set_Texture(0, batch->Texture);
@@ -847,10 +872,21 @@ void LandClass::Render_Decorations(RenderInfoClass &rinfo)
 **	plus the sky x the vertex's sky share where the sun clears the horizon, a penumbra, the sky term
 **	alone in shadow; 0x40A500: times the colour map), its time slicing by LIGHTMAP_CHUNK rows, the
 **	.pld cache's normals and sky shares, the decorations' ini, Random4Class(0x1105) and their
-**	batching into shared buffers. Not rebuilt: the client's tessellation and render (0x474B30, VB/IB
-**	per frame; here fixed per-patch strides with skirts), the sea, the lightmap thread, the shadow
-**	test's own horizons (ours are computed, compared with the sun's elevation), the decoration
-**	cache (land%04d.dcb) and the .pld rebuild. The draw order of VIDTEST's random numbers is a guess.
+**	batching into per-patch buffers. Not rebuilt: the client's tessellation and render (0x474B30,
+**	VB/IB per frame, triangle strips; here fixed per-patch strides with skirts), the sea, the
+**	lightmap thread, the shadow test's own horizons (ours are computed, compared with the sun's
+**	elevation), the trees' shadows (one blended triangle per tree on the ground, ZBIAS 1: VIDTEST
+**	0x410B90's second loop, built by 0x416170), the decoration cache (land%04d.dcb) and the .pld
+**	rebuild.
+**
+**	Checked against the original's draw calls (tools/harness/run_reference.py --dump, drawdump.py,
+**	frames 500 and 900, M2.4): the same camera, the same vertex grid (257 a side from -25000 to
+**	+25000, uv = index / 256) and the same heights at every common vertex, so the land's orientation
+**	was right; the colour map's rows were not (the original's lightmap is the TGA in file row order:
+**	0.994 correlation), its land is fogged and culled (CW), its trees are drawn per patch only while
+**	the patch's level is below 3 (none at Land LOD 1), alpha tested with depth writes, and its
+**	random numbers come in the order of 0x415C40 (prototype by Pick_Random_Number, scale, v, u,
+**	angle). With the original's sun angle, frames 500-900 differ in 2-4% of the pixels.
 **
 **	The .pld file (VIDTEST 0x40611E-0x406243, read by 0x40BA00 with fopen "rb", written by
 **	0x40BB90): precomputed lighting data, used when newer than both the PGM and the ini, else
