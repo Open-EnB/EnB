@@ -44,6 +44,7 @@
 #include <vector>
 #include <string.h>
 #include "mempool.h"
+#include "wtime.h"
 
 class UDP;
 
@@ -148,7 +149,7 @@ template <class T> class CordArrayClass		// NAME 1 [CordArrayClass]: stand-in fo
 {
 public:
 	CordArrayClass() : Entries_(0), Slots_(0), Vector_(0) {}
-	~CordArrayClass() { delete [] Vector_; }
+	~CordArrayClass() { Clear(); delete [] (unsigned char *)Vector_; }	// wlib's: clear(), then the bytes
 	void Clear() { Entries_ = 0; }
 	int Length() const { return Entries_; }
 	T &operator[](int i) { return Vector_[i]; }
@@ -193,7 +194,7 @@ public:
 	~CordMessageClass();			// 0x85BEA0
 	void Free();					// 0x85BEC0: deletes Data and Fragments
 
-	unsigned int SentTime[2];		// NAME 2: +0x00 (a Wtime: 0x8BA850 / 0x8BA870)
+	Wtime SentTime;					// NAME 2: +0x00 the last send (day 0 = never, or a resend asked for)
 	int SendCount;					// NAME 2: +0x08 0 = never sent
 	unsigned int Length;			// NAME 2: +0x0C this record's bytes (a fragment's)
 	unsigned int TotalLength;		// NAME 2: +0x10 the whole message's
@@ -233,6 +234,44 @@ public:
 	bool IsClosed;								// +0x74 NAME 2: write() refuses while set; the constructor sets it, openc clears it
 };
 
+// A connection's send window and statistics (0x4C bytes; constructor 0x85BF30 with the window
+// limit ACK2 gives, CordCon +0x68): a TCP-like congestion window in bytes (slow start by 200 per
+// ack, then 40000 / window per ack, at most 200 per round for all connections; three quarters at
+// a loss, half of that at a timeout), the round-trip estimate (ms) behind the resend timeout, and a
+// per-second byte count against a rate limit. The members in the client's order.
+class CordStatsClass	// NAME 2: describes what it holds (the client's name not found)
+{
+public:
+	CordStatsClass(int max_window);					// 0x85BF30
+	~CordStatsClass();								// 0x85C010
+
+	bool Can_Send() const;							// 0x85C090: 200 bytes free in both windows
+	bool Update(const Wtime &now);					// 0x85C0D0: a new round after a round trip
+	bool Set_Rate_Limit(int bytes);					// 0x85C1C0
+	void Get_Resend_Timeout(Wtime &out) const;		// 0x85C1E0: 2 round trips + 50 ms
+	bool Add_In_Flight(int bytes);					// 0x85C220
+	bool On_Ack(int bytes);							// 0x85C250
+	bool On_Round_Trip(int msec);					// 0x85C310: one sample per round
+	bool On_Loss(int bytes, bool timeout);			// 0x85C3A0: once per round
+	bool Allow(int channel, unsigned int len, int send_count, const Wtime &now);	// 0x85C430
+
+	int Window;							// NAME 2: +0x00 200 at first
+	int PeerWindow;						// NAME 2: +0x04 0xFFFFFFF
+	int Threshold;						// NAME 2: +0x08 0x7FFFFFFF: slow start below it
+	int MaxWindow;						// NAME 2: +0x0C the constructor's argument
+	int InFlight;						// NAME 2: +0x10 bytes sent, not acked
+	int RateLimit;						// NAME 2: +0x14 bytes per second (0xFFFFFFF)
+	Wtime RoundStart;					// NAME 2: +0x18
+	int Round;							// NAME 2: +0x20
+	int RoundTrip;						// NAME 2: +0x24 ms, 300 at first
+	CordArrayClass<int> Unknown28;		// +0x28 (a wlib ArrayList: cleared and freed by the destructor only)
+	int LastPeak;						// NAME 2: +0x34 the last round's InFlight peak
+	int Peak;							// NAME 2: +0x38
+	Wtime SecondStart;					// NAME 2: +0x3C
+	int LastSecondBytes;				// NAME 2: +0x44
+	int SecondBytes;					// NAME 2: +0x48 bytes sent this second
+};
+
 // CordCon, 0xBC bytes in the client (constructor 0x84F640, 9 arguments): the members in its order.
 class CordCon
 {
@@ -252,10 +291,14 @@ public:
 	// Asks for the close ('CordCon:close' 0x850870, reduced). pumpClose 0x850260 sends it.
 	void close();
 	bool pumpClose();
-	// Sends what is queued, and the acks due on an empty channel-0 message. 0x853560
-	bool pump();
-	// Sends what is queued. 0x853A30 (NOT EXACT: no resend timer, no bandwidth limit)
-	bool pumpInternal();
+	// Sends what is queued, and the acks due on an empty channel-0 message; the keep-alive, the
+	// idle close, dropping closed channels. 0x853560
+	bool pump(Wtime &now);
+	// Sends by priority within the send window: resends first when their timer is up, drops
+	// expired unreliable records. 0x853A30
+	bool pumpInternal(Wtime &now);
+	// The record to send next: its channel, its place in the channel's list, the record. 0x854890
+	bool getHighestPriorityMessage(int *channel, int *index, Wtime &threshold, CordMessageClass **msg, Wtime &now);
 
 	void Encrypt_Data(unsigned char *data, int len, unsigned short counter);			// 0x854D00
 	bool examinePacket(unsigned char *data, int datalen);								// 0x8514D0
@@ -281,7 +324,7 @@ public:
 	int Queued_;								// NAME 2: +0x5C
 	int AcksPending_;							// NAME 2: +0x60
 	int ResendsPending_;						// NAME 2: +0x64
-	void *Stats_;								// NAME 2: +0x68 a 0x4C-byte object (constructor 0x85BF30): round trip, bandwidth
+	CordStatsClass *Stats_;						// NAME 2: +0x68 (constructor 0x85BF30)
 	int BytesSent_;								// NAME 2: +0x6C
 	int BytesResent_;							// NAME 2: +0x70
 	int BytesRead_;								// NAME 2: +0x74
@@ -291,14 +334,14 @@ public:
 	int MessagesSent_;							// NAME 2: +0x84
 	int PacketsIn_;								// NAME 2: +0x88
 	int PacketsOut_;							// NAME 2: +0x8C the datagram counter (the wire's bytes 3-4)
-	int Quality_;								// NAME 2: +0x90 sent as the header byte: a running percentage (pumpInternal)
+	int Quality_;								// NAME 2: +0x90 sent as the header byte: the running percentage of reliable sends that were resends (pumpInternal)
 	int HeaderIn_;								// NAME 2: +0x94 the peer's header byte
 	int Unknown98;								// +0x98
 	int ExpireCountdown_;						// NAME 2: +0x9C pumpInternal drops expired unreliable records every 8 calls
-	unsigned int LastSend_;						// NAME 2: +0xA0
-	unsigned int LastReceive_;					// NAME 2: +0xA4
-	unsigned int LastPump_;						// NAME 2: +0xA8
-	bool UnknownAC;								// +0xAC
+	unsigned int LastSend_;						// NAME 2: +0xA0 time_t of the last datagram (pump: the keep-alive after 5 s)
+	unsigned int LastReceive_;					// NAME 2: +0xA4 time_t (pump: the idle close after 90 s)
+	unsigned int LastPump_;						// NAME 2: +0xA8 time_t (pump: a gap over 45 s resets LastReceive_)
+	bool UnknownAC;								// +0xAC pump sends nothing while set
 	int CloseState_;							// NAME 2: +0xB0 0 open, 1 close asked, 2 CLOSE sent, 3 peer closing, 4 closed
 	unsigned int CloseSeq_;						// NAME 2: +0xB4
 	bool IsServer_;								// NAME 2: +0xB8

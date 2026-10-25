@@ -3190,6 +3190,10 @@ RECONSTRUCTED = {
     ('app', 'wwudp/udp.h'): "the UDP socket CordMgr and CordCon use (CordCon::Udp_): WWOnline's wnet UDP (libs\\wwonline\\wnet, "
                             "client 0x8BF990-0x8C0540), the part the wwudp code calls (EA's Generals Tools\\matchbot\\wnet\\udp.h interface); "
                             "defined by the program (the capture harness's replay socket, M1.4)",
+    ('app', 'wwudp/wtime.h'): "the time value CordCon uses: wlib's Wtime (libs\\wwonline\\wlib, client 0x8BA300-0x8BB7A0; "
+                              "E&B's copy keeps the day and the millisecond of the day), the part the wwudp code calls (EA's "
+                              "Generals Tools\\matchbot\\wlib\\wtime.h interface); defined by the program (the capture "
+                              "harness's clock, M1.4)",
     ('app', 'wwudp/cordcon.h'): "CordCon (client names: the profile labels, 'Udp_'), CordChannelClass and CordMessageClass (descriptive, "
                                 "D24): the EA-UDP connection, its channels and message records (M1.4)",
     ('app', 'wwudp/cordcon.cpp'): "CordCon, client 0x84D730?-0x854E70 (M1.4): Encrypt_Data 0x854D00 and buildMsgHeader "
@@ -3197,13 +3201,15 @@ RECONSTRUCTED = {
                                   "CordChannelClass, 1024>) and vector<CordMessageClass>::size 0x84E8F0; functional (NOT EXACT, "
                                   "D42): handlePacket 0x851AE0, examinePacket 0x8514D0 (same size, registers differ), read "
                                   "0x850FD0, write 0x850C70, openc 0x84FF70, buildHeader 0x8551F0, pumpClose 0x850260, the "
-                                  "channel constructor 0x84DFC0 / Reset 0x84E770, CordCon's constructor 0x84F640; pump 0x853560 "
-                                  "and pumpInternal 0x853A30 reduced (no resend timer, bandwidth limit or priority order); "
+                                  "channel constructor 0x84DFC0 / Reset 0x84E770, CordCon's constructor 0x84F640, pump 0x853560 "
+                                  "(keep-alive, idle close, closed channels), pumpInternal 0x853A30 (priority order, resend "
+                                  "timer, send window, expired unreliable records), getHighestPriorityMessage 0x854890; "
                                   "ENABLE_WWPROFILE defined (E&B's profiler samples); the asserts (lines 521, 632, 977) not on "
                                   "their lines",
     ('app', 'wwudp/unknown_cordmsg.cpp'): "PROVISIONAL file name (M1.4): the object 0x85AEC0-0x85C600 after cordmgr.cpp: "
-                                          "CordMessageClass's constructor 0x85BE00, destructor 0x85BEA0 and Free 0x85BEC0 "
-                                          "(functional); the connection statistics there not rebuilt",
+                                          "CordMessageClass's constructor 0x85BE00, destructor 0x85BEA0 and Free 0x85BEC0; "
+                                          "CordStatsClass (the send window and round-trip estimate CordCon keeps at +0x68, "
+                                          "0x85BF30-0x85C5E0)",
     ('app', 'wwudp/cordmgr.h'): "CordMgr (client name: the profile labels 'CordMgr::Pump' ...): the EA-UDP connection manager (M1.4)",
     ('app', 'wwudp/cordmgr.cpp'): "CordMgr, client 0x857590-0x85AED0 (M1.4): Find_Data_Socket 0x859F80 exact; functional "
                                   "(NOT EXACT, D42): Process_CORD_Packet 0x85A000, Process_SYN1/SYN2_Packet 0x85A3B0 / "

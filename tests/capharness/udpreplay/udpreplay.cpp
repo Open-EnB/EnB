@@ -6,7 +6,11 @@
 // CordCon::write) and that side pumps (CordCon::pumpInternal): its datagrams are compared, ack
 // list and blocks, with the next datagram the capture has in that direction.
 //
-//     udpreplay IN.txt OUT.txt        (IN: tools/harness/udpreplay.py's datagram file)
+//     udpreplay IN.txt OUT.txt [MS [WINDOW]]   (IN: tools/harness/udpreplay.py's datagram file)
+//
+// MS: the clock (wtime_replay.cpp) advances MS milliseconds before each datagram (default 0: the
+// dumps have no times, and a frozen clock fires no resend timer). WINDOW: the send window limit
+// each CordCon gets (ACK2's, which the dumps lack; default 65535).
 //
 // IN lines:  K session keyhex                 a session's RC4 key (8 bytes)
 //            W n session dir channel mode hex a message datagram n sends first: written before it
@@ -36,6 +40,10 @@
 #include "cordcon.h"
 #include "cordmgr.h"
 #include "udp.h"
+#include "wtime.h"
+
+extern unsigned __int64 Replay_Time_Ms;		// wtime_replay.cpp
+static int Window_Limit = 65535;
 
 // ------------------------------------------------------------------------- E&B's log (cordmgr.cpp)
 
@@ -166,8 +174,8 @@ static void Make_Side(Session *s, Side &side, bool server)
 	side.Mgr.DataSockets_.Add(ds);
 	unsigned int key[2];
 	memcpy(key, s->Key, 8);
-	side.Con = new CordCon(server ? CLIENT_IP : SERVER_IP, server ? 1024 : 3500, s->Id, 0, server, side.OutSock, 0,
-		key[0], key[1]);
+	side.Con = new CordCon(server ? CLIENT_IP : SERVER_IP, server ? 1024 : 3500, s->Id, 0, server, side.OutSock,
+		Window_Limit, key[0], key[1]);
 	side.Mgr.Connections_.Add(side.Con);
 }
 
@@ -250,7 +258,8 @@ static void Describe(FILE *out, CordCon *by, std::vector<unsigned char> d)
 static void Pump_Side(FILE *out, Session *s, Side &tx, Side &rx, int n, const char *dir, const char *name, int d)
 {
 	size_t before = Replay[tx.OutSock].Out.size();
-	tx.Con->pump();
+	Wtime now;
+	tx.Con->pump(now);
 	for (size_t g = before; g < Replay[tx.OutSock].Out.size(); g++) {
 		fprintf(out, "G %d %s %s", n, dir, name);
 		Describe(out, tx.Con, Replay[tx.OutSock].Out[g]);
@@ -346,8 +355,12 @@ static void Handshake(FILE *out, const char *line)
 int main(int argc, char **argv)
 {
 	if (argc < 3) {
-		fprintf(stderr, "usage: udpreplay IN.txt OUT.txt\n");
+		fprintf(stderr, "usage: udpreplay IN.txt OUT.txt [MS [WINDOW]]\n");
 		return 2;
+	}
+	int step_ms = argc > 3 ? atoi(argv[3]) : 0;
+	if (argc > 4) {
+		Window_Limit = atoi(argv[4]);
 	}
 	FILE *in = fopen(argv[1], "r");
 	FILE *out = fopen(argv[2], "w");
@@ -416,6 +429,7 @@ int main(int argc, char **argv)
 		Side &tx = d == 0 ? s->Client : s->Server;		// sent it
 		s->Datagrams[d]++;
 		total++;
+		Replay_Time_Ms += step_ms;
 
 		// What our sending side sends now: the messages written for this datagram, the acks due.
 		Pump_Side(out, s, tx, rx, n, dir, name, d);
