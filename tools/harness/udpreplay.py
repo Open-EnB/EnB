@@ -59,7 +59,7 @@ CAPS = r'C:\EnBDevelopment\the reference traces\captures'
 WWUDP = [r'app\wwudp\cordcon.cpp', r'app\wwudp\cordmgr.cpp', r'app\wwudp\unknown_cordmsg.cpp']
 # --conn (conn): the connection layer over them (docs/kernel-map.md 4), with what it needs
 CONN = [r'app\common\circbuff.cpp', r'app\common\connect.cpp', r'app\common\udpconn.cpp',
-        r'app\kernel\kernel.cpp', r'app\shared\auxdata\linearbu.cpp']
+        r'app\kernel\kernel.cpp', r'app\shared\auxdata\linearbu.cpp', r'app\packets\pk.cpp']
 sys.path.insert(0, HERE)
 import convert as C  # noqa: E402
 

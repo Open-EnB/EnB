@@ -3241,9 +3241,12 @@ RECONSTRUCTED = {
                                    "Get_Interval, Delete_On_Remove, Get_Mgr, Shutdown_Task; functional (NOT EXACT, D42): "
                                    "the rest (wlib's Dictionary stand-in, CordCon / CordMgr members not in the tree); "
                                    "the constructor by name 0x82C680, UDPConnectionManager and the listener not rebuilt",
-    ('app', 'packets/pk.h'): "PARTIAL: the packet base class (vtable 0xAEDE88, 10 slots), the message header and the "
-                             "raw message (0x22C bytes) as the connections use them, the factory 0x8696C0 declared; "
-                             "defined by the program until app\\packets is rebuilt",
+    ('app', 'packets/pk.h'): "PARTIAL: the packet base class (vtable 0xAEDE88, 10 slots; its inline defaults on the "
+                             "client's lines 483-502), the message header, the raw message (0x22C bytes) with pk.cpp's "
+                             "helpers, the factory 0x8696C0 declared (defined by the program until it is rebuilt)",
+    ('app', 'packets/pk.cpp'): "PARTIAL: pk.cpp's raw-message helpers 0x86E870-0x86EFE0 (all 23 exact) and the base's "
+                               "slot +0x14 0x86F010, the asserts on the client's lines 1135-1344 (D25); the factory "
+                               "0x8696C0 / 0x869790 and the small packet classes not rebuilt",
     ('app', 'wwudp/bandwidthaccounting.cpp'): "the bandwidth accounting, client 0x84C720-0x84DFB0 (M1.4): a kernel task with per-address "
                                               "counts fed by wnet's accounting callback, WWLib's DynamicVectorClass of 0x3C-byte "
                                               "entries; the debug window prints on the client's lines 281-361 (D25); exact",

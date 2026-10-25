@@ -1018,7 +1018,7 @@ StreamConnectionClass::StreamConnectionClass() : Ring(100000)
 	ReadBuffer = new char[0x1000];
 }
 
-// NOT EXACT: 0x8233E0 numbers its unwind states one lower (the ring's destructor runs in state 0); the code is the client's
+// 0x8233E0: exact since pk.h holds the full packet base and <string> (before, its unwind states were one lower; cause not isolated)
 StreamConnectionClass::~StreamConnectionClass()
 {
 	delete ReadBuffer;
@@ -1151,7 +1151,7 @@ bool StreamConnectionClass::Is_Dead()
 **
 **	* Rebuilt: the connection base's constructor 0x820F90 and destructor 0x820FE0 (the scalar
 **	  deleting destructor 0x820FB0 is the compiler's), and the stream connection 0x823320-0x8238C0:
-**	  constructor, destructor (NOT EXACT, above), Write_Message 0x823460 (also inlined in Send_Packet
+**	  constructor, destructor (see above), Write_Message 0x823460 (also inlined in Send_Packet
 **	  0x8234D0 and Send_Message 0x823570, out of line because it is a member), Message_Ready
 **	  0x8235E0, Receive 0x8236D0, Fill 0x823840 (defined after Receive, inlined there: its assert is
 **	  on line 1138, after Receive's 1104) and Is_Dead 0x8238C0 (Message_Ready inlined).

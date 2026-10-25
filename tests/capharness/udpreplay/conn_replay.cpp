@@ -8,7 +8,8 @@
 //     M n dir session size opcode payload-hex
 //
 // What the app code calls that isn't rebuilt yet is supplied here: wlib's CritSec, the rate average
-// (unknown_rate.h), the packet base class and the factory 0x8696C0 (a test packet holding the bytes),
+// (unknown_rate.h), wwonline's 64-bit byte order pair and the factory 0x8696C0 (a test packet
+// holding the bytes),
 // and kernel.cpp's externals (as tests/capharness/kerneltest).
 #include <stdio.h>
 #include <string.h>
@@ -86,16 +87,17 @@ UnknownBFAEE0Class *Unknown_BFAEE0 = &BFAEE0;
 
 // ------------------------------------------------------------------------- the packets
 
-PacketClass::~PacketClass() {}
-RawPacketClass *PacketClass::Build() { return 0; }
-bool PacketClass::Process_Packet(void *) { return true; }
-int PacketClass::Get_Data_Size() { return 0; }
-void PacketClass::Print() {}
-bool PacketClass::Unknown_14() { return false; }
-int PacketClass::Get_Channel() { return -1; }
-int PacketClass::Get_Priority() { return 0; }
-bool PacketClass::Is_Reliable() { return true; }
-bool PacketClass::Close_Channel() { return false; }
+// wwonline's 64-bit byte order pair (pk.cpp's Add / Get of an __int64)
+static unsigned __int64 Swap64(unsigned __int64 v)
+{
+	unsigned __int64 r = 0;
+	for (int i = 0; i < 8; i++) {
+		r = (r << 8) | ((v >> (8 * i)) & 0xFF);
+	}
+	return r;
+}
+unsigned __int64 Unknown_8B4510(unsigned __int64 value) { return Swap64(value); }
+unsigned __int64 Unknown_8B4560(unsigned __int64 value) { return Swap64(value); }
 
 // A packet that keeps its message: Build gives it back as a raw message (as a packet class's Build
 // writes its fields into one).

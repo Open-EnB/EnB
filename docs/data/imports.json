@@ -1,6 +1,6 @@
 {
  "app": {
-  "ambiguous_total": 53,
+  "ambiguous_total": 54,
   "base": "reconstructed",
   "compile_errors": [],
   "files": {
@@ -136,12 +136,14 @@
    },
    "connect": {
     "ambiguous": [
+     "0x42B2F0",
      "0x823460"
     ],
     "copy": "reconstructed",
     "expected": {},
     "in_tree": [
      "0x823320",
+     "0x8233E0",
      "0x8234D0",
      "0x8235E0",
      "0x8236D0",
@@ -609,6 +611,39 @@
     "merged": [],
     "name": "shared/auxdata/permstr.cpp"
    },
+   "pk": {
+    "ambiguous": [
+     "0x42B2F0",
+     "0x86E920"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42A820",
+     "0x42AB30",
+     "0x86E8A0",
+     "0x86E8D0",
+     "0x86E960",
+     "0x86E9A0",
+     "0x86EA20",
+     "0x86EA40",
+     "0x86EAC0",
+     "0x86EB50",
+     "0x86ECE0",
+     "0x86ED50",
+     "0x86ED80",
+     "0x86EDB0",
+     "0x86EDF0",
+     "0x86EE20",
+     "0x86EE50",
+     "0x86EE90",
+     "0x86EEF0",
+     "0x86EFE0",
+     "0x86F010"
+    ],
+    "merged": [],
+    "name": "packets/pk.cpp"
+   },
    "policy": {
     "ambiguous": [
      "0x42A900",
@@ -790,7 +825,9 @@
     "name": "client/tasks/tsk_smovie.cpp"
    },
    "udpconn": {
-    "ambiguous": [],
+    "ambiguous": [
+     "0x42B2F0"
+    ],
     "copy": "reconstructed",
     "expected": {},
     "in_tree": [
@@ -932,7 +969,7 @@
    "wwudp/udp.h": "reconstructed",
    "wwudp/wtime.h": "reconstructed"
   },
-  "in_tree_total": 395,
+  "in_tree_total": 415,
   "totals": {}
  },
  "ww3d2": {

@@ -5,10 +5,10 @@
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
 **	Original location: e:\build\beta\G\app\packets\pk.h (the client's asserts name pk.h)
 **
-**	PARTIAL: only what the connection classes (app\common connect.cpp, udpconn.cpp) use of the
-**	packet base class and the message format (docs/kernel-map.md 4, 5). The packet classes, the
-**	factory's switch (0x869790) and the base's own functions are not rebuilt yet: a program that
-**	links the connections supplies PacketClass's members and Unknown_Create_Packet.
+**	PARTIAL (docs/kernel-map.md 4, 5): the packet base class (its inline defaults on the client's
+**	lines 483-502), the message header, the raw message with pk.cpp's helpers (the payload in
+**	network byte order) and the factory's declaration. The packet classes and the factory
+**	(0x8696C0, its switch 0x869790) are not rebuilt yet: a program supplies Unknown_Create_Packet.
 */
 
 #if defined(_MSC_VER)
@@ -19,8 +19,19 @@
 #define PK_H
 
 #include "..\shared\auxdata\linearbu.h"
+#include "..\shared\unknown_debug.h"
+#include <string>
 
 class ConnectionClass;
+
+// What the raw message's Add / Get of an object call (slot 0 writes the object to the buffer, slot 4
+// reads it back); no class of the client's is known to implement it yet.
+class Unknown_PacketDataClass	// NAME 1: neutral placeholder (D10)
+{
+public:
+	virtual void Write(LinearBufferClass *buffer) = 0;	// +0x00 NAME 2: what RawPacketClass::Add calls it for
+	virtual void Read(LinearBufferClass *buffer) = 0;	// +0x04 NAME 2: what RawPacketClass::Get calls it for
+};
 
 // A message's header on the wire: the size with these 4 bytes, the opcode (both 16-bit, little
 // endian). The asserts name it (`packet->Header.Size`, udpconn.cpp).
@@ -43,22 +54,50 @@ public:
 	bool Reliable;					// +0x28 NAME 2: a hashed channel's mode (3 reliable, 4 sequenced)
 	bool Close_Channel;				// +0x29 NAME 2: the hashed channel is closed after the send
 	char Unknown2A[0x22C - 0x2A];	// +0x2A
+
+	// pk.cpp 0x86E870-0x86EFE0: the payload's fields, numbers in network byte order.
+	int Add(const void *data, int len);			// 0x86E870  // NAME 2: what it does (and the overloads below)
+	void Add(Unknown_PacketDataClass &object);	// 0x86E8A0
+	void Add(const __int64 &value);				// 0x86E8D0
+	void Add(const int &value);					// 0x86E920
+	void Add(const short &value);				// 0x86E960
+	void Add(const bool &value);				// 0x86E9A0
+	void Add(const float &value);				// 0x86E9E0 (its bits, as a long)
+	void Add_String(const char *string);		// 0x86EA20 (LinearBufferClass::Write_String)  // NAME 2: what it does
+	void Add(const char *str);					// 0x86EA40: a 4-byte length (with the 0), then the bytes
+	void Add(const std::string &s);				// 0x86EAC0: a 2-byte length, then the bytes
+	void Get(std::string *s);					// 0x86EB50  // NAME 2: what it does (and the overloads below)
+	static int Get_Size(const std::string &s);	// 0x86ECE0: what Add(s) writes  // NAME 2: what it returns
+	int Get(void *buffer, int len);				// 0x86ED20
+	void Get(Unknown_PacketDataClass *object);	// 0x86ED50
+	void Get(Unknown_PacketDataClass &object);	// 0x86ED80
+	void Get(__int64 &value);					// 0x86EDB0
+	void Get(int &value);						// 0x86EDF0
+	void Get(short &value);						// 0x86EE20
+	void Get(bool &value);						// 0x86EE50
+	void Get(float &value);						// 0x86EE90
+	char *Get_String();							// 0x86EED0 (LinearBufferClass::Read_String)  // NAME 2: what it does
+	void Get(char **str);						// 0x86EEF0: new[]'d
+	static int Get_Size(const char *str);		// 0x86EFE0: what Add(str) writes after the length
 };
 
-// The packet base class (pk.h: asserts l.483-502), vtable 0xAEDE88, 10 slots.
+// The packet base class (vtable 0xAEDE88, 10 slots; constructor 0x52B1F0, inline). Its defaults
+// are inline here, emitted where a packet class is built (the client's copies 0x52B210-0x52B350
+// in an object of app\client\item, `..\..\packets/pk.h`), asserting on lines 483-502.
 class PacketClass		// NAME 3: by convention (D24) from pk.h / pk.cpp
 {
 public:
-	virtual ~PacketClass();								// +0x00 0x52B350
+	PacketClass() {}									// 0x52B1F0
+	virtual ~PacketClass() {}							// +0x00 0x52B350
 	virtual RawPacketClass *Build();					// +0x04 0x52B210: the message to send  // NAME 2: what it does
 	virtual bool Process_Packet(void *client);			// +0x08 0x52B240 (SClient *)
 	virtual int Get_Data_Size();						// +0x0C 0x52B270  // NAME 2: what it returns
-	virtual void Print();								// +0x10 0x52B2A0  // NAME 2: what it does
-	virtual bool Unknown_14();							// +0x14 0x86F010 (assert pk.cpp l.1344)
-	virtual int Get_Channel();							// +0x18 0x52B2D0 (-1)  // NAME 2: Send_Packet's use (udpconn.cpp)
-	virtual int Get_Priority();							// +0x1C 0x52B2F0 (0)  // NAME 2: Send_Packet's use
-	virtual bool Is_Reliable();							// +0x20 0x52B310 (true)  // NAME 2: Send_Packet's use
-	virtual bool Close_Channel();						// +0x24 0x52B330 (false)  // NAME 2: Send_Packet's use
+	virtual int Print(void *a, int b);					// +0x10 0x52B2A0  // NAME 2: what it does
+	virtual int Unknown_14(int a, int b);				// +0x14 0x86F010 (pk.cpp l.1344)
+	virtual int Get_Channel() { return(-1); }			// +0x18 0x52B2D0  // NAME 2: Send_Packet's use (udpconn.cpp)
+	virtual int Get_Priority() { return(0); }			// +0x1C 0x52B2F0  // NAME 2: Send_Packet's use
+	virtual bool Is_Reliable() { return(true); }		// +0x20 0x52B310  // NAME 2: Send_Packet's use
+	virtual bool Close_Channel() { return(false); }		// +0x24 0x52B330  // NAME 2: Send_Packet's use
 
 	ConnectionClass *Connection;	// +0x04 the connection it came from (Receive sets it)  // NAME 2: what it holds
 	int Serial;						// +0x08 (the global 0xBF4128)  // NAME 2: what it holds
@@ -67,5 +106,401 @@ public:
 // The factory (0x8696C0): a message (header and payload, contiguous) to a new packet object, or
 // NULL for an unknown opcode; it wraps the bytes in a RawPacketClass and calls the switch 0x869790.
 PacketClass *Unknown_Create_Packet(void *buffer);	// NAME 1: what it does; app\packets (pk.cpp?)
+
+// (spacing kept: the defaults assert on the client's pk.h lines 483, 490, 496 and 502)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+inline RawPacketClass *PacketClass::Build()
+{
+	G_ASSERT(0);
+	return(0);
+}
+
+
+inline bool PacketClass::Process_Packet(void *)
+{
+	G_ASSERT(0);
+	return(false);
+}
+
+inline int PacketClass::Get_Data_Size()
+{
+	G_ASSERT(0);
+	return(0);
+}
+
+inline int PacketClass::Print(void *, int)
+{
+	G_ASSERT(0);
+	return(0);
+}
 
 #endif
