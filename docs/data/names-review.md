@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 2 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 27 |
-| 3 | by convention from a client-named file or sibling | 54 |
-| 2 | describes what the code does | 373 |
-| 1 | neutral placeholder | 257 |
+| 3 | by convention from a client-named file or sibling | 55 |
+| 2 | describes what the code does | 428 |
+| 1 | neutral placeholder | 278 |
 
 ## For review (score 3 and below)
 
@@ -66,6 +66,17 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `m_Unknown428` | `app/client/aux_roots.h:921` | neutral (D10): a member, not a field of the tree |
 | 1 | `UnknownCOClass` | `app/client/aux_roots.h:979` | neutral (D10), the class of co.cpp's objects (vtable 0xB0070C) |
 | 1 | `Unknown_Create_Aux_Root` | `app/client/aux_roots.h:984` | untagged neutral name (D10) |
+| 1 | `TaskClass` | `app/kernel/kernel.h:27` | after the tasks' own names (LoginTaskClass); the client's not found |
+| 1 | `Describe` | `app/kernel/kernel.h:31` | what the message server's does |
+| 1 | `Unknown_08` | `app/kernel/kernel.h:33` | untagged neutral name (D10) |
+| 1 | `Unknown_0C` | `app/kernel/kernel.h:34` | untagged neutral name (D10) |
+| 1 | `Unknown_10` | `app/kernel/kernel.h:35` | untagged neutral name (D10) |
+| 1 | `Unknown_14` | `app/kernel/kernel.h:36` | untagged neutral name (D10) |
+| 1 | `Unknown_18` | `app/kernel/kernel.h:37` | untagged neutral name (D10) |
+| 1 | `Unknown_1C` | `app/kernel/kernel.h:38` | untagged neutral name (D10) |
+| 1 | `Unknown_20` | `app/kernel/kernel.h:39` | untagged neutral name (D10) |
+| 1 | `Unknown_24` | `app/kernel/kernel.h:40` | untagged neutral name (D10) |
+| 1 | `Pre_Run` | `app/kernel/kernel.h:45` | Run_One_Cycle's order |
 | 1 | `m_Unknown70` | `app/shared/auxdata/delta.cpp:9` | untagged neutral name (D10) |
 | 1 | `m_Unknown78` | `app/shared/auxdata/delta.cpp:11` | untagged neutral name (D10) |
 | 1 | `m_Unknown7C` | `app/shared/auxdata/delta.cpp:12` | untagged neutral name (D10) |
@@ -225,6 +236,14 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `unknown_debug.h` | `app/shared/unknown_debug.h:30` | neutral file name (D37, D10): the object has no __FILE__ |
 | 1 | `Unknown_Assert_Failed` | `app/shared/unknown_debug.h:33` | untagged neutral name (D10) |
 | 1 | `Unknown_Fail_If_Report` | `app/shared/unknown_debug.h:34` | untagged neutral name (D10) |
+| 1 | `UnknownLogClass` | `app/wwudp/bandwidthaccounting.cpp:26` | placeholder for E&B's log object (cordmgr.cpp) |
+| 1 | `UnknownLog` | `app/wwudp/bandwidthaccounting.cpp:27` | 0xBDA908 |
+| 1 | `Unknown_4BC460` | `app/wwudp/bandwidthaccounting.cpp:29` | the debug window print |
+| 1 | `Unknown_Get_Ticks` | `app/wwudp/bandwidthaccounting.cpp:31` | untagged neutral name (D10) |
+| 1 | `ExtraIn` | `app/wwudp/bandwidthaccounting.cpp:43` | +0x10 Record_In's third argument (0 from the callback) |
+| 1 | `ExtraOut` | `app/wwudp/bandwidthaccounting.cpp:44` | +0x14 |
+| 1 | `ExtraBwIn` | `app/wwudp/bandwidthaccounting.cpp:47` | +0x20 |
+| 1 | `ExtraBwOut` | `app/wwudp/bandwidthaccounting.cpp:48` | +0x24 |
 | 1 | `Unknown0C` | `app/wwudp/cordcon.cpp:148` | untagged neutral name (D10) |
 | 1 | `Unknown14` | `app/wwudp/cordcon.cpp:150` | untagged neutral name (D10) |
 | 1 | `Unknown18` | `app/wwudp/cordcon.cpp:151` | untagged neutral name (D10) |
@@ -249,6 +268,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown0C` | `app/wwudp/cordmgr.h:40` | untagged neutral name (D10) |
 | 1 | `Unknown134` | `app/wwudp/cordmgr.h:72` | untagged neutral name (D10) |
 | 1 | `Release` | `app/wwudp/cordmgr.h:103` | after Pump_Releases |
+| 1 | `Set_Accounting_Callback` | `app/wwudp/udp.h:39` | what it does |
+| 1 | `Clear_Accounting_Callback` | `app/wwudp/udp.h:40` | what it does |
 | 1 | `unknown_cordmsg.cpp` | `app/wwudp/unknown_cordmsg.cpp:12` | PROVISIONAL file name (no assert or __FILE__ names the object) |
 | 1 | `Get_Time_T` | `app/wwudp/wtime.h:34` | describes what it returns |
 | 1 | `Unknown_Assert_Failed` | `stubs/app_stubs.cpp:33` | untagged neutral name (D10) |
@@ -274,6 +295,13 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `UnknownLogClass` | `tests/capharness/udpreplay/udpreplay.cpp:62` | untagged neutral name (D10) |
 | 1 | `Unknown_4BC130` | `tests/capharness/udpreplay/udpreplay.cpp:65` | untagged neutral name (D10) |
 | 1 | `UnknownLog` | `tests/capharness/udpreplay/udpreplay.cpp:67` | untagged neutral name (D10) |
+| 2 | `Accept_Focus` | `app/kernel/kernel.h:41` | 'LoginTask: accepting focus.' |
+| 2 | `Yield_Focus` | `app/kernel/kernel.h:42` | 'LoginTask: yielding focus.' |
+| 2 | `Get_Interval` | `app/kernel/kernel.h:44` | Run_One_Cycle's use |
+| 2 | `Delete_On_Remove` | `app/kernel/kernel.h:48` | Remove_Task's use |
+| 2 | `Get_Instance` | `app/kernel/kernel.h:57` | returns the instance (assert 'Instance == NULL') |
+| 2 | `Add_Task` | `app/kernel/kernel.h:58` | what it does |
+| 2 | `Remove_Task` | `app/kernel/kernel.h:59` | what it does |
 | 2 | `Swap` | `app/shared/auxdata/bitset.h:26` | describes what it does |
 | 2 | `Is_Set` | `app/shared/auxdata/bitset.h:30` | describes what it does |
 | 2 | `Set` | `app/shared/auxdata/bitset.h:32` | describes what it does |
@@ -548,6 +576,54 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Value_To_String` | `app/shared/strconv_lib.h:23` | describes what it does |
 | 2 | `String_To_Value` | `app/shared/strconv_lib.h:24` | describes what it does |
 | 2 | `Type_Name` | `app/shared/strconv_lib.h:31` | describes what it does |
+| 2 | `BandwidthEntryClass` | `app/wwudp/bandwidthaccounting.cpp:34` | describes what it holds |
+| 2 | `Ip` | `app/wwudp/bandwidthaccounting.cpp:39` | +0x00 (host order) |
+| 2 | `Port` | `app/wwudp/bandwidthaccounting.cpp:40` | +0x04 |
+| 2 | `BytesIn` | `app/wwudp/bandwidthaccounting.cpp:41` | +0x08 since the last Run |
+| 2 | `BytesOut` | `app/wwudp/bandwidthaccounting.cpp:42` | +0x0C |
+| 2 | `BwIn` | `app/wwudp/bandwidthaccounting.cpp:45` | +0x18 bits per second |
+| 2 | `BwOut` | `app/wwudp/bandwidthaccounting.cpp:46` | +0x1C |
+| 2 | `PacketsIn` | `app/wwudp/bandwidthaccounting.cpp:49` | +0x28 since the last Run |
+| 2 | `PacketsOut` | `app/wwudp/bandwidthaccounting.cpp:50` | +0x2C |
+| 2 | `PpsIn` | `app/wwudp/bandwidthaccounting.cpp:51` | +0x30 datagrams per second |
+| 2 | `PpsOut` | `app/wwudp/bandwidthaccounting.cpp:52` | +0x34 |
+| 2 | `Idle` | `app/wwudp/bandwidthaccounting.cpp:53` | +0x38 runs without a datagram (dropped after 10) |
+| 2 | `BandwidthAccountingClass` | `app/wwudp/bandwidthaccounting.cpp:56` | after its windows' titles |
+| 2 | `Record` | `app/wwudp/bandwidthaccounting.cpp:65` | what it does |
+| 2 | `Print_Address` | `app/wwudp/bandwidthaccounting.cpp:66` | what it does |
+| 2 | `Print` | `app/wwudp/bandwidthaccounting.cpp:67` | what it does |
+| 2 | `Compare` | `app/wwudp/bandwidthaccounting.cpp:68` | what it does |
+| 2 | `Sort` | `app/wwudp/bandwidthaccounting.cpp:69` | what it does |
+| 2 | `Reset` | `app/wwudp/bandwidthaccounting.cpp:70` | what it does |
+| 2 | `Find` | `app/wwudp/bandwidthaccounting.cpp:71` | what it does |
+| 2 | `Record_In` | `app/wwudp/bandwidthaccounting.cpp:72` | what it does |
+| 2 | `Record_Out` | `app/wwudp/bandwidthaccounting.cpp:73` | what it does |
+| 2 | `Compute_Rates` | `app/wwudp/bandwidthaccounting.cpp:74` | what it does |
+| 2 | `Entries` | `app/wwudp/bandwidthaccounting.cpp:76` | 0xBF4048 |
+| 2 | `BytesOut` | `app/wwudp/bandwidthaccounting.cpp:77` | 0xBF4060 |
+| 2 | `BytesIn` | `app/wwudp/bandwidthaccounting.cpp:78` | 0xBF4064 |
+| 2 | `PacketsOut` | `app/wwudp/bandwidthaccounting.cpp:79` | 0xBF4068 |
+| 2 | `PacketsIn` | `app/wwudp/bandwidthaccounting.cpp:80` | 0xBF406C |
+| 2 | `BwOut` | `app/wwudp/bandwidthaccounting.cpp:81` | 0xBF4070 |
+| 2 | `BwIn` | `app/wwudp/bandwidthaccounting.cpp:82` | 0xBF4074 |
+| 2 | `PpsOut` | `app/wwudp/bandwidthaccounting.cpp:83` | 0xBF4078 |
+| 2 | `PpsIn` | `app/wwudp/bandwidthaccounting.cpp:84` | 0xBF407C |
+| 2 | `LastTime` | `app/wwudp/bandwidthaccounting.cpp:85` | 0xBF4080 |
+| 2 | `PeakOut` | `app/wwudp/bandwidthaccounting.cpp:86` | 0xBF4084 |
+| 2 | `PeakOutPerAddr` | `app/wwudp/bandwidthaccounting.cpp:87` | 0xBF4088 |
+| 2 | `PeakIn` | `app/wwudp/bandwidthaccounting.cpp:88` | 0xBF408C |
+| 2 | `PeakInPerAddr` | `app/wwudp/bandwidthaccounting.cpp:89` | 0xBF4090 |
+| 2 | `Sizes` | `app/wwudp/bandwidthaccounting.cpp:90` | 0xBF4094 datagrams out by size: <= 50, < 100, < 250, < 576, larger |
+| 2 | `Enabled` | `app/wwudp/bandwidthaccounting.cpp:91` | 0xBF40A8 (never set in the client) |
+| 2 | `LastInIp` | `app/wwudp/bandwidthaccounting.cpp:92` | 0xBF40AC |
+| 2 | `LastInPort` | `app/wwudp/bandwidthaccounting.cpp:93` | 0xBF40B0 |
+| 2 | `LastOutIp` | `app/wwudp/bandwidthaccounting.cpp:94` | 0xBF40B4 |
+| 2 | `LastOutPort` | `app/wwudp/bandwidthaccounting.cpp:95` | 0xBF40B8 |
+| 2 | `ForgetIn` | `app/wwudp/bandwidthaccounting.cpp:96` | 0xBB13E8 the cached index is stale |
+| 2 | `ForgetOut` | `app/wwudp/bandwidthaccounting.cpp:97` | 0xBB13E9 |
+| 2 | `SortCountdown` | `app/wwudp/bandwidthaccounting.cpp:98` | 0xBB13EC |
+| 2 | `LastInIndex` | `app/wwudp/bandwidthaccounting.cpp:99` | 0xBB13F0 |
+| 2 | `LastOutIndex` | `app/wwudp/bandwidthaccounting.cpp:100` | 0xBB13F4 |
 | 2 | `CORD_FRAGMENT_SIZE` | `app/wwudp/cordcon.h:52` | the fragment size in write 0x850C70 / examinePacket |
 | 2 | `CORD_MAX_PACKET` | `app/wwudp/cordcon.h:53` | pumpInternal's datagram limit (examinePacket: < 0x1F5) |
 | 2 | `CordMessageClass` | `app/wwudp/cordcon.h:190` | describes what it holds |
@@ -658,6 +734,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `DeltaPlanetClass` | `app/client/aux_roots.h:927` | the client's root string "Planet", Westwood XxxClass (D24); structure = C# PlanetObject (C# fields = ours (same names, same order)) |
 | 3 | `DeltaStarbaseClass` | `app/client/aux_roots.h:943` | the client's root string "Starbase", Westwood XxxClass (D24); structure = C# StarbaseObject (C# fields = ours (same names, same order)) |
 | 3 | `DeltaStargateClass` | `app/client/aux_roots.h:959` | the client's root string "Stargate", Westwood XxxClass (D24); structure = C# StargateObject (C# fields = ours (same names, same order)) |
+| 3 | `kernel.h` | `app/kernel/kernel.h:20` | header name assumed from the client's kernel.cpp |
 | 3 | `bitset.h` | `app/shared/auxdata/bitset.h:16` | header name assumed from the client's bitset.cpp |
 | 3 | `BitSetClass` | `app/shared/auxdata/bitset.h:19` | by convention (D24) from the client's file bitset.cpp |
 | 3 | `delta.h` | `app/shared/auxdata/delta.h:19` | header name assumed from the client's delta.cpp |

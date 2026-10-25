@@ -1,6 +1,6 @@
 {
  "app": {
-  "ambiguous_total": 49,
+  "ambiguous_total": 50,
   "base": "reconstructed",
   "compile_errors": [],
   "files": {
@@ -67,6 +67,38 @@
     ],
     "merged": [],
     "name": "client/aux_roots.cpp"
+   },
+   "bandwidthaccounting": {
+    "ambiguous": [
+     "0x45CB00",
+     "0x45CDC0",
+     "0x84DBE0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x84C760",
+     "0x84C830",
+     "0x84C8B0",
+     "0x84C970",
+     "0x84CB80",
+     "0x84CC50",
+     "0x84D150",
+     "0x84D180",
+     "0x84D1C0",
+     "0x84D240",
+     "0x84D380",
+     "0x84D510",
+     "0x84D730",
+     "0x84D9C0",
+     "0x84DA40",
+     "0x84DB70",
+     "0x84DC20",
+     "0x84DD30",
+     "0x84DE40"
+    ],
+    "merged": [],
+    "name": "wwudp/bandwidthaccounting.cpp"
    },
    "bitset": {
     "ambiguous": [],
@@ -669,6 +701,7 @@
   },
   "headers": {
    "client/aux_roots.h": "reconstructed",
+   "kernel/kernel.h": "reconstructed",
    "shared/auxdata/bitset.h": "reconstructed",
    "shared/auxdata/delta.h": "reconstructed",
    "shared/auxdata/delta_array.h": "reconstructed",
@@ -701,7 +734,7 @@
    "wwudp/udp.h": "reconstructed",
    "wwudp/wtime.h": "reconstructed"
   },
-  "in_tree_total": 293,
+  "in_tree_total": 312,
   "totals": {}
  },
  "ww3d2": {

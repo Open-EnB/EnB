@@ -3190,6 +3190,11 @@ RECONSTRUCTED = {
     ('app', 'wwudp/udp.h'): "the UDP socket CordMgr and CordCon use (CordCon::Udp_): WWOnline's wnet UDP (libs\\wwonline\\wnet, "
                             "client 0x8BF990-0x8C0540), the part the wwudp code calls (EA's Generals Tools\\matchbot\\wnet\\udp.h interface); "
                             "defined by the program (the capture harness's replay socket, M1.4)",
+    ('app', 'kernel/kernel.h'): "the task kernel's interface (KernelClass, the task base TaskClass: descriptive names, the client's "
+                                "layout and slot order, docs/kernel-map.md), declared only: kernel.cpp 0x443020-0x444150 not rebuilt yet",
+    ('app', 'wwudp/bandwidthaccounting.cpp'): "the bandwidth accounting, client 0x84C720-0x84DFB0 (M1.4): a kernel task with per-address "
+                                              "counts fed by wnet's accounting callback, WWLib's DynamicVectorClass of 0x3C-byte "
+                                              "entries; the debug window prints on the client's lines 281-361 (D25); exact",
     ('app', 'wwudp/wtime.h'): "the time value CordCon uses: wlib's Wtime (libs\\wwonline\\wlib, client 0x8BA300-0x8BB7A0; "
                               "E&B's copy keeps the day and the millisecond of the day), the part the wwudp code calls (EA's "
                               "Generals Tools\\matchbot\\wlib\\wtime.h interface); defined by the program (the capture "

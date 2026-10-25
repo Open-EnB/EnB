@@ -273,7 +273,7 @@ verified start). Each step names what it needs that isn't in the tree.
 | # | What | Size | Needs | Test |
 |---|---|---|---|---|
 | 1 | **kernel.cpp**: KernelClass and the task base (§2, §3), the 14 one-line default slots 0x443FA0-0x444140 | ~45 functions, ~4.4 KB (0x443020-0x444150) | the ms clock 0x4A3B40 (auxdata's unknown_root.cpp, in the tree), the input queue 0x42EA80 / 0x42E8A0 (input.cpp: declare), WW3D's device check 0x9179D0 (WW3D, in the tree?) | a program with dummy tasks: focus, intervals, Pending_Delete, Shutdown order |
-| 2 | **bandwidthaccounting.cpp** (M1.4's last file): the task 0x84C760-0x84CC50, the per-IP table 0x84D150-0x84D730, the `DynamicVectorClass<entry>` instantiation 0x84D960-0x84DF00 (WWLib's vector.h) | ~30 functions, ~4.4 KB (0x84C720-0x84DFB0) | (1); the wnet hook 0x8C05E0 / 0x8C0600 (UDP::Write / Read call it: `(out, len, ip, port)`); E&B's debug print 0x4BC460 (cdecl: window, 0xBDA908, `__FILE__`, `__LINE__`, column, row, format; lines 281-282, 310-361) | udpreplay counting its datagrams |
+| 2 | **bandwidthaccounting.cpp** (M1.4's last file; **done** 2026-10-24, exact, on kernel.h's declared base): the task 0x84C760-0x84CC50, the per-IP table 0x84D150-0x84D730, the `DynamicVectorClass<entry>` instantiation 0x84D960-0x84DF00 (WWLib's vector.h) | ~30 functions, ~4.4 KB (0x84C720-0x84DFB0) | (1); the wnet hook 0x8C05E0 / 0x8C0600 (UDP::Write / Read call it: `(out, len, ip, port)`); E&B's debug print 0x4BC460 (cdecl: window, 0xBDA908, `__FILE__`, `__LINE__`, column, row, format; lines 281-282, 310-361) | udpreplay counting its datagrams |
 | 3 | connect.h (the base, the wrappers, the peek connection) and the stream half of connect.cpp, circbuff.cpp | 11 + ~10 + ~8 functions, ~3.6 KB | INIClass (in the tree) | a memory transport |
 | 4 | **udpconn.cpp**: UDPConnection, the CordMgr task, the listener | 41, 6.0 KB | (1), (3), app\wwudp (in the tree), wlib's critical section 0x8B42F0-0x8B4350 and HashTemplate (wlib: open decision; stand-ins as for Wtime) | udpreplay's loop test through UDPConnection::Send / Receive with a stub factory |
 | 5 | pk.h's base and pk.cpp's helpers; the factory 0x869790 with the 259 classes declared (cases: sizes and constructors) | 45, 17.6 KB (the factory 16 KB) | LinearBufferClass (in the tree); the packet classes (0x85C5F0-0x8B1EB0) for an exact factory | decode the captures' messages into packet objects |
@@ -283,8 +283,8 @@ verified start). Each step names what it needs that isn't in the tree.
 | 9 | tsk_game.cpp (ClientTask), tsk_login.cpp (LoginTask) | 18 + 54 functions, 2.8 + 13.8 KB | (4)-(8); client.cpp, the login and character select screens (0xAF2C30, 0xAEFB60), kcom auth (`authFactory`, `iauth`), SClient | a login against a recorded server |
 | 10 | main_client.cpp's WinMain | 1 function, 3 KB | every subsystem it starts (the table in §1) | last; a reduced WinMain for the programs before |
 
-Recommendation (a proposal for the user): (1) and (2) next, as one item: they need nothing from
-WWOnline, close M1.4's last file and give the client its loop; then (3) and (4), which put the
+Recommendation (a proposal for the user): (1) next (app/kernel/kernel.h already declares its
+interface, for (2), which is done); it needs nothing from WWOnline and gives the client its loop; then (3) and (4), which put the
 rebuilt UDP stack under a kernel task and the game's connection class and can be tested with
 udpreplay's loop test. (5) is the gate to the packet classes and is large; (8) and (9) wait for
 the wnet decision.

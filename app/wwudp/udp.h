@@ -34,6 +34,10 @@ public:
 	// there is nothing to read (CordMgr::Pump reads until < 0).
 	int Read(unsigned char *msg, unsigned int len, sockaddr_in *from);
 	bool getLocalAddr(unsigned int &ip, unsigned short &port);
+	// E&B's addition: a function Write and Read call with every datagram (out, length, the
+	// peer's ip and port; bandwidthaccounting.cpp's), kept in 0xBF52C4. 0x8C05E0 / 0x8C0600
+	static void Set_Accounting_Callback(void (*callback)(bool out, int len, unsigned int ip, unsigned short port));	// NAME 1: what it does
+	static void Clear_Accounting_Callback();	// NAME 1: what it does
 
 private:
 	int fd;
