@@ -32,6 +32,7 @@
      "0x6F9C30",
      "0x6F9ED0",
      "0x6FA150",
+     "0x6FA6F0",
      "0x6FB1E0",
      "0x6FB760",
      "0x6FBDA0",
@@ -46,11 +47,14 @@
      "0x707430",
      "0x707630",
      "0x709D30",
+     "0x752E60",
      "0x753520",
      "0x753810",
      "0x7538B0",
      "0x753BA0",
+     "0x753DF0",
      "0x754580",
+     "0x7548D0",
      "0x754DB0",
      "0x754FB0",
      "0x755CA0",
@@ -695,7 +699,7 @@
    "wwudp/udp.h": "reconstructed",
    "wwudp/wtime.h": "reconstructed"
   },
-  "in_tree_total": 287,
+  "in_tree_total": 291,
   "totals": {}
  },
  "ww3d2": {

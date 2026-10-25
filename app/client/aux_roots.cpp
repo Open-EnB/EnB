@@ -3,6 +3,37 @@
 // NAME 1 [aux_roots.cpp]: provisional file name (the client's constructors are in co.cpp 0x6F6000-0x6FBEF0 and the Player object 0x751BE0)
 #include "aux_roots.h"
 
+// the CREATE factory (0x6F6000)
+UnknownRootClass *Unknown_Create_Aux_Root(int type, int unknown)
+{
+	switch (type) {
+		case 0:
+		case 1:
+			return new DeltaShipClass(unknown);
+		case 25:
+			return new DeltaHulkClass(unknown);
+		case 3:
+			return new DeltaPlanetClass(unknown);
+		case 12:
+			return new DeltaStarbaseClass(unknown);
+		case 8:
+			return new DeltaLightClass(unknown);
+		case 34:
+		case 37:
+		case 41:
+			return new DeltaDecorationClass(unknown);
+		case 11:
+			return new DeltaStargateClass(unknown);
+		case 39:
+			return new DeltaManufacturingLabClass(unknown);
+		case 38:
+			return new DeltaHarvestableClass(unknown);
+		case 4:
+			return new DeltaComponentClass(unknown);
+	}
+	return 0;
+}
+
 // Ship (0x6F66E0)
 DeltaShipClass::DeltaShipClass(int unknown) :
 	UnknownRootClass(unknown, "Ship"),
@@ -126,13 +157,13 @@ DeltaShipClass::DeltaShipClass(int unknown) :
 	DeltaCompoundClass::Unknown_48();
 }
 
-// Component (0x6FBDA0)
-DeltaComponentClass::DeltaComponentClass(int unknown) :
-	UnknownRootClass(unknown, "Component"),
-	Name("Name", "")
+// Ship's narrow Add (0x6F8C70)
+void DeltaShipClass::Add(int narrow, DeltaClass *child)
 {
-	Add(&Name);
-	DeltaCompoundClass::Unknown_48();
+	DeltaCompoundClass::Add(child);
+	if (narrow == 1) {
+		child->m_Unknown80 = 0xCF;
+	}
 }
 
 // Light (0x6F9870)
@@ -184,6 +215,32 @@ DeltaHarvestableClass::DeltaHarvestableClass(int unknown) :
 	DeltaCompoundClass::Unknown_48();
 }
 
+// Ship.Inventory.Cargo.N (0x6FA150)
+DeltaItemClass::DeltaItemClass(const char *name) :
+	DeltaCompoundClass(name),
+	ItemTemplateID("ItemTemplateID", -1),
+	StackCount("StackCount"),
+	Price("Price", MoneyClass(-1)),
+	AveCost("AveCost"),
+	Structure("Structure", -1.0f),
+	Quality("Quality", -1.0f),
+	InstanceInfo("InstanceInfo", ""),
+	InstanceActivatedEffectInfo("InstanceActivatedEffectInfo", ""),
+	InstanceEquipEffectInfo("InstanceEquipEffectInfo", ""),
+	BuilderName("BuilderName", "")
+{
+	Add(&ItemTemplateID);
+	Add(&StackCount);
+	Add(&Price);
+	Add(&AveCost);
+	Add(&Structure);
+	Add(&Quality);
+	Add(&InstanceInfo);
+	Add(&InstanceActivatedEffectInfo);
+	Add(&InstanceEquipEffectInfo);
+	Add(&BuilderName);
+}
+
 // ManufacturingLab (0x6FA6F0)
 DeltaManufacturingLabClass::DeltaManufacturingLabClass(int unknown) :
 	UnknownRootClass(unknown, "ManufacturingLab"),
@@ -233,6 +290,53 @@ DeltaManufacturingLabClass::DeltaManufacturingLabClass(int unknown) :
 	DeltaCompoundClass::Unknown_48();
 }
 
+// ManufacturingLab.PrimaryCategories.N (0x6FB1E0)
+DeltaPrimaryCategoryClass::DeltaPrimaryCategoryClass(const char *name) :
+	DeltaCompoundClass(name),
+	Name("Name", ""),
+	Categories("Categories", 5)
+{
+	Add(&Name);
+	Add(&Categories);
+}
+
+// ManufacturingLab.KnownFormula.N (0x6FB760)
+DeltaKnownFormulaClass::DeltaKnownFormulaClass(const char *name) :
+	DeltaCompoundClass(name),
+	ItemName("ItemName", ""),
+	ItemID("ItemID", -1),
+	TechLevel("TechLevel")
+{
+	Add(&ItemName);
+	Add(&ItemID);
+	Add(&TechLevel);
+}
+
+// Component (0x6FBDA0)
+DeltaComponentClass::DeltaComponentClass(int unknown) :
+	UnknownRootClass(unknown, "Component"),
+	Name("Name", "")
+{
+	Add(&Name);
+	DeltaCompoundClass::Unknown_48();
+}
+
+// Ship.BuffArray.N.Elements.N (0x707430)
+DeltaElementClass::DeltaElementClass(const char *name) :
+	DeltaCompoundClass(name),
+	SourceEntity("SourceEntity", ""),
+	SourceObject("SourceObject", ""),
+	Magnitude("Magnitude"),
+	IsActive("IsActive"),
+	ExpirationTime("ExpirationTime", 0)
+{
+	Add(&SourceEntity);
+	Add(&SourceObject);
+	Add(&Magnitude);
+	Add(&IsActive);
+	Add(&ExpirationTime);
+}
+
 // Player (0x752510)
 DeltaPlayerClass::DeltaPlayerClass() :
 	UnknownSendRootClass(0, "Player"),
@@ -274,70 +378,6 @@ DeltaPlayerClass::DeltaPlayerClass() :
 	Add(&ClientSendUITriggers);
 	Add(&GroupInfo);
 	Unknown_48();
-}
-
-// Ship.Inventory.Cargo.N (0x6FA150)
-DeltaItemClass::DeltaItemClass(const char *name) :
-	DeltaCompoundClass(name),
-	ItemTemplateID("ItemTemplateID", -1),
-	StackCount("StackCount"),
-	Price("Price", MoneyClass(-1)),
-	AveCost("AveCost"),
-	Structure("Structure", -1.0f),
-	Quality("Quality", -1.0f),
-	InstanceInfo("InstanceInfo", ""),
-	InstanceActivatedEffectInfo("InstanceActivatedEffectInfo", ""),
-	InstanceEquipEffectInfo("InstanceEquipEffectInfo", ""),
-	BuilderName("BuilderName", "")
-{
-	Add(&ItemTemplateID);
-	Add(&StackCount);
-	Add(&Price);
-	Add(&AveCost);
-	Add(&Structure);
-	Add(&Quality);
-	Add(&InstanceInfo);
-	Add(&InstanceActivatedEffectInfo);
-	Add(&InstanceEquipEffectInfo);
-	Add(&BuilderName);
-}
-
-// ManufacturingLab.PrimaryCategories.N (0x6FB1E0)
-DeltaPrimaryCategoryClass::DeltaPrimaryCategoryClass(const char *name) :
-	DeltaCompoundClass(name),
-	Name("Name", ""),
-	Categories("Categories", 5)
-{
-	Add(&Name);
-	Add(&Categories);
-}
-
-// ManufacturingLab.KnownFormula.N (0x6FB760)
-DeltaKnownFormulaClass::DeltaKnownFormulaClass(const char *name) :
-	DeltaCompoundClass(name),
-	ItemName("ItemName", ""),
-	ItemID("ItemID", -1),
-	TechLevel("TechLevel")
-{
-	Add(&ItemName);
-	Add(&ItemID);
-	Add(&TechLevel);
-}
-
-// Ship.BuffArray.N.Elements.N (0x707430)
-DeltaElementClass::DeltaElementClass(const char *name) :
-	DeltaCompoundClass(name),
-	SourceEntity("SourceEntity", ""),
-	SourceObject("SourceObject", ""),
-	Magnitude("Magnitude"),
-	IsActive("IsActive"),
-	ExpirationTime("ExpirationTime", 0)
-{
-	Add(&SourceEntity);
-	Add(&SourceObject);
-	Add(&Magnitude);
-	Add(&IsActive);
-	Add(&ExpirationTime);
 }
 
 // Player.RPGInfo (0x752E60)
@@ -427,10 +467,10 @@ DeltaMissionClass::DeltaMissionClass(const char *name) :
 	Reward("Reward", ""),
 	FailureConsequence("FailureConsequence", ""),
 	IssuingFaction("IssuingFaction", ""),
-	IsTimed("IsTimed"),
+	IsTimed("IsTimed", true),
 	ExpirationTime("ExpirationTime", 0),
 	StartTime("StartTime"),
-	IsForfeitable("IsForfeitable"),
+	IsForfeitable("IsForfeitable", true),
 	IsComplete("IsComplete"),
 	IsFailed("IsFailed"),
 	IsExpired("IsExpired"),
@@ -466,12 +506,12 @@ DeltaMissionClass::DeltaMissionClass(const char *name) :
 DeltaGroupInfoClass::DeltaGroupInfoClass(const char *name) :
 	DeltaCompoundClass(name),
 	IsGroupLeader("IsGroupLeader"),
-	LookingForGroup("LookingForGroup"),
-	AllowGroupInvite("AllowGroupInvite"),
-	ShowNonCombatActivities("ShowNonCombatActivities"),
-	ForceAutoSplit("ForceAutoSplit"),
-	RestrictedLootingRights("RestrictedLootingRights"),
-	AutoReleaseLootingRestrictions("AutoReleaseLootingRestrictions"),
+	LookingForGroup("LookingForGroup", true),
+	AllowGroupInvite("AllowGroupInvite", true),
+	ShowNonCombatActivities("ShowNonCombatActivities", true),
+	ForceAutoSplit("ForceAutoSplit", true),
+	RestrictedLootingRights("RestrictedLootingRights", true),
+	AutoReleaseLootingRestrictions("AutoReleaseLootingRestrictions", true),
 	FormationName("FormationName", ""),
 	Formation("Formation"),
 	Position("Position", -1),
@@ -502,42 +542,4 @@ DeltaGroupMemberClass::DeltaGroupMemberClass(const char *name) :
 	Add(&GameID);
 	Add(&Formation);
 	Add(&Position);
-}
-
-void DeltaShipClass::Add(int narrow, DeltaClass *child)
-{
-	DeltaCompoundClass::Add(child);
-	if (narrow == 1) {
-		child->m_Unknown80 = 0xCF;
-	}
-}
-
-UnknownRootClass *Unknown_Create_Aux_Root(int type, int unknown)
-{
-	switch (type) {
-		case 0:
-		case 1:
-			return new DeltaShipClass(unknown);
-		case 25:
-			return new DeltaHulkClass(unknown);
-		case 3:
-			return new DeltaPlanetClass(unknown);
-		case 12:
-			return new DeltaStarbaseClass(unknown);
-		case 8:
-			return new DeltaLightClass(unknown);
-		case 34:
-		case 37:
-		case 41:
-			return new DeltaDecorationClass(unknown);
-		case 11:
-			return new DeltaStargateClass(unknown);
-		case 39:
-			return new DeltaManufacturingLabClass(unknown);
-		case 38:
-			return new DeltaHarvestableClass(unknown);
-		case 4:
-			return new DeltaComponentClass(unknown);
-	}
-	return 0;
 }

@@ -50,10 +50,10 @@ template<class T> DeltaItemArrayClass<T>::DeltaItemArrayClass(const char *name, 
 	DeltaCompoundClass(name)
 {
 	m_Unknown04 = UnknownGlobal;
+	char item_name[256];
 	unsigned int i = 0;
 	if (count > 0) {
 		do {
-			char item_name[256];
 			sprintf(item_name, "%d", i);
 			T *item = new T(item_name);
 			if (item == 0) {

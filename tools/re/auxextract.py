@@ -179,6 +179,8 @@ class Interp:
                     elif a and a[0] == 'T' and dst.startswith('dword') and not NUM_RE.fullmatch(src):
                         v = val(src)
                         if v and v[0] == 'C': self.stores[a[1]] = v[1]          # (M1.3) a value from a register
+                    elif a and a[0] == 'T' and NUM_RE.fullmatch(src) and dst.startswith('byte'):
+                        self.stores[a[1]] = int(src, 0)                            # (M1.3) a bool leaf's value at +0x84
                     elif a and a[0] == 'T' and NUM_RE.fullmatch(src) and dst.startswith('dword'):
                         imm = int(src, 0)
                         self.stores[a[1]] = imm                                    # (M1.3) a leaf's value at +0x84
@@ -251,7 +253,7 @@ def json_of(img, it, n, name):
     out['at'] = f'{n.addr:#x}'
     if n.value is not None:
         out['default'] = n.value
-    if not n.children and out['type'] in ('float', 'int32', 'enum', 'money'):   # (M1.3) money: its low dword
+    if not n.children and out['type'] in ('float', 'int32', 'enum', 'money', 'bool'):   # (M1.3) money: its low dword
         v = n.ivalue if n.ivalue is not None else it.stores.get(n.addr + 0x84)
         if v:
             out['value'] = v & 0xFFFFFFFF

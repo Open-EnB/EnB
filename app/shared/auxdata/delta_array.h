@@ -61,10 +61,10 @@ template<class T> DeltaArrayClass<T>::DeltaArrayClass(const char *name, int coun
 	DeltaCompoundClass(name)
 {
 	m_Unknown04 = UnknownGlobal;
+	char item_name[256];
 	int i = 0;
 	if (count > 0) {
 		do {
-			char item_name[256];
 			sprintf(item_name, "%d", i);
 			DeltaTemplateClass<T> *item = new DeltaTemplateClass<T>(item_name, value);
 			if (item == 0) {

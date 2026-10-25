@@ -18,16 +18,16 @@ are listed here until better evidence raises their tag. Regenerate with
 | Score | Name | Where | Evidence |
 |---|---|---|---|
 | 1 | `aux_roots.cpp` | `app/client/aux_roots.cpp:3` | provisional file name (the client's constructors are in co.cpp 0x6F6000-0x6FBEF0 and the Player object 0x751BE0) |
-| 1 | `UnknownRootClass` | `app/client/aux_roots.cpp:8` | untagged neutral name (D10) |
-| 1 | `UnknownB00A58Enum` | `app/client/aux_roots.cpp:58` | untagged neutral name (D10) |
-| 1 | `Unknown_48` | `app/client/aux_roots.cpp:126` | untagged neutral name (D10) |
-| 1 | `UnknownB013ECEnum` | `app/client/aux_roots.cpp:191` | untagged neutral name (D10) |
-| 1 | `UnknownB0133CEnum` | `app/client/aux_roots.cpp:194` | untagged neutral name (D10) |
-| 1 | `UnknownB0122CEnum` | `app/client/aux_roots.cpp:203` | untagged neutral name (D10) |
-| 1 | `UnknownB011D4Enum` | `app/client/aux_roots.cpp:210` | untagged neutral name (D10) |
-| 1 | `UnknownSendRootClass` | `app/client/aux_roots.cpp:238` | untagged neutral name (D10) |
-| 1 | `m_Unknown80` | `app/client/aux_roots.cpp:511` | untagged neutral name (D10) |
-| 1 | `Unknown_Create_Aux_Root` | `app/client/aux_roots.cpp:515` | untagged neutral name (D10) |
+| 1 | `UnknownRootClass` | `app/client/aux_roots.cpp:7` | untagged neutral name (D10) |
+| 1 | `Unknown_Create_Aux_Root` | `app/client/aux_roots.cpp:7` | untagged neutral name (D10) |
+| 1 | `UnknownB00A58Enum` | `app/client/aux_roots.cpp:89` | untagged neutral name (D10) |
+| 1 | `Unknown_48` | `app/client/aux_roots.cpp:157` | untagged neutral name (D10) |
+| 1 | `m_Unknown80` | `app/client/aux_roots.cpp:165` | untagged neutral name (D10) |
+| 1 | `UnknownB013ECEnum` | `app/client/aux_roots.cpp:248` | untagged neutral name (D10) |
+| 1 | `UnknownB0133CEnum` | `app/client/aux_roots.cpp:251` | untagged neutral name (D10) |
+| 1 | `UnknownB0122CEnum` | `app/client/aux_roots.cpp:260` | untagged neutral name (D10) |
+| 1 | `UnknownB011D4Enum` | `app/client/aux_roots.cpp:267` | untagged neutral name (D10) |
+| 1 | `UnknownSendRootClass` | `app/client/aux_roots.cpp:342` | untagged neutral name (D10) |
 | 1 | `aux_roots.h` | `app/client/aux_roots.h:10` | provisional file name (the client's code is in co.cpp and an unattributed object) |
 | 1 | `Unknown_Hex_String` | `app/client/aux_roots.h:49` | untagged neutral name (D10) |
 | 1 | `UnknownB009A8Enum` | `app/client/aux_roots.h:61` | the value type of the leaf vtable 0xB009A8 (no name in the client, Net-7 or C#) |
