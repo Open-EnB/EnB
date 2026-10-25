@@ -417,6 +417,155 @@ Functions found in neither copy are where E&B's code differs. The first one exam
   `/Gy` each function is a COMDAT placed in source order, so the client's layout gives the order).
   Byte swaps use a local, not Zero Hour's static `RC4_Temp_Byte`; the loop counter is an `int`.
 
+### 3.8 Milestone results (2026-10-24)
+
+Results of the M1 and M2 work items and of the link step, moved here from `milestones.md` (which keeps
+only the spec, a status line and the open leftovers per item). Text verbatim; numbers, addresses and
+commit hashes unchanged.
+
+#### M1.0 Inputs (done when: counts equal the reference decoder's)
+
+**Done 2026-10-24** (tools/harness/README.md): the ack list is decoded (type bit 0: count in byte 5, one header byte, 4-byte entries), so blocks fill every datagram; the .dgram files hold all 26,078 / 2,779 the reference decoder messages in order plus 28 / 12 that the reference importer's start-offset guess lost (4 of them AUX_DATA); capharness's counts equal the reference decoder's `dump --summary` for all 8 traces
+
+#### M1.1 Decode path (done when: a list in this file, each function with its status)
+
+**Done 2026-10-24: §2.3**
+
+#### M1.2 auxdata completion (done when: harness (b) passes on a hand-built root)
+
+**Decode path 2026-10-24** (§2.3): encode.cpp's codecs and lookup.cpp's build exact apart from 0x4A9400 (functional), app 136 -> 145 pairs (ambiguous 16 -> 19); 0x4A3FA0 and 0x4B0860 functional in stubs/ (objects unattributed); the leaf Reads are the template's. Encoder side and key/value path: encode.h, the record table's Add and the records, the record-form writer, kv_pair_string.cpp, the KV pair template, the time field (delta_time.cpp), a functional kv_list.cpp: app 145 -> 164 (ambiguous 19 -> 24); the app stubs are down to the debug hooks, the globals, MoneyClass's conversions and strconv_lib.h's (vidtest links, 14 symbols stubbed). **Hand-built root passes** (`tools/harness/auxdata_smoke.py`: both forms decode and re-encode byte for byte). Open: the packet entry 0x7364C0 (client classes), the root class's object 0x4A3990-0x4A4780 (root encode 0x4A3D50), the update collector 0x4A8990-0x4A8FC0 and its change table 0x4AB660-0x4ABCD0 (what the encoder decides to send)
+
+#### M1.3 Root schemas (done when: (b) and (c) pass on the EA captures)
+
+**Gates met 2026-10-24** (tools/harness/README.md): the client has 11 roots (the factory 0x6F6000's ten and Player 0x752510). `tools/re/auxroots.py` (symbolic execution, `auxextract.py`, a copy of the reference decoder's extractor that also records vtables, positions and defaults; its trees equal client-auxdata.json) generates `app/client/aux_roots.h/.cpp` (PROVISIONAL name): 53 classes, one per compound vtable, with the client's `delta_array.h` / `delta_item_array.h` templates; Component, Decoration, Light and Ship's narrow Add exact, the rest functional (NOT EXACT, D42). The root object's rebuilt part in `app/shared/auxdata/unknown_root.cpp` (PROVISIONAL): the clock, UnknownRootClass 0x4A3BD0/0x4A3D30, Decode 0x4A3FA0, Visit_Children 0x4B0860 (out of stubs/). app 164 -> 202 pairs (ambiguous 24 -> 31), none lost; class names from Net-7 AuxClasses / the reference game model matched by structure (D56 tags, tools/re/auxnames.py). Harness `tests/capharness/auxreplay` + `tools/harness/auxreplay.py`: (b) all 43,978 EA AUX_DATA decode without an assert, 43,977 re-encode byte for byte (the one that doesn't: capture_1 #24128, a Hulk header byte 0x55 the client's encoder can't write); the Alex dumps' 4,289 / 366 (D52) all pass; (c) every field change equals the reference decoder's `aux-log --first` (681,376 + 147,771 + 337,019 + 37,601 + 34,626). **Leftovers 2026-10-24 (evening):** the encoder's side rebuilt: the update collector (encode.cpp lines 1-174), the change table (`unknown_changes.cpp`, PROVISIONAL), the root encode 0x4A3D50, the second root class `UnknownSendRootClass` (0xAEAC40: ctor, dtor, Encode_Changes 0x4A4660, Unknown_48 0x4A40B0) that Player derives from, and policy.cpp (rule sets, conditions, the per-root compile, Make_State / Bind); auxreplay's client-path encode gives back 39,716 of the EA captures' 43,978 AUX_DATA byte for byte (Player 4,371 of 4,382), the rest differing only in defaulted / cleared fields of the server's policy (tools/harness/README.md). Generated classes: the nested constructors out of line where the client has them, Equipped's items derive from the Cargo item, the array loops as do-whiles, defaults the extractor missed, all 269 members at the client's offsets (`auxroots.py layout`, `auxroots_pads.json`), the factory a member of co.cpp's class; 0x4A9400 exact. app 261 -> 349 pairs over the session (ambiguous 48 -> 51), none lost but one documented (0x8C1520, a mis-attribution). **Constructors (2026-10-24, late):** the client's out-of-line nested and root constructors are copies of inline functions (each sits right after its first caller that didn't inline it), so the generator makes them inline (the factory's roots in aux_roots.h, the nested ones `inline` in aux_roots.cpp; Element 0x707430 and Player stay plain) and adds the damage arrays' 1.0f: Player 0x752510 and the factory 0x6F6000 exact; with two defaults through stack temporaries (`ARRAY_VALUES`, `LEAF_VALUES`) and the 20-byte value's member-wise copy, also 0x702240, 0x705AD0, 0x703780, 0x7054C0: app 452 -> 458 pairs, none lost. VC6's inline budget grows with the caller's own size and is spent by every inline candidate (dead IL in a callee, or fewer Adds in the caller, move where it stops). Open: Ship 0x6F66E0 (ours inlines the Buff array 0x707040, which the client calls, so its tail calls the colour copy constructor the client inlines; the stack slots follow), the collector's two Visits, 0x4AB7D0, 0x4ABB80, 0x4AE760, 0x4AE8D0, 0x4AEC70, 0x4AF190, 0x4AF3A0, 0x4A40B0 (register choices), the 17 leaf Reads (identical copies: see the report's proposal), DeltaCompoundClass::Add's out-of-line size() (D40)
+
+#### M1.4 wwudp (done when: harness (a) passes)
+
+**Gate (a) met 2026-10-24** (tools/harness/README.md): app/wwudp (cordcon.cpp, cordmgr.cpp, PROVISIONAL unknown_cordmsg.cpp, udp.h) in the client's layout, functional (D42) with Encrypt_Data, buildMsgHeader, Find_Data_Socket, the record's Free and the channel pool exact: app 252 -> 261 pairs (in tree 231 -> 239), none lost. The wire format checked against the dumps: every captured datagram's checksum is the client's CRC (0x8B3EC0) over type, session, the sender's counter (the dump's seq) and the bytes, re-encrypted with the session key. `tests/capharness/udpreplay` + `tools/harness/udpreplay.py` run both sides of each Alex session over a replay socket (the UDP class's own interface): alex3 delivers all 26,078 the reference decoder messages and the 28 extra (26,106), every channel equal in sequence order (the client delivers reliable channels in sequence order, the dump has arrival order); alex7 2,782 = 2,770 of 2,779 + the 12 extra, the 9 missing held behind the sequence numbers the dump's three cut datagrams lost (the client acked them, so it had them). Every client datagram's ack list is accepted by our server-side CordCon (14,812 and 1,076); ack lists our CordCon generates equal the capture's in order for 14,933 of 14,973 and 940 of 954 (the rest: capture timing); the peer accepts all our datagrams (30,452 and 3,087 of 3,088). Chained with auxreplay (`--aux`): alex3's 4,290 AUX_DATA delivered by CordCon all decode and re-encode. The handshake (`udpreplay.py handshake`): all 54 in capture_1..3 pass, our SYN2's RSA-encrypted key decrypting with the server key (WWLib's XMP at run time). Leftovers (2026-10-24, 6afbdff, 243a377, 1703d82): the send side is the client's (pumpInternal's priority order via getHighestPriorityMessage, the resend timer of 2 round trips + 50 ms, the send window CordStatsClass at +0x68 with its round-trip estimate, expired unreliable records; pump's keep-alive, idle close and closed channels), on wlib's Wtime declared in app/wwudp/wtime.h (E&B's copy: the day and the ms of the day) and supplied by the program (the harness's clock); the close (close(now)) and go-away (Process_Go_Away_Packet, the 0-byte read, Go_Away), Release and Pump_Releases; app +19 pairs (287 -> 305 and 308 -> 309: CordStatsClass 0x85BF30-0x85C430 all 11, the record's constructor, Go_Away, 6 record-vector helpers), none lost. The replays are unchanged with the clock frozen (the dumps have no times), the keep-alive adding 3 accepted datagrams. `udpreplay.py loop` tests what the dumps can't: each side's own datagrams over a link dropping every 10th / 4th datagram: every reliable message delivered in order, nothing left unacked, every closing session closed (alex3 5,041 / 16,065 resends, alex7 823 / 3,432), and a go-away stops a session's sends. bandwidthaccounting.cpp (0x84C720-0x84DFB0, a kernel task over per-address counts) exact, +19 pairs, on app/kernel/kernel.h's declared task base (docs/kernel-map.md). Open: CordMgr::Pump's tail (each connection's pump, Pump_Connections: needs its timer), Compute_Ticks; exactness of the rest needs WWOnline's wlib (LinkedList, ArrayList, Wtime) and wnet (UDP)
+
+#### M1.5 Net-7 recordings (done when: (d) passes)
+
+**Gate (d) met 2026-10-24** (tools/harness/README.md, `tools/harness/n7aux.py`): every AUX_DATA the client received in the three Net-7 sessions (292 / 1,358 / 691, message level from trace.jsonl) goes through auxreplay.exe; none fails, no asserts, every field change equals the reference decoder's `aux-log --first` (18,579 / 81,377 / 38,171). The known Net-7 differences are counted, each checked: length fields (§7.1) 36 / 340 / 34, as aux-census (the rest re-encodes byte for byte); Player sends without GroupInfo.Members' header (§7.2) 2 / 8 / 5 (with EA's `05` appended each decodes and re-encodes byte for byte); Ship updates shorter than declared (§7.3) 0 / 2 / 0. the reference decoder's 2 / 10 / 5 failures are exactly these. A fourth, not in the reference decoder's §7: fields named in two sets (Value and Default, or a Whole header `0f` where EA's has `07`), 6 / 40 / 19 (15 of them the Player sends above): the client applies one set, so its encoder writes them differently; our re-encoding decodes to the same fields and values. 0 / 0 / 2 for objects without a CREATE (aux-census: the same). The 2022-09-25 startup-charlogin recording has no client side of the sector (the proxy's UDP to the server, Net-7's own protocol, and one TCP login connection to the global server); its 5 AUX_DATA from the server's side all pass (`--server-side`, 8,349 values). **D47: the TCP transport is not in `app\wwudp`.** The connection manager (`app\common\connect.cpp` 0x821450) picks the class by `-PROTOCOL`: `UDP` makes `udpconn.cpp`'s connection (0x82C680, 0xD0 bytes, onto app\wwudp's objects); anything else, and always ChatServer and GlobalServer_Client, the TCP connection of `app\common\tcpconn.cpp` (vtable 0xB08838, 0x248 bytes, 25 functions 0x828C80-0x82A830); MEMORY or none with a local port, `memconn.cpp`'s. tcpconn.cpp holds: ctors by host 0x828C80, by address 0x828DE0, by accepted socket 0x829C80 (symbols.json's `PacketManagerClass::Clear_Socket_Error` there is wrong: a funcmatch string hit, the assert is tcpconn.cpp's); Connect 0x828F90 / 0x8290A0; the client's key exchange 0x829180 (reads the fast key's two numbers, ≤ 0x200 bytes each; a SecureRandom 64-bit key, or 0 if the ctor's flag is off; both RC4Class prepared with it; sends its length and XMP_Encode of key ^ e mod n); Write 0x829A30 (RC4 on a copy, and on a short send again from the saved state over what went), Read 0x829BC0; the server's side 0x829E50 (`server_rsa_keyset.dat`, "SSH PRIVATE KEY FILE FORMAT 1.1"), listen/accept 0x82A2F0 / 0x82A470. Its base, a stream connection (connect.h/connect.cpp, vtable 0xB085F4, ctor 0x823320), frames `{u16 size with the header, u16 opcode, payload}` (0x823570, 0x8234D0, 0x8236D0, 0x8238C0) through a 100,000-byte ring buffer (`app\common\circbuff.cpp` 0x830BF0-0x830EF0) and hands each message to 0x8696C0 (app\packets). The sockets are WWOnline wnet's `TCPMgr` / `TCPCon` (0x8BB0C0-0x8BE7A0: connect 0x8BD680, getOutgoingConnection 0x8BD8E0, TCPCon(socket) 0x8BBA70, write 0x8BBF00 (the only `send`), read 0x8BC280 and three more `recv` callers), whose source is in EA's Renegade release, `Code\Tools\RenegadeGR\tcpmgr.cpp` / `tcpcon.cpp` (not in Zero Hour's matchbot wnet, which has the older `TCP` class; they need wlib's arraylist.h, wtime, wdebug). So the TCP replay stops at this finding (not started). It would take: tcpconn.cpp (25 functions), the stream base and circbuff.cpp (about 15 functions), a `TCPCon` / `TCPMgr` header with only what tcpconn calls (as app/wwudp/udp.h does for UDP) and a replay connection fed from the pcapng's TCP streams (pcapng reading and TCP reassembly in tools/harness, as the reference decoder's `Capture/`), the session key recovered by running the server's side 0x829E50 with the Westwood server key on the client's reply. RC4Class, XMP, PKey and SecureRandomClass are already imported
+
+#### M2.4 E&B scene classes (done when: (a) and (b) complete, then (d))
+
+**Mostly done 2026-10-24** (app/shared stars.cpp, spln_db.cpp, heightfield.cpp, land.cpp, wired into vidtest.cpp): stars as the client's (8 functions exact, app 202 -> 251 pairs; Load, Init NOT EXACT): Max Polys 30729 and PolyBudget 30000 as the original; splines.wsd (functional) gives the land sky its light blue (`-sunangle A` fixes the sun for comparisons); the river land (height field, .pld normals and sky shares, colour x lightmap, detail map, per-patch LOD with skirts) and 5,000 batched trees render (functional, NOT EXACT; file names heightfield/land PROVISIONAL); results.ini as the original's apart from FreeTextureRam/TextureReduction (D53). **Land settled from the original's draw calls 2026-10-24** (`run_reference.py --dump`, `drawdump.py`: d3d8shot shadows the buffers the program locks and reads back transforms, render states and textures): the camera, the 257-vertex grid and every height were already the original's (orientation right); what differed was the colour map's row order, fog and culling, trees on every patch (the original draws a patch's trees only below level 3, none at Land LOD 1, alpha tested), the random numbers' order (0x415C40), the missing tree shadows (the `.S` mesh, 0x416170, ZBIAS 1) and a random sun (VIDTEST turns it with GetTickCount; vidtest_sbs now passes the original's). Frames 500-900 differ in 1.7-3.2% of the pixels at 640x480 (35-42% before), 2.1-3.0% at 800x600; PeakPolyRate 54,862 vs 49,767 at 640x480. Gate (d) met (see 4.1). Open: the client's own tessellation/render (0x474B30, strips, no skirts), the land and spline code byte-exact (D46), StarLayer Load 0x481DB0 and StarField Init 0x4829E0
+
+#### M2 gate status (2026-10-24, M2 finishing)
+
+**Status 2026-10-24 (M2 finishing).** (a) the W3D scenes within 1-3.5% of the original's frames, the land within 1.7-3.2% (M2.4); (b) all three tests run to the end, results.ini as the original's apart from D53's two keys and the timing-bound rates; (c) `vidtest_e2e.py` passes (E&BConfig's launch and its reading of results.ini); (d) met: unattended runs (`vidtest_exitcodes.py --case finish`, `vidtest_sbs.py run` at 640x480 and 800x600) log no `[wwassert]`/`[wwdebug]` line and no stub call (no stubs.log; E&B's G_ASSERT/FAIL_IF reporters are stubs that would log), and every missing file the libraries ask for (29: DAZZLE.INI, w3danimsound.ini, font.dds, the p?v?01a variants, astro01, PPVT01A, jvc-p01, tdtree01.dds) is one the original fails to open too. WWDEBUG_*/WWASSERT are compiled out in the release libraries, as in the client; a checked build (`ENB_CHECKED=1 tools/vc6/build.py --out build/chk`, every library with them reporting to WWDebug's handler) runs the whole test (`vidtest_exitcodes.py --exe build/chk/programs/vidtest/vidtest.exe --case finish`) with no failed WWASSERT and no WWDEBUG_ERROR; its only notes are the library's own ("Unsupported mapper in Material #8": BST29A's stage-0 silhouette mapper, which WW3D2 never supported; the two missing aggregate sub-objects). M2 is met; what stays open is byte-exactness (M2.4 row).
+
+#### L1 results (2026-10-24)
+
+**Done.** `python tools/vc6/build.py --pool 1` (about 50 s on one VM) compiles every committed
+`.cpp` of the eight libraries with verify's flags, defines, include paths and, for `app`, the
+`e:\build\beta\G` `__FILE__` alias (all imported from importer.py), runs `LIB`, and writes
+`build/<lib>/` (git-ignored): the `.lib`, `obj/`, `cl.log`, `symbols.txt`, `members.txt`,
+`summary.json`. It refuses to build a library with uncommitted changes (`--allow-dirty`
+overrides). `build.py unresolved` then lists the unresolved externals into
+`.work/milestones/l1/unresolved.txt`, with a heuristic cause per symbol.
+
+Every file compiles: the tree holds exactly the files verify compiles (assemble only copied files
+with evidence), so "every file" and "verify's files" are the same set today.
+
+| Library | Files compiled | Failed | Warnings | .lib bytes | Members |
+|---|---|---|---|---|---|
+| wwdebug | 3 | 0 | 0 | 95,800 | 3 |
+| wwlib | 66 | 0 | 0 | 732,476 | 66 |
+| wwmath | 35 | 0 | 0 | 602,930 | 35 |
+| wwsaveload | 11 | 0 | 0 | 289,302 | 11 |
+| wwaudio | 17 | 0 | 0 | 655,642 | 17 |
+| ww3d2 | 109 | 0 | 7 (6 × C4530 in w3d_dep.cpp's iostream use without /GX, 1 × C4101) | 4,265,406 | 109 |
+| wwshade | 20 | 0 | 0 | 467,188 | 20 |
+| app | 14 | 0 | 3 (C4231, `extern template` in delta_template.h) | 170,324 | 14 |
+
+**Unresolved externals: 125 symbols** (referenced, defined by none of the eight libraries nor by
+LIBCMT, LIBCPMT, OLDNAMES, kernel32, user32, gdi32, advapi32, ole32, oleaut32, uuid, winmm,
+ws2_32, d3d8, d3dx8, dxguid). By cause:
+
+* **Miles: 66** (wwaudio: 65 `AIL_*` plus `MSS_auto_cleanup`). Needs `mss32.lib` (not in the SDK
+  directory) or stubs.
+* **More system libraries: 12.** VFW32 (8 `AVIFile*`/`AVIStream*`, ww3d2 framgrab.cpp), COMSUPP
+  (3 `_com_*`, ww3d2 dx8webbrowser.cpp), ddraw.lib (`DirectDrawCreate`, wwlib ddraw.cpp).
+* **EA files never imported (no byte evidence): 27 symbols from 12 files.** wwlib `TARGA.CPP` (9,
+  for ww3d2's texture loader and screenshots, `Targa::Open(const char*, long)` included),
+  `int.cpp` (4, `Int<64>` statics for pk.cpp), `blwstraw.cpp` (2), `blowfish.cpp`, `stimer.cpp`,
+  `slnode.cpp` (`DEFINE_AUTO_POOL(GenericSLNode)`, for wwlib, wwsaveload, ww3d2), `win.cpp`
+  (`MainWindow`, `ProgramInstance`: likely set by E&B's WinMain); wwsaveload
+  `definitionfactory.cpp` (2, also used by wwaudio); wwaudio `soundstreamhandle.cpp`, `Utils.cpp`
+  (`MMSLockClass` critical section); wwshade `shddeffactory.cpp` (2), `shdforcelinks.cpp`
+  (`SHD_Force_Links`, which the client has at 0xA08C70). Each is either imported as is (it has no
+  pairs to lose) or checked against the client first.
+* **Declared only: 1 in the libraries.** `ListenerHandleClass::Initialize(SoundBufferClass *)`
+  (wwaudio listenerhandle.h, no definition in any EA copy).
+* **app: 19.** E&B debug hooks from `unknown_debug.h` (`Unknown_Assert_Failed`,
+  `Unknown_Fail_If_Report`, `Unknown_Debug_Printf`, `Unknown_Get_Ticks`) and the globals
+  `DeltaUnknownGlobal`, `DeltaCompoundUnknownGlobal`, `DeltaStringClass::UnknownGlobal`; the
+  missing auxdata functions of §2.3 (`LookupClass::LookupClass`, `RecordTableClass::Add`,
+  `KVListClass::Add`, `KVPairStringClass` ctor, `KVPairTemplateClass<float>`'s dtor and six
+  virtuals, `DeltaTemplateClass<DurationClass>` ctor).
+
+Nothing in the list points at a failed compile, a NOT_LINKED file or a header/body mismatch. The
+list is L2's starting to-do list. Caveat: a library-only link resolves only what the objects
+reference; L2's `WinMain` will add references (WW3D::Init's callees are already in), and a
+`.lib` pulls members only on demand, so some of these may never be needed by a minimal program.
+
+#### L2 results (2026-10-24)
+
+**Done.** `build/programs/vidtest/vidtest.exe` (913,408 bytes) starts on the host, `WW3D::Init`
+and `WW3D::Set_Render_Device` return `WW3D_ERROR_OK` on the RTX 3060 Ti (640x480, windowed, 32
+and 16 bpp), every frame clears to dark blue (0, 0, 0.5), and it exits with code 0 both after
+`-frames N` and when its window is closed. No stub was called and none was linked.
+
+**What it took.**
+
+* **D49: the 12 EA files** (§3.1), imported by `importer.py add` (`EXTRA_FILES`; plan keeps them),
+  each from its library's base copy: wwlib's seven and wwaudio's two from Renegade, wwsaveload's
+  and wwshade's from Zero Hour. `TARGA.CPP` is Renegade's on evidence: the client's `YFlip`
+  (0x9D33D0) is the byte loop, Zero Hour's is an asm `_swapBytes`. `soundstreamhandle.cpp` needs
+  `AIL_open_stream_by_sample`, which `sdk_patch.py` now declares (toolchain.md Miles fix 2).
+  verify: **+33 pairs, none lost**: TARGA.CPP 21 (wwlib 565 -> 586), soundstreamhandle.cpp 12
+  (wwaudio 351 -> 360).
+* **wwshade's `SHD_Force_Links`** called `_Force_Link_LegacyW3DShader` (shdlegacyw3d.cpp is
+  NOT_LINKED); the client's (0xA08C70) links five shaders, so that line is patched out.
+* **D51: `mss32.lib`** from the game's `Mss32.dll` (344 exports): `tools/vc6/mkmss32.py def` writes
+  `tools/vc6/mss32.def`, `mkmss32.py lib` builds `build/mss32/mss32.lib`. VC6's `lib /def` can't
+  (it imports every .def name with the name type "no prefix": `AIL_shutdown@0` would import
+  "AIL_shutdown@0", the DLL exports "_AIL_shutdown@0"), so the script links a stub DLL with one
+  empty `dllexport` per name and keeps LINK's import library, plus `MSS_auto_cleanup`. A probe
+  built against it ran `AIL_startup`/`AIL_shutdown` in the game's DLL.
+* **D50:** VFW32, COMSUPP and ddraw on the link line.
+* **WinMain needs the asset manager first.** Without `new WW3DAssetManager` before `WW3D::Init`
+  (VIDTEST's step 4), `Set_Render_Device` crashed in `ShatterSystem::Init` (it asks the asset
+  manager for htrees during device creation). The crash report vidtest writes (`CRASH:` lines,
+  named by `tools/harness/symbolize.py`) found it.
+
+**Unresolved externals, library level** (`build.py unresolved`, every object of the eight
+libraries, `.work/milestones/l2/unresolved.txt`): **125 -> 20, all 20 defined by `stubs/`.** A
+link of every library object (not `.lib` members on demand) with all stubs resolves too, apart from
+one duplicate: `Find_POT`/`Find_POT_Log2` are in both `ww3d2/pot.cpp` and `wwmath/pot.cpp`
+(proposal below).
+
+**Stub table as of L2 (2026-10-24, historical).** Most of these were rebuilt afterwards; the current list is in milestones.md §3.2.
+
+**Stubs** (`stubs/`, D44; each logs its first call to OutputDebugString, stderr and
+`ENB_STUB_LOG`/`stubs.log`; asserts log every call):
+
+| File | Stub | Client | Linked into vidtest | Called |
+|---|---|---|---|---|
+| app_stubs.cpp | `Unknown_Assert_Failed`, `Unknown_Fail_If_Report` (log each call: expr, file, line) | 0x4E9410, 0x4E9450 | no | no |
+| app_stubs.cpp | `Unknown_Debug_Printf` (logs the text), `Unknown_Get_Ticks` (returns `GetTickCount()`) | ? | no | no |
+| app_stubs.cpp | `LookupClass::LookupClass` (members default-constructed), `KVListClass::Add`, `RecordTableClass::Add`, `KVPairStringClass::KVPairStringClass` | 0x4AC250, 0x4B6760, 0x4A9C30, 0x4B7FC0 | no | no |
+| app_stubs.cpp | `KVPairTemplateClass<float>`: destructor, `Unknown_04`..`Unknown_18` (7) | vtable 0xAE7860 | no | no |
+| app_stubs.cpp | `KVPairStringClass`: destructor, `Unknown_04`..`Unknown_18` (7; the stub constructor's vtable needs them) | 0x4B80E0, 0x4B8250.. | no | no |
+| app_stubs.cpp | `DeltaTemplateClass<DurationClass>::Unknown_00` | ? | no | no |
+| app_stubs.cpp | data, can't log: `DeltaUnknownGlobal`, `DeltaCompoundUnknownGlobal`, `DeltaStringClass::UnknownGlobal` (0xBE3A9C), `DeltaTemplateClass<DurationClass>::UnknownGlobal` (0xBE3AA4), all 0 | | no | |
+| app_stubs.cpp | not a stub: `DeltaTemplateClass<DurationClass>`'s constructor, the header's body as an explicit specialisation (VC6 can't instantiate it after the header's `extern template`) | 0x4A8150 | no | |
+| wwaudio_stubs.cpp | `ListenerHandleClass::Initialize` (declared in listenerhandle.h, defined in no EA copy; does nothing) | ? | no | no |
+
+24 logging stubs, 4 data stubs, 1 real definition; none linked into or called by vidtest. They
+are the app library's link to-do list for M1 (§2.3) and the first audio one.
+
 ## 4. What this means for the rebuild
 
 * Import **file by file** (D4), each from the copy whose bytes match (§3.5 reports): mostly
