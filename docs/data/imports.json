@@ -1,6 +1,6 @@
 {
  "app": {
-  "ambiguous_total": 52,
+  "ambiguous_total": 53,
   "base": "reconstructed",
   "compile_errors": [],
   "files": {
@@ -714,6 +714,78 @@
     "merged": [],
     "name": "shared/stars.cpp"
    },
+   "tsk_menu": {
+    "ambiguous": [],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x76BC50",
+     "0x76BD30",
+     "0x76BD70",
+     "0x76BDB0"
+    ],
+    "merged": [],
+    "name": "client/tasks/tsk_menu.cpp"
+   },
+   "tsk_movie": {
+    "ambiguous": [
+     "0x42A6C0",
+     "0x42A900",
+     "0x42B2F0",
+     "0x436420",
+     "0x7671E0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42A820",
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30",
+     "0x42CAB0",
+     "0x42CD30",
+     "0x432B80",
+     "0x432D50",
+     "0x433700",
+     "0x76BF40",
+     "0x76C030",
+     "0x76C140",
+     "0x76C1C0",
+     "0x76C230",
+     "0x76C2C0",
+     "0x76C430",
+     "0x76C4D0",
+     "0x76C5A0"
+    ],
+    "merged": [],
+    "name": "client/tasks/tsk_movie.cpp"
+   },
+   "tsk_smovie": {
+    "ambiguous": [
+     "0x42A6C0",
+     "0x42A900",
+     "0x42B2F0",
+     "0x436420",
+     "0x7671E0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42A970",
+     "0x42AB30",
+     "0x76C670",
+     "0x76C7D0",
+     "0x76CB80",
+     "0x76CC20",
+     "0x76CC80",
+     "0x76CD00",
+     "0x76CD50",
+     "0x76CE70",
+     "0x76CF60"
+    ],
+    "merged": [],
+    "name": "client/tasks/tsk_smovie.cpp"
+   },
    "udpconn": {
     "ambiguous": [],
     "copy": "reconstructed",
@@ -810,6 +882,10 @@
   },
   "headers": {
    "client/aux_roots.h": "reconstructed",
+   "client/tasks/tsk_login.h": "reconstructed",
+   "client/tasks/tsk_menu.h": "reconstructed",
+   "client/tasks/tsk_movie.h": "reconstructed",
+   "client/tasks/tsk_smovie.h": "reconstructed",
    "common/circbuff.h": "reconstructed",
    "common/connect.h": "reconstructed",
    "common/critsec.h": "reconstructed",
@@ -850,7 +926,7 @@
    "wwudp/udp.h": "reconstructed",
    "wwudp/wtime.h": "reconstructed"
   },
-  "in_tree_total": 365,
+  "in_tree_total": 389,
   "totals": {}
  },
  "ww3d2": {

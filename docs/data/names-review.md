@@ -7,11 +7,11 @@ are listed here until better evidence raises their tag. Regenerate with
 
 | Score | Meaning | Names |
 |---|---|---|
-| 5 | the client names it | 3 |
-| 4 | EA source, or a structure-confirmed Net-7 / C# name | 28 |
-| 3 | by convention from a client-named file or sibling | 59 |
-| 2 | describes what the code does | 508 |
-| 1 | neutral placeholder | 342 |
+| 5 | the client names it | 4 |
+| 4 | EA source, or a structure-confirmed Net-7 / C# name | 37 |
+| 3 | by convention from a client-named file or sibling | 65 |
+| 2 | describes what the code does | 538 |
+| 1 | neutral placeholder | 387 |
 
 ## For review (score 3 and below)
 
@@ -66,6 +66,27 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `m_Unknown428` | `app/client/aux_roots.h:921` | neutral (D10): a member, not a field of the tree |
 | 1 | `UnknownCOClass` | `app/client/aux_roots.h:979` | neutral (D10), the class of co.cpp's objects (vtable 0xB0070C) |
 | 1 | `Unknown_Create_Aux_Root` | `app/client/aux_roots.h:984` | untagged neutral name (D10) |
+| 1 | `mode` | `app/client/tasks/tsk_login.h:25` | MenuTask passes 1, or 9 (0x5FAE70 and not 0x5FAD50) |
+| 1 | `Unknown000C` | `app/client/tasks/tsk_login.h:30` | untagged neutral name (D10) |
+| 1 | `tsk_menu.cpp` | `app/client/tasks/tsk_menu.cpp:16` | neutral name from the class's log text, sorting between tsk_login.cpp and tsk_movie.cpp (the link order) |
+| 1 | `Unknown_Debug_Print` | `app/client/tasks/tsk_menu.cpp:17` | 0x509E30 (dbgmgr.cpp), the log line |
+| 1 | `Unknown_Debug_Begin_Step` | `app/client/tasks/tsk_menu.cpp:18` | 0x509EF0 (dbgmgr.cpp), WinMain's step log |
+| 1 | `Unknown_Debug_End_Step` | `app/client/tasks/tsk_menu.cpp:19` | 0x50A1E0 (dbgmgr.cpp) |
+| 1 | `Unknown_5FAE70` | `app/client/tasks/tsk_menu.cpp:20` | ui_registration.cpp |
+| 1 | `Unknown_5FAD50` | `app/client/tasks/tsk_menu.cpp:21` | ui_registration.cpp |
+| 1 | `tsk_menu.h` | `app/client/tasks/tsk_menu.h:18` | as tsk_menu.cpp |
+| 1 | `Unknown_42EA80` | `app/client/tasks/tsk_movie.cpp:26` | the input queue's next event (input.cpp) |
+| 1 | `Unknown_42E8A0` | `app/client/tasks/tsk_movie.cpp:27` | hands the event on (input.cpp) |
+| 1 | `Unknown_00` | `app/client/tasks/tsk_smovie.cpp:27` | untagged neutral name (D10) |
+| 1 | `Unknown_04` | `app/client/tasks/tsk_smovie.cpp:28` | untagged neutral name (D10) |
+| 1 | `Unknown_08` | `app/client/tasks/tsk_smovie.cpp:29` | untagged neutral name (D10) |
+| 1 | `Unknown_0C` | `app/client/tasks/tsk_smovie.cpp:30` | untagged neutral name (D10) |
+| 1 | `Unknown_10` | `app/client/tasks/tsk_smovie.cpp:31` | untagged neutral name (D10) |
+| 1 | `Unknown_14` | `app/client/tasks/tsk_smovie.cpp:32` | untagged neutral name (D10) |
+| 1 | `Unknown0004` | `app/client/tasks/tsk_smovie.cpp:38` | untagged neutral name (D10) |
+| 1 | `Unknown_42EA80` | `app/client/tasks/tsk_smovie.cpp:43` | the input queue's next event (input.cpp) |
+| 1 | `Unknown_42E8A0` | `app/client/tasks/tsk_smovie.cpp:44` | hands the event on (input.cpp) |
+| 1 | `Unknown_18` | `app/client/tasks/tsk_smovie.h:30` | untagged neutral name (D10) |
 | 1 | `Unknown04` | `app/common/connect.cpp:10` | untagged neutral name (D10) |
 | 1 | `Unknown_Create_Packet` | `app/common/connect.cpp:1105` | untagged neutral name (D10) |
 | 1 | `ConnectionClass` | `app/common/connect.h:29` | describes what it is (the client's name not found) |
@@ -74,6 +95,15 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Get_Unknown04` | `app/common/connect.h:43` | untagged neutral name (D10) |
 | 1 | `Unknown_30` | `app/common/connect.h:45` | untagged neutral name (D10) |
 | 1 | `StreamConnectionClass` | `app/common/connect.h:53` | describes what it is |
+| 1 | `Get_Unknown04` | `app/common/udpconn.cpp:373` | untagged neutral name (D10) |
+| 1 | `Unknown_Create_Packet` | `app/common/udpconn.cpp:554` | untagged neutral name (D10) |
+| 1 | `UDPChannelKeyClass` | `app/common/udpconn.h:35` | describes what it is |
+| 1 | `UDPChannelClass` | `app/common/udpconn.h:44` | describes what it is |
+| 1 | `UDPConnection` | `app/common/udpconn.h:51` | after the file udpconn.cpp (no RTTI or string) |
+| 1 | `Unknown_RateClass` | `app/common/udpconn.h:74` | untagged neutral name (D10) |
+| 1 | `CordMgrTaskClass` | `app/common/udpconn.h:91` | after its profile label 'CordMgr::Run' |
+| 1 | `unknown_rate.h` | `app/common/unknown_rate.h:18` | neutral file name (D37, D10) |
+| 1 | `Unknown_RateClass` | `app/common/unknown_rate.h:21` | neutral placeholder (D10) |
 | 1 | `Unknown_Get_Ticks` | `app/kernel/kernel.cpp:19` | untagged neutral name (D10) |
 | 1 | `Unknown_9179D0` | `app/kernel/kernel.cpp:20` | WW3D's device check (0 when DX8Wrapper's restore succeeds) |
 | 1 | `Unknown_42EA80` | `app/kernel/kernel.cpp:21` | the input queue's next event (input.cpp) |
@@ -338,6 +368,21 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_10` | `tests/capharness/kerneltest/kerneltest.cpp:53` | untagged neutral name (D10) |
 | 1 | `Unknown_BFAEE0` | `tests/capharness/kerneltest/kerneltest.cpp:56` | untagged neutral name (D10) |
 | 1 | `Unknown_Assert_Failed` | `tests/capharness/kerneltest/kerneltest.cpp:57` | untagged neutral name (D10) |
+| 1 | `Unknown_Debug_Print` | `tests/capharness/kerneltest/taskstest.cpp:145` | untagged neutral name (D10) |
+| 1 | `Unknown_Debug_Begin_Step` | `tests/capharness/kerneltest/taskstest.cpp:146` | untagged neutral name (D10) |
+| 1 | `Unknown_Debug_End_Step` | `tests/capharness/kerneltest/taskstest.cpp:147` | untagged neutral name (D10) |
+| 1 | `Unknown_5FAE70` | `tests/capharness/kerneltest/taskstest.cpp:148` | untagged neutral name (D10) |
+| 1 | `Unknown_5FAD50` | `tests/capharness/kerneltest/taskstest.cpp:149` | untagged neutral name (D10) |
+| 1 | `Unknown_Fail_If_Report` | `tests/capharness/kerneltest/taskstest.cpp:150` | untagged neutral name (D10) |
+| 1 | `Unknown_Load_Assets` | `tests/capharness/kerneltest/taskstest.cpp:151` | untagged neutral name (D10) |
+| 1 | `Unknown_Free_Assets` | `tests/capharness/kerneltest/taskstest.cpp:152` | untagged neutral name (D10) |
+| 1 | `Unknown_00` | `tests/capharness/kerneltest/taskstest.cpp:171` | untagged neutral name (D10) |
+| 1 | `Unknown_04` | `tests/capharness/kerneltest/taskstest.cpp:172` | untagged neutral name (D10) |
+| 1 | `Unknown_08` | `tests/capharness/kerneltest/taskstest.cpp:173` | untagged neutral name (D10) |
+| 1 | `Unknown_0C` | `tests/capharness/kerneltest/taskstest.cpp:174` | untagged neutral name (D10) |
+| 1 | `Unknown_10` | `tests/capharness/kerneltest/taskstest.cpp:175` | untagged neutral name (D10) |
+| 1 | `Unknown_14` | `tests/capharness/kerneltest/taskstest.cpp:176` | untagged neutral name (D10) |
+| 1 | `Unknown` | `tests/capharness/kerneltest/taskstest.cpp:187` | untagged neutral name (D10) |
 | 1 | `Unknown_RateClass` | `tests/capharness/udpreplay/conn_replay.cpp:40` | untagged neutral name (D10) |
 | 1 | `Unknown_Get_Ticks` | `tests/capharness/udpreplay/conn_replay.cpp:63` | untagged neutral name (D10) |
 | 1 | `Unknown_9179D0` | `tests/capharness/udpreplay/conn_replay.cpp:64` | untagged neutral name (D10) |
@@ -359,6 +404,22 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `UnknownLogClass` | `tests/capharness/udpreplay/udpreplay.cpp:68` | untagged neutral name (D10) |
 | 1 | `Unknown_4BC130` | `tests/capharness/udpreplay/udpreplay.cpp:71` | untagged neutral name (D10) |
 | 1 | `UnknownLog` | `tests/capharness/udpreplay/udpreplay.cpp:73` | untagged neutral name (D10) |
+| 2 | `Handle_Input` | `app/client/tasks/tsk_menu.h:33` | what it does |
+| 2 | `volume` | `app/client/tasks/tsk_movie.cpp:18` | BinkSetVolume's argument |
+| 2 | `Add_Movie` | `app/client/tasks/tsk_movie.h:38` | what it does |
+| 2 | `Handle_Input` | `app/client/tasks/tsk_movie.h:39` | what it does |
+| 2 | `MovieClientClass` | `app/client/tasks/tsk_smovie.cpp:22` | mclient.cpp's class, the movie script's player |
+| 2 | `Load_Script` | `app/client/tasks/tsk_smovie.cpp:33` | Accept_Focus's '%s%d.txt' |
+| 2 | `Handle_Input` | `app/client/tasks/tsk_smovie.cpp:34` | Pre_Run's events |
+| 2 | `Render` | `app/client/tasks/tsk_smovie.cpp:35` | called from Render |
+| 2 | `Is_Done` | `app/client/tasks/tsk_smovie.cpp:36` | Run deletes the client then |
+| 2 | `Unknown_Load_Assets` | `app/client/tasks/tsk_smovie.cpp:41` | 0x729BF0 (client_lego_impl.cpp), 'cbasset.ini' |
+| 2 | `Unknown_Free_Assets` | `app/client/tasks/tsk_smovie.cpp:42` | 0x729D60 (client_lego_impl.cpp) |
+| 2 | `ScriptedMovieTaskClass` | `app/client/tasks/tsk_smovie.h:25` | tsk_smovie.cpp's task: movie scripts (D24) |
+| 2 | `script_number` | `app/client/tasks/tsk_smovie.h:28` | the first script's number (WinMain: 1) |
+| 2 | `Init` | `app/client/tasks/tsk_smovie.h:40` | what it does |
+| 2 | `Set_Movie_Name` | `app/client/tasks/tsk_smovie.h:41` | what it does |
+| 2 | `Handle_Input` | `app/client/tasks/tsk_smovie.h:42` | what it does |
 | 2 | `Read` | `app/common/circbuff.h:26` | what it does |
 | 2 | `Write` | `app/common/circbuff.h:27` | what it does |
 | 2 | `Get_Free` | `app/common/circbuff.h:28` | what it returns |
@@ -384,6 +445,20 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Fill` | `app/common/connect.h:67` | what it does |
 | 2 | `Ring` | `app/common/connect.h:69` | what it is |
 | 2 | `ReadBuffer` | `app/common/connect.h:70` | what it holds |
+| 2 | `Channel` | `app/common/udpconn.h:37` | what it holds |
+| 2 | `Reliable` | `app/common/udpconn.h:38` | 3 reliable, 4 sequenced |
+| 2 | `Channel` | `app/common/udpconn.h:46` | the CordCon channel openc gave |
+| 2 | `Try_Connect` | `app/common/udpconn.h:67` | what it does |
+| 2 | `Send_Data` | `app/common/udpconn.h:69` | what it does |
+| 2 | `Open_Fixed_Channel` | `app/common/udpconn.h:70` | what it does |
+| 2 | `Is_Fixed_Channel` | `app/common/udpconn.h:71` | what it does |
+| 2 | `Init` | `app/common/udpconn.h:100` | what it does |
+| 2 | `Get_Mgr` | `app/common/udpconn.h:101` | what it returns |
+| 2 | `Shutdown_Task` | `app/common/udpconn.h:102` | what it does |
+| 2 | `Task` | `app/common/udpconn.h:104` | what it holds |
+| 2 | `Mgr` | `app/common/udpconn.h:105` | what it holds |
+| 2 | `Add` | `app/common/unknown_rate.h:26` | what it does |
+| 2 | `Get` | `app/common/unknown_rate.h:27` | what it returns |
 | 2 | `Key` | `app/kernel/kernel.h:29` | +0x00 Handle_Key: 0x1B Esc, 0x6A |
 | 2 | `Accept_Focus` | `app/kernel/kernel.h:52` | 'LoginTask: accepting focus.' |
 | 2 | `Yield_Focus` | `app/kernel/kernel.h:53` | 'LoginTask: yielding focus.' |
@@ -878,8 +953,14 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `DeltaPlanetClass` | `app/client/aux_roots.h:927` | the client's root string "Planet", Westwood XxxClass (D24); structure = C# PlanetObject (C# fields = ours (same names, same order)) |
 | 3 | `DeltaStarbaseClass` | `app/client/aux_roots.h:943` | the client's root string "Starbase", Westwood XxxClass (D24); structure = C# StarbaseObject (C# fields = ours (same names, same order)) |
 | 3 | `DeltaStargateClass` | `app/client/aux_roots.h:959` | the client's root string "Stargate", Westwood XxxClass (D24); structure = C# StargateObject (C# fields = ours (same names, same order)) |
+| 3 | `tsk_login.h` | `app/client/tasks/tsk_login.h:17` | header name assumed from the client's tsk_login.cpp |
+| 3 | `MenuTaskClass` | `app/client/tasks/tsk_menu.h:23` | the client's 'MenuTask' (its log) in LoginTaskClass's form (D24) |
+| 3 | `tsk_movie.h` | `app/client/tasks/tsk_movie.h:18` | header name assumed from the client's tsk_movie.cpp |
+| 3 | `MovieTaskClass` | `app/client/tasks/tsk_movie.h:25` | after tsk_movie.cpp and LoginTaskClass (D24) |
+| 3 | `tsk_smovie.h` | `app/client/tasks/tsk_smovie.h:17` | header name assumed from the client's tsk_smovie.cpp |
 | 3 | `circbuff.h` | `app/common/circbuff.h:17` | header name assumed from the client's circbuff.cpp |
 | 3 | `CircBuffClass` | `app/common/circbuff.h:20` | by convention (D24) from the client's file circbuff.cpp |
+| 3 | `udpconn.h` | `app/common/udpconn.h:19` | header name assumed from the client's udpconn.cpp |
 | 3 | `kernel.h` | `app/kernel/kernel.h:18` | header name assumed from the client's kernel.cpp |
 | 3 | `PacketClass` | `app/packets/pk.h:49` | by convention (D24) from pk.h / pk.cpp |
 | 3 | `bitset.h` | `app/shared/auxdata/bitset.h:16` | header name assumed from the client's bitset.cpp |

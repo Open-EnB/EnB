@@ -3199,6 +3199,21 @@ RECONSTRUCTED = {
     ('app', 'kernel/kernel.cpp'): "the task kernel, client 0x443020-0x444150 (kernel-map.md 6, step 1): KernelClass and TaskClass; "
                                   "the asserts on the client's lines 74 / 157 / 196 / 225 / 474 (D25); NOT EXACT: Remove_Task "
                                   "(the client calls list's iterator++ 0x444190 out of line), Is_Running, TaskClass::Is_Focused",
+    ('app', 'client/tasks/tsk_login.h'): "LoginTaskClass (the client's name), declared only as far as MenuTask uses it: "
+                                         "the constructor 0x7675D0, the size 0x1148; tsk_login.cpp not rebuilt",
+    ('app', 'client/tasks/tsk_menu.h'): "MenuTaskClass (D24 after its log 'MenuTask'), vtable 0xB04228, 0x10 bytes",
+    ('app', 'client/tasks/tsk_menu.cpp'): "MenuTask, client 0x76BC50-0x76BF2F (kernel-map.md 6, step 7): the object has no "
+                                          "__FILE__, the name sorts between tsk_login.cpp and tsk_movie.cpp (the link order; "
+                                          "NAME 1); exact",
+    ('app', 'client/tasks/tsk_movie.h'): "MovieTaskClass (D24), vtable 0xB04280, 0x38 bytes: the intro movie's task",
+    ('app', 'client/tasks/tsk_movie.cpp'): "the movie task, client 0x76BF40-0x76C5D8 (kernel-map.md 6, step 7) over Renegade's "
+                                           "BINKMovie (0xA161B0-0xA162D0, declared only; E&B's Play takes a volume); the assert "
+                                           "on the client's line 87 (D25); exact",
+    ('app', 'client/tasks/tsk_smovie.h'): "ScriptedMovieTaskClass (D24), vtable 0xB04360, 0x24 bytes: the movie scripts' task",
+    ('app', 'client/tasks/tsk_smovie.cpp'): "the scripted movie task, client 0x76C670-0x76CFBA (kernel-map.md 6, step 7), with "
+                                            "mclient.cpp's movie client and client_lego_impl.cpp's asset calls declared only; "
+                                            "the asserts on the client's lines 61-374 (D25); NOT EXACT: Init (the client's loop "
+                                            "isn't rotated)",
     ('app', 'common/circbuff.h'): "CircBuffClass (descriptive, D24; members from the asserts): the ring buffer of bytes, "
                                   "the client's layout (0x18 bytes)",
     ('app', 'common/circbuff.cpp'): "the ring buffer, client 0x830BF0-0x830F30 (the stream connection's 100,000-byte receive "
