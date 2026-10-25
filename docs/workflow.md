@@ -483,4 +483,10 @@ Added 2026-10-24 (overnight run; details in `.work/night/item*/report.md`):
   (`xor eax,eax; ret`, referenced directly from many vtables) fills pure virtual slots: declare them
   `= 0`. Open: which bool-return form gives a bare `setcc al` without the `xor`.
 * **The Write tool writes LF.** Convert new tree files to CRLF to match their neighbours, and check
-  a file's line ends before using `\r\n` anchors in an edit script.
+  a file's line ends before using `\r\n` anchors in an edit script. Python's text-mode write on Windows turns LF into
+  CRLF: match `\r?\n` in later regex edits.
+* **Connection layer.** wwlib's pk.h shadows app/packets/pk.h on the include path: include it
+  relatively (`..\packets\pk.h`). An assert's names can be the reverse of the guess
+  (`readbytes == bytes` is `cmp ebp, eax` with the wanted size in `readbytes`); two FAIL_IFs sharing
+  one string means one variable name in both functions. Is_Dead's eax-wide 0/1 is
+  `return(!a() && !b());`. `CordCon::read` with peek still adds to `BytesRead_`.
