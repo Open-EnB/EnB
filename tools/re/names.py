@@ -26,7 +26,7 @@ EXTS = ('.cpp', '.h', '.inl', '.c')
 THRESHOLD = 3       # scores at or below this are listed for review
 
 TAG = re.compile(r'//\s*NAME\s+([1-5])\s*(?:\[([^\]]+)\])?\s*:\s*(.*)$')
-UNKNOWN = re.compile(r'\b(?:m_)?Unknown[A-Za-z0-9_]*\b')
+UNKNOWN = re.compile(r'\b\w*Unknown\w*\b')     # m_Unknown7C, Unknown_18, DeltaUnknownGlobal
 KEYWORDS = {'const', 'virtual', 'static', 'inline', 'unsigned', 'signed', 'int', 'char', 'void', 'bool',
             'float', 'double', 'long', 'short', 'struct', 'class', 'enum', 'union', 'typedef', 'return',
             'public', 'private', 'protected', 'operator', 'template', 'typename', 'extern', 'explicit'}

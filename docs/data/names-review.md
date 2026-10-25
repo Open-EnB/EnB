@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 24 |
 | 3 | by convention from a client-named file or sibling | 51 |
 | 2 | describes what the code does | 219 |
-| 1 | neutral placeholder | 177 |
+| 1 | neutral placeholder | 180 |
 
 ## For review (score 3 and below)
 
@@ -56,6 +56,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `m_Unknown7C` | `app/shared/auxdata/delta.cpp:12` | untagged neutral name (D10) |
 | 1 | `m_Unknown80` | `app/shared/auxdata/delta.cpp:13` | untagged neutral name (D10) |
 | 1 | `m_Unknown04` | `app/shared/auxdata/delta.cpp:15` | untagged neutral name (D10) |
+| 1 | `DeltaUnknownGlobal` | `app/shared/auxdata/delta.cpp:15` | untagged neutral name (D10) |
 | 1 | `Unknown_18` | `app/shared/auxdata/delta.cpp:19` | untagged neutral name (D10) |
 | 1 | `Unknown_40` | `app/shared/auxdata/delta.cpp:22` | untagged neutral name (D10) |
 | 1 | `Unknown_1C` | `app/shared/auxdata/delta.cpp:26` | untagged neutral name (D10) |
@@ -182,6 +183,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_Assert_Failed` | `stubs/app_stubs.cpp:33` | untagged neutral name (D10) |
 | 1 | `Unknown_Fail_If_Report` | `stubs/app_stubs.cpp:40` | untagged neutral name (D10) |
 | 1 | `Unknown_Debug_Printf` | `stubs/app_stubs.cpp:47` | untagged neutral name (D10) |
+| 1 | `DeltaUnknownGlobal` | `stubs/app_stubs.cpp:61` | untagged neutral name (D10) |
+| 1 | `DeltaCompoundUnknownGlobal` | `stubs/app_stubs.cpp:62` | untagged neutral name (D10) |
 | 1 | `UnknownGlobal` | `stubs/app_stubs.cpp:63` | untagged neutral name (D10) |
 | 1 | `m_Unknown00` | `stubs/app_stubs.cpp:102` | untagged neutral name (D10) |
 | 1 | `m_Unknown98` | `tests/capharness/auxdata_smoke/auxdata_smoke.cpp:52` | untagged neutral name (D10) |
