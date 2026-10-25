@@ -39,7 +39,8 @@
 // sessions run on until nothing is queued, unacked or due (at most 20,000 ticks). It tests what a
 // dump can't: resend requests, the resend timer, the send window, the close. OUT: R lines as
 // above, then per side "L session dir sent N dropped N resends N resend-requests N dup-acks N
-// close-state N queued N unacked N".
+// close-state N queued N unacked N". Then a session still open gets a go-away (type 6) from the
+// server's address on the client side and runs 12 s on: "A session sent-after N close-state N".
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -575,6 +576,26 @@ int main(int argc, char **argv)
 					s->LoopDropped[d], c->Resends_, c->ResendRequests_, c->DupAcks_, c->CloseState_, c->Queued_,
 					Loop_Unacked(c));
 			}
+		}
+		for (std::map<std::string, Session *>::iterator jt = Sessions.begin(); jt != Sessions.end(); ++jt) {
+			Session *s = jt->second;
+			if (!s->Client.Con || s->Client.Con->CloseState_ != 0) {
+				continue;
+			}
+			std::vector<unsigned char> g(10, 0);
+			g[0] = 6;
+			g[7] = 4;
+			g[8] = (unsigned char)(s->Id >> 8);
+			g[9] = (unsigned char)s->Id;
+			Replay[s->Client.Sock].In.push_back(g);
+			s->Client.Mgr.Pump();
+			int before = s->LoopSent[0];
+			for (int t = 0; t < 600; t++) {		// the server is gone: only the client pumps
+				Replay_Time_Ms += step_ms;
+				Loop_Send(out, s, s->Client, s->Server, 0, jt->first.c_str(), -2);
+			}
+			fprintf(out, "A %s sent-after %d close-state %d\n", jt->first.c_str(), s->LoopSent[0] - before,
+				s->Client.Con->CloseState_);
 		}
 		fprintf(out, "# ticks %d\n", total);
 		fclose(out);

@@ -58,7 +58,7 @@ CordMgr::CordMgr() :
 	Unknown0C(0),
 	Unexpected_(0)
 {
-	memset(Unknown1C, 0, sizeof(Unknown1C));
+	// Releases_ (+0x1C) starts empty
 }
 
 CordMgr::~CordMgr()
@@ -141,6 +141,10 @@ void CordMgr::Pump()
 		sockaddr_in from;
 		int len;
 		while ((len = udp->Read(buf, sizeof(buf), &from)) >= 0) {
+			if (len == 0) {
+				Process_Zero_Read(&from);
+				continue;
+			}
 			if (len <= 3) {
 				continue;
 			}
@@ -156,15 +160,11 @@ void CordMgr::Pump()
 				taken = Process_SYN1_Packet(buf, len, &from, udp, 0);
 			} else if (type == 2 && listen) {
 				taken = Process_SYN2_Packet(buf, len, &from, udp, 0);
+			} else if (type == 6) {
+				taken = Process_Go_Away_Packet(buf, len, &from);
 			}
 			if (!taken) {
 				Unexpected_++;
-
-
-
-
-
-
 
 
 
@@ -594,6 +594,9 @@ void CordMgr::Pump()
 			}
 		}
 	}
+	// The client then pumps every connection (CordCon::pump), Pump_Connections and Pump_Releases;
+	// a program pumps its connections itself here (Pump_Connections has no timer yet).
+	Pump_Releases();
 }
 
 // 0x859F80: the record of a data socket.
@@ -609,6 +612,90 @@ CordDataSocketClass *CordMgr::Find_Data_Socket(UDP *socket)
 		}
 	}
 	return s;
+}
+
+// 0x8586D0, functional (NOT EXACT): 06, the address (4 bytes), the port (2), the type it answers,
+// the session (2). Types 4 / 5: the connection on a socket bound to that port, to the sender's
+// address and port, with that session, goes away. Types 0 / 2 (a refused handshake): the client
+// expires the connecting record's timer (not rebuilt: Pump_Connections has no timer).
+bool CordMgr::Process_Go_Away_Packet(unsigned char *data, int len, sockaddr_in *from)
+{
+	WWPROFILE("CordMgr::Process_Go_Away_Packet");
+	if (len != 10) {
+		return false;
+	}
+	unsigned short port = ntohs(*(unsigned short *)(data + 5));
+	unsigned short session = ntohs(*(unsigned short *)(data + 8));
+	if (data[7] != 4 && data[7] != 5) {
+		return false;
+	}
+	for (int i = 0; i < Connections_.Length(); i++) {
+		CordCon *con = Connections_[i];
+		unsigned int ip = 0;
+		unsigned short local = 0;
+		con->Udp_->getLocalAddr(ip, local);
+		if (local == port && con->Ip_ == ntohl(from->sin_addr.s_addr) && con->Port_ == ntohs(from->sin_port)
+			&& (unsigned short)con->Session_ == session) {
+			con->Go_Away();
+			return true;
+		}
+	}
+	return false;
+}
+
+// 0x858980: the connections to that address and port go away (the client also expires the
+// matching connecting records' timers: not rebuilt).
+void CordMgr::Process_Zero_Read(sockaddr_in *from)
+{
+	for (int i = 0; i < Connections_.Length(); i++) {
+		CordCon *con = Connections_[i];
+		if (con->Ip_ == ntohl(from->sin_addr.s_addr) && con->Port_ == ntohs(from->sin_port)) {
+			con->Go_Away();
+		}
+	}
+}
+
+// 0x8596F0: called by the game's connection (app\common, 0x82CDC0 / 0x82D1B0 / 0x82D3B0).
+bool CordMgr::Release(CordCon *con)
+{
+	con->close(false);
+	CordReleaseClass r;
+	r.Con = con;
+	r.Time = (unsigned int)time(0) + 30;
+	Releases_.Add(r);
+	return true;
+}
+
+// 0x859940, functional (NOT EXACT): as many entries as the list holds while it shrinks; a due one
+// leaves the list, and its connection, when still open, leaves Connections_, its socket's count
+// and memory (the client logs '%d UDP connections managed').
+bool CordMgr::Pump_Releases()
+{
+	WWPROFILE("CordMgr::Pump_Releases");
+	int at = 0;
+	for (int k = 0; k < Releases_.Length(); k++) {
+		CordReleaseClass r;
+		Releases_.Get(r, at);
+		if ((int)time(0) < (int)r.Time) {
+			at++;
+			continue;
+		}
+		for (int i = 0; i < Connections_.Length(); i++) {
+			if (Connections_[i] != r.Con) {
+				continue;
+			}
+			Connections_.Remove(i);
+			for (int d = 0; d < DataSockets_.Length(); d++) {
+				if (DataSockets_[d].Socket == r.Con->Udp_) {
+					DataSockets_[d].Unknown04--;
+				}
+			}
+			delete r.Con;
+			break;
+		}
+		Releases_.Remove(at);
+	}
+	return true;
 }
 
 // 0x85A000: the client's side takes type 4 (from the server), the server's type 5.
@@ -634,93 +721,6 @@ bool CordMgr::Process_CORD_Packet(unsigned char *data, int len, sockaddr_in *fro
 					con->Port_ = ntohs(from->sin_port);
 					break;
 				}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

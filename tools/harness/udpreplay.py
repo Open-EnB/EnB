@@ -561,6 +561,7 @@ def loop(name, exe, drops, step):
         got = defaultdict(list)
         refused = Counter()
         sides = []
+        away = []
         for line in open(res):
             q = line.split()
             if q and q[0] == 'E':
@@ -569,6 +570,8 @@ def loop(name, exe, drops, step):
                 got[(q[3], q[2], int(q[4]))].append(bytes.fromhex(q[5]) if len(q) > 5 else b'')
             elif q and q[0] == 'L':
                 sides.append(dict(zip(q[3::2], map(int, q[4::2])), session=q[1], dir=q[2]))
+            elif q and q[0] == 'A':
+                away.append((q[1], int(q[3]), int(q[5])))
         equal = sub = bad = 0
         for key, msgs in written.items():
             g = got.get(key, [])
@@ -604,7 +607,10 @@ def loop(name, exe, drops, step):
               '%d; closed sessions: %d of %d' % (
                   equal, sum(1 for k in written if modes[k] == {3}), sub, sum(1 for k in written if modes[k] != {3}),
                   left, len(closing) - len(set(unclosed)), len(closing)))
-        ok = ok and bad == 0 and left == 0 and not unclosed
+        gone = sum(1 for s, sent, state in away if sent == 0 and state != 0)
+        print('    go-away to the client of the %d sessions still open: %d sent nothing more and asked to close '
+              '(the idle close, 10 s on)' % (len(away), gone))
+        ok = ok and bad == 0 and left == 0 and not unclosed and gone == len(away)
     return ok
 
 

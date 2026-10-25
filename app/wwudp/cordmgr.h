@@ -30,11 +30,12 @@
 
 #include "cordcon.h"
 #include "udp.h"
+#include <time.h>
 
 struct CordDataSocketClass		// NAME 2: a data socket's record (the +0x40 list, 16 bytes)
 {
 	UDP *Socket;
-	int Unknown04;
+	int Unknown04;		// +0x04 (Pump_Releases takes one off for each connection on the socket it frees)
 	int Unknown08;
 	int Unknown0C;
 };
@@ -44,6 +45,13 @@ struct CordListenSocketClass	// NAME 2: a listening socket's record (the +0x4C l
 	UDP *Socket;
 	int Unknown04;
 	int Unknown08;
+};
+
+// A released connection and when to free it (Release 0x8596F0: now + 30 s).
+struct CordReleaseClass		// NAME 2: describes what it holds (the +0x1C list, 8 bytes)
+{
+	CordCon *Con;
+	unsigned int Time;		// time_t
 };
 
 // A connection in the handshake (0x140 bytes; made by Connect 0x858EC0, kept in CordMgr's +0x10
@@ -86,13 +94,22 @@ public:
 	// Sends SYN1 / SYN2 for the connections in the handshake (0x858A60, reduced: every call, no
 	// resend timer or time-out).
 	bool Pump_Connections();
+	// A go-away (type 6) from the peer: the connection it names goes away. 0x8586D0
+	bool Process_Go_Away_Packet(unsigned char *data, int len, sockaddr_in *from);
+	// A 0-byte read (the peer's port unreachable): every connection to that address goes away.
+	// 0x858980
+	void Process_Zero_Read(sockaddr_in *from);	// NAME 2: what it does
+	// Closes a connection and frees it 30 s later (Pump_Releases). 0x8596F0
+	bool Release(CordCon *con);	// NAME 1: after Pump_Releases
+	// Frees the released connections whose time has come. 0x859940
+	bool Pump_Releases();
 
 	unsigned char Protocol_;							// +0x00 NAME 2: the handshake's second byte (0x14 in the captures)
 	int Unknown04;										// +0x04
 	unsigned short NextSession_;						// +0x08 NAME 2: the next session id (+0x1337 each time)
 	int Unknown0C;										// +0x0C
 	CordArrayClass<CordConnectingClass *> Pending_;		// +0x10 NAME 2: connections in the handshake
-	int Unknown1C[3];									// +0x1C
+	CordArrayClass<CordReleaseClass> Releases_;			// NAME 2: +0x1C connections to free (Release, Pump_Releases)
 	CordArrayClass<CordCon *> AllConnections_;			// +0x28 NAME 1: ACK2 adds the CordCon here too
 	CordArrayClass<CordCon *> Connections_;				// +0x34 NAME 2: the open connections
 	CordArrayClass<CordDataSocketClass> DataSockets_;	// +0x40 NAME 2: the sockets data arrives on

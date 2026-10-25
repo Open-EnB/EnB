@@ -171,7 +171,7 @@ CordCon::CordCon(unsigned int ip, unsigned short port, int session, unsigned sho
 	LastSend_(0),
 	LastReceive_((unsigned int)time(0)),
 	LastPump_((unsigned int)time(0)),
-	UnknownAC(false),
+	GoneAway_(false),
 	CloseState_(0),
 	CloseSeq_(0),
 	IsServer_(is_server),
@@ -941,13 +941,63 @@ static void Finish_Datagram(CordCon *con, unsigned char *buf, int len, unsigned 
 	con->PacketsOut_++;
 }
 
-// 0x850870 ('CordCon:close'), reduced: asks for the close; pumpClose sends it once everything
-// is sent and acked. The client's also closes the channels and can close at once.
-void CordCon::close()
+// 0x850870 ('CordCon:close'), functional (NOT EXACT: the vectors' and wlib's inlined code): with
+// now, every channel's queued and sent records are freed and its acks and resend requests dropped;
+// then the state: 3 (the peer's close read) -> 4, 0 -> 1 and pumpClose (the "CLOSE" once nothing
+// is queued or due). Nothing changes once closed (4).
+bool CordCon::close(bool now)
 {
-	if (CloseState_ == 0) {
-		CloseState_ = 1;
+	WWPROFILE("CordCon::close");
+	if (CloseState_ == 4) {
+		return true;
 	}
+	if (now) {
+		for (size_t i = 0; i < Active_.size(); i++) {
+			CordChannelClass *c = Active_[i];
+			while (c->Queue.size() != 0) {
+				c->Queue[0].Free();
+				if (c->Queue[0].SendCount == 0) {
+					Queued_--;
+				}
+				c->Queue.erase(c->Queue.begin());
+			}
+			while (c->Sent.size() != 0) {
+				c->Sent[0].Free();
+				if (c->Sent[0].SendCount == 0) {
+					Queued_--;
+				}
+				c->Sent.erase(c->Sent.begin());
+			}
+			while (c->ToAck.Length() != 0) {
+				c->ToAck.Remove(0);
+				AcksPending_--;
+			}
+			while (c->Missing.Length() != 0) {
+				c->Missing.Remove(0);
+				ResendsPending_--;
+			}
+		}
+		Queued_ = 0;
+		AcksPending_ = 0;
+		ResendsPending_ = 0;
+	}
+	if (CloseState_ == 3) {
+		CloseState_ = 4;
+	} else if (CloseState_ == 0) {
+		CloseState_ = 1;
+		pumpClose();
+	}
+	return true;
+}
+
+// 0x850220: the idle close (pump: 90 s without a datagram) 10 s from now at the latest.
+void CordCon::Go_Away()
+{
+	unsigned int t = (unsigned int)time(0) - 80;
+	if ((int)LastReceive_ > (int)t) {
+		LastReceive_ = t;
+	}
+	GoneAway_ = true;
 }
 
 // 0x850260: state 1 (close asked), nothing queued or due: "CLOSE" on channel 0, state 2 until
@@ -1018,7 +1068,7 @@ bool CordCon::pump(Wtime &now)
 	}
 	LastPump_ = t;
 	for (;;) {
-		if (UnknownAC) {
+		if (GoneAway_) {
 			pumpClose();
 			break;
 		}
@@ -1033,7 +1083,7 @@ bool CordCon::pump(Wtime &now)
 		LastSend_ = t;
 	}
 	if ((int)(t - LastReceive_) > 90 && (CloseState_ == 0 || CloseState_ == 1)) {
-		close();		// the client's close(1)
+		close(true);
 	}
 	for (size_t i = 1; i < Active_.size(); i++) {
 		CordChannelClass *c = Active_[i];

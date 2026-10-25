@@ -245,7 +245,10 @@ resend timer, the window and the close. Results (2026-10-24), every one passing:
 
 A channel the dump reopens with another mode is written on as first opened (the harness has no
 channel close), so it is checked as a sequenced one. alex7's 3 writes after the close reached that
-side are refused, as in the replay.
+side are refused, as in the replay. Last, each session still open (one in each file) gets a
+go-away (type 6, CordMgr::Process_Go_Away_Packet) on its client side, the server side silent: the
+client sends nothing more, and the idle close (CordCon::Go_Away: 90 s since the last datagram, 10 s
+on) asks for the close (state 2: "CLOSE" queued, never sent): passes in every case.
 
 What doesn't match, and why:
 * **alex7, session 625d, server channel 4.** The dump cut datagrams #109-#111 and lost sequence

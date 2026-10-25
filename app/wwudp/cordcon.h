@@ -288,8 +288,12 @@ public:
 	bool read(int *channel, int *len, void *buf, bool peek);
 	// A received datagram (the whole wire datagram, decrypted in place). 0x851AE0
 	bool handlePacket(unsigned char *data, int datalen);
-	// Asks for the close ('CordCon:close' 0x850870, reduced). pumpClose 0x850260 sends it.
-	void close();
+	// Closes ('CordCon:close' 0x850870): now drops everything queued, unacked and due first; then
+	// state 3 (the peer closed) becomes 4, state 0 becomes 1 and pumpClose 0x850260 sends "CLOSE".
+	bool close(bool now = false);
+	// The peer said go away (a type-6 datagram, or a 0-byte read): nothing more is sent, and the
+	// idle close follows within 10 s. 0x850220
+	void Go_Away();	// NAME 2: what it does (called from CordMgr::Process_Go_Away_Packet)
 	bool pumpClose();
 	// Sends what is queued, and the acks due on an empty channel-0 message; the keep-alive, the
 	// idle close, dropping closed channels. 0x853560
@@ -341,7 +345,7 @@ public:
 	unsigned int LastSend_;						// NAME 2: +0xA0 time_t of the last datagram (pump: the keep-alive after 5 s)
 	unsigned int LastReceive_;					// NAME 2: +0xA4 time_t (pump: the idle close after 90 s)
 	unsigned int LastPump_;						// NAME 2: +0xA8 time_t (pump: a gap over 45 s resets LastReceive_)
-	bool UnknownAC;								// +0xAC pump sends nothing while set
+	bool GoneAway_;								// NAME 2: +0xAC set by Go_Away: pump sends nothing
 	int CloseState_;							// NAME 2: +0xB0 0 open, 1 close asked, 2 CLOSE sent, 3 peer closing, 4 closed
 	unsigned int CloseSeq_;						// NAME 2: +0xB4
 	bool IsServer_;								// NAME 2: +0xB8
