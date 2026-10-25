@@ -18,7 +18,12 @@ import sys
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.dirname(os.path.dirname(HERE))
 WORK = os.path.join(REPO, '.work', 'harness', 'kerneltest')
-SOURCES = [r'app\kernel\kernel.cpp']
+SOURCES = [r'app\kernel\kernel.cpp', r'app\client\tasks\tsk_movie.cpp', r'app\client\tasks\tsk_smovie.cpp',
+           r'app\client\tasks\tsk_menu.cpp']
+# the game's install (read only): binkw32.dll and a movie are copied to the work directory
+GAME = r'C:\Program Files (x86)\EA GAMES\Earth & Beyond'
+BINK_DLL = os.path.join(GAME, 'release', 'binkw32.dll')
+BINK_FILE = os.path.join(GAME, 'Data', 'client', 'mixfiles', 'eb_ws_logo.bik.old')
 
 EXPECT = [
     'instance ok',
@@ -39,6 +44,37 @@ EXPECT = [
     'running 0',
     'assert Instance == NULL (line 74)',
     'asserts 2',
+    # the start-up tasks (taskstest.cpp, kernel-map.md 6, step 7): the intro movie, the scripted
+    # movie, MenuTask, in WinMain's order
+    'bink init',
+    'fail_if !movie_name (line 87)', 'movies 2',
+    'bink play ..//data//client//mixfiles//eb_sizzle.bik (same) volume 0x8000',
+    'set focus movie: 0',                  # already focused: Set_Focus asks it to yield first: no
+    'client 1 made (task ok, kernel ok)', 'client 2 made (task ok, kernel ok)',
+    'client 3 made (task ok, kernel ok)',   # moviescript2.txt and 3 exist, 4 doesn't
+    'load assets cbasset.ini', 'smovie init: 1, clients 3',
+    'focus movie', 'movie interval 500',     # no Render yet: the device check not passed
+    'yield movie early: 0',
+    'bink stop at the end', 'bink play second.bik (same) volume 0x4000',
+    'movie 1 done: index 1, some frames rendered, renders bracketed',
+    'key before 3 s: movie kept',
+    'bink stop before the end',
+    'client 1 loads moviescript1.txt (some background runs before)',   # Remove_Task's Next_Focus
+    'bink shutdown',                       # the movie task deleted after its Pre_Run (Pending_Delete)
+    'client 1 run 1 (focused)', 'client 1 render',
+    'key after 3 s: movie removed, focus smovie',
+    'client 1 key 0x41', 'client 1 run 2 (focused)', 'client 1 deleted',
+    'client 2 loads moviescript2.txt (no background runs before)',
+    'client 2 run 2 (focused)', 'client 2 deleted',
+    'client 3 loads moviescript3.txt (no background runs before)',
+    'client 3 run 2 (focused)', 'client 3 deleted',
+    'log: MenuTask: accepting focus.', 'free assets',
+    'login task mode 1', 'log: MenuTask: Starting Login Task.', 'step: starting login task',
+    'log: MenuTask: yielding focus.', 'login accepts focus', 'step end: ok',
+    'smovie removed after 5 cycles',
+    'menu removed, login added, focus login',
+    'log: MenuTask: killing kernel.', 'running after 0x51: 0',
+    'tasks done', 'asserts 2',
 ]
 
 
@@ -68,7 +104,12 @@ def build(out):
 def run(exe):
     os.makedirs(WORK, exist_ok=True)
     res = os.path.join(WORK, 'kerneltest.out.txt')
-    p = subprocess.run([os.path.abspath(exe), res], capture_output=True, text=True, cwd=WORK)
+    args = [os.path.abspath(exe), res]
+    if os.path.exists(BINK_DLL) and os.path.exists(BINK_FILE):
+        shutil.copy(BINK_DLL, WORK)
+        shutil.copy(BINK_FILE, os.path.join(WORK, 'eb_ws_logo.bik'))
+        args.append('eb_ws_logo.bik')
+    p = subprocess.run(args, capture_output=True, text=True, cwd=WORK, timeout=300)
     if p.returncode != 0:
         print(p.stdout[-2000:], p.stderr[-2000:])
         raise SystemExit('kerneltest failed: %d' % p.returncode)

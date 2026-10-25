@@ -12,7 +12,7 @@
 #include "kernel.h"
 
 static FILE *Out;
-static unsigned int Clock = 1000;
+unsigned int Clock = 1000;
 static int Slept = -1;
 static int Asserts = 0;
 
@@ -20,8 +20,8 @@ static int Asserts = 0;
 
 unsigned int Unknown_Get_Ticks() { return Clock; }
 int Unknown_9179D0() { return 0; }
-static KernelEventClass Pending;
-static bool Has_Pending = false;
+KernelEventClass Pending;
+bool Has_Pending = false;
 bool Unknown_42EA80(KernelEventClass *event)
 {
 	if (!Has_Pending) {
@@ -101,6 +101,8 @@ public:
 	TaskClass *Remove_Other;
 };
 
+int Tasks_Test(FILE *out, const char *bik);	// taskstest.cpp: the start-up tasks (kernel-map.md 6, step 7)
+
 static void Cycle(KernelClass &k, int advance)
 {
 	Clock += advance;
@@ -156,6 +158,8 @@ int main(int argc, char **argv)
 	KernelClass *second = new KernelClass;	// the assert 'Instance == NULL'
 	delete second;
 	delete kernel;
+	fprintf(Out, "asserts %d\n", Asserts);
+	Tasks_Test(Out, argc > 2 ? argv[2] : NULL);
 	fprintf(Out, "asserts %d\n", Asserts);
 	fclose(Out);
 	return 0;
