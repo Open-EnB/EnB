@@ -470,7 +470,7 @@ Added 2026-10-24 (overnight run; details in `.work/night/item*/report.md`):
 * **VC6 code forms (M1.3 leftovers).** Inlining depends on the whole file: an unrelated edit can
   swap two stack slots elsewhere (0x6FB1E0), so re-verify after any generator change. Big
   constructors stop inlining partway (inline budget: 0x700B10, 0x6F85F0, 0x6F66B0 in Ship, Player,
-  the factory); `#pragma inline_depth` doesn't reproduce it. `ret 8` with ecx set is a member even
+  the factory): see the inline budget model below; `#pragma inline_depth` doesn't reproduce it. `ret 8` with ecx set is a member even
   if it ignores `this`. A local copy of an argument changes argument load order (0x4A3D50).
   Separate failure returns let VC6 share the success tail. A for loop gives `jb top`; the client's
   `jae exit; jmp top` is a do-while behind a count test. A buffer at function scope gives each
@@ -508,3 +508,13 @@ Added 2026-10-24 (overnight run; details in `.work/night/item*/report.md`):
   cases 0-237: take source order from the unwind-state numbers, not code addresses. The form that
   matches is `packet = new X(raw); break;` with `packet` uninitialised and the default setting
   `packet = 0;` before its assert; `return(new X(raw));` drops the client's `mov esi, eax`.
+* **Small inline virtuals in a generated header** compile and match but never count as pairs (too
+  short or common): confirm them with `objdiff.py OBJ SYMBOL ADDR`.
+* **VC6's inline budget (the root constructors).** An out-of-line copy placed right after its first
+  caller is an INLINE function VC6 didn't inline there: generate it `inline` (0x6FA150, 0x6FB1E0,
+  0x707430, 0x6F85F0). Every inline candidate in the file uses the caller's budget, and the budget
+  grows with the caller's own size (removing Adds anywhere moves where inlining stops). Template
+  instances use the `#pragma inline_depth` state at the END of the file. Splitting Player into its own
+  file changed nothing. Defaults passed through a stack temporary are missed by auxextract like
+  register-loaded ones (1.0f arrays, Validity 0x100): check the bytes before each constructor call.
+  Git Bash `sed -i` turns CRLF files into LF.
