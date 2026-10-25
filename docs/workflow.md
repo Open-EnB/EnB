@@ -447,3 +447,11 @@ Added 2026-10-24 (overnight run; details in `.work/night/item*/report.md`):
 * **Verify with another builder's tracked edits present** picks them up (2 encode.cpp gains showed
   in someone else's run): compare per file and restore imports.json. names.py reads the working
   tree: regenerate names-review.md in a clean `git worktree` when others have uncommitted names.
+* **Net-7 recordings.** The 2022-09-25 recording has no client side of the sector (proxy-to-server
+  only): run it with `n7aux.py --server-side`. Net-7's encoder differs from EA's in a fourth way
+  beyond the reference decoder's auxdata.md §7: fields named in two sets (Value and Default, a Whole header
+  `0f` for EA's `07`); the client applies one, so such messages re-encode differently.
+* **asserts.txt's file attribution** gives each string the nearest preceding path: tcpqueue.cpp gets
+  about 60 asserts of which only 2 are its own. funcmatch's string evidence doesn't check `__FILE__`
+  either (symbols.json's 0x829C80 `PacketManagerClass::Clear_Socket_Error` is tcpconn.cpp's
+  constructor).
