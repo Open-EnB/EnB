@@ -331,6 +331,35 @@
     "merged": [],
     "name": "shared/heightfield.cpp"
    },
+   "kernel": {
+    "ambiguous": [
+     "0x443F30"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x443050",
+     "0x443100",
+     "0x4431C0",
+     "0x4432A0",
+     "0x443380",
+     "0x443450",
+     "0x443640",
+     "0x443680",
+     "0x4436C0",
+     "0x443710",
+     "0x443820",
+     "0x443BC0",
+     "0x443C10",
+     "0x443CD0",
+     "0x443D90",
+     "0x443E20",
+     "0x443E90",
+     "0x444160"
+    ],
+    "merged": [],
+    "name": "kernel/kernel.cpp"
+   },
    "kv_encoder_base": {
     "ambiguous": [
      "0x42A6C0",
@@ -763,7 +792,7 @@
    "wwudp/udp.h": "reconstructed",
    "wwudp/wtime.h": "reconstructed"
   },
-  "in_tree_total": 327,
+  "in_tree_total": 344,
   "totals": {}
  },
  "ww3d2": {

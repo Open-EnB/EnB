@@ -3194,8 +3194,11 @@ RECONSTRUCTED = {
     ('app', 'wwudp/udp.h'): "the UDP socket CordMgr and CordCon use (CordCon::Udp_): WWOnline's wnet UDP (libs\\wwonline\\wnet, "
                             "client 0x8BF990-0x8C0540), the part the wwudp code calls (EA's Generals Tools\\matchbot\\wnet\\udp.h interface); "
                             "defined by the program (the capture harness's replay socket, M1.4)",
-    ('app', 'kernel/kernel.h'): "the task kernel's interface (KernelClass, the task base TaskClass: descriptive names, the client's "
-                                "layout and slot order, docs/kernel-map.md), declared only: kernel.cpp 0x443020-0x444150 not rebuilt yet",
+    ('app', 'kernel/kernel.h'): "the task kernel (KernelClass, the task base TaskClass, KernelEventClass: descriptive names, the "
+                                "client's layout and slot order, docs/kernel-map.md)",
+    ('app', 'kernel/kernel.cpp'): "the task kernel, client 0x443020-0x444150 (kernel-map.md 6, step 1): KernelClass and TaskClass; "
+                                  "the asserts on the client's lines 74 / 157 / 196 / 225 / 474 (D25); NOT EXACT: Remove_Task "
+                                  "(the client calls list's iterator++ 0x444190 out of line), Is_Running, TaskClass::Is_Focused",
     ('app', 'wwudp/bandwidthaccounting.cpp'): "the bandwidth accounting, client 0x84C720-0x84DFB0 (M1.4): a kernel task with per-address "
                                               "counts fed by wnet's accounting callback, WWLib's DynamicVectorClass of 0x3C-byte "
                                               "entries; the debug window prints on the client's lines 281-361 (D25); exact",

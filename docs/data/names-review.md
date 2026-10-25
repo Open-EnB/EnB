@@ -10,8 +10,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 2 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 27 |
 | 3 | by convention from a client-named file or sibling | 56 |
-| 2 | describes what the code does | 458 |
-| 1 | neutral placeholder | 268 |
+| 2 | describes what the code does | 473 |
+| 1 | neutral placeholder | 295 |
 
 ## For review (score 3 and below)
 
@@ -66,17 +66,44 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `m_Unknown428` | `app/client/aux_roots.h:921` | neutral (D10): a member, not a field of the tree |
 | 1 | `UnknownCOClass` | `app/client/aux_roots.h:979` | neutral (D10), the class of co.cpp's objects (vtable 0xB0070C) |
 | 1 | `Unknown_Create_Aux_Root` | `app/client/aux_roots.h:984` | untagged neutral name (D10) |
-| 1 | `TaskClass` | `app/kernel/kernel.h:27` | after the tasks' own names (LoginTaskClass); the client's not found |
-| 1 | `Describe` | `app/kernel/kernel.h:31` | what the message server's does |
-| 1 | `Unknown_08` | `app/kernel/kernel.h:33` | untagged neutral name (D10) |
-| 1 | `Unknown_0C` | `app/kernel/kernel.h:34` | untagged neutral name (D10) |
-| 1 | `Unknown_10` | `app/kernel/kernel.h:35` | untagged neutral name (D10) |
-| 1 | `Unknown_14` | `app/kernel/kernel.h:36` | untagged neutral name (D10) |
-| 1 | `Unknown_18` | `app/kernel/kernel.h:37` | untagged neutral name (D10) |
-| 1 | `Unknown_1C` | `app/kernel/kernel.h:38` | untagged neutral name (D10) |
-| 1 | `Unknown_20` | `app/kernel/kernel.h:39` | untagged neutral name (D10) |
-| 1 | `Unknown_24` | `app/kernel/kernel.h:40` | untagged neutral name (D10) |
-| 1 | `Pre_Run` | `app/kernel/kernel.h:45` | Run_One_Cycle's order |
+| 1 | `Unknown_Get_Ticks` | `app/kernel/kernel.cpp:19` | untagged neutral name (D10) |
+| 1 | `Unknown_9179D0` | `app/kernel/kernel.cpp:20` | WW3D's device check (0 when DX8Wrapper's restore succeeds) |
+| 1 | `Unknown_42EA80` | `app/kernel/kernel.cpp:21` | the input queue's next event (input.cpp) |
+| 1 | `Unknown_42E8A0` | `app/kernel/kernel.cpp:22` | hands the event on (input.cpp) |
+| 1 | `UnknownBDADC0Class` | `app/kernel/kernel.cpp:89` | the object at *0xBDADC0 (its flag +0x4074) |
+| 1 | `Unknown0000` | `app/kernel/kernel.cpp:92` | untagged neutral name (D10) |
+| 1 | `Unknown4074` | `app/kernel/kernel.cpp:93` | untagged neutral name (D10) |
+| 1 | `Unknown_BDADC0` | `app/kernel/kernel.cpp:95` | 0xBDADC0 |
+| 1 | `UnknownBFAEE0Class` | `app/kernel/kernel.cpp:97` | the object at *0xBFAEE0 (Shutdown calls its slot +0x10) |
+| 1 | `Unknown_00` | `app/kernel/kernel.cpp:100` | untagged neutral name (D10) |
+| 1 | `Unknown_04` | `app/kernel/kernel.cpp:101` | untagged neutral name (D10) |
+| 1 | `Unknown_08` | `app/kernel/kernel.cpp:102` | untagged neutral name (D10) |
+| 1 | `Unknown_0C` | `app/kernel/kernel.cpp:103` | untagged neutral name (D10) |
+| 1 | `Unknown_10` | `app/kernel/kernel.cpp:104` | untagged neutral name (D10) |
+| 1 | `Unknown_BFAEE0` | `app/kernel/kernel.cpp:106` | 0xBFAEE0 |
+| 1 | `Unknown_14` | `app/kernel/kernel.cpp:538` | untagged neutral name (D10) |
+| 1 | `Unknown_18` | `app/kernel/kernel.cpp:539` | untagged neutral name (D10) |
+| 1 | `Unknown_1C` | `app/kernel/kernel.cpp:540` | untagged neutral name (D10) |
+| 1 | `Unknown_20` | `app/kernel/kernel.cpp:541` | untagged neutral name (D10) |
+| 1 | `Unknown_24` | `app/kernel/kernel.cpp:542` | untagged neutral name (D10) |
+| 1 | `KernelEventClass` | `app/kernel/kernel.h:26` | describes what it holds; the input code's name not found |
+| 1 | `Unknown04` | `app/kernel/kernel.h:28` | untagged neutral name (D10) |
+| 1 | `Unknown08` | `app/kernel/kernel.h:28` | untagged neutral name (D10) |
+| 1 | `Unknown0C` | `app/kernel/kernel.h:28` | untagged neutral name (D10) |
+| 1 | `Flags` | `app/kernel/kernel.h:30` | +0x02 0x1000: Handle_Key ignores the event |
+| 1 | `TaskClass` | `app/kernel/kernel.h:38` | after the tasks' own names (LoginTaskClass); the client's not found |
+| 1 | `Describe` | `app/kernel/kernel.h:42` | what the message server's does |
+| 1 | `Unknown_08` | `app/kernel/kernel.h:44` | untagged neutral name (D10) |
+| 1 | `Unknown_0C` | `app/kernel/kernel.h:45` | untagged neutral name (D10) |
+| 1 | `Unknown_10` | `app/kernel/kernel.h:46` | untagged neutral name (D10) |
+| 1 | `Unknown_14` | `app/kernel/kernel.h:47` | untagged neutral name (D10) |
+| 1 | `Unknown_18` | `app/kernel/kernel.h:48` | untagged neutral name (D10) |
+| 1 | `Unknown_1C` | `app/kernel/kernel.h:49` | untagged neutral name (D10) |
+| 1 | `Unknown_20` | `app/kernel/kernel.h:50` | untagged neutral name (D10) |
+| 1 | `Unknown_24` | `app/kernel/kernel.h:51` | untagged neutral name (D10) |
+| 1 | `Pre_Run` | `app/kernel/kernel.h:56` | Run_One_Cycle's order |
+| 1 | `Cycle_Focus` | `app/kernel/kernel.h:74` | what it does |
+| 1 | `Remove_Running` | `app/kernel/kernel.h:86` | what it does |
 | 1 | `m_Unknown70` | `app/shared/auxdata/delta.cpp:9` | untagged neutral name (D10) |
 | 1 | `m_Unknown78` | `app/shared/auxdata/delta.cpp:11` | untagged neutral name (D10) |
 | 1 | `m_Unknown7C` | `app/shared/auxdata/delta.cpp:12` | untagged neutral name (D10) |
@@ -285,13 +312,28 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `UnknownLogClass` | `tests/capharness/udpreplay/udpreplay.cpp:62` | untagged neutral name (D10) |
 | 1 | `Unknown_4BC130` | `tests/capharness/udpreplay/udpreplay.cpp:65` | untagged neutral name (D10) |
 | 1 | `UnknownLog` | `tests/capharness/udpreplay/udpreplay.cpp:67` | untagged neutral name (D10) |
-| 2 | `Accept_Focus` | `app/kernel/kernel.h:41` | 'LoginTask: accepting focus.' |
-| 2 | `Yield_Focus` | `app/kernel/kernel.h:42` | 'LoginTask: yielding focus.' |
-| 2 | `Get_Interval` | `app/kernel/kernel.h:44` | Run_One_Cycle's use |
-| 2 | `Delete_On_Remove` | `app/kernel/kernel.h:48` | Remove_Task's use |
-| 2 | `Get_Instance` | `app/kernel/kernel.h:57` | returns the instance (assert 'Instance == NULL') |
-| 2 | `Add_Task` | `app/kernel/kernel.h:58` | what it does |
-| 2 | `Remove_Task` | `app/kernel/kernel.h:59` | what it does |
+| 2 | `Key` | `app/kernel/kernel.h:29` | +0x00 Handle_Key: 0x1B Esc, 0x6A |
+| 2 | `Accept_Focus` | `app/kernel/kernel.h:52` | 'LoginTask: accepting focus.' |
+| 2 | `Yield_Focus` | `app/kernel/kernel.h:53` | 'LoginTask: yielding focus.' |
+| 2 | `Get_Interval` | `app/kernel/kernel.h:55` | Run_One_Cycle's use |
+| 2 | `Delete_On_Remove` | `app/kernel/kernel.h:59` | Remove_Task's use |
+| 2 | `Is_Focused` | `app/kernel/kernel.h:61` | what it does |
+| 2 | `Set_Kernel` | `app/kernel/kernel.h:62` | what it does |
+| 2 | `Shutdown` | `app/kernel/kernel.h:75` | the tasks' Shutdown, all |
+| 2 | `Process_Messages` | `app/kernel/kernel.h:76` | what it does |
+| 2 | `Is_Running` | `app/kernel/kernel.h:78` | what it does |
+| 2 | `Handle_Key` | `app/kernel/kernel.h:79` | what it does |
+| 2 | `Get_Instance` | `app/kernel/kernel.h:81` | returns the instance (assert 'Instance == NULL') |
+| 2 | `Add_Task` | `app/kernel/kernel.h:82` | what it does |
+| 2 | `Remove_Task` | `app/kernel/kernel.h:84` | what it does |
+| 2 | `Get_Task` | `app/kernel/kernel.h:85` | what it does |
+| 2 | `Run` | `app/kernel/kernel.h:87` | what it does |
+| 2 | `Is_Focus` | `app/kernel/kernel.h:88` | what it does |
+| 2 | `Get_Focus` | `app/kernel/kernel.h:89` | what it does |
+| 2 | `Next_Focus` | `app/kernel/kernel.h:90` | what it does |
+| 2 | `Set_Focus` | `app/kernel/kernel.h:91` | what it does |
+| 2 | `Process_Input` | `app/kernel/kernel.h:92` | what it does |
+| 2 | `Pump_Messages` | `app/kernel/kernel.h:93` | what it does |
 | 2 | `Swap` | `app/shared/auxdata/bitset.h:26` | describes what it does |
 | 2 | `Is_Set` | `app/shared/auxdata/bitset.h:30` | describes what it does |
 | 2 | `Set` | `app/shared/auxdata/bitset.h:32` | describes what it does |
@@ -754,7 +796,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `DeltaPlanetClass` | `app/client/aux_roots.h:927` | the client's root string "Planet", Westwood XxxClass (D24); structure = C# PlanetObject (C# fields = ours (same names, same order)) |
 | 3 | `DeltaStarbaseClass` | `app/client/aux_roots.h:943` | the client's root string "Starbase", Westwood XxxClass (D24); structure = C# StarbaseObject (C# fields = ours (same names, same order)) |
 | 3 | `DeltaStargateClass` | `app/client/aux_roots.h:959` | the client's root string "Stargate", Westwood XxxClass (D24); structure = C# StargateObject (C# fields = ours (same names, same order)) |
-| 3 | `kernel.h` | `app/kernel/kernel.h:20` | header name assumed from the client's kernel.cpp |
+| 3 | `kernel.h` | `app/kernel/kernel.h:18` | header name assumed from the client's kernel.cpp |
 | 3 | `bitset.h` | `app/shared/auxdata/bitset.h:16` | header name assumed from the client's bitset.cpp |
 | 3 | `BitSetClass` | `app/shared/auxdata/bitset.h:19` | by convention (D24) from the client's file bitset.cpp |
 | 3 | `delta.h` | `app/shared/auxdata/delta.h:19` | header name assumed from the client's delta.cpp |
