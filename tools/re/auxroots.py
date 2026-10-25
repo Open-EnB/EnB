@@ -25,7 +25,10 @@ blobs: `Unknown<VT>Type`) with the conversions KVPairTemplateClass needs.
 
 The output is functional, NOT EXACT (D42): default values (the client's 'Default' strings,
 1.0f arrays, the 20-byte blobs' {1.0f, 0, 0, -1, 0}) are not extracted, the nested classes'
-out-of-line constructors (the 0x700xxx / 0x75xxxx objects) are inline here. Player derives from
+out-of-line constructors are generated out of line where the client has them (a compound whose
+recorded constructor stores its own vtable last: 0x6FB1E0, 0x752E60, ...), and a compound whose
+constructor calls another compound's (Equipped's items: 0x6FA150 builds a Cargo item) derives from
+that class. Player derives from
 the second root class UnknownSendRootClass (vtable 0xAEAC40, ctor 0x4A3FF0) and calls its
 Unknown_48 (0x4A40B0: the policy and the change table).
 """
@@ -109,6 +112,58 @@ class Gen:
         self.decl = {}         # vt -> declaration text
         self.notes = {}        # vt -> example path
         self.instances = {}    # array template instance -> vt
+        self.nodes = {}        # vt -> an extracted node (compounds)
+        self.ooline = {}       # vt -> the client's out-of-line constructor of the class
+        self.base = {}         # vt -> the vt of its base class (a compound class it derives from)
+        self.nested = []       # (address, text): out-of-line constructors for aux_roots.cpp
+        self.img = None
+
+    # ---- the client's constructors
+
+    # constructors shared by many nodes (the root bases, DeltaCompoundClass's out-of-line copy
+    # 0x6F85F0, the interpolator's): not a class's own
+    SHARED = {0x4A3BD0, 0x4A5170, 0x4A3FF0, 0x4A40B0, 0x6F85F0, 0x4A6110}
+
+    def final_vt(self, addr):
+        """The last compound vtable a constructor stores (its class's, when it is the class's own)."""
+        if self.img is None:
+            from clientimage import ClientImage
+            self.img = ClientImage(CLIENT)
+        last = None
+        for ins in self.img.disasm(addr, 0x2000):
+            if ins.mnemonic == 'mov' and ins.op_str.startswith('dword ptr [e') and ', 0x' in ins.op_str \
+                    and ins.op_str.split('], ')[0].count('+') == 0:
+                v = int(ins.op_str.split(', ')[-1], 16)
+                if v in self.nodes:
+                    last = v
+            if ins.mnemonic == 'ret':
+                break
+        return last
+
+    def prepare(self, roots):
+        def walk(n, top):
+            if n.get('type') in ('struct', 'array') and n.get('vt'):
+                vt = int(n['vt'], 16)
+                if not top:
+                    self.nodes.setdefault(vt, n)
+            for f in n.get('fields', []):
+                walk(f, False)
+            if 'element' in n:
+                walk(n['element'], False)
+        for r in roots.values():
+            walk(r, True)
+        for vt, n in self.nodes.items():
+            if n['type'] != 'struct' or vt == INTERPOLATOR:
+                continue
+            for c in (int(x, 16) for x in n.get('ctors', [])):
+                if c in self.SHARED:
+                    continue
+                fvt = self.final_vt(c)
+                if fvt == vt:
+                    self.ooline[vt] = c
+                elif fvt is not None and self.nodes[fvt]['type'] == 'struct':
+                    self.base[vt] = fvt
+                    self.ooline[fvt] = c
 
     # ---- leaves
 
@@ -152,6 +207,8 @@ class Gen:
             x = struct.unpack('<f', struct.pack('<I', v))[0]
             return repr(x) + 'f' if '.' in repr(x) or 'e' in repr(x) else repr(x) + '.0f'
         i = v - (1 << 32) if v & 0x80000000 else v
+        if f['type'] == 'money':
+            return f'MoneyClass({i})'
         if f['type'] == 'enum':
             return f'({cls[len("DeltaTemplateClass<"):-1]}){i}'
         return str(i)
@@ -221,15 +278,30 @@ class Gen:
         base_alloc, base_off = self.alloc(n)
         members, body = [], []
         ship = root == 'Ship'
-        for i, f in enumerate(n['fields']):
+        fields, bcls = n['fields'], None
+        if vt in self.base:
+            # the client builds the first fields through the base class's constructor
+            bn = self.nodes[self.base[vt]]
+            bcls = self.compound(bn, path)
+            k = len(bn['fields'])
+            if [f['name'] for f in fields[:k]] != [f['name'] for f in bn['fields']]:
+                raise SystemExit(f'{path}: the base class {bcls} is not its first fields')
+            fields = fields[k:]
+        for i, f in enumerate(fields):
             cls = self.node_class(f, path + '.' + f['name'])
             fa, fo = self.alloc(f)
             arg = f'"{f["name"]}"'
             ctor_args = arg + (f', {f["count"]}' if f['type'] == 'array' else '')
             if cls == 'DeltaStringClass':
                 ctor_args += ', "' + f.get('default', '').replace('\\', '\\\\').replace('"', '\\"') + '"'
-            elif 'value' in f:
+            elif 'value' in f and not (f['type'] == 'money' and f['value'] == 0):
                 ctor_args += ', ' + self.literal(f, cls)
+            elif cls == 'DeltaTemplateClass<MoneyClass>':
+                # a zeroed temporary (MoneyClass() leaves it as it is)
+                ctor_args += ', MoneyClass(0)'
+            elif cls == 'DeltaTemplateClass<DurationClass>':
+                # the client passes a zeroed time (two zero stores into the temporary, 0x707430)
+                ctor_args += ', 0'
             mask = f.get('mask')
             if fa == base_alloc and fo > base_off:
                 m = ident(f['name'])
@@ -260,9 +332,9 @@ class Gen:
             init = [f'{basecls}(unknown, "{n["_cname"]}")']
             sig = f'{name}(int unknown)'
         else:
-            init = ['DeltaCompoundClass(name)']
+            basecls = bcls or 'DeltaCompoundClass'
+            init = [f'{basecls}(name)']
             sig = f'{name}(const char *name)'
-            basecls = 'DeltaCompoundClass'
         init += [f'{m}({a})' for _, _, m, a in members]
         lines = [f'// vtable 0x{hexu(vt)}' + (f', constructor 0x{ROOT_CTOR[root]:X}' if root in ROOT_CTOR else '')
                  + ('' if root else f' (e.g. {path})'), tag,
@@ -275,6 +347,11 @@ class Gen:
             if ship:
                 lines.append('\tvoid Add(DeltaClass *child) { DeltaCompoundClass::Add(child); }')
                 lines.append('\tvoid Add(int narrow, DeltaClass *child);\t// 0x6F8C70: narrow sets the mask to 0xCF')
+        elif vt in self.ooline:
+            # out of line, as the client's
+            lines.append(f'\t{sig};\t// 0x{self.ooline[vt]:X}')
+            self.nested.append((self.ooline[vt], '\n'.join(
+                [f'// {path} (0x{self.ooline[vt]:X})', f'{name}::{sig} :', '\t' + ',\n\t'.join(init), '{'] + body + ['}'])))
         else:
             lines.append(f'\t{sig} :')
             lines.append('\t\t' + ',\n\t\t'.join(init))
@@ -361,6 +438,8 @@ HEADER = r'''/*
 // The money field's Read and Write are delta_money.cpp's specialisations
 template<> bool DeltaTemplateClass<MoneyClass>::Read(LinearBufferClass &buf, const DurationClass &);
 template<> bool DeltaTemplateClass<MoneyClass>::Write(LinearBufferClass &buf);
+// and its constructor is delta_money.cpp's (0x4A7080, called out of line as the client's)
+extern template class DeltaTemplateClass<MoneyClass>;
 
 // ------------------------------------------------------------------------- value types
 
@@ -426,6 +505,7 @@ def generate(doc, out_dir):
     g = Gen(doc)
     ctors = []
     roots = doc['roots']
+    g.prepare(roots)
     for rname, r in roots.items():
         r = dict(r)
         if rname in INLINE_ROOT_VT:
@@ -453,6 +533,7 @@ def generate(doc, out_dir):
         cases.append(f'\t\t\treturn new Delta{rn}Class(unknown);')
     classes = '\n\n'.join(g.decl[vt] for vt in g.order)
     h = HEADER.replace('%(types)s', g.type_decls()).replace('%(classes)s', classes)
+    ctors += [text for _, text in sorted(g.nested)]
     c = SOURCE.replace('%(ctors)s', '\n\n'.join(ctors)).replace('%(cases)s', '\n'.join(cases))
     os.makedirs(out_dir, exist_ok=True)
     for name, text in (('aux_roots.h', h), ('aux_roots.cpp', c)):

@@ -7,17 +7,17 @@
 // (lines 7-64 hold the rest of the client's file, not rebuilt yet: the asserts below are on the
 // client's lines 69 and 86)
 
+// The per-class global (0xBE3A94) and the constructor (0x4A7080): an explicit specialisation with
+// delta_template.h's body, as the time field's (delta_time.cpp); aux_roots.h declares the instance
+// `extern template`, so the roots call it out of line as the client does
+template<> int DeltaTemplateClass<MoneyClass>::UnknownGlobal = 0;
 
-
-
-
-
-
-
-
-
-
-
+template<> DeltaTemplateClass<MoneyClass>::DeltaTemplateClass(const char *name, const MoneyClass &value) :
+	DeltaClass(name),
+	Value(value)
+{
+	m_Unknown04 = UnknownGlobal;
+}
 
 
 
@@ -64,12 +64,12 @@
 
 template<> bool DeltaTemplateClass<MoneyClass>::Read(LinearBufferClass &buf, const DurationClass &)
 {
-	MoneyClass value;
+	__int64 value;
 	if (buf.Read(&value, sizeof(value)) != sizeof(value)) {
 		G_ASSERT(0);
 		return false;
 	}
-	Value = value;
+	Value.m_Unknown00 = value;
 	return true;
 }
 

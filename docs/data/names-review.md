@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 2 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 25 |
-| 3 | by convention from a client-named file or sibling | 51 |
-| 2 | describes what the code does | 294 |
-| 1 | neutral placeholder | 229 |
+| 3 | by convention from a client-named file or sibling | 54 |
+| 2 | describes what the code does | 342 |
+| 1 | neutral placeholder | 246 |
 
 ## For review (score 3 and below)
 
@@ -26,33 +26,33 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `UnknownB0122CEnum` | `app/client/aux_roots.cpp:203` | untagged neutral name (D10) |
 | 1 | `UnknownB011D4Enum` | `app/client/aux_roots.cpp:210` | untagged neutral name (D10) |
 | 1 | `UnknownSendRootClass` | `app/client/aux_roots.cpp:238` | untagged neutral name (D10) |
-| 1 | `m_Unknown80` | `app/client/aux_roots.cpp:283` | untagged neutral name (D10) |
-| 1 | `Unknown_Create_Aux_Root` | `app/client/aux_roots.cpp:287` | untagged neutral name (D10) |
+| 1 | `m_Unknown80` | `app/client/aux_roots.cpp:511` | untagged neutral name (D10) |
+| 1 | `Unknown_Create_Aux_Root` | `app/client/aux_roots.cpp:515` | untagged neutral name (D10) |
 | 1 | `aux_roots.h` | `app/client/aux_roots.h:10` | provisional file name (the client's code is in co.cpp and an unattributed object) |
-| 1 | `Unknown_Hex_String` | `app/client/aux_roots.h:47` | untagged neutral name (D10) |
-| 1 | `UnknownB009A8Enum` | `app/client/aux_roots.h:59` | the value type of the leaf vtable 0xB009A8 (no name in the client, Net-7 or C#) |
-| 1 | `UnknownB00A00Type` | `app/client/aux_roots.h:64` | the value type of the leaf vtable 0xB00A00 (no name in the client, Net-7 or C#) |
-| 1 | `UnknownB00A58Enum` | `app/client/aux_roots.h:70` | the value type of the leaf vtable 0xB00A58 (no name in the client, Net-7 or C#) |
-| 1 | `UnknownB0100CEnum` | `app/client/aux_roots.h:75` | the value type of the leaf vtable 0xB0100C (no name in the client, Net-7 or C#) |
-| 1 | `UnknownB011D4Enum` | `app/client/aux_roots.h:80` | the value type of the leaf vtable 0xB011D4 (no name in the client, Net-7 or C#) |
-| 1 | `UnknownB0122CEnum` | `app/client/aux_roots.h:85` | the value type of the leaf vtable 0xB0122C (no name in the client, Net-7 or C#) |
-| 1 | `UnknownB0133CEnum` | `app/client/aux_roots.h:90` | the value type of the leaf vtable 0xB0133C (no name in the client, Net-7 or C#) |
-| 1 | `UnknownB01394Enum` | `app/client/aux_roots.h:95` | the value type of the leaf vtable 0xB01394 (no name in the client, Net-7 or C#) |
-| 1 | `UnknownB013ECEnum` | `app/client/aux_roots.h:100` | the value type of the leaf vtable 0xB013EC (no name in the client, Net-7 or C#) |
-| 1 | `UnknownB016DCType` | `app/client/aux_roots.h:105` | the value type of the leaf vtable 0xB016DC (no name in the client, Net-7 or C#) |
-| 1 | `UnknownB017ECEnum` | `app/client/aux_roots.h:111` | the value type of the leaf vtable 0xB017EC (no name in the client, Net-7 or C#) |
-| 1 | `UnknownB01844Enum` | `app/client/aux_roots.h:116` | the value type of the leaf vtable 0xB01844 (no name in the client, Net-7 or C#) |
-| 1 | `UnknownB0189CEnum` | `app/client/aux_roots.h:121` | the value type of the leaf vtable 0xB0189C (no name in the client, Net-7 or C#) |
-| 1 | `UnknownB018F4Enum` | `app/client/aux_roots.h:126` | the value type of the leaf vtable 0xB018F4 (no name in the client, Net-7 or C#) |
-| 1 | `UnknownB01A40Type` | `app/client/aux_roots.h:131` | the value type of the leaf vtable 0xB01A40 (no name in the client, Net-7 or C#) |
-| 1 | `UnknownB03588Enum` | `app/client/aux_roots.h:137` | the value type of the leaf vtable 0xB03588 (no name in the client, Net-7 or C#) |
-| 1 | `UnknownB035E0Enum` | `app/client/aux_roots.h:142` | the value type of the leaf vtable 0xB035E0 (no name in the client, Net-7 or C#) |
-| 1 | `UnknownB03694Type` | `app/client/aux_roots.h:147` | the value type of the leaf vtable 0xB03694 (no name in the client, Net-7 or C#) |
-| 1 | `UnknownB03970Enum` | `app/client/aux_roots.h:153` | the value type of the leaf vtable 0xB03970 (no name in the client, Net-7 or C#) |
-| 1 | `UnknownRootClass` | `app/client/aux_roots.h:525` | untagged neutral name (D10) |
-| 1 | `UnknownSendRootClass` | `app/client/aux_roots.h:1077` | untagged neutral name (D10) |
-| 1 | `Unknown_48` | `app/client/aux_roots.h:1126` | untagged neutral name (D10) |
-| 1 | `Unknown_Create_Aux_Root` | `app/client/aux_roots.h:1190` | untagged neutral name (D10) |
+| 1 | `Unknown_Hex_String` | `app/client/aux_roots.h:49` | untagged neutral name (D10) |
+| 1 | `UnknownB009A8Enum` | `app/client/aux_roots.h:61` | the value type of the leaf vtable 0xB009A8 (no name in the client, Net-7 or C#) |
+| 1 | `UnknownB00A00Type` | `app/client/aux_roots.h:66` | the value type of the leaf vtable 0xB00A00 (no name in the client, Net-7 or C#) |
+| 1 | `UnknownB00A58Enum` | `app/client/aux_roots.h:72` | the value type of the leaf vtable 0xB00A58 (no name in the client, Net-7 or C#) |
+| 1 | `UnknownB0100CEnum` | `app/client/aux_roots.h:77` | the value type of the leaf vtable 0xB0100C (no name in the client, Net-7 or C#) |
+| 1 | `UnknownB011D4Enum` | `app/client/aux_roots.h:82` | the value type of the leaf vtable 0xB011D4 (no name in the client, Net-7 or C#) |
+| 1 | `UnknownB0122CEnum` | `app/client/aux_roots.h:87` | the value type of the leaf vtable 0xB0122C (no name in the client, Net-7 or C#) |
+| 1 | `UnknownB0133CEnum` | `app/client/aux_roots.h:92` | the value type of the leaf vtable 0xB0133C (no name in the client, Net-7 or C#) |
+| 1 | `UnknownB01394Enum` | `app/client/aux_roots.h:97` | the value type of the leaf vtable 0xB01394 (no name in the client, Net-7 or C#) |
+| 1 | `UnknownB013ECEnum` | `app/client/aux_roots.h:102` | the value type of the leaf vtable 0xB013EC (no name in the client, Net-7 or C#) |
+| 1 | `UnknownB016DCType` | `app/client/aux_roots.h:107` | the value type of the leaf vtable 0xB016DC (no name in the client, Net-7 or C#) |
+| 1 | `UnknownB017ECEnum` | `app/client/aux_roots.h:113` | the value type of the leaf vtable 0xB017EC (no name in the client, Net-7 or C#) |
+| 1 | `UnknownB01844Enum` | `app/client/aux_roots.h:118` | the value type of the leaf vtable 0xB01844 (no name in the client, Net-7 or C#) |
+| 1 | `UnknownB0189CEnum` | `app/client/aux_roots.h:123` | the value type of the leaf vtable 0xB0189C (no name in the client, Net-7 or C#) |
+| 1 | `UnknownB018F4Enum` | `app/client/aux_roots.h:128` | the value type of the leaf vtable 0xB018F4 (no name in the client, Net-7 or C#) |
+| 1 | `UnknownB01A40Type` | `app/client/aux_roots.h:133` | the value type of the leaf vtable 0xB01A40 (no name in the client, Net-7 or C#) |
+| 1 | `UnknownB03588Enum` | `app/client/aux_roots.h:139` | the value type of the leaf vtable 0xB03588 (no name in the client, Net-7 or C#) |
+| 1 | `UnknownB035E0Enum` | `app/client/aux_roots.h:144` | the value type of the leaf vtable 0xB035E0 (no name in the client, Net-7 or C#) |
+| 1 | `UnknownB03694Type` | `app/client/aux_roots.h:149` | the value type of the leaf vtable 0xB03694 (no name in the client, Net-7 or C#) |
+| 1 | `UnknownB03970Enum` | `app/client/aux_roots.h:155` | the value type of the leaf vtable 0xB03970 (no name in the client, Net-7 or C#) |
+| 1 | `UnknownRootClass` | `app/client/aux_roots.h:461` | untagged neutral name (D10) |
+| 1 | `UnknownSendRootClass` | `app/client/aux_roots.h:851` | untagged neutral name (D10) |
+| 1 | `Unknown_48` | `app/client/aux_roots.h:900` | untagged neutral name (D10) |
+| 1 | `Unknown_Create_Aux_Root` | `app/client/aux_roots.h:964` | untagged neutral name (D10) |
 | 1 | `m_Unknown70` | `app/shared/auxdata/delta.cpp:9` | untagged neutral name (D10) |
 | 1 | `m_Unknown78` | `app/shared/auxdata/delta.cpp:11` | untagged neutral name (D10) |
 | 1 | `m_Unknown7C` | `app/shared/auxdata/delta.cpp:12` | untagged neutral name (D10) |
@@ -107,6 +107,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `m_Unknown24C` | `app/shared/auxdata/delta_interpolator.h:55` | untagged neutral name (D10) |
 | 1 | `UnknownGlobal` | `app/shared/auxdata/delta_item_array.h:30` | untagged neutral name (D10) |
 | 1 | `m_Unknown04` | `app/shared/auxdata/delta_item_array.h:52` | untagged neutral name (D10) |
+| 1 | `UnknownGlobal` | `app/shared/auxdata/delta_money.cpp:13` | untagged neutral name (D10) |
+| 1 | `m_Unknown04` | `app/shared/auxdata/delta_money.cpp:19` | untagged neutral name (D10) |
+| 1 | `m_Unknown00` | `app/shared/auxdata/delta_money.cpp:72` | untagged neutral name (D10) |
 | 1 | `m_Unknown04` | `app/shared/auxdata/delta_string.cpp:23` | untagged neutral name (D10) |
 | 1 | `UnknownGlobal` | `app/shared/auxdata/delta_string.cpp:23` | untagged neutral name (D10) |
 | 1 | `Unknown_34` | `app/shared/auxdata/delta_string.cpp:56` | untagged neutral name (D10) |
@@ -156,6 +159,20 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `m_Unknown04` | `app/shared/auxdata/policy.cpp:456` | untagged neutral name (D10) |
 | 1 | `Unknown_Make_Include_Policy` | `app/shared/auxdata/policy.cpp:473` | untagged neutral name (D10) |
 | 1 | `m_Unknown00` | `app/shared/auxdata/policy.cpp:476` | untagged neutral name (D10) |
+| 1 | `m_Unknown00` | `app/shared/auxdata/policy.h:25` | untagged neutral name (D10) |
+| 1 | `m_Unknown38` | `app/shared/auxdata/policy.h:27` | untagged neutral name (D10) |
+| 1 | `m_Unknown3C` | `app/shared/auxdata/policy.h:28` | untagged neutral name (D10) |
+| 1 | `m_Unknown04` | `app/shared/auxdata/policy.h:46` | untagged neutral name (D10) |
+| 1 | `m_Unknown10` | `app/shared/auxdata/policy.h:59` | untagged neutral name (D10) |
+| 1 | `unknown_changes.cpp` | `app/shared/auxdata/unknown_changes.cpp:3` | provisional file name: the object 0x4AB580-0x4AC250 has no assert and no __FILE__ |
+| 1 | `m_Unknown7C` | `app/shared/auxdata/unknown_changes.cpp:78` | untagged neutral name (D10) |
+| 1 | `m_Unknown70` | `app/shared/auxdata/unknown_changes.cpp:85` | untagged neutral name (D10) |
+| 1 | `m_Unknown98` | `app/shared/auxdata/unknown_changes.cpp:127` | untagged neutral name (D10) |
+| 1 | `Unknown_34` | `app/shared/auxdata/unknown_changes.cpp:262` | untagged neutral name (D10) |
+| 1 | `unknown_changes.h` | `app/shared/auxdata/unknown_changes.h:6` | provisional file name, the object has no __FILE__ |
+| 1 | `UnknownSendRootClass` | `app/shared/auxdata/unknown_changes.h:10` | untagged neutral name (D10) |
+| 1 | `Unknown_48` | `app/shared/auxdata/unknown_changes.h:11` | untagged neutral name (D10) |
+| 1 | `m_Unknown70` | `app/shared/auxdata/unknown_changes.h:12` | untagged neutral name (D10) |
 | 1 | `unknown_root.cpp` | `app/shared/auxdata/unknown_root.cpp:3` | provisional file name: the object 0x4A3990-0x4A4780 has no assert and no __FILE__ |
 | 1 | `Unknown_Get_Ticks` | `app/shared/auxdata/unknown_root.cpp:17` | untagged neutral name (D10) |
 | 1 | `UnknownRootClass` | `app/shared/auxdata/unknown_root.cpp:27` | untagged neutral name (D10) |
@@ -191,7 +208,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `m_Unknown08` | `app/shared/kv_pair_string.cpp:41` | untagged neutral name (D10) |
 | 1 | `m_Unknown09` | `app/shared/kv_pair_string.cpp:41` | untagged neutral name (D10) |
 | 1 | `m_Unknown10` | `app/shared/kv_pair_string.h:49` | untagged neutral name (D10) |
-| 1 | `m_Unknown00` | `app/shared/money.h:24` | untagged neutral name (D10) |
+| 1 | `m_Unknown00` | `app/shared/money.h:27` | untagged neutral name (D10) |
 | 1 | `unknown_debug.h` | `app/shared/unknown_debug.h:30` | neutral file name (D37, D10): the object has no __FILE__ |
 | 1 | `Unknown_Assert_Failed` | `app/shared/unknown_debug.h:33` | untagged neutral name (D10) |
 | 1 | `Unknown_Fail_If_Report` | `app/shared/unknown_debug.h:34` | untagged neutral name (D10) |
@@ -389,6 +406,54 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `PermStringInit` | `app/shared/auxdata/permstr.h:50` | describes what it does |
 | 2 | `IncludeEnabled` | `app/shared/auxdata/policy.cpp:467` | describes what it does |
 | 2 | `IncludeRule` | `app/shared/auxdata/policy.cpp:468` | describes what it does |
+| 2 | `PolicyRuleClass` | `app/shared/auxdata/policy.h:22` | describes what it does |
+| 2 | `PolicyNodeClass` | `app/shared/auxdata/policy.h:31` | describes what it does |
+| 2 | `Rule` | `app/shared/auxdata/policy.h:34` | describes what it does |
+| 2 | `Next` | `app/shared/auxdata/policy.h:35` | describes what it does |
+| 2 | `CompiledPolicyClass` | `app/shared/auxdata/policy.h:39` | after the asserts' Compiled |
+| 2 | `Get_Action` | `app/shared/auxdata/policy.h:43` | describes what it does |
+| 2 | `Table` | `app/shared/auxdata/policy.h:48` | describes what it does |
+| 2 | `Get_Action` | `app/shared/auxdata/policy.h:56` | describes what it does |
+| 2 | `PolicyStateClass` | `app/shared/auxdata/policy.h:65` | describes what it does |
+| 2 | `Unknown_Make_Include_Policy` | `app/shared/auxdata/policy.h:77` | describes what it does |
+| 2 | `ChangeSentVisitorClass` | `app/shared/auxdata/unknown_changes.cpp:10` | describes what it does |
+| 2 | `Table` | `app/shared/auxdata/unknown_changes.cpp:17` | describes what it does |
+| 2 | `ChangeBuildVisitorClass` | `app/shared/auxdata/unknown_changes.cpp:21` | describes what it does |
+| 2 | `Parent` | `app/shared/auxdata/unknown_changes.cpp:28` | describes what it does |
+| 2 | `Link` | `app/shared/auxdata/unknown_changes.cpp:29` | describes what it does |
+| 2 | `Count` | `app/shared/auxdata/unknown_changes.cpp:30` | describes what it does |
+| 2 | `Head` | `app/shared/auxdata/unknown_changes.cpp:31` | describes what it does |
+| 2 | `Table` | `app/shared/auxdata/unknown_changes.cpp:32` | describes what it does |
+| 2 | `ChangeScanVisitorClass` | `app/shared/auxdata/unknown_changes.cpp:36` | describes what it does |
+| 2 | `Entry` | `app/shared/auxdata/unknown_changes.cpp:43` | describes what it does |
+| 2 | `ChangeEntryClass` | `app/shared/auxdata/unknown_changes.h:30` | describes what it does |
+| 2 | `Parent` | `app/shared/auxdata/unknown_changes.h:49` | describes what it does |
+| 2 | `Next` | `app/shared/auxdata/unknown_changes.h:50` | describes what it does |
+| 2 | `Child` | `app/shared/auxdata/unknown_changes.h:51` | describes what it does |
+| 2 | `Stamp` | `app/shared/auxdata/unknown_changes.h:52` | describes what it does |
+| 2 | `First` | `app/shared/auxdata/unknown_changes.h:53` | describes what it does |
+| 2 | `Last` | `app/shared/auxdata/unknown_changes.h:54` | describes what it does |
+| 2 | `Size` | `app/shared/auxdata/unknown_changes.h:55` | describes what it does |
+| 2 | `Sent` | `app/shared/auxdata/unknown_changes.h:56` | describes what it does |
+| 2 | `Changed` | `app/shared/auxdata/unknown_changes.h:57` | describes what it does |
+| 2 | `Is_Leaf` | `app/shared/auxdata/unknown_changes.h:58` | describes what it does |
+| 2 | `Included` | `app/shared/auxdata/unknown_changes.h:59` | describes what it does |
+| 2 | `Dirty` | `app/shared/auxdata/unknown_changes.h:60` | describes what it does |
+| 2 | `ChangeTableClass` | `app/shared/auxdata/unknown_changes.h:64` | describes what it does |
+| 2 | `Unsent_Parents` | `app/shared/auxdata/unknown_changes.h:70` | describes what it does |
+| 2 | `Set_Sent` | `app/shared/auxdata/unknown_changes.h:71` | describes what it does |
+| 2 | `Set_Sent` | `app/shared/auxdata/unknown_changes.h:72` | describes what it does |
+| 2 | `Set_Entry_Sent` | `app/shared/auxdata/unknown_changes.h:73` | describes what it does |
+| 2 | `Set_Unsent` | `app/shared/auxdata/unknown_changes.h:74` | describes what it does |
+| 2 | `Set_Unsent` | `app/shared/auxdata/unknown_changes.h:75` | describes what it does |
+| 2 | `Scan` | `app/shared/auxdata/unknown_changes.h:76` | describes what it does |
+| 2 | `Exclude` | `app/shared/auxdata/unknown_changes.h:77` | describes what it does |
+| 2 | `Include_All` | `app/shared/auxdata/unknown_changes.h:78` | describes what it does |
+| 2 | `Include` | `app/shared/auxdata/unknown_changes.h:79` | describes what it does |
+| 2 | `std:` | `app/shared/auxdata/unknown_changes.h:81` | describes what it does |
+| 2 | `Root` | `app/shared/auxdata/unknown_changes.h:82` | describes what it does |
+| 2 | `Time` | `app/shared/auxdata/unknown_changes.h:83` | describes what it does |
+| 2 | `Delta` | `app/shared/auxdata/unknown_changes.h:84` | describes what it does |
 | 2 | `Encode` | `app/shared/auxdata/unknown_root.h:40` | describes what it does |
 | 2 | `Encode_Changes` | `app/shared/auxdata/unknown_root.h:57` | describes what it does |
 | 2 | `Policy` | `app/shared/auxdata/unknown_root.h:59` | describes what it does |
@@ -540,17 +605,17 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `CordListenSocketClass` | `app/wwudp/cordmgr.h:42` | a listening socket's record (the +0x4C list, 12 bytes) |
 | 2 | `CordConnectingClass` | `app/wwudp/cordmgr.h:51` | describes what it is |
 | 2 | `Connect` | `app/wwudp/cordmgr.h:85` | what it does |
-| 3 | `DeltaShipClass` | `app/client/aux_roots.h:524` | the client's root string "Ship", Westwood XxxClass (D24); structure = Net-7 AuxShipIndex / C# ShipObject (C# fields = ours (same names, same order); Net-7 Construct 58 children = ours) |
-| 3 | `DeltaComponentClass` | `app/client/aux_roots.h:593` | the client's root string "Component", Westwood XxxClass (D24); structure = C# ComponentObject (C# fields = ours (same names, same order)) |
-| 3 | `DeltaLightClass` | `app/client/aux_roots.h:603` | the client's root string "Light", Westwood XxxClass (D24); structure = C# LightObject (C# fields = ours (same names, same order)) |
-| 3 | `DeltaDecorationClass` | `app/client/aux_roots.h:619` | the client's root string "Decoration", Westwood XxxClass (D24); structure = C# DecorationObject (C# fields = ours (same names, same order)) |
-| 3 | `DeltaHarvestableClass` | `app/client/aux_roots.h:631` | the client's root string "Harvestable", Westwood XxxClass (D24); structure = Net-7 AuxHarvestable / C# HarvestableObject (C# fields = ours (same names, same order); Net-7 Construct 4 children = ours) |
-| 3 | `DeltaManufacturingLabClass` | `app/client/aux_roots.h:725` | the client's root string "ManufacturingLab", Westwood XxxClass (D24); structure = Net-7 AuxManufacturingIndex / C# ManufacturingLabObject (C# fields = ours (same names, same order); Net-7 Construct 21 children = ours) |
-| 3 | `DeltaPlayerClass` | `app/client/aux_roots.h:1076` | the client's root string "Player", Westwood XxxClass (D24); structure = Net-7 AuxPlayerIndex / C# PilotData (C# fields = ours (same names, same order); Net-7 Construct 18 children = ours) |
-| 3 | `DeltaHulkClass` | `app/client/aux_roots.h:1103` | the client's root string "Hulk", Westwood XxxClass (D24); structure = Net-7 AuxHulkIndex / C# HulkObject (C# fields = ours (same names, same order); Net-7 Construct 8 children = ours) |
-| 3 | `DeltaPlanetClass` | `app/client/aux_roots.h:1140` | the client's root string "Planet", Westwood XxxClass (D24); structure = C# PlanetObject (C# fields = ours (same names, same order)) |
-| 3 | `DeltaStarbaseClass` | `app/client/aux_roots.h:1156` | the client's root string "Starbase", Westwood XxxClass (D24); structure = C# StarbaseObject (C# fields = ours (same names, same order)) |
-| 3 | `DeltaStargateClass` | `app/client/aux_roots.h:1172` | the client's root string "Stargate", Westwood XxxClass (D24); structure = C# StargateObject (C# fields = ours (same names, same order)) |
+| 3 | `DeltaShipClass` | `app/client/aux_roots.h:460` | the client's root string "Ship", Westwood XxxClass (D24); structure = Net-7 AuxShipIndex / C# ShipObject (C# fields = ours (same names, same order); Net-7 Construct 58 children = ours) |
+| 3 | `DeltaComponentClass` | `app/client/aux_roots.h:529` | the client's root string "Component", Westwood XxxClass (D24); structure = C# ComponentObject (C# fields = ours (same names, same order)) |
+| 3 | `DeltaLightClass` | `app/client/aux_roots.h:539` | the client's root string "Light", Westwood XxxClass (D24); structure = C# LightObject (C# fields = ours (same names, same order)) |
+| 3 | `DeltaDecorationClass` | `app/client/aux_roots.h:555` | the client's root string "Decoration", Westwood XxxClass (D24); structure = C# DecorationObject (C# fields = ours (same names, same order)) |
+| 3 | `DeltaHarvestableClass` | `app/client/aux_roots.h:567` | the client's root string "Harvestable", Westwood XxxClass (D24); structure = Net-7 AuxHarvestable / C# HarvestableObject (C# fields = ours (same names, same order); Net-7 Construct 4 children = ours) |
+| 3 | `DeltaManufacturingLabClass` | `app/client/aux_roots.h:645` | the client's root string "ManufacturingLab", Westwood XxxClass (D24); structure = Net-7 AuxManufacturingIndex / C# ManufacturingLabObject (C# fields = ours (same names, same order); Net-7 Construct 21 children = ours) |
+| 3 | `DeltaPlayerClass` | `app/client/aux_roots.h:850` | the client's root string "Player", Westwood XxxClass (D24); structure = Net-7 AuxPlayerIndex / C# PilotData (C# fields = ours (same names, same order); Net-7 Construct 18 children = ours) |
+| 3 | `DeltaHulkClass` | `app/client/aux_roots.h:877` | the client's root string "Hulk", Westwood XxxClass (D24); structure = Net-7 AuxHulkIndex / C# HulkObject (C# fields = ours (same names, same order); Net-7 Construct 8 children = ours) |
+| 3 | `DeltaPlanetClass` | `app/client/aux_roots.h:914` | the client's root string "Planet", Westwood XxxClass (D24); structure = C# PlanetObject (C# fields = ours (same names, same order)) |
+| 3 | `DeltaStarbaseClass` | `app/client/aux_roots.h:930` | the client's root string "Starbase", Westwood XxxClass (D24); structure = C# StarbaseObject (C# fields = ours (same names, same order)) |
+| 3 | `DeltaStargateClass` | `app/client/aux_roots.h:946` | the client's root string "Stargate", Westwood XxxClass (D24); structure = C# StargateObject (C# fields = ours (same names, same order)) |
 | 3 | `bitset.h` | `app/shared/auxdata/bitset.h:16` | header name assumed from the client's bitset.cpp |
 | 3 | `BitSetClass` | `app/shared/auxdata/bitset.h:19` | by convention (D24) from the client's file bitset.cpp |
 | 3 | `delta.h` | `app/shared/auxdata/delta.h:19` | header name assumed from the client's delta.cpp |
@@ -573,6 +638,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `name.h` | `app/shared/auxdata/name.h:18` | header name assumed from the client's name.cpp |
 | 3 | `NameClass` | `app/shared/auxdata/name.h:26` | by convention (D24) from the client's file name.cpp |
 | 3 | `permstr.h` | `app/shared/auxdata/permstr.h:18` | header name assumed from the client's permstr.cpp |
+| 3 | `policy.h` | `app/shared/auxdata/policy.h:17` | header name assumed from the client's policy.cpp |
+| 3 | `Action` | `app/shared/auxdata/policy.h:26` | after the assert's parameter action (policy.cpp) |
+| 3 | `PolicyClass` | `app/shared/auxdata/policy.h:52` | by convention (D24) from the client's file policy.cpp |
 | 3 | `DurationClass` | `app/shared/duration.h:25` | by convention (D24) from the client's file duration.h (D37) |
 | 3 | `kv_encoder_base.h` | `app/shared/kv_encoder_base.h:18` | header name assumed from the client's kv_encoder_base.cpp |
 | 3 | `KVEncoderBaseClass` | `app/shared/kv_encoder_base.h:40` | by convention (D24) from the client's file kv_encoder_base.cpp |

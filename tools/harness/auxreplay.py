@@ -83,7 +83,7 @@ def prepare(src, out, dgram=False):
 
 APP_SOURCES = (r'app\client\aux_roots.cpp', r'app\shared\auxdata\unknown_root.cpp',
                r'app\shared\auxdata\encode.cpp', r'app\shared\auxdata\policy.cpp',
-               r'app\shared\auxdata\unknown_changes.cpp')
+               r'app\shared\auxdata\unknown_changes.cpp', r'app\shared\auxdata\delta_money.cpp')
 
 
 def build(out, app_sources):

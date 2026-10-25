@@ -20,6 +20,14 @@
 class MoneyClass  // NAME 3: by convention (D24) from the client's file money.cpp (D37)
 {
 public:
+	// The constructors and the destructor (inline, M1.3): the roots' money fields get a temporary
+	// MoneyClass for their default value (zeroed, or Price's -1: two stores, 0x6FA150; a zeroed
+	// local in 0x4A77A0), and the constructors' EH states count it as an object with a destructor
+	// (Player 0x752510: states 1, 3; Read's local is an __int64: 0x4A7470 has no EH frame)
+	MoneyClass() : m_Unknown00(0) {}
+	MoneyClass(__int64 value) : m_Unknown00(value) {}
+	~MoneyClass() {}
+
 	// DeltaTemplateClass<MoneyClass>::Set_Value compares (VC6 instantiates it with the class's virtuals)
 	bool operator!=(const MoneyClass &that) const { return m_Unknown00 != that.m_Unknown00; }
 

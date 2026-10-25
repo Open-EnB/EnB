@@ -14,7 +14,6 @@
      "0x499720",
      "0x4A6DF0",
      "0x4A6E60",
-     "0x4A76A0",
      "0x4A8880",
      "0x703F40",
      "0x705B70"
@@ -25,13 +24,13 @@
      "0x4485D0",
      "0x4A6330",
      "0x4A6F00",
-     "0x4A71E0",
      "0x6F66B0",
      "0x6F85F0",
      "0x6F86B0",
      "0x6F8C70",
      "0x6F9870",
      "0x6F9C30",
+     "0x6FA150",
      "0x6FB760",
      "0x6FBDA0",
      "0x7017D0",
@@ -41,8 +40,10 @@
      "0x703500",
      "0x705710",
      "0x705E90",
+     "0x707430",
      "0x707630",
      "0x709D30",
+     "0x753520",
      "0x753810",
      "0x7538B0",
      "0x753BA0",
@@ -53,9 +54,7 @@
      "0x757990",
      "0x757B00",
      "0x757BA0",
-     "0x759D80",
-     "0x8C0FD0",
-     "0x8C1520"
+     "0x759D80"
     ],
     "merged": [],
     "name": "client/aux_roots.cpp"
@@ -181,13 +180,18 @@
    },
    "delta_money": {
     "ambiguous": [
-     "0x42B2F0"
+     "0x42B2F0",
+     "0x4A76A0"
     ],
     "copy": "reconstructed",
     "expected": {},
     "in_tree": [
+     "0x4A71E0",
      "0x4A7470",
-     "0x4A74F0"
+     "0x4A74F0",
+     "0x4A7700",
+     "0x4A77A0",
+     "0x8C0FD0"
     ],
     "merged": [],
     "name": "shared/auxdata/delta_money.cpp"
@@ -664,7 +668,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 260,
+  "in_tree_total": 264,
   "totals": {}
  },
  "ww3d2": {

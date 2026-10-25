@@ -33,7 +33,7 @@ MASK, DEFAULT_MASK = 0x80, 0x3ff    # a Delta's visibility mask (docs/research/a
 ALLOC = 0x4e9cb0            # operator new
 SKIP = {0x4e9410, 0x4e9d10, 0xa266da}   # assert, operator delete, sprintf
 COMPOUND_READ = 0x4a3c70
-VALUE_CTORS = {0x700b80, 0x700b40}   # DeltaTemplateClass<int> / <float>(name, const T &) out of line (M1.3)
+VALUE_CTORS = {0x700b80, 0x700b40, 0x4a7080}   # DeltaTemplateClass<int> / <float> / <MoneyClass>(name, const T &) out of line (M1.3)
 STRING_CTOR = 0x4a78f0       # DeltaStringClass(name, default) (M1.3)    # DeltaCompound's raw read: reads nothing
 RDATA = (0xae7000, 0xb6c000)
 REGS = ('eax', 'ebx', 'ecx', 'edx', 'esi', 'edi', 'ebp')
@@ -190,6 +190,8 @@ class Interp:
                 n = int(parts[1], 0); sp += n if m == 'add' else -n
             elif m == 'xor' and len(parts) == 2 and parts[0] == parts[1] and parts[0] in regs:
                 regs[parts[0]] = ('C', 0)
+            elif m == 'or' and len(parts) == 2 and parts[0] in regs and parts[1] == '0xffffffff':
+                regs[parts[0]] = ('C', 0xFFFFFFFF)                                   # (M1.3) -1 in a register
             elif m == 'call':
                 if not parts[0].startswith('0x'):
                     regs['eax'] = regs['ecx'] = regs['edx'] = None; continue
@@ -249,7 +251,7 @@ def json_of(img, it, n, name):
     out['at'] = f'{n.addr:#x}'
     if n.value is not None:
         out['default'] = n.value
-    if not n.children and out['type'] in ('float', 'int32', 'enum'):
+    if not n.children and out['type'] in ('float', 'int32', 'enum', 'money'):   # (M1.3) money: its low dword
         v = n.ivalue if n.ivalue is not None else it.stores.get(n.addr + 0x84)
         if v:
             out['value'] = v & 0xFFFFFFFF

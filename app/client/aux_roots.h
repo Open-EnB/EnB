@@ -34,6 +34,8 @@
 // The money field's Read and Write are delta_money.cpp's specialisations
 template<> bool DeltaTemplateClass<MoneyClass>::Read(LinearBufferClass &buf, const DurationClass &);
 template<> bool DeltaTemplateClass<MoneyClass>::Write(LinearBufferClass &buf);
+// and its constructor is delta_money.cpp's (0x4A7080, called out of line as the client's)
+extern template class DeltaTemplateClass<MoneyClass>;
 
 // ------------------------------------------------------------------------- value types
 
@@ -207,30 +209,7 @@ public:
 class DeltaItemClass : public DeltaCompoundClass
 {
 public:
-	DeltaItemClass(const char *name) :
-		DeltaCompoundClass(name),
-		ItemTemplateID("ItemTemplateID"),
-		StackCount("StackCount"),
-		Price("Price"),
-		AveCost("AveCost"),
-		Structure("Structure", -1.0f),
-		Quality("Quality", -1.0f),
-		InstanceInfo("InstanceInfo", ""),
-		InstanceActivatedEffectInfo("InstanceActivatedEffectInfo", ""),
-		InstanceEquipEffectInfo("InstanceEquipEffectInfo", ""),
-		BuilderName("BuilderName", "")
-	{
-		Add(&ItemTemplateID);
-		Add(&StackCount);
-		Add(&Price);
-		Add(&AveCost);
-		Add(&Structure);
-		Add(&Quality);
-		Add(&InstanceInfo);
-		Add(&InstanceActivatedEffectInfo);
-		Add(&InstanceEquipEffectInfo);
-		Add(&BuilderName);
-	}
+	DeltaItemClass(const char *name);	// 0x6FA150
 
 	DeltaTemplateClass<int> ItemTemplateID;	// +0x9C
 	DeltaTemplateClass<int> StackCount;	// +0x124
@@ -270,52 +249,22 @@ public:
 
 // vtable 0xB01734 (e.g. Ship.Inventory.Equipped.N)
 // NAME 4: Net-7 AuxEquipItem confirmed by structure (C# fields differ (4 vs 14); Net-7 Construct 14 children = ours); C# EquippedItem
-class DeltaEquipItemClass : public DeltaCompoundClass
+class DeltaEquipItemClass : public DeltaItemClass
 {
 public:
 	DeltaEquipItemClass(const char *name) :
-		DeltaCompoundClass(name),
-		ItemTemplateID("ItemTemplateID", -1),
-		StackCount("StackCount"),
-		Price("Price"),
-		AveCost("AveCost"),
-		Structure("Structure", -1.0f),
-		Quality("Quality", -1.0f),
-		InstanceInfo("InstanceInfo", ""),
-		InstanceActivatedEffectInfo("InstanceActivatedEffectInfo", ""),
-		InstanceEquipEffectInfo("InstanceEquipEffectInfo", ""),
-		BuilderName("BuilderName", ""),
-		ReadyTime("ReadyTime"),
+		DeltaItemClass(name),
+		ReadyTime("ReadyTime", 0),
 		TargetRange("TargetRange"),
 		ItemState("ItemState"),
 		Effects("Effects")
 	{
-		Add(&ItemTemplateID);
-		Add(&StackCount);
-		Add(&Price);
-		Add(&AveCost);
-		Add(&Structure);
-		Add(&Quality);
-		Add(&InstanceInfo);
-		Add(&InstanceActivatedEffectInfo);
-		Add(&InstanceEquipEffectInfo);
-		Add(&BuilderName);
 		Add(&ReadyTime);
 		Add(&TargetRange);
 		Add(&ItemState);
 		Add(&Effects);
 	}
 
-	DeltaTemplateClass<int> ItemTemplateID;	// +0x9C
-	DeltaTemplateClass<int> StackCount;	// +0x124
-	DeltaTemplateClass<MoneyClass> Price;	// +0x1B0
-	DeltaTemplateClass<float> AveCost;	// +0x240
-	DeltaTemplateClass<float> Structure;	// +0x2C8
-	DeltaTemplateClass<float> Quality;	// +0x350
-	DeltaStringClass InstanceInfo;	// +0x3D8
-	DeltaStringClass InstanceActivatedEffectInfo;	// +0x460
-	DeltaStringClass InstanceEquipEffectInfo;	// +0x4E8
-	DeltaStringClass BuilderName;	// +0x570
 	DeltaTemplateClass<DurationClass> ReadyTime;	// +0x5F8
 	DeltaTemplateClass<float> TargetRange;	// +0x688
 	DeltaTemplateClass<UnknownB017ECEnum> ItemState;	// +0x710
@@ -414,20 +363,7 @@ public:
 class DeltaElementClass : public DeltaCompoundClass
 {
 public:
-	DeltaElementClass(const char *name) :
-		DeltaCompoundClass(name),
-		SourceEntity("SourceEntity", ""),
-		SourceObject("SourceObject", ""),
-		Magnitude("Magnitude"),
-		IsActive("IsActive"),
-		ExpirationTime("ExpirationTime")
-	{
-		Add(&SourceEntity);
-		Add(&SourceObject);
-		Add(&Magnitude);
-		Add(&IsActive);
-		Add(&ExpirationTime);
-	}
+	DeltaElementClass(const char *name);	// 0x707430
 
 	DeltaStringClass SourceEntity;	// +0x9C
 	DeltaStringClass SourceObject;	// +0x124
@@ -446,7 +382,7 @@ public:
 		BuffType("BuffType", ""),
 		ScrubTypeName("ScrubTypeName", ""),
 		IsPermanent("IsPermanent"),
-		BuffRemovalTime("BuffRemovalTime"),
+		BuffRemovalTime("BuffRemovalTime", 0),
 		Elements("Elements", 5)
 	{
 		Add(&BuffType);
@@ -687,14 +623,7 @@ public:
 class DeltaPrimaryCategoryClass : public DeltaCompoundClass
 {
 public:
-	DeltaPrimaryCategoryClass(const char *name) :
-		DeltaCompoundClass(name),
-		Name("Name", ""),
-		Categories("Categories", 5)
-	{
-		Add(&Name);
-		Add(&Categories);
-	}
+	DeltaPrimaryCategoryClass(const char *name);	// 0x6FB1E0
 
 	DeltaStringClass Name;	// +0x9C
 	DeltaItemArrayClass<DeltaCategoryClass> Categories;	// +0x124
@@ -705,16 +634,7 @@ public:
 class DeltaKnownFormulaClass : public DeltaCompoundClass
 {
 public:
-	DeltaKnownFormulaClass(const char *name) :
-		DeltaCompoundClass(name),
-		ItemName("ItemName", ""),
-		ItemID("ItemID", -1),
-		TechLevel("TechLevel")
-	{
-		Add(&ItemName);
-		Add(&ItemID);
-		Add(&TechLevel);
-	}
+	DeltaKnownFormulaClass(const char *name);	// 0x6FB760
 
 	DeltaStringClass ItemName;	// +0x9C
 	DeltaTemplateClass<int> ItemID;	// +0x124
@@ -756,24 +676,7 @@ public:
 class DeltaSkillClass : public DeltaCompoundClass
 {
 public:
-	DeltaSkillClass(const char *name) :
-		DeltaCompoundClass(name),
-		Level("Level"),
-		RecycleTime("RecycleTime"),
-		LastActivation("LastActivation"),
-		Availability("Availability"),
-		QuestOnlyLevels("QuestOnlyLevels"),
-		MaxSkillLevels("MaxSkillLevels"),
-		Affiliations("Affiliations", "")
-	{
-		Add(&Level);
-		Add(&RecycleTime);
-		Add(&LastActivation);
-		Add(&Availability);
-		Add(&QuestOnlyLevels);
-		Add(&MaxSkillLevels);
-		Add(&Affiliations);
-	}
+	DeltaSkillClass(const char *name);	// 0x753520
 
 	DeltaTemplateClass<int> Level;	// +0x9C
 	DeltaTemplateClass<int> RecycleTime;	// +0x124
@@ -789,24 +692,7 @@ public:
 class DeltaSkillAbilityClass : public DeltaCompoundClass
 {
 public:
-	DeltaSkillAbilityClass(const char *name) :
-		DeltaCompoundClass(name),
-		HasAbility("HasAbility"),
-		Usage("Usage"),
-		Targets("Targets"),
-		Range("Range"),
-		Radius("Radius"),
-		Validity("Validity"),
-		CanBeUsedWhileIncapacitated("CanBeUsedWhileIncapacitated")
-	{
-		Add(&HasAbility);
-		Add(&Usage);
-		Add(&Targets);
-		Add(&Range);
-		Add(&Radius);
-		Add(&Validity);
-		Add(&CanBeUsedWhileIncapacitated);
-	}
+	DeltaSkillAbilityClass(const char *name);	// 0x7538B0
 
 	DeltaTemplateClass<bool> HasAbility;	// +0x9C
 	DeltaTemplateClass<UnknownB01844Enum> Usage;	// +0x124
@@ -822,42 +708,7 @@ public:
 class DeltaRPGInfoClass : public DeltaCompoundClass
 {
 public:
-	DeltaRPGInfoClass(const char *name) :
-		DeltaCompoundClass(name),
-		Race("Race"),
-		Profession("Profession"),
-		Skills("Skills", 64),
-		SkillAbilities("SkillAbilities", 170),
-		SkillPoints("SkillPoints"),
-		TotalSkillPoints("TotalSkillPoints"),
-		CombatExp("CombatExp"),
-		CombatLevel("CombatLevel"),
-		TradeExp("TradeExp"),
-		TradeLevel("TradeLevel"),
-		ExploreExp("ExploreExp"),
-		ExploreLevel("ExploreLevel"),
-		HullUpgradeLevel("HullUpgradeLevel"),
-		SkillPowerupStart("SkillPowerupStart"),
-		SkillPowerupEnd("SkillPowerupEnd"),
-		SkillPowerupAbilityNumber("SkillPowerupAbilityNumber")
-	{
-		Add(&Race);
-		Add(&Profession);
-		Add(&Skills);
-		Add(&SkillAbilities);
-		Add(&SkillPoints);
-		Add(&TotalSkillPoints);
-		Add(&CombatExp);
-		Add(&CombatLevel);
-		Add(&TradeExp);
-		Add(&TradeLevel);
-		Add(&ExploreExp);
-		Add(&ExploreLevel);
-		Add(&HullUpgradeLevel);
-		Add(&SkillPowerupStart);
-		Add(&SkillPowerupEnd);
-		Add(&SkillPowerupAbilityNumber);
-	}
+	DeltaRPGInfoClass(const char *name);	// 0x752E60
 
 	DeltaTemplateClass<UnknownB035E0Enum> Race;	// +0x9C
 	DeltaTemplateClass<UnknownB03588Enum> Profession;	// +0x124
@@ -900,48 +751,7 @@ public:
 class DeltaMissionClass : public DeltaCompoundClass
 {
 public:
-	DeltaMissionClass(const char *name) :
-		DeltaCompoundClass(name),
-		ID("ID", -1),
-		Name("Name", ""),
-		Summary("Summary", ""),
-		Reward("Reward", ""),
-		FailureConsequence("FailureConsequence", ""),
-		IssuingFaction("IssuingFaction", ""),
-		IsTimed("IsTimed"),
-		ExpirationTime("ExpirationTime"),
-		StartTime("StartTime"),
-		IsForfeitable("IsForfeitable"),
-		IsComplete("IsComplete"),
-		IsFailed("IsFailed"),
-		IsExpired("IsExpired"),
-		IsFullyVisible("IsFullyVisible"),
-		StageCount("StageCount", 1),
-		Stage("Stage", 1),
-		Stages("Stages", 20),
-		StageExpirationTime("StageExpirationTime"),
-		HasGivenNewMissionMessage("HasGivenNewMissionMessage")
-	{
-		Add(&ID);
-		Add(&Name);
-		Add(&Summary);
-		Add(&Reward);
-		Add(&FailureConsequence);
-		Add(&IssuingFaction);
-		Add(&IsTimed);
-		Add(&ExpirationTime);
-		Add(&StartTime);
-		Add(&IsForfeitable);
-		Add(&IsComplete);
-		Add(&IsFailed);
-		Add(&IsExpired);
-		Add(&IsFullyVisible);
-		Add(&StageCount);
-		Add(&Stage);
-		Add(&Stages);
-		Add(&StageExpirationTime);
-		Add(&HasGivenNewMissionMessage);
-	}
+	DeltaMissionClass(const char *name);	// 0x753DF0
 
 	DeltaTemplateClass<int> ID;	// +0x9C
 	DeltaStringClass Name;	// +0x124
@@ -1008,18 +818,7 @@ public:
 class DeltaGroupMemberClass : public DeltaCompoundClass
 {
 public:
-	DeltaGroupMemberClass(const char *name) :
-		DeltaCompoundClass(name),
-		Name("Name", ""),
-		GameID("GameID"),
-		Formation("Formation"),
-		Position("Position", -1)
-	{
-		Add(&Name);
-		Add(&GameID);
-		Add(&Formation);
-		Add(&Position);
-	}
+	DeltaGroupMemberClass(const char *name);	// 0x754DB0
 
 	DeltaStringClass Name;	// +0x9C
 	DeltaTemplateClass<int> GameID;	// +0x124
@@ -1032,32 +831,7 @@ public:
 class DeltaGroupInfoClass : public DeltaCompoundClass
 {
 public:
-	DeltaGroupInfoClass(const char *name) :
-		DeltaCompoundClass(name),
-		IsGroupLeader("IsGroupLeader"),
-		LookingForGroup("LookingForGroup"),
-		AllowGroupInvite("AllowGroupInvite"),
-		ShowNonCombatActivities("ShowNonCombatActivities"),
-		ForceAutoSplit("ForceAutoSplit"),
-		RestrictedLootingRights("RestrictedLootingRights"),
-		AutoReleaseLootingRestrictions("AutoReleaseLootingRestrictions"),
-		FormationName("FormationName", ""),
-		Formation("Formation"),
-		Position("Position", -1),
-		Members("Members", 5)
-	{
-		Add(&IsGroupLeader);
-		Add(&LookingForGroup);
-		Add(&AllowGroupInvite);
-		Add(&ShowNonCombatActivities);
-		Add(&ForceAutoSplit);
-		Add(&RestrictedLootingRights);
-		Add(&AutoReleaseLootingRestrictions);
-		Add(&FormationName);
-		Add(&Formation);
-		Add(&Position);
-		Add(&Members);
-	}
+	DeltaGroupInfoClass(const char *name);	// 0x7548D0
 
 	DeltaTemplateClass<bool> IsGroupLeader;	// +0x9C
 	DeltaTemplateClass<bool> LookingForGroup;	// +0x124

@@ -40,10 +40,10 @@ DeltaShipClass::DeltaShipClass(int unknown) :
 	PrivateWarpState("PrivateWarpState"),
 	GlobalWarpState("GlobalWarpState"),
 	WarpAvailable("WarpAvailable"),
-	WarpTriggerTime("WarpTriggerTime"),
+	WarpTriggerTime("WarpTriggerTime", 0),
 	Shake("Shake"),
 	Inventory("Inventory"),
-	TradeMoney("TradeMoney"),
+	TradeMoney("TradeMoney", MoneyClass(0)),
 	VisibleQuadrantDamagePercent("VisibleQuadrantDamagePercent", 4),
 	DamageSpot("DamageSpot", 15),
 	DamageLine("DamageLine", 10),
@@ -61,7 +61,7 @@ DeltaShipClass::DeltaShipClass(int unknown) :
 	OtherGuildTagColor("OtherGuildTagColor"),
 	InterruptibleAbilityName("InterruptibleAbilityName", ""),
 	InterruptState("InterruptState"),
-	InterruptibleActivationTime("InterruptibleActivationTime"),
+	InterruptibleActivationTime("InterruptibleActivationTime", 0),
 	InterruptProgress("InterruptProgress"),
 	FactionIdentifier("FactionIdentifier", "")
 {
@@ -195,8 +195,8 @@ DeltaManufacturingLabClass::DeltaManufacturingLabClass(int unknown) :
 	ManufactureTarget("ManufactureTarget", 2),
 	ManufactureComponents("ManufactureComponents", 6),
 	ManufactureOverride("ManufactureOverride", 1),
-	NegotiatedCost("NegotiatedCost"),
-	BaseCost("BaseCost"),
+	NegotiatedCost("NegotiatedCost", MoneyClass(0)),
+	BaseCost("BaseCost", MoneyClass(0)),
 	PrimaryCategories("PrimaryCategories", 2),
 	KnownFormula("KnownFormula", 500),
 	PreviousAttempts("PreviousAttempts", 15),
@@ -236,7 +236,7 @@ DeltaManufacturingLabClass::DeltaManufacturingLabClass(int unknown) :
 // Player (0x752510)
 DeltaPlayerClass::DeltaPlayerClass(int unknown) :
 	UnknownSendRootClass(unknown, "Player"),
-	Money("Money"),
+	Money("Money", MoneyClass(0)),
 	XPDebt("XPDebt"),
 	SecureInventory("SecureInventory", 96),
 	VendorInventory("VendorInventory", 128),
@@ -274,6 +274,234 @@ DeltaPlayerClass::DeltaPlayerClass(int unknown) :
 	Add(&ClientSendUITriggers);
 	Add(&GroupInfo);
 	Unknown_48();
+}
+
+// Ship.Inventory.Cargo.N (0x6FA150)
+DeltaItemClass::DeltaItemClass(const char *name) :
+	DeltaCompoundClass(name),
+	ItemTemplateID("ItemTemplateID", -1),
+	StackCount("StackCount"),
+	Price("Price", MoneyClass(-1)),
+	AveCost("AveCost"),
+	Structure("Structure", -1.0f),
+	Quality("Quality", -1.0f),
+	InstanceInfo("InstanceInfo", ""),
+	InstanceActivatedEffectInfo("InstanceActivatedEffectInfo", ""),
+	InstanceEquipEffectInfo("InstanceEquipEffectInfo", ""),
+	BuilderName("BuilderName", "")
+{
+	Add(&ItemTemplateID);
+	Add(&StackCount);
+	Add(&Price);
+	Add(&AveCost);
+	Add(&Structure);
+	Add(&Quality);
+	Add(&InstanceInfo);
+	Add(&InstanceActivatedEffectInfo);
+	Add(&InstanceEquipEffectInfo);
+	Add(&BuilderName);
+}
+
+// ManufacturingLab.PrimaryCategories.N (0x6FB1E0)
+DeltaPrimaryCategoryClass::DeltaPrimaryCategoryClass(const char *name) :
+	DeltaCompoundClass(name),
+	Name("Name", ""),
+	Categories("Categories", 5)
+{
+	Add(&Name);
+	Add(&Categories);
+}
+
+// ManufacturingLab.KnownFormula.N (0x6FB760)
+DeltaKnownFormulaClass::DeltaKnownFormulaClass(const char *name) :
+	DeltaCompoundClass(name),
+	ItemName("ItemName", ""),
+	ItemID("ItemID", -1),
+	TechLevel("TechLevel")
+{
+	Add(&ItemName);
+	Add(&ItemID);
+	Add(&TechLevel);
+}
+
+// Ship.BuffArray.N.Elements.N (0x707430)
+DeltaElementClass::DeltaElementClass(const char *name) :
+	DeltaCompoundClass(name),
+	SourceEntity("SourceEntity", ""),
+	SourceObject("SourceObject", ""),
+	Magnitude("Magnitude"),
+	IsActive("IsActive"),
+	ExpirationTime("ExpirationTime", 0)
+{
+	Add(&SourceEntity);
+	Add(&SourceObject);
+	Add(&Magnitude);
+	Add(&IsActive);
+	Add(&ExpirationTime);
+}
+
+// Player.RPGInfo (0x752E60)
+DeltaRPGInfoClass::DeltaRPGInfoClass(const char *name) :
+	DeltaCompoundClass(name),
+	Race("Race"),
+	Profession("Profession"),
+	Skills("Skills", 64),
+	SkillAbilities("SkillAbilities", 170),
+	SkillPoints("SkillPoints"),
+	TotalSkillPoints("TotalSkillPoints"),
+	CombatExp("CombatExp"),
+	CombatLevel("CombatLevel"),
+	TradeExp("TradeExp"),
+	TradeLevel("TradeLevel"),
+	ExploreExp("ExploreExp"),
+	ExploreLevel("ExploreLevel"),
+	HullUpgradeLevel("HullUpgradeLevel"),
+	SkillPowerupStart("SkillPowerupStart", 0),
+	SkillPowerupEnd("SkillPowerupEnd", 0),
+	SkillPowerupAbilityNumber("SkillPowerupAbilityNumber")
+{
+	Add(&Race);
+	Add(&Profession);
+	Add(&Skills);
+	Add(&SkillAbilities);
+	Add(&SkillPoints);
+	Add(&TotalSkillPoints);
+	Add(&CombatExp);
+	Add(&CombatLevel);
+	Add(&TradeExp);
+	Add(&TradeLevel);
+	Add(&ExploreExp);
+	Add(&ExploreLevel);
+	Add(&HullUpgradeLevel);
+	Add(&SkillPowerupStart);
+	Add(&SkillPowerupEnd);
+	Add(&SkillPowerupAbilityNumber);
+}
+
+// Player.RPGInfo.Skills.N (0x753520)
+DeltaSkillClass::DeltaSkillClass(const char *name) :
+	DeltaCompoundClass(name),
+	Level("Level"),
+	RecycleTime("RecycleTime"),
+	LastActivation("LastActivation", 0),
+	Availability("Availability"),
+	QuestOnlyLevels("QuestOnlyLevels"),
+	MaxSkillLevels("MaxSkillLevels"),
+	Affiliations("Affiliations", "")
+{
+	Add(&Level);
+	Add(&RecycleTime);
+	Add(&LastActivation);
+	Add(&Availability);
+	Add(&QuestOnlyLevels);
+	Add(&MaxSkillLevels);
+	Add(&Affiliations);
+}
+
+// Player.RPGInfo.SkillAbilities.N (0x7538B0)
+DeltaSkillAbilityClass::DeltaSkillAbilityClass(const char *name) :
+	DeltaCompoundClass(name),
+	HasAbility("HasAbility"),
+	Usage("Usage"),
+	Targets("Targets"),
+	Range("Range"),
+	Radius("Radius"),
+	Validity("Validity"),
+	CanBeUsedWhileIncapacitated("CanBeUsedWhileIncapacitated")
+{
+	Add(&HasAbility);
+	Add(&Usage);
+	Add(&Targets);
+	Add(&Range);
+	Add(&Radius);
+	Add(&Validity);
+	Add(&CanBeUsedWhileIncapacitated);
+}
+
+// Player.Missions.N (0x753DF0)
+DeltaMissionClass::DeltaMissionClass(const char *name) :
+	DeltaCompoundClass(name),
+	ID("ID", -1),
+	Name("Name", ""),
+	Summary("Summary", ""),
+	Reward("Reward", ""),
+	FailureConsequence("FailureConsequence", ""),
+	IssuingFaction("IssuingFaction", ""),
+	IsTimed("IsTimed"),
+	ExpirationTime("ExpirationTime", 0),
+	StartTime("StartTime"),
+	IsForfeitable("IsForfeitable"),
+	IsComplete("IsComplete"),
+	IsFailed("IsFailed"),
+	IsExpired("IsExpired"),
+	IsFullyVisible("IsFullyVisible"),
+	StageCount("StageCount", 1),
+	Stage("Stage", 1),
+	Stages("Stages", 20),
+	StageExpirationTime("StageExpirationTime", 0),
+	HasGivenNewMissionMessage("HasGivenNewMissionMessage")
+{
+	Add(&ID);
+	Add(&Name);
+	Add(&Summary);
+	Add(&Reward);
+	Add(&FailureConsequence);
+	Add(&IssuingFaction);
+	Add(&IsTimed);
+	Add(&ExpirationTime);
+	Add(&StartTime);
+	Add(&IsForfeitable);
+	Add(&IsComplete);
+	Add(&IsFailed);
+	Add(&IsExpired);
+	Add(&IsFullyVisible);
+	Add(&StageCount);
+	Add(&Stage);
+	Add(&Stages);
+	Add(&StageExpirationTime);
+	Add(&HasGivenNewMissionMessage);
+}
+
+// Player.GroupInfo (0x7548D0)
+DeltaGroupInfoClass::DeltaGroupInfoClass(const char *name) :
+	DeltaCompoundClass(name),
+	IsGroupLeader("IsGroupLeader"),
+	LookingForGroup("LookingForGroup"),
+	AllowGroupInvite("AllowGroupInvite"),
+	ShowNonCombatActivities("ShowNonCombatActivities"),
+	ForceAutoSplit("ForceAutoSplit"),
+	RestrictedLootingRights("RestrictedLootingRights"),
+	AutoReleaseLootingRestrictions("AutoReleaseLootingRestrictions"),
+	FormationName("FormationName", ""),
+	Formation("Formation"),
+	Position("Position", -1),
+	Members("Members", 5)
+{
+	Add(&IsGroupLeader);
+	Add(&LookingForGroup);
+	Add(&AllowGroupInvite);
+	Add(&ShowNonCombatActivities);
+	Add(&ForceAutoSplit);
+	Add(&RestrictedLootingRights);
+	Add(&AutoReleaseLootingRestrictions);
+	Add(&FormationName);
+	Add(&Formation);
+	Add(&Position);
+	Add(&Members);
+}
+
+// Player.GroupInfo.Members.N (0x754DB0)
+DeltaGroupMemberClass::DeltaGroupMemberClass(const char *name) :
+	DeltaCompoundClass(name),
+	Name("Name", ""),
+	GameID("GameID"),
+	Formation("Formation"),
+	Position("Position", -1)
+{
+	Add(&Name);
+	Add(&GameID);
+	Add(&Formation);
+	Add(&Position);
 }
 
 void DeltaShipClass::Add(int narrow, DeltaClass *child)
