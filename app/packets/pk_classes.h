@@ -24,6 +24,11 @@ class MessageLinePacketClass : public PacketClass  // NAME 3: by convention from
 {
 public:
 	MessageLinePacketClass(RawPacketClass *raw);	// 0x89D8A0
+	virtual ~MessageLinePacketClass();	// +0x00 0x89D870 / 0x89D970
+	virtual int Get_Channel() { return(-2); }	// +0x18 0x86E6A0
+	virtual int Get_Priority() { return(0); }	// +0x1C 0x86E680
+	virtual int Get_Type() = 0;	// +0x28  // NAME 2: what the derived classes' return (their opcode)
+	virtual const char *Get_Name() = 0;	// +0x2C  // NAME 2: what the derived classes' return (a name)
 	char Unknown0C[0x10];	// +0x0C
 };
 
@@ -262,6 +267,10 @@ class Packet_0015Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x
 {
 public:
 	Packet_0015Class(RawPacketClass *raw);	// 0x887370
+	virtual int Get_Priority() { return(0x7F); }	// +0x1C 0x86E5B0
+	virtual int Get_Type();	// +0x28 0x8872E0  // NAME 2: what the derived classes' return (their opcode)
+	virtual bool Unknown_2C();	// +0x2C 0x887300
+	virtual const char *Get_Name();	// +0x30 0x887320  // NAME 2: what the derived classes' return (a name)
 	char Unknown0C[0x8];	// +0x0C
 };
 
@@ -270,6 +279,9 @@ class Packet_0016Class : public Packet_0015Class  // NAME 1: neutral (D10): opco
 {
 public:
 	Packet_0016Class(RawPacketClass *raw) : Packet_0015Class(raw) {}	// inline (the case stores the vtable)
+	virtual int Get_Type() { return(0x16); }	// +0x28 0x86E5D0
+	virtual bool Unknown_2C() { return(false); }	// +0x2C 0x86E5F0
+	virtual const char *Get_Name() { return("FireEquipped"); }	// +0x30 0x86E610
 	char Unknown14[0x8];	// +0x14
 };
 
@@ -350,6 +362,9 @@ class PriorityMessageLinePacketClass : public MessageLinePacketClass
 {
 public:
 	PriorityMessageLinePacketClass(RawPacketClass *raw) : MessageLinePacketClass(raw) {}	// inline (the case stores the vtable)
+	virtual bool Process_Packet(void *client);	// +0x08 0x736A20 (cpacket.cpp)
+	virtual int Get_Type() { return(0x20); }	// +0x28 0x86E6C0
+	virtual const char *Get_Name() { return("PriorityMessage"); }	// +0x2C 0x86E6E0
 };
 
 // opcode 33 (0x0021, ?): vtable 0xB09724, constructor 0x89D8A0, 0x1C bytes
@@ -357,6 +372,9 @@ class QueueMessageLinePacketClass : public MessageLinePacketClass
 {
 public:
 	QueueMessageLinePacketClass(RawPacketClass *raw) : MessageLinePacketClass(raw) {}	// inline (the case stores the vtable)
+	virtual bool Process_Packet(void *client);	// +0x08 0x736AE0 (cpacket.cpp)
+	virtual int Get_Type() { return(0x21); }	// +0x28 0x86E750
+	virtual const char *Get_Name() { return("QueueMessage"); }	// +0x2C 0x86E770
 };
 
 // opcode 34 (0x0022, PUSH_MESSAGE): vtable 0xB096E8, constructor 0x89D8A0, 0x1C bytes
@@ -364,6 +382,9 @@ class PushMessageLinePacketClass : public MessageLinePacketClass
 {
 public:
 	PushMessageLinePacketClass(RawPacketClass *raw) : MessageLinePacketClass(raw) {}	// inline (the case stores the vtable)
+	virtual bool Process_Packet(void *client);	// +0x08 0x736BA0 (cpacket.cpp)
+	virtual int Get_Type() { return(0x22); }	// +0x28 0x86E7E0
+	virtual const char *Get_Name() { return("PushMessage"); }	// +0x2C 0x86E800
 };
 
 // opcode 35 (0x0023, ?): vtable 0xB0B410, constructor 0x89DEB0, 0x10 bytes

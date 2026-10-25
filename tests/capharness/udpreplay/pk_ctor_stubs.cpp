@@ -264,3 +264,12 @@ RecustomizeShipDonePacketClass::RecustomizeShipDonePacketClass(RawPacketClass *r
 RecustomizeAvatarStartPacketClass::RecustomizeAvatarStartPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 RecustomizeAvatarDonePacketClass::RecustomizeAvatarDonePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 RecustomizeAvatarUpdatePacketClass::RecustomizeAvatarUpdatePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
+
+// What OVERRIDES declares out of line (the classes' own files, not rebuilt)
+int Packet_0015Class::Get_Type() { return(0x15); }
+bool Packet_0015Class::Unknown_2C() { return(false); }
+const char *Packet_0015Class::Get_Name() { return("Packet_0015Class"); }
+bool PriorityMessageLinePacketClass::Process_Packet(void *) { return(true); }
+bool QueueMessageLinePacketClass::Process_Packet(void *) { return(true); }
+bool PushMessageLinePacketClass::Process_Packet(void *) { return(true); }
+MessageLinePacketClass::~MessageLinePacketClass() {}

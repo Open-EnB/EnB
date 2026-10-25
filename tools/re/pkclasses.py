@@ -34,6 +34,58 @@ HEADER = os.path.join(ROOT, 'app', 'packets', 'pk_classes.h')
 PKCPP = os.path.join(ROOT, 'app', 'packets', 'pk.cpp')
 STUBS = os.path.join(ROOT, 'tests', 'capharness', 'udpreplay', 'pk_ctor_stubs.cpp')
 DEFAULT_LINE = 1078
+# Members beyond the constructor, for the classes whose inline virtuals pk.cpp emits (0x86E5B0-
+# 0x86E850, through the vtables of the classes the switch builds with inline constructors):
+# key: opcode, or 'base 0xCTOR' for a base the factory never makes. (declarations, harness stubs
+# for what is declared out of line). {C} is the class's name.
+OVERRIDES = {
+    21: ([
+        'virtual int Get_Priority() { return(0x7F); }\t// +0x1C 0x86E5B0',
+        'virtual int Get_Type();\t// +0x28 0x8872E0  // NAME 2: what the derived classes\' return (their opcode)',
+        'virtual bool Unknown_2C();\t// +0x2C 0x887300',
+        'virtual const char *Get_Name();\t// +0x30 0x887320  // NAME 2: what the derived classes\' return (a name)',
+    ], [
+        'int {C}::Get_Type() { return(0x15); }',
+        'bool {C}::Unknown_2C() { return(false); }',
+        'const char *{C}::Get_Name() { return("{C}"); }',
+    ]),
+    22: ([
+        'virtual int Get_Type() { return(0x16); }\t// +0x28 0x86E5D0',
+        'virtual bool Unknown_2C() { return(false); }\t// +0x2C 0x86E5F0',
+        'virtual const char *Get_Name() { return("FireEquipped"); }\t// +0x30 0x86E610',
+    ], []),
+    'base 0x89D8A0': ([
+        'virtual ~{C}();\t// +0x00 0x89D870 / 0x89D970',
+        'virtual int Get_Channel() { return(-2); }\t// +0x18 0x86E6A0',
+        'virtual int Get_Priority() { return(0); }\t// +0x1C 0x86E680',
+        'virtual int Get_Type() = 0;\t// +0x28  // NAME 2: what the derived classes\' return (their opcode)',
+        'virtual const char *Get_Name() = 0;\t// +0x2C  // NAME 2: what the derived classes\' return (a name)',
+    ], [
+        '{C}::~{C}() {}',
+    ]),
+    32: ([
+        'virtual bool Process_Packet(void *client);\t// +0x08 0x736A20 (cpacket.cpp)',
+        'virtual int Get_Type() { return(0x20); }\t// +0x28 0x86E6C0',
+        'virtual const char *Get_Name() { return("PriorityMessage"); }\t// +0x2C 0x86E6E0',
+    ], [
+        'bool {C}::Process_Packet(void *) { return(true); }',
+    ]),
+    33: ([
+        'virtual bool Process_Packet(void *client);\t// +0x08 0x736AE0 (cpacket.cpp)',
+        'virtual int Get_Type() { return(0x21); }\t// +0x28 0x86E750',
+        'virtual const char *Get_Name() { return("QueueMessage"); }\t// +0x2C 0x86E770',
+    ], [
+        'bool {C}::Process_Packet(void *) { return(true); }',
+    ]),
+    34: ([
+        'virtual bool Process_Packet(void *client);\t// +0x08 0x736BA0 (cpacket.cpp)',
+        'virtual int Get_Type() { return(0x22); }\t// +0x28 0x86E7E0',
+        'virtual const char *Get_Name() { return("PushMessage"); }\t// +0x2C 0x86E800',
+    ], [
+        'bool {C}::Process_Packet(void *) { return(true); }',
+    ]),
+}
+
 BEGIN = '// BEGIN pkclasses.py (generated: the switch 0x869790; do not edit by hand)'
 END = '// END pkclasses.py'
 
@@ -190,7 +242,11 @@ def main():
     def tag(t):
         return ('  // ' + t) if t else ''
 
+    def key(r):
+        return r['op'] if 'op' in r else 'base 0x%X' % r['ctor']
+
     def decl(r, base='PacketClass', base_size=0xC, inline_base=None):
+        members, _ = OVERRIDES.get(key(r), ([], []))
         out = []
         out.append('// opcode %d (0x%04X, %s): vtable 0x%X, constructor 0x%X, 0x%X bytes' % (
             r['op'], r['op'], r['opname'], r['vt'], r['ctor'], r['size']) if 'op' in r else
@@ -203,6 +259,8 @@ def main():
             out.append('\t%s(RawPacketClass *raw) : %s(raw) {}\t// inline (the case stores the vtable)' % (r['name'], base))
         else:
             out.append('\t%s(RawPacketClass *raw);\t// 0x%X' % (r['name'], r['ctor']))
+        for m in members:
+            out.append('\t' + m.replace('{C}', r['name']))
         if r['size'] > base_size:
             out.append('\tchar Unknown%02X[0x%X];\t// +0x%02X' % (base_size, r['size'] - base_size, base_size))
         out.append('};')
@@ -261,6 +319,12 @@ def main():
     for r in sorted(rows, key=lambda r: r['state']):
         if not r['inline']:
             st.append('%s::%s(RawPacketClass *raw) { Conn_Record(this, raw); }' % (r['name'], r['name']))
+    st.append('')
+    st.append('// What OVERRIDES declares out of line (the classes\' own files, not rebuilt)')
+    allr = list(extra.values()) + rows
+    for r in sorted(allr, key=lambda r: str(key(r))):
+        for d in OVERRIDES.get(key(r), ([], []))[1]:
+            st.append(d.replace('{C}', r['name']))
     stubs = '\n'.join(st) + '\n'
 
     changed = []
