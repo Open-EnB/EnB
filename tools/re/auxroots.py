@@ -46,6 +46,10 @@ CLIENT = r'C:\Program Files (x86)\EA GAMES\Earth & Beyond\release\client.exe'
 SCHEMA = r'C:\EnBDevelopment\the reference decoder\src\Shared\the reference game model\Schema\client-auxdata.json'
 OUT_DIR = os.path.join(REPO, 'app', 'client')
 NAMES = os.path.join(HERE, 'auxroots_names.json')     # tools/re/auxnames.py
+# Members the extracted trees don't show (C++ members that are no fields), by class vtable: the
+# offset and the number of ints, each set to 0 in the init list. Found by `auxroots.py layout`
+# (the client's field offsets against the compiled ones) and checked in the client's stores.
+PADS = os.path.join(HERE, 'auxroots_pads.json')
 
 # The factory's create types (0x6F6000's switch) and the roots it builds; Player is game id 0.
 ROOT_CTOR = {'Ship': 0x6F66E0, 'Component': 0x6FBDA0, 'Light': 0x6F9870, 'Decoration': 0x6F9C30,
@@ -85,7 +89,7 @@ def extract(client):
 
 def strip(x):
     if isinstance(x, dict):
-        return {k: strip(v) for k, v in x.items() if k not in ('vt', 'ctors', 'at', 'default', 'value')}
+        return {k: strip(v) for k, v in x.items() if k not in ('vt', 'ctors', 'at', 'default', 'value', 'rmask')}
     if isinstance(x, list):
         return [strip(v) for v in x]
     return x
@@ -117,6 +121,8 @@ class Gen:
         self.base = {}         # vt -> the vt of its base class (a compound class it derives from)
         self.nested = []       # (address, text): out-of-line constructors for aux_roots.cpp
         self.img = None
+        self.pads = {int(k, 16): v for k, v in json.load(open(PADS)).items()} if os.path.exists(PADS) else {}
+        self.layout = {}       # vt -> (class name, [(client offset, member)]) for `layout`
 
     # ---- the client's constructors
 
@@ -283,6 +289,7 @@ class Gen:
         members, body = [], []
         ship = root == 'Ship'
         fields, bcls = n['fields'], None
+        late = []
         if vt in self.base:
             # the client builds the first fields through the base class's constructor
             bn = self.nodes[self.base[vt]]
@@ -306,7 +313,7 @@ class Gen:
             elif cls == 'DeltaTemplateClass<DurationClass>':
                 # the client passes a zeroed time (two zero stores into the temporary, 0x707430)
                 ctor_args += ', 0'
-            mask = f.get('mask')
+            mask = f.get('mask', f.get('rmask'))
             if fa == base_alloc and fo > base_off:
                 m = ident(f['name'])
                 members.append((fo - base_off, cls, m, ctor_args))
@@ -320,11 +327,20 @@ class Gen:
             elif mask is None:
                 body.append(f'\tAdd({ref});')
             else:
-                if ref.startswith('&'):
+                if ref.startswith('&') and 'mask' not in f:
+                    # a mask from a register: the client stores it after the last Add (Hulk 0x6F6000)
+                    body.append(f'\tAdd({ref});')
+                    late.append(f'\t{ref[1:]}.m_Unknown80 = 0x{mask:X};')
+                elif ref.startswith('&'):
                     body.append(f'\tAdd({ref});')
                     body.append(f'\t{ref[1:]}.m_Unknown80 = 0x{mask:X};')
                 else:
                     body.append(f'\t{{ DeltaClass *field = {ref}; Add(field); field->m_Unknown80 = 0x{mask:X}; }}')
+        body += late
+        self.layout[vt] = (name, [(off, m) for off, _, m, _ in members])
+        for off, count in self.pads.get(vt, []):
+            for k in range(count):
+                members.append((off + 4 * k, 'int', f'm_Unknown{off + 4 * k:X}', '0'))
         members.sort()
         offs = [m[0] for m in members]
         if len(set(offs)) != len(offs):
@@ -370,7 +386,8 @@ class Gen:
         if members:
             lines.append('')
         for off, cls, m, _ in members:
-            lines.append(f'\t{cls} {m};\t// +0x{off:X}')
+            lines.append(f'\t{cls} {m};\t// +0x{off:X}' + ('  // NAME 1: neutral (D10): a member, not a field of the tree'
+                                                          if cls == 'int' else ''))
         lines.append('};')
         self.decl[vt] = '\n'.join(lines)
         if root and not inline:
@@ -552,11 +569,12 @@ def generate(doc, out_dir):
         with open(os.path.join(out_dir, name), 'w', newline='\r\n') as f:
             f.write(text)
     print(f'{len(g.classes)} classes ({len(roots)} roots), {len(g.types)} value types -> {out_dir}')
+    return g
 
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument('cmd', choices=['generate', 'check', 'tree'])
+    ap.add_argument('cmd', choices=['generate', 'check', 'tree', 'layout'])
     ap.add_argument('root', nargs='?')
     ap.add_argument('--client', default=CLIENT)
     ap.add_argument('--schema', default=SCHEMA)
@@ -578,7 +596,47 @@ def main():
                 show(x['element'], ind + 2)
         show(doc['roots'][a.root])
         return
+    if a.cmd == 'layout':
+        layout(doc, a.out)
+        return
     generate(doc, a.out)
+
+
+def layout(doc, out_dir):
+    """Compile a probe of the generated header (offsetof of every member, as tools/vc6/layout.py)
+    and list the members whose offset isn't the client's, with the gap before them."""
+    g = generate(doc, out_dir)
+    sys.path.insert(0, os.path.join(REPO, 'tools', 'vc6'))
+    import vc6
+    from layout import read_array
+    work = os.path.join(REPO, '.work', 'auxlayout')
+    os.makedirs(work, exist_ok=True)
+    rows = []
+    for vt, (name, mem) in sorted(g.layout.items()):
+        for off, m in mem:
+            rows.append((name, m, off))
+    src = os.path.join(work, 'probe.cpp')
+    lines = ['#include <stddef.h>', '#include "' + os.path.join(out_dir, 'aux_roots.h') + '"',
+             'extern "C" const unsigned int ENB_LAYOUT[] = {']
+    lines += [f'\toffsetof({c}, {m}),' for c, m, _ in rows] + ['};', '']
+    with open(src, 'w', newline='\r\n') as f:
+        f.write('\n'.join(lines))
+    incs = [os.path.join(REPO, d) for d in ('app\\client', 'app\\shared\\auxdata', 'app\\shared', 'wwlib', 'wwdebug', 'wwmath')]
+    out = os.path.join(work, 'obj')
+    rc, text = vc6.compile_sources([src], incs, flags='/nologo /c /MT /W0 /O2 /Ob2 /GX', out=out)
+    obj = os.path.join(out, 'probe.obj')
+    if not os.path.exists(obj):
+        print(text)
+        raise SystemExit('the probe did not compile')
+    got = read_array(obj, '_ENB_LAYOUT', len(rows))
+    bad = 0
+    last = None
+    for (c, m, want), have in zip(rows, got):
+        if have != want and c != last:
+            print(f'{c}.{m}: +0x{have:X} here, +0x{want:X} in the client (gap 0x{want - have:X} before it)')
+            bad += 1
+            last = c
+    print(f'{len(rows)} members, {bad} classes with a member off its client offset')
 
 
 if __name__ == '__main__':

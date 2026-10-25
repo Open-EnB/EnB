@@ -114,7 +114,7 @@ class Node:
 
 class Interp:
     """Symbolic values: ('T', a) object pointer, ('C', n) constant, ('E', o) stack slot."""
-    def __init__(self, img): self.img = img; self.nodes = {}; self.masks = {}; self.heap = 0x10000000; self.stores = {}
+    def __init__(self, img): self.img = img; self.nodes = {}; self.masks = {}; self.heap = 0x10000000; self.stores = {}; self.rmasks = {}
 
     def node(self, a):
         return self.nodes.setdefault(a, Node(a))
@@ -179,6 +179,7 @@ class Interp:
                     elif a and a[0] == 'T' and dst.startswith('dword') and not NUM_RE.fullmatch(src):
                         v = val(src)
                         if v and v[0] == 'C': self.stores[a[1]] = v[1]          # (M1.3) a value from a register
+                        if v and v[0] == 'C' and 0 < v[1] < DEFAULT_MASK: self.rmasks[a[1] - MASK] = v[1]   # (M1.3) a mask from a register (Hulk's 0xCF)
                     elif a and a[0] == 'T' and NUM_RE.fullmatch(src) and dst.startswith('byte'):
                         self.stores[a[1]] = int(src, 0)                            # (M1.3) a bool leaf's value at +0x84
                     elif a and a[0] == 'T' and NUM_RE.fullmatch(src) and dst.startswith('dword'):
@@ -244,6 +245,7 @@ def to_json(img, it, a, name=None):
 def with_mask(it, a, out):
     mask = it.masks.get(a, DEFAULT_MASK)
     if mask != DEFAULT_MASK: out['mask'] = mask
+    elif a in it.rmasks: out['rmask'] = it.rmasks[a]           # (M1.3) not in the reference decoder's extractor
     return out
 
 def json_of(img, it, n, name):

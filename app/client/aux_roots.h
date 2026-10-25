@@ -167,6 +167,7 @@ class DeltaShakeClass : public DeltaCompoundClass
 public:
 	DeltaShakeClass(const char *name) :
 		DeltaCompoundClass(name),
+		m_Unknown9C(0),
 		ForceX("ForceX"),
 		ForceY("ForceY"),
 		ForceZ("ForceZ"),
@@ -178,6 +179,7 @@ public:
 		Add(&Damage);
 	}
 
+	int m_Unknown9C;	// +0x9C  // NAME 1: neutral (D10): a member, not a field of the tree
 	DeltaTemplateClass<float> ForceX;	// +0xA0
 	DeltaTemplateClass<float> ForceY;	// +0x128
 	DeltaTemplateClass<float> ForceZ;	// +0x1B0
@@ -507,6 +509,9 @@ public:
 	DeltaArrayClass<UnknownB01A40Type> DamageSpot;	// +0x21BC
 	DeltaArrayClass<UnknownB01A40Type> DamageLine;	// +0x2258
 	DeltaArrayClass<UnknownB01A40Type> DamageBlotch;	// +0x22F4
+	int m_Unknown2390;	// +0x2390  // NAME 1: neutral (D10): a member, not a field of the tree
+	int m_Unknown2394;	// +0x2394  // NAME 1: neutral (D10): a member, not a field of the tree
+	int m_Unknown2398;	// +0x2398  // NAME 1: neutral (D10): a member, not a field of the tree
 	DeltaLegoClass Legos;	// +0x239C
 	DeltaItemArrayClass<DeltaBuffClass> BuffArray;	// +0x255C
 	DeltaStatsClass BaseStats;	// +0x25F8
@@ -886,6 +891,9 @@ public:
 		DamageSpot("DamageSpot", 15),
 		DamageLine("DamageLine", 10),
 		DamageBlotch("DamageBlotch", 5),
+		m_Unknown420(0),
+		m_Unknown424(0),
+		m_Unknown428(0),
 		Equipped("Equipped", 20),
 		Cargo("Cargo", 40)
 	{
@@ -897,6 +905,8 @@ public:
 		Add(&DamageBlotch);
 		Add(&Equipped);
 		Add(&Cargo);
+		Equipped.m_Unknown80 = 0xCF;
+		Cargo.m_Unknown80 = 0xCF;
 		DeltaCompoundClass::Unknown_48();
 	}
 
@@ -906,6 +916,9 @@ public:
 	DeltaArrayClass<UnknownB01A40Type> DamageSpot;	// +0x24C
 	DeltaArrayClass<UnknownB01A40Type> DamageLine;	// +0x2E8
 	DeltaArrayClass<UnknownB01A40Type> DamageBlotch;	// +0x384
+	int m_Unknown420;	// +0x420  // NAME 1: neutral (D10): a member, not a field of the tree
+	int m_Unknown424;	// +0x424  // NAME 1: neutral (D10): a member, not a field of the tree
+	int m_Unknown428;	// +0x428  // NAME 1: neutral (D10): a member, not a field of the tree
 	DeltaItemArrayClass<DeltaItemClass> Equipped;	// +0x42C
 	DeltaItemArrayClass<DeltaItemClass> Cargo;	// +0x4C8
 };
