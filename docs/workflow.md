@@ -426,3 +426,15 @@ Added 2026-10-24 (overnight run; details in `.work/night/item*/report.md`):
   an hour. The rule is: the other builder's changes must not be compiled into your verify (their
   untracked files aren't, unless importer.py lists them); commit only your own hunks; keep the
   uncommitted window short. When in doubt the coordinator sets a turn order.
+* **d3d8 proxies.** d3d8 keeps a writable copy of the device vtable per device and rewrites some
+  slots after CreateDevice: Set* hooks there see nothing; read state with Get* at draw time and
+  re-hook at each Present. The proxy must pin itself (LoadLibrary on its own path): WW3D::Shutdown
+  frees d3d8.dll while patched vtables still point into it. Default-pool textures (the original's
+  lightmap) can't be locked: GetSurfaceLevel + CopyRects into an image surface.
+* **Comparing VIDTEST frames.** Its sun follows GetTickCount: compare at the original's angle (from
+  d3d8shot.log's stamps, `-sunangle`). Pixel diffs can't tell geometry from texture problems: dump
+  the draws (`run_reference.py --dump`, `drawdump.py`).
+* **Checked builds.** WWASSERT / WWDEBUG_* are compiled out in the release libraries as in the
+  client; `ENB_CHECKED=1 build.py --out build/chk` compiles them in. A checked build changes some
+  mangled names (`private=public`): build every library the same way. A full build also compiles
+  another builder's uncommitted importer.py entries.
