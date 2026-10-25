@@ -79,14 +79,43 @@ UnknownSendRootClass::UnknownSendRootClass(int unknown, const char *) : UnknownR
 {
 }
 
-// NOT EXACT (D42): the client builds the policy through policy.cpp's rule set (a "*" INCLUDE rule,
-// 0x4AE490, in a ref-counted set of vtable 0xAEAC9C) and PolicyClass's 0x4AEF40, 0x4AF190 (+0xA4)
-// and 0x4AF3A0; here policy.cpp's functional stand-in gives the same actions.
+// The send root's policy (Unknown_48): a rule set enabled always, with one rule, "*" INCLUDE.
+// vtable 0xAEACC0: a condition that is always true
+class PolicyAlwaysClass : public PolicyConditionClass  // NAME 2: describes what it does
+{
+public:
+	virtual bool Evaluate(int, int) { return true; }					// 0x4A4400
+	virtual void Attach(PolicyStateClass *, int) {}					// 0x4A42D0
+};
+
+// vtable 0xAEACA8: a rule set with a condition of its own
+class PolicyConditionalSetClass : public PolicyRuleSetClass  // NAME 2: describes what it does
+{
+public:
+	PolicyConditionalSetClass(RefCountPtr<PolicyConditionClass> condition) : Condition(condition) {}
+	virtual RefCountPtr<PolicyConditionClass> Get_Condition(int, int) { return Condition; }	// 0x4A4320
+
+	RefCountPtr<PolicyConditionClass> Condition;		// +0x18  // NAME 2: describes what it does
+};
+
+// vtable 0xAEAC9C: every field INCLUDE, always
+class PolicyIncludeAllClass : public PolicyConditionalSetClass  // NAME 2: describes what it does
+{
+public:
+	PolicyIncludeAllClass() : PolicyConditionalSetClass(Create_NEW((PolicyConditionClass *)new PolicyAlwaysClass))
+	{
+		Add_Rule(NameClass("*"), INCLUDE, -1);
+	}
+};
+
 void UnknownSendRootClass::Unknown_48()
 {
 	DeltaCompoundClass::Unknown_48();
-	Policy = Unknown_Make_Include_Policy(Name.Get_String(), m_Unknown98);
-	m_UnknownA4 = 0;
+	PolicyIncludeAllClass *rule_set = new PolicyIncludeAllClass;
+	Policy = new PolicyClass;
+	Policy->Add(rule_set);
+	m_UnknownA4 = Policy->Make_State(0, 0);
+	Policy->Bind(m_UnknownA4, this);
 	Changes = new ChangeTableClass(this);
 }
 

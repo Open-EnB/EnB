@@ -24,7 +24,7 @@
 // version per field: an updated field and its parents get new ones, a defaulted field keeps its
 // own; they go into m_Unknown70 before the encode. Player uses its own policy and change table
 // (UnknownSendRootClass::Unknown_48, Encode_Changes 0x4A4660); the factory's roots get the same
-// ones made here (everything INCLUDE).
+// ones made here (the same policy: "*" INCLUDE, compiled per root by policy.cpp).
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -243,13 +243,44 @@ struct Object
 	ChangeTableClass *Changes;
 };
 
+// the policy UnknownSendRootClass::Unknown_48 (0x4A40B0) gives Player: one rule set, always
+// enabled, with "*" INCLUDE (the client's classes are local to unknown_root.cpp)
+class HarnessAlwaysClass : public PolicyConditionClass
+{
+public:
+	virtual bool Evaluate(int, int) { return true; }
+	virtual void Attach(PolicyStateClass *, int) {}
+};
+
+class HarnessIncludeAllClass : public PolicyRuleSetClass
+{
+public:
+	HarnessIncludeAllClass() : Condition(Create_NEW((PolicyConditionClass *)new HarnessAlwaysClass))
+	{
+		Add_Rule(NameClass("*"), INCLUDE, -1);
+	}
+	HarnessIncludeAllClass(int) : Condition(Create_NEW((PolicyConditionClass *)new HarnessAlwaysClass))
+	{
+		// the factory's roots: the captures never update a whole root, so the fields below it get a
+		// rule of their own (value 1, which the harness clock always passes); the compile then gives
+		// the root DESCEND
+		Add_Rule(NameClass("*.*"), INCLUDE, 1);
+		Add_Rule(NameClass("*"), INCLUDE, -1);
+	}
+	virtual RefCountPtr<PolicyConditionClass> Get_Condition(int, int) { return Condition; }
+
+	RefCountPtr<PolicyConditionClass> Condition;
+};
+
 // a factory root's encoder state, as UnknownSendRootClass::Unknown_48 makes Player's
 static void Encoder_State(Object &o)
 {
 	o.Policy = 0;
 	o.Changes = 0;
 	if (o.Root != 0) {
-		o.Policy = Unknown_Make_Include_Policy(o.Root->Name.Get_String(), o.Root->m_Unknown98);
+		o.Policy = new PolicyClass;
+		o.Policy->Add(new HarnessIncludeAllClass(0));
+		o.Policy->Bind(o.Policy->Make_State(0, 0), o.Root);
 		o.Changes = new ChangeTableClass(o.Root);
 	}
 }

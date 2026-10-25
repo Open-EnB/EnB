@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 2 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 27 |
-| 3 | by convention from a client-named file or sibling | 55 |
-| 2 | describes what the code does | 428 |
-| 1 | neutral placeholder | 278 |
+| 3 | by convention from a client-named file or sibling | 56 |
+| 2 | describes what the code does | 457 |
+| 1 | neutral placeholder | 267 |
 
 ## For review (score 3 and below)
 
@@ -177,17 +177,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_Test_70_Above_1` | `app/shared/auxdata/lookup.h:39` | untagged neutral name (D10) |
 | 1 | `m_Unknown10` | `app/shared/auxdata/lookup.h:43` | untagged neutral name (D10) |
 | 1 | `Unknown_Debug_Printf` | `app/shared/auxdata/permstr.cpp:8` | untagged neutral name (D10) |
-| 1 | `m_Unknown3C` | `app/shared/auxdata/policy.cpp:336` | untagged neutral name (D10) |
-| 1 | `m_Unknown38` | `app/shared/auxdata/policy.cpp:337` | untagged neutral name (D10) |
-| 1 | `m_Unknown10` | `app/shared/auxdata/policy.cpp:454` | untagged neutral name (D10) |
-| 1 | `m_Unknown04` | `app/shared/auxdata/policy.cpp:456` | untagged neutral name (D10) |
-| 1 | `Unknown_Make_Include_Policy` | `app/shared/auxdata/policy.cpp:473` | untagged neutral name (D10) |
-| 1 | `m_Unknown00` | `app/shared/auxdata/policy.cpp:476` | untagged neutral name (D10) |
-| 1 | `m_Unknown00` | `app/shared/auxdata/policy.h:25` | untagged neutral name (D10) |
-| 1 | `m_Unknown38` | `app/shared/auxdata/policy.h:27` | untagged neutral name (D10) |
-| 1 | `m_Unknown3C` | `app/shared/auxdata/policy.h:28` | untagged neutral name (D10) |
-| 1 | `m_Unknown04` | `app/shared/auxdata/policy.h:46` | untagged neutral name (D10) |
-| 1 | `m_Unknown10` | `app/shared/auxdata/policy.h:59` | untagged neutral name (D10) |
+| 1 | `m_Unknown98` | `app/shared/auxdata/policy.cpp:187` | untagged neutral name (D10) |
+| 1 | `m_Unknown7C` | `app/shared/auxdata/policy.cpp:227` | untagged neutral name (D10) |
 | 1 | `unknown_changes.cpp` | `app/shared/auxdata/unknown_changes.cpp:3` | provisional file name: the object 0x4AB580-0x4AC250 has no assert and no __FILE__ |
 | 1 | `m_Unknown7C` | `app/shared/auxdata/unknown_changes.cpp:78` | untagged neutral name (D10) |
 | 1 | `m_Unknown70` | `app/shared/auxdata/unknown_changes.cpp:85` | untagged neutral name (D10) |
@@ -205,11 +196,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_Sum` | `app/shared/auxdata/unknown_root.cpp:49` | untagged neutral name (D10) |
 | 1 | `Unknown_All` | `app/shared/auxdata/unknown_root.cpp:57` | untagged neutral name (D10) |
 | 1 | `UnknownSendRootClass` | `app/shared/auxdata/unknown_root.cpp:78` | untagged neutral name (D10) |
-| 1 | `Unknown_48` | `app/shared/auxdata/unknown_root.cpp:85` | untagged neutral name (D10) |
-| 1 | `Unknown_Make_Include_Policy` | `app/shared/auxdata/unknown_root.cpp:88` | untagged neutral name (D10) |
-| 1 | `m_UnknownA4` | `app/shared/auxdata/unknown_root.cpp:89` | untagged neutral name (D10) |
-| 1 | `m_Unknown70` | `app/shared/auxdata/unknown_root.cpp:103` | untagged neutral name (D10) |
-| 1 | `m_Unknown7C` | `app/shared/auxdata/unknown_root.cpp:106` | untagged neutral name (D10) |
+| 1 | `Unknown_48` | `app/shared/auxdata/unknown_root.cpp:111` | untagged neutral name (D10) |
+| 1 | `m_UnknownA4` | `app/shared/auxdata/unknown_root.cpp:117` | untagged neutral name (D10) |
+| 1 | `m_Unknown70` | `app/shared/auxdata/unknown_root.cpp:132` | untagged neutral name (D10) |
+| 1 | `m_Unknown7C` | `app/shared/auxdata/unknown_root.cpp:135` | untagged neutral name (D10) |
 | 1 | `unknown_root.h` | `app/shared/auxdata/unknown_root.h:6` | provisional file name, the object has no __FILE__ |
 | 1 | `UnknownRootClass` | `app/shared/auxdata/unknown_root.h:31` | neutral; the root of every aux-data tree (vtable 0xAEAB88). Hints: C# AuxRoot (the reference game model; a schema object, not this class), Net-7 has none (its roots derive from AuxBase directly) |
 | 1 | `m_Unknown9C` | `app/shared/auxdata/unknown_root.h:42` | untagged neutral name (D10) |
@@ -288,10 +278,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_44` | `tests/capharness/auxreplay/auxreplay.cpp:118` | untagged neutral name (D10) |
 | 1 | `UnknownRootClass` | `tests/capharness/auxreplay/auxreplay.cpp:122` | untagged neutral name (D10) |
 | 1 | `m_Unknown7C` | `tests/capharness/auxreplay/auxreplay.cpp:224` | untagged neutral name (D10) |
-| 1 | `Unknown_Make_Include_Policy` | `tests/capharness/auxreplay/auxreplay.cpp:252` | untagged neutral name (D10) |
-| 1 | `m_Unknown98` | `tests/capharness/auxreplay/auxreplay.cpp:252` | untagged neutral name (D10) |
-| 1 | `Unknown_All` | `tests/capharness/auxreplay/auxreplay.cpp:405` | untagged neutral name (D10) |
-| 1 | `UnknownSendRootClass` | `tests/capharness/auxreplay/auxreplay.cpp:434` | untagged neutral name (D10) |
+| 1 | `m_Unknown98` | `tests/capharness/auxreplay/auxreplay.cpp:435` | untagged neutral name (D10) |
+| 1 | `Unknown_All` | `tests/capharness/auxreplay/auxreplay.cpp:436` | untagged neutral name (D10) |
+| 1 | `UnknownSendRootClass` | `tests/capharness/auxreplay/auxreplay.cpp:465` | untagged neutral name (D10) |
 | 1 | `UnknownLogClass` | `tests/capharness/udpreplay/udpreplay.cpp:62` | untagged neutral name (D10) |
 | 1 | `Unknown_4BC130` | `tests/capharness/udpreplay/udpreplay.cpp:65` | untagged neutral name (D10) |
 | 1 | `UnknownLog` | `tests/capharness/udpreplay/udpreplay.cpp:67` | untagged neutral name (D10) |
@@ -443,18 +432,43 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `String` | `app/shared/auxdata/permstr.h:39` | describes what it does |
 | 2 | `PermStringInitClass` | `app/shared/auxdata/permstr.h:43` | describes what it does (D38) |
 | 2 | `PermStringInit` | `app/shared/auxdata/permstr.h:50` | describes what it does |
-| 2 | `IncludeEnabled` | `app/shared/auxdata/policy.cpp:467` | describes what it does |
-| 2 | `IncludeRule` | `app/shared/auxdata/policy.cpp:468` | describes what it does |
-| 2 | `PolicyRuleClass` | `app/shared/auxdata/policy.h:22` | describes what it does |
-| 2 | `PolicyNodeClass` | `app/shared/auxdata/policy.h:31` | describes what it does |
-| 2 | `Rule` | `app/shared/auxdata/policy.h:34` | describes what it does |
-| 2 | `Next` | `app/shared/auxdata/policy.h:35` | describes what it does |
-| 2 | `CompiledPolicyClass` | `app/shared/auxdata/policy.h:39` | after the asserts' Compiled |
-| 2 | `Get_Action` | `app/shared/auxdata/policy.h:43` | describes what it does |
-| 2 | `Table` | `app/shared/auxdata/policy.h:48` | describes what it does |
-| 2 | `Get_Action` | `app/shared/auxdata/policy.h:56` | describes what it does |
-| 2 | `PolicyStateClass` | `app/shared/auxdata/policy.h:65` | describes what it does |
-| 2 | `Unknown_Make_Include_Policy` | `app/shared/auxdata/policy.h:77` | describes what it does |
+| 2 | `DESCEND` | `app/shared/auxdata/policy.h:36` | describes what it does |
+| 2 | `PolicyConditionClass` | `app/shared/auxdata/policy.h:43` | describes what it does |
+| 2 | `Evaluate` | `app/shared/auxdata/policy.h:46` | describes what it does |
+| 2 | `Attach` | `app/shared/auxdata/policy.h:47` | describes what it does |
+| 2 | `PolicySwitchClass` | `app/shared/auxdata/policy.h:51` | describes what it does |
+| 2 | `Set` | `app/shared/auxdata/policy.h:58` | describes what it does |
+| 2 | `Update` | `app/shared/auxdata/policy.h:59` | describes what it does |
+| 2 | `Index` | `app/shared/auxdata/policy.h:62` | describes what it does |
+| 2 | `Value` | `app/shared/auxdata/policy.h:63` | describes what it does |
+| 2 | `PolicyRuleClass` | `app/shared/auxdata/policy.h:68` | describes what it does |
+| 2 | `Pattern` | `app/shared/auxdata/policy.h:80` | describes what it does |
+| 2 | `Value` | `app/shared/auxdata/policy.h:82` | describes what it does |
+| 2 | `Enabled` | `app/shared/auxdata/policy.h:83` | describes what it does |
+| 2 | `PolicyNodeClass` | `app/shared/auxdata/policy.h:87` | describes what it does |
+| 2 | `Rule` | `app/shared/auxdata/policy.h:92` | describes what it does |
+| 2 | `Next` | `app/shared/auxdata/policy.h:93` | describes what it does |
+| 2 | `Get_Condition` | `app/shared/auxdata/policy.h:102` | describes what it does |
+| 2 | `Add_Rule` | `app/shared/auxdata/policy.h:103` | describes what it does |
+| 2 | `Enabled` | `app/shared/auxdata/policy.h:105` | describes what it does |
+| 2 | `std:` | `app/shared/auxdata/policy.h:106` | describes what it does |
+| 2 | `CompiledPolicyClass` | `app/shared/auxdata/policy.h:110` | after the asserts' Compiled |
+| 2 | `Compile_Rules` | `app/shared/auxdata/policy.h:116` | describes what it does |
+| 2 | `Find_Rule` | `app/shared/auxdata/policy.h:117` | describes what it does |
+| 2 | `Merge_Rules` | `app/shared/auxdata/policy.h:118` | describes what it does |
+| 2 | `Insert` | `app/shared/auxdata/policy.h:119` | describes what it does |
+| 2 | `Get_Action` | `app/shared/auxdata/policy.h:120` | describes what it does |
+| 2 | `Root` | `app/shared/auxdata/policy.h:122` | describes what it does |
+| 2 | `Next` | `app/shared/auxdata/policy.h:123` | describes what it does |
+| 2 | `Table` | `app/shared/auxdata/policy.h:125` | describes what it does |
+| 2 | `PolicyStateClass` | `app/shared/auxdata/policy.h:130` | describes what it does |
+| 2 | `std:` | `app/shared/auxdata/policy.h:136` | describes what it does |
+| 2 | `Dirty` | `app/shared/auxdata/policy.h:137` | describes what it does |
+| 2 | `Add` | `app/shared/auxdata/policy.h:146` | describes what it does |
+| 2 | `Make_State` | `app/shared/auxdata/policy.h:147` | describes what it does |
+| 2 | `Bind` | `app/shared/auxdata/policy.h:148` | describes what it does |
+| 2 | `Get_Action` | `app/shared/auxdata/policy.h:149` | describes what it does |
+| 2 | `std:` | `app/shared/auxdata/policy.h:151` | describes what it does |
 | 2 | `ChangeSentVisitorClass` | `app/shared/auxdata/unknown_changes.cpp:10` | describes what it does |
 | 2 | `Table` | `app/shared/auxdata/unknown_changes.cpp:17` | describes what it does |
 | 2 | `ChangeBuildVisitorClass` | `app/shared/auxdata/unknown_changes.cpp:21` | describes what it does |
@@ -493,6 +507,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Root` | `app/shared/auxdata/unknown_changes.h:82` | describes what it does |
 | 2 | `Time` | `app/shared/auxdata/unknown_changes.h:83` | describes what it does |
 | 2 | `Delta` | `app/shared/auxdata/unknown_changes.h:84` | describes what it does |
+| 2 | `PolicyAlwaysClass` | `app/shared/auxdata/unknown_root.cpp:84` | describes what it does |
+| 2 | `PolicyConditionalSetClass` | `app/shared/auxdata/unknown_root.cpp:92` | describes what it does |
+| 2 | `Condition` | `app/shared/auxdata/unknown_root.cpp:98` | describes what it does |
+| 2 | `PolicyIncludeAllClass` | `app/shared/auxdata/unknown_root.cpp:102` | describes what it does |
 | 2 | `Encode` | `app/shared/auxdata/unknown_root.h:40` | describes what it does |
 | 2 | `Encode_Changes` | `app/shared/auxdata/unknown_root.h:57` | describes what it does |
 | 2 | `Policy` | `app/shared/auxdata/unknown_root.h:59` | describes what it does |
@@ -758,8 +776,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `NameClass` | `app/shared/auxdata/name.h:26` | by convention (D24) from the client's file name.cpp |
 | 3 | `permstr.h` | `app/shared/auxdata/permstr.h:18` | header name assumed from the client's permstr.cpp |
 | 3 | `policy.h` | `app/shared/auxdata/policy.h:17` | header name assumed from the client's policy.cpp |
-| 3 | `Action` | `app/shared/auxdata/policy.h:26` | after the assert's parameter action (policy.cpp) |
-| 3 | `PolicyClass` | `app/shared/auxdata/policy.h:52` | by convention (D24) from the client's file policy.cpp |
+| 3 | `Action` | `app/shared/auxdata/policy.h:81` | after the assert's parameter action (policy.cpp) |
+| 3 | `PolicyRuleSetClass` | `app/shared/auxdata/policy.h:97` | after the assert's RuleSet (policy.cpp) |
+| 3 | `PolicyClass` | `app/shared/auxdata/policy.h:141` | by convention (D24) from the client's file policy.cpp |
 | 3 | `DurationClass` | `app/shared/duration.h:25` | by convention (D24) from the client's file duration.h (D37) |
 | 3 | `kv_encoder_base.h` | `app/shared/kv_encoder_base.h:18` | header name assumed from the client's kv_encoder_base.cpp |
 | 3 | `KVEncoderBaseClass` | `app/shared/kv_encoder_base.h:40` | by convention (D24) from the client's file kv_encoder_base.cpp |

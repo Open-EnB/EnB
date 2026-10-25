@@ -3135,13 +3135,17 @@ RECONSTRUCTED = {
                                         "the update collector (vtable 0xAEB290)",
     ('app', 'shared/auxdata/policy.cpp'): "CompiledPolicyClass (D24; Compiled, Size from the asserts): dtor "
                                           "0x4AE850, Get_Action 0x4AED50 (line 334, D25); PolicyClass::"
-                                          "Get_Action 0x4AF490 (line 444); the class declarations moved to "
-                                          "policy.h (lines kept); functional (NOT EXACT, M1.3): ~PolicyClass "
-                                          "0x4AEDD0, ~PolicyStateClass 0x4AF890 and a stand-in for the rule set "
-                                          "and compile (Unknown_Make_Include_Policy); the rest not rebuilt",
+                                          "Get_Action 0x4AF490 (line 444); M1.3: the rule set (dtor 0x4AE400, "
+                                          "Add_Rule 0x4AE490 lines 32/45), the compile (0x4AE760 line 110, "
+                                          "0x4AE8D0-0x4AEC70, Merge_Rules line 256), PolicyClass (dtor 0x4AEDD0, "
+                                          "Add 0x4AEF40 line 378, Make_State 0x4AF190, Bind 0x4AF3A0), "
+                                          "PolicySwitchClass (vtable 0xAEB324, line 466), ~PolicyStateClass "
+                                          "0x4AF890; not exact: 0x4AE760, 0x4AE8D0, 0x4AEA00, 0x4AEC70, 0x4AF190, "
+                                          "0x4AF3A0, 0x4AF6E0",
     ('app', 'shared/auxdata/policy.h'): "policy.cpp's declarations (name assumed from policy.cpp, M1.3): "
-                                        "PolicyRuleClass, PolicyNodeClass, CompiledPolicyClass, PolicyClass "
-                                        "(0x18 bytes), PolicyStateClass (0x14)",
+                                        "the conditions (RefCountClass, vtables 0xAEACD4, 0xAEB324), "
+                                        "PolicyRuleClass (0x44), PolicyRuleSetClass (vtable 0xAEACB4), "
+                                        "CompiledPolicyClass, PolicyStateClass (0x14), PolicyClass (0x18)",
     ('app', 'shared/auxdata/unknown_changes.h'): "ChangeEntryClass / ChangeTableClass (D24, PROVISIONAL file "
                                                  "name, M1.3): the change table of a root that sends its "
                                                  "fields (UnknownSendRootClass +0xA8, size 0x1C; entries 0x28)",
@@ -3159,9 +3163,9 @@ RECONSTRUCTED = {
                                                 "Decode 0x4A3FA0; DeltaVisitorClass::Visit_Children 0x4B0860 (another "
                                                 "unattributed object); the root encode 0x4A3D50; the second root "
                                                 "class UnknownSendRootClass (vtable 0xAEAC40): ctor 0x4A3FF0, dtor "
-                                                "0x4A4590, Encode_Changes 0x4A4660, Unknown_48 0x4A40B0 functional "
-                                                "(NOT EXACT: policy.cpp's stand-in); the policy's ref-counted rule "
-                                                "set helpers 0x4A42D0-0x4A4780 not rebuilt",
+                                                "0x4A4590, Encode_Changes 0x4A4660, Unknown_48 0x4A40B0 (not exact) with "
+                                                "its policy classes (vtables 0xAEACC0, 0xAEACA8, 0xAEAC9C: 0x4A42D0-0x4A4780 are their "
+                                                "methods and ref_ptr.h's instances, compiler-generated)",
     ('app', 'shared/auxdata/delta_array.h'): "DeltaArrayClass<T> (D24; M1.3): count DeltaTemplateClass<T> fields "
                                              "named \"%d\" made with one value; the client's __FILE__ "
                                              "'..\\shared/auxdata/delta_array.h', its assert on line 71 (D25, 0x703550)",

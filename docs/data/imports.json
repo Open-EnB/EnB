@@ -1,6 +1,6 @@
 {
  "app": {
-  "ambiguous_total": 50,
+  "ambiguous_total": 51,
   "base": "reconstructed",
   "compile_errors": [],
   "files": {
@@ -545,13 +545,37 @@
     "name": "shared/auxdata/permstr.cpp"
    },
    "policy": {
-    "ambiguous": [],
+    "ambiguous": [
+     "0x42A900",
+     "0x42AAE0",
+     "0x42AFF0",
+     "0x42B2F0",
+     "0x4333D0",
+     "0x436730",
+     "0x45CC10",
+     "0x46BE90",
+     "0x474480"
+    ],
     "copy": "reconstructed",
     "expected": {},
     "in_tree": [
+     "0x4AE400",
+     "0x4AE490",
      "0x4AE850",
+     "0x4AEA50",
      "0x4AED50",
-     "0x4AF490"
+     "0x4AEDD0",
+     "0x4AEF40",
+     "0x4AF490",
+     "0x4AF550",
+     "0x4AF5D0",
+     "0x4AF650",
+     "0x4AF690",
+     "0x4AF890",
+     "0x4AFB00",
+     "0x4AFB50",
+     "0x4AFF80",
+     "0x4B0550"
     ],
     "merged": [],
     "name": "shared/auxdata/policy.cpp"
@@ -681,7 +705,9 @@
    },
    "unknown_root": {
     "ambiguous": [
-     "0x42B2F0"
+     "0x42B2F0",
+     "0x45CC10",
+     "0x474080"
     ],
     "copy": "reconstructed",
     "expected": {},
@@ -691,6 +717,7 @@
      "0x4A3D50",
      "0x4A3FA0",
      "0x4A3FF0",
+     "0x4A4320",
      "0x4A4590",
      "0x4A4660",
      "0x4B0860"
@@ -734,7 +761,7 @@
    "wwudp/udp.h": "reconstructed",
    "wwudp/wtime.h": "reconstructed"
   },
-  "in_tree_total": 312,
+  "in_tree_total": 327,
   "totals": {}
  },
  "ww3d2": {
