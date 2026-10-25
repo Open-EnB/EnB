@@ -455,3 +455,15 @@ Added 2026-10-24 (overnight run; details in `.work/night/item*/report.md`):
   about 60 asserts of which only 2 are its own. funcmatch's string evidence doesn't check `__FILE__`
   either (symbols.json's 0x829C80 `PacketManagerClass::Clear_Socket_Error` is tcpconn.cpp's
   constructor).
+* **Client-style virtual calls on objects.** A cast to the object's own class reference still
+  devirtualises (and inlines) the call; cast to the BASE class reference
+  (`((VectorClass<T> &)Entries).Clear()`). `fild qword` (high dword 0) then `fidiv dword` is
+  `(float)u / (float)v` of unsigned values.
+* **Blank stretches inside functions** (cordmgr.cpp's Pump, Process_CORD_Packet) keep later asserts
+  on the client's lines: to add code above a logged line, remove as many blank lines from the same
+  function's stretch (`.work/milestones/a3/relines.py`).
+* **Prior-work offsets.** the reference decoder's login.md gives LoginTaskClass's vtable as 0xB040CC; it is
+  0xB040D4 (its slot offsets are 8 too high). app-functions.json puts the connection base's inline
+  slots 0x726AF0-0x726BF0 in client.cpp.
+* **Edit scripts that slice between two `str.index()` markers** get an empty string when the second
+  marker comes first, and `replace('', x)` then destroys the file: assert the slice before replacing.
