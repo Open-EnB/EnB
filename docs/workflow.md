@@ -503,3 +503,8 @@ Added 2026-10-24 (overnight run; details in `.work/night/item*/report.md`):
   the caller converts through a 64-bit `fild` must be `unsigned`. Blank stretches inside a function
   (Get(char **)'s FAIL_IFs 12 and 4 lines apart) need padding inside it, not only before it; pk.cpp's
   small helpers between two asserts take single blank separators to fit the client's lines.
+* **The packet factory's switch** (0x869790, `tools/re/pkclasses.py`): VC6 moves the 5000- and
+  30000-range case bodies to the end of the switch although their unwind states interleave with
+  cases 0-237: take source order from the unwind-state numbers, not code addresses. The form that
+  matches is `packet = new X(raw); break;` with `packet` uninitialised and the default setting
+  `packet = 0;` before its assert; `return(new X(raw));` drops the client's `mov esi, eax`.
