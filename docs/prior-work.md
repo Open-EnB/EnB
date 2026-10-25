@@ -25,7 +25,7 @@ apply here unchanged.
 |---|---|
 | `src/Shared/the reference key table` | WWLib's crypto as E&B uses it: `RC4Class`, `PKey`, the XMP big-number routines, the client's session key exchange. The C# names keep WWLib's (`Prep_Key`, `RC4`). The C++ originals are in WWLib (`rc4.cpp`, `pk.cpp`, `xmp.cpp`), which we import |
 | `src/Shared/the reference protocol table` | The game protocol: framing `{short size, short opcode, payload}`, every opcode, and declared message models for every opcode seen in the traces | 
-| `src/Shared/EnB.Transports` | The Westwood TCP transport (unencrypted fast key exchange, then one RC4 stream per direction) and the EA UDP variant |
+| `src/Shared/EnB.Transports` | The Westwood TCP transport (unencrypted fast key exchange, then one RC4 stream per direction); no EA-UDP transport (only the `the reference importer` importer in `EnB.Trace`) |
 | `src/Shared/the reference game model` | AuxData schemas extracted from the client (JSON), the codec, and typed C# classes for all 11 roots (`ShipObject`, ...): a ready-made specification for the C++ `G\app\shared\auxdata` classes |
 | `src/Shared/EnB.Trace`, `src/Harness` (`the reference decoder`) | Trace model and the EA-capture importer; decode, dump, compare, roundtrip and replay tools. The way to test a rebuilt client's packet code against real traffic |
 | `docs/design.md` | The proxy's design. §4 (Westwood crypto), §8 (opcodes, packet models, AuxData), §16 (research findings: opcode census, command-line switches §16.3, the EA captures §16.4) are about the client and game |

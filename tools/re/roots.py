@@ -18,7 +18,7 @@ SDK_ROOT = os.path.join(DEV_ROOT, 'SDK')
 NET7_ROOT = os.path.join(DEV_ROOT, 'Net7')
 NET7_AUXCLASSES = os.path.join(NET7_ROOT, 'Net7', 'AuxClasses')
 
-# the reference decoder (C#): game model, Westwood keys, the reference decoder
+# the reference decoder (the reference decoder, C#; was the reference decoder until 2026-10-25): game model, Westwood keys, the reference decoder
 REFDECODER_ROOT = os.path.join(DEV_ROOT, 'the reference decoder')
 N7_OBJECTS = os.path.join(REFDECODER_ROOT, 'src', 'Shared', 'the reference game model', 'Objects')
 N7_SCHEMA = os.path.join(REFDECODER_ROOT, 'src', 'Shared', 'the reference game model', 'Schema', 'client-auxdata.json')
@@ -26,8 +26,9 @@ N7_WESTWOOD_KEYS = os.path.join(REFDECODER_ROOT, 'src', 'Shared', 'the reference
 refdecoder_EXE = os.path.join(REFDECODER_ROOT, 'src', 'Harness', 'the reference decoder', 'bin', 'Release',
                            'net10.0', 'the reference decoder.exe')
 
-# the reference traces: the reference decoder traces (captures\ea\*.trace.jsonl, captures\session_*.trace.jsonl)
-REF_TRACES_ROOT = os.path.join(DEV_ROOT, 'the reference traces')
+# the reference decoder traces (captures\ea\*.trace.jsonl, captures\session_*.trace.jsonl): moved into the proxy
+# repository's captures/ when the reference traces was retired (2026-10-25)
+REF_TRACES_ROOT = REFDECODER_ROOT
 N7_CAPTURES = os.path.join(REF_TRACES_ROOT, 'captures')
 
 # Live-Era-Data: EA's raw UDP packet dumps

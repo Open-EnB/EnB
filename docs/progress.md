@@ -4,6 +4,37 @@ Newest first within each section. Dates are when the entry was written.
 
 ## 1. Log
 
+### 2026-10-25 (later): the C# proxy audited, renamed the reference decoder (the reference decoder), its test-harness repo retired; EnB paths follow
+
+The D79 question was settled as an audit of `the reference decoder` plus the first housekeeping there (that
+repository's `docs/progress.md` has the detail). Four read-only audits (architecture and code quality,
+docs vs code vs EnB's findings, harness-merge completeness, rename inventory; Opus 214k + 259k, Sonnet
+126k + 99k) then: its 2026-10-22 work committed as found (d41ff27, 277 tests), `the reference traces`
+retired (its 12 commits were already subtree-merged; 22 recordings hash-checked into the proxy's
+`captures/`, 217 MB of replay runs discarded; c4a48c3), the rename to **the reference decoder** (folder
+`C:\EnBDevelopment\the reference decoder`, `the reference decoder.slnx`, `the reference decoder.exe`, `the reference decoder.Proxy.*`, `antlink`, pipe
+`the reference decoder.Link.v1`; f84a591, d16bf94, ccf8567; `the reference decoder`, `Net7.Protocol` and every citation of the
+original 2.46 unchanged), its design.md split into seven docs with EnB's corrections applied (bbfc74e,
+16c9dc6, a792172), and a private tool's coordinated change (edc103e its own 2026-10-22 work, 1036d23
+the new exe, pipe, log names and the old launcher id read as an alias).
+
+* **EnB's findings that superseded the proxy's docs** (now cited there): the EA-UDP datagram layout
+  (`app/wwudp/cordcon.h`: CRC-32 at 0x8B3EC0, flags byte, ack count, per-datagram RC4 key, the ack list
+  the proxy's `the reference importer` never decoded), the packet factory's 263 opcodes above 0x0FFF, the client's
+  class names for 0x21/0xB7/0xB8 and the 0x9E/0xA0 split, LoginTaskClass's vtable at 0xB040D4 (its
+  login offsets were 8 too high), 11 AuxData roots not 13, difference 4 in library-matching.md §3.8.
+* **What that project knows and EnB's docs don't** (for later): the login and character-select screens
+  (`docs/research/client-ui.md` there), the action message layouts, authlogin.dll's flags and offsets,
+  the MVAS addresses, the 2.46 opcode census, byte-order fixes, AuxData behaviour per ship kind.
+* **EnB fixes from its audit:** prior-work.md no longer claims an EA-UDP transport exists in the proxy
+  (only the `the reference importer` importer does); tools/harness/README.md's EA-UDP table says flags (not type) and
+  names the ack entry's first byte as cordcon.h does (kind 0/1/2), and cites auxdata.md §7 items 1-3
+  (not §7.1-§7.3); toolchain.md §3, `roots.py` (`REF_TRACES_ROOT` is now the proxy's `captures/`),
+  `pkfactory.py` and `refs.sh` point at `the reference decoder`.
+* The proxy's re-architecture (server profiles, client-side TCP and EA-UDP, patch manifests) is a
+  proposal with decisions A1-A12 pending in that repository (`.work/audit/architecture-proposal.md`);
+  its EA-UDP transport will be built from `app/wwudp`. Not EnB work.
+
 ### 2026-10-25: housekeeping audit; D62-D79; builders.md; traps 100 -> 74; milestones split; tools promoted
 
 Four read-only audits (`.work/audit/traps.md`, `decisions.md`, `tools.md`, `startup.md`; two on Opus,
@@ -910,14 +941,12 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 | D76 | 2026-10-25 | `CordMgr::Connect` keeps the client's signature; the harness reads the session id another way, unless the client's bytes return it | user |
 | D77 | 2026-10-25 | funcmatch's string evidence requires the client function's `__FILE__` to match the EA function's file; symbols.json regenerated (0x829C80 is tcpconn.cpp's constructor by accepted socket, not `PacketManagerClass::Clear_Socket_Error`) | user |
 | D78 | 2026-10-25 | The d3d8 draw dump (`tools/harness/run_reference.py`, `drawdump.py`) is M2's standard regression check, beside the frame comparison | user |
-| D79 | 2026-10-25 | Net-7 difference 4 (fields named in two sets) is a one-line note in the reference decoder's `docs/research/auxdata.md` §7 for that project's coordinator. the reference decoder and a private tool need their own audit and re-architecture later, outside this project's scope; their design docs are now likely less complete than this project's for transport and auxdata. The user revisits this before housekeeping closes | user |
+| D79 | 2026-10-25 | Net-7 difference 4 (fields named in two sets) is a one-line note in the reference decoder's `docs/research/auxdata.md` §7 for that project's coordinator. the reference decoder and a private tool need their own audit and re-architecture later, outside this project's scope; their design docs are now likely less complete than this project's for transport and auxdata. The user revisits this before housekeeping closes | user Settled 2026-10-25: the audit and first housekeeping were done (the proxy is now the reference decoder, `C:\EnBDevelopment\the reference decoder`); the rest is that project's. |
 
 ## 3. Open decisions
 
 * D7 is to be revisited with the user if byte-exactness of E&B's code becomes too costly; D64's
   `docs/data/not-exact.md` shows how much functional code is waiting.
-* The the reference decoder / a private tool audit question (D79): the user revisits it before
-  housekeeping closes.
 * Which bool-return form gives a bare `setcc al` without the `xor` (moved from workflow.md §3).
 
 ## 4. Next steps

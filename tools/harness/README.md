@@ -9,7 +9,7 @@ the reference decoder's reference outputs live outside git:
 | Path | What |
 |---|---|
 | `C:\EnBDevelopment\Live-Era-Data\enbserver3\ENB-Packets-Live\Alex3-fixed.txt.txt`, `Alex7-…` | EA's raw EA-UDP dumps (decrypted datagrams per session) |
-| `C:\EnBDevelopment\the reference traces\captures\ea\*.trace.jsonl`, `session_*.trace.jsonl` | the reference decoder's message-level traces |
+| `C:\EnBDevelopment\the reference decoder\captures\ea\*.trace.jsonl`, `session_*.trace.jsonl` (was `the reference traces\captures`) | the reference decoder's message-level traces |
 | `.work/harness/alex3.dgram`, `alex7.dgram` | datagram files written by `convert.py` (regenerate, ~10 s) |
 | `.work/harness/ref/` | the reference decoder outputs per trace: `dump --summary` (`*.summary.txt`), `aux-census`, `roundtrip`, `aux-log --first` (regenerate with `sh tools/harness/refs.sh`, ~2 min) |
 | `.work/harness/bin/capharness.exe` | the harness, built by `build.py` |
@@ -38,10 +38,10 @@ sh tools/harness/refs.sh                                        # the reference 
 | Offset | Field |
 |---|---|
 | 0 | 4-byte checksum |
-| 4 | type: 0 data, 1 acks then data, 2 close, 3 close with acks (bit 0 = an ack list follows) |
-| 5 | flags; with bit 0 of type set, the number of ack entries N |
+| 4 | flags (wire byte 9, `cordcon.h`): bit 0 = an ack list follows, bit 1 = closing; so 0 data, 1 acks then data, 2 close, 3 close with acks |
+| 5 | with bit 0 set, the number of ack entries N |
 | 6 | (bit 0 set) one byte: 0 from the client; from the server a varying value (0x00..0x51, falling over a session; meaning unknown) |
-| 7 | (bit 0 set) N ack entries of 4 bytes: flag (0x02 on the first of a pair, else 0x00), channel, 16-bit big-endian sequence number |
+| 7 | (bit 0 set) N ack entries of 4 bytes: kind (0 ack, 1 resend request, 2 everything up to; `cordcon.h`), channel, 16-bit big-endian sequence number |
 | then | blocks to the end of the datagram |
 
 A block: size (1 byte, or 2 with the top bit set: 15 bits), channel, 16-bit big-endian sequence
@@ -306,14 +306,14 @@ python tools/harness/n7aux.py [SESSION ...]        # default: the three 2026-10 
 ```
 
 * **n7aux.py** runs every AUX_DATA the client received in a Net-7 recording
-  (`the reference traces\captures\session_*.trace.jsonl`, message level, the proxy's output)
+  (`the reference decoder\captures\session_*.trace.jsonl`, message level, the proxy's output)
   through auxreplay.exe, as `auxreplay.py run` does, and counts Net-7's known encoding differences
-  (the reference decoder `docs/research/auxdata.md` §7) instead of failing on them. Each is checked:
-  `length` (§7.1): the length field differs from the bytes that follow and everything else
-  re-encodes byte for byte; `members` (§7.2): a full Player send that runs out exactly where
+  (the reference decoder's `docs/research/auxdata.md` §7, items 1-3) instead of failing on them. Each is checked:
+  `length` (item 1): the length field differs from the bytes that follow and everything else
+  re-encodes byte for byte; `members` (item 2): a full Player send that runs out exactly where
   `Player.GroupInfo.Members`' header should be, which must decode and re-encode byte for byte
   with EA's `05` (Whole | Default) appended (the Members fields that `05` defaults are dropped
-  again for the values: the client keeps what it read); `short` (§7.3): a tree-form update that
+  again for the values: the client keeps what it read); `short` (item 3): a tree-form update that
   declares more than it carries and runs out; `sets` (not in §7): a field or a whole container
   named in more than one of Value / Default / Clear (Ship's Rank and EnergyPercent in Value and
   Default; Player's Whole header `0f` where EA's has `07`). The client's decoder applies one of
@@ -477,9 +477,9 @@ many cases by posting window messages; they share no code worth extracting.
 
 Results moved out of docs/workflow.md §3 (2026-10-25).
 
-* **EA-UDP ack lists.** An ack list follows when bit 0 of the datagram's type byte is set (type 3
+* **EA-UDP ack lists.** An ack list follows when bit 0 of the datagram's flags byte is set (value 3
   exists too, not only 1): byte 5 is the entry count, then one header byte, then 4-byte entries
-  (flag, channel, 16-bit big-endian seq). the reference decoder's `the reference importer` guesses the block start instead
+  (kind, channel, 16-bit big-endian seq). the reference decoder's `the reference importer` guesses the block start instead
   and loses 28 / 12 messages in the Alex dumps; use `tools/harness/convert.py`'s datagram files.
   The Alex dumps also lose bytes in the middle (not the end) of 3 datagrams per file (`X` lines).
 

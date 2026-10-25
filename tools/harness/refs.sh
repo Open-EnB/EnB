@@ -4,7 +4,7 @@
 HERE=$(cd "$(dirname "$0")" && pwd)
 REPO=$(cd "$HERE/../.." && pwd)
 N7=/c/EnBDevelopment/the reference decoder/src/Harness/the reference decoder/bin/Release/net10.0/the reference decoder.exe
-CAP=/c/EnBDevelopment/the reference traces/captures
+CAP=/c/EnBDevelopment/the reference decoder/captures
 OUT=$REPO/.work/harness/ref
 mkdir -p $OUT
 for f in $CAP/ea/*.trace.jsonl $CAP/session_*.trace.jsonl; do
