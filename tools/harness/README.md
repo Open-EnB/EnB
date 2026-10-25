@@ -429,3 +429,71 @@ Each script has its usage in its docstring; `python tools/harness/X.py --help` w
 `vidtest_e2e.py` and `vidtest_exitcodes.py` stay two scripts: one reproduces E&BConfig's launch
 (ctypes `CreateProcessA`, the working directory trick, the results.ini reader) and one drives
 many cases by posting window messages; they share no code worth extracting.
+
+## Quirks
+
+* **Running the tree's programs.** `WW3DAssetManager` must exist before `WW3D::Init`, or
+  `Set_Render_Device` crashes in `ShatterSystem::Init`. d3d8.dll is loaded at run time (no import).
+  Windowed `-depth 16` still gets the desktop's 32-bit back buffer. Screenshots: read the program's
+  own D3D back buffer. A screen-DC grab captures whatever window is on top (the user's screen),
+  and PrintWindow gives black for D3D8 windows.
+
+* **Rendering W3D models.** An HLOD's LOD 0 can be empty: set every HLOD, recursively, to
+  `Get_LOD_Count()-1`. Call `SortingRendererClass::Flush()` before a back-buffer screenshot taken
+  before `End_Render`, or alpha geometry is missing.
+
+* **Capturing an original program.** A d3d8.dll proxy in a copy of its folder (d3d8.dll is not a
+  KnownDLL) reads its back buffer and logs its file opens (`tools/harness/run_reference.py`).
+  Put its options before the subcommand: `run_reference.py --frames 1,30 run -- -resx 800`.
+
+* **VIDTEST's look depends on library switches.** Without `Enable_Overbright_Modify_On_Load` the
+  models are dim (62.5% of frame 300 differs; about 3% with it). Ships appear only with the
+  PredictiveLODOptimizer running each frame. The overlay's texture animations start at a phase
+  set by the machine's uptime: not a bug. `-sync` has no visible effect when windowed. A
+  full-screen quad needs vertices (1,1), (1,-1), (-1,-1), (-1,1) and indices 0,2,1,0,3,2, or
+  it is culled.
+
+* **E&BConfig and VIDTEST.** E&BConfig starts VIDTEST with a command line that has no program name,
+  so the CRT's argument parsing drops `-device` and both programs use device 0. Its registry writes
+  (HKLM `Software\Westwood Studios\Earth and Beyond\Render`, 32-bit) go to HKCU VirtualStore
+  unless it runs elevated. `PeakPolyRate` is about polygons per frame times frames presented, since
+  the whole run takes about a second on a modern GPU. `build.py link` reports stub compile errors
+  while another builder has uncommitted app/ headers.
+
+* **Custom render objects.** Don't override `Get_Num_Polys` or `Get_Cost` unless the client's class
+  does (the land vtable 0xAE8994 doesn't): an override takes polygon budget from the other scenes.
+
+* **d3d8 proxies.** d3d8 keeps a writable copy of the device vtable per device and rewrites some
+  slots after CreateDevice: Set* hooks there see nothing; read state with Get* at draw time and
+  re-hook at each Present. The proxy must pin itself (LoadLibrary on its own path): WW3D::Shutdown
+  frees d3d8.dll while patched vtables still point into it. Default-pool textures (the original's
+  lightmap) can't be locked: GetSurfaceLevel + CopyRects into an image surface.
+
+* **Comparing VIDTEST frames.** Its sun follows GetTickCount: compare at the original's angle (from
+  d3d8shot.log's stamps, `-sunangle`). Pixel diffs can't tell geometry from texture problems: dump
+  the draws (`run_reference.py --dump`, `drawdump.py`).
+
+## Protocol notes
+
+Results moved out of docs/workflow.md §3 (2026-10-25).
+
+* **EA-UDP ack lists.** An ack list follows when bit 0 of the datagram's type byte is set (type 3
+  exists too, not only 1): byte 5 is the entry count, then one header byte, then 4-byte entries
+  (flag, channel, 16-bit big-endian seq). the reference decoder's `the reference importer` guesses the block start instead
+  and loses 28 / 12 messages in the Alex dumps; use `tools/harness/convert.py`'s datagram files.
+  The Alex dumps also lose bytes in the middle (not the end) of 3 datagrams per file (`X` lines).
+
+* **EA-UDP dumps.** The Alex dumps start at byte 5 of the wire datagram: bytes 0-4 are the type
+  (5 client, 4 server), the session id and the sender's datagram counter (the dump's `seq`). The
+  checksum (the client's CRC 0x8B3EC0) covers the whole datagram including those bytes.
+
+* **Net-7 recordings.** The 2022-09-25 recording has no client side of the sector (proxy-to-server
+  only): run it with `n7aux.py --server-side`. Net-7's encoder differs from EA's in a fourth way
+  beyond the reference decoder's auxdata.md §7: fields named in two sets (Value and Default, a Whole header
+  `0f` for EA's `07`); the client applies one, so such messages re-encode differently.
+
+* **The client's Delta model has no "default" state.** Updated and defaulted both set
+  `m_Unknown70 = 2`; a harness keeps its own unknown/default/value state. `DeltaCompoundClass::
+  Unknown_18` recurses into children only when `m_Unknown70 == 0`, `Unknown_1C` only when it is
+  non-zero: expand compounds to their leaves yourself. The Player root derives from the second
+  root class (vtable 0xAEAC40, ctor 0x4A3FF0, with the update collector), not from 0xAEAB88.

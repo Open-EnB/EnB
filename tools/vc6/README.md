@@ -71,3 +71,40 @@ uncommitted work: the git tree is authoritative.
 
 Specs and variant files (`SPEC.py`, `VARIANTS.py`, `REASONS.py`) live in `.work/`; write them
 with a file tool, not a shell heredoc (escapes get mangled).
+
+## Quirks
+
+* **`bytematch_all.sh` writes to `%TEMP%\enb_bytematch` unless given a directory.** Run it as
+  `tools/vc6/bytematch_all.sh .work/bm2`, or the evidence `refine`/`assemble` read stays old
+  (it did after the wwshade flag change: refine and the plan counts still saw 46, not 61).
+  After new evidence, `tools/vc6/refresh_expected.py .work/bm2 LIB` refreshes a library's plan
+  totals and per-file `expected` counts without touching its tree decisions.
+
+* **The importer lock and child processes.** A script holding the lock that runs `importer.py`,
+  `trial.py`, `tryvariants.py` or `trydiff.py` as a child deadlocks until `--lock-wait`: run
+  children from an unlocked parent (as `trial_all.py`) or call in-process. `tools/vc6/zhall.py` holds the
+  lock for its whole run (~15 min for ww3d2); read-only `objdiff.py` on verify objects still works.
+  Killing it mid-run leaves a spliced tree file and the lock: `git status`, restore, delete the
+  lock. A transient `PermissionError` on tree writes can do the same: retry, then `git status`.
+
+* **Type libraries.** vc6.py syncs only `SOURCE_EXT` (`.tlh`/`.tli` added; D21 done). `#import` writes absolute `c:\enbdevelopment\_vc6\obj_*\` paths into the `.tlh`: strip them before committing. Generate from E&B's `BrowserEngine.dll`, not EA's (same GUIDs, extra methods).
+
+* **Linking: LIBCPMT, not LIBCP.** With `/MT` the C++ library is `LIBCPMT.LIB`; `LIBCP.LIB` is the
+  single-threaded one and lacks `std::_Lockit::_Lockit()`. The VMs have only VC98's libraries:
+  `tools/vc6/build.py` copies the DX8 SDK libs over. Its unresolved list covers only what the
+  libraries reference among themselves; a program's own code adds more, and LIB members are
+  pulled only on demand.
+
+* **Stubs and vtables.** A stub constructor makes the stub file emit that class's vtable, so every
+  virtual then needs a stub too; check by linking every object, not only the .lib members.
+  `build.py`'s default `--report` overwrites `.work/milestones/l1/unresolved.txt`.
+
+* **mss32.lib.** VC6's `lib /def` drops the leading underscore of stdcall names; `tools/vc6/mkmss32.py` links a dummy DLL and keeps its import library (D51, done).
+
+* **build.py builds committed files only.** A new uncommitted .cpp shows up as unresolved symbols. Without
+  `--report`, `build.py` overwrites `.work/milestones/l1/unresolved.txt`.
+
+* **Checked builds.** WWASSERT / WWDEBUG_* are compiled out in the release libraries as in the
+  client; `ENB_CHECKED=1 build.py --out build/chk` compiles them in. A checked build changes some
+  mangled names (`private=public`): build every library the same way. A full build also compiles
+  another builder's uncommitted importer.py entries.

@@ -69,3 +69,80 @@ to measure the template code in E&B's app region (docs/app-plan.md).
 
 the reference decoder's `research/tools/auxschema/clientre.py` (`dis`, `vtable`, `calls`, `str`,
 `movimm`) works on the same client and is handy alongside these.
+
+## Quirks
+
+Traps found while using these tools (each also has a one-line pointer in docs/workflow.md §3).
+
+* **`vtables.py` and classes whose own code doesn't match yet.** Inherited slots alone don't
+  identify a table: the tool now says "not placed" (or warns "only inherited slots") instead
+  of reporting the base class's table (it used to put such classes on `RenderObjClass`'s
+  0xAE84F8). Seed it with any method's client address: `--seed Class=ADDR` (`client.py refs`
+  finds the table holding a known method). Tables now end at the next table the code stores,
+  so the old "16 extra slots" over-read is gone. Run it after regenerating `symbols.json`
+  (`symbols.py`): its anchors come from there too.
+
+* **`gaps.py` can misplace a whole object.** It anchors on matched neighbours. If the only match
+  is a shared helper (`??_H` vector iterators), the object's gaps land in the wrong region. This
+  happened with `rinfo.obj`, placed in the app region: find the real code by an instruction
+  pattern instead.
+
+* **`gaps.py` can pair overloads wrongly.** For example, the default constructor was paired with
+  the client's copy constructor. Check the argument count (`ret N`, `[esp+N]`) before trusting a
+  diff. It also swaps neighbours (`Render`/`Special_Render`), pairs a function with an unrelated
+  one (asset manager ctor 0x909E60 vs the real 0x91C2C0; `Set_D3D_Base_Texture` vs a deleting
+  dtor 0x94D5D0; `Set_Shader` 0xA03C50) or with template dtors (PivotMap, PKStraw, FileStraw):
+  confirm with `objdiff.py` and `vtables.py` (2026-10-24).
+
+* **`objdiff.py` shows import calls as `call REL`.** Our `call dword ptr [__imp__AIL_lock@0]`
+  and a direct `call rel32` look the same in its left column; the client's shows as
+  `call dword ptr [REL]`. A difference there is not real until `tools/re/objrel.py OBJ SYMBOL`
+  shows a non-`__imp__` target. Lines with immediates like `0xffffffff` against the client's
+  `REL` are display only too.
+
+* **REA can't decompile vtable-only functions.** Ghidra's auto-analysis defines no function at an
+  address only reached through a vtable (0x9961E0, the distortion draw, referenced only from
+  `.rdata` 0xB13984), and REA has no tool to create one: `batch_decompile` fails with "No procedure
+  exists at the requested address" (or "no loaded source mapping"), `resolve_containing_procedure`
+  says `not_in_procedure`. Use `tools/re/pseudocode.py` instead: it runs Ghidra headless, creates a
+  function at every start `clientimage.py` knows, and saves pseudocode to `.work/pseudo/`
+  (`--show ADDR` prints it). A batch result over the token limit is saved to a file: read its
+  `normalized_result.items[].pseudocode`, and check it isn't Ghidra's log (failed items carry it,
+  ~85 KB each, so even an all-error batch overflows and hides the error message).
+
+* **Ghidra refuses a project path with a `.`-prefixed element** ("Path element starting with '.'
+  is not permitted"), so a headless project can't live in `.work/`; `pseudocode.py` keeps it in
+  `%LOCALAPPDATA%\EnB\ghidra`. Passing the install path's `Earth & Beyond` to `analyzeHeadless.bat`
+  is also unsafe (`&`): it works on a copy, `.work/ghidra/client.exe`.
+
+* **`objdiff.py` marks relocated operands as differences.** Our object shows a relocated field as
+  `0` / `[0]` (or `[esi + REL]`), the client as `REL`: those `*` lines are not differences. Real
+  ones are other instructions, extra pushes, or code only one side has.
+
+* **Tool quirks.** `tryvariants.py` edits one file only: test header changes with a
+  backup/restore script around it (`.work/night/item1/hack_h.py`). `objdiff.py` with a plain name
+  can pick a prefix-matching function: pass the mangled name. `verify --lib` takes one library per
+  flag. `client.py callers` on a hot function crashes on cp1252 stdout: set
+  `PYTHONIOENCODING=utf-8` and redirect. In Git Bash, `"app\shared\auxdata\$f.cpp"` swallows `$f`:
+  use `/`.
+
+* **`symbols.json` and bytematch lag.** They don't name recent matches: read names from the verify
+  objects (`.work/night/item6i/names.py`).
+
+* **appfile.py match.** It puts the draft's folder first on the include path (a scratch copy of a
+  tree header hides the tree's), ignores `// @ADDR` markers on in-class inline functions (define
+  them out of class to check), and reports explicit specialisations as "exact (no marker)".
+
+* **appfile.py sizes and names.** Its client size can include a following static or initialiser,
+  so an exact match shows PREFIX with a larger client size (`Pop_Prefix`, `Get_Rest`,
+  `~KVPairClass`): check the bytes. It pairs markers with functions by name, so same-named
+  overloads get mixed up: rename them while drafting.
+
+* **appfile.py match and includes.** A header included by a relative path (`#include "..\x.h"`)
+  is found next to the including file, so a copy in the draft folder doesn't shadow it. App files
+  that include WW3D2 headers need `-I` for every library directory.
+
+* **asserts.txt's file attribution** gives each string the nearest preceding path: tcpqueue.cpp gets
+  about 60 asserts of which only 2 are its own. funcmatch's string evidence doesn't check `__FILE__`
+  either (symbols.json's 0x829C80 `PacketManagerClass::Clear_Socket_Error` is tcpconn.cpp's
+  constructor).
