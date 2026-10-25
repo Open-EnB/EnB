@@ -38,8 +38,9 @@ its inconsistencies (`MainView`, not `MainViewClass`; `CordCon::handlePacket`, n
 `Handle_Packet`). Where it doesn't, follow §2.
 
 **Unknowns** (decision D10): a member, flag or virtual whose purpose isn't known gets a neutral
-name (`m_Unknown7C`, after its offset; `UnknownFlag`) with its evidence in a comment. It keeps that
-name until the code that uses it is rebuilt; it is not guessed from the app code beforehand.
+name (`m_Unknown7C`, after its offset; `UnknownFlag`) with its evidence in a comment. It is NAME 1 on
+D56's scale (D65): replaced as soon as the code that uses it, or a structure-matched Net-7 name
+(D59), gives better evidence, the tag recording that evidence.
 
 **Name certainty** (decision D56): a name chosen without the client's own evidence gets a tag
 comment where it is declared: `// NAME n: evidence`. 5 = the client names it (RTTI, assert,
