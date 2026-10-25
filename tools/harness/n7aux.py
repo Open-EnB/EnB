@@ -26,6 +26,7 @@ Everything else must decode, re-encode and give the field values of the referenc
 """
 import argparse
 import collections
+import json
 import os
 import subprocess
 import sys
@@ -34,6 +35,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 import auxreplay as AR  # noqa: E402
 
+the reference decoder = r'C:\EnBDevelopment\the reference decoder\src\Harness\the reference decoder\bin\Release\net10.0\the reference decoder.exe'
 SESSIONS = ['session_2026-10-19_023139', 'session_2026-10-19_115352', 'session_2026-10-21_111654']
 MEMBERS = 'Player.GroupInfo.Members'
 EA_MEMBERS = b'\x05'        # EA's form ends with Members' header: Whole | Default
@@ -140,9 +142,9 @@ def raw_changes(result):
     return out
 
 
-def session(name, exe):
+def session(name, exe, trace=None, auxlog=None):
     os.makedirs(AR.WORK, exist_ok=True)
-    trace = os.path.join(AR.CAPS, name + '.trace.jsonl')
+    trace = trace or os.path.join(AR.CAPS, name + '.trace.jsonl')
     base = os.path.join(AR.WORK, name)
     inp, res = base + '.in.txt', base + '.out.txt'
     total = AR.prepare(trace, inp)
@@ -258,21 +260,48 @@ def session(name, exe):
     print(f'  ok {counts["ok"]}, length {counts["length"]}, members {counts["members"]}, short {counts["short"]}, '
           f'members+sets {counts["members+sets"]}, sets {counts["sets"]} (+{counts["sets+length"]} with a length difference), noroot {counts["noroot"]}, '
           f'FAILED {counts["fail"]}')
-    auxlog = os.path.join(AR.REF, name + '.aux-log-first.txt')
+    auxlog = auxlog or os.path.join(AR.REF, name + '.aux-log-first.txt')
     AR.our_changes = raw_changes
     same = AR.values(res4, auxlog)
     return counts, same
+
+
+def server_side(name):
+    """A copy of the trace with ServerToProxy as ServerToClient, and the reference decoder's aux-census and
+    aux-log --first of it (both read only what reached the client)."""
+    os.makedirs(AR.WORK, exist_ok=True)
+    src = os.path.join(AR.CAPS, name + '.trace.jsonl')
+    trace = os.path.join(AR.WORK, name + '.server-side.trace.jsonl')
+    swap = {'ServerToProxy': 'ServerToClient', 'ProxyToServer': 'ClientToServer'}
+    with open(src, encoding='utf-8') as f, open(trace, 'w', encoding='utf-8', newline='\n') as g:
+        for line in f:
+            e = json.loads(line)
+            e['dir'] = swap.get(e['dir'], e['dir'])
+            g.write(json.dumps(e, separators=(',', ':')) + '\n')
+    census = subprocess.run([the reference decoder, 'aux-census', trace], stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
+    print(f'the reference decoder aux-census ({name}, server side):\n' + census.stdout.rstrip())
+    auxlog = os.path.join(AR.WORK, name + '.server-side.aux-log-first.txt')
+    with open(auxlog, 'w', encoding='utf-8', newline='\n') as g:
+        subprocess.run([the reference decoder, 'aux-log', trace, '--first'], stdout=g, stderr=subprocess.STDOUT, text=True)
+    return trace, auxlog
 
 
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('sessions', nargs='*')
     ap.add_argument('--out', default=os.path.join(AR.REPO, 'build'))
+    ap.add_argument('--server-side', action='store_true',
+                    help="the recording has only the server's side of the sector (2022-09-25): take what "
+                         "the server sent the proxy as what the client got, with the reference decoder's references made here")
     a = ap.parse_args()
     exe = os.path.join(a.out, 'programs', 'auxreplay', 'auxreplay.exe')
     bad = 0
     for name in a.sessions or SESSIONS:
-        counts, same = session(name, exe)
+        if a.server_side:
+            trace, auxlog = server_side(name)
+            counts, same = session(name, exe, trace, auxlog)
+        else:
+            counts, same = session(name, exe)
         bad += counts['fail'] + (0 if same else 1)
     raise SystemExit(1 if bad else 0)
 

@@ -276,6 +276,14 @@ the reference decoder's failures are exactly the `members` and `short` messages 
 length fields: declared minus carried is +6 for 319 Ship deltas (the whole payload's length), -8
 for 76 Ship, -4 for 11 Harvestable and -2 for 4 Hulk updates. No asserts.
 
+**2022-09-25 startup-charlogin** (`n7aux.py --server-side 2022-09-25_startup-charlogin`): this
+recording has no client side of the sector. It holds the client's one TCP connection to the
+Net-7 global server (3 messages each way, the login) and the proxy's UDP to the sector server
+(Net-7's own protocol, not the client's). `--server-side` takes what the sector server sent the
+proxy as what the client got, and makes the reference decoder's aux-census and aux-log of that copy in
+`.work/harness/auxreplay/`. Its 5 AUX_DATA: 2 ok, 1 Player `members` (also `sets`), 2 `sets`
+(Ship, ManufacturingLab), none failed (aux-census: 1, the Player); values 8,349 of 8,349.
+
 ## vidtest (L2, M2)
 
 ```
