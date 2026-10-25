@@ -143,8 +143,9 @@ server's fields count their changes up (`DeltaClass::Unknown_34`) where the clie
 so the harness keeps a server-side version per field (an updated field and its parents get new
 ones, a defaulted one keeps its own) and puts it in `m_Unknown70` before the encode. Player uses
 its own state (`UnknownSendRootClass::Unknown_48`, `Encode_Changes` 0x4A4660); the factory's roots
-get the same, made by the harness: every field INCLUDE, the root action 2 (descend), policy.cpp's
-functional stand-in. `E` lines in `NAME.out.txt` (equal, form, differ, none), and for a message
+get a policy made by the harness through policy.cpp: "*.*" INCLUDE 1 before "*" INCLUDE, so the
+compile gives the root DESCEND (Player's own "*" alone gives a small root INCLUDE and whole-root
+updates, which the captures never show for the factory's roots). `E` lines in `NAME.out.txt` (equal, form, differ, none), and for a message
 not given back `e` (our collector's lists) and `m` (the message's).
 
 | Trace | AUX_DATA | encode equals the message | differ | nothing sent (the message has something) |
