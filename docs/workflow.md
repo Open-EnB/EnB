@@ -113,7 +113,7 @@ tools/re/README.md, tools/vc6 and tools/harness/README.md.
   their callers' inlining: a loss against the last step needn't be one against the baseline.
 * **The importer lock** (§1). A script holding it that starts `importer.py`, `trial.py`,
   `tryvariants.py` or `trydiff.py` as a child deadlocks: start children from an unlocked parent
-  (as `trial_all.py`) or call in-process. `zhall.py` holds it ~15 min (ww3d2); read-only
+  (as `trial_all.py`) or call in-process. `tools/vc6/zhall.py` holds it ~15 min (ww3d2); read-only
   `objdiff.py` still works. A killed run or a transient `PermissionError` on a tree write leaves a
   spliced file: `git status`, restore, delete the lock.
 * **Shared tree: never wait for a clean tree** (it deadlocked two builders for an hour). Keep the
@@ -311,7 +311,7 @@ tools/re/README.md, tools/vc6 and tools/harness/README.md.
 * **Zero Hour porting.** D9 places ZH edits. A one-sided trailing block or a callee-saved register
   shift is usually removed code: diff Renegade, Generals, ZH (`//DMS`, ZH tags, commented-out
   lines, `b_wire` "(gth) Renegade-specific hack", HY "Earth and beyond"), scan the client's strings
-  (`.work/night/item6b/strscan.py`, untracked, historical), diff ZH's file-header history topics.
+  (`tools/re/strscan.py`), diff ZH's file-header history topics.
   Enum values are evidence (gradient mode 5: `GRADIENT_MODULATE2X`).
 * **ww3d2.** A `SNAPSHOT_SAY` costs inline budget (`Apply_Default_State` 0x9270D0): try them first
   when inline calls switch at another point. meshmatdesc's 0x946EB0, 0x947490, 0x947310 differ in
