@@ -40,7 +40,8 @@ Do not read whole docs "to familiarize"; use `grep -n '^#'` and open the section
 2. `tools/re/*.py` (byte matching, gaps, vtables, layout) before writing a new script. All of
    them use verified function starts by default (D27). Instruction-level questions:
    `tools/re/client.py dis|name|refs|callers` (seconds, names resolved). Vtables:
-   `vtables.py --objs DIR --class C --list`, with `--seed C=ADDR` when C's own code doesn't match yet.
+   `vtables.py --objs build/<lib>/obj --class C --list`, with `--seed C=ADDR` when C's own code
+   doesn't match yet.
 3. Pseudocode: `python tools/re/pseudocode.py --show ADDR` prints Ghidra's saved output from
    `.work/pseudo/` (every function not yet byte-exact, vtable-only ones included). Missing (fresh
    clone)? `python tools/re/pseudocode.py` rebuilds it (~4 min analysis the first time, then ~80 s).
