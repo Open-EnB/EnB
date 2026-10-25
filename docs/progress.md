@@ -4,6 +4,40 @@ Newest first within each section. Dates are when the entry was written.
 
 ## 1. Log
 
+### 2026-10-24 (evening, unsupervised): M1 and M2 met; transport, kernel, connections, packet factory; app 251 -> 458
+
+Plan and log: `.work/milestones/plan-7h.md`. Two builders in parallel, coordinator heartbeat.
+Both builders were cut off by the API usage limit 19:40-21:10 and resumed.
+
+* **M1 met**, gates (a)-(d) ([milestones.md](milestones.md) §2): M1.4 rebuilt `app\wwudp` (CordCon,
+  CordMgr, bandwidthaccounting.cpp; 29c3245 ... e0e82f8, addc2ad): the Alex datagrams re-encrypted
+  with their keys go through our CordCon: alex3 26,106 messages in order, all 14,812 client ack lists
+  accepted, the peer accepts all our datagrams, 54/54 handshakes (WWLib's XMP at run time); the
+  `loop` test over a lossy link delivers everything. M1.5 (26e8ed7, bcdb31d): every Net-7 AUX_DATA
+  decodes and equals the reference decoder's aux-log, Net-7's known differences counted, a fourth one found.
+  The client's TCP transport is app\common\tcpconn.cpp on WWOnline's TCPMgr/TCPCon (D47 finding).
+* **M2 met** apart from the supervised E&BConfig run: land matched from the original's draw calls
+  (a d3d8 proxy dump: 3a37637, 2e216a9, c00bf3c), frames 500-900 within 1.7-3.2%; gate (d) clean in
+  a checked build (78644e0). D61 NDEBUG (2fade9a).
+* M1.3 leftovers (f2f2a08 ... c6867b3): the update collector, change table, root encode, second root
+  class, policy.cpp; client-path re-encode of the EA captures 39,716 / 43,978 byte for byte (the rest
+  differ only in server-policy fields). One accepted loss, 0x8C1520 (a false match while MoneyClass
+  was a bare __int64; library-matching.md row): for the user to confirm. Root constructors (d64612e
+  ... a67e4b6): Player 0x752510 and the factory 0x6F6000 exact (VC6's inline budget model, workflow.md).
+* Kernel ([kernel-map.md](kernel-map.md), 8ab13d1): kernel.cpp (cba72d7, 18 exact) with kerneltest;
+  the connection layer circbuff/connect/udpconn (3742a73, 9026165, ff8123e); MenuTask and the movie
+  tasks (faecc74; movietest plays the game's Westwood logo through BinkMovie); pk.cpp's helpers, the
+  factory 0x8696C0 and its 16 KB switch 0x869790 byte for byte with 263 generated packet classes
+  (38f055c, c105a36, e6fea6e, `tools/re/pkfactory.py`, `pkclasses.py`). udpreplay `conn` runs the Alex
+  messages through UDPConnection, the stream framing and the client's factory.
+* Names: pre-D56 names tagged (f727a18); the review list is `docs/data/names-review.md`.
+* Proposals waiting for the user: import WWOnline wlib/wnet (Zero Hour matchbot) plus Renegade's
+  RenegadeGR tcpmgr/tcpcon; import Renegade's BinkMovie; ENABLE_WWPROFILE as an app define; the logger
+  stand-in; count the 17 template leaf Reads as pairs; names for unknown_changes.* and UnknownCOClass;
+  CordMgr::Connect returning the session id; CordArrayClass's remove with wlib; funcmatch's string
+  evidence to check `__FILE__`; the draw dump as M2's regression check; Net-7 difference 4 into
+  the reference decoder's auxdata.md.
+
 ### 2026-10-24 (afternoon): milestones M1 and M2 (D42-D61); app 136 -> 251, first linked programs
 
 Plan: [milestones.md](milestones.md) (M1 capture harness, M2 working VIDTEST); VIDTEST spec:
