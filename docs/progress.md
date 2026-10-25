@@ -196,7 +196,7 @@ Unattended run 00:02-07:40 PDT: a coordinator and one builder subagent at a time
 builds: `verify` shares `%TEMP%\enb_import` and the VMs' scratch), queue and log in
 `.work/night/plan.md`, a heartbeat every 30 min, each builder's report in
 `.work/night/item*/report.md`. 65 commits `2f6c80c..e88f4e9`, none pushed. Morning report:
-[overnight-report-2.md](overnight-report-2.md).
+[overnight-report-2.md](archive/overnight-report-2.md).
 
 * D9's texture leftovers (items 1, 6f): `Get_Reduction` 0x94BC20, `TextureClass::Apply` E&B's
   form 0x94BC80, `Get_Texture_Memory_Usage` one non-virtual base function with Generals' split
@@ -696,7 +696,7 @@ builds: `verify` shares `%TEMP%\enb_import` and the VMs' scratch), queue and log
 
 ### 2026-10-23 (overnight): layouts, vtables, symbol map, app survey
 
-Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-report.md](overnight-report.md).
+Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-report.md](archive/overnight-report.md).
 
 * Byte-exact client functions in the tree 3,121 -> 3,408 (WW3D2 1,862 -> 2,060, WWAudio 184 -> 264,
   WWLib 553 -> 557, wwshade 8 -> 13). Every fix with its evidence: [library-matching.md](library-matching.md)
@@ -889,51 +889,32 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 
 ## 4. Next steps
 
-0. **Milestones M1 and M2 come first (D42)**: [milestones.md](milestones.md) §6 gives the order
-   (M1.0, M1.1 and M2.0; then the link step L1/L2; then M1.2-M1.4 with M2.1-M2.3; then M1.5, M2.4).
-   Steps 2 and 7 below are now part of them.
-1. Done (2026-10-24): D22 (PS), wwshade 138 -> 159 (e8f39a8, 0de15b9). Left: the shaders' Init,
-   destructors, Copy_Vertex_Stream and Peek_Texture are byte-exact but identical across files
-   (objmatch `multiple`), so verify cannot credit them.
-2. E&B's own code (D6, D7), in D6's order and led by what [prior-work.md](prior-work.md) already
-   gives us. Tool: `tools/re/appfile.py`; adding a file: [workflow.md](workflow.md) §2.1.
-   * Done (2026-10-24, 249c365): D23, the importer's non-EA library `app`, with
-     `app/shared/auxdata/bitset.cpp`/`.h` (D24/D25; verify 11, 12/12 at appfile markers) and
-     `app/shared/unknown_debug.h` (G_ASSERT, FAIL_IF). Left from it: the debug functions
-     0x4E9410/0x4E9450 themselves (they call a reporter 0x4BC260 on an object at 0xBDA908) and
-     E&B's operator new/delete 0x4E9CB0/0x4E9D10 in the same object.
-   * In progress (2026-10-24, 845c0c9..6065697, app 11 -> 136): `app\shared\auxdata`'s Delta object
-     model: delta.cpp (22; `Add` left, a `<vector>` form, D11/D40), delta_money.cpp and delta_time.cpp
-     (Read/Write; their constructors 0x4A7080/0x4A8150 are twins, uncounted), lookup.cpp (5; the name
-     tests 0x4ACA90/0x4ACB20 left), delta_interpolator.cpp (9), delta_template.h (generic Read/Write,
-     Unknown_00 and its accessor), delta_string.cpp (9 + 3), name.cpp (12), permstr.cpp (8),
-     linearbu.cpp (21), encode.cpp (4 of ~30), policy.cpp (3 of ~20); `app\shared`'s
-     kv_encoder_base.cpp (13 + STL; the constructor 0x4B3850 left) and kv_pair.cpp (2). Next: the time
-     field's Unknown_00 0x4A8330 / Add_Value 0x4A8630 / accessor 0xAEB244, kv_encoder_base's other Add
-     functions 0x4B4A70-0x4B5370 (their accessors are 0x4B0Cxx-0x4B10xx classes: kv_util.cpp?),
-     kv_pair_string.cpp and kv_list.cpp (Add 0x4B6760), encode.cpp's Add 0x4A9C30 and the records'
-     classes, policy.cpp's rules. Lead: the reference decoder's `client-re-notes.md` (addresses, leaf
-     vtables, the codecs 0x4A9400/0x4A9710/0x4A8FD0), `auxdata.md`, `the reference game model`.
-   * Then `app\wwudp` (`CordMgr`, `CordCon`; `EnB.Transports` describes the transport), the
-     kernel and tasks (`KernelClass::Run_One_Cycle`; `login.md`: `LoginTaskClass`, the login and
-     character-select screens), then `app\packets` (`the reference protocol table`'s message models; `actions.md`).
-     Test packet code against `the reference decoder` and the EA captures ([prior-work.md](prior-work.md) §2-3).
-3. `WW3D::Make_Screen_Shot` 0x9182C0: Zero Hour's gamma/format plus E&B's JPG case through a wwlib
+Milestones M1 and M2 are met (D42, D63; [milestones.md](milestones.md)). Order and detail of the
+client's own code: [kernel-map.md](kernel-map.md) §6. Adding a file: [workflow.md](workflow.md) §2.1.
+
+1. Left over from finished work: the shaders' Init, destructors, Copy_Vertex_Stream and Peek_Texture
+   are byte-exact but `multiple` (verify cannot credit them; D54 column). The app library's debug
+   functions 0x4E9410/0x4E9450 (they call a reporter on an object at 0xBDA908; D75) and E&B's
+   operator new/delete 0x4E9CB0/0x4E9D10 are open. delta.cpp's `Add` (D11/D40) and the twin
+   constructors 0x4A7080/0x4A8150 (uncounted) remain; so do the name tests 0x4ACA90/0x4ACB20 and
+   kv_encoder_base's constructor 0x4B3850.
+2. The D73 imports (wlib/wnet, tcpmgr/tcpcon, BinkMovie) unblock kernel-map steps 6 and 8-9
+   (tcpconn.cpp, connect.cpp's factories, the game and login tasks).
+3. Ship 0x6F66E0: VC6's inline budget (ours inlines the Buff array 0x707040, which the client calls);
+   see the M1.3 leftovers in library-matching.md 3.8.
+4. The packet classes' own code 0x85C5F0-0x8B1EB0 (kernel-map step 5 and after).
+5. Tools and defines (D74-D78): ENABLE_WWPROFILE in the app defines (D74), the funcmatch
+   `__FILE__` rule (D77) and the draw-dump regression check (D78) are decided; carry them out where
+   not yet done. `--pool K` exists for `importer.py verify` only (c7b8bcc); `bytematch_all.sh` and
+   `importer.py refine` still lack it.
+6. `WW3D::Make_Screen_Shot` 0x9182C0: Zero Hour's gamma/format plus E&B's JPG case through a wwlib
    JPEG writer (ctor 0x9E3850, dtor 0x9E3860, save 0x9E3870; class after srandom.cpp); 0.85, only
-   register scheduling left (`.work/night/item7b/v_mss.py`, `run_mss.py`).
-4. D19's distortion draw 0x9961E0 (369 masked rows): the client builds 6 `??_H` Transpose temps
+   register scheduling left (`.work/night/item7b/v_mss.py`, `run_mss.py`; untracked, historical).
+7. D19's distortion draw 0x9961E0 (369 masked rows): the client builds 6 `??_H` Transpose temps
    with out-of-line `Vector4()`, ours 5; look for missing inline calls/temporaries earlier in the
    function (fits the 0x18-bigger frame).
-5. `PointGroupClass::Render` 0x954960 (slot shuffle in inlined Transpose temps); the meshmatdesc
+8. `PointGroupClass::Render` 0x954960 (slot shuffle in inlined Transpose temps); the meshmatdesc
    noise mechanism (then drop D28's declarations and revisit D18).
    Other WW3D2 leads: `Process_Foreground_Load` 0x949C60 (inline budget), `Compute_Caps` 0x9B0160,
    `Update_Movie_Capture` 0x918B20, `Create_Device`'s format retry, `CreateBrowser`'s app callers
    0x7CA5C0/0x7CAD00 (E&B's `querydata`). wwshade: the two `"UnNamed"` constructors (D17).
-6. Tools: `--pool K` for `bytematch_all.sh` and `importer.py refine`.
-7. D36, a working VIDTEST: link the tree's libraries into an executable for the first time (a
-   link step the project hasn't done; the client's link settings in [binary.md](binary.md)), with a
-   new small app (WinMain, device setup through `WW3D::Init`/`Set_Render_Device`, an asset manager
-   pointed at `EBCONFIG`'s art, a camera and a scene) that loads E&B's W3D/DDS/TGA files and renders
-   them. VIDTEST's own behaviour is the spec (`.work/ebconfig/assessment.md` §1: command line
-   `-device -resx -resy -depth -windowed -filter`, `results.ini` output); its E&B game classes
-   (Land, stars, decorations, splines) are optional extras, not needed for the first scene.
