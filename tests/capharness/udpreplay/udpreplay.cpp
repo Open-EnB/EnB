@@ -268,6 +268,25 @@ static void Describe(FILE *out, CordCon *by, std::vector<unsigned char> d)
 	fprintf(out, " %s %s\n", acks.empty() ? "-" : acks.c_str(), blocks.empty() ? "-" : blocks.c_str());
 }
 
+// The capture replay's receive: CordMgr::Pump's data path (types 4 / 5 to Process_CORD_Packet)
+// without Pump's tail, which pumps every connection: here each side pumps when the capture has it
+// send (Pump_Side), so that its acks follow the capture's datagrams.
+static void Deliver(Side &rx)
+{
+	unsigned char buf[0x400];
+	sockaddr_in from;
+	int len;
+	while ((len = rx.Sock->Read(buf, sizeof(buf), &from)) >= 0) {
+		if (len <= 3) {
+			continue;
+		}
+		char type = (char)buf[0];
+		if (!((type == 4 || type == 5) && rx.Mgr.Process_CORD_Packet(buf, len, &from, rx.Sock, 0, type))) {
+			rx.Mgr.Unexpected_++;
+		}
+	}
+}
+
 // Our sending side's datagrams: described (G lines), and checked by the peer's examinePacket on a
 // decrypted copy (checksum, layout, acks for what the peer sent).
 static void Pump_Side(FILE *out, Session *s, Side &tx, Side &rx, int n, const char *dir, const char *name, int d)
@@ -345,9 +364,9 @@ static void Handshake(FILE *out, const char *line)
 		fprintf(out, "\n");
 	}
 	Replay[sock].In.push_back(From_Hex(ack1));
-	mgr.Pump();
 	before = Replay[sock].Out.size();
-	mgr.Pump_Connections();
+	mgr.Pump();				// its tail: Pump_Connections sends SYN2 (ACK1 cleared the resend timer)
+	mgr.Pump_Connections();	// not again within the second
 	for (size_t g2 = before; g2 < Replay[sock].Out.size(); g2++) {
 		fprintf(out, "HS2 %d ", n);
 		Put_Hex(out, &Replay[sock].Out[g2][0], (int)Replay[sock].Out[g2].size());
@@ -539,7 +558,7 @@ int main(int argc, char **argv)
 
 		int rejected = rx.Con->Rejected_;
 		int unexpected = rx.Mgr.Unexpected_;
-		rx.Mgr.Pump();
+		Deliver(rx);
 		const char *status = "ok";
 		if (rx.Mgr.Unexpected_ != unexpected) {
 			status = "nocon";

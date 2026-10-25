@@ -10,8 +10,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 2 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 27 |
 | 3 | by convention from a client-named file or sibling | 56 |
-| 2 | describes what the code does | 457 |
-| 1 | neutral placeholder | 267 |
+| 2 | describes what the code does | 458 |
+| 1 | neutral placeholder | 268 |
 
 ## For review (score 3 and below)
 
@@ -256,8 +256,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown04` | `app/wwudp/cordmgr.h:38` | untagged neutral name (D10) |
 | 1 | `Unknown08` | `app/wwudp/cordmgr.h:39` | untagged neutral name (D10) |
 | 1 | `Unknown0C` | `app/wwudp/cordmgr.h:40` | untagged neutral name (D10) |
-| 1 | `Unknown134` | `app/wwudp/cordmgr.h:72` | untagged neutral name (D10) |
-| 1 | `Release` | `app/wwudp/cordmgr.h:103` | after Pump_Releases |
+| 1 | `Unknown24` | `app/wwudp/cordmgr.h:69` | untagged neutral name (D10) |
+| 1 | `Unknown134` | `app/wwudp/cordmgr.h:74` | untagged neutral name (D10) |
+| 1 | `Release` | `app/wwudp/cordmgr.h:105` | after Pump_Releases |
 | 1 | `Set_Accounting_Callback` | `app/wwudp/udp.h:39` | what it does |
 | 1 | `Clear_Accounting_Callback` | `app/wwudp/udp.h:40` | what it does |
 | 1 | `unknown_cordmsg.cpp` | `app/wwudp/unknown_cordmsg.cpp:12` | PROVISIONAL file name (no assert or __FILE__ names the object) |
@@ -727,9 +728,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `CordListenSocketClass` | `app/wwudp/cordmgr.h:43` | a listening socket's record (the +0x4C list, 12 bytes) |
 | 2 | `CordReleaseClass` | `app/wwudp/cordmgr.h:51` | describes what it holds (the +0x1C list, 8 bytes) |
 | 2 | `CordConnectingClass` | `app/wwudp/cordmgr.h:59` | describes what it is |
-| 2 | `Connect` | `app/wwudp/cordmgr.h:93` | what it does |
-| 2 | `Process_Zero_Read` | `app/wwudp/cordmgr.h:101` | what it does |
-| 2 | `Releases_` | `app/wwudp/cordmgr.h:112` | +0x1C connections to free (Release, Pump_Releases) |
+| 2 | `Connect` | `app/wwudp/cordmgr.h:95` | what it does |
+| 2 | `Process_Zero_Read` | `app/wwudp/cordmgr.h:103` | what it does |
+| 2 | `Releases_` | `app/wwudp/cordmgr.h:114` | +0x1C connections to free (Release, Pump_Releases) |
 | 2 | `AckRound` | `app/wwudp/unknown_cordmsg.cpp:122` | 0xBB1DB4 |
 | 2 | `AckGrowth` | `app/wwudp/unknown_cordmsg.cpp:123` | 0xBF411C the window growth this round, all connections |
 | 2 | `RoundTripRound` | `app/wwudp/unknown_cordmsg.cpp:152` | 0xBB1DB8 |
@@ -739,8 +740,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Get_Msec` | `app/wwudp/wtime.h:36` | what E&B's field holds |
 | 2 | `Set_Day` | `app/wwudp/wtime.h:37` | what E&B's field holds |
 | 2 | `Set_Msec` | `app/wwudp/wtime.h:38` | what E&B's field holds |
-| 2 | `Day` | `app/wwudp/wtime.h:48` | +0x00 days since year 0 (matchbot's sec) |
-| 2 | `Msec` | `app/wwudp/wtime.h:49` | +0x04 the millisecond of the day (matchbot's usec) |
+| 2 | `Add_Seconds` | `app/wwudp/wtime.h:40` | what it does |
+| 2 | `Day` | `app/wwudp/wtime.h:51` | +0x00 days since year 0 (matchbot's sec) |
+| 2 | `Msec` | `app/wwudp/wtime.h:52` | +0x04 the millisecond of the day (matchbot's usec) |
 | 3 | `DeltaShipClass` | `app/client/aux_roots.h:462` | the client's root string "Ship", Westwood XxxClass (D24); structure = Net-7 AuxShipIndex / C# ShipObject (C# fields = ours (same names, same order); Net-7 Construct 58 children = ours) |
 | 3 | `DeltaComponentClass` | `app/client/aux_roots.h:534` | the client's root string "Component", Westwood XxxClass (D24); structure = C# ComponentObject (C# fields = ours (same names, same order)) |
 | 3 | `DeltaLightClass` | `app/client/aux_roots.h:544` | the client's root string "Light", Westwood XxxClass (D24); structure = C# LightObject (C# fields = ours (same names, same order)) |

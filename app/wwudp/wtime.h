@@ -36,6 +36,9 @@ public:
 	unsigned int Get_Msec() const;			// 0x8BA830: the second field (matchbot's GetUsec)  // NAME 2: what E&B's field holds
 	void Set_Day(unsigned int day);			// 0x8BA850 (matchbot's SetSec)  // NAME 2: what E&B's field holds
 	void Set_Msec(unsigned int msec);		// 0x8BA870 (matchbot's SetUsec)  // NAME 2: what E&B's field holds
+	void Set(unsigned int day, unsigned int msec);	// 0x8BA890 (matchbot's Set)
+	void Add_Seconds(int seconds);			// 0x8BA550: signed  // NAME 2: what it does
+	Wtime &operator = (unsigned int seconds);		// 0x8BB9D0: from a time_t
 
 	bool operator < (const Wtime &other) const;		// 0x8BB3E0
 	bool operator > (const Wtime &other) const;		// 0x8BB430

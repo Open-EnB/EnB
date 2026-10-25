@@ -3225,7 +3225,8 @@ RECONSTRUCTED = {
                                   "0x85AB30 (the client's have an EH frame ours lack), Pump 0x857F20's data path, the client's "
                                   "handshake (Connect 0x858EC0 and Pump_Connections 0x858A60 reduced, Process_ACK1_Packet "
                                   "0x85A430, Process_ACK2_Packet 0x85ABB0); the log calls on the client's lines 592 and 1272 "
-                                  "(D25); the go-away (Process_Go_Away_Packet 0x8586D0, the 0-byte read 0x858980), Release 0x8596F0 "
+                                  "(D25); Pump's tail (each connection's pump, Pump_Connections with its 1 s resend and 60 s give-up), "
+                                  "the go-away (Process_Go_Away_Packet 0x8586D0, the 0-byte read 0x858980), Release 0x8596F0 "
                                   "and Pump_Releases 0x859940 functional; Get_Data_Socket, Compute_Ticks not rebuilt; Cord_CRC "
                                   "(WWOnline's 0x8B3EC0) here "
                                   "until that library is in the tree",

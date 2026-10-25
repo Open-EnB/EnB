@@ -64,7 +64,9 @@ public:
 	int Session;					// +0x08 NAME 2: the session id SYN1 carries
 	unsigned int Ack1Word1;			// +0x0C NAME 2: ACK1's bytes 4-7, sent back in SYN2
 	unsigned int Ack1Word2;			// +0x10 NAME 2: ACK1's bytes 8-11, sent back in SYN2
-	unsigned int Timers[5];			// +0x14 (Wtimes: the resend timer at +0x1C; not rebuilt)
+	Wtime Created;					// +0x14 NAME 2: Connect's time; 60 s later Pump_Connections gives up
+	Wtime LastSend;					// +0x1C NAME 2: SYN1 / SYN2 go again 1 s after it
+	int Unknown24;					// +0x24
 	UDP *Socket;					// +0x28 NAME 2: the data socket it was made on
 	CordDataSocketClass *Record;	// +0x2C NAME 2: that socket's record
 	int State;						// +0x30 NAME 2: 1 SYN1 sent, 3 SYN2 sent, 5 done

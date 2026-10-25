@@ -188,6 +188,9 @@ python tools/harness/udpreplay.py loop alex3 [--drop 0,10,4] [--step 20]
   (CordCon::openc for a new channel, then CordCon::write) and pumps (CordCon::pump: buildHeader's
   ack list, buildMsgHeader's blocks; `G` lines). Its sequence numbers and the acks it gets then
   follow the capture. Three things stand in for what the dump can't give:
+  * the receive is CordMgr::Pump's data path (Deliver: Process_CORD_Packet) without Pump's tail,
+    which pumps every connection: each side pumps when the capture has it send. The handshake and
+    the loop test use the whole CordMgr::Pump (its tail sends SYN2 after ACK1);
   * the 3 datagrams per file that the dump cut short are rebuilt from their readable blocks, with
     a new checksum;
   * a sequence number the dump never shows (lost on the way, or in a cut) is written as a 1-byte

@@ -83,6 +83,8 @@ CordConnectingClass *CordMgr::Connect(unsigned int ip, unsigned short port, bool
 	c->Record = record;
 	c->Socket = record ? record->Socket : NULL;
 	c->State = 1;
+	c->LastSend.Set_Day(0);
+	c->Created.Update();
 	if (encrypt) {
 		SecureRandomClass random;
 		c->Key = (__int64)random.Randval() << 32;
@@ -92,23 +94,42 @@ CordConnectingClass *CordMgr::Connect(unsigned int ip, unsigned short port, bool
 	return c;
 }
 
-// 0x858A60, reduced: SYN1 (0, protocol, session) while waiting for ACK1; SYN2 (2, protocol,
-// session, ACK1's two words, 0x4000, the key's length, the encrypted key) while waiting for ACK2.
+// 0x858A60, functional (NOT EXACT): SYN1 (0, protocol, session) while waiting for ACK1, SYN2 (2,
+// protocol, session, ACK1's two words, 0x4000, the key's length, the encrypted key) while waiting
+// for ACK2, each again a second after the last; a connection 60 s old gives up: it becomes a
+// CordCon without a socket (so the caller finds it, closed) and leaves the list. (The client
+// then reads the freed record once more; not rebuilt.)
 bool CordMgr::Pump_Connections()
 {
 	WWPROFILE("CordMgr::Pump_Connections");
 	unsigned char buf[0x400];
+	Wtime now;
+	Wtime resend;
+	Wtime timeout;
+	resend.Add_Seconds(-1);
+	timeout.Add_Seconds(-60);
 	for (int i = 0; i < Pending_.Length(); i++) {
 		CordConnectingClass *c = Pending_[i];
+		if (c->Created < timeout) {
+			CordCon *con = new CordCon(c->Ip, c->Port, c->Session, 0, false, NULL, 0,
+				(unsigned int)c->Key, (unsigned int)(c->Key >> 32));
+			AllConnections_.Add(con);
+			Connections_.Add(con);
+			delete c;
+			Pending_.Remove(i);
+			i--;
+			continue;
+		}
 		if (c->Socket == NULL) {
 			continue;
 		}
-		if (c->State == 1) {
+		if (c->State == 1 && resend > c->LastSend) {
 			buf[0] = 0;
 			buf[1] = Protocol_;
 			*(unsigned short *)(buf + 2) = htons((unsigned short)c->Session);
 			c->Socket->Write(buf, 4, c->Ip, c->Port);
-		} else if (c->State == 3) {
+			c->LastSend = now;
+		} else if (c->State == 3 && resend > c->LastSend) {
 			unsigned char key[0x200];
 			buf[0] = 2;
 			buf[1] = Protocol_;
@@ -120,6 +141,7 @@ bool CordMgr::Pump_Connections()
 			*(unsigned long *)(buf + 16) = htonl(n);
 			memcpy(buf + 20, key, n);
 			c->Socket->Write(buf, n + 20, c->Ip, c->Port);
+			c->LastSend = now;
 		}
 	}
 	return true;
@@ -567,35 +589,16 @@ void CordMgr::Pump()
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 				UnknownLog.Unknown_4BC130("UDP", __FILE__, __LINE__, "Unexpected packet: (%d) (%s : %d) -> (%d [%d]) (%s)",
 					len, inet_ntoa(from.sin_addr), ntohs(from.sin_port), 0, 0, "");
 			}
 		}
 	}
-	// The client then pumps every connection (CordCon::pump), Pump_Connections and Pump_Releases;
-	// a program pumps its connections itself here (Pump_Connections has no timer yet).
+	Wtime now;
+	for (int c = 0; c < Connections_.Length(); c++) {
+		Connections_[c]->pump(now);
+	}
+	Pump_Connections();
 	Pump_Releases();
 }
 
@@ -616,8 +619,8 @@ CordDataSocketClass *CordMgr::Find_Data_Socket(UDP *socket)
 
 // 0x8586D0, functional (NOT EXACT): 06, the address (4 bytes), the port (2), the type it answers,
 // the session (2). Types 4 / 5: the connection on a socket bound to that port, to the sender's
-// address and port, with that session, goes away. Types 0 / 2 (a refused handshake): the client
-// expires the connecting record's timer (not rebuilt: Pump_Connections has no timer).
+// address and port, with that session, goes away. Types 0 / 2 (a refused handshake): every
+// connecting record on such a socket to that address dates from 1970, so Pump_Connections gives up.
 bool CordMgr::Process_Go_Away_Packet(unsigned char *data, int len, sockaddr_in *from)
 {
 	WWPROFILE("CordMgr::Process_Go_Away_Packet");
@@ -626,6 +629,20 @@ bool CordMgr::Process_Go_Away_Packet(unsigned char *data, int len, sockaddr_in *
 	}
 	unsigned short port = ntohs(*(unsigned short *)(data + 5));
 	unsigned short session = ntohs(*(unsigned short *)(data + 8));
+	if (data[7] == 0 || data[7] == 2) {
+		for (int p = 0; p < Pending_.Length(); p++) {
+			CordConnectingClass *c = Pending_[p];
+			unsigned int lip = 0;
+			unsigned short lport = 0;
+			if (c->Socket != NULL) {
+				c->Socket->getLocalAddr(lip, lport);
+			}
+			if (c->Socket != NULL && lport == port && c->Ip == ntohl(from->sin_addr.s_addr) && c->Port == ntohs(from->sin_port)) {
+				c->Created = 1;
+			}
+		}
+		return false;
+	}
 	if (data[7] != 4 && data[7] != 5) {
 		return false;
 	}
@@ -643,14 +660,19 @@ bool CordMgr::Process_Go_Away_Packet(unsigned char *data, int len, sockaddr_in *
 	return false;
 }
 
-// 0x858980: the connections to that address and port go away (the client also expires the
-// matching connecting records' timers: not rebuilt).
+// 0x858980: the connections to that address and port go away; the connecting records to it age 5 s.
 void CordMgr::Process_Zero_Read(sockaddr_in *from)
 {
 	for (int i = 0; i < Connections_.Length(); i++) {
 		CordCon *con = Connections_[i];
 		if (con->Ip_ == ntohl(from->sin_addr.s_addr) && con->Port_ == ntohs(from->sin_port)) {
 			con->Go_Away();
+		}
+	}
+	for (int p = 0; p < Pending_.Length(); p++) {
+		CordConnectingClass *c = Pending_[p];
+		if (c->Ip == ntohl(from->sin_addr.s_addr) && c->Port == ntohs(from->sin_port)) {
+			c->Created.Add_Seconds(-5);
 		}
 	}
 }
@@ -721,28 +743,6 @@ bool CordMgr::Process_CORD_Packet(unsigned char *data, int len, sockaddr_in *fro
 					con->Port_ = ntohs(from->sin_port);
 					break;
 				}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -1355,6 +1355,7 @@ bool CordMgr::Process_ACK1_Packet(unsigned char *data, int len, sockaddr_in *fro
 		} else {
 			memset(c->EncryptedKey, 0, sizeof(c->EncryptedKey));
 		}
+		c->LastSend.Set(0, 0);
 		c->State = 3;
 		c->Ack1Word1 = word1;
 		c->Ack1Word2 = word2;

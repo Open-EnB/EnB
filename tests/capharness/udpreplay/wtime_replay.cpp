@@ -43,6 +43,30 @@ unsigned int Wtime::Get_Day() const { return Day; }
 unsigned int Wtime::Get_Msec() const { return Msec; }
 void Wtime::Set_Day(unsigned int day) { Day = day; }
 void Wtime::Set_Msec(unsigned int msec) { Msec = msec; }
+void Wtime::Set(unsigned int day, unsigned int msec) { Day = day; Msec = msec; }
+
+void Wtime::Add_Seconds(int seconds)
+{
+	int day = seconds / 86400;
+	int msec = (seconds % 86400) * 1000 + (int)Msec;
+	while (msec < 0) {
+		msec += DAY_MS;
+		day--;
+	}
+	while (msec >= (int)DAY_MS) {
+		msec -= DAY_MS;
+		day++;
+	}
+	Day += day;
+	Msec = (unsigned int)msec;
+}
+
+Wtime &Wtime::operator = (unsigned int seconds)
+{
+	Day = seconds / 86400 + EPOCH_DAY;
+	Msec = (seconds % 86400) * 1000;
+	return *this;
+}
 
 bool Wtime::operator < (const Wtime &other) const
 {
