@@ -30,6 +30,16 @@
 //            E dir session text               a write CordCon refused
 //            O dir session wanted got         openc gave another channel than the capture's
 // The end: counters per session.
+//
+//     udpreplay --loop N IN.txt OUT.txt [MS [WINDOW]]
+//
+// The loop test: the same messages (W) and closes (Q), but each side's own datagrams go to the
+// other side over a link that drops every Nth datagram in each direction (N = 0: none); each D
+// line is one tick of MS ms for its session (both sides pump, then read), and after the input the
+// sessions run on until nothing is queued, unacked or due (at most 20,000 ticks). It tests what a
+// dump can't: resend requests, the resend timer, the send window, the close. OUT: R lines as
+// above, then per side "L session dir sent N dropped N resends N resend-requests N dup-acks N
+// close-state N queued N unacked N".
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -44,6 +54,7 @@
 
 extern unsigned __int64 Replay_Time_Ms;		// wtime_replay.cpp
 static int Window_Limit = 65535;
+static int Loop_Drop = -1;		// --loop N: drop every Nth datagram (-1: the capture replay)
 
 // ------------------------------------------------------------------------- E&B's log (cordmgr.cpp)
 
@@ -138,6 +149,7 @@ struct Session
 	unsigned char Key[8];
 	Side Client, Server;	// Client takes S datagrams, Server takes C datagrams
 	int Datagrams[2], Accepted[2], Rejected[2], NoCon[2], Delivered[2], OpenMismatch[2], Generated[2], PeerOk[2];
+	int LoopSent[2], LoopDropped[2];
 };
 
 static std::map<std::string, Session *> Sessions;
@@ -196,6 +208,8 @@ static Session *Get_Session(const std::string &name)
 	memset(s->OpenMismatch, 0, sizeof(s->OpenMismatch));
 	memset(s->Generated, 0, sizeof(s->Generated));
 	memset(s->PeerOk, 0, sizeof(s->PeerOk));
+	memset(s->LoopSent, 0, sizeof(s->LoopSent));
+	memset(s->LoopDropped, 0, sizeof(s->LoopDropped));
 	s->Client.Con = 0;
 	s->Server.Con = 0;
 	Sessions[name] = s;
@@ -352,8 +366,68 @@ static void Handshake(FILE *out, const char *line)
 	}
 }
 
+// --loop: one side pumps, its datagrams cross the lossy link, the other side takes and reads them.
+static void Loop_Send(FILE *out, Session *s, Side &tx, Side &rx, int d, const char *name, int n)
+{
+	static unsigned char msg[0x10000];
+	Wtime now;
+	tx.Con->pump(now);
+	std::vector<std::vector<unsigned char> > &sent = Replay[tx.OutSock].Out;
+	for (size_t g = 0; g < sent.size(); g++) {
+		s->LoopSent[d]++;
+		if (Loop_Drop > 0 && s->LoopSent[d] % Loop_Drop == 0) {
+			s->LoopDropped[d]++;
+			continue;
+		}
+		Replay[rx.Sock].In.push_back(sent[g]);
+	}
+	sent.clear();
+	rx.Mgr.Pump();
+	int channel, len;
+	while (rx.Con->read(&channel, &len, msg, false)) {
+		fprintf(out, "R %d %s %s %d ", n, d == 0 ? "C" : "S", name, channel);
+		Put_Hex(out, msg, len);
+		fprintf(out, "\n");
+		s->Delivered[d]++;
+	}
+}
+
+static void Loop_Tick(FILE *out, Session *s, const char *name, int n, int step_ms)
+{
+	Replay_Time_Ms += step_ms;
+	Loop_Send(out, s, s->Client, s->Server, 0, name, n);
+	Loop_Send(out, s, s->Server, s->Client, 1, name, n);
+}
+
+static bool Loop_Busy(CordCon *c)
+{
+	if (c->Queued_ != 0 || c->AcksPending_ != 0 || c->ResendsPending_ != 0) {
+		return true;
+	}
+	for (size_t i = 0; i < c->Active_.size(); i++) {
+		if (c->Active_[i]->Sent.size() != 0) {
+			return true;
+		}
+	}
+	return false;
+}
+
+static int Loop_Unacked(CordCon *c)
+{
+	int n = 0;
+	for (size_t i = 0; i < c->Active_.size(); i++) {
+		n += (int)c->Active_[i]->Sent.size();
+	}
+	return n;
+}
+
 int main(int argc, char **argv)
 {
+	if (argc > 2 && strcmp(argv[1], "--loop") == 0) {
+		Loop_Drop = atoi(argv[2]);
+		argv += 2;
+		argc -= 2;
+	}
 	if (argc < 3) {
 		fprintf(stderr, "usage: udpreplay IN.txt OUT.txt [MS [WINDOW]]\n");
 		return 2;
@@ -378,6 +452,23 @@ int main(int argc, char **argv)
 				Session *s = Get_Session(name);
 				std::vector<unsigned char> k = From_Hex(key);
 				memcpy(s->Key, &k[0], 8);
+			}
+			continue;
+		}
+		if (line[0] == 'H' && Loop_Drop >= 0) {
+			continue;
+		}
+		if (line[0] == 'Z' && Loop_Drop >= 0) {
+			continue;
+		}
+		if (line[0] == 'D' && Loop_Drop >= 0) {
+			int n;
+			char name[32];
+			if (sscanf(line, "D %d %31s", &n, name) == 2) {
+				Session *s = Get_Session(name);
+				Ensure_Sides(s);
+				Loop_Tick(out, s, name, n, step_ms);
+				total++;
 			}
 			continue;
 		}
@@ -467,6 +558,28 @@ int main(int argc, char **argv)
 			fprintf(out, "\n");
 			s->Delivered[d]++;
 		}
+	}
+	if (Loop_Drop >= 0) {
+		for (std::map<std::string, Session *>::iterator it = Sessions.begin(); it != Sessions.end(); ++it) {
+			Session *s = it->second;
+			if (!s->Client.Con) {
+				continue;
+			}
+			for (int t = 0; t < 20000 && (Loop_Busy(s->Client.Con) || Loop_Busy(s->Server.Con)); t++) {
+				Loop_Tick(out, s, it->first.c_str(), -1, step_ms);
+			}
+			for (int d = 0; d < 2; d++) {
+				CordCon *c = d == 0 ? s->Client.Con : s->Server.Con;
+				fprintf(out, "L %s %s sent %d dropped %d resends %d resend-requests %d dup-acks %d close-state %d "
+					"queued %d unacked %d\n", it->first.c_str(), d == 0 ? "C" : "S", s->LoopSent[d],
+					s->LoopDropped[d], c->Resends_, c->ResendRequests_, c->DupAcks_, c->CloseState_, c->Queued_,
+					Loop_Unacked(c));
+			}
+		}
+		fprintf(out, "# ticks %d\n", total);
+		fclose(out);
+		fclose(in);
+		return 0;
 	}
 	fprintf(out, "# datagrams %d\n", total);
 	for (std::map<std::string, Session *>::iterator it = Sessions.begin(); it != Sessions.end(); ++it) {

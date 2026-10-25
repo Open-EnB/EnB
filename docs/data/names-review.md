@@ -261,9 +261,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `m_Unknown98` | `tests/capharness/auxreplay/auxreplay.cpp:251` | untagged neutral name (D10) |
 | 1 | `Unknown_All` | `tests/capharness/auxreplay/auxreplay.cpp:404` | untagged neutral name (D10) |
 | 1 | `UnknownSendRootClass` | `tests/capharness/auxreplay/auxreplay.cpp:433` | untagged neutral name (D10) |
-| 1 | `UnknownLogClass` | `tests/capharness/udpreplay/udpreplay.cpp:50` | untagged neutral name (D10) |
-| 1 | `Unknown_4BC130` | `tests/capharness/udpreplay/udpreplay.cpp:53` | untagged neutral name (D10) |
-| 1 | `UnknownLog` | `tests/capharness/udpreplay/udpreplay.cpp:55` | untagged neutral name (D10) |
+| 1 | `UnknownLogClass` | `tests/capharness/udpreplay/udpreplay.cpp:61` | untagged neutral name (D10) |
+| 1 | `Unknown_4BC130` | `tests/capharness/udpreplay/udpreplay.cpp:64` | untagged neutral name (D10) |
+| 1 | `UnknownLog` | `tests/capharness/udpreplay/udpreplay.cpp:66` | untagged neutral name (D10) |
 | 2 | `Swap` | `app/shared/auxdata/bitset.h:26` | describes what it does |
 | 2 | `Is_Set` | `app/shared/auxdata/bitset.h:30` | describes what it does |
 | 2 | `Set` | `app/shared/auxdata/bitset.h:32` | describes what it does |

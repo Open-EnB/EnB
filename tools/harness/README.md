@@ -167,6 +167,7 @@ and GroupInfo defaulted later).
 ```
 ENB_VC6_HOSTS=Daniel@<ip> python tools/harness/udpreplay.py build [--out DIR]
 python tools/harness/udpreplay.py run alex3 [--aux]                 # also alex7
+python tools/harness/udpreplay.py loop alex3 [--drop 0,10,4] [--step 20]
 ```
 
 * **The wire datagram** (app/wwudp/cordcon.h): the dumps start at byte 5 of it. Bytes 0-4 are
@@ -220,6 +221,32 @@ server's private key (the reference decoder's the reference key table) to the se
 capture's does, and ACK2 makes a CordCon with the capture's data port, key and session. This runs
 WWLib's XMP (RSA) and SecureRandomClass for the first time.
 
+**Time.** CordCon's send side is the client's (pumpInternal 0x853A30's priority order, resend timer
+and send window, CordStatsClass at +0x68), on wlib's `Wtime` (app/wwudp/wtime.h). The harness
+supplies Wtime with its own clock (`wtime_replay.cpp`): `udpreplay IN OUT [MS [WINDOW]]` advances it
+MS ms per datagram (default 0: the dumps have no times, so a replay fires no resend timer) and
+gives each CordCon the send window limit WINDOW (ACK2's value, which the dumps lack; default
+65,535). With the clock frozen the replay's results are the ones above; the only change from the
+send side is the keep-alive: an empty channel-0 message before the first datagram arrives (+3
+datagrams, all accepted by the peer).
+
+**The loop test** (`udpreplay.py loop NAME`, `udpreplay --loop N`): the dump's messages (W) and closes
+(Q) as in the replay, but each side's own datagrams go to the other side over a link that drops
+every Nth datagram in each direction, the clock advancing 20 ms per datagram of the dump, then on
+until nothing is queued, unacked or due. It tests what a capture can't: resend requests, the
+resend timer, the window and the close. Results (2026-10-24), every one passing:
+
+| | alex3 | alex7 |
+|---|---|---|
+| no loss | 31,485 datagrams, 0 resends | 3,528 datagrams, 0 resends |
+| every 10th dropped | 35,186 sent, 3,516 dropped, 5,041 resends (1,017 resend requests received, the rest on the timer) | 4,130 sent, 407 dropped, 823 resends (378 requests) |
+| every 4th dropped | 37,248 sent, 9,307 dropped, 16,065 resends (1,873 requests), 1 dup ack | 5,379 sent, 1,334 dropped, 3,432 resends (782 requests), 24 dup acks |
+| each case | the 21 reliable channels deliver every message in order; the 33 sequenced (or reopened) ones in order; nothing left; the 3 closing sessions closed on both sides | 52 of 52 reliable, 6 of 6 sequenced; nothing left; 7 of 7 sessions closed |
+
+A channel the dump reopens with another mode is written on as first opened (the harness has no
+channel close), so it is checked as a sequenced one. alex7's 3 writes after the close reached that
+side are refused, as in the replay.
+
 What doesn't match, and why:
 * **alex7, session 625d, server channel 4.** The dump cut datagrams #109-#111 and lost sequence
   numbers 218-221 and 223-229 with them. The client acked them (#129 acks up to 263), so it got
@@ -233,9 +260,9 @@ What doesn't match, and why:
   the client's when they leave, so the server-side acks it shows aren't in the server's own
   time order. The client also splits acks between datagrams where we don't, after channels were
   closed and reopened (the client drops closed channels from its active list: not rebuilt).
-* **Blocks**: our pump sends a written message's fragments at once. The client's
-  pumpInternal spreads them over datagrams by bandwidth and priority (not rebuilt), so the
-  per-datagram order differs. The sequence numbers are the same apart from alex7's 625d gap and
+* **Blocks**: our side writes each message just before the datagram that first carries it and
+  then sends what the window allows at once (the clock is frozen); the client wrote and pumped at
+  its own times, so the per-datagram order differs. The sequence numbers are the same apart from alex7's 625d gap and
   the writes refused after the close.
 * openc picks the channel the capture shows, except for 11 of the server's reopened channels in
   alex3: the server reuses the channel written least recently (time(0)), which the replay doesn't have.

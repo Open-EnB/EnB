@@ -3,6 +3,7 @@
     ENB_VC6_HOSTS=Daniel@<ip> python tools/harness/udpreplay.py build [--out DIR]
     python tools/harness/udpreplay.py run alex3|alex7 [--exe EXE] [--aux]
     python tools/harness/udpreplay.py handshake            (capture_1..3's 54 SYN1/ACK1/SYN2/ACK2)
+    python tools/harness/udpreplay.py loop alex3|alex7 [--drop N,...] [--step MS]
 
 build: links udpreplay with the app\\wwudp sources (compiled into the program, as auxreplay.py's
 --app-sources) against DIR's libraries (wwlib's RC4Class) into DIR/programs/udpreplay/.
@@ -23,6 +24,11 @@ checksum (reported). Checks:
       first sendings.
 --aux: the CREATE / AUX_DATA messages the client side delivered go through auxreplay
 (build/programs/auxreplay, M1.3): gates (a) and (b) chained.
+
+loop: the dump's messages and closes, but each side's own datagrams go to the other over a link
+that drops every Nth datagram (default 0 = none, then 10 and 4), the clock advancing MS ms (default
+20) per datagram of the dump: resend requests, the resend timer, the send window and the close,
+which a replay of the capture can't test (the dumps have no times).
 """
 import argparse
 import re
@@ -524,13 +530,93 @@ def handshake(exe):
     return all(v == c['handshakes'] for v in c.values())
 
 
+def loop(name, exe, drops, step):
+    """The loop test (udpreplay --loop): the dump's messages and closes, each side's own datagrams
+    to the other over a link dropping every Nth datagram. Passes when every reliable (mode 3)
+    channel delivers exactly what was written, in order, every sequenced (mode 4) channel a part of
+    it in order, nothing is left queued or unacked, and every session that closed in the dump
+    closes (state 4 on both sides)."""
+    dgram = os.path.join(REPO, '.work', 'harness', name + '.dgram')
+    inp = os.path.join(WORK, name + '.in.txt')
+    keys, dgs = prepare(dgram, inp)
+    written = defaultdict(list)
+    modes = {}
+    closing = set()
+    for line in open(inp):
+        q = line.split()
+        if q and q[0] == 'W':
+            key = (q[2], q[3], int(q[4]))
+            written[key].append(bytes.fromhex(q[6]) if len(q) > 6 else b'')
+            modes.setdefault(key, set()).add(int(q[5]))
+        elif q and q[0] == 'Q':
+            closing.add(q[2])
+    ok = True
+    for n in drops:
+        res = os.path.join(WORK, '%s.loop%d.txt' % (name, n))
+        p = subprocess.run([os.path.abspath(exe), '--loop', str(n), inp, res, str(step)],
+                           capture_output=True, text=True)
+        if p.returncode != 0:
+            print(p.stdout[-2000:], p.stderr[-2000:])
+            raise SystemExit('udpreplay --loop failed: %d' % p.returncode)
+        got = defaultdict(list)
+        refused = Counter()
+        sides = []
+        for line in open(res):
+            q = line.split()
+            if q and q[0] == 'E':
+                refused[(q[2], q[1], int(q[-1]))] += 1
+            elif q and q[0] == 'R':
+                got[(q[3], q[2], int(q[4]))].append(bytes.fromhex(q[5]) if len(q) > 5 else b'')
+            elif q and q[0] == 'L':
+                sides.append(dict(zip(q[3::2], map(int, q[4::2])), session=q[1], dir=q[2]))
+        equal = sub = bad = 0
+        for key, msgs in written.items():
+            g = got.get(key, [])
+            msgs = msgs[:len(msgs) - refused[key]]
+            if modes[key] == {3}:
+                if g == msgs:
+                    equal += 1
+                else:
+                    bad += 1
+                    if bad <= 3:
+                        print('    reliable channel %s: delivered %d of %d written' % (key, len(g), len(msgs)))
+            else:
+                it = iter(msgs)
+                if all(m in it for m in g):
+                    sub += 1
+                else:
+                    bad += 1
+                    if bad <= 3:
+                        print('    sequenced channel %s: delivered out of order' % (key,))
+        left = sum(s['queued'] + s['unacked'] for s in sides)
+        unclosed = sorted(s['session'] for s in sides if s['session'] in closing and s['close-state'] != 4)
+        tot = Counter()
+        for s in sides:
+            for k in ('sent', 'dropped', 'resends', 'resend-requests', 'dup-acks'):
+                tot[k] += s[k]
+        if refused:
+            print('    writes CordCon refused (written after the close reached that side): %d' % sum(refused.values()))
+        print('  drop every %s: %d datagrams sent, %d dropped, %d resends (%d resend requests received, the '
+              'rest on the timer), %d dup acks' % (n or 'none', tot['sent'], tot['dropped'], tot['resends'],
+                                                   tot['resend-requests'], tot['dup-acks']))
+        print('    reliable channels delivering every message in order: %d of %d; sequenced channels (or reopened '
+              'with another mode: the harness writes on as the first) in order: %d of %d; left queued or unacked: '
+              '%d; closed sessions: %d of %d' % (
+                  equal, sum(1 for k in written if modes[k] == {3}), sub, sum(1 for k in written if modes[k] != {3}),
+                  left, len(closing) - len(set(unclosed)), len(closing)))
+        ok = ok and bad == 0 and left == 0 and not unclosed
+    return ok
+
+
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument('cmd', choices=['build', 'run', 'handshake'])
+    ap.add_argument('cmd', choices=['build', 'run', 'handshake', 'loop'])
     ap.add_argument('name', nargs='?')
     ap.add_argument('--out', default=os.path.join(REPO, 'build'))
     ap.add_argument('--exe')
     ap.add_argument('--aux', action='store_true')
+    ap.add_argument('--drop', default='0,10,4', help='loop: drop every Nth datagram, for each N')
+    ap.add_argument('--step', type=int, default=20, help='loop: ms per datagram of the dump')
     a = ap.parse_args()
     if a.cmd == 'build':
         build(a.out)
@@ -538,6 +624,8 @@ def main():
     exe = a.exe or os.path.join(a.out, 'programs', 'udpreplay', 'udpreplay.exe')
     if a.cmd == 'handshake':
         return 0 if handshake(exe) else 1
+    if a.cmd == 'loop':
+        return 0 if loop(a.name, exe, [int(x) for x in a.drop.split(',')], a.step) else 1
     return 0 if run(a.name, exe, a.aux) else 1
 
 
