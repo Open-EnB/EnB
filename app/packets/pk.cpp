@@ -9,6 +9,13 @@ unsigned __int64 Unknown_8B4510(unsigned __int64 value);	// NAME 1 [Unknown_8B45
 unsigned __int64 Unknown_8B4560(unsigned __int64 value);	// NAME 1 [Unknown_8B4560]: wwonline's 64-bit ntohl
 
 
+PacketClass *Unknown_Create_Packet(void *buffer)
+{
+	RawPacketClass raw(buffer);
+	return(Unknown_869790(&raw));
+}
+
+
 int RawPacketClass::Add(const void *data, int len)
 {
 	return(Data.Write(data, len));
@@ -62,13 +69,6 @@ void RawPacketClass::Add_String(const char *string)
 }
 
 // (spacing kept: the next assert is on the client's line 1135)
-
-
-
-
-
-
-
 
 
 
@@ -1349,13 +1349,14 @@ int PacketClass::Unknown_14(int a, int b)
 /*
 **	Reconstruction notes (pk.cpp, PARTIAL)
 **
-**	* Rebuilt: the raw message's field helpers 0x86E870-0x86EFE0 (all exact) and the base's slot
+**	* Rebuilt: the factory 0x8696C0 (the message wrapped in a RawPacketClass on its stack, the
+**	  switch called), the raw message's field helpers 0x86E870-0x86EFE0 (all exact) and the base's slot
 **	  +0x14 default 0x86F010 (assert line 1344). The numbers go in network byte order (htonl / htons,
 **	  wwonline's 64-bit pair 0x8B4510 / 0x8B4560); a bool through htonl and back (`!= 0`), a float
 **	  as its bits.
 **	* Get(char **) falls back to nstrdup of the global 0xBDA908 (here ""; the operand is a
 **	  relocation) when new fails.
-**	* Not rebuilt: the factory 0x8696C0 and its switch 0x869790 (lines to 1078: one case per opcode,
-**	  259 packet classes), the small packet classes 0x86E5B0-0x86E850 ('FireEquipped',
+**	* Not rebuilt: the switch 0x869790 (assert line 1078: one case per opcode, 263 packet classes,
+**	  docs/data/packet-factory.txt; the program supplies Unknown_869790), the small packet classes 0x86E5B0-0x86E850 ('FireEquipped',
 **	  'PriorityMessage', 'QueueMessage', 'PushMessage'), and the static after 0x86F010.
 */

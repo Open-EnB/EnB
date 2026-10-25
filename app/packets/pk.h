@@ -47,6 +47,13 @@ struct PacketHeaderClass	// NAME 1: describes what it is
 class RawPacketClass	// NAME 1: describes what it is (the asserts call it `packet`)
 {
 public:
+	// Over a received message (the factory 0x8696C0: inline there): the payload not copied.
+	RawPacketClass(const void *message) : Data((const char *)message + 4, 1, 0x400, false)
+	{
+		Header = *(const PacketHeaderClass *)message;
+		Data.Unknown_Set_Size(Header.Size - 4);
+	}
+
 	PacketHeaderClass Header;		// +0x00 NAME 5: 'packet->Header.Size'
 	LinearBufferClass Data;			// +0x04 the payload  // NAME 2: what it holds
 	int Channel;					// +0x20 NAME 2: UDP: 0 the default, < 0 a fixed one, > 0 a hashed one
@@ -103,9 +110,12 @@ public:
 	int Serial;						// +0x08 (the global 0xBF4128)  // NAME 2: what it holds
 };
 
-// The factory (0x8696C0): a message (header and payload, contiguous) to a new packet object, or
-// NULL for an unknown opcode; it wraps the bytes in a RawPacketClass and calls the switch 0x869790.
-PacketClass *Unknown_Create_Packet(void *buffer);	// NAME 1: what it does; app\packets (pk.cpp?)
+// The factory (pk.cpp 0x8696C0): a message (header and payload, contiguous) to a new packet object,
+// or NULL for an unknown opcode; it wraps the bytes in a RawPacketClass and calls the switch.
+PacketClass *Unknown_Create_Packet(void *buffer);	// NAME 1: what it does
+// The switch (pk.cpp 0x869790, 16 KB): `new XxxPacketClass(raw)` per opcode (docs/data/
+// packet-factory.txt), assert line 1078 for an unknown one. Not rebuilt: the program supplies it.
+PacketClass *Unknown_869790(RawPacketClass *raw);	// NAME 1 [Unknown_869790]: neutral (D10)
 
 // (spacing kept: the defaults assert on the client's pk.h lines 483, 490, 496 and 502)
 

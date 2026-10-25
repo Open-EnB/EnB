@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
 | 3 | by convention from a client-named file or sibling | 65 |
 | 2 | describes what the code does | 547 |
-| 1 | neutral placeholder | 412 |
+| 1 | neutral placeholder | 416 |
 
 ## For review (score 3 and below)
 
@@ -144,14 +144,18 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Remove_Running` | `app/kernel/kernel.h:86` | what it does |
 | 1 | `Unknown_8B4510` | `app/packets/pk.cpp:8` | wwonline's 64-bit htonl (a byte-order probe, then two htonl) |
 | 1 | `Unknown_8B4560` | `app/packets/pk.cpp:9` | wwonline's 64-bit ntohl |
-| 1 | `Unknown_PacketDataClass` | `app/packets/pk.cpp:18` | untagged neutral name (D10) |
+| 1 | `Unknown_Create_Packet` | `app/packets/pk.cpp:12` | untagged neutral name (D10) |
+| 1 | `Unknown_869790` | `app/packets/pk.cpp:15` | untagged neutral name (D10) |
+| 1 | `Unknown_PacketDataClass` | `app/packets/pk.cpp:25` | untagged neutral name (D10) |
 | 1 | `Unknown_14` | `app/packets/pk.cpp:1342` | untagged neutral name (D10) |
 | 1 | `Unknown_PacketDataClass` | `app/packets/pk.h:29` | neutral placeholder (D10) |
 | 1 | `PacketHeaderClass` | `app/packets/pk.h:38` | describes what it is |
 | 1 | `RawPacketClass` | `app/packets/pk.h:47` | describes what it is (the asserts call it `packet`) |
-| 1 | `Unknown2A` | `app/packets/pk.h:56` | untagged neutral name (D10) |
-| 1 | `Unknown_14` | `app/packets/pk.h:96` | untagged neutral name (D10) |
-| 1 | `Unknown_Create_Packet` | `app/packets/pk.h:108` | what it does; app\packets (pk.cpp?) |
+| 1 | `Unknown_Set_Size` | `app/packets/pk.h:54` | untagged neutral name (D10) |
+| 1 | `Unknown2A` | `app/packets/pk.h:63` | untagged neutral name (D10) |
+| 1 | `Unknown_14` | `app/packets/pk.h:103` | untagged neutral name (D10) |
+| 1 | `Unknown_Create_Packet` | `app/packets/pk.h:115` | what it does |
+| 1 | `Unknown_869790` | `app/packets/pk.h:118` | neutral (D10) |
 | 1 | `m_Unknown70` | `app/shared/auxdata/delta.cpp:9` | untagged neutral name (D10) |
 | 1 | `m_Unknown78` | `app/shared/auxdata/delta.cpp:11` | untagged neutral name (D10) |
 | 1 | `m_Unknown7C` | `app/shared/auxdata/delta.cpp:12` | untagged neutral name (D10) |
@@ -425,7 +429,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_BFAEE0` | `tests/capharness/udpreplay/conn_replay.cpp:86` | untagged neutral name (D10) |
 | 1 | `Unknown_8B4510` | `tests/capharness/udpreplay/conn_replay.cpp:99` | untagged neutral name (D10) |
 | 1 | `Unknown_8B4560` | `tests/capharness/udpreplay/conn_replay.cpp:100` | untagged neutral name (D10) |
-| 1 | `Unknown_Create_Packet` | `tests/capharness/udpreplay/conn_replay.cpp:125` | untagged neutral name (D10) |
+| 1 | `Unknown_869790` | `tests/capharness/udpreplay/conn_replay.cpp:126` | untagged neutral name (D10) |
 | 1 | `UnknownLogClass` | `tests/capharness/udpreplay/udpreplay.cpp:68` | untagged neutral name (D10) |
 | 1 | `Unknown_4BC130` | `tests/capharness/udpreplay/udpreplay.cpp:71` | untagged neutral name (D10) |
 | 1 | `UnknownLog` | `tests/capharness/udpreplay/udpreplay.cpp:73` | untagged neutral name (D10) |
@@ -506,21 +510,21 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Set_Focus` | `app/kernel/kernel.h:91` | what it does |
 | 2 | `Process_Input` | `app/kernel/kernel.h:92` | what it does |
 | 2 | `Pump_Messages` | `app/kernel/kernel.h:93` | what it does |
-| 2 | `Data` | `app/packets/pk.h:51` | what it holds |
-| 2 | `Add` | `app/packets/pk.h:59` | what it does (and the overloads below) |
-| 2 | `Add_String` | `app/packets/pk.h:66` | what it does |
-| 2 | `Get` | `app/packets/pk.h:69` | what it does (and the overloads below) |
-| 2 | `Get_Size` | `app/packets/pk.h:70` | what it returns |
-| 2 | `Get_String` | `app/packets/pk.h:79` | what it does |
-| 2 | `Build` | `app/packets/pk.h:92` | what it does |
-| 2 | `Get_Data_Size` | `app/packets/pk.h:94` | what it returns |
-| 2 | `Print` | `app/packets/pk.h:95` | what it does |
-| 2 | `Get_Channel` | `app/packets/pk.h:97` | Send_Packet's use (udpconn.cpp) |
-| 2 | `Get_Priority` | `app/packets/pk.h:98` | Send_Packet's use |
-| 2 | `Is_Reliable` | `app/packets/pk.h:99` | Send_Packet's use |
-| 2 | `Close_Channel` | `app/packets/pk.h:100` | Send_Packet's use |
-| 2 | `Connection` | `app/packets/pk.h:102` | what it holds |
-| 2 | `Serial` | `app/packets/pk.h:103` | what it holds |
+| 2 | `Data` | `app/packets/pk.h:58` | what it holds |
+| 2 | `Add` | `app/packets/pk.h:66` | what it does (and the overloads below) |
+| 2 | `Add_String` | `app/packets/pk.h:73` | what it does |
+| 2 | `Get` | `app/packets/pk.h:76` | what it does (and the overloads below) |
+| 2 | `Get_Size` | `app/packets/pk.h:77` | what it returns |
+| 2 | `Get_String` | `app/packets/pk.h:86` | what it does |
+| 2 | `Build` | `app/packets/pk.h:99` | what it does |
+| 2 | `Get_Data_Size` | `app/packets/pk.h:101` | what it returns |
+| 2 | `Print` | `app/packets/pk.h:102` | what it does |
+| 2 | `Get_Channel` | `app/packets/pk.h:104` | Send_Packet's use (udpconn.cpp) |
+| 2 | `Get_Priority` | `app/packets/pk.h:105` | Send_Packet's use |
+| 2 | `Is_Reliable` | `app/packets/pk.h:106` | Send_Packet's use |
+| 2 | `Close_Channel` | `app/packets/pk.h:107` | Send_Packet's use |
+| 2 | `Connection` | `app/packets/pk.h:109` | what it holds |
+| 2 | `Serial` | `app/packets/pk.h:110` | what it holds |
 | 2 | `Swap` | `app/shared/auxdata/bitset.h:26` | describes what it does |
 | 2 | `Is_Set` | `app/shared/auxdata/bitset.h:30` | describes what it does |
 | 2 | `Set` | `app/shared/auxdata/bitset.h:32` | describes what it does |
@@ -996,7 +1000,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `CircBuffClass` | `app/common/circbuff.h:20` | by convention (D24) from the client's file circbuff.cpp |
 | 3 | `udpconn.h` | `app/common/udpconn.h:19` | header name assumed from the client's udpconn.cpp |
 | 3 | `kernel.h` | `app/kernel/kernel.h:18` | header name assumed from the client's kernel.cpp |
-| 3 | `PacketClass` | `app/packets/pk.h:87` | by convention (D24) from pk.h / pk.cpp |
+| 3 | `PacketClass` | `app/packets/pk.h:94` | by convention (D24) from pk.h / pk.cpp |
 | 3 | `bitset.h` | `app/shared/auxdata/bitset.h:16` | header name assumed from the client's bitset.cpp |
 | 3 | `BitSetClass` | `app/shared/auxdata/bitset.h:19` | by convention (D24) from the client's file bitset.cpp |
 | 3 | `delta.h` | `app/shared/auxdata/delta.h:19` | header name assumed from the client's delta.cpp |

@@ -122,14 +122,19 @@ public:
 	std::vector<unsigned char> Bytes;
 };
 
-PacketClass *Unknown_Create_Packet(void *buffer)
+// The switch 0x869790 (pk.cpp's Unknown_Create_Packet wraps the message in a RawPacketClass first).
+PacketClass *Unknown_869790(RawPacketClass *raw)
 {
-	const unsigned char *msg = (const unsigned char *)buffer;
-	short size = *(const short *)msg;
+	short size = raw->Header.Size;
 	if (size < 4) {
 		return 0;		// no header (Conn_Deliver counts a message under 4 bytes)
 	}
-	return new TestPacketClass(msg, size);
+	std::vector<unsigned char> msg(size);
+	memcpy(&msg[0], &raw->Header, 4);
+	if (size > 4) {
+		memcpy(&msg[4], raw->Data.Buffer, size - 4);
+	}
+	return new TestPacketClass(&msg[0], size);
 }
 
 // ------------------------------------------------------------------------- the memory transport
