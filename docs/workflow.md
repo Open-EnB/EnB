@@ -438,3 +438,12 @@ Added 2026-10-24 (overnight run; details in `.work/night/item*/report.md`):
   client; `ENB_CHECKED=1 build.py --out build/chk` compiles them in. A checked build changes some
   mangled names (`private=public`): build every library the same way. A full build also compiles
   another builder's uncommitted importer.py entries.
+* **App files that profile** need `#define ENABLE_WWPROFILE` (without it Encrypt_Data compiles to
+  116 bytes instead of 355). A `new` loses its EH state when the constructor in the same file can't
+  throw; an out-of-line callee in the same file (the CRC) may get inlined.
+* **EA-UDP dumps.** The Alex dumps start at byte 5 of the wire datagram: bytes 0-4 are the type
+  (5 client, 4 server), the session id and the sender's datagram counter (the dump's `seq`). The
+  checksum (the client's CRC 0x8B3EC0) covers the whole datagram including those bytes.
+* **Verify with another builder's tracked edits present** picks them up (2 encode.cpp gains showed
+  in someone else's run): compare per file and restore imports.json. names.py reads the working
+  tree: regenerate names-review.md in a clean `git worktree` when others have uncommitted names.
