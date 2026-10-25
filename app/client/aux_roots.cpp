@@ -4,7 +4,7 @@
 #include "aux_roots.h"
 
 // the CREATE factory (0x6F6000)
-UnknownRootClass *Unknown_Create_Aux_Root(int type, int unknown)
+UnknownRootClass *UnknownCOClass::Unknown_Create_Aux_Root(int type, int unknown)
 {
 	switch (type) {
 		case 0:

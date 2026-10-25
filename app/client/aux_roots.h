@@ -973,7 +973,15 @@ public:
 
 // ------------------------------------------------------------------------- the factory
 
-// 0x6F6000 (co.cpp): the root for a CREATE's type, or 0 when the type has no aux data
-UnknownRootClass *Unknown_Create_Aux_Root(int type, int unknown);
+// The class of co.cpp's objects (vtable 0xB0070C, constructor 0x6F2820, which keeps the root it
+// makes at +0x88); only the factory is declared here. 0x6F6000 is its member (`ret 8`, called with
+// the object in ecx) though it uses nothing of the object.
+// NAME 1: neutral (D10), the class of co.cpp's objects (vtable 0xB0070C)
+class UnknownCOClass
+{
+public:
+	// 0x6F6000: the root for a CREATE's type, or 0 when the type has no aux data
+	UnknownRootClass *Unknown_Create_Aux_Root(int type, int unknown);
+};
 
 #endif //__AUX_ROOTS_H

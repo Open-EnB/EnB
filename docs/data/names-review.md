@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 27 |
 | 3 | by convention from a client-named file or sibling | 54 |
 | 2 | describes what the code does | 373 |
-| 1 | neutral placeholder | 255 |
+| 1 | neutral placeholder | 257 |
 
 ## For review (score 3 and below)
 
@@ -19,6 +19,7 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|---|
 | 1 | `aux_roots.cpp` | `app/client/aux_roots.cpp:3` | provisional file name (the client's constructors are in co.cpp 0x6F6000-0x6FBEF0 and the Player object 0x751BE0) |
 | 1 | `UnknownRootClass` | `app/client/aux_roots.cpp:7` | untagged neutral name (D10) |
+| 1 | `UnknownCOClass` | `app/client/aux_roots.cpp:7` | untagged neutral name (D10) |
 | 1 | `Unknown_Create_Aux_Root` | `app/client/aux_roots.cpp:7` | untagged neutral name (D10) |
 | 1 | `m_Unknown2390` | `app/client/aux_roots.cpp:82` | untagged neutral name (D10) |
 | 1 | `m_Unknown2394` | `app/client/aux_roots.cpp:83` | untagged neutral name (D10) |
@@ -63,7 +64,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `m_Unknown420` | `app/client/aux_roots.h:919` | neutral (D10): a member, not a field of the tree |
 | 1 | `m_Unknown424` | `app/client/aux_roots.h:920` | neutral (D10): a member, not a field of the tree |
 | 1 | `m_Unknown428` | `app/client/aux_roots.h:921` | neutral (D10): a member, not a field of the tree |
-| 1 | `Unknown_Create_Aux_Root` | `app/client/aux_roots.h:977` | untagged neutral name (D10) |
+| 1 | `UnknownCOClass` | `app/client/aux_roots.h:979` | neutral (D10), the class of co.cpp's objects (vtable 0xB0070C) |
+| 1 | `Unknown_Create_Aux_Root` | `app/client/aux_roots.h:984` | untagged neutral name (D10) |
 | 1 | `m_Unknown70` | `app/shared/auxdata/delta.cpp:9` | untagged neutral name (D10) |
 | 1 | `m_Unknown78` | `app/shared/auxdata/delta.cpp:11` | untagged neutral name (D10) |
 | 1 | `m_Unknown7C` | `app/shared/auxdata/delta.cpp:12` | untagged neutral name (D10) |
