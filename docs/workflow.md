@@ -467,3 +467,12 @@ Added 2026-10-24 (overnight run; details in `.work/night/item*/report.md`):
   slots 0x726AF0-0x726BF0 in client.cpp.
 * **Edit scripts that slice between two `str.index()` markers** get an empty string when the second
   marker comes first, and `replace('', x)` then destroys the file: assert the slice before replacing.
+* **VC6 code forms (M1.3 leftovers).** Inlining depends on the whole file: an unrelated edit can
+  swap two stack slots elsewhere (0x6FB1E0), so re-verify after any generator change. Big
+  constructors stop inlining partway (inline budget: 0x700B10, 0x6F85F0, 0x6F66B0 in Ship, Player,
+  the factory); `#pragma inline_depth` doesn't reproduce it. `ret 8` with ecx set is a member even
+  if it ignores `this`. A local copy of an argument changes argument load order (0x4A3D50).
+  Separate failure returns let VC6 share the success tail. A for loop gives `jb top`; the client's
+  `jae exit; jmp top` is a do-while behind a count test. A buffer at function scope gives each
+  inlined copy its own frame slot.
+* **auxextract misses defaults set through a register** (`or reg,-1`, byte stores, register masks).
