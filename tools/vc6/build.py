@@ -26,6 +26,11 @@ into stubs.lib, D44) in the VM and links them against DIR/<lib>/<lib>.lib, DIR/m
 (tools/vc6/mkmss32.py, D51) and the system libraries (LINK_SYS: the CRT, Win32, DirectX 8,
 vfw32, comsupp, ddraw: D50), into DIR/programs/<name>/ (exe, map, cl.log, link.log, summary.json).
 
+Checked build (M2 gate (d)): ENB_CHECKED=1 python tools/vc6/build.py --out build/chk, then link
+with the same variable and --out, compiles everything with tools/vc6/checked/enb_checked.h forced
+in, so WWASSERT and WWDEBUG_SAY/WARNING/ERROR reach WWDebug's message handler (copy build/mss32 to
+build/chk first). Never used for matching.
+
 VMs: --pool K leases K VMs from pool.py (agent build-<pid>) and releases them afterwards, as
 `importer.py verify --pool K`; without it, vc6.hosts() (ENB_VC6_HOSTS) is used.
 """
@@ -85,12 +90,27 @@ def dirty(libs):
     return [l for l in text.splitlines() if l.strip()]
 
 
+# A checked build (M2 gate (d)): with ENB_CHECKED=1 every compile (libraries, program, stubs) also
+# force-includes tools/vc6/checked/enb_checked.h with DEBUG_CRASHING and DEBUG_LOGGING, so WWASSERT,
+# WWDEBUG_SAY/WARNING/ERROR report through WWDebug's message handler instead of compiling to nothing
+# as in the client. Build it into its own folder (--out build_chk; copy mss32/ there); never for matching.
+CHECKED_DIR = os.path.join(REPO, 'tools', 'vc6', 'checked')
+
+
+def checked_flags():
+    """(directories to sync, extra cl options) for a checked build, or ([], [])."""
+    if os.environ.get('ENB_CHECKED') != '1':
+        return [], []
+    return [CHECKED_DIR], [f'/I "{vc6.under_root(CHECKED_DIR)[0]}"', '/FI"enb_checked.h"',
+                           '/D "DEBUG_CRASHING"', '/D "DEBUG_LOGGING"']
+
+
 def compile_lines(lib, paths):
     """Batch lines that compile `paths` the way importer.compile_and_match does, into objdir."""
     app = I.APP_LIBS.get(lib)
     incs = [vc6.under_root(i) for i in I.tree_includes()]
     srcs = [vc6.under_root(p) for p in paths]
-    dirs = [os.path.dirname(f) for f, _ in srcs] + [f for f, _ in incs]
+    dirs = [os.path.dirname(f) for f, _ in srcs] + [f for f, _ in incs] + checked_flags()[0]
     setup = []
     if app:
         dirs += [d for d, _, _ in os.walk(I.dest(lib))]
@@ -99,7 +119,7 @@ def compile_lines(lib, paths):
     else:
         defines = vc6.DEFAULT_DEFINES
     flags = I.flags_for(paths)
-    cmd = [flags] + [f'/I "{f}"' for f, _ in incs] + [f'/D "{d}"' for d in defines]
+    cmd = [flags] + [f'/I "{f}"' for f, _ in incs] + [f'/D "{d}"' for d in defines] + checked_flags()[1]
     return dirs, setup, cmd, srcs
 
 
@@ -497,7 +517,7 @@ def link_program(name, out):
         raise SystemExit('build the libraries first (build.py; mkmss32.py lib): missing ' + ', '.join(missing))
     app_dirs = [d for d, _, _ in os.walk(I.dest('app'))]
     incs = [vc6.under_root(i) for i in I.tree_includes() + app_dirs + [pdir, sdir]]
-    vc6.sync([pdir, sdir] + [f for f, _ in incs])
+    vc6.sync([pdir, sdir] + [f for f, _ in incs] + checked_flags()[0])
     work = f'{vc6.WORK}\\link_{name}'
     vc6.run_bat([f'if exist "{work}" rmdir /s /q "{work}"', f'mkdir "{work}\\obj"', f'mkdir "{work}\\stubobj"',
                  f'mkdir "{work}\\libs"'])
@@ -514,7 +534,7 @@ def link_program(name, out):
     os.remove(local_tar)
 
     def rsp(flags, files, objdir):
-        cmd = [flags] + [f'/I "{f}"' for f, _ in incs] + [f'/D "{d}"' for d in vc6.DEFAULT_DEFINES]
+        cmd = [flags] + [f'/I "{f}"' for f, _ in incs] + [f'/D "{d}"' for d in vc6.DEFAULT_DEFINES] + checked_flags()[1]
         return '\r\n'.join(cmd + [f'/Fo"{work}\\{objdir}\\\\"'] + [f'"{vc6.under_root(f)[0]}"' for f in files]) + '\r\n'
 
     lines = [f'cd /d "{work}\\libs"', 'tar -xf ..\\libs.tar', 'del ..\\libs.tar', f'cd /d "{work}"']
