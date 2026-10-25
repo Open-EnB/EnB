@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
 | 3 | by convention from a client-named file or sibling | 65 |
 | 2 | describes what the code does | 547 |
-| 1 | neutral placeholder | 391 |
+| 1 | neutral placeholder | 412 |
 
 ## For review (score 3 and below)
 
@@ -142,6 +142,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Pre_Run` | `app/kernel/kernel.h:56` | Run_One_Cycle's order |
 | 1 | `Cycle_Focus` | `app/kernel/kernel.h:74` | what it does |
 | 1 | `Remove_Running` | `app/kernel/kernel.h:86` | what it does |
+| 1 | `Unknown_8B4510` | `app/packets/pk.cpp:8` | wwonline's 64-bit htonl (a byte-order probe, then two htonl) |
+| 1 | `Unknown_8B4560` | `app/packets/pk.cpp:9` | wwonline's 64-bit ntohl |
+| 1 | `Unknown_PacketDataClass` | `app/packets/pk.cpp:18` | untagged neutral name (D10) |
+| 1 | `Unknown_14` | `app/packets/pk.cpp:1342` | untagged neutral name (D10) |
 | 1 | `Unknown_PacketDataClass` | `app/packets/pk.h:29` | neutral placeholder (D10) |
 | 1 | `PacketHeaderClass` | `app/packets/pk.h:38` | describes what it is |
 | 1 | `RawPacketClass` | `app/packets/pk.h:47` | describes what it is (the asserts call it `packet`) |
@@ -386,6 +390,23 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_10` | `tests/capharness/kerneltest/taskstest.cpp:175` | untagged neutral name (D10) |
 | 1 | `Unknown_14` | `tests/capharness/kerneltest/taskstest.cpp:176` | untagged neutral name (D10) |
 | 1 | `Unknown` | `tests/capharness/kerneltest/taskstest.cpp:187` | untagged neutral name (D10) |
+| 1 | `Unknown_Get_Ticks` | `tests/capharness/movietest/movietest.cpp:57` | untagged neutral name (D10) |
+| 1 | `Unknown_9179D0` | `tests/capharness/movietest/movietest.cpp:58` | untagged neutral name (D10) |
+| 1 | `Unknown_42EA80` | `tests/capharness/movietest/movietest.cpp:59` | untagged neutral name (D10) |
+| 1 | `Unknown_42E8A0` | `tests/capharness/movietest/movietest.cpp:60` | untagged neutral name (D10) |
+| 1 | `UnknownBDADC0Class` | `tests/capharness/movietest/movietest.cpp:61` | untagged neutral name (D10) |
+| 1 | `Unknown0000` | `tests/capharness/movietest/movietest.cpp:64` | untagged neutral name (D10) |
+| 1 | `Unknown4074` | `tests/capharness/movietest/movietest.cpp:65` | untagged neutral name (D10) |
+| 1 | `Unknown_BDADC0` | `tests/capharness/movietest/movietest.cpp:68` | untagged neutral name (D10) |
+| 1 | `UnknownBFAEE0Class` | `tests/capharness/movietest/movietest.cpp:69` | untagged neutral name (D10) |
+| 1 | `Unknown_00` | `tests/capharness/movietest/movietest.cpp:72` | untagged neutral name (D10) |
+| 1 | `Unknown_04` | `tests/capharness/movietest/movietest.cpp:73` | untagged neutral name (D10) |
+| 1 | `Unknown_08` | `tests/capharness/movietest/movietest.cpp:74` | untagged neutral name (D10) |
+| 1 | `Unknown_0C` | `tests/capharness/movietest/movietest.cpp:75` | untagged neutral name (D10) |
+| 1 | `Unknown_10` | `tests/capharness/movietest/movietest.cpp:76` | untagged neutral name (D10) |
+| 1 | `Unknown_BFAEE0` | `tests/capharness/movietest/movietest.cpp:79` | untagged neutral name (D10) |
+| 1 | `Unknown_Assert_Failed` | `tests/capharness/movietest/movietest.cpp:80` | untagged neutral name (D10) |
+| 1 | `Unknown_Fail_If_Report` | `tests/capharness/movietest/movietest.cpp:81` | untagged neutral name (D10) |
 | 1 | `Unknown_RateClass` | `tests/capharness/udpreplay/conn_replay.cpp:41` | untagged neutral name (D10) |
 | 1 | `Unknown_Get_Ticks` | `tests/capharness/udpreplay/conn_replay.cpp:64` | untagged neutral name (D10) |
 | 1 | `Unknown_9179D0` | `tests/capharness/udpreplay/conn_replay.cpp:65` | untagged neutral name (D10) |
