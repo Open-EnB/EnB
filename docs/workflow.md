@@ -490,3 +490,11 @@ Added 2026-10-24 (overnight run; details in `.work/night/item*/report.md`):
   (`readbytes == bytes` is `cmp ebp, eax` with the wanted size in `readbytes`); two FAIL_IFs sharing
   one string means one variable name in both functions. Is_Dead's eax-wide 0/1 is
   `return(!a() && !b());`. `CordCon::read` with peek still adds to `BytesRead_`.
+* **Task code forms.** An implicit destructor is a lone `jmp` to the base destructor; an empty
+  declared one adds a vtable store. `std::string s(x); v.push_back(s);` and
+  `v.push_back(std::string(x))` compile differently: use the named local. A shared `return false`
+  tail comes from `if (p) { ...; return true; } return false;`. appfile.py `match` markers must
+  replace existing lines, not add lines (they shift `__LINE__`). names.py scans tracked files only.
+* **The client's message pump never sees WM_QUIT** (0x443E90, inlined in Process_Messages): it tests
+  for it only after GetMessage returns nonzero. A posted quit doesn't stop the kernel; tests set
+  `Quit` directly (kernel-map.md §1's "WM_QUIT sets +0x0C" doesn't happen in practice).
