@@ -11,7 +11,20 @@
 //            U idx path hex / D idx path / X idx path   the leaves the message updated (value as Write gives
 //                                               it), defaulted, cleared; compounds expanded to leaves
 //            W hex                              (differ) what we wrote
-// The end: a summary per root and form, as the reference decoder's aux-census.
+//            E status [hex]                     the client's own encoder (M1.3): equal, form (the other
+//                                               form), differ (and what it wrote), none (nothing to send)
+//            e U|D|X path                       (form, differ) the fields its collector listed ('*': a
+//            m U|D|X path                       compound as a whole) and the ones the message has
+// The end: a summary per root and form, as the reference decoder's aux-census, and one of the client-path encode.
+//
+// The client-path encode: after each decode the root writes an update through
+// UnknownRootClass::Encode (0x4A3D50: the collector, the policy, the change table), as the server
+// would, if its encoder is the same code. The server's fields count their changes up
+// (DeltaClass::Unknown_34); the client's decode sets 2 instead. So the harness keeps a server-side
+// version per field: an updated field and its parents get new ones, a defaulted field keeps its
+// own; they go into m_Unknown70 before the encode. Player uses its own policy and change table
+// (UnknownSendRootClass::Unknown_48, Encode_Changes 0x4A4660); the factory's roots get the same
+// ones made here (everything INCLUDE).
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -19,9 +32,12 @@
 #include <map>
 #include <vector>
 #include <set>
+#include <algorithm>
 #include "aux_roots.h"
 #include "linearbu.h"
 #include "encode.h"
+#include "policy.h"
+#include "unknown_changes.h"
 #include "..\duration.h"
 
 // ------------------------------------------------------------------------- what a decode touched
@@ -69,11 +85,34 @@ struct Collector
 
 static Collector Touched;
 
+// the server-side versions (see the top)
+static std::map<DeltaClass *, unsigned int> Version;
+static unsigned int Serial = 0;
+
+static void Bump(DeltaClass *d)
+{
+	for (DeltaClass *p = d; p != 0; p = p->Parent) {
+		Version[p] = ++Serial;
+	}
+}
+
+static void Sync(DeltaClass *d)
+{
+	std::map<DeltaClass *, unsigned int>::iterator i = Version.find(d);
+	d->m_Unknown70 = i == Version.end() ? 0 : i->second;
+	DeltaCompoundClass *c = d->As_Compound();
+	if (c != 0) {
+		for (size_t j = 0; j < c->Children.size(); j++) {
+			Sync(c->Children[j]);
+		}
+	}
+}
+
 template<class R> class Tracked : public R
 {
 public:
 	Tracked(int unknown) : R(unknown) {}
-	virtual void Unknown_3C(DeltaClass *delta) { R::Unknown_3C(delta); Touched.Note(0, delta); }
+	virtual void Unknown_3C(DeltaClass *delta) { R::Unknown_3C(delta); Touched.Note(0, delta); Bump(delta); }
 	virtual void Unknown_40(DeltaClass *delta) { R::Unknown_40(delta); Touched.Note(1, delta); }
 	virtual void Unknown_44(DeltaClass *delta) { R::Unknown_44(delta); Touched.Note(2, delta); }
 };
@@ -142,13 +181,29 @@ static void Hex(FILE *f, const void *data, int n)
 	}
 }
 
+// the root by the factory's name (Player's own is "Hull": 0x4A3FF0 names every send root so)
+static const char *RootName = "";
+
 static void Path(DeltaClass *d, std::string &out)
 {
 	if (d->Parent) {
 		Path(d->Parent, out);
 		out += '.';
+		out += d->Name.Get_String();
+	} else {
+		out += RootName;
 	}
-	out += d->Name.Get_String();
+}
+
+static void Lists(FILE *f)
+{
+	for (int k = 0; k < 3; k++) {
+		for (size_t j = 0; j < Touched.List[k].size(); j++) {
+			std::string path;
+			Path(Touched.List[k][j], path);
+			fprintf(f, "m %c %s%s\n", "UDX"[k], path.c_str(), Touched.List[k][j]->As_Compound() ? " *" : "");
+		}
+	}
 }
 
 static void Leaves(FILE *f, int k, DeltaClass *d)
@@ -183,6 +238,62 @@ struct Object
 {
 	UnknownRootClass *Root;
 	const char *Name;
+	PolicyClass *Policy;			// the factory's roots: made here (Player has its own)
+	ChangeTableClass *Changes;
+};
+
+// a factory root's encoder state, as UnknownSendRootClass::Unknown_48 makes Player's
+static void Encoder_State(Object &o)
+{
+	o.Policy = 0;
+	o.Changes = 0;
+	if (o.Root != 0) {
+		o.Policy = Unknown_Make_Include_Policy(o.Root->Name.Get_String(), o.Root->m_Unknown98);
+		o.Changes = new ChangeTableClass(o.Root);
+	}
+}
+
+// UnknownSendRootClass::Encode_Changes (0x4A4660) for a root with its policy and change table
+static LinearBufferClass *Encode_Changes(UnknownRootClass *root, PolicyClass *policy, ChangeTableClass *changes, unsigned int time)
+{
+	changes->Time = time;
+	if (changes->Root->Dirty || changes->Delta->m_Unknown70 != changes->Root->Stamp) {
+		changes->Scan();
+	}
+	if (changes->Entries[root->m_Unknown7C].Changed > 0) {
+		return root->Encode(policy, changes);
+	}
+	return 0;
+}
+
+// what the collector lists (for a message the encoder doesn't give back): run again on a copy of
+// the change table's entries as they were before the encode
+static void Print_Lists(FILE *f, UnknownRootClass *root, PolicyClass *policy, ChangeTableClass *changes,
+	unsigned int time, std::vector<ChangeEntryClass> &before)
+{
+	std::vector<ChangeEntryClass> after = changes->Entries;
+	std::copy(before.begin(), before.end(), changes->Entries.begin());
+	changes->Time = time;
+	if (changes->Root->Dirty || changes->Delta->m_Unknown70 != changes->Root->Stamp) {
+		changes->Scan();
+	}
+	DeltaCollectorClass collector(policy, changes);
+	root->Accept(collector);
+	DeltaListClass *lists[3] = {&collector.Updated, &collector.Defaulted, &collector.Cleared};
+	for (int k = 0; k < 3; k++) {
+		for (DeltaListNodeClass *node = lists[k]->Head; node != 0; node = node->Next) {
+			std::string path;
+			Path(node->Delta, path);
+			fprintf(f, "e %c %s%s\n", "UDX"[k], path.c_str(), node->Delta->As_Compound() ? " *" : "");
+		}
+	}
+	std::copy(after.begin(), after.end(), changes->Entries.begin());
+}
+
+struct EncodeTally
+{
+	int Equal, Form, Differ, None;
+	EncodeTally() : Equal(0), Form(0), Differ(0), None(0) {}
 };
 
 // ------------------------------------------------------------------------- main
@@ -202,6 +313,7 @@ int main(int argc, char **argv)
 	std::map<std::string, std::map<int, Object> > objects;		// per channel
 	std::map<std::string, UnknownRootClass *> players;
 	std::map<std::string, Tally> tallies;
+	std::map<std::string, EncodeTally> encodes;
 	int noroot = 0;
 	std::vector<char> line(1 << 20);
 	std::vector<unsigned char> payload;
@@ -212,6 +324,7 @@ int main(int argc, char **argv)
 			if (sscanf(&line[0], "C %127s %d %d", chan, &id, &type) == 3) {
 				Object o;
 				o.Root = Create(type, &o.Name);
+				Encoder_State(o);
 				objects[chan][id] = o;		// the old object is kept alive (the census forgets it)
 				fprintf(out, "C %s %d %d\n", chan, id, type);
 			}
@@ -232,6 +345,8 @@ int main(int argc, char **argv)
 		memcpy(&id, &payload[0], 4);
 		UnknownRootClass *root = 0;
 		const char *name = 0;
+		PolicyClass *policy = 0;
+		ChangeTableClass *changes = 0;
 		if (id == 0) {
 			UnknownRootClass *&p = players[chan];
 			if (p == 0) {
@@ -244,6 +359,8 @@ int main(int argc, char **argv)
 			if (i != objects[chan].end()) {
 				root = i->second.Root;
 				name = i->second.Name;
+				policy = i->second.Policy;
+				changes = i->second.Changes;
 			}
 		}
 		int form = payload[6];
@@ -303,12 +420,58 @@ int main(int argc, char **argv)
 			fprintf(out, "ok\n");
 			tally.Ok++;
 		}
+		RootName = name;
 		for (int list = 0; list < 3; list++) {
 			for (size_t j = 0; j < Touched.List[list].size(); j++) {
 				Leaves(out, list, Touched.List[list][j]);
 			}
 		}
+
+		// the client's own encoder on the server-side versions
+		Sync(root);
+		if (id == 0) {
+			policy = ((UnknownSendRootClass *)root)->Policy;
+			changes = ((UnknownSendRootClass *)root)->Changes;
+		}
+		std::vector<ChangeEntryClass> before = changes->Entries;
+		LinearBufferClass *e;
+		if (id == 0) {
+			e = ((UnknownSendRootClass *)root)->Encode_Changes(n);
+		} else {
+			e = Encode_Changes(root, policy, changes, n);
+		}
+		EncodeTally &et = encodes[key];
+		if (e == 0) {
+			fprintf(out, "E none\n");
+			et.None++;
+		} else {
+			int m = payload.size() - 6;
+			if (e->Size == m && memcmp(e->Buffer, &payload[6], m) == 0) {
+				fprintf(out, "E equal\n");
+				et.Equal++;
+			} else {
+				fprintf(out, "E %s ", e->Buffer[0] != payload[6] ? "form" : "differ");
+				Hex(out, e->Buffer, e->Size);
+				fprintf(out, "\n");
+				if (e->Buffer[0] != payload[6]) {
+					et.Form++;
+				} else {
+					et.Differ++;
+				}
+				Print_Lists(out, root, policy, changes, n, before);
+				Lists(out);
+			}
+			delete e;
+		}
 	}
+	int eq = 0, all = 0;
+	for (std::map<std::string, EncodeTally>::iterator k = encodes.begin(); k != encodes.end(); ++k) {
+		printf("encode %-17s %7d equal %5d form %5d differ %5d none\n", k->first.c_str(), k->second.Equal,
+			k->second.Form, k->second.Differ, k->second.None);
+		eq += k->second.Equal;
+		all += k->second.Equal + k->second.Form + k->second.Differ + k->second.None;
+	}
+	printf("client-path encode: %d of %d equal the message\n", eq, all);
 	int checked = 0, failed = 0;
 	for (std::map<std::string, Tally>::iterator t = tallies.begin(); t != tallies.end(); ++t) {
 		printf("%-24s %7d ok %5d failed\n", t->first.c_str(), t->second.Ok, t->second.Failed);

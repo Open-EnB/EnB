@@ -65,6 +65,31 @@ public:
 	DeltaListClass *Lists[3];			// +0x00  // NAME 2: describes what it does
 };
 
+// ------------------------------------------------------------------------- the update collector
+
+class PolicyClass;
+class ChangeTableClass;
+
+// What an update carries (vtable 0xAEB290, 0x30 bytes; UnknownRootClass::Unknown_Encode 0x4A3D50
+// has the root Accept one): per field the policy's action (policy.h) and the change table's
+// counts (unknown_changes.h) give a list or none: INCLUDE sends a changed field as updated, a
+// field never sent as defaulted, a compound whose leaves all changed as a whole; EXCLUDE clears
+// what was sent.
+class DeltaCollectorClass : public DeltaVisitorClass  // NAME 2: describes what it does
+{
+public:
+	DeltaCollectorClass(PolicyClass *policy, ChangeTableClass *changes);	// 0x4A8AF0
+	~DeltaCollectorClass();														// 0x4A8B40
+	virtual void Visit(DeltaCompoundClass *delta);							// 0x4A8CA0 (line 103)
+	virtual void Visit(DeltaClass *delta);										// 0x4A8E60 (lines 164, 169)
+
+	DeltaListClass Updated;				// +0x04  // NAME 2: describes what it does
+	DeltaListClass Defaulted;			// +0x10  // NAME 2: describes what it does
+	DeltaListClass Cleared;				// +0x1C  // NAME 2: describes what it does
+	PolicyClass *Policy;					// +0x28  // NAME 2: describes what it does
+	ChangeTableClass *Changes;			// +0x2C  // NAME 2: describes what it does
+};
+
 // ------------------------------------------------------------------------- the records
 
 // One field's record (vtable 0xAEB2E4: the destructor and two pure slots)

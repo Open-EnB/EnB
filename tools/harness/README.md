@@ -135,6 +135,33 @@ header byte is 0x55: whole + defaulted, with bits 4 and 6 set besides (the clien
 writes them 0). The client decodes it (Cargo defaulted) without an assert; our encoder writes
 `0c 08 04 09 05`. the reference decoder keeps the header byte as read, so its census passes it.
 
+**The client's own encoder (M1.3, 2026-10-24).** After each decode the harness also has the root
+write an update through the client's path, `UnknownRootClass::Encode` 0x4A3D50 (the collector
+`DeltaCollectorClass`, a policy, the change table `ChangeTableClass`), and compares it with the
+message: if the server's encoder is Westwood's same auxdata code, the message comes back. The
+server's fields count their changes up (`DeltaClass::Unknown_34`) where the client's decode sets 2,
+so the harness keeps a server-side version per field (an updated field and its parents get new
+ones, a defaulted one keeps its own) and puts it in `m_Unknown70` before the encode. Player uses
+its own state (`UnknownSendRootClass::Unknown_48`, `Encode_Changes` 0x4A4660); the factory's roots
+get the same, made by the harness: every field INCLUDE, the root action 2 (descend), policy.cpp's
+functional stand-in. `E` lines in `NAME.out.txt` (equal, form, differ, none), and for a message
+not given back `e` (our collector's lists) and `m` (the message's).
+
+| Trace | AUX_DATA | encode equals the message | differ | nothing sent (the message has something) |
+|---|---|---|---|---|
+| capture_1 | 34,070 | 31,450 | 1,854 | 766 |
+| capture_2 | 4,741 | 4,117 | 500 | 124 |
+| capture_3 | 5,167 | 4,149 | 663 | 355 |
+| alex3 (trace) | 4,286 | 4,121 | 135 | 30 |
+| alex7 (trace) | 365 | 357 | 8 | 0 |
+
+The tree or record form is the message's in every case, and no message that differs differs in an
+updated field: all of them differ in defaulted or cleared fields only, the server's policy (fields it
+excludes for other players' ships, Harvestable's resources and TechLevel, a Hulk's Cargo and
+Equipped until something includes them; then the never-sent fields go out as defaulted, which our
+everything-INCLUDE policy sends at once). Player: 4,371 of 4,382 equal (the 11: ClientSendUITriggers
+and GroupInfo defaulted later).
+
 ## EA-UDP transport (M1.4, gate (a))
 
 ```

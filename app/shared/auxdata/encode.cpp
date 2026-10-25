@@ -3,16 +3,21 @@
 #include "encode.h"
 #include "lookup.h"
 #include "linearbu.h"
+#include "policy.h"
+#include "unknown_changes.h"
 #include "..\unknown_debug.h"
 
 // The pools (mempool.h): the list nodes' 0xBE3AE8 (0x4A8A60), the records' 0xBE3AD0 and 0xBE3AB8
 // (0x4A9850, 0x4A98E0)
 DEFINE_AUTO_POOL(DeltaListNodeClass, 256)
 
-// (lines down to 175 hold code of the client's file not rebuilt yet, 0x4A8990-0x4A8FC0: the
-// update collector, a DeltaVisitorClass with the three lists, vtable 0xAEB290; its asserts are on
-// lines 103 and 169)
+DeltaCollectorClass::DeltaCollectorClass(PolicyClass *policy, ChangeTableClass *changes) : Policy(policy), Changes(changes)
+{
+}
 
+DeltaCollectorClass::~DeltaCollectorClass()
+{
+}
 
 
 
@@ -57,9 +62,47 @@ DEFINE_AUTO_POOL(DeltaListNodeClass, 256)
 
 
 
+void DeltaCollectorClass::Visit(DeltaCompoundClass *delta)
+{
+	unsigned int value = 0;
+	int action = Policy->Get_Action(delta->m_Unknown7C, (int *)&value);
+	int id = delta->m_Unknown7C;
+	switch (action) {
+		case 1:
+			if (Changes->Entries[id].Sent > 0) {
+				Cleared.Add(delta);
+				Changes->Set_Unsent(id);
+			}
+			Changes->Exclude(id);
+			return;
 
+		case 3:
+		case 4:
+		{
+			bool changed = Changes->Entries[id].Changed > 0;
+			if (Changes->Entries[id].Sent == Changes->Entries[id].Size && !changed) {
+				return;
+			}
+			if (Changes->Entries[id].Sent <= 0 && !changed) {
+				Defaulted.Add(delta);
+				Changes->Set_Sent(delta);
+				return;
+			}
+			if (Changes->Entries[id].Changed == Changes->Entries[id].Size && Changes->Time - Changes->Entries[id].Last >= value) {
+				Updated.Add(delta);
+				Changes->Set_Sent(delta);
+				return;
+			}
+		}
 
+		case 2:
+			Visit_Children(delta);
+			return;
 
+		default:
+			G_ASSERT(0);
+	}
+}
 
 
 
@@ -83,92 +126,49 @@ DEFINE_AUTO_POOL(DeltaListNodeClass, 256)
 
 
 
+void DeltaCollectorClass::Visit(DeltaClass *delta)
+{
+	unsigned int value = 0;
+	int id = delta->m_Unknown7C;
+	switch (Policy->Get_Action(id, (int *)&value)) {
+		case 1:
+			if (Changes->Entries[id].Sent > 0) {
+				Cleared.Add(delta);
+				Changes->Set_Unsent(id);
+			}
+			Changes->Exclude(id);
+			return;
 
+		case 3:
+		case 4:
+		{
+			ChangeTableClass *changes = Changes;
+			unsigned int last = delta->m_Unknown70;
+			bool sent = changes->Entries[id].Sent > 0;
+			bool changed = last != changes->Entries[id].Stamp;
+			if (sent) {
+				if (!changed || changes->Time - changes->Entries[id].First < value) {
+					return;
+				}
+				Updated.Add(delta);
+			} else if (changed) {
+				Updated.Add(delta);
+			} else {
+				Defaulted.Add(delta);
+			}
+			Changes->Set_Sent(id, delta->m_Unknown70);
+			return;
+		}
 
+		case 2:
+			G_ASSERT(0);
+			break;
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+		default:
+			G_ASSERT(0);
+	}
+}
 
 
 

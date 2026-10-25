@@ -235,7 +235,7 @@ DeltaManufacturingLabClass::DeltaManufacturingLabClass(int unknown) :
 
 // Player (0x752510)
 DeltaPlayerClass::DeltaPlayerClass(int unknown) :
-	UnknownRootClass(unknown, "Player"),
+	UnknownSendRootClass(unknown, "Player"),
 	Money("Money"),
 	XPDebt("XPDebt"),
 	SecureInventory("SecureInventory", 96),
@@ -273,7 +273,7 @@ DeltaPlayerClass::DeltaPlayerClass(int unknown) :
 	Add(&SectorNum);
 	Add(&ClientSendUITriggers);
 	Add(&GroupInfo);
-	DeltaCompoundClass::Unknown_48();
+	Unknown_48();
 }
 
 void DeltaShipClass::Add(int narrow, DeltaClass *child)

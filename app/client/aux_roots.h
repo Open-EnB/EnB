@@ -1074,7 +1074,7 @@ public:
 
 // vtable 0xB03360, constructor 0x752510
 // NAME 3: the client's root string "Player", Westwood XxxClass (D24); structure = Net-7 AuxPlayerIndex / C# PilotData (C# fields = ours (same names, same order); Net-7 Construct 18 children = ours)
-class DeltaPlayerClass : public UnknownRootClass
+class DeltaPlayerClass : public UnknownSendRootClass
 {
 public:
 	DeltaPlayerClass(int unknown);

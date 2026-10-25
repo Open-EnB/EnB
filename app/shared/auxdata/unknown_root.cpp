@@ -6,6 +6,8 @@
 #include "unknown_root.h"
 #include "encode.h"
 #include "linearbu.h"
+#include "policy.h"
+#include "unknown_changes.h"
 
 #pragma comment(lib, "winmm.lib")
 
@@ -30,6 +32,36 @@ UnknownRootClass::~UnknownRootClass()
 {
 }
 
+LinearBufferClass *UnknownRootClass::Encode(PolicyClass *policy, ChangeTableClass *changes)
+{
+	DeltaCollectorClass collector(policy, changes);
+	Accept(collector);
+	if (collector.Updated.Count == 0 && collector.Defaulted.Count == 0 && collector.Cleared.Count == 0) {
+		return 0;
+	}
+	LinearBufferClass *buf = new LinearBufferClass(0x400, 0x400);
+	DeltaListSetClass set(&collector.Updated, &collector.Defaulted, &collector.Cleared);
+	int count = m_Unknown98;
+	RecordTableClass records(count, &collector.Updated, &collector.Defaulted, &collector.Cleared);
+	int updated = set.Lists[0]->Count;
+	int defaulted = set.Lists[1]->Count;
+	int cleared = set.Lists[2]->Count;
+	if (4 * (updated + defaulted + cleared) + 12 <= records.Unknown_Sum()) {
+		char encoding = 0;
+		if (buf->Write(&encoding, 1) != 1 || !set.Write(buf)) {
+			delete buf;
+			return 0;
+		}
+	} else {
+		char encoding = 1;
+		if (buf->Write(&encoding, 1) != 1 || !records.Unknown_All(buf)) {
+			delete buf;
+			return 0;
+		}
+	}
+	return buf;
+}
+
 bool DeltaCompoundClass::Decode(LinearBufferClass &buf, const DurationClass &base)
 {
 	char encoding;
@@ -41,6 +73,40 @@ bool DeltaCompoundClass::Decode(LinearBufferClass &buf, const DurationClass &bas
 		codec = Get_Tree_Codec();
 	}
 	return codec->Decode(this, buf, base);
+}
+
+UnknownSendRootClass::UnknownSendRootClass(int unknown, const char *) : UnknownRootClass(unknown, "Hull"), Policy(0), Changes(0)
+{
+}
+
+// NOT EXACT (D42): the client builds the policy through policy.cpp's rule set (a "*" INCLUDE rule,
+// 0x4AE490, in a ref-counted set of vtable 0xAEAC9C) and PolicyClass's 0x4AEF40, 0x4AF190 (+0xA4)
+// and 0x4AF3A0; here policy.cpp's functional stand-in gives the same actions.
+void UnknownSendRootClass::Unknown_48()
+{
+	DeltaCompoundClass::Unknown_48();
+	Policy = Unknown_Make_Include_Policy(Name.Get_String(), m_Unknown98);
+	m_UnknownA4 = 0;
+	Changes = new ChangeTableClass(this);
+}
+
+UnknownSendRootClass::~UnknownSendRootClass()
+{
+	delete Policy;
+	delete m_UnknownA4;
+	delete Changes;
+}
+
+LinearBufferClass *UnknownSendRootClass::Encode_Changes(unsigned int time)
+{
+	Changes->Time = time;
+	if (Changes->Root->Dirty || Changes->Delta->m_Unknown70 != Changes->Root->Stamp) {
+		Changes->Scan();
+	}
+	if (Changes->Entries[m_Unknown7C].Changed > 0) {
+		return Encode(Policy, Changes);
+	}
+	return 0;
 }
 
 // 0x4B0860: in another object (0x4AF.../0x4B0..., not attributed either); here until it has a file

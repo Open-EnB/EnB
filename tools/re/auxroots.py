@@ -25,8 +25,9 @@ blobs: `Unknown<VT>Type`) with the conversions KVPairTemplateClass needs.
 
 The output is functional, NOT EXACT (D42): default values (the client's 'Default' strings,
 1.0f arrays, the 20-byte blobs' {1.0f, 0, 0, -1, 0}) are not extracted, the nested classes'
-out-of-line constructors (the 0x700xxx / 0x75xxxx objects) are inline here, and Player derives
-from UnknownRootClass where the client uses the second root class (vtable 0xAEAC40, ctor 0x4A3FF0).
+out-of-line constructors (the 0x700xxx / 0x75xxxx objects) are inline here. Player derives from
+the second root class UnknownSendRootClass (vtable 0xAEAC40, ctor 0x4A3FF0) and calls its
+Unknown_48 (0x4A40B0: the policy and the change table).
 """
 import argparse
 import json
@@ -46,6 +47,7 @@ NAMES = os.path.join(HERE, 'auxroots_names.json')     # tools/re/auxnames.py
 # The factory's create types (0x6F6000's switch) and the roots it builds; Player is game id 0.
 ROOT_CTOR = {'Ship': 0x6F66E0, 'Component': 0x6FBDA0, 'Light': 0x6F9870, 'Decoration': 0x6F9C30,
              'Harvestable': 0x6F9ED0, 'ManufacturingLab': 0x6FA6F0, 'Player': 0x752510}
+SEND_ROOTS = {'Player'}     # derived from UnknownSendRootClass (unknown_root.h)
 INLINE_ROOT_VT = {'Planet': 0xB00894, 'Stargate': 0xB007DC, 'Starbase': 0xB00838}   # built in the factory
 
 LEAF = {
@@ -252,9 +254,11 @@ class Gen:
         if len(set(offs)) != len(offs):
             raise SystemExit(f'{path}: two members at one offset')
         if root:
-            init = [f'UnknownRootClass(unknown, "{n["_cname"]}")']
+            # Player's base is the second root class (vtable 0xAEAC40, ctor 0x4A3FF0: the name
+            # argument is passed but not used); the factory's roots derive from UnknownRootClass
+            basecls = 'UnknownSendRootClass' if root in SEND_ROOTS else 'UnknownRootClass'
+            init = [f'{basecls}(unknown, "{n["_cname"]}")']
             sig = f'{name}(int unknown)'
-            basecls = 'UnknownRootClass'
         else:
             init = ['DeltaCompoundClass(name)']
             sig = f'{name}(const char *name)'
@@ -284,8 +288,9 @@ class Gen:
         lines.append('};')
         self.decl[vt] = '\n'.join(lines)
         if root and not inline:
+            # the client calls the class's own Unknown_48 (0x4A40B0 for Player, 0x4A5170 otherwise)
             ctor = [f'{name}::{sig} :', '\t' + ',\n\t'.join(init), '{'] + body + \
-                   ['\tDeltaCompoundClass::Unknown_48();', '}']
+                   ['\tUnknown_48();' if root in SEND_ROOTS else '\tDeltaCompoundClass::Unknown_48();', '}']
             self.root_ctor = '\n'.join(ctor)
         self.order.append(vt)
         return name

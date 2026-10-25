@@ -81,6 +81,11 @@ def prepare(src, out, dgram=False):
 
 # ------------------------------------------------------------------------- build
 
+APP_SOURCES = (r'app\client\aux_roots.cpp', r'app\shared\auxdata\unknown_root.cpp',
+               r'app\shared\auxdata\encode.cpp', r'app\shared\auxdata\policy.cpp',
+               r'app\shared\auxdata\unknown_changes.cpp')
+
+
 def build(out, app_sources):
     sys.path.insert(0, os.path.join(REPO, 'tools', 'vc6'))
     import build as B
@@ -91,9 +96,10 @@ def build(out, app_sources):
     for fn in os.listdir(src):
         shutil.copy(os.path.join(src, fn), stage)
     if app_sources:
-        with open(os.path.join(stage, 'app_sources.cpp'), 'w', newline='\r\n') as f:
-            f.write('// app files newer than build/app/app.lib (auxreplay.py --app-sources)\n')
-            for p in (r'app\client\aux_roots.cpp', r'app\shared\auxdata\unknown_root.cpp'):
+        # app files newer than build/app/app.lib, one stub file each (their statics stay apart)
+        for k, p in enumerate(APP_SOURCES):
+            with open(os.path.join(stage, 'app_sources_%d.cpp' % k), 'w', newline='\r\n') as f:
+                f.write('// app file newer than build/app/app.lib (auxreplay.py --app-sources)\n')
                 f.write('#include "' + os.path.relpath(os.path.join(REPO, p), stage) + '"\n')
     B.PROGRAMS['auxreplay'] = {'dir': os.path.relpath(stage, REPO), 'flags': B.I.LIB_FLAGS['ww3d2'] + ' /GX',
                                'subsystem': 'console', 'runtime': []}

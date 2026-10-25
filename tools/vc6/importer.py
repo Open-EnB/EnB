@@ -3124,23 +3124,44 @@ RECONSTRUCTED = {
                                           "writer 0x4A91E0, Add 0x4A9C30 (lines 568-597, not exact), the "
                                           "records 0x4AA110-0x4AA320 (line 660) and their pools "
                                           "(mempool.h), DeltaListClass 0x4AA710 / 0x4AA750 (not exact); "
-                                          "the update collector 0x4A8990-0x4A8FC0 not rebuilt",
+                                          "the update collector DeltaCollectorClass (vtable 0xAEB290; M1.3): "
+                                          "ctor 0x4A8AF0, dtor 0x4A8B40, Visit 0x4A8CA0 / 0x4A8E60 (lines "
+                                          "103, 164, 169; functional, NOT EXACT)",
     ('app', 'shared/auxdata/encode.h'): "encode.cpp's declarations (name assumed: the root's codec "
                                         "select 0x4A3FA0, in another object, uses RecordCodec and "
                                         "Get_Tree_Codec): the codecs (vtables 0xAEB29C, 0xAEB2AC/0xAEB2A0), "
                                         "the field lists (pool 0xBE3AE8), the records (vtables 0xAEB2E4, "
-                                        "0xAEB2C4, 0xAEB2D4; pools 0xBE3AD0, 0xBE3AB8), RecordTableClass",
+                                        "0xAEB2C4, 0xAEB2D4; pools 0xBE3AD0, 0xBE3AB8), RecordTableClass, "
+                                        "the update collector (vtable 0xAEB290)",
     ('app', 'shared/auxdata/policy.cpp'): "CompiledPolicyClass (D24; Compiled, Size from the asserts): dtor "
                                           "0x4AE850, Get_Action 0x4AED50 (line 334, D25); PolicyClass::"
-                                          "Get_Action 0x4AF490 (line 444); the rest of the file not rebuilt",
+                                          "Get_Action 0x4AF490 (line 444); the class declarations moved to "
+                                          "policy.h (lines kept); functional (NOT EXACT, M1.3): ~PolicyClass "
+                                          "0x4AEDD0, ~PolicyStateClass 0x4AF890 and a stand-in for the rule set "
+                                          "and compile (Unknown_Make_Include_Policy); the rest not rebuilt",
+    ('app', 'shared/auxdata/policy.h'): "policy.cpp's declarations (name assumed from policy.cpp, M1.3): "
+                                        "PolicyRuleClass, PolicyNodeClass, CompiledPolicyClass, PolicyClass "
+                                        "(0x18 bytes), PolicyStateClass (0x14)",
+    ('app', 'shared/auxdata/unknown_changes.h'): "ChangeEntryClass / ChangeTableClass (D24, PROVISIONAL file "
+                                                 "name, M1.3): the change table of a root that sends its "
+                                                 "fields (UnknownSendRootClass +0xA8, size 0x1C; entries 0x28)",
+    ('app', 'shared/auxdata/unknown_changes.cpp'): "the change table's object 0x4AB580-0x4AC250 (no assert, no "
+                                                   "__FILE__: PROVISIONAL file name, M1.3): 0x4AB5F0-0x4ABD90 "
+                                                   "and the three visitors (vtables 0xAEB2F4, 0xAEB300, "
+                                                   "0xAEB30C); 0x4AB7D0 and 0x4ABB80 not exact; 0x4AB580 not "
+                                                   "rebuilt",
     ('app', 'shared/auxdata/unknown_root.h'): "UnknownRootClass (D24, PROVISIONAL file name, M1.3): the aux-data "
-                                              "root (vtable 0xAEAB88, size 0xA0; the int at +0x9C), the clock",
+                                              "root (vtable 0xAEAB88, size 0xA0; the int at +0x9C), the clock; "
+                                              "UnknownSendRootClass (vtable 0xAEAC40, size 0xAC), Player's base",
     ('app', 'shared/auxdata/unknown_root.cpp'): "the root's object 0x4A3990-0x4A4780 (no assert, no __FILE__: "
                                                 "PROVISIONAL file name, M1.3): the clock 0x4A3B40, the root's "
                                                 "constructor 0x4A3BD0 and destructor 0x4A3D30, DeltaCompoundClass::"
                                                 "Decode 0x4A3FA0; DeltaVisitorClass::Visit_Children 0x4B0860 (another "
-                                                "unattributed object); the root encode 0x4A3D50 and the second root "
-                                                "class (0xAEAC40) not rebuilt",
+                                                "unattributed object); the root encode 0x4A3D50; the second root "
+                                                "class UnknownSendRootClass (vtable 0xAEAC40): ctor 0x4A3FF0, dtor "
+                                                "0x4A4590, Encode_Changes 0x4A4660, Unknown_48 0x4A40B0 functional "
+                                                "(NOT EXACT: policy.cpp's stand-in); the policy's ref-counted rule "
+                                                "set helpers 0x4A42D0-0x4A4780 not rebuilt",
     ('app', 'shared/auxdata/delta_array.h'): "DeltaArrayClass<T> (D24; M1.3): count DeltaTemplateClass<T> fields "
                                              "named \"%d\" made with one value; the client's __FILE__ "
                                              "'..\\shared/auxdata/delta_array.h', its assert on line 71 (D25, 0x703550)",

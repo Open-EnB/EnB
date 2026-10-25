@@ -1,47 +1,47 @@
 // Earth & Beyond client (reconstruction): app\shared\auxdata\policy.cpp. Notes at the end of the file.
 #include "..\unknown_debug.h"
 
-// The classes are declared here until the rest of the file is rebuilt (the header is not known).
+#include <string.h>
+#include "policy.h"
 
-// one rule of a policy (made by 0x4AE490, whose assert names the actions EXCLUDE, INCLUDE and
-// REDUNDANT: 1, 3 and 4 there)
-class PolicyRuleClass  // NAME 2: describes what it does
-{
-public:
-	char m_Unknown00[0x34];		// not known yet
-	int Action;						// +0x34 (2: the rule belongs to its node)  // NAME 3: after the assert's parameter action (policy.cpp)
-	int m_Unknown38;				// +0x38 the value Get_Action hands back
-	bool *m_Unknown3C;			// +0x3C the rule applies while this is set
-};
 
-class PolicyNodeClass  // NAME 2: describes what it does
-{
-public:
-	PolicyRuleClass *Rule;		// +0x00  // NAME 2: describes what it does
-	PolicyNodeClass *Next;		// +0x04  // NAME 2: describes what it does
-};
 
-// the rules per field id (the asserts' Compiled, Size)
-class CompiledPolicyClass  // NAME 2: after the asserts' Compiled
-{
-public:
-	~CompiledPolicyClass();											// 0x4AE850
-	int Get_Action(int id, int *value) const;					// 0x4AED50 (the first rule that applies; 1 if none)  // NAME 2: describes what it does
 
-	int m_Unknown00;
-	int m_Unknown04;
-	int Size;							// +0x08
-	PolicyNodeClass **Table;		// +0x0C  // NAME 2: describes what it does
-};
 
-class PolicyClass  // NAME 3: by convention (D24) from the client's file policy.cpp
-{
-public:
-	int Get_Action(int id, int *value) const;					// 0x4AF490  // NAME 2: describes what it does
 
-	char m_Unknown00[0x14];				// not known yet
-	CompiledPolicyClass *Compiled;		// +0x14
-};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // (the lines down to Get_Action hold code of the client's file not rebuilt yet: its assert is on
 // line 334)
@@ -443,6 +443,61 @@ int PolicyClass::Get_Action(int id, int *value) const
 {
 	G_ASSERT(Compiled);
 	return Compiled->Get_Action(id, value);
+}
+
+// ------------------------------------------------------------------------- functional (NOT EXACT)
+
+// NOT EXACT (D42): the client's destructor 0x4AEDD0 also releases the rule sets (the vector at
+// +0x00, not rebuilt); this one deletes the compiled policies.
+PolicyClass::~PolicyClass()
+{
+	CompiledPolicyClass *compiled = m_Unknown10;
+	while (compiled != 0) {
+		CompiledPolicyClass *next = compiled->m_Unknown04;
+		delete compiled;
+		compiled = next;
+	}
+}
+
+// NOT EXACT (D42): the client's 0x4AF890 releases what 0x4AF190 made (not rebuilt)
+PolicyStateClass::~PolicyStateClass()
+{
+}
+
+static bool IncludeEnabled = true;  // NAME 2: describes what it does
+static PolicyRuleClass IncludeRule = {{0}, 3, 0, &IncludeEnabled};  // NAME 2: describes what it does
+
+// NOT EXACT (D42): see policy.h. size is the root's field count (m_Unknown98), name its interned name.
+// The root's own action is 2 (what the client's compile gives a node above a rule's fields: the
+// captures show no update with the whole root), every other field's INCLUDE.
+PolicyClass *Unknown_Make_Include_Policy(const char *name, int size)
+{
+	CompiledPolicyClass *compiled = new CompiledPolicyClass;
+	compiled->m_Unknown00 = (int)name;
+	compiled->m_Unknown04 = 0;
+	compiled->Size = size;
+	compiled->Table = new PolicyNodeClass *[size > 0 ? size : 1];
+	for (int i = 0; i < size; i++) {
+		PolicyNodeClass *node = new PolicyNodeClass;
+		node->Rule = &IncludeRule;
+		node->Next = 0;
+		if (i == 0) {
+			// the root: above the rule's fields, so it gets a rule of its own (action 2: visit
+			// the children; the destructor deletes it with its node)
+			PolicyRuleClass *rule = new PolicyRuleClass;
+			memset(rule->m_Unknown00, 0, sizeof(rule->m_Unknown00));
+			rule->Action = 2;
+			rule->m_Unknown38 = 0;
+			rule->m_Unknown3C = &IncludeEnabled;
+			node->Rule = rule;
+		}
+		compiled->Table[i] = node;
+	}
+	PolicyClass *policy = new PolicyClass;
+	memset(policy->m_Unknown00, 0, sizeof(policy->m_Unknown00));
+	policy->m_Unknown10 = compiled;
+	policy->Compiled = compiled;
+	return policy;
 }
 
 /*
