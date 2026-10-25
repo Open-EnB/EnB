@@ -2,8 +2,11 @@
 
 The next item in D6's order after the milestones: `app\kernel`, `app\main`, `app\client\tasks`
 (the program's skeleton), with the packet layer between the transports and the packet handlers
-(`app\common`). Read-only map, 2026-10-24: classes, vtables, functions, the call structure, and a
-proposed reconstruction order. No code was written for it.
+(`app\common`). Mapped read-only on 2026-10-24: classes, vtables, functions, the call structure,
+and a reconstruction order (§6), adopted as D68 (extends D6). Since then steps 1-5 and 7 are done
+or partly done (§6's rows): kernel.cpp, bandwidthaccounting.cpp, the connection layer (circbuff.cpp,
+connect.cpp's base and stream connection, udpconn.cpp), the packet factory with its switch over
+263 generated classes, MenuTask and the movie tasks (`git log --oneline` from 8ab13d1).
 
 Evidence tags: **S** a client string naming it (profile label, log text, assert, `__FILE__`),
 **C** what the code does (a descriptive name, not the client's), **N** the reference decoder's research
@@ -38,7 +41,9 @@ The loop (all in kernel.cpp):
 ```
 KernelClass::Run 0x4436C0:  while (Process_Messages() && Run_One_Cycle() && Is_Running()) {}
     Process_Messages 0x443710 (vtable +0x08): PeekMessage / GetMessage / Translate / Dispatch;
-        WM_QUIT sets +0x0C; then the input queue (0x42EA80 takes an event, kernel +0x14 Handle_Key
+        WM_QUIT would set +0x0C, but the pump (0x443E90, inlined) tests for it only after
+        GetMessage returned nonzero, which it never does for WM_QUIT: a posted quit doesn't
+        stop the kernel (tests set `Quit` directly); then the input queue (0x42EA80 takes an event, kernel +0x14 Handle_Key
         0x443E20 first: Esc with no task focused shuts down, key 0x6A cycles the focus; else 0x42E8A0
         hands it on)
     Run_One_Cycle 0x443820 (+0x0C, S 'KernelClass::Run_One_Cycle'):
@@ -53,7 +58,7 @@ KernelClass::Run 0x4436C0:  while (Process_Messages() && Run_One_Cycle() && Is_R
             any other task: Run (S 'Background_Task->Run()')
             a task removed while running (+0x08): Shutdown (+0x40) and delete
                 (S 'Pending_Delete->Shutdown()')
-    Is_Running 0x443B90 (+0x10): false once WM_QUIT was seen, else the task list isn't empty
+    Is_Running 0x443B90 (+0x10): false once `Quit` (+0x0C) is set, else the task list isn't empty
 ```
 
 ## 2. KernelClass (app\kernel\kernel.cpp)
@@ -66,7 +71,7 @@ vtable **0xAE766C** (6 slots, no virtual destructor):
 | +0x00 | vtable 0xAE766C | |
 | +0x04 | `Current_Task`: the focused task | S (profile label) |
 | +0x08 | `Pending_Delete`: a task removed while it was running | S (assert `!Pending_Delete`, label) |
-| +0x0C | bool: WM_QUIT seen | C |
+| +0x0C | bool `Quit`: meant for WM_QUIT, never set by it in practice (§1) | C |
 | +0x0D | bool: render the focused task | C |
 | +0x0E | bool: the last device check passed | C |
 | +0x10 | byte (constructor) | |
@@ -80,7 +85,7 @@ vtable **0xAE766C** (6 slots, no virtual destructor):
 | +0x04 | 0x4432A0 | 0xA3 | Shutdown: the focused task yields, every task Shutdown (+0x40) and, if Delete_On_Remove, deleted; then a heap check (`_heapchk`, DebugBreak) | C |
 | +0x08 | 0x443710 | 0xCA | Process_Messages | C |
 | +0x0C | 0x443820 | 0x2BA | Run_One_Cycle | S |
-| +0x10 | 0x443B90 | 0x13 | Is_Running (no WM_QUIT, tasks left) | C |
+| +0x10 | 0x443B90 | 0x13 | Is_Running (no `Quit`, tasks left) | C |
 | +0x14 | 0x443E20 | 0x50 | Handle_Key (Esc, 0x6A) | C |
 
 Other functions (kernel.cpp, 0x443020-0x444150):
