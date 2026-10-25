@@ -8,22 +8,22 @@
 void Unknown_Debug_Printf(const char *format, ...);
 
 // One interned string: the table's slots chain these (size 0xC)
-class PermStringEntryClass
+class PermStringEntryClass  // NAME 2: describes what it does
 {
 public:
 	PermStringEntryClass(const char *string, unsigned int hash, PermStringEntryClass *next);
 	~PermStringEntryClass();
 
 	char *String;						// +0x00 (the assert's name)
-	unsigned int Hash;					// +0x04
-	PermStringEntryClass *Next;		// +0x08
+	unsigned int Hash;					// +0x04  // NAME 2: describes what it does
+	PermStringEntryClass *Next;		// +0x08  // NAME 2: describes what it does
 };
 
 static PermStringEntryClass **s_Table;		// 0xBE3B30 (the asserts' name)
-static int s_Size;							// 0xBE3B34 the first prime from 1500 (1511)
-static int s_Count;							// 0xBE3B38 the PermStringInitClass objects alive
+static int s_Size;							// 0xBE3B34 the first prime from 1500 (1511)  // NAME 2: after the asserts' s_Table
+static int s_Count;							// 0xBE3B38 the PermStringInitClass objects alive  // NAME 2: after the asserts' s_Table
 
-static bool Is_Prime(int number)
+static bool Is_Prime(int number)  // NAME 2: describes what it does
 {
 	for (int i = 2; i < number; i++) {
 		if (number % i == 0) {
@@ -220,7 +220,7 @@ PermStringEntryClass::~PermStringEntryClass()
 }
 
 // a second initialiser of this file's own (0xBE3B40, constructed by 0x4AE3B0)
-static PermStringInitClass PermStringInitInstance;
+static PermStringInitClass PermStringInitInstance;  // NAME 2: describes what it does
 
 /*
 **	Reconstruction notes

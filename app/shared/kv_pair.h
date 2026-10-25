@@ -15,46 +15,46 @@
 #pragma once
 #endif
 
-#ifndef __KV_PAIR_H
+#ifndef __KV_PAIR_H  // NAME 3 [kv_pair.h]: header name assumed from the client's kv_pair.cpp
 #define __KV_PAIR_H
 
 #include "auxdata\permstr.h"
 #include "strconv_lib.h"
 
 // vtable 0xAEB7EC (the destructor, then six pure slots), size 0x0C
-class KVPairClass
+class KVPairClass  // NAME 3: by convention (D24) from the client's file kv_pair.cpp
 {
 public:
 	KVPairClass(const char *key, bool even, bool odd);						// 0x4B7EB0
 	virtual ~KVPairClass();															// +0x00 0x4B7F50 (deleting 0x4B7F20)
 	// The slots' purposes from the string and float pairs (kv_pair_string.cpp; the float pair's
 	// 0x4484C0-0x448610); the names are descriptive guesses (D10).
-	virtual KVPairClass *Clone() const = 0;									// +0x04 a copy (accessor cloned)
-	virtual const char *Get_Type_Name() const = 0;							// +0x08 ("char *": 0x4B8090, "float")
-	virtual char *Get_Value_String(char *buf, int size) const = 0;		// +0x0C the value as text, into buf
-	virtual bool Set_Value_String(const char *text) = 0;					// +0x10 parses text into the value
-	virtual bool Is_Changed() const = 0;										// +0x14 the value differs from the saved one
-	virtual void Update_Saved() = 0;											// +0x18 saves the current value
+	virtual KVPairClass *Clone() const = 0;									// +0x04 a copy (accessor cloned)  // NAME 2: descriptive name of the vtable slot (D57)
+	virtual const char *Get_Type_Name() const = 0;							// +0x08 ("char *": 0x4B8090, "float")  // NAME 2: descriptive name of the vtable slot (D57)
+	virtual char *Get_Value_String(char *buf, int size) const = 0;		// +0x0C the value as text, into buf  // NAME 2: descriptive name of the vtable slot (D57)
+	virtual bool Set_Value_String(const char *text) = 0;					// +0x10 parses text into the value  // NAME 2: descriptive name of the vtable slot (D57)
+	virtual bool Is_Changed() const = 0;										// +0x14 the value differs from the saved one  // NAME 2: descriptive name of the vtable slot (D57)
+	virtual void Update_Saved() = 0;											// +0x18 saves the current value  // NAME 2: descriptive name of the vtable slot (D57)
 
-	PermString Key;					// +0x04
+	PermString Key;					// +0x04  // NAME 3: after the assert's parameter key (kv_pair.cpp)
 	bool m_Unknown08;					// +0x08 the encoder's even bits (KVEncoderBaseClass::Unknown_Test)
 	bool m_Unknown09;					// +0x09 the odd bits
 };
 
 // A typed value reached through the pair (the float field's interface: vtable 0xAE78D0, the destructor
 // and three pure slots). The header the client has these in is not known.
-template<class T> class KVAccessorClass
+template<class T> class KVAccessorClass  // NAME 2: after the assert's parameter accessor (kv_pair.cpp); the class name describes it
 {
 public:
 	virtual ~KVAccessorClass() {}
-	virtual const T &Get() = 0;
-	virtual void Set(const T &value) = 0;
-	virtual KVAccessorClass<T> *Clone() const = 0;
+	virtual const T &Get() = 0;  // NAME 2: describes what it does
+	virtual void Set(const T &value) = 0;  // NAME 2: describes what it does
+	virtual KVAccessorClass<T> *Clone() const = 0;  // NAME 2: describes what it does
 };
 
 // A pair holding a typed accessor and the value it had when the pair was made (float: vtable
 // 0xAE7860, size 0x14; the constructor is inline)
-template<class T> class KVPairTemplateClass : public KVPairClass
+template<class T> class KVPairTemplateClass : public KVPairClass  // NAME 2: after KVPairClass (D24) and its template role
 {
 public:
 	KVPairTemplateClass(const char *key, KVAccessorClass<T> *accessor, bool even, bool odd) :
@@ -78,8 +78,8 @@ public:
 	virtual bool Is_Changed() const;
 	virtual void Update_Saved();
 
-	KVAccessorClass<T> *Accessor;		// +0x0C
-	T Value;									// +0x10 the saved value
+	KVAccessorClass<T> *Accessor;		// +0x0C  // NAME 3: after the assert's parameter accessor (kv_pair.cpp)
+	T Value;									// +0x10 the saved value  // NAME 2: describes what it does
 };
 
 // The bodies (the time field's unsigned int pair in delta_time.cpp's object: 0x4A8770-0x4A8990,

@@ -465,7 +465,7 @@ bool TreeCodecClass::Read_Header(bool *whole, bool *updated, bool *defaulted, bo
 DEFINE_AUTO_POOL(LeafRecordClass, 128)
 DEFINE_AUTO_POOL(CompoundRecordClass, 128)
 
-TreeCodecClass *TreeCodec;										// 0xBE3B00
+TreeCodecClass *TreeCodec;										// 0xBE3B00  // NAME 2: describes what it does
 static TreeCodecHolderClass TreeCodecHolder(TreeCodec);		// 0xBE3AB0 (0x4A9970)
 
 TreeCodecHolderClass::TreeCodecHolderClass(TreeCodecClass *&codec)

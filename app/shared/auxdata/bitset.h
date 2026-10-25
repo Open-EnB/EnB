@@ -13,30 +13,30 @@
 #pragma once
 #endif
 
-#ifndef __BITSET_H
+#ifndef __BITSET_H  // NAME 3 [bitset.h]: header name assumed from the client's bitset.cpp
 #define __BITSET_H
 
-class BitSetClass
+class BitSetClass  // NAME 3: by convention (D24) from the client's file bitset.cpp
 {
 public:
 	BitSetClass(unsigned int size);										// 0x4A47B0, all bits clear
 	BitSetClass(const void *buffer, unsigned int buff_size);		// 0x4A4870, a copy of buff_size bytes
 	~BitSetClass();															// 0x4A4960
 
-	void Swap(BitSetClass &other);										// 0x4A4980
+	void Swap(BitSetClass &other);										// 0x4A4980  // NAME 2: describes what it does
 	BitSetClass &operator=(const BitSetClass &other);				// 0x4A49C0
 	bool operator==(const BitSetClass &other) const;				// 0x4A4A30
 
-	bool Is_Set(unsigned int pos) const;								// 0x4A4AA0
+	bool Is_Set(unsigned int pos) const;								// 0x4A4AA0  // NAME 2: describes what it does
 	bool operator[](unsigned int pos) const { return Is_Set(pos); }	// encode.cpp's assert on line 660 (b[1])
-	void Set(unsigned int pos);											// 0x4A4B10
-	void Set_All();															// 0x4A4B80
-	void Clear(unsigned int pos);											// 0x4A4BB0
-	void Clear_All();															// 0x4A4C00
-	bool Is_Any_Set() const;												// 0x4A4C30
+	void Set(unsigned int pos);											// 0x4A4B10  // NAME 2: describes what it does
+	void Set_All();															// 0x4A4B80  // NAME 2: describes what it does
+	void Clear(unsigned int pos);											// 0x4A4BB0  // NAME 2: describes what it does
+	void Clear_All();															// 0x4A4C00  // NAME 2: describes what it does
+	bool Is_Any_Set() const;												// 0x4A4C30  // NAME 2: describes what it does
 
 	char *Buffer;																// +0x0 (assert name)
-	unsigned int NumBytes;													// +0x4: the name is a guess (no assert names it)
+	unsigned int NumBytes;													// +0x4: the name is a guess (no assert names it)  // NAME 2: after the asserts' NumBits
 	unsigned int NumBits;													// +0x8 (assert name)
 };
 

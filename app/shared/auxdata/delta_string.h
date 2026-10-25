@@ -15,14 +15,14 @@
 #pragma once
 #endif
 
-#ifndef __DELTA_STRING_H
+#ifndef __DELTA_STRING_H  // NAME 3 [delta_string.h]: header name assumed from the client's delta_string.cpp
 #define __DELTA_STRING_H
 
 #include "delta.h"
 #include "..\kv_pair_string.h"
 
 // vtable 0xAEB0E4, size 0x88
-class DeltaStringClass : public DeltaClass
+class DeltaStringClass : public DeltaClass  // NAME 3: by convention (D24) from the client's file delta_string.cpp
 {
 public:
 	DeltaStringClass(const char *name, const char *string);					// 0x4A78F0
@@ -31,10 +31,10 @@ public:
 	virtual bool Read(LinearBufferClass &buf, const DurationClass &base);	// +0x2C 0x4A7CA0
 	virtual bool Write(LinearBufferClass &buf);									// +0x30 0x4A7BB0
 
-	void Assign(const char *s);														// 0x4A7A10
-	void Set(const char *s);															// 0x4A7AA0 (Assign if it differs)
+	void Assign(const char *s);														// 0x4A7A10  // NAME 2: describes what it does
+	void Set(const char *s);															// 0x4A7AA0 (Assign if it differs)  // NAME 2: describes what it does
 	DeltaStringClass &operator=(const DeltaStringClass &that);				// 0x4A7DC0
-	const char *Get() const { return String; }
+	const char *Get() const { return String; }  // NAME 2: describes what it does
 
 	char *String;						// +0x84 (the asserts' name)
 

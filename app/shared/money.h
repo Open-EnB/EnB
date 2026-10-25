@@ -14,10 +14,10 @@
 #pragma once
 #endif
 
-#ifndef __MONEY_H
+#ifndef __MONEY_H  // NAME 3 [money.h]: header name assumed from the client's money.cpp
 #define __MONEY_H
 
-class MoneyClass
+class MoneyClass  // NAME 3: by convention (D24) from the client's file money.cpp (D37)
 {
 public:
 	// DeltaTemplateClass<MoneyClass>::Set_Value compares (VC6 instantiates it with the class's virtuals)

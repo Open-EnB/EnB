@@ -24,7 +24,7 @@
 #include "linearbu.h"
 #include "..\unknown_debug.h"
 
-template<class T> class DeltaTemplateClass : public DeltaClass
+template<class T> class DeltaTemplateClass : public DeltaClass  // NAME 3: by convention (D24) from the client's file delta_template.h
 {
 public:
 	// float's is inlined in 0x4A6110 (DeltaClass, Value, the vtable, then +0x04); the time and money
@@ -36,7 +36,7 @@ public:
 	virtual bool Write(LinearBufferClass &buf);				// +0x30 (float: 0x4A6E60)
 
 	// stores the value and reports the change through Unknown_34 (inlined in 0x4A6590)
-	void Set_Value(const T &value)
+	void Set_Value(const T &value)  // NAME 2: describes what it does
 	{
 		if (Value != value) {
 			Value = value;
@@ -44,7 +44,7 @@ public:
 		}
 	}
 
-	T Value;			// +0x84, or +0x88 for an 8-aligned T (MoneyClass)
+	T Value;			// +0x84, or +0x88 for an 8-aligned T (MoneyClass)  // NAME 2: describes what it does
 
 	static int UnknownGlobal;	// the per-class global at +0x04 (float: 0xC416F0, time: 0xBE3AA4)
 };
@@ -115,7 +115,7 @@ template<class T> bool DeltaTemplateClass<T>::Read(LinearBufferClass &buf, const
 }
 
 // The field's value for the encoder (float: vtable 0xAEAF1C)
-template<class T> class DeltaTemplateAccessorClass : public KVAccessorClass<T>
+template<class T> class DeltaTemplateAccessorClass : public KVAccessorClass<T>  // NAME 2: describes what it does
 {
 public:
 	DeltaTemplateAccessorClass(DeltaTemplateClass<T> *owner) : Owner(owner) {}
@@ -123,7 +123,7 @@ public:
 	virtual void Set(const T &value) { Owner->Set_Value(value); }			// float: 0x4A6F00
 	virtual KVAccessorClass<T> *Clone() const { return new DeltaTemplateAccessorClass<T>(Owner); }	// float: 0x4A6F40
 
-	DeltaTemplateClass<T> *Owner;		// +0x04
+	DeltaTemplateClass<T> *Owner;		// +0x04  // NAME 2: describes what it does
 };
 
 template<class T> void DeltaTemplateClass<T>::Unknown_00(DeltaChildVisitorClass *visitor)

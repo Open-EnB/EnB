@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 2 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 24 |
-| 3 | by convention from a client-named file or sibling | 15 |
-| 2 | describes what the code does | 33 |
-| 1 | neutral placeholder | 174 |
+| 3 | by convention from a client-named file or sibling | 51 |
+| 2 | describes what the code does | 219 |
+| 1 | neutral placeholder | 177 |
 
 ## For review (score 3 and below)
 
@@ -72,6 +72,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_04` | `app/shared/auxdata/delta.cpp:237` | untagged neutral name (D10) |
 | 1 | `Unknown_04` | `app/shared/auxdata/delta.h:54` | untagged neutral name (D10) |
 | 1 | `Unknown_00` | `app/shared/auxdata/delta.h:61` | untagged neutral name (D10) |
+| 1 | `DeltaUnknownGlobal` | `app/shared/auxdata/delta.h:66` | neutral (D10) |
+| 1 | `DeltaCompoundUnknownGlobal` | `app/shared/auxdata/delta.h:67` | neutral (D10) |
 | 1 | `Unknown_0C` | `app/shared/auxdata/delta.h:77` | untagged neutral name (D10) |
 | 1 | `Unknown_10` | `app/shared/auxdata/delta.h:78` | untagged neutral name (D10) |
 | 1 | `Unknown_18` | `app/shared/auxdata/delta.h:80` | untagged neutral name (D10) |
@@ -174,6 +176,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `m_Unknown09` | `app/shared/kv_pair_string.cpp:41` | untagged neutral name (D10) |
 | 1 | `m_Unknown10` | `app/shared/kv_pair_string.h:49` | untagged neutral name (D10) |
 | 1 | `m_Unknown00` | `app/shared/money.h:24` | untagged neutral name (D10) |
+| 1 | `unknown_debug.h` | `app/shared/unknown_debug.h:30` | neutral file name (D37, D10): the object has no __FILE__ |
 | 1 | `Unknown_Assert_Failed` | `app/shared/unknown_debug.h:33` | untagged neutral name (D10) |
 | 1 | `Unknown_Fail_If_Report` | `app/shared/unknown_debug.h:34` | untagged neutral name (D10) |
 | 1 | `Unknown_Assert_Failed` | `stubs/app_stubs.cpp:33` | untagged neutral name (D10) |
@@ -191,21 +194,204 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `m_Unknown7C` | `tests/capharness/auxreplay/auxreplay.cpp:168` | untagged neutral name (D10) |
 | 1 | `m_Unknown98` | `tests/capharness/auxreplay/auxreplay.cpp:286` | untagged neutral name (D10) |
 | 1 | `Unknown_All` | `tests/capharness/auxreplay/auxreplay.cpp:287` | untagged neutral name (D10) |
-| 2 | `Next_Token` | `app/shared/heightfield.cpp:61` | ours, the PGM tokenizer |
+| 2 | `Swap` | `app/shared/auxdata/bitset.h:26` | describes what it does |
+| 2 | `Is_Set` | `app/shared/auxdata/bitset.h:30` | describes what it does |
+| 2 | `Set` | `app/shared/auxdata/bitset.h:32` | describes what it does |
+| 2 | `Set_All` | `app/shared/auxdata/bitset.h:33` | describes what it does |
+| 2 | `Clear` | `app/shared/auxdata/bitset.h:34` | describes what it does |
+| 2 | `Clear_All` | `app/shared/auxdata/bitset.h:35` | describes what it does |
+| 2 | `Is_Any_Set` | `app/shared/auxdata/bitset.h:36` | describes what it does |
+| 2 | `NumBytes` | `app/shared/auxdata/bitset.h:39` | after the asserts' NumBits |
+| 2 | `DeltaVisitorClass` | `app/shared/auxdata/delta.h:36` | describes what it does |
+| 2 | `Visit` | `app/shared/auxdata/delta.h:39` | describes what it does |
+| 2 | `Visit_Children` | `app/shared/auxdata/delta.h:44` | describes what it does |
+| 2 | `DeltaChildVisitorClass` | `app/shared/auxdata/delta.h:51` | describes what it does |
+| 2 | `DeltaInterfaceClass` | `app/shared/auxdata/delta.h:58` | describes what it does |
+| 2 | `Accept` | `app/shared/auxdata/delta.h:76` | describes what it does |
+| 2 | `Set_Parent` | `app/shared/auxdata/delta.h:79` | describes what it does |
+| 2 | `As_Delta` | `app/shared/auxdata/delta.h:83` | describes what it does |
+| 2 | `As_Compound` | `app/shared/auxdata/delta.h:84` | describes what it does |
+| 2 | `Write` | `app/shared/auxdata/delta.h:87` | describes what it does |
+| 2 | `Name` | `app/shared/auxdata/delta.h:95` | describes what it does |
+| 2 | `FullName` | `app/shared/auxdata/delta.h:96` | describes what it does |
+| 2 | `Parent` | `app/shared/auxdata/delta.h:98` | describes what it does |
+| 2 | `Add` | `app/shared/auxdata/delta.h:124` | describes what it does |
+| 2 | `Get_Lookup` | `app/shared/auxdata/delta.h:125` | after the asserts' Lookup |
+| 2 | `Decode` | `app/shared/auxdata/delta.h:129` | describes what it does |
+| 2 | `Children` | `app/shared/auxdata/delta.h:131` | describes what it does |
+| 2 | `DeltaInterpolatorValueClass` | `app/shared/auxdata/delta_interpolator.cpp:177` | describes what it does |
+| 2 | `Owner` | `app/shared/auxdata/delta_interpolator.cpp:185` | describes what it does |
+| 2 | `Value` | `app/shared/auxdata/delta_interpolator.cpp:186` | describes what it does |
+| 2 | `Get_Change` | `app/shared/auxdata/delta_interpolator.h:32` | describes what it does |
+| 2 | `Update` | `app/shared/auxdata/delta_interpolator.h:33` | describes what it does |
+| 2 | `Set` | `app/shared/auxdata/delta_interpolator.h:34` | describes what it does |
+| 2 | `Set_Change` | `app/shared/auxdata/delta_interpolator.h:36` | describes what it does |
+| 2 | `Get_Value` | `app/shared/auxdata/delta_interpolator.h:39` | describes what it does |
+| 2 | `LastValue` | `app/shared/auxdata/delta_interpolator.h:65` | after the assert's LastTime |
+| 2 | `DeltaStringValueClass` | `app/shared/auxdata/delta_string.cpp:149` | describes what it does |
+| 2 | `Owner` | `app/shared/auxdata/delta_string.cpp:157` | describes what it does |
+| 2 | `Assign` | `app/shared/auxdata/delta_string.h:34` | describes what it does |
+| 2 | `Set` | `app/shared/auxdata/delta_string.h:35` | describes what it does |
+| 2 | `Get` | `app/shared/auxdata/delta_string.h:37` | describes what it does |
+| 2 | `Set_Value` | `app/shared/auxdata/delta_template.h:39` | describes what it does |
+| 2 | `Value` | `app/shared/auxdata/delta_template.h:47` | describes what it does |
+| 2 | `DeltaTemplateAccessorClass` | `app/shared/auxdata/delta_template.h:118` | describes what it does |
+| 2 | `Owner` | `app/shared/auxdata/delta_template.h:126` | describes what it does |
+| 2 | `DurationAccessorClass` | `app/shared/auxdata/delta_time.cpp:70` | describes what it does |
+| 2 | `Duration` | `app/shared/auxdata/delta_time.cpp:78` | describes what it does |
+| 2 | `Seconds` | `app/shared/auxdata/delta_time.cpp:79` | describes what it does |
+| 2 | `Make_Accessor` | `app/shared/auxdata/delta_time.cpp:82` | describes what it does |
+| 2 | `TreeCodec` | `app/shared/auxdata/encode.cpp:468` | describes what it does |
+| 2 | `encode.h` | `app/shared/auxdata/encode.h:19` | encode.cpp is the client's; header name assumed (D57) |
+| 2 | `DeltaListNodeClass` | `app/shared/auxdata/encode.h:32` | describes what it does |
+| 2 | `Delta` | `app/shared/auxdata/encode.h:41` | describes what it does |
+| 2 | `Next` | `app/shared/auxdata/encode.h:42` | describes what it does |
+| 2 | `DeltaListClass` | `app/shared/auxdata/encode.h:46` | describes what it does |
+| 2 | `Add` | `app/shared/auxdata/encode.h:51` | describes what it does |
+| 2 | `Head` | `app/shared/auxdata/encode.h:53` | describes what it does |
+| 2 | `Tail` | `app/shared/auxdata/encode.h:54` | describes what it does |
+| 2 | `Count` | `app/shared/auxdata/encode.h:55` | describes what it does |
+| 2 | `DeltaListSetClass` | `app/shared/auxdata/encode.h:59` | describes what it does |
+| 2 | `Write` | `app/shared/auxdata/encode.h:63` | describes what it does |
+| 2 | `Lists` | `app/shared/auxdata/encode.h:65` | describes what it does |
+| 2 | `LeafRecordClass` | `app/shared/auxdata/encode.h:80` | describes what it does |
+| 2 | `Delta` | `app/shared/auxdata/encode.h:87` | describes what it does |
+| 2 | `Updated` | `app/shared/auxdata/encode.h:88` | describes what it does |
+| 2 | `CompoundRecordClass` | `app/shared/auxdata/encode.h:93` | describes what it does |
+| 2 | `Get_Bits` | `app/shared/auxdata/encode.h:108` | describes what it does |
+| 2 | `Compound` | `app/shared/auxdata/encode.h:118` | describes what it does |
+| 2 | `Updated` | `app/shared/auxdata/encode.h:119` | describes what it does |
+| 2 | `Defaulted` | `app/shared/auxdata/encode.h:120` | describes what it does |
+| 2 | `Cleared` | `app/shared/auxdata/encode.h:121` | describes what it does |
+| 2 | `Whole` | `app/shared/auxdata/encode.h:122` | describes what it does |
+| 2 | `RecordTableClass` | `app/shared/auxdata/encode.h:126` | describes what it does |
+| 2 | `Add` | `app/shared/auxdata/encode.h:133` | describes what it does |
+| 2 | `Count` | `app/shared/auxdata/encode.h:136` | describes what it does |
+| 2 | `DeltaCodecClass` | `app/shared/auxdata/encode.h:145` | describes what it does |
+| 2 | `Decode` | `app/shared/auxdata/encode.h:148` | describes what it does |
+| 2 | `RecordCodecClass` | `app/shared/auxdata/encode.h:153` | describes what it does |
+| 2 | `TreeCodecClass` | `app/shared/auxdata/encode.h:162` | describes what it does |
+| 2 | `Read_Header` | `app/shared/auxdata/encode.h:166` | describes what it does |
+| 2 | `Buffer` | `app/shared/auxdata/encode.h:170` | describes what it does |
+| 2 | `Base` | `app/shared/auxdata/encode.h:171` | describes what it does |
+| 2 | `Error` | `app/shared/auxdata/encode.h:172` | describes what it does |
+| 2 | `Mode` | `app/shared/auxdata/encode.h:173` | describes what it does |
+| 2 | `TreeCodecHolderClass` | `app/shared/auxdata/encode.h:177` | describes what it does |
+| 2 | `Codec` | `app/shared/auxdata/encode.h:183` | describes what it does |
+| 2 | `RecordCodec` | `app/shared/auxdata/encode.h:186` | describes what it does |
+| 2 | `Get_Tree_Codec` | `app/shared/auxdata/encode.h:187` | describes what it does |
+| 2 | `Read` | `app/shared/auxdata/linearbu.h:28` | describes what it does |
+| 2 | `Read_String` | `app/shared/auxdata/linearbu.h:30` | describes what it does |
+| 2 | `Write` | `app/shared/auxdata/linearbu.h:31` | describes what it does |
+| 2 | `Write_String` | `app/shared/auxdata/linearbu.h:33` | describes what it does |
+| 2 | `Append` | `app/shared/auxdata/linearbu.h:34` | describes what it does |
+| 2 | `Seek_Relative` | `app/shared/auxdata/linearbu.h:35` | describes what it does |
+| 2 | `Truncate` | `app/shared/auxdata/linearbu.h:36` | describes what it does |
+| 2 | `Get_Pos` | `app/shared/auxdata/linearbu.h:37` | describes what it does |
+| 2 | `Seek` | `app/shared/auxdata/linearbu.h:38` | describes what it does |
+| 2 | `Skip` | `app/shared/auxdata/linearbu.h:39` | describes what it does |
+| 2 | `Grow` | `app/shared/auxdata/linearbu.h:40` | describes what it does |
+| 2 | `Get_Size` | `app/shared/auxdata/linearbu.h:41` | describes what it does |
+| 2 | `Set_Size` | `app/shared/auxdata/linearbu.h:42` | describes what it does |
+| 2 | `Get_Capacity` | `app/shared/auxdata/linearbu.h:43` | describes what it does |
+| 2 | `Set_Capacity` | `app/shared/auxdata/linearbu.h:45` | describes what it does |
+| 2 | `Buffer` | `app/shared/auxdata/linearbu.h:47` | describes what it does |
+| 2 | `GrowBy` | `app/shared/auxdata/linearbu.h:51` | describes what it does |
+| 2 | `OwnsBuffer` | `app/shared/auxdata/linearbu.h:53` | describes what it does |
+| 2 | `LookupBuilderClass` | `app/shared/auxdata/lookup.cpp:11` | describes what it does |
+| 2 | `Lookup` | `app/shared/auxdata/lookup.cpp:22` | describes what it does |
+| 2 | `Map` | `app/shared/auxdata/lookup.cpp:23` | describes what it does |
+| 2 | `Get_Delta` | `app/shared/auxdata/lookup.h:37` | describes what it does |
+| 2 | `Find` | `app/shared/auxdata/lookup.h:40` | describes what it does |
+| 2 | `Entries` | `app/shared/auxdata/lookup.h:42` | describes what it does |
+| 2 | `Is_Parent_Of` | `app/shared/auxdata/name.h:34` | describes what it does (D38) |
+| 2 | `Is_Parent_Or_Same` | `app/shared/auxdata/name.h:35` | describes what it does (D38) |
+| 2 | `Match_Parts` | `app/shared/auxdata/name.h:36` | describes what it does (D38) |
+| 2 | `Append` | `app/shared/auxdata/name.h:37` | describes what it does |
+| 2 | `Get_Rest` | `app/shared/auxdata/name.h:38` | describes what it does |
+| 2 | `Get_First` | `app/shared/auxdata/name.h:39` | describes what it does |
+| 2 | `Get_String` | `app/shared/auxdata/name.h:42` | describes what it does |
+| 2 | `Split` | `app/shared/auxdata/name.h:45` | describes what it does |
+| 2 | `Wildcard` | `app/shared/auxdata/name.h:48` | after the asserts' Is_Wildcard |
+| 2 | `Name` | `app/shared/auxdata/name.h:54` | describes what it does |
+| 2 | `Parts` | `app/shared/auxdata/name.h:55` | describes what it does |
+| 2 | `HasWildcard` | `app/shared/auxdata/name.h:57` | after the asserts' Is_Wildcard |
+| 2 | `PermStringEntryClass` | `app/shared/auxdata/permstr.cpp:11` | describes what it does |
+| 2 | `Hash` | `app/shared/auxdata/permstr.cpp:18` | describes what it does |
+| 2 | `Next` | `app/shared/auxdata/permstr.cpp:19` | describes what it does |
+| 2 | `s_Size` | `app/shared/auxdata/permstr.cpp:23` | after the asserts' s_Table |
+| 2 | `s_Count` | `app/shared/auxdata/permstr.cpp:24` | after the asserts' s_Table |
+| 2 | `Is_Prime` | `app/shared/auxdata/permstr.cpp:26` | describes what it does |
+| 2 | `PermStringInitInstance` | `app/shared/auxdata/permstr.cpp:223` | describes what it does |
+| 2 | `Get_String` | `app/shared/auxdata/permstr.h:33` | describes what it does |
+| 2 | `Find` | `app/shared/auxdata/permstr.h:36` | describes what it does |
+| 2 | `Print_Statistics` | `app/shared/auxdata/permstr.h:37` | describes what it does |
+| 2 | `String` | `app/shared/auxdata/permstr.h:39` | describes what it does |
+| 2 | `PermStringInitClass` | `app/shared/auxdata/permstr.h:43` | describes what it does (D38) |
+| 2 | `PermStringInit` | `app/shared/auxdata/permstr.h:50` | describes what it does |
+| 2 | `PolicyRuleClass` | `app/shared/auxdata/policy.cpp:8` | describes what it does |
+| 2 | `PolicyNodeClass` | `app/shared/auxdata/policy.cpp:17` | describes what it does |
+| 2 | `Rule` | `app/shared/auxdata/policy.cpp:20` | describes what it does |
+| 2 | `Next` | `app/shared/auxdata/policy.cpp:21` | describes what it does |
+| 2 | `CompiledPolicyClass` | `app/shared/auxdata/policy.cpp:25` | after the asserts' Compiled |
+| 2 | `Get_Action` | `app/shared/auxdata/policy.cpp:29` | describes what it does |
+| 2 | `Table` | `app/shared/auxdata/policy.cpp:34` | describes what it does |
+| 2 | `Get_Action` | `app/shared/auxdata/policy.cpp:40` | describes what it does |
+| 2 | `As_Int` | `app/shared/duration.h:188` | describes what it does |
+| 2 | `Next_Token` | `app/shared/heightfield.cpp:58` | ours, the PGM tokenizer |
 | 2 | `heightfield.h` | `app/shared/heightfield.h:28` | describes the class; no assert or __FILE__ names the file |
 | 2 | `HeightFieldClass` | `app/shared/heightfield.h:36` | after land.ini's [HEIGHTMAP] / HEIGHT_MAP; the client names no class |
 | 2 | `Load` | `app/shared/heightfield.h:43` | methods and members describe what they do / hold (VIDTEST 0x402420, 0x4026B0, 0x402AE0) |
-| 2 | `LandVertexStruct` | `app/shared/land.cpp:34` | ours |
-| 2 | `Int_Min` | `app/shared/land.cpp:43` | ours |
-| 2 | `DecoPartStruct` | `app/shared/land.cpp:615` | ours (VIDTEST 0x416170 batches the prototypes) |
-| 2 | `DecoVertexStruct` | `app/shared/land.cpp:627` | ours |
-| 2 | `DecoInstanceStruct` | `app/shared/land.cpp:634` | ours |
+| 2 | `KVEncoderDataClass` | `app/shared/kv_encoder_base.h:29` | after the asserts' Data |
+| 2 | `Flags` | `app/shared/kv_encoder_base.h:34` | after the asserts' FlagList |
+| 2 | `Make_Key` | `app/shared/kv_encoder_base.h:46` | describes what it does |
+| 2 | `Push_Prefix` | `app/shared/kv_encoder_base.h:47` | describes what it does |
+| 2 | `Pop_Prefix` | `app/shared/kv_encoder_base.h:48` | describes what it does |
+| 2 | `Set_Prefix` | `app/shared/kv_encoder_base.h:49` | describes what it does |
+| 2 | `Get_Flags` | `app/shared/kv_encoder_base.h:50` | describes what it does |
+| 2 | `Set_Flags` | `app/shared/kv_encoder_base.h:51` | describes what it does |
+| 2 | `Push_Flags` | `app/shared/kv_encoder_base.h:52` | describes what it does |
+| 2 | `Pop_Flags` | `app/shared/kv_encoder_base.h:53` | describes what it does |
+| 2 | `Add_String` | `app/shared/kv_encoder_base.h:57` | describes what it does (D38) |
+| 2 | `Add_Value` | `app/shared/kv_encoder_base.h:59` | describes what it does |
+| 2 | `List` | `app/shared/kv_encoder_base.h:72` | describes what it does |
+| 2 | `Add` | `app/shared/kv_list.h:38` | describes what it does |
+| 2 | `Find` | `app/shared/kv_list.h:39` | describes what it does |
+| 2 | `Get_Type_Name` | `app/shared/kv_list.h:40` | describes what it does |
+| 2 | `Get_Value_String` | `app/shared/kv_list.h:41` | describes what it does |
+| 2 | `Set_Value_String` | `app/shared/kv_list.h:43` | describes what it does |
+| 2 | `Get_Count` | `app/shared/kv_list.h:45` | describes what it does |
+| 2 | `Get` | `app/shared/kv_list.h:46` | describes what it does |
+| 2 | `KeyLess` | `app/shared/kv_list.h:48` | describes what it does |
+| 2 | `Pairs` | `app/shared/kv_list.h:53` | describes what it does |
+| 2 | `Index` | `app/shared/kv_list.h:54` | describes what it does |
+| 2 | `Clone` | `app/shared/kv_pair.h:32` | descriptive name of the vtable slot (D57) |
+| 2 | `Get_Type_Name` | `app/shared/kv_pair.h:33` | descriptive name of the vtable slot (D57) |
+| 2 | `Get_Value_String` | `app/shared/kv_pair.h:34` | descriptive name of the vtable slot (D57) |
+| 2 | `Set_Value_String` | `app/shared/kv_pair.h:35` | descriptive name of the vtable slot (D57) |
+| 2 | `Is_Changed` | `app/shared/kv_pair.h:36` | descriptive name of the vtable slot (D57) |
+| 2 | `Update_Saved` | `app/shared/kv_pair.h:37` | descriptive name of the vtable slot (D57) |
+| 2 | `KVAccessorClass` | `app/shared/kv_pair.h:46` | after the assert's parameter accessor (kv_pair.cpp); the class name describes it |
+| 2 | `Get` | `app/shared/kv_pair.h:50` | describes what it does |
+| 2 | `Set` | `app/shared/kv_pair.h:51` | describes what it does |
+| 2 | `Clone` | `app/shared/kv_pair.h:52` | describes what it does |
+| 2 | `KVPairTemplateClass` | `app/shared/kv_pair.h:57` | after KVPairClass (D24) and its template role |
+| 2 | `Value` | `app/shared/kv_pair.h:82` | describes what it does |
+| 2 | `StringValueClass` | `app/shared/kv_pair_string.h:25` | describes what it does (D38) |
+| 2 | `Get` | `app/shared/kv_pair_string.h:29` | describes what it does |
+| 2 | `Set` | `app/shared/kv_pair_string.h:30` | describes what it does |
+| 2 | `Clone` | `app/shared/kv_pair_string.h:31` | describes what it does |
+| 2 | `LandVertexStruct` | `app/shared/land.cpp:31` | ours |
+| 2 | `Int_Min` | `app/shared/land.cpp:40` | ours |
+| 2 | `DecoPartStruct` | `app/shared/land.cpp:612` | ours (VIDTEST 0x416170 batches the prototypes) |
+| 2 | `DecoVertexStruct` | `app/shared/land.cpp:624` | ours |
+| 2 | `DecoInstanceStruct` | `app/shared/land.cpp:631` | ours |
 | 2 | `land.h` | `app/shared/land.h:37` | after LandClass; no assert or __FILE__ names the file |
 | 2 | `LandLightingStruct` | `app/shared/land.h:58` | the record Update_Lighting hands the land (VIDTEST esp+0x74) |
 | 2 | `Create` | `app/shared/land.h:80` | Create, Load_Assets, Create_Decorations, Update_Patches, Set_Dirty, Update_Lightmap_Full describe VIDTEST 0x4068F0, 0x405750, 0x415C40, 0x4078F0, +0x136, 0x40A9F0 |
 | 2 | `Field` | `app/shared/land.h:108` | members describe what they hold (VIDTEST offsets in land.h's header) |
-| 2 | `Read_String` | `app/shared/spln_db.cpp:94` | VIDTEST 0x420100 |
-| 2 | `Read_Curve` | `app/shared/spln_db.cpp:116` | VIDTEST 0x41FCB0 / 0x41FDA0 |
+| 2 | `Read_String` | `app/shared/spln_db.cpp:91` | VIDTEST 0x420100 |
+| 2 | `Read_Curve` | `app/shared/spln_db.cpp:113` | VIDTEST 0x41FCB0 / 0x41FDA0 |
 | 2 | `SplineDatabaseClass` | `app/shared/spln_db.h:41` | after the mailslot "\\.\mailslot\G\SplineDatabaseUpdate"; the class name is not in the client |
 | 2 | `Load` | `app/shared/spln_db.h:55` | loads a .wsd (assert 'database_filename' is the client's argument name) |
 | 2 | `Get_Spline` | `app/shared/spln_db.h:61` | lookup by name (assert 'spline_name') |
@@ -224,6 +410,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Free_Layers` | `app/shared/stars.h:81` | deletes the layers (0x482920) |
 | 2 | `Set_Budget` | `app/shared/stars.h:83` | the polygon budget at +0xA0 |
 | 2 | `std:` | `app/shared/stars.h:88` | Layers (+0x8C), TotalPolys (+0x9C), Budget (+0xA0) |
+| 2 | `Value_To_String` | `app/shared/strconv_lib.h:23` | describes what it does |
+| 2 | `String_To_Value` | `app/shared/strconv_lib.h:24` | describes what it does |
+| 2 | `Type_Name` | `app/shared/strconv_lib.h:31` | describes what it does |
 | 3 | `DeltaShipClass` | `app/client/aux_roots.h:524` | the client's root string "Ship", Westwood XxxClass (D24); structure = Net-7 AuxShipIndex / C# ShipObject (C# fields = ours (same names, same order); Net-7 Construct 58 children = ours) |
 | 3 | `DeltaComponentClass` | `app/client/aux_roots.h:593` | the client's root string "Component", Westwood XxxClass (D24); structure = C# ComponentObject (C# fields = ours (same names, same order)) |
 | 3 | `DeltaLightClass` | `app/client/aux_roots.h:603` | the client's root string "Light", Westwood XxxClass (D24); structure = C# LightObject (C# fields = ours (same names, same order)) |
@@ -235,7 +424,43 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `DeltaPlanetClass` | `app/client/aux_roots.h:1140` | the client's root string "Planet", Westwood XxxClass (D24); structure = C# PlanetObject (C# fields = ours (same names, same order)) |
 | 3 | `DeltaStarbaseClass` | `app/client/aux_roots.h:1156` | the client's root string "Starbase", Westwood XxxClass (D24); structure = C# StarbaseObject (C# fields = ours (same names, same order)) |
 | 3 | `DeltaStargateClass` | `app/client/aux_roots.h:1172` | the client's root string "Stargate", Westwood XxxClass (D24); structure = C# StargateObject (C# fields = ours (same names, same order)) |
+| 3 | `bitset.h` | `app/shared/auxdata/bitset.h:16` | header name assumed from the client's bitset.cpp |
+| 3 | `BitSetClass` | `app/shared/auxdata/bitset.h:19` | by convention (D24) from the client's file bitset.cpp |
+| 3 | `delta.h` | `app/shared/auxdata/delta.h:19` | header name assumed from the client's delta.cpp |
+| 3 | `DeltaClass` | `app/shared/auxdata/delta.h:70` | by convention (D24) from the client's file delta.cpp (D37; the reference decoder notes: DeltaBase) |
+| 3 | `DeltaCompoundClass` | `app/shared/auxdata/delta.h:105` | by convention (D24) from the client's file delta.cpp (D37; the reference decoder notes: DeltaCompound) |
 | 3 | `DeltaArrayClass` | `app/shared/auxdata/delta_array.h:25` | by convention (D24) from the client's file delta_array.h |
+| 3 | `DeltaInterpolatorClass` | `app/shared/auxdata/delta_interpolator.h:25` | by convention (D24) from the client's file delta_interpolator.cpp (D59) |
 | 3 | `DeltaItemArrayClass` | `app/shared/auxdata/delta_item_array.h:25` | by convention (D24) from the client's file delta_item_array.h |
+| 3 | `delta_string.h` | `app/shared/auxdata/delta_string.h:18` | header name assumed from the client's delta_string.cpp |
+| 3 | `DeltaStringClass` | `app/shared/auxdata/delta_string.h:25` | by convention (D24) from the client's file delta_string.cpp |
+| 3 | `DeltaTemplateClass` | `app/shared/auxdata/delta_template.h:27` | by convention (D24) from the client's file delta_template.h |
+| 3 | `RecordClass` | `app/shared/auxdata/encode.h:71` | after the asserts' Records (encode.cpp) |
+| 3 | `linearbu.h` | `app/shared/auxdata/linearbu.h:18` | header name assumed from the client's linearbu.cpp |
+| 3 | `LinearBufferClass` | `app/shared/auxdata/linearbu.h:21` | by convention (D24) from the client's file linearbu.cpp ("linear buffer", D37) |
+| 3 | `Size` | `app/shared/auxdata/linearbu.h:49` | after the assert's parameter size (linearbu.cpp) |
+| 3 | `Capacity` | `app/shared/auxdata/linearbu.h:50` | after the assert's parameter capacity (linearbu.cpp) |
+| 3 | `Pos` | `app/shared/auxdata/linearbu.h:52` | after the assert's parameter pos (linearbu.cpp) |
+| 3 | `lookup.h` | `app/shared/auxdata/lookup.h:20` | header name assumed from the client's lookup.cpp |
+| 3 | `LookupClass` | `app/shared/auxdata/lookup.h:30` | by convention (D24) from the client's file lookup.cpp |
+| 3 | `name.h` | `app/shared/auxdata/name.h:18` | header name assumed from the client's name.cpp |
+| 3 | `NameClass` | `app/shared/auxdata/name.h:26` | by convention (D24) from the client's file name.cpp |
+| 3 | `permstr.h` | `app/shared/auxdata/permstr.h:18` | header name assumed from the client's permstr.cpp |
+| 3 | `Action` | `app/shared/auxdata/policy.cpp:12` | after the assert's parameter action (policy.cpp) |
+| 3 | `PolicyClass` | `app/shared/auxdata/policy.cpp:37` | by convention (D24) from the client's file policy.cpp |
+| 3 | `DurationClass` | `app/shared/duration.h:25` | by convention (D24) from the client's file duration.h (D37) |
+| 3 | `kv_encoder_base.h` | `app/shared/kv_encoder_base.h:18` | header name assumed from the client's kv_encoder_base.cpp |
+| 3 | `KVEncoderBaseClass` | `app/shared/kv_encoder_base.h:40` | by convention (D24) from the client's file kv_encoder_base.cpp |
+| 3 | `KVListClass` | `app/shared/kv_list.h:32` | by convention (D24) from the client's file kv_list.cpp |
+| 3 | `kv_pair.h` | `app/shared/kv_pair.h:18` | header name assumed from the client's kv_pair.cpp |
+| 3 | `KVPairClass` | `app/shared/kv_pair.h:25` | by convention (D24) from the client's file kv_pair.cpp |
+| 3 | `Key` | `app/shared/kv_pair.h:39` | after the assert's parameter key (kv_pair.cpp) |
+| 3 | `Accessor` | `app/shared/kv_pair.h:81` | after the assert's parameter accessor (kv_pair.cpp) |
+| 3 | `kv_pair_string.h` | `app/shared/kv_pair_string.h:18` | header name assumed from the client's kv_pair_string.cpp |
+| 3 | `KVPairStringClass` | `app/shared/kv_pair_string.h:35` | by convention (D24) from the client's file kv_pair_string.cpp |
+| 3 | `Accessor` | `app/shared/kv_pair_string.h:48` | after the assert's parameter accessor (kv_pair_string.cpp) |
+| 3 | `money.h` | `app/shared/money.h:17` | header name assumed from the client's money.cpp |
+| 3 | `MoneyClass` | `app/shared/money.h:20` | by convention (D24) from the client's file money.cpp (D37) |
 | 3 | `spln_db.h` | `app/shared/spln_db.h:32` | header of the client's app\shared\spln_db.cpp (assert __FILE__) |
 | 3 | `stars.h` | `app/shared/stars.h:28` | header of the client's app\shared\stars.cpp (assert __FILE__) |
+| 3 | `strconv_lib.h` | `app/shared/strconv_lib.h:20` | header name assumed from the client's strconv_lib.cpp (D57) |

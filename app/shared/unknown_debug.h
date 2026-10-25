@@ -27,7 +27,7 @@
 #pragma once
 #endif
 
-#ifndef __UNKNOWN_DEBUG_H
+#ifndef __UNKNOWN_DEBUG_H  // NAME 1 [unknown_debug.h]: neutral file name (D37, D10): the object has no __FILE__
 #define __UNKNOWN_DEBUG_H
 
 void Unknown_Assert_Failed(const char *expr, const char *file, int line);		// 0x4E9410

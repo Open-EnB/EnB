@@ -22,7 +22,7 @@
 #include <limits.h>
 #include "unknown_debug.h"
 
-class DurationClass
+class DurationClass  // NAME 3: by convention (D24) from the client's file duration.h (D37)
 {
 public:
 	DurationClass() {}
@@ -185,7 +185,7 @@ public:
 
 
 	// Time as an int, clamped (0x4A8270 inlines it; the FAIL_IF reports the upper clamp only)
-	int As_Int() const
+	int As_Int() const  // NAME 2: describes what it does
 	{
 		FAIL_IF(Time > INT_MAX) return INT_MAX;
 		if (Time < INT_MIN) {

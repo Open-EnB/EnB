@@ -8,7 +8,7 @@
 // Fills a LookupClass from a tree (vtable 0xAEB318; a local of the constructor): every field in
 // visiting order, so a field's index is its position in the walk, and each by its name below the
 // root (NameClass::Get_Rest of its FullName). The name is a guess (D10).
-class LookupBuilderClass : public DeltaVisitorClass
+class LookupBuilderClass : public DeltaVisitorClass  // NAME 2: describes what it does
 {
 public:
 	LookupBuilderClass(LookupClass *lookup, std::map<const char *, DeltaClass *> &map) :
@@ -19,8 +19,8 @@ public:
 	virtual void Visit(DeltaCompoundClass *delta);		// 0x4AC560
 	virtual void Visit(DeltaClass *delta);					// 0x4AC3B0
 
-	LookupClass *Lookup;										// +0x04
-	std::map<const char *, DeltaClass *> *Map;			// +0x08
+	LookupClass *Lookup;										// +0x04  // NAME 2: describes what it does
+	std::map<const char *, DeltaClass *> *Map;			// +0x08  // NAME 2 [Map]: describes what it does
 };
 
 LookupClass::LookupClass(DeltaCompoundClass *owner)

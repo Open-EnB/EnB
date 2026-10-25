@@ -67,7 +67,7 @@ unsigned int Unknown_Get_Ticks();
 
 // The time field's value as the key/value pairs see it (vtable 0xAEB244, size 0xC): whole seconds
 // of wall-clock time (time()), 0 for a zero time. The name is a guess (D10).
-class DurationAccessorClass : public KVAccessorClass<unsigned int>
+class DurationAccessorClass : public KVAccessorClass<unsigned int>  // NAME 2: describes what it does
 {
 public:
 	DurationAccessorClass(DurationClass *duration) : Duration(duration), Seconds(0) {}
@@ -75,11 +75,11 @@ public:
 	virtual void Set(const unsigned int &value);										// 0x4A84E0
 	virtual KVAccessorClass<unsigned int> *Clone() const;							// 0x4A8550
 
-	DurationClass *Duration;			// +0x04
-	unsigned int Seconds;				// +0x08 Get's result
+	DurationClass *Duration;			// +0x04  // NAME 2: describes what it does
+	unsigned int Seconds;				// +0x08 Get's result  // NAME 2: describes what it does
 };
 
-static KVAccessorClass<unsigned int> *Make_Accessor(DurationClass *duration);
+static KVAccessorClass<unsigned int> *Make_Accessor(DurationClass *duration);  // NAME 2: describes what it does
 
 template<> void DeltaTemplateClass<DurationClass>::Unknown_00(DeltaChildVisitorClass *visitor)
 {

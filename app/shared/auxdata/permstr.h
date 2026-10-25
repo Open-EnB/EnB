@@ -15,7 +15,7 @@
 #pragma once
 #endif
 
-#ifndef __PERMSTR_H
+#ifndef __PERMSTR_H  // NAME 3 [permstr.h]: header name assumed from the client's permstr.cpp
 #define __PERMSTR_H
 
 class PermString
@@ -30,23 +30,23 @@ public:
 	bool operator==(const PermString &that) const { return String == that.String; }
 	bool operator!=(const PermString &that) const { return String != that.String; }
 
-	const char *Get_String() const { return String; }
+	const char *Get_String() const { return String; }  // NAME 2: describes what it does
 
 	// the table's copy of string, added if it isn't there (0x4ADE20)
-	static const char *Find(const char *string);
-	static void Print_Statistics();								// 0x4ADFF0
+	static const char *Find(const char *string);  // NAME 2: describes what it does
+	static void Print_Statistics();								// 0x4ADFF0  // NAME 2: describes what it does
 
-	const char *String;		// +0x00
+	const char *String;		// +0x00  // NAME 2: describes what it does
 };
 
 // Makes the table on the first construction and frees it on the last destruction (s_Count).
-class PermStringInitClass
+class PermStringInitClass  // NAME 2: describes what it does (D38)
 {
 public:
 	PermStringInitClass();				// 0x4AE1E0
 	~PermStringInitClass();				// 0x4AE2D0
 };
 
-static PermStringInitClass PermStringInit;
+static PermStringInitClass PermStringInit;  // NAME 2: describes what it does
 
 #endif //__PERMSTR_H

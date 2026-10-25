@@ -5,39 +5,39 @@
 
 // one rule of a policy (made by 0x4AE490, whose assert names the actions EXCLUDE, INCLUDE and
 // REDUNDANT: 1, 3 and 4 there)
-class PolicyRuleClass
+class PolicyRuleClass  // NAME 2: describes what it does
 {
 public:
 	char m_Unknown00[0x34];		// not known yet
-	int Action;						// +0x34 (2: the rule belongs to its node)
+	int Action;						// +0x34 (2: the rule belongs to its node)  // NAME 3: after the assert's parameter action (policy.cpp)
 	int m_Unknown38;				// +0x38 the value Get_Action hands back
 	bool *m_Unknown3C;			// +0x3C the rule applies while this is set
 };
 
-class PolicyNodeClass
+class PolicyNodeClass  // NAME 2: describes what it does
 {
 public:
-	PolicyRuleClass *Rule;		// +0x00
-	PolicyNodeClass *Next;		// +0x04
+	PolicyRuleClass *Rule;		// +0x00  // NAME 2: describes what it does
+	PolicyNodeClass *Next;		// +0x04  // NAME 2: describes what it does
 };
 
 // the rules per field id (the asserts' Compiled, Size)
-class CompiledPolicyClass
+class CompiledPolicyClass  // NAME 2: after the asserts' Compiled
 {
 public:
 	~CompiledPolicyClass();											// 0x4AE850
-	int Get_Action(int id, int *value) const;					// 0x4AED50 (the first rule that applies; 1 if none)
+	int Get_Action(int id, int *value) const;					// 0x4AED50 (the first rule that applies; 1 if none)  // NAME 2: describes what it does
 
 	int m_Unknown00;
 	int m_Unknown04;
 	int Size;							// +0x08
-	PolicyNodeClass **Table;		// +0x0C
+	PolicyNodeClass **Table;		// +0x0C  // NAME 2: describes what it does
 };
 
-class PolicyClass
+class PolicyClass  // NAME 3: by convention (D24) from the client's file policy.cpp
 {
 public:
-	int Get_Action(int id, int *value) const;					// 0x4AF490
+	int Get_Action(int id, int *value) const;					// 0x4AF490  // NAME 2: describes what it does
 
 	char m_Unknown00[0x14];				// not known yet
 	CompiledPolicyClass *Compiled;		// +0x14

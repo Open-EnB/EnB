@@ -29,29 +29,29 @@
 
 class KVPairClass;
 
-class KVListClass
+class KVListClass  // NAME 3: by convention (D24) from the client's file kv_list.cpp
 {
 public:
 	KVListClass();																// 0x4B62B0
 	~KVListClass();															// 0x4B6520 (deletes the pairs)
 
-	void Add(KVPairClass *item);											// 0x4B6760 (line 23): replaces (and deletes) a pair with the same key
-	KVPairClass *Find(const char *key);									// 0x4B69A0 (line 51)
-	const char *Get_Type_Name(const char *key);						// 0x4B6A80 (line 68)
-	const char *Get_Value_String(const char *key);					// 0x4B6B60 (line 82; a static 0x1000-byte buffer, 0xBE3B60)
+	void Add(KVPairClass *item);											// 0x4B6760 (line 23): replaces (and deletes) a pair with the same key  // NAME 2: describes what it does
+	KVPairClass *Find(const char *key);									// 0x4B69A0 (line 51)  // NAME 2: describes what it does
+	const char *Get_Type_Name(const char *key);						// 0x4B6A80 (line 68)  // NAME 2: describes what it does
+	const char *Get_Value_String(const char *key);					// 0x4B6B60 (line 82; a static 0x1000-byte buffer, 0xBE3B60)  // NAME 2: describes what it does
 	char *Get_Value_String(const char *key, char *buf, int size);	// 0x4B6BF0 (line 97)
-	bool Set_Value_String(const char *key, const char *value);		// 0x4B6CE0 (line 113)
+	bool Set_Value_String(const char *key, const char *value);		// 0x4B6CE0 (line 113)  // NAME 2: describes what it does
 
-	int Get_Count() const { return Pairs.size(); }
-	KVPairClass *Get(int index) const { return Pairs[index]; }
+	int Get_Count() const { return Pairs.size(); }  // NAME 2: describes what it does
+	KVPairClass *Get(int index) const { return Pairs[index]; }  // NAME 2: describes what it does
 
-	struct KeyLess
+	struct KeyLess  // NAME 2: describes what it does
 	{
 		bool operator()(const char *a, const char *b) const { return strcmp(a, b) < 0; }
 	};
 
-	std::vector<KVPairClass *> Pairs;											// +0x00 (the client's too)
-	std::map<const char *, KVPairClass *, KeyLess> Index;						// (the client's hash_map, see above)
+	std::vector<KVPairClass *> Pairs;											// +0x00 (the client's too)  // NAME 2 [Pairs]: describes what it does
+	std::map<const char *, KVPairClass *, KeyLess> Index;						// (the client's hash_map, see above)  // NAME 2 [Index]: describes what it does
 };
 
 #endif //__KV_LIST_H

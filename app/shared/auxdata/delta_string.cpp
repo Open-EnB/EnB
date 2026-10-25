@@ -146,7 +146,7 @@ DeltaStringClass &DeltaStringClass::operator=(const DeltaStringClass &that)
 }
 
 // The value Unknown_00 hands the encoder: vtable 0xAEB13C
-class DeltaStringValueClass : public StringValueClass
+class DeltaStringValueClass : public StringValueClass  // NAME 2: describes what it does
 {
 public:
 	DeltaStringValueClass(DeltaStringClass *owner) : Owner(owner) {}
@@ -154,7 +154,7 @@ public:
 	virtual void Set(const char *value);
 	virtual StringValueClass *Clone() const;
 
-	DeltaStringClass *Owner;		// +0x04
+	DeltaStringClass *Owner;		// +0x04  // NAME 2: describes what it does
 };
 
 void DeltaStringClass::Unknown_00(DeltaChildVisitorClass *visitor)

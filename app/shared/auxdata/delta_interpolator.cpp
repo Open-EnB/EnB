@@ -174,7 +174,7 @@ void DeltaInterpolatorClass::Unknown_3C(DeltaClass *delta)
 unsigned int Unknown_Get_Ticks();
 
 // The interpolator's value for the encoder (vtable 0xAEAF08): read-only
-class DeltaInterpolatorValueClass : public KVAccessorClass<float>
+class DeltaInterpolatorValueClass : public KVAccessorClass<float>  // NAME 2: describes what it does
 {
 public:
 	DeltaInterpolatorValueClass(DeltaInterpolatorClass *owner) : Owner(owner) {}
@@ -182,8 +182,8 @@ public:
 	virtual void Set(const float &) {}
 	virtual KVAccessorClass<float> *Clone() const;
 
-	DeltaInterpolatorClass *Owner;		// +0x04
-	float Value;								// +0x08 the value Get read last
+	DeltaInterpolatorClass *Owner;		// +0x04  // NAME 2: describes what it does
+	float Value;								// +0x08 the value Get read last  // NAME 2: describes what it does
 };
 
 void DeltaInterpolatorClass::Unknown_00(DeltaChildVisitorClass *visitor)
