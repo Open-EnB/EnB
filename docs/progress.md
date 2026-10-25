@@ -4,6 +4,36 @@ Newest first within each section. Dates are when the entry was written.
 
 ## 1. Log
 
+### 2026-10-24 (afternoon): milestones M1 and M2 (D42-D61); app 136 -> 251, first linked programs
+
+Plan: [milestones.md](milestones.md) (M1 capture harness, M2 working VIDTEST); VIDTEST spec:
+[vidtest.md](vidtest.md). Coordinator plus builders, two in parallel from M2.1 on.
+
+* M1.0 (5af559a): `tools/harness/convert.py` turns the Alex dumps into datagram files and decodes the
+  EA-UDP ack list (type bit 0); it holds all 26,078 / 2,779 the reference decoder messages plus 28 / 12 the reference decoder lost
+  (D52). the reference decoder references saved in `.work/harness/ref/`. `capharness.exe`, the first VC6 program.
+* M1.1 (ff1db4f): the decode path mapped (milestones.md §2.3). M1.2 (7ca6a71 ... 795b23d): codecs,
+  lookup build, encoder records, kv_pair_string, the time field: app 136 -> 164. D54's ambiguous
+  column (a666c27). M1.3 (a35535c, 8303cf4): the 11 roots and 42 nested classes generated
+  (`tools/re/auxroots.py`), names matched to Net-7's AuxClasses by structure (D59): app 164 -> 202;
+  `auxreplay`: all 43,978 EA AUX_DATA decode, 43,977 re-encode byte for byte (D60), every field
+  change equals the reference decoder's aux-log (gate (c)), Alex 4,289 / 366 pass.
+* L1 (12d7347): `tools/vc6/build.py` builds all eight libraries. L2 (d7c38ab ... fbe117b): the 12
+  never-imported EA files (D49, wwlib 565 -> 586, wwaudio 351 -> 360), mss32.lib from the game's DLL
+  (D51, `mkmss32.py`), `stubs/` (D44), the first executable `programs/vidtest`. D55: ww3d2/pot.cpp
+  NOT_LINKED (9d6635d, WW3D2 2477 -> 2475, D20 duplicates).
+* M2.0 (fae8e7a): VIDTEST's spec. M2.1-M2.3 (25c0008 ... 066ace7): BST29A, every W3D scene, sky,
+  overlay, text, the three tests, results.ini, exit codes, E&BConfig's launch (no registry), a d3d8.dll
+  proxy capturing the original's frames (frame 300 within 3.2%). M2.4 (e47e935, 5c182eb): stars (8
+  exact), splines, land, decorations: app 202 -> 251; Max Polys 30729 / PolyBudget 30000 as the
+  original; land frames 35-40% different (orientation open). D61 NDEBUG (2fade9a, pairs unchanged).
+* Names: D56 certainty tags and `tools/re/names.py` (b61f6af); pre-D56 names tagged (f727a18).
+* Lessons (workflow.md §3): never a modal dialog or a screen grab in unattended runs (two
+  message boxes reached the user); never run a program in the game's install folder; two builders
+  waiting for each other's clean tree deadlocked for an hour (rule replaced).
+* Open: M1.4 (wwudp, gate (a)) and M1.5; M2 gate (d), land orientation; the supervised E&BConfig
+  run with the user once all features are done.
+
 ### 2026-10-24: the kv encoder, the interpolator's Unknown_00, encode.cpp and policy.cpp starts; app 92 -> 136
 
 * `app/shared/kv_encoder_base.cpp`/`.h` (22cfb49, with the interpolator below: 33): `KVEncoderBaseClass`
