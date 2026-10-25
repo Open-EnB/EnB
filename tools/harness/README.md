@@ -213,6 +213,42 @@ What doesn't match, and why:
 * openc picks the channel the capture shows, except for 11 of the server's reopened channels in
   alex3: the server reuses the channel written least recently (time(0)), which the replay doesn't have.
 
+## Net-7 recordings (M1.5, gate (d))
+
+```
+python tools/harness/n7aux.py [SESSION ...]        # default: the three 2026-10 sessions; auxreplay.exe from auxreplay.py build
+```
+
+* **n7aux.py** runs every AUX_DATA the client received in a Net-7 recording
+  (`the reference traces\captures\session_*.trace.jsonl`, message level, the proxy's output)
+  through auxreplay.exe, as `auxreplay.py run` does, and counts Net-7's known encoding differences
+  (the reference decoder `docs/research/auxdata.md` §7) instead of failing on them. Each is checked:
+  `length` (§7.1): the length field differs from the bytes that follow and everything else
+  re-encodes byte for byte; `members` (§7.2): a full Player send that runs out exactly where
+  `Player.GroupInfo.Members`' header should be, which must decode and re-encode byte for byte
+  with EA's `05` (Whole | Default) appended (the Members fields that `05` defaults are dropped
+  again for the values: the client keeps what it read); `short` (§7.3): a tree-form update that
+  declares more than it carries and runs out; `sets` (not in §7): a field or a whole container
+  named in more than one of Value / Default / Clear (Ship's Rank and EnergyPercent in Value and
+  Default; Player's Whole header `0f` where EA's has `07`). The client's decoder applies one of
+  them, so its encoder can't give the message back; a second run with our re-encoding in the
+  message's place must touch the same fields with the same values and re-encode byte for byte.
+  The values are compared with the reference decoder's `aux-log --first` with one change to auxreplay.py's
+  comparison: a field changes when its bytes change, not its G6 text (aux-log lists
+  `CombatExp: 0.255702 -> 0.255702`).
+
+Results (2026-10-24), the reference decoder's aux-census in brackets:
+
+| Session | AUX_DATA | ok | length | members | short | sets | noroot | failed | values equal aux-log |
+|---|---|---|---|---|---|---|---|---|---|
+| 2026-10-19 02:31 | 292 | 250 | 36 (36) | 2, all also `sets` | 0 | 4 | 0 | 0 (2) | 18,579 of 18,579 |
+| 2026-10-19 11:53 | 1,358 | 976 | 340 (340) | 8, all also `sets` | 2 | 32 | 0 | 0 (10) | 81,377 of 81,377 |
+| 2026-10-21 11:16 | 691 | 636 | 34 (34) | 5, all also `sets` | 0 | 14 | 2 (2) | 0 (5) | 38,171 of 38,171 |
+
+the reference decoder's failures are exactly the `members` and `short` messages (2 + 0, 8 + 2, 5 + 0). The
+length fields: declared minus carried is +6 for 319 Ship deltas (the whole payload's length), -8
+for 76 Ship, -4 for 11 Harvestable and -2 for 4 Hulk updates. No asserts.
+
 ## vidtest (L2, M2)
 
 ```
