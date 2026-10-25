@@ -6,7 +6,7 @@
 **   - a datagram file written by tools/harness/convert.py (format: tools/harness/README.md),
 ** and prints counts: messages per direction and opcode, datagrams per type, ack entries,
 ** blocks per type, and the game messages rebuilt from the blocks (resends dropped, fragments
-** joined). tools/harness/compare.py checks the counts against the reference decoder's.
+** joined). (The M1.0 count check against the reference decoder, compare.py, is retired; git history has it.)
 **
 **   capharness [--trace FILE.jsonl] [--dgram FILE.dgram]
 **

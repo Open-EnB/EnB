@@ -1,7 +1,10 @@
 # Capture harness tools (M1)
 
-Python side of the M1 capture harness ([docs/milestones.md](../../docs/milestones.md) §2). The
-C++ program is `tests/capharness/`. Inputs and the reference decoder's reference outputs live outside git:
+Python side of the M1 capture harness ([docs/milestones.md](../../docs/milestones.md) §2) and
+of the later harness programs (M1.2 to M2, listed at the end of this file). The C++ programs are
+under `tests/capharness/`. Every external repository and data path is named once, in
+`tools/re/roots.py` (listed in [docs/toolchain.md](../../docs/toolchain.md) §3). Inputs and
+the reference decoder's reference outputs live outside git:
 
 | Path | What |
 |---|---|
@@ -16,19 +19,19 @@ C++ program is `tests/capharness/`. Inputs and the reference decoder's reference
 ```
 python tools/harness/convert.py DUMP OUT.dgram [--check TRACE.jsonl]
 ENB_VC6_HOSTS=Daniel@<ip> python tools/harness/build.py        # after pool.py lease
-python tools/harness/compare.py --exe .work/harness/bin/capharness.exe \
-    --trace TRACE.jsonl --summary .work/harness/ref/NAME.summary.txt [--dgram OUT.dgram]
+sh tools/harness/refs.sh                                        # the reference decoder reference outputs -> .work/harness/ref/
 ```
 
 * **convert.py** parses a dump into a datagram file. `--check` rebuilds the game messages from
   the blocks (resends dropped, fragments joined) and compares them, in order, with the reference decoder's
   import of the same dump.
 * **build.py** sends `tests/capharness` to a build VM (`vc6.sync`), runs one `cl /MT` that
-  compiles and links, and copies the exe back. No `.lib` is linked yet.
-* **compare.py** checks the harness's counts: (1) messages and payload bytes per direction and
-  opcode from the trace against `the reference decoder dump --summary`; (2) the harness's datagram, ack,
-  block and rebuilt-message counts against its own Python count of the same datagram file;
-  (3) reports the messages rebuilt from datagrams against the trace's.
+  compiles and links, and copies the exe back. No `.lib` is linked yet (the M1.0 skeleton; the
+  later programs link through `tools/vc6/build.py link`, see [../vc6/README.md](../vc6/README.md)).
+* **refs.sh** saves the reference decoder's reference outputs per trace under `.work/harness/ref/` (~2 min).
+* `compare.py`, the M1.0 count check of the skeleton against the reference decoder's summary, was retired
+  (2026-10-25): `udpreplay.py` and `auxreplay.py` carry the gates now. `git log -- tools/harness/compare.py`
+  has it.
 
 ## The EA-UDP datagram (as the dumps show it)
 
@@ -86,9 +89,9 @@ real messages. Among them are 3 + 1 AUX_DATA (0x1B), including a 7,043-byte one 
 AUX_DATA gates should count 4,289 / 366 for these files from the datagram file, against
 the reference decoder's 4,286 / 365.
 
-capharness (M1.0 skeleton) on every trace, checked by compare.py: message counts and bytes per
+capharness (M1.0 skeleton) on every trace, checked by compare.py (retired): message counts and bytes per
 direction and opcode equal the reference decoder's summary for all 8 traces (alex3, alex7, capture_1..3, the
-three Net-7 sessions); its datagram counts equal compare.py's for both datagram files.
+three Net-7 sessions); its datagram counts equaled compare.py's for both datagram files.
 
 ## AuxData round trip and values (M1.3, gates (b) and (c))
 
@@ -403,3 +406,26 @@ yield, a task removing itself during its Run is shut down and deleted after it (
 another removed from inside a Run is deleted at once, Shutdown asks the focused task to yield,
 then shuts down and deletes every task, and the asserts fire on their lines (157: added twice; 74:
 a second kernel). 2026-10-24: 35 of 35 expected lines in order.
+
+## Other harness programs (index)
+
+Each script has its usage in its docstring; `python tools/harness/X.py --help` where it has argparse.
+
+| Script | What | Needs |
+|---|---|---|
+| `convert.py` | EA-UDP dump to `.dgram` (above) | the dumps |
+| `build.py` | the M1.0 capharness skeleton (above) | a pool VM |
+| `refs.sh` | the reference decoder reference outputs (above) | the reference decoder built |
+| `auxdata_smoke.py` | builds and runs `tests/capharness/auxdata_smoke` (M1.2): both aux-data forms decode on a hand-built root and re-encode byte for byte; exit code 0 = pass | libraries built (`tools/vc6/build.py`, `mkmss32.py lib`), a pool VM |
+| `auxreplay.py` | M1.3 gates (b), (c): AUX_DATA round trip and values (above) | libraries, pool VM, `.work/harness/ref/` |
+| `n7aux.py` | AUX_DATA of Net-7 recordings through auxreplay (M1.5, above) | the reference decoder, sessions |
+| `udpreplay.py` | EA-UDP transport, handshake, loop, connection layer (M1.4, above) | `.dgram` files, pool VM |
+| `kerneltest.py` | `tests/capharness/kerneltest` (task kernel, scripted tasks, 35 expected trace lines); `build` then `run`. `taskstest.cpp` beside it has no script of its own | pool VM |
+| `movietest.py` | `tests/capharness/movietest`: the movie task plays a Bink movie (kernel-map step 7); `build` stages Renegade's BinkMovie source from `roots.EA_ROOT`, `run` copies `binkw32.dll` and the movie from the retail install (read only) and runs in `.work/harness/movietest` | retail install, pool VM |
+| `run_vidtest.py`, `vidtest_sbs.py`, `run_reference.py`, `drawdump.py`, `symbolize.py`, `bmp2png.py`, `d3d8shot.c` | vidtest (above) | |
+| `vidtest_e2e.py` | starts vidtest as E&BConfig does (its command line, `CreateProcessA` with a relative name, E&BConfig's working directory = a copy of EBCONFIG at `build/programs/vidtest/e2e_ebconfig`, never the install) and reads `results.ini` as E&BConfig does; `--original` runs the retail VIDTEST (which has no `-nomsgbox`; ours gets it appended) | built vidtest, retail EBCONFIG folder to copy |
+| `vidtest_exitcodes.py` | the exit-code matrix (cases `finish close key mode res scenes`, `--case NAME`, repeatable) with `-nomsgbox` always; window and any stray message box are found by process id; results.ini compared with `--ref` | built vidtest |
+
+`vidtest_e2e.py` and `vidtest_exitcodes.py` stay two scripts: one reproduces E&BConfig's launch
+(ctypes `CreateProcessA`, the working directory trick, the results.ini reader) and one drives
+many cases by posting window messages; they share no code worth extracting.

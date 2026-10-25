@@ -185,3 +185,26 @@ Renegade, 2001–2002) would remove both fixes, but isn't required.
 E&B compiled its WW3D2 against DirectX **8.0**. If Zero Hour's WW3D2 uses anything only DirectX
 8.1 has, that code can't be what E&B had: the 8.0 headers will show it at compile time, and each
 such place is a point where E&B's copy differs from Zero Hour's.
+
+## 3. External repositories and data (2026-10-25)
+
+Everything outside this repository that the tools read lives under `C:\EnBDevelopment` (except the
+retail install). The Python tools take the paths from one module, `tools/re/roots.py`
+(`python tools/re/roots.py` prints each and whether it exists); the shell scripts
+(`tools/vc6/bytematch_all.sh`, `runtime_match.sh`, `tools/harness/refs.sh`) and `tools/vc6/importer.py`,
+`vc6.py`, `layout.py`, `build.py` carry the same few paths in their own constants (the VM mirrors
+`C:\EnBDevelopment` at the same path, so they stay absolute).
+
+| Path | What | Used by |
+|---|---|---|
+| `C:\EnBDevelopment\EA` | EA's published Westwood source (Renegade, Generals, Zero Hour, ...) | `easource.py`, `importer.py`, `bytematch_all.sh`, `libdiff.py`, `movietest.py` (BinkMovie) |
+| `C:\EnBDevelopment\SDK` | DirectX 8 SDK (`directx8`) and RAD/Miles (`radtools`; `include_enb` derived by `sdk_patch.py`, §2) | `importer.py`, `build.py`, `layout.py`, `bytematch_all.sh` |
+| `C:\EnBDevelopment\Tools\VMPool` | The VM pool's disks (§1.3; `ENB_VC6_POOL_DIR` overrides) | `pool.py` |
+| `C:\EnBDevelopment\Net7` | Net-7 server emulator, C++ (`Net7\AuxClasses`: the aux-data classes) | `auxnames.py` |
+| `C:\EnBDevelopment\the reference decoder` | C# proxy: game model (`the reference game model` Objects and `Schema\client-auxdata.json`), `the reference key table\the reference key table`, `the reference decoder.exe` (build it: `src\Harness\the reference decoder`, Release, net10.0) | `auxroots.py`, `auxnames.py`, `auxreplay.py`, `udpreplay.py`, `n7aux.py`, `refs.sh` |
+| `C:\EnBDevelopment\the reference traces` | the reference decoder's recorded traces (`captures\ea\*.trace.jsonl`, `captures\session_*.trace.jsonl`) | `auxreplay.py`, `udpreplay.py`, `n7aux.py`, `refs.sh` |
+| `C:\EnBDevelopment\Live-Era-Data` | EA's live-era packet dumps (`enbserver3\ENB-Packets-Live\Alex3-fixed.txt.txt`, `Alex7-...`) | `convert.py`, `auxreplay.py`, `udpreplay.py` |
+| `C:\Program Files (x86)\EA GAMES\Earth & Beyond` | The retail install: `release\client.exe` (SHA-256 `249f8524...51c4`), `EBCONFIG`, game data and movies. Read only; no tool uses it as a working directory (they copy what they need under `build/` or `.work/`) | `clientimage.py`, `vidtest_e2e.py`, `run_reference.py`, `movietest.py`, `mkmss32.py` |
+
+Inside this repository, git-ignored: `.work/` (scratch, pseudocode, locks, pool state), `build/`.
+To move an external repository, change `roots.py` and the shell scripts' variables listed above.

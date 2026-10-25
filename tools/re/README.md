@@ -2,8 +2,9 @@
 
 Python 3.12 with `capstone` (`pip install capstone`; only `ClientImage.disasm` needs it). Run from
 this directory. Each tool checks client.exe's SHA-256 and defaults to the retail install path;
-pass `--client PATH` otherwise. EA's repositories are expected at `C:\EnBDevelopment\EA`
-(`easource.EA_ROOT`).
+pass `--client PATH` otherwise. EA's repositories, the SDK, Net-7 and the capture data are expected at
+the paths in `roots.py` (`python tools/re/roots.py` prints them and whether they exist;
+[docs/toolchain.md](../../docs/toolchain.md) §3).
 
 | Tool | Does | Writes |
 |---|---|---|
@@ -28,8 +29,14 @@ pass `--client PATH` otherwise. EA's repositories are expected at `C:\EnBDevelop
 | `pkclasses.py [--check] [--marker] [--pk F]` | Generates app/packets/pk_classes.h (the 263 packet classes: the client's sizes, declared constructors, names from the client's profile labels, Print texts or the reference decoder's opcode names, D56 tags), the switch 0x869790 between pk.cpp's `// BEGIN/END pkclasses.py` markers (cases in the client's source order, the default's assert on line 1078) and the harness's constructors | app/packets/pk_classes.h, app/packets/pk.cpp, tests/capharness/udpreplay/pk_ctor_stubs.cpp |
 | `pkfactory.py [--out F]` | Maps the packet factory's switch 0x869790 (app\packets\pk.cpp): per opcode the bytes it news, the constructor, the vtable (the case's own store when the class's constructor is inlined over a base's) and the reference decoder's opcode name | docs/data/packet-factory.txt |
 | `appfile.py show\|draft\|match` | The per-file loop for E&B's own code (docs/app-plan.md §2). `show FILE` (a `__FILE__` path, `app\shared\auxdata\bitset.cpp`): the file's window from app-functions.json plus `--neighbours N` unattributed ones each side (`?`), each function's size (to the next verified start), asserts with their `__LINE__`, strings, vtables stored, callees (client.py names, else app-functions.json name or `[file]`). `draft FILE [--out DIR]`: the same as a .cpp skeleton, one stub per function with Ghidra's saved pseudocode and a `// @0xADDR` marker. `match DRAFT.cpp [-I DIR] [--flags F] [--diff NAME]`: compiles with VC6 (vc6.py; `/MT /O2 /Ob2 /GX`, NDEBUG off since the client keeps its asserts) and checks each function defined under a marker byte for byte at that address (objmatch patterns, so `short` ones count too; `PREFIX` if the client's is longer), else prints the objdiff similarity. `__LINE__` is an immediate (`push 8`), so asserts must sit on the client's lines (`#line N` in a draft) | stdout, DIR/FILE.cpp, DRAFT's dir/obj/ |
-| `auxroots.py generate\|check\|tree ROOT` | The aux-data root classes (M1.3, D43): runs `auxextract.py` (a copy of the reference decoder's extract_auxschema.py that also records each node's vtable, constructor calls, position in its object and string default; symbolic execution of the 11 root constructors, a few seconds) and writes one C++ class per compound vtable in the client's form: members in offset order, `Add` in wire order, masks, the CREATE factory. `check`: the extracted trees equal the reference game model's client-auxdata.json. Functional; exact for Component, Decoration, Light (the docstring lists what differs) | `app/client/aux_roots.h`, `.cpp` |
+| `auxroots.py generate\|check\|tree ROOT\|layout` | The aux-data root classes (M1.3, D43): runs `auxextract.py` (a copy of the reference decoder's extract_auxschema.py that also records each node's vtable, constructor calls, position in its object and string default; symbolic execution of the 11 root constructors, a few seconds) and writes one C++ class per compound vtable in the client's form: members in offset order, `Add` in wire order, masks, the CREATE factory. `check`: the extracted trees equal the reference game model's client-auxdata.json. Functional; exact for Component, Decoration, Light (the docstring lists what differs) | `app/client/aux_roots.h`, `.cpp` |
+| `auxnames.py` | Names the generated aux-data classes (M1.3, D56): matches each client compound (by vtable) to Net-7's C++ AuxClasses and the reference decoder's C# classes by structure (child counts, field names and order), never by guess. Run after `auxroots.py` has written `.work/auxroots.json`; read-only on both repositories | `tools/re/auxroots_names.json` (read by `auxroots.py`; `auxroots_pads.json` beside it is hand-edited input) |
+| `roots.py` | The one place for the paths of everything outside this repository (EA, SDK, Net7, the reference decoder, the reference traces, Live-Era-Data, the retail install); imported by the tools that need them | (module) |
 | `names.py [--print]` | Name certainty review (D56): scans the committed app/, stubs/, programs/, tests/ code for `// NAME n: evidence` tags and untagged neutral `*Unknown*` names (score 1), and lists every name scoring 3 or below, lowest first, with its evidence | `docs/data/names-review.md` |
+| `notexact.py [--print]` | The NOT EXACT tracker (D64): lists every `// NOT EXACT:` comment in app/, stubs/, programs/, tests/ with file:line, the function it belongs to (best effort) and its text | `docs/data/not-exact.md` |
+| `dated.py [--md F] [--json F]` | Every dated or author-tagged change comment in EA's WW copies (Z, G, R), banded against D9's cutoff, with whether the tree has it and the function's state: the version evidence for Zero Hour's changes | stdout or the given files |
+| `strscan.py [LIB]` | Client strings that occur in a Zero Hour / Generals / Renegade source file of LIB (default ww3d2) but nowhere in the tree's copy: code the tree lost | stdout |
+| `mark.py SRC OUT NAME=ADDR...` | Copies SRC with `// @ADDR` on the blank line above each named function (lines kept, so no assert moves): for `appfile.py match` | OUT |
 | `libdiff.py <dirA> <dirB>` | How much two EA copies of a library differ, file by file, ignoring comments and whitespace | stdout |
 
 ```
@@ -38,6 +45,11 @@ python libversions.py
 python funcmatch.py
 python libdiff.py C:\EnBDevelopment\EA\CnC_Renegade\Code\wwlib C:\EnBDevelopment\EA\CnC_Generals_Zero_Hour\GeneralsMD\Code\Libraries\Source\WWVegas\WWLib
 ```
+
+`vtables.py` needs the objects of the library, `--objs DIR` (required): `tools/vc6/build.py` leaves
+them in `build/<lib>/obj`, so for one class
+`python tools/re/vtables.py --objs build/ww3d2/obj --class ClassName --list` (add `--seed ClassName=ADDR`
+when the class's own code doesn't match yet).
 
 Compiling needs the build VM: `tools/vc6/vc6.py` ([docs/toolchain.md](../../docs/toolchain.md) §1.1).
 All libraries from all three EA copies, reports included: `bash ../vc6/bytematch_all.sh` (about
@@ -49,20 +61,8 @@ python objmatch.py -q --json run.json obj/*.obj
 python matchreport.py --title WWLib --out ../../docs/data/bytematch-wwlib R=renegade.json Z=zerohour.json
 ```
 
-Build-VM tools in `tools/vc6`: `vc6.py` (compile in the VM), `bytematch_all.sh` (all EA copies),
-`runtime_match.sh` (VC6 runtime and D3DX), `importer.py` (import and refine the libraries;
-`docs/imports.md`), `annotations.py` (C-equivalent comments for assembly in imported files),
-`layout.py CLASS HEADER` (a class's member offsets as VC6 lays it out, read from an unlinked
-object), `trial.py COPY LIB/FILE...` (swap files to another EA copy, keep only if better;
-`--max-loss`; `--errors FILE` writes every compile error, not just the first 15), `trial_all.py LIB COPY...` (trial every differing header/source pair),
-`addpatch.py --block NAME SPEC.py` (apply patches to the tree and record them in one of `importer.py`'s
-patch blocks; creates the block with `--title`), `mkspec.py SPEC.py REASONS.py` (turn uncommitted edits of tree files into an addpatch spec, one patch per diff hunk; then `git checkout` the files and run addpatch), `tryvariants.py LIB FILE VARIANTS.py` (compile
-variants of one file alone and report the client functions each gains or loses), `trydiff.py LIB FILE VARIANTS.py NAME` (compile one of those variants and keep its object, to
-`objdiff.py` it when no variant gains),
-`sdk_patch.py` (the Miles header as E&B's build used it, outside the repository). Several VMs:
-`vc6.py discover`; `ENB_VC6_HOSTS` gives a job a subset of them (docs/toolchain.md §1.1).
-`pool.py` (a Hyper-V pool of differencing clones: `lease --agent NAME` starts VMs and prints
-`ENB_VC6_HOSTS=...`; `release`, `stop-idle`, `list`, `create`, `destroy`; docs/toolchain.md §1.3).
+The build-VM tools (`vc6.py`, `pool.py`, `importer.py`, `build.py`, `trial*.py`, `pairs_cmp.py` and the
+rest) are indexed in [../vc6/README.md](../vc6/README.md).
 
 `tools/stl/stl_corpus.cpp`: explicit VC6 standard-library instantiations, compiled and matched
 to measure the template code in E&B's app region (docs/app-plan.md).
