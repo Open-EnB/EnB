@@ -1083,8 +1083,8 @@ addresses are often wrong guesses (for example 0x4026B0 = client 0x4637C0 is lis
 * **O6** The 2002 vs 2004 differences in Land render (0x410B90 ~ 0.65), decorations and star init:
   M2.4 has to choose the client's 2004 code (D45/D46 direction) or the 2002 behaviour. The visible
   result should be the same, since the same art and keys are used.
-* **O7** The signed `FreeTextureRam` on GPUs reporting 2 GB or more: replicate it (TextureReduction=2)
-  or fix it? Proposal: replicate, since the user decides (it changes E&BConfig's registry values).
+* **O7** The signed `FreeTextureRam` on GPUs reporting 2 GB or more. Decided (D53): fix the signed
+  comparison, do not replicate TextureReduction=2.
 
 ### 7.2 Suggested build order
 

@@ -15,10 +15,11 @@
 | [app-inventory.md](app-inventory.md) | E&B's own code: functions by source file, names, RTTI (generated) |
 | [app-plan.md](app-plan.md) | Proposal for reconstructing E&B's own code (decisions D6-D8) |
 | [kernel-map.md](kernel-map.md) | The client's task kernel (KernelClass, the tasks, WinMain's start-up) and the packet layer (connections, the opcode factory, the handlers): a map and a reconstruction order |
-| [milestones.md](milestones.md) | Milestones M1 (capture harness) and M2 (working VIDTEST): plan and proposals |
+| [milestones.md](milestones.md) | Milestones M1 (capture harness) and M2 (working VIDTEST): spec per work item, link procedure |
 | [vidtest.md](vidtest.md) | VIDTEST.EXE's functional spec: program flow, scenes, tests and results.ini, E&B scene classes, library API, function table (M2.0) |
-| [overnight-report.md](overnight-report.md) | Report of the 2026-10-23 overnight session |
-| [overnight-report-2.md](overnight-report-2.md) | Report of the 2026-10-24 overnight run |
+| [builders.md](builders.md) | Builder subagents: startup set per kind, rules, models (D72), report format |
+| [decode-path.md](decode-path.md) | The client's AUX_DATA decode path, function by function (M1.1) |
+| [archive/](archive/) | Dated one-off reports (overnight runs), superseded by progress.md's log |
 
 Generated data ([data/](data/); regenerate with the tools in `tools/re`):
 
@@ -35,6 +36,13 @@ Generated data ([data/](data/); regenerate with the tools in `tools/re`):
 | [data/symbols.json](data/symbols.json), [data/ghidra_symbols.py](data/ghidra_symbols.py) | address -> name for everything proven; a Ghidra labelling script | `symbols.py` |
 | [data/gaps-*.md](data/) and `gaps-*-classified.md` | each library's functions that aren't byte-exact, located, and split into linked / unlinked | `gaps.py`, `classify_gaps.py` |
 | [data/funcmatch.md](data/funcmatch.md), [data/funcmatch.json](data/funcmatch.json) | client functions matched to EA functions | `funcmatch.py` |
+| [data/app-functions.json](data/app-functions.json) | the app region's functions with addresses, sizes and names | `tools/re/app_inventory.py` |
+| [data/imports.json](data/imports.json) | per library file: origin, in-tree state, exact addresses (feeds imports.md) | `importer.py` |
+| [data/packet-factory.txt](data/packet-factory.txt) | the packet factory's cases (opcode, class, size, constructor) | `pkfactory.py` |
+| [data/vtables-ww3d2.json](data/vtables-ww3d2.json) | WW3D2 class vtables in the client | `vtables.py` (unverified) |
+| [data/not-exact.md](data/not-exact.md) | functions marked `// NOT EXACT:` in the tree (D64) | `names.py` |
+
+Tool documentation: [tools/re/README.md](../tools/re/README.md), [tools/vc6/README.md](../tools/vc6/README.md), [tools/harness/README.md](../tools/harness/README.md).
 
 Addresses are virtual addresses in the retail client.exe, SHA-256 `249f8524…51c4`
 ([binary.md](binary.md)).

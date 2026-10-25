@@ -1,7 +1,7 @@
 # E&B's own code: where to start (proposal)
 
-Status: **proposal for the user's decision** (written 2026-10-23, overnight). Nothing here has been
-started; the library work (docs/library-matching.md, docs/imports.md) is what exists so far.
+Status: decided (D6-D8), historical; written 2026-10-23. Current state and order: progress.md and
+kernel-map.md.
 
 ## 1. What the app region is
 
@@ -30,23 +30,7 @@ By directory (attributed functions): `app\client` 3,898, `app\shared` 804, `app\
 
 ## 2. How E&B code would be reconstructed
 
-The same loop as the libraries, per original source file:
-
-1. **Window.** The file's functions sit together in the client; app_inventory.py gives their
-   addresses (and, through `__FILE__`, their asserts and line numbers).
-2. **Draft.** Decompile them (REA/Ghidra, with docs/data/ghidra_symbols.py applied so every call
-   into the libraries, the runtime and D3DX already has its name), and write the C++ in the
-   project's conventions (docs/conventions.md), using the names the client gives (strings,
-   RTTI, asserts) and the reference decoder's research where it covers the file.
-3. **Prove.** Compile with VC6 SP4 and byte-match (tools/vc6, tools/re/objmatch.py): the
-   function is done when it is byte-exact; objdiff.py shows what still differs.
-4. **Headers** grow with the files: each class's layout is checked with tools/vc6/layout.py
-   against the offsets the client's code uses.
-
-New tooling this needs: a per-file workflow script (window -> draft skeleton with the
-functions' addresses, sizes, strings, callees and asserts -> compile -> match), and assert line
-numbers taken from the client (E&B's asserts push `__LINE__`, so each assert gives its exact
-source line, which pins the file's line numbering).
+Superseded by docs/workflow.md §2.1 (the per-file loop, with the tools that now exist).
 
 ## 3. Proposed order
 
