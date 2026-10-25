@@ -476,3 +476,11 @@ Added 2026-10-24 (overnight run; details in `.work/night/item*/report.md`):
   `jae exit; jmp top` is a do-while behind a count test. A buffer at function scope gives each
   inlined copy its own frame slot.
 * **auxextract misses defaults set through a register** (`or reg,-1`, byte stores, register masks).
+* **Reading kernel-style code.** A `mov dword [..], 0` among register-zero stores is a float member
+  (0.0f isn't held in an integer register). A function that is two later functions' bodies is just
+  the two calls inlined (Process_Messages = Pump_Messages + Process_Input; the first one's stack slot
+  is reused). Read a member into a local before a virtual call to match a register choice. 0x9CCD10
+  (`xor eax,eax; ret`, referenced directly from many vtables) fills pure virtual slots: declare them
+  `= 0`. Open: which bool-return form gives a bare `setcc al` without the `xor`.
+* **The Write tool writes LF.** Convert new tree files to CRLF to match their neighbours, and check
+  a file's line ends before using `\r\n` anchors in an edit script.
