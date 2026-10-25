@@ -169,6 +169,7 @@ and GroupInfo defaulted later).
 ENB_VC6_HOSTS=Daniel@<ip> python tools/harness/udpreplay.py build [--out DIR]
 python tools/harness/udpreplay.py run alex3 [--aux]                 # also alex7
 python tools/harness/udpreplay.py loop alex3 [--drop 0,10,4] [--step 20]
+python tools/harness/udpreplay.py conn alex3 [--drop 0,10,4]          # through UDPConnection and the stream framing
 ```
 
 * **The wire datagram** (app/wwudp/cordcon.h): the dumps start at byte 5 of it. Bytes 0-4 are
@@ -273,6 +274,27 @@ What doesn't match, and why:
   the writes refused after the close.
 * openc picks the channel the capture shows, except for 11 of the server's reopened channels in
   alex3: the server reuses the channel written least recently (time(0)), which the replay doesn't have.
+
+**The connection layer** (`udpreplay.py conn NAME`, `udpreplay --conn [--loop N] ...`;
+docs/kernel-map.md 4, 5): what each receiving CordCon delivers is read through app\common's
+UDPConnection::Receive (CordCon::read into the shared message buffer, the packet factory 0x8696C0:
+`conn_replay.cpp` supplies a test packet holding the bytes, wlib's CritSec and the rate average),
+then each packet goes through the stream connection (connect.cpp, vtable 0xB085F4): Send_Packet
+writes the {size, opcode} header and the payload to a memory transport, Receive reads them back
+through the 100,000-byte ring (circbuff.cpp) in chunks of 1 to 4,096 bytes, the factory again. The
+{size, opcode, payload} messages (M lines) must equal, in order per session and direction, what
+CordCon::read gives in the plain run, each size field 4 + the payload, the whole sequence compared
+with the reference decoder's trace.jsonl as `run` does. Results (2026-10-24): alex3 26,106 of 26,106 (vs the reference decoder:
+all 26,078 and the 28 extra, as `run`), alex7 2,781 + 1 (2,782): the last client message of session
+ffffaf39 arrives with the close, and UDPConnection::Receive, as the client's, checks the CordCon
+first and disconnects (CordMgr::Release) without reading what is left (counted, a Z line). The loop
+runs (drop none / 10 / 4) equal the plain loop runs in every session and direction. Two harness
+cases are counted, not framed: the replay's 1-byte fillers (no header: the client's factory would
+read the previous message's from the shared buffer; alex3 1, alex7 10 in the loop runs), and one
+alex7 message whose size field (7,690) isn't the 264 bytes CordCon delivers (the dump's cut
+message: the factory takes the header's size), compared over the delivered bytes. The UDPConnection
+is made over each side's CordCon with the constructor for an accepted one (0x82CBF0); the default
+channel it opens is taken back, since the replay opens the capture's channels.
 
 ## Net-7 recordings (M1.5, gate (d))
 

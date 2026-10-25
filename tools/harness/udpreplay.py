@@ -4,6 +4,7 @@
     python tools/harness/udpreplay.py run alex3|alex7 [--exe EXE] [--aux]
     python tools/harness/udpreplay.py handshake            (capture_1..3's 54 SYN1/ACK1/SYN2/ACK2)
     python tools/harness/udpreplay.py loop alex3|alex7 [--drop N,...] [--step MS]
+    python tools/harness/udpreplay.py conn alex3|alex7 [--drop N,...] [--step MS]
 
 build: links udpreplay with the app\\wwudp sources (compiled into the program, as auxreplay.py's
 --app-sources) against DIR's libraries (wwlib's RC4Class) into DIR/programs/udpreplay/.
@@ -29,6 +30,16 @@ loop: the dump's messages and closes, but each side's own datagrams go to the ot
 that drops every Nth datagram (default 0 = none, then 10 and 4), the clock advancing MS ms (default
 20) per datagram of the dump: resend requests, the resend timer, the send window and the close,
 which a replay of the capture can't test (the dumps have no times).
+
+conn: the same replay and loop runs with --conn: what each receiving CordCon delivers is read through
+app\\common's UDPConnection::Receive (CordCon::read, the packet factory: tests/capharness/udpreplay/
+conn_replay.cpp supplies a test packet) and then through the stream connection's framing (Send_Packet
+writes {size, opcode} and the payload to a memory transport; Receive reads them back through the
+100,000-byte ring in chunks of 1 to 4,096 bytes). Passes when the {size, opcode, payload} messages
+(M lines) equal, in order per session and direction, what CordCon::read delivers in the plain run
+(R lines), every size field is 4 + the payload, the whole sequence equals the reference decoder's trace.jsonl as
+`run` compares it, and the harness counted no error (a packet without its connection, a failed
+send, bytes left in the ring).
 """
 import argparse
 import re
@@ -46,6 +57,9 @@ REPO = os.path.dirname(os.path.dirname(HERE))
 WORK = os.path.join(REPO, '.work', 'harness', 'udpreplay')
 CAPS = r'C:\EnBDevelopment\the reference traces\captures'
 WWUDP = [r'app\wwudp\cordcon.cpp', r'app\wwudp\cordmgr.cpp', r'app\wwudp\unknown_cordmsg.cpp']
+# --conn (conn): the connection layer over them (docs/kernel-map.md 4), with what it needs
+CONN = [r'app\common\circbuff.cpp', r'app\common\connect.cpp', r'app\common\udpconn.cpp',
+        r'app\kernel\kernel.cpp', r'app\shared\auxdata\linearbu.cpp']
 sys.path.insert(0, HERE)
 import convert as C  # noqa: E402
 
@@ -61,7 +75,7 @@ def build(out):
         shutil.copy(os.path.join(src, fn), stage)
     with open(os.path.join(stage, 'app_sources.cpp'), 'w', newline='\r\n') as f:
         f.write('// app\\wwudp, compiled into the program (udpreplay.py build)\n')
-        for p in WWUDP:
+        for p in WWUDP + CONN:
             f.write('#include "' + os.path.relpath(os.path.join(REPO, p), stage) + '"\n')
     B.PROGRAMS['udpreplay'] = {'dir': os.path.relpath(stage, REPO), 'flags': B.I.LIB_FLAGS['ww3d2'] + ' /GX',
                                'subsystem': 'console', 'runtime': []}
@@ -614,9 +628,105 @@ def loop(name, exe, drops, step):
     return ok
 
 
+def conn(name, exe, drops, step):
+    """udpreplay --conn against the plain runs (see the module's doc)."""
+    dgram = os.path.join(REPO, '.work', 'harness', name + '.dgram')
+    inp = os.path.join(WORK, name + '.in.txt')
+    keys, dgs = prepare(dgram, inp)
+
+    def run_one(args, res):
+        p = subprocess.run([os.path.abspath(exe)] + args + [inp, res] + ([str(step)] if '--loop' in args else []),
+                           capture_output=True, text=True)
+        if p.returncode != 0:
+            print(p.stdout[-2000:], p.stderr[-2000:])
+            raise SystemExit('udpreplay %s failed: %d' % (' '.join(args), p.returncode))
+        msgs, errors, sizes_bad, shorts, dropped = defaultdict(list), None, 0, 0, Counter()
+        for line in open(res):
+            q = line.split()
+            if not q:
+                continue
+            if q[0] == 'R':
+                data = bytes.fromhex(q[5]) if len(q) > 5 else b''
+                if len(data) < 4:
+                    shorts += 1     # the replay's 1-byte fillers: the factory refuses them
+                    continue
+                msgs[(q[3], q[2])].append(data)
+            elif q[0] == 'M':
+                payload = bytes.fromhex(q[6]) if len(q) > 6 else b''
+                size, opcode = int(q[4]), int(q[5])
+                sizes_bad += size != 4 + len(payload)
+                msgs[(q[3], q[2])].append(struct.pack('<hH', size, opcode) + payload)
+            elif q[0] == 'Z':
+                dropped[(q[3], q[2])] += int(q[4])
+            elif q[0] == 'S' and q[1:3] == ['conn', 'errors']:
+                errors = int(q[3])
+                shorts = int(q[5])
+        return msgs, errors, sizes_bad, shorts, dropped
+
+    ok = True
+    for label, extra in [('capture replay', [])] + [('loop, drop every %d' % n, ['--loop', str(n)]) for n in drops]:
+        tag = 'replay' if not extra else 'loop' + extra[1]
+        plain, _, _, plain_short, _ = run_one(extra, os.path.join(WORK, '%s.%s.plain.txt' % (name, tag)))
+        mine, errors, sizes_bad, shorts, dropped = run_one(['--conn'] + extra, os.path.join(WORK, '%s.%s.conn.txt' % (name, tag)))
+        n_plain = sum(len(v) for v in plain.values())
+        n_mine = sum(len(v) for v in mine.values())
+        n_dropped = sum(dropped.values())
+        keys_all = set(plain) | set(mine)
+        # what a closed CordCon still held is the plain run's last messages of that session and direction;
+        # a message whose size field isn't its length (the dump's cut messages, rebuilt with zeros or
+        # short) comes out as long as its header says (the factory takes the header's size): compared
+        # over the bytes CordCon delivered
+        resized = 0
+
+        def same(a, b):
+            if a == b:
+                return True
+            if len(a) >= 4 and struct.unpack_from('<h', a)[0] != len(a) and b[:len(a)] == a[:len(b)]:
+                return True
+            return False
+
+        equal = 0
+        for k in keys_all:
+            a = plain.get(k, [])
+            a = a[:len(a) - dropped[k]]
+            b = mine.get(k, [])
+            if len(a) == len(b) and all(same(x, y) for x, y in zip(a, b)):
+                equal += 1
+                resized += sum(1 for x, y in zip(a, b) if x != y)
+        line = '  %s: CordCon::read %d, through UDPConnection and the stream %d (+ %d left in a closed CordCon: %s); ' \
+               'sessions/directions equal in order %d of %d; size fields wrong %d; harness errors %s; under 4 bytes ' \
+               '(no header: counted, not framed) %d of %d; size field not the length (compared over the length) %d' % (
+                   label, n_plain, n_mine, n_dropped, ', '.join('%s %s' % k for k in sorted(dropped)) or '-', equal,
+                   len(keys_all), sizes_bad, errors, shorts, plain_short, resized)
+        good = equal == len(keys_all) and n_plain == n_mine + n_dropped and sizes_bad == 0 and errors == 0 \
+            and shorts == plain_short
+        if not extra:
+            trace = os.path.join(CAPS, 'ea', name + '.trace.jsonl')
+            tr = []
+            for tl in open(trace, encoding='utf-8'):
+                e = json.loads(tl)
+                tr.append((e['channel'].split(':', 1)[1], 'C' if e['dir'] == 'ClientToServer' else 'S',
+                           int(e['op'], 16), bytes.fromhex(e.get('data') or '')))
+            # the M lines in output order, as run's comparison takes the R lines
+            seq = []
+            for l2 in open(os.path.join(WORK, '%s.%s.conn.txt' % (name, tag))):
+                q = l2.split()
+                if q and q[0] == 'M':
+                    seq.append((q[3], q[2], int(q[5]), bytes.fromhex(q[6]) if len(q) > 6 else b''))
+            same, _ = seq_compare(seq, tr)
+            ca, cb = Counter(seq), Counter(tr)
+            line += '\n    vs the reference decoder (%s): ours %d, the reference decoder %d; in order %d; the reference decoder\'s not delivered %d, ours not in ' \
+                    'the reference decoder %d' % (os.path.basename(trace), len(seq), len(tr), same, sum((cb - ca).values()),
+                                    sum((ca - cb).values()))
+        print(line)
+        ok = ok and good
+    print('%s conn: %s' % (name, 'PASS' if ok else 'FAIL'))
+    return ok
+
+
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument('cmd', choices=['build', 'run', 'handshake', 'loop'])
+    ap.add_argument('cmd', choices=['build', 'run', 'handshake', 'loop', 'conn'])
     ap.add_argument('name', nargs='?')
     ap.add_argument('--out', default=os.path.join(REPO, 'build'))
     ap.add_argument('--exe')
@@ -630,6 +740,8 @@ def main():
     exe = a.exe or os.path.join(a.out, 'programs', 'udpreplay', 'udpreplay.exe')
     if a.cmd == 'handshake':
         return 0 if handshake(exe) else 1
+    if a.cmd == 'conn':
+        return 0 if conn(a.name, exe, [int(x) for x in a.drop.split(',')], a.step) else 1
     if a.cmd == 'loop':
         return 0 if loop(a.name, exe, [int(x) for x in a.drop.split(',')], a.step) else 1
     return 0 if run(a.name, exe, a.aux) else 1

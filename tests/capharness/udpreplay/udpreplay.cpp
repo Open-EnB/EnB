@@ -32,6 +32,7 @@
 // The end: counters per session.
 //
 //     udpreplay --loop N IN.txt OUT.txt [MS [WINDOW]]
+//     udpreplay --conn [--loop N] ...  (the same, read through UDPConnection: M lines, conn_replay.cpp)
 //
 // The loop test: the same messages (W) and closes (Q), but each side's own datagrams go to the
 // other side over a link that drops every Nth datagram in each direction (N = 0: none); each D
@@ -55,6 +56,11 @@
 
 extern unsigned __int64 Replay_Time_Ms;		// wtime_replay.cpp
 static int Window_Limit = 65535;
+// --conn: deliver through app\common's UDPConnection and stream framing (conn_replay.cpp)
+extern bool Conn_Mode;
+extern int Conn_Errors;
+extern int Conn_Short;
+int Conn_Deliver(FILE *out, int n, const char *dir, const char *name, CordCon *con, CordMgr *mgr);
 static int Loop_Drop = -1;		// --loop N: drop every Nth datagram (-1: the capture replay)
 
 // ------------------------------------------------------------------------- E&B's log (cordmgr.cpp)
@@ -404,6 +410,10 @@ static void Loop_Send(FILE *out, Session *s, Side &tx, Side &rx, int d, const ch
 	sent.clear();
 	rx.Mgr.Pump();
 	int channel, len;
+	if (Conn_Mode) {
+		s->Delivered[d] += Conn_Deliver(out, n, d == 0 ? "C" : "S", name, rx.Con, &rx.Mgr);
+		return;
+	}
 	while (rx.Con->read(&channel, &len, msg, false)) {
 		fprintf(out, "R %d %s %s %d ", n, d == 0 ? "C" : "S", name, channel);
 		Put_Hex(out, msg, len);
@@ -443,6 +453,11 @@ static int Loop_Unacked(CordCon *c)
 
 int main(int argc, char **argv)
 {
+	if (argc > 1 && strcmp(argv[1], "--conn") == 0) {
+		Conn_Mode = true;
+		argv++;
+		argc--;
+	}
 	if (argc > 2 && strcmp(argv[1], "--loop") == 0) {
 		Loop_Drop = atoi(argv[2]);
 		argv += 2;
@@ -572,7 +587,10 @@ int main(int argc, char **argv)
 		fprintf(out, "P %d %s %s %s\n", n, dir, name, status);
 
 		int channel, len;
-		while (rx.Con->read(&channel, &len, msg, false)) {
+		if (Conn_Mode) {
+			s->Delivered[d] += Conn_Deliver(out, n, dir, name, rx.Con, &rx.Mgr);
+		}
+		while (!Conn_Mode && rx.Con->read(&channel, &len, msg, false)) {
 			fprintf(out, "R %d %s %s %d ", n, dir, name, channel);
 			Put_Hex(out, msg, len);
 			fprintf(out, "\n");
@@ -617,6 +635,9 @@ int main(int argc, char **argv)
 				s->Client.Con->CloseState_);
 		}
 		fprintf(out, "# ticks %d\n", total);
+		if (Conn_Mode) {
+			fprintf(out, "S conn errors %d short %d\n", Conn_Errors, Conn_Short);
+		}
 		fclose(out);
 		fclose(in);
 		return 0;
@@ -635,6 +656,9 @@ int main(int argc, char **argv)
 				s->NoCon[d], s->Delivered[d], s->Generated[d], s->PeerOk[d], s->OpenMismatch[d], rx->AcksMatched_,
 				rx->DupAcks_, rx->ResendRequests_);
 		}
+	}
+	if (Conn_Mode) {
+		fprintf(out, "S conn errors %d short %d\n", Conn_Errors, Conn_Short);
 	}
 	fclose(out);
 	fclose(in);
