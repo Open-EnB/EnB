@@ -8,7 +8,7 @@
 **
 **	A compound of count compound fields T(name), named "0", "1", ... (M1.3): the item arrays
 **	(Cargo, Equipped: vtable 0xB00F54, global 0xC41624, elements 0xB0111C). The client doesn't name
-**	the template (D24).
+**	the template (D24). The loop: a do-while behind a count test (`jae exit; jmp top`, 0x6F9ED0).
 */
 
 #if defined(_MSC_VER)
@@ -50,16 +50,18 @@ template<class T> DeltaItemArrayClass<T>::DeltaItemArrayClass(const char *name, 
 	DeltaCompoundClass(name)
 {
 	m_Unknown04 = UnknownGlobal;
-	for (unsigned int i = 0; i < count; i++) {
-		char item_name[256];
-		sprintf(item_name, "%d", i);
-		T *item = new T(item_name);
-		if (item != 0) {
+	unsigned int i = 0;
+	if (count > 0) {
+		do {
+			char item_name[256];
+			sprintf(item_name, "%d", i);
+			T *item = new T(item_name);
+			if (item == 0) {
+				G_ASSERT(item);
+				break;
+			}
 			Add(item);
-		} else {
-			G_ASSERT(item);
-			break;
-		}
+		} while (++i < count);
 	}
 }
 

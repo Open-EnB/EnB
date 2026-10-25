@@ -851,7 +851,7 @@ public:
 class DeltaPlayerClass : public UnknownSendRootClass
 {
 public:
-	DeltaPlayerClass(int unknown);
+	DeltaPlayerClass();
 
 	DeltaTemplateClass<MoneyClass> Money;	// +0xB0
 	DeltaTemplateClass<int> XPDebt;	// +0x140

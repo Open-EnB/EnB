@@ -112,6 +112,7 @@ template<class R> class Tracked : public R
 {
 public:
 	Tracked(int unknown) : R(unknown) {}
+	Tracked() {}		// Player (its constructor takes nothing)
 	virtual void Unknown_3C(DeltaClass *delta) { R::Unknown_3C(delta); Touched.Note(0, delta); Bump(delta); }
 	virtual void Unknown_40(DeltaClass *delta) { R::Unknown_40(delta); Touched.Note(1, delta); }
 	virtual void Unknown_44(DeltaClass *delta) { R::Unknown_44(delta); Touched.Note(2, delta); }
@@ -350,7 +351,7 @@ int main(int argc, char **argv)
 		if (id == 0) {
 			UnknownRootClass *&p = players[chan];
 			if (p == 0) {
-				p = new Tracked<DeltaPlayerClass>(0);
+				p = new Tracked<DeltaPlayerClass>();
 			}
 			root = p;
 			name = "Player";

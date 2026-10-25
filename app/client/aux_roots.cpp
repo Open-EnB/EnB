@@ -234,8 +234,8 @@ DeltaManufacturingLabClass::DeltaManufacturingLabClass(int unknown) :
 }
 
 // Player (0x752510)
-DeltaPlayerClass::DeltaPlayerClass(int unknown) :
-	UnknownSendRootClass(unknown, "Player"),
+DeltaPlayerClass::DeltaPlayerClass() :
+	UnknownSendRootClass(0, "Player"),
 	Money("Money", MoneyClass(0)),
 	XPDebt("XPDebt"),
 	SecureInventory("SecureInventory", 96),

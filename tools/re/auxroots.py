@@ -153,7 +153,7 @@ class Gen:
         for r in roots.values():
             walk(r, True)
         for vt, n in self.nodes.items():
-            if n['type'] != 'struct' or vt == INTERPOLATOR:
+            if vt == INTERPOLATOR:
                 continue
             for c in (int(x, 16) for x in n.get('ctors', [])):
                 if c in self.SHARED:
@@ -161,7 +161,7 @@ class Gen:
                 fvt = self.final_vt(c)
                 if fvt == vt:
                     self.ooline[vt] = c
-                elif fvt is not None and self.nodes[fvt]['type'] == 'struct':
+                elif fvt is not None and n['type'] == 'struct' and self.nodes[fvt]['type'] == 'struct':
                     self.base[vt] = fvt
                     self.ooline[fvt] = c
 
@@ -270,6 +270,8 @@ class Gen:
                      '\t\t\tif (item == 0) {', '\t\t\t\tG_ASSERT(item);', '\t\t\t\tbreak;', '\t\t\t}']
             if el.get('mask') is not None:
                 lines.append(f'\t\t\titem->m_Unknown80 = 0x{el["mask"]:X};')
+            # (a do-while here, as delta_item_array.h's, and an out-of-line constructor (0x701B60)
+            # gain 0x7014B0 and 0x7045F0 but lose 0x6FB1E0: VC6's inlining elsewhere in the file moves)
             lines += ['\t\t\tAdd(item);', '\t\t}', '\t}', '};']
             self.decl[vt] = '\n'.join(lines)
             self.order.append(vt)
@@ -329,8 +331,13 @@ class Gen:
             # Player's base is the second root class (vtable 0xAEAC40, ctor 0x4A3FF0: the name
             # argument is passed but not used); the factory's roots derive from UnknownRootClass
             basecls = 'UnknownSendRootClass' if root in SEND_ROOTS else 'UnknownRootClass'
-            init = [f'{basecls}(unknown, "{n["_cname"]}")']
-            sig = f'{name}(int unknown)'
+            if root in SEND_ROOTS:
+                # Player's constructor takes nothing (0x752510 ends `ret`) and passes 0
+                init = [f'{basecls}(0, "{n["_cname"]}")']
+                sig = f'{name}()'
+            else:
+                init = [f'{basecls}(unknown, "{n["_cname"]}")']
+                sig = f'{name}(int unknown)'
         else:
             basecls = bcls or 'DeltaCompoundClass'
             init = [f'{basecls}(name)']
