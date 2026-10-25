@@ -4,6 +4,38 @@ Newest first within each section. Dates are when the entry was written.
 
 ## 1. Log
 
+### 2026-10-25: housekeeping audit; D62-D79; builders.md; traps 100 -> 74; milestones split; tools promoted
+
+Four read-only audits (`.work/audit/traps.md`, `decisions.md`, `tools.md`, `startup.md`; two on Opus,
+two on Sonnet) then three edit agents on disjoint files. Found: D32 (serial builders) contradicted the
+approved parallel runs; D23 (NDEBUG off) contradicted D61; D36 vs the E&BConfig check; D7 vs `NOT EXACT`
+code beyond D42's scope; D39 as written didn't compile; D10/D16 vs D56; the builder brief, the pairs
+comparer and several standing safety rules existed only in the git-ignored `.work/`; a builder read
+about 105 KB (27k tokens) at startup, 82% of it milestones.md and workflow.md §3.
+
+* **Decisions** D62-D79 (6477bb8), including yesterday's proposals: D62 parallel builders (replaces D32),
+  D63 the E&BConfig check is one-time, D64 `NOT EXACT` general with a tracker, D66 pair-loss classes
+  (0x8C1520 is class iii), D69 safety rules numbered, D71 attribution from the harness, D72 subagent
+  models, D73 imports (wlib/wnet, tcpmgr/tcpcon, BinkMovie; CordArrayClass's remove on wlib), D74-D78
+  tool and define items, D79 the the reference decoder note. D10, D16, D23, D32, D36, D39, D43 reworded.
+* **[builders.md](builders.md)** (75920e0): the tracked builder brief: startup set per kind, rules, the
+  model table, report format. CLAUDE.md names the pool, `pairs_cmp.py`, D27, D69, D71.
+* **workflow.md §3** (a0121ec, b619ec3): 100 traps / 37 KB -> 74 / 18 KB in §3.0 Everyone plus nine
+  topic buckets; 24 duplicate groups merged; §2.1 fixed for D41/D61; tool quirks moved to the three
+  READMEs (0386ac4). kernel-map.md: the four "WM_QUIT sets +0x0C" claims corrected, header current.
+* **milestones.md** 51 -> 20 KB (c826e08): one heading per item; results in library-matching.md §3.8,
+  the decode-path table in [decode-path.md](decode-path.md); §4 here collapsed (76e8472); the overnight
+  reports archived under `docs/archive/` (65956fb).
+* **Tools** (79a79ec ... cba6d0d): `tools/vc6/pairs_cmp.py`, `tools/re/roots.py` (every external root;
+  toolchain.md §3), the rerunnable night scripts promoted (zhall, dated, strscan, mark), `notexact.py`
+  -> `docs/data/not-exact.md` (38 functions in 15 files), `tools/vc6/README.md`; `compare.py` retired
+  (its staged deletion landed in 6477bb8). vidtest_e2e/exitcodes kept separate (little shared code).
+* Startup set per builder now about 43 KB (app), 39 KB (library), 35 KB (harness).
+* the reference decoder `docs/research/auxdata.md` §7 item 9 added in that repository's working tree (D79).
+* Models and tokens: audits Opus 107k + 127k, Sonnet 96k + 78k; edits Opus 134k, Sonnet 168k + 108k.
+* Open: the Net7 repositories question (D79) before housekeeping closes; the supervised E&BConfig
+  acceptance check (D63).
+
 ### 2026-10-24 (evening, unsupervised): M1 and M2 met; transport, kernel, connections, packet factory; app 251 -> 458
 
 Plan and log: `.work/milestones/plan-7h.md`. Two builders in parallel, coordinator heartbeat.
@@ -886,6 +918,7 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
   `docs/data/not-exact.md` shows how much functional code is waiting.
 * The the reference decoder / a private tool audit question (D79): the user revisits it before
   housekeeping closes.
+* Which bool-return form gives a bare `setcc al` without the `xor` (moved from workflow.md §3).
 
 ## 4. Next steps
 
