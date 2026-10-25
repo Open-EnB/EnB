@@ -219,6 +219,7 @@ DeltaHarvestableClass::DeltaHarvestableClass(int unknown) :
 }
 
 // Ship.Inventory.Cargo.N (0x6FA150)
+inline
 DeltaItemClass::DeltaItemClass(const char *name) :
 	DeltaCompoundClass(name),
 	ItemTemplateID("ItemTemplateID", -1),
@@ -294,6 +295,7 @@ DeltaManufacturingLabClass::DeltaManufacturingLabClass(int unknown) :
 }
 
 // ManufacturingLab.PrimaryCategories.N (0x6FB1E0)
+inline
 DeltaPrimaryCategoryClass::DeltaPrimaryCategoryClass(const char *name) :
 	DeltaCompoundClass(name),
 	Name("Name", ""),
@@ -304,6 +306,7 @@ DeltaPrimaryCategoryClass::DeltaPrimaryCategoryClass(const char *name) :
 }
 
 // ManufacturingLab.KnownFormula.N (0x6FB760)
+inline
 DeltaKnownFormulaClass::DeltaKnownFormulaClass(const char *name) :
 	DeltaCompoundClass(name),
 	ItemName("ItemName", ""),
@@ -384,6 +387,7 @@ DeltaPlayerClass::DeltaPlayerClass() :
 }
 
 // Player.RPGInfo (0x752E60)
+inline
 DeltaRPGInfoClass::DeltaRPGInfoClass(const char *name) :
 	DeltaCompoundClass(name),
 	Race("Race"),
@@ -422,6 +426,7 @@ DeltaRPGInfoClass::DeltaRPGInfoClass(const char *name) :
 }
 
 // Player.RPGInfo.Skills.N (0x753520)
+inline
 DeltaSkillClass::DeltaSkillClass(const char *name) :
 	DeltaCompoundClass(name),
 	Level("Level"),
@@ -442,6 +447,7 @@ DeltaSkillClass::DeltaSkillClass(const char *name) :
 }
 
 // Player.RPGInfo.SkillAbilities.N (0x7538B0)
+inline
 DeltaSkillAbilityClass::DeltaSkillAbilityClass(const char *name) :
 	DeltaCompoundClass(name),
 	HasAbility("HasAbility"),
@@ -462,6 +468,7 @@ DeltaSkillAbilityClass::DeltaSkillAbilityClass(const char *name) :
 }
 
 // Player.Missions.N (0x753DF0)
+inline
 DeltaMissionClass::DeltaMissionClass(const char *name) :
 	DeltaCompoundClass(name),
 	ID("ID", -1),
@@ -506,6 +513,7 @@ DeltaMissionClass::DeltaMissionClass(const char *name) :
 }
 
 // Player.GroupInfo (0x7548D0)
+inline
 DeltaGroupInfoClass::DeltaGroupInfoClass(const char *name) :
 	DeltaCompoundClass(name),
 	IsGroupLeader("IsGroupLeader"),
@@ -534,6 +542,7 @@ DeltaGroupInfoClass::DeltaGroupInfoClass(const char *name) :
 }
 
 // Player.GroupInfo.Members.N (0x754DB0)
+inline
 DeltaGroupMemberClass::DeltaGroupMemberClass(const char *name) :
 	DeltaCompoundClass(name),
 	Name("Name", ""),

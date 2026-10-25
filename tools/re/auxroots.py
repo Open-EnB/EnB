@@ -26,7 +26,9 @@ blobs: `Unknown<VT>Type`) with the conversions KVPairTemplateClass needs.
 The output is functional, NOT EXACT (D42): default values (the client's 'Default' strings,
 1.0f arrays, the 20-byte blobs' {1.0f, 0, 0, -1, 0}) are not extracted, the nested classes'
 out-of-line constructors are generated out of line where the client has them (a compound whose
-recorded constructor stores its own vtable last: 0x6FB1E0, 0x752E60, ...), and a compound whose
+recorded constructor stores its own vtable last: 0x6FB1E0, 0x752E60, ...) as `inline` definitions
+(the client's are copies of inline functions, each right after its first caller; OOLINE_PLAIN
+lists the exception), and a compound whose
 constructor calls another compound's (Equipped's items: 0x6FA150 builds a Cargo item) derives from
 that class. Player derives from
 the second root class UnknownSendRootClass (vtable 0xAEAC40, ctor 0x4A3FF0) and calls its
@@ -55,6 +57,10 @@ PADS = os.path.join(HERE, 'auxroots_pads.json')
 ROOT_CTOR = {'Ship': 0x6F66E0, 'Component': 0x6FBDA0, 'Light': 0x6F9870, 'Decoration': 0x6F9C30,
              'Harvestable': 0x6F9ED0, 'ManufacturingLab': 0x6FA6F0, 'Player': 0x752510}
 SEND_ROOTS = {'Player'}     # derived from UnknownSendRootClass (unknown_root.h)
+# Nested constructors generated out of line and NOT inline (the rest are `inline`: see Gen.compound).
+# Element (0x707430): the client's is inline too, but its only caller, the Buff array 0x707040, is
+# called by the client's Ship and inlined by ours, which then inlines Element and loses 0x707430.
+OOLINE_PLAIN = {0xB01F74}
 INLINE_ROOT_VT = {'Planet': 0xB00894, 'Stargate': 0xB007DC, 'Starbase': 0xB00838}   # built in the factory
 
 LEAF = {
@@ -373,10 +379,15 @@ class Gen:
                 lines.append('\tvoid Add(DeltaClass *child) { DeltaCompoundClass::Add(child); }')
                 lines.append('\tvoid Add(int narrow, DeltaClass *child);\t// 0x6F8C70: narrow sets the mask to 0xCF')
         elif vt in self.ooline:
-            # out of line, as the client's
+            # the client's out-of-line copy of an inline constructor: VC6 emits it right after its
+            # first caller that didn't inline it (0x6FA150 after Harvestable 0x6F9ED0, 0x6FB1E0
+            # after ManufacturingLab 0x6FA6F0, 0x707430 after the Buff array 0x707040), and an
+            # inline callee changes the caller's inline budget (Player 0x752510 exact only so).
+            # Not Element's (OOLINE_PLAIN): its caller, the Buff array, is inlined into ours.
             lines.append(f'\t{sig};\t// 0x{self.ooline[vt]:X}')
             self.nested.append((self.ooline[vt], '\n'.join(
-                [f'// {path} (0x{self.ooline[vt]:X})', f'{name}::{sig} :', '\t' + ',\n\t'.join(init), '{'] + body + ['}'])))
+                [f'// {path} (0x{self.ooline[vt]:X})'] + ([] if vt in OOLINE_PLAIN else ['inline']) +
+                [f'{name}::{sig} :', '\t' + ',\n\t'.join(init), '{'] + body + ['}'])))
         else:
             lines.append(f'\t{sig} :')
             lines.append('\t\t' + ',\n\t\t'.join(init))

@@ -27,11 +27,11 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `UnknownB00A58Enum` | `app/client/aux_roots.cpp:92` | untagged neutral name (D10) |
 | 1 | `Unknown_48` | `app/client/aux_roots.cpp:160` | untagged neutral name (D10) |
 | 1 | `m_Unknown80` | `app/client/aux_roots.cpp:168` | untagged neutral name (D10) |
-| 1 | `UnknownB013ECEnum` | `app/client/aux_roots.cpp:251` | untagged neutral name (D10) |
-| 1 | `UnknownB0133CEnum` | `app/client/aux_roots.cpp:254` | untagged neutral name (D10) |
-| 1 | `UnknownB0122CEnum` | `app/client/aux_roots.cpp:263` | untagged neutral name (D10) |
-| 1 | `UnknownB011D4Enum` | `app/client/aux_roots.cpp:270` | untagged neutral name (D10) |
-| 1 | `UnknownSendRootClass` | `app/client/aux_roots.cpp:345` | untagged neutral name (D10) |
+| 1 | `UnknownB013ECEnum` | `app/client/aux_roots.cpp:252` | untagged neutral name (D10) |
+| 1 | `UnknownB0133CEnum` | `app/client/aux_roots.cpp:255` | untagged neutral name (D10) |
+| 1 | `UnknownB0122CEnum` | `app/client/aux_roots.cpp:264` | untagged neutral name (D10) |
+| 1 | `UnknownB011D4Enum` | `app/client/aux_roots.cpp:271` | untagged neutral name (D10) |
+| 1 | `UnknownSendRootClass` | `app/client/aux_roots.cpp:348` | untagged neutral name (D10) |
 | 1 | `aux_roots.h` | `app/client/aux_roots.h:10` | provisional file name (the client's code is in co.cpp and an unattributed object) |
 | 1 | `Unknown_Hex_String` | `app/client/aux_roots.h:49` | untagged neutral name (D10) |
 | 1 | `UnknownB009A8Enum` | `app/client/aux_roots.h:61` | the value type of the leaf vtable 0xB009A8 (no name in the client, Net-7 or C#) |
