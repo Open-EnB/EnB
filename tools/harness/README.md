@@ -365,3 +365,19 @@ python tools/harness/vidtest_sbs.py run; python tools/harness/vidtest_sbs.py sbs
   the land's orientation, fog, culling, trees and lightmap with it).
 * **symbolize.py** names the addresses of vidtest's crash report (`CRASH:` lines in its log: the
   exception address and the stack words that point into its code) with the linker map.
+
+## The task kernel (docs/kernel-map.md 6, step 1)
+
+```
+ENB_VC6_HOSTS=Daniel@<ip> python tools/harness/kerneltest.py build [--out DIR]
+python tools/harness/kerneltest.py run
+```
+
+tests/capharness/kerneltest links app\kernel\kernel.cpp with scripted tasks on a clock the program
+sets (it stands in for the aux-data clock, the input queue, WW3D's device check and the two globals
+kernel.cpp calls) and checks the trace: a cycle with nothing due sleeps until the earliest task is,
+the focused task alone gets Pre_Run and Render, Set_Focus / Next_Focus respect a task that won't
+yield, a task removing itself during its Run is shut down and deleted after it (Pending_Delete),
+another removed from inside a Run is deleted at once, Shutdown asks the focused task to yield,
+then shuts down and deletes every task, and the asserts fire on their lines (157: added twice; 74:
+a second kernel). 2026-10-24: 35 of 35 expected lines in order.
