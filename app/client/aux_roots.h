@@ -235,7 +235,7 @@ public:
 		Range("Range"),
 		Usage("Usage"),
 		Targets("Targets"),
-		Validity("Validity")
+		Validity("Validity", (UnknownB018F4Enum)256)
 	{
 		Add(&Range);
 		Add(&Usage);

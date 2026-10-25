@@ -68,6 +68,9 @@ OOLINE_PLAIN = {0xB01F74}
 # The value arrays' elements start from (delta_array.h's third argument), which auxextract doesn't
 # record (a stack temporary): VisibleQuadrantDamagePercent's 1.0f (Ship 0x6F700D, Hulk 0x6F60FD).
 ARRAY_VALUES = {'VisibleQuadrantDamagePercent': '1.0f'}
+# Leaf defaults passed through a stack temporary (also not recorded), by (compound vtable, field):
+# the equipped item's effect's Validity 0x100 (0x70245B, in the Equipped array 0x702240).
+LEAF_VALUES = {(0xB01790, 'Validity'): 0x100}
 INLINE_ROOT_VT = {'Planet': 0xB00894, 'Stargate': 0xB007DC, 'Starbase': 0xB00838}   # built in the factory
 
 LEAF = {
@@ -312,6 +315,8 @@ class Gen:
                 raise SystemExit(f'{path}: the base class {bcls} is not its first fields')
             fields = fields[k:]
         for i, f in enumerate(fields):
+            if (vt, f['name']) in LEAF_VALUES:
+                f = dict(f, value=LEAF_VALUES[vt, f['name']])
             cls = self.node_class(f, path + '.' + f['name'])
             fa, fo = self.alloc(f)
             arg = f'"{f["name"]}"'
