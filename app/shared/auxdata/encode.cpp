@@ -377,10 +377,8 @@ void TreeCodecClass::Visit(DeltaClass *delta)
 
 
 
-// NOT EXACT: the body matches the client's instruction for instruction, but VC6 gives the early
-// paths (header not read, whole compound in one state) their own epilogues and pushes ebp only
-// for the per-child path, where the client jumps to one shared epilogue; the client also places the
-// Mode = 0 / Mode = 1 blocks after the function's end. Tried: returns, if/else chains, a goto.
+
+// The client's form (0x4A9400): early returns; the mode chosen inside "any state"
 void TreeCodecClass::Visit(DeltaCompoundClass *delta)
 {
 	int count = delta->Children.size();
@@ -390,7 +388,9 @@ void TreeCodecClass::Visit(DeltaCompoundClass *delta)
 	bool cleared;
 	if (!Read_Header(&whole, &updated, &defaulted, &cleared)) {
 		Error = true;
-	} else if (whole) {
+		return;
+	}
+	if (whole) {
 		if (updated) {
 			Error = !delta->Unknown_10(*Buffer, *Base);
 		} else if (defaulted) {
@@ -400,7 +400,8 @@ void TreeCodecClass::Visit(DeltaCompoundClass *delta)
 		} else {
 			G_ASSERT(false);
 		}
-	} else {
+		return;
+	}
 	int updated_pos = 0;
 	int defaulted_pos = 0;
 	int cleared_pos = 0;
@@ -421,26 +422,25 @@ void TreeCodecClass::Visit(DeltaCompoundClass *delta)
 	int size = bits.NumBytes;
 	if (Buffer->Read(bits.Buffer, size) != size) {
 		Error = true;
-	} else {
-		for (int i = 0; i < count; i++) {
-			bool is_updated = updated && bits.Is_Set(updated_pos + i);
-			bool is_defaulted = defaulted && bits.Is_Set(defaulted_pos + i);
-			bool is_cleared = cleared && bits.Is_Set(cleared_pos + i);
+		return;
+	}
+	for (int i = 0; i < count; i++) {
+		bool is_updated = updated && bits.Is_Set(updated_pos + i);
+		bool is_defaulted = defaulted && bits.Is_Set(defaulted_pos + i);
+		bool is_cleared = cleared && bits.Is_Set(cleared_pos + i);
+		if (is_updated || is_defaulted || is_cleared) {
 			if (is_updated) {
 				Mode = 0;
 			} else if (is_defaulted) {
 				Mode = 1;
-			} else if (is_cleared) {
+			} else {
 				Mode = 2;
 			}
-			if (is_updated || is_defaulted || is_cleared) {
-				delta->Children[i]->Accept(*this);
-			}
-			if (Error) {
-				break;
-			}
+			delta->Children[i]->Accept(*this);
 		}
-	}
+		if (Error) {
+			return;
+		}
 	}
 }
 
