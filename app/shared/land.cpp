@@ -945,9 +945,9 @@ void LandClass::Render_Decorations(RenderInfoClass &rinfo)
 **	batching into per-patch buffers. Not rebuilt: the client's tessellation and render (0x474B30,
 **	VB/IB per frame, triangle strips; here fixed per-patch strides with skirts), the sea, the
 **	lightmap thread, the shadow test's own horizons (ours are computed, compared with the sun's
-**	elevation), the trees' shadows (one blended triangle per tree on the ground, ZBIAS 1: VIDTEST
-**	0x410B90's second loop, built by 0x416170), the decoration cache (land%04d.dcb) and the .pld
-**	rebuild.
+**	elevation), the decoration cache (land%04d.dcb) and the .pld rebuild. The trees' shadows follow
+**	0x416170/0x410B90 functionally (ours take the nearest grid normal: within about 5-20 units of
+**	the original's triangles).
 **
 **	Checked against the original's draw calls (tools/harness/run_reference.py --dump, drawdump.py,
 **	frames 500 and 900, M2.4): the same camera, the same vertex grid (257 a side from -25000 to

@@ -40,6 +40,19 @@ opens. Where this document says otherwise, these win:
   against 28,729 without stars).
 * O7: on the host the original wrote `FreeTextureRam=-3145728`, `TextureReduction=2`; ours
   fixes it (D53).
+* The land (M2.4, from the original's draw calls: `run_reference.py --dump`): 16 x 16 patches of 17 x 17
+  vertices drawn as triangle strips with a per-patch world matrix (scale 195.3125, z 6000/60416),
+  257 vertices a side from -25000 to +25000, uv = index / 256 (no half texel); the lightmap
+  (A8R8G8B8, a default-pool texture, a new one each update) holds `river_color4_256.tga` in file row
+  order (§4.1's FLIP_PGM field and the TGA's bottom-up rows line up); land draws have FOGENABLE with
+  the sky colour, CULLMODE CW, stage 1 MODULATE2X with the detail map. Trees: one draw per patch whose
+  level (+0x24) is below 3 (none at Land LOD 1), alpha tested (ALPHAREF 0x60) with depth writes; then
+  the shadows, one blended triangle per tree with ZBIAS 1. 0x418400 picks the tree mesh by ".D"/".d"
+  in its name and the shadow by ".S"/".s" (TDTREE01A.DTREE, TDTREE01A.STREE). 0x415C40 draws the
+  random numbers as: prototype (Pick_Random_Number), scale, v, u, angle.
+* The sun turns with GetTickCount (§2.4), so two runs differ in their lighting: compare with the
+  original's angle at its frames (d3d8shot.log stamps each saved frame with GetTickCount;
+  `vidtest_sbs.py run` passes it as `-sunangle`).
 
 ## 1. Program flow
 
