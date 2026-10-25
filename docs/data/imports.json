@@ -1,6 +1,6 @@
 {
  "app": {
-  "ambiguous_total": 51,
+  "ambiguous_total": 52,
   "base": "reconstructed",
   "compile_errors": [],
   "files": {
@@ -119,6 +119,37 @@
     ],
     "merged": [],
     "name": "shared/auxdata/bitset.cpp"
+   },
+   "circbuff": {
+    "ambiguous": [],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x830BF0",
+     "0x830C60",
+     "0x830C80",
+     "0x830DA0",
+     "0x830EF0"
+    ],
+    "merged": [],
+    "name": "common/circbuff.cpp"
+   },
+   "connect": {
+    "ambiguous": [
+     "0x823460"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x823320",
+     "0x8234D0",
+     "0x8235E0",
+     "0x8236D0",
+     "0x823840",
+     "0x8238C0"
+    ],
+    "merged": [],
+    "name": "common/connect.cpp"
    },
    "cordcon": {
     "ambiguous": [
@@ -759,7 +790,10 @@
   },
   "headers": {
    "client/aux_roots.h": "reconstructed",
+   "common/circbuff.h": "reconstructed",
+   "common/connect.h": "reconstructed",
    "kernel/kernel.h": "reconstructed",
+   "packets/pk.h": "reconstructed",
    "shared/auxdata/bitset.h": "reconstructed",
    "shared/auxdata/delta.h": "reconstructed",
    "shared/auxdata/delta_array.h": "reconstructed",
@@ -792,7 +826,7 @@
    "wwudp/udp.h": "reconstructed",
    "wwudp/wtime.h": "reconstructed"
   },
-  "in_tree_total": 344,
+  "in_tree_total": 355,
   "totals": {}
  },
  "ww3d2": {

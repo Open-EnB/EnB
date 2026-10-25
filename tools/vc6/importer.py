@@ -3199,6 +3199,20 @@ RECONSTRUCTED = {
     ('app', 'kernel/kernel.cpp'): "the task kernel, client 0x443020-0x444150 (kernel-map.md 6, step 1): KernelClass and TaskClass; "
                                   "the asserts on the client's lines 74 / 157 / 196 / 225 / 474 (D25); NOT EXACT: Remove_Task "
                                   "(the client calls list's iterator++ 0x444190 out of line), Is_Running, TaskClass::Is_Focused",
+    ('app', 'common/circbuff.h'): "CircBuffClass (descriptive, D24; members from the asserts): the ring buffer of bytes, "
+                                  "the client's layout (0x18 bytes)",
+    ('app', 'common/circbuff.cpp'): "the ring buffer, client 0x830BF0-0x830F30 (the stream connection's 100,000-byte receive "
+                                    "buffer): all 7 functions exact, the asserts on the client's lines 112 / 166 (D25)",
+    ('app', 'common/connect.h'): "PARTIAL: the connection base (vtable 0xB0850C) and the stream connection (vtable 0xB085F4, "
+                                 "the {size, opcode, payload} framing); descriptive names (D24), the client's layout and "
+                                 "slot order (docs/kernel-map.md 4)",
+    ('app', 'common/connect.cpp'): "PARTIAL: connect.cpp's connection base (0x820F90, 0x820FE0) and stream connection "
+                                   "0x823320-0x8238C0 exact but the destructor 0x8233E0 (NOT EXACT: unwind states), the "
+                                   "asserts on the client's lines 1104 / 1138 (D25); the factories, wrappers and "
+                                   "ConnectionManager 0x821000-0x8232E0 not rebuilt",
+    ('app', 'packets/pk.h'): "PARTIAL: the packet base class (vtable 0xAEDE88, 10 slots), the message header and the "
+                             "raw message (0x22C bytes) as the connections use them, the factory 0x8696C0 declared; "
+                             "defined by the program until app\\packets is rebuilt",
     ('app', 'wwudp/bandwidthaccounting.cpp'): "the bandwidth accounting, client 0x84C720-0x84DFB0 (M1.4): a kernel task with per-address "
                                               "counts fed by wnet's accounting callback, WWLib's DynamicVectorClass of 0x3C-byte "
                                               "entries; the debug window prints on the client's lines 281-361 (D25); exact",

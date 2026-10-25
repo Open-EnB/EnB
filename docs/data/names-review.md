@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 27 |
 | 3 | by convention from a client-named file or sibling | 56 |
 | 2 | describes what the code does | 473 |
-| 1 | neutral placeholder | 295 |
+| 1 | neutral placeholder | 311 |
 
 ## For review (score 3 and below)
 
@@ -309,6 +309,22 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `m_Unknown98` | `tests/capharness/auxreplay/auxreplay.cpp:435` | untagged neutral name (D10) |
 | 1 | `Unknown_All` | `tests/capharness/auxreplay/auxreplay.cpp:436` | untagged neutral name (D10) |
 | 1 | `UnknownSendRootClass` | `tests/capharness/auxreplay/auxreplay.cpp:465` | untagged neutral name (D10) |
+| 1 | `Unknown_Get_Ticks` | `tests/capharness/kerneltest/kerneltest.cpp:21` | untagged neutral name (D10) |
+| 1 | `Unknown_9179D0` | `tests/capharness/kerneltest/kerneltest.cpp:22` | untagged neutral name (D10) |
+| 1 | `Unknown_42EA80` | `tests/capharness/kerneltest/kerneltest.cpp:25` | untagged neutral name (D10) |
+| 1 | `Unknown_42E8A0` | `tests/capharness/kerneltest/kerneltest.cpp:33` | untagged neutral name (D10) |
+| 1 | `UnknownBDADC0Class` | `tests/capharness/kerneltest/kerneltest.cpp:38` | untagged neutral name (D10) |
+| 1 | `Unknown0000` | `tests/capharness/kerneltest/kerneltest.cpp:41` | untagged neutral name (D10) |
+| 1 | `Unknown4074` | `tests/capharness/kerneltest/kerneltest.cpp:42` | untagged neutral name (D10) |
+| 1 | `Unknown_BDADC0` | `tests/capharness/kerneltest/kerneltest.cpp:45` | untagged neutral name (D10) |
+| 1 | `UnknownBFAEE0Class` | `tests/capharness/kerneltest/kerneltest.cpp:46` | untagged neutral name (D10) |
+| 1 | `Unknown_00` | `tests/capharness/kerneltest/kerneltest.cpp:49` | untagged neutral name (D10) |
+| 1 | `Unknown_04` | `tests/capharness/kerneltest/kerneltest.cpp:50` | untagged neutral name (D10) |
+| 1 | `Unknown_08` | `tests/capharness/kerneltest/kerneltest.cpp:51` | untagged neutral name (D10) |
+| 1 | `Unknown_0C` | `tests/capharness/kerneltest/kerneltest.cpp:52` | untagged neutral name (D10) |
+| 1 | `Unknown_10` | `tests/capharness/kerneltest/kerneltest.cpp:53` | untagged neutral name (D10) |
+| 1 | `Unknown_BFAEE0` | `tests/capharness/kerneltest/kerneltest.cpp:56` | untagged neutral name (D10) |
+| 1 | `Unknown_Assert_Failed` | `tests/capharness/kerneltest/kerneltest.cpp:57` | untagged neutral name (D10) |
 | 1 | `UnknownLogClass` | `tests/capharness/udpreplay/udpreplay.cpp:62` | untagged neutral name (D10) |
 | 1 | `Unknown_4BC130` | `tests/capharness/udpreplay/udpreplay.cpp:65` | untagged neutral name (D10) |
 | 1 | `UnknownLog` | `tests/capharness/udpreplay/udpreplay.cpp:67` | untagged neutral name (D10) |
