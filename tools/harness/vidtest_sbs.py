@@ -7,7 +7,9 @@ run: starts build/programs/vidtest/vidtest.exe with the reference's arguments (6
      extra arguments, e.g. `-- -resx 800 -resy 600` for a reference run at that size, override them)
      and `-shots` set to the frame numbers saved in build/programs/vidtest/ref/ (run_reference.py),
      so both programs save the same presented frames (numbered from 1, one per Present). vidtest runs
-     its tests to the end and exits with 1. Frames go to build/programs/vidtest/shots/.
+     its tests to the end and exits with 1. Frames go to build/programs/vidtest/shots/. Unless the
+     extra arguments give -sunangle, it passes the original's sun angle at its frame 700 (from the
+     GetTickCount stamps in ref/d3d8shot.log), since VIDTEST turns its sun with the clock.
 sbs: for every frame both have (or the frames given), writes ours (left) and the original's (right)
      side by side to build/programs/vidtest/sbs/sbs_NNNNN.png, and prints the share of pixels that
      differ by more than 60 (sum of |dR|+|dG|+|dB|), sampled every other pixel.
@@ -37,10 +39,40 @@ def ref_frames():
     return sorted(int(f[6:11]) for f in os.listdir(REF) if f.startswith('frame_') and f.endswith('.bmp'))
 
 
+def ref_sun_angle():
+    """The original's sun angle (degrees) at its frame 700: VIDTEST turns the sun with GetTickCount
+    (a = fmod(ticks * 5e-5, 2 pi), mirrored above pi; docs/vidtest.md 2.4), and d3d8shot.log stamps
+    each saved frame with GetTickCount. None without the log."""
+    import math
+    import re
+    log = os.path.join(REF, 'd3d8shot.log')
+    if not os.path.exists(log):
+        return None
+    ticks = {}
+    for line in open(log, encoding='latin1'):
+        m = re.match(r'\s*(\d+) frame (\d+): saved', line)
+        if m:
+            ticks[int(m.group(2))] = int(m.group(1))
+    if not ticks:
+        return None
+    t = ticks.get(700) or ticks[max(ticks)]
+    a = math.fmod(t * 5e-5, 2 * math.pi)
+    if a > math.pi:
+        a = 2 * math.pi - a
+    return int(round(math.degrees(a)))
+
+
 def run(extra):
     frames = ref_frames()
     if not frames:
         raise SystemExit('no reference frames: run_reference.py run')
+    if '-sunangle' not in extra:
+        # the original's sun at the time of its frames (the land's lightmap and the scenes' light
+        # depend on it: 35-40% of frames 500-900 differed with a random sun, 2-4% with this; M2.4)
+        angle = ref_sun_angle()
+        if angle is not None:
+            extra = ['-sunangle', str(angle)] + extra
+            print(f'-sunangle {angle} (the original\'s sun at its frame 700, from d3d8shot.log)')
     if os.path.isdir(SHOTS):
         shutil.rmtree(SHOTS)
     # vidtest takes the first occurrence of an argument, so the extra arguments come first

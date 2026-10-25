@@ -2,6 +2,7 @@
 
     python tools/harness/run_reference.py build [--pool 1]     # d3d8shot.c -> build/d3d8shot/d3d8.dll (VC6 VM)
     python tools/harness/run_reference.py run [--every 50] [--frames 1,30] [--max 120] [--timeout 300]
+                                              [--dump 500,900] [--out DIR] [--exe PATH]
                                               [-- extra VIDTEST arguments]
 
 `run` copies the EBCONFIG install folder to build/programs/vidtest/ref_ebconfig/ (once; the
@@ -13,6 +14,12 @@ own back buffer at the chosen Present calls; no screen grab. It also logs the pr
 calls. VIDTEST ends by itself when its tests are done (exit 1, results.ini written); after
 --timeout seconds the script posts WM_CLOSE (exit -3). Output in build/programs/vidtest/ref/:
 d3d8shot.log, frame_NNNNN.bmp and .png, results.ini (a copy), and run.txt (exit code, time).
+
+--dump F,... also writes every indexed draw call of those frames (vertices, indices, transforms,
+textures) to draws_NNNNN.bin (d3d8shot.c; read it with tools/harness/drawdump.py). --out DIR writes
+the output there instead of build/programs/vidtest/ref/ (the reference frames stay). --exe PATH runs
+another D3D8 program the same way, e.g. our build/programs/vidtest/vidtest.exe: it is copied with the
+proxy into DIR/proxy_run/ and started there (its working directory; give it -nomsgbox).
 """
 import argparse
 import ctypes
@@ -79,14 +86,23 @@ def run(a):
     shutil.copy(dll, os.path.join(ref, 'd3d8.dll'))
     res = os.path.join(ref, 'RESULTS.INI')
     before = open(res, 'rb').read() if os.path.exists(res) else None
-    dst = os.path.join(OUT, 'ref')
+    dst = os.path.abspath(a.out) if a.out else os.path.join(OUT, 'ref')
     if os.path.isdir(dst):
         shutil.rmtree(dst)
     os.makedirs(dst)
     env = dict(os.environ, D3D8SHOT_DIR=dst, D3D8SHOT_EVERY=str(a.every), D3D8SHOT_FRAMES=a.frames,
-               D3D8SHOT_MAX=str(a.max))
+               D3D8SHOT_MAX=str(a.max), D3D8SHOT_DUMP=a.dump)
     args = a.extra or ['-resx', '640', '-resy', '480', '-depth', '32', '-windowed', '1']
     exe = os.path.join(ref, 'VIDTEST.EXE')
+    if a.exe:
+        ref = os.path.join(dst, 'proxy_run')
+        os.makedirs(ref)
+        exe = os.path.join(ref, os.path.basename(a.exe))
+        shutil.copy(a.exe, exe)
+        shutil.copy(dll, os.path.join(ref, 'd3d8.dll'))
+        res = os.path.join(ref, 'results.ini')
+        before = None
+        env['ENB_STUB_LOG'] = os.path.join(dst, 'stubs.log')
     t0 = time.time()
     p = subprocess.Popen([exe] + args, cwd=ref, env=env)
     try:
@@ -111,7 +127,7 @@ def run(a):
     shots = sorted(f for f in os.listdir(dst) if f.endswith('.bmp'))
     for f in shots:
         bmp2png.write_png(os.path.join(dst, f[:-4] + '.png'), *bmp2png.read_bmp(os.path.join(dst, f)))
-    summary = (f'VIDTEST.EXE {" ".join(args)}: exit code {rc}, {how}, {secs:.1f} s; {len(shots)} frames saved; '
+    summary = (f'{os.path.basename(exe)} {" ".join(args)}: exit code {rc}, {how}, {secs:.1f} s; {len(shots)} frames saved; '
                f'results.ini {"changed" if after != before else "unchanged"}')
     open(os.path.join(dst, 'run.txt'), 'w').write(summary + '\n')
     print(summary)
@@ -125,6 +141,9 @@ def main():
     ap.add_argument('--frames', default='1,10,30')
     ap.add_argument('--max', type=int, default=120)
     ap.add_argument('--timeout', type=float, default=300)
+    ap.add_argument('--dump', default='', help='frames whose draw calls are dumped (draws_NNNNN.bin)')
+    ap.add_argument('--out', help='output folder (default build/programs/vidtest/ref)')
+    ap.add_argument('--exe', help='run this program instead of the original VIDTEST.EXE')
     ap.add_argument('extra', nargs='*')
     a = ap.parse_args()
     if a.command == 'build':

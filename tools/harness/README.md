@@ -159,7 +159,9 @@ python tools/harness/vidtest_sbs.py run; python tools/harness/vidtest_sbs.py sbs
   vidtest with the reference's arguments and `-shots` set to the frames in `ref/` (one number per
   Present, from 1, as run_reference.py counts them; vidtest runs its tests to the end), `sbs` writes
   ours (left) and the original's (right) side by side to `build/programs/vidtest/sbs/` and prints
-  the share of pixels that differ.
+  the share of pixels that differ. `run` passes the original's sun angle (`-sunangle`, from the
+  GetTickCount stamps in `ref/d3d8shot.log`): VIDTEST turns its sun with the clock, and a random
+  sun alone made 35-40% of the land frames differ.
 * **run_reference.py** runs the ORIGINAL `VIDTEST.EXE` for reference frames: `build` compiles
   `d3d8shot.c` on a pool VM into `build/d3d8shot/d3d8.dll`; `run` copies EBCONFIG to
   `build/programs/vidtest/ref_ebconfig/` (once: the original writes `results.ini` into its own
@@ -167,6 +169,16 @@ python tools/harness/vidtest_sbs.py run; python tools/harness/vidtest_sbs.py sbs
   everything to the system's d3d8.dll, saves the program's own back buffer at chosen `Present`
   calls (`--every 50`, `--frames 1,10,30`; never a screen grab) and logs the program's
   `CreateFileA` calls. Output: `build/programs/vidtest/ref/` (`d3d8shot.log`, `frame_NNNNN.bmp`
-  and `.png`, `results.ini`, `run.txt`).
+  and `.png`, `results.ini`, `run.txt`). Options go before the subcommand. `--dump 500,900` also
+  writes every indexed draw call of those frames to `draws_NNNNN.bin` (vertices and indices read
+  from shadow copies of the locked buffers, transforms, textures, fog/blend/cull render states and
+  texture stage states, read back with the device's Get calls) and saves each 32-bit texture they
+  use as `tex_NNNNN_PTR.bmp` (the land's lightmap); `--out DIR` keeps `ref/`; `--exe PATH` runs
+  another D3D8 program (our vidtest: add `-nomsgbox`) through the same proxy, so both sides are
+  dumped alike. Example: `run_reference.py --every 0 --frames 900 --dump 900 --out DIR --exe
+  build/programs/vidtest/vidtest.exe run -- -nomsgbox -resx 640 -resy 480 -depth 32 -windowed 1`.
+* **drawdump.py** reads those dumps: `groups FILE` (draws by FVF and textures), `list FILE [--fvf
+  202]`, `show FILE N` (one draw's states and first vertices); `read()` for scripts (M2.4 settled
+  the land's orientation, fog, culling, trees and lightmap with it).
 * **symbolize.py** names the addresses of vidtest's crash report (`CRASH:` lines in its log: the
   exception address and the stack words that point into its code) with the linker map.
