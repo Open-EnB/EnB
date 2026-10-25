@@ -3210,6 +3210,22 @@ RECONSTRUCTED = {
                                    "0x823320-0x8238C0 exact but the destructor 0x8233E0 (NOT EXACT: unwind states), the "
                                    "asserts on the client's lines 1104 / 1138 (D25); the factories, wrappers and "
                                    "ConnectionManager 0x821000-0x8232E0 not rebuilt",
+    ('app', 'common/critsec.h'): "the lock udpconn.cpp takes: wlib's CritSec (libs\\wwonline\\wlib, client "
+                                 "0x8B42F0-0x8B4350; EA's matchbot wlib interface, E&B's lock without an argument), "
+                                 "declared only; defined by the program (the capture harness, M1.4)",
+    ('app', 'common/dictionary.h'): "a stand-in for wlib's Dictionary<K,V> with its layout (0x34 bytes, the 0.2 / 0.8 "
+                                    "thresholds, 128 slots): UDPConnection's channel table; not EA's code (WWOnline "
+                                    "is an open decision)",
+    ('app', 'common/unknown_rate.h'): "PROVISIONAL file name: the bytes-per-second average 0x820830-0x820A20 "
+                                      "(Unknown_RateClass, D10), declared only; defined by the program",
+    ('app', 'common/udpconn.h'): "UDPConnection (vtable 0xB088F4, 0xD0 bytes, the client's layout), its channel key, "
+                                 "and the CordMgr pump task (vtable 0xB0889C): descriptive names (D24)",
+    ('app', 'common/udpconn.cpp'): "PARTIAL: UDPConnection over CordCon and the CordMgr pump task, client "
+                                   "0x82C980-0x82E020, the asserts on the client's lines 391 / 489 / 514 (D25); exact: "
+                                   "Get_Address, Is_Dead, the key's ==, Is_Fixed_Channel, the task's destructor, Run, "
+                                   "Get_Interval, Delete_On_Remove, Get_Mgr, Shutdown_Task; functional (NOT EXACT, D42): "
+                                   "the rest (wlib's Dictionary stand-in, CordCon / CordMgr members not in the tree); "
+                                   "the constructor by name 0x82C680, UDPConnectionManager and the listener not rebuilt",
     ('app', 'packets/pk.h'): "PARTIAL: the packet base class (vtable 0xAEDE88, 10 slots), the message header and the "
                              "raw message (0x22C bytes) as the connections use them, the factory 0x8696C0 declared; "
                              "defined by the program until app\\packets is rebuilt",

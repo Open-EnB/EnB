@@ -7,11 +7,11 @@ are listed here until better evidence raises their tag. Regenerate with
 
 | Score | Meaning | Names |
 |---|---|---|
-| 5 | the client names it | 2 |
-| 4 | EA source, or a structure-confirmed Net-7 / C# name | 27 |
-| 3 | by convention from a client-named file or sibling | 56 |
-| 2 | describes what the code does | 473 |
-| 1 | neutral placeholder | 311 |
+| 5 | the client names it | 3 |
+| 4 | EA source, or a structure-confirmed Net-7 / C# name | 28 |
+| 3 | by convention from a client-named file or sibling | 59 |
+| 2 | describes what the code does | 508 |
+| 1 | neutral placeholder | 342 |
 
 ## For review (score 3 and below)
 
@@ -66,6 +66,14 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `m_Unknown428` | `app/client/aux_roots.h:921` | neutral (D10): a member, not a field of the tree |
 | 1 | `UnknownCOClass` | `app/client/aux_roots.h:979` | neutral (D10), the class of co.cpp's objects (vtable 0xB0070C) |
 | 1 | `Unknown_Create_Aux_Root` | `app/client/aux_roots.h:984` | untagged neutral name (D10) |
+| 1 | `Unknown04` | `app/common/connect.cpp:10` | untagged neutral name (D10) |
+| 1 | `Unknown_Create_Packet` | `app/common/connect.cpp:1105` | untagged neutral name (D10) |
+| 1 | `ConnectionClass` | `app/common/connect.h:29` | describes what it is (the client's name not found) |
+| 1 | `Set_Unknown04` | `app/common/connect.h:42` | untagged neutral name (D10) |
+| 1 | `Unknown04` | `app/common/connect.h:42` | untagged neutral name (D10) |
+| 1 | `Get_Unknown04` | `app/common/connect.h:43` | untagged neutral name (D10) |
+| 1 | `Unknown_30` | `app/common/connect.h:45` | untagged neutral name (D10) |
+| 1 | `StreamConnectionClass` | `app/common/connect.h:53` | describes what it is |
 | 1 | `Unknown_Get_Ticks` | `app/kernel/kernel.cpp:19` | untagged neutral name (D10) |
 | 1 | `Unknown_9179D0` | `app/kernel/kernel.cpp:20` | WW3D's device check (0 when DX8Wrapper's restore succeeds) |
 | 1 | `Unknown_42EA80` | `app/kernel/kernel.cpp:21` | the input queue's next event (input.cpp) |
@@ -104,6 +112,11 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Pre_Run` | `app/kernel/kernel.h:56` | Run_One_Cycle's order |
 | 1 | `Cycle_Focus` | `app/kernel/kernel.h:74` | what it does |
 | 1 | `Remove_Running` | `app/kernel/kernel.h:86` | what it does |
+| 1 | `PacketHeaderClass` | `app/packets/pk.h:27` | describes what it is |
+| 1 | `RawPacketClass` | `app/packets/pk.h:36` | describes what it is (the asserts call it `packet`) |
+| 1 | `Unknown2A` | `app/packets/pk.h:45` | untagged neutral name (D10) |
+| 1 | `Unknown_14` | `app/packets/pk.h:57` | untagged neutral name (D10) |
+| 1 | `Unknown_Create_Packet` | `app/packets/pk.h:69` | what it does; app\packets (pk.cpp?) |
 | 1 | `m_Unknown70` | `app/shared/auxdata/delta.cpp:9` | untagged neutral name (D10) |
 | 1 | `m_Unknown78` | `app/shared/auxdata/delta.cpp:11` | untagged neutral name (D10) |
 | 1 | `m_Unknown7C` | `app/shared/auxdata/delta.cpp:12` | untagged neutral name (D10) |
@@ -325,9 +338,52 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_10` | `tests/capharness/kerneltest/kerneltest.cpp:53` | untagged neutral name (D10) |
 | 1 | `Unknown_BFAEE0` | `tests/capharness/kerneltest/kerneltest.cpp:56` | untagged neutral name (D10) |
 | 1 | `Unknown_Assert_Failed` | `tests/capharness/kerneltest/kerneltest.cpp:57` | untagged neutral name (D10) |
-| 1 | `UnknownLogClass` | `tests/capharness/udpreplay/udpreplay.cpp:62` | untagged neutral name (D10) |
-| 1 | `Unknown_4BC130` | `tests/capharness/udpreplay/udpreplay.cpp:65` | untagged neutral name (D10) |
-| 1 | `UnknownLog` | `tests/capharness/udpreplay/udpreplay.cpp:67` | untagged neutral name (D10) |
+| 1 | `Unknown_RateClass` | `tests/capharness/udpreplay/conn_replay.cpp:40` | untagged neutral name (D10) |
+| 1 | `Unknown_Get_Ticks` | `tests/capharness/udpreplay/conn_replay.cpp:63` | untagged neutral name (D10) |
+| 1 | `Unknown_9179D0` | `tests/capharness/udpreplay/conn_replay.cpp:64` | untagged neutral name (D10) |
+| 1 | `Unknown_42EA80` | `tests/capharness/udpreplay/conn_replay.cpp:65` | untagged neutral name (D10) |
+| 1 | `Unknown_42E8A0` | `tests/capharness/udpreplay/conn_replay.cpp:66` | untagged neutral name (D10) |
+| 1 | `UnknownBDADC0Class` | `tests/capharness/udpreplay/conn_replay.cpp:67` | untagged neutral name (D10) |
+| 1 | `Unknown0000` | `tests/capharness/udpreplay/conn_replay.cpp:70` | untagged neutral name (D10) |
+| 1 | `Unknown4074` | `tests/capharness/udpreplay/conn_replay.cpp:71` | untagged neutral name (D10) |
+| 1 | `Unknown_BDADC0` | `tests/capharness/udpreplay/conn_replay.cpp:74` | untagged neutral name (D10) |
+| 1 | `UnknownBFAEE0Class` | `tests/capharness/udpreplay/conn_replay.cpp:75` | untagged neutral name (D10) |
+| 1 | `Unknown_00` | `tests/capharness/udpreplay/conn_replay.cpp:78` | untagged neutral name (D10) |
+| 1 | `Unknown_04` | `tests/capharness/udpreplay/conn_replay.cpp:79` | untagged neutral name (D10) |
+| 1 | `Unknown_08` | `tests/capharness/udpreplay/conn_replay.cpp:80` | untagged neutral name (D10) |
+| 1 | `Unknown_0C` | `tests/capharness/udpreplay/conn_replay.cpp:81` | untagged neutral name (D10) |
+| 1 | `Unknown_10` | `tests/capharness/udpreplay/conn_replay.cpp:82` | untagged neutral name (D10) |
+| 1 | `Unknown_BFAEE0` | `tests/capharness/udpreplay/conn_replay.cpp:85` | untagged neutral name (D10) |
+| 1 | `Unknown_14` | `tests/capharness/udpreplay/conn_replay.cpp:94` | untagged neutral name (D10) |
+| 1 | `Unknown_Create_Packet` | `tests/capharness/udpreplay/conn_replay.cpp:123` | untagged neutral name (D10) |
+| 1 | `UnknownLogClass` | `tests/capharness/udpreplay/udpreplay.cpp:68` | untagged neutral name (D10) |
+| 1 | `Unknown_4BC130` | `tests/capharness/udpreplay/udpreplay.cpp:71` | untagged neutral name (D10) |
+| 1 | `UnknownLog` | `tests/capharness/udpreplay/udpreplay.cpp:73` | untagged neutral name (D10) |
+| 2 | `Read` | `app/common/circbuff.h:26` | what it does |
+| 2 | `Write` | `app/common/circbuff.h:27` | what it does |
+| 2 | `Get_Free` | `app/common/circbuff.h:28` | what it returns |
+| 2 | `Get_Used` | `app/common/circbuff.h:29` | what it returns |
+| 2 | `Unread` | `app/common/circbuff.h:30` | what it does |
+| 2 | `Buffer` | `app/common/circbuff.h:32` | what it holds |
+| 2 | `ReadPtr` | `app/common/circbuff.h:35` | what it holds |
+| 2 | `WritePtr` | `app/common/circbuff.h:36` | what it holds |
+| 2 | `IsExternal` | `app/common/circbuff.h:37` | what it means |
+| 2 | `Send_Message` | `app/common/connect.h:34` | what it does |
+| 2 | `Send_Packet` | `app/common/connect.h:35` | what it does |
+| 2 | `Receive` | `app/common/connect.h:36` | what it does |
+| 2 | `Get_Address` | `app/common/connect.h:37` | what UDP's returns |
+| 2 | `Connect` | `app/common/connect.h:38` | what UDP's does |
+| 2 | `Is_Connected` | `app/common/connect.h:39` | what UDP's does |
+| 2 | `Disconnect` | `app/common/connect.h:40` | what UDP's does |
+| 2 | `Is_Dead` | `app/common/connect.h:41` | what the stream's does |
+| 2 | `Get_Stats` | `app/common/connect.h:44` | what UDP's does |
+| 2 | `Transport_Write` | `app/common/connect.h:62` | what TCP's does |
+| 2 | `Transport_Read` | `app/common/connect.h:63` | what TCP's does |
+| 2 | `Write_Message` | `app/common/connect.h:65` | what it does |
+| 2 | `Message_Ready` | `app/common/connect.h:66` | what it does |
+| 2 | `Fill` | `app/common/connect.h:67` | what it does |
+| 2 | `Ring` | `app/common/connect.h:69` | what it is |
+| 2 | `ReadBuffer` | `app/common/connect.h:70` | what it holds |
 | 2 | `Key` | `app/kernel/kernel.h:29` | +0x00 Handle_Key: 0x1B Esc, 0x6A |
 | 2 | `Accept_Focus` | `app/kernel/kernel.h:52` | 'LoginTask: accepting focus.' |
 | 2 | `Yield_Focus` | `app/kernel/kernel.h:53` | 'LoginTask: yielding focus.' |
@@ -350,6 +406,16 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Set_Focus` | `app/kernel/kernel.h:91` | what it does |
 | 2 | `Process_Input` | `app/kernel/kernel.h:92` | what it does |
 | 2 | `Pump_Messages` | `app/kernel/kernel.h:93` | what it does |
+| 2 | `Data` | `app/packets/pk.h:40` | what it holds |
+| 2 | `Build` | `app/packets/pk.h:53` | what it does |
+| 2 | `Get_Data_Size` | `app/packets/pk.h:55` | what it returns |
+| 2 | `Print` | `app/packets/pk.h:56` | what it does |
+| 2 | `Get_Channel` | `app/packets/pk.h:58` | Send_Packet's use (udpconn.cpp) |
+| 2 | `Get_Priority` | `app/packets/pk.h:59` | Send_Packet's use |
+| 2 | `Is_Reliable` | `app/packets/pk.h:60` | Send_Packet's use |
+| 2 | `Close_Channel` | `app/packets/pk.h:61` | Send_Packet's use |
+| 2 | `Connection` | `app/packets/pk.h:63` | what it holds |
+| 2 | `Serial` | `app/packets/pk.h:64` | what it holds |
 | 2 | `Swap` | `app/shared/auxdata/bitset.h:26` | describes what it does |
 | 2 | `Is_Set` | `app/shared/auxdata/bitset.h:30` | describes what it does |
 | 2 | `Set` | `app/shared/auxdata/bitset.h:32` | describes what it does |
@@ -812,7 +878,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `DeltaPlanetClass` | `app/client/aux_roots.h:927` | the client's root string "Planet", Westwood XxxClass (D24); structure = C# PlanetObject (C# fields = ours (same names, same order)) |
 | 3 | `DeltaStarbaseClass` | `app/client/aux_roots.h:943` | the client's root string "Starbase", Westwood XxxClass (D24); structure = C# StarbaseObject (C# fields = ours (same names, same order)) |
 | 3 | `DeltaStargateClass` | `app/client/aux_roots.h:959` | the client's root string "Stargate", Westwood XxxClass (D24); structure = C# StargateObject (C# fields = ours (same names, same order)) |
+| 3 | `circbuff.h` | `app/common/circbuff.h:17` | header name assumed from the client's circbuff.cpp |
+| 3 | `CircBuffClass` | `app/common/circbuff.h:20` | by convention (D24) from the client's file circbuff.cpp |
 | 3 | `kernel.h` | `app/kernel/kernel.h:18` | header name assumed from the client's kernel.cpp |
+| 3 | `PacketClass` | `app/packets/pk.h:49` | by convention (D24) from pk.h / pk.cpp |
 | 3 | `bitset.h` | `app/shared/auxdata/bitset.h:16` | header name assumed from the client's bitset.cpp |
 | 3 | `BitSetClass` | `app/shared/auxdata/bitset.h:19` | by convention (D24) from the client's file bitset.cpp |
 | 3 | `delta.h` | `app/shared/auxdata/delta.h:19` | header name assumed from the client's delta.cpp |

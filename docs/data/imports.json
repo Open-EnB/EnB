@@ -714,6 +714,26 @@
     "merged": [],
     "name": "shared/stars.cpp"
    },
+   "udpconn": {
+    "ambiguous": [],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x444160",
+     "0x82C5E0",
+     "0x82D190",
+     "0x82D880",
+     "0x82D940",
+     "0x82D980",
+     "0x82DA20",
+     "0x82DDA0",
+     "0x82DF60",
+     "0x82DF90",
+     "0x857850"
+    ],
+    "merged": [],
+    "name": "common/udpconn.cpp"
+   },
    "unknown_changes": {
     "ambiguous": [
      "0x42A900",
@@ -792,6 +812,10 @@
    "client/aux_roots.h": "reconstructed",
    "common/circbuff.h": "reconstructed",
    "common/connect.h": "reconstructed",
+   "common/critsec.h": "reconstructed",
+   "common/dictionary.h": "reconstructed",
+   "common/udpconn.h": "reconstructed",
+   "common/unknown_rate.h": "reconstructed",
    "kernel/kernel.h": "reconstructed",
    "packets/pk.h": "reconstructed",
    "shared/auxdata/bitset.h": "reconstructed",
@@ -826,7 +850,7 @@
    "wwudp/udp.h": "reconstructed",
    "wwudp/wtime.h": "reconstructed"
   },
-  "in_tree_total": 355,
+  "in_tree_total": 365,
   "totals": {}
  },
  "ww3d2": {
