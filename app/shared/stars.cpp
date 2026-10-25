@@ -1,8 +1,5 @@
 // Earth & Beyond client (reconstruction): app\shared\stars.cpp. Notes at the end of the file.
-// NOT EXACT: release layout for WWLib's RefCountClass (the app library compiles without NDEBUG; notes).
-#ifndef NDEBUG
-#define NDEBUG
-#endif
+// NOT EXACT: Load and Init (notes).
 #include "stars.h"
 #include "pointgr.h"
 #include "rinfo.h"

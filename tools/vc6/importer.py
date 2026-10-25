@@ -162,14 +162,14 @@ HEADER_EXT = ('.h', '.hpp', '.inl')
 # the file names in RECONSTRUCTED and imports.json are paths relative to <lib> with '/'
 # (`shared/auxdata/bitset.cpp`); file keys stay the base name (key_of), so two .cpp files of one
 # such library may not share a base name (load_state refuses it). Per library: the defines
-# (vc6's, without NDEBUG: the client keeps E&B's asserts), the client range verify searches (the
+# (vc6's, with NDEBUG, D61: E&B's G_ASSERT/FAIL_IF don't test it), the client range verify searches (the
 # app region, docs/binary.md; objmatch region) and the __FILE__ root: the sources are named to cl
 # under e:\build\beta\G (vc6.compile_sources source_alias), so __FILE__ is the client's string.
 # Their state entry (base 'reconstructed', no evidence totals) is derived from RECONSTRUCTED by
 # load_state; plan, assemble and refine leave them alone. Not in LIBS (the EA libraries), so the
 # libraries' include paths don't see them.
 APP_LIBS = {
-    'app': {'defines': [d for d in vc6.DEFAULT_DEFINES if d != 'NDEBUG'],
+    'app': {'defines': list(vc6.DEFAULT_DEFINES),
             'region': (0x401000, 0x8C1B50),
             'file_root': r'e:\build\beta\G'},
 }
@@ -198,7 +198,7 @@ LIB_FLAGS = {'wwshade': '/nologo /c /MT /W3 /O2 /Ob1 /GX /D _MBCS /D ENABLE_WWPR
              'ww3d2': '/nologo /c /MT /W3 /O2 /Ob2 /D ENABLE_WWPROFILE /D USE_WWSHADE',
              # E&B's own code (D23): /GX (the STL corpus matches 533 functions with it, 501 without,
              # docs/app-plan.md 1; bitset.cpp 12/12 either way), otherwise the libraries' flags;
-             # NDEBUG off through APP_LIBS' defines. tools/re/appfile.py's APP_FLAGS is the same.
+             # NDEBUG through APP_LIBS' defines (D61). tools/re/appfile.py's APP_FLAGS is the same.
              'app': '/nologo /c /MT /W3 /O2 /Ob2 /GX'}
 
 

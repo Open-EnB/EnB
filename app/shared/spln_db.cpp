@@ -1,8 +1,5 @@
 // Earth & Beyond client (reconstruction): app\shared\spln_db.cpp. Notes at the end of the file.
 // NOT EXACT, the whole file: functional, from VIDTEST's 2002 copy (spln_db.h).
-#ifndef NDEBUG
-#define NDEBUG
-#endif
 #include "spln_db.h"
 #include "curve.h"
 #include "hermitespline.h"

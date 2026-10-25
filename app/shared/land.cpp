@@ -1,8 +1,5 @@
 // Earth & Beyond client (reconstruction): app\shared\ terrain (file name unknown). Notes at the end.
 // NOT EXACT, the whole file: functional, after VIDTEST's 2002 copy (land.h).
-#ifndef NDEBUG
-#define NDEBUG
-#endif
 #include "land.h"
 #include "heightfield.h"
 #include "ini.h"

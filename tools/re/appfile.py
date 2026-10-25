@@ -20,7 +20,7 @@ gives a source line of FILE. Callees are named as client.py names them (symbols.
 thunks followed) and otherwise by app-functions.json (`name`, or `[file]` when attributed).
 
 `match` compiles with the app's presumed flags (/MT /O2 /Ob2 /GX, docs/app-plan.md section 1) and
-without NDEBUG (the client's asserts are compiled in). In the draft, put `// @0xADDR` on the line
+with NDEBUG (D61: E&B's own asserts, G_ASSERT/FAIL_IF, don't test it). In the draft, put `// @0xADDR` on the line
 before a function's definition; each compiled function whose demangled name is that definition's
 is reported EXACT when its bytes (relocations masked, as objmatch.py) are the client's at ADDR,
 otherwise with its objmatch status and objdiff similarity to ADDR. `--diff
@@ -243,7 +243,7 @@ def match(a):
     for f in os.listdir(out) if os.path.isdir(out) else ():
         if f.lower().endswith('.obj'):
             os.remove(os.path.join(out, f))
-    defines = [d for d in vc6.DEFAULT_DEFINES if d != 'NDEBUG'] + a.D
+    defines = list(vc6.DEFAULT_DEFINES) + a.D  # with NDEBUG (D61), as APP_LIBS
     rc, log = vc6.compile_sources([a.draft], a.I, defines, a.flags, out)
     errors = [l for l in log.splitlines() if ' error ' in l or ' warning ' in l]
     print('\n'.join(errors[:30]))

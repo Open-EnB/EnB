@@ -1,8 +1,5 @@
 // Earth & Beyond client (reconstruction): app\shared\ height field (file name unknown). Notes at the end.
 // NOT EXACT, the whole file: functional, from VIDTEST's 2002 copy (heightfield.h).
-#ifndef NDEBUG
-#define NDEBUG
-#endif
 #include "heightfield.h"
 #include "ini.h"
 #include "ffactory.h"
