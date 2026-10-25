@@ -130,6 +130,12 @@ int UDP::Read(unsigned char *msg, unsigned int len, sockaddr_in *from)
 	return (int)n;
 }
 
+// CordMgr::Wait's select: the replay never waits (nothing calls UDPConnection::Connect(true) here).
+int UDP::Wait(int, int, fd_set &, fd_set &)
+{
+	return 0;
+}
+
 bool UDP::getLocalAddr(unsigned int &ip, unsigned short &port)
 {
 	ip = myIP;

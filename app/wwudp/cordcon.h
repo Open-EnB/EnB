@@ -311,6 +311,13 @@ public:
 		unsigned char frag, char flags);												// 0x854FC0
 
 	CordChannelClass *Get_Channel(int channel);	// NAME 2: grows Channels_ as the client does
+	// The counts the game's connection reads (UDPConnection::Receive / Get_Stats). 0x84FDE0
+	void getStats(int *messages_sent, int *packets_in, int *bytes_sent, int *bytes_read, int *resends,
+		int *dup_acks, unsigned int *window, unsigned int *in_flight, unsigned int *round_trip, unsigned int *quality, int *idle);	// NAME 1: after openc / read
+	// Marks a channel closed (pump drops it); returns false. 0x8501A0
+	bool closec(int channel);	// NAME 1: after openc
+	// No socket, or state 4. 0x8501D0
+	bool Is_Closed();	// NAME 2: what it returns
 
 	unsigned int Ip_;							// NAME 2: +0x00 (host order)
 	unsigned short Port_;						// NAME 2: +0x04

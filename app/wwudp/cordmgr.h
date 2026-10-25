@@ -103,6 +103,14 @@ public:
 	void Process_Zero_Read(sockaddr_in *from);	// NAME 2: what it does
 	// Closes a connection and frees it 30 s later (Pump_Releases). 0x8596F0
 	bool Release(CordCon *con);	// NAME 1: after Pump_Releases
+	// Waits up to sec / usec for a datagram on any of the sockets (wnet's UDP::Wait on their set). 0x857DE0
+	int Wait(int sec, int usec);	// NAME 2: what it does
+	// The CordCon a handshake made, taken out of AllConnections_: a client's by its session id, or
+	// (session 0) a server's by its port. 0x859440
+	bool Find_Connection(CordCon **con, unsigned int port, int session);	// NAME 2: what it does
+	// Drops the connection with that session id: its CordCon (deleted), else its handshake record
+	// (deleted, left in Pending_ as the client leaves it). 0x8595B0
+	bool Cancel_Connect(int session);	// NAME 2: what it does
 	// Frees the released connections whose time has come. 0x859940
 	bool Pump_Releases();
 

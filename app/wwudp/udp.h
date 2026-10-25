@@ -34,6 +34,9 @@ public:
 	// there is nothing to read (CordMgr::Pump reads until < 0).
 	int Read(unsigned char *msg, unsigned int len, sockaddr_in *from);
 	bool getLocalAddr(unsigned int &ip, unsigned short &port);
+	int getFD() { return(fd); }	// NAME 4: wnet's name
+	// Waits up to sec / usec for one of givenSet's sockets (select); returnSet gets the ready ones. 0x8C0220
+	int Wait(int sec, int usec, fd_set &givenSet, fd_set &returnSet);	// NAME 4: wnet's name
 	// E&B's addition: a function Write and Read call with every datagram (out, length, the
 	// peer's ip and port; bandwidthaccounting.cpp's), kept in 0xBF52C4. 0x8C05E0 / 0x8C0600
 	static void Set_Accounting_Callback(void (*callback)(bool out, int len, unsigned int ip, unsigned short port));	// NAME 1: what it does

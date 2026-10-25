@@ -1400,6 +1400,78 @@ bool CordMgr::Process_ACK2_Packet(unsigned char *data, int len, sockaddr_in *fro
 	return false;
 }
 
+// 0x857DE0, NOT EXACT (registers): the set of every data and listening socket, then wnet's UDP::Wait on the last one.
+int CordMgr::Wait(int sec, int usec)
+{
+	fd_set given;
+	int count = DataSockets_.Length();
+	UDP *udp = 0;
+	FD_ZERO(&given);
+	int i;
+	for (i = 0; i < count; i++) {
+		CordDataSocketClass record;
+		DataSockets_.Get(record, i);
+		udp = record.Socket;
+		FD_SET((unsigned int)udp->getFD(), &given);
+	}
+	for (i = 0; i < ListenSockets_.Length(); i++) {
+		CordListenSocketClass record;
+		ListenSockets_.Get(record, i);
+		udp = record.Socket;
+		FD_SET((unsigned int)udp->getFD(), &given);
+	}
+	if (udp) {
+		fd_set ready;
+		return udp->Wait(sec, usec, given, ready);
+	}
+	return 0;
+}
+
+// 0x859440, NOT EXACT: the client inlines wlib ArrayList's remove (a memmove and the shrink); CordArrayClass's differs.
+bool CordMgr::Find_Connection(CordCon **con, unsigned int port, int session)
+{
+	for (int i = 0; i < AllConnections_.Length(); i++) {
+		AllConnections_.Get(*con, i);
+		CordCon *c = *con;
+		if (session == 0) {
+			if (c->IsServer_ && port == c->Unknown0C) {
+				AllConnections_.Remove(i);
+				return true;
+			}
+		} else if (!c->IsServer_ && session == c->Session_) {
+			AllConnections_.Remove(i);
+			return true;
+		}
+	}
+	return false;
+}
+
+// 0x8595B0, NOT EXACT: as 0x859440 (the shrink out of line, 0x85B8B0). A handshake record is deleted but
+// left in Pending_, as the client leaves it.
+bool CordMgr::Cancel_Connect(int session)
+{
+	int i;
+	CordCon *con = (CordCon *)session;
+	for (i = 0; i < AllConnections_.Length(); i++) {
+		AllConnections_.Get(con, i);
+		if (con->Session_ == session && !con->IsServer_) {
+			AllConnections_.Remove(i);
+			delete con;
+			return true;
+		}
+	}
+	CordConnectingClass *c = (CordConnectingClass *)session;
+	for (i = 0; i < Pending_.Length(); i++) {
+		Pending_.Get(c, i);
+		if (c->Session == session) {
+			delete c;
+			return true;
+		}
+	}
+	return false;
+}
+
+
 /*
 **	Reconstruction notes
 **

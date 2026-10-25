@@ -8,10 +8,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | Score | Meaning | Names |
 |---|---|---|
 | 5 | the client names it | 4 |
-| 4 | EA source, or a structure-confirmed Net-7 / C# name | 37 |
+| 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
 | 3 | by convention from a client-named file or sibling | 65 |
-| 2 | describes what the code does | 538 |
-| 1 | neutral placeholder | 387 |
+| 2 | describes what the code does | 542 |
+| 1 | neutral placeholder | 389 |
 
 ## For review (score 3 and below)
 
@@ -96,7 +96,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_30` | `app/common/connect.h:45` | untagged neutral name (D10) |
 | 1 | `StreamConnectionClass` | `app/common/connect.h:53` | describes what it is |
 | 1 | `Get_Unknown04` | `app/common/udpconn.cpp:373` | untagged neutral name (D10) |
-| 1 | `Unknown_Create_Packet` | `app/common/udpconn.cpp:554` | untagged neutral name (D10) |
+| 1 | `Unknown_Create_Packet` | `app/common/udpconn.cpp:556` | untagged neutral name (D10) |
 | 1 | `UDPChannelKeyClass` | `app/common/udpconn.h:35` | describes what it is |
 | 1 | `UDPChannelClass` | `app/common/udpconn.h:44` | describes what it is |
 | 1 | `UDPConnection` | `app/common/udpconn.h:51` | after the file udpconn.cpp (no RTTI or string) |
@@ -312,11 +312,13 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `CordListClass` | `app/wwudp/cordcon.h:59` | stand-in for wlib's LinkedList<T> |
 | 1 | `CordArrayClass` | `app/wwudp/cordcon.h:148` | stand-in for wlib's ArrayList<T> |
 | 1 | `Unknown28` | `app/wwudp/cordcon.h:267` | untagged neutral name (D10) |
-| 1 | `Unknown0C` | `app/wwudp/cordcon.h:318` | untagged neutral name (D10) |
-| 1 | `Unknown14` | `app/wwudp/cordcon.h:320` | untagged neutral name (D10) |
-| 1 | `Unknown18` | `app/wwudp/cordcon.h:321` | untagged neutral name (D10) |
-| 1 | `Unknown1C` | `app/wwudp/cordcon.h:322` | untagged neutral name (D10) |
-| 1 | `Unknown98` | `app/wwudp/cordcon.h:343` | untagged neutral name (D10) |
+| 1 | `idle` | `app/wwudp/cordcon.h:316` | after openc / read |
+| 1 | `closec` | `app/wwudp/cordcon.h:318` | after openc |
+| 1 | `Unknown0C` | `app/wwudp/cordcon.h:325` | untagged neutral name (D10) |
+| 1 | `Unknown14` | `app/wwudp/cordcon.h:327` | untagged neutral name (D10) |
+| 1 | `Unknown18` | `app/wwudp/cordcon.h:328` | untagged neutral name (D10) |
+| 1 | `Unknown1C` | `app/wwudp/cordcon.h:329` | untagged neutral name (D10) |
+| 1 | `Unknown98` | `app/wwudp/cordcon.h:350` | untagged neutral name (D10) |
 | 1 | `UnknownLogClass` | `app/wwudp/cordmgr.cpp:24` | placeholder for E&B's log object |
 | 1 | `Unknown_4BC130` | `app/wwudp/cordmgr.cpp:27` | untagged neutral name (D10) |
 | 1 | `UnknownLog` | `app/wwudp/cordmgr.cpp:29` | 0xBDA908 |
@@ -329,8 +331,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown24` | `app/wwudp/cordmgr.h:69` | untagged neutral name (D10) |
 | 1 | `Unknown134` | `app/wwudp/cordmgr.h:74` | untagged neutral name (D10) |
 | 1 | `Release` | `app/wwudp/cordmgr.h:105` | after Pump_Releases |
-| 1 | `Set_Accounting_Callback` | `app/wwudp/udp.h:39` | what it does |
-| 1 | `Clear_Accounting_Callback` | `app/wwudp/udp.h:40` | what it does |
+| 1 | `Set_Accounting_Callback` | `app/wwudp/udp.h:42` | what it does |
+| 1 | `Clear_Accounting_Callback` | `app/wwudp/udp.h:43` | what it does |
 | 1 | `unknown_cordmsg.cpp` | `app/wwudp/unknown_cordmsg.cpp:12` | PROVISIONAL file name (no assert or __FILE__ names the object) |
 | 1 | `Get_Time_T` | `app/wwudp/wtime.h:34` | describes what it returns |
 | 1 | `Unknown_Assert_Failed` | `stubs/app_stubs.cpp:33` | untagged neutral name (D10) |
@@ -889,47 +891,51 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `SecondBytes` | `app/wwudp/cordcon.h:272` | +0x48 bytes sent this second |
 | 2 | `Go_Away` | `app/wwudp/cordcon.h:296` | what it does (called from CordMgr::Process_Go_Away_Packet) |
 | 2 | `Get_Channel` | `app/wwudp/cordcon.h:313` | grows Channels_ as the client does |
-| 2 | `Ip_` | `app/wwudp/cordcon.h:315` | +0x00 (host order) |
-| 2 | `Port_` | `app/wwudp/cordcon.h:316` | +0x04 |
-| 2 | `Session_` | `app/wwudp/cordcon.h:317` | +0x08 |
-| 2 | `Key_` | `app/wwudp/cordcon.h:323` | +0x20 the RC4 session key (Encrypt_Data tests it as one 64-bit value) |
-| 2 | `OpenChannels_` | `app/wwudp/cordcon.h:324` | +0x28 |
-| 2 | `std:` | `app/wwudp/cordcon.h:325` | +0x2C |
-| 2 | `std:` | `app/wwudp/cordcon.h:326` | +0x3C channels in use, in first-use order |
-| 2 | `std:` | `app/wwudp/cordcon.h:327` | +0x4C channels with received messages, in arrival order |
-| 2 | `Queued_` | `app/wwudp/cordcon.h:328` | +0x5C |
-| 2 | `AcksPending_` | `app/wwudp/cordcon.h:329` | +0x60 |
-| 2 | `ResendsPending_` | `app/wwudp/cordcon.h:330` | +0x64 |
-| 2 | `Stats_` | `app/wwudp/cordcon.h:331` | +0x68 (constructor 0x85BF30) |
-| 2 | `BytesSent_` | `app/wwudp/cordcon.h:332` | +0x6C |
-| 2 | `BytesResent_` | `app/wwudp/cordcon.h:333` | +0x70 |
-| 2 | `BytesRead_` | `app/wwudp/cordcon.h:334` | +0x74 |
-| 2 | `BytesAcked_` | `app/wwudp/cordcon.h:335` | +0x78 |
-| 2 | `Resends_` | `app/wwudp/cordcon.h:336` | +0x7C |
-| 2 | `DupAcks_` | `app/wwudp/cordcon.h:337` | +0x80 |
-| 2 | `MessagesSent_` | `app/wwudp/cordcon.h:338` | +0x84 |
-| 2 | `PacketsIn_` | `app/wwudp/cordcon.h:339` | +0x88 |
-| 2 | `PacketsOut_` | `app/wwudp/cordcon.h:340` | +0x8C the datagram counter (the wire's bytes 3-4) |
-| 2 | `Quality_` | `app/wwudp/cordcon.h:341` | +0x90 sent as the header byte: the running percentage of reliable sends that were resends (pumpInternal) |
-| 2 | `HeaderIn_` | `app/wwudp/cordcon.h:342` | +0x94 the peer's header byte |
-| 2 | `ExpireCountdown_` | `app/wwudp/cordcon.h:344` | +0x9C pumpInternal drops expired unreliable records every 8 calls |
-| 2 | `LastSend_` | `app/wwudp/cordcon.h:345` | +0xA0 time_t of the last datagram (pump: the keep-alive after 5 s) |
-| 2 | `LastReceive_` | `app/wwudp/cordcon.h:346` | +0xA4 time_t (pump: the idle close after 90 s) |
-| 2 | `LastPump_` | `app/wwudp/cordcon.h:347` | +0xA8 time_t (pump: a gap over 45 s resets LastReceive_) |
-| 2 | `GoneAway_` | `app/wwudp/cordcon.h:348` | +0xAC set by Go_Away: pump sends nothing |
-| 2 | `CloseState_` | `app/wwudp/cordcon.h:349` | +0xB0 0 open, 1 close asked, 2 CLOSE sent, 3 peer closing, 4 closed |
-| 2 | `CloseSeq_` | `app/wwudp/cordcon.h:350` | +0xB4 |
-| 2 | `IsServer_` | `app/wwudp/cordcon.h:351` | +0xB8 |
-| 2 | `AcksMatched_` | `app/wwudp/cordcon.h:354` | describes its role |
-| 2 | `ResendRequests_` | `app/wwudp/cordcon.h:355` | describes its role |
-| 2 | `Rejected_` | `app/wwudp/cordcon.h:356` | describes its role |
+| 2 | `Is_Closed` | `app/wwudp/cordcon.h:320` | what it returns |
+| 2 | `Ip_` | `app/wwudp/cordcon.h:322` | +0x00 (host order) |
+| 2 | `Port_` | `app/wwudp/cordcon.h:323` | +0x04 |
+| 2 | `Session_` | `app/wwudp/cordcon.h:324` | +0x08 |
+| 2 | `Key_` | `app/wwudp/cordcon.h:330` | +0x20 the RC4 session key (Encrypt_Data tests it as one 64-bit value) |
+| 2 | `OpenChannels_` | `app/wwudp/cordcon.h:331` | +0x28 |
+| 2 | `std:` | `app/wwudp/cordcon.h:332` | +0x2C |
+| 2 | `std:` | `app/wwudp/cordcon.h:333` | +0x3C channels in use, in first-use order |
+| 2 | `std:` | `app/wwudp/cordcon.h:334` | +0x4C channels with received messages, in arrival order |
+| 2 | `Queued_` | `app/wwudp/cordcon.h:335` | +0x5C |
+| 2 | `AcksPending_` | `app/wwudp/cordcon.h:336` | +0x60 |
+| 2 | `ResendsPending_` | `app/wwudp/cordcon.h:337` | +0x64 |
+| 2 | `Stats_` | `app/wwudp/cordcon.h:338` | +0x68 (constructor 0x85BF30) |
+| 2 | `BytesSent_` | `app/wwudp/cordcon.h:339` | +0x6C |
+| 2 | `BytesResent_` | `app/wwudp/cordcon.h:340` | +0x70 |
+| 2 | `BytesRead_` | `app/wwudp/cordcon.h:341` | +0x74 |
+| 2 | `BytesAcked_` | `app/wwudp/cordcon.h:342` | +0x78 |
+| 2 | `Resends_` | `app/wwudp/cordcon.h:343` | +0x7C |
+| 2 | `DupAcks_` | `app/wwudp/cordcon.h:344` | +0x80 |
+| 2 | `MessagesSent_` | `app/wwudp/cordcon.h:345` | +0x84 |
+| 2 | `PacketsIn_` | `app/wwudp/cordcon.h:346` | +0x88 |
+| 2 | `PacketsOut_` | `app/wwudp/cordcon.h:347` | +0x8C the datagram counter (the wire's bytes 3-4) |
+| 2 | `Quality_` | `app/wwudp/cordcon.h:348` | +0x90 sent as the header byte: the running percentage of reliable sends that were resends (pumpInternal) |
+| 2 | `HeaderIn_` | `app/wwudp/cordcon.h:349` | +0x94 the peer's header byte |
+| 2 | `ExpireCountdown_` | `app/wwudp/cordcon.h:351` | +0x9C pumpInternal drops expired unreliable records every 8 calls |
+| 2 | `LastSend_` | `app/wwudp/cordcon.h:352` | +0xA0 time_t of the last datagram (pump: the keep-alive after 5 s) |
+| 2 | `LastReceive_` | `app/wwudp/cordcon.h:353` | +0xA4 time_t (pump: the idle close after 90 s) |
+| 2 | `LastPump_` | `app/wwudp/cordcon.h:354` | +0xA8 time_t (pump: a gap over 45 s resets LastReceive_) |
+| 2 | `GoneAway_` | `app/wwudp/cordcon.h:355` | +0xAC set by Go_Away: pump sends nothing |
+| 2 | `CloseState_` | `app/wwudp/cordcon.h:356` | +0xB0 0 open, 1 close asked, 2 CLOSE sent, 3 peer closing, 4 closed |
+| 2 | `CloseSeq_` | `app/wwudp/cordcon.h:357` | +0xB4 |
+| 2 | `IsServer_` | `app/wwudp/cordcon.h:358` | +0xB8 |
+| 2 | `AcksMatched_` | `app/wwudp/cordcon.h:361` | describes its role |
+| 2 | `ResendRequests_` | `app/wwudp/cordcon.h:362` | describes its role |
+| 2 | `Rejected_` | `app/wwudp/cordcon.h:363` | describes its role |
 | 2 | `CordDataSocketClass` | `app/wwudp/cordmgr.h:35` | a data socket's record (the +0x40 list, 16 bytes) |
 | 2 | `CordListenSocketClass` | `app/wwudp/cordmgr.h:43` | a listening socket's record (the +0x4C list, 12 bytes) |
 | 2 | `CordReleaseClass` | `app/wwudp/cordmgr.h:51` | describes what it holds (the +0x1C list, 8 bytes) |
 | 2 | `CordConnectingClass` | `app/wwudp/cordmgr.h:59` | describes what it is |
 | 2 | `Connect` | `app/wwudp/cordmgr.h:95` | what it does |
 | 2 | `Process_Zero_Read` | `app/wwudp/cordmgr.h:103` | what it does |
-| 2 | `Releases_` | `app/wwudp/cordmgr.h:114` | +0x1C connections to free (Release, Pump_Releases) |
+| 2 | `Wait` | `app/wwudp/cordmgr.h:107` | what it does |
+| 2 | `Find_Connection` | `app/wwudp/cordmgr.h:110` | what it does |
+| 2 | `Cancel_Connect` | `app/wwudp/cordmgr.h:113` | what it does |
+| 2 | `Releases_` | `app/wwudp/cordmgr.h:122` | +0x1C connections to free (Release, Pump_Releases) |
 | 2 | `AckRound` | `app/wwudp/unknown_cordmsg.cpp:122` | 0xBB1DB4 |
 | 2 | `AckGrowth` | `app/wwudp/unknown_cordmsg.cpp:123` | 0xBF411C the window growth this round, all connections |
 | 2 | `RoundTripRound` | `app/wwudp/unknown_cordmsg.cpp:152` | 0xBB1DB8 |

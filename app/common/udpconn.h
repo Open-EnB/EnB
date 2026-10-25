@@ -62,7 +62,7 @@ public:
 	virtual bool Is_Connected();										// +0x18 0x82D320
 	virtual bool Disconnect();											// +0x1C 0x82D3B0
 	virtual bool Is_Dead();												// +0x20 0x82D390
-	virtual bool Get_Stats(float *in_rate, float *out_rate, float *a, float *b, float *c, float *d, int *e);	// +0x2C 0x82D060
+	virtual bool Get_Stats(float *out_rate, float *in_rate, float *round_trip, float *window, float *in_flight, float *quality, int *idle);	// +0x2C 0x82D060
 
 	bool Try_Connect();													// 0x82D240: one step of the handshake  // NAME 2: what it does
 	// The send core: Buffer's message (len bytes) on the channel channel names (0x82D420).

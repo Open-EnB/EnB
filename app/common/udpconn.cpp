@@ -26,45 +26,6 @@ static unsigned int Channel_Hash(const UDPChannelKeyClass &key)
 	return(key.Channel + key.Reliable);
 }
 
-// NOT EXACT: the client calls CordCon's 0x8501D0 (Udp_ == NULL, or state 4).
-static bool Con_Is_Closed(CordCon *con)
-{
-	return(con->Udp_ == 0 || con->CloseState_ == 4);
-}
-
-// NOT EXACT: the client calls CordCon's 0x8501A0 (the channel's IsClosed = true).
-static void Con_Close_Channel(CordCon *con, unsigned int channel)
-{
-	con->Channels_[channel]->IsClosed = true;
-}
-
-// NOT EXACT: the client calls CordMgr's 0x859440 (the CordCon the handshake with that session made,
-// in AllConnections_).
-static bool Mgr_Find_Connection(CordMgr *mgr, CordCon **con, int session)
-{
-	for (int i = 0; i < mgr->AllConnections_.Length(); i++) {
-		CordCon *c = mgr->AllConnections_[i];
-		if (!c->IsServer_ && c->Session_ == session) {
-			*con = c;
-			return(true);
-		}
-	}
-	return(false);
-}
-
-// NOT EXACT: the client calls CordMgr's 0x8595B0 (drops the handshake with that session).
-static void Mgr_Cancel_Connect(CordMgr *mgr, int session)
-{
-	for (int i = 0; i < mgr->Pending_.Length(); i++) {
-		CordConnectingClass *c = mgr->Pending_[i];
-		if (c->Session == session) {
-			delete c;
-			mgr->Pending_.Remove(i);
-			return;
-		}
-	}
-}
-
 
 // functional (NOT EXACT): the dictionary's inlined constructor is the stand-in's.
 UDPConnection::UDPConnection(unsigned int ip, unsigned short port, bool encrypt) :
@@ -116,13 +77,13 @@ UDPConnection::~UDPConnection()
 {
 	if (Con) {
 		Lock.lock();
-		bool closed = Con_Is_Closed(Con);
+		bool closed = Con->Is_Closed();
 		Lock.unlock();
-		if (closed) {
+		if (closed == true) {
 			Disconnect();
 		} else {
 			if (Pending) {
-				Mgr_Cancel_Connect(Mgr, Pending);
+				Mgr->Cancel_Connect(Pending);
 				Pending = 0;
 			}
 			if (Con) {
@@ -134,7 +95,7 @@ UDPConnection::~UDPConnection()
 		}
 	}
 	if (Pending) {
-		Mgr_Cancel_Connect(Mgr, Pending);
+		Mgr->Cancel_Connect(Pending);
 		Pending = 0;
 	}
 	if (Name) {
@@ -143,17 +104,22 @@ UDPConnection::~UDPConnection()
 }
 
 
-// functional (NOT EXACT): the client takes the counts from CordCon's 0x84FDE0.
-bool UDPConnection::Get_Stats(float *in_rate, float *out_rate, float *a, float *b, float *c, float *d, int *e)
+bool UDPConnection::Get_Stats(float *out_rate, float *in_rate, float *round_trip, float *window, float *in_flight,
+	float *quality, int *idle)
 {
-	*out_rate = (float)OutRate.Get();
 	*in_rate = (float)InRate.Get();
+	*out_rate = (float)OutRate.Get();
 	if (Con) {
-		*a = (float)Con->Resends_;
-		*b = (float)Con->BytesSent_;
-		*c = (float)Con->BytesRead_;
-		*d = (float)Con->DupAcks_;
-		*e = Con->Quality_;
+		int messages_sent, packets_in, bytes_sent, bytes_read, resends, dup_acks;
+		unsigned int window_bytes, in_flight_bytes, round_trip_ms, quality_percent;
+		int idle_seconds;
+		Con->getStats(&messages_sent, &packets_in, &bytes_sent, &bytes_read, &resends, &dup_acks, &window_bytes,
+			&in_flight_bytes, &round_trip_ms, &quality_percent, &idle_seconds);
+		*round_trip = (float)round_trip_ms;
+		*window = (float)window_bytes;
+		*in_flight = (float)in_flight_bytes;
+		*quality = (float)quality_percent;
+		*idle = idle_seconds;
 		return(true);
 	}
 	return(false);
@@ -175,10 +141,9 @@ bool UDPConnection::Connect(bool wait)
 		return(Try_Connect());
 	}
 	while (!Try_Connect()) {
-		// NOT EXACT: the client waits on CordMgr's sockets (0x857DE0, up to 1000 ms)
-		Sleep(10);
+		Mgr->Wait(0, 1000);
 	}
-	if (Con_Is_Closed(Con)) {
+	if (Con->Is_Closed() == true) {
 		Mgr->Release(Con);
 		Con = 0;
 		return(false);
@@ -197,7 +162,7 @@ bool UDPConnection::Try_Connect()
 		Pending = c ? c->Session : 0;
 	} else {
 		Mgr->Pump();
-		if (Mgr_Find_Connection(Mgr, &Con, Pending)) {
+		if (Mgr->Find_Connection(&Con, 0, Pending)) {
 			Pending = 0;
 			Lock.lock();
 			Con->openc(&Default, 3, 0);
@@ -216,9 +181,9 @@ bool UDPConnection::Is_Connected()
 		return(false);
 	}
 	Lock.lock();
-	bool closed = Con_Is_Closed(Con);
+	bool closed = Con->Is_Closed();
 	Lock.unlock();
-	if (closed) {
+	if (closed == true) {
 		Disconnect();
 		return(false);
 	}
@@ -235,7 +200,7 @@ bool UDPConnection::Is_Dead()
 bool UDPConnection::Disconnect()
 {
 	if (Pending) {
-		Mgr_Cancel_Connect(Mgr, Pending);
+		Mgr->Cancel_Connect(Pending);
 		Pending = 0;
 	}
 	if (Con) {
@@ -353,6 +318,41 @@ bool UDPConnection::Disconnect()
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // functional (NOT EXACT): the dictionary's inlined code is the stand-in's.
 bool UDPConnection::Send_Data(int len, int channel, int priority, bool reliable, bool close)
 {
@@ -360,7 +360,7 @@ bool UDPConnection::Send_Data(int len, int channel, int priority, bool reliable,
 		return(false);
 	}
 	Lock.lock();
-	bool closed = Con_Is_Closed(Con);
+	bool closed = Con->Is_Closed();
 	Lock.unlock();
 	if (closed) {
 		Disconnect();
@@ -409,7 +409,7 @@ bool UDPConnection::Send_Data(int len, int channel, int priority, bool reliable,
 					cord_channel = found->Channel;
 				}
 				if (!Is_Fixed_Channel(cord_channel)) {
-					Con_Close_Channel(Con, cord_channel);
+					Con->closec(cord_channel);
 				}
 				Channels.remove(key);
 			}
@@ -524,14 +524,13 @@ bool UDPConnection::Send_Packet(PacketClass *source)
 }
 
 
-// functional (NOT EXACT): the client takes the byte counts from CordCon's 0x84FDE0.
 PacketClass *UDPConnection::Receive()
 {
 	if (Con == 0) {
 		return(0);
 	}
 	Lock.lock();
-	bool closed = Con_Is_Closed(Con);
+	bool closed = Con->Is_Closed();
 	Lock.unlock();
 	if (closed) {
 		Disconnect();
@@ -540,8 +539,11 @@ PacketClass *UDPConnection::Receive()
 	int channel = 0;
 	int len = UDP_DATABUFFER_SIZE;
 	Lock.lock();
-	int bytes_sent = Con->BytesSent_;
-	int bytes_read = Con->BytesRead_;
+	int messages_sent, packets_in, bytes_sent, bytes_read, resends, dup_acks;
+	unsigned int window_bytes, in_flight_bytes, round_trip_ms, quality_percent;
+	int idle_seconds;
+	Con->getStats(&messages_sent, &packets_in, &bytes_sent, &bytes_read, &resends, &dup_acks, &window_bytes,
+		&in_flight_bytes, &round_trip_ms, &quality_percent, &idle_seconds);
 	InRate.Add(bytes_read - LastIn);
 	OutRate.Add(bytes_sent - LastOut);
 	LastOut = bytes_sent;
@@ -628,13 +630,15 @@ int CordMgrTaskClass::Get_Interval()
 **	  task 0x82DCB0-0x82E020, UDPConnectionManager 0x82E040-0x82E1D0 and the listener
 **	  0x82E200-0x82E5B0 (the server's: not rebuilt), wlib Dictionary's out-of-line members
 **	  0x82E6A0-0x82EBB0.
-**	* Exact: Get_Address, Is_Dead, the key's operator ==, Is_Fixed_Channel, the task's destructor,
-**	  Delete_On_Remove, Get_Mgr, Shutdown_Task, Run (with its profile sample) and Get_Interval.
-**	  NOT EXACT (functional, D42): what inlines wlib's Dictionary (a stand-in, dictionary.h) or
-**	  calls CordCon / CordMgr members the tree doesn't have (0x8501D0, 0x8501A0, 0x84FDE0, 0x859440,
-**	  0x8595B0, 0x857DE0: written here as Con_Is_Closed, Con_Close_Channel, member reads,
-**	  Mgr_Find_Connection, Mgr_Cancel_Connect, a Sleep), the task's constructor and Init (the
-**	  tree's CordMgr isn't the client's 0x95C bytes).
+**	* Exact: Get_Address, Connect, Is_Connected, Is_Dead, Disconnect, the key's operator ==,
+**	  Is_Fixed_Channel, Send_Message, Send_Packet, Receive, the task's destructor, Delete_On_Remove,
+**	  Get_Mgr, Shutdown_Task, Run (with its profile sample) and Get_Interval. NOT EXACT (functional,
+**	  D42): what inlines wlib's Dictionary (a stand-in, dictionary.h: the constructors, the
+**	  destructor, Send_Data), Get_Stats, Try_Connect (the tree's CordMgr::Connect returns its record,
+**	  the client's the session id), Open_Fixed_Channel, the task's constructor and Init (the tree's
+**	  CordMgr isn't the client's 0x95C bytes).
+**	* The checks of the CordCon's state compare with true (`cmp bl, 1`): `closed == true`, except in
+**	  Send_Data and Receive.
 **	* Pending (+0x7C) holds the session id CordMgr::Connect started (the client's 0x859440 and
 **	  0x8595B0 search by it), not a pointer.
 **	* Send_Data's channel argument: 0 (or the flag at +0x04 off: -4) the default channel; -2 .. -15

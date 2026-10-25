@@ -1300,6 +1300,42 @@ bool CordCon::pumpInternal(Wtime &now)
 	return true;
 }
 
+#define CORD_MIN(a, b)	((a) < (b) ? (a) : (b))
+
+// 0x84FDE0: the counts UDPConnection reads (Receive, Get_Stats).
+void CordCon::getStats(int *messages_sent, int *packets_in, int *bytes_sent, int *bytes_read, int *resends,
+	int *dup_acks, unsigned int *window, unsigned int *in_flight, unsigned int *round_trip, unsigned int *quality, int *idle)
+{
+	*messages_sent = MessagesSent_;
+	*packets_in = PacketsIn_;
+	*bytes_sent = BytesSent_;
+	*bytes_read = BytesRead_;
+	*resends = Resends_;
+	*dup_acks = DupAcks_;
+	*window = CORD_MIN(Stats_->MaxWindow, CORD_MIN(Stats_->Window, Stats_->PeerWindow));
+	*in_flight = Stats_->InFlight;
+	*round_trip = Stats_->RoundTrip;
+	*quality = (unsigned int)(HeaderIn_ + Quality_) >> 1;
+	*idle = time(0) - LastReceive_;
+}
+
+// 0x8501A0: marks a channel closed (UDPConnection::Send_Data after a close-channel send).
+bool CordCon::closec(int channel)
+{
+	Channels_[channel]->IsClosed = true;
+	return false;
+}
+
+// 0x8501D0, NOT EXACT: the client returns `mov al, 1` early and `sete al` without the xor.
+bool CordCon::Is_Closed()
+{
+	if (Udp_ == NULL) {
+		return true;
+	}
+	return CloseState_ == 4;
+}
+
+
 /*
 **	Reconstruction notes
 **
