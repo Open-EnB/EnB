@@ -15,6 +15,8 @@
 #define ENABLE_WWPROFILE
 #include "cordmgr.h"
 #include "wwprofile.h"
+#include "mpmath.h"
+#include "srandom.h"
 #include <string.h>
 
 // E&B's log (the object 0xBDA908; 0x4BC130 takes a category, the file and line, a format). Not
@@ -50,14 +52,77 @@ unsigned int Cord_CRC(const unsigned char *data, int len, unsigned int crc)	// N
 }
 
 CordMgr::CordMgr() :
+	Protocol_(0x14),
+	Unknown04(0),
+	NextSession_(0),
+	Unknown0C(0),
 	Unexpected_(0)
 {
-	memset(Unknown00, 0, sizeof(Unknown00));
 	memset(Unknown1C, 0, sizeof(Unknown1C));
 }
 
 CordMgr::~CordMgr()
 {
+	for (int i = 0; i < Pending_.Length(); i++) {
+		delete Pending_[i];
+	}
+}
+
+// 0x858EC0, reduced: the client binds a data socket (ports 3755-3759) if none has room; here the
+// first data socket. The session id is the manager's counter (+0x1337 each time), the key two
+// random words (SecureRandomClass) when the connection is encrypted.
+CordConnectingClass *CordMgr::Connect(unsigned int ip, unsigned short port, bool encrypt)
+{
+	CordDataSocketClass *record = DataSockets_.Get_Pointer(0);
+	CordConnectingClass *c = new CordConnectingClass;
+	memset(c, 0, sizeof(*c));
+	c->Ip = ip;
+	c->Port = port;
+	c->Session = NextSession_;
+	NextSession_ += 0x1337;
+	c->Record = record;
+	c->Socket = record ? record->Socket : NULL;
+	c->State = 1;
+	if (encrypt) {
+		SecureRandomClass random;
+		c->Key = (__int64)random.Randval() << 32;
+		c->Key ^= random.Randval();
+	}
+	Pending_.Add(c);
+	return c;
+}
+
+// 0x858A60, reduced: SYN1 (0, protocol, session) while waiting for ACK1; SYN2 (2, protocol,
+// session, ACK1's two words, 0x4000, the key's length, the encrypted key) while waiting for ACK2.
+bool CordMgr::Pump_Connections()
+{
+	WWPROFILE("CordMgr::Pump_Connections");
+	unsigned char buf[0x400];
+	for (int i = 0; i < Pending_.Length(); i++) {
+		CordConnectingClass *c = Pending_[i];
+		if (c->Socket == NULL) {
+			continue;
+		}
+		if (c->State == 1) {
+			buf[0] = 0;
+			buf[1] = Protocol_;
+			*(unsigned short *)(buf + 2) = htons((unsigned short)c->Session);
+			c->Socket->Write(buf, 4, c->Ip, c->Port);
+		} else if (c->State == 3) {
+			unsigned char key[0x200];
+			buf[0] = 2;
+			buf[1] = Protocol_;
+			*(unsigned short *)(buf + 2) = htons((unsigned short)c->Session);
+			*(unsigned long *)(buf + 4) = htonl(c->Ack1Word1);
+			*(unsigned long *)(buf + 8) = htonl(c->Ack1Word2);
+			*(unsigned long *)(buf + 12) = htonl(0x4000);
+			unsigned int n = XMP_Encode(key, c->EncryptedKey, 0x40);
+			*(unsigned long *)(buf + 16) = htonl(n);
+			memcpy(buf + 20, key, n);
+			c->Socket->Write(buf, n + 20, c->Ip, c->Port);
+		}
+	}
+	return true;
 }
 
 // 0x857F20, functional (NOT EXACT): the data sockets, then the listening ones, each until Read
@@ -83,6 +148,10 @@ void CordMgr::Pump()
 			bool taken = false;
 			if ((type == 4 || type == 5) && !listen) {
 				taken = Process_CORD_Packet(buf, len, &from, udp, 0, type);
+			} else if (type == 1) {
+				taken = Process_ACK1_Packet(buf, len, &from, udp, 0);
+			} else if (type == 3) {
+				taken = Process_ACK2_Packet(buf, len, &from, udp, 0);
 			} else if (type == 0 && listen) {
 				taken = Process_SYN1_Packet(buf, len, &from, udp, 0);
 			} else if (type == 2 && listen) {
@@ -90,75 +159,6 @@ void CordMgr::Pump()
 			}
 			if (!taken) {
 				Unexpected_++;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -1287,6 +1287,115 @@ bool CordMgr::Process_SYN1_Packet(unsigned char *data, int len, sockaddr_in *fro
 bool CordMgr::Process_SYN2_Packet(unsigned char *data, int len, sockaddr_in *from, UDP *socket, int unknown)
 {
 	WWPROFILE("CordMgr::Process_SYN2_Packet");
+	return false;
+}
+
+// 0x85A430, functional: ACK1 (1, protocol, session, two words, the server's modulus and exponent,
+// each a 4-byte length then big-endian bytes) for a connection waiting in state 1. The session key
+// becomes the low 64 bits of a number filled with random bits up to one below the modulus's
+// length, raised to the exponent modulo the modulus (WWLib's XMP); state 3 (SYN2 next).
+bool CordMgr::Process_ACK1_Packet(unsigned char *data, int len, sockaddr_in *from, UDP *socket, int unknown)
+{
+	WWPROFILE("CordMgr::Process_ACK1_Packet");
+	if (len < 0x14) {
+		return false;
+	}
+	unsigned char type = data[0];
+	unsigned char protocol = data[1];
+	unsigned short session = ntohs(*(unsigned short *)(data + 2));
+	unsigned long word1 = ntohl(*(unsigned long *)(data + 4));
+	unsigned long word2 = ntohl(*(unsigned long *)(data + 8));
+	digit modulus[0x40], exponent[0x40], zero[0x40];
+	XMP_Init(modulus, 0, 0x40);
+	XMP_Init(exponent, 0, 0x40);
+	XMP_Init(zero, 0, 0x40);
+	unsigned long mlen = ntohl(*(unsigned long *)(data + 12));
+	if (mlen + 0x10 > (unsigned long)len || mlen == 0) {
+		return false;
+	}
+	XMP_Unsigned_Decode(modulus, data + 0x10, mlen, 0x40);
+	unsigned long elen = ntohl(*(unsigned long *)(data + mlen + 0x10));
+	if (elen + mlen + 0x14 > (unsigned long)len) {
+		return false;
+	}
+	if (elen != 0) {
+		XMP_Unsigned_Decode(exponent, data + mlen + 0x14, elen, 0x40);
+	}
+	if (protocol != Protocol_ || type != 1) {
+		return false;
+	}
+	for (int i = 0; i < Pending_.Length(); i++) {
+		CordConnectingClass *c = Pending_[i];
+		if (c->Ip != ntohl(from->sin_addr.s_addr) || c->Port != ntohs(from->sin_port)
+			|| c->Session != session || c->State != 1) {
+			continue;
+		}
+		if (word1 == 0 && word2 == 0) {
+			c->State = 0;		// (the client's: an unencrypted server)
+			return false;
+		}
+		if (memcmp(modulus, zero, sizeof(zero)) != 0 && memcmp(exponent, zero, sizeof(zero)) != 0
+			&& c->Key != 0) {
+			digit plain[0x40], cipher[0x40];
+			XMP_Init(plain, 0, 0x40);
+			for (unsigned int bit = 0; bit < 64; bit++) {
+				if (c->Key & ((__int64)1 << bit)) {
+					plain[bit >> 5] |= 1 << (bit & 0x1F);
+				}
+			}
+			SecureRandomClass random;
+			for (unsigned int b = 64; b < XMP_Count_Bits(modulus, 0x40) - 1; b++) {
+				if (random.Randval() & 1) {
+					plain[b >> 5] |= 1 << (b & 0x1F);
+				}
+			}
+			XMP_Init(cipher, 0, 0x40);
+			XMP_Exponent_Mod(cipher, plain, exponent, modulus, 0x40);
+			memcpy(c->EncryptedKey, cipher, sizeof(cipher));
+		} else {
+			memset(c->EncryptedKey, 0, sizeof(c->EncryptedKey));
+		}
+		c->State = 3;
+		c->Ack1Word1 = word1;
+		c->Ack1Word2 = word2;
+		return true;
+	}
+	return false;
+}
+
+// 0x85ABB0, functional: ACK2 (3, protocol, session, 2 bytes, the data port, a word) for a
+// connection in the handshake: its CordCon (the word is the constructor's 7th argument), in
+// both connection lists; the handshake record goes.
+bool CordMgr::Process_ACK2_Packet(unsigned char *data, int len, sockaddr_in *from, UDP *socket, int unknown)
+{
+	WWPROFILE("CordMgr::Process_ACK2_Packet");
+	if (len != 12) {
+		return false;
+	}
+	unsigned char type = data[0];
+	unsigned char protocol = data[1];
+	unsigned short session = ntohs(*(unsigned short *)(data + 2));
+	ntohs(*(unsigned short *)(data + 4));
+	unsigned short port = ntohs(*(unsigned short *)(data + 6));
+	unsigned long word = ntohl(*(unsigned long *)(data + 8));
+	if (protocol != Protocol_ || type != 3) {
+		return false;
+	}
+	for (int i = 0; i < Pending_.Length(); i++) {
+		CordConnectingClass *c = Pending_[i];
+		if (c->Ip != ntohl(from->sin_addr.s_addr) || c->Port != ntohs(from->sin_port)
+			|| c->Session != session) {
+			continue;
+		}
+		c->State = 5;
+		CordCon *con = new CordCon(c->Ip, port, session, 0, false, c->Socket, (int)word,
+			(unsigned int)c->Key, (unsigned int)(c->Key >> 32));
+		AllConnections_.Add(con);
+		Connections_.Add(con);
+		delete c;
+		Pending_.Remove(i);
+		return true;
+	}
 	return false;
 }
 

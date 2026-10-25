@@ -2,6 +2,7 @@
 
     ENB_VC6_HOSTS=Daniel@<ip> python tools/harness/udpreplay.py build [--out DIR]
     python tools/harness/udpreplay.py run alex3|alex7 [--exe EXE] [--aux]
+    python tools/harness/udpreplay.py handshake            (capture_1..3's 54 SYN1/ACK1/SYN2/ACK2)
 
 build: links udpreplay with the app\\wwudp sources (compiled into the program, as auxreplay.py's
 --app-sources) against DIR's libraries (wwlib's RC4Class) into DIR/programs/udpreplay/.
@@ -24,6 +25,7 @@ checksum (reported). Checks:
 (build/programs/auxreplay, M1.3): gates (a) and (b) chained.
 """
 import argparse
+import re
 import difflib
 import json
 import os
@@ -411,9 +413,120 @@ def run(name, exe, aux):
     return ok
 
 
+# ------------------------------------------------------------------------- the handshake
+
+LIVE = r'C:\EnBDevelopment\Live-Era-Data\enbserver3\ENB-Packets-Live'
+KEYS = r'C:\EnBDevelopment\the reference decoder\src\Shared\the reference key table\the reference key table'
+PACKET = re.compile(r'^Packet #(\d+): (\d+) bytes, (Client->Server|Server->Client)\s+([\d.]+):(\d+)')
+HEXLINE = re.compile(r'^ ((?:[0-9A-F]{2} )*[0-9A-F]{2})(?:\s{2,}|\s*$)')
+
+
+def capture_handshakes(path):
+    """(server ip, port, session, SYN1, ACK1, SYN2, RC4 key, ACK2) per handshake in an annotated
+    capture (capture_1..3.txt), from the hex columns of its packets."""
+    packets, cur, key_next = [], None, False
+    for line in open(path, encoding='latin1'):
+        m = PACKET.match(line)
+        if m:
+            cur = [int(m.group(1)), m.group(3)[0], m.group(4), int(m.group(5)), bytearray(), None]
+            packets.append(cur)
+            continue
+        if line.startswith('RC4 session key'):
+            key_next = True
+            continue
+        h = HEXLINE.match(line)
+        if h and cur is not None:
+            b = bytes.fromhex(h.group(1).replace(' ', ''))
+            if key_next:
+                cur[5] = b
+                key_next = False
+            else:
+                cur[4] += b
+    out, open_ = [], {}
+    for n, d, ip, port, data, key in packets:
+        if len(data) < 4 or data[1] != 0x14 or data[0] > 3:
+            continue
+        session = (data[2] << 8) | data[3]
+        k = (ip, port, session)
+        if data[0] == 0 and d == 'C':
+            open_[k] = {'syn1': bytes(data)}
+        elif k in open_:
+            h = open_[k]
+            if data[0] == 1 and d == 'S':
+                h['ack1'] = bytes(data)
+            elif data[0] == 2 and d == 'C':
+                h['syn2'] = bytes(data)
+                h['key'] = key
+            elif data[0] == 3 and d == 'S' and 'syn2' in h and h.get('key'):
+                h['ack2'] = bytes(data)
+                out.append((ip, port, session, h))
+                del open_[k]
+    return out
+
+
+def rsa_keys():
+    text = open(KEYS, encoding='utf-8').read()
+    nums = re.findall(r'BigInteger\.Parse\(\s*"(\d+)"', text)
+    return int(nums[0]), int(nums[1])
+
+
+def ip_int(ip):
+    a = list(map(int, ip.split('.')))
+    return (a[0] << 24) | (a[1] << 16) | (a[2] << 8) | a[3]
+
+
+def handshake(exe):
+    n_mod, d_priv = rsa_keys()
+    hs = []
+    for name in ('capture_1', 'capture_2', 'capture_3'):
+        for h in capture_handshakes(os.path.join(LIVE, name + '.txt')):
+            hs.append((name,) + h)
+    os.makedirs(WORK, exist_ok=True)
+    inp = os.path.join(WORK, 'handshake.in.txt')
+    res = os.path.join(WORK, 'handshake.out.txt')
+    with open(inp, 'w', newline='\n') as f:
+        for i, (name, ip, port, session, h) in enumerate(hs):
+            f.write('H %d %d %d %d %s %s %s\n' % (i, ip_int(ip), port, session, h['key'].hex(),
+                                                  h['ack1'].hex(), h['ack2'].hex()))
+    p = subprocess.run([os.path.abspath(exe), inp, res], capture_output=True, text=True)
+    if p.returncode != 0:
+        raise SystemExit('udpreplay failed: %d %s' % (p.returncode, p.stderr[-500:]))
+    got = defaultdict(dict)
+    for line in open(res):
+        q = line.split()
+        if q and q[0] in ('HS1', 'HS2'):
+            got[int(q[1])][q[0]] = bytes.fromhex(q[2])
+        elif q and q[0] == 'HC':
+            got[int(q[1])]['HC'] = q[2:]
+    c = Counter()
+    for i, (name, ip, port, session, h) in enumerate(hs):
+        g = got.get(i, {})
+        key = h['key']
+        c['handshakes'] += 1
+        c['SYN1 equal'] += g.get('HS1') == h['syn1']
+        syn2 = g.get('HS2')
+        if syn2:
+            c['SYN2 header equal (bytes 0-15)'] += syn2[:16] == h['syn2'][:16]
+            ours = pow(int.from_bytes(syn2[20:], 'big'), d_priv, n_mod)
+            theirs = pow(int.from_bytes(h['syn2'][20:], 'big'), d_priv, n_mod)
+            c['our SYN2 decrypts to the key'] += (ours & (1 << 64) - 1).to_bytes(8, 'little') == key
+            c["the capture's SYN2 decrypts to its key"] += (theirs & (1 << 64) - 1).to_bytes(8, 'little') == key
+            c['plaintext bits: ours as long as the capture\'s'] += ours.bit_length() <= n_mod.bit_length() - 1
+        hc = g.get('HC')
+        if hc and hc[0] != 'none':
+            ack2 = h['ack2']
+            c['CordCon from ACK2: data port, key, session'] += (int(hc[0]) == ((ack2[6] << 8) | ack2[7])
+                                                              and hc[1] == key.hex() and int(hc[2]) == session)
+    print('handshakes in capture_1..3: %d' % c['handshakes'])
+    for k, v in c.items():
+        if k != 'handshakes':
+            print('  %s: %d' % (k, v))
+    return all(v == c['handshakes'] for v in c.values())
+
+
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument('cmd', choices=['build', 'run'])
+    ap.add_argument('cmd', choices=['build', 'run', 'handshake'])
     ap.add_argument('name', nargs='?')
     ap.add_argument('--out', default=os.path.join(REPO, 'build'))
     ap.add_argument('--exe')
@@ -423,6 +536,8 @@ def main():
         build(a.out)
         return 0
     exe = a.exe or os.path.join(a.out, 'programs', 'udpreplay', 'udpreplay.exe')
+    if a.cmd == 'handshake':
+        return 0 if handshake(exe) else 1
     return 0 if run(a.name, exe, a.aux) else 1
 
 

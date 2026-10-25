@@ -10,8 +10,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 2 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 25 |
 | 3 | by convention from a client-named file or sibling | 53 |
-| 2 | describes what the code does | 288 |
-| 1 | neutral placeholder | 210 |
+| 2 | describes what the code does | 290 |
+| 1 | neutral placeholder | 211 |
 
 ## For review (score 3 and below)
 
@@ -195,17 +195,18 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown1C` | `app/wwudp/cordcon.h:275` | untagged neutral name (D10) |
 | 1 | `Unknown98` | `app/wwudp/cordcon.h:296` | untagged neutral name (D10) |
 | 1 | `UnknownAC` | `app/wwudp/cordcon.h:301` | untagged neutral name (D10) |
-| 1 | `UnknownLogClass` | `app/wwudp/cordmgr.cpp:22` | placeholder for E&B's log object |
-| 1 | `Unknown_4BC130` | `app/wwudp/cordmgr.cpp:25` | untagged neutral name (D10) |
-| 1 | `UnknownLog` | `app/wwudp/cordmgr.cpp:27` | 0xBDA908 |
-| 1 | `Cord_CRC` | `app/wwudp/cordmgr.cpp:32` | placeholder |
-| 1 | `Unknown00` | `app/wwudp/cordmgr.cpp:55` | untagged neutral name (D10) |
-| 1 | `Unknown1C` | `app/wwudp/cordmgr.cpp:56` | untagged neutral name (D10) |
+| 1 | `UnknownLogClass` | `app/wwudp/cordmgr.cpp:24` | placeholder for E&B's log object |
+| 1 | `Unknown_4BC130` | `app/wwudp/cordmgr.cpp:27` | untagged neutral name (D10) |
+| 1 | `UnknownLog` | `app/wwudp/cordmgr.cpp:29` | 0xBDA908 |
+| 1 | `Cord_CRC` | `app/wwudp/cordmgr.cpp:34` | placeholder |
+| 1 | `Unknown04` | `app/wwudp/cordmgr.cpp:56` | untagged neutral name (D10) |
+| 1 | `Unknown0C` | `app/wwudp/cordmgr.cpp:58` | untagged neutral name (D10) |
+| 1 | `Unknown1C` | `app/wwudp/cordmgr.cpp:61` | untagged neutral name (D10) |
 | 1 | `Unknown04` | `app/wwudp/cordmgr.h:37` | untagged neutral name (D10) |
 | 1 | `Unknown08` | `app/wwudp/cordmgr.h:38` | untagged neutral name (D10) |
 | 1 | `Unknown0C` | `app/wwudp/cordmgr.h:39` | untagged neutral name (D10) |
-| 1 | `Unknown00` | `app/wwudp/cordmgr.h:64` | untagged neutral name (D10) |
-| 1 | `Unknown1C` | `app/wwudp/cordmgr.h:66` | untagged neutral name (D10) |
+| 1 | `Unknown134` | `app/wwudp/cordmgr.h:64` | untagged neutral name (D10) |
+| 1 | `Unknown1C` | `app/wwudp/cordmgr.h:95` | untagged neutral name (D10) |
 | 1 | `unknown_cordmsg.cpp` | `app/wwudp/unknown_cordmsg.cpp:13` | PROVISIONAL file name (no assert or __FILE__ names the object) |
 | 1 | `Unknown_Assert_Failed` | `stubs/app_stubs.cpp:33` | untagged neutral name (D10) |
 | 1 | `Unknown_Fail_If_Report` | `stubs/app_stubs.cpp:40` | untagged neutral name (D10) |
@@ -515,6 +516,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Rejected_` | `app/wwudp/cordcon.h:309` | describes its role |
 | 2 | `CordDataSocketClass` | `app/wwudp/cordmgr.h:34` | a data socket's record (the +0x40 list, 16 bytes) |
 | 2 | `CordListenSocketClass` | `app/wwudp/cordmgr.h:42` | a listening socket's record (the +0x4C list, 12 bytes) |
+| 2 | `CordConnectingClass` | `app/wwudp/cordmgr.h:51` | describes what it is |
+| 2 | `Connect` | `app/wwudp/cordmgr.h:85` | what it does |
 | 3 | `DeltaShipClass` | `app/client/aux_roots.h:524` | the client's root string "Ship", Westwood XxxClass (D24); structure = Net-7 AuxShipIndex / C# ShipObject (C# fields = ours (same names, same order); Net-7 Construct 58 children = ours) |
 | 3 | `DeltaComponentClass` | `app/client/aux_roots.h:593` | the client's root string "Component", Westwood XxxClass (D24); structure = C# ComponentObject (C# fields = ours (same names, same order)) |
 | 3 | `DeltaLightClass` | `app/client/aux_roots.h:603` | the client's root string "Light", Westwood XxxClass (D24); structure = C# LightObject (C# fields = ours (same names, same order)) |

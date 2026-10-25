@@ -184,6 +184,15 @@ Results (2026-10-24):
 | our datagrams that the peer's examinePacket accepts | 30,452 of 30,452 | 3,087 of 3,088 |
 | AUX_DATA through auxreplay (`--aux`) | 4,290 delivered, all decode and re-encode | 370 delivered, 228 checked and passed, 142 for objects whose CREATE is held (below) |
 
+**The handshake** (`python tools/harness/udpreplay.py handshake`): the 54 SYN1 / ACK1 / SYN2 / ACK2
+exchanges in capture_1..3 (the annotated captures print every handshake byte and the session key).
+A client-side CordMgr connects with the capture's session id and key (CordMgr::Connect,
+Pump_Connections), and the capture's ACK1 and ACK2 go through CordMgr::Pump. All 54 pass: SYN1 equals
+the capture's, SYN2's header (bytes 0-15) equals it, our SYN2's encrypted key decrypts with the
+server's private key (the reference decoder's the reference key table) to the session key in its low 64 bits, as the
+capture's does, and ACK2 makes a CordCon with the capture's data port, key and session. This runs
+WWLib's XMP (RSA) and SecureRandomClass for the first time.
+
 What doesn't match, and why:
 * **alex7, session 625d, server channel 4.** The dump cut datagrams #109-#111 and lost sequence
   numbers 218-221 and 223-229 with them. The client acked them (#129 acks up to 263), so it got

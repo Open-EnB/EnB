@@ -46,6 +46,25 @@ struct CordListenSocketClass	// NAME 2: a listening socket's record (the +0x4C l
 	int Unknown08;
 };
 
+// A connection in the handshake (0x140 bytes; made by Connect 0x858EC0, kept in CordMgr's +0x10
+// list until ACK2 makes its CordCon).
+class CordConnectingClass	// NAME 2: describes what it is
+{
+public:
+	unsigned int Ip;				// +0x00 NAME 2: the server's address (host order)
+	unsigned short Port;			// +0x04 NAME 2: the server's handshake port
+	int Session;					// +0x08 NAME 2: the session id SYN1 carries
+	unsigned int Ack1Word1;			// +0x0C NAME 2: ACK1's bytes 4-7, sent back in SYN2
+	unsigned int Ack1Word2;			// +0x10 NAME 2: ACK1's bytes 8-11, sent back in SYN2
+	unsigned int Timers[5];			// +0x14 (Wtimes: the resend timer at +0x1C; not rebuilt)
+	UDP *Socket;					// +0x28 NAME 2: the data socket it was made on
+	CordDataSocketClass *Record;	// +0x2C NAME 2: that socket's record
+	int State;						// +0x30 NAME 2: 1 SYN1 sent, 3 SYN2 sent, 5 done
+	unsigned long EncryptedKey[0x40];	// +0x34 NAME 2: the session key, RSA-encrypted (XMP digits)
+	int Unknown134;					// +0x134
+	__int64 Key;					// +0x138 NAME 2: the session key (RC4)
+};
+
 class CordMgr
 {
 public:
@@ -60,10 +79,21 @@ public:
 		char type);
 	bool Process_SYN1_Packet(unsigned char *data, int len, sockaddr_in *from, UDP *socket, int unknown);	// 0x85A3B0
 	bool Process_SYN2_Packet(unsigned char *data, int len, sockaddr_in *from, UDP *socket, int unknown);	// 0x85AB30
+	bool Process_ACK1_Packet(unsigned char *data, int len, sockaddr_in *from, UDP *socket, int unknown);	// 0x85A430
+	bool Process_ACK2_Packet(unsigned char *data, int len, sockaddr_in *from, UDP *socket, int unknown);	// 0x85ABB0
+	// Starts a connection to ip:port on the first data socket (0x858EC0, reduced: no socket binding).
+	CordConnectingClass *Connect(unsigned int ip, unsigned short port, bool encrypt);	// NAME 2: what it does
+	// Sends SYN1 / SYN2 for the connections in the handshake (0x858A60, reduced: every call, no
+	// resend timer or time-out).
+	bool Pump_Connections();
 
-	int Unknown00[4];									// +0x00
-	CordArrayClass<CordCon *> Pending_;					// +0x10 NAME 2: connections in the handshake
-	int Unknown1C[6];									// +0x1C
+	unsigned char Protocol_;							// +0x00 NAME 2: the handshake's second byte (0x14 in the captures)
+	int Unknown04;										// +0x04
+	unsigned short NextSession_;						// +0x08 NAME 2: the next session id (+0x1337 each time)
+	int Unknown0C;										// +0x0C
+	CordArrayClass<CordConnectingClass *> Pending_;		// +0x10 NAME 2: connections in the handshake
+	int Unknown1C[3];									// +0x1C
+	CordArrayClass<CordCon *> AllConnections_;			// +0x28 NAME 1: ACK2 adds the CordCon here too
 	CordArrayClass<CordCon *> Connections_;				// +0x34 NAME 2: the open connections
 	CordArrayClass<CordDataSocketClass> DataSockets_;	// +0x40 NAME 2: the sockets data arrives on
 	CordArrayClass<CordListenSocketClass> ListenSockets_;	// +0x4C NAME 2: the sockets handshakes arrive on

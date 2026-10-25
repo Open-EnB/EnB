@@ -3186,9 +3186,11 @@ RECONSTRUCTED = {
     ('app', 'wwudp/cordmgr.h'): "CordMgr (client name: the profile labels 'CordMgr::Pump' ...): the EA-UDP connection manager (M1.4)",
     ('app', 'wwudp/cordmgr.cpp'): "CordMgr, client 0x857590-0x85AED0 (M1.4): Find_Data_Socket 0x859F80 exact; functional "
                                   "(NOT EXACT, D42): Process_CORD_Packet 0x85A000, Process_SYN1/SYN2_Packet 0x85A3B0 / "
-                                  "0x85AB30 (the client's have an EH frame ours lack), Pump 0x857F20's data path; the log "
-                                  "calls on the client's lines 592 and 1272 (D25); the handshake (ACK1/ACK2), go-away, "
-                                  "Pump_Connections / Pump_Releases not rebuilt; Cord_CRC (WWOnline's 0x8B3EC0) here "
+                                  "0x85AB30 (the client's have an EH frame ours lack), Pump 0x857F20's data path, the client's "
+                                  "handshake (Connect 0x858EC0 and Pump_Connections 0x858A60 reduced, Process_ACK1_Packet "
+                                  "0x85A430, Process_ACK2_Packet 0x85ABB0); the log calls on the client's lines 592 and 1272 "
+                                  "(D25); go-away, Pump_Releases, Get_Data_Socket, Compute_Ticks not rebuilt; Cord_CRC "
+                                  "(WWOnline's 0x8B3EC0) here "
                                   "until that library is in the tree",
 }
 

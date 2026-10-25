@@ -290,6 +290,59 @@ static void Write_Side(FILE *out, Session *s, Side &tx, const char *dir, const c
 	}
 }
 
+// The handshake (H lines): a client-side CordMgr with one data socket connects to ip:port, its
+// connection given the capture's session id and key; ACK1 and ACK2 from the capture go through
+// CordMgr::Pump (Process_ACK1_Packet, Process_ACK2_Packet). Prints what Pump_Connections sent
+// (HS1 = SYN1, HS2 = SYN2) and the CordCon ACK2 made (HC n port key stats).
+static void Handshake(FILE *out, const char *line)
+{
+	int n, at = 0;
+	unsigned int ip, port, session;
+	char key[32], ack1[1024], ack2[64];
+	if (sscanf(line, "H %d %u %u %u %31s %1023s %63s", &n, &ip, &port, &session, key, ack1, ack2) < 7) {
+		return;
+	}
+	(void)at;
+	CordMgr mgr;
+	UDP *sock = new UDP();
+	Replay[sock].FromIp = ip;
+	Replay[sock].FromPort = (unsigned short)port;
+	CordDataSocketClass ds = { sock, 0, 0, 0 };
+	mgr.DataSockets_.Add(ds);
+	CordConnectingClass *c = mgr.Connect(ip, (unsigned short)port, true);
+	c->Session = (int)session;
+	std::vector<unsigned char> k = From_Hex(key);
+	memcpy(&c->Key, &k[0], 8);
+	size_t before = Replay[sock].Out.size();
+	mgr.Pump_Connections();
+	for (size_t g = before; g < Replay[sock].Out.size(); g++) {
+		fprintf(out, "HS1 %d ", n);
+		Put_Hex(out, &Replay[sock].Out[g][0], (int)Replay[sock].Out[g].size());
+		fprintf(out, "\n");
+	}
+	Replay[sock].In.push_back(From_Hex(ack1));
+	mgr.Pump();
+	before = Replay[sock].Out.size();
+	mgr.Pump_Connections();
+	for (size_t g2 = before; g2 < Replay[sock].Out.size(); g2++) {
+		fprintf(out, "HS2 %d ", n);
+		Put_Hex(out, &Replay[sock].Out[g2][0], (int)Replay[sock].Out[g2].size());
+		fprintf(out, "\n");
+	}
+	Replay[sock].In.push_back(From_Hex(ack2));
+	mgr.Pump();
+	if (mgr.Connections_.Length() == 1) {
+		CordCon *con = mgr.Connections_[0];
+		unsigned char kb[8];
+		memcpy(kb, &con->Key_, 8);
+		fprintf(out, "HC %d %u ", n, con->Port_);
+		Put_Hex(out, kb, 8);
+		fprintf(out, " %d\n", con->Session_);
+	} else {
+		fprintf(out, "HC %d none\n", n);
+	}
+}
+
 int main(int argc, char **argv)
 {
 	if (argc < 3) {
@@ -313,6 +366,10 @@ int main(int argc, char **argv)
 				std::vector<unsigned char> k = From_Hex(key);
 				memcpy(s->Key, &k[0], 8);
 			}
+			continue;
+		}
+		if (line[0] == 'H') {
+			Handshake(out, line);
 			continue;
 		}
 		if (line[0] == 'W') {
