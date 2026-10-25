@@ -34,132 +34,6 @@ UnknownRootClass *UnknownCOClass::Unknown_Create_Aux_Root(int type, int unknown)
 	return 0;
 }
 
-// Ship (0x6F66E0)
-DeltaShipClass::DeltaShipClass(int unknown) :
-	UnknownRootClass(unknown, "Ship"),
-	Name("Name", "Default"),
-	Owner("Owner", "Default"),
-	Title("Title", ""),
-	Rank("Rank", ""),
-	EnergyPercent("EnergyPercent"),
-	MaxEnergyPower("MaxEnergyPower"),
-	ShieldPercent("ShieldPercent"),
-	MaxShieldPower("MaxShieldPower"),
-	HullPoints("HullPoints"),
-	MaxHullPoints("MaxHullPoints"),
-	MaxTiltRate("MaxTiltRate"),
-	MaxTurnRate("MaxTurnRate"),
-	MaxTiltAngle("MaxTiltAngle"),
-	MaxSpeed("MaxSpeed"),
-	MinSpeed("MinSpeed"),
-	Acceleration("Acceleration"),
-	LockSpeed("LockSpeed"),
-	LockOrient("LockOrient"),
-	AutoLevel("AutoLevel"),
-	IsCloaked("IsCloaked"),
-	IsCountermeasureActive("IsCountermeasureActive"),
-	IsIncapacitated("IsIncapacitated"),
-	IsOrganic("IsOrganic"),
-	IsInPVP("IsInPVP"),
-	IsAutoFollowing("IsAutoFollowing"),
-	IsRescueBeaconActive("IsRescueBeaconActive"),
-	CombatLevel("CombatLevel"),
-	TargetGameID("TargetGameID"),
-	TargetThreat("TargetThreat", ""),
-	TargetThreatSound("TargetThreatSound", ""),
-	TargetThreatLevel("TargetThreatLevel", -1),
-	PrivateWarpState("PrivateWarpState"),
-	GlobalWarpState("GlobalWarpState"),
-	WarpAvailable("WarpAvailable"),
-	WarpTriggerTime("WarpTriggerTime", 0),
-	Shake("Shake"),
-	Inventory("Inventory"),
-	TradeMoney("TradeMoney", MoneyClass(0)),
-	VisibleQuadrantDamagePercent("VisibleQuadrantDamagePercent", 4),
-	DamageSpot("DamageSpot", 15),
-	DamageLine("DamageLine", 10),
-	DamageBlotch("DamageBlotch", 5),
-	m_Unknown2390(0),
-	m_Unknown2394(0),
-	m_Unknown2398(0),
-	Legos("Legos"),
-	BuffArray("BuffArray", 15),
-	BaseStats("BaseStats"),
-	CurrentStats("CurrentStats"),
-	EngineThrustState("EngineThrustState"),
-	EngineTrailType("EngineTrailType"),
-	GuildName("GuildName", ""),
-	GuildRank("GuildRank", (UnknownB00A58Enum)-1),
-	GuildRankName("GuildRankName", ""),
-	SameGuildTagColor("SameGuildTagColor"),
-	OtherGuildTagColor("OtherGuildTagColor"),
-	InterruptibleAbilityName("InterruptibleAbilityName", ""),
-	InterruptState("InterruptState"),
-	InterruptibleActivationTime("InterruptibleActivationTime", 0),
-	InterruptProgress("InterruptProgress"),
-	FactionIdentifier("FactionIdentifier", "")
-{
-	Add(0, &Name);
-	Add(1, &Owner);
-	Add(1, &Title);
-	Add(1, &Rank);
-	Add(1, &EnergyPercent);
-	Add(1, &MaxEnergyPower);
-	Add(1, &ShieldPercent);
-	Add(1, &MaxShieldPower);
-	Add(1, &HullPoints);
-	Add(1, &MaxHullPoints);
-	Add(1, &MaxTiltRate);
-	Add(1, &MaxTurnRate);
-	Add(1, &MaxTiltAngle);
-	Add(1, &MaxSpeed);
-	Add(1, &MinSpeed);
-	Add(1, &Acceleration);
-	Add(1, &LockSpeed);
-	Add(1, &LockOrient);
-	Add(0, &AutoLevel);
-	Add(1, &IsCloaked);
-	Add(1, &IsCountermeasureActive);
-	Add(1, &IsIncapacitated);
-	Add(1, &IsOrganic);
-	Add(1, &IsInPVP);
-	Add(1, &IsAutoFollowing);
-	Add(1, &IsRescueBeaconActive);
-	Add(1, &CombatLevel);
-	Add(1, &TargetGameID);
-	Add(1, &TargetThreat);
-	Add(1, &TargetThreatSound);
-	Add(1, &TargetThreatLevel);
-	Add(1, &PrivateWarpState);
-	Add(1, &GlobalWarpState);
-	Add(1, &WarpAvailable);
-	Add(1, &WarpTriggerTime);
-	Add(1, &Shake);
-	Add(1, &Inventory);
-	Add(0, &VisibleQuadrantDamagePercent);
-	Add(0, &DamageSpot);
-	Add(0, &DamageLine);
-	Add(0, &DamageBlotch);
-	Add(1, &Legos);
-	Add(1, &BuffArray);
-	Add(1, &TradeMoney);
-	Add(1, &BaseStats);
-	Add(1, &CurrentStats);
-	Add(1, &EngineThrustState);
-	Add(1, &EngineTrailType);
-	Add(1, &GuildName);
-	Add(1, &GuildRank);
-	Add(1, &GuildRankName);
-	Add(1, &SameGuildTagColor);
-	Add(1, &OtherGuildTagColor);
-	Add(1, &InterruptibleAbilityName);
-	Add(1, &InterruptState);
-	Add(1, &InterruptibleActivationTime);
-	Add(1, &InterruptProgress);
-	Add(1, &FactionIdentifier);
-	DeltaCompoundClass::Unknown_48();
-}
-
 // Ship's narrow Add (0x6F8C70)
 void DeltaShipClass::Add(int narrow, DeltaClass *child)
 {
@@ -167,55 +41,6 @@ void DeltaShipClass::Add(int narrow, DeltaClass *child)
 	if (narrow == 1) {
 		child->m_Unknown80 = 0xCF;
 	}
-}
-
-// Light (0x6F9870)
-DeltaLightClass::DeltaLightClass(int unknown) :
-	UnknownRootClass(unknown, "Light"),
-	Name("Name", ""),
-	Intensity("Intensity"),
-	DiffuseRGB("DiffuseRGB"),
-	SpecularRGB("SpecularRGB"),
-	AmbientRGB("AmbientRGB"),
-	Attenuation("Attenuation"),
-	AttenuationFactors("AttenuationFactors")
-{
-	Add(&Name);
-	Add(&Intensity);
-	Add(&DiffuseRGB);
-	Add(&SpecularRGB);
-	Add(&AmbientRGB);
-	Add(&Attenuation);
-	Add(&AttenuationFactors);
-	DeltaCompoundClass::Unknown_48();
-}
-
-// Decoration (0x6F9C30)
-DeltaDecorationClass::DeltaDecorationClass(int unknown) :
-	UnknownRootClass(unknown, "Decoration"),
-	Name("Name", ""),
-	AppearsInRadar("AppearsInRadar"),
-	RadarRange("RadarRange")
-{
-	Add(&Name);
-	Add(&AppearsInRadar);
-	Add(&RadarRange);
-	DeltaCompoundClass::Unknown_48();
-}
-
-// Harvestable (0x6F9ED0)
-DeltaHarvestableClass::DeltaHarvestableClass(int unknown) :
-	UnknownRootClass(unknown, "Harvestable"),
-	Name("Name", "Harvestable"),
-	HarvestableResources("HarvestableResources", 40),
-	PercentFull("PercentFull", 1.0f),
-	TechLevel("TechLevel", -1)
-{
-	Add(&Name);
-	Add(&HarvestableResources);
-	Add(&PercentFull);
-	Add(&TechLevel);
-	DeltaCompoundClass::Unknown_48();
 }
 
 // Ship.Inventory.Cargo.N (0x6FA150)
@@ -245,55 +70,6 @@ DeltaItemClass::DeltaItemClass(const char *name) :
 	Add(&BuilderName);
 }
 
-// ManufacturingLab (0x6FA6F0)
-DeltaManufacturingLabClass::DeltaManufacturingLabClass(int unknown) :
-	UnknownRootClass(unknown, "ManufacturingLab"),
-	Name("Name", "Manufacturing Lab"),
-	Mode("Mode", (UnknownB013ECEnum)1),
-	Validity("Validity"),
-	FailureMessage("FailureMessage", ""),
-	Difficulty("Difficulty", (UnknownB0133CEnum)6),
-	ManufactureTarget("ManufactureTarget", 2),
-	ManufactureComponents("ManufactureComponents", 6),
-	ManufactureOverride("ManufactureOverride", 1),
-	NegotiatedCost("NegotiatedCost", MoneyClass(0)),
-	BaseCost("BaseCost", MoneyClass(0)),
-	PrimaryCategories("PrimaryCategories", 2),
-	KnownFormula("KnownFormula", 500),
-	PreviousAttempts("PreviousAttempts", 15),
-	CurrentItemCategory("CurrentItemCategory", (UnknownB0122CEnum)-1),
-	SuccessProbability("SuccessProbability", 1.0f),
-	CriticalSuccessProbability("CriticalSuccessProbability"),
-	ExpectedQuality("ExpectedQuality", 1.0f),
-	MinimumQuality("MinimumQuality", 1.0f),
-	MaximumQuality("MaximumQuality", 1.0f),
-	AdditionalIterations("AdditionalIterations"),
-	TechLevelFilterBitfield("TechLevelFilterBitfield", (UnknownB011D4Enum)511)
-{
-	Add(&Name);
-	Add(&Mode);
-	Add(&Validity);
-	Add(&FailureMessage);
-	Add(&Difficulty);
-	Add(&ManufactureTarget);
-	Add(&ManufactureComponents);
-	Add(&ManufactureOverride);
-	Add(&NegotiatedCost);
-	Add(&BaseCost);
-	Add(&PrimaryCategories);
-	Add(&KnownFormula);
-	Add(&PreviousAttempts);
-	Add(&CurrentItemCategory);
-	Add(&SuccessProbability);
-	Add(&CriticalSuccessProbability);
-	Add(&ExpectedQuality);
-	Add(&MinimumQuality);
-	Add(&MaximumQuality);
-	Add(&AdditionalIterations);
-	Add(&TechLevelFilterBitfield);
-	DeltaCompoundClass::Unknown_48();
-}
-
 // ManufacturingLab.PrimaryCategories.N (0x6FB1E0)
 inline
 DeltaPrimaryCategoryClass::DeltaPrimaryCategoryClass(const char *name) :
@@ -316,15 +92,6 @@ DeltaKnownFormulaClass::DeltaKnownFormulaClass(const char *name) :
 	Add(&ItemName);
 	Add(&ItemID);
 	Add(&TechLevel);
-}
-
-// Component (0x6FBDA0)
-DeltaComponentClass::DeltaComponentClass(int unknown) :
-	UnknownRootClass(unknown, "Component"),
-	Name("Name", "")
-{
-	Add(&Name);
-	DeltaCompoundClass::Unknown_48();
 }
 
 // Ship.BuffArray.N.Elements.N (0x707430)
