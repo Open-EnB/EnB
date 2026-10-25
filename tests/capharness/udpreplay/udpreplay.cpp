@@ -129,7 +129,7 @@ struct Session
 	int Id;
 	unsigned char Key[8];
 	Side Client, Server;	// Client takes S datagrams, Server takes C datagrams
-	int Datagrams[2], Accepted[2], Rejected[2], NoCon[2], Delivered[2], OpenMismatch[2], Generated[2];
+	int Datagrams[2], Accepted[2], Rejected[2], NoCon[2], Delivered[2], OpenMismatch[2], Generated[2], PeerOk[2];
 };
 
 static std::map<std::string, Session *> Sessions;
@@ -187,6 +187,7 @@ static Session *Get_Session(const std::string &name)
 	memset(s->Delivered, 0, sizeof(s->Delivered));
 	memset(s->OpenMismatch, 0, sizeof(s->OpenMismatch));
 	memset(s->Generated, 0, sizeof(s->Generated));
+	memset(s->PeerOk, 0, sizeof(s->PeerOk));
 	s->Client.Con = 0;
 	s->Server.Con = 0;
 	Sessions[name] = s;
@@ -244,7 +245,9 @@ static void Describe(FILE *out, CordCon *by, std::vector<unsigned char> d)
 	fprintf(out, " %s %s\n", acks.empty() ? "-" : acks.c_str(), blocks.empty() ? "-" : blocks.c_str());
 }
 
-static void Pump_Side(FILE *out, Session *s, Side &tx, int n, const char *dir, const char *name, int d)
+// Our sending side's datagrams: described (G lines), and checked by the peer's examinePacket on a
+// decrypted copy (checksum, layout, acks for what the peer sent).
+static void Pump_Side(FILE *out, Session *s, Side &tx, Side &rx, int n, const char *dir, const char *name, int d)
 {
 	size_t before = Replay[tx.OutSock].Out.size();
 	tx.Con->pump();
@@ -252,6 +255,12 @@ static void Pump_Side(FILE *out, Session *s, Side &tx, int n, const char *dir, c
 		fprintf(out, "G %d %s %s", n, dir, name);
 		Describe(out, tx.Con, Replay[tx.OutSock].Out[g]);
 		s->Generated[d]++;
+		std::vector<unsigned char> copy = Replay[tx.OutSock].Out[g];
+		unsigned short counter = (unsigned short)((copy[3] << 8) | copy[4]);
+		tx.Con->Encrypt_Data(&copy[5], (int)copy.size() - 5, counter);
+		if (rx.Con->examinePacket(&copy[0], (int)copy.size())) {
+			s->PeerOk[d]++;
+		}
 	}
 }
 
@@ -352,7 +361,7 @@ int main(int argc, char **argv)
 		total++;
 
 		// What our sending side sends now: the messages written for this datagram, the acks due.
-		Pump_Side(out, s, tx, n, dir, name, d);
+		Pump_Side(out, s, tx, rx, n, dir, name, d);
 
 		// The captured datagram on the wire.
 		std::vector<unsigned char> wire;
@@ -397,9 +406,9 @@ int main(int argc, char **argv)
 				continue;
 			}
 			fprintf(out, "S %s %s datagrams %d accepted %d rejected %d nocon %d delivered %d generated %d "
-				"openc-mismatch %d acks-matched %d dup-acks %d resend-requests %d\n",
+				"peer-accepts %d openc-mismatch %d acks-matched %d dup-acks %d resend-requests %d\n",
 				it->first.c_str(), d == 0 ? "C" : "S", s->Datagrams[d], s->Accepted[d], s->Rejected[d],
-				s->NoCon[d], s->Delivered[d], s->Generated[d], s->OpenMismatch[d], rx->AcksMatched_,
+				s->NoCon[d], s->Delivered[d], s->Generated[d], s->PeerOk[d], s->OpenMismatch[d], rx->AcksMatched_,
 				rx->DupAcks_, rx->ResendRequests_);
 		}
 	}

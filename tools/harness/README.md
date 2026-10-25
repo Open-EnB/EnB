@@ -150,7 +150,7 @@ python tools/harness/udpreplay.py run alex3 [--aux]                 # also alex7
   0xFFFFFFFF, no final xor) of the whole wire datagram with that field zero. So the harness
   rebuilds the wire bytes and encrypts them, and the rebuilt CordCon checks the captured checksum:
   every datagram in both dumps passes, apart from the 3 per file the dump cut short.
-* **tests/capharness/udpreplay** links app\wwudp (cordcon.cpp, cordmgr.cpp, compiled into the
+* **tests/capharness/udpreplay** links app\wwudp (cordcon.cpp, cordmgr.cpp, unknown_cordmsg.cpp, compiled into the
   program) and WWLib's RC4Class. Its `UDP` class (app/wwudp/udp.h) is a replay socket. Each
   session gets a client-side and a server-side CordCon, each behind its own CordMgr. A captured
   datagram goes into the receiving side's socket, then CordMgr::Pump, Process_CORD_Packet,
@@ -181,6 +181,7 @@ Results (2026-10-24):
 | messages delivered | 26,106: all 26,078 of the reference decoder's and the 28 extra, every channel equal in sequence order | 2,782: 2,770 of the reference decoder's 2,779 and the 12 extra; 43 of 44 channels equal |
 | ack lists equal, in order | 14,933 of 14,973 | 940 of 954 |
 | message blocks: our (channel, seq) | 24,772 of 26,465 in the capture's order; all sessions but one the same set | 4,596 of 4,645; 13 of 16 the same set |
+| our datagrams that the peer's examinePacket accepts | 30,452 of 30,452 | 3,087 of 3,088 |
 | AUX_DATA through auxreplay (`--aux`) | 4,290 delivered, all decode and re-encode | 370 delivered, 228 checked and passed, 142 for objects whose CREATE is held (below) |
 
 What doesn't match, and why:
