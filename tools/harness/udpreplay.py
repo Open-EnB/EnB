@@ -1,0 +1,430 @@
+"""M1.4's EA-UDP harness (milestones.md 2.1 gate (a)): tests/capharness/udpreplay.
+
+    ENB_VC6_HOSTS=Daniel@<ip> python tools/harness/udpreplay.py build [--out DIR]
+    python tools/harness/udpreplay.py run alex3|alex7 [--exe EXE] [--aux]
+
+build: links udpreplay with the app\\wwudp sources (compiled into the program, as auxreplay.py's
+--app-sources) against DIR's libraries (wwlib's RC4Class) into DIR/programs/udpreplay/.
+
+run: writes .work/harness/udpreplay/NAME.in.txt from the datagram file (.work/harness/NAME.dgram,
+convert.py) and runs the harness. The input has, per datagram, the messages it sends for the
+first time (W lines: the harness writes them on the sending side's CordCon first, so that its
+sequence numbers and the acks it receives follow the capture) and the datagram (D). The three
+datagrams per file that the dump cut short are rebuilt from their readable blocks with a new
+checksum (reported). Checks:
+  (1) the messages the receiving CordCons deliver: per channel equal to the messages rebuilt
+      from the dump's blocks, in order; the whole sequence against convert.py's and the reference decoder's
+      (the client delivers a reliable channel in sequence order, the dump's order is arrival);
+  (2) every captured datagram accepted (checksum, RC4, examinePacket);
+  (3) the ack lists our sending side generated (CordCon::pump: buildHeader) against the
+      capture's, in order per session and direction; the acks the receiving side matched;
+  (4) the message blocks (channel, seq) our sending side generated against the capture's
+      first sendings.
+--aux: the CREATE / AUX_DATA messages the client side delivered go through auxreplay
+(build/programs/auxreplay, M1.3): gates (a) and (b) chained.
+"""
+import argparse
+import difflib
+import json
+import os
+import shutil
+import struct
+import subprocess
+import sys
+from collections import Counter, defaultdict
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+REPO = os.path.dirname(os.path.dirname(HERE))
+WORK = os.path.join(REPO, '.work', 'harness', 'udpreplay')
+CAPS = r'C:\EnBDevelopment\the reference traces\captures'
+WWUDP = [r'app\wwudp\cordcon.cpp', r'app\wwudp\cordmgr.cpp']
+sys.path.insert(0, HERE)
+import convert as C  # noqa: E402
+
+
+def build(out):
+    sys.path.insert(0, os.path.join(REPO, 'tools', 'vc6'))
+    import build as B
+    src = os.path.join(REPO, 'tests', 'capharness', 'udpreplay')
+    stage = os.path.join(REPO, '.work', 'harness', 'udpreplay_src')
+    shutil.rmtree(stage, ignore_errors=True)
+    os.makedirs(stage)
+    for fn in os.listdir(src):
+        shutil.copy(os.path.join(src, fn), stage)
+    with open(os.path.join(stage, 'app_sources.cpp'), 'w', newline='\r\n') as f:
+        f.write('// app\\wwudp, compiled into the program (udpreplay.py build)\n')
+        for p in WWUDP:
+            f.write('#include "' + os.path.relpath(os.path.join(REPO, p), stage) + '"\n')
+    B.PROGRAMS['udpreplay'] = {'dir': os.path.relpath(stage, REPO), 'flags': B.I.LIB_FLAGS['ww3d2'] + ' /GX',
+                               'subsystem': 'console', 'runtime': []}
+    B.link_program('udpreplay', out)
+    exe = os.path.join(out, 'programs', 'udpreplay', 'udpreplay.exe')
+    if not os.path.exists(exe):
+        raise SystemExit('no exe: see ' + os.path.join(out, 'programs', 'udpreplay'))
+    print('built', exe)
+
+
+# ------------------------------------------------------------------------- input
+
+T = []
+for _i in range(256):
+    _c = _i
+    for _k in range(8):
+        _c = (_c >> 1) ^ 0xEDB88320 if _c & 1 else _c >> 1
+    T.append(_c)
+
+
+def crc(buf, c=0xFFFFFFFF):
+    """The client's checksum 0x8B3EC0 (CordCon's Set_Header_CRC): reflected CRC-32, no final xor."""
+    for b in buf:
+        c = T[(b ^ c) & 0xFF] ^ (c >> 8)
+    return c
+
+
+def small(v):
+    return bytes([v]) if v < 0x80 else struct.pack('>H', v | 0x8000)
+
+
+def seqb(v):
+    return struct.pack('>H', v) if v < 0x8000 else struct.pack('>I', v | 0x80000000)
+
+
+def read_dgram(path):
+    """keys [(session, hex)], datagrams [[n, session, dir, seq, hex, acks, blocks, problem]]"""
+    out, keys = [], []
+    cur = None
+    for line in open(path):
+        p = line.split()
+        if not p or p[0] == '#':
+            continue
+        if p[0] == 'K':
+            keys.append((p[1], p[2]))
+        elif p[0] == 'D':
+            cur = [int(p[1]), p[2], p[3], int(p[4]), p[9] if len(p) > 9 else '', [], [], None]
+            out.append(cur)
+        elif p[0] == 'A':
+            v = list(map(int, p[3:]))
+            cur[5] = [tuple(v[i:i + 3]) for i in range(0, len(v), 3)]
+        elif p[0] == 'B':
+            cur[6].append(tuple(map(int, p[1:6])))
+        elif p[0] == 'X':
+            cur[7] = line[2:].strip()
+    return keys, out
+
+
+def repair(session, direction, counter, d, last):
+    """A datagram the dump cut short (X): its readable blocks again, with a new checksum. Blocks
+    read after the gap are kept only if plausible (mode 3/4/5, sequence within 1000 of the
+    channel's last, as examinePacket requires)."""
+    dtype, flags, hdr, acks, blocks, problem = C.parse_datagram(bytearray(d))
+    pos = 7 + 4 * flags if dtype & 1 else 6
+    body = bytearray(d[4:pos])
+    kept = dropped = 0
+    for size, ch, seq, btype, frag, off, ln in blocks:
+        if (btype & 0x0F) not in (3, 4, 5) or abs(seq - last.get((session, direction, ch), seq)) > 1000:
+            dropped += 1
+            continue
+        body += small(size) + small(ch) + seqb(seq) + bytes([btype])
+        if btype & 0x10:
+            body.append(frag)
+        body += d[off:off + ln]
+        kept += 1
+    sess = int(session, 16) & 0xFFFF
+    head = bytes([5 if direction == 'C' else 4, sess >> 8, sess & 0xFF, counter >> 8 & 0xFF, counter & 0xFF])
+    return struct.pack('>I', crc(head + bytes(4) + bytes(body))) + bytes(body), kept, dropped
+
+
+def prepare(dgram, path):
+    keys, dgs = read_dgram(dgram)
+    last = {}
+    for d in dgs:
+        if d[7]:
+            fixed, kept, dropped = repair(d[1], d[2], d[3], bytes.fromhex(d[4]), last)
+            print('  #%d %s %s cut short in the dump: rebuilt from %d blocks (%d dropped), new checksum' % (
+                d[0], d[1], d[2], kept, dropped))
+            d[4] = fixed.hex()
+        else:
+            for size, ch, seq, btype, frag in d[6]:
+                if (btype & 0x0F) in (3, 4, 5):
+                    last[(d[1], d[2], ch)] = seq
+    parsed = [C.parse_datagram(bytearray(bytes.fromhex(d[4]))) for d in dgs]
+    for d, p in zip(dgs, parsed):
+        d[6] = [b[:5] for b in p[4]]
+    # The messages written before each datagram (W lines). A message is written when its first
+    # block appears, after every lower sequence number of its channel: the sender wrote those
+    # first (the dump's order is arrival order). A sequence number the dump never shows (lost
+    # on the way: sequenced channels, or the dump's gaps) gets a 1-byte filler, so that our
+    # sender numbers the rest as the capture's did.
+    msgs = {}
+    parts = defaultdict(dict)
+    for d, p in zip(dgs, parsed):
+        raw = bytes.fromhex(d[4])
+        for size, ch, seq, btype, frag, off, ln in p[4]:
+            if size and (btype & 0x0F) in (3, 4):
+                first = seq - frag if frag >= 0 else seq
+                msgs.setdefault((d[1], d[2], ch, first), (size, btype & 0x0F, frag >= 0))
+                parts[(d[1], d[2], ch, first)].setdefault(max(frag, 0), raw[off:off + ln])
+    writes = defaultdict(list)
+    nextw = Counter()
+    incomplete = fillers = 0
+    for d, p in zip(dgs, parsed):
+        for size, ch, seq, btype, frag, off, ln in p[4]:
+            if not size or (btype & 0x0F) not in (3, 4):
+                continue
+            chan = (d[1], d[2], ch)
+            first = seq - frag if frag >= 0 else seq
+            if first < nextw[chan]:
+                continue
+            s = nextw[chan]
+            while s <= first:
+                m = msgs.get(chan + (s,))
+                if m is None:
+                    writes[d[0]].append((ch, btype & 0x0F, b'\x00'))
+                    fillers += 1
+                    s += 1
+                    continue
+                msize, mode, fragmented = m
+                got = parts[chan + (s,)]
+                if fragmented:
+                    n = (msize + 199) // 200
+                    incomplete += any(i not in got for i in range(n))
+                    data = b''.join(got.get(i, bytes(min(200, msize - 200 * i))) for i in range(n))
+                else:
+                    n, data = 1, got[0]
+                writes[d[0]].append((ch, mode, data))
+                s += n
+            nextw[chan] = s
+    if fillers:
+        print('  %d sequence numbers the dump never shows: written as 1-byte fillers' % fillers)
+    # Channel 0: the sender's counter as the capture has it (Z: stands in for the keep-alive timer,
+    # not replayed), and the close (Q: the first non-empty channel-0 message, "CLOSE").
+    zlines = defaultdict(list)
+    closed = set()
+    for d, p in zip(dgs, parsed):
+        for size, ch, seq, btype, frag, off, ln in p[4]:
+            if ch == 0 and (btype & 0x0F) == 5:
+                if size and (d[1], d[2]) not in closed:
+                    closed.add((d[1], d[2]))
+                    zlines[d[0]].append('Z %d %s %s %d\n' % (d[0], d[1], d[2], seq))
+                    zlines[d[0]].append('Q %d %s %s\n' % (d[0], d[1], d[2]))
+                elif not size:
+                    zlines[d[0]].append('Z %d %s %s %d\n' % (d[0], d[1], d[2], seq))
+                break
+    if incomplete:
+        print('  %d fragmented messages written with fragments the dump lacks (zeros)' % incomplete)
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    firsts = {}
+    for d in dgs:
+        firsts.setdefault(d[1], d[0])
+    with open(path, 'w', newline='\n') as f:
+        for s, k in sorted(keys, key=lambda k: firsts.get(k[0], 1 << 30)):
+            f.write('K %s %s\n' % (s, k))
+        for d in dgs:
+            for zline in zlines.get(d[0], []):
+                f.write(zline)
+            for ch, mode, data in writes.get(d[0], []):
+                f.write('W %d %s %s %d %d %s\n' % (d[0], d[1], d[2], ch, mode, data.hex()))
+            f.write('D %d %s %s %d %s\n' % (d[0], d[1], d[2], d[3], d[4]))
+    return keys, dgs
+
+
+def ref_messages(dgs):
+    """The messages rebuilt from the blocks (convert.messages' rules), with channel and datagram:
+    [(session, dir, channel, whole message, n)]."""
+    seen, frags, out, epoch = set(), {}, [], Counter()
+    for d in dgs:
+        raw = bytes.fromhex(d[4])
+        p = C.parse_datagram(bytearray(raw))
+        for size, ch, seq, btype, frag, off, ln in p[4]:
+            if size == 0 or (btype & 0x0F) not in (3, 4):
+                continue
+            if (d[1], d[2], ch, seq) in seen:
+                continue
+            seen.add((d[1], d[2], ch, seq))
+            if btype & 0x20:
+                epoch[(d[1], d[2], ch)] += 1
+            first = seq - frag if frag >= 0 else seq
+            order = (epoch[(d[1], d[2], ch)], first)   # mode 4 drops old ones instead: they show as differences
+            data = raw[off:off + ln]
+            if frag >= 0:
+                key = (d[1], d[2], ch, (seq - frag) & 0xFFFF)
+                parts = frags.setdefault(key, {})
+                parts[frag] = data
+                if sum(len(x) for x in parts.values()) < size:
+                    continue
+                data = b''.join(parts[i] for i in sorted(parts))
+                del frags[key]
+            out.append((d[1], d[2], ch, data, d[0], order))
+    return out
+
+
+# ------------------------------------------------------------------------- checks
+
+def seq_compare(ours, ref):
+    sm = difflib.SequenceMatcher(None, ours, ref, autojunk=False)
+    same = sum(i2 - i1 for tag, i1, i2, j1, j2 in sm.get_opcodes() if tag == 'equal')
+    return same, sm
+
+
+def op(m):
+    return int.from_bytes(m[2:4], 'little') if len(m) >= 4 else -1
+
+
+def run(name, exe, aux):
+    dgram = os.path.join(REPO, '.work', 'harness', name + '.dgram')
+    inp = os.path.join(WORK, name + '.in.txt')
+    res = os.path.join(WORK, name + '.out.txt')
+    keys, dgs = prepare(dgram, inp)
+    p = subprocess.run([os.path.abspath(exe), inp, res], capture_output=True, text=True)
+    if p.returncode != 0:
+        print(p.stdout[-2000:], p.stderr[-2000:])
+        raise SystemExit('udpreplay failed: %d' % p.returncode)
+    ours, status, gen, summary, opens = [], Counter(), defaultdict(list), [], []
+    for line in open(res):
+        q = line.split()
+        if not q:
+            continue
+        if q[0] == 'R':
+            ours.append((q[3], q[2], int(q[4]), bytes.fromhex(q[5]) if len(q) > 5 else b'', int(q[1])))
+        elif q[0] == 'P':
+            status[(q[2], q[4])] += 1
+        elif q[0] == 'G':
+            gen[(q[3], q[2])].append((int(q[1]), q[4], q[5]))
+        elif q[0] == 'S':
+            summary.append(line.strip())
+        elif q[0] == 'O':
+            opens.append(line.strip())
+    print('%s: %d datagrams' % (name, len(dgs)))
+    for k in sorted(status):
+        print('  datagrams %s %s: %d' % (k[0], k[1], status[k]))
+    for line in summary:
+        print('  ' + line)
+    if opens:
+        print('  openc gave another channel than the capture: %d (first: %s)' % (len(opens), opens[0]))
+
+    # (1) messages
+    ref = ref_messages(dgs)
+    ok = True
+    for dr, label in (('S', 'server->client'), ('C', 'client->server')):
+        o = [m for m in ours if m[1] == dr]
+        r = [m for m in ref if m[1] == dr]
+        per_o, per_r = defaultdict(list), defaultdict(list)
+        for m in o:
+            per_o[(m[0], m[2])].append(m[3])
+        for m in r:
+            per_r[(m[0], m[2])].append(m)
+        # a reliable channel (mode 3) is delivered in sequence order, the dump has arrival order
+        for k in per_r:
+            per_r[k] = [m[3] for m in sorted(per_r[k], key=lambda m: m[5])]
+        equal_ch = sum(1 for k in set(per_o) | set(per_r) if per_o.get(k) == per_r.get(k))
+        same, sm = seq_compare([(m[0], m[2], m[3]) for m in o], [(m[0], m[2], m[3]) for m in r])
+        print('  messages %s: ours %d, dump %d; channels equal in sequence order %d of %d; whole sequence in the dump order %d' % (
+            label, len(o), len(r), equal_ch, len(set(per_o) | set(per_r)), same))
+        bad = [k for k in sorted(set(per_o) | set(per_r)) if per_o.get(k) != per_r.get(k)]
+        for k in bad[:6]:
+            a, b = per_o.get(k, []), per_r.get(k, [])
+            s2, sm2 = seq_compare(a, b)
+            print('    channel %s %d: ours %d, dump %d, equal in order %d' % (k[0], k[1], len(a), len(b), s2))
+            shown = 0
+            for tag, i1, i2, j1, j2 in sm2.get_opcodes():
+                if tag != 'equal' and shown < 3:
+                    shown += 1
+                    print('      %s ours[%d:%d] ops %s / dump[%d:%d] ops %s' % (
+                        tag, i1, i2, [hex(op(x)) for x in a[i1:i2]][:4], j1, j2, [hex(op(x)) for x in b[j1:j2]][:4]))
+        ok = ok and not bad
+    trace = os.path.join(CAPS, 'ea', name + '.trace.jsonl')
+    if os.path.exists(trace):
+        tr = []
+        for line in open(trace, encoding='utf-8'):
+            e = json.loads(line)
+            data = bytes.fromhex(e.get('data') or '')
+            tr.append((e['channel'].split(':', 1)[1], 'C' if e['dir'] == 'ClientToServer' else 'S',
+                       int(e['op'], 16), data))
+        mine = [(m[0], m[1], op(m[3]), m[3][4:]) for m in ours]
+        same, sm = seq_compare(mine, tr)
+        ca, cb = Counter(mine), Counter(tr)
+        print('  all messages vs the reference decoder (%s): ours %d, the reference decoder %d; in order %d; the reference decoder\'s not delivered %d, '
+              'ours not in the reference decoder %d' % (os.path.basename(trace), len(mine), len(tr), same,
+                                         sum((cb - ca).values()), sum((ca - cb).values())))
+
+    # (3) acks, (4) blocks, per session and direction
+    acks_eq = acks_n = acks_ours = 0
+    blk_eq = blk_n = blk_ours = 0
+    blk_set_eq = 0
+    examples = []
+    groups = defaultdict(list)
+    for d in dgs:
+        groups[(d[1], d[2])].append(d)
+    for key, ds in sorted(groups.items()):
+        cap_acks = [tuple(map(tuple, d[5])) for d in ds if d[5]]
+        my = gen.get(key, [])
+        my_acks = []
+        my_blocks = []
+        for n, a, b in my:
+            if a != '-':
+                my_acks.append(tuple(tuple(map(int, x.split(','))) for x in a.split(';')))
+            if b != '-':
+                my_blocks += [tuple(map(int, x.split(','))) for x in b.split(';') if not x.startswith('0,')]
+        same, sm = seq_compare(my_acks, cap_acks)
+        acks_eq += same
+        acks_n += len(cap_acks)
+        acks_ours += len(my_acks)
+        for tag, i1, i2, j1, j2 in sm.get_opcodes():
+            if tag != 'equal' and len(examples) < 6:
+                examples.append((key, my_acks[i1:i2][:2], cap_acks[j1:j2][:2]))
+        sent, cap_blocks = set(), []
+        for d in ds:
+            for size, ch, seq, btype, frag in d[6]:
+                if ch and size and (btype & 0x0F) in (3, 4) and (ch, seq) not in sent:
+                    sent.add((ch, seq))
+                    cap_blocks.append((ch, seq))
+        same, _ = seq_compare(my_blocks, cap_blocks)
+        blk_eq += same
+        blk_n += len(cap_blocks)
+        blk_ours += len(my_blocks)
+        blk_set_eq += set(my_blocks) == set(cap_blocks)
+    print('  ack lists: capture %d, ours %d, equal in order %d' % (acks_n, acks_ours, acks_eq))
+    for key, a, b in examples:
+        print('    %s %s: ours %s capture %s' % (key[0], key[1], a, b))
+    print('  message blocks (channel, seq), first sendings: capture %d, ours %d, equal in order %d; '
+          'sessions/directions with the same set %d of %d' % (blk_n, blk_ours, blk_eq, blk_set_eq, len(groups)))
+
+    if aux:
+        auxin = os.path.join(WORK, name + '.aux.txt')
+        k = 0
+        with open(auxin, 'w', newline='\n') as f:
+            for s, dr, ch, data, n in ours:
+                if dr != 'S' or len(data) < 4:
+                    continue
+                chan = 'ea-udp:' + s
+                o, body = op(data), data[4:]
+                if o == 0x0004 and len(body) >= 11:
+                    f.write('C %s %d %d\n' % (chan, struct.unpack_from('<i', body)[0], body[10]))
+                elif o == 0x001B:
+                    f.write('A %d %s %s\n' % (k, chan, body.hex()))
+                    k += 1
+        axe = os.path.join(REPO, 'build', 'programs', 'auxreplay', 'auxreplay.exe')
+        axo = os.path.join(WORK, name + '.aux.out.txt')
+        p = subprocess.run([axe, auxin, axo], capture_output=True, text=True, cwd=WORK)
+        print('  AUX_DATA delivered by CordCon: %d; auxreplay exit %d' % (k, p.returncode))
+        print('\n'.join('    ' + l for l in p.stdout.strip().splitlines()[-14:]))
+    return ok
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument('cmd', choices=['build', 'run'])
+    ap.add_argument('name', nargs='?')
+    ap.add_argument('--out', default=os.path.join(REPO, 'build'))
+    ap.add_argument('--exe')
+    ap.add_argument('--aux', action='store_true')
+    a = ap.parse_args()
+    if a.cmd == 'build':
+        build(a.out)
+        return 0
+    exe = a.exe or os.path.join(a.out, 'programs', 'udpreplay', 'udpreplay.exe')
+    return 0 if run(a.name, exe, a.aux) else 1
+
+
+if __name__ == '__main__':
+    sys.exit(main())

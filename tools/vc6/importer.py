@@ -3166,6 +3166,20 @@ RECONSTRUCTED = {
     ('app', 'shared/heightfield.cpp'): 'the height field, client 0x4634A0-0x465D30 (PROVISIONAL file name), functional from VIDTEST 0x402420/0x4026B0/0x402AE0 (NOT EXACT, D42; M2.4)',
     ('app', 'shared/land.h'): 'LandClass (the client\'s "(LandClass*)obj"; vtable 0xAE8994; PROVISIONAL file name): the terrain render object and its decorations (M2.4); not the client\'s layout',
     ('app', 'shared/land.cpp'): 'the terrain, client 0x4668F0-0x47A2F0 (PROVISIONAL file name; profile label Land::Update_Lightmap_ManualThreaded 0x46DA70), functional after VIDTEST 0x405410-0x416170 (NOT EXACT, D42; M2.4)',
+    ('app', 'wwudp/udp.h'): "the UDP socket CordMgr and CordCon use (CordCon::Udp_): WWOnline's wnet UDP (libs\\wwonline\\wnet, "
+                            "client 0x8BF990-0x8C0540), the part the wwudp code calls (EA's Generals Tools\\matchbot\\wnet\\udp.h interface); "
+                            "defined by the program (the capture harness's replay socket, M1.4)",
+    ('app', 'wwudp/cordcon.h'): "CordCon (client names: the profile labels, 'Udp_'), CordChannelClass and CordMessageClass (descriptive, "
+                                "D24): the EA-UDP connection, its channels and message records (M1.4)",
+    ('app', 'wwudp/cordcon.cpp'): "CordCon, client 0x84FED0-0x854E70, functional (NOT EXACT, D42; M1.4): handlePacket 0x851AE0, "
+                                  "examinePacket 0x8514D0, read 0x850FD0, write 0x850C70, openc 0x84FF70, Encrypt_Data 0x854D00, "
+                                  "buildHeader 0x8551F0, buildMsgHeader 0x854FC0, pumpClose 0x850260; pump 0x853560 and "
+                                  "pumpInternal 0x853A30 reduced (no resend timer, bandwidth limit or priority order); the "
+                                  "asserts (lines 521, 632, 977) not on their lines",
+    ('app', 'wwudp/cordmgr.h'): "CordMgr (client name: the profile labels 'CordMgr::Pump' ...): the EA-UDP connection manager (M1.4)",
+    ('app', 'wwudp/cordmgr.cpp'): "CordMgr, client 0x857590-0x85AED0: Pump 0x857F20's data path and Process_CORD_Packet 0x85A000, "
+                                  "functional (NOT EXACT, D42; M1.4); the handshake (SYN1/ACK1/SYN2/ACK2), go-away, "
+                                  "Pump_Connections / Pump_Releases not rebuilt",
 }
 
 # Text appended to imported files (after everything, so no existing line moves).

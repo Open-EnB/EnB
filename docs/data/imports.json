@@ -80,6 +80,31 @@
     "merged": [],
     "name": "shared/auxdata/bitset.cpp"
    },
+   "cordcon": {
+    "ambiguous": [
+     "0x42A900",
+     "0x42AAE0",
+     "0x42AFF0",
+     "0x4333D0",
+     "0x436420",
+     "0x436730"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x84E8F0"
+    ],
+    "merged": [],
+    "name": "wwudp/cordcon.cpp"
+   },
+   "cordmgr": {
+    "ambiguous": [],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [],
+    "merged": [],
+    "name": "wwudp/cordmgr.cpp"
+   },
    "delta": {
     "ambiguous": [
      "0x42A900",
@@ -579,9 +604,12 @@
    "shared/spln_db.h": "reconstructed",
    "shared/stars.h": "reconstructed",
    "shared/strconv_lib.h": "reconstructed",
-   "shared/unknown_debug.h": "reconstructed"
+   "shared/unknown_debug.h": "reconstructed",
+   "wwudp/cordcon.h": "reconstructed",
+   "wwudp/cordmgr.h": "reconstructed",
+   "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 231,
+  "in_tree_total": 232,
   "totals": {}
  },
  "ww3d2": {

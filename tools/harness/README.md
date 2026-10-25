@@ -135,6 +135,74 @@ header byte is 0x55: whole + defaulted, with bits 4 and 6 set besides (the clien
 writes them 0). The client decodes it (Cargo defaulted) without an assert; our encoder writes
 `0c 08 04 09 05`. the reference decoder keeps the header byte as read, so its census passes it.
 
+## EA-UDP transport (M1.4, gate (a))
+
+```
+ENB_VC6_HOSTS=Daniel@<ip> python tools/harness/udpreplay.py build [--out DIR]
+python tools/harness/udpreplay.py run alex3 [--aux]                 # also alex7
+```
+
+* **The wire datagram** (app/wwudp/cordcon.h): the dumps start at byte 5 of it. Bytes 0-4 are
+  the type (5 from the client, 4 from the server), the session id and the sender's datagram
+  counter (CordCon +0x8C), which is the dump's `seq`. Bytes 5 to the end are RC4-encrypted with a
+  key per datagram: the session key, the encrypted length (4 bytes), the counter (2), 0 (2).
+  The dump's first 4 bytes are the client's checksum (0x8B3EC0: reflected CRC-32, init
+  0xFFFFFFFF, no final xor) of the whole wire datagram with that field zero. So the harness
+  rebuilds the wire bytes and encrypts them, and the rebuilt CordCon checks the captured checksum:
+  every datagram in both dumps passes, apart from the 3 per file the dump cut short.
+* **tests/capharness/udpreplay** links app\wwudp (cordcon.cpp, cordmgr.cpp, compiled into the
+  program) and WWLib's RC4Class. Its `UDP` class (app/wwudp/udp.h) is a replay socket. Each
+  session gets a client-side and a server-side CordCon, each behind its own CordMgr. A captured
+  datagram goes into the receiving side's socket, then CordMgr::Pump, Process_CORD_Packet,
+  CordCon::handlePacket and CordCon::read until nothing is left (`R` lines). Before each
+  datagram, the sending side writes the messages the datagram sends for the first time
+  (CordCon::openc for a new channel, then CordCon::write) and pumps (CordCon::pump: buildHeader's
+  ack list, buildMsgHeader's blocks; `G` lines). Its sequence numbers and the acks it gets then
+  follow the capture. Three things stand in for what the dump can't give:
+  * the 3 datagrams per file that the dump cut short are rebuilt from their readable blocks, with
+    a new checksum;
+  * a sequence number the dump never shows (lost on the way, or in a cut) is written as a 1-byte
+    filler, and messages are written in sequence order (the dump's order is arrival order);
+  * channel 0's counter is set from the capture (`Z`): the keep-alive timer that advances it isn't
+    replayed. The close is CordCon::close (`Q`) before the first "CLOSE".
+* **udpreplay.py** prepares the input, runs the harness and compares. It checks (1) the delivered
+  messages per channel against the messages rebuilt from the dump's blocks, in sequence order: a
+  reliable channel (mode 3) delivers in sequence order, so the dump's arrival order differs
+  where blocks came out of order; it also checks the whole sequence against the reference decoder's. It checks
+  (2) which datagrams were accepted, (3) the ack lists against the capture's, in order, and (4)
+  the message blocks' (channel, seq). `--aux` sends the CREATE / AUX_DATA messages the client
+  side delivered through auxreplay (M1.3), which chains gates (a) and (b).
+
+Results (2026-10-24):
+
+| | alex3 | alex7 |
+|---|---|---|
+| datagrams accepted | 30,757 of 30,758 (1: a cut datagram with no readable block) | 3,429 of 3,430 (1: below) |
+| messages delivered | 26,106: all 26,078 of the reference decoder's and the 28 extra, every channel equal in sequence order | 2,782: 2,770 of the reference decoder's 2,779 and the 12 extra; 43 of 44 channels equal |
+| ack lists equal, in order | 14,933 of 14,973 | 940 of 954 |
+| message blocks: our (channel, seq) | 24,772 of 26,465 in the capture's order; all sessions but one the same set | 4,596 of 4,645; 13 of 16 the same set |
+| AUX_DATA through auxreplay (`--aux`) | 4,290 delivered, all decode and re-encode | 370 delivered, 228 checked and passed, 142 for objects whose CREATE is held (below) |
+
+What doesn't match, and why:
+* **alex7, session 625d, server channel 4.** The dump cut datagrams #109-#111 and lost sequence
+  numbers 218-221 and 223-229 with them. The client acked them (#129 acks up to 263), so it got
+  them; the replay can't. The channel is reliable, so CordCon holds the 9 messages after the gap
+  (it asks for them back: kind-1 entries in its ack list), and with them the CREATEs that 142
+  AUX_DATA messages need.
+* **alex7 #1720.** The client wrote two messages after the server's CLOSE had reached it in the
+  dump's order. CordCon::write refuses while closing, so the server's ack for them fails
+  examinePacket. The client must have written them before the CLOSE arrived.
+* **Ack lists** differ by timing. The dump records the server's datagrams when they arrive and
+  the client's when they leave, so the server-side acks it shows aren't in the server's own
+  time order. The client also splits acks between datagrams where we don't, after channels were
+  closed and reopened (the client drops closed channels from its active list: not rebuilt).
+* **Blocks**: our pump sends a written message's fragments at once. The client's
+  pumpInternal spreads them over datagrams by bandwidth and priority (not rebuilt), so the
+  per-datagram order differs. The sequence numbers are the same apart from alex7's 625d gap and
+  the writes refused after the close.
+* openc picks the channel the capture shows, except for 11 of the server's reopened channels in
+  alex3: the server reuses the channel written least recently (time(0)), which the replay doesn't have.
+
 ## vidtest (L2, M2)
 
 ```

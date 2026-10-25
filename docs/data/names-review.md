@@ -10,8 +10,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 2 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 24 |
 | 3 | by convention from a client-named file or sibling | 51 |
-| 2 | describes what the code does | 222 |
-| 1 | neutral placeholder | 180 |
+| 2 | describes what the code does | 230 |
+| 1 | neutral placeholder | 182 |
 
 ## For review (score 3 and below)
 
@@ -180,6 +180,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `unknown_debug.h` | `app/shared/unknown_debug.h:30` | neutral file name (D37, D10): the object has no __FILE__ |
 | 1 | `Unknown_Assert_Failed` | `app/shared/unknown_debug.h:33` | untagged neutral name (D10) |
 | 1 | `Unknown_Fail_If_Report` | `app/shared/unknown_debug.h:34` | untagged neutral name (D10) |
+| 1 | `Cord_Time` | `app/wwudp/cordcon.cpp:22` | the client's clock 0x8BA510 (a Wtime); never 0 here |
+| 1 | `Cord_CRC` | `app/wwudp/cordcon.cpp:88` | placeholder |
 | 1 | `Unknown_Assert_Failed` | `stubs/app_stubs.cpp:33` | untagged neutral name (D10) |
 | 1 | `Unknown_Fail_If_Report` | `stubs/app_stubs.cpp:40` | untagged neutral name (D10) |
 | 1 | `Unknown_Debug_Printf` | `stubs/app_stubs.cpp:47` | untagged neutral name (D10) |
@@ -419,6 +421,14 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Value_To_String` | `app/shared/strconv_lib.h:23` | describes what it does |
 | 2 | `String_To_Value` | `app/shared/strconv_lib.h:24` | describes what it does |
 | 2 | `Type_Name` | `app/shared/strconv_lib.h:31` | describes what it does |
+| 2 | `CORD_FRAGMENT_SIZE` | `app/wwudp/cordcon.h:54` | the fragment size in write 0x850C70 / examinePacket |
+| 2 | `CORD_MAX_PACKET` | `app/wwudp/cordcon.h:55` | pumpInternal's datagram limit (examinePacket: < 0x1F5) |
+| 2 | `CordMessageClass` | `app/wwudp/cordcon.h:59` | describes what it holds |
+| 2 | `CordChannelClass` | `app/wwudp/cordcon.h:76` | describes what it is (the client's name not found) |
+| 2 | `Get_Channel` | `app/wwudp/cordcon.h:129` | grows Channels_ as the client does |
+| 2 | `Sockets_` | `app/wwudp/cordmgr.h:42` | the client's two socket lists at +0x48 / +0x54 |
+| 2 | `Connections_` | `app/wwudp/cordmgr.h:43` | +0x34 count, +0x3C items |
+| 2 | `Unexpected_` | `app/wwudp/cordmgr.h:44` | datagrams Pump didn't take |
 | 3 | `DeltaShipClass` | `app/client/aux_roots.h:524` | the client's root string "Ship", Westwood XxxClass (D24); structure = Net-7 AuxShipIndex / C# ShipObject (C# fields = ours (same names, same order); Net-7 Construct 58 children = ours) |
 | 3 | `DeltaComponentClass` | `app/client/aux_roots.h:593` | the client's root string "Component", Westwood XxxClass (D24); structure = C# ComponentObject (C# fields = ours (same names, same order)) |
 | 3 | `DeltaLightClass` | `app/client/aux_roots.h:603` | the client's root string "Light", Westwood XxxClass (D24); structure = C# LightObject (C# fields = ours (same names, same order)) |
