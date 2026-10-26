@@ -3020,6 +3020,20 @@ WWONLINE_PATCHES = {
 for _key, _edits in WWONLINE_PATCHES.items():
     PATCHES.setdefault(_key, []).extend(_edits)
 # end of WWONLINE_PATCHES
+# D73: E&B's changes to Renegade's BinkMovie (binkmovie), each with the client's evidence
+BINKMOVIE_PATCHES = {
+    ('binkmovie', 'binkmovie.cpp'): [
+        ('TextureClass::MIP_LEVELS_1, TextureClass::POOL_MANAGED, false);',
+         'MIP_LEVELS_1, TextureClass::POOL_MANAGED, false);',
+         "E&B's WW3D2 is Zero Hour's here: MipCountType is a file-scope enum in texture.h (not TextureClass's)"),
+        ('TextureInfos[t].Texture->Peek_DX8_Texture();',
+         'TextureInfos[t].Texture->Peek_D3D_Texture();',
+         "E&B's WW3D2 is Zero Hour's here: TextureClass::Peek_D3D_Texture (texture.h), Renegade's Peek_DX8_Texture"),
+    ],
+}
+for _key, _edits in BINKMOVIE_PATCHES.items():
+    PATCHES.setdefault(_key, []).extend(_edits)
+# end of BINKMOVIE_PATCHES
 # Files reconstructed by us from the client (no EA copy matches): `assemble` keeps the repository's
 # version, and refine leaves them alone. Each entry: (library, file) -> what was done.
 RECONSTRUCTED = {
@@ -3723,7 +3737,7 @@ def tree_includes():
     late = [dest(l) for l in LATE_INCLUDE_LIBS if os.path.isdir(dest(l))]
     wwonline = [os.path.join(REPO, 'libs', 'wwonline')] if os.path.isdir(os.path.join(REPO, 'libs', 'wwonline')) else []
     return [dest(l) for l in LIBS if l not in LATE_INCLUDE_LIBS and os.path.isdir(dest(l))] + SDK_INCLUDES + \
-        wwonline + late
+        wwonline + late + [REPO]  # the repository root last: BinkMovie's subtitle headers include <wwlib\vector.h>
 
 
 def compile_and_match(paths, tag, ambiguous=None):

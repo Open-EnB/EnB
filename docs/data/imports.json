@@ -1141,6 +1141,117 @@
   "in_tree_total": 572,
   "totals": {}
  },
+ "binkmovie": {
+  "ambiguous_total": 9,
+  "base": "R",
+  "compile_errors": [],
+  "files": {
+   "binkmovie": {
+    "ambiguous": [
+     "0x45CB40",
+     "0x45CCE0",
+     "0x45CDC0",
+     "0x48A7F0",
+     "0x48A960",
+     "0xA16220"
+    ],
+    "copy": "R",
+    "expected": {
+     "R": 7
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x909500",
+     "0x91FE60",
+     "0xA16250",
+     "0xA162D0",
+     "0xA16850",
+     "0xA16C70"
+    ],
+    "merged": [],
+    "name": "BINKMovie.cpp"
+   },
+   "subtitle": {
+    "ambiguous": [],
+    "copy": "R",
+    "expected": {
+     "R": 3
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0xA17250",
+     "0xA17290",
+     "0xA172B0"
+    ],
+    "merged": [],
+    "name": "subtitle.cpp"
+   },
+   "subtitlemanager": {
+    "ambiguous": [
+     "0x45CB40",
+     "0x45CCE0",
+     "0x45CDC0",
+     "0x48A7F0",
+     "0x48A960"
+    ],
+    "copy": "R",
+    "expected": {
+     "R": 3
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x42F250",
+     "0x909500",
+     "0x91FE60"
+    ],
+    "merged": [],
+    "name": "subtitlemanager.cpp"
+   },
+   "subtitleparser": {
+    "ambiguous": [
+     "0x45CB00",
+     "0x45CB40",
+     "0x45CCE0",
+     "0x45CDC0",
+     "0x45CF20",
+     "0x48A7F0",
+     "0x48A960",
+     "0x48AB30"
+    ],
+    "copy": "R",
+    "expected": {
+     "R": 11
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0xA17300",
+     "0xA17340",
+     "0xA175C0",
+     "0xA17690",
+     "0xA177C0",
+     "0xA17820",
+     "0xA17880",
+     "0xA17950",
+     "0xA17970",
+     "0xA17990",
+     "0xA17A20"
+    ],
+    "merged": [],
+    "name": "subtitleparser.cpp"
+   }
+  },
+  "headers": {
+   "BINKMovie.h": "R",
+   "subtitle.h": "R",
+   "subtitlemanager.h": "R",
+   "subtitleparser.h": "R"
+  },
+  "in_tree_total": 21,
+  "totals": {
+   "R": 21
+  }
+ },
  "wlib": {
   "ambiguous_total": 7,
   "base": "Z",
