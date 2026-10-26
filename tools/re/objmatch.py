@@ -359,8 +359,24 @@ def match_objects(img, paths, region=None):
     known = {k: {thunk.get(a, a) for a in v} for k, v in symbol_addresses().items()}
     done = set()
 
+    # one client function is one source function (VC6 does not fold identical code): an address two
+    # different symbols would take, or that a symbol of another name already holds, is left alone
+    claimed = collections.defaultdict(set)
+    sole = collections.defaultdict(set)  # symbol -> the addresses it is exact at with no other symbol there
+    for r, obj, sec, s, length in results:
+        if r['status'] == 'exact':
+            claimed[int(r['addresses'][0], 16)].add(r['symbol'])
+    for r, obj, sec, s, length in results:
+        if r['status'] == 'exact' and claimed[int(r['addresses'][0], 16)] == {r['symbol']}:
+            sole[r['symbol']].add(int(r['addresses'][0], 16))
+
     def learn(r, obj, sec, s, length, addr):
-        if r['symbol'] and obj.symbol_class(r['symbol']) == 2:
+        # A COMDAT copy of an inline function can be byte-identical to another function of its
+        # object (dbgconn.obj's inline ~ForwardingConnectionClass and ~StatsConnectionClass 0x8251A0,
+        # P1): when the symbol also matches an address of its own elsewhere, the shared one is the
+        # other function's and must not become a "known" target that confirms the wrong twin.
+        shared = claimed[addr] - {r['symbol']}
+        if r['symbol'] and obj.symbol_class(r['symbol']) == 2 and not (shared and sole[r['symbol']] - {addr}):
             known.setdefault(r['symbol'], set()).add(addr)
         o = addr - start
         for k, n, typ, sym, addend in obj.reloc_targets(sec, s, length):
@@ -376,12 +392,6 @@ def match_objects(img, paths, region=None):
     for r, obj, sec, s, length in results:
         if r['status'] == 'exact':
             learn(r, obj, sec, s, length, int(r['addresses'][0], 16))
-    # one client function is one source function (VC6 does not fold identical code): an address two
-    # different symbols would take, or that a symbol of another name already holds, is left alone
-    claimed = collections.defaultdict(set)
-    for r, obj, sec, s, length in results:
-        if r['status'] == 'exact':
-            claimed[int(r['addresses'][0], 16)].add(r['symbol'])
     changed = True
     while changed:
         changed = False
