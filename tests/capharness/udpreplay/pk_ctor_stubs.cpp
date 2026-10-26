@@ -5,13 +5,7 @@
 void Conn_Record(PacketClass *packet, RawPacketClass *raw);
 
 MessageLinePacketClass::MessageLinePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-VersionRequestPacketClass::VersionRequestPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-VersionResponsePacketClass::VersionResponsePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 LoginPacketClass::LoginPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-CreatePacketClass::CreatePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-StartPacketClass::StartPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-StartAckPacketClass::StartAckPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-RemovePacketClass::RemovePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 ConstantPositionalUpdatePacketClass::ConstantPositionalUpdatePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 SimplePositionalUpdatePacketClass::SimplePositionalUpdatePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 AdvancedPositionalUpdatePacketClass::AdvancedPositionalUpdatePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
@@ -19,21 +13,14 @@ PlanetPositionalUpdatePacketClass::PlanetPositionalUpdatePacketClass(RawPacketCl
 ComponentPositionalUpdatePacketClass::ComponentPositionalUpdatePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 FormationPositionalUpdatePacketClass::FormationPositionalUpdatePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 ObjectEffectPacketClass::ObjectEffectPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-PointEffectPacketClass::PointEffectPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 ObjectToObjectEffectPacketClass::ObjectToObjectEffectPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 ObjectToEffectEffectPacketClass::ObjectToEffectEffectPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 ObjectToPointEffectPacketClass::ObjectToPointEffectPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 ObjectToObjectDurationLinkedEffectPacketClass::ObjectToObjectDurationLinkedEffectPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-RemoveEffectPacketClass::RemoveEffectPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 DecalPacketClass::DecalPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 ColorizationPacketClass::ColorizationPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-TurnPacketClass::TurnPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-TiltPacketClass::TiltPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 MovePacketClass::MovePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_0015Class::Packet_0015Class(RawPacketClass *raw) { Conn_Record(this, raw); }
-RequestTargetPacketClass::RequestTargetPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-RequestTargetsTargetPacketClass::RequestTargetsTargetPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-SetTargetPacketClass::SetTargetPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 DebugPacketClass::DebugPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 AuxDataPacketClass::AuxDataPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 AuxDataPlayerVarPacketClass::AuxDataPlayerVarPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
@@ -43,78 +30,49 @@ TradePacketClass::TradePacketClass(RawPacketClass *raw) { Conn_Record(this, raw)
 SuperLinePacketClass::SuperLinePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 ClearMessageLinePacketClass::ClearMessageLinePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 ItemBasePacketClass::ItemBasePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-ChangeBaseAssetPacketClass::ChangeBaseAssetPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 InventoryMovePacketClass::InventoryMovePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 InventorySortPacketClass::InventorySortPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-ItemStatePacketClass::ItemStatePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-SetZBandPacketClass::SetZBandPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-SetBBoxPacketClass::SetBBoxPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-ActionPacketClass::ActionPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 Action2PacketClass::Action2PacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 OptionPacketClass::OptionPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-InitRenderStatePacketClass::InitRenderStatePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-ActivateRenderStatePacketClass::ActivateRenderStatePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-ActivateNextRenderStateOncePacketClass::ActivateNextRenderStateOncePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-DeactivateRenderStatePacketClass::DeactivateRenderStatePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 ClientChatPacketClass::ClientChatPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 RequestTimePacketClass::RequestTimePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 SetClientTimePacketClass::SetClientTimePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-ClientAvatarPacketClass::ClientAvatarPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 SplinePacketClass::SplinePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 MasterJoinPacketClass::MasterJoinPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 ServerRedirectPacketClass::ServerRedirectPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 ServerHandoffPacketClass::ServerHandoffPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_003BClass::Packet_003BClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 SetClientTypePacketClass::SetClientTypePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-Packet_003DClass::Packet_003DClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 ServerParametersPacketClass::ServerParametersPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-RequestTransformChangePacketClass::RequestTransformChangePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-Packet_0045Class::Packet_0045Class(RawPacketClass *raw) { Conn_Record(this, raw); }
-ClientShipPacketClass::ClientShipPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 DialogPacketClass::DialogPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_0063Class::Packet_0063Class(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_006CClass::Packet_006CClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 GlobalConnectPacketClass::GlobalConnectPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-GlobalTicketRequestPacketClass::GlobalTicketRequestPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 GlobalTicketPacketClass::GlobalTicketPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 GlobalAvatarListPacketClass::GlobalAvatarListPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-GlobalDeleteCharacterPacketClass::GlobalDeleteCharacterPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 GlobalCreateCharacterPacketClass::GlobalCreateCharacterPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_0073Class::Packet_0073Class(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_0074Class::Packet_0074Class(RawPacketClass *raw) { Conn_Record(this, raw); }
 GlobalErrorPacketClass::GlobalErrorPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_0076Class::Packet_0076Class(RawPacketClass *raw) { Conn_Record(this, raw); }
-Packet_7530Class::Packet_7530Class(RawPacketClass *raw) { Conn_Record(this, raw); }
-Packet_7531Class::Packet_7531Class(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_7535Class::Packet_7535Class(RawPacketClass *raw) { Conn_Record(this, raw); }
-Packet_7536Class::Packet_7536Class(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_7538Class::Packet_7538Class(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_753CClass::Packet_753CClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_753EClass::Packet_753EClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-Packet_753FClass::Packet_753FClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_7540Class::Packet_7540Class(RawPacketClass *raw) { Conn_Record(this, raw); }
-Packet_7539Class::Packet_7539Class(RawPacketClass *raw) { Conn_Record(this, raw); }
-Packet_753AClass::Packet_753AClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_7541Class::Packet_7541Class(RawPacketClass *raw) { Conn_Record(this, raw); }
 GameEditorRequestPlanetUnitTypesPacketClass::GameEditorRequestPlanetUnitTypesPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-Packet_7549Class::Packet_7549Class(RawPacketClass *raw) { Conn_Record(this, raw); }
 GameEditorSaveSectorPacketClass::GameEditorSaveSectorPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_7545Class::Packet_7545Class(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_0048Class::Packet_0048Class(RawPacketClass *raw) { Conn_Record(this, raw); }
-Packet_0049Class::Packet_0049Class(RawPacketClass *raw) { Conn_Record(this, raw); }
-CreateAttachmentPacketClass::CreateAttachmentPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 ModeChangePacketClass::ModeChangePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_004BClass::Packet_004BClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_004DClass::Packet_004DClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 StarbaseRequestPacketClass::StarbaseRequestPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 StarbaseSetPacketClass::StarbaseSetPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-StarbaseTowPacketClass::StarbaseTowPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-SkillStringRqPacketClass::SkillStringRqPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 LoungeNPCPacketClass::LoungeNPCPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 FindMemberPacketClass::FindMemberPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 TalkTreePacketClass::TalkTreePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-TalkTreeActionPacketClass::TalkTreeActionPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-SelectTalkTreePacketClass::SelectTalkTreePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_1388Class::Packet_1388Class(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_1389Class::Packet_1389Class(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_138AClass::Packet_138AClass(RawPacketClass *raw) { Conn_Record(this, raw); }
@@ -128,40 +86,21 @@ VerbListPacketClass::VerbListPacketClass(RawPacketClass *raw) { Conn_Record(this
 VerbUpdatePacketClass::VerbUpdatePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_1393Class::Packet_1393Class(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_1392Class::Packet_1392Class(RawPacketClass *raw) { Conn_Record(this, raw); }
-EquipUsePacketClass::EquipUsePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 AvatarEmotePacketClass::AvatarEmotePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 MessageChatstreamPacketClass::MessageChatstreamPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 MessageTimePacketClass::MessageTimePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 AvatarDescPacketClass::AvatarDescPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-SkillPacketClass::SkillPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-SkillPacket_88Class::SkillPacket_88Class(RawPacketClass *raw) { Conn_Record(this, raw); }
-DamagePacketClass::DamagePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-UiTriggerPacketClass::UiTriggerPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 GadgetPacketClass::GadgetPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_0068Class::Packet_0068Class(RawPacketClass *raw) { Conn_Record(this, raw); }
 ClickIndicatorPacketClass::ClickIndicatorPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 SoundPacketClass::SoundPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-SoundCommandPacketClass::SoundCommandPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 ManufactureItemCatagoryPacketClass::ManufactureItemCatagoryPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-ManufactureItemCatagoryPacket_122Class::ManufactureItemCatagoryPacket_122Class(RawPacketClass *raw) { Conn_Record(this, raw); }
-ManufactureItemIdPacketClass::ManufactureItemIdPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-RefineryItemIdPacketClass::RefineryItemIdPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-Packet_007DClass::Packet_007DClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-ManufactureActionPacketClass::ManufactureActionPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-ManufactureSetPacketClass::ManufactureSetPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 ManufactureTechLevelFilterPacketClass::ManufactureTechLevelFilterPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-MissionForfeitPacketClass::MissionForfeitPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-MissionDismissalPacketClass::MissionDismissalPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 PetitionStuckPacketClass::PetitionStuckPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-LootHulkPermissionPacketClass::LootHulkPermissionPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-HullUpgradePacketClass::HullUpgradePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-OpenInterfacePacketClass::OpenInterfacePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 PlayerObjectRelationshipPacket::PlayerObjectRelationshipPacket(RawPacketClass *raw) { Conn_Record(this, raw); }
 PlayerObjectReactionUpdatePacket::PlayerObjectReactionUpdatePacket(RawPacketClass *raw) { Conn_Record(this, raw); }
 PlayerObjectIsAttackingUpdatePacket::PlayerObjectIsAttackingUpdatePacket(RawPacketClass *raw) { Conn_Record(this, raw); }
-IncapacitanceRequestPacketClass::IncapacitanceRequestPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_008EClass::Packet_008EClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-Packet_008FClass::Packet_008FClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 IncapacitanceDetailsPacket::IncapacitanceDetailsPacket(RawPacketClass *raw) { Conn_Record(this, raw); }
 IncapacitanceRescueConfirmationPacket::IncapacitanceRescueConfirmationPacket(RawPacketClass *raw) { Conn_Record(this, raw); }
 CameraControlPacketClass::CameraControlPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
@@ -169,19 +108,11 @@ TriggerEmotePacketClass::TriggerEmotePacketClass(RawPacketClass *raw) { Conn_Rec
 NotifyEmotePacketClass::NotifyEmotePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 JobListPacketClass::JobListPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 JobDescriptionPacketClass::JobDescriptionPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-JobDeletePacketClass::JobDeletePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-JobAcceptReplyPacketClass::JobAcceptReplyPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 GalaxyMapPacketClass::GalaxyMapPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 GalaxyMapRequestPacketClass::GalaxyMapRequestPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 NavigationPacketClass::NavigationPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-NavDeletePacketClass::NavDeletePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 WarpPacketClass::WarpPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 WarpIndexPacketClass::WarpIndexPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-Starbase_Avatar_ChangePacketClass::Starbase_Avatar_ChangePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-StarbaseAvatarUpdatePacketClass::StarbaseAvatarUpdatePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-Starbase_Room_ChangePacketClass::Starbase_Room_ChangePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-StarbaseAvatarRoomUpdatePacketClass::StarbaseAvatarRoomUpdatePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-NameDecalPacketClass::NameDecalPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_00B3Class::Packet_00B3Class(RawPacketClass *raw) { Conn_Record(this, raw); }
 SubPartsPacket::SubPartsPacket(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_00B5Class::Packet_00B5Class(RawPacketClass *raw) { Conn_Record(this, raw); }
@@ -191,7 +122,6 @@ NoteContentPacketClass::NoteContentPacketClass(RawPacketClass *raw) { Conn_Recor
 Packet_00A7Class::Packet_00A7Class(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_00A8Class::Packet_00A8Class(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_00A9Class::Packet_00A9Class(RawPacketClass *raw) { Conn_Record(this, raw); }
-Packet_00AAClass::Packet_00AAClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_00ABClass::Packet_00ABClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_00ACClass::Packet_00ACClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 ClientChatRequestPacketClass::ClientChatRequestPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
@@ -204,10 +134,8 @@ ClientChatEventPacketClass::ClientChatEventPacketClass(RawPacketClass *raw) { Co
 ClientChatErrorPacketClass::ClientChatErrorPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_00ADClass::Packet_00ADClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_00AEClass::Packet_00AEClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-Packet_00AFClass::Packet_00AFClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_00B0Class::Packet_00B0Class(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_00B1Class::Packet_00B1Class(RawPacketClass *raw) { Conn_Record(this, raw); }
-CTA_Request_PacketClass::CTA_Request_PacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 CTAResponsePacketClass::CTAResponsePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 ConfirmedActionOfferPacketClass::ConfirmedActionOfferPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_00BFClass::Packet_00BFClass(RawPacketClass *raw) { Conn_Record(this, raw); }
@@ -231,7 +159,6 @@ GuildMessageSectorPacket::GuildMessageSectorPacket(RawPacketClass *raw) { Conn_R
 GuildPermissionsPacketClass::GuildPermissionsPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 GuildPlayerPermissionsPacket::GuildPlayerPermissionsPacket(RawPacketClass *raw) { Conn_Record(this, raw); }
 GuildRankNamesSectorPacket::GuildRankNamesSectorPacket(RawPacketClass *raw) { Conn_Record(this, raw); }
-GuildRankNamesRequestClientPacketClass::GuildRankNamesRequestClientPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 GuildRankNamesGuildPacketClass::GuildRankNamesGuildPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 GuildRankNamesRequestSectorPacketClass::GuildRankNamesRequestSectorPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 GuildGMRenameConfirmGuildPacketClass::GuildGMRenameConfirmGuildPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
@@ -252,9 +179,7 @@ Packet_00E5Class::Packet_00E5Class(RawPacketClass *raw) { Conn_Record(this, raw)
 Packet_00E6Class::Packet_00E6Class(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_00E7Class::Packet_00E7Class(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_0077Class::Packet_0077Class(RawPacketClass *raw) { Conn_Record(this, raw); }
-Packet_0078Class::Packet_0078Class(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_00E8Class::Packet_00E8Class(RawPacketClass *raw) { Conn_Record(this, raw); }
-ReferralPointsAvailablePacketClass::ReferralPointsAvailablePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 RecustomizeShipStartPacketClass::RecustomizeShipStartPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 RecustomizeShipDonePacketClass::RecustomizeShipDonePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 RecustomizeAvatarStartPacketClass::RecustomizeAvatarStartPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
@@ -262,7 +187,40 @@ RecustomizeAvatarDonePacketClass::RecustomizeAvatarDonePacketClass(RawPacketClas
 RecustomizeAvatarUpdatePacketClass::RecustomizeAvatarUpdatePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 
 // The rebuilt classes' Process_Packet defined in a file not rebuilt (cpacket.cpp, ...)
+bool VersionResponsePacketClass::Process_Packet(void *) { return(true); }	// 0x76B8A0
 bool LogoffConfirmationPacketClass::Process_Packet(void *) { return(true); }	// 0x7333B0
+bool CreatePacketClass::Process_Packet(void *) { return(true); }	// 0x733700
+bool StartPacketClass::Process_Packet(void *) { return(true); }	// 0x733440
+bool RemovePacketClass::Process_Packet(void *) { return(true); }	// 0x7362F0
+bool PointEffectPacketClass::Process_Packet(void *) { return(true); }	// 0x735000
+bool RemoveEffectPacketClass::Process_Packet(void *) { return(true); }	// 0x735D50
+bool SetTargetPacketClass::Process_Packet(void *) { return(true); }	// 0x7363E0
+bool ChangeBaseAssetPacketClass::Process_Packet(void *) { return(true); }	// 0x737400
+bool SetZBandPacketClass::Process_Packet(void *) { return(true); }	// 0x737520
+bool SetBBoxPacketClass::Process_Packet(void *) { return(true); }	// 0x737590
+bool InitRenderStatePacketClass::Process_Packet(void *) { return(true); }	// 0x737610
+bool ActivateRenderStatePacketClass::Process_Packet(void *) { return(true); }	// 0x7376F0
+bool ActivateNextRenderStateOncePacketClass::Process_Packet(void *) { return(true); }	// 0x7377C0
+bool DeactivateRenderStatePacketClass::Process_Packet(void *) { return(true); }	// 0x737890
+bool ClientAvatarPacketClass::Process_Packet(void *) { return(true); }	// 0x733590
+bool ClientShipPacketClass::Process_Packet(void *) { return(true); }	// 0x733660
+bool CreateAttachmentPacketClass::Process_Packet(void *) { return(true); }	// 0x733BB0
+bool StarbaseTowPacketClass::Process_Packet(void *) { return(true); }	// 0x738330
+bool TalkTreeActionPacketClass::Process_Packet(void *) { return(true); }	// 0x738730
+bool DamagePacketClass::Process_Packet(void *) { return(true); }	// 0x738970
+bool SoundCommandPacketClass::Process_Packet(void *) { return(true); }	// 0x7384A0
+bool ManufactureSetPacketClass::Process_Packet(void *) { return(true); }	// 0x739330
+bool LootHulkPermissionPacketClass::Process_Packet(void *) { return(true); }	// 0x7396F0
+bool HullUpgradePacketClass::Process_Packet(void *) { return(true); }	// 0x7396C0
+bool OpenInterfacePacketClass::Process_Packet(void *) { return(true); }	// 0x7397D0
+bool JobDeletePacketClass::Process_Packet(void *) { return(true); }	// 0x73A420
+bool JobAcceptReplyPacketClass::Process_Packet(void *) { return(true); }	// 0x73A510
+bool NavDeletePacketClass::Process_Packet(void *) { return(true); }	// 0x73A710
+bool StarbaseAvatarUpdatePacketClass::Process_Packet(void *) { return(true); }	// 0x73A9F0
+bool StarbaseAvatarRoomUpdatePacketClass::Process_Packet(void *) { return(true); }	// 0x73AB50
+bool NameDecalPacketClass::Process_Packet(void *) { return(true); }	// 0x735FC0
+bool Packet_0078Class::Process_Packet(void *) { return(true); }	// 0x76BB70
+bool ReferralPointsAvailablePacketClass::Process_Packet(void *) { return(true); }	// 0x73F3D0
 
 // What OVERRIDES declares out of line (the classes' own files, not rebuilt)
 int Packet_0015Class::Get_Type() { return(0x15); }

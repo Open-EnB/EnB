@@ -18,7 +18,57 @@
 #define PK_CLASSES_H
 
 #include "pk.h"
+#include "pkaction.h"	// rebuilt
+#include "pkchangebaseasset.h"	// rebuilt
+#include "pkclientavatar.h"	// rebuilt
+#include "pkclientship.h"	// rebuilt
+#include "pkcreate.h"	// rebuilt
+#include "pkcreateattachment.h"	// rebuilt
+#include "pkcta_request.h"	// rebuilt
+#include "pkdamage.h"	// rebuilt
+#include "pkequipuse.h"	// rebuilt
+#include "pkglobaldeletecharacter.h"	// rebuilt
+#include "pkglobalticketrequest.h"	// rebuilt
+#include "pkguildranknamesrequestclient.h"	// rebuilt
+#include "pkhullupgrade.h"	// rebuilt
+#include "pkincapacitancerequest.h"	// rebuilt
+#include "pkinitrenderstate.h"	// rebuilt
+#include "pkitemstate.h"	// rebuilt
+#include "pkjoblist.h"	// rebuilt
 #include "pklogoff.h"	// rebuilt
+#include "pkloothulkpermission.h"	// rebuilt
+#include "pkmanufactureitemcatagorypacket.h"	// rebuilt
+#include "pkmissionforfeit.h"	// rebuilt
+#include "pknamedecal.h"	// rebuilt
+#include "pknavdelete.h"	// rebuilt
+#include "pkopeninterface.h"	// rebuilt
+#include "pkpointeffect.h"	// rebuilt
+#include "pkreferralpointsavailable.h"	// rebuilt
+#include "pkremove.h"	// rebuilt
+#include "pkrequesttarget.h"	// rebuilt
+#include "pkrequesttransformchange.h"	// rebuilt
+#include "pksetzband.h"	// rebuilt
+#include "pkskill.h"	// rebuilt
+#include "pkskillstringrq.h"	// rebuilt
+#include "pksoundcommand.h"	// rebuilt
+#include "pkstarbase_avatar_change.h"	// rebuilt
+#include "pkstarbasetow.h"	// rebuilt
+#include "pkstart.h"	// rebuilt
+#include "pktalktreeaction.h"	// rebuilt
+#include "pktilt.h"	// rebuilt
+#include "pkturn.h"	// rebuilt
+#include "pkuitrigger.h"	// rebuilt
+#include "pkunknown_85d1a0.h"	// rebuilt
+#include "pkunknown_85e640.h"	// rebuilt
+#include "pkunknown_85f250.h"	// rebuilt
+#include "pkunknown_85f870.h"	// rebuilt
+#include "pkunknown_860d30.h"	// rebuilt
+#include "pkunknown_866ac0.h"	// rebuilt
+#include "pkunknown_87acd0.h"	// rebuilt
+#include "pkunknown_888b60.h"	// rebuilt
+#include "pkunknown_8a2b70.h"	// rebuilt
+#include "pkunknown_8a6430.h"	// rebuilt
+#include "pkversionrequest.h"	// rebuilt
 
 // the base of PriorityMessageLinePacketClass, QueueMessageLinePacketClass, PushMessageLinePacketClass: vtable 0xB0B3A4, constructor 0x89D8A0
 class MessageLinePacketClass : public PacketClass  // NAME 3: by convention from its derived classes PriorityMessageLinePacketClass, QueueMessageLinePacketClass, PushMessageLinePacketClass
@@ -33,23 +83,6 @@ public:
 	char Unknown0C[0x10];	// +0x0C
 };
 
-// opcode 0 (0x0000, VERSION_REQUEST): vtable 0xB0C2D0, constructor 0x8B1670, 0x14 bytes
-class VersionRequestPacketClass : public PacketClass  // NAME 3: the client's Print text 'VersionRequest {' and the PacketClass convention
-{
-public:
-	VersionRequestPacketClass(RawPacketClass *raw);	// 0x8B1670
-	virtual bool Process_Packet(void *client);	// +0x08 0x868AF0 (clientstub.cpp l.275)
-	char Unknown0C[0x8];	// +0x0C
-};
-
-// opcode 1 (0x0001, VERSION_RESPONSE): vtable 0xB0C300, constructor 0x8B18D0, 0x10 bytes
-class VersionResponsePacketClass : public PacketClass  // NAME 3: the client's Print text 'VersionResponse {' and the PacketClass convention
-{
-public:
-	VersionResponsePacketClass(RawPacketClass *raw);	// 0x8B18D0
-	char Unknown0C[0x4];	// +0x0C
-};
-
 // opcode 2 (0x0002, LOGIN): vtable 0xB0B014, constructor 0x89A850, 0xB8 bytes
 class LoginPacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name LOGIN (the Net-7 opcode table; no structure check)
 {
@@ -57,39 +90,6 @@ public:
 	LoginPacketClass(RawPacketClass *raw);	// 0x89A850
 	virtual bool Process_Packet(void *client);	// +0x08 0x867AA0 (clientstub.cpp l.14)
 	char Unknown0C[0xAC];	// +0x0C
-};
-
-// opcode 4 (0x0004, CREATE): vtable 0xB0A140, constructor 0x87FA70, 0x28 bytes
-class CreatePacketClass : public PacketClass
-{
-public:
-	CreatePacketClass(RawPacketClass *raw);	// 0x87FA70
-	char Unknown0C[0x1C];	// +0x0C
-};
-
-// opcode 5 (0x0005, START): vtable 0xB0BC00, constructor 0x8A66A0, 0x10 bytes
-class StartPacketClass : public PacketClass
-{
-public:
-	StartPacketClass(RawPacketClass *raw);	// 0x8A66A0
-	char Unknown0C[0x4];	// +0x0C
-};
-
-// opcode 6 (0x0006, START_ACK): vtable 0xB0BC30, constructor 0x8A68B0, 0x10 bytes
-class StartAckPacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name START_ACK (the Net-7 opcode table; no structure check)
-{
-public:
-	StartAckPacketClass(RawPacketClass *raw);	// 0x8A68B0
-	virtual bool Process_Packet(void *client);	// +0x08 0x867B90 (clientstub.cpp l.29)
-	char Unknown0C[0x4];	// +0x0C
-};
-
-// opcode 7 (0x0007, REMOVE): vtable 0xB0B6E8, constructor 0x8A1780, 0x14 bytes
-class RemovePacketClass : public PacketClass
-{
-public:
-	RemovePacketClass(RawPacketClass *raw);	// 0x8A1780
-	char Unknown0C[0x8];	// +0x0C
 };
 
 // opcode 64 (0x0040, CONSTANT_POSITIONAL_UPDATE): vtable 0xB0C0B4, constructor 0x8ABBF0, 0x34 bytes
@@ -148,14 +148,6 @@ public:
 	char Unknown0C[0x24];	// +0x0C
 };
 
-// opcode 10 (0x000A, POINT_EFFECT): vtable 0xB0A408, constructor 0x8834D0, 0x34 bytes
-class PointEffectPacketClass : public PacketClass
-{
-public:
-	PointEffectPacketClass(RawPacketClass *raw);	// 0x8834D0
-	char Unknown0C[0x28];	// +0x0C
-};
-
 // opcode 11 (0x000B, OBJECT_TO_OBJECT_EFFECT): vtable 0xB0A438, constructor 0x883A60, 0x60 bytes
 class ObjectToObjectEffectPacketClass : public PacketClass
 {
@@ -188,14 +180,6 @@ public:
 	char Unknown0C[0x54];	// +0x0C
 };
 
-// opcode 15 (0x000F, REMOVE_EFFECT): vtable 0xB0A4FC, constructor 0x885E30, 0x14 bytes
-class RemoveEffectPacketClass : public PacketClass
-{
-public:
-	RemoveEffectPacketClass(RawPacketClass *raw);	// 0x885E30
-	char Unknown0C[0x8];	// +0x0C
-};
-
 // opcode 16 (0x0010, DECAL): vtable 0xB0A200, constructor 0x8807B0, 0x24 bytes
 class DecalPacketClass : public PacketClass
 {
@@ -210,24 +194,6 @@ class ColorizationPacketClass : public PacketClass
 public:
 	ColorizationPacketClass(RawPacketClass *raw);	// 0x87F510
 	char Unknown0C[0x18];	// +0x0C
-};
-
-// opcode 18 (0x0012, TURN): vtable 0xB0C048, constructor 0x8AB600, 0x14 bytes
-class TurnPacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name TURN (the Net-7 opcode table; no structure check)
-{
-public:
-	TurnPacketClass(RawPacketClass *raw);	// 0x8AB600
-	virtual bool Process_Packet(void *client);	// +0x08 0x867BC0 (clientstub.cpp l.32)
-	char Unknown0C[0x8];	// +0x0C
-};
-
-// opcode 19 (0x0013, TILT): vtable 0xB0BF88, constructor 0x8AAB50, 0x14 bytes
-class TiltPacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name TILT (the Net-7 opcode table; no structure check)
-{
-public:
-	TiltPacketClass(RawPacketClass *raw);	// 0x8AAB50
-	virtual bool Process_Packet(void *client);	// +0x08 0x867BF0 (clientstub.cpp l.35)
-	char Unknown0C[0x8];	// +0x0C
 };
 
 // opcode 20 (0x0014, MOVE): vtable 0xB0B344, constructor 0x89D110, 0x14 bytes
@@ -261,32 +227,6 @@ public:
 	virtual bool Unknown_2C() { return(false); }	// +0x2C 0x86E5F0
 	virtual const char *Get_Name() { return("FireEquipped"); }	// +0x30 0x86E610
 	char Unknown14[0x8];	// +0x14
-};
-
-// opcode 23 (0x0017, REQUEST_TARGET): vtable 0xB0BCF0, constructor 0x8A7F40, 0x14 bytes
-class RequestTargetPacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name REQUEST_TARGET (the Net-7 opcode table; no structure check)
-{
-public:
-	RequestTargetPacketClass(RawPacketClass *raw);	// 0x8A7F40
-	virtual bool Process_Packet(void *client);	// +0x08 0x867CE0 (clientstub.cpp l.50)
-	char Unknown0C[0x8];	// +0x0C
-};
-
-// opcode 24 (0x0018, REQUEST_TARGETS_TARGET): vtable 0xB0BD20, constructor 0x8A81B0, 0x14 bytes
-class RequestTargetsTargetPacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name REQUEST_TARGETS_TARGET (the Net-7 opcode table; no structure check)
-{
-public:
-	RequestTargetsTargetPacketClass(RawPacketClass *raw);	// 0x8A81B0
-	virtual bool Process_Packet(void *client);	// +0x08 0x8689D0 (clientstub.cpp l.257)
-	char Unknown0C[0x8];	// +0x0C
-};
-
-// opcode 25 (0x0019, SET_TARGET): vtable 0xB0BD50, constructor 0x8A8420, 0x14 bytes
-class SetTargetPacketClass : public PacketClass
-{
-public:
-	SetTargetPacketClass(RawPacketClass *raw);	// 0x8A8420
-	char Unknown0C[0x8];	// +0x0C
 };
 
 // opcode 26 (0x001A, DEBUG): vtable 0xB0A1D0, constructor 0x880340, 0x18 bytes
@@ -391,14 +331,6 @@ public:
 	char Unknown0C[0x60];	// +0x0C
 };
 
-// opcode 38 (0x0026, CHANGE_BASE_ASSET): vtable 0xB0A050, constructor 0x87E560, 0x28 bytes
-class ChangeBaseAssetPacketClass : public PacketClass
-{
-public:
-	ChangeBaseAssetPacketClass(RawPacketClass *raw);	// 0x87E560
-	char Unknown0C[0x1C];	// +0x0C
-};
-
 // opcode 39 (0x0027, INVENTORY_MOVE): vtable 0xB0AE34, constructor 0x894D50, 0x24 bytes
 class InventoryMovePacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name INVENTORY_MOVE (the Net-7 opcode table; no structure check)
 {
@@ -417,40 +349,6 @@ public:
 	char Unknown0C[0x18];	// +0x0C
 };
 
-// opcode 41 (0x0029, ITEM_STATE): vtable 0xB0AEC4, constructor 0x895CA0, 0x18 bytes
-class ItemStatePacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name ITEM_STATE (the Net-7 opcode table; no structure check)
-{
-public:
-	ItemStatePacketClass(RawPacketClass *raw);	// 0x895CA0
-	virtual bool Process_Packet(void *client);	// +0x08 0x867D70 (clientstub.cpp l.59)
-	char Unknown0C[0xC];	// +0x0C
-};
-
-// opcode 42 (0x002A, SET_ZBAND): vtable 0xB0B9B8, constructor 0x8A42F0, 0x14 bytes
-class SetZBandPacketClass : public PacketClass
-{
-public:
-	SetZBandPacketClass(RawPacketClass *raw);	// 0x8A42F0
-	char Unknown0C[0x8];	// +0x0C
-};
-
-// opcode 43 (0x002B, SET_BBOX): vtable 0xB0B9E8, constructor 0x8A4580, 0x1C bytes
-class SetBBoxPacketClass : public PacketClass
-{
-public:
-	SetBBoxPacketClass(RawPacketClass *raw);	// 0x8A4580
-	char Unknown0C[0x10];	// +0x0C
-};
-
-// opcode 44 (0x002C, ACTION): vtable 0xB09C14, constructor 0x876400, 0x1C bytes
-class ActionPacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name ACTION (the Net-7 opcode table; no structure check)
-{
-public:
-	ActionPacketClass(RawPacketClass *raw);	// 0x876400
-	virtual bool Process_Packet(void *client);	// +0x08 0x867DD0 (clientstub.cpp l.65)
-	char Unknown0C[0x10];	// +0x0C
-};
-
 // opcode 45 (0x002D, ACTION2): vtable 0xB09C44, constructor 0x8767B0, 0x28 bytes
 class Action2PacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name ACTION2 (the Net-7 opcode table; no structure check)
 {
@@ -466,38 +364,6 @@ class OptionPacketClass : public PacketClass  // NAME 2: the reference decoder's
 public:
 	OptionPacketClass(RawPacketClass *raw);	// 0x89F510
 	virtual bool Process_Packet(void *client);	// +0x08 0x868AC0 (clientstub.cpp l.272)
-	char Unknown0C[0xC];	// +0x0C
-};
-
-// opcode 47 (0x002F, INIT_RENDER_STATE): vtable 0xB0B718, constructor 0x8A1A60, 0x1C bytes
-class InitRenderStatePacketClass : public PacketClass
-{
-public:
-	InitRenderStatePacketClass(RawPacketClass *raw);	// 0x8A1A60
-	char Unknown0C[0x10];	// +0x0C
-};
-
-// opcode 48 (0x0030, ACTIVATE_RENDER_STATE): vtable 0xB0B748, constructor 0x8A1D70, 0x18 bytes
-class ActivateRenderStatePacketClass : public PacketClass
-{
-public:
-	ActivateRenderStatePacketClass(RawPacketClass *raw);	// 0x8A1D70
-	char Unknown0C[0xC];	// +0x0C
-};
-
-// opcode 49 (0x0031, ACTIVATE_NEXT_RENDER_STATE): vtable 0xB0B778, constructor 0x8A2050, 0x18 bytes
-class ActivateNextRenderStateOncePacketClass : public PacketClass
-{
-public:
-	ActivateNextRenderStateOncePacketClass(RawPacketClass *raw);	// 0x8A2050
-	char Unknown0C[0xC];	// +0x0C
-};
-
-// opcode 50 (0x0032, DEACTIVATE_RENDER_STATE): vtable 0xB0B7A8, constructor 0x8A2330, 0x18 bytes
-class DeactivateRenderStatePacketClass : public PacketClass
-{
-public:
-	DeactivateRenderStatePacketClass(RawPacketClass *raw);	// 0x8A2330
 	char Unknown0C[0xC];	// +0x0C
 };
 
@@ -525,14 +391,6 @@ class SetClientTimePacketClass : public PacketClass
 public:
 	SetClientTimePacketClass(RawPacketClass *raw);	// 0x8AB060
 	char Unknown0C[0x10];	// +0x0C
-};
-
-// opcode 55 (0x0037, CLIENT_AVATAR): vtable 0xB09D1C, constructor 0x877470, 0x14 bytes
-class ClientAvatarPacketClass : public PacketClass
-{
-public:
-	ClientAvatarPacketClass(RawPacketClass *raw);	// 0x877470
-	char Unknown0C[0x8];	// +0x0C
 };
 
 // opcode 56 (0x0038, ?): vtable 0xB0BB3C, constructor 0x8A5870, 0x14 bytes
@@ -585,45 +443,12 @@ public:
 	char Unknown0C[0x4];	// +0x0C
 };
 
-// opcode 61 (0x003D, ?): vtable 0xB0BBD0, constructor 0x8A64C0, 0xC bytes
-class Packet_003DClass : public PacketClass  // NAME 1: neutral (D10): opcode 0x003D
-{
-public:
-	Packet_003DClass(RawPacketClass *raw);	// 0x8A64C0
-	virtual bool Process_Packet(void *client);	// +0x08 0x867E90 (clientstub.cpp l.77)
-};
-
 // opcode 66 (0x0042, SERVER_PARAMETERS): vtable 0xB0BB6C, constructor 0x8A5C10, 0x58 bytes
 class ServerParametersPacketClass : public PacketClass
 {
 public:
 	ServerParametersPacketClass(RawPacketClass *raw);	// 0x8A5C10
 	char Unknown0C[0x4C];	// +0x0C
-};
-
-// opcode 67 (0x0043, REQUEST_TRANSFORM_CHANGE): vtable 0xB0B808, constructor 0x8A28C0, 0x3C bytes
-class RequestTransformChangePacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name REQUEST_TRANSFORM_CHANGE (the Net-7 opcode table; no structure check)
-{
-public:
-	RequestTransformChangePacketClass(RawPacketClass *raw);	// 0x8A28C0
-	virtual bool Process_Packet(void *client);	// +0x08 0x867EC0 (clientstub.cpp l.80)
-	char Unknown0C[0x30];	// +0x0C
-};
-
-// opcode 69 (0x0045, ?): vtable 0xB0B838, constructor 0x8A2C20, 0xC bytes
-class Packet_0045Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x0045
-{
-public:
-	Packet_0045Class(RawPacketClass *raw);	// 0x8A2C20
-	virtual bool Process_Packet(void *client);	// +0x08 0x867EF0 (clientstub.cpp l.83)
-};
-
-// opcode 71 (0x0047, CLIENT_SHIP): vtable 0xB0BA18, constructor 0x8A4820, 0x10 bytes
-class ClientShipPacketClass : public PacketClass
-{
-public:
-	ClientShipPacketClass(RawPacketClass *raw);	// 0x8A4820
-	char Unknown0C[0x4];	// +0x0C
 };
 
 // opcode 98 (0x0062, ?): vtable 0xB0A260, constructor 0x881410, 0x18 bytes
@@ -661,15 +486,6 @@ public:
 	char Unknown0C[0x8];	// +0x0C
 };
 
-// opcode 110 (0x006E, GLOBAL_TICKET_REQUEST): vtable 0xB096B8, constructor 0x8678D0, 0x10 bytes
-class GlobalTicketRequestPacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name GLOBAL_TICKET_REQUEST (the Net-7 opcode table; no structure check)
-{
-public:
-	GlobalTicketRequestPacketClass(RawPacketClass *raw);	// 0x8678D0
-	virtual bool Process_Packet(void *client);	// +0x08 0x868940 (clientstub.cpp l.248)
-	char Unknown0C[0x4];	// +0x0C
-};
-
 // opcode 111 (0x006F, GLOBAL_TICKET): vtable 0xB09688, constructor 0x867650, 0x58 bytes
 class GlobalTicketPacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name GLOBAL_TICKET (the Net-7 opcode table; no structure check)
 {
@@ -684,15 +500,6 @@ class GlobalAvatarListPacketClass : public PacketClass  // NAME 2: the reference
 public:
 	GlobalAvatarListPacketClass(RawPacketClass *raw);	// 0x862D90
 	char Unknown0C[0x14];	// +0x0C
-};
-
-// opcode 113 (0x0071, GLOBAL_DELETE_CHARACTER): vtable 0xB09460, constructor 0x864820, 0x14 bytes
-class GlobalDeleteCharacterPacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name GLOBAL_DELETE_CHARACTER (the Net-7 opcode table; no structure check)
-{
-public:
-	GlobalDeleteCharacterPacketClass(RawPacketClass *raw);	// 0x864820
-	virtual bool Process_Packet(void *client);	// +0x08 0x8688B0 (clientstub.cpp l.239)
-	char Unknown0C[0x8];	// +0x0C
 };
 
 // opcode 114 (0x0072, GLOBAL_CREATE_CHARACTER): vtable 0xB09430, constructor 0x864380, 0x2C8 bytes
@@ -738,23 +545,6 @@ public:
 	char Unknown0C[0xB4];	// +0x0C
 };
 
-// opcode 30000 (0x7530, ?): vtable 0xB08F78, constructor 0x85F2C0, 0x10 bytes
-class Packet_7530Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x7530
-{
-public:
-	Packet_7530Class(RawPacketClass *raw);	// 0x85F2C0
-	virtual bool Process_Packet(void *client);	// +0x08 0x867F20 (clientstub.cpp l.86)
-	char Unknown0C[0x4];	// +0x0C
-};
-
-// opcode 30001 (0x7531, ?): vtable 0xB08FA8, constructor 0x85F480, 0xC bytes
-class Packet_7531Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x7531
-{
-public:
-	Packet_7531Class(RawPacketClass *raw);	// 0x85F480
-	virtual bool Process_Packet(void *client);	// +0x08 0x868190 (clientstub.cpp l.125)
-};
-
 // opcode 30005 (0x7535, ?): vtable 0xB08EB8, constructor 0x85E750, 0x20 bytes
 class Packet_7535Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x7535
 {
@@ -762,15 +552,6 @@ public:
 	Packet_7535Class(RawPacketClass *raw);	// 0x85E750
 	virtual bool Process_Packet(void *client);	// +0x08 0x868100 (clientstub.cpp l.116)
 	char Unknown0C[0x14];	// +0x0C
-};
-
-// opcode 30006 (0x7536, ?): vtable 0xB08EE8, constructor 0x85EA90, 0x10 bytes
-class Packet_7536Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x7536
-{
-public:
-	Packet_7536Class(RawPacketClass *raw);	// 0x85EA90
-	virtual bool Process_Packet(void *client);	// +0x08 0x868130 (clientstub.cpp l.119)
-	char Unknown0C[0x4];	// +0x0C
 };
 
 // opcode 30008 (0x7538, ?): vtable 0xB08F48, constructor 0x85EFC0, 0x1C bytes
@@ -800,14 +581,6 @@ public:
 	char Unknown0C[0xC];	// +0x0C
 };
 
-// opcode 30015 (0x753F, ?): vtable 0xB09068, constructor 0x85FE60, 0xC bytes
-class Packet_753FClass : public PacketClass  // NAME 1: neutral (D10): opcode 0x753F
-{
-public:
-	Packet_753FClass(RawPacketClass *raw);	// 0x85FE60
-	virtual bool Process_Packet(void *client);	// +0x08 0x868220 (clientstub.cpp l.134)
-};
-
 // opcode 30016 (0x7540, ?): vtable 0xB09008, constructor 0x85F8F0, 0x18 bytes
 class Packet_7540Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x7540
 {
@@ -815,24 +588,6 @@ public:
 	Packet_7540Class(RawPacketClass *raw);	// 0x85F8F0
 	virtual bool Process_Packet(void *client);	// +0x08 0x8681C0 (clientstub.cpp l.128)
 	char Unknown0C[0xC];	// +0x0C
-};
-
-// opcode 30009 (0x7539, ?): vtable 0xB09098, constructor 0x860030, 0x10 bytes
-class Packet_7539Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x7539
-{
-public:
-	Packet_7539Class(RawPacketClass *raw);	// 0x860030
-	virtual bool Process_Packet(void *client);	// +0x08 0x868250 (clientstub.cpp l.137)
-	char Unknown0C[0x4];	// +0x0C
-};
-
-// opcode 30010 (0x753A, ?): vtable 0xB090C8, constructor 0x8602C0, 0x40 bytes
-class Packet_753AClass : public PacketClass  // NAME 1: neutral (D10): opcode 0x753A
-{
-public:
-	Packet_753AClass(RawPacketClass *raw);	// 0x8602C0
-	virtual bool Process_Packet(void *client);	// +0x08 0x868280 (clientstub.cpp l.140)
-	char Unknown0C[0x34];	// +0x0C
 };
 
 // opcode 30017 (0x7541, ?): vtable 0xB09308, constructor 0x862440, 0x18 bytes
@@ -850,15 +605,6 @@ class GameEditorRequestPlanetUnitTypesPacketClass : public PacketClass  // NAME 
 public:
 	GameEditorRequestPlanetUnitTypesPacketClass(RawPacketClass *raw);	// 0x860DA0
 	virtual bool Process_Packet(void *client);	// +0x08 0x8682E0 (clientstub.cpp l.146)
-};
-
-// opcode 30025 (0x7549, ?): vtable 0xB091E8, constructor 0x861260, 0x10 bytes
-class Packet_7549Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x7549
-{
-public:
-	Packet_7549Class(RawPacketClass *raw);	// 0x861260
-	virtual bool Process_Packet(void *client);	// +0x08 0x868310 (clientstub.cpp l.149)
-	char Unknown0C[0x4];	// +0x0C
 };
 
 // opcode 30027 (0x754B, ?): vtable 0xB092A8, constructor 0x861E20, 0xC bytes
@@ -886,23 +632,6 @@ public:
 	virtual bool Process_Packet(void *client);	// +0x08 0x868040 (clientstub.cpp l.104)
 	virtual bool Unknown_28(void *a);	// +0x28 0x868070 (clientstub.cpp l.107)  // NAME 1: neutral (D10)
 	char Unknown0C[0x2D4];	// +0x0C
-};
-
-// opcode 73 (0x0049, ?): vtable 0xB08D98, constructor 0x85D270, 0x68 bytes
-class Packet_0049Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x0049
-{
-public:
-	Packet_0049Class(RawPacketClass *raw);	// 0x85D270
-	virtual bool Process_Packet(void *client);	// +0x08 0x8680A0 (clientstub.cpp l.110)
-	char Unknown0C[0x5C];	// +0x0C
-};
-
-// opcode 74 (0x004A, CREATE_ATTACHMENT): vtable 0xB09C74, constructor 0x876B30, 0x20 bytes
-class CreateAttachmentPacketClass : public PacketClass
-{
-public:
-	CreateAttachmentPacketClass(RawPacketClass *raw);	// 0x876B30
-	char Unknown0C[0x14];	// +0x0C
 };
 
 // opcode 76 (0x004C, ?): vtable 0xB0B2E4, constructor 0x89CBB0, 0x14 bytes
@@ -948,23 +677,6 @@ public:
 	char Unknown0C[0x8];	// +0x0C
 };
 
-// opcode 80 (0x0050, ?): vtable 0xB0B8C8, constructor 0x8A3370, 0x24 bytes
-class StarbaseTowPacketClass : public PacketClass
-{
-public:
-	StarbaseTowPacketClass(RawPacketClass *raw);	// 0x8A3370
-	char Unknown0C[0x18];	// +0x0C
-};
-
-// opcode 81 (0x0051, SKILL_STRING_RQ): vtable 0xB0B7D8, constructor 0x8A25B0, 0x14 bytes
-class SkillStringRqPacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name SKILL_STRING_RQ (the Net-7 opcode table; no structure check)
-{
-public:
-	SkillStringRqPacketClass(RawPacketClass *raw);	// 0x8A25B0
-	virtual bool Process_Packet(void *client);	// +0x08 0x867FE0 (clientstub.cpp l.98)
-	char Unknown0C[0x8];	// +0x0C
-};
-
 // opcode 82 (0x0052, LOUNGE_NPC): vtable 0xB0AFE4, constructor 0x8978D0, 0x40 bytes
 class LoungeNPCPacketClass : public PacketClass
 {
@@ -987,23 +699,6 @@ class TalkTreePacketClass : public PacketClass
 public:
 	TalkTreePacketClass(RawPacketClass *raw);	// 0x8A6CA0
 	char Unknown0C[0x30];	// +0x0C
-};
-
-// opcode 86 (0x0056, TALK_TREE_ACTION): vtable 0xB0BC90, constructor 0x8A7430, 0x10 bytes
-class TalkTreeActionPacketClass : public PacketClass
-{
-public:
-	TalkTreeActionPacketClass(RawPacketClass *raw);	// 0x8A7430
-	char Unknown0C[0x4];	// +0x0C
-};
-
-// opcode 85 (0x0055, SELECT_TALK_TREE): vtable 0xB0BCC0, constructor 0x8A7670, 0x14 bytes
-class SelectTalkTreePacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name SELECT_TALK_TREE (the Net-7 opcode table; no structure check)
-{
-public:
-	SelectTalkTreePacketClass(RawPacketClass *raw);	// 0x8A7670
-	virtual bool Process_Packet(void *client);	// +0x08 0x867FB0 (clientstub.cpp l.95)
-	char Unknown0C[0x8];	// +0x0C
 };
 
 // opcode 5000 (0x1388, ?): vtable 0xB0BD80, constructor 0x8A8B20, 0x21C bytes
@@ -1120,15 +815,6 @@ public:
 	char Unknown0C[0xC];	// +0x0C
 };
 
-// opcode 93 (0x005D, EQUIP_USE): vtable 0xB0C204, constructor 0x8AE8B0, 0x14 bytes
-class EquipUsePacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name EQUIP_USE (the Net-7 opcode table; no structure check)
-{
-public:
-	EquipUsePacketClass(RawPacketClass *raw);	// 0x8AE8B0
-	virtual bool Process_Packet(void *client);	// +0x08 0x867C80 (clientstub.cpp l.44)
-	char Unknown0C[0x8];	// +0x0C
-};
-
 // opcode 94 (0x005E, AVATAR_EMOTE): vtable 0xB0A020, constructor 0x87E010, 0x24 bytes
 class AvatarEmotePacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name AVATAR_EMOTE (the Net-7 opcode table; no structure check)
 {
@@ -1160,41 +846,6 @@ class AvatarDescPacketClass : public PacketClass
 public:
 	AvatarDescPacketClass(RawPacketClass *raw);	// 0x877A60
 	char Unknown0C[0x114];	// +0x0C
-};
-
-// opcode 87 (0x0057, SKILL_UP): vtable 0xB0BA48, constructor 0x8A4A70, 0x18 bytes
-class SkillPacketClass : public PacketClass  // NAME 3: the client's Print text 'Skill {' and the PacketClass convention
-{
-public:
-	SkillPacketClass(RawPacketClass *raw);	// 0x8A4A70
-	virtual bool Process_Packet(void *client);	// +0x08 0x867E30 (clientstub.cpp l.71)
-	char Unknown0C[0xC];	// +0x0C
-};
-
-// opcode 88 (0x0058, SKILL_ABILITY): vtable 0xB0BA78, constructor 0x8A4CF0, 0x18 bytes
-class SkillPacket_88Class : public PacketClass  // NAME 3: the client's Print text 'Skill {' and the PacketClass convention; opcode added (another opcode's class has the name)
-{
-public:
-	SkillPacket_88Class(RawPacketClass *raw);	// 0x8A4CF0
-	virtual bool Process_Packet(void *client);	// +0x08 0x867E60 (clientstub.cpp l.74)
-	char Unknown0C[0xC];	// +0x0C
-};
-
-// opcode 100 (0x0064, CLIENT_DAMAGE): vtable 0xB0A1A0, constructor 0x880030, 0x24 bytes
-class DamagePacketClass : public PacketClass
-{
-public:
-	DamagePacketClass(RawPacketClass *raw);	// 0x880030
-	char Unknown0C[0x18];	// +0x0C
-};
-
-// opcode 101 (0x0065, UI_TRIGGER): vtable 0xB0C078, constructor 0x8AB880, 0x14 bytes
-class UiTriggerPacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name UI_TRIGGER (the Net-7 opcode table; no structure check)
-{
-public:
-	UiTriggerPacketClass(RawPacketClass *raw);	// 0x8AB880
-	virtual bool Process_Packet(void *client);	// +0x08 0x868820 (clientstub.cpp l.230)
-	char Unknown0C[0x8];	// +0x0C
 };
 
 // opcode 103 (0x0067, ?): vtable 0xB0A65C, constructor 0x887A20, 0x18 bytes
@@ -1230,14 +881,6 @@ public:
 	char Unknown0C[0x10];	// +0x0C
 };
 
-// opcode 107 (0x006B, ?): vtable 0xB0BAD8, constructor 0x8A5320, 0x14 bytes
-class SoundCommandPacketClass : public PacketClass
-{
-public:
-	SoundCommandPacketClass(RawPacketClass *raw);	// 0x8A5320
-	char Unknown0C[0x8];	// +0x0C
-};
-
 // opcode 121 (0x0079, MANUFACTURE_ITEM_CATAGORY): vtable 0xB0B104, constructor 0x89B3C0, 0x14 bytes
 class ManufactureItemCatagoryPacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name MANUFACTURE_ITEM_CATAGORY (the Net-7 opcode table; no structure check)
 {
@@ -1245,59 +888,6 @@ public:
 	ManufactureItemCatagoryPacketClass(RawPacketClass *raw);	// 0x89B3C0
 	virtual bool Process_Packet(void *client);	// +0x08 0x868670 (clientstub.cpp l.203)
 	char Unknown0C[0x8];	// +0x0C
-};
-
-// opcode 122 (0x007A, MANUFACTURE_ITEM_CATAGORY): vtable 0xB0B134, constructor 0x89B620, 0x14 bytes
-class ManufactureItemCatagoryPacket_122Class : public PacketClass  // NAME 2: the reference decoder's opcode name MANUFACTURE_ITEM_CATAGORY (the Net-7 opcode table; no structure check); opcode added (another opcode's class has the name)
-{
-public:
-	ManufactureItemCatagoryPacket_122Class(RawPacketClass *raw);	// 0x89B620
-	virtual bool Process_Packet(void *client);	// +0x08 0x8686A0 (clientstub.cpp l.206)
-	char Unknown0C[0x8];	// +0x0C
-};
-
-// opcode 123 (0x007B, MANUFACTURE_ITEM_ID): vtable 0xB0B164, constructor 0x89B860, 0x14 bytes
-class ManufactureItemIdPacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name MANUFACTURE_ITEM_ID (the Net-7 opcode table; no structure check)
-{
-public:
-	ManufactureItemIdPacketClass(RawPacketClass *raw);	// 0x89B860
-	virtual bool Process_Packet(void *client);	// +0x08 0x8686D0 (clientstub.cpp l.209)
-	char Unknown0C[0x8];	// +0x0C
-};
-
-// opcode 124 (0x007C, REFINERY_ITEM_ID): vtable 0xB0B194, constructor 0x89BAA0, 0x14 bytes
-class RefineryItemIdPacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name REFINERY_ITEM_ID (the Net-7 opcode table; no structure check)
-{
-public:
-	RefineryItemIdPacketClass(RawPacketClass *raw);	// 0x89BAA0
-	virtual bool Process_Packet(void *client);	// +0x08 0x868700 (clientstub.cpp l.212)
-	char Unknown0C[0x8];	// +0x0C
-};
-
-// opcode 125 (0x007D, ?): vtable 0xB0B1C4, constructor 0x89BD00, 0x18 bytes
-class Packet_007DClass : public PacketClass  // NAME 1: neutral (D10): opcode 0x007D
-{
-public:
-	Packet_007DClass(RawPacketClass *raw);	// 0x89BD00
-	virtual bool Process_Packet(void *client);	// +0x08 0x868730 (clientstub.cpp l.215)
-	char Unknown0C[0xC];	// +0x0C
-};
-
-// opcode 126 (0x007E, MANUFACTURE_ACTION): vtable 0xB0B1F4, constructor 0x89BF70, 0x14 bytes
-class ManufactureActionPacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name MANUFACTURE_ACTION (the Net-7 opcode table; no structure check)
-{
-public:
-	ManufactureActionPacketClass(RawPacketClass *raw);	// 0x89BF70
-	virtual bool Process_Packet(void *client);	// +0x08 0x868760 (clientstub.cpp l.218)
-	char Unknown0C[0x8];	// +0x0C
-};
-
-// opcode 127 (0x007F, MANUFACTURE_SET_MANUFACTURE_ID): vtable 0xB0B224, constructor 0x89C1C0, 0x10 bytes
-class ManufactureSetPacketClass : public PacketClass
-{
-public:
-	ManufactureSetPacketClass(RawPacketClass *raw);	// 0x89C1C0
-	char Unknown0C[0x4];	// +0x0C
 };
 
 // opcode 128 (0x0080, MANUFACTURE_TECH_LEVEL_FILTER): vtable 0xB0B254, constructor 0x89C3E0, 0x18 bytes
@@ -1309,24 +899,6 @@ public:
 	char Unknown0C[0xC];	// +0x0C
 };
 
-// opcode 134 (0x0086, MISSION_FORFEIT): vtable 0xB0B284, constructor 0x89C6C0, 0x14 bytes
-class MissionForfeitPacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name MISSION_FORFEIT (the Net-7 opcode table; no structure check)
-{
-public:
-	MissionForfeitPacketClass(RawPacketClass *raw);	// 0x89C6C0
-	virtual bool Process_Packet(void *client);	// +0x08 0x8687C0 (clientstub.cpp l.224)
-	char Unknown0C[0x8];	// +0x0C
-};
-
-// opcode 135 (0x0087, MISSION_DISMISSAL): vtable 0xB0B2B4, constructor 0x89C900, 0x14 bytes
-class MissionDismissalPacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name MISSION_DISMISSAL (the Net-7 opcode table; no structure check)
-{
-public:
-	MissionDismissalPacketClass(RawPacketClass *raw);	// 0x89C900
-	virtual bool Process_Packet(void *client);	// +0x08 0x8687F0 (clientstub.cpp l.227)
-	char Unknown0C[0x8];	// +0x0C
-};
-
 // opcode 136 (0x0088, PETITION_STUCK): vtable 0xB0B594, constructor 0x89F860, 0x20 bytes
 class PetitionStuckPacketClass : public PacketClass  // NAME 3: the client's Print text 'PetitionStuck {' and the PacketClass convention
 {
@@ -1334,30 +906,6 @@ public:
 	PetitionStuckPacketClass(RawPacketClass *raw);	// 0x89F860
 	virtual bool Process_Packet(void *client);	// +0x08 0x868A00 (clientstub.cpp l.260)
 	char Unknown0C[0x14];	// +0x0C
-};
-
-// opcode 140 (0x008C, LOOT_HULK_PERMISSION): vtable 0xB09AE4, constructor 0x873830, 0x10 bytes
-class LootHulkPermissionPacketClass : public PacketClass
-{
-public:
-	LootHulkPermissionPacketClass(RawPacketClass *raw);	// 0x873830
-	char Unknown0C[0x4];	// +0x0C
-};
-
-// opcode 89 (0x0059, ?): vtable 0xB0AE04, constructor 0x894AA0, 0x14 bytes
-class HullUpgradePacketClass : public PacketClass
-{
-public:
-	HullUpgradePacketClass(RawPacketClass *raw);	// 0x894AA0
-	char Unknown0C[0x8];	// +0x0C
-};
-
-// opcode 102 (0x0066, OPEN_INTERFACE): vtable 0xB0B534, constructor 0x89F290, 0x14 bytes
-class OpenInterfacePacketClass : public PacketClass
-{
-public:
-	OpenInterfacePacketClass(RawPacketClass *raw);	// 0x89F290
-	char Unknown0C[0x8];	// +0x0C
 };
 
 // opcode 137 (0x0089, RELATIONSHIP): vtable 0xB09B14, constructor 0x873C30, 0x20 bytes
@@ -1384,15 +932,6 @@ public:
 	char Unknown0C[0x18];	// +0x0C
 };
 
-// opcode 141 (0x008D, INCAPACITANCE_REQUEST): vtable 0xB099F4, constructor 0x871FE0, 0x10 bytes
-class IncapacitanceRequestPacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name INCAPACITANCE_REQUEST (the Net-7 opcode table; no structure check)
-{
-public:
-	IncapacitanceRequestPacketClass(RawPacketClass *raw);	// 0x871FE0
-	virtual bool Process_Packet(void *client);	// +0x08 0x868A30 (clientstub.cpp l.263)
-	char Unknown0C[0x4];	// +0x0C
-};
-
 // opcode 142 (0x008E, ?): vtable 0xB09A24, constructor 0x872200, 0x14 bytes
 class Packet_008EClass : public PacketClass  // NAME 1: neutral (D10): opcode 0x008E
 {
@@ -1400,15 +939,6 @@ public:
 	Packet_008EClass(RawPacketClass *raw);	// 0x872200
 	virtual bool Process_Packet(void *client);	// +0x08 0x868A60 (clientstub.cpp l.266)
 	char Unknown0C[0x8];	// +0x0C
-};
-
-// opcode 143 (0x008F, ?): vtable 0xB09A54, constructor 0x872450, 0x10 bytes
-class Packet_008FClass : public PacketClass  // NAME 1: neutral (D10): opcode 0x008F
-{
-public:
-	Packet_008FClass(RawPacketClass *raw);	// 0x872450
-	virtual bool Process_Packet(void *client);	// +0x08 0x868A90 (clientstub.cpp l.269)
-	char Unknown0C[0x4];	// +0x0C
 };
 
 // opcode 144 (0x0090, ?): vtable 0xB09A84, constructor 0x872A80, 0x198 bytes
@@ -1468,22 +998,6 @@ public:
 	char Unknown0C[0x10];	// +0x0C
 };
 
-// opcode 149 (0x0095, JOB_DELETE): vtable 0xB0AF54, constructor 0x896D10, 0x10 bytes
-class JobDeletePacketClass : public PacketClass
-{
-public:
-	JobDeletePacketClass(RawPacketClass *raw);	// 0x896D10
-	char Unknown0C[0x4];	// +0x0C
-};
-
-// opcode 150 (0x0096, JOB_ACCEPT_REPLY): vtable 0xB0AF84, constructor 0x896F60, 0x18 bytes
-class JobAcceptReplyPacketClass : public PacketClass
-{
-public:
-	JobAcceptReplyPacketClass(RawPacketClass *raw);	// 0x896F60
-	char Unknown0C[0xC];	// +0x0C
-};
-
 // opcode 151 (0x0097, GALAXY_MAP): vtable 0xB0992C, constructor 0x870FD0, 0x1C bytes
 class GalaxyMapPacketClass : public PacketClass
 {
@@ -1509,14 +1023,6 @@ public:
 	char Unknown0C[0x18];	// +0x0C
 };
 
-// opcode 154 (0x009A, ?): vtable 0xB0B4D4, constructor 0x89ED50, 0x14 bytes
-class NavDeletePacketClass : public PacketClass
-{
-public:
-	NavDeletePacketClass(RawPacketClass *raw);	// 0x89ED50
-	char Unknown0C[0x8];	// +0x0C
-};
-
 // opcode 155 (0x009B, WARP): vtable 0xB0C330, constructor 0x8B1BA0, 0x14 bytes
 class WarpPacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name WARP (the Net-7 opcode table; no structure check)
 {
@@ -1532,48 +1038,6 @@ class WarpIndexPacketClass : public PacketClass
 public:
 	WarpIndexPacketClass(RawPacketClass *raw);	// 0x8B1EB0
 	char Unknown0C[0x4];	// +0x0C
-};
-
-// opcode 157 (0x009D, STARBASE_AVATAR_CHANGE): vtable 0xB0B8F8, constructor 0x8A36B0, 0x28 bytes
-class Starbase_Avatar_ChangePacketClass : public PacketClass  // NAME 3: the client's Print text 'Starbase_Avatar_Change {' and the PacketClass convention
-{
-public:
-	Starbase_Avatar_ChangePacketClass(RawPacketClass *raw);	// 0x8A36B0
-	virtual bool Process_Packet(void *client);	// +0x08 0x868B50 (clientstub.cpp l.281)
-	char Unknown0C[0x1C];	// +0x0C
-};
-
-// opcode 158 (0x009E, STARBASE_AVATAR_CHANGE): vtable 0xB0B928, constructor 0x8A3A40, 0x28 bytes
-class StarbaseAvatarUpdatePacketClass : public PacketClass
-{
-public:
-	StarbaseAvatarUpdatePacketClass(RawPacketClass *raw);	// 0x8A3A40
-	char Unknown0C[0x1C];	// +0x0C
-};
-
-// opcode 159 (0x009F, STARBASE_ROOM_CHANGE): vtable 0xB0B958, constructor 0x8A3D60, 0x18 bytes
-class Starbase_Room_ChangePacketClass : public PacketClass  // NAME 3: the client's Print text 'Starbase_Room_Change {' and the PacketClass convention
-{
-public:
-	Starbase_Room_ChangePacketClass(RawPacketClass *raw);	// 0x8A3D60
-	virtual bool Process_Packet(void *client);	// +0x08 0x868B80 (clientstub.cpp l.284)
-	char Unknown0C[0xC];	// +0x0C
-};
-
-// opcode 160 (0x00A0, STARBASE_ROOM_CHANGE): vtable 0xB0B988, constructor 0x8A4020, 0x18 bytes
-class StarbaseAvatarRoomUpdatePacketClass : public PacketClass
-{
-public:
-	StarbaseAvatarRoomUpdatePacketClass(RawPacketClass *raw);	// 0x8A4020
-	char Unknown0C[0xC];	// +0x0C
-};
-
-// opcode 178 (0x00B2, NAME_DECAL): vtable 0xB0A230, constructor 0x880EE0, 0x40 bytes
-class NameDecalPacketClass : public PacketClass
-{
-public:
-	NameDecalPacketClass(RawPacketClass *raw);	// 0x880EE0
-	char Unknown0C[0x34];	// +0x0C
 };
 
 // opcode 179 (0x00B3, ?): vtable 0xB09658, constructor 0x867250, 0x20 bytes
@@ -1652,15 +1116,6 @@ public:
 	Packet_00A9Class(RawPacketClass *raw);	// 0x87B7C0
 	virtual bool Process_Packet(void *client);	// +0x08 0x868D00 (clientstub.cpp l.308)
 	char Unknown0C[0x74];	// +0x0C
-};
-
-// opcode 170 (0x00AA, ?): vtable 0xB09F90, constructor 0x87C230, 0x14 bytes
-class Packet_00AAClass : public PacketClass  // NAME 1: neutral (D10): opcode 0x00AA
-{
-public:
-	Packet_00AAClass(RawPacketClass *raw);	// 0x87C230
-	virtual bool Process_Packet(void *client);	// +0x08 0x868D30 (clientstub.cpp l.311)
-	char Unknown0C[0x8];	// +0x0C
 };
 
 // opcode 171 (0x00AB, ?): vtable 0xB09FC0, constructor 0x87C6C0, 0x50 bytes
@@ -1766,15 +1221,6 @@ public:
 	char Unknown0C[0x1C];	// +0x0C
 };
 
-// opcode 175 (0x00AF, ?): vtable 0xB0A7F4, constructor 0x889BE0, 0x14 bytes
-class Packet_00AFClass : public PacketClass  // NAME 1: neutral (D10): opcode 0x00AF
-{
-public:
-	Packet_00AFClass(RawPacketClass *raw);	// 0x889BE0
-	virtual bool Process_Packet(void *client);	// +0x08 0x868EB0 (clientstub.cpp l.335)
-	char Unknown0C[0x8];	// +0x0C
-};
-
 // opcode 176 (0x00B0, ?): vtable 0xB0A824, constructor 0x889F30, 0x40 bytes
 class Packet_00B0Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x00B0
 {
@@ -1791,15 +1237,6 @@ public:
 	Packet_00B1Class(RawPacketClass *raw);	// 0x88ABC0
 	virtual bool Process_Packet(void *client);	// +0x08 0x868F10 (clientstub.cpp l.341)
 	char Unknown0C[0x34];	// +0x0C
-};
-
-// opcode 188 (0x00BC, CTA_REQUEST): vtable 0xB097DC, constructor 0x86F0F0, 0x18 bytes
-class CTA_Request_PacketClass : public PacketClass  // NAME 3: the client's Print text 'CTA_Request_Packet {' and the PacketClass convention
-{
-public:
-	CTA_Request_PacketClass(RawPacketClass *raw);	// 0x86F0F0
-	virtual bool Process_Packet(void *client);	// +0x08 0x868DF0 (clientstub.cpp l.323)
-	char Unknown0C[0xC];	// +0x0C
 };
 
 // opcode 189 (0x00BD, CTA_RESPONSE): vtable 0xB0980C, constructor 0x86F3C0, 0x18 bytes
@@ -2001,15 +1438,6 @@ public:
 	char Unknown0C[0x10];	// +0x0C
 };
 
-// opcode 212 (0x00D4, GUILD_RANK_NAMES_REQUEST_CLIENT): vtable 0xB0A9D4, constructor 0x88D8C0, 0x10 bytes
-class GuildRankNamesRequestClientPacketClass : public PacketClass  // NAME 3: the client's Print text 'GuildRankNamesRequestClient {' and the PacketClass convention
-{
-public:
-	GuildRankNamesRequestClientPacketClass(RawPacketClass *raw);	// 0x88D8C0
-	virtual bool Process_Packet(void *client);	// +0x08 0x8691B0 (clientstub.cpp l.383)
-	char Unknown0C[0x4];	// +0x0C
-};
-
 // opcode 213 (0x00D5, GUILD_RANK_NAMES_GUILD): vtable 0xB0ACA4, constructor 0x892670, 0x28 bytes
 class GuildRankNamesGuildPacketClass : public PacketClass  // NAME 3: the client's Print text 'GuildRankNamesGuild {' and the PacketClass convention
 {
@@ -2189,28 +1617,12 @@ public:
 	char Unknown0C[0x14];	// +0x0C
 };
 
-// opcode 120 (0x0078, ?): vtable 0xB09628, constructor 0x866DF0, 0x10 bytes
-class Packet_0078Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x0078
-{
-public:
-	Packet_0078Class(RawPacketClass *raw);	// 0x866DF0
-	char Unknown0C[0x4];	// +0x0C
-};
-
 // opcode 232 (0x00E8, ?): vtable 0xB0BB08, constructor 0x8A55A0, 0x14 bytes
 class Packet_00E8Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x00E8
 {
 public:
 	Packet_00E8Class(RawPacketClass *raw);	// 0x8A55A0
 	virtual bool Process_Packet(void *client);	// +0x08 0x869600 (clientstub.cpp l.452)
-	char Unknown0C[0x8];	// +0x0C
-};
-
-// opcode 233 (0x00E9, ?): vtable 0xB09DAC, constructor 0x878030, 0x14 bytes
-class ReferralPointsAvailablePacketClass : public PacketClass
-{
-public:
-	ReferralPointsAvailablePacketClass(RawPacketClass *raw);	// 0x878030
 	char Unknown0C[0x8];	// +0x0C
 };
 
