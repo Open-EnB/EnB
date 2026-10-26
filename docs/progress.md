@@ -1031,9 +1031,13 @@ client's own code: [kernel-map.md](kernel-map.md) §6. Adding a file: [workflow.
    `__FILE__` rule (D77) and the draw-dump regression check (D78) are decided; carry them out where
    not yet done. `--pool K` exists for `importer.py verify` only (c7b8bcc); `bytematch_all.sh` and
    `importer.py refine` still lack it.
-6. `WW3D::Make_Screen_Shot` 0x9182C0: Zero Hour's gamma/format plus E&B's JPG case through a wwlib
-   JPEG writer (ctor 0x9E3850, dtor 0x9E3860, save 0x9E3870; class after srandom.cpp); 0.85, only
-   register scheduling left (`.work/night/item7b/v_mss.py`, `run_mss.py`; untracked, historical).
+6. `WW3D::Make_Screen_Shot` 0x9182C0 and `Update_Movie_Capture` 0x918B20 (the same residue): E&B's
+   rebased LockRect rectangle. **Parked 2026-10-25** after builder C (~60 forms) and the coordinator
+   (~50 more, `.work/c/README-mss.md`): VC6 collapses every local source form into two canonical outputs,
+   neither the client's (left loaded first, the subtrahend register reused, the bottom edge stored after
+   the leas, esi/ebx unused though free); a second RECT grows the frame; /G3-/GB change nothing. Next
+   lead: a function-wide allocation effect from the JPG path's locals, or a shared E&B helper; not
+   another local rewrite.
 7. D19's distortion draw 0x9961E0 (369 masked rows): the client builds 6 `??_H` Transpose temps
    with out-of-line `Vector4()`, ours 5; look for missing inline calls/temporaries earlier in the
    function (fits the 0x18-bigger frame).
