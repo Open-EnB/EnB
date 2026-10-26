@@ -121,7 +121,7 @@ class ArrayList
     INITIAL_SIZE = 10
   };
 
-  bit8             growVector(void);   // Expand the number of slots
+  bit8             growVector(sint32 howmany=1);   // Expand the number of slots  // E&B: room for howmany more (0x8BE7A0)
   bit8             shrinkVector(void); // Reduce the number of slots
 };
 
@@ -635,12 +635,12 @@ sint32 ArrayList<T>::length(void) RO
 
 // Grow the vector by a factor of 2X 
 template <class T>
-bit8 ArrayList<T>::growVector(void)
+bit8 ArrayList<T>::growVector(sint32 howmany)
 {
-  if (Entries_ < Slots_)   // Don't grow until we're at 100% usage
+  if (Entries_+howmany < Slots_)   // Don't grow until we're at 100% usage
     return(FALSE);
 
-  int   newSlots=Entries_*2;
+  int   newSlots=(Entries_+howmany)*2;
   if(newSlots < INITIAL_SIZE)
     newSlots=INITIAL_SIZE;
 

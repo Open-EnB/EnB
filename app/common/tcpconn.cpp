@@ -545,7 +545,7 @@ int TCPConnection::Transport_Read(void *buf, int len)
 **	  accepted socket 0x829C80 (line 564) and the listener with its key file 'server_rsa_keyset.dat'
 **	  0x829E00-0x82AA10 (lines 645-780, the server's): not rebuilt.
 **	* The TCP layer is WWOnline wnet's TCPMgr / TCPCon (libs\wwonline\wnet, D73): E&B's TCPCon is an
-**	  OutputDevice with a lock and tcpqueue.cpp's queues (tcpcon.cpp not imported: declared only),
+**	  OutputDevice with a lock and tcpqueue.cpp's queues (wnet's tcpcon.cpp and tcpqueue.cpp),
 **	  TCPMgr::cancelConnect 0x8BD940 is E&B's.
 **	* Key (+0x30) is the session key from the exchange; while it is 0 the bytes go in the clear.
 **	  Transport_Write encrypts a copy (in WriteBuffer up to 0x400 bytes) with SendRC4 and, when

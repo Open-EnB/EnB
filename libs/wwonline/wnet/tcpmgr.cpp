@@ -26,7 +26,7 @@ TCPMgr::TCPMgr()
 	HandleSequence_=0;
 }
 
-TCPMgr::~TCPMgr()
+TCPMgr::~TCPMgr() throw()  // E&B (0x8BCA90)
 {
 }
 
@@ -295,6 +295,8 @@ TCPMgr::STATUS TCPMgr::getStatus(void)
   else if (status==WSAEALREADY) return(ALREADY);
   else if (status==WSAEWOULDBLOCK) return(WOULDBLOCK);
   else if (status==WSAEBADF) return(BADF);
+  else if (status==WSAECONNRESET) return(CONNRESET);  // E&B (0x8BDD40)
+  else if (status==WSAENOTCONN) return(CONNRESET);  // E&B (0x8BDD40)
   else     return(UNKNOWN);
  #else
   int status=errno;

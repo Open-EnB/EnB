@@ -1,6 +1,6 @@
 {
  "app": {
-  "ambiguous_total": 56,
+  "ambiguous_total": 58,
   "base": "reconstructed",
   "compile_errors": [],
   "files": {
@@ -369,6 +369,7 @@
      "0x436730",
      "0x49CEF0",
      "0x76FE80",
+     "0x778CF0",
      "0x856320"
     ],
     "copy": "reconstructed",
@@ -402,6 +403,8 @@
    "cordmgr": {
     "ambiguous": [
      "0x76FE80",
+     "0x778CF0",
+     "0x778EB0",
      "0x856320"
     ],
     "copy": "reconstructed",
@@ -409,6 +412,7 @@
     "in_tree": [
      "0x444160",
      "0x857850",
+     "0x8596F0",
      "0x859F80"
     ],
     "merged": [],
@@ -2585,7 +2589,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 1008,
+  "in_tree_total": 1009,
   "totals": {}
  },
  "binkmovie": {
@@ -2714,6 +2718,7 @@
     "headers_from": null,
     "in_tree": [
      "0x77B030",
+     "0x77B690",
      "0x850820",
      "0x8B38D0"
     ],
@@ -2816,6 +2821,7 @@
     "in_tree": [
      "0x8B8150",
      "0x8B8220",
+     "0x8B8270",
      "0x8B8330",
      "0x8B9570",
      "0x8B9740",
@@ -2903,16 +2909,47 @@
    "wtime.h": "Z",
    "xtime.h": "Z"
   },
-  "in_tree_total": 76,
+  "in_tree_total": 78,
   "totals": {
    "Z": 74
   }
  },
  "wnet": {
-  "ambiguous_total": 0,
+  "ambiguous_total": 4,
   "base": "Z",
   "compile_errors": [],
   "files": {
+   "tcpcon": {
+    "ambiguous": [],
+    "copy": "reconstructed",
+    "expected": {
+     "R": 0,
+     "Z": 0
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x8B4450",
+     "0x8BBA70",
+     "0x8BBC60",
+     "0x8BBC90",
+     "0x8BBE40",
+     "0x8BBF00",
+     "0x8BBFA0",
+     "0x8BC040",
+     "0x8BC170",
+     "0x8BC280",
+     "0x8BC4F0",
+     "0x8BC600",
+     "0x8BC680",
+     "0x8BC6A0",
+     "0x8BC710",
+     "0x8BC7D0",
+     "0x8BC8C0",
+     "0x8BC980"
+    ],
+    "merged": [],
+    "name": "tcpcon.cpp"
+   },
    "tcpmgr": {
     "ambiguous": [],
     "copy": "R",
@@ -2923,14 +2960,46 @@
     "headers_from": null,
     "in_tree": [
      "0x8BCA90",
+     "0x8BCAE0",
+     "0x8BCEF0",
      "0x8BD1F0",
+     "0x8BD240",
+     "0x8BD680",
      "0x8BD8E0",
      "0x8BD910",
+     "0x8BDA80",
+     "0x8BDD40",
      "0x8BDE20",
-     "0x8BDF30"
+     "0x8BDF30",
+     "0x8BE7A0"
     ],
     "merged": [],
     "name": "tcpmgr.cpp"
+   },
+   "tcpqueue": {
+    "ambiguous": [
+     "0x76FE80",
+     "0x76FEE0",
+     "0x778CF0",
+     "0x856320"
+    ],
+    "copy": "reconstructed",
+    "expected": {
+     "R": 0,
+     "Z": 0
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x8BE860",
+     "0x8BE890",
+     "0x8BE980",
+     "0x8BEA30",
+     "0x8BEAC0",
+     "0x8BED40",
+     "0x8BF1C0"
+    ],
+    "merged": [],
+    "name": "tcpqueue.cpp"
    },
    "udp": {
     "ambiguous": [],
@@ -2942,18 +3011,20 @@
     "headers_from": null,
     "in_tree": [
      "0x8BFAB0",
-     "0x8C01D0"
+     "0x8C01D0",
+     "0x8C0220"
     ],
     "merged": [],
     "name": "udp.cpp"
    }
   },
   "headers": {
-   "tcpcon.h": "R",
+   "tcpcon.h": "reconstructed",
    "tcpmgr.h": "R",
+   "tcpqueue.h": "reconstructed",
    "udp.h": "Z"
   },
-  "in_tree_total": 8,
+  "in_tree_total": 41,
   "totals": {
    "R": 7,
    "Z": 3

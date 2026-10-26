@@ -94,7 +94,8 @@ class TCPMgr {
     PIPE				=-12,		 // That operation just made a SIGPIPE
     WOULDBLOCK		=-13,		 // That operation would block
     INVAL			=-14,	    // Invalid
-    TIMEDOUT		=-15		 // Timeout
+    TIMEDOUT		=-15,		 // Timeout
+    CONNRESET		=-16		 // E&B: WSAECONNRESET or WSAENOTCONN (getStatus 0x8BDD40)  // NAME 2: what it means
   };
 
   enum DIRECTION
@@ -105,7 +106,7 @@ class TCPMgr {
   };
 
             TCPMgr();
-            ~TCPMgr();
+            ~TCPMgr() throw();  // E&B: no unwind states (0x8BCA90)
 
   bit8      addListener(uint32 ip, uint16 port, bit8 reuseAddr);
   bit8      removeListener(uint32 ip, uint16 port);

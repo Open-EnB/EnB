@@ -218,7 +218,10 @@ LIB_FLAGS = {'wwshade': '/nologo /c /MT /W3 /O2 /Ob1 /GX /D _MBCS /D ENABLE_WWPR
              # E&B's own code (D23): /GX (the STL corpus matches 533 functions with it, 501 without,
              # docs/app-plan.md 1; bitset.cpp 12/12 either way), otherwise the libraries' flags;
              # NDEBUG through APP_LIBS' defines (D61). tools/re/appfile.py's APP_FLAGS is the same.
-             'app': '/nologo /c /MT /W3 /O2 /Ob2 /GX'}
+             'app': '/nologo /c /MT /W3 /O2 /Ob2 /GX',
+             # WWOnline's wnet: /GX. E&B's TCPCon constructor 0x8BBA70 and destructor 0x8BBC90 and tcpqueue.cpp's
+             # TCPQueue::~TCPQueue 0x8BE890, add 0x8BF1C0, addHead 0x8BED40 have EH frames (handlers 0xAE03E9..0xAE050B)
+             'wnet': '/nologo /c /MT /W3 /O2 /Ob2 /GX'}
 
 
 # EA files the client does not link: not imported (plan, assemble) and dropped from the state.
@@ -3050,27 +3053,42 @@ WWONLINE_PATCHES = {
          '',
          "as sint8: bittype.h's sint32 / uint32"),
     ],
-    ('wnet', 'tcpcon.h'): [
-        ('#include "wlib/arraylist.h"\n',
-         '#include "wlib/arraylist.h"\n#include "wlib/odevice.h"\n',
-         "E&B's TCPCon is an OutputDevice (wlib odevice.h): its constructor 0x8BBA70 stores the base vtable 0xB0C47C (OutputDevice's scalar destructor 0x8B4450) before its own 0xB0C4C8"),
-        ('class TCPCon /// : OutputDevice\n',
-         'class TCPCon : public OutputDevice  // E&B: the base RenegadeGR commented out (0x8BBA70)\n',
-         "as above; tcpconn.cpp's Disconnect 0x829960 deletes it through slot 0 (`call [eax]` with 1)"),
-        ('   void    close(void); \n',
-         '   void    close(bit8 now);  // E&B 0x8BBE40: unless now, the buffered writes go first  // NAME 2: what it does\n',
-         "0x8BBE40 takes a byte (tcpconn.cpp's Disconnect passes 1): when it is 0 and writes are buffered (+0x34) it pumps them (0x8BC040) until the queue is empty, then shuts the socket down"),
-        ('   /// virtual int print(IN char *str, int len); \n',
-         "   virtual int print(IN char *str, int len);  // E&B: OutputDevice's (declared; tcpcon.cpp not imported)\n",
-         "the OutputDevice base needs it; E&B's tcpcon.cpp is not imported (none of RenegadeGR's functions match)"),
-        ('   friend  class TCPMgr;\n   void    pumpWrites(void);  // for buffered mode\n',
-         '   friend  class TCPMgr;\n   friend  class TCPConnection;  // E&B: tcpconn.cpp pumps the writes (0x829960, 0x829BC0)\n   sint32  pumpWrites(void);  // for buffered mode  // E&B 0x8BC040: returns a value (0x8BBF00 tests it)\n',
-         "E&B's tcpconn.cpp calls pumpWrites 0x8BC040 (Disconnect 0x829960, Transport_Read 0x829BC0), and TCPCon::write 0x8BBF00 uses its result (`neg eax; sbb eax, eax`)"),
-    ],
     ('wnet', 'tcpmgr.h'): [
         ('  bit8      getIncomingConnection(TCPCon **conn, uint16 port, sint32 wait_secs);\n',
          '  bit8      getIncomingConnection(TCPCon **conn, uint16 port, sint32 wait_secs);\n  bit8      cancelConnect(uint32 handle);  // E&B 0x8BD940: drops a pending connect  // NAME 2: what it does\n',
          "E&B's addition 0x8BD940 (after getIncomingConnection 0x8BD910): finds the pending connection whose handle (+0x10 of its 0x24-byte record) is the argument, closes its socket and removes it (ArrayList remove inlined); tcpconn.cpp's destructor 0x828EC0 and Disconnect 0x829960 call it with their handle (+0x28)"),
+        ('    TIMEDOUT\t\t=-15\t\t // Timeout\n',
+         '    TIMEDOUT\t\t=-15,\t\t // Timeout\n    CONNRESET\t\t=-16\t\t // E&B: WSAECONNRESET or WSAENOTCONN (getStatus 0x8BDD40)  // NAME 2: what it means\n',
+         "E&B's STATUS has a -16 (CONNRESET): getStatus 0x8BDD40 returns it for WSAECONNRESET (0x2746) and WSAENOTCONN (0x2749); TCPCon's read 0x8BC280, normalWrite 0x8BC170 and pumpReads 0x8BC4F0 end quietly on it, isConnected 0x8BC8C0 treats it as closed"),
+        ('            ~TCPMgr();\n',
+         '            ~TCPMgr() throw();  // E&B: no unwind states (0x8BCA90)\n',
+         "wnet is built with /GX (TCPMgr::wait 0x8BDA80 has an EH frame for its Wtime locals), yet E&B's ~TCPMgr 0x8BCA90 has none: the three ArrayList members' destructors inlined without unwind states. VC6 /GX gives exactly that for a destructor declared throw() (without it: an EH frame with states 1, 0, -1). The form is the compiler's evidence, not a source line"),
+    ],
+    ('wlib', 'arraylist.h'): [
+        ('  bit8             growVector(void);   // Expand the number of slots\n',
+         '  bit8             growVector(sint32 howmany=1);   // Expand the number of slots  // E&B: room for howmany more (0x8BE7A0)\n',
+         "E&B's ArrayList grows by a count: growVector(howmany) makes room for Entries_+howmany ((Entries_+howmany)*2 slots); TCPMgr's ArrayList<PendingConn>::growVector 0x8BE7A0 is out of line with the argument (`add eax, [esp+8]; cmp eax, Slots_`, `ret 4`, its callers in 0x8BD240 push 1), and add's two inlined calls test Entries_+1 (`inc eax`, 0x8BF620, TCPQueue::add 0x8BF1C0)"),
+        ("bit8 ArrayList<T>::growVector(void)\n{\n  if (Entries_ < Slots_)   // Don't grow until we're at 100% usage\n    return(FALSE);\n\n  int   newSlots=Entries_*2;\n",
+         "bit8 ArrayList<T>::growVector(sint32 howmany)\n{\n  if (Entries_+howmany < Slots_)   // Don't grow until we're at 100% usage\n    return(FALSE);\n\n  int   newSlots=(Entries_+howmany)*2;\n",
+         "E&B's ArrayList grows by a count: growVector(howmany) makes room for Entries_+howmany ((Entries_+howmany)*2 slots); TCPMgr's ArrayList<PendingConn>::growVector 0x8BE7A0 is out of line with the argument (`add eax, [esp+8]; cmp eax, Slots_`, `ret 4`, its callers in 0x8BD240 push 1), and add's two inlined calls test Entries_+1 (`inc eax`, 0x8BF620, TCPQueue::add 0x8BF1C0)"),
+    ],
+    ('wlib', 'wtime.cpp'): [
+        (" #endif\n}\n\n\n// Parses a date string that's in modified RFC 1123 format\n",
+         " #endif\n}\n\n// E&B: sleep for msec milliseconds (0x8B8270, between Update and ParseDate); TCPCon's close waits\n// with it for the buffered writes. matchbot's matcher.cpp calls msleep(1); EA's copy has no definition.\nvoid msleep(sint32 msec)\n{\n  struct timeval tv;\n  tv.tv_sec=msec/1000;\n  tv.tv_usec=(msec%1000)*1000;\n  select(0,NULL,NULL,NULL,&tv);\n}\n\n// Parses a date string that's in modified RFC 1123 format\n",
+         "E&B's msleep 0x8B8270 (between Wtime::Update 0x8B8220 and ParseDate 0x8B8330): select(0, 0, 0, 0, {msec / 1000, msec % 1000 * 1000}); TCPCon's destructor, close and setBufferedWrites call it with 1 (0x8BBCF1, 0x8BBE72, 0x8BBFDA); matchbot's matcher.cpp calls msleep(1), EA's copy has no definition"),
+    ],
+    ('wlib', 'wtime.h'): [
+        ('class Wtime\n',
+         'void msleep(sint32 msec);  // E&B: 0x8B8270 (wtime.cpp)\n\nclass Wtime\n',
+         "msleep's declaration (0x8B8270, wtime.cpp)"),
+    ],
+    ('wnet', 'tcpmgr.cpp'): [
+        ('  else if (status==WSAEBADF) return(BADF);\n',
+         '  else if (status==WSAEBADF) return(BADF);\n  else if (status==WSAECONNRESET) return(CONNRESET);  // E&B (0x8BDD40)\n  else if (status==WSAENOTCONN) return(CONNRESET);  // E&B (0x8BDD40)\n',
+         'getStatus 0x8BDD40: WSAECONNRESET and WSAENOTCONN give CONNRESET (-16), after WSAEBADF'),
+        ('TCPMgr::~TCPMgr()\n',
+         'TCPMgr::~TCPMgr() throw()  // E&B (0x8BCA90)\n',
+         "wnet is built with /GX (TCPMgr::wait 0x8BDA80 has an EH frame for its Wtime locals), yet E&B's ~TCPMgr 0x8BCA90 has none: the three ArrayList members' destructors inlined without unwind states. VC6 /GX gives exactly that for a destructor declared throw() (without it: an EH frame with states 1, 0, -1). The form is the compiler's evidence, not a source line"),
     ],
 }
 for _key, _edits in WWONLINE_PATCHES.items():
@@ -3093,6 +3111,14 @@ for _key, _edits in BINKMOVIE_PATCHES.items():
 # Files reconstructed by us from the client (no EA copy matches): `assemble` keeps the repository's
 # version, and refine leaves them alone. Each entry: (library, file) -> what was done.
 RECONSTRUCTED = {
+    ('wnet', 'tcpcon.cpp'): "E&B's TCPCon (0x8BBA70-0x8BCA50) on the plan of Renegade's RenegadeGR tcpcon.cpp, written from "
+                           "the client: an OutputDevice over two TCPQueues, a CritSec taken when Locking_ is set, the peer's "
+                           "address cached, TCPMgr::CONNRESET ending reads and writes; E&B's pumpReads, peekRead / endPeekRead, "
+                           "setLocking and print. All 18 functions byte-exact (RenegadeGR's own matches none)",
+    ('wnet', 'tcpcon.h'): "E&B's TCPCon class (0x7C bytes: the constructor 0x8BBA70's stores) on RenegadeGR's tcpcon.h",
+    ('wnet', 'tcpqueue.cpp'): "E&B's TCPQueue (0x8BE860-0x8BF5F0, the client's file of that name, by __FILE__): "
+                             "bytes in 1024-byte buffers, a spare list; its FAIL_IFs on the client's lines; no EA copy has it",
+    ('wnet', 'tcpqueue.h'): "TCPQueue and its buffer record (names neutral but Queue, D56)",
     ('wwlib', 'rc4.cpp'): "E&B's RC4Class: a runtime-built initial key, the 8- and 16-byte key setups "
                           "inlined into Prepare_Key, inline assembly in the 16-byte setup and RC4(); "
                           "Print_State and operator= are Zero Hour's. All 5 functions byte-exact "

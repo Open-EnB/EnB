@@ -43,6 +43,8 @@ wtime                      Neal Kettler
 
 #include "wstypes.h"
 
+void msleep(sint32 msec);  // E&B: 0x8B8270 (wtime.cpp)
+
 class Wtime
 {
   public:

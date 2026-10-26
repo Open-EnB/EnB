@@ -97,6 +97,15 @@ void Wtime::Update(void)
  #endif
 }
 
+// E&B: sleep for msec milliseconds (0x8B8270, between Update and ParseDate); TCPCon's close waits
+// with it for the buffered writes. matchbot's matcher.cpp calls msleep(1); EA's copy has no definition.
+void msleep(sint32 msec)
+{
+  struct timeval tv;
+  tv.tv_sec=msec/1000;
+  tv.tv_usec=(msec%1000)*1000;
+  select(0,NULL,NULL,NULL,&tv);
+}
 
 // Parses a date string that's in modified RFC 1123 format
 // Can have a +minutes after the normal time
