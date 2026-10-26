@@ -25,7 +25,7 @@ the builders' rules are in [builders.md](builders.md).
 ## 1. What exists (2026-10-25)
 
 * M1 is met on gates (a)-(d); the harness is `tests/capharness/` with `tools/harness/`.
-* M2 is met apart from the one-time supervised E&BConfig run (D63: an acceptance check, not a gate; the repeatable check of gate (c) is `tools/harness/vidtest_e2e.py`).
+* M2 is complete: the one-time supervised E&BConfig run (D63) passed 2026-10-25 (progress.md log); the repeatable check of gate (c) stays `tools/harness/vidtest_e2e.py`.
 * The app library is at 458 byte-exact pairs, 54 ambiguous. Auxdata, the root schemas, wwudp, the kernel, the connection layer and the packet factory are rebuilt (newest entry of progress.md).
 * The link step works: `tools/vc6/build.py` builds the eight libraries, `build.py link --program vidtest` links vidtest.exe (§3).
 * The decode path's reference table is [decode-path.md](decode-path.md). VIDTEST's spec is [vidtest.md](vidtest.md).
@@ -216,7 +216,7 @@ and layout must be visible.
   folder, runs our vidtest.exe instead of the original and reads its `results.ini`.
 * **(d) Errors.** No asserts during the run. Every stub that is called is listed and justified.
 
-**Status 2026-10-25.** M2 is met on gates (a), (b), (d) and the repeatable check of (c), `tools/harness/vidtest_e2e.py` (D63: the supervised E&BConfig run is a one-time acceptance check, not a gate). Per-gate figures: library-matching.md §3.8 "M2 gate status".
+**Status 2026-10-25.** M2 is met on all four gates: (a), (b), (d), and (c) both by its repeatable check, `tools/harness/vidtest_e2e.py`, and by the one-time supervised E&BConfig run of D63 (passed 2026-10-25, evening: the original E&BConfig displayed every value our vidtest wrote; registry unchanged). Per-gate figures: library-matching.md §3.8 "M2 gate status".
 
 ### 4.2 Work items
 

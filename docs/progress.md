@@ -4,6 +4,21 @@ Newest first within each section. Dates are when the entry was written.
 
 ## 1. Log
 
+### 2026-10-25 (evening): D63's supervised E&BConfig run passed; M2 complete
+
+The one-time acceptance check of M2 gate (c): the user ran the original `E&BConfig.exe` (build 8168,
+2004) unelevated from the EBCONFIG copy at `build/programs/vidtest/e2e_ebconfig/`, with our vidtest
+(build 2026-10-24 22:43) in place as `VIDTEST.EXE`, and pressed Performance Test. Our vidtest ran the
+three tests to the end at the configured 1280x1024x32 windowed and exited 1; E&BConfig read its
+`results.ini` and displayed Fill Rate FPS 3529, Polygon Budget 30000, Star Budget 2000, Land Polygon
+Budget 28000, Land LOD 7, Texture Reduction 0, Peak Poly Rate 57655 KPolys/s, every value as written
+(`vidtest.log` line 358). "Free Texture + AGP RAM = -10.486 MB" is E&BConfig's own `atoi` wrapping our
+`FreeTextureRam=4284481536` (a 4 GB card) to -10485760 and dividing by 10^6: the 2004 tool's limit, not
+a defect of ours (the original VIDTEST reports the same figure on this card; `vidtest_e2e.py` emulates
+the wrap). The user cancelled at "Press OK to save settings". Registry: the WOW6432Node, VirtualStore
+and 64-bit `Westwood Studios` keys were exported to `.work/regbackup/` before the run and are
+byte-identical after it. No message box appeared. M2 is complete on all four gates.
+
 ### 2026-10-25 (later): the C# proxy audited, renamed the reference decoder (the reference decoder), its test-harness repo retired; EnB paths follow
 
 The D79 question was settled as an audit of `the reference decoder` plus the first housekeeping there (that
@@ -925,7 +940,7 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 | D60 | 2026-10-24 | M1 gate (b) is met with one documented exception: capture_1 #24128 (a Hulk, header byte 0x55 under a parent marking that child cleared) decodes but can't be re-encoded by the client's encoder; the harness doesn't keep header bytes as read | user |
 | D61 | 2026-10-24 | The app library compiles with NDEBUG (in APP_LIBS' defines; G_ASSERT / FAIL_IF don't depend on it), confirmed by a verify that changes no pair; files stop defining it themselves | user |
 | D62 | 2026-10-25 | Builders may run in parallel on disjoint items (replaces D32), under the shared-tree rule: never compile the other builder's changes into a verify (check `git diff` of shared files: importer.py, app headers, stubs, docs/data), commit only your own hunks, keep the uncommitted window short, never wait for a clean tree (that deadlocked both builders for an hour on 2026-10-24). The importer lock serialises `verify` ([builders.md](builders.md)) | user (approved for the 2026-10-24 unsupervised run; recorded 2026-10-25) |
-| D63 | 2026-10-25 | M2 gate (c)'s repeatable check is `tools/harness/vidtest_e2e.py` (E&BConfig's command line, results.ini). A supervised run of the original E&BConfig with the user, registry backed up first, is a one-time acceptance check, not a gate. D36 reworded: E&BConfig.exe isn't rebuilt | user |
+| D63 | 2026-10-25 | M2 gate (c)'s repeatable check is `tools/harness/vidtest_e2e.py` (E&BConfig's command line, results.ini). A supervised run of the original E&BConfig with the user, registry backed up first, is a one-time acceptance check, not a gate. D36 reworded: E&BConfig.exe isn't rebuilt. **Passed 2026-10-25** (log entry of that evening): every displayed value as our results.ini, registry unchanged | user |
 | D64 | 2026-10-25 | `// NOT EXACT:` is a general interim marker for app code written functionally from pseudocode, not only on the M1/M2 path (D42); D7 stays the target. `tools/re/names.py` lists every marked function in the generated `docs/data/not-exact.md` | user |
 | D65 | 2026-10-25 | D10/D16's neutral names are NAME 1 on D56's scale, replaced whenever better evidence appears (conventions.md §1 reworded) | user |
 | D66 | 2026-10-25 | Pair losses. Not losses, named in the commit message: (i) a COMDAT duplicate kept matched in another file (D20); (ii) the same source compiled into two files (D55); (iii) a false match exposed by a type fix (first: 0x8C1520, `KVPairTemplateClass<__int64>`'s string setter, matched by the money instance only while `MoneyClass` was a bare `__int64`). Anything else is a loss and waits for the user before the commit. D54's ambiguous column stays as is: the 17 identical template leaf Reads are not pairs | user |
