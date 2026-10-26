@@ -20,6 +20,7 @@
 #include "pk.h"
 #include "pkaction.h"	// rebuilt
 #include "pkauxdata.h"	// rebuilt
+#include "pkcameracontrol.h"	// rebuilt
 #include "pkchangebaseasset.h"	// rebuilt
 #include "pkclickindicator.h"	// rebuilt
 #include "pkclientavatar.h"	// rebuilt
@@ -60,6 +61,7 @@
 #include "pkstarbasetow.h"	// rebuilt
 #include "pkstart.h"	// rebuilt
 #include "pktalktreeaction.h"	// rebuilt
+#include "pktask.h"	// rebuilt
 #include "pktilt.h"	// rebuilt
 #include "pktrade.h"	// rebuilt
 #include "pkturn.h"	// rebuilt
@@ -69,13 +71,18 @@
 #include "pkunknown_85f250.h"	// rebuilt
 #include "pkunknown_85f870.h"	// rebuilt
 #include "pkunknown_860d30.h"	// rebuilt
+#include "pkunknown_865020.h"	// rebuilt
+#include "pkunknown_8667a0.h"	// rebuilt
 #include "pkunknown_866ac0.h"	// rebuilt
 #include "pkunknown_867010.h"	// rebuilt
 #include "pkunknown_87a940.h"	// rebuilt
 #include "pkunknown_87acd0.h"	// rebuilt
 #include "pkunknown_888b60.h"	// rebuilt
 #include "pkunknown_8a2b70.h"	// rebuilt
+#include "pkunknown_8a5510.h"	// rebuilt
 #include "pkunknown_8a6430.h"	// rebuilt
+#include "pkupdate.h"	// rebuilt
+#include "pkverbrequest.h"	// rebuilt
 #include "pkversionrequest.h"	// rebuilt
 
 // the base of PriorityMessageLinePacketClass, QueueMessageLinePacketClass, PushMessageLinePacketClass: vtable 0xB0B3A4, constructor 0x89D8A0
@@ -100,14 +107,6 @@ public:
 	char Unknown0C[0xAC];	// +0x0C
 };
 
-// opcode 64 (0x0040, CONSTANT_POSITIONAL_UPDATE): vtable 0xB0C0B4, constructor 0x8ABBF0, 0x34 bytes
-class ConstantPositionalUpdatePacketClass : public PacketClass
-{
-public:
-	ConstantPositionalUpdatePacketClass(RawPacketClass *raw);	// 0x8ABBF0
-	char Unknown0C[0x28];	// +0x0C
-};
-
 // opcode 8 (0x0008, SIMPLE_POSITIONAL_UDPATE): vtable 0xB0C0E8, constructor 0x8AC1B0, 0x44 bytes
 class SimplePositionalUpdatePacketClass : public PacketClass
 {
@@ -122,14 +121,6 @@ class AdvancedPositionalUpdatePacketClass : public PacketClass
 public:
 	AdvancedPositionalUpdatePacketClass(RawPacketClass *raw);	// 0x8ACAB0
 	char Unknown0C[0x68];	// +0x0C
-};
-
-// opcode 63 (0x003F, PLANET_POSITIONAL_UPDATE): vtable 0xB0C16C, constructor 0x8ADDF0, 0x3C bytes
-class PlanetPositionalUpdatePacketClass : public PacketClass
-{
-public:
-	PlanetPositionalUpdatePacketClass(RawPacketClass *raw);	// 0x8ADDF0
-	char Unknown0C[0x30];	// +0x0C
 };
 
 // opcode 70 (0x0046, COMPONENT_POSITIONAL_UPDATE): vtable 0xB0C1A0, constructor 0x8AE240, 0x54 bytes
@@ -486,24 +477,6 @@ public:
 	char Unknown0C[0x2BC];	// +0x0C
 };
 
-// opcode 115 (0x0073, ?): vtable 0xB094C0, constructor 0x865150, 0x68 bytes
-class Packet_0073Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x0073
-{
-public:
-	Packet_0073Class(RawPacketClass *raw);	// 0x865150
-	virtual bool Process_Packet(void *client);	// +0x08 0x8688E0 (clientstub.cpp l.242)
-	char Unknown0C[0x5C];	// +0x0C
-};
-
-// opcode 116 (0x0074, ?): vtable 0xB095F4, constructor 0x866870, 0x68 bytes
-class Packet_0074Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x0074
-{
-public:
-	Packet_0074Class(RawPacketClass *raw);	// 0x866870
-	virtual bool Process_Packet(void *client);	// +0x08 0x868910 (clientstub.cpp l.245)
-	char Unknown0C[0x5C];	// +0x0C
-};
-
 // opcode 117 (0x0075, GLOBAL_ERROR): vtable 0xB09490, constructor 0x864C90, 0x24 bytes
 class GlobalErrorPacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name GLOBAL_ERROR (the Net-7 opcode table; no structure check)
 {
@@ -685,24 +658,6 @@ public:
 	char Unknown0C[0x218];	// +0x0C
 };
 
-// opcode 5002 (0x138A, ?): vtable 0xB0BDE8, constructor 0x8A90D0, 0x14 bytes
-class Packet_138AClass : public PacketClass  // NAME 1: neutral (D10): opcode 0x138A
-{
-public:
-	Packet_138AClass(RawPacketClass *raw);	// 0x8A90D0
-	virtual bool Process_Packet(void *client);	// +0x08 0x868460 (clientstub.cpp l.170)
-	char Unknown0C[0x8];	// +0x0C
-};
-
-// opcode 5003 (0x138B, ?): vtable 0xB0BE1C, constructor 0x8A9360, 0x14 bytes
-class Packet_138BClass : public PacketClass  // NAME 1: neutral (D10): opcode 0x138B
-{
-public:
-	Packet_138BClass(RawPacketClass *raw);	// 0x8A9360
-	virtual bool Process_Packet(void *client);	// +0x08 0x868490 (clientstub.cpp l.173)
-	char Unknown0C[0x8];	// +0x0C
-};
-
 // opcode 5004 (0x138C, ?): vtable 0xB0BE50, constructor 0x8A95F0, 0x18 bytes
 class Packet_138CClass : public PacketClass  // NAME 1: neutral (D10): opcode 0x138C
 {
@@ -739,15 +694,6 @@ public:
 	char Unknown0C[0x34];	// +0x0C
 };
 
-// opcode 90 (0x005A, VERB_REQUEST): vtable 0xB0C234, constructor 0x8AEB60, 0x18 bytes
-class VerbRequestPacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name VERB_REQUEST (the Net-7 opcode table; no structure check)
-{
-public:
-	VerbRequestPacketClass(RawPacketClass *raw);	// 0x8AEB60
-	virtual bool Process_Packet(void *client);	// +0x08 0x868010 (clientstub.cpp l.101)
-	char Unknown0C[0xC];	// +0x0C
-};
-
 // opcode 91 (0x005B, ?): vtable 0xB0C268, constructor 0x8AF150, 0x20 bytes
 class VerbListPacketClass : public PacketClass
 {
@@ -762,14 +708,6 @@ class VerbUpdatePacketClass : public PacketClass
 public:
 	VerbUpdatePacketClass(RawPacketClass *raw);	// 0x8AFD10
 	char Unknown0C[0x24];	// +0x0C
-};
-
-// opcode 5011 (0x1393, ?): vtable 0xB0BF54, constructor 0x8AA870, 0xC bytes
-class Packet_1393Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x1393
-{
-public:
-	Packet_1393Class(RawPacketClass *raw);	// 0x8AA870
-	virtual bool Process_Packet(void *client);	// +0x08 0x8685B0 (clientstub.cpp l.191)
 };
 
 // opcode 5010 (0x1392, ?): vtable 0xB0BF20, constructor 0x8AA490, 0x18 bytes
@@ -905,14 +843,6 @@ class IncapacitanceDetailsPacket : public PacketClass
 public:
 	IncapacitanceDetailsPacket(RawPacketClass *raw);	// 0x872A80
 	char Unknown0C[0x18C];	// +0x0C
-};
-
-// opcode 146 (0x0092, CAMERA_CONTROL): vtable 0xB09DDC, constructor 0x878390, 0x18 bytes
-class CameraControlPacketClass : public PacketClass
-{
-public:
-	CameraControlPacketClass(RawPacketClass *raw);	// 0x878390
-	char Unknown0C[0xC];	// +0x0C
 };
 
 // opcode 161 (0x00A1, TRIGGER_EMOTE): vtable 0xB0A52C, constructor 0x8860A0, 0x14 bytes
@@ -1443,15 +1373,6 @@ public:
 	Packet_0077Class(RawPacketClass *raw);	// 0x866C20
 	virtual bool Process_Packet(void *client);	// +0x08 0x8695D0 (clientstub.cpp l.449)
 	char Unknown0C[0x14];	// +0x0C
-};
-
-// opcode 232 (0x00E8, ?): vtable 0xB0BB08, constructor 0x8A55A0, 0x14 bytes
-class Packet_00E8Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x00E8
-{
-public:
-	Packet_00E8Class(RawPacketClass *raw);	// 0x8A55A0
-	virtual bool Process_Packet(void *client);	// +0x08 0x869600 (clientstub.cpp l.452)
-	char Unknown0C[0x8];	// +0x0C
 };
 
 // opcode 129 (0x0081, RECUSTOMIZE_SHIP_START): vtable 0xB0B5C4, constructor 0x89FB50, 0x1B4 bytes

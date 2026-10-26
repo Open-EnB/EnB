@@ -78,6 +78,12 @@ def decl(cls, ctors):
         if isinstance(body, tuple):
             body = byoff[body[1]]['cname']
         out.append('\tvirtual %s %s() { return(%s); }\t// +0x%02X 0x%X' % (typ, nm, body, off, f))
+    if cls.get('gettype'):
+        tag = "  // NAME 2: what it returns (the opcode Build sends), as MessageLinePacketClass's"
+        if cls['gettype'] < cls['sdd']:
+            out.append('\tvirtual int Get_Type() { return(%d); }\t// +0x28 0x%X%s' % (cls['op'], cls['gettype'], tag))
+        else:
+            out.append('\tvirtual int Get_Type();\t// +0x28 0x%X%s' % (cls['gettype'], tag))
     for off, f in cls['extra']:
         out.append('\tvirtual bool Unknown_%02X(void *a);\t// +0x%02X 0x%X (clientstub.cpp l.%d)  '
                    '// NAME 1: neutral (D10)' % (off, off, f, stub_line(f)))
@@ -180,7 +186,8 @@ def defs(cls):
     out.append((cls['ctor'], ['%s::%s(RawPacketClass *%s)%s' % (cls['name'], cls['name'], 'raw' if uses else '', il),
                               '{'] + get + ['}']))
     b = ['RawPacketClass *%s::Build()' % cls['name'], '{',
-         '\tRawPacketClass *raw = new RawPacketClass(%d, Get_Data_Size());' % cls['op']]
+         '\tRawPacketClass *raw = new RawPacketClass(%s, Get_Data_Size());' % (
+             'Get_Type()' if cls.get('gettype') else cls['op'])]
     for off, kind, n in cls['adds']:
         mv = byoff[off]
         if kind == 'raw':
@@ -191,6 +198,8 @@ def defs(cls):
             b.append('\traw->Add(%s);' % mv['cname'])
     b += ['\treturn(raw);', '}']
     out.append((cls['build'], b))
+    if cls.get('gettype') and cls['gettype'] > cls['sdd']:
+        out.append((cls['gettype'], ['int %s::Get_Type()' % cls['name'], '{', '\treturn(%d);' % cls['op'], '}']))
     terms = []
     for off, kind, n in cls['adds']:
         nm = byoff[off]['cname']

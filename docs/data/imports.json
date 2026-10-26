@@ -1,6 +1,6 @@
 {
  "app": {
-  "ambiguous_total": 66,
+  "ambiguous_total": 69,
   "base": "reconstructed",
   "compile_errors": [],
   "files": {
@@ -2427,10 +2427,17 @@
     "name": "shared/stars.cpp"
    },
    "tcpconn": {
-    "ambiguous": [],
+    "ambiguous": [
+     "0x443F30",
+     "0x49CB70",
+     "0x4ACBB0"
+    ],
     "copy": "reconstructed",
     "expected": {},
     "in_tree": [
+     "0x820C70",
+     "0x828AA0",
+     "0x828B10",
      "0x828C80",
      "0x828DB0",
      "0x828DE0",
@@ -2443,8 +2450,19 @@
      "0x829A30",
      "0x829BC0",
      "0x829C80",
+     "0x82A2C0",
+     "0x82A2F0",
      "0x82A650",
-     "0x82A6C0"
+     "0x82A6C0",
+     "0x82A990",
+     "0x82B0E0",
+     "0x82B4B0",
+     "0x82B590",
+     "0x82B600",
+     "0x82BAD0",
+     "0x82BE30",
+     "0x82BE80",
+     "0x82C530"
     ],
     "merged": [],
     "name": "common/tcpconn.cpp"
@@ -2879,7 +2897,7 @@
    "packets/pkauxdata.h": "reconstructed",
    "packets/pkgloballock.h": "reconstructed"
   },
-  "in_tree_total": 1176,
+  "in_tree_total": 1190,
   "totals": {}
  },
  "binkmovie": {

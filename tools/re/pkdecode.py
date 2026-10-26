@@ -376,6 +376,7 @@ def decode_build(f):
     opcode = None
     adds = []
     vcalls = 0
+    typecall = False    # the opcode from the class's Get_Type (slot +0x28)
     for ins in c:
         m, o = ins.mnemonic, ops(ins)
         if m == 'push':
@@ -420,6 +421,10 @@ def decode_build(f):
                 if o[0] in ('dword ptr [eax + 0xc]', 'dword ptr [edx + 0xc]', 'dword ptr [ecx + 0xc]'):
                     vcalls += 1
                     pushes = []
+                    regs['eax'] = None
+                    continue
+                if re.match(r'^dword ptr \[e[a-d]x \+ 0x28\]$', o[0]) and not typecall:
+                    typecall = True
                     regs['eax'] = None
                     continue
                 raise Fail('Build: call')
@@ -475,9 +480,9 @@ def decode_build(f):
             if m == 'xor' and o[0] in REGS:
                 regs[o[0]] = None
             continue
-    if opcode is None or vcalls != 1:
+    if (opcode is None) == (not typecall) or vcalls != 1:
         raise Fail('Build: shape')
-    return opcode, adds
+    return opcode, adds, typecall
 
 
 def decode_size(f):
@@ -744,7 +749,15 @@ def analyse(op, name, vt, ctor, size):
     acts = acts2
     if nargs != 1:
         raise Fail('ctor: args')
-    opcode, adds = decode_build(slot(vt, 4))
+    opcode, adds, typecall = decode_build(slot(vt, 4))
+    gettype = None
+    if typecall:
+        # Build's `new RawPacketClass(Get_Type(), Get_Data_Size())`: Get_Type returns the opcode
+        gettype = slot(vt, 0x28)
+        c28 = code(gettype)
+        if len(c28) != 2 or c28[0].mnemonic != 'mov' or ops(c28[0])[0] != 'eax' or not isimm(ops(c28[0])[1]) or                 c28[1].mnemonic != 'ret' or c28[1].op_str:
+            raise Fail('Get_Type body')
+        opcode = imm(ops(c28[0])[1])
     if opcode != op:
         raise Fail('Build: opcode')
     dsize = decode_size(slot(vt, 0xC))
@@ -757,14 +770,14 @@ def analyse(op, name, vt, ctor, size):
                 raise Fail('slot +0x14')
             over[off] = (f, slot_body(f))
     extra = []
-    off = 0x28
+    off = 0x2C if gettype else 0x28
     while 0x401000 <= slot(vt, off) < 0x8C1B50:
         f = slot(vt, off)
         if not (CLIENTSTUB[0] <= f < CLIENTSTUB[1]):
             raise Fail('slot +0x28..')
         extra.append((off, f))
         off += 4
-    cls.update(acts=acts, adds=adds, dsize=dsize, pfn=fn, fmt=fmt, pargs=rest, pp=slot(vt, 8), over=over,
+    cls.update(gettype=gettype, acts=acts, adds=adds, dsize=dsize, pfn=fn, fmt=fmt, pargs=rest, pp=slot(vt, 8), over=over,
                extra=extra, build=slot(vt, 4), sizef=slot(vt, 0xC), printf=slot(vt, 0x10), sdd=slot(vt, 0))
     mems = {}
     for so, init in strings.items():
