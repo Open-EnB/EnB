@@ -891,7 +891,6 @@
      "0x443F30",
      "0x444190",
      "0x49CB70",
-     "0x4ACBB0",
      "0x4D8F80"
     ],
     "copy": "reconstructed",
@@ -907,10 +906,13 @@
      "0x826760",
      "0x826790",
      "0x8267E0",
+     "0x826870",
      "0x826A50",
      "0x826C60",
      "0x826CB0",
      "0x826EB0",
+     "0x826F90",
+     "0x826FC0",
      "0x827130",
      "0x8271B0",
      "0x827250",
@@ -2714,7 +2716,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 1096,
+  "in_tree_total": 1099,
   "totals": {}
  },
  "binkmovie": {

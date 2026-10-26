@@ -78,15 +78,14 @@ bool MemoryConnectionClass::Disconnect()
 
 void MemoryConnectionClass::Clear_Pipe(MemoryPipeClass *pipe)
 {
-	for (std::list<MemoryMessageClass>::iterator it = pipe->Messages.begin(); it != pipe->Messages.end(); it++) {
+	for (std::list<MemoryMessageClass>::iterator it = pipe->Messages.begin(); it != pipe->Messages.end(); ++it) {
 		delete it->Packet;
 	}
 	pipe->Messages.clear();
 }
 
 // Each pipe is freed with its last connection
-// NOT EXACT: the client's two inlined Clear_Pipe copies inline the list's erase differently (the first calls
-// erase(first, last) 0x827450, the second inlines it around 0x827510 / 0x827400); ours calls begin() and erase.
+// (Clear_Pipe's loop takes `++it`: `it++` spends the inline budget, so the two copies here inline less.)
 void MemoryConnectionClass::Release()
 {
 	if (SendPipe != 0) {
@@ -112,6 +111,7 @@ void MemoryConnectionClass::Create_Pair(MemoryConnectionClass *&c1, MemoryConnec
 {
 	c1 = new MemoryConnectionClass;
 	c2 = new MemoryConnectionClass;
+
 
 
 
@@ -232,9 +232,9 @@ MemoryListenerClass::MemoryListenerClass() :
 unsigned short MemoryListenerClass::Get_Port() { return(PortNumber); }
 bool MemoryListenerClass::Is_Listening() { return(PortNumber != 0); }
 
-// NOT EXACT: inlining (the client's frame is 8 bytes smaller and calls the list's erase 0x8274C0).
 MemoryListenerClass::~MemoryListenerClass()
 {
+
 
 
 
@@ -254,7 +254,7 @@ MemoryListenerClass::~MemoryListenerClass()
 
 void MemoryListenerClass::Clear_Pending()
 {
-	for (std::list<ConnectionClass *>::iterator it = Pending.begin(); it != Pending.end(); it++) {
+	for (std::list<ConnectionClass *>::iterator it = Pending.begin(); it != Pending.end(); ++it) {
 		delete *it;
 	}
 	Pending.clear();
