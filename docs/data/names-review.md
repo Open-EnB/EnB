@@ -10,7 +10,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 4 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 28 |
 | 3 | by convention from a client-named file or sibling | 276 |
-| 2 | describes what the code does | 707 |
+| 2 | describes what the code does | 709 |
 | 1 | neutral placeholder | 661 |
 
 ## For review (score 3 and below)
@@ -104,11 +104,11 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `StreamConnectionClass` | `app/common/connect.h:82` | describes what it is |
 | 1 | `PeekConnectionClass` | `app/common/connect.h:105` | describes what it is |
 | 1 | `ConnectionListenerClass` | `app/common/connect.h:118` | describes what it is |
-| 1 | `ConnectionEntryClass` | `app/common/connect.h:147` | describes what it is |
-| 1 | `Unknown05` | `app/common/connect.h:151` | untagged neutral name (D10) |
-| 1 | `ConnectionManager` | `app/common/connect.h:157` | the client's log string |
-| 1 | `Set_Unknown05` | `app/common/connect.h:173` | untagged neutral name (D10) |
-| 1 | `Unknown1C` | `app/common/connect.h:185` | untagged neutral name (D10) |
+| 1 | `ConnectionEntryClass` | `app/common/connect.h:149` | describes what it is |
+| 1 | `Unknown05` | `app/common/connect.h:153` | untagged neutral name (D10) |
+| 1 | `ConnectionManager` | `app/common/connect.h:159` | the client's log string |
+| 1 | `Set_Unknown05` | `app/common/connect.h:175` | untagged neutral name (D10) |
+| 1 | `Unknown1C` | `app/common/connect.h:187` | untagged neutral name (D10) |
 | 1 | `Unknown2A` | `app/common/dbgconn.cpp:88` | untagged neutral name (D10) |
 | 1 | `Unknown_Get_Ticks` | `app/common/dbgconn.cpp:116` | untagged neutral name (D10) |
 | 1 | `Unknown_Get_Ticks` | `app/common/memconn.cpp:41` | untagged neutral name (D10) |
@@ -743,35 +743,37 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Stop` | `app/common/connect.h:125` | what it does |
 | 2 | `Accept` | `app/common/connect.h:126` | what it does |
 | 2 | `CompositeListenerClass` | `app/common/connect.h:132` | the client's log string |
-| 2 | `Listeners` | `app/common/connect.h:143` | what it holds |
-| 2 | `Connection` | `app/common/connect.h:149` | what it holds |
-| 2 | `Marked` | `app/common/connect.h:150` | what it holds |
-| 2 | `Peek` | `app/common/connect.h:162` | what it does |
-| 2 | `Get_Packet` | `app/common/connect.h:163` | what it does |
-| 2 | `Receive` | `app/common/connect.h:164` | what it does |
-| 2 | `Broadcast` | `app/common/connect.h:165` | what it does |
-| 2 | `Mark` | `app/common/connect.h:166` | what it does |
-| 2 | `Clear_Marks` | `app/common/connect.h:167` | what it does |
-| 2 | `Get_Port` | `app/common/connect.h:169` | what it does |
-| 2 | `Set_Name` | `app/common/connect.h:170` | what it does |
-| 2 | `Set_Listener` | `app/common/connect.h:171` | what it does |
-| 2 | `Accept_New` | `app/common/connect.h:172` | what it does |
-| 2 | `Remove_Connection` | `app/common/connect.h:174` | what it does |
-| 2 | `Add_Unwrapped` | `app/common/connect.h:175` | what it does |
-| 2 | `Destroy_Connection` | `app/common/connect.h:176` | what it does |
-| 2 | `Destroy_All` | `app/common/connect.h:177` | what it does |
-| 2 | `Remove_Dead` | `app/common/connect.h:178` | what it does |
-| 2 | `Is_Managed` | `app/common/connect.h:179` | what it does |
-| 2 | `Add_Connection` | `app/common/connect.h:180` | what it does |
-| 2 | `std:` | `app/common/connect.h:182` | what it holds |
-| 2 | `RoundRobin` | `app/common/connect.h:183` | what it holds |
-| 2 | `Current` | `app/common/connect.h:184` | what it holds |
-| 2 | `Name` | `app/common/connect.h:186` | what it holds |
-| 2 | `Listener` | `app/common/connect.h:187` | what it holds |
-| 2 | `Create_Connection` | `app/common/connect.h:192` | what it does |
-| 2 | `Create_Connection` | `app/common/connect.h:193` | what it does |
+| 2 | `TCP` | `app/common/connect.h:143` | what it holds |
+| 2 | `UDP` | `app/common/connect.h:144` | what it holds |
+| 2 | `Memory` | `app/common/connect.h:145` | what it holds |
+| 2 | `Connection` | `app/common/connect.h:151` | what it holds |
+| 2 | `Marked` | `app/common/connect.h:152` | what it holds |
+| 2 | `Peek` | `app/common/connect.h:164` | what it does |
+| 2 | `Get_Packet` | `app/common/connect.h:165` | what it does |
+| 2 | `Receive` | `app/common/connect.h:166` | what it does |
+| 2 | `Broadcast` | `app/common/connect.h:167` | what it does |
+| 2 | `Mark` | `app/common/connect.h:168` | what it does |
+| 2 | `Clear_Marks` | `app/common/connect.h:169` | what it does |
+| 2 | `Get_Port` | `app/common/connect.h:171` | what it does |
+| 2 | `Set_Name` | `app/common/connect.h:172` | what it does |
+| 2 | `Set_Listener` | `app/common/connect.h:173` | what it does |
+| 2 | `Accept_New` | `app/common/connect.h:174` | what it does |
+| 2 | `Remove_Connection` | `app/common/connect.h:176` | what it does |
+| 2 | `Add_Unwrapped` | `app/common/connect.h:177` | what it does |
+| 2 | `Destroy_Connection` | `app/common/connect.h:178` | what it does |
+| 2 | `Destroy_All` | `app/common/connect.h:179` | what it does |
+| 2 | `Remove_Dead` | `app/common/connect.h:180` | what it does |
+| 2 | `Is_Managed` | `app/common/connect.h:181` | what it does |
+| 2 | `Add_Connection` | `app/common/connect.h:182` | what it does |
+| 2 | `std:` | `app/common/connect.h:184` | what it holds |
+| 2 | `RoundRobin` | `app/common/connect.h:185` | what it holds |
+| 2 | `Current` | `app/common/connect.h:186` | what it holds |
+| 2 | `Name` | `app/common/connect.h:188` | what it holds |
+| 2 | `Listener` | `app/common/connect.h:189` | what it holds |
 | 2 | `Create_Connection` | `app/common/connect.h:194` | what it does |
-| 2 | `Create_Connection_Manager` | `app/common/connect.h:195` | what it does |
+| 2 | `Create_Connection` | `app/common/connect.h:195` | what it does |
+| 2 | `Create_Connection` | `app/common/connect.h:196` | what it does |
+| 2 | `Create_Connection_Manager` | `app/common/connect.h:197` | what it does |
 | 2 | `Log_Directory` | `app/common/dbgconn.cpp:15` | what it holds |
 | 2 | `Record_Sent` | `app/common/dbgconn.cpp:210` | what it does |
 | 2 | `Record_Received` | `app/common/dbgconn.cpp:211` | what it does |

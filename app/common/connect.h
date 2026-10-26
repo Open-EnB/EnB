@@ -127,20 +127,22 @@ public:
 };
 
 // The listener the manager factory 0x822F10 gives a manager (S: '%s is using composite manager'):
-// vtable 0xB0844C, constructor 0x820B30, 0x10 bytes; a TCP (0x829E50), a UDP (0x82E200) and a third
-// listener at +0x04..+0x0C, Accept asking each in turn (0x820EC0). Declared only.
+// vtable 0xB0844C, constructor 0x820B30, 0x10 bytes: a TCP, a UDP and a memory listener on one port
+// (unknown_listener.cpp, PROVISIONAL file name).
 class CompositeListenerClass : public ConnectionListenerClass	// NAME 2: the client's log string
 {
 public:
 	CompositeListenerClass();										// 0x820B30
-	virtual ~CompositeListenerClass();								// +0x00 0x820CA0
+	virtual ~CompositeListenerClass();								// +0x00 0x820CA0 / 0x820CD0
 	virtual bool Is_Listening();									// +0x04 0x820D70
 	virtual unsigned short Get_Port();								// +0x08 0x820DC0
 	virtual bool Listen(unsigned short port);						// +0x0C 0x820DE0
 	virtual bool Stop();											// +0x10 0x820E70
 	virtual ConnectionClass *Accept();								// +0x14 0x820EC0
 
-	ConnectionListenerClass *Listeners[3];	// +0x04  // NAME 2: what it holds
+	ConnectionListenerClass *TCP;		// +0x04 a TCPListenerClass (tcpconn.h)  // NAME 2: what it holds
+	ConnectionListenerClass *UDP;		// +0x08 a UDPListenerClass (udpconn.h)  // NAME 2: what it holds
+	ConnectionListenerClass *Memory;	// +0x0C a MemoryListenerClass (memconn.h)  // NAME 2: what it holds
 };
 
 // One managed connection (8 bytes): Mark sets the flag, Clear_Marks 0x822630 clears them all
