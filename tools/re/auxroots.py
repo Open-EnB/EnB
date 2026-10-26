@@ -92,6 +92,8 @@ BLOB_FORMS = {
     0xB01A40: ('20 bytes, constructed {1.0f, 0, 0, -1, 0} (0x705640)',
                'float F00; int I04; int I08; int I0C; int I10; NAME() : F00(1.0f), I04(0), I08(0), I0C(-1), I10(0) {} '
                'NAME(const NAME &v) { F00 = v.F00; I04 = v.I04; I08 = v.I08; I0C = v.I0C; I10 = v.I10; }'),
+    0xB016DC: ('12 bytes, constructed {-1, -1, -1} (the Mounts elements\' default, Ship 0x6F6E29)',
+               'int I00; int I04; int I08; NAME() : I00(-1), I04(-1), I08(-1) {}'),
     0xB03694: ('16 bytes, zeroed (0x757B00)',
                'int I00; int I04; int I08; int I0C; NAME() : I00(0), I04(0), I08(0), I0C(0) {}'),
 }
