@@ -1269,8 +1269,8 @@ Base copy: Renegade. Headers: 3 from reconstructed, 31 from Zero Hour, 90 from R
 | surfaceclass.cpp | Z | 29 | 1 | 20 | 6 | 6 |  |
 | texproject.cpp | Z | 26 | 2 | 14 | 14 | 17 |  |
 | texture.cpp | Z | 41 | 1 | 5 | 1 | 1 |  |
-| textureloader.cpp | R | 47 | 1 | 16 | 4 | 6 |  |
-| texturethumbnail.cpp | Z | 32 | 9 | 13 | 6 | 13 |  |
+| textureloader.cpp | R | 48 | 1 | 16 | 4 | 6 |  |
+| texturethumbnail.cpp | Z | 31 | 9 | 13 | 6 | 13 |  |
 | txt.cpp | R | 6 | 0 | 6 | 6 | 6 |  |
 | txt2d.cpp | G | 1 | 0 | 0 | 1 | 1 |  |
 | unknown_distortion.cpp | reconstructed | 39 | 17 | - | - | - |  |
