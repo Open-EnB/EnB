@@ -243,7 +243,7 @@ def match(a):
     for f in os.listdir(out) if os.path.isdir(out) else ():
         if f.lower().endswith('.obj'):
             os.remove(os.path.join(out, f))
-    defines = list(vc6.DEFAULT_DEFINES) + a.D  # with NDEBUG (D61), as APP_LIBS
+    defines = list(vc6.DEFAULT_DEFINES) + ['ENABLE_WWPROFILE'] + a.D  # with NDEBUG (D61) and ENABLE_WWPROFILE (D74), as APP_LIBS
     rc, log = vc6.compile_sources([a.draft], a.I, defines, a.flags, out)
     errors = [l for l in log.splitlines() if ' error ' in l or ' warning ' in l]
     print('\n'.join(errors[:30]))

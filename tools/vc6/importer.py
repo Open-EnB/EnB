@@ -188,7 +188,7 @@ HEADER_EXT = ('.h', '.hpp', '.inl')
 # load_state; plan, assemble and refine leave them alone. Not in LIBS (the EA libraries), so the
 # libraries' include paths don't see them.
 APP_LIBS = {
-    'app': {'defines': list(vc6.DEFAULT_DEFINES),
+    'app': {'defines': list(vc6.DEFAULT_DEFINES) + ['ENABLE_WWPROFILE'],   # D74
             'region': (0x401000, 0x8C1B50),
             'file_root': r'e:\build\beta\G'},
 }
