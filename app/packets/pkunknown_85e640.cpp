@@ -34,8 +34,8 @@ int Packet_7536Class::Print(char *buffer, int)
 **	Reconstruction notes (pkunknown_85e640.cpp)
 **
 **	* Client 0x85E640-0x85F220 (the object ends with the guarded static every <string> includer has,
-**	  0xC416FC, atexit 0x42B320). Drafted from the client by the packet decoder (builder B,
-**	  2026-10-25): members from the raw message's Get / Build's Add (sizes) and Print (types,
+**	  0xC416FC, atexit 0x42B320). Drafted from the client by the packet decoder (tools/re/pkdecode.py,
+**	  pkemit.py): members from the raw message's Get / Build's Add (sizes) and Print (types,
 **	  names: 'Name=%d'), the constructors' stores in the initialiser list.
 **	* The file name is provisional (provisional, neutral (D10): the object's first address).
 **	* Not rebuilt yet: opcode 30005, 30008 (declared in pk_classes.h).

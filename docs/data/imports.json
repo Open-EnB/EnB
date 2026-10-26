@@ -792,6 +792,10 @@
     "in_tree": [
      "0x42A820",
      "0x42AB30",
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
      "0x8696C0",
      "0x869790",
      "0x86E8A0",
@@ -851,6 +855,24 @@
     ],
     "merged": [],
     "name": "packets/pkchangebaseasset.cpp"
+   },
+   "pkclickindicator": {
+    "ambiguous": [
+     "0x42B2F0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x87E870",
+     "0x87E910",
+     "0x87EA00"
+    ],
+    "merged": [],
+    "name": "packets/pkclickindicator.cpp"
    },
    "pkclientavatar": {
     "ambiguous": [
@@ -1239,6 +1261,23 @@
     "merged": [],
     "name": "packets/pkopeninterface.cpp"
    },
+   "pkoption": {
+    "ambiguous": [
+     "0x42B2F0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x89F5D0",
+     "0x89F6D0"
+    ],
+    "merged": [],
+    "name": "packets/pkoption.cpp"
+   },
    "pkpointeffect": {
     "ambiguous": [
      "0x42B2F0"
@@ -1427,6 +1466,8 @@
      "0x52B240",
      "0x52B270",
      "0x52B2A0",
+     "0x8A2EB0",
+     "0x8A2FB0",
      "0x8A32A0",
      "0x8A3450"
     ],
@@ -1483,6 +1524,23 @@
     ],
     "merged": [],
     "name": "packets/pktilt.cpp"
+   },
+   "pktrade": {
+    "ambiguous": [
+     "0x42B2F0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x8AB410",
+     "0x8AB500"
+    ],
+    "merged": [],
+    "name": "packets/pktrade.cpp"
    },
    "pkturn": {
     "ambiguous": [
@@ -2096,7 +2154,7 @@
    "wwudp/udp.h": "reconstructed",
    "wwudp/wtime.h": "reconstructed"
   },
-  "in_tree_total": 700,
+  "in_tree_total": 709,
   "totals": {}
  },
  "binkmovie": {

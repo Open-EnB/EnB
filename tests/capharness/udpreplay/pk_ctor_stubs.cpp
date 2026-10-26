@@ -26,14 +26,12 @@ AuxDataPacketClass::AuxDataPacketClass(RawPacketClass *raw) { Conn_Record(this, 
 AuxDataPlayerVarPacketClass::AuxDataPlayerVarPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 MessageStringPacketClass::MessageStringPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 GroupPacketClass::GroupPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-TradePacketClass::TradePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 SuperLinePacketClass::SuperLinePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 ClearMessageLinePacketClass::ClearMessageLinePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 ItemBasePacketClass::ItemBasePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 InventoryMovePacketClass::InventoryMovePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 InventorySortPacketClass::InventorySortPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 Action2PacketClass::Action2PacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-OptionPacketClass::OptionPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 ClientChatPacketClass::ClientChatPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 RequestTimePacketClass::RequestTimePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 SetClientTimePacketClass::SetClientTimePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
@@ -68,7 +66,6 @@ Packet_0048Class::Packet_0048Class(RawPacketClass *raw) { Conn_Record(this, raw)
 ModeChangePacketClass::ModeChangePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_004BClass::Packet_004BClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_004DClass::Packet_004DClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-StarbaseRequestPacketClass::StarbaseRequestPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 StarbaseSetPacketClass::StarbaseSetPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 LoungeNPCPacketClass::LoungeNPCPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 FindMemberPacketClass::FindMemberPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
@@ -92,7 +89,6 @@ MessageTimePacketClass::MessageTimePacketClass(RawPacketClass *raw) { Conn_Recor
 AvatarDescPacketClass::AvatarDescPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 GadgetPacketClass::GadgetPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_0068Class::Packet_0068Class(RawPacketClass *raw) { Conn_Record(this, raw); }
-ClickIndicatorPacketClass::ClickIndicatorPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 SoundPacketClass::SoundPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 ManufactureItemCatagoryPacketClass::ManufactureItemCatagoryPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 ManufactureTechLevelFilterPacketClass::ManufactureTechLevelFilterPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
@@ -195,6 +191,7 @@ bool RemovePacketClass::Process_Packet(void *) { return(true); }	// 0x7362F0
 bool PointEffectPacketClass::Process_Packet(void *) { return(true); }	// 0x735000
 bool RemoveEffectPacketClass::Process_Packet(void *) { return(true); }	// 0x735D50
 bool SetTargetPacketClass::Process_Packet(void *) { return(true); }	// 0x7363E0
+bool TradePacketClass::Process_Packet(void *) { return(true); }	// 0x739DE0
 bool ChangeBaseAssetPacketClass::Process_Packet(void *) { return(true); }	// 0x737400
 bool SetZBandPacketClass::Process_Packet(void *) { return(true); }	// 0x737520
 bool SetBBoxPacketClass::Process_Packet(void *) { return(true); }	// 0x737590
@@ -208,6 +205,7 @@ bool CreateAttachmentPacketClass::Process_Packet(void *) { return(true); }	// 0x
 bool StarbaseTowPacketClass::Process_Packet(void *) { return(true); }	// 0x738330
 bool TalkTreeActionPacketClass::Process_Packet(void *) { return(true); }	// 0x738730
 bool DamagePacketClass::Process_Packet(void *) { return(true); }	// 0x738970
+bool ClickIndicatorPacketClass::Process_Packet(void *) { return(true); }	// 0x7393D0
 bool SoundCommandPacketClass::Process_Packet(void *) { return(true); }	// 0x7384A0
 bool ManufactureSetPacketClass::Process_Packet(void *) { return(true); }	// 0x739330
 bool LootHulkPermissionPacketClass::Process_Packet(void *) { return(true); }	// 0x7396F0

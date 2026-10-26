@@ -36,8 +36,8 @@ int OpenInterfacePacketClass::Print(char *buffer, int len)
 **	Reconstruction notes (pkopeninterface.cpp)
 **
 **	* Client 0x89F1F0-0x89F460 (the object ends with the guarded static every <string> includer has,
-**	  0xC416FC, atexit 0x42B320). Drafted from the client by the packet decoder (builder B,
-**	  2026-10-25): members from the raw message's Get / Build's Add (sizes) and Print (types,
+**	  0xC416FC, atexit 0x42B320). Drafted from the client by the packet decoder (tools/re/pkdecode.py,
+**	  pkemit.py): members from the raw message's Get / Build's Add (sizes) and Print (types,
 **	  names: 'Name=%d'), the constructors' stores in the initialiser list.
 **	* The file name is provisional (provisional, pk + its first named class's name).
 */

@@ -20,6 +20,7 @@
 #include "pk.h"
 #include "pkaction.h"	// rebuilt
 #include "pkchangebaseasset.h"	// rebuilt
+#include "pkclickindicator.h"	// rebuilt
 #include "pkclientavatar.h"	// rebuilt
 #include "pkclientship.h"	// rebuilt
 #include "pkcreate.h"	// rebuilt
@@ -42,6 +43,7 @@
 #include "pknamedecal.h"	// rebuilt
 #include "pknavdelete.h"	// rebuilt
 #include "pkopeninterface.h"	// rebuilt
+#include "pkoption.h"	// rebuilt
 #include "pkpointeffect.h"	// rebuilt
 #include "pkreferralpointsavailable.h"	// rebuilt
 #include "pkremove.h"	// rebuilt
@@ -56,6 +58,7 @@
 #include "pkstart.h"	// rebuilt
 #include "pktalktreeaction.h"	// rebuilt
 #include "pktilt.h"	// rebuilt
+#include "pktrade.h"	// rebuilt
 #include "pkturn.h"	// rebuilt
 #include "pkuitrigger.h"	// rebuilt
 #include "pkunknown_85d1a0.h"	// rebuilt
@@ -270,14 +273,6 @@ public:
 	char Unknown0C[0x8];	// +0x0C
 };
 
-// opcode 31 (0x001F, TRADE): vtable 0xB0C018, constructor 0x8AB370, 0x14 bytes
-class TradePacketClass : public PacketClass
-{
-public:
-	TradePacketClass(RawPacketClass *raw);	// 0x8AB370
-	char Unknown0C[0x8];	// +0x0C
-};
-
 // opcode 32 (0x0020, PRIORITY_MESSAGE): vtable 0xB09760, constructor 0x89D8A0, 0x1C bytes
 class PriorityMessageLinePacketClass : public MessageLinePacketClass
 {
@@ -356,15 +351,6 @@ public:
 	Action2PacketClass(RawPacketClass *raw);	// 0x8767B0
 	virtual bool Process_Packet(void *client);	// +0x08 0x867E00 (clientstub.cpp l.68)
 	char Unknown0C[0x1C];	// +0x0C
-};
-
-// opcode 46 (0x002E, OPTION): vtable 0xB0B564, constructor 0x89F510, 0x18 bytes
-class OptionPacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name OPTION (the Net-7 opcode table; no structure check)
-{
-public:
-	OptionPacketClass(RawPacketClass *raw);	// 0x89F510
-	virtual bool Process_Packet(void *client);	// +0x08 0x868AC0 (clientstub.cpp l.272)
-	char Unknown0C[0xC];	// +0x0C
 };
 
 // opcode 51 (0x0033, CLIENT_CHAT): vtable 0xB09E10, constructor 0x8786E0, 0x20 bytes
@@ -660,15 +646,6 @@ public:
 	char Unknown0C[0x54];	// +0x0C
 };
 
-// opcode 78 (0x004E, STARBASE_REQUEST): vtable 0xB0B868, constructor 0x8A2DF0, 0x18 bytes
-class StarbaseRequestPacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name STARBASE_REQUEST (the Net-7 opcode table; no structure check)
-{
-public:
-	StarbaseRequestPacketClass(RawPacketClass *raw);	// 0x8A2DF0
-	virtual bool Process_Packet(void *client);	// +0x08 0x867F80 (clientstub.cpp l.92)
-	char Unknown0C[0xC];	// +0x0C
-};
-
 // opcode 79 (0x004F, STARBASE_SET): vtable 0xB0B898, constructor 0x8A3090, 0x14 bytes
 class StarbaseSetPacketClass : public PacketClass
 {
@@ -863,14 +840,6 @@ public:
 	Packet_0068Class(RawPacketClass *raw);	// 0x887DB0
 	virtual bool Process_Packet(void *client);	// +0x08 0x868640 (clientstub.cpp l.200)
 	char Unknown0C[0x10];	// +0x0C
-};
-
-// opcode 105 (0x0069, ?): vtable 0xB0A080, constructor 0x87E870, 0x14 bytes
-class ClickIndicatorPacketClass : public PacketClass
-{
-public:
-	ClickIndicatorPacketClass(RawPacketClass *raw);	// 0x87E870
-	char Unknown0C[0x8];	// +0x0C
 };
 
 // opcode 106 (0x006A, CLIENT_SOUND): vtable 0xB0BAA8, constructor 0x8A5050, 0x1C bytes
