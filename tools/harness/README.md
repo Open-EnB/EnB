@@ -388,6 +388,17 @@ python tools/harness/vidtest_sbs.py run; python tools/harness/vidtest_sbs.py sbs
 * **drawdump.py** reads those dumps: `groups FILE` (draws by FVF and textures), `list FILE [--fvf
   202]`, `show FILE N` (one draw's states and first vertices); `read()` for scripts (M2.4 settled
   the land's orientation, fog, culling, trees and lightmap with it).
+* **drawcheck.py** is M2's standard regression check beside the frame comparison (D78):
+  `python tools/harness/drawcheck.py run` dumps frame 900's draw calls of the original VIDTEST.EXE
+  (once, reused) and of our vidtest.exe through run_reference.py (about 15 s, `-nomsgbox`), and
+  compares the per-group tables (FVF, stride, textures: draws / prims / vertices) with
+  `drawcheck_baseline.json`; exit 0 and PASS when both are unchanged, else the groups that moved
+  (`--update-baseline` accepts a run; `compare ORIG.bin OURS.bin` is the strict draw-by-draw check,
+  lighting excluded, which does not pass yet). 2026-10-25 (libraries rebuilt that day): original 1,187
+  draws / 83,028 prims in 50 groups, ours 2,327 / 100,837 in 50; 3 groups differ, all known: our land
+  draws 1,502 tree-pass draws of the 256x256 format-26 map where the original draws 340, and the
+  lightmap is X8R8G8B8 in ours (format 22) where the original's is A8R8G8B8 (21). PASS twice in a row; our own two runs
+  differ in 17 draws' matrices / positions by the clock, so the check is on the tables.
 * **symbolize.py** names the addresses of vidtest's crash report (`CRASH:` lines in its log: the
   exception address and the stack words that point into its code) with the linker map.
 
@@ -416,6 +427,7 @@ Each script has its usage in its docstring; `python tools/harness/X.py --help` w
 | `convert.py` | EA-UDP dump to `.dgram` (above) | the dumps |
 | `build.py` | the M1.0 capharness skeleton (above) | a pool VM |
 | `refs.sh` | the reference decoder reference outputs (above) | the reference decoder built |
+| `drawcheck.py` | M2's draw-dump regression check (above): original vs ours at frame 900, group tables against `drawcheck_baseline.json` | the proxy (`run_reference.py build`), our vidtest.exe (`build.py link`) |
 | `auxdata_smoke.py` | builds and runs `tests/capharness/auxdata_smoke` (M1.2): both aux-data forms decode on a hand-built root and re-encode byte for byte; exit code 0 = pass | libraries built (`tools/vc6/build.py`, `mkmss32.py lib`), a pool VM |
 | `auxreplay.py` | M1.3 gates (b), (c): AUX_DATA round trip and values (above) | libraries, pool VM, `.work/harness/ref/` |
 | `n7aux.py` | AUX_DATA of Net-7 recordings through auxreplay (M1.5, above) | the reference decoder, sessions |
