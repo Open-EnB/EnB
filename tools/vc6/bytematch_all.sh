@@ -3,8 +3,14 @@
 # client's compiler and flags, each copy against its own sibling libraries, byte-matches the
 # objects against client.exe and writes docs/data/bytematch-<lib>.md/.json.
 #
-#   bash tools/vc6/bytematch_all.sh [WORKDIR]
+#   bash tools/vc6/bytematch_all.sh [--pool K] [WORKDIR]
+#
+# --pool K leases K VMs from pool.py for the run (agent bytematch-<pid>, sets ENB_VC6_HOSTS) and
+# releases them at the end, also when the script fails or is interrupted. Without it the VMs come
+# from the environment (ENB_VC6_HOSTS / ENB_VC6_HOST) or vc6.py's default.
 set -u
+POOL=""
+if [ "${1:-}" = "--pool" ]; then POOL="${2:?--pool needs a count}"; shift 2; fi
 HERE="$(cd "$(dirname "$0")" && pwd)"
 TOOLS="$(dirname "$HERE")"
 DATA="$(dirname "$TOOLS")/docs/data"
@@ -13,6 +19,18 @@ EA=C:/EnBDevelopment/EA
 DX=C:/EnBDevelopment/SDK/directx8/include
 RAD=C:/EnBDevelopment/SDK/radtools/include_enb   # tools/vc6/sdk_patch.py
 mkdir -p "$WORK"
+
+if [ -n "$POOL" ]; then
+  POOL_AGENT="bytematch-$$"
+  # pool.py lease prints ENB_VC6_HOSTS=<user@ip,...> as its last such line
+  LEASE_OUT="$(python "$HERE/pool.py" lease --agent "$POOL_AGENT" --count "$POOL")" \
+    || { echo "pool.py lease failed: $LEASE_OUT"; exit 1; }
+  HOSTS="$(printf '%s\n' "$LEASE_OUT" | grep '^ENB_VC6_HOSTS=' | tail -1 | cut -d= -f2-)"
+  [ -n "$HOSTS" ] || { echo "pool.py lease gave no ENB_VC6_HOSTS: $LEASE_OUT"; python "$HERE/pool.py" release --agent "$POOL_AGENT"; exit 1; }
+  trap 'python "$HERE/pool.py" release --agent "$POOL_AGENT"' EXIT
+  export ENB_VC6_HOSTS="$HOSTS"
+  echo "bytematch on pool VMs ($POOL_AGENT): $ENB_VC6_HOSTS"
+fi
 
 declare -A ROOT=(
   [R]=$EA/CnC_Renegade/Code

@@ -37,7 +37,7 @@ A job takes its VMs from `ENB_VC6_HOSTS=Daniel@<ip>[,...]` (printed by `pool.py 
 | `layout.py CLASS HEADER [-I dir]...` | A class's member offsets as VC6 lays them out |
 | `sdk_patch.py` | Derive `radtools\include_enb` (the Miles headers as E&B's build had them) beside the SDK |
 | `runtime_match.sh` | Byte-match the VC6 runtime libraries and D3DX (`docs/data/bytematch-*`) |
-| `bytematch_all.sh [WORKDIR]` | Compile all libraries from each EA copy (R, G, Z) and byte-match them (~4 min) |
+| `bytematch_all.sh [--pool K] [WORKDIR]` | Compile all libraries from each EA copy (R, G, Z) and byte-match them (~4 min) |
 
 ## Importing and refining the libraries (importer.py)
 

@@ -15,7 +15,8 @@ Z Zero Hour) and every source file, the client functions it reproduces byte for 
                           [--pool K [--holder-pid P]]  on K VMs leased from pool.py (agent
                                                    importer-<pid>), released afterwards
     python importer.py refine   --evidence DIR     swap files / splice functions from other copies
-                                                   where that adds matches and loses none
+                          [--pool K]               where that adds matches and loses none (--pool as
+                                                   for verify)
     python importer.py report                      write docs/imports.md
 
 State (what came from where, what was merged, what matches) is kept in docs/data/imports.json.
@@ -4247,7 +4248,7 @@ def main():
     ap.add_argument('--lock-wait', type=int, default=LOCK_WAIT,
                     help='seconds to wait for another importer run to finish (default %(default)s)')
     ap.add_argument('--pool', type=int, metavar='K',
-                    help='verify: lease K VMs from pool.py for this run (sets ENB_VC6_HOSTS), release after')
+                    help='verify/refine: lease K VMs from pool.py for this run (sets ENB_VC6_HOSTS), release after (also on failure)')
     ap.add_argument('--holder-pid', type=int,
                     help="--pool: the lease's long-lived holder pid (default pool.py's: $ENB_HOLDER_PID, $CLAUDE_PID)")
     a = ap.parse_args()
@@ -4273,14 +4274,13 @@ def main():
         print(f'replay into {a.out}: {len(problems)} problems, {len(diffs)} files differ from the repository')
         if problems or diffs:
             raise SystemExit(1)
-    if a.command in ('verify', 'all'):
-        if a.pool:
-            with pool_lease(a.pool, a.holder_pid):
+    if a.command in ('verify', 'refine', 'all'):
+        # one lease covers the whole run (also 'all'), released on success, failure and interrupt
+        with (pool_lease(a.pool, a.holder_pid) if a.pool else contextlib.nullcontext()):
+            if a.command in ('verify', 'all'):
                 save_state(verify(state, a.lib))
-        else:
-            save_state(verify(state, a.lib))
-    if a.command in ('refine', 'all'):
-        save_state(refine(state, ev, a.lib, [key_of(f) for f in a.file] if a.file else None))
+            if a.command in ('refine', 'all'):
+                save_state(refine(state, ev, a.lib, [key_of(f) for f in a.file] if a.file else None))
     if a.command in ('report', 'all'):
         report(state)
 

@@ -124,6 +124,11 @@ Tested (2026-10-24): `verify --lib wwdebug --pool 1` on `enb-vc6-01` (81, pairs 
 `verify --lib ww3d2 --pool 2` on `enb-vc6-01`/`02` (2,477, pairs unchanged, about 100 s); both
 leases released (`pool.py list`: free).
 
+`importer.py refine --pool K` and `tools/vc6/bytematch_all.sh --pool K [WORKDIR]` (2026-10-25) work the
+same way (agents `importer-<pid>` / `bytematch-<pid>`; the script leases in front of its loop and
+releases in an EXIT trap, so also after a failure or a kill). Tested: `refine --pool 1 --lib wnet`
+(gained 0, released) and the script killed 40 s into its first library (released).
+
 Measured (2026-10-24, `enb-vc6-01`): creating a clone 16 s; `lease` of a stopped clone, start
 to SSH and `cl` answering, 20 s; a compile stamps `@comp.id` build 8799; the differencing disk
 is 2.2 GB after first boot and a compile (2.17 GB of it from the first boot). Tested (2026-10-24): `reclaim` released fake leases whose holder pid had exited, whose pid
