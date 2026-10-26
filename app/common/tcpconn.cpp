@@ -134,7 +134,7 @@ bool TCPConnection::Connect(bool wait)
 	return(Try_Connect());
 }
 
-// NOT EXACT: the client keeps two copies of `Handle = 0; return(true);` (0x829108, 0x829123); ours shares one.
+// Each success returns from inside its own if-block (the client keeps the three `Handle = 0; return(true);` apart).
 bool TCPConnection::Try_Connect()
 {
 	if (Handle == 0) {
@@ -145,25 +145,25 @@ bool TCPConnection::Try_Connect()
 		return(true);
 	}
 	if (Con == 0) {
-		if (!TCPManager.getOutgoingConnection(&Con, Handle, 0)) {
-			return(false);
-		}
-		if (Con != 0) {
-			if (!Key_Exchange(false, 0)) {
-				return(false);
+		if (TCPManager.getOutgoingConnection(&Con, Handle, 0)) {
+			if (Con == 0) {
+				Handle = 0;
+				return(true);
 			}
-			Handle = 0;
-			return(true);
+			if (Key_Exchange(false, 0)) {
+				Handle = 0;
+				return(true);
+			}
 		}
+		return(false);
+	}
+	if (Key_Exchange(false, 0)) {
 		Handle = 0;
 		return(true);
 	}
-	if (!Key_Exchange(false, 0)) {
-		return(false);
-	}
-	Handle = 0;
-	return(true);
+	return(false);
 }
+
 
 bool TCPConnection::Is_Connected()
 {
