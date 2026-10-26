@@ -3376,6 +3376,8 @@ RECONSTRUCTED = {
                                  "average over one-second samples, inline (the destructor 0x824C30)",
     ('app', 'common/unknown_listener.cpp'): "PROVISIONAL file name (D10): the composite listener "
                                           "(vtable 0xB0844C), client 0x820B30-0x820EE5",
+    ('app', 'common/unknown_rate.cpp'): "PROVISIONAL file name (D10): the bytes-per-second average "
+                                      "(Unknown_RateClass), client 0x820830-0x820AF7",
     ('app', 'common/unknown_rate.h'): "PROVISIONAL file name: the bytes-per-second average 0x820830-0x820A20 "
                                       "(Unknown_RateClass, D10), declared only; defined by the program",
     ('app', 'common/tcpconn.cpp'): "PARTIAL (kernel-map.md step 8): TCPConnection over wnet's TCPCon / TCPMgr "

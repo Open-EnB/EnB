@@ -37,13 +37,13 @@ int Conn_Short = 0;		// messages under 4 bytes (the replay's 1-byte fillers): th
 
 Unknown_RateClass::Unknown_RateClass(int type) : Type(type), Bytes(0), Rate(0), Start(0), Period(5) {}
 Unknown_RateClass::~Unknown_RateClass() {}
-bool Unknown_RateClass::Add(int bytes)
+int Unknown_RateClass::Add(int bytes)
 {
 	if (bytes < 1) {
-		return true;
+		return 1;
 	}
 	Bytes += bytes;
-	return false;
+	return 0;
 }
 int Unknown_RateClass::Get()
 {

@@ -8,7 +8,7 @@
 **	bytes, Get averages them over the time since the last sample (time(), at most every Period
 **	seconds, 0xBA829C). UDPConnection keeps two of type 2 (the bytes in and out its CordCon counted).
 **
-**	Declared only (the program supplies it): the file isn't rebuilt yet.
+**	Rebuilt in unknown_rate.cpp (same provisional name).
 */
 
 #if defined(_MSC_VER)
@@ -23,8 +23,10 @@ class Unknown_RateClass	// NAME 1: neutral placeholder (D10)
 public:
 	Unknown_RateClass(int type);		// 0x820830
 	~Unknown_RateClass();				// 0x820860 (empty)
-	bool Add(int bytes);				// 0x820880 (true for bytes < 1)  // NAME 2: what it does
+	int Add(int bytes);				// 0x820880 (1 for bytes < 1)  // NAME 2: what it does
 	int Get();							// 0x820950: bytes per second  // NAME 2: what it returns
+	int Set_Period(int seconds);		// 0x820A20 (no caller)  // NAME 2: what it does
+	void Get_Fields(int **count, int **rate, int **start, int **period);	// 0x820A70 (inlined in the others)  // NAME 2: what it does
 
 	int Type;			// +0x00 NAME 2: 0 / 1 shared counts, else this object's
 	int Bytes;			// +0x04 NAME 2: counted since Start

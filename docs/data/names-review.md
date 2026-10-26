@@ -10,8 +10,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 4 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 28 |
 | 3 | by convention from a client-named file or sibling | 276 |
-| 2 | describes what the code does | 709 |
-| 1 | neutral placeholder | 661 |
+| 2 | describes what the code does | 719 |
+| 1 | neutral placeholder | 662 |
 
 ## For review (score 3 and below)
 
@@ -135,6 +135,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `UDPConnectionManagerClass` | `app/common/udpconn.h:93` | after the file udpconn.cpp |
 | 1 | `UDPListenerClass` | `app/common/udpconn.h:101` | after the file udpconn.cpp |
 | 1 | `CordMgrTaskClass` | `app/common/udpconn.h:117` | after its profile label 'CordMgr::Run' |
+| 1 | `Unknown_RateClass` | `app/common/unknown_rate.cpp:17` | untagged neutral name (D10) |
 | 1 | `unknown_rate.h` | `app/common/unknown_rate.h:18` | neutral file name (D37, D10) |
 | 1 | `Unknown_RateClass` | `app/common/unknown_rate.h:21` | neutral placeholder (D10) |
 | 1 | `Unknown_Get_Ticks` | `app/kernel/kernel.cpp:19` | untagged neutral name (D10) |
@@ -837,8 +838,18 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Task` | `app/common/udpconn.h:130` | what it holds |
 | 2 | `Mgr` | `app/common/udpconn.h:131` | what it holds |
 | 2 | `std:` | `app/common/unknown_memregistry.cpp:10` | what it holds |
+| 2 | `Bytes1` | `app/common/unknown_rate.cpp:8` | what it holds |
+| 2 | `Bytes0` | `app/common/unknown_rate.cpp:9` | what it holds |
+| 2 | `Rate1` | `app/common/unknown_rate.cpp:10` | what it holds |
+| 2 | `Rate0` | `app/common/unknown_rate.cpp:11` | what it holds |
+| 2 | `Start1` | `app/common/unknown_rate.cpp:12` | what it holds |
+| 2 | `Start0` | `app/common/unknown_rate.cpp:13` | what it holds |
+| 2 | `Period1` | `app/common/unknown_rate.cpp:14` | what it holds |
+| 2 | `Period0` | `app/common/unknown_rate.cpp:15` | what it holds |
 | 2 | `Add` | `app/common/unknown_rate.h:26` | what it does |
 | 2 | `Get` | `app/common/unknown_rate.h:27` | what it returns |
+| 2 | `Set_Period` | `app/common/unknown_rate.h:28` | what it does |
+| 2 | `Get_Fields` | `app/common/unknown_rate.h:29` | what it does |
 | 2 | `Key` | `app/kernel/kernel.h:29` | +0x00 Handle_Key: 0x1B Esc, 0x6A |
 | 2 | `Accept_Focus` | `app/kernel/kernel.h:52` | 'LoginTask: accepting focus.' |
 | 2 | `Yield_Focus` | `app/kernel/kernel.h:53` | 'LoginTask: yielding focus.' |
