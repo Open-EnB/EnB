@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-46 entries in 20 files.
+48 entries in 20 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -23,7 +23,9 @@ edit the comments in the code, not this file.
 | `app/common/udpconn.cpp:53` | `UDPConnection::UDPConnection` | mention | NOT EXACT): wlib's Dictionary constructor inlined; the difference not traced yet. |
 | `app/common/udpconn.cpp:75` | `UDPConnection::~UDPConnection` | mention | NOT EXACT): wlib's Dictionary clear inlined; the difference not traced yet. |
 | `app/common/udpconn.cpp:356` | `UDPConnection::Send_Data` | mention | NOT EXACT): wlib's Dictionary inlined; the difference not traced yet. |
-| `app/common/udpconn.cpp:635` | `CordMgrTaskClass::Get_Interval` | mention | NOT EXACT (functional, D42): what inlines wlib's Dictionary (libs\wwonline\wlib: the constructors, the destructor, Send_Data), Get_Stats, Try_Connect (the tree's CordMgr::Connect returns its record, the client's the session id), Open_Fixed_Channel, the task's constructor and Init (the tree's CordMgr isn't the client's 0x95C bytes). * The checks of the CordCon's state compare with true (`cmp bl, 1`... |
+| `app/common/udpconn.cpp:623` | `UDPConnectionManagerClass::UDPConnectionManagerClass` | marker | NOT EXACT: CordMgrTaskClass::Init inlined (the tree's CordMgr isn't the client's 0x95C bytes). |
+| `app/common/udpconn.cpp:634` | `UDPListenerClass::UDPListenerClass` | marker | NOT EXACT: as UDPConnectionManagerClass's constructor. |
+| `app/common/udpconn.cpp:799` | `UDPListenerClass::Accept` | mention | NOT EXACT (functional, D42): what inlines wlib's Dictionary (libs\wwonline\wlib: the constructors, the destructor, Send_Data), Get_Stats, Try_Connect (the tree's CordMgr::Connect returns its record, the client's the session id), Open_Fixed_Channel, the task's constructor and Init (the tree's CordMgr isn't the client's 0x95C bytes). * The checks of the CordCon's state compare with true (`cmp bl, 1`... |
 | `app/kernel/kernel.cpp:208` | `KernelClass::Remove_Task` | marker | NOT EXACT: the client calls the iterator's operator++(int) 0x444190 out of line |
 | `app/kernel/kernel.cpp:350` | `KernelClass::Is_Running` | marker | NOT EXACT: the client's has no xor before the setne |
 | `app/packets/pkunknown_867010.cpp:6` | `Packet_00B3Class::Packet_00B3Class` | marker | NOT EXACT: the inline std::string assign's terminating store indexes [ebx + ecx], the client's [ecx + ebx] (otherwise the same bytes) |

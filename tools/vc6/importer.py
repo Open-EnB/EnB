@@ -3383,14 +3383,16 @@ RECONSTRUCTED = {
                                    "and over a socket, the RSA key exchange and the listener not rebuilt",
     ('app', 'common/tcpconn.h'): "TCPConnection (vtable 0xB08838, 0x248 bytes, the client's offsets)",
     ('app', 'common/udpconn.h'): "UDPConnection (vtable 0xB088F4, 0xD0 bytes, the client's layout), its channel key, "
-                                 "and the CordMgr pump task (vtable 0xB0889C): descriptive names (D24)",
+                                 "the CordMgr pump task (vtable 0xB0889C), UDPConnectionManager (0xB08934) and the listener "
+                                 "(0xB08958): descriptive names (D24)",
     ('app', 'common/udpconn.cpp'): "PARTIAL: UDPConnection over CordCon and the CordMgr pump task, client "
                                    "0x82C980-0x82E020, the asserts on the client's lines 391 / 489 / 514 (D25); exact: "
                                    "Get_Address, Is_Dead, the key's ==, Is_Fixed_Channel, the task's destructor, Run, "
                                    "Get_Interval, Delete_On_Remove, Get_Mgr, Shutdown_Task; functional (NOT EXACT, D42): "
                                    "the rest (CordCon / CordMgr members not in the tree); wlib's Dictionary members "
                                    "0x82E6A0-0x82EBB0 exact (libs\\wwonline\\wlib, D73); "
-                                   "the constructor by name 0x82C680, UDPConnectionManager and the listener not rebuilt",
+                                   "the listener 0x82E360-0x82E5B0 exact (lines 707-778), UDPConnectionManager and the listener's "
+                                   "constructor functional; the constructor by name 0x82C680 not rebuilt",
     ('app', 'packets/pk.h'): "PARTIAL: the packet base class (vtable 0xAEDE88, 10 slots; its inline defaults on the "
                              "client's lines 483-502), the message header, the raw message (0x22C bytes) with pk.cpp's "
                              "helpers, the factory 0x8696C0 declared (defined by the program until it is rebuilt)",

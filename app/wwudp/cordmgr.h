@@ -108,6 +108,10 @@ public:
 	// The CordCon a handshake made, taken out of AllConnections_: a client's by its session id, or
 	// (session 0) a server's by its port. 0x859440
 	bool Find_Connection(CordCon **con, unsigned int port, int session);	// NAME 2: what it does
+	// A listening socket on ip:port (0: any) for handshakes, and its removal (0x857940 / 0x857C00;
+	// declared: not rebuilt)
+	bool Listen(unsigned int ip, unsigned short port);		// NAME 2: what it does
+	bool Unlisten(unsigned int ip, unsigned short port);	// NAME 2: what it does
 	// Drops the connection with that session id: its CordCon (deleted), else its handshake record
 	// (deleted, left in Pending_ as the client leaves it). 0x8595B0
 	bool Cancel_Connect(int session);	// NAME 2: what it does

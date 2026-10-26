@@ -619,6 +619,169 @@ int CordMgrTaskClass::Get_Interval()
 }
 
 
+// UDPConnectionManagerClass (vtable 0xB08934): a ConnectionManagerClass over the process's CordMgr
+// NOT EXACT: CordMgrTaskClass::Init inlined (the tree's CordMgr isn't the client's 0x95C bytes).
+UDPConnectionManagerClass::UDPConnectionManagerClass()
+{
+	CordMgrTaskClass::Init();
+}
+
+UDPConnectionManagerClass::~UDPConnectionManagerClass()
+{
+}
+
+// UDPListenerClass (vtable 0xB08958): handshakes arriving on a port of the CordMgr
+// NOT EXACT: as UDPConnectionManagerClass's constructor.
+UDPListenerClass::UDPListenerClass() :
+	Mgr(0),
+	PortNumber(0)
+{
+	CordMgrTaskClass::Init();
+	Mgr = CordMgrTaskClass::Mgr;
+}
+
+bool UDPListenerClass::Is_Listening() { return(PortNumber != 0); }
+unsigned short UDPListenerClass::Get_Port() { return(PortNumber); }
+
+UDPListenerClass::~UDPListenerClass()
+{
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	FAIL_IF(PortNumber != 0) Stop();
+}
+
+bool UDPListenerClass::Listen(unsigned short port)
+{
+
+
+
+
+	FAIL_IF(port == 0) return(false);
+
+
+	FAIL_IF(PortNumber != 0) return(false);
+	Lock.lock();
+	bool ok = Mgr->Listen(0, port);
+	Lock.unlock();
+	if (!ok) {
+		return(false);
+	}
+	PortNumber = port;
+	return(true);
+}
+
+bool UDPListenerClass::Stop()
+{
+
+
+
+
+
+
+
+
+
+
+	FAIL_IF(PortNumber == 0) return(false);
+	Lock.lock();
+	bool ok = Mgr->Unlisten(0, PortNumber);
+	Lock.unlock();
+	PortNumber = 0;
+	return(ok == true);
+}
+
+// The connection a finished handshake on the port made, or NULL
+ConnectionClass *UDPListenerClass::Accept()
+{
+	CordCon *con;
+	Lock.lock();
+	bool ok = Mgr->Find_Connection(&con, PortNumber, 0);
+	Lock.unlock();
+	if (ok) {
+		ConnectionClass *new_connection = new UDPConnection(con, Mgr);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		FAIL_IF(!new_connection) return(0);
+		return(new_connection);
+	}
+	return(0);
+}
+
+
 /*
 **	Reconstruction notes (udpconn.cpp, PARTIAL)
 **
@@ -627,8 +790,9 @@ int CordMgrTaskClass::Get_Interval()
 **	  pump task and the CordMgr, kept in 0xBF16BC; not rebuilt), the constructor by name 0x82C680
 **	  (gethostbyname or the dotted address; assert line 91; not rebuilt), by address 0x82C980, over
 **	  an accepted CordCon 0x82CBF0, the destructor 0x82CDC0, the slots 0x82D060-0x82DB30, the pump
-**	  task 0x82DCB0-0x82E020, UDPConnectionManager 0x82E040-0x82E1D0 and the listener
-**	  0x82E200-0x82E5B0 (the server's: not rebuilt), wlib Dictionary's out-of-line members
+**	  task 0x82DCB0-0x82E020, UDPConnectionManager 0x82E040-0x82E1B0 (0x82E1D0, a static over
+**	  0xBF16BC, not rebuilt) and the listener 0x82E200-0x82E5B0 (the server's: its destructor's
+**	  FAIL_IF on line 707, Listen 716 / 719, Stop 742, Accept 778), wlib Dictionary's out-of-line members
 **	  0x82E6A0-0x82EBB0 (shrink, remove, expand: exact, from libs\wwonline\wlib\dictionary.h, D73).
 **	* Exact: Get_Address, Connect, Is_Connected, Is_Dead, Disconnect, the key's operator ==,
 **	  Is_Fixed_Channel, Send_Message, Send_Packet, Receive, the task's destructor, Delete_On_Remove,

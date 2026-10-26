@@ -10,8 +10,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 4 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 28 |
 | 3 | by convention from a client-named file or sibling | 276 |
-| 2 | describes what the code does | 700 |
-| 1 | neutral placeholder | 657 |
+| 2 | describes what the code does | 703 |
+| 1 | neutral placeholder | 659 |
 
 ## For review (score 3 and below)
 
@@ -130,7 +130,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `UDPChannelClass` | `app/common/udpconn.h:44` | describes what it is |
 | 1 | `UDPConnection` | `app/common/udpconn.h:51` | after the file udpconn.cpp (no RTTI or string) |
 | 1 | `Unknown_RateClass` | `app/common/udpconn.h:75` | untagged neutral name (D10) |
-| 1 | `CordMgrTaskClass` | `app/common/udpconn.h:92` | after its profile label 'CordMgr::Run' |
+| 1 | `UDPConnectionManagerClass` | `app/common/udpconn.h:93` | after the file udpconn.cpp |
+| 1 | `UDPListenerClass` | `app/common/udpconn.h:101` | after the file udpconn.cpp |
+| 1 | `CordMgrTaskClass` | `app/common/udpconn.h:117` | after its profile label 'CordMgr::Run' |
 | 1 | `unknown_rate.h` | `app/common/unknown_rate.h:18` | neutral file name (D37, D10) |
 | 1 | `Unknown_RateClass` | `app/common/unknown_rate.h:21` | neutral placeholder (D10) |
 | 1 | `Unknown_Get_Ticks` | `app/kernel/kernel.cpp:19` | untagged neutral name (D10) |
@@ -669,9 +671,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_BFAEE0` | `tests/capharness/udpreplay/conn_replay.cpp:83` | untagged neutral name (D10) |
 | 1 | `Unknown_8B4510` | `tests/capharness/udpreplay/conn_replay.cpp:96` | untagged neutral name (D10) |
 | 1 | `Unknown_8B4560` | `tests/capharness/udpreplay/conn_replay.cpp:97` | untagged neutral name (D10) |
-| 1 | `Unknown_Debug_Begin_Step` | `tests/capharness/udpreplay/connect_stubs.cpp:33` | untagged neutral name (D10) |
-| 1 | `Unknown_Debug_End_Step` | `tests/capharness/udpreplay/connect_stubs.cpp:34` | untagged neutral name (D10) |
-| 1 | `Unknown_Debug_Print` | `tests/capharness/udpreplay/connect_stubs.cpp:35` | untagged neutral name (D10) |
+| 1 | `Unknown_Debug_Begin_Step` | `tests/capharness/udpreplay/connect_stubs.cpp:38` | untagged neutral name (D10) |
+| 1 | `Unknown_Debug_End_Step` | `tests/capharness/udpreplay/connect_stubs.cpp:39` | untagged neutral name (D10) |
+| 1 | `Unknown_Debug_Print` | `tests/capharness/udpreplay/connect_stubs.cpp:40` | untagged neutral name (D10) |
 | 1 | `Unknown_2C` | `tests/capharness/udpreplay/pk_ctor_stubs.cpp:222` | untagged neutral name (D10) |
 | 1 | `Unknown_4BC130` | `tests/capharness/udpreplay/udpreplay.cpp:70` | untagged neutral name (D10) |
 | 2 | `Handle_Input` | `app/client/tasks/tsk_menu.h:33` | what it does |
@@ -820,11 +822,12 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Send_Data` | `app/common/udpconn.h:70` | what it does |
 | 2 | `Open_Fixed_Channel` | `app/common/udpconn.h:71` | what it does |
 | 2 | `Is_Fixed_Channel` | `app/common/udpconn.h:72` | what it does |
-| 2 | `Init` | `app/common/udpconn.h:101` | what it does |
-| 2 | `Get_Mgr` | `app/common/udpconn.h:102` | what it returns |
-| 2 | `Shutdown_Task` | `app/common/udpconn.h:103` | what it does |
-| 2 | `Task` | `app/common/udpconn.h:105` | what it holds |
-| 2 | `Mgr` | `app/common/udpconn.h:106` | what it holds |
+| 2 | `Mgr` | `app/common/udpconn.h:112` | what it holds |
+| 2 | `Init` | `app/common/udpconn.h:126` | what it does |
+| 2 | `Get_Mgr` | `app/common/udpconn.h:127` | what it returns |
+| 2 | `Shutdown_Task` | `app/common/udpconn.h:128` | what it does |
+| 2 | `Task` | `app/common/udpconn.h:130` | what it holds |
+| 2 | `Mgr` | `app/common/udpconn.h:131` | what it holds |
 | 2 | `std:` | `app/common/unknown_memregistry.cpp:10` | what it holds |
 | 2 | `Add` | `app/common/unknown_rate.h:26` | what it does |
 | 2 | `Get` | `app/common/unknown_rate.h:27` | what it returns |
@@ -1367,8 +1370,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Process_Zero_Read` | `app/wwudp/cordmgr.h:103` | what it does |
 | 2 | `Wait` | `app/wwudp/cordmgr.h:107` | what it does |
 | 2 | `Find_Connection` | `app/wwudp/cordmgr.h:110` | what it does |
-| 2 | `Cancel_Connect` | `app/wwudp/cordmgr.h:113` | what it does |
-| 2 | `Releases_` | `app/wwudp/cordmgr.h:122` | +0x1C connections to free (Release, Pump_Releases) |
+| 2 | `Listen` | `app/wwudp/cordmgr.h:113` | what it does |
+| 2 | `Unlisten` | `app/wwudp/cordmgr.h:114` | what it does |
+| 2 | `Cancel_Connect` | `app/wwudp/cordmgr.h:117` | what it does |
+| 2 | `Releases_` | `app/wwudp/cordmgr.h:126` | +0x1C connections to free (Release, Pump_Releases) |
 | 2 | `AckRound` | `app/wwudp/unknown_cordmsg.cpp:122` | 0xBB1DB4 |
 | 2 | `AckGrowth` | `app/wwudp/unknown_cordmsg.cpp:123` | 0xBF411C the window growth this round, all connections |
 | 2 | `RoundTripRound` | `app/wwudp/unknown_cordmsg.cpp:152` | 0xBB1DB8 |

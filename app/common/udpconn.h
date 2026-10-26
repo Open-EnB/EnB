@@ -88,6 +88,31 @@ public:
 	unsigned short Port;			// +0xCC NAME 2: network order
 };
 
+// The manager of a UDP server's connections (vtable 0xB08934, constructor 0x82E040): the CordMgr's
+// task made on first use
+class UDPConnectionManagerClass : public ConnectionManagerClass	// NAME 1: after the file udpconn.cpp
+{
+public:
+	UDPConnectionManagerClass();									// 0x82E040
+	virtual ~UDPConnectionManagerClass();							// +0x00 0x82E180 / 0x82E1B0
+};
+
+// The UDP listener (vtable 0xB08958, constructor 0x82E200, 0x0C bytes): handshakes on a port
+class UDPListenerClass : public ConnectionListenerClass	// NAME 1: after the file udpconn.cpp
+{
+public:
+	UDPListenerClass();												// 0x82E200
+	virtual ~UDPListenerClass();									// +0x00 0x82E360 / 0x82E390
+	virtual bool Is_Listening();									// +0x04 0x82E320
+	virtual unsigned short Get_Port();								// +0x08 0x82E340
+	virtual bool Listen(unsigned short port);						// +0x0C 0x82E470
+	virtual bool Stop();											// +0x10 0x82E530
+	virtual ConnectionClass *Accept();								// +0x14 0x82E5B0
+
+	CordMgr *Mgr;					// +0x04  // NAME 2: what it holds
+	unsigned short PortNumber;		// +0x08 (S: the asserts)
+};
+
 // The task that pumps the CordMgr (12 bytes, vtable 0xB0889C; constructor 0x82DCE0).
 class CordMgrTaskClass : public TaskClass	// NAME 1: after its profile label 'CordMgr::Run'
 {
