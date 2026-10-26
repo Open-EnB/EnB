@@ -10,8 +10,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 4 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 28 |
 | 3 | by convention from a client-named file or sibling | 274 |
-| 2 | describes what the code does | 681 |
-| 1 | neutral placeholder | 661 |
+| 2 | describes what the code does | 689 |
+| 1 | neutral placeholder | 657 |
 
 ## For review (score 3 and below)
 
@@ -109,9 +109,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `ConnectionManager` | `app/common/connect.h:157` | the client's log string |
 | 1 | `Set_Unknown05` | `app/common/connect.h:173` | untagged neutral name (D10) |
 | 1 | `Unknown1C` | `app/common/connect.h:185` | untagged neutral name (D10) |
-| 1 | `Unknown0C` | `app/common/dbgconn.h:30` | untagged neutral name (D10) |
-| 1 | `Unknown10` | `app/common/dbgconn.h:31` | untagged neutral name (D10) |
-| 1 | `Unknown14` | `app/common/dbgconn.h:41` | untagged neutral name (D10) |
+| 1 | `Unknown2A` | `app/common/dbgconn.cpp:88` | untagged neutral name (D10) |
+| 1 | `Unknown_Get_Ticks` | `app/common/dbgconn.cpp:116` | untagged neutral name (D10) |
 | 1 | `Unknown_Get_Ticks` | `app/common/memconn.cpp:41` | untagged neutral name (D10) |
 | 1 | `Unknown_869790` | `app/common/memconn.cpp:53` | untagged neutral name (D10) |
 | 1 | `Unknown_30` | `app/common/memconn.cpp:184` | untagged neutral name (D10) |
@@ -673,9 +672,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_Debug_Begin_Step` | `tests/capharness/udpreplay/connect_stubs.cpp:33` | untagged neutral name (D10) |
 | 1 | `Unknown_Debug_End_Step` | `tests/capharness/udpreplay/connect_stubs.cpp:34` | untagged neutral name (D10) |
 | 1 | `Unknown_Debug_Print` | `tests/capharness/udpreplay/connect_stubs.cpp:35` | untagged neutral name (D10) |
-| 1 | `Unknown0C` | `tests/capharness/udpreplay/dbgconn_stubs.cpp:8` | untagged neutral name (D10) |
-| 1 | `Unknown10` | `tests/capharness/udpreplay/dbgconn_stubs.cpp:9` | untagged neutral name (D10) |
-| 1 | `Unknown14` | `tests/capharness/udpreplay/dbgconn_stubs.cpp:15` | untagged neutral name (D10) |
 | 1 | `Unknown_2C` | `tests/capharness/udpreplay/pk_ctor_stubs.cpp:222` | untagged neutral name (D10) |
 | 1 | `Unknown_4BC130` | `tests/capharness/udpreplay/udpreplay.cpp:70` | untagged neutral name (D10) |
 | 2 | `Handle_Input` | `app/client/tasks/tsk_menu.h:33` | what it does |
@@ -767,9 +763,17 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Create_Connection` | `app/common/connect.h:193` | what it does |
 | 2 | `Create_Connection` | `app/common/connect.h:194` | what it does |
 | 2 | `Create_Connection_Manager` | `app/common/connect.h:195` | what it does |
-| 2 | `LogConnectionClass` | `app/common/dbgconn.h:25` | what it does |
-| 2 | `TimedLogConnectionClass` | `app/common/dbgconn.h:36` | what it does |
-| 2 | `StatsConnectionClass` | `app/common/dbgconn.h:45` | what it does (-PACKET_STATS) |
+| 2 | `Log_Directory` | `app/common/dbgconn.cpp:15` | what it holds |
+| 2 | `Get_Log_Directory` | `app/common/dbgconn.h:25` | what it does |
+| 2 | `LogConnectionClass` | `app/common/dbgconn.h:29` | what it does |
+| 2 | `Describe` | `app/common/dbgconn.h:37` | what it does |
+| 2 | `Describe` | `app/common/dbgconn.h:38` | what it does |
+| 2 | `File` | `app/common/dbgconn.h:40` | what it holds |
+| 2 | `Buffer` | `app/common/dbgconn.h:41` | what it holds |
+| 2 | `TimedLogConnectionClass` | `app/common/dbgconn.h:46` | what it does |
+| 2 | `Format_Time` | `app/common/dbgconn.h:53` | what it does |
+| 2 | `Start` | `app/common/dbgconn.h:55` | what it holds |
+| 2 | `StatsConnectionClass` | `app/common/dbgconn.h:59` | what it does (-PACKET_STATS) |
 | 2 | `Packet` | `app/common/memconn.h:30` | what it holds |
 | 2 | `Time` | `app/common/memconn.h:31` | what it holds |
 | 2 | `std:` | `app/common/memconn.h:40` | what it holds |

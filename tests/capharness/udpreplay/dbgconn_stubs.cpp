@@ -1,22 +1,20 @@
-// udpreplay: stand-ins for app\common\dbgconn.cpp's wrappers (not rebuilt), which
-// ConnectionManagerClass::Add_Connection (connect.cpp) names. The replay never adds a connection to
-// a manager; these only forward, as their ForwardingConnectionClass base does.
-#include "..\..\..\app\common\dbgconn.h"
+// udpreplay: stand-ins for app\common\dbgconn.cpp's wrappers (not compiled into the replay), which
+// connect.cpp's factory and ConnectionManagerClass::Add_Connection name. The replay never adds a
+// connection to a manager. The classes are declared here with only the constructor defined, so no
+// vtable is emitted (the names mangle as the real ones); each stops the program if it is reached.
+#include <stdio.h>
+#include <stdlib.h>
 
-LogConnectionClass::LogConnectionClass(ConnectionClass *connection, const char *) :
-	ForwardingConnectionClass(connection),
-	Unknown0C(0),
-	Unknown10(0)
+class ConnectionClass;
+
+static void Not_In_Replay(const char *what)
 {
+	printf("udpreplay: %s is a stand-in (dbgconn_stubs.cpp)\n", what);
+	exit(3);
 }
 
-TimedLogConnectionClass::TimedLogConnectionClass(ConnectionClass *connection, const char *name) :
-	LogConnectionClass(connection, name),
-	Unknown14(0)
-{
-}
+class TimedLogConnectionClass { public: TimedLogConnectionClass(ConnectionClass *connection, const char *name); };
+TimedLogConnectionClass::TimedLogConnectionClass(ConnectionClass *, const char *) { Not_In_Replay("TimedLogConnectionClass"); }
 
-StatsConnectionClass::StatsConnectionClass(ConnectionClass *connection) :
-	ForwardingConnectionClass(connection)
-{
-}
+class StatsConnectionClass { public: StatsConnectionClass(ConnectionClass *connection); };
+StatsConnectionClass::StatsConnectionClass(ConnectionClass *) { Not_In_Replay("StatsConnectionClass"); }

@@ -472,6 +472,28 @@
     "merged": [],
     "name": "wwudp/cordmgr.cpp"
    },
+   "dbgconn": {
+    "ambiguous": [
+     "0x42B2F0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x821E40",
+     "0x823F70",
+     "0x824270",
+     "0x8242E0",
+     "0x824350",
+     "0x8243C0",
+     "0x824410",
+     "0x824450",
+     "0x824860",
+     "0x824950",
+     "0x824A20"
+    ],
+    "merged": [],
+    "name": "common/dbgconn.cpp"
+   },
    "delta": {
     "ambiguous": [
      "0x42A900",
@@ -2716,7 +2738,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 1099,
+  "in_tree_total": 1109,
   "totals": {}
  },
  "binkmovie": {

@@ -3359,7 +3359,7 @@ RECONSTRUCTED = {
                                    "the forwarding and peek wrappers 0x821BB0-0x822060, ConnectionManager 0x822070-0x822EA0 "
                                    "and its factory 0x822F10, the stream connection 0x823320-0x8238C0, the asserts on the "
                                    "client's lines (D25); Remove_Dead 0x822B50 NOT EXACT",
-    ('app', 'common/dbgconn.h'): "DECLARATIONS: dbgconn.cpp's logging and statistics wrappers (constructors "
+    ('app', 'common/dbgconn.h'): "dbgconn.cpp's packet logs and (declared) the statistics wrapper (constructors "
                                  "0x823F70 / 0x824540 / 0x8250B0 and sizes), for Add_Connection 0x822CC0",
     ('app', 'common/memconn.h'): "the in-process transport (descriptive names, D24): the memory connection "
                                  "(vtable 0xB087D4), its pipes, the memory listener (0xB08818 / 0xB08814) and the "
@@ -3370,6 +3370,8 @@ RECONSTRUCTED = {
     ('app', 'common/unknown_memregistry.cpp'): "PROVISIONAL file name (D10): the registry of memory listeners "
                                              "by port, client 0x827560-0x828A00 (after memconn.cpp's template "
                                              "instances; memconn.cpp calls it out of line)",
+    ('app', 'common/dbgconn.cpp'): "PARTIAL: dbgconn.cpp's packet logs, client 0x823F70-0x824A20; the statistics "
+                                   "wrappers 0x824A90-0x826470 not rebuilt",
     ('app', 'common/unknown_rate.h'): "PROVISIONAL file name: the bytes-per-second average 0x820830-0x820A20 "
                                       "(Unknown_RateClass, D10), declared only; defined by the program",
     ('app', 'common/tcpconn.cpp'): "PARTIAL (kernel-map.md step 8): TCPConnection over wnet's TCPCon / TCPMgr "

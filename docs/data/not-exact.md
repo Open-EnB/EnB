@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-43 entries in 19 files.
+44 entries in 20 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -15,6 +15,7 @@ edit the comments in the code, not this file.
 | `app/client/aux_roots.h:12` | `Read` | mention | NOT EXACT (D42): functional; see the generator's docstring for what differs. |
 | `app/client/tasks/tsk_smovie.cpp:113` | `ScriptedMovieTaskClass::Init` | marker | NOT EXACT: the client's loop keeps its test at the top (a jmp back to it); while, for, for (;;) with a break, a goto and ++ in the call all give VC6's rotated loop (the test at the bottom) |
 | `app/common/connect.cpp:800` | `ConnectionManagerClass::Remove_Dead` | marker | NOT EXACT: the client calls the list's element construct 0x823DB0 out of line (on a copy of the pointer); ours inlines it. |
+| `app/common/dbgconn.cpp:111` | `TimedLogConnectionClass::TimedLogConnectionClass` | marker | NOT EXACT: the client inlines LogConnectionClass's constructor here and keeps it out of line (0x823F70, no caller); `inline` on it matches this one and loses that one. |
 | `app/common/memconn.cpp:183` | `MemoryConnectionClass::Unknown_30` | marker | NOT EXACT: the two null-data asserts share one call; the client keeps the first and jumps from the second. |
 | `app/common/udpconn.cpp:30` | `UDPConnection::UDPConnection` | mention | NOT EXACT): wlib's Dictionary constructor inlined; the difference not traced yet. |
 | `app/common/udpconn.cpp:53` | `UDPConnection::UDPConnection` | mention | NOT EXACT): wlib's Dictionary constructor inlined; the difference not traced yet. |
