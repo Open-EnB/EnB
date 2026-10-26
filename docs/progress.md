@@ -19,6 +19,15 @@ the wrap). The user cancelled at "Press OK to save settings". Registry: the WOW6
 and 64-bit `Westwood Studios` keys were exported to `.work/regbackup/` before the run and are
 byte-identical after it. No message box appeared. M2 is complete on all four gates.
 
+**D53 seen in the game.** The user's client had `TextureReduction=2` in both Render keys (the real
+WOW6432Node key and its VirtualStore copy), written by the original VIDTEST's signed comparison on a 4 GB
+card: every texture loaded at a quarter of its size. With the value set to 0 (the user, by `reg add`,
+backups in `.work/regbackup/`) and the original client relaunched, screenshots of the same views
+(`.work/texdetail/`, local) show the planet in Endriago at about twice the fine detail (edge energy
+2.58 -> 5.01 on the cropped planet), the ship hull and the login-screen avatar modestly crisper (1.09x,
+1.11x: their textures are small to begin with). So the original tool's bug cost players most of the
+planet and nebula detail on any card over 2 GB; our vidtest's fix (D53) is the setting to ship.
+
 ### 2026-10-25 (later): the C# proxy audited, renamed the reference decoder (the reference decoder), its test-harness repo retired; EnB paths follow
 
 The D79 question was settled as an audit of `the reference decoder` plus the first housekeeping there (that
