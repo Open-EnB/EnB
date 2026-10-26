@@ -4,6 +4,27 @@ Newest first within each section. Dates are when the entry was written.
 
 ## 1. Log
 
+### 2026-10-26 (07:57): packet classes round 2: 91 -> 114 classes, +159 pairs, 0 lost; udpreplay alex3 7,408 -> 19,084 messages
+
+Builder P (Opus, ~400k tokens over two runs, the first cut at 01:10; six commits dd0ca0e, 1b5dda9, da95d03,
+6ce1700, c1bd9fe, d95d5e8, each gaining only, replay 0 differences, `udpreplay conn` PASS on alex3 and alex7).
+By hand: DirLock 223-226 over their base (vtable 0xB0A290), GlobalLock 227-229 (0xB094F4), AUX_DATA 27 with
+PLAYER_VAR_AUX_DATA 28, GALAXY_MAP 151/152, CLIENT_SOUND 106, WARP_INDEX 156, and the client's pkflag.cpp
+(`FlagPacketClass`, vtable 0xB0A3D4: the base of effects 9, 11-14 and ADVANCED_POSITIONAL_UPDATE 62).
+Decoder: pkdecode/pkemit read a Build whose opcode comes from `Get_Type` (slot +0x28; 10 classes in 7 files,
+da95d03), reach the last packet object (the old bound 0x8B1EB0 was exclusive), and keep a `HAND` set of
+files pkemit never rewrites. Round trip: alex3 7,408 -> 19,084 messages, alex7 1,622 -> 3,618. NOT EXACT:
+AUX_DATA's Print 0x8770A0 (register order, two forms, `attempts.py show 0x8770A0`). Pair counts include
+PacketClass's inline duplicates 0x52B210-0x52B350 (five per new file, D20). dd0ca0e's and 1b5dda9's
+subjects overstate the class count by two (real: 91 -> 95 -> 100; da95d03 records the correction).
+Not started: 62 ADVANCED_POSITIONAL_UPDATE (13,833 messages, the largest gain left: needs the flag builder
+0x8AD300, the size function 0x8AD220, asserts on pkupdate.cpp lines 277-285), 137 RELATIONSHIP (1,544
+messages: a Reaction class 0x848C80 and strconv helpers 0x835890 / 0x4A30A0 that udpreplay would need
+stubs for), 173-177 GroupServer. 146 classes still don't decode (33 fail on the destructor, 18 have an
+intermediate base, 16 store unknowns in the constructor, 13 fail on Print, 19 have length-counted buffers
+through `movsx` / `mov [reg]`: the most regular decoder extension). Proposals P-P1, P-P2 in §3. Traps filed
+in workflow.md §3.6 and §3.8.
+
 ### 2026-10-26 (07:54): step 8's tail: P1 applied, the TCP listener's key exchange built; app 1133 -> 1252 pairs with P's packets
 
 Builder S (Opus, ~1.1M tokens over two runs, the first cut by the session limit at 01:10; seven commits
@@ -1059,6 +1080,12 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
   follows memconn's template instances), `unknown_listener.cpp`, `unknown_rate.cpp` (D10). Recommendation:
   keep until a string or `__FILE__` names them; the same for `RSAKeyClass`'s `Unknown200..Unknown800` members
   (tcpconn.cpp, 2026-10-26).
+* **P-P1 (packets, 2026-10-26):** the next packet round takes 62 ADVANCED_POSITIONAL_UPDATE (13,833 of alex3's
+  messages), then effects 9 and 11, by hand over `FlagPacketClass` with `pkupdate` in pkemit's `HAND` set.
+  Recommendation: accept; it is the largest round-trip gain left.
+* **P-P2 (packets):** add udpreplay stubs for the strconv bool helper 0x4A30A0 and 0x835890 so RELATIONSHIP
+  137 (1,544 messages) can link. Recommendation: accept, done by the packet builder (step 8's builder has
+  finished; `stubs/` is a shared file, so through commit_mine).
 * D7 is to be revisited with the user if byte-exactness of E&B's code becomes too costly; D64's
   `docs/data/not-exact.md` shows how much functional code is waiting.
 * Which bool-return form gives a bare `setcc al` without the `xor` (moved from workflow.md §3).
@@ -1082,7 +1109,9 @@ client's own code: [kernel-map.md](kernel-map.md) §6. Adding a file: [workflow.
    ArrayList copies (0x778CF0, 0x84F480, 0x85B6F0: `multiple`). Then step 9 (tsk_game.cpp, tsk_login.cpp).
 3. Ship 0x6F66E0: VC6's inline budget (ours inlines the Buff array 0x707040, which the client calls);
    see the M1.3 leftovers in library-matching.md 3.8.
-4. The packet classes' own code 0x85C5F0-0x8B1EB0 (kernel-map step 5 and after).
+4. The packet classes' own code 0x85C5F0-0x8B1EB0 (kernel-map step 5 and after): 114 of 260 classes rebuilt
+   (2026-10-26 07:57 entry). Next: P-P1 (62, then effects 9 and 11), P-P2 (137), GroupServer 173-177; the
+   decoder's length-counted buffers; then the 33 destructor failures (vectors, aux data).
 5. Tools and defines (D74-D78): ENABLE_WWPROFILE in the app defines (D74), the funcmatch
    `__FILE__` rule (D77) and the draw-dump regression check (D78) are decided; carry them out where
    not yet done. `--pool K` exists for `importer.py verify` only (c7b8bcc); `bytematch_all.sh` and

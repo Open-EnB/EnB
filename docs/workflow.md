@@ -328,6 +328,12 @@ record it (`attempts.py record ADDR ... --status parked --blocker register|order
   pid and millisecond only, so two threads could swap objects (fixed: the thread is in the name); the
   first sync of a new directory must run alone (one `sync.tar` per VM).
 
+* **Packet objects (2026-10-26):** `PacketClass::Unknown_14`'s second argument is pushed early (`push -1`
+  well before the call), so a disassembly filter on `push -1` hides it. A class's inline virtuals
+  (Get_Channel, Get_Type, Get_Name) come before its scalar deleting destructor in the object; an
+  out-of-line one comes after Build. pkdecode's range bound was exclusive and cut off the last object
+  (fixed in d95d5e8); check the last class when a scan ends at a round address.
+
 ### 3.7 Harnesses, programs, unattended runs
 
 * **No registry changes (D69):** E&BConfig (HKLM `Software\Westwood Studios\Earth and
@@ -366,6 +372,10 @@ record it (`attempts.py record ADDR ... --status parked --blocker register|order
   sweeps): the other builder's `commit_mine` takes the whole file as it is, and any verify rewrites it.
   Build a private record elsewhere and restore the working copy at once. Before any commit that
   includes imports.json, `pairs_cmp.py` against HEAD's copy shows foreign pairs (gains you didn't make).
+
+* **Untracked files are not protected by the private index:** another builder's `commit_mine` or path
+  commit takes your importer.py / imports.json hunks while the files they name are still untracked
+  (5e7f96d took pkflag's). Commit a new file with its records in the same step.
 
 ### 3.9 Library-specific
 
