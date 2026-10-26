@@ -3386,8 +3386,8 @@ RECONSTRUCTED = {
                                    "Transport_Write / Read with their RC4 (lines 440 / 518); the constructors by host "
                                    "and over a socket; the RSA key exchange Key_Exchange (functional, NOT EXACT); the listener's "
                                    "destructor, Stop / Accept (Listen functional), Pump_All and the set of listeners "
-                                   "(0xBE91A8) with its std::set instances; the listener's constructor (the key file), "
-                                   "Send_Key and Pump_Pending not rebuilt",
+                                   "(0xBE91A8) with its std::set instances, the listener's constructor with RSAKeyClass's SSH1 key "
+                                   "file loader; Send_Key and Pump_Pending not rebuilt",
     ('app', 'common/tcpconn.h'): "TCPConnection (vtable 0xB08838, 0x248 bytes, the client's offsets)",
     ('app', 'common/udpconn.h'): "UDPConnection (vtable 0xB088F4, 0xD0 bytes, the client's layout), its channel key, "
                                  "the CordMgr pump task (vtable 0xB0889C), UDPConnectionManager (0xB08934) and the listener "

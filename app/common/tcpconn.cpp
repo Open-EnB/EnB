@@ -576,19 +576,19 @@ TCPConnection::TCPConnection(SOCKET socket) :
 }
 
 
-// TCPListenerClass (vtable 0xB08880): the server's TCP listener; its constructor 0x829E50 (the RSA key
-// file 'server_rsa_keyset.dat'), destructor 0x82A2F0 (assert line 645), key exchange 0x82A830 /
-// 0x82AA10 and the registry pump 0x82A990 aren't rebuilt.
+// TCPListenerClass (vtable 0xB08880): the server's TCP listener; its key exchange 0x82A830 / 0x82AA10
+// isn't rebuilt. The key pair comes from 'server_rsa_keyset.dat'; every listener is in Listeners.
+TCPListenerClass::TCPListenerClass() :
+	Socket(INVALID_SOCKET),
+	PortNumber(0)
+{
+	KeyPair.Load(file_auto_ptr(_TheFileFactory, "server_rsa_keyset.dat"));
+	
+	Listeners.insert(this);
+}
+
 bool TCPListenerClass::Is_Listening() { return(PortNumber != 0); }
 unsigned short TCPListenerClass::Get_Port() { return(PortNumber); }
-
-
-
-
-
-
-
-
 
 
 
@@ -804,8 +804,8 @@ void TCPListenerClass::Pump_All()
 **	  Is_Connected 0x829930, Disconnect 0x829960, Get_Address 0x8299D0, Close 0x829A10,
 **	  Transport_Write 0x829A30 (line 440), Transport_Read 0x829BC0 (line 518), the constructor over an
 **	  accepted socket 0x829C80 (line 564); the listener 0x829E00-0x82AA10 (lines 645-780, the
-**	  server's): Listen 0x82A470, Stop 0x82A650 and Accept 0x82A6A0 / 0x82A6C0 rebuilt; its
-**	  constructor with the key file 'server_rsa_keyset.dat', destructor and key exchange not.
+**	  server's): the constructor 0x829E50 (the key file), destructor, Listen 0x82A470 (functional), Stop, Accept and
+**	  Pump_All 0x82A990 rebuilt; Send_Key 0x82A830 and Pump_Pending 0x82AA10 (the server's exchange) not. The exchange 0x829180 carries a marker.
 **	* The TCP layer is WWOnline wnet's TCPMgr / TCPCon (libs\wwonline\wnet, D73): E&B's TCPCon is an
 **	  OutputDevice with a lock and tcpqueue.cpp's queues (wnet's tcpcon.cpp and tcpqueue.cpp),
 **	  TCPMgr::cancelConnect 0x8BD940 is E&B's.

@@ -1,6 +1,6 @@
 {
  "app": {
-  "ambiguous_total": 66,
+  "ambiguous_total": 67,
   "base": "reconstructed",
   "compile_errors": [],
   "files": {
@@ -1304,6 +1304,29 @@
     ],
     "merged": [],
     "name": "packets/pkequipuse.cpp"
+   },
+   "pkgalaxymap": {
+    "ambiguous": [
+     "0x42B2F0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350",
+     "0x870E90",
+     "0x870FD0",
+     "0x8710A0",
+     "0x8711E0",
+     "0x871220",
+     "0x871350",
+     "0x871460"
+    ],
+    "merged": [],
+    "name": "packets/pkgalaxymap.cpp"
    },
    "pkglobaldeletecharacter": {
     "ambiguous": [
@@ -2632,9 +2655,11 @@
    },
    "tcpconn": {
     "ambiguous": [
+     "0x42AFF0",
      "0x443F30",
      "0x49CB70",
-     "0x4ACBB0"
+     "0x4ACBB0",
+     "0x632690"
     ],
     "copy": "reconstructed",
     "expected": {},
@@ -2654,18 +2679,26 @@
      "0x829A30",
      "0x829BC0",
      "0x829C80",
+     "0x829E50",
      "0x82A2C0",
      "0x82A2F0",
      "0x82A650",
      "0x82A6C0",
      "0x82A990",
      "0x82B0E0",
+     "0x82B1E0",
      "0x82B4B0",
      "0x82B590",
      "0x82B600",
      "0x82BAD0",
+     "0x82BB20",
      "0x82BE30",
      "0x82BE80",
+     "0x82BED0",
+     "0x82BF50",
+     "0x82C000",
+     "0x82C260",
+     "0x82C330",
      "0x82C530"
     ],
     "merged": [],
@@ -2939,29 +2972,6 @@
     ],
     "merged": [],
     "name": "shared/auxdata/unknown_root.cpp"
-   },
-   "pkgalaxymap": {
-    "ambiguous": [
-     "0x42B2F0"
-    ],
-    "copy": "reconstructed",
-    "expected": {},
-    "in_tree": [
-     "0x52B210",
-     "0x52B240",
-     "0x52B270",
-     "0x52B2A0",
-     "0x52B350",
-     "0x870E90",
-     "0x870FD0",
-     "0x8710A0",
-     "0x8711E0",
-     "0x871220",
-     "0x871350",
-     "0x871460"
-    ],
-    "merged": [],
-    "name": "packets/pkgalaxymap.cpp"
    }
   },
   "headers": {
@@ -2994,6 +3004,7 @@
    "packets/pkdamage.h": "reconstructed",
    "packets/pkdirlock.h": "reconstructed",
    "packets/pkequipuse.h": "reconstructed",
+   "packets/pkgalaxymap.h": "reconstructed",
    "packets/pkglobaldeletecharacter.h": "reconstructed",
    "packets/pkgloballock.h": "reconstructed",
    "packets/pkglobalticketrequest.h": "reconstructed",
@@ -3076,10 +3087,9 @@
    "shared/unknown_debug.h": "reconstructed",
    "wwudp/cordcon.h": "reconstructed",
    "wwudp/cordmgr.h": "reconstructed",
-   "wwudp/udp.h": "reconstructed",
-   "packets/pkgalaxymap.h": "reconstructed"
+   "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 1235,
+  "in_tree_total": 1243,
   "totals": {}
  },
  "binkmovie": {
