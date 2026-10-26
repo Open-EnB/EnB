@@ -352,12 +352,15 @@
      "0x8220E0",
      "0x822200",
      "0x822220",
+     "0x822290",
      "0x8223D0",
      "0x822490",
      "0x822500",
      "0x822550",
      "0x8225C0",
      "0x822630",
+     "0x822660",
+     "0x8226D0",
      "0x823320",
      "0x8233B0",
      "0x8233E0",
@@ -2603,7 +2606,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 1022,
+  "in_tree_total": 1025,
   "totals": {}
  },
  "binkmovie": {

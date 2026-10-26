@@ -10,8 +10,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 4 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 28 |
 | 3 | by convention from a client-named file or sibling | 272 |
-| 2 | describes what the code does | 631 |
-| 1 | neutral placeholder | 629 |
+| 2 | describes what the code does | 633 |
+| 1 | neutral placeholder | 633 |
 
 ## For review (score 3 and below)
 
@@ -84,6 +84,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_18` | `app/client/tasks/tsk_smovie.h:30` | untagged neutral name (D10) |
 | 1 | `Unknown04` | `app/common/connect.cpp:10` | untagged neutral name (D10) |
 | 1 | `Unknown1C` | `app/common/connect.cpp:490` | untagged neutral name (D10) |
+| 1 | `Set_Unknown05` | `app/common/connect.cpp:710` | untagged neutral name (D10) |
+| 1 | `Unknown05` | `app/common/connect.cpp:714` | untagged neutral name (D10) |
 | 1 | `Unknown_Create_Packet` | `app/common/connect.cpp:1105` | untagged neutral name (D10) |
 | 1 | `ConnectionClass` | `app/common/connect.h:30` | describes what it is (the client's name not found) |
 | 1 | `Set_Unknown04` | `app/common/connect.h:43` | untagged neutral name (D10) |
@@ -95,8 +97,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `ConnectionListenerClass` | `app/common/connect.h:83` | describes what it is |
 | 1 | `Unknown_0C` | `app/common/connect.h:89` | untagged neutral name (D10) |
 | 1 | `ConnectionEntryClass` | `app/common/connect.h:94` | describes what it is |
-| 1 | `ConnectionManager` | `app/common/connect.h:102` | the client's log string |
-| 1 | `Unknown1C` | `app/common/connect.h:120` | untagged neutral name (D10) |
+| 1 | `Unknown05` | `app/common/connect.h:98` | untagged neutral name (D10) |
+| 1 | `ConnectionManager` | `app/common/connect.h:103` | the client's log string |
+| 1 | `Set_Unknown05` | `app/common/connect.h:118` | untagged neutral name (D10) |
+| 1 | `Unknown1C` | `app/common/connect.h:124` | untagged neutral name (D10) |
 | 1 | `TCPConnection` | `app/common/tcpconn.h:27` | after the file tcpconn.cpp (no RTTI or string) |
 | 1 | `Close` | `app/common/tcpconn.h:43` | describes what it does |
 | 1 | `Get_Unknown04` | `app/common/udpconn.cpp:373` | untagged neutral name (D10) |
@@ -693,19 +697,21 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Stop` | `app/common/connect.h:90` | what it does |
 | 2 | `Connection` | `app/common/connect.h:96` | what it holds |
 | 2 | `Marked` | `app/common/connect.h:97` | what it holds |
-| 2 | `Peek` | `app/common/connect.h:107` | what it does |
-| 2 | `Get_Packet` | `app/common/connect.h:108` | what it does |
-| 2 | `Receive` | `app/common/connect.h:109` | what it does |
-| 2 | `Broadcast` | `app/common/connect.h:110` | what it does |
-| 2 | `Mark` | `app/common/connect.h:111` | what it does |
-| 2 | `Clear_Marks` | `app/common/connect.h:112` | what it does |
-| 2 | `Get_Port` | `app/common/connect.h:114` | what it does |
-| 2 | `Set_Name` | `app/common/connect.h:115` | what it does |
-| 2 | `std:` | `app/common/connect.h:117` | what it holds |
-| 2 | `RoundRobin` | `app/common/connect.h:118` | what it holds |
-| 2 | `Current` | `app/common/connect.h:119` | what it holds |
-| 2 | `Name` | `app/common/connect.h:121` | what it holds |
-| 2 | `Listener` | `app/common/connect.h:122` | what it holds |
+| 2 | `Peek` | `app/common/connect.h:108` | what it does |
+| 2 | `Get_Packet` | `app/common/connect.h:109` | what it does |
+| 2 | `Receive` | `app/common/connect.h:110` | what it does |
+| 2 | `Broadcast` | `app/common/connect.h:111` | what it does |
+| 2 | `Mark` | `app/common/connect.h:112` | what it does |
+| 2 | `Clear_Marks` | `app/common/connect.h:113` | what it does |
+| 2 | `Get_Port` | `app/common/connect.h:115` | what it does |
+| 2 | `Set_Name` | `app/common/connect.h:116` | what it does |
+| 2 | `Set_Listener` | `app/common/connect.h:117` | what it does |
+| 2 | `Remove_Connection` | `app/common/connect.h:119` | what it does |
+| 2 | `std:` | `app/common/connect.h:121` | what it holds |
+| 2 | `RoundRobin` | `app/common/connect.h:122` | what it holds |
+| 2 | `Current` | `app/common/connect.h:123` | what it holds |
+| 2 | `Name` | `app/common/connect.h:125` | what it holds |
+| 2 | `Listener` | `app/common/connect.h:126` | what it holds |
 | 2 | `TCPManager` | `app/common/tcpconn.cpp:10` | what it is |
 | 2 | `WriteBuffer` | `app/common/tcpconn.cpp:11` | what it holds |
 | 2 | `Try_Connect` | `app/common/tcpconn.h:41` | what it does |

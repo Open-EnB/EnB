@@ -530,17 +530,17 @@ void ConnectionManagerClass::Set_Name(const char *name)
 	Name = nstrdup(name);
 }
 
-
-
-
-
-
-
-
-
-
-
-
+void ConnectionManagerClass::Set_Listener(ConnectionListenerClass *listener)
+{
+	if (Listener != 0) {
+		if (Listener->Is_Listening()) {
+			Listener->Stop();
+		}
+		delete Listener;
+		Listener = 0;
+	}
+	Listener = listener;
+}
 
 
 
@@ -707,34 +707,34 @@ void ConnectionManagerClass::Clear_Marks()
 
 
 
+bool ConnectionManagerClass::Set_Unknown05(ConnectionClass *connection, bool on)
+{
+	for (std::vector<ConnectionEntryClass>::iterator it = Connections.begin(); it != Connections.end(); it++) {
+		if (it->Connection == connection) {
+			bool old = it->Unknown05;
+			it->Unknown05 = on;
+			return(old);
+		}
+	}
+	G_ASSERT(false);
+	return(false);
+}
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+bool ConnectionManagerClass::Remove_Connection(ConnectionClass *connection)
+{
+	FAIL_IF(!connection) return(false);
+	for (std::vector<ConnectionEntryClass>::iterator it = Connections.begin(); it != Connections.end(); it++) {
+		if (it->Connection == connection) {
+			if (it - Connections.begin() < RoundRobin) {
+				RoundRobin--;
+			}
+			Connections.erase(it);
+			return(true);
+		}
+	}
+	return(false);
+}
 
 
 

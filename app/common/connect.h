@@ -95,6 +95,7 @@ struct ConnectionEntryClass	// NAME 1: describes what it is
 {
 	PeekConnectionClass *Connection;	// +0x00  // NAME 2: what it holds
 	bool Marked;						// +0x04  // NAME 2: what it holds
+	bool Unknown05;						// +0x05 (Set_Unknown05 0x822660)
 };
 
 // The connection manager (S: 'ConnectionManager: probing port %hd...'; vtable 0xB085D0, constructor
@@ -113,6 +114,9 @@ public:
 
 	unsigned short Get_Port();										// 0x822200: the listener's  // NAME 2: what it does
 	void Set_Name(const char *name);								// 0x822220  // NAME 2: what it does
+	void Set_Listener(ConnectionListenerClass *listener);			// 0x822290 (inlined in the destructor with 0)  // NAME 2: what it does
+	bool Set_Unknown05(ConnectionClass *connection, bool on);		// 0x822660: returns the old value
+	bool Remove_Connection(ConnectionClass *connection);			// 0x8226D0  // NAME 2: what it does
 
 	std::vector<ConnectionEntryClass> Connections;	// +0x04  // NAME 2: what it holds
 	int RoundRobin;						// +0x14 the last connection read  // NAME 2: what it holds
