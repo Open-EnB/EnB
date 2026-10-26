@@ -117,6 +117,9 @@ public:
 	void Set_Listener(ConnectionListenerClass *listener);			// 0x822290 (inlined in the destructor with 0)  // NAME 2: what it does
 	bool Set_Unknown05(ConnectionClass *connection, bool on);		// 0x822660: returns the old value
 	bool Remove_Connection(ConnectionClass *connection);			// 0x8226D0  // NAME 2: what it does
+	bool Destroy_Connection(ConnectionClass *connection);			// 0x822A00: removes, disconnects and deletes it  // NAME 2: what it does
+	bool Destroy_All();											// 0x822AD0 (inlined in the destructor)  // NAME 2: what it does
+	bool Is_Managed(ConnectionClass *connection);					// 0x822C80  // NAME 2: what it does
 
 	std::vector<ConnectionEntryClass> Connections;	// +0x04  // NAME 2: what it holds
 	int RoundRobin;						// +0x14 the last connection read  // NAME 2: what it holds

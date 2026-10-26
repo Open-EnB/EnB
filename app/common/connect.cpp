@@ -756,46 +756,46 @@ bool ConnectionManagerClass::Remove_Connection(ConnectionClass *connection)
 
 
 
+bool ConnectionManagerClass::Destroy_Connection(ConnectionClass *connection)
+{
+	FAIL_IF(!connection) return(false);
+	for (std::vector<ConnectionEntryClass>::iterator it = Connections.begin(); it != Connections.end(); it++) {
+		if (it->Connection == connection) {
+			if (it - Connections.begin() < RoundRobin) {
+				RoundRobin--;
+			}
+			Connections.erase(it);
+			connection->Disconnect();
+			delete connection;
+			return(true);
+		}
+	}
+	return(false);
+}
+
+bool ConnectionManagerClass::Destroy_All()
+{
+	for (std::vector<ConnectionEntryClass>::iterator it = Connections.begin(); it != Connections.end(); it++) {
+		it->Connection->Disconnect();
+		delete it->Connection;
+	}
+	Connections.clear();
+	return(true);
+}
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+bool ConnectionManagerClass::Is_Managed(ConnectionClass *connection)
+{
+	for (std::vector<ConnectionEntryClass>::iterator it = Connections.begin(); it != Connections.end(); it++) {
+		if (it->Connection == connection) {
+			return(true);
+		}
+	}
+	return(false);
+}
 
 
 
