@@ -758,16 +758,16 @@ PacketClass *Unknown_869790(RawPacketClass *raw)
 			packet = new Packet_00DEClass(raw);
 			break;
 		case 223:
-			packet = new Packet_00DFClass(raw);
+			packet = new DirLockRequestPacketClass(raw);
 			break;
 		case 224:
-			packet = new Packet_00E0Class(raw);
+			packet = new DirLockResponseGlobalPacketClass(raw);
 			break;
 		case 225:
-			packet = new Packet_00E1Class(raw);
+			packet = new DirLockResponseSectorPacketClass(raw);
 			break;
 		case 226:
-			packet = new Packet_00E2Class(raw);
+			packet = new DirLockReleasePacketClass(raw);
 			break;
 		case 227:
 			packet = new Packet_00E3Class(raw);

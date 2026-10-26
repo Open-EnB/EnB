@@ -430,6 +430,7 @@ the tree (pairs gained, none lost):
 | wwmath | 370 | 422 | 53 |
 | wwsaveload | 80 | 87 | 8 |
 | wwshade | 159 | 247 | 103 |
+| app (packets, kernel-map.md step 5, round 2): new `app/packets/pkdirlock.cpp`/`.h` (client 0x8816D0-0x882680, written by hand): the DirLock packets 223, 225, 224, 226 over their base `DirLockPacketClass` (vtable 0xB0A290, never made by the factory: Build, Process_Packet and Print pure, +0x28 adds the base's members); pk_classes.h, pk.cpp's switch, clientstub.cpp and the harness's pk_ctor_stubs.cpp regenerated (names only) | disassembly: the derived constructors inline the base's (EH state 1 after it); Build calls the base's +0x28 qualified (inlined); the derived destructors are implicit (no own vtable store); 225 assigns its member in the body (after the vtable), 224 in the initialiser list (before it); the 8 raw bytes at +0x20 travel by value as two dwords (a struct) | +26 pairs (app 1135 -> 1156 client functions; 5 are PacketClass's inline COMDAT copies 0x52B210-0x52B350, D20); none lost; 25 of 25 markers exact (the three equal Get_Data_Size bodies ambiguous); udpreplay conn alex3 7,408 / alex7 1,622 Build-written messages, PASS (the DirLock opcodes are not in the captures) |
 
 (A function compiled into several files is one client function, several pairs: D66 (ii).) Among them
 the assert reporters 0x4E9410 / 0x4E9450 (unknown_debug.cpp), the twin constructors 0x4A7080 /

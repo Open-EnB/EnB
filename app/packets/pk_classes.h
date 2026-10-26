@@ -27,6 +27,7 @@
 #include "pkcreateattachment.h"	// rebuilt
 #include "pkcta_request.h"	// rebuilt
 #include "pkdamage.h"	// rebuilt
+#include "pkdirlock.h"	// rebuilt
 #include "pkequipuse.h"	// rebuilt
 #include "pkglobaldeletecharacter.h"	// rebuilt
 #include "pkglobalticketrequest.h"	// rebuilt
@@ -1429,42 +1430,6 @@ public:
 	Packet_00DEClass(RawPacketClass *raw);	// 0x8883C0
 	virtual bool Process_Packet(void *client);	// +0x08 0x8694B0 (clientstub.cpp l.431)
 	char Unknown0C[0x18];	// +0x0C
-};
-
-// opcode 223 (0x00DF, ?): vtable 0xB0A2C4, constructor 0x881A30, 0x30 bytes
-class Packet_00DFClass : public PacketClass  // NAME 1: neutral (D10): opcode 0x00DF
-{
-public:
-	Packet_00DFClass(RawPacketClass *raw);	// 0x881A30
-	virtual bool Process_Packet(void *client);	// +0x08 0x8693C0 (clientstub.cpp l.416)
-	char Unknown0C[0x24];	// +0x0C
-};
-
-// opcode 224 (0x00E0, ?): vtable 0xB0A32C, constructor 0x8820D0, 0x38 bytes
-class Packet_00E0Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x00E0
-{
-public:
-	Packet_00E0Class(RawPacketClass *raw);	// 0x8820D0
-	virtual bool Process_Packet(void *client);	// +0x08 0x8693F0 (clientstub.cpp l.419)
-	char Unknown0C[0x2C];	// +0x0C
-};
-
-// opcode 225 (0x00E1, ?): vtable 0xB0A2F8, constructor 0x881D60, 0x38 bytes
-class Packet_00E1Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x00E1
-{
-public:
-	Packet_00E1Class(RawPacketClass *raw);	// 0x881D60
-	virtual bool Process_Packet(void *client);	// +0x08 0x869420 (clientstub.cpp l.422)
-	char Unknown0C[0x2C];	// +0x0C
-};
-
-// opcode 226 (0x00E2, ?): vtable 0xB0A360, constructor 0x882450, 0x30 bytes
-class Packet_00E2Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x00E2
-{
-public:
-	Packet_00E2Class(RawPacketClass *raw);	// 0x882450
-	virtual bool Process_Packet(void *client);	// +0x08 0x869450 (clientstub.cpp l.425)
-	char Unknown0C[0x24];	// +0x0C
 };
 
 // opcode 227 (0x00E3, ?): vtable 0xB09528, constructor 0x865630, 0x28 bytes

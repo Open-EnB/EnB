@@ -1,6 +1,6 @@
 {
  "app": {
-  "ambiguous_total": 64,
+  "ambiguous_total": 65,
   "base": "reconstructed",
   "compile_errors": [],
   "files": {
@@ -1206,6 +1206,44 @@
     ],
     "merged": [],
     "name": "packets/pkdamage.cpp"
+   },
+   "pkdirlock": {
+    "ambiguous": [
+     "0x42B2F0",
+     "0x881910"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350",
+     "0x8816D0",
+     "0x8817C0",
+     "0x8818C0",
+     "0x881930",
+     "0x881A30",
+     "0x881B30",
+     "0x881C30",
+     "0x881C60",
+     "0x881D60",
+     "0x881E80",
+     "0x881F70",
+     "0x881F90",
+     "0x881FC0",
+     "0x8820D0",
+     "0x8821F0",
+     "0x882300",
+     "0x882320",
+     "0x882350",
+     "0x882450",
+     "0x882550",
+     "0x882650"
+    ],
+    "merged": [],
+    "name": "packets/pkdirlock.cpp"
    },
    "pkequipuse": {
     "ambiguous": [
@@ -2707,6 +2745,7 @@
    "packets/pkcreateattachment.h": "reconstructed",
    "packets/pkcta_request.h": "reconstructed",
    "packets/pkdamage.h": "reconstructed",
+   "packets/pkdirlock.h": "reconstructed",
    "packets/pkequipuse.h": "reconstructed",
    "packets/pkglobaldeletecharacter.h": "reconstructed",
    "packets/pkglobalticketrequest.h": "reconstructed",
@@ -2785,7 +2824,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 1135,
+  "in_tree_total": 1156,
   "totals": {}
  },
  "binkmovie": {

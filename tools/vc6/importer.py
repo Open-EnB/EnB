@@ -3526,6 +3526,8 @@ RECONSTRUCTED = {
     ('app', 'packets/pkequipuse.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
     ('app', 'packets/pkversionrequest.cpp'): "packet classes (opcode 0, 1) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
     ('app', 'packets/pkversionrequest.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
+    ('app', 'packets/pkdirlock.cpp'): "the DirLock packets (opcodes 223, 225, 224, 226) over their base (vtable 0xB0A290), client 0x8816D0-0x882680: written by hand (builder P), 25 functions exact in appfile.py match; the file name provisional (NAME 1)",
+    ('app', 'packets/pkdirlock.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
     ('app', 'wwudp/bandwidthaccounting.cpp'): "the bandwidth accounting, client 0x84C720-0x84DFB0 (M1.4): a kernel task with per-address "
                                               "counts fed by wnet's accounting callback, WWLib's DynamicVectorClass of 0x3C-byte "
                                               "entries; the debug window prints on the client's lines 281-361 (D25); exact",

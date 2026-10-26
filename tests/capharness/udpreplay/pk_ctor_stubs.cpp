@@ -157,10 +157,6 @@ GuildPlayerInfoDeletedPacketClass::GuildPlayerInfoDeletedPacketClass(RawPacketCl
 GuildDeductFeePacketClass::GuildDeductFeePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 GpsRequestPacketClass::GpsRequestPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_00DEClass::Packet_00DEClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-Packet_00DFClass::Packet_00DFClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-Packet_00E0Class::Packet_00E0Class(RawPacketClass *raw) { Conn_Record(this, raw); }
-Packet_00E1Class::Packet_00E1Class(RawPacketClass *raw) { Conn_Record(this, raw); }
-Packet_00E2Class::Packet_00E2Class(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_00E3Class::Packet_00E3Class(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_00E4Class::Packet_00E4Class(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_00E5Class::Packet_00E5Class(RawPacketClass *raw) { Conn_Record(this, raw); }

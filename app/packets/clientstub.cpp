@@ -412,16 +412,16 @@ bool Packet_00E6Class::Process_Packet(void *)	// 0x869360
 bool Packet_00E7Class::Process_Packet(void *)	// 0x869390
 {	G_ASSERT(0); return(true); }
 
-bool Packet_00DFClass::Process_Packet(void *)	// 0x8693C0
+bool DirLockRequestPacketClass::Process_Packet(void *)	// 0x8693C0
 {	G_ASSERT(0); return(true); }
 
-bool Packet_00E0Class::Process_Packet(void *)	// 0x8693F0
+bool DirLockResponseGlobalPacketClass::Process_Packet(void *)	// 0x8693F0
 {	G_ASSERT(0); return(true); }
 
-bool Packet_00E1Class::Process_Packet(void *)	// 0x869420
+bool DirLockResponseSectorPacketClass::Process_Packet(void *)	// 0x869420
 {	G_ASSERT(0); return(true); }
 
-bool Packet_00E2Class::Process_Packet(void *)	// 0x869450
+bool DirLockReleasePacketClass::Process_Packet(void *)	// 0x869450
 {	G_ASSERT(0); return(true); }
 
 bool GpsRequestPacketClass::Process_Packet(void *)	// 0x869480
