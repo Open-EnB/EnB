@@ -43,7 +43,7 @@ public:
 	virtual void Set_Unknown04(bool on) { Unknown04 = on; }			// +0x24 0x726B90
 	virtual bool Get_Unknown04() { return(Unknown04); }				// +0x28 0x726BB0 (UDP: false sends on fixed channel -4)
 	virtual bool Get_Stats(float *a, float *b, float *c, float *d, float *e, float *f, int *g) { return(false); }	// +0x2C 0x726BD0  // NAME 2: what UDP's does
-	virtual bool Unknown_30(int a, int b) { return(false); }		// +0x30 0x726BF0
+	virtual bool Unknown_30(int option, int *data) { return(false); }	// +0x30 0x726BF0 (memconn's: an option get / set)
 
 	bool Unknown04;		// +0x04 (1 from the constructor)
 };
@@ -65,7 +65,7 @@ public:
 	virtual void Set_Unknown04(bool on);							// +0x24 0x821D30
 	virtual bool Get_Unknown04();									// +0x28 0x821D60
 	virtual bool Get_Stats(float *a, float *b, float *c, float *d, float *e, float *f, int *g);	// +0x2C 0x821BE0
-	virtual bool Unknown_30(int a, int b);							// +0x30 0x821E10
+	virtual bool Unknown_30(int option, int *data);					// +0x30 0x821E10
 
 	ConnectionClass *Connection;	// +0x08 the wrapped connection  // NAME 2: what it holds (the assert names the argument)
 
@@ -122,7 +122,7 @@ public:
 	virtual bool Is_Listening() = 0;								// +0x04  // NAME 2: what it does
 	virtual unsigned short Get_Port() = 0;							// +0x08  // NAME 2: what it does
 	virtual bool Listen(unsigned short port) = 0;					// +0x0C (UDP 0x82E470)  // NAME 2: what it does
-	virtual void Stop() = 0;										// +0x10  // NAME 2: what it does
+	virtual bool Stop() = 0;										// +0x10 (memconn's returns whether it was registered)  // NAME 2: what it does
 	virtual ConnectionClass *Accept() = 0;							// +0x14 (UDP 0x82E5B0): a new connection, or NULL  // NAME 2: what it does
 };
 
@@ -137,7 +137,7 @@ public:
 	virtual bool Is_Listening();									// +0x04 0x820D70
 	virtual unsigned short Get_Port();								// +0x08 0x820DC0
 	virtual bool Listen(unsigned short port);						// +0x0C 0x820DE0
-	virtual void Stop();											// +0x10 0x820E70
+	virtual bool Stop();											// +0x10 0x820E70
 	virtual ConnectionClass *Accept();								// +0x14 0x820EC0
 
 	ConnectionListenerClass *Listeners[3];	// +0x04  // NAME 2: what it holds

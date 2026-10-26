@@ -439,7 +439,7 @@ bool ForwardingConnectionClass::Connect(bool wait) { if (Connection != 0) return
 bool ForwardingConnectionClass::Is_Connected() { if (Connection != 0) return(Connection->Is_Connected()); return(false); }
 bool ForwardingConnectionClass::Disconnect() { if (Connection != 0) return(Connection->Disconnect()); return(true); }
 bool ForwardingConnectionClass::Is_Dead() { if (Connection != 0) return(Connection->Is_Dead()); return(true); }
-bool ForwardingConnectionClass::Unknown_30(int a, int b) { if (Connection != 0) return(Connection->Unknown_30(a, b)); return(false); }
+bool ForwardingConnectionClass::Unknown_30(int option, int *data) { if (Connection != 0) return(Connection->Unknown_30(option, data)); return(false); }
 
 ForwardingConnectionClass::~ForwardingConnectionClass()
 {

@@ -1,6 +1,6 @@
 {
  "app": {
-  "ambiguous_total": 63,
+  "ambiguous_total": 64,
   "base": "reconstructed",
   "compile_errors": [],
   "files": {
@@ -884,6 +884,41 @@
     ],
     "merged": [],
     "name": "shared/auxdata/lookup.cpp"
+   },
+   "memconn": {
+    "ambiguous": [
+     "0x42B2F0",
+     "0x443F30",
+     "0x444190",
+     "0x49CB70",
+     "0x4ACBB0",
+     "0x4D8F80"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x820C70",
+     "0x826480",
+     "0x8264B0",
+     "0x8264E0",
+     "0x826550",
+     "0x826580",
+     "0x8266A0",
+     "0x826760",
+     "0x826790",
+     "0x8267E0",
+     "0x826A50",
+     "0x826C60",
+     "0x826CB0",
+     "0x826EB0",
+     "0x827130",
+     "0x8271B0",
+     "0x827250",
+     "0x8272A0",
+     "0x827340"
+    ],
+    "merged": [],
+    "name": "common/memconn.cpp"
    },
    "name": {
     "ambiguous": [],
@@ -2508,6 +2543,37 @@
     "merged": [],
     "name": "shared/unknown_debug.cpp"
    },
+   "unknown_memregistry": {
+    "ambiguous": [
+     "0x42B2C0",
+     "0x4ACBB0",
+     "0x4E3EE0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x827560",
+     "0x8275D0",
+     "0x827700",
+     "0x8277C0",
+     "0x827840",
+     "0x827A80",
+     "0x827B40",
+     "0x827C40",
+     "0x827F10",
+     "0x8283E0",
+     "0x828430",
+     "0x828740",
+     "0x828780",
+     "0x828800",
+     "0x828830",
+     "0x8288E0",
+     "0x828920",
+     "0x8289A0"
+    ],
+    "merged": [],
+    "name": "common/unknown_memregistry.cpp"
+   },
    "unknown_new": {
     "ambiguous": [],
     "copy": "reconstructed",
@@ -2648,7 +2714,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 1059,
+  "in_tree_total": 1096,
   "totals": {}
  },
  "binkmovie": {

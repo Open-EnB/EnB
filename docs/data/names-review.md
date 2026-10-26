@@ -10,8 +10,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 4 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 28 |
 | 3 | by convention from a client-named file or sibling | 274 |
-| 2 | describes what the code does | 665 |
-| 1 | neutral placeholder | 651 |
+| 2 | describes what the code does | 681 |
+| 1 | neutral placeholder | 661 |
 
 ## For review (score 3 and below)
 
@@ -112,7 +112,17 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown0C` | `app/common/dbgconn.h:30` | untagged neutral name (D10) |
 | 1 | `Unknown10` | `app/common/dbgconn.h:31` | untagged neutral name (D10) |
 | 1 | `Unknown14` | `app/common/dbgconn.h:41` | untagged neutral name (D10) |
-| 1 | `MemoryConnectionFactoryClass` | `app/common/memconn.h:23` | describes what it is |
+| 1 | `Unknown_Get_Ticks` | `app/common/memconn.cpp:41` | untagged neutral name (D10) |
+| 1 | `Unknown_869790` | `app/common/memconn.cpp:53` | untagged neutral name (D10) |
+| 1 | `Unknown_30` | `app/common/memconn.cpp:184` | untagged neutral name (D10) |
+| 1 | `MemoryMessageClass` | `app/common/memconn.h:26` | describes what it is |
+| 1 | `MemoryPipeClass` | `app/common/memconn.h:35` | describes what it is |
+| 1 | `MemoryConnectionClass` | `app/common/memconn.h:46` | after the file memconn.cpp |
+| 1 | `Unknown_30` | `app/common/memconn.h:57` | untagged neutral name (D10) |
+| 1 | `Unknown10` | `app/common/memconn.h:67` | untagged neutral name (D10) |
+| 1 | `MemoryServerClass` | `app/common/memconn.h:71` | describes what it is |
+| 1 | `MemoryListenerClass` | `app/common/memconn.h:78` | describes what it is |
+| 1 | `MemoryConnectionFactoryClass` | `app/common/memconn.h:97` | describes what it is |
 | 1 | `TCPConnection` | `app/common/tcpconn.h:27` | after the file tcpconn.cpp (no RTTI or string) |
 | 1 | `Close` | `app/common/tcpconn.h:43` | describes what it does |
 | 1 | `Get_Unknown04` | `app/common/udpconn.cpp:373` | untagged neutral name (D10) |
@@ -760,8 +770,23 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `LogConnectionClass` | `app/common/dbgconn.h:25` | what it does |
 | 2 | `TimedLogConnectionClass` | `app/common/dbgconn.h:36` | what it does |
 | 2 | `StatsConnectionClass` | `app/common/dbgconn.h:45` | what it does (-PACKET_STATS) |
-| 2 | `Is_Listening` | `app/common/memconn.h:26` | what it does |
-| 2 | `Connect` | `app/common/memconn.h:27` | what it does |
+| 2 | `Packet` | `app/common/memconn.h:30` | what it holds |
+| 2 | `Time` | `app/common/memconn.h:31` | what it holds |
+| 2 | `std:` | `app/common/memconn.h:40` | what it holds |
+| 2 | `Delay` | `app/common/memconn.h:41` | what it holds |
+| 2 | `RefCount` | `app/common/memconn.h:42` | what it holds |
+| 2 | `Release` | `app/common/memconn.h:59` | what it does |
+| 2 | `Set_Send_Delay` | `app/common/memconn.h:60` | what it does |
+| 2 | `Set_Recv_Delay` | `app/common/memconn.h:61` | what it does |
+| 2 | `Clear_Pipe` | `app/common/memconn.h:62` | what it does |
+| 2 | `Create_Pair` | `app/common/memconn.h:63` | what it does |
+| 2 | `Connect` | `app/common/memconn.h:74` | what it does |
+| 2 | `Clear_Pending` | `app/common/memconn.h:90` | what it does |
+| 2 | `std:` | `app/common/memconn.h:92` | what it holds |
+| 2 | `Register` | `app/common/memconn.h:100` | what it does |
+| 2 | `Is_Listening` | `app/common/memconn.h:101` | what it does |
+| 2 | `Unregister` | `app/common/memconn.h:102` | what it does |
+| 2 | `Connect` | `app/common/memconn.h:103` | what it does |
 | 2 | `TCPManager` | `app/common/tcpconn.cpp:10` | what it is |
 | 2 | `WriteBuffer` | `app/common/tcpconn.cpp:11` | what it holds |
 | 2 | `Try_Connect` | `app/common/tcpconn.h:41` | what it does |
@@ -785,6 +810,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Shutdown_Task` | `app/common/udpconn.h:103` | what it does |
 | 2 | `Task` | `app/common/udpconn.h:105` | what it holds |
 | 2 | `Mgr` | `app/common/udpconn.h:106` | what it holds |
+| 2 | `std:` | `app/common/unknown_memregistry.cpp:10` | what it holds |
 | 2 | `Add` | `app/common/unknown_rate.h:26` | what it does |
 | 2 | `Get` | `app/common/unknown_rate.h:27` | what it returns |
 | 2 | `Key` | `app/kernel/kernel.h:29` | +0x00 Handle_Key: 0x1B Esc, 0x6A |
@@ -1354,7 +1380,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `circbuff.h` | `app/common/circbuff.h:17` | header name assumed from the client's circbuff.cpp |
 | 3 | `CircBuffClass` | `app/common/circbuff.h:20` | by convention (D24) from the client's file circbuff.cpp |
 | 3 | `dbgconn.h` | `app/common/dbgconn.h:19` | a .h paired with the client's dbgconn.cpp (D24) |
-| 3 | `memconn.h` | `app/common/memconn.h:19` | a .h paired with the client's memconn.cpp (D24) |
+| 3 | `memconn.h` | `app/common/memconn.h:20` | a .h paired with the client's memconn.cpp (D24) |
 | 3 | `tcpconn.h` | `app/common/tcpconn.h:19` | header name assumed from the client's tcpconn.cpp |
 | 3 | `udpconn.h` | `app/common/udpconn.h:19` | header name assumed from the client's udpconn.cpp |
 | 3 | `kernel.h` | `app/kernel/kernel.h:18` | header name assumed from the client's kernel.cpp |
