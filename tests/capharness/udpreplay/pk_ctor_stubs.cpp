@@ -8,10 +8,6 @@ MessageLinePacketClass::MessageLinePacketClass(RawPacketClass *raw) { Conn_Recor
 VersionRequestPacketClass::VersionRequestPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 VersionResponsePacketClass::VersionResponsePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 LoginPacketClass::LoginPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-LogoffPacketClass::LogoffPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-LogoffRequestPacketClass::LogoffRequestPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-LogoffConfirmationPacketClass::LogoffConfirmationPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-Packet_00BBClass::Packet_00BBClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 CreatePacketClass::CreatePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 StartPacketClass::StartPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 StartAckPacketClass::StartAckPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
@@ -264,6 +260,9 @@ RecustomizeShipDonePacketClass::RecustomizeShipDonePacketClass(RawPacketClass *r
 RecustomizeAvatarStartPacketClass::RecustomizeAvatarStartPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 RecustomizeAvatarDonePacketClass::RecustomizeAvatarDonePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 RecustomizeAvatarUpdatePacketClass::RecustomizeAvatarUpdatePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
+
+// The rebuilt classes' Process_Packet defined in a file not rebuilt (cpacket.cpp, ...)
+bool LogoffConfirmationPacketClass::Process_Packet(void *) { return(true); }	// 0x7333B0
 
 // What OVERRIDES declares out of line (the classes' own files, not rebuilt)
 int Packet_0015Class::Get_Type() { return(0x15); }

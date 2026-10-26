@@ -93,6 +93,29 @@ BEGIN = '// BEGIN pkclasses.py (generated: the switch 0x869790; do not edit by h
 END = '// END pkclasses.py'
 
 
+def rebuilt_classes():
+    """The classes rebuilt in their own headers (app/packets/*.h, gameedit/*.h): opcode -> (name, include).
+
+    A rebuilt class is declared after a line `// opcode N (...)`, as pk_classes.h declares it; pk_classes.h
+    then includes its header instead of declaring it, and the harness gets no constructor for it."""
+    out = {}
+    base = os.path.join(ROOT, 'app', 'packets')
+    for sub in ('', 'gameedit'):
+        d = os.path.join(base, sub)
+        if not os.path.isdir(d):
+            continue
+        for fn in sorted(os.listdir(d)):
+            if not fn.endswith('.h') or (not sub and fn in ('pk.h', 'pk_classes.h')):
+                continue
+            lines = open(os.path.join(d, fn)).read().splitlines()
+            for i, l in enumerate(lines[:-1]):
+                m = re.match(r'^// opcode (\d+) \(', l)
+                c = re.match(r'^class (\w+)', lines[i + 1])
+                if m and c:
+                    out[int(m.group(1))] = (c.group(1), (sub + '\\' if sub else '') + fn)
+    return out
+
+
 def camel(op_name):
     return ''.join(w[:1] + w[1:].lower() for w in op_name.split('_') if w)
 
@@ -176,6 +199,10 @@ def main():
             r['name'] = r['name'].replace('Class', '_%dClass' % r['op'])
             r['tag'] = (r['tag'] or 'the client\'s name') + '; opcode added (another opcode\'s class has the name)'
         seen[r['name']] = r
+    rebuilt = rebuilt_classes()
+    for r in rows:
+        if r['op'] in rebuilt:
+            r['name'], r['rebuilt'] = rebuilt[r['op']]
     by_ctor = {}
     for r in rows:
         if not r['inline']:
@@ -270,6 +297,8 @@ def main():
     h.append('#define PK_CLASSES_H')
     h.append('')
     h.append('#include "pk.h"')
+    for inc in sorted(set(r['rebuilt'] for r in rows if r.get('rebuilt'))):
+        h.append('#include "%s"\t// rebuilt' % inc)
     h.append('')
 
     def tag(t):
@@ -316,6 +345,9 @@ def main():
             done.add(b['op'])
         if r['op'] in done:
             continue
+        if r.get('rebuilt'):
+            done.add(r['op'])
+            continue
         if r['inline']:
             h += decl(r, r['base']['name'], r['base']['size'], True)
         else:
@@ -356,8 +388,14 @@ def main():
     for e in sorted(extra.values(), key=lambda e: e['ctor']):
         st.append('%s::%s(RawPacketClass *raw) { Conn_Record(this, raw); }' % (e['name'], e['name']))
     for r in sorted(rows, key=lambda r: r['state']):
-        if not r['inline']:
+        if not r['inline'] and not r.get('rebuilt'):
             st.append('%s::%s(RawPacketClass *raw) { Conn_Record(this, raw); }' % (r['name'], r['name']))
+    st.append('')
+    st.append('// The rebuilt classes\' Process_Packet defined in a file not rebuilt (cpacket.cpp, ...)')
+    for r in sorted(rows, key=lambda r: r['state']):
+        pp = slot(r['vt'], 8)
+        if r.get('rebuilt') and pp != 0x52B240 and not (CLIENTSTUB[0] <= pp < CLIENTSTUB[1]):
+            st.append('bool %s::Process_Packet(void *) { return(true); }\t// 0x%X' % (r['name'], pp))
     st.append('')
     st.append('// What OVERRIDES declares out of line (the classes\' own files, not rebuilt)')
     allr = list(extra.values()) + rows

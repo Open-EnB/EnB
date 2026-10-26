@@ -1360,3 +1360,7 @@ int PacketClass::Unknown_14(int a, int b)
 **	  docs/data/packet-factory.txt; the program supplies Unknown_869790), the small packet classes 0x86E5B0-0x86E850 ('FireEquipped',
 **	  'PriorityMessage', 'QueueMessage', 'PushMessage'), and the static after 0x86F010.
 */
+
+// The packets' serial numbers (PacketClass's constructor, inline in every packet's): 0xBF4128,
+// here after the notes so no assert moves (D25).
+int PacketClass::Next_Serial;

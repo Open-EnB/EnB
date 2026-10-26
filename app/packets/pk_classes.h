@@ -18,6 +18,7 @@
 #define PK_CLASSES_H
 
 #include "pk.h"
+#include "pklogoff.h"	// rebuilt
 
 // the base of PriorityMessageLinePacketClass, QueueMessageLinePacketClass, PushMessageLinePacketClass: vtable 0xB0B3A4, constructor 0x89D8A0
 class MessageLinePacketClass : public PacketClass  // NAME 3: by convention from its derived classes PriorityMessageLinePacketClass, QueueMessageLinePacketClass, PushMessageLinePacketClass
@@ -56,39 +57,6 @@ public:
 	LoginPacketClass(RawPacketClass *raw);	// 0x89A850
 	virtual bool Process_Packet(void *client);	// +0x08 0x867AA0 (clientstub.cpp l.14)
 	char Unknown0C[0xAC];	// +0x0C
-};
-
-// opcode 3 (0x0003, LOGOFF): vtable 0xB0B044, constructor 0x89ABE0, 0x10 bytes
-class LogoffPacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name LOGOFF (the Net-7 opcode table; no structure check)
-{
-public:
-	LogoffPacketClass(RawPacketClass *raw);	// 0x89ABE0
-	virtual bool Process_Packet(void *client);	// +0x08 0x867B00 (clientstub.cpp l.20)
-	char Unknown0C[0x4];	// +0x0C
-};
-
-// opcode 185 (0x00B9, LOGOFF_REQUEST): vtable 0xB0B074, constructor 0x89ADF0, 0x10 bytes
-class LogoffRequestPacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name LOGOFF_REQUEST (the Net-7 opcode table; no structure check)
-{
-public:
-	LogoffRequestPacketClass(RawPacketClass *raw);	// 0x89ADF0
-	virtual bool Process_Packet(void *client);	// +0x08 0x867B30 (clientstub.cpp l.23)
-	char Unknown0C[0x4];	// +0x0C
-};
-
-// opcode 186 (0x00BA, LOGOFF_CONFIRMATION): vtable 0xB0B0A4, constructor 0x89B020, 0xC bytes
-class LogoffConfirmationPacketClass : public PacketClass
-{
-public:
-	LogoffConfirmationPacketClass(RawPacketClass *raw);	// 0x89B020
-};
-
-// opcode 187 (0x00BB, ?): vtable 0xB0B0D4, constructor 0x89B1D0, 0xC bytes
-class Packet_00BBClass : public PacketClass  // NAME 1: neutral (D10): opcode 0x00BB
-{
-public:
-	Packet_00BBClass(RawPacketClass *raw);	// 0x89B1D0
-	virtual bool Process_Packet(void *client);	// +0x08 0x867B60 (clientstub.cpp l.26)
 };
 
 // opcode 4 (0x0004, CREATE): vtable 0xB0A140, constructor 0x87FA70, 0x28 bytes

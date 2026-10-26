@@ -59,6 +59,7 @@ static int Window_Limit = 65535;
 // --conn: deliver through app\common's UDPConnection and stream framing (conn_replay.cpp)
 extern bool Conn_Mode;
 extern int Conn_Errors;
+extern int Conn_Built;
 extern int Conn_Short;
 int Conn_Deliver(FILE *out, int n, const char *dir, const char *name, CordCon *con, CordMgr *mgr);
 static int Loop_Drop = -1;		// --loop N: drop every Nth datagram (-1: the capture replay)
@@ -642,7 +643,7 @@ int main(int argc, char **argv)
 		}
 		fprintf(out, "# ticks %d\n", total);
 		if (Conn_Mode) {
-			fprintf(out, "S conn errors %d short %d\n", Conn_Errors, Conn_Short);
+			fprintf(out, "S conn errors %d short %d built %d\n", Conn_Errors, Conn_Short, Conn_Built);
 		}
 		fclose(out);
 		fclose(in);
@@ -664,7 +665,7 @@ int main(int argc, char **argv)
 		}
 	}
 	if (Conn_Mode) {
-		fprintf(out, "S conn errors %d short %d\n", Conn_Errors, Conn_Short);
+		fprintf(out, "S conn errors %d short %d built %d\n", Conn_Errors, Conn_Short, Conn_Built);
 	}
 	fclose(out);
 	fclose(in);

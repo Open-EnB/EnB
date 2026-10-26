@@ -7,7 +7,7 @@
 //
 //     M n dir session size opcode payload-hex
 //
-// What the app code calls that isn't rebuilt yet is supplied here: wlib's CritSec, the rate average
+// What the app code calls that isn't rebuilt yet is supplied here: the rate average
 // (unknown_rate.h), wwonline's 64-bit byte order pair and the factory 0x8696C0 (a test packet
 // holding the bytes),
 // and kernel.cpp's externals (as tests/capharness/kerneltest).
@@ -20,7 +20,6 @@
 #include <vector>
 #include "..\..\..\app\common\connect.h"
 #include "..\..\..\app\common\udpconn.h"
-#include "..\..\..\app\common\critsec.h"
 #include "..\..\..\app\packets\pk.h"
 #include "cordcon.h"
 #include "cordmgr.h"
@@ -31,10 +30,9 @@ int Conn_Short = 0;		// messages under 4 bytes (the replay's 1-byte fillers): th
 
 // ------------------------------------------------------------------------- wlib's CritSec
 
-CritSec::CritSec() { InitializeCriticalSection(&CritSec_); }
-CritSec::~CritSec() { DeleteCriticalSection(&CritSec_); }
-int CritSec::lock() const { EnterCriticalSection(&CritSec_); return 0; }
-int CritSec::unlock() const { LeaveCriticalSection(&CritSec_); return 0; }
+// the imported one (libs\wwonline\wlib, D73), compiled here so that its types follow udpconn.h's
+// (WWLib's bittype.h before wlib's wstypes.h)
+#include "..\..\..\libs\wwonline\wlib\critsec.cpp"
 
 // ------------------------------------------------------------------------- the rate (0x820830), functional
 
@@ -132,6 +130,31 @@ static RawPacketClass *Build_Raw(const std::vector<unsigned char> &bytes)
 	return raw;
 }
 
+// A packet's message: the bytes Conn_Record kept (a class not rebuilt), else what the packet's own
+// Build makes (a rebuilt class: its constructor parsed the message, Build writes it back).
+int Conn_Built = 0;
+static bool Packet_Bytes(PacketClass *p, std::vector<unsigned char> &bytes)
+{
+	std::map<PacketClass *, std::vector<unsigned char> >::iterator it = Packets.find(p);
+	if (it != Packets.end()) {
+		bytes = it->second;
+		return true;
+	}
+	RawPacketClass *raw = p->Build();
+	if (raw == 0) {
+		return false;
+	}
+	short size = raw->Header.Size;
+	bytes.resize(size < 4 ? 4 : size);
+	memcpy(&bytes[0], &raw->Header, 4);
+	if (size > 4) {
+		memcpy(&bytes[4], raw->Data.Buffer, size - 4);
+	}
+	delete raw;
+	Conn_Built++;
+	return true;
+}
+
 static void Delete_Packet(PacketClass *p)
 {
 	Packets.erase(p);
@@ -227,13 +250,13 @@ int Conn_Deliver(FILE *out, int n, const char *dir, const char *name, CordCon *c
 		if (p->Connection != udp) {
 			Conn_Errors++;
 		}
-		std::map<PacketClass *, std::vector<unsigned char> >::iterator it = Packets.find(p);
-		if (it == Packets.end()) {
+		std::vector<unsigned char> sent;
+		if (!Packet_Bytes(p, sent)) {
 			Conn_Errors++;
 			delete p;
 			continue;
 		}
-		RawPacketClass *raw = Build_Raw(it->second);
+		RawPacketClass *raw = Build_Raw(sent);
 		if (!Stream.Send_Message(raw)) {
 			Conn_Errors++;
 		}
@@ -250,7 +273,12 @@ int Conn_Deliver(FILE *out, int n, const char *dir, const char *name, CordCon *c
 			if (q->Connection != &Stream) {
 				Conn_Errors++;
 			}
-			std::vector<unsigned char> &bytes = Packets[q];
+			std::vector<unsigned char> bytes;
+			if (!Packet_Bytes(q, bytes)) {
+				Conn_Errors++;
+				Delete_Packet(q);
+				continue;
+			}
 			short size = *(short *)&bytes[0];
 			unsigned short opcode = *(unsigned short *)&bytes[2];
 			fprintf(out, "M %d %s %s %d %d ", n, dir, name, (int)size, (int)opcode);

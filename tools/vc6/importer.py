@@ -3306,6 +3306,10 @@ RECONSTRUCTED = {
                                        "149 stubs (`G_ASSERT(0); return(true);`) of the packets the client doesn't "
                                        "process, each on the client's line 14-458 (D25), the class from the vtable slot "
                                        "holding it; the guarded static 0x869690 not rebuilt",
+    ('app', 'packets/pklogoff.cpp'): "the log-off packets (opcodes 3, 185, 186, 187), client 0x89AB30-0x89B340: "
+                                     "constructors, Build, Get_Data_Size, Print, Close_Channel; the file name assumed "
+                                     "from the link order (NAME 2)",
+    ('app', 'packets/pklogoff.h'): "the log-off packets' classes (pk_classes.h includes it: tools/re/pkclasses.py)",
     ('app', 'wwudp/bandwidthaccounting.cpp'): "the bandwidth accounting, client 0x84C720-0x84DFB0 (M1.4): a kernel task with per-address "
                                               "counts fed by wnet's accounting callback, WWLib's DynamicVectorClass of 0x3C-byte "
                                               "entries; the debug window prints on the client's lines 281-361 (D25); exact",

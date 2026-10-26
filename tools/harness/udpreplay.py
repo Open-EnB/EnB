@@ -63,6 +63,13 @@ WWUDP = [r'app\wwudp\cordcon.cpp', r'app\wwudp\cordmgr.cpp', r'app\wwudp\unknown
 CONN = [r'app\common\circbuff.cpp', r'app\common\connect.cpp', r'app\common\udpconn.cpp',
         r'app\kernel\kernel.cpp', r'app\shared\auxdata\linearbu.cpp', r'app\packets\pk.cpp',
         r'app\packets\clientstub.cpp']
+# the packet classes rebuilt in their own files (pkclasses.py: pk_classes.h includes their headers;
+# conn_replay.cpp sends what their Build makes)
+for _sub in ('', 'gameedit'):
+    _d = os.path.join(REPO, 'app', 'packets', _sub)
+    if os.path.isdir(_d):
+        CONN += sorted(os.path.join('app', 'packets', _sub, f) for f in os.listdir(_d)
+                       if f.startswith('pk') and f.endswith('.cpp') and f != 'pk.cpp')
 sys.path.insert(0, HERE)
 import convert as C  # noqa: E402
 
@@ -664,9 +671,11 @@ def conn(name, exe, drops, step):
             elif q[0] == 'S' and q[1:3] == ['conn', 'errors']:
                 errors = int(q[3])
                 shorts = int(q[5])
+                BUILT[0] = int(q[7]) if len(q) > 7 else 0
         return msgs, errors, sizes_bad, shorts, dropped
 
     ok = True
+    BUILT = [0]     # the messages the rebuilt packet classes' Build wrote (conn_replay.cpp)
     for label, extra in [('capture replay', [])] + [('loop, drop every %d' % n, ['--loop', str(n)]) for n in drops]:
         tag = 'replay' if not extra else 'loop' + extra[1]
         plain, _, _, plain_short, _ = run_one(extra, os.path.join(WORK, '%s.%s.plain.txt' % (name, tag)))
@@ -698,9 +707,10 @@ def conn(name, exe, drops, step):
                 resized += sum(1 for x, y in zip(a, b) if x != y)
         line = '  %s: CordCon::read %d, through UDPConnection and the stream %d (+ %d left in a closed CordCon: %s); ' \
                'sessions/directions equal in order %d of %d; size fields wrong %d; harness errors %s; under 4 bytes ' \
-               '(no header: counted, not framed) %d of %d; size field not the length (compared over the length) %d' % (
+               '(no header: counted, not framed) %d of %d; size field not the length (compared over the length) %d; ' \
+               'written by a rebuilt class\'s Build %d' % (
                    label, n_plain, n_mine, n_dropped, ', '.join('%s %s' % k for k in sorted(dropped)) or '-', equal,
-                   len(keys_all), sizes_bad, errors, shorts, plain_short, resized)
+                   len(keys_all), sizes_bad, errors, shorts, plain_short, resized, BUILT[0])
         good = equal == len(keys_all) and n_plain == n_mine + n_dropped and sizes_bad == 0 and errors == 0 \
             and shorts == plain_short
         if not extra:

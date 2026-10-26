@@ -54,6 +54,13 @@ public:
 		Data.Unknown_Set_Size(Header.Size - 4);
 	}
 
+	// To send (a packet's Build, inline there): a payload of `size` bytes to fill, the header set.
+	RawPacketClass(int opcode, int size) : Data(size, 0x400)
+	{
+		Header.Opcode = opcode;
+		Header.Size = size + 4;
+	}
+
 	PacketHeaderClass Header;		// +0x00 NAME 5: 'packet->Header.Size'
 	LinearBufferClass Data;			// +0x04 the payload  // NAME 2: what it holds
 	int Channel;					// +0x20 NAME 2: UDP: 0 the default, < 0 a fixed one, > 0 a hashed one
@@ -94,12 +101,16 @@ public:
 class PacketClass		// NAME 3: by convention (D24) from pk.h / pk.cpp
 {
 public:
-	PacketClass() {}									// 0x52B1F0
+	PacketClass() : Connection(0), Serial(Next_Serial++)	// inline in every packet constructor
+	{
+
+
+	}
 	virtual ~PacketClass() {}							// +0x00 0x52B350
 	virtual RawPacketClass *Build();					// +0x04 0x52B210: the message to send  // NAME 2: what it does
 	virtual bool Process_Packet(void *client);			// +0x08 0x52B240 (SClient *)
 	virtual int Get_Data_Size();						// +0x0C 0x52B270  // NAME 2: what it returns
-	virtual int Print(void *a, int b);					// +0x10 0x52B2A0  // NAME 2: what it does
+	virtual int Print(char *buffer, int len);			// +0x10 0x52B2A0: the packet as text (snprintf)  // NAME 2: what it does
 	virtual int Unknown_14(int a, int b);				// +0x14 0x86F010 (pk.cpp l.1344)
 	virtual int Get_Channel() { return(-1); }			// +0x18 0x52B2D0  // NAME 2: Send_Packet's use (udpconn.cpp)
 	virtual int Get_Priority() { return(0); }			// +0x1C 0x52B2F0  // NAME 2: Send_Packet's use
@@ -108,6 +119,7 @@ public:
 
 	ConnectionClass *Connection;	// +0x04 the connection it came from (Receive sets it)  // NAME 2: what it holds
 	int Serial;						// +0x08 (the global 0xBF4128)  // NAME 2: what it holds
+	static int Next_Serial;			// 0xBF4128 (pk.cpp)  // NAME 2: what it holds
 };
 
 // The factory (pk.cpp 0x8696C0): a message (header and payload, contiguous) to a new packet object,
@@ -118,28 +130,6 @@ PacketClass *Unknown_Create_Packet(void *buffer);	// NAME 1: what it does
 PacketClass *Unknown_869790(RawPacketClass *raw);	// NAME 1 [Unknown_869790]: neutral (D10)
 
 // (spacing kept: the defaults assert on the client's pk.h lines 483, 490, 496 and 502)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -507,7 +497,7 @@ inline int PacketClass::Get_Data_Size()
 	return(0);
 }
 
-inline int PacketClass::Print(void *, int)
+inline int PacketClass::Print(char *, int)
 {
 	G_ASSERT(0);
 	return(0);
