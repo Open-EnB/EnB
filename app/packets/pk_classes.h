@@ -31,6 +31,7 @@
 #include "pkdamage.h"	// rebuilt
 #include "pkdirlock.h"	// rebuilt
 #include "pkequipuse.h"	// rebuilt
+#include "pkgalaxymap.h"	// rebuilt
 #include "pkglobaldeletecharacter.h"	// rebuilt
 #include "pkgloballock.h"	// rebuilt
 #include "pkglobalticketrequest.h"	// rebuilt
@@ -769,14 +770,6 @@ public:
 	char Unknown0C[0x10];	// +0x0C
 };
 
-// opcode 106 (0x006A, CLIENT_SOUND): vtable 0xB0BAA8, constructor 0x8A5050, 0x1C bytes
-class SoundPacketClass : public PacketClass
-{
-public:
-	SoundPacketClass(RawPacketClass *raw);	// 0x8A5050
-	char Unknown0C[0x10];	// +0x0C
-};
-
 // opcode 121 (0x0079, MANUFACTURE_ITEM_CATAGORY): vtable 0xB0B104, constructor 0x89B3C0, 0x14 bytes
 class ManufactureItemCatagoryPacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name MANUFACTURE_ITEM_CATAGORY (the Net-7 opcode table; no structure check)
 {
@@ -876,23 +869,6 @@ class JobDescriptionPacketClass : public PacketClass
 public:
 	JobDescriptionPacketClass(RawPacketClass *raw);	// 0x8969C0
 	char Unknown0C[0x10];	// +0x0C
-};
-
-// opcode 151 (0x0097, GALAXY_MAP): vtable 0xB0992C, constructor 0x870FD0, 0x1C bytes
-class GalaxyMapPacketClass : public PacketClass
-{
-public:
-	GalaxyMapPacketClass(RawPacketClass *raw);	// 0x870FD0
-	char Unknown0C[0x10];	// +0x0C
-};
-
-// opcode 152 (0x0098, GALAXY_MAP_REQUEST): vtable 0xB09960, constructor 0x871350, 0x20 bytes
-class GalaxyMapRequestPacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name GALAXY_MAP_REQUEST (the Net-7 opcode table; no structure check)
-{
-public:
-	GalaxyMapRequestPacketClass(RawPacketClass *raw);	// 0x871350
-	virtual bool Process_Packet(void *client);	// +0x08 0x868C70 (clientstub.cpp l.299)
-	char Unknown0C[0x14];	// +0x0C
 };
 
 // opcode 153 (0x0099, NAVIGATION): vtable 0xB0B4A4, constructor 0x89E9F0, 0x24 bytes

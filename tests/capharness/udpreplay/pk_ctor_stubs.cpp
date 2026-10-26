@@ -79,7 +79,6 @@ MessageTimePacketClass::MessageTimePacketClass(RawPacketClass *raw) { Conn_Recor
 AvatarDescPacketClass::AvatarDescPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 GadgetPacketClass::GadgetPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_0068Class::Packet_0068Class(RawPacketClass *raw) { Conn_Record(this, raw); }
-SoundPacketClass::SoundPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 ManufactureItemCatagoryPacketClass::ManufactureItemCatagoryPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 ManufactureTechLevelFilterPacketClass::ManufactureTechLevelFilterPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 PetitionStuckPacketClass::PetitionStuckPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
@@ -92,8 +91,6 @@ TriggerEmotePacketClass::TriggerEmotePacketClass(RawPacketClass *raw) { Conn_Rec
 NotifyEmotePacketClass::NotifyEmotePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 JobListPacketClass::JobListPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 JobDescriptionPacketClass::JobDescriptionPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-GalaxyMapPacketClass::GalaxyMapPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-GalaxyMapRequestPacketClass::GalaxyMapRequestPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 NavigationPacketClass::NavigationPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 WarpPacketClass::WarpPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 WarpIndexPacketClass::WarpIndexPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
@@ -183,6 +180,7 @@ bool StarbaseTowPacketClass::Process_Packet(void *) { return(true); }	// 0x73833
 bool TalkTreeActionPacketClass::Process_Packet(void *) { return(true); }	// 0x738730
 bool DamagePacketClass::Process_Packet(void *) { return(true); }	// 0x738970
 bool ClickIndicatorPacketClass::Process_Packet(void *) { return(true); }	// 0x7393D0
+bool ClientSoundPacketClass::Process_Packet(void *) { return(true); }	// 0x7383D0
 bool SoundCommandPacketClass::Process_Packet(void *) { return(true); }	// 0x7384A0
 bool ManufactureSetPacketClass::Process_Packet(void *) { return(true); }	// 0x739330
 bool LootHulkPermissionPacketClass::Process_Packet(void *) { return(true); }	// 0x7396F0
@@ -192,6 +190,7 @@ bool IncapacitanceRescueConfirmationPacket::Process_Packet(void *) { return(true
 bool CameraControlPacketClass::Process_Packet(void *) { return(true); }	// 0x739FF0
 bool JobDeletePacketClass::Process_Packet(void *) { return(true); }	// 0x73A420
 bool JobAcceptReplyPacketClass::Process_Packet(void *) { return(true); }	// 0x73A510
+bool GalaxyMapPacketClass::Process_Packet(void *) { return(true); }	// 0x73AC60
 bool NavDeletePacketClass::Process_Packet(void *) { return(true); }	// 0x73A710
 bool StarbaseAvatarUpdatePacketClass::Process_Packet(void *) { return(true); }	// 0x73A9F0
 bool StarbaseAvatarRoomUpdatePacketClass::Process_Packet(void *) { return(true); }	// 0x73AB50

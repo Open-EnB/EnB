@@ -240,6 +240,9 @@ if os.path.exists(_p):
             _a, _r = _l.rstrip('\n').split(' ', 1)
             NOTEXACT[int(_a, 16)] = _r
 
+# drafted files that hold classes written by hand too: never rewritten (their decoded classes are kept as drafted)
+HAND = {'pksoundcommand'}   # opcode 106 by hand (builder P, 2026-10-26)
+
 # the names the files have in the tree (a file keeps its name when more of its classes are drafted)
 KEEP = dict((op, inc[:-2]) for op, (name, inc) in pkclasses.rebuilt_classes().items())
 
@@ -291,7 +294,7 @@ def main():
                 tag = "NAME 1 [%s]: provisional, neutral (D10): the object's first address" % name
         if name in [e[0] for e in emitted]:
             name = '%s_%x' % (name, fl['lo'])
-        if name == 'pklogoff' or (a.files and name not in a.files):
+        if name == 'pklogoff' or name in HAND or (a.files and name not in a.files):
             continue
         if os.path.exists(os.path.join(PKDIR, name + '.cpp')) and not a.write:
             print('  exists: %s' % name)

@@ -1915,6 +1915,12 @@
      "0x52B270",
      "0x52B2A0",
      "0x52B350",
+     "0x8A4F20",
+     "0x8A4FE0",
+     "0x8A5010",
+     "0x8A5050",
+     "0x8A5130",
+     "0x8A5240",
      "0x8A5280",
      "0x8A5320",
      "0x8A53C0",
@@ -2933,6 +2939,29 @@
     ],
     "merged": [],
     "name": "shared/auxdata/unknown_root.cpp"
+   },
+   "pkgalaxymap": {
+    "ambiguous": [
+     "0x42B2F0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350",
+     "0x870E90",
+     "0x870FD0",
+     "0x8710A0",
+     "0x8711E0",
+     "0x871220",
+     "0x871350",
+     "0x871460"
+    ],
+    "merged": [],
+    "name": "packets/pkgalaxymap.cpp"
    }
   },
   "headers": {
@@ -3047,9 +3076,10 @@
    "shared/unknown_debug.h": "reconstructed",
    "wwudp/cordcon.h": "reconstructed",
    "wwudp/cordmgr.h": "reconstructed",
-   "wwudp/udp.h": "reconstructed"
+   "wwudp/udp.h": "reconstructed",
+   "packets/pkgalaxymap.h": "reconstructed"
   },
-  "in_tree_total": 1222,
+  "in_tree_total": 1235,
   "totals": {}
  },
  "binkmovie": {

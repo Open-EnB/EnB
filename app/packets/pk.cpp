@@ -452,7 +452,7 @@ PacketClass *Unknown_869790(RawPacketClass *raw)
 			packet = new ClickIndicatorPacketClass(raw);
 			break;
 		case 106:
-			packet = new SoundPacketClass(raw);
+			packet = new ClientSoundPacketClass(raw);
 			break;
 		case 107:
 			packet = new SoundCommandPacketClass(raw);
