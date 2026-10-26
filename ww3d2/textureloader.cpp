@@ -1212,8 +1212,8 @@ void TextureLoadTaskClass::Apply(bool initialize)
 	WWASSERT(D3DTexture);
 
 	// Verify that none of the mip levels are locked
-	for (unsigned i=0;i<MipLevelCount;++i) {
-		WWASSERT(LockedSurfacePtr[i]==NULL);
+	for (int i = 0; i < MIP_LEVELS_MAX; ++i) {
+		WWASSERT(LockedSurfacePtr[i] == NULL);
 	}
 
 	Texture->Apply_New_Surface(D3DTexture, initialize);

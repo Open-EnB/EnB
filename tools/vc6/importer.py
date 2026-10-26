@@ -1973,6 +1973,9 @@ WWSHADE_API_PATCHES = {
         ('void TextureLoader::Request_Background_Loading(TextureBaseClass *tc)\n{\n',
          'void TextureLoader::Request_Background_Loading(TextureBaseClass *tc)\n{\n\tWWPROFILE(("TextureLoader::Request_Background_Loading()"));\n',
          "E&B's TextureLoader::Request_Background_Loading 0x9493F0 and Request_Foreground_Loading 0x949550 open with Zero Hour's WWPROFILE samples (they push 'TextureLoader::Request_Background_Loading()' 0xBBB0B0 and 'TextureLoader::Request_Foreground_Loading()' 0xBBB0DC)"),
+        ('\t// Verify that none of the mip levels are locked\n\tfor (unsigned i=0;i<MipLevelCount;++i) {\n\t\tWWASSERT(LockedSurfacePtr[i]==NULL);\n\t}\n',
+         '\t// Verify that none of the mip levels are locked\n\tfor (int i = 0; i < MIP_LEVELS_MAX; ++i) {\n\t\tWWASSERT(LockedSurfacePtr[i] == NULL);\n\t}\n',
+         "E&B's TextureLoadTaskClass::Apply checks the locked surfaces up to MIP_LEVELS_MAX, as Deinit does (no code in release; inline-budget evidence only): with the EA loop to MipLevelCount VC6 calls Apply in Process_Foreground_Load's STATE_LOAD_MIPMAP case and inlines Destroy's Push_Front there; the client 0x949C60 inlines Apply (0x949D7B) and jumps to the high-priority path's Destroy (0x949DA3). Any lighter loop does the same; this is the form the file already uses"),
     ],
     ('ww3d2', 'ddsfile.cpp'): [
         ('\tunsigned size=file->Size()-SurfaceDesc.Size-4;\n\t// Skip mip levels if reduction factor is not zero\n',
