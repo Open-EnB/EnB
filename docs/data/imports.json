@@ -490,7 +490,11 @@
      "0x824860",
      "0x824950",
      "0x824A20",
-     "0x824A90"
+     "0x824A90",
+     "0x8250B0",
+     "0x825220",
+     "0x825260",
+     "0x825300"
     ],
     "merged": [],
     "name": "common/dbgconn.cpp"
@@ -2740,7 +2744,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 1110,
+  "in_tree_total": 1114,
   "totals": {}
  },
  "binkmovie": {

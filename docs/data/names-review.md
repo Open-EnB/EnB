@@ -10,7 +10,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 4 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 28 |
 | 3 | by convention from a client-named file or sibling | 276 |
-| 2 | describes what the code does | 698 |
+| 2 | describes what the code does | 700 |
 | 1 | neutral placeholder | 657 |
 
 ## For review (score 3 and below)
@@ -769,6 +769,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Create_Connection` | `app/common/connect.h:194` | what it does |
 | 2 | `Create_Connection_Manager` | `app/common/connect.h:195` | what it does |
 | 2 | `Log_Directory` | `app/common/dbgconn.cpp:15` | what it holds |
+| 2 | `Record_Sent` | `app/common/dbgconn.cpp:210` | what it does |
+| 2 | `Record_Received` | `app/common/dbgconn.cpp:211` | what it does |
 | 2 | `Get_Log_Directory` | `app/common/dbgconn.h:26` | what it does |
 | 2 | `LogConnectionClass` | `app/common/dbgconn.h:30` | what it does |
 | 2 | `Describe` | `app/common/dbgconn.h:38` | what it does |

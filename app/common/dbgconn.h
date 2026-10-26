@@ -79,6 +79,10 @@ class StatsConnectionClass : public ForwardingConnectionClass	// NAME 2: what it
 {
 public:
 	StatsConnectionClass(ConnectionClass *connection);					// 0x8250B0
+	virtual ~StatsConnectionClass();									// +0x00 0x825170 / 0x8251A0
+	virtual bool Send_Message(RawPacketClass *packet);					// +0x04 0x825220 (asserts: not counted)
+	virtual bool Send_Packet(PacketClass *packet);						// +0x08 0x825260
+	virtual PacketClass *Receive();										// +0x0C 0x825300
 };
 
 #endif

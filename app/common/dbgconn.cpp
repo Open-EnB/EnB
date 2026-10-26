@@ -206,6 +206,137 @@ bool RateConnectionClass::Get_Stats(float *out_rate, float *in_rate, float *c, f
 	return(true);
 }
 
+// StatsConnectionClass (vtable 0xB08794): -PACKET_STATS; counts by the packet's printed name
+void Record_Sent(const char *name, int bytes);		// 0x8255B0 (not rebuilt)  // NAME 2: what it does
+void Record_Received(const char *name, int bytes);	// 0x825390 (not rebuilt)  // NAME 2: what it does
+
+StatsConnectionClass::StatsConnectionClass(ConnectionClass *connection) :
+	ForwardingConnectionClass(connection)
+{
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	G_ASSERT(connection);
+}
+
+StatsConnectionClass::~StatsConnectionClass()
+{
+}
+
+bool StatsConnectionClass::Send_Message(RawPacketClass *packet)
+{
+
+	G_ASSERT(0);
+	return(Connection->Send_Message(packet));
+}
+
+bool StatsConnectionClass::Send_Packet(PacketClass *packet)
+{
+	if (packet != 0) {
+		char text[0x800];
+		text[0] = 0;
+		packet->Print(text, 0x7FF);
+		text[0x7FF] = 0;
+		char *name = strtok(text, "{");
+		Record_Sent(name, packet->Get_Data_Size() + 4);
+	}
+	return(Connection->Send_Packet(packet));
+}
+
+PacketClass *StatsConnectionClass::Receive()
+{
+	PacketClass *packet = ForwardingConnectionClass::Receive();
+	if (packet == 0) {
+		return(0);
+	}
+	char text[0x800];
+	text[0] = 0;
+	packet->Print(text, 0x7FF);
+	text[0x7FF] = 0;
+	char *name = strtok(text, "{");
+	Record_Received(name, packet->Get_Data_Size() + 4);
+	return(packet);
+}
+
 /*
 **	Reconstruction notes (dbgconn.cpp, PARTIAL; docs/kernel-map.md 4, step 8)
 **
@@ -213,8 +344,10 @@ bool RateConnectionClass::Get_Stats(float *out_rate, float *in_rate, float *c, f
 **	  slots +0x04 / +0x08 / +0x0C, the two Describe overloads at +0x38 / +0x34, Get_Log_Directory),
 **	  the timed packet log 0x824540-0x824A20 (Format_Time last, a member: `ret 8`), the rate wrapper
 **	  0x824A90-0x825050 (average.h's two AverageClass: the constructor exact, the rest functional);
-**	  not rebuilt: the statistics wrapper 0x8250B0-0x826470 (a std::map of per-packet-name counts
-**	  through strtok and std::string; the constructor asserts on line 298).
+**	  the statistics wrapper's constructor (line 298), Send_Message (line 308), Send_Packet and
+**	  Receive 0x8250B0-0x825300; not rebuilt: its counters Record_Received 0x825390 / Record_Sent
+**	  0x8255B0 (by the packet's printed name up to '{', in a std::map keyed by std::string with
+**	  64-bit byte totals) and their template instances to 0x826470.
 **	* Forms: Get_Log_Directory's success leaves through a goto to the one return; Format_Time
 **	  takes `ms %= 60000` after the minutes; the timed Describe adds the text's length to len
 **	  before the last sprintf; the raw one reads Header.Size first.
