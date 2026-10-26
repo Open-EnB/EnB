@@ -9,8 +9,8 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 4 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 28 |
-| 3 | by convention from a client-named file or sibling | 274 |
-| 2 | describes what the code does | 689 |
+| 3 | by convention from a client-named file or sibling | 276 |
+| 2 | describes what the code does | 698 |
 | 1 | neutral placeholder | 657 |
 
 ## For review (score 3 and below)
@@ -690,6 +690,11 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Init` | `app/client/tasks/tsk_smovie.h:40` | what it does |
 | 2 | `Set_Movie_Name` | `app/client/tasks/tsk_smovie.h:41` | what it does |
 | 2 | `Handle_Input` | `app/client/tasks/tsk_smovie.h:42` | what it does |
+| 2 | `Get_Average` | `app/common/average.h:106` | what it does |
+| 2 | `Current` | `app/common/average.h:115` | what it holds |
+| 2 | `Time` | `app/common/average.h:116` | what it holds |
+| 2 | `Count` | `app/common/average.h:118` | what it holds |
+| 2 | `Index` | `app/common/average.h:119` | what it holds |
 | 2 | `Read` | `app/common/circbuff.h:26` | what it does |
 | 2 | `Write` | `app/common/circbuff.h:27` | what it does |
 | 2 | `Get_Free` | `app/common/circbuff.h:28` | what it returns |
@@ -764,16 +769,20 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Create_Connection` | `app/common/connect.h:194` | what it does |
 | 2 | `Create_Connection_Manager` | `app/common/connect.h:195` | what it does |
 | 2 | `Log_Directory` | `app/common/dbgconn.cpp:15` | what it holds |
-| 2 | `Get_Log_Directory` | `app/common/dbgconn.h:25` | what it does |
-| 2 | `LogConnectionClass` | `app/common/dbgconn.h:29` | what it does |
-| 2 | `Describe` | `app/common/dbgconn.h:37` | what it does |
+| 2 | `Get_Log_Directory` | `app/common/dbgconn.h:26` | what it does |
+| 2 | `LogConnectionClass` | `app/common/dbgconn.h:30` | what it does |
 | 2 | `Describe` | `app/common/dbgconn.h:38` | what it does |
-| 2 | `File` | `app/common/dbgconn.h:40` | what it holds |
-| 2 | `Buffer` | `app/common/dbgconn.h:41` | what it holds |
-| 2 | `TimedLogConnectionClass` | `app/common/dbgconn.h:46` | what it does |
-| 2 | `Format_Time` | `app/common/dbgconn.h:53` | what it does |
-| 2 | `Start` | `app/common/dbgconn.h:55` | what it holds |
-| 2 | `StatsConnectionClass` | `app/common/dbgconn.h:59` | what it does (-PACKET_STATS) |
+| 2 | `Describe` | `app/common/dbgconn.h:39` | what it does |
+| 2 | `File` | `app/common/dbgconn.h:41` | what it holds |
+| 2 | `Buffer` | `app/common/dbgconn.h:42` | what it holds |
+| 2 | `TimedLogConnectionClass` | `app/common/dbgconn.h:47` | what it does |
+| 2 | `Format_Time` | `app/common/dbgconn.h:54` | what it does |
+| 2 | `Start` | `app/common/dbgconn.h:56` | what it holds |
+| 2 | `RateConnectionClass` | `app/common/dbgconn.h:61` | what it does |
+| 2 | `Count` | `app/common/dbgconn.h:71` | what it does |
+| 2 | `In` | `app/common/dbgconn.h:73` | what it holds |
+| 2 | `Out` | `app/common/dbgconn.h:74` | what it holds |
+| 2 | `StatsConnectionClass` | `app/common/dbgconn.h:78` | what it does (-PACKET_STATS) |
 | 2 | `Packet` | `app/common/memconn.h:30` | what it holds |
 | 2 | `Time` | `app/common/memconn.h:31` | what it holds |
 | 2 | `std:` | `app/common/memconn.h:40` | what it holds |
@@ -1381,6 +1390,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `tsk_movie.h` | `app/client/tasks/tsk_movie.h:18` | header name assumed from the client's tsk_movie.cpp |
 | 3 | `MovieTaskClass` | `app/client/tasks/tsk_movie.h:25` | after tsk_movie.cpp and LoginTaskClass (D24) |
 | 3 | `tsk_smovie.h` | `app/client/tasks/tsk_smovie.h:17` | header name assumed from the client's tsk_smovie.cpp |
+| 3 | `average.h` | `app/common/average.h:22` | after the client's average.h (D24) |
+| 3 | `AverageClass` | `app/common/average.h:26` | after the client's average.h (D24) |
 | 3 | `circbuff.h` | `app/common/circbuff.h:17` | header name assumed from the client's circbuff.cpp |
 | 3 | `CircBuffClass` | `app/common/circbuff.h:20` | by convention (D24) from the client's file circbuff.cpp |
 | 3 | `dbgconn.h` | `app/common/dbgconn.h:19` | a .h paired with the client's dbgconn.cpp (D24) |

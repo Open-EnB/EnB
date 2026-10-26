@@ -3370,8 +3370,10 @@ RECONSTRUCTED = {
     ('app', 'common/unknown_memregistry.cpp'): "PROVISIONAL file name (D10): the registry of memory listeners "
                                              "by port, client 0x827560-0x828A00 (after memconn.cpp's template "
                                              "instances; memconn.cpp calls it out of line)",
-    ('app', 'common/dbgconn.cpp'): "PARTIAL: dbgconn.cpp's packet logs, client 0x823F70-0x824A20; the statistics "
-                                   "wrappers 0x824A90-0x826470 not rebuilt",
+    ('app', 'common/dbgconn.cpp'): "PARTIAL: dbgconn.cpp's packet logs and rate wrapper, client 0x823F70-0x825050; the statistics "
+                                   "wrapper 0x8250B0-0x826470 not rebuilt",
+    ('app', 'common/average.h'): "AverageClass (D24, after the client's average.h, assert l.98): a running "
+                                 "average over one-second samples, inline (the destructor 0x824C30)",
     ('app', 'common/unknown_rate.h'): "PROVISIONAL file name: the bytes-per-second average 0x820830-0x820A20 "
                                       "(Unknown_RateClass, D10), declared only; defined by the program",
     ('app', 'common/tcpconn.cpp'): "PARTIAL (kernel-map.md step 8): TCPConnection over wnet's TCPCon / TCPMgr "

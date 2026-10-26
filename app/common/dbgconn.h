@@ -19,6 +19,7 @@
 #define DBGCONN_H	// NAME 3: a .h paired with the client's dbgconn.cpp (D24)
 
 #include "connect.h"
+#include "average.h"
 #include <stdio.h>
 
 // The log directory: network.ini's [Network] LogPath with the first free 3-digit suffix (0x824450)
@@ -53,6 +54,24 @@ public:
 	int Format_Time(char *buffer, unsigned int ms);				// 0x824A20: mm:ss.mmm  // NAME 2: what it does
 
 	unsigned int Start;	// +0x14 (Unknown_Get_Ticks at construction)  // NAME 2: what it holds
+};
+
+// The rate wrapper (vtable 0xB08754, constructor 0x824A90, 0x34 bytes): the bytes in and out per second,
+// averaged over 4 s, for Get_Stats (client.cpp's server connections 0x727E10 / 0x727F00)
+class RateConnectionClass : public ForwardingConnectionClass	// NAME 2: what it does
+{
+public:
+	RateConnectionClass(ConnectionClass *connection);					// 0x824A90
+	virtual ~RateConnectionClass();										// +0x00 0x824C00 / 0x824C50
+	virtual bool Send_Message(RawPacketClass *packet);					// +0x04 0x824CF0
+	virtual bool Send_Packet(PacketClass *packet);						// +0x08 0x824D90
+	virtual PacketClass *Receive();										// +0x0C 0x824E20
+	virtual bool Get_Stats(float *out_rate, float *in_rate, float *c, float *d, float *e, float *f, int *g);	// +0x2C 0x824F50: the averages when the connection has none
+
+	void Count(int bytes, AverageClass &average);						// 0x824EC0 (inlined in the slots)  // NAME 2: what it does
+
+	AverageClass In;	// +0x0C  // NAME 2: what it holds
+	AverageClass Out;	// +0x20  // NAME 2: what it holds
 };
 
 // The statistics wrapper (vtable 0xB08794, constructor 0x8250B0, 0x0C bytes): with -PACKET_STATS

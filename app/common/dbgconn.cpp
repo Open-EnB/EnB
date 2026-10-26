@@ -138,14 +138,83 @@ int TimedLogConnectionClass::Describe(RawPacketClass *packet, const char *label)
 	return(len + sprintf(Buffer + len, "\t%8s\t%8u\t%4d\t%s\t time=%u", label, 0, size, packet->Unknown2A, now));
 }
 
+// RateConnectionClass (vtable 0xB08754)
+RateConnectionClass::RateConnectionClass(ConnectionClass *connection) :
+	ForwardingConnectionClass(connection),
+	In(4),
+	Out(4)
+{
+	unsigned int now = Unknown_Get_Ticks();
+	In.Time = now;
+	In.Current = 0;
+	Out.Time = now;
+	Out.Current = 0;
+}
+
+// NOT EXACT: the client inlines ~ForwardingConnectionClass here (inline in its connect.h; ours is in
+// connect.cpp, see the notes).
+RateConnectionClass::~RateConnectionClass()
+{
+}
+
+bool RateConnectionClass::Send_Message(RawPacketClass *packet)
+{
+	Count(packet->Header.Size, Out);
+	return(Connection->Send_Message(packet));
+}
+
+bool RateConnectionClass::Send_Packet(PacketClass *packet)
+{
+	Count(packet->Get_Data_Size() + 4, Out);
+	return(Connection->Send_Packet(packet));
+}
+
+PacketClass *RateConnectionClass::Receive()
+{
+	PacketClass *packet = ForwardingConnectionClass::Receive();
+	if (packet == 0) {
+		return(0);
+	}
+	Count(packet->Get_Data_Size() + 4, In);
+	return(packet);
+}
+
+// bytes into this second's total, after rolling each finished second into the samples
+// NOT EXACT: the client stores Index before it loads Time (ours loads Time before the idiv); the slots
+// that inline it (0x824CF0, 0x824D90, 0x824E20, 0x824F50) differ only there.
+void RateConnectionClass::Count(int bytes, AverageClass &average)
+{
+	unsigned int now = Unknown_Get_Ticks();
+	while (average.Time < now - 1000) {
+		average.Sample[average.Index] = average.Current;
+		average.Index = (average.Index + 1) % average.Count;
+		average.Current = 0;
+		average.Time += 1000;
+	}
+	average.Current += bytes;
+}
+
+bool RateConnectionClass::Get_Stats(float *out_rate, float *in_rate, float *c, float *d, float *e, float *f, int *g)
+{
+	if (ForwardingConnectionClass::Get_Stats(out_rate, in_rate, c, d, e, f, g)) {
+		return(true);
+	}
+	Count(0, Out);
+	Count(0, In);
+	*out_rate = (float)Out.Get_Average();
+	*in_rate = (float)In.Get_Average();
+	return(true);
+}
+
 /*
 **	Reconstruction notes (dbgconn.cpp, PARTIAL; docs/kernel-map.md 4, step 8)
 **
 **	* The client's functions, in order: the packet log 0x823F70-0x824450 (constructor, destructors,
 **	  slots +0x04 / +0x08 / +0x0C, the two Describe overloads at +0x38 / +0x34, Get_Log_Directory),
-**	  the timed packet log 0x824540-0x824A20 (Format_Time last, a member: `ret 8`); not rebuilt: the statistics
-**	  wrappers 0x824A90-0x826470 (average.h samples, a std::map of per-opcode counts; the
-**	  constructor 0x8250B0 asserts on line 298).
+**	  the timed packet log 0x824540-0x824A20 (Format_Time last, a member: `ret 8`), the rate wrapper
+**	  0x824A90-0x825050 (average.h's two AverageClass: the constructor exact, the rest functional);
+**	  not rebuilt: the statistics wrapper 0x8250B0-0x826470 (a std::map of per-packet-name counts
+**	  through strtok and std::string; the constructor asserts on line 298).
 **	* Forms: Get_Log_Directory's success leaves through a goto to the one return; Format_Time
 **	  takes `ms %= 60000` after the minutes; the timed Describe adds the text's length to len
 **	  before the last sprintf; the raw one reads Header.Size first.

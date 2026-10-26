@@ -489,7 +489,8 @@
      "0x824450",
      "0x824860",
      "0x824950",
-     "0x824A20"
+     "0x824A20",
+     "0x824A90"
     ],
     "merged": [],
     "name": "common/dbgconn.cpp"
@@ -2641,6 +2642,7 @@
    "client/tasks/tsk_menu.h": "reconstructed",
    "client/tasks/tsk_movie.h": "reconstructed",
    "client/tasks/tsk_smovie.h": "reconstructed",
+   "common/average.h": "reconstructed",
    "common/circbuff.h": "reconstructed",
    "common/connect.h": "reconstructed",
    "common/dbgconn.h": "reconstructed",
@@ -2738,7 +2740,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 1109,
+  "in_tree_total": 1110,
   "totals": {}
  },
  "binkmovie": {
