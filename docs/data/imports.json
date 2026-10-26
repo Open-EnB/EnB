@@ -1034,7 +1034,10 @@
      "0x82DB30",
      "0x82DDA0",
      "0x82DF60",
-     "0x82DF90"
+     "0x82DF90",
+     "0x82E6A0",
+     "0x82E8A0",
+     "0x82EBB0"
     ],
     "merged": [],
     "name": "common/udpconn.cpp"
@@ -1139,13 +1142,12 @@
    "client/tasks/tsk_smovie.h": "reconstructed",
    "common/circbuff.h": "reconstructed",
    "common/connect.h": "reconstructed",
-   "common/critsec.h": "reconstructed",
-   "common/dictionary.h": "reconstructed",
    "common/udpconn.h": "reconstructed",
    "common/unknown_rate.h": "reconstructed",
    "kernel/kernel.h": "reconstructed",
    "packets/pk.h": "reconstructed",
    "packets/pk_classes.h": "reconstructed",
+   "packets/pklogoff.h": "reconstructed",
    "shared/auxdata/bitset.h": "reconstructed",
    "shared/auxdata/delta.h": "reconstructed",
    "shared/auxdata/delta_array.h": "reconstructed",
@@ -1178,7 +1180,7 @@
    "wwudp/udp.h": "reconstructed",
    "wwudp/wtime.h": "reconstructed"
   },
-  "in_tree_total": 583,
+  "in_tree_total": 586,
   "totals": {}
  },
  "binkmovie": {
@@ -5106,8 +5108,8 @@
      "0x9579F0",
      "0x957E60",
      "0x957ED0",
-     "0x957FE0"
-     "0x954960",
+     "0x957FE0",
+     "0x954960"
     ],
     "merged": [],
     "name": "pointgr.cpp"
