@@ -958,7 +958,7 @@ def main():
             c = re.match(r'^class (\w+) : public (\w+)(.*)$', txt[i + 1])
             names[int(m.group(1))] = (c.group(1), c.group(2), c.group(3).strip())
     ends = []
-    o0, o1 = ci.offset(0x85C5F0), ci.offset(0x8B1EB0)
+    o0, o1 = ci.offset(0x85C5F0), ci.offset(0x8B2100)    # past WARP_INDEX's object (0x8B1BA0-0x8B2050)
     k = ci.data.find(STATIC_END, o0, o1)
     while k >= 0:
         ends.append(0x85C5F0 + (k - o0))

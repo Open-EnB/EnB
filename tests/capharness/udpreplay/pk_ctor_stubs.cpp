@@ -93,7 +93,6 @@ JobListPacketClass::JobListPacketClass(RawPacketClass *raw) { Conn_Record(this, 
 JobDescriptionPacketClass::JobDescriptionPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 NavigationPacketClass::NavigationPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 WarpPacketClass::WarpPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-WarpIndexPacketClass::WarpIndexPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 SubPartsPacket::SubPartsPacket(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_00B5Class::Packet_00B5Class(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_00B6Class::Packet_00B6Class(RawPacketClass *raw) { Conn_Record(this, raw); }
@@ -192,6 +191,7 @@ bool JobDeletePacketClass::Process_Packet(void *) { return(true); }	// 0x73A420
 bool JobAcceptReplyPacketClass::Process_Packet(void *) { return(true); }	// 0x73A510
 bool GalaxyMapPacketClass::Process_Packet(void *) { return(true); }	// 0x73AC60
 bool NavDeletePacketClass::Process_Packet(void *) { return(true); }	// 0x73A710
+bool WarpIndexPacketClass::Process_Packet(void *) { return(true); }	// 0x73A7F0
 bool StarbaseAvatarUpdatePacketClass::Process_Packet(void *) { return(true); }	// 0x73A9F0
 bool StarbaseAvatarRoomUpdatePacketClass::Process_Packet(void *) { return(true); }	// 0x73AB50
 bool NameDecalPacketClass::Process_Packet(void *) { return(true); }	// 0x735FC0

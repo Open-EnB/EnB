@@ -85,6 +85,7 @@
 #include "pkupdate.h"	// rebuilt
 #include "pkverbrequest.h"	// rebuilt
 #include "pkversionrequest.h"	// rebuilt
+#include "pkwarpindex.h"	// rebuilt
 
 // the base of PriorityMessageLinePacketClass, QueueMessageLinePacketClass, PushMessageLinePacketClass: vtable 0xB0B3A4, constructor 0x89D8A0
 class MessageLinePacketClass : public PacketClass  // NAME 3: by convention from its derived classes PriorityMessageLinePacketClass, QueueMessageLinePacketClass, PushMessageLinePacketClass
@@ -886,14 +887,6 @@ public:
 	WarpPacketClass(RawPacketClass *raw);	// 0x8B1BA0
 	virtual bool Process_Packet(void *client);	// +0x08 0x868B20 (clientstub.cpp l.278)
 	char Unknown0C[0x8];	// +0x0C
-};
-
-// opcode 156 (0x009C, WARP_INDEX): vtable 0xB0C360, constructor 0x8B1EB0, 0x10 bytes
-class WarpIndexPacketClass : public PacketClass
-{
-public:
-	WarpIndexPacketClass(RawPacketClass *raw);	// 0x8B1EB0
-	char Unknown0C[0x4];	// +0x0C
 };
 
 // opcode 180 (0x00B4, SUBPARTS): vtable 0xB09BE4, constructor 0x8756B0, 0x24 bytes

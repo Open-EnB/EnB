@@ -3528,6 +3528,8 @@ RECONSTRUCTED = {
     ('app', 'packets/pkequipuse.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
     ('app', 'packets/pkversionrequest.cpp'): "packet classes (opcode 0, 1) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
     ('app', 'packets/pkversionrequest.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
+    ('app', 'packets/pkwarpindex.cpp'): "packet classes (opcode 156) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
+    ('app', 'packets/pkwarpindex.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
     ('app', 'packets/pkflag.cpp'): "the client's file, 0x887570-0x8878D0: the flagged packets' field helpers and FlagPacketClass's mask (Write_Flags / Read_Flags / Get_Flag_Size, 1, 2 or 4 bytes by Get_Flag_Count), asserts on the client's lines 51-90 (D25): written by hand (builder P), 8 of 8 exact in appfile.py match",
     ('app', 'packets/pkflag.h'): "FlagPacketClass (vtable 0xB0A3D4, +0x28 pure) and the helpers' declarations",
     ('app', 'packets/pkgalaxymap.cpp'): "the galaxy map packets (opcodes 151 and 152 derived from it), client 0x870E90-0x8714C0: written by hand (builder P), 10 functions exact in appfile.py match; the file name provisional (NAME 1)",

@@ -1305,6 +1305,25 @@
     "merged": [],
     "name": "packets/pkequipuse.cpp"
    },
+   "pkflag": {
+    "ambiguous": [
+     "0x42B2F0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x887570",
+     "0x8875B0",
+     "0x8875F0",
+     "0x887620",
+     "0x887650",
+     "0x887680",
+     "0x8877B0",
+     "0x887880"
+    ],
+    "merged": [],
+    "name": "packets/pkflag.cpp"
+   },
    "pkgalaxymap": {
     "ambiguous": [
      "0x42B2F0"
@@ -2531,6 +2550,26 @@
     "merged": [],
     "name": "packets/pkversionrequest.cpp"
    },
+   "pkwarpindex": {
+    "ambiguous": [
+     "0x42B2F0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350",
+     "0x8B1E20",
+     "0x8B1EB0",
+     "0x8B1F40",
+     "0x8B2020"
+    ],
+    "merged": [],
+    "name": "packets/pkwarpindex.cpp"
+   },
    "policy": {
     "ambiguous": [
      "0x42A900",
@@ -2973,25 +3012,6 @@
     ],
     "merged": [],
     "name": "shared/auxdata/unknown_root.cpp"
-   },
-   "pkflag": {
-    "ambiguous": [
-     "0x42B2F0"
-    ],
-    "copy": "reconstructed",
-    "expected": {},
-    "in_tree": [
-     "0x887570",
-     "0x8875B0",
-     "0x8875F0",
-     "0x887620",
-     "0x887650",
-     "0x887680",
-     "0x8877B0",
-     "0x887880"
-    ],
-    "merged": [],
-    "name": "packets/pkflag.cpp"
    }
   },
   "headers": {
@@ -3024,6 +3044,7 @@
    "packets/pkdamage.h": "reconstructed",
    "packets/pkdirlock.h": "reconstructed",
    "packets/pkequipuse.h": "reconstructed",
+   "packets/pkflag.h": "reconstructed",
    "packets/pkgalaxymap.h": "reconstructed",
    "packets/pkglobaldeletecharacter.h": "reconstructed",
    "packets/pkgloballock.h": "reconstructed",
@@ -3078,6 +3099,7 @@
    "packets/pkupdate.h": "reconstructed",
    "packets/pkverbrequest.h": "reconstructed",
    "packets/pkversionrequest.h": "reconstructed",
+   "packets/pkwarpindex.h": "reconstructed",
    "shared/auxdata/bitset.h": "reconstructed",
    "shared/auxdata/delta.h": "reconstructed",
    "shared/auxdata/delta_array.h": "reconstructed",
@@ -3107,10 +3129,9 @@
    "shared/unknown_debug.h": "reconstructed",
    "wwudp/cordcon.h": "reconstructed",
    "wwudp/cordmgr.h": "reconstructed",
-   "wwudp/udp.h": "reconstructed",
-   "packets/pkflag.h": "reconstructed"
+   "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 1252,
+  "in_tree_total": 1256,
   "totals": {}
  },
  "binkmovie": {
