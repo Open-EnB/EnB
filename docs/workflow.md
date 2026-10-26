@@ -182,6 +182,21 @@ tools/re/README.md, tools/vc6 and tools/harness/README.md.
   static function sits right after its first out-of-line caller (0x4B43E0 after `Pop_Prefix`). A
   `malloc`'d class size can show extra E&B members (0xE30).
 
+* **What VC6's inline budget counts (builders C and D, 2026-10-25).** A dead inlined call spends it
+  without emitting code: an unused `int index = Children.size();` made `DeltaCompoundClass::Add`
+  0x4A5670 exact by pushing the insert's last `size()` out of line; a dead call *after* the call
+  site changes earlier inlining too. The budget counts loops inside inlined callees even when the
+  body is an empty release `WWASSERT`; empty `WWASSERT`s and dead loops in the caller itself count
+  for nothing. Tiny accessors tip it: `view[r][c]` (two inline `operator[]`) against `view[r].X`
+  flipped `PointGroupClass::Render` 0x954960. Symptoms: a callee called at one site but inlined
+  at a later one (or the reverse); a `Transpose`'s `Vector4()` through `??_H` at only one site
+  with every stack slot moved.
+* **Placement `new[]` in VC6:** declaring `operator new[]` in a file makes VC6 resolve wwlib
+  vector.h's placement array new to it (C2660). Declare the allocator's members instead of
+  including FastAllocator.h (app/shared/unknown_new.cpp).
+* **Initialiser lists and vtables:** in a constructor the base's vtable store comes first and is
+  dropped; the class's own vtable is stored after its members (the packet classes, builder B).
+
 ### 3.2 Templates and STL
 
 * **Pointer/POD instances count only in D54's ambiguous column.** `VectorClass<T *>` members,
@@ -209,6 +224,11 @@ tools/re/README.md, tools/vc6 and tools/harness/README.md.
   A `new` loses its EH state when the same-file ctor can't throw; a same-file callee may inline.
 * **Assert names can be reversed** (`readbytes == bytes` is `cmp ebp, eax`, the wanted size in
   `readbytes`); FAIL_IFs sharing a string share a variable name.
+
+* **app\packets:** objects are linked in alphabetical order. The guarded static at the end of every
+  object (`mov cl, [0xC416FC]`, atexit 0x42B320) is `std::ctype<unsigned short>::id` from
+  `<string>`: a reliable file boundary. `tools/re/pkdecode.py --report` says why a class doesn't
+  decode yet; `pkemit.py --write` drafts the files (builder B, 2026-10-25).
 
 ### 3.4 Importer, verify and pairs
 
@@ -247,6 +267,9 @@ tools/re/README.md, tools/vc6 and tools/harness/README.md.
 * **Many hunks: edit first, generate the spec after** (`tools/vc6/mkspec.py` from `git diff`, then
   `git checkout`, `addpatch.py`, `cmp` against a backup); cut mechanical edits with difflib,
   widening context until unique (`.work/night/item6f/spec.py`, untracked, historical).
+
+* **`%TEMP%\enb_import\verify-app` is shared:** the next waiting verify clears it as soon as yours
+  ends. Copy the objects you need right after your verify, and expect a missing file even then.
 
 ### 3.5 Build VMs and vc6.py
 
@@ -305,6 +328,11 @@ tools/re/README.md, tools/vc6 and tools/harness/README.md.
 * **A slice between two `str.index()` markers** is empty when the second comes first, and
   `replace('', x)` destroys the file: assert it. A short anchor can be part of a longer line.
 * **Git Bash:** `"app\shared\auxdata\$f.cpp"` swallows `$f`: use `/`.
+
+* **The git index is shared between parallel builders:** a bare `git commit` sweeps their staged
+  hunks into your commit, and `git commit -- <path>` takes a shared file's whole working copy.
+  Own files by path; anything touching importer.py, headers, stubs or docs/data through
+  `tools/vc6/commit_mine.py` (builders.md). `git stash` is shared across worktrees too.
 
 ### 3.9 Library-specific
 
