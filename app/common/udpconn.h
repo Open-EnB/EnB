@@ -51,6 +51,7 @@ struct UDPChannelClass		// NAME 1: describes what it is
 class UDPConnection : public ConnectionClass	// NAME 1: after the file udpconn.cpp (no RTTI or string)
 {
 public:
+	UDPConnection(const char *host, unsigned short port, bool encrypt);	// 0x82C680 (declared: not rebuilt)
 	UDPConnection(unsigned int ip, unsigned short port, bool encrypt);	// 0x82C980 (host order)
 	UDPConnection(CordCon *con, CordMgr *mgr);							// 0x82CBF0
 	virtual ~UDPConnection();											// +0x00 0x82C950 / 0x82CDC0

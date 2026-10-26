@@ -353,6 +353,13 @@
     "expected": {},
     "in_tree": [
      "0x820FB0",
+     "0x821000",
+     "0x821400",
+     "0x821450",
+     "0x821890",
+     "0x821900",
+     "0x821930",
+     "0x821B40",
      "0x821BB0",
      "0x821BE0",
      "0x821C30",
@@ -392,6 +399,7 @@
      "0x822AD0",
      "0x822C80",
      "0x822CC0",
+     "0x822F10",
      "0x823320",
      "0x8233B0",
      "0x8233E0",
@@ -2545,6 +2553,7 @@
    "common/circbuff.h": "reconstructed",
    "common/connect.h": "reconstructed",
    "common/dbgconn.h": "reconstructed",
+   "common/memconn.h": "reconstructed",
    "common/tcpconn.h": "reconstructed",
    "common/udpconn.h": "reconstructed",
    "common/unknown_rate.h": "reconstructed",
@@ -2638,7 +2647,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 1050,
+  "in_tree_total": 1058,
   "totals": {}
  },
  "binkmovie": {

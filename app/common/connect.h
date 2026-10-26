@@ -8,8 +8,8 @@
 **	PARTIAL (docs/kernel-map.md 4): the connection base (vtable 0xB0850C), the forwarding and peek
 **	wrappers (0xB08590, 0xB0854C), the stream connection (vtable 0xB085F4: the {size, opcode,
 **	payload} framing over a byte transport, the TCP connection's base) and ConnectionManager. The
-**	logging and statistics wrappers are dbgconn.cpp's (dbgconn.h); the factories aren't declared
-**	yet. No class here has RTTI or a string naming it: the names are descriptive.
+**	logging and statistics wrappers are dbgconn.cpp's (dbgconn.h); the factories are at the end.
+**	No class here has RTTI or a string naming it: the names are descriptive.
 */
 
 #if defined(_MSC_VER)
@@ -121,9 +121,26 @@ public:
 	virtual ~ConnectionListenerClass() {}							// +0x00
 	virtual bool Is_Listening() = 0;								// +0x04  // NAME 2: what it does
 	virtual unsigned short Get_Port() = 0;							// +0x08  // NAME 2: what it does
-	virtual void Unknown_0C() = 0;									// +0x0C
+	virtual bool Listen(unsigned short port) = 0;					// +0x0C (UDP 0x82E470)  // NAME 2: what it does
 	virtual void Stop() = 0;										// +0x10  // NAME 2: what it does
 	virtual ConnectionClass *Accept() = 0;							// +0x14 (UDP 0x82E5B0): a new connection, or NULL  // NAME 2: what it does
+};
+
+// The listener the manager factory 0x822F10 gives a manager (S: '%s is using composite manager'):
+// vtable 0xB0844C, constructor 0x820B30, 0x10 bytes; a TCP (0x829E50), a UDP (0x82E200) and a third
+// listener at +0x04..+0x0C, Accept asking each in turn (0x820EC0). Declared only.
+class CompositeListenerClass : public ConnectionListenerClass	// NAME 2: the client's log string
+{
+public:
+	CompositeListenerClass();										// 0x820B30
+	virtual ~CompositeListenerClass();								// +0x00 0x820CA0
+	virtual bool Is_Listening();									// +0x04 0x820D70
+	virtual unsigned short Get_Port();								// +0x08 0x820DC0
+	virtual bool Listen(unsigned short port);						// +0x0C 0x820DE0
+	virtual void Stop();											// +0x10 0x820E70
+	virtual ConnectionClass *Accept();								// +0x14 0x820EC0
+
+	ConnectionListenerClass *Listeners[3];	// +0x04  // NAME 2: what it holds
 };
 
 // One managed connection (8 bytes): Mark sets the flag, Clear_Marks 0x822630 clears them all
@@ -158,6 +175,7 @@ public:
 	bool Add_Unwrapped(PeekConnectionClass *connection);			// 0x822790: adds it as it is (no caller)  // NAME 2: what it does
 	bool Destroy_Connection(ConnectionClass *connection);			// 0x822A00: removes, disconnects and deletes it  // NAME 2: what it does
 	bool Destroy_All();											// 0x822AD0 (inlined in the destructor)  // NAME 2: what it does
+	bool Remove_Dead(std::list<ConnectionClass *> *removed);		// 0x822B50: deletes the dead connections (not flagged +0x05)  // NAME 2: what it does
 	bool Is_Managed(ConnectionClass *connection);					// 0x822C80  // NAME 2: what it does
 	bool Add_Connection(ConnectionClass *connection);				// 0x822CC0: wraps it (peek, and logging or statistics)  // NAME 2: what it does
 
@@ -168,5 +186,12 @@ public:
 	char *Name;							// +0x20  // NAME 2: what it holds
 	ConnectionListenerClass *Listener;	// +0x24  // NAME 2: what it holds
 };
+
+// The factories (connect.cpp): by network.ini's server type 0x821000 (ClientTask's MODE_JOIN, LoginTask,
+// client.cpp's SectorServer), by name 0x821450, by address 0x821400
+ConnectionClass *Create_Connection(const char *server_type, bool connect);		// 0x821000  // NAME 2: what it does
+ConnectionClass *Create_Connection(const char *name, unsigned short port, bool encrypt, bool log, const char *server_type, bool connect);	// 0x821450  // NAME 2: what it does
+ConnectionClass *Create_Connection(unsigned long ip, unsigned short port, bool encrypt, bool connect);	// 0x821400  // NAME 2: what it does
+ConnectionManagerClass *Create_Connection_Manager(const char *server_type);	// 0x822F10: listening on network.ini's port, or the first free one from 3500  // NAME 2: what it does
 
 #endif

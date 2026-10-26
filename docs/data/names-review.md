@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 4 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 28 |
-| 3 | by convention from a client-named file or sibling | 273 |
-| 2 | describes what the code does | 644 |
-| 1 | neutral placeholder | 643 |
+| 3 | by convention from a client-named file or sibling | 274 |
+| 2 | describes what the code does | 665 |
+| 1 | neutral placeholder | 651 |
 
 ## For review (score 3 and below)
 
@@ -83,12 +83,17 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_42E8A0` | `app/client/tasks/tsk_smovie.cpp:44` | hands the event on (input.cpp) |
 | 1 | `Unknown_18` | `app/client/tasks/tsk_smovie.h:30` | untagged neutral name (D10) |
 | 1 | `Unknown04` | `app/common/connect.cpp:10` | untagged neutral name (D10) |
+| 1 | `Unknown_Debug_Begin_Step` | `app/common/connect.cpp:33` | 0x509EF0 (dbgmgr.cpp), WinMain's step log |
+| 1 | `Unknown_Debug_End_Step` | `app/common/connect.cpp:34` | 0x50A1E0 (dbgmgr.cpp) |
+| 1 | `Unknown_Debug_Printf` | `app/common/connect.cpp:45` | untagged neutral name (D10) |
+| 1 | `Unknown_Debug_Print` | `app/common/connect.cpp:46` | 0x509E30 (dbgmgr.cpp), the log line |
 | 1 | `Set_Unknown04` | `app/common/connect.cpp:436` | untagged neutral name (D10) |
 | 1 | `Get_Unknown04` | `app/common/connect.cpp:437` | untagged neutral name (D10) |
 | 1 | `Unknown_30` | `app/common/connect.cpp:442` | untagged neutral name (D10) |
 | 1 | `Unknown1C` | `app/common/connect.cpp:490` | untagged neutral name (D10) |
 | 1 | `Set_Unknown05` | `app/common/connect.cpp:710` | untagged neutral name (D10) |
 | 1 | `Unknown05` | `app/common/connect.cpp:714` | untagged neutral name (D10) |
+| 1 | `Unknown` | `app/common/connect.cpp:912` | untagged neutral name (D10) |
 | 1 | `Unknown_Create_Packet` | `app/common/connect.cpp:1105` | untagged neutral name (D10) |
 | 1 | `ConnectionClass` | `app/common/connect.h:30` | describes what it is (the client's name not found) |
 | 1 | `Set_Unknown04` | `app/common/connect.h:43` | untagged neutral name (D10) |
@@ -99,15 +104,15 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `StreamConnectionClass` | `app/common/connect.h:82` | describes what it is |
 | 1 | `PeekConnectionClass` | `app/common/connect.h:105` | describes what it is |
 | 1 | `ConnectionListenerClass` | `app/common/connect.h:118` | describes what it is |
-| 1 | `Unknown_0C` | `app/common/connect.h:124` | untagged neutral name (D10) |
-| 1 | `ConnectionEntryClass` | `app/common/connect.h:130` | describes what it is |
-| 1 | `Unknown05` | `app/common/connect.h:134` | untagged neutral name (D10) |
-| 1 | `ConnectionManager` | `app/common/connect.h:140` | the client's log string |
-| 1 | `Set_Unknown05` | `app/common/connect.h:156` | untagged neutral name (D10) |
-| 1 | `Unknown1C` | `app/common/connect.h:167` | untagged neutral name (D10) |
+| 1 | `ConnectionEntryClass` | `app/common/connect.h:147` | describes what it is |
+| 1 | `Unknown05` | `app/common/connect.h:151` | untagged neutral name (D10) |
+| 1 | `ConnectionManager` | `app/common/connect.h:157` | the client's log string |
+| 1 | `Set_Unknown05` | `app/common/connect.h:173` | untagged neutral name (D10) |
+| 1 | `Unknown1C` | `app/common/connect.h:185` | untagged neutral name (D10) |
 | 1 | `Unknown0C` | `app/common/dbgconn.h:30` | untagged neutral name (D10) |
 | 1 | `Unknown10` | `app/common/dbgconn.h:31` | untagged neutral name (D10) |
 | 1 | `Unknown14` | `app/common/dbgconn.h:41` | untagged neutral name (D10) |
+| 1 | `MemoryConnectionFactoryClass` | `app/common/memconn.h:23` | describes what it is |
 | 1 | `TCPConnection` | `app/common/tcpconn.h:27` | after the file tcpconn.cpp (no RTTI or string) |
 | 1 | `Close` | `app/common/tcpconn.h:43` | describes what it does |
 | 1 | `Get_Unknown04` | `app/common/udpconn.cpp:373` | untagged neutral name (D10) |
@@ -115,8 +120,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `UDPChannelKeyClass` | `app/common/udpconn.h:35` | describes what it is |
 | 1 | `UDPChannelClass` | `app/common/udpconn.h:44` | describes what it is |
 | 1 | `UDPConnection` | `app/common/udpconn.h:51` | after the file udpconn.cpp (no RTTI or string) |
-| 1 | `Unknown_RateClass` | `app/common/udpconn.h:74` | untagged neutral name (D10) |
-| 1 | `CordMgrTaskClass` | `app/common/udpconn.h:91` | after its profile label 'CordMgr::Run' |
+| 1 | `Unknown_RateClass` | `app/common/udpconn.h:75` | untagged neutral name (D10) |
+| 1 | `CordMgrTaskClass` | `app/common/udpconn.h:92` | after its profile label 'CordMgr::Run' |
 | 1 | `unknown_rate.h` | `app/common/unknown_rate.h:18` | neutral file name (D37, D10) |
 | 1 | `Unknown_RateClass` | `app/common/unknown_rate.h:21` | neutral placeholder (D10) |
 | 1 | `Unknown_Get_Ticks` | `app/kernel/kernel.cpp:19` | untagged neutral name (D10) |
@@ -655,6 +660,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_BFAEE0` | `tests/capharness/udpreplay/conn_replay.cpp:83` | untagged neutral name (D10) |
 | 1 | `Unknown_8B4510` | `tests/capharness/udpreplay/conn_replay.cpp:96` | untagged neutral name (D10) |
 | 1 | `Unknown_8B4560` | `tests/capharness/udpreplay/conn_replay.cpp:97` | untagged neutral name (D10) |
+| 1 | `Unknown_Debug_Begin_Step` | `tests/capharness/udpreplay/connect_stubs.cpp:33` | untagged neutral name (D10) |
+| 1 | `Unknown_Debug_End_Step` | `tests/capharness/udpreplay/connect_stubs.cpp:34` | untagged neutral name (D10) |
+| 1 | `Unknown_Debug_Print` | `tests/capharness/udpreplay/connect_stubs.cpp:35` | untagged neutral name (D10) |
 | 1 | `Unknown0C` | `tests/capharness/udpreplay/dbgconn_stubs.cpp:8` | untagged neutral name (D10) |
 | 1 | `Unknown10` | `tests/capharness/udpreplay/dbgconn_stubs.cpp:9` | untagged neutral name (D10) |
 | 1 | `Unknown14` | `tests/capharness/udpreplay/dbgconn_stubs.cpp:15` | untagged neutral name (D10) |
@@ -685,6 +693,17 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `ReadPtr` | `app/common/circbuff.h:35` | what it holds |
 | 2 | `WritePtr` | `app/common/circbuff.h:36` | what it holds |
 | 2 | `IsExternal` | `app/common/circbuff.h:37` | what it means |
+| 2 | `Host_Name` | `app/common/connect.cpp:37` | what it holds |
+| 2 | `Local_Address` | `app/common/connect.cpp:38` | what it holds |
+| 2 | `Local_IP` | `app/common/connect.cpp:39` | what it holds |
+| 2 | `Get_Network_INI` | `app/common/connect.cpp:41` | what it does |
+| 2 | `Is_Local` | `app/common/connect.cpp:42` | what it does |
+| 2 | `Next_Port` | `app/common/connect.cpp:44` | what it holds |
+| 2 | `Create_Connection` | `app/common/connect.cpp:78` | what it does |
+| 2 | `Create_Connection` | `app/common/connect.cpp:114` | what it does |
+| 2 | `Create_Connection` | `app/common/connect.cpp:163` | what it does |
+| 2 | `Get_Host_Name` | `app/common/connect.cpp:241` | what it does |
+| 2 | `Get_Local_IP` | `app/common/connect.cpp:249` | what it does |
 | 2 | `Send_Message` | `app/common/connect.h:35` | what it does |
 | 2 | `Send_Packet` | `app/common/connect.h:36` | what it does |
 | 2 | `Receive` | `app/common/connect.h:37` | what it does |
@@ -705,34 +724,44 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Peek` | `app/common/connect.h:112` | what it does |
 | 2 | `Is_Listening` | `app/common/connect.h:122` | what it does |
 | 2 | `Get_Port` | `app/common/connect.h:123` | what it does |
+| 2 | `Listen` | `app/common/connect.h:124` | what it does |
 | 2 | `Stop` | `app/common/connect.h:125` | what it does |
 | 2 | `Accept` | `app/common/connect.h:126` | what it does |
-| 2 | `Connection` | `app/common/connect.h:132` | what it holds |
-| 2 | `Marked` | `app/common/connect.h:133` | what it holds |
-| 2 | `Peek` | `app/common/connect.h:145` | what it does |
-| 2 | `Get_Packet` | `app/common/connect.h:146` | what it does |
-| 2 | `Receive` | `app/common/connect.h:147` | what it does |
-| 2 | `Broadcast` | `app/common/connect.h:148` | what it does |
-| 2 | `Mark` | `app/common/connect.h:149` | what it does |
-| 2 | `Clear_Marks` | `app/common/connect.h:150` | what it does |
-| 2 | `Get_Port` | `app/common/connect.h:152` | what it does |
-| 2 | `Set_Name` | `app/common/connect.h:153` | what it does |
-| 2 | `Set_Listener` | `app/common/connect.h:154` | what it does |
-| 2 | `Accept_New` | `app/common/connect.h:155` | what it does |
-| 2 | `Remove_Connection` | `app/common/connect.h:157` | what it does |
-| 2 | `Add_Unwrapped` | `app/common/connect.h:158` | what it does |
-| 2 | `Destroy_Connection` | `app/common/connect.h:159` | what it does |
-| 2 | `Destroy_All` | `app/common/connect.h:160` | what it does |
-| 2 | `Is_Managed` | `app/common/connect.h:161` | what it does |
-| 2 | `Add_Connection` | `app/common/connect.h:162` | what it does |
-| 2 | `std:` | `app/common/connect.h:164` | what it holds |
-| 2 | `RoundRobin` | `app/common/connect.h:165` | what it holds |
-| 2 | `Current` | `app/common/connect.h:166` | what it holds |
-| 2 | `Name` | `app/common/connect.h:168` | what it holds |
-| 2 | `Listener` | `app/common/connect.h:169` | what it holds |
+| 2 | `CompositeListenerClass` | `app/common/connect.h:132` | the client's log string |
+| 2 | `Listeners` | `app/common/connect.h:143` | what it holds |
+| 2 | `Connection` | `app/common/connect.h:149` | what it holds |
+| 2 | `Marked` | `app/common/connect.h:150` | what it holds |
+| 2 | `Peek` | `app/common/connect.h:162` | what it does |
+| 2 | `Get_Packet` | `app/common/connect.h:163` | what it does |
+| 2 | `Receive` | `app/common/connect.h:164` | what it does |
+| 2 | `Broadcast` | `app/common/connect.h:165` | what it does |
+| 2 | `Mark` | `app/common/connect.h:166` | what it does |
+| 2 | `Clear_Marks` | `app/common/connect.h:167` | what it does |
+| 2 | `Get_Port` | `app/common/connect.h:169` | what it does |
+| 2 | `Set_Name` | `app/common/connect.h:170` | what it does |
+| 2 | `Set_Listener` | `app/common/connect.h:171` | what it does |
+| 2 | `Accept_New` | `app/common/connect.h:172` | what it does |
+| 2 | `Remove_Connection` | `app/common/connect.h:174` | what it does |
+| 2 | `Add_Unwrapped` | `app/common/connect.h:175` | what it does |
+| 2 | `Destroy_Connection` | `app/common/connect.h:176` | what it does |
+| 2 | `Destroy_All` | `app/common/connect.h:177` | what it does |
+| 2 | `Remove_Dead` | `app/common/connect.h:178` | what it does |
+| 2 | `Is_Managed` | `app/common/connect.h:179` | what it does |
+| 2 | `Add_Connection` | `app/common/connect.h:180` | what it does |
+| 2 | `std:` | `app/common/connect.h:182` | what it holds |
+| 2 | `RoundRobin` | `app/common/connect.h:183` | what it holds |
+| 2 | `Current` | `app/common/connect.h:184` | what it holds |
+| 2 | `Name` | `app/common/connect.h:186` | what it holds |
+| 2 | `Listener` | `app/common/connect.h:187` | what it holds |
+| 2 | `Create_Connection` | `app/common/connect.h:192` | what it does |
+| 2 | `Create_Connection` | `app/common/connect.h:193` | what it does |
+| 2 | `Create_Connection` | `app/common/connect.h:194` | what it does |
+| 2 | `Create_Connection_Manager` | `app/common/connect.h:195` | what it does |
 | 2 | `LogConnectionClass` | `app/common/dbgconn.h:25` | what it does |
 | 2 | `TimedLogConnectionClass` | `app/common/dbgconn.h:36` | what it does |
 | 2 | `StatsConnectionClass` | `app/common/dbgconn.h:45` | what it does (-PACKET_STATS) |
+| 2 | `Is_Listening` | `app/common/memconn.h:26` | what it does |
+| 2 | `Connect` | `app/common/memconn.h:27` | what it does |
 | 2 | `TCPManager` | `app/common/tcpconn.cpp:10` | what it is |
 | 2 | `WriteBuffer` | `app/common/tcpconn.cpp:11` | what it holds |
 | 2 | `Try_Connect` | `app/common/tcpconn.h:41` | what it does |
@@ -747,15 +776,15 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Channel` | `app/common/udpconn.h:37` | what it holds |
 | 2 | `Reliable` | `app/common/udpconn.h:38` | 3 reliable, 4 sequenced |
 | 2 | `Channel` | `app/common/udpconn.h:46` | the CordCon channel openc gave |
-| 2 | `Try_Connect` | `app/common/udpconn.h:67` | what it does |
-| 2 | `Send_Data` | `app/common/udpconn.h:69` | what it does |
-| 2 | `Open_Fixed_Channel` | `app/common/udpconn.h:70` | what it does |
-| 2 | `Is_Fixed_Channel` | `app/common/udpconn.h:71` | what it does |
-| 2 | `Init` | `app/common/udpconn.h:100` | what it does |
-| 2 | `Get_Mgr` | `app/common/udpconn.h:101` | what it returns |
-| 2 | `Shutdown_Task` | `app/common/udpconn.h:102` | what it does |
-| 2 | `Task` | `app/common/udpconn.h:104` | what it holds |
-| 2 | `Mgr` | `app/common/udpconn.h:105` | what it holds |
+| 2 | `Try_Connect` | `app/common/udpconn.h:68` | what it does |
+| 2 | `Send_Data` | `app/common/udpconn.h:70` | what it does |
+| 2 | `Open_Fixed_Channel` | `app/common/udpconn.h:71` | what it does |
+| 2 | `Is_Fixed_Channel` | `app/common/udpconn.h:72` | what it does |
+| 2 | `Init` | `app/common/udpconn.h:101` | what it does |
+| 2 | `Get_Mgr` | `app/common/udpconn.h:102` | what it returns |
+| 2 | `Shutdown_Task` | `app/common/udpconn.h:103` | what it does |
+| 2 | `Task` | `app/common/udpconn.h:105` | what it holds |
+| 2 | `Mgr` | `app/common/udpconn.h:106` | what it holds |
 | 2 | `Add` | `app/common/unknown_rate.h:26` | what it does |
 | 2 | `Get` | `app/common/unknown_rate.h:27` | what it returns |
 | 2 | `Key` | `app/kernel/kernel.h:29` | +0x00 Handle_Key: 0x1B Esc, 0x6A |
@@ -1325,6 +1354,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `circbuff.h` | `app/common/circbuff.h:17` | header name assumed from the client's circbuff.cpp |
 | 3 | `CircBuffClass` | `app/common/circbuff.h:20` | by convention (D24) from the client's file circbuff.cpp |
 | 3 | `dbgconn.h` | `app/common/dbgconn.h:19` | a .h paired with the client's dbgconn.cpp (D24) |
+| 3 | `memconn.h` | `app/common/memconn.h:19` | a .h paired with the client's memconn.cpp (D24) |
 | 3 | `tcpconn.h` | `app/common/tcpconn.h:19` | header name assumed from the client's tcpconn.cpp |
 | 3 | `udpconn.h` | `app/common/udpconn.h:19` | header name assumed from the client's udpconn.cpp |
 | 3 | `kernel.h` | `app/kernel/kernel.h:18` | header name assumed from the client's kernel.cpp |
