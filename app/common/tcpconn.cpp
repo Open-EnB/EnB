@@ -4,11 +4,78 @@
 #include "..\..\wwlib\nstrdup.h"
 #include <string.h>
 #include <winsock.h>
-
+#include <ctype.h>
 // The one TCP manager (0xBE9180, constructed by the static initialiser 0x828A10) and the buffer
 // small writes are encrypted in (0xBE91B8).
 static TCPMgr TCPManager;		// NAME 2: what it is
 static unsigned char WriteBuffer[0x400];	// NAME 2: what it holds
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+TCPConnection::TCPConnection(const char *host, unsigned short port, bool encrypt) :
+	Con(0),
+	Handle(0),
+	Encrypt(encrypt),
+	Key(0),
+	Name(0),
+	IP(0),
+	Port(htons(port))
+{
+	if (isdigit(*host)) {
+		IP = inet_addr(host);
+		Name = nstrdup("unknown");
+	} else {
+		struct hostent *h = gethostbyname(host);
+		G_ASSERT(h);
+		IP = *(unsigned int *)h->h_addr_list[0];
+		Name = nstrdup(h->h_name);
+	}
+}
 
 TCPConnection::TCPConnection(unsigned int ip, unsigned short port, bool encrypt) :
 	Con(0),
@@ -38,73 +105,6 @@ TCPConnection::~TCPConnection()
 		delete [] Name;
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -532,17 +532,61 @@ int TCPConnection::Transport_Read(void *buf, int len)
 }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+TCPConnection::TCPConnection(SOCKET socket) :
+	Con(0),
+	Handle(0),
+	Encrypt(true),
+	Key(0),
+	Name(0),
+	IP(0),
+	Port(0)
+{
+	G_ASSERT(socket != INVALID_SOCKET);
+	Con = new TCPCon(socket);
+	Con->isConnected();
+	TCPManager.setBufferedWrites(Con, true);
+	Con->setInputDelay(0);
+	Con->setOutputDelay(0);
+	struct sockaddr_in addr;
+	int addrlen = sizeof(addr);
+	getpeername(socket, (sockaddr *)&addr, &addrlen);
+	IP = addr.sin_addr.s_addr;
+	Port = addr.sin_port;
+	Name = nstrdup("unknown");
+}
+
+
 /*
 **	Reconstruction notes (tcpconn.cpp, PARTIAL; docs/kernel-map.md 4, step 8)
 **
 **	* The client's functions, in order: the static initialiser 0x828A10 (TCPManager, 0xBE9180) and
-**	  two std::map helpers 0x828B10 / 0x828C40, the constructor by host name 0x828C80 (assert line 74:
-**	  not rebuilt), the scalar destructor 0x828DB0, the constructor by address 0x828DE0, the destructor
+**	  two std::map helpers 0x828B10 / 0x828C40, the constructor by host name 0x828C80 (assert line 74),
+**	  the scalar destructor 0x828DB0, the constructor by address 0x828DE0, the destructor
 **	  0x828EC0, Connect 0x828F90 (assert 'Con == 0', line 119), Try_Connect 0x8290A0, the RSA key
 **	  exchange 0x829180 (assert 'TCP', line 358; 'CONNECT RSA EXCH FAILED: %d : %d': not rebuilt),
 **	  Is_Connected 0x829930, Disconnect 0x829960, Get_Address 0x8299D0, Close 0x829A10,
 **	  Transport_Write 0x829A30 (line 440), Transport_Read 0x829BC0 (line 518), the constructor over an
-**	  accepted socket 0x829C80 (line 564) and the listener with its key file 'server_rsa_keyset.dat'
+**	  accepted socket 0x829C80 (line 564); the listener with its key file 'server_rsa_keyset.dat'
 **	  0x829E00-0x82AA10 (lines 645-780, the server's): not rebuilt.
 **	* The TCP layer is WWOnline wnet's TCPMgr / TCPCon (libs\wwonline\wnet, D73): E&B's TCPCon is an
 **	  OutputDevice with a lock and tcpqueue.cpp's queues (wnet's tcpcon.cpp and tcpqueue.cpp),
