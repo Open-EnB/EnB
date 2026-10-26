@@ -85,7 +85,7 @@ static sint32 Get_Day(int month, int day, int year)
 //
 // Ayecarumba what a pain in the ass!
 //
-static bit8 Get_Date_From_Day(sint32 days, OUT sint32 &year, OUT sint32 &yday)
+static bit8 Get_Date_From_Day(sint32 days, OUT int &year, OUT sint32 &yday)	// E&B: int year (wstypes.h's sint32 is long)
 {
   //register long int rem;
   register long int y;
@@ -227,7 +227,7 @@ Xtime::Xtime(void)
 //
 // Copy constructor
 //
-Xtime::Xtime( Xtime &other )
+Xtime::Xtime( const Xtime &other )
 {
   day_=other.day_;
   msec_=other.msec_;
@@ -246,6 +246,14 @@ Xtime::Xtime( time_t other )
 
 Xtime::~Xtime()
 {
+}
+
+//
+// E&B: the time as a time_t (1970-2038), 0x8BA510
+//
+time_t Xtime::getTime_t(void) const
+{
+  return((day_-719528)*(60*60*24) + msec_/1000);
 }
 
 //

@@ -1,116 +1,128 @@
-// The harness's stand-in for wlib's Wtime (app/wwudp/wtime.h): E&B's fields (the day since year 0
-// and the millisecond of the day) over a clock the harness sets (Replay_Time_Ms), so that a replay
-// runs the same every time. It starts at the real time.
-#include "wtime.h"
+// The harness's clock: wlib's Xtime (libs\wwonline\wlib\xtime.h, D73; the members CordCon and CordMgr
+// call) over a time the harness sets (Replay_Time_Ms), so that a replay runs the same every time; the
+// program doesn't link wlib's xtime.cpp. E&B's fields: the day since year 0 and the millisecond of the
+// day. It starts at the real time.
+#include "..\..\..\libs\wwonline\wlib\xtime.h"
 #include <time.h>
 
-static const unsigned int DAY_MS = 86400000;
-static const unsigned int EPOCH_DAY = 0xAFAA8;		// 1970-01-01 (Update 0x8BA6F0)
+static const sint32 DAY_MS = 86400000;
+static const sint32 EPOCH_DAY = 719528;		// 1970-01-01 (0xAFAA8: Xtime::update 0x8BA6F0)
 
 unsigned __int64 Replay_Time_Ms = (unsigned __int64)time(0) * 1000;
 
-Wtime::Wtime()
+Xtime::Xtime()
 {
-	Update();
+	update();
 }
 
-Wtime::Wtime(const Wtime &other) : Day(other.Day), Msec(other.Msec)
+Xtime::Xtime(const Xtime &other)
+{
+	day_ = other.day_;
+	msec_ = other.msec_;
+}
+
+Xtime::Xtime(time_t other)
+{
+	day_ = (sint32)(other / 86400) + EPOCH_DAY;
+	msec_ = (sint32)(other % 86400) * 1000;
+}
+
+Xtime::~Xtime()
 {
 }
 
-Wtime::Wtime(unsigned int seconds)
+void Xtime::update()
 {
-	Day = seconds / 86400 + EPOCH_DAY;
-	Msec = (seconds % 86400) * 1000;
+	day_ = (sint32)(Replay_Time_Ms / DAY_MS) + EPOCH_DAY;
+	msec_ = (sint32)(Replay_Time_Ms % DAY_MS);
 }
 
-Wtime::~Wtime()
+time_t Xtime::getTime_t(void) const
 {
+	return (day_ - EPOCH_DAY) * 86400 + msec_ / 1000;
 }
 
-void Wtime::Update()
-{
-	Day = (unsigned int)(Replay_Time_Ms / DAY_MS) + EPOCH_DAY;
-	Msec = (unsigned int)(Replay_Time_Ms % DAY_MS);
-}
+sint32 Xtime::getDay(void) const { return day_; }
+sint32 Xtime::getMsec(void) const { return msec_; }
+void Xtime::setDay(sint32 day) { day_ = day; }
+void Xtime::setMsec(sint32 msec) { msec_ = msec; }
+void Xtime::set(sint32 newday, sint32 newmsec) { day_ = newday; msec_ = newmsec; }
 
-unsigned int Wtime::Get_Time_T() const
+void Xtime::normalize(void)
 {
-	return (Day - EPOCH_DAY) * 86400 + Msec / 1000;
-}
-
-unsigned int Wtime::Get_Day() const { return Day; }
-unsigned int Wtime::Get_Msec() const { return Msec; }
-void Wtime::Set_Day(unsigned int day) { Day = day; }
-void Wtime::Set_Msec(unsigned int msec) { Msec = msec; }
-void Wtime::Set(unsigned int day, unsigned int msec) { Day = day; Msec = msec; }
-
-void Wtime::Add_Seconds(int seconds)
-{
-	int day = seconds / 86400;
-	int msec = (seconds % 86400) * 1000 + (int)Msec;
-	while (msec < 0) {
-		msec += DAY_MS;
-		day--;
+	day_ += msec_ / DAY_MS;
+	msec_ %= DAY_MS;
+	while (msec_ < 0) {
+		msec_ += DAY_MS;
+		day_--;
 	}
-	while (msec >= (int)DAY_MS) {
-		msec -= DAY_MS;
-		day++;
-	}
-	Day += day;
-	Msec = (unsigned int)msec;
 }
 
-Wtime &Wtime::operator = (unsigned int seconds)
+void Xtime::addSeconds(sint32 seconds)
 {
-	Day = seconds / 86400 + EPOCH_DAY;
-	Msec = (seconds % 86400) * 1000;
+	day_ += seconds / 86400;
+	msec_ += (seconds % 86400) * 1000;
+	normalize();
+}
+
+Xtime &Xtime::operator = (const time_t other)
+{
+	day_ = (sint32)(other / 86400) + EPOCH_DAY;
+	msec_ = (sint32)(other % 86400) * 1000;
 	return *this;
 }
 
-bool Wtime::operator < (const Wtime &other) const
+Xtime &Xtime::operator = (const Xtime &other)
 {
-	return Day < other.Day || (Day == other.Day && Msec < other.Msec);
-}
-
-bool Wtime::operator > (const Wtime &other) const
-{
-	return Day > other.Day || (Day == other.Day && Msec > other.Msec);
-}
-
-Wtime &Wtime::operator -= (const Wtime &other)
-{
-	if (Msec < other.Msec) {
-		Msec += DAY_MS;
-		Day--;
-	}
-	Msec -= other.Msec;
-	Day -= other.Day;
+	day_ = other.day_;
+	msec_ = other.msec_;
 	return *this;
 }
 
-Wtime Wtime::operator - (const Wtime &other) const
+int Xtime::compare(const Xtime &other) const
 {
-	Wtime t(*this);
-	t -= other;
-	return t;
-}
-
-Wtime Wtime::operator + (const Wtime &other) const
-{
-	Wtime t(*this);
-	t.Msec += other.Msec;
-	t.Day += other.Day;
-	if (t.Msec >= DAY_MS) {
-		t.Msec -= DAY_MS;
-		t.Day++;
+	if (day_ != other.day_) {
+		return day_ < other.day_ ? -1 : 1;
 	}
-	return t;
+	if (msec_ != other.msec_) {
+		return msec_ < other.msec_ ? -1 : 1;
+	}
+	return 0;
 }
 
-Wtime &Wtime::operator = (const Wtime &other)
+bit8 Xtime::operator == (const Xtime &other) const { return compare(other) == 0; }
+bit8 Xtime::operator != (const Xtime &other) const { return compare(other) != 0; }
+bit8 Xtime::operator < (const Xtime &other) const { return compare(other) < 0; }
+bit8 Xtime::operator > (const Xtime &other) const { return compare(other) > 0; }
+bit8 Xtime::operator <= (const Xtime &other) const { return compare(other) <= 0; }
+bit8 Xtime::operator >= (const Xtime &other) const { return compare(other) >= 0; }
+
+Xtime &Xtime::operator += (const Xtime &other)
 {
-	Day = other.Day;
-	Msec = other.Msec;
+	day_ += other.day_;
+	msec_ += other.msec_;
+	normalize();
 	return *this;
+}
+
+Xtime &Xtime::operator -= (const Xtime &other)
+{
+	day_ -= other.day_;
+	msec_ -= other.msec_;
+	normalize();
+	return *this;
+}
+
+Xtime Xtime::operator - (Xtime &other)
+{
+	Xtime temp(*this);
+	temp -= other;
+	return temp;
+}
+
+Xtime Xtime::operator + (Xtime &other)
+{
+	Xtime temp(*this);
+	temp += other;
+	return temp;
 }

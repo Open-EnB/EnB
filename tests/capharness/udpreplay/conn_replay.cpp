@@ -30,8 +30,7 @@ int Conn_Short = 0;		// messages under 4 bytes (the replay's 1-byte fillers): th
 
 // ------------------------------------------------------------------------- wlib's CritSec
 
-// the imported one (libs\wwonline\wlib, D73), compiled here so that its types follow udpconn.h's
-// (WWLib's bittype.h before wlib's wstypes.h)
+// the imported one (libs\wwonline\wlib, D73), compiled into the program here
 #include "..\..\..\libs\wwonline\wlib\critsec.cpp"
 
 // ------------------------------------------------------------------------- the rate (0x820830), functional

@@ -83,8 +83,8 @@ CordConnectingClass *CordMgr::Connect(unsigned int ip, unsigned short port, bool
 	c->Record = record;
 	c->Socket = record ? record->Socket : NULL;
 	c->State = 1;
-	c->LastSend.Set_Day(0);
-	c->Created.Update();
+	c->LastSend.setDay(0);
+	c->Created.update();
 	if (encrypt) {
 		SecureRandomClass random;
 		c->Key = (__int64)random.Randval() << 32;
@@ -103,11 +103,11 @@ bool CordMgr::Pump_Connections()
 {
 	WWPROFILE("CordMgr::Pump_Connections");
 	unsigned char buf[0x400];
-	Wtime now;
-	Wtime resend;
-	Wtime timeout;
-	resend.Add_Seconds(-1);
-	timeout.Add_Seconds(-60);
+	Xtime now;
+	Xtime resend;
+	Xtime timeout;
+	resend.addSeconds(-1);
+	timeout.addSeconds(-60);
 	for (int i = 0; i < Pending_.length(); i++) {
 		CordConnectingClass *c; Pending_.get(c, i);
 		if (c->Created < timeout) {
@@ -594,7 +594,7 @@ void CordMgr::Pump()
 			}
 		}
 	}
-	Wtime now;
+	Xtime now;
 	for (int c = 0; c < Connections_.length(); c++) {
 		CordCon *con; Connections_.get(con, c); con->pump(now);
 	}
@@ -672,7 +672,7 @@ void CordMgr::Process_Zero_Read(sockaddr_in *from)
 	for (int p = 0; p < Pending_.length(); p++) {
 		CordConnectingClass *c; Pending_.get(c, p);
 		if (c->Ip == ntohl(from->sin_addr.s_addr) && c->Port == ntohs(from->sin_port)) {
-			c->Created.Add_Seconds(-5);
+			c->Created.addSeconds(-5);
 		}
 	}
 }
@@ -1355,7 +1355,7 @@ bool CordMgr::Process_ACK1_Packet(unsigned char *data, int len, sockaddr_in *fro
 		} else {
 			memset(c->EncryptedKey, 0, sizeof(c->EncryptedKey));
 		}
-		c->LastSend.Set(0, 0);
+		c->LastSend.set(0, 0);
 		c->State = 3;
 		c->Ack1Word1 = word1;
 		c->Ack1Word2 = word2;

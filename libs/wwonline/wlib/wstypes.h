@@ -92,16 +92,13 @@ Standard type definitions for the sake of portability and readability.
 #define RO const
 
 typedef char               bit8;
-#ifndef BITTYPE_H                    // E&B: WWLib's bittype.h first: its sint8, sint32, uint32
-typedef char               sint8;
-#endif
+// E&B: sint8, sint32 and uint32 are WWLib's (signed char, long, unsigned long): one definition for
+// the whole program, since E&B's own files include both (udpconn.cpp: wlib's CritSec and Dictionary
+// with WWLib's WWProfile; CordCon: ArrayList and Xtime with WWLib's mempool.h)
+#include "..\..\..\wwlib\bittype.h"
 typedef unsigned char      uint8;
 typedef signed short int   sint16;
 typedef unsigned short int uint16;
-#ifndef BITTYPE_H                    // E&B: as sint8
-typedef signed int         sint32;
-typedef unsigned int       uint32;
-#endif
 
 typedef float              float32;
 typedef double             float64;

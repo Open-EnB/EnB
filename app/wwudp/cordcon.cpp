@@ -8,7 +8,7 @@
 **	Functional (NOT EXACT, D42): the receive path (handlePacket, examinePacket, read) follows the
 **	client's code statement by statement; the send path (write, openc, buildHeader,
 **	buildMsgHeader, pump, pumpInternal with its priority order, resend timer and send window,
-**	getHighestPriorityMessage) too. Time is wlib's Wtime (wtime.h), as in the client. The client's
+**	getHighestPriorityMessage) too. Time is wlib's Xtime (libs\wwonline\wlib, D73), as in the client. The client's
 **	asserts sit on lines 521, 632 and 977 (D25): this file does not keep them on their lines.
 **	Notes at the end.
 */
@@ -419,8 +419,8 @@ bool CordCon::handlePacket(unsigned char *data, int datalen)
 		Rejected_++;
 		return false;
 	}
-	Wtime current;
-	unsigned int now = current.Get_Time_T();
+	Xtime current;
+	unsigned int now = current.getTime_t();
 	PacketsIn_++;
 	LastReceive_ = now;
 	int pos = 10;
@@ -457,10 +457,10 @@ bool CordCon::handlePacket(unsigned char *data, int datalen)
 				if (kind == 0 ? it->Seq == seq : it->Seq <= seq) {
 					found = true;
 					if (it->SendCount == 1 && kind == 0) {
-						Wtime rtt(0);
+						Xtime rtt(0);
 						rtt = current - it->SentTime;
-						if (rtt.Get_Day() == 0) {
-							Stats_->On_Round_Trip(rtt.Get_Msec());
+						if (rtt.getDay() == 0) {
+							Stats_->On_Round_Trip(rtt.getMsec());
 						}
 					}
 					Stats_->On_Ack(it->Length);
@@ -484,8 +484,8 @@ bool CordCon::handlePacket(unsigned char *data, int datalen)
 			for (std::vector<CordMessageClass>::iterator it = c->Sent.begin(); it != c->Sent.end(); ++it) {
 				if (it->Seq == seq) {
 					CordMessageClass m = *it;
-					m.SentTime.Set_Day(0);
-					m.SentTime.Set_Msec(0);
+					m.SentTime.setDay(0);
+					m.SentTime.setMsec(0);
 					c->Sent.erase(it);
 					c->Sent.insert(c->Sent.begin(), m);
 					ResendRequests_++;
@@ -1051,18 +1051,18 @@ static void Queue_Empty(CordCon *con)
 	con->Queued_++;
 }
 
-// 0x853560, functional (NOT EXACT: Wtime and the vectors' inlined code differ): pumpInternal,
+// 0x853560, functional (NOT EXACT: Xtime and the vectors' inlined code differ): pumpInternal,
 // and while acks or resend requests are due with nothing queued, an empty message on channel 0
 // to carry them; the keep-alive (an empty message after 5 s without a send, every second until
 // something arrives), the idle close (90 s without a datagram), and the channels this side
 // opened that are closed and empty leave the active list.
-bool CordCon::pump(Wtime &now)
+bool CordCon::pump(Xtime &now)
 {
 	WWPROFILE("CordCon::pump");
 	if (Udp_ == NULL) {
 		return false;
 	}
-	unsigned int t = now.Get_Time_T();
+	unsigned int t = now.getTime_t();
 	if ((int)(t - LastPump_) > 45) {
 		LastReceive_ = t;
 	}
@@ -1120,7 +1120,7 @@ bool CordCon::pump(Wtime &now)
 // record's + the channel's priority (unreliable mode-1 records are never resent). The highest
 // wins; when the window is full the first resend found does. Every channel looked at with
 // records gets LastWrite = now.
-bool CordCon::getHighestPriorityMessage(int *channel, int *index, Wtime &threshold, CordMessageClass **msg, Wtime &now)
+bool CordCon::getHighestPriorityMessage(int *channel, int *index, Xtime &threshold, CordMessageClass **msg, Xtime &now)
 {
 	WWPROFILE("CordCon::getHighestPriorityMessage");
 	int best = -999999;
@@ -1137,7 +1137,7 @@ bool CordCon::getHighestPriorityMessage(int *channel, int *index, Wtime &thresho
 			std::vector<CordMessageClass> &list = pass == 0 ? c->Sent : c->Queue;
 			int count = (int)list.size();
 			if (count != 0) {
-				c->LastWrite = now.Get_Time_T();
+				c->LastWrite = now.getTime_t();
 			}
 			for (int k = 0; k < count; k++) {
 				if (c->Mode == 4 && k != count - 1) {
@@ -1181,7 +1181,7 @@ bool CordCon::getHighestPriorityMessage(int *channel, int *index, Wtime &thresho
 	return false;
 }
 
-// 0x853A30, functional (NOT EXACT: Wtime, the vectors' inlined code and the log calls differ):
+// 0x853A30, functional (NOT EXACT: Xtime, the vectors' inlined code and the log calls differ):
 // pumpClose; every 8 calls the unreliable (mode 1 / 4) sent records older than 6 round trips are
 // dropped (the client logs 'Removing unreliable'); then the records by priority
 // (getHighestPriorityMessage) while the send window allows (CordStatsClass::Allow), packed into
@@ -1189,7 +1189,7 @@ bool CordCon::getHighestPriorityMessage(int *channel, int *index, Wtime &thresho
 // timeout unless the peer asked for it). Sent records wait at the end of the channel's sent list
 // for their ack; 0-byte ones are dropped. The header byte (Quality_) follows the share of
 // reliable sends that were resends.
-bool CordCon::pumpInternal(Wtime &now)
+bool CordCon::pumpInternal(Xtime &now)
 {
 	WWPROFILE("CordCon::pumpInternal");
 	unsigned char head[0x100];
@@ -1202,12 +1202,12 @@ bool CordCon::pumpInternal(Wtime &now)
 	CordMessageClass *m = 0;
 	int reliable = 0;
 	int resent = 0;
-	Wtime expiry(now);
-	Wtime threshold(now);
-	Wtime timeout(now);
+	Xtime expiry(now);
+	Xtime threshold(now);
+	Xtime timeout(now);
 	pumpClose();
-	expiry.Set_Day(0);
-	expiry.Set_Msec(Stats_->RoundTrip * 6);
+	expiry.setDay(0);
+	expiry.setMsec(Stats_->RoundTrip * 6);
 	Stats_->Update(now);
 	Stats_->Get_Resend_Timeout(timeout);
 	threshold -= timeout;
@@ -1252,7 +1252,7 @@ bool CordCon::pumpInternal(Wtime &now)
 				resent++;
 			}
 			BytesResent_ += m->Length;
-			Stats_->On_Loss(m->Length, m->SentTime.Get_Day() != 0);
+			Stats_->On_Loss(m->Length, m->SentTime.getDay() != 0);
 		}
 		if (hlen == 0) {
 			buildHeader(head, &hlen, &counter);
@@ -1292,7 +1292,7 @@ bool CordCon::pumpInternal(Wtime &now)
 	}
 	if (pos != 0) {
 		Finish_Datagram(this, buf, pos, counter);
-		LastSend_ = now.Get_Time_T();
+		LastSend_ = now.getTime_t();
 	}
 	for (int i = reliable; i > 0; i--) {
 		Quality_ = (int)((unsigned int)(Quality_ * 19 + (100 - ((reliable - resent) * 100) / reliable)) / 20);

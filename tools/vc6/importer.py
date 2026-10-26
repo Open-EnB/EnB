@@ -3022,13 +3022,32 @@ WWONLINE_PATCHES = {
          'sint32 CritSec::lock(void) RO \t// E&B: no argument (0x8B4330)',
          "0x8B4330 `ret`, not `ret 4`: E&B's lock takes no argument; the _UNIX branch (not compiled) still names refcount"),
     ],
+    ('wlib', 'xtime.h'): [
+        ('              Xtime( Xtime &other );\n',
+         '              Xtime( const Xtime &other );  // E&B: const (CordCon copies its const times)\n',
+         "E&B's CordCon code copies const Xtimes (CordStatsClass::Update 0x85C0D0, Allow 0x85C430 take `const Xtime &now` and copy it); matchbot's copy constructor takes a non-const reference. Same code (0x8BA420)"),
+        ('             ~Xtime();\n',
+         '             ~Xtime();\n\n    time_t    getTime_t(void) const;  // E&B: the time as a time_t (0x8BA510)  // NAME 1: describes what it returns\n',
+         "E&B's addition 0x8BA510 (between ~Xtime 0x8BA4F0 and addSeconds 0x8BA550): day_ * 86400 + msec_ / 1000 - 719528 * 86400 (0x79747C00), the time_t of the time; CordStatsClass::Allow 0x85C430 calls it"),
+    ],
+    ('wlib', 'xtime.cpp'): [
+        ('Xtime::Xtime( Xtime &other )\n',
+         'Xtime::Xtime( const Xtime &other )\n',
+         "as xtime.h: E&B's copy constructor takes a const reference (0x8BA420)"),
+        ('Xtime::~Xtime()\n{\n}\n',
+         'Xtime::~Xtime()\n{\n}\n\n//\n// E&B: the time as a time_t (1970-2038), 0x8BA510\n//\ntime_t Xtime::getTime_t(void) const\n{\n  return((day_-719528)*(60*60*24) + msec_/1000);\n}\n',
+         '0x8BA510: `mov edx, [ecx+4]; imul 0x10624DD3; sar edx, 6` (msec_ / 1000, signed), day_ * 86400 through a lea chain, `lea eax, [edx + ecx - 0x79747C00]` (719528 days)'),
+        ('static bit8 Get_Date_From_Day(sint32 days, OUT sint32 &year, OUT sint32 &yday)',
+         "static bit8 Get_Date_From_Day(sint32 days, OUT int &year, OUT sint32 &yday)\t// E&B: int year (wstypes.h's sint32 is long)",
+         "with wstypes.h on WWLib's bittype.h (sint32 long) getYDay's and getTime's `int year` no longer binds to `sint32 &` (C2664); the year is an int as getTime's own parameter. Same code: none of the three matches the client yet"),
+    ],
     ('wlib', 'wstypes.h'): [
         ('typedef char               sint8;\n',
-         "#ifndef BITTYPE_H                    // E&B: WWLib's bittype.h first: its sint8, sint32, uint32\ntypedef char               sint8;\n#endif\n",
-         "E&B's udpconn.cpp (0x82C5E0-0x82E020) uses wlib's CritSec (0x8B4330 / 0x8B4350) and inlines wlib's Dictionary in one file with WWLib's WWProfile (0x444160), so wlib's typedefs and WWLib's bittype.h (signed char, long, unsigned long) can't both be defined there (C2371); the three that differ give way to bittype.h's when it came first. wlib's own files don't include bittype.h: no byte change"),
+         '// E&B: sint8, sint32 and uint32 are WWLib\'s (signed char, long, unsigned long): one definition for\n// the whole program, since E&B\'s own files include both (udpconn.cpp: wlib\'s CritSec and Dictionary\n// with WWLib\'s WWProfile; CordCon: ArrayList and Xtime with WWLib\'s mempool.h)\n#include "..\\..\\..\\wwlib\\bittype.h"\n',
+         "E&B's udpconn.cpp (0x82C5E0-0x82E020) uses wlib's CritSec (0x8B4330 / 0x8B4350) and inlines wlib's Dictionary in one file with WWLib's WWProfile (0x444160), and CordCon inlines wlib's ArrayList beside WWLib's pools, so the two sets of typedefs met in one file (matchbot's char / int / unsigned int redefine bittype.h's: C2371); wlib takes WWLib's, so that sint32 means one type in wlib's objects and the app's (their mangled names agree)"),
         ('typedef signed int         sint32;\ntypedef unsigned int       uint32;\n',
-         '#ifndef BITTYPE_H                    // E&B: as sint8\ntypedef signed int         sint32;\ntypedef unsigned int       uint32;\n#endif\n',
-         'the same for sint32 and uint32'),
+         '',
+         "as sint8: bittype.h's sint32 / uint32"),
     ],
 }
 for _key, _edits in WWONLINE_PATCHES.items():
@@ -3428,10 +3447,6 @@ RECONSTRUCTED = {
     ('app', 'wwudp/bandwidthaccounting.cpp'): "the bandwidth accounting, client 0x84C720-0x84DFB0 (M1.4): a kernel task with per-address "
                                               "counts fed by wnet's accounting callback, WWLib's DynamicVectorClass of 0x3C-byte "
                                               "entries; the debug window prints on the client's lines 281-361 (D25); exact",
-    ('app', 'wwudp/wtime.h'): "the time value CordCon uses: wlib's Wtime (libs\\wwonline\\wlib, client 0x8BA300-0x8BB7A0; "
-                              "E&B's copy keeps the day and the millisecond of the day), the part the wwudp code calls (EA's "
-                              "Generals Tools\\matchbot\\wlib\\wtime.h interface); defined by the program (the capture "
-                              "harness's clock, M1.4)",
     ('app', 'wwudp/cordcon.h'): "CordCon (client names: the profile labels, 'Udp_'), CordChannelClass and CordMessageClass (descriptive, "
                                 "D24): the EA-UDP connection, its channels and message records (M1.4)",
     ('app', 'wwudp/cordcon.cpp'): "CordCon, client 0x84D730?-0x854E70 (M1.4): Encrypt_Data 0x854D00 and buildMsgHeader "

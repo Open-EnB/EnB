@@ -57,9 +57,11 @@ class Xtime
   public:
 
               Xtime();  // init to system time
-              Xtime( Xtime &other );
+              Xtime( const Xtime &other );  // E&B: const (CordCon copies its const times)
               Xtime( time_t other );   // 1970-2038
              ~Xtime();
+
+    time_t    getTime_t(void) const;  // E&B: the time as a time_t (0x8BA510)  // NAME 1: describes what it returns
 
     void      addSeconds(sint32 seconds);
 

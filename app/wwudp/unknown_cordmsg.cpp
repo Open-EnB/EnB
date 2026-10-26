@@ -6,7 +6,7 @@
 **	PROVISIONAL file name (no assert or __FILE__ names it): the object 0x85AEC0-0x85C600 after
 **	cordmgr.cpp, which holds CordMessageClass's out-of-line members (0x85BE00-0x85BEE7) and the
 **	connection's send window and statistics CordCon keeps at +0x68 (CordStatsClass, 0x4C bytes:
-**	0x85BF30-0x85C5E0). Wtime is wlib's (wtime.h: declared, the program links it).
+**	0x85BF30-0x85C5E0). Xtime is wlib's (libs\wwonline\wlib, D73).
 */
 
 // NAME 1 [unknown_cordmsg.cpp]: PROVISIONAL file name (no assert or __FILE__ names the object)
@@ -17,8 +17,8 @@
 CordMessageClass::CordMessageClass() :
 	SentTime(0)
 {
-	SentTime.Set_Day(0);
-	SentTime.Set_Msec(0);
+	SentTime.setDay(0);
+	SentTime.setMsec(0);
 	SendCount = 0;
 	Length = 0;
 	TotalLength = 0;
@@ -31,7 +31,7 @@ CordMessageClass::CordMessageClass() :
 	FragIndex = 0;
 }
 
-// 0x85BEA0: the client's only destroys its Wtime. The data stays: Free releases it.
+// 0x85BEA0: the client's only destroys its Xtime. The data stays: Free releases it.
 CordMessageClass::~CordMessageClass()
 {
 }
@@ -57,8 +57,8 @@ CordStatsClass::CordStatsClass(int max_window)
 	Threshold = 0x7FFFFFFF;
 	MaxWindow = max_window;
 	InFlight = 0;
-	RoundStart.Set_Day(0);
-	RoundStart.Set_Msec(0);
+	RoundStart.setDay(0);
+	RoundStart.setMsec(0);
 	Round = 0;
 	LastPeak = 0;
 	Peak = 0;
@@ -81,13 +81,13 @@ bool CordStatsClass::Can_Send() const
 }
 
 // 0x85C0D0
-bool CordStatsClass::Update(const Wtime &now)
+bool CordStatsClass::Update(const Xtime &now)
 {
-	Wtime rtt(now);
-	rtt.Set_Day(0);
-	rtt.Set_Msec(RoundTrip);
+	Xtime rtt(now);
+	rtt.setDay(0);
+	rtt.setMsec(RoundTrip);
 	if (RoundStart + rtt < now) {
-		RoundStart.Update();
+		RoundStart.update();
 		Round++;
 	}
 	return true;
@@ -101,10 +101,10 @@ bool CordStatsClass::Set_Rate_Limit(int bytes)
 }
 
 // 0x85C1E0
-void CordStatsClass::Get_Resend_Timeout(Wtime &out) const
+void CordStatsClass::Get_Resend_Timeout(Xtime &out) const
 {
-	out.Set_Day(0);
-	out.Set_Msec(RoundTrip * 2 + 50);
+	out.setDay(0);
+	out.setMsec(RoundTrip * 2 + 50);
 }
 
 // 0x85C220
@@ -202,19 +202,19 @@ bool CordStatsClass::On_Loss(int bytes, bool timeout)
 static unsigned int LimitedAt;	// NAME 2: 0xBF4120 when the rate limit last held a send back
 
 // 0x85C430
-bool CordStatsClass::Allow(int channel, unsigned int len, int send_count, const Wtime &now)
+bool CordStatsClass::Allow(int channel, unsigned int len, int send_count, const Xtime &now)
 {
-	Wtime elapsed(now);
+	Xtime elapsed(now);
 	elapsed -= SecondStart;
-	if ((int)elapsed.Get_Msec() >= 1000) {
+	if ((int)elapsed.getMsec() >= 1000) {
 		SecondBytes = 0;
-		SecondStart.Update();
+		SecondStart.update();
 	}
 	LastSecondBytes = SecondBytes;
 	if (send_count == 0 && len != 0 && channel != 0) {
 		if (SecondBytes > RateLimit) {
-			if (now.Get_Time_T() != LimitedAt) {
-				LimitedAt = now.Get_Time_T();
+			if (now.getTime_t() != LimitedAt) {
+				LimitedAt = now.getTime_t();
 			}
 			return false;
 		}

@@ -2073,6 +2073,7 @@
    "packets/pk_classes.h": "reconstructed",
    "packets/pkaction.h": "reconstructed",
    "packets/pkchangebaseasset.h": "reconstructed",
+   "packets/pkclickindicator.h": "reconstructed",
    "packets/pkclientavatar.h": "reconstructed",
    "packets/pkclientship.h": "reconstructed",
    "packets/pkcreate.h": "reconstructed",
@@ -2095,6 +2096,7 @@
    "packets/pknamedecal.h": "reconstructed",
    "packets/pknavdelete.h": "reconstructed",
    "packets/pkopeninterface.h": "reconstructed",
+   "packets/pkoption.h": "reconstructed",
    "packets/pkpointeffect.h": "reconstructed",
    "packets/pkreferralpointsavailable.h": "reconstructed",
    "packets/pkremove.h": "reconstructed",
@@ -2109,6 +2111,7 @@
    "packets/pkstart.h": "reconstructed",
    "packets/pktalktreeaction.h": "reconstructed",
    "packets/pktilt.h": "reconstructed",
+   "packets/pktrade.h": "reconstructed",
    "packets/pkturn.h": "reconstructed",
    "packets/pkuitrigger.h": "reconstructed",
    "packets/pkunknown_85d1a0.h": "reconstructed",
@@ -2151,8 +2154,7 @@
    "shared/unknown_debug.h": "reconstructed",
    "wwudp/cordcon.h": "reconstructed",
    "wwudp/cordmgr.h": "reconstructed",
-   "wwudp/udp.h": "reconstructed",
-   "wwudp/wtime.h": "reconstructed"
+   "wwudp/udp.h": "reconstructed"
   },
   "in_tree_total": 709,
   "totals": {}
@@ -2412,6 +2414,7 @@
      "0x8BA280",
      "0x8BA300",
      "0x8BA450",
+     "0x8BA510",
      "0x8BA550",
      "0x8BA680",
      "0x8BA6F0",
@@ -2469,7 +2472,7 @@
    "wtime.h": "Z",
    "xtime.h": "Z"
   },
-  "in_tree_total": 74,
+  "in_tree_total": 75,
   "totals": {
    "Z": 74
   }

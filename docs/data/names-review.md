@@ -8,10 +8,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | Score | Meaning | Names |
 |---|---|---|
 | 5 | the client names it | 4 |
-| 4 | EA source, or a structure-confirmed Net-7 / C# name | 30 |
+| 4 | EA source, or a structure-confirmed Net-7 / C# name | 28 |
 | 3 | by convention from a client-named file or sibling | 258 |
-| 2 | describes what the code does | 608 |
-| 1 | neutral placeholder | 615 |
+| 2 | describes what the code does | 601 |
+| 1 | neutral placeholder | 614 |
 
 ## For review (score 3 and below)
 
@@ -92,11 +92,11 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `StreamConnectionClass` | `app/common/connect.h:53` | describes what it is |
 | 1 | `Get_Unknown04` | `app/common/udpconn.cpp:373` | untagged neutral name (D10) |
 | 1 | `Unknown_Create_Packet` | `app/common/udpconn.cpp:556` | untagged neutral name (D10) |
-| 1 | `UDPChannelKeyClass` | `app/common/udpconn.h:36` | describes what it is |
-| 1 | `UDPChannelClass` | `app/common/udpconn.h:45` | describes what it is |
-| 1 | `UDPConnection` | `app/common/udpconn.h:52` | after the file udpconn.cpp (no RTTI or string) |
-| 1 | `Unknown_RateClass` | `app/common/udpconn.h:75` | untagged neutral name (D10) |
-| 1 | `CordMgrTaskClass` | `app/common/udpconn.h:92` | after its profile label 'CordMgr::Run' |
+| 1 | `UDPChannelKeyClass` | `app/common/udpconn.h:35` | describes what it is |
+| 1 | `UDPChannelClass` | `app/common/udpconn.h:44` | describes what it is |
+| 1 | `UDPConnection` | `app/common/udpconn.h:51` | after the file udpconn.cpp (no RTTI or string) |
+| 1 | `Unknown_RateClass` | `app/common/udpconn.h:74` | untagged neutral name (D10) |
+| 1 | `CordMgrTaskClass` | `app/common/udpconn.h:91` | after its profile label 'CordMgr::Run' |
 | 1 | `unknown_rate.h` | `app/common/unknown_rate.h:18` | neutral file name (D37, D10) |
 | 1 | `Unknown_RateClass` | `app/common/unknown_rate.h:21` | neutral placeholder (D10) |
 | 1 | `Unknown_Get_Ticks` | `app/kernel/kernel.cpp:19` | untagged neutral name (D10) |
@@ -543,7 +543,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Set_Accounting_Callback` | `app/wwudp/udp.h:42` | what it does |
 | 1 | `Clear_Accounting_Callback` | `app/wwudp/udp.h:43` | what it does |
 | 1 | `unknown_cordmsg.cpp` | `app/wwudp/unknown_cordmsg.cpp:12` | PROVISIONAL file name (no assert or __FILE__ names the object) |
-| 1 | `Get_Time_T` | `app/wwudp/wtime.h:34` | describes what it returns |
 | 1 | `Unknown_Report_Message` | `stubs/app_stubs.cpp:34` | untagged neutral name (D10) |
 | 1 | `Unknown_Debug_Printf` | `stubs/app_stubs.cpp:48` | untagged neutral name (D10) |
 | 1 | `DeltaUnknownGlobal` | `stubs/app_stubs.cpp:62` | untagged neutral name (D10) |
@@ -610,24 +609,24 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_BFAEE0` | `tests/capharness/movietest/movietest.cpp:79` | untagged neutral name (D10) |
 | 1 | `Unknown_Assert_Failed` | `tests/capharness/movietest/movietest.cpp:80` | untagged neutral name (D10) |
 | 1 | `Unknown_Fail_If_Report` | `tests/capharness/movietest/movietest.cpp:81` | untagged neutral name (D10) |
-| 1 | `Unknown_RateClass` | `tests/capharness/udpreplay/conn_replay.cpp:39` | untagged neutral name (D10) |
-| 1 | `Unknown_Get_Ticks` | `tests/capharness/udpreplay/conn_replay.cpp:62` | untagged neutral name (D10) |
-| 1 | `Unknown_9179D0` | `tests/capharness/udpreplay/conn_replay.cpp:63` | untagged neutral name (D10) |
-| 1 | `Unknown_42EA80` | `tests/capharness/udpreplay/conn_replay.cpp:64` | untagged neutral name (D10) |
-| 1 | `Unknown_42E8A0` | `tests/capharness/udpreplay/conn_replay.cpp:65` | untagged neutral name (D10) |
-| 1 | `UnknownBDADC0Class` | `tests/capharness/udpreplay/conn_replay.cpp:66` | untagged neutral name (D10) |
-| 1 | `Unknown0000` | `tests/capharness/udpreplay/conn_replay.cpp:69` | untagged neutral name (D10) |
-| 1 | `Unknown4074` | `tests/capharness/udpreplay/conn_replay.cpp:70` | untagged neutral name (D10) |
-| 1 | `Unknown_BDADC0` | `tests/capharness/udpreplay/conn_replay.cpp:73` | untagged neutral name (D10) |
-| 1 | `UnknownBFAEE0Class` | `tests/capharness/udpreplay/conn_replay.cpp:74` | untagged neutral name (D10) |
-| 1 | `Unknown_00` | `tests/capharness/udpreplay/conn_replay.cpp:77` | untagged neutral name (D10) |
-| 1 | `Unknown_04` | `tests/capharness/udpreplay/conn_replay.cpp:78` | untagged neutral name (D10) |
-| 1 | `Unknown_08` | `tests/capharness/udpreplay/conn_replay.cpp:79` | untagged neutral name (D10) |
-| 1 | `Unknown_0C` | `tests/capharness/udpreplay/conn_replay.cpp:80` | untagged neutral name (D10) |
-| 1 | `Unknown_10` | `tests/capharness/udpreplay/conn_replay.cpp:81` | untagged neutral name (D10) |
-| 1 | `Unknown_BFAEE0` | `tests/capharness/udpreplay/conn_replay.cpp:84` | untagged neutral name (D10) |
-| 1 | `Unknown_8B4510` | `tests/capharness/udpreplay/conn_replay.cpp:97` | untagged neutral name (D10) |
-| 1 | `Unknown_8B4560` | `tests/capharness/udpreplay/conn_replay.cpp:98` | untagged neutral name (D10) |
+| 1 | `Unknown_RateClass` | `tests/capharness/udpreplay/conn_replay.cpp:38` | untagged neutral name (D10) |
+| 1 | `Unknown_Get_Ticks` | `tests/capharness/udpreplay/conn_replay.cpp:61` | untagged neutral name (D10) |
+| 1 | `Unknown_9179D0` | `tests/capharness/udpreplay/conn_replay.cpp:62` | untagged neutral name (D10) |
+| 1 | `Unknown_42EA80` | `tests/capharness/udpreplay/conn_replay.cpp:63` | untagged neutral name (D10) |
+| 1 | `Unknown_42E8A0` | `tests/capharness/udpreplay/conn_replay.cpp:64` | untagged neutral name (D10) |
+| 1 | `UnknownBDADC0Class` | `tests/capharness/udpreplay/conn_replay.cpp:65` | untagged neutral name (D10) |
+| 1 | `Unknown0000` | `tests/capharness/udpreplay/conn_replay.cpp:68` | untagged neutral name (D10) |
+| 1 | `Unknown4074` | `tests/capharness/udpreplay/conn_replay.cpp:69` | untagged neutral name (D10) |
+| 1 | `Unknown_BDADC0` | `tests/capharness/udpreplay/conn_replay.cpp:72` | untagged neutral name (D10) |
+| 1 | `UnknownBFAEE0Class` | `tests/capharness/udpreplay/conn_replay.cpp:73` | untagged neutral name (D10) |
+| 1 | `Unknown_00` | `tests/capharness/udpreplay/conn_replay.cpp:76` | untagged neutral name (D10) |
+| 1 | `Unknown_04` | `tests/capharness/udpreplay/conn_replay.cpp:77` | untagged neutral name (D10) |
+| 1 | `Unknown_08` | `tests/capharness/udpreplay/conn_replay.cpp:78` | untagged neutral name (D10) |
+| 1 | `Unknown_0C` | `tests/capharness/udpreplay/conn_replay.cpp:79` | untagged neutral name (D10) |
+| 1 | `Unknown_10` | `tests/capharness/udpreplay/conn_replay.cpp:80` | untagged neutral name (D10) |
+| 1 | `Unknown_BFAEE0` | `tests/capharness/udpreplay/conn_replay.cpp:83` | untagged neutral name (D10) |
+| 1 | `Unknown_8B4510` | `tests/capharness/udpreplay/conn_replay.cpp:96` | untagged neutral name (D10) |
+| 1 | `Unknown_8B4560` | `tests/capharness/udpreplay/conn_replay.cpp:97` | untagged neutral name (D10) |
 | 1 | `Unknown_2C` | `tests/capharness/udpreplay/pk_ctor_stubs.cpp:225` | untagged neutral name (D10) |
 | 1 | `UnknownLogClass` | `tests/capharness/udpreplay/udpreplay.cpp:69` | untagged neutral name (D10) |
 | 1 | `Unknown_4BC130` | `tests/capharness/udpreplay/udpreplay.cpp:72` | untagged neutral name (D10) |
@@ -673,18 +672,18 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Fill` | `app/common/connect.h:67` | what it does |
 | 2 | `Ring` | `app/common/connect.h:69` | what it is |
 | 2 | `ReadBuffer` | `app/common/connect.h:70` | what it holds |
-| 2 | `Channel` | `app/common/udpconn.h:38` | what it holds |
-| 2 | `Reliable` | `app/common/udpconn.h:39` | 3 reliable, 4 sequenced |
-| 2 | `Channel` | `app/common/udpconn.h:47` | the CordCon channel openc gave |
-| 2 | `Try_Connect` | `app/common/udpconn.h:68` | what it does |
-| 2 | `Send_Data` | `app/common/udpconn.h:70` | what it does |
-| 2 | `Open_Fixed_Channel` | `app/common/udpconn.h:71` | what it does |
-| 2 | `Is_Fixed_Channel` | `app/common/udpconn.h:72` | what it does |
-| 2 | `Init` | `app/common/udpconn.h:101` | what it does |
-| 2 | `Get_Mgr` | `app/common/udpconn.h:102` | what it returns |
-| 2 | `Shutdown_Task` | `app/common/udpconn.h:103` | what it does |
-| 2 | `Task` | `app/common/udpconn.h:105` | what it holds |
-| 2 | `Mgr` | `app/common/udpconn.h:106` | what it holds |
+| 2 | `Channel` | `app/common/udpconn.h:37` | what it holds |
+| 2 | `Reliable` | `app/common/udpconn.h:38` | 3 reliable, 4 sequenced |
+| 2 | `Channel` | `app/common/udpconn.h:46` | the CordCon channel openc gave |
+| 2 | `Try_Connect` | `app/common/udpconn.h:67` | what it does |
+| 2 | `Send_Data` | `app/common/udpconn.h:69` | what it does |
+| 2 | `Open_Fixed_Channel` | `app/common/udpconn.h:70` | what it does |
+| 2 | `Is_Fixed_Channel` | `app/common/udpconn.h:71` | what it does |
+| 2 | `Init` | `app/common/udpconn.h:100` | what it does |
+| 2 | `Get_Mgr` | `app/common/udpconn.h:101` | what it returns |
+| 2 | `Shutdown_Task` | `app/common/udpconn.h:102` | what it does |
+| 2 | `Task` | `app/common/udpconn.h:104` | what it holds |
+| 2 | `Mgr` | `app/common/udpconn.h:105` | what it holds |
 | 2 | `Add` | `app/common/unknown_rate.h:26` | what it does |
 | 2 | `Get` | `app/common/unknown_rate.h:27` | what it returns |
 | 2 | `Key` | `app/kernel/kernel.h:29` | +0x00 Handle_Key: 0x1B Esc, 0x6A |
@@ -1233,13 +1232,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `RoundTripRound` | `app/wwudp/unknown_cordmsg.cpp:152` | 0xBB1DB8 |
 | 2 | `LossRound` | `app/wwudp/unknown_cordmsg.cpp:175` | 0xBB1DBC |
 | 2 | `LimitedAt` | `app/wwudp/unknown_cordmsg.cpp:202` | 0xBF4120 when the rate limit last held a send back |
-| 2 | `Get_Day` | `app/wwudp/wtime.h:35` | what E&B's field holds |
-| 2 | `Get_Msec` | `app/wwudp/wtime.h:36` | what E&B's field holds |
-| 2 | `Set_Day` | `app/wwudp/wtime.h:37` | what E&B's field holds |
-| 2 | `Set_Msec` | `app/wwudp/wtime.h:38` | what E&B's field holds |
-| 2 | `Add_Seconds` | `app/wwudp/wtime.h:40` | what it does |
-| 2 | `Day` | `app/wwudp/wtime.h:51` | +0x00 days since year 0 (matchbot's sec) |
-| 2 | `Msec` | `app/wwudp/wtime.h:52` | +0x04 the millisecond of the day (matchbot's usec) |
 | 3 | `DeltaElementsClass` | `app/client/aux_roots.h:378` | Net-7 AuxElements at the same place in the tree, its child count differs (Net-7 Construct 4 children != ours 5) |
 | 3 | `DeltaBuffsClass` | `app/client/aux_roots.h:418` | Net-7 AuxBuffs at the same place in the tree, its child count differs (Net-7 Construct 16 children != ours 15) |
 | 3 | `DeltaShipClass` | `app/client/aux_roots.h:488` | the client's root string "Ship", Westwood XxxClass (D24); structure = Net-7 AuxShipIndex / C# ShipObject (C# fields = ours (same names, same order); Net-7 Construct 58 children = ours) |

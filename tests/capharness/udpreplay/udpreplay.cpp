@@ -52,7 +52,7 @@
 #include "cordcon.h"
 #include "cordmgr.h"
 #include "udp.h"
-#include "wtime.h"
+#include "..\..\..\libs\wwonline\wlib\xtime.h"
 
 extern unsigned __int64 Replay_Time_Ms;		// wtime_replay.cpp
 static int Window_Limit = 65535;
@@ -305,7 +305,7 @@ static void Deliver(Side &rx)
 static void Pump_Side(FILE *out, Session *s, Side &tx, Side &rx, int n, const char *dir, const char *name, int d)
 {
 	size_t before = Replay[tx.OutSock].Out.size();
-	Wtime now;
+	Xtime now;
 	tx.Con->pump(now);
 	for (size_t g = before; g < Replay[tx.OutSock].Out.size(); g++) {
 		fprintf(out, "G %d %s %s", n, dir, name);
@@ -403,7 +403,7 @@ static void Handshake(FILE *out, const char *line)
 static void Loop_Send(FILE *out, Session *s, Side &tx, Side &rx, int d, const char *name, int n)
 {
 	static unsigned char msg[0x10000];
-	Wtime now;
+	Xtime now;
 	tx.Con->pump(now);
 	std::vector<std::vector<unsigned char> > &sent = Replay[tx.OutSock].Out;
 	for (size_t g = 0; g < sent.size(); g++) {

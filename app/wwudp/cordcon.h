@@ -45,7 +45,7 @@
 #include <string.h>
 #include "mempool.h"
 #include "..\..\libs\wwonline\wlib\arraylist.h"	// after mempool.h: WWLib's bittype.h first (wstypes.h)
-#include "wtime.h"
+#include "..\..\libs\wwonline\wlib\xtime.h"
 
 class UDP;
 
@@ -155,7 +155,7 @@ public:
 	~CordMessageClass();			// 0x85BEA0
 	void Free();					// 0x85BEC0: deletes Data and Fragments
 
-	Wtime SentTime;					// NAME 2: +0x00 the last send (day 0 = never, or a resend asked for)
+	Xtime SentTime;					// NAME 2: +0x00 the last send (day 0 = never, or a resend asked for)
 	int SendCount;					// NAME 2: +0x08 0 = never sent
 	unsigned int Length;			// NAME 2: +0x0C this record's bytes (a fragment's)
 	unsigned int TotalLength;		// NAME 2: +0x10 the whole message's
@@ -207,14 +207,14 @@ public:
 	~CordStatsClass();								// 0x85C010
 
 	bool Can_Send() const;							// 0x85C090: 200 bytes free in both windows
-	bool Update(const Wtime &now);					// 0x85C0D0: a new round after a round trip
+	bool Update(const Xtime &now);					// 0x85C0D0: a new round after a round trip
 	bool Set_Rate_Limit(int bytes);					// 0x85C1C0
-	void Get_Resend_Timeout(Wtime &out) const;		// 0x85C1E0: 2 round trips + 50 ms
+	void Get_Resend_Timeout(Xtime &out) const;		// 0x85C1E0: 2 round trips + 50 ms
 	bool Add_In_Flight(int bytes);					// 0x85C220
 	bool On_Ack(int bytes);							// 0x85C250
 	bool On_Round_Trip(int msec);					// 0x85C310: one sample per round
 	bool On_Loss(int bytes, bool timeout);			// 0x85C3A0: once per round
-	bool Allow(int channel, unsigned int len, int send_count, const Wtime &now);	// 0x85C430
+	bool Allow(int channel, unsigned int len, int send_count, const Xtime &now);	// 0x85C430
 
 	int Window;							// NAME 2: +0x00 200 at first
 	int PeerWindow;						// NAME 2: +0x04 0xFFFFFFF
@@ -222,13 +222,13 @@ public:
 	int MaxWindow;						// NAME 2: +0x0C the constructor's argument
 	int InFlight;						// NAME 2: +0x10 bytes sent, not acked
 	int RateLimit;						// NAME 2: +0x14 bytes per second (0xFFFFFFF)
-	Wtime RoundStart;					// NAME 2: +0x18
+	Xtime RoundStart;					// NAME 2: +0x18
 	int Round;							// NAME 2: +0x20
 	int RoundTrip;						// NAME 2: +0x24 ms, 300 at first
 	ArrayList<int> Unknown28;		// +0x28 (a wlib ArrayList: cleared and freed by the destructor only)
 	int LastPeak;						// NAME 2: +0x34 the last round's InFlight peak
 	int Peak;							// NAME 2: +0x38
-	Wtime SecondStart;					// NAME 2: +0x3C
+	Xtime SecondStart;					// NAME 2: +0x3C
 	int LastSecondBytes;				// NAME 2: +0x44
 	int SecondBytes;					// NAME 2: +0x48 bytes sent this second
 };
@@ -258,12 +258,12 @@ public:
 	bool pumpClose();
 	// Sends what is queued, and the acks due on an empty channel-0 message; the keep-alive, the
 	// idle close, dropping closed channels. 0x853560
-	bool pump(Wtime &now);
+	bool pump(Xtime &now);
 	// Sends by priority within the send window: resends first when their timer is up, drops
 	// expired unreliable records. 0x853A30
-	bool pumpInternal(Wtime &now);
+	bool pumpInternal(Xtime &now);
 	// The record to send next: its channel, its place in the channel's list, the record. 0x854890
-	bool getHighestPriorityMessage(int *channel, int *index, Wtime &threshold, CordMessageClass **msg, Wtime &now);
+	bool getHighestPriorityMessage(int *channel, int *index, Xtime &threshold, CordMessageClass **msg, Xtime &now);
 
 	void Encrypt_Data(unsigned char *data, int len, unsigned short counter);			// 0x854D00
 	bool examinePacket(unsigned char *data, int datalen);								// 0x8514D0
