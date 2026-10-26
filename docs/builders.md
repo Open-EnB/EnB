@@ -45,6 +45,11 @@ Running the tree's own programs unattended is allowed (D48).
 `docs/data/names-review.md` with the change. Functional code written from pseudocode carries
 `// NOT EXACT:` above the function (D64; names.py lists them in `docs/data/not-exact.md`).
 
+**Attempts.** Read `python tools/re/attempts.py show ADDR` before retrying any function (rows and
+stashed forms in `docs/data/attempts.csv`, `docs/attempts/<ADDR>/`; `attempts.py check FILES` before
+committing a retry); record every near miss you abandon (`attempts.py record ADDR ... --status
+partial|parked|blocked`, with the forms tried and `explain.py`'s class as `--blocker`).
+
 **Build VMs (D30, D31).** Lease from the pool (`python tools/vc6/pool.py lease ...`, or
 `importer.py verify --pool K`); release everything you leased before you finish. Never use the
 base image. VMs are addressed by IP (clones share a computer name).

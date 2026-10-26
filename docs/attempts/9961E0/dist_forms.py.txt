@@ -1,0 +1,78 @@
+END = "\t\tDX8Wrapper::Set_Transform(D3DTS_VIEW, view);\n\t\tDX8Wrapper::Set_Transform(D3DTS_PROJECTION, projection);\n\t}\n"
+ID = "\tMatrix4 identity(true);\n\tMatrix4 view;\n\tMatrix4 projection;\n"
+FORMS = {
+    'base': [],
+    'E1': [(END, "\t\tDX8Wrapper::Set_Transform(D3DTS_PROJECTION, projection);\n\t\tDX8Wrapper::Set_Transform(D3DTS_VIEW, view);\n\t}\n")],
+    'E3': [(ID, "\tMatrix4 view;\n\tMatrix4 projection;\n\tMatrix4 identity(true);\n")],
+    'E4': [(ID, "\tMatrix4 identity;\n\tidentity.Make_Identity();\n\tMatrix4 view;\n\tMatrix4 projection;\n")],
+    'E5': [(END, "\t\tDX8Wrapper::Set_Transform(D3DTS_VIEW, Matrix4(view));\n\t\tDX8Wrapper::Set_Transform(D3DTS_PROJECTION, projection);\n\t}\n")],
+    'E6': [(END, "\t}\n\tDX8Wrapper::Set_Transform(D3DTS_VIEW, view);\n\tDX8Wrapper::Set_Transform(D3DTS_PROJECTION, projection);\n")],
+}
+FORMS['E7'] = [(END, "\t\tDX8Wrapper::Set_Transform(D3DTS_VIEW, Matrix4(view));\n\t\tDX8Wrapper::Set_Transform(D3DTS_PROJECTION, Matrix4(projection));\n\t}\n")]
+FORMS['E8'] = [(END, "\t\tDX8Wrapper::Set_Transform(D3DTS_VIEW, view);\n\t\tDX8Wrapper::Set_Transform(D3DTS_PROJECTION, Matrix4(projection));\n\t}\n")]
+
+LOOP = ("\t\t\tint i0 = j * nx + i;\n\t\t\tint i1 = (j + 1) * nx + i;\n\t\t\tindices.Add(i0);\n\t\t\tindices.Add(i1);\n"
+        "\t\t\tindices.Add(i0 + 1);\n\t\t\tindices.Add(i0 + 1);\n\t\t\tindices.Add(i1);\n\t\t\tindices.Add(i1 + 1);\n")
+def L(body):
+    return FORMS['E5'] + [(LOOP, body)]
+def adds(*xs):
+    return ''.join("\t\t\tindices.Add(%s);\n" % x for x in xs)
+FORMS['F1'] = L(adds('j*nx+i', '(j+1)*nx+i', 'j*nx+i+1', 'j*nx+i+1', '(j+1)*nx+i', '(j+1)*nx+i+1'))
+FORMS['F2'] = L(adds('i+j*nx', 'i+(j+1)*nx', 'i+1+j*nx', 'i+1+j*nx', 'i+(j+1)*nx', 'i+1+(j+1)*nx'))
+FORMS['F3'] = L(adds('j*nx+i', '(j+1)*nx+i', '(j*nx+1)+i', '(j*nx+1)+i', '(j+1)*nx+i', '(j+1)*nx+i+1'))
+FORMS['F4'] = L(adds('i+nx*j', 'i+nx*(j+1)', 'i+nx*j+1', 'i+nx*j+1', 'i+nx*(j+1)', 'i+nx*(j+1)+1'))
+FORMS['F5'] = L("\t\t\tint i0 = j * nx + i;\n\t\t\tint i1 = (j + 1) * nx + i;\n" + adds('i0', 'i1', 'j*nx+i+1', 'j*nx+i+1', 'i1', 'i1+1'))
+
+def L7(body):
+    return FORMS['E7'] + [(LOOP, body)]
+FORMS['G1'] = L7(adds('j*nx+i', '(j+1)*nx+i', 'j*nx+i+1', 'j*nx+i+1', '(j+1)*nx+i', '(j+1)*nx+i+1'))
+FORMS['G2'] = L7("\t\t\tint a = j * nx;\n\t\t\tint b = (j + 1) * nx;\n" + adds('a+i', 'b+i', 'a+i+1', 'a+i+1', 'b+i', 'b+i+1'))
+FORMS['G3'] = L7(adds('j*nx+i', '(j+1)*nx+i', '1+j*nx+i', '1+j*nx+i', '(j+1)*nx+i', '(j+1)*nx+i+1'))
+FORMS['G4'] = L7("\t\t\tint i0 = j * nx + i;\n\t\t\tint i1 = (j + 1) * nx + i;\n" + adds('i0', 'i1', 'j*nx+1+i', 'j*nx+1+i', 'i1', 'i1+1'))
+
+IJ = "\tint i, j;\n"
+FORMS['G5'] = L7("\t\t\ta = j * nx;\n\t\t\tb = (j + 1) * nx;\n" + adds('a+i', 'b+i', 'a+i+1', 'a+i+1', 'b+i', 'b+i+1')) + [(IJ, "\tint i, j, a, b;\n")]
+FORMS['G6'] = L7("\t\t\tint a = j * nx;\n\t\t\tint b = (j + 1) * nx;\n" + adds('a+i', 'b+i', 'a+1+i', 'a+1+i', 'b+i', 'b+1+i'))
+FORMS['G7'] = L7("\t\t\tint a = j * nx;\n\t\t\tint b = (j + 1) * nx;\n" + adds('i+a', 'i+b', 'i+a+1', 'i+a+1', 'i+b', 'i+b+1'))
+FORMS['G8'] = L7("\t\t\tint a = j * nx;\n\t\t\tint b = a + nx;\n" + adds('a+i', 'b+i', 'a+i+1', 'a+i+1', 'b+i', 'b+i+1'))
+FORMS['G9'] = L7("\t\t\tint a = j * nx + i;\n\t\t\tint b = (j + 1) * nx + i;\n" + adds('a', 'b', 'a+1', 'a+1', 'b', 'b+1'))
+
+UV = "\t\tuvs[i].X = u;\n\t\tuvs[i].Y = v;\n"
+FORMS['J2'] = [(UV, "\t\tuvs[i].Set(u, v);\n")]
+FORMS['J3'] = [(UV, "\t\tuvs[i] = Vector2(u, v);\n")]
+FORMS['J4'] = [(UV, "\t\tVector2 & t = uvs[i];\n\t\tt.X = u;\n\t\tt.Y = v;\n")]
+
+C1 = "\tTransform.Get_Translation(&corner0);\n\tTransform.Get_Translation(&corner1);\n"
+FORMS['L2'] = [("\tVector3 corner0;\n\tVector3 corner1;\n" + C1, "\tVector3 corner0 = Transform.Get_Translation();\n\tVector3 corner1 = Transform.Get_Translation();\n")]
+LU = "\tVector3 left = -camera.Get_Transform().Get_X_Vector() * m_Unknown90;\n\tVector3 up = camera.Get_Transform().Get_Y_Vector() * m_Unknown90;\n"
+FORMS['L4'] = [(LU, "\tVector3 left = -camera.Get_Transform().Get_X_Vector();\n\tleft *= m_Unknown90;\n\tVector3 up = camera.Get_Transform().Get_Y_Vector();\n\tup *= m_Unknown90;\n")]
+FORMS['L5'] = [(LU, "\tVector3 left;\n\tcamera.Get_Transform().Get_X_Vector(&left);\n\tleft = -left * m_Unknown90;\n\tVector3 up;\n\tcamera.Get_Transform().Get_Y_Vector(&up);\n\tup = up * m_Unknown90;\n")]
+VB = "\t\t\t\t*(Vector3 *)(vb + fvf_info.Get_Location_Offset()) = verts[i];\n\t\t\t\t*(Vector2 *)(vb + fvf_info.Get_Tex_Offset(0)) = uvs[i];\n"
+FORMS['L6'] = [(VB, "\t\t\t\t*(Vector3 *)(vb + fvf_info.Get_Location_Offset()) = verts[i];\n\t\t\t\t*(Vector2 *)(vb + fvf_info.Get_Tex_Offset(0)) = uvs[i];\n".replace('verts[i]', 'verts[i]'))]
+FORMS['L7'] = [("\t\tVector2 uv = uvs[i];\n", "\t\tVector2 uv(uvs[i]);\n")]
+FORMS['L8'] = [("\t\t\tverts.Add(Vector3(screen0.X + offset.X, screen0.Y + offset.Y, screen0.Z));\n",
+                "\t\t\tVector3 p(screen0.X + offset.X, screen0.Y + offset.Y, screen0.Z);\n\t\t\tverts.Add(p);\n")]
+
+OFF = ("\t\t\tVector2 offset(uv.X * dx, uv.Y * dy);\n\t\t\tverts.Add(Vector3(screen0.X + offset.X, screen0.Y + offset.Y, screen0.Z));\n")
+R3 = (OFF, "\t\t\tfloat ox = uv.X * dx;\n\t\t\tfloat oy = uv.Y * dy;\n\t\t\tverts.Add(Vector3(screen0.X + ox, screen0.Y + oy, screen0.Z));\n")
+FORMS['R3'] = [R3]
+FORMS['R3J'] = [R3, (UV, "\t\tuvs[i].Set(u, v);\n")]
+FORMS['R3K'] = [R3, (UV, "\t\tVector2 & t = uvs[i];\n\t\tt.X = u;\n\t\tt.Y = v;\n")]
+FORMS['R12'] = [(OFF, "\t\t\tverts.Add(Vector3(screen0.X + uv.X * dx, screen0.Y + uv.Y * dy, screen0.Z));\n")]
+
+U0 = "\tVector2 uv0 = Vector2(cx0 - x0, cy0 - y0) / (float)sw;\n"
+U1 = "\tVector2 uv1 = Vector2(cx1 - x0, cy1 - y0) / (float)sh;"
+Y0 = (U0, "\tfloat ook0 = 1.0f / (float)sw;\n\tVector2 uv0((float)(cx0 - x0) * ook0, (float)(cy0 - y0) * ook0);\n")
+Y1 = (U1, "\tfloat ook1 = 1.0f / (float)sh;\n\tVector2 uv1((float)(cx1 - x0) * ook1, (float)(cy1 - y0) * ook1);")
+FORMS['Y1'] = [Y0]
+FORMS['Y2'] = [Y0, Y1]
+FORMS['Y3'] = [Y0, Y1, R3]
+FORMS['Y4'] = [Y0, Y1, R3, (UV, "\t\tVector2 & t = uvs[i];\n\t\tt.X = u;\n\t\tt.Y = v;\n")]
+FORMS['Z9'] = [Y0, Y1, R3, (UV, "\t\tVector2 & t = uvs[i];\n\t\tt.X = u;\n\t\tt.Y = v;\n")] + FORMS['L5']
+FORMS['ZA'] = [(END, "\t\tfor (int kk = 0; kk < 1; ++kk) {\n\t\t}\n" + END)]
+FORMS['ZB'] = [(ID, ID + "\tfor (int kk = 0; kk < 1; ++kk) {\n\t}\n")]
+ER = ("\tif (nx < 2) {\n\t\tREF_PTR_RELEASE(surface);\n\t\ttexture->Release_Ref();\n\t\tback_buffer->Release_Ref();\n\t\treturn;\n\t}\n"
+      "\tif (ny < 2) {\n\t\tREF_PTR_RELEASE(surface);\n\t\ttexture->Release_Ref();\n\t\tback_buffer->Release_Ref();\n\t\treturn;\n\t}\n")
+FORMS['W1'] = [(ER, "\tif (nx < 2 || ny < 2) {\n\t\tREF_PTR_RELEASE(surface);\n\t\ttexture->Release_Ref();\n\t\tback_buffer->Release_Ref();\n\t\treturn;\n\t}\n")]
+FORMS['I1'] = [(ID, "\tMatrix4 identity(1.0f,0.0f,0.0f,0.0f, 0.0f,1.0f,0.0f,0.0f, 0.0f,0.0f,1.0f,0.0f, 0.0f,0.0f,0.0f,1.0f);\n\tMatrix4 view;\n\tMatrix4 projection;\n")]
+FORMS['I2'] = [(ID, "\tMatrix4 identity;\n\tidentity.Init(1.0f,0.0f,0.0f,0.0f, 0.0f,1.0f,0.0f,0.0f, 0.0f,0.0f,1.0f,0.0f, 0.0f,0.0f,0.0f,1.0f);\n\tMatrix4 view;\n\tMatrix4 projection;\n")]

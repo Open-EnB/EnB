@@ -1,0 +1,23 @@
+"""Coordinator (Fable): round 11, testing Open-BFME's two allocation levers on our residue:
+(1) 'scratch registers rotate round-robin in program order; the spelling of a pushed load from memory
+upstream of the mismatch toggles the state' -> the nearest pushed load above the block is _Hwnd for
+GetWindowRect (mov eax,[_Hwnd]; push eax): spell it as a local copy;
+(2) 'declaring the lower bound before the upper bound fixed the operand bytes even though the scheduled
+loads are in the other order' -> swap the declaration order of width/height, and of bounds/lrect."""
+import runpy
+G = runpy.run_path(r'C:\EnBDevelopment\EnB\.work\c\mss_forms.py')
+B0, DECL, mv = G['B0'], G['DECL'], G['mv']
+U = G['FORMS']['U']          # list of (old, new) edits: the best form so far
+GWR = "\tGetWindowRect(_Hwnd,&bounds);\n"
+
+FORMS = {
+    # lever 1: the pushed global spelled through a local
+    'R1': U + [(GWR, "\tHWND hwnd=_Hwnd;\n\tGetWindowRect(hwnd,&bounds);\n")],
+    # lever 2: height declared before width
+    'R2': [(o, n.replace("index2,width,height;", "index2,height,width;")) if o == DECL else (o, n) for o, n in U],
+    # lever 2': lrect declared before bounds (the two locals' order)
+    'R3': U + [("\tRECT bounds;\n", ""), ("\tD3DLOCKED_RECT lrect;\n", "\tD3DLOCKED_RECT lrect;\n\tRECT bounds;\n")],
+    # both levers
+    'R4': U + [(GWR, "\tHWND hwnd=_Hwnd;\n\tGetWindowRect(hwnd,&bounds);\n")] and
+          [(o, n.replace("index2,width,height;", "index2,height,width;")) if o == DECL else (o, n) for o, n in U] + [(GWR, "\tHWND hwnd=_Hwnd;\n\tGetWindowRect(hwnd,&bounds);\n")],
+}
