@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-38 entries in 15 files.
+40 entries in 16 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -25,6 +25,8 @@ edit the comments in the code, not this file.
 | `app/shared/auxdata/delta_time.cpp:111` | `DurationAccessorClass::Set` | marker | NOT EXACT: the client keeps time()'s 0 argument in ebx and adds the ticks' zero high half from it; VC6 here pushes an immediate (tried: other orders, a DurationClass temporary) |
 | `app/shared/auxdata/encode.cpp:560` | `RecordTableClass::Add` | marker | NOT EXACT: the client keeps the node in the list argument's slot, calls the first Children.size() out of line (0x4A58C0) in the new compound record and allocates the walk's records inline; VC6 here inlines all three sizes and uses other slots. |
 | `app/shared/auxdata/encode.cpp:729` | `DeltaListClass::Add` | marker | NOT EXACT: the client loads Count between the two loads of Tail (`*Tail` then `->Next`); tried: Count first, `++Count`, the new in the assignment. |
+| `app/shared/auxdata/lookup.cpp:116` | `LookupClass::Unknown_Test_70` | marker | NOT EXACT: the client calls the map's find out of line (0x4ACBD0); VC6 here inlines it |
+| `app/shared/auxdata/lookup.cpp:125` | `LookupClass::Unknown_Test_70_Above_1` | marker | NOT EXACT: as above (find 0x4ACBD0 out of line in the client) |
 | `app/shared/heightfield.cpp:2` | `(whole file)` | marker | NOT EXACT, the whole file: functional, from VIDTEST's 2002 copy (heightfield.h). |
 | `app/shared/heightfield.cpp:179` | `HeightFieldClass::Sample` | mention | NOT EXACT: written functionally (D42) for VIDTEST's land (milestones.md M2.4). Not rebuilt: the collision code (CollisionMath::Collide over the field's triangles) and the client's 16-bit height storage. The PGM is read through the file factory (VIDTEST reads it with the same factory as its art). |
 | `app/shared/kv_list.cpp:2` | `(whole file)` | marker | NOT EXACT, the whole file: functional, on a std::map instead of the client's hash_map (kv_list.h). |

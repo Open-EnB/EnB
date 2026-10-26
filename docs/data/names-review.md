@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
 | 3 | by convention from a client-named file or sibling | 98 |
 | 2 | describes what the code does | 608 |
-| 1 | neutral placeholder | 489 |
+| 1 | neutral placeholder | 491 |
 
 ## For review (score 3 and below)
 
@@ -327,7 +327,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_Test_70_Above_1` | `app/shared/auxdata/lookup.cpp:88` | untagged neutral name (D10) |
 | 1 | `Unknown_Test_70` | `app/shared/auxdata/lookup.h:38` | untagged neutral name (D10) |
 | 1 | `Unknown_Test_70_Above_1` | `app/shared/auxdata/lookup.h:39` | untagged neutral name (D10) |
-| 1 | `m_Unknown10` | `app/shared/auxdata/lookup.h:43` | untagged neutral name (D10) |
+| 1 | `m_Unknown10` | `app/shared/auxdata/lookup.h:45` | untagged neutral name (D10) |
 | 1 | `Unknown_Debug_Printf` | `app/shared/auxdata/permstr.cpp:8` | untagged neutral name (D10) |
 | 1 | `m_Unknown98` | `app/shared/auxdata/policy.cpp:187` | untagged neutral name (D10) |
 | 1 | `m_Unknown7C` | `app/shared/auxdata/policy.cpp:227` | untagged neutral name (D10) |
@@ -375,6 +375,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `m_Unknown09` | `app/shared/kv_pair_string.cpp:41` | untagged neutral name (D10) |
 | 1 | `m_Unknown10` | `app/shared/kv_pair_string.h:49` | untagged neutral name (D10) |
 | 1 | `m_Unknown00` | `app/shared/money.h:27` | untagged neutral name (D10) |
+| 1 | `Unknown_Report_Message` | `app/shared/unknown_debug.cpp:7` | 0x4BC260 (its "Message_Error" string is a profiler label) |
+| 1 | `Unknown_Assert_Failed` | `app/shared/unknown_debug.cpp:9` | untagged neutral name (D10) |
+| 1 | `Unknown_Fail_If_Report` | `app/shared/unknown_debug.cpp:14` | untagged neutral name (D10) |
 | 1 | `unknown_debug.h` | `app/shared/unknown_debug.h:30` | neutral file name (D37, D10): the object has no __FILE__ |
 | 1 | `Unknown_Assert_Failed` | `app/shared/unknown_debug.h:33` | untagged neutral name (D10) |
 | 1 | `Unknown_Fail_If_Report` | `app/shared/unknown_debug.h:34` | untagged neutral name (D10) |
@@ -417,13 +420,12 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Clear_Accounting_Callback` | `app/wwudp/udp.h:43` | what it does |
 | 1 | `unknown_cordmsg.cpp` | `app/wwudp/unknown_cordmsg.cpp:12` | PROVISIONAL file name (no assert or __FILE__ names the object) |
 | 1 | `Get_Time_T` | `app/wwudp/wtime.h:34` | describes what it returns |
-| 1 | `Unknown_Assert_Failed` | `stubs/app_stubs.cpp:33` | untagged neutral name (D10) |
-| 1 | `Unknown_Fail_If_Report` | `stubs/app_stubs.cpp:40` | untagged neutral name (D10) |
-| 1 | `Unknown_Debug_Printf` | `stubs/app_stubs.cpp:47` | untagged neutral name (D10) |
-| 1 | `DeltaUnknownGlobal` | `stubs/app_stubs.cpp:61` | untagged neutral name (D10) |
-| 1 | `DeltaCompoundUnknownGlobal` | `stubs/app_stubs.cpp:62` | untagged neutral name (D10) |
-| 1 | `UnknownGlobal` | `stubs/app_stubs.cpp:63` | untagged neutral name (D10) |
-| 1 | `m_Unknown00` | `stubs/app_stubs.cpp:102` | untagged neutral name (D10) |
+| 1 | `Unknown_Report_Message` | `stubs/app_stubs.cpp:34` | untagged neutral name (D10) |
+| 1 | `Unknown_Debug_Printf` | `stubs/app_stubs.cpp:48` | untagged neutral name (D10) |
+| 1 | `DeltaUnknownGlobal` | `stubs/app_stubs.cpp:62` | untagged neutral name (D10) |
+| 1 | `DeltaCompoundUnknownGlobal` | `stubs/app_stubs.cpp:63` | untagged neutral name (D10) |
+| 1 | `UnknownGlobal` | `stubs/app_stubs.cpp:64` | untagged neutral name (D10) |
+| 1 | `m_Unknown00` | `stubs/app_stubs.cpp:103` | untagged neutral name (D10) |
 | 1 | `m_Unknown98` | `tests/capharness/auxdata_smoke/auxdata_smoke.cpp:52` | untagged neutral name (D10) |
 | 1 | `Unknown_All` | `tests/capharness/auxdata_smoke/auxdata_smoke.cpp:53` | untagged neutral name (D10) |
 | 1 | `m_Unknown70` | `tests/capharness/auxdata_smoke/auxdata_smoke.cpp:93` | untagged neutral name (D10) |
@@ -774,7 +776,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Map` | `app/shared/auxdata/lookup.cpp:23` | describes what it does |
 | 2 | `Get_Delta` | `app/shared/auxdata/lookup.h:37` | describes what it does |
 | 2 | `Find` | `app/shared/auxdata/lookup.h:40` | describes what it does |
-| 2 | `Entries` | `app/shared/auxdata/lookup.h:42` | describes what it does |
+| 2 | `Entries` | `app/shared/auxdata/lookup.h:44` | describes what it does |
 | 2 | `Is_Parent_Of` | `app/shared/auxdata/name.h:34` | describes what it does (D38) |
 | 2 | `Is_Parent_Or_Same` | `app/shared/auxdata/name.h:35` | describes what it does (D38) |
 | 2 | `Match_Parts` | `app/shared/auxdata/name.h:36` | describes what it does (D38) |

@@ -3072,6 +3072,12 @@ RECONSTRUCTED = {
     ('app', 'shared/unknown_debug.h'): "E&B's assert macros G_ASSERT (0x4E9410) and FAIL_IF (0x4E9450); "
                                        "the header's name is unknown (its object, in app\\shared between "
                                        "event.cpp and ini_manager.cpp, has no __FILE__ string): neutral (D10)",
+    ('app', 'shared/unknown_debug.cpp'): "the assert reporters 0x4E9410 and 0x4E9450 (they call E&B's reporter "
+                                         "0x4BC260 with the pooled \"\" 0xBDA908; byte-exact, objmatch 'multiple': the "
+                                         "two differ only in their strings)",
+    ('app', 'shared/unknown_new.cpp'): "E&B's global operator new 0x4E9CB0, new[] 0x4E9CE0 and delete 0x4E9D10 "
+                                       "(wwlib's FastAllocatorGeneral); the client's object is unknown_debug.cpp's, "
+                                       "kept apart so that programs defining their own reporters link",
     ('app', 'shared/auxdata/bitset.cpp'): "BitSetClass (D24), client 0x4A47B0-0x4A4C4B: 12 functions, the "
                                           "asserts on the client's lines (D25)",
     ('app', 'shared/auxdata/bitset.h'): "BitSetClass's declaration (Buffer, NumBits from the asserts; NumBytes a guess)",

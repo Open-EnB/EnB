@@ -176,7 +176,7 @@ doesn't reach it). d3d8.dll is loaded at run time by `DX8Wrapper::Init`, as in R
 
 | File | Stub | Client | Note |
 |---|---|---|---|
-| app_stubs.cpp | `Unknown_Assert_Failed`, `Unknown_Fail_If_Report` (log each call: expr, file, line) | 0x4E9410, 0x4E9450 | open (progress.md §4) |
+| app_stubs.cpp | `Unknown_Report_Message`, the reporter of the assert functions (rebuilt 2026-10-25 in app/shared/unknown_debug.cpp; logs each call: category, text, file, line) | 0x4BC260 | D75's stand-in |
 | app_stubs.cpp | `Unknown_Debug_Printf` (logs the text) | ? | permstr.cpp's statistics line |
 | app_stubs.cpp | data: `DeltaUnknownGlobal`, `DeltaCompoundUnknownGlobal`, `DeltaStringClass::UnknownGlobal` (0xBE3A9C) | | 0, cannot log |
 | app_stubs.cpp | not stubs, kept here until strconv_lib.cpp is rebuilt: `Value_To_String` / `String_To_Value` for float and unsigned (0x4A3200 / 0x4A3240 / 0x4A3590 / 0x4A35C0) | | client behaviour |

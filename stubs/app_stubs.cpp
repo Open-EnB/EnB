@@ -29,18 +29,19 @@
 
 // ------------------------------------------------------------------------- E&B debug hooks
 
-// 0x4E9410. An assert is worth a line each time, not only the first.
-void Unknown_Assert_Failed(const char *expr, const char *file, int line)
+// 0x4BC260, the reporter of the assert functions (app/shared/unknown_debug.cpp: 0x4E9410, 0x4E9450).
+// An assert is worth a line each time, not only the first.
+void Unknown_Report_Message(const char *sender, const char *category, const char *file, int line,
+	const char *format, ...)
 {
-	STUB_CALLED("Unknown_Assert_Failed (0x4E9410)");
-	Stub_Log_Line("G_ASSERT failed: %s, %s(%d)", expr, file, line);
-}
-
-// 0x4E9450
-void Unknown_Fail_If_Report(const char *expr, const char *file, int line)
-{
-	STUB_CALLED("Unknown_Fail_If_Report (0x4E9450)");
-	Stub_Log_Line("FAIL_IF: %s, %s(%d)", expr, file, line);
+	STUB_CALLED("Unknown_Report_Message (0x4BC260)");
+	char text[1024];
+	va_list va;
+	va_start(va, format);
+	_vsnprintf(text, sizeof(text) - 1, format, va);
+	va_end(va);
+	text[sizeof(text) - 1] = 0;
+	Stub_Log_Line("%s: %s, %s(%d)", category, text, file, line);
 }
 
 // permstr.cpp's statistics line

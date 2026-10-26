@@ -38,6 +38,8 @@ public:
 	bool Unknown_Test_70(int index) const;				// 0x4AC8D0, the field's m_Unknown70 != 0
 	bool Unknown_Test_70_Above_1(int index) const;		// 0x4AC960, the field's m_Unknown70 > 1
 	DeltaClass *Find(const NameClass &name);				// 0x4AC9F0 (no wildcards)  // NAME 2: describes what it does
+	bool Unknown_Test_70(const NameClass &name) const;			// 0x4ACA90, by name (no wildcards)
+	bool Unknown_Test_70_Above_1(const NameClass &name) const;	// 0x4ACB20, by name (no wildcards)
 
 	std::vector<DeltaClass *> Entries;					// +0x00 (the name is a guess)  // NAME 2 [Entries]: describes what it does
 	std::map<const char *, DeltaClass *> m_Unknown10;	// +0x10 the fields by their interned names

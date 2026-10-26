@@ -13,7 +13,7 @@
 **	                               the statement (the recovery) runs: FAIL_IF(buff_size < 1) buff_size = 1;
 **
 **	Both functions are cdecl (expression text, __FILE__, __LINE__) and pass them on to the same
-**	reporter, 0x4BC260(0xBDA908, category, file, line, format, expression). __LINE__ is pushed as an
+**	reporter, 0x4BC260("", category, file, line, format, expression) ("" is 0xBDA908). __LINE__ is pushed as an
 **	immediate, so every assert in a reconstructed file sits on the client's line (D25).
 **
 **	Where the header lives: E&B's app\shared objects are linked in alphabetical order, and 0x4E9410
