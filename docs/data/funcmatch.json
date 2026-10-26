@@ -1,35 +1,5 @@
 [
  {
-  "client": "0x7014B0",
-  "lib": "ww3d2",
-  "file": "animatedsoundmgr.cpp",
-  "function": "AnimatedSoundMgrClass::Initialize",
-  "tags": "RZ",
-  "score": 1.0,
-  "second": 0.0,
-  "confidence": "shared",
-  "strings": [
-   "BoneName"
-  ],
-  "alternatives": [],
-  "claimants": 3
- },
- {
-  "client": "0x72D5F0",
-  "lib": "ww3d2",
-  "file": "animatedsoundmgr.cpp",
-  "function": "AnimatedSoundMgrClass::Initialize",
-  "tags": "RZ",
-  "score": 1.0,
-  "second": 0.0,
-  "confidence": "shared",
-  "strings": [
-   "BoneName"
-  ],
-  "alternatives": [],
-  "claimants": 3
- },
- {
   "client": "0x909540",
   "lib": "ww3d2",
   "file": "animatedsoundmgr.cpp",
@@ -43,45 +13,7 @@
    "w3danimsound.ini"
   ],
   "alternatives": [],
-  "claimants": 3
- },
- {
-  "client": "0x6B6490",
-  "lib": "ww3d2",
-  "file": "animatedsoundmgr.cpp",
-  "function": "Build_List_From_String",
-  "tags": "RZ",
-  "score": 0.1,
-  "second": 0.1,
-  "confidence": "low",
-  "strings": [
-   "buffer != NULL"
-  ],
-  "alternatives": [
-   "ww3d2/hmorphanim.cpp:Build_List_From_String",
-   "wwaudio/wwaudio.cpp:WWAudioClass::Cache_Buffer",
-   "wwbitpack/bitstream.cpp:BitStreamClass::Get_Raw_Data"
-  ],
-  "claimants": 2
- },
- {
-  "client": "0x6B65A0",
-  "lib": "ww3d2",
-  "file": "animatedsoundmgr.cpp",
-  "function": "Build_List_From_String",
-  "tags": "RZ",
-  "score": 0.1,
-  "second": 0.1,
-  "confidence": "shared",
-  "strings": [
-   "buffer != NULL"
-  ],
-  "alternatives": [
-   "ww3d2/hmorphanim.cpp:Build_List_From_String",
-   "wwaudio/wwaudio.cpp:WWAudioClass::Cache_Buffer",
-   "wwbitpack/bitstream.cpp:BitStreamClass::Get_Raw_Data"
-  ],
-  "claimants": 2
+  "claimants": 1
  },
  {
   "client": "0x988AF0",
@@ -138,21 +70,6 @@
   "claimants": 3
  },
  {
-  "client": "0x802D80",
-  "lib": "ww3d2",
-  "file": "animobj.cpp",
-  "function": "Animatable3DObjClass::Get_Bone_Transform",
-  "tags": "GRZ",
-  "score": 1.0,
-  "second": 0.2,
-  "confidence": "medium",
-  "strings": [
-   "bonename"
-  ],
-  "alternatives": [],
-  "claimants": 1
- },
- {
   "client": "0x91C8C0",
   "lib": "ww3d2",
   "file": "assetmgr.cpp",
@@ -201,26 +118,7 @@
    "ww3d2/dx8wrapper.cpp:DX8Wrapper::Apply_Render_State_Changes",
    "ww3d2/dx8wrapper.cpp:DX8Wrapper::Get_Format_Name"
   ],
-  "claimants": 10
- },
- {
-  "client": "0x530530",
-  "lib": "ww3d2",
-  "file": "assetmgr.cpp",
-  "function": "Log_Textures",
-  "tags": "GRZ",
-  "score": 0.14,
-  "second": 0.14,
-  "confidence": "shared",
-  "strings": [
-   "Unknown"
-  ],
-  "alternatives": [
-   "ww3d2/dx8caps.cpp:DX8Caps::Compute_Caps",
-   "ww3d2/dx8wrapper.cpp:DX8Wrapper::Apply_Render_State_Changes",
-   "ww3d2/dx8wrapper.cpp:DX8Wrapper::Get_Format_Name"
-  ],
-  "claimants": 10
+  "claimants": 6
  },
  {
   "client": "0x59FB20",
@@ -239,45 +137,7 @@
    "ww3d2/dx8wrapper.cpp:DX8Wrapper::Apply_Render_State_Changes",
    "ww3d2/dx8wrapper.cpp:DX8Wrapper::Get_Format_Name"
   ],
-  "claimants": 10
- },
- {
-  "client": "0x5D6EE0",
-  "lib": "ww3d2",
-  "file": "assetmgr.cpp",
-  "function": "Log_Textures",
-  "tags": "GRZ",
-  "score": 0.14,
-  "second": 0.14,
-  "confidence": "shared",
-  "strings": [
-   "Unknown"
-  ],
-  "alternatives": [
-   "ww3d2/dx8caps.cpp:DX8Caps::Compute_Caps",
-   "ww3d2/dx8wrapper.cpp:DX8Wrapper::Apply_Render_State_Changes",
-   "ww3d2/dx8wrapper.cpp:DX8Wrapper::Get_Format_Name"
-  ],
-  "claimants": 10
- },
- {
-  "client": "0x6FF4B0",
-  "lib": "ww3d2",
-  "file": "assetmgr.cpp",
-  "function": "Log_Textures",
-  "tags": "GRZ",
-  "score": 0.14,
-  "second": 0.14,
-  "confidence": "shared",
-  "strings": [
-   "Unknown"
-  ],
-  "alternatives": [
-   "ww3d2/dx8caps.cpp:DX8Caps::Compute_Caps",
-   "ww3d2/dx8wrapper.cpp:DX8Wrapper::Apply_Render_State_Changes",
-   "ww3d2/dx8wrapper.cpp:DX8Wrapper::Get_Format_Name"
-  ],
-  "claimants": 10
+  "claimants": 6
  },
  {
   "client": "0x6FF7A0",
@@ -296,7 +156,7 @@
    "ww3d2/dx8wrapper.cpp:DX8Wrapper::Apply_Render_State_Changes",
    "ww3d2/dx8wrapper.cpp:DX8Wrapper::Get_Format_Name"
   ],
-  "claimants": 10
+  "claimants": 6
  },
  {
   "client": "0x7C3830",
@@ -315,26 +175,7 @@
    "ww3d2/dx8wrapper.cpp:DX8Wrapper::Apply_Render_State_Changes",
    "ww3d2/dx8wrapper.cpp:DX8Wrapper::Get_Format_Name"
   ],
-  "claimants": 10
- },
- {
-  "client": "0x822F10",
-  "lib": "ww3d2",
-  "file": "assetmgr.cpp",
-  "function": "Log_Textures",
-  "tags": "GRZ",
-  "score": 0.14,
-  "second": 0.14,
-  "confidence": "shared",
-  "strings": [
-   "Unknown"
-  ],
-  "alternatives": [
-   "ww3d2/dx8caps.cpp:DX8Caps::Compute_Caps",
-   "ww3d2/dx8wrapper.cpp:DX8Wrapper::Apply_Render_State_Changes",
-   "ww3d2/dx8wrapper.cpp:DX8Wrapper::Get_Format_Name"
-  ],
-  "claimants": 10
+  "claimants": 6
  },
  {
   "client": "0x91CA10",
@@ -356,7 +197,7 @@
   "alternatives": [
    "ww3d2/dx8wrapper.cpp:DX8Wrapper::Get_Format_Name"
   ],
-  "claimants": 10
+  "claimants": 6
  },
  {
   "client": "0x9EB4C0",
@@ -375,61 +216,7 @@
    "ww3d2/dx8wrapper.cpp:DX8Wrapper::Apply_Render_State_Changes",
    "ww3d2/dx8wrapper.cpp:DX8Wrapper::Get_Format_Name"
   ],
-  "claimants": 10
- },
- {
-  "client": "0x5DCD20",
-  "lib": "ww3d2",
-  "file": "assetmgr.cpp",
-  "function": "WW3DAssetManager::Create_Render_Obj",
-  "tags": "GRZ",
-  "score": 0.33,
-  "second": 0.33,
-  "confidence": "shared",
-  "strings": [
-   "%s.w3d"
-  ],
-  "alternatives": [
-   "ww3d2/assetmgr.cpp:WW3DAssetManager::Get_HAnim",
-   "ww3d2/assetmgr.cpp:WW3DAssetManager::Get_HTree"
-  ],
-  "claimants": 4
- },
- {
-  "client": "0x6EB9B0",
-  "lib": "ww3d2",
-  "file": "assetmgr.cpp",
-  "function": "WW3DAssetManager::Create_Render_Obj",
-  "tags": "GRZ",
-  "score": 0.33,
-  "second": 0.33,
-  "confidence": "shared",
-  "strings": [
-   "%s.w3d"
-  ],
-  "alternatives": [
-   "ww3d2/assetmgr.cpp:WW3DAssetManager::Get_HAnim",
-   "ww3d2/assetmgr.cpp:WW3DAssetManager::Get_HTree"
-  ],
-  "claimants": 4
- },
- {
-  "client": "0x75BE00",
-  "lib": "ww3d2",
-  "file": "assetmgr.cpp",
-  "function": "WW3DAssetManager::Create_Render_Obj",
-  "tags": "GRZ",
-  "score": 0.33,
-  "second": 0.33,
-  "confidence": "shared",
-  "strings": [
-   "%s.w3d"
-  ],
-  "alternatives": [
-   "ww3d2/assetmgr.cpp:WW3DAssetManager::Get_HAnim",
-   "ww3d2/assetmgr.cpp:WW3DAssetManager::Get_HTree"
-  ],
-  "claimants": 4
+  "claimants": 6
  },
  {
   "client": "0x91D4B0",
@@ -445,7 +232,7 @@
    "WW3DAssetManager::Create_Render_Obj"
   ],
   "alternatives": [],
-  "claimants": 4
+  "claimants": 1
  },
  {
   "client": "0x91D140",
@@ -615,25 +402,6 @@
   "claimants": 1
  },
  {
-  "client": "0x489050",
-  "lib": "ww3d2",
-  "file": "assetmgr.cpp",
-  "function": "WW3DAssetManager::Remove_Prototype",
-  "tags": "GRZ",
-  "score": 0.11,
-  "second": 0.11,
-  "confidence": "low",
-  "strings": [
-   "name != NULL"
-  ],
-  "alternatives": [
-   "ww3d2/boxrobj.cpp:BoxRenderObjClass::Set_Name",
-   "ww3d2/distlod.cpp:DistLODDefClass::DistLODDefClass",
-   "ww3d2/distlod.cpp:DistLODPrototypeClass::Create"
-  ],
-  "claimants": 1
- },
- {
   "client": "0x499070",
   "lib": "ww3d2",
   "file": "dazzle.cpp",
@@ -649,7 +417,7 @@
    "wwlib/ini.cpp:INIClass::Get_Point",
    "wwlib/ini.cpp:INIClass::Put_Point"
   ],
-  "claimants": 7
+  "claimants": 6
  },
  {
   "client": "0x4990C0",
@@ -667,25 +435,7 @@
    "wwlib/ini.cpp:INIClass::Get_Point",
    "wwlib/ini.cpp:INIClass::Put_Point"
   ],
-  "claimants": 7
- },
- {
-  "client": "0x4A3750",
-  "lib": "ww3d2",
-  "file": "dazzle.cpp",
-  "function": "DazzleINIClass::Get_Vector3",
-  "tags": "GRZ",
-  "score": 0.33,
-  "second": 0.33,
-  "confidence": "shared",
-  "strings": [
-   "%f,%f,%f"
-  ],
-  "alternatives": [
-   "wwlib/ini.cpp:INIClass::Get_Point",
-   "wwlib/ini.cpp:INIClass::Put_Point"
-  ],
-  "claimants": 7
+  "claimants": 6
  },
  {
   "client": "0x4A3810",
@@ -703,7 +453,7 @@
    "wwlib/ini.cpp:INIClass::Get_Point",
    "wwlib/ini.cpp:INIClass::Put_Point"
   ],
-  "claimants": 7
+  "claimants": 6
  },
  {
   "client": "0x96A080",
@@ -721,7 +471,7 @@
    "wwlib/ini.cpp:INIClass::Get_Point",
    "wwlib/ini.cpp:INIClass::Put_Point"
   ],
-  "claimants": 7
+  "claimants": 6
  },
  {
   "client": "0x9CBD80",
@@ -739,7 +489,7 @@
    "wwlib/ini.cpp:INIClass::Get_Point",
    "wwlib/ini.cpp:INIClass::Put_Point"
   ],
-  "claimants": 7
+  "claimants": 6
  },
  {
   "client": "0x9CBDE0",
@@ -757,7 +507,7 @@
    "wwlib/ini.cpp:INIClass::Get_Point",
    "wwlib/ini.cpp:INIClass::Put_Point"
   ],
-  "claimants": 7
+  "claimants": 6
  },
  {
   "client": "0x96A110",
@@ -851,25 +601,6 @@
    "File %s loading failed.\nTried to read %d bytes, got %d. (SurfDesc.size=%d)\n"
   ],
   "alternatives": [],
-  "claimants": 1
- },
- {
-  "client": "0x6E0C50",
-  "lib": "ww3d2",
-  "file": "distlod.cpp",
-  "function": "DistLODClass::Get_Sub_Object",
-  "tags": "GRZ",
-  "score": 0.11,
-  "second": 0.11,
-  "confidence": "low",
-  "strings": [
-   "index >= 0"
-  ],
-  "alternatives": [
-   "ww3d2/hlod.cpp:HLodClass::Get_Sub_Object",
-   "ww3d2/matinfo.cpp:MaterialInfoClass::Get_Texture",
-   "ww3d2/matinfo.h:MaterialInfoClass::Get_Vertex_Material"
-  ],
   "claimants": 1
  },
  {
@@ -1504,21 +1235,6 @@
   "claimants": 4
  },
  {
-  "client": "0x6BC3A0",
-  "lib": "ww3d2",
-  "file": "font3d.cpp",
-  "function": "Font3DDataClass::Load_Font_Image",
-  "tags": "GRZ",
-  "score": 1.0,
-  "second": 0.0,
-  "confidence": "medium",
-  "strings": [
-   "surface"
-  ],
-  "alternatives": [],
-  "claimants": 1
- },
- {
   "client": "0x99AB70",
   "lib": "ww3d2",
   "file": "framgrab.cpp",
@@ -1615,41 +1331,6 @@
   "claimants": 1
  },
  {
-  "client": "0x8000C0",
-  "lib": "ww3d2",
-  "file": "hueshift.cpp",
-  "function": "Init_3D_Scene",
-  "tags": "R",
-  "score": 0.33,
-  "second": 0.33,
-  "confidence": "low",
-  "strings": [
-   "font12x16.tga"
-  ],
-  "alternatives": [
-   "ww3d2/skeleton.cpp:Init_2D_Scene",
-   "ww3d2/sorttest.cpp:Init_3D_Scene"
-  ],
-  "claimants": 1
- },
- {
-  "client": "0x5137F0",
-  "lib": "ww3d2",
-  "file": "hueshift.cpp",
-  "function": "LoadAssets",
-  "tags": "R",
-  "score": 0.5,
-  "second": 0.5,
-  "confidence": "low",
-  "strings": [
-   "GENERAL"
-  ],
-  "alternatives": [
-   "ww3d2/sorttest.cpp:LoadAssets"
-  ],
-  "claimants": 2
- },
- {
   "client": "0x513B90",
   "lib": "ww3d2",
   "file": "hueshift.cpp",
@@ -1657,31 +1338,12 @@
   "tags": "R",
   "score": 0.5,
   "second": 0.5,
-  "confidence": "shared",
+  "confidence": "low",
   "strings": [
    "GENERAL"
   ],
   "alternatives": [
    "ww3d2/sorttest.cpp:LoadAssets"
-  ],
-  "claimants": 2
- },
- {
-  "client": "0x8012C0",
-  "lib": "ww3d2",
-  "file": "hueshift.cpp",
-  "function": "Log_Statistics",
-  "tags": "R",
-  "score": 0.67,
-  "second": 0.67,
-  "confidence": "low",
-  "strings": [
-   "%d Polys/frame (%dk pps)\n",
-   "%d Verts/frame (%dk vps)\n"
-  ],
-  "alternatives": [
-   "ww3d2/skeleton.cpp:Log_Statistics",
-   "ww3d2/sorttest.cpp:Log_Statistics"
   ],
   "claimants": 1
  },
@@ -1719,21 +1381,6 @@
   "claimants": 1
  },
  {
-  "client": "0x6BFD00",
-  "lib": "ww3d2",
-  "file": "mapper.cpp",
-  "function": "GridTextureMapperClass::GridTextureMapperClass",
-  "tags": "GRZ",
-  "score": 1.0,
-  "second": 0.0,
-  "confidence": "shared",
-  "strings": [
-   "Offset"
-  ],
-  "alternatives": [],
-  "claimants": 6
- },
- {
   "client": "0x6C0430",
   "lib": "ww3d2",
   "file": "mapper.cpp",
@@ -1746,7 +1393,7 @@
    "Offset"
   ],
   "alternatives": [],
-  "claimants": 6
+  "claimants": 5
  },
  {
   "client": "0x932F30",
@@ -1762,7 +1409,7 @@
    "Log2Width"
   ],
   "alternatives": [],
-  "claimants": 6
+  "claimants": 5
  },
  {
   "client": "0x9399A0",
@@ -1778,7 +1425,7 @@
    "Log2Width"
   ],
   "alternatives": [],
-  "claimants": 6
+  "claimants": 5
  },
  {
   "client": "0x93A010",
@@ -1794,7 +1441,7 @@
    "Log2Width"
   ],
   "alternatives": [],
-  "claimants": 6
+  "claimants": 5
  },
  {
   "client": "0x93A9C0",
@@ -1810,7 +1457,7 @@
    "Log2Width"
   ],
   "alternatives": [],
-  "claimants": 6
+  "claimants": 5
  },
  {
   "client": "0x932B40",
@@ -2152,37 +1799,7 @@
    "TSI01A"
   ],
   "alternatives": [],
-  "claimants": 3
- },
- {
-  "client": "0x60D8D0",
-  "lib": "ww3d2",
-  "file": "skeleton.cpp",
-  "function": "Init_2D_Scene",
-  "tags": "R",
-  "score": 1.0,
-  "second": 0.0,
-  "confidence": "shared",
-  "strings": [
-   "TSI08A"
-  ],
-  "alternatives": [],
-  "claimants": 3
- },
- {
-  "client": "0x60DEA0",
-  "lib": "ww3d2",
-  "file": "skeleton.cpp",
-  "function": "Init_2D_Scene",
-  "tags": "R",
-  "score": 1.0,
-  "second": 0.0,
-  "confidence": "shared",
-  "strings": [
-   "TSI08A"
-  ],
-  "alternatives": [],
-  "claimants": 3
+  "claimants": 1
  },
  {
   "client": "0x984120",
@@ -2251,23 +1868,6 @@
   "claimants": 1
  },
  {
-  "client": "0x7710D0",
-  "lib": "ww3d2",
-  "file": "surfaceclass.cpp",
-  "function": "SurfaceClass::Copy",
-  "tags": "GRZ",
-  "score": 0.5,
-  "second": 0.5,
-  "confidence": "low",
-  "strings": [
-   "height"
-  ],
-  "alternatives": [
-   "ww3d2/surfaceclass.cpp:SurfaceClass::SurfaceClass"
-  ],
-  "claimants": 1
- },
- {
   "client": "0x93D4D0",
   "lib": "ww3d2",
   "file": "texproject.cpp",
@@ -2298,36 +1898,6 @@
   ],
   "alternatives": [],
   "claimants": 1
- },
- {
-  "client": "0x483820",
-  "lib": "ww3d2",
-  "file": "texproject.cpp",
-  "function": "TexProjectClass::Set_Texture_Size",
-  "tags": "GRZ",
-  "score": 1.0,
-  "second": 0.0,
-  "confidence": "medium",
-  "strings": [
-   "size > 0"
-  ],
-  "alternatives": [],
-  "claimants": 2
- },
- {
-  "client": "0x4A47B0",
-  "lib": "ww3d2",
-  "file": "texproject.cpp",
-  "function": "TexProjectClass::Set_Texture_Size",
-  "tags": "GRZ",
-  "score": 1.0,
-  "second": 0.0,
-  "confidence": "shared",
-  "strings": [
-   "size > 0"
-  ],
-  "alternatives": [],
-  "claimants": 2
  },
  {
   "client": "0x94B920",
@@ -2422,7 +1992,7 @@
   "claimants": 1
  },
  {
-  "client": "0x526DE0",
+  "client": "0x919A50",
   "lib": "ww3d2",
   "file": "texturethumbnail.cpp",
   "function": "ThumbnailManagerClass::Create_Thumbnails",
@@ -2438,26 +2008,7 @@
    "ww3d2/texturethumbnail.cpp:ThumbnailManagerClass::Save",
    "ww3d2/texturethumbnail.cpp:ThumbnailManagerClass::Update_Thumbnail_File"
   ],
-  "claimants": 4
- },
- {
-  "client": "0x919A50",
-  "lib": "ww3d2",
-  "file": "texturethumbnail.cpp",
-  "function": "ThumbnailManagerClass::Create_Thumbnails",
-  "tags": "RZ",
-  "score": 0.25,
-  "second": 0.25,
-  "confidence": "shared",
-  "strings": [
-   "..\\data\\client\\mixfiles\\"
-  ],
-  "alternatives": [
-   "ww3d2/texturethumbnail.cpp:ThumbnailManagerClass::Load",
-   "ww3d2/texturethumbnail.cpp:ThumbnailManagerClass::Save",
-   "ww3d2/texturethumbnail.cpp:ThumbnailManagerClass::Update_Thumbnail_File"
-  ],
-  "claimants": 4
+  "claimants": 3
  },
  {
   "client": "0x919DD0",
@@ -2476,7 +2027,7 @@
    "ww3d2/texturethumbnail.cpp:ThumbnailManagerClass::Save",
    "ww3d2/texturethumbnail.cpp:ThumbnailManagerClass::Update_Thumbnail_File"
   ],
-  "claimants": 4
+  "claimants": 3
  },
  {
   "client": "0x91A220",
@@ -2495,7 +2046,7 @@
    "ww3d2/texturethumbnail.cpp:ThumbnailManagerClass::Save",
    "ww3d2/texturethumbnail.cpp:ThumbnailManagerClass::Update_Thumbnail_File"
   ],
-  "claimants": 4
+  "claimants": 3
  },
  {
   "client": "0x91B5D0",
@@ -2560,21 +2111,6 @@
   "alternatives": [
    "ww3d2/vertmaterial.cpp:VertexMaterialClass::Parse_Mapping_Args"
   ],
-  "claimants": 1
- },
- {
-  "client": "0x8099B0",
-  "lib": "ww3d2",
-  "file": "w3d_dep.cpp",
-  "function": "Get_W3D_Name",
-  "tags": "GRZ",
-  "score": 1.0,
-  "second": 0.0,
-  "confidence": "medium",
-  "strings": [
-   "filename"
-  ],
-  "alternatives": [],
   "claimants": 1
  },
  {
@@ -2683,21 +2219,6 @@
   "confidence": "medium",
   "strings": [
    "WW3D::Update_Movie_Capture"
-  ],
-  "alternatives": [],
-  "claimants": 1
- },
- {
-  "client": "0x7EB4D0",
-  "lib": "ww3d2",
-  "file": "ww3d.cpp",
-  "function": "WW3D::Update_Pixel_Center",
-  "tags": "GRZ",
-  "score": 1.0,
-  "second": 0.0,
-  "confidence": "medium",
-  "strings": [
-   "Software"
   ],
   "alternatives": [],
   "claimants": 1
@@ -3516,21 +3037,6 @@
   "claimants": 1
  },
  {
-  "client": "0x707040",
-  "lib": "wwlib",
-  "file": "binheap.h",
-  "function": "Key_Type::Remove_Min",
-  "tags": "GRZ",
-  "score": 1.0,
-  "second": 0.0,
-  "confidence": "medium",
-  "strings": [
-   "Elements"
-  ],
-  "alternatives": [],
-  "claimants": 1
- },
- {
   "client": "0x9D71F0",
   "lib": "wwlib",
   "file": "cpudetect.cpp",
@@ -4048,23 +3554,6 @@
   "claimants": 4
  },
  {
-  "client": "0x84A560",
-  "lib": "wwlib",
-  "file": "ini.cpp",
-  "function": "INIClass::Get_Rect",
-  "tags": "GRZ",
-  "score": 0.5,
-  "second": 0.5,
-  "confidence": "shared",
-  "strings": [
-   "%d,%d,%d,%d"
-  ],
-  "alternatives": [
-   "wwlib/ini.cpp:INIClass::Put_Rect"
-  ],
-  "claimants": 4
- },
- {
   "client": "0x84A600",
   "lib": "wwlib",
   "file": "ini.cpp",
@@ -4079,7 +3568,7 @@
   "alternatives": [
    "wwlib/ini.cpp:INIClass::Put_Rect"
   ],
-  "claimants": 4
+  "claimants": 3
  },
  {
   "client": "0x9CA370",
@@ -4096,7 +3585,7 @@
   "alternatives": [
    "wwlib/ini.cpp:INIClass::Put_Rect"
   ],
-  "claimants": 4
+  "claimants": 3
  },
  {
   "client": "0x9CA3C0",
@@ -4112,7 +3601,7 @@
    "0,0,0,0"
   ],
   "alternatives": [],
-  "claimants": 4
+  "claimants": 3
  },
  {
   "client": "0x9D9120",
@@ -4305,21 +3794,6 @@
   "claimants": 1
  },
  {
-  "client": "0x817070",
-  "lib": "wwmath",
-  "file": "cullsys.h",
-  "function": "CullLinkClass::CullLinkClass",
-  "tags": "GRZ",
-  "score": 1.0,
-  "second": 0.14,
-  "confidence": "medium",
-  "strings": [
-   "System"
-  ],
-  "alternatives": [],
-  "claimants": 1
- },
- {
   "client": "0x8DF2A0",
   "lib": "wwmath",
   "file": "lookuptable.cpp",
@@ -4337,326 +3811,6 @@
   "claimants": 1
  },
  {
-  "client": "0x85DCB0",
-  "lib": "wwnet",
-  "file": "connect.cpp",
-  "function": "cConnection::Is_Packet_Too_Old",
-  "tags": "R",
-  "score": 0.5,
-  "second": 0.5,
-  "confidence": "low",
-  "strings": [
-   "packet"
-  ],
-  "alternatives": [
-   "wwnet/connect.cpp:cConnection::Is_Time_To_Resend_Packet_To_Remote_Host"
-  ],
-  "claimants": 6
- },
- {
-  "client": "0x85EDE0",
-  "lib": "wwnet",
-  "file": "connect.cpp",
-  "function": "cConnection::Is_Packet_Too_Old",
-  "tags": "R",
-  "score": 0.5,
-  "second": 0.5,
-  "confidence": "shared",
-  "strings": [
-   "packet"
-  ],
-  "alternatives": [
-   "wwnet/connect.cpp:cConnection::Is_Time_To_Resend_Packet_To_Remote_Host"
-  ],
-  "claimants": 6
- },
- {
-  "client": "0x8610A0",
-  "lib": "wwnet",
-  "file": "connect.cpp",
-  "function": "cConnection::Is_Packet_Too_Old",
-  "tags": "R",
-  "score": 0.5,
-  "second": 0.5,
-  "confidence": "shared",
-  "strings": [
-   "packet"
-  ],
-  "alternatives": [
-   "wwnet/connect.cpp:cConnection::Is_Time_To_Resend_Packet_To_Remote_Host"
-  ],
-  "claimants": 6
- },
- {
-  "client": "0x8615D0",
-  "lib": "wwnet",
-  "file": "connect.cpp",
-  "function": "cConnection::Is_Packet_Too_Old",
-  "tags": "R",
-  "score": 0.5,
-  "second": 0.5,
-  "confidence": "shared",
-  "strings": [
-   "packet"
-  ],
-  "alternatives": [
-   "wwnet/connect.cpp:cConnection::Is_Time_To_Resend_Packet_To_Remote_Host"
-  ],
-  "claimants": 6
- },
- {
-  "client": "0x8621B0",
-  "lib": "wwnet",
-  "file": "connect.cpp",
-  "function": "cConnection::Is_Packet_Too_Old",
-  "tags": "R",
-  "score": 0.5,
-  "second": 0.5,
-  "confidence": "shared",
-  "strings": [
-   "packet"
-  ],
-  "alternatives": [
-   "wwnet/connect.cpp:cConnection::Is_Time_To_Resend_Packet_To_Remote_Host"
-  ],
-  "claimants": 6
- },
- {
-  "client": "0x862820",
-  "lib": "wwnet",
-  "file": "connect.cpp",
-  "function": "cConnection::Is_Packet_Too_Old",
-  "tags": "R",
-  "score": 0.5,
-  "second": 0.5,
-  "confidence": "shared",
-  "strings": [
-   "packet"
-  ],
-  "alternatives": [
-   "wwnet/connect.cpp:cConnection::Is_Time_To_Resend_Packet_To_Remote_Host"
-  ],
-  "claimants": 6
- },
- {
-  "client": "0x829C80",
-  "lib": "wwnet",
-  "file": "packetmgr.cpp",
-  "function": "PacketManagerClass::Clear_Socket_Error",
-  "tags": "R",
-  "score": 1.0,
-  "second": 0.0,
-  "confidence": "medium",
-  "strings": [
-   "socket != INVALID_SOCKET"
-  ],
-  "alternatives": [],
-  "claimants": 1
- },
- {
-  "client": "0x7A4FC0",
-  "lib": "wwonline",
-  "file": "wolproduct.cpp",
-  "function": "Product::Product",
-  "tags": "R",
-  "score": 1.0,
-  "second": 0.0,
-  "confidence": "medium",
-  "strings": [
-   "Version"
-  ],
-  "alternatives": [],
-  "claimants": 5
- },
- {
-  "client": "0x7A50A0",
-  "lib": "wwonline",
-  "file": "wolproduct.cpp",
-  "function": "Product::Product",
-  "tags": "R",
-  "score": 1.0,
-  "second": 0.0,
-  "confidence": "shared",
-  "strings": [
-   "Version"
-  ],
-  "alternatives": [],
-  "claimants": 5
- },
- {
-  "client": "0x7A5180",
-  "lib": "wwonline",
-  "file": "wolproduct.cpp",
-  "function": "Product::Product",
-  "tags": "R",
-  "score": 1.0,
-  "second": 0.0,
-  "confidence": "shared",
-  "strings": [
-   "Version"
-  ],
-  "alternatives": [],
-  "claimants": 5
- },
- {
-  "client": "0x7A5260",
-  "lib": "wwonline",
-  "file": "wolproduct.cpp",
-  "function": "Product::Product",
-  "tags": "R",
-  "score": 1.0,
-  "second": 0.0,
-  "confidence": "shared",
-  "strings": [
-   "Version"
-  ],
-  "alternatives": [],
-  "claimants": 5
- },
- {
-  "client": "0x7A52F0",
-  "lib": "wwonline",
-  "file": "wolproduct.cpp",
-  "function": "Product::Product",
-  "tags": "R",
-  "score": 1.0,
-  "second": 0.0,
-  "confidence": "shared",
-  "strings": [
-   "Version"
-  ],
-  "alternatives": [],
-  "claimants": 5
- },
- {
-  "client": "0x493340",
-  "lib": "wwphys",
-  "file": "dyntexproject.cpp",
-  "function": "DynTexProjectClass::Get_Light_Vector",
-  "tags": "R",
-  "score": 0.5,
-  "second": 0.5,
-  "confidence": "low",
-  "strings": [
-   "set_vector != NULL"
-  ],
-  "alternatives": [
-   "wwphys/pscene_lighting.cpp:PhysicsSceneClass::Get_Sun_Light_Vector"
-  ],
-  "claimants": 3
- },
- {
-  "client": "0x493CB0",
-  "lib": "wwphys",
-  "file": "dyntexproject.cpp",
-  "function": "DynTexProjectClass::Get_Light_Vector",
-  "tags": "R",
-  "score": 0.5,
-  "second": 0.5,
-  "confidence": "shared",
-  "strings": [
-   "set_vector != NULL"
-  ],
-  "alternatives": [
-   "wwphys/pscene_lighting.cpp:PhysicsSceneClass::Get_Sun_Light_Vector"
-  ],
-  "claimants": 3
- },
- {
-  "client": "0x493FE0",
-  "lib": "wwphys",
-  "file": "dyntexproject.cpp",
-  "function": "DynTexProjectClass::Get_Light_Vector",
-  "tags": "R",
-  "score": 0.5,
-  "second": 0.5,
-  "confidence": "shared",
-  "strings": [
-   "set_vector != NULL"
-  ],
-  "alternatives": [
-   "wwphys/pscene_lighting.cpp:PhysicsSceneClass::Get_Sun_Light_Vector"
-  ],
-  "claimants": 3
- },
- {
-  "client": "0x4A0C40",
-  "lib": "wwphys",
-  "file": "projectile.cpp",
-  "function": "ProjectileClass::Timestep",
-  "tags": "R",
-  "score": 1.0,
-  "second": 0.0,
-  "confidence": "medium",
-  "strings": [
-   "Callbacks"
-  ],
-  "alternatives": [],
-  "claimants": 2
- },
- {
-  "client": "0x4A0CE0",
-  "lib": "wwphys",
-  "file": "projectile.cpp",
-  "function": "ProjectileClass::Timestep",
-  "tags": "R",
-  "score": 1.0,
-  "second": 0.0,
-  "confidence": "shared",
-  "strings": [
-   "Callbacks"
-  ],
-  "alternatives": [],
-  "claimants": 2
- },
- {
-  "client": "0x62D6A0",
-  "lib": "wwphys",
-  "file": "pscene.cpp",
-  "function": "PhysicsSceneClass::Render_Object",
-  "tags": "R",
-  "score": 1.0,
-  "second": 0.0,
-  "confidence": "medium",
-  "strings": [
-   "render"
-  ],
-  "alternatives": [],
-  "claimants": 1
- },
- {
-  "client": "0x492840",
-  "lib": "wwphys",
-  "file": "pscene_projectors.cpp",
-  "function": "PhysicsSceneClass::Add_Dynamic_Texture_Projector",
-  "tags": "R",
-  "score": 1.5,
-  "second": 0.5,
-  "confidence": "medium",
-  "strings": [
-   "newprojector",
-   "!DynamicProjectorList.Is_In_List(newprojector)"
-  ],
-  "alternatives": [],
-  "claimants": 1
- },
- {
-  "client": "0x4926C0",
-  "lib": "wwphys",
-  "file": "pscene_projectors.cpp",
-  "function": "PhysicsSceneClass::Add_Static_Texture_Projector",
-  "tags": "R",
-  "score": 1.5,
-  "second": 0.5,
-  "confidence": "medium",
-  "strings": [
-   "newprojector",
-   "!StaticProjectorList.Is_In_List(newprojector)"
-  ],
-  "alternatives": [],
-  "claimants": 1
- },
- {
   "client": "0x492C70",
   "lib": "wwphys",
   "file": "pscene_projectors.cpp",
@@ -4667,105 +3821,6 @@
   "confidence": "medium",
   "strings": [
    "pscene::Apply_Projectors"
-  ],
-  "alternatives": [],
-  "claimants": 1
- },
- {
-  "client": "0x492780",
-  "lib": "wwphys",
-  "file": "pscene_projectors.cpp",
-  "function": "PhysicsSceneClass::Remove_Dynamic_Texture_Projector",
-  "tags": "R",
-  "score": 0.33,
-  "second": 0.33,
-  "confidence": "low",
-  "strings": [
-   "projector"
-  ],
-  "alternatives": [
-   "wwphys/pscene_projectors.cpp:PhysicsSceneClass::Remove_Static_Texture_Projector",
-   "wwphys/pscene_projectors.cpp:PhysicsSceneClass::Remove_Texture_Projector"
-  ],
-  "claimants": 3
- },
- {
-  "client": "0x492900",
-  "lib": "wwphys",
-  "file": "pscene_projectors.cpp",
-  "function": "PhysicsSceneClass::Remove_Dynamic_Texture_Projector",
-  "tags": "R",
-  "score": 0.33,
-  "second": 0.33,
-  "confidence": "shared",
-  "strings": [
-   "projector"
-  ],
-  "alternatives": [
-   "wwphys/pscene_projectors.cpp:PhysicsSceneClass::Remove_Static_Texture_Projector",
-   "wwphys/pscene_projectors.cpp:PhysicsSceneClass::Remove_Texture_Projector"
-  ],
-  "claimants": 3
- },
- {
-  "client": "0x4929C0",
-  "lib": "wwphys",
-  "file": "pscene_projectors.cpp",
-  "function": "PhysicsSceneClass::Remove_Dynamic_Texture_Projector",
-  "tags": "R",
-  "score": 0.33,
-  "second": 0.33,
-  "confidence": "shared",
-  "strings": [
-   "projector"
-  ],
-  "alternatives": [
-   "wwphys/pscene_projectors.cpp:PhysicsSceneClass::Remove_Static_Texture_Projector",
-   "wwphys/pscene_projectors.cpp:PhysicsSceneClass::Remove_Texture_Projector"
-  ],
-  "claimants": 3
- },
- {
-  "client": "0x491A80",
-  "lib": "wwphys",
-  "file": "pscene_projectors.cpp",
-  "function": "StaticShadowTexMgrClass::Add_Shadow_Texture",
-  "tags": "R",
-  "score": 1.0,
-  "second": 0.0,
-  "confidence": "medium",
-  "strings": [
-   "Peek_Shadow_Texture(obj_type_id,orientation) == NULL"
-  ],
-  "alternatives": [],
-  "claimants": 2
- },
- {
-  "client": "0x493620",
-  "lib": "wwphys",
-  "file": "pscene_projectors.cpp",
-  "function": "StaticShadowTexMgrClass::Add_Shadow_Texture",
-  "tags": "R",
-  "score": 1.0,
-  "second": 0.0,
-  "confidence": "shared",
-  "strings": [
-   "Peek_Shadow_Texture(obj_type_id,orientation) == NULL"
-  ],
-  "alternatives": [],
-  "claimants": 2
- },
- {
-  "client": "0x8AC1B0",
-  "lib": "wwphys",
-  "file": "rbody.cpp",
-  "function": "RigidBodyClass::Assert_State_Valid",
-  "tags": "R",
-  "score": 1.0,
-  "second": 0.0,
-  "confidence": "medium",
-  "strings": [
-   "Velocity.Is_Valid()"
   ],
   "alternatives": [],
   "claimants": 1
@@ -4822,74 +3877,6 @@
    "wwshade/shdglossmask.cpp:ShdGlossMaskDefClass::ShdGlossMaskDefClass"
   ],
   "claimants": 2
- },
- {
-  "client": "0x6F66E0",
-  "lib": "wwshade",
-  "file": "shddef.cpp",
-  "function": "ShdDefClass::ShdDefClass",
-  "tags": "Z",
-  "score": 0.5,
-  "second": 0.5,
-  "confidence": "low",
-  "strings": [
-   "Default"
-  ],
-  "alternatives": [
-   "wwtranslatedb/translatedb.cpp:TranslateDBClass::Validate_Data"
-  ],
-  "claimants": 4
- },
- {
-  "client": "0x71BD90",
-  "lib": "wwshade",
-  "file": "shddef.cpp",
-  "function": "ShdDefClass::ShdDefClass",
-  "tags": "Z",
-  "score": 0.5,
-  "second": 0.5,
-  "confidence": "shared",
-  "strings": [
-   "Default"
-  ],
-  "alternatives": [
-   "wwtranslatedb/translatedb.cpp:TranslateDBClass::Validate_Data"
-  ],
-  "claimants": 4
- },
- {
-  "client": "0x71C170",
-  "lib": "wwshade",
-  "file": "shddef.cpp",
-  "function": "ShdDefClass::ShdDefClass",
-  "tags": "Z",
-  "score": 0.5,
-  "second": 0.5,
-  "confidence": "shared",
-  "strings": [
-   "Default"
-  ],
-  "alternatives": [
-   "wwtranslatedb/translatedb.cpp:TranslateDBClass::Validate_Data"
-  ],
-  "claimants": 4
- },
- {
-  "client": "0x794A90",
-  "lib": "wwshade",
-  "file": "shddef.cpp",
-  "function": "ShdDefClass::ShdDefClass",
-  "tags": "Z",
-  "score": 0.5,
-  "second": 0.5,
-  "confidence": "shared",
-  "strings": [
-   "Default"
-  ],
-  "alternatives": [
-   "wwtranslatedb/translatedb.cpp:TranslateDBClass::Validate_Data"
-  ],
-  "claimants": 4
  },
  {
   "client": "0xA0F1F0",

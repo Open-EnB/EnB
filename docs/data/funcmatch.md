@@ -4,30 +4,18 @@ Tags: which EA copies contain the function (R Renegade, G Generals, Z Zero Hour)
 
 | Client | Library | File | Function | Tags | Score | Confidence | Evidence |
 |---|---|---|---|---|---|---|---|
-| 0x7014B0 | ww3d2 | animatedsoundmgr.cpp | `AnimatedSoundMgrClass::Initialize` | RZ | 1.0 | shared | BoneName |
-| 0x72D5F0 | ww3d2 | animatedsoundmgr.cpp | `AnimatedSoundMgrClass::Initialize` | RZ | 1.0 | shared | BoneName |
 | 0x909540 | ww3d2 | animatedsoundmgr.cpp | `AnimatedSoundMgrClass::Initialize` | RZ | 2.0 | high | BoneName; w3danimsound.ini |
-| 0x6B6490 | ww3d2 | animatedsoundmgr.cpp | `Build_List_From_String` | RZ | 0.1 | low | buffer != NULL |
-| 0x6B65A0 | ww3d2 | animatedsoundmgr.cpp | `Build_List_From_String` | RZ | 0.1 | shared | buffer != NULL |
 | 0x988AF0 | ww3d2 | animobj.cpp | `Animatable3DObjClass::Get_Bone_Name` | GRZ | 0.33 | low | RootTransform |
 | 0x989060 | ww3d2 | animobj.cpp | `Animatable3DObjClass::Get_Bone_Name` | GRZ | 0.33 | shared | RootTransform |
 | 0x9C58A0 | ww3d2 | animobj.cpp | `Animatable3DObjClass::Get_Bone_Name` | GRZ | 0.33 | shared | RootTransform |
-| 0x802D80 | ww3d2 | animobj.cpp | `Animatable3DObjClass::Get_Bone_Transform` | GRZ | 1.0 | medium | bonename |
 | 0x91C8C0 | ww3d2 | assetmgr.cpp | `Create_Number_String` | GRZ | 2.0 | high | %d %3.3d %3.3d; %d %3.3d |
 | 0x91D0D0 | ww3d2 | assetmgr.cpp | `Create_Number_String` | GRZ | 2.0 | shared | %d %3.3d %3.3d; %d %3.3d |
 | 0x4D8870 | ww3d2 | assetmgr.cpp | `Log_Textures` | GRZ | 0.14 | shared | Unknown |
-| 0x530530 | ww3d2 | assetmgr.cpp | `Log_Textures` | GRZ | 0.14 | shared | Unknown |
 | 0x59FB20 | ww3d2 | assetmgr.cpp | `Log_Textures` | GRZ | 0.14 | shared | Unknown |
-| 0x5D6EE0 | ww3d2 | assetmgr.cpp | `Log_Textures` | GRZ | 0.14 | shared | Unknown |
-| 0x6FF4B0 | ww3d2 | assetmgr.cpp | `Log_Textures` | GRZ | 0.14 | shared | Unknown |
 | 0x6FF7A0 | ww3d2 | assetmgr.cpp | `Log_Textures` | GRZ | 0.14 | shared | Unknown |
 | 0x7C3830 | ww3d2 | assetmgr.cpp | `Log_Textures` | GRZ | 0.14 | shared | Unknown |
-| 0x822F10 | ww3d2 | assetmgr.cpp | `Log_Textures` | GRZ | 0.14 | shared | Unknown |
 | 0x91CA10 | ww3d2 | assetmgr.cpp | `Log_Textures` | GRZ | 18.14 | ambiguous | Unknown; D3DFMT_A8R8G8B8 |
 | 0x9EB4C0 | ww3d2 | assetmgr.cpp | `Log_Textures` | GRZ | 0.14 | shared | Unknown |
-| 0x5DCD20 | ww3d2 | assetmgr.cpp | `WW3DAssetManager::Create_Render_Obj` | GRZ | 0.33 | shared | %s.w3d |
-| 0x6EB9B0 | ww3d2 | assetmgr.cpp | `WW3DAssetManager::Create_Render_Obj` | GRZ | 0.33 | shared | %s.w3d |
-| 0x75BE00 | ww3d2 | assetmgr.cpp | `WW3DAssetManager::Create_Render_Obj` | GRZ | 0.33 | shared | %s.w3d |
 | 0x91D4B0 | ww3d2 | assetmgr.cpp | `WW3DAssetManager::Create_Render_Obj` | GRZ | 1.33 | medium | %s.w3d; WW3DAssetManager::Create_Render_Obj |
 | 0x91D140 | ww3d2 | assetmgr.cpp | `WW3DAssetManager::Free_Assets` | GRZ | 1.0 | medium | WW3DAssetManager::Free_Assets |
 | 0x91E8E0 | ww3d2 | assetmgr.cpp | `WW3DAssetManager::Get_Font3DData` | GRZ | 1.0 | medium | WW3DAssetManager::Get_Font3DData |
@@ -40,10 +28,8 @@ Tags: which EA copies contain the function (R Renegade, G Generals, Z Zero Hour)
 | 0x741180 | ww3d2 | assetmgr.cpp | `WW3DAssetManager::Load_Procedural_Textures` | GRZ | 1.0 | medium | metals.ini |
 | 0x91C6D0 | ww3d2 | assetmgr.cpp | `WW3DAssetManager::Load_Procedural_Textures` | GRZ | 1.0 | shared | metals.ini |
 | 0x91D370 | ww3d2 | assetmgr.cpp | `WW3DAssetManager::Load_Prototype` | GRZ | 1.0 | medium | WW3DAssetManager::Load_Prototype |
-| 0x489050 | ww3d2 | assetmgr.cpp | `WW3DAssetManager::Remove_Prototype` | GRZ | 0.11 | low | name != NULL |
 | 0x499070 | ww3d2 | dazzle.cpp | `DazzleINIClass::Get_Vector3` | GRZ | 0.33 | low | %f,%f,%f |
 | 0x4990C0 | ww3d2 | dazzle.cpp | `DazzleINIClass::Get_Vector3` | GRZ | 0.33 | shared | %f,%f,%f |
-| 0x4A3750 | ww3d2 | dazzle.cpp | `DazzleINIClass::Get_Vector3` | GRZ | 0.33 | shared | %f,%f,%f |
 | 0x4A3810 | ww3d2 | dazzle.cpp | `DazzleINIClass::Get_Vector3` | GRZ | 0.33 | shared | %f,%f,%f |
 | 0x96A080 | ww3d2 | dazzle.cpp | `DazzleINIClass::Get_Vector3` | GRZ | 0.33 | shared | %f,%f,%f |
 | 0x9CBD80 | ww3d2 | dazzle.cpp | `DazzleINIClass::Get_Vector3` | GRZ | 0.33 | shared | %f,%f,%f |
@@ -54,7 +40,6 @@ Tags: which EA copies contain the function (R Renegade, G Generals, Z Zero Hour)
 | 0x96BFC0 | ww3d2 | dazzle.cpp | `DazzleRenderObjClass::Render` | GRZ | 0.5 | low | Dazzle::Render |
 | 0x96C890 | ww3d2 | dazzle.cpp | `DazzleRenderObjClass::Render` | GRZ | 0.5 | shared | Dazzle::Render |
 | 0x9A0870 | ww3d2 | ddsfile.cpp | `DDSFileClass::DDSFileClass` | GRZ | 1.0 | medium | File %s loading failed. Tried to read %d |
-| 0x6E0C50 | ww3d2 | distlod.cpp | `DistLODClass::Get_Sub_Object` | GRZ | 0.11 | low | index >= 0 |
 | 0x9B1620 | ww3d2 | dx8caps.cpp | `DX8Caps::Check_Bumpmap_Support` | RZ | 2.0 | high | Bumpmap support: %s ; Bumpmap luminance support: %s  |
 | 0x9B1C20 | ww3d2 | dx8caps.cpp | `DX8Caps::Check_Depth_Stencil_Support` | Z | 1.0 | medium | Supports depth stencil format: %s  |
 | 0x9B1EB0 | ww3d2 | dx8caps.cpp | `DX8Caps::Check_Driver_Version_Status` | RZ | 14.0 | high | nv4.dll; nv4_disp.dll |
@@ -91,20 +76,15 @@ Tags: which EA copies contain the function (R Renegade, G Generals, Z Zero Hour)
 | 0x48CB40 | ww3d2 | enbassetmgr.cpp | `ENBAssetManager::Recolor_Texture` | R | 1.0 | shared | #%s!H%gS%gV%g |
 | 0x48CF90 | ww3d2 | enbassetmgr.cpp | `ENBAssetManager::Recolor_Texture` | R | 1.0 | shared | #%s!H%gS%gV%g |
 | 0x48ECA0 | ww3d2 | enbassetmgr.cpp | `ENBAssetManager::Recolor_Texture` | R | 1.0 | shared | #%s!H%gS%gV%g |
-| 0x6BC3A0 | ww3d2 | font3d.cpp | `Font3DDataClass::Load_Font_Image` | GRZ | 1.0 | medium | surface |
 | 0x99AB70 | ww3d2 | framgrab.cpp | `FrameGrabClass::FrameGrabClass` | GRZ | 2.0 | high | %s%d.AVI; Unable to open %s  |
 | 0x99AF90 | ww3d2 | framgrab.cpp | `FrameGrabClass::GrabAVI` | GRZ | 1.0 | medium | avi write error %x/%d  |
 | 0x99B000 | ww3d2 | framgrab.cpp | `FrameGrabClass::GrabAVI` | GRZ | 1.0 | shared | avi write error %x/%d  |
 | 0x99B070 | ww3d2 | framgrab.cpp | `FrameGrabClass::GrabAVI` | GRZ | 1.0 | shared | avi write error %x/%d  |
 | 0x98F1D0 | ww3d2 | hlod.cpp | `HLodClass::Update_Obj_Space_Bounding_Volumes` | GRZ | 1.0 | medium | BOUNDINGBOX |
 | 0x98A2D0 | ww3d2 | htree.cpp | `HTreeClass::Alter_Avatar_HTree` | Z | 10.0 | high |  RIGHTFOREARM;  RIGHTHAND |
-| 0x8000C0 | ww3d2 | hueshift.cpp | `Init_3D_Scene` | R | 0.33 | low | font12x16.tga |
-| 0x5137F0 | ww3d2 | hueshift.cpp | `LoadAssets` | R | 0.5 | low | GENERAL |
-| 0x513B90 | ww3d2 | hueshift.cpp | `LoadAssets` | R | 0.5 | shared | GENERAL |
-| 0x8012C0 | ww3d2 | hueshift.cpp | `Log_Statistics` | R | 0.67 | low | %d Polys/frame (%dk pps) ; %d Verts/frame (%dk vps)  |
+| 0x513B90 | ww3d2 | hueshift.cpp | `LoadAssets` | R | 0.5 | low | GENERAL |
 | 0x939200 | ww3d2 | mapper.cpp | `BumpEnvTextureMapperClass::BumpEnvTextureMapperClass` | GRZ | 2.0 | high | BumpRotation; BumpScale |
 | 0x9357A0 | ww3d2 | mapper.cpp | `EdgeMapperClass::EdgeMapperClass` | GRZ | 2.25 | high | VPerSec; VStart |
-| 0x6BFD00 | ww3d2 | mapper.cpp | `GridTextureMapperClass::GridTextureMapperClass` | GRZ | 1.0 | shared | Offset |
 | 0x6C0430 | ww3d2 | mapper.cpp | `GridTextureMapperClass::GridTextureMapperClass` | GRZ | 1.0 | shared | Offset |
 | 0x932F30 | ww3d2 | mapper.cpp | `GridTextureMapperClass::GridTextureMapperClass` | GRZ | 2.0 | high | Offset; Log2Width |
 | 0x9399A0 | ww3d2 | mapper.cpp | `GridTextureMapperClass::GridTextureMapperClass` | GRZ | 2.0 | shared | Offset; Log2Width |
@@ -131,32 +111,25 @@ Tags: which EA copies contain the function (R Renegade, G Generals, Z Zero Hour)
 | 0x4628D0 | ww3d2 | rendobj.h | `RenderObjClass::Get_Name` | GRZ | 0.5 | shared | UNNAMED |
 | 0x913180 | ww3d2 | ringobj.cpp | `RingPrototypeClass::Create` | GRZ | 1.0 | medium | RingPrototypeClass |
 | 0x57D830 | ww3d2 | skeleton.cpp | `Init_2D_Scene` | R | 1.0 | medium | TSI01A |
-| 0x60D8D0 | ww3d2 | skeleton.cpp | `Init_2D_Scene` | R | 1.0 | shared | TSI08A |
-| 0x60DEA0 | ww3d2 | skeleton.cpp | `Init_2D_Scene` | R | 1.0 | shared | TSI08A |
 | 0x984120 | ww3d2 | sortingrenderer.cpp | `SortingRendererClass::Flush` | RZ | 1.0 | medium | SortingRenderer::Flush |
 | 0x4691D0 | ww3d2 | sorttest.cpp | `LoadAssets` | R | 1.5 | medium | GENERAL; SWATCH |
 | 0x90E230 | ww3d2 | sphereobj.cpp | `SpherePrototypeClass::Create` | GRZ | 1.0 | medium | SpherePrototypeClass |
 | 0x993450 | ww3d2 | statistics.cpp | `Record_Texture_End` | GRZ | 10.0 | high | %4.4d  %3.3d   %3.3d     %s ; %4.4dkb          |
-| 0x7710D0 | ww3d2 | surfaceclass.cpp | `SurfaceClass::Copy` | GRZ | 0.5 | low | height |
 | 0x93D4D0 | ww3d2 | texproject.cpp | `TexProjectClass::Init_Additive` | GRZ | 1.5 | medium | TexProjectClass; AddProjectorGradient.tga |
 | 0x93D2E0 | ww3d2 | texproject.cpp | `TexProjectClass::Init_Multiplicative` | GRZ | 1.5 | medium | TexProjectClass; MultProjectorGradient.tga |
-| 0x483820 | ww3d2 | texproject.cpp | `TexProjectClass::Set_Texture_Size` | GRZ | 1.0 | medium | size > 0 |
-| 0x4A47B0 | ww3d2 | texproject.cpp | `TexProjectClass::Set_Texture_Size` | GRZ | 1.0 | shared | size > 0 |
 | 0x94B920 | ww3d2 | texture.cpp | `TextureBaseClass::Load_Locked_Surface` | Z | 1.0 | shared | TextureClass::Load_Locked_Surface() |
 | 0x94BA80 | ww3d2 | texture.cpp | `TextureBaseClass::Load_Locked_Surface` | Z | 1.0 | medium | TextureClass::Load_Locked_Surface() |
 | 0x94BC80 | ww3d2 | texture.cpp | `TextureBaseClass::Load_Locked_Surface` | Z | 1.0 | shared | TextureClass::Load_Locked_Surface() |
 | 0x9493F0 | ww3d2 | textureloader.cpp | `TextureLoader::Request_Background_Loading` | Z | 1.0 | medium | TextureLoader::Request_Background_Loadin |
 | 0x949550 | ww3d2 | textureloader.cpp | `TextureLoader::Request_Foreground_Loading` | Z | 1.0 | medium | TextureLoader::Request_Foreground_Loadin |
 | 0x919300 | ww3d2 | texturethumbnail.cpp | `ThumbnailClass::ThumbnailClass` | RZ | 1.0 | medium | ThumbnailClass::ThumbnailClass |
-| 0x526DE0 | ww3d2 | texturethumbnail.cpp | `ThumbnailManagerClass::Create_Thumbnails` | RZ | 0.25 | low | ..\data\client\mixfiles\ |
-| 0x919A50 | ww3d2 | texturethumbnail.cpp | `ThumbnailManagerClass::Create_Thumbnails` | RZ | 0.25 | shared | ..\data\client\mixfiles\ |
+| 0x919A50 | ww3d2 | texturethumbnail.cpp | `ThumbnailManagerClass::Create_Thumbnails` | RZ | 0.25 | low | ..\data\client\mixfiles\ |
 | 0x919DD0 | ww3d2 | texturethumbnail.cpp | `ThumbnailManagerClass::Create_Thumbnails` | RZ | 0.25 | shared | ..\data\client\mixfiles\ |
 | 0x91A220 | ww3d2 | texturethumbnail.cpp | `ThumbnailManagerClass::Create_Thumbnails` | RZ | 0.25 | shared | ..\data\client\mixfiles\ |
 | 0x91B5D0 | ww3d2 | texturethumbnail.cpp | `ThumbnailManagerClass::Init` | RZ | 0.5 | low | always.dat |
 | 0x91AD40 | ww3d2 | texturethumbnail.cpp | `ThumbnailManagerClass::Peek_Thumbnail_Instance_From_Any_Manager` | Z | 1.0 | medium | Peek_Thumbnail_Instance_From_Any_Manager |
 | 0x91B310 | ww3d2 | texturethumbnail.cpp | `ThumbnailManagerClass::Update_Thumbnail_File` | RZ | 1.25 | medium | ..\data\client\mixfiles\; Updating texture thumbnails |
 | 0x92F2A0 | ww3d2 | vertmaterial.cpp | `VertexMaterialClass::Load_W3D` | GRZ | 0.5 | low | [Args] %s |
-| 0x8099B0 | ww3d2 | w3d_dep.cpp | `Get_W3D_Name` | GRZ | 1.0 | medium | filename |
 | 0x917AC0 | ww3d2 | ww3d.cpp | `WW3D::Begin_Render` | GRZ | 1.0 | medium | WW3D::Begin_Render |
 | 0x918120 | ww3d2 | ww3d.cpp | `WW3D::End_Render` | GRZ | 3.0 | high | WW3D::End_Render; DX8Wrapper::End_Scene |
 | 0x9182C0 | ww3d2 | ww3d.cpp | `WW3D::Make_Screen_Shot` | GRZ | 1.0 | medium | %s%.2d.%s |
@@ -164,7 +137,6 @@ Tags: which EA copies contain the function (R Renegade, G Generals, Z Zero Hour)
 | 0x917F70 | ww3d2 | ww3d.cpp | `WW3D::Render` | GRZ | 1.5 | medium | WW3D::Render; On_Frame_Update |
 | 0x9F9F90 | ww3d2 | ww3d.cpp | `WW3D::Render` | GRZ | 0.5 | shared | On_Frame_Update |
 | 0x918B20 | ww3d2 | ww3d.cpp | `WW3D::Update_Movie_Capture` | GRZ | 1.0 | medium | WW3D::Update_Movie_Capture |
-| 0x7EB4D0 | ww3d2 | ww3d.cpp | `WW3D::Update_Pixel_Center` | GRZ | 1.0 | medium | Software |
 | 0x967BD0 | ww3d2 | ww3dformat.cpp | `Get_WW3D_Format_Name` | RZ | 12.14 | high | Unknown; R8G8B8 |
 | 0x968090 | ww3d2 | ww3dformat.cpp | `Get_WW3D_ZFormat_Name` | Z | 2.14 | high | Unknown; D16Lockable |
 | 0xA03640 | wwaudio | filteredsound.cpp | `FilteredSoundClass::Initialize_Miles_Handle` | GRZ | 3.0 | high | Reverb level; Reverb reflect time |
@@ -216,7 +188,6 @@ Tags: which EA copies contain the function (R Renegade, G Generals, Z Zero Hour)
 | 0x9EA510 | wwdebug | wwprofile.cpp | `WWProfileHierachyNodeClass::Add_To_String_Compact` | Z | 1.0 | medium | %d %d %2.2f; |
 | 0x9EA310 | wwdebug | wwprofile.cpp | `WWProfileHierachyNodeClass::Write_To_File` | RZ | 1.0 | medium | %s	%d	%f  |
 | 0x9EAE80 | wwdebug | wwprofile.cpp | `WWProfileManager::End_Collecting` | RZ | 2.0 | high | ID: %d %s ; FRAME: %d %2.2f %s  |
-| 0x707040 | wwlib | binheap.h | `Key_Type::Remove_Min` | GRZ | 1.0 | medium | Elements |
 | 0x9D71F0 | wwlib | cpudetect.cpp | `CPUDetectClass::Init_Compact_Log` | GRZ | 2.04 | high | UNKNOWN; %s	%d	 |
 | 0x9D64B0 | wwlib | cpudetect.cpp | `CPUDetectClass::Init_Processor_Log` | GRZ | 36.0 | high | Operating System: ; Windows NT |
 | 0x9D4C00 | wwlib | cpudetect.cpp | `CPUDetectClass::Init_Processor_Manufacturer` | GRZ | 9.0 | high | GenuineIntel; AuthenticAMD |
@@ -247,7 +218,6 @@ Tags: which EA copies contain the function (R Renegade, G Generals, Z Zero Hour)
 | 0x709E10 | wwlib | ini.cpp | `INIClass::Get_Point` | GRZ | 0.5 | shared | %d,%d,%d |
 | 0x9CBBB0 | wwlib | ini.cpp | `INIClass::Get_Point` | GRZ | 0.5 | shared | %d,%d,%d |
 | 0x9CBC00 | wwlib | ini.cpp | `INIClass::Get_Point` | GRZ | 0.5 | shared | %d,%d,%d |
-| 0x84A560 | wwlib | ini.cpp | `INIClass::Get_Rect` | GRZ | 0.5 | shared | %d,%d,%d,%d |
 | 0x84A600 | wwlib | ini.cpp | `INIClass::Get_Rect` | GRZ | 0.5 | shared | %d,%d,%d,%d |
 | 0x9CA370 | wwlib | ini.cpp | `INIClass::Get_Rect` | GRZ | 0.5 | shared | %d,%d,%d,%d |
 | 0x9CA3C0 | wwlib | ini.cpp | `INIClass::Get_Rect` | GRZ | 1.5 | medium | %d,%d,%d,%d; 0,0,0,0 |
@@ -263,42 +233,11 @@ Tags: which EA copies contain the function (R Renegade, G Generals, Z Zero Hour)
 | 0x9D2FF0 | wwlib | targa.cpp | `Targa::Save` | GRZ | 1.0 | medium | Denzil's Targa Code |
 | 0x9DEC70 | wwlib | thread.cpp | `ThreadClass::ThreadClass` | RZ | 1.0 | medium | No name |
 | 0x8C8DD0 | wwmath | cullsys.cpp | `CullableClass::Set_Cull_Box` | GRZ | 1.0 | medium | Cullable::Set_Cull_Box |
-| 0x817070 | wwmath | cullsys.h | `CullLinkClass::CullLinkClass` | GRZ | 1.0 | medium | System |
 | 0x8DF2A0 | wwmath | lookuptable.cpp | `LookupTableMgrClass::Init` | GRZ | 0.5 | low | DefaultTable |
-| 0x85DCB0 | wwnet | connect.cpp | `cConnection::Is_Packet_Too_Old` | R | 0.5 | low | packet |
-| 0x85EDE0 | wwnet | connect.cpp | `cConnection::Is_Packet_Too_Old` | R | 0.5 | shared | packet |
-| 0x8610A0 | wwnet | connect.cpp | `cConnection::Is_Packet_Too_Old` | R | 0.5 | shared | packet |
-| 0x8615D0 | wwnet | connect.cpp | `cConnection::Is_Packet_Too_Old` | R | 0.5 | shared | packet |
-| 0x8621B0 | wwnet | connect.cpp | `cConnection::Is_Packet_Too_Old` | R | 0.5 | shared | packet |
-| 0x862820 | wwnet | connect.cpp | `cConnection::Is_Packet_Too_Old` | R | 0.5 | shared | packet |
-| 0x829C80 | wwnet | packetmgr.cpp | `PacketManagerClass::Clear_Socket_Error` | R | 1.0 | medium | socket != INVALID_SOCKET |
-| 0x7A4FC0 | wwonline | wolproduct.cpp | `Product::Product` | R | 1.0 | medium | Version |
-| 0x7A50A0 | wwonline | wolproduct.cpp | `Product::Product` | R | 1.0 | shared | Version |
-| 0x7A5180 | wwonline | wolproduct.cpp | `Product::Product` | R | 1.0 | shared | Version |
-| 0x7A5260 | wwonline | wolproduct.cpp | `Product::Product` | R | 1.0 | shared | Version |
-| 0x7A52F0 | wwonline | wolproduct.cpp | `Product::Product` | R | 1.0 | shared | Version |
-| 0x493340 | wwphys | dyntexproject.cpp | `DynTexProjectClass::Get_Light_Vector` | R | 0.5 | low | set_vector != NULL |
-| 0x493CB0 | wwphys | dyntexproject.cpp | `DynTexProjectClass::Get_Light_Vector` | R | 0.5 | shared | set_vector != NULL |
-| 0x493FE0 | wwphys | dyntexproject.cpp | `DynTexProjectClass::Get_Light_Vector` | R | 0.5 | shared | set_vector != NULL |
-| 0x4A0C40 | wwphys | projectile.cpp | `ProjectileClass::Timestep` | R | 1.0 | medium | Callbacks |
-| 0x4A0CE0 | wwphys | projectile.cpp | `ProjectileClass::Timestep` | R | 1.0 | shared | Callbacks |
-| 0x62D6A0 | wwphys | pscene.cpp | `PhysicsSceneClass::Render_Object` | R | 1.0 | medium | render |
-| 0x492840 | wwphys | pscene_projectors.cpp | `PhysicsSceneClass::Add_Dynamic_Texture_Projector` | R | 1.5 | medium | newprojector; !DynamicProjectorList.Is_In_List(newproj |
-| 0x4926C0 | wwphys | pscene_projectors.cpp | `PhysicsSceneClass::Add_Static_Texture_Projector` | R | 1.5 | medium | newprojector; !StaticProjectorList.Is_In_List(newproje |
 | 0x492C70 | wwphys | pscene_projectors.cpp | `PhysicsSceneClass::Apply_Projectors` | R | 1.0 | medium | pscene::Apply_Projectors |
-| 0x492780 | wwphys | pscene_projectors.cpp | `PhysicsSceneClass::Remove_Dynamic_Texture_Projector` | R | 0.33 | low | projector |
-| 0x492900 | wwphys | pscene_projectors.cpp | `PhysicsSceneClass::Remove_Dynamic_Texture_Projector` | R | 0.33 | shared | projector |
-| 0x4929C0 | wwphys | pscene_projectors.cpp | `PhysicsSceneClass::Remove_Dynamic_Texture_Projector` | R | 0.33 | shared | projector |
-| 0x491A80 | wwphys | pscene_projectors.cpp | `StaticShadowTexMgrClass::Add_Shadow_Texture` | R | 1.0 | medium | Peek_Shadow_Texture(obj_type_id,orientat |
-| 0x493620 | wwphys | pscene_projectors.cpp | `StaticShadowTexMgrClass::Add_Shadow_Texture` | R | 1.0 | shared | Peek_Shadow_Texture(obj_type_id,orientat |
-| 0x8AC1B0 | wwphys | rbody.cpp | `RigidBodyClass::Assert_State_Valid` | R | 1.0 | medium | Velocity.Is_Valid() |
 | 0xA049C0 | wwsaveload | definitionmgr.h | `DefinitionMgrClass::Name` | GRZ | 1.0 | medium | DefinitionMgrClass |
 | 0x764CF0 | wwshade | shdbumpdiff.cpp | `ShdBumpDiffDefClass::ShdBumpDiffDefClass` | Z | 0.2 | low | Ambient |
 | 0x764E20 | wwshade | shdbumpdiff.cpp | `ShdBumpDiffDefClass::ShdBumpDiffDefClass` | Z | 0.2 | shared | Ambient |
-| 0x6F66E0 | wwshade | shddef.cpp | `ShdDefClass::ShdDefClass` | Z | 0.5 | low | Default |
-| 0x71BD90 | wwshade | shddef.cpp | `ShdDefClass::ShdDefClass` | Z | 0.5 | shared | Default |
-| 0x71C170 | wwshade | shddef.cpp | `ShdDefClass::ShdDefClass` | Z | 0.5 | shared | Default |
-| 0x794A90 | wwshade | shddef.cpp | `ShdDefClass::ShdDefClass` | Z | 0.5 | shared | Default |
 | 0xA0F1F0 | wwshade | shdhwshader.cpp | `ShdHWShader::Preprocess_And_Assemble_Shader_From_File` | Z | 1.0 | medium | shaders\rspp %s %s |
 | 0xA0F0F0 | wwshade | shdhwshader.cpp | `ShdHWShader::Shell_Run` | Z | 2.0 | high | \shaders\; Shader Asset Error |
 | 0xA09430 | wwshade | shdmesh.cpp | `ShdMeshClass::Render` | Z | 1.0 | medium | ShdMeshClass::Render |

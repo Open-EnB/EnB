@@ -4,6 +4,11 @@ A client function that references the same string literals / assert expressions 
 function is that function (or its descendant). Strings shared by many EA functions are weighted
 down. Output: a JSON of every match and a Markdown summary.
 
+A client function that references a source-file path string (an assert's `__FILE__`, however the
+project spelled the directory) belongs to that file or to a header it inlines: the EA functions
+of other files are not candidates for it (D77; 0x829C80 holds tcpconn.cpp's asserts, so it is
+not packetmgr.cpp's Clear_Socket_Error). Functions without such a string are matched as before.
+
     python funcmatch.py [--client PATH] [--out DIR]
 """
 import argparse
@@ -11,11 +16,18 @@ import bisect
 import collections
 import json
 import os
+import re
 
 from clientimage import ClientImage, DEFAULT_CLIENT
 from easource import LIBRARIES, strings_by_function, walk_library
 
 MIN_LEN = 6
+SOURCE_PATH = re.compile(r'^[\w:. \\/-]*[\\/][\w.-]+\.(?:cpp|c|h|hpp|inl)$|^[\w.-]+\.(?:cpp|c)$', re.I)
+
+
+def source_file_strings(cstrings):
+    """{VA: lower-case file name} of the client's strings that are source-file paths."""
+    return {va: re.split(r'[\\/]', t)[-1].lower() for va, t in cstrings.items() if SOURCE_PATH.match(t)}
 
 
 def index_ea():
@@ -60,6 +72,15 @@ def main():
     vas = {va: s for s, l in by_text.items() if s in owners for va in l}
     refs = img.dword_refs(vas.keys())
 
+    # D77: the source files each client function names (its asserts' __FILE__)
+    file_of = source_file_strings(cstrings)
+    files_in = collections.defaultdict(set)
+    for va, sites in img.dword_refs(file_of.keys()).items():
+        for site in sites:
+            i = bisect.bisect_right(starts, site) - 1
+            if i >= 0:
+                files_in[starts[i]].add(file_of[va])
+
     per_client = collections.defaultdict(lambda: collections.defaultdict(float))
     evidence = collections.defaultdict(lambda: collections.defaultdict(list))
     for va, sites in refs.items():
@@ -72,6 +93,8 @@ def main():
                 continue
             fn = starts[i]
             for key in keys:
+                if files_in.get(fn) and key[1] not in files_in[fn]:
+                    continue
                 if s not in evidence[fn][key]:
                     per_client[fn][key] += w
                     evidence[fn][key].append(s)

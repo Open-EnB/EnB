@@ -144,6 +144,7 @@ Traps found while using these tools (each also has a one-line pointer in docs/wo
   that include WW3D2 headers need `-I` for every library directory.
 
 * **asserts.txt's file attribution** gives each string the nearest preceding path: tcpqueue.cpp gets
-  about 60 asserts of which only 2 are its own. funcmatch's string evidence doesn't check `__FILE__`
-  either (symbols.json's 0x829C80 `PacketManagerClass::Clear_Socket_Error` is tcpconn.cpp's
-  constructor).
+  about 60 asserts of which only 2 are its own. funcmatch.py itself checks `__FILE__` since D77: a
+  client function that names a source file is matched only to EA functions of that file (61 of 299
+  matches dropped, all E&B functions with a Westwood assert's strings: symbols.json's 0x829C80 is
+  tcpconn.cpp's constructor, not `PacketManagerClass::Clear_Socket_Error`).
