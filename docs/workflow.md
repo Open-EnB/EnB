@@ -202,6 +202,14 @@ record it (`attempts.py record ADDR ... --status parked --blocker register|order
 | A static function right after an unrelated one (misplaced start) | A static sits right after its first out-of-line caller | 0x4B43E0 after `Pop_Prefix` |
 | C2660 on wwlib vector.h's placement `new[]` | Declaring `operator new[]` in a file makes VC6 resolve it there: declare the allocator's members instead of including FastAllocator.h | app/shared/unknown_new.cpp, 27812b5 |
 
+* **A nested inline is a whole-function budget (2026-10-26, `Key_Exchange` 0x829180):** under `/Ob2` an
+  inline helper's own callees (a `std::set` iterator's `_Inc`) are inlined only while the function as a
+  whole is under budget; removing unrelated code elsewhere in the function flips one nested call, so a
+  missing nested inline is not fixed at its own statement. Byte readers with `len`/`offset` pairs: the
+  client keeps a running offset (`offset += 4; offset += len`); `buf + len + 8` changes the arithmetic.
+  A loader written in a constructor inlines every reader; the matching form was `KeyPair.Load(file_auto_ptr(...))`,
+  and a named `file_auto_ptr` adds a 4-byte frame slot.
+
 ### 3.2 Templates and STL
 
 * **Pointer/POD instances count only in D54's ambiguous column.** `VectorClass<T *>` members,
@@ -353,6 +361,11 @@ record it (`attempts.py record ADDR ... --status parked --blocker register|order
 
 * **Git Bash `sed -i` rewrites a CRLF file as LF even when its pattern matches nothing** (it did to
   tcpconn.cpp). Edit tree files only with Python opened with `newline=''`.
+
+* **Never write a hand-built `docs/data/imports.json` into the shared working copy** (2026-10-26, two
+  sweeps): the other builder's `commit_mine` takes the whole file as it is, and any verify rewrites it.
+  Build a private record elsewhere and restore the working copy at once. Before any commit that
+  includes imports.json, `pairs_cmp.py` against HEAD's copy shows foreign pairs (gains you didn't make).
 
 ### 3.9 Library-specific
 

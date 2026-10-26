@@ -4,6 +4,24 @@ Newest first within each section. Dates are when the entry was written.
 
 ## 1. Log
 
+### 2026-10-26 (07:54): step 8's tail: P1 applied, the TCP listener's key exchange built; app 1133 -> 1252 pairs with P's packets
+
+Builder S (Opus, ~1.1M tokens over two runs, the first cut by the session limit at 01:10; seven commits
+6afe590 ... a57949f, each gaining only, replay 0 differences, `udpreplay conn alex3` PASS). P1 applied
+(6afe590): `~ForwardingConnectionClass` inline in connect.h, dbgconn 0x825170 / 0x8251A0 gained, 0x821E40
+kept thanks to 78f5f28's tie-break. e7e39b7 refreshed imports.json from a full verify (+4 stale pairs).
+tcpconn.cpp: `Key_Exchange` 0x829180 functional, NOT EXACT (one `_Tree::_Inc` the client inlines, a
+cumulative inline budget; `attempts.py show 0x829180`, 16 forms, `.work/s1/vars1-7.py` + `vk.py`); the
+listeners' `std::set` 0xBE91A8, `Pump_All` 0x82A990, the listener destructor 0x82A2C0 / 0x82A2F0 (695da57);
+the listener constructor 0x829E50 with `RSAKeyClass`'s SSH1 key-file loader `Read_Number` 0x82C260 /
+`Compute` 0x82C330 (828c5a5, the matching form is `KeyPair.Load(file_auto_ptr(...))`); `Send_Key` 0x82A830
+(5e7f96d, its record completed by a57949f). Two shared-record sweeps happened (a hand-built imports.json
+left in the working copy was taken by P's da95d03; a verify's rewrite was taken by 5e7f96d): both repaired
+in later commits with nothing lost (695da57 restored P's 68 pairs; P's c1bd9fe gives the pkflag pairs their
+source). Traps filed in workflow.md §3.1 and §3.8. Left of step 8: `Pump_Pending` 0x82AA10 (the same key
+class, best lead), dbgconn's counters, the UDP constructor 0x82C680, the ArrayList copies, the NOT EXACT
+list. `RSAKeyClass`'s `Unknown200..Unknown800` members stay NAME 2 until a string names them (P2's rule).
+
 ### 2026-10-26 (00:05): kernel-map step 8 nearly done: app 1028 -> 1133 client functions, +113 pairs, 0 lost
 
 Builder (Opus, ~720k tokens; 13 commits 1a20cd8 ... 11ecd72, each gaining only, replay 0 differences,
@@ -1037,13 +1055,10 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 
 ## 3. Open decisions
 
-* **P1 (step 8, 2026-10-26):** make `~ForwardingConnectionClass` inline in connect.h (the client's form:
-  dbgconn's destructors inline it). Gains 0x825170 and 0x8251A0, loses connect's 0x821E40 to a D80
-  tie-break between identical twins. Recommendation: fix the tie-break in objmatch first (item 4's
-  tooling), then take it; otherwise accept it as a D80 case named in the commit.
 * **P2 (step 8):** the provisional file names `unknown_memregistry.cpp` (its static initialiser 0x827560
   follows memconn's template instances), `unknown_listener.cpp`, `unknown_rate.cpp` (D10). Recommendation:
-  keep until a string or `__FILE__` names them.
+  keep until a string or `__FILE__` names them; the same for `RSAKeyClass`'s `Unknown200..Unknown800` members
+  (tcpconn.cpp, 2026-10-26).
 * D7 is to be revisited with the user if byte-exactness of E&B's code becomes too costly; D64's
   `docs/data/not-exact.md` shows how much functional code is waiting.
 * Which bool-return form gives a bare `setcc al` without the `xor` (moved from workflow.md §3).
@@ -1059,11 +1074,12 @@ client's own code: [kernel-map.md](kernel-map.md) §6. Adding a file: [workflow.
    operator new/delete 0x4E9CB0/0x4E9D10 are open. delta.cpp's `Add` (D11/D40) and the twin
    constructors 0x4A7080/0x4A8150 (uncounted) remain; so do the name tests 0x4ACA90/0x4ACB20 and
    kv_encoder_base's constructor 0x4B3850.
-2. Kernel-map step 8, the tail (D83): the RSA exchange 0x829180; dbgconn's counters 0x825390/0x8255B0
-   (a hash map keyed by std::string, bucket function 0x825B30, to identify); the UDP constructor by name
-   0x82C680 (its assert is on line 91: udpconn.cpp would reorder); the TCP listener's constructor and
-   destructor (line 645); the NOT EXACT list of the 2026-10-26 00:05 entry; the app's own ArrayList copies
-   (0x778CF0, 0x84F480, 0x85B6F0: `multiple`). Then step 9 (tsk_game.cpp, tsk_login.cpp).
+2. Kernel-map step 8, the tail (D83): `Pump_Pending` 0x82AA10 (the server's RSA decryption through Int's
+   CRT helpers 0x82C0B0-0x82C220; the key class is in tcpconn.cpp); `Key_Exchange` 0x829180 NOT EXACT
+   (`attempts.py show 0x829180` first); dbgconn's counters 0x825390/0x8255B0 (a hash map keyed by
+   std::string, bucket function 0x825B30, to identify); the UDP constructor by name 0x82C680 (its assert is
+   on line 91: udpconn.cpp would reorder); the NOT EXACT list of the 2026-10-26 00:05 entry; the app's own
+   ArrayList copies (0x778CF0, 0x84F480, 0x85B6F0: `multiple`). Then step 9 (tsk_game.cpp, tsk_login.cpp).
 3. Ship 0x6F66E0: VC6's inline budget (ours inlines the Buff array 0x707040, which the client calls);
    see the M1.3 leftovers in library-matching.md 3.8.
 4. The packet classes' own code 0x85C5F0-0x8B1EB0 (kernel-map step 5 and after).
