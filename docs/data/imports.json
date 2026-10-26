@@ -339,6 +339,7 @@
    },
    "connect": {
     "ambiguous": [
+     "0x42A900",
      "0x42B2F0",
      "0x823460"
     ],
@@ -346,6 +347,17 @@
     "expected": {},
     "in_tree": [
      "0x820FB0",
+     "0x822070",
+     "0x8220B0",
+     "0x8220E0",
+     "0x822200",
+     "0x822220",
+     "0x8223D0",
+     "0x822490",
+     "0x822500",
+     "0x822550",
+     "0x8225C0",
+     "0x822630",
      "0x823320",
      "0x8233B0",
      "0x8233E0",
@@ -2591,7 +2603,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 1011,
+  "in_tree_total": 1022,
   "totals": {}
  },
  "binkmovie": {

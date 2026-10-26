@@ -10,8 +10,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 4 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 28 |
 | 3 | by convention from a client-named file or sibling | 272 |
-| 2 | describes what the code does | 612 |
-| 1 | neutral placeholder | 622 |
+| 2 | describes what the code does | 631 |
+| 1 | neutral placeholder | 629 |
 
 ## For review (score 3 and below)
 
@@ -83,14 +83,21 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_42E8A0` | `app/client/tasks/tsk_smovie.cpp:44` | hands the event on (input.cpp) |
 | 1 | `Unknown_18` | `app/client/tasks/tsk_smovie.h:30` | untagged neutral name (D10) |
 | 1 | `Unknown04` | `app/common/connect.cpp:10` | untagged neutral name (D10) |
+| 1 | `Unknown1C` | `app/common/connect.cpp:490` | untagged neutral name (D10) |
 | 1 | `Unknown_Create_Packet` | `app/common/connect.cpp:1105` | untagged neutral name (D10) |
-| 1 | `ConnectionClass` | `app/common/connect.h:29` | describes what it is (the client's name not found) |
-| 1 | `Set_Unknown04` | `app/common/connect.h:42` | untagged neutral name (D10) |
-| 1 | `Unknown04` | `app/common/connect.h:42` | untagged neutral name (D10) |
-| 1 | `Get_Unknown04` | `app/common/connect.h:43` | untagged neutral name (D10) |
-| 1 | `Unknown_30` | `app/common/connect.h:45` | untagged neutral name (D10) |
-| 1 | `StreamConnectionClass` | `app/common/connect.h:53` | describes what it is |
-| 1 | `TCPConnection` | `app/common/tcpconn.h:28` | after the file tcpconn.cpp (no RTTI or string) |
+| 1 | `ConnectionClass` | `app/common/connect.h:30` | describes what it is (the client's name not found) |
+| 1 | `Set_Unknown04` | `app/common/connect.h:43` | untagged neutral name (D10) |
+| 1 | `Unknown04` | `app/common/connect.h:43` | untagged neutral name (D10) |
+| 1 | `Get_Unknown04` | `app/common/connect.h:44` | untagged neutral name (D10) |
+| 1 | `Unknown_30` | `app/common/connect.h:46` | untagged neutral name (D10) |
+| 1 | `StreamConnectionClass` | `app/common/connect.h:54` | describes what it is |
+| 1 | `PeekConnectionClass` | `app/common/connect.h:76` | describes what it is |
+| 1 | `ConnectionListenerClass` | `app/common/connect.h:83` | describes what it is |
+| 1 | `Unknown_0C` | `app/common/connect.h:89` | untagged neutral name (D10) |
+| 1 | `ConnectionEntryClass` | `app/common/connect.h:94` | describes what it is |
+| 1 | `ConnectionManager` | `app/common/connect.h:102` | the client's log string |
+| 1 | `Unknown1C` | `app/common/connect.h:120` | untagged neutral name (D10) |
+| 1 | `TCPConnection` | `app/common/tcpconn.h:27` | after the file tcpconn.cpp (no RTTI or string) |
 | 1 | `Close` | `app/common/tcpconn.h:43` | describes what it does |
 | 1 | `Get_Unknown04` | `app/common/udpconn.cpp:373` | untagged neutral name (D10) |
 | 1 | `Unknown_Create_Packet` | `app/common/udpconn.cpp:556` | untagged neutral name (D10) |
@@ -664,22 +671,41 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `ReadPtr` | `app/common/circbuff.h:35` | what it holds |
 | 2 | `WritePtr` | `app/common/circbuff.h:36` | what it holds |
 | 2 | `IsExternal` | `app/common/circbuff.h:37` | what it means |
-| 2 | `Send_Message` | `app/common/connect.h:34` | what it does |
-| 2 | `Send_Packet` | `app/common/connect.h:35` | what it does |
-| 2 | `Receive` | `app/common/connect.h:36` | what it does |
-| 2 | `Get_Address` | `app/common/connect.h:37` | what UDP's returns |
-| 2 | `Connect` | `app/common/connect.h:38` | what UDP's does |
-| 2 | `Is_Connected` | `app/common/connect.h:39` | what UDP's does |
-| 2 | `Disconnect` | `app/common/connect.h:40` | what UDP's does |
-| 2 | `Is_Dead` | `app/common/connect.h:41` | what the stream's does |
-| 2 | `Get_Stats` | `app/common/connect.h:44` | what UDP's does |
-| 2 | `Transport_Write` | `app/common/connect.h:62` | what TCP's does |
-| 2 | `Transport_Read` | `app/common/connect.h:63` | what TCP's does |
-| 2 | `Write_Message` | `app/common/connect.h:65` | what it does |
-| 2 | `Message_Ready` | `app/common/connect.h:66` | what it does |
-| 2 | `Fill` | `app/common/connect.h:67` | what it does |
-| 2 | `Ring` | `app/common/connect.h:69` | what it is |
-| 2 | `ReadBuffer` | `app/common/connect.h:70` | what it holds |
+| 2 | `Send_Message` | `app/common/connect.h:35` | what it does |
+| 2 | `Send_Packet` | `app/common/connect.h:36` | what it does |
+| 2 | `Receive` | `app/common/connect.h:37` | what it does |
+| 2 | `Get_Address` | `app/common/connect.h:38` | what UDP's returns |
+| 2 | `Connect` | `app/common/connect.h:39` | what UDP's does |
+| 2 | `Is_Connected` | `app/common/connect.h:40` | what UDP's does |
+| 2 | `Disconnect` | `app/common/connect.h:41` | what UDP's does |
+| 2 | `Is_Dead` | `app/common/connect.h:42` | what the stream's does |
+| 2 | `Get_Stats` | `app/common/connect.h:45` | what UDP's does |
+| 2 | `Transport_Write` | `app/common/connect.h:63` | what TCP's does |
+| 2 | `Transport_Read` | `app/common/connect.h:64` | what TCP's does |
+| 2 | `Write_Message` | `app/common/connect.h:66` | what it does |
+| 2 | `Message_Ready` | `app/common/connect.h:67` | what it does |
+| 2 | `Fill` | `app/common/connect.h:68` | what it does |
+| 2 | `Ring` | `app/common/connect.h:70` | what it is |
+| 2 | `ReadBuffer` | `app/common/connect.h:71` | what it holds |
+| 2 | `Peek` | `app/common/connect.h:79` | what it does |
+| 2 | `Is_Listening` | `app/common/connect.h:87` | what it does |
+| 2 | `Get_Port` | `app/common/connect.h:88` | what it does |
+| 2 | `Stop` | `app/common/connect.h:90` | what it does |
+| 2 | `Connection` | `app/common/connect.h:96` | what it holds |
+| 2 | `Marked` | `app/common/connect.h:97` | what it holds |
+| 2 | `Peek` | `app/common/connect.h:107` | what it does |
+| 2 | `Get_Packet` | `app/common/connect.h:108` | what it does |
+| 2 | `Receive` | `app/common/connect.h:109` | what it does |
+| 2 | `Broadcast` | `app/common/connect.h:110` | what it does |
+| 2 | `Mark` | `app/common/connect.h:111` | what it does |
+| 2 | `Clear_Marks` | `app/common/connect.h:112` | what it does |
+| 2 | `Get_Port` | `app/common/connect.h:114` | what it does |
+| 2 | `Set_Name` | `app/common/connect.h:115` | what it does |
+| 2 | `std:` | `app/common/connect.h:117` | what it holds |
+| 2 | `RoundRobin` | `app/common/connect.h:118` | what it holds |
+| 2 | `Current` | `app/common/connect.h:119` | what it holds |
+| 2 | `Name` | `app/common/connect.h:121` | what it holds |
+| 2 | `Listener` | `app/common/connect.h:122` | what it holds |
 | 2 | `TCPManager` | `app/common/tcpconn.cpp:10` | what it is |
 | 2 | `WriteBuffer` | `app/common/tcpconn.cpp:11` | what it holds |
 | 2 | `Try_Connect` | `app/common/tcpconn.h:41` | what it does |
@@ -1271,7 +1297,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `tsk_smovie.h` | `app/client/tasks/tsk_smovie.h:17` | header name assumed from the client's tsk_smovie.cpp |
 | 3 | `circbuff.h` | `app/common/circbuff.h:17` | header name assumed from the client's circbuff.cpp |
 | 3 | `CircBuffClass` | `app/common/circbuff.h:20` | by convention (D24) from the client's file circbuff.cpp |
-| 3 | `tcpconn.h` | `app/common/tcpconn.h:20` | header name assumed from the client's tcpconn.cpp |
+| 3 | `tcpconn.h` | `app/common/tcpconn.h:19` | header name assumed from the client's tcpconn.cpp |
 | 3 | `udpconn.h` | `app/common/udpconn.h:19` | header name assumed from the client's udpconn.cpp |
 | 3 | `kernel.h` | `app/kernel/kernel.h:18` | header name assumed from the client's kernel.cpp |
 | 3 | `PacketClass` | `app/packets/pk.h:101` | by convention (D24) from pk.h / pk.cpp |

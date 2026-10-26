@@ -20,6 +20,7 @@
 #define CONNECT_H
 
 #include "circbuff.h"
+#include <vector>
 
 class PacketClass;
 class RawPacketClass;
@@ -68,6 +69,57 @@ public:
 
 	CircBuffClass Ring;		// +0x08 100,000 bytes  // NAME 2: what it is
 	char *ReadBuffer;		// +0x20 0x1000 bytes: Transport_Read's  // NAME 2: what it holds
+};
+
+// A connection the manager looks ahead on: +0x34 gives the next message without taking it (Peek
+// 0x8223D0, Mark 0x8225C0 call it; Get_Packet 0x822490 then takes it with +0x0C)
+class PeekConnectionClass : public ConnectionClass	// NAME 1: describes what it is
+{
+public:
+	virtual PacketClass *Peek() = 0;								// +0x34  // NAME 2: what it does
+};
+
+// The manager's listener (+0x24; the destructor 0x8220E0 stops it, 0x822200 asks its port)
+class ConnectionListenerClass	// NAME 1: describes what it is
+{
+public:
+	virtual ~ConnectionListenerClass() {}							// +0x00
+	virtual bool Is_Listening() = 0;								// +0x04  // NAME 2: what it does
+	virtual unsigned short Get_Port() = 0;							// +0x08  // NAME 2: what it does
+	virtual void Unknown_0C() = 0;									// +0x0C
+	virtual void Stop() = 0;										// +0x10  // NAME 2: what it does
+};
+
+// One managed connection (8 bytes): Mark sets the flag, Clear_Marks 0x822630 clears them all
+struct ConnectionEntryClass	// NAME 1: describes what it is
+{
+	PeekConnectionClass *Connection;	// +0x00  // NAME 2: what it holds
+	bool Marked;						// +0x04  // NAME 2: what it holds
+};
+
+// The connection manager (S: 'ConnectionManager: probing port %hd...'; vtable 0xB085D0, constructor
+// 0x822070, 0x28 bytes): connections polled round robin, a listener (docs/kernel-map.md 4)
+class ConnectionManagerClass	// NAME 1 [ConnectionManager]: the client's log string
+{
+public:
+	ConnectionManagerClass();										// 0x822070
+	virtual ~ConnectionManagerClass();								// +0x00 0x8220B0 / 0x8220E0
+	virtual PacketClass *Peek(bool next);							// +0x04 0x8223D0  // NAME 2: what it does
+	virtual PacketClass *Get_Packet(bool next);						// +0x08 0x822490  // NAME 2: what it does
+	virtual PacketClass *Receive();									// +0x0C 0x822500  // NAME 2: what it does
+	virtual int Broadcast(PacketClass *packet);						// +0x10 0x822550  // NAME 2: what it does
+	virtual bool Mark(PacketClass *packet);							// +0x14 0x8225C0  // NAME 2: what it does
+	virtual void Clear_Marks();										// +0x18 0x822630  // NAME 2: what it does
+
+	unsigned short Get_Port();										// 0x822200: the listener's  // NAME 2: what it does
+	void Set_Name(const char *name);								// 0x822220  // NAME 2: what it does
+
+	std::vector<ConnectionEntryClass> Connections;	// +0x04  // NAME 2: what it holds
+	int RoundRobin;						// +0x14 the last connection read  // NAME 2: what it holds
+	PeekConnectionClass *Current;		// +0x18 the connection Get_Packet read  // NAME 2: what it holds
+	bool Unknown1C;						// +0x1C
+	char *Name;							// +0x20  // NAME 2: what it holds
+	ConnectionListenerClass *Listener;	// +0x24  // NAME 2: what it holds
 };
 
 #endif

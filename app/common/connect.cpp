@@ -3,7 +3,7 @@
 #include "..\packets\pk.h"
 #include "..\shared\unknown_debug.h"
 #include <string.h>
-
+#include "..\..\wwlib\nstrdup.h"
 
 ConnectionClass::ConnectionClass()
 {
@@ -18,7 +18,7 @@ ConnectionClass::~ConnectionClass()
 // The header Receive reads (0xBE8EA0).
 static PacketHeaderClass Header;
 
-// (not rebuilt here: the factories, ConnectionManager and the wrappers, client 0x821000-0x8232E0; spacing kept: the next assert is on the client's line 1104)
+// (not rebuilt here: the factories 0x821000-0x821FF0, ConnectionManager's Accept_New 0x822300, Add_Connection 0x822CC0 and helpers, the wrappers to 0x8232E0; spacing kept: the asserts are on the client's lines)
 
 
 
@@ -483,9 +483,52 @@ static PacketHeaderClass Header;
 
 
 
+// ConnectionManagerClass (vtable 0xB085D0, 0x28 bytes): connections polled round robin
+ConnectionManagerClass::ConnectionManagerClass() :
+	RoundRobin(0),
+	Current(0),
+	Unknown1C(false),
+	Name(0),
+	Listener(0)
+{
+}
 
+ConnectionManagerClass::~ConnectionManagerClass()
+{
+	for (std::vector<ConnectionEntryClass>::iterator it = Connections.begin(); it != Connections.end(); it++) {
+		it->Connection->Disconnect();
+		delete it->Connection;
+	}
+	Connections.clear();
+	if (Listener != 0) {
+		if (Listener->Is_Listening()) {
+			Listener->Stop();
+		}
+		delete Listener;
+		Listener = 0;
+	}
+	Listener = 0;
+	delete [] Name;
+	Name = 0;
+}
 
+unsigned short ConnectionManagerClass::Get_Port()
+{
+	if (Listener != 0) {
+		return(Listener->Get_Port());
+	}
+	return(0);
+}
 
+void ConnectionManagerClass::Set_Name(const char *name)
+{
+	FAIL_IF(!name) return;
+	if (Name != 0) {
+		delete [] Name;
+		Name = 0;
+	}
+	Name = nstrdup(name);
+}
 
 
 
@@ -563,122 +606,79 @@ static PacketHeaderClass Header;
 
 
 
+PacketClass *ConnectionManagerClass::Peek(bool next)
+{
+	int count = Connections.size();
+	for (int i = 0; i < count; i++) {
+		int index;
+		if (next) index = (RoundRobin + 1 + i) % count;
+		else index = (RoundRobin + i) % count;
+		ConnectionEntryClass &entry = Connections[index];
+		if (!entry.Marked && !entry.Connection->Is_Dead()) {
+			PacketClass *packet = entry.Connection->Peek();
+			if (packet != 0) {
+				RoundRobin = index;
+				Current = entry.Connection;
+				return(packet);
+			}
+		}
+	}
+	return(0);
+}
 
 
 
+PacketClass *ConnectionManagerClass::Get_Packet(bool next)
+{
+	PacketClass *retval = Peek(next);
+	if (retval == 0) {
+		return(0);
+	}
+	PacketClass *testpacket = Connections[RoundRobin].Connection->Receive();
+	G_ASSERT(retval == testpacket);
+	return(retval);
+}
 
+PacketClass *ConnectionManagerClass::Receive()
+{
+	if (RoundRobin < (int)Connections.size()) {
+		ConnectionEntryClass &entry = Connections[RoundRobin];
+		if (entry.Connection == Current) return(entry.Connection->Receive());
+	}
+	return(0);
+}
 
+int ConnectionManagerClass::Broadcast(PacketClass *packet)
+{
+	int count = 0;
+	for (std::vector<ConnectionEntryClass>::iterator it = Connections.begin(); it != Connections.end(); it++) {
+		if (it->Connection != 0 && it->Connection->Is_Connected()) {
+			it->Connection->Send_Packet(packet);
+			count++;
+		}
+	}
+	return(count);
+}
 
+bool ConnectionManagerClass::Mark(PacketClass *packet)
+{
+	int count = Connections.size();
+	for (int i = 0; i < count; i++) {
+		ConnectionEntryClass &entry = Connections[i];
+		if (entry.Connection->Peek() == packet) {
+			entry.Marked = true;
+			return(true);
+		}
+	}
+	return(false);
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+void ConnectionManagerClass::Clear_Marks()
+{
+	for (std::vector<ConnectionEntryClass>::iterator it = Connections.begin(); it != Connections.end(); it++) {
+		it->Marked = false;
+	}
+}
 
 
 
