@@ -3351,13 +3351,16 @@ RECONSTRUCTED = {
                                   "the client's layout (0x18 bytes)",
     ('app', 'common/circbuff.cpp'): "the ring buffer, client 0x830BF0-0x830F30 (the stream connection's 100,000-byte receive "
                                     "buffer): all 7 functions exact, the asserts on the client's lines 112 / 166 (D25)",
-    ('app', 'common/connect.h'): "PARTIAL: the connection base (vtable 0xB0850C) and the stream connection (vtable 0xB085F4, "
-                                 "the {size, opcode, payload} framing); descriptive names (D24), the client's layout and "
-                                 "slot order (docs/kernel-map.md 4)",
-    ('app', 'common/connect.cpp'): "PARTIAL: connect.cpp's connection base (0x820F90, 0x820FE0) and stream connection "
-                                   "0x823320-0x8238C0 exact but the destructor 0x8233E0 (NOT EXACT: unwind states), the "
-                                   "asserts on the client's lines 1104 / 1138 (D25); the factories, wrappers and "
-                                   "ConnectionManager 0x821000-0x8232E0 not rebuilt",
+    ('app', 'common/connect.h'): "PARTIAL: the connection base (vtable 0xB0850C), the forwarding wrapper (0xB08590, its "
+                                 "constructor's assert on line 74) and the peek connection (0xB0854C), the stream "
+                                 "connection (vtable 0xB085F4, the {size, opcode, payload} framing) and ConnectionManager; "
+                                 "descriptive names (D24), the client's layout and slot order (docs/kernel-map.md 4)",
+    ('app', 'common/connect.cpp'): "PARTIAL: connect.cpp's connection base (0x820F90, 0x820FE0), the forwarding and peek "
+                                   "wrappers 0x821BB0-0x822060, ConnectionManager 0x822070-0x822EA0 and the stream "
+                                   "connection 0x823320-0x8238C0, the asserts on the client's lines (D25); the factories "
+                                   "0x821000-0x821B90, the vector helper 0x822B50 and the manager factory 0x822F10 not rebuilt",
+    ('app', 'common/dbgconn.h'): "DECLARATIONS: dbgconn.cpp's logging and statistics wrappers (constructors "
+                                 "0x823F70 / 0x824540 / 0x8250B0 and sizes), for Add_Connection 0x822CC0",
     ('app', 'common/unknown_rate.h'): "PROVISIONAL file name: the bytes-per-second average 0x820830-0x820A20 "
                                       "(Unknown_RateClass, D10), declared only; defined by the program",
     ('app', 'common/tcpconn.cpp'): "PARTIAL (kernel-map.md step 8): TCPConnection over wnet's TCPCon / TCPMgr "

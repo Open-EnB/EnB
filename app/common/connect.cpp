@@ -18,8 +18,10 @@ ConnectionClass::~ConnectionClass()
 // The header Receive reads (0xBE8EA0).
 static PacketHeaderClass Header;
 
-// (not rebuilt here: the factories 0x821000-0x821FF0, ConnectionManager's Accept_New 0x822300, Add_Connection 0x822CC0 and helpers, the wrappers to 0x8232E0; spacing kept: the asserts are on the client's lines)
+// (not rebuilt here: the factories 0x821000-0x821B90; spacing kept: the asserts are on the client's lines)
 
+#include "dbgconn.h"
+#include "..\..\wwlib\argv.h"
 
 
 
@@ -406,76 +408,74 @@ static PacketHeaderClass Header;
 
 
 
+// ForwardingConnectionClass (vtable 0xB08590): every slot passes to the wrapped connection
+PacketClass *ForwardingConnectionClass::Receive()
+{
+	if (Connection == 0) return(0);
+	PacketClass *packet = Connection->Receive();
+	if (packet != 0) packet->Connection = this;
+	return(packet);
+}
 
+bool ForwardingConnectionClass::Get_Stats(float *a, float *b, float *c, float *d, float *e, float *f, int *g)
+{
+	if (Connection == 0) return(false);
+	return(Connection->Get_Stats(a, b, c, d, e, f, g));
+}
 
+// PeekConnectionClass (vtable 0xB0854C)
+PeekConnectionClass::PeekConnectionClass(ConnectionClass *connection) :
+	ForwardingConnectionClass(connection),
+	Last_Packet(0)
+{
+}
 
+bool ForwardingConnectionClass::Send_Message(RawPacketClass *packet) { return(Connection->Send_Message(packet)); }
+bool ForwardingConnectionClass::Send_Packet(PacketClass *packet) { return(Connection->Send_Packet(packet)); }
+unsigned int ForwardingConnectionClass::Get_Address() { if (Connection != 0) return(Connection->Get_Address()); return(0); }
+void ForwardingConnectionClass::Set_Unknown04(bool on) { if (Connection != 0) Connection->Set_Unknown04(on); }
+bool ForwardingConnectionClass::Get_Unknown04() { if (Connection != 0) return(Connection->Get_Unknown04()); return(false); }
+bool ForwardingConnectionClass::Connect(bool wait) { if (Connection != 0) return(Connection->Connect(wait)); return(false); }
+bool ForwardingConnectionClass::Is_Connected() { if (Connection != 0) return(Connection->Is_Connected()); return(false); }
+bool ForwardingConnectionClass::Disconnect() { if (Connection != 0) return(Connection->Disconnect()); return(true); }
+bool ForwardingConnectionClass::Is_Dead() { if (Connection != 0) return(Connection->Is_Dead()); return(true); }
+bool ForwardingConnectionClass::Unknown_30(int a, int b) { if (Connection != 0) return(Connection->Unknown_30(a, b)); return(false); }
 
+ForwardingConnectionClass::~ForwardingConnectionClass()
+{
+	delete Connection;
+	Connection = 0;
+}
 
+PeekConnectionClass::~PeekConnectionClass()
+{
+	if (Last_Packet != 0) {
+		delete Last_Packet;
+		Last_Packet = 0;
+	}
+}
 
+PacketClass *PeekConnectionClass::Peek()
+{
+	if (Last_Packet != 0) return(Last_Packet);
+	Last_Packet = ForwardingConnectionClass::Receive();
+	return(Last_Packet);
 
+}
 
+PacketClass *PeekConnectionClass::Receive()
+{
+	PacketClass *packet = Peek();
+	if (packet == 0) return(0);
+	G_ASSERT(Last_Packet);
+	Last_Packet = 0;
+	return(packet);
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+bool PeekConnectionClass::Is_Dead()
+{
+	return(Last_Packet == 0 && ForwardingConnectionClass::Is_Dead());
+}
 
 
 
@@ -543,21 +543,21 @@ void ConnectionManagerClass::Set_Listener(ConnectionListenerClass *listener)
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+void ConnectionManagerClass::Accept_New(std::list<ConnectionClass *> *accepted)
+{
+	while (Listener != 0) {
+		ConnectionClass *connection = Listener->Accept();
+		if (connection == 0) return;
+		if (!Add_Connection(connection)) {
+			connection->Disconnect();
+			delete connection;
+			return;
+		}
+		if (accepted != 0) {
+			accepted->push_back(connection);
+		}
+	}
+}
 
 
 
@@ -741,12 +741,12 @@ bool ConnectionManagerClass::Remove_Connection(ConnectionClass *connection)
 
 
 
-
-
-
-
-
-
+bool ConnectionManagerClass::Add_Unwrapped(PeekConnectionClass *connection)
+{
+	FAIL_IF(!connection) return(false);
+	Connections.push_back(ConnectionEntryClass(connection));
+	return(true);
+}
 
 
 
@@ -834,21 +834,21 @@ bool ConnectionManagerClass::Is_Managed(ConnectionClass *connection)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+bool ConnectionManagerClass::Add_Connection(ConnectionClass *connection)
+{
+	FAIL_IF(!connection) return(false);
+	bool stats = ArgvClass().Find("-PACKET_STATS") != 0;
+	PeekConnectionClass *peek;
+	if (Unknown1C) {
+		peek = new PeekConnectionClass(new TimedLogConnectionClass(connection, Name));
+	} else if (stats) {
+		peek = new PeekConnectionClass(new StatsConnectionClass(connection));
+	} else {
+		peek = new PeekConnectionClass(connection);
+	}
+	Connections.push_back(ConnectionEntryClass(peek));
+	return(true);
+}
 
 
 
@@ -1158,6 +1158,15 @@ bool StreamConnectionClass::Is_Dead()
 **	* Receive's assert names the size it wants `readbytes` and what the ring gave `bytes`
 **	  (`cmp ebp, eax`: the wanted size first).
 **	* The header Receive reads is a static (0xBE8EA0); Message_Ready reads into a local.
-**	* Not rebuilt: everything from 0x821000 to 0x8232E0 (Create_Connection and its helpers, the
-**	  forwarding, peek, logging and statistics wrappers, ConnectionManager): docs/kernel-map.md 4.
+**	* The forwarding wrapper's slots and the peek connection 0x821BB0-0x822060 (the forwarding
+**	  constructor inline in connect.h, its assert on line 74; Send_Packet 0x821CF0 compiles to the
+**	  client's bytes but has a twin, so it counts as ambiguous), ConnectionManager 0x822070-0x822EA0
+**	  but the vector helper 0x822B50. An entry is pushed as a temporary built by a constructor
+**	  (`push_back(ConnectionEntryClass(peek))`): with three stores the compiler keeps 0 in ebx (the
+**	  client's `cmp eax, ebx` / `mov [esp+x], bl`) and, in Add_Connection, calls the vector's
+**	  insert 0x823A30 instead of inlining it as Add_Unwrapped 0x822790 does.
+**	* Peek 0x821FB0 returns the member early (`if (Last_Packet != 0) return(Last_Packet);`): an
+**	  if-block around the read reloads it.
+**	* Not rebuilt: Create_Connection and its helpers 0x821000-0x821B90, the vector helper
+**	  0x822B50 and the manager factory 0x822F10: docs/kernel-map.md 4.
 */
