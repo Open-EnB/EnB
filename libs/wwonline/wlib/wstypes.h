@@ -92,12 +92,16 @@ Standard type definitions for the sake of portability and readability.
 #define RO const
 
 typedef char               bit8;
+#ifndef BITTYPE_H                    // E&B: WWLib's bittype.h first: its sint8, sint32, uint32
 typedef char               sint8;
+#endif
 typedef unsigned char      uint8;
 typedef signed short int   sint16;
 typedef unsigned short int uint16;
+#ifndef BITTYPE_H                    // E&B: as sint8
 typedef signed int         sint32;
 typedef unsigned int       uint32;
+#endif
 
 typedef float              float32;
 typedef double             float64;

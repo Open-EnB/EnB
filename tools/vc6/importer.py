@@ -166,8 +166,11 @@ LIBS = list(LIB_DIR)
 # Where a library lives in the tree when not at the repository root: the client's own paths
 # (e:\build\beta\G\libs\wwonline\wnet\tcpqueue.cpp, D67).
 LIB_TREE = {'wlib': r'libs\wwonline\wlib', 'wnet': r'libs\wwonline\wnet'}
-# Include directories searched after the SDKs, so no header of theirs shadows an existing library's:
-# wnet includes "wlib/wdebug.h" (the libs\wwonline directory), wlib's headers are included by name.
+# Libraries whose directories are NOT include directories (their headers would shadow the app's and
+# the programs': wlib's wtime.h, wnet's udp.h): their own files include their headers from their
+# directory, wnet reaches wlib as "wlib/wdebug.h" (libs\wwonline is searched after the SDKs), the app
+# by relative path (..\..\libs\wwonline\wlib\critsec.h). Their directories are synced to the VM
+# with every compile (late_sync).
 LATE_INCLUDE_LIBS = ('wlib', 'wnet', 'binkmovie')
 HEADER_EXT = ('.h', '.hpp', '.inl')
 
@@ -3016,6 +3019,14 @@ WWONLINE_PATCHES = {
          'sint32 CritSec::lock(void) RO \t// E&B: no argument (0x8B4330)',
          "0x8B4330 `ret`, not `ret 4`: E&B's lock takes no argument; the _UNIX branch (not compiled) still names refcount"),
     ],
+    ('wlib', 'wstypes.h'): [
+        ('typedef char               sint8;\n',
+         "#ifndef BITTYPE_H                    // E&B: WWLib's bittype.h first: its sint8, sint32, uint32\ntypedef char               sint8;\n#endif\n",
+         "E&B's udpconn.cpp (0x82C5E0-0x82E020) uses wlib's CritSec (0x8B4330 / 0x8B4350) and inlines wlib's Dictionary in one file with WWLib's WWProfile (0x444160), so wlib's typedefs and WWLib's bittype.h (signed char, long, unsigned long) can't both be defined there (C2371); the three that differ give way to bittype.h's when it came first. wlib's own files don't include bittype.h: no byte change"),
+        ('typedef signed int         sint32;\ntypedef unsigned int       uint32;\n',
+         '#ifndef BITTYPE_H                    // E&B: as sint8\ntypedef signed int         sint32;\ntypedef unsigned int       uint32;\n#endif\n',
+         'the same for sint32 and uint32'),
+    ],
 }
 for _key, _edits in WWONLINE_PATCHES.items():
     PATCHES.setdefault(_key, []).extend(_edits)
@@ -3276,12 +3287,6 @@ RECONSTRUCTED = {
                                    "0x823320-0x8238C0 exact but the destructor 0x8233E0 (NOT EXACT: unwind states), the "
                                    "asserts on the client's lines 1104 / 1138 (D25); the factories, wrappers and "
                                    "ConnectionManager 0x821000-0x8232E0 not rebuilt",
-    ('app', 'common/critsec.h'): "the lock udpconn.cpp takes: wlib's CritSec (libs\\wwonline\\wlib, client "
-                                 "0x8B42F0-0x8B4350; EA's matchbot wlib interface, E&B's lock without an argument), "
-                                 "declared only; defined by the program (the capture harness, M1.4)",
-    ('app', 'common/dictionary.h'): "a stand-in for wlib's Dictionary<K,V> with its layout (0x34 bytes, the 0.2 / 0.8 "
-                                    "thresholds, 128 slots): UDPConnection's channel table; not EA's code (WWOnline "
-                                    "is an open decision)",
     ('app', 'common/unknown_rate.h'): "PROVISIONAL file name: the bytes-per-second average 0x820830-0x820A20 "
                                       "(Unknown_RateClass, D10), declared only; defined by the program",
     ('app', 'common/udpconn.h'): "UDPConnection (vtable 0xB088F4, 0xD0 bytes, the client's layout), its channel key, "
@@ -3744,10 +3749,14 @@ def image():
 
 
 def tree_includes():
-    late = [dest(l) for l in LATE_INCLUDE_LIBS if os.path.isdir(dest(l))]
     wwonline = [os.path.join(REPO, 'libs', 'wwonline')] if os.path.isdir(os.path.join(REPO, 'libs', 'wwonline')) else []
     return [dest(l) for l in LIBS if l not in LATE_INCLUDE_LIBS and os.path.isdir(dest(l))] + SDK_INCLUDES + \
-        wwonline + late + [REPO]  # the repository root last: BinkMovie's subtitle headers include <wwlib\vector.h>
+        wwonline + [REPO]  # the repository root last: BinkMovie's subtitle headers include <wwlib\vector.h>
+
+
+def late_sync():
+    """The LATE_INCLUDE_LIBS directories: not on the include list, but sent to the VM with every compile."""
+    return [dest(l) for l in LATE_INCLUDE_LIBS if os.path.isdir(dest(l))]
 
 
 def compile_and_match(paths, tag, ambiguous=None):
@@ -3763,10 +3772,10 @@ def compile_and_match(paths, tag, ambiguous=None):
     if app:
         root = dest(lib_of(paths[0]))
         rc, text = vc6.compile_sources(paths, tree_includes(), defines=app['defines'], out=out,
-                                       flags=flags_for(paths), extra_sync=[d for d, _, _ in os.walk(root)],
+                                       flags=flags_for(paths), extra_sync=[d for d, _, _ in os.walk(root)] + late_sync(),
                                        source_alias=(REPO, app['file_root']))
     else:
-        rc, text = vc6.compile_sources(paths, tree_includes(), out=out, flags=flags_for(paths))
+        rc, text = vc6.compile_sources(paths, tree_includes(), out=out, flags=flags_for(paths), extra_sync=late_sync())
     objs = [os.path.join(out, f) for f in os.listdir(out)] if os.path.isdir(out) else []
     found = collections.defaultdict(set)
     for r in match_objects(image(), objs, app and app['region']) if objs else []:

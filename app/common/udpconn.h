@@ -20,7 +20,8 @@
 #define UDPCONN_H
 
 #include "connect.h"
-#include "dictionary.h"
+#include "..\..\wwlib\bittype.h"		// before wlib's types (wstypes.h gives way to it)
+#include "..\..\libs\wwonline\wlib\dictionary.h"
 #include "unknown_rate.h"
 #include "..\kernel\kernel.h"
 

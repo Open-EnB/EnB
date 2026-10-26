@@ -1,7 +1,7 @@
 // Earth & Beyond client (reconstruction): app\common\udpconn.cpp (PARTIAL). Notes at the end of the file.
 #define ENABLE_WWPROFILE
 #include "udpconn.h"
-#include "critsec.h"
+#include "..\..\libs\wwonline\wlib\critsec.h"
 #include "..\packets\pk.h"
 #include "..\wwudp\cordcon.h"
 #include "..\wwudp\cordmgr.h"
@@ -21,13 +21,13 @@ CordMgrTaskClass *CordMgrTaskClass::Task = 0;
 CordMgr *CordMgrTaskClass::Mgr = 0;
 
 // 0x82C5E0
-static unsigned int Channel_Hash(const UDPChannelKeyClass &key)
+static uint32 Channel_Hash(const UDPChannelKeyClass &key)
 {
 	return(key.Channel + key.Reliable);
 }
 
 
-// functional (NOT EXACT): the dictionary's inlined constructor is the stand-in's.
+// functional (NOT EXACT): wlib's Dictionary constructor inlined; the difference not traced yet.
 UDPConnection::UDPConnection(unsigned int ip, unsigned short port, bool encrypt) :
 	Channels(Channel_Hash), InRate(2), OutRate(2)
 {
@@ -50,7 +50,7 @@ UDPConnection::UDPConnection(unsigned int ip, unsigned short port, bool encrypt)
 }
 
 
-// functional (NOT EXACT): the dictionary's inlined constructor is the stand-in's.
+// functional (NOT EXACT): wlib's Dictionary constructor inlined; the difference not traced yet.
 UDPConnection::UDPConnection(CordCon *con, CordMgr *mgr) :
 	Channels(Channel_Hash), InRate(2), OutRate(2)
 {
@@ -72,7 +72,7 @@ UDPConnection::UDPConnection(CordCon *con, CordMgr *mgr) :
 }
 
 
-// functional (NOT EXACT): the dictionary's inlined clear and shrink are the stand-in's.
+// functional (NOT EXACT): wlib's Dictionary clear inlined; the difference not traced yet.
 UDPConnection::~UDPConnection()
 {
 	if (Con) {
@@ -353,7 +353,7 @@ bool UDPConnection::Disconnect()
 
 
 
-// functional (NOT EXACT): the dictionary's inlined code is the stand-in's.
+// functional (NOT EXACT): wlib's Dictionary inlined; the difference not traced yet.
 bool UDPConnection::Send_Data(int len, int channel, int priority, bool reliable, bool close)
 {
 	if (Con == 0) {
@@ -629,11 +629,11 @@ int CordMgrTaskClass::Get_Interval()
 **	  an accepted CordCon 0x82CBF0, the destructor 0x82CDC0, the slots 0x82D060-0x82DB30, the pump
 **	  task 0x82DCB0-0x82E020, UDPConnectionManager 0x82E040-0x82E1D0 and the listener
 **	  0x82E200-0x82E5B0 (the server's: not rebuilt), wlib Dictionary's out-of-line members
-**	  0x82E6A0-0x82EBB0.
+**	  0x82E6A0-0x82EBB0 (shrink, remove, expand: exact, from libs\wwonline\wlib\dictionary.h, D73).
 **	* Exact: Get_Address, Connect, Is_Connected, Is_Dead, Disconnect, the key's operator ==,
 **	  Is_Fixed_Channel, Send_Message, Send_Packet, Receive, the task's destructor, Delete_On_Remove,
 **	  Get_Mgr, Shutdown_Task, Run (with its profile sample) and Get_Interval. NOT EXACT (functional,
-**	  D42): what inlines wlib's Dictionary (a stand-in, dictionary.h: the constructors, the
+**	  D42): what inlines wlib's Dictionary (libs\wwonline\wlib: the constructors, the
 **	  destructor, Send_Data), Get_Stats, Try_Connect (the tree's CordMgr::Connect returns its record,
 **	  the client's the session id), Open_Fixed_Channel, the task's constructor and Init (the tree's
 **	  CordMgr isn't the client's 0x95C bytes).

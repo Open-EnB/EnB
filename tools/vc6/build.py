@@ -110,7 +110,7 @@ def compile_lines(lib, paths):
     app = I.APP_LIBS.get(lib)
     incs = [vc6.under_root(i) for i in I.tree_includes()]
     srcs = [vc6.under_root(p) for p in paths]
-    dirs = [os.path.dirname(f) for f, _ in srcs] + [f for f, _ in incs] + checked_flags()[0]
+    dirs = [os.path.dirname(f) for f, _ in srcs] + [f for f, _ in incs] + checked_flags()[0] + I.late_sync()
     setup = []
     if app:
         dirs += [d for d, _, _ in os.walk(I.dest(lib))]
@@ -517,7 +517,7 @@ def link_program(name, out):
         raise SystemExit('build the libraries first (build.py; mkmss32.py lib): missing ' + ', '.join(missing))
     app_dirs = [d for d, _, _ in os.walk(I.dest('app'))]
     incs = [vc6.under_root(i) for i in I.tree_includes() + app_dirs + [pdir, sdir]]
-    vc6.sync([pdir, sdir] + [f for f, _ in incs] + checked_flags()[0])
+    vc6.sync([pdir, sdir] + [f for f, _ in incs] + checked_flags()[0] + I.late_sync())
     work = f'{vc6.WORK}\\link_{name}'
     vc6.run_bat([f'if exist "{work}" rmdir /s /q "{work}"', f'mkdir "{work}\\obj"', f'mkdir "{work}\\stubobj"',
                  f'mkdir "{work}\\libs"'])
