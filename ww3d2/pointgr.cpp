@@ -847,9 +847,9 @@ void PointGroupClass::Render(RenderInfoClass &rinfo, const Matrix3D &transform)
 		// Not using vector processor class because we are discarding w
 		// Not using T&L in DX8 because we don't want DX8 to transform
 		// 3 times per particle when we can do it once
-		Matrix3D view3d(view[0][0],view[0][1],view[0][2],view[0][3],
-			view[1][0],view[1][1],view[1][2],view[1][3],
-			view[2][0],view[2][1],view[2][2],view[2][3]);
+		Matrix3D view3d(view[0].X,view[0].Y,view[0].Z,view[0].W,
+			view[1].X,view[1].Y,view[1].Z,view[1].W,
+			view[2].X,view[2].Y,view[2].Z,view[2].W);
 		Matrix3D mtx = view3d * transform;
 		for (int i=0; i<PointCount; i++)
 		{			
