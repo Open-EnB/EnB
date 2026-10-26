@@ -1347,6 +1347,57 @@
    "Z": 74
   }
  },
+ "wnet": {
+  "ambiguous_total": 0,
+  "base": "Z",
+  "compile_errors": [],
+  "files": {
+   "tcpmgr": {
+    "ambiguous": [],
+    "copy": "R",
+    "expected": {
+     "R": 6,
+     "Z": 0
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x8BCA90",
+     "0x8BD1F0",
+     "0x8BD8E0",
+     "0x8BD910",
+     "0x8BDE20",
+     "0x8BDF30"
+    ],
+    "merged": [],
+    "name": "tcpmgr.cpp"
+   },
+   "udp": {
+    "ambiguous": [],
+    "copy": "Z",
+    "expected": {
+     "R": 0,
+     "Z": 2
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x8BFAB0",
+     "0x8C01D0"
+    ],
+    "merged": [],
+    "name": "udp.cpp"
+   }
+  },
+  "headers": {
+   "tcpcon.h": "R",
+   "tcpmgr.h": "R",
+   "udp.h": "Z"
+  },
+  "in_tree_total": 8,
+  "totals": {
+   "R": 7,
+   "Z": 3
+  }
+ },
  "ww3d2": {
   "ambiguous_total": 164,
   "base": "R",
