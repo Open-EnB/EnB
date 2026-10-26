@@ -21,6 +21,9 @@
 
 #include "connect.h"
 #include "rc4.h"
+#include "int.h"
+#include "srandom.h"
+#include <set>
 #include "..\..\libs\wwonline\wnet\tcpmgr.h"
 #include "..\..\libs\wwonline\wnet\tcpcon.h"
 
@@ -39,7 +42,7 @@ public:
 	virtual int Transport_Read(void *buffer, int len);				// +0x38 0x829BC0: TCPCon::read, then RC4
 
 	bool Try_Connect();												// 0x8290A0: Connect without waiting  // NAME 2: what it does
-	bool Key_Exchange(bool wait, int unknown);						// 0x829180 (not rebuilt): the RSA exchange, 'CONNECT RSA EXCH FAILED: %d : %d'  // NAME 2: what it does
+	bool Key_Exchange(bool wait, int *error);						// 0x829180: the RSA exchange, 'CONNECT RSA EXCH FAILED: %d : %d'  // NAME 2: what it does
 	void Close();													// 0x829A10: Disconnect through the vtable  // NAME 1: describes what it does
 
 	TCPCon *Con;					// +0x24 NAME 4: as Renegade's TCPMgr calls a TCPCon (getOutgoingConnection's conn)
@@ -53,13 +56,33 @@ public:
 	unsigned short Port;			// +0x244 network order  // NAME 2: what it holds
 };
 
+// An RSA key (0x900 bytes, nine 2048-bit numbers): the listener's key pair (+0x18, read from
+// 'server_rsa_keyset.dat', an SSH1 private key file); the client builds one from the server's
+// public key in Key_Exchange 0x829180. Its destructor is empty (the client's unwind states count it).
+class RSAKeyClass	// NAME 2: what it holds
+{
+public:
+	~RSAKeyClass() {}
+	BigInt Encrypt(BigInt m) const { return(m.exp_b_mod_c(Exponent, Modulus)); }	// inlined in 0x829180  // NAME 2: what it does
+
+	BigInt Modulus;			// +0x000 n  // NAME 2: what it holds
+	BigInt Exponent;		// +0x100 e  // NAME 2: what it holds
+	BigInt Unknown200;		// +0x200 the private part, the listener's (read from the key file)
+	BigInt Unknown300;		// +0x300
+	BigInt Unknown400;		// +0x400
+	BigInt Unknown500;		// +0x500 (computed: 0x82C330)
+	BigInt Unknown600;		// +0x600
+	BigInt Unknown700;		// +0x700
+	BigInt Unknown800;		// +0x800
+};
+
 // The server's TCP listener (vtable 0xB08880, constructor 0x829E50, 0x918 bytes): a listening socket,
 // the accepted connections still in the RSA key exchange, the server's key pair
 class TCPListenerClass : public ConnectionListenerClass	// NAME 1: after the file tcpconn.cpp
 {
 public:
 	TCPListenerClass();												// 0x829E50 (not rebuilt: loads 'server_rsa_keyset.dat')
-	virtual ~TCPListenerClass();									// +0x00 0x82A2C0 / 0x82A2F0 (not rebuilt)
+	virtual ~TCPListenerClass();									// +0x00 0x82A2C0 / 0x82A2F0 (assert line 645)
 	virtual bool Is_Listening();									// +0x04 0x82A280
 	virtual unsigned short Get_Port();								// +0x08 0x82A2A0
 	virtual bool Listen(unsigned short port);						// +0x0C 0x82A470
@@ -68,11 +91,12 @@ public:
 	ConnectionClass *Accept(bool pump);								// 0x82A6C0  // NAME 2: what it does
 	ConnectionClass *Pump_Pending();								// 0x82AA10 (not rebuilt): a connection whose exchange finished  // NAME 2: what it does
 	void Send_Key(TCPConnection *connection);						// 0x82A830 (not rebuilt): the server's public key  // NAME 2: what it does
+	static void Pump_All();										// 0x82A990 (no caller; inlined in 0x829180): Accept(false) on every listener  // NAME 2: what it does
 
 	SOCKET Socket;							// +0x04 (S: the asserts)
 	unsigned short PortNumber;				// +0x08 (S: the asserts)
 	std::list<TCPConnection *> Pending;		// +0x0C  // NAME 2: what it holds
-	char Unknown18[0x918 - 0x18];			// +0x18 the key pair (0x100-byte numbers at +0x18, +0x118 ...)
+	RSAKeyClass KeyPair;					// +0x18 the server's key pair (constructor 0x829E50)  // NAME 2: what it holds
 };
 
 #endif

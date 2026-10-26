@@ -1,6 +1,6 @@
 {
  "app": {
-  "ambiguous_total": 69,
+  "ambiguous_total": 66,
   "base": "reconstructed",
   "compile_errors": [],
   "files": {
@@ -1052,6 +1052,47 @@
     "merged": [],
     "name": "packets/pkaction.cpp"
    },
+   "pkauxdata": {
+    "ambiguous": [
+     "0x42B2F0",
+     "0x876F60"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350",
+     "0x876D30",
+     "0x876E90",
+     "0x876FA0",
+     "0x8770E0",
+     "0x877230"
+    ],
+    "merged": [],
+    "name": "packets/pkauxdata.cpp"
+   },
+   "pkcameracontrol": {
+    "ambiguous": [
+     "0x42B2F0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350",
+     "0x878390",
+     "0x878450",
+     "0x878560"
+    ],
+    "merged": [],
+    "name": "packets/pkcameracontrol.cpp"
+   },
    "pkchangebaseasset": {
     "ambiguous": [
      "0x42B2F0"
@@ -1282,6 +1323,37 @@
     ],
     "merged": [],
     "name": "packets/pkglobaldeletecharacter.cpp"
+   },
+   "pkgloballock": {
+    "ambiguous": [
+     "0x42B2F0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350",
+     "0x8653F0",
+     "0x865470",
+     "0x865530",
+     "0x865590",
+     "0x865630",
+     "0x865710",
+     "0x865800",
+     "0x865830",
+     "0x8658D0",
+     "0x8659B0",
+     "0x865AA0",
+     "0x865AD0",
+     "0x865B50",
+     "0x865C10",
+     "0x865D00"
+    ],
+    "merged": [],
+    "name": "packets/pkgloballock.cpp"
    },
    "pkglobalticketrequest": {
     "ambiguous": [
@@ -1950,6 +2022,32 @@
     "merged": [],
     "name": "packets/pktalktreeaction.cpp"
    },
+   "pktask": {
+    "ambiguous": [
+     "0x42B2F0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350",
+     "0x8A9030",
+     "0x8A90D0",
+     "0x8A9280",
+     "0x8A92C0",
+     "0x8A9360",
+     "0x8A9510",
+     "0x8AA7E0",
+     "0x8AA870",
+     "0x8AA8B0",
+     "0x8AA990"
+    ],
+    "merged": [],
+    "name": "packets/pktask.cpp"
+   },
    "pktilt": {
     "ambiguous": [
      "0x42B2F0"
@@ -2138,6 +2236,44 @@
     "merged": [],
     "name": "packets/pkunknown_860d30.cpp"
    },
+   "pkunknown_865020": {
+    "ambiguous": [
+     "0x42B2F0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350",
+     "0x865150",
+     "0x865230",
+     "0x865390"
+    ],
+    "merged": [],
+    "name": "packets/pkunknown_865020.cpp"
+   },
+   "pkunknown_8667a0": {
+    "ambiguous": [
+     "0x42B2F0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350",
+     "0x866870",
+     "0x866930",
+     "0x866A60"
+    ],
+    "merged": [],
+    "name": "packets/pkunknown_8667a0.cpp"
+   },
    "pkunknown_866ac0": {
     "ambiguous": [
      "0x42B2F0"
@@ -2260,6 +2396,26 @@
     "merged": [],
     "name": "packets/pkunknown_8a2b70.cpp"
    },
+   "pkunknown_8a5510": {
+    "ambiguous": [
+     "0x42B2F0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350",
+     "0x8A5510",
+     "0x8A55A0",
+     "0x8A5630",
+     "0x8A5740"
+    ],
+    "merged": [],
+    "name": "packets/pkunknown_8a5510.cpp"
+   },
    "pkunknown_8a6430": {
     "ambiguous": [
      "0x42B2F0"
@@ -2279,6 +2435,48 @@
     ],
     "merged": [],
     "name": "packets/pkunknown_8a6430.cpp"
+   },
+   "pkupdate": {
+    "ambiguous": [
+     "0x42B2F0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350",
+     "0x8ABBF0",
+     "0x8ABCB0",
+     "0x8ABDD0",
+     "0x8ADDF0",
+     "0x8ADF10",
+     "0x8AE0B0"
+    ],
+    "merged": [],
+    "name": "packets/pkupdate.cpp"
+   },
+   "pkverbrequest": {
+    "ambiguous": [
+     "0x42B2F0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350",
+     "0x8AEAE0",
+     "0x8AEB60",
+     "0x8AEC00",
+     "0x8AED20"
+    ],
+    "merged": [],
+    "name": "packets/pkverbrequest.cpp"
    },
    "pkversionrequest": {
     "ambiguous": [
@@ -2735,59 +2933,6 @@
     ],
     "merged": [],
     "name": "shared/auxdata/unknown_root.cpp"
-   },
-   "pkauxdata": {
-    "ambiguous": [
-     "0x42B2F0",
-     "0x876F60"
-    ],
-    "copy": "reconstructed",
-    "expected": {},
-    "in_tree": [
-     "0x52B210",
-     "0x52B240",
-     "0x52B270",
-     "0x52B2A0",
-     "0x52B350",
-     "0x876D30",
-     "0x876E90",
-     "0x876FA0",
-     "0x8770E0",
-     "0x877230"
-    ],
-    "merged": [],
-    "name": "packets/pkauxdata.cpp"
-   },
-   "pkgloballock": {
-    "ambiguous": [
-     "0x42B2F0"
-    ],
-    "copy": "reconstructed",
-    "expected": {},
-    "in_tree": [
-     "0x52B210",
-     "0x52B240",
-     "0x52B270",
-     "0x52B2A0",
-     "0x52B350",
-     "0x8653F0",
-     "0x865470",
-     "0x865530",
-     "0x865590",
-     "0x865630",
-     "0x865710",
-     "0x865800",
-     "0x865830",
-     "0x8658D0",
-     "0x8659B0",
-     "0x865AA0",
-     "0x865AD0",
-     "0x865B50",
-     "0x865C10",
-     "0x865D00"
-    ],
-    "merged": [],
-    "name": "packets/pkgloballock.cpp"
    }
   },
   "headers": {
@@ -2808,6 +2953,8 @@
    "packets/pk.h": "reconstructed",
    "packets/pk_classes.h": "reconstructed",
    "packets/pkaction.h": "reconstructed",
+   "packets/pkauxdata.h": "reconstructed",
+   "packets/pkcameracontrol.h": "reconstructed",
    "packets/pkchangebaseasset.h": "reconstructed",
    "packets/pkclickindicator.h": "reconstructed",
    "packets/pkclientavatar.h": "reconstructed",
@@ -2819,6 +2966,7 @@
    "packets/pkdirlock.h": "reconstructed",
    "packets/pkequipuse.h": "reconstructed",
    "packets/pkglobaldeletecharacter.h": "reconstructed",
+   "packets/pkgloballock.h": "reconstructed",
    "packets/pkglobalticketrequest.h": "reconstructed",
    "packets/pkguildranknamesrequestclient.h": "reconstructed",
    "packets/pkhullupgrade.h": "reconstructed",
@@ -2847,6 +2995,7 @@
    "packets/pkstarbasetow.h": "reconstructed",
    "packets/pkstart.h": "reconstructed",
    "packets/pktalktreeaction.h": "reconstructed",
+   "packets/pktask.h": "reconstructed",
    "packets/pktilt.h": "reconstructed",
    "packets/pktrade.h": "reconstructed",
    "packets/pkturn.h": "reconstructed",
@@ -2856,13 +3005,18 @@
    "packets/pkunknown_85f250.h": "reconstructed",
    "packets/pkunknown_85f870.h": "reconstructed",
    "packets/pkunknown_860d30.h": "reconstructed",
+   "packets/pkunknown_865020.h": "reconstructed",
+   "packets/pkunknown_8667a0.h": "reconstructed",
    "packets/pkunknown_866ac0.h": "reconstructed",
    "packets/pkunknown_867010.h": "reconstructed",
    "packets/pkunknown_87a940.h": "reconstructed",
    "packets/pkunknown_87acd0.h": "reconstructed",
    "packets/pkunknown_888b60.h": "reconstructed",
    "packets/pkunknown_8a2b70.h": "reconstructed",
+   "packets/pkunknown_8a5510.h": "reconstructed",
    "packets/pkunknown_8a6430.h": "reconstructed",
+   "packets/pkupdate.h": "reconstructed",
+   "packets/pkverbrequest.h": "reconstructed",
    "packets/pkversionrequest.h": "reconstructed",
    "shared/auxdata/bitset.h": "reconstructed",
    "shared/auxdata/delta.h": "reconstructed",
@@ -2893,11 +3047,9 @@
    "shared/unknown_debug.h": "reconstructed",
    "wwudp/cordcon.h": "reconstructed",
    "wwudp/cordmgr.h": "reconstructed",
-   "wwudp/udp.h": "reconstructed",
-   "packets/pkauxdata.h": "reconstructed",
-   "packets/pkgloballock.h": "reconstructed"
+   "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 1190,
+  "in_tree_total": 1222,
   "totals": {}
  },
  "binkmovie": {

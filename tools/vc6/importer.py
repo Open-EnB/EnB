@@ -3384,8 +3384,10 @@ RECONSTRUCTED = {
                                    "(D73), client 0x828DE0-0x829C40: the constructor by address, the destructor, Connect "
                                    "(line 119), Try_Connect, Is_Connected, Disconnect, Get_Address, Close, "
                                    "Transport_Write / Read with their RC4 (lines 440 / 518); the constructors by host "
-                                   "and over a socket; the listener's Stop / Accept (Listen functional); the RSA key exchange not "
-                                   "rebuilt",
+                                   "and over a socket; the RSA key exchange Key_Exchange (functional, NOT EXACT); the listener's "
+                                   "destructor, Stop / Accept (Listen functional), Pump_All and the set of listeners "
+                                   "(0xBE91A8) with its std::set instances; the listener's constructor (the key file), "
+                                   "Send_Key and Pump_Pending not rebuilt",
     ('app', 'common/tcpconn.h'): "TCPConnection (vtable 0xB08838, 0x248 bytes, the client's offsets)",
     ('app', 'common/udpconn.h'): "UDPConnection (vtable 0xB088F4, 0xD0 bytes, the client's layout), its channel key, "
                                  "the CordMgr pump task (vtable 0xB0889C), UDPConnectionManager (0xB08934) and the listener "
@@ -3526,8 +3528,6 @@ RECONSTRUCTED = {
     ('app', 'packets/pkequipuse.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
     ('app', 'packets/pkversionrequest.cpp'): "packet classes (opcode 0, 1) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
     ('app', 'packets/pkversionrequest.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
-    ('app', 'packets/pkauxdata.cpp'): "the aux data packets (opcodes 27 and 28 over it), client 0x876D30-0x877340: written by hand (builder P), 7 of 8 functions exact in appfile.py match (Print NOT EXACT: register order); the file name provisional (NAME 1)",
-    ('app', 'packets/pkauxdata.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
     ('app', 'packets/pkverbrequest.cpp'): "packet classes (opcode 90) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build (its opcode from Get_Type where the client calls it), Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
     ('app', 'packets/pkverbrequest.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
     ('app', 'packets/pkupdate.cpp'): "packet classes (opcode 64, 63) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build (its opcode from Get_Type where the client calls it), Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
@@ -3542,6 +3542,8 @@ RECONSTRUCTED = {
     ('app', 'packets/pktask.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
     ('app', 'packets/pkcameracontrol.cpp'): "packet classes (opcode 146) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build (its opcode from Get_Type where the client calls it), Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
     ('app', 'packets/pkcameracontrol.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
+    ('app', 'packets/pkauxdata.cpp'): "the aux data packets (opcodes 27 and 28 over it), client 0x876D30-0x877340: written by hand (builder P), 7 of 8 functions exact in appfile.py match (Print NOT EXACT: register order); the file name provisional (NAME 1)",
+    ('app', 'packets/pkauxdata.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
     ('app', 'packets/pkgloballock.cpp'): "the GlobalLock packets (opcodes 227, 228, 229) over their base (vtable 0xB094F4), client 0x8653F0-0x865D30: written by hand (builder P), 19 functions exact in appfile.py match; the file name provisional (NAME 1)",
     ('app', 'packets/pkgloballock.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
     ('app', 'packets/pkdirlock.cpp'): "the DirLock packets (opcodes 223, 225, 224, 226) over their base (vtable 0xB0A290), client 0x8816D0-0x882680: written by hand (builder P), 25 functions exact in appfile.py match; the file name provisional (NAME 1)",

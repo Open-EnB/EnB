@@ -10,8 +10,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 4 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 28 |
 | 3 | by convention from a client-named file or sibling | 306 |
-| 2 | describes what the code does | 733 |
-| 1 | neutral placeholder | 734 |
+| 2 | describes what the code does | 740 |
+| 1 | neutral placeholder | 741 |
 
 ## For review (score 3 and below)
 
@@ -122,10 +122,17 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `MemoryServerClass` | `app/common/memconn.h:71` | describes what it is |
 | 1 | `MemoryListenerClass` | `app/common/memconn.h:78` | describes what it is |
 | 1 | `MemoryConnectionFactoryClass` | `app/common/memconn.h:97` | describes what it is |
-| 1 | `TCPConnection` | `app/common/tcpconn.h:27` | after the file tcpconn.cpp (no RTTI or string) |
-| 1 | `Close` | `app/common/tcpconn.h:43` | describes what it does |
-| 1 | `TCPListenerClass` | `app/common/tcpconn.h:58` | after the file tcpconn.cpp |
-| 1 | `Unknown18` | `app/common/tcpconn.h:75` | untagged neutral name (D10) |
+| 1 | `Unknown_4BC000` | `app/common/tcpconn.cpp:16` | 0x4BC000 |
+| 1 | `TCPConnection` | `app/common/tcpconn.h:30` | after the file tcpconn.cpp (no RTTI or string) |
+| 1 | `Close` | `app/common/tcpconn.h:46` | describes what it does |
+| 1 | `Unknown200` | `app/common/tcpconn.h:70` | untagged neutral name (D10) |
+| 1 | `Unknown300` | `app/common/tcpconn.h:71` | untagged neutral name (D10) |
+| 1 | `Unknown400` | `app/common/tcpconn.h:72` | untagged neutral name (D10) |
+| 1 | `Unknown500` | `app/common/tcpconn.h:73` | untagged neutral name (D10) |
+| 1 | `Unknown600` | `app/common/tcpconn.h:74` | untagged neutral name (D10) |
+| 1 | `Unknown700` | `app/common/tcpconn.h:75` | untagged neutral name (D10) |
+| 1 | `Unknown800` | `app/common/tcpconn.h:76` | untagged neutral name (D10) |
+| 1 | `TCPListenerClass` | `app/common/tcpconn.h:81` | after the file tcpconn.cpp |
 | 1 | `Get_Unknown04` | `app/common/udpconn.cpp:373` | untagged neutral name (D10) |
 | 1 | `Unknown_Create_Packet` | `app/common/udpconn.cpp:556` | untagged neutral name (D10) |
 | 1 | `UDPChannelKeyClass` | `app/common/udpconn.h:35` | describes what it is |
@@ -749,7 +756,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_Debug_Begin_Step` | `tests/capharness/udpreplay/connect_stubs.cpp:38` | untagged neutral name (D10) |
 | 1 | `Unknown_Debug_End_Step` | `tests/capharness/udpreplay/connect_stubs.cpp:39` | untagged neutral name (D10) |
 | 1 | `Unknown_Debug_Print` | `tests/capharness/udpreplay/connect_stubs.cpp:40` | untagged neutral name (D10) |
-| 1 | `Unknown_2C` | `tests/capharness/udpreplay/pk_ctor_stubs.cpp:215` | untagged neutral name (D10) |
+| 1 | `Unknown_2C` | `tests/capharness/udpreplay/pk_ctor_stubs.cpp:208` | untagged neutral name (D10) |
 | 1 | `Unknown_4BC130` | `tests/capharness/udpreplay/udpreplay.cpp:70` | untagged neutral name (D10) |
 | 2 | `Handle_Input` | `app/client/tasks/tsk_menu.h:33` | what it does |
 | 2 | `volume` | `app/client/tasks/tsk_movie.cpp:18` | BinkSetVolume's argument |
@@ -882,20 +889,27 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Unregister` | `app/common/memconn.h:102` | what it does |
 | 2 | `Connect` | `app/common/memconn.h:103` | what it does |
 | 2 | `TCPManager` | `app/common/tcpconn.cpp:10` | what it is |
-| 2 | `WriteBuffer` | `app/common/tcpconn.cpp:11` | what it holds |
-| 2 | `Try_Connect` | `app/common/tcpconn.h:41` | what it does |
-| 2 | `Key_Exchange` | `app/common/tcpconn.h:42` | what it does |
-| 2 | `Encrypt` | `app/common/tcpconn.h:47` | what it holds |
-| 2 | `Key` | `app/common/tcpconn.h:48` | what it holds |
-| 2 | `SendRC4` | `app/common/tcpconn.h:49` | what it does |
-| 2 | `ReceiveRC4` | `app/common/tcpconn.h:50` | what it does |
-| 2 | `Name` | `app/common/tcpconn.h:51` | what it holds |
-| 2 | `IP` | `app/common/tcpconn.h:52` | what it holds |
-| 2 | `Port` | `app/common/tcpconn.h:53` | what it holds |
-| 2 | `Accept` | `app/common/tcpconn.h:68` | what it does |
-| 2 | `Pump_Pending` | `app/common/tcpconn.h:69` | what it does |
-| 2 | `Send_Key` | `app/common/tcpconn.h:70` | what it does |
-| 2 | `std:` | `app/common/tcpconn.h:74` | what it holds |
+| 2 | `std:` | `app/common/tcpconn.cpp:11` | what it holds |
+| 2 | `WriteBuffer` | `app/common/tcpconn.cpp:12` | what it holds |
+| 2 | `Try_Connect` | `app/common/tcpconn.h:44` | what it does |
+| 2 | `Key_Exchange` | `app/common/tcpconn.h:45` | what it does |
+| 2 | `Encrypt` | `app/common/tcpconn.h:50` | what it holds |
+| 2 | `Key` | `app/common/tcpconn.h:51` | what it holds |
+| 2 | `SendRC4` | `app/common/tcpconn.h:52` | what it does |
+| 2 | `ReceiveRC4` | `app/common/tcpconn.h:53` | what it does |
+| 2 | `Name` | `app/common/tcpconn.h:54` | what it holds |
+| 2 | `IP` | `app/common/tcpconn.h:55` | what it holds |
+| 2 | `Port` | `app/common/tcpconn.h:56` | what it holds |
+| 2 | `RSAKeyClass` | `app/common/tcpconn.h:62` | what it holds |
+| 2 | `Encrypt` | `app/common/tcpconn.h:66` | what it does |
+| 2 | `Modulus` | `app/common/tcpconn.h:68` | what it holds |
+| 2 | `Exponent` | `app/common/tcpconn.h:69` | what it holds |
+| 2 | `Accept` | `app/common/tcpconn.h:91` | what it does |
+| 2 | `Pump_Pending` | `app/common/tcpconn.h:92` | what it does |
+| 2 | `Send_Key` | `app/common/tcpconn.h:93` | what it does |
+| 2 | `Pump_All` | `app/common/tcpconn.h:94` | what it does |
+| 2 | `std:` | `app/common/tcpconn.h:98` | what it holds |
+| 2 | `KeyPair` | `app/common/tcpconn.h:99` | what it holds |
 | 2 | `Channel` | `app/common/udpconn.h:37` | what it holds |
 | 2 | `Reliable` | `app/common/udpconn.h:38` | 3 reliable, 4 sequenced |
 | 2 | `Channel` | `app/common/udpconn.h:46` | the CordCon channel openc gave |
