@@ -441,11 +441,11 @@ bool ForwardingConnectionClass::Disconnect() { if (Connection != 0) return(Conne
 bool ForwardingConnectionClass::Is_Dead() { if (Connection != 0) return(Connection->Is_Dead()); return(true); }
 bool ForwardingConnectionClass::Unknown_30(int option, int *data) { if (Connection != 0) return(Connection->Unknown_30(option, data)); return(false); }
 
-ForwardingConnectionClass::~ForwardingConnectionClass()
-{
-	delete Connection;
-	Connection = 0;
-}
+// ~ForwardingConnectionClass 0x821E40 is inline in connect.h (P1)
+
+
+
+
 
 PeekConnectionClass::~PeekConnectionClass()
 {

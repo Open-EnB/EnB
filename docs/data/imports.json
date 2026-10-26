@@ -492,6 +492,8 @@
      "0x824A20",
      "0x824A90",
      "0x8250B0",
+     "0x825170",
+     "0x8251A0",
      "0x825220",
      "0x825260",
      "0x825300"
@@ -2783,7 +2785,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 1133,
+  "in_tree_total": 1135,
   "totals": {}
  },
  "binkmovie": {
