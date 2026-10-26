@@ -197,6 +197,14 @@ tools/re/README.md, tools/vc6 and tools/harness/README.md.
 * **Initialiser lists and vtables:** in a constructor the base's vtable store comes first and is
   dropped; the class's own vtable is stored after its members (the packet classes, builder B).
 
+* **Step 8's forms (2026-10-26):** `it++` in a loop that callers inline spends their inline budget (`++it`
+  matched Release and the listener destructor). `push_back(T(x))` keeps 0 in a register and calls insert
+  out of line; three field stores into a named local don't. `ret N` with ecx never read is still a member
+  function. A helper the client keeps out of line with no caller is a global, not a static (statics vanish
+  when inlined). A temporary helper object (`X().Unregister(p)`) gets a different frame slot from a named
+  local. `if (f() == 0) return(true); return(false);` gives a plain `sete al`; `return(f() == 0)` doesn't.
+  A `goto` to the single return (`Get_Log_Directory`) is how the client leaves a loop.
+
 ### 3.2 Templates and STL
 
 * **Pointer/POD instances count only in D54's ambiguous column.** `VectorClass<T *>` members,
@@ -307,6 +315,10 @@ tools/re/README.md, tools/vc6 and tools/harness/README.md.
 * **Tool changes:** compare outputs on a snapshot of the verify objects. Starts are verified (D27).
 * **`tryvariants.py` edits one file** (wrap header changes in backup/restore). `client.py
   callers` on hot functions: `PYTHONIOENCODING=utf-8`, redirect.
+
+* **`tryvariants.py`** rejects app files in subdirectories; its variant strings must use `\n` (it converts
+  them; `\r\n` writes double CRs). `.work/step8b/tryv2.py` handles several files and subdirectories (to be
+  promoted).
 
 ### 3.7 Harnesses, programs, unattended runs
 

@@ -4,6 +4,20 @@ Newest first within each section. Dates are when the entry was written.
 
 ## 1. Log
 
+### 2026-10-26 (00:05): kernel-map step 8 nearly done: app 1028 -> 1133 client functions, +113 pairs, 0 lost
+
+Builder (Opus, ~720k tokens; 13 commits 1a20cd8 ... 11ecd72, each gaining only, replay 0 differences,
+`udpreplay conn alex3` PASS): connect.cpp's forwarding and peek wrappers, `Accept_New`, `Add_Unwrapped`
+0x822790, `Add_Connection` 0x822CC0; the factories 0x821000/0x821400/0x821450, the host helpers,
+`Network_INI`, `Create_Connection_Manager` 0x822F10; `Try_Connect` 0x8290A0; memconn.cpp with the
+registry by port (provisional `unknown_memregistry.cpp`); dbgconn.cpp's packet logs; the rate wrapper
+(`average.h`), the statistics wrapper slots, the UDP and TCP listeners, the composite listener
+(provisional `unknown_listener.cpp`) and `Unknown_RateClass` (`unknown_rate.cpp`). Three gains are D20
+COMDAT duplicates. NOT EXACT: `Remove_Dead` 0x822B50, the memconn option slot 0x826D00, Rate Count
+0x824EC0 and its four inlining slots, the timed log constructor 0x824540, TCP Listen 0x82A470, the UDP
+listener and manager constructors. `.work/step8b/tryv2.py` (variants across several files and app
+subdirectories) is promoted with item 4's tooling. Open for the user: P1 and P2 (§3).
+
 ### 2026-10-26 (early): E&B's TCPCon and TCPQueue exact in wnet; ConnectionManager in connect.cpp; +56 pairs
 
 Builder (Opus, ~450k tokens, cut once by the session limit and resumed): 9843588 E&B's own `tcpcon.cpp`
@@ -1023,6 +1037,13 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 
 ## 3. Open decisions
 
+* **P1 (step 8, 2026-10-26):** make `~ForwardingConnectionClass` inline in connect.h (the client's form:
+  dbgconn's destructors inline it). Gains 0x825170 and 0x8251A0, loses connect's 0x821E40 to a D80
+  tie-break between identical twins. Recommendation: fix the tie-break in objmatch first (item 4's
+  tooling), then take it; otherwise accept it as a D80 case named in the commit.
+* **P2 (step 8):** the provisional file names `unknown_memregistry.cpp` (its static initialiser 0x827560
+  follows memconn's template instances), `unknown_listener.cpp`, `unknown_rate.cpp` (D10). Recommendation:
+  keep until a string or `__FILE__` names them.
 * D7 is to be revisited with the user if byte-exactness of E&B's code becomes too costly; D64's
   `docs/data/not-exact.md` shows how much functional code is waiting.
 * Which bool-return form gives a bare `setcc al` without the `xor` (moved from workflow.md §3).
@@ -1038,12 +1059,11 @@ client's own code: [kernel-map.md](kernel-map.md) §6. Adding a file: [workflow.
    operator new/delete 0x4E9CB0/0x4E9D10 are open. delta.cpp's `Add` (D11/D40) and the twin
    constructors 0x4A7080/0x4A8150 (uncounted) remain; so do the name tests 0x4ACA90/0x4ACB20 and
    kv_encoder_base's constructor 0x4B3850.
-2. Kernel-map step 8 (D73 done; D83): what is left of connect.cpp and its neighbours: `Add_Connection`
-   0x822CC0 (the peek/stats wrapper classes, vtables 0xB08590/0xB0854C, ArgvClass), then `Accept_New`
-   0x822300; 0x822790 (assert line 746) and the vector helper 0x822B50; the factories 0x821000/0x821450;
-   `Try_Connect` 0x8290A0 (the repeated tail); the RSA exchange 0x829180; memconn.cpp (29 functions).
-   Lead: the app's own ArrayList copies (0x778CF0, 0x84F480, 0x85B6F0) match wlib's code but count as
-   `multiple`. Then step 9 (tsk_game.cpp, tsk_login.cpp).
+2. Kernel-map step 8, the tail (D83): the RSA exchange 0x829180; dbgconn's counters 0x825390/0x8255B0
+   (a hash map keyed by std::string, bucket function 0x825B30, to identify); the UDP constructor by name
+   0x82C680 (its assert is on line 91: udpconn.cpp would reorder); the TCP listener's constructor and
+   destructor (line 645); the NOT EXACT list of the 2026-10-26 00:05 entry; the app's own ArrayList copies
+   (0x778CF0, 0x84F480, 0x85B6F0: `multiple`). Then step 9 (tsk_game.cpp, tsk_login.cpp).
 3. Ship 0x6F66E0: VC6's inline budget (ours inlines the Buff array 0x707040, which the client calls);
    see the M1.3 leftovers in library-matching.md 3.8.
 4. The packet classes' own code 0x85C5F0-0x8B1EB0 (kernel-map step 5 and after).
