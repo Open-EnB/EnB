@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-49 entries in 21 files.
+50 entries in 22 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -29,6 +29,7 @@ edit the comments in the code, not this file.
 | `app/common/udpconn.cpp:799` | `UDPListenerClass::Accept` | mention | NOT EXACT (functional, D42): what inlines wlib's Dictionary (libs\wwonline\wlib: the constructors, the destructor, Send_Data), Get_Stats, Try_Connect (the tree's CordMgr::Connect returns its record, the client's the session id), Open_Fixed_Channel, the task's constructor and Init (the tree's CordMgr isn't the client's 0x95C bytes). * The checks of the CordCon's state compare with true (`cmp bl, 1`... |
 | `app/kernel/kernel.cpp:208` | `KernelClass::Remove_Task` | marker | NOT EXACT: the client calls the iterator's operator++(int) 0x444190 out of line |
 | `app/kernel/kernel.cpp:350` | `KernelClass::Is_Running` | marker | NOT EXACT: the client's has no xor before the setne |
+| `app/packets/pkauxdata.cpp:43` | `AuxDataPacketClass::Print` | marker | NOT EXACT: the client reads Size before the first dword of Data (register order; 2 forms, workflow.md 3.1) |
 | `app/packets/pkunknown_867010.cpp:6` | `Packet_00B3Class::Packet_00B3Class` | marker | NOT EXACT: the inline std::string assign's terminating store indexes [ebx + ecx], the client's [ecx + ebx] (otherwise the same bytes) |
 | `app/shared/auxdata/delta_time.cpp:94` | `DurationAccessorClass::Get` | marker | NOT EXACT: the zero time is a function-local static the client destroys at exit (atexit 0x4A8590: its DurationClass has a destructor ours lacks); the 64-bit arithmetic follows the client's order |
 | `app/shared/auxdata/delta_time.cpp:111` | `DurationAccessorClass::Set` | marker | NOT EXACT: the client keeps time()'s 0 argument in ebx and adds the ticks' zero high half from it; VC6 here pushes an immediate (tried: other orders, a DurationClass temporary) |

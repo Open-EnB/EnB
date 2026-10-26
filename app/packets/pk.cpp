@@ -770,13 +770,13 @@ PacketClass *Unknown_869790(RawPacketClass *raw)
 			packet = new DirLockReleasePacketClass(raw);
 			break;
 		case 227:
-			packet = new Packet_00E3Class(raw);
+			packet = new GlobalLockRequestPacketClass(raw);
 			break;
 		case 228:
-			packet = new Packet_00E4Class(raw);
+			packet = new GlobalLockResponsePacketClass(raw);
 			break;
 		case 229:
-			packet = new Packet_00E5Class(raw);
+			packet = new GlobalLockReleasePacketClass(raw);
 			break;
 		case 230:
 			packet = new Packet_00E6Class(raw);

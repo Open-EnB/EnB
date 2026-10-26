@@ -22,8 +22,6 @@ ColorizationPacketClass::ColorizationPacketClass(RawPacketClass *raw) { Conn_Rec
 MovePacketClass::MovePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_0015Class::Packet_0015Class(RawPacketClass *raw) { Conn_Record(this, raw); }
 DebugPacketClass::DebugPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-AuxDataPacketClass::AuxDataPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-AuxDataPlayerVarPacketClass::AuxDataPlayerVarPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 MessageStringPacketClass::MessageStringPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 GroupPacketClass::GroupPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 SuperLinePacketClass::SuperLinePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
@@ -157,9 +155,6 @@ GuildPlayerInfoDeletedPacketClass::GuildPlayerInfoDeletedPacketClass(RawPacketCl
 GuildDeductFeePacketClass::GuildDeductFeePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 GpsRequestPacketClass::GpsRequestPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_00DEClass::Packet_00DEClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-Packet_00E3Class::Packet_00E3Class(RawPacketClass *raw) { Conn_Record(this, raw); }
-Packet_00E4Class::Packet_00E4Class(RawPacketClass *raw) { Conn_Record(this, raw); }
-Packet_00E5Class::Packet_00E5Class(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_00E6Class::Packet_00E6Class(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_00E7Class::Packet_00E7Class(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_0077Class::Packet_0077Class(RawPacketClass *raw) { Conn_Record(this, raw); }
@@ -179,6 +174,8 @@ bool RemovePacketClass::Process_Packet(void *) { return(true); }	// 0x7362F0
 bool PointEffectPacketClass::Process_Packet(void *) { return(true); }	// 0x735000
 bool RemoveEffectPacketClass::Process_Packet(void *) { return(true); }	// 0x735D50
 bool SetTargetPacketClass::Process_Packet(void *) { return(true); }	// 0x7363E0
+bool AuxDataPacketClass::Process_Packet(void *) { return(true); }	// 0x7364C0
+bool AuxDataPlayerVarPacketClass::Process_Packet(void *) { return(true); }	// 0x736650
 bool TradePacketClass::Process_Packet(void *) { return(true); }	// 0x739DE0
 bool ChangeBaseAssetPacketClass::Process_Packet(void *) { return(true); }	// 0x737400
 bool SetZBandPacketClass::Process_Packet(void *) { return(true); }	// 0x737520

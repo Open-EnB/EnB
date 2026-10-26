@@ -430,13 +430,13 @@ bool GpsRequestPacketClass::Process_Packet(void *)	// 0x869480
 bool Packet_00DEClass::Process_Packet(void *)	// 0x8694B0
 {	G_ASSERT(0); return(true); }
 
-bool Packet_00E3Class::Process_Packet(void *)	// 0x8694E0
+bool GlobalLockRequestPacketClass::Process_Packet(void *)	// 0x8694E0
 {	G_ASSERT(0); return(true); }
 
-bool Packet_00E4Class::Process_Packet(void *)	// 0x869510
+bool GlobalLockResponsePacketClass::Process_Packet(void *)	// 0x869510
 {	G_ASSERT(0); return(true); }
 
-bool Packet_00E5Class::Process_Packet(void *)	// 0x869540
+bool GlobalLockReleasePacketClass::Process_Packet(void *)	// 0x869540
 {	G_ASSERT(0); return(true); }
 
 bool Packet_00ECClass::Process_Packet(void *)	// 0x869570

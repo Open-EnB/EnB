@@ -27,3 +27,4 @@ date,address,symbol,file,library,status,score,forms,blocker,evidence,stash,model
 2026-10-25 23:59,0x82A470,TCPListenerClass::Listen,app/common/tcpconn.cpp,app,partial,,,shape,ours merges the two `ret == SOCKET_ERROR` failure tails (lines 706 / 716); the client keeps both,,Opus
 2026-10-25 23:59,0x82E040,UDPConnectionManagerClass::UDPConnectionManagerClass,app/common/udpconn.cpp,app,blocked,,,layout,CordMgrTaskClass::Init inlined: the tree's CordMgr isn't the client's 0x95C bytes,,Opus
 2026-10-25 23:59,0x82E200,UDPListenerClass::UDPListenerClass,app/common/udpconn.cpp,app,blocked,,,layout,"as UDPConnectionManagerClass's constructor 0x82E040 (CordMgrTaskClass::Init, the tree's CordMgr)",,Opus
+2026-10-26 01:15,0x8770A0,AuxDataPacketClass::Print,app/packets/pkauxdata.cpp,app,parked,0.62,2,register,Get_Name into a local gives the call first (0.62: Size and *Data loaded in the other order); in the sprintf call it moves the call last (0.29),,opus

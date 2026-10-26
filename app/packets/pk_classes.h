@@ -19,6 +19,7 @@
 
 #include "pk.h"
 #include "pkaction.h"	// rebuilt
+#include "pkauxdata.h"	// rebuilt
 #include "pkchangebaseasset.h"	// rebuilt
 #include "pkclickindicator.h"	// rebuilt
 #include "pkclientavatar.h"	// rebuilt
@@ -30,6 +31,7 @@
 #include "pkdirlock.h"	// rebuilt
 #include "pkequipuse.h"	// rebuilt
 #include "pkglobaldeletecharacter.h"	// rebuilt
+#include "pkgloballock.h"	// rebuilt
 #include "pkglobalticketrequest.h"	// rebuilt
 #include "pkguildranknamesrequestclient.h"	// rebuilt
 #include "pkhullupgrade.h"	// rebuilt
@@ -242,22 +244,6 @@ public:
 	DebugPacketClass(RawPacketClass *raw);	// 0x880340
 	virtual bool Process_Packet(void *client);	// +0x08 0x867CB0 (clientstub.cpp l.47)
 	char Unknown0C[0xC];	// +0x0C
-};
-
-// opcode 27 (0x001B, AUX_DATA): vtable 0xB09CA4, constructor 0x876E90, 0x1C bytes
-class AuxDataPacketClass : public PacketClass
-{
-public:
-	AuxDataPacketClass(RawPacketClass *raw);	// 0x876E90
-	char Unknown0C[0x10];	// +0x0C
-};
-
-// opcode 28 (0x001C, PLAYER_VAR_AUX_DATA): vtable 0xB09CE0, constructor 0x877230, 0x1C bytes
-class AuxDataPlayerVarPacketClass : public PacketClass
-{
-public:
-	AuxDataPlayerVarPacketClass(RawPacketClass *raw);	// 0x877230
-	char Unknown0C[0x10];	// +0x0C
 };
 
 // opcode 29 (0x001D, MESSAGE_STRING): vtable 0xB0B444, constructor 0x89E310, 0x14 bytes
@@ -1430,33 +1416,6 @@ public:
 	Packet_00DEClass(RawPacketClass *raw);	// 0x8883C0
 	virtual bool Process_Packet(void *client);	// +0x08 0x8694B0 (clientstub.cpp l.431)
 	char Unknown0C[0x18];	// +0x0C
-};
-
-// opcode 227 (0x00E3, ?): vtable 0xB09528, constructor 0x865630, 0x28 bytes
-class Packet_00E3Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x00E3
-{
-public:
-	Packet_00E3Class(RawPacketClass *raw);	// 0x865630
-	virtual bool Process_Packet(void *client);	// +0x08 0x8694E0 (clientstub.cpp l.434)
-	char Unknown0C[0x1C];	// +0x0C
-};
-
-// opcode 228 (0x00E4, ?): vtable 0xB0955C, constructor 0x8658D0, 0x28 bytes
-class Packet_00E4Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x00E4
-{
-public:
-	Packet_00E4Class(RawPacketClass *raw);	// 0x8658D0
-	virtual bool Process_Packet(void *client);	// +0x08 0x869510 (clientstub.cpp l.437)
-	char Unknown0C[0x1C];	// +0x0C
-};
-
-// opcode 229 (0x00E5, ?): vtable 0xB09590, constructor 0x865B50, 0x20 bytes
-class Packet_00E5Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x00E5
-{
-public:
-	Packet_00E5Class(RawPacketClass *raw);	// 0x865B50
-	virtual bool Process_Packet(void *client);	// +0x08 0x869540 (clientstub.cpp l.440)
-	char Unknown0C[0x14];	// +0x0C
 };
 
 // opcode 230 (0x00E6, ?): vtable 0xB093C8, constructor 0x863940, 0x38 bytes

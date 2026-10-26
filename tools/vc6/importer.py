@@ -3526,6 +3526,10 @@ RECONSTRUCTED = {
     ('app', 'packets/pkequipuse.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
     ('app', 'packets/pkversionrequest.cpp'): "packet classes (opcode 0, 1) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
     ('app', 'packets/pkversionrequest.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
+    ('app', 'packets/pkauxdata.cpp'): "the aux data packets (opcodes 27 and 28 over it), client 0x876D30-0x877340: written by hand (builder P), 7 of 8 functions exact in appfile.py match (Print NOT EXACT: register order); the file name provisional (NAME 1)",
+    ('app', 'packets/pkauxdata.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
+    ('app', 'packets/pkgloballock.cpp'): "the GlobalLock packets (opcodes 227, 228, 229) over their base (vtable 0xB094F4), client 0x8653F0-0x865D30: written by hand (builder P), 19 functions exact in appfile.py match; the file name provisional (NAME 1)",
+    ('app', 'packets/pkgloballock.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
     ('app', 'packets/pkdirlock.cpp'): "the DirLock packets (opcodes 223, 225, 224, 226) over their base (vtable 0xB0A290), client 0x8816D0-0x882680: written by hand (builder P), 25 functions exact in appfile.py match; the file name provisional (NAME 1)",
     ('app', 'packets/pkdirlock.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
     ('app', 'wwudp/bandwidthaccounting.cpp'): "the bandwidth accounting, client 0x84C720-0x84DFB0 (M1.4): a kernel task with per-address "
