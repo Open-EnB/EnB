@@ -386,6 +386,41 @@ and fixed so far (importer `PATCHES`, see docs/imports.md):
 | app, wlib (D67, D73): app/wwudp/wtime.h (the stand-in, named Wtime) deleted: its addresses were wlib's **Xtime** (day since year 0, millisecond of the day: update 0x8BA6F0, operator< 0x8BB3E0), so CordCon, CordMgr and CordStatsClass use `Xtime` from `..\..\libs\wwonline\wlib\xtime.h` (getDay / getMsec / setDay / setMsec / set / addSeconds / update). E&B's xtime.h (WWONLINE_PATCHES): the copy constructor takes a const reference; `getTime_t` (NAME 1) added, 0x8BA510. wstypes.h now takes sint8 / sint32 / uint32 from WWLib's bittype.h (one type program-wide, so wlib's objects and the app's agree on mangled names; replaces the BITTYPE_H guard), Get_Date_From_Day's year an int. The capture harness defines Xtime's members over its replay clock (wtime_replay.cpp) | 0x8BA510: msec_ / 1000 (`imul 0x10624DD3; sar 6`) + day_ * 86400 - 0x79747C00 | +1 (wlib xtime 30 -> 31: 0x8BA510; wlib 74 -> 75 functions), none lost; app's cordcon 15, cordmgr 3, unknown_cordmsg 13, udpconn 17, bandwidthaccounting 19 unchanged; udpreplay conn alex3 / alex7 PASS, run / loop / handshake output identical |
 | app (kernel-map.md step 8): new `app/common/tcpconn.cpp` / `tcpconn.h` PARTIAL (the client's file: TCPConnection, vtable 0xB08838, 0x248 bytes: Con +0x24, the pending handle +0x28, Encrypt +0x2C, the session key +0x30, two RC4Class +0x38 / +0x13A, Name +0x23C, IP / Port +0x240 / +0x244 in network order; TCPManager 0xBE9180, WriteBuffer 0xBE91B8), over wnet's TCPMgr / TCPCon; asserts on lines 119 / 440 / 518 (D25). WWONLINE_PATCHES for E&B's interfaces: TCPCon derives OutputDevice (vtable base 0xB0C47C), close(bit8) 0x8BBE40, pumpWrites returns sint32 and TCPConnection is a friend, TCPMgr::cancelConnect 0x8BD940 (NAME 2) | disassembly: Connect waits only with its argument set (else Try_Connect, at the end), Transport_Write keeps a copy of SendRC4 and rewinds it when TCPCon::write takes less (`cmp len, 0x400; jg`: signed), Transport_Read returns 0 for -1 and disconnects on 0 | +8 pairs (app: the constructor by address 0x828DE0, destructor 0x828EC0, Connect 0x828F90, Is_Connected 0x829930, Disconnect 0x829960, Get_Address 0x8299D0, Transport_Write 0x829A30, Transport_Read 0x829BC0; none lost). Not exact: Try_Connect 0x8290A0 (the client keeps two copies of its `Handle = 0; return true` tail) |
 
+**objmatch tie-breaking (D80, 2026-10-25).** `tools/re/objmatch.py` used to mark a function `multiple`
+when its masked bytes occur at several client addresses, and verify counted it only if all the copies
+were identical (D54). It now breaks the tie by the object's relocation targets (`break_tie`): the text
+of each string literal against the client's string at the candidate's field (a `__FILE__` compared by
+file name), the address of each external symbol symbols.json knows, the vtable's slots against known
+functions, and the addresses of symbols the exact functions of the same library show (a destructor found
+once settles the scalar deleting destructors that call it; repeated until nothing more resolves). The
+client was linked incrementally, so calls and vtable slots are compared through its thunk table. A
+candidate with a contradiction drops out; the function is `exact` there only when one candidate is
+left, at least one target confirmed it, and no other symbol takes or holds that address (VC6 does not
+fold identical code). Full `importer.py verify` of every library before -> after, client functions in
+the tree (pairs gained, none lost):
+
+| Library | Before | After | Pairs gained |
+|---|---|---|---|
+| app | 739 | 1005 | 343 |
+| binkmovie | 21 | 22 | 1 |
+| wlib | 75 | 76 | 1 |
+| wnet | 8 | 8 | 0 |
+| ww3d2 | 2477 | 2706 | 287 |
+| wwaudio | 360 | 410 | 50 |
+| wwdebug | 81 | 86 | 5 |
+| wwlib | 586 | 632 | 54 |
+| wwmath | 370 | 422 | 53 |
+| wwsaveload | 80 | 87 | 8 |
+| wwshade | 159 | 247 | 103 |
+
+(A function compiled into several files is one client function, several pairs: D66 (ii).) Among them
+the assert reporters 0x4E9410 / 0x4E9450 (unknown_debug.cpp), the twin constructors 0x4A7080 /
+0x4A8150, `WW3D::Set_Render_Device` 0x917790 / 0x9177E0, the one-int packet constructors, Prints and
+scalar deleting destructors in app/packets. Of the gains symbols.json already names, all agree with the
+object's function but in the name of the scalar deleting destructors (symbols.json says `??_E`, the object
+`??_G`) and of derived classes without a destructor body of their own, which it names after a sibling class
+(0x4893A0: `CatmullRomSpline1DClass`, ours `HermiteSpline1DClass`; a few such cases per library).
+
 Still open (2026-10-23): wwshade (138 client functions in the tree): the two `"UnNamed"` constructors, left as near-misses (D17), and an inline `Set_DX8_Texture_Stage_State` copy. `shdlegacyw3d.cpp`/`.h` are not in the client and were dropped (D13); so were WWAudio's `AudioSaveLoad.cpp`/`.h` (no save/load subsystem in the client; accepted loss: its three pairs 0x42F250, 0x909500, 0x9DA8C0, shared helpers still matched by other files). WW3D2 (2,242 in the tree; 407 gaps in docs/data/gaps-ww3d2): in the texture files, `TextureClass`'s constructors, `Init`, `Apply` and `Get_Reduction` and `DX8Wrapper`'s device code
 are near-misses still (Renegade's
 `Set_Render_Target(TextureClass *)` is kept without evidence). Clusters located but not started (progress.md, 2026-10-23 near-miss entry): the particle system (`ParticleBufferClass`, `PointGroupClass::Render`'s stack frame), E&B's screen-distortion module (0x995D20-0x998200, D19: `ww3d2/unknown_distortion.cpp`) that `WW3D::Set_Render_Device` calls into. Other near-misses (`MeshClass::Render_Material_Pass`, `WW3DAssetManager`, `GapFillerClass`, `CPUDetectClass::Init_Processor_Speed`: one swapped register pair) are code differences rather than layouts. Gaps split into linked and unlinked: docs/data/gaps-*-classified.md.

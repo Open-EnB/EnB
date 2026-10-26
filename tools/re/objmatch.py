@@ -10,9 +10,16 @@ fixed at link time. The pattern is searched for in client.exe's .text. Results p
              copies are the same function, relocated fields included (REL32 targets compared)
   none       not found: the client's function differs, is inlined, or was not linked
 
+A `multiple` result is broken by the relocations' targets (D80, `break_tie`): each candidate is
+checked against what the object's relocations point at, the string literals (their text against
+the client's string at the candidate's relocated field) and the symbols symbols.json knows (their
+address against the field's target). A candidate with a contradiction drops out; if one is left
+and at least one target confirmed it, the function is `exact` there (`tiebreak` is set).
+
     python objmatch.py [--client PATH] [--json OUT] file.obj...
 """
 import argparse
+import collections
 import json
 import os
 import re
@@ -107,6 +114,160 @@ class CoffObject:
         return out
 
 
+def _reloc_targets(self, sec, start, length):
+    """[(offset in the function, size, type, symbol dict, addend bytes)] of the relocated fields."""
+    by_index = getattr(self, '_by_index', None)
+    if by_index is None:
+        by_index = self._by_index = {s['index']: s for s in self.symbols}
+    info = self.sections[sec]
+    out = []
+    for va, symidx, typ in info['relocs']:
+        if start <= va < start + length:
+            n = RELOC_SIZE.get(typ, 4)
+            out.append((va - start, n, typ, by_index.get(symidx), self.data[info['raw'] + va:info['raw'] + va + n]))
+    return out
+
+
+def _literal(self, sym):
+    """The bytes (terminator included) of a string-literal symbol (`??_C@...`), or None."""
+    if sym is None or sym['section'] <= 0 or not sym['name'].startswith('??_C@'):
+        return None
+    info = self.sections[sym['section'] - 1]
+    o = info['raw'] + sym['value']
+    end = info['raw'] + info['size']
+    step = 2 if sym['name'].startswith('??_C@_1') else 1
+    while o + step <= end:
+        o += step
+        if self.data[o - step:o] == b'\0' * step:
+            return self.data[info['raw'] + sym['value']:o]
+    return None
+
+
+def _symbol_class(self, name):
+    for sym in self.symbols:
+        if sym['name'] == name and sym['section'] > 0:
+            return sym['class']
+    return None
+
+
+def _symbol_at(self, index):
+    if not hasattr(self, '_by_index'):
+        self._by_index = {s['index']: s for s in self.symbols}
+    return self._by_index.get(index)
+
+
+CoffObject.symbol_at = _symbol_at
+CoffObject.symbol_class = _symbol_class
+CoffObject.reloc_targets = _reloc_targets
+CoffObject.literal = _literal
+
+_symbol_addresses = None
+_thunk_cache = {}
+
+
+def thunks_of(img):
+    """{thunk VA: target VA} of the client's incremental-link stubs (calls and vtable slots reach
+    most functions through them)."""
+    if id(img) not in _thunk_cache:
+        _thunk_cache[id(img)] = img.incremental_thunks()
+    return _thunk_cache[id(img)]
+
+
+
+def symbol_addresses():
+    """{mangled name: {addresses}} of symbols.json (functions and vtables)."""
+    global _symbol_addresses
+    if _symbol_addresses is None:
+        _symbol_addresses = {}
+        path = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', 'docs', 'data', 'symbols.json')
+        try:
+            for e in json.load(open(path)):
+                _symbol_addresses.setdefault(e['symbol'], set()).add(int(e['address'], 16))
+        except (OSError, ValueError, KeyError):
+            pass
+    return _symbol_addresses
+
+
+def vtable_check(obj, sym, raw, known, img):
+    """For a candidate holding `raw` as the address of the object's vtable `sym` (`??_7...`): True
+    if every slot whose function has a known address holds it and at least one does, False if one
+    differs, None if no slot is known."""
+    info = obj.sections[sym['section'] - 1]
+    seen = False
+    for va, symidx, typ in info['relocs']:
+        if typ != 0x06 or va < sym['value']:
+            continue
+        slot = obj.symbol_at(symidx)
+        if slot is None or slot['class'] != 2 or slot['name'] not in known:
+            continue
+        o = img.offset(raw + va - sym['value'])
+        if o is None:
+            return False
+        have = thunks_of(img).get(struct.unpack_from('<I', img.data, o)[0], struct.unpack_from('<I', img.data, o)[0])
+        if have not in known[slot['name']]:
+            return False
+        seen = True
+    return True if seen else None
+
+
+def break_tie(obj, sec, start, length, text, base, hits, img, known=None):
+    """D80: of the candidate addresses `hits` that match one masked pattern, those the object's
+    relocation targets do not contradict. Returns (survivors, confirmed) with `confirmed` the
+    survivors that at least one target confirmed: a string literal whose text is the client's
+    string at the field, or a symbol symbols.json knows whose address is the field's target."""
+    def norm(b):
+        # a __FILE__ keeps the file's name only (each E&B project has its own copy of a header's)
+        if b'\\' in b or b'/' in b:
+            return re.split(rb'[\\/]', b)[-1].lower()
+        return b
+    known = symbol_addresses() if known is None else known
+    fields = obj.reloc_targets(sec, start, length)
+    survivors, confirmed = [], []
+    for h in hits:
+        o = h - base
+        ok, sure = True, False
+        for k, n, typ, sym, addend in fields:
+            if n != 4 or sym is None or o + k + 4 > len(text):
+                continue
+            raw = struct.unpack('<I', text[o + k:o + k + 4])[0]
+            lit = obj.literal(sym)
+            if lit is not None and typ == 0x06:
+                add = struct.unpack('<I', addend)[0]
+                if add >= len(lit):
+                    continue
+                want = lit[add:]
+                co = img.offset(raw)
+                if co is None:
+                    ok = False
+                    break
+                have = img.data[co:co + len(want)]
+                if have == want or norm(have.rstrip(b'\0')) == norm(want.rstrip(b'\0')) and have[-1:] == b'\0':
+                    sure = True
+                else:
+                    ok = False
+                    break
+            elif (typ == 0x06 and sym['section'] > 0 and sym['name'].startswith('??_7') and sym['name'] not in known
+                  and struct.unpack('<I', addend)[0] == 0):
+                v = vtable_check(obj, sym, raw, known, img)
+                if v is False:
+                    ok = False
+                    break
+                sure = sure or v is True
+            elif sym['class'] == 2 and sym['name'] in known and typ in (0x06, 0x14):
+                target = raw if typ == 0x06 else h + k + 4 + struct.unpack('<i', text[o + k:o + k + 4])[0]
+                target -= struct.unpack('<I', addend)[0] if typ == 0x06 else 0
+                if thunks_of(img).get(target, target) in known[sym['name']]:
+                    sure = True
+                else:
+                    ok = False
+                    break
+        if ok:
+            survivors.append(h)
+            if sure:
+                confirmed.append(h)
+    return survivors, confirmed
+
+
 def same_copies(text, base, hits, relocs, img=None):
     """True if every copy found at `hits` (VAs; text[0] is at VA `base`) is the same function,
     the masked fields included: a relative call/jump (REL32) must reach the same target, any
@@ -171,7 +332,7 @@ def match_objects(img, paths, region=None):
     if region:
         lo, hi = max(region[0], start), min(region[1], end)
         text, start = text[lo - start:hi - start], lo
-    results = []
+    results, pending = [], []
     for path in paths:
         obj = CoffObject(path)
         for name, sec, s, e in obj.functions():
@@ -189,8 +350,65 @@ def match_objects(img, paths, region=None):
                     # every copy, and whether they are all the same function (D54)
                     r['count'] = len(hits)
                     r['identical'] = same_copies(text, start, hits, obj.relocated(sec, s, length), img)
-            results.append(r)
-    return results
+                    pending.append((r, obj, sec, s, length, hits))
+            results.append((r, obj, sec, s, length))
+    # D80: what the exact functions show about the link (an external symbol's address) helps to break
+    # the ties of the others; repeat until nothing more resolves (a destructor found once settles the
+    # scalar deleting destructors that call it).
+    thunk = thunks_of(img)
+    known = {k: {thunk.get(a, a) for a in v} for k, v in symbol_addresses().items()}
+    done = set()
+
+    def learn(r, obj, sec, s, length, addr):
+        if r['symbol'] and obj.symbol_class(r['symbol']) == 2:
+            known.setdefault(r['symbol'], set()).add(addr)
+        o = addr - start
+        for k, n, typ, sym, addend in obj.reloc_targets(sec, s, length):
+            if n != 4 or sym is None or sym['class'] != 2 or obj.literal(sym) is not None:
+                continue
+            if typ == 0x06:
+                v = struct.unpack('<I', text[o + k:o + k + 4])[0] - struct.unpack('<I', addend)[0]
+            elif typ == 0x14:
+                v = addr + k + 4 + struct.unpack('<i', text[o + k:o + k + 4])[0]
+            else:
+                continue
+            known.setdefault(sym['name'], set()).add(thunk.get(v, v))
+    for r, obj, sec, s, length in results:
+        if r['status'] == 'exact':
+            learn(r, obj, sec, s, length, int(r['addresses'][0], 16))
+    # one client function is one source function (VC6 does not fold identical code): an address two
+    # different symbols would take, or that a symbol of another name already holds, is left alone
+    claimed = collections.defaultdict(set)
+    for r, obj, sec, s, length in results:
+        if r['status'] == 'exact':
+            claimed[int(r['addresses'][0], 16)].add(r['symbol'])
+    changed = True
+    while changed:
+        changed = False
+        proposals = []
+        for item in pending:
+            r, obj, sec, s, length, hits = item
+            if id(r) in done:
+                continue
+            survivors, confirmed = break_tie(obj, sec, s, length, text, start, hits, img, known)
+            if len(survivors) == 1 and confirmed:
+                proposals.append((item, survivors[0]))
+        by_addr = collections.defaultdict(set)
+        for (r, *_), a in proposals:
+            by_addr[a].add(r['symbol'])
+        for item, a in proposals:
+            r, obj, sec, s, length, hits = item
+            if len(by_addr[a]) > 1 or claimed[a] - {r['symbol']}:
+                continue
+            r['status'] = 'exact'
+            r['addresses'] = [f'0x{a:06X}']
+            r['tiebreak'] = True
+            r.pop('count'), r.pop('identical')
+            claimed[a].add(r['symbol'])
+            learn(r, obj, sec, s, length, a)
+            done.add(id(r))
+            changed = True
+    return [x[0] for x in results]
 
 
 def main():
