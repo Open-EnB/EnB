@@ -67,6 +67,8 @@
 #include "pkunknown_85f870.h"	// rebuilt
 #include "pkunknown_860d30.h"	// rebuilt
 #include "pkunknown_866ac0.h"	// rebuilt
+#include "pkunknown_867010.h"	// rebuilt
+#include "pkunknown_87a940.h"	// rebuilt
 #include "pkunknown_87acd0.h"	// rebuilt
 #include "pkunknown_888b60.h"	// rebuilt
 #include "pkunknown_8a2b70.h"	// rebuilt
@@ -918,14 +920,6 @@ public:
 	char Unknown0C[0x18C];	// +0x0C
 };
 
-// opcode 145 (0x0091, ?): vtable 0xB09AB4, constructor 0x8734E0, 0x1C bytes
-class IncapacitanceRescueConfirmationPacket : public PacketClass
-{
-public:
-	IncapacitanceRescueConfirmationPacket(RawPacketClass *raw);	// 0x8734E0
-	char Unknown0C[0x10];	// +0x0C
-};
-
 // opcode 146 (0x0092, CAMERA_CONTROL): vtable 0xB09DDC, constructor 0x878390, 0x18 bytes
 class CameraControlPacketClass : public PacketClass
 {
@@ -1009,15 +1003,6 @@ public:
 	char Unknown0C[0x4];	// +0x0C
 };
 
-// opcode 179 (0x00B3, ?): vtable 0xB09658, constructor 0x867250, 0x20 bytes
-class Packet_00B3Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x00B3
-{
-public:
-	Packet_00B3Class(RawPacketClass *raw);	// 0x867250
-	virtual bool Process_Packet(void *client);	// +0x08 0x868BB0 (clientstub.cpp l.287)
-	char Unknown0C[0x14];	// +0x0C
-};
-
 // opcode 180 (0x00B4, SUBPARTS): vtable 0xB09BE4, constructor 0x8756B0, 0x24 bytes
 class SubPartsPacket : public PacketClass
 {
@@ -1058,15 +1043,6 @@ class NoteContentPacketClass : public PacketClass
 public:
 	NoteContentPacketClass(RawPacketClass *raw);	// 0x87F020
 	char Unknown0C[0x4C];	// +0x0C
-};
-
-// opcode 167 (0x00A7, ?): vtable 0xB09F00, constructor 0x87A9E0, 0x30 bytes
-class Packet_00A7Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x00A7
-{
-public:
-	Packet_00A7Class(RawPacketClass *raw);	// 0x87A9E0
-	virtual bool Process_Packet(void *client);	// +0x08 0x868CD0 (clientstub.cpp l.305)
-	char Unknown0C[0x24];	// +0x0C
 };
 
 // opcode 168 (0x00A8, ?): vtable 0xB09F30, constructor 0x87AE80, 0x68 bytes
@@ -1304,14 +1280,6 @@ public:
 	char Unknown0C[0x2C];	// +0x0C
 };
 
-// opcode 200 (0x00C8, GUILD_RECRUIT_CONFIRM_SECTOR): vtable 0xB0A914, constructor 0x88CB70, 0x2C bytes
-class GuildRecruitConfirmSectorPacket : public PacketClass
-{
-public:
-	GuildRecruitConfirmSectorPacket(RawPacketClass *raw);	// 0x88CB70
-	char Unknown0C[0x20];	// +0x0C
-};
-
 // opcode 201 (0x00C9, GUILD_RECRUIT_ACCEPT_CLIENT): vtable 0xB0A944, constructor 0x88CEB0, 0x14 bytes
 class GuildRecruitAcceptClientPacketClass : public PacketClass  // NAME 3: the client's Print text 'GuildRecruitAcceptClient {' and the PacketClass convention
 {
@@ -1339,23 +1307,6 @@ public:
 	char Unknown0C[0x1C];	// +0x0C
 };
 
-// opcode 204 (0x00CC, GUILD_SIMPLE_SECTOR_CLIENT): vtable 0xB0A884, constructor 0x88BED0, 0x20 bytes
-class GuildSimpleSectorClientPacket : public PacketClass
-{
-public:
-	GuildSimpleSectorClientPacket(RawPacketClass *raw);	// 0x88BED0
-	char Unknown0C[0x14];	// +0x0C
-};
-
-// opcode 205 (0x00CD, GUILD_SIMPLE_CLIENT_SECTOR): vtable 0xB0A8B4, constructor 0x88C2D0, 0x24 bytes
-class GuildSimpleClientSectorPacketClass : public PacketClass  // NAME 3: the client's Print text 'GuildSimpleClientSectorPacket {' and the PacketClass convention
-{
-public:
-	GuildSimpleClientSectorPacketClass(RawPacketClass *raw);	// 0x88C2D0
-	virtual bool Process_Packet(void *client);	// +0x08 0x868F70 (clientstub.cpp l.347)
-	char Unknown0C[0x18];	// +0x0C
-};
-
 // opcode 206 (0x00CE, ?): vtable 0xB0AAC4, constructor 0x88F6C0, 0x28 bytes
 class GuildSimpleSectorGuildPacketClass : public PacketClass  // NAME 3: the client's Print text 'GuildSimpleSectorGuildPacket {' and the PacketClass convention
 {
@@ -1372,14 +1323,6 @@ public:
 	GuildMessageGuildPacketClass(RawPacketClass *raw);	// 0x8914A0
 	virtual bool Process_Packet(void *client);	// +0x08 0x869120 (clientstub.cpp l.374)
 	char Unknown0C[0x34];	// +0x0C
-};
-
-// opcode 208 (0x00D0, GUILD_MESSAGE_SECTOR): vtable 0xB0A974, constructor 0x88D2B0, 0x30 bytes
-class GuildMessageSectorPacket : public PacketClass
-{
-public:
-	GuildMessageSectorPacket(RawPacketClass *raw);	// 0x88D2B0
-	char Unknown0C[0x24];	// +0x0C
 };
 
 // opcode 209 (0x00D1, ?): vtable 0xB0AC44, constructor 0x891E90, 0x28 bytes
@@ -1432,14 +1375,6 @@ public:
 	GuildGMRenameConfirmGuildPacketClass(RawPacketClass *raw);	// 0x892E10
 	virtual bool Process_Packet(void *client);	// +0x08 0x869240 (clientstub.cpp l.392)
 	char Unknown0C[0x2C];	// +0x0C
-};
-
-// opcode 216 (0x00D8, ?): vtable 0xB0AA34, constructor 0x88E580, 0x2C bytes
-class GuildGMRenameConfirmSectorPacket : public PacketClass
-{
-public:
-	GuildGMRenameConfirmSectorPacket(RawPacketClass *raw);	// 0x88E580
-	char Unknown0C[0x20];	// +0x0C
 };
 
 // opcode 217 (0x00D9, ?): vtable 0xB0AD04, constructor 0x893320, 0x38 bytes

@@ -40,6 +40,10 @@ CLIENTSTUB = (0x867AA0, 0x8696C0)
 BASE_SLOTS = {0x14: 0x86F010, 0x18: 0x52B2D0, 0x1C: 0x52B2F0, 0x20: 0x52B310, 0x24: 0x52B330}
 REGS = ('eax', 'ebx', 'ecx', 'edx', 'esi', 'edi', 'ebp')
 LOW8 = {'al': 'eax', 'bl': 'ebx', 'cl': 'ecx', 'dl': 'edx'}
+GET_STRING_OBJ, GET_STRING, ADD_STRING_OBJ, ADD_STRING, STR_SIZE = 0x86EB50, 0x86EED0, 0x86EAC0, 0x86EA20, 0x86ECE0
+STR_GROW = 0x42A970                                         # basic_string::_Grow (an assign from "")
+STR_HELPERS = {0x42A820, 0x42AB30, 0x42A940, 0xA17E50, 0x4E9D10}   # _Tidy, _Copy, _Eos, _Xlen, delete
+EMPTY = {0xAE70A4, 0xBDA908}                                # c_str()'s "" and the pooled ""
 STATIC_END = bytes([0x8A, 0x0D, 0xFC, 0x16, 0xC4, 0x00])     # mov cl, byte ptr [0xC416FC]
 
 
@@ -113,6 +117,28 @@ def is_trivial_dtor_call(sdd):
     return False
 
 
+def dtor_strings(sdd):
+    """The number of inline std::string destructors in the class's destructor (0: trivial), or None."""
+    d = None
+    for ins in code(sdd):
+        if ins.mnemonic == 'call' and isimm(ins.op_str):
+            d = resolve(imm(ins.op_str))
+            break
+    if d is None:
+        return None
+    if is_trivial_dtor(d):
+        return 0
+    c = code(d)
+    calls = [resolve(imm(i.op_str)) for i in c if i.mnemonic == 'call' and isimm(i.op_str)]
+    if any(x != 0x4E9D10 for x in calls) or not c[-1].mnemonic == 'ret' or c[-1].op_str:
+        return None
+    if not any(i.mnemonic == 'mov' and ops(i) == ['dword ptr [esi]', hex(BASE_VT)] or
+               ops(i)[:1] == ['dword ptr [ecx]'] and ops(i)[1:] == [hex(BASE_VT)] for i in c):
+        return None
+    n = sum(1 for i in c if i.mnemonic == 'mov' and re.search(r'byte ptr \[e[a-d]x - 1\]$', i.op_str))
+    return n
+
+
 def slot_body(f):
     """One-instruction bodies of the base's slots: a C++ return expression or ('member', off, width)."""
     c = code(f)
@@ -139,15 +165,31 @@ def slot_body(f):
 
 
 def decode_ctor(f, vt, raw_arg):
-    """A constructor: the member actions [(kind, off, ...)], its argument count, an EH frame."""
+    """A constructor: the member actions [(kind, off, ...)], its argument count, an EH frame.
+
+    std::string members (the 16 bytes from the allocator byte: VC6's reference-counted string) are
+    recognised by their inline construction (the allocator byte, pointer, length and capacity zeroed;
+    from "" when _Grow is called on them before the vtable's store); the code inside them (the inline
+    _Tidy / assign / _Grow paths) is skipped. Acts: ('zero'|'imm', off, width, value, after_vt),
+    ('param', off, width, argno, after_vt), ('get', off, kind, n), ('getstr',) (Get_String assigned to
+    the next string member), ('string', off, init) for each string member."""
     c = code(f)
     regs = {'ecx': ('this', 0)}
     esp = 0             # bytes pushed since entry
     pushes = []
-    acts = []           # ('zero'|'imm', off, width, value) | ('param', off, width, argno) | ('get', off, kind, n)
+    acts = []
     seen_vt = False
     serial = 0
     eh = False
+    strings = {}        # offset -> init ('' or None)
+    alloc = set()       # allocator bytes stored (string candidates)
+    pending_zero = {}   # string candidate -> the offsets zeroed
+
+    def in_string(off):
+        for s in strings:
+            if s < off < s + 0x10:
+                return s
+        return None
     for ins in c:
         m, o = ins.mnemonic, ops(ins)
         if m == 'push':
@@ -163,7 +205,7 @@ def decode_ctor(f, vt, raw_arg):
             continue
         if m == 'ret':
             break
-        if m == 'mov' and o[1] == 'dword ptr fs:[0]':
+        if m == 'mov' and len(o) == 2 and o[1] == 'dword ptr fs:[0]':
             eh = True
             regs[o[0]] = None
             continue
@@ -178,13 +220,23 @@ def decode_ctor(f, vt, raw_arg):
         if m == 'inc' and o[0] in REGS:
             regs[o[0]] = ('serial+1',) if regs.get(o[0]) == ('serial',) else None
             continue
+        if m == 'add' and o[0] in REGS and isimm(o[1]) and regs.get(o[0]) and regs[o[0]][0] == 'this':
+            regs[o[0]] = ('this', regs[o[0]][1] + imm(o[1]))
+            continue
         if m == 'lea' and o[0] in REGS:
             mm = mem(o[1])
             b = regs.get(mm[1]) if mm else None
             if b and b[0] == 'this':
                 regs[o[0]] = ('this', b[1] + mm[2])
                 continue
+            if strings or alloc:
+                regs[o[0]] = None
+                continue
             raise Fail('ctor: lea')
+        if m == 'mov' and o[0] in LOW8:
+            # the allocator byte's copy (`mov dl, byte ptr [esp + n]`): stack garbage
+            regs[LOW8[o[0]]] = ('alloc',)
+            continue
         if m == 'mov':
             dst, src = o
             md, ms = mem(dst), mem(src)
@@ -199,6 +251,8 @@ def decode_ctor(f, vt, raw_arg):
                 elif src == 'dword ptr [%s]' % hex(SERIAL):
                     regs[dst] = ('serial',)
                     serial += 1
+                elif strings or alloc:
+                    regs[dst] = None
                 else:
                     raise Fail('ctor: mov')
                 continue
@@ -208,9 +262,26 @@ def decode_ctor(f, vt, raw_arg):
                     continue
                 base = regs.get(md[1])
                 if not base or base[0] != 'this':
+                    if strings or alloc:
+                        continue    # inside an inline string path (through the string's pointer)
                     raise Fail('ctor: store')
                 off = base[1] + md[2]
+                if src in LOW8 and width == 1 and regs.get(LOW8[src]) == ('alloc',):
+                    alloc.add(off)
+                    pending_zero[off] = set()
+                    continue
+                s = in_string(off)
+                if s is not None:
+                    continue
                 val = ('imm', imm(src)) if isimm(src) else regs.get(src)
+                cand = [a for a in alloc if a < off < a + 0x10 and a not in strings]
+                if cand and val == ('imm', 0) and width == 4:
+                    a = cand[0]
+                    pending_zero[a].add(off - a)
+                    if pending_zero[a] >= {4, 8, 0xC}:
+                        strings[a] = None
+                        acts.append(('string', a, None))
+                    continue
                 if off == 0:
                     if val == ('imm', vt):
                         seen_vt = True
@@ -228,6 +299,8 @@ def decode_ctor(f, vt, raw_arg):
                     acts.append(('param', off, width, val[1], seen_vt))
                 else:
                     raise Fail('ctor: store of %s' % val[0])
+                continue
+            if strings or alloc:
                 continue
             raise Fail('ctor: mov')
         if m == 'call':
@@ -251,12 +324,47 @@ def decode_ctor(f, vt, raw_arg):
                 for r in ('eax', 'ecx', 'edx'):
                     regs[r] = None
                 continue
+            if t == GET_STRING_OBJ and raw_arg:
+                p = pushes[-1]
+                if not p or p[0] != 'this' or p[1] not in strings:
+                    raise Fail('ctor: Get(string) args')
+                acts.append(('get', p[1], 'string', None))
+                pushes = pushes[:-1]
+                esp -= 4
+                for r in ('eax', 'ecx', 'edx'):
+                    regs[r] = None
+                continue
+            if t == GET_STRING and raw_arg:
+                acts.append(('getstr',))
+                for r in ('eax', 'ecx', 'edx'):
+                    regs[r] = None
+                continue
+            if t == STR_GROW and not seen_vt:
+                b = regs.get('ecx')
+                if b and b[0] == 'this' and b[1] in strings:
+                    strings[b[1]] = ''
+                    acts = [a if a[:2] != ('string', b[1]) else ('string', b[1], '') for a in acts]
+                pushes = []
+                for r in ('eax', 'ecx', 'edx'):
+                    regs[r] = None
+                continue
+            if t in STR_HELPERS and (strings or alloc):
+                pushes = []
+                for r in ('eax', 'ecx', 'edx'):
+                    regs[r] = None
+                continue
             raise Fail('ctor: call')
         if m == 'nop':
+            continue
+        if strings or alloc:
+            if o and o[0] in REGS:
+                regs[o[0]] = None
             continue
         raise Fail('ctor: %s' % m)
     if not seen_vt or serial != 2:
         raise Fail('ctor: not a packet constructor')
+    if set(alloc) != set(strings):
+        raise Fail('ctor: string members')
     nargs = imm(c[-1].op_str) // 4 if c[-1].op_str else 0
     return acts, nargs, eh
 
@@ -288,6 +396,12 @@ def decode_build(f):
             if md and md[0] == 'word' and md[2] == 2 and isimm(src):
                 opcode = imm(src)
                 continue
+            ms = mem(src)
+            if dst in REGS and ms and regs.get(ms[1]) and regs[ms[1]][0] == 'this' and ms[0] == 'dword':
+                regs[dst] = ('load', regs[ms[1]][1] + ms[2])
+                continue
+            if dst in REGS and isimm(src) and imm(src) in EMPTY and regs.get(dst) and regs[dst][0] == 'load':
+                continue    # c_str()'s "" when the pointer is 0
             if dst in REGS:
                 regs[dst] = None
             continue
@@ -319,6 +433,24 @@ def decode_build(f):
             if t == LBCTOR:
                 pushes = []
                 continue
+            if t == ADD_STRING_OBJ:
+                p = pushes[-1]
+                if not p or p[0] != 'this':
+                    raise Fail('Build: Add(string) args')
+                adds.append((p[1], 'string', None))
+                pushes = pushes[:-1]
+                for r in ('eax', 'ecx', 'edx'):
+                    regs[r] = None
+                continue
+            if t == ADD_STRING:
+                p = pushes[-1]
+                if not p or p[0] != 'load':
+                    raise Fail('Build: Add_String args')
+                adds.append((p[1] - 4, 'cstr', None))
+                pushes = pushes[:-1]
+                for r in ('eax', 'ecx', 'edx'):
+                    regs[r] = None
+                continue
             if t in ADD:
                 kind, typ = ADD[t]
                 if kind == 'raw':
@@ -349,6 +481,7 @@ def decode_build(f):
 
 
 def decode_size(f):
+    """A constant, or ('sum', constant, [('getsize'|'length', string offset)])."""
     c = code(f)
     if len(c) == 2 and c[1].mnemonic == 'ret' and not c[1].op_str:
         o = ops(c[0])
@@ -356,6 +489,81 @@ def decode_size(f):
             return imm(o[1])
         if c[0].mnemonic == 'xor' and o == ['eax', 'eax']:
             return 0
+    regs = {'ecx': ('this', 0)}
+    pushes = []
+    for ins in c:
+        m, o = ins.mnemonic, ops(ins)
+        if m == 'ret':
+            if ins.op_str:
+                break
+            v = regs.get('eax')
+            if v and v[0] == 'sum':
+                return v
+            break
+        if m == 'push' and o[0] in REGS:
+            pushes.append(regs.get(o[0]))
+            continue
+        if m == 'push' or m == 'pop':
+            if m == 'pop':
+                regs[o[0]] = None
+            continue
+        if m == 'add' and o[0] == 'esp':
+            continue
+        if m == 'add' and o[0] in REGS and isimm(o[1]):
+            v = regs.get(o[0])
+            if v and v[0] == 'this':
+                regs[o[0]] = ('this', v[1] + imm(o[1]))
+            elif v and v[0] == 'sum':
+                regs[o[0]] = ('sum', v[1] + imm(o[1]), v[2])
+            else:
+                raise Fail('Get_Data_Size: add')
+            continue
+        if m == 'add' and o[0] in REGS and o[1] in REGS:
+            a, b = regs.get(o[0]), regs.get(o[1])
+            if a and b and a[0] == 'sum' and b[0] == 'sum':
+                regs[o[0]] = ('sum', a[1] + b[1], a[2] + b[2])
+                continue
+            raise Fail('Get_Data_Size: add')
+        if m == 'inc' and regs.get(o[0]) and regs[o[0]][0] == 'sum':
+            v = regs[o[0]]
+            regs[o[0]] = ('sum', v[1] + 1, v[2])
+            continue
+        if m == 'mov' and o[0] in REGS:
+            ms = mem(o[1])
+            if o[1] in REGS:
+                regs[o[0]] = regs.get(o[1])
+                continue
+            if ms and regs.get(ms[1]) and regs[ms[1]][0] == 'this':
+                regs[o[0]] = ('sum', 0, [('length', regs[ms[1]][1] + ms[2] - 8)])
+                continue
+            raise Fail('Get_Data_Size: mov')
+        mm2 = re.match(r'^\[(\w+) \+ (\w+)(?: \+ (0x[0-9a-f]+|\d+))?\]$', o[1]) if m == 'lea' and len(o) == 2 else None
+        if mm2 and o[0] in REGS and mm2.group(2) in REGS:
+            a, b = regs.get(mm2.group(1)), regs.get(mm2.group(2))
+            k = imm(mm2.group(3)) if mm2.group(3) else 0
+            if a and b and a[0] == 'sum' and b[0] == 'sum':
+                regs[o[0]] = ('sum', a[1] + b[1] + k, a[2] + b[2])
+                continue
+            raise Fail('Get_Data_Size: lea')
+        if m == 'lea' and o[0] in REGS:
+            ms = mem(o[1])
+            v = regs.get(ms[1]) if ms else None
+            if v and v[0] == 'sum':
+                regs[o[0]] = ('sum', v[1] + ms[2], v[2])
+                continue
+            if v and v[0] == 'this':
+                regs[o[0]] = ('this', v[1] + ms[2])
+                continue
+            raise Fail('Get_Data_Size: lea')
+        if m == 'call' and isimm(o[0]) and resolve(imm(o[0])) == STR_SIZE:
+            p = pushes.pop() if pushes else None
+            if not p or p[0] != 'this':
+                raise Fail('Get_Data_Size: Get_Size')
+            for r in ('eax', 'ecx', 'edx'):
+                regs[r] = None
+            regs['eax'] = ('sum', 0, [('getsize', p[1])])
+            continue
+        raise Fail('Get_Data_Size: %s' % m)
     raise Fail('Get_Data_Size')
 
 
@@ -410,6 +618,14 @@ def decode_print(f):
             continue
         if m == 'xor' and o[0] == o[1] and o[0] in REGS:
             regs[o[0]] = ('imm', 0)
+            continue
+        if m == 'test' and o[0] == o[1] and regs.get(o[0]) and regs[o[0]][0] == 'member':
+            continue
+        if m in ('je', 'jne'):
+            continue
+        if m == 'mov' and o[0] in REGS and isimm(o[1]) and imm(o[1]) in EMPTY and regs.get(o[0]) and \
+                regs[o[0]][0] == 'member' and regs[o[0]][2] == ('mov', 'dword'):
+            regs[o[0]] = ('cstr', regs[o[0]][1] - 4)
             continue
         if m == 'mov' and o[0] in LOW8 and mem(o[1]) and mem(o[1])[0] == 'byte':
             # `xor edx, edx; mov dl, byte ptr [ecx + n]`: a bool (VC6's bool to int)
@@ -477,7 +693,7 @@ def decode_print(f):
                 rest.append(('str', s))
             else:
                 rest.append(('int', a[1]))
-        elif a[0] in ('member', 'addr'):
+        elif a[0] in ('member', 'addr', 'cstr'):
             rest.append(a)
         else:
             raise Fail('Print: argument')
@@ -508,9 +724,24 @@ TSIZE = {'int': 4, 'short': 2, 'bool': 1, 'float': 4, '__int64': 8}
 
 def analyse(op, name, vt, ctor, size):
     cls = dict(op=op, name=name, vt=vt, ctor=ctor, size=size)
-    if not is_trivial_dtor_call(slot(vt, 0)):
+    nstr = dtor_strings(slot(vt, 0))
+    if nstr is None:
         raise Fail('destructor')
     acts, nargs, eh = decode_ctor(ctor, vt, True)
+    strings = dict((a[1], a[2]) for a in acts if a[0] == 'string')
+    if len(strings) != nstr:
+        raise Fail('destructor: strings')
+    # Get_String's result goes to the string members not read by Get(std::string *), in order
+    free = [o for o in sorted(strings) if not any(a[0] == 'get' and a[1] == o for a in acts)]
+    acts2 = []
+    for a in acts:
+        if a[0] == 'getstr':
+            if not free:
+                raise Fail('ctor: Get_String')
+            acts2.append(('get', free.pop(0), 'cstr', None))
+        elif a[0] != 'string':
+            acts2.append(a)
+    acts = acts2
     if nargs != 1:
         raise Fail('ctor: args')
     opcode, adds = decode_build(slot(vt, 4))
@@ -536,6 +767,8 @@ def analyse(op, name, vt, ctor, size):
     cls.update(acts=acts, adds=adds, dsize=dsize, pfn=fn, fmt=fmt, pargs=rest, pp=slot(vt, 8), over=over,
                extra=extra, build=slot(vt, 4), sizef=slot(vt, 0xC), printf=slot(vt, 0x10), sdd=slot(vt, 0))
     mems = {}
+    for so, init in strings.items():
+        mems[so] = dict(off=so, size=0x10, typ='std::string', names=[], init=init)
 
     def note(off, size, typ):
         if off < 0xC or off + size > cls['size']:
@@ -550,13 +783,37 @@ def analyse(op, name, vt, ctor, size):
         return cur
     for a in acts:
         if a[0] == 'get':
+            if a[2] in ('string', 'cstr'):
+                continue
             note(a[1], a[3] if a[2] == 'raw' else TSIZE[a[2]], None if a[2] == 'raw' else a[2])
-        else:
+    # the zero stores: a pair of dwords is an __int64 member's zero
+    stores = [a for a in acts if a[0] != 'get']
+    for a in list(stores):
+        mv = mems.get(a[1])
+        if a[0] == 'zero' and a[2] == 4 and mv and mv['size'] == 8:
+            hi = [b for b in stores if b[0] == 'zero' and b[1] == a[1] + 4 and b[2] == 4]
+            if not hi:
+                raise Fail('ctor: half an __int64')
+            stores.remove(hi[0])
+            stores[stores.index(a)] = ('zero', a[1], 8, 0, a[4])
+    acts = [a for a in acts if a[0] == 'get'] + stores if False else \
+        [a for a in acts if a[0] == 'get' or a in stores]
+    acts = [a for a in acts if a[0] == 'get' or a in stores] + [s2 for s2 in stores if s2 not in acts]
+    for a in acts:
+        if a[0] != 'get':
             note(a[1], a[2], None)
-    gets = [(a[1], a[2], a[3]) for a in acts if a[0] == 'get']
+    gets = [(a[1], {'cstr': 'cstr', 'string': 'string'}.get(a[2], a[2]), a[3]) for a in acts if a[0] == 'get']
     if gets != list(adds):
         raise Fail('Get / Add differ')
-    if sum(mems[g[0]]['size'] for g in gets) != dsize:
+    if isinstance(dsize, tuple):
+        const, terms = dsize[1], dsize[2]
+        want = [('getsize', g[0]) for g in gets if g[1] == 'string'] + [('length', g[0]) for g in gets if g[1] == 'cstr']
+        if sorted(terms) != sorted(want):
+            raise Fail('size terms')
+        if const != sum(mems[g[0]]['size'] for g in gets if g[1] not in ('string', 'cstr')) + \
+                sum(1 for g in gets if g[1] == 'cstr'):
+            raise Fail('size and fields differ')
+    elif any(g[1] in ('string', 'cstr') for g in gets) or sum(mems[g[0]]['size'] for g in gets) != dsize:
         raise Fail('size and fields differ')
     pkind = []
     for a, nm in zip(rest, field_names(fmt)):
@@ -584,6 +841,12 @@ def analyse(op, name, vt, ctor, size):
                 host['elem'] = (typ, w)
                 host['names'].append(nm)
                 pkind.append(('m', host['off'], (off - host['off']) // w))
+        elif a[0] == 'cstr':
+            host = mems.get(a[1])
+            if host is None or host['typ'] != 'std::string':
+                raise Fail('Print: c_str')
+            host['names'].append(nm)
+            pkind.append(('c', a[1], None))
         elif a[0] == 'addr':
             host = mems.get(a[1])
             if host is None or host['typ']:
@@ -605,6 +868,9 @@ def analyse(op, name, vt, ctor, size):
             typ = et
             if mv['size'] != w or any(k[0] == 'a' and k[1] == mv['off'] for k in pkind):
                 mv['count'] = mv['size'] // w
+        elif typ == 'std::string':
+            mv['ctype'], mv['align'] = typ, 4
+            continue
         elif typ is None:
             typ = {4: 'int', 2: 'short', 1: 'char', 8: '__int64'}.get(mv['size'])
             if typ is None:

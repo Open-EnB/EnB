@@ -100,8 +100,13 @@ def init_list(cls, acts, params):
     """`: A(0), B(x)` for the stores before the vtable's, in declaration order; the body's for those after."""
     byoff = {mv['off']: mv for mv in cls['members']}
     early, late = [], []
+    for mv in cls['members']:
+        if mv['ctype'] == 'std::string' and mv.get('init') == '':
+            early.append((mv['off'], mv['cname'], '""'))
     for a in acts:
-        if a[0] == 'get':
+        if a[0] in ('get', 'string'):
+            if a[0] == 'string' and a[2] == '' and not any(e[0] == a[1] for e in early):
+                early.append((a[1], byoff[a[1]]['cname'], '""'))
             continue
         mv = byoff.get(a[1])
         if mv is None or mv['size'] != a[2] or mv['count']:
@@ -162,6 +167,13 @@ def defs(cls):
             continue
         if a[2] == 'raw':
             get.append('\traw->Get(%s%s, sizeof(%s));' % ('' if mv['count'] else '&', mv['cname'], mv['cname']))
+        elif a[2] == 'string':
+            get.append('\traw->Get(&%s);' % mv['cname'])
+        elif a[2] == 'cstr':
+            first = not any('char *string' in g for g in get)
+            get.append('\t%sstring = raw->Get_String();' % ('char *' if first else ''))
+            get.append('\t%s = string;' % mv['cname'])
+            get.append('\tdelete [] string;')
         else:
             get.append('\traw->Get(%s);' % mv['cname'])
     uses = any('raw->' in g for g in get)
@@ -173,12 +185,18 @@ def defs(cls):
         mv = byoff[off]
         if kind == 'raw':
             b.append('\traw->Add(%s%s, sizeof(%s));' % ('' if mv['count'] else '&', mv['cname'], mv['cname']))
+        elif kind == 'cstr':
+            b.append('\traw->Add_String(%s.c_str());' % mv['cname'])
         else:
             b.append('\traw->Add(%s);' % mv['cname'])
     b += ['\treturn(raw);', '}']
     out.append((cls['build'], b))
-    fields = [byoff[off]['cname'] for off, kind, n in cls['adds']]
-    expr = ' + '.join('sizeof(%s)' % x for x in fields) if fields else '0'
+    terms = []
+    for off, kind, n in cls['adds']:
+        nm = byoff[off]['cname']
+        terms.append('RawPacketClass::Get_Size(%s)' % nm if kind == 'string' else
+                     '%s.length() + 1' % nm if kind == 'cstr' else 'sizeof(%s)' % nm)
+    expr = ' + '.join(terms) if terms else '0'
     out.append((cls['sizef'], ['int %s::Get_Data_Size()' % cls['name'], '{', '\treturn(%s);' % expr, '}']))
     args = []
     for k in cls['pkind']:
@@ -191,6 +209,8 @@ def defs(cls):
             args.append(mv['cname'] + ('[%d]' % k[2] if k[2] is not None else ''))
         elif k[0] == 'a':
             args.append(byoff[k[1]]['cname'])
+        elif k[0] == 'c':
+            args.append(byoff[k[1]]['cname'] + '.c_str()')
     fmt = c_string(cls['fmt'])
     if cls['pfn'] == gen.SPRINTF:
         p = ['int %s::Print(char *buffer, int)' % cls['name'], '{',

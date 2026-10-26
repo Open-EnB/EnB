@@ -57,6 +57,30 @@ int Packet_008FClass::Print(char *buffer, int len)
 	return(_snprintf(buffer, len, "Request Rescue {GameID=%d}", GameID));
 }
 
+IncapacitanceRescueConfirmationPacket::IncapacitanceRescueConfirmationPacket(RawPacketClass *raw)
+{
+	char *string = raw->Get_String();
+	Unknown0C = string;
+	delete [] string;
+}
+
+RawPacketClass *IncapacitanceRescueConfirmationPacket::Build()
+{
+	RawPacketClass *raw = new RawPacketClass(145, Get_Data_Size());
+	raw->Add_String(Unknown0C.c_str());
+	return(raw);
+}
+
+int IncapacitanceRescueConfirmationPacket::Get_Data_Size()
+{
+	return(Unknown0C.length() + 1);
+}
+
+int IncapacitanceRescueConfirmationPacket::Print(char *buffer, int len)
+{
+	return(_snprintf(buffer, len, "Incapacitance Rescue Confirmation"));
+}
+
 
 /*
 **	Reconstruction notes (pkincapacitancerequest.cpp)
@@ -66,5 +90,5 @@ int Packet_008FClass::Print(char *buffer, int len)
 **	  pkemit.py): members from the raw message's Get / Build's Add (sizes) and Print (types,
 **	  names: 'Name=%d'), the constructors' stores in the initialiser list.
 **	* The file name is provisional (provisional, pk + its first named class's name).
-**	* Not rebuilt yet: opcode 142, 144, 145 (declared in pk_classes.h).
+**	* Not rebuilt yet: opcode 142, 144 (declared in pk_classes.h).
 */

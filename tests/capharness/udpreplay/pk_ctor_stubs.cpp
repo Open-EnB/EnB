@@ -98,7 +98,6 @@ PlayerObjectReactionUpdatePacket::PlayerObjectReactionUpdatePacket(RawPacketClas
 PlayerObjectIsAttackingUpdatePacket::PlayerObjectIsAttackingUpdatePacket(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_008EClass::Packet_008EClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 IncapacitanceDetailsPacket::IncapacitanceDetailsPacket(RawPacketClass *raw) { Conn_Record(this, raw); }
-IncapacitanceRescueConfirmationPacket::IncapacitanceRescueConfirmationPacket(RawPacketClass *raw) { Conn_Record(this, raw); }
 CameraControlPacketClass::CameraControlPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 TriggerEmotePacketClass::TriggerEmotePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 NotifyEmotePacketClass::NotifyEmotePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
@@ -109,13 +108,11 @@ GalaxyMapRequestPacketClass::GalaxyMapRequestPacketClass(RawPacketClass *raw) { 
 NavigationPacketClass::NavigationPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 WarpPacketClass::WarpPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 WarpIndexPacketClass::WarpIndexPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-Packet_00B3Class::Packet_00B3Class(RawPacketClass *raw) { Conn_Record(this, raw); }
 SubPartsPacket::SubPartsPacket(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_00B5Class::Packet_00B5Class(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_00B6Class::Packet_00B6Class(RawPacketClass *raw) { Conn_Record(this, raw); }
 NoteListPacketClass::NoteListPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 NoteContentPacketClass::NoteContentPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-Packet_00A7Class::Packet_00A7Class(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_00A8Class::Packet_00A8Class(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_00A9Class::Packet_00A9Class(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_00ABClass::Packet_00ABClass(RawPacketClass *raw) { Conn_Record(this, raw); }
@@ -143,22 +140,17 @@ GuildBeginCreationPacketClass::GuildBeginCreationPacketClass(RawPacketClass *raw
 GuildLeaderAcceptClientPacketClass::GuildLeaderAcceptClientPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 GuildLeaderAcceptSectorPacketClass::GuildLeaderAcceptSectorPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 GuildRecruitConfirmGuildPacketClass::GuildRecruitConfirmGuildPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-GuildRecruitConfirmSectorPacket::GuildRecruitConfirmSectorPacket(RawPacketClass *raw) { Conn_Record(this, raw); }
 GuildRecruitAcceptClientPacketClass::GuildRecruitAcceptClientPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 GuildRecruitAcceptSectorPacketClass::GuildRecruitAcceptSectorPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 GuildSimpleGuildSectorPacketClass::GuildSimpleGuildSectorPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-GuildSimpleSectorClientPacket::GuildSimpleSectorClientPacket(RawPacketClass *raw) { Conn_Record(this, raw); }
-GuildSimpleClientSectorPacketClass::GuildSimpleClientSectorPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 GuildSimpleSectorGuildPacketClass::GuildSimpleSectorGuildPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 GuildMessageGuildPacketClass::GuildMessageGuildPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-GuildMessageSectorPacket::GuildMessageSectorPacket(RawPacketClass *raw) { Conn_Record(this, raw); }
 GuildPermissionsPacketClass::GuildPermissionsPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 GuildPlayerPermissionsPacket::GuildPlayerPermissionsPacket(RawPacketClass *raw) { Conn_Record(this, raw); }
 GuildRankNamesSectorPacket::GuildRankNamesSectorPacket(RawPacketClass *raw) { Conn_Record(this, raw); }
 GuildRankNamesGuildPacketClass::GuildRankNamesGuildPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 GuildRankNamesRequestSectorPacketClass::GuildRankNamesRequestSectorPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 GuildGMRenameConfirmGuildPacketClass::GuildGMRenameConfirmGuildPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-GuildGMRenameConfirmSectorPacket::GuildGMRenameConfirmSectorPacket(RawPacketClass *raw) { Conn_Record(this, raw); }
 GuildGMRenameAcceptSectorPacketClass::GuildGMRenameAcceptSectorPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 GuildDeletePlayerPacketClass::GuildDeletePlayerPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 GuildPlayerInfoDeletedPacketClass::GuildPlayerInfoDeletedPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
@@ -211,12 +203,17 @@ bool ManufactureSetPacketClass::Process_Packet(void *) { return(true); }	// 0x73
 bool LootHulkPermissionPacketClass::Process_Packet(void *) { return(true); }	// 0x7396F0
 bool HullUpgradePacketClass::Process_Packet(void *) { return(true); }	// 0x7396C0
 bool OpenInterfacePacketClass::Process_Packet(void *) { return(true); }	// 0x7397D0
+bool IncapacitanceRescueConfirmationPacket::Process_Packet(void *) { return(true); }	// 0x739CD0
 bool JobDeletePacketClass::Process_Packet(void *) { return(true); }	// 0x73A420
 bool JobAcceptReplyPacketClass::Process_Packet(void *) { return(true); }	// 0x73A510
 bool NavDeletePacketClass::Process_Packet(void *) { return(true); }	// 0x73A710
 bool StarbaseAvatarUpdatePacketClass::Process_Packet(void *) { return(true); }	// 0x73A9F0
 bool StarbaseAvatarRoomUpdatePacketClass::Process_Packet(void *) { return(true); }	// 0x73AB50
 bool NameDecalPacketClass::Process_Packet(void *) { return(true); }	// 0x735FC0
+bool GuildRecruitConfirmSectorPacket::Process_Packet(void *) { return(true); }	// 0x73E720
+bool GuildSimpleSectorClientPacket::Process_Packet(void *) { return(true); }	// 0x73DD00
+bool GuildMessageSectorPacket::Process_Packet(void *) { return(true); }	// 0x73E9E0
+bool GuildGMRenameConfirmSectorPacket::Process_Packet(void *) { return(true); }	// 0x73EEF0
 bool Packet_0078Class::Process_Packet(void *) { return(true); }	// 0x76BB70
 bool ReferralPointsAvailablePacketClass::Process_Packet(void *) { return(true); }	// 0x73F3D0
 

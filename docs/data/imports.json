@@ -1,6 +1,6 @@
 {
  "app": {
-  "ambiguous_total": 54,
+  "ambiguous_total": 56,
   "base": "reconstructed",
   "compile_errors": [],
   "files": {
@@ -1028,7 +1028,9 @@
    },
    "pkguildranknamesrequestclient": {
     "ambiguous": [
-     "0x42B2F0"
+     "0x42A6C0",
+     "0x42B2F0",
+     "0x88CDB0"
     ],
     "copy": "reconstructed",
     "expected": {},
@@ -1037,7 +1039,22 @@
      "0x52B240",
      "0x52B270",
      "0x52B2A0",
-     "0x88D950"
+     "0x595410",
+     "0x88BED0",
+     "0x88C000",
+     "0x88C0D0",
+     "0x88C0F0",
+     "0x88C2D0",
+     "0x88C410",
+     "0x88C4E0",
+     "0x88C500",
+     "0x88CCE0",
+     "0x88D2B0",
+     "0x88D430",
+     "0x88D500",
+     "0x88D540",
+     "0x88D950",
+     "0x88E6F0"
     ],
     "merged": [],
     "name": "packets/pkguildranknamesrequestclient.cpp"
@@ -1060,17 +1077,22 @@
    },
    "pkincapacitancerequest": {
     "ambiguous": [
+     "0x42A6C0",
      "0x42B2F0"
     ],
     "copy": "reconstructed",
     "expected": {},
     "in_tree": [
+     "0x42A820",
+     "0x42AB30",
      "0x52B210",
      "0x52B240",
      "0x52B270",
      "0x52B2A0",
      "0x872070",
-     "0x8724E0"
+     "0x8724E0",
+     "0x8734E0",
+     "0x873650"
     ],
     "merged": [],
     "name": "packets/pkincapacitancerequest.cpp"
@@ -1675,6 +1697,46 @@
     "merged": [],
     "name": "packets/pkunknown_866ac0.cpp"
    },
+   "pkunknown_867010": {
+    "ambiguous": [
+     "0x42A6C0",
+     "0x42B2F0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42A820",
+     "0x42AB30",
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x8673C0",
+     "0x8674B0"
+    ],
+    "merged": [],
+    "name": "packets/pkunknown_867010.cpp"
+   },
+   "pkunknown_87a940": {
+    "ambiguous": [
+     "0x42A6C0",
+     "0x42B2F0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x87A940",
+     "0x87A9E0",
+     "0x87AB60",
+     "0x88D500"
+    ],
+    "merged": [],
+    "name": "packets/pkunknown_87a940.cpp"
+   },
    "pkunknown_87acd0": {
     "ambiguous": [
      "0x42B2F0"
@@ -2120,6 +2182,8 @@
    "packets/pkunknown_85f870.h": "reconstructed",
    "packets/pkunknown_860d30.h": "reconstructed",
    "packets/pkunknown_866ac0.h": "reconstructed",
+   "packets/pkunknown_867010.h": "reconstructed",
+   "packets/pkunknown_87a940.h": "reconstructed",
    "packets/pkunknown_87acd0.h": "reconstructed",
    "packets/pkunknown_888b60.h": "reconstructed",
    "packets/pkunknown_8a2b70.h": "reconstructed",
@@ -2156,7 +2220,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 709,
+  "in_tree_total": 731,
   "totals": {}
  },
  "binkmovie": {

@@ -3,6 +3,106 @@
 #include <stdio.h>
 
 
+GuildSimpleSectorClientPacket::GuildSimpleSectorClientPacket(RawPacketClass *raw)
+{
+	raw->Get(&Type, sizeof(Type));
+	raw->Get(&OptionalParam);
+}
+
+RawPacketClass *GuildSimpleSectorClientPacket::Build()
+{
+	RawPacketClass *raw = new RawPacketClass(204, Get_Data_Size());
+	raw->Add(&Type, sizeof(Type));
+	raw->Add(OptionalParam);
+	return(raw);
+}
+
+int GuildSimpleSectorClientPacket::Get_Data_Size()
+{
+	return(sizeof(Type) + RawPacketClass::Get_Size(OptionalParam));
+}
+
+int GuildSimpleSectorClientPacket::Print(char *buffer, int len)
+{
+	return(_snprintf(buffer, len, "GuildSimpleSectorClientPacket {Type=%d OptionalParam=%s}", Type, OptionalParam.c_str()));
+}
+
+GuildSimpleClientSectorPacketClass::GuildSimpleClientSectorPacketClass(RawPacketClass *raw)
+{
+	raw->Get(&Type, sizeof(Type));
+	raw->Get(PlayerID);
+	raw->Get(&OptionalParam);
+}
+
+RawPacketClass *GuildSimpleClientSectorPacketClass::Build()
+{
+	RawPacketClass *raw = new RawPacketClass(205, Get_Data_Size());
+	raw->Add(&Type, sizeof(Type));
+	raw->Add(PlayerID);
+	raw->Add(OptionalParam);
+	return(raw);
+}
+
+int GuildSimpleClientSectorPacketClass::Get_Data_Size()
+{
+	return(sizeof(Type) + sizeof(PlayerID) + RawPacketClass::Get_Size(OptionalParam));
+}
+
+int GuildSimpleClientSectorPacketClass::Print(char *buffer, int len)
+{
+	return(_snprintf(buffer, len, "GuildSimpleClientSectorPacket {Type=%d PlayerID=%d OptionalParam=%s}", Type, PlayerID, OptionalParam.c_str()));
+}
+
+GuildRecruitConfirmSectorPacket::GuildRecruitConfirmSectorPacket(RawPacketClass *raw)
+{
+	raw->Get(&InviterName);
+	raw->Get(&GuildName);
+}
+
+RawPacketClass *GuildRecruitConfirmSectorPacket::Build()
+{
+	RawPacketClass *raw = new RawPacketClass(200, Get_Data_Size());
+	raw->Add(InviterName);
+	raw->Add(GuildName);
+	return(raw);
+}
+
+int GuildRecruitConfirmSectorPacket::Get_Data_Size()
+{
+	return(RawPacketClass::Get_Size(InviterName) + RawPacketClass::Get_Size(GuildName));
+}
+
+int GuildRecruitConfirmSectorPacket::Print(char *buffer, int len)
+{
+	return(_snprintf(buffer, len, "GuildRecruitConfirmSector {InviterName=%s GuildName=%s}", InviterName.c_str(), GuildName.c_str()));
+}
+
+GuildMessageSectorPacket::GuildMessageSectorPacket(RawPacketClass *raw)
+{
+	raw->Get(&MessageType, sizeof(MessageType));
+	raw->Get(&OtherName);
+	raw->Get(&GuildName);
+}
+
+RawPacketClass *GuildMessageSectorPacket::Build()
+{
+	RawPacketClass *raw = new RawPacketClass(208, Get_Data_Size());
+	raw->Add(&MessageType, sizeof(MessageType));
+	raw->Add(OtherName);
+	raw->Add(GuildName);
+	return(raw);
+}
+
+int GuildMessageSectorPacket::Get_Data_Size()
+{
+	return(sizeof(MessageType) + RawPacketClass::Get_Size(OtherName) + RawPacketClass::Get_Size(GuildName));
+}
+
+int GuildMessageSectorPacket::Print(char *buffer, int len)
+{
+	return(_snprintf(buffer, len, "GuildMessageSector {MessageType=%d OtherName=%s GuildName=%s}", MessageType, OtherName.c_str(), GuildName.c_str()));
+}
+
 GuildRankNamesRequestClientPacketClass::GuildRankNamesRequestClientPacketClass(int player_id) : PlayerID(player_id)
 {
 }
@@ -29,6 +129,30 @@ int GuildRankNamesRequestClientPacketClass::Print(char *buffer, int len)
 	return(_snprintf(buffer, len, "GuildRankNamesRequestClient {PlayerID=%d}", PlayerID));
 }
 
+GuildGMRenameConfirmSectorPacket::GuildGMRenameConfirmSectorPacket(RawPacketClass *raw)
+{
+	raw->Get(&OldGuildName);
+	raw->Get(&NewGuildName);
+}
+
+RawPacketClass *GuildGMRenameConfirmSectorPacket::Build()
+{
+	RawPacketClass *raw = new RawPacketClass(216, Get_Data_Size());
+	raw->Add(OldGuildName);
+	raw->Add(NewGuildName);
+	return(raw);
+}
+
+int GuildGMRenameConfirmSectorPacket::Get_Data_Size()
+{
+	return(RawPacketClass::Get_Size(OldGuildName) + RawPacketClass::Get_Size(NewGuildName));
+}
+
+int GuildGMRenameConfirmSectorPacket::Print(char *buffer, int len)
+{
+	return(_snprintf(buffer, len, "GuildGMRenameConfirmSector {OldGuildName=%s NewGuildName=%s}", OldGuildName.c_str(), NewGuildName.c_str()));
+}
+
 
 /*
 **	Reconstruction notes (pkguildranknamesrequestclient.cpp)
@@ -38,5 +162,5 @@ int GuildRankNamesRequestClientPacketClass::Print(char *buffer, int len)
 **	  pkemit.py): members from the raw message's Get / Build's Add (sizes) and Print (types,
 **	  names: 'Name=%d'), the constructors' stores in the initialiser list.
 **	* The file name is provisional (provisional, pk + its first named class's name).
-**	* Not rebuilt yet: opcode 204, 205, 197, 200, 201, 208, 210, 211, 216 (declared in pk_classes.h).
+**	* Not rebuilt yet: opcode 197, 201, 210, 211 (declared in pk_classes.h).
 */
