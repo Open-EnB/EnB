@@ -66,14 +66,8 @@ static int Loop_Drop = -1;		// --loop N: drop every Nth datagram (-1: the captur
 
 // ------------------------------------------------------------------------- E&B's log (cordmgr.cpp)
 
-class UnknownLogClass
-{
-public:
-	void Unknown_4BC130(const char *category, const char *file, int line, const char *format, ...);
-};
-UnknownLogClass UnknownLog;
 static int LogLines = 0;
-void UnknownLogClass::Unknown_4BC130(const char *, const char *, int, const char *, ...)
+void Unknown_4BC130(const char *, const char *, const char *, int, const char *, ...)
 {
 	LogLines++;
 }

@@ -19,14 +19,14 @@
 #include "srandom.h"
 #include <string.h>
 
-// E&B's log (the object 0xBDA908; 0x4BC130 takes a category, the file and line, a format). Not
-// rebuilt: a program that links CordMgr defines it (tests/capharness/udpreplay does).
-class UnknownLogClass		// NAME 1 [UnknownLogClass]: placeholder for E&B's log object
-{
-public:
-	void Unknown_4BC130(const char *category, const char *file, int line, const char *format, ...);	// NAME 1
-};
-extern UnknownLogClass UnknownLog;	// NAME 1 [UnknownLog]: 0xBDA908
+// E&B's message reporter 0x4BC130 (cdecl, printf-style; unknown_debug.cpp's 0x4BC260 is its sibling): the
+// sender, the category, the file and line, a format (D81: the client pushes its pooled "" 0xBDA908 as the
+// sender, as dbgmgr.cpp does). Not rebuilt: a program that links CordMgr defines it
+// (tests/capharness/udpreplay does). The asserts and these calls sit on the client's lines (D25), so
+// this block keeps the eight lines the stand-in class took.
+//
+void Unknown_4BC130(const char *sender, const char *category, const char *file, int line,
+	const char *format, ...);	// NAME 1 [Unknown_4BC130]: 0x4BC130
 
 // 0x8B3EC0 (WWOnline's library, not app\wwudp; here until that library is in the tree, so that
 // CordCon calls it as the client does instead of inlining it): CRC-32 with the reflected table of 0xEDB88320,
@@ -589,7 +589,7 @@ void CordMgr::Pump()
 
 
 
-				UnknownLog.Unknown_4BC130("UDP", __FILE__, __LINE__, "Unexpected packet: (%d) (%s : %d) -> (%d [%d]) (%s)",
+				Unknown_4BC130("", "UDP", __FILE__, __LINE__, "Unexpected packet: (%d) (%s : %d) -> (%d [%d]) (%s)",
 					len, inet_ntoa(from.sin_addr), ntohs(from.sin_port), 0, 0, "");
 			}
 		}
@@ -1269,7 +1269,7 @@ bool CordMgr::Process_CORD_Packet(unsigned char *data, int len, sockaddr_in *fro
 
 
 
-				UnknownLog.Unknown_4BC130("UDP", __FILE__, __LINE__, "Packet failed validation (%p : %d (key=%d))",
+				Unknown_4BC130("", "UDP", __FILE__, __LINE__, "Packet failed validation (%p : %d (key=%d))",
 					ntohl(from->sin_addr.s_addr), ntohs(from->sin_port), con->Key_);
 			}
 		}
