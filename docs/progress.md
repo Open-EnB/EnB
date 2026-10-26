@@ -4,6 +4,40 @@ Newest first within each section. Dates are when the entry was written.
 
 ## 1. Log
 
+### 2026-10-25 (night): four parallel builders; +654 pairs, 0 lost; D73 imported; 91 packet classes; D80-D82
+
+The first D62 run with four Opus builders at once on disjoint file sets (`.work/run-2026-10-25/plan.md`:
+models, tokens, results), started from d530e88. `pairs_cmp` d530e88 -> HEAD: **+654 pairs, 0 lost**
+(app 545, wlib 75, binkmovie 24, wnet 8, ww3d2 2). About 1.75M builder tokens.
+
+* **A, D73 imports** (ffb80d4 ... 9f2cff1): WWOnline's wlib at `libs/wwonline/wlib` (74 then 75 pairs:
+  E&B's `Xtime::getTime_t` 0x8BA510 rebuilt), wnet (matchbot's udp.cpp, RenegadeGR's tcpmgr; 8),
+  Renegade's BinkMovie at `binkmovie/` (21 functions, 24 pairs). The critsec, dictionary, CordArrayClass
+  and Wtime stand-ins are gone (D67; every Wtime address was wlib's Xtime). Kernel-map step 8 started:
+  `app/common/tcpconn.cpp` with 8 exact. RenegadeGR's tcpcon.cpp matches nothing: E&B's TCPCon is its own
+  (an OutputDevice with a lock, writing through tcpqueue.cpp), so it is rebuilt next (P-A3).
+* **B, packet classes** (f356388 ... ab76321): clientstub.cpp's 149 stubs exact in one commit; pklogoff by
+  hand; then a decoder, `tools/re/pkdecode.py` / `pkemit.py`, drafted 91 of the 263 classes into 56
+  app/packets files, 395 of 396 functions exact (one NOT EXACT constructor 0x867250). udpreplay is now a
+  round trip through the rebuilt classes: alex3 7,408 and alex7 1,622 messages byte-identical. 251 exact
+  functions are uncounted as `multiple` (one-int constructors and Prints look alike): D80.
+* **C, WW3D2** (f9ae6b9, 95f350d): `PointGroupClass::Render` 0x954960 and `Process_Foreground_Load`
+  0x949C60 exact (ww3d2 2475 -> 2477). Make_Screen_Shot and Update_Movie_Capture share one 4-instruction
+  load-order residue (a Fable puzzle under D72 after two Opus rounds); the distortion draw is an
+  inline-budget effect with no plausible source form yet.
+* **D, app leftovers** (27812b5, c0ae2f0, 2c12eca, b7cf527): operator delete 0x4E9D10,
+  `DeltaCompoundClass::Add` 0x4A5670 (a dead `size()` read spends the inline budget: D40 closed), the
+  Mounts array constructor 0x706F60 exact; the assert reporters exact but `multiple`; Ship's BuffArray and
+  Buff elements modelled as the client's classes (neutral, D66). D75's premise corrected (D81).
+* **Coordinator:** D80 (objmatch tie-break by relocation target), D81, D82, D66's neutral-fidelity clause,
+  D18/D28 confirmed as operand-order noise (cface4a); traps filed in workflow.md §3.1/3.3/3.4/3.8;
+  `tools/vc6/commit_mine.py` promoted from builder C (95aa10f) after the shared git index swept staged
+  work across builders twice (repaired, nothing lost: checked by file). builders.md: own files by path,
+  shared files only through commit_mine.py.
+* Open for the user: A's proposals P-A1 (binkmovie at the top level), P-A2 (wstypes.h takes WWLib's
+  bittype.h types), P-A3 (E&B's tcpcon.cpp and tcpqueue.cpp next), P-A4 (build.py/LINK_LIBS when a
+  program first needs wlib). The tools item (§4 item 5, D80, D74, D77, D78, D81) runs next on Sonnet.
+
 ### 2026-10-25 (evening): D63's supervised E&BConfig run passed; M2 complete
 
 The one-time acceptance check of M2 gate (c): the user ran the original `E&BConfig.exe` (build 8168,
