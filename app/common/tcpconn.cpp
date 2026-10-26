@@ -576,8 +576,8 @@ TCPConnection::TCPConnection(SOCKET socket) :
 }
 
 
-// TCPListenerClass (vtable 0xB08880): the server's TCP listener; its key exchange 0x82A830 / 0x82AA10
-// isn't rebuilt. The key pair comes from 'server_rsa_keyset.dat'; every listener is in Listeners.
+// TCPListenerClass (vtable 0xB08880): the server's TCP listener; its Pump_Pending 0x82AA10 (the key
+// exchange's second step) isn't rebuilt. The key pair comes from 'server_rsa_keyset.dat'; every listener is in Listeners.
 TCPListenerClass::TCPListenerClass() :
 	Socket(INVALID_SOCKET),
 	PortNumber(0)
@@ -783,6 +783,27 @@ ConnectionClass *TCPListenerClass::Accept(bool pump)
 	return(0);
 }
 
+// The server's half, first step: its public key to a new connection, in the clear ({u32 n bytes, n,
+// u32 e bytes, e}, network order); Pump_Pending takes the session key that comes back
+void TCPListenerClass::Send_Key(TCPConnection *connection)
+{
+	BigInt n;
+	BigInt e;
+	const RSAKeyClass &key = KeyPair;
+	n = key.Modulus;
+	e = key.Exponent;
+	unsigned char encoded[0x200];
+	unsigned char buffer[0x408];
+	int offset = 0;
+	int len = n.Encode(encoded);
+	*(unsigned long *)(buffer + offset) = htonl(len); offset += 4;
+	memcpy(buffer + offset, encoded, len); offset += len;
+	len = e.Encode(encoded);
+	*(unsigned long *)(buffer + offset) = htonl(len); offset += 4;
+	memcpy(buffer + offset, encoded, len); offset += len;
+	connection->Transport_Write(buffer, offset);
+}
+
 // Every listener's Accept(false) (the pending connections' exchanges and new sockets); Key_Exchange
 // inlines it while it waits
 void TCPListenerClass::Pump_All()
@@ -805,7 +826,7 @@ void TCPListenerClass::Pump_All()
 **	  Transport_Write 0x829A30 (line 440), Transport_Read 0x829BC0 (line 518), the constructor over an
 **	  accepted socket 0x829C80 (line 564); the listener 0x829E00-0x82AA10 (lines 645-780, the
 **	  server's): the constructor 0x829E50 (the key file), destructor, Listen 0x82A470 (functional), Stop, Accept and
-**	  Pump_All 0x82A990 rebuilt; Send_Key 0x82A830 and Pump_Pending 0x82AA10 (the server's exchange) not. The exchange 0x829180 carries a marker.
+**	  Send_Key 0x82A830, Pump_All 0x82A990 rebuilt; Pump_Pending 0x82AA10 (the server's exchange) not. The exchange 0x829180 carries a marker.
 **	* The TCP layer is WWOnline wnet's TCPMgr / TCPCon (libs\wwonline\wnet, D73): E&B's TCPCon is an
 **	  OutputDevice with a lock and tcpqueue.cpp's queues (wnet's tcpcon.cpp and tcpqueue.cpp),
 **	  TCPMgr::cancelConnect 0x8BD940 is E&B's.

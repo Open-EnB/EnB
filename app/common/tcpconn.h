@@ -9,7 +9,7 @@
 **	PARTIAL (docs/kernel-map.md 4, step 8): the TCP connection (vtable 0xB08838, 0x248 bytes), a
 **	stream connection over WWOnline wnet's TCPCon with an RC4 stream each way, keyed by an RSA
 **	exchange at connect time. The members are at the client's offsets (constructor 0x828DE0).
-**	Not rebuilt yet: the listener's half of the exchange (Send_Key 0x82A830, Pump_Pending 0x82AA10).
+**	Not rebuilt yet: the listener's Pump_Pending 0x82AA10 (the session key's RSA decryption).
 */
 
 #if defined(_MSC_VER)
@@ -183,7 +183,7 @@ public:
 	virtual ConnectionClass *Accept();								// +0x14 0x82A6A0: Accept(true)
 	ConnectionClass *Accept(bool pump);								// 0x82A6C0  // NAME 2: what it does
 	ConnectionClass *Pump_Pending();								// 0x82AA10 (not rebuilt): a connection whose exchange finished  // NAME 2: what it does
-	void Send_Key(TCPConnection *connection);						// 0x82A830 (not rebuilt): the server's public key  // NAME 2: what it does
+	void Send_Key(TCPConnection *connection);						// 0x82A830: the server's public key  // NAME 2: what it does
 	static void Pump_All();										// 0x82A990 (no caller; inlined in 0x829180): Accept(false) on every listener  // NAME 2: what it does
 
 	SOCKET Socket;							// +0x04 (S: the asserts)
