@@ -271,6 +271,11 @@ tools/re/README.md, tools/vc6 and tools/harness/README.md.
 * **`%TEMP%\enb_import\verify-app` is shared:** the next waiting verify clears it as soon as yours
   ends. Copy the objects you need right after your verify, and expect a missing file even then.
 
+* **`appfile.py match` on a draft:** the build VM gets the `-I` directories but not their subfolders:
+  pass `-I libs/wwonline/wlib` explicitly or the VM keeps a stale wlib. A draft placed next to its
+  original (so relative includes resolve) leaves a `<dir>/obj/` folder: delete it before replay.
+  `tools/vc6/mkspec.py` splits paths as `lib/file` and fails on `libs/wwonline/...`.
+
 ### 3.5 Build VMs and vc6.py
 
 * **Address VMs by IP** (`ENB_VC6_HOST`/`ENB_VC6_HOSTS`, from `pool.py`); after a restart
@@ -334,7 +339,14 @@ tools/re/README.md, tools/vc6 and tools/harness/README.md.
   Own files by path; anything touching importer.py, headers, stubs or docs/data through
   `tools/vc6/commit_mine.py` (builders.md). `git stash` is shared across worktrees too.
 
+* **Git Bash `sed -i` rewrites a CRLF file as LF even when its pattern matches nothing** (it did to
+  tcpconn.cpp). Edit tree files only with Python opened with `newline=''`.
+
 ### 3.9 Library-specific
+
+* **wnet (E&B's TCPCon):** a reset connection is `CONNRESET` (-16): reads and writes end quietly on it
+  and `isConnected` treats it as closed; `pumpReads` needs a dead `retval = -1;` (the client's stray
+  `or edi, edi`).
 
 * **Zero Hour porting.** D9 places ZH edits. A one-sided trailing block or a callee-saved register
   shift is usually removed code: diff Renegade, Generals, ZH (`//DMS`, ZH tags, commented-out

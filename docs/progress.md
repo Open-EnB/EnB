@@ -4,6 +4,21 @@ Newest first within each section. Dates are when the entry was written.
 
 ## 1. Log
 
+### 2026-10-26 (early): E&B's TCPCon and TCPQueue exact in wnet; ConnectionManager in connect.cpp; +56 pairs
+
+Builder (Opus, ~450k tokens, cut once by the session limit and resumed): 9843588 E&B's own `tcpcon.cpp`
+and `tcpqueue.cpp` rebuilt in `libs/wwonline/wnet` (TCPCon 18 of 18 exact, TCPQueue 7 exact plus one too
+short to count; wnet 8 -> 41 functions, wlib 76 -> 78, app 1008 -> 1009; E&B's `CONNRESET` -16 state,
+wlib's `msleep` 0x8B8270 and `growVector(howmany)`; wnet builds with /GX), then step 8 in app/common:
+5f8ba3c tcpconn.cpp's two remaining constructors (by host name 0x828C80, over an accepted socket
+0x829C80); 916b335, 1c44a78, 08e4ab3 `ConnectionManager` declared in connect.h with 17 methods exact
+(app 1009 -> 1028). Every commit gains only; replay 0 differences; `udpreplay conn alex3` PASS.
+Not exact: `Try_Connect` 0x8290A0 (the client repeats the `Handle = 0; return true` tail; 0.75 after
+three forms). Not started: `Add_Connection` 0x822CC0 (needs the peek/stats wrapper classes, vtables
+0xB08590/0xB0854C, and ArgvClass), `Accept_New` 0x822300, the factories 0x821000/0x821450, the RSA
+exchange 0x829180, memconn.cpp. D84 records P-B1 (`~TCPMgr() throw()`); P-B2 (per-file flags) declined
+as not needed. Earlier the same night: the screenshot residue parked (4246727).
+
 ### 2026-10-25 (night): four parallel builders; +654 pairs, 0 lost; D73 imported; 91 packet classes; D80-D82
 
 The first D62 run with four Opus builders at once on disjoint file sets (`.work/run-2026-10-25/plan.md`:
@@ -1004,6 +1019,7 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 | D81 | 2026-10-25 | D75 corrected: 0xBDA908 is the client's pooled `""` string, not a log object; dbgmgr.cpp calls the reporter 0x4BC130 as `("", "", file, ...)`. The `UnknownLogClass`/`UnknownLog` stand-ins in app/wwudp (cordmgr.cpp, bandwidthaccounting.cpp, udpreplay) become plain calls with `""` (follow-up after builder A leaves app/wwudp) | user |
 | D82 | 2026-10-25 | `app/shared/unknown_debug.cpp` (the assert reporters 0x4E9410/0x4E9450) and `unknown_new.cpp` (E&B's operator new/new[]/delete over FastAllocatorGeneral) stay two files although one object in the client, so kerneltest and movietest can define their own reporters without LNK2005 | user |
 | D83 | 2026-10-25 | Builder A's proposals accepted: BinkMovie lives at the top-level `binkmovie/` beside ww3d2 (the client has no path for it); wlib's wstypes.h takes sint8/sint32/uint32 from WWLib's bittype.h so one definition holds program-wide (same bytes, needed for linking); E&B's own tcpcon.cpp (0x8BBA70-0x8BCA50) and tcpqueue.cpp are rebuilt in wnet next, before connect.cpp's factories (RenegadeGR's tcpcon.cpp matches nothing: E&B's TCPCon is an OutputDevice with a lock writing through queues); build.py and `LINK_LIBS` learn the new libraries when a program first needs wlib | user |
+| D84 | 2026-10-26 | wnet's `~TCPMgr()` is declared `throw()`: wnet must build with /GX (TCPMgr::wait, TCPCon and TCPQueue have exception frames) but E&B's destructor has none, and `throw()` is the only form found that makes VC6 omit it. Compiler evidence, not a known source line (P-B1); kept because it gains and loses nothing. Per-file compile flags (P-B2) not added until a library really mixes /GX and none | user |
 
 ## 3. Open decisions
 
@@ -1022,8 +1038,12 @@ client's own code: [kernel-map.md](kernel-map.md) §6. Adding a file: [workflow.
    operator new/delete 0x4E9CB0/0x4E9D10 are open. delta.cpp's `Add` (D11/D40) and the twin
    constructors 0x4A7080/0x4A8150 (uncounted) remain; so do the name tests 0x4ACA90/0x4ACB20 and
    kv_encoder_base's constructor 0x4B3850.
-2. The D73 imports (wlib/wnet, tcpmgr/tcpcon, BinkMovie) unblock kernel-map steps 6 and 8-9
-   (tcpconn.cpp, connect.cpp's factories, the game and login tasks).
+2. Kernel-map step 8 (D73 done; D83): what is left of connect.cpp and its neighbours: `Add_Connection`
+   0x822CC0 (the peek/stats wrapper classes, vtables 0xB08590/0xB0854C, ArgvClass), then `Accept_New`
+   0x822300; 0x822790 (assert line 746) and the vector helper 0x822B50; the factories 0x821000/0x821450;
+   `Try_Connect` 0x8290A0 (the repeated tail); the RSA exchange 0x829180; memconn.cpp (29 functions).
+   Lead: the app's own ArrayList copies (0x778CF0, 0x84F480, 0x85B6F0) match wlib's code but count as
+   `multiple`. Then step 9 (tsk_game.cpp, tsk_login.cpp).
 3. Ship 0x6F66E0: VC6's inline budget (ours inlines the Buff array 0x707040, which the client calls);
    see the M1.3 leftovers in library-matching.md 3.8.
 4. The packet classes' own code 0x85C5F0-0x8B1EB0 (kernel-map step 5 and after).
