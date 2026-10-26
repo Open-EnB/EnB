@@ -64,7 +64,9 @@ uncommitted work: the git tree is authoritative.
 | `annotations.py` | C-equivalent comments for inline assembly, inserted by the importer (module) |
 | `trial.py COPY LIB/FILE... [--keep-if-better] [--max-loss N] [--errors FILE]` | Swap files to another EA copy, verify, keep only if better |
 | `trial_all.py LIB COPY... [--log FILE]` | `trial.py` over every differing header/source pair |
-| `tryvariants.py LIB FILE VARIANTS.py` | Compile text-edit variants of one file; report the client functions each gains or loses |
+| `tryvariants.py LIB FILE VARIANTS.py` | Compile text-edit variants of one file; report the client functions each gains or loses. One library file at its top level only (no app subdirectories): otherwise use `tryv2.py` |
+| `tryv2.py VARIANTS.py` | Variants whose edits span several files (a header and its .cpp, two app files, app subdirectories): `V = {name: [(relpath, old, new)]}`, `COMPILE`, optional `WATCH` addresses; gains/losses per variant, tree files restored. Prefer it for app code |
+| `flagsweep.py FILE SYMBOL ADDR [--source COPY] [--jobs N]` | Compiles FILE (or an untracked COPY of a library file) with every `/O1 /O2` x `/Ob0 /Ob1 /Ob2` x `/G3 /G4 /G5 /G6 /GB` in place of the library's switches (30 compiles, ~1 min on one VM) and ranks exact / `explain.py` class / masked residue: rules switches out in one run. So far no switch has ever fixed a near miss (workflow.md §3.1) |
 | `trydiff.py LIB FILE VARIANTS.py NAME` | Compile one variant and keep its object for `tools/re/objdiff.py` |
 | `zhall.py LIB DONOR [FILE...]` | For each function whose donor copy (Z, G, R) differs, splice it in, compile the file, print gains and losses; restores the file after each try |
 | `addpatch.py --block NAME [--title T] SPEC.py` | Apply patches to the tree and record them in one of importer.py's patch blocks |

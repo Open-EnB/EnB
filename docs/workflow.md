@@ -205,6 +205,11 @@ tools/re/README.md, tools/vc6 and tools/harness/README.md.
   local. `if (f() == 0) return(true); return(false);` gives a plain `sete al`; `return(f() == 0)` doesn't.
   A `goto` to the single return (`Get_Log_Directory`) is how the client leaves a loop.
 
+* **Switches never fixed a near miss** (`tools/vc6/flagsweep.py`, 2026-10-26): Make_Screen_Shot 0x9182C0's
+  U form under all 30 `/O1 /O2` x `/Ob0-2` x `/G3-/G6 /GB` combinations: the library's own `/O2 /Ob2 /GB`
+  is best (5 rows, register-only), nothing exact; Open-BFME's 113 near misses x every `/O /Ob /G /Oy` gave
+  the same (MSVC 7.1). An allocation residue comes from the source: sweep once, then work on the form.
+
 ### 3.2 Templates and STL
 
 * **Pointer/POD instances count only in D54's ambiguous column.** `VectorClass<T *>` members,
@@ -317,8 +322,11 @@ tools/re/README.md, tools/vc6 and tools/harness/README.md.
   callers` on hot functions: `PYTHONIOENCODING=utf-8`, redirect.
 
 * **`tryvariants.py`** rejects app files in subdirectories; its variant strings must use `\n` (it converts
-  them; `\r\n` writes double CRs). `.work/step8b/tryv2.py` handles several files and subdirectories (to be
-  promoted).
+  them; `\r\n` writes double CRs). `tools/vc6/tryv2.py` handles several files and subdirectories: use it
+  for app code.
+* **Parallel compiles on one VM** (`flagsweep.py --jobs`): `vc6._compile`'s object directory was named by
+  pid and millisecond only, so two threads could swap objects (fixed: the thread is in the name); the
+  first sync of a new directory must run alone (one `sync.tar` per VM).
 
 ### 3.7 Harnesses, programs, unattended runs
 

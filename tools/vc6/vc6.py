@@ -245,7 +245,9 @@ def _missing_local_file(text):
 
 
 def _compile(srcs, incs, defines, flags, out, setup=()):
-    stamp = time.strftime('%Y%m%d%H%M%S') + f'_{os.getpid()}_{int(time.time() * 1000) % 1000}'
+    # the thread is in the stamp: two threads compiling on one VM in the same millisecond shared
+    # one object directory and tar (flagsweep.py's parallel jobs got each other's objects)
+    stamp = time.strftime('%Y%m%d%H%M%S') + f'_{os.getpid()}_{threading.get_ident()}_{int(time.time() * 1000) % 1000}'
     objdir = f'{WORK}\\obj_{stamp}'
     cmd = [flags] + [f'/I "{f}"' for f, _ in incs] + [f'/D "{d}"' for d in defines]
     cmd += [f'/Fo"{objdir}\\\\"'] + [f'"{f}"' for f, _ in srcs]
