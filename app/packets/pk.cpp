@@ -749,7 +749,7 @@ PacketClass *Unknown_869790(RawPacketClass *raw)
 			packet = new GuildPlayerInfoDeletedPacketClass(raw);
 			break;
 		case 220:
-			packet = new Packet_00DCClass(raw);
+			packet = new GuildDeductFeePacketClass(raw);
 			break;
 		case 221:
 			packet = new GpsRequestPacketClass(raw);

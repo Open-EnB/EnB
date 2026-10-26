@@ -37,6 +37,7 @@ class VersionRequestPacketClass : public PacketClass  // NAME 3: the client's Pr
 {
 public:
 	VersionRequestPacketClass(RawPacketClass *raw);	// 0x8B1670
+	virtual bool Process_Packet(void *client);	// +0x08 0x868AF0 (clientstub.cpp l.275)
 	char Unknown0C[0x8];	// +0x0C
 };
 
@@ -53,6 +54,7 @@ class LoginPacketClass : public PacketClass  // NAME 2: the reference decoder's 
 {
 public:
 	LoginPacketClass(RawPacketClass *raw);	// 0x89A850
+	virtual bool Process_Packet(void *client);	// +0x08 0x867AA0 (clientstub.cpp l.14)
 	char Unknown0C[0xAC];	// +0x0C
 };
 
@@ -61,6 +63,7 @@ class LogoffPacketClass : public PacketClass  // NAME 2: the reference decoder's
 {
 public:
 	LogoffPacketClass(RawPacketClass *raw);	// 0x89ABE0
+	virtual bool Process_Packet(void *client);	// +0x08 0x867B00 (clientstub.cpp l.20)
 	char Unknown0C[0x4];	// +0x0C
 };
 
@@ -69,6 +72,7 @@ class LogoffRequestPacketClass : public PacketClass  // NAME 2: the reference de
 {
 public:
 	LogoffRequestPacketClass(RawPacketClass *raw);	// 0x89ADF0
+	virtual bool Process_Packet(void *client);	// +0x08 0x867B30 (clientstub.cpp l.23)
 	char Unknown0C[0x4];	// +0x0C
 };
 
@@ -84,6 +88,7 @@ class Packet_00BBClass : public PacketClass  // NAME 1: neutral (D10): opcode 0x
 {
 public:
 	Packet_00BBClass(RawPacketClass *raw);	// 0x89B1D0
+	virtual bool Process_Packet(void *client);	// +0x08 0x867B60 (clientstub.cpp l.26)
 };
 
 // opcode 4 (0x0004, CREATE): vtable 0xB0A140, constructor 0x87FA70, 0x28 bytes
@@ -107,6 +112,7 @@ class StartAckPacketClass : public PacketClass  // NAME 2: the reference decoder
 {
 public:
 	StartAckPacketClass(RawPacketClass *raw);	// 0x8A68B0
+	virtual bool Process_Packet(void *client);	// +0x08 0x867B90 (clientstub.cpp l.29)
 	char Unknown0C[0x4];	// +0x0C
 };
 
@@ -243,6 +249,7 @@ class TurnPacketClass : public PacketClass  // NAME 2: the reference decoder's o
 {
 public:
 	TurnPacketClass(RawPacketClass *raw);	// 0x8AB600
+	virtual bool Process_Packet(void *client);	// +0x08 0x867BC0 (clientstub.cpp l.32)
 	char Unknown0C[0x8];	// +0x0C
 };
 
@@ -251,6 +258,7 @@ class TiltPacketClass : public PacketClass  // NAME 2: the reference decoder's o
 {
 public:
 	TiltPacketClass(RawPacketClass *raw);	// 0x8AAB50
+	virtual bool Process_Packet(void *client);	// +0x08 0x867BF0 (clientstub.cpp l.35)
 	char Unknown0C[0x8];	// +0x0C
 };
 
@@ -259,6 +267,7 @@ class MovePacketClass : public PacketClass  // NAME 2: the reference decoder's o
 {
 public:
 	MovePacketClass(RawPacketClass *raw);	// 0x89D110
+	virtual bool Process_Packet(void *client);	// +0x08 0x867C20 (clientstub.cpp l.38)
 	char Unknown0C[0x8];	// +0x0C
 };
 
@@ -267,6 +276,7 @@ class Packet_0015Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x
 {
 public:
 	Packet_0015Class(RawPacketClass *raw);	// 0x887370
+	virtual bool Process_Packet(void *client);	// +0x08 0x867C50 (clientstub.cpp l.41)
 	virtual int Get_Priority() { return(0x7F); }	// +0x1C 0x86E5B0
 	virtual int Get_Type();	// +0x28 0x8872E0  // NAME 2: what the derived classes' return (their opcode)
 	virtual bool Unknown_2C();	// +0x2C 0x887300
@@ -290,6 +300,7 @@ class RequestTargetPacketClass : public PacketClass  // NAME 2: the reference de
 {
 public:
 	RequestTargetPacketClass(RawPacketClass *raw);	// 0x8A7F40
+	virtual bool Process_Packet(void *client);	// +0x08 0x867CE0 (clientstub.cpp l.50)
 	char Unknown0C[0x8];	// +0x0C
 };
 
@@ -298,6 +309,7 @@ class RequestTargetsTargetPacketClass : public PacketClass  // NAME 2: the refer
 {
 public:
 	RequestTargetsTargetPacketClass(RawPacketClass *raw);	// 0x8A81B0
+	virtual bool Process_Packet(void *client);	// +0x08 0x8689D0 (clientstub.cpp l.257)
 	char Unknown0C[0x8];	// +0x0C
 };
 
@@ -314,6 +326,7 @@ class DebugPacketClass : public PacketClass  // NAME 2: the reference decoder's 
 {
 public:
 	DebugPacketClass(RawPacketClass *raw);	// 0x880340
+	virtual bool Process_Packet(void *client);	// +0x08 0x867CB0 (clientstub.cpp l.47)
 	char Unknown0C[0xC];	// +0x0C
 };
 
@@ -423,6 +436,7 @@ class InventoryMovePacketClass : public PacketClass  // NAME 2: the reference de
 {
 public:
 	InventoryMovePacketClass(RawPacketClass *raw);	// 0x894D50
+	virtual bool Process_Packet(void *client);	// +0x08 0x867D10 (clientstub.cpp l.53)
 	char Unknown0C[0x18];	// +0x0C
 };
 
@@ -431,6 +445,7 @@ class InventorySortPacketClass : public PacketClass  // NAME 2: the reference de
 {
 public:
 	InventorySortPacketClass(RawPacketClass *raw);	// 0x895070
+	virtual bool Process_Packet(void *client);	// +0x08 0x867D40 (clientstub.cpp l.56)
 	char Unknown0C[0x18];	// +0x0C
 };
 
@@ -439,6 +454,7 @@ class ItemStatePacketClass : public PacketClass  // NAME 2: the reference decode
 {
 public:
 	ItemStatePacketClass(RawPacketClass *raw);	// 0x895CA0
+	virtual bool Process_Packet(void *client);	// +0x08 0x867D70 (clientstub.cpp l.59)
 	char Unknown0C[0xC];	// +0x0C
 };
 
@@ -463,6 +479,7 @@ class ActionPacketClass : public PacketClass  // NAME 2: the reference decoder's
 {
 public:
 	ActionPacketClass(RawPacketClass *raw);	// 0x876400
+	virtual bool Process_Packet(void *client);	// +0x08 0x867DD0 (clientstub.cpp l.65)
 	char Unknown0C[0x10];	// +0x0C
 };
 
@@ -471,6 +488,7 @@ class Action2PacketClass : public PacketClass  // NAME 2: the reference decoder'
 {
 public:
 	Action2PacketClass(RawPacketClass *raw);	// 0x8767B0
+	virtual bool Process_Packet(void *client);	// +0x08 0x867E00 (clientstub.cpp l.68)
 	char Unknown0C[0x1C];	// +0x0C
 };
 
@@ -479,6 +497,7 @@ class OptionPacketClass : public PacketClass  // NAME 2: the reference decoder's
 {
 public:
 	OptionPacketClass(RawPacketClass *raw);	// 0x89F510
+	virtual bool Process_Packet(void *client);	// +0x08 0x868AC0 (clientstub.cpp l.272)
 	char Unknown0C[0xC];	// +0x0C
 };
 
@@ -519,6 +538,7 @@ class ClientChatPacketClass : public PacketClass  // NAME 2: the reference decod
 {
 public:
 	ClientChatPacketClass(RawPacketClass *raw);	// 0x8786E0
+	virtual bool Process_Packet(void *client);	// +0x08 0x867DA0 (clientstub.cpp l.62)
 	char Unknown0C[0x14];	// +0x0C
 };
 
@@ -527,6 +547,7 @@ class RequestTimePacketClass : public PacketClass  // NAME 2: the reference deco
 {
 public:
 	RequestTimePacketClass(RawPacketClass *raw);	// 0x8AADE0
+	virtual bool Process_Packet(void *client);	// +0x08 0x867AD0 (clientstub.cpp l.17)
 	char Unknown0C[0x8];	// +0x0C
 };
 
@@ -559,6 +580,7 @@ class MasterJoinPacketClass : public PacketClass  // NAME 2: the reference decod
 {
 public:
 	MasterJoinPacketClass(RawPacketClass *raw);	// 0x897590
+	virtual bool Process_Packet(void *client);	// +0x08 0x8683A0 (clientstub.cpp l.158)
 	char Unknown0C[0x54];	// +0x0C
 };
 
@@ -583,6 +605,7 @@ class Packet_003BClass : public PacketClass  // NAME 1: neutral (D10): opcode 0x
 {
 public:
 	Packet_003BClass(RawPacketClass *raw);	// 0x8A61E0
+	virtual bool Process_Packet(void *client);	// +0x08 0x8683D0 (clientstub.cpp l.161)
 	char Unknown0C[0xC];	// +0x0C
 };
 
@@ -599,6 +622,7 @@ class Packet_003DClass : public PacketClass  // NAME 1: neutral (D10): opcode 0x
 {
 public:
 	Packet_003DClass(RawPacketClass *raw);	// 0x8A64C0
+	virtual bool Process_Packet(void *client);	// +0x08 0x867E90 (clientstub.cpp l.77)
 };
 
 // opcode 66 (0x0042, SERVER_PARAMETERS): vtable 0xB0BB6C, constructor 0x8A5C10, 0x58 bytes
@@ -614,6 +638,7 @@ class RequestTransformChangePacketClass : public PacketClass  // NAME 2: the ref
 {
 public:
 	RequestTransformChangePacketClass(RawPacketClass *raw);	// 0x8A28C0
+	virtual bool Process_Packet(void *client);	// +0x08 0x867EC0 (clientstub.cpp l.80)
 	char Unknown0C[0x30];	// +0x0C
 };
 
@@ -622,6 +647,7 @@ class Packet_0045Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x
 {
 public:
 	Packet_0045Class(RawPacketClass *raw);	// 0x8A2C20
+	virtual bool Process_Packet(void *client);	// +0x08 0x867EF0 (clientstub.cpp l.83)
 };
 
 // opcode 71 (0x0047, CLIENT_SHIP): vtable 0xB0BA18, constructor 0x8A4820, 0x10 bytes
@@ -645,6 +671,7 @@ class Packet_0063Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x
 {
 public:
 	Packet_0063Class(RawPacketClass *raw);	// 0x877D70
+	virtual bool Process_Packet(void *client);	// +0x08 0x868610 (clientstub.cpp l.197)
 	char Unknown0C[0xC];	// +0x0C
 };
 
@@ -653,6 +680,7 @@ class Packet_006CClass : public PacketClass  // NAME 1: neutral (D10): opcode 0x
 {
 public:
 	Packet_006CClass(RawPacketClass *raw);	// 0x89EFC0
+	virtual bool Process_Packet(void *client);	// +0x08 0x868970 (clientstub.cpp l.251)
 	char Unknown0C[0x1C];	// +0x0C
 };
 
@@ -661,6 +689,7 @@ class GlobalConnectPacketClass : public PacketClass  // NAME 2: the reference de
 {
 public:
 	GlobalConnectPacketClass(RawPacketClass *raw);	// 0x8634D0
+	virtual bool Process_Packet(void *client);	// +0x08 0x868850 (clientstub.cpp l.233)
 	char Unknown0C[0x8];	// +0x0C
 };
 
@@ -669,6 +698,7 @@ class GlobalTicketRequestPacketClass : public PacketClass  // NAME 2: the refere
 {
 public:
 	GlobalTicketRequestPacketClass(RawPacketClass *raw);	// 0x8678D0
+	virtual bool Process_Packet(void *client);	// +0x08 0x868940 (clientstub.cpp l.248)
 	char Unknown0C[0x4];	// +0x0C
 };
 
@@ -680,7 +710,7 @@ public:
 	char Unknown0C[0x4C];	// +0x0C
 };
 
-// opcode 112 (0x0070, GLOBAL_AVATAR_LIST): vtable 0xAEFBD0, constructor 0x862D90, 0x20 bytes
+// opcode 112 (0x0070, GLOBAL_AVATAR_LIST): vtable 0xB09368, constructor 0x862D90, 0x20 bytes
 class GlobalAvatarListPacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name GLOBAL_AVATAR_LIST (the Net-7 opcode table; no structure check)
 {
 public:
@@ -693,6 +723,7 @@ class GlobalDeleteCharacterPacketClass : public PacketClass  // NAME 2: the refe
 {
 public:
 	GlobalDeleteCharacterPacketClass(RawPacketClass *raw);	// 0x864820
+	virtual bool Process_Packet(void *client);	// +0x08 0x8688B0 (clientstub.cpp l.239)
 	char Unknown0C[0x8];	// +0x0C
 };
 
@@ -701,6 +732,7 @@ class GlobalCreateCharacterPacketClass : public PacketClass  // NAME 2: the refe
 {
 public:
 	GlobalCreateCharacterPacketClass(RawPacketClass *raw);	// 0x864380
+	virtual bool Process_Packet(void *client);	// +0x08 0x868880 (clientstub.cpp l.236)
 	char Unknown0C[0x2BC];	// +0x0C
 };
 
@@ -709,6 +741,7 @@ class Packet_0073Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x
 {
 public:
 	Packet_0073Class(RawPacketClass *raw);	// 0x865150
+	virtual bool Process_Packet(void *client);	// +0x08 0x8688E0 (clientstub.cpp l.242)
 	char Unknown0C[0x5C];	// +0x0C
 };
 
@@ -717,6 +750,7 @@ class Packet_0074Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x
 {
 public:
 	Packet_0074Class(RawPacketClass *raw);	// 0x866870
+	virtual bool Process_Packet(void *client);	// +0x08 0x868910 (clientstub.cpp l.245)
 	char Unknown0C[0x5C];	// +0x0C
 };
 
@@ -741,6 +775,7 @@ class Packet_7530Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x
 {
 public:
 	Packet_7530Class(RawPacketClass *raw);	// 0x85F2C0
+	virtual bool Process_Packet(void *client);	// +0x08 0x867F20 (clientstub.cpp l.86)
 	char Unknown0C[0x4];	// +0x0C
 };
 
@@ -749,6 +784,7 @@ class Packet_7531Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x
 {
 public:
 	Packet_7531Class(RawPacketClass *raw);	// 0x85F480
+	virtual bool Process_Packet(void *client);	// +0x08 0x868190 (clientstub.cpp l.125)
 };
 
 // opcode 30005 (0x7535, ?): vtable 0xB08EB8, constructor 0x85E750, 0x20 bytes
@@ -756,6 +792,7 @@ class Packet_7535Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x
 {
 public:
 	Packet_7535Class(RawPacketClass *raw);	// 0x85E750
+	virtual bool Process_Packet(void *client);	// +0x08 0x868100 (clientstub.cpp l.116)
 	char Unknown0C[0x14];	// +0x0C
 };
 
@@ -764,6 +801,7 @@ class Packet_7536Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x
 {
 public:
 	Packet_7536Class(RawPacketClass *raw);	// 0x85EA90
+	virtual bool Process_Packet(void *client);	// +0x08 0x868130 (clientstub.cpp l.119)
 	char Unknown0C[0x4];	// +0x0C
 };
 
@@ -772,6 +810,7 @@ class Packet_7538Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x
 {
 public:
 	Packet_7538Class(RawPacketClass *raw);	// 0x85EFC0
+	virtual bool Process_Packet(void *client);	// +0x08 0x868160 (clientstub.cpp l.122)
 	char Unknown0C[0x10];	// +0x0C
 };
 
@@ -780,6 +819,7 @@ class Packet_753CClass : public PacketClass  // NAME 1: neutral (D10): opcode 0x
 {
 public:
 	Packet_753CClass(RawPacketClass *raw);	// 0x8607E0
+	virtual bool Process_Packet(void *client);	// +0x08 0x8682B0 (clientstub.cpp l.143)
 	char Unknown0C[0xC];	// +0x0C
 };
 
@@ -788,6 +828,7 @@ class Packet_753EClass : public PacketClass  // NAME 1: neutral (D10): opcode 0x
 {
 public:
 	Packet_753EClass(RawPacketClass *raw);	// 0x85FBB0
+	virtual bool Process_Packet(void *client);	// +0x08 0x8681F0 (clientstub.cpp l.131)
 	char Unknown0C[0xC];	// +0x0C
 };
 
@@ -796,6 +837,7 @@ class Packet_753FClass : public PacketClass  // NAME 1: neutral (D10): opcode 0x
 {
 public:
 	Packet_753FClass(RawPacketClass *raw);	// 0x85FE60
+	virtual bool Process_Packet(void *client);	// +0x08 0x868220 (clientstub.cpp l.134)
 };
 
 // opcode 30016 (0x7540, ?): vtable 0xB09008, constructor 0x85F8F0, 0x18 bytes
@@ -803,6 +845,7 @@ class Packet_7540Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x
 {
 public:
 	Packet_7540Class(RawPacketClass *raw);	// 0x85F8F0
+	virtual bool Process_Packet(void *client);	// +0x08 0x8681C0 (clientstub.cpp l.128)
 	char Unknown0C[0xC];	// +0x0C
 };
 
@@ -811,6 +854,7 @@ class Packet_7539Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x
 {
 public:
 	Packet_7539Class(RawPacketClass *raw);	// 0x860030
+	virtual bool Process_Packet(void *client);	// +0x08 0x868250 (clientstub.cpp l.137)
 	char Unknown0C[0x4];	// +0x0C
 };
 
@@ -819,6 +863,7 @@ class Packet_753AClass : public PacketClass  // NAME 1: neutral (D10): opcode 0x
 {
 public:
 	Packet_753AClass(RawPacketClass *raw);	// 0x8602C0
+	virtual bool Process_Packet(void *client);	// +0x08 0x868280 (clientstub.cpp l.140)
 	char Unknown0C[0x34];	// +0x0C
 };
 
@@ -827,6 +872,7 @@ class Packet_7541Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x
 {
 public:
 	Packet_7541Class(RawPacketClass *raw);	// 0x862440
+	virtual bool Process_Packet(void *client);	// +0x08 0x868370 (clientstub.cpp l.155)
 	char Unknown0C[0xC];	// +0x0C
 };
 
@@ -835,6 +881,7 @@ class GameEditorRequestPlanetUnitTypesPacketClass : public PacketClass  // NAME 
 {
 public:
 	GameEditorRequestPlanetUnitTypesPacketClass(RawPacketClass *raw);	// 0x860DA0
+	virtual bool Process_Packet(void *client);	// +0x08 0x8682E0 (clientstub.cpp l.146)
 };
 
 // opcode 30025 (0x7549, ?): vtable 0xB091E8, constructor 0x861260, 0x10 bytes
@@ -842,6 +889,7 @@ class Packet_7549Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x
 {
 public:
 	Packet_7549Class(RawPacketClass *raw);	// 0x861260
+	virtual bool Process_Packet(void *client);	// +0x08 0x868310 (clientstub.cpp l.149)
 	char Unknown0C[0x4];	// +0x0C
 };
 
@@ -850,6 +898,7 @@ class GameEditorSaveSectorPacketClass : public PacketClass  // NAME 3: the clien
 {
 public:
 	GameEditorSaveSectorPacketClass(RawPacketClass *raw);	// 0x861E20
+	virtual bool Process_Packet(void *client);	// +0x08 0x868340 (clientstub.cpp l.152)
 };
 
 // opcode 30021 (0x7545, ?): vtable 0xB08E58, constructor 0x85DFB0, 0x48 bytes
@@ -857,6 +906,7 @@ class Packet_7545Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x
 {
 public:
 	Packet_7545Class(RawPacketClass *raw);	// 0x85DFB0
+	virtual bool Process_Packet(void *client);	// +0x08 0x8680D0 (clientstub.cpp l.113)
 	char Unknown0C[0x3C];	// +0x0C
 };
 
@@ -865,6 +915,8 @@ class Packet_0048Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x
 {
 public:
 	Packet_0048Class(RawPacketClass *raw);	// 0x85C5F0
+	virtual bool Process_Packet(void *client);	// +0x08 0x868040 (clientstub.cpp l.104)
+	virtual bool Unknown_28(void *a);	// +0x28 0x868070 (clientstub.cpp l.107)  // NAME 1: neutral (D10)
 	char Unknown0C[0x2D4];	// +0x0C
 };
 
@@ -873,6 +925,7 @@ class Packet_0049Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x
 {
 public:
 	Packet_0049Class(RawPacketClass *raw);	// 0x85D270
+	virtual bool Process_Packet(void *client);	// +0x08 0x8680A0 (clientstub.cpp l.110)
 	char Unknown0C[0x5C];	// +0x0C
 };
 
@@ -897,6 +950,7 @@ class Packet_004BClass : public PacketClass  // NAME 1: neutral (D10): opcode 0x
 {
 public:
 	Packet_004BClass(RawPacketClass *raw);	// 0x89CE70
+	virtual bool Process_Packet(void *client);	// +0x08 0x867F50 (clientstub.cpp l.89)
 	char Unknown0C[0x8];	// +0x0C
 };
 
@@ -905,6 +959,7 @@ class Packet_004DClass : public PacketClass  // NAME 1: neutral (D10): opcode 0x
 {
 public:
 	Packet_004DClass(RawPacketClass *raw);	// 0x85D570
+	virtual bool Process_Packet(void *client);	// +0x08 0x8689A0 (clientstub.cpp l.254)
 	char Unknown0C[0x54];	// +0x0C
 };
 
@@ -913,6 +968,7 @@ class StarbaseRequestPacketClass : public PacketClass  // NAME 2: the reference 
 {
 public:
 	StarbaseRequestPacketClass(RawPacketClass *raw);	// 0x8A2DF0
+	virtual bool Process_Packet(void *client);	// +0x08 0x867F80 (clientstub.cpp l.92)
 	char Unknown0C[0xC];	// +0x0C
 };
 
@@ -937,6 +993,7 @@ class SkillStringRqPacketClass : public PacketClass  // NAME 2: the reference de
 {
 public:
 	SkillStringRqPacketClass(RawPacketClass *raw);	// 0x8A25B0
+	virtual bool Process_Packet(void *client);	// +0x08 0x867FE0 (clientstub.cpp l.98)
 	char Unknown0C[0x8];	// +0x0C
 };
 
@@ -977,6 +1034,7 @@ class SelectTalkTreePacketClass : public PacketClass  // NAME 2: the reference d
 {
 public:
 	SelectTalkTreePacketClass(RawPacketClass *raw);	// 0x8A7670
+	virtual bool Process_Packet(void *client);	// +0x08 0x867FB0 (clientstub.cpp l.95)
 	char Unknown0C[0x8];	// +0x0C
 };
 
@@ -985,6 +1043,7 @@ class Packet_1388Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x
 {
 public:
 	Packet_1388Class(RawPacketClass *raw);	// 0x8A8B20
+	virtual bool Process_Packet(void *client);	// +0x08 0x868400 (clientstub.cpp l.164)
 	char Unknown0C[0x210];	// +0x0C
 };
 
@@ -993,6 +1052,7 @@ class Packet_1389Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x
 {
 public:
 	Packet_1389Class(RawPacketClass *raw);	// 0x8A8E30
+	virtual bool Process_Packet(void *client);	// +0x08 0x868430 (clientstub.cpp l.167)
 	char Unknown0C[0x218];	// +0x0C
 };
 
@@ -1001,6 +1061,7 @@ class Packet_138AClass : public PacketClass  // NAME 1: neutral (D10): opcode 0x
 {
 public:
 	Packet_138AClass(RawPacketClass *raw);	// 0x8A90D0
+	virtual bool Process_Packet(void *client);	// +0x08 0x868460 (clientstub.cpp l.170)
 	char Unknown0C[0x8];	// +0x0C
 };
 
@@ -1009,6 +1070,7 @@ class Packet_138BClass : public PacketClass  // NAME 1: neutral (D10): opcode 0x
 {
 public:
 	Packet_138BClass(RawPacketClass *raw);	// 0x8A9360
+	virtual bool Process_Packet(void *client);	// +0x08 0x868490 (clientstub.cpp l.173)
 	char Unknown0C[0x8];	// +0x0C
 };
 
@@ -1017,6 +1079,7 @@ class Packet_138CClass : public PacketClass  // NAME 1: neutral (D10): opcode 0x
 {
 public:
 	Packet_138CClass(RawPacketClass *raw);	// 0x8A95F0
+	virtual bool Process_Packet(void *client);	// +0x08 0x8684C0 (clientstub.cpp l.176)
 	char Unknown0C[0xC];	// +0x0C
 };
 
@@ -1025,6 +1088,7 @@ class Packet_138DClass : public PacketClass  // NAME 1: neutral (D10): opcode 0x
 {
 public:
 	Packet_138DClass(RawPacketClass *raw);	// 0x8A9800
+	virtual bool Process_Packet(void *client);	// +0x08 0x8684F0 (clientstub.cpp l.179)
 	char Unknown0C[0x10];	// +0x0C
 };
 
@@ -1033,6 +1097,7 @@ class Packet_138EClass : public PacketClass  // NAME 1: neutral (D10): opcode 0x
 {
 public:
 	Packet_138EClass(RawPacketClass *raw);	// 0x8A9BB0
+	virtual bool Process_Packet(void *client);	// +0x08 0x868520 (clientstub.cpp l.182)
 	char Unknown0C[0x10];	// +0x0C
 };
 
@@ -1041,6 +1106,7 @@ class Packet_1391Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x
 {
 public:
 	Packet_1391Class(RawPacketClass *raw);	// 0x8A9E80
+	virtual bool Process_Packet(void *client);	// +0x08 0x868550 (clientstub.cpp l.185)
 	char Unknown0C[0x34];	// +0x0C
 };
 
@@ -1049,6 +1115,7 @@ class VerbRequestPacketClass : public PacketClass  // NAME 2: the reference deco
 {
 public:
 	VerbRequestPacketClass(RawPacketClass *raw);	// 0x8AEB60
+	virtual bool Process_Packet(void *client);	// +0x08 0x868010 (clientstub.cpp l.101)
 	char Unknown0C[0xC];	// +0x0C
 };
 
@@ -1073,6 +1140,7 @@ class Packet_1393Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x
 {
 public:
 	Packet_1393Class(RawPacketClass *raw);	// 0x8AA870
+	virtual bool Process_Packet(void *client);	// +0x08 0x8685B0 (clientstub.cpp l.191)
 };
 
 // opcode 5010 (0x1392, ?): vtable 0xB0BF20, constructor 0x8AA490, 0x18 bytes
@@ -1080,6 +1148,7 @@ class Packet_1392Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x
 {
 public:
 	Packet_1392Class(RawPacketClass *raw);	// 0x8AA490
+	virtual bool Process_Packet(void *client);	// +0x08 0x868580 (clientstub.cpp l.188)
 	char Unknown0C[0xC];	// +0x0C
 };
 
@@ -1088,6 +1157,7 @@ class EquipUsePacketClass : public PacketClass  // NAME 2: the reference decoder
 {
 public:
 	EquipUsePacketClass(RawPacketClass *raw);	// 0x8AE8B0
+	virtual bool Process_Packet(void *client);	// +0x08 0x867C80 (clientstub.cpp l.44)
 	char Unknown0C[0x8];	// +0x0C
 };
 
@@ -1096,6 +1166,7 @@ class AvatarEmotePacketClass : public PacketClass  // NAME 2: the reference deco
 {
 public:
 	AvatarEmotePacketClass(RawPacketClass *raw);	// 0x87E010
+	virtual bool Process_Packet(void *client);	// +0x08 0x8685E0 (clientstub.cpp l.194)
 	char Unknown0C[0x18];	// +0x0C
 };
 
@@ -1128,6 +1199,7 @@ class SkillPacketClass : public PacketClass  // NAME 3: the client's Print text 
 {
 public:
 	SkillPacketClass(RawPacketClass *raw);	// 0x8A4A70
+	virtual bool Process_Packet(void *client);	// +0x08 0x867E30 (clientstub.cpp l.71)
 	char Unknown0C[0xC];	// +0x0C
 };
 
@@ -1136,6 +1208,7 @@ class SkillPacket_88Class : public PacketClass  // NAME 3: the client's Print te
 {
 public:
 	SkillPacket_88Class(RawPacketClass *raw);	// 0x8A4CF0
+	virtual bool Process_Packet(void *client);	// +0x08 0x867E60 (clientstub.cpp l.74)
 	char Unknown0C[0xC];	// +0x0C
 };
 
@@ -1152,6 +1225,7 @@ class UiTriggerPacketClass : public PacketClass  // NAME 2: the reference decode
 {
 public:
 	UiTriggerPacketClass(RawPacketClass *raw);	// 0x8AB880
+	virtual bool Process_Packet(void *client);	// +0x08 0x868820 (clientstub.cpp l.230)
 	char Unknown0C[0x8];	// +0x0C
 };
 
@@ -1168,6 +1242,7 @@ class Packet_0068Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x
 {
 public:
 	Packet_0068Class(RawPacketClass *raw);	// 0x887DB0
+	virtual bool Process_Packet(void *client);	// +0x08 0x868640 (clientstub.cpp l.200)
 	char Unknown0C[0x10];	// +0x0C
 };
 
@@ -1200,6 +1275,7 @@ class ManufactureItemCatagoryPacketClass : public PacketClass  // NAME 2: the re
 {
 public:
 	ManufactureItemCatagoryPacketClass(RawPacketClass *raw);	// 0x89B3C0
+	virtual bool Process_Packet(void *client);	// +0x08 0x868670 (clientstub.cpp l.203)
 	char Unknown0C[0x8];	// +0x0C
 };
 
@@ -1208,6 +1284,7 @@ class ManufactureItemCatagoryPacket_122Class : public PacketClass  // NAME 2: th
 {
 public:
 	ManufactureItemCatagoryPacket_122Class(RawPacketClass *raw);	// 0x89B620
+	virtual bool Process_Packet(void *client);	// +0x08 0x8686A0 (clientstub.cpp l.206)
 	char Unknown0C[0x8];	// +0x0C
 };
 
@@ -1216,6 +1293,7 @@ class ManufactureItemIdPacketClass : public PacketClass  // NAME 2: the referenc
 {
 public:
 	ManufactureItemIdPacketClass(RawPacketClass *raw);	// 0x89B860
+	virtual bool Process_Packet(void *client);	// +0x08 0x8686D0 (clientstub.cpp l.209)
 	char Unknown0C[0x8];	// +0x0C
 };
 
@@ -1224,6 +1302,7 @@ class RefineryItemIdPacketClass : public PacketClass  // NAME 2: the reference d
 {
 public:
 	RefineryItemIdPacketClass(RawPacketClass *raw);	// 0x89BAA0
+	virtual bool Process_Packet(void *client);	// +0x08 0x868700 (clientstub.cpp l.212)
 	char Unknown0C[0x8];	// +0x0C
 };
 
@@ -1232,6 +1311,7 @@ class Packet_007DClass : public PacketClass  // NAME 1: neutral (D10): opcode 0x
 {
 public:
 	Packet_007DClass(RawPacketClass *raw);	// 0x89BD00
+	virtual bool Process_Packet(void *client);	// +0x08 0x868730 (clientstub.cpp l.215)
 	char Unknown0C[0xC];	// +0x0C
 };
 
@@ -1240,6 +1320,7 @@ class ManufactureActionPacketClass : public PacketClass  // NAME 2: the referenc
 {
 public:
 	ManufactureActionPacketClass(RawPacketClass *raw);	// 0x89BF70
+	virtual bool Process_Packet(void *client);	// +0x08 0x868760 (clientstub.cpp l.218)
 	char Unknown0C[0x8];	// +0x0C
 };
 
@@ -1256,6 +1337,7 @@ class ManufactureTechLevelFilterPacketClass : public PacketClass  // NAME 2: the
 {
 public:
 	ManufactureTechLevelFilterPacketClass(RawPacketClass *raw);	// 0x89C3E0
+	virtual bool Process_Packet(void *client);	// +0x08 0x868790 (clientstub.cpp l.221)
 	char Unknown0C[0xC];	// +0x0C
 };
 
@@ -1264,6 +1346,7 @@ class MissionForfeitPacketClass : public PacketClass  // NAME 2: the reference d
 {
 public:
 	MissionForfeitPacketClass(RawPacketClass *raw);	// 0x89C6C0
+	virtual bool Process_Packet(void *client);	// +0x08 0x8687C0 (clientstub.cpp l.224)
 	char Unknown0C[0x8];	// +0x0C
 };
 
@@ -1272,6 +1355,7 @@ class MissionDismissalPacketClass : public PacketClass  // NAME 2: the reference
 {
 public:
 	MissionDismissalPacketClass(RawPacketClass *raw);	// 0x89C900
+	virtual bool Process_Packet(void *client);	// +0x08 0x8687F0 (clientstub.cpp l.227)
 	char Unknown0C[0x8];	// +0x0C
 };
 
@@ -1280,6 +1364,7 @@ class PetitionStuckPacketClass : public PacketClass  // NAME 3: the client's Pri
 {
 public:
 	PetitionStuckPacketClass(RawPacketClass *raw);	// 0x89F860
+	virtual bool Process_Packet(void *client);	// +0x08 0x868A00 (clientstub.cpp l.260)
 	char Unknown0C[0x14];	// +0x0C
 };
 
@@ -1336,6 +1421,7 @@ class IncapacitanceRequestPacketClass : public PacketClass  // NAME 2: the refer
 {
 public:
 	IncapacitanceRequestPacketClass(RawPacketClass *raw);	// 0x871FE0
+	virtual bool Process_Packet(void *client);	// +0x08 0x868A30 (clientstub.cpp l.263)
 	char Unknown0C[0x4];	// +0x0C
 };
 
@@ -1344,6 +1430,7 @@ class Packet_008EClass : public PacketClass  // NAME 1: neutral (D10): opcode 0x
 {
 public:
 	Packet_008EClass(RawPacketClass *raw);	// 0x872200
+	virtual bool Process_Packet(void *client);	// +0x08 0x868A60 (clientstub.cpp l.266)
 	char Unknown0C[0x8];	// +0x0C
 };
 
@@ -1352,6 +1439,7 @@ class Packet_008FClass : public PacketClass  // NAME 1: neutral (D10): opcode 0x
 {
 public:
 	Packet_008FClass(RawPacketClass *raw);	// 0x872450
+	virtual bool Process_Packet(void *client);	// +0x08 0x868A90 (clientstub.cpp l.269)
 	char Unknown0C[0x4];	// +0x0C
 };
 
@@ -1384,6 +1472,7 @@ class TriggerEmotePacketClass : public PacketClass  // NAME 2: the reference dec
 {
 public:
 	TriggerEmotePacketClass(RawPacketClass *raw);	// 0x8860A0
+	virtual bool Process_Packet(void *client);	// +0x08 0x868C40 (clientstub.cpp l.296)
 	char Unknown0C[0x8];	// +0x0C
 };
 
@@ -1440,6 +1529,7 @@ class GalaxyMapRequestPacketClass : public PacketClass  // NAME 2: the reference
 {
 public:
 	GalaxyMapRequestPacketClass(RawPacketClass *raw);	// 0x871350
+	virtual bool Process_Packet(void *client);	// +0x08 0x868C70 (clientstub.cpp l.299)
 	char Unknown0C[0x14];	// +0x0C
 };
 
@@ -1464,6 +1554,7 @@ class WarpPacketClass : public PacketClass  // NAME 2: the reference decoder's o
 {
 public:
 	WarpPacketClass(RawPacketClass *raw);	// 0x8B1BA0
+	virtual bool Process_Packet(void *client);	// +0x08 0x868B20 (clientstub.cpp l.278)
 	char Unknown0C[0x8];	// +0x0C
 };
 
@@ -1480,6 +1571,7 @@ class Starbase_Avatar_ChangePacketClass : public PacketClass  // NAME 3: the cli
 {
 public:
 	Starbase_Avatar_ChangePacketClass(RawPacketClass *raw);	// 0x8A36B0
+	virtual bool Process_Packet(void *client);	// +0x08 0x868B50 (clientstub.cpp l.281)
 	char Unknown0C[0x1C];	// +0x0C
 };
 
@@ -1496,6 +1588,7 @@ class Starbase_Room_ChangePacketClass : public PacketClass  // NAME 3: the clien
 {
 public:
 	Starbase_Room_ChangePacketClass(RawPacketClass *raw);	// 0x8A3D60
+	virtual bool Process_Packet(void *client);	// +0x08 0x868B80 (clientstub.cpp l.284)
 	char Unknown0C[0xC];	// +0x0C
 };
 
@@ -1520,6 +1613,7 @@ class Packet_00B3Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x
 {
 public:
 	Packet_00B3Class(RawPacketClass *raw);	// 0x867250
+	virtual bool Process_Packet(void *client);	// +0x08 0x868BB0 (clientstub.cpp l.287)
 	char Unknown0C[0x14];	// +0x0C
 };
 
@@ -1536,6 +1630,7 @@ class Packet_00B5Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x
 {
 public:
 	Packet_00B5Class(RawPacketClass *raw);	// 0x886D40
+	virtual bool Process_Packet(void *client);	// +0x08 0x868BE0 (clientstub.cpp l.290)
 	char Unknown0C[0x48];	// +0x0C
 };
 
@@ -1544,6 +1639,7 @@ class Packet_00B6Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x
 {
 public:
 	Packet_00B6Class(RawPacketClass *raw);	// 0x887030
+	virtual bool Process_Packet(void *client);	// +0x08 0x868C10 (clientstub.cpp l.293)
 	char Unknown0C[0x4C];	// +0x0C
 };
 
@@ -1568,6 +1664,7 @@ class Packet_00A7Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x
 {
 public:
 	Packet_00A7Class(RawPacketClass *raw);	// 0x87A9E0
+	virtual bool Process_Packet(void *client);	// +0x08 0x868CD0 (clientstub.cpp l.305)
 	char Unknown0C[0x24];	// +0x0C
 };
 
@@ -1576,6 +1673,7 @@ class Packet_00A8Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x
 {
 public:
 	Packet_00A8Class(RawPacketClass *raw);	// 0x87AE80
+	virtual bool Process_Packet(void *client);	// +0x08 0x868DC0 (clientstub.cpp l.320)
 	char Unknown0C[0x5C];	// +0x0C
 };
 
@@ -1584,6 +1682,7 @@ class Packet_00A9Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x
 {
 public:
 	Packet_00A9Class(RawPacketClass *raw);	// 0x87B7C0
+	virtual bool Process_Packet(void *client);	// +0x08 0x868D00 (clientstub.cpp l.308)
 	char Unknown0C[0x74];	// +0x0C
 };
 
@@ -1592,6 +1691,7 @@ class Packet_00AAClass : public PacketClass  // NAME 1: neutral (D10): opcode 0x
 {
 public:
 	Packet_00AAClass(RawPacketClass *raw);	// 0x87C230
+	virtual bool Process_Packet(void *client);	// +0x08 0x868D30 (clientstub.cpp l.311)
 	char Unknown0C[0x8];	// +0x0C
 };
 
@@ -1600,6 +1700,7 @@ class Packet_00ABClass : public PacketClass  // NAME 1: neutral (D10): opcode 0x
 {
 public:
 	Packet_00ABClass(RawPacketClass *raw);	// 0x87C6C0
+	virtual bool Process_Packet(void *client);	// +0x08 0x868D60 (clientstub.cpp l.314)
 	char Unknown0C[0x44];	// +0x0C
 };
 
@@ -1608,6 +1709,7 @@ class Packet_00ACClass : public PacketClass  // NAME 1: neutral (D10): opcode 0x
 {
 public:
 	Packet_00ACClass(RawPacketClass *raw);	// 0x87D2E0
+	virtual bool Process_Packet(void *client);	// +0x08 0x868D90 (clientstub.cpp l.317)
 	char Unknown0C[0x80];	// +0x0C
 };
 
@@ -1616,6 +1718,7 @@ class ClientChatRequestPacketClass : public PacketClass  // NAME 2: the referenc
 {
 public:
 	ClientChatRequestPacketClass(RawPacketClass *raw);	// 0x878B10
+	virtual bool Process_Packet(void *client);	// +0x08 0x868CA0 (clientstub.cpp l.302)
 	char Unknown0C[0x44];	// +0x0C
 };
 
@@ -1648,6 +1751,7 @@ class Packet_00ECClass : public PacketClass  // NAME 1: neutral (D10): opcode 0x
 {
 public:
 	Packet_00ECClass(RawPacketClass *raw);	// 0x8714F0
+	virtual bool Process_Packet(void *client);	// +0x08 0x869570 (clientstub.cpp l.443)
 	char Unknown0C[0x18];	// +0x0C
 };
 
@@ -1656,6 +1760,7 @@ class Packet_00EDClass : public PacketClass  // NAME 1: neutral (D10): opcode 0x
 {
 public:
 	Packet_00EDClass(RawPacketClass *raw);	// 0x871A30
+	virtual bool Process_Packet(void *client);	// +0x08 0x8695A0 (clientstub.cpp l.446)
 	char Unknown0C[0x18];	// +0x0C
 };
 
@@ -1680,6 +1785,7 @@ class Packet_00ADClass : public PacketClass  // NAME 1: neutral (D10): opcode 0x
 {
 public:
 	Packet_00ADClass(RawPacketClass *raw);	// 0x8895E0
+	virtual bool Process_Packet(void *client);	// +0x08 0x868E50 (clientstub.cpp l.329)
 	char Unknown0C[0x24];	// +0x0C
 };
 
@@ -1688,6 +1794,7 @@ class Packet_00AEClass : public PacketClass  // NAME 1: neutral (D10): opcode 0x
 {
 public:
 	Packet_00AEClass(RawPacketClass *raw);	// 0x889940
+	virtual bool Process_Packet(void *client);	// +0x08 0x868E80 (clientstub.cpp l.332)
 	char Unknown0C[0x1C];	// +0x0C
 };
 
@@ -1696,6 +1803,7 @@ class Packet_00AFClass : public PacketClass  // NAME 1: neutral (D10): opcode 0x
 {
 public:
 	Packet_00AFClass(RawPacketClass *raw);	// 0x889BE0
+	virtual bool Process_Packet(void *client);	// +0x08 0x868EB0 (clientstub.cpp l.335)
 	char Unknown0C[0x8];	// +0x0C
 };
 
@@ -1704,6 +1812,7 @@ class Packet_00B0Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x
 {
 public:
 	Packet_00B0Class(RawPacketClass *raw);	// 0x889F30
+	virtual bool Process_Packet(void *client);	// +0x08 0x868EE0 (clientstub.cpp l.338)
 	char Unknown0C[0x34];	// +0x0C
 };
 
@@ -1712,6 +1821,7 @@ class Packet_00B1Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x
 {
 public:
 	Packet_00B1Class(RawPacketClass *raw);	// 0x88ABC0
+	virtual bool Process_Packet(void *client);	// +0x08 0x868F10 (clientstub.cpp l.341)
 	char Unknown0C[0x34];	// +0x0C
 };
 
@@ -1720,6 +1830,7 @@ class CTA_Request_PacketClass : public PacketClass  // NAME 3: the client's Prin
 {
 public:
 	CTA_Request_PacketClass(RawPacketClass *raw);	// 0x86F0F0
+	virtual bool Process_Packet(void *client);	// +0x08 0x868DF0 (clientstub.cpp l.323)
 	char Unknown0C[0xC];	// +0x0C
 };
 
@@ -1752,6 +1863,7 @@ class ConfirmedActionResponsePacketClass : public PacketClass  // NAME 2: the re
 {
 public:
 	ConfirmedActionResponsePacketClass(RawPacketClass *raw);	// 0x870C50
+	virtual bool Process_Packet(void *client);	// +0x08 0x868E20 (clientstub.cpp l.326)
 	char Unknown0C[0xC];	// +0x0C
 };
 
@@ -1760,6 +1872,7 @@ class GuildPlayerOnlinePacketClass : public PacketClass  // NAME 3: the client's
 {
 public:
 	GuildPlayerOnlinePacketClass(RawPacketClass *raw);	// 0x88EE20
+	virtual bool Process_Packet(void *client);	// +0x08 0x8692A0 (clientstub.cpp l.398)
 	char Unknown0C[0x24];	// +0x0C
 };
 
@@ -1768,6 +1881,7 @@ class GuildAdjustContribPacketClass : public PacketClass  // NAME 3: the client'
 {
 public:
 	GuildAdjustContribPacketClass(RawPacketClass *raw);	// 0x88FA00
+	virtual bool Process_Packet(void *client);	// +0x08 0x868FD0 (clientstub.cpp l.353)
 	char Unknown0C[0x14];	// +0x0C
 };
 
@@ -1776,6 +1890,7 @@ class GuildStatusUpdatePacketClass : public PacketClass  // NAME 3: the client's
 {
 public:
 	GuildStatusUpdatePacketClass(RawPacketClass *raw);	// 0x891A20
+	virtual bool Process_Packet(void *client);	// +0x08 0x869150 (clientstub.cpp l.377)
 	char Unknown0C[0x4C];	// +0x0C
 };
 
@@ -1784,6 +1899,7 @@ class GuildBeginCreationPacketClass : public PacketClass  // NAME 3: the client'
 {
 public:
 	GuildBeginCreationPacketClass(RawPacketClass *raw);	// 0x88FE40
+	virtual bool Process_Packet(void *client);	// +0x08 0x869000 (clientstub.cpp l.356)
 	char Unknown0C[0x2C];	// +0x0C
 };
 
@@ -1792,6 +1908,7 @@ class GuildLeaderAcceptClientPacketClass : public PacketClass  // NAME 3: the cl
 {
 public:
 	GuildLeaderAcceptClientPacketClass(RawPacketClass *raw);	// 0x88C6E0
+	virtual bool Process_Packet(void *client);	// +0x08 0x869030 (clientstub.cpp l.359)
 	char Unknown0C[0x18];	// +0x0C
 };
 
@@ -1800,6 +1917,7 @@ class GuildLeaderAcceptSectorPacketClass : public PacketClass  // NAME 3: the cl
 {
 public:
 	GuildLeaderAcceptSectorPacketClass(RawPacketClass *raw);	// 0x890540
+	virtual bool Process_Packet(void *client);	// +0x08 0x869060 (clientstub.cpp l.362)
 	char Unknown0C[0x24];	// +0x0C
 };
 
@@ -1808,6 +1926,7 @@ class GuildRecruitConfirmGuildPacketClass : public PacketClass  // NAME 3: the c
 {
 public:
 	GuildRecruitConfirmGuildPacketClass(RawPacketClass *raw);	// 0x890A00
+	virtual bool Process_Packet(void *client);	// +0x08 0x869090 (clientstub.cpp l.365)
 	char Unknown0C[0x2C];	// +0x0C
 };
 
@@ -1824,6 +1943,7 @@ class GuildRecruitAcceptClientPacketClass : public PacketClass  // NAME 3: the c
 {
 public:
 	GuildRecruitAcceptClientPacketClass(RawPacketClass *raw);	// 0x88CEB0
+	virtual bool Process_Packet(void *client);	// +0x08 0x8690C0 (clientstub.cpp l.368)
 	char Unknown0C[0x8];	// +0x0C
 };
 
@@ -1832,6 +1952,7 @@ class GuildRecruitAcceptSectorPacketClass : public PacketClass  // NAME 3: the c
 {
 public:
 	GuildRecruitAcceptSectorPacketClass(RawPacketClass *raw);	// 0x890F30
+	virtual bool Process_Packet(void *client);	// +0x08 0x8690F0 (clientstub.cpp l.371)
 	char Unknown0C[0x34];	// +0x0C
 };
 
@@ -1840,6 +1961,7 @@ class GuildSimpleGuildSectorPacketClass : public PacketClass  // NAME 3: the cli
 {
 public:
 	GuildSimpleGuildSectorPacketClass(RawPacketClass *raw);	// 0x88F280
+	virtual bool Process_Packet(void *client);	// +0x08 0x868F40 (clientstub.cpp l.344)
 	char Unknown0C[0x1C];	// +0x0C
 };
 
@@ -1856,6 +1978,7 @@ class GuildSimpleClientSectorPacketClass : public PacketClass  // NAME 3: the cl
 {
 public:
 	GuildSimpleClientSectorPacketClass(RawPacketClass *raw);	// 0x88C2D0
+	virtual bool Process_Packet(void *client);	// +0x08 0x868F70 (clientstub.cpp l.347)
 	char Unknown0C[0x18];	// +0x0C
 };
 
@@ -1864,6 +1987,7 @@ class GuildSimpleSectorGuildPacketClass : public PacketClass  // NAME 3: the cli
 {
 public:
 	GuildSimpleSectorGuildPacketClass(RawPacketClass *raw);	// 0x88F6C0
+	virtual bool Process_Packet(void *client);	// +0x08 0x868FA0 (clientstub.cpp l.350)
 	char Unknown0C[0x1C];	// +0x0C
 };
 
@@ -1872,6 +1996,7 @@ class GuildMessageGuildPacketClass : public PacketClass  // NAME 3: the client's
 {
 public:
 	GuildMessageGuildPacketClass(RawPacketClass *raw);	// 0x8914A0
+	virtual bool Process_Packet(void *client);	// +0x08 0x869120 (clientstub.cpp l.374)
 	char Unknown0C[0x34];	// +0x0C
 };
 
@@ -1888,6 +2013,7 @@ class GuildPermissionsPacketClass : public PacketClass  // NAME 3: the client's 
 {
 public:
 	GuildPermissionsPacketClass(RawPacketClass *raw);	// 0x891E90
+	virtual bool Process_Packet(void *client);	// +0x08 0x869180 (clientstub.cpp l.380)
 	char Unknown0C[0x1C];	// +0x0C
 };
 
@@ -1912,6 +2038,7 @@ class GuildRankNamesRequestClientPacketClass : public PacketClass  // NAME 3: th
 {
 public:
 	GuildRankNamesRequestClientPacketClass(RawPacketClass *raw);	// 0x88D8C0
+	virtual bool Process_Packet(void *client);	// +0x08 0x8691B0 (clientstub.cpp l.383)
 	char Unknown0C[0x4];	// +0x0C
 };
 
@@ -1920,6 +2047,7 @@ class GuildRankNamesGuildPacketClass : public PacketClass  // NAME 3: the client
 {
 public:
 	GuildRankNamesGuildPacketClass(RawPacketClass *raw);	// 0x892670
+	virtual bool Process_Packet(void *client);	// +0x08 0x869210 (clientstub.cpp l.389)
 	char Unknown0C[0x1C];	// +0x0C
 };
 
@@ -1928,6 +2056,7 @@ class GuildRankNamesRequestSectorPacketClass : public PacketClass  // NAME 3: th
 {
 public:
 	GuildRankNamesRequestSectorPacketClass(RawPacketClass *raw);	// 0x892180
+	virtual bool Process_Packet(void *client);	// +0x08 0x8691E0 (clientstub.cpp l.386)
 	char Unknown0C[0xC];	// +0x0C
 };
 
@@ -1936,6 +2065,7 @@ class GuildGMRenameConfirmGuildPacketClass : public PacketClass  // NAME 3: the 
 {
 public:
 	GuildGMRenameConfirmGuildPacketClass(RawPacketClass *raw);	// 0x892E10
+	virtual bool Process_Packet(void *client);	// +0x08 0x869240 (clientstub.cpp l.392)
 	char Unknown0C[0x2C];	// +0x0C
 };
 
@@ -1952,6 +2082,7 @@ class GuildGMRenameAcceptSectorPacketClass : public PacketClass  // NAME 3: the 
 {
 public:
 	GuildGMRenameAcceptSectorPacketClass(RawPacketClass *raw);	// 0x893320
+	virtual bool Process_Packet(void *client);	// +0x08 0x869270 (clientstub.cpp l.395)
 	char Unknown0C[0x2C];	// +0x0C
 };
 
@@ -1960,6 +2091,7 @@ class GuildDeletePlayerPacketClass : public PacketClass  // NAME 3: the client's
 {
 public:
 	GuildDeletePlayerPacketClass(RawPacketClass *raw);	// 0x893710
+	virtual bool Process_Packet(void *client);	// +0x08 0x8692D0 (clientstub.cpp l.401)
 	char Unknown0C[0x5C];	// +0x0C
 };
 
@@ -1968,14 +2100,16 @@ class GuildPlayerInfoDeletedPacketClass : public PacketClass  // NAME 3: the cli
 {
 public:
 	GuildPlayerInfoDeletedPacketClass(RawPacketClass *raw);	// 0x893A70
+	virtual bool Process_Packet(void *client);	// +0x08 0x869300 (clientstub.cpp l.404)
 	char Unknown0C[0x64];	// +0x0C
 };
 
-// opcode 220 (0x00DC, ?): vtable 0xB0ADC4, constructor 0x893E80, 0x30 bytes
-class Packet_00DCClass : public PacketClass  // NAME 1: neutral (D10): opcode 0x00DC
+// opcode 220 (0x00DC, ?): vtable 0xB0AD94, constructor 0x893E80, 0x30 bytes
+class GuildDeductFeePacketClass : public PacketClass  // NAME 3: the client's Print text 'GuildDeductFeePacket {' and the PacketClass convention
 {
 public:
-	Packet_00DCClass(RawPacketClass *raw);	// 0x893E80
+	GuildDeductFeePacketClass(RawPacketClass *raw);	// 0x893E80
+	virtual bool Process_Packet(void *client);	// +0x08 0x869330 (clientstub.cpp l.407)
 	char Unknown0C[0x24];	// +0x0C
 };
 
@@ -1984,6 +2118,7 @@ class GpsRequestPacketClass : public PacketClass  // NAME 2: the reference decod
 {
 public:
 	GpsRequestPacketClass(RawPacketClass *raw);	// 0x888020
+	virtual bool Process_Packet(void *client);	// +0x08 0x869480 (clientstub.cpp l.428)
 	char Unknown0C[0x14];	// +0x0C
 };
 
@@ -1992,6 +2127,7 @@ class Packet_00DEClass : public PacketClass  // NAME 1: neutral (D10): opcode 0x
 {
 public:
 	Packet_00DEClass(RawPacketClass *raw);	// 0x8883C0
+	virtual bool Process_Packet(void *client);	// +0x08 0x8694B0 (clientstub.cpp l.431)
 	char Unknown0C[0x18];	// +0x0C
 };
 
@@ -2000,6 +2136,7 @@ class Packet_00DFClass : public PacketClass  // NAME 1: neutral (D10): opcode 0x
 {
 public:
 	Packet_00DFClass(RawPacketClass *raw);	// 0x881A30
+	virtual bool Process_Packet(void *client);	// +0x08 0x8693C0 (clientstub.cpp l.416)
 	char Unknown0C[0x24];	// +0x0C
 };
 
@@ -2008,6 +2145,7 @@ class Packet_00E0Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x
 {
 public:
 	Packet_00E0Class(RawPacketClass *raw);	// 0x8820D0
+	virtual bool Process_Packet(void *client);	// +0x08 0x8693F0 (clientstub.cpp l.419)
 	char Unknown0C[0x2C];	// +0x0C
 };
 
@@ -2016,6 +2154,7 @@ class Packet_00E1Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x
 {
 public:
 	Packet_00E1Class(RawPacketClass *raw);	// 0x881D60
+	virtual bool Process_Packet(void *client);	// +0x08 0x869420 (clientstub.cpp l.422)
 	char Unknown0C[0x2C];	// +0x0C
 };
 
@@ -2024,6 +2163,7 @@ class Packet_00E2Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x
 {
 public:
 	Packet_00E2Class(RawPacketClass *raw);	// 0x882450
+	virtual bool Process_Packet(void *client);	// +0x08 0x869450 (clientstub.cpp l.425)
 	char Unknown0C[0x24];	// +0x0C
 };
 
@@ -2032,6 +2172,7 @@ class Packet_00E3Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x
 {
 public:
 	Packet_00E3Class(RawPacketClass *raw);	// 0x865630
+	virtual bool Process_Packet(void *client);	// +0x08 0x8694E0 (clientstub.cpp l.434)
 	char Unknown0C[0x1C];	// +0x0C
 };
 
@@ -2040,6 +2181,7 @@ class Packet_00E4Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x
 {
 public:
 	Packet_00E4Class(RawPacketClass *raw);	// 0x8658D0
+	virtual bool Process_Packet(void *client);	// +0x08 0x869510 (clientstub.cpp l.437)
 	char Unknown0C[0x1C];	// +0x0C
 };
 
@@ -2048,6 +2190,7 @@ class Packet_00E5Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x
 {
 public:
 	Packet_00E5Class(RawPacketClass *raw);	// 0x865B50
+	virtual bool Process_Packet(void *client);	// +0x08 0x869540 (clientstub.cpp l.440)
 	char Unknown0C[0x14];	// +0x0C
 };
 
@@ -2056,6 +2199,7 @@ class Packet_00E6Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x
 {
 public:
 	Packet_00E6Class(RawPacketClass *raw);	// 0x863940
+	virtual bool Process_Packet(void *client);	// +0x08 0x869360 (clientstub.cpp l.410)
 	char Unknown0C[0x2C];	// +0x0C
 };
 
@@ -2064,6 +2208,7 @@ class Packet_00E7Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x
 {
 public:
 	Packet_00E7Class(RawPacketClass *raw);	// 0x863DC0
+	virtual bool Process_Packet(void *client);	// +0x08 0x869390 (clientstub.cpp l.413)
 	char Unknown0C[0x2C];	// +0x0C
 };
 
@@ -2072,6 +2217,7 @@ class Packet_0077Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x
 {
 public:
 	Packet_0077Class(RawPacketClass *raw);	// 0x866C20
+	virtual bool Process_Packet(void *client);	// +0x08 0x8695D0 (clientstub.cpp l.449)
 	char Unknown0C[0x14];	// +0x0C
 };
 
@@ -2088,6 +2234,7 @@ class Packet_00E8Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x
 {
 public:
 	Packet_00E8Class(RawPacketClass *raw);	// 0x8A55A0
+	virtual bool Process_Packet(void *client);	// +0x08 0x869600 (clientstub.cpp l.452)
 	char Unknown0C[0x8];	// +0x0C
 };
 
@@ -2112,6 +2259,7 @@ class RecustomizeShipDonePacketClass : public PacketClass  // NAME 2: the refere
 {
 public:
 	RecustomizeShipDonePacketClass(RawPacketClass *raw);	// 0x8A01D0
+	virtual bool Process_Packet(void *client);	// +0x08 0x869630 (clientstub.cpp l.455)
 	char Unknown0C[0x164];	// +0x0C
 };
 
@@ -2128,6 +2276,7 @@ class RecustomizeAvatarDonePacketClass : public PacketClass  // NAME 2: the refe
 {
 public:
 	RecustomizeAvatarDonePacketClass(RawPacketClass *raw);	// 0x8A09E0
+	virtual bool Process_Packet(void *client);	// +0x08 0x869660 (clientstub.cpp l.458)
 	char Unknown0C[0x110];	// +0x0C
 };
 

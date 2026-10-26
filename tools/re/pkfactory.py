@@ -52,7 +52,9 @@ def main():
     def ctor_vtable(ctor):
         last = None
         for ins in ci.disasm(ctor, 0x300):
-            if ins.mnemonic == 'mov' and ins.op_str.startswith('dword ptr [') and ', 0x' in ins.op_str:
+            # the object's own vtable is stored at [reg], a member's at [reg + n] or [esp + n]
+            if ins.mnemonic == 'mov' and ins.op_str.startswith('dword ptr [') and ', 0x' in ins.op_str \
+                    and '+' not in ins.op_str.split(']')[0]:
                 v = int(ins.op_str.rsplit(', ', 1)[1], 16)
                 if 0xAD0000 <= v < 0xBA0000:
                     last = v
