@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 28 |
 | 3 | by convention from a client-named file or sibling | 272 |
 | 2 | describes what the code does | 612 |
-| 1 | neutral placeholder | 628 |
+| 1 | neutral placeholder | 622 |
 
 ## For review (score 3 and below)
 
@@ -520,8 +520,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `unknown_debug.h` | `app/shared/unknown_debug.h:30` | neutral file name (D37, D10): the object has no __FILE__ |
 | 1 | `Unknown_Assert_Failed` | `app/shared/unknown_debug.h:33` | untagged neutral name (D10) |
 | 1 | `Unknown_Fail_If_Report` | `app/shared/unknown_debug.h:34` | untagged neutral name (D10) |
-| 1 | `UnknownLogClass` | `app/wwudp/bandwidthaccounting.cpp:26` | placeholder for E&B's log object (cordmgr.cpp) |
-| 1 | `UnknownLog` | `app/wwudp/bandwidthaccounting.cpp:27` | 0xBDA908 |
 | 1 | `Unknown_4BC460` | `app/wwudp/bandwidthaccounting.cpp:29` | the debug window print |
 | 1 | `Unknown_Get_Ticks` | `app/wwudp/bandwidthaccounting.cpp:31` | untagged neutral name (D10) |
 | 1 | `ExtraIn` | `app/wwudp/bandwidthaccounting.cpp:43` | +0x10 Record_In's third argument (0 from the callback) |
@@ -542,9 +540,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown18` | `app/wwudp/cordcon.h:289` | untagged neutral name (D10) |
 | 1 | `Unknown1C` | `app/wwudp/cordcon.h:290` | untagged neutral name (D10) |
 | 1 | `Unknown98` | `app/wwudp/cordcon.h:311` | untagged neutral name (D10) |
-| 1 | `UnknownLogClass` | `app/wwudp/cordmgr.cpp:24` | placeholder for E&B's log object |
-| 1 | `Unknown_4BC130` | `app/wwudp/cordmgr.cpp:27` | untagged neutral name (D10) |
-| 1 | `UnknownLog` | `app/wwudp/cordmgr.cpp:29` | 0xBDA908 |
+| 1 | `Unknown_4BC130` | `app/wwudp/cordmgr.cpp:29` | 0x4BC130 |
 | 1 | `Cord_CRC` | `app/wwudp/cordmgr.cpp:34` | placeholder |
 | 1 | `Unknown04` | `app/wwudp/cordmgr.cpp:56` | untagged neutral name (D10) |
 | 1 | `Unknown0C` | `app/wwudp/cordmgr.cpp:58` | untagged neutral name (D10) |
@@ -642,9 +638,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_8B4510` | `tests/capharness/udpreplay/conn_replay.cpp:96` | untagged neutral name (D10) |
 | 1 | `Unknown_8B4560` | `tests/capharness/udpreplay/conn_replay.cpp:97` | untagged neutral name (D10) |
 | 1 | `Unknown_2C` | `tests/capharness/udpreplay/pk_ctor_stubs.cpp:222` | untagged neutral name (D10) |
-| 1 | `UnknownLogClass` | `tests/capharness/udpreplay/udpreplay.cpp:69` | untagged neutral name (D10) |
-| 1 | `Unknown_4BC130` | `tests/capharness/udpreplay/udpreplay.cpp:72` | untagged neutral name (D10) |
-| 1 | `UnknownLog` | `tests/capharness/udpreplay/udpreplay.cpp:74` | untagged neutral name (D10) |
+| 1 | `Unknown_4BC130` | `tests/capharness/udpreplay/udpreplay.cpp:70` | untagged neutral name (D10) |
 | 2 | `Handle_Input` | `app/client/tasks/tsk_menu.h:33` | what it does |
 | 2 | `volume` | `app/client/tasks/tsk_movie.cpp:18` | BinkSetVolume's argument |
 | 2 | `Add_Movie` | `app/client/tasks/tsk_movie.h:38` | what it does |
