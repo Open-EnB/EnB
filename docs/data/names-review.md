@@ -9,8 +9,8 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 4 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 28 |
-| 3 | by convention from a client-named file or sibling | 314 |
-| 2 | describes what the code does | 746 |
+| 3 | by convention from a client-named file or sibling | 316 |
+| 2 | describes what the code does | 755 |
 | 1 | neutral placeholder | 744 |
 
 ## For review (score 3 and below)
@@ -1022,6 +1022,15 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Channel` | `app/packets/pkauxdata.h:39` | Get_Channel returns it |
 | 2 | `Get_Type` | `app/packets/pkcameracontrol.h:31` | what it returns (the opcode Build sends), as MessageLinePacketClass's |
 | 2 | `EquipUsePacketClass` | `app/packets/pkequipuse.h:22` | the reference decoder's opcode name EQUIP_USE (the Net-7 opcode table; no structure check) |
+| 2 | `Get_Flag_Count` | `app/packets/pkflag.h:27` | what pkflag.cpp's asserts call it (flag_max) |
+| 2 | `Write_Flags` | `app/packets/pkflag.h:29` | what it does |
+| 2 | `Read_Flags` | `app/packets/pkflag.h:30` | what it does |
+| 2 | `Get_Flag_Size` | `app/packets/pkflag.h:31` | what it returns |
+| 2 | `Add_Flagged` | `app/packets/pkflag.h:34` | what it does |
+| 2 | `Get_Flagged` | `app/packets/pkflag.h:35` | what it does |
+| 2 | `Flagged_Size` | `app/packets/pkflag.h:36` | what it returns |
+| 2 | `Set_Flag` | `app/packets/pkflag.h:37` | what it does |
+| 2 | `Is_Flag_Set` | `app/packets/pkflag.h:38` | what it returns |
 | 2 | `Get_Type` | `app/packets/pkgalaxymap.h:33` | what it returns (the opcode Build sends), as MessageLinePacketClass's |
 | 2 | `GalaxyMapRequestPacketClass` | `app/packets/pkgalaxymap.h:42` | the reference decoder's opcode name GALAXY_MAP_REQUEST (the Net-7 opcode table; no structure check) |
 | 2 | `GlobalDeleteCharacterPacketClass` | `app/packets/pkglobaldeletecharacter.h:22` | the reference decoder's opcode name GLOBAL_DELETE_CHARACTER (the Net-7 opcode table; no structure check) |
@@ -1597,6 +1606,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `GameID` | `app/packets/pkequipuse.h:32` | the client's Print text 'GameID=' |
 | 3 | `Inventory` | `app/packets/pkequipuse.h:33` | the client's Print text 'Inventory=' |
 | 3 | `Slot` | `app/packets/pkequipuse.h:34` | the client's Print text 'Slot=' |
+| 3 | `pkflag.h` | `app/packets/pkflag.h:17` | after the client's pkflag.cpp (D57) |
+| 3 | `FlagPacketClass` | `app/packets/pkflag.h:24` | after the client's file pkflag.cpp (D24) |
 | 3 | `Type` | `app/packets/pkgalaxymap.h:35` | the client's Print text 'Type=' |
 | 3 | `Data` | `app/packets/pkgalaxymap.h:36` | the client's Print text 'Data=' |
 | 3 | `Size` | `app/packets/pkgalaxymap.h:37` | the client's Print text 'Size=' |
