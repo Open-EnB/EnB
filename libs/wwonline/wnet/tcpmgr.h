@@ -116,6 +116,7 @@ class TCPMgr {
 
   bit8      getOutgoingConnection(TCPCon **conn, uint32 handle, sint32 wait_secs);
   bit8      getIncomingConnection(TCPCon **conn, uint16 port, sint32 wait_secs);
+  bit8      cancelConnect(uint32 handle);  // E&B 0x8BD940: drops a pending connect  // NAME 2: what it does
 
   bit8      setBufferedWrites(TCPCon *con, bit8 enabled);
   void      pumpWriters(void);  // pump the buffered writer connections

@@ -21,17 +21,18 @@
 
 #include "tcpmgr.h"
 #include "wlib/arraylist.h"
+#include "wlib/odevice.h"
 
 class TCPMgr;
 
-class TCPCon /// : OutputDevice
+class TCPCon : public OutputDevice  // E&B: the base RenegadeGR commented out (0x8BBA70)
 {
  public:
            TCPCon(SOCKET sock);
            ~TCPCon();
 
    SOCKET  getFD(void);
-   void    close(void); 
+   void    close(bit8 now);  // E&B 0x8BBE40: unless now, the buffered writes go first  // NAME 2: what it does
    sint32  write(IN uint8 *msg, uint32 len, sint32 wait_secs=-1);
    sint32  read(OUT uint8 *msg, uint32 maxlen, sint32 wait_secs=-1);
    bit8    unread(uint8 *data, int length);
@@ -43,11 +44,12 @@ class TCPCon /// : OutputDevice
    bit8    setOutputDelay(sint32 delay) { OutputDelay_=delay; return(TRUE); };
 
    // For OutputDevice
-   /// virtual int print(IN char *str, int len); 
+   virtual int print(IN char *str, int len);  // E&B: OutputDevice's (declared; tcpcon.cpp not imported)
 
  private:
    friend  class TCPMgr;
-   void    pumpWrites(void);  // for buffered mode
+   friend  class TCPConnection;  // E&B: tcpconn.cpp pumps the writes (0x829960, 0x829BC0)
+   sint32  pumpWrites(void);  // for buffered mode  // E&B 0x8BC040: returns a value (0x8BBF00 tests it)
    void    setBufferedWrites(TCPMgr *mgrptr, bit8 enabled);
 
    sint32  normalWrite(IN uint8 *msg, uint32 len, sint32 wait_secs=-1);

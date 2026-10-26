@@ -3049,6 +3049,28 @@ WWONLINE_PATCHES = {
          '',
          "as sint8: bittype.h's sint32 / uint32"),
     ],
+    ('wnet', 'tcpcon.h'): [
+        ('#include "wlib/arraylist.h"\n',
+         '#include "wlib/arraylist.h"\n#include "wlib/odevice.h"\n',
+         "E&B's TCPCon is an OutputDevice (wlib odevice.h): its constructor 0x8BBA70 stores the base vtable 0xB0C47C (OutputDevice's scalar destructor 0x8B4450) before its own 0xB0C4C8"),
+        ('class TCPCon /// : OutputDevice\n',
+         'class TCPCon : public OutputDevice  // E&B: the base RenegadeGR commented out (0x8BBA70)\n',
+         "as above; tcpconn.cpp's Disconnect 0x829960 deletes it through slot 0 (`call [eax]` with 1)"),
+        ('   void    close(void); \n',
+         '   void    close(bit8 now);  // E&B 0x8BBE40: unless now, the buffered writes go first  // NAME 2: what it does\n',
+         "0x8BBE40 takes a byte (tcpconn.cpp's Disconnect passes 1): when it is 0 and writes are buffered (+0x34) it pumps them (0x8BC040) until the queue is empty, then shuts the socket down"),
+        ('   /// virtual int print(IN char *str, int len); \n',
+         "   virtual int print(IN char *str, int len);  // E&B: OutputDevice's (declared; tcpcon.cpp not imported)\n",
+         "the OutputDevice base needs it; E&B's tcpcon.cpp is not imported (none of RenegadeGR's functions match)"),
+        ('   friend  class TCPMgr;\n   void    pumpWrites(void);  // for buffered mode\n',
+         '   friend  class TCPMgr;\n   friend  class TCPConnection;  // E&B: tcpconn.cpp pumps the writes (0x829960, 0x829BC0)\n   sint32  pumpWrites(void);  // for buffered mode  // E&B 0x8BC040: returns a value (0x8BBF00 tests it)\n',
+         "E&B's tcpconn.cpp calls pumpWrites 0x8BC040 (Disconnect 0x829960, Transport_Read 0x829BC0), and TCPCon::write 0x8BBF00 uses its result (`neg eax; sbb eax, eax`)"),
+    ],
+    ('wnet', 'tcpmgr.h'): [
+        ('  bit8      getIncomingConnection(TCPCon **conn, uint16 port, sint32 wait_secs);\n',
+         '  bit8      getIncomingConnection(TCPCon **conn, uint16 port, sint32 wait_secs);\n  bit8      cancelConnect(uint32 handle);  // E&B 0x8BD940: drops a pending connect  // NAME 2: what it does\n',
+         "E&B's addition 0x8BD940 (after getIncomingConnection 0x8BD910): finds the pending connection whose handle (+0x10 of its 0x24-byte record) is the argument, closes its socket and removes it (ArrayList remove inlined); tcpconn.cpp's destructor 0x828EC0 and Disconnect 0x829960 call it with their handle (+0x28)"),
+    ],
 }
 for _key, _edits in WWONLINE_PATCHES.items():
     PATCHES.setdefault(_key, []).extend(_edits)
@@ -3311,6 +3333,12 @@ RECONSTRUCTED = {
                                    "ConnectionManager 0x821000-0x8232E0 not rebuilt",
     ('app', 'common/unknown_rate.h'): "PROVISIONAL file name: the bytes-per-second average 0x820830-0x820A20 "
                                       "(Unknown_RateClass, D10), declared only; defined by the program",
+    ('app', 'common/tcpconn.cpp'): "PARTIAL (kernel-map.md step 8): TCPConnection over wnet's TCPCon / TCPMgr "
+                                   "(D73), client 0x828DE0-0x829C40: the constructor by address, the destructor, Connect "
+                                   "(line 119), Try_Connect, Is_Connected, Disconnect, Get_Address, Close, "
+                                   "Transport_Write / Read with their RC4 (lines 440 / 518); the constructors by host "
+                                   "and over a socket, the RSA key exchange and the listener not rebuilt",
+    ('app', 'common/tcpconn.h'): "TCPConnection (vtable 0xB08838, 0x248 bytes, the client's offsets)",
     ('app', 'common/udpconn.h'): "UDPConnection (vtable 0xB088F4, 0xD0 bytes, the client's layout), its channel key, "
                                  "and the CordMgr pump task (vtable 0xB0889C): descriptive names (D24)",
     ('app', 'common/udpconn.cpp'): "PARTIAL: UDPConnection over CordCon and the CordMgr pump task, client "

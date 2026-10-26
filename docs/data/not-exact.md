@@ -7,13 +7,14 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-40 entries in 16 files.
+42 entries in 18 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
 | `app/client/aux_roots.cpp:2` | `UnknownCOClass::Unknown_Create_Aux_Root` | mention | NOT EXACT (D42): functional. NAME 1 [aux_roots.cpp]: provisional file name (the client's constructors are in co.cpp 0x6F6000-0x6FBEF0 and the Player object 0x751BE0) |
 | `app/client/aux_roots.h:12` | `Read` | mention | NOT EXACT (D42): functional; see the generator's docstring for what differs. |
 | `app/client/tasks/tsk_smovie.cpp:113` | `ScriptedMovieTaskClass::Init` | marker | NOT EXACT: the client's loop keeps its test at the top (a jmp back to it); while, for, for (;;) with a break, a goto and ++ in the call all give VC6's rotated loop (the test at the bottom) |
+| `app/common/tcpconn.cpp:137` | `TCPConnection::Try_Connect` | marker | NOT EXACT: the client keeps two copies of `Handle = 0; return(true);` (0x829108, 0x829123); ours shares one. |
 | `app/common/udpconn.cpp:30` | `UDPConnection::UDPConnection` | mention | NOT EXACT): wlib's Dictionary constructor inlined; the difference not traced yet. |
 | `app/common/udpconn.cpp:53` | `UDPConnection::UDPConnection` | mention | NOT EXACT): wlib's Dictionary constructor inlined; the difference not traced yet. |
 | `app/common/udpconn.cpp:75` | `UDPConnection::~UDPConnection` | mention | NOT EXACT): wlib's Dictionary clear inlined; the difference not traced yet. |

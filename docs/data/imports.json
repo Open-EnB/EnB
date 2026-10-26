@@ -1928,6 +1928,23 @@
     "merged": [],
     "name": "shared/stars.cpp"
    },
+   "tcpconn": {
+    "ambiguous": [],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x828DE0",
+     "0x828EC0",
+     "0x828F90",
+     "0x829930",
+     "0x829960",
+     "0x8299D0",
+     "0x829A30",
+     "0x829BC0"
+    ],
+    "merged": [],
+    "name": "common/tcpconn.cpp"
+   },
    "tsk_menu": {
     "ambiguous": [],
     "copy": "reconstructed",
@@ -2128,6 +2145,7 @@
    "client/tasks/tsk_smovie.h": "reconstructed",
    "common/circbuff.h": "reconstructed",
    "common/connect.h": "reconstructed",
+   "common/tcpconn.h": "reconstructed",
    "common/udpconn.h": "reconstructed",
    "common/unknown_rate.h": "reconstructed",
    "kernel/kernel.h": "reconstructed",
@@ -2220,7 +2238,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 731,
+  "in_tree_total": 739,
   "totals": {}
  },
  "binkmovie": {
