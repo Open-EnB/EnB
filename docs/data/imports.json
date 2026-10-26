@@ -2402,7 +2402,9 @@
      "0x8299D0",
      "0x829A30",
      "0x829BC0",
-     "0x829C80"
+     "0x829C80",
+     "0x82A650",
+     "0x82A6C0"
     ],
     "merged": [],
     "name": "common/tcpconn.cpp"
@@ -2750,7 +2752,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 1119,
+  "in_tree_total": 1121,
   "totals": {}
  },
  "binkmovie": {

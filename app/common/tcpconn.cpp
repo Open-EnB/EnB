@@ -576,6 +576,214 @@ TCPConnection::TCPConnection(SOCKET socket) :
 }
 
 
+// TCPListenerClass (vtable 0xB08880): the server's TCP listener; its constructor 0x829E50 (the RSA key
+// file 'server_rsa_keyset.dat'), destructor 0x82A2F0 (assert line 645), key exchange 0x82A830 /
+// 0x82AA10 and the registry pump 0x82A990 aren't rebuilt.
+bool TCPListenerClass::Is_Listening() { return(PortNumber != 0); }
+unsigned short TCPListenerClass::Get_Port() { return(PortNumber); }
+// NOT EXACT: ours merges the two `ret == SOCKET_ERROR` failure tails (lines 706 / 716); the client keeps both.
+bool TCPListenerClass::Listen(unsigned short port)
+{
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	FAIL_IF(port == 0) return(false);
+
+
+	FAIL_IF(Socket != INVALID_SOCKET) return(false);
+
+	Socket = socket(AF_INET, SOCK_STREAM, 0);
+
+
+
+	FAIL_IF(Socket == INVALID_SOCKET) return(false);
+
+	sockaddr_in address;
+	address.sin_family = AF_INET;
+	address.sin_addr.s_addr = INADDR_ANY;
+	address.sin_port = htons(port);
+	if (bind(Socket, (sockaddr *)&address, sizeof(address)) == SOCKET_ERROR) {
+		closesocket(Socket);
+		Socket = INVALID_SOCKET;
+		return(false);
+	}
+
+	int ret = listen(Socket, 256);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	FAIL_IF(ret == SOCKET_ERROR) {
+		closesocket(Socket);
+		Socket = INVALID_SOCKET;
+		return(false);
+	}
+
+	unsigned long on = 1;
+	ret = ioctlsocket(Socket, FIONBIO, &on);
+
+
+	FAIL_IF(ret == SOCKET_ERROR) {
+		closesocket(Socket);
+		Socket = INVALID_SOCKET;
+		return(false);
+	}
+	PortNumber = port;
+	return(true);
+}
+
+bool TCPListenerClass::Stop()
+{
+
+
+
+
+	FAIL_IF(Socket == INVALID_SOCKET) return(false);
+	closesocket(Socket);
+	Socket = INVALID_SOCKET;
+	PortNumber = 0;
+	return(true);
+}
+
+ConnectionClass *TCPListenerClass::Accept()
+{
+	return(Accept(true));
+}
+
+// A finished key exchange (pump), else a new socket: its connection starts the exchange (the
+// server's key, Send_Key) and waits in Pending
+ConnectionClass *TCPListenerClass::Accept(bool pump)
+{
+	if (Socket == INVALID_SOCKET) {
+		return(0);
+	}
+	if (pump) {
+		ConnectionClass *connection = Pump_Pending();
+		if (connection != 0) {
+			return(connection);
+		}
+	}
+	SOCKET s = accept(Socket, 0, 0);
+	if (s == INVALID_SOCKET) {
+		return(0);
+	}
+	unsigned long on = 1;
+	if (ioctlsocket(s, FIONBIO, &on) == SOCKET_ERROR) {
+		closesocket(s);
+		return(0);
+	}
+	TCPConnection *new_connection = new TCPConnection(s);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	FAIL_IF(!new_connection) return(0);
+	Pending.push_back(new_connection);
+	Send_Key(new_connection);
+	return(0);
+}
+
+
 /*
 **	Reconstruction notes (tcpconn.cpp, PARTIAL; docs/kernel-map.md 4, step 8)
 **
@@ -586,8 +794,9 @@ TCPConnection::TCPConnection(SOCKET socket) :
 **	  exchange 0x829180 (assert 'TCP', line 358; 'CONNECT RSA EXCH FAILED: %d : %d': not rebuilt),
 **	  Is_Connected 0x829930, Disconnect 0x829960, Get_Address 0x8299D0, Close 0x829A10,
 **	  Transport_Write 0x829A30 (line 440), Transport_Read 0x829BC0 (line 518), the constructor over an
-**	  accepted socket 0x829C80 (line 564); the listener with its key file 'server_rsa_keyset.dat'
-**	  0x829E00-0x82AA10 (lines 645-780, the server's): not rebuilt.
+**	  accepted socket 0x829C80 (line 564); the listener 0x829E00-0x82AA10 (lines 645-780, the
+**	  server's): Listen 0x82A470, Stop 0x82A650 and Accept 0x82A6A0 / 0x82A6C0 rebuilt; its
+**	  constructor with the key file 'server_rsa_keyset.dat', destructor and key exchange not.
 **	* The TCP layer is WWOnline wnet's TCPMgr / TCPCon (libs\wwonline\wnet, D73): E&B's TCPCon is an
 **	  OutputDevice with a lock and tcpqueue.cpp's queues (wnet's tcpcon.cpp and tcpqueue.cpp),
 **	  TCPMgr::cancelConnect 0x8BD940 is E&B's.

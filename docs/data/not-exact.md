@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-48 entries in 20 files.
+49 entries in 21 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -19,6 +19,7 @@ edit the comments in the code, not this file.
 | `app/common/dbgconn.cpp:154` | `RateConnectionClass::~RateConnectionClass` | marker | NOT EXACT: the client inlines ~ForwardingConnectionClass here (inline in its connect.h; ours is in connect.cpp, see the notes). |
 | `app/common/dbgconn.cpp:183` | `RateConnectionClass::Count` | marker | NOT EXACT: the client stores Index before it loads Time (ours loads Time before the idiv); the slots that inline it (0x824CF0, 0x824D90, 0x824E20, 0x824F50) differ only there. |
 | `app/common/memconn.cpp:183` | `MemoryConnectionClass::Unknown_30` | marker | NOT EXACT: the two null-data asserts share one call; the client keeps the first and jumps from the second. |
+| `app/common/tcpconn.cpp:584` | `TCPListenerClass::Listen` | marker | NOT EXACT: ours merges the two `ret == SOCKET_ERROR` failure tails (lines 706 / 716); the client keeps both. |
 | `app/common/udpconn.cpp:30` | `UDPConnection::UDPConnection` | mention | NOT EXACT): wlib's Dictionary constructor inlined; the difference not traced yet. |
 | `app/common/udpconn.cpp:53` | `UDPConnection::UDPConnection` | mention | NOT EXACT): wlib's Dictionary constructor inlined; the difference not traced yet. |
 | `app/common/udpconn.cpp:75` | `UDPConnection::~UDPConnection` | mention | NOT EXACT): wlib's Dictionary clear inlined; the difference not traced yet. |

@@ -10,8 +10,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 4 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 28 |
 | 3 | by convention from a client-named file or sibling | 276 |
-| 2 | describes what the code does | 703 |
-| 1 | neutral placeholder | 659 |
+| 2 | describes what the code does | 707 |
+| 1 | neutral placeholder | 661 |
 
 ## For review (score 3 and below)
 
@@ -124,6 +124,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `MemoryConnectionFactoryClass` | `app/common/memconn.h:97` | describes what it is |
 | 1 | `TCPConnection` | `app/common/tcpconn.h:27` | after the file tcpconn.cpp (no RTTI or string) |
 | 1 | `Close` | `app/common/tcpconn.h:43` | describes what it does |
+| 1 | `TCPListenerClass` | `app/common/tcpconn.h:58` | after the file tcpconn.cpp |
+| 1 | `Unknown18` | `app/common/tcpconn.h:75` | untagged neutral name (D10) |
 | 1 | `Get_Unknown04` | `app/common/udpconn.cpp:373` | untagged neutral name (D10) |
 | 1 | `Unknown_Create_Packet` | `app/common/udpconn.cpp:556` | untagged neutral name (D10) |
 | 1 | `UDPChannelKeyClass` | `app/common/udpconn.h:35` | describes what it is |
@@ -815,6 +817,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Name` | `app/common/tcpconn.h:51` | what it holds |
 | 2 | `IP` | `app/common/tcpconn.h:52` | what it holds |
 | 2 | `Port` | `app/common/tcpconn.h:53` | what it holds |
+| 2 | `Accept` | `app/common/tcpconn.h:68` | what it does |
+| 2 | `Pump_Pending` | `app/common/tcpconn.h:69` | what it does |
+| 2 | `Send_Key` | `app/common/tcpconn.h:70` | what it does |
+| 2 | `std:` | `app/common/tcpconn.h:74` | what it holds |
 | 2 | `Channel` | `app/common/udpconn.h:37` | what it holds |
 | 2 | `Reliable` | `app/common/udpconn.h:38` | 3 reliable, 4 sequenced |
 | 2 | `Channel` | `app/common/udpconn.h:46` | the CordCon channel openc gave |

@@ -53,4 +53,26 @@ public:
 	unsigned short Port;			// +0x244 network order  // NAME 2: what it holds
 };
 
+// The server's TCP listener (vtable 0xB08880, constructor 0x829E50, 0x918 bytes): a listening socket,
+// the accepted connections still in the RSA key exchange, the server's key pair
+class TCPListenerClass : public ConnectionListenerClass	// NAME 1: after the file tcpconn.cpp
+{
+public:
+	TCPListenerClass();												// 0x829E50 (not rebuilt: loads 'server_rsa_keyset.dat')
+	virtual ~TCPListenerClass();									// +0x00 0x82A2C0 / 0x82A2F0 (not rebuilt)
+	virtual bool Is_Listening();									// +0x04 0x82A280
+	virtual unsigned short Get_Port();								// +0x08 0x82A2A0
+	virtual bool Listen(unsigned short port);						// +0x0C 0x82A470
+	virtual bool Stop();											// +0x10 0x82A650
+	virtual ConnectionClass *Accept();								// +0x14 0x82A6A0: Accept(true)
+	ConnectionClass *Accept(bool pump);								// 0x82A6C0  // NAME 2: what it does
+	ConnectionClass *Pump_Pending();								// 0x82AA10 (not rebuilt): a connection whose exchange finished  // NAME 2: what it does
+	void Send_Key(TCPConnection *connection);						// 0x82A830 (not rebuilt): the server's public key  // NAME 2: what it does
+
+	SOCKET Socket;							// +0x04 (S: the asserts)
+	unsigned short PortNumber;				// +0x08 (S: the asserts)
+	std::list<TCPConnection *> Pending;		// +0x0C  // NAME 2: what it holds
+	char Unknown18[0x918 - 0x18];			// +0x18 the key pair (0x100-byte numbers at +0x18, +0x118 ...)
+};
+
 #endif

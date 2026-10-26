@@ -3380,7 +3380,8 @@ RECONSTRUCTED = {
                                    "(D73), client 0x828DE0-0x829C40: the constructor by address, the destructor, Connect "
                                    "(line 119), Try_Connect, Is_Connected, Disconnect, Get_Address, Close, "
                                    "Transport_Write / Read with their RC4 (lines 440 / 518); the constructors by host "
-                                   "and over a socket, the RSA key exchange and the listener not rebuilt",
+                                   "and over a socket; the listener's Stop / Accept (Listen functional); the RSA key exchange not "
+                                   "rebuilt",
     ('app', 'common/tcpconn.h'): "TCPConnection (vtable 0xB08838, 0x248 bytes, the client's offsets)",
     ('app', 'common/udpconn.h'): "UDPConnection (vtable 0xB088F4, 0xD0 bytes, the client's layout), its channel key, "
                                  "the CordMgr pump task (vtable 0xB0889C), UDPConnectionManager (0xB08934) and the listener "
