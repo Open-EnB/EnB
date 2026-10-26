@@ -152,8 +152,23 @@ LIB_DIR = {
     'wwaudio': {'R': 'WWAudio', 'G': 'WWAudio', 'Z': 'WWAudio'},
     'ww3d2': {'R': 'ww3d2', 'G': 'WW3D2', 'Z': 'WW3D2'},
     'wwshade': {'Z': 'wwshade'},
+    # D73: WWOnline's wlib and wnet (no WWVegas copy: the paths are relative to the copy roots above).
+    # wlib: Zero Hour's matchbot copy (Generals' and the mangler's are the same but for the banner;
+    # Renegade's Code\Tools\wlib too, but for its arraylist.h's addMany/removeMany, written in 2025 from a
+    # DLL: "Implementation was missing from source code", and not compiling with VC6). wnet: matchbot's
+    # udp.cpp (Z) and Renegade's Code\Tools\RenegadeGR tcpmgr.cpp / tcpcon.cpp (R: no other copy has them).
+    'wlib': {'Z': r'..\..\..\Tools\matchbot\wlib'},
+    'wnet': {'Z': r'..\..\..\Tools\matchbot\wnet', 'R': r'Tools\RenegadeGR'},
+    # D73: Renegade's Code\BinkMovie (BINKMovie, the subtitles), 0xA16190-0xA17Bxx
+    'binkmovie': {'R': 'BinkMovie'},
 }
 LIBS = list(LIB_DIR)
+# Where a library lives in the tree when not at the repository root: the client's own paths
+# (e:\build\beta\G\libs\wwonline\wnet\tcpqueue.cpp, D67).
+LIB_TREE = {'wlib': r'libs\wwonline\wlib', 'wnet': r'libs\wwonline\wnet'}
+# Include directories searched after the SDKs, so no header of theirs shadows an existing library's:
+# wnet includes "wlib/wdebug.h" (the libs\wwonline directory), wlib's headers are included by name.
+LATE_INCLUDE_LIBS = ('wlib', 'wnet', 'binkmovie')
 HEADER_EXT = ('.h', '.hpp', '.inl')
 
 # Non-EA libraries (D23): E&B's own code, which no EA copy has. Every file is in RECONSTRUCTED
@@ -2989,6 +3004,22 @@ SHD_BUMP_PATCHES = {
 for _key, _edits in SHD_BUMP_PATCHES.items():
     PATCHES.setdefault(_key, []).extend(_edits)
 # end of SHD_BUMP_PATCHES
+# D73: E&B's changes to WWOnline's wlib and wnet (libs\wwonline), each with the client's evidence
+WWONLINE_PATCHES = {
+    ('wlib', 'critsec.h'): [
+        ('  sint32\t\tlock(int *refcount=NULL) RO;',
+         "  sint32\t\tlock(void) RO;\t\t\t\t\t// E&B: no argument (0x8B4330 `ret`; matchbot's lock(int *refcount=NULL))",
+         "E&B's CritSec::lock 0x8B4330 takes no argument: `push ecx; call [EnterCriticalSection]; xor eax, eax; ret` (matchbot's lock(int *) is `ret 4`); its callers (udpconn.cpp 0x82D420...) push none"),
+    ],
+    ('wlib', 'critsec.cpp'): [
+        ('sint32 CritSec::lock(int *refcount) RO ',
+         'sint32 CritSec::lock(void) RO \t// E&B: no argument (0x8B4330)',
+         "0x8B4330 `ret`, not `ret 4`: E&B's lock takes no argument; the _UNIX branch (not compiled) still names refcount"),
+    ],
+}
+for _key, _edits in WWONLINE_PATCHES.items():
+    PATCHES.setdefault(_key, []).extend(_edits)
+# end of WWONLINE_PATCHES
 # Files reconstructed by us from the client (no EA copy matches): `assemble` keeps the repository's
 # version, and refine leaves them alone. Each entry: (library, file) -> what was done.
 RECONSTRUCTED = {
@@ -3462,7 +3493,7 @@ def plan(ev):
 # ------------------------------------------------------------------------------------------ assemble
 
 def dest(lib):
-    return os.path.join(REPO, lib)
+    return os.path.join(REPO, LIB_TREE.get(lib, lib))
 
 
 def apply_patches(lib, path, name):
@@ -3689,7 +3720,10 @@ def image():
 
 
 def tree_includes():
-    return [dest(l) for l in LIBS if os.path.isdir(dest(l))] + SDK_INCLUDES
+    late = [dest(l) for l in LATE_INCLUDE_LIBS if os.path.isdir(dest(l))]
+    wwonline = [os.path.join(REPO, 'libs', 'wwonline')] if os.path.isdir(os.path.join(REPO, 'libs', 'wwonline')) else []
+    return [dest(l) for l in LIBS if l not in LATE_INCLUDE_LIBS and os.path.isdir(dest(l))] + SDK_INCLUDES + \
+        wwonline + late
 
 
 def compile_and_match(paths, tag, ambiguous=None):

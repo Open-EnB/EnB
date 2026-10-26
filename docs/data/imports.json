@@ -1141,6 +1141,212 @@
   "in_tree_total": 572,
   "totals": {}
  },
+ "wlib": {
+  "ambiguous_total": 7,
+  "base": "Z",
+  "compile_errors": [],
+  "files": {
+   "configfile": {
+    "ambiguous": [],
+    "copy": "Z",
+    "expected": {
+     "Z": 3
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x77B030",
+     "0x850820",
+     "0x8B38D0"
+    ],
+    "merged": [],
+    "name": "configfile.cpp"
+   },
+   "critsec": {
+    "ambiguous": [],
+    "copy": "Z",
+    "expected": {
+     "Z": 0
+    },
+    "headers_from": null,
+    "in_tree": [],
+    "merged": [],
+    "name": "critsec.cpp"
+   },
+   "monod": {
+    "ambiguous": [],
+    "copy": "Z",
+    "expected": {
+     "Z": 3
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x8B4370",
+     "0x8B4410",
+     "0x8B4480"
+    ],
+    "merged": [],
+    "name": "monod.cpp"
+   },
+   "streamer": {
+    "ambiguous": [],
+    "copy": "Z",
+    "expected": {
+     "Z": 6
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x8B4F60",
+     "0x8B5040",
+     "0x8B5060",
+     "0x8B5100",
+     "0x8B51F0",
+     "0x8B5280"
+    ],
+    "merged": [],
+    "name": "streamer.cpp"
+   },
+   "wstring": {
+    "ambiguous": [
+     "0x72C040"
+    ],
+    "copy": "Z",
+    "expected": {
+     "Z": 21
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x8B5EF0",
+     "0x8B5F70",
+     "0x8B6000",
+     "0x8B6070",
+     "0x8B6330",
+     "0x8B6440",
+     "0x8B6520",
+     "0x8B6640",
+     "0x8B6750",
+     "0x8B6CC0",
+     "0x8B6D40",
+     "0x8B6DD0",
+     "0x8B6F50",
+     "0x8B7000",
+     "0x8B7040",
+     "0x8B7200",
+     "0x8B78E0",
+     "0x8B7920",
+     "0x8B7AC0",
+     "0x8B7B80",
+     "0x8B80C0"
+    ],
+    "merged": [],
+    "name": "wstring.cpp"
+   },
+   "wtime": {
+    "ambiguous": [
+     "0x8B81A0",
+     "0x8B81D0",
+     "0x8B9520",
+     "0x8B97B0",
+     "0x8B97F0"
+    ],
+    "copy": "Z",
+    "expected": {
+     "Z": 11
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x8B8150",
+     "0x8B8220",
+     "0x8B8330",
+     "0x8B9570",
+     "0x8B9740",
+     "0x8B9830",
+     "0x8B9880",
+     "0x8B98D0",
+     "0x8B9920",
+     "0x8B9F90",
+     "0x8B9FE0"
+    ],
+    "merged": [],
+    "name": "wtime.cpp"
+   },
+   "xtime": {
+    "ambiguous": [
+     "0x432C00",
+     "0x8B9520",
+     "0x8B97B0",
+     "0x8B97F0"
+    ],
+    "copy": "Z",
+    "expected": {
+     "Z": 30
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x8BA280",
+     "0x8BA300",
+     "0x8BA450",
+     "0x8BA550",
+     "0x8BA680",
+     "0x8BA6F0",
+     "0x8BA8B0",
+     "0x8BA940",
+     "0x8BAD00",
+     "0x8BAD40",
+     "0x8BAD80",
+     "0x8BADC0",
+     "0x8BAE00",
+     "0x8BAE40",
+     "0x8BAE80",
+     "0x8BAED0",
+     "0x8BAF40",
+     "0x8BAFB0",
+     "0x8BB0C0",
+     "0x8BB1D0",
+     "0x8BB2E0",
+     "0x8BB3E0",
+     "0x8BB430",
+     "0x8BB480",
+     "0x8BB4D0",
+     "0x8BB520",
+     "0x8BB5A0",
+     "0x8BB750",
+     "0x8BB7F0",
+     "0x8BB9D0"
+    ],
+    "merged": [],
+    "name": "xtime.cpp"
+   }
+  },
+  "headers": {
+   "arraylist.h": "Z",
+   "configfile.h": "Z",
+   "critsec.h": "Z",
+   "dictionary.h": "Z",
+   "filed.h": "Z",
+   "linkedlist.h": "Z",
+   "mboxd.h": "Z",
+   "monod.h": "Z",
+   "odevice.h": "Z",
+   "sem4.h": "Z",
+   "stderrd.h": "Z",
+   "stdoutd.h": "Z",
+   "streamer.h": "Z",
+   "syslogd.h": "Z",
+   "threadfac.h": "Z",
+   "threadsafe.h": "Z",
+   "timezone.h": "Z",
+   "ustring.h": "Z",
+   "wdebug.h": "Z",
+   "wstring.h": "Z",
+   "wstypes.h": "Z",
+   "wtime.h": "Z",
+   "xtime.h": "Z"
+  },
+  "in_tree_total": 74,
+  "totals": {
+   "Z": 74
+  }
+ },
  "ww3d2": {
   "ambiguous_total": 164,
   "base": "R",
