@@ -41,6 +41,11 @@ Generated data ([data/](data/); regenerate with the tools in `tools/re`):
 | [data/packet-factory.txt](data/packet-factory.txt) | the packet factory's cases (opcode, class, size, constructor) | `pkfactory.py` |
 | [data/vtables-ww3d2.json](data/vtables-ww3d2.json) | WW3D2 class vtables in the client | `vtables.py` (unverified) |
 | [data/not-exact.md](data/not-exact.md) | functions marked `// NOT EXACT:` in the tree (D64) | `names.py` |
+| [data/attempts.csv](data/attempts.csv), [attempts/](attempts/) | the attempt log: every near miss tried and abandoned (status, score, forms, blocker class, evidence) and the stashed forms per address; read before a retry (builders.md §2) | `attempts.py record` (appends; `show`, `list`, `check` read it) |
+
+Near misses: `tools/re/explain.py` classifies one (the classes and their levers: [workflow.md](workflow.md) §3.1's
+table, with the triage order and the two-attempt stop rule), `tools/vc6/flagsweep.py` rules compiler switches
+out, `tools/vc6/tryv2.py` / `tryvariants.py` try source forms.
 
 Tool documentation: [tools/re/README.md](../tools/re/README.md), [tools/vc6/README.md](../tools/vc6/README.md), [tools/harness/README.md](../tools/harness/README.md).
 

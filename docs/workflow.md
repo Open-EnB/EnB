@@ -139,76 +139,68 @@ tools/re/README.md, tools/vc6 and tools/harness/README.md.
 
 ### 3.1 VC6 code generation
 
-* **The inline budget.** Every inline candidate in a file spends the caller's budget, which grows
-  with the caller's size: fewer `Add`s anywhere, dead IL in a callee, an accessor instead of a
-  same-bytes field read, a `SNAPSHOT_SAY` (§3.9) move where inlining stops. Big constructors stop
-  partway (0x700B10, 0x6F85F0 in Ship 0x6F66E0 / Player 0x752510; 0x6F66B0 in the factory
-  0x6F6000). `#pragma inline_depth` doesn't reproduce it; templates use its state at the file's END.
-* **An out-of-line copy right after its first caller is an inline function** not inlined there:
-  make it `inline` (0x6FA150, 0x6FB1E0, 0x707430, 0x6F85F0). `/Ob2` inlines functions defined
-  later in the file too. An EA `WWINLINE` the client calls out of line moves to the .cpp.
-* **Inlining depends on the whole file:** an unrelated edit can swap stack slots elsewhere
-  (0x6FB1E0); re-verify after generator changes. An emptied function (Generals' `#if 0` in
-  `ThumbnailManagerClass::Save`) gets inlined: callers matching the other copy's call point at it.
-* **Many callers missing, one inline to blame:** look for code compiled out in ours (restoring
-  `Is_Disabled`'s `#ifdef G_CODE_BASE` matched 13 callers). One out-of-line `operator==` can hinge
-  on the condition (`!=` keeps it out of line).
-* **Operand order and temporaries.** `elapsed * 0.05F * K` loads the constant first, `step =
-  elapsed * 0.05F; step *= K;` loads `elapsed`; `a == b` vs `b == a`, `Pos > size` vs `size < Pos`
-  differ. A temporary, a local copy of an argument (0x4A3D50) or a member read into a local before
-  a virtual call changes registers; one shared variable reusing a dead argument slot can be what
-  matches (0x4A91E0). `tools/vc6/trydiff.py` keeps a variant's object for `objdiff.py`.
-* **Ctor/dtor forms.** An implicit destructor stores no vtable (a lone `jmp` to the base's); an
-  explicit `{}` one stores it first (0x4AA210). An init list stores members before the vtable,
-  body assignments after it (0x4A8370; `GrowBy`, `HasWildcard` needed the body).
-* **Return forms.** `if (g()) return true; return false;` gives test/setne, `return g();` neg/sbb;
-  a shared `return false` tail is `if (p) {...; return true;} return false;`; separate failure
-  returns share the success tail; an eax-wide 0/1 (Is_Dead) is `return(!a() && !b());`.
-* **Loops and frames.** A for loop gives `jb top`; `jae exit; jmp top` is a do-while behind a count
-  test. A function-scope buffer gives each inlined copy its own frame slot.
-* **Overloaded virtuals are laid out in reverse declaration order.**
-* **A changed base signature shows up as hidden virtuals:** a base function kept in a slot plus an
-  empty own slot (`ret 4`). E&B's `Sound3DClass::Set_Velocity` takes two arguments (`ret 8`), so
-  `SoundPseudo3DClass`'s and `Listener3DClass`'s one-argument overrides became new virtuals.
-* **A displacement can belong to another class:** `DX8PolygonRendererClass`'s `lea ecx,[eax+0xAC]`
-  (client 0x84) was the mesh's, `MeshModelClass`'s layout. Trace the register before patching.
-* **Linkage and float forms.** An inlined `DynamicVectorClass::Add` on a global orders registers by
-  linkage (file-static or not). Two `(float)exp` of one argument merge, `expf` doesn't. `fild qword`
-  (high dword 0) + `fidiv dword` is unsigned `(float)u / (float)v`: such output parameters are
-  `unsigned`.
-* **Reading the client.** `ret 8` with ecx set is a member even if it ignores `this`. `mov dword
-  [..], 0` among register-zero stores is a float. A body equal to two later functions is both
-  inlined (Process_Messages). 0x9CCD10 (`xor eax,eax; ret`) fills pure virtual slots: `= 0`. A
-  static function sits right after its first out-of-line caller (0x4B43E0 after `Pop_Prefix`). A
-  `malloc`'d class size can show extra E&B members (0xE30).
+**Triage.** Classify a near miss first: `python tools/re/explain.py OBJ SYMBOL ADDR` prints one class,
+the first mismatch and the masked residue. Fix the classes in this order, since an earlier one masks
+the later ones: **relocation** (wrong or unresolved target, string or symbol) -> **misplaced start**
+(the window opens like another function's tail) -> **frame** (frame size) -> **field offset** (same
+shape, `[reg+N]` differs) -> **literal** -> **register-only** / **order-only** -> **inline budget**
+(a callee called at one site and inlined at another; `??_H` temporaries) -> **shape**. Before any
+retry read `python tools/re/attempts.py show ADDR` (builders.md §2). Switches: one
+`tools/vc6/flagsweep.py` run rules them out (none has ever fixed a near miss, row below); never loop it.
 
-* **What VC6's inline budget counts (builders C and D, 2026-10-25).** A dead inlined call spends it
-  without emitting code: an unused `int index = Children.size();` made `DeltaCompoundClass::Add`
-  0x4A5670 exact by pushing the insert's last `size()` out of line; a dead call *after* the call
-  site changes earlier inlining too. The budget counts loops inside inlined callees even when the
-  body is an empty release `WWASSERT`; empty `WWASSERT`s and dead loops in the caller itself count
-  for nothing. Tiny accessors tip it: `view[r][c]` (two inline `operator[]`) against `view[r].X`
-  flipped `PointGroupClass::Render` 0x954960. Symptoms: a callee called at one site but inlined
-  at a later one (or the reverse); a `Transpose`'s `Vector4()` through `??_H` at only one site
-  with every stack slot moved.
-* **Placement `new[]` in VC6:** declaring `operator new[]` in a file makes VC6 resolve wwlib
-  vector.h's placement array new to it (C2660). Declare the allocator's members instead of
-  including FastAllocator.h (app/shared/unknown_new.cpp).
-* **Initialiser lists and vtables:** in a constructor the base's vtable store comes first and is
-  dropped; the class's own vtable is stored after its members (the packet classes, builder B).
+**Two-attempt stop rule.** After two failed attempts on a register-only or order-only residue,
+record it (`attempts.py record ADDR ... --status parked --blocker register|order --forms N
+--evidence ...`, stash the best form) and move on; a third attempt is a Fable job under D72
+(builders.md §4), not another Opus round. Make_Screen_Shot 0x9182C0 took ~110 forms to learn this.
 
-* **Step 8's forms (2026-10-26):** `it++` in a loop that callers inline spends their inline budget (`++it`
-  matched Release and the listener destructor). `push_back(T(x))` keeps 0 in a register and calls insert
-  out of line; three field stores into a named local don't. `ret N` with ecx never read is still a member
-  function. A helper the client keeps out of line with no caller is a global, not a static (statics vanish
-  when inlined). A temporary helper object (`X().Unregister(p)`) gets a different frame slot from a named
-  local. `if (f() == 0) return(true); return(false);` gives a plain `sete al`; `return(f() == 0)` doesn't.
-  A `goto` to the single return (`Get_Log_Directory`) is how the client leaves a loop.
-
-* **Switches never fixed a near miss** (`tools/vc6/flagsweep.py`, 2026-10-26): Make_Screen_Shot 0x9182C0's
-  U form under all 30 `/O1 /O2` x `/Ob0-2` x `/G3-/G6 /GB` combinations: the library's own `/O2 /Ob2 /GB`
-  is best (5 rows, register-only), nothing exact; Open-BFME's 113 near misses x every `/O /Ob /G /Oy` gave
-  the same (MSVC 7.1). An allocation residue comes from the source: sweep once, then work on the form.
+| Symptom (what the diff or `explain.py` shows) | Lever (the source change that fixed it) | Proven (address, commit) |
+|---|---|---|
+| **inline budget** | | |
+| A callee called at one site, inlined at another (or the reverse); a big constructor stops inlining partway | Every inline candidate in a file spends the caller's budget, which grows with the caller's size: fewer `Add`s anywhere, dead IL in a callee, an accessor instead of a same-bytes field read, a `SNAPSHOT_SAY` (§3.9) move where inlining stops. `#pragma inline_depth` doesn't reproduce it; templates use its state at the file's END | 0x700B10, 0x6F85F0 in Ship 0x6F66E0 / Player 0x752510; 0x6F66B0 in the factory 0x6F6000 (Ship still open: `attempts.py show 0x6F66E0`) |
+| The client calls a callee out of line (the insert's last `size()`) that ours inlines | A dead inlined call spends the budget without emitting code: an unused `int index = Children.size();` before the call; a dead call *after* the call site changes earlier inlining too | `DeltaCompoundClass::Add` 0x4A5670, c0ae2f0 (D40) |
+| Inlining differs although the caller's own code is the same | The budget counts loops inside inlined callees, even when the body is an empty release `WWASSERT`; empty `WWASSERT`s and dead loops in the caller itself count for nothing | builder C, 2026-10-25 (95f350d `Process_Foreground_Load` 0x949C60) |
+| A `Transpose`'s `Vector4()` through `??_H` at only one site, every stack slot moved | Tiny accessors tip the budget: `view[r][c]` (two inline `operator[]`) against `view[r].X` | `PointGroupClass::Render` 0x954960, f9ae6b9 |
+| Callers that inline a loop function call others out of line | `it++` in the loop spends their budget: `++it` | Release 0x826870 and the listener destructors, ba71802 |
+| An out-of-line copy right after its first caller | It is an inline function not inlined there: make it `inline`. `/Ob2` inlines functions defined later in the file too; an EA `WWINLINE` the client calls out of line moves to the .cpp | 0x6FA150, 0x6FB1E0, 0x707430, 0x6F85F0 (6d32dcd, d64612e) |
+| Stack slots swap in a function you didn't touch | Inlining depends on the whole file: an unrelated edit moves it; re-verify after generator changes. An emptied function (Generals' `#if 0` in `ThumbnailManagerClass::Save`) gets inlined: callers matching the other copy's call point at it | 0x6FB1E0 |
+| Many callers missing, one inline to blame | Look for code compiled out in ours: restoring `Is_Disabled`'s `#ifdef G_CODE_BASE` matched 13 callers. One out-of-line `operator==` can hinge on the condition (`!=` keeps it out of line) | 8e78c70 |
+| A helper the client keeps out of line with no caller | A global, not a static (statics vanish when inlined) | connect.cpp's host helpers 0x821890 / 0x821900, step 8 |
+| **register-only, order-only** (two attempts, then the stop rule) | | |
+| A constant loaded before a variable, or the reverse | Operand order: `elapsed * 0.05F * K` loads the constant first, `step = elapsed * 0.05F; step *= K;` loads `elapsed`; `a == b` vs `b == a`, `Pos > size` vs `size < Pos` differ (D18/D28: operand-order noise elsewhere) | |
+| Registers differ around a call or an argument | A temporary, a local copy of an argument or a member read into a local before a virtual call changes registers; one shared variable reusing a dead argument slot can be what matches. `tools/vc6/trydiff.py` keeps a variant's object for `objdiff.py` / `explain.py` | 0x4A3D50 (f2f2a08), 0x4A91E0 (e093a67), Accept 0x82A6C0 (663057c) |
+| A different frame slot for a helper object | A temporary (`X().Unregister(p)`) gets another slot than a named local | step 8 (memconn.cpp) |
+| Registers of an inlined `DynamicVectorClass::Add` on a global | The global's linkage (file-static or not) orders them | |
+| A load-order / allocation residue no local form moves | VC6 collapses local rewrites into a few canonical outputs; the lever is function-wide (other locals, a shared helper) or nowhere: stop after two attempts | Make_Screen_Shot 0x9182C0 / Update_Movie_Capture 0x918B20, parked (4246727; `attempts.py show 0x9182C0`) |
+| Any residue, tried with compiler switches | No switch has fixed one: Make_Screen_Shot's U form under all 30 `/O1 /O2` x `/Ob0-2` x `/G3-/G6 /GB` (`flagsweep.py`, 2026-10-26: the library's own `/O2 /Ob2 /GB` best, 5 rows, nothing exact); Open-BFME's 113 near misses x every `/O /Ob /G /Oy` (MSVC 7.1). An allocation residue comes from the source | 996b68a |
+| **shape: returns, tails, loops** | | |
+| test/setne against neg/sbb; shared or separate `return false` tails | `if (g()) return true; return false;` gives test/setne, `return g();` neg/sbb; a shared `return false` tail is `if (p) {...; return true;} return false;`; separate failure returns share the success tail; an eax-wide 0/1 (Is_Dead) is `return(!a() && !b());` | |
+| A plain `sete al` | `if (f() == 0) return(true); return(false);`; `return(f() == 0)` doesn't give it | step 8 |
+| The client repeats a success tail (`Handle = 0; return true` three times) | A return inside each success block (one common tail, an `ok` flag or `&&` chains merge it) | `Try_Connect` 0x8290A0, 5285298 |
+| Ours merges two failure tails the client keeps (`explain.py`: "the same callees, N vs M calls") | Open: `Listen` 0x82A470, the memconn option slot 0x826D00 (`attempts.py list --blocker shape`) | |
+| The client leaves a loop by a jump to the single return | A `goto` to the single return | `Get_Log_Directory`, 6063d9e |
+| `jb top` against `jae exit; jmp top` | A for loop gives `jb top`; `jae exit; jmp top` is a do-while behind a count test | the array templates' loops, 1945314 |
+| `push_back` keeps 0 in a register and calls insert out of line | `push_back(T(x))`; three field stores into a named local don't | step 8 |
+| **frame** | | |
+| Each inlined copy has its own buffer slot | A function-scope buffer (`char item_name[256]` at the constructor's top) gives each inlined copy its own frame slot | 0x752E60 (frame 0x218, not 0x118) |
+| The frame size differs (`explain.py`: frame) | The frame counts every local: a difference names a local too many or too few (a second RECT grew Make_Screen_Shot's by 0x10; the distortion draw's client frame is 0x18 bigger: locals not found) | 0x9182C0, 0x9961E0 (`attempts.py show`) |
+| **constructors, destructors, vtables** | | |
+| A destructor that is a lone `jmp` to the base's, or one that stores the vtable first | An implicit destructor stores no vtable; an explicit `{}` one stores it first | 0x4AA210 |
+| Members stored before or after the vtable | An init list stores members before the vtable, body assignments after it (`GrowBy`, `HasWildcard` needed the body); the base's vtable store comes first and is dropped, the class's own is stored after its members | 0x4A8370 (bb241e2); the packet classes (builder B, 2026-10-25) |
+| Virtual slots in the wrong order | Overloaded virtuals are laid out in reverse declaration order | dbgconn.cpp's two `Describe` (6063d9e) |
+| A base function kept in a slot plus an empty own slot (`ret 4`) | A changed base signature hides the virtual: E&B's `Sound3DClass::Set_Velocity` takes two arguments (`ret 8`), so `SoundPseudo3DClass`'s and `Listener3DClass`'s one-argument overrides became new virtuals | f0a3f78 |
+| **field offset** | | |
+| `[reg+N]` differs in otherwise equal code | The displacement can belong to another class: `DX8PolygonRendererClass`'s `lea ecx,[eax+0xAC]` (client 0x84) was the mesh's, `MeshModelClass`'s layout. Trace the register before patching; `tools/re/layoutdiff.py` tallies offsets per class | |
+| A `malloc`'d size larger than the class | Extra E&B members | `FastAllocatorGeneral` 0xE30, 9850f75 |
+| **literal, floats** | | |
+| One `exp` call where ours has two (or the reverse) | Two `(float)exp` of one argument merge, `expf` doesn't | |
+| `fild qword` (high dword 0) + `fidiv dword` | Unsigned `(float)u / (float)v`: such output parameters are `unsigned` | |
+| `mov dword [..], 0` among register-zero stores | That member is a float | |
+| **reading the client** | | |
+| `ret 8` / `ret N` with ecx set, or never read | Still a member function, even if it ignores `this` | |
+| A body equal to two later functions | Both are inlined into it (Process_Messages) | |
+| 0x9CCD10 (`xor eax,eax; ret`) in a vtable | A pure virtual slot: `= 0` | |
+| A static function right after an unrelated one (misplaced start) | A static sits right after its first out-of-line caller | 0x4B43E0 after `Pop_Prefix` |
+| C2660 on wwlib vector.h's placement `new[]` | Declaring `operator new[]` in a file makes VC6 resolve it there: declare the allocator's members instead of including FastAllocator.h | app/shared/unknown_new.cpp, 27812b5 |
 
 ### 3.2 Templates and STL
 
