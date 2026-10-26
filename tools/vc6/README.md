@@ -23,6 +23,7 @@ A job takes its VMs from `ENB_VC6_HOSTS=Daniel@<ip>[,...]` (printed by `pool.py 
 | `pool.py stop-idle [--minutes M]` | Stop free VMs idle for M minutes |
 | `pool.py create [N] [--max M]` | Make N differencing clones of the base disk |
 | `pool.py destroy VM...` or `--all-free` | Delete pool clones (never other VMs) |
+| `commit_mine.py MSGFILE SPEC.json [--base HEAD]` | Commit only your own work when the index is shared with other builders (D62): the `whole` paths as they are, plus only the hunks of shared files (`importer.py`, headers, `docs/data/*`) whose +/- lines contain your keywords; built in a private index, then the shared index is pointed at the new HEAD for those paths |
 
 ## Building and linking
 

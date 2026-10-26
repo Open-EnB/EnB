@@ -51,9 +51,17 @@ base image. VMs are addressed by IP (clones share a computer name).
 
 **Git.** Never `importer.py assemble`; never push; never `git reset --hard`, `git checkout -- .`
 or `git clean` on anything you didn't create. `git add` only your files, by name (never `-A` or
-`.`; `.claude/settings.json` stays out). Commit each finished, working piece right away: one
-imperative subject stating the evidence or gain (see `git log`), counts before -> after; end the
-message with the `Co-Authored-By` line your harness gives you (D71).
+`.`; `.claude/settings.json` stays out). **The index is shared with the other builders**: a bare
+`git commit` takes whatever they have staged, and a path commit (`git commit -- <files>`) takes the
+whole working-tree copy of a shared file, other builders' uncommitted hunks included. So: files
+only you touch, `git add <files> && git commit -- <the same files>`; any commit that includes a
+shared file (`tools/vc6/importer.py`, app headers, `stubs/*`, `docs/data/*`, `docs/library-matching.md`)
+goes through `python tools/vc6/commit_mine.py MSGFILE SPEC.json` (your whole files plus only your
+hunks of the shared ones, by keyword; it builds the commit in a private index). Never `git reset`,
+`commit --amend` or `commit-tree` to repair a sweep: report it.
+Commit each finished, working piece right away: one imperative subject stating the evidence or
+gain (see `git log`), counts before -> after; end the message with the `Co-Authored-By` line your
+harness gives you (D71).
 
 **Scripts and docs.** Python with backslashes goes through the Write tool, never a shell heredoc
 (escapes get mangled). Keep each file's existing line endings: the Write tool and Git Bash
