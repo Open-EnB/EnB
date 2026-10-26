@@ -374,6 +374,19 @@ public:
 	DeltaTemplateClass<DurationClass> ExpirationTime;	// +0x2C0
 };
 
+// vtable 0xB01EBC: DeltaItemArrayClass<DeltaElementClass> (vtable 0xB01F18) with a vtable and per-class global of its own (e.g. Ship.BuffArray.N.Elements): the client builds the base, then stores the two
+// NAME 3: Net-7 AuxElements at the same place in the tree, its child count differs (Net-7 Construct 4 children != ours 5)
+class DeltaElementsClass : public DeltaItemArrayClass<DeltaElementClass>
+{
+public:
+	DeltaElementsClass(const char *name, unsigned int count) : DeltaItemArrayClass<DeltaElementClass>(name, count)
+	{
+		m_Unknown04 = UnknownGlobal;
+	}
+
+	static int UnknownGlobal;	// the per-class global at +0x04
+};
+
 // vtable 0xB01E60 (e.g. Ship.BuffArray.N)
 // NAME 4: Net-7 AuxBuff confirmed by structure (C# fields = ours (same names, same order); Net-7 Construct 5 children = ours); C# Buff
 class DeltaBuffClass : public DeltaCompoundClass
@@ -398,7 +411,20 @@ public:
 	DeltaStringClass ScrubTypeName;	// +0x124
 	DeltaTemplateClass<bool> IsPermanent;	// +0x1AC
 	DeltaTemplateClass<DurationClass> BuffRemovalTime;	// +0x238
-	DeltaItemArrayClass<DeltaElementClass> Elements;	// +0x2C8
+	DeltaElementsClass Elements;	// +0x2C8
+};
+
+// vtable 0xB00B0C: DeltaItemArrayClass<DeltaBuffClass> (vtable 0xB01A98, constructor 0x707040) with a vtable and per-class global of its own (e.g. Ship.BuffArray): the client builds the base, then stores the two
+// NAME 3: Net-7 AuxBuffs at the same place in the tree, its child count differs (Net-7 Construct 16 children != ours 15)
+class DeltaBuffsClass : public DeltaItemArrayClass<DeltaBuffClass>
+{
+public:
+	DeltaBuffsClass(const char *name, unsigned int count) : DeltaItemArrayClass<DeltaBuffClass>(name, count)
+	{
+		m_Unknown04 = UnknownGlobal;
+	}
+
+	static int UnknownGlobal;	// the per-class global at +0x04
 };
 
 // vtable 0xB00AB0 (e.g. Ship.BaseStats)
@@ -513,7 +539,7 @@ public:
 	int m_Unknown2394;	// +0x2394  // NAME 1: neutral (D10): a member, not a field of the tree
 	int m_Unknown2398;	// +0x2398  // NAME 1: neutral (D10): a member, not a field of the tree
 	DeltaLegoClass Legos;	// +0x239C
-	DeltaItemArrayClass<DeltaBuffClass> BuffArray;	// +0x255C
+	DeltaBuffsClass BuffArray;	// +0x255C
 	DeltaStatsClass BaseStats;	// +0x25F8
 	DeltaStatsClass CurrentStats;	// +0x2E8C
 	DeltaTemplateClass<int> EngineThrustState;	// +0x3720

@@ -3,6 +3,10 @@
 // NAME 1 [aux_roots.cpp]: provisional file name (the client's constructors are in co.cpp 0x6F6000-0x6FBEF0 and the Player object 0x751BE0)
 #include "aux_roots.h"
 
+int DeltaElementsClass::UnknownGlobal;
+
+int DeltaBuffsClass::UnknownGlobal;
+
 // the CREATE factory (0x6F6000)
 UnknownRootClass *UnknownCOClass::Unknown_Create_Aux_Root(int type, int unknown)
 {

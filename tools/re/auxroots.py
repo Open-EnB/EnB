@@ -63,9 +63,16 @@ SEND_ROOTS = {'Player'}     # derived from UnknownSendRootClass (unknown_root.h)
 # aux_roots.cpp): the client's out-of-line copies follow the factory 0x6F6000, their first caller
 # (Ship 0x6F66E0 right after it), and the factory is exact only so (with 1.0f in ARRAY_VALUES).
 # Nested constructors generated out of line and NOT inline (the rest are `inline`: see Gen.compound).
-# Element (0x707430): the client's is inline too, but its only caller, the Buff array 0x707040, is
-# called by the client's Ship and inlined by ours, which then inlines Element and loses 0x707430.
+# Element (0x707430): the client's is inline too, but its only caller is the Buff array 0x707040,
+# into which ours does not inline the Elements array's base (ARRAY_DERIVED; the client does), so
+# an inline Element is lost there (0x707430); plain, it stays exact.
 OOLINE_PLAIN = {0xB01F74}
+# Arrays whose class derives from the template instance: the client calls the instance's
+# constructor and then stores the array's own vtable and per-class global (Ship's BuffArray:
+# 0x707040 stores 0xB01A98, Ship 0x6F73DA then 0xB00B0C and [0xC41600]; the two vtables differ
+# only in the destructor slot). Array vtable -> (instance vtable, instance constructor).
+ARRAY_DERIVED = {0xB00B0C: (0xB01A98, 0x707040),
+                 0xB01EBC: (0xB01F18, None)}     # the Buff's Elements (0x7071F7, 0x707292: the base inlined)
 # The value arrays' elements start from (delta_array.h's third argument), which auxextract doesn't
 # record (a stack temporary): VisibleQuadrantDamagePercent's 1.0f (Ship 0x6F700D, Hulk 0x6F60FD).
 ARRAY_VALUES = {'VisibleQuadrantDamagePercent': '1.0f'}
@@ -285,6 +292,23 @@ class Gen:
                 inst = f'DeltaArrayClass<{ecls[len("DeltaTemplateClass<"):-1]}>'
             elif el['type'] == 'struct' and ecls != 'DeltaInterpolatorClass' and el.get('mask') is None:
                 inst = f'DeltaItemArrayClass<{ecls}>'
+            if inst is not None and vt in ARRAY_DERIVED:
+                # a class of its own derived from the template instance (see ARRAY_DERIVED)
+                base_vt, base_ctor = ARRAY_DERIVED[vt]
+                if self.instances.setdefault(inst, base_vt) != base_vt:
+                    raise SystemExit(f'{path}: {inst} has two vtables')
+                lines = [f'// vtable 0x{hexu(vt)}: {inst} (vtable 0x{hexu(base_vt)}'
+                         + (f', constructor 0x{hexu(base_ctor)}' if base_ctor else '') + ') '
+                         f'with a vtable and per-class global of its own (e.g. {path}): the client builds the base, '
+                         'then stores the two', tag,
+                         f'class {name} : public {inst}', '{', 'public:',
+                         f'\t{name}(const char *name, unsigned int count) : {inst}(name, count)', '\t{',
+                         '\t\tm_Unknown04 = UnknownGlobal;', '\t}', '',
+                         '\tstatic int UnknownGlobal;\t// the per-class global at +0x04', '};']
+                self.decl[vt] = '\n'.join(lines)
+                self.order.append(vt)
+                self.nested.append((0, f'int {name}::UnknownGlobal;'))
+                return name
             if inst is not None and self.instances.setdefault(inst, vt) == vt:
                 self.classes[vt] = inst
                 return inst
