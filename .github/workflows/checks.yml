@@ -1,0 +1,38 @@
+# What a hosted runner can check. The project's real verification, byte for byte against the
+# retail client.exe with Visual C++ 6.0 SP4 (tools/vc6/importer.py verify, tools/vc6/pairs_cmp.py),
+# needs the build VMs, the toolchain and the client, none of which is in the repository: it cannot
+# run here and is run by the maintainer before each commit (docs/workflow.md). These checks guard
+# everything around it: the documentation, the generated files, the tools, and what must not be
+# published.
+name: Checks
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0      # tools/prepush_check.py scans the whole history
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Links resolve, no mixed line endings, .gitattributes is complete
+        run: python tools/docs_check.py
+      - name: Generated documents are up to date (names.py, notexact.py)
+        run: |
+          python tools/re/names.py
+          python tools/re/notexact.py
+          git diff --exit-code -- docs/data/names-review.md docs/data/not-exact.md
+      - name: The Python tools compile and their tests pass
+        run: |
+          python -m compileall -q tools
+          python -m unittest discover -s tools -p "test_*.py"
+      - name: Nothing that must stay out of the repository (binaries, captures, secrets, install paths)
+        run: python tools/prepush_check.py

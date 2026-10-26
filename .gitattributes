@@ -69,6 +69,7 @@ tools/re/auxroots_pads.json text eol=lf
 tools/re/classify_gaps.py text eol=lf
 tools/re/clientimage.py text eol=lf
 tools/re/dated.py text eol=lf
+tools/re/declcensus.py text eol=lf
 tools/re/funcmatch.py text eol=lf
 tools/re/gaps.py text eol=lf
 tools/re/ghidra/DecompileTargets.java text eol=lf
