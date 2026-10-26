@@ -370,6 +370,7 @@
    "delta": {
     "ambiguous": [
      "0x42A900",
+     "0x42AAE0",
      "0x42AFF0",
      "0x42B2F0",
      "0x4333D0",
@@ -401,7 +402,8 @@
      "0x4A5410",
      "0x4A5490",
      "0x4A5510",
-     "0x4A55D0"
+     "0x4A55D0",
+     "0x4A5670"
     ],
     "merged": [],
     "name": "shared/auxdata/delta.cpp"
@@ -1175,7 +1177,7 @@
    "wwudp/udp.h": "reconstructed",
    "wwudp/wtime.h": "reconstructed"
   },
-  "in_tree_total": 581,
+  "in_tree_total": 582,
   "totals": {}
  },
  "binkmovie": {

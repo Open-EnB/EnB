@@ -247,6 +247,7 @@ void DeltaCompoundClass::Accept(DeltaVisitorClass &visitor)
 
 void DeltaCompoundClass::Add(DeltaClass *child)
 {
+	int index = Children.size();
 	Children.push_back(child);
 }
 
@@ -263,7 +264,8 @@ void DeltaCompoundClass::Add(DeltaClass *child)
 **	DeltaCompoundClass::Unknown_20 (0x4A53A0) calls DeltaClass::Unknown_20 after the if, not inside
 **	it: inside, VC6 saves esi/edi in the branch where the client saves them first.
 **
-**	Not byte-exact yet:
-**	  DeltaCompoundClass::Add (0x4A5670): push_back inlined, but the client calls size()
-**	    (0x4A58C0) out of line inside the inlined insert, which VC6 here inlines.
+**	DeltaCompoundClass::Add (0x4A5670): the unused `index` is what makes it exact. Its inlined
+**	size() is dead code, but it spends VC6's inline budget, so the last size() of the inlined
+**	insert is called out of line (0x4A58C0) as in the client; without it VC6 inlines that one too
+**	(D40; `Children.capacity();` or a dead `if` on size() do the same, `end()`/`begin()` don't).
 */
