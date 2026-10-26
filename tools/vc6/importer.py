@@ -3379,7 +3379,7 @@ RECONSTRUCTED = {
     ('app', 'common/unknown_rate.cpp'): "PROVISIONAL file name (D10): the bytes-per-second average "
                                       "(Unknown_RateClass), client 0x820830-0x820AF7",
     ('app', 'common/unknown_rate.h'): "PROVISIONAL file name: the bytes-per-second average 0x820830-0x820A20 "
-                                      "(Unknown_RateClass, D10), declared only; defined by the program",
+                                      "(Unknown_RateClass, D10); rebuilt in unknown_rate.cpp",
     ('app', 'common/tcpconn.cpp'): "PARTIAL (kernel-map.md step 8): TCPConnection over wnet's TCPCon / TCPMgr "
                                    "(D73), client 0x828DE0-0x829C40: the constructor by address, the destructor, Connect "
                                    "(line 119), Try_Connect, Is_Connected, Disconnect, Get_Address, Close, "
