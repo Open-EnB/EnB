@@ -63,8 +63,8 @@ CordMgr::CordMgr() :
 
 CordMgr::~CordMgr()
 {
-	for (int i = 0; i < Pending_.Length(); i++) {
-		delete Pending_[i];
+	for (int i = 0; i < Pending_.length(); i++) {
+		CordConnectingClass *d; Pending_.get(d, i); delete d;
 	}
 }
 
@@ -73,7 +73,7 @@ CordMgr::~CordMgr()
 // random words (SecureRandomClass) when the connection is encrypted.
 CordConnectingClass *CordMgr::Connect(unsigned int ip, unsigned short port, bool encrypt)
 {
-	CordDataSocketClass *record = DataSockets_.Get_Pointer(0);
+	CordDataSocketClass *record = 0; DataSockets_.getPointer(&record, 0);
 	CordConnectingClass *c = new CordConnectingClass;
 	memset(c, 0, sizeof(*c));
 	c->Ip = ip;
@@ -90,7 +90,7 @@ CordConnectingClass *CordMgr::Connect(unsigned int ip, unsigned short port, bool
 		c->Key = (__int64)random.Randval() << 32;
 		c->Key ^= random.Randval();
 	}
-	Pending_.Add(c);
+	Pending_.addTail(c);
 	return c;
 }
 
@@ -108,15 +108,15 @@ bool CordMgr::Pump_Connections()
 	Wtime timeout;
 	resend.Add_Seconds(-1);
 	timeout.Add_Seconds(-60);
-	for (int i = 0; i < Pending_.Length(); i++) {
-		CordConnectingClass *c = Pending_[i];
+	for (int i = 0; i < Pending_.length(); i++) {
+		CordConnectingClass *c; Pending_.get(c, i);
 		if (c->Created < timeout) {
 			CordCon *con = new CordCon(c->Ip, c->Port, c->Session, 0, false, NULL, 0,
 				(unsigned int)c->Key, (unsigned int)(c->Key >> 32));
-			AllConnections_.Add(con);
-			Connections_.Add(con);
+			AllConnections_.addTail(con);
+			Connections_.addTail(con);
 			delete c;
-			Pending_.Remove(i);
+			Pending_.remove(i);
 			i--;
 			continue;
 		}
@@ -155,11 +155,11 @@ void CordMgr::Pump()
 {
 	WWPROFILE("CordMgr::Pump");
 	unsigned char buf[0x400];
-	int total = DataSockets_.Length() + ListenSockets_.Length();
+	int total = DataSockets_.length() + ListenSockets_.length();
 	for (int i = 0; i < total; i++) {
-		bool listen = i >= DataSockets_.Length();
-		UDP *udp = listen ? ListenSockets_.Get_Pointer(i - DataSockets_.Length())->Socket
-			: DataSockets_.Get_Pointer(i)->Socket;
+		bool listen = i >= DataSockets_.length();
+		CordListenSocketClass *ls; CordDataSocketClass *ds; UDP *udp; if (listen) { ListenSockets_.getPointer(&ls, i - DataSockets_.length()); udp = ls->Socket; }
+		else { DataSockets_.getPointer(&ds, i); udp = ds->Socket; }
 		sockaddr_in from;
 		int len;
 		while ((len = udp->Read(buf, sizeof(buf), &from)) >= 0) {
@@ -595,8 +595,8 @@ void CordMgr::Pump()
 		}
 	}
 	Wtime now;
-	for (int c = 0; c < Connections_.Length(); c++) {
-		Connections_[c]->pump(now);
+	for (int c = 0; c < Connections_.length(); c++) {
+		CordCon *con; Connections_.get(con, c); con->pump(now);
 	}
 	Pump_Connections();
 	Pump_Releases();
@@ -607,9 +607,9 @@ CordDataSocketClass *CordMgr::Find_Data_Socket(UDP *socket)
 {
 	WWPROFILE("CordMgr::Find_Data_Socket");
 	CordDataSocketClass *s = NULL;
-	int count = DataSockets_.Length();
+	int count = DataSockets_.length();
 	for (int i = 0; i < count; i++) {
-		s = DataSockets_.Get_Pointer(i);
+		if (!DataSockets_.getPointer(&s, i)) s = NULL;
 		if (s->Socket == socket) {
 			break;
 		}
@@ -630,8 +630,8 @@ bool CordMgr::Process_Go_Away_Packet(unsigned char *data, int len, sockaddr_in *
 	unsigned short port = ntohs(*(unsigned short *)(data + 5));
 	unsigned short session = ntohs(*(unsigned short *)(data + 8));
 	if (data[7] == 0 || data[7] == 2) {
-		for (int p = 0; p < Pending_.Length(); p++) {
-			CordConnectingClass *c = Pending_[p];
+		for (int p = 0; p < Pending_.length(); p++) {
+			CordConnectingClass *c; Pending_.get(c, p);
 			unsigned int lip = 0;
 			unsigned short lport = 0;
 			if (c->Socket != NULL) {
@@ -646,8 +646,8 @@ bool CordMgr::Process_Go_Away_Packet(unsigned char *data, int len, sockaddr_in *
 	if (data[7] != 4 && data[7] != 5) {
 		return false;
 	}
-	for (int i = 0; i < Connections_.Length(); i++) {
-		CordCon *con = Connections_[i];
+	for (int i = 0; i < Connections_.length(); i++) {
+		CordCon *con; Connections_.get(con, i);
 		unsigned int ip = 0;
 		unsigned short local = 0;
 		con->Udp_->getLocalAddr(ip, local);
@@ -663,14 +663,14 @@ bool CordMgr::Process_Go_Away_Packet(unsigned char *data, int len, sockaddr_in *
 // 0x858980: the connections to that address and port go away; the connecting records to it age 5 s.
 void CordMgr::Process_Zero_Read(sockaddr_in *from)
 {
-	for (int i = 0; i < Connections_.Length(); i++) {
-		CordCon *con = Connections_[i];
+	for (int i = 0; i < Connections_.length(); i++) {
+		CordCon *con; Connections_.get(con, i);
 		if (con->Ip_ == ntohl(from->sin_addr.s_addr) && con->Port_ == ntohs(from->sin_port)) {
 			con->Go_Away();
 		}
 	}
-	for (int p = 0; p < Pending_.Length(); p++) {
-		CordConnectingClass *c = Pending_[p];
+	for (int p = 0; p < Pending_.length(); p++) {
+		CordConnectingClass *c; Pending_.get(c, p);
 		if (c->Ip == ntohl(from->sin_addr.s_addr) && c->Port == ntohs(from->sin_port)) {
 			c->Created.Add_Seconds(-5);
 		}
@@ -684,7 +684,7 @@ bool CordMgr::Release(CordCon *con)
 	CordReleaseClass r;
 	r.Con = con;
 	r.Time = (unsigned int)time(0) + 30;
-	Releases_.Add(r);
+	Releases_.addTail(r);
 	return true;
 }
 
@@ -695,27 +695,27 @@ bool CordMgr::Pump_Releases()
 {
 	WWPROFILE("CordMgr::Pump_Releases");
 	int at = 0;
-	for (int k = 0; k < Releases_.Length(); k++) {
+	for (int k = 0; k < Releases_.length(); k++) {
 		CordReleaseClass r;
-		Releases_.Get(r, at);
+		Releases_.get(r, at);
 		if ((int)time(0) < (int)r.Time) {
 			at++;
 			continue;
 		}
-		for (int i = 0; i < Connections_.Length(); i++) {
-			if (Connections_[i] != r.Con) {
+		for (int i = 0; i < Connections_.length(); i++) {
+			CordCon *con; Connections_.get(con, i); if (con != r.Con) {
 				continue;
 			}
-			Connections_.Remove(i);
-			for (int d = 0; d < DataSockets_.Length(); d++) {
-				if (DataSockets_[d].Socket == r.Con->Udp_) {
-					DataSockets_[d].Unknown04--;
+			Connections_.remove(i);
+			for (int d = 0; d < DataSockets_.length(); d++) {
+				CordDataSocketClass *ds; DataSockets_.getPointer(&ds, d); if (ds->Socket == r.Con->Udp_) {
+					ds->Unknown04--;
 				}
 			}
 			delete r.Con;
 			break;
 		}
-		Releases_.Remove(at);
+		Releases_.remove(at);
 	}
 	return true;
 }
@@ -731,8 +731,8 @@ bool CordMgr::Process_CORD_Packet(unsigned char *data, int len, sockaddr_in *fro
 	if (len < 12) {
 		return false;
 	}
-	for (int i = 0; i < Connections_.Length(); i++) {
-		Connections_.Get(con, i);
+	for (int i = 0; i < Connections_.length(); i++) {
+		Connections_.get(con, i);
 		unsigned long ip = con->Ip_;
 		int session = con->Session_;
 		id = ntohs(*(unsigned short *)(data + 1));
@@ -1324,8 +1324,8 @@ bool CordMgr::Process_ACK1_Packet(unsigned char *data, int len, sockaddr_in *fro
 	if (protocol != Protocol_ || type != 1) {
 		return false;
 	}
-	for (int i = 0; i < Pending_.Length(); i++) {
-		CordConnectingClass *c = Pending_[i];
+	for (int i = 0; i < Pending_.length(); i++) {
+		CordConnectingClass *c; Pending_.get(c, i);
 		if (c->Ip != ntohl(from->sin_addr.s_addr) || c->Port != ntohs(from->sin_port)
 			|| c->Session != session || c->State != 1) {
 			continue;
@@ -1382,8 +1382,8 @@ bool CordMgr::Process_ACK2_Packet(unsigned char *data, int len, sockaddr_in *fro
 	if (protocol != Protocol_ || type != 3) {
 		return false;
 	}
-	for (int i = 0; i < Pending_.Length(); i++) {
-		CordConnectingClass *c = Pending_[i];
+	for (int i = 0; i < Pending_.length(); i++) {
+		CordConnectingClass *c; Pending_.get(c, i);
 		if (c->Ip != ntohl(from->sin_addr.s_addr) || c->Port != ntohs(from->sin_port)
 			|| c->Session != session) {
 			continue;
@@ -1391,10 +1391,10 @@ bool CordMgr::Process_ACK2_Packet(unsigned char *data, int len, sockaddr_in *fro
 		c->State = 5;
 		CordCon *con = new CordCon(c->Ip, port, session, 0, false, c->Socket, (int)word,
 			(unsigned int)c->Key, (unsigned int)(c->Key >> 32));
-		AllConnections_.Add(con);
-		Connections_.Add(con);
+		AllConnections_.addTail(con);
+		Connections_.addTail(con);
 		delete c;
-		Pending_.Remove(i);
+		Pending_.remove(i);
 		return true;
 	}
 	return false;
@@ -1404,19 +1404,19 @@ bool CordMgr::Process_ACK2_Packet(unsigned char *data, int len, sockaddr_in *fro
 int CordMgr::Wait(int sec, int usec)
 {
 	fd_set given;
-	int count = DataSockets_.Length();
+	int count = DataSockets_.length();
 	UDP *udp = 0;
 	FD_ZERO(&given);
 	int i;
 	for (i = 0; i < count; i++) {
 		CordDataSocketClass record;
-		DataSockets_.Get(record, i);
+		DataSockets_.get(record, i);
 		udp = record.Socket;
 		FD_SET((unsigned int)udp->getFD(), &given);
 	}
-	for (i = 0; i < ListenSockets_.Length(); i++) {
+	for (i = 0; i < ListenSockets_.length(); i++) {
 		CordListenSocketClass record;
-		ListenSockets_.Get(record, i);
+		ListenSockets_.get(record, i);
 		udp = record.Socket;
 		FD_SET((unsigned int)udp->getFD(), &given);
 	}
@@ -1427,23 +1427,23 @@ int CordMgr::Wait(int sec, int usec)
 	return 0;
 }
 
-// 0x859440, NOT EXACT: the client inlines wlib ArrayList's remove (a memmove and the shrink); CordArrayClass's differs.
+// 0x859440, NOT EXACT: wlib ArrayList's remove inlined once, as the client's; only the not-found return's place differs.
 bool CordMgr::Find_Connection(CordCon **con, unsigned int port, int session)
 {
-	for (int i = 0; i < AllConnections_.Length(); i++) {
-		AllConnections_.Get(*con, i);
+	int i;
+	for (i = 0; i < AllConnections_.length(); i++) {
+		AllConnections_.get(*con, i);
 		CordCon *c = *con;
-		if (session == 0) {
-			if (c->IsServer_ && port == c->Unknown0C) {
-				AllConnections_.Remove(i);
-				return true;
-			}
-		} else if (!c->IsServer_ && session == c->Session_) {
-			AllConnections_.Remove(i);
-			return true;
+		if (session == 0 ? (c->IsServer_ && port == c->Unknown0C) : (!c->IsServer_ && session == c->Session_)) {
+			goto found;
 		}
 	}
 	return false;
+found:
+	AllConnections_.remove(i);
+	return true;
+
+
 }
 
 // 0x8595B0, NOT EXACT: as 0x859440 (the shrink out of line, 0x85B8B0). A handshake record is deleted but
@@ -1452,17 +1452,17 @@ bool CordMgr::Cancel_Connect(int session)
 {
 	int i;
 	CordCon *con = (CordCon *)session;
-	for (i = 0; i < AllConnections_.Length(); i++) {
-		AllConnections_.Get(con, i);
+	for (i = 0; i < AllConnections_.length(); i++) {
+		AllConnections_.get(con, i);
 		if (con->Session_ == session && !con->IsServer_) {
-			AllConnections_.Remove(i);
+			AllConnections_.remove(i);
 			delete con;
 			return true;
 		}
 	}
 	CordConnectingClass *c = (CordConnectingClass *)session;
-	for (i = 0; i < Pending_.Length(); i++) {
-		Pending_.Get(c, i);
+	for (i = 0; i < Pending_.length(); i++) {
+		Pending_.get(c, i);
 		if (c->Session == session) {
 			delete c;
 			return true;

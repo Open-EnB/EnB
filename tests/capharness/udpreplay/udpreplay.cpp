@@ -197,12 +197,12 @@ static void Make_Side(Session *s, Side &side, bool server)
 	Replay[side.Sock].FromIp = server ? CLIENT_IP : SERVER_IP;
 	Replay[side.Sock].FromPort = server ? 1024 : 3500;
 	CordDataSocketClass ds = { side.Sock, 0, 0, 0 };
-	side.Mgr.DataSockets_.Add(ds);
+	side.Mgr.DataSockets_.addTail(ds);
 	unsigned int key[2];
 	memcpy(key, s->Key, 8);
 	side.Con = new CordCon(server ? CLIENT_IP : SERVER_IP, server ? 1024 : 3500, s->Id, 0, server, side.OutSock,
 		Window_Limit, key[0], key[1]);
-	side.Mgr.Connections_.Add(side.Con);
+	side.Mgr.Connections_.addTail(side.Con);
 }
 
 static Session *Get_Session(const std::string &name)
@@ -364,7 +364,7 @@ static void Handshake(FILE *out, const char *line)
 	Replay[sock].FromIp = ip;
 	Replay[sock].FromPort = (unsigned short)port;
 	CordDataSocketClass ds = { sock, 0, 0, 0 };
-	mgr.DataSockets_.Add(ds);
+	mgr.DataSockets_.addTail(ds);
 	CordConnectingClass *c = mgr.Connect(ip, (unsigned short)port, true);
 	c->Session = (int)session;
 	std::vector<unsigned char> k = From_Hex(key);
@@ -387,8 +387,8 @@ static void Handshake(FILE *out, const char *line)
 	}
 	Replay[sock].In.push_back(From_Hex(ack2));
 	mgr.Pump();
-	if (mgr.Connections_.Length() == 1) {
-		CordCon *con = mgr.Connections_[0];
+	if (mgr.Connections_.length() == 1) {
+		CordCon *con; mgr.Connections_.get(con, 0);
 		unsigned char kb[8];
 		memcpy(kb, &con->Key_, 8);
 		fprintf(out, "HC %d %u ", n, con->Port_);

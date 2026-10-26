@@ -16,7 +16,7 @@
 **	Compute_Ticks are not.
 **
 **	Layout (the members the rebuilt code uses, at the client's offsets; the lists are WWOnline's
-**	wlib ArrayList, CordArrayClass in cordcon.h): +0x10 Pending_ (connections in the handshake;
+**	wlib ArrayList): +0x10 Pending_ (connections in the handshake;
 **	Pump: 'We must have dropped an ack2 packet to the client!'), +0x34 Connections_, +0x40
 **	DataSockets_ (16-byte records), +0x4C ListenSockets_ (12-byte records).
 */
@@ -118,12 +118,12 @@ public:
 	int Unknown04;										// +0x04
 	unsigned short NextSession_;						// +0x08 NAME 2: the next session id (+0x1337 each time)
 	int Unknown0C;										// +0x0C
-	CordArrayClass<CordConnectingClass *> Pending_;		// +0x10 NAME 2: connections in the handshake
-	CordArrayClass<CordReleaseClass> Releases_;			// NAME 2: +0x1C connections to free (Release, Pump_Releases)
-	CordArrayClass<CordCon *> AllConnections_;			// +0x28 NAME 1: ACK2 adds the CordCon here too
-	CordArrayClass<CordCon *> Connections_;				// +0x34 NAME 2: the open connections
-	CordArrayClass<CordDataSocketClass> DataSockets_;	// +0x40 NAME 2: the sockets data arrives on
-	CordArrayClass<CordListenSocketClass> ListenSockets_;	// +0x4C NAME 2: the sockets handshakes arrive on
+	ArrayList<CordConnectingClass *> Pending_;		// +0x10 NAME 2: connections in the handshake
+	ArrayList<CordReleaseClass> Releases_;			// NAME 2: +0x1C connections to free (Release, Pump_Releases)
+	ArrayList<CordCon *> AllConnections_;			// +0x28 NAME 1: ACK2 adds the CordCon here too
+	ArrayList<CordCon *> Connections_;				// +0x34 NAME 2: the open connections
+	ArrayList<CordDataSocketClass> DataSockets_;	// +0x40 NAME 2: the sockets data arrives on
+	ArrayList<CordListenSocketClass> ListenSockets_;	// +0x4C NAME 2: the sockets handshakes arrive on
 
 	int Unexpected_;									// (the harness's count of datagrams Pump didn't take)
 };

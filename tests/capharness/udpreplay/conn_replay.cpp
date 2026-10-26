@@ -294,11 +294,11 @@ int Conn_Deliver(FILE *out, int n, const char *dir, const char *name, CordCon *c
 		}
 	}
 	if (udp->Con == 0) {
-		for (int r = 0; r < mgr->Releases_.Length(); r++) {
+		for (int r = 0; r < mgr->Releases_.length(); r++) {
 			CordReleaseClass rel;
-			mgr->Releases_.Get(rel, r);
+			mgr->Releases_.get(rel, r);
 			if (rel.Con == con) {
-				mgr->Releases_.Remove(r);
+				mgr->Releases_.remove(r);
 				r--;
 			}
 		}

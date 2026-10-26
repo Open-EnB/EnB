@@ -3295,7 +3295,8 @@ RECONSTRUCTED = {
                                    "0x82C980-0x82E020, the asserts on the client's lines 391 / 489 / 514 (D25); exact: "
                                    "Get_Address, Is_Dead, the key's ==, Is_Fixed_Channel, the task's destructor, Run, "
                                    "Get_Interval, Delete_On_Remove, Get_Mgr, Shutdown_Task; functional (NOT EXACT, D42): "
-                                   "the rest (wlib's Dictionary stand-in, CordCon / CordMgr members not in the tree); "
+                                   "the rest (CordCon / CordMgr members not in the tree); wlib's Dictionary members "
+                                   "0x82E6A0-0x82EBB0 exact (libs\\wwonline\\wlib, D73); "
                                    "the constructor by name 0x82C680, UDPConnectionManager and the listener not rebuilt",
     ('app', 'packets/pk.h'): "PARTIAL: the packet base class (vtable 0xAEDE88, 10 slots; its inline defaults on the "
                              "client's lines 483-502), the message header, the raw message (0x22C bytes) with pk.cpp's "

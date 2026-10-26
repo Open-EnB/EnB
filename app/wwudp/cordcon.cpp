@@ -117,8 +117,8 @@ void CordChannelClass::Reset()
 	Queue.erase(Queue.begin(), Queue.end());
 	Incoming.Clear();
 	Sent.erase(Sent.begin(), Sent.end());
-	ToAck.Clear();
-	Missing.Clear();
+	ToAck.clear();
+	Missing.clear();
 }
 
 CordChannelClass::~CordChannelClass()
@@ -539,7 +539,7 @@ bool CordCon::handlePacket(unsigned char *data, int datalen)
 		}
 		c->Mode = mode;
 		if ((unsigned short)len != 0) {
-			c->ToAck.Add(seq);
+			c->ToAck.addTail(seq);
 			AcksPending_++;
 		}
 		size_t i;
@@ -556,7 +556,7 @@ bool CordCon::handlePacket(unsigned char *data, int datalen)
 				if (held) {
 					break;
 				}
-				c->Missing.Add(s);
+				c->Missing.addTail(s);
 				ResendsPending_++;
 			}
 		}
@@ -853,13 +853,13 @@ bool CordCon::buildHeader(unsigned char *out, int *len, unsigned short *counter)
 	// One "everything up to" ack per reliable channel for what arrived in order.
 	for (i = 0; i < Active_.size() && acks < 8; i++) {
 		CordChannelClass *c = Active_[i];
-		if (c->Mode != 3 || c->ToAck.Length() == 0 || c->Expected <= 1) {
+		if (c->Mode != 3 || c->ToAck.length() == 0 || c->Expected <= 1) {
 			continue;
 		}
 		bool any = false;
-		for (size_t k = 0; k < (size_t)c->ToAck.Length();) {
-			if (c->ToAck[(int)k] <= c->Expected - 2) {
-				c->ToAck.Remove((int)k);
+		for (size_t k = 0; k < (size_t)c->ToAck.length();) {
+			unsigned int acked; c->ToAck.get(acked, (int)k); if (acked <= c->Expected - 2) {
+				c->ToAck.remove((int)k);
 				AcksPending_--;
 				any = true;
 			} else {
@@ -889,9 +889,9 @@ bool CordCon::buildHeader(unsigned char *out, int *len, unsigned short *counter)
 			break;
 		}
 		CordChannelClass *c = Active_[k2];
-		if (acks < 8 && c->ToAck.Length() != 0) {
-			unsigned int seq = c->ToAck[0];
-			c->ToAck.Remove(0);
+		if (acks < 8 && c->ToAck.length() != 0) {
+			unsigned int seq; c->ToAck.get(seq, 0);
+			c->ToAck.remove(0);
 			AcksPending_--;
 			list[pos++] = 0;
 			pos += Write_Small(list + pos, c->Index);
@@ -899,9 +899,9 @@ bool CordCon::buildHeader(unsigned char *out, int *len, unsigned short *counter)
 			acks++;
 			entries++;
 		}
-		if (resends < 0x20 && c->Missing.Length() != 0) {
-			unsigned int seq = c->Missing[0];
-			c->Missing.Remove(0);
+		if (resends < 0x20 && c->Missing.length() != 0) {
+			unsigned int seq; c->Missing.get(seq, 0);
+			c->Missing.remove(0);
 			ResendsPending_--;
 			list[pos++] = 1;
 			pos += Write_Small(list + pos, c->Index);
@@ -968,12 +968,12 @@ bool CordCon::close(bool now)
 				}
 				c->Sent.erase(c->Sent.begin());
 			}
-			while (c->ToAck.Length() != 0) {
-				c->ToAck.Remove(0);
+			while (c->ToAck.length() != 0) {
+				c->ToAck.remove(0);
 				AcksPending_--;
 			}
-			while (c->Missing.Length() != 0) {
-				c->Missing.Remove(0);
+			while (c->Missing.length() != 0) {
+				c->Missing.remove(0);
 				ResendsPending_--;
 			}
 		}
@@ -1094,8 +1094,8 @@ bool CordCon::pump(Wtime &now)
 			continue;		// the peer's channel
 		}
 		c->Mode = 0;
-		while (c->ToAck.Length() != 0) {
-			c->ToAck.Remove(0);
+		while (c->ToAck.length() != 0) {
+			c->ToAck.remove(0);
 			AcksPending_--;
 		}
 		if (c->Incoming.Length() != 0) {

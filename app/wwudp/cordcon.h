@@ -30,8 +30,8 @@
 **	Layout: the client's, member for member (CordCon 0xBC bytes, constructor 0x84F640; the channel
 **	0x78, constructor 0x84DFC0; the message records 0x30), from the constructors and the code
 **	that uses them. The client's lists are WWOnline's wlib LinkedList / ArrayList, inlined
-**	(the bounds-checked get with a cached cursor); CordListClass / CordArrayClass below are
-**	stand-ins with their layout.
+**	(the bounds-checked get with a cached cursor); the arrays are wlib's ArrayList (D73), CordListClass
+**	below is a stand-in for LinkedList with its layout.
 */
 
 #if defined(_MSC_VER)
@@ -44,6 +44,7 @@
 #include <vector>
 #include <string.h>
 #include "mempool.h"
+#include "..\..\libs\wwonline\wlib\arraylist.h"	// after mempool.h: WWLib's bittype.h first (wstypes.h)
 #include "wtime.h"
 
 class UDP;
@@ -145,46 +146,6 @@ private:
 	int CurIndex;			// +0x10 NAME 4: wlib's name (EA's Generals Tools matchbot wlib)
 };
 
-template <class T> class CordArrayClass		// NAME 1 [CordArrayClass]: stand-in for wlib's ArrayList<T>
-{
-public:
-	CordArrayClass() : Entries_(0), Slots_(0), Vector_(0) {}
-	~CordArrayClass() { Clear(); delete [] (unsigned char *)Vector_; }	// wlib's: clear(), then the bytes
-	void Clear() { Entries_ = 0; }
-	int Length() const { return Entries_; }
-	T &operator[](int i) { return Vector_[i]; }
-	T *Get_Pointer(int pos) { if (pos < 0 || pos >= Entries_) { return 0; } return &Vector_[pos]; }
-	bool Get(T &v, int pos) { if (pos < 0 || pos >= Entries_) { return false; } v = Vector_[pos]; return true; }
-	void Add(const T &v)
-	{
-		if (Entries_ == Slots_) {
-			int slots = Slots_ ? Slots_ * 2 : 8;
-			T *p = new T[slots];
-			for (int i = 0; i < Entries_; i++) {
-				p[i] = Vector_[i];
-			}
-			delete [] Vector_;
-			Vector_ = p;
-			Slots_ = slots;
-		}
-		Vector_[Entries_++] = v;
-	}
-	void Remove(int pos)
-	{
-		if (pos < 0 || pos >= Entries_) {
-			return;
-		}
-		for (int i = pos + 1; i < Entries_; i++) {
-			Vector_[i - 1] = Vector_[i];
-		}
-		Entries_--;
-	}
-private:
-	int Entries_;			// +0x00 NAME 4: wlib's name (EA's Generals Tools matchbot wlib)
-	int Slots_;				// +0x04 NAME 4: wlib's name (EA's Generals Tools matchbot wlib)
-	T *Vector_;				// +0x08 NAME 4: wlib's name (EA's Generals Tools matchbot wlib)
-};
-
 // One message, sent or received (0x30 bytes in the client: the records of a channel's send queue
 // and sent list, and the nodes of its receive list; write 0x850C70, handlePacket 0x851AE0).
 class CordMessageClass		// NAME 2: describes what it holds
@@ -228,8 +189,8 @@ public:
 	unsigned int NextSequenced;					// NAME 2: +0x3C mode 4: older ones are dropped
 	unsigned int LastSeq;						// NAME 2: +0x40
 	CordListClass<CordMessageClass> Incoming;	// NAME 2: +0x44 received, not read
-	CordArrayClass<unsigned int> ToAck;			// NAME 2: +0x58
-	CordArrayClass<unsigned int> Missing;		// NAME 2: +0x64 resend requests to send
+	ArrayList<unsigned int> ToAck;			// NAME 2: +0x58
+	ArrayList<unsigned int> Missing;		// NAME 2: +0x64 resend requests to send
 	int Index;									// NAME 2: +0x70
 	bool IsClosed;								// +0x74 NAME 2: write() refuses while set; the constructor sets it, openc clears it
 };
@@ -264,7 +225,7 @@ public:
 	Wtime RoundStart;					// NAME 2: +0x18
 	int Round;							// NAME 2: +0x20
 	int RoundTrip;						// NAME 2: +0x24 ms, 300 at first
-	CordArrayClass<int> Unknown28;		// +0x28 (a wlib ArrayList: cleared and freed by the destructor only)
+	ArrayList<int> Unknown28;		// +0x28 (a wlib ArrayList: cleared and freed by the destructor only)
 	int LastPeak;						// NAME 2: +0x34 the last round's InFlight peak
 	int Peak;							// NAME 2: +0x38
 	Wtime SecondStart;					// NAME 2: +0x3C
