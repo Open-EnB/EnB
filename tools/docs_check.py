@@ -8,12 +8,11 @@
   READMEs, .claude/skills) resolves to a file or directory in the checkout;
 * no tracked text file mixes CRLF and bare LF line endings (the tree has two conventions,
   see .gitattributes, but never both in one file);
-* the files .gitattributes lists as LF really are LF.
+* .gitattributes agrees with the bytes: `eol=lf` on exactly the LF files.
 
 Moved out of the working notes (.work/audit/check.py) so CI can run it. Standard library only.
 """
 import argparse
-import fnmatch
 import os
 import re
 import subprocess
@@ -79,25 +78,26 @@ def check_links(files):
 
 
 def check_gitattributes(files):
-    """The files listed `text eol=lf` must be LF, and every tracked text file that is LF should be listed."""
-    path = os.path.join(ROOT, '.gitattributes')
-    if not os.path.exists(path):
+    """What `git check-attr` says about each file must agree with its bytes: `eol=lf` exactly for the
+    LF files (CRLF files carry no eol attribute, so nothing is converted on checkout or commit).
+    Asking git, not parsing the patterns, catches a pattern that is too broad (`README.md` without a
+    leading slash would also claim docs/README.md)."""
+    if not os.path.exists(os.path.join(ROOT, '.gitattributes')):
         return ['.gitattributes is missing']
-    listed = set()
-    for line in open(path, encoding='utf-8'):
-        line = line.strip()
-        if line and not line.startswith('#') and 'eol=lf' in line:
-            listed.add(line.split()[0])
+    r = subprocess.run(['git', 'check-attr', '-z', '--stdin', 'eol'], cwd=ROOT, capture_output=True, check=True,
+                       input=('\0'.join(files) + '\0').encode('utf-8'))
+    parts = r.stdout.decode('utf-8').split('\0')
+    eol = {parts[k]: parts[k + 2] for k in range(0, len(parts) - 2, 3)}
     bad = []
-    present = set(files)
-    for f in sorted(listed):
-        if f in present and is_text(read(f)) and b'\r\n' in read(f):
-            bad.append('%s: listed as LF in .gitattributes but has CRLF' % f)
     for f in files:
         b = read(f)
-        if is_text(b) and b.count(b'\n') and b'\r\n' not in b and f not in listed and \
-                not any(fnmatch.fnmatch(f, pat) for pat in listed):
+        if not is_text(b) or not b.count(b'\n'):
+            continue
+        lf_file = b'\r\n' not in b
+        if lf_file and eol.get(f) != 'lf':
             bad.append('%s: LF file not listed in .gitattributes' % f)
+        elif not lf_file and eol.get(f) == 'lf':
+            bad.append('%s: has CRLF but .gitattributes says eol=lf' % f)
     return bad
 
 

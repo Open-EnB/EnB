@@ -41,8 +41,12 @@ Generated data ([data/](data/); regenerate with the tools in `tools/re`):
 | [data/packet-factory.txt](data/packet-factory.txt) | the packet factory's cases (opcode, class, size, constructor) | `pkfactory.py` |
 | [data/vtables-ww3d2.json](data/vtables-ww3d2.json) | WW3D2 class vtables in the client | `vtables.py` (unverified) |
 | [data/not-exact.md](data/not-exact.md) | functions marked `// NOT EXACT:` in the tree (D64) | `names.py` |
+| [data/progress-history.csv](data/progress-history.csv) | one row per day: bytes of `.text` by state, exact functions, pairs, functions per library (measured on each day's last commit) | `tools/progress.py --history` |
+| [progress.svg](progress.svg), [progress_chart.svg](progress_chart.svg), [progress_map.svg](progress_map.svg) | the progress card, the history chart and the address map of `.text`, embedded in the README | `tools/progress.py` |
 
 Tool documentation: [tools/re/README.md](../tools/re/README.md), [tools/vc6/README.md](../tools/vc6/README.md), [tools/harness/README.md](../tools/harness/README.md).
+
+Publishing: [../README.md](../README.md) (what the project is), [../CONTRIBUTING.md](../CONTRIBUTING.md), [../LICENSE](../LICENSE) (GPL v3 with EA's additional terms). `tools/progress.py` builds the progress card, `tools/docs_check.py` and `tools/prepush_check.py` guard the documentation and what may be pushed; CI is in [../.github/workflows/](../.github/workflows/) ([tools/re/README.md](../tools/re/README.md) lists the tools).
 
 Addresses are virtual addresses in the retail client.exe, SHA-256 `249f8524…51c4`
 ([binary.md](binary.md)).
