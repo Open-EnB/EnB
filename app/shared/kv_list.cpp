@@ -148,5 +148,5 @@ void KVListClass::Keep_Only(std::hash_set<std::string> &keys)
 **	Keep_Only 0x4B6DC0 (no caller in the client) takes a hash_set<std::string> of keys (or a
 **	hash_map<std::string, ...>: the client only looks keys up in it) and erases the others (the
 **	index's erase 0x4B79A0, then the vector's, then deletes the pair).
-**	NOT EXACT: the destructor 0x4B6520 and Get_Value_String 0x4B6B60 (inline budget, attempts.csv).
+**	Two functions stay inexact, marked at their definitions (inline budget, attempts.csv).
 */
