@@ -10,6 +10,8 @@ reverse engineer the rest. Windows; shell is Git Bash (`/c/...` paths) or PowerS
    everyone, then the subsections for your kind of work).
 3. Builder subagents start from `docs/builders.md`: the startup set per builder kind, the rules,
    the report format and which model runs what (D72).
+   Coordinators pace launches and the drain with the `coordinator-pacing` skill (usage, host memory,
+   HEAD's health, the launch allowance, one command per heartbeat).
 4. Index of everything else: `docs/README.md`. Tools: `tools/re/README.md`, `tools/vc6/README.md`,
    `tools/harness/README.md`.
 Do not read whole docs "to familiarize"; use `grep -n '^#'` and open the section you need.
