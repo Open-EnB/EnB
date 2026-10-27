@@ -5355,16 +5355,25 @@
    },
    "pkunknown_866ac0": {
     "ambiguous": [
+     "0x42A6C0",
      "0x42B2F0"
     ],
     "copy": "reconstructed",
     "expected": {},
     "in_tree": [
+     "0x42A820",
+     "0x42AB30",
      "0x52B210",
      "0x52B240",
      "0x52B270",
      "0x52B2A0",
      "0x52B350",
+     "0x76B400",
+     "0x76B470",
+     "0x866AC0",
+     "0x866C20",
+     "0x866CC0",
+     "0x866DA0",
      "0x866DF0",
      "0x866ED0",
      "0x866FB0"

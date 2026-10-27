@@ -293,14 +293,4 @@ public:
 	char Unknown0C[0x4C];	// +0x0C
 };
 
-// opcode 119 (0x0077, ?): vtable 0xB04170, constructor 0x866C20, 0x20 bytes
-class Packet_0077Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x0077
-{
-public:
-	Packet_0077Class(RawPacketClass *raw);	// 0x866C20
-	virtual bool Process_Packet(void *client);	// +0x08 0x8695D0 (clientstub.cpp l.449)
-	virtual ~Packet_0077Class() {}	// +0x00 0x76B470 (inline: emitted in tsk_login.cpp)
-	char Unknown0C[0x14];	// +0x0C
-};
-
 #endif

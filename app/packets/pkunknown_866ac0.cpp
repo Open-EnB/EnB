@@ -2,6 +2,36 @@
 #include "pkunknown_866ac0.h"
 #include <stdio.h>
 
+Packet_0077Class::Packet_0077Class(const char *name) :
+	Name(name),
+	Unknown1C(0)
+{
+}
+
+Packet_0077Class::Packet_0077Class(RawPacketClass *raw) :
+	Unknown1C(0)
+{
+	raw->Get(&Name);
+}
+
+RawPacketClass *Packet_0077Class::Build()
+{
+	RawPacketClass *raw = new RawPacketClass(119, Get_Data_Size());
+	raw->Add(Name);
+	return(raw);
+}
+
+int Packet_0077Class::Get_Data_Size()
+{
+	return(RawPacketClass::Get_Size(Name));
+}
+
+// The client hands sprintf the string object itself (its four words), not its text
+int Packet_0077Class::Print(char *buffer, int)
+{
+	return(sprintf(buffer, "%s : ReferrerName=%s", "Global SetReferrer", Name));
+}
+
 
 Packet_0078Class::Packet_0078Class(RawPacketClass *raw)
 {
@@ -34,5 +64,6 @@ int Packet_0078Class::Print(char *buffer, int)
 **	  pkemit.py): members from the raw message's Get / Build's Add (sizes) and Print (types,
 **	  names: 'Name=%d'), the constructors' stores in the initialiser list.
 **	* The file name is provisional (provisional, neutral (D10): the object's first address).
-**	* Not rebuilt yet: opcode 119 (declared in pk_classes.h).
+**	* Opcode 119 written by hand (builder P9, 2026-10-27): the referrer's name (LoginTaskClass::Send_Referrer);
+**	  Print passes the std::string by value to sprintf, as the client does (four words pushed).
 */
