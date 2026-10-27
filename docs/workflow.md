@@ -266,6 +266,13 @@ unless `--lever` cites a new row of this table.
 | A copy compiled to `rep movsd` in the client | A data struct member | pkrecustomize (P7) |
 | A helper the client calls out of line from one packet | A file-static helper defined after its caller | 144's Get_String 0x872E30 (P7) |
 | An aux-data lookup with `G_ASSERT(t)` (auxdata.h line 155) inlined in 84 callers | A template helper `Unknown_Find_Field<T>(root, name)`: `NameClass name(...)` a local in the caller, the lookup a separate statement (or the push lands before Get_Lookup), no ternary (setne/dec/and) | co.cpp 0x6F5E40 / 0x6F5ED0 / 0x6F58B0 / 0x7008B0 (T12, `.work/t12/aux_t12.diff`) |
+| The client materialises `begin()` before a hashtable loop | Declare the iterator before the loop and assign it from `begin()` | inpdsp 0x429800, 0x429E50 (H18) |
+| Separate failure tails after a find | An early `return false` when `find()` returns `end()` | inpdsp 0x429A20, 0x429D90 (H18) |
+| The node construct of an operator[] push called out of line | Route the push through a one-line inline `Set_Stack` (the depth lever) | inpdsp 0x429AF0 (H18) |
+| A member inlined at every site yet emitted out of line | A non-inline member defined after its callers | inpdsp 0x42A170 (H18) |
+| A word load, `shr`, test-1 sequence on event flags | bool accessors on bit fields (plain shifts or bare bit fields give a byte test) | inpdsp 0x42A410 (H18) |
+| An EH-tracked RefCountPtr local declared at the top of the function | Sends Find and std::string's `_Eos` out of line as the client has them (block-local: both inlined) | fontmanager 0x6D2700's calls (H16); try on 0x6D2580 |
+| A large constructor loses a neighbouring inline after a header layout change | Not the changed statement: objdiff for a call that replaced inlined code first (a budget knock-on) | tsk_login 0x767240 under the char[] ship name (T14, d405690) |
 
 * **A nested inline is a whole-function budget (2026-10-26, `Key_Exchange` 0x829180):** under `/Ob2` an
   inline helper's own callees (a `std::set` iterator's `_Inc`) are inlined only while the function as a
@@ -429,6 +436,11 @@ unless `--lever` cites a new row of this table.
   `attempts.py` or the csv module. `build.py --lib` refuses a dirty library: commit a detached WIP inside the
   worktree before `build.py` / `clienttest.py build`. A header `__FILE__` the client keeps relative
   (`..\shared/auxdata/auxdata.h`) defeated D80's tie-break until f308ceb read the client's string to its NUL.
+* **A zero-context imports.json patch applied after master moved lands lines in another block** (H18's 2af9be0,
+  repaired in 89315ee): a commit script must refuse unless HEAD equals the verify base; `commit_mine.py --file NAME`
+  (3772169) selects by block span instead. `appfile.py match` can compile a stale draft: check the object holds the
+  new symbols. In Git Bash prefix a command taking `// 0x...` arguments with `MSYS_NO_PATHCONV=1`; in VC6 `#line N`
+  alone switches `__FILE__` to the full path and `#line N "..\\shared/..."` needs escaped backslashes (T15).
 * **A verify worktree has no `.work/harness/*.dgram` and no built libraries** (P8): copy alex3 / alex7 in for
   `udpreplay conn`, copy the non-app `build/*/*.lib` across and run `build.py build --lib app --allow-dirty` there
   (the worktree is yours alone) before `udpreplay build`. commit_mine's hunk keys select whole hunks: another
