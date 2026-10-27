@@ -262,6 +262,9 @@ unless `--lever` cites a new row of this table.
 | An out-of-line "constructor" called through `??_H` (vector constructor iterator) without `mov eax, ecx` | A default-constructor closure: give the constructor default arguments | ControlKeyStruct 0x71BD70 (H14, b38289f) |
 | The client shares one report call between two FAIL_IFs over an iterator | A `const_iterator` plus `key_ptr++` on its own line | Load_Keys 0x71BD90 (H14, 292c69f) |
 | Nested table helpers out of line in the client, inlined in ours (a loop) | Wrap the loop in an inline helper (F5's depth lever, confirmed four more times by H14) | FontManagerClass's destructor, 0x6D1C10, Create, Set_Color (H14) |
+| A packet destructor stores the class's own vtable in ours, not in the client | The implicit destructor (a declared empty one adds the store); where the client does store it, declare it | 129-133 implicit, 72 declared (P7) |
+| A copy compiled to `rep movsd` in the client | A data struct member | pkrecustomize (P7) |
+| A helper the client calls out of line from one packet | A file-static helper defined after its caller | 144's Get_String 0x872E30 (P7) |
 
 * **A nested inline is a whole-function budget (2026-10-26, `Key_Exchange` 0x829180):** under `/Ob2` an
   inline helper's own callees (a `std::set` iterator's `_Inc`) are inlined only while the function as a
@@ -386,6 +389,10 @@ unless `--lever` cites a new row of this table.
   (attempts.csv, not-exact.md, names-review.md) are one hunk, so a path commit or a regeneration sweeps the
   neighbours' rows (`git log -S` before assuming a row is lost); copy a regenerated file in and commit it in one
   step. The -U0 placement bug itself is fixed (af0a8a5).
+* **VC6 hits C1001 on out-of-class specialisations of member templates and mangles member-template functions
+  without their template arguments** (P7): a stand-in defines them as plain overloads in its own minimal class
+  declaration (tests/capharness/udpreplay/shipcust_stubs.cpp). `appfile.py match` needs `-I wwmath -I wwlib
+  -I wwdebug` (top-level folders) for headers like avatar_desc.h; `--diff` works only on a marked function.
 * **A pack(4) member changes a packet class's sizeof (0x5C for 0x60) and the factory switch 0x869790 in pk.cpp stops
   matching** (P6, 2026-10-27): check it whenever a packet layout changes. Put a needed `#include` after the asserted
   code so the asserts keep the client's lines. Python `replace` with `\n` in a CRLF header gives mixed endings.
