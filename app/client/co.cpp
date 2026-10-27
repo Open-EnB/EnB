@@ -2605,6 +2605,47 @@ void ClientObjectClass::Unknown_7009A0(bool on, bool force)
 	}
 }
 
+// 0x6FF7A0 the name label: the object's name, behind its Title or Rank for a type other than 0  // NOT EXACT: inline-budget (the client calls the string lookup 0x514BD0 at all six sites and inlines more of std::string; ours the reverse)
+void ClientObjectClass::Unknown_6FF7A0(std::string &text)
+{
+	DeltaStringClass *t;
+	if (!Unknown_6F5A40()) {
+		NameClass field("Name");
+		t = Unknown_Find_Field<DeltaStringClass>((DeltaCompoundClass *)AuxData, field);
+		if (!t || !t->m_Unknown70) {
+			NameClass owner("Owner");
+			t = Unknown_Find_Field<DeltaStringClass>((DeltaCompoundClass *)AuxData, owner);
+		}
+	} else {
+		NameClass owner("Owner");
+		t = Unknown_Find_Field<DeltaStringClass>((DeltaCompoundClass *)AuxData, owner);
+		if (!t || !t->m_Unknown70) {
+			NameClass field("Name");
+			t = Unknown_Find_Field<DeltaStringClass>((DeltaCompoundClass *)AuxData, field);
+		}
+	}
+	const char *name = (t && t->m_Unknown70) ? t->String : "Unknown";
+	if (Type == 0) {
+		text = std::string(name);
+	} else {
+		NameClass title_field("Title");
+		t = Unknown_Find_Field<DeltaStringClass>((DeltaCompoundClass *)AuxData, title_field);
+		const char *title = (t && t->m_Unknown70) ? t->String : "";
+		if (*title) {
+			text = std::string(title) + " " + name;
+		} else {
+			NameClass rank_field("Rank");
+			t = Unknown_Find_Field<DeltaStringClass>((DeltaCompoundClass *)AuxData, rank_field);
+			const char *rank = (t && t->m_Unknown70) ? t->String : "";
+			if (*rank) {
+				text = std::string(rank) + " " + name;
+			} else {
+				text = name;
+			}
+		}
+	}
+}
+
 /*
 **	Reconstruction notes (T11, 2026-10-27)
 **
