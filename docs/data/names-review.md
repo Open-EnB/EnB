@@ -9,8 +9,8 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 11 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 29 |
-| 3 | by convention from a client-named file or sibling | 472 |
-| 2 | describes what the code does | 918 |
+| 3 | by convention from a client-named file or sibling | 474 |
+| 2 | describes what the code does | 927 |
 | 1 | neutral placeholder | 1360 |
 
 ## For review (score 3 and below)
@@ -1377,6 +1377,15 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_Debug_Print` | `tests/capharness/udpreplay/connect_stubs.cpp:37` | untagged neutral name (D10) |
 | 1 | `Unknown_2C` | `tests/capharness/udpreplay/pk_ctor_stubs.cpp:199` | untagged neutral name (D10) |
 | 1 | `Unknown_4BC130` | `tests/capharness/udpreplay/udpreplay.cpp:70` | untagged neutral name (D10) |
+| 2 | `std:` | `app/client/cfaction_database.cpp:39` | what Get_Name and Get_Description return for an unknown faction |
+| 2 | `Init` | `app/client/cfaction_database.h:27` | describes what it does |
+| 2 | `Shutdown` | `app/client/cfaction_database.h:28` | describes what it does |
+| 2 | `std:` | `app/client/cfaction_database.h:29` | describes what it does |
+| 2 | `std:` | `app/client/cfaction_database.h:30` | describes what it does |
+| 2 | `FactionStruct` | `app/client/cfaction_database.h:32` | describes what it holds |
+| 2 | `std:` | `app/client/cfaction_database.h:34` | the ini key |
+| 2 | `std:` | `app/client/cfaction_database.h:35` | the ini key |
+| 2 | `UseCount` | `app/client/cfaction_database.h:40` | describes what it does |
 | 2 | `SClient` | `app/client/sclient.h:32` | the client's 'SClient::Process_Packets' (0x7427C0) |
 | 2 | `username, password` | `app/client/tasks/tsk_game.h:57` | LoginTaskClass's 0x7697A0 / 0x7697E0 get them back |
 | 2 | `Result` | `app/client/tasks/tsk_login.h:381` | the assert's kr; tested >= 0 |
@@ -2308,6 +2317,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `DeltaPlanetClass` | `app/client/aux_roots.h:953` | the client's root string "Planet", Westwood XxxClass (D24); structure = C# PlanetObject (C# fields = ours (same names, same order)) |
 | 3 | `DeltaStarbaseClass` | `app/client/aux_roots.h:969` | the client's root string "Starbase", Westwood XxxClass (D24); structure = C# StarbaseObject (C# fields = ours (same names, same order)) |
 | 3 | `DeltaStargateClass` | `app/client/aux_roots.h:985` | the client's root string "Stargate", Westwood XxxClass (D24); structure = C# StargateObject (C# fields = ours (same names, same order)) |
+| 3 | `cfaction_database.h` | `app/client/cfaction_database.h:18` | header name assumed from the client's cfaction_database.cpp |
+| 3 | `CFactionDatabaseClass` | `app/client/cfaction_database.h:24` | by convention (D24) from the client's file cfaction_database.cpp |
 | 3 | `sclient.h` | `app/client/sclient.h:17` | header name assumed from the class |
 | 3 | `tsk_game.h` | `app/client/tasks/tsk_game.h:18` | header name assumed from the client's tsk_game.cpp |
 | 3 | `ClientTaskClass` | `app/client/tasks/tsk_game.h:47` | the client's 'ClientTask' (its profile label) in LoginTaskClass's form (D24) |

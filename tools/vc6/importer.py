@@ -3447,6 +3447,11 @@ RECONSTRUCTED = {
     ('app', 'kernel/kernel.cpp'): "the task kernel, client 0x443020-0x444150 (kernel-map.md 6, step 1): KernelClass and TaskClass; "
                                   "the asserts on the client's lines 74 / 157 / 196 / 225 / 474 (D25); NOT EXACT: Remove_Task "
                                   "(the client calls list's iterator++ 0x444190 out of line), Is_Running, TaskClass::Is_Focused",
+    ('app', 'client/cfaction_database.h'): "CFactionDatabaseClass (D24): the factions' Name and Description from "
+                                          "cfaction_t.ini in a static SGI hash_map<std::string> _Factions (libs/sgistl, D87)",
+    ('app', 'client/cfaction_database.cpp'): "CFactionDatabaseClass, client 0x7E4A30-0x7E50D0 with the table's instances to "
+                                            "0x7E5E50: _Factions's initializer and destructor, Init (NOT EXACT: register-only), "
+                                            "Shutdown, the static empty string, Get_Name, Get_Description (line 98, D25)",
     ('app', 'client/sclient.h'): "SClient (the client's 'SClient::Process_Packets'), declared only as far as tsk_game.cpp uses "
                                 "it: constructor 0x7405E0, 0x14F8 bytes (kernel-map.md 6, step 9)",
     ('app', 'client/tasks/tsk_game.h'): "ClientTaskClass (D24 after its profile label 'ClientTask'), vtable 0xB03FF4, 0xA8 "

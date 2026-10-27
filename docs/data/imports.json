@@ -163,6 +163,46 @@
     "merged": [],
     "name": "shared/auxdata/bitset.cpp"
    },
+   "cfaction_database": {
+    "ambiguous": [
+     "0x42A6C0",
+     "0x42A900",
+     "0x42AAE0",
+     "0x42AC90",
+     "0x42AFF0",
+     "0x42B250",
+     "0x42B2F0",
+     "0x42D180",
+     "0x455FB0",
+     "0x4FDB50",
+     "0x60A3E0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42A820",
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30",
+     "0x42C4E0",
+     "0x42CAB0",
+     "0x42CD30",
+     "0x42D050",
+     "0x42DB00",
+     "0x42DB80",
+     "0x4B5740",
+     "0x7E4AE0",
+     "0x7E4B10",
+     "0x7E4F00",
+     "0x7E5040",
+     "0x7E50D0",
+     "0x7E54B0",
+     "0x7E5B10",
+     "0x7E5E50"
+    ],
+    "merged": [],
+    "name": "client/cfaction_database.cpp"
+   },
    "circbuff": {
     "ambiguous": [],
     "copy": "reconstructed",
@@ -3914,6 +3954,7 @@
   },
   "headers": {
    "client/aux_roots.h": "reconstructed",
+   "client/cfaction_database.h": "reconstructed",
    "client/sclient.h": "reconstructed",
    "client/tasks/tsk_game.h": "reconstructed",
    "client/tasks/tsk_login.h": "reconstructed",
