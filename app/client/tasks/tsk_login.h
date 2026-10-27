@@ -277,6 +277,7 @@ class LoginUnknown350Class : public LoginPacketDataClass, public LoginInterfaceA
 {
 public:
 	LoginUnknown350Class();								// 0x4BEB50
+	void Unknown_4C1460(const char *name, int unknown);	// 0x4C1460 (the fast start's name 'Fast' + the user name, 1)
 	virtual void Write(LinearBufferClass *buffer);		// +0x00 (vtable 0xAEB9D0)
 	virtual void Read(LinearBufferClass *buffer);		// +0x04
 	virtual int Get_Size();								// +0x08
@@ -386,7 +387,7 @@ public:
 	virtual void Pre_Run();								// +0x38 0x767DA0
 	virtual void Render();								// +0x3C 0x767EE0
 	virtual bool Delete_On_Remove() { return true; }	// +0x44 0x767580
-	virtual void Unknown_48(int a, int b, int galaxy, int c);	// +0x48 0x7689E0 (the FAIL_IF 'Galaxies.empty()'): sends the character creation
+	virtual void Unknown_48(LoginUnknown350Class *a, LoginUnknown88CClass *b, int galaxy, int c);	// +0x48 0x7689E0 (the FAIL_IF 'Galaxies.empty()'): sends the character creation
 	virtual bool Unknown_4C();							// +0x4C 0x768B00: the ticket step
 	virtual void Unknown_50();							// +0x50 0x7683F0
 	virtual void Go_Next_Step();						// +0x54 0x769500 (S)
@@ -409,7 +410,7 @@ public:
 	void Delete_Character_View();						// 0x769D20  // NAME 1: what it does
 	bool Fetch_EA_Ticket();								// 0x76A7B0 ('AuthLogin': kcom's authFactory / iauth)  // NAME 1: what it does
 	void Start_Game();									// 0x769E70 (step 16: 'LoginTask: removing self.', the ClientTaskClass)  // NAME 1: what it does
-	void Unknown_76A370();								// 0x76A370 (step 18: 'LoginTask: Request Character List.')
+	void Unknown_76A370();								// 0x76A370 (step 18: the fast start, Unknown108C's states 1-3: 'LoginTask: Request Character List.')
 	void Save_Login_Name();								// 0x76AD30: login.ini's LOGIN_DATA Name  // NAME 1: what it does
 	void Load_Login();									// 0x76ADD0: login.ini, -LOGIN, -PASSWORD  // NAME 1: what it does
 	void Unknown_768CB0(LoginCharacterClass *characters, LoginUnknown350Class *unknown);	// 0x768CB0: the avatar list's five characters (0x90 bytes each) and five 0x10C entries
@@ -442,7 +443,7 @@ public:
 	int Selected;										// +0x1080 NAME 1: the selected character's slot
 	char *Username;										// +0x1084 NAME 1: Set_Username's (nstrdup)
 	char *Password;										// +0x1088 NAME 1: Set_Password's (nstrdup)
-	int Unknown108C;									// +0x108C
+	int Unknown108C;									// +0x108C: the fast start's state (0x76A370)
 	int Error;											// +0x1090 NAME 1: the global error packet's code (0x76B000)
 	char Unknown1094[0x1098 - 0x1094];					// +0x1094
 	LoginTicketInfoClass Ticket_Info;					// +0x1098 NAME 1: what the ticket packet's handler 0x76B170 fills

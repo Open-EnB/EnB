@@ -190,7 +190,7 @@ bool LoginTaskClass::Yield_Focus() { return true; }
 void LoginTaskClass::Run() {}
 void LoginTaskClass::Pre_Run() {}
 void LoginTaskClass::Render() {}
-void LoginTaskClass::Unknown_48(int, int, int, int) {}
+void LoginTaskClass::Unknown_48(LoginUnknown350Class *, LoginUnknown88CClass *, int, int) {}
 bool LoginTaskClass::Unknown_4C() { return false; }
 void LoginTaskClass::Unknown_50() {}
 void LoginTaskClass::Go_Next_Step() {}

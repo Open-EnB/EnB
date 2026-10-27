@@ -21,9 +21,10 @@
 #include "wwstring.h"
 #include <stdio.h>
 #include <string.h>
+#include <ctype.h>
 
 void Unknown_Debug_Print(const char *text);			// NAME 1 [Unknown_Debug_Print]: 0x509E30 (dbgmgr.cpp), the log line
-class GlobalCreateCharacterPacketClass : public PacketClass { public: GlobalCreateCharacterPacketClass(int galaxy, int slot, const char *name, int a, int b, int c); ~GlobalCreateCharacterPacketClass(); char Unknown0C[0x2BC]; };	// opcode 114: 0x864090, 0x864590 (pk_classes.h: the receiving side only)
+class GlobalCreateCharacterPacketClass : public PacketClass { public: GlobalCreateCharacterPacketClass(int galaxy, int slot, const char *name, LoginUnknown350Class *a, LoginUnknown88CClass *b, int c); ~GlobalCreateCharacterPacketClass(); char Unknown0C[0x2BC]; };	// opcode 114: 0x864090, 0x864590 (pk_classes.h: the receiving side only)
 class GlobalConnectPacketClass : public PacketClass { public: GlobalConnectPacketClass(const char *ticket, const char *password); ~GlobalConnectPacketClass(); char Unknown0C[0x08]; };	// opcode 109: 0x863400, 0x863570  // NAME 1 [password]: '123456'
 void Unknown_4BC000(const char *sender, const char *category, const char *file, int line, const char *format, ...);	// NAME 1 [Unknown_4BC000]: 0x4BC000, E&B's message reporter (tcpconn.cpp)
 static char *AUTH_INI = "auth.ini";				// 0xB9B9D0  // NAME 1: its text
@@ -85,7 +86,6 @@ bool Unknown_42EA80(KernelEventClass *event);		// NAME 1 [Unknown_42EA80]: the i
 void Unknown_42E8A0(KernelEventClass *event);		// NAME 1 [Unknown_42E8A0]: hands the event on (input.cpp)
 KernelEventClass Unknown_65F780(void *unknown);		// NAME 1 [Unknown_65F780]: neutral (D10) (gadget.cpp)
 class GlobalDeleteCharacterPacketClass : public PacketClass { public: GlobalDeleteCharacterPacketClass(int slot); ~GlobalDeleteCharacterPacketClass(); int Unknown0C; char Unknown10[4]; };	// opcode 113: 0x8647B0, 0x8648B0 (pkglobaldeletecharacter.h: the receiving side only)
-
 
 
 
@@ -475,7 +475,7 @@ void LoginTaskClass::Unknown_50()
 
 
 // 0x7689E0
-void LoginTaskClass::Unknown_48(int a, int b, int galaxy, int c)
+void LoginTaskClass::Unknown_48(LoginUnknown350Class *a, LoginUnknown88CClass *b, int galaxy, int c)
 {
 	if (GlobalConnection) {
 		FAIL_IF(Galaxies.empty()) return;
@@ -1008,55 +1008,55 @@ void LoginTaskClass::Kill_Kernel()
 
 
 
+// NOT EXACT: inline budget (ours inlines std::string("Fast")'s assign, the client calls it; attempts.py show 0x76A370)
+// 0x76A370
+void LoginTaskClass::Unknown_76A370()
+{
+	switch (Unknown108C) {
+		case 1:
+			Unknown_Debug_Print("LoginTask: Request Character List.");
+			Unknown_4C();
+			Unknown108C = 2;
+			break;
 
+		case 2:
+			if (Unknown001D) {
+				Unknown001D = false;
+				Unknown_Debug_Print("LoginTask: Create new temporary character.");
+				Selected = 4;
+				if (Characters[Selected].ID == 0) {
+					Unknown0020 = 0;
+					Error = 0;
+					LoginUnknown350Class info;
+					LoginUnknown88CClass look;
+					std::string name("Fast");
+					name += Username;
+					for (std::string::iterator it = name.begin(); it != name.end(); it++) {
+						if (!isalpha(*it)) {
+							*it = 'X';
+						}
+					}
+					info.Unknown_4C1460(name.c_str(), 1);
+					Unknown_48(&info, &look, -1, 1);
+				} else {
+					Unknown_5C();
+				}
+				Unknown108C = 3;
+			}
+			break;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+		case 3:
+			if (Unknown0020 == 1) {
+				Unknown_Debug_Print("LoginTask: New character approved. Shutting down login server.");
+				Unknown_4C();
+				Unknown_5C();
+			} else if (Unknown0020 == 2) {
+				Unknown_Debug_Print("LoginTask: Error creating temporary character.");
+				Show_Message("Couldn't create character for fast start.");
+			}
+			break;
+	}
+}
 
 
 
