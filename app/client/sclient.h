@@ -7,8 +7,11 @@
 **
 **	SClient, the game's client object (0x14F8 bytes, constructor 0x7405E0, destructor 0x740BB0, vtable
 **	0xB03240: the base's 23 slots and three): the client base ClientClass (client.h, client.cpp) at +0x00,
-**	a one-slot class at +0x1150 (soptions.cpp, not declared yet). Declared only as far as ClientTaskClass
-**	(tsk_game.cpp) uses it; sclient.cpp isn't rebuilt (docs/kernel-map-step9.md 2.2, D90 9d).
+**	the client's options SOptionsClass (soptions.h, vtable 0xB0323C) at +0x1150. The layout is the
+**	constructor's, the destructor's and Init's (docs/kernel-map-step9.md 2.2, D90 9d); the members'
+**	classes are named after the file of their constructor where it is known (D24), declared as far as
+**	sclient.cpp uses them. cpacket.cpp's handlers are the packets' Process_Packet(SClient *) (PacketClass
+**	slot +0x08), called by Process_Packets.
 */
 
 #if defined(_MSC_VER)
@@ -19,35 +22,194 @@
 #define SCLIENT_H
 
 #include "client.h"
+#include "soptions.h"
 #include "tasks\tsk_game.h"
+#include "vector.h"
+#include "vector3.h"
+#include <deque>
+#include <vector>
+#include <hash_map.h>
 
-class SClientUnknown1368Class	// NAME 1: neutral (D10): what SClient +0x1368 points to
+class LoginUnknown0CClass;		// tsk_login.h: inpdsp.cpp's input dispatcher (0x18 bytes)
+class LoginUnknown18Class;		// tsk_login.h: the software mouse (0x30 bytes, 0x514FE0)
+class Font3DInstanceClass;
+class Render2DTextClass;
+class MusicManagerClass;		// NAME 3: class-from-file (D24) for audio\musicmanager.cpp (constructor 0x439E40, 0x1FC bytes)
+class CameraManagerClass;		// NAME 3: class-from-file (D24) for camera_manager.cpp (constructor 0x798D20, 0x4C bytes)
+class UIChatPanelClass;			// NAME 3: class-from-file (D24) for ui_chat_panel.cpp (constructor 0x561DD0, 0x268 bytes)
+class UILineDisplayClass;		// NAME 3: class-from-file (D24) for ui_line_display.cpp (constructor 0x5A5410, 0x100 bytes)
+class PDAInterfaceClass;		// NAME 3: class-from-file (D24) for pdaint.cpp (constructor 0x693140, 0xC0 bytes)
+class BridgeInterfaceClass;		// NAME 3: class-from-file (D24) for bridge_int.cpp (constructor 0x53B040, 0xC4 bytes)
+class UIHotKeysClass;			// NAME 3: class-from-file (D24) for ui_hot_keys.cpp (constructor 0x59C6F0, 0x84 bytes)
+class VerbManagerClass;			// NAME 3: class-from-file (D24) for verbmanager.cpp (constructor 0x81F100, 0x14 bytes)
+class UITalkTreeSpaceClass;		// NAME 3: class-from-file (D24) for ui_talkt_space.cpp (constructor 0x64F310, 0x184 bytes)
+class GalaxyMapClientClass;		// NAME 3: class-from-file (D24) for galaxy_map_client.cpp (constructor 0x7A4830, 0xCC bytes)
+class UIStarmapClass;			// NAME 3: class-from-file (D24) for ui_starmap.cpp (constructor 0x7C6120, 0x14 bytes)
+class SClientUnknown12C4Class;	// NAME 1: neutral (D10): the elements of SClient +0x12C4
+class SClientUnknown1334Class;	// NAME 1: neutral (D10): 0xB8 bytes, destructor 0x618A50
+class SClientUnknown1338Class;	// NAME 1: neutral (D10): 0x24 bytes, an INIClass at +0x14
+class SClientUnknown133CClass;	// NAME 1: neutral (D10): the elements of SClient +0x133C
+class SClientUnknown1394Class;	// NAME 1: neutral (D10): the values of SClient +0x1394 (reference counted, slot +0x38)
+
+// view.cpp's view: the base of the six views at SClient +0x1354..+0x1368 (the slots every one of them
+// gets: the deleting destructor, +0x04 after construction, +0x10 in Shutdown)
+class ViewClass			// NAME 2: what the six objects share (kernel-map-step9.md 9f's view.cpp)
 {
 public:
-	char Unknown00[0x68];
-	bool Unknown68;				// +0x68 ClientTaskClass::Render renders when it is set
+	virtual ~ViewClass();								// +0x00 (Shutdown deletes through it)
+	virtual void Unknown_04();							// +0x04 Init calls it after construction
+	virtual void Unknown_08();							// +0x08 Init (the main view, +0x1358)
+	virtual void Unknown_0C(bool on);					// +0x0C Process_Packets passes true to the loading view
+	virtual void Unknown_10();							// +0x10 Shutdown
 };
 
-class SClient : public ClientClass	// NAME 2: the client's 'SClient::Process_Packets' (0x7427C0)
+// mainview.cpp's view (constructor 0x50B360, 0x1EC bytes): SClient's Add_Object / Remove_Object tell it
+class MainViewClass : public ViewClass	// NAME 3: class-from-file (D24) for mainview.cpp
+{
+public:
+	virtual void Unknown_14();
+	virtual void Unknown_18();
+	virtual void Unknown_1C();
+	virtual void Unknown_20();
+	virtual void Unknown_24();
+	virtual void Unknown_28();
+	virtual void Unknown_2C();
+	virtual void Unknown_30();
+	virtual void Unknown_34();
+	virtual void Unknown_38();
+	virtual void Unknown_3C();
+	virtual void Unknown_40();
+	virtual void Unknown_44();
+	virtual void Unknown_48();
+	virtual void Unknown_4C();
+	virtual void Unknown_50();
+	virtual void Unknown_54();
+	virtual void Unknown_58();
+	virtual void Unknown_5C();
+	virtual void Unknown_60();
+	virtual void Unknown_64();
+	virtual void Unknown_68();
+	virtual void Unknown_6C();
+	virtual void Unknown_70();
+	virtual void Unknown_74();
+	virtual void Unknown_78();
+	virtual void Unknown_7C();
+	virtual void Add_Object(ClientObjectClass *object);		// +0x80 SClient::Add_Object  // NAME 2: its caller's
+	virtual void Remove_Object(ClientObjectClass *object);	// +0x84 SClient::Remove_Object  // NAME 2: its caller's
+};
+
+// loadingview.cpp's view (constructor 0x691570, 0x6C bytes)
+class LoadingViewClass : public ViewClass	// NAME 3: class-from-file (D24) for loadingview.cpp
+{
+public:
+	char Unknown04[0x68 - 0x04];						// +0x04
+	bool Unknown68;										// +0x68 ClientTaskClass::Render renders when it is set
+};
+
+// The 0x120 bytes at SClient +0x13CC: 24 colours set to (1, 1, 1) by the out-of-line constructor 0x764FD0
+// (between proj_decal_manager.cpp and tsk_game.cpp; file unknown)
+class Unknown764FD0Class	// NAME 1: neutral (D10)
+{
+public:
+	Unknown764FD0Class();								// 0x764FD0
+
+	Vector3 Unknown00[24];								// +0x00  // NAME 2: what the constructor writes
+};
+
+#pragma pack(push, 4)		// as ClientClass (client.h)
+class SClient : public ClientClass, public SOptionsClass	// NAME 2: the client's 'SClient::Process_Packets' (0x7427C0)
 {
 public:
 	SClient(ClientTaskClass *task);						// 0x7405E0  // NAME 1 [task]: ClientTaskClass::Init passes this
 	~SClient();											// 0x740BB0
 	virtual void Init();								// +0x00 0x741180: ClientTaskClass::Init calls it once Kernel is set
 	virtual void Shutdown();							// +0x04 0x741BB0: ClientTaskClass::Shutdown
-	virtual void Unknown_08();							// +0x08 0x7427A0
-	virtual void Process_Packets();						// +0x0C 0x7427C0
-	virtual void Unknown_10();							// +0x10 0x7428F0
+	virtual void Unknown_08();							// +0x08 0x7427A0 (empty)
+	virtual void Process_Packets();						// +0x0C 0x7427C0 (S: 'SClient::Process_Packets')
+	virtual void Unknown_10();							// +0x10 0x7428F0: pumps the window's message queue (the base's name kept)
 	virtual int Do_Frame(bool focused);					// +0x14 0x742B60: ClientTaskClass::Sector, 0 .. 5
-	virtual void Unknown_5C();							// +0x5C 0x740F60
-	virtual void Unknown_60();							// +0x60 0x741B70
+	virtual int Unknown_18() { return((int)this); }		// +0x18 0x740AC0 (the base's returns 0)
+	virtual unsigned Set_Debug_Object(unsigned id);		// +0x24 0x745730: the base's
+	virtual bool Unknown_34(int arg);					// +0x34 0x74ABC0: the chat line's '/' commands ('/group', 'Unable to camp - insufficient marshmallows.')
+	virtual void Set_Debug_Mode(bool on);				// +0x3C 0x743330: the base's, then 'Debug mode turned %s.'
+	virtual void Add_Object(ClientObjectClass *object);	// +0x40 0x744B90: the base's, then the main view's
+	virtual ClientObjectClass *Remove_Object(unsigned id);	// +0x44 0x744BD0: the base's, then the main view's
+	virtual void Load_INIs();							// +0x5C 0x740F60: action.ini, cskill_*.ini, testeffects.ini, gutter_color.ini, cbasset.ini  // NAME 2: what it does
+	virtual void Unload_INIs();							// +0x60 0x741B70: Load_INIs undone by its last user  // NAME 2: what it does
 	virtual void Unknown_64();							// +0x64 0x744690: ClientTaskClass::Render, Wait_For_Redirect
 
-	char Unknown1150[0x12D8 - 0x1150];					// +0x1150 (+0x1150: the soptions.cpp base's vtable 0xB0323C)
+	void Print(int channel, const char *format, ...);	// 0x74DF70 (cdecl): a line in the chat panel  // NAME 2: what it does
+
+	bool Unknown1198;									// +0x1198 (true)
+	std::string Unknown119C;							// +0x119C
+	std::deque<int> Unknown11AC[2];						// +0x11AC (0x30 bytes each: the elements' constructor 0x740AE0, destructor 0x755A10)
+	std::deque<int> Unknown120C[2];						// +0x120C
+	int Unknown126C;									// +0x126C (-1)
+	LoginUnknown0CClass *Unknown1270;					// +0x1270 Init: the input dispatcher (inpdsp.cpp)
+	LoginUnknown18Class *Unknown1274;					// +0x1274 Init: the software mouse (0x514FE0)
+	int Unknown1278;									// +0x1278
+	RefCountPtr<UIChatPanelClass> ChatPanel;			// +0x127C Init (the reference count at +0x3C)  // NAME 3: its file's
+	UILineDisplayClass *LineDisplay;					// +0x1280 Init  // NAME 3: its file's
+	PDAInterfaceClass *PDAInterface;					// +0x1284 Init  // NAME 3: its file's
+	int Unknown1288;									// +0x1288
+	BridgeInterfaceClass *BridgeInterface;				// +0x128C Init  // NAME 3: its file's
+	UIHotKeysClass *HotKeys;							// +0x1290 Init  // NAME 3: its file's
+	VerbManagerClass *VerbManager;						// +0x1294 Init  // NAME 3: its file's
+	RefCountPtr<UITalkTreeSpaceClass> Unknown1298;		// +0x1298 Init: Unknown129C's object
+	RefCountPtr<UITalkTreeSpaceClass> Unknown129C;		// +0x129C Init
+	GalaxyMapClientClass *GalaxyMap;					// +0x12A0 Init  // NAME 3: its file's
+	UIStarmapClass *Starmap;							// +0x12A4 Init  // NAME 3: its file's
+	CameraManagerClass *CameraManager;					// +0x12A8 Init  // NAME 3: its file's
+	int Unknown12AC;									// +0x12AC (the constructor leaves it)
+	int Unknown12B0;									// +0x12B0 Init: the base's Unknown10BC
+	int Unknown12B4;									// +0x12B4
+	int Unknown12B8;									// +0x12B8
+	int Unknown12BC;									// +0x12BC (an object Shutdown deletes)
+	int Unknown12C0;									// +0x12C0
+	VectorClass<SClientUnknown12C4Class *> Unknown12C4;	// +0x12C4 vtable 0xB032BC, one entry (NULL)
+	int Unknown12D4;									// +0x12D4
 	TicketClass Ticket;									// +0x12D8 NAME 1: ClientTaskClass::Init copies the ticket here
-	char Unknown1320[0x1368 - 0x1320];					// +0x1320
-	SClientUnknown1368Class *Unknown1368;				// +0x1368
-	char Unknown136C[0x14F8 - 0x136C];					// +0x136C
+	bool Unknown1320;									// +0x1320 (true)
+	int Unknown1324;									// +0x1324
+	int Unknown1328;									// +0x1328 (the constructor leaves it)
+	MusicManagerClass *MusicManager;					// +0x132C Init  // NAME 3: its file's
+	int Unknown1330;									// +0x1330 (Shutdown: 0x43C560)
+	SClientUnknown1334Class *Unknown1334;				// +0x1334
+	SClientUnknown1338Class *Unknown1338;				// +0x1338
+	std::vector<SClientUnknown133CClass> *Unknown133C;	// +0x133C (0x0C-byte elements, destructor 0x758F40)
+	VectorClass<Vector3> Unknown1340;					// +0x1340 vtable 0xAE9B0C
+	int Unknown1350;									// +0x1350
+	MainViewClass *MainView;							// +0x1354 Init  // NAME 3: its file's
+	ViewClass *Unknown1358;								// +0x1358 Init (0x514CC0, 0x50 bytes)
+	ViewClass *Unknown135C;								// +0x135C
+	ViewClass *Unknown1360;								// +0x1360
+	ViewClass *Unknown1364;								// +0x1364
+	LoadingViewClass *LoadingView;						// +0x1368 Init  // NAME 3: its file's
+	int ViewMode;										// +0x136C (2; 3: the 3-D movie view, 6: the scripted movie view)  // NAME 2: what Do_Frame's asserts show
+	int Unknown1370;									// +0x1370 (3)
+	int Unknown1374;									// +0x1374 (3)
+	int Unknown1378;									// +0x1378
+	bool Unknown137C;									// +0x137C
+	int Unknown1380;									// +0x1380
+	ClientTaskClass *Task;								// +0x1384 the constructor's argument  // NAME 2: what it holds
+	bool Unknown1388;									// +0x1388
+	int Unknown138C;									// +0x138C (1 after '/camp')
+	int Unknown1390;									// +0x1390
+	std::hash_map<unsigned, SClientUnknown1394Class *> Unknown1394;	// +0x1394 keyed by game id (0x756820: the debug object's)
+	int Unknown13AC;									// +0x13AC
+	int Unknown13B0;									// +0x13B0
+	int Unknown13B4;									// +0x13B4
+	int Unknown13B8;									// +0x13B8
+	int Unknown13BC;									// +0x13BC
+	bool Unknown13C0;									// +0x13C0
+	bool Unknown13C1;									// +0x13C1
+	Render2DTextClass *Text;							// +0x13C4 Init: font_med10.tga's text  // NAME 2: what it holds
+	RefCountPtr<Font3DInstanceClass> Font;				// +0x13C8 Init: font_med10.tga  // NAME 2: what it holds
+	Unknown764FD0Class Unknown13CC;						// +0x13CC
+	int Unknown14EC;									// +0x14EC
+	bool Unknown14F0;									// +0x14F0
+	int Unknown14F4;									// +0x14F4
 };
+#pragma pack(pop)
 
 #endif

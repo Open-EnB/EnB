@@ -326,7 +326,7 @@ void ClientTaskClass::Sector()
 void ClientTaskClass::Render()
 {
 	G_ASSERT(Client);
-	if (Mode == MODE_SECTOR || Client->Unknown1368->Unknown68) {
+	if (Mode == MODE_SECTOR || Client->LoadingView->Unknown68) {
 		Client->Unknown_64();
 	}
 }
