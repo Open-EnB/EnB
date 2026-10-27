@@ -73,7 +73,7 @@ DataBinderClass<ClientObjectClass *> &DataBinderClass<ClientObjectClass *>::Inst
 	return(binder);
 }
 
-// NOT EXACT: shape (the client calls Has, Get and Remove out of line for all five types; ours inlines Has four times)
+// the dead Get_Game_ID read keeps Has, Get and Remove out of line here as the client has them (inline budget, D40)
 void ClientObjectDataClass::Remove_All(ClientObjectClass *co)
 {
 	ClientObjectDataAccessClass<RadarDataClass>::Remove(co);
@@ -81,6 +81,7 @@ void ClientObjectDataClass::Remove_All(ClientObjectClass *co)
 	ClientObjectDataAccessClass<StarmapDataClass>::Remove(co);
 	ClientObjectDataAccessClass<NavigationDataClass>::Remove(co);
 	ClientObjectDataAccessClass<EmoteDataClass>::Remove(co);
+	co->Get_Game_ID();
 }
 
 RadarDataClass *Get_Radar_Data(ClientObjectClass *co, bool create)
@@ -88,7 +89,6 @@ RadarDataClass *Get_Radar_Data(ClientObjectClass *co, bool create)
 	return(ClientObjectDataAccessClass<RadarDataClass>::Get(co, create));
 }
 
-// NOT EXACT: inline budget (the client calls the value map's find out of line; ours inlines it)
 bool Remove_Radar_Data(ClientObjectClass *co)
 {
 	return(ClientObjectDataAccessClass<RadarDataClass>::Remove(co));
@@ -99,7 +99,6 @@ GutterDataClass *Get_Gutter_Data(ClientObjectClass *co, bool create)
 	return(ClientObjectDataAccessClass<GutterDataClass>::Get(co, create));
 }
 
-// NOT EXACT: inline budget (the client calls the value map's find out of line; ours inlines it)
 bool Remove_Gutter_Data(ClientObjectClass *co)
 {
 	return(ClientObjectDataAccessClass<GutterDataClass>::Remove(co));
@@ -110,7 +109,6 @@ StarmapDataClass *Get_Starmap_Data(ClientObjectClass *co, bool create)
 	return(ClientObjectDataAccessClass<StarmapDataClass>::Get(co, create));
 }
 
-// NOT EXACT: inline budget (the client calls the value map's find out of line; ours inlines it)
 bool Remove_Starmap_Data(ClientObjectClass *co)
 {
 	return(ClientObjectDataAccessClass<StarmapDataClass>::Remove(co));
@@ -121,7 +119,6 @@ NavigationDataClass *Get_Navigation_Data(ClientObjectClass *co, bool create)
 	return(ClientObjectDataAccessClass<NavigationDataClass>::Get(co, create));
 }
 
-// NOT EXACT: inline budget (the client calls the value map's find out of line; ours inlines it)
 bool Remove_Navigation_Data(ClientObjectClass *co)
 {
 	return(ClientObjectDataAccessClass<NavigationDataClass>::Remove(co));
@@ -132,7 +129,6 @@ EmoteDataClass *Get_Emote_Data(ClientObjectClass *co, bool create)
 	return(ClientObjectDataAccessClass<EmoteDataClass>::Get(co, create));
 }
 
-// NOT EXACT: inline budget (the client calls the value map's find out of line; ours inlines it)
 bool Remove_Emote_Data(ClientObjectClass *co)
 {
 	return(ClientObjectDataAccessClass<EmoteDataClass>::Remove(co));

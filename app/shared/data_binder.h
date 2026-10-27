@@ -39,21 +39,21 @@ public:
 
 	static DataBinderClass &Instance();  // the client's 0x79D250 (co_data.cpp): a function-local static  // NAME 2: what it does
 
-	// The value bound to key, or (create) a new T made for the key
-	template<class T>
-	static T *Get(KEY key, bool create, const DataBinderType<T> &type)  // NAME 2: what it does
-	{
-		DataBinderClass &binder = Instance();
-		if (binder.Has(key, type)) {
-			return(binder.Get(key, type));
-		}
-		if (!create) {
-			return(0);
-		}
-		T *data = new T(key);
-		binder.Bind(key, data);
-		return(data);
-	}
+	// The client's instances (co_data.cpp, KEY = ClientObjectClass *), per type in the order
+	// radar, gutter, starmap, navigation, emote: Has 0x79F860 (0x55 bytes), Get 0x79F8E0 (0x77),
+	// Remove 0x79F980 (0x1B4), each type 0x350 bytes further; Get_Value_Map 0x7A1050 (0xE6),
+	// each 0x2C0 further; the value maps' find 0x7A0A10, find_or_insert 0x7A0EC0, erase
+	// 0x7A0F80, resize 0x7A3B50 and constructor 0x7A2140 (libs/sgistl). The type map: the
+	// default constructor 0x79DE00, the (n, hash, equal) constructor 0x79E6E0, its destructor
+	// 0x79D2C0, find 0x7A1E60 / 0x7A2BE0, operator[] 0x7A1F30, erase 0x7A1C80. Has and Get
+	// compare a const_iterator with end() (the client converts both iterators through
+	// 0x7A0920, a 0x13-byte const_iterator(const iterator &), where they are inlined); Delete
+	// passes Get and Remove fresh type objects (the client's two one-byte temporaries at
+	// [esp+0xe] / [esp+0xf] in Remove_All 0x79D390, Has's in the dead argument's slot).
+	// Delete is the client's: an inline function with the key by value (0x79D390 and the
+	// Remove wrappers copy the key once, [esp+0x10]); the per-type Get (made on request) is
+	// co_data.h's, since its T must be named (VC6 can't call a member template with an
+	// explicit argument).
 
 	// Unbinds and deletes the value bound to key; false when there's none
 	template<class T>
@@ -61,14 +61,13 @@ public:
 	{
 		DataBinderClass &binder = Instance();
 		if (binder.Has(key, type)) {
-			T *data = binder.Get(key, type);
-			binder.Remove(key, type);
+			T *data = binder.Get(key, DataBinderType<T>());
+			binder.Remove(key, DataBinderType<T>());
 			delete data;
 			return(true);
 		}
 		return(false);
 	}
-
 	// NOT EXACT: order-only (the client's 0x7A1050 takes the type name's length before the string's zero stores)
 	template<class T>
 	std::hash_map<KEY, T *> *Get_Value_Map(const DataBinderType<T> &) const  // NAME 2: what it does
@@ -80,7 +79,7 @@ public:
 		return(0);
 	}
 
-	// NOT EXACT: inline budget in emote's 0x7A05A0 only (the client calls the bucket count out of line); radar's 0x79F860 and the next three are exact
+	// Has 0x79F860 (radar) and the next four: byte-exact
 	template<class T>
 	bool Has(const KEY &key, const DataBinderType<T> &type) const  // NAME 2: what it does
 	{
@@ -88,16 +87,17 @@ public:
 		if (value_map == 0) {
 			return(false);
 		}
-		return(value_map->find(key) != value_map->end());
+		std::hash_map<KEY, T *>::const_iterator it = value_map->find(key);
+		return(it != value_map->end());
 	}
 
 	template<class T>
-	T *&Get(const KEY &key, const DataBinderType<T> &type)  // NAME 2: what it does
+	T *const &Get(const KEY &key, const DataBinderType<T> &type)  // NAME 2: what it does
 	{
 		std::hash_map<KEY, T *> *value_map = Get_Value_Map(type);
 
 		G_ASSERT(value_map);
-		std::hash_map<KEY, T *>::iterator it = value_map->find(key);
+		std::hash_map<KEY, T *>::const_iterator it = value_map->find(key);
 		G_ASSERT(it != value_map->end());
 		return((*it).second);
 	}

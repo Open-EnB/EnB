@@ -52,7 +52,7 @@ template<class T>
 class ClientObjectDataAccessClass  // NAME 1: neutral (D10), the per-type access
 {
 public:
-	// NOT EXACT: inline budget (the client calls the type map's constructor 0x79E6E0 and the value map's pair out of line)
+	// NOT EXACT: frame (0x54 vs the client's 0x50: ours inlines the type map's default constructor, the client calls 0x79E6E0)
 	static T *Get(ClientObjectClass *co, bool create)  // 0x79E300 (radar) ...  // NAME 2: what it does
 	{
 		DataBinderClass<ClientObjectClass *> &binder = DataBinderClass<ClientObjectClass *>::Instance();
@@ -69,14 +69,7 @@ public:
 
 	static bool Remove(ClientObjectClass *co)  // inline in 0x79D700 (radar) ...  // NAME 2: what it does
 	{
-		DataBinderClass<ClientObjectClass *> &binder = DataBinderClass<ClientObjectClass *>::Instance();
-		if (binder.Has(co, DataBinderType<T>())) {
-			T *data = binder.Get(co, DataBinderType<T>());
-			binder.Remove(co, DataBinderType<T>());
-			delete data;
-			return(true);
-		}
-		return(false);
+		return(DataBinderClass<ClientObjectClass *>::Delete(co, DataBinderType<T>()));
 	}
 };
 
