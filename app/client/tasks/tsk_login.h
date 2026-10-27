@@ -20,6 +20,7 @@
 #include "..\..\kernel\kernel.h"
 #include "tsk_game.h"
 #include "..\..\shared\unknown_login_data.h"		// LoginCharacterClass, the data interfaces
+#include "..\..\common\unknown_galaxy.h"			// LoginGalaxyClass
 #include <string>
 #include <list>
 #include "vector3.h"
@@ -147,24 +148,6 @@ public:
 	char Unknown1D1[0x514 - 0x1D1];						// +0x1D1
 };
 
-
-// A galaxy of the login's list (vtable 0xAEFBD0, 0x60 bytes; the avatar list packet's, 0x862D90)
-class LoginGalaxyClass : public LoginPacketDataClass	// NAME 1: what it holds
-{
-public:
-	~LoginGalaxyClass() {}								// 0x76BBF0 (stores the vtable: explicit)
-	virtual bool Write(LinearBufferClass *buffer);		// +0x00 0x83C730
-	virtual bool Read(LinearBufferClass *buffer);		// +0x04 0x83C7C0
-	virtual int Get_Size();								// +0x08 0x83C850
-
-	char Name[0x41];									// +0x04 NAME 1: 0x40 bytes on the wire
-	int ID;												// +0x48 NAME 1: compared with the characters' Galaxy_ID
-	unsigned long Address;								// +0x4C NAME 1: Galaxy_Address's source
-	short Unknown50;									// +0x50
-	int Unknown54;										// +0x54
-	int Unknown58;										// +0x58
-	short Unknown5C;									// +0x5C
-};
 
 // What the global ticket packet's handler 0x76B170 copies (0x9C bytes; step 16 copies it whole)
 struct LoginTicketInfoClass	// NAME 1: what it holds

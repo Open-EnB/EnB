@@ -4716,6 +4716,17 @@
     "merged": [],
     "name": "shared/unknown_debug.cpp"
    },
+   "unknown_galaxy": {
+    "ambiguous": [],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x83C730",
+     "0x83C7C0"
+    ],
+    "merged": [],
+    "name": "common/unknown_galaxy.cpp"
+   },
    "unknown_listener": {
     "ambiguous": [],
     "copy": "reconstructed",
@@ -4885,6 +4896,7 @@
    "common/memconn.h": "reconstructed",
    "common/tcpconn.h": "reconstructed",
    "common/udpconn.h": "reconstructed",
+   "common/unknown_galaxy.h": "reconstructed",
    "common/unknown_navlist.h": "reconstructed",
    "common/unknown_rate.h": "reconstructed",
    "common/unknown_rsakey.h": "reconstructed",

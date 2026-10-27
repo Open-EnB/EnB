@@ -3506,6 +3506,8 @@ RECONSTRUCTED = {
                                             "mclient.cpp's movie client and client_lego_impl.cpp's asset calls declared only; "
                                             "the asserts on the client's lines 61-374 (D25); NOT EXACT: Init (the client's loop "
                                             "isn't rotated)",
+    ('app', 'common/unknown_galaxy.h'): "LoginGalaxyClass, a galaxy of the login's list (0x60 bytes, vtable 0xAEFBD0; PROVISIONAL file name, D10; from tsk_login.h, D90 9b)",
+    ('app', 'common/unknown_galaxy.cpp'): "the login galaxy's Write / Read / Get_Size, client 0x83C730-0x83C870 in app\\common's run after galaxy_map.h (PROVISIONAL file name, D10: no __FILE__); exact",
     ('app', 'common/circbuff.h'): "CircBuffClass (descriptive, D24; members from the asserts): the ring buffer of bytes, "
                                   "the client's layout (0x18 bytes)",
     ('app', 'common/circbuff.cpp'): "the ring buffer, client 0x830BF0-0x830F30 (the stream connection's 100,000-byte receive "
