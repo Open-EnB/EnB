@@ -23,11 +23,26 @@
 #define __CO_H
 
 #include "hashlist.h"
+#include "refcount.h"
 #include <string>
 #include "..\shared\unknown_debug.h"
 
 class RenderObjClass;
 class Vector3;
+
+// co.cpp's +0xB4 object: a RefCountClass the constructor gets from 0x731FA0 (0xB8 bytes, constructor
+// 0x732030); 0x6FCB20 passes the visibility to its slot +0x18
+class UnknownB4Class : public RefCountClass		// NAME 1: neutral (D10)
+{
+public:
+	virtual void Unknown_08();
+	virtual void Unknown_0C();
+	virtual void Unknown_10();
+	virtual void Unknown_14();
+	virtual void Unknown_18(bool visible);			// NAME 2 [visible]: 0x6FCB20's argument
+};
+
+void Unknown_810540(RenderObjClass *model, int state, int unknown);	// shiputils.cpp (cdecl)  // NAME 1 [model, state, unknown]: co.cpp passes the model, 1 or 2, and 0
 class SubPartsPacket;
 class ClientClass;
 
@@ -88,6 +103,13 @@ public:
 	int Unknown_6FFFA0();								// 0x6FFFA0 (client.cpp's 0x7283B0 jumps to it)
 	void Unknown_700820(const Vector3 &position);		// 0x700820  // NAME 1 [position]: a Vector3
 	bool Unknown_700860();								// 0x700860
+	void Unknown_6FC9A0();								// 0x6FC9A0 the aux data's changed values into the model
+	void Unknown_6FCB20(bool visible);					// 0x6FCB20  // NAME 2 [visible]: what it toggles
+	void Unknown_6FD2C0();								// 0x6FD2C0 (FAIL_IF '!RenderObject', l.1779)
+	void Unknown_6FD310();								// 0x6FD310 (co.cpp, not rebuilt: the damage decals)
+	void Unknown_6FDBD0();								// 0x6FDBD0 (co.cpp, not rebuilt: the engine sounds)
+	void Unknown_6FE1E0();								// 0x6FE1E0 (co.cpp, not rebuilt: the damage state)
+	void Unknown_7009A0(bool on, bool force);			// 0x7009A0  // NAME 2 [on, force]: what it tests
 
 	char Unknown04[0x60 - 0x04];						// +0x04
 	HashNodeClass<ClientObjectClass *> Node;			// +0x60 ClientClass::ObjectList's node  // NAME 2: what it is
@@ -102,7 +124,10 @@ public:
 	float Unknown9C;									// +0x9C 1.0f (0x6F3BA0 sets it; 0x6FED30's radius without a model)
 	char UnknownA0[0xAC - 0xA0];						// +0xA0
 	RenderObjClass *Model;								// +0xAC (cpacket.cpp's render-state handlers: Class_ID, then rs_track.cpp's methods; co.cpp's G_ASSERT 'RenderObject != 0', l.361, names it RenderObject)  // NAME 2: what it holds
-	char UnknownB0[0xE8 - 0xB0];						// +0xB0
+	bool UnknownB0;										// +0xB0 (0x6FCB20 toggles it)
+	char UnknownB1[0xB4 - 0xB1];						// +0xB1
+	UnknownB4Class *UnknownB4;							// +0xB4 a RefCountPtr in the client (0x731FA0's result)
+	char UnknownB8[0xE8 - 0xB8];						// +0xB8
 	float Sphere[4];									// +0xE8 a SphereClass (center, radius): 0x6FED30 fills it from the model  // NAME 2: what it holds
 	int UnknownF8;										// +0xF8
 	char UnknownFC[0x128 - 0xFC];						// +0xFC
@@ -110,7 +135,8 @@ public:
 	char Unknown129[0x174 - 0x129];						// +0x129
 	float Unknown174;									// +0x174 (0x700820 sets 2.0f)
 	float Unknown178[3];								// +0x178 a Vector3 (0x700820)
-	char Unknown184[0x188 - 0x184];						// +0x184 (CREATE allocates 0x188 bytes)
+	bool Unknown184;									// +0x184 (the constructor's 1; 0x7009A0's state)
+	char Unknown185[0x188 - 0x185];						// +0x185 (CREATE allocates 0x188 bytes)
 };
 
 #endif //__CO_H

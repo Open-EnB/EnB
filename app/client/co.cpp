@@ -1711,76 +1711,76 @@ bool ClientObjectClass::Unknown_6FC970()
 	}
 	return(false);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+static inline float Get_Float(char *p) { return(*(float *)p); }
+static inline void Set_Floats(char *p, float a, float b) { ((float *)p)[0] = a; ((float *)p)[1] = b; }
+// NOT EXACT: shape (case 2's 'pop esi' scheduled between its two stores in ours, after them in the client; 3 forms)
+// 0x6FC9A0
+void ClientObjectClass::Unknown_6FC9A0()
+{
+	char *aux = AuxData;
+	char *model = (char *)Model;
+	if (*(unsigned *)(aux + 0x198) > 1) {
+		*(float *)(model + 0x98) = Get_Float(aux + 0x1AC);
+	}
+	if (*(unsigned *)(aux + 0x220) > 1) {
+		*(Vector3 *)(model + 0xA8) = *(Vector3 *)(aux + 0x234);
+	}
+	if (*(unsigned *)(aux + 0x2B0) > 1) {
+		*(Vector3 *)(model + 0xB4) = *(Vector3 *)(aux + 0x2C4);
+	}
+	if (*(unsigned *)(aux + 0x340) > 1) {
+		*(Vector3 *)(model + 0x9C) = *(Vector3 *)(aux + 0x354);
+	}
+	if (*(unsigned *)(aux + 0x3D0) > 1 || *(unsigned *)(aux + 0x458) > 1) {
+		switch (*(int *)(aux + 0x3E4)) {
+			case 0:
+				Set_Floats(model + 0xC8, 1000000.0f, 1000000.0f);
+				return;
+			case 1:
+				Set_Floats(model + 0xC8, Get_Float(aux + 0x46C), Get_Float(aux + 0x470));
+				break;
+			case 2:
+				Set_Floats(model + 0xC8, Get_Float(aux + 0x46C), Get_Float(aux + 0x46C));
+				break;
+			case 3:
+				Set_Floats(model + 0xC8, Get_Float(aux + 0x46C), Get_Float(aux + 0x470));
+				break;
+		}
+	}
+}
+
+// NOT EXACT: shape (the client keeps the argument in eax and masks a copy for the compare; 3 forms)
+// 0x6FCB20
+void ClientObjectClass::Unknown_6FCB20(bool visible)
+{
+	bool hidden = UnknownB0;
+	if (visible != !hidden) {
+		UnknownB0 = !hidden;
+		if (UnknownB4) {
+			UnknownB4->Unknown_18(visible);
+		}
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+// 0x6FD2C0
+void ClientObjectClass::Unknown_6FD2C0()
+{
+	FAIL_IF(!Model) {return;}
+	Unknown_6FD310();
+	Unknown_6FDBD0();
+	Unknown_6FE1E0();
+}
 
 
 
@@ -2589,6 +2589,20 @@ bool ClientObjectClass::Unknown_700860()
 	if (!Unknown_6F5A10()) return(false);
 	char *aux_data = AuxData; FAIL_IF(!aux_data) return(false);
 	return(*(bool *)(aux_data + 0x11FC));
+}
+
+// 0x7009A0
+void ClientObjectClass::Unknown_7009A0(bool on, bool force)
+{
+	if (force || on != Unknown184) {
+		if (on) {
+			Unknown_810540(Model, 2, 0);
+			Unknown184 = true;
+			return;
+		}
+		Unknown_810540(Model, 1, 0);
+		Unknown184 = false;
+	}
 }
 
 /*
