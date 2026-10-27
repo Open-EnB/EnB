@@ -320,7 +320,8 @@ public:
 	int Slot;	// +0x18 (network order)  // NAME 3: the client's Print text 'Slot='
 	char AccountName[0x41];	// +0x1C (sent as its 0x41 bytes)  // NAME 3: the client's Print text 'AccountName='
 	__int64 AccountID;	// +0x60  // NAME 3: the client's Print text 'AccountID='
-	__int64 Unknown68;	// +0x68 (zeroed; not sent)
+	int Unknown68;	// +0x68 (zeroed; not sent: an 8-byte member written as two ints, as opcode 108's)
+	int Unknown6C;	// +0x6C (zeroed; not sent)
 };
 
 // opcode 220 (0x00DC, ?): vtable 0xB0AD94, constructor 0x893E80, 0x30 bytes

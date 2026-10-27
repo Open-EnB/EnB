@@ -642,19 +642,19 @@ int GuildDeletePlayerPacketClass::Print(char *buffer, int len)
 	return(_snprintf(buffer, len, "GuildDeletePlayer { PlayerID=%s Slot=%d AccountName=%s AccountID=%s }", Unknown_8B44E0(PlayerID, player_id), Slot, AccountName, Unknown_8B44E0(AccountID, account_id)));
 }
 
-// NOT EXACT: scheduling (the client zeroes Unknown68 after its EH state store; attempts.csv)
 GuildPlayerInfoDeletedPacketClass::GuildPlayerInfoDeletedPacketClass(__int64 player_id, int slot, const char *account_name, __int64 account_id) :
 	PlayerID(player_id),
 	Slot(slot),
 	AccountID(account_id),
-	Unknown68(0)
+	Unknown68(0),
+	Unknown6C(0)
 {
 	Unknown_4A1590(AccountName, sizeof(AccountName), account_name);
 }
 
-// NOT EXACT: scheduling (as the value constructor; attempts.csv)
 GuildPlayerInfoDeletedPacketClass::GuildPlayerInfoDeletedPacketClass(RawPacketClass *raw) :
-	Unknown68(0)
+	Unknown68(0),
+	Unknown6C(0)
 {
 	raw->Get(PlayerID);
 	raw->Get(Slot);
