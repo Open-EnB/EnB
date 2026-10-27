@@ -22,8 +22,6 @@ Packet_00B6Class::Packet_00B6Class(RawPacketClass *raw) { Conn_Record(this, raw)
 Packet_0077Class::Packet_0077Class(RawPacketClass *raw) { Conn_Record(this, raw); }
 RecustomizeShipStartPacketClass::RecustomizeShipStartPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 RecustomizeShipDonePacketClass::RecustomizeShipDonePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-RecustomizeAvatarDonePacketClass::RecustomizeAvatarDonePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-RecustomizeAvatarUpdatePacketClass::RecustomizeAvatarUpdatePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 
 // The rebuilt classes' Process_Packet defined in a file not rebuilt (cpacket.cpp, ...)
 bool VersionResponsePacketClass::Process_Packet(void *) { return(true); }	// 0x76B8A0
@@ -127,6 +125,7 @@ bool GuildGMRenameConfirmSectorPacket::Process_Packet(void *) { return(true); }	
 bool Packet_0078Class::Process_Packet(void *) { return(true); }	// 0x76BB70
 bool ReferralPointsAvailablePacketClass::Process_Packet(void *) { return(true); }	// 0x73F3D0
 bool RecustomizeAvatarStartPacketClass::Process_Packet(void *) { return(true); }	// 0x73F570
+bool RecustomizeAvatarUpdatePacketClass::Process_Packet(void *) { return(true); }	// 0x73F5F0
 
 // What OVERRIDES declares out of line (the classes' own files, not rebuilt)
 bool GlobalTicketPacketClass::Process_Packet(void *) { return(true); }

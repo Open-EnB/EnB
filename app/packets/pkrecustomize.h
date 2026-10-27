@@ -5,7 +5,7 @@
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
 **	Original location: e:\build\beta\G\app\packets\pkrecustomize.h (the name provisional: see the .cpp)
 **
-**	The packet classes of client 0x89FB50-0x8A14D0 (opcodes 129-133; 131 rebuilt so far).
+**	The packet classes of client 0x89FB50-0x8A14D0 (opcodes 129-133; 131-133 rebuilt so far).
 */
 
 #if defined(_MSC_VER)
@@ -16,6 +16,7 @@
 #define PKRECUSTOMIZE_H
 
 #include "pk.h"
+#include "..\shared\avatar_desc.h"
 
 // The 14 ints of recustomization_cost.cpp's wire object (0x38 bytes; the constructor 0x849320 copies one)
 struct RecustomizationCostDataStruct  // NAME 1: neutral (D10)
@@ -51,6 +52,38 @@ public:
 
 	RecustomizationCostClass Cost;	// +0x0C  // NAME 2: what it holds (its class's file)
 	int Unknown48;	// +0x48  // NAME 1: neutral (D10)
+};
+
+// opcode 132 (0x0084, RECUSTOMIZE_AVATAR_DONE): vtable 0xB0B654, constructor 0x8A09E0, 0x11C bytes
+class RecustomizeAvatarDonePacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name RECUSTOMIZE_AVATAR_DONE (the Net-7 opcode table), the client's Print text 'Recustomize Avatar Done'
+{
+public:
+	RecustomizeAvatarDonePacketClass(RawPacketClass *raw);	// 0x8A09E0
+	RecustomizeAvatarDonePacketClass(int unknown118, const AvatarDescClass &desc);	// 0x8A0AE0
+	// the destructor is the implicit one: +0x00 0x8A0AB0 / 0x54EDD0 (the linker folded its body with another) (a declared one stores the class's own vtable first; the client's doesn't)
+	virtual RawPacketClass *Build();	// +0x04 0x8A0E00
+	virtual bool Process_Packet(void *client);	// +0x08 0x869660 (clientstub.cpp l.458)
+	virtual int Get_Data_Size();	// +0x0C 0x8A0ED0
+	virtual int Print(char *buffer, int len);	// +0x10 0x8A0EF0
+
+	AvatarDescClass Desc;	// +0x0C  // NAME 2: what it holds
+	int Unknown118;	// +0x118  // NAME 1: neutral (D10)
+};
+
+// opcode 133 (0x0085, RECUSTOMIZE_AVATAR_UPDATE): vtable 0xB0B684, constructor 0x8A0F20, 0x11C bytes
+class RecustomizeAvatarUpdatePacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name RECUSTOMIZE_AVATAR_UPDATE (the Net-7 opcode table), the client's Print text 'Recustomize Avatar Update'
+{
+public:
+	RecustomizeAvatarUpdatePacketClass(RawPacketClass *raw);	// 0x8A0F20
+	RecustomizeAvatarUpdatePacketClass(int unknown118, const AvatarDescClass &desc);	// 0x8A1090
+	// the destructor is the implicit one: +0x00 0x8A0FF0 / 0x8A1020 (a declared one stores the class's own vtable first; the client's doesn't)
+	virtual RawPacketClass *Build();	// +0x04 0x8A13B0
+	virtual bool Process_Packet(void *client);	// +0x08 0x73F5F0 (cpacket.cpp, not rebuilt)
+	virtual int Get_Data_Size();	// +0x0C 0x8A1480
+	virtual int Print(char *buffer, int len);	// +0x10 0x8A14A0
+
+	AvatarDescClass Desc;	// +0x0C  // NAME 2: what it holds
+	int Unknown118;	// +0x118  // NAME 1: neutral (D10)
 };
 
 #endif

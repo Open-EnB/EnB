@@ -345,21 +345,4 @@ public:
 	char Unknown0C[0x164];	// +0x0C
 };
 
-// opcode 132 (0x0084, RECUSTOMIZE_AVATAR_DONE): vtable 0xB0B654, constructor 0x8A09E0, 0x11C bytes
-class RecustomizeAvatarDonePacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name RECUSTOMIZE_AVATAR_DONE (the Net-7 opcode table; no structure check)
-{
-public:
-	RecustomizeAvatarDonePacketClass(RawPacketClass *raw);	// 0x8A09E0
-	virtual bool Process_Packet(void *client);	// +0x08 0x869660 (clientstub.cpp l.458)
-	char Unknown0C[0x110];	// +0x0C
-};
-
-// opcode 133 (0x0085, RECUSTOMIZE_AVATAR_UPDATE): vtable 0xB0B684, constructor 0x8A0F20, 0x11C bytes
-class RecustomizeAvatarUpdatePacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name RECUSTOMIZE_AVATAR_UPDATE (the Net-7 opcode table; no structure check)
-{
-public:
-	RecustomizeAvatarUpdatePacketClass(RawPacketClass *raw);	// 0x8A0F20
-	char Unknown0C[0x110];	// +0x0C
-};
-
 #endif
