@@ -10,7 +10,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 28 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 35 |
 | 3 | by convention from a client-named file or sibling | 754 |
-| 2 | describes what the code does | 1651 |
+| 2 | describes what the code does | 1655 |
 | 1 | neutral placeholder | 2383 |
 
 ## For review (score 3 and below)
@@ -246,7 +246,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown0000` | `app/client/control_keys_manager.h:99` | untagged neutral name (D10) |
 | 1 | `Unknown12E8` | `app/client/control_keys_manager.h:100` | neutral (D10) |
 | 1 | `ControlKeyListClass` | `app/client/control_keys_manager.h:103` | neutral (D10): the screen's key list Add_Keys / Remove_Keys fill ('keylist') |
-| 1 | `std:` | `app/client/control_keys_manager.h:136` | neutral (D10) |
+| 1 | `std:` | `app/client/control_keys_manager.h:140` | neutral (D10) |
 | 1 | `Unknown_4604D0` | `app/client/cpacket.cpp:45` | untagged neutral name (D10) |
 | 1 | `Unknown_460780` | `app/client/cpacket.cpp:46` | untagged neutral name (D10) |
 | 1 | `Unknown_460850` | `app/client/cpacket.cpp:47` | untagged neutral name (D10) |
@@ -2552,12 +2552,16 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Load_Definitions` | `app/client/control_keys_manager.h:124` | describes what it does |
 | 2 | `Load_Keys` | `app/client/control_keys_manager.h:125` | describes what it does |
 | 2 | `Find_Mappings` | `app/client/control_keys_manager.h:126` | describes what it does |
-| 2 | `Get_Key_Id` | `app/client/control_keys_manager.h:127` | describes what it does |
-| 2 | `Register_Key` | `app/client/control_keys_manager.h:128` | describes what it does |
-| 2 | `Reset_Keys` | `app/client/control_keys_manager.h:130` | describes what it does |
-| 2 | `Copy_Keys` | `app/client/control_keys_manager.h:131` | describes what it does |
-| 2 | `Client` | `app/client/control_keys_manager.h:133` | what it holds |
-| 2 | `PlayerID` | `app/client/control_keys_manager.h:143` | what it holds |
+| 2 | `Create` | `app/client/control_keys_manager.h:127` | describes what it does |
+| 2 | `Destroy` | `app/client/control_keys_manager.h:128` | what its caller uses it for |
+| 2 | `Get` | `app/client/control_keys_manager.h:129` | describes what it does |
+| 2 | `Get_Key_Id` | `app/client/control_keys_manager.h:130` | describes what it does |
+| 2 | `Get_Key_Id` | `app/client/control_keys_manager.h:131` | describes what it does |
+| 2 | `Register_Key` | `app/client/control_keys_manager.h:132` | describes what it does |
+| 2 | `Reset_Keys` | `app/client/control_keys_manager.h:134` | describes what it does |
+| 2 | `Copy_Keys` | `app/client/control_keys_manager.h:135` | describes what it does |
+| 2 | `Client` | `app/client/control_keys_manager.h:137` | what it holds |
+| 2 | `PlayerID` | `app/client/control_keys_manager.h:147` | what it holds |
 | 2 | `cpacket.cpp` | `app/client/cpacket.cpp:41` | the class id the handlers test |
 | 2 | `SoundManager` | `app/client/cpacket.cpp:60` | what it holds |
 | 2 | `FontInitStruct` | `app/client/fontdatabase.h:34` | one INIT-n section of fontsys.ini (a screen resolution's fonts) |
