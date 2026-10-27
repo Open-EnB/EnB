@@ -617,7 +617,8 @@ mainview add 38928
 msg 749 RELATIONSHIP (137) size 13: cpacket.cpp's handler
 gen Unknown_70CC40
 msg 752 SERVER_PARAMETERS (66) size 74: cpacket.cpp's handler
-gen SClient::Unknown_745000
+gen MainViewClass::Unknown_513540
+gen SClientUnknown1338Class::Unknown_760770
 gen MainViewClass::Unknown_513700
 gen SClient::Unknown_750A70
 msg 754 MESSAGE_STRING (29) size 58: cpacket.cpp's handler

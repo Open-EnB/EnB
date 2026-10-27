@@ -33,6 +33,8 @@
 class LoginUnknown0CClass;		// tsk_login.h: inpdsp.cpp's input dispatcher (0x18 bytes)
 class LoginUnknown18Class;		// tsk_login.h: the software mouse (0x30 bytes, 0x514FE0)
 class Font3DInstanceClass;
+class FileClass;
+class RefCountClass;
 class CameraClass;
 class Render2DTextClass;
 class MusicManagerClass;		// NAME 3: class-from-file (D24) for audio\musicmanager.cpp (constructor 0x439E40, 0x1FC bytes)
@@ -103,6 +105,23 @@ class UICpitClass	// NAME 3: class-from-file (D24) for ui_cpit.cpp
 public:
 	void Unknown_581F90(ClientObjectClass *hulk);		// 0x581F90 (cpacket.cpp: LOOT_HULK_PERMISSION 140)  // NAME 1 [hulk]: the packet's HulkGameID's object
 	void Unknown_5820C0(bool on);						// 0x5820C0 (cpacket.cpp: OPEN_INTERFACE 102 passes UIChange == 0)  // NAME 1 [on]: what the handler passes
+	void Unknown_584A60();								// 0x584A60 (SClient 0x745160)
+};
+
+// what the main view's slot +0x64 returns, as far as SClient 0x7456B0 calls it
+class MainViewUnknown64Class	// NAME 1: neutral (D10)
+{
+public:
+	virtual void Unknown_00();
+	virtual void Unknown_04();
+	virtual void Unknown_08();
+	virtual void Unknown_0C();
+	virtual void Unknown_10();
+	virtual void Unknown_14();
+	virtual void Unknown_18();
+	virtual void Unknown_1C();
+	virtual void Unknown_20();
+	virtual void Unknown_24(int arg);					// +0x24 (0x7456B0 passes 0)  // NAME 1 [arg]: neutral
 };
 
 // what the main view's +0x13C points to, as far as SERVER_PARAMETERS 66 reads it
@@ -128,6 +147,11 @@ public:
 	void Unknown_513700(unsigned sector);				// 0x513700 (cpacket.cpp: SERVER_PARAMETERS 66)  // NAME 1 [sector]: the packet's SectorNum
 	void Unknown_5137F0(unsigned sector);				// 0x5137F0 (cpacket.cpp: SERVER_PARAMETERS 66, view mode 1)  // NAME 1 [sector]: the packet's SectorNum
 	void Unknown_513B90(unsigned sector);				// 0x513B90 (cpacket.cpp: SERVER_PARAMETERS 66, view mode 5)  // NAME 1 [sector]: the packet's SectorNum
+	void Unknown_513540(int base_asset);				// 0x513540 (SClient 0x745000)  // NAME 1 [base_asset]: SERVER_PARAMETERS 66's BackdropBaseAsset
+	void Unknown_513600(int arg);						// 0x513600 (SClient 0x7456B0 passes 0)  // NAME 1 [arg]: neutral
+	void Unknown_513CD0(int mode);						// 0x513CD0 (SClient 0x7456B0 passes the base's Unknown10F4, DebrisMode)  // NAME 1 [mode]: what it gets
+	void Unknown_513D20(float value);					// 0x513D20 (SClient 0x7456B0 passes 1.0)  // NAME 1 [value]: neutral
+	void Unknown_513F60(FileClass *file, int indent);	// 0x513F60 (SClient 0x745EC0's dump, two deeper)  // NAME 1 [file, indent]: Printf_Indented's
 	virtual void Unknown_14();
 	virtual void Unknown_18();
 	virtual void Unknown_1C();
@@ -148,7 +172,7 @@ public:
 	virtual void Unknown_58();
 	virtual void Unknown_5C();
 	virtual void Unknown_60();
-	virtual void Unknown_64();
+	virtual MainViewUnknown64Class *Unknown_64();		// +0x64 (SClient 0x7456B0)
 	virtual void Unknown_68();
 	virtual void Unknown_6C();
 	virtual void Unknown_70();
@@ -160,7 +184,9 @@ public:
 
 	char Unknown38[0x80 - 0x38];						// +0x38
 	RadarSystemClass *Radar;							// +0x80 (cpacket.cpp: WARP_INDEX 156's FAIL_IF '!radar')  // NAME 3: the FAIL_IF's name
-	char Unknown84[0x13C - 0x84];						// +0x84
+	char Unknown84[0x130 - 0x84];						// +0x84
+	bool Unknown130;									// +0x130 (SClient 0x7456B0 sets it)
+	char Unknown131[0x13C - 0x131];						// +0x131
 	MainViewUnknown13CClass *Unknown13C;				// +0x13C (SERVER_PARAMETERS 66 copies its +0x90 to the client's +0x1144 in view mode 1)
 	char Unknown140[0x1D0 - 0x140];						// +0x140
 	UICpitClass *Cpit;									// +0x1D0 (cpacket.cpp: LOOT_HULK_PERMISSION 140, OPEN_INTERFACE 102)  // NAME 3: its file's (ui_cpit.cpp)
@@ -237,6 +263,16 @@ public:
 	void Unknown_751460(int points_total, int points_spent);	// 0x751460 (cpacket.cpp: the referral points 233)  // NAME 1 [points_total, points_spent]: the packet's fields
 	void Unknown_7517E0(int a, int b, int c, int d);		// 0x7517E0 (cpacket.cpp: GUILD_PLAYER_PERMISSIONS 210 passes its four fields)  // NAME 1 [a, b, c, d]: neutral
 	void Unknown_751850(std::vector<GuildRankNameStruct> &ranks);	// 0x751850 (cpacket.cpp: GUILD_RANK_NAMES_SECTOR 211)  // NAME 1 [ranks]: the packet's field
+	void Unknown_745160();								// 0x745160: the cockpit's 0x584A60 after clearing Unknown1198
+	void Unknown_745050();								// 0x745050: 0x745000 again with the kept base asset (scriptedmovie.cpp's neighbourhood 0x8010A0)
+	void Unknown_7456B0();								// 0x7456B0: the main view's debris mode and four resets
+	void Unknown_745EC0(FileClass *file, int indent);	// 0x745EC0: 'Client %x' and the main view's dump  // NAME 1 [file, indent]: Printf_Indented's
+	ClientObjectClass *Unknown_74BF80();				// 0x74BF80: the object of Unknown1328, else NULL
+	void Unknown_74C370(RefCountClass *object);			// 0x74C370: Unknown12B8's reference-counted setter (0x7EFA40 calls it)  // NAME 1 [object]: neutral
+	void Unknown_74FA30();								// 0x74FA30 (0x750210)
+	void Unknown_74FEC0();								// 0x74FEC0 (0x750210)
+	void Unknown_750210();								// 0x750210: 0x74FA30, 0x74FEC0, then the chat panel's +0xE0
+	void Unknown_750B30(int arg);						// 0x750B30: Unknown1330's 0x43C660  // NAME 1 [arg]: neutral
 
 	bool Unknown1198;									// +0x1198 (true)
 	std::string Unknown119C;							// +0x119C
@@ -261,7 +297,7 @@ public:
 	int Unknown12AC;									// +0x12AC (the constructor leaves it)
 	int Unknown12B0;									// +0x12B0 Init: the base's Unknown10BC
 	int Unknown12B4;									// +0x12B4
-	int Unknown12B8;									// +0x12B8
+	RefCountClass *Unknown12B8;							// +0x12B8 (0x74C370: released, set, referenced)
 	SClientUnknown12BCClass *Unknown12BC;				// +0x12BC (Shutdown deletes it)
 	int Unknown12C0;									// +0x12C0
 	VectorClass<SClientUnknown12C4Class *> Unknown12C4;	// +0x12C4 vtable 0xB032BC, one entry (NULL)
