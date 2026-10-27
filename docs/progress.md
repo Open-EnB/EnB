@@ -1250,6 +1250,10 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
   (kv_encoder_base.h and delta.h, where the canary 0x6FB1E0 lives), together with prof.cpp / race.cpp (about 30
   functions, 0x4F6A80-0x4F7820) so the race / profession `Type_Name` form (byte-identical twins, `.work/p9/typename.diff`)
   gains when their converters have names. Recommendation: accept as one item.
+* **P-T16-3 (62 / 8's Is_Valid_Float residue, 2026-10-27):** ADVANCED 62 (0x734130, alex3's most frequent message) and
+  SIMPLE 8 (0x733DC0) share one inline-budget residue: the client calls Is_Valid_Float out of line for Position's Z
+  and Orientation's W. Proposal: one more Opus round on 62 only, then a Fable round under D89 if still not exact.
+  Recommendation: accept (the Fable queue, §4 item 7).
 * **P-S3-2 / F3's leads for Key_Exchange 0x829180** are LIMIT REACHED (three Opus rounds, inline budget): it
   waits for a new §3.1 lever; F3's two untested leads are in its attempts.csv row.
 * D7 is to be revisited with the user if byte-exactness of E&B's code becomes too costly; D64's

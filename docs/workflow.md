@@ -273,6 +273,7 @@ unless `--lever` cites a new row of this table.
 | A word load, `shr`, test-1 sequence on event flags | bool accessors on bit fields (plain shifts or bare bit fields give a byte test) | inpdsp 0x42A410 (H18) |
 | An EH-tracked RefCountPtr local declared at the top of the function | Sends Find and std::string's `_Eos` out of line as the client has them (block-local: both inlined) | fontmanager 0x6D2700's calls (H16); try on 0x6D2580 |
 | A large constructor loses a neighbouring inline after a header layout change | Not the changed statement: objdiff for a call that replaced inlined code first (a budget knock-on) | tsk_login 0x767240 under the char[] ship name (T14, d405690) |
+| A string compare pushed out of line by a C-style reference cast between RefCountPtr types (it builds a temporary) | Cast through a pointer | cpacket ITEM_BASE 37 (T16) |
 
 * **A nested inline is a whole-function budget (2026-10-26, `Key_Exchange` 0x829180):** under `/Ob2` an
   inline helper's own callees (a `std::set` iterator's `_Inc`) are inlined only while the function as a
@@ -563,6 +564,10 @@ unless `--lever` cites a new row of this table.
 * **A worktree file list built from `git status` picks up other builders' half-done files** (T10: P6's pkupdate.cpp
   showed hundreds of false losses): list your own files by name. clienttest's fake model tables need a `__stdcall`
   stand-in for any slot that takes an argument (Set_LOD_Bias, slot 75).
+* **tryv2 tags are global under `%TEMP%\enb_import\tryv2-<name>`** (T16): prefix variant names with your builder id.
+  explain.py reports a false relocation on PacketClass's vtable 0xAEDE88 (a COMDAT name shared with
+  PushMessageLinePacketClass): the masked residue is what counts (P7, P8, T16). Handlers without asserts can be
+  moved so the asserted ones sit on the client's lines (T16: cpacket blocks 0x737520-0x737C10 and 0x735D50-0x736DA0).
 * **clienttest (T9, 2026-10-27; `python tools/harness/clienttest.py build|run`):** hand-written stand-ins must cover
   every member of an app.lib object the program reaches, or the linker pulls the whole object and reports LNK2005 on
   the rest (app.lib changes under you when other builders verify: soptions.obj did). A stand-in object whose real
