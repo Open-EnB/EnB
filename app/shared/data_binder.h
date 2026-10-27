@@ -113,11 +113,11 @@ public:
 		(*value_map)[key] = data;
 	}
 
-	// NOT EXACT: frame (0x28 vs the client's 0x2c; ours inlines the first type name's assign), 0x79F980 and the next four
+	// NOT EXACT: frame (0x28 vs the client's 0x2c: the client keeps value_map in esi and a stack slot, zero in ebx, and clears the erased name), 0x79F980 and the next four
 	template<class T>
 	void Remove(const KEY &key, const DataBinderType<T> &)  // NAME 2: what it does
 	{
-		TypeMapType::iterator it = Types.find(std::string(typeid(T *).name()));
+		TypeMapType::const_iterator it = Types.find(std::string(typeid(T *).name()));
 		if (it != Types.end()) {
 			std::hash_map<KEY, T *> *value_map = (std::hash_map<KEY, T *> *)(*it).second;
 			if (value_map != 0) {
