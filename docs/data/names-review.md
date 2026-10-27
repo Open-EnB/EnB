@@ -2118,7 +2118,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Create` | `app/shared/land.h:138` | Create, Load_Assets describe VIDTEST 0x4068F0 / 0x405750 and the client's 0x46A3A0 / 0x4691D0 ("LoadAssets" in symbols.json) |
 | 2 | `Update_Lightmap_Full` | `app/shared/land.h:150` | Update_Lightmap_Full and Update_Lightmap_Threaded describe 0x46D900 / 0x46DDD0 (VIDTEST 0x40A9F0) |
 | 2 | `Get_Color` | `app/shared/land.h:156` | the colour map at a position (0x46BB20 / 0x46BBF0: Colors, B G R per vertex) |
-| 2 | `Prepare_Lighting` | `app/shared/land.h:167` | after what they do (0x46C730, 0x46CAE0, 0x46D410, 0x46D6B0: not rebuilt; 0x46D8B0, 0x46D880) |
+| 2 | `Prepare_Lighting` | `app/shared/land.h:167` | after what they do (0x46C730, 0x46CAE0 (not rebuilt), 0x46D410, 0x46D6B0, 0x46D8B0, 0x46D880) |
+| 2 | `Apply_Colors` | `app/shared/land.h:170` | the lit rectangle times the colour map, plus +0x1214 when there is one (0x46D410) |
 | 2 | `LightmapSerial` | `app/shared/land.h:185` | members after what the ctor 0x468E90, the dtor 0x46A480 and Load_Assets 0x4691D0 do with them; m_UnknownXX: use not known |
 | 2 | `LightColor` | `app/shared/land.h:233` | +0x198..+0x1C4 is the 0x30-byte lighting record Update_Lightmap 0x46D900 / 0x46DA70 copy in (VIDTEST's LandLightingStruct, its names) |
 | 2 | `UpdateMin` | `app/shared/land.h:240` | the lightmap rectangle being updated and the time-sliced update's cursor (0x46D900 / 0x46DA70) |

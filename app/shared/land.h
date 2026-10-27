@@ -164,10 +164,10 @@ public:
 	void							Clear_Unknown1218(void);
 
 protected:
-// NAME 2: after what they do (0x46C730, 0x46CAE0, 0x46D410, 0x46D6B0: not rebuilt; 0x46D8B0, 0x46D880)
+// NAME 2: after what they do (0x46C730, 0x46CAE0 (not rebuilt), 0x46D410, 0x46D6B0, 0x46D8B0, 0x46D880)
 	void							Prepare_Lighting(void);
 	void							Compute_Lighting(void);
-	void							Compute_Shadows(void);
+	void							Apply_Colors(void);		// NAME 2: the lit rectangle times the colour map, plus +0x1214 when there is one (0x46D410)
 	void							Upload_Lightmap(Vector2i &min, Vector2i &max);
 	void							Swap_Lightmaps(void);
 	static void					Lightmap_Thread(void *land);

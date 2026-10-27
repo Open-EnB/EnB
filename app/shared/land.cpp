@@ -174,7 +174,7 @@ bool LandClass::Cast_OBBox(OBBoxCollisionTestClass &boxtest)
 void LandClass::Lightmap_Thread(void *land)
 {
 	((LandClass *)land)->Compute_Lighting();
-	((LandClass *)land)->Compute_Shadows();
+	((LandClass *)land)->Apply_Colors();
 }
 
 void LandClass::Swap_Lightmaps(void)
@@ -201,7 +201,7 @@ void LandClass::Update_Lightmap_Full(const LandLightingStruct &lighting)
 	max.I = size;
 	max.J = size;
 	Compute_Lighting();
-	Compute_Shadows();
+	Apply_Colors();
 	Upload_Lightmap(min, max);
 	Swap_Lightmaps();
 }
@@ -229,7 +229,7 @@ void LandClass::Update_Lightmap_ManualThreaded(const LandLightingStruct &lightin
 		UpdateMax.J = CursorY + LightmapChunk;
 		UpdateMax.I = LightmapChunk + CursorX;
 		Compute_Lighting();
-		Compute_Shadows();
+		Apply_Colors();
 		Upload_Lightmap(UpdateMin, UpdateMax);
 		CursorX += LightmapChunk;
 		if (CursorX == size) {
@@ -448,6 +448,50 @@ void LandClass::Prepare_Lighting(void)
 				color.Set(0.0f, 0.0f, 0.0f);
 			}
 			NormalColors[i] = DX8Wrapper::Convert_Color(color, 0.0f);
+		}
+	}
+}
+
+// NOT EXACT: shape (the client steps a colour pointer by 3 and tests extra before its loads; the loop bodies match); 3 forms tried
+void LandClass::Apply_Colors(void)
+{
+	unsigned char *lightmap = (unsigned char *)m_Unknown120C;
+	unsigned char *colors = Colors;
+	unsigned char *extra = m_Unknown1214;
+	int size = Field->Get_Size();
+	unsigned int i, j, value;
+	if (extra == NULL) {
+		for (j = UpdateMin.J; j < (unsigned int)UpdateMax.J; j++) {
+			for (i = UpdateMin.I; i < (unsigned int)UpdateMax.I; i++) {
+				unsigned char *light = &lightmap[(j * size + i) * 4];
+				unsigned char *color = &colors[(j * size + i) * 3];
+				value = (color[0] * light[0]) >> 8;
+				if (value > 255) value = 255;
+				light[0] = (unsigned char)value;
+				value = (color[1] * light[1]) >> 8;
+				if (value > 255) value = 255;
+				light[1] = (unsigned char)value;
+				value = (color[2] * light[2]) >> 8;
+				if (value > 255) value = 255;
+				light[2] = (unsigned char)value;
+			}
+		}
+	} else {
+		for (j = UpdateMin.J; j < (unsigned int)UpdateMax.J; j++) {
+			for (i = UpdateMin.I; i < (unsigned int)UpdateMax.I; i++) {
+				unsigned char *add = &extra[j * size + i];
+				unsigned char *light = &lightmap[(j * size + i) * 4];
+				unsigned char *color = &colors[(j * size + i) * 3];
+				value = ((light[0] + add[0]) * color[0]) >> 8;
+				if (value > 255) value = 255;
+				light[0] = (unsigned char)value;
+				value = ((light[1] + add[0]) * color[1]) >> 8;
+				if (value > 255) value = 255;
+				light[1] = (unsigned char)value;
+				value = ((light[2] + add[0]) * color[2]) >> 8;
+				if (value > 255) value = 255;
+				light[2] = (unsigned char)value;
+			}
 		}
 	}
 }

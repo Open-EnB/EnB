@@ -77,6 +77,7 @@ edit the comments in the code, not this file.
 | `app/shared/land.cpp:242` | `LandClass::Update_Lightmap_Threaded` | marker | NOT EXACT: as Update_Lightmap_ManualThreaded (the record's operator= 0x4744C0 in the inlined Update_Lightmap_Full) |
 | `app/shared/land.cpp:348` | `LandClass::Upload_Lightmap` | marker | NOT EXACT: frame (0x14, the client 0x20: it keeps this, the size and the buffer in frame slots); 2 forms tried |
 | `app/shared/land.cpp:389` | `LandPatchClass::Build_Vertices` | marker | NOT EXACT: frame (0x3C, the client 0x38); 3 forms tried (attempts.csv 0x474790) |
+| `app/shared/land.cpp:455` | `LandClass::Apply_Colors` | marker | NOT EXACT: shape (the client steps a colour pointer by 3 and tests extra before its loads; the loop bodies match); 3 forms tried |
 | `app/shared/spln_db.cpp:57` | `SplineDatabaseClass::~SplineDatabaseClass` | marker | NOT EXACT: inline-budget (the client inlines HashListClass::First_Valid in the Free_Splines loop; ours calls it) |
 | `app/shared/spln_db.cpp:96` | `SplineDatabaseClass::Save` | marker | NOT EXACT: shape (the filename copy and the save chunks: the client inlines Save_Chunks with Write_String and Save_Entry out of line) |
 | `app/shared/spln_db.cpp:487` | `SplineDatabaseClass::Get_Color_Curves` | marker | NOT EXACT: inline-budget (the client calls HashListClass::Find out of line for _G only) |
