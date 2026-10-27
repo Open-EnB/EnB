@@ -11,6 +11,8 @@
 #include "dx8vertexbuffer.h"
 #include <windows.h>
 #include "wwprofile.h"
+#include "wwmath.h"
+#include <math.h>
 
 void Unknown_466F10(void);	// NAME 1: unknown; deletes a global object (0xBDC0D8) and clears it; called by the land's dtor only
 
@@ -55,11 +57,11 @@ LandClass::LandClass(void) :
 	m_Unknown1F0(NULL),
 	m_Unknown1F4(NULL),
 	m_Unknown1F8(NULL),
-	m_UnknownDFC(0),
-	m_UnknownDFE(0),
-	m_UnknownE00(0),
-	m_UnknownE04(true),
-	m_UnknownE08(0),
+	HorizonLow(0),
+	HorizonHigh(0),
+	SkyColorDX8(0),
+	SunFromWest(true),
+	ShadowStep(0),
 	m_Unknown120C(NULL),
 	Colors(NULL),
 	m_Unknown1214(NULL)
@@ -305,8 +307,8 @@ void LandClass::Set_Color(const Vector2 &pos, const Vector3 &color)
 LandPatchClass::LandPatchClass(LandClass *land) :
 	VertexBuffer(NULL),
 	Land(land),
-	m_Unknown10(0),
-	m_Unknown14(0),
+	Level(0),
+	Quarters(0),
 	m_Unknown18(0),
 	m_Unknown1C(0),
 	m_Unknown20(0)
@@ -412,6 +414,42 @@ void LandPatchClass::Build_Vertices(int x, int y, float detail_u, float detail_v
 		}
 	}
 	MidHeight = (highest + lowest) * 0.5f;
+}
+
+void LandPatchClass::Draw(void)
+{
+	int quarter = Land->m_UnknownD0[Level] >> 2;
+	if (Quarters & 1) DX8Wrapper::Draw_Triangles(0, quarter / 3, 0, VertexCount);
+	if (Quarters & 2) DX8Wrapper::Draw_Triangles(quarter, quarter / 3, 0, VertexCount);
+	if (Quarters & 4) DX8Wrapper::Draw_Triangles(quarter * 2, quarter / 3, 0, VertexCount);
+	if (Quarters & 8) DX8Wrapper::Draw_Triangles(quarter * 3, quarter / 3, 0, VertexCount);
+}
+
+void LandClass::Prepare_Lighting(void)
+{
+	SkyColorDX8 = DX8Wrapper::Convert_Color(SkyColor, 0.0f);
+	if (LightingValid) {
+		static const float max_angle = WWMATH_PI / 2.0f;
+		float scale = 65535.0f / max_angle;
+		float angle = SunAngle;
+		SunFromWest = SunDirection.X < 0.0f;
+		float low = WWMath::Clamp(angle - ShadowBias, 0.0f, max_angle);
+		float high = WWMath::Clamp(angle + ShadowBias, 0.0f, max_angle);
+		HorizonLow = (unsigned short)(low * scale);
+		HorizonHigh = (unsigned short)(high * scale);
+		ShadowStep = (float)(1.0 / (ceil(scale * ShadowBias) * 2.0));
+		for (int i = 0; i < 256; i++) {
+			const Vector3 &n = Normals[i];
+			float d = n.X * SunDirection.X + n.Z * SunDirection.Z + SunDirection.Y * n.Y;
+			Vector3 color;
+			if (d > 0.0f) {
+				color = LightColor * d;
+			} else {
+				color.Set(0.0f, 0.0f, 0.0f);
+			}
+			NormalColors[i] = DX8Wrapper::Convert_Color(color, 0.0f);
+		}
+	}
 }
 
 /*

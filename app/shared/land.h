@@ -73,6 +73,7 @@ public:
 // NAME 2: after what they do (0x4746C0, called by Load_Assets per patch; 0x474790)
 	void							Init(int size, int x, int y, float detail_u, float detail_v);
 	void							Build_Vertices(int x, int y, float detail_u, float detail_v);
+	void							Draw(void);			// NAME 2: the patch's four quarters of its level's indices (0x4745D0, called by Render 0x474B30)
 
 
 // NAME 1: members after their offsets (ctor 0x474530)
@@ -80,8 +81,8 @@ public:
 	LandClass *					Land;					// +0x04
 	int							VertexCount;		// +0x08, Size squared
 	int							Size;					// +0x0C, vertices a side
-	int							m_Unknown10;
-	int							m_Unknown14;
+	int							Level;					// +0x10, indexes the land's m_UnknownD0 (0x4745D0)
+	int							Quarters;				// +0x14, bits 0-3: which quarters Draw draws
 	int							m_Unknown18;
 	int							m_Unknown1C;
 	int							m_Unknown20;
@@ -187,7 +188,7 @@ protected:
 	IndexBufferClass *		m_Unknown94[MAX_LEVELS];			// released by the dtor; DX8Wrapper::Set_Index_Buffer (0x478640)
 	int							m_UnknownA8[MAX_LEVELS];
 	IndexBufferClass *		m_UnknownBC[MAX_LEVELS];			// released by the dtor, all but [0]; DX8Wrapper::Set_Index_Buffer (0x478670)
-	int							m_UnknownD0[MAX_LEVELS];
+	int							m_UnknownD0[MAX_LEVELS];			// an index count per level: LandPatchClass::Draw draws a quarter of it per bit
 	unsigned char *			m_UnknownE4;							// Field Size * 8 - 4 bytes
 	bool							HasSea;									// +0xE8, [GENERAL] HASSEA
 	int							PatchLog2;								// +0xEC, Field Log2 - GridLog2
@@ -248,13 +249,14 @@ protected:
 	unsigned char *			m_Unknown1F0;							// Field Count bytes
 	unsigned char *			m_Unknown1F4;							// Field Count bytes
 	unsigned char *			m_Unknown1F8;							// Field Count bytes
-	char							m_Unknown1FC[0xC00];
-	short							m_UnknownDFC;
-	short							m_UnknownDFE;
-	int							m_UnknownE00;
-	bool							m_UnknownE04;
-	int							m_UnknownE08;
-	char							m_UnknownE0C[0x400];
+// NAME 2: what Prepare_Lighting 0x46C730 makes of the lighting record
+	Vector3						Normals[256];						// +0x1FC, a normal table: NormalColors[i] lights Normals[i]
+	unsigned short				HorizonLow;							// +0xDFC, (SunAngle - ShadowBias) in 0..65535 = 0..pi/2
+	unsigned short				HorizonHigh;						// +0xDFE, (SunAngle + ShadowBias)
+	unsigned int				SkyColorDX8;						// +0xE00, DX8Wrapper::Convert_Color(SkyColor, 0)
+	bool							SunFromWest;						// +0xE04, SunDirection.X < 0
+	float							ShadowStep;							// +0xE08, 1 / (2 ceil(ShadowBias in horizon units))
+	unsigned int				NormalColors[256];				// +0xE0C
 	unsigned int *				m_Unknown120C;							// Field Count dwords
 	unsigned char *			Colors;									// +0x1210, [LAND] COLOR_MAP, RGB per vertex
 	unsigned char *			m_Unknown1214;							// one byte per vertex from the colour map
