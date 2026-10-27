@@ -3508,11 +3508,16 @@ RECONSTRUCTED = {
                                           "0x5AAE30: the asserts on the client's lines 172-595 (D25); NOT EXACT: 0x5A4B50, "
                                           "the destructor 0x5A58A0, 0x5A69B0, 0x5A7A80, 0x5A7E80, Clear 0x5A8100, "
                                           "0x5A8B60, 0x5A8C70; the mission messages 0x5A8350 declared only",
-    ('app', 'client/fontdatabase.h'): "FontDatabaseClass (D24), fontsys.ini's INIT sections by resolution, the font "
-                                     "files (AllFonts) and the fonts in use (Font[MAXFONTS]), declared as far as the "
-                                     "rebuilt functions need (D10)",
-    ('app', 'client/fontdatabase.cpp'): "fontdatabase.cpp, client 0x6BDA40-0x6C9E30: the accessors 0x6C3FB0-0x6C49C0 "
-                                       "(FAIL_IF lines 1023-1121, D25); the rest of the file not written yet",
+    ('app', 'client/fontdatabase.h'): "FontDatabaseClass (D24, 0xBE67B8): fontsys.ini's INIT sections by resolution, "
+                                     "the font files (AllFonts), the fonts in use (Font[MAXFONTS], Font32Class through "
+                                     "RefCountPtr), the Colors / Effects / Strings SGI hash_maps (D87) and their "
+                                     "templates; FontStringFilesClass (0xBE67BC), the counted string files",
+    ('app', 'client/fontdatabase.cpp'): "fontdatabase.cpp, client 0x6BDA40-0x6C9E30 with the tables' instances: the "
+                                       "asserts on the client's lines 881-1308 (D25); NOT EXACT: Reset 0x6BE0E0, "
+                                       "Load_String 0x6C0430, 0x6C1500, Parse_Directions 0x6C2890, Split_Four 0x6C2A10, "
+                                       "the Find / Add functions 0x6C2D00-0x6C3720, Remove_String 0x6C3030, Set_Font "
+                                       "0x6C38F0, FontStringFilesClass::Find 0x6C51A0, Load_Font 0x6C5C60; declared "
+                                       "only: 0x6C4F50, 0x6C52B0, 0x6C57B0",
     ('app', 'shared/combo_ffactory.h'): "ComboFileFactoryClass (D24), a FileFactoryClass over a directory and its *.MIX files, "
                                        "MixMap an SGI hash_map<std::string, MixFileFactoryClass *> (libs/sgistl, D87)",
     ('app', 'shared/combo_ffactory.cpp'): "ComboFileFactoryClass, client 0x4E4D10-0x4E5A00 with the table's and list's instances "
