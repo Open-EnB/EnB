@@ -48,6 +48,7 @@
 #include "pklogoff.h"	// rebuilt
 #include "pkloothulkpermission.h"	// rebuilt
 #include "pkmanufactureitemcatagorypacket.h"	// rebuilt
+#include "pkmessageline.h"	// rebuilt
 #include "pkmessagestring.h"	// rebuilt
 #include "pkmissionforfeit.h"	// rebuilt
 #include "pkmove.h"	// rebuilt
@@ -249,21 +250,6 @@ public:
 	virtual bool Process_Packet(void *client);	// +0x08 0x736BA0 (cpacket.cpp)
 	virtual int Get_Type() { return(0x22); }	// +0x28 0x86E7E0
 	virtual const char *Get_Name() { return("PushMessage"); }	// +0x2C 0x86E800
-};
-
-// opcode 35 (0x0023, ?): vtable 0xB0B410, constructor 0x89DEB0, 0x10 bytes
-class SuperLinePacketClass : public PacketClass
-{
-public:
-	SuperLinePacketClass(RawPacketClass *raw);	// 0x89DEB0
-	char Unknown0C[0x4];	// +0x0C
-};
-
-// opcode 36 (0x0024, ?): vtable 0xB0B3E0, constructor 0x89DC60, 0xC bytes
-class ClearMessageLinePacketClass : public PacketClass
-{
-public:
-	ClearMessageLinePacketClass(RawPacketClass *raw);	// 0x89DC60
 };
 
 // opcode 37 (0x0025, ITEM_BASE): vtable 0xB0AE94, constructor 0x8955C0, 0x6C bytes
