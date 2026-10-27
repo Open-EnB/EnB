@@ -178,9 +178,9 @@ public:
 	float Unknown10E0;									// +0x10E0 (-1e6)
 	float Unknown10E4;									// +0x10E4 (1e6)
 	float Unknown10E8;									// +0x10E8 (1e6)
-	int Unknown10EC;									// +0x10EC
-	int Unknown10F0;									// +0x10F0
-	int Unknown10F4;									// +0x10F4
+	float Unknown10EC;									// +0x10EC (SERVER_PARAMETERS 66: FogNear)
+	float Unknown10F0;									// +0x10F0 (SERVER_PARAMETERS 66: FogFar)
+	int Unknown10F4;									// +0x10F4 (SERVER_PARAMETERS 66: DebrisMode)
 	bool Unknown10F8;									// +0x10F8
 	bool Unknown10F9;									// +0x10F9
 	bool Unknown10FA;									// +0x10FA
@@ -188,7 +188,7 @@ public:
 	float Unknown1100;									// +0x1100 (10000)
 	float Unknown1104;									// +0x1104 (1.2217: 70 degrees in radians)
 	bool Unknown1108;									// +0x1108 (true)
-	int Unknown110C;									// +0x110C
+	float Unknown110C;									// +0x110C (SERVER_PARAMETERS 66: ImpulseRate)
 	float Unknown1110;									// +0x1110 (1.0)
 	float Unknown1114;									// +0x1114 (1.0)
 	int Unknown1118[3];									// +0x1118 (the constructor leaves them)

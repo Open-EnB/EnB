@@ -84,6 +84,16 @@ public:
 	void Unknown_7BD920(int index);						// 0x7BD920 (cpacket.cpp: WARP_INDEX 156)  // NAME 1 [index]: the packet's Index
 };
 
+// what the main view's +0x13C points to, as far as SERVER_PARAMETERS 66 reads it
+class MainViewUnknown13CClass	// NAME 1: neutral (D10)
+{
+public:
+	int Get_Unknown90() { return(Unknown90); }		// (inline: SERVER_PARAMETERS 66 reads it through eax)  // NAME 1: neutral (D10): the member it returns
+
+	char Unknown00[0x90];								// +0x00
+	int Unknown90;										// +0x90
+};
+
 // mainview.cpp's view (constructor 0x50B360, 0x1EC bytes): SClient's Add_Object / Remove_Object tell it
 class MainViewClass : public ViewClass	// NAME 3: class-from-file (D24) for mainview.cpp
 {
@@ -92,6 +102,10 @@ public:
 	void Set_Camera(CameraClass *camera);				// 0x5123C0: Init's camera  // NAME 2: what Init hands it
 	void Unknown_5141A0();								// 0x5141A0 (Init, Unknown137C clear)
 	void Unknown_514220();								// 0x514220 (Init, Unknown137C set)
+	MainViewUnknown13CClass *Get_Unknown13C() { return(Unknown13C); }	// (inline: SERVER_PARAMETERS 66)  // NAME 1: neutral (D10): the member it returns
+	void Unknown_513700(unsigned sector);				// 0x513700 (cpacket.cpp: SERVER_PARAMETERS 66)  // NAME 1 [sector]: the packet's SectorNum
+	void Unknown_5137F0(unsigned sector);				// 0x5137F0 (cpacket.cpp: SERVER_PARAMETERS 66, view mode 1)  // NAME 1 [sector]: the packet's SectorNum
+	void Unknown_513B90(unsigned sector);				// 0x513B90 (cpacket.cpp: SERVER_PARAMETERS 66, view mode 5)  // NAME 1 [sector]: the packet's SectorNum
 	virtual void Unknown_14();
 	virtual void Unknown_18();
 	virtual void Unknown_1C();
@@ -124,7 +138,9 @@ public:
 
 	char Unknown04[0x80 - 0x04];						// +0x04
 	RadarSystemClass *Radar;							// +0x80 (cpacket.cpp: WARP_INDEX 156's FAIL_IF '!radar')  // NAME 3: the FAIL_IF's name
-	char Unknown84[0x1EC - 0x84];						// +0x84
+	char Unknown84[0x13C - 0x84];						// +0x84
+	MainViewUnknown13CClass *Unknown13C;				// +0x13C (SERVER_PARAMETERS 66 copies its +0x90 to the client's +0x1144 in view mode 1)
+	char Unknown140[0x1EC - 0x140];						// +0x140
 };
 
 // loadingview.cpp's view (constructor 0x691570, 0x6C bytes)
@@ -183,6 +199,9 @@ public:
 	void Unknown_74C530(unsigned id);					// 0x74C530 (cpacket.cpp: REMOVE 7 passes its GameID)  // NAME 1 [id]: the packet's GameID
 	void Unknown_74B600();								// 0x74B600 (cpacket.cpp: mode change 76, mode 0)
 	void Unknown_74B640();								// 0x74B640 (cpacket.cpp: mode change 76, mode 1)
+	void Unknown_745000(int base_asset);				// 0x745000 (cpacket.cpp: SERVER_PARAMETERS 66 passes its BackdropBaseAsset)  // NAME 1 [base_asset]: the packet's field
+	void Unknown_750A70(unsigned sector);				// 0x750A70 (cpacket.cpp: SERVER_PARAMETERS 66 passes its SectorNum)  // NAME 1 [sector]: the packet's field
+	void Unknown_745F30(int type);						// 0x745F30 (cpacket.cpp: CLIENT_TYPE 60 passes 0, 1 or 5 for the packet's Type 0, 1 or 2)  // NAME 1 [type]: what the handler passes
 	void Unknown_74B680(int a, int starbase_id);		// 0x74B680 (cpacket.cpp: starbase tow 80 passes 0 and StarbaseID1)  // NAME 1 [a, starbase_id]: what the handler passes
 	void Unknown_74BA30(int a, int starbase_id, int mode);	// 0x74BA30 (cpacket.cpp: STARBASE_SET 79 passes 0, StarbaseID and 0 / 1 / 5 by its exit mode)  // NAME 1 [a, starbase_id, mode]: what the handler passes
 	void Unknown_74D990(int color, char *text, int a);	// 0x74D990 (cpacket.cpp: MESSAGE_STRING 29 passes 0 last)  // NAME 1 [color, text, a]: what the handler passes

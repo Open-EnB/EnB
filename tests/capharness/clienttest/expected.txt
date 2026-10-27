@@ -88,6 +88,9 @@ check taken on the third call; nothing more to read: ok
 messages 1000
 stub TaskClass::Is_Focused -> 1
 loadingview 0C 1
+msg 66 CLIENT_TYPE (60) size 8: cpacket.cpp's handler
+gen Unknown_Log
+gen SClient::Unknown_745F30
 msg 93 ? (33) size 65: cpacket.cpp's handler
 stub UILineDisplayClass::Add_Line_7 'Group bonus gained: +5% item sell value.' 3000 'MessageLine'
 msg 94 ? (33) size 106: cpacket.cpp's handler
@@ -293,6 +296,10 @@ mainview add 38712
 mainview add 38924
 mainview add 38902
 mainview add 38928
+msg 752 SERVER_PARAMETERS (66) size 74: cpacket.cpp's handler
+gen SClient::Unknown_745000
+gen MainViewClass::Unknown_513700
+gen SClient::Unknown_750A70
 msg 754 MESSAGE_STRING (29) size 58: cpacket.cpp's handler
 stub SClient::Unknown_74D990 0x0 'We have entered Glory's Orbit (Beta Hydri System).' 0
 msg 760 CLIENT_SOUND (106) size 30: cpacket.cpp's handler
@@ -393,16 +400,14 @@ recorded AUX_DATA (27) x213
 recorded ITEM_BASE (37) x89
 recorded CLIENT_SET_TIME (52) x3
 recorded CLIENT_AVATAR (55) x1
-recorded CLIENT_TYPE (60) x1
 recorded ADVANCED_POSITIONAL_UPDATE (62) x31
 recorded PLANET_POSITIONAL_UPDATE (63) x1
 recorded CONSTANT_POSITIONAL_UPDATE (64) x195
-recorded SERVER_PARAMETERS (66) x1
 recorded AVATAR_DESCRIPTION (97) x2
 recorded RELATIONSHIP (137) x202
 recorded CAMERA_CONTROL (146) x1
 recorded GALAXY_MAP (151) x2
 recorded CLIENT_CHAT_EVENT (165) x4
 recorded NAME_DECAL (178) x2
-recorded 965, through cpacket.cpp's handlers 35
+recorded 963, through cpacket.cpp's handlers 37
 == done: 0 checks failed
