@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-149 entries in 44 files.
+156 entries in 45 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -74,6 +74,13 @@ edit the comments in the code, not this file.
 | `app/packets/pkverblist.cpp:5` | `VerbUpdatePacketClass::VerbUpdatePacketClass` | marker | NOT EXACT: 0x8AFD10, the client calls the first set's _Init and inlines the second's (inline-budget; attempts.py show 0x8AFD10) |
 | `app/packets/pkverblist.cpp:26` | `VerbUpdatePacketClass::Build` | marker | NOT EXACT: 0x8AFF40, the client inlines both loops' iterator steps (inline-budget; attempts.py show 0x8AFF40) |
 | `app/packets/pkverblist.cpp:51` | `VerbUpdatePacketClass::Print` | marker | NOT EXACT: 0x8B0150, the client inlines the first loop's iterator step only (inline-budget; attempts.py show 0x8B0150) |
+| `app/shared/attrib_dir.cpp:114` | `AttribDir::~AttribDir` | marker | NOT EXACT: frame (explain.py: 8 vs 0x10), the client inlines each AttributeInfo's destructor into the delete loop; ours calls it |
+| `app/shared/attrib_dir.cpp:196` | `AttribDir::Attach_Mod` | marker | NOT EXACT: shape (explain.py: 9 vs 8 calls), as AttributeInfo::Attach_Mod: the client calls the list's insert 0x4D8F00 out of line and the value's construction |
+| `app/shared/attrib_dir.cpp:273` | `AttribDir::Detach_Callback` | marker | NOT EXACT: inline budget (explain.py: shape, 10 vs 9 calls), the client inlines the iterator list's Advance, ours calls it |
+| `app/shared/attrib_dir.cpp:322` | `AttribDir::Recalculate` | marker | NOT EXACT: shape (explain.py: 4 rows), the client keeps the inlined Recalculate's result in bl as a bool; ours in eax, converted after (int Recalculate keeps 0x4D7060 exact) |
+| `app/shared/attrib_dir.cpp:510` | `AttributeInfo::~AttributeInfo` | marker | NOT EXACT: inline budget (explain.py), the client inlines the update table's bucket vector destructor and keeps &ModIterators in edi (frame 0x14 vs 0x10) |
+| `app/shared/attrib_dir.cpp:517` | `AttributeInfo::Attach_Mod` | marker | NOT EXACT: inline budget (explain.py), the client calls the list node value's construction 0x4D9FB0 out of line; ours inlines it |
+| `app/shared/attrib_dir.cpp:690` | `AttributeInfo::Notify` | marker | NOT EXACT: inline budget (explain.py: shape), the client inlines the update table's begin() (ours calls it; frame 0x2C vs 0x28); the callback loop is the client's |
 | `app/shared/auxdata/delta_time.cpp:94` | `DurationAccessorClass::Get` | marker | NOT EXACT: the zero time is a function-local static the client destroys at exit (atexit 0x4A8590: its DurationClass has a destructor ours lacks); the 64-bit arithmetic follows the client's order |
 | `app/shared/auxdata/delta_time.cpp:111` | `DurationAccessorClass::Set` | marker | NOT EXACT: the client keeps time()'s 0 argument in ebx and adds the ticks' zero high half from it; VC6 here pushes an immediate (tried: other orders, a DurationClass temporary) |
 | `app/shared/auxdata/encode.cpp:560` | `RecordTableClass::Add` | marker | NOT EXACT: the client keeps the node in the list argument's slot, calls the first Children.size() out of line (0x4A58C0) in the new compound record and allocates the walk's records inline; VC6 here inlines all three sizes and uses other slots. |

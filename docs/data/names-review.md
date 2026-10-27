@@ -7,11 +7,11 @@ are listed here until better evidence raises their tag. Regenerate with
 
 | Score | Meaning | Names |
 |---|---|---|
-| 5 | the client names it | 12 |
+| 5 | the client names it | 13 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 30 |
-| 3 | by convention from a client-named file or sibling | 651 |
-| 2 | describes what the code does | 1221 |
-| 1 | neutral placeholder | 1641 |
+| 3 | by convention from a client-named file or sibling | 652 |
+| 2 | describes what the code does | 1272 |
+| 1 | neutral placeholder | 1643 |
 
 ## For review (score 3 and below)
 
@@ -1453,21 +1453,23 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `m_Unknown00` | `app/shared/money.h:29` | untagged neutral name (D10) |
 | 1 | `std:` | `app/shared/money.h:36` | neutral placeholder (D10) |
 | 1 | `Unknown_4F00C0` | `app/shared/money.h:36` | untagged neutral name (D10) |
-| 1 | `Unknown_BE56D8` | `app/shared/shipcust_desc.cpp:12` | 0xBE56D8, each race's two default settings (filled at run time) |
-| 1 | `Unknown_B75D28` | `app/shared/shipcust_desc.cpp:14` | 0xB75D28, the hull style per race and profession |
-| 1 | `Unknown_B75D4C` | `app/shared/shipcust_desc.cpp:15` | 0xB75D4C, the wing style per race and profession |
-| 1 | `Unknown_00` | `app/shared/shipcust_desc.cpp:134` | untagged neutral name (D10) |
+| 1 | `Unknown_BE56D8` | `app/shared/shipcust_desc.cpp:15` | 0xBE56D8, each race's two default settings (filled at run time) |
+| 1 | `Unknown_B75D28` | `app/shared/shipcust_desc.cpp:17` | 0xB75D28, the hull style per race and profession |
+| 1 | `Unknown_B75D4C` | `app/shared/shipcust_desc.cpp:18` | 0xB75D4C, the wing style per race and profession |
+| 1 | `Unknown_00` | `app/shared/shipcust_desc.cpp:137` | untagged neutral name (D10) |
+| 1 | `Unknown_4A1590` | `app/shared/shipcust_desc.cpp:178` | neutral placeholder (D10) |
+| 1 | `ShipCustMetalNameStruct` | `app/shared/shipcust_desc.cpp:181` | what it holds |
+| 1 | `ShipCustMetalNames` | `app/shared/shipcust_desc.cpp:187` | what it holds |
 | 1 | `LoginUnknown88CClass` | `app/shared/shipcust_desc.h:12` | untagged neutral name (D10) |
 | 1 | `LoginUnknown44Class` | `app/shared/shipcust_desc.h:12` | untagged neutral name (D10) |
 | 1 | `LoginUnknown20Class` | `app/shared/shipcust_desc.h:12` | untagged neutral name (D10) |
 | 1 | `ShipCustRaceType` | `app/shared/shipcust_desc.h:29` | neutral (D10) |
 | 1 | `ShipCustProfessionType` | `app/shared/shipcust_desc.h:30` | neutral (D10) |
-| 1 | `ShipCustMetalType` | `app/shared/shipcust_desc.h:31` | neutral (D10) |
-| 1 | `Unknown_00` | `app/shared/shipcust_desc.h:39` | untagged neutral name (D10) |
-| 1 | `Unknown10` | `app/shared/shipcust_desc.h:42` | untagged neutral name (D10) |
-| 1 | `Unknown14` | `app/shared/shipcust_desc.h:43` | untagged neutral name (D10) |
-| 1 | `Unknown3C` | `app/shared/shipcust_desc.h:67` | untagged neutral name (D10) |
-| 1 | `Ship_Name_Empty` | `app/shared/shipcust_desc.h:90` | what the constructor stores |
+| 1 | `Unknown_00` | `app/shared/shipcust_desc.h:45` | untagged neutral name (D10) |
+| 1 | `Unknown10` | `app/shared/shipcust_desc.h:48` | untagged neutral name (D10) |
+| 1 | `Unknown14` | `app/shared/shipcust_desc.h:49` | untagged neutral name (D10) |
+| 1 | `Unknown3C` | `app/shared/shipcust_desc.h:73` | untagged neutral name (D10) |
+| 1 | `Ship_Name_Empty` | `app/shared/shipcust_desc.h:96` | what the constructor stores |
 | 1 | `SplineFloatArrayClass` | `app/shared/spline.h:26` | a float array of a set size (0x10 bytes: +0x04 the values, +0x08 their count, +0x0C the last index) |
 | 1 | `m_Unknown00` | `app/shared/spline.h:52` | members after their offsets (Resize 0x483820); +0x00 unknown |
 | 1 | `SplineColorArrayClass` | `app/shared/spline.h:170` | three float arrays (red, green, blue) and a count (0x38 bytes: +0x04, +0x14, +0x24, +0x34) |
@@ -2208,6 +2210,57 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `VerbRequestPacketClass` | `app/packets/pkverbrequest.h:22` | the reference decoder's opcode name VERB_REQUEST (the Net-7 opcode table; no structure check) |
 | 2 | `Get_Type` | `app/packets/pkverbrequest.h:31` | what it returns (the opcode Build sends), as MessageLinePacketClass's |
 | 2 | `WarpPacketClass` | `app/packets/pkwarpindex.h:23` | the reference decoder's opcode name WARP (the Net-7 opcode table; no structure check) |
+| 2 | `AttribModClass` | `app/shared/attrib_dir.h:33` | what it is |
+| 2 | `Get_Type` | `app/shared/attrib_dir.h:37` | what it returns |
+| 2 | `Get_Value` | `app/shared/attrib_dir.h:38` | what it returns |
+| 2 | `Get_Owner` | `app/shared/attrib_dir.h:39` | what it returns |
+| 2 | `AttribModValueClass` | `app/shared/attrib_dir.h:43` | what it is |
+| 2 | `Type` | `app/shared/attrib_dir.h:51` | what it holds |
+| 2 | `Value` | `app/shared/attrib_dir.h:52` | what it holds |
+| 2 | `Owner` | `app/shared/attrib_dir.h:53` | what it holds |
+| 2 | `AttribCallbackClass` | `app/shared/attrib_dir.h:57` | what it is |
+| 2 | `Value_Changed` | `app/shared/attrib_dir.h:60` | what it is told |
+| 2 | `ATTRIB_MIN_VALUE` | `app/shared/attrib_dir.h:63` | what it holds |
+| 2 | `ATTRIB_MAX_VALUE` | `app/shared/attrib_dir.h:64` | what it holds |
+| 2 | `AttribModValuesStruct` | `app/shared/attrib_dir.h:67` | what it holds |
+| 2 | `BaseMin` | `app/shared/attrib_dir.h:71` | what it holds |
+| 2 | `BaseMax` | `app/shared/attrib_dir.h:72` | what it holds |
+| 2 | `Add` | `app/shared/attrib_dir.h:73` | what it holds |
+| 2 | `Percent` | `app/shared/attrib_dir.h:74` | what it holds |
+| 2 | `Min` | `app/shared/attrib_dir.h:75` | what it holds |
+| 2 | `Max` | `app/shared/attrib_dir.h:76` | what it holds |
+| 2 | `AttribIteratorListClass` | `app/shared/attrib_dir.h:81` | what it holds |
+| 2 | `Advance` | `app/shared/attrib_dir.h:84` | what it does |
+| 2 | `Invalidate` | `app/shared/attrib_dir.h:92` | what it does |
+| 2 | `Pop` | `app/shared/attrib_dir.h:100` | what it does |
+| 2 | `AttributeInfoHash` | `app/shared/attrib_dir.h:111` | what it does |
+| 2 | `Attach_Mod` | `app/shared/attrib_dir.h:126` | as AttribDir's |
+| 2 | `Detach_Mod` | `app/shared/attrib_dir.h:127` | as AttribDir's |
+| 2 | `Attach_Callback` | `app/shared/attrib_dir.h:128` | as AttribDir's |
+| 2 | `Detach_Callback` | `app/shared/attrib_dir.h:129` | as AttribDir's |
+| 2 | `Attach_Update` | `app/shared/attrib_dir.h:130` | as AttribDir's |
+| 2 | `Detach_Update` | `app/shared/attrib_dir.h:131` | as AttribDir's |
+| 2 | `Get_Base` | `app/shared/attrib_dir.h:133` | as AttribDir's |
+| 2 | `Calculate` | `app/shared/attrib_dir.h:134` | what it does |
+| 2 | `Recalculate` | `app/shared/attrib_dir.h:135` | as AttribDir's |
+| 2 | `Notify` | `app/shared/attrib_dir.h:136` | what it does |
+| 2 | `Update_Value` | `app/shared/attrib_dir.h:137` | what it does |
+| 2 | `std:` | `app/shared/attrib_dir.h:139` | what it holds |
+| 2 | `Values` | `app/shared/attrib_dir.h:140` | what it holds |
+| 2 | `Mods` | `app/shared/attrib_dir.h:141` | what it holds |
+| 2 | `ModList:` | `app/shared/attrib_dir.h:142` | what it holds |
+| 2 | `Callbacks` | `app/shared/attrib_dir.h:143` | what it holds |
+| 2 | `CallbackList:` | `app/shared/attrib_dir.h:144` | what it holds |
+| 2 | `std:` | `app/shared/attrib_dir.h:145` | what it holds |
+| 2 | `Value` | `app/shared/attrib_dir.h:146` | what it holds |
+| 2 | `AttribShadowClass` | `app/shared/attrib_dir.h:150` | from AttribDir::Get_Shadow |
+| 2 | `Get_Value` | `app/shared/attrib_dir.h:156` | as AttribDir's |
+| 2 | `Get_Base` | `app/shared/attrib_dir.h:157` | as AttribDir's |
+| 2 | `Get_Info` | `app/shared/attrib_dir.h:182` | what it does |
+| 2 | `Find_Info` | `app/shared/attrib_dir.h:183` | what it does |
+| 2 | `Find_Info` | `app/shared/attrib_dir.h:184` | what it does |
+| 2 | `std:` | `app/shared/attrib_dir.h:185` | what it does |
+| 2 | `Attributes` | `app/shared/attrib_dir.h:187` | what it holds |
 | 2 | `Swap` | `app/shared/auxdata/bitset.h:26` | describes what it does |
 | 2 | `Is_Set` | `app/shared/auxdata/bitset.h:30` | describes what it does |
 | 2 | `Set` | `app/shared/auxdata/bitset.h:32` | describes what it does |
@@ -2639,15 +2692,15 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Shutdown` | `app/shared/lookup_table.h:136` | what it does |
 | 2 | `Lookup` | `app/shared/lookup_table.h:137` | what it does |
 | 2 | `Get_Table` | `app/shared/lookup_table.h:138` | what it does |
-| 2 | `ShipCustSettingsClass` | `app/shared/shipcust_desc.h:35` | the parts' key 'Settings%d' |
-| 2 | `ShipCustPartClass` | `app/shared/shipcust_desc.h:51` | the description's key 'PartAttributes%d' |
-| 2 | `Write_Short` | `app/shared/shipcust_desc.h:77` | what it does |
-| 2 | `Read_Short` | `app/shared/shipcust_desc.h:78` | what it does |
-| 2 | `Get_Short_Size` | `app/shared/shipcust_desc.h:79` | what it does |
-| 2 | `Set_Race` | `app/shared/shipcust_desc.h:82` | what it does |
-| 2 | `Reset_Parts` | `app/shared/shipcust_desc.h:83` | what it does |
-| 2 | `Set_Profession` | `app/shared/shipcust_desc.h:84` | what it does |
-| 2 | `Ship_Name` | `app/shared/shipcust_desc.h:91` | its key 'ShipName' |
+| 2 | `ShipCustSettingsClass` | `app/shared/shipcust_desc.h:41` | the parts' key 'Settings%d' |
+| 2 | `ShipCustPartClass` | `app/shared/shipcust_desc.h:57` | the description's key 'PartAttributes%d' |
+| 2 | `Write_Short` | `app/shared/shipcust_desc.h:83` | what it does |
+| 2 | `Read_Short` | `app/shared/shipcust_desc.h:84` | what it does |
+| 2 | `Get_Short_Size` | `app/shared/shipcust_desc.h:85` | what it does |
+| 2 | `Set_Race` | `app/shared/shipcust_desc.h:88` | what it does |
+| 2 | `Reset_Parts` | `app/shared/shipcust_desc.h:89` | what it does |
+| 2 | `Set_Profession` | `app/shared/shipcust_desc.h:90` | what it does |
+| 2 | `Ship_Name` | `app/shared/shipcust_desc.h:97` | its key 'ShipName' |
 | 2 | `spline.h` | `app/shared/spline.h:19` | the client's __FILE__ |
 | 2 | `Resize` | `app/shared/spline.h:30` | after what it does (0x483820: deletes the values, news size of them set to value) |
 | 2 | `Set` | `app/shared/spline.h:174` | after what it does (inlined in 0x485790) |
@@ -3466,6 +3519,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `PlayerID` | `app/packets/pkwarpindex.h:34` | the client's Print text 'PlayerID=' |
 | 3 | `List` | `app/packets/pkwarpindex.h:35` | the client's Print text 'NavigationListSize=' |
 | 3 | `Index` | `app/packets/pkwarpindex.h:49` | the client's Print text 'Index=' |
+| 3 | `attrib_dir.h` | `app/shared/attrib_dir.h:21` | header name assumed from the client's attrib_dir.cpp |
 | 3 | `bitset.h` | `app/shared/auxdata/bitset.h:16` | header name assumed from the client's bitset.cpp |
 | 3 | `BitSetClass` | `app/shared/auxdata/bitset.h:19` | by convention (D24) from the client's file bitset.cpp |
 | 3 | `delta.h` | `app/shared/auxdata/delta.h:19` | header name assumed from the client's delta.cpp |
@@ -3522,7 +3576,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `money.h` | `app/shared/money.h:17` | header name assumed from the client's money.cpp |
 | 3 | `MoneyClass` | `app/shared/money.h:22` | by convention (D24) from the client's file money.cpp (D37) |
 | 3 | `shipcust_desc.h` | `app/shared/shipcust_desc.h:20` | header name assumed from the client's shipcust_desc.cpp |
-| 3 | `ShipCustDescClass` | `app/shared/shipcust_desc.h:62` | by convention (D24) from the client's shipcust_desc.cpp |
+| 3 | `ShipCustDescClass` | `app/shared/shipcust_desc.h:68` | by convention (D24) from the client's shipcust_desc.cpp |
 | 3 | `spln_db.h` | `app/shared/spln_db.h:34` | header of the client's app\shared\spln_db.cpp (assert __FILE__) |
 | 3 | `stars.h` | `app/shared/stars.h:28` | header of the client's app\shared\stars.cpp (assert __FILE__) |
 | 3 | `strconv_lib.h` | `app/shared/strconv_lib.h:20` | header name assumed from the client's strconv_lib.cpp (D57) |

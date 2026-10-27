@@ -3508,6 +3508,12 @@ RECONSTRUCTED = {
     ('app', 'shared/ini_manager.cpp'): "INIManagerClass, client 0x4E9D40-0x4EC260 with definition_manager.h's and "
                                       "definition_auto_ptr.h's instances: the FAIL_IFs on lines 59 / 60 (D25); NOT EXACT: Get_INI "
                                       "0x4E9E00, the destructors 0x4EA2B0 / 0x4EAFB0, Release 0x4EB1B0",
+    ('app', 'shared/attrib_dir.h'): "AttribDir, AttributeInfo (the client's names), their mods, callbacks, shadow and iterator "
+                                   "lists (D24): named attributes in an SGI hash_map (libs/sgistl, D87)",
+    ('app', 'shared/attrib_dir.cpp'): "AttribDir / AttributeInfo, client 0x4D42C0-0x4D7730 with the list, vector and table "
+                                     "instances: the asserts on the client's lines 200-761 (D25); not yet the mod iterators "
+                                     "0x4D77D0-0x4D8690 and Detach_Mod 0x4D4BD0; NOT EXACT: 0x4D4490, 0x4D4810, 0x4D5000, "
+                                     "0x4D55D0, 0x4D6620, 0x4D6820, 0x4D71D0",
     ('app', 'client/sclient.h'): "SClient (the client's 'SClient::Process_Packets'), declared only as far as tsk_game.cpp uses "
                                 "it: constructor 0x7405E0, 0x14F8 bytes (kernel-map.md 6, step 9)",
     ('app', 'client/unknown_authlogin.h'): "EA.Com's login component as the client uses it (PROVISIONAL file name, D10): kcom's factory and IAuthLoginClass (authlogin.dll, tools/vc6/authlogin.def), AuthLoginResponseClass (0x38 bytes; kernel-map-step9.md 4)",
