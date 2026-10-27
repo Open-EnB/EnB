@@ -181,7 +181,7 @@ public:
 	int Unknown_728370();								// 0x728370: Get_Ship()'s 0x6FFF50 (FAIL_IF l.427)
 	int Unknown_7283B0();								// 0x7283B0: Get_Ship()'s aux data +0x39C4 (FAIL_IF l.435)
 	bool Unknown_7283F0();								// 0x7283F0: Get_Ship()'s 0x700400 (FAIL_IF l.443)
-	bool Get_Objects_Changed() { bool changed = ObjectsChanged; ObjectsChanged = false; return(changed); }	// 0x728430  // NAME 2: what it does
+	bool Get_Objects_Changed();							// 0x728430: reads and clears ObjectsChanged  // NAME 2: what it does
 
 	int Unknown04;										// +0x04 (the constructor leaves it)
 	PxClass *Px;										// +0x08  // NAME 3: px.cpp's

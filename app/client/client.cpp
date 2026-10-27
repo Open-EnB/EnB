@@ -444,6 +444,14 @@ bool ClientClass::Unknown_7283F0()
 	return(ship->Unknown_700400());
 }
 
+// 0x728430
+bool ClientClass::Get_Objects_Changed()
+{
+	bool changed = ObjectsChanged;
+	ObjectsChanged = false;
+	return(changed);
+}
+
 /*
 **	Reconstruction notes (client.cpp, 0x726100-0x728450; kernel-map-step9.md 2.1)
 **
