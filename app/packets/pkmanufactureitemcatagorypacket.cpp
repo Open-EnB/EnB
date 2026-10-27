@@ -2,6 +2,35 @@
 #include "pkmanufactureitemcatagorypacket.h"
 #include <stdio.h>
 
+ManufactureItemCatagoryPacketClass::ManufactureItemCatagoryPacketClass(int player, int mode) : player(player), Mode(mode)
+{
+}
+
+ManufactureItemCatagoryPacketClass::ManufactureItemCatagoryPacketClass(RawPacketClass *raw) : player(0), Mode(0)
+{
+	raw->Get(player);
+	raw->Get(Mode);
+}
+
+RawPacketClass *ManufactureItemCatagoryPacketClass::Build()
+{
+	RawPacketClass *raw = new RawPacketClass(121, Get_Data_Size());
+	raw->Add(player);
+	raw->Add(Mode);
+	return(raw);
+}
+
+int ManufactureItemCatagoryPacketClass::Get_Data_Size()
+{
+	return(sizeof(player) + sizeof(Mode));
+}
+
+int ManufactureItemCatagoryPacketClass::Print(char *buffer, int)
+{
+	char mode[128];
+	return(sprintf(buffer, "Manufacture Item Category request {player=%d} Mode = %s", player, Manufacturing_Mode_Name(mode, sizeof(mode) - 1, Mode)));
+}
+
 
 ManufactureItemCatagoryPacket_122Class::ManufactureItemCatagoryPacket_122Class(int player, int category) : player(player), Category(category)
 {

@@ -5,8 +5,7 @@
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
 **	Original location: e:\build\beta\G\app\packets\pkinventorymove.h (the name provisional: see the .cpp)
 **
-**	The packet classes of client 0x894CA0-0x8952D0 rebuilt so far (opcode 39); the file's other classes
-**	are still declared in pk_classes.h.
+**	The packet classes of client 0x894CA0-0x8952D0 (opcodes 39 and 40).
 */
 
 #if defined(_MSC_VER)
@@ -41,6 +40,25 @@ public:
 	InventoryEnum ToInv;	// +0x18  // NAME 3: the client's Print text 'ToInv='
 	int ToSlot;	// +0x1C  // NAME 3: the client's Print text 'ToSlot='
 	int Num;	// +0x20  // NAME 3: the client's Print text 'Num='
+};
+
+// opcode 40 (0x0028, INVENTORY_SORT): vtable 0xB0AE64, constructor 0x895070, 0x24 bytes
+class InventorySortPacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name INVENTORY_SORT (the Net-7 opcode table; no structure check)
+{
+public:
+	InventorySortPacketClass(int id, InventoryEnum target_inv, int sort1, int sort2, int sort3, bool reverse);	// 0x894FC0
+	InventorySortPacketClass(RawPacketClass *raw);	// 0x895070
+	virtual RawPacketClass *Build();	// +0x04 0x895150
+	virtual bool Process_Packet(void *client);	// +0x08 0x867D40 (clientstub.cpp l.56)
+	virtual int Get_Data_Size();	// +0x0C 0x895260
+	virtual int Print(char *buffer, int len);	// +0x10 0x895280
+
+	int ID;	// +0x0C (network order)  // NAME 3: the client's Print text 'ID='
+	InventoryEnum TargetInv;	// +0x10  // NAME 3: the client's Print text 'TargetInv='
+	int Sort1;	// +0x14  // NAME 3: the client's Print text 'Sort1='
+	int Sort2;	// +0x18  // NAME 3: the client's Print text 'Sort2='
+	int Sort3;	// +0x1C  // NAME 3: the client's Print text 'Sort3='
+	bool Reverse;	// +0x20  // NAME 3: the client's Print text 'Reverse='
 };
 
 #endif

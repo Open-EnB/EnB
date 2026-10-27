@@ -3620,7 +3620,7 @@ RECONSTRUCTED = {
     ('app', 'packets/pkitemstate.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
     ('app', 'packets/pkjoblist.cpp'): "packet classes (opcode 149, 150) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
     ('app', 'packets/pkjoblist.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
-    ('app', 'packets/pkmanufactureitemcatagorypacket.cpp'): "packet classes (opcode 122, 123, 124, 125, 126, 127) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
+    ('app', 'packets/pkmanufactureitemcatagorypacket.cpp'): "opcode 121 written by hand (builder P4, 4 of 4 exact); packet classes (opcode 122, 123, 124, 125, 126, 127) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
     ('app', 'packets/pkmanufactureitemcatagorypacket.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
     ('app', 'packets/pkmissionforfeit.cpp'): "packet classes (opcode 134, 135) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
     ('app', 'packets/pkmissionforfeit.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
@@ -3674,9 +3674,12 @@ RECONSTRUCTED = {
     ('app', 'packets/pkdebug.cpp'): "pkdebug.cpp (the client's __FILE__, assert line 84): DEBUG 26 written by hand "
                                   "(builder P4, 4 of 4 exact in appfile.py match), client 0x8802C0-0x880590",
     ('app', 'packets/pkdebug.h'): "DebugPacketClass (D24 header name; pk_classes.h includes it)",
-    ('app', 'packets/pkinventorymove.cpp'): "opcode 39 (INVENTORY_MOVE) written by hand (builder P4, 4 of 4 exact in "
+    ('app', 'packets/pkinventorymove.cpp'): "opcodes 39 (INVENTORY_MOVE) and 40 (INVENTORY_SORT) written by hand (builder P4, 4 of 4 exact in "
                                           "appfile.py match), client 0x894CA0-0x8952D0; the file name provisional (NAME 1)",
     ('app', 'packets/pkinventorymove.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
+    ('app', 'packets/pknotelist.cpp'): "opcode 184 (NoteContent) written by hand (builder P4, 6 of 6 exact in appfile.py "
+                                     "match), client 0x87EA50-0x87F2F0 (183 not yet); the file name provisional (NAME 1)",
+    ('app', 'packets/pknotelist.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
     ('app', 'packets/pk_sub_parts.cpp'): "pk_sub_parts.cpp (the client's __FILE__, assert line 64): SUBPARTS 180 written by "
                                        "hand (builder P4, 8 of 8 exact in appfile.py match), client 0x8754D0-0x875CF0",
     ('app', 'packets/pk_sub_parts.h'): "SubPartsPacket and SubPartStruct (D24 header name; pk_classes.h includes it)",

@@ -10,7 +10,6 @@ ComponentPositionalUpdatePacketClass::ComponentPositionalUpdatePacketClass(RawPa
 FormationPositionalUpdatePacketClass::FormationPositionalUpdatePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_0015Class::Packet_0015Class(RawPacketClass *raw) { Conn_Record(this, raw); }
 ItemBasePacketClass::ItemBasePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-InventorySortPacketClass::InventorySortPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 Action2PacketClass::Action2PacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 SplinePacketClass::SplinePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 MasterJoinPacketClass::MasterJoinPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
@@ -56,7 +55,6 @@ MessageTimePacketClass::MessageTimePacketClass(RawPacketClass *raw) { Conn_Recor
 AvatarDescPacketClass::AvatarDescPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 GadgetPacketClass::GadgetPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_0068Class::Packet_0068Class(RawPacketClass *raw) { Conn_Record(this, raw); }
-ManufactureItemCatagoryPacketClass::ManufactureItemCatagoryPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 ManufactureTechLevelFilterPacketClass::ManufactureTechLevelFilterPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 PetitionStuckPacketClass::PetitionStuckPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 PlayerObjectReactionUpdatePacket::PlayerObjectReactionUpdatePacket(RawPacketClass *raw) { Conn_Record(this, raw); }
@@ -69,7 +67,6 @@ JobDescriptionPacketClass::JobDescriptionPacketClass(RawPacketClass *raw) { Conn
 Packet_00B5Class::Packet_00B5Class(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_00B6Class::Packet_00B6Class(RawPacketClass *raw) { Conn_Record(this, raw); }
 NoteListPacketClass::NoteListPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-NoteContentPacketClass::NoteContentPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_00A8Class::Packet_00A8Class(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_00A9Class::Packet_00A9Class(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_00ABClass::Packet_00ABClass(RawPacketClass *raw) { Conn_Record(this, raw); }
@@ -182,6 +179,7 @@ bool StarbaseAvatarUpdatePacketClass::Process_Packet(void *) { return(true); }	/
 bool StarbaseAvatarRoomUpdatePacketClass::Process_Packet(void *) { return(true); }	// 0x73AB50
 bool NameDecalPacketClass::Process_Packet(void *) { return(true); }	// 0x735FC0
 bool SubPartsPacket::Process_Packet(void *) { return(true); }	// 0x733A50
+bool NoteContentPacketClass::Process_Packet(void *) { return(true); }	// 0x73AF80
 bool ClientChatListPacketClass::Process_Packet(void *) { return(true); }	// 0x73CC90
 bool ClientChatEventPacketClass::Process_Packet(void *) { return(true); }	// 0x73B150
 bool ClientChatErrorPacketClass::Process_Packet(void *) { return(true); }	// 0x73D170

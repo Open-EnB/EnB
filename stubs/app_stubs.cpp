@@ -30,6 +30,7 @@
 #include "pk_player_object_relationship.h"
 #include "pkverblist.h"
 #include "pkstarbasetow.h"
+#include "pkmanufactureitemcatagorypacket.h"
 
 // ------------------------------------------------------------------------- E&B debug hooks
 
@@ -198,4 +199,15 @@ char *Sector_Type_Name(int sector_type)
 		return "InvalidSectorType";
 	}
 	return names[sector_type];
+}
+
+// ------------------------------------------------------------------------- MANUFACTURE_ITEM_CATAGORY's Print
+
+// manufacturing_defs.cpp 0x845910: a manufacturing mode's name (the client's table 0xBAEF30), "error"
+// out of range
+char *Manufacturing_Mode_Name(char *buffer, int len, int mode)
+{
+	STUB_CALLED("Manufacturing_Mode_Name (0x845910)");
+	static char *names[] = { "None", "Manufacture", "Analyze", "Dismantle" };
+	return strncpy(buffer, (mode >= 0 && mode < 4) ? names[mode] : "error", len);
 }

@@ -5,7 +5,7 @@
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
 **	Original location: e:\build\beta\G\app\packets\pkmanufactureitemcatagorypacket.h (the name provisional: see the .cpp)
 **
-**	The packet classes of client 0x89B340-0x89C610 rebuilt so far (opcode 122, 123, 124, 125, 126, 127); the file's other classes
+**	The packet classes of client 0x89B340-0x89C610 rebuilt so far (opcode 121, 122, 123, 124, 125, 126, 127); the file's other classes
 **	are still declared in pk_classes.h.
 */
 
@@ -17,6 +17,23 @@
 #define PKMANUFACTUREITEMCATAGORYPACKET_H
 
 #include "pk.h"
+
+char *Manufacturing_Mode_Name(char *buffer, int len, int mode);	// 0x845910 (manufacturing_defs.cpp, not rebuilt: 'None', 'Manufacture', 'Analyze', 'Dismantle')  // NAME 2: what it does
+
+// opcode 121 (0x0079, MANUFACTURE_ITEM_CATAGORY): vtable 0xB0B104, constructor 0x89B3C0, 0x14 bytes
+class ManufactureItemCatagoryPacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name MANUFACTURE_ITEM_CATAGORY (the Net-7 opcode table; no structure check)
+{
+public:
+	ManufactureItemCatagoryPacketClass(int player, int mode);	// 0x89B340
+	ManufactureItemCatagoryPacketClass(RawPacketClass *raw);	// 0x89B3C0
+	virtual RawPacketClass *Build();	// +0x04 0x89B460
+	virtual bool Process_Packet(void *client);	// +0x08 0x868670 (clientstub.cpp l.203)
+	virtual int Get_Data_Size();	// +0x0C 0x89B530
+	virtual int Print(char *buffer, int len);	// +0x10 0x89B550
+
+	int player;	// +0x0C (network order)  // NAME 3: the client's Print text 'player='
+	int Mode;	// +0x10 (network order; Manufacturing_Mode_Name)  // NAME 3: the client's Print text 'Mode = '
+};
 
 // opcode 122 (0x007A, MANUFACTURE_ITEM_CATAGORY): vtable 0xB0B134, constructor 0x89B620, 0x14 bytes
 class ManufactureItemCatagoryPacket_122Class : public PacketClass  // NAME 2: the reference decoder's opcode name MANUFACTURE_ITEM_CATAGORY (the Net-7 opcode table; no structure check); opcode added (another opcode's class has the name)

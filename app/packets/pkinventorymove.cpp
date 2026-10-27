@@ -50,6 +50,52 @@ int InventoryMovePacketClass::Print(char *buffer, int)
 }
 
 
+InventorySortPacketClass::InventorySortPacketClass(int id, InventoryEnum target_inv, int sort1, int sort2, int sort3, bool reverse) :
+	ID(id),
+	TargetInv(target_inv),
+	Sort1(sort1),
+	Sort2(sort2),
+	Sort3(sort3),
+	Reverse(reverse)
+{
+}
+
+InventorySortPacketClass::InventorySortPacketClass(RawPacketClass *raw)
+{
+	raw->Get(ID);
+	int value;
+	raw->Get(value);
+	TargetInv = (InventoryEnum)value;
+	raw->Get(Sort1);
+	raw->Get(Sort2);
+	raw->Get(Sort3);
+	raw->Get(Reverse);
+}
+
+RawPacketClass *InventorySortPacketClass::Build()
+{
+	RawPacketClass *raw = new RawPacketClass(40, Get_Data_Size());
+	raw->Add(ID);
+	int value = TargetInv;
+	raw->Add(value);
+	raw->Add(Sort1);
+	raw->Add(Sort2);
+	raw->Add(Sort3);
+	raw->Add(Reverse);
+	return(raw);
+}
+
+int InventorySortPacketClass::Get_Data_Size()
+{
+	return(sizeof(ID) + sizeof(int) + sizeof(Sort1) + sizeof(Sort2) + sizeof(Sort3) + sizeof(Reverse));
+}
+
+int InventorySortPacketClass::Print(char *buffer, int)
+{
+	return(sprintf(buffer, "%s {ID=%d TargetInv=%d Sort1=%d Sort2=%d Sort3=%d Reverse=%d}", "InventorySort", ID, TargetInv, Sort1, Sort2, Sort3, Reverse));
+}
+
+
 /*
 **	Reconstruction notes (pkinventorymove.cpp)
 **
@@ -58,6 +104,6 @@ int InventoryMovePacketClass::Print(char *buffer, int)
 **	  network-order int (RawPacketClass::Get(int &) / Add(const int &)); the two inventories are read
 **	  into an int and stored (an enum). The destructor the scalar deleting one calls (0x690F80) is a
 **	  copy from an earlier object (COMDAT).
-**	* Not rebuilt yet: opcode 40 (declared in pk_classes.h).
+**	* INVENTORY_SORT 40 likewise (its Reverse a bool: Get(bool &) / Add(const bool &)).
 **	* The file name is provisional (no assert names it).
 */

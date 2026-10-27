@@ -1912,7 +1912,11 @@
      "0x894CA0",
      "0x894D50",
      "0x894E30",
-     "0x894F70"
+     "0x894F70",
+     "0x894FC0",
+     "0x895070",
+     "0x895150",
+     "0x895280"
     ],
     "merged": [],
     "name": "packets/pkinventorymove.cpp"
@@ -2022,6 +2026,10 @@
      "0x52B270",
      "0x52B2A0",
      "0x52B350",
+     "0x89B340",
+     "0x89B3C0",
+     "0x89B460",
+     "0x89B550",
      "0x89B5A0",
      "0x89B620",
      "0x89B6C0",
@@ -2198,6 +2206,29 @@
     ],
     "merged": [],
     "name": "packets/pknavdelete.cpp"
+   },
+   "pknotelist": {
+    "ambiguous": [
+     "0x42B2F0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350",
+     "0x87EF50",
+     "0x87EFF0",
+     "0x87F020",
+     "0x87F0E0",
+     "0x87F110",
+     "0x87F1E0",
+     "0x87F200"
+    ],
+    "merged": [],
+    "name": "packets/pknotelist.cpp"
    },
    "pkopeninterface": {
     "ambiguous": [
@@ -3904,6 +3935,7 @@
    "packets/pkmove.h": "reconstructed",
    "packets/pknamedecal.h": "reconstructed",
    "packets/pknavdelete.h": "reconstructed",
+   "packets/pknotelist.h": "reconstructed",
    "packets/pkopeninterface.h": "reconstructed",
    "packets/pkoption.h": "reconstructed",
    "packets/pkpointeffect.h": "reconstructed",

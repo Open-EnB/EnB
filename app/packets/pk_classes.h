@@ -58,6 +58,7 @@
 #include "pkmove.h"	// rebuilt
 #include "pknamedecal.h"	// rebuilt
 #include "pknavdelete.h"	// rebuilt
+#include "pknotelist.h"	// rebuilt
 #include "pkopeninterface.h"	// rebuilt
 #include "pkoption.h"	// rebuilt
 #include "pkpointeffect.h"	// rebuilt
@@ -194,15 +195,6 @@ class ItemBasePacketClass : public PacketClass
 public:
 	ItemBasePacketClass(RawPacketClass *raw);	// 0x8955C0
 	char Unknown0C[0x60];	// +0x0C
-};
-
-// opcode 40 (0x0028, INVENTORY_SORT): vtable 0xB0AE64, constructor 0x895070, 0x24 bytes
-class InventorySortPacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name INVENTORY_SORT (the Net-7 opcode table; no structure check)
-{
-public:
-	InventorySortPacketClass(RawPacketClass *raw);	// 0x895070
-	virtual bool Process_Packet(void *client);	// +0x08 0x867D40 (clientstub.cpp l.56)
-	char Unknown0C[0x18];	// +0x0C
 };
 
 // opcode 45 (0x002D, ACTION2): vtable 0xB09C44, constructor 0x8767B0, 0x28 bytes
@@ -602,15 +594,6 @@ public:
 	char Unknown0C[0x10];	// +0x0C
 };
 
-// opcode 121 (0x0079, MANUFACTURE_ITEM_CATAGORY): vtable 0xB0B104, constructor 0x89B3C0, 0x14 bytes
-class ManufactureItemCatagoryPacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name MANUFACTURE_ITEM_CATAGORY (the Net-7 opcode table; no structure check)
-{
-public:
-	ManufactureItemCatagoryPacketClass(RawPacketClass *raw);	// 0x89B3C0
-	virtual bool Process_Packet(void *client);	// +0x08 0x868670 (clientstub.cpp l.203)
-	char Unknown0C[0x8];	// +0x0C
-};
-
 // opcode 128 (0x0080, MANUFACTURE_TECH_LEVEL_FILTER): vtable 0xB0B254, constructor 0x89C3E0, 0x18 bytes
 class ManufactureTechLevelFilterPacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name MANUFACTURE_TECH_LEVEL_FILTER (the Net-7 opcode table; no structure check)
 {
@@ -711,14 +694,6 @@ class NoteListPacketClass : public PacketClass
 public:
 	NoteListPacketClass(RawPacketClass *raw);	// 0x87EB30
 	char Unknown0C[0xC];	// +0x0C
-};
-
-// opcode 184 (0x00B8, ?): vtable 0xB0A0E0, constructor 0x87F020, 0x58 bytes
-class NoteContentPacketClass : public PacketClass
-{
-public:
-	NoteContentPacketClass(RawPacketClass *raw);	// 0x87F020
-	char Unknown0C[0x4C];	// +0x0C
 };
 
 // opcode 168 (0x00A8, ?): vtable 0xB09F30, constructor 0x87AE80, 0x68 bytes
