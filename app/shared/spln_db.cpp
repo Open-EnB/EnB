@@ -858,6 +858,137 @@ bool SplineDatabaseClass::Create_Hermite_Color(const char *base_name, const char
 	return true;
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// NOT EXACT: inline-budget (the client calls HashListClass::Find and Add(node) out of line)
+bool SplineDatabaseClass::Create_Blend(const char *spline_name, const char *description, const char *alpha_clr, const char *beta_clr, Curve1DClass **curve)
+{
+	G_ASSERT(spline_name); G_ASSERT(alpha_clr); G_ASSERT(beta_clr);
+	if (strlen(spline_name) >= 0x80) {
+		return false;
+	}
+	if (description != NULL && strlen(description) >= 0x80) {
+		return false;
+	}
+	SplineEntryClass *entry = new SplineEntryClass(TYPE_BLEND, spline_name, description, false, alpha_clr, beta_clr);
+	if (entry == NULL) {
+		return false;
+	}
+	if (entry->Curve == NULL) {
+		return false;
+	}
+	entry->Alpha = Find(alpha_clr);
+	entry->Beta = Find(beta_clr);
+	if (Splines.Add(entry, Get_Key(entry->Name)) == NULL) {
+		delete entry;
+		return false;
+	}
+	HasSplines = true;
+	*curve = entry->Curve;
+	return true;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+bool SplineDatabaseClass::Delete(const char *spline_name)
+{
+	G_ASSERT(spline_name);
+	HashNodeClass<SplineEntryClass *> *node = Splines.Find(Get_Key(spline_name));
+	if (node == NULL) {
+		return false;
+	}
+	SplineEntryClass *entry = node->Get();
+	if (entry->Type == TYPE_COLOR) {
+		char name[128];
+		strcpy(name, entry->Name);
+		strcat(name, "_R");
+		char *suffix = &name[strlen(name) - 1];
+		Delete(name);
+		*suffix = 'G';
+		Delete(name);
+		*suffix = 'B';
+		Delete(name);
+	}
+	if (entry != NULL) {
+		delete entry;
+	}
+	Splines.Remove(node);
+	if (Splines.Num_Records() <= 0) {
+		HasSplines = false;
+	}
+	return true;
+}
+
 int SplineDatabaseClass::Add_Key_Name(const char *name)
 {
 	if (name != NULL && strlen(name) != 0) {
@@ -1087,137 +1218,6 @@ bool SplineDatabaseClass::Update(void)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 SplineEntryClass *SplineDatabaseClass::Find(const char *spline_name, int unused)
 {
 	G_ASSERT(spline_name != NULL);
@@ -1273,6 +1273,151 @@ void SplineDatabaseClass::Get_Entries(unsigned int count, const unsigned int *ke
 	}
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+int SplineDatabaseClass::Get_Packed_Size(unsigned int count, SplineEntryClass **entry_array)
+{
+	int size = 2;
+	while (count--) {
+		G_ASSERT(entry_array[count]);
+		size += entry_array[count]->Get_Packed_Size();
+	}
+	return size;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+void SplineDatabaseClass::Pack(int count, SplineEntryClass **EntryArray, char *buffer)
+{
+	*(short *)buffer = (short)count;
+	char *p = buffer + 2;
+	for (int i = 0; i < count; i++) {
+		G_ASSERT(EntryArray[i]);
+		p = EntryArray[i]->Pack(p);
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// NOT EXACT: shape (written from the pseudocode: the count loop and the merge path)
+void SplineDatabaseClass::Unpack(char *buffer)
+{
+	unsigned short count = *(unsigned short *)buffer;
+	buffer += 2;
+	while (count--) {
+		unsigned int key = *(unsigned int *)buffer;
+		SplineEntryClass *entry = NULL;
+		if (key != 0) {
+			SplineEntryClass *existing = Find(key);
+			if (existing != NULL) {
+				existing->Unpack(&buffer);
+			} else {
+				entry = new SplineEntryClass(&buffer);
+				HashNodeClass<SplineEntryClass *> *node = new HashNodeClass<SplineEntryClass *>(entry, key);
+				Splines.Add(node);
+				if (node == NULL) {
+					G_ASSERT(false);
+					if (entry != NULL) {
+						delete entry;
+					}
+				} else {
+					HasSplines = true;
+				}
+			}
+		}
+	}
+}
+
 // NOT EXACT: register-only / shape (the client keeps the next node on the stack and tests the first node before the loop); its inlined copy in Load and Reload is exact
 void SplineDatabaseClass::Free_Splines(void)
 {
@@ -1306,151 +1451,6 @@ unsigned int SplineDatabaseClass::Get_Key(const char *name)
 {
 	return CRC_String(name);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -2867,6 +2867,23 @@ SplineEntryClass::SplineEntryClass(int type, const char *name, const char *descr
 	}
 }
 
+SplineEntryClass::SplineEntryClass(char **buffer)
+{
+	Alpha = Beta = NULL;
+	AlphaKey = BetaKey = 0;
+	Red = Green = Blue = NULL;
+	RedKey = GreenKey = BlueKey = 0;
+	Hidden = false;
+	FileFlag = false;
+	Curve = NULL;
+	Copy_String(Name, "<no name>");
+	Description = new char[strlen("<no description>") + 1];
+	strcpy(Name, "<no description>");
+	Type = -1;
+	Params.Value[3] = Params.Value[1] = Params.Value[0] = Params.Value[2] = 0;
+	Unpack(buffer);
+}
+
 SplineEntryClass::~SplineEntryClass(void)
 {
 	if (Name != NULL) {
@@ -2878,6 +2895,338 @@ SplineEntryClass::~SplineEntryClass(void)
 	if (Curve != NULL) {
 		delete Curve;
 	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+int SplineEntryClass::Get_Packed_Size(void)
+{
+	int size = 5;
+	switch (Type) {
+		case SplineDatabaseClass::TYPE_LINEAR:
+		case SplineDatabaseClass::TYPE_HERMITE:
+			size += 5 + Curve->Key_Count() * 8;
+			break;
+		case SplineDatabaseClass::TYPE_COLOR:
+		case SplineDatabaseClass::TYPE_BLEND:
+			size += 12;
+			break;
+		default:
+			G_ASSERT(false);
+			break;
+	}
+	return size;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// NOT EXACT: register-only (the type byte through al, not cl), parked
+char *SplineEntryClass::Pack(char *buffer)
+{
+	char *p = buffer;
+	*(unsigned int *)p = CRC_String(Name);
+	int size = 5;
+	p += 4;
+	*p = Type;
+	p++;
+	switch (Type) {
+		case SplineDatabaseClass::TYPE_LINEAR:
+		case SplineDatabaseClass::TYPE_HERMITE:
+		{
+			*p = Curve->Is_Looping();
+			p++;
+			int count = Curve->Key_Count();
+			*(int *)p = count;
+			p += 4;
+			size += 5;
+			for (int i = 0; i < count; i++) {
+				float point;
+				float t;
+				Curve->Get_Key(i, &point, &t, NULL);
+				*(float *)p = point;
+				p += 4;
+				*(float *)p = t;
+				p += 4;
+				size += 8;
+			}
+			break;
+		}
+		case SplineDatabaseClass::TYPE_COLOR:
+			*(unsigned int *)p = RedKey;
+			p += 4;
+			*(unsigned int *)p = GreenKey;
+			p += 4;
+			*(unsigned int *)p = BlueKey;
+			p += 4;
+			size += 12;
+			break;
+		case SplineDatabaseClass::TYPE_BLEND:
+		{
+			float value;
+			Curve->Get_Key(0, &value, NULL, NULL);
+			*(float *)p = value;
+			p += 4;
+			*(unsigned int *)p = AlphaKey;
+			p += 4;
+			*(unsigned int *)p = BetaKey;
+			p += 4;
+			size += 12;
+			break;
+		}
+		default:
+			G_ASSERT(false);
+			break;
+	}
+	return buffer + size;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// NOT EXACT: shape (written from the pseudocode: the case layout and the read pointer)
+void SplineEntryClass::Unpack(char **buffer)
+{
+	unsigned char *p = (unsigned char *)*buffer;
+	int type = *p++;
+	if (Type != -1 && Type != type) {
+		G_ASSERT(false);
+		return;
+	}
+	if (Curve != NULL) {
+		delete Curve;
+	}
+	Type = type;
+	switch (type) {
+
+
+
+
+
+
+
+
+
+		case SplineDatabaseClass::TYPE_LINEAR:
+		{
+			Curve = new LinearCurve1DClass;
+			if (Curve == NULL) {
+				G_ASSERT(false);
+			}
+			Curve->Set_Looping(*p != 0);
+			p++;
+			int count = *(int *)p;
+			p += 4;
+			for (; count != 0; count--) {
+				float point = *(float *)p;
+				float t = *(float *)(p + 4);
+				p += 8;
+				Curve->Add_Key(point, t, 0);
+			}
+			break;
+		}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		case SplineDatabaseClass::TYPE_HERMITE:
+		{
+			Curve = new CatmullRomSpline1DClass;
+			if (Curve == NULL) {
+				G_ASSERT(false);
+			}
+			Curve->Set_Looping(*p != 0);
+			p++;
+			int count = *(int *)p;
+			p += 4;
+			for (; count != 0; count--) {
+				float point = *(float *)p;
+				float t = *(float *)(p + 4);
+				p += 8;
+				Curve->Add_Key(point, t, 0);
+			}
+			break;
+		}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		case SplineDatabaseClass::TYPE_BLEND:
+			Curve = new CatmullRomSpline1DClass;
+			if (Curve == NULL) {
+				G_ASSERT(false);
+				return;
+			}
+			Curve->Add_Key(*(float *)p, 0.5f, 0);
+			AlphaKey = *(unsigned int *)(p + 4);
+			BetaKey = *(unsigned int *)(p + 8);
+			p += 12;
+			break;
+		case SplineDatabaseClass::TYPE_COLOR:
+			RedKey = *(unsigned int *)p;
+			GreenKey = *(unsigned int *)(p + 4);
+			BlueKey = *(unsigned int *)(p + 8);
+			p += 12;
+			break;
+
+
+
+
+
+		default:
+			G_ASSERT(false);
+			break;
+	}
+	*buffer = (char *)p;
 }
 
 /*
@@ -2908,7 +3257,10 @@ SplineEntryClass::~SplineEntryClass(void)
 **	  The save side: Save 0x484D00, Save_Chunks 0x487B20, Save_Header 0x487E70, Save_Entry 0x487F00,
 **	  Save_Curve 0x4881F0, Save_Hermite 0x4883A0, Write_String 0x488FB0.
 **
-**	Not rebuilt yet (nothing in VIDTEST calls them): the packing code (0x486E10-0x486F60, 0x4895E0,
-**	0x489660, 0x489830), the evaluation helpers 0x485620, 0x485790 (on
-**	spline.h's arrays), 0x486200 (896) and 0x4864F0 (965), the entry's second constructor 0x489480.
+**	  Create_Blend 0x486200 (896), Delete 0x4864F0 (965); the packing code: Get_Packed_Size 0x486E10
+**	  (1333) and 0x4895E0 (2959), Pack 0x486EF0 (1356) and 0x489660 (3074), Unpack 0x486F60 (1409) and
+**	  0x489830 (3099-3226), the entry's second constructor 0x489480.
+**
+**	Not rebuilt yet (nothing in VIDTEST calls them): the evaluation helpers 0x485620, 0x485790 (on
+**	spline.h's arrays).
 */

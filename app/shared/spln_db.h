@@ -58,6 +58,13 @@ public:
 		const char *alpha_clr, const char *beta_clr);
 	~SplineEntryClass(void);
 
+// NAME 2: the entry packed for a message (0x4895E0 size, 0x489660 pack; asserts 'false' 2959, 3074)
+	int						Get_Packed_Size(void);
+	char *					Pack(char *buffer);
+// NAME 2: the inverse: a packed entry read into this one (0x489830), or a new entry from one (0x489480)
+	void						Unpack(char **buffer);
+	SplineEntryClass(char **buffer);
+
 // NAME 2: after the assert 'name != NULL' and the file's header
 	char *					Name;					// +0x00
 	char *					Description;		// +0x04 (chunk 0x811's string)
@@ -120,6 +127,9 @@ public:
 	bool						Create_Linear_Color(const char *base_name, const char *description, Curve1DClass **r, Curve1DClass **g, Curve1DClass **b);
 	bool						Create_Hermite_Color(const char *base_name, const char *description, Curve1DClass **r, Curve1DClass **g, Curve1DClass **b);
 	bool						Create_Color(const char *name, const char *description, unsigned int red_key, unsigned int green_key, unsigned int blue_key);
+// NAME 2: a blend entry over two others (0x486200, asserts 'spline_name', 'alpha_clr', 'beta_clr'); deletes an entry and a colour's components (0x4864F0)
+	bool						Create_Blend(const char *spline_name, const char *description, const char *alpha_clr, const char *beta_clr, Curve1DClass **curve);
+	bool						Delete(const char *spline_name);
 // NAME 2: the key names (chunk 0x808): add 0x4867B0, find 0x4868A0, get 0x486930, remove 0x486970
 	int						Add_Key_Name(const char *name);
 	int						Find_Key_Name(const char *name);
@@ -138,6 +148,11 @@ public:
 	void						Get_Keys(unsigned int count, const char **names, unsigned int *keys);
 	void						Get_Entries(unsigned int count, const unsigned int *keys, SplineEntryClass **entries);
 	static unsigned int	Get_Key(const char *name);
+// NAME 2: entries packed for a message (0x486E10 size, assert 'entry_array[count]'; 0x486EF0, assert 'EntryArray[i]')
+	static int				Get_Packed_Size(unsigned int count, SplineEntryClass **entry_array);
+	static void				Pack(int count, SplineEntryClass **EntryArray, char *buffer);
+// NAME 2: packed entries added or merged (0x486F60, assert 'false' 1409)
+	void						Unpack(char *buffer);
 // NAME 2: lookup by name (0x486BB0, assert 'spline_name != NULL')
 	SplineEntryClass *	Find(const char *spline_name, int unused = 0);	// NAME 1 [unused]: the client's copy takes a second argument (ret 8) it never reads
 
