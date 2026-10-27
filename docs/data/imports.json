@@ -1290,7 +1290,8 @@
      "0x42AFF0",
      "0x42B250",
      "0x42B2F0",
-     "0x42D180"
+     "0x42D180",
+     "0x440560"
     ],
     "copy": "reconstructed",
     "expected": {},
@@ -1304,6 +1305,10 @@
      "0x42D050",
      "0x42DB00",
      "0x441480",
+     "0x6BEE60",
+     "0x6BEEF0",
+     "0x6BEFD0",
+     "0x6BF1F0",
      "0x6C2BF0",
      "0x6C2CB0",
      "0x6C3FB0",
@@ -1314,7 +1319,12 @@
      "0x6C45B0",
      "0x6C4720",
      "0x6C49C0",
-     "0x6C5730"
+     "0x6C5730",
+     "0x6C65A0",
+     "0x6C68B0",
+     "0x6C87A0",
+     "0x6C8950",
+     "0x6C8B80"
     ],
     "merged": [],
     "name": "client/fontdatabase.cpp"

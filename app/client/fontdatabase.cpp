@@ -10,6 +10,37 @@ public:
 };
 
 
+void FontDatabaseClass::Clear_Infos()
+{
+	for (std::vector<FontInitStruct *>::iterator it = Infos.begin(); it != Infos.end(); it++) {
+		delete *it;
+	}
+	Infos.clear();
+}
+
+
+void FontDatabaseClass::Clear_Tables()
+{
+	for (std::hash_map<std::string, FontColorStruct *>::iterator color = Colors.begin(); color != Colors.end(); ++color) {
+		delete (*color).second;
+	}
+	Colors.clear();
+	for (std::hash_map<std::string, FontEffectStruct *>::iterator effect = Effects.begin(); effect != Effects.end(); ++effect) {
+		delete (*effect).second;
+	}
+	Effects.clear();
+}
+
+
+void FontDatabaseClass::Clear_Strings()
+{
+	for (std::hash_map<std::string, FontStringStruct *>::iterator str = Strings.begin(); str != Strings.end(); ++str) {
+		delete (*str).second;
+	}
+	Strings.clear();
+}
+
+
 FontStruct *FontDatabaseClass::Find_Font(const StringClass &name, float &scale)
 {
 	for (int i = 0; i < MAXFONTS; i++) {
@@ -58,37 +89,6 @@ FontStringStruct *FontDatabaseClass::Find_String(const char *name)
 	std::hash_map<std::string, FontStringStruct *>::iterator it = Strings.find(name);
 	return it == Strings.end() ? NULL : (*it).second;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -1141,7 +1141,8 @@ int FontInitStruct::Find_Chat_Index(const char *chat_name)
 **	hash_map instances (libs/sgistl, D87; the bucket functions over the string hash 0x42DB00 at 0x6C7D80 /
 **	0x6C7F00 / 0x6C8080 / 0x6C8200).
 **
-**	Written so far: Find_Font 0x6C2BF0, Get_Info(width, height) 0x6C2CB0, the tables' Find_Color /
+**	Written so far: Clear_Infos 0x6BEE60 (with FontInitStruct's implicit destructor 0x6BEEF0), Clear_Tables
+**	0x6BEFD0 (Colors and Effects), Clear_Strings 0x6BF1F0, Find_Font 0x6C2BF0, Get_Info(width, height) 0x6C2CB0, the tables' Find_Color /
 **	Find_Effect / Find_String 0x6C2D00-0x6C2F20 and Add_String / Add_Effect / Add_Color 0x6C3380-0x6C3720
 **	(G_ASSERT(0) on the client's lines 881 / 895 / 909, D25; the six NOT EXACT), the accessors on lines
 **	1023-1121 (FAIL_IF): Find_Font_File_Index 0x6C3FB0 (the client's name, its assert on line 1305), the chat
@@ -1155,7 +1156,8 @@ int FontInitStruct::Find_Chat_Index(const char *chat_name)
 **	sections through line 909 first, then the EFFECT-n ones through line 895.
 **
 **	Forms that mattered: chat_index unsigned with the search loop's bound signed (`jl` in the loop, `jb` in
-**	the FAIL_IF); Find_Font_File_Index's counter stepped in the body after the test, not in the for header
+**	the FAIL_IF); the table loops step with ++it (it++ spends the budget that inlines the vector's size()
+**	in operator++); Find_Font_File_Index's counter stepped in the body after the test, not in the for header
 **	(the latter keeps it in another register); in the Add functions a dead size() after the insert keeps
 **	find_or_insert out of line as in the client (D40's lever), and the found test first (the assert falls
 **	through, the insert follows).

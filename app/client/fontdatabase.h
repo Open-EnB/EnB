@@ -57,17 +57,18 @@ struct FontStruct  // NAME 2: one of the fonts in use (0xC bytes)
 
 struct FontColorStruct  // NAME 2: one COLOR-n section (ColorID, RGB), declared as far as the file needs it
 {
-	char *Name;																// +0x00  // NAME 2: the table's key
+	StringClass Name;														// +0x00  // NAME 2: the table's key (its destructor is the struct's, 0x6BF1B0 / 0x6BF1D0)
 };
 
 struct FontEffectStruct  // NAME 2: one EFFECT-n section (EffectID, Intensity, ...), declared as far as the file needs it
 {
-	char *Name;																// +0x00  // NAME 2: the table's key
+	StringClass Name;														// +0x00  // NAME 2: the table's key (its destructor is the struct's, 0x6BF1B0 / 0x6BF1D0)
 };
 
 struct FontStringStruct  // NAME 2: one string template (Template%d, String%d), declared as far as the file needs it
 {
-	char *Name;																// +0x00  // NAME 2: the table's key
+	~FontStringStruct();													// 0x67F490 (chat_window.cpp's object)
+	StringClass Name;														// +0x00  // NAME 2: the table's key
 };
 
 class FontDatabaseClass  // NAME 3: by convention (D24) from the client's fontdatabase.cpp
@@ -81,6 +82,9 @@ public:
 	void Add_String(FontStringStruct *str);									// 0x6C3380  // NAME 2: what it does
 	void Add_Effect(FontEffectStruct *effect);								// 0x6C3550  // NAME 2: what it does
 	void Add_Color(FontColorStruct *color);									// 0x6C3720  // NAME 2: what it does
+	void Clear_Infos();													// 0x6BEE60  // NAME 2: what it does
+	void Clear_Tables();													// 0x6BEFD0: Colors and Effects  // NAME 2: what it does
+	void Clear_Strings();												// 0x6BF1F0  // NAME 2: what it does
 	int Find_Font_File_Index(const char *name);							// 0x6C3FB0, the client's name (its assert)
 	int Get_Font_File_Index(const char *chat_name);							// 0x6C4070  // NAME 2: what it does
 	const char *Get_Font_File_Name(unsigned int index);						// 0x6C4270  // NAME 2: what it does
