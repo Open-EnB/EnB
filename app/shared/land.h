@@ -81,7 +81,7 @@ public:
 	LandClass *					Land;					// +0x04
 	int							VertexCount;		// +0x08, Size squared
 	int							Size;					// +0x0C, vertices a side
-	int							Level;					// +0x10, indexes the land's m_UnknownD0 (0x4745D0)
+	int							Level;					// +0x10, indexes the land's EdgeCounts (0x4745D0)
 	int							Quarters;				// +0x14, bits 0-3: which quarters Draw draws
 	int							m_Unknown18;
 	int							m_Unknown1C;
@@ -156,9 +156,9 @@ public:
 // NAME 2: the colour map at a position (0x46BB20 / 0x46BBF0: Colors, B G R per vertex)
 	Vector3						Get_Color(const Vector2 &pos);
 	void							Set_Color(const Vector2 &pos, const Vector3 &color);
-// NAME 1: what they set (0x478640 / 0x478670); the arrays' use isn't known yet
-	void							Set_Index_Buffer_94(int level);
-	void							Set_Index_Buffer_BC(int level);
+// NAME 2: what they set (0x478640 / 0x478670)
+	void							Set_Strip_Buffer(int level);
+	void							Set_Edge_Buffer(int level);
 // NAME 1: the vector at +0x1218 (0x4786A0 push_back, 0x4788B0 clear; called by 0x75F8B0)
 	void							Add_Unknown1218(const RefCountPtr<LandUnknownClass> &object);
 	void							Clear_Unknown1218(void);
@@ -167,6 +167,7 @@ protected:
 // NAME 2: after what they do (0x46C730, 0x46CAE0 (not rebuilt), 0x46D410, 0x46D6B0, 0x46D8B0, 0x46D880)
 	void							Prepare_Lighting(void);
 	void							Compute_Lighting(void);
+	void							Build_Index_Buffers(int size);	// NAME 2: the strip and edge index buffers of each level for patches of size vertices a side (0x478240)
 	void							Apply_Colors(void);		// NAME 2: the lit rectangle times the colour map, plus +0x1214 when there is one (0x46D410)
 	void							Upload_Lightmap(Vector2i &min, Vector2i &max);
 	void							Swap_Lightmaps(void);
@@ -185,10 +186,10 @@ protected:
 // NAME 2: members after what the ctor 0x468E90, the dtor 0x46A480 and Load_Assets 0x4691D0 do with them; m_UnknownXX: use not known
 	int							LightmapSerial;						// +0x8C, counts the lightmap swaps (0x46D8B0)
 	HeightFieldClass *		Field;									// +0x90, HeightFieldClass::Load; never set by the ctor
-	IndexBufferClass *		m_Unknown94[MAX_LEVELS];			// released by the dtor; DX8Wrapper::Set_Index_Buffer (0x478640)
-	int							m_UnknownA8[MAX_LEVELS];
-	IndexBufferClass *		m_UnknownBC[MAX_LEVELS];			// released by the dtor, all but [0]; DX8Wrapper::Set_Index_Buffer (0x478670)
-	int							m_UnknownD0[MAX_LEVELS];			// an index count per level: LandPatchClass::Draw draws a quarter of it per bit
+	IndexBufferClass *		StripBuffers[MAX_LEVELS];			// NAME 2: a level's triangle strip over a patch (Build_Index_Buffers 0x478240)
+	int							StripCounts[MAX_LEVELS];			// NAME 2: its index count less 2
+	IndexBufferClass *		EdgeBuffers[MAX_LEVELS];			// NAME 2: a level's edge fans, four sides (none at level 0)
+	int							EdgeCounts[MAX_LEVELS];			// NAME 2: their index count: LandPatchClass::Draw draws a quarter (one side) per bit
 	unsigned char *			m_UnknownE4;							// Field Size * 8 - 4 bytes
 	bool							HasSea;									// +0xE8, [GENERAL] HASSEA
 	int							PatchLog2;								// +0xEC, Field Log2 - GridLog2

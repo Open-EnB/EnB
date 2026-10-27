@@ -69,8 +69,8 @@ LandClass::LandClass(void) :
 	LightmapTextures[0] = LightmapTextures[1] = NULL;
 	int i;
 	for (i = 0; i < MAX_LEVELS; i++) {
-		m_Unknown94[i] = NULL;
-		m_UnknownBC[i] = NULL;
+		StripBuffers[i] = NULL;
+		EdgeBuffers[i] = NULL;
 	}
 	for (i = 0; i < MAX_SEAS; i++) {
 		m_Unknown158[i] = NULL;
@@ -116,9 +116,9 @@ LandClass::~LandClass(void)
 		PatchRecords = NULL;
 	}
 	for (i = MAX_LEVELS; i--; ) {
-		REF_PTR_RELEASE(m_Unknown94[i]);
+		REF_PTR_RELEASE(StripBuffers[i]);
 		if (i != 0) {
-			REF_PTR_RELEASE(m_UnknownBC[i]);
+			REF_PTR_RELEASE(EdgeBuffers[i]);
 		}
 	}
 	if (m_UnknownE4 != NULL) delete [] m_UnknownE4;
@@ -325,14 +325,14 @@ LandPatchRecordClass::LandPatchRecordClass(void) :
 {
 }
 
-void LandClass::Set_Index_Buffer_94(int level)
+void LandClass::Set_Strip_Buffer(int level)
 {
-	DX8Wrapper::Set_Index_Buffer(m_Unknown94[level], 0);
+	DX8Wrapper::Set_Index_Buffer(StripBuffers[level], 0);
 }
 
-void LandClass::Set_Index_Buffer_BC(int level)
+void LandClass::Set_Edge_Buffer(int level)
 {
-	DX8Wrapper::Set_Index_Buffer(m_UnknownBC[level], 0);
+	DX8Wrapper::Set_Index_Buffer(EdgeBuffers[level], 0);
 }
 
 void LandClass::Add_Unknown1218(const RefCountPtr<LandUnknownClass> &object)
@@ -418,7 +418,7 @@ void LandPatchClass::Build_Vertices(int x, int y, float detail_u, float detail_v
 
 void LandPatchClass::Draw(void)
 {
-	int quarter = Land->m_UnknownD0[Level] >> 2;
+	int quarter = Land->EdgeCounts[Level] >> 2;
 	if (Quarters & 1) DX8Wrapper::Draw_Triangles(0, quarter / 3, 0, VertexCount);
 	if (Quarters & 2) DX8Wrapper::Draw_Triangles(quarter, quarter / 3, 0, VertexCount);
 	if (Quarters & 4) DX8Wrapper::Draw_Triangles(quarter * 2, quarter / 3, 0, VertexCount);
@@ -494,6 +494,77 @@ void LandClass::Apply_Colors(void)
 			}
 		}
 	}
+}
+
+// NOT EXACT: field-offset / order (the store order of the strip's index pairs; 2 forms, attempts.csv 0x478240)
+void LandClass::Build_Index_Buffers(int size)
+{
+	int level = MAX_LEVELS - 1;
+	do {
+		int step = 1 << level;
+		int quads = (size - 1) / step;
+		StripCounts[level] = (quads + 2) * quads * 2 - 2;
+		StripBuffers[level] = new DX8IndexBufferClass(StripCounts[level] + 2);
+		{
+			IndexBufferClass::WriteLockClass lock(StripBuffers[level]);
+			unsigned short *index = lock.Get_Index_Array();
+			bool forward = true;
+			for (int row = step; row < size; row += step) {
+				if (forward) {
+					for (int col = 0; col < size - step; col += step) {
+						*index++ = row * size + col;
+						*index++ = col + (row - step) * size;
+					}
+					unsigned short last = (row + 1) * size - 1;
+					*index++ = last;
+					*index++ = (row - step + 1) * size - 1;
+					*index++ = last;
+					*index++ = last;
+				} else {
+					*index++ = (row - step + 1) * size - 1;
+					*index++ = (row + 1) * size - 1;
+					unsigned short corner = 0;
+					for (int col = size - 1; col > 0; col -= step) {
+						*index++ = (row - step) * size - step + col;
+						corner = col + (row * size - step);
+						*index++ = corner;
+					}
+					*index++ = corner;
+					*index++ = corner;
+				}
+				forward = !forward;
+			}
+		}
+		if (level != 0) {
+			EdgeCounts[level] = quads * 12;
+			EdgeBuffers[level] = new DX8IndexBufferClass(EdgeCounts[level]);
+			IndexBufferClass::WriteLockClass lock(EdgeBuffers[level]);
+			unsigned short *index = lock.Get_Index_Array();
+			int half = step >> 1;
+			int i;
+			for (i = step; i <= size; i += step) {
+				*index++ = (i - step) * size;
+				*index++ = i * size;
+				*index++ = (i - half) * size;
+			}
+			for (i = step; i < size; i += step) {
+				*index++ = (i - step + 1) * size - 1;
+				*index++ = (i - half + 1) * size - 1;
+				*index++ = (i + 1) * size - 1;
+			}
+			for (i = step; i < size; i += step) {
+				*index++ = i - step;
+				*index++ = i - half;
+				*index++ = i;
+			}
+			int last = (size - 1) * size;
+			for (i = step; i < size; i += step) {
+				*index++ = last - step + i;
+				*index++ = i + last;
+				*index++ = i + (last - half);
+			}
+		}
+	} while (level-- != 0);
 }
 
 /*
