@@ -259,6 +259,9 @@ unless `--lever` cites a new row of this table.
 | A base vtable store that survives in the client | A member initialiser reading through a reference that may alias `this` (a Matrix3D copy; an iterator whose constructor takes the container) | 30010, 888b60 (P6) |
 | Several members reached through a pointer to a sub-block | Those members are a struct; helper members that ignore `this` (`ret N`, ecx unused) sit on the base | pkunknown_888b60 (P6) |
 | The client loads packet fields or a member chain into eax and the other registers before the argument pushes | Read them through inline accessors | cpacket handlers 32-35, 66, 30, 98 (T10, c3b7f1b / 48b1d58) |
+| An out-of-line "constructor" called through `??_H` (vector constructor iterator) without `mov eax, ecx` | A default-constructor closure: give the constructor default arguments | ControlKeyStruct 0x71BD70 (H14, b38289f) |
+| The client shares one report call between two FAIL_IFs over an iterator | A `const_iterator` plus `key_ptr++` on its own line | Load_Keys 0x71BD90 (H14, 292c69f) |
+| Nested table helpers out of line in the client, inlined in ours (a loop) | Wrap the loop in an inline helper (F5's depth lever, confirmed four more times by H14) | FontManagerClass's destructor, 0x6D1C10, Create, Set_Color (H14) |
 
 * **A nested inline is a whole-function budget (2026-10-26, `Key_Exchange` 0x829180):** under `/Ob2` an
   inline helper's own callees (a `std::set` iterator's `_Inc`) are inlined only while the function as a
@@ -410,6 +413,11 @@ unless `--lever` cites a new row of this table.
   on another builder's uncommitted imports.json: wait for the importer lock, save their diff, `git checkout` the
   file, merge, `git apply --3way` their diff, `git reset` the file (the only conflict is `in_tree_total`).
 
+* **commit_mine keys by address take identical lines from other files' imports.json blocks** (H14: 0x42D050 sits in
+  control_keys_manager's and pkunknown_87acd0's blocks): `.work/h14/commit_ck.py` picks hunks by the file block's
+  line range (P-H14-1, to promote). A tryv2 PermissionError (a concurrent replay) leaves a variant in the tree
+  file: regenerate it. Verifies made while other builders' files fail to compile add COMDAT instances to your
+  file's ambiguous list.
 * **A generated docs/data file committed whole by another builder brings back rows you removed** (T10's b0104e7 to
   not-exact.md; H15): after the others commit, check HEAD's generated files still hold your change. Record the second
   of two `attempts.py record` rows only after the first commit, or name the carrying commit.
