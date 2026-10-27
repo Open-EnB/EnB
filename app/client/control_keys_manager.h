@@ -20,6 +20,8 @@
 
 #include <string>
 #include <vector>
+#include <memory>
+#include <hash_map.h>
 
 #define NUM_MAPPING_SETS	2	// the client's asserts compare '(unsigned int)set > NUM_MAPPING_SETS' with 2
 
@@ -28,8 +30,10 @@ struct ControlKeyDefStruct  // NAME 1: neutral (D10): what a key definition's De
 	std::string Name;																		// +0x00  // NAME 2: 0x71CC60 returns it; the table's key
 	std::string Unknown10;																// +0x10  // NAME 1: neutral (D10)
 	std::string Unknown20;																// +0x20  // NAME 1: neutral (D10)
-	int Index;																				// +0x30: def->Get_Index() in the asserts  // NAME 4: Get_Index (the client's assert)
-	int Unknown34;																			// +0x34  // NAME 1: neutral (D10)
+	int Get_Index() const { return Index; }				// the client's 'def->Get_Index()', inlined
+
+	int Unknown30;								// +0x30  // NAME 1: neutral (D10)
+	int Index;									// +0x34: def->Get_Index() in the asserts
 };
 
 class ControlKeyDefClass  // NAME 1: neutral (D10): the holder whose member the asserts call DefPtr
@@ -38,8 +42,8 @@ public:
 	const std::string &Get_Unknown10() const;										// 0x71CC20  // NAME 1: neutral (D10)
 	const std::string &Get_Name() const;											// 0x71CC60  // NAME 2: returns the definition's first string
 	const std::string &Get_Unknown20() const;										// 0x71CCA0  // NAME 1: neutral (D10)
-	int Get_Index() const;																// 0x71CCE0  // NAME 5: 'def->Get_Index() >= UserKeys.size()'
-	int Get_Unknown34() const;															// 0x71CD20  // NAME 1: neutral (D10)
+	int Get_Unknown30() const;						// 0x71CCE0  // NAME 1: neutral (D10)
+	int Get_Index() const;							// 0x71CD20: the definition's +0x34, as 'def->Get_Index()'
 
 	ControlKeyDefStruct *DefPtr;														// +0x00: the client's '!DefPtr'
 };
@@ -83,18 +87,29 @@ struct KeyMappingStruct  // NAME 1: neutral (D10): one key definition's mapping 
 	ControlKeyStruct Keys[NUM_MAPPING_SETS];										// +0x04: the client's 'set'
 };
 
+class ControlKeyListClass  // NAME 1: neutral (D10): the screen's key list Add_Keys / Remove_Keys fill ('keylist')
+{
+public:
+	void Add(const ControlKeyComboStruct &combo, void *handler);			// 0x721E60  // NAME 2: describes what it does
+	void Remove(const ControlKeyComboStruct &combo);						// 0x721EF0  // NAME 2: describes what it does
+};
+
 class ControlKeysManager  // NAME 5: the client's RTTI .?AVControlKeysManager@@
 {
 public:
 	virtual ~ControlKeysManager();													// not rebuilt yet
 
 	KeyMappingStruct *Set_Key(KeyMappingStruct *entry, int set, const ControlKeyStruct &key, bool force);	// 0x71A860: returns the mapping already using key unless force  // NAME 2: describes what it does
+	int Add_Keys(ControlKeyListClass *keylist, const std::string &name, void *handler, unsigned short modifiers);	// 0x71A960  // NAME 2: describes what it does
+	int Remove_Keys(ControlKeyListClass *keylist, const std::string &name, unsigned short modifiers);	// 0x71AB40  // NAME 2: describes what it does
 	static void Copy_Keys(std::vector<KeyMappingStruct> *to, const std::vector<KeyMappingStruct> &from);	// 0x71C4C0  // NAME 2: describes what it does
 
 	char Unknown04[0x18];																// +0x04: a hash table (UserKeysMap?)  // NAME 1: neutral (D10)
+	static std::hash_map<std::string, std::auto_ptr<ControlKeyDefStruct> > _KeyDefinitions;	// 0xBE7BC8: the client's asserts
 	static unsigned int _NumKeyDefs;												// 0xBE7C44: the client's asserts
 
-	std::vector<KeyMappingStruct> UserKeys;										// +0x1C  // NAME 3: the client's assert 'def->Get_Index() >= UserKeys.size()'
+	std::vector<KeyMappingStruct> UserKeys;				// +0x1C: the client's asserts
+	std::vector<KeyMappingStruct> RestoreKeys;				// +0x2C: the client's asserts
 };
 
 #endif //__CONTROL_KEYS_MANAGER_H

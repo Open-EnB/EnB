@@ -6,7 +6,7 @@ std::string &Unknown_42B7E0(const ControlKeyComboStruct &key, std::string &out);
 
 static std::string _Empty;  // NAME 2: 0xBE7B80, what the accessors return without a definition
 unsigned int ControlKeysManager::_NumKeyDefs;
-
+std::hash_map<std::string, std::auto_ptr<ControlKeyDefStruct> > ControlKeysManager::_KeyDefinitions;
 
 
 
@@ -233,61 +233,61 @@ KeyMappingStruct *ControlKeysManager::Set_Key(KeyMappingStruct *entry, int set, 
 
 
 
+// NOT EXACT: frame 0x2C vs the client 0x28, ~60 rows; the client keeps count in the dead name argument slot and builds the converted key once per set (attempts.csv)
+int ControlKeysManager::Add_Keys(ControlKeyListClass *keylist, const std::string &name, void *handler, unsigned short modifiers)
+{
+	FAIL_IF(!keylist) return -1;
+
+	std::hash_map<std::string, std::auto_ptr<ControlKeyDefStruct> >::iterator def_it = _KeyDefinitions.find(name);
+	FAIL_IF(def_it == _KeyDefinitions.end()) return -1;
+
+	ControlKeyDefStruct *def = def_it->second.get();
+	FAIL_IF(!def) return -1;
+
+	FAIL_IF(def->Get_Index() >= UserKeys.size()) return -1;
+
+	int count = 0;
+	KeyMappingStruct &mapping = UserKeys[def->Get_Index()];
+	for (int set = 0; set < NUM_MAPPING_SETS; set++) {
+		ControlKeyComboStruct key(mapping.Keys[set].Key, mapping.Keys[set].Modifiers);
+		ControlKeyComboStruct combo = key;
+		combo.Modifiers |= modifiers;
+		if (combo.Key) {
+			keylist->Add(combo, handler);
+			count++;
+		}
+	}
+	return count;
+}
+
+// NOT EXACT: frame 0x2C vs the client 0x28, ~60 rows; the client keeps count in the dead name argument slot and builds the converted key once per set (attempts.csv)
+int ControlKeysManager::Remove_Keys(ControlKeyListClass *keylist, const std::string &name, unsigned short modifiers)
+{
+	FAIL_IF(!keylist) return -1;
+
+	std::hash_map<std::string, std::auto_ptr<ControlKeyDefStruct> >::iterator def_it = _KeyDefinitions.find(name);
+	FAIL_IF(def_it == _KeyDefinitions.end()) return -1;
+
+	ControlKeyDefStruct *def = def_it->second.get();
+	FAIL_IF(!def) return -1;
 
 
 
+	FAIL_IF(def->Get_Index() >= RestoreKeys.size()) return -1;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	int count = 0;
+	KeyMappingStruct &mapping = RestoreKeys[def->Get_Index()];
+	for (int set = 0; set < NUM_MAPPING_SETS; set++) {
+		ControlKeyComboStruct key(mapping.Keys[set].Key, mapping.Keys[set].Modifiers);
+		ControlKeyComboStruct combo = key;
+		combo.Modifiers |= modifiers;
+		if (combo.Key) {
+			keylist->Remove(combo);
+			count++;
+		}
+	}
+	return count;
+}
 
 
 
@@ -665,16 +665,16 @@ const std::string &ControlKeyDefClass::Get_Unknown20() const
 }
 
 
+int ControlKeyDefClass::Get_Unknown30() const
+{
+	FAIL_IF(!DefPtr) return -1;
+	return DefPtr->Unknown30;
+}
+
 int ControlKeyDefClass::Get_Index() const
 {
 	FAIL_IF(!DefPtr) return -1;
 	return DefPtr->Index;
-}
-
-int ControlKeyDefClass::Get_Unknown34() const
-{
-	FAIL_IF(!DefPtr) return -1;
-	return DefPtr->Unknown34;
 }
 /*
 **	Reconstruction notes
