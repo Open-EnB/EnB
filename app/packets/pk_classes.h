@@ -727,24 +727,6 @@ public:
 	char Unknown0C[0x34];	// +0x0C
 };
 
-// opcode 193 (0x00C1, ?): vtable 0xB0AA64, constructor 0x88EE20, 0x30 bytes
-class GuildPlayerOnlinePacketClass : public PacketClass  // NAME 3: the client's Print text 'GuildPlayerOnline {' and the PacketClass convention
-{
-public:
-	GuildPlayerOnlinePacketClass(RawPacketClass *raw);	// 0x88EE20
-	virtual bool Process_Packet(void *client);	// +0x08 0x8692A0 (clientstub.cpp l.398)
-	char Unknown0C[0x24];	// +0x0C
-};
-
-// opcode 194 (0x00C2, ?): vtable 0xB0AAF4, constructor 0x88FA00, 0x20 bytes
-class GuildAdjustContribPacketClass : public PacketClass  // NAME 3: the client's Print text 'GuildAdjustContrib {' and the PacketClass convention
-{
-public:
-	GuildAdjustContribPacketClass(RawPacketClass *raw);	// 0x88FA00
-	virtual bool Process_Packet(void *client);	// +0x08 0x868FD0 (clientstub.cpp l.353)
-	char Unknown0C[0x14];	// +0x0C
-};
-
 // opcode 195 (0x00C3, ?): vtable 0xB0AC14, constructor 0x891A20, 0x58 bytes
 class GuildStatusUpdatePacketClass : public PacketClass  // NAME 3: the client's Print text 'GuildStatusUpdate {' and the PacketClass convention
 {
@@ -806,24 +788,6 @@ public:
 	GuildRankNamesGuildPacketClass(RawPacketClass *raw);	// 0x892670
 	virtual bool Process_Packet(void *client);	// +0x08 0x869210 (clientstub.cpp l.389)
 	char Unknown0C[0x1C];	// +0x0C
-};
-
-// opcode 215 (0x00D7, ?): vtable 0xB0ACD4, constructor 0x892E10, 0x38 bytes
-class GuildGMRenameConfirmGuildPacketClass : public PacketClass  // NAME 3: the client's Print text 'GuildGMRenameConfirmGuild {' and the PacketClass convention
-{
-public:
-	GuildGMRenameConfirmGuildPacketClass(RawPacketClass *raw);	// 0x892E10
-	virtual bool Process_Packet(void *client);	// +0x08 0x869240 (clientstub.cpp l.392)
-	char Unknown0C[0x2C];	// +0x0C
-};
-
-// opcode 217 (0x00D9, ?): vtable 0xB0AD04, constructor 0x893320, 0x38 bytes
-class GuildGMRenameAcceptSectorPacketClass : public PacketClass  // NAME 3: the client's Print text 'GuildGMRenameAcceptSector {' and the PacketClass convention
-{
-public:
-	GuildGMRenameAcceptSectorPacketClass(RawPacketClass *raw);	// 0x893320
-	virtual bool Process_Packet(void *client);	// +0x08 0x869270 (clientstub.cpp l.395)
-	char Unknown0C[0x2C];	// +0x0C
 };
 
 // opcode 218 (0x00DA, ?): vtable 0xB0AD34, constructor 0x893710, 0x68 bytes

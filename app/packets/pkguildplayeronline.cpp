@@ -2,6 +2,45 @@
 #include "pkguildplayeronline.h"
 #include <stdio.h>
 
+GuildPlayerOnlinePacketClass::GuildPlayerOnlinePacketClass(__int64 player_id, const char *player_name, __int64 account_id) :
+	PlayerID(player_id),
+	PlayerName(player_name),
+	AccountID(account_id)
+{
+}
+
+GuildPlayerOnlinePacketClass::GuildPlayerOnlinePacketClass(RawPacketClass *raw)
+{
+	raw->Get(PlayerID);
+	raw->Get(&PlayerName);
+	raw->Get(AccountID);
+}
+
+GuildPlayerOnlinePacketClass::~GuildPlayerOnlinePacketClass()
+{
+}
+
+RawPacketClass *GuildPlayerOnlinePacketClass::Build()
+{
+	RawPacketClass *raw = new RawPacketClass(193, Get_Data_Size());
+	raw->Add(PlayerID);
+	raw->Add(PlayerName);
+	raw->Add(AccountID);
+	return(raw);
+}
+
+int GuildPlayerOnlinePacketClass::Get_Data_Size()
+{
+	return(RawPacketClass::Get_Size(PlayerName) + sizeof(PlayerID) + sizeof(AccountID));
+}
+
+int GuildPlayerOnlinePacketClass::Print(char *buffer, int len)
+{
+	char player_id[32];
+	char account_id[32];
+	return(_snprintf(buffer, len, "GuildPlayerOnline { PlayerID=%s PlayerName=%s AccountID=%s }", Unknown_8B44E0(PlayerID, player_id), PlayerName.c_str(), Unknown_8B44E0(PlayerID, account_id)));
+}
+
 GuildSimpleGuildSectorPacketClass::GuildSimpleGuildSectorPacketClass(int type, __int64 player_id, const char *optional_param) :
 	Type(type),
 	PlayerID(player_id),
@@ -78,6 +117,40 @@ int GuildSimpleSectorGuildPacketClass::Print(char *buffer, int len)
 	return(_snprintf(buffer, len, "GuildSimpleSectorGuildPacket {Type=%d PlayerID=%s OptionalParam=%s}", Type, Unknown_8B44E0(PlayerID, id), OptionalParam.c_str()));
 }
 
+GuildAdjustContribPacketClass::GuildAdjustContribPacketClass(__int64 player_id, int contrib, float amount) :
+	PlayerID(player_id),
+	Contrib(contrib),
+	Amount(amount)
+{
+}
+
+GuildAdjustContribPacketClass::GuildAdjustContribPacketClass(RawPacketClass *raw)
+{
+	raw->Get(PlayerID);
+	raw->Get(&Contrib, sizeof(Contrib));
+	raw->Get(&Amount, sizeof(Amount));
+}
+
+RawPacketClass *GuildAdjustContribPacketClass::Build()
+{
+	RawPacketClass *raw = new RawPacketClass(194, Get_Data_Size());
+	raw->Add(PlayerID);
+	raw->Add(&Contrib, sizeof(Contrib));
+	raw->Add(&Amount, sizeof(Amount));
+	return(raw);
+}
+
+int GuildAdjustContribPacketClass::Get_Data_Size()
+{
+	return(sizeof(PlayerID) + sizeof(Contrib) + sizeof(Amount));
+}
+
+int GuildAdjustContribPacketClass::Print(char *buffer, int len)
+{
+	char id[32];
+	return(_snprintf(buffer, len, "GuildAdjustContrib {PlayerID=%s Contrib=%d Amount=%g}", Unknown_8B44E0(PlayerID, id), Contrib, Amount));
+}
+
 GuildPermissionsPacketClass::GuildPermissionsPacketClass(__int64 player_id, Unknown_GuildPermissionsEnum unknown18, int unknown1c, int unknown20, int unknown24) :
 	PlayerID(player_id),
 	Unknown18(unknown18),
@@ -149,6 +222,82 @@ int GuildRankNamesRequestSectorPacketClass::Print(char *buffer, int len)
 	return(_snprintf(buffer, len, "GuildRankNamesRequestSector {PlayerID=%s}", Unknown_8B44E0(PlayerID, id)));
 }
 
+GuildGMRenameConfirmGuildPacketClass::GuildGMRenameConfirmGuildPacketClass(__int64 player_id, const char *old_guild_name, const char *new_guild_name) :
+	PlayerID(player_id),
+	OldGuildName(old_guild_name),
+	NewGuildName(new_guild_name)
+{
+}
+
+GuildGMRenameConfirmGuildPacketClass::GuildGMRenameConfirmGuildPacketClass(RawPacketClass *raw)
+{
+	raw->Get(PlayerID);
+	raw->Get(&OldGuildName);
+	raw->Get(&NewGuildName);
+}
+
+GuildGMRenameConfirmGuildPacketClass::~GuildGMRenameConfirmGuildPacketClass()
+{
+}
+
+RawPacketClass *GuildGMRenameConfirmGuildPacketClass::Build()
+{
+	RawPacketClass *raw = new RawPacketClass(215, Get_Data_Size());
+	raw->Add(PlayerID);
+	raw->Add(OldGuildName);
+	raw->Add(NewGuildName);
+	return(raw);
+}
+
+int GuildGMRenameConfirmGuildPacketClass::Get_Data_Size()
+{
+	return(RawPacketClass::Get_Size(NewGuildName) + RawPacketClass::Get_Size(OldGuildName) + sizeof(PlayerID));
+}
+
+int GuildGMRenameConfirmGuildPacketClass::Print(char *buffer, int len)
+{
+	char id[32];
+	return(_snprintf(buffer, len, "GuildGMRenameConfirmGuild {PlayerID=%s OldGuildName=%s NewGuildName=%s}", Unknown_8B44E0(PlayerID, id), OldGuildName.c_str(), NewGuildName.c_str()));
+}
+
+GuildGMRenameAcceptSectorPacketClass::GuildGMRenameAcceptSectorPacketClass(__int64 player_id, const char *old_guild_name, const char *new_guild_name) :
+	PlayerID(player_id),
+	OldGuildName(old_guild_name),
+	NewGuildName(new_guild_name)
+{
+}
+
+GuildGMRenameAcceptSectorPacketClass::GuildGMRenameAcceptSectorPacketClass(RawPacketClass *raw)
+{
+	raw->Get(PlayerID);
+	raw->Get(&OldGuildName);
+	raw->Get(&NewGuildName);
+}
+
+GuildGMRenameAcceptSectorPacketClass::~GuildGMRenameAcceptSectorPacketClass()
+{
+}
+
+RawPacketClass *GuildGMRenameAcceptSectorPacketClass::Build()
+{
+	RawPacketClass *raw = new RawPacketClass(217, Get_Data_Size());
+	raw->Add(PlayerID);
+	raw->Add(OldGuildName);
+	raw->Add(NewGuildName);
+	return(raw);
+}
+
+int GuildGMRenameAcceptSectorPacketClass::Get_Data_Size()
+{
+	return(RawPacketClass::Get_Size(NewGuildName) + RawPacketClass::Get_Size(OldGuildName) + sizeof(PlayerID));
+}
+
+int GuildGMRenameAcceptSectorPacketClass::Print(char *buffer, int len)
+{
+	char id[32];
+	return(_snprintf(buffer, len, "GuildGMRenameAcceptSector {PlayerID=%s OldGuildName=%s NewGuildName=%s}", Unknown_8B44E0(PlayerID, id), OldGuildName.c_str(), NewGuildName.c_str()));
+}
+
 
 /*
 **	Reconstruction notes (pkguildplayeronline.cpp)
@@ -157,6 +306,6 @@ int GuildRankNamesRequestSectorPacketClass::Print(char *buffer, int len)
 **	  is 0x894390): the guild packets 193-220 not in pkguildranknamesrequestclient.cpp. Written by hand
 **	  (builder P4, 2026-10-27); each class's value constructor comes first, then the raw one.
 **	* The file name is provisional (no assert names it).
-**	* Not rebuilt yet: opcode 193, 194, 195, 196, 198, 199, 202, 207, 213, 215, 217, 218, 219,
+**	* Not rebuilt yet: opcode 195, 196, 198, 199, 202, 207, 213, 218, 219,
 **	  220 (declared in pk_classes.h).
 */

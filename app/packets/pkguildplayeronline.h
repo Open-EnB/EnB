@@ -5,7 +5,7 @@
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
 **	Original location: e:\build\beta\G\app\packets\pkguildplayeronline.h (the name provisional: see the .cpp)
 **
-**	The packet classes of client 0x88EC70-0x894390 rebuilt so far (opcode 203, 206, 209, 214); the file's other
+**	The packet classes of client 0x88EC70-0x894390 rebuilt so far (opcode 193, 203, 206, 194, 209, 214, 215, 217); the file's other
 **	classes are still declared in pk_classes.h.
 */
 
@@ -25,6 +25,23 @@ char *Unknown_8B44E0(__int64 value, char *buffer);	// 0x8B44E0: _i64toa(value, b
 enum Unknown_GuildPermissionsEnum  // NAME 1: neutral placeholder (D10)
 {
 	UNKNOWN_GUILDPERMISSIONS_0	// NAME 1: neutral placeholder (D10)
+};
+
+// opcode 193 (0x00C1, ?): vtable 0xB0AA64, constructor 0x88EE20, 0x30 bytes
+class GuildPlayerOnlinePacketClass : public PacketClass  // NAME 3: the client's Print text 'GuildPlayerOnline {' and the PacketClass convention
+{
+public:
+	GuildPlayerOnlinePacketClass(__int64 player_id, const char *player_name, __int64 account_id);	// 0x88EC70
+	GuildPlayerOnlinePacketClass(RawPacketClass *raw);	// 0x88EE20
+	virtual ~GuildPlayerOnlinePacketClass();	// +0x00 0x88EDF0 / 0x88EEF0
+	virtual RawPacketClass *Build();	// +0x04 0x88EF60
+	virtual bool Process_Packet(void *client);	// +0x08 0x8692A0 (clientstub.cpp)
+	virtual int Get_Data_Size();	// +0x0C 0x88F030
+	virtual int Print(char *buffer, int len);	// +0x10 0x88F050 (its AccountID= shows PlayerID, as the client's)
+
+	__int64 PlayerID;	// +0x10  // NAME 3: the client's Print text 'PlayerID='
+	std::string PlayerName;	// +0x18  // NAME 3: the client's Print text 'PlayerName='
+	__int64 AccountID;	// +0x28  // NAME 3: the client's Print text 'AccountID='
 };
 
 // opcode 203 (0x00CB, ?): vtable 0xB0AA94, constructor 0x88F280, 0x28 bytes
@@ -61,6 +78,22 @@ public:
 	std::string OptionalParam;	// +0x18  // NAME 3: the client's Print text 'OptionalParam='
 };
 
+// opcode 194 (0x00C2, ?): vtable 0xB0AAF4, constructor 0x88FA00, 0x20 bytes
+class GuildAdjustContribPacketClass : public PacketClass  // NAME 3: the client's Print text 'GuildAdjustContrib {' and the PacketClass convention
+{
+public:
+	GuildAdjustContribPacketClass(__int64 player_id, int contrib, float amount);	// 0x88F960
+	GuildAdjustContribPacketClass(RawPacketClass *raw);	// 0x88FA00
+	virtual RawPacketClass *Build();	// +0x04 0x88FAE0
+	virtual bool Process_Packet(void *client);	// +0x08 0x868FD0 (clientstub.cpp)
+	virtual int Get_Data_Size();	// +0x0C 0x88FBC0
+	virtual int Print(char *buffer, int len);	// +0x10 0x88FBE0
+
+	__int64 PlayerID;	// +0x10  // NAME 3: the client's Print text 'PlayerID='
+	int Contrib;	// +0x18 (4 bytes as they are)  // NAME 3: the client's Print text 'Contrib='
+	float Amount;	// +0x1C (4 bytes as they are)  // NAME 3: the client's Print text 'Amount='
+};
+
 // opcode 209 (0x00D1, ?): vtable 0xB0AC44, constructor 0x891E90, 0x28 bytes
 class GuildPermissionsPacketClass : public PacketClass  // NAME 3: the client's Print text 'GuildPermissionsPacket {' and the PacketClass convention
 {
@@ -91,6 +124,40 @@ public:
 	virtual int Print(char *buffer, int len);	// +0x10 0x8922F0
 
 	__int64 PlayerID;	// +0x10  // NAME 3: the client's Print text 'PlayerID='
+};
+
+// opcode 215 (0x00D7, ?): vtable 0xB0ACD4, constructor 0x892E10, 0x38 bytes
+class GuildGMRenameConfirmGuildPacketClass : public PacketClass  // NAME 3: the client's Print text 'GuildGMRenameConfirmGuild {' and the PacketClass convention
+{
+public:
+	GuildGMRenameConfirmGuildPacketClass(__int64 player_id, const char *old_guild_name, const char *new_guild_name);	// 0x892C00
+	GuildGMRenameConfirmGuildPacketClass(RawPacketClass *raw);	// 0x892E10
+	virtual ~GuildGMRenameConfirmGuildPacketClass();	// +0x00 0x892DE0 / 0x892EF0
+	virtual RawPacketClass *Build();	// +0x04 0x892F90
+	virtual bool Process_Packet(void *client);	// +0x08 0x869240 (clientstub.cpp)
+	virtual int Get_Data_Size();	// +0x0C 0x893060
+	virtual int Print(char *buffer, int len);	// +0x10 0x8930A0
+
+	__int64 PlayerID;	// +0x10  // NAME 3: the client's Print text 'PlayerID='
+	std::string OldGuildName;	// +0x18  // NAME 3: the client's Print text 'OldGuildName='
+	std::string NewGuildName;	// +0x28  // NAME 3: the client's Print text 'NewGuildName='
+};
+
+// opcode 217 (0x00D9, ?): vtable 0xB0AD04, constructor 0x893320, 0x38 bytes
+class GuildGMRenameAcceptSectorPacketClass : public PacketClass  // NAME 3: the client's Print text 'GuildGMRenameAcceptSector {' and the PacketClass convention
+{
+public:
+	GuildGMRenameAcceptSectorPacketClass(__int64 player_id, const char *old_guild_name, const char *new_guild_name);	// 0x893110
+	GuildGMRenameAcceptSectorPacketClass(RawPacketClass *raw);	// 0x893320
+	virtual ~GuildGMRenameAcceptSectorPacketClass();	// +0x00 0x8932F0 / 0x893400
+	virtual RawPacketClass *Build();	// +0x04 0x8934A0
+	virtual bool Process_Packet(void *client);	// +0x08 0x869270 (clientstub.cpp)
+	virtual int Get_Data_Size();	// +0x0C 0x893570
+	virtual int Print(char *buffer, int len);	// +0x10 0x8935B0
+
+	__int64 PlayerID;	// +0x10  // NAME 3: the client's Print text 'PlayerID='
+	std::string OldGuildName;	// +0x18  // NAME 3: the client's Print text 'OldGuildName='
+	std::string NewGuildName;	// +0x28  // NAME 3: the client's Print text 'NewGuildName='
 };
 
 #endif
