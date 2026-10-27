@@ -281,7 +281,9 @@
      "0x4C15F0",
      "0x4C1780",
      "0x4C1930",
-     "0x4C1AC0"
+     "0x4C1AC0",
+     "0x4C2BB0",
+     "0x4C2DC0"
     ],
     "merged": [],
     "name": "shared/avatar_desc.cpp"

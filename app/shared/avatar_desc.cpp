@@ -1112,6 +1112,38 @@ void AvatarDescClass::Save_Defaults(const Vector2 *offsets)
 	AvatarDefinitions.Save("avatardef.ini");
 }
 
+// 0x4C2BB0
+void AvatarDescClass::Upgrade()
+{
+	if (Avatar_Version != 2 && Avatar_Type == 0) {
+		Head_Type = 0;
+		int value = Hair_Num;
+		Hair_Num = value < 6 ? value : 6;
+		value = Goggle_Num;
+		Goggle_Num = value < 4 ? value : 4;
+		value = Ear_Num;
+		Ear_Num = value < 4 ? value : 4;
+		value = Hair_Num;
+		Head_Texture_Num = value < 2 ? value : 2;
+		Hair_Num = value < 5 ? value : 5;
+		AvatarDescClass *defaults = new AvatarDescClass(Race, Profession, Gender);
+		Shirt_Primary_Color = defaults->Shirt_Primary_Color;
+		Shirt_Secondary_Color = defaults->Shirt_Secondary_Color;
+		Pants_Primary_Color = defaults->Pants_Primary_Color;
+		Pants_Secondary_Color = defaults->Pants_Secondary_Color;
+		Skin_Color = defaults->Skin_Color;
+		delete defaults;
+		Avatar_Version = 2;
+	}
+}
+
+// 0x4C2DC0
+void AvatarDescClass::Convert_Names()
+{
+	_snprintf(First_Name, sizeof(First_Name), "%s", Unknown_4BE9D0(First_Name).c_str());
+	_snprintf(Last_Name, sizeof(Last_Name), "%s", Unknown_4BE9D0(Last_Name).c_str());
+}
+
 /*
 **	Reconstruction notes
 **

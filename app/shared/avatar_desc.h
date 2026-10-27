@@ -58,6 +58,8 @@ public:
 	void Get_Pants_Primary_Offset(Vector2 &offset);		// 0x4C2120: avatardef.ini's PantsPrimaryOffset (0.5, 0.5 by default)  // NAME 2: its key
 	void Get_Pants_Secondary_Offset(Vector2 &offset);		// 0x4C2240: avatardef.ini's PantsSecondaryOffset (0.5, 0.5 by default)  // NAME 2: its key
 	void Save_Defaults(const Vector2 *offsets);			// 0x4C2360: the description into avatardef.ini (offsets: the seven texture offsets, Y flipped)  // NAME 2: what it does
+	void Upgrade();										// 0x4C2BB0: an older player description (version not 2) clamped to version 2's looks  // NAME 2: what it does
+	void Convert_Names();								// 0x4C2DC0: both names through 0x4BE9D0  // NAME 2: what it does
 
 	int Avatar_Type;									// +0x08 NAME 2: its key 'avatar_type' (Clear's argument)
 	char Unknown0C;										// +0x0C (written, not a key)
