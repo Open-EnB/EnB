@@ -30,9 +30,27 @@
 #define MAXFONTS 8
 
 class FontDatabaseClass;
+class INIClass;
 
 struct FontInitStruct  // NAME 2: one INIT-n section of fontsys.ini (a screen resolution's fonts)
 {
+	FontInitStruct()
+	{
+		ResWidth = 0;
+		ResHeight = 0;
+		for (int i = 0; i < MAXFONTS; i++) {
+			FontID[i] = "";
+			Font[i] = "";
+			Scale[i] = 1.0f;
+			Spacing[i] = 0;
+			Unknown98[i] = 0;
+			DefaultFont[i] = "";
+			DefaultScale[i] = 1.0f;
+			DefaultSpacing[i] = 0;
+			DefaultUnknown98[i] = 0;
+		}
+	}
+
 	bool Unknown_6C5C60(unsigned int idx, FontDatabaseClass *fdb);			// 0x6C5C60  // NAME 1 [Unknown_6C5C60]: neutral (D10)
 	void Unknown_6C57B0(FontDatabaseClass *fdb);							// 0x6C57B0  // NAME 1 [Unknown_6C57B0]: neutral (D10)
 	int Find_Chat_Index(const char *chat_name);								// 0x6C5730  // NAME 2: the chat_index of the asserts
@@ -92,6 +110,7 @@ public:
 	FontDatabaseClass();													// 0x6BE5C0
 	~FontDatabaseClass();													// 0x6BEBF0
 	void Load();														// inline: what the constructor does  // NAME 2: what it does
+	void Load_Init(INIClass &ini, char *section, FontInitStruct *info);	// 0x6BF330: one INIT section and its templates  // NAME 2: what it does
 	void Unknown_6BF910();												// 0x6BF910: loads fontsys.ini's INIT sections  // NAME 1 [Unknown_6BF910]: neutral (D10)
 	void Unknown_6BFD00(const char *ini_name);								// 0x6BFD00: COLOR-n and EFFECT-n sections  // NAME 1 [Unknown_6BFD00]: neutral (D10)
 	void Unknown_6C2080();												// 0x6C2080  // NAME 1 [Unknown_6C2080]: neutral (D10)

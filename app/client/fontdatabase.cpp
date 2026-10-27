@@ -1,7 +1,11 @@
 // Earth & Beyond client (reconstruction): app\Client\fontdatabase.cpp. Notes at the end of the file.
+#include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include "fontdatabase.h"
 #include "..\shared\unknown_debug.h"
+#include "..\..\wwlib\ini.h"
+#include "..\..\wwlib\inisup.h"
 
 class WW3D  // NAME 5: WW3D2's class (ww3d.h), declared here for the one call
 {
@@ -34,6 +38,92 @@ FontDatabaseClass::~FontDatabaseClass()
 	Clear_Strings();
 	for (int i = 0; i < MAXFONTS; i++) {
 		Font[i].font32Ptr = NULL;
+	}
+}
+
+
+void FontDatabaseClass::Load_Init(INIClass &ini, char *section, FontInitStruct *info)
+{
+	int index = 0;
+	int misses = 10;
+	for (; misses > 0; index++) {
+		char entry[64];
+		sprintf(entry, "Template%d", index);
+		if (ini.Find_Entry(section, entry)->Is_Valid()) {
+			StringClass name;
+			ini.Get_String(name, section, entry, "");
+			Load_Init(ini, name.Get_Buffer(name.Get_Length()), info);
+			misses = 10;
+		} else {
+			misses--;
+		}
+	}
+
+	info->ResWidth = ini.Get_Int(section, "ResWidth", 0);
+	info->ResHeight = ini.Get_Int(section, "ResHeight", 0);
+	char number[128];
+	itoa(info->ResWidth, number, 10);
+	info->Name = number;
+	info->Name += 'x';
+	itoa(info->ResHeight, number, 10);
+	info->Name += number;
+	info->Name += ':';
+
+	for (int i = 0; i < MAXFONTS; i++) {
+		char entry[64];
+		sprintf(entry, "Font%d", i);
+		if (ini.Find_Entry(section, entry)->Is_Valid()) {
+			ini.Get_String(info->Font[i], section, entry, "");
+		}
+		sprintf(entry, "FontID%d", i);
+		if (ini.Find_Entry(section, entry)->Is_Valid()) {
+			ini.Get_String(info->FontID[i], section, entry, "");
+		}
+		sprintf(entry, "Scale%d", i);
+		if (ini.Find_Entry(section, entry)->Is_Valid()) {
+			info->Scale[i] = ini.Get_Float(section, entry, 0);
+		}
+		sprintf(entry, "Spacing%d", i);
+		if (ini.Find_Entry(section, entry)->Is_Valid()) {
+			info->Spacing[i] = ini.Get_Int(section, entry, 0);
+		}
+		info->Unknown98[i] = 0;
+		info->DefaultFont[i] = info->Font[i];
+		info->DefaultScale[i] = info->Scale[i];
+		info->DefaultSpacing[i] = info->Spacing[i];
+		info->DefaultUnknown98[i] = info->Unknown98[i];
+	}
+}
+
+
+void FontDatabaseClass::Unknown_6BF910()
+{
+	StringClass unused;
+	INIClass ini;
+	ini.Load("fontsys.ini");
+	char key[12];
+	char value[64];
+	char section[64];
+
+	int index = 0;
+	while (true) {
+		sprintf(key, "%d", index);
+		if (ini.Get_String("ALL_FONTS", key, "", value, sizeof(value)) == 0) break;
+		AllFonts.push_back(std::string(value));
+		index++;
+	}
+
+	int misses = 10;
+	for (index = 0; misses > 0; index++) {
+		sprintf(section, "INIT-%d", index);
+		if (ini.Find_Section(section)->Is_Valid()) {
+			FontInitStruct *info = new FontInitStruct;
+			Load_Init(ini, section, info);
+			Infos.push_back(info);
+			misses = 10;
+		} else {
+			misses--;
+		}
 	}
 }
 
@@ -117,96 +207,6 @@ FontStringStruct *FontDatabaseClass::Find_String(const char *name)
 	std::hash_map<std::string, FontStringStruct *>::iterator it = Strings.find(name);
 	return it == Strings.end() ? NULL : (*it).second;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -1143,7 +1143,9 @@ int FontInitStruct::Find_Chat_Index(const char *chat_name)
 **
 **	Written so far: the constructor 0x6BE5C0 (through an inline Load: Clear_Infos, Clear_Tables, the three ini
 **	loaders, Clear_Strings, 0x6C2080), FontStruct's inline constructor 0x6BE7C0 and implicit destructor
-**	0x6BEB60, the destructor 0x6BEBF0, Clear_Infos 0x6BEE60 (with FontInitStruct's implicit destructor 0x6BEEF0), Clear_Tables
+**	0x6BEB60, the destructor 0x6BEBF0, Load_Init 0x6BF330 (an INIT section, its Template%d sections first,
+**	recursively), 0x6BF910 (fontsys.ini: ALL_FONTS into AllFonts, the INIT-n sections into Infos, with
+**	FontInitStruct's inline constructor), Clear_Infos 0x6BEE60 (with FontInitStruct's implicit destructor 0x6BEEF0), Clear_Tables
 **	0x6BEFD0 (Colors and Effects), Clear_Strings 0x6BF1F0, Find_Font 0x6C2BF0, Get_Info(width, height) 0x6C2CB0, the tables' Find_Color /
 **	Find_Effect / Find_String 0x6C2D00-0x6C2F20 and Add_String / Add_Effect / Add_Color 0x6C3380-0x6C3720
 **	(G_ASSERT(0) on the client's lines 881 / 895 / 909, D25; the six NOT EXACT), the accessors on lines
@@ -1158,7 +1160,8 @@ int FontInitStruct::Find_Chat_Index(const char *chat_name)
 **	sections through line 909 first, then the EFFECT-n ones through line 895.
 **
 **	Forms that mattered: chat_index unsigned with the search loop's bound signed (`jl` in the loop, `jb` in
-**	the FAIL_IF); the table loops step with ++it (it++ spends the budget that inlines the vector's size()
+**	the FAIL_IF); the ALL_FONTS loop as while (true) (a for loop is rotated), the section tests with the
+**	found branch first and the ini loader's buffers at function scope (else they share slots); the table loops step with ++it (it++ spends the budget that inlines the vector's size()
 **	in operator++); Find_Font_File_Index's counter stepped in the body after the test, not in the for header
 **	(the latter keeps it in another register); in the Add functions a dead size() after the insert keeps
 **	find_or_insert out of line as in the client (D40's lever), and the found test first (the assert falls
