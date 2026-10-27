@@ -77,6 +77,13 @@ void FontStringStruct::Reset()
 }
 
 
+void FontDatabaseClass::Unknown_6BE520()
+{
+	for (std::hash_map<std::string, FontStringStruct *>::iterator it = Strings.begin(); it != Strings.end(); ++it) {
+	}
+}
+
+
 inline void FontDatabaseClass::Load()
 {
 	Clear_Infos();
@@ -304,6 +311,174 @@ void FontDatabaseClass::Unknown_6BFD00(const char *ini_name)
 }
 
 
+// NOT EXACT: inline-budget: ours inlines Parse_Directions / Split_Four / Get_Blend_Type and calls Get_Length; the client the reverse
+void FontDatabaseClass::Load_String(INIClass &ini, char *section, FontStringStruct *str)
+{
+	StringClass text;
+	TPoint2D<float> origin(0, 0);
+	char entry[64];
+
+	int index = 0;
+	int misses = 10;
+	for (; misses > 0; index++) {
+		sprintf(entry, "Template%d", index);
+		if (ini.Find_Entry(section, entry)->Is_Valid()) {
+			StringClass name;
+			ini.Get_String(name, section, entry, "");
+			Load_String(ini, name.Get_Buffer(name.Get_Length()), str);
+			misses = 10;
+		} else {
+			misses--;
+		}
+	}
+
+	if (ini.Find_Entry(section, "FontType")->Is_Valid()) {
+		ini.Get_String(str->FontType[0], section, "FontType", "");
+	}
+	if (ini.Find_Entry(section, "AltFontType")->Is_Valid()) {
+		ini.Get_String(str->FontType[1], section, "AltFontType", "");
+	}
+	if (ini.Find_Entry(section, "Color")->Is_Valid()) {
+		ini.Get_String(str->Color[0], section, "Color", "");
+	}
+	if (ini.Find_Entry(section, "AltColor")->Is_Valid()) {
+		ini.Get_String(str->Color[1], section, "AltColor", "");
+	}
+	if (ini.Find_Entry(section, "BlendType")->Is_Valid()) {
+		ini.Get_String(text, section, "BlendType", "");
+		str->BlendType[0] = Get_Blend_Type(text);
+	}
+	if (ini.Find_Entry(section, "AltBlendType")->Is_Valid()) {
+		ini.Get_String(text, section, "AltBlendType", "");
+		str->BlendType[1] = Get_Blend_Type(text);
+	}
+	if (ini.Find_Entry(section, "Justify")->Is_Valid()) {
+		ini.Get_String(text, section, "Justify", "");
+		Parse_Directions(text.Get_Buffer(text.Get_Length()), str->Justify);
+	}
+	if (ini.Find_Entry(section, "Wait")->Is_Valid()) {
+		str->Wait = ini.Get_Float(section, "Wait", 0);
+	}
+	if (ini.Find_Entry(section, "Width")->Is_Valid()) {
+		str->Width = ini.Get_Float(section, "Width", 0);
+	}
+	if (ini.Find_Entry(section, "Spacing")->Is_Valid()) {
+		str->Spacing = ini.Get_Float(section, "Spacing", 0);
+	}
+	if (ini.Find_Entry(section, "WrapWidth")->Is_Valid()) {
+		str->WrapWidth = ini.Get_Float(section, "WrapWidth", 0);
+	}
+	if (ini.Find_Entry(section, "TimeSpacing")->Is_Valid()) {
+		str->TimeSpacing = ini.Get_Float(section, "TimeSpacing", 0);
+	}
+	if (ini.Find_Entry(section, "TriggerTime")->Is_Valid()) {
+		str->TriggerTime = ini.Get_Float(section, "TriggerTime", 1.0f);
+	}
+	if (ini.Find_Entry(section, "Offset")->Is_Valid()) {
+		const TPoint2D<float> &offset = ini.Get_Point(section, "Offset", origin);
+		str->Offset[0] = offset.X;
+		str->Offset[1] = offset.Y;
+	}
+	if (ini.Find_Entry(section, "Target")->Is_Valid()) {
+		const TPoint2D<float> &target = ini.Get_Point(section, "Target", origin);
+		str->Target[0] = target.X;
+		str->Target[1] = target.Y;
+	}
+	if (ini.Find_Entry(section, "BoxOffset")->Is_Valid()) {
+		const TPoint2D<float> &box = ini.Get_Point(section, "BoxOffset", origin);
+		str->BoxOffset[0] = box.X;
+		str->BoxOffset[1] = box.Y;
+	}
+	if (ini.Find_Entry(section, "Rotate90")->Is_Valid()) {
+		str->Rotate90 = ini.Get_Bool(section, "Rotate90", false);
+	}
+	if (ini.Find_Entry(section, "Underline")->Is_Valid()) {
+		str->Underline = ini.Get_Bool(section, "Underline", false);
+	}
+	if (ini.Find_Entry(section, "SoundOnID")->Is_Valid()) {
+		ini.Get_String(str->SoundOnID, section, "SoundOnID", "");
+	}
+	if (ini.Find_Entry(section, "SoundOnVol")->Is_Valid()) {
+		str->SoundOnVol = ini.Get_Float(section, "SoundOnVol", 1.0f);
+	}
+	if (ini.Find_Entry(section, "SoundOnDur")->Is_Valid()) {
+		str->SoundOnDur = ini.Get_Float(section, "SoundOnDur", -1.0f);
+	}
+	if (ini.Find_Entry(section, "SoundOverID")->Is_Valid()) {
+		ini.Get_String(str->SoundOverID, section, "SoundOverID", "");
+	}
+	if (ini.Find_Entry(section, "SoundOverVol")->Is_Valid()) {
+		str->SoundOverVol = ini.Get_Float(section, "SoundOverVol", 1.0f);
+	}
+	if (ini.Find_Entry(section, "SoundOverDur")->Is_Valid()) {
+		str->SoundOverDur = ini.Get_Float(section, "SoundOverDur", -1.0f);
+	}
+	if (ini.Find_Entry(section, "SoundClickID")->Is_Valid()) {
+		ini.Get_String(str->SoundClickID, section, "SoundClickID", "");
+	}
+	if (ini.Find_Entry(section, "SoundClickVol")->Is_Valid()) {
+		str->SoundClickVol = ini.Get_Float(section, "SoundClickVol", 1.0f);
+	}
+	if (ini.Find_Entry(section, "SoundClickDur")->Is_Valid()) {
+		str->SoundClickDur = ini.Get_Float(section, "SoundClickDur", -1.0f);
+	}
+	if (ini.Find_Entry(section, "EffectOn")->Is_Valid()) {
+		ini.Get_String(text, section, "EffectOn", "");
+		Split_Four(text.Get_Buffer(text.Get_Length()), str->EffectOn);
+	}
+	if (ini.Find_Entry(section, "EffectConst")->Is_Valid()) {
+		ini.Get_String(text, section, "EffectConst", "");
+		Split_Four(text.Get_Buffer(text.Get_Length()), str->EffectConst);
+	}
+	if (ini.Find_Entry(section, "EffectOff")->Is_Valid()) {
+		ini.Get_String(text, section, "EffectOff", "");
+		Split_Four(text.Get_Buffer(text.Get_Length()), str->EffectOff);
+	}
+	if (ini.Find_Entry(section, "MouseOver")->Is_Valid()) {
+		ini.Get_String(text, section, "MouseOver", "");
+		Split_Four(text.Get_Buffer(text.Get_Length()), str->MouseOver);
+	}
+	if (ini.Find_Entry(section, "MouseClick")->Is_Valid()) {
+		ini.Get_String(text, section, "MouseClick", "");
+		Split_Four(text.Get_Buffer(text.Get_Length()), str->MouseClick);
+	}
+	if (ini.Find_Entry(section, "EffectTriggered")->Is_Valid()) {
+		ini.Get_String(text, section, "EffectTriggered", "");
+		Split_Four(text.Get_Buffer(text.Get_Length()), str->EffectTriggered);
+	}
+	if (ini.Find_Entry(section, "StringID")->Is_Valid()) {
+		ini.Get_String(str->StringID, section, "StringID", "");
+	}
+	if (ini.Find_Entry(section, "RenderObj")->Is_Valid()) {
+		ini.Get_String(str->RenderObj, section, "RenderObj", "");
+	}
+	if (ini.Find_Entry(section, "Attach")->Is_Valid()) {
+		ini.Get_String(str->Attach, section, "Attach", "");
+	}
+
+	misses = 10;
+	for (int line = 0; misses > 0; line++) {
+		sprintf(entry, "String%d", line);
+		if (ini.Find_Entry(section, entry)->Is_Valid()) {
+			ini.Get_String(text, section, entry, "");
+		} else {
+			text = "";
+		}
+		if (text.Get_Length() == 0) {
+			misses--;
+		} else {
+			if (line == 0) {
+				str->Text = text;
+			} else {
+				str->Text += ' ';
+				str->Text += text;
+			}
+			misses = 10;
+		}
+	}
+}
+
+
 void FontDatabaseClass::Reload()
 {
 	Clear_Infos();
@@ -476,181 +651,6 @@ FontStringStruct *FontDatabaseClass::Find_String(const char *name)
 	std::hash_map<std::string, FontStringStruct *>::iterator it = Strings.find(name);
 	return it == Strings.end() ? NULL : (*it).second;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -1180,11 +1180,12 @@ int FontInitStruct::Find_Chat_Index(const char *chat_name)
 **	0x6C7F00 / 0x6C8080 / 0x6C8200).
 **
 **	Written so far: FontStringStruct's constructors 0x6BDA40 / 0x6BDD30 and Reset 0x6BE0E0 (NOT EXACT; the
-**	struct's implicit destructor is the client's folded copy 0x67F490 in chat_window.cpp), the constructor 0x6BE5C0 (through an inline Load: Clear_Infos, Clear_Tables, the three ini
+**	struct's implicit destructor is the client's folded copy 0x67F490 in chat_window.cpp), 0x6BE520 (walks Strings, its body compiled out), the constructor 0x6BE5C0 (through an inline Load: Clear_Infos, Clear_Tables, the three ini
 **	loaders, Clear_Strings, 0x6C2080), FontStruct's inline constructor 0x6BE7C0 and implicit destructor
 **	0x6BEB60, the destructor 0x6BEBF0, Load_Init 0x6BF330 (an INIT section, its Template%d sections first,
 **	recursively), 0x6BF910 (fontsys.ini: ALL_FONTS into AllFonts, the INIT-n sections into Infos, with
-**	FontInitStruct's inline constructor), Reload 0x6C1EC0 (the ini files again; the
+**	FontInitStruct's inline constructor), Load_String 0x6C0430 (a string template, its Template%d templates first, the String%d lines joined; NOT EXACT),
+**	Reload 0x6C1EC0 (the ini files again; the
 **	constructor's inline Load is the same plus 0x6C2080: written as one member the constructor inlines, it moved
 **	Load_Init's registers), 0x6C2080 (the eight fonts for the resolution: Font32Class through RefCountPtr's Create_NEW), Get_Blend_Type / Get_Direction / Get_Effect_Type 0x6C2340 / 0x6C2460 / 0x6C25A0 (the ini words to
 **	their values), Parse_Directions 0x6C2890 and Split_Four 0x6C2A10 (NOT EXACT), 0x6BFD00 (fontcode.ini / fontart.ini: the COLOR-n and EFFECT-n

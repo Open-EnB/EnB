@@ -155,6 +155,8 @@ public:
 	void Reload();														// 0x6C1EC0: the ini files again (the constructor inlines it)  // NAME 2: what it does
 	void Load();														// inline: what the constructor does  // NAME 2: what it does
 	void Load_Init(INIClass &ini, char *section, FontInitStruct *info);	// 0x6BF330: one INIT section and its templates  // NAME 2: what it does
+	void Unknown_6BE520();												// 0x6BE520: walks Strings, the body compiled out  // NAME 1 [Unknown_6BE520]: neutral (D10)
+	void Load_String(INIClass &ini, char *section, FontStringStruct *str);	// 0x6C0430: one string template and its Template%d templates  // NAME 2: what it does
 	void Unknown_6BF910();												// 0x6BF910: loads fontsys.ini's INIT sections  // NAME 1 [Unknown_6BF910]: neutral (D10)
 	void Unknown_6BFD00(const char *ini_name);								// 0x6BFD00: COLOR-n and EFFECT-n sections  // NAME 1 [Unknown_6BFD00]: neutral (D10)
 	void Unknown_6C2080();
