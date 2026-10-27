@@ -3464,6 +3464,11 @@ RECONSTRUCTED = {
                                            "table's and list's instances after it: the reports on the client's lines 94 / 114 / "
                                            "190 / 382 / 402 (D25); NOT EXACT: the constructor 0x6AC600, the destructor 0x6ACD10, "
                                            "Start_Step 0x6ACF50, Read_Completed_File 0x6AD4B0, Reload 0x6AD7B0",
+    ('app', 'shared/combo_ffactory.h'): "ComboFileFactoryClass (D24), a FileFactoryClass over a directory and its *.MIX files, "
+                                       "MixMap an SGI hash_map<std::string, MixFileFactoryClass *> (libs/sgistl, D87)",
+    ('app', 'shared/combo_ffactory.cpp'): "ComboFileFactoryClass, client 0x4E4D10-0x4E5A00 with the table's and list's instances "
+                                         "after it: the asserts on the client's lines 29 / 30 / 85 / 101 (D25); NOT EXACT: the "
+                                         "destructor 0x4E5230, Get_File 0x4E57A0",
     ('app', 'client/sclient.h'): "SClient (the client's 'SClient::Process_Packets'), declared only as far as tsk_game.cpp uses "
                                 "it: constructor 0x7405E0, 0x14F8 bytes (kernel-map.md 6, step 9)",
     ('app', 'client/tasks/tsk_game.h'): "ClientTaskClass (D24 after its profile label 'ClientTask'), vtable 0xB03FF4, 0xA8 "

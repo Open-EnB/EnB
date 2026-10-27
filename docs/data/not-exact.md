@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-111 entries in 32 files.
+113 entries in 33 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -53,8 +53,8 @@ edit the comments in the code, not this file.
 | `app/packets/pkauxdata.cpp:43` | `AuxDataPacketClass::Print` | marker | NOT EXACT: the client reads Size before the first dword of Data (register order; 2 forms, workflow.md 3.1) |
 | `app/packets/pkcolorization.cpp:5` | `ColorizationPacketClass::ColorizationPacketClass` | marker | NOT EXACT: 0x87F320, the inline vector copy's loop addresses each region from its last dword in the client (shape; attempts.py show 0x87F320) |
 | `app/packets/pkcolorization.cpp:62` | `ColorizationPacketClass::Print` | mention | NOT EXACT (parked, attempts.csv). * The file name is provisional (no assert names it). |
-| `app/packets/pkguildplayeronline.cpp:497` | `GuildPlayerInfoDeletedPacketClass::GuildPlayerInfoDeletedPacketClass` | marker | NOT EXACT: scheduling (the client zeroes Unknown68 after its EH state store; attempts.csv) |
-| `app/packets/pkguildplayeronline.cpp:507` | `GuildPlayerInfoDeletedPacketClass::GuildPlayerInfoDeletedPacketClass` | marker | NOT EXACT: scheduling (as the value constructor; attempts.csv) |
+| `app/packets/pkguildplayeronline.cpp:645` | `GuildPlayerInfoDeletedPacketClass::GuildPlayerInfoDeletedPacketClass` | marker | NOT EXACT: scheduling (the client zeroes Unknown68 after its EH state store; attempts.csv) |
+| `app/packets/pkguildplayeronline.cpp:655` | `GuildPlayerInfoDeletedPacketClass::GuildPlayerInfoDeletedPacketClass` | marker | NOT EXACT: scheduling (as the value constructor; attempts.csv) |
 | `app/packets/pknamedecal.cpp:5` | `DecalPacketClass::DecalPacketClass` | marker | NOT EXACT: 0x8805C0, the inline vector copy's loop addresses each decal from +0x10 in the client (shape, as COLORIZATION's 0x87F320; attempts.py show 0x8805C0) |
 | `app/packets/pknamedecal.cpp:14` | `DecalPacketClass::DecalPacketClass` | marker | NOT EXACT: 0x8807B0, the client inlines push_back's insert (over this object's helpers 0x8810F0- 0x881250), ours calls it (inline-budget; attempts.py show 0x8807B0) |
 | `app/packets/pkunknown_867010.cpp:6` | `Packet_00B3Class::Packet_00B3Class` | marker | NOT EXACT: the inline std::string assign's terminating store indexes [ebx + ecx], the client's [ecx + ebx] (otherwise the same bytes) |
@@ -67,6 +67,8 @@ edit the comments in the code, not this file.
 | `app/shared/auxdata/encode.cpp:729` | `DeltaListClass::Add` | marker | NOT EXACT: the client loads Count between the two loads of Tail (`*Tail` then `->Next`); tried: Count first, `++Count`, the new in the assignment. |
 | `app/shared/auxdata/lookup.cpp:116` | `LookupClass::Unknown_Test_70` | marker | NOT EXACT: the client calls the map's find out of line (0x4ACBD0); VC6 here inlines it |
 | `app/shared/auxdata/lookup.cpp:125` | `LookupClass::Unknown_Test_70_Above_1` | marker | NOT EXACT: as above (find 0x4ACBD0 out of line in the client) |
+| `app/shared/combo_ffactory.cpp:50` | `ComboFileFactoryClass::~ComboFileFactoryClass` | marker | NOT EXACT: shape (explain.py), the client calls the table's _M_delete_node 0x4E6D00 out of line in MixMap.clear() and keeps this in ebx; ours inlines it |
+| `app/shared/combo_ffactory.cpp:105` | `ComboFileFactoryClass::Get_File` | marker | NOT EXACT: inline budget (explain.py: inline-budget), the client calls the table's find 0x4E5D60 and the string's _Eos out of line (frame 0x18); ours inlines both |
 | `app/shared/heightfield.cpp:30` | `HeightFieldClass::Load` | marker | NOT EXACT: order-only (the client loads Size before Count - 1 and copies it for HalfSize), parked |
 | `app/shared/heightfield.cpp:67` | `HeightFieldClass::Load_PGM` | marker | NOT EXACT: written from the pseudocode (the PGM reader 0x4637C0, the same as VIDTEST's 0x4026B0) |
 | `app/shared/heightfield.cpp:145` | `HeightFieldClass::Sample` | marker | NOT EXACT: frame (0xC in the client: one more local) and the y copy through a register |

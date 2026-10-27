@@ -9,8 +9,8 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 12 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 30 |
-| 3 | by convention from a client-named file or sibling | 561 |
-| 2 | describes what the code does | 993 |
+| 3 | by convention from a client-named file or sibling | 563 |
+| 2 | describes what the code does | 996 |
 | 1 | neutral placeholder | 1377 |
 
 ## For review (score 3 and below)
@@ -2086,6 +2086,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Encode_Changes` | `app/shared/auxdata/unknown_root.h:57` | describes what it does |
 | 2 | `Policy` | `app/shared/auxdata/unknown_root.h:59` | describes what it does |
 | 2 | `Changes` | `app/shared/auxdata/unknown_root.h:61` | describes what it does |
+| 2 | `Add_Mix` | `app/shared/combo_ffactory.h:38` | describes what it does |
+| 2 | `Simple` | `app/shared/combo_ffactory.h:41` | describes what it holds |
+| 2 | `std:` | `app/shared/combo_ffactory.h:43` | describes what it holds |
 | 2 | `As_Int` | `app/shared/duration.h:188` | describes what it does |
 | 2 | `heightfield.h` | `app/shared/heightfield.h:27` | describes the class; no assert or __FILE__ names the file |
 | 2 | `HeightFieldClass` | `app/shared/heightfield.h:38` | after land.ini's [HEIGHTMAP] / HEIGHT_MAP; the client names no class |
@@ -2927,6 +2930,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `Action` | `app/shared/auxdata/policy.h:81` | after the assert's parameter action (policy.cpp) |
 | 3 | `PolicyRuleSetClass` | `app/shared/auxdata/policy.h:97` | after the assert's RuleSet (policy.cpp) |
 | 3 | `PolicyClass` | `app/shared/auxdata/policy.h:141` | by convention (D24) from the client's file policy.cpp |
+| 3 | `combo_ffactory.h` | `app/shared/combo_ffactory.h:19` | header name assumed from the client's combo_ffactory.cpp |
+| 3 | `ComboFileFactoryClass` | `app/shared/combo_ffactory.h:29` | by convention (D24) from the client's file combo_ffactory.cpp |
 | 3 | `DurationClass` | `app/shared/duration.h:25` | by convention (D24) from the client's file duration.h (D37) |
 | 3 | `kv_encoder_base.h` | `app/shared/kv_encoder_base.h:18` | header name assumed from the client's kv_encoder_base.cpp |
 | 3 | `KVEncoderBaseClass` | `app/shared/kv_encoder_base.h:40` | by convention (D24) from the client's file kv_encoder_base.cpp |
