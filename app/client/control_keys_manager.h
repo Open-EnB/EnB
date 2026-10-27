@@ -79,11 +79,11 @@ struct ControlKeyValueStruct  // NAME 1: neutral (D10): the 4-byte key value 0x5
 	unsigned short Modifiers;															// +0x02  // NAME 2: the modifier bits
 };
 
-struct KeyMappingStruct  // NAME 1: neutral (D10): one key definition's mapping (0xC bytes)
+struct KeyMappingStruct : public ControlKeyDefClass  // NAME 1: neutral (D10): one key definition's mapping (0xC bytes): its DefPtr and keys
 {
 	std::string &Get_Key_String(int set, std::string &out);					// 0x71CAB0  // NAME 2: describes what it does
 
-	ControlKeyDefStruct *Def;											// +0x00: what UserKeysMap maps the keys to  // NAME 2: what it holds
+
 	ControlKeyStruct Keys[NUM_MAPPING_SETS];										// +0x04: the client's 'set'
 };
 
@@ -123,6 +123,7 @@ public:
 	void Init(ControlKeysSClientClass *sclient);					// 0x719D50's, 0x71A3F0  // NAME 2: describes what it does
 	static void Load_Definitions();									// 0x71B1F0: control_keys.ini (not rebuilt yet)  // NAME 2: describes what it does
 	static void Load_Keys(std::vector<KeyMappingStruct> *keys, const char *player_id);	// 0x71BD90: keymap.ini (not rebuilt yet)  // NAME 2: describes what it does
+	void Find_Mappings(std::vector<KeyMappingStruct *> *vector, int unknown30);	// 0x71A5B0: the user mappings whose definition's +0x30 matches  // NAME 2: describes what it does
 	static int Get_Key_Id(ControlKeysManager *manager, const std::string &module_name, const ControlKeyValueStruct &key);	// 0x71A190: the id Register_Key gave the key's definition, or -1  // NAME 2: describes what it does
 	static bool Register_Key(const std::string &module_name, const std::string &key_name, int key_id);	// 0x719ED0  // NAME 2: describes what it does
 	static bool _Does_Key_Exist(const std::string &key_name);	// 0x71B160 (no caller; inlined at 0x719ED0): the client's assert

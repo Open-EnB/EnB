@@ -181,14 +181,14 @@ void ControlKeysManager::Init(ControlKeysSClientClass *sclient)
 
 
 
-
-
-
-
-
-
-
-
+void ControlKeysManager::Find_Mappings(std::vector<KeyMappingStruct *> *vector, int unknown30)
+{
+	FAIL_IF(!vector) return;
+	vector->clear();
+	for (std::vector<KeyMappingStruct>::iterator it = UserKeys.begin(); it != UserKeys.end(); ++it) {
+		if (it->Get_Unknown30() == unknown30) vector->push_back(&*it);
+	}
+}
 
 
 
@@ -353,7 +353,7 @@ void ControlKeysManager::Build_Keys_Map()
 			if (event) {
 
 				G_ASSERT(UserKeysMap.find(event) == UserKeysMap.end());
-				UserKeysMap[event] = it->Def;
+				UserKeysMap[event] = it->DefPtr;
 			}
 		}
 	}
@@ -583,7 +583,7 @@ void ControlKeysManager::Reset_Keys(std::vector<KeyMappingStruct> *keys)
 	for (std::hash_map<std::string, std::auto_ptr<ControlKeyDefStruct> >::iterator it = _KeyDefinitions.begin(); it != _KeyDefinitions.end(); ++it) { ControlKeyDefStruct *def_ptr = it->second.get();
 		FAIL_IF(!def_ptr) continue;
 		FAIL_IF(def_ptr->Get_Index() >= _NumKeyDefs) continue;
-		(*keys)[def_ptr->Get_Index()].Def = def_ptr;
+		(*keys)[def_ptr->Get_Index()].DefPtr = def_ptr;
 	}
 }
 
