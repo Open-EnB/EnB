@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-177 entries in 48 files.
+178 entries in 49 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -39,9 +39,9 @@ edit the comments in the code, not this file.
 | `app/client/tutorial_manager.cpp:185` | `TutorialManagerClass::Start_Step` | marker | NOT EXACT: inline budget (explain.py: inline-budget), the client calls the table's find 0x6AE490 and the key string's _Tidy out of line (frame 0x18), ours inlines find as Find does |
 | `app/client/tutorial_manager.cpp:262` | `TutorialManagerClass::Read_Completed_File` | marker | NOT EXACT: inline budget (explain.py: register-only), the client calls the list's insert 0x6AE5A0 out of line for the first nine names; ours for seven, then alternates |
 | `app/client/tutorial_manager.cpp:363` | `TutorialManagerClass::Reload` | marker | NOT EXACT: inline budget (explain.py: inline-budget), the destructor's iterator loop and the constructor's string inlining (see both) |
-| `app/client/unknown_creator.cpp:68` | `CharacterCreatorClass::Unknown_78D480` | marker | NOT EXACT: inline budget (the client calls StringClass::operator+= out of line, ours inlines the two string ones; dead inline reads, a top-declared checksum tried: attempts.py show 0x78D480) 0x78D480 |
-| `app/client/unknown_creator.cpp:107` | `CharacterCreatorClass::Unknown_78D8A0` | marker | NOT EXACT: inline budget (as 0x78D480: the client calls StringClass::operator+= (const char *) out of line, ours inlines it) 0x78D8A0 |
-| `app/client/unknown_creator.cpp:134` | `CharacterCreatorClass::Unknown_78DAF0` | marker | NOT EXACT: inline budget (as 0x78D480: the client calls StringClass::operator+= (const char *) out of line, ours inlines it) 0x78DAF0 |
+| `app/client/unknown_creator.cpp:68` | `CharacterCreatorClass::Unknown_78D480` | marker | NOT EXACT: shape (through Get_File_Name, inlined, the appends come out of line as in the client; the inlined byte sum's loop still differs, nine forms: attempts.py show 0x78D480) 0x78D480 |
+| `app/client/unknown_creator.cpp:103` | `CharacterCreatorClass::Unknown_78D8A0` | marker | NOT EXACT: inline budget (through Get_File_Name one append still inlines in ours) 0x78D8A0 |
+| `app/client/unknown_creator.cpp:126` | `CharacterCreatorClass::Unknown_78DAF0` | marker | NOT EXACT: shape (through Get_File_Name; the inlined byte sum as in 0x78D480) 0x78DAF0 |
 | `app/common/dbgconn.cpp:111` | `TimedLogConnectionClass::TimedLogConnectionClass` | marker | NOT EXACT: the client inlines LogConnectionClass's constructor here and keeps it out of line (0x823F70, no caller); `inline` on it matches this one and loses that one. |
 | `app/common/dbgconn.cpp:154` | `RateConnectionClass::Send_Message` | marker | NOT EXACT: the client inlines ~ForwardingConnectionClass here (inline in its connect.h; ours is in connect.cpp, see the notes). |
 | `app/common/dbgconn.cpp:183` | `RateConnectionClass::Count` | marker | NOT EXACT: the client stores Index before it loads Time (ours loads Time before the idiv); the slots that inline it (0x824CF0, 0x824D90, 0x824E20, 0x824F50) differ only there. |
@@ -96,8 +96,8 @@ edit the comments in the code, not this file.
 | `app/shared/auxdata/encode.cpp:729` | `DeltaListClass::Add` | marker | NOT EXACT: the client loads Count between the two loads of Tail (`*Tail` then `->Next`); tried: Count first, `++Count`, the new in the assignment. |
 | `app/shared/auxdata/lookup.cpp:116` | `LookupClass::Unknown_Test_70` | marker | NOT EXACT: the client calls the map's find out of line (0x4ACBD0); VC6 here inlines it |
 | `app/shared/auxdata/lookup.cpp:125` | `LookupClass::Unknown_Test_70_Above_1` | marker | NOT EXACT: as above (find 0x4ACBD0 out of line in the client) |
-| `app/shared/avatar_desc.cpp:94` | `AvatarDescClass::Read` | marker | NOT EXACT: inline budget (the client calls the string assignment's max_size, _Tidy and _Eos out of line, ours inlines them; six forms tried: dead size()/length() after it, assign(), assign(s, strlen), the Read_String call hoisted; attempts.py show 0x4BF550) 0x4BF550 |
-| `app/shared/avatar_desc.cpp:299` | `AvatarDescClass::Clear` | marker | NOT EXACT: shape (the first sprintf's arguments pushed before the three stores, and Head_Weight cleared through a pointer in the client; five forms tried: memset / a loop for Head_Weight, the stores reordered; attempts.py show 0x4C0310) 0x4C0310 |
+| `app/shared/avatar_desc.cpp:139` | `AvatarDescClass::Read` | marker | NOT EXACT: inline budget (the client calls the string assignment's max_size, _Tidy and _Eos out of line, ours inlines them; six forms tried: dead size()/length() after it, assign(), assign(s, strlen), the Read_String call hoisted; attempts.py show 0x4BF550) 0x4BF550 |
+| `app/shared/avatar_desc.cpp:344` | `AvatarDescClass::Clear` | marker | NOT EXACT: shape (the first sprintf's arguments pushed before the three stores, and Head_Weight cleared through a pointer in the client; five forms tried: memset / a loop for Head_Weight, the stores reordered; attempts.py show 0x4C0310) 0x4C0310 |
 | `app/shared/avatar_desc.cpp:860` | `AvatarDescClass::Get_Hair_Offset` | marker | NOT EXACT: frame (the client keeps the 0.5, 0.5 result in an 8-byte local, ours folds it; attempts.py show 0x4C1B80) 0x4C1B80 |
 | `app/shared/avatar_desc.cpp:881` | `AvatarDescClass::Get_Skin_Offset` | marker | NOT EXACT: frame (the client keeps the 0.5, 0.5 result in an 8-byte local, ours folds it; attempts.py show 0x4C1B80) 0x4C1CA0 |
 | `app/shared/avatar_desc.cpp:902` | `AvatarDescClass::Get_Eye_Offset` | marker | NOT EXACT: frame (the client keeps the 0.5, 0.5 result in an 8-byte local, ours folds it; attempts.py show 0x4C1B80) 0x4C1DC0 |
@@ -126,6 +126,7 @@ edit the comments in the code, not this file.
 | `app/shared/heightfield.cpp:678` | `HeightFieldClass::Sample` | mention | NOT EXACT: frame): two triangles per cell over the sweep's bounds (LandClass's Cast_* forward to them through 0x46C680-0x46C6E0). Get_Triangles 0x465D30 (NOT EXACT, for the land's render) with vector<Vector3>::insert 0x4663E0. Cast_Ray clips the ray to the grid unless it wraps, then walks the cells it crosses (a 2D DDA) until a triangle is hit. The functions after the notes' "Ours" are VIDTEST's l... |
 | `app/shared/ini_manager.cpp:49` | `INIManagerClass::Get_INI` | marker | NOT EXACT: shape (explain.py: 53 masked rows), the holder's new and the Create_Peek temporary take other registers and frame slots; objmatch would also reject the atexit handler's name $E18 (symbols.json gives it to other objects) |
 | `app/shared/ini_manager.h:29` | `?` | marker | NOT EXACT: register-only (explain.py), eax / ecx / edx rotated in the inlined Free_Unused (0x4EA2B0) |
+| `app/shared/kv_acc_array.h:54` | `Set` | marker | NOT EXACT: literal (the client compares the result of find with std::string::npos loaded from memory, ours folds it to -1; float: 0x4C34D0) |
 | `app/shared/kv_list.cpp:10` | `KVListClass::~KVListClass` | marker | NOT EXACT: inline budget, the hashtable destructor's clear() inlines _M_delete_node (the client calls 0x4B7B60) |
 | `app/shared/kv_list.cpp:77` | `KVListClass::Get_Value_String` | marker | NOT EXACT: inline budget, the client calls the hashtable's find 0x4B7030 out of line here |
 | `app/shared/kv_pair_string.cpp:39` | `KVPairStringClass::KVPairStringClass` | marker | NOT EXACT (also Clone, which inlines it): the client passes the two flags through byte temporaries on the stack (stored, then pushed as dwords), as for a by-value argument |
