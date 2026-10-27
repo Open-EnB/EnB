@@ -227,6 +227,53 @@ int GuildRankNamesRequestClientPacketClass::Print(char *buffer, int len)
 	return(_snprintf(buffer, len, "GuildRankNamesRequestClient {PlayerID=%d}", PlayerID));
 }
 
+GuildRankNamesSectorPacket::GuildRankNamesSectorPacket(RawPacketClass *raw)
+{
+	int count = 0;
+	raw->Get(count);
+	for (int i = 0; i < count; i++) {
+		char *name = raw->Get_String();
+		int rank = 0;
+		raw->Get(rank);
+		Add(name, rank);
+		delete [] name;
+	}
+}
+
+RawPacketClass *GuildRankNamesSectorPacket::Build()
+{
+	RawPacketClass *raw = new RawPacketClass(211, Get_Data_Size());
+	int count = Ranks.size();
+	raw->Add(count);
+	for (std::vector<GuildRankNameStruct>::iterator it = Ranks.begin(); it != Ranks.end(); ++it) {
+		raw->Add_String(it->Name.c_str());
+		raw->Add(it->Rank);
+	}
+	return(raw);
+}
+
+int GuildRankNamesSectorPacket::Get_Data_Size()
+{
+	int size = sizeof(int);
+	for (std::vector<GuildRankNameStruct>::iterator it = Ranks.begin(); it != Ranks.end(); ++it) {
+		size += sizeof(it->Rank) + RawPacketClass::Get_Size(it->Name.c_str());
+	}
+	return(size);
+}
+
+int GuildRankNamesSectorPacket::Print(char *buffer, int len)
+{
+	return(_snprintf(buffer, len, "GuildRankNamesSector {}"));
+}
+
+void GuildRankNamesSectorPacket::Add(const std::string &name, int rank)
+{
+	GuildRankNameStruct entry;
+	entry.Name = name;
+	entry.Rank = rank;
+	Ranks.push_back(entry);
+}
+
 GuildGMRenameConfirmSectorPacket::GuildGMRenameConfirmSectorPacket(RawPacketClass *raw)
 {
 	raw->Get(&OldGuildName);

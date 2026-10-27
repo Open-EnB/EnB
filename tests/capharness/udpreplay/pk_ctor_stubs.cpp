@@ -80,7 +80,6 @@ GuildSimpleGuildSectorPacketClass::GuildSimpleGuildSectorPacketClass(RawPacketCl
 GuildSimpleSectorGuildPacketClass::GuildSimpleSectorGuildPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 GuildMessageGuildPacketClass::GuildMessageGuildPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 GuildPermissionsPacketClass::GuildPermissionsPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-GuildRankNamesSectorPacket::GuildRankNamesSectorPacket(RawPacketClass *raw) { Conn_Record(this, raw); }
 GuildRankNamesGuildPacketClass::GuildRankNamesGuildPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 GuildRankNamesRequestSectorPacketClass::GuildRankNamesRequestSectorPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 GuildGMRenameConfirmGuildPacketClass::GuildGMRenameConfirmGuildPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
@@ -177,6 +176,7 @@ bool GuildRecruitConfirmSectorPacket::Process_Packet(void *) { return(true); }	/
 bool GuildSimpleSectorClientPacket::Process_Packet(void *) { return(true); }	// 0x73DD00
 bool GuildMessageSectorPacket::Process_Packet(void *) { return(true); }	// 0x73E9E0
 bool GuildPlayerPermissionsPacket::Process_Packet(void *) { return(true); }	// 0x73ED40
+bool GuildRankNamesSectorPacket::Process_Packet(void *) { return(true); }	// 0x73EE20
 bool GuildGMRenameConfirmSectorPacket::Process_Packet(void *) { return(true); }	// 0x73EEF0
 bool Packet_0078Class::Process_Packet(void *) { return(true); }	// 0x76BB70
 bool ReferralPointsAvailablePacketClass::Process_Packet(void *) { return(true); }	// 0x73F3D0

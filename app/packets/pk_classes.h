@@ -825,14 +825,6 @@ public:
 	char Unknown0C[0x1C];	// +0x0C
 };
 
-// opcode 211 (0x00D3, GUILD_RANK_NAMES_SECTOR): vtable 0xB0AA04, constructor 0x88DE10, 0x1C bytes
-class GuildRankNamesSectorPacket : public PacketClass
-{
-public:
-	GuildRankNamesSectorPacket(RawPacketClass *raw);	// 0x88DE10
-	char Unknown0C[0x10];	// +0x0C
-};
-
 // opcode 213 (0x00D5, GUILD_RANK_NAMES_GUILD): vtable 0xB0ACA4, constructor 0x892670, 0x28 bytes
 class GuildRankNamesGuildPacketClass : public PacketClass  // NAME 3: the client's Print text 'GuildRankNamesGuild {' and the PacketClass convention
 {

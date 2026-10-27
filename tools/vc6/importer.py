@@ -3622,7 +3622,7 @@ RECONSTRUCTED = {
     ('app', 'packets/pkpointeffect.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
     ('app', 'packets/pkunknown_888b60.cpp'): "opcode 174 written by hand (builder P3, 5 of 5 exact in appfile.py match); packet classes (opcode 175) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
     ('app', 'packets/pkunknown_888b60.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
-    ('app', 'packets/pkguildranknamesrequestclient.cpp'): "opcodes 197, 201 and 210 written by hand (builder P4, 14 of 14 exact); packet classes (opcode 204, 205, 200, 208, 212, 216) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
+    ('app', 'packets/pkguildranknamesrequestclient.cpp'): "opcodes 197, 201, 210 and 211 written by hand (builder P4, 19 of 19 exact); packet classes (opcode 204, 205, 200, 208, 212, 216) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
     ('app', 'packets/pkguildranknamesrequestclient.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
     ('app', 'packets/pkhullupgrade.cpp'): "packet classes (opcode 89) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
     ('app', 'packets/pkhullupgrade.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",

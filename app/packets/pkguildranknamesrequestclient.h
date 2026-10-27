@@ -5,7 +5,7 @@
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
 **	Original location: e:\build\beta\G\app\packets\pkguildranknamesrequestclient.h (the name provisional: see the .cpp)
 **
-**	The packet classes of client 0x88BD40-0x88EC40 rebuilt so far (opcode 204, 205, 197, 200, 201, 208, 210, 212, 216); the file's other classes
+**	The packet classes of client 0x88BD40-0x88EC40 rebuilt so far (opcode 204, 205, 197, 200, 201, 208, 210, 212, 211, 216); the file's other classes
 **	are still declared in pk_classes.h.
 */
 
@@ -17,6 +17,8 @@
 #define PKGUILDRANKNAMESREQUESTCLIENT_H
 
 #include "pk.h"
+#include <string>
+#include <vector>
 
 // A guild permission kind (GUILD_PLAYER_PERMISSIONS reads it through an int: a 4-byte enum)
 enum GuildPermissionEnum  // NAME 1: neutral placeholder (D10)
@@ -143,6 +145,30 @@ public:
 	virtual int Print(char *buffer, int len);	// +0x10 0x88DA30
 
 	int PlayerID;	// +0x0C  // NAME 3: the client's Print text 'PlayerID='
+};
+
+// One guild rank: its number and name (0x14 bytes)
+struct GuildRankNameStruct  // NAME 2: what it holds (GuildRankNamesSector's entries)
+{
+	GuildRankNameStruct() : Rank(-1), Name("") {}
+
+	int Rank;	// +0x00 (network order; -1 by default)  // NAME 2: what it holds
+	std::string Name;	// +0x04 (sent as a string)  // NAME 2: what it holds
+};
+
+// opcode 211 (0x00D3, GUILD_RANK_NAMES_SECTOR): vtable 0xB0AA04, constructor 0x88DE10, 0x1C bytes
+class GuildRankNamesSectorPacket : public PacketClass  // NAME 3: the client's Print text 'GuildRankNamesSector {}'
+{
+public:
+	GuildRankNamesSectorPacket(RawPacketClass *raw);	// 0x88DE10
+	virtual RawPacketClass *Build();	// +0x04 0x88E080
+	virtual bool Process_Packet(void *client);	// +0x08 0x73EE20 (not rebuilt)
+	virtual int Get_Data_Size();	// +0x0C 0x88E1B0
+	virtual int Print(char *buffer, int len);	// +0x10 0x88E220
+
+	void Add(const std::string &name, int rank);	// 0x88E250  // NAME 2: what it does
+
+	std::vector<GuildRankNameStruct> Ranks;	// +0x0C (a network-order count, then name and rank each)  // NAME 2: what it holds
 };
 
 // opcode 216 (0x00D8, ?): vtable 0xB0AA34, constructor 0x88E580, 0x2C bytes
