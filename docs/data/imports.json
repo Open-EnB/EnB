@@ -4988,7 +4988,8 @@
      "0x4F7400",
      "0x4F7600",
      "0x4F7630",
-     "0x4F7870"
+     "0x4F7870",
+     "0x618500"
     ],
     "merged": [],
     "name": "shared/shipcust_desc.cpp"
