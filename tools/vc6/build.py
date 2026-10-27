@@ -500,7 +500,10 @@ LINK_SYS = ['LIBCMT.LIB', 'LIBCPMT.LIB', 'OLDNAMES.LIB', 'KERNEL32.LIB', 'USER32
             'ADVAPI32.LIB', 'OLE32.LIB', 'OLEAUT32.LIB', 'UUID.LIB', 'WINMM.LIB', 'WS2_32.LIB',
             'VFW32.LIB', 'COMSUPP.LIB',                                   # D50
             'sdk:d3d8.lib', 'sdk:d3dx8.lib', 'sdk:dxguid.lib', 'sdk:ddraw.lib']
-UNRES = re.compile(r'error LNK20(?:01|19): unresolved external symbol (\S+)(?: referenced in function (\S+))?')
+# VC6 quotes C++ symbols as `"demangled text" (?mangled@@...)` and C ones as a bare `_name`; the mangled
+# name is the key (group 1 or 3), the demangled text (group 2) is only for the printed summary.
+UNRES = re.compile(r'error LNK20(?:01|19): unresolved external symbol (?:"([^"]*)" \((\S+?)\)|(\S+))'
+                   r'(?: referenced in function (?:"[^"]*" \((\S+?)\)|(\S+)))?')
 
 
 def link_program(name, out):
@@ -587,10 +590,14 @@ def link_summary(name, dst, stubs):
     log = open(os.path.join(dst, 'link.log'), encoding='latin1').read()
     cl = open(os.path.join(dst, 'cl.log'), encoding='latin1').read() if os.path.exists(os.path.join(dst, 'cl.log')) else ''
     unres = collections.OrderedDict()
+    demangled = {}
     for m in UNRES.finditer(log):
-        unres.setdefault(m.group(1), set())
-        if m.group(2):
-            unres[m.group(1)].add(m.group(2))
+        sym = m.group(2) or m.group(3)
+        if m.group(1):
+            demangled[sym] = m.group(1)
+        unres.setdefault(sym, set())
+        if m.group(4) or m.group(5):
+            unres[sym].add(m.group(4) or m.group(5))
     # stub objects the linker pulled: the map's per-section contributions name `stubs.lib:x.obj`
     mapf = os.path.join(dst, name + '.map')
     pulled = set()
@@ -613,7 +620,8 @@ def link_summary(name, dst, stubs):
     for e in summary['cl_errors'][:10]:
         print('  cl:', e[:200])
     for s in list(unres)[:60]:
-        print('  unresolved:', s, ' <- ', ', '.join(sorted(unres[s])[:2]))
+        print('  unresolved:', s, ('(' + demangled[s][:80] + ')') if s in demangled else '',
+              ' <- ', ', '.join(sorted(unres[s])[:2]))
     for e in summary['link_errors'][:10]:
         print('  link:', e[:200])
     return summary
