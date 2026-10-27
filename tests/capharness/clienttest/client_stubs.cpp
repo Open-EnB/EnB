@@ -15,6 +15,8 @@
 #include "..\..\..\app\common\connect.h"
 #include "..\..\..\app\packets\pknamedecal.h"
 #include "..\..\..\app\packets\pkguildranknamesrequestclient.h"
+#include "..\..\..\app\packets\pkupdate.h"
+#include "..\..\..\app\packets\pkcolorization.h"
 #include "rect.h"
 #include "matrix3d.h"
 
@@ -223,3 +225,52 @@ DeltaClass *LookupClass::Find(const NameClass &) { return NULL; }
 // doesn't link)
 #include "..\..\..\app\client\aux_roots.h"
 template<> int DeltaTemplateClass<bool>::UnknownGlobal = 0;
+
+// ------------------------------------------------------------------------- co.h's +0x98 state (postate.cpp)
+
+// co.cpp doesn't define Unknown98Class's slots yet: these stand in. CONSTANT_POSITIONAL_UPDATE 64 news
+// postate.cpp's constant state (declared as cpacket.cpp declares it, plus the two slots the handler calls:
+// its type, 1, and the deleting destructor) and updates it
+Unknown98Class::~Unknown98Class() {}
+int Unknown98Class::Unknown_04() { Trace("stub Unknown98Class::Unknown_04 -> 0"); return(0); }
+Matrix3D Unknown98Class::Unknown_08(int) { Matrix3D m(true); return(m); }
+Vector3 Unknown98Class::Unknown_0C(int) { return(Vector3(0, 0, 0)); }
+Vector3 Unknown98Class::Unknown_10(int) { return(Vector3(0, 0, 0)); }
+Vector3 Unknown98Class::Unknown_14(int) { return(Vector3(0, 0, 0)); }
+class Unknown714B50Class : public Unknown98Class
+{
+public:
+	Unknown714B50Class(ConstantPositionalUpdatePacketClass *packet);
+	virtual ~Unknown714B50Class();
+	virtual int Unknown_04();
+	void Unknown_714D50(ConstantPositionalUpdatePacketClass *packet);
+	int GameID;
+};
+Unknown714B50Class::Unknown714B50Class(ConstantPositionalUpdatePacketClass *packet) : GameID(packet->GameID)
+{
+	Trace("stub Unknown714B50Class::Unknown714B50Class %u (%.2f %.2f %.2f)", GameID, packet->Unknown10[0], packet->Unknown10[1], packet->Unknown10[2]);
+}
+Unknown714B50Class::~Unknown714B50Class() { Trace("stub Unknown714B50Class::~Unknown714B50Class %u", GameID); }
+int Unknown714B50Class::Unknown_04() { return(1); }
+void Unknown714B50Class::Unknown_714D50(ConstantPositionalUpdatePacketClass *packet)
+{
+	Trace("stub Unknown714B50Class::Unknown_714D50 %u (%.2f %.2f %.2f)", packet->GameID, packet->Unknown10[0], packet->Unknown10[1], packet->Unknown10[2]);
+}
+
+// shiputils.cpp's colorization helper (COLORIZATION 17)
+class SClientUnknown1338Class;
+void Unknown_80EFF0(RenderObjClass *, std::vector<ColorizationRegionStruct> &regions, SClientUnknown1338Class *)
+{
+	Trace("stub Unknown_80EFF0 %d regions", (int)regions.size());
+}
+
+// ------------------------------------------------------------------------- the aux-data roots' decode (AUX_DATA 27 / 28)
+
+// unknown_root.cpp's DeltaCompoundClass::Decode (0x4A3FA0), here so that unknown_root.obj stays out: the
+// harness's roots (clienttest.cpp's Aux_Root_Name names them) only log the update's size
+#include "..\..\..\app\shared\auxdata\linearbu.h"
+bool DeltaCompoundClass::Decode(LinearBufferClass &buf, const DurationClass &)
+{
+	Trace("stub DeltaCompoundClass::Decode %s, %d bytes", Aux_Root_Name(this), buf.Size);
+	return(true);
+}

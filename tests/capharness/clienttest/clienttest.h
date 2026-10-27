@@ -4,6 +4,7 @@
 
 // One line in the trace (OUT.txt): every stub and fake appends one
 void Trace(const char *format, ...);
+const char *Aux_Root_Name(const void *root);	// clienttest.cpp: which fake aux root (AUX_DATA 27 / 28)
 
 // The factory's opcodes (clienttest_tables.cpp, gen_stubs.py)
 struct OpcodeInfo

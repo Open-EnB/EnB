@@ -51,6 +51,7 @@
 #include "..\packets\pktriggeremote.h"
 #include "..\packets\pkverblist.h"
 #include "..\packets\pkwarpindex.h"
+#include "aux_roots.h"
 #include "..\shared\auxdata\linearbu.h"
 #include "..\shared\spln_db.h"
 #include "wwprofile.h"
@@ -157,6 +158,31 @@ public:
 // shiputils.cpp's decal helper (cdecl): the packet's decals on the object's model, with the decal INI
 void Unknown_80E8C0(RenderObjClass *model, std::vector<DecalStruct> &decals, SClientUnknown1334Class *decal_ini);	// 0x80E8C0  // NAME 1 [model, decals, decal_ini]: what DECAL 16 passes
 
+// postate.cpp's constant positional state (vtable 0xB02728; its base's 0xB00768): co.h's +0x98 object for
+// CONSTANT_POSITIONAL_UPDATE 64, 0x40 bytes
+class Unknown714B50Class : public Unknown98Class	// NAME 1: neutral (D10)
+{
+public:
+	Unknown714B50Class(ConstantPositionalUpdatePacketClass *packet);	// 0x714B50 (a Matrix3D from the packet's +0x1C and +0x10, the +0x10 Vector3 again)  // NAME 1 [packet]: what the handler passes
+	void Unknown_714D50(ConstantPositionalUpdatePacketClass *packet);	// 0x714D50 (the same fields again)  // NAME 1 [packet]: what the handler passes
+
+	float Unknown04[12];	// +0x04 a Matrix3D
+	float Unknown34[3];		// +0x34 a Vector3
+};
+
+// shiputils.cpp's colorization helper (cdecl): the packet's regions on the object's model
+void Unknown_80EFF0(RenderObjClass *model, std::vector<ColorizationRegionStruct> &regions, SClientUnknown1338Class *unknown);	// 0x80EFF0  // NAME 1 [model, regions, unknown]: what COLORIZATION 17 passes
+
+// co.h's +0xC8 (inside its UnknownB8 block): the object's colorization regions, which COLORIZATION 17 assigns
+// (0x73F770, their vector's operator=)
+inline std::vector<ColorizationRegionStruct> &Unknown_Colorization(ClientObjectClass *object) { return(*(std::vector<ColorizationRegionStruct> *)&object->UnknownB8[0xC8 - 0xB8]); }	// NAME 1: neutral
+
+// SClient +0x12C4's elements: the player-variable aux data roots (an UnknownSendRootClass, 0xADC bytes, made
+// in 0x7518A0), declared as far as PLAYER_VAR_AUX_DATA 28 calls them
+class SClientUnknown12C4Class : public UnknownSendRootClass
+{
+};
+inline void Unknown_Set_Colorization(ClientObjectClass *object, const std::vector<ColorizationRegionStruct> &regions) { Unknown_Colorization(object) = regions; }
 // 0x7333B0
 bool LogoffConfirmationPacketClass::Process_Packet(void *instance)
 {
@@ -219,6 +245,27 @@ bool CreateAttachmentPacketClass::Process_Packet(void *instance)
 	return(true);
 }
 
+// 0x733C80
+bool ConstantPositionalUpdatePacketClass::Process_Packet(void *instance)
+{
+	WWPROFILE("ConstantPositionalUpdatePacketClass::Process_Packet()");
+	SClient *sclient = (SClient *)instance;
+	ClientObjectClass *object = sclient->Find_Object(GameID);
+	if (object) {
+		if (!object->Unknown98) {
+			object->Unknown98 = new Unknown714B50Class(this);
+		} else if (object->Unknown98->Unknown_04() != 1) {
+			delete object->Unknown98;
+			object->Unknown98 = new Unknown714B50Class(this);
+		} else {
+			Unknown714B50Class *state = (Unknown714B50Class *)object->Unknown98;
+			state->Unknown_714D50(this);
+		}
+		object->Unknown_3C();
+	}
+	return(true);
+}
+
 // 0x735D50
 bool RemoveEffectPacketClass::Process_Packet(void *instance)
 {
@@ -241,6 +288,23 @@ bool DecalPacketClass::Process_Packet(void *instance)
 		RenderObjClass *model = object->Unknown_6F3BC0();
 		if (model) {
 			Unknown_80E8C0(model, Decals, sclient->Unknown1334);
+			model->Release_Ref();
+		}
+	}
+	return(true);
+}
+
+// 0x735ED0
+bool ColorizationPacketClass::Process_Packet(void *instance)
+{
+	WWPROFILE("ColorizationPacketClass::Process_Packet()");
+	SClient *sclient = (SClient *)instance;
+	ClientObjectClass *object = sclient->Find_Object(GameID);
+	if (object) {
+		Unknown_Set_Colorization(object, Regions);
+		RenderObjClass *model = object->Unknown_6F3BC0();
+		if (model) {
+			Unknown_80EFF0(model, Regions, sclient->Unknown1338);
 			model->Release_Ref();
 		}
 	}
@@ -274,6 +338,34 @@ bool SetTargetPacketClass::Process_Packet(void *instance)
 	if (Unknown10 != -1 && object && object->Unknown_6F5DC0()) {
 		object->Unknown_70E750(TargetID);
 	}
+	return(true);
+}
+
+// NOT EXACT: register-only (the client loads Size and the duration before pushing 0x400; 16 forms; attempts.py show 0x7364C0)
+// 0x7364C0
+bool AuxDataPacketClass::Process_Packet(void *instance)
+{
+	WWPROFILE("AuxDataPacketClass::Process_Packet()");
+	SClient *sclient = (SClient *)instance;
+	if (GameID == 0) {
+		DurationClass base(sclient->Unknown10C0);
+		sclient->AuxData->Decode(LinearBufferClass(Data, Size, 0x400, false), base);
+		return(true);
+	}
+	ClientObjectClass *object = sclient->Find_Object(GameID);
+	if (object) {
+		((DeltaCompoundClass *)object->AuxData)->Decode(LinearBufferClass(Data, Size, 0x400, false), DurationClass(sclient->Unknown10C0));
+	}
+	return(true);
+}
+
+// NOT EXACT: register-only (the client loads Size and the duration before pushing 0x400; 16 forms; attempts.py show 0x736650)
+// 0x736650
+bool AuxDataPlayerVarPacketClass::Process_Packet(void *instance)
+{
+	WWPROFILE("AuxDataPlayerVarPacketClass::Process_Packet()");
+	SClient *sclient = (SClient *)instance;
+	sclient->Unknown12C4[GameID]->Decode(LinearBufferClass(Data, Size, 0x400, false), DurationClass(sclient->Unknown10C0));
 	return(true);
 }
 
@@ -489,98 +581,6 @@ bool SplinePacketClass::Process_Packet(void *instance)
 	splines->Unpack(Block);
 	return(true);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

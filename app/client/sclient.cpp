@@ -357,7 +357,7 @@ SClient::SClient(ClientTaskClass *task) :
 	Unknown12B4(0),
 	Unknown12B8(0),
 	Unknown12BC(0),
-	Unknown12C0(0),
+	AuxData(0),
 	Unknown12C4(1),
 	Unknown12D4(0),
 	Ticket(0),

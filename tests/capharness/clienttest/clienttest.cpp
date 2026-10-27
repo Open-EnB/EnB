@@ -138,6 +138,12 @@ static FakeModelStruct Fake_Model;
 static FakeModelStruct Track_Model;
 
 static char Fake_Aux[0x4000];		// the player aux data co.cpp's accessors read (zeros)
+static char Fake_Player_Root[0x10];	// SClient +0x12C0 (Init's DeltaPlayerClass: AUX_DATA 27 with game id 0)
+static char Fake_Player_Var_Root[0x10];	// SClient +0x12C4's entry 0 (Init's player-variable root: PLAYER_VAR_AUX_DATA 28)
+const char *Aux_Root_Name(const void *root)
+{
+	return(root == Fake_Player_Root ? "player" : root == Fake_Player_Var_Root ? "player var 0" : root == Fake_Aux ? "object" : "unknown");
+}
 
 static ClientObjectClass *New_Object(unsigned id)
 {
@@ -145,6 +151,7 @@ static ClientObjectClass *New_Object(unsigned id)
 	object->GameID = id;
 	object->Type = 0;			// a player ship for co.cpp's type tests (0x6F5A10)
 	object->AuxData = Fake_Aux;
+	object->Unknown98 = 0;			// (co.cpp's constructor news a default state; CONSTANT_POSITIONAL_UPDATE replaces it)
 	object->Node.Set(object);		// co.cpp's constructor makes the node hold its object
 	object->Model = (RenderObjClass *)((id & 1) ? &Track_Model : &Fake_Model);
 	return object;
@@ -547,6 +554,8 @@ int main(int argc, char **argv)
 	client->MainView = (MainViewClass *)&main_view;
 	static char fake_line_display[0x100];	// ui_line_display.cpp's object (0x100 bytes): client_stubs.cpp's members trace
 	client->LineDisplay = (UILineDisplayClass *)fake_line_display;
+	client->AuxData = (DeltaPlayerClass *)Fake_Player_Root;	// Init's roots (sclient.cpp 0x7518A0, not run)
+	client->Unknown12C4[0] = (SClientUnknown12C4Class *)Fake_Player_Var_Root;
 	Check(client->Unknown_18() == (int)client, "SClient's slot +0x18 returns the client");
 
 	Test_Lists(client);

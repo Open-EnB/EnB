@@ -47,6 +47,7 @@ class UIHotKeysClass;			// NAME 3: class-from-file (D24) for ui_hot_keys.cpp (co
 class UITalkTreeSpaceClass;		// NAME 3: class-from-file (D24) for ui_talkt_space.cpp (constructor 0x64F310, 0x184 bytes)
 class GalaxyMapClientClass;		// NAME 3: class-from-file (D24) for galaxy_map_client.cpp (constructor 0x7A4830, 0xCC bytes)
 class UIStarmapClass;			// NAME 3: class-from-file (D24) for ui_starmap.cpp (constructor 0x7C6120, 0x14 bytes)
+class DeltaPlayerClass;
 class SClientUnknown12C4Class;	// NAME 1: neutral (D10): the elements of SClient +0x12C4
 class SClientUnknown1334Class;	// NAME 1: neutral (D10): 0xB8 bytes, destructor 0x618A50; decal.cpp's 0x75BE00 loads the decal INIs into it
 class SClientUnknown1338Class;	// NAME 1: neutral (D10): 0x24 bytes, an INIClass at +0x14; env_map_manager.cpp's 0x760360 loads 'envmaps.ini' into it
@@ -299,7 +300,7 @@ public:
 	int Unknown12B4;									// +0x12B4
 	RefCountClass *Unknown12B8;							// +0x12B8 (0x74C370: released, set, referenced)
 	SClientUnknown12BCClass *Unknown12BC;				// +0x12BC (Shutdown deletes it)
-	int Unknown12C0;									// +0x12C0
+	DeltaPlayerClass *AuxData;							// +0x12C0 (0x7518A0's G_ASSERT '!AuxData' before its new; AUX_DATA 27 decodes into it)  // NAME 3: the assert's name
 	VectorClass<SClientUnknown12C4Class *> Unknown12C4;	// +0x12C4 vtable 0xB032BC, one entry (NULL)
 	int Unknown12D4;									// +0x12D4
 	TicketClass Ticket;									// +0x12D8 NAME 1: ClientTaskClass::Init copies the ticket here
