@@ -102,6 +102,7 @@ public:
 	void Set_String(const char *key, const char *value);	// 0x7CCB30  // NAME 1: what it does
 	void Set_Int(const char *key, int value);			// 0x7CCE80 ('%d')  // NAME 1: what it does
 	void Set_Int64(const char *key, __int64 value);		// 0x7CCED0  // NAME 1: what it does
+	void Unknown_7CB610(const char *url);				// 0x7CB610 (LoginTaskClass::Fetch_EA_Ticket: auth.ini's LKeyUrl)
 	void Unknown_7CB6F0(int unknown);					// 0x7CB6F0
 
 	char Unknown00[0x2C];

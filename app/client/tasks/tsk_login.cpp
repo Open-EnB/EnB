@@ -27,7 +27,7 @@ void Unknown_Debug_Print(const char *text);			// NAME 1 [Unknown_Debug_Print]: 0
 class GlobalCreateCharacterPacketClass : public PacketClass { public: GlobalCreateCharacterPacketClass(int galaxy, int slot, const char *name, LoginUnknown350Class *a, LoginUnknown88CClass *b, int c); ~GlobalCreateCharacterPacketClass(); char Unknown0C[0x2BC]; };	// opcode 114: 0x864090, 0x864590 (pk_classes.h: the receiving side only)
 class GlobalConnectPacketClass : public PacketClass { public: GlobalConnectPacketClass(const char *ticket, const char *password); ~GlobalConnectPacketClass(); char Unknown0C[0x08]; };	// opcode 109: 0x863400, 0x863570  // NAME 1 [password]: '123456'
 void Unknown_4BC000(const char *sender, const char *category, const char *file, int line, const char *format, ...);	// NAME 1 [Unknown_4BC000]: 0x4BC000, E&B's message reporter (tcpconn.cpp)
-static char *AUTH_INI = "auth.ini";				// 0xB9B9D0  // NAME 1: its text
+static char *AUTH_PRODUCT = "2184"; static char *AUTH_INI = "auth.ini";				// 0xB9B9CC, 0xB9B9D0  // NAME 1 [AUTH_PRODUCT, AUTH_INI]: their texts
 static char *LOGIN_INI = "login.ini";				// 0xB9B9D4  // NAME 1: its text
 static char *LOGIN_DATA = "LOGIN_DATA";			// 0xB9B9D8  // NAME 1: its text
 static char *LOGIN_NAME = "Name";					// 0xB9B9DC  // NAME 1: its text
@@ -86,8 +86,8 @@ bool Unknown_42EA80(KernelEventClass *event);		// NAME 1 [Unknown_42EA80]: the i
 void Unknown_42E8A0(KernelEventClass *event);		// NAME 1 [Unknown_42E8A0]: hands the event on (input.cpp)
 KernelEventClass Unknown_65F780(void *unknown);		// NAME 1 [Unknown_65F780]: neutral (D10) (gadget.cpp)
 class GlobalDeleteCharacterPacketClass : public PacketClass { public: GlobalDeleteCharacterPacketClass(int slot); ~GlobalDeleteCharacterPacketClass(); int Unknown0C; char Unknown10[4]; };	// opcode 113: 0x8647B0, 0x8648B0 (pkglobaldeletecharacter.h: the receiving side only)
-
-
+void Unknown_4BC130(const char *sender, const char *category, const char *file, int line, const char *format, ...);	// NAME 1 [Unknown_4BC130]: 0x4BC130, 0x4BC000's sibling (unknown_debug.cpp)
+char *Unknown_4A1590(char *buffer, int size, const char *string);	// 0x4A1590: a bounded strcpy  // NAME 1 [Unknown_4A1590]: neutral placeholder (D10)
 
 
 
@@ -1095,6 +1095,29 @@ void LoginTaskClass::Unknown_76A370()
 
 
 
+// NOT EXACT: shape (the client merges the two message boxes' tails; attempts.py show 0x76A7B0)
+// 0x76A7B0
+bool LoginTaskClass::Fetch_EA_Ticket()
+{
+	kcom::IComponentFactoryClass *authFactory = AuthLoginLib_GetComponentFactory();
+
+	G_ASSERT(authFactory);
+	kcom::Result kr;
+	IAuthLoginClass *iauth = (IAuthLoginClass *)authFactory->Create(0x67, &kr);
+	G_ASSERT(iauth && kcom::ResultSucceeded(kr));
+
+	INIClass ini(AUTH_INI);
+	G_ASSERT(ini.Is_Loaded());
+	StringClass base;
+	StringClass url;
+	StringClass lkey_url;
+	ini.Get_String(base, "General", "AAIBase", "AuthLogin");
+	ini.Get_String(url, "General", "AAIUrl", "play.net-7.org");
+	ini.Get_String(lkey_url, "General", "LKeyUrl", "");
+	Unknown_7CA2D0()->Unknown_7CB610(lkey_url);
+	AuthLoginResponseClass response(iauth->Login(Username, Password, AUTH_PRODUCT, base, url, 5));
+	bool ok = true;
+	if (!response.Success) {
 
 
 
@@ -1105,6 +1128,15 @@ void LoginTaskClass::Unknown_76A370()
 
 
 
+		Unknown_4BC130("", "", __FILE__, __LINE__, "EATicket failure: %s %d", response.Get_Error_Text(), response.Code);
+		int code = response.Code;
+		if (Unknown_5FADE0() && code == 0x89) {
+			Show_Message("Unfortunately, your 5-day demo period has ended.\n\nHowever, your demo characters are waiting for you to resume your experience among the stars.\n\nSimply purchase the retail version of Earth & Beyond, then select \"Register Account\" from the \"Account Management\" menu of this Demo version.\nTHERE IS NO NEED TO INSTALL FROM THE RETAIL VERSION.\n\nInput your EA.com account name from the demo, and the new Registration Code from the back of your Earth & Beyond Retail CD jewelcase.  Upon log-in, all of your demo characters will be waiting for you, so get back in the galaxy now!", "OK_SMALL");
+		} else {
+			Show_Message(response.Get_Message(), "OK_SMALL");
+		}
+		ok = false;
+	} else {
 
 
 
@@ -1115,45 +1147,13 @@ void LoginTaskClass::Unknown_76A370()
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+		Unknown_4A1590(EATicket, sizeof(EATicket), response.Get_Ticket());
+		G_ASSERT(sizeof(EATicket) > strlen(response.Get_Ticket()) + 1);
+	}
+	authFactory->Release();
+	iauth->Release();
+	return ok;
+}
 
 
 
