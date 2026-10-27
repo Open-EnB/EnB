@@ -92,8 +92,6 @@ GuildGMRenameAcceptSectorPacketClass::GuildGMRenameAcceptSectorPacketClass(RawPa
 GuildDeletePlayerPacketClass::GuildDeletePlayerPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 GuildPlayerInfoDeletedPacketClass::GuildPlayerInfoDeletedPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 GuildDeductFeePacketClass::GuildDeductFeePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-GpsRequestPacketClass::GpsRequestPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-Packet_00DEClass::Packet_00DEClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_00E6Class::Packet_00E6Class(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_00E7Class::Packet_00E7Class(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_0077Class::Packet_0077Class(RawPacketClass *raw) { Conn_Record(this, raw); }

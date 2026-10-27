@@ -755,7 +755,7 @@ PacketClass *Unknown_869790(RawPacketClass *raw)
 			packet = new GpsRequestPacketClass(raw);
 			break;
 		case 222:
-			packet = new Packet_00DEClass(raw);
+			packet = new GpsResponsePacketClass(raw);
 			break;
 		case 223:
 			packet = new DirLockRequestPacketClass(raw);

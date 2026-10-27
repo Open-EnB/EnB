@@ -42,6 +42,7 @@
 #include "pkglobaldeletecharacter.h"	// rebuilt
 #include "pkgloballock.h"	// rebuilt
 #include "pkglobalticketrequest.h"	// rebuilt
+#include "pkgpsrequest.h"	// rebuilt
 #include "pkgroup.h"	// rebuilt
 #include "pkguildranknamesrequestclient.h"	// rebuilt
 #include "pkhullupgrade.h"	// rebuilt
@@ -923,24 +924,6 @@ public:
 	GuildDeductFeePacketClass(RawPacketClass *raw);	// 0x893E80
 	virtual bool Process_Packet(void *client);	// +0x08 0x869330 (clientstub.cpp l.407)
 	char Unknown0C[0x24];	// +0x0C
-};
-
-// opcode 221 (0x00DD, GPS_REQUEST): vtable 0xB0A6D4, constructor 0x888020, 0x20 bytes
-class GpsRequestPacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name GPS_REQUEST (the Net-7 opcode table; no structure check)
-{
-public:
-	GpsRequestPacketClass(RawPacketClass *raw);	// 0x888020
-	virtual bool Process_Packet(void *client);	// +0x08 0x869480 (clientstub.cpp l.428)
-	char Unknown0C[0x14];	// +0x0C
-};
-
-// opcode 222 (0x00DE, ?): vtable 0xB0A704, constructor 0x8883C0, 0x24 bytes
-class Packet_00DEClass : public PacketClass  // NAME 1: neutral (D10): opcode 0x00DE
-{
-public:
-	Packet_00DEClass(RawPacketClass *raw);	// 0x8883C0
-	virtual bool Process_Packet(void *client);	// +0x08 0x8694B0 (clientstub.cpp l.431)
-	char Unknown0C[0x18];	// +0x0C
 };
 
 // opcode 230 (0x00E6, ?): vtable 0xB093C8, constructor 0x863940, 0x38 bytes

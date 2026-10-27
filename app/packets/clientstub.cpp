@@ -427,7 +427,7 @@ bool DirLockReleasePacketClass::Process_Packet(void *)	// 0x869450
 bool GpsRequestPacketClass::Process_Packet(void *)	// 0x869480
 {	G_ASSERT(0); return(true); }
 
-bool Packet_00DEClass::Process_Packet(void *)	// 0x8694B0
+bool GpsResponsePacketClass::Process_Packet(void *)	// 0x8694B0
 {	G_ASSERT(0); return(true); }
 
 bool GlobalLockRequestPacketClass::Process_Packet(void *)	// 0x8694E0

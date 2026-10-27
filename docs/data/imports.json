@@ -1882,6 +1882,36 @@
     "merged": [],
     "name": "packets/pkglobalticketrequest.cpp"
    },
+   "pkgpsrequest": {
+    "ambiguous": [
+     "0x42B2F0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350",
+     "0x887F20",
+     "0x887FF0",
+     "0x888020",
+     "0x8880E0",
+     "0x888150",
+     "0x888240",
+     "0x888290",
+     "0x8882C0",
+     "0x888390",
+     "0x8883C0",
+     "0x888490",
+     "0x888500",
+     "0x8885F0",
+     "0x888640"
+    ],
+    "merged": [],
+    "name": "packets/pkgpsrequest.cpp"
+   },
    "pkgroup": {
     "ambiguous": [
      "0x42B2F0"
@@ -4134,6 +4164,7 @@
    "packets/pkglobaldeletecharacter.h": "reconstructed",
    "packets/pkgloballock.h": "reconstructed",
    "packets/pkglobalticketrequest.h": "reconstructed",
+   "packets/pkgpsrequest.h": "reconstructed",
    "packets/pkgroup.h": "reconstructed",
    "packets/pkguildranknamesrequestclient.h": "reconstructed",
    "packets/pkhullupgrade.h": "reconstructed",
