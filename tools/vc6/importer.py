@@ -3469,6 +3469,12 @@ RECONSTRUCTED = {
     ('app', 'shared/combo_ffactory.cpp'): "ComboFileFactoryClass, client 0x4E4D10-0x4E5A00 with the table's and list's instances "
                                          "after it: the asserts on the client's lines 29 / 30 / 85 / 101 (D25); NOT EXACT: the "
                                          "destructor 0x4E5230, Get_File 0x4E57A0",
+    ('app', 'shared/lookup_table.h'): "LookupTableClass and its continuous / floor / ceiling / closest / interpolated tables, "
+                                     "LookupTableSetClass (the tables of an ini by section name in an SGI hash_map, libs/sgistl, "
+                                     "D87) and LookupTableManagerClass (D24): reference counted (ref_ptr.h)",
+    ('app', 'shared/lookup_table.cpp'): "the lookup tables, client 0x4EC1F0-0x4F0080 with the instances: the asserts on the "
+                                       "client's lines 38-433 (D25); NOT EXACT: the set's destructor 0x4ECE50, the continuous "
+                                       "table's Create 0x4ED660, the sampled table's constructor 0x4EDBE0",
     ('app', 'client/sclient.h'): "SClient (the client's 'SClient::Process_Packets'), declared only as far as tsk_game.cpp uses "
                                 "it: constructor 0x7405E0, 0x14F8 bytes (kernel-map.md 6, step 9)",
     ('app', 'client/unknown_authlogin.h'): "EA.Com's login component as the client uses it (PROVISIONAL file name, D10): kcom's factory and IAuthLoginClass (authlogin.dll, tools/vc6/authlogin.def), AuthLoginResponseClass (0x38 bytes; kernel-map-step9.md 4)",

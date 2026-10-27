@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-113 entries in 33 files.
+117 entries in 33 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -53,8 +53,6 @@ edit the comments in the code, not this file.
 | `app/packets/pkauxdata.cpp:43` | `AuxDataPacketClass::Print` | marker | NOT EXACT: the client reads Size before the first dword of Data (register order; 2 forms, workflow.md 3.1) |
 | `app/packets/pkcolorization.cpp:5` | `ColorizationPacketClass::ColorizationPacketClass` | marker | NOT EXACT: 0x87F320, the inline vector copy's loop addresses each region from its last dword in the client (shape; attempts.py show 0x87F320) |
 | `app/packets/pkcolorization.cpp:62` | `ColorizationPacketClass::Print` | mention | NOT EXACT (parked, attempts.csv). * The file name is provisional (no assert names it). |
-| `app/packets/pkguildplayeronline.cpp:645` | `GuildPlayerInfoDeletedPacketClass::GuildPlayerInfoDeletedPacketClass` | marker | NOT EXACT: scheduling (the client zeroes Unknown68 after its EH state store; attempts.csv) |
-| `app/packets/pkguildplayeronline.cpp:655` | `GuildPlayerInfoDeletedPacketClass::GuildPlayerInfoDeletedPacketClass` | marker | NOT EXACT: scheduling (as the value constructor; attempts.csv) |
 | `app/packets/pknamedecal.cpp:5` | `DecalPacketClass::DecalPacketClass` | marker | NOT EXACT: 0x8805C0, the inline vector copy's loop addresses each decal from +0x10 in the client (shape, as COLORIZATION's 0x87F320; attempts.py show 0x8805C0) |
 | `app/packets/pknamedecal.cpp:14` | `DecalPacketClass::DecalPacketClass` | marker | NOT EXACT: 0x8807B0, the client inlines push_back's insert (over this object's helpers 0x8810F0- 0x881250), ours calls it (inline-budget; attempts.py show 0x8807B0) |
 | `app/packets/pkunknown_867010.cpp:6` | `Packet_00B3Class::Packet_00B3Class` | marker | NOT EXACT: the inline std::string assign's terminating store indexes [ebx + ecx], the client's [ecx + ebx] (otherwise the same bytes) |
@@ -82,12 +80,18 @@ edit the comments in the code, not this file.
 | `app/shared/kv_tripl.cpp:56` | `KVTripleListClass::KVTripleListClass` | marker | NOT EXACT: inline budget, the client inlines the triple's copy constructor here (Copy_Member out of line); ours calls 0x4B85F0 |
 | `app/shared/kv_tripl.cpp:61` | `KVTripleListClass::KVTripleListClass` | marker | NOT EXACT: frame (0x38 vs 0x3C) and inline budget, the client calls the bucket vector's constructor 0x4BA530 out of line and keeps match in ebx |
 | `app/shared/kv_tripl.cpp:77` | `KVTripleListClass::~KVTripleListClass` | marker | NOT EXACT: inline budget, the client calls the vector's erase pieces (0x4BAC30, 0x4B9D60), bucket size() and _M_delete_node out of line |
-| `app/shared/land.cpp:209` | `LandClass::Update_Lightmap_ManualThreaded` | marker | NOT EXACT: the client calls the lighting record's operator= (0x4744C0) in the inlined Update_Lightmap_Full: the record is one struct member there (land.h) |
-| `app/shared/land.cpp:242` | `LandClass::Update_Lightmap_Threaded` | marker | NOT EXACT: as Update_Lightmap_ManualThreaded (the record's operator= 0x4744C0 in the inlined Update_Lightmap_Full) |
-| `app/shared/land.cpp:348` | `LandClass::Upload_Lightmap` | marker | NOT EXACT: frame (0x14, the client 0x20: it keeps this, the size and the buffer in frame slots); 2 forms tried |
-| `app/shared/land.cpp:389` | `LandPatchClass::Build_Vertices` | marker | NOT EXACT: frame (0x3C, the client 0x38); 3 forms tried (attempts.csv 0x474790) |
-| `app/shared/land.cpp:455` | `LandClass::Apply_Colors` | marker | NOT EXACT: shape (the client steps a colour pointer by 3 and tests extra before its loads; the loop bodies match); 3 forms tried |
-| `app/shared/land.cpp:499` | `LandClass::Build_Index_Buffers` | marker | NOT EXACT: field-offset / order (the store order of the strip's index pairs; 2 forms, attempts.csv 0x478240) |
+| `app/shared/land.cpp:113` | `LandClass::Load_Assets` | marker | NOT EXACT: inline-budget (ours inlines LandPatchClass's ctor and Init, the client calls 0x474530 / 0x4746C0; without them the frame slots differ); 7 forms (attempts.csv 0x4691D0) |
+| `app/shared/land.cpp:397` | `LandClass::Limit_Levels` | marker | NOT EXACT: inline-budget (the client calls the first push_back out of line (0x46BF70) and inlines _Freefront in pop_front and the destructor; ours the reverse) |
+| `app/shared/land.cpp:523` | `LandClass::Update_Lightmap_ManualThreaded` | marker | NOT EXACT: the client calls the lighting record's operator= (0x4744C0) in the inlined Update_Lightmap_Full: the record is one struct member there (land.h) |
+| `app/shared/land.cpp:556` | `LandClass::Update_Lightmap_Threaded` | marker | NOT EXACT: as Update_Lightmap_ManualThreaded (the record's operator= 0x4744C0 in the inlined Update_Lightmap_Full) |
+| `app/shared/land.cpp:603` | `LandClass::Update_Patches` | marker | NOT EXACT: shape (written from the disassembly: the client's frame is 0x18 larger, it copies the camera position and ors the change tests; 5 forms, attempts.csv 0x46B3C0) |
+| `app/shared/land.cpp:754` | `LandClass::Upload_Lightmap` | marker | NOT EXACT: frame (0x14, the client 0x20: it keeps this, the size and the buffer in frame slots); 2 forms tried |
+| `app/shared/land.cpp:795` | `LandPatchClass::Build_Vertices` | marker | NOT EXACT: frame (0x3C, the client 0x38); 3 forms tried (attempts.csv 0x474790) |
+| `app/shared/land.cpp:861` | `LandClass::Apply_Colors` | marker | NOT EXACT: shape (the client steps a colour pointer by 3 and tests extra before its loads; the loop bodies match); 3 forms tried |
+| `app/shared/land.cpp:905` | `LandClass::Build_Index_Buffers` | marker | NOT EXACT: field-offset / order (the store order of the strip's index pairs; 2 forms, attempts.csv 0x478240) |
+| `app/shared/lookup_table.cpp:111` | `LookupTableSetClass::~LookupTableSetClass` | marker | NOT EXACT: inline budget (explain.py: inline-budget), the client calls the bucket vector's _Destroy 0x4EF140 out of line in the table's destructor; ours inlines it |
+| `app/shared/lookup_table.cpp:142` | `ContinuousLookupTableClass::Create` | marker | NOT EXACT: inline budget (explain.py: shape, 19 vs 17 calls), the client inlines the values vector's constructor and resize's first size(); ours calls them (frame 0x2C, the client 0x28) |
+| `app/shared/lookup_table.cpp:204` | `SampledLookupTableClass::SampledLookupTableClass` | marker | NOT EXACT: order-only, the client stores the sample's Value (atof) after pushing push_back's arguments, ours before; everything else equal |
 | `app/shared/spln_db.cpp:57` | `SplineDatabaseClass::~SplineDatabaseClass` | marker | NOT EXACT: inline-budget (the client inlines HashListClass::First_Valid in the Free_Splines loop; ours calls it) |
 | `app/shared/spln_db.cpp:96` | `SplineDatabaseClass::Save` | marker | NOT EXACT: shape (the filename copy and the save chunks: the client inlines Save_Chunks with Write_String and Save_Entry out of line) |
 | `app/shared/spln_db.cpp:487` | `SplineDatabaseClass::Get_Color_Curves` | marker | NOT EXACT: inline-budget (the client calls HashListClass::Find out of line for _G only) |
