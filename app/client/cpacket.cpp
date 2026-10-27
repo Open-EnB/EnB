@@ -192,6 +192,16 @@ public:
 	virtual bool Unknown_2C();
 };
 
+// postate.cpp's type 3 state, SIMPLE_POSITIONAL_UPDATE 8's (8 bytes)
+class Unknown715AB0Class : public Unknown98StateClass	// NAME 1: neutral (D10)
+{
+public:
+	Unknown715AB0Class(SimplePositionalUpdatePacketClass *packet);	// 0x715AB0  // NAME 1 [packet]: what the handler passes
+	void Unknown_715C20(SimplePositionalUpdatePacketClass *packet);	// 0x715C20  // NAME 1 [packet]: what the handler passes
+
+	int Unknown04;
+};
+
 // postate.cpp's states ADVANCED_POSITIONAL_UPDATE 62 makes: type 4 for the player's own object (0x28 bytes),
 // type 8 for the others (0x1C bytes); both take the client's +0x10BC and the packet
 class Unknown717010Class : public Unknown98StateClass	// NAME 1: neutral (D10)
@@ -360,43 +370,33 @@ bool ConstantPositionalUpdatePacketClass::Process_Packet(void *instance)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// NOT EXACT: inline-budget (the client calls WWMath::Is_Valid_Float out of line for Position's Z, Orientation's Z and W, Velocity's Z; attempts.py show 0x733DC0)
+// 0x733DC0
+bool SimplePositionalUpdatePacketClass::Process_Packet(void *instance)
+{
+	WWPROFILE("SimplePositionalUpdatePacketClass::Process_Packet()");
+	SClient *sclient = (SClient *)instance;
+	FAIL_IF(!(Position.Is_Valid() && Orientation.Is_Valid() && Velocity.Is_Valid())) return(true);
+	TimeStamp = (DurationClass(TimeStamp) - DurationClass(sclient->Unknown10C0)).As_Int();
+	float delta = (float)(sclient->Unknown10BC - (int)TimeStamp); sclient->Unknown10D0++;
+	sclient->Unknown10C8 = sclient->Unknown10C8 - sclient->Unknown10C8 / sclient->Unknown10CC + delta;
+	if (fabs(sclient->Unknown10C8 / sclient->Unknown10CC) > 50.0 && sclient->Unknown10D0 > 64) {
+		sclient->Unknown_728180();
+	}
+	ClientObjectClass *object = sclient->Find_Object(GameID);
+	if (object) {
+		if (!object->Unknown98) {
+			object->Unknown98 = new Unknown715AB0Class(this);
+		} else if (object->Unknown98->Unknown_04() != 3) {
+			delete object->Unknown98;
+			object->Unknown98 = new Unknown715AB0Class(this);
+		} else {
+			Unknown715AB0Class *state = (Unknown715AB0Class *)object->Unknown98;
+			state->Unknown_715C20(this);
+		}
+	}
+	return(true);
+}
 
 
 
@@ -408,8 +408,8 @@ bool AdvancedPositionalUpdatePacketClass::Process_Packet(void *instance)
 	SClient *sclient = (SClient *)instance;
 	FAIL_IF(!(Position.Is_Valid() && Orientation.Is_Valid() && WWMath::Is_Valid_Float(CurrentSpeed) && ImpartedVelocity.Is_Valid())) return(true);
 	TimeStamp = (DurationClass(TimeStamp) - DurationClass(sclient->Unknown10C0)).As_Int();
-	sclient->Unknown10D0++;
-	sclient->Unknown10C8 = sclient->Unknown10C8 - sclient->Unknown10C8 / sclient->Unknown10CC + (sclient->Unknown10BC - (int)TimeStamp);
+	float delta = (float)(sclient->Unknown10BC - (int)TimeStamp); sclient->Unknown10D0++;
+	sclient->Unknown10C8 = sclient->Unknown10C8 - sclient->Unknown10C8 / sclient->Unknown10CC + delta;
 	if (fabs(sclient->Unknown10C8 / sclient->Unknown10CC) > 50.0 && sclient->Unknown10D0 > 64) {
 		sclient->Unknown_728180();
 	}

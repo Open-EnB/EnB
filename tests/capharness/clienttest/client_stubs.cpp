@@ -377,3 +377,23 @@ Unknown6E9490EffectClass *Unknown_6E9490(int desc_id, int effect_id, int duratio
 	effect->Node.Set(effect);
 	return(effect);
 }
+// SIMPLE_POSITIONAL_UPDATE 8's state (postate.cpp)
+class Unknown715AB0Class : public Unknown98StateClass
+{
+public:
+	Unknown715AB0Class(SimplePositionalUpdatePacketClass *packet);
+	virtual ~Unknown715AB0Class();
+	virtual int Unknown_04();
+	void Unknown_715C20(SimplePositionalUpdatePacketClass *packet);
+	int GameID;
+};
+Unknown715AB0Class::Unknown715AB0Class(SimplePositionalUpdatePacketClass *packet) : GameID(packet->GameID)
+{
+	Trace("stub Unknown715AB0Class::Unknown715AB0Class %u stamp %d", GameID, (int)packet->TimeStamp);
+}
+Unknown715AB0Class::~Unknown715AB0Class() { Trace("stub Unknown715AB0Class::~Unknown715AB0Class %u", GameID); }
+int Unknown715AB0Class::Unknown_04() { return(3); }
+void Unknown715AB0Class::Unknown_715C20(SimplePositionalUpdatePacketClass *packet)
+{
+	Trace("stub Unknown715AB0Class::Unknown_715C20 %u stamp %d", packet->GameID, (int)packet->TimeStamp);
+}
