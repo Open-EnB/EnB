@@ -2666,6 +2666,35 @@
     "merged": [],
     "name": "packets/pkcreateattachment.cpp"
    },
+   "pkcreatecharacter": {
+    "ambiguous": [
+     "0x42B2F0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42A820",
+     "0x42A970",
+     "0x42AB30",
+     "0x42CD30",
+     "0x42F250",
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350",
+     "0x53BB50",
+     "0x85C5F0",
+     "0x85C7D0",
+     "0x85CB00",
+     "0x85CF80",
+     "0x85D000",
+     "0x85D110",
+     "0x85D140"
+    ],
+    "merged": [],
+    "name": "packets/pkcreatecharacter.cpp"
+   },
    "pkcta_request": {
     "ambiguous": [
      "0x42B2F0"
@@ -7019,6 +7048,7 @@
    "packets/pkconfirmedaction.h": "reconstructed",
    "packets/pkcreate.h": "reconstructed",
    "packets/pkcreateattachment.h": "reconstructed",
+   "packets/pkcreatecharacter.h": "reconstructed",
    "packets/pkcta_request.h": "reconstructed",
    "packets/pkdamage.h": "reconstructed",
    "packets/pkdebug.h": "reconstructed",

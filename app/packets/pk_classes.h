@@ -37,6 +37,7 @@
 #include "pkconfirmedaction.h"	// rebuilt
 #include "pkcreate.h"	// rebuilt
 #include "pkcreateattachment.h"	// rebuilt
+#include "pkcreatecharacter.h"	// rebuilt
 #include "pkcta_request.h"	// rebuilt
 #include "pkdamage.h"	// rebuilt
 #include "pkdebug.h"	// rebuilt
@@ -264,16 +265,6 @@ public:
 	GlobalLoginPacketClass(RawPacketClass *raw);	// 0x866050
 	virtual bool Process_Packet(void *client);	// +0x08 0x76B9C0 (tsk_login.cpp)
 	char Unknown0C[0xB4];	// +0x0C
-};
-
-// opcode 72 (0x0048, ?): vtable 0xB08D64, constructor 0x85C5F0, 0x2E0 bytes
-class Packet_0048Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x0048
-{
-public:
-	Packet_0048Class(RawPacketClass *raw);	// 0x85C5F0
-	virtual bool Process_Packet(void *client);	// +0x08 0x868040 (clientstub.cpp l.104)
-	virtual bool Unknown_28(void *a);	// +0x28 0x868070 (clientstub.cpp l.107)  // NAME 1: neutral (D10)
-	char Unknown0C[0x2D4];	// +0x0C
 };
 
 // opcode 83 (0x0053, FIND_MEMBER): vtable 0xB0A58C, constructor 0x886710, 0x1C bytes

@@ -13,7 +13,6 @@ GlobalAvatarListPacketClass::GlobalAvatarListPacketClass(RawPacketClass *raw) { 
 GlobalCreateCharacterPacketClass::GlobalCreateCharacterPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 GlobalErrorPacketClass::GlobalErrorPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 GlobalLoginPacketClass::GlobalLoginPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-Packet_0048Class::Packet_0048Class(RawPacketClass *raw) { Conn_Record(this, raw); }
 FindMemberPacketClass::FindMemberPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 VerbListPacketClass::VerbListPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_00B5Class::Packet_00B5Class(RawPacketClass *raw) { Conn_Record(this, raw); }
