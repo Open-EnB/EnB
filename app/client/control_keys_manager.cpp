@@ -372,7 +372,7 @@ bool ControlKeysManager::_Does_Key_Exist(const std::string &key_name)
 
 
 
-// NOT EXACT: inline budget, ~195 rows: the client calls the contexts hash_map ctor 0x71DCE0 and inlines both first resizes; ours the reverse
+// NOT EXACT: inline budget, ~90 rows: the client calls hash_map() 0x71DCE0, First_Valid 0x71BCC0 and two pair ctors 0x71ED90 out of line, ours inlines them (attempts.csv)
 void ControlKeysManager::Load_Definitions()
 {
 	FAIL_IF(_NumKeyDefs) return;
@@ -430,15 +430,15 @@ void ControlKeysManager::Load_Definitions()
 
 		char key_str[256];
 		ini.Get_String(section_name, "KEY", "", key_str, sizeof(key_str));
-		ControlKeyDefStruct *def = new ControlKeyDefStruct(section_name, text_str, key_str, context, _NumKeyDefs);
-		std::auto_ptr<ControlKeyDefStruct> def_ptr(def);
+		std::auto_ptr<ControlKeyDefStruct> def_ptr(new ControlKeyDefStruct(section_name, text_str, key_str, context, _NumKeyDefs));
+		ControlKeyDefStruct *def = def_ptr.get();
 		_KeyDefinitions[def->Name] = def_ptr;
-		_DefaultPSW[_NumKeyDefs].DefPtr = _DefaultSIM[_NumKeyDefs].DefPtr = def;
+		KeyMappingStruct &psw = _DefaultPSW[_NumKeyDefs]; KeyMappingStruct &sim = _DefaultSIM[_NumKeyDefs]; psw.DefPtr = sim.DefPtr = def;
 		if (!key_str[0]) {
-			_DefaultPSW[_NumKeyDefs].Keys[0] = Unknown_42A1A0(ini, section_name, "PSW_1");
-			_DefaultPSW[_NumKeyDefs].Keys[1] = Unknown_42A1A0(ini, section_name, "PSW_2");
-			_DefaultSIM[_NumKeyDefs].Keys[0] = Unknown_42A1A0(ini, section_name, "SIM_1");
-			_DefaultSIM[_NumKeyDefs].Keys[1] = Unknown_42A1A0(ini, section_name, "SIM_2");
+			psw.Keys[0] = Unknown_42A1A0(ini, section_name, "PSW_1");
+			psw.Keys[1] = Unknown_42A1A0(ini, section_name, "PSW_2");
+			sim.Keys[0] = Unknown_42A1A0(ini, section_name, "SIM_1");
+			sim.Keys[1] = Unknown_42A1A0(ini, section_name, "SIM_2");
 		}
 		_NumKeyDefs++;
 	}
