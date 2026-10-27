@@ -150,8 +150,12 @@ retry read `python tools/re/attempts.py show ADDR` (builders.md §2). Switches: 
 
 **Two-attempt stop rule.** After two failed attempts on a register-only or order-only residue,
 record it (`attempts.py record ADDR ... --status parked --blocker register|order --forms N
---evidence ...`, stash the best form) and move on; a third attempt is a Fable job under D72
-(builders.md §4), not another Opus round. Make_Screen_Shot 0x9182C0 took ~110 forms to learn this.
+--evidence ...`, stash the best form) and move on. A register-only or order-only residue never gets a
+third attempt by anyone: VC6 collapses such forms into a few canonical outputs (Make_Screen_Shot 0x9182C0
+took ~110 forms to learn this); it waits for a lever proven on another function. An inline-budget, frame or
+shape residue gets one Fable round under D72 and D89 (builders.md §4): 8 forms from stated hypotheses, then
+a written explanation in attempts.csv and `LIMIT REACHED`; `attempts.py check` refuses a later retry
+unless `--lever` cites a new row of this table.
 
 | Symptom (what the diff or `explain.py` shows) | Lever (the source change that fixed it) | Proven (address, commit) |
 |---|---|---|

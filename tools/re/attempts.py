@@ -153,6 +153,28 @@ def fmt(r):
     return s
 
 
+def limit_reached(rows):
+    """D89: why a function may not be retried without a new §3.1 lever, or '' when it may.
+
+    rows: every row of one address. A register-only or order-only residue after two rounds never gets a
+    third by anyone; an inline-budget, frame or shape residue gets two Opus rounds and one Fable round.
+    """
+    tried = [r for r in rows if r['status'] in ('partial', 'parked', 'blocked')]
+    if len(tried) < 2:
+        return ''
+    newest = max(tried, key=lambda r: r['date'])
+    opus = sum(1 for r in tried if r['model'].strip().lower() == 'opus')
+    fable = sum(1 for r in tried if r['model'].strip().lower() == 'fable')
+    blocker = newest['blocker'].strip().lower()
+    if blocker.startswith(('register', 'order')):
+        return (f"LIMIT REACHED (D89): {blocker} residue after {len(tried)} rounds; no retry by any model "
+                "without a lever proven on another function (workflow.md section 3.1)")
+    if opus >= 2 and fable >= 1:
+        return (f"LIMIT REACHED (D89): {opus} Opus rounds and {fable} Fable round(s); no retry without a new "
+                "section 3.1 lever cited with `attempts.py check --lever`")
+    return ''
+
+
 def cmd_show(a):
     rows = [r for r in load() if matches(r, a.key)]
     if not rows:
@@ -161,6 +183,9 @@ def cmd_show(a):
     for r in sorted(rows, key=lambda r: r['date'], reverse=True):
         print(fmt(r))
     for addr in sorted({r['address'] for r in rows}):
+        why = limit_reached([r for r in rows if r['address'] == addr])
+        if why:
+            print(f'  {addr}: {why}')
         d = os.path.join(STASH, addr[2:])
         if os.path.isdir(d):
             for f in sorted(os.listdir(d)):
@@ -215,14 +240,21 @@ def cmd_check(a):
             named = short and len(short) > 3 and re.search(r'\b' + re.escape(short) + r'\b', text)
             if r['address'] not in addrs and not named:
                 continue
+            why = limit_reached([x for x in rows if x['address'] == r['address']])
+            if why and not a.lever:
+                bad.append((p, r, why))
+                continue
             if r['status'] not in ('parked', 'blocked') or r['address'] in acked:
                 continue
             if a.since and r['date'] <= a.since:
                 continue
-            bad.append((p, r))
-    for p, r in bad:
-        print(f"{rel(p)}: {r['address']} {r['symbol']} is {r['status']} since {r['date']}: "
-              f"read `attempts.py show {r['address']}`, then retry with --since or --ack")
+            bad.append((p, r, ''))
+    for p, r, why in bad:
+        if why:
+            print(f"{rel(p)}: {r['address']} {r['symbol']}: {why}; pass --lever 'the section 3.1 row' only with one")
+        else:
+            print(f"{rel(p)}: {r['address']} {r['symbol']} is {r['status']} since {r['date']}: "
+                  f"read `attempts.py show {r['address']}`, then retry with --since or --ack")
     if bad:
         raise SystemExit(1)
     print(f'ok: {len(a.paths)} file(s), no parked or blocked attempt newer than the claim')
@@ -254,6 +286,7 @@ def main():
     c.add_argument('paths', nargs='+')
     c.add_argument('--since')
     c.add_argument('--ack', nargs='*')
+    c.add_argument('--lever', help='D89: the new workflow.md section 3.1 row that justifies retrying a LIMIT REACHED function')
     a = ap.parse_args()
     {'record': cmd_record, 'show': cmd_show, 'list': cmd_list, 'check': cmd_check}[a.cmd](a)
 

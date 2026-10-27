@@ -99,7 +99,7 @@ ADDR`, REA last (5 minutes of start-up).
 |---|---|---|
 | Coordinator | Fable | the user's choice |
 | Builders: verify loops, byte matching, RE, programs | **Opus** (default) | their tokens are mostly tool output; a stronger model doesn't cut the iteration count |
-| A reasoning puzzle with small input (an inline-budget or codegen-form near-miss) **after two failed Opus attempts**; or a one-shot analysis whose wrong answer would cost a builder run | Fable | the only cases where the expected total is lower |
+| A reasoning puzzle with small input (an inline-budget, frame or shape near-miss) **after two failed Opus attempts**, under D89's limits (never a register-only or order-only residue; one Fable round per function, 8 forms, 4 functions per session, 6 in the queue, one Fable builder at a time; `attempts.py show` says LIMIT REACHED); or a one-shot analysis whose wrong answer would cost a builder run | Fable | the only cases where the expected total is lower |
 | Read-only audits, cross-referencing, doc moves, log digging, generator reruns: anything a tool checks afterwards (verify, names.py, a diff); Explore agents | Sonnet | cheap, and the check catches mistakes |
 | Grep-level searches, log triage | Haiku | never edits tree code |
 
