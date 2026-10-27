@@ -6,6 +6,9 @@ VARIANTS.py (keep it in .work/; write it with a file tool, not a heredoc) define
     V = {name: [(relpath, old, new), ...]}   edits on the current tree files, each `old` once in its file
     COMPILE = [relpath, ...]                 the sources to compile (default: the .cpp files V touches)
     WATCH = ['0x82A470', ...]                optional: addresses to report as exact or not per variant
+    EXTRA_INC = ['libs/sgistl', ...]         optional extra include/sync directories, repo-relative
+                                             (default libs/sgistl): a compile survives another builder's
+                                             uncommitted include of an untracked directory
 relpaths are repository-relative with '/' (`app/common/connect.h`, `app/shared/auxdata/lookup.cpp`):
 any library, app subdirectories included, headers too. Strings use '\\n'; each is converted to the
 file's own line ending (CRLF or LF), so never write '\\r\\n' in a variant.
@@ -21,18 +24,45 @@ a header and its .cpp or two app files; then record the winner (addpatch.py or t
 itself) and run a full verify, since a header or inline change can affect other files. Promoted
 from builder step 8's .work/step8b/tryv2.py (2026-10-26).
 """
+import collections
 import os
 import runpy
+import shutil
 import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.dirname(os.path.dirname(HERE))
 sys.path.insert(0, HERE)
 import importer  # noqa: E402
+import vc6  # noqa: E402
 
 
 def norm_addr(a):
     return int(a, 16) if isinstance(a, str) else int(a)
+
+
+def compile_and_match(paths, tag, extra_inc):
+    """importer.compile_and_match plus extra include/sync directories (app files only)."""
+    importer.hold_lock()
+    out = os.path.join(importer.WORK, tag)
+    if os.path.isdir(out):
+        shutil.rmtree(out)
+    app = importer.APP_LIBS.get(importer.lib_of(paths[0]))
+    if not app:
+        found = importer.compile_and_match(paths, tag)[0]
+        return set().union(*found.values()) if found else set(), ''
+    root = importer.dest(importer.lib_of(paths[0]))
+    extra = [os.path.join(REPO, d) for d in extra_inc]
+    rc, text = vc6.compile_sources(paths, importer.tree_includes() + extra, defines=app['defines'], out=out,
+                                   flags=importer.flags_for(paths),
+                                   extra_sync=[d for d, _, _ in os.walk(root)] + importer.late_sync() + extra,
+                                   source_alias=(REPO, app['file_root']))
+    objs = [os.path.join(out, f) for f in os.listdir(out)] if os.path.isdir(out) else []
+    found = set()
+    for r in importer.match_objects(importer.image(), objs, app['region']) if objs else []:
+        if r['status'] == 'exact':
+            found.add(r['addresses'][0])
+    return found, text
 
 
 def main():
@@ -45,6 +75,7 @@ def main():
     if not compile_:
         raise SystemExit('nothing to compile: give COMPILE')
     watch = [norm_addr(a) for a in spec.get('WATCH', [])]
+    extra_inc = spec.get('EXTRA_INC', ['libs/sgistl'])
     for f in set(touched) | set(compile_):
         if not os.path.isfile(os.path.join(REPO, f)):
             raise SystemExit(f'{f}: no such tree file')
@@ -53,9 +84,9 @@ def main():
     origs = {f: open(os.path.join(REPO, f), encoding='latin1', newline='').read() for f in touched}
 
     def run(tag):
-        found, text = importer.compile_and_match(paths, 'tryv2-' + tag)
+        found, text = compile_and_match(paths, 'tryv2-' + tag, extra_inc)
         errors = [line for line in text.splitlines() if ' error ' in line]
-        return set().union(*found.values()) if found else set(), errors
+        return found, errors
 
     def watched(got):
         ints = {norm_addr(x) for x in got}
