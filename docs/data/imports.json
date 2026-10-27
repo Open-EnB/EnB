@@ -583,10 +583,12 @@
    "client_lego_impl": {
     "ambiguous": [
      "0x42A6C0",
+     "0x42A890",
      "0x42A900",
      "0x42AAE0",
      "0x42AC90",
      "0x42AFF0",
+     "0x42B250",
      "0x42B2F0",
      "0x42D180",
      "0x4333D0",
@@ -597,8 +599,10 @@
      "0x474080",
      "0x474450",
      "0x474480",
+     "0x4982F0",
      "0x51C780",
-     "0x729740"
+     "0x729740",
+     "0x731EA0"
     ],
     "copy": "reconstructed",
     "expected": {},
@@ -607,6 +611,8 @@
      "0x42A940",
      "0x42A970",
      "0x42AB30",
+     "0x42C4E0",
+     "0x42CAB0",
      "0x42CD30",
      "0x42DB00",
      "0x42F250",
@@ -7276,6 +7282,7 @@
    "packets/pkitemba.h": "reconstructed",
    "packets/pkitemstate.h": "reconstructed",
    "packets/pkjoblist.h": "reconstructed",
+   "packets/pklogin.h": "reconstructed",
    "packets/pklogoff.h": "reconstructed",
    "packets/pkloothulkpermission.h": "reconstructed",
    "packets/pkloungenpc.h": "reconstructed",

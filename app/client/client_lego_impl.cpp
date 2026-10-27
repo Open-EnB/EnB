@@ -1,12 +1,12 @@
 // Earth & Beyond client (reconstruction): app\Client\client_lego_impl.cpp. Notes at the end of the file.
 #include "client_lego_impl.h"
 #include "..\..\wwlib\ini.h"
+#include "..\..\wwlib\wwstring.h"
+#include <stdio.h>
 
-std::hash_map<int, RefCountPtr<LegoBoneMapClass> > ClientLegoImplClass::_Global_Bone_Maps;
-INIClass *ClientLegoImplClass::_CBASSET_INI = NULL;
-
-
-
+static const char *_Attach_Bone = "ATTACH";  // NAME 1 [_Attach_Bone]: neutral (D10), 0xB95070
+static std::hash_map<int, RefCountPtr<LegoBoneMapClass> > _Global_Bone_Maps;  // 0xBE7D28: the client's assert (a file static: the asserts name it unqualified in the bone map's constructor too)
+static INIClass *_CBASSET_INI = NULL;  // 0xBE7D44: the client's asserts
 
 
 
@@ -161,6 +161,36 @@ void ClientLegoImplClass::Unknown_1C(void)
 	}
 }
 
+// NOT EXACT: shape, mostly registers: the client keeps the child record and the key in ebx / ebp across the loop
+void ClientLegoImplClass::Init(int asset_id, const RefCountPtr<RenderObjClass> &render_object)
+{
+	BoneMap = Get_Bone_Map(asset_id);
+	AssetId = asset_id;
+	Radius = BoneMap ? BoneMap->Radius : 0.0f;
+	for (std::hash_map<std::string, LegoChildStruct>::iterator it = Children.begin(); it != Children.end(); ++it) {
+		LegoChildStruct &child = (*it).second;
+		const std::string &bone_name = (*it).first;
+		if (child.Knob) {
+			Detach(child.Child, RenderObject, child.Knob);
+		}
+		child.Knob = BoneMap->Get_Knob(bone_name);
+		if (child.Knob) {
+			Attach(child.Child, render_object, child.Knob);
+		}
+	}
+	RenderObject = render_object;
+	if (RenderObject) {
+		Matrix3D attach = RenderObject->Get_Bone_Transform(_Attach_Bone);
+		attach.Get_Inverse(Transform);
+	} else {
+		Transform = Matrix3D::Identity;
+	}
+	Update_Radius();
+	if (Parent) {
+		Parent->Unknown_00(Get_Identifier());
+	}
+}
+
 RefCountPtr<RenderObjClass> ClientLegoImplClass::Get_Render_Object(void) const
 {
 	return RenderObject;
@@ -186,36 +216,6 @@ void ClientLegoImplClass::Detach_All(std::vector<RefCountPtr<LegoClass> > &legos
 	Orphans.clear();
 	Update_Radius();
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -749,6 +749,74 @@ void ClientLegoImplClass::Detach(const RefCountPtr<LegoClass> &child, const RefC
 		render_object->Remove_Sub_Object(child->Get_Render_Object().Peek());
 		child->Clear_Parent();
 	}
+}
+
+// NOT EXACT: frame: ours 0x1C, the client 0x14 (the client reuses the iterator's slots for operator[]'s pair)
+RefCountPtr<LegoBoneMapClass> ClientLegoImplClass::Get_Bone_Map(int asset_id)
+{
+	{
+		std::hash_map<int, RefCountPtr<LegoBoneMapClass> >::iterator it = _Global_Bone_Maps.find(asset_id);
+		if (it != _Global_Bone_Maps.end()) {
+			return (*it).second;
+		}
+	}
+	RefCountPtr<LegoBoneMapClass> bone_map = Create_NEW(new LegoBoneMapClass(asset_id));
+	_Global_Bone_Maps[asset_id] = bone_map;
+	return bone_map;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+// NOT EXACT: order-only, 2 rows: the loop's back edge reloads two stack values in the other order (attempts.csv)
+LegoBoneMapClass::LegoBoneMapClass(int asset_id) :
+	Radius(0.0f)
+{
+	char base[16];
+	sprintf(base, "BASE-%d", asset_id);
+	FAIL_IF(!_CBASSET_INI) {
+	} else {
+		INIClass *ini = _CBASSET_INI;
+		Radius = ini->Get_Float(base, "Radius", 1.0f);
+		Radius += ini->Get_Float(base, "RadiusAdjust", 0.0f);
+		int mount = 0;
+		char section[32];
+		_snprintf(section, sizeof(section), "%s/Mount%02d", base, mount);
+		while (ini->Section_Present(section)) {
+			StringClass bone_name_string;
+			ini->Get_String(bone_name_string, section, "BoneName");
+
+
+
+
+
+
+			FAIL_IF(!bone_name_string.Peek_Buffer()) return;
+			std::string bone_name = bone_name_string.Peek_Buffer();
+			int bone_index = ini->Get_Int(section, "BoneIndex", -1);
+
+
+
+
+			FAIL_IF(bone_index <= 0) return;
+			RefCountPtr<LegoKnobClass> knob = Create_NEW(new LegoKnobClass(bone_name, bone_index));
+			Knobs[bone_name] = knob;
+			_snprintf(section, sizeof(section), "%s/Mount%02d", base, ++mount);
+		}
+	}
+}
+
+LegoBoneMapClass::~LegoBoneMapClass(void)
+{
+	Knobs.clear();
 }
 /*
 **	Reconstruction notes

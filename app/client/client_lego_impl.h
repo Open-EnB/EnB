@@ -38,6 +38,8 @@ class LegoParentClass;
 class LegoKnobClass : public RefCountClass  // NAME 1 [LegoKnobClass]: neutral (D10), the client's 'knob' locals
 {
 public:
+	LegoKnobClass(std::string bone_name, int bone_index);			// 0x72DE40
+
 	std::string BoneName;											// +0x08: what Add_Sub_Object_To_Bone gets  // NAME 2: what it holds
 	int BoneIndex;													// +0x18: what Capture_Bone / Release_Bone get  // NAME 2: what it holds
 };
@@ -46,6 +48,10 @@ public:
 class LegoBoneMapClass : public RefCountClass  // NAME 1 [LegoBoneMapClass]: neutral (D10), the client's 'BoneMap' member
 {
 public:
+	LegoBoneMapClass(int asset_id);									// 0x72D5F0: cbasset.ini's BASE-n section and its Mount sections
+	virtual ~LegoBoneMapClass(void);								// 0x72DC10
+	RefCountPtr<LegoKnobClass> Get_Knob(const std::string &bone_name);	// 0x72DDA0  // NAME 2: what it returns
+
 	std::hash_map<std::string, RefCountPtr<LegoKnobClass> > Knobs;	// +0x08  // NAME 2: what it holds
 	float Radius;													// +0x20: the asset's own radius  // NAME 2: what it holds
 };
@@ -90,7 +96,7 @@ public:
 class LegoParentClass  // NAME 1 [LegoParentClass]: neutral (D10), the client's 'Parent' member
 {
 public:
-	virtual void Unknown_00(const LegoIdentifierClass &id) = 0;		// +0x00  // NAME 1: neutral (D10)
+	virtual void Unknown_00(const LegoIdentifierClass &id) = 0;		// +0x00: Init tells the parent  // NAME 1: neutral (D10)
 	virtual void Child_Changed(const LegoIdentifierClass &id) = 0;	// +0x04: a child's radius changed  // NAME 2: what it does
 };
 
@@ -110,6 +116,7 @@ public:
 
 	static void Init_Bone_Maps(const std::string &filename);		// 0x729BF0  // NAME 2: what it does
 	static void Shutdown_Bone_Maps(void);							// 0x729D60  // NAME 2: what it does
+	static RefCountPtr<LegoBoneMapClass> Get_Bone_Map(int asset_id);	// 0x72D3E0: one map per asset id, loaded once  // NAME 2: what it returns
 	static RefCountPtr<LegoClass> Create(const LegoIdentifierClass &id, int unknown, int asset_id, const RefCountPtr<RenderObjClass> &render_object);	// 0x729E00  // NAME 2: what it does
 
 	virtual const LegoIdentifierClass &Get_Identifier(void) const;	// 0x72A5A0
@@ -152,8 +159,6 @@ public:
 	Matrix3D Transform;												// +0x6C  // NAME 2: what Get_Transform returns
 	LegoParentClass *Parent;										// +0x9C: the client's asserts 'Parent'
 
-	static std::hash_map<int, RefCountPtr<LegoBoneMapClass> > _Global_Bone_Maps;	// 0xBE7D28: the client's assert
-	static INIClass *_CBASSET_INI;									// 0xBE7D44: the client's assert
 };
 
 #endif
