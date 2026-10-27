@@ -712,7 +712,10 @@ def conn(name, exe, drops, step):
                 return True
             if masked(a) == masked(b):
                 return True
-            if len(a) >= 4 and struct.unpack_from('<h', a)[0] != len(a) and b[:len(a)] == a[:len(b)]:
+            # D91: a recorded message whose own size field disagrees with its length (a message the dump
+            # cut short: alex7 session 625d #89 says 0x1E0A) is compared over the common length, skipping
+            # the 2-byte size field, which a rebuilt Build writes true
+            if len(a) >= 4 and struct.unpack_from('<h', a)[0] != len(a) and b[2:len(a)] == a[2:len(b)]:
                 return True
             return False
 

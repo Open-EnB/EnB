@@ -295,7 +295,9 @@ runs (drop none / 10 / 4) equal the plain loop runs in every session and directi
 cases are counted, not framed: the replay's 1-byte fillers (no header: the client's factory would
 read the previous message's from the shared buffer; alex3 1, alex7 10 in the loop runs), and one
 alex7 message whose size field (7,690) isn't the 264 bytes CordCon delivers (the dump's cut
-message: the factory takes the header's size), compared over the delivered bytes. The UDPConnection
+message: the factory takes the header's size), compared over the delivered bytes and, since its own
+size field disagrees with its length, without the 2-byte size field (D91: a rebuilt Build, Server_Ready
+59's, writes the true size; the rule applies only where the recorded size field is wrong). The UDPConnection
 is made over each side's CordCon with the constructor for an accepted one (0x82CBF0); the default
 channel it opens is taken back, since the replay opens the capture's channels.
 A packet class rebuilt in the tree sends what its own Build writes (conn_replay.cpp; counted as

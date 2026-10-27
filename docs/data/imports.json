@@ -3127,6 +3127,26 @@
     "merged": [],
     "name": "packets/pkserverparameters.cpp"
    },
+   "pkserverready": {
+    "ambiguous": [
+     "0x42B2F0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350",
+     "0x8A6140",
+     "0x8A61E0",
+     "0x8A62A0",
+     "0x8A63C0"
+    ],
+    "merged": [],
+    "name": "packets/pkserverready.cpp"
+   },
    "pksetclienttype": {
     "ambiguous": [
      "0x42B2F0"
@@ -4789,6 +4809,7 @@
    "packets/pkrequesttime.h": "reconstructed",
    "packets/pkrequesttransformchange.h": "reconstructed",
    "packets/pkserverparameters.h": "reconstructed",
+   "packets/pkserverready.h": "reconstructed",
    "packets/pksetclienttype.h": "reconstructed",
    "packets/pksetzband.h": "reconstructed",
    "packets/pkskill.h": "reconstructed",
@@ -4859,7 +4880,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 2029,
+  "in_tree_total": 2033,
   "totals": {}
  },
  "binkmovie": {

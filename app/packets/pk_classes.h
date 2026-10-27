@@ -82,6 +82,7 @@
 #include "pkrequesttime.h"	// rebuilt
 #include "pkrequesttransformchange.h"	// rebuilt
 #include "pkserverparameters.h"	// rebuilt
+#include "pkserverready.h"	// rebuilt
 #include "pksetclienttype.h"	// rebuilt
 #include "pksetzband.h"	// rebuilt
 #include "pkskill.h"	// rebuilt
@@ -251,15 +252,6 @@ class ServerHandoffPacketClass : public PacketClass
 public:
 	ServerHandoffPacketClass(RawPacketClass *raw);	// 0x8946B0
 	char Unknown0C[0x8C];	// +0x0C
-};
-
-// opcode 59 (0x003B, ?): vtable 0xB0BB9C, constructor 0x8A61E0, 0x18 bytes
-class Packet_003BClass : public PacketClass  // NAME 1: neutral (D10): opcode 0x003B
-{
-public:
-	Packet_003BClass(RawPacketClass *raw);	// 0x8A61E0
-	virtual bool Process_Packet(void *client);	// +0x08 0x8683D0 (clientstub.cpp l.161)
-	char Unknown0C[0xC];	// +0x0C
 };
 
 // opcode 111 (0x006F, GLOBAL_TICKET): vtable 0xB09688, constructor 0x867650, 0x58 bytes
