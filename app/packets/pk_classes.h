@@ -85,6 +85,7 @@
 #include "pkoption.h"	// rebuilt
 #include "pkpetitionstuck.h"	// rebuilt
 #include "pkpointeffect.h"	// rebuilt
+#include "pkrecustomize.h"	// rebuilt
 #include "pkreferralpointsavailable.h"	// rebuilt
 #include "pkremove.h"	// rebuilt
 #include "pkrequesttarget.h"	// rebuilt
@@ -342,14 +343,6 @@ public:
 	RecustomizeShipDonePacketClass(RawPacketClass *raw);	// 0x8A01D0
 	virtual bool Process_Packet(void *client);	// +0x08 0x869630 (clientstub.cpp l.455)
 	char Unknown0C[0x164];	// +0x0C
-};
-
-// opcode 131 (0x0083, RECUSTOMIZE_AVATAR_START): vtable 0xB0B624, constructor 0x8A0710, 0x4C bytes
-class RecustomizeAvatarStartPacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name RECUSTOMIZE_AVATAR_START (the Net-7 opcode table; no structure check)
-{
-public:
-	RecustomizeAvatarStartPacketClass(RawPacketClass *raw);	// 0x8A0710
-	char Unknown0C[0x40];	// +0x0C
 };
 
 // opcode 132 (0x0084, RECUSTOMIZE_AVATAR_DONE): vtable 0xB0B654, constructor 0x8A09E0, 0x11C bytes

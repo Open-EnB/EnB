@@ -4336,6 +4336,27 @@
     "merged": [],
     "name": "packets/pkpointeffect.cpp"
    },
+   "pkrecustomize": {
+    "ambiguous": [
+     "0x42B2F0",
+     "0x8A06C0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350",
+     "0x8A0710",
+     "0x8A0820",
+     "0x8A08C0",
+     "0x8A09B0"
+    ],
+    "merged": [],
+    "name": "packets/pkrecustomize.cpp"
+   },
    "pkreferralpointsavailable": {
     "ambiguous": [
      "0x42B2F0"
@@ -7007,6 +7028,7 @@
    "packets/pkoption.h": "reconstructed",
    "packets/pkpetitionstuck.h": "reconstructed",
    "packets/pkpointeffect.h": "reconstructed",
+   "packets/pkrecustomize.h": "reconstructed",
    "packets/pkreferralpointsavailable.h": "reconstructed",
    "packets/pkremove.h": "reconstructed",
    "packets/pkrequesttarget.h": "reconstructed",
