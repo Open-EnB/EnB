@@ -13,7 +13,7 @@
 #include "..\..\wwlib\ini.h"
 #include "..\..\wwlib\point.h"
 
-StringValueClass *Unknown_4C3110(float *values, int count, char separator);	// NAME 1 [Unknown_4C3110]: 0x4C3110, the values as one text value (body_weight, head_weight)
+#include "kv_acc_array.h"
 
 // 0x4BEB50
 AvatarDescClass::AvatarDescClass()
@@ -292,8 +292,8 @@ void AvatarDescClass::Unknown_00(void *object)
 	visitor->Add(0x3FF, "shirt_secondary_metal", &Shirt_Secondary_Metal);
 	visitor->Add(0x3FF, "pants_primary_metal", &Pants_Primary_Metal);
 	visitor->Add(0x3FF, "pants_secondary_metal", &Pants_Secondary_Metal);
-	((KVEncoderBaseClass *)visitor)->Add_String(0x3FF, "body_weight", Unknown_4C3110(Body_Weight, 5, ','));
-	((KVEncoderBaseClass *)visitor)->Add_String(0x3FF, "head_weight", Unknown_4C3110(Head_Weight, 5, ','));
+	((KVEncoderBaseClass *)visitor)->Add_String(0x3FF, "body_weight", Make_Array_Accessor(Body_Weight, 5, ','));
+	((KVEncoderBaseClass *)visitor)->Add_String(0x3FF, "head_weight", Make_Array_Accessor(Head_Weight, 5, ','));
 }
 
 // NOT EXACT: shape (the first sprintf's arguments pushed before the three stores, and Head_Weight cleared through a pointer in the client; five forms tried: memset / a loop for Head_Weight, the stores reordered; attempts.py show 0x4C0310)

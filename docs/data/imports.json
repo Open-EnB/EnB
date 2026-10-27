@@ -283,7 +283,12 @@
      "0x4C1930",
      "0x4C1AC0",
      "0x4C2BB0",
-     "0x4C2DC0"
+     "0x4C2DC0",
+     "0x4C3110",
+     "0x4C37E0",
+     "0x4C39B0",
+     "0x4C3BB0",
+     "0x4C3BE0"
     ],
     "merged": [],
     "name": "shared/avatar_desc.cpp"
@@ -5994,6 +5999,7 @@
    "shared/duration.h": "reconstructed",
    "shared/heightfield.h": "reconstructed",
    "shared/ini_manager.h": "reconstructed",
+   "shared/kv_acc_array.h": "reconstructed",
    "shared/kv_encoder_base.h": "reconstructed",
    "shared/kv_list.h": "reconstructed",
    "shared/kv_pair.h": "reconstructed",
