@@ -170,6 +170,7 @@ public:
 	FontColorStruct *Find_Color(const char *name);							// 0x6C2D00  // NAME 2: what it does
 	FontEffectStruct *Find_Effect(const char *name);						// 0x6C2E10  // NAME 2: what it does
 	FontStringStruct *Find_String(const char *name);						// 0x6C2F20  // NAME 2: what it does
+	void Remove_String(const char *name);									// 0x6C3030  // NAME 2: what it does
 	void Add_String(FontStringStruct *str);									// 0x6C3380  // NAME 2: what it does
 	void Add_Effect(FontEffectStruct *effect);								// 0x6C3550  // NAME 2: what it does
 	void Add_Color(FontColorStruct *color);									// 0x6C3720  // NAME 2: what it does

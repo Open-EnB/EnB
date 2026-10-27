@@ -479,6 +479,80 @@ void FontDatabaseClass::Load_String(INIClass &ini, char *section, FontStringStru
 }
 
 
+// NOT EXACT: inline-budget: the client inlines a const_iterator Add_String here (its find converted out of line); ours the Find_String form
+void FontDatabaseClass::Unknown_6C1500(const char *file_name)
+{
+	INIClass ini;
+	ini.Load(file_name);
+	char section[64];
+
+	int misses = 10;
+	int index = 0;
+	for (; misses > 0; index++) {
+		sprintf(section, "STR-%d", index);
+		if (ini.Find_Section(section)->Is_Valid()) {
+			FontStringStruct *str = new FontStringStruct;
+			Load_String(ini, section, str);
+			Add_String(str);
+			misses = 10;
+		} else {
+			misses--;
+		}
+	}
+
+	misses = 10;
+	index = 0;
+	for (; misses > 0; index++) {
+		FontStringStruct *str = NULL;
+		sprintf(section, "WRAP-%d", index);
+		if (ini.Find_Section(section)->Is_Valid()) {
+			str = new FontStringStruct;
+			Load_String(ini, section, str);
+			Add_String(str);
+			misses = 10;
+		} else {
+			misses--;
+		}
+	}
+}
+
+
+void FontDatabaseClass::Unknown_6C1AA0(const char *file_name)
+{
+	INIClass ini;
+	ini.Load(file_name);
+	char section[64];
+
+	int misses = 10;
+	int index = 0;
+	for (; misses > 0; index++) {
+		sprintf(section, "STR-%d", index);
+		if (ini.Find_Section(section)->Is_Valid()) {
+			StringClass id;
+			ini.Get_String(id, section, "StringID", "");
+			Remove_String(id);
+			misses = 10;
+		} else {
+			misses--;
+		}
+	}
+
+	misses = 10;
+	index = 0;
+	for (; misses > 0; index++) {
+		sprintf(section, "WRAP-%d", index);
+		if (ini.Find_Section(section)->Is_Valid()) {
+			StringClass id;
+			ini.Get_String(id, section, "StringID", "");
+			Remove_String(id);
+			misses = 10;
+		} else {
+			misses--;
+		}
+	}
+}
+
+
 void FontDatabaseClass::Reload()
 {
 	Clear_Infos();
@@ -653,91 +727,17 @@ FontStringStruct *FontDatabaseClass::Find_String(const char *name)
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// NOT EXACT: frame: the client keeps this in a stack slot (frame 0x1C, ours 0x18) around the inlined destructor
+void FontDatabaseClass::Remove_String(const char *name)
+{
+	if (name != NULL) {
+		std::hash_map<std::string, FontStringStruct *>::iterator it = Strings.find(std::string(name));
+		if (it != Strings.end()) {
+			delete (*it).second;
+			Strings.erase(it);
+		}
+	}
+}
 
 
 
@@ -1185,7 +1185,8 @@ int FontInitStruct::Find_Chat_Index(const char *chat_name)
 **	0x6BEB60, the destructor 0x6BEBF0, Load_Init 0x6BF330 (an INIT section, its Template%d sections first,
 **	recursively), 0x6BF910 (fontsys.ini: ALL_FONTS into AllFonts, the INIT-n sections into Infos, with
 **	FontInitStruct's inline constructor), Load_String 0x6C0430 (a string template, its Template%d templates first, the String%d lines joined; NOT EXACT),
-**	Reload 0x6C1EC0 (the ini files again; the
+**	the string files' loader 0x6C1500 (NOT EXACT) and unloader 0x6C1AA0 (STR-n / WRAP-n sections), Remove_String
+**	0x6C3030 (NOT EXACT), Reload 0x6C1EC0 (the ini files again; the
 **	constructor's inline Load is the same plus 0x6C2080: written as one member the constructor inlines, it moved
 **	Load_Init's registers), 0x6C2080 (the eight fonts for the resolution: Font32Class through RefCountPtr's Create_NEW), Get_Blend_Type / Get_Direction / Get_Effect_Type 0x6C2340 / 0x6C2460 / 0x6C25A0 (the ini words to
 **	their values), Parse_Directions 0x6C2890 and Split_Four 0x6C2A10 (NOT EXACT), 0x6BFD00 (fontcode.ini / fontart.ini: the COLOR-n and EFFECT-n
