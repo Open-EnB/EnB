@@ -1126,7 +1126,7 @@ Base copy: reconstructed. Headers: 121 from reconstructed.
 | shared/auxdata/bitset.cpp | reconstructed | 11 | 0 | - | - | - |  |
 | common/circbuff.cpp | reconstructed | 5 | 0 | - | - | - |  |
 | packets/clientstub.cpp | reconstructed | 150 | 1 | - | - | - |  |
-| common/connect.cpp | reconstructed | 56 | 9 | - | - | - |  |
+| common/connect.cpp | reconstructed | 57 | 10 | - | - | - |  |
 | wwudp/cordcon.cpp | reconstructed | 21 | 11 | - | - | - |  |
 | wwudp/cordmgr.cpp | reconstructed | 4 | 4 | - | - | - |  |
 | common/dbgconn.cpp | reconstructed | 18 | 1 | - | - | - |  |
