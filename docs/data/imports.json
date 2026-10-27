@@ -5533,7 +5533,12 @@
      "0x8AD9F0",
      "0x8ADDF0",
      "0x8ADF10",
-     "0x8AE0B0"
+     "0x8AE0B0",
+     "0x8AE130",
+     "0x8AE240",
+     "0x8AE2E0",
+     "0x8AE390",
+     "0x8AE3D0"
     ],
     "merged": [],
     "name": "packets/pkupdate.cpp"

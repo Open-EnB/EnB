@@ -65,6 +65,26 @@ public:
 	int Priority;	// +0x40 (not in the message)  // NAME 2: Get_Priority returns it
 };
 
+// opcode 70 (0x0046, COMPONENT_POSITIONAL_UPDATE): vtable 0xB0C1A0, constructor 0x8AE240, 0x54 bytes
+class ComponentPositionalUpdatePacketClass : public SimplePositionalUpdatePacketClass  // NAME 3: the client's Print text 'Component_Positional_Update'
+{
+public:
+	ComponentPositionalUpdatePacketClass(int priority, int game_id, unsigned int time_stamp, const Vector3 &pos, const Quaternion &orient, const Vector3 &vel, float imparted_decay, float tractor_speed, int tractor_id, int tractor_effect_id);	// 0x8AE130
+	ComponentPositionalUpdatePacketClass(RawPacketClass *raw);	// 0x8AE240
+	virtual RawPacketClass *Build();	// +0x04 0x8AE2E0
+	virtual bool Process_Packet(void *client);	// +0x08 0x734BF0 (not rebuilt)
+	virtual int Get_Data_Size();	// +0x0C 0x8AE370
+	virtual int Print(char *buffer, int len);	// +0x10 0x8AE3D0
+	virtual int Get_Type();	// +0x28 0x8AE350
+
+	int Print_Tractor(char *buffer, int len);	// 0x8AE390 (Print's second half, inlined there)  // NAME 2: what it prints
+
+	float ImpartedDecay;	// +0x44  // NAME 3: the client's Print text 'ImpartedDecay='
+	float TractorSpeed;	// +0x48  // NAME 3: the client's Print text 'TractorSpeed='
+	int TractorID;	// +0x4C  // NAME 3: the client's Print text 'TractorID='
+	int TractorEffectID;	// +0x50  // NAME 3: the client's Print text 'TractorEffectID='
+};
+
 // opcode 62 (0x003E, ADVANCED_POSITIONAL_UPDATE): vtable 0xB0C11C, constructor 0x8ACAB0, 0x74 bytes
 class AdvancedPositionalUpdatePacketClass : public FlagPacketClass
 {

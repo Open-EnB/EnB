@@ -476,6 +476,60 @@ int PlanetPositionalUpdatePacketClass::Print(char *buffer, int)
 	return(sprintf(buffer, "%s {GameID=%d TimeStamp=%u OrbitID=%d OrbitDist=%f OrbitAngle=%f OrbitRate=%f RotateAngle=%f RotateRate=%f TiltAngle=%f}", "Planet_Positional_Update", GameID, TimeStamp, OrbitID, OrbitDist, OrbitAngle, OrbitRate, RotateAngle, RotateRate, TiltAngle));
 }
 
+#include <string.h>
+
+ComponentPositionalUpdatePacketClass::ComponentPositionalUpdatePacketClass(int priority, int game_id, unsigned int time_stamp, const Vector3 &pos, const Quaternion &orient, const Vector3 &vel, float imparted_decay, float tractor_speed, int tractor_id, int tractor_effect_id) :
+	SimplePositionalUpdatePacketClass(priority, game_id, time_stamp, pos, orient, vel),
+	ImpartedDecay(imparted_decay),
+	TractorSpeed(tractor_speed),
+	TractorID(tractor_id),
+	TractorEffectID(tractor_effect_id)
+{
+	Channel = Unknown_14(GameID, 4);
+}
+
+ComponentPositionalUpdatePacketClass::ComponentPositionalUpdatePacketClass(RawPacketClass *raw) :
+	SimplePositionalUpdatePacketClass(raw)
+{
+	raw->Get(&ImpartedDecay, sizeof(ImpartedDecay));
+	raw->Get(&TractorSpeed, sizeof(TractorSpeed));
+	raw->Get(&TractorID, sizeof(TractorID));
+	raw->Get(&TractorEffectID, sizeof(TractorEffectID));
+}
+
+RawPacketClass *ComponentPositionalUpdatePacketClass::Build()
+{
+	RawPacketClass *raw = SimplePositionalUpdatePacketClass::Build();
+	raw->Add(&ImpartedDecay, sizeof(ImpartedDecay));
+	raw->Add(&TractorSpeed, sizeof(TractorSpeed));
+	raw->Add(&TractorID, sizeof(TractorID));
+	raw->Add(&TractorEffectID, sizeof(TractorEffectID));
+	return(raw);
+}
+
+int ComponentPositionalUpdatePacketClass::Get_Type()
+{
+	return(70);
+}
+
+int ComponentPositionalUpdatePacketClass::Get_Data_Size()
+{
+	return(SimplePositionalUpdatePacketClass::Get_Data_Size() + sizeof(ImpartedDecay) + sizeof(TractorSpeed) + sizeof(TractorID) + sizeof(TractorEffectID));
+}
+
+int ComponentPositionalUpdatePacketClass::Print_Tractor(char *buffer, int)
+{
+	return(sprintf(buffer, " ImpartedDecay=%f TractorSpeed=%f TractorID=%d TractorEffectID=%d", ImpartedDecay, TractorSpeed, TractorID, TractorEffectID));
+}
+
+int ComponentPositionalUpdatePacketClass::Print(char *buffer, int)
+{
+	strcpy(buffer, "Component_Positional_Update");
+	int len = strlen("Component_Positional_Update");
+	len += sprintf(buffer + len, " GameID=%d TimeStamp=%u Position=%f %f %f", GameID, TimeStamp, Position.X, Position.Y, Position.Z);
+	return(Print_Tractor(buffer + len, len) + len);
+}
+
 
 /*
 **	Reconstruction notes (pkupdate.cpp)
@@ -494,5 +548,6 @@ int PlanetPositionalUpdatePacketClass::Print(char *buffer, int)
 **	  arguments is evaluated after the allocation) and Get_Size adds one field per statement.
 **	* Opcode 8 (SIMPLE_POSITIONAL_UPDATE) written by hand (builder P6, 2026-10-27) in the lines kept for it:
 **	  its asserts on the client's lines 80-82 (the value constructor) and 95-97 (the raw one).
-**	* Not rebuilt yet: opcode 70, 65 (declared in pk_classes.h).
+**	* Opcode 70 (COMPONENT_POSITIONAL_UPDATE) over 8, written by hand (builder P6, 2026-10-27).
+**	* Not rebuilt yet: opcode 65 (declared in pk_classes.h).
 */

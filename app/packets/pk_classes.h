@@ -142,14 +142,6 @@ public:
 	char Unknown0C[0xAC];	// +0x0C
 };
 
-// opcode 70 (0x0046, COMPONENT_POSITIONAL_UPDATE): vtable 0xB0C1A0, constructor 0x8AE240, 0x54 bytes
-class ComponentPositionalUpdatePacketClass : public PacketClass
-{
-public:
-	ComponentPositionalUpdatePacketClass(RawPacketClass *raw);	// 0x8AE240
-	char Unknown0C[0x48];	// +0x0C
-};
-
 // opcode 65 (0x0041, FORMATION_POSITIONAL_UPDATE): vtable 0xB0C1D4, constructor 0x8AE5C0, 0x24 bytes
 class FormationPositionalUpdatePacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name FORMATION_POSITIONAL_UPDATE (the Net-7 opcode table; no structure check)
 {
