@@ -24,6 +24,7 @@
 #include "..\..\shared\avatar_desc.h"				// AvatarDescClass
 #include "..\..\shared\shipcust_desc.h"				// ShipCustDescClass
 #include "..\unknown_creator.h"						// CharacterCreatorClass, LoginNameDataClass
+#include "..\..\packets\pkgloballogin.h"			// GlobalLoginPacketClass, LoginTicketInfoClass
 #include <string>
 #include <list>
 #include "vector3.h"
@@ -33,7 +34,6 @@
 class ConnectionClass;
 class Packet_0078Class;
 class GlobalErrorPacketClass;
-class Packet_0076Class;
 class LinearBufferClass;
 class LoginUnknown0CClass;
 class LoginTaskClass;
@@ -152,24 +152,6 @@ public:
 };
 
 
-// What the global ticket packet's handler 0x76B170 copies (0x9C bytes; step 16 copies it whole)
-struct LoginTicketInfoClass	// NAME 1: what it holds
-{
-	LoginTicketInfoClass() : Unknown20(0), Unknown24(0) {}	// (LoginTaskClass's constructors)
-	std::string Unknown00;								// +0x00
-	std::string Unknown10;								// +0x10
-	int Unknown20;										// +0x20
-	int Unknown24;										// +0x24
-	std::string Unknown28;								// +0x28
-	std::string Login_Key;								// +0x38 NAME 1: ClientTaskClass::Init's login key ('lkey')
-	std::string Unknown48;								// +0x48
-	std::string Unknown58;								// +0x58
-	std::string Unknown68;								// +0x68
-	std::string Unknown78;								// +0x78
-	std::string Unknown88;								// +0x88
-	int Unknown98;										// +0x98: handed to 0x8190D0 (step 16)
-};
-
 
 class LoginUnknown0CClass	// NAME 1: neutral (D10): what LoginTaskClass +0x0C points to (inpdsp.cpp)
 {
@@ -239,7 +221,7 @@ public:
 	void Unknown_768CB0(LoginCharacterClass *characters, AvatarDescClass *unknown);	// 0x768CB0: the avatar list's five characters (0x90 bytes each) and five 0x10C entries
 	void Set_Galaxies(const std::list<LoginGalaxyClass> &galaxies);	// 0x769110 (inlined in the avatar list's handler)  // NAME 1: what it does
 	void Handle_Global_Error(GlobalErrorPacketClass *packet);	// 0x76B000 (GlobalErrorPacketClass's handler)  // NAME 1: what it does
-	void Handle_Global_Login(Packet_0076Class *packet);	// 0x76B170 (inlined in the packet's Process_Packet: 'GlobalLoginPacketClass recv')  // NAME 1: what it does
+	void Handle_Global_Login(GlobalLoginPacketClass *packet);	// 0x76B170 (inlined in the packet's Process_Packet: 'GlobalLoginPacketClass recv')  // NAME 1: what it does
 	void Send_Referrer(const char *name);				// 0x76B330: opcode 119 (called by 0x55D060: 'Sorry, you cannot refer yourself.')  // NAME 1: what it does
 	void Handle_Referrer_Response(Packet_0078Class *packet);	// 0x76B2F0 (inlined in the packet's Process_Packet)  // NAME 1: what it does
 	void Kill_Kernel();									// 0x769E40 ('LoginTask: killing kernel and exiting the game')  // NAME 1: what it does

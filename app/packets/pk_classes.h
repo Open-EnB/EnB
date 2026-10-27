@@ -49,6 +49,7 @@
 #include "pkglobalconnect.h"	// rebuilt
 #include "pkglobaldeletecharacter.h"	// rebuilt
 #include "pkgloballock.h"	// rebuilt
+#include "pkgloballogin.h"	// rebuilt
 #include "pkglobalticket.h"	// rebuilt
 #include "pkglobalticketrequest.h"	// rebuilt
 #include "pkgmdestroyitem.h"	// rebuilt
@@ -240,15 +241,6 @@ public:
 	int Unknown0C;	// +0x0C
 	int Error;	// +0x10  // NAME 1: the log 'GlobalErrorPacketClass recv: %d : %d : %s' (tsk_login.cpp)
 	std::string Message;	// +0x14  // NAME 1: the same log
-};
-
-// opcode 118 (0x0076, ?): vtable 0xB095C4, constructor 0x866050, 0xC0 bytes
-class GlobalLoginPacketClass : public PacketClass
-{
-public:
-	GlobalLoginPacketClass(RawPacketClass *raw);	// 0x866050
-	virtual bool Process_Packet(void *client);	// +0x08 0x76B9C0 (tsk_login.cpp)
-	char Unknown0C[0xB4];	// +0x0C
 };
 
 // opcode 83 (0x0053, FIND_MEMBER): vtable 0xB0A58C, constructor 0x886710, 0x1C bytes

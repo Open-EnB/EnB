@@ -42,7 +42,7 @@ void Unknown_723150();								// NAME 1 [Unknown_723150]: neutral (D10); the des
 extern bool Unknown_BB9654;							// NAME 1 [Unknown_BB9654]: neutral (D10); Accept_Focus clears it
 class GlobalErrorPacketClass : public PacketClass { public: GlobalErrorPacketClass(RawPacketClass *raw); virtual bool Process_Packet(void *client); int Unknown0C; int Error; std::string Message; };	// opcode 117: 0x864C90, 0x24 bytes (pk_classes.h declares no fields)  // NAME 1 [Error, Message]: the log 'GlobalErrorPacketClass recv: %d : %d : %s'
 #include "..\..\packets\pkglobalticket.h"	// opcode 111 (GLOBAL_TICKET)
-class Packet_0076Class : public PacketClass { public: Packet_0076Class(RawPacketClass *raw); virtual bool Process_Packet(void *client); int Unknown0C; LoginTicketInfoClass Ticket_Info; int Unknown0AC; short Unknown0B0; int Unknown0B4; int Unknown0B8; int Unknown0BC; bool Is_Unknown0B0() const { return Unknown0B0 != 0; } int Get_Unknown0B4() const { return Unknown0B4 - Unknown0B8; } };	// opcode 118 (the client's log: GlobalLoginPacketClass): 0x866050, 0xC0 bytes  // NAME 1 [Ticket_Info, Is_Unknown0B0, Get_Unknown0B4]: copied whole to the task's; the two accessors (inline budget: 0x76B170 calls string::assign out of line only with them)
+// opcode 118 (GlobalLoginPacketClass): pkgloballogin.h, included by tsk_login.h
 // opcode 119 (Packet_0077Class): pkunknown_866ac0.h, included above
 class GlobalAvatarListPacketClass : public PacketClass { public: GlobalAvatarListPacketClass(RawPacketClass *raw); virtual bool Process_Packet(void *client); LoginCharacterClass *Unknown0C; AvatarDescClass *Unknown10; std::list<LoginGalaxyClass> Galaxies; };	// opcode 112: 0x862D90, 0x20 bytes  // NAME 1 [Galaxies]: copied to the task's
 void Unknown_7E5F70();								// NAME 1 [Unknown_7E5F70]: neutral (D10); once, by the first LoginTaskClass(mode)
@@ -1239,11 +1239,11 @@ void LoginTaskClass::Handle_Global_Error(GlobalErrorPacketClass *packet)
 }
 
 // 0x76B170
-void LoginTaskClass::Handle_Global_Login(Packet_0076Class *packet)
+void LoginTaskClass::Handle_Global_Login(GlobalLoginPacketClass *packet)
 {
 	Ticket_Info = packet->Ticket_Info;
-	Unknown1138 = packet->Is_Unknown0B0();
-	Unknown113C = packet->Get_Unknown0B4();
+	Unknown1138 = packet->Is_Referral_Available();
+	Unknown113C = packet->Get_Referral_Points();
 	if (Unknown_5FADE0()) {
 		Unknown1138 = false;
 	}
@@ -1385,7 +1385,7 @@ bool VersionResponsePacketClass::Process_Packet(void *client)
 
 
 // 0x76B9C0
-bool Packet_0076Class::Process_Packet(void *client)
+bool GlobalLoginPacketClass::Process_Packet(void *client)
 {
 	LoginTaskClass *task = (LoginTaskClass *)client;
 	G_ASSERT(task);
@@ -1417,7 +1417,7 @@ bool Packet_0078Class::Process_Packet(void *client)
 **	and the avatar list's handler 0x76B520. Near misses in the tree: attempts.py list --lib app.
 **	Go_Next_Step / Go_Back_Step inline Set_Step (called through the class: it is virtual), Unknown_5C
 **	inlines Show_Message(text, button), Packet_0078Class::Process_Packet Handle_Referrer_Response,
-**	Packet_0076Class::Process_Packet Handle_Global_Login. The packet classes declared at the top
+**	GlobalLoginPacketClass::Process_Packet Handle_Global_Login. The packet classes declared at the top
 **	(opcodes 111, 117, 118, 119) are views with the fields these handlers read; pk_classes.h declares
 **	them without fields (they belong there once app/packets decodes them).
 */
