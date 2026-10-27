@@ -250,6 +250,7 @@ unless `--lever` cites a new row of this table.
 | Both sums of a Vector2i computed before the two stores; `lea` addressing of the target | `Set(a, b)` on a reference local (`Vector2i &min = UpdateMin`); member stores don't give the `lea` | land (F5) |
 | Register-only: the client loads the called object after the arguments | A named local for that object (`RsTrackClass *track = ...; track->X(a, b);`) | cpacket 0x737610, 0x737C10, 8235889 (T8) |
 | `G_ASSERT(!"text")` tests the string pointer in the client | VC6 doesn't fold it: keep the form | cpacket (T8) |
+| Levers from control_keys_manager (H11, 2026-10-27) | `push_back(&*it)` where `push_back(it)` misses (a `vector<T*>` fed from `vector<T>::iterator`); a reference local for `operator[]`'s result (`M &m = map[k]; m.Init()`); `end()` tested first in a find-returning getter; a copy walk over two iterators where indexing misses; the cleared-key case returning first; a struct with its own constructor where an aggregate initialiser misses | control_keys_manager.cpp, 84f61e0-fb9e15c |
 
 * **A nested inline is a whole-function budget (2026-10-26, `Key_Exchange` 0x829180):** under `/Ob2` an
   inline helper's own callees (a `std::set` iterator's `_Inc`) are inlined only while the function as a
@@ -298,6 +299,10 @@ unless `--lever` cites a new row of this table.
 * **`appfile.py match` on the draft VM resolves `..\common\x.h` from stale copies** unless every app directory is
   passed with `-I` (app/common, app/packets, app/shared) plus radtools' include_enb and the directx8 SDK.
 
+* **A static member `hash_map<K, OwnClass>` declared inside its own class fails with VC6 C2079** (H11): define it at
+  file scope. Byte-identical twins that differ only by a relocation (0x71ADF0 / 0x71AE20) count only once their caller
+  is in the file. A tryv2 variant that changes the line count moves every later assert (accessors show as "lost"):
+  keep variants line-neutral by joining statements on one line.
 * **iostreams (H8, 2026-10-27):** `std::stringstream` instances compile byte-exact from VC6's own `<sstream>`
   (unique_design_id_lookup.cpp, 115 client instances 0x500AB0-0x509C40): other iostream users follow it; the three
   that still differ (operator<<(int), operator>>(int&), stringstream::str) are library code, no extra include helps.

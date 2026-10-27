@@ -267,3 +267,5 @@ we add a line saying which EA copy (Renegade, Generals, Zero Hour) and commit it
 note any change made to match the client.
 
 * **SoundLibraryBridge (2026-10-27, H9):** the client's bridge vtable 0xAE74EC has two slots; the tree's `ww3d2/soundlibrarybridge.h` declares three pure virtuals (`Stop_Playing_Audio` is Zero Hour's). app/audio/soundlib.cpp implements the third as an empty slot; ww3d2 stays as it is (no pair depends on it).
+
+* **ControlKeysManager (2026-10-27, H11):** the RTTI names it `ControlKeysManager` (no `Class` suffix); ui_line_display.cpp's `ControlKeysManagerClass` (NAME 3) and its Unknown_71A960 / 71AB40 (Add_Keys / Remove_Keys), sclient.cpp's Unknown_719D50 / 719E10 (Create / Destroy) switch to control_keys_manager.h's names at their next edit, once SClient replaces the file's ControlKeysSClientClass stand-in (P-H11-1).
