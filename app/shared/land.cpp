@@ -27,6 +27,11 @@
 #include "matrix4.h"
 #include "aabox.h"
 #include "matrix3d.h"
+#include "matpass.h"
+#include "obbox.h"
+#include "rinfo.h"
+#include "dx8fvf.h"
+#include "vector.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -39,6 +44,7 @@ class LandUnknown466BE0Class
 public:
 	virtual ~LandUnknown466BE0Class(void);
 	void							Unknown_466F40(CameraClass &camera, int lod, const Matrix4 &scale);	// NAME 1: unknown
+	void							Unknown_466F60(RenderInfoClass &rinfo);	// NAME 1: unknown; called first by Render 0x474B30
 	char							m_Unknown04[0xD];
 	bool							m_Unknown11;				// NAME 1: set by the ctor
 };
@@ -728,6 +734,171 @@ void LandClass::Update_Patches(CameraClass &camera, int lod)
 		Matrix4 scale(Vector4(Field->Get_Spacing(), 0.0f, 0.0f, 0.0f), Vector4(0.0f, Field->Get_YSpacing(), 0.0f, 0.0f),
 			Vector4(0.0f, 0.0f, Field->Get_VScale(), 0.0f), Vector4(0.0f, 0.0f, 0.0f, 1.0f));
 		Unknown_BDC0D8->Unknown_466F40(camera, lod, scale);
+	}
+}
+
+// NAME 1: unknown; draws triangles of the land under a projector (0x477E20, its vector by value)
+void Unknown_477E20(std::vector<Vector3> verts);
+
+// NAME 2: a quad's four corners at a height into the sea's vertex list (Render 0x474B30 inlines the four Adds)
+static inline void Add_Sea_Quad(DynamicVectorClass<Vector3> &quads, float x, float y, float dx, float dy, float z)
+{
+	quads.Add(Vector3(x, y, z));
+	quads.Add(Vector3(x + dx, y, z));
+	quads.Add(Vector3(x + dx, y + dy, z));
+	quads.Add(Vector3(x, y + dy, z));
+}
+
+// NOT EXACT: written from the pseudocode (0x474B30); not run yet (VIDTEST draws with vidland.cpp)
+void LandClass::Render(RenderInfoClass &rinfo)
+{
+	DX8Wrapper::Set_Texture(0, LightmapTextures[FrontLightmap]);
+	DX8Wrapper::Set_Texture(1, DetailTexture);
+	DX8Wrapper::Set_Shader(Shader);
+	DX8Wrapper::Set_Material(Material);
+	static DynamicVectorClass<Vector3> sea_quads(10);
+	sea_quads.Delete_All();
+	bool companion = Unknown_BDC0D8->m_Unknown11;
+	float extent_x = Field->Get_Spacing() * (float)(unsigned int)PatchSize;
+	float extent_y = (float)(unsigned int)PatchSize * Field->Get_YSpacing();
+	Unknown_BDC0D8->Unknown_466F60(rinfo);
+	int level, i;
+	for (level = 0; level < MAX_LEVELS; level++) {
+		LandPatchClass **patch = Patches;
+		for (i = PatchCount; i != 0; i--, patch++) {
+			if (!(*patch)->Visible || (*patch)->Level != level) {
+				continue;
+			}
+			if (!companion) {
+				Matrix3D tm(Vector3(Field->Get_Spacing(), 0.0f, 0.0f), Vector3(0.0f, Field->Get_YSpacing(), 0.0f),
+					Vector3(0.0f, 0.0f, Field->Get_VScale()), Vector3((*patch)->X, (*patch)->Y, (*patch)->Z));
+				DX8Wrapper::Set_Transform(D3DTS_WORLD, tm);
+				Set_Strip_Buffer(level);
+				DX8Wrapper::Set_Vertex_Buffer((*patch)->VertexBuffer);
+				DX8Wrapper::Draw_Strip(0, (unsigned short)StripCounts[level], 0, (unsigned short)(*patch)->VertexCount);
+				if (level != 0 && (*patch)->Quarters != 0) {
+					Set_Edge_Buffer(level);
+					(*patch)->Draw();
+				}
+			}
+			if (HasSea) {
+				Add_Sea_Quad(sea_quads, (*patch)->X, (*patch)->Y, extent_x, extent_y, SeaLevel);
+			}
+		}
+	}
+
+	if (HasSea) {
+		// ten rings of sea quads around the field, and the corners
+		float half = (float)(Field->Get_Size() >> 1) * Field->Get_Spacing();
+		int ring, c;
+		for (ring = 0; ring < 10; ring++) {
+			for (c = 0; c < GridWidth; c++) {
+				Add_Sea_Quad(sea_quads, c * extent_x - half, ring * extent_y + half, extent_x, extent_y, SeaLevel);
+				Add_Sea_Quad(sea_quads, ring * extent_x + half, c * extent_y - half, extent_x, extent_y, SeaLevel);
+				Add_Sea_Quad(sea_quads, c * extent_x - half, -half - (ring + 1) * extent_y, extent_x, extent_y, SeaLevel);
+				Add_Sea_Quad(sea_quads, -half - (ring + 1) * extent_x, c * extent_y - half, extent_x, extent_y, SeaLevel);
+			}
+			for (c = 0; c < 10; c++) {
+				Add_Sea_Quad(sea_quads, (c - 10) * extent_x - half, ring * extent_y + half, extent_x, extent_y, SeaLevel);
+				Add_Sea_Quad(sea_quads, ring * extent_x + half, c * extent_y + half, extent_x, extent_y, SeaLevel);
+				Add_Sea_Quad(sea_quads, c * extent_x + half, -half - (ring + 1) * extent_y, extent_x, extent_y, SeaLevel);
+				Add_Sea_Quad(sea_quads, -half - (ring + 1) * extent_x, -half - (c + 1) * extent_y, extent_x, extent_y, SeaLevel);
+			}
+		}
+		int count = sea_quads.Count();
+		int triangles = count / 2;
+		DynamicIBAccessClass ib(BUFFER_TYPE_DYNAMIC_DX8, (unsigned short)(triangles * 3));
+		{
+			DynamicIBAccessClass::WriteLockClass lock(&ib);
+			unsigned short *index = lock.Get_Index_Array();
+			for (i = 0; i < count / 4; i++) {
+				unsigned short base = (unsigned short)(i * 4);
+				*index++ = base;
+				*index++ = base + 1;
+				*index++ = base + 2;
+				*index++ = base;
+				*index++ = base + 2;
+				*index++ = base + 3;
+			}
+		}
+		DX8Wrapper::Set_Index_Buffer(ib, 0);
+		DX8Wrapper::Set_World_Identity();
+		for (int sea = 0; sea < SeaCount; sea++) {
+			DynamicVBAccessClass vb(BUFFER_TYPE_DYNAMIC_DX8, dynamic_fvf_type, (unsigned short)count);
+			{
+				DynamicVBAccessClass::WriteLockClass lock(&vb);
+				VertexFormatXYZNDUV2 *vertex = lock.Get_Formatted_Vertex_Array();
+				float scale = 1.0f / (float)Field->Get_Size();
+				for (i = 0; i < count; i++, vertex++) {
+					const Vector3 &pos = sea_quads[i];
+					vertex->x = pos.X;
+					vertex->y = pos.Y;
+					vertex->z = pos.Z;
+					vertex->nx = 0.0f;
+					vertex->ny = 0.0f;
+					vertex->nz = 1.0f;
+					float u, v;
+					Field->World_To_Grid(Vector2(pos.X, pos.Y), &u, &v);
+					u *= scale;
+					v *= scale;
+					vertex->u1 = u * SeaDetailScales[sea][0];
+					vertex->v1 = v * SeaDetailScales[sea][0];
+					vertex->u2 = SeaDetailScales[sea][1] * u;
+					vertex->v2 = SeaDetailScales[sea][1] * v;
+				}
+			}
+			DX8Wrapper::Set_Vertex_Buffer(vb);
+			DX8Wrapper::Set_Texture(0, SeaTextures[sea][0]);
+			DX8Wrapper::Set_Texture(1, SeaTextures[sea][1]);
+			DX8Wrapper::Set_Shader(SeaShaders[sea]);
+			DX8Wrapper::Set_Material(SeaMaterials[sea]);
+			DX8Wrapper::Draw_Triangles(0, (unsigned short)triangles, 0, (unsigned short)count);
+		}
+	}
+
+	// the projectors on the land (+0x1218): their boxes' triangles drawn with their material passes
+	static std::vector<Vector3> projected;
+	DX8Wrapper::Set_World_Identity();
+	for (std::vector< RefCountPtr<LandUnknownClass> >::iterator it = m_Unknown1218.begin(); it != m_Unknown1218.end(); it++) {
+		LandUnknownClass *projector = (*it).Peek();
+		projected.erase(projected.begin(), projected.end());
+		Field->Get_Triangles(projector->Get_Box(), projected);
+		projector->Peek_Material_Pass()->Install_Materials();
+		Unknown_477E20(projected);
+	}
+
+	// the patch records' extra buffers (+0x00 / +0x04 and +0x08 / +0x0C), up to level 2
+	if (m_Unknown192) {
+		if (m_Unknown190) {
+			DX8Wrapper::Set_Texture(0, (TextureClass *)m_Unknown178.Peek());
+			DX8Wrapper::Set_Texture(1, NULL);
+			DX8Wrapper::Set_Shader(m_Unknown17C);
+			DX8Wrapper::Set_Material((VertexMaterialClass *)m_Unknown180.Peek());
+			for (i = 0; i < PatchCount; i++) {
+				LandPatchRecordClass &record = PatchRecords[i];
+				if (record.Visible && record.m_Unknown10 > 0 && (unsigned int)record.Level < 3) {
+					DX8Wrapper::Set_Vertex_Buffer((VertexBufferClass *)record.m_Unknown00.Peek());
+					DX8Wrapper::Set_Index_Buffer((IndexBufferClass *)record.m_Unknown04.Peek(), 0);
+					DX8Wrapper::Draw_Triangles(0, (unsigned short)(record.m_Unknown14 / 3), 0, (unsigned short)record.m_Unknown10);
+				}
+			}
+		}
+		if (m_Unknown191) {
+			DX8Wrapper::Set_Texture(0, (TextureClass *)m_Unknown178.Peek());
+			DX8Wrapper::Set_Texture(1, NULL);
+			DX8Wrapper::Set_Shader(m_Unknown184);
+			DX8Wrapper::Set_Material((VertexMaterialClass *)m_Unknown188.Peek());
+			DX8Wrapper::Set_DX8_Render_State(D3DRS_ZBIAS, 1);
+			for (i = 0; i < PatchCount; i++) {
+				LandPatchRecordClass &record = PatchRecords[i];
+				if (record.Visible && record.m_Unknown18 > 0 && (unsigned int)record.Level < 3) {
+					DX8Wrapper::Set_Vertex_Buffer((VertexBufferClass *)record.m_Unknown08.Peek());
+					DX8Wrapper::Set_Index_Buffer((IndexBufferClass *)record.m_Unknown0C.Peek(), 0);
+					DX8Wrapper::Draw_Triangles(0, (unsigned short)(record.m_Unknown1C / 3), 0, (unsigned short)record.m_Unknown18);
+				}
+			}
+			DX8Wrapper::Set_DX8_Render_State(D3DRS_ZBIAS, 0);
+		}
 	}
 }
 

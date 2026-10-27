@@ -53,6 +53,8 @@ class Vector2;
 class VertexMaterialClass;
 class LandClass;
 class INIClass;
+class OBBoxClass;
+class MaterialPassClass;
 class CameraClass;
 
 // NAME 2: VIDTEST's name for the 0x30-byte lighting record its Update_Lighting 0x4250B0 hands the land (esp+0x74)
@@ -123,6 +125,11 @@ public:
 };
 class LandUnknownClass : public LandUnknownBaseClass, public RefCountClass	// NAME 1: as above
 {
+public:
+// NAME 1: what Render 0x474B30 reads: a box at +0x8C (the shape it projects onto the land) and a material pass at +0x10C (the
+// accessor 0x93D6C0 sits in WW3D2's range: likely TexProjectClass's Peek_Material_Pass, the class not confirmed)
+	const OBBoxClass &			Get_Box(void) const					{ return *(const OBBoxClass *)((const char *)this + 0x8C); }
+	MaterialPassClass *			Peek_Material_Pass(void);
 };
 
 // NAME 5: "Land.Peek() == (LandClass*)obj" (client assert)
