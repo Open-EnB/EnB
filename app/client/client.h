@@ -224,10 +224,10 @@ public:
 	virtual void Unknown_04() = 0;						// +0x04 0x7251C0 (not rebuilt: pure here so no program needs a stand-in)
 	virtual void Unknown_08();							// +0x08 0x725120 detaches every child: Unknown_10 and the client's Remove_Object, then deletes it
 	virtual bool Unknown_0C(UnknownB02C90Class *child, int slot, int child_slot);	// +0x0C 0x725610 attaches child's element child_slot to this one's slot  // NAME 1 [child, slot, child_slot]: what it does with them
-	virtual void Unknown_10(UnknownB02C90Class *child, int index, int unknown) = 0;	// +0x10 0x7257F0 (not rebuilt; 0x725120 passes the child and its index)  // NAME 1 [child, index, unknown]: what 0x725120 passes
+	virtual bool Unknown_10(UnknownB02C90Class *child, int slot, int child_slot);	// +0x10 0x7257F0 detaches child (a slot of -1: the one that holds it)  // NAME 1 [child, slot, child_slot]: what it does with them
 	virtual void Unknown_14(UnknownB02C90Class *parent, int slot, int child_slot) {}	// +0x14 0x6F2C50 (empty; 0x725610 calls the child's)  // NAME 1 [parent, slot, child_slot]: what 0x725610 passes
 	float Unknown_725C60(const Vector3 &center, float radius);	// 0x725C60 the radius around center that holds the attached objects of type 29, recursively  // NAME 1 [center, radius]: what it computes
-	virtual void Unknown_18(int a, int b, int c) {}		// +0x18 0x6F2C70 (empty)  // NAME 1 [a, b, c]: neutral
+	virtual void Unknown_18(UnknownB02C90Class *parent, int slot, int child_slot) {}	// +0x18 0x6F2C70 (empty; 0x7257F0 calls the child's)  // NAME 1 [parent, slot, child_slot]: what 0x7257F0 passes
 
 	void *Unknown04;									// +0x04 the constructor's argument
 	void *Unknown08;									// +0x08 the constructor's argument

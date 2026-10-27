@@ -494,6 +494,45 @@ bool UnknownB02C90Class::Unknown_0C(UnknownB02C90Class *child, int slot, int chi
 	return(false);
 }
 
+// 0x7257F0  // NOT EXACT: shape (the client stores each radius before it loads the object for Unknown_34; 3 forms)
+bool UnknownB02C90Class::Unknown_10(UnknownB02C90Class *child, int slot, int child_slot)
+{
+	if (child) {
+		if (slot == -1) {
+			for (int i = 0; i < Buffer.Count; i++) {
+				if (Buffer.Get(i)->Child == child) slot = i;
+			}
+		}
+		if (child_slot == -1) {
+			for (int i = 0; i < child->Buffer.Count; i++) {
+				if (child->Buffer.Get(i)->Unknown3C == this) child_slot = i;
+			}
+		}
+		BufferStruct::ElementStruct *e = Buffer.Get(slot);
+		BufferStruct::ElementStruct *ce = child->Buffer.Get(child_slot);
+		if (e && ce && e->Child == child && ce->Unknown3C == this) {
+			RenderObjClass *model = ((ClientObjectClass *)Unknown04)->Model;
+			RenderObjClass *child_model = ((ClientObjectClass *)child->Unknown04)->Model;
+			if (model && child_model) {
+				model->Remove_Sub_Object(child_model);
+			}
+			e->Child = NULL;
+			ce->Unknown3C = NULL;
+			child->Unknown08 = child->Unknown04;
+			child->Unknown1C.Make_Identity();
+			child->Unknown_18(this, slot, child_slot);
+			if (((ClientObjectClass *)child->Unknown04)->Type != 29) {
+				((ClientObjectClass *)child->Unknown04)->Unknown_34(child->Unknown_725C60(Vector3(0, 0, 0), child->Buffer.Radius));
+			}
+			if (((ClientObjectClass *)Unknown04)->Type != 29) {
+				((ClientObjectClass *)Unknown04)->Unknown_34(Unknown_725C60(Vector3(0, 0, 0), Buffer.Radius));
+			}
+			return(true);
+		}
+	}
+	return(false);
+}
+
 // 0x725C60
 float UnknownB02C90Class::Unknown_725C60(const Vector3 &center, float radius)
 {
