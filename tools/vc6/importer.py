@@ -4017,6 +4017,10 @@ RECONSTRUCTED = {
     ('app', 'client/option.cpp'): "OptionClass, the object 0x7F0F60-0x7FEBE0 with the hash_map instances: the "
                                    "defaults 0x7F1AD0, Load 0x7F84F0 (reports on the client's lines 571-669, D25), the "
                                    "Save 0x7F8EF0, the accessors; NOT EXACT: Get_String 0x7F9700, Get_Default_String 0x7F9970",
+    ('app', 'client/co_player_relationship.cpp'): "the player-object relationship file, the object "
+                                               "0x709EA0-0x70DC00: the packet handlers 0x70CC40 (FAIL_IF on the "
+                                               "client's line 310, D25), 0x70CC90, 0x70CD50; the gutter colours "
+                                               "not rebuilt yet",
 }
 
 # Text appended to imported files (after everything, so no existing line moves).

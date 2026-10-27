@@ -975,6 +975,21 @@
     "merged": [],
     "name": "client/co_data.cpp"
    },
+   "co_player_relationship": {
+    "ambiguous": [
+     "0x42B2F0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42F250",
+     "0x70CC40",
+     "0x70CC90",
+     "0x70CD50"
+    ],
+    "merged": [],
+    "name": "client/co_player_relationship.cpp"
+   },
    "combo_ffactory": {
     "ambiguous": [
      "0x42A6C0",

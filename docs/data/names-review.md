@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 36 |
 | 3 | by convention from a client-named file or sibling | 818 |
 | 2 | describes what the code does | 1929 |
-| 1 | neutral placeholder | 3448 |
+| 1 | neutral placeholder | 3455 |
 
 ## For review (score 3 and below)
 
@@ -518,6 +518,13 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_18` | `app/client/co_data.cpp:60` | untagged neutral name (D10) |
 | 1 | `Unknown_18` | `app/client/co_data.h:42` | the client's slot |
 | 1 | `ClientObjectDataAccessClass` | `app/client/co_data.h:52` | neutral (D10), the per-type access |
+| 1 | `Unknown_70CC40, sclient, packet` | `app/client/co_player_relationship.cpp:7` | cpacket.cpp's RELATIONSHIP 137 handler |
+| 1 | `Unknown_70CC40` | `app/client/co_player_relationship.cpp:7` | untagged neutral name (D10) |
+| 1 | `Unknown_70CC90, sclient, packet` | `app/client/co_player_relationship.cpp:8` | cpacket.cpp's 138 handler |
+| 1 | `Unknown_70CC90` | `app/client/co_player_relationship.cpp:8` | untagged neutral name (D10) |
+| 1 | `Unknown_70CD50, sclient, packet` | `app/client/co_player_relationship.cpp:9` | cpacket.cpp's ATTACKER_UPDATES 139 handler |
+| 1 | `Unknown_70CD50` | `app/client/co_player_relationship.cpp:9` | untagged neutral name (D10) |
+| 1 | `Unknown_6FEEE0` | `app/client/co_player_relationship.cpp:311` | untagged neutral name (D10) |
 | 1 | `Unknown_8B44E0` | `app/client/control_keys_manager.cpp:10` | neutral placeholder (D10) |
 | 1 | `Unknown_42A1A0` | `app/client/control_keys_manager.cpp:11` | neutral (D10): 0x42A1A0 (app\input), a key read from an ini entry |
 | 1 | `Unknown_42A410` | `app/client/control_keys_manager.cpp:12` | neutral (D10): 0x42A410 (app\input), a key written to an ini entry |
