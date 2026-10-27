@@ -6,6 +6,7 @@ char *Unknown_8B44E0(__int64 value, char *buffer);	// 0x8B44E0: _i64toa(value, b
 std::string &Unknown_42B7E0(const ControlKeyComboStruct &key, std::string &out);	// NAME 1 [Unknown_42B7E0]: neutral (D10): 0x42B7E0, the key's text
 
 static std::string _Empty;  // NAME 2: 0xBE7B80, what the accessors return without a definition
+static std::hash_map<unsigned int, ControlKeysManager> _Instances;  // 0xBE7BE0: the client's asserts, one manager per SClient
 unsigned int ControlKeysManager::_NumKeyDefs;
 std::hash_map<std::string, std::auto_ptr<ControlKeyDefStruct> > ControlKeysManager::_KeyDefinitions;
 std::hash_map<std::string, KeyIdStruct> ControlKeysManager::_KeyIds;
@@ -58,34 +59,33 @@ std::vector<KeyMappingStruct> ControlKeysManager::_DefaultSIM;
 
 
 
+bool ControlKeysManager::Create(ControlKeysSClientClass *client)
+{
+	FAIL_IF(!client) return false;
+
+	std::hash_map<unsigned int, ControlKeysManager>::iterator manager_it = _Instances.find((unsigned int)client);
+	FAIL_IF(manager_it != _Instances.end()) return false;
+	ControlKeysManager &manager = _Instances[(unsigned int)client]; manager.Init(client);
+	return true;
+}
 
 
 
 
 
+bool ControlKeysManager::Destroy(ControlKeysSClientClass *client)
+{
+	std::hash_map<unsigned int, ControlKeysManager>::iterator manager_it = _Instances.find((unsigned int)client);
+	FAIL_IF(manager_it == _Instances.end()) return false;
+	return true;
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+ControlKeysManager *ControlKeysManager::Get(ControlKeysSClientClass *client)
+{
+	std::hash_map<unsigned int, ControlKeysManager>::iterator manager_it = _Instances.find((unsigned int)client);
+	if (manager_it == _Instances.end()) return NULL;
+	return &manager_it->second;
+}
 
 
 
@@ -112,12 +112,12 @@ bool ControlKeysManager::Register_Key(const std::string &module_name, const std:
 }
 
 
-
-
-
-
-
-
+// NOT EXACT: inline budget (ours inlines Get_Key_Id 0x71A190, which the client calls)
+int ControlKeysManager::Get_Key_Id(ControlKeysSClientClass *client, const std::string &module_name, const ControlKeyValueStruct &key)
+{
+	ControlKeysManager *keys_manager = Get(client); FAIL_IF(!keys_manager) return -1;
+	return Get_Key_Id(keys_manager, module_name, key);
+}
 // NOT EXACT: inline budget (ours inlines _KeyIds.find, the client calls 0x71EBC0; ~56 rows)
 int ControlKeysManager::Get_Key_Id(ControlKeysManager *manager, const std::string &module_name, const ControlKeyValueStruct &key)
 {

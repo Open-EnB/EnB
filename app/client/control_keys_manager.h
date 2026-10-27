@@ -124,6 +124,10 @@ public:
 	static void Load_Definitions();									// 0x71B1F0: control_keys.ini (not rebuilt yet)  // NAME 2: describes what it does
 	static void Load_Keys(std::vector<KeyMappingStruct> *keys, const char *player_id);	// 0x71BD90: keymap.ini (not rebuilt yet)  // NAME 2: describes what it does
 	void Find_Mappings(std::vector<KeyMappingStruct *> *vector, int unknown30);	// 0x71A5B0: the user mappings whose definition's +0x30 matches  // NAME 2: describes what it does
+	static bool Create(ControlKeysSClientClass *client);				// 0x719D50 (sclient.cpp's Init): the client's manager, initialised  // NAME 2: describes what it does
+	static bool Destroy(ControlKeysSClientClass *client);				// 0x719E10 (sclient.cpp's destructor): only checks that one exists  // NAME 2: what its caller uses it for
+	static ControlKeysManager *Get(ControlKeysSClientClass *client);		// 0x719E80  // NAME 2: describes what it does
+	static int Get_Key_Id(ControlKeysSClientClass *client, const std::string &module_name, const ControlKeyValueStruct &key);	// 0x71A100  // NAME 2: describes what it does
 	static int Get_Key_Id(ControlKeysManager *manager, const std::string &module_name, const ControlKeyValueStruct &key);	// 0x71A190: the id Register_Key gave the key's definition, or -1  // NAME 2: describes what it does
 	static bool Register_Key(const std::string &module_name, const std::string &key_name, int key_id);	// 0x719ED0  // NAME 2: describes what it does
 	static bool _Does_Key_Exist(const std::string &key_name);	// 0x71B160 (no caller; inlined at 0x719ED0): the client's assert
