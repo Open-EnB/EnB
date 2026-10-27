@@ -1,6 +1,6 @@
 {
  "app": {
-  "ambiguous_total": 144,
+  "ambiguous_total": 146,
   "base": "reconstructed",
   "compile_errors": [],
   "files": {
@@ -579,6 +579,56 @@
     ],
     "merged": [],
     "name": "client/client.cpp"
+   },
+   "client_lego_impl": {
+    "ambiguous": [
+     "0x42A6C0",
+     "0x42A900",
+     "0x42AAE0",
+     "0x42AC90",
+     "0x42AFF0",
+     "0x42B2F0",
+     "0x42D180",
+     "0x4333D0",
+     "0x436730",
+     "0x440560",
+     "0x46BE90",
+     "0x474000",
+     "0x474080",
+     "0x51C780",
+     "0x729740"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42A820",
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30",
+     "0x42CD30",
+     "0x42DB00",
+     "0x42F250",
+     "0x45CC10",
+     "0x45CC30",
+     "0x729BF0",
+     "0x729D60",
+     "0x729E00",
+     "0x729FC0",
+     "0x72A170",
+     "0x72A1A0",
+     "0x72A340",
+     "0x72A5E0",
+     "0x72A700",
+     "0x72AB80",
+     "0x72CAE0",
+     "0x72CB50",
+     "0x72CB90",
+     "0x72E740",
+     "0x72FCC0",
+     "0x731510"
+    ],
+    "merged": [],
+    "name": "client/client_lego_impl.cpp"
    },
    "clientstub": {
     "ambiguous": [
@@ -3222,6 +3272,29 @@
     ],
     "merged": [],
     "name": "packets/pkgloballock.cpp"
+   },
+   "pkglobalticket": {
+    "ambiguous": [
+     "0x42B2F0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350",
+     "0x867520",
+     "0x8675B0",
+     "0x8675E0",
+     "0x867650",
+     "0x867710",
+     "0x8677E0",
+     "0x867800"
+    ],
+    "merged": [],
+    "name": "packets/pkglobalticket.cpp"
    },
    "pkglobalticketrequest": {
     "ambiguous": [
@@ -7029,29 +7102,6 @@
     ],
     "merged": [],
     "name": "shared/auxdata/unknown_root.cpp"
-   },
-   "pkglobalticket": {
-    "ambiguous": [
-     "0x42B2F0"
-    ],
-    "copy": "reconstructed",
-    "expected": {},
-    "in_tree": [
-     "0x52B210",
-     "0x52B240",
-     "0x52B270",
-     "0x52B2A0",
-     "0x52B350",
-     "0x867520",
-     "0x8675B0",
-     "0x8675E0",
-     "0x867650",
-     "0x867710",
-     "0x8677E0",
-     "0x867800"
-    ],
-    "merged": [],
-    "name": "packets/pkglobalticket.cpp"
    }
   },
   "headers": {
@@ -7060,6 +7110,7 @@
    "client/buff_database.h": "reconstructed",
    "client/cfaction_database.h": "reconstructed",
    "client/client.h": "reconstructed",
+   "client/client_lego_impl.h": "reconstructed",
    "client/co.h": "reconstructed",
    "client/co_data.h": "reconstructed",
    "client/control_keys_manager.h": "reconstructed",
@@ -7130,6 +7181,7 @@
    "packets/pkglobalconnect.h": "reconstructed",
    "packets/pkglobaldeletecharacter.h": "reconstructed",
    "packets/pkgloballock.h": "reconstructed",
+   "packets/pkglobalticket.h": "reconstructed",
    "packets/pkglobalticketrequest.h": "reconstructed",
    "packets/pkgmdestroyitem.h": "reconstructed",
    "packets/pkgmeditplayerinventory.h": "reconstructed",
@@ -7268,8 +7320,7 @@
    "shared/unknown_packetdata.h": "reconstructed",
    "wwudp/cordcon.h": "reconstructed",
    "wwudp/cordmgr.h": "reconstructed",
-   "wwudp/udp.h": "reconstructed",
-   "packets/pkglobalticket.h": "reconstructed"
+   "wwudp/udp.h": "reconstructed"
   },
   "in_tree_total": 3161,
   "totals": {}
