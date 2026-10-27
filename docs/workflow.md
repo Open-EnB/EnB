@@ -413,6 +413,10 @@ unless `--lever` cites a new row of this table.
   on another builder's uncommitted imports.json: wait for the importer lock, save their diff, `git checkout` the
   file, merge, `git apply --3way` their diff, `git reset` the file (the only conflict is `in_tree_total`).
 
+* **clienttest builds only committed files** (T11): in a worktree, `git add` a new file before `build.py`. A
+  `RefCountPtr<T>` member in a header breaks every file that builds the class without T complete (clienttest):
+  keep it a raw pointer until the constructor is rebuilt. Levers that matched co.cpp (`if (!Is_X()) return x;`,
+  the one-case switch, `Get_Float` / `Set_Floats` / `SphereClass::Init`) are in co.cpp's notes.
 * **commit_mine keys by address take identical lines from other files' imports.json blocks** (H14: 0x42D050 sits in
   control_keys_manager's and pkunknown_87acd0's blocks): `.work/h14/commit_ck.py` picks hunks by the file block's
   line range (P-H14-1, to promote). A tryv2 PermissionError (a concurrent replay) leaves a variant in the tree
