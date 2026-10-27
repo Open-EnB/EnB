@@ -106,6 +106,7 @@
 #include "pkunknown_85f250.h"	// rebuilt
 #include "pkunknown_85f870.h"	// rebuilt
 #include "pkunknown_860d30.h"	// rebuilt
+#include "pkunknown_861db0.h"	// rebuilt
 #include "pkunknown_863720.h"	// rebuilt
 #include "pkunknown_865020.h"	// rebuilt
 #include "pkunknown_8667a0.h"	// rebuilt
@@ -350,14 +351,6 @@ public:
 	Packet_7541Class(RawPacketClass *raw);	// 0x862440
 	virtual bool Process_Packet(void *client);	// +0x08 0x868370 (clientstub.cpp l.155)
 	char Unknown0C[0xC];	// +0x0C
-};
-
-// opcode 30027 (0x754B, ?): vtable 0xB092A8, constructor 0x861E20, 0xC bytes
-class GameEditorSaveSectorPacketClass : public PacketClass  // NAME 3: the client's Print text 'GameEditorSaveSector {' and the PacketClass convention
-{
-public:
-	GameEditorSaveSectorPacketClass(RawPacketClass *raw);	// 0x861E20
-	virtual bool Process_Packet(void *client);	// +0x08 0x868340 (clientstub.cpp l.152)
 };
 
 // opcode 30021 (0x7545, ?): vtable 0xB08E58, constructor 0x85DFB0, 0x48 bytes
