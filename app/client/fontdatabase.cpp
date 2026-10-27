@@ -10,6 +10,34 @@ public:
 };
 
 
+inline void FontDatabaseClass::Load()
+{
+	Clear_Infos();
+	Clear_Tables();
+	Unknown_6BF910();
+	Unknown_6BFD00("fontcode.ini");
+	Unknown_6BFD00("fontart.ini");
+	Clear_Strings();
+	Unknown_6C2080();
+}
+
+FontDatabaseClass::FontDatabaseClass()
+{
+	Load();
+}
+
+
+FontDatabaseClass::~FontDatabaseClass()
+{
+	Clear_Infos();
+	Clear_Tables();
+	Clear_Strings();
+	for (int i = 0; i < MAXFONTS; i++) {
+		Font[i].font32Ptr = NULL;
+	}
+}
+
+
 void FontDatabaseClass::Clear_Infos()
 {
 	for (std::vector<FontInitStruct *>::iterator it = Infos.begin(); it != Infos.end(); it++) {
@@ -89,34 +117,6 @@ FontStringStruct *FontDatabaseClass::Find_String(const char *name)
 	std::hash_map<std::string, FontStringStruct *>::iterator it = Strings.find(name);
 	return it == Strings.end() ? NULL : (*it).second;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -1141,7 +1141,9 @@ int FontInitStruct::Find_Chat_Index(const char *chat_name)
 **	hash_map instances (libs/sgistl, D87; the bucket functions over the string hash 0x42DB00 at 0x6C7D80 /
 **	0x6C7F00 / 0x6C8080 / 0x6C8200).
 **
-**	Written so far: Clear_Infos 0x6BEE60 (with FontInitStruct's implicit destructor 0x6BEEF0), Clear_Tables
+**	Written so far: the constructor 0x6BE5C0 (through an inline Load: Clear_Infos, Clear_Tables, the three ini
+**	loaders, Clear_Strings, 0x6C2080), FontStruct's inline constructor 0x6BE7C0 and implicit destructor
+**	0x6BEB60, the destructor 0x6BEBF0, Clear_Infos 0x6BEE60 (with FontInitStruct's implicit destructor 0x6BEEF0), Clear_Tables
 **	0x6BEFD0 (Colors and Effects), Clear_Strings 0x6BF1F0, Find_Font 0x6C2BF0, Get_Info(width, height) 0x6C2CB0, the tables' Find_Color /
 **	Find_Effect / Find_String 0x6C2D00-0x6C2F20 and Add_String / Add_Effect / Add_Color 0x6C3380-0x6C3720
 **	(G_ASSERT(0) on the client's lines 881 / 895 / 909, D25; the six NOT EXACT), the accessors on lines

@@ -23,6 +23,9 @@
 #include <vector>
 #include <hash_map.h>
 #include "..\..\wwlib\wwstring.h"
+#include "..\shared\unknown_debug.h"
+#include "..\..\wwlib\refcount.h"
+#include "..\..\wwlib\ref_ptr.h"
 
 #define MAXFONTS 8
 
@@ -48,9 +51,21 @@ struct FontInitStruct  // NAME 2: one INIT-n section of fontsys.ini (a screen re
 	int DefaultUnknown98[MAXFONTS];											// +0x118  // NAME 1 [DefaultUnknown98]: neutral (D10)
 };
 
+class Font32BaseClass  // NAME 1 [Font32BaseClass]: neutral (D10): the font object's first base (vtable 0xAFE94C)
+{
+public:
+	virtual void Unknown_00();												// 0x6BBC90  // NAME 1 [Unknown_00]: neutral (D10)
+};
+
+class Font32Class : public Font32BaseClass, public RefCountClass  // NAME 2: what font32Ptr points at (0xD30 bytes, constructor 0x6BBAC0)
+{
+};
+
 struct FontStruct  // NAME 2: one of the fonts in use (0xC bytes)
 {
-	void *font32Ptr;														// +0x00, the client's name (its assert)
+	FontStruct() { font32Ptr = NULL; Name = ""; Scale = 1.0f; }			// 0x6BE7C0 (destructor 0x6BEB60)
+
+	RefCountPtr<Font32Class> font32Ptr;														// +0x00, the client's name (its assert)
 	StringClass Name;														// +0x04  // NAME 2: what Find_Font compares
 	float Scale;															// +0x08  // NAME 2: Scale%d is copied in
 };
@@ -74,6 +89,12 @@ struct FontStringStruct  // NAME 2: one string template (Template%d, String%d), 
 class FontDatabaseClass  // NAME 3: by convention (D24) from the client's fontdatabase.cpp
 {
 public:
+	FontDatabaseClass();													// 0x6BE5C0
+	~FontDatabaseClass();													// 0x6BEBF0
+	void Load();														// inline: what the constructor does  // NAME 2: what it does
+	void Unknown_6BF910();												// 0x6BF910: loads fontsys.ini's INIT sections  // NAME 1 [Unknown_6BF910]: neutral (D10)
+	void Unknown_6BFD00(const char *ini_name);								// 0x6BFD00: COLOR-n and EFFECT-n sections  // NAME 1 [Unknown_6BFD00]: neutral (D10)
+	void Unknown_6C2080();												// 0x6C2080  // NAME 1 [Unknown_6C2080]: neutral (D10)
 	FontStruct *Find_Font(const StringClass &name, float &scale);			// 0x6C2BF0  // NAME 2: what it does
 	FontInitStruct *Get_Info(int width, int height);						// 0x6C2CB0  // NAME 2: as Get_Info, for a given resolution
 	FontColorStruct *Find_Color(const char *name);							// 0x6C2D00  // NAME 2: what it does
