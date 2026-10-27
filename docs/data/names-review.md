@@ -8,10 +8,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | Score | Meaning | Names |
 |---|---|---|
 | 5 | the client names it | 12 |
-| 4 | EA source, or a structure-confirmed Net-7 / C# name | 29 |
-| 3 | by convention from a client-named file or sibling | 550 |
-| 2 | describes what the code does | 965 |
-| 1 | neutral placeholder | 1375 |
+| 4 | EA source, or a structure-confirmed Net-7 / C# name | 30 |
+| 3 | by convention from a client-named file or sibling | 552 |
+| 2 | describes what the code does | 991 |
+| 1 | neutral placeholder | 1377 |
 
 ## For review (score 3 and below)
 
@@ -468,6 +468,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_42EA80` | `app/client/tasks/tsk_smovie.cpp:43` | the input queue's next event (input.cpp) |
 | 1 | `Unknown_42E8A0` | `app/client/tasks/tsk_smovie.cpp:44` | hands the event on (input.cpp) |
 | 1 | `Unknown_18` | `app/client/tasks/tsk_smovie.h:30` | untagged neutral name (D10) |
+| 1 | `Unknown_4BC000` | `app/client/tutorial_manager.cpp:9` | 0x4BC000, E&B's message reporter (tcpconn.cpp) |
+| 1 | `Unknown_4BC260` | `app/client/tutorial_manager.cpp:10` | 0x4BC260, 0x4BC000's sibling |
 | 1 | `Unknown04` | `app/common/connect.cpp:10` | untagged neutral name (D10) |
 | 1 | `Unknown_Debug_Begin_Step` | `app/common/connect.cpp:33` | 0x509EF0 (dbgmgr.cpp), WinMain's step log |
 | 1 | `Unknown_Debug_End_Step` | `app/common/connect.cpp:34` | 0x50A1E0 (dbgmgr.cpp) |
@@ -1431,6 +1433,32 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Init` | `app/client/tasks/tsk_smovie.h:40` | what it does |
 | 2 | `Set_Movie_Name` | `app/client/tasks/tsk_smovie.h:41` | what it does |
 | 2 | `Handle_Input` | `app/client/tasks/tsk_smovie.h:42` | what it does |
+| 2 | `TutorialLineStruct` | `app/client/tutorial_manager.h:28` | what it holds (one Speech%d / Text%d pair, 0xC bytes) |
+| 2 | `Speech` | `app/client/tutorial_manager.h:44` | the ini key |
+| 2 | `Text` | `app/client/tutorial_manager.h:45` | the ini key |
+| 2 | `SkipBlend` | `app/client/tutorial_manager.h:46` | the ini key |
+| 2 | `TutorialStepStruct` | `app/client/tutorial_manager.h:49` | what it holds (one TUTORIAL-n section, 0x14 bytes) |
+| 2 | `Add_Line` | `app/client/tutorial_manager.h:57` | describes what it does |
+| 2 | `Get_Line` | `app/client/tutorial_manager.h:58` | describes what it does |
+| 2 | `Name` | `app/client/tutorial_manager.h:60` | the ini key |
+| 2 | `std:` | `app/client/tutorial_manager.h:61` | describes what it holds |
+| 2 | `Set_Instance` | `app/client/tutorial_manager.h:70` | describes what it does |
+| 2 | `Start_Step` | `app/client/tutorial_manager.h:71` | describes what it does |
+| 2 | `Stop_Step` | `app/client/tutorial_manager.h:72` | describes what it does |
+| 2 | `Set_Completed` | `app/client/tutorial_manager.h:73` | describes what it does |
+| 2 | `Is_Completed` | `app/client/tutorial_manager.h:74` | describes what it does |
+| 2 | `Was_Just_Finished` | `app/client/tutorial_manager.h:75` | describes what it does |
+| 2 | `Find` | `app/client/tutorial_manager.h:76` | describes what it does |
+| 2 | `Next_Line` | `app/client/tutorial_manager.h:77` | describes what it does |
+| 2 | `Write_Completed_File` | `app/client/tutorial_manager.h:78` | describes what it does |
+| 2 | `Read_Completed_File` | `app/client/tutorial_manager.h:79` | describes what it does |
+| 2 | `Reload` | `app/client/tutorial_manager.h:80` | describes what it does |
+| 2 | `Instance` | `app/client/tutorial_manager.h:82` | describes what it holds |
+| 2 | `std:` | `app/client/tutorial_manager.h:85` | describes what it holds |
+| 2 | `std:` | `app/client/tutorial_manager.h:86` | describes what it holds |
+| 2 | `CurrentStep` | `app/client/tutorial_manager.h:87` | describes what it holds |
+| 2 | `CurrentLine` | `app/client/tutorial_manager.h:88` | describes what it holds |
+| 2 | `LastFinished` | `app/client/tutorial_manager.h:89` | describes what it holds |
 | 2 | `Get_Average` | `app/common/average.h:106` | what it does |
 | 2 | `Current` | `app/common/average.h:115` | what it holds |
 | 2 | `Time` | `app/common/average.h:116` | what it holds |
@@ -2382,6 +2410,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `tsk_movie.h` | `app/client/tasks/tsk_movie.h:18` | header name assumed from the client's tsk_movie.cpp |
 | 3 | `MovieTaskClass` | `app/client/tasks/tsk_movie.h:25` | after tsk_movie.cpp and LoginTaskClass (D24) |
 | 3 | `tsk_smovie.h` | `app/client/tasks/tsk_smovie.h:17` | header name assumed from the client's tsk_smovie.cpp |
+| 3 | `tutorial_manager.h` | `app/client/tutorial_manager.h:19` | header name assumed from the client's tutorial_manager.cpp |
+| 3 | `TutorialManagerClass` | `app/client/tutorial_manager.h:64` | by convention (D24) from the client's file tutorial_manager.cpp ('Tutorial Manager' in its messages, 'starting up Tutorial Manager system') |
 | 3 | `average.h` | `app/common/average.h:22` | after the client's average.h (D24) |
 | 3 | `AverageClass` | `app/common/average.h:26` | after the client's average.h (D24) |
 | 3 | `circbuff.h` | `app/common/circbuff.h:17` | header name assumed from the client's circbuff.cpp |

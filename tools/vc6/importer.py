@@ -3457,6 +3457,13 @@ RECONSTRUCTED = {
     ('app', 'client/cfaction_database.cpp'): "CFactionDatabaseClass, client 0x7E4A30-0x7E50D0 with the table's instances to "
                                             "0x7E5E50: _Factions's initializer and destructor, Init (NOT EXACT: register-only), "
                                             "Shutdown, the static empty string, Get_Name, Get_Description (line 98, D25)",
+    ('app', 'client/tutorial_manager.h'): "TutorialLineStruct, TutorialStepStruct and TutorialManagerClass (D24): tutorialdef.ini's "
+                                         "TUTORIAL-n steps in an SGI hash_map<std::string, TutorialStepStruct *> (libs/sgistl, "
+                                         "D87), the completed tutorials in a std::list<char *>",
+    ('app', 'client/tutorial_manager.cpp'): "TutorialStepStruct / TutorialManagerClass, client 0x6AC280-0x6AD7B0 with the "
+                                           "table's and list's instances after it: the reports on the client's lines 94 / 114 / "
+                                           "190 / 382 / 402 (D25); NOT EXACT: the constructor 0x6AC600, the destructor 0x6ACD10, "
+                                           "Start_Step 0x6ACF50, Read_Completed_File 0x6AD4B0, Reload 0x6AD7B0",
     ('app', 'client/sclient.h'): "SClient (the client's 'SClient::Process_Packets'), declared only as far as tsk_game.cpp uses "
                                 "it: constructor 0x7405E0, 0x14F8 bytes (kernel-map.md 6, step 9)",
     ('app', 'client/tasks/tsk_game.h'): "ClientTaskClass (D24 after its profile label 'ClientTask'), vtable 0xB03FF4, 0xA8 "

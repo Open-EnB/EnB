@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-106 entries in 31 files.
+111 entries in 32 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -25,6 +25,11 @@ edit the comments in the code, not this file.
 | `app/client/tasks/tsk_login.cpp:1098` | `LoginTaskClass::Fetch_EA_Ticket` | marker | NOT EXACT: shape (the client merges the two message boxes' tails; attempts.py show 0x76A7B0) 0x76A7B0 |
 | `app/client/tasks/tsk_login.cpp:1221` | `LoginTaskClass::Handle_Global_Error` | marker | NOT EXACT: shape (the CharacterView test's registers: the client loads +0x1B4 into ecx; attempts.py show 0x76B000) 0x76B000 |
 | `app/client/tasks/tsk_smovie.cpp:113` | `ScriptedMovieTaskClass::Init` | marker | NOT EXACT: the client's loop keeps its test at the top (a jmp back to it); while, for, for (;;) with a break, a goto and ++ in the call all give VC6's rotated loop (the test at the bottom) |
+| `app/client/tutorial_manager.cpp:89` | `TutorialManagerClass::TutorialManagerClass` | marker | NOT EXACT: inline budget (explain.py: inline-budget), the client calls the list's _Buynode 0x6AE690 out of line and inlines the key string's destructor after Steps[]; ours the reverse |
+| `app/client/tutorial_manager.cpp:142` | `TutorialManagerClass::~TutorialManagerClass` | marker | NOT EXACT: shape (explain.py), as buff_database.cpp's destructor 0x677410: the client keeps the hash_map iterator in registers and calls the bucket size 0x6AE6D0 and _M_bkt_num 0x6AE7D0 out of line |
+| `app/client/tutorial_manager.cpp:185` | `TutorialManagerClass::Start_Step` | marker | NOT EXACT: inline budget (explain.py: inline-budget), the client calls the table's find 0x6AE490 and the key string's _Tidy out of line (frame 0x18), ours inlines find as Find does |
+| `app/client/tutorial_manager.cpp:262` | `TutorialManagerClass::Read_Completed_File` | marker | NOT EXACT: inline budget (explain.py: register-only), the client calls the list's insert 0x6AE5A0 out of line for the first nine names; ours for seven, then alternates |
+| `app/client/tutorial_manager.cpp:363` | `TutorialManagerClass::Reload` | marker | NOT EXACT: inline budget (explain.py: inline-budget), the destructor's iterator loop and the constructor's string inlining (see both) |
 | `app/common/dbgconn.cpp:111` | `TimedLogConnectionClass::TimedLogConnectionClass` | marker | NOT EXACT: the client inlines LogConnectionClass's constructor here and keeps it out of line (0x823F70, no caller); `inline` on it matches this one and loses that one. |
 | `app/common/dbgconn.cpp:154` | `RateConnectionClass::Send_Message` | marker | NOT EXACT: the client inlines ~ForwardingConnectionClass here (inline in its connect.h; ours is in connect.cpp, see the notes). |
 | `app/common/dbgconn.cpp:183` | `RateConnectionClass::Count` | marker | NOT EXACT: the client stores Index before it loads Time (ours loads Time before the idiv); the slots that inline it (0x824CF0, 0x824D90, 0x824E20, 0x824F50) differ only there. |

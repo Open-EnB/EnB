@@ -4110,6 +4110,50 @@
     "merged": [],
     "name": "client/tasks/tsk_smovie.cpp"
    },
+   "tutorial_manager": {
+    "ambiguous": [
+     "0x42A6C0",
+     "0x42A900",
+     "0x42AAE0",
+     "0x42AC90",
+     "0x42AFF0",
+     "0x42B250",
+     "0x42B2F0",
+     "0x42D180",
+     "0x4333D0",
+     "0x436730",
+     "0x440560",
+     "0x443F30",
+     "0x49CB70",
+     "0x4D8F00",
+     "0x4D8F80",
+     "0x4F8BD0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42A820",
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30",
+     "0x42C4E0",
+     "0x42CD30",
+     "0x42D050",
+     "0x42DB00",
+     "0x441480",
+     "0x6AC280",
+     "0x6AC340",
+     "0x6AC5C0",
+     "0x6AD0A0",
+     "0x6AD120",
+     "0x6AD1A0",
+     "0x6AD350",
+     "0x6AD3E0",
+     "0x6AE020"
+    ],
+    "merged": [],
+    "name": "client/tutorial_manager.cpp"
+   },
    "udpconn": {
     "ambiguous": [
      "0x42B2F0"
@@ -4357,6 +4401,7 @@
    "client/tasks/tsk_menu.h": "reconstructed",
    "client/tasks/tsk_movie.h": "reconstructed",
    "client/tasks/tsk_smovie.h": "reconstructed",
+   "client/tutorial_manager.h": "reconstructed",
    "common/average.h": "reconstructed",
    "common/circbuff.h": "reconstructed",
    "common/connect.h": "reconstructed",
