@@ -32,6 +32,7 @@ class SubPartsPacket;
 class PacketClass;
 class ConnectionClass;
 class SplineDatabaseClass;
+class ClientClass;
 
 // co.cpp's client object (the RTTI's ClientObjectClass; co.cpp isn't rebuilt): declared as far as
 // client.cpp uses it
@@ -66,7 +67,8 @@ public:
 
 	char Unknown04[0x60 - 0x04];						// +0x04
 	HashNodeClass<ClientObjectClass *> Node;			// +0x60 ClientClass::ObjectList's node  // NAME 2: what it is
-	char Unknown7C[0x88 - 0x7C];						// +0x7C
+	ClientClass *Client;								// +0x7C the constructor's first argument (CREATE passes its SClient; co_data.cpp calls its slot +0x18)  // NAME 2: what it holds
+	char Unknown80[0x88 - 0x80];						// +0x80
 	char *AuxData;										// +0x88 (co.cpp's FAIL_IF '!aux_data', l.2461)  // NAME 3: the FAIL_IF's name
 	int Unknown8C;										// +0x8C
 	unsigned GameID;									// +0x90  // NAME 3: Get_Game_ID's

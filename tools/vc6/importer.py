@@ -3482,6 +3482,15 @@ RECONSTRUCTED = {
     ('app', 'client/cfaction_database.cpp'): "CFactionDatabaseClass, client 0x7E4A30-0x7E50D0 with the table's instances to "
                                             "0x7E5E50: _Factions's initializer and destructor, Init (NOT EXACT: register-only), "
                                             "Shutdown, the static empty string, Get_Name, Get_Description (line 98, D25)",
+    ('app', 'shared/data_binder.h'): "DataBinderClass<KEY> (D24): a registry of data objects of any type bound to a key, one SGI hash_map<KEY, T *> per type in a hash_map<std::string, void *> keyed by typeid(T *).name() (libs/sgistl, D87); asserts on the client's lines 99 / 101 (D25)",
+    ('app', 'client/co_data.h'): "ClientObjectDataClass (vtable 0xB056CC, 8 bytes) and the per-type access to the client objects' radar, gutter, starmap, navigation and emote data through data_binder.h, keyed by the object",
+    ('app', 'client/co_data.cpp'): "ClientObjectDataClass and the data binder's instances, client 0x79D0F0-0x7A4770 (the constructor's assert l.42, the FAIL_IF l.54; D25)",
+    ('app', 'client/radar_data.h'): "RadarDataClass (the client's typeid name), declared as far as co_data.cpp needs it (0x7C bytes)",
+    ('app', 'client/radar_icon_data.h'): "RadarIconDataClass (D24), the gutter and starmap data's base (0x7BC040), declared only",
+    ('app', 'client/gutter_data.h'): "GutterDataClass (the client's typeid name), declared as far as co_data.cpp needs it (0x2C bytes)",
+    ('app', 'client/starmap_data.h'): "StarmapDataClass (the client's typeid name), declared as far as co_data.cpp needs it (0x3C bytes)",
+    ('app', 'client/navigation_data.h'): "NavigationDataClass (the client's typeid name), declared as far as co_data.cpp needs it (0x18 bytes)",
+    ('app', 'client/emote_data.h'): "EmoteDataClass (the client's typeid name), declared as far as co_data.cpp needs it (0x48 bytes)",
     ('app', 'client/tutorial_manager.h'): "TutorialLineStruct, TutorialStepStruct and TutorialManagerClass (D24): tutorialdef.ini's "
                                          "TUTORIAL-n steps in an SGI hash_map<std::string, TutorialStepStruct *> (libs/sgistl, "
                                          "D87), the completed tutorials in a std::list<char *>",
