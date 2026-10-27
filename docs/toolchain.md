@@ -78,8 +78,11 @@ Pool VMs are `enb-vc6-NN`: differencing disks `Tools\VMPool\enb-vc6-NN.vhdx` ove
 base `Tools\VMPool\base-vc6.vhdx` (prepared from the `VC6 SP4 (8799)` snapshot: Windows Update,
 Defender, SysMain and WSearch off, fixed pagefile; never attach it to a VM or clear its
 read-only flag). Hardware is copied from `Win10` (generation 2, Secure Boot `MicrosoftWindows`,
-4 GB dynamic memory, 8 vCPU, `Default Switch`); automatic checkpoints are off and the stop
-action is shut down.
+dynamic memory, 8 vCPU, `Default Switch`) except the startup memory: clones get 2 GB (`STARTUP_GB`,
+2026-10-27: a 4 GB startup failed clone starts on a loaded host while the VMs run at ~1.1 GB; clones
+01-05 keep 4 GB until they are off, then `Set-VMMemory -StartupBytes 2GB`); automatic checkpoints are
+off and the stop action is shut down. The cap (`--max`, default 7) is set by host memory: check
+`Get-CimInstance Win32_OperatingSystem` free memory before raising it.
 
     python tools/vc6/pool.py lease --agent NAME [--count K]   # prints ENB_VC6_HOSTS=Daniel@ip,...
     ENB_VC6_HOSTS=Daniel@ip python tools/vc6/vc6.py compile ...
@@ -88,7 +91,7 @@ action is shut down.
     python tools/vc6/pool.py reclaim [--max-age 8] [--prune [--keep 2]]
     python tools/vc6/pool.py list | create [N] | destroy VM... | destroy --all-free
 
-`lease` reuses free VMs (running ones first), creates clones when short (cap `--max`, default 5),
+`lease` reuses free VMs (running ones first), creates clones when short (cap `--max`, default 7),
 starts them, waits for the address (Hyper-V's KVP), SSH with the key and `cl`, and clears
 vc6.py's sync cache for that IP, so the first compile sends the tree (each leasee syncs its own;
 no warm cache, user decision). The host key of a pool IP is accepted on first sight
