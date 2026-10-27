@@ -3070,6 +3070,11 @@
     "expected": {},
     "in_tree": [
      "0x42A820",
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30",
+     "0x42CAB0",
+     "0x42CD30",
      "0x444160",
      "0x52B210",
      "0x52B240",
@@ -3099,8 +3104,15 @@
      "0x769E40",
      "0x76AD30",
      "0x76ADD0",
+     "0x76B170",
      "0x76B2F0",
+     "0x76B330",
+     "0x76B400",
+     "0x76B470",
+     "0x76B4A0",
+     "0x76B730",
      "0x76B8A0",
+     "0x76B9C0",
      "0x76BB70"
     ],
     "merged": [],
@@ -3517,7 +3529,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 1426,
+  "in_tree_total": 1433,
   "totals": {}
  },
  "binkmovie": {

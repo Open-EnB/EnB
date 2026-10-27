@@ -39,10 +39,10 @@ Unknown_8190D0Class *Unknown_8190D0(int unknown);		// NAME 1 [Unknown_8190D0]: n
 class Unknown_6A9B60Class { public: Unknown_6A9B60Class(int unknown); ~Unknown_6A9B60Class(); void Unknown_6A9E40(); char Unknown00[0x10]; };	// NAME 1 [Unknown_6A9B60Class]: 0x10 bytes, constructor 0x6A9B60, destructor 0x6A9DB0
 void Unknown_723150();								// NAME 1 [Unknown_723150]: neutral (D10); the destructor calls it
 extern bool Unknown_BB9654;							// NAME 1 [Unknown_BB9654]: neutral (D10); Accept_Focus clears it
-
-
-
-
+class GlobalErrorPacketClass : public PacketClass { public: GlobalErrorPacketClass(RawPacketClass *raw); virtual bool Process_Packet(void *client); int Unknown0C; int Error; std::string Message; };	// opcode 117: 0x864C90, 0x24 bytes (pk_classes.h declares no fields)  // NAME 1 [Error, Message]: the log 'GlobalErrorPacketClass recv: %d : %d : %s'
+class GlobalTicketPacketClass : public PacketClass { public: GlobalTicketPacketClass(RawPacketClass *raw); virtual bool Process_Packet(void *client); int Status; TicketClass Ticket; };	// opcode 111: 0x867650, 0x58 bytes  // NAME 1 [Status, Ticket]: 'Got the global ticket: %d', copied to the task's Ticket
+class Packet_0076Class : public PacketClass { public: Packet_0076Class(RawPacketClass *raw); virtual bool Process_Packet(void *client); int Unknown0C; LoginTicketInfoClass Ticket_Info; int Unknown0AC; short Unknown0B0; int Unknown0B4; int Unknown0B8; int Unknown0BC; bool Is_Unknown0B0() const { return Unknown0B0 != 0; } int Get_Unknown0B4() const { return Unknown0B4 - Unknown0B8; } };	// opcode 118 (the client's log: GlobalLoginPacketClass): 0x866050, 0xC0 bytes  // NAME 1 [Ticket_Info, Is_Unknown0B0, Get_Unknown0B4]: copied whole to the task's; the two accessors (inline budget: 0x76B170 calls string::assign out of line only with them)
+class Packet_0077Class : public PacketClass { public: Packet_0077Class(const char *name); virtual ~Packet_0077Class() {} virtual RawPacketClass *Build(); virtual bool Process_Packet(void *client); virtual int Get_Data_Size(); virtual int Print(char *buffer, int len); std::string Name; int Unknown1C; };	// opcode 119: 0x866AC0 (the sending constructor), 0x20 bytes; its destructor 0x76B400 is emitted here  // NAME 1 [name]: the referrer's name (0x55D060)
 
 
 
@@ -1218,69 +1218,36 @@ void LoginTaskClass::Load_Login()
 	}
 }
 
+// NOT EXACT: shape (the CharacterView test's registers: the client loads +0x1B4 into ecx; attempts.py show 0x76B000)
+// 0x76B000
+void LoginTaskClass::Handle_Global_Error(GlobalErrorPacketClass *packet)
+{
+	if (CharacterView && CharacterView->Unknown1B4 && CharacterView->Unknown1B4->Unknown_78(packet)) {
+		return;
+	}
+	Unknown0020 = 2;
+	Error = packet->Error;
+	Unknown_Debug_Print(packet->Message.c_str());
+	if ((packet->Error < 8 || packet->Error > 13) && packet->Error != 17 && packet->Error != 3 && packet->Error != 5) {
+		Show_Message(packet->Message.c_str());
+		return;
+	}
+	Show_Message(packet->Message.c_str(), "OK");
+	if (Step >= 7 && Step <= 8) {
+		Set_Step(1, false);
+	}
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// 0x76B170
+void LoginTaskClass::Handle_Global_Login(Packet_0076Class *packet)
+{
+	Ticket_Info = packet->Ticket_Info;
+	Unknown1138 = packet->Is_Unknown0B0();
+	Unknown113C = packet->Get_Unknown0B4();
+	if (Unknown_5FADE0()) {
+		Unknown1138 = false;
+	}
+}
 
 // 0x76B2F0
 void LoginTaskClass::Handle_Referrer_Response(Packet_0078Class *packet)
@@ -1289,6 +1256,45 @@ void LoginTaskClass::Handle_Referrer_Response(Packet_0078Class *packet)
 	if (Referrer_Result == 1 || Referrer_Result == 2) {
 		Unknown1138 = false;
 	}
+}
+
+// 0x76B330
+void LoginTaskClass::Send_Referrer(const char *name)
+{
+	Referrer_Result = 0;
+	GlobalConnection->Send_Packet(&Packet_0077Class(name));
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 0x76B4A0
+bool GlobalErrorPacketClass::Process_Packet(void *client)
+{
+	LoginTaskClass *task = (LoginTaskClass *)client;
+	G_ASSERT(task);
+	Unknown_Log("LOGIN:WRN", "GlobalErrorPacketClass recv: %d : %d : %s", Unknown0C, Error, Message.c_str());
+	task->Handle_Global_Error(this);
+	return true;
 }
 
 
@@ -1318,36 +1324,30 @@ void LoginTaskClass::Handle_Referrer_Response(Packet_0078Class *packet)
 
 
 
+// 0x76B730
+bool GlobalTicketPacketClass::Process_Packet(void *client)
+{
+	LoginTaskClass *task = (LoginTaskClass *)client;
+	G_ASSERT(task);
+	Unknown_Log("LOGIN:INF", "Got the global ticket: %d", Status);
+	if (Status >= 1000) {
+		switch (Status) {
+			case 1000:
+				Unknown_Debug_Print("Error: AvatarSelectionTask-User not authorized");
+				task->Show_Message("Error: You have not been authorized to play this character.");
+				break;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+			case 1002:
+				Unknown_Debug_Print("Error: AvatarSelectionTask-Shard is full");
+				task->Show_Message("Error: This galaxy is full, please select another character.", "OK");
+				task->Set_Step(2, true);
+				break;
+		}
+	} else {
+		task->Ticket = Ticket;
+	}
+	return true;
+}
 
 
 
@@ -1384,15 +1384,15 @@ bool VersionResponsePacketClass::Process_Packet(void *client)
 
 
 
-
-
-
-
-
-
-
-
-
+// 0x76B9C0
+bool Packet_0076Class::Process_Packet(void *client)
+{
+	LoginTaskClass *task = (LoginTaskClass *)client;
+	G_ASSERT(task);
+	Unknown_Log("LOGIN:INF", "GlobalLoginPacketClass recv");
+	task->Handle_Global_Login(this);
+	return true;
+}
 
 
 
@@ -1411,11 +1411,13 @@ bool Packet_0078Class::Process_Packet(void *client)
 /*
 **	Reconstruction notes (client.exe 0x767240-0x76BC40; vtable 0xB040D4, slots in tsk_login.h).
 **	Not rebuilt yet: the two constructors 0x767240 / 0x7675D0 (they inline Create_Character_View,
-**	line 947) and so the vtable's inline slots, the destructor 0x767A20, Pre_Run 0x767DA0 (E&B's
-**	WW3D::Make_Screen_Shot takes a gamma and a flag), the ticket step 0x768B00, 0x7683F0, 0x768CB0,
-**	0x769110, the global connection 0x7698E0, step 16 0x769E70 (Start_Game, the ClientTaskClass: a register-only near miss, stashed in docs/attempts/769E70), 0x76A370, the
-**	EA.Com ticket 0x76A7B0 (kcom's authFactory / iauth), 0x76ADD0-0x76B470, and the handlers of
-**	packets pk_classes.h doesn't give a Process_Packet (0x76B4A0, 0x76B520, 0x76B730, 0x76B9C0).
+**	line 947) and so the vtable's inline slots, Pre_Run 0x767DA0, 0x7683F0, 0x768CB0, 0x769110 (the
+**	galaxy list's operator=), step 16 0x769E70 (Start_Game: a register-only near miss, stashed in
+**	docs/attempts/769E70), 0x76A370, the EA.Com ticket 0x76A7B0 (kcom's authFactory / iauth), 0x76AC60,
+**	and the avatar list's handler 0x76B520. Near misses in the tree: attempts.py list --lib app.
 **	Go_Next_Step / Go_Back_Step inline Set_Step (called through the class: it is virtual), Unknown_5C
-**	inlines Show_Message(text, button), Packet_0078Class::Process_Packet Handle_Referrer_Response.
+**	inlines Show_Message(text, button), Packet_0078Class::Process_Packet Handle_Referrer_Response,
+**	Packet_0076Class::Process_Packet Handle_Global_Login. The packet classes declared at the top
+**	(opcodes 111, 117, 118, 119) are views with the fields these handlers read; pk_classes.h declares
+**	them without fields (they belong there once app/packets decodes them).
 */

@@ -24,6 +24,8 @@
 
 class ConnectionClass;
 class Packet_0078Class;
+class GlobalErrorPacketClass;
+class Packet_0076Class;
 class LoginTaskClass;
 
 // The character view (charview.cpp: constructor 0x678450, 0x514 bytes), declared only as far as
@@ -64,6 +66,42 @@ public:
 	char Unknown18C[4];									// +0x18C: a name, compared with 'HTML'
 };
 
+class CharacterViewUnknown1B4Class	// NAME 1: neutral (D10): what CharacterViewClass +0x1B4 points to
+{
+public:
+	virtual void Unknown_00();
+	virtual void Unknown_04();
+	virtual void Unknown_08();
+	virtual void Unknown_0C();
+	virtual void Unknown_10();
+	virtual void Unknown_14();
+	virtual void Unknown_18();
+	virtual void Unknown_1C();
+	virtual void Unknown_20();
+	virtual void Unknown_24();
+	virtual void Unknown_28();
+	virtual void Unknown_2C();
+	virtual void Unknown_30();
+	virtual void Unknown_34();
+	virtual void Unknown_38();
+	virtual void Unknown_3C();
+	virtual void Unknown_40();
+	virtual void Unknown_44();
+	virtual void Unknown_48();
+	virtual void Unknown_4C();
+	virtual void Unknown_50();
+	virtual void Unknown_54();
+	virtual void Unknown_58();
+	virtual void Unknown_5C();
+	virtual void Unknown_60();
+	virtual void Unknown_64();
+	virtual void Unknown_68();
+	virtual void Unknown_6C();
+	virtual void Unknown_70();
+	virtual void Unknown_74();
+	virtual bool Unknown_78(GlobalErrorPacketClass *packet);	// +0x78: true when it handled the global error (0x76B000)
+};
+
 class CharacterViewClass	// NAME 1: the member's name CharacterView (the FAIL_IFs)
 {
 public:
@@ -89,7 +127,9 @@ public:
 
 	char Unknown004[0x30];								// +0x04
 	CharacterViewUnknown34Class *Unknown034;			// +0x34
-	char Unknown038[0x1CD - 0x38];						// +0x38
+	char Unknown038[0x1B4 - 0x38];						// +0x38
+	CharacterViewUnknown1B4Class *Unknown1B4;			// +0x1B4
+	char Unknown1B8[0x1CD - 0x1B8];						// +0x1B8
 	bool Unknown1CD;									// +0x1CD
 	bool Unknown1CE;									// +0x1CE
 	bool Unknown1CF;									// +0x1CF
@@ -201,6 +241,9 @@ public:
 	void Unknown_76A370();								// 0x76A370 (step 18: 'LoginTask: Request Character List.')
 	void Save_Login_Name();								// 0x76AD30: login.ini's LOGIN_DATA Name  // NAME 1: what it does
 	void Load_Login();									// 0x76ADD0: login.ini, -LOGIN, -PASSWORD  // NAME 1: what it does
+	void Handle_Global_Error(GlobalErrorPacketClass *packet);	// 0x76B000 (GlobalErrorPacketClass's handler)  // NAME 1: what it does
+	void Handle_Global_Login(Packet_0076Class *packet);	// 0x76B170 (inlined in the packet's Process_Packet: 'GlobalLoginPacketClass recv')  // NAME 1: what it does
+	void Send_Referrer(const char *name);				// 0x76B330: opcode 119 (called by 0x55D060: 'Sorry, you cannot refer yourself.')  // NAME 1: what it does
 	void Handle_Referrer_Response(Packet_0078Class *packet);	// 0x76B2F0 (inlined in the packet's Process_Packet)  // NAME 1: what it does
 	void Kill_Kernel();									// 0x769E40 ('LoginTask: killing kernel and exiting the game')  // NAME 1: what it does
 
@@ -226,11 +269,14 @@ public:
 	int Selected;										// +0x1080 NAME 1: the selected character's slot
 	char *Username;										// +0x1084 NAME 1: Set_Username's (nstrdup)
 	char *Password;										// +0x1088 NAME 1: Set_Password's (nstrdup)
-	char Unknown108C[0x1098 - 0x108C];					// +0x108C
+	int Unknown108C;									// +0x108C
+	int Error;											// +0x1090 NAME 1: the global error packet's code (0x76B000)
+	char Unknown1094[0x1098 - 0x1094];					// +0x1094
 	LoginTicketInfoClass Ticket_Info;					// +0x1098 NAME 1: what the ticket packet's handler 0x76B170 fills
 	int Unknown1134;									// +0x1134
 	bool Unknown1138;									// +0x1138: cleared by referrer results 1 and 2
-	char Unknown1139[0x1140 - 0x1139];					// +0x1139
+	char Unknown1139[0x113C - 0x1139];					// +0x1139
+	int Unknown113C;									// +0x113C: the login packet's +0xB4 less its +0xB8 (0x76B170)
 	int Referrer_Result;								// +0x1140 NAME 1: the referrer response's 'Result='
 	char Unknown1144[0x1148 - 0x1144];					// +0x1144
 };
