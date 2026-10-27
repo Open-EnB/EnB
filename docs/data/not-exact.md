@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-240 entries in 59 files.
+241 entries in 59 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -58,6 +58,7 @@ edit the comments in the code, not this file.
 | `app/client/fontdatabase.cpp:1344` | `FontInitStruct::Load_Font` | mention | NOT EXACT) and Restore_Font 0x6C3D40 (lines 986-991), Find_Font_File_Index 0x6C3FB0 (the client's name, its assert on line 1305), the chat font's file index 0x6C4070, the font file name 0x6C4270 (AllFonts), the chat font's scale / spacing / +0x98 value 0x6C42E0 / 0x6C4450 / 0x6C45B0, Get_Info 0x6C4720 (the INIT section for the current resolution: the last whose ResWidth / ResHeight fit), 0x6C47B0 ... |
 | `app/client/fontdatabase.cpp:1350` | `FontInitStruct::Load_Font` | mention | NOT EXACT); FontStringFilesClass (0xBE67BC: the string files in use, counted): Lower 0x6C4A80, the constructor 0x6C4C80, Find 0x6C51A0 and Unload 0x6C55B0 (its destructor 0x6C4F50 and Load 0x6C52B0 declared only: written from the pseudocode they missed and moved vector<std::string>::insert 0x432D50). Every other function of the file is not written yet. Tables (the Add functions' offsets and instan... |
 | `app/client/fontmanager.cpp:100` | `ManagedFontClass::Unknown_6D1010` | marker | NOT EXACT: inline budget: the client calls the std::string(const char *, allocator) constructor out of line, ours inlines it (attempts.csv) |
+| `app/client/fontmanager.cpp:108` | `ManagedFontClass::Unknown_6D10B0` | marker | NOT EXACT: shape, 18 rows: the client stores the color through [ebp+0x494] directly, ours through the member's address (attempts.csv) |
 | `app/client/fontmanager.cpp:407` | `FontManagerClass::Add` | marker | NOT EXACT: register-only, 3 rows: the client loads the id into ecx and keeps the font in eax (attempts.csv) |
 | `app/client/fontmanager.cpp:416` | `FontManagerClass::Add` | marker | NOT EXACT: register-only, 2 rows: the client reloads the buffer into eax, ours into edx (attempts.csv) |
 | `app/client/fontmanager.cpp:463` | `FontManagerClass::Unknown_6D2580` | marker | NOT EXACT: inline budget: the client calls Find 0x6D2A70 out of line (after pushing the arguments), ours inlines it (attempts.csv) |
