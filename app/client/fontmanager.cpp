@@ -342,27 +342,27 @@ void ManagedFontClass::Unknown_6D10B0(const char *name, TPoint3D<int> color)
 
 
 
+void ManagedFontClass::Unknown_6D1220(FontStyleClass *style)
+{
+	if (style && style->Name) {
+		std::string key = "";
+		if (!style->Unknown0F8.Is_Empty()) {
+			key = style->Unknown0F8;
+		} else {
+			key = style->Name;
+		}
+		if (Unknown_6D1600(key)) {
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+			G_ASSERT(0);
+		} else {
+			Styles[key] = style;
+		}
+	}
+}
 
 // NOT EXACT: shape, 38 rows: the key copy and its destruction differ (attempts.csv)
 FontStyleClass *ManagedFontClass::Unknown_6D1480(std::string name)
@@ -535,6 +535,21 @@ FontStyleClass *FontManagerClass::Get_Style(const char *name, unsigned int id)
 	}
 	return style;
 }
+// NOT EXACT: frame, 56 rows: ours keeps one more stack slot and releases style after the assert (attempts.csv)
+RefCountPtr<FontStyleClass> FontManagerClass::Unknown_6D2700(const char *name, const unsigned int &id)
+{
+	RefCountPtr<FontStyleClass> style;
+	ManagedFontClass *font = Find(id);
+	if (font) {
+		style = Create_Peek(font->Unknown_6D1600(name));
+		if (style) {
+			return style;
+		}
+	}
+
+	G_ASSERT(0);
+	return DebugFont;
+}
 
 // NOT EXACT: inline budget, 75 rows: the client calls the styles table's begin and bucket helpers out of line, ours inlines them (attempts.csv)
 void FontManagerClass::Unknown_6D28C0(int value, unsigned int id)
@@ -559,8 +574,9 @@ ManagedFontClass *FontManagerClass::Find(unsigned int id)
 **	Reconstruction notes
 **
 **	client.exe: the window 0x6D0F70-0x6D2A70 (asserts on lines 360, 524, 533 and 550), then the
-**	containers' instances. Not rebuilt yet: the font's 0x6D0F70 and 0x6D1220 (its assert on line
-**	360) and the manager's 0x6D2700 (line 550, a style by name as a RefCountPtr). 0x6D2400 / 0x6D2480 / 0x6D2500 differ only by their callee: one pattern, not counted.
+**	containers' instances. Not rebuilt yet: 0x6D0F70 (the out-of-line operator= of a {StringClass,
+**	int, int} member of FontStyleClass at +0x68 / +0x74 / +0x80; its callers 0x6D0A70, 0x6D47C0 and
+**	0x6D4C70 are in other files). 0x6D2700 is written (NOT EXACT, frame). 0x6D2400 / 0x6D2480 / 0x6D2500 differ only by their callee: one pattern, not counted.
 **	The depth lever (workflow.md 3.1) made the destructor and 0x6D1C10 exact: the client calls the
 **	nested table helpers out of line when they sit one inline level deeper.
 */
