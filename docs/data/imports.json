@@ -3888,6 +3888,27 @@
     "merged": [],
     "name": "packets/pkmanufactureitemcatagorypacket.cpp"
    },
+   "pkmasterjoin": {
+    "ambiguous": [
+     "0x42B2F0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350",
+     "0x8974C0",
+     "0x897560",
+     "0x897590",
+     "0x897650",
+     "0x8976C0"
+    ],
+    "merged": [],
+    "name": "packets/pkmasterjoin.cpp"
+   },
    "pkmessagechatstream": {
     "ambiguous": [
      "0x42B2F0"
@@ -6890,6 +6911,7 @@
    "packets/pkloothulkpermission.h": "reconstructed",
    "packets/pkloungenpc.h": "reconstructed",
    "packets/pkmanufactureitemcatagorypacket.h": "reconstructed",
+   "packets/pkmasterjoin.h": "reconstructed",
    "packets/pkmessagechatstream.h": "reconstructed",
    "packets/pkmessageline.h": "reconstructed",
    "packets/pkmessagestring.h": "reconstructed",

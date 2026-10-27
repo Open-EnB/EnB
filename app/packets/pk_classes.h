@@ -68,6 +68,7 @@
 #include "pkloothulkpermission.h"	// rebuilt
 #include "pkloungenpc.h"	// rebuilt
 #include "pkmanufactureitemcatagorypacket.h"	// rebuilt
+#include "pkmasterjoin.h"	// rebuilt
 #include "pkmessagechatstream.h"	// rebuilt
 #include "pkmessageline.h"	// rebuilt
 #include "pkmessagestring.h"	// rebuilt
@@ -225,15 +226,6 @@ public:
 	Action2PacketClass(RawPacketClass *raw);	// 0x8767B0
 	virtual bool Process_Packet(void *client);	// +0x08 0x867E00 (clientstub.cpp l.68)
 	char Unknown0C[0x1C];	// +0x0C
-};
-
-// opcode 53 (0x0035, MASTER_JOIN): vtable 0xB0AFB4, constructor 0x897590, 0x60 bytes
-class MasterJoinPacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name MASTER_JOIN (the Net-7 opcode table; no structure check)
-{
-public:
-	MasterJoinPacketClass(RawPacketClass *raw);	// 0x897590
-	virtual bool Process_Packet(void *client);	// +0x08 0x8683A0 (clientstub.cpp l.158)
-	char Unknown0C[0x54];	// +0x0C
 };
 
 // opcode 54 (0x0036, SERVER_REDIRECT): vtable 0xB0B6B4, constructor 0x8A1590, 0x18 bytes

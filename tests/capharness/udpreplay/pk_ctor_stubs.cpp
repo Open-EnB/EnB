@@ -10,7 +10,6 @@ ComponentPositionalUpdatePacketClass::ComponentPositionalUpdatePacketClass(RawPa
 FormationPositionalUpdatePacketClass::FormationPositionalUpdatePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_0015Class::Packet_0015Class(RawPacketClass *raw) { Conn_Record(this, raw); }
 Action2PacketClass::Action2PacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-MasterJoinPacketClass::MasterJoinPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 ServerRedirectPacketClass::ServerRedirectPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 ServerHandoffPacketClass::ServerHandoffPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 GlobalTicketPacketClass::GlobalTicketPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
