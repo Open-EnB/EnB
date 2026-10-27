@@ -291,6 +291,19 @@ unless `--lever` cites a new row of this table.
   client keeps a running offset (`offset += 4; offset += len`); `buf + len + 8` changes the arithmetic.
   A loader written in a constructor inlines every reader; the matching form was `KeyPair.Load(file_auto_ptr(...))`,
   and a named `file_auto_ptr` adds a 4-byte frame slot.
+* **Inline-budget dead reads count as expansions, not bytes (2026-10-27, D93 eval):** `size()`, `length()`, `c_str()`,
+  an inline getter all had the same effect, and only unreachable code after the last `return` moved anything
+  (B-opus, Get_String 0x7F9700). A std::list destructor that deletes its elements then empties the list has three
+  working forms for the client's inline erase with an out-of-line `it++` (0x886C20): `erase(begin(), end());
+  PlayerList.size();` (A-opus), `++it` in the delete loop plus `clear()` (A-sonnet-1, A-haiku); `clear()` alone
+  inlines neither, `erase(F, L)` alone inlines both (FIND_MEMBER 0x886890).
+* **`#pragma auto_inline(off)` around a helper keeps it out of line where the empty-`for` lever does not (2026-10-27,
+  B-sonnet-1, Set_Defaults 0x7F1AD0).** In a long function, extra inline calls or dead code anywhere move the
+  inliner's switch to out-of-line calls earlier, never later.
+* **Register levers from the packet rows (2026-10-27, D93 task A):** an entry pointer cached in a named local
+  (`entry = *it`) before several `raw->Add` calls made Build 0x8869F0 exact (three builders independently); the
+  client's `Add(..., char, char)` takes `movsx` arguments: declare them `char`, not `bool`; a `Vector3` member
+  copies register-wise (z first for a Default copy), a `TPoint3D` as a structure.
 
 ### 3.2 Templates and STL
 
@@ -304,6 +317,11 @@ unless `--lever` cites a new row of this table.
 * **Template virtuals compile on instantiation** (a `DeltaTemplateClass` virtual compiled
   `Set_Value` for money: `MoneyClass` needed `operator!=`).
 * **`std::string s(x); v.push_back(s);` isn't `v.push_back(std::string(x))`:** use the local.
+* **VC6 C1001 deducing `T` from `hash_map<std::string, T*>&` (2026-10-27, option.cpp):** template the helper on all
+  of hash_map's parameters, or on the whole map (`template<class M> void f(M &)`); `T::iterator` in the
+  signature also ICEs. VC6 has no `snprintf` (use `_snprintf`): the miss shows only as "1 errors" in verify's
+  summary line and gains nothing. A VC6 `std::list` member at +0x10 puts its allocator byte there, head +0x14,
+  size +0x18.
 
 ### 3.3 E&B app code
 
@@ -486,6 +504,14 @@ unless `--lever` cites a new row of this table.
   objdiff a variant tag, never the base. tryv2.py writes the tree file back with `open(..., 'w')` and can fail with
   OSError 22 when another process holds the file: the tree stays intact but later variants are skipped silently, so
   check the log's variant lines. importer.py is CRLF: a patch-insertion script must convert its anchor newlines.
+* **commit_mine keyed by a file name selects only that file's block (2026-10-27, A-opus):** the `headers` map rows
+  (`"packets/x.h": "reconstructed"`) need their own keys (`packets/pkfindmember.h`); A-sonnet-1 left them out.
+  Commit before restoring imports.json: `git checkout docs/data/imports.json` after a verify discards the gains
+  commit_mine still needs. `names.py` / `notexact.py` scan tracked files only: `git add` a new file first.
+  `build.py build --lib app` refuses a dirty library; `--allow-dirty` tests uncommitted files.
+* **Concurrent verifies queue on the importer lock, but `%TEMP%\enb_import\verify-app` and `tryv2-<tag>` are shared
+  (2026-10-27, A-sonnet-2, B-sonnet-1):** another builder's verify deletes your objs before explain.py reads them.
+  Set TEMP and TMP to a private folder (`.work/tmp`) for verify and explain.py; give tryv2 a unique tag.
 
 ### 3.5 Build VMs and vc6.py
 
@@ -555,6 +581,11 @@ unless `--lever` cites a new row of this table.
   that include dx8wrapper.h needs `-I C:/EnBDevelopment/SDK/directx8/include`. `attempts.py check` reports pk.h's
   parked 0x8770A0 for every packet file: `--ack 0x8770A0`. Constructors fall outside `appfile.py`'s `__FILE__`
   windows; `client.py refs` misses vtable references that point at thunks (mapper, 2026-10-27).
+* **`appfile.py match` include paths (2026-10-27, D93 eval):** besides the brief's list it needs `-I app/shared/auxdata`
+  (pk.h's `..\shared\auxdata\linearbu.h`), `app/packets/gameedit`, `libs/sgistl`, `wwlib`, `wwmath` for a hash_map
+  file; pass them absolute. It runs on `ENB_VC6_HOSTS` (no `--pool`): lease and export it. A gameedit draft's
+  relative include is one level deeper (`..\..\..\wwlib\nstrdup.h`). `explain.py --window 200` shows a whole
+  function; `--n` is the candidate index, not a row count.
 
 ### 3.7 Harnesses, programs, unattended runs
 
@@ -600,6 +631,13 @@ unless `--lever` cites a new row of this table.
   constructor isn't run needs `Node.Set(object)` before Add_Object. VC6 with /GX catches an access violation in a
   constructor and unwinds before crashing: flush the trace per line. When cpacket.cpp gains handlers, re-run
   clienttest and refresh expected.txt with `--update` after checking the difference (the tasks builder owns that).
+* **udpreplay's gate is `conn`, not `run` (2026-10-27):** A-haiku compared `udpreplay.py run alex7` (fails at HEAD,
+  one rejected datagram) and reported a pre-existing failure; `conn alex3` / `conn alex7` pass at every eval branch.
+  In a worktree, `udpreplay.py build` needs build/app/app.lib (`build.py build --lib app --allow-dirty` first) and a
+  baseline worktree needs the libraries and `.work/harness/*.dgram` copied in (`.work/eval/setup.py` does both).
+* **Run tools by absolute path from a worktree (2026-10-27, A-haiku):** a `cd` that fails leaves the shell in the
+  main tree; A-haiku's `udpreplay.py build` then overwrote the main tree's build/programs/udpreplay with a failed
+  link and re-staged `.work/harness/udpreplay_src` (untracked; rebuild there before the next udpreplay check).
 
 ### 3.8 Git, docs and scripting hygiene
 
@@ -673,3 +711,8 @@ unless `--lever` cites a new row of this table.
 * **Packets.** The switch 0x869790 (`tools/re/pkclasses.py`) puts the 5000/30000 bodies last: take
   source order from unwind states. The match: `packet = new X(raw); break;`, `packet` uninitialised,
   the default `packet = 0;` before its assert (`return(new X(raw));` drops `mov esi, eax`).
+* **Packets (2026-10-27, D93 task A):** pkemit.py's NAMED keys must be addresses inside their own object (pkgespwn
+  was keyed 0x8622A0, inside 0x861DB0-0x862320; now 0x862350). pkclasses.py sees a class as rebuilt only when
+  `// opcode N (` sits directly above `class X`; a comment between them duplicates it in pk_classes.h.
+  Game-editor objects share one `__FILE__`: read the assert string (0xBB2410: gameedit\pkgesave.cpp) before naming
+  a pkunknown_* file, and rename the whole object (A-haiku split 30027 / 30028 across two files instead).
