@@ -170,6 +170,8 @@ public:
 	void Unknown_7518A0();								// 0x7518A0 (Init)
 	void Unknown_7555B0();								// 0x7555B0 (Shutdown)
 	void Unknown_743290();								// 0x743290 (cpacket.cpp: LOGOFF_CONFIRMATION 186)
+	bool Unknown_744B60();								// 0x744B60 (cpacket.cpp: REMOVE 7, GROUP 30)
+	void Unknown_74C530(unsigned id);					// 0x74C530 (cpacket.cpp: REMOVE 7 passes its GameID)  // NAME 1 [id]: the packet's GameID
 	void Unknown_74B600();								// 0x74B600 (cpacket.cpp: mode change 76, mode 0)
 	void Unknown_74B640();								// 0x74B640 (cpacket.cpp: mode change 76, mode 1)
 	void Unknown_74B680(int a, int starbase_id);		// 0x74B680 (cpacket.cpp: starbase tow 80 passes 0 and StarbaseID1)  // NAME 1 [a, starbase_id]: what the handler passes

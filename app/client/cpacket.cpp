@@ -18,8 +18,10 @@
 #include "..\packets\pkmodechange.h"
 #include "..\packets\pkpointeffect.h"
 #include "..\packets\pkreferralpointsavailable.h"
+#include "..\packets\pkremove.h"
 #include "..\packets\pkrequesttarget.h"
 #include "..\packets\pksetzband.h"
+#include "..\packets\pksoundcommand.h"
 #include "..\packets\pkspline.h"
 #include "..\packets\pkstarbasetow.h"
 #include "..\packets\pkverblist.h"
@@ -41,6 +43,17 @@ public:
 	void Unknown_460850(int render_state_id);	// 0x460850 (ACTIVATE_NEXT_RENDER_STATE 49)
 	void Unknown_460880(int render_state_id, int link_id);	// 0x460880 (INIT_RENDER_STATE 47)
 };
+
+// sound_manager.cpp's sound manager (the global 0xBE82A4), declared as far as the sound packets call it
+class SoundManagerClass	// NAME 3: class-from-file (D24) for app\client\sound_manager.cpp
+{
+public:
+	void Unknown_75AE30(const char *name, int channel);	// 0x75AE30 (CLIENT_SOUND 106, Queue set)  // NAME 1 [name, channel]: the packet's fields
+	void Unknown_75B0D0(const char *name, int channel);	// 0x75B0D0 (CLIENT_SOUND 106, Queue clear)  // NAME 1 [name, channel]: the packet's fields
+	void Unknown_75B170(int channel);	// 0x75B170 (SOUND_COMMAND 107)  // NAME 1 [channel]: the packet's field
+	void Unknown_75B2B0(int channel);	// 0x75B2B0 (SOUND_COMMAND 107)  // NAME 1 [channel]: the packet's field
+};
+extern SoundManagerClass *SoundManager;	// 0xBE82A4  // NAME 2: what it holds
 
 // 0x7333B0
 bool LogoffConfirmationPacketClass::Process_Packet(void *instance)
@@ -93,6 +106,23 @@ bool RemoveEffectPacketClass::Process_Packet(void *instance)
 	EffectObjectClass *effect = sclient->Get_Effect(EffectID);
 	if (effect) {
 		effect->Unknown_6E6E30();
+	}
+	return(true);
+}
+
+// 0x7362F0
+bool RemovePacketClass::Process_Packet(void *instance)
+{
+	WWPROFILE("RemovePacketClass::Process_Packet()");
+	ClientClass *client = (ClientClass *)instance;
+	if (!((SClient *)client->Unknown_18())->Unknown_744B60()) {
+		((SClient *)client->Unknown_18())->Unknown_74C530(GameID);
+	}
+	ClientObjectClass *object = client->Find_Object(GameID);
+	client->Remove_Object(GameID);
+	if (object) {
+		object->Unknown_08();
+		delete object;
 	}
 	return(true);
 }
@@ -225,6 +255,40 @@ bool StarbaseTowPacketClass::Process_Packet(void *instance)
 	return(true);
 }
 
+// 0x7383D0
+bool ClientSoundPacketClass::Process_Packet(void *instance)
+{
+	WWPROFILE("SoundPacketClass::Process_Packet(void * instance)");
+	if (Queue) {
+		SoundManager->Unknown_75AE30(SoundName, Channel);
+	} else {
+		SoundManager->Unknown_75B0D0(SoundName, Channel);
+	}
+	return(true);
+}
+
+// 0x7384A0
+bool SoundCommandPacketClass::Process_Packet(void *instance)
+{
+	WWPROFILE("SoundCommandPacketClass::Process_Packet(void * instance)");
+	switch (Command) {
+		case 0:
+			SoundManager->Unknown_75B2B0(Channel);
+			break;
+		case 1:
+			SoundManager->Unknown_75B2B0(Channel);
+			SoundManager->Unknown_75B170(Channel);
+			break;
+		case 2:
+			for (int channel = 0; channel < 16; channel++) {
+				SoundManager->Unknown_75B2B0(channel);
+				SoundManager->Unknown_75B170(channel);
+			}
+			break;
+	}
+	return(true);
+}
+
 // 0x7388B0
 bool VerbUpdatePacketClass::Process_Packet(void *instance)
 {
@@ -242,70 +306,6 @@ bool HullUpgradePacketClass::Process_Packet(void *instance)
 	WWPROFILE("HullUpgradePacketClass::Process_Packet(void * instance)");
 	return(true);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
