@@ -404,6 +404,7 @@ void FontManagerClass::Unknown_6D1C10(int unknown1, int unknown2)
 	}
 }
 
+// NOT EXACT: register-only, 3 rows: the client loads the id into ecx and keeps the font in eax (attempts.csv)
 void FontManagerClass::Add(const char *name)
 {
 	ManagedFontClass *font = new ManagedFontClass(name);
@@ -412,6 +413,7 @@ void FontManagerClass::Add(const char *name)
 	}
 }
 
+// NOT EXACT: register-only, 2 rows: the client reloads the buffer into eax, ours into edx (attempts.csv)
 void FontManagerClass::Add(const StringClass &name)
 {
 	Add((const char *)name);
@@ -420,6 +422,16 @@ void FontManagerClass::Add(const StringClass &name)
 void FontManagerClass::Remove(unsigned int id)
 {
 	std::hash_map<unsigned int, ManagedFontClass *>::iterator it = Fonts.find(id);
+	if (it != Fonts.end()) {
+		delete it->second;
+		Fonts.erase(it);
+	}
+}
+
+void FontManagerClass::Unknown_6D2310(const unsigned int &id)
+{
+	unsigned int key = id;
+	std::hash_map<unsigned int, ManagedFontClass *>::iterator it = Fonts.find(key);
 	if (it != Fonts.end()) {
 		delete it->second;
 		Fonts.erase(it);
@@ -441,6 +453,12 @@ void FontManagerClass::Unknown_6D2500(unsigned int id)
 	Find(id)->Unknown_6D0A20(NULL);
 }
 
+// NOT EXACT: inline budget: the client calls Find 0x6D2A70 out of line (after pushing the arguments), ours inlines it (attempts.csv)
+void FontManagerClass::Unknown_6D2580(const char *name, TPoint3D<int> color, unsigned int id)
+{
+	Find(id)->Unknown_6D1010(name, color);
+}
+
 void FontManagerClass::Add(ManagedFontClass *font)
 {
 	if (font && font->Id) {
@@ -459,5 +477,5 @@ ManagedFontClass *FontManagerClass::Find(unsigned int id)
 **
 **	client.exe: the window 0x6D0F70-0x6D2A70 (asserts on lines 360, 524, 533 and 550), then the
 **	containers' instances. The font's own functions (0x6D0F70-0x6D1600) and the manager's
-**	0x6D1FD0, 0x6D2310, 0x6D2580, 0x6D25D0, 0x6D2700 and 0x6D28C0 are not rebuilt yet.
+**	0x6D1FD0, 0x6D2580, 0x6D25D0, 0x6D2700 and 0x6D28C0 are not rebuilt yet.
 */
