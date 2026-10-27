@@ -8,10 +8,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | Score | Meaning | Names |
 |---|---|---|
 | 5 | the client names it | 31 |
-| 4 | EA source, or a structure-confirmed Net-7 / C# name | 35 |
+| 4 | EA source, or a structure-confirmed Net-7 / C# name | 36 |
 | 3 | by convention from a client-named file or sibling | 810 |
 | 2 | describes what the code does | 1864 |
-| 1 | neutral placeholder | 3437 |
+| 1 | neutral placeholder | 3434 |
 
 ## For review (score 3 and below)
 
@@ -289,7 +289,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_6F5980` | `app/client/co.cpp:1010` | untagged neutral name (D10) |
 | 1 | `Unknown_6F5A10` | `app/client/co.cpp:1036` | untagged neutral name (D10) |
 | 1 | `Unknown_6F5A60` | `app/client/co.cpp:1055` | untagged neutral name (D10) |
-| 1 | `Unknown_6F5A80` | `app/client/co.cpp:1058` | untagged neutral name (D10) |
 | 1 | `Unknown_6F5AB0` | `app/client/co.cpp:1067` | untagged neutral name (D10) |
 | 1 | `Unknown_6F5AD0` | `app/client/co.cpp:1069` | untagged neutral name (D10) |
 | 1 | `Unknown_6F5AF0` | `app/client/co.cpp:1071` | untagged neutral name (D10) |
@@ -443,7 +442,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_6F5A10` | `app/client/co.h:122` | untagged neutral name (D10) |
 | 1 | `Unknown_6F5A40` | `app/client/co.h:123` | untagged neutral name (D10) |
 | 1 | `Unknown_6F5A60` | `app/client/co.h:124` | untagged neutral name (D10) |
-| 1 | `Unknown_6F5A80` | `app/client/co.h:125` | untagged neutral name (D10) |
 | 1 | `Unknown_6F5AB0` | `app/client/co.h:126` | untagged neutral name (D10) |
 | 1 | `Unknown_6F5AD0` | `app/client/co.h:127` | untagged neutral name (D10) |
 | 1 | `Unknown_6F5AF0` | `app/client/co.h:128` | untagged neutral name (D10) |
@@ -682,7 +680,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown10CC` | `app/client/cpacket.cpp:382` | untagged neutral name (D10) |
 | 1 | `Unknown_728180` | `app/client/cpacket.cpp:384` | untagged neutral name (D10) |
 | 1 | `requests` | `app/client/cpacket.cpp:419` | what it counts |
-| 1 | `Unknown_6F5A80` | `app/client/cpacket.cpp:587` | untagged neutral name (D10) |
 | 1 | `Unknown_64` | `app/client/cpacket.cpp:625` | untagged neutral name (D10) |
 | 1 | `Unknown_7C` | `app/client/cpacket.cpp:625` | untagged neutral name (D10) |
 | 1 | `Unknown_6E6E30` | `app/client/cpacket.cpp:827` | untagged neutral name (D10) |
