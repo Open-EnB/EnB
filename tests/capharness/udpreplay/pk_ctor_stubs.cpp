@@ -78,7 +78,6 @@ TriggerEmotePacketClass::TriggerEmotePacketClass(RawPacketClass *raw) { Conn_Rec
 NotifyEmotePacketClass::NotifyEmotePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 JobListPacketClass::JobListPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 JobDescriptionPacketClass::JobDescriptionPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-WarpPacketClass::WarpPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 SubPartsPacket::SubPartsPacket(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_00B5Class::Packet_00B5Class(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_00B6Class::Packet_00B6Class(RawPacketClass *raw) { Conn_Record(this, raw); }

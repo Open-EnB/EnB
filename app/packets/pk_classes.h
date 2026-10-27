@@ -780,15 +780,6 @@ public:
 	char Unknown0C[0x10];	// +0x0C
 };
 
-// opcode 155 (0x009B, WARP): vtable 0xB0C330, constructor 0x8B1BA0, 0x14 bytes
-class WarpPacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name WARP (the Net-7 opcode table; no structure check)
-{
-public:
-	WarpPacketClass(RawPacketClass *raw);	// 0x8B1BA0
-	virtual bool Process_Packet(void *client);	// +0x08 0x868B20 (clientstub.cpp l.278)
-	char Unknown0C[0x8];	// +0x0C
-};
-
 // opcode 180 (0x00B4, SUBPARTS): vtable 0xB09BE4, constructor 0x8756B0, 0x24 bytes
 class SubPartsPacket : public PacketClass
 {

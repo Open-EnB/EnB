@@ -3499,6 +3499,11 @@ RECONSTRUCTED = {
                                       "(Unknown_RateClass), client 0x820830-0x820AF7",
     ('app', 'common/unknown_rate.h'): "PROVISIONAL file name: the bytes-per-second average 0x820830-0x820A20 "
                                       "(Unknown_RateClass, D10); rebuilt in unknown_rate.cpp",
+    ('app', 'common/unknown_navlist.cpp'): "PROVISIONAL file name (D10): the music types' names and the navigation "
+                                         "list (NavigationListClass, vtable 0xB08C60; WARP 155's), client 0x8462A0-0x846A3F "
+                                         "(builder P4, 15 of 15 exact in appfile.py match)",
+    ('app', 'common/unknown_navlist.h'): "PROVISIONAL file name: NavigationListClass (0x18 bytes: a vector of nav ids, "
+                                       "a cursor) and the music type lookups; rebuilt in unknown_navlist.cpp",
     ('app', 'common/tcpconn.cpp'): "PARTIAL (kernel-map.md step 8): TCPConnection over wnet's TCPCon / TCPMgr "
                                    "(D73), client 0x828DE0-0x829C40: the constructor by address, the destructor, Connect "
                                    "(line 119), Try_Connect, Is_Connected, Disconnect, Get_Address, Close, "
@@ -3650,7 +3655,7 @@ RECONSTRUCTED = {
     ('app', 'packets/pkequipuse.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
     ('app', 'packets/pkversionrequest.cpp'): "packet classes (opcode 0, 1) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
     ('app', 'packets/pkversionrequest.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
-    ('app', 'packets/pkwarpindex.cpp'): "packet classes (opcode 156) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
+    ('app', 'packets/pkwarpindex.cpp'): "opcode 155 (WARP) written by hand (builder P4, 6 of 6 exact in appfile.py match); packet classes (opcode 156) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
     ('app', 'packets/pkwarpindex.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
     ('app', 'packets/pkflag.cpp'): "the client's file, 0x887570-0x8878D0: the flagged packets' field helpers and FlagPacketClass's mask (Write_Flags / Read_Flags / Get_Flag_Size, 1, 2 or 4 bytes by Get_Flag_Count), asserts on the client's lines 51-90 (D25): written by hand (builder P), 8 of 8 exact in appfile.py match",
     ('app', 'packets/pkflag.h'): "FlagPacketClass (vtable 0xB0A3D4, +0x28 pure) and the helpers' declarations",

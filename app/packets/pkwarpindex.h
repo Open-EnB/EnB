@@ -5,8 +5,7 @@
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
 **	Original location: e:\build\beta\G\app\packets\pkwarpindex.h (the name provisional: see the .cpp)
 **
-**	The packet classes of client 0x8B1AA0-0x8B2050 rebuilt so far (opcode 156); the file's other classes
-**	are still declared in pk_classes.h.
+**	The packet classes of client 0x8B1AA0-0x8B2050 (opcodes 155 and 156).
 */
 
 #if defined(_MSC_VER)
@@ -17,6 +16,24 @@
 #define PKWARPINDEX_H
 
 #include "pk.h"
+
+class NavigationListClass;
+
+// opcode 155 (0x009B, WARP): vtable 0xB0C330, constructor 0x8B1BA0, 0x14 bytes
+class WarpPacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name WARP (the Net-7 opcode table; no structure check)
+{
+public:
+	WarpPacketClass(int player_id, const NavigationListClass &list);	// 0x8B1AA0
+	WarpPacketClass(RawPacketClass *raw);	// 0x8B1BA0
+	virtual ~WarpPacketClass();	// +0x00 0x8B1B70 (0x8B1C70)
+	virtual RawPacketClass *Build();	// +0x04 0x8B1CF0
+	virtual bool Process_Packet(void *client);	// +0x08 0x868B20 (clientstub.cpp l.278)
+	virtual int Get_Data_Size();	// +0x0C 0x8B1DC0
+	virtual int Print(char *buffer, int len);	// +0x10 0x8B1DE0
+
+	int PlayerID;	// +0x0C  // NAME 3: the client's Print text 'PlayerID='
+	NavigationListClass *List;	// +0x10 (unknown_navlist.h)  // NAME 3: the client's Print text 'NavigationListSize='
+};
 
 // opcode 156 (0x009C, WARP_INDEX): vtable 0xB0C360, constructor 0x8B1EB0, 0x10 bytes
 class WarpIndexPacketClass : public PacketClass

@@ -2834,6 +2834,12 @@
      "0x52B270",
      "0x52B2A0",
      "0x52B350",
+     "0x8B1AA0",
+     "0x8B1B70",
+     "0x8B1BA0",
+     "0x8B1C70",
+     "0x8B1CF0",
+     "0x8B1DE0",
      "0x8B1E20",
      "0x8B1EB0",
      "0x8B1F40",
@@ -3353,6 +3359,37 @@
     "merged": [],
     "name": "common/unknown_memregistry.cpp"
    },
+   "unknown_navlist": {
+    "ambiguous": [
+     "0x42A900",
+     "0x42AAE0",
+     "0x42AFF0",
+     "0x42B2F0",
+     "0x4333D0",
+     "0x436730"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x8462A0",
+     "0x846330",
+     "0x846360",
+     "0x846390",
+     "0x846430",
+     "0x8466F0",
+     "0x846730",
+     "0x8467B0",
+     "0x8467F0",
+     "0x846830",
+     "0x846870",
+     "0x8468C0",
+     "0x846900",
+     "0x846940",
+     "0x8469B0"
+    ],
+    "merged": [],
+    "name": "common/unknown_navlist.cpp"
+   },
    "unknown_new": {
     "ambiguous": [],
     "copy": "reconstructed",
@@ -3419,6 +3456,7 @@
    "common/memconn.h": "reconstructed",
    "common/tcpconn.h": "reconstructed",
    "common/udpconn.h": "reconstructed",
+   "common/unknown_navlist.h": "reconstructed",
    "common/unknown_rate.h": "reconstructed",
    "common/unknown_rsakey.h": "reconstructed",
    "kernel/kernel.h": "reconstructed",
@@ -3533,7 +3571,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 1439,
+  "in_tree_total": 1460,
   "totals": {}
  },
  "binkmovie": {
