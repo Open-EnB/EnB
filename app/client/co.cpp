@@ -5,8 +5,25 @@
 #include "rendobj.h"
 #include "sphere.h"
 #include "vector3.h"
+#include "control_keys_manager.h"
+#include "..\packets\pk_player_object_relationship.h"
 
 #include "..\shared\unknown_debug.h"
+
+// The event 0x6FEEE0 emits (the client's RTTI .?AVPlayerObjectRelationshipChangeEvent@@, 0x14 bytes)
+class PlayerObjectRelationshipChangeEvent	// NAME 5: the client's RTTI name
+{
+public:
+	PlayerObjectRelationshipChangeEvent(ClientObjectClass *object, const RelationshipClass &old_relationship, const RelationshipClass &new_relationship) :
+		Object(object), Old(old_relationship), New(new_relationship) {}
+
+	ClientObjectClass *Object;		// +0x00  // NAME 2: what it holds
+	RelationshipClass Old;			// +0x04  // NAME 2: what it holds
+	RelationshipClass New;			// +0x0C  // NAME 2: what it holds
+};
+
+// The SignalMap the relationship event goes to: a function-static instance (0xBE57C0), not rebuilt
+SignalMap &Unknown_4F7EF0();
 
 // The data next to the object's code (.data 0xB93ACC-0xB93AE7): the pool sizes the constructor hands
 // MultiFixedPoolDecalSystemClass, then four factors the size functions multiply
@@ -15,6 +32,8 @@ float Unknown_B93AD8 = 0.1f;			// 0xB93AD8
 float Unknown_B93ADC = 0.0125f;			// 0xB93ADC
 float Unknown_B93AE0 = 0.02f;			// 0xB93AE0
 float Unknown_B93AE4 = 0.025f;			// 0xB93AE4
+float Unknown_B93AE8 = 1.0f;			// 0xB93AE8
+float Unknown_B93AEC = 1.5f;			// 0xB93AEC
 
 // 0x6F3BA0
 void ClientObjectClass::Unknown_34(float value)
@@ -31,41 +50,22 @@ RenderObjClass *ClientObjectClass::Unknown_6F3BC0()
 	Model->Add_Ref();
 	return(Model);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// 0x6F3ED0
+float ClientObjectClass::Unknown_6F3ED0()
+{
+	Vector3 v = Unknown98->Unknown_14(Client->Unknown10BC);
+	float x = v.Z * -500.0f;
+	float k;
+	if (Unknown_6F5A40()) {
+		k = Unknown_B93AE8;
+	} else {
+		if (Unknown_6F4290() < 0.174532935f) {
+			return(0.0f);
+		}
+		k = Unknown_B93AEC;
+	}
+	return(WWMath::Clamp(k * x, -0.628318548f, 0.628318548f));
+}
 
 
 
@@ -2259,13 +2259,13 @@ Matrix3D ClientObjectClass::Unknown_6FED80(int unknown)
 	G_ASSERT(Model);
 	return(Matrix3D::Identity);
 }
-
-
-
-
-
-
-
+// 0x6FEEE0
+void ClientObjectClass::Unknown_6FEEE0(const RelationshipClass &relationship)
+{
+	PlayerObjectRelationshipChangeEvent event(this, *(RelationshipClass *)Relationship, relationship);
+	*(RelationshipClass *)Relationship = relationship;
+	Unknown_4F7EF0().emit(this, event);
+}
 
 
 

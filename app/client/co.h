@@ -31,6 +31,7 @@ class RenderObjClass;
 class Vector3;
 class Matrix3D;
 class SphereClass;
+class RelationshipClass;
 
 // co.cpp's +0xB4 object: a RefCountClass the constructor gets from 0x731FA0 (0xB8 bytes, constructor
 // 0x732030); 0x6FCB20 passes the visibility to its slot +0x18
@@ -59,6 +60,7 @@ public:
 	virtual Matrix3D Unknown_08(int unknown);
 	virtual Vector3 Unknown_0C(int unknown);
 	virtual Vector3 Unknown_10(int unknown);	// +0x10 (0x6F2ED0: a zero Vector3); 0x6F5050 passes the client's +0x10BC  // NAME 1 [unknown]: neutral
+	virtual Vector3 Unknown_14(int unknown);	// +0x14 (0x6F2F00: a zero Vector3); 0x6F3ED0 passes the client's +0x10BC  // NAME 1 [unknown]: neutral
 };
 
 void Unknown_810540(RenderObjClass *model, int state, int unknown);	// shiputils.cpp (cdecl)  // NAME 1 [model, state, unknown]: co.cpp passes the model, 1 or 2, and 0
@@ -97,6 +99,8 @@ public:
 	bool Unknown_6F5DC0();								// 0x6F5DC0 (co.cpp; cpacket.cpp's SET_TARGET 25 tests it)
 	void Unknown_6FEF70(SubPartsPacket *packet);		// 0x6FEF70 (co.cpp; cpacket.cpp's SUBPARTS 180)  // NAME 1 [packet]: the handler's packet
 	void Unknown_70E750(int id);						// 0x70E750 (cpacket.cpp's SET_TARGET 25 passes its TargetID)  // NAME 1 [id]: the packet's TargetID
+	float Unknown_6F3ED0();								// 0x6F3ED0 an angle from +0x98's slot +0x14, clamped to 36 degrees
+	float Unknown_6F4290();								// 0x6F4290 (not rebuilt)
 	void Unknown_6F3BF0(bool hidden);					// 0x6F3BF0 (the model's Set_Hidden)  // NAME 2 [hidden]: Set_Hidden's argument
 	float Unknown_6F45E0();								// 0x6F45E0
 	float Unknown_6F4590();								// 0x6F4590
@@ -144,6 +148,7 @@ public:
 	void Unknown_6FE1E0();								// 0x6FE1E0 (co.cpp, not rebuilt: the damage state)
 	void Unknown_7009A0(bool on, bool force);			// 0x7009A0  // NAME 2 [on, force]: what it tests
 	void Unknown_6FEC40(SphereClass *sphere);			// 0x6FEC40 (FAIL_IF '!sphere', l.2232): the bounding sphere in slot +0x28's frame
+	void Unknown_6FEEE0(const RelationshipClass &relationship);	// 0x6FEEE0: sets +0x12C and emits PlayerObjectRelationshipChangeEvent
 	Matrix3D Unknown_6FED80(int unknown);				// 0x6FED80 (G_ASSERT 'RenderObject', l.2259): +0xB4's or the model's transform  // NAME 1 [unknown]: neutral
 
 	char Unknown04[0x60 - 0x04];						// +0x04
@@ -167,7 +172,9 @@ public:
 	int UnknownF8;										// +0xF8
 	char UnknownFC[0x128 - 0xFC];						// +0xFC
 	bool Unknown128;									// +0x128 (0x6FC950 sets it)
-	char Unknown129[0x174 - 0x129];						// +0x129
+	char Unknown129[0x12C - 0x129];						// +0x129
+	int Relationship[2];								// +0x12C a RelationshipClass (pk_player_object_relationship.h; the constructor's 0x848C80): 0x6FEEE0 sets it  // NAME 2: what it holds
+	char Unknown134[0x174 - 0x134];						// +0x134
 	float Unknown174;									// +0x174 (0x700820 sets 2.0f)
 	float Unknown178[3];								// +0x178 a Vector3 (0x700820)
 	bool Unknown184;									// +0x184 (the constructor's 1; 0x7009A0's state)
