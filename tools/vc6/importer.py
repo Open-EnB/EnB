@@ -3820,6 +3820,8 @@ RECONSTRUCTED = {
     ('app', 'packets/pkrecustomize.h'): "its classes (pk_classes.h includes it: tools/re/pkclasses.py)",
     ('app', 'packets/pkmasterjoin.cpp'): "MASTER_JOIN 53's object, 0x8974C0-0x8977D0 (no assert: the file name provisional, NAME 1): written by hand (builder P6)",
     ('app', 'packets/pkmasterjoin.h'): "its class (pk_classes.h includes it: tools/re/pkclasses.py)",
+    ('app', 'packets/pklogin.cpp'): "LOGIN 2's object, 0x89A740-0x89AB00 (no assert: the file name provisional, NAME 1): written by hand (builder P9)",
+    ('app', 'packets/pklogin.h'): "its class (pk_classes.h includes it: tools/re/pkclasses.py)",
     ('app', 'packets/pkglobalticket.cpp'): "GLOBAL_TICKET 111's object, 0x867520-0x867830 (no assert: the file name provisional, NAME 1): written by hand (builder P9)",
     ('app', 'packets/pkglobalticket.h'): "its class (pk_classes.h includes it: tools/re/pkclasses.py)",
     ('app', 'packets/pkloungenpc.cpp'): "LOUNGE_NPC 82's object, 0x897800-0x89A710 (no assert: the file name provisional, NAME 1): written by hand (builder P6)",

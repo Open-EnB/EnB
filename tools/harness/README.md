@@ -301,9 +301,9 @@ size field disagrees with its length, without the 2-byte size field (D91: a rebu
 is made over each side's CordCon with the constructor for an accepted one (0x82CBF0); the default
 channel it opens is taken back, since the replay opens the capture's channels.
 A packet class rebuilt in the tree sends what its own Build writes (conn_replay.cpp; counted as
-"written by a rebuilt class's Build"). Two Builds stamp a field with the aux-data clock
-(Unknown_Get_Ticks, 0 in the harness): CLIENT_SET_TIME 52 (ServerSent, message byte 12) and REQUEST_TIME 68
-(TimeSent, byte 4). Those two opcodes are compared with that field zeroed (`TICKS` in udpreplay.py; counted as
+"written by a rebuilt class's Build"). Three Builds stamp a field with the aux-data clock
+(Unknown_Get_Ticks, 0 in the harness): CLIENT_SET_TIME 52 (ServerSent, message byte 12), REQUEST_TIME 68
+(TimeSent, byte 4) and LOGIN 2 (TimeSent, byte 0x44, after the 0x40-byte ticket). Those opcodes are compared with that field zeroed (`TICKS` in udpreplay.py; counted as
 "time field masked"); every other byte must still be equal. D95(a): a rebuilt class whose client Build writes a
 size field larger than the payload it adds can't give the received message back, so for the opcodes in
 conn_replay.cpp's explicit list `Recorded_Opcodes` (AVATAR_DESCRIPTION 97: Get_Data_Size 0x110 for 0x108 bytes;

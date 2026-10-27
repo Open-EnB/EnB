@@ -78,8 +78,9 @@ import convert as C  # noqa: E402
 
 # The messages whose rebuilt Build stamps a field with the aux-data clock (Unknown_Get_Ticks 0x4A3B40,
 # 0 in the harness: conn_replay.cpp), so it can't give the received bytes back: opcode -> the field's
-# offset in the message (header included). CLIENT_SET_TIME 52: ServerSent; REQUEST_TIME 68: TimeSent.
-TICKS = {52: 12, 68: 4}
+# offset in the message (header included). CLIENT_SET_TIME 52: ServerSent; REQUEST_TIME 68: TimeSent;
+# LOGIN 2: TimeSent after the login ticket (TicketClass::Get_Size, 0x40 bytes).
+TICKS = {2: 0x44, 52: 12, 68: 4}
 
 
 def masked(m):

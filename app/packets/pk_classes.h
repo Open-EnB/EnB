@@ -66,6 +66,7 @@
 #include "pkitemba.h"	// rebuilt
 #include "pkitemstate.h"	// rebuilt
 #include "pkjoblist.h"	// rebuilt
+#include "pklogin.h"	// rebuilt
 #include "pklogoff.h"	// rebuilt
 #include "pkloothulkpermission.h"	// rebuilt
 #include "pkloungenpc.h"	// rebuilt
@@ -135,15 +136,6 @@
 #include "pkverbrequest.h"	// rebuilt
 #include "pkversionrequest.h"	// rebuilt
 #include "pkwarpindex.h"	// rebuilt
-
-// opcode 2 (0x0002, LOGIN): vtable 0xB0B014, constructor 0x89A850, 0xB8 bytes
-class LoginPacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name LOGIN (the Net-7 opcode table; no structure check)
-{
-public:
-	LoginPacketClass(RawPacketClass *raw);	// 0x89A850
-	virtual bool Process_Packet(void *client);	// +0x08 0x867AA0 (clientstub.cpp l.14)
-	char Unknown0C[0xAC];	// +0x0C
-};
 
 // opcode 21 (0x0015, ?): vtable 0xB0A61C, constructor 0x887370, 0x14 bytes
 class Packet_0015Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x0015
