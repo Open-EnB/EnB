@@ -726,28 +726,23 @@ FontInitStruct *FontDatabaseClass::Get_Info(int width, int height)
 }
 
 
-// NOT EXACT: inline-budget: the client calls the table's find out of line and inlines the key string, ours the reverse (H6's parked pattern)
 FontColorStruct *FontDatabaseClass::Find_Color(const char *name)
 {
-	std::hash_map<std::string, FontColorStruct *>::iterator it = Colors.find(name);
-	if (it == Colors.end()) return NULL;
-	return (*it).second;
+	std::hash_map<std::string, FontColorStruct *>::const_iterator it = Colors.find(std::string(name));
+	return it == Colors.end() ? NULL : (*it).second;
 }
 
 
-// NOT EXACT: inline-budget: as Find_Color
 FontEffectStruct *FontDatabaseClass::Find_Effect(const char *name)
 {
-	std::hash_map<std::string, FontEffectStruct *>::iterator it = Effects.find(std::string(name));
-	if (it == Effects.end()) return NULL;
-	return (*it).second;
+	std::hash_map<std::string, FontEffectStruct *>::const_iterator it = Effects.find(std::string(name));
+	return it == Effects.end() ? NULL : (*it).second;
 }
 
 
-// NOT EXACT: inline-budget: as Find_Color
 FontStringStruct *FontDatabaseClass::Find_String(const char *name)
 {
-	std::hash_map<std::string, FontStringStruct *>::iterator it = Strings.find(name);
+	std::hash_map<std::string, FontStringStruct *>::const_iterator it = Strings.find(std::string(name));
 	return it == Strings.end() ? NULL : (*it).second;
 }
 
@@ -872,7 +867,12 @@ void FontDatabaseClass::Remove_String(const char *name)
 
 
 
-// NOT EXACT: register-only: the client copies the found node into edi before the key's destructor; the dead size() keeps find_or_insert out of line
+
+
+
+
+
+
 void FontDatabaseClass::Add_String(FontStringStruct *str)
 {
 	if (str && str->StringID) {
@@ -881,12 +881,12 @@ void FontDatabaseClass::Add_String(FontStringStruct *str)
 			G_ASSERT(0);
 		} else {
 			Strings[name] = str;
-			Strings.size();
 		}
 	}
 }
 
-// NOT EXACT: register-only: as Add_String
+
+
 void FontDatabaseClass::Add_Effect(FontEffectStruct *effect)
 {
 	if (effect && effect->Name) {
@@ -895,12 +895,12 @@ void FontDatabaseClass::Add_Effect(FontEffectStruct *effect)
 			G_ASSERT(0);
 		} else {
 			Effects[name] = effect;
-			Effects.size();
 		}
 	}
 }
 
-// NOT EXACT: register-only: as Add_String
+
+
 void FontDatabaseClass::Add_Color(FontColorStruct *color)
 {
 	if (color && color->Name) {
@@ -909,10 +909,10 @@ void FontDatabaseClass::Add_Color(FontColorStruct *color)
 			G_ASSERT(0);
 		} else {
 			Colors[name] = color;
-			Colors.size();
 		}
 	}
 }
+
 
 // NOT EXACT: inline-budget: the client calls Get_Info(width, height) 0x6C2CB0 out of line, ours inlines it (the rest is the same)
 void FontDatabaseClass::Set_Font(const char *chat_name, unsigned int font_index, float scale, int spacing, int value98, bool force)
@@ -1137,12 +1137,10 @@ FontStringFilesClass::FontStringFilesClass()
 }
 
 
-// NOT EXACT: inline-budget: as FontDatabaseClass::Find_Color (the client calls find out of line)
 FontStringFileStruct *FontStringFilesClass::Find(const char *name)
 {
-	std::hash_map<std::string, FontStringFileStruct *>::iterator it = Files.find(std::string(name));
-	if (it == Files.end()) return NULL;
-	return (*it).second;
+	std::hash_map<std::string, FontStringFileStruct *>::const_iterator it = Files.find(std::string(name));
+	return it == Files.end() ? NULL : (*it).second;
 }
 
 
@@ -1168,6 +1166,8 @@ int FontInitStruct::Find_Chat_Index(const char *chat_name)
 	}
 	return -1;
 }
+
+
 
 
 
@@ -1340,14 +1340,14 @@ bool FontInitStruct::Load_Font(unsigned int idx, FontDatabaseClass *fdb)
 **	sections through Add_Color / Add_Effect, inlined with the asserts on lines 909 / 895), Clear_Infos 0x6BEE60 (with FontInitStruct's implicit destructor 0x6BEEF0), Clear_Tables
 **	0x6BEFD0 (Colors and Effects), Clear_Strings 0x6BF1F0, Find_Font 0x6C2BF0, Get_Info(width, height) 0x6C2CB0, the tables' Find_Color /
 **	Find_Effect / Find_String 0x6C2D00-0x6C2F20 and Add_String / Add_Effect / Add_Color 0x6C3380-0x6C3720
-**	(G_ASSERT(0) on the client's lines 881 / 895 / 909, D25; the six NOT EXACT), the accessors on lines
+**	(G_ASSERT(0) on the client's lines 881 / 895 / 909, D25), the accessors on lines
 **	1023-1121 (FAIL_IF): Set_Font 0x6C38F0 (lines 923-928, NOT EXACT) and Restore_Font 0x6C3D40 (lines 986-991), Find_Font_File_Index 0x6C3FB0 (the client's name, its assert on line 1305), the chat
 **	font's file index 0x6C4070, the font file name 0x6C4270 (AllFonts), the chat font's scale / spacing /
 **	+0x98 value 0x6C42E0 / 0x6C4450 / 0x6C45B0, Get_Info 0x6C4720 (the INIT section for the current
 **	resolution: the last whose ResWidth / ResHeight fit), 0x6C47B0 (line 1096), 0x6C49C0, and FontInitStruct::Find_Chat_Index
 **	0x6C5730 and Load_Font 0x6C5C60 (lines 1278-1308: the chat font's saved file through option.cpp's
 **	0x7F95E0 and the text file reader 0x4F9BF0; NOT EXACT); FontStringFilesClass (0xBE67BC: the string files in use, counted): Lower 0x6C4A80, the constructor
-**	0x6C4C80, Find 0x6C51A0 (NOT EXACT) and Unload 0x6C55B0 (its destructor 0x6C4F50 and Load 0x6C52B0 declared only: written
+**	0x6C4C80, Find 0x6C51A0 and Unload 0x6C55B0 (its destructor 0x6C4F50 and Load 0x6C52B0 declared only: written
 **	from the pseudocode they missed and moved vector<std::string>::insert 0x432D50). Every other function of the
 **	file is not written yet.
 **
@@ -1362,7 +1362,8 @@ bool FontInitStruct::Load_Font(unsigned int idx, FontDatabaseClass *fdb)
 **	from INIClass::Get_Point) are defined in this file after the INIT loaders, with Clear_Tables after them:
 **	instantiating the TPoints in the header moves Load_Init's registers (the section pointer reloaded in its
 **	font loop); Find_Font_File_Index's counter stepped in the body after the test, not in the for header
-**	(the latter keeps it in another register); in the Add functions a dead size() after the insert keeps
-**	find_or_insert out of line as in the client (D40's lever), and the found test first (the assert falls
-**	through, the insert follows).
+**	(the latter keeps it in another register); the table finds as `const_iterator it = Table.find(std::string(name));
+**	return it == Table.end() ? NULL : (*it).second;` (the conversion copies the node into a register before the key's
+**	destructor, and the client then calls find out of line and inlines the key: an iterator and two returns inline
+**	find instead); the Add functions call them plainly (no dead reads).
 */
