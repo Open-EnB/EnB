@@ -268,7 +268,7 @@ void LoginTaskClass::Render()
 
 
 
-// NOT EXACT: register-only (stricmp's argument in ecx, the client's eax; attempts.py show 0x767F50)
+// NOT EXACT: register-only (the final Process_Packets call loads the vtable in edx, the client eax; attempts.py show 0x767F50)
 
 
 
@@ -294,7 +294,7 @@ void LoginTaskClass::Run()
 
 	if (CharacterView && CharacterView->Unknown034 && CharacterView->Unknown034->Unknown07C) {
 		CharacterView->Unknown_14();
-		if (stricmp(CharacterView->Unknown034->Unknown18C, "HTML") == 0 && !Unknown0018->Unknown24) {
+		if (CharacterView->Unknown034->Is_HTML() && !Unknown0018->Unknown24) {
 			Unknown0018->Unknown_5153B0();
 		}
 		if (CharacterView->Unknown034->Unknown_5890B0("OK") || CharacterView->Unknown034->Unknown_5890B0("OK_SMALL")) {

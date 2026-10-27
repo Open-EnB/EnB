@@ -231,7 +231,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown034` | `app/client/tasks/tsk_login.cpp:295` | untagged neutral name (D10) |
 | 1 | `Unknown07C` | `app/client/tasks/tsk_login.cpp:295` | untagged neutral name (D10) |
 | 1 | `Unknown_14` | `app/client/tasks/tsk_login.cpp:296` | untagged neutral name (D10) |
-| 1 | `Unknown18C` | `app/client/tasks/tsk_login.cpp:297` | untagged neutral name (D10) |
 | 1 | `Unknown24` | `app/client/tasks/tsk_login.cpp:297` | untagged neutral name (D10) |
 | 1 | `Unknown_5153B0` | `app/client/tasks/tsk_login.cpp:298` | untagged neutral name (D10) |
 | 1 | `Unknown_5890B0` | `app/client/tasks/tsk_login.cpp:300` | untagged neutral name (D10) |
@@ -295,158 +294,159 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_5C` | `app/client/tasks/tsk_login.h:64` | untagged neutral name (D10) |
 | 1 | `button, text, width` | `app/client/tasks/tsk_login.h:65` | 'OK', the message, 320 |
 | 1 | `Unknown_588A70` | `app/client/tasks/tsk_login.h:65` | untagged neutral name (D10) |
-| 1 | `Unknown_5890B0` | `app/client/tasks/tsk_login.h:66` | untagged neutral name (D10) |
-| 1 | `Unknown004` | `app/client/tasks/tsk_login.h:68` | untagged neutral name (D10) |
-| 1 | `Unknown07C` | `app/client/tasks/tsk_login.h:69` | untagged neutral name (D10) |
-| 1 | `Unknown07D` | `app/client/tasks/tsk_login.h:70` | untagged neutral name (D10) |
-| 1 | `Unknown18C` | `app/client/tasks/tsk_login.h:71` | untagged neutral name (D10) |
-| 1 | `CharacterViewUnknown1B4Class` | `app/client/tasks/tsk_login.h:74` | neutral (D10): what CharacterViewClass +0x1B4 points to |
-| 1 | `Unknown_60` | `app/client/tasks/tsk_login.h:101` | untagged neutral name (D10) |
-| 1 | `Unknown_64` | `app/client/tasks/tsk_login.h:102` | untagged neutral name (D10) |
-| 1 | `Unknown_68` | `app/client/tasks/tsk_login.h:103` | untagged neutral name (D10) |
-| 1 | `Unknown_6C` | `app/client/tasks/tsk_login.h:104` | untagged neutral name (D10) |
-| 1 | `Unknown_70` | `app/client/tasks/tsk_login.h:105` | untagged neutral name (D10) |
-| 1 | `Unknown_74` | `app/client/tasks/tsk_login.h:106` | untagged neutral name (D10) |
-| 1 | `Unknown_78` | `app/client/tasks/tsk_login.h:107` | untagged neutral name (D10) |
-| 1 | `CharacterViewClass` | `app/client/tasks/tsk_login.h:110` | the member's name CharacterView (the FAIL_IFs) |
-| 1 | `Unknown_67A300` | `app/client/tasks/tsk_login.h:130` | untagged neutral name (D10) |
-| 1 | `Unknown_67A370` | `app/client/tasks/tsk_login.h:131` | untagged neutral name (D10) |
-| 1 | `Unknown008` | `app/client/tasks/tsk_login.h:134` | untagged neutral name (D10) |
-| 1 | `Unknown02C` | `app/client/tasks/tsk_login.h:135` | untagged neutral name (D10) |
-| 1 | `Unknown030` | `app/client/tasks/tsk_login.h:136` | untagged neutral name (D10) |
-| 1 | `Unknown034` | `app/client/tasks/tsk_login.h:137` | untagged neutral name (D10) |
-| 1 | `Unknown038` | `app/client/tasks/tsk_login.h:138` | untagged neutral name (D10) |
-| 1 | `Unknown1B4` | `app/client/tasks/tsk_login.h:139` | untagged neutral name (D10) |
-| 1 | `Unknown1B8` | `app/client/tasks/tsk_login.h:140` | untagged neutral name (D10) |
-| 1 | `Unknown1CD` | `app/client/tasks/tsk_login.h:141` | untagged neutral name (D10) |
-| 1 | `Unknown1CE` | `app/client/tasks/tsk_login.h:142` | untagged neutral name (D10) |
-| 1 | `Unknown1CF` | `app/client/tasks/tsk_login.h:143` | untagged neutral name (D10) |
-| 1 | `Unknown1D0` | `app/client/tasks/tsk_login.h:144` | untagged neutral name (D10) |
-| 1 | `Unknown1D1` | `app/client/tasks/tsk_login.h:145` | untagged neutral name (D10) |
-| 1 | `LoginPacketDataClass` | `app/client/tasks/tsk_login.h:150` | neutral (D10) |
-| 1 | `LoginGalaxyClass` | `app/client/tasks/tsk_login.h:159` | what it holds |
-| 1 | `Unknown50` | `app/client/tasks/tsk_login.h:170` | untagged neutral name (D10) |
-| 1 | `Unknown54` | `app/client/tasks/tsk_login.h:171` | untagged neutral name (D10) |
-| 1 | `Unknown58` | `app/client/tasks/tsk_login.h:172` | untagged neutral name (D10) |
-| 1 | `Unknown5C` | `app/client/tasks/tsk_login.h:173` | untagged neutral name (D10) |
-| 1 | `LoginTicketInfoClass` | `app/client/tasks/tsk_login.h:177` | what it holds |
-| 1 | `Unknown20` | `app/client/tasks/tsk_login.h:179` | untagged neutral name (D10) |
-| 1 | `Unknown24` | `app/client/tasks/tsk_login.h:179` | untagged neutral name (D10) |
-| 1 | `Unknown00` | `app/client/tasks/tsk_login.h:180` | untagged neutral name (D10) |
-| 1 | `Unknown10` | `app/client/tasks/tsk_login.h:181` | untagged neutral name (D10) |
-| 1 | `Unknown28` | `app/client/tasks/tsk_login.h:184` | untagged neutral name (D10) |
-| 1 | `Unknown48` | `app/client/tasks/tsk_login.h:186` | untagged neutral name (D10) |
-| 1 | `Unknown68` | `app/client/tasks/tsk_login.h:188` | untagged neutral name (D10) |
-| 1 | `Unknown78` | `app/client/tasks/tsk_login.h:189` | untagged neutral name (D10) |
-| 1 | `Unknown88` | `app/client/tasks/tsk_login.h:190` | untagged neutral name (D10) |
-| 1 | `Unknown98` | `app/client/tasks/tsk_login.h:191` | untagged neutral name (D10) |
-| 1 | `LoginInterfaceAEADC8Class` | `app/client/tasks/tsk_login.h:196` | neutral (D10) |
-| 1 | `LoginUnknown44Class` | `app/client/tasks/tsk_login.h:203` | neutral (D10) |
-| 1 | `LoginUnknown88CClass` | `app/client/tasks/tsk_login.h:213` | neutral (D10) |
-| 1 | `Unknown08` | `app/client/tasks/tsk_login.h:217` | untagged neutral name (D10) |
-| 1 | `Unknown0C` | `app/client/tasks/tsk_login.h:217` | untagged neutral name (D10) |
-| 1 | `Unknown30` | `app/client/tasks/tsk_login.h:217` | untagged neutral name (D10) |
-| 1 | `Unknown3C` | `app/client/tasks/tsk_login.h:218` | untagged neutral name (D10) |
-| 1 | `Unknown44` | `app/client/tasks/tsk_login.h:218` | untagged neutral name (D10) |
-| 1 | `Unknown14` | `app/client/tasks/tsk_login.h:220` | untagged neutral name (D10) |
-| 1 | `Unknown_4F6210` | `app/client/tasks/tsk_login.h:221` | untagged neutral name (D10) |
-| 1 | `Unknown_4F62F0` | `app/client/tasks/tsk_login.h:222` | untagged neutral name (D10) |
-| 1 | `Unknown_4F6230` | `app/client/tasks/tsk_login.h:223` | untagged neutral name (D10) |
-| 1 | `Unknown15` | `app/client/tasks/tsk_login.h:239` | untagged neutral name (D10) |
-| 1 | `Unknown158` | `app/client/tasks/tsk_login.h:244` | untagged neutral name (D10) |
-| 1 | `LoginCharacterClass` | `app/client/tasks/tsk_login.h:249` | what it holds |
-| 1 | `Unknown2C` | `app/client/tasks/tsk_login.h:267` | untagged neutral name (D10) |
-| 1 | `Unknown34` | `app/client/tasks/tsk_login.h:269` | untagged neutral name (D10) |
-| 1 | `Unknown38` | `app/client/tasks/tsk_login.h:270` | untagged neutral name (D10) |
-| 1 | `LoginUnknown350Class` | `app/client/tasks/tsk_login.h:276` | neutral (D10) |
-| 1 | `Unknown_4C1460` | `app/client/tasks/tsk_login.h:280` | untagged neutral name (D10) |
-| 1 | `Unknown0D` | `app/client/tasks/tsk_login.h:288` | untagged neutral name (D10) |
-| 1 | `Unknown18` | `app/client/tasks/tsk_login.h:291` | untagged neutral name (D10) |
-| 1 | `Unknown1C` | `app/client/tasks/tsk_login.h:292` | untagged neutral name (D10) |
-| 1 | `Unknown21` | `app/client/tasks/tsk_login.h:294` | untagged neutral name (D10) |
-| 1 | `Unknown22` | `app/client/tasks/tsk_login.h:295` | untagged neutral name (D10) |
-| 1 | `Unknown23` | `app/client/tasks/tsk_login.h:296` | untagged neutral name (D10) |
-| 1 | `Unknown25` | `app/client/tasks/tsk_login.h:298` | untagged neutral name (D10) |
-| 1 | `Unknown26` | `app/client/tasks/tsk_login.h:299` | untagged neutral name (D10) |
-| 1 | `Unknown27` | `app/client/tasks/tsk_login.h:300` | untagged neutral name (D10) |
-| 1 | `Unknown29` | `app/client/tasks/tsk_login.h:302` | untagged neutral name (D10) |
-| 1 | `Unknown2A` | `app/client/tasks/tsk_login.h:303` | untagged neutral name (D10) |
-| 1 | `Unknown2B` | `app/client/tasks/tsk_login.h:304` | untagged neutral name (D10) |
-| 1 | `Unknown2D` | `app/client/tasks/tsk_login.h:306` | untagged neutral name (D10) |
-| 1 | `Unknown60` | `app/client/tasks/tsk_login.h:311` | untagged neutral name (D10) |
-| 1 | `Unknown6C` | `app/client/tasks/tsk_login.h:312` | untagged neutral name (D10) |
-| 1 | `Unknown84` | `app/client/tasks/tsk_login.h:314` | untagged neutral name (D10) |
-| 1 | `Unknown90` | `app/client/tasks/tsk_login.h:315` | untagged neutral name (D10) |
-| 1 | `Unknown9C` | `app/client/tasks/tsk_login.h:316` | untagged neutral name (D10) |
-| 1 | `UnknownA0` | `app/client/tasks/tsk_login.h:317` | untagged neutral name (D10) |
-| 1 | `UnknownA4` | `app/client/tasks/tsk_login.h:318` | untagged neutral name (D10) |
-| 1 | `UnknownA8` | `app/client/tasks/tsk_login.h:319` | untagged neutral name (D10) |
-| 1 | `UnknownAC` | `app/client/tasks/tsk_login.h:320` | untagged neutral name (D10) |
-| 1 | `UnknownC0` | `app/client/tasks/tsk_login.h:321` | untagged neutral name (D10) |
-| 1 | `UnknownD4` | `app/client/tasks/tsk_login.h:322` | untagged neutral name (D10) |
-| 1 | `UnknownE8` | `app/client/tasks/tsk_login.h:323` | untagged neutral name (D10) |
-| 1 | `UnknownFC` | `app/client/tasks/tsk_login.h:324` | untagged neutral name (D10) |
-| 1 | `LoginNameDataClass` | `app/client/tasks/tsk_login.h:328` | neutral (D10) |
-| 1 | `LoginUnknown78CEE0Class` | `app/client/tasks/tsk_login.h:341` | neutral (D10) |
-| 1 | `Unknown_78D480` | `app/client/tasks/tsk_login.h:345` | untagged neutral name (D10) |
-| 1 | `Unknown_78DAF0` | `app/client/tasks/tsk_login.h:346` | untagged neutral name (D10) |
-| 1 | `LoginUnknown0CClass` | `app/client/tasks/tsk_login.h:351` | neutral (D10): what LoginTaskClass +0x0C points to (inpdsp.cpp) |
-| 1 | `Unknown_429A20` | `app/client/tasks/tsk_login.h:355` | untagged neutral name (D10) |
-| 1 | `LoginUnknown18Class` | `app/client/tasks/tsk_login.h:360` | neutral (D10): what LoginTaskClass +0x18 points to |
-| 1 | `Unknown_515120` | `app/client/tasks/tsk_login.h:365` | untagged neutral name (D10) |
-| 1 | `Unknown_515340` | `app/client/tasks/tsk_login.h:366` | untagged neutral name (D10) |
-| 1 | `Unknown_5153B0` | `app/client/tasks/tsk_login.h:367` | untagged neutral name (D10) |
-| 1 | `Unknown_515400` | `app/client/tasks/tsk_login.h:368` | untagged neutral name (D10) |
-| 1 | `Unknown_515440` | `app/client/tasks/tsk_login.h:369` | untagged neutral name (D10) |
-| 1 | `IUnknownClass` | `app/client/tasks/tsk_login.h:383` | the COM-style base (+0x08 Release) |
-| 1 | `Create` | `app/client/tasks/tsk_login.h:398` | what it does |
-| 1 | `IAuthLoginClass` | `app/client/tasks/tsk_login.h:402` | iauth (the assert) |
-| 1 | `Login` | `app/client/tasks/tsk_login.h:412` | what it does |
-| 1 | `AuthLoginResponseClass` | `app/client/tasks/tsk_login.h:418` | the assert's 'response' |
-| 1 | `Get_Error_Text` | `app/client/tasks/tsk_login.h:422` | what it does |
-| 1 | `Get_Message` | `app/client/tasks/tsk_login.h:424` | what it returns |
-| 1 | `mode` | `app/client/tasks/tsk_login.h:437` | MenuTask passes 1, or 9 (0x5FAE70 and not 0x5FAD50) |
-| 1 | `Set_Step` | `app/client/tasks/tsk_login.h:453` | what it does |
-| 1 | `Process_Packets` | `app/client/tasks/tsk_login.h:455` | what it does |
-| 1 | `Create_Character_View` | `app/client/tasks/tsk_login.h:457` | what it does |
-| 1 | `Galaxy_ID` | `app/client/tasks/tsk_login.h:459` | 0x769400 looks it up in the galaxies |
-| 1 | `Unknown_7692A0` | `app/client/tasks/tsk_login.h:460` | untagged neutral name (D10) |
-| 1 | `Unknown_7693E0` | `app/client/tasks/tsk_login.h:461` | untagged neutral name (D10) |
-| 1 | `Set_Username` | `app/client/tasks/tsk_login.h:462` | what it does |
-| 1 | `Set_Password` | `app/client/tasks/tsk_login.h:463` | what it does |
-| 1 | `Show_Message` | `app/client/tasks/tsk_login.h:464` | what it does |
+| 1 | `Is_HTML` | `app/client/tasks/tsk_login.h:66` | what it tests |
+| 1 | `Unknown18C` | `app/client/tasks/tsk_login.h:66` | untagged neutral name (D10) |
+| 1 | `Unknown_5890B0` | `app/client/tasks/tsk_login.h:67` | untagged neutral name (D10) |
+| 1 | `Unknown004` | `app/client/tasks/tsk_login.h:69` | untagged neutral name (D10) |
+| 1 | `Unknown07C` | `app/client/tasks/tsk_login.h:70` | untagged neutral name (D10) |
+| 1 | `Unknown07D` | `app/client/tasks/tsk_login.h:71` | untagged neutral name (D10) |
+| 1 | `CharacterViewUnknown1B4Class` | `app/client/tasks/tsk_login.h:75` | neutral (D10): what CharacterViewClass +0x1B4 points to |
+| 1 | `Unknown_60` | `app/client/tasks/tsk_login.h:102` | untagged neutral name (D10) |
+| 1 | `Unknown_64` | `app/client/tasks/tsk_login.h:103` | untagged neutral name (D10) |
+| 1 | `Unknown_68` | `app/client/tasks/tsk_login.h:104` | untagged neutral name (D10) |
+| 1 | `Unknown_6C` | `app/client/tasks/tsk_login.h:105` | untagged neutral name (D10) |
+| 1 | `Unknown_70` | `app/client/tasks/tsk_login.h:106` | untagged neutral name (D10) |
+| 1 | `Unknown_74` | `app/client/tasks/tsk_login.h:107` | untagged neutral name (D10) |
+| 1 | `Unknown_78` | `app/client/tasks/tsk_login.h:108` | untagged neutral name (D10) |
+| 1 | `CharacterViewClass` | `app/client/tasks/tsk_login.h:111` | the member's name CharacterView (the FAIL_IFs) |
+| 1 | `Unknown_67A300` | `app/client/tasks/tsk_login.h:131` | untagged neutral name (D10) |
+| 1 | `Unknown_67A370` | `app/client/tasks/tsk_login.h:132` | untagged neutral name (D10) |
+| 1 | `Unknown008` | `app/client/tasks/tsk_login.h:135` | untagged neutral name (D10) |
+| 1 | `Unknown02C` | `app/client/tasks/tsk_login.h:136` | untagged neutral name (D10) |
+| 1 | `Unknown030` | `app/client/tasks/tsk_login.h:137` | untagged neutral name (D10) |
+| 1 | `Unknown034` | `app/client/tasks/tsk_login.h:138` | untagged neutral name (D10) |
+| 1 | `Unknown038` | `app/client/tasks/tsk_login.h:139` | untagged neutral name (D10) |
+| 1 | `Unknown1B4` | `app/client/tasks/tsk_login.h:140` | untagged neutral name (D10) |
+| 1 | `Unknown1B8` | `app/client/tasks/tsk_login.h:141` | untagged neutral name (D10) |
+| 1 | `Unknown1CD` | `app/client/tasks/tsk_login.h:142` | untagged neutral name (D10) |
+| 1 | `Unknown1CE` | `app/client/tasks/tsk_login.h:143` | untagged neutral name (D10) |
+| 1 | `Unknown1CF` | `app/client/tasks/tsk_login.h:144` | untagged neutral name (D10) |
+| 1 | `Unknown1D0` | `app/client/tasks/tsk_login.h:145` | untagged neutral name (D10) |
+| 1 | `Unknown1D1` | `app/client/tasks/tsk_login.h:146` | untagged neutral name (D10) |
+| 1 | `LoginPacketDataClass` | `app/client/tasks/tsk_login.h:151` | neutral (D10) |
+| 1 | `LoginGalaxyClass` | `app/client/tasks/tsk_login.h:160` | what it holds |
+| 1 | `Unknown50` | `app/client/tasks/tsk_login.h:171` | untagged neutral name (D10) |
+| 1 | `Unknown54` | `app/client/tasks/tsk_login.h:172` | untagged neutral name (D10) |
+| 1 | `Unknown58` | `app/client/tasks/tsk_login.h:173` | untagged neutral name (D10) |
+| 1 | `Unknown5C` | `app/client/tasks/tsk_login.h:174` | untagged neutral name (D10) |
+| 1 | `LoginTicketInfoClass` | `app/client/tasks/tsk_login.h:178` | what it holds |
+| 1 | `Unknown20` | `app/client/tasks/tsk_login.h:180` | untagged neutral name (D10) |
+| 1 | `Unknown24` | `app/client/tasks/tsk_login.h:180` | untagged neutral name (D10) |
+| 1 | `Unknown00` | `app/client/tasks/tsk_login.h:181` | untagged neutral name (D10) |
+| 1 | `Unknown10` | `app/client/tasks/tsk_login.h:182` | untagged neutral name (D10) |
+| 1 | `Unknown28` | `app/client/tasks/tsk_login.h:185` | untagged neutral name (D10) |
+| 1 | `Unknown48` | `app/client/tasks/tsk_login.h:187` | untagged neutral name (D10) |
+| 1 | `Unknown68` | `app/client/tasks/tsk_login.h:189` | untagged neutral name (D10) |
+| 1 | `Unknown78` | `app/client/tasks/tsk_login.h:190` | untagged neutral name (D10) |
+| 1 | `Unknown88` | `app/client/tasks/tsk_login.h:191` | untagged neutral name (D10) |
+| 1 | `Unknown98` | `app/client/tasks/tsk_login.h:192` | untagged neutral name (D10) |
+| 1 | `LoginInterfaceAEADC8Class` | `app/client/tasks/tsk_login.h:197` | neutral (D10) |
+| 1 | `LoginUnknown44Class` | `app/client/tasks/tsk_login.h:204` | neutral (D10) |
+| 1 | `LoginUnknown88CClass` | `app/client/tasks/tsk_login.h:214` | neutral (D10) |
+| 1 | `Unknown08` | `app/client/tasks/tsk_login.h:218` | untagged neutral name (D10) |
+| 1 | `Unknown0C` | `app/client/tasks/tsk_login.h:218` | untagged neutral name (D10) |
+| 1 | `Unknown30` | `app/client/tasks/tsk_login.h:218` | untagged neutral name (D10) |
+| 1 | `Unknown3C` | `app/client/tasks/tsk_login.h:219` | untagged neutral name (D10) |
+| 1 | `Unknown44` | `app/client/tasks/tsk_login.h:219` | untagged neutral name (D10) |
+| 1 | `Unknown14` | `app/client/tasks/tsk_login.h:221` | untagged neutral name (D10) |
+| 1 | `Unknown_4F6210` | `app/client/tasks/tsk_login.h:222` | untagged neutral name (D10) |
+| 1 | `Unknown_4F62F0` | `app/client/tasks/tsk_login.h:223` | untagged neutral name (D10) |
+| 1 | `Unknown_4F6230` | `app/client/tasks/tsk_login.h:224` | untagged neutral name (D10) |
+| 1 | `Unknown15` | `app/client/tasks/tsk_login.h:240` | untagged neutral name (D10) |
+| 1 | `Unknown158` | `app/client/tasks/tsk_login.h:245` | untagged neutral name (D10) |
+| 1 | `LoginCharacterClass` | `app/client/tasks/tsk_login.h:250` | what it holds |
+| 1 | `Unknown2C` | `app/client/tasks/tsk_login.h:268` | untagged neutral name (D10) |
+| 1 | `Unknown34` | `app/client/tasks/tsk_login.h:270` | untagged neutral name (D10) |
+| 1 | `Unknown38` | `app/client/tasks/tsk_login.h:271` | untagged neutral name (D10) |
+| 1 | `LoginUnknown350Class` | `app/client/tasks/tsk_login.h:277` | neutral (D10) |
+| 1 | `Unknown_4C1460` | `app/client/tasks/tsk_login.h:281` | untagged neutral name (D10) |
+| 1 | `Unknown0D` | `app/client/tasks/tsk_login.h:289` | untagged neutral name (D10) |
+| 1 | `Unknown18` | `app/client/tasks/tsk_login.h:292` | untagged neutral name (D10) |
+| 1 | `Unknown1C` | `app/client/tasks/tsk_login.h:293` | untagged neutral name (D10) |
+| 1 | `Unknown21` | `app/client/tasks/tsk_login.h:295` | untagged neutral name (D10) |
+| 1 | `Unknown22` | `app/client/tasks/tsk_login.h:296` | untagged neutral name (D10) |
+| 1 | `Unknown23` | `app/client/tasks/tsk_login.h:297` | untagged neutral name (D10) |
+| 1 | `Unknown25` | `app/client/tasks/tsk_login.h:299` | untagged neutral name (D10) |
+| 1 | `Unknown26` | `app/client/tasks/tsk_login.h:300` | untagged neutral name (D10) |
+| 1 | `Unknown27` | `app/client/tasks/tsk_login.h:301` | untagged neutral name (D10) |
+| 1 | `Unknown29` | `app/client/tasks/tsk_login.h:303` | untagged neutral name (D10) |
+| 1 | `Unknown2A` | `app/client/tasks/tsk_login.h:304` | untagged neutral name (D10) |
+| 1 | `Unknown2B` | `app/client/tasks/tsk_login.h:305` | untagged neutral name (D10) |
+| 1 | `Unknown2D` | `app/client/tasks/tsk_login.h:307` | untagged neutral name (D10) |
+| 1 | `Unknown60` | `app/client/tasks/tsk_login.h:312` | untagged neutral name (D10) |
+| 1 | `Unknown6C` | `app/client/tasks/tsk_login.h:313` | untagged neutral name (D10) |
+| 1 | `Unknown84` | `app/client/tasks/tsk_login.h:315` | untagged neutral name (D10) |
+| 1 | `Unknown90` | `app/client/tasks/tsk_login.h:316` | untagged neutral name (D10) |
+| 1 | `Unknown9C` | `app/client/tasks/tsk_login.h:317` | untagged neutral name (D10) |
+| 1 | `UnknownA0` | `app/client/tasks/tsk_login.h:318` | untagged neutral name (D10) |
+| 1 | `UnknownA4` | `app/client/tasks/tsk_login.h:319` | untagged neutral name (D10) |
+| 1 | `UnknownA8` | `app/client/tasks/tsk_login.h:320` | untagged neutral name (D10) |
+| 1 | `UnknownAC` | `app/client/tasks/tsk_login.h:321` | untagged neutral name (D10) |
+| 1 | `UnknownC0` | `app/client/tasks/tsk_login.h:322` | untagged neutral name (D10) |
+| 1 | `UnknownD4` | `app/client/tasks/tsk_login.h:323` | untagged neutral name (D10) |
+| 1 | `UnknownE8` | `app/client/tasks/tsk_login.h:324` | untagged neutral name (D10) |
+| 1 | `UnknownFC` | `app/client/tasks/tsk_login.h:325` | untagged neutral name (D10) |
+| 1 | `LoginNameDataClass` | `app/client/tasks/tsk_login.h:329` | neutral (D10) |
+| 1 | `LoginUnknown78CEE0Class` | `app/client/tasks/tsk_login.h:342` | neutral (D10) |
+| 1 | `Unknown_78D480` | `app/client/tasks/tsk_login.h:346` | untagged neutral name (D10) |
+| 1 | `Unknown_78DAF0` | `app/client/tasks/tsk_login.h:347` | untagged neutral name (D10) |
+| 1 | `LoginUnknown0CClass` | `app/client/tasks/tsk_login.h:352` | neutral (D10): what LoginTaskClass +0x0C points to (inpdsp.cpp) |
+| 1 | `Unknown_429A20` | `app/client/tasks/tsk_login.h:356` | untagged neutral name (D10) |
+| 1 | `LoginUnknown18Class` | `app/client/tasks/tsk_login.h:361` | neutral (D10): what LoginTaskClass +0x18 points to |
+| 1 | `Unknown_515120` | `app/client/tasks/tsk_login.h:366` | untagged neutral name (D10) |
+| 1 | `Unknown_515340` | `app/client/tasks/tsk_login.h:367` | untagged neutral name (D10) |
+| 1 | `Unknown_5153B0` | `app/client/tasks/tsk_login.h:368` | untagged neutral name (D10) |
+| 1 | `Unknown_515400` | `app/client/tasks/tsk_login.h:369` | untagged neutral name (D10) |
+| 1 | `Unknown_515440` | `app/client/tasks/tsk_login.h:370` | untagged neutral name (D10) |
+| 1 | `IUnknownClass` | `app/client/tasks/tsk_login.h:384` | the COM-style base (+0x08 Release) |
+| 1 | `Create` | `app/client/tasks/tsk_login.h:399` | what it does |
+| 1 | `IAuthLoginClass` | `app/client/tasks/tsk_login.h:403` | iauth (the assert) |
+| 1 | `Login` | `app/client/tasks/tsk_login.h:413` | what it does |
+| 1 | `AuthLoginResponseClass` | `app/client/tasks/tsk_login.h:419` | the assert's 'response' |
+| 1 | `Get_Error_Text` | `app/client/tasks/tsk_login.h:423` | what it does |
+| 1 | `Get_Message` | `app/client/tasks/tsk_login.h:425` | what it returns |
+| 1 | `mode` | `app/client/tasks/tsk_login.h:438` | MenuTask passes 1, or 9 (0x5FAE70 and not 0x5FAD50) |
+| 1 | `Set_Step` | `app/client/tasks/tsk_login.h:454` | what it does |
+| 1 | `Process_Packets` | `app/client/tasks/tsk_login.h:456` | what it does |
+| 1 | `Create_Character_View` | `app/client/tasks/tsk_login.h:458` | what it does |
+| 1 | `Galaxy_ID` | `app/client/tasks/tsk_login.h:460` | 0x769400 looks it up in the galaxies |
+| 1 | `Unknown_7692A0` | `app/client/tasks/tsk_login.h:461` | untagged neutral name (D10) |
+| 1 | `Unknown_7693E0` | `app/client/tasks/tsk_login.h:462` | untagged neutral name (D10) |
+| 1 | `Set_Username` | `app/client/tasks/tsk_login.h:463` | what it does |
+| 1 | `Set_Password` | `app/client/tasks/tsk_login.h:464` | what it does |
 | 1 | `Show_Message` | `app/client/tasks/tsk_login.h:465` | what it does |
-| 1 | `Close_Global_Connection` | `app/client/tasks/tsk_login.h:466` | what it does |
-| 1 | `Delete_Character_View` | `app/client/tasks/tsk_login.h:467` | what it does |
-| 1 | `Fetch_EA_Ticket` | `app/client/tasks/tsk_login.h:468` | what it does |
-| 1 | `Start_Game` | `app/client/tasks/tsk_login.h:469` | what it does |
-| 1 | `Unknown_76A370` | `app/client/tasks/tsk_login.h:470` | untagged neutral name (D10) |
-| 1 | `Save_Login_Name` | `app/client/tasks/tsk_login.h:471` | what it does |
-| 1 | `Load_Login` | `app/client/tasks/tsk_login.h:472` | what it does |
-| 1 | `Unknown_768CB0` | `app/client/tasks/tsk_login.h:473` | untagged neutral name (D10) |
-| 1 | `Set_Galaxies` | `app/client/tasks/tsk_login.h:474` | what it does |
-| 1 | `Handle_Global_Error` | `app/client/tasks/tsk_login.h:475` | what it does |
-| 1 | `Handle_Global_Login` | `app/client/tasks/tsk_login.h:476` | what it does |
-| 1 | `Send_Referrer` | `app/client/tasks/tsk_login.h:477` | what it does |
-| 1 | `Handle_Referrer_Response` | `app/client/tasks/tsk_login.h:478` | what it does |
-| 1 | `Kill_Kernel` | `app/client/tasks/tsk_login.h:479` | what it does |
-| 1 | `Unknown000C` | `app/client/tasks/tsk_login.h:481` | untagged neutral name (D10) |
-| 1 | `Unknown0014` | `app/client/tasks/tsk_login.h:483` | untagged neutral name (D10) |
-| 1 | `Unknown0018` | `app/client/tasks/tsk_login.h:484` | untagged neutral name (D10) |
-| 1 | `Unknown001D` | `app/client/tasks/tsk_login.h:486` | untagged neutral name (D10) |
-| 1 | `Unknown0020` | `app/client/tasks/tsk_login.h:487` | untagged neutral name (D10) |
-| 1 | `Unknown0030` | `app/client/tasks/tsk_login.h:491` | untagged neutral name (D10) |
-| 1 | `Unknown0034` | `app/client/tasks/tsk_login.h:492` | untagged neutral name (D10) |
-| 1 | `Unknown0350` | `app/client/tasks/tsk_login.h:495` | untagged neutral name (D10) |
-| 1 | `Unknown088C` | `app/client/tasks/tsk_login.h:496` | untagged neutral name (D10) |
-| 1 | `Unknown107D` | `app/client/tasks/tsk_login.h:500` | untagged neutral name (D10) |
-| 1 | `Unknown108C` | `app/client/tasks/tsk_login.h:504` | untagged neutral name (D10) |
-| 1 | `Unknown1094` | `app/client/tasks/tsk_login.h:506` | untagged neutral name (D10) |
-| 1 | `Unknown1134` | `app/client/tasks/tsk_login.h:508` | untagged neutral name (D10) |
-| 1 | `Unknown1138` | `app/client/tasks/tsk_login.h:509` | untagged neutral name (D10) |
-| 1 | `Unknown1139` | `app/client/tasks/tsk_login.h:510` | untagged neutral name (D10) |
-| 1 | `Unknown113C` | `app/client/tasks/tsk_login.h:511` | untagged neutral name (D10) |
-| 1 | `Unknown1144` | `app/client/tasks/tsk_login.h:513` | untagged neutral name (D10) |
+| 1 | `Show_Message` | `app/client/tasks/tsk_login.h:466` | what it does |
+| 1 | `Close_Global_Connection` | `app/client/tasks/tsk_login.h:467` | what it does |
+| 1 | `Delete_Character_View` | `app/client/tasks/tsk_login.h:468` | what it does |
+| 1 | `Fetch_EA_Ticket` | `app/client/tasks/tsk_login.h:469` | what it does |
+| 1 | `Start_Game` | `app/client/tasks/tsk_login.h:470` | what it does |
+| 1 | `Unknown_76A370` | `app/client/tasks/tsk_login.h:471` | untagged neutral name (D10) |
+| 1 | `Save_Login_Name` | `app/client/tasks/tsk_login.h:472` | what it does |
+| 1 | `Load_Login` | `app/client/tasks/tsk_login.h:473` | what it does |
+| 1 | `Unknown_768CB0` | `app/client/tasks/tsk_login.h:474` | untagged neutral name (D10) |
+| 1 | `Set_Galaxies` | `app/client/tasks/tsk_login.h:475` | what it does |
+| 1 | `Handle_Global_Error` | `app/client/tasks/tsk_login.h:476` | what it does |
+| 1 | `Handle_Global_Login` | `app/client/tasks/tsk_login.h:477` | what it does |
+| 1 | `Send_Referrer` | `app/client/tasks/tsk_login.h:478` | what it does |
+| 1 | `Handle_Referrer_Response` | `app/client/tasks/tsk_login.h:479` | what it does |
+| 1 | `Kill_Kernel` | `app/client/tasks/tsk_login.h:480` | what it does |
+| 1 | `Unknown000C` | `app/client/tasks/tsk_login.h:482` | untagged neutral name (D10) |
+| 1 | `Unknown0014` | `app/client/tasks/tsk_login.h:484` | untagged neutral name (D10) |
+| 1 | `Unknown0018` | `app/client/tasks/tsk_login.h:485` | untagged neutral name (D10) |
+| 1 | `Unknown001D` | `app/client/tasks/tsk_login.h:487` | untagged neutral name (D10) |
+| 1 | `Unknown0020` | `app/client/tasks/tsk_login.h:488` | untagged neutral name (D10) |
+| 1 | `Unknown0030` | `app/client/tasks/tsk_login.h:492` | untagged neutral name (D10) |
+| 1 | `Unknown0034` | `app/client/tasks/tsk_login.h:493` | untagged neutral name (D10) |
+| 1 | `Unknown0350` | `app/client/tasks/tsk_login.h:496` | untagged neutral name (D10) |
+| 1 | `Unknown088C` | `app/client/tasks/tsk_login.h:497` | untagged neutral name (D10) |
+| 1 | `Unknown107D` | `app/client/tasks/tsk_login.h:501` | untagged neutral name (D10) |
+| 1 | `Unknown108C` | `app/client/tasks/tsk_login.h:505` | untagged neutral name (D10) |
+| 1 | `Unknown1094` | `app/client/tasks/tsk_login.h:507` | untagged neutral name (D10) |
+| 1 | `Unknown1134` | `app/client/tasks/tsk_login.h:509` | untagged neutral name (D10) |
+| 1 | `Unknown1138` | `app/client/tasks/tsk_login.h:510` | untagged neutral name (D10) |
+| 1 | `Unknown1139` | `app/client/tasks/tsk_login.h:511` | untagged neutral name (D10) |
+| 1 | `Unknown113C` | `app/client/tasks/tsk_login.h:512` | untagged neutral name (D10) |
+| 1 | `Unknown1144` | `app/client/tasks/tsk_login.h:514` | untagged neutral name (D10) |
 | 1 | `tsk_menu.cpp` | `app/client/tasks/tsk_menu.cpp:16` | neutral name from the class's log text, sorting between tsk_login.cpp and tsk_movie.cpp (the link order) |
 | 1 | `Unknown_Debug_Print` | `app/client/tasks/tsk_menu.cpp:17` | 0x509E30 (dbgmgr.cpp), the log line |
 | 1 | `Unknown_Debug_Begin_Step` | `app/client/tasks/tsk_menu.cpp:18` | 0x509EF0 (dbgmgr.cpp), WinMain's step log |
@@ -1229,8 +1229,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_4BC130` | `tests/capharness/udpreplay/udpreplay.cpp:70` | untagged neutral name (D10) |
 | 2 | `SClient` | `app/client/sclient.h:32` | the client's 'SClient::Process_Packets' (0x7427C0) |
 | 2 | `username, password` | `app/client/tasks/tsk_game.h:57` | LoginTaskClass's 0x7697A0 / 0x7697E0 get them back |
-| 2 | `Result` | `app/client/tasks/tsk_login.h:380` | the assert's kr; tested >= 0 |
-| 2 | `IComponentFactoryClass` | `app/client/tasks/tsk_login.h:391` | authFactory (the assert) |
+| 2 | `Result` | `app/client/tasks/tsk_login.h:381` | the assert's kr; tested >= 0 |
+| 2 | `IComponentFactoryClass` | `app/client/tasks/tsk_login.h:392` | authFactory (the assert) |
 | 2 | `Handle_Input` | `app/client/tasks/tsk_menu.h:33` | what it does |
 | 2 | `volume` | `app/client/tasks/tsk_movie.cpp:18` | BinkSetVolume's argument |
 | 2 | `Add_Movie` | `app/client/tasks/tsk_movie.h:38` | what it does |

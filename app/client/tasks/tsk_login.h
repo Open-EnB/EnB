@@ -63,6 +63,7 @@ public:
 	virtual void Unknown_58();
 	virtual void Unknown_5C();							// +0x5C: before each message box
 	void Unknown_588A70(const char *button, int a, const char *text, int width, int b, int c);	// 0x588A70: a message box  // NAME 1 [button, text, width]: 'OK', the message, 320
+	bool Is_HTML() { return stricmp(Unknown18C, "HTML") == 0; }	// (LoginTaskClass::Run: inline, the client computes the name in eax)  // NAME 1: what it tests
 	int Unknown_5890B0(const char *button);				// 0x5890B0: the button pressed ('OK', 'OK_SMALL', 'CANCEL', 'HTML')
 
 	char Unknown004[0x7C - 0x04];						// +0x04
