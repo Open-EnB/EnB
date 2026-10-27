@@ -1255,6 +1255,25 @@
     "merged": [],
     "name": "shared/auxdata/encode.cpp"
    },
+   "fontdatabase": {
+    "ambiguous": [
+     "0x42B2F0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x6C3FB0",
+     "0x6C4070",
+     "0x6C4270",
+     "0x6C42E0",
+     "0x6C4450",
+     "0x6C45B0",
+     "0x6C4720",
+     "0x6C49C0"
+    ],
+    "merged": [],
+    "name": "client/fontdatabase.cpp"
+   },
    "heightfield": {
     "ambiguous": [
      "0x463C80",
@@ -6268,6 +6287,7 @@
    "client/cfaction_database.h": "reconstructed",
    "client/client.h": "reconstructed",
    "client/control_keys_manager.h": "reconstructed",
+   "client/fontdatabase.h": "reconstructed",
    "client/sclient.h": "reconstructed",
    "client/soptions.h": "reconstructed",
    "client/tasks/tsk_game.h": "reconstructed",

@@ -3498,6 +3498,11 @@ RECONSTRUCTED = {
                                           "0x5AAE30: the asserts on the client's lines 172-595 (D25); NOT EXACT: 0x5A4B50, "
                                           "the destructor 0x5A58A0, 0x5A69B0, 0x5A7A80, 0x5A7E80, Clear 0x5A8100, "
                                           "0x5A8B60, 0x5A8C70; the mission messages 0x5A8350 declared only",
+    ('app', 'client/fontdatabase.h'): "FontDatabaseClass (D24), fontsys.ini's INIT sections by resolution, the font "
+                                     "files (AllFonts) and the fonts in use (Font[MAXFONTS]), declared as far as the "
+                                     "rebuilt functions need (D10)",
+    ('app', 'client/fontdatabase.cpp'): "fontdatabase.cpp, client 0x6BDA40-0x6C9E30: the accessors 0x6C3FB0-0x6C49C0 "
+                                       "(FAIL_IF lines 1023-1121, D25); the rest of the file not written yet",
     ('app', 'shared/combo_ffactory.h'): "ComboFileFactoryClass (D24), a FileFactoryClass over a directory and its *.MIX files, "
                                        "MixMap an SGI hash_map<std::string, MixFileFactoryClass *> (libs/sgistl, D87)",
     ('app', 'shared/combo_ffactory.cpp'): "ComboFileFactoryClass, client 0x4E4D10-0x4E5A00 with the table's and list's instances "
