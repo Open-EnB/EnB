@@ -365,10 +365,10 @@ int ControlKeysManager::Remove_Keys(ControlKeyListClass *keylist, const std::str
 
 
 
-
-
-
-
+bool ControlKeysManager::_Does_Key_Exist(const std::string &key_name)
+{
+	return _KeyDefinitions.find(key_name) != _KeyDefinitions.end();
+}
 
 
 

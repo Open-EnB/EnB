@@ -898,8 +898,10 @@
      "0x42AB30",
      "0x42CD30",
      "0x42DB00",
+     "0x42DB80",
      "0x42F250",
      "0x71A860",
+     "0x71B160",
      "0x71C4C0",
      "0x71CA20",
      "0x71CA50",
@@ -908,7 +910,8 @@
      "0x71CC60",
      "0x71CCA0",
      "0x71CCE0",
-     "0x71CD20"
+     "0x71CD20",
+     "0x71E950"
     ],
     "merged": [],
     "name": "client/control_keys_manager.cpp"

@@ -102,6 +102,7 @@ public:
 	KeyMappingStruct *Set_Key(KeyMappingStruct *entry, int set, const ControlKeyStruct &key, bool force);	// 0x71A860: returns the mapping already using key unless force  // NAME 2: describes what it does
 	int Add_Keys(ControlKeyListClass *keylist, const std::string &name, void *handler, unsigned short modifiers);	// 0x71A960  // NAME 2: describes what it does
 	int Remove_Keys(ControlKeyListClass *keylist, const std::string &name, unsigned short modifiers);	// 0x71AB40  // NAME 2: describes what it does
+	static bool _Does_Key_Exist(const std::string &key_name);	// 0x71B160 (no caller; inlined at 0x719ED0): the client's assert
 	static void Copy_Keys(std::vector<KeyMappingStruct> *to, const std::vector<KeyMappingStruct> &from);	// 0x71C4C0  // NAME 2: describes what it does
 
 	char Unknown04[0x18];																// +0x04: a hash table (UserKeysMap?)  // NAME 1: neutral (D10)
