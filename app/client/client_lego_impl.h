@@ -38,7 +38,7 @@ class LegoParentClass;
 class LegoKnobClass : public RefCountClass  // NAME 1 [LegoKnobClass]: neutral (D10), the client's 'knob' locals
 {
 public:
-	char Unknown08[0x10];											// +0x08  // NAME 1: neutral (D10)
+	std::string BoneName;											// +0x08: what Add_Sub_Object_To_Bone gets  // NAME 2: what it holds
 	int BoneIndex;													// +0x18: what Capture_Bone / Release_Bone get  // NAME 2: what it holds
 };
 
@@ -59,7 +59,7 @@ public:
 	virtual float Get_Scale(void) const = 0;						// +0x0C  // NAME 2: what it returns
 	virtual void Set_Scale(float scale) = 0;						// +0x10  // NAME 2: what it does
 	virtual float Get_Radius(void) const = 0;						// +0x14  // NAME 2: what it returns
-	virtual void Unknown_18(int unknown) = 0;						// +0x18  // NAME 1: neutral (D10)
+	virtual void Unknown_18(bool unknown) = 0;						// +0x18: Attach passes the parent's +0x65  // NAME 1: neutral (D10)
 	virtual void Unknown_1C(void) = 0;								// +0x1C: recursive over the children  // NAME 1: neutral (D10)
 	virtual void Init(int asset_id, const RefCountPtr<RenderObjClass> &render_object) = 0;	// +0x20  // NAME 2: what it does
 	virtual RefCountPtr<RenderObjClass> Get_Render_Object(void) const = 0;	// +0x24  // NAME 2: what it returns
@@ -116,7 +116,7 @@ public:
 	virtual float Get_Scale(void) const;							// 0x72A5C0
 	virtual void Set_Scale(float scale);							// 0x72A5E0
 	virtual float Get_Radius(void) const;							// 0x72A6C0
-	virtual void Unknown_18(int unknown);							// 0x72A6E0
+	virtual void Unknown_18(bool unknown);							// 0x72A6E0
 	virtual void Unknown_1C(void);									// 0x72A700
 	virtual void Init(int asset_id, const RefCountPtr<RenderObjClass> &render_object);	// 0x72A7C0
 	virtual RefCountPtr<RenderObjClass> Get_Render_Object(void) const;	// 0x72AB80
@@ -134,6 +134,8 @@ public:
 	virtual void Unknown_00(const LegoIdentifierClass &id);			// 0x72CE40
 	virtual void Child_Changed(const LegoIdentifierClass &id);		// 0x72D0C0
 
+	void Attach(const RefCountPtr<LegoClass> &child, const RefCountPtr<RenderObjClass> &render_object, const RefCountPtr<LegoKnobClass> &knob);	// 0x72D0E0  // NAME 2: what it does
+	void Detach(const RefCountPtr<LegoClass> &child, const RefCountPtr<RenderObjClass> &render_object, const RefCountPtr<LegoKnobClass> &knob);	// 0x72D2A0  // NAME 2: what it does
 	void Update_Radius(void);										// 0x72CC10: the client's assert '!BoneMap'  // NAME 2: what it does
 
 	std::hash_map<std::string, LegoChildStruct> Children;			// +0x0C: the client's asserts

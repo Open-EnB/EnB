@@ -150,7 +150,7 @@ float ClientLegoImplClass::Get_Radius(void) const
 	return Radius;
 }
 
-void ClientLegoImplClass::Unknown_18(int)
+void ClientLegoImplClass::Unknown_18(bool)
 {
 }
 
@@ -166,26 +166,26 @@ RefCountPtr<RenderObjClass> ClientLegoImplClass::Get_Render_Object(void) const
 	return RenderObject;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+void ClientLegoImplClass::Detach_All(std::vector<RefCountPtr<LegoClass> > &legos)
+{
+	for (std::hash_map<std::string, LegoChildStruct>::iterator it = Children.begin(); it != Children.end(); ++it) {
+		LegoChildStruct &child = (*it).second;
+		child.Child->Detach_All(legos);
+		if (child.Knob) {
+			Detach(child.Child, RenderObject, child.Knob);
+		}
+		legos.push_back(child.Child);
+	}
+	Children.clear();
+	for (std::hash_map<std::string, RefCountPtr<LegoOrphanDataClass> >::iterator orphan = Orphans.begin(); orphan != Orphans.end(); ++orphan) {
+		std::vector<RefCountPtr<LegoClass> > &orphan_legos = (*orphan).second->Legos;
+		for (std::vector<RefCountPtr<LegoClass> >::iterator lego = orphan_legos.begin(); lego != orphan_legos.end(); ++lego) {
+			legos.push_back(*lego);
+		}
+	}
+	Orphans.clear();
+	Update_Radius();
+}
 
 
 
@@ -647,10 +647,11 @@ void ClientLegoImplClass::Update_Radius(void)
 		return;
 	}
 	for (std::hash_map<std::string, LegoChildStruct>::iterator it = Children.begin(); it != Children.end(); ++it) {
-		if ((*it).second.Knob) {
+		LegoChildStruct &child = (*it).second;
+		if (child.Knob) {
 			Vector3 bone = RenderObject->Get_Bone_Transform((*it).first.c_str()).Get_Translation();
 			float dist = (RenderObject->Get_Position() - bone).Length();
-			float reach = (*it).second.Child->Get_Radius() + dist;
+			float reach = child.Child->Get_Radius() + dist;
 			if (reach > radius) {
 				radius = reach;
 			}
@@ -668,6 +669,86 @@ void ClientLegoImplClass::Update_Radius(void)
 void ClientLegoImplClass::Child_Changed(const LegoIdentifierClass &)
 {
 	Update_Radius();
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// NOT EXACT: frame: the client keeps the child's render object in its own stack slot (sub esp 8), ours in a dead parameter's (attempts.csv)
+void ClientLegoImplClass::Attach(const RefCountPtr<LegoClass> &child, const RefCountPtr<RenderObjClass> &render_object, const RefCountPtr<LegoKnobClass> &knob)
+{
+	FAIL_IF(!child) return;
+	FAIL_IF(!knob) return;
+	child->Unknown_18(Unknown65);
+	if (render_object) {
+		int bone = knob->BoneIndex;
+		render_object->Capture_Bone(bone);
+		render_object->Control_Bone(bone, child->Get_Transform());
+		RefCountPtr<RenderObjClass> child_object = child->Get_Render_Object();
+		if (child_object) {
+			render_object->Add_Sub_Object_To_Bone(child_object.Peek(), knob->BoneName.c_str());
+			child->Set_Parent(this);
+		}
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// NOT EXACT: register-only, 4 rows: eax / edx swapped around the Get_Render_Object call (attempts.csv)
+void ClientLegoImplClass::Detach(const RefCountPtr<LegoClass> &child, const RefCountPtr<RenderObjClass> &render_object, const RefCountPtr<LegoKnobClass> &knob)
+{
+	FAIL_IF(!child) return;
+	FAIL_IF(!knob) return;
+	if (render_object) {
+		render_object->Release_Bone(knob->BoneIndex);
+		render_object->Remove_Sub_Object(child->Get_Render_Object().Peek());
+		child->Clear_Parent();
+	}
 }
 /*
 **	Reconstruction notes
