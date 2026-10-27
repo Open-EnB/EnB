@@ -168,12 +168,25 @@ struct LoginTicketInfoClass	// NAME 1: what it holds
 };
 
 
-// A 0x44-byte object (constructor 0x6191F0), four in each LoginUnknown88CClass
-class LoginUnknown44Class	// NAME 1: neutral (D10)
+// A 0x20-byte object (constructor 0x618500 out of line; vtable 0xAEC91C over 0xAEADC8), two in each
+// LoginUnknown44Class
+class LoginUnknown20Class : public LoginInterfaceAEADC8Class	// NAME 1: neutral (D10)
 {
 public:
-	LoginUnknown44Class();								// 0x6191F0
-	char Unknown00[0x44];
+	LoginUnknown20Class();								// 0x618500
+	virtual void Unknown_00(void *visitor);				// (vtable 0xAEC91C)
+	char Unknown04[0x20 - 4];
+};
+
+// A 0x44-byte object (vtable 0xAF78BC over 0xAEADC8), four in each LoginUnknown88CClass. Its constructor
+// is inline (in 0x7688F0: the two 0x20-byte objects through ??_H with 0x618500) and out of line at
+// 0x6191F0 (another file, where 0x618500 is inlined); the LoginTaskClass constructors call 0x6191F0.
+class LoginUnknown44Class : public LoginInterfaceAEADC8Class	// NAME 1: neutral (D10)
+{
+public:
+	LoginUnknown44Class() {}
+	virtual void Unknown_00(void *visitor);				// 0x4F6890 (vtable 0xAF78BC)
+	LoginUnknown20Class Unknown04[2];					// +0x04
 };
 
 // The five 0x160-byte objects at LoginTaskClass +0x88C (vtables 0xAF78A0 / 0xAF789C over 0xAEB9EC /
