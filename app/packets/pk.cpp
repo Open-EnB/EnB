@@ -281,7 +281,7 @@ PacketClass *Unknown_869790(RawPacketClass *raw)
 			packet = new GlobalErrorPacketClass(raw);
 			break;
 		case 118:
-			packet = new Packet_0076Class(raw);
+			packet = new GlobalLoginPacketClass(raw);
 			break;
 		case 30000:
 			packet = new Packet_7530Class(raw);

@@ -117,6 +117,27 @@ OVERRIDES = {
     ], []),
 }
 
+# Names the client gives a class outside its packet code (builder T4's step 9: the log string of the
+# handler): opcode -> (name, tag or None for the client's own name)
+NAMES = {
+    118: ('GlobalLoginPacketClass', None),	# tsk_login.cpp's handler 0x76B9C0 logs 'GlobalLoginPacketClass recv'
+}
+
+# Fields instead of the unknown bytes, for classes whose fields another file's code reads (builder
+# T4's step 9 views in tsk_game.cpp / tsk_login.cpp): opcode -> member lines (they must fill the class)
+FIELDS = {
+    54: [	# tsk_game.cpp's handler 0x766FC0 hands Address and Port to Redirect
+        'int Unknown0C;\t// +0x0C',
+        'unsigned long Address;\t// +0x10  // NAME 1: handed to Redirect (tsk_game.cpp 0x766FC0)',
+        'unsigned short Port;\t// +0x14  // NAME 1: handed to Redirect (tsk_game.cpp 0x766FC0)',
+    ],
+    117: [	# tsk_login.cpp's handler 0x76B4A0: the log 'GlobalErrorPacketClass recv: %d : %d : %s'
+        'int Unknown0C;\t// +0x0C',
+        'int Error;\t// +0x10  // NAME 1: the log \'GlobalErrorPacketClass recv: %d : %d : %s\' (tsk_login.cpp)',
+        'std::string Message;\t// +0x14  // NAME 1: the same log',
+    ],
+}
+
 BEGIN = '// BEGIN pkclasses.py (generated: the switch 0x869790; do not edit by hand)'
 END = '// END pkclasses.py'
 
@@ -221,6 +242,8 @@ def main():
         else:
             r['name'] = 'Packet_%04XClass' % r['op']
             r['tag'] = 'NAME 1: neutral (D10): opcode 0x%04X' % r['op']
+        if r['op'] in NAMES:
+            r['name'], r['tag'] = NAMES[r['op']]
     seen = {}
     for r in sorted(rows, key=lambda r: r['state']):
         if r['name'] in seen:
@@ -357,7 +380,11 @@ def main():
                            '// NAME 1: neutral (D10)' % (off, off, f, line))
         for m in members:
             out.append('\t' + m.replace('{C}', r['name']))
-        if r['size'] > base_size:
+        if key(r) in FIELDS:
+            out.append('')
+            for f in FIELDS[key(r)]:
+                out.append('\t' + f)
+        elif r['size'] > base_size:
             out.append('\tchar Unknown%02X[0x%X];\t// +0x%02X' % (base_size, r['size'] - base_size, base_size))
         out.append('};')
         out.append('')

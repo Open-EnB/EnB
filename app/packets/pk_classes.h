@@ -273,7 +273,10 @@ class ServerRedirectPacketClass : public PacketClass  // NAME 2: the reference d
 public:
 	ServerRedirectPacketClass(RawPacketClass *raw);	// 0x8A1590
 	virtual bool Process_Packet(void *client);	// +0x08 0x766FC0 (tsk_game.cpp)
-	char Unknown0C[0xC];	// +0x0C
+
+	int Unknown0C;	// +0x0C
+	unsigned long Address;	// +0x10  // NAME 1: handed to Redirect (tsk_game.cpp 0x766FC0)
+	unsigned short Port;	// +0x14  // NAME 1: handed to Redirect (tsk_game.cpp 0x766FC0)
 };
 
 // opcode 58 (0x003A, SERVER_HANDOFF): vtable 0xB0ADD4, constructor 0x8946B0, 0x98 bytes
@@ -360,14 +363,17 @@ class GlobalErrorPacketClass : public PacketClass  // NAME 2: the reference deco
 public:
 	GlobalErrorPacketClass(RawPacketClass *raw);	// 0x864C90
 	virtual bool Process_Packet(void *client);	// +0x08 0x76B4A0 (tsk_login.cpp)
-	char Unknown0C[0x18];	// +0x0C
+
+	int Unknown0C;	// +0x0C
+	int Error;	// +0x10  // NAME 1: the log 'GlobalErrorPacketClass recv: %d : %d : %s' (tsk_login.cpp)
+	std::string Message;	// +0x14  // NAME 1: the same log
 };
 
 // opcode 118 (0x0076, ?): vtable 0xB095C4, constructor 0x866050, 0xC0 bytes
-class Packet_0076Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x0076
+class GlobalLoginPacketClass : public PacketClass
 {
 public:
-	Packet_0076Class(RawPacketClass *raw);	// 0x866050
+	GlobalLoginPacketClass(RawPacketClass *raw);	// 0x866050
 	virtual bool Process_Packet(void *client);	// +0x08 0x76B9C0 (tsk_login.cpp)
 	char Unknown0C[0xB4];	// +0x0C
 };

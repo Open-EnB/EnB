@@ -29,7 +29,7 @@ GlobalTicketPacketClass::GlobalTicketPacketClass(RawPacketClass *raw) { Conn_Rec
 GlobalAvatarListPacketClass::GlobalAvatarListPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 GlobalCreateCharacterPacketClass::GlobalCreateCharacterPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 GlobalErrorPacketClass::GlobalErrorPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-Packet_0076Class::Packet_0076Class(RawPacketClass *raw) { Conn_Record(this, raw); }
+GlobalLoginPacketClass::GlobalLoginPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_7535Class::Packet_7535Class(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_7538Class::Packet_7538Class(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_753CClass::Packet_753CClass(RawPacketClass *raw) { Conn_Record(this, raw); }
@@ -199,7 +199,7 @@ bool ReferralPointsAvailablePacketClass::Process_Packet(void *) { return(true); 
 bool GlobalTicketPacketClass::Process_Packet(void *) { return(true); }
 bool GlobalAvatarListPacketClass::Process_Packet(void *) { return(true); }
 bool GlobalErrorPacketClass::Process_Packet(void *) { return(true); }
-bool Packet_0076Class::Process_Packet(void *) { return(true); }
+bool GlobalLoginPacketClass::Process_Packet(void *) { return(true); }
 int Packet_0015Class::Get_Type() { return(0x15); }
 bool Packet_0015Class::Unknown_2C() { return(false); }
 const char *Packet_0015Class::Get_Name() { return("Packet_0015Class"); }
