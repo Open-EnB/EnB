@@ -212,6 +212,16 @@ public:
 	int Unknown04[2];
 };
 
+// postate.cpp's type 11 state, COMPONENT_POSITIONAL_UPDATE 70's (0x10 bytes)
+class Unknown717EF0Class : public Unknown98StateClass	// NAME 1: neutral (D10)
+{
+public:
+	Unknown717EF0Class(ComponentPositionalUpdatePacketClass *packet, ClientClass *client);	// 0x717EF0  // NAME 1 [packet, client]: what the handler passes
+	void Unknown_718080(ComponentPositionalUpdatePacketClass *packet, ClientClass *client);	// 0x718080  // NAME 1 [packet, client]: what the handler passes
+
+	int Unknown04[3];
+};
+
 // postate.cpp's states ADVANCED_POSITIONAL_UPDATE 62 makes: type 4 for the player's own object (0x28 bytes),
 // type 8 for the others (0x1C bytes); both take the client's +0x10BC and the packet
 class Unknown717010Class : public Unknown98StateClass	// NAME 1: neutral (D10)
@@ -350,16 +360,6 @@ bool ConstantPositionalUpdatePacketClass::Process_Packet(void *instance)
 	}
 	return(true);
 }
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -575,26 +575,26 @@ bool PlanetPositionalUpdatePacketClass::Process_Packet(void *instance)
 
 
 
+// NOT EXACT: register-only (the +0x10C0 duration's halves in esi / edx, ours the reverse, as 0x734A40; the assert text needs co.h's Is_Component name)
+// 0x734BF0
+bool ComponentPositionalUpdatePacketClass::Process_Packet(void *instance)
+{
+	WWPROFILE("ComponentPositionalUpdatePacketClass::Process_Packet()");
+	SClient *sclient = (SClient *)instance;
+	TimeStamp = (DurationClass(TimeStamp) - DurationClass(sclient->Unknown10C0)).As_Int();
+	ClientObjectClass *obj = sclient->Find_Object(GameID);
+	if (!obj) return(true);
+	G_ASSERT(obj->Unknown_6F5A80());
+	if (!obj->Unknown_6F5A80()) return(true);
+	if (obj->Unknown98 && obj->Unknown98->Unknown_04() == 11) {
+		((Unknown717EF0Class *)obj->Unknown98)->Unknown_718080(this, sclient);
+	} else {
+		delete obj->Unknown98;
+		obj->Unknown98 = new Unknown717EF0Class(this, sclient);
+	}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	return(true);
+}
 
 
 

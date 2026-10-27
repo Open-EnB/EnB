@@ -1,0 +1,20 @@
+// NOT EXACT: register-only (the +0x10C0 duration's halves in esi / edx, ours the reverse, as 0x734A40; the assert text needs co.h's Is_Component name)
+// 0x734BF0
+bool ComponentPositionalUpdatePacketClass::Process_Packet(void *instance)
+{
+	WWPROFILE("ComponentPositionalUpdatePacketClass::Process_Packet()");
+	SClient *sclient = (SClient *)instance;
+	TimeStamp = (DurationClass(TimeStamp) - DurationClass(sclient->Unknown10C0)).As_Int();
+	ClientObjectClass *obj = sclient->Find_Object(GameID);
+	if (!obj) return(true);
+	G_ASSERT(obj->Unknown_6F5A80());
+	if (!obj->Unknown_6F5A80()) return(true);
+	if (obj->Unknown98 && obj->Unknown98->Unknown_04() == 11) {
+		((Unknown717EF0Class *)obj->Unknown98)->Unknown_718080(this, sclient);
+	} else {
+		delete obj->Unknown98;
+		obj->Unknown98 = new Unknown717EF0Class(this, sclient);
+	}
+
+	return(true);
+}
