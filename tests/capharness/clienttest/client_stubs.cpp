@@ -208,3 +208,18 @@ struct Unknown_C404D8Struct
 };
 static Unknown_C404D8Struct The_C404D8;
 Unknown_C404D8Struct *Unknown_C404D8 = &The_C404D8;
+
+// ------------------------------------------------------------------------- auxdata.h's lookup (co.cpp)
+
+// co.cpp's aux-data accessors (0x6F58B0, 0x6F5E40, ...) inline auxdata.h's lookup: these three keep
+// name.obj, delta.obj and lookup.obj out of the harness (they pull unknown_root.obj, whose
+// Unknown_Get_Ticks clienttest.cpp defines, and shipcust_desc.obj). No root, no field: no trace.
+#include "..\..\..\app\shared\auxdata\delta.h"
+#include "..\..\..\app\shared\auxdata\lookup.h"
+NameClass::NameClass(const char *) {}
+LookupClass *DeltaCompoundClass::Get_Lookup() { return NULL; }
+DeltaClass *LookupClass::Find(const NameClass &) { return NULL; }
+// the bool field's type global (client 0xC416AC; app.lib has it in aux_roots.obj, which the harness
+// doesn't link)
+#include "..\..\..\app\client\aux_roots.h"
+template<> int DeltaTemplateClass<bool>::UnknownGlobal = 0;

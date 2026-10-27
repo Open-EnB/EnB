@@ -65,6 +65,7 @@ public:
 };
 
 void Unknown_810540(RenderObjClass *model, int state, int unknown);	// shiputils.cpp (cdecl)  // NAME 1 [model, state, unknown]: co.cpp passes the model, 1 or 2, and 0
+void Unknown_810750(RenderObjClass *model, int unknown);	// (cdecl; co.cpp's 0x7008B0 passes the model and 0)  // NAME 1 [model, unknown]: what co.cpp passes
 class SubPartsPacket;
 class ClientClass;
 
@@ -106,6 +107,11 @@ public:
 	void Unknown_6F3BF0(bool hidden);					// 0x6F3BF0 (the model's Set_Hidden)  // NAME 2 [hidden]: Set_Hidden's argument
 	float Unknown_6F45E0();								// 0x6F45E0
 	float Unknown_6F4590();								// 0x6F4590
+	bool Unknown_6F58B0();								// 0x6F58B0 an organic type (0, 1, 25) that isn't IsOrganic
+	bool Unknown_6F5E40();								// 0x6F5E40 the aux data's IsOrganic
+	bool Unknown_6F5ED0();
+	bool Unknown_6F5F60();								// 0x6F5F60 the aux data's IsInPVP field with +0x70 above 1
+	bool Unknown_7008B0();								// 0x7008B0 0x810750 on the model of an organic object that isn't IsOrganic								// 0x6F5ED0 the aux data's IsInPVP
 	bool Unknown_6F5850();								// 0x6F5850 the type tests on Type, 0x6F5850-0x6F5E20
 	bool Unknown_6F5980();
 	bool Unknown_6F5A10();
@@ -176,7 +182,8 @@ public:
 	char UnknownB8[0xE8 - 0xB8];						// +0xB8
 	float Sphere[4];									// +0xE8 a SphereClass (center, radius): 0x6FED30 fills it from the model  // NAME 2: what it holds
 	int UnknownF8;										// +0xF8
-	char UnknownFC[0x118 - 0xFC];						// +0xFC
+	bool UnknownFC;										// +0xFC (0x7008B0 clears it after 0x810750 on the model)
+	char UnknownFD[0x118 - 0xFD];						// +0xFD
 	AudibleSoundClass *Unknown118;						// +0x118 a sound 0x6FC880 stops (the destructor releases it)
 	AudibleSoundClass *Unknown11C;						// +0x11C a sound 0x6FC880 stops (the destructor releases it)
 	char Unknown120[0x128 - 0x120];						// +0x120

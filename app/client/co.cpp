@@ -1,7 +1,8 @@
 // Earth & Beyond client (reconstruction): app\client\co.cpp. Notes at the end of the file.
 #include "co.h"
 #include "client.h"
-#include "..\shared\auxdata\delta.h"
+#include "..\shared\auxdata\auxdata.h"
+#include "aux_roots.h"
 #include "rendobj.h"
 #include "sphere.h"
 #include "vector3.h"
@@ -11,7 +12,6 @@
 #include "..\..\wwaudio\AudibleSound.h"
 #include "control_keys_manager.h"
 #include "..\packets\pk_player_object_relationship.h"
-
 #include "..\shared\unknown_debug.h"
 
 // The event 0x6FEEE0 emits (the client's RTTI .?AVPlayerObjectRelationshipChangeEvent@@, 0x14 bytes)
@@ -1170,41 +1170,41 @@ int ClientObjectClass::Unknown_6F5E00() { return(Type == 39); }
 int ClientObjectClass::Unknown_6F5E20() { return(Type == 38); }
 
 
+// 0x6F5E40
+bool ClientObjectClass::Unknown_6F5E40()
+{
+	NameClass name("IsOrganic");
+	DeltaTemplateClass<bool> *t = Unknown_Find_Field<bool>((DeltaCompoundClass *)AuxData, name);
+	if (t && t->m_Unknown70) return(t->Value);
+	return(false);
+}
 
+// 0x6F5ED0
+bool ClientObjectClass::Unknown_6F5ED0()
+{
+	NameClass name("IsInPVP");
+	DeltaTemplateClass<bool> *t = Unknown_Find_Field<bool>((DeltaCompoundClass *)AuxData, name);
+	if (t && t->m_Unknown70) return(t->Value);
+	return(false);
+}
 
+// 0x6F58B0
+bool ClientObjectClass::Unknown_6F58B0()
+{
+	if (Unknown_6F5850()) {
+		return(!Unknown_6F5E40());
+	}
+	return(false);
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// 0x6F5F60
+bool ClientObjectClass::Unknown_6F5F60()
+{
+	NameClass name("IsInPVP");
+	DeltaTemplateClass<bool> *t = Unknown_Find_Field<bool>((DeltaCompoundClass *)AuxData, name);
+	if (t && t->m_Unknown70 <= 1) t = NULL;
+	return(t != NULL);
+}
 
 
 
@@ -2487,15 +2487,15 @@ int ClientObjectClass::Unknown_6FFFA0()
 
 
 
-
-
-
-
-
-
-
-
-
+// 0x7008B0
+bool ClientObjectClass::Unknown_7008B0()
+{
+	if (!Unknown_6F58B0()) return(false);
+	if (!Model) return(false);
+	Unknown_810750(Model, 0);
+	UnknownFC = false;
+	return(true);
+}
 
 
 
