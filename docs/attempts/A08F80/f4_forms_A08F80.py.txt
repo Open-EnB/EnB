@@ -1,0 +1,93 @@
+# ==== .work/f4/vshd_a.py
+S = 'wwshade/shdmesh.cpp'
+CT = 'ShdMeshClass::ShdMeshClass() \n: \tName("UnNamed"),\n\tLightEnvironment(NULL),\n\tApplying_Shadow_Map(false)\n{\n}\n'
+V = {
+    # the hint_temporary argument spelled out: a second constant argument to the inlined literal constructor
+    'hint': [(S, CT, CT.replace('Name("UnNamed")', 'Name("UnNamed", false)'))],
+}
+COMPILE = [S]
+WATCH = ['0xA08F80']
+
+# ==== .work/f4/vshd_b.py
+W = 'wwlib/wwstring.h'
+S = 'wwshade/shdmesh.cpp'
+D = 'wwshade/shddef.cpp'
+DECL = '\tStringClass (const TCHAR *string, bool hint_temporary = false);\n'
+DEFN = 'StringClass::StringClass (const TCHAR *string, bool hint_temporary)\n'
+BODY = ('\tint len=string ? _tcsclen(string) : 0;\n'
+        '\tif (hint_temporary || len>0) {\n'
+        '\t\tGet_String (len+1, hint_temporary);\n'
+        '\t}\n'
+        '\n'
+        '\t(*this) = string;\n'
+        '\treturn ;\n')
+# The client keeps the literal in a temp (mov edx, imm; test edx, edx) for the inlined operator= and so does
+# not thread its null test with the constructor's; ours substitutes the immediate and threads. Probes for what
+# makes VC6 keep a temp for the parameter:
+V = {
+    # a conversion node on the argument (const char[8] -> char *)
+    'nonconst': [(W, DECL, '\tStringClass (TCHAR *string, bool hint_temporary = false);\n'),
+                 (W, DEFN, 'StringClass::StringClass (TCHAR *string, bool hint_temporary)\n')],
+    # the parameter copied to a local in the constructor's body
+    'local': [(W, BODY, BODY.replace('int len=string ? _tcsclen(string) : 0;', 'const TCHAR *s = string;\n\tint len=s ? _tcsclen(s) : 0;')
+               .replace('(*this) = string;', '(*this) = s;'))],
+    # the caller's argument as a non-trivial expression of the literal
+    'arr0': [(S, 'Name("UnNamed")', 'Name(&"UnNamed"[0])'), (D, 'Name("UnNamed")', 'Name(&"UnNamed"[0])')],
+}
+COMPILE = [S, D]
+WATCH = ['0xA08F80', '0xA0EC30']
+
+# ==== .work/f4/vshd_c.py
+W = 'wwlib/wwstring.h'
+S = 'wwshade/shdmesh.cpp'
+D = 'wwshade/shddef.cpp'
+CTOR = ('///////////////////////////////////////////////////////////////////\n'
+        '//\tStringClass\n'
+        '///////////////////////////////////////////////////////////////////\n'
+        'inline\n'
+        'StringClass::StringClass (const TCHAR *string, bool hint_temporary)\n'
+        '\t:\tm_Buffer (m_EmptyString)\n'
+        '{\n'
+        '\tint len=string ? _tcsclen(string) : 0;\n'
+        '\tif (hint_temporary || len>0) {\n'
+        '\t\tGet_String (len+1, hint_temporary);\n'
+        '\t}\n'
+        '\n'
+        '\t(*this) = string;\n'
+        '\treturn ;\n'
+        '}\n'
+        '\n')
+OPHEAD = ('///////////////////////////////////////////////////////////////////\n'
+          '//\toperator=\n'
+          '///////////////////////////////////////////////////////////////////\n'
+          'inline const StringClass &\n'
+          'StringClass::operator= (const StringClass &string)\n')
+V = {
+    # the literal constructor defined before the assignments it inlines: a nested inline whose body the
+    # compiler has not seen yet when the constructor is parsed may be expanded with its own parameter temp
+    'order': [(W, CTOR, ''), (W, OPHEAD, CTOR + OPHEAD)],
+    # the assignment called by name
+    'callop': [(W, '\t(*this) = string;\n\treturn ;\n', '\toperator= (string);\n\treturn ;\n')],
+}
+COMPILE = [S, D]
+WATCH = ['0xA08F80', '0xA0EC30']
+
+# ==== .work/f4/vshd_d.py
+W = 'wwlib/wwstring.h'
+S = 'wwshade/shdmesh.cpp'
+D = 'wwshade/shddef.cpp'
+CTOR_DEF = 'inline\nStringClass::StringClass (const TCHAR *string, bool hint_temporary)\n'
+OP_DEF = 'inline const StringClass &\nStringClass::operator= (const TCHAR *string)\n'
+# __forceinline (E&B's WWINLINE) instead of inline: the front end expands a forced inline and its nested
+# calls at parse time, which may leave the nested operator='s parameter as its own temp (the client's
+# mov edx, imm; test edx, edx) instead of the substituted constant that ours threads away
+V = {
+    'fi_ctor': [(W, CTOR_DEF, CTOR_DEF.replace('inline\n', '__forceinline\n'))],
+    'fi_op': [(W, OP_DEF, OP_DEF.replace('inline const', '__forceinline const'))],
+    'fi_both': [(W, CTOR_DEF, CTOR_DEF.replace('inline\n', '__forceinline\n')),
+                (W, OP_DEF, OP_DEF.replace('inline const', '__forceinline const'))],
+}
+COMPILE = [S, D]
+WATCH = ['0xA08F80', '0xA0EC30']
+
+# ==== flagsweep (30 combinations): no combination beats /O2 /Ob1 /GB (6 masked rows, 4 register-masked)
