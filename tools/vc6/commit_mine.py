@@ -20,11 +20,45 @@ Written by builder C on 2026-10-25 (.work/c/commit_mine.py), promoted by the coo
 import argparse
 import json
 import os
+import re
 import subprocess
 import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 INDEX = os.path.join(ROOT, '.work', 'commit_mine.index')
+
+
+HUNK = re.compile(r'^@@ -(\d+)(?:,(\d+))? \+(\d+)(?:,(\d+))? @@(.*)$')
+
+
+def renumber(hunks):
+    """Rewrite the kept hunks' headers so their new-file positions follow the kept hunks only.
+
+    `git apply` places a hunk at its new-file line (`+c`) and searches outward for the preimage; a
+    -U0 insertion hunk has no preimage, so it lands exactly at `c`. When hunks before it were
+    skipped (other builders'), `c` still counts their lines and the insertion lands inside another
+    entry (139c184 broke imports.json this way, 2026-10-26). So `c` is recomputed from the old-file
+    position and the running delta of the kept hunks alone.
+    """
+    out, delta = [], 0
+    for h in hunks:
+        header = h[0].rstrip('\r\n')
+        m = HUNK.match(header)
+        if not m:
+            sys.exit(f'unparsed hunk header: {header!r}')
+        a = int(m[1])
+        b = int(m[2]) if m[2] is not None else 1
+        d = int(m[4]) if m[4] is not None else 1
+        if b == 0:
+            c = a + delta + 1      # insertion after old line a
+        elif d == 0:
+            c = a + delta - 1      # deletion of old lines a..a+b-1
+        else:
+            c = a + delta
+        eol = h[0][len(header):]
+        out.append([f'@@ -{a},{b} +{c},{d} @@{m[5]}{eol}'] + h[1:])
+        delta += d - b
+    return out
 
 
 def main():
@@ -64,7 +98,7 @@ def main():
         keep = [h for h in hunks if any(k in ''.join(x for x in h[1:] if x[:1] in '+-') for k in keys)]
         print(f'{p}: {len(keep)} of {len(hunks)} hunks are yours')
         if keep:
-            patch = ''.join(head) + ''.join(''.join(h) for h in keep)
+            patch = ''.join(head) + ''.join(''.join(h) for h in renumber(keep))
             git('apply', '--cached', '--unidiff-zero', '-', inp=patch.encode('utf-8', 'surrogateescape'))
     stat = git('diff', '--cached', '--stat', a.base).decode(errors='replace')
     if not stat.strip():
