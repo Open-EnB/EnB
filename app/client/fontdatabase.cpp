@@ -241,6 +241,96 @@ void FontDatabaseClass::Unknown_6BFD00(const char *ini_name)
 }
 
 
+int FontDatabaseClass::Get_Blend_Type(StringClass &name)
+{
+	char *text = name.Get_Buffer(name.Get_Length());
+	if (stricmp(text, "SCREEN") == 0) return 1;
+	if (stricmp(text, "ADDITIVE") == 0) return 2;
+	if (stricmp(text, "MULTIPLY") == 0) return 3;
+	if (stricmp(text, "INVERSE") == 0) return 4;
+	if (stricmp(text, "OPAQUE") == 0) return 5;
+	if (stricmp(text, "ALPHA_TEST") == 0) return 6;
+	return 0;
+}
+
+
+int FontDatabaseClass::Get_Direction(StringClass &name)
+{
+	char *text = name.Get_Buffer(name.Get_Length());
+	if (stricmp(text, "UP") == 0) return 1;
+	if (stricmp(text, "DOWN") == 0) return 2;
+	if (stricmp(text, "LEFT") == 0) return 3;
+	if (stricmp(text, "RIGHT") == 0) return 4;
+	if (stricmp(text, "TOP") == 0) return 1;
+	if (stricmp(text, "BOTTOM") == 0) return 2;
+	if (stricmp(text, "RANDOM") == 0) return 5;
+	return 0;
+}
+
+
+int FontDatabaseClass::Get_Effect_Type(StringClass &name)
+{
+	char *text = name.Get_Buffer(name.Get_Length());
+	if (stricmp(text, "PULSE") == 0) return 1;
+	if (stricmp(text, "BLINK") == 0) return 2;
+	if (stricmp(text, "ROTATE") == 0) return 3;
+	if (stricmp(text, "FADE") == 0) return 4;
+	if (stricmp(text, "LETTER") == 0) return 6;
+	if (stricmp(text, "RANDLETTER") == 0) return 5;
+	if (stricmp(text, "SCROLL") == 0) return 7;
+	if (stricmp(text, "MOVE") == 0) return 8;
+	if (stricmp(text, "SCALE") == 0) return 9;
+	if (stricmp(text, "WIPE") == 0) return 10;
+	if (stricmp(text, "GLOW") == 0) return 11;
+	if (stricmp(text, "DROP") == 0) return 12;
+	if (stricmp(text, "STAY") == 0) return 13;
+	if (stricmp(text, "SHAKE") == 0) return 14;
+	if (stricmp(text, "TOGGLE") == 0) return 15;
+	if (stricmp(text, "REVERT") == 0) return 16;
+	if (stricmp(text, "SCROLL_REVERT") == 0) return 17;
+	if (stricmp(text, "CYCLE") == 0) return 18;
+	if (stricmp(text, "SWITCH") == 0) return 19;
+	if (stricmp(text, "STRETCH") == 0) return 20;
+	return 0;
+}
+
+
+// NOT EXACT: order-only: the client reads the first character into bl before the parts' constructor and saves ebp only around the loop (shrink-wrapped); ours in the prologue
+void FontDatabaseClass::Parse_Directions(const char *text, int *values)
+{
+	StringClass parts[2];
+	StringClass *part = parts;
+	for (; *text != 0; text++) {
+		if (*text == ',') {
+			part++;
+		} else {
+			*part += *text;
+		}
+	}
+	for (int i = 0; i < 2; i++) {
+		values[i] = Get_Direction(parts[i]);
+	}
+}
+
+
+// NOT EXACT: order-only: as Parse_Directions
+void FontDatabaseClass::Split_Four(const char *text, StringClass *values)
+{
+	StringClass parts[4];
+	StringClass *part = parts;
+	for (; *text != 0; text++) {
+		if (*text == ',') {
+			part++;
+		} else {
+			*part += *text;
+		}
+	}
+	for (int i = 0; i < 4; i++) {
+		values[i] = parts[i];
+	}
+}
+
+
 FontStruct *FontDatabaseClass::Find_Font(const StringClass &name, float &scale)
 {
 	for (int i = 0; i < MAXFONTS; i++) {
@@ -289,96 +379,6 @@ FontStringStruct *FontDatabaseClass::Find_String(const char *name)
 	std::hash_map<std::string, FontStringStruct *>::iterator it = Strings.find(name);
 	return it == Strings.end() ? NULL : (*it).second;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -1145,7 +1145,8 @@ int FontInitStruct::Find_Chat_Index(const char *chat_name)
 **	loaders, Clear_Strings, 0x6C2080), FontStruct's inline constructor 0x6BE7C0 and implicit destructor
 **	0x6BEB60, the destructor 0x6BEBF0, Load_Init 0x6BF330 (an INIT section, its Template%d sections first,
 **	recursively), 0x6BF910 (fontsys.ini: ALL_FONTS into AllFonts, the INIT-n sections into Infos, with
-**	FontInitStruct's inline constructor), 0x6BFD00 (fontcode.ini / fontart.ini: the COLOR-n and EFFECT-n
+**	FontInitStruct's inline constructor), Get_Blend_Type / Get_Direction / Get_Effect_Type 0x6C2340 / 0x6C2460 / 0x6C25A0 (the ini words to
+**	their values), Parse_Directions 0x6C2890 and Split_Four 0x6C2A10 (NOT EXACT), 0x6BFD00 (fontcode.ini / fontart.ini: the COLOR-n and EFFECT-n
 **	sections through Add_Color / Add_Effect, inlined with the asserts on lines 909 / 895), Clear_Infos 0x6BEE60 (with FontInitStruct's implicit destructor 0x6BEEF0), Clear_Tables
 **	0x6BEFD0 (Colors and Effects), Clear_Strings 0x6BF1F0, Find_Font 0x6C2BF0, Get_Info(width, height) 0x6C2CB0, the tables' Find_Color /
 **	Find_Effect / Find_String 0x6C2D00-0x6C2F20 and Add_String / Add_Effect / Add_Color 0x6C3380-0x6C3720

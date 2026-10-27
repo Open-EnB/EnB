@@ -108,8 +108,11 @@ public:
 	void Unknown_6BF910();												// 0x6BF910: loads fontsys.ini's INIT sections  // NAME 1 [Unknown_6BF910]: neutral (D10)
 	void Unknown_6BFD00(const char *ini_name);								// 0x6BFD00: COLOR-n and EFFECT-n sections  // NAME 1 [Unknown_6BFD00]: neutral (D10)
 	void Unknown_6C2080();
-	int Get_Direction(const StringClass &name);								// 0x6C2460: Direction's text to its value  // NAME 2: what it does
-	int Get_Effect_Type(const StringClass &name);							// 0x6C25A0: EffectType's text to its value  // NAME 2: what it does												// 0x6C2080  // NAME 1 [Unknown_6C2080]: neutral (D10)
+	int Get_Blend_Type(StringClass &name);									// 0x6C2340: BlendType's text to its value  // NAME 2: what it does
+	int Get_Direction(StringClass &name);								// 0x6C2460: Direction's text to its value  // NAME 2: what it does
+	int Get_Effect_Type(StringClass &name);							// 0x6C25A0: EffectType's text to its value  // NAME 2: what it does												// 0x6C2080  // NAME 1 [Unknown_6C2080]: neutral (D10)
+	void Parse_Directions(const char *text, int *values);					// 0x6C2890: two comma-separated directions  // NAME 2: what it does
+	void Split_Four(const char *text, StringClass *values);				// 0x6C2A10: four comma-separated fields  // NAME 2: what it does
 	FontStruct *Find_Font(const StringClass &name, float &scale);			// 0x6C2BF0  // NAME 2: what it does
 	FontInitStruct *Get_Info(int width, int height);						// 0x6C2CB0  // NAME 2: as Get_Info, for a given resolution
 	FontColorStruct *Find_Color(const char *name);							// 0x6C2D00  // NAME 2: what it does
