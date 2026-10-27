@@ -153,7 +153,9 @@ void Unknown_Free_Assets() { fprintf(Out, "free assets\n"); }
 
 static LoginTaskClass *Login;
 bool LoginTaskClass::Accept_Focus() { fprintf(Out, "login accepts focus\n"); return true; }
-LoginTaskClass::LoginTaskClass(int mode)
+TicketClass::TicketClass(int) {}
+TicketClass::~TicketClass() {}
+LoginTaskClass::LoginTaskClass(int mode) : Ticket(0)
 {
 	Login = this;
 	fprintf(Out, "login task mode %d\n", mode);

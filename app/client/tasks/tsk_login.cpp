@@ -34,10 +34,10 @@ static char *LOGIN_NAME_DEFAULT = "Click to enter name";	// 0xB9B9E0  // NAME 1:
 static char *LOGIN_PASSWORD_DEFAULT = "";			// 0xB9B9E4  // NAME 1: Load_Login's second default
 struct Unknown_VersionStruct { int Major; int Minor; };	// NAME 1 [Unknown_VersionStruct]: the version 0x4456C0 returns (0xBDBE78)
 Unknown_VersionStruct *Unknown_4456C0();				// NAME 1 [Unknown_4456C0]: neutral (D10)
+class Unknown_8190D0Class { public: void Unknown_8191B0(); };	// NAME 1 [Unknown_8190D0Class]: what 0x8190D0 returns
+Unknown_8190D0Class *Unknown_8190D0(int unknown);		// NAME 1 [Unknown_8190D0]: neutral (D10)
+class Unknown_6A9B60Class { public: Unknown_6A9B60Class(int unknown); ~Unknown_6A9B60Class(); void Unknown_6A9E40(); char Unknown00[0x10]; };	// NAME 1 [Unknown_6A9B60Class]: 0x10 bytes, constructor 0x6A9B60, destructor 0x6A9DB0
 extern bool Unknown_BB9654;							// NAME 1 [Unknown_BB9654]: neutral (D10); Accept_Focus clears it
-
-
-
 
 
 
@@ -397,7 +397,7 @@ void LoginTaskClass::Run()
 			break;
 
 		case 16:
-			Unknown_769E70();
+			Start_Game();
 			break;
 
 		case 17:
@@ -1413,7 +1413,7 @@ bool Packet_0078Class::Process_Packet(void *client)
 **	Not rebuilt yet: the two constructors 0x767240 / 0x7675D0 (they inline Create_Character_View,
 **	line 947) and so the vtable's inline slots, the destructor 0x767A20, Pre_Run 0x767DA0 (E&B's
 **	WW3D::Make_Screen_Shot takes a gamma and a flag), the ticket step 0x768B00, 0x7683F0, 0x768CB0,
-**	0x769110, the global connection 0x7698E0, step 16 0x769E70 (the ClientTaskClass), 0x76A370, the
+**	0x769110, the global connection 0x7698E0, step 16 0x769E70 (Start_Game, the ClientTaskClass: a register-only near miss, stashed in docs/attempts/769E70), 0x76A370, the
 **	EA.Com ticket 0x76A7B0 (kcom's authFactory / iauth), 0x76ADD0-0x76B470, and the handlers of
 **	packets pk_classes.h doesn't give a Process_Packet (0x76B4A0, 0x76B520, 0x76B730, 0x76B9C0).
 **	Go_Next_Step / Go_Back_Step inline Set_Step (called through the class: it is virtual), Unknown_5C

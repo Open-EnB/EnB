@@ -18,6 +18,8 @@
 #define TSK_LOGIN_H
 
 #include "..\..\kernel\kernel.h"
+#include "tsk_game.h"
+#include <string>
 #include <list>
 
 class ConnectionClass;
@@ -95,13 +97,14 @@ public:
 	char Unknown1D1[0x514 - 0x1D1];						// +0x1D1
 };
 
-// A character slot of the login's list (0x90 bytes)
+// A character slot of the login's list (0x90 bytes; LoginTaskClass's destructor destroys five with 0x8C0750)
 struct LoginCharacterClass	// NAME 1: what it holds
 {
-	int Galaxy_ID;										// +0x00 NAME 1: compared with the galaxies' (0x769400)
-	int Unknown04;										// +0x04
-	__int64 ID;											// +0x08 NAME 1: 0 for a new character (Go_Next_Step)
-	char Unknown10[0x80];								// +0x10
+	char Unknown00[0x10];								// +0x00
+	int Galaxy_ID;										// +0x10 NAME 1: compared with the galaxies' (0x769400)
+	int Unknown14;										// +0x14
+	__int64 ID;											// +0x18 NAME 1: 0 for a new character (Go_Next_Step)
+	char Unknown20[0x70];								// +0x20
 };
 
 // A galaxy of the login's list
@@ -110,6 +113,23 @@ struct LoginGalaxyClass	// NAME 1: what it holds
 	char Unknown00[0x48];								// +0x00
 	int ID;												// +0x48 NAME 1: compared with the characters' Galaxy_ID
 	unsigned long Address;								// +0x4C NAME 1: Galaxy_Address's source
+};
+
+// What the global ticket packet's handler 0x76B170 copies (0x9C bytes; step 16 copies it whole)
+struct LoginTicketInfoClass	// NAME 1: what it holds
+{
+	std::string Unknown00;								// +0x00
+	std::string Unknown10;								// +0x10
+	int Unknown20;										// +0x20
+	int Unknown24;										// +0x24
+	std::string Unknown28;								// +0x28
+	std::string Login_Key;								// +0x38 NAME 1: ClientTaskClass::Init's login key ('lkey')
+	std::string Unknown48;								// +0x48
+	std::string Unknown58;								// +0x58
+	std::string Unknown68;								// +0x68
+	std::string Unknown78;								// +0x78
+	std::string Unknown88;								// +0x88
+	int Unknown98;										// +0x98: handed to 0x8190D0 (step 16)
 };
 
 class LoginUnknown18Class	// NAME 1: neutral (D10): what LoginTaskClass +0x18 points to
@@ -159,7 +179,7 @@ public:
 	void Close_Global_Connection();						// 0x769CE0  // NAME 1: what it does
 	void Delete_Character_View();						// 0x769D20  // NAME 1: what it does
 	bool Fetch_EA_Ticket();								// 0x76A7B0 ('AuthLogin': kcom's authFactory / iauth)  // NAME 1: what it does
-	void Unknown_769E70();								// 0x769E70 (step 16: 'LoginTask: removing self.', the ClientTaskClass)
+	void Start_Game();									// 0x769E70 (step 16: 'LoginTask: removing self.', the ClientTaskClass)  // NAME 1: what it does
 	void Unknown_76A370();								// 0x76A370 (step 18: 'LoginTask: Request Character List.')
 	void Save_Login_Name();								// 0x76AD30: login.ini's LOGIN_DATA Name  // NAME 1: what it does
 	void Load_Login();									// 0x76ADD0: login.ini, -LOGIN, -PASSWORD  // NAME 1: what it does
@@ -177,16 +197,20 @@ public:
 	int Previous_Step;									// +0x28 NAME 1: Go_Next_Step / Go_Back_Step keep the step they leave
 	ConnectionClass *GlobalConnection;					// +0x2C (the asserts 'GlobalConnection')
 	bool Unknown0030;									// +0x30
-	char Unknown0031[0x90 - 0x31];						// +0x31
-	LoginCharacterClass Characters[26];					// +0x90 NAME 1: the character list's slots (Selected indexes them)
-	char Unknown0F30[0xF6C - 0xF30];					// +0xF30
+	int Unknown0034;									// +0x34
+	TicketClass Ticket;									// +0x38 NAME 1: handed to ClientTaskClass::Init (step 16)
+	LoginCharacterClass Characters[5];					// +0x80 NAME 1: the character list's slots (Selected indexes them)
+	char Unknown0350[0x10C * 5];						// +0x350: five 0x10C-byte entries (destroyed with 0x53BB50)
+	char Unknown088C[0xF6C - 0x88C];					// +0x88C
 	std::list<LoginGalaxyClass> Galaxies;				// +0xF6C (the FAIL_IF 'Galaxies.empty()')
 	unsigned long Galaxy_Address;						// +0xF78 NAME 1: the selected character's galaxy's (0x769400)
 	char EATicket[0x1080 - 0xF7C];						// +0xF7C (the assert 'sizeof(EATicket) > strlen(response.Get_Ticket()) + 1')
 	int Selected;										// +0x1080 NAME 1: the selected character's slot
 	char *Username;										// +0x1084 NAME 1: Set_Username's (nstrdup)
 	char *Password;										// +0x1088 NAME 1: Set_Password's (nstrdup)
-	char Unknown108C[0x1138 - 0x108C];					// +0x108C
+	char Unknown108C[0x1098 - 0x108C];					// +0x108C
+	LoginTicketInfoClass Ticket_Info;					// +0x1098 NAME 1: what the ticket packet's handler 0x76B170 fills
+	int Unknown1134;									// +0x1134
 	bool Unknown1138;									// +0x1138: cleared by referrer results 1 and 2
 	char Unknown1139[0x1140 - 0x1139];					// +0x1139
 	int Referrer_Result;								// +0x1140 NAME 1: the referrer response's 'Result='
