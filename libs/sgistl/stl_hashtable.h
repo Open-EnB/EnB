@@ -259,10 +259,8 @@ public:
 
   hashtable(size_type __n,
             const _HashFcn&    __hf,
-            const _EqualKey&   __eql,
-            const allocator_type& __a = allocator_type())
-    : __HASH_ALLOC_INIT(__a)
-      _M_hash(__hf),
+            const _EqualKey&   __eql)  /* VC6 (E&B, D87): no allocator argument: the client's out-of-line copies take three (ret 0xC: buff_database.cpp 0x6778A0, tutorial_manager.cpp 0x6AE250) */
+    : _M_hash(__hf),
       _M_equals(__eql),
       _M_get_key(_ExtractKey()),
       _M_buckets(),

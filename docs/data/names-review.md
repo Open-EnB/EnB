@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 12 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 29 |
-| 3 | by convention from a client-named file or sibling | 492 |
-| 2 | describes what the code does | 935 |
-| 1 | neutral placeholder | 1339 |
+| 3 | by convention from a client-named file or sibling | 494 |
+| 2 | describes what the code does | 945 |
+| 1 | neutral placeholder | 1341 |
 
 ## For review (score 3 and below)
 
@@ -61,6 +61,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `m_Unknown428` | `app/client/aux_roots.h:947` | neutral (D10): a member, not a field of the tree |
 | 1 | `UnknownCOClass` | `app/client/aux_roots.h:1005` | neutral (D10), the class of co.cpp's objects (vtable 0xB0070C) |
 | 1 | `Unknown_Create_Aux_Root` | `app/client/aux_roots.h:1010` | untagged neutral name (D10) |
+| 1 | `Unknown_4BC000` | `app/client/buff_database.cpp:9` | 0x4BC000, E&B's message reporter (tcpconn.cpp) |
+| 1 | `Unknown_4BC260` | `app/client/buff_database.cpp:10` | 0x4BC260, 0x4BC000's sibling |
 | 1 | `SClientUnknown1368Class` | `app/client/sclient.h:25` | neutral (D10): what SClient +0x1368 points to |
 | 1 | `Unknown00` | `app/client/sclient.h:28` | untagged neutral name (D10) |
 | 1 | `Unknown68` | `app/client/sclient.h:29` | untagged neutral name (D10) |
@@ -1356,6 +1358,16 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_Debug_Print` | `tests/capharness/udpreplay/connect_stubs.cpp:37` | untagged neutral name (D10) |
 | 1 | `Unknown_2C` | `tests/capharness/udpreplay/pk_ctor_stubs.cpp:195` | untagged neutral name (D10) |
 | 1 | `Unknown_4BC130` | `tests/capharness/udpreplay/udpreplay.cpp:70` | untagged neutral name (D10) |
+| 2 | `BuffDefStruct` | `app/client/buff_database.h:24` | what it holds (one BUFF-n section, 0x14 bytes) |
+| 2 | `Type` | `app/client/buff_database.h:29` | the ini key |
+| 2 | `Asset` | `app/client/buff_database.h:30` | the ini key |
+| 2 | `ToolTip` | `app/client/buff_database.h:31` | the ini key |
+| 2 | `AltToolTip` | `app/client/buff_database.h:32` | the ini key |
+| 2 | `IsGoodBuff` | `app/client/buff_database.h:33` | the ini key |
+| 2 | `Set_Instance` | `app/client/buff_database.h:42` | describes what it does |
+| 2 | `Find` | `app/client/buff_database.h:43` | describes what it does |
+| 2 | `Instance` | `app/client/buff_database.h:45` | describes what it holds |
+| 2 | `std:` | `app/client/buff_database.h:48` | describes what it holds |
 | 2 | `std:` | `app/client/cfaction_database.cpp:39` | what Get_Name and Get_Description return for an unknown faction |
 | 2 | `Init` | `app/client/cfaction_database.h:27` | describes what it does |
 | 2 | `Shutdown` | `app/client/cfaction_database.h:28` | describes what it does |
@@ -2304,6 +2316,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `DeltaPlanetClass` | `app/client/aux_roots.h:953` | the client's root string "Planet", Westwood XxxClass (D24); structure = C# PlanetObject (C# fields = ours (same names, same order)) |
 | 3 | `DeltaStarbaseClass` | `app/client/aux_roots.h:969` | the client's root string "Starbase", Westwood XxxClass (D24); structure = C# StarbaseObject (C# fields = ours (same names, same order)) |
 | 3 | `DeltaStargateClass` | `app/client/aux_roots.h:985` | the client's root string "Stargate", Westwood XxxClass (D24); structure = C# StargateObject (C# fields = ours (same names, same order)) |
+| 3 | `buff_database.h` | `app/client/buff_database.h:18` | header name assumed from the client's buff_database.cpp |
+| 3 | `BuffDatabaseClass` | `app/client/buff_database.h:36` | by convention (D24) from the client's file buff_database.cpp ('Buff Database' in its messages) |
 | 3 | `cfaction_database.h` | `app/client/cfaction_database.h:18` | header name assumed from the client's cfaction_database.cpp |
 | 3 | `CFactionDatabaseClass` | `app/client/cfaction_database.h:24` | by convention (D24) from the client's file cfaction_database.cpp |
 | 3 | `sclient.h` | `app/client/sclient.h:17` | header name assumed from the class |

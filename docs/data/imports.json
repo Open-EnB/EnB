@@ -163,6 +163,36 @@
     "merged": [],
     "name": "shared/auxdata/bitset.cpp"
    },
+   "buff_database": {
+    "ambiguous": [
+     "0x42A6C0",
+     "0x42A900",
+     "0x42AAE0",
+     "0x42AC90",
+     "0x42AFF0",
+     "0x42B250",
+     "0x42B2F0",
+     "0x42D180"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42A820",
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30",
+     "0x42C4E0",
+     "0x42CD30",
+     "0x42D050",
+     "0x42DB00",
+     "0x441480",
+     "0x676CD0",
+     "0x676D40",
+     "0x676DB0"
+    ],
+    "merged": [],
+    "name": "client/buff_database.cpp"
+   },
    "cfaction_database": {
     "ambiguous": [
      "0x42A6C0",
@@ -4020,6 +4050,7 @@
   },
   "headers": {
    "client/aux_roots.h": "reconstructed",
+   "client/buff_database.h": "reconstructed",
    "client/cfaction_database.h": "reconstructed",
    "client/sclient.h": "reconstructed",
    "client/tasks/tsk_game.h": "reconstructed",

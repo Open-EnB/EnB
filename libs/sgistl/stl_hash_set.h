@@ -94,11 +94,11 @@ public:
 
 public:
   hash_set()
-    : _M_ht(100, hasher(), key_equal(), allocator_type()) {}
+    : _M_ht(100, hasher(), key_equal()) {}
   explicit hash_set(size_type __n)
-    : _M_ht(__n, hasher(), key_equal(), allocator_type()) {}
+    : _M_ht(__n, hasher(), key_equal()) {}
   hash_set(size_type __n, const hasher& __hf)
-    : _M_ht(__n, __hf, key_equal(), allocator_type()) {}
+    : _M_ht(__n, __hf, key_equal()) {}
   hash_set(size_type __n, const hasher& __hf, const key_equal& __eql,
            const allocator_type& __a = allocator_type())
     : _M_ht(__n, __hf, __eql, __a) {}
@@ -106,16 +106,16 @@ public:
 #ifdef __STL_MEMBER_TEMPLATES
   template <class _InputIterator>
   hash_set(_InputIterator __f, _InputIterator __l)
-    : _M_ht(100, hasher(), key_equal(), allocator_type())
+    : _M_ht(100, hasher(), key_equal())
     { _M_ht.insert_unique(__f, __l); }
   template <class _InputIterator>
   hash_set(_InputIterator __f, _InputIterator __l, size_type __n)
-    : _M_ht(__n, hasher(), key_equal(), allocator_type())
+    : _M_ht(__n, hasher(), key_equal())
     { _M_ht.insert_unique(__f, __l); }
   template <class _InputIterator>
   hash_set(_InputIterator __f, _InputIterator __l, size_type __n,
            const hasher& __hf)
-    : _M_ht(__n, __hf, key_equal(), allocator_type())
+    : _M_ht(__n, __hf, key_equal())
     { _M_ht.insert_unique(__f, __l); }
   template <class _InputIterator>
   hash_set(_InputIterator __f, _InputIterator __l, size_type __n,
@@ -126,14 +126,14 @@ public:
 #else
 
   hash_set(const value_type* __f, const value_type* __l)
-    : _M_ht(100, hasher(), key_equal(), allocator_type())
+    : _M_ht(100, hasher(), key_equal())
     { _M_ht.insert_unique(__f, __l); }
   hash_set(const value_type* __f, const value_type* __l, size_type __n)
-    : _M_ht(__n, hasher(), key_equal(), allocator_type())
+    : _M_ht(__n, hasher(), key_equal())
     { _M_ht.insert_unique(__f, __l); }
   hash_set(const value_type* __f, const value_type* __l, size_type __n,
            const hasher& __hf)
-    : _M_ht(__n, __hf, key_equal(), allocator_type())
+    : _M_ht(__n, __hf, key_equal())
     { _M_ht.insert_unique(__f, __l); }
   hash_set(const value_type* __f, const value_type* __l, size_type __n,
            const hasher& __hf, const key_equal& __eql,
@@ -142,14 +142,14 @@ public:
     { _M_ht.insert_unique(__f, __l); }
 
   hash_set(const_iterator __f, const_iterator __l)
-    : _M_ht(100, hasher(), key_equal(), allocator_type())
+    : _M_ht(100, hasher(), key_equal())
     { _M_ht.insert_unique(__f, __l); }
   hash_set(const_iterator __f, const_iterator __l, size_type __n)
-    : _M_ht(__n, hasher(), key_equal(), allocator_type())
+    : _M_ht(__n, hasher(), key_equal())
     { _M_ht.insert_unique(__f, __l); }
   hash_set(const_iterator __f, const_iterator __l, size_type __n,
            const hasher& __hf)
-    : _M_ht(__n, __hf, key_equal(), allocator_type())
+    : _M_ht(__n, __hf, key_equal())
     { _M_ht.insert_unique(__f, __l); }
   hash_set(const_iterator __f, const_iterator __l, size_type __n,
            const hasher& __hf, const key_equal& __eql,
@@ -297,11 +297,11 @@ public:
 
 public:
   hash_multiset()
-    : _M_ht(100, hasher(), key_equal(), allocator_type()) {}
+    : _M_ht(100, hasher(), key_equal()) {}
   explicit hash_multiset(size_type __n)
-    : _M_ht(__n, hasher(), key_equal(), allocator_type()) {}
+    : _M_ht(__n, hasher(), key_equal()) {}
   hash_multiset(size_type __n, const hasher& __hf)
-    : _M_ht(__n, __hf, key_equal(), allocator_type()) {}
+    : _M_ht(__n, __hf, key_equal()) {}
   hash_multiset(size_type __n, const hasher& __hf, const key_equal& __eql,
                 const allocator_type& __a = allocator_type())
     : _M_ht(__n, __hf, __eql, __a) {}
@@ -309,16 +309,16 @@ public:
 #ifdef __STL_MEMBER_TEMPLATES
   template <class _InputIterator>
   hash_multiset(_InputIterator __f, _InputIterator __l)
-    : _M_ht(100, hasher(), key_equal(), allocator_type())
+    : _M_ht(100, hasher(), key_equal())
     { _M_ht.insert_equal(__f, __l); }
   template <class _InputIterator>
   hash_multiset(_InputIterator __f, _InputIterator __l, size_type __n)
-    : _M_ht(__n, hasher(), key_equal(), allocator_type())
+    : _M_ht(__n, hasher(), key_equal())
     { _M_ht.insert_equal(__f, __l); }
   template <class _InputIterator>
   hash_multiset(_InputIterator __f, _InputIterator __l, size_type __n,
                 const hasher& __hf)
-    : _M_ht(__n, __hf, key_equal(), allocator_type())
+    : _M_ht(__n, __hf, key_equal())
     { _M_ht.insert_equal(__f, __l); }
   template <class _InputIterator>
   hash_multiset(_InputIterator __f, _InputIterator __l, size_type __n,
@@ -329,14 +329,14 @@ public:
 #else
 
   hash_multiset(const value_type* __f, const value_type* __l)
-    : _M_ht(100, hasher(), key_equal(), allocator_type())
+    : _M_ht(100, hasher(), key_equal())
     { _M_ht.insert_equal(__f, __l); }
   hash_multiset(const value_type* __f, const value_type* __l, size_type __n)
-    : _M_ht(__n, hasher(), key_equal(), allocator_type())
+    : _M_ht(__n, hasher(), key_equal())
     { _M_ht.insert_equal(__f, __l); }
   hash_multiset(const value_type* __f, const value_type* __l, size_type __n,
                 const hasher& __hf)
-    : _M_ht(__n, __hf, key_equal(), allocator_type())
+    : _M_ht(__n, __hf, key_equal())
     { _M_ht.insert_equal(__f, __l); }
   hash_multiset(const value_type* __f, const value_type* __l, size_type __n,
                 const hasher& __hf, const key_equal& __eql,
@@ -345,14 +345,14 @@ public:
     { _M_ht.insert_equal(__f, __l); }
 
   hash_multiset(const_iterator __f, const_iterator __l)
-    : _M_ht(100, hasher(), key_equal(), allocator_type())
+    : _M_ht(100, hasher(), key_equal())
     { _M_ht.insert_equal(__f, __l); }
   hash_multiset(const_iterator __f, const_iterator __l, size_type __n)
-    : _M_ht(__n, hasher(), key_equal(), allocator_type())
+    : _M_ht(__n, hasher(), key_equal())
     { _M_ht.insert_equal(__f, __l); }
   hash_multiset(const_iterator __f, const_iterator __l, size_type __n,
                 const hasher& __hf)
-    : _M_ht(__n, __hf, key_equal(), allocator_type())
+    : _M_ht(__n, __hf, key_equal())
     { _M_ht.insert_equal(__f, __l); }
   hash_multiset(const_iterator __f, const_iterator __l, size_type __n,
                 const hasher& __hf, const key_equal& __eql,

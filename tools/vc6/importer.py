@@ -3447,6 +3447,11 @@ RECONSTRUCTED = {
     ('app', 'kernel/kernel.cpp'): "the task kernel, client 0x443020-0x444150 (kernel-map.md 6, step 1): KernelClass and TaskClass; "
                                   "the asserts on the client's lines 74 / 157 / 196 / 225 / 474 (D25); NOT EXACT: Remove_Task "
                                   "(the client calls list's iterator++ 0x444190 out of line), Is_Running, TaskClass::Is_Focused",
+    ('app', 'client/buff_database.h'): "BuffDefStruct and BuffDatabaseClass (D24): buffdef.ini's BUFF-n sections in an "
+                                      "SGI hash_map<std::string, BuffDefStruct *> (libs/sgistl, D87)",
+    ('app', 'client/buff_database.cpp'): "BuffDefStruct / BuffDatabaseClass, client 0x676CD0-0x677660 with the table's "
+                                        "instances to 0x678420: the reports on the client's lines 47 / 78 (D25); NOT EXACT: "
+                                        "the destructor 0x677410",
     ('app', 'client/cfaction_database.h'): "CFactionDatabaseClass (D24): the factions' Name and Description from "
                                           "cfaction_t.ini in a static SGI hash_map<std::string> _Factions (libs/sgistl, D87)",
     ('app', 'client/cfaction_database.cpp'): "CFactionDatabaseClass, client 0x7E4A30-0x7E50D0 with the table's instances to "

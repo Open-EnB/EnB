@@ -7,12 +7,13 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-98 entries in 29 files.
+100 entries in 30 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
 | `app/client/aux_roots.cpp:2` | `UnknownCOClass::Unknown_Create_Aux_Root` | mention | NOT EXACT (D42): functional. NAME 1 [aux_roots.cpp]: provisional file name (the client's constructors are in co.cpp 0x6F6000-0x6FBEF0 and the Player object 0x751BE0) |
 | `app/client/aux_roots.h:12` | `Read` | mention | NOT EXACT (D42): functional; see the generator's docstring for what differs. |
+| `app/client/buff_database.cpp:86` | `BuffDatabaseClass::~BuffDatabaseClass` | marker | NOT EXACT: inline budget (explain.py: frame 8 vs 4), the client inlines the iterator's ++ but calls the bucket size 0x677AB0 and _M_bkt_num 0x677AE0 out of line; ours keeps the iterator in the frame |
 | `app/client/cfaction_database.cpp:10` | `CFactionDatabaseClass::Init` | marker | NOT EXACT: register-only in the first string assignment (the client moves the length to ecx before the _Eos store); explain.py says shape (195 vs 197 instructions) |
 | `app/client/tasks/tsk_login.cpp:219` | `LoginTaskClass::Pre_Run` | marker | NOT EXACT: shape (the event's bit 12 test and the dispatchers' argument order; attempts.py show 0x767DA0) 0x767DA0 |
 | `app/client/tasks/tsk_login.cpp:271` | `LoginTaskClass::Run` | marker | NOT EXACT: register-only (the final Process_Packets call loads the vtable in edx, the client eax; attempts.py show 0x767F50) |
@@ -109,4 +110,4 @@ edit the comments in the code, not this file.
 | `app/wwudp/cordmgr.cpp:1430` | `CordMgr::Find_Connection` | mention | NOT EXACT: wlib ArrayList's remove inlined once, as the client's; only the not-found return's place differs. |
 | `app/wwudp/cordmgr.cpp:1449` | `CordMgr::Cancel_Connect` | mention | NOT EXACT: as 0x859440 (the shrink out of line, 0x85B8B0). A handshake record is deleted but left in Pending_, as the client leaves it. |
 | `programs/vidtest/vidland.cpp:2` | `(whole file)` | marker | NOT EXACT, the whole file: functional, after VIDTEST's 2002 copy (land.h). |
-| `programs/vidtest/vidland.cpp:939` | `VidtestLandClass::Render_Decorations` | mention | NOT EXACT: written functionally (D42) for VIDTEST's land test (milestones.md M2.4). Kept from VIDTEST: the ini keys and defaults (and the case-sensitive Patch_Grid_Width), the lightmap (0x409820: a 256-entry table of light x max(0, n.sun) over the quantised normals; 0x409BD0: that plus the sky x the vertex's sky share where the sun clears the horizon, a penumbra, the sky term alone in shadow; 0x40... |
+| `programs/vidtest/vidland.cpp:940` | `VidtestLandClass::Render_Decorations` | mention | NOT EXACT: written functionally (D42) for VIDTEST's land test (milestones.md M2.4). Kept from VIDTEST: the ini keys and defaults (and the case-sensitive Patch_Grid_Width), the lightmap (0x409820: a 256-entry table of light x max(0, n.sun) over the quantised normals; 0x409BD0: that plus the sky x the vertex's sky share where the sun clears the horizon, a penumbra, the sky term alone in shadow; 0x40... |
