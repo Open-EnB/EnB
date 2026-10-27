@@ -18,6 +18,18 @@
 
 #include "pk.h"
 
+// opcode 30023 (0x7547, ?): vtable 0xB09188, constructor 0x860DA0, 0xC bytes
+class GameEditorRequestPlanetUnitTypesPacketClass : public PacketClass  // NAME 3: the client's Print text 'GameEditorRequestPlanetUnitTypes {' and the PacketClass convention
+{
+public:
+	GameEditorRequestPlanetUnitTypesPacketClass();	// 0x860D30
+	GameEditorRequestPlanetUnitTypesPacketClass(RawPacketClass *raw);	// 0x860DA0
+	virtual RawPacketClass *Build();	// +0x04 0x860E00
+	virtual bool Process_Packet(void *client);	// +0x08 0x8682E0 (clientstub.cpp)
+	virtual int Get_Data_Size();	// +0x0C 0x860E90
+	virtual int Print(char *buffer, int len);	// +0x10 0x860EB0
+};
+
 // opcode 30025 (0x7549, ?): vtable 0xB091E8, constructor 0x861260, 0x10 bytes
 class Packet_7549Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x7549
 {

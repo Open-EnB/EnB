@@ -352,14 +352,6 @@ public:
 	char Unknown0C[0xC];	// +0x0C
 };
 
-// opcode 30023 (0x7547, ?): vtable 0xB09188, constructor 0x860DA0, 0xC bytes
-class GameEditorRequestPlanetUnitTypesPacketClass : public PacketClass  // NAME 3: the client's Print text 'GameEditorRequestPlanetUnitTypes {' and the PacketClass convention
-{
-public:
-	GameEditorRequestPlanetUnitTypesPacketClass(RawPacketClass *raw);	// 0x860DA0
-	virtual bool Process_Packet(void *client);	// +0x08 0x8682E0 (clientstub.cpp l.146)
-};
-
 // opcode 30027 (0x754B, ?): vtable 0xB092A8, constructor 0x861E20, 0xC bytes
 class GameEditorSaveSectorPacketClass : public PacketClass  // NAME 3: the client's Print text 'GameEditorSaveSector {' and the PacketClass convention
 {
