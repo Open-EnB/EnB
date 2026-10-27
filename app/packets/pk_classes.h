@@ -48,6 +48,7 @@
 #include "pkgmviewmissionlog.h"	// rebuilt
 #include "pkgpsrequest.h"	// rebuilt
 #include "pkgroup.h"	// rebuilt
+#include "pkguildplayeronline.h"	// rebuilt
 #include "pkguildranknamesrequestclient.h"	// rebuilt
 #include "pkhullupgrade.h"	// rebuilt
 #include "pkincapacitancerequest.h"	// rebuilt
@@ -789,24 +790,6 @@ public:
 	char Unknown0C[0x34];	// +0x0C
 };
 
-// opcode 203 (0x00CB, ?): vtable 0xB0AA94, constructor 0x88F280, 0x28 bytes
-class GuildSimpleGuildSectorPacketClass : public PacketClass  // NAME 3: the client's Print text 'GuildSimpleGuildSectorPacket {' and the PacketClass convention
-{
-public:
-	GuildSimpleGuildSectorPacketClass(RawPacketClass *raw);	// 0x88F280
-	virtual bool Process_Packet(void *client);	// +0x08 0x868F40 (clientstub.cpp l.344)
-	char Unknown0C[0x1C];	// +0x0C
-};
-
-// opcode 206 (0x00CE, ?): vtable 0xB0AAC4, constructor 0x88F6C0, 0x28 bytes
-class GuildSimpleSectorGuildPacketClass : public PacketClass  // NAME 3: the client's Print text 'GuildSimpleSectorGuildPacket {' and the PacketClass convention
-{
-public:
-	GuildSimpleSectorGuildPacketClass(RawPacketClass *raw);	// 0x88F6C0
-	virtual bool Process_Packet(void *client);	// +0x08 0x868FA0 (clientstub.cpp l.350)
-	char Unknown0C[0x1C];	// +0x0C
-};
-
 // opcode 207 (0x00CF, ?): vtable 0xB0ABE4, constructor 0x8914A0, 0x40 bytes
 class GuildMessageGuildPacketClass : public PacketClass  // NAME 3: the client's Print text 'GuildMessageGuild {' and the PacketClass convention
 {
@@ -816,15 +799,6 @@ public:
 	char Unknown0C[0x34];	// +0x0C
 };
 
-// opcode 209 (0x00D1, ?): vtable 0xB0AC44, constructor 0x891E90, 0x28 bytes
-class GuildPermissionsPacketClass : public PacketClass  // NAME 3: the client's Print text 'GuildPermissionsPacket {' and the PacketClass convention
-{
-public:
-	GuildPermissionsPacketClass(RawPacketClass *raw);	// 0x891E90
-	virtual bool Process_Packet(void *client);	// +0x08 0x869180 (clientstub.cpp l.380)
-	char Unknown0C[0x1C];	// +0x0C
-};
-
 // opcode 213 (0x00D5, GUILD_RANK_NAMES_GUILD): vtable 0xB0ACA4, constructor 0x892670, 0x28 bytes
 class GuildRankNamesGuildPacketClass : public PacketClass  // NAME 3: the client's Print text 'GuildRankNamesGuild {' and the PacketClass convention
 {
@@ -832,15 +806,6 @@ public:
 	GuildRankNamesGuildPacketClass(RawPacketClass *raw);	// 0x892670
 	virtual bool Process_Packet(void *client);	// +0x08 0x869210 (clientstub.cpp l.389)
 	char Unknown0C[0x1C];	// +0x0C
-};
-
-// opcode 214 (0x00D6, ?): vtable 0xB0AC74, constructor 0x892180, 0x18 bytes
-class GuildRankNamesRequestSectorPacketClass : public PacketClass  // NAME 3: the client's Print text 'GuildRankNamesRequestSector {' and the PacketClass convention
-{
-public:
-	GuildRankNamesRequestSectorPacketClass(RawPacketClass *raw);	// 0x892180
-	virtual bool Process_Packet(void *client);	// +0x08 0x8691E0 (clientstub.cpp l.386)
-	char Unknown0C[0xC];	// +0x0C
 };
 
 // opcode 215 (0x00D7, ?): vtable 0xB0ACD4, constructor 0x892E10, 0x38 bytes

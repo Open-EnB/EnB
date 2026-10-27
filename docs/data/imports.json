@@ -2056,6 +2056,46 @@
     "merged": [],
     "name": "packets/pkgroup.cpp"
    },
+   "pkguildplayeronline": {
+    "ambiguous": [
+     "0x42A6C0",
+     "0x42B2F0",
+     "0x88F490"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42A820",
+     "0x42AB30",
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350",
+     "0x88F0E0",
+     "0x88F250",
+     "0x88F280",
+     "0x88F350",
+     "0x88F3C0",
+     "0x88F4B0",
+     "0x88F520",
+     "0x88F690",
+     "0x88F6C0",
+     "0x88F790",
+     "0x88F800",
+     "0x88F8F0",
+     "0x891DE0",
+     "0x891E90",
+     "0x891F80",
+     "0x892090",
+     "0x8920E0",
+     "0x892180",
+     "0x892210",
+     "0x8922F0"
+    ],
+    "merged": [],
+    "name": "packets/pkguildplayeronline.cpp"
+   },
    "pkguildranknamesrequestclient": {
     "ambiguous": [
      "0x42A6C0",
@@ -4304,6 +4344,7 @@
    "packets/pkgmviewmissionlog.h": "reconstructed",
    "packets/pkgpsrequest.h": "reconstructed",
    "packets/pkgroup.h": "reconstructed",
+   "packets/pkguildplayeronline.h": "reconstructed",
    "packets/pkguildranknamesrequestclient.h": "reconstructed",
    "packets/pkhullupgrade.h": "reconstructed",
    "packets/pkincapacitancerequest.h": "reconstructed",

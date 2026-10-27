@@ -31,6 +31,7 @@
 #include "pkverblist.h"
 #include "pkstarbasetow.h"
 #include "pkmanufactureitemcatagorypacket.h"
+#include "pkguildplayeronline.h"
 
 // ------------------------------------------------------------------------- E&B debug hooks
 
@@ -146,6 +147,12 @@ bool String_To_Value(const char *text, MoneyClass *value)
 
 #include <string>
 #include <vector>
+
+// 0x8B44E0: the int64 in decimal (the client's behaviour)
+char *Unknown_8B44E0(__int64 value, char *buffer)
+{
+	return _i64toa(value, buffer, 10);
+}
 
 // 0x4A1590: a bounded strcpy (at most size - 1 characters, always ended): the client's behaviour
 char *Unknown_4A1590(char *buffer, int size, const char *string)
