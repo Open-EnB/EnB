@@ -480,6 +480,12 @@ unless `--lever` cites a new row of this table.
   after GetMessage returns nonzero, so a posted quit doesn't stop the kernel.
 * **Capturing originals, VIDTEST frames, d3d8 proxies:** tools/harness/README.md.
 
+* **Any program that constructs LandClass reaches RegistryClass(create=true) through 0x468120** (L6, 2026-10-27; D69):
+  call `RegistryClass::Set_Read_Only(true)` first. LandClass::Load_Assets rewrites the .pld beside the art whenever
+  loading it fails: run vidtest against a copy of the art (`-art`), never the install folder, until that is guarded.
+  The land companion (vtable 0xAE8974, displacement maps, Matrox-only) needs its own file: inside land.cpp the land's
+  destructor inlines its delete and loses 0x46A480 / 0x4691A0.
+
 ### 3.8 Git, docs and scripting hygiene
 
 * **The Write tool writes LF:** after writing a tracked doc or source, restore CRLF if the file had
@@ -514,6 +520,8 @@ unless `--lever` cites a new row of this table.
   clean worktree of HEAD plus your files. Two `static` tables with the same name break udpreplay's single-TU
   build. Removing a worktree that holds a `.work/locks` junction: `cmd /c rmdir` the junction, then
   `git worktree remove`.
+* **git worktrees check files out as CRLF while the shared tree's land.cpp / land.h are LF** (L6): convert the
+  anchors of an edit script to the file's own newline (`newline=''`, detect `\r\n`).
 * **`open(p, 'w').write(open(p).read()...)` truncates p to empty** (the write handle opens first): read, then
   write. A draft regenerated from a template overwrites an applied fix: check the tree file before verifying.
   Regenerate names-review.md and not-exact.md in a clean worktree, never in the shared tree.

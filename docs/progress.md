@@ -1165,6 +1165,16 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
   (DeltaChildVisitorClass) and drop tsk_login.h's typedefs at tsk_login.cpp's next edit; the race and profession
   key/value instances need a kv_pair.h `Type_Name` form (the client passes the value to an external Type_Name,
   which the `Type_Name((T*)0)` template can't produce). Recommendation: a tasks builder item, no decision.
+* **P-L6-1 (VIDTEST on LandClass, 2026-10-27):** a worktree trial links VIDTEST on LandClass and Render 0x474B30 draws
+  the land (the original's A8R8G8B8 lightmap key; frames 1-550 within 0.9-4.0%), but the decorations are missing (frames
+  600-900 differ 11.6-15.3%, drawcheck FAIL): LandClass has none, the client draws trees from the zone loader
+  0x478970-0x479D00. Proposal: move vidland's Create_Decorations / Render_Decorations into programs/vidtest/viddeco.*
+  (VIDTEST's own 2002 code, D46) as a render object after the land, delete the rest of vidland.*, apply the switch
+  diff saved in `.work/l6/`. Recommendation: accept.
+* **P-L6-2:** four land symbols are declared but never defined and the switch's link needs them: ~LandPatchClass
+  0x474560 (in land.cpp it inlines into the land's destructor and loses 0x46A480 / 0x4691A0), ~LandPatchRecordClass,
+  Unknown_477E20, LandUnknownClass::Peek_Material_Pass 0x93D6C0. One probe of their file placement before the switch.
+  Recommendation: accept, as the first step of P-L6-1's builder.
 * **P-S3-2 / F3's leads for Key_Exchange 0x829180** are LIMIT REACHED (three Opus rounds, inline budget): it
   waits for a new §3.1 lever; F3's two untested leads are in its attempts.csv row.
 * D7 is to be revisited with the user if byte-exactness of E&B's code becomes too costly; D64's
