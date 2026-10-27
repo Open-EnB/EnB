@@ -36,6 +36,10 @@ class LineDisplayTextClass : public RefCountClass  // NAME 1: neutral (D10): wha
 {
 public:
 	LineDisplayTextClass(const char *name, int unknown1, int unknown2);		// 0x6D47C0
+	bool Unknown_6D89C0();												// 0x6D89C0
+	void Unknown_6CDBC0(const char *text, int unknown);					// 0x6CDBC0: slot +0x60 passes the line and 1
+	void Unknown_6CE910(bool history);									// 0x6CE910
+	void __cdecl Unknown_6CE420(int unknown, const char *format, ...);		// 0x6CE420: slot +0x60 passes 2, '(%d) %s'
 
 	virtual void Unknown_008();
 	virtual void Unknown_00C();
@@ -48,7 +52,7 @@ public:
 	virtual void Unknown_028();
 	virtual void Unknown_02C();
 	virtual void Unknown_030();
-	virtual void Unknown_034();
+	virtual void Unknown_034(int unknown);								// +0x34: slot +0x60 passes the screen's +0x44
 	virtual void Unknown_038();									// +0x38: Clear calls it when +0x40 says so
 	virtual void Unknown_03C();
 	virtual int Unknown_040();									// +0x40
@@ -143,7 +147,8 @@ public:
 	virtual void Unknown_1A4();
 	virtual bool Unknown_1A8();									// +0x1A8
 
-	char Unknown008[0x440 - 0x08];															// +0x08
+	char Unknown008[0x24C - 0x08];														// +0x08
+	char Unknown24C[0x440 - 0x24C];														// +0x24C: what Add_Line's wrapper is built on
 	int Unknown440;																			// +0x440: 2 or 3 let a line show
 	char Unknown444[0x4E8 - 0x444];														// +0x444
 };
@@ -180,14 +185,14 @@ struct LineDisplayLineStruct  // NAME 2: what it holds
 {
 	std::string Text;																		// +0x00  // NAME 2: describes what it holds
 	std::string Font;																		// +0x10  // NAME 2: describes what it holds
-	int DisplayTimeMS;																		// +0x20 (the assert's name)
-	int Priority;																			// +0x24  // NAME 2: describes what it holds
+	unsigned int DisplayTimeMS;																		// +0x20 (the assert's name)
+	unsigned int Priority;																			// +0x24  // NAME 2: describes what it holds
 };
 
 class ControlKeysManagerClass;  // control_keys_manager.cpp's (0x71A960 / 0x71AB40)
 class LineDisplayClientClass;  // what +0x40 points to (slot +0x18 gives the sclient)
 
-// The UI kit's base classes as far as this file needs them (kernel-map-step9.md section3.2): an inline base
+// The UI kit's base classes as far as this file needs them (kernel-map-step9.md section 3.2): an inline base
 // with tables at +0x00 and +0x04, gclass.cpp's class, intrface.cpp's class with RefCountClass at +0x38
 class UnknownGadgetBase00Class  // NAME 1: neutral (D10): the inline base's first table (0xAEAB48)
 {
@@ -246,6 +251,7 @@ public:
 	virtual void Unknown_7C(int unknown1, int unknown2);									// 0x5412F0
 	virtual void Unknown_80();																// 0x541550
 	virtual void Unknown_84();																// 0x541690
+	void *Unknown_541800();													// 0x541800
 
 protected:
 	LineDisplayClientClass *Client;															// +0x40 (the assert's name)
@@ -268,6 +274,7 @@ public:
 	virtual void Unknown_74(ControlKeysManagerClass *manager);								// 0x5A6780: removes them
 	virtual void Unknown_7C(int unknown1, int unknown2);									// 0x5A7E80
 
+	std::string Format_Line(const char *text, int count, int index);				// 0x5A72B0: one of count lines, '...' where it was split  // NAME 2: describes what it does
 	void Add_Line(const char *text, int display_time, const char *font, int priority);	// 0x5A7690  // NAME 2: describes what it does
 	void Add_Line_7(const char *text, int display_time, const char *font);				// 0x5A7A20  // NAME 1: neutral (D10): Add_Line at priority 7
 	void Add_Line_3(const char *text, int display_time, const char *font);				// 0x5A7A50  // NAME 1: neutral (D10): Add_Line at priority 3
