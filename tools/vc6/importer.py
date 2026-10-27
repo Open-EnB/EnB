@@ -3400,6 +3400,7 @@ RECONSTRUCTED = {
                                    "0x82E6A0-0x82EBB0 exact (libs\\wwonline\\wlib, D73); "
                                    "the listener 0x82E360-0x82E5B0 exact (lines 707-778), UDPConnectionManager and the listener's "
                                    "constructor functional; the constructor by name 0x82C680 not rebuilt",
+    ('app', 'common/unknown_rsakey.h'): "PROVISIONAL file name (D10, D86): RSAKeyClass, the 0x900-byte RSA key of tcpconn.cpp's listener (+0x18) and CordMgr (+0x5C), inline in both",
     ('app', 'packets/pk.h'): "PARTIAL: the packet base class (vtable 0xAEDE88, 10 slots; its inline defaults on the "
                              "client's lines 483-502), the message header, the raw message (0x22C bytes) with pk.cpp's "
                              "helpers, the factory 0x8696C0 declared (defined by the program until it is rebuilt)",

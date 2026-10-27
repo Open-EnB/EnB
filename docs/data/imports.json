@@ -3085,6 +3085,8 @@
      "0x85C430"
     ],
     "merged": [],
+     "0x82C680",
+     "0x82C980",
     "name": "wwudp/unknown_cordmsg.cpp"
    },
    "unknown_debug": {
@@ -3094,10 +3096,14 @@
     "in_tree": [
      "0x4E9410",
      "0x4E9450"
+     "0x82DCE0",
     ],
     "merged": [],
+     "0x82DE50",
     "name": "shared/unknown_debug.cpp"
    },
+     "0x82E040",
+     "0x82E200",
    "unknown_listener": {
     "ambiguous": [],
     "copy": "reconstructed",
@@ -3287,6 +3293,7 @@
    "packets/pkunknown_8a6430.h": "reconstructed",
    "packets/pkupdate.h": "reconstructed",
    "packets/pkverbrequest.h": "reconstructed",
+   "common/unknown_rsakey.h": "reconstructed",
    "packets/pkversionrequest.h": "reconstructed",
    "packets/pkwarpindex.h": "reconstructed",
    "shared/auxdata/bitset.h": "reconstructed",

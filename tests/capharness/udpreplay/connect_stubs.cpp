@@ -1,5 +1,5 @@
 // udpreplay: stand-ins for what connect.cpp's factories call outside the replay's sources (tcpconn.cpp,
-// UDPConnection's constructor by name, memconn.cpp, the composite listener, dbgmgr.cpp). The replay
+// memconn.cpp, the composite listener, dbgmgr.cpp). The replay
 // never calls the factories, so each stops the program if it is reached. The classes are declared
 // here with only the member defined, so no vtable is emitted (the names mangle as the real ones).
 #include <stdio.h>
@@ -13,9 +13,6 @@ static void Not_In_Replay(const char *what)
 
 class TCPConnection { public: TCPConnection(const char *host, unsigned short port, bool encrypt); };
 TCPConnection::TCPConnection(const char *, unsigned short, bool) { Not_In_Replay("TCPConnection"); }
-
-class UDPConnection { public: UDPConnection(const char *host, unsigned short port, bool encrypt); };
-UDPConnection::UDPConnection(const char *, unsigned short, bool) { Not_In_Replay("UDPConnection by name"); }
 
 class CompositeListenerClass { public: CompositeListenerClass(); };
 CompositeListenerClass::CompositeListenerClass() { Not_In_Replay("CompositeListenerClass"); }

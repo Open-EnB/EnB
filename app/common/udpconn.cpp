@@ -27,42 +27,115 @@ static uint32 Channel_Hash(const UDPChannelKeyClass &key)
 }
 
 
-// functional (NOT EXACT): wlib's Dictionary constructor inlined; the difference not traced yet.
-UDPConnection::UDPConnection(unsigned int ip, unsigned short port, bool encrypt) :
-	Channels(Channel_Hash), InRate(2), OutRate(2)
+// The process's CordMgr as the connections and the manager keep it (0xBF16BC)
+static CordMgr *TheMgr;	// NAME 2: what it holds
+
+// The pump task and the CordMgr, once (0x82C660; inlined in the constructors)
+void Init_Mgr()	// NAME 2: what it does
 {
-	LastOut = 0;
-	LastIn = 0;
-	Encrypt = encrypt;
-	Mgr = 0;
-	Con = 0;
-	Pending = 0;
-	Default = (unsigned int)-1;
-	Name = 0;
-	Address = htonl(ip);
-	Port = htons(port);
-	Name = nstrdup("unknown");
 	CordMgrTaskClass::Init();
-	Mgr = CordMgrTaskClass::Mgr;
+	TheMgr = CordMgrTaskClass::Mgr;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+UDPConnection::UDPConnection(const char *host, unsigned short port, bool encrypt) :
+	Channels(Channel_Hash), InRate(2), OutRate(2),
+	LastOut(0),
+	LastIn(0),
+	Encrypt(encrypt),
+	Mgr(0),
+	Con(0),
+	Pending(0),
+	Default((unsigned int)-1),
+	Name(0),
+	Address(0),
+	Port(htons(port))
+{
+	if (isdigit(*host)) {
+		Address = inet_addr(host);
+		Name = nstrdup("unknown");
+	} else {
+		struct hostent *h = gethostbyname(host);
+		G_ASSERT(h);
+		Address = *(unsigned int *)h->h_addr_list[0];
+		Name = nstrdup(h->h_name);
+	}
+	for (int i = 0; i < 16; i++) {
+		Fixed[i] = (unsigned int)-1;
+	}
+	ntohs(Port);	// a compiled-out message's argument: the client keeps the call
+	Init_Mgr();
+	Mgr = TheMgr;
+}
+
+UDPConnection::UDPConnection(unsigned int ip, unsigned short port, bool encrypt) :
+	Channels(Channel_Hash), InRate(2), OutRate(2),
+	LastOut(0),
+	LastIn(0),
+	Encrypt(encrypt),
+	Mgr(0),
+	Con(0),
+	Pending(0),
+	Default((unsigned int)-1),
+	Name(0),
+	Address(htonl(ip)),
+	Port(htons(port))
+{
+	Name = nstrdup("unknown");
+	ntohs(Port);	// a compiled-out message's argument: the client keeps the call
+	Init_Mgr();
+	Mgr = TheMgr;
 	for (int i = 0; i < 16; i++) {
 		Fixed[i] = (unsigned int)-1;
 	}
 }
 
 
-// functional (NOT EXACT): wlib's Dictionary constructor inlined; the difference not traced yet.
+// NOT EXACT: two register choices (con's Ip_ / Port_ reads, the openc tail); Encrypt stays unset
 UDPConnection::UDPConnection(CordCon *con, CordMgr *mgr) :
-	Channels(Channel_Hash), InRate(2), OutRate(2)
+	Channels(Channel_Hash), InRate(2), OutRate(2),
+	LastOut(0), LastIn(0),
+	Mgr(mgr),
+	Con(con),
+	Pending(0),
+	Default((unsigned int)-1),
+	Name(0),
+	Address(htonl(con->Ip_)),
+	Port(htons(con->Port_))
 {
-	LastOut = 0;
-	LastIn = 0;
-	Mgr = mgr;
-	Con = con;
-	Pending = 0;
-	Default = (unsigned int)-1;
-	Name = 0;
-	Address = htonl(con->Ip_);
-	Port = htons(con->Port_);
+	ntohs(Port);	// a compiled-out message's argument: the client keeps the call
 	for (int i = 0; i < 16; i++) {
 		Fixed[i] = (unsigned int)-1;
 	}
@@ -213,79 +286,6 @@ bool UDPConnection::Disconnect()
 }
 
 // (spacing kept: the next assert is on the client's line 391)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -620,10 +620,10 @@ int CordMgrTaskClass::Get_Interval()
 
 
 // UDPConnectionManagerClass (vtable 0xB08934): a ConnectionManagerClass over the process's CordMgr
-// NOT EXACT: CordMgrTaskClass::Init inlined (the tree's CordMgr isn't the client's 0x95C bytes).
+// Init_Mgr inlined: the task, the CordMgr (0x95C bytes with its key pair) and TheMgr
 UDPConnectionManagerClass::UDPConnectionManagerClass()
 {
-	CordMgrTaskClass::Init();
+	Init_Mgr();
 }
 
 UDPConnectionManagerClass::~UDPConnectionManagerClass()
@@ -631,13 +631,13 @@ UDPConnectionManagerClass::~UDPConnectionManagerClass()
 }
 
 // UDPListenerClass (vtable 0xB08958): handshakes arriving on a port of the CordMgr
-// NOT EXACT: as UDPConnectionManagerClass's constructor.
+// Init_Mgr inlined, as in UDPConnectionManagerClass's constructor
 UDPListenerClass::UDPListenerClass() :
 	Mgr(0),
 	PortNumber(0)
 {
-	CordMgrTaskClass::Init();
-	Mgr = CordMgrTaskClass::Mgr;
+	Init_Mgr();
+	Mgr = TheMgr;
 }
 
 bool UDPListenerClass::Is_Listening() { return(PortNumber != 0); }
@@ -786,9 +786,9 @@ ConnectionClass *UDPListenerClass::Accept()
 **	Reconstruction notes (udpconn.cpp, PARTIAL)
 **
 **	* The client's functions, in order: static initialisers 0x82C530 (a std::map helper) and
-**	  0x82C5E0 (here Channel_Hash; the lock's initialiser sits beside it), 0x82C660 (a static: the
-**	  pump task and the CordMgr, kept in 0xBF16BC; not rebuilt), the constructor by name 0x82C680
-**	  (gethostbyname or the dotted address; assert line 91; not rebuilt), by address 0x82C980, over
+**	  0x82C5E0 (here Channel_Hash; the lock's initialiser sits beside it), 0x82C660 (Init_Mgr: the
+**	  pump task and the CordMgr, kept in 0xBF16BC as TheMgr), the constructor by name 0x82C680
+**	  (gethostbyname or the dotted address; assert line 91), by address 0x82C980, over
 **	  an accepted CordCon 0x82CBF0, the destructor 0x82CDC0, the slots 0x82D060-0x82DB30, the pump
 **	  task 0x82DCB0-0x82E020, UDPConnectionManager 0x82E040-0x82E1B0 (0x82E1D0, a static over
 **	  0xBF16BC, not rebuilt) and the listener 0x82E200-0x82E5B0 (the server's: its destructor's
@@ -796,11 +796,13 @@ ConnectionClass *UDPListenerClass::Accept()
 **	  0x82E6A0-0x82EBB0 (shrink, remove, expand: exact, from libs\wwonline\wlib\dictionary.h, D73).
 **	* Exact: Get_Address, Connect, Is_Connected, Is_Dead, Disconnect, the key's operator ==,
 **	  Is_Fixed_Channel, Send_Message, Send_Packet, Receive, the task's destructor, Delete_On_Remove,
-**	  Get_Mgr, Shutdown_Task, Run (with its profile sample) and Get_Interval. NOT EXACT (functional,
-**	  D42): what inlines wlib's Dictionary (libs\wwonline\wlib: the constructors, the
-**	  destructor, Send_Data), Get_Stats, Try_Connect (the tree's CordMgr::Connect returns its record,
-**	  the client's the session id), Open_Fixed_Channel, the task's constructor and Init (the tree's
-**	  CordMgr isn't the client's 0x95C bytes).
+**	  Get_Mgr, Shutdown_Task, Run (with its profile sample) and Get_Interval; since CordMgr has its
+**	  key pair (0x95C bytes, step 8's tail): the constructors by name and by address (their members
+**	  in the initialiser list, a dead ntohs(Port) each), the task's constructor and Init,
+**	  UDPConnectionManager's and the listener's constructors. NOT EXACT (functional, D42): the
+**	  constructor over a CordCon (registers), the destructor and Send_Data (wlib's Dictionary),
+**	  Get_Stats, Try_Connect (the tree's CordMgr::Connect returns its record, the client's the
+**	  session id), Open_Fixed_Channel.
 **	* The checks of the CordCon's state compare with true (`cmp bl, 1`): `closed == true`, except in
 **	  Send_Data and Receive.
 **	* Pending (+0x7C) holds the session id CordMgr::Connect started (the client's 0x859440 and

@@ -123,16 +123,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `MemoryListenerClass` | `app/common/memconn.h:78` | describes what it is |
 | 1 | `MemoryConnectionFactoryClass` | `app/common/memconn.h:97` | describes what it is |
 | 1 | `Unknown_4BC000` | `app/common/tcpconn.cpp:16` | 0x4BC000 |
-| 1 | `TCPConnection` | `app/common/tcpconn.h:32` | after the file tcpconn.cpp (no RTTI or string) |
-| 1 | `Close` | `app/common/tcpconn.h:48` | describes what it does |
-| 1 | `Unknown300` | `app/common/tcpconn.h:78` | untagged neutral name (D10) |
-| 1 | `Unknown400` | `app/common/tcpconn.h:79` | untagged neutral name (D10) |
-| 1 | `Unknown500` | `app/common/tcpconn.h:81` | untagged neutral name (D10) |
-| 1 | `Unknown600` | `app/common/tcpconn.h:83` | untagged neutral name (D10) |
-| 1 | `Unknown700` | `app/common/tcpconn.h:87` | untagged neutral name (D10) |
-| 1 | `Unknown800` | `app/common/tcpconn.h:88` | untagged neutral name (D10) |
-| 1 | `Unknown200` | `app/common/tcpconn.h:131` | untagged neutral name (D10) |
-| 1 | `TCPListenerClass` | `app/common/tcpconn.h:197` | after the file tcpconn.cpp |
+| 1 | `TCPConnection` | `app/common/tcpconn.h:33` | after the file tcpconn.cpp (no RTTI or string) |
+| 1 | `Close` | `app/common/tcpconn.h:49` | describes what it does |
+| 1 | `TCPListenerClass` | `app/common/tcpconn.h:64` | after the file tcpconn.cpp |
 | 1 | `Get_Unknown04` | `app/common/udpconn.cpp:373` | untagged neutral name (D10) |
 | 1 | `Unknown_Create_Packet` | `app/common/udpconn.cpp:556` | untagged neutral name (D10) |
 | 1 | `UDPChannelKeyClass` | `app/common/udpconn.h:35` | describes what it is |
@@ -228,6 +221,14 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Packet_0068Class` | `app/packets/pk_classes.h:714` | neutral (D10): opcode 0x0068 |
 | 1 | `Packet_008EClass` | `app/packets/pk_classes.h:766` | neutral (D10): opcode 0x008E |
 | 1 | `Packet_00B5Class` | `app/packets/pk_classes.h:841` | neutral (D10): opcode 0x00B5 |
+| 1 | `unknown_rsakey.h` | `app/common/unknown_rsakey.h:15` | provisional, no evidence of the original header |
+| 1 | `Unknown300` | `app/common/unknown_rsakey.h:40` | untagged neutral name (D10) |
+| 1 | `Unknown400` | `app/common/unknown_rsakey.h:41` | untagged neutral name (D10) |
+| 1 | `Unknown500` | `app/common/unknown_rsakey.h:43` | untagged neutral name (D10) |
+| 1 | `Unknown600` | `app/common/unknown_rsakey.h:45` | untagged neutral name (D10) |
+| 1 | `Unknown700` | `app/common/unknown_rsakey.h:49` | untagged neutral name (D10) |
+| 1 | `Unknown800` | `app/common/unknown_rsakey.h:50` | untagged neutral name (D10) |
+| 1 | `Unknown200` | `app/common/unknown_rsakey.h:93` | untagged neutral name (D10) |
 | 1 | `Packet_00B6Class` | `app/packets/pk_classes.h:850` | neutral (D10): opcode 0x00B6 |
 | 1 | `Packet_00A8Class` | `app/packets/pk_classes.h:875` | neutral (D10): opcode 0x00A8 |
 | 1 | `Packet_00A9Class` | `app/packets/pk_classes.h:884` | neutral (D10): opcode 0x00A9 |
@@ -700,12 +701,12 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Cord_CRC` | `app/wwudp/cordmgr.cpp:34` | placeholder |
 | 1 | `Unknown04` | `app/wwudp/cordmgr.cpp:56` | untagged neutral name (D10) |
 | 1 | `Unknown0C` | `app/wwudp/cordmgr.cpp:58` | untagged neutral name (D10) |
-| 1 | `Unknown04` | `app/wwudp/cordmgr.h:38` | untagged neutral name (D10) |
-| 1 | `Unknown08` | `app/wwudp/cordmgr.h:39` | untagged neutral name (D10) |
-| 1 | `Unknown0C` | `app/wwudp/cordmgr.h:40` | untagged neutral name (D10) |
-| 1 | `Unknown24` | `app/wwudp/cordmgr.h:69` | untagged neutral name (D10) |
-| 1 | `Unknown134` | `app/wwudp/cordmgr.h:74` | untagged neutral name (D10) |
-| 1 | `Release` | `app/wwudp/cordmgr.h:105` | after Pump_Releases |
+| 1 | `Unknown04` | `app/wwudp/cordmgr.h:39` | untagged neutral name (D10) |
+| 1 | `Unknown08` | `app/wwudp/cordmgr.h:40` | untagged neutral name (D10) |
+| 1 | `Unknown0C` | `app/wwudp/cordmgr.h:41` | untagged neutral name (D10) |
+| 1 | `Unknown24` | `app/wwudp/cordmgr.h:70` | untagged neutral name (D10) |
+| 1 | `Unknown134` | `app/wwudp/cordmgr.h:75` | untagged neutral name (D10) |
+| 1 | `Release` | `app/wwudp/cordmgr.h:106` | after Pump_Releases |
 | 1 | `Set_Accounting_Callback` | `app/wwudp/udp.h:42` | what it does |
 | 1 | `Clear_Accounting_Callback` | `app/wwudp/udp.h:43` | what it does |
 | 1 | `unknown_cordmsg.cpp` | `app/wwudp/unknown_cordmsg.cpp:12` | PROVISIONAL file name (no assert or __FILE__ names the object) |
@@ -931,30 +932,23 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `TCPManager` | `app/common/tcpconn.cpp:10` | what it is |
 | 2 | `std:` | `app/common/tcpconn.cpp:11` | what it holds |
 | 2 | `WriteBuffer` | `app/common/tcpconn.cpp:12` | what it holds |
-| 2 | `Try_Connect` | `app/common/tcpconn.h:46` | what it does |
-| 2 | `Key_Exchange` | `app/common/tcpconn.h:47` | what it does |
-| 2 | `Encrypt` | `app/common/tcpconn.h:52` | what it holds |
-| 2 | `Key` | `app/common/tcpconn.h:53` | what it holds |
-| 2 | `SendRC4` | `app/common/tcpconn.h:54` | what it does |
-| 2 | `ReceiveRC4` | `app/common/tcpconn.h:55` | what it does |
-| 2 | `Name` | `app/common/tcpconn.h:56` | what it holds |
-| 2 | `IP` | `app/common/tcpconn.h:57` | what it holds |
-| 2 | `Port` | `app/common/tcpconn.h:58` | what it holds |
-| 2 | `tcpconn.h` | `app/common/tcpconn.h:64` | what it is |
-| 2 | `RSAKeyClass` | `app/common/tcpconn.h:66` | what it holds |
-| 2 | `Encrypt` | `app/common/tcpconn.h:70` | what it does |
-| 2 | `Decrypt` | `app/common/tcpconn.h:73` | what it does |
-| 2 | `Load` | `app/common/tcpconn.h:98` | what it does |
-| 2 | `Read_Number` | `app/common/tcpconn.h:148` | what it does |
-| 2 | `Compute` | `app/common/tcpconn.h:166` | what it does |
-| 2 | `Modulus` | `app/common/tcpconn.h:184` | what it holds |
-| 2 | `Exponent` | `app/common/tcpconn.h:185` | what it holds |
-| 2 | `Accept` | `app/common/tcpconn.h:207` | what it does |
-| 2 | `Pump_Pending` | `app/common/tcpconn.h:208` | what it does |
-| 2 | `Send_Key` | `app/common/tcpconn.h:209` | what it does |
-| 2 | `Pump_All` | `app/common/tcpconn.h:210` | what it does |
-| 2 | `std:` | `app/common/tcpconn.h:214` | what it holds |
-| 2 | `KeyPair` | `app/common/tcpconn.h:215` | what it holds |
+| 2 | `Try_Connect` | `app/common/tcpconn.h:47` | what it does |
+| 2 | `Key_Exchange` | `app/common/tcpconn.h:48` | what it does |
+| 2 | `Encrypt` | `app/common/tcpconn.h:53` | what it holds |
+| 2 | `Key` | `app/common/tcpconn.h:54` | what it holds |
+| 2 | `SendRC4` | `app/common/tcpconn.h:55` | what it does |
+| 2 | `ReceiveRC4` | `app/common/tcpconn.h:56` | what it does |
+| 2 | `Name` | `app/common/tcpconn.h:57` | what it holds |
+| 2 | `IP` | `app/common/tcpconn.h:58` | what it holds |
+| 2 | `Port` | `app/common/tcpconn.h:59` | what it holds |
+| 2 | `Accept` | `app/common/tcpconn.h:74` | what it does |
+| 2 | `Pump_Pending` | `app/common/tcpconn.h:75` | what it does |
+| 2 | `Send_Key` | `app/common/tcpconn.h:76` | what it does |
+| 2 | `Pump_All` | `app/common/tcpconn.h:77` | what it does |
+| 2 | `std:` | `app/common/tcpconn.h:81` | what it holds |
+| 2 | `KeyPair` | `app/common/tcpconn.h:82` | what it holds |
+| 2 | `TheMgr` | `app/common/udpconn.cpp:31` | what it holds |
+| 2 | `Init_Mgr` | `app/common/udpconn.cpp:34` | what it does |
 | 2 | `Channel` | `app/common/udpconn.h:37` | what it holds |
 | 2 | `Reliable` | `app/common/udpconn.h:38` | 3 reliable, 4 sequenced |
 | 2 | `Channel` | `app/common/udpconn.h:46` | the CordCon channel openc gave |
@@ -1070,6 +1064,15 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `ClientChatRequestPacketClass` | `app/packets/pkclientchat.h:45` | the reference decoder's opcode name CLIENT_CHAT_REQUEST (the Net-7 opcode table; no structure check) |
 | 2 | `EquipUsePacketClass` | `app/packets/pkequipuse.h:22` | the reference decoder's opcode name EQUIP_USE (the Net-7 opcode table; no structure check) |
 | 2 | `Get_Flag_Count` | `app/packets/pkflag.h:27` | what pkflag.cpp's asserts call it (flag_max) |
+| 2 | `unknown_rsakey.h` | `app/common/unknown_rsakey.h:26` | what it is |
+| 2 | `RSAKeyClass` | `app/common/unknown_rsakey.h:28` | what it holds |
+| 2 | `Encrypt` | `app/common/unknown_rsakey.h:32` | what it does |
+| 2 | `Decrypt` | `app/common/unknown_rsakey.h:35` | what it does |
+| 2 | `Load` | `app/common/unknown_rsakey.h:60` | what it does |
+| 2 | `Read_Number` | `app/common/unknown_rsakey.h:110` | what it does |
+| 2 | `Compute` | `app/common/unknown_rsakey.h:128` | what it does |
+| 2 | `Modulus` | `app/common/unknown_rsakey.h:146` | what it holds |
+| 2 | `Exponent` | `app/common/unknown_rsakey.h:147` | what it holds |
 | 2 | `Write_Flags` | `app/packets/pkflag.h:29` | what it does |
 | 2 | `Read_Flags` | `app/packets/pkflag.h:30` | what it does |
 | 2 | `Get_Flag_Size` | `app/packets/pkflag.h:31` | what it returns |
@@ -1570,18 +1573,19 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `AcksMatched_` | `app/wwudp/cordcon.h:322` | describes its role |
 | 2 | `ResendRequests_` | `app/wwudp/cordcon.h:323` | describes its role |
 | 2 | `Rejected_` | `app/wwudp/cordcon.h:324` | describes its role |
-| 2 | `CordDataSocketClass` | `app/wwudp/cordmgr.h:35` | a data socket's record (the +0x40 list, 16 bytes) |
-| 2 | `CordListenSocketClass` | `app/wwudp/cordmgr.h:43` | a listening socket's record (the +0x4C list, 12 bytes) |
-| 2 | `CordReleaseClass` | `app/wwudp/cordmgr.h:51` | describes what it holds (the +0x1C list, 8 bytes) |
-| 2 | `CordConnectingClass` | `app/wwudp/cordmgr.h:59` | describes what it is |
-| 2 | `Connect` | `app/wwudp/cordmgr.h:95` | what it does |
-| 2 | `Process_Zero_Read` | `app/wwudp/cordmgr.h:103` | what it does |
-| 2 | `Wait` | `app/wwudp/cordmgr.h:107` | what it does |
-| 2 | `Find_Connection` | `app/wwudp/cordmgr.h:110` | what it does |
-| 2 | `Listen` | `app/wwudp/cordmgr.h:113` | what it does |
-| 2 | `Unlisten` | `app/wwudp/cordmgr.h:114` | what it does |
-| 2 | `Cancel_Connect` | `app/wwudp/cordmgr.h:117` | what it does |
-| 2 | `Releases_` | `app/wwudp/cordmgr.h:126` | +0x1C connections to free (Release, Pump_Releases) |
+| 2 | `CordDataSocketClass` | `app/wwudp/cordmgr.h:36` | a data socket's record (the +0x40 list, 16 bytes) |
+| 2 | `CordListenSocketClass` | `app/wwudp/cordmgr.h:44` | a listening socket's record (the +0x4C list, 12 bytes) |
+| 2 | `CordReleaseClass` | `app/wwudp/cordmgr.h:52` | describes what it holds (the +0x1C list, 8 bytes) |
+| 2 | `CordConnectingClass` | `app/wwudp/cordmgr.h:60` | describes what it is |
+| 2 | `Connect` | `app/wwudp/cordmgr.h:96` | what it does |
+| 2 | `Process_Zero_Read` | `app/wwudp/cordmgr.h:104` | what it does |
+| 2 | `Wait` | `app/wwudp/cordmgr.h:108` | what it does |
+| 2 | `Find_Connection` | `app/wwudp/cordmgr.h:111` | what it does |
+| 2 | `Listen` | `app/wwudp/cordmgr.h:114` | what it does |
+| 2 | `Unlisten` | `app/wwudp/cordmgr.h:115` | what it does |
+| 2 | `Cancel_Connect` | `app/wwudp/cordmgr.h:118` | what it does |
+| 2 | `Releases_` | `app/wwudp/cordmgr.h:127` | +0x1C connections to free (Release, Pump_Releases) |
+| 2 | `KeyPair` | `app/wwudp/cordmgr.h:134` | what it holds |
 | 2 | `AckRound` | `app/wwudp/unknown_cordmsg.cpp:122` | 0xBB1DB4 |
 | 2 | `AckGrowth` | `app/wwudp/unknown_cordmsg.cpp:123` | 0xBF411C the window growth this round, all connections |
 | 2 | `RoundTripRound` | `app/wwudp/unknown_cordmsg.cpp:152` | 0xBB1DB8 |

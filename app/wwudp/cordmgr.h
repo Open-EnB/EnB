@@ -30,6 +30,7 @@
 
 #include "cordcon.h"
 #include "udp.h"
+#include "..\common\unknown_rsakey.h"
 #include <time.h>
 
 struct CordDataSocketClass		// NAME 2: a data socket's record (the +0x40 list, 16 bytes)
@@ -129,7 +130,8 @@ public:
 	ArrayList<CordDataSocketClass> DataSockets_;	// +0x40 NAME 2: the sockets data arrives on
 	ArrayList<CordListenSocketClass> ListenSockets_;	// +0x4C NAME 2: the sockets handshakes arrive on
 
-	int Unexpected_;									// (the harness's count of datagrams Pump didn't take)
+	int Unexpected_;									// +0x58 (the harness's count of datagrams Pump didn't take, in the client's unknown +0x58)
+	RSAKeyClass KeyPair;								// +0x5C the server's key pair (0x856D80 loads it: 0x85AFB0); 0x95C bytes in all  // NAME 2: what it holds
 };
 
 #endif
