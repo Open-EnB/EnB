@@ -161,7 +161,8 @@ std::string MoneyClass::Unknown_4F00C0(bool) const
 // 0x4C4360-0x4C48C0: the chat-stream decoder (opcode 95's Print): the text left empty
 Unknown_ChatStreamClass::Unknown_ChatStreamClass(const void *, int) : Unknown04(0), Unknown08(0) {}
 Unknown_ChatStreamClass::~Unknown_ChatStreamClass() {}
-char *Unknown_ChatStreamClass::Unknown_00() { return 0; }
+char *Unknown_ChatStreamClass::Unknown_00() { return (char *)Unknown04; }
+int Unknown_ChatStreamClass::Unknown_04() { return Unknown08; }
 void Unknown_ChatStreamClass::Unknown_4C48C0(char *) { STUB_CALLED("Unknown_ChatStreamClass::Unknown_4C48C0 (0x4C48C0)"); }
 
 // 0x83F490 / 0x840030 / 0x83FEF0 / 0x83FE30: ITEM_BASE's item description (opcode 37). The harness keeps

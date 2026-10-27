@@ -4131,6 +4131,29 @@
     "merged": [],
     "name": "packets/pkunknown_87acd0.cpp"
    },
+   "pkunknown_87dec0": {
+    "ambiguous": [
+     "0x42B2F0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350",
+     "0x87DEC0",
+     "0x87DFE0",
+     "0x87E010",
+     "0x87E130",
+     "0x87E1A0",
+     "0x87E2C0",
+     "0x87E2E0"
+    ],
+    "merged": [],
+    "name": "packets/pkunknown_87dec0.cpp"
+   },
    "pkunknown_888b60": {
     "ambiguous": [
      "0x42B2F0"
@@ -5316,6 +5339,7 @@
    "packets/pkunknown_877c80.h": "reconstructed",
    "packets/pkunknown_87a940.h": "reconstructed",
    "packets/pkunknown_87acd0.h": "reconstructed",
+   "packets/pkunknown_87dec0.h": "reconstructed",
    "packets/pkunknown_888b60.h": "reconstructed",
    "packets/pkunknown_8a2b70.h": "reconstructed",
    "packets/pkunknown_8a5510.h": "reconstructed",

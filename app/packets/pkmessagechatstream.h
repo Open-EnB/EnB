@@ -24,8 +24,9 @@ class Unknown_ChatStreamClass  // NAME 1: neutral (D10): what it reads
 public:
 	Unknown_ChatStreamClass(const void *data, int size);	// 0x4C4360
 	~Unknown_ChatStreamClass();	// 0x4C4460
-	virtual char *Unknown_00();	// +0x00 0x4C43D0's slot (the stream)  // NAME 1: neutral (D10)
-	void Unknown_4C48C0(char *text);	// 0x4C48C0: the blocks' text  // NAME 1: neutral (D10)
+	virtual char *Unknown_00();	// +0x00 0x4C43D0: Unknown04  // NAME 1: neutral (D10)
+	virtual int Unknown_04();	// +0x04 0x4C43F0: Unknown08 (AVATAR_EMOTE 94 takes it as its ChatSize)  // NAME 1: neutral (D10)
+	virtual void Unknown_4C48C0(char *text);	// +0x08 0x4C48C0: the blocks' text  // NAME 1: neutral (D10)
 
 	void *Unknown04;	// +0x04 (malloc'd)
 	int Unknown08;	// +0x08

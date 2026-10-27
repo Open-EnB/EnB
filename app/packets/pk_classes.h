@@ -114,6 +114,7 @@
 #include "pkunknown_877c80.h"	// rebuilt
 #include "pkunknown_87a940.h"	// rebuilt
 #include "pkunknown_87acd0.h"	// rebuilt
+#include "pkunknown_87dec0.h"	// rebuilt
 #include "pkunknown_888b60.h"	// rebuilt
 #include "pkunknown_8a2b70.h"	// rebuilt
 #include "pkunknown_8a5510.h"	// rebuilt
@@ -425,15 +426,6 @@ class VerbListPacketClass : public PacketClass
 public:
 	VerbListPacketClass(RawPacketClass *raw);	// 0x8AF150
 	char Unknown0C[0x14];	// +0x0C
-};
-
-// opcode 94 (0x005E, AVATAR_EMOTE): vtable 0xB0A020, constructor 0x87E010, 0x24 bytes
-class AvatarEmotePacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name AVATAR_EMOTE (the Net-7 opcode table; no structure check)
-{
-public:
-	AvatarEmotePacketClass(RawPacketClass *raw);	// 0x87E010
-	virtual bool Process_Packet(void *client);	// +0x08 0x8685E0 (clientstub.cpp l.194)
-	char Unknown0C[0x18];	// +0x0C
 };
 
 // opcode 97 (0x0061, AVATAR_DESCRIPTION): vtable 0xB09D4C, constructor 0x877A60, 0x120 bytes
