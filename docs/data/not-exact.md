@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-270 entries in 64 files.
+269 entries in 64 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -32,7 +32,6 @@ edit the comments in the code, not this file.
 | `app/client/client_lego_impl.cpp:679` | `ClientLegoImplClass::Child_Moved` | marker | NOT EXACT: shape, 4 rows: the client forms &child (lea ebp) before loading it, ours after (attempts.csv) |
 | `app/client/client_lego_impl.cpp:710` | `ClientLegoImplClass::Attach` | marker | NOT EXACT: frame: the client keeps the child's render object in its own stack slot (sub esp 8), ours in a dead parameter's (attempts.csv) |
 | `app/client/client_lego_impl.cpp:742` | `ClientLegoImplClass::Detach` | marker | NOT EXACT: register-only, 4 rows: eax / edx swapped around the Get_Render_Object call (attempts.csv) |
-| `app/client/client_lego_impl.cpp:843` | `LegoKnobClass::LegoKnobClass` | mention | NOT EXACT (attempts.csv): Find, Get_Lego_Transform, Add, Remove, Update_Radius, Child_Moved, Attach and Detach. Get_Bone_Map is exact with a const_iterator for its find (H12's lever). The knob's constructor 0x72DE40 and the bone map's Get_Knob 0x72DDA0 follow the window, exact. Not here: lego_identifier.cpp's split 0x844ED0 / 0x8451A0. * The bone map's constructor 0x72D5F0 is exact or 2 rows off (... |
 | `app/client/co.cpp:1679` | `ClientObjectClass::Unknown_6FC9A0` | marker | NOT EXACT: shape (case 2's 'pop esi' scheduled between its two stores in ours, after them in the client; 3 forms) 0x6FC9A0 |
 | `app/client/co.cpp:1715` | `ClientObjectClass::Unknown_6FCB20` | marker | NOT EXACT: shape (the client keeps the argument in eax and masks a copy for the compare; 3 forms) 0x6FCB20 |
 | `app/client/co.cpp:2227` | `ClientObjectClass::Unknown_6FEC40` | marker | NOT EXACT: order (the client sums the transform's products in another order; explain.py says field-offset; 2 forms) 0x6FEC40 |

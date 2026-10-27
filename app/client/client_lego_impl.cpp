@@ -840,7 +840,7 @@ LegoKnobClass::LegoKnobClass(std::string bone_name, int bone_index) :
 **	instances (0x72E090-0x731F20). Every function of the window is written; exact: the bone maps'
 **	Init / Shutdown, Create, the constructor and destructor, the small virtuals, Detach_All, the
 **	parent links, Get_Bone_Map, the bone map's constructor, destructor and Get_Knob, the knob's
-**	constructor, Init. NOT EXACT (attempts.csv):
+**	constructor, Init. Written but not byte-exact yet (attempts.csv):
 **	Find, Get_Lego_Transform, Add, Remove, Update_Radius, Child_Moved, Attach and Detach.
 **	Get_Bone_Map is exact with a const_iterator for its find (H12's lever). The knob's constructor 0x72DE40 and the bone map's Get_Knob 0x72DDA0
 **	follow the window, exact. Not here: lego_identifier.cpp's split 0x844ED0 / 0x8451A0.
