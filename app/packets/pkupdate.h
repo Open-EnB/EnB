@@ -85,6 +85,23 @@ public:
 	int TractorEffectID;	// +0x50  // NAME 3: the client's Print text 'TractorEffectID='
 };
 
+// opcode 65 (0x0041, FORMATION_POSITIONAL_UPDATE): vtable 0xB0C1D4, constructor 0x8AE5C0, 0x24 bytes
+class FormationPositionalUpdatePacketClass : public PacketClass  // NAME 3: the client's Print text 'FormationPositionalUpdate'
+{
+public:
+	FormationPositionalUpdatePacketClass(int game_id, int leader_id, const Vector3 &offset);	// 0x8AE4B0
+	FormationPositionalUpdatePacketClass(RawPacketClass *raw);	// 0x8AE5C0
+	virtual RawPacketClass *Build();	// +0x04 0x8AE690
+	virtual bool Process_Packet(void *client);	// +0x08 0x734740 (not rebuilt)
+	virtual int Get_Data_Size();	// +0x0C 0x8AE770
+	virtual int Print(char *buffer, int len);	// +0x10 0x8AE790
+
+	int GameID;	// +0x0C  // NAME 3: the client's Print text 'GameID='
+	int LeaderID;	// +0x10  // NAME 3: the client's Print text 'LeaderID='
+	Vector3 Offset;	// +0x14  // NAME 3: the client's Print text 'Offset='
+	int Channel;	// +0x20 (PacketClass::Unknown_14 of GameID in the value constructor; not in the message)  // NAME 2: what it holds, as 8's
+};
+
 // opcode 62 (0x003E, ADVANCED_POSITIONAL_UPDATE): vtable 0xB0C11C, constructor 0x8ACAB0, 0x74 bytes
 class AdvancedPositionalUpdatePacketClass : public FlagPacketClass
 {

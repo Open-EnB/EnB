@@ -530,6 +530,43 @@ int ComponentPositionalUpdatePacketClass::Print(char *buffer, int)
 	return(Print_Tractor(buffer + len, len) + len);
 }
 
+FormationPositionalUpdatePacketClass::FormationPositionalUpdatePacketClass(int game_id, int leader_id, const Vector3 &offset) :
+	GameID(game_id),
+	LeaderID(leader_id),
+	Offset(offset)
+{
+	Channel = Unknown_14(GameID, -1);
+}
+
+FormationPositionalUpdatePacketClass::FormationPositionalUpdatePacketClass(RawPacketClass *raw) :
+	GameID(0),
+	LeaderID(0),
+	Offset(0.0f, 0.0f, 0.0f)
+{
+	raw->Get(&GameID, sizeof(GameID));
+	raw->Get(&LeaderID, sizeof(LeaderID));
+	raw->Get(&Offset, sizeof(Offset));
+}
+
+RawPacketClass *FormationPositionalUpdatePacketClass::Build()
+{
+	RawPacketClass *raw = new RawPacketClass(65, Get_Data_Size());
+	raw->Add(&GameID, sizeof(GameID));
+	raw->Add(&LeaderID, sizeof(LeaderID));
+	raw->Add(&Offset, sizeof(Offset));
+	return(raw);
+}
+
+int FormationPositionalUpdatePacketClass::Get_Data_Size()
+{
+	return(sizeof(GameID) + sizeof(LeaderID) + sizeof(Offset));
+}
+
+int FormationPositionalUpdatePacketClass::Print(char *buffer, int)
+{
+	return(sprintf(buffer, "%s {GameID=%d LeaderID=%d Offset={%f %f %f}}", "FormationPositionalUpdate", GameID, LeaderID, Offset.X, Offset.Y, Offset.Z));
+}
+
 
 /*
 **	Reconstruction notes (pkupdate.cpp)
@@ -549,5 +586,5 @@ int ComponentPositionalUpdatePacketClass::Print(char *buffer, int)
 **	* Opcode 8 (SIMPLE_POSITIONAL_UPDATE) written by hand (builder P6, 2026-10-27) in the lines kept for it:
 **	  its asserts on the client's lines 80-82 (the value constructor) and 95-97 (the raw one).
 **	* Opcode 70 (COMPONENT_POSITIONAL_UPDATE) over 8, written by hand (builder P6, 2026-10-27).
-**	* Not rebuilt yet: opcode 65 (declared in pk_classes.h).
+**	* Opcode 65 (FORMATION_POSITIONAL_UPDATE) written by hand (builder P6, 2026-10-27): the object complete.
 */

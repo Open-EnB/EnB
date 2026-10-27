@@ -5539,7 +5539,11 @@
      "0x8AE240",
      "0x8AE2E0",
      "0x8AE390",
-     "0x8AE3D0"
+     "0x8AE3D0",
+     "0x8AE4B0",
+     "0x8AE5C0",
+     "0x8AE690",
+     "0x8AE790"
     ],
     "merged": [],
     "name": "packets/pkupdate.cpp"
