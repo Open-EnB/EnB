@@ -123,7 +123,7 @@ public:
 	GuildPlayerPermissionsPacket(GuildPermissionEnum unknown0c, int unknown10, int unknown14, int unknown18);	// 0x88D590
 	GuildPlayerPermissionsPacket(RawPacketClass *raw);	// 0x88D630
 	virtual RawPacketClass *Build();	// +0x04 0x88D710
-	virtual bool Process_Packet(void *client);	// +0x08 0x73ED40 (not rebuilt)
+	virtual bool Process_Packet(void *client);	// +0x08 0x73ED40 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x88D800
 	virtual int Print(char *buffer, int len);	// +0x10 0x88D820 ('GuildPlayerPermissionsPacket {Permissions}')
 
@@ -162,7 +162,7 @@ class GuildRankNamesSectorPacket : public PacketClass  // NAME 3: the client's P
 public:
 	GuildRankNamesSectorPacket(RawPacketClass *raw);	// 0x88DE10
 	virtual RawPacketClass *Build();	// +0x04 0x88E080
-	virtual bool Process_Packet(void *client);	// +0x08 0x73EE20 (not rebuilt)
+	virtual bool Process_Packet(void *client);	// +0x08 0x73EE20 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x88E1B0
 	virtual int Print(char *buffer, int len);	// +0x10 0x88E220
 

@@ -36,7 +36,7 @@ public:
 	SubPartsPacket(int game_id);	// 0x8754D0
 	SubPartsPacket(RawPacketClass *raw);	// 0x8756B0
 	virtual RawPacketClass *Build();	// +0x04 0x875B70
-	virtual bool Process_Packet(void *client);	// +0x08 0x733A50 (not rebuilt)
+	virtual bool Process_Packet(void *client);	// +0x08 0x733A50 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x875CA0
 	virtual int Print(char *buffer, int len);	// +0x10 0x875CF0
 	virtual int Get_Channel() { return(Channel); }	// +0x18 0x875570

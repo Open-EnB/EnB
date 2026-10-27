@@ -24,7 +24,7 @@ class InitRenderStatePacketClass : public PacketClass
 public:
 	InitRenderStatePacketClass(RawPacketClass *raw);	// 0x8A1A60
 	virtual RawPacketClass *Build();	// +0x04 0x8A1B20
-	virtual bool Process_Packet(void *client);	// +0x08 0x737610 (not rebuilt)
+	virtual bool Process_Packet(void *client);	// +0x08 0x737610 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x8A1C00
 	virtual int Print(char *buffer, int len);	// +0x10 0x8A1C20
 	virtual int Get_Channel() { return(Unknown18); }	// +0x18 0x8A19F0
@@ -41,7 +41,7 @@ class ActivateRenderStatePacketClass : public PacketClass
 public:
 	ActivateRenderStatePacketClass(RawPacketClass *raw);	// 0x8A1D70
 	virtual RawPacketClass *Build();	// +0x04 0x8A1E10
-	virtual bool Process_Packet(void *client);	// +0x08 0x7376F0 (not rebuilt)
+	virtual bool Process_Packet(void *client);	// +0x08 0x7376F0 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x8A1EE0
 	virtual int Print(char *buffer, int len);	// +0x10 0x8A1F00
 	virtual int Get_Channel() { return(Unknown14); }	// +0x18 0x8A1D00
@@ -57,7 +57,7 @@ class ActivateNextRenderStateOncePacketClass : public PacketClass
 public:
 	ActivateNextRenderStateOncePacketClass(RawPacketClass *raw);	// 0x8A2050
 	virtual RawPacketClass *Build();	// +0x04 0x8A20F0
-	virtual bool Process_Packet(void *client);	// +0x08 0x7377C0 (not rebuilt)
+	virtual bool Process_Packet(void *client);	// +0x08 0x7377C0 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x8A21C0
 	virtual int Print(char *buffer, int len);	// +0x10 0x8A21E0
 	virtual int Get_Channel() { return(Unknown14); }	// +0x18 0x8A1FE0
@@ -73,7 +73,7 @@ class DeactivateRenderStatePacketClass : public PacketClass
 public:
 	DeactivateRenderStatePacketClass(RawPacketClass *raw);	// 0x8A2330
 	virtual RawPacketClass *Build();	// +0x04 0x8A23D0
-	virtual bool Process_Packet(void *client);	// +0x08 0x737890 (not rebuilt)
+	virtual bool Process_Packet(void *client);	// +0x08 0x737890 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x8A24A0
 	virtual int Print(char *buffer, int len);	// +0x10 0x8A24C0
 	virtual int Get_Channel() { return(Unknown14); }	// +0x18 0x8A22C0

@@ -35,7 +35,7 @@ class VerbUpdatePacketClass : public PacketClass
 public:
 	VerbUpdatePacketClass(RawPacketClass *raw);	// 0x8AFD10
 	virtual RawPacketClass *Build();	// +0x04 0x8AFF40
-	virtual bool Process_Packet(void *client);	// +0x08 0x7388B0 (not rebuilt)
+	virtual bool Process_Packet(void *client);	// +0x08 0x7388B0 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x8B0130
 	virtual int Print(char *buffer, int len);	// +0x10 0x8B0150
 	virtual int Get_Type() { return(92); }	// +0x28 0x8B0110

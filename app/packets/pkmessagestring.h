@@ -26,7 +26,7 @@ public:
 	MessageStringPacketClass(RawPacketClass *raw);	// 0x89E310
 	virtual ~MessageStringPacketClass();	// +0x00 0x89E1D0 / 0x89E3E0
 	virtual RawPacketClass *Build();	// +0x04 0x89E420
-	virtual bool Process_Packet(void *client);	// +0x08 0x736760 (not rebuilt)
+	virtual bool Process_Packet(void *client);	// +0x08 0x736760 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x89E500
 	virtual int Print(char *buffer, int len);	// +0x10 0x89E520
 	virtual int Get_Channel() { return(-2); }	// +0x18 0x89E1B0

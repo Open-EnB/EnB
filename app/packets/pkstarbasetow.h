@@ -43,7 +43,7 @@ public:
 	StarbaseSetPacketClass(unsigned char action, unsigned char exit_mode, int starbase_id);	// 0x8A2FF0
 	StarbaseSetPacketClass(RawPacketClass *raw);	// 0x8A3090
 	virtual RawPacketClass *Build();	// +0x04 0x8A3150
-	virtual bool Process_Packet(void *client);	// +0x08 0x7381C0 (not rebuilt)
+	virtual bool Process_Packet(void *client);	// +0x08 0x7381C0 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x8A3230
 	virtual int Print(char *buffer, int len);	// +0x10 0x8A3250
 
@@ -59,7 +59,7 @@ public:
 	StarbaseTowPacketClass(int starbase_id1, int tow_cost1, int starbase_id2, int tow_cost2, int starbase_id3, int tow_cost3);	// 0x8A32A0
 	StarbaseTowPacketClass(RawPacketClass *raw);	// 0x8A3370
 	virtual RawPacketClass *Build();	// +0x04 0x8A3450
-	virtual bool Process_Packet(void *client);	// +0x08 0x738330 (not rebuilt)
+	virtual bool Process_Packet(void *client);	// +0x08 0x738330 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x8A3560
 	virtual int Print(char *buffer, int len);	// +0x10 0x8A3580
 

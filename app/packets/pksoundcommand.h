@@ -26,7 +26,7 @@ public:
 	ClientSoundPacketClass(RawPacketClass *raw);	// 0x8A5050
 	virtual ~ClientSoundPacketClass();	// +0x00 0x8A5010 / 0x8A4FE0
 	virtual RawPacketClass *Build();	// +0x04 0x8A5130
-	virtual bool Process_Packet(void *client);	// +0x08 0x7383D0 (not rebuilt)
+	virtual bool Process_Packet(void *client);	// +0x08 0x7383D0 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x8A5220
 	virtual int Print(char *buffer, int len);	// +0x10 0x8A5240
 
@@ -43,7 +43,7 @@ public:
 	SoundCommandPacketClass(int command, int channel);	// 0x8A5280
 	SoundCommandPacketClass(RawPacketClass *raw);	// 0x8A5320
 	virtual RawPacketClass *Build();	// +0x04 0x8A53C0
-	virtual bool Process_Packet(void *client);	// +0x08 0x7384A0 (not rebuilt)
+	virtual bool Process_Packet(void *client);	// +0x08 0x7384A0 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x8A5490
 	virtual int Print(char *buffer, int len);	// +0x10 0x8A54B0
 

@@ -46,7 +46,7 @@ public:
 	ConfirmedActionTimeoutPacketClass(ConfirmedActionEnum type, int id);	// 0x870940
 	ConfirmedActionTimeoutPacketClass(RawPacketClass *raw);	// 0x8709E0
 	virtual RawPacketClass *Build();	// +0x04 0x870AA0
-	virtual bool Process_Packet(void *client);	// +0x08 0x73DCB0 (not rebuilt)
+	virtual bool Process_Packet(void *client);	// +0x08 0x73DCB0 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x870B70
 	virtual int Print(char *buffer, int len);	// +0x10 0x870B90
 

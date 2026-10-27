@@ -24,7 +24,7 @@ class CreateAttachmentPacketClass : public PacketClass
 public:
 	CreateAttachmentPacketClass(RawPacketClass *raw);	// 0x876B30
 	virtual RawPacketClass *Build();	// +0x04 0x876BD0
-	virtual bool Process_Packet(void *client);	// +0x08 0x733BB0 (not rebuilt)
+	virtual bool Process_Packet(void *client);	// +0x08 0x733BB0 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x876CA0
 	virtual int Print(char *buffer, int len);	// +0x10 0x876CC0
 	virtual int Get_Channel() { return(Unknown1C); }	// +0x18 0x876AC0

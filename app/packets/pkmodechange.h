@@ -24,7 +24,7 @@ public:
 	ModeChangePacketClass(int unknown0c, int mode);	// 0x89CAF0
 	ModeChangePacketClass(RawPacketClass *raw);	// 0x89CBB0
 	virtual RawPacketClass *Build();	// +0x04 0x89CC50
-	virtual bool Process_Packet(void *client);	// +0x08 0x738100 (not rebuilt)
+	virtual bool Process_Packet(void *client);	// +0x08 0x738100 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C PKMODECHANGE_HDS
 	virtual int Print(char *buffer, int len);	// +0x10 0x89CD40
 

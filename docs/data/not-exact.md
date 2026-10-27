@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-240 entries in 59 files.
+242 entries in 59 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -36,10 +36,10 @@ edit the comments in the code, not this file.
 | `app/client/control_keys_manager.cpp:524` | `ControlKeysManager::Save_Keys` | marker | NOT EXACT: shape, 12 rows: the client keeps the 1-based set count in a register (inc at the loop top), ours in a frame slot (attempts.csv) |
 | `app/client/control_keys_manager.cpp:570` | `ControlKeysManager::Reset_Keys` | marker | NOT EXACT: shape, ~56 rows: the client calls 0x71E850 on the whole vector where our erase inlines a copy loop (attempts.csv) |
 | `app/client/control_keys_manager.cpp:639` | `KeyMappingStruct::Get_Key_String` | marker | NOT EXACT: register-only in the failure path (out in ebp, npos in ebx; the client swaps them); erase(0, npos) and resize(0) the same |
-| `app/client/cpacket.cpp:145` | `ClientAvatarPacketClass::Process_Packet` | marker | NOT EXACT: shape (the client loads the model straight into ecx; two forms; attempts.py show 0x733590) 0x733590 |
+| `app/client/cpacket.cpp:153` | `ClientAvatarPacketClass::Process_Packet` | marker | NOT EXACT: shape (the client loads the model straight into ecx; two forms; attempts.py show 0x733590) 0x733590 |
 | `app/client/cpacket.cpp:1392` | `ServerHandoffPacketClass::Process_Packet` | marker | NOT EXACT: order-only (the __int64 Unknown10C0 store scheduled first; two forms; attempts.py show 0x737CB0) 0x737CB0 |
 | `app/client/cpacket.cpp:1513` | `StarbaseSetPacketClass::Process_Packet` | marker | NOT EXACT: shape (the client keeps four calls of 0x74BA30, ours merges them; attempts.py show 0x7381C0) 0x7381C0 |
-| `app/client/cpacket.cpp:1652` | `LootHulkPermissionPacketClass::Process_Packet` | marker | NOT EXACT: shape (the client places the shared failure exit before the call; three forms; attempts.py show 0x7396F0) 0x7396F0 |
+| `app/client/cpacket.cpp:1918` | `LootHulkPermissionPacketClass::Process_Packet` | marker | NOT EXACT: shape (the client places the shared failure exit before the call; three forms; attempts.py show 0x7396F0) 0x7396F0 |
 | `app/client/cpacket.cpp:1985` | `OpenInterfacePacketClass::Process_Packet` | marker | NOT EXACT: shape (the client places the shared failure exit before the UIType test; two forms; attempts.py show 0x7397D0) 0x7397D0 |
 | `app/client/fontdatabase.cpp:59` | `FontStringStruct::Reset` | marker | NOT EXACT: inline-budget: the client inlines the first nine string assignments with Store_Length called and calls operator= in the loop; ours inlines all |
 | `app/client/fontdatabase.cpp:340` | `FontDatabaseClass::Load_String` | marker | NOT EXACT: inline-budget: ours inlines Parse_Directions / Split_Four / Get_Blend_Type and calls Get_Length; the client the reverse |
@@ -59,6 +59,8 @@ edit the comments in the code, not this file.
 | `app/client/fontmanager.cpp:407` | `FontManagerClass::Add` | marker | NOT EXACT: register-only, 3 rows: the client loads the id into ecx and keeps the font in eax (attempts.csv) |
 | `app/client/fontmanager.cpp:416` | `FontManagerClass::Add` | marker | NOT EXACT: register-only, 2 rows: the client reloads the buffer into eax, ours into edx (attempts.csv) |
 | `app/client/fontmanager.cpp:456` | `FontManagerClass::Unknown_6D2580` | marker | NOT EXACT: inline budget: the client calls Find 0x6D2A70 out of line (after pushing the arguments), ours inlines it (attempts.csv) |
+| `app/client/fontmanager.cpp:519` | `FontManagerClass::Get_Style` | marker | NOT EXACT: order-only, 1 row: the inlined std::string(name) stores its terminator through [ebx+eax], ours [eax+ebx] (attempts.csv) |
+| `app/client/fontmanager.cpp:539` | `FontManagerClass::Unknown_6D28C0` | marker | NOT EXACT: inline budget, 75 rows: the client calls the styles table's begin and bucket helpers out of line, ours inlines them (attempts.csv) |
 | `app/client/sclient.cpp:393` | `SClient::~SClient` | marker | NOT EXACT: inline budget (the client inlines the 0x24-byte object's destructor at the second delete, ours calls it: then every EH state after it is one lower; five forms, attempts.py show 0x740BB0) 0x740BB0 |
 | `app/client/sclient.cpp:430` | `SClient::Init` | marker | NOT EXACT: field offset (explain.py; 103 masked rows): the client keeps the options base (+0x1150) in a register from the Bridge_Mode branch and reads the camera mode through it, and its frame is 4 bytes larger; one form (attempts.py show 0x741180) 0x741180 |
 | `app/client/sclient.cpp:536` | `SClient::Shutdown` | marker | NOT EXACT: shape (explain.py: field offset first; 470 masked rows): the talk tree's reset goes through a null RefCountPtr temporary with its own EH state and the out-of-line assignment 0x758970, and the effect list's removal is inlined differently; one form (attempts.py show 0x741BB0) 0x741BB0 |
@@ -83,6 +85,8 @@ edit the comments in the code, not this file.
 | `app/client/ui_line_display.cpp:520` | `UILineDisplayClass::Show_Ephemeral` | marker | NOT EXACT: inline budget (explain.py), the client converts find's and end()'s iterators to const_iterator out of line (0x5A9010), ours inline |
 | `app/client/ui_line_display.cpp:590` | `UILineDisplayClass::Unknown_7C` | marker | NOT EXACT: shape (explain.py), the hash_map loop's first bucket search laid out differently (as 0x677410) |
 | `app/client/ui_line_display.cpp:617` | `UILineDisplayClass::Clear` | marker | NOT EXACT: shape (explain.py), the hash_map iterator kept in esi by the client, in the frame by ours (as 0x677410) |
+| `app/client/ui_line_display.cpp:642` | `UILineDisplayClass::Find_Ephemeral` | marker | NOT EXACT: inline budget (explain.py), the client inlines the key's assign and calls find 0x5A9460 out of line, ours the reverse (as 0x6ACF50) |
+| `app/client/ui_line_display.cpp:653` | `UILineDisplayClass::Find_Text` | marker | NOT EXACT: inline budget (explain.py), the client calls find 0x5A95E0 and the key's _Eos out of line (as 0x4E57A0) |
 | `app/client/unknown_creator.cpp:68` | `CharacterCreatorClass::Unknown_78D480` | marker | NOT EXACT: shape (through Get_File_Name, inlined, the appends come out of line as in the client; the inlined byte sum's loop still differs, nine forms: attempts.py show 0x78D480) 0x78D480 |
 | `app/client/unknown_creator.cpp:103` | `CharacterCreatorClass::Unknown_78D8A0` | marker | NOT EXACT: inline budget (through Get_File_Name one append still inlines in ours) 0x78D8A0 |
 | `app/client/unknown_creator.cpp:126` | `CharacterCreatorClass::Unknown_78DAF0` | marker | NOT EXACT: shape (through Get_File_Name; the inlined byte sum as in 0x78D480) 0x78DAF0 |

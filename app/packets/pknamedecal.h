@@ -35,7 +35,7 @@ public:
 	DecalPacketClass(int game_id, const std::vector<DecalStruct> &decals);	// 0x8805C0
 	DecalPacketClass(RawPacketClass *raw);	// 0x8807B0
 	virtual RawPacketClass *Build();	// +0x04 0x880BC0
-	virtual bool Process_Packet(void *client);	// +0x08 0x735DF0 (not rebuilt)
+	virtual bool Process_Packet(void *client);	// +0x08 0x735DF0 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x880D00
 	virtual int Print(char *buffer, int len);	// +0x10 0x880D50
 	virtual int Get_Channel() { return(Channel); }	// +0x18 0x880720

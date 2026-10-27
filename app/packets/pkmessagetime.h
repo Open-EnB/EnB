@@ -25,7 +25,7 @@ public:
 	MessageTimePacketClass(unsigned char color, time_t time);	// 0x89E5E0
 	MessageTimePacketClass(RawPacketClass *raw);	// 0x89E6A0
 	virtual RawPacketClass *Build();	// +0x04 0x89E760
-	virtual bool Process_Packet(void *client);	// +0x08 0x736800 (not rebuilt)
+	virtual bool Process_Packet(void *client);	// +0x08 0x736800 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x89E830
 	virtual int Print(char *buffer, int len);	// +0x10 0x89E850
 	virtual int Get_Channel() { return(-2); }	// +0x18 0x89E650
