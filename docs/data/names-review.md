@@ -8,15 +8,29 @@ are listed here until better evidence raises their tag. Regenerate with
 | Score | Meaning | Names |
 |---|---|---|
 | 5 | the client names it | 16 |
-| 4 | EA source, or a structure-confirmed Net-7 / C# name | 30 |
-| 3 | by convention from a client-named file or sibling | 728 |
-| 2 | describes what the code does | 1453 |
-| 1 | neutral placeholder | 2146 |
+| 4 | EA source, or a structure-confirmed Net-7 / C# name | 35 |
+| 3 | by convention from a client-named file or sibling | 731 |
+| 2 | describes what the code does | 1509 |
+| 1 | neutral placeholder | 2160 |
 
 ## For review (score 3 and below)
 
 | Score | Name | Where | Evidence |
 |---|---|---|---|
+| 1 | `Unknown_Get_Ticks` | `app/audio/soundlib.cpp:18` | untagged neutral name (D10) |
+| 1 | `Unknown_442650` | `app/audio/soundlib.cpp:19` | 0x442650, surfacetypes.cpp's loader |
+| 1 | `Unknown_442870` | `app/audio/soundlib.cpp:20` | 0x442870, surfacetypes.cpp's release |
+| 1 | `Unknown_BDADC8` | `app/audio/soundlib.cpp:21` | 0xBDADC8, a global generator outside this file |
+| 1 | `Unknown_BE8B38Class` | `app/audio/soundlib.cpp:23` | option.cpp's object at 0xBE8B38 (tsk_game.h) |
+| 1 | `Unknown_BE8B38` | `app/audio/soundlib.cpp:28` | neutral (D10) |
+| 1 | `m_Unknown7C` | `app/audio/soundlib.cpp:35` | untagged neutral name (D10) |
+| 1 | `m_Unknown80` | `app/audio/soundlib.cpp:36` | untagged neutral name (D10) |
+| 1 | `m_Unknown164` | `app/audio/soundlib.cpp:43` | untagged neutral name (D10) |
+| 1 | `m_Unknown168` | `app/audio/soundlib.cpp:44` | untagged neutral name (D10) |
+| 1 | `m_Unknown16C` | `app/audio/soundlib.cpp:45` | untagged neutral name (D10) |
+| 1 | `SoundINIClass` | `app/audio/soundlib.cpp:800` | an INIClass with its own vtable 0xAE7500 (destructor only) |
+| 1 | `Unknown_43FD70` | `app/audio/soundlib.cpp:885` | untagged neutral name (D10) |
+| 1 | `Unknown_43FA80` | `app/audio/soundlib.cpp:885` | untagged neutral name (D10) |
 | 1 | `aux_roots.cpp` | `app/client/aux_roots.cpp:3` | provisional file name (the client's constructors are in co.cpp 0x6F6000-0x6FBEF0 and the Player object 0x751BE0) |
 | 1 | `UnknownGlobal` | `app/client/aux_roots.cpp:6` | untagged neutral name (D10) |
 | 1 | `UnknownRootClass` | `app/client/aux_roots.cpp:11` | untagged neutral name (D10) |
@@ -2163,6 +2177,62 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_2C` | `tests/capharness/udpreplay/pk_ctor_stubs.cpp:144` | untagged neutral name (D10) |
 | 1 | `Unknown08` | `tests/capharness/udpreplay/pkitemba_stubs.cpp:13` | untagged neutral name (D10) |
 | 1 | `Unknown_4BC130` | `tests/capharness/udpreplay/udpreplay.cpp:70` | untagged neutral name (D10) |
+| 2 | `Get_Float` | `app/audio/soundlib.cpp:26` | what it does |
+| 2 | `SoundAccessClass` | `app/audio/soundlib.cpp:32` | what it does |
+| 2 | `Sound3DAccessClass` | `app/audio/soundlib.cpp:38` | what it does |
+| 2 | `SoundLibBridgeClass` | `app/audio/soundlib.cpp:398` | what it does (vtable 0xAE74EC) |
+| 2 | `_Bridge` | `app/audio/soundlib.cpp:405` | what it holds |
+| 2 | `Pick_Filename` | `app/audio/soundlib.h:42` | what it does |
+| 2 | `Create_Sound` | `app/audio/soundlib.h:43` | what it does |
+| 2 | `Create_3D_Sound` | `app/audio/soundlib.h:44` | what it does |
+| 2 | `Set_Volume` | `app/audio/soundlib.h:45` | what it does |
+| 2 | `Set_Type` | `app/audio/soundlib.h:46` | what it does |
+| 2 | `std:` | `app/audio/soundlib.h:48` | what it holds |
+| 2 | `std:` | `app/audio/soundlib.h:49` | what it holds |
+| 2 | `TotalWeight` | `app/audio/soundlib.h:50` | what it holds |
+| 2 | `LoopCount` | `app/audio/soundlib.h:51` | the ini key |
+| 2 | `DropOffRadius` | `app/audio/soundlib.h:52` | the ini key |
+| 2 | `MaxVolRadius` | `app/audio/soundlib.h:53` | the ini key |
+| 2 | `Priority` | `app/audio/soundlib.h:54` | the ini key |
+| 2 | `Volume` | `app/audio/soundlib.h:55` | the ini key |
+| 2 | `MinVolumeShift` | `app/audio/soundlib.h:56` | the ini key |
+| 2 | `MaxVolumeShift` | `app/audio/soundlib.h:57` | the ini key |
+| 2 | `MinPitchShift` | `app/audio/soundlib.h:58` | the ini key |
+| 2 | `MaxPitchShift` | `app/audio/soundlib.h:59` | the ini key |
+| 2 | `MinDopplerShift` | `app/audio/soundlib.h:60` | the ini key |
+| 2 | `MaxDopplerShift` | `app/audio/soundlib.h:61` | the ini key |
+| 2 | `DopplerTweak` | `app/audio/soundlib.h:62` | the ini key |
+| 2 | `Type` | `app/audio/soundlib.h:63` | the ini key |
+| 2 | `MaxInstances` | `app/audio/soundlib.h:64` | the ini key |
+| 2 | `Pitch` | `app/audio/soundlib.h:65` | the ini key |
+| 2 | `SecsBetweenCalls` | `app/audio/soundlib.h:66` | the ini key |
+| 2 | `NextCallTime` | `app/audio/soundlib.h:67` | what it holds |
+| 2 | `Init` | `app/audio/soundlib.h:73` | what it does |
+| 2 | `Init_Definitions` | `app/audio/soundlib.h:74` | what it does |
+| 2 | `Shutdown` | `app/audio/soundlib.h:75` | what it does |
+| 2 | `Free_Definitions` | `app/audio/soundlib.h:76` | what it does |
+| 2 | `Reload` | `app/audio/soundlib.h:77` | what it does |
+| 2 | `Find` | `app/audio/soundlib.h:78` | what it does |
+| 2 | `Play_2D_Sound` | `app/audio/soundlib.h:79` | what it does |
+| 2 | `Play_3D_Sound` | `app/audio/soundlib.h:80` | what it does |
+| 2 | `Play_Dialog` | `app/audio/soundlib.h:81` | what it does |
+| 2 | `Play_Dialog` | `app/audio/soundlib.h:82` | what it does |
+| 2 | `Update_Dialog` | `app/audio/soundlib.h:83` | what it does |
+| 2 | `Stop_Dialog` | `app/audio/soundlib.h:84` | what it does |
+| 2 | `Is_Dialog_Playing` | `app/audio/soundlib.h:85` | what it does |
+| 2 | `Update` | `app/audio/soundlib.h:91` | what it does |
+| 2 | `Apply_Volumes` | `app/audio/soundlib.h:92` | what it does |
+| 2 | `Load` | `app/audio/soundlib.h:93` | what it does |
+| 2 | `_DefaultDropOffRadius` | `app/audio/soundlib.h:95` | the ini key |
+| 2 | `_DefaultMaxVolRadius` | `app/audio/soundlib.h:96` | the ini key |
+| 2 | `_DefaultPriority` | `app/audio/soundlib.h:97` | the ini key |
+| 2 | `_DefaultVolume` | `app/audio/soundlib.h:98` | the ini key |
+| 2 | `_DefaultDialogVolume` | `app/audio/soundlib.h:99` | the ini key |
+| 2 | `_DefaultMaxInstances` | `app/audio/soundlib.h:100` | the ini key |
+| 2 | `std:` | `app/audio/soundlib.h:102` | what it holds |
+| 2 | `_Audio` | `app/audio/soundlib.h:103` | what it holds |
+| 2 | `_CurrentDialog` | `app/audio/soundlib.h:104` | what it holds |
+| 2 | `_PlayUndefined` | `app/audio/soundlib.h:107` | what it does |
 | 2 | `BuffDefStruct` | `app/client/buff_database.h:24` | what it holds (one BUFF-n section, 0x14 bytes) |
 | 2 | `Type` | `app/client/buff_database.h:29` | the ini key |
 | 2 | `Asset` | `app/client/buff_database.h:30` | the ini key |
@@ -3616,6 +3686,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Field` | `programs/vidtest/vidland.h:112` | members describe what they hold (VIDTEST offsets in land.h's header) |
 | 2 | `Shadow` | `programs/vidtest/vidland.h:153` | ours |
 | 2 | `Patch` | `programs/vidtest/vidland.h:154` | ours |
+| 3 | `soundlib.h` | `app/audio/soundlib.h:21` | header name assumed from the client's soundlib.cpp |
+| 3 | `SoundDefClass` | `app/audio/soundlib.h:35` | from the client's _NextDialogDef (0x68 bytes) |
+| 3 | `SoundLibraryClass` | `app/audio/soundlib.h:70` | from the client's soundlib.cpp ('sound library' in the start-up messages) |
 | 3 | `DeltaElementsClass` | `app/client/aux_roots.h:378` | Net-7 AuxElements at the same place in the tree, its child count differs (Net-7 Construct 4 children != ours 5) |
 | 3 | `DeltaBuffsClass` | `app/client/aux_roots.h:418` | Net-7 AuxBuffs at the same place in the tree, its child count differs (Net-7 Construct 16 children != ours 15) |
 | 3 | `DeltaShipClass` | `app/client/aux_roots.h:488` | the client's root string "Ship", Westwood XxxClass (D24); structure = Net-7 AuxShipIndex / C# ShipObject (C# fields = ours (same names, same order); Net-7 Construct 58 children = ours) |

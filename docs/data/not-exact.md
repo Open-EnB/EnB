@@ -7,10 +7,14 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-178 entries in 49 files.
+189 entries in 51 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
+| `app/audio/soundlib.cpp:157` | `SoundDefClass::SoundDefClass` | marker | NOT EXACT: inline budget (explain.py: 66 calls vs 67), reserve inlines size() and calls _Destroy where the client calls size() and inlines _Destroy; one more string destructor called |
+| `app/audio/soundlib.cpp:481` | `SoundLibraryClass::Play_2D_Sound` | marker | NOT EXACT: inline budget (explain.py: 16 calls vs 15), the key string built inline through _Grow / _Eos where the client calls assign; the client inlines the temporary's string destructor |
+| `app/audio/soundlib.cpp:519` | `SoundLibraryClass::Play_Dialog` | marker | NOT EXACT: shape (explain.py: 22 calls vs 23), ours merges the two releases of _CurrentDialog the client keeps apart; name in ebp, not ebx |
+| `app/audio/soundlib.cpp:820` | `SoundLibraryClass::Load` | marker | NOT EXACT: inline budget (explain.py: 29 calls vs 28, frame 0x84 vs 0x80), ours inlines the key's copy constructor in operator[] where the client calls it |
 | `app/client/aux_roots.cpp:2` | `UnknownCOClass::Unknown_Create_Aux_Root` | mention | NOT EXACT (D42): functional. NAME 1 [aux_roots.cpp]: provisional file name (the client's constructors are in co.cpp 0x6F6000-0x6FBEF0 and the Player object 0x751BE0) |
 | `app/client/aux_roots.h:12` | `Read` | mention | NOT EXACT (D42): functional; see the generator's docstring for what differs. |
 | `app/client/buff_database.cpp:86` | `BuffDatabaseClass::~BuffDatabaseClass` | marker | NOT EXACT: inline budget (explain.py: frame 8 vs 4), the client inlines the iterator's ++ but calls the bucket size 0x677AB0 and _M_bkt_num 0x677AE0 out of line; ours keeps the iterator in the frame |
@@ -39,6 +43,13 @@ edit the comments in the code, not this file.
 | `app/client/tutorial_manager.cpp:185` | `TutorialManagerClass::Start_Step` | marker | NOT EXACT: inline budget (explain.py: inline-budget), the client calls the table's find 0x6AE490 and the key string's _Tidy out of line (frame 0x18), ours inlines find as Find does |
 | `app/client/tutorial_manager.cpp:262` | `TutorialManagerClass::Read_Completed_File` | marker | NOT EXACT: inline budget (explain.py: register-only), the client calls the list's insert 0x6AE5A0 out of line for the first nine names; ours for seven, then alternates |
 | `app/client/tutorial_manager.cpp:363` | `TutorialManagerClass::Reload` | marker | NOT EXACT: inline budget (explain.py: inline-budget), the destructor's iterator loop and the constructor's string inlining (see both) |
+| `app/client/ui_line_display.cpp:50` | `EphemeralStruct::EphemeralStruct` | marker | NOT EXACT: register-only (explain.py), the Chance pointer stepped before the type string is freed; the client after it |
+| `app/client/ui_line_display.cpp:176` | `UILineDisplayClass::~UILineDisplayClass` | marker | NOT EXACT: shape (explain.py: 31 vs 30 calls), as buff_database.cpp's 0x677410: the hash_map loops keep other registers and ours calls the vector's empty _Destroy |
+| `app/client/ui_line_display.cpp:343` | `UILineDisplayClass::Show_Ephemeral` | marker | NOT EXACT: inline budget (explain.py), the client converts find's and end()'s iterators to const_iterator out of line (0x5A9010), ours inline |
+| `app/client/ui_line_display.cpp:590` | `UILineDisplayClass::Unknown_7C` | marker | NOT EXACT: shape (explain.py), the hash_map loop's first bucket search laid out differently (as 0x677410) |
+| `app/client/ui_line_display.cpp:617` | `UILineDisplayClass::Clear` | marker | NOT EXACT: shape (explain.py), the hash_map iterator kept in esi by the client, in the frame by ours (as 0x677410) |
+| `app/client/ui_line_display.cpp:642` | `UILineDisplayClass::Find_Ephemeral` | marker | NOT EXACT: inline budget (explain.py), the client inlines the key's assign and calls find 0x5A9460 out of line, ours the reverse (as 0x6ACF50) |
+| `app/client/ui_line_display.cpp:653` | `UILineDisplayClass::Find_Text` | marker | NOT EXACT: inline budget (explain.py), the client calls find 0x5A95E0 and the key's _Eos out of line (as 0x4E57A0) |
 | `app/client/unknown_creator.cpp:68` | `CharacterCreatorClass::Unknown_78D480` | marker | NOT EXACT: shape (through Get_File_Name, inlined, the appends come out of line as in the client; the inlined byte sum's loop still differs, nine forms: attempts.py show 0x78D480) 0x78D480 |
 | `app/client/unknown_creator.cpp:103` | `CharacterCreatorClass::Unknown_78D8A0` | marker | NOT EXACT: inline budget (through Get_File_Name one append still inlines in ours) 0x78D8A0 |
 | `app/client/unknown_creator.cpp:126` | `CharacterCreatorClass::Unknown_78DAF0` | marker | NOT EXACT: shape (through Get_File_Name; the inlined byte sum as in 0x78D480) 0x78DAF0 |
