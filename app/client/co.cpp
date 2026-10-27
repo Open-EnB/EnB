@@ -1055,7 +1055,7 @@ bool ClientObjectClass::Unknown_6F5A40()
 bool ClientObjectClass::Unknown_6F5A60() { if (Type == 3) return(true); return(false); }
 
 // 0x6F5A80
-bool ClientObjectClass::Unknown_6F5A80()
+bool ClientObjectClass::Is_Component()
 {
 	if (Type == 4 || Type == 35) {
 		return(true);

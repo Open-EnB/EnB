@@ -122,7 +122,7 @@ public:
 	bool Unknown_6F5A10();
 	bool Unknown_6F5A40();
 	bool Unknown_6F5A60();
-	bool Unknown_6F5A80();
+	bool Is_Component();								// 0x6F5A80 type 4 or 35  // NAME 4: cpacket.cpp's G_ASSERT text 'obj->Is_Component()' (0xB956F4)
 	bool Unknown_6F5AB0();
 	bool Unknown_6F5AD0();
 	bool Unknown_6F5AF0();

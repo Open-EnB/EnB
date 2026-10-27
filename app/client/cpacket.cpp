@@ -584,8 +584,8 @@ bool ComponentPositionalUpdatePacketClass::Process_Packet(void *instance)
 	TimeStamp = (DurationClass(TimeStamp) - DurationClass(sclient->Unknown10C0)).As_Int();
 	ClientObjectClass *obj = sclient->Find_Object(GameID);
 	if (!obj) return(true);
-	G_ASSERT(obj->Unknown_6F5A80());
-	if (!obj->Unknown_6F5A80()) return(true);
+	G_ASSERT(obj->Is_Component());
+	if (!obj->Is_Component()) return(true);
 	if (obj->Unknown98 && obj->Unknown98->Unknown_04() == 11) {
 		((Unknown717EF0Class *)obj->Unknown98)->Unknown_718080(this, sclient);
 	} else {
