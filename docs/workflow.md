@@ -251,6 +251,8 @@ unless `--lever` cites a new row of this table.
 | Register-only: the client loads the called object after the arguments | A named local for that object (`RsTrackClass *track = ...; track->X(a, b);`) | cpacket 0x737610, 0x737C10, 8235889 (T8) |
 | `G_ASSERT(!"text")` tests the string pointer in the client | VC6 doesn't fold it: keep the form | cpacket (T8) |
 | Levers from control_keys_manager (H11, 2026-10-27) | `push_back(&*it)` where `push_back(it)` misses (a `vector<T*>` fed from `vector<T>::iterator`); a reference local for `operator[]`'s result (`M &m = map[k]; m.Init()`); `end()` tested first in a find-returning getter; a copy walk over two iterators where indexing misses; the cleared-key case returning first; a struct with its own constructor where an aggregate initialiser misses | control_keys_manager.cpp, 84f61e0-fb9e15c |
+| An SGI lookup result the client converts through `const_iterator(const iterator &)` | A `const_iterator` local; it also fixes the callers' budget | co_data's Has and Remove wrappers (H13, 8b47301) |
+| One-byte temporaries where the client passes an empty tag type by reference | A fresh temporary per call | co_data (H13) |
 
 * **A nested inline is a whole-function budget (2026-10-26, `Key_Exchange` 0x829180):** under `/Ob2` an
   inline helper's own callees (a `std::set` iterator's `_Inc`) are inlined only while the function as a
@@ -539,6 +541,9 @@ unless `--lever` cites a new row of this table.
   `git worktree remove`.
 * **git worktrees check files out as CRLF while the shared tree's land.cpp / land.h are LF** (L6): convert the
   anchors of an edit script to the file's own newline (`newline=''`, detect `\r\n`).
+* **Python text-mode `open(p, 'w')` writes CRLF into LF tree files; `grep -c $'\r$'` miscounts in Git Bash** (H13):
+  `newline=''` both ways, count bytes with Python. `build.py link --allow-dirty` compiles other builders' uncommitted
+  files into the shared build/ and overwrites `.work/milestones/l1/unresolved.txt`.
 * **`open(p, 'w').write(open(p).read()...)` truncates p to empty** (the write handle opens first): read, then
   write. A draft regenerated from a template overwrites an applied fix: check the tree file before verifying.
   Regenerate names-review.md and not-exact.md in a clean worktree, never in the shared tree.
