@@ -3483,6 +3483,11 @@ RECONSTRUCTED = {
     ('app', 'shared/combo_ffactory.cpp'): "ComboFileFactoryClass, client 0x4E4D10-0x4E5A00 with the table's and list's instances "
                                          "after it: the asserts on the client's lines 29 / 30 / 85 / 101 (D25); NOT EXACT: the "
                                          "destructor 0x4E5230, Get_File 0x4E57A0",
+    ('app', 'shared/boolpars.h'): "BoolParserClass (D24), its expression, node and value classes; the evaluators an SGI "
+                                 "hash_map<std::string, BoolEvaluatorClass *> (libs/sgistl, D87)",
+    ('app', 'shared/boolpars.cpp'): "The boolean expression parser, client 0x499750-0x49B5E0 with the node classes' virtuals and "
+                                   "the table's instances after it: the asserts on the client's lines 222 / 303 / 492 / 578 / 630 "
+                                   "(D25); NOT EXACT: Parse 0x49A430, Parse_Params 0x49AE30",
     ('app', 'shared/symbol_substitution.h'): "SymbolSubstitutionClass (D24), named symbols in an SGI hash_map<std::string, "
                                             "std::string> (libs/sgistl, D87), and the $name$ substitution",
     ('app', 'shared/symbol_substitution.cpp'): "SymbolSubstitutionClass, client 0x4FCBD0-0x4FD7A0 with the string's and the "
