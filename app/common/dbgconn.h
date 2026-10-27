@@ -34,6 +34,8 @@ struct PacketStatsStruct	// NAME 2: what it holds
 	int ReceivedCount;		// NAME 2: what it holds
 	int SentCount;			// NAME 2: what it holds
 };
+typedef std::hash_map<std::string, PacketStatsStruct>
+	PacketStatsMap;	// NAME 2: what it holds
 
 // The log directory: network.ini's [Network] LogPath with the first free 3-digit suffix (0x824450)
 const char *Get_Log_Directory();	// NAME 2: what it does

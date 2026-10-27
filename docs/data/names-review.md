@@ -1300,7 +1300,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Create_Connection` | `app/common/connect.h:195` | what it does |
 | 2 | `Create_Connection` | `app/common/connect.h:196` | what it does |
 | 2 | `Create_Connection_Manager` | `app/common/connect.h:197` | what it does |
-| 2 | `std:` | `app/common/dbgconn.cpp:14` | what it holds |
+| 2 | `Packet_Stats` | `app/common/dbgconn.cpp:14` | what it holds |
 | 2 | `Log_Directory` | `app/common/dbgconn.cpp:15` | what it holds |
 | 2 | `Record_Sent` | `app/common/dbgconn.cpp:210` | what it does |
 | 2 | `Record_Received` | `app/common/dbgconn.cpp:211` | what it does |
@@ -1309,20 +1309,21 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `SentBytes` | `app/common/dbgconn.h:33` | what it holds |
 | 2 | `ReceivedCount` | `app/common/dbgconn.h:34` | what it holds |
 | 2 | `SentCount` | `app/common/dbgconn.h:35` | what it holds |
-| 2 | `Get_Log_Directory` | `app/common/dbgconn.h:39` | what it does |
-| 2 | `LogConnectionClass` | `app/common/dbgconn.h:43` | what it does |
-| 2 | `Describe` | `app/common/dbgconn.h:51` | what it does |
-| 2 | `Describe` | `app/common/dbgconn.h:52` | what it does |
-| 2 | `File` | `app/common/dbgconn.h:54` | what it holds |
-| 2 | `Buffer` | `app/common/dbgconn.h:55` | what it holds |
-| 2 | `TimedLogConnectionClass` | `app/common/dbgconn.h:60` | what it does |
-| 2 | `Format_Time` | `app/common/dbgconn.h:67` | what it does |
-| 2 | `Start` | `app/common/dbgconn.h:69` | what it holds |
-| 2 | `RateConnectionClass` | `app/common/dbgconn.h:74` | what it does |
-| 2 | `Count` | `app/common/dbgconn.h:84` | what it does |
-| 2 | `In` | `app/common/dbgconn.h:86` | what it holds |
-| 2 | `Out` | `app/common/dbgconn.h:87` | what it holds |
-| 2 | `StatsConnectionClass` | `app/common/dbgconn.h:91` | what it does (-PACKET_STATS) |
+| 2 | `PacketStatsMap` | `app/common/dbgconn.h:38` | what it holds |
+| 2 | `Get_Log_Directory` | `app/common/dbgconn.h:41` | what it does |
+| 2 | `LogConnectionClass` | `app/common/dbgconn.h:45` | what it does |
+| 2 | `Describe` | `app/common/dbgconn.h:53` | what it does |
+| 2 | `Describe` | `app/common/dbgconn.h:54` | what it does |
+| 2 | `File` | `app/common/dbgconn.h:56` | what it holds |
+| 2 | `Buffer` | `app/common/dbgconn.h:57` | what it holds |
+| 2 | `TimedLogConnectionClass` | `app/common/dbgconn.h:62` | what it does |
+| 2 | `Format_Time` | `app/common/dbgconn.h:69` | what it does |
+| 2 | `Start` | `app/common/dbgconn.h:71` | what it holds |
+| 2 | `RateConnectionClass` | `app/common/dbgconn.h:76` | what it does |
+| 2 | `Count` | `app/common/dbgconn.h:86` | what it does |
+| 2 | `In` | `app/common/dbgconn.h:88` | what it holds |
+| 2 | `Out` | `app/common/dbgconn.h:89` | what it holds |
+| 2 | `StatsConnectionClass` | `app/common/dbgconn.h:93` | what it does (-PACKET_STATS) |
 | 2 | `Packet` | `app/common/memconn.h:30` | what it holds |
 | 2 | `Time` | `app/common/memconn.h:31` | what it holds |
 | 2 | `std:` | `app/common/memconn.h:40` | what it holds |

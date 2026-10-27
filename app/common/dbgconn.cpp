@@ -11,7 +11,7 @@
 #include <sys/stat.h>
 
 INIClass &Get_Network_INI();	// connect.cpp 0x821B40
-static std::hash_map<std::string, PacketStatsStruct> Packet_Stats;	// 0xBE9008 (the statistics wrapper's)  // NAME 2: what it holds
+static PacketStatsMap Packet_Stats;	// 0xBE9008 (the statistics wrapper's)  // NAME 2: what it holds
 static char Log_Directory[256];	// 0xBE9024  // NAME 2: what it holds
 
 // LogConnectionClass (vtable 0xB086C4)
@@ -341,7 +341,7 @@ void Record_Received(const char *name, int bytes)
 {
 	if (name != 0) {
 		std::string key(name);
-		std::hash_map<std::string, PacketStatsStruct>::iterator i = Packet_Stats.find(key);
+		PacketStatsMap::iterator i = Packet_Stats.find(key);
 		if (i == Packet_Stats.end()) {
 			PacketStatsStruct stats;
 			stats.ReceivedBytes = bytes;
@@ -358,7 +358,7 @@ void Record_Sent(const char *name, int bytes)
 {
 	if (name != 0) {
 		std::string key(name);
-		std::hash_map<std::string, PacketStatsStruct>::iterator i = Packet_Stats.find(key);
+		PacketStatsMap::iterator i = Packet_Stats.find(key);
 		if (i == Packet_Stats.end()) {
 			PacketStatsStruct stats;
 			stats.SentBytes = bytes;
