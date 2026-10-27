@@ -2,46 +2,103 @@
 #include "pkunknown_888b60.h"
 #include <stdio.h>
 
-
-// NOT EXACT: shape (the string assignment's tails: 9 calls against the client's 10; attempts.csv)
-Packet_00ADClass::Packet_00ADClass(int unknown0c, const std::string &unknown10, __int64 unknown20, __int64 unknown28) :
-	Unknown0C(unknown0c),
-	Unknown10(""),
-	Unknown20(0),
-	Unknown28(0)
+GroupServerEntryStruct::GroupServerEntryStruct() :
+	Unknown00(""),
+	Unknown10(0),
+	Unknown18(0)
 {
-	Unknown10 = unknown10;
-	Unknown20 = unknown20;
-	Unknown28 = unknown28;
 }
 
-// NOT EXACT: inline budget (the client calls the string's _Grow out of line for "", ours inlines it; attempts.csv)
+GroupServerEntryStruct::GroupServerEntryStruct(const std::string &unknown00, __int64 unknown10, __int64 unknown18) :
+	Unknown00(unknown00),
+	Unknown10(unknown10),
+	Unknown18(unknown18)
+{
+}
+
+int Unknown_B0A794PacketClass::Get_Size(const GroupServerEntryStruct &entry)
+{
+	return(RawPacketClass::Get_Size(entry.Unknown00) + sizeof(entry.Unknown10) + sizeof(entry.Unknown18));
+}
+
+bool Unknown_B0A794PacketClass::Write(const GroupServerEntryStruct &entry, RawPacketClass *raw)
+{
+	raw->Add(entry.Unknown00);
+	raw->Add(entry.Unknown10);
+	raw->Add(entry.Unknown18);
+	return(true);
+}
+
+bool Unknown_B0A794PacketClass::Read(GroupServerEntryStruct &entry, RawPacketClass *raw)
+{
+	raw->Get(&entry.Unknown00);
+	raw->Get(entry.Unknown10);
+	raw->Get(entry.Unknown18);
+	return(true);
+}
+
+int Unknown_B0A794PacketClass::Get_Size(const std::vector<GroupServerEntryStruct> &list)
+{
+	int size = sizeof(unsigned char);
+	for (std::vector<GroupServerEntryStruct>::const_iterator it = list.begin(); it != list.end(); it++) {
+		size += Get_Size(*it);
+	}
+	return(size);
+}
+
+bool Unknown_B0A794PacketClass::Write(const std::vector<GroupServerEntryStruct> &list, RawPacketClass *raw)
+{
+	unsigned char count = list.size();
+	raw->Add(&count, sizeof(count));
+	for (std::vector<GroupServerEntryStruct>::const_iterator it = list.begin(); it != list.end(); it++) {
+		Write(*it, raw);
+	}
+	return(true);
+}
+
+bool Unknown_B0A794PacketClass::Read(std::vector<GroupServerEntryStruct> &list, RawPacketClass *raw)
+{
+	unsigned char count = 0;
+	raw->Get(&count, sizeof(count));
+	list.reserve(count);
+	for (unsigned char i = 0; i < count; i++) {
+		GroupServerEntryStruct entry;
+		Read(entry, raw);
+		list.push_back(entry);
+	}
+	return(true);
+}
+
+GroupServerEntryStruct::~GroupServerEntryStruct()
+{
+}
+
+Packet_00ADClass::Packet_00ADClass(int unknown0c, const std::string &unknown10, __int64 unknown20, __int64 unknown28) :
+	Unknown0C(unknown0c)
+{
+	Unknown10.Unknown00 = unknown10;
+	Unknown10.Unknown10 = unknown20;
+	Unknown10.Unknown18 = unknown28;
+}
+
 Packet_00ADClass::Packet_00ADClass(RawPacketClass *raw) :
-	Unknown0C(0),
-	Unknown10(""),
-	Unknown20(0),
-	Unknown28(0)
+	Unknown0C(0)
 {
 	raw->Get(Unknown0C);
-	raw->Get(&Unknown10);
-	raw->Get(Unknown20);
-	raw->Get(Unknown28);
+	Read(Unknown10, raw);
 }
 
-// NOT EXACT: shape (the client advances this through the members: add edi, 0x10 / 0x18; attempts.csv)
 RawPacketClass *Packet_00ADClass::Build()
 {
 	RawPacketClass *raw = new RawPacketClass(173, Get_Data_Size());
 	raw->Add(Unknown0C);
-	raw->Add(Unknown10);
-	raw->Add(Unknown20);
-	raw->Add(Unknown28);
+	Write(Unknown10, raw);
 	return(raw);
 }
 
 int Packet_00ADClass::Get_Data_Size()
 {
-	return(RawPacketClass::Get_Size(Unknown10) + sizeof(Unknown0C) + sizeof(Unknown20) + sizeof(Unknown28));
+	return(Get_Size(Unknown10) + sizeof(Unknown0C));
 }
 
 int Packet_00ADClass::Print(char *buffer, int)
@@ -117,6 +174,87 @@ int Packet_00AFClass::Print(char *buffer, int)
 	return(sprintf(buffer, "%s", "GroupServerResponsePacketClass"));
 }
 
+Packet_00B0Class::Packet_00B0Class(RawPacketClass *raw) :
+	Unknown10(0),
+	Unknown38(true),
+	Unknown3C(0)
+{
+	raw->Get(Unknown10);
+	Read(Unknown18, raw);
+	Read(Unknown28, raw);
+	raw->Get(&Unknown38, sizeof(Unknown38));
+	raw->Get(Unknown3C);
+}
+
+RawPacketClass *Packet_00B0Class::Build()
+{
+	RawPacketClass *raw = new RawPacketClass(176, Get_Data_Size());
+	raw->Add(Unknown10);
+	Write(Unknown18, raw);
+	Write(Unknown28, raw);
+	raw->Add(&Unknown38, sizeof(Unknown38));
+	raw->Add(Unknown3C);
+	return(raw);
+}
+
+int Packet_00B0Class::Get_Data_Size()
+{
+	return(Get_Size(Unknown18) + Get_Size(Unknown28) + sizeof(Unknown10) + sizeof(Unknown38) + sizeof(Unknown3C));
+}
+
+int Packet_00B0Class::Print(char *buffer, int)
+{
+	return(sprintf(buffer, "%s", "GroupServerCreatePacketClass"));
+}
+
+void Packet_00B0Class::Add_Unknown18(const GroupServerEntryStruct &entry)
+{
+	Unknown18.push_back(entry);
+}
+
+void Packet_00B0Class::Add_Unknown28(const GroupServerEntryStruct &entry)
+{
+	Unknown28.push_back(entry);
+}
+
+Packet_00B1Class::Packet_00B1Class(__int64 unknown10, int unknown38) :
+	Unknown10(unknown10),
+	Unknown38(unknown38),
+	Unknown3C(0)
+{
+}
+
+Packet_00B1Class::Packet_00B1Class(RawPacketClass *raw) :
+	Unknown10(0),
+	Unknown38(0),
+	Unknown3C(0)
+{
+	raw->Get(Unknown10);
+	raw->Get(&Unknown38, sizeof(Unknown38));
+	Read(Unknown18, raw);
+	raw->Get(Unknown3C);
+}
+
+RawPacketClass *Packet_00B1Class::Build()
+{
+	RawPacketClass *raw = new RawPacketClass(177, Get_Data_Size());
+	raw->Add(Unknown10);
+	raw->Add(&Unknown38, sizeof(Unknown38));
+	Write(Unknown18, raw);
+	raw->Add(Unknown3C);
+	return(raw);
+}
+
+int Packet_00B1Class::Get_Data_Size()
+{
+	return(Get_Size(Unknown18) + sizeof(Unknown10) + sizeof(Unknown38) + sizeof(Unknown3C));
+}
+
+int Packet_00B1Class::Print(char *buffer, int)
+{
+	return(sprintf(buffer, "%s", "GroupServerUpdatePacketClass"));
+}
+
 
 /*
 **	Reconstruction notes (pkunknown_888b60.cpp)
@@ -129,7 +267,11 @@ int Packet_00AFClass::Print(char *buffer, int)
 **	* Opcode 174 (its Print: GroupServerRequestPacketClass) written by hand (builder P3, 2026-10-26),
 **	  5 of 5 exact in appfile.py match: an int and two __int64 in network order around a raw int.
 **	* Opcode 173 (Print 'GroupServerLoginPacketClass') written by hand (builder P5, 2026-10-27) over an empty
-**	  base (vtable 0xB0A794) that 176 / 177's objects share: Get_Data_Size and Print exact, the constructors
-**	  and Build NOT EXACT (attempts.csv).
-**	* Not rebuilt yet: opcode 176, 177 (declared in pk_classes.h).
+**	  base (vtable 0xB0A794) that 176 / 177's objects share; its constructors and Build exact once its string
+**	  and two __int64 became the entry below (builder P6).
+**	* Builder P6 (2026-10-27): the object opens with a 0x20-byte entry (a string, two __int64) and the base's
+**	  helpers that read and write one entry or a vector of them (0x888B60-0x889230: they ignore this, and
+**	  the packets inline them; 176's constructor calls Read for its second vector). 173 holds one entry at
+**	  +0x10, 177 (Print 'GroupServerUpdatePacketClass') one at +0x18 (the client stores the entry's members
+**	  through a pointer to it), 176 (Print 'GroupServerCreatePacketClass') two vectors of them.
 */

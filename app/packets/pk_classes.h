@@ -399,24 +399,6 @@ public:
 	char Unknown0C[0x80];	// +0x0C
 };
 
-// opcode 176 (0x00B0, ?): vtable 0xB0A824, constructor 0x889F30, 0x40 bytes
-class Packet_00B0Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x00B0
-{
-public:
-	Packet_00B0Class(RawPacketClass *raw);	// 0x889F30
-	virtual bool Process_Packet(void *client);	// +0x08 0x868EE0 (clientstub.cpp l.338)
-	char Unknown0C[0x34];	// +0x0C
-};
-
-// opcode 177 (0x00B1, ?): vtable 0xB0A854, constructor 0x88ABC0, 0x40 bytes
-class Packet_00B1Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x00B1
-{
-public:
-	Packet_00B1Class(RawPacketClass *raw);	// 0x88ABC0
-	virtual bool Process_Packet(void *client);	// +0x08 0x868F10 (clientstub.cpp l.341)
-	char Unknown0C[0x34];	// +0x0C
-};
-
 // opcode 119 (0x0077, ?): vtable 0xB04170, constructor 0x866C20, 0x20 bytes
 class Packet_0077Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x0077
 {

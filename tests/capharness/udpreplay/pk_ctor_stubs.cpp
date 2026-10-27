@@ -29,8 +29,6 @@ Packet_00A8Class::Packet_00A8Class(RawPacketClass *raw) { Conn_Record(this, raw)
 Packet_00A9Class::Packet_00A9Class(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_00ABClass::Packet_00ABClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_00ACClass::Packet_00ACClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-Packet_00B0Class::Packet_00B0Class(RawPacketClass *raw) { Conn_Record(this, raw); }
-Packet_00B1Class::Packet_00B1Class(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_0077Class::Packet_0077Class(RawPacketClass *raw) { Conn_Record(this, raw); }
 RecustomizeShipStartPacketClass::RecustomizeShipStartPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 RecustomizeShipDonePacketClass::RecustomizeShipDonePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
