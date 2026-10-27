@@ -26,6 +26,7 @@
 #include "..\shared\unknown_debug.h"
 #include "..\..\wwlib\refcount.h"
 #include "..\..\wwlib\ref_ptr.h"
+#include "..\..\wwlib\point.h"
 
 #define MAXFONTS 8
 
@@ -88,15 +89,8 @@ struct FontStruct  // NAME 2: one of the fonts in use (0xC bytes)
 	float Scale;															// +0x08  // NAME 2: Scale%d is copied in
 };
 
-struct FontColorStruct  // NAME 2: one COLOR-n section (ColorID, RGB), declared as far as the file needs it
-{
-	StringClass Name;														// +0x00  // NAME 2: the table's key (its destructor is the struct's, 0x6BF1B0 / 0x6BF1D0)
-};
-
-struct FontEffectStruct  // NAME 2: one EFFECT-n section (EffectID, Intensity, ...), declared as far as the file needs it
-{
-	StringClass Name;														// +0x00  // NAME 2: the table's key (its destructor is the struct's, 0x6BF1B0 / 0x6BF1D0)
-};
+struct FontColorStruct;		// fontdatabase.cpp (its TPoint3D<int> member instantiated after the INIT loaders, see the notes)
+struct FontEffectStruct;	// fontdatabase.cpp
 
 struct FontStringStruct  // NAME 2: one string template (Template%d, String%d), declared as far as the file needs it
 {
@@ -113,7 +107,9 @@ public:
 	void Load_Init(INIClass &ini, char *section, FontInitStruct *info);	// 0x6BF330: one INIT section and its templates  // NAME 2: what it does
 	void Unknown_6BF910();												// 0x6BF910: loads fontsys.ini's INIT sections  // NAME 1 [Unknown_6BF910]: neutral (D10)
 	void Unknown_6BFD00(const char *ini_name);								// 0x6BFD00: COLOR-n and EFFECT-n sections  // NAME 1 [Unknown_6BFD00]: neutral (D10)
-	void Unknown_6C2080();												// 0x6C2080  // NAME 1 [Unknown_6C2080]: neutral (D10)
+	void Unknown_6C2080();
+	int Get_Direction(const StringClass &name);								// 0x6C2460: Direction's text to its value  // NAME 2: what it does
+	int Get_Effect_Type(const StringClass &name);							// 0x6C25A0: EffectType's text to its value  // NAME 2: what it does												// 0x6C2080  // NAME 1 [Unknown_6C2080]: neutral (D10)
 	FontStruct *Find_Font(const StringClass &name, float &scale);			// 0x6C2BF0  // NAME 2: what it does
 	FontInitStruct *Get_Info(int width, int height);						// 0x6C2CB0  // NAME 2: as Get_Info, for a given resolution
 	FontColorStruct *Find_Color(const char *name);							// 0x6C2D00  // NAME 2: what it does

@@ -137,6 +137,48 @@ void FontDatabaseClass::Clear_Infos()
 }
 
 
+void FontDatabaseClass::Clear_Strings()
+{
+	for (std::hash_map<std::string, FontStringStruct *>::iterator str = Strings.begin(); str != Strings.end(); ++str) {
+		delete (*str).second;
+	}
+	Strings.clear();
+}
+
+struct FontColorStruct  // NAME 2: one COLOR-n section of fontcode.ini / fontart.ini (0x10 bytes)
+{
+	FontColorStruct() { Name = ""; RGB.X = RGB.Y = RGB.Z = 0; }
+
+	StringClass Name;														// +0x00, ColorID (the table's key; the destructor 0x6BF1B0 is its)  // NAME 2: the ini key
+	TPoint3D<int> RGB;														// +0x04, RGB  // NAME 2: the ini key
+};
+
+struct FontEffectStruct  // NAME 2: one EFFECT-n section of fontcode.ini / fontart.ini (0x24 bytes)
+{
+	FontEffectStruct()
+	{
+		Name = "";
+		EffectType = 0;
+		Initial = 0;
+		Intensity = 1.0f;
+		Speed = 1.0f;
+		Time = 0;
+		Direction = 0;
+		Offset.X = 0;
+		Offset.Y = 0;
+	}
+
+	StringClass Name;														// +0x00, EffectID (the table's key; the destructor 0x6BF1D0 is its)  // NAME 2: the ini key
+	int EffectType;														// +0x04, EffectType through 0x6C25A0  // NAME 2: the ini key
+	float Initial;															// +0x08, Initial  // NAME 2: the ini key
+	float Intensity;														// +0x0C, Intensity  // NAME 2: the ini key
+	float Speed;															// +0x10, Speed  // NAME 2: the ini key
+	float Time;															// +0x14, Time  // NAME 2: the ini key
+	int Direction;															// +0x18, Direction through 0x6C2460  // NAME 2: the ini key
+	TPoint2D<float> Offset;													// +0x1C, Offset  // NAME 2: the ini key
+};
+
+
 void FontDatabaseClass::Clear_Tables()
 {
 	for (std::hash_map<std::string, FontColorStruct *>::iterator color = Colors.begin(); color != Colors.end(); ++color) {
@@ -150,12 +192,52 @@ void FontDatabaseClass::Clear_Tables()
 }
 
 
-void FontDatabaseClass::Clear_Strings()
+void FontDatabaseClass::Unknown_6BFD00(const char *ini_name)
 {
-	for (std::hash_map<std::string, FontStringStruct *>::iterator str = Strings.begin(); str != Strings.end(); ++str) {
-		delete (*str).second;
+	StringClass type;
+	INIClass ini;
+	ini.Load(ini_name);
+	char section[64];
+
+	int misses = 10;
+	int index = 0;
+	for (; misses > 0; index++) {
+		sprintf(section, "COLOR-%d", index);
+		TPoint3D<int> black(0, 0, 0);
+		if (ini.Find_Section(section)->Is_Valid()) {
+			FontColorStruct *color = new FontColorStruct;
+			ini.Get_String(color->Name, section, "ColorID", "");
+			color->RGB = ini.Get_Point(section, "RGB", black);
+			Add_Color(color);
+			misses = 10;
+		} else {
+			misses--;
+		}
 	}
-	Strings.clear();
+
+	misses = 10;
+	index = 0;
+	for (; misses > 0; index++) {
+		sprintf(section, "EFFECT-%d", index);
+		TPoint2D<float> origin(0, 0);
+		if (ini.Find_Section(section)->Is_Valid()) {
+			FontEffectStruct *effect = new FontEffectStruct;
+			ini.Get_String(effect->Name, section, "EffectID", "");
+			effect->Intensity = ini.Get_Float(section, "Intensity", 0);
+			effect->Speed = ini.Get_Float(section, "Speed", 0);
+			effect->Time = ini.Get_Float(section, "Time", 0);
+			effect->Initial = ini.Get_Float(section, "Initial", 0);
+			effect->Offset = ini.Get_Point(section, "Offset", origin);
+			ini.Get_String(type, section, "EffectType", "");
+			effect->EffectType = Get_Effect_Type(type);
+			ini.Get_String(type, section, "Direction", "");
+			effect->Direction = Get_Direction(type);
+			Add_Effect(effect);
+			misses = 10;
+		} else {
+			misses--;
+		}
+	}
 }
 
 
@@ -207,88 +289,6 @@ FontStringStruct *FontDatabaseClass::Find_String(const char *name)
 	std::hash_map<std::string, FontStringStruct *>::iterator it = Strings.find(name);
 	return it == Strings.end() ? NULL : (*it).second;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -1145,7 +1145,8 @@ int FontInitStruct::Find_Chat_Index(const char *chat_name)
 **	loaders, Clear_Strings, 0x6C2080), FontStruct's inline constructor 0x6BE7C0 and implicit destructor
 **	0x6BEB60, the destructor 0x6BEBF0, Load_Init 0x6BF330 (an INIT section, its Template%d sections first,
 **	recursively), 0x6BF910 (fontsys.ini: ALL_FONTS into AllFonts, the INIT-n sections into Infos, with
-**	FontInitStruct's inline constructor), Clear_Infos 0x6BEE60 (with FontInitStruct's implicit destructor 0x6BEEF0), Clear_Tables
+**	FontInitStruct's inline constructor), 0x6BFD00 (fontcode.ini / fontart.ini: the COLOR-n and EFFECT-n
+**	sections through Add_Color / Add_Effect, inlined with the asserts on lines 909 / 895), Clear_Infos 0x6BEE60 (with FontInitStruct's implicit destructor 0x6BEEF0), Clear_Tables
 **	0x6BEFD0 (Colors and Effects), Clear_Strings 0x6BF1F0, Find_Font 0x6C2BF0, Get_Info(width, height) 0x6C2CB0, the tables' Find_Color /
 **	Find_Effect / Find_String 0x6C2D00-0x6C2F20 and Add_String / Add_Effect / Add_Color 0x6C3380-0x6C3720
 **	(G_ASSERT(0) on the client's lines 881 / 895 / 909, D25; the six NOT EXACT), the accessors on lines
@@ -1162,7 +1163,10 @@ int FontInitStruct::Find_Chat_Index(const char *chat_name)
 **	Forms that mattered: chat_index unsigned with the search loop's bound signed (`jl` in the loop, `jb` in
 **	the FAIL_IF); the ALL_FONTS loop as while (true) (a for loop is rotated), the section tests with the
 **	found branch first and the ini loader's buffers at function scope (else they share slots); the table loops step with ++it (it++ spends the budget that inlines the vector's size()
-**	in operator++); Find_Font_File_Index's counter stepped in the body after the test, not in the for header
+**	in operator++); FontColorStruct and FontEffectStruct (TPoint3D<int> / TPoint2D<float> members, assigned
+**	from INIClass::Get_Point) are defined in this file after the INIT loaders, with Clear_Tables after them:
+**	instantiating the TPoints in the header moves Load_Init's registers (the section pointer reloaded in its
+**	font loop); Find_Font_File_Index's counter stepped in the body after the test, not in the for header
 **	(the latter keeps it in another register); in the Add functions a dead size() after the insert keeps
 **	find_or_insert out of line as in the client (D40's lever), and the found test first (the assert falls
 **	through, the insert follows).
