@@ -3485,6 +3485,12 @@ RECONSTRUCTED = {
                                 "it: constructor 0x7405E0, 0x14F8 bytes (kernel-map.md 6, step 9)",
     ('app', 'client/unknown_authlogin.h'): "EA.Com's login component as the client uses it (PROVISIONAL file name, D10): kcom's factory and IAuthLoginClass (authlogin.dll, tools/vc6/authlogin.def), AuthLoginResponseClass (0x38 bytes; kernel-map-step9.md 4)",
     ('app', 'client/unknown_authlogin.cpp'): "AuthLoginResponseClass, client 0x792040-0x7922F0 (PROVISIONAL file name, D10: the unattributed run after nlp.cpp, no __FILE__): the constructor 0x792040 and Get_Error_Text 0x7922B0 with its table 0xB9DC90; exact",
+    ('app', 'client/client.h'): "ClientClass (D24 after client.cpp), the client base SClient and the movie client derive from: "
+                               "vtable 0xB02D7C (23 slots), 0x1150 bytes packed to 4, four wwlib HashListClass object lists "
+                               "(kernel-map-step9.md 2.1, D90 9c)",
+    ('app', 'client/client.cpp'): "ClientClass, client 0x726100-0x728450 with the hash lists' instances: the asserts on the "
+                                 "client's lines 165-443 (D25); NOT EXACT: the constructor 0x726100, Find_Object 0x727070, "
+                                 "Remove_Object 0x727600, the DEBUG packet senders 0x728010 / 0x728240, 0x7283B0",
     ('app', 'client/tasks/tsk_game.h'): "ClientTaskClass (D24 after its profile label 'ClientTask'), vtable 0xB03FF4, 0xA8 "
                                         "bytes; TicketClass (0x48 bytes) and what tsk_game.cpp calls, declared only",
     ('app', 'client/tasks/tsk_game.cpp'): "the game task, client 0x765F80-0x767230 (kernel-map.md 6, step 9): the asserts on "

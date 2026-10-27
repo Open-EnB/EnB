@@ -66,7 +66,7 @@ bool ClientTaskClass::Init(KernelClass *kernel, TicketClass *ticket, const std::
 	Unknown_BE67B8->Unknown_6C47B0();
 	Unknown_43FD70();
 	Client->Kernel = kernel;
-	Client->Unknown_00();
+	Client->Init();
 	Address = address;
 	Set_Mode(MODE_JOIN); Login_Key.size(); login_key.size();	// two dead size() calls: inline budget (D40's lever), the client calls string::erase out of line
 	return true;
@@ -236,9 +236,9 @@ void ClientTaskClass::Wait_For_Redirect()
 void ClientTaskClass::Redirect(unsigned long ip, unsigned short port)
 {
 	G_ASSERT(Mode == MODE_WAIT_FOR_REDIRECT);
-	Client->Unknown_727F00(ip, port);
+	Client->Open_Connection(ip, port);
 	LoginPacketClass packet(&Ticket, ArgvClass().Find("-GM_NAME"), 0);
-	Client->Unknown_728150(&packet);
+	Client->Send_Packet(&packet);
 	Set_Mode(MODE_SECTOR);
 }
 
@@ -262,7 +262,7 @@ void ClientTaskClass::Sector()
 {
 	G_ASSERT(Mode == MODE_SECTOR);
 	G_ASSERT(Client);
-	switch (Client->Unknown_14(Is_Focused())) {
+	switch (Client->Do_Frame(Is_Focused())) {
 		case 0:
 			Unknown_7CA2D0()->Unknown_7CB6F0(0);
 			break;
@@ -335,7 +335,7 @@ void ClientTaskClass::Render()
 bool ClientTaskClass::Shutdown()
 {
 	G_ASSERT(Client);
-	Client->Unknown_04();
+	Client->Shutdown();
 	return true;
 }
 

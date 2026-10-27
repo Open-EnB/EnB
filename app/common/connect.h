@@ -114,6 +114,16 @@ public:
 	PacketClass *Last_Packet;	// +0x0C (the assert l.470 names it)
 };
 
+// The do-nothing connection (vtable 0xB02D3C, emitted in client.cpp, 0x08 bytes): what the client
+// base's constructor (client.cpp 0x726100) talks to until the redirect; sends succeed, nothing arrives
+class NullConnectionClass : public ConnectionClass	// NAME 2: what it does
+{
+public:
+	virtual bool Send_Message(RawPacketClass *packet);				// +0x04 0x8232E0: true
+	virtual bool Send_Packet(PacketClass *packet);					// +0x08 0x8232C0: true
+	virtual PacketClass *Receive();									// +0x0C 0x823300: NULL
+};
+
 // The manager's listener (+0x24; the destructor 0x8220E0 stops it, 0x822200 asks its port)
 class ConnectionListenerClass	// NAME 1: describes what it is
 {

@@ -914,14 +914,14 @@ ConnectionManagerClass *Create_Connection_Manager(const char *server_type)
 	return(manager);
 }
 
+// 0x8232C0 (too short to count)
+bool NullConnectionClass::Send_Packet(PacketClass *packet) { return(true); }
 
+// 0x8232E0 (too short to count)
+bool NullConnectionClass::Send_Message(RawPacketClass *packet) { return(true); }
 
-
-
-
-
-
-
+// 0x823300 (too short to count)
+PacketClass *NullConnectionClass::Receive() { return(NULL); }
 
 
 
