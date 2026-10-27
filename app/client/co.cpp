@@ -2224,15 +2224,15 @@ void ClientObjectClass::Unknown_6FD2C0()
 
 
 
+// NOT EXACT: order (the client sums the transform's products in another order; explain.py says field-offset; 2 forms)
+// 0x6FEC40
+void ClientObjectClass::Unknown_6FEC40(SphereClass *sphere)
+{
 
-
-
-
-
-
-
-
-
+	FAIL_IF(!sphere) {return;}
+	sphere->Init(((SphereClass *)Sphere)->Center, ((SphereClass *)Sphere)->Radius);
+	sphere->Transform(Unknown_28(0));
+}
 // 0x6FED30
 void ClientObjectClass::Unknown_6FED30()
 {
@@ -2247,18 +2247,18 @@ void ClientObjectClass::Unknown_6FED30()
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
+// 0x6FED80
+Matrix3D ClientObjectClass::Unknown_6FED80(int unknown)
+{
+	if (UnknownB4) {
+		return(UnknownB4->Unknown_2C(unknown));
+	}
+	if (Model) {
+		return(Model->Get_Transform());
+	}
+	G_ASSERT(Model);
+	return(Matrix3D::Identity);
+}
 
 
 

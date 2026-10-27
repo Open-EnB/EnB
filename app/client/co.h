@@ -30,6 +30,7 @@
 class RenderObjClass;
 class Vector3;
 class Matrix3D;
+class SphereClass;
 
 // co.cpp's +0xB4 object: a RefCountClass the constructor gets from 0x731FA0 (0xB8 bytes, constructor
 // 0x732030); 0x6FCB20 passes the visibility to its slot +0x18
@@ -41,6 +42,11 @@ public:
 	virtual void Unknown_10();
 	virtual void Unknown_14();
 	virtual void Unknown_18(bool visible);			// NAME 2 [visible]: 0x6FCB20's argument
+	virtual void Unknown_1C();
+	virtual void Unknown_20();
+	virtual void Unknown_24();
+	virtual void Unknown_28();
+	virtual Matrix3D Unknown_2C(int unknown);		// +0x2C (0x6FED80 returns it when the object is set)  // NAME 1 [unknown]: neutral
 };
 
 // co.cpp's +0x98 object: 4 bytes, vtable 0xB006B8 (its trivial slots 0x6F2D40-0x6F2F00), base vtable
@@ -137,6 +143,8 @@ public:
 	void Unknown_6FDBD0();								// 0x6FDBD0 (co.cpp, not rebuilt: the engine sounds)
 	void Unknown_6FE1E0();								// 0x6FE1E0 (co.cpp, not rebuilt: the damage state)
 	void Unknown_7009A0(bool on, bool force);			// 0x7009A0  // NAME 2 [on, force]: what it tests
+	void Unknown_6FEC40(SphereClass *sphere);			// 0x6FEC40 (FAIL_IF '!sphere', l.2232): the bounding sphere in slot +0x28's frame
+	Matrix3D Unknown_6FED80(int unknown);				// 0x6FED80 (G_ASSERT 'RenderObject', l.2259): +0xB4's or the model's transform  // NAME 1 [unknown]: neutral
 
 	char Unknown04[0x60 - 0x04];						// +0x04
 	HashNodeClass<ClientObjectClass *> Node;			// +0x60 ClientClass::ObjectList's node  // NAME 2: what it is
