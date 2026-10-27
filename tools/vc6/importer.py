@@ -3480,6 +3480,13 @@ RECONSTRUCTED = {
                                            "table's and list's instances after it: the reports on the client's lines 94 / 114 / "
                                            "190 / 382 / 402 (D25); NOT EXACT: the constructor 0x6AC600, the destructor 0x6ACD10, "
                                            "Start_Step 0x6ACF50, Read_Completed_File 0x6AD4B0, Reload 0x6AD7B0",
+    ('app', 'client/ui_line_display.h'): "UILineDisplayClass (D24), the line display screen on intrface.cpp's base "
+                                        "(declared as far as the file needs it, D10): ephemeral.ini's entries and "
+                                        "fc_line_display.ini's STR-n text objects in SGI hash_maps (libs/sgistl, D87)",
+    ('app', 'client/ui_line_display.cpp'): "UILineDisplayClass, client 0x5A4B50-0x5A8C70 with the tables' instances to "
+                                          "0x5AAE30: the asserts on the client's lines 172 / 283 / 290 / 595 (D25); NOT "
+                                          "EXACT: 0x5A4B50, the destructor 0x5A58A0, 0x5A7A80, 0x5A7E80, Clear 0x5A8100, "
+                                          "0x5A8B60, 0x5A8C70; 0x5A69B0, 0x5A72B0, 0x5A7690, 0x5A8350 declared only",
     ('app', 'shared/combo_ffactory.h'): "ComboFileFactoryClass (D24), a FileFactoryClass over a directory and its *.MIX files, "
                                        "MixMap an SGI hash_map<std::string, MixFileFactoryClass *> (libs/sgistl, D87)",
     ('app', 'shared/combo_ffactory.cpp'): "ComboFileFactoryClass, client 0x4E4D10-0x4E5A00 with the table's and list's instances "
