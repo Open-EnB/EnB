@@ -4512,24 +4512,24 @@ void SClient::Unknown_74C9D0(const RefCountPtr<UITalkTreeSpaceClass> &tree)
 
 
 
+bool Unknown_70BAC0(SClient *client, ClientObjectClass *co);	// 0x70BAC0 (cdecl; 0x74D780 skips such an object)  // NAME 1 [client, co]: what 0x74D780 passes
 
+// 0x74D780
+bool SClient::Unknown_74D780(ClientObjectClass *co)
+{
 
+	FAIL_IF(!co) return(false);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	ClientObjectClass *avatar = Get_Debug_Object();
+	FAIL_IF(!avatar) return(false);
+	if (co == avatar) {
+		return(false);
+	}
+	if (Unknown_70BAC0(this, co)) {
+		return(false);
+	}
+	return(Unknown_74D870() && co->Unknown_6F5ED0());
+}
 
 
 
@@ -4546,13 +4546,13 @@ bool SClient::Unknown_74D870()
 	return(co->Unknown_6F5ED0());
 }
 
-
-
-
-
-
-
-
+bool SClient::Unknown_74D8B0(ClientObjectClass *co)	// 0x74D8B0
+{
+	ClientObjectClass *player_co = Get_Debug_Object();
+	FAIL_IF(!player_co) return(false);
+	FAIL_IF(!co) return(false);
+	return(player_co->Unknown_6F5F60() || co->Unknown_6F5F60());
+}
 
 
 
