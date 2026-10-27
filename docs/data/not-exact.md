@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-243 entries in 59 files.
+251 entries in 63 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -24,6 +24,7 @@ edit the comments in the code, not this file.
 | `app/client/client.cpp:225` | `ClientClass::Remove_Object` | marker | NOT EXACT: shape (the client puts the not-found return last; three forms; attempts.py show 0x727600) 0x727600 |
 | `app/client/client.cpp:307` | `ClientClass::Set_Debug_Object` | marker | NOT EXACT: register-only (the flag in dl, the id in eax; two forms; attempts.py show 0x728010) 0x728010 |
 | `app/client/client.cpp:374` | `ClientClass::Set_Debug_Mode` | marker | NOT EXACT: register-only (the id in eax, the flag in ecx; two forms; attempts.py show 0x728240) 0x728240 |
+| `app/client/client_lego_impl.cpp:632` | `ClientLegoImplClass::Update_Radius` | marker | NOT EXACT: frame: ours 0x30, the client 0x60 (its bone translation goes through FPU temporaries; attempts.csv) |
 | `app/client/co.cpp:1679` | `ClientObjectClass::Unknown_6FC9A0` | marker | NOT EXACT: shape (case 2's 'pop esi' scheduled between its two stores in ours, after them in the client; 3 forms) 0x6FC9A0 |
 | `app/client/co.cpp:1715` | `ClientObjectClass::Unknown_6FCB20` | marker | NOT EXACT: shape (the client keeps the argument in eax and masks a copy for the compare; 3 forms) 0x6FCB20 |
 | `app/client/co.cpp:2227` | `ClientObjectClass::Unknown_6FEC40` | marker | NOT EXACT: order (the client sums the transform's products in another order; explain.py says field-offset; 2 forms) 0x6FEC40 |
@@ -65,13 +66,15 @@ edit the comments in the code, not this file.
 | `app/client/fontmanager.cpp:436` | `FontManagerClass::Add` | marker | NOT EXACT: register-only, 2 rows: the client reloads the buffer into eax, ours into edx (attempts.csv) |
 | `app/client/fontmanager.cpp:483` | `FontManagerClass::Unknown_6D2580` | marker | NOT EXACT: inline budget: the client calls Find 0x6D2A70 out of line (after pushing the arguments), ours inlines it (attempts.csv) |
 | `app/client/fontmanager.cpp:519` | `FontManagerClass::Get_Style` | marker | NOT EXACT: order-only, 1 row: the inlined std::string(name) stores its terminator through [ebx+eax], ours [eax+ebx] (attempts.csv) |
-| `app/client/fontmanager.cpp:539` | `FontManagerClass::Unknown_6D28C0` | marker | NOT EXACT: inline budget, 75 rows: the client calls the styles table's begin and bucket helpers out of line, ours inlines them (attempts.csv) |
-| `app/client/sclient.cpp:393` | `SClient::~SClient` | marker | NOT EXACT: inline budget (the client inlines the 0x24-byte object's destructor at the second delete, ours calls it: then every EH state after it is one lower; five forms, attempts.py show 0x740BB0) 0x740BB0 |
-| `app/client/sclient.cpp:430` | `SClient::Init` | marker | NOT EXACT: field offset (explain.py; 103 masked rows): the client keeps the options base (+0x1150) in a register from the Bridge_Mode branch and reads the camera mode through it, and its frame is 4 bytes larger; one form (attempts.py show 0x741180) 0x741180 |
-| `app/client/sclient.cpp:536` | `SClient::Shutdown` | marker | NOT EXACT: shape (explain.py: field offset first; 470 masked rows): the talk tree's reset goes through a null RefCountPtr temporary with its own EH state and the out-of-line assignment 0x758970, and the effect list's removal is inlined differently; one form (attempts.py show 0x741BB0) 0x741BB0 |
+| `app/client/fontmanager.cpp:538` | `FontManagerClass::Unknown_6D2700` | marker | NOT EXACT: frame, 56 rows: ours keeps one more stack slot and releases style after the assert (attempts.csv) |
+| `app/client/fontmanager.cpp:554` | `FontManagerClass::Unknown_6D28C0` | marker | NOT EXACT: inline budget, 75 rows: the client calls the styles table's begin and bucket helpers out of line, ours inlines them (attempts.csv) |
+| `app/client/fontmanager.cpp:579` | `FontManagerClass::Find` | mention | NOT EXACT, frame). 0x6D2400 / 0x6D2480 / 0x6D2500 differ only by their callee: one pattern, not counted. The depth lever (workflow.md 3.1) made the destructor and 0x6D1C10 exact: the client calls the nested table helpers out of line when they sit one inline level deeper. |
+| `app/client/sclient.cpp:408` | `SClient::~SClient` | marker | NOT EXACT: inline budget (the client inlines the 0x24-byte object's destructor at the second delete, ours calls it: then every EH state after it is one lower; five forms, attempts.py show 0x740BB0) 0x740BB0 |
+| `app/client/sclient.cpp:445` | `SClient::Init` | marker | NOT EXACT: field offset (explain.py; 103 masked rows): the client keeps the options base (+0x1150) in a register from the Bridge_Mode branch and reads the camera mode through it, and its frame is 4 bytes larger; one form (attempts.py show 0x741180) 0x741180 |
+| `app/client/sclient.cpp:551` | `SClient::Shutdown` | marker | NOT EXACT: shape (explain.py: field offset first; 470 masked rows): the talk tree's reset goes through a null RefCountPtr temporary with its own EH state and the out-of-line assignment 0x758970, and the effect list's removal is inlined differently; one form (attempts.py show 0x741BB0) 0x741BB0 |
 | `app/client/tasks/tsk_login.cpp:219` | `LoginTaskClass::Pre_Run` | marker | NOT EXACT: shape (the event's bit 12 test and the dispatchers' argument order; attempts.py show 0x767DA0) 0x767DA0 |
 | `app/client/tasks/tsk_login.cpp:271` | `LoginTaskClass::Run` | marker | NOT EXACT: register-only (the final Process_Packets call loads the vtable in edx, the client eax; attempts.py show 0x767F50) |
-| `app/client/tasks/tsk_login.cpp:456` | `LoginTaskClass::Unknown_50` | marker | NOT EXACT: inline budget (the client inlines LoginUnknown350Class's implicit assignment and calls the 0x160 object's constructor 0x7688F0; ours the reverse; the two trade against one budget: a cheaper assignment (POD/grouped Vector3s) inlines it and puts the constructor out of line, exact at 0x7688F0, but changes the copy's bytes; attempts.py show 0x7683F0) 0x7683F0 |
+| `app/client/tasks/tsk_login.cpp:456` | `LoginTaskClass::Unknown_50` | marker | NOT EXACT: inline budget (the client inlines AvatarDescClass's implicit assignment and calls the 0x160 object's constructor 0x7688F0; ours the reverse; the two trade against one budget: a cheaper assignment (POD/grouped Vector3s) inlines it and puts the constructor out of line, exact at 0x7688F0, but changes the copy's bytes; attempts.py show 0x7683F0) 0x7683F0 |
 | `app/client/tasks/tsk_login.cpp:644` | `LoginTaskClass::Go_Next_Step` | marker | NOT EXACT: register-only (the client keeps 1 in ebx and the slot's address; attempts.py show 0x769500) 0x769500 |
 | `app/client/tasks/tsk_login.cpp:711` | `LoginTaskClass::Go_Back_Step` | marker | NOT EXACT: register-only (the client keeps 1 in ebx for the flag and step 1; attempts.py show 0x769680) |
 | `app/client/tasks/tsk_login.cpp:829` | `LoginTaskClass::Unknown_64` | marker | NOT EXACT: shape (the client shares its 'return true' tails; attempts.py show 0x7698E0) 0x7698E0 |
@@ -110,16 +113,21 @@ edit the comments in the code, not this file.
 | `app/common/udpconn.cpp:356` | `UDPConnection::Send_Data` | mention | NOT EXACT): wlib's Dictionary inlined; the difference not traced yet. |
 | `app/common/udpconn.cpp:431` | `UDPConnection::Open_Fixed_Channel` | marker | NOT EXACT: the client keeps -1 - channel and Fixed's +0x80 apart, and the -4 priority in esi |
 | `app/common/udpconn.cpp:805` | `UDPListenerClass::Accept` | mention | NOT EXACT (functional, D42): the constructor over a CordCon (registers), Send_Data (wlib's Dictionary), Open_Fixed_Channel (the index's form). * The checks of the CordCon's state compare with true (`cmp bl, 1`): `closed == true`, except in Send_Data and Receive. * Pending (+0x7C) holds the session id CordMgr::Connect started (the client's 0x859440 and 0x8595B0 search by it), not a pointer. |
+| `app/input/inpdsp.cpp:128` | `LoginUnknown0CClass::Unknown_429F60` | marker | NOT EXACT: register-only, 1 row: the client reloads rec->Next through prev (edi) in the search loop (attempts.csv) |
+| `app/input/inpdsp.cpp:166` | `LoginUnknown0CClass::Unknown_429F60` | mention | NOT EXACT (register-only, parked after three forms of the search loop). |
 | `app/kernel/kernel.cpp:208` | `KernelClass::Remove_Task` | marker | NOT EXACT: the client calls the iterator's operator++(int) 0x444190 out of line |
 | `app/kernel/kernel.cpp:350` | `KernelClass::Is_Running` | marker | NOT EXACT: the client's has no xor before the setne |
 | `app/packets/pkauxdata.cpp:43` | `AuxDataPacketClass::Print` | marker | NOT EXACT: the client reads Size before the first dword of Data (register order; 2 forms, workflow.md 3.1) |
 | `app/packets/pkcolorization.cpp:5` | `ColorizationPacketClass::ColorizationPacketClass` | marker | NOT EXACT: 0x87F320, the inline vector copy's loop addresses each region from its last dword in the client (shape; attempts.py show 0x87F320) |
 | `app/packets/pkcolorization.cpp:62` | `ColorizationPacketClass::Print` | mention | NOT EXACT (parked, attempts.csv). * The file name is provisional (no assert names it). |
+| `app/packets/pkcreatecharacter.cpp:20` | `Packet_0048Class::Packet_0048Class` | marker | NOT EXACT: shape: the client calls AvatarDescClass's assignment out of line (0x85CB00, emitted in this object) and inlines ShipCustDescClass's (shipcust_desc.h declares it out of line, 0x55D8A0) |
 | `app/packets/pkloungenpc.cpp:10` | `LoungeNPCPacketClass::LoungeNPCPacketClass` | marker | NOT EXACT: inline budget (frame 0x170 against 0x168, one string destructor inlined that the client calls; attempts.csv) |
 | `app/packets/pkloungenpc.cpp:56` | `LoungeNPCPacketClass::Build` | marker | NOT EXACT: shape (the client keeps each list's byte offset in a stack slot; attempts.csv) |
 | `app/packets/pkloungenpc.cpp:151` | `LoungeNPCPacketClass::Add_Unknown30` | mention | NOT EXACT: the raw constructor (inline budget: frame and one string destructor) and Build (shape: the client's per-list offset slot), two rounds each (.work/p6/v82.py; attempts.csv). * The file name is provisional (no assert names it). |
 | `app/packets/pknamedecal.cpp:5` | `DecalPacketClass::DecalPacketClass` | marker | NOT EXACT: 0x8805C0, the inline vector copy's loop addresses each decal from +0x10 in the client (shape, as COLORIZATION's 0x87F320; attempts.py show 0x8805C0) |
 | `app/packets/pknamedecal.cpp:14` | `DecalPacketClass::DecalPacketClass` | marker | NOT EXACT: 0x8807B0, the client inlines push_back's insert (over this object's helpers 0x8810F0- 0x881250), ours calls it (inline-budget; attempts.py show 0x8807B0) |
+| `app/packets/pkrecustomize.cpp:17` | `RecustomizeShipStartPacketClass::RecustomizeShipStartPacketClass` | marker | NOT EXACT: shape: ShipCustDescClass's assignment, as 130's 0x8A0380 (attempts.csv) |
+| `app/packets/pkrecustomize.cpp:62` | `RecustomizeShipDonePacketClass::RecustomizeShipDonePacketClass` | marker | NOT EXACT: shape: the client inlines ShipCustDescClass's assignment (shipcust_desc.h declares it out of line, 0x55D8A0); with it implicit 0.82, the ship name union copied with its first byte peeled (attempts.csv) |
 | `app/packets/pkunknown_863720.cpp:75` | `Packet_00E6Class::Get_Data_Size` | marker | NOT EXACT: shape (the client adds the string's size and 0x18 first, then DataSize; attempts.csv) |
 | `app/packets/pkunknown_863720.cpp:148` | `Packet_00E7Class::Get_Data_Size` | marker | NOT EXACT: shape (as opcode 230's; attempts.csv) |
 | `app/packets/pkunknown_867010.cpp:6` | `Packet_00B3Class::Packet_00B3Class` | marker | NOT EXACT: the inline std::string assign's terminating store indexes [ebx + ecx], the client's [ecx + ebx] (otherwise the same bytes) |
