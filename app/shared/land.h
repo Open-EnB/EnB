@@ -159,6 +159,8 @@ public:
 // NAME 2: the colour map at a position (0x46BB20 / 0x46BBF0: Colors, B G R per vertex)
 	Vector3						Get_Color(const Vector2 &pos);
 	void							Set_Color(const Vector2 &pos, const Vector3 &color);
+// NAME 2: writes an 8-bit grey TGA, 255 where the height field is at or above the sea level (0x46BCC0; nothing calls it)
+	bool							Save_Sea_Mask(const char *filename);
 // NAME 2: each patch's position, level of detail (lod: an index into the distance table 0xB7188C), edge quarters and visibility (0x46B3C0, called by 0x50F1B0)
 	void							Update_Patches(CameraClass &camera, int lod);
 // NAME 2: what they set (0x478640 / 0x478670)
@@ -182,6 +184,8 @@ protected:
 	bool							Load_PLD(const char *filename);
 	void							Save_PLD(const char *filename);
 	void							Compute_Horizons(INIClass &ini);
+// NAME 2: the reciprocal table and the shared horizon table (0x46EF60, called by Compute_Horizons 0x46E670)
+	void							Init_Horizon_Tables(void);
 	static void					Lightmap_Thread(void *land);
 	void							Set_Lighting(const LandLightingStruct &lighting)
 	{
@@ -201,7 +205,7 @@ protected:
 	int							StripCounts[MAX_LEVELS];			// NAME 2: its index count less 2
 	IndexBufferClass *		EdgeBuffers[MAX_LEVELS];			// NAME 2: a level's edge fans, four sides (none at level 0)
 	int							EdgeCounts[MAX_LEVELS];			// NAME 2: their index count: LandPatchClass::Draw draws a quarter (one side) per bit
-	unsigned char *			m_UnknownE4;							// Field Size * 8 - 4 bytes
+	float *						Reciprocals;							// NAME 2: +0xE4, 1 / n for n = 1 .. 2 Size - 1 (0x46EF60)
 	bool							HasSea;									// +0xE8, [GENERAL] HASSEA
 	int							PatchLog2;								// +0xEC, Field Log2 - GridLog2
 	int							PatchSize;								// +0xF0, cells per patch side

@@ -47,7 +47,7 @@ int LandLodDistances[6] = { 8, 16, 24, 32, 48, 64 };
 
 LandClass::LandClass(void) :
 	LightmapSerial(0),
-	m_UnknownE4(NULL),
+	Reciprocals(NULL),
 	HasSea(false),
 	CameraCellX(-999999),
 	CameraCellY(-999999),
@@ -138,7 +138,7 @@ bool LandClass::Load_Assets(const char *ini_name, bool flag)
 	PatchLog2 = Field->Get_Log2() - GridLog2;
 	PatchSize = 1 << PatchLog2;
 	PatchVerts = PatchSize + 1;
-	m_UnknownE4 = new unsigned char[Field->Get_Size() * 8 - 4];
+	Reciprocals = new float[Field->Get_Size() * 2 - 1];
 	m_Unknown1E4 = new unsigned char[Field->Get_Count()];
 	m_Unknown1E8 = new unsigned short[Field->Get_Count()];
 	m_Unknown1EC = new unsigned short[Field->Get_Count()];
@@ -379,7 +379,7 @@ LandClass::~LandClass(void)
 			REF_PTR_RELEASE(EdgeBuffers[i]);
 		}
 	}
-	if (m_UnknownE4 != NULL) delete [] m_UnknownE4;
+	if (Reciprocals != NULL) delete [] Reciprocals;
 	if (m_Unknown1E4 != NULL) delete [] m_Unknown1E4;
 	if (m_Unknown1E8 != NULL) delete [] m_Unknown1E8;
 	if (m_Unknown1EC != NULL) delete [] m_Unknown1EC;
@@ -392,6 +392,43 @@ LandClass::~LandClass(void)
 	if (Patches != NULL) delete [] Patches;
 	if (Field != NULL) delete Field;
 	Unknown_466F10();
+}
+
+// NOT EXACT: shape (2 rows: the client returns false through al = HasSea, ours xor al, al; 7 forms, attempts.csv 0x46BCC0)
+bool LandClass::Save_Sea_Mask(const char *filename)
+{
+	if (HasSea) {
+		unsigned int size = Field->Get_Size();
+		unsigned char *mask = new unsigned char[size * size];
+		unsigned int row = 0;
+		for (unsigned int j = 0; j < size; j++) {
+			for (unsigned int i = 0; i < size; i++) {
+				if (Field->Get_Height(i, j) < SeaLevel) {
+					mask[row + i] = 0;
+				} else {
+					mask[row + i] = 0xFF;
+				}
+			}
+			row += size;
+		}
+		Targa targa;
+		memset(&targa.Header, 0, sizeof(targa.Header));
+		targa.Header.ImageType = 3;
+		targa.Header.Width = (short)size;
+		targa.Header.Height = (short)size;
+		targa.Header.PixelDepth = 8;
+		targa.SetImage((char *)mask);
+		FileClass *file = _TheWritingFileFactory->Get_File(filename);
+		if (file != NULL) {
+			file->Create();
+			file->Close();
+			_TheWritingFileFactory->Return_File(file);
+		}
+		targa.Save(filename, TGAF_IMAGE, false);
+		delete [] mask;
+		return true;
+	}
+	return false;
 }
 
 // NOT EXACT: inline-budget (the client calls the first push_back out of line (0x46BF70) and inlines _Freefront in pop_front and the destructor; ours the reverse)
@@ -1091,6 +1128,31 @@ void LandClass::Build_Index_Buffers(int size)
 			}
 		}
 	} while (level-- != 0);
+}
+
+// NAME 2: the eight compass directions' unit vectors x (1 - 1/sqrt 2) mixes, per direction (0xAE97BC, 0xAE97DC)
+static const float LandDirectionX[8] = { 0.70710677f, 0.29289323f, -0.29289323f, -0.70710677f, -0.70710677f, -0.29289323f, 0.29289323f, 0.70710677f };
+static const float LandDirectionY[8] = { 0.29289323f, 0.70710677f, 0.70710677f, 0.29289323f, -0.29289323f, -0.70710677f, -0.70710677f, -0.29289323f };
+// NAME 2: per direction and per horizon angle step (256), the sky area term and the sun term (0xBDC0E8)
+Vector3 LandHorizonTable[8][256];
+
+void LandClass::Init_Horizon_Tables(void)
+{
+	unsigned int i;
+	for (i = 0; i < Field->Get_Size() * 2 - 1; i++) {
+		Reciprocals[i] = 1.0f / (float)(i + 1);
+	}
+	for (i = 0; i < 256; i++) {
+		unsigned int bits = ((i & 0xFF) + 0x770) << 19 | 0x7FFFF;
+		static const float half_pi = WWMATH_PI / 2.0f;
+		static const float one_over_two_pi = 1.0f / (2.0f * WWMATH_PI);
+		float angle = (float)(half_pi - atan(*(float *)&bits));
+		float s = (float)sin(angle);
+		float area = (float)((angle - sin(angle + angle) * 0.5) * one_over_two_pi);
+		for (unsigned int d = 0; d < 8; d++) {
+			LandHorizonTable[d][i].Set(area * LandDirectionX[d], area * LandDirectionY[d], s * s * 0.125f);
+		}
+	}
 }
 
 bool LandClass::Load_PLD(const char *filename)
