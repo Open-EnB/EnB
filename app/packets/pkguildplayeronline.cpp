@@ -151,6 +151,164 @@ int GuildAdjustContribPacketClass::Print(char *buffer, int len)
 	return(_snprintf(buffer, len, "GuildAdjustContrib {PlayerID=%s Contrib=%d Amount=%g}", Unknown_8B44E0(PlayerID, id), Contrib, Amount));
 }
 
+GuildLeaderAcceptSectorPacketClass::GuildLeaderAcceptSectorPacketClass(__int64 player_id, const char *guild_name, bool accept) :
+	PlayerID(player_id),
+	GuildName(guild_name),
+	Accept(accept)
+{
+}
+
+GuildLeaderAcceptSectorPacketClass::GuildLeaderAcceptSectorPacketClass(RawPacketClass *raw)
+{
+	raw->Get(PlayerID);
+	raw->Get(&GuildName);
+	raw->Get(&Accept, sizeof(Accept));
+}
+
+GuildLeaderAcceptSectorPacketClass::~GuildLeaderAcceptSectorPacketClass()
+{
+}
+
+RawPacketClass *GuildLeaderAcceptSectorPacketClass::Build()
+{
+	RawPacketClass *raw = new RawPacketClass(198, Get_Data_Size());
+	raw->Add(PlayerID);
+	raw->Add(GuildName);
+	raw->Add(&Accept, sizeof(Accept));
+	return(raw);
+}
+
+int GuildLeaderAcceptSectorPacketClass::Get_Data_Size()
+{
+	return(RawPacketClass::Get_Size(GuildName) + 9);
+}
+
+int GuildLeaderAcceptSectorPacketClass::Print(char *buffer, int len)
+{
+	char id[32];
+	return(_snprintf(buffer, len, "GuildLeaderAcceptSector {PlayerID=%s GuildName=%s Accept=%s}", Unknown_8B44E0(PlayerID, id), GuildName.c_str(), Accept ? "true" : "false"));
+}
+
+GuildRecruitConfirmGuildPacketClass::GuildRecruitConfirmGuildPacketClass(__int64 player_id, const char *inviter_name, const char *guild_name) :
+	PlayerID(player_id),
+	InviterName(inviter_name),
+	GuildName(guild_name)
+{
+}
+
+GuildRecruitConfirmGuildPacketClass::GuildRecruitConfirmGuildPacketClass(RawPacketClass *raw)
+{
+	raw->Get(PlayerID);
+	raw->Get(&InviterName);
+	raw->Get(&GuildName);
+}
+
+GuildRecruitConfirmGuildPacketClass::~GuildRecruitConfirmGuildPacketClass()
+{
+}
+
+RawPacketClass *GuildRecruitConfirmGuildPacketClass::Build()
+{
+	RawPacketClass *raw = new RawPacketClass(199, Get_Data_Size());
+	raw->Add(PlayerID);
+	raw->Add(InviterName);
+	raw->Add(GuildName);
+	return(raw);
+}
+
+int GuildRecruitConfirmGuildPacketClass::Get_Data_Size()
+{
+	return(RawPacketClass::Get_Size(GuildName) + RawPacketClass::Get_Size(InviterName) + 8);
+}
+
+int GuildRecruitConfirmGuildPacketClass::Print(char *buffer, int len)
+{
+	char id[32];
+	return(_snprintf(buffer, len, "GuildRecruitConfirmGuild {PlayerID=%s InviterName=%s GuildName=%s}", Unknown_8B44E0(PlayerID, id), InviterName.c_str(), GuildName.c_str()));
+}
+
+GuildRecruitAcceptSectorPacketClass::GuildRecruitAcceptSectorPacketClass(__int64 player_id, const char *inviter_name, const char *guild_name, bool accept) :
+	PlayerID(player_id),
+	InviterName(inviter_name),
+	GuildName(guild_name),
+	Accept(accept)
+{
+}
+
+GuildRecruitAcceptSectorPacketClass::GuildRecruitAcceptSectorPacketClass(RawPacketClass *raw)
+{
+	raw->Get(PlayerID);
+	raw->Get(&InviterName);
+	raw->Get(&GuildName);
+	raw->Get(&Accept, sizeof(Accept));
+}
+
+GuildRecruitAcceptSectorPacketClass::~GuildRecruitAcceptSectorPacketClass()
+{
+}
+
+RawPacketClass *GuildRecruitAcceptSectorPacketClass::Build()
+{
+	RawPacketClass *raw = new RawPacketClass(202, Get_Data_Size());
+	raw->Add(PlayerID);
+	raw->Add(InviterName);
+	raw->Add(GuildName);
+	raw->Add(&Accept, sizeof(Accept));
+	return(raw);
+}
+
+int GuildRecruitAcceptSectorPacketClass::Get_Data_Size()
+{
+	return(RawPacketClass::Get_Size(GuildName) + RawPacketClass::Get_Size(InviterName) + 9);
+}
+
+int GuildRecruitAcceptSectorPacketClass::Print(char *buffer, int len)
+{
+	char id[32];
+	return(_snprintf(buffer, len, "GuildRecruitAcceptSector {PlayerID=%s InviterName=%s GuildName=%s Accept=%s}", Unknown_8B44E0(PlayerID, id), InviterName.c_str(), GuildName.c_str(), Accept ? "true" : "false"));
+}
+
+GuildMessageGuildPacketClass::GuildMessageGuildPacketClass(__int64 player_id, int message_type, const char *other_name, const char *guild_name) :
+	PlayerID(player_id),
+	MessageType(message_type),
+	OtherName(other_name),
+	GuildName(guild_name)
+{
+}
+
+GuildMessageGuildPacketClass::GuildMessageGuildPacketClass(RawPacketClass *raw)
+{
+	raw->Get(PlayerID);
+	raw->Get(&MessageType, sizeof(MessageType));
+	raw->Get(&OtherName);
+	raw->Get(&GuildName);
+}
+
+GuildMessageGuildPacketClass::~GuildMessageGuildPacketClass()
+{
+}
+
+RawPacketClass *GuildMessageGuildPacketClass::Build()
+{
+	RawPacketClass *raw = new RawPacketClass(207, Get_Data_Size());
+	raw->Add(PlayerID);
+	raw->Add(&MessageType, sizeof(MessageType));
+	raw->Add(OtherName);
+	raw->Add(GuildName);
+	return(raw);
+}
+
+int GuildMessageGuildPacketClass::Get_Data_Size()
+{
+	return(RawPacketClass::Get_Size(GuildName) + RawPacketClass::Get_Size(OtherName) + 12);
+}
+
+int GuildMessageGuildPacketClass::Print(char *buffer, int len)
+{
+	char id[32];
+	return(_snprintf(buffer, len, "GuildMessageGuild {PlayerID=%s MessageType=%d OtherName=%s GuildName=%s}", Unknown_8B44E0(PlayerID, id), MessageType, OtherName.c_str(), GuildName.c_str()));
+}
+
 GuildPermissionsPacketClass::GuildPermissionsPacketClass(__int64 player_id, Unknown_GuildPermissionsEnum unknown18, int unknown1c, int unknown20, int unknown24) :
 	PlayerID(player_id),
 	Unknown18(unknown18),
@@ -306,6 +464,6 @@ int GuildGMRenameAcceptSectorPacketClass::Print(char *buffer, int len)
 **	  is 0x894390): the guild packets 193-220 not in pkguildranknamesrequestclient.cpp. Written by hand
 **	  (builder P4, 2026-10-27); each class's value constructor comes first, then the raw one.
 **	* The file name is provisional (no assert names it).
-**	* Not rebuilt yet: opcode 195, 196, 198, 199, 202, 207, 213, 218, 219,
+**	* Not rebuilt yet: opcode 195, 196, 213, 218, 219,
 **	  220 (declared in pk_classes.h).
 */

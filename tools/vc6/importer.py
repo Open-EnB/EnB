@@ -3717,7 +3717,7 @@ RECONSTRUCTED = {
     ('app', 'packets/pkgmviewmissionlog.cpp'): "opcode 235 (GM View Mission Log) written by hand (builder P4, 6 of 6 exact "
                                              "in appfile.py match), client 0x86FD00-0x8703A0; the file name provisional (NAME 1)",
     ('app', 'packets/pkgmviewmissionlog.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
-    ('app', 'packets/pkguildplayeronline.cpp'): "guild opcodes 193, 194, 203, 206, 209, 214, 215 and 217 written by hand (builder P4, "
+    ('app', 'packets/pkguildplayeronline.cpp'): "guild opcodes 193, 194, 198, 199, 202, 203, 206, 207, 209, 214, 215 and 217 written by hand (builder P4, "
                                               "all exact in appfile.py match), client 0x88EC70-0x894390; the file name provisional (NAME 1)",
     ('app', 'packets/pkguildplayeronline.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
     ('app', 'packets/pk_sub_parts.cpp'): "pk_sub_parts.cpp (the client's __FILE__, assert line 64): SUBPARTS 180 written by "

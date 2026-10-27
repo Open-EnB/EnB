@@ -745,42 +745,6 @@ public:
 	char Unknown0C[0x2C];	// +0x0C
 };
 
-// opcode 198 (0x00C6, ?): vtable 0xB0AB54, constructor 0x890540, 0x30 bytes
-class GuildLeaderAcceptSectorPacketClass : public PacketClass  // NAME 3: the client's Print text 'GuildLeaderAcceptSector {' and the PacketClass convention
-{
-public:
-	GuildLeaderAcceptSectorPacketClass(RawPacketClass *raw);	// 0x890540
-	virtual bool Process_Packet(void *client);	// +0x08 0x869060 (clientstub.cpp l.362)
-	char Unknown0C[0x24];	// +0x0C
-};
-
-// opcode 199 (0x00C7, ?): vtable 0xB0AB84, constructor 0x890A00, 0x38 bytes
-class GuildRecruitConfirmGuildPacketClass : public PacketClass  // NAME 3: the client's Print text 'GuildRecruitConfirmGuild {' and the PacketClass convention
-{
-public:
-	GuildRecruitConfirmGuildPacketClass(RawPacketClass *raw);	// 0x890A00
-	virtual bool Process_Packet(void *client);	// +0x08 0x869090 (clientstub.cpp l.365)
-	char Unknown0C[0x2C];	// +0x0C
-};
-
-// opcode 202 (0x00CA, ?): vtable 0xB0ABB4, constructor 0x890F30, 0x40 bytes
-class GuildRecruitAcceptSectorPacketClass : public PacketClass  // NAME 3: the client's Print text 'GuildRecruitAcceptSector {' and the PacketClass convention
-{
-public:
-	GuildRecruitAcceptSectorPacketClass(RawPacketClass *raw);	// 0x890F30
-	virtual bool Process_Packet(void *client);	// +0x08 0x8690F0 (clientstub.cpp l.371)
-	char Unknown0C[0x34];	// +0x0C
-};
-
-// opcode 207 (0x00CF, ?): vtable 0xB0ABE4, constructor 0x8914A0, 0x40 bytes
-class GuildMessageGuildPacketClass : public PacketClass  // NAME 3: the client's Print text 'GuildMessageGuild {' and the PacketClass convention
-{
-public:
-	GuildMessageGuildPacketClass(RawPacketClass *raw);	// 0x8914A0
-	virtual bool Process_Packet(void *client);	// +0x08 0x869120 (clientstub.cpp l.374)
-	char Unknown0C[0x34];	// +0x0C
-};
-
 // opcode 213 (0x00D5, GUILD_RANK_NAMES_GUILD): vtable 0xB0ACA4, constructor 0x892670, 0x28 bytes
 class GuildRankNamesGuildPacketClass : public PacketClass  // NAME 3: the client's Print text 'GuildRankNamesGuild {' and the PacketClass convention
 {

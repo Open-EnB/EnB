@@ -9,7 +9,7 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 12 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 29 |
-| 3 | by convention from a client-named file or sibling | 528 |
+| 3 | by convention from a client-named file or sibling | 542 |
 | 2 | describes what the code does | 965 |
 | 1 | neutral placeholder | 1372 |
 
@@ -628,9 +628,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Packet_00ADClass` | `app/packets/pk_classes.h:704` | neutral (D10): opcode 0x00AD |
 | 1 | `Packet_00B0Class` | `app/packets/pk_classes.h:713` | neutral (D10): opcode 0x00B0 |
 | 1 | `Packet_00B1Class` | `app/packets/pk_classes.h:722` | neutral (D10): opcode 0x00B1 |
-| 1 | `Packet_00E6Class` | `app/packets/pk_classes.h:821` | neutral (D10): opcode 0x00E6 |
-| 1 | `Packet_00E7Class` | `app/packets/pk_classes.h:830` | neutral (D10): opcode 0x00E7 |
-| 1 | `Packet_0077Class` | `app/packets/pk_classes.h:839` | neutral (D10): opcode 0x0077 |
+| 1 | `Packet_00E6Class` | `app/packets/pk_classes.h:785` | neutral (D10): opcode 0x00E6 |
+| 1 | `Packet_00E7Class` | `app/packets/pk_classes.h:794` | neutral (D10): opcode 0x00E7 |
+| 1 | `Packet_0077Class` | `app/packets/pk_classes.h:803` | neutral (D10): opcode 0x0077 |
 | 1 | `Unknown_14` | `app/packets/pk_player_object_relationship.cpp:10` | untagged neutral name (D10) |
 | 1 | `Unknown_14` | `app/packets/pk_sub_parts.cpp:29` | untagged neutral name (D10) |
 | 1 | `Unknown14` | `app/packets/pkaction.cpp:10` | untagged neutral name (D10) |
@@ -782,19 +782,19 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown20` | `app/packets/pkgpsrequest.h:56` | untagged neutral name (D10) |
 | 1 | `pkgroup` | `app/packets/pkgroup.h:15` | provisional, pk + its class's name |
 | 1 | `Unknown_8B44E0` | `app/packets/pkguildplayeronline.cpp:41` | untagged neutral name (D10) |
-| 1 | `Unknown_GuildPermissionsEnum` | `app/packets/pkguildplayeronline.cpp:154` | untagged neutral name (D10) |
-| 1 | `Unknown18` | `app/packets/pkguildplayeronline.cpp:156` | untagged neutral name (D10) |
-| 1 | `Unknown1C` | `app/packets/pkguildplayeronline.cpp:157` | untagged neutral name (D10) |
-| 1 | `Unknown20` | `app/packets/pkguildplayeronline.cpp:158` | untagged neutral name (D10) |
-| 1 | `Unknown24` | `app/packets/pkguildplayeronline.cpp:159` | untagged neutral name (D10) |
+| 1 | `Unknown_GuildPermissionsEnum` | `app/packets/pkguildplayeronline.cpp:312` | untagged neutral name (D10) |
+| 1 | `Unknown18` | `app/packets/pkguildplayeronline.cpp:314` | untagged neutral name (D10) |
+| 1 | `Unknown1C` | `app/packets/pkguildplayeronline.cpp:315` | untagged neutral name (D10) |
+| 1 | `Unknown20` | `app/packets/pkguildplayeronline.cpp:316` | untagged neutral name (D10) |
+| 1 | `Unknown24` | `app/packets/pkguildplayeronline.cpp:317` | untagged neutral name (D10) |
 | 1 | `pkguildplayeronline` | `app/packets/pkguildplayeronline.h:16` | provisional, pk + its first class's name |
 | 1 | `Unknown_8B44E0` | `app/packets/pkguildplayeronline.h:22` | neutral placeholder (D10) |
 | 1 | `Unknown_GuildPermissionsEnum` | `app/packets/pkguildplayeronline.h:25` | neutral placeholder (D10) |
 | 1 | `UNKNOWN_GUILDPERMISSIONS_0` | `app/packets/pkguildplayeronline.h:27` | neutral placeholder (D10) |
-| 1 | `Unknown18` | `app/packets/pkguildplayeronline.h:109` | untagged neutral name (D10) |
-| 1 | `Unknown1C` | `app/packets/pkguildplayeronline.h:110` | untagged neutral name (D10) |
-| 1 | `Unknown20` | `app/packets/pkguildplayeronline.h:111` | untagged neutral name (D10) |
-| 1 | `Unknown24` | `app/packets/pkguildplayeronline.h:112` | untagged neutral name (D10) |
+| 1 | `Unknown18` | `app/packets/pkguildplayeronline.h:179` | untagged neutral name (D10) |
+| 1 | `Unknown1C` | `app/packets/pkguildplayeronline.h:180` | untagged neutral name (D10) |
+| 1 | `Unknown20` | `app/packets/pkguildplayeronline.h:181` | untagged neutral name (D10) |
+| 1 | `Unknown24` | `app/packets/pkguildplayeronline.h:182` | untagged neutral name (D10) |
 | 1 | `Unknown0C` | `app/packets/pkguildranknamesrequestclient.cpp:169` | untagged neutral name (D10) |
 | 1 | `Unknown10` | `app/packets/pkguildranknamesrequestclient.cpp:169` | untagged neutral name (D10) |
 | 1 | `Unknown14` | `app/packets/pkguildranknamesrequestclient.cpp:169` | untagged neutral name (D10) |
@@ -1387,7 +1387,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_Debug_Begin_Step` | `tests/capharness/udpreplay/connect_stubs.cpp:35` | untagged neutral name (D10) |
 | 1 | `Unknown_Debug_End_Step` | `tests/capharness/udpreplay/connect_stubs.cpp:36` | untagged neutral name (D10) |
 | 1 | `Unknown_Debug_Print` | `tests/capharness/udpreplay/connect_stubs.cpp:37` | untagged neutral name (D10) |
-| 1 | `Unknown_2C` | `tests/capharness/udpreplay/pk_ctor_stubs.cpp:182` | untagged neutral name (D10) |
+| 1 | `Unknown_2C` | `tests/capharness/udpreplay/pk_ctor_stubs.cpp:178` | untagged neutral name (D10) |
 | 1 | `Unknown_4BC130` | `tests/capharness/udpreplay/udpreplay.cpp:70` | untagged neutral name (D10) |
 | 2 | `BuffDefStruct` | `app/client/buff_database.h:24` | what it holds (one BUFF-n section, 0x14 bytes) |
 | 2 | `Type` | `app/client/buff_database.h:29` | the ini key |
@@ -1684,11 +1684,11 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `GlobalErrorPacketClass` | `app/packets/pk_classes.h:311` | the reference decoder's opcode name GLOBAL_ERROR (the Net-7 opcode table; no structure check) |
 | 2 | `AvatarEmotePacketClass` | `app/packets/pk_classes.h:542` | the reference decoder's opcode name AVATAR_EMOTE (the Net-7 opcode table; no structure check) |
 | 2 | `ManufactureTechLevelFilterPacketClass` | `app/packets/pk_classes.h:592` | the reference decoder's opcode name MANUFACTURE_TECH_LEVEL_FILTER (the Net-7 opcode table; no structure check) |
-| 2 | `RecustomizeShipStartPacketClass` | `app/packets/pk_classes.h:849` | the reference decoder's opcode name RECUSTOMIZE_SHIP_START (the Net-7 opcode table; no structure check) |
-| 2 | `RecustomizeShipDonePacketClass` | `app/packets/pk_classes.h:857` | the reference decoder's opcode name RECUSTOMIZE_SHIP_DONE (the Net-7 opcode table; no structure check) |
-| 2 | `RecustomizeAvatarStartPacketClass` | `app/packets/pk_classes.h:866` | the reference decoder's opcode name RECUSTOMIZE_AVATAR_START (the Net-7 opcode table; no structure check) |
-| 2 | `RecustomizeAvatarDonePacketClass` | `app/packets/pk_classes.h:874` | the reference decoder's opcode name RECUSTOMIZE_AVATAR_DONE (the Net-7 opcode table; no structure check) |
-| 2 | `RecustomizeAvatarUpdatePacketClass` | `app/packets/pk_classes.h:883` | the reference decoder's opcode name RECUSTOMIZE_AVATAR_UPDATE (the Net-7 opcode table; no structure check) |
+| 2 | `RecustomizeShipStartPacketClass` | `app/packets/pk_classes.h:813` | the reference decoder's opcode name RECUSTOMIZE_SHIP_START (the Net-7 opcode table; no structure check) |
+| 2 | `RecustomizeShipDonePacketClass` | `app/packets/pk_classes.h:821` | the reference decoder's opcode name RECUSTOMIZE_SHIP_DONE (the Net-7 opcode table; no structure check) |
+| 2 | `RecustomizeAvatarStartPacketClass` | `app/packets/pk_classes.h:830` | the reference decoder's opcode name RECUSTOMIZE_AVATAR_START (the Net-7 opcode table; no structure check) |
+| 2 | `RecustomizeAvatarDonePacketClass` | `app/packets/pk_classes.h:838` | the reference decoder's opcode name RECUSTOMIZE_AVATAR_DONE (the Net-7 opcode table; no structure check) |
+| 2 | `RecustomizeAvatarUpdatePacketClass` | `app/packets/pk_classes.h:847` | the reference decoder's opcode name RECUSTOMIZE_AVATAR_UPDATE (the Net-7 opcode table; no structure check) |
 | 2 | `MobReactionType` | `app/packets/pk_player_object_relationship.h:25` | what it holds, after the client's MOB_REACTION_COUNT |
 | 2 | `Value_To_String` | `app/packets/pk_player_object_relationship.h:31` | as strconv_lib.h's pairs |
 | 2 | `RelationshipClass` | `app/packets/pk_player_object_relationship.h:35` | what it holds (the packet's Print names both members) |
@@ -2397,14 +2397,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `PetitionStuckPacketClass` | `app/packets/pk_classes.h:601` | the client's Print text 'PetitionStuck {' and the PacketClass convention |
 | 3 | `GuildStatusUpdatePacketClass` | `app/packets/pk_classes.h:731` | the client's Print text 'GuildStatusUpdate {' and the PacketClass convention |
 | 3 | `GuildBeginCreationPacketClass` | `app/packets/pk_classes.h:740` | the client's Print text 'GuildBeginCreation {' and the PacketClass convention |
-| 3 | `GuildLeaderAcceptSectorPacketClass` | `app/packets/pk_classes.h:749` | the client's Print text 'GuildLeaderAcceptSector {' and the PacketClass convention |
-| 3 | `GuildRecruitConfirmGuildPacketClass` | `app/packets/pk_classes.h:758` | the client's Print text 'GuildRecruitConfirmGuild {' and the PacketClass convention |
-| 3 | `GuildRecruitAcceptSectorPacketClass` | `app/packets/pk_classes.h:767` | the client's Print text 'GuildRecruitAcceptSector {' and the PacketClass convention |
-| 3 | `GuildMessageGuildPacketClass` | `app/packets/pk_classes.h:776` | the client's Print text 'GuildMessageGuild {' and the PacketClass convention |
-| 3 | `GuildRankNamesGuildPacketClass` | `app/packets/pk_classes.h:785` | the client's Print text 'GuildRankNamesGuild {' and the PacketClass convention |
-| 3 | `GuildDeletePlayerPacketClass` | `app/packets/pk_classes.h:794` | the client's Print text 'GuildDeletePlayer {' and the PacketClass convention |
-| 3 | `GuildPlayerInfoDeletedPacketClass` | `app/packets/pk_classes.h:803` | the client's Print text 'GuildPlayerInfoDeleted {' and the PacketClass convention |
-| 3 | `GuildDeductFeePacketClass` | `app/packets/pk_classes.h:812` | the client's Print text 'GuildDeductFeePacket {' and the PacketClass convention |
+| 3 | `GuildRankNamesGuildPacketClass` | `app/packets/pk_classes.h:749` | the client's Print text 'GuildRankNamesGuild {' and the PacketClass convention |
+| 3 | `GuildDeletePlayerPacketClass` | `app/packets/pk_classes.h:758` | the client's Print text 'GuildDeletePlayer {' and the PacketClass convention |
+| 3 | `GuildPlayerInfoDeletedPacketClass` | `app/packets/pk_classes.h:767` | the client's Print text 'GuildPlayerInfoDeleted {' and the PacketClass convention |
+| 3 | `GuildDeductFeePacketClass` | `app/packets/pk_classes.h:776` | the client's Print text 'GuildDeductFeePacket {' and the PacketClass convention |
 | 3 | `pk_player_object_relationship.h` | `app/packets/pk_player_object_relationship.h:17` | after the client's .cpp (D57) |
 | 3 | `Reaction` | `app/packets/pk_player_object_relationship.h:40` | the client's Print text 'Reaction=' |
 | 3 | `IsAttacking` | `app/packets/pk_player_object_relationship.h:41` | the client's Print text 'IsAttacking=' |
@@ -2511,18 +2507,36 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `PlayerID` | `app/packets/pkguildplayeronline.h:92` | the client's Print text 'PlayerID=' |
 | 3 | `Contrib` | `app/packets/pkguildplayeronline.h:93` | the client's Print text 'Contrib=' |
 | 3 | `Amount` | `app/packets/pkguildplayeronline.h:94` | the client's Print text 'Amount=' |
-| 3 | `GuildPermissionsPacketClass` | `app/packets/pkguildplayeronline.h:98` | the client's Print text 'GuildPermissionsPacket {' and the PacketClass convention |
-| 3 | `PlayerID` | `app/packets/pkguildplayeronline.h:108` | the client's Print text 'PlayerID=' |
-| 3 | `GuildRankNamesRequestSectorPacketClass` | `app/packets/pkguildplayeronline.h:116` | the client's Print text 'GuildRankNamesRequestSector {' and the PacketClass convention |
+| 3 | `GuildLeaderAcceptSectorPacketClass` | `app/packets/pkguildplayeronline.h:98` | the client's Print text 'GuildLeaderAcceptSector {' and the PacketClass convention |
+| 3 | `PlayerID` | `app/packets/pkguildplayeronline.h:109` | the client's Print text 'PlayerID=' |
+| 3 | `std:` | `app/packets/pkguildplayeronline.h:110` | the client's Print text 'GuildName=' |
+| 3 | `Accept` | `app/packets/pkguildplayeronline.h:111` | the client's Print text 'Accept=' |
+| 3 | `GuildRecruitConfirmGuildPacketClass` | `app/packets/pkguildplayeronline.h:115` | the client's Print text 'GuildRecruitConfirmGuild {' and the PacketClass convention |
 | 3 | `PlayerID` | `app/packets/pkguildplayeronline.h:126` | the client's Print text 'PlayerID=' |
-| 3 | `GuildGMRenameConfirmGuildPacketClass` | `app/packets/pkguildplayeronline.h:130` | the client's Print text 'GuildGMRenameConfirmGuild {' and the PacketClass convention |
-| 3 | `PlayerID` | `app/packets/pkguildplayeronline.h:141` | the client's Print text 'PlayerID=' |
-| 3 | `std:` | `app/packets/pkguildplayeronline.h:142` | the client's Print text 'OldGuildName=' |
-| 3 | `std:` | `app/packets/pkguildplayeronline.h:143` | the client's Print text 'NewGuildName=' |
-| 3 | `GuildGMRenameAcceptSectorPacketClass` | `app/packets/pkguildplayeronline.h:147` | the client's Print text 'GuildGMRenameAcceptSector {' and the PacketClass convention |
-| 3 | `PlayerID` | `app/packets/pkguildplayeronline.h:158` | the client's Print text 'PlayerID=' |
-| 3 | `std:` | `app/packets/pkguildplayeronline.h:159` | the client's Print text 'OldGuildName=' |
-| 3 | `std:` | `app/packets/pkguildplayeronline.h:160` | the client's Print text 'NewGuildName=' |
+| 3 | `std:` | `app/packets/pkguildplayeronline.h:127` | the client's Print text 'InviterName=' |
+| 3 | `std:` | `app/packets/pkguildplayeronline.h:128` | the client's Print text 'GuildName=' |
+| 3 | `GuildRecruitAcceptSectorPacketClass` | `app/packets/pkguildplayeronline.h:132` | the client's Print text 'GuildRecruitAcceptSector {' and the PacketClass convention |
+| 3 | `PlayerID` | `app/packets/pkguildplayeronline.h:143` | the client's Print text 'PlayerID=' |
+| 3 | `std:` | `app/packets/pkguildplayeronline.h:144` | the client's Print text 'InviterName=' |
+| 3 | `std:` | `app/packets/pkguildplayeronline.h:145` | the client's Print text 'GuildName=' |
+| 3 | `Accept` | `app/packets/pkguildplayeronline.h:146` | the client's Print text 'Accept=' |
+| 3 | `GuildMessageGuildPacketClass` | `app/packets/pkguildplayeronline.h:150` | the client's Print text 'GuildMessageGuild {' and the PacketClass convention |
+| 3 | `PlayerID` | `app/packets/pkguildplayeronline.h:161` | the client's Print text 'PlayerID=' |
+| 3 | `MessageType` | `app/packets/pkguildplayeronline.h:162` | the client's Print text 'MessageType=' |
+| 3 | `std:` | `app/packets/pkguildplayeronline.h:163` | the client's Print text 'OtherName=' |
+| 3 | `std:` | `app/packets/pkguildplayeronline.h:164` | the client's Print text 'GuildName=' |
+| 3 | `GuildPermissionsPacketClass` | `app/packets/pkguildplayeronline.h:168` | the client's Print text 'GuildPermissionsPacket {' and the PacketClass convention |
+| 3 | `PlayerID` | `app/packets/pkguildplayeronline.h:178` | the client's Print text 'PlayerID=' |
+| 3 | `GuildRankNamesRequestSectorPacketClass` | `app/packets/pkguildplayeronline.h:186` | the client's Print text 'GuildRankNamesRequestSector {' and the PacketClass convention |
+| 3 | `PlayerID` | `app/packets/pkguildplayeronline.h:196` | the client's Print text 'PlayerID=' |
+| 3 | `GuildGMRenameConfirmGuildPacketClass` | `app/packets/pkguildplayeronline.h:200` | the client's Print text 'GuildGMRenameConfirmGuild {' and the PacketClass convention |
+| 3 | `PlayerID` | `app/packets/pkguildplayeronline.h:211` | the client's Print text 'PlayerID=' |
+| 3 | `std:` | `app/packets/pkguildplayeronline.h:212` | the client's Print text 'OldGuildName=' |
+| 3 | `std:` | `app/packets/pkguildplayeronline.h:213` | the client's Print text 'NewGuildName=' |
+| 3 | `GuildGMRenameAcceptSectorPacketClass` | `app/packets/pkguildplayeronline.h:217` | the client's Print text 'GuildGMRenameAcceptSector {' and the PacketClass convention |
+| 3 | `PlayerID` | `app/packets/pkguildplayeronline.h:228` | the client's Print text 'PlayerID=' |
+| 3 | `std:` | `app/packets/pkguildplayeronline.h:229` | the client's Print text 'OldGuildName=' |
+| 3 | `std:` | `app/packets/pkguildplayeronline.h:230` | the client's Print text 'NewGuildName=' |
 | 3 | `Type` | `app/packets/pkguildranknamesrequestclient.h:39` | the client's Print text 'Type=' |
 | 3 | `std:` | `app/packets/pkguildranknamesrequestclient.h:40` | the client's Print text 'OptionalParam=' |
 | 3 | `GuildSimpleClientSectorPacketClass` | `app/packets/pkguildranknamesrequestclient.h:44` | the client's Print text 'GuildSimpleClientSectorPacket {' and the PacketClass convention |

@@ -5,7 +5,7 @@
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
 **	Original location: e:\build\beta\G\app\packets\pkguildplayeronline.h (the name provisional: see the .cpp)
 **
-**	The packet classes of client 0x88EC70-0x894390 rebuilt so far (opcode 193, 203, 206, 194, 209, 214, 215, 217); the file's other
+**	The packet classes of client 0x88EC70-0x894390 rebuilt so far (opcode 193, 203, 206, 194, 198, 199, 202, 207, 209, 214, 215, 217); the file's other
 **	classes are still declared in pk_classes.h.
 */
 
@@ -92,6 +92,76 @@ public:
 	__int64 PlayerID;	// +0x10  // NAME 3: the client's Print text 'PlayerID='
 	int Contrib;	// +0x18 (4 bytes as they are)  // NAME 3: the client's Print text 'Contrib='
 	float Amount;	// +0x1C (4 bytes as they are)  // NAME 3: the client's Print text 'Amount='
+};
+
+// opcode 198 (0x00C6, ?): vtable 0xB0AB54, constructor 0x890540, 0x30 bytes
+class GuildLeaderAcceptSectorPacketClass : public PacketClass  // NAME 3: the client's Print text 'GuildLeaderAcceptSector {' and the PacketClass convention
+{
+public:
+	GuildLeaderAcceptSectorPacketClass(__int64 player_id, const char *guild_name, bool accept);	// 0x8903A0
+	GuildLeaderAcceptSectorPacketClass(RawPacketClass *raw);	// 0x890540
+	virtual ~GuildLeaderAcceptSectorPacketClass();	// +0x00 0x890510 / 0x890610
+	virtual RawPacketClass *Build();	// +0x04 0x890680
+	virtual bool Process_Packet(void *client);	// +0x08 0x869060 (clientstub.cpp)
+	virtual int Get_Data_Size();	// +0x0C 0x890750
+	virtual int Print(char *buffer, int len);	// +0x10 0x890770
+
+	__int64 PlayerID;	// +0x10  // NAME 3: the client's Print text 'PlayerID='
+	std::string GuildName;	// +0x18  // NAME 3: the client's Print text 'GuildName='
+	bool Accept;	// +0x28 (1 byte as it is)  // NAME 3: the client's Print text 'Accept='
+};
+
+// opcode 199 (0x00C7, ?): vtable 0xB0AB84, constructor 0x890A00, 0x38 bytes
+class GuildRecruitConfirmGuildPacketClass : public PacketClass  // NAME 3: the client's Print text 'GuildRecruitConfirmGuild {' and the PacketClass convention
+{
+public:
+	GuildRecruitConfirmGuildPacketClass(__int64 player_id, const char *inviter_name, const char *guild_name);	// 0x8907F0
+	GuildRecruitConfirmGuildPacketClass(RawPacketClass *raw);	// 0x890A00
+	virtual ~GuildRecruitConfirmGuildPacketClass();	// +0x00 0x8909D0 / 0x890AE0
+	virtual RawPacketClass *Build();	// +0x04 0x890B80
+	virtual bool Process_Packet(void *client);	// +0x08 0x869090 (clientstub.cpp)
+	virtual int Get_Data_Size();	// +0x0C 0x890C50
+	virtual int Print(char *buffer, int len);	// +0x10 0x890C90
+
+	__int64 PlayerID;	// +0x10  // NAME 3: the client's Print text 'PlayerID='
+	std::string InviterName;	// +0x18  // NAME 3: the client's Print text 'InviterName='
+	std::string GuildName;	// +0x28  // NAME 3: the client's Print text 'GuildName='
+};
+
+// opcode 202 (0x00CA, ?): vtable 0xB0ABB4, constructor 0x890F30, 0x40 bytes
+class GuildRecruitAcceptSectorPacketClass : public PacketClass  // NAME 3: the client's Print text 'GuildRecruitAcceptSector {' and the PacketClass convention
+{
+public:
+	GuildRecruitAcceptSectorPacketClass(__int64 player_id, const char *inviter_name, const char *guild_name, bool accept);	// 0x890D00
+	GuildRecruitAcceptSectorPacketClass(RawPacketClass *raw);	// 0x890F30
+	virtual ~GuildRecruitAcceptSectorPacketClass();	// +0x00 0x890F00 / 0x891020
+	virtual RawPacketClass *Build();	// +0x04 0x8910C0
+	virtual bool Process_Packet(void *client);	// +0x08 0x8690F0 (clientstub.cpp)
+	virtual int Get_Data_Size();	// +0x0C 0x8911A0
+	virtual int Print(char *buffer, int len);	// +0x10 0x8911E0
+
+	__int64 PlayerID;	// +0x10  // NAME 3: the client's Print text 'PlayerID='
+	std::string InviterName;	// +0x18  // NAME 3: the client's Print text 'InviterName='
+	std::string GuildName;	// +0x28  // NAME 3: the client's Print text 'GuildName='
+	bool Accept;	// +0x38 (1 byte as it is)  // NAME 3: the client's Print text 'Accept='
+};
+
+// opcode 207 (0x00CF, ?): vtable 0xB0ABE4, constructor 0x8914A0, 0x40 bytes
+class GuildMessageGuildPacketClass : public PacketClass  // NAME 3: the client's Print text 'GuildMessageGuild {' and the PacketClass convention
+{
+public:
+	GuildMessageGuildPacketClass(__int64 player_id, int message_type, const char *other_name, const char *guild_name);	// 0x891270
+	GuildMessageGuildPacketClass(RawPacketClass *raw);	// 0x8914A0
+	virtual ~GuildMessageGuildPacketClass();	// +0x00 0x891470 / 0x891590
+	virtual RawPacketClass *Build();	// +0x04 0x891630
+	virtual bool Process_Packet(void *client);	// +0x08 0x869120 (clientstub.cpp)
+	virtual int Get_Data_Size();	// +0x0C 0x891710
+	virtual int Print(char *buffer, int len);	// +0x10 0x891750
+
+	__int64 PlayerID;	// +0x10  // NAME 3: the client's Print text 'PlayerID='
+	int MessageType;	// +0x18 (4 bytes as they are)  // NAME 3: the client's Print text 'MessageType='
+	std::string OtherName;	// +0x1C  // NAME 3: the client's Print text 'OtherName='
+	std::string GuildName;	// +0x2C  // NAME 3: the client's Print text 'GuildName='
 };
 
 // opcode 209 (0x00D1, ?): vtable 0xB0AC44, constructor 0x891E90, 0x28 bytes

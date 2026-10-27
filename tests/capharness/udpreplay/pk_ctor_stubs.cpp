@@ -71,10 +71,6 @@ Packet_00B0Class::Packet_00B0Class(RawPacketClass *raw) { Conn_Record(this, raw)
 Packet_00B1Class::Packet_00B1Class(RawPacketClass *raw) { Conn_Record(this, raw); }
 GuildStatusUpdatePacketClass::GuildStatusUpdatePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 GuildBeginCreationPacketClass::GuildBeginCreationPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-GuildLeaderAcceptSectorPacketClass::GuildLeaderAcceptSectorPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-GuildRecruitConfirmGuildPacketClass::GuildRecruitConfirmGuildPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-GuildRecruitAcceptSectorPacketClass::GuildRecruitAcceptSectorPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-GuildMessageGuildPacketClass::GuildMessageGuildPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 GuildRankNamesGuildPacketClass::GuildRankNamesGuildPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 GuildDeletePlayerPacketClass::GuildDeletePlayerPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 GuildPlayerInfoDeletedPacketClass::GuildPlayerInfoDeletedPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
