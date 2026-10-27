@@ -2277,6 +2277,34 @@
     "merged": [],
     "name": "packets/pkgalaxymap.cpp"
    },
+   "pkgespwn": {
+    "ambiguous": [
+     "0x42B2F0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350",
+     "0x862350",
+     "0x862410",
+     "0x862440",
+     "0x862520",
+     "0x862560",
+     "0x862650",
+     "0x862680",
+     "0x8626D0",
+     "0x862700",
+     "0x8627E0",
+     "0x862820",
+     "0x862920"
+    ],
+    "merged": [],
+    "name": "packets/gameedit/pkgespwn.cpp"
+   },
    "pkglobalconnect": {
     "ambiguous": [
      "0x42B2F0",
@@ -5706,6 +5734,7 @@
    "common/unknown_rate.h": "reconstructed",
    "common/unknown_rsakey.h": "reconstructed",
    "kernel/kernel.h": "reconstructed",
+   "packets/gameedit/pkgespwn.h": "reconstructed",
    "packets/pk.h": "reconstructed",
    "packets/pk_classes.h": "reconstructed",
    "packets/pk_player_object_relationship.h": "reconstructed",

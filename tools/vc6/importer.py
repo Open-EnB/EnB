@@ -3844,6 +3844,8 @@ RECONSTRUCTED = {
     ('app', 'packets/pkgroup.h'): "its class (pk_classes.h includes it: tools/re/pkclasses.py)",
     ('app', 'packets/pkdialog.cpp'): "opcode 98's object, 0x8812D0-0x8816A0 (no assert: the file name provisional, NAME 1): written by hand (builder P3), 6 of 6 exact in appfile.py match",
     ('app', 'packets/pkdialog.h'): "its class (pk_classes.h includes it: tools/re/pkclasses.py)",
+    ('app', 'packets/gameedit/pkgespwn.cpp'): "opcodes 30017 and 30018 (send-only), client 0x862350-0x862970, the client's file (its asserts' __FILE__ e:\\build\\beta\\G\\app\\Packets\\gameedit\\pkgespwn.cpp): written by hand (builder P5)",
+    ('app', 'packets/gameedit/pkgespwn.h'): "its classes (pk_classes.h includes it: tools/re/pkclasses.py)",
     ('app', 'packets/pkunknown_861db0.cpp'): "opcode 30027's object, 0x861DB0-0x862320 (no assert: the file name provisional, NAME 1): written by hand (builder P5)",
     ('app', 'packets/pkunknown_861db0.h'): "its class (pk_classes.h includes it: tools/re/pkclasses.py)",
     ('app', 'packets/pkunknown_863720.cpp'): "opcodes 230 and 231's object, 0x863720-0x864090 (no assert: the file name provisional, NAME 1): written by hand (builder P5)",

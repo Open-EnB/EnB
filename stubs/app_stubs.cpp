@@ -34,7 +34,6 @@
 #include "pkguildplayeronline.h"
 #include "pkmessagechatstream.h"
 #include "pkitemba.h"
-#include "spline.h"
 
 // ------------------------------------------------------------------------- E&B debug hooks
 
@@ -212,17 +211,6 @@ void ItemBaseInfoClass::Write(RawPacketClass *raw)
 int ItemBaseInfoClass::Get_Size()
 {
 	return *(int *)(Unknown08 + 4);
-}
-
-// 0x483820 (spline.cpp, not in the tree): spln_db.obj comes with SPLINE 56's packing (d01657e)
-void SplineFloatArrayClass::Resize(unsigned int size, float value)
-{
-	delete [] Data;
-	Data = new float[size];
-	for (unsigned int i = 0; i < size; i++) {
-		Data[i] = value;
-	}
-	Size = size;
 }
 
 // 0x8B44E0: the int64 in decimal (the client's behaviour)
