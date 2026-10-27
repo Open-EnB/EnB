@@ -879,11 +879,20 @@
    },
    "control_keys_manager": {
     "ambiguous": [
-     "0x42B2F0"
+     "0x42B2F0",
+     "0x71C9C0"
     ],
     "copy": "reconstructed",
     "expected": {},
     "in_tree": [
+     "0x42A820",
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30",
+     "0x71A860",
+     "0x71CA20",
+     "0x71CA50",
+     "0x71CA80",
      "0x71CC20",
      "0x71CC60",
      "0x71CCA0",
