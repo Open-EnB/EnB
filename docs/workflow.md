@@ -227,6 +227,10 @@ unless `--lever` cites a new row of this table.
 | Our loop hoists addresses into stack slots the client doesn't have; the client writes a temporary into a dead parameter slot | Move loop-invariant inline math (a Matrix3D multiply, Vector constructs) out of the loop: VC6 then spills nothing | `SegLineRendererClass::Render` 0x9BEB20, 5c24e98 (F4: one move after W3's 16 forms) |
 | A repeated null test of a literal / 64-bit memory value: the client re-loads and tests again, ours threads it | Unsolved stop signal: VC6 keeps the second test when the tested value is a rematerialised constant or a 64-bit memory operand, threads it on a register value; 8 header and call forms plus a 30-flag sweep changed nothing. The lead: an E&B wwstring.h whose literal constructor does not call operator= | ShdMesh ctor 0xA08F80, 0xA0EC30; `Unknown_50` 0x7683F0 residue (F4) |
 | Index-building loops: the client keeps a running row base | `int row1 = 1; ... row1 += nx` with the Adds in the client's order; also makes the static guards exact (`mov cl,al; or cl,N`) | distortion draw 0x9961E0, 1306 -> 1045 rows (F4; frame and loop registers remain) |
+| An out-of-line loop function that is also inlined one level into its callers | A self tail-recursive `X_Rest(p, left)`; a plain `while` loop gets fully inlined | boolpars' `_Rest` functions (H8, d084b25) |
+| A whitespace skip inlined at some sites, out of line at others | A macro, not an inline function | boolpars (H8) |
+| A `static const int` read from memory where ours folds it | A class static defined after its uses | 0xAECC44, boolpars (H8) |
+| `Value(...)` stores into a +4 subobject that keeps its own vtable | A member object, not a second base | boolpars' nodes (H8) |
 
 * **A nested inline is a whole-function budget (2026-10-26, `Key_Exchange` 0x829180):** under `/Ob2` an
   inline helper's own callees (a `std::set` iterator's `_Inc`) are inlined only while the function as a
@@ -275,6 +279,12 @@ unless `--lever` cites a new row of this table.
 * **`appfile.py match` on the draft VM resolves `..\common\x.h` from stale copies** unless every app directory is
   passed with `-I` (app/common, app/packets, app/shared) plus radtools' include_enb and the directx8 SDK.
 
+* **iostreams (H8, 2026-10-27):** `std::stringstream` instances compile byte-exact from VC6's own `<sstream>`
+  (unique_design_id_lookup.cpp, 115 client instances 0x500AB0-0x509C40): other iostream users follow it; the three
+  that still differ (operator<<(int), operator>>(int&), stringstream::str) are library code, no extra include helps.
+* **One `__FILE__` window can mix two files** (appfile.py): `.work/h8/layout.py` places each `#line N` from a draft
+  and pads inside a function when several asserts share it. explain.py reports a static's atexit `$E` as a false
+  relocation before the real class.
 ### 3.4 Importer, verify and pairs
 
 * **Header origins live in `imports.json`'s `headers` map** (`headers_from`: swapped with the
