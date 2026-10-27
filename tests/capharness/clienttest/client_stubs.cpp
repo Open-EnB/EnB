@@ -16,6 +16,7 @@
 #include "..\..\..\app\packets\pknamedecal.h"
 #include "..\..\..\app\packets\pkguildranknamesrequestclient.h"
 #include "rect.h"
+#include "matrix3d.h"
 
 // ------------------------------------------------------------------------- soptions.cpp (registry: never run)
 
@@ -94,6 +95,7 @@ void ClientObjectClass::Get_Name(std::string &name)
 	name = buffer;
 }
 bool ClientObjectClass::Unknown_700400() { Trace("stub ClientObjectClass::Unknown_700400 %u", GameID); return(false); }
+Matrix3D ClientObjectClass::Unknown_28(int unknown) { Trace("stub ClientObjectClass::Unknown_28 %u %d", GameID, unknown); Matrix3D m(true); return(m); }
 void ClientObjectClass::Unknown_6FEF70(SubPartsPacket *) { Trace("stub ClientObjectClass::Unknown_6FEF70 %u", GameID); }
 void ClientObjectClass::Unknown_70E750(int id) { Trace("stub ClientObjectClass::Unknown_70E750 %u target %d", GameID, id); }
 

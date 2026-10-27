@@ -1,5 +1,7 @@
 // Earth & Beyond client (reconstruction): app\client\co.cpp. Notes at the end of the file.
 #include "co.h"
+#include "client.h"
+#include "..\shared\auxdata\delta.h"
 #include "rendobj.h"
 #include "sphere.h"
 #include "vector3.h"
@@ -14,6 +16,12 @@ float Unknown_B93ADC = 0.0125f;			// 0xB93ADC
 float Unknown_B93AE0 = 0.02f;			// 0xB93AE0
 float Unknown_B93AE4 = 0.025f;			// 0xB93AE4
 
+// 0x6F3BA0
+void ClientObjectClass::Unknown_34(float value)
+{
+	Unknown9C = value;
+}
+
 // 0x6F3BC0
 RenderObjClass *ClientObjectClass::Unknown_6F3BC0()
 {
@@ -23,14 +31,6 @@ RenderObjClass *ClientObjectClass::Unknown_6F3BC0()
 	Model->Add_Ref();
 	return(Model);
 }
-
-
-
-
-
-
-
-
 
 
 
@@ -897,19 +897,19 @@ float ClientObjectClass::Unknown_6F4590()
 
 
 
+// 0x6F5050
+Vector3 ClientObjectClass::Unknown_2C()
+{
+	return(Unknown98->Unknown_10(Client->Unknown10BC));
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
+// 0x6F5120
+void ClientObjectClass::Unknown_1C()
+{
+	if (AuxData) {
+		((DeltaClass *)AuxData)->Unknown_20();
+	}
+}
 
 
 

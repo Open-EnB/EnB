@@ -29,6 +29,7 @@
 
 class RenderObjClass;
 class Vector3;
+class Matrix3D;
 
 // co.cpp's +0xB4 object: a RefCountClass the constructor gets from 0x731FA0 (0xB8 bytes, constructor
 // 0x732030); 0x6FCB20 passes the visibility to its slot +0x18
@@ -42,6 +43,18 @@ public:
 	virtual void Unknown_18(bool visible);			// NAME 2 [visible]: 0x6FCB20's argument
 };
 
+// co.cpp's +0x98 object: 4 bytes, vtable 0xB006B8 (its trivial slots 0x6F2D40-0x6F2F00), base vtable
+// 0xB00768; the constructor news it
+class Unknown98Class							// NAME 1: neutral (D10)
+{
+public:
+	virtual ~Unknown98Class();
+	virtual int Unknown_04();
+	virtual Matrix3D Unknown_08(int unknown);
+	virtual Vector3 Unknown_0C(int unknown);
+	virtual Vector3 Unknown_10(int unknown);	// +0x10 (0x6F2ED0: a zero Vector3); 0x6F5050 passes the client's +0x10BC  // NAME 1 [unknown]: neutral
+};
+
 void Unknown_810540(RenderObjClass *model, int state, int unknown);	// shiputils.cpp (cdecl)  // NAME 1 [model, state, unknown]: co.cpp passes the model, 1 or 2, and 0
 class SubPartsPacket;
 class ClientClass;
@@ -53,6 +66,20 @@ public:
 	virtual void Unknown_04();
 	virtual void Unknown_08();							// +0x08: ClientClass's destructor calls it before the delete
 	virtual void Unknown_0C(ClientObjectClass *child, int a, int b);	// +0x0C (cpacket.cpp: CREATE_ATTACHMENT 74 passes the child, its Unknown18 and 0)  // NAME 1 [child, a, b]: what the handler passes
+	virtual void Unknown_10(int a, int b, int c);		// +0x10 0x7257F0 (the base's, client.cpp's region)  // NAME 1 [a, b, c]: neutral
+	virtual void Unknown_14(int a, int b, int c) {}		// +0x14 0x6F2C50 (empty)  // NAME 1 [a, b, c]: neutral
+	virtual void Unknown_18(int a, int b, int c) {}		// +0x18 0x6F2C70 (empty)  // NAME 1 [a, b, c]: neutral
+	virtual void Unknown_1C();							// +0x1C 0x6F5120 (the aux data's slot +0x20)
+	virtual void Unknown_20();							// +0x20 0x6F3C60 (FAIL_IF '!RenderObject' l.1779 inline: 0x6FD2C0)
+	virtual void Unknown_24(const Vector3 &pos);		// +0x24 0x6F4C20 (G_ASSERT 'pos.Is_Valid()', l.762)
+	virtual Matrix3D Unknown_28(int unknown);			// +0x28 0x6F4610 (0x6FEC40 transforms the sphere by it)  // NAME 1 [unknown]: neutral
+	virtual Vector3 Unknown_2C();						// +0x2C 0x6F5050
+	virtual float Unknown_30() { return(Unknown9C); }	// +0x30 0x6F2CC0
+	virtual void Unknown_34(float value);				// +0x34 0x6F3BA0  // NAME 1 [value]: neutral
+	virtual void Unknown_38();							// +0x38 0x6F39F0 (cbasset.ini's Radius, asserts l.331 / 336)
+	virtual void Unknown_3C() {}						// +0x3C 0x6F2CE0 (empty)
+	virtual int Unknown_40() { return(0); }				// +0x40 0x6F2D00
+	virtual int Unknown_44() { return(0); }				// +0x44 0x6F2D20
 
 	unsigned Get_Game_ID() { return(GameID); }			// (the assert's name)
 	void Get_Name(std::string &name);					// 0x6FF4B0  // NAME 2: Find_Object compares it with a name
@@ -120,7 +147,7 @@ public:
 	unsigned GameID;									// +0x90  // NAME 3: Get_Game_ID's
 	char Type;											// +0x94 the constructor's second argument, CREATE's object type (the factory 0x6F6000 switches on it)  // NAME 2: what it holds
 	char Unknown95[0x98 - 0x95];						// +0x95
-	void *Unknown98;									// +0x98 a 4-byte object with vtable 0xB006B8 (the constructor's new)
+	Unknown98Class *Unknown98;							// +0x98 (the constructor's new)
 	float Unknown9C;									// +0x9C 1.0f (0x6F3BA0 sets it; 0x6FED30's radius without a model)
 	char UnknownA0[0xAC - 0xA0];						// +0xA0
 	RenderObjClass *Model;								// +0xAC (cpacket.cpp's render-state handlers: Class_ID, then rs_track.cpp's methods; co.cpp's G_ASSERT 'RenderObject != 0', l.361, names it RenderObject)  // NAME 2: what it holds
