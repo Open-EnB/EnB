@@ -504,7 +504,7 @@ void FontDatabaseClass::Load_String(INIClass &ini, char *section, FontStringStru
 }
 
 
-// NOT EXACT: inline-budget: the client inlines a const_iterator Add_String here (its find converted out of line); ours the Find_String form
+// NOT EXACT: frame: the inlined Add_String's key and iterator temporaries sit in other stack slots (0.76)
 void FontDatabaseClass::Unknown_6C1500(const char *file_name)
 {
 	INIClass ini;
