@@ -206,6 +206,26 @@ public:
 	bool Unknown68;										// +0x68 ClientTaskClass::Render renders when it is set
 };
 
+// The 3-D movie view (constructor 0x7EEF90, 0x2A8 bytes; SClient 0x74BC20 makes it, 0x74BD10 deletes it)
+class Movie3DViewClass : public ViewClass	// NAME 2: SClient's member 'Movie3DView' (G_ASSERT l.4104)
+{
+public:
+	Movie3DViewClass(ClientTaskClass *task, int arg);	// 0x7EEF90  // NAME 1 [task, arg]: what 0x74BC20 passes
+
+	char Unknown38[0x2A8 - 0x38];						// +0x38
+};
+
+class SClientMovieCallbackClass;
+
+// The scripted movie view (constructor 0x8000C0, 0x178 bytes; SClient 0x74BD90 makes it, 0x74BF00 deletes it)
+class ScriptedMovieViewClass : public ViewClass	// NAME 2: SClient's member 'ScriptedMovieView' (G_ASSERT l.4127)
+{
+public:
+	ScriptedMovieViewClass(ClientTaskClass *task, int arg, SClientMovieCallbackClass *callback);	// 0x8000C0  // NAME 1 [task, arg, callback]: what 0x74BD90 passes
+
+	char Unknown38[0x178 - 0x38];						// +0x38
+};
+
 // The 0x120 bytes at SClient +0x13CC: 24 colours set to (1, 1, 1) by the out-of-line constructor 0x764FD0
 // (between proj_decal_manager.cpp and tsk_game.cpp; file unknown)
 class Unknown764FD0Class	// NAME 1: neutral (D10)
@@ -305,6 +325,10 @@ public:
 	void Unknown_745750();								// 0x745750 (cpacket.cpp: SERVER_HANDOFF 58)
 	void Unknown_745000(int base_asset);				// 0x745000 (cpacket.cpp: SERVER_PARAMETERS 66 passes its BackdropBaseAsset)  // NAME 1 [base_asset]: the packet's field
 	void Unknown_750A70(unsigned sector);				// 0x750A70 (cpacket.cpp: SERVER_PARAMETERS 66 passes its SectorNum)  // NAME 1 [sector]: the packet's field
+	void Unknown_74BC20(int arg);						// 0x74BC20: the 3-D movie view made and shown, view mode 3 (G_ASSERT '!Movie3DView', l.4090)  // NAME 1 [arg]: neutral
+	void Unknown_74BD10();								// 0x74BD10: the 3-D movie view ended, the view mode before it back (l.4104)
+	void Unknown_74BD90(int arg);						// 0x74BD90: the scripted movie view made, view mode 6 (G_ASSERT '!ScriptedMovieView', l.4117)  // NAME 1 [arg]: neutral
+	void Unknown_74BF00(int mode);						// 0x74BF00: the scripted movie view ended into view mode 'mode' (l.4127)  // NAME 1 [mode]: what it is
 	void Unknown_744E70(bool arg);						// 0x744E70: the main view's target (FAIL_IF '!target', l.2110) as an ACTION 44 packet, else the chat panel's +0x138  // NAME 1 [arg]: neutral
 	Unknown77E3F0Class *Unknown_74C7B0(unsigned id);	// 0x74C7B0: Unknown1394's value of id, its 0x77E3F0 given Unknown1338  // NAME 1 [id]: the table's key
 	Unknown77E3F0Class *Unknown_74C840(unsigned id);	// 0x74C840: as 0x74C7B0 through 0x77E610  // NAME 1 [id]: the table's key
@@ -372,8 +396,8 @@ public:
 	MainViewClass *MainView;							// +0x1354 Init  // NAME 3: its file's
 	ViewClass *Unknown1358;								// +0x1358 Init (0x514CC0, 0x50 bytes)
 	ViewClass *Unknown135C;								// +0x135C
-	ViewClass *Unknown1360;								// +0x1360
-	ViewClass *Unknown1364;								// +0x1364
+	Movie3DViewClass *Movie3DView;						// +0x1360 view mode 3 (the client's G_ASSERT names, ll.4090 / 4104)
+	ScriptedMovieViewClass *ScriptedMovieView;			// +0x1364 view mode 6 (the client's G_ASSERT names, ll.4117 / 4127)
 	LoadingViewClass *LoadingView;						// +0x1368 Init  // NAME 3: its file's
 	int ViewMode;										// +0x136C (2; 3: the 3-D movie view, 6: the scripted movie view)  // NAME 2: what Do_Frame's asserts show
 	int Unknown1370;									// +0x1370 (3)
@@ -401,5 +425,16 @@ public:
 	int Unknown14F4;									// +0x14F4
 };
 #pragma pack(pop)
+
+// The scripted movie view's link back to SClient (vtable 0xB032F8, 8 bytes; 0x74BD90 makes it)
+class SClientMovieCallbackClass	// NAME 1: neutral (D10)
+{
+public:
+	SClientMovieCallbackClass(SClient *client) { Client = client; }
+	virtual SClient *Get_Client() { return(Client); }	// +0x00 0x74BEA0  // NAME 2: what it returns
+	virtual void Unknown_04(RefCountClass *object) { Client->Unknown_74C370(object); }	// +0x04 0x74BEC0: SClient's 0x74C370  // NAME 1 [object]: neutral
+
+	SClient *Client;									// +0x04  // NAME 2: what it holds
+};
 
 #endif

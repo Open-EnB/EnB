@@ -357,8 +357,8 @@ SClient::SClient(ClientTaskClass *task) :
 	MainView(NULL),
 	Unknown1358(NULL),
 	Unknown135C(NULL),
-	Unknown1360(NULL),
-	Unknown1364(NULL),
+	Movie3DView(NULL),
+	ScriptedMovieView(NULL),
 	LoadingView(NULL),
 	ViewMode(2),
 	Unknown1370(3),
@@ -578,11 +578,11 @@ void SClient::Shutdown()
 	if (Unknown135C) {
 		Unknown135C->Unknown_10();
 	}
-	if (Unknown1360) {
-		Unknown1360->Unknown_10();
+	if (Movie3DView) {
+		Movie3DView->Unknown_10();
 	}
-	if (Unknown1364) {
-		Unknown1364->Unknown_10();
+	if (ScriptedMovieView) {
+		ScriptedMovieView->Unknown_10();
 	}
 	if (LoadingView) {
 		LoadingView->Unknown_10();
@@ -603,10 +603,10 @@ void SClient::Shutdown()
 	Unknown1358 = NULL;
 	delete Unknown135C;
 	Unknown135C = NULL;
-	delete Unknown1360;
-	Unknown1360 = NULL;
-	delete Unknown1364;
-	Unknown1364 = NULL;
+	delete Movie3DView;
+	Movie3DView = NULL;
+	delete ScriptedMovieView;
+	ScriptedMovieView = NULL;
 	delete Unknown1274;
 	Unknown1274 = NULL;
 	delete LoadingView;
@@ -2330,7 +2330,7 @@ void SClient::Unknown_745EC0(FileClass *file, int indent)
 // 0x745F30
 void SClient::Unknown_745F30(int type)
 {
-	int old_mode = ViewMode;
+	int old_mode = ViewMode; for (int i = 0; i < 0; i++) {}
 	ViewMode = type;
 	switch (type) {
 		case 0:
@@ -2348,11 +2348,11 @@ void SClient::Unknown_745F30(int type)
 			break;
 
 		case 3:
-			Unknown_742530(Unknown1360);
+			Unknown_742530(Movie3DView);
 			break;
 
 		case 6:
-			Unknown_742530(Unknown1364);
+			Unknown_742530(ScriptedMovieView);
 			break;
 	}
 	MainView->Unknown_514010(old_mode, type);
@@ -4083,53 +4083,53 @@ void SClient::Unknown_745F30(int type)
 
 
 
+// 0x74BC20
+void SClient::Unknown_74BC20(int arg)
+{
+
+	G_ASSERT(!Movie3DView);
+	Movie3DView = new Movie3DViewClass(Task, arg);
+	Movie3DView->Unknown_04();
+	Movie3DView->Unknown_08();
+	Unknown1370 = ViewMode;
+	Unknown_745F30(3);
+}
+
+// 0x74BD10
+void SClient::Unknown_74BD10()
+{
 
 
 
+	G_ASSERT(Movie3DView);
+	Unknown_745F30(Unknown1370);
+	Movie3DView->Unknown_10();
+	delete Movie3DView;
+	Movie3DView = NULL;
+}
+
+// 0x74BD90
+void SClient::Unknown_74BD90(int arg)
+{
 
 
 
+	G_ASSERT(!ScriptedMovieView);
+	ScriptedMovieView = new ScriptedMovieViewClass(Task, arg, new SClientMovieCallbackClass(this));
+	Unknown1370 = ViewMode;
+	Unknown_745F30(6);
+}
 
+// 0x74BF00
+void SClient::Unknown_74BF00(int mode)
+{
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	G_ASSERT(ScriptedMovieView);
+	Unknown_745F30(mode);
+	ScriptedMovieView->Unknown_10();
+	delete ScriptedMovieView;
+	ScriptedMovieView = NULL;
+}
 
 
 
@@ -5621,6 +5621,10 @@ void SClient::Unknown_750B30(int arg)
 **	are declared only (clienttest stands in for them).
 **	The body (T18): the small helpers at their place between the client's assert lines (the file keeps the
 **	client's __LINE__s through blank padding, as cpacket.cpp: 0x745160's FAIL_IFs on lines 2158 / 2160).
+**	0x745F30's empty loop compiles to nothing; it spends the inline budget so that VC6 calls the view-mode
+**	setter out of line from the movie views (0x74BC20-0x74BF00), as the client does (workflow.md 3.1: the
+**	budget counts loops in an inlined callee). The movie callback stores its vtable before Client: a body
+**	assignment, not an initialiser.
 **	cpacket.cpp's handlers are PacketClass's slot +0x08 (Process_Packet(SClient *)): Process_Packets
 **	peeks the connection (PeekConnectionClass +0x34), hands the packet to its handler and, when that
 **	returns true, takes it off the connection (+0x0C) and deletes it; false leaves it for the next frame.
