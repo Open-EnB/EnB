@@ -34,48 +34,7 @@ class ConnectionClass;
 class SplineDatabaseClass;
 class ClientClass;
 
-// co.cpp's client object (the RTTI's ClientObjectClass; co.cpp isn't rebuilt): declared as far as
-// client.cpp uses it
-class ClientObjectClass		// NAME 3: the RTTI's .?AVClientObjectClass@@ for co.cpp's class, not tied to this layout by a vtable
-{
-public:
-	virtual ~ClientObjectClass();						// +0x00 (ClientClass's destructor deletes through it)
-	virtual void Unknown_04();
-	virtual void Unknown_08();							// +0x08: ClientClass's destructor calls it before the delete
-	virtual void Unknown_0C(ClientObjectClass *child, int a, int b);	// +0x0C (cpacket.cpp: CREATE_ATTACHMENT 74 passes the child, its Unknown18 and 0)  // NAME 1 [child, a, b]: what the handler passes
-
-	unsigned Get_Game_ID() { return(GameID); }			// (the assert's name)
-	void Get_Name(std::string &name);					// 0x6FF4B0  // NAME 2: Find_Object compares it with a name
-	bool Unknown_6FFE90();								// 0x6FFE90 (co.cpp)
-	int Unknown_6FFF00();								// 0x6FFF00 (co.cpp)
-	int Unknown_6FFF50();								// 0x6FFF50 (co.cpp)
-	bool Unknown_700400();								// 0x700400 (co.cpp)
-	RenderObjClass *Unknown_6F3BC0();					// 0x6F3BC0 (co.cpp; cpacket.cpp's DECAL 16 releases the model it returns)
-	bool Unknown_6F5DC0();								// 0x6F5DC0 (co.cpp; cpacket.cpp's SET_TARGET 25 tests it)
-	void Unknown_6FEF70(SubPartsPacket *packet);		// 0x6FEF70 (co.cpp; cpacket.cpp's SUBPARTS 180)  // NAME 1 [packet]: the handler's packet
-	void Unknown_70E750(int id);						// 0x70E750 (cpacket.cpp's SET_TARGET 25 passes its TargetID)  // NAME 1 [id]: the packet's TargetID
-	int Unknown_7283B0()								// co.cpp's, inline in client.cpp's 0x7283B0 (there its FAIL_IF has co.cpp's __FILE__, l.2461)
-	{
-		if (Unknown94 >= 0 && Unknown94 < 2) {
-			FAIL_IF(!AuxData) {
-				return(0);
-			}
-			return(*(int *)(AuxData + 0x39C4));
-		}
-		return(0);
-	}
-
-	char Unknown04[0x60 - 0x04];						// +0x04
-	HashNodeClass<ClientObjectClass *> Node;			// +0x60 ClientClass::ObjectList's node  // NAME 2: what it is
-	ClientClass *Client;								// +0x7C the constructor's first argument (CREATE passes its SClient; co_data.cpp calls its slot +0x18)  // NAME 2: what it holds
-	char Unknown80[0x88 - 0x80];						// +0x80
-	char *AuxData;										// +0x88 (co.cpp's FAIL_IF '!aux_data', l.2461)  // NAME 3: the FAIL_IF's name
-	int Unknown8C;										// +0x8C
-	unsigned GameID;									// +0x90  // NAME 3: Get_Game_ID's
-	char Unknown94;										// +0x94
-	char Unknown95[0xAC - 0x95];						// +0x95
-	RenderObjClass *Model;								// +0xAC (cpacket.cpp's render-state handlers: Class_ID, then rs_track.cpp's methods)  // NAME 2: what it holds
-};
+#include "co.h"
 
 // eff_o.cpp's effect object (not rebuilt): ClientClass's second list
 class EffectObjectClass		// NAME 3: class-from-file (D24) for eff_o.cpp

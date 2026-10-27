@@ -3483,6 +3483,7 @@ RECONSTRUCTED = {
                                             "0x7E5E50: _Factions's initializer and destructor, Init (NOT EXACT: register-only), "
                                             "Shutdown, the static empty string, Get_Name, Get_Description (line 98, D25)",
     ('app', 'shared/data_binder.h'): "DataBinderClass<KEY> (D24): a registry of data objects of any type bound to a key, one SGI hash_map<KEY, T *> per type in a hash_map<std::string, void *> keyed by typeid(T *).name() (libs/sgistl, D87); asserts on the client's lines 99 / 101 (D25)",
+    ('app', 'client/co.h'): "ClientObjectClass (the RTTI's name), co.cpp's client object, declared as far as client.cpp, cpacket.cpp and co_data.cpp use it (moved from client.h; constructor 0x6F2820, vtable 0xB0070C, the client at +0x7C)",
     ('app', 'client/co_data.h'): "ClientObjectDataClass (vtable 0xB056CC, 8 bytes) and the per-type access to the client objects' radar, gutter, starmap, navigation and emote data through data_binder.h, keyed by the object",
     ('app', 'client/co_data.cpp'): "ClientObjectDataClass and the data binder's instances, client 0x79D0F0-0x7A4770 (the constructor's assert l.42, the FAIL_IF l.54; D25)",
     ('app', 'client/radar_data.h'): "RadarDataClass (the client's typeid name), declared as far as co_data.cpp needs it (0x7C bytes)",

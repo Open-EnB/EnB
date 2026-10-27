@@ -6494,6 +6494,7 @@
    "client/buff_database.h": "reconstructed",
    "client/cfaction_database.h": "reconstructed",
    "client/client.h": "reconstructed",
+   "client/co.h": "reconstructed",
    "client/co_data.h": "reconstructed",
    "client/control_keys_manager.h": "reconstructed",
    "client/emote_data.h": "reconstructed",
