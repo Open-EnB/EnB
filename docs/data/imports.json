@@ -3062,8 +3062,6 @@
     "ambiguous": [
      "0x42A6C0",
      "0x42B2F0",
-     "0x443F30",
-     "0x49CB70",
      "0x7671E0"
     ],
     "copy": "reconstructed",
@@ -3081,6 +3079,9 @@
      "0x52B270",
      "0x52B2A0",
      "0x52B350",
+     "0x560010",
+     "0x560160",
+     "0x5601D0",
      "0x5AEF50",
      "0x7675A0",
      "0x767A20",
@@ -3113,7 +3114,8 @@
      "0x76B730",
      "0x76B8A0",
      "0x76B9C0",
-     "0x76BB70"
+     "0x76BB70",
+     "0x76BBF0"
     ],
     "merged": [],
     "name": "client/tasks/tsk_login.cpp"
@@ -3529,7 +3531,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 1433,
+  "in_tree_total": 1439,
   "totals": {}
  },
  "binkmovie": {

@@ -43,7 +43,7 @@ class GlobalErrorPacketClass : public PacketClass { public: GlobalErrorPacketCla
 class GlobalTicketPacketClass : public PacketClass { public: GlobalTicketPacketClass(RawPacketClass *raw); virtual bool Process_Packet(void *client); int Status; TicketClass Ticket; };	// opcode 111: 0x867650, 0x58 bytes  // NAME 1 [Status, Ticket]: 'Got the global ticket: %d', copied to the task's Ticket
 class Packet_0076Class : public PacketClass { public: Packet_0076Class(RawPacketClass *raw); virtual bool Process_Packet(void *client); int Unknown0C; LoginTicketInfoClass Ticket_Info; int Unknown0AC; short Unknown0B0; int Unknown0B4; int Unknown0B8; int Unknown0BC; bool Is_Unknown0B0() const { return Unknown0B0 != 0; } int Get_Unknown0B4() const { return Unknown0B4 - Unknown0B8; } };	// opcode 118 (the client's log: GlobalLoginPacketClass): 0x866050, 0xC0 bytes  // NAME 1 [Ticket_Info, Is_Unknown0B0, Get_Unknown0B4]: copied whole to the task's; the two accessors (inline budget: 0x76B170 calls string::assign out of line only with them)
 class Packet_0077Class : public PacketClass { public: Packet_0077Class(const char *name); virtual ~Packet_0077Class() {} virtual RawPacketClass *Build(); virtual bool Process_Packet(void *client); virtual int Get_Data_Size(); virtual int Print(char *buffer, int len); std::string Name; int Unknown1C; };	// opcode 119: 0x866AC0 (the sending constructor), 0x20 bytes; its destructor 0x76B400 is emitted here  // NAME 1 [name]: the referrer's name (0x55D060)
-
+class GlobalAvatarListPacketClass : public PacketClass { public: GlobalAvatarListPacketClass(RawPacketClass *raw); virtual bool Process_Packet(void *client); void *Unknown0C; void *Unknown10; std::list<LoginGalaxyClass> Galaxies; };	// opcode 112: 0x862D90, 0x20 bytes  // NAME 1 [Galaxies]: copied to the task's
 
 
 
@@ -567,11 +567,11 @@ bool LoginTaskClass::Unknown_4C()
 
 
 
-
-
-
-
-
+// 0x769110
+void LoginTaskClass::Set_Galaxies(const std::list<LoginGalaxyClass> &galaxies)
+{
+	Galaxies = galaxies;
+}
 
 
 
@@ -1304,17 +1304,17 @@ bool GlobalErrorPacketClass::Process_Packet(void *client)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
+// 0x76B520
+bool GlobalAvatarListPacketClass::Process_Packet(void *client)
+{
+	LoginTaskClass *task = (LoginTaskClass *)client;
+	G_ASSERT(task);
+	task->Unknown0020 = 1;
+	Unknown_Log("LOGIN:INF", "Got the avatar list packet.");
+	task->Set_Galaxies(Galaxies);
+	task->Unknown_768CB0(Unknown0C, Unknown10);
+	return true;
+}
 
 
 

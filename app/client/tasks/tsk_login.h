@@ -26,6 +26,7 @@ class ConnectionClass;
 class Packet_0078Class;
 class GlobalErrorPacketClass;
 class Packet_0076Class;
+class LinearBufferClass;
 class LoginTaskClass;
 
 // The character view (charview.cpp: constructor 0x678450, 0x514 bytes), declared only as far as
@@ -149,12 +150,31 @@ struct LoginCharacterClass	// NAME 1: what it holds
 	char Unknown20[0x70];								// +0x20
 };
 
-// A galaxy of the login's list
-struct LoginGalaxyClass	// NAME 1: what it holds
+// The interface vtable 0xAEB9EC (three pure slots): pk.h's Unknown_PacketDataClass with its third slot
+class LoginPacketDataClass	// NAME 1: neutral (D10)
 {
-	char Unknown00[0x48];								// +0x00
+public:
+	virtual void Write(LinearBufferClass *buffer) = 0;	// +0x00 NAME 2: pk.h's
+	virtual void Read(LinearBufferClass *buffer) = 0;	// +0x04 NAME 2: pk.h's
+	virtual int Get_Size() = 0;							// +0x08 NAME 1: the galaxy's returns 0x54, the bytes Write writes
+};
+
+// A galaxy of the login's list (vtable 0xAEFBD0, 0x60 bytes; the avatar list packet's, 0x862D90)
+class LoginGalaxyClass : public LoginPacketDataClass	// NAME 1: what it holds
+{
+public:
+	~LoginGalaxyClass() {}								// 0x76BBF0 (stores the vtable: explicit)
+	virtual void Write(LinearBufferClass *buffer);		// +0x00 0x83C730
+	virtual void Read(LinearBufferClass *buffer);		// +0x04 0x83C7C0
+	virtual int Get_Size();								// +0x08 0x83C850
+
+	char Name[0x41];									// +0x04 NAME 1: 0x40 bytes on the wire
 	int ID;												// +0x48 NAME 1: compared with the characters' Galaxy_ID
 	unsigned long Address;								// +0x4C NAME 1: Galaxy_Address's source
+	short Unknown50;									// +0x50
+	int Unknown54;										// +0x54
+	int Unknown58;										// +0x58
+	short Unknown5C;									// +0x5C
 };
 
 // What the global ticket packet's handler 0x76B170 copies (0x9C bytes; step 16 copies it whole)
@@ -241,6 +261,8 @@ public:
 	void Unknown_76A370();								// 0x76A370 (step 18: 'LoginTask: Request Character List.')
 	void Save_Login_Name();								// 0x76AD30: login.ini's LOGIN_DATA Name  // NAME 1: what it does
 	void Load_Login();									// 0x76ADD0: login.ini, -LOGIN, -PASSWORD  // NAME 1: what it does
+	void Unknown_768CB0(void *characters, void *unknown);	// 0x768CB0: the avatar list's five characters (0x90 bytes each) and five 0x10C entries
+	void Set_Galaxies(const std::list<LoginGalaxyClass> &galaxies);	// 0x769110 (inlined in the avatar list's handler)  // NAME 1: what it does
 	void Handle_Global_Error(GlobalErrorPacketClass *packet);	// 0x76B000 (GlobalErrorPacketClass's handler)  // NAME 1: what it does
 	void Handle_Global_Login(Packet_0076Class *packet);	// 0x76B170 (inlined in the packet's Process_Packet: 'GlobalLoginPacketClass recv')  // NAME 1: what it does
 	void Send_Referrer(const char *name);				// 0x76B330: opcode 119 (called by 0x55D060: 'Sorry, you cannot refer yourself.')  // NAME 1: what it does
