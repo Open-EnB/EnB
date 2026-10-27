@@ -452,6 +452,17 @@ bool ClientClass::Get_Objects_Changed()
 	return(changed);
 }
 
+// 0x725050
+UnknownB02C90Class::UnknownB02C90Class(void *owner) :
+	Unknown04(owner), Unknown08(owner), Unknown1C(true)
+{
+}
+
+// 0x7250F0
+UnknownB02C90Class::~UnknownB02C90Class()
+{
+}
+
 /*
 **	Reconstruction notes (client.cpp, 0x726100-0x728450; kernel-map-step9.md 2.1)
 **

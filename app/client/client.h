@@ -25,7 +25,7 @@
 #include "ref_ptr.h"
 #include <string>
 #include "..\shared\unknown_debug.h"
-
+#include "matrix3d.h"
 class KernelClass;
 class RenderObjClass;
 class SubPartsPacket;
@@ -212,5 +212,29 @@ public:
 	int Unknown114C;									// +0x114C
 };
 #pragma pack(pop)
+
+// The base of co.cpp's object (0x4C bytes, vtable 0xB02C90; co.cpp's constructor 0x6F2820 calls its constructor
+// with the object itself): the client's code for it sits before ClientClass's in client.cpp's region
+// (0x725050-0x7260FF). The slots +0x04 .. +0x10 (0x7251C0, 0x725120, 0x725610, 0x7257F0) are not rebuilt.
+class UnknownB02C90Class							// NAME 1: neutral (D10), named by its vtable
+{
+public:
+	UnknownB02C90Class(void *owner);					// 0x725050  // NAME 1 [owner]: co.cpp passes the object itself
+	virtual ~UnknownB02C90Class();						// 0x7250F0 (scalar deleting 0x7250C0)
+
+	void *Unknown04;									// +0x04 the constructor's argument
+	void *Unknown08;									// +0x08 the constructor's argument
+	// +0x0C .. +0x18: a buffer with its own inline destructor (clears the count, deletes the data): written as
+	// fields in the base's destructor, the client's vtable store moves first and 0x7250C0 calls 0x7250F0
+	struct BufferStruct {								// NAME 1: neutral (D10)
+		BufferStruct() : Count(0), Unknown04(0), Data(0), Unknown0C(0) {}
+		~BufferStruct() { Count = 0; delete Data; }
+		int Count;										// +0x0C (+0x00) cleared by the destructor  // NAME 1: neutral
+		int Unknown04;									// +0x10 (+0x04)
+		char *Data;									// +0x14 (+0x08) deleted by the destructor  // NAME 1: neutral
+		int Unknown0C;									// +0x18 (+0x0C)
+	} Buffer;											// +0x0C
+	Matrix3D Unknown1C;									// +0x1C identity
+};
 
 #endif
