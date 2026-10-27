@@ -6,7 +6,7 @@
 **	Original location: e:\build\beta\G\app\Packets\pk_player_object_relationship.h (the name from the
 **	client's pk_player_object_relationship.cpp)
 **
-**	The packet classes of client 0x873AE0-0x8754A0 rebuilt so far (opcode 137, 139); the file's other
+**	The packet classes of client 0x873AE0-0x8754A0 rebuilt so far (opcode 137, 138, 139); the file's other
 **	class (138) is still declared in pk_classes.h.
 */
 
@@ -60,6 +60,52 @@ public:
 	int Channel;	// +0x1C (PacketClass::Unknown_14 of ObjectID; -1 by default)  // NAME 2: Get_Channel returns it
 };
 
+// One reaction of opcode 138: 8 bytes (the id in network order, the reaction as its 4 bytes)
+struct ReactionUpdateStruct  // NAME 1: neutral (D10): what it holds
+{
+	ReactionUpdateStruct() : ObjectID(-1), Reaction((MobReactionType)1) {}	// (the iterator's answer when done)
+	ReactionUpdateStruct(int object_id, MobReactionType reaction) : ObjectID(object_id), Reaction(reaction) {}
+
+	int ObjectID;	// +0x00  // NAME 2: as RELATIONSHIP 137's ObjectID (Print's ' %d=%s')
+	MobReactionType Reaction;	// +0x04  // NAME 2: Print shows it through the reaction's Value_To_String
+};
+
+// The iterators Get_Iterator hands out (new'd; three virtuals, no destructor: vtables 0xB09B84, 0xB09BD4)
+class ReactionUpdateIteratorClass  // NAME 1: neutral (D10): what it does
+{
+public:
+	virtual bool Is_Done() = 0;	// NAME 3: the client's FAIL_IF text 'Is_Done()'
+	virtual ReactionUpdateStruct Get() = 0;	// NAME 2: what it does
+	virtual void Next() = 0;	// NAME 2: what it does
+};
+
+class AttackerUpdateIteratorClass  // NAME 1: neutral (D10): what it does
+{
+public:
+	virtual bool Is_Done() = 0;	// NAME 3: the client's FAIL_IF text 'Is_Done()'
+	virtual int Get() = 0;	// NAME 2: what it does
+	virtual void Next() = 0;	// NAME 2: what it does
+};
+
+// opcode 138 (0x008A, ?): vtable 0xB09B44, constructor 0x873F70, 0x20 bytes
+class PlayerObjectReactionUpdatePacket : public PacketClass
+{
+public:
+	PlayerObjectReactionUpdatePacket(int priority);	// 0x873E90
+	PlayerObjectReactionUpdatePacket(RawPacketClass *raw);	// 0x873F70
+	virtual RawPacketClass *Build();	// +0x04 0x874270
+	virtual bool Process_Packet(void *client);	// +0x08 0x7399D0 (not rebuilt)
+	virtual int Get_Data_Size();	// +0x0C 0x874380
+	virtual int Print(char *buffer, int len);	// +0x10 0x874530
+	virtual int Get_Priority() { return(Priority); }	// +0x1C 0x873EE0
+
+	void Add_Reaction(int object_id, MobReactionType reaction);	// 0x874790 (push_back)  // NAME 2: what it does
+	ReactionUpdateIteratorClass *Get_Iterator();	// 0x8749E0 (new'd)  // NAME 2: what it returns
+
+	std::vector<ReactionUpdateStruct> Reactions;	// +0x0C (a count and the reactions in the message)  // NAME 2: what it holds
+	int Priority;	// +0x1C (not read from the message)  // NAME 2: Get_Priority returns it
+};
+
 // opcode 139 (0x008B, ATTACKER_UPDATES): vtable 0xB09B94, constructor 0x874BE0, 0x24 bytes
 class PlayerObjectIsAttackingUpdatePacket : public PacketClass
 {
@@ -73,6 +119,7 @@ public:
 	virtual int Get_Priority() { return(Priority); }	// +0x1C 0x874B50
 
 	void Add_Attacker(int id);	// 0x875060 (push_back)  // NAME 2: what it does
+	AttackerUpdateIteratorClass *Get_Iterator();	// 0x875280 (new'd)  // NAME 2: what it returns
 
 	bool Attacking;	// +0x0C  // NAME 3: the client's Print text 'Attacking='
 	std::vector<int> Attackers;	// +0x10 (a count and the ids in the message: Print says '[data not displayed]')  // NAME 2: what it holds

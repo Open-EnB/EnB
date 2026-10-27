@@ -23,7 +23,6 @@ LoungeNPCPacketClass::LoungeNPCPacketClass(RawPacketClass *raw) { Conn_Record(th
 FindMemberPacketClass::FindMemberPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 TalkTreePacketClass::TalkTreePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 VerbListPacketClass::VerbListPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-PlayerObjectReactionUpdatePacket::PlayerObjectReactionUpdatePacket(RawPacketClass *raw) { Conn_Record(this, raw); }
 IncapacitanceDetailsPacket::IncapacitanceDetailsPacket(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_00B5Class::Packet_00B5Class(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_00B6Class::Packet_00B6Class(RawPacketClass *raw) { Conn_Record(this, raw); }
@@ -100,6 +99,7 @@ bool LootHulkPermissionPacketClass::Process_Packet(void *) { return(true); }	// 
 bool HullUpgradePacketClass::Process_Packet(void *) { return(true); }	// 0x7396C0
 bool OpenInterfacePacketClass::Process_Packet(void *) { return(true); }	// 0x7397D0
 bool PlayerObjectRelationshipPacket::Process_Packet(void *) { return(true); }	// 0x7398E0
+bool PlayerObjectReactionUpdatePacket::Process_Packet(void *) { return(true); }	// 0x7399D0
 bool PlayerObjectIsAttackingUpdatePacket::Process_Packet(void *) { return(true); }	// 0x739AC0
 bool IncapacitanceRescueConfirmationPacket::Process_Packet(void *) { return(true); }	// 0x739CD0
 bool CameraControlPacketClass::Process_Packet(void *) { return(true); }	// 0x739FF0

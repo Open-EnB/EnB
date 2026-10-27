@@ -345,14 +345,6 @@ public:
 	char Unknown0C[0x14];	// +0x0C
 };
 
-// opcode 138 (0x008A, ?): vtable 0xB09B44, constructor 0x873F70, 0x20 bytes
-class PlayerObjectReactionUpdatePacket : public PacketClass
-{
-public:
-	PlayerObjectReactionUpdatePacket(RawPacketClass *raw);	// 0x873F70
-	char Unknown0C[0x14];	// +0x0C
-};
-
 // opcode 144 (0x0090, ?): vtable 0xB09A84, constructor 0x872A80, 0x198 bytes
 class IncapacitanceDetailsPacket : public PacketClass
 {

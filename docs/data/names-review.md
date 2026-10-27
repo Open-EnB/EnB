@@ -7,11 +7,11 @@ are listed here until better evidence raises their tag. Regenerate with
 
 | Score | Meaning | Names |
 |---|---|---|
-| 5 | the client names it | 22 |
+| 5 | the client names it | 28 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 35 |
-| 3 | by convention from a client-named file or sibling | 742 |
-| 2 | describes what the code does | 1598 |
-| 1 | neutral placeholder | 2356 |
+| 3 | by convention from a client-named file or sibling | 754 |
+| 2 | describes what the code does | 1651 |
+| 1 | neutral placeholder | 2383 |
 
 ## For review (score 3 and below)
 
@@ -131,92 +131,96 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_7283B0` | `app/client/client.cpp:432` | untagged neutral name (D10) |
 | 1 | `Unknown_7283F0` | `app/client/client.cpp:440` | untagged neutral name (D10) |
 | 1 | `Unknown_700400` | `app/client/client.cpp:444` | untagged neutral name (D10) |
-| 1 | `Unknown_04` | `app/client/client.h:42` | untagged neutral name (D10) |
-| 1 | `Unknown_08` | `app/client/client.h:43` | untagged neutral name (D10) |
-| 1 | `child, a, b` | `app/client/client.h:44` | what the handler passes |
-| 1 | `Unknown_0C` | `app/client/client.h:44` | untagged neutral name (D10) |
-| 1 | `Unknown_6FFE90` | `app/client/client.h:48` | untagged neutral name (D10) |
-| 1 | `Unknown_6FFF00` | `app/client/client.h:49` | untagged neutral name (D10) |
-| 1 | `Unknown_6FFF50` | `app/client/client.h:50` | untagged neutral name (D10) |
-| 1 | `Unknown_700400` | `app/client/client.h:51` | untagged neutral name (D10) |
-| 1 | `Unknown_6F3BC0` | `app/client/client.h:52` | untagged neutral name (D10) |
-| 1 | `Unknown_6F5DC0` | `app/client/client.h:53` | untagged neutral name (D10) |
-| 1 | `packet` | `app/client/client.h:54` | the handler's packet |
-| 1 | `Unknown_6FEF70` | `app/client/client.h:54` | untagged neutral name (D10) |
-| 1 | `id` | `app/client/client.h:55` | the packet's TargetID |
-| 1 | `Unknown_70E750` | `app/client/client.h:55` | untagged neutral name (D10) |
-| 1 | `Unknown_7283B0` | `app/client/client.h:56` | untagged neutral name (D10) |
-| 1 | `Unknown94` | `app/client/client.h:58` | untagged neutral name (D10) |
-| 1 | `Unknown04` | `app/client/client.h:67` | untagged neutral name (D10) |
-| 1 | `Unknown7C` | `app/client/client.h:69` | untagged neutral name (D10) |
-| 1 | `Unknown8C` | `app/client/client.h:71` | untagged neutral name (D10) |
-| 1 | `Unknown95` | `app/client/client.h:74` | untagged neutral name (D10) |
-| 1 | `Unknown_6E74B0` | `app/client/client.h:83` | untagged neutral name (D10) |
-| 1 | `Unknown_6E6ED0` | `app/client/client.h:84` | untagged neutral name (D10) |
-| 1 | `Unknown_6E6E30` | `app/client/client.h:85` | untagged neutral name (D10) |
-| 1 | `Unknown20` | `app/client/client.h:88` | untagged neutral name (D10) |
-| 1 | `Unknown86CRecordClass` | `app/client/client.h:93` | neutral (D10) |
-| 1 | `Unknown831340Class` | `app/client/client.h:105` | neutral (D10) |
-| 1 | `a..n` | `app/client/client.h:109` | the arguments are unknown  // NAME 2 [name]: 'Null Item' |
-| 1 | `Unknown00` | `app/client/client.h:112` | untagged neutral name (D10) |
-| 1 | `Unknown763E00Class` | `app/client/client.h:137` | neutral (D10) |
-| 1 | `Unknown_763E70` | `app/client/client.h:141` | untagged neutral name (D10) |
-| 1 | `Unknown_763FF0` | `app/client/client.h:142` | untagged neutral name (D10) |
-| 1 | `Unknown_10` | `app/client/client.h:160` | untagged neutral name (D10) |
-| 1 | `Unknown_18` | `app/client/client.h:163` | untagged neutral name (D10) |
-| 1 | `Unknown_1C` | `app/client/client.h:164` | untagged neutral name (D10) |
-| 1 | `Unknown_20` | `app/client/client.h:165` | untagged neutral name (D10) |
-| 1 | `Unknown_34` | `app/client/client.h:170` | untagged neutral name (D10) |
-| 1 | `Add_Unknown86C` | `app/client/client.h:178` | untagged neutral name (D10) |
-| 1 | `Remove_Unknown86C` | `app/client/client.h:179` | untagged neutral name (D10) |
-| 1 | `Find_Unknown86C` | `app/client/client.h:184` | untagged neutral name (D10) |
-| 1 | `Unknown_728180` | `app/client/client.h:189` | untagged neutral name (D10) |
-| 1 | `Unknown_728300` | `app/client/client.h:191` | untagged neutral name (D10) |
-| 1 | `Unknown_728330` | `app/client/client.h:192` | untagged neutral name (D10) |
-| 1 | `Unknown_728370` | `app/client/client.h:193` | untagged neutral name (D10) |
-| 1 | `Unknown_7283F0` | `app/client/client.h:195` | untagged neutral name (D10) |
-| 1 | `Unknown11` | `app/client/client.h:202` | untagged neutral name (D10) |
-| 1 | `Unknown18` | `app/client/client.h:204` | untagged neutral name (D10) |
-| 1 | `Unknown86CList` | `app/client/client.h:207` | untagged neutral name (D10) |
-| 1 | `Unknown831340List` | `app/client/client.h:208` | untagged neutral name (D10) |
-| 1 | `Unknown10BC` | `app/client/client.h:209` | untagged neutral name (D10) |
-| 1 | `Unknown10C0` | `app/client/client.h:210` | untagged neutral name (D10) |
-| 1 | `Unknown10C8` | `app/client/client.h:211` | untagged neutral name (D10) |
-| 1 | `Unknown10CC` | `app/client/client.h:212` | untagged neutral name (D10) |
-| 1 | `Unknown10D0` | `app/client/client.h:213` | untagged neutral name (D10) |
-| 1 | `Unknown10D4` | `app/client/client.h:214` | untagged neutral name (D10) |
-| 1 | `Unknown10D8` | `app/client/client.h:215` | untagged neutral name (D10) |
-| 1 | `Unknown10DC` | `app/client/client.h:216` | untagged neutral name (D10) |
-| 1 | `Unknown10E0` | `app/client/client.h:217` | untagged neutral name (D10) |
-| 1 | `Unknown10E4` | `app/client/client.h:218` | untagged neutral name (D10) |
-| 1 | `Unknown10E8` | `app/client/client.h:219` | untagged neutral name (D10) |
-| 1 | `Unknown10EC` | `app/client/client.h:220` | untagged neutral name (D10) |
-| 1 | `Unknown10F0` | `app/client/client.h:221` | untagged neutral name (D10) |
-| 1 | `Unknown10F4` | `app/client/client.h:222` | untagged neutral name (D10) |
-| 1 | `Unknown10F8` | `app/client/client.h:223` | untagged neutral name (D10) |
-| 1 | `Unknown10F9` | `app/client/client.h:224` | untagged neutral name (D10) |
-| 1 | `Unknown10FA` | `app/client/client.h:225` | untagged neutral name (D10) |
-| 1 | `Unknown10FC` | `app/client/client.h:226` | untagged neutral name (D10) |
-| 1 | `Unknown1100` | `app/client/client.h:227` | untagged neutral name (D10) |
-| 1 | `Unknown1104` | `app/client/client.h:228` | untagged neutral name (D10) |
-| 1 | `Unknown1108` | `app/client/client.h:229` | untagged neutral name (D10) |
-| 1 | `Unknown110C` | `app/client/client.h:230` | untagged neutral name (D10) |
-| 1 | `Unknown1110` | `app/client/client.h:231` | untagged neutral name (D10) |
-| 1 | `Unknown1114` | `app/client/client.h:232` | untagged neutral name (D10) |
-| 1 | `Unknown1118` | `app/client/client.h:233` | untagged neutral name (D10) |
-| 1 | `Unknown1128` | `app/client/client.h:235` | untagged neutral name (D10) |
-| 1 | `Unknown1134` | `app/client/client.h:238` | untagged neutral name (D10) |
-| 1 | `Unknown1138` | `app/client/client.h:239` | untagged neutral name (D10) |
-| 1 | `Unknown113C` | `app/client/client.h:240` | untagged neutral name (D10) |
-| 1 | `Unknown1144` | `app/client/client.h:242` | untagged neutral name (D10) |
-| 1 | `Unknown114C` | `app/client/client.h:244` | untagged neutral name (D10) |
-| 1 | `Unknown_42B7E0` | `app/client/control_keys_manager.cpp:5` | neutral (D10): 0x42B7E0, the key's text |
-| 1 | `Unknown00` | `app/client/control_keys_manager.cpp:141` | untagged neutral name (D10) |
+| 1 | `Unknown_04` | `app/client/client.h:43` | untagged neutral name (D10) |
+| 1 | `Unknown_08` | `app/client/client.h:44` | untagged neutral name (D10) |
+| 1 | `child, a, b` | `app/client/client.h:45` | what the handler passes |
+| 1 | `Unknown_0C` | `app/client/client.h:45` | untagged neutral name (D10) |
+| 1 | `Unknown_6FFE90` | `app/client/client.h:49` | untagged neutral name (D10) |
+| 1 | `Unknown_6FFF00` | `app/client/client.h:50` | untagged neutral name (D10) |
+| 1 | `Unknown_6FFF50` | `app/client/client.h:51` | untagged neutral name (D10) |
+| 1 | `Unknown_700400` | `app/client/client.h:52` | untagged neutral name (D10) |
+| 1 | `Unknown_6F3BC0` | `app/client/client.h:53` | untagged neutral name (D10) |
+| 1 | `Unknown_6F5DC0` | `app/client/client.h:54` | untagged neutral name (D10) |
+| 1 | `packet` | `app/client/client.h:55` | the handler's packet |
+| 1 | `Unknown_6FEF70` | `app/client/client.h:55` | untagged neutral name (D10) |
+| 1 | `id` | `app/client/client.h:56` | the packet's TargetID |
+| 1 | `Unknown_70E750` | `app/client/client.h:56` | untagged neutral name (D10) |
+| 1 | `Unknown_7283B0` | `app/client/client.h:57` | untagged neutral name (D10) |
+| 1 | `Unknown94` | `app/client/client.h:59` | untagged neutral name (D10) |
+| 1 | `Unknown04` | `app/client/client.h:68` | untagged neutral name (D10) |
+| 1 | `Unknown80` | `app/client/client.h:71` | untagged neutral name (D10) |
+| 1 | `Unknown8C` | `app/client/client.h:73` | untagged neutral name (D10) |
+| 1 | `Unknown95` | `app/client/client.h:76` | untagged neutral name (D10) |
+| 1 | `Unknown_6E74B0` | `app/client/client.h:85` | untagged neutral name (D10) |
+| 1 | `Unknown_6E6ED0` | `app/client/client.h:86` | untagged neutral name (D10) |
+| 1 | `Unknown_6E6E30` | `app/client/client.h:87` | untagged neutral name (D10) |
+| 1 | `Unknown20` | `app/client/client.h:90` | untagged neutral name (D10) |
+| 1 | `Unknown86CRecordClass` | `app/client/client.h:95` | neutral (D10) |
+| 1 | `Unknown831340Class` | `app/client/client.h:107` | neutral (D10) |
+| 1 | `a..n` | `app/client/client.h:111` | the arguments are unknown  // NAME 2 [name]: 'Null Item' |
+| 1 | `Unknown00` | `app/client/client.h:114` | untagged neutral name (D10) |
+| 1 | `Unknown763E00Class` | `app/client/client.h:139` | neutral (D10) |
+| 1 | `Unknown_763E70` | `app/client/client.h:143` | untagged neutral name (D10) |
+| 1 | `Unknown_763FF0` | `app/client/client.h:144` | untagged neutral name (D10) |
+| 1 | `Unknown_10` | `app/client/client.h:162` | untagged neutral name (D10) |
+| 1 | `Unknown_18` | `app/client/client.h:165` | untagged neutral name (D10) |
+| 1 | `Unknown_1C` | `app/client/client.h:166` | untagged neutral name (D10) |
+| 1 | `Unknown_20` | `app/client/client.h:167` | untagged neutral name (D10) |
+| 1 | `Unknown_34` | `app/client/client.h:172` | untagged neutral name (D10) |
+| 1 | `Add_Unknown86C` | `app/client/client.h:180` | untagged neutral name (D10) |
+| 1 | `Remove_Unknown86C` | `app/client/client.h:181` | untagged neutral name (D10) |
+| 1 | `Find_Unknown86C` | `app/client/client.h:186` | untagged neutral name (D10) |
+| 1 | `Unknown_728180` | `app/client/client.h:191` | untagged neutral name (D10) |
+| 1 | `Unknown_728300` | `app/client/client.h:193` | untagged neutral name (D10) |
+| 1 | `Unknown_728330` | `app/client/client.h:194` | untagged neutral name (D10) |
+| 1 | `Unknown_728370` | `app/client/client.h:195` | untagged neutral name (D10) |
+| 1 | `Unknown_7283F0` | `app/client/client.h:197` | untagged neutral name (D10) |
+| 1 | `Unknown11` | `app/client/client.h:204` | untagged neutral name (D10) |
+| 1 | `Unknown18` | `app/client/client.h:206` | untagged neutral name (D10) |
+| 1 | `Unknown86CList` | `app/client/client.h:209` | untagged neutral name (D10) |
+| 1 | `Unknown831340List` | `app/client/client.h:210` | untagged neutral name (D10) |
+| 1 | `Unknown10BC` | `app/client/client.h:211` | untagged neutral name (D10) |
+| 1 | `Unknown10C0` | `app/client/client.h:212` | untagged neutral name (D10) |
+| 1 | `Unknown10C8` | `app/client/client.h:213` | untagged neutral name (D10) |
+| 1 | `Unknown10CC` | `app/client/client.h:214` | untagged neutral name (D10) |
+| 1 | `Unknown10D0` | `app/client/client.h:215` | untagged neutral name (D10) |
+| 1 | `Unknown10D4` | `app/client/client.h:216` | untagged neutral name (D10) |
+| 1 | `Unknown10D8` | `app/client/client.h:217` | untagged neutral name (D10) |
+| 1 | `Unknown10DC` | `app/client/client.h:218` | untagged neutral name (D10) |
+| 1 | `Unknown10E0` | `app/client/client.h:219` | untagged neutral name (D10) |
+| 1 | `Unknown10E4` | `app/client/client.h:220` | untagged neutral name (D10) |
+| 1 | `Unknown10E8` | `app/client/client.h:221` | untagged neutral name (D10) |
+| 1 | `Unknown10EC` | `app/client/client.h:222` | untagged neutral name (D10) |
+| 1 | `Unknown10F0` | `app/client/client.h:223` | untagged neutral name (D10) |
+| 1 | `Unknown10F4` | `app/client/client.h:224` | untagged neutral name (D10) |
+| 1 | `Unknown10F8` | `app/client/client.h:225` | untagged neutral name (D10) |
+| 1 | `Unknown10F9` | `app/client/client.h:226` | untagged neutral name (D10) |
+| 1 | `Unknown10FA` | `app/client/client.h:227` | untagged neutral name (D10) |
+| 1 | `Unknown10FC` | `app/client/client.h:228` | untagged neutral name (D10) |
+| 1 | `Unknown1100` | `app/client/client.h:229` | untagged neutral name (D10) |
+| 1 | `Unknown1104` | `app/client/client.h:230` | untagged neutral name (D10) |
+| 1 | `Unknown1108` | `app/client/client.h:231` | untagged neutral name (D10) |
+| 1 | `Unknown110C` | `app/client/client.h:232` | untagged neutral name (D10) |
+| 1 | `Unknown1110` | `app/client/client.h:233` | untagged neutral name (D10) |
+| 1 | `Unknown1114` | `app/client/client.h:234` | untagged neutral name (D10) |
+| 1 | `Unknown1118` | `app/client/client.h:235` | untagged neutral name (D10) |
+| 1 | `Unknown1128` | `app/client/client.h:237` | untagged neutral name (D10) |
+| 1 | `Unknown1134` | `app/client/client.h:240` | untagged neutral name (D10) |
+| 1 | `Unknown1138` | `app/client/client.h:241` | untagged neutral name (D10) |
+| 1 | `Unknown113C` | `app/client/client.h:242` | untagged neutral name (D10) |
+| 1 | `Unknown1144` | `app/client/client.h:244` | untagged neutral name (D10) |
+| 1 | `Unknown114C` | `app/client/client.h:246` | untagged neutral name (D10) |
+| 1 | `Unknown_18` | `app/client/co_data.cpp:60` | untagged neutral name (D10) |
+| 1 | `Unknown_18` | `app/client/co_data.h:42` | the client's slot |
+| 1 | `ClientObjectDataAccessClass` | `app/client/co_data.h:52` | neutral (D10), the per-type access |
+| 1 | `Unknown_8B44E0` | `app/client/control_keys_manager.cpp:5` | neutral placeholder (D10) |
+| 1 | `Unknown_42B7E0` | `app/client/control_keys_manager.cpp:6` | neutral (D10): 0x42B7E0, the key's text |
+| 1 | `Unknown12E8` | `app/client/control_keys_manager.cpp:168` | untagged neutral name (D10) |
+| 1 | `Get_Unknown30` | `app/client/control_keys_manager.cpp:189` | untagged neutral name (D10) |
 | 1 | `Get_Unknown10` | `app/client/control_keys_manager.cpp:649` | untagged neutral name (D10) |
 | 1 | `Unknown10` | `app/client/control_keys_manager.cpp:652` | untagged neutral name (D10) |
 | 1 | `Get_Unknown20` | `app/client/control_keys_manager.cpp:661` | untagged neutral name (D10) |
 | 1 | `Unknown20` | `app/client/control_keys_manager.cpp:664` | untagged neutral name (D10) |
-| 1 | `Get_Unknown30` | `app/client/control_keys_manager.cpp:668` | untagged neutral name (D10) |
 | 1 | `Unknown30` | `app/client/control_keys_manager.cpp:671` | untagged neutral name (D10) |
 | 1 | `ControlKeyDefStruct` | `app/client/control_keys_manager.h:28` | neutral (D10): what a key definition's DefPtr points at (0x38 bytes or more) |
 | 1 | `std:` | `app/client/control_keys_manager.h:31` | neutral (D10) |
@@ -236,11 +240,13 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown0C` | `app/client/control_keys_manager.h:59` | neutral (D10) |
 | 1 | `ControlKeyStruct` | `app/client/control_keys_manager.h:62` | neutral (D10): one key of a mapping (4 bytes) |
 | 1 | `ControlKeyValueStruct` | `app/client/control_keys_manager.h:70` | neutral (D10): the 4-byte key value 0x5CB000's options screen copies |
-| 1 | `KeyMappingStruct` | `app/client/control_keys_manager.h:82` | neutral (D10): one key definition's mapping (0xC bytes) |
+| 1 | `KeyMappingStruct` | `app/client/control_keys_manager.h:82` | neutral (D10): one key definition's mapping (0xC bytes): its DefPtr and keys |
 | 1 | `KeyIdStruct` | `app/client/control_keys_manager.h:90` | neutral (D10): the value of _KeyIds (0x14 bytes) |
-| 1 | `ControlKeyListClass` | `app/client/control_keys_manager.h:96` | neutral (D10): the screen's key list Add_Keys / Remove_Keys fill ('keylist') |
-| 1 | `Unknown00` | `app/client/control_keys_manager.h:120` | neutral (D10) |
-| 1 | `std:` | `app/client/control_keys_manager.h:123` | neutral (D10) |
+| 1 | `ControlKeysSClientClass` | `app/client/control_keys_manager.h:96` | neutral (D10): sclient.cpp's SClient, as far as Init reads it |
+| 1 | `Unknown0000` | `app/client/control_keys_manager.h:99` | untagged neutral name (D10) |
+| 1 | `Unknown12E8` | `app/client/control_keys_manager.h:100` | neutral (D10) |
+| 1 | `ControlKeyListClass` | `app/client/control_keys_manager.h:103` | neutral (D10): the screen's key list Add_Keys / Remove_Keys fill ('keylist') |
+| 1 | `std:` | `app/client/control_keys_manager.h:136` | neutral (D10) |
 | 1 | `Unknown_4604D0` | `app/client/cpacket.cpp:45` | untagged neutral name (D10) |
 | 1 | `Unknown_460780` | `app/client/cpacket.cpp:46` | untagged neutral name (D10) |
 | 1 | `Unknown_460850` | `app/client/cpacket.cpp:47` | untagged neutral name (D10) |
@@ -289,16 +295,28 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown14` | `app/client/cpacket.cpp:3333` | untagged neutral name (D10) |
 | 1 | `Unknown_751850` | `app/client/cpacket.cpp:3345` | untagged neutral name (D10) |
 | 1 | `Unknown_751460` | `app/client/cpacket.cpp:3413` | untagged neutral name (D10) |
+| 1 | `Unknown08` | `app/client/emote_data.h:26` | untagged neutral name (D10) |
+| 1 | `Unknown_6BF910` | `app/client/fontdatabase.cpp:17` | untagged neutral name (D10) |
+| 1 | `Unknown_6BFD00` | `app/client/fontdatabase.cpp:18` | untagged neutral name (D10) |
+| 1 | `Unknown_6C2080` | `app/client/fontdatabase.cpp:21` | untagged neutral name (D10) |
 | 1 | `Get_Unknown98` | `app/client/fontdatabase.cpp:1068` | untagged neutral name (D10) |
 | 1 | `Unknown98` | `app/client/fontdatabase.cpp:1075` | untagged neutral name (D10) |
 | 1 | `Unknown_6C49C0` | `app/client/fontdatabase.cpp:1118` | untagged neutral name (D10) |
 | 1 | `Unknown_6C57B0` | `app/client/fontdatabase.cpp:1122` | untagged neutral name (D10) |
-| 1 | `Unknown_6C5C60` | `app/client/fontdatabase.h:33` | neutral (D10) |
-| 1 | `Unknown_6C57B0` | `app/client/fontdatabase.h:34` | neutral (D10) |
-| 1 | `Unknown98` | `app/client/fontdatabase.h:44` | neutral (D10) |
-| 1 | `DefaultUnknown98` | `app/client/fontdatabase.h:48` | neutral (D10) |
-| 1 | `Get_Unknown98` | `app/client/fontdatabase.h:89` | neutral (D10) |
-| 1 | `Unknown_6C49C0` | `app/client/fontdatabase.h:91` | neutral (D10) |
+| 1 | `Unknown_6C5C60` | `app/client/fontdatabase.h:36` | neutral (D10) |
+| 1 | `Unknown_6C57B0` | `app/client/fontdatabase.h:37` | neutral (D10) |
+| 1 | `Unknown98` | `app/client/fontdatabase.h:47` | neutral (D10) |
+| 1 | `DefaultUnknown98` | `app/client/fontdatabase.h:51` | neutral (D10) |
+| 1 | `Font32BaseClass` | `app/client/fontdatabase.h:54` | neutral (D10): the font object's first base (vtable 0xAFE94C) |
+| 1 | `Unknown_00` | `app/client/fontdatabase.h:57` | neutral (D10) |
+| 1 | `Unknown_6BF910` | `app/client/fontdatabase.h:95` | neutral (D10) |
+| 1 | `Unknown_6BFD00` | `app/client/fontdatabase.h:96` | neutral (D10) |
+| 1 | `Unknown_6C2080` | `app/client/fontdatabase.h:97` | neutral (D10) |
+| 1 | `Get_Unknown98` | `app/client/fontdatabase.h:114` | neutral (D10) |
+| 1 | `Unknown_6C49C0` | `app/client/fontdatabase.h:116` | neutral (D10) |
+| 1 | `Unknown08` | `app/client/gutter_data.h:26` | untagged neutral name (D10) |
+| 1 | `Unknown08` | `app/client/navigation_data.h:26` | untagged neutral name (D10) |
+| 1 | `Unknown08` | `app/client/radar_data.h:26` | untagged neutral name (D10) |
 | 1 | `Unknown_719E10` | `app/client/sclient.cpp:24` | untagged neutral name (D10) |
 | 1 | `Unknown_7228C0` | `app/client/sclient.cpp:25` | neutral (D10), as tsk_login.cpp |
 | 1 | `Unknown_723150` | `app/client/sclient.cpp:26` | neutral (D10), as tsk_login.cpp |
@@ -594,6 +612,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown20` | `app/client/soptions.h:60` | untagged neutral name (D10) |
 | 1 | `Unknown24` | `app/client/soptions.h:61` | untagged neutral name (D10) |
 | 1 | `Unknown28` | `app/client/soptions.h:62` | untagged neutral name (D10) |
+| 1 | `Unknown08` | `app/client/starmap_data.h:26` | untagged neutral name (D10) |
 | 1 | `Unknown0C` | `app/client/tasks/tsk_game.cpp:18` | untagged neutral name (D10) |
 | 1 | `gm_name` | `app/client/tasks/tsk_game.cpp:19` | '-GM_NAME' |
 | 1 | `Address, Port` | `app/client/tasks/tsk_game.cpp:20` | handed to Redirect |
@@ -1316,16 +1335,23 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `std:` | `app/packets/pk_classes.h:294` | the same log |
 | 1 | `Packet_0048Class` | `app/packets/pk_classes.h:307` | neutral (D10): opcode 0x0048 |
 | 1 | `Unknown_28` | `app/packets/pk_classes.h:312` | neutral (D10) |
-| 1 | `Packet_00B5Class` | `app/packets/pk_classes.h:365` | neutral (D10): opcode 0x00B5 |
-| 1 | `Packet_00B6Class` | `app/packets/pk_classes.h:374` | neutral (D10): opcode 0x00B6 |
-| 1 | `Packet_00A8Class` | `app/packets/pk_classes.h:383` | neutral (D10): opcode 0x00A8 |
-| 1 | `Packet_00A9Class` | `app/packets/pk_classes.h:392` | neutral (D10): opcode 0x00A9 |
-| 1 | `Packet_00ABClass` | `app/packets/pk_classes.h:401` | neutral (D10): opcode 0x00AB |
-| 1 | `Packet_00ACClass` | `app/packets/pk_classes.h:410` | neutral (D10): opcode 0x00AC |
-| 1 | `Packet_00B0Class` | `app/packets/pk_classes.h:419` | neutral (D10): opcode 0x00B0 |
-| 1 | `Packet_00B1Class` | `app/packets/pk_classes.h:428` | neutral (D10): opcode 0x00B1 |
-| 1 | `Packet_0077Class` | `app/packets/pk_classes.h:437` | neutral (D10): opcode 0x0077 |
-| 1 | `Unknown_14` | `app/packets/pk_player_object_relationship.cpp:10` | untagged neutral name (D10) |
+| 1 | `Packet_00B5Class` | `app/packets/pk_classes.h:357` | neutral (D10): opcode 0x00B5 |
+| 1 | `Packet_00B6Class` | `app/packets/pk_classes.h:366` | neutral (D10): opcode 0x00B6 |
+| 1 | `Packet_00A8Class` | `app/packets/pk_classes.h:375` | neutral (D10): opcode 0x00A8 |
+| 1 | `Packet_00A9Class` | `app/packets/pk_classes.h:384` | neutral (D10): opcode 0x00A9 |
+| 1 | `Packet_00ABClass` | `app/packets/pk_classes.h:393` | neutral (D10): opcode 0x00AB |
+| 1 | `Packet_00ACClass` | `app/packets/pk_classes.h:402` | neutral (D10): opcode 0x00AC |
+| 1 | `Packet_00B0Class` | `app/packets/pk_classes.h:411` | neutral (D10): opcode 0x00B0 |
+| 1 | `Packet_00B1Class` | `app/packets/pk_classes.h:420` | neutral (D10): opcode 0x00B1 |
+| 1 | `Packet_0077Class` | `app/packets/pk_classes.h:429` | neutral (D10): opcode 0x0077 |
+| 1 | `Unknown_14` | `app/packets/pk_player_object_relationship.cpp:12` | untagged neutral name (D10) |
+| 1 | `std:` | `app/packets/pk_player_object_relationship.cpp:85` | neutral (D10) |
+| 1 | `Unknown_8743C0` | `app/packets/pk_player_object_relationship.cpp:85` | untagged neutral name (D10) |
+| 1 | `ReactionUpdateVectorIteratorClass` | `app/packets/pk_player_object_relationship.cpp:152` | neutral (D10): what it does |
+| 1 | `AttackerUpdateVectorIteratorClass` | `app/packets/pk_player_object_relationship.cpp:244` | neutral (D10): what it does |
+| 1 | `ReactionUpdateStruct` | `app/packets/pk_player_object_relationship.h:64` | neutral (D10): what it holds |
+| 1 | `ReactionUpdateIteratorClass` | `app/packets/pk_player_object_relationship.h:74` | neutral (D10): what it does |
+| 1 | `AttackerUpdateIteratorClass` | `app/packets/pk_player_object_relationship.h:82` | neutral (D10): what it does |
 | 1 | `Unknown_14` | `app/packets/pk_sub_parts.cpp:29` | untagged neutral name (D10) |
 | 1 | `Unknown14` | `app/packets/pkaction.cpp:10` | untagged neutral name (D10) |
 | 1 | `Unknown18` | `app/packets/pkaction.cpp:11` | untagged neutral name (D10) |
@@ -2001,6 +2027,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_4C15F0` | `app/shared/avatar_desc.h:50` | untagged neutral name (D10) |
 | 1 | `Unknown0C` | `app/shared/avatar_desc.h:66` | untagged neutral name (D10) |
 | 1 | `BoolContext` | `app/shared/boolpars.cpp:7` | 0xBE34D8, set only around BoolExpressionClass::Evaluate |
+| 1 | `DataBinderType` | `app/shared/data_binder.h:30` | neutral (D10), an empty tag type |
 | 1 | `Unknown08` | `app/shared/definition_manager.h:37` | neutral placeholder (D10) |
 | 1 | `Unknown08` | `app/shared/definition_manager.h:221` | neutral placeholder (D10) |
 | 1 | `Get_Height_2` | `app/shared/heightfield.h:52` | the same code at a second address (0x463CD0) |
@@ -2448,43 +2475,59 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `std:` | `app/client/cfaction_database.h:34` | the ini key |
 | 2 | `std:` | `app/client/cfaction_database.h:35` | the ini key |
 | 2 | `UseCount` | `app/client/cfaction_database.h:40` | describes what it does |
-| 2 | `Get_Name` | `app/client/client.h:47` | Find_Object compares it with a name |
-| 2 | `Node` | `app/client/client.h:68` | what it is |
-| 2 | `Model` | `app/client/client.h:75` | what it holds |
-| 2 | `Node` | `app/client/client.h:87` | what it is |
-| 2 | `ID` | `app/client/client.h:89` | what it is |
-| 2 | `Node` | `app/client/client.h:98` | what it is |
-| 2 | `ID` | `app/client/client.h:100` | what it is |
-| 2 | `Init` | `app/client/client.h:156` | what SClient's does |
-| 2 | `Shutdown` | `app/client/client.h:157` | what SClient's does |
-| 2 | `Do_Frame` | `app/client/client.h:161` | what SClient's does  // NAME 1 [focused]: Is_Focused() |
-| 2 | `Set_Debug_Object` | `app/client/client.h:166` | what it does (the DEBUG packet's game id) |
-| 2 | `Get_Debug_Object` | `app/client/client.h:167` | what it does |
-| 2 | `Set_Ship_ID` | `app/client/client.h:168` | what it does (Get_Ship's id) |
-| 2 | `Get_Ship` | `app/client/client.h:169` | client.cpp's FAIL_IF '!ship' on its result |
-| 2 | `Toggle_Debug_Mode` | `app/client/client.h:171` | what it does  // NAME 1 [unused]: never read |
-| 2 | `Set_Debug_Mode` | `app/client/client.h:172` | what it does |
-| 2 | `Add_Object` | `app/client/client.h:173` | what it does |
-| 2 | `Remove_Object` | `app/client/client.h:174` | what it does |
-| 2 | `Add_Effect` | `app/client/client.h:175` | what it does  // NAME 1 [a, b]: handed to the effect |
-| 2 | `Remove_Effects` | `app/client/client.h:176` | what it does |
-| 2 | `Get_Effect` | `app/client/client.h:177` | what it does |
-| 2 | `Find_Object` | `app/client/client.h:181` | what it does |
-| 2 | `Find_Object` | `app/client/client.h:182` | what it does |
-| 2 | `Find_Effect` | `app/client/client.h:183` | what it does |
-| 2 | `Open_Connection` | `app/client/client.h:185` | what it does |
-| 2 | `Open_Connection` | `app/client/client.h:186` | what it does |
-| 2 | `Get_Stats` | `app/client/client.h:187` | what it does |
-| 2 | `Send_Packet` | `app/client/client.h:188` | what it does |
-| 2 | `Get_Objects_Changed` | `app/client/client.h:196` | what it does |
-| 2 | `DebugMode` | `app/client/client.h:201` | what it holds |
-| 2 | `Kernel` | `app/client/client.h:203` | what it holds |
-| 2 | `EffectList` | `app/client/client.h:206` | what it holds |
-| 2 | `DebugObjectID` | `app/client/client.h:236` | what it holds |
-| 2 | `ShipID` | `app/client/client.h:237` | what it holds |
-| 2 | `ObjectsChanged` | `app/client/client.h:241` | what it holds |
-| 2 | `Splines` | `app/client/client.h:243` | what it holds |
-| 2 | `std:` | `app/client/control_keys_manager.cpp:7` | 0xBE7B80, what the accessors return without a definition |
+| 2 | `Get_Name` | `app/client/client.h:48` | Find_Object compares it with a name |
+| 2 | `Node` | `app/client/client.h:69` | what it is |
+| 2 | `Client` | `app/client/client.h:70` | what it holds |
+| 2 | `Model` | `app/client/client.h:77` | what it holds |
+| 2 | `Node` | `app/client/client.h:89` | what it is |
+| 2 | `ID` | `app/client/client.h:91` | what it is |
+| 2 | `Node` | `app/client/client.h:100` | what it is |
+| 2 | `ID` | `app/client/client.h:102` | what it is |
+| 2 | `Init` | `app/client/client.h:158` | what SClient's does |
+| 2 | `Shutdown` | `app/client/client.h:159` | what SClient's does |
+| 2 | `Do_Frame` | `app/client/client.h:163` | what SClient's does  // NAME 1 [focused]: Is_Focused() |
+| 2 | `Set_Debug_Object` | `app/client/client.h:168` | what it does (the DEBUG packet's game id) |
+| 2 | `Get_Debug_Object` | `app/client/client.h:169` | what it does |
+| 2 | `Set_Ship_ID` | `app/client/client.h:170` | what it does (Get_Ship's id) |
+| 2 | `Get_Ship` | `app/client/client.h:171` | client.cpp's FAIL_IF '!ship' on its result |
+| 2 | `Toggle_Debug_Mode` | `app/client/client.h:173` | what it does  // NAME 1 [unused]: never read |
+| 2 | `Set_Debug_Mode` | `app/client/client.h:174` | what it does |
+| 2 | `Add_Object` | `app/client/client.h:175` | what it does |
+| 2 | `Remove_Object` | `app/client/client.h:176` | what it does |
+| 2 | `Add_Effect` | `app/client/client.h:177` | what it does  // NAME 1 [a, b]: handed to the effect |
+| 2 | `Remove_Effects` | `app/client/client.h:178` | what it does |
+| 2 | `Get_Effect` | `app/client/client.h:179` | what it does |
+| 2 | `Find_Object` | `app/client/client.h:183` | what it does |
+| 2 | `Find_Object` | `app/client/client.h:184` | what it does |
+| 2 | `Find_Effect` | `app/client/client.h:185` | what it does |
+| 2 | `Open_Connection` | `app/client/client.h:187` | what it does |
+| 2 | `Open_Connection` | `app/client/client.h:188` | what it does |
+| 2 | `Get_Stats` | `app/client/client.h:189` | what it does |
+| 2 | `Send_Packet` | `app/client/client.h:190` | what it does |
+| 2 | `Get_Objects_Changed` | `app/client/client.h:198` | what it does |
+| 2 | `DebugMode` | `app/client/client.h:203` | what it holds |
+| 2 | `Kernel` | `app/client/client.h:205` | what it holds |
+| 2 | `EffectList` | `app/client/client.h:208` | what it holds |
+| 2 | `DebugObjectID` | `app/client/client.h:238` | what it holds |
+| 2 | `ShipID` | `app/client/client.h:239` | what it holds |
+| 2 | `ObjectsChanged` | `app/client/client.h:243` | what it holds |
+| 2 | `Splines` | `app/client/client.h:245` | what it holds |
+| 2 | `Get_Client_Object` | `app/client/co_data.h:38` | what it does |
+| 2 | `Get_Client` | `app/client/co_data.h:41` | what it does |
+| 2 | `Remove_All` | `app/client/co_data.h:44` | what it does |
+| 2 | `Get` | `app/client/co_data.h:56` | what it does |
+| 2 | `Remove` | `app/client/co_data.h:70` | what it does |
+| 2 | `Get_Radar_Data` | `app/client/co_data.h:89` | what it does |
+| 2 | `Remove_Radar_Data` | `app/client/co_data.h:90` | what it does |
+| 2 | `Get_Gutter_Data` | `app/client/co_data.h:91` | what it does |
+| 2 | `Remove_Gutter_Data` | `app/client/co_data.h:92` | what it does |
+| 2 | `Get_Starmap_Data` | `app/client/co_data.h:93` | what it does |
+| 2 | `Remove_Starmap_Data` | `app/client/co_data.h:94` | what it does |
+| 2 | `Get_Navigation_Data` | `app/client/co_data.h:95` | what it does |
+| 2 | `Remove_Navigation_Data` | `app/client/co_data.h:96` | what it does |
+| 2 | `Get_Emote_Data` | `app/client/co_data.h:97` | what it does |
+| 2 | `Remove_Emote_Data` | `app/client/co_data.h:98` | what it does |
+| 2 | `std:` | `app/client/control_keys_manager.cpp:8` | 0xBE7B80, what the accessors return without a definition |
 | 2 | `std:` | `app/client/control_keys_manager.h:30` | 0x71CC60 returns it; the table's key |
 | 2 | `std:` | `app/client/control_keys_manager.h:43` | returns the definition's first string |
 | 2 | `Key` | `app/client/control_keys_manager.h:55` | the key's code |
@@ -2494,60 +2537,72 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Key` | `app/client/control_keys_manager.h:78` | the key's code |
 | 2 | `Modifiers` | `app/client/control_keys_manager.h:79` | the modifier bits |
 | 2 | `std:` | `app/client/control_keys_manager.h:84` | describes what it does |
-| 2 | `Def` | `app/client/control_keys_manager.h:86` | what it holds |
 | 2 | `Id` | `app/client/control_keys_manager.h:92` | what it holds |
-| 2 | `Add` | `app/client/control_keys_manager.h:99` | describes what it does |
-| 2 | `Remove` | `app/client/control_keys_manager.h:100` | describes what it does |
-| 2 | `Set_Key` | `app/client/control_keys_manager.h:108` | describes what it does |
-| 2 | `Add_Keys` | `app/client/control_keys_manager.h:109` | describes what it does |
-| 2 | `Remove_Keys` | `app/client/control_keys_manager.h:110` | describes what it does |
-| 2 | `Restore_Keys` | `app/client/control_keys_manager.h:111` | describes what it does |
-| 2 | `Set_Default_PSW` | `app/client/control_keys_manager.h:112` | describes what it does |
-| 2 | `Set_Default_SIM` | `app/client/control_keys_manager.h:113` | describes what it does |
-| 2 | `std:` | `app/client/control_keys_manager.h:114` | describes what it does |
-| 2 | `Build_Keys_Map` | `app/client/control_keys_manager.h:115` | describes what it does |
-| 2 | `Register_Key` | `app/client/control_keys_manager.h:116` | describes what it does |
-| 2 | `Copy_Keys` | `app/client/control_keys_manager.h:118` | describes what it does |
+| 2 | `Add` | `app/client/control_keys_manager.h:106` | describes what it does |
+| 2 | `Remove` | `app/client/control_keys_manager.h:107` | describes what it does |
+| 2 | `Set_Key` | `app/client/control_keys_manager.h:115` | describes what it does |
+| 2 | `Add_Keys` | `app/client/control_keys_manager.h:116` | describes what it does |
+| 2 | `Remove_Keys` | `app/client/control_keys_manager.h:117` | describes what it does |
+| 2 | `Restore_Keys` | `app/client/control_keys_manager.h:118` | describes what it does |
+| 2 | `Set_Default_PSW` | `app/client/control_keys_manager.h:119` | describes what it does |
+| 2 | `Set_Default_SIM` | `app/client/control_keys_manager.h:120` | describes what it does |
+| 2 | `std:` | `app/client/control_keys_manager.h:121` | describes what it does |
+| 2 | `Build_Keys_Map` | `app/client/control_keys_manager.h:122` | describes what it does |
+| 2 | `Init` | `app/client/control_keys_manager.h:123` | describes what it does |
+| 2 | `Load_Definitions` | `app/client/control_keys_manager.h:124` | describes what it does |
+| 2 | `Load_Keys` | `app/client/control_keys_manager.h:125` | describes what it does |
+| 2 | `Find_Mappings` | `app/client/control_keys_manager.h:126` | describes what it does |
+| 2 | `Get_Key_Id` | `app/client/control_keys_manager.h:127` | describes what it does |
+| 2 | `Register_Key` | `app/client/control_keys_manager.h:128` | describes what it does |
+| 2 | `Reset_Keys` | `app/client/control_keys_manager.h:130` | describes what it does |
+| 2 | `Copy_Keys` | `app/client/control_keys_manager.h:131` | describes what it does |
+| 2 | `Client` | `app/client/control_keys_manager.h:133` | what it holds |
+| 2 | `PlayerID` | `app/client/control_keys_manager.h:143` | what it holds |
 | 2 | `cpacket.cpp` | `app/client/cpacket.cpp:41` | the class id the handlers test |
 | 2 | `SoundManager` | `app/client/cpacket.cpp:60` | what it holds |
-| 2 | `FontInitStruct` | `app/client/fontdatabase.h:31` | one INIT-n section of fontsys.ini (a screen resolution's fonts) |
-| 2 | `Find_Chat_Index` | `app/client/fontdatabase.h:35` | the chat_index of the asserts |
-| 2 | `ResWidth` | `app/client/fontdatabase.h:37` | the ini key |
-| 2 | `ResHeight` | `app/client/fontdatabase.h:38` | the ini key |
-| 2 | `std:` | `app/client/fontdatabase.h:39` | what it holds |
-| 2 | `FontID` | `app/client/fontdatabase.h:40` | the ini key |
-| 2 | `Font` | `app/client/fontdatabase.h:41` | the ini key |
-| 2 | `Scale` | `app/client/fontdatabase.h:42` | the ini key |
-| 2 | `Spacing` | `app/client/fontdatabase.h:43` | the ini key |
-| 2 | `DefaultFont` | `app/client/fontdatabase.h:45` | what 0x6C3D40 restores Font from |
-| 2 | `DefaultScale` | `app/client/fontdatabase.h:46` | what 0x6C3D40 restores Scale from |
-| 2 | `DefaultSpacing` | `app/client/fontdatabase.h:47` | what 0x6C3D40 restores Spacing from |
-| 2 | `FontStruct` | `app/client/fontdatabase.h:51` | one of the fonts in use (0xC bytes) |
-| 2 | `Name` | `app/client/fontdatabase.h:54` | what Find_Font compares |
-| 2 | `Scale` | `app/client/fontdatabase.h:55` | Scale%d is copied in |
-| 2 | `FontColorStruct` | `app/client/fontdatabase.h:58` | one COLOR-n section (ColorID, RGB), declared as far as the file needs it |
-| 2 | `Name` | `app/client/fontdatabase.h:60` | the table's key |
-| 2 | `FontEffectStruct` | `app/client/fontdatabase.h:63` | one EFFECT-n section (EffectID, Intensity, ...), declared as far as the file needs it |
-| 2 | `Name` | `app/client/fontdatabase.h:65` | the table's key |
-| 2 | `FontStringStruct` | `app/client/fontdatabase.h:68` | one string template (Template%d, String%d), declared as far as the file needs it |
-| 2 | `Name` | `app/client/fontdatabase.h:70` | the table's key |
-| 2 | `Find_Font` | `app/client/fontdatabase.h:76` | what it does |
-| 2 | `Get_Info` | `app/client/fontdatabase.h:77` | as Get_Info, for a given resolution |
-| 2 | `Find_Color` | `app/client/fontdatabase.h:78` | what it does |
-| 2 | `Find_Effect` | `app/client/fontdatabase.h:79` | what it does |
-| 2 | `Find_String` | `app/client/fontdatabase.h:80` | what it does |
-| 2 | `Add_String` | `app/client/fontdatabase.h:81` | what it does |
-| 2 | `Add_Effect` | `app/client/fontdatabase.h:82` | what it does |
-| 2 | `Add_Color` | `app/client/fontdatabase.h:83` | what it does |
-| 2 | `Get_Font_File_Index` | `app/client/fontdatabase.h:85` | what it does |
-| 2 | `Get_Font_File_Name` | `app/client/fontdatabase.h:86` | what it does |
-| 2 | `Get_Scale` | `app/client/fontdatabase.h:87` | what it returns |
-| 2 | `Get_Spacing` | `app/client/fontdatabase.h:88` | what it returns |
-| 2 | `Get_Info` | `app/client/fontdatabase.h:90` | the INIT section for the resolution |
-| 2 | `std:` | `app/client/fontdatabase.h:93` | the INIT sections, by resolution |
-| 2 | `std:` | `app/client/fontdatabase.h:94` | what it holds |
-| 2 | `std:` | `app/client/fontdatabase.h:95` | what it holds |
-| 2 | `std:` | `app/client/fontdatabase.h:96` | what it holds |
+| 2 | `FontInitStruct` | `app/client/fontdatabase.h:34` | one INIT-n section of fontsys.ini (a screen resolution's fonts) |
+| 2 | `Find_Chat_Index` | `app/client/fontdatabase.h:38` | the chat_index of the asserts |
+| 2 | `ResWidth` | `app/client/fontdatabase.h:40` | the ini key |
+| 2 | `ResHeight` | `app/client/fontdatabase.h:41` | the ini key |
+| 2 | `std:` | `app/client/fontdatabase.h:42` | what it holds |
+| 2 | `FontID` | `app/client/fontdatabase.h:43` | the ini key |
+| 2 | `Font` | `app/client/fontdatabase.h:44` | the ini key |
+| 2 | `Scale` | `app/client/fontdatabase.h:45` | the ini key |
+| 2 | `Spacing` | `app/client/fontdatabase.h:46` | the ini key |
+| 2 | `DefaultFont` | `app/client/fontdatabase.h:48` | what 0x6C3D40 restores Font from |
+| 2 | `DefaultScale` | `app/client/fontdatabase.h:49` | what 0x6C3D40 restores Scale from |
+| 2 | `DefaultSpacing` | `app/client/fontdatabase.h:50` | what 0x6C3D40 restores Spacing from |
+| 2 | `Font32Class` | `app/client/fontdatabase.h:60` | what font32Ptr points at (0xD30 bytes, constructor 0x6BBAC0) |
+| 2 | `FontStruct` | `app/client/fontdatabase.h:64` | one of the fonts in use (0xC bytes) |
+| 2 | `Name` | `app/client/fontdatabase.h:69` | what Find_Font compares |
+| 2 | `Scale` | `app/client/fontdatabase.h:70` | Scale%d is copied in |
+| 2 | `FontColorStruct` | `app/client/fontdatabase.h:73` | one COLOR-n section (ColorID, RGB), declared as far as the file needs it |
+| 2 | `Name` | `app/client/fontdatabase.h:75` | the table's key (its destructor is the struct's, 0x6BF1B0 / 0x6BF1D0) |
+| 2 | `FontEffectStruct` | `app/client/fontdatabase.h:78` | one EFFECT-n section (EffectID, Intensity, ...), declared as far as the file needs it |
+| 2 | `Name` | `app/client/fontdatabase.h:80` | the table's key (its destructor is the struct's, 0x6BF1B0 / 0x6BF1D0) |
+| 2 | `FontStringStruct` | `app/client/fontdatabase.h:83` | one string template (Template%d, String%d), declared as far as the file needs it |
+| 2 | `Name` | `app/client/fontdatabase.h:86` | the table's key |
+| 2 | `Load` | `app/client/fontdatabase.h:94` | what it does |
+| 2 | `Find_Font` | `app/client/fontdatabase.h:98` | what it does |
+| 2 | `Get_Info` | `app/client/fontdatabase.h:99` | as Get_Info, for a given resolution |
+| 2 | `Find_Color` | `app/client/fontdatabase.h:100` | what it does |
+| 2 | `Find_Effect` | `app/client/fontdatabase.h:101` | what it does |
+| 2 | `Find_String` | `app/client/fontdatabase.h:102` | what it does |
+| 2 | `Add_String` | `app/client/fontdatabase.h:103` | what it does |
+| 2 | `Add_Effect` | `app/client/fontdatabase.h:104` | what it does |
+| 2 | `Add_Color` | `app/client/fontdatabase.h:105` | what it does |
+| 2 | `Clear_Infos` | `app/client/fontdatabase.h:106` | what it does |
+| 2 | `Clear_Tables` | `app/client/fontdatabase.h:107` | what it does |
+| 2 | `Clear_Strings` | `app/client/fontdatabase.h:108` | what it does |
+| 2 | `Get_Font_File_Index` | `app/client/fontdatabase.h:110` | what it does |
+| 2 | `Get_Font_File_Name` | `app/client/fontdatabase.h:111` | what it does |
+| 2 | `Get_Scale` | `app/client/fontdatabase.h:112` | what it returns |
+| 2 | `Get_Spacing` | `app/client/fontdatabase.h:113` | what it returns |
+| 2 | `Get_Info` | `app/client/fontdatabase.h:115` | the INIT section for the resolution |
+| 2 | `std:` | `app/client/fontdatabase.h:118` | the INIT sections, by resolution |
+| 2 | `std:` | `app/client/fontdatabase.h:119` | what it holds |
+| 2 | `std:` | `app/client/fontdatabase.h:120` | what it holds |
+| 2 | `std:` | `app/client/fontdatabase.h:121` | what it holds |
 | 2 | `Unknown_Load_Assets` | `app/client/sclient.cpp:36` | 0x729BF0 (client_lego_impl.cpp), 'cbasset.ini' (as tsk_smovie.cpp) |
 | 2 | `Unknown_Free_Assets` | `app/client/sclient.cpp:37` | 0x729D60 (client_lego_impl.cpp) (as tsk_smovie.cpp) |
 | 2 | `Unknown_Main_Window` | `app/client/sclient.cpp:39` | what Pump_Messages redraws |
@@ -2947,20 +3002,35 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `GlobalAvatarListPacketClass` | `app/packets/pk_classes.h:268` | the reference decoder's opcode name GLOBAL_AVATAR_LIST (the Net-7 opcode table; no structure check) |
 | 2 | `GlobalCreateCharacterPacketClass` | `app/packets/pk_classes.h:277` | the reference decoder's opcode name GLOBAL_CREATE_CHARACTER (the Net-7 opcode table; no structure check) |
 | 2 | `GlobalErrorPacketClass` | `app/packets/pk_classes.h:286` | the reference decoder's opcode name GLOBAL_ERROR (the Net-7 opcode table; no structure check) |
-| 2 | `RecustomizeShipStartPacketClass` | `app/packets/pk_classes.h:447` | the reference decoder's opcode name RECUSTOMIZE_SHIP_START (the Net-7 opcode table; no structure check) |
-| 2 | `RecustomizeShipDonePacketClass` | `app/packets/pk_classes.h:455` | the reference decoder's opcode name RECUSTOMIZE_SHIP_DONE (the Net-7 opcode table; no structure check) |
-| 2 | `RecustomizeAvatarStartPacketClass` | `app/packets/pk_classes.h:464` | the reference decoder's opcode name RECUSTOMIZE_AVATAR_START (the Net-7 opcode table; no structure check) |
-| 2 | `RecustomizeAvatarDonePacketClass` | `app/packets/pk_classes.h:472` | the reference decoder's opcode name RECUSTOMIZE_AVATAR_DONE (the Net-7 opcode table; no structure check) |
-| 2 | `RecustomizeAvatarUpdatePacketClass` | `app/packets/pk_classes.h:481` | the reference decoder's opcode name RECUSTOMIZE_AVATAR_UPDATE (the Net-7 opcode table; no structure check) |
+| 2 | `RecustomizeShipStartPacketClass` | `app/packets/pk_classes.h:439` | the reference decoder's opcode name RECUSTOMIZE_SHIP_START (the Net-7 opcode table; no structure check) |
+| 2 | `RecustomizeShipDonePacketClass` | `app/packets/pk_classes.h:447` | the reference decoder's opcode name RECUSTOMIZE_SHIP_DONE (the Net-7 opcode table; no structure check) |
+| 2 | `RecustomizeAvatarStartPacketClass` | `app/packets/pk_classes.h:456` | the reference decoder's opcode name RECUSTOMIZE_AVATAR_START (the Net-7 opcode table; no structure check) |
+| 2 | `RecustomizeAvatarDonePacketClass` | `app/packets/pk_classes.h:464` | the reference decoder's opcode name RECUSTOMIZE_AVATAR_DONE (the Net-7 opcode table; no structure check) |
+| 2 | `RecustomizeAvatarUpdatePacketClass` | `app/packets/pk_classes.h:473` | the reference decoder's opcode name RECUSTOMIZE_AVATAR_UPDATE (the Net-7 opcode table; no structure check) |
+| 2 | `std:` | `app/packets/pk_player_object_relationship.cpp:166` | what it holds |
+| 2 | `std:` | `app/packets/pk_player_object_relationship.cpp:167` | what it holds |
+| 2 | `std:` | `app/packets/pk_player_object_relationship.cpp:258` | what it holds |
+| 2 | `std:` | `app/packets/pk_player_object_relationship.cpp:259` | what it holds |
 | 2 | `MobReactionType` | `app/packets/pk_player_object_relationship.h:25` | what it holds, after the client's MOB_REACTION_COUNT |
 | 2 | `Value_To_String` | `app/packets/pk_player_object_relationship.h:31` | as strconv_lib.h's pairs |
 | 2 | `RelationshipClass` | `app/packets/pk_player_object_relationship.h:35` | what it holds (the packet's Print names both members) |
 | 2 | `Relationship` | `app/packets/pk_player_object_relationship.h:58` | what it holds |
 | 2 | `Priority` | `app/packets/pk_player_object_relationship.h:59` | Get_Priority returns it |
 | 2 | `Channel` | `app/packets/pk_player_object_relationship.h:60` | Get_Channel returns it |
-| 2 | `Add_Attacker` | `app/packets/pk_player_object_relationship.h:75` | what it does |
-| 2 | `std:` | `app/packets/pk_player_object_relationship.h:78` | what it holds |
-| 2 | `Priority` | `app/packets/pk_player_object_relationship.h:79` | Get_Priority returns it |
+| 2 | `ObjectID` | `app/packets/pk_player_object_relationship.h:69` | as RELATIONSHIP 137's ObjectID (Print's ' %d=%s') |
+| 2 | `Reaction` | `app/packets/pk_player_object_relationship.h:70` | Print shows it through the reaction's Value_To_String |
+| 2 | `Get` | `app/packets/pk_player_object_relationship.h:78` | what it does |
+| 2 | `Next` | `app/packets/pk_player_object_relationship.h:79` | what it does |
+| 2 | `Get` | `app/packets/pk_player_object_relationship.h:86` | what it does |
+| 2 | `Next` | `app/packets/pk_player_object_relationship.h:87` | what it does |
+| 2 | `Add_Reaction` | `app/packets/pk_player_object_relationship.h:102` | what it does |
+| 2 | `Get_Iterator` | `app/packets/pk_player_object_relationship.h:103` | what it returns |
+| 2 | `std:` | `app/packets/pk_player_object_relationship.h:105` | what it holds |
+| 2 | `Priority` | `app/packets/pk_player_object_relationship.h:106` | Get_Priority returns it |
+| 2 | `Add_Attacker` | `app/packets/pk_player_object_relationship.h:121` | what it does |
+| 2 | `Get_Iterator` | `app/packets/pk_player_object_relationship.h:122` | what it returns |
+| 2 | `std:` | `app/packets/pk_player_object_relationship.h:125` | what it holds |
+| 2 | `Priority` | `app/packets/pk_player_object_relationship.h:126` | Get_Priority returns it |
 | 2 | `SubPartStruct` | `app/packets/pk_sub_parts.h:24` | what it holds (the assert's 'SubParts') |
 | 2 | `std:` | `app/packets/pk_sub_parts.h:28` | what it holds |
 | 2 | `Value` | `app/packets/pk_sub_parts.h:29` | what it holds |
@@ -3557,6 +3627,16 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Add_Mix` | `app/shared/combo_ffactory.h:38` | describes what it does |
 | 2 | `Simple` | `app/shared/combo_ffactory.h:41` | describes what it holds |
 | 2 | `std:` | `app/shared/combo_ffactory.h:43` | describes what it holds |
+| 2 | `std:` | `app/shared/data_binder.h:38` | what it holds |
+| 2 | `Instance` | `app/shared/data_binder.h:40` | what it does |
+| 2 | `Get` | `app/shared/data_binder.h:44` | what it does |
+| 2 | `Delete` | `app/shared/data_binder.h:60` | what it does |
+| 2 | `std:` | `app/shared/data_binder.h:74` | what it does |
+| 2 | `Has` | `app/shared/data_binder.h:85` | what it does |
+| 2 | `Get` | `app/shared/data_binder.h:95` | what it does |
+| 2 | `Bind` | `app/shared/data_binder.h:106` | what it does |
+| 2 | `Remove` | `app/shared/data_binder.h:118` | what it does |
+| 2 | `Types` | `app/shared/data_binder.h:134` | what it holds |
 | 2 | `Peek` | `app/shared/definition_auto_ptr.h:45` | as ref_ptr.h's |
 | 2 | `Set` | `app/shared/definition_auto_ptr.h:47` | what it does |
 | 2 | `Release` | `app/shared/definition_auto_ptr.h:111` | what it does |
@@ -3992,21 +4072,29 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `cfaction_database.h` | `app/client/cfaction_database.h:18` | header name assumed from the client's cfaction_database.cpp |
 | 3 | `CFactionDatabaseClass` | `app/client/cfaction_database.h:24` | by convention (D24) from the client's file cfaction_database.cpp |
 | 3 | `client.h` | `app/client/client.h:20` | header name assumed from the client's client.cpp |
-| 3 | `ClientObjectClass` | `app/client/client.h:38` | the RTTI's .?AVClientObjectClass@@ for co.cpp's class, not tied to this layout by a vtable |
-| 3 | `AuxData` | `app/client/client.h:70` | the FAIL_IF's name |
-| 3 | `GameID` | `app/client/client.h:72` | Get_Game_ID's |
-| 3 | `EffectObjectClass` | `app/client/client.h:79` | class-from-file (D24) for eff_o.cpp |
-| 3 | `PxClass` | `app/client/client.h:116` | class-from-file (D24) for px.cpp |
-| 3 | `PxProcessClass` | `app/client/client.h:126` | class-from-file (D24) for px_process.cpp |
-| 3 | `ClientClass` | `app/client/client.h:149` | class-from-file (D24) for client.cpp; the client names no class |
-| 3 | `Process_Packets` | `app/client/client.h:159` | SClient's string names its override |
-| 3 | `Px` | `app/client/client.h:199` | px.cpp's |
-| 3 | `PxProcess` | `app/client/client.h:200` | px_process.cpp's |
+| 3 | `ClientObjectClass` | `app/client/client.h:39` | the RTTI's .?AVClientObjectClass@@ for co.cpp's class, not tied to this layout by a vtable |
+| 3 | `AuxData` | `app/client/client.h:72` | the FAIL_IF's name |
+| 3 | `GameID` | `app/client/client.h:74` | Get_Game_ID's |
+| 3 | `EffectObjectClass` | `app/client/client.h:81` | class-from-file (D24) for eff_o.cpp |
+| 3 | `PxClass` | `app/client/client.h:118` | class-from-file (D24) for px.cpp |
+| 3 | `PxProcessClass` | `app/client/client.h:128` | class-from-file (D24) for px_process.cpp |
+| 3 | `ClientClass` | `app/client/client.h:151` | class-from-file (D24) for client.cpp; the client names no class |
+| 3 | `Process_Packets` | `app/client/client.h:161` | SClient's string names its override |
+| 3 | `Px` | `app/client/client.h:201` | px.cpp's |
+| 3 | `PxProcess` | `app/client/client.h:202` | px_process.cpp's |
+| 3 | `co_data.h` | `app/client/co_data.h:19` | header name assumed from the client's co_data.cpp |
+| 3 | `ClientObjectDataClass` | `app/client/co_data.h:34` | by convention (D24) from the client's co_data.cpp |
 | 3 | `control_keys_manager.h` | `app/client/control_keys_manager.h:18` | header name assumed from the client's control_keys_manager.cpp |
 | 3 | `RsTrackClass` | `app/client/cpacket.cpp:42` | class-from-file (D24) for app\shared\rs_track.cpp |
 | 3 | `SoundManagerClass` | `app/client/cpacket.cpp:52` | class-from-file (D24) for app\client\sound_manager.cpp |
+| 3 | `emote_data.h` | `app/client/emote_data.h:16` | header name assumed from the client's emote_data.cpp |
 | 3 | `fontdatabase.h` | `app/client/fontdatabase.h:19` | header name assumed from the client's fontdatabase.cpp |
-| 3 | `FontDatabaseClass` | `app/client/fontdatabase.h:73` | by convention (D24) from the client's fontdatabase.cpp |
+| 3 | `FontDatabaseClass` | `app/client/fontdatabase.h:89` | by convention (D24) from the client's fontdatabase.cpp |
+| 3 | `gutter_data.h` | `app/client/gutter_data.h:16` | header name assumed from the client's gutter_data.cpp |
+| 3 | `navigation_data.h` | `app/client/navigation_data.h:16` | header name assumed from the client's navigation_data.cpp |
+| 3 | `radar_data.h` | `app/client/radar_data.h:16` | header name assumed from the client's radar_data.cpp |
+| 3 | `radar_icon_data.h` | `app/client/radar_icon_data.h:16` | header name assumed from the client's radar_icon_data.cpp |
+| 3 | `RadarIconDataClass` | `app/client/radar_icon_data.h:21` | by convention (D24) from the client's radar_icon_data.cpp |
 | 3 | `sclient.h` | `app/client/sclient.h:21` | header name assumed from the class |
 | 3 | `MusicManagerClass` | `app/client/sclient.h:38` | class-from-file (D24) for audio\musicmanager.cpp (constructor 0x439E40, 0x1FC bytes) |
 | 3 | `CameraManagerClass` | `app/client/sclient.h:39` | class-from-file (D24) for camera_manager.cpp (constructor 0x798D20, 0x4C bytes) |
@@ -4044,6 +4132,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `TextureReduction` | `app/client/soptions.h:58` | the registry value's name |
 | 3 | `TextureFilter` | `app/client/soptions.h:59` | the registry value's name |
 | 3 | `CameraMode` | `app/client/soptions.h:63` | the assert's 'cameramode' |
+| 3 | `starmap_data.h` | `app/client/starmap_data.h:16` | header name assumed from the client's starmap_data.cpp |
 | 3 | `tsk_game.h` | `app/client/tasks/tsk_game.h:18` | header name assumed from the client's tsk_game.cpp |
 | 3 | `ClientTaskClass` | `app/client/tasks/tsk_game.h:28` | the client's 'ClientTask' (its profile label) in LoginTaskClass's form (D24) |
 | 3 | `tsk_login.h` | `app/client/tasks/tsk_login.h:17` | header name assumed from the client's tsk_login.cpp |
@@ -4109,7 +4198,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `Reaction` | `app/packets/pk_player_object_relationship.h:40` | the client's Print text 'Reaction=' |
 | 3 | `IsAttacking` | `app/packets/pk_player_object_relationship.h:41` | the client's Print text 'IsAttacking=' |
 | 3 | `ObjectID` | `app/packets/pk_player_object_relationship.h:57` | the client's Print text 'ObjectID=' |
-| 3 | `Attacking` | `app/packets/pk_player_object_relationship.h:77` | the client's Print text 'Attacking=' |
+| 3 | `Is_Done` | `app/packets/pk_player_object_relationship.h:77` | the client's FAIL_IF text 'Is_Done()' |
+| 3 | `Is_Done` | `app/packets/pk_player_object_relationship.h:85` | the client's FAIL_IF text 'Is_Done()' |
+| 3 | `Attacking` | `app/packets/pk_player_object_relationship.h:124` | the client's Print text 'Attacking=' |
 | 3 | `pk_sub_parts.h` | `app/packets/pk_sub_parts.h:16` | by convention from the client's pk_sub_parts.cpp (D24) |
 | 3 | `GameID` | `app/packets/pk_sub_parts.h:48` | the client's Print text 'GameID=' |
 | 3 | `GameID` | `app/packets/pkaction.h:31` | the client's Print text 'GameID=' |
@@ -4678,6 +4769,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `BoolParserClass` | `app/shared/boolpars.h:164` | by convention (D24) from the client's file boolpars.cpp (vtable 0xAEA938) |
 | 3 | `combo_ffactory.h` | `app/shared/combo_ffactory.h:19` | header name assumed from the client's combo_ffactory.cpp |
 | 3 | `ComboFileFactoryClass` | `app/shared/combo_ffactory.h:29` | by convention (D24) from the client's file combo_ffactory.cpp |
+| 3 | `DataBinderClass` | `app/shared/data_binder.h:35` | by convention (D24) from the client's data_binder.h |
 | 3 | `DefinitionAutoPtr` | `app/shared/definition_auto_ptr.h:25` | from the client's file definition_auto_ptr.h |
 | 3 | `DefinitionRefCount` | `app/shared/definition_manager.h:31` | from the client's 'drc->RefCount' |
 | 3 | `DefinitionManagerClass` | `app/shared/definition_manager.h:42` | by convention (D24) from the client's definition_manager.h |
