@@ -84,11 +84,29 @@ def load():
         return list(csv.DictReader(f))
 
 
+def file_eol():
+    """The csv's own line ending, read from its header line (CRLF when the file is new or has none)."""
+    try:
+        with open(CSV, 'rb') as f:
+            first = f.readline()
+    except OSError:
+        return '\r\n'
+    return '\n' if first.endswith(b'\n') and not first.endswith(b'\r\n') else '\r\n'
+
+
 def append(row):
     new = not os.path.exists(CSV)
     os.makedirs(os.path.dirname(CSV), exist_ok=True)
+    eol = file_eol()
+    with open(CSV, 'a+b') as f:
+        f.seek(0, 2)
+        if f.tell():
+            f.seek(-1, 2)
+            if f.read(1) not in (b'\n', b'\r'):
+                f.write(eol.encode())      # a file without a final newline
+    # rows hold quoted multi-line text: the csv module quotes it, and the file is only ever appended to
     with open(CSV, 'a', newline='', encoding='utf-8') as f:
-        w = csv.DictWriter(f, FIELDS, lineterminator='\n')
+        w = csv.DictWriter(f, FIELDS, lineterminator=eol)
         if new:
             w.writeheader()
         w.writerow(row)
