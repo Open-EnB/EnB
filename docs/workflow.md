@@ -231,6 +231,10 @@ unless `--lever` cites a new row of this table.
 | A whitespace skip inlined at some sites, out of line at others | A macro, not an inline function | boolpars (H8) |
 | A `static const int` read from memory where ours folds it | A class static defined after its uses | 0xAECC44, boolpars (H8) |
 | `Value(...)` stores into a +4 subobject that keeps its own vtable | A member object, not a second base | boolpars' nodes (H8) |
+| The prologue loads the arguments' members in the wrong order | A temporary or reference local that reads an argument member first decides the order: `const Vector3 &min = boxtest.SweepMin;` | HeightField Cast_AABox 0x465030, 727d349 (L5) |
+| `[base + index]` operands swapped in a store | `mask[row + i]` with an unsigned row offset, not `row[i]` through a pointer | land's sea mask (L5) |
+| The client copies a float argument before a bounds assert | An inline setter taking the float by value | spline.h Set (L5) |
+| A second triangle's normal through TriClass | Set all three V pointers again before the second triangle | land Compute_Normal (L5) |
 
 * **A nested inline is a whole-function budget (2026-10-26, `Key_Exchange` 0x829180):** under `/Ob2` an
   inline helper's own callees (a `std::set` iterator's `_Inc`) are inlined only while the function as a
@@ -479,6 +483,9 @@ unless `--lever` cites a new row of this table.
   write. A draft regenerated from a template overwrites an applied fix: check the tree file before verifying.
   Regenerate names-review.md and not-exact.md in a clean worktree, never in the shared tree.
 
+* **Run `python tools/vc6/build.py link` for the programs after adding a function to a library file or touching
+  stubs/ or pk.h** (L5, 2026-10-27: a missing Resize, then ee8fa6f's stub change pulled pk.obj and 280 externals
+  into VIDTEST). A commit subject must not claim a program links unless that command ran at that commit.
 ### 3.9 Library-specific
 
 * **wnet (E&B's TCPCon):** a reset connection is `CONNRESET` (-16): reads and writes end quietly on it
