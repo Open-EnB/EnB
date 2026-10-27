@@ -18,6 +18,7 @@
 #define PK_CLASSES_H
 
 #include "pk.h"
+#include "pk_player_object_relationship.h"	// rebuilt
 #include "pkaction.h"	// rebuilt
 #include "pkauxdata.h"	// rebuilt
 #include "pkcameracontrol.h"	// rebuilt
@@ -779,14 +780,6 @@ class PetitionStuckPacketClass : public PacketClass  // NAME 3: the client's Pri
 public:
 	PetitionStuckPacketClass(RawPacketClass *raw);	// 0x89F860
 	virtual bool Process_Packet(void *client);	// +0x08 0x868A00 (clientstub.cpp l.260)
-	char Unknown0C[0x14];	// +0x0C
-};
-
-// opcode 137 (0x0089, RELATIONSHIP): vtable 0xB09B14, constructor 0x873C30, 0x20 bytes
-class PlayerObjectRelationshipPacket : public PacketClass
-{
-public:
-	PlayerObjectRelationshipPacket(RawPacketClass *raw);	// 0x873C30
 	char Unknown0C[0x14];	// +0x0C
 };
 

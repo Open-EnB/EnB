@@ -80,7 +80,6 @@ Packet_0068Class::Packet_0068Class(RawPacketClass *raw) { Conn_Record(this, raw)
 ManufactureItemCatagoryPacketClass::ManufactureItemCatagoryPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 ManufactureTechLevelFilterPacketClass::ManufactureTechLevelFilterPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 PetitionStuckPacketClass::PetitionStuckPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-PlayerObjectRelationshipPacket::PlayerObjectRelationshipPacket(RawPacketClass *raw) { Conn_Record(this, raw); }
 PlayerObjectReactionUpdatePacket::PlayerObjectReactionUpdatePacket(RawPacketClass *raw) { Conn_Record(this, raw); }
 PlayerObjectIsAttackingUpdatePacket::PlayerObjectIsAttackingUpdatePacket(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_008EClass::Packet_008EClass(RawPacketClass *raw) { Conn_Record(this, raw); }
@@ -185,6 +184,7 @@ bool ManufactureSetPacketClass::Process_Packet(void *) { return(true); }	// 0x73
 bool LootHulkPermissionPacketClass::Process_Packet(void *) { return(true); }	// 0x7396F0
 bool HullUpgradePacketClass::Process_Packet(void *) { return(true); }	// 0x7396C0
 bool OpenInterfacePacketClass::Process_Packet(void *) { return(true); }	// 0x7397D0
+bool PlayerObjectRelationshipPacket::Process_Packet(void *) { return(true); }	// 0x7398E0
 bool IncapacitanceRescueConfirmationPacket::Process_Packet(void *) { return(true); }	// 0x739CD0
 bool CameraControlPacketClass::Process_Packet(void *) { return(true); }	// 0x739FF0
 bool JobDeletePacketClass::Process_Packet(void *) { return(true); }	// 0x73A420

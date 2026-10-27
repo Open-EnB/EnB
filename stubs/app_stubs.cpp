@@ -12,6 +12,7 @@
 #include <stdio.h>
 #include <stdarg.h>
 #include <stdlib.h>
+#include <string.h>
 #include "stub_log.h"
 
 #include "unknown_debug.h"
@@ -26,6 +27,7 @@
 #include "duration.h"
 #include "money.h"
 #include "delta_template.h"
+#include "pk_player_object_relationship.h"
 
 // ------------------------------------------------------------------------- E&B debug hooks
 
@@ -67,6 +69,33 @@ int DeltaStringClass::UnknownGlobal = 0;	// 0xBE3A9C
 
 // The value <-> text conversions the key/value pairs use. Not stubs: the client's behaviour
 // (0x4A3200 / 0x4A3240 / 0x4A3590 / 0x4A35C0), here until strconv_lib.cpp is rebuilt.
+// 0x4A30A0 (strconv_lib.cpp): the client's behaviour
+char *Value_To_String(char *buf, int size, bool value)
+{
+	strcpy(buf, value ? "true" : "false");
+	return buf;
+}
+
+// faction_and_reputation.cpp 0x835890: the reaction's name from the client's table 0xBA9614 (not
+// known yet: its number), 'BadReaction' out of range
+char *Value_To_String(char *buf, int size, MobReactionType reaction)
+{
+	STUB_CALLED("Value_To_String(MobReactionType) (0x835890)");
+	if (reaction < 0 || reaction >= MOB_REACTION_COUNT) {
+		_snprintf(buf, size, "BadReaction");
+	} else {
+		_snprintf(buf, size, "%d", (int)reaction);
+	}
+	return buf;
+}
+
+// 0x848C80: RELATIONSHIP's relationship (opcode 137), the client's defaults
+RelationshipClass::RelationshipClass()
+{
+	Reaction = (MobReactionType)1;
+	IsAttacking = false;
+}
+
 char *Value_To_String(char *buf, int size, float value)
 {
 	sprintf(buf, "%f", value);

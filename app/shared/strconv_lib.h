@@ -20,6 +20,7 @@
 #ifndef __STRCONV_LIB_H  // NAME 3 [strconv_lib.h]: header name assumed from the client's strconv_lib.cpp (D57)
 #define __STRCONV_LIB_H
 
+char *Value_To_String(char *buf, int size, bool value);					// 0x4A30A0 ("true" / "false")  // NAME 2: describes what it does
 char *Value_To_String(char *buf, int size, float value);					// 0x4A3200 ("%f")  // NAME 2: describes what it does
 bool String_To_Value(const char *text, float *value);						// 0x4A3240 (atof)  // NAME 2: describes what it does
 char *Value_To_String(char *buf, int size, unsigned int value);			// 0x4A3590 ("%u")

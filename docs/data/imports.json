@@ -1035,6 +1035,26 @@
     "merged": [],
     "name": "packets/pk.cpp"
    },
+   "pk_player_object_relationship": {
+    "ambiguous": [
+     "0x42B2F0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350",
+     "0x873AE0",
+     "0x873C30",
+     "0x873D10",
+     "0x873E10"
+    ],
+    "merged": [],
+    "name": "packets/pk_player_object_relationship.cpp"
+   },
    "pkaction": {
     "ambiguous": [
      "0x42B2F0"
@@ -3065,6 +3085,7 @@
    "packets/pkchangebaseasset.h": "reconstructed",
    "packets/pkclickindicator.h": "reconstructed",
    "packets/pkclientavatar.h": "reconstructed",
+   "packets/pk_player_object_relationship.h": "reconstructed",
    "packets/pkclientship.h": "reconstructed",
    "packets/pkcreate.h": "reconstructed",
    "packets/pkcreateattachment.h": "reconstructed",
