@@ -1492,6 +1492,38 @@
     "merged": [],
     "name": "client/fontdatabase.cpp"
    },
+   "fontmanager": {
+    "ambiguous": [
+     "0x42A900",
+     "0x42AAE0",
+     "0x42AFF0",
+     "0x42B250",
+     "0x42B2F0",
+     "0x42B340",
+     "0x4333D0",
+     "0x436730",
+     "0x440560",
+     "0x46BE90",
+     "0x474080",
+     "0x4DF8B0",
+     "0x4DF930",
+     "0x6D46D0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x4334D0",
+     "0x6D16E0",
+     "0x6D1AE0",
+     "0x6D2220",
+     "0x6D29A0",
+     "0x6D2A70",
+     "0x6D33A0",
+     "0x6D42C0"
+    ],
+    "merged": [],
+    "name": "client/fontmanager.cpp"
+   },
    "heightfield": {
     "ambiguous": [
      "0x463C80",
@@ -6658,6 +6690,7 @@
    "client/control_keys_manager.h": "reconstructed",
    "client/emote_data.h": "reconstructed",
    "client/fontdatabase.h": "reconstructed",
+   "client/fontmanager.h": "reconstructed",
    "client/gutter_data.h": "reconstructed",
    "client/navigation_data.h": "reconstructed",
    "client/radar_data.h": "reconstructed",

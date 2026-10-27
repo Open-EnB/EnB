@@ -1,0 +1,466 @@
+// Earth & Beyond client (reconstruction): app\Client\fontmanager.cpp. Notes at the end of the file.
+#include "fontmanager.h"
+#include "..\..\wwlib\wwstring.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+FontManagerClass::FontManagerClass()
+{
+	Fonts.clear();
+	DebugFont = Create_NEW(new FontStyleClass("DebugFont", 0, 0));
+}
+
+FontManagerClass::~FontManagerClass()
+{
+	DebugFont = NULL;
+	for (std::hash_map<unsigned int, ManagedFontClass *>::iterator it = Fonts.begin(); it != Fonts.end(); ++it) {
+		delete it->second;
+	}
+	Fonts.clear();
+}
+
+void FontManagerClass::Remove_All()
+{
+	for (std::hash_map<unsigned int, ManagedFontClass *>::iterator it = Fonts.begin(); it != Fonts.end(); ++it) {
+		delete it->second;
+	}
+	Fonts.clear();
+}
+
+void FontManagerClass::Unknown_6D1C10(int unknown1, int unknown2)
+{
+	for (std::hash_map<unsigned int, ManagedFontClass *>::iterator it = Fonts.begin(); it != Fonts.end(); ++it) {
+		it->second->Unknown_6CD950(unknown1, unknown2);
+	}
+}
+
+void FontManagerClass::Add(const char *name)
+{
+	ManagedFontClass *font = new ManagedFontClass(name);
+	if (font && font->Id) {
+		Fonts[font->Id] = font;
+	}
+}
+
+void FontManagerClass::Add(const StringClass &name)
+{
+	Add((const char *)name);
+}
+
+void FontManagerClass::Remove(unsigned int id)
+{
+	std::hash_map<unsigned int, ManagedFontClass *>::iterator it = Fonts.find(id);
+	if (it != Fonts.end()) {
+		delete it->second;
+		Fonts.erase(it);
+	}
+}
+
+void FontManagerClass::Unknown_6D2400(unsigned int id)
+{
+	Find(id)->Unknown_6D0390(NULL);
+}
+
+void FontManagerClass::Unknown_6D2480(unsigned int id)
+{
+	Find(id)->Unknown_6D0550(NULL);
+}
+
+void FontManagerClass::Unknown_6D2500(unsigned int id)
+{
+	Find(id)->Unknown_6D0A20(NULL);
+}
+
+void FontManagerClass::Add(ManagedFontClass *font)
+{
+	if (font && font->Id) {
+		Fonts[font->Id] = font;
+	}
+}
+
+ManagedFontClass *FontManagerClass::Find(unsigned int id)
+{
+	std::hash_map<unsigned int, ManagedFontClass *>::iterator it = Fonts.find(id);
+	if (it == Fonts.end()) return NULL;
+	return it->second;
+}
+/*
+**	Reconstruction notes
+**
+**	client.exe: the window 0x6D0F70-0x6D2A70 (asserts on lines 360, 524, 533 and 550), then the
+**	containers' instances. The font's own functions (0x6D0F70-0x6D1600) and the manager's
+**	0x6D1FD0, 0x6D2310, 0x6D2580, 0x6D25D0, 0x6D2700 and 0x6D28C0 are not rebuilt yet.
+*/

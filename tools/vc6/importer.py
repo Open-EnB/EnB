@@ -3501,6 +3501,8 @@ RECONSTRUCTED = {
                                            "Start_Step 0x6ACF50, Read_Completed_File 0x6AD4B0, Reload 0x6AD7B0",
     ('app', 'client/control_keys_manager.h'): "ControlKeysManager's key definitions (D10, D24): the definition holder ControlKeyDefClass (the client's DefPtr) and what it points at, declared as far as the rebuilt functions need",
     ('app', 'client/control_keys_manager.cpp'): "control_keys_manager.cpp, client 0x7197A0-0x720F80: the static empty string 0xBE7B80 and the definition accessors 0x71CC20-0x71CD20 (FAIL_IF lines 651-676, D25); the manager, its tables (_Instances, _KeyDefinitions on libs/sgistl, D87) and the ini loaders not yet",
+    ('app', 'client/fontmanager.h'): "FontManagerClass (D24, 0x1C bytes, 0xBE67C4): the fonts by id (an SGI hash_map, D87) and the debug font (RefCountPtr); the font (0x24 bytes) and the debug font's class declared only",
+    ('app', 'client/fontmanager.cpp'): "FontManagerClass, client 0x6D16E0-0x6D2A70 with the table's instances (builder H14); the font's own functions 0x6D0F70-0x6D1600 and the asserting 0x6D1220 / 0x6D25D0 / 0x6D2700 (lines 360-550, D25) not rebuilt yet",
     ('app', 'client/ui_line_display.h'): "UILineDisplayClass (D24), the line display screen on intrface.cpp's base "
                                         "(declared as far as the file needs it, D10): ephemeral.ini's entries and "
                                         "fc_line_display.ini's STR-n text objects in SGI hash_maps (libs/sgistl, D87)",
