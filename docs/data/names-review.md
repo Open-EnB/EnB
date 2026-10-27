@@ -9,8 +9,8 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 8 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 29 |
-| 3 | by convention from a client-named file or sibling | 391 |
-| 2 | describes what the code does | 873 |
+| 3 | by convention from a client-named file or sibling | 421 |
+| 2 | describes what the code does | 884 |
 | 1 | neutral placeholder | 1210 |
 
 ## For review (score 3 and below)
@@ -588,51 +588,51 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_869790` | `app/packets/pk.h:130` | neutral (D10) |
 | 1 | `pk_classes.h` | `app/packets/pk_classes.h:17` | provisional file name (D37) |
 | 1 | `Unknown0C` | `app/packets/pk_classes.h:111` | untagged neutral name (D10) |
-| 1 | `Packet_0015Class` | `app/packets/pk_classes.h:180` | neutral (D10): opcode 0x0015 |
-| 1 | `Unknown_2C` | `app/packets/pk_classes.h:187` | untagged neutral name (D10) |
-| 1 | `Packet_0016Class` | `app/packets/pk_classes.h:193` | neutral (D10): opcode 0x0016 |
-| 1 | `Unknown14` | `app/packets/pk_classes.h:200` | untagged neutral name (D10) |
-| 1 | `Packet_003BClass` | `app/packets/pk_classes.h:312` | neutral (D10): opcode 0x003B |
-| 1 | `Packet_006CClass` | `app/packets/pk_classes.h:337` | neutral (D10): opcode 0x006C |
-| 1 | `Packet_0076Class` | `app/packets/pk_classes.h:391` | neutral (D10): opcode 0x0076 |
-| 1 | `Packet_7535Class` | `app/packets/pk_classes.h:400` | neutral (D10): opcode 0x7535 |
-| 1 | `Packet_7538Class` | `app/packets/pk_classes.h:409` | neutral (D10): opcode 0x7538 |
-| 1 | `Packet_753CClass` | `app/packets/pk_classes.h:418` | neutral (D10): opcode 0x753C |
-| 1 | `Packet_753EClass` | `app/packets/pk_classes.h:427` | neutral (D10): opcode 0x753E |
-| 1 | `Packet_7540Class` | `app/packets/pk_classes.h:436` | neutral (D10): opcode 0x7540 |
-| 1 | `Packet_7541Class` | `app/packets/pk_classes.h:445` | neutral (D10): opcode 0x7541 |
-| 1 | `Packet_7545Class` | `app/packets/pk_classes.h:470` | neutral (D10): opcode 0x7545 |
-| 1 | `Packet_0048Class` | `app/packets/pk_classes.h:479` | neutral (D10): opcode 0x0048 |
-| 1 | `Unknown_28` | `app/packets/pk_classes.h:484` | neutral (D10) |
-| 1 | `Packet_004BClass` | `app/packets/pk_classes.h:497` | neutral (D10): opcode 0x004B |
-| 1 | `Packet_004DClass` | `app/packets/pk_classes.h:506` | neutral (D10): opcode 0x004D |
-| 1 | `Packet_1388Class` | `app/packets/pk_classes.h:547` | neutral (D10): opcode 0x1388 |
-| 1 | `Packet_1389Class` | `app/packets/pk_classes.h:556` | neutral (D10): opcode 0x1389 |
-| 1 | `Packet_138CClass` | `app/packets/pk_classes.h:565` | neutral (D10): opcode 0x138C |
-| 1 | `Packet_138DClass` | `app/packets/pk_classes.h:574` | neutral (D10): opcode 0x138D |
-| 1 | `Packet_138EClass` | `app/packets/pk_classes.h:583` | neutral (D10): opcode 0x138E |
-| 1 | `Packet_1391Class` | `app/packets/pk_classes.h:592` | neutral (D10): opcode 0x1391 |
-| 1 | `Packet_1392Class` | `app/packets/pk_classes.h:609` | neutral (D10): opcode 0x1392 |
-| 1 | `Packet_0068Class` | `app/packets/pk_classes.h:659` | neutral (D10): opcode 0x0068 |
-| 1 | `Packet_008EClass` | `app/packets/pk_classes.h:703` | neutral (D10): opcode 0x008E |
-| 1 | `Packet_00B5Class` | `app/packets/pk_classes.h:761` | neutral (D10): opcode 0x00B5 |
-| 1 | `Packet_00B6Class` | `app/packets/pk_classes.h:770` | neutral (D10): opcode 0x00B6 |
-| 1 | `Packet_00A8Class` | `app/packets/pk_classes.h:795` | neutral (D10): opcode 0x00A8 |
-| 1 | `Packet_00A9Class` | `app/packets/pk_classes.h:804` | neutral (D10): opcode 0x00A9 |
-| 1 | `Packet_00ABClass` | `app/packets/pk_classes.h:813` | neutral (D10): opcode 0x00AB |
-| 1 | `Packet_00ACClass` | `app/packets/pk_classes.h:822` | neutral (D10): opcode 0x00AC |
-| 1 | `Packet_00EAClass` | `app/packets/pk_classes.h:839` | neutral (D10): opcode 0x00EA |
-| 1 | `Packet_00EBClass` | `app/packets/pk_classes.h:847` | neutral (D10): opcode 0x00EB |
-| 1 | `Packet_00ECClass` | `app/packets/pk_classes.h:855` | neutral (D10): opcode 0x00EC |
-| 1 | `Packet_00EDClass` | `app/packets/pk_classes.h:864` | neutral (D10): opcode 0x00ED |
-| 1 | `Packet_00ADClass` | `app/packets/pk_classes.h:881` | neutral (D10): opcode 0x00AD |
-| 1 | `Packet_00B0Class` | `app/packets/pk_classes.h:890` | neutral (D10): opcode 0x00B0 |
-| 1 | `Packet_00B1Class` | `app/packets/pk_classes.h:899` | neutral (D10): opcode 0x00B1 |
-| 1 | `Packet_00BFClass` | `app/packets/pk_classes.h:924` | neutral (D10): opcode 0x00BF |
-| 1 | `Packet_00DEClass` | `app/packets/pk_classes.h:1146` | neutral (D10): opcode 0x00DE |
-| 1 | `Packet_00E6Class` | `app/packets/pk_classes.h:1155` | neutral (D10): opcode 0x00E6 |
-| 1 | `Packet_00E7Class` | `app/packets/pk_classes.h:1164` | neutral (D10): opcode 0x00E7 |
-| 1 | `Packet_0077Class` | `app/packets/pk_classes.h:1173` | neutral (D10): opcode 0x0077 |
+| 1 | `Packet_0015Class` | `app/packets/pk_classes.h:156` | neutral (D10): opcode 0x0015 |
+| 1 | `Unknown_2C` | `app/packets/pk_classes.h:163` | untagged neutral name (D10) |
+| 1 | `Packet_0016Class` | `app/packets/pk_classes.h:169` | neutral (D10): opcode 0x0016 |
+| 1 | `Unknown14` | `app/packets/pk_classes.h:176` | untagged neutral name (D10) |
+| 1 | `Packet_003BClass` | `app/packets/pk_classes.h:288` | neutral (D10): opcode 0x003B |
+| 1 | `Packet_006CClass` | `app/packets/pk_classes.h:313` | neutral (D10): opcode 0x006C |
+| 1 | `Packet_0076Class` | `app/packets/pk_classes.h:367` | neutral (D10): opcode 0x0076 |
+| 1 | `Packet_7535Class` | `app/packets/pk_classes.h:376` | neutral (D10): opcode 0x7535 |
+| 1 | `Packet_7538Class` | `app/packets/pk_classes.h:385` | neutral (D10): opcode 0x7538 |
+| 1 | `Packet_753CClass` | `app/packets/pk_classes.h:394` | neutral (D10): opcode 0x753C |
+| 1 | `Packet_753EClass` | `app/packets/pk_classes.h:403` | neutral (D10): opcode 0x753E |
+| 1 | `Packet_7540Class` | `app/packets/pk_classes.h:412` | neutral (D10): opcode 0x7540 |
+| 1 | `Packet_7541Class` | `app/packets/pk_classes.h:421` | neutral (D10): opcode 0x7541 |
+| 1 | `Packet_7545Class` | `app/packets/pk_classes.h:446` | neutral (D10): opcode 0x7545 |
+| 1 | `Packet_0048Class` | `app/packets/pk_classes.h:455` | neutral (D10): opcode 0x0048 |
+| 1 | `Unknown_28` | `app/packets/pk_classes.h:460` | neutral (D10) |
+| 1 | `Packet_004BClass` | `app/packets/pk_classes.h:473` | neutral (D10): opcode 0x004B |
+| 1 | `Packet_004DClass` | `app/packets/pk_classes.h:482` | neutral (D10): opcode 0x004D |
+| 1 | `Packet_1388Class` | `app/packets/pk_classes.h:523` | neutral (D10): opcode 0x1388 |
+| 1 | `Packet_1389Class` | `app/packets/pk_classes.h:532` | neutral (D10): opcode 0x1389 |
+| 1 | `Packet_138CClass` | `app/packets/pk_classes.h:541` | neutral (D10): opcode 0x138C |
+| 1 | `Packet_138DClass` | `app/packets/pk_classes.h:550` | neutral (D10): opcode 0x138D |
+| 1 | `Packet_138EClass` | `app/packets/pk_classes.h:559` | neutral (D10): opcode 0x138E |
+| 1 | `Packet_1391Class` | `app/packets/pk_classes.h:568` | neutral (D10): opcode 0x1391 |
+| 1 | `Packet_1392Class` | `app/packets/pk_classes.h:585` | neutral (D10): opcode 0x1392 |
+| 1 | `Packet_0068Class` | `app/packets/pk_classes.h:635` | neutral (D10): opcode 0x0068 |
+| 1 | `Packet_008EClass` | `app/packets/pk_classes.h:679` | neutral (D10): opcode 0x008E |
+| 1 | `Packet_00B5Class` | `app/packets/pk_classes.h:737` | neutral (D10): opcode 0x00B5 |
+| 1 | `Packet_00B6Class` | `app/packets/pk_classes.h:746` | neutral (D10): opcode 0x00B6 |
+| 1 | `Packet_00A8Class` | `app/packets/pk_classes.h:771` | neutral (D10): opcode 0x00A8 |
+| 1 | `Packet_00A9Class` | `app/packets/pk_classes.h:780` | neutral (D10): opcode 0x00A9 |
+| 1 | `Packet_00ABClass` | `app/packets/pk_classes.h:789` | neutral (D10): opcode 0x00AB |
+| 1 | `Packet_00ACClass` | `app/packets/pk_classes.h:798` | neutral (D10): opcode 0x00AC |
+| 1 | `Packet_00EAClass` | `app/packets/pk_classes.h:815` | neutral (D10): opcode 0x00EA |
+| 1 | `Packet_00EBClass` | `app/packets/pk_classes.h:823` | neutral (D10): opcode 0x00EB |
+| 1 | `Packet_00ECClass` | `app/packets/pk_classes.h:831` | neutral (D10): opcode 0x00EC |
+| 1 | `Packet_00EDClass` | `app/packets/pk_classes.h:840` | neutral (D10): opcode 0x00ED |
+| 1 | `Packet_00ADClass` | `app/packets/pk_classes.h:857` | neutral (D10): opcode 0x00AD |
+| 1 | `Packet_00B0Class` | `app/packets/pk_classes.h:866` | neutral (D10): opcode 0x00B0 |
+| 1 | `Packet_00B1Class` | `app/packets/pk_classes.h:875` | neutral (D10): opcode 0x00B1 |
+| 1 | `Packet_00BFClass` | `app/packets/pk_classes.h:900` | neutral (D10): opcode 0x00BF |
+| 1 | `Packet_00DEClass` | `app/packets/pk_classes.h:1122` | neutral (D10): opcode 0x00DE |
+| 1 | `Packet_00E6Class` | `app/packets/pk_classes.h:1131` | neutral (D10): opcode 0x00E6 |
+| 1 | `Packet_00E7Class` | `app/packets/pk_classes.h:1140` | neutral (D10): opcode 0x00E7 |
+| 1 | `Packet_0077Class` | `app/packets/pk_classes.h:1149` | neutral (D10): opcode 0x0077 |
 | 1 | `Unknown_14` | `app/packets/pk_player_object_relationship.cpp:10` | untagged neutral name (D10) |
 | 1 | `Unknown14` | `app/packets/pkaction.cpp:10` | untagged neutral name (D10) |
 | 1 | `Unknown18` | `app/packets/pkaction.cpp:11` | untagged neutral name (D10) |
@@ -777,10 +777,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_14` | `app/packets/pkpointeffect.cpp:23` | untagged neutral name (D10) |
 | 1 | `Unknown34` | `app/packets/pkpointeffect.cpp:165` | untagged neutral name (D10) |
 | 1 | `Unknown36` | `app/packets/pkpointeffect.cpp:166` | untagged neutral name (D10) |
-| 1 | `pkpointeffect` | `app/packets/pkpointeffect.h:16` | provisional, pk + its first named class's name |
-| 1 | `Unknown34` | `app/packets/pkpointeffect.h:93` | untagged neutral name (D10) |
-| 1 | `Unknown36` | `app/packets/pkpointeffect.h:94` | untagged neutral name (D10) |
-| 1 | `Unknown10` | `app/packets/pkpointeffect.h:112` | untagged neutral name (D10) |
+| 1 | `pkpointeffect` | `app/packets/pkpointeffect.h:15` | provisional, pk + its first named class's name |
+| 1 | `Unknown34` | `app/packets/pkpointeffect.h:92` | untagged neutral name (D10) |
+| 1 | `Unknown36` | `app/packets/pkpointeffect.h:93` | untagged neutral name (D10) |
+| 1 | `Unknown10` | `app/packets/pkpointeffect.h:193` | untagged neutral name (D10) |
 | 1 | `pkreferralpointsavailable` | `app/packets/pkreferralpointsavailable.h:16` | provisional, pk + its first named class's name |
 | 1 | `pkremove` | `app/packets/pkremove.h:16` | provisional, pk + its first named class's name |
 | 1 | `Unknown10` | `app/packets/pkremove.h:30` | untagged neutral name (D10) |
@@ -1493,31 +1493,31 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Get_Name` | `app/packets/pk_classes.h:110` | what the derived classes' return (a name) |
 | 2 | `LoginPacketClass` | `app/packets/pk_classes.h:115` | the reference decoder's opcode name LOGIN (the Net-7 opcode table; no structure check) |
 | 2 | `FormationPositionalUpdatePacketClass` | `app/packets/pk_classes.h:140` | the reference decoder's opcode name FORMATION_POSITIONAL_UPDATE (the Net-7 opcode table; no structure check) |
-| 2 | `Get_Type` | `app/packets/pk_classes.h:186` | what the derived classes' return (their opcode) |
-| 2 | `Get_Name` | `app/packets/pk_classes.h:188` | what the derived classes' return (a name) |
-| 2 | `DebugPacketClass` | `app/packets/pk_classes.h:204` | the reference decoder's opcode name DEBUG (the Net-7 opcode table; no structure check) |
-| 2 | `InventoryMovePacketClass` | `app/packets/pk_classes.h:251` | the reference decoder's opcode name INVENTORY_MOVE (the Net-7 opcode table; no structure check) |
-| 2 | `InventorySortPacketClass` | `app/packets/pk_classes.h:260` | the reference decoder's opcode name INVENTORY_SORT (the Net-7 opcode table; no structure check) |
-| 2 | `Action2PacketClass` | `app/packets/pk_classes.h:269` | the reference decoder's opcode name ACTION2 (the Net-7 opcode table; no structure check) |
-| 2 | `MasterJoinPacketClass` | `app/packets/pk_classes.h:286` | the reference decoder's opcode name MASTER_JOIN (the Net-7 opcode table; no structure check) |
-| 2 | `ServerRedirectPacketClass` | `app/packets/pk_classes.h:295` | the reference decoder's opcode name SERVER_REDIRECT (the Net-7 opcode table; no structure check) |
-| 2 | `GlobalConnectPacketClass` | `app/packets/pk_classes.h:346` | the reference decoder's opcode name GLOBAL_CONNECT (the Net-7 opcode table; no structure check) |
-| 2 | `GlobalTicketPacketClass` | `app/packets/pk_classes.h:355` | the reference decoder's opcode name GLOBAL_TICKET (the Net-7 opcode table; no structure check) |
-| 2 | `GlobalAvatarListPacketClass` | `app/packets/pk_classes.h:364` | the reference decoder's opcode name GLOBAL_AVATAR_LIST (the Net-7 opcode table; no structure check) |
-| 2 | `GlobalCreateCharacterPacketClass` | `app/packets/pk_classes.h:373` | the reference decoder's opcode name GLOBAL_CREATE_CHARACTER (the Net-7 opcode table; no structure check) |
-| 2 | `GlobalErrorPacketClass` | `app/packets/pk_classes.h:382` | the reference decoder's opcode name GLOBAL_ERROR (the Net-7 opcode table; no structure check) |
-| 2 | `AvatarEmotePacketClass` | `app/packets/pk_classes.h:618` | the reference decoder's opcode name AVATAR_EMOTE (the Net-7 opcode table; no structure check) |
-| 2 | `ManufactureItemCatagoryPacketClass` | `app/packets/pk_classes.h:668` | the reference decoder's opcode name MANUFACTURE_ITEM_CATAGORY (the Net-7 opcode table; no structure check) |
-| 2 | `ManufactureTechLevelFilterPacketClass` | `app/packets/pk_classes.h:677` | the reference decoder's opcode name MANUFACTURE_TECH_LEVEL_FILTER (the Net-7 opcode table; no structure check) |
-| 2 | `TriggerEmotePacketClass` | `app/packets/pk_classes.h:720` | the reference decoder's opcode name TRIGGER_EMOTE (the Net-7 opcode table; no structure check) |
-| 2 | `ConfirmedActionOfferPacketClass` | `app/packets/pk_classes.h:916` | the reference decoder's opcode name CONFIRMED_ACTION_OFFER (the Net-7 opcode table; no structure check) |
-| 2 | `ConfirmedActionResponsePacketClass` | `app/packets/pk_classes.h:932` | the reference decoder's opcode name CONFIRMED_ACTION_RESPONSE (the Net-7 opcode table; no structure check) |
-| 2 | `GpsRequestPacketClass` | `app/packets/pk_classes.h:1137` | the reference decoder's opcode name GPS_REQUEST (the Net-7 opcode table; no structure check) |
-| 2 | `RecustomizeShipStartPacketClass` | `app/packets/pk_classes.h:1183` | the reference decoder's opcode name RECUSTOMIZE_SHIP_START (the Net-7 opcode table; no structure check) |
-| 2 | `RecustomizeShipDonePacketClass` | `app/packets/pk_classes.h:1191` | the reference decoder's opcode name RECUSTOMIZE_SHIP_DONE (the Net-7 opcode table; no structure check) |
-| 2 | `RecustomizeAvatarStartPacketClass` | `app/packets/pk_classes.h:1200` | the reference decoder's opcode name RECUSTOMIZE_AVATAR_START (the Net-7 opcode table; no structure check) |
-| 2 | `RecustomizeAvatarDonePacketClass` | `app/packets/pk_classes.h:1208` | the reference decoder's opcode name RECUSTOMIZE_AVATAR_DONE (the Net-7 opcode table; no structure check) |
-| 2 | `RecustomizeAvatarUpdatePacketClass` | `app/packets/pk_classes.h:1217` | the reference decoder's opcode name RECUSTOMIZE_AVATAR_UPDATE (the Net-7 opcode table; no structure check) |
+| 2 | `Get_Type` | `app/packets/pk_classes.h:162` | what the derived classes' return (their opcode) |
+| 2 | `Get_Name` | `app/packets/pk_classes.h:164` | what the derived classes' return (a name) |
+| 2 | `DebugPacketClass` | `app/packets/pk_classes.h:180` | the reference decoder's opcode name DEBUG (the Net-7 opcode table; no structure check) |
+| 2 | `InventoryMovePacketClass` | `app/packets/pk_classes.h:227` | the reference decoder's opcode name INVENTORY_MOVE (the Net-7 opcode table; no structure check) |
+| 2 | `InventorySortPacketClass` | `app/packets/pk_classes.h:236` | the reference decoder's opcode name INVENTORY_SORT (the Net-7 opcode table; no structure check) |
+| 2 | `Action2PacketClass` | `app/packets/pk_classes.h:245` | the reference decoder's opcode name ACTION2 (the Net-7 opcode table; no structure check) |
+| 2 | `MasterJoinPacketClass` | `app/packets/pk_classes.h:262` | the reference decoder's opcode name MASTER_JOIN (the Net-7 opcode table; no structure check) |
+| 2 | `ServerRedirectPacketClass` | `app/packets/pk_classes.h:271` | the reference decoder's opcode name SERVER_REDIRECT (the Net-7 opcode table; no structure check) |
+| 2 | `GlobalConnectPacketClass` | `app/packets/pk_classes.h:322` | the reference decoder's opcode name GLOBAL_CONNECT (the Net-7 opcode table; no structure check) |
+| 2 | `GlobalTicketPacketClass` | `app/packets/pk_classes.h:331` | the reference decoder's opcode name GLOBAL_TICKET (the Net-7 opcode table; no structure check) |
+| 2 | `GlobalAvatarListPacketClass` | `app/packets/pk_classes.h:340` | the reference decoder's opcode name GLOBAL_AVATAR_LIST (the Net-7 opcode table; no structure check) |
+| 2 | `GlobalCreateCharacterPacketClass` | `app/packets/pk_classes.h:349` | the reference decoder's opcode name GLOBAL_CREATE_CHARACTER (the Net-7 opcode table; no structure check) |
+| 2 | `GlobalErrorPacketClass` | `app/packets/pk_classes.h:358` | the reference decoder's opcode name GLOBAL_ERROR (the Net-7 opcode table; no structure check) |
+| 2 | `AvatarEmotePacketClass` | `app/packets/pk_classes.h:594` | the reference decoder's opcode name AVATAR_EMOTE (the Net-7 opcode table; no structure check) |
+| 2 | `ManufactureItemCatagoryPacketClass` | `app/packets/pk_classes.h:644` | the reference decoder's opcode name MANUFACTURE_ITEM_CATAGORY (the Net-7 opcode table; no structure check) |
+| 2 | `ManufactureTechLevelFilterPacketClass` | `app/packets/pk_classes.h:653` | the reference decoder's opcode name MANUFACTURE_TECH_LEVEL_FILTER (the Net-7 opcode table; no structure check) |
+| 2 | `TriggerEmotePacketClass` | `app/packets/pk_classes.h:696` | the reference decoder's opcode name TRIGGER_EMOTE (the Net-7 opcode table; no structure check) |
+| 2 | `ConfirmedActionOfferPacketClass` | `app/packets/pk_classes.h:892` | the reference decoder's opcode name CONFIRMED_ACTION_OFFER (the Net-7 opcode table; no structure check) |
+| 2 | `ConfirmedActionResponsePacketClass` | `app/packets/pk_classes.h:908` | the reference decoder's opcode name CONFIRMED_ACTION_RESPONSE (the Net-7 opcode table; no structure check) |
+| 2 | `GpsRequestPacketClass` | `app/packets/pk_classes.h:1113` | the reference decoder's opcode name GPS_REQUEST (the Net-7 opcode table; no structure check) |
+| 2 | `RecustomizeShipStartPacketClass` | `app/packets/pk_classes.h:1159` | the reference decoder's opcode name RECUSTOMIZE_SHIP_START (the Net-7 opcode table; no structure check) |
+| 2 | `RecustomizeShipDonePacketClass` | `app/packets/pk_classes.h:1167` | the reference decoder's opcode name RECUSTOMIZE_SHIP_DONE (the Net-7 opcode table; no structure check) |
+| 2 | `RecustomizeAvatarStartPacketClass` | `app/packets/pk_classes.h:1176` | the reference decoder's opcode name RECUSTOMIZE_AVATAR_START (the Net-7 opcode table; no structure check) |
+| 2 | `RecustomizeAvatarDonePacketClass` | `app/packets/pk_classes.h:1184` | the reference decoder's opcode name RECUSTOMIZE_AVATAR_DONE (the Net-7 opcode table; no structure check) |
+| 2 | `RecustomizeAvatarUpdatePacketClass` | `app/packets/pk_classes.h:1193` | the reference decoder's opcode name RECUSTOMIZE_AVATAR_UPDATE (the Net-7 opcode table; no structure check) |
 | 2 | `MobReactionType` | `app/packets/pk_player_object_relationship.h:25` | what it holds, after the client's MOB_REACTION_COUNT |
 | 2 | `Value_To_String` | `app/packets/pk_player_object_relationship.h:31` | as strconv_lib.h's pairs |
 | 2 | `RelationshipClass` | `app/packets/pk_player_object_relationship.h:35` | what it holds (the packet's Print names both members) |
@@ -1573,13 +1573,19 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `DefaultHSVShift` | `app/packets/pkpointeffect.cpp:6` | what it holds |
 | 2 | `DefaultTargetOffset` | `app/packets/pkpointeffect.cpp:7` | what it holds |
 | 2 | `DefaultSpeedup` | `app/packets/pkpointeffect.cpp:8` | what it holds |
-| 2 | `Get_Size` | `app/packets/pkpointeffect.h:37` | what it returns |
-| 2 | `Get_Flags` | `app/packets/pkpointeffect.h:38` | what it returns |
-| 2 | `Channel` | `app/packets/pkpointeffect.h:47` | Get_Channel returns it |
-| 2 | `Get_Size` | `app/packets/pkpointeffect.h:83` | what it returns |
-| 2 | `Get_Flags` | `app/packets/pkpointeffect.h:84` | what it returns |
-| 2 | `SourceLego` | `app/packets/pkpointeffect.h:89` | what it holds |
-| 2 | `Channel` | `app/packets/pkpointeffect.h:100` | Get_Channel returns it |
+| 2 | `Get_Size` | `app/packets/pkpointeffect.h:36` | what it returns |
+| 2 | `Get_Flags` | `app/packets/pkpointeffect.h:37` | what it returns |
+| 2 | `Channel` | `app/packets/pkpointeffect.h:46` | Get_Channel returns it |
+| 2 | `Get_Size` | `app/packets/pkpointeffect.h:82` | what it returns |
+| 2 | `Get_Flags` | `app/packets/pkpointeffect.h:83` | what it returns |
+| 2 | `SourceLego` | `app/packets/pkpointeffect.h:88` | what it holds |
+| 2 | `Channel` | `app/packets/pkpointeffect.h:99` | Get_Channel returns it |
+| 2 | `SourceLego` | `app/packets/pkpointeffect.h:117` | what it holds |
+| 2 | `Channel` | `app/packets/pkpointeffect.h:127` | Get_Channel returns it |
+| 2 | `SourceLego` | `app/packets/pkpointeffect.h:145` | what it holds |
+| 2 | `Channel` | `app/packets/pkpointeffect.h:152` | Get_Channel returns it |
+| 2 | `SourceLego` | `app/packets/pkpointeffect.h:170` | what it holds |
+| 2 | `Channel` | `app/packets/pkpointeffect.h:181` | Get_Channel returns it |
 | 2 | `RequestTargetPacketClass` | `app/packets/pkrequesttarget.h:22` | the reference decoder's opcode name REQUEST_TARGET (the Net-7 opcode table; no structure check) |
 | 2 | `RequestTargetsTargetPacketClass` | `app/packets/pkrequesttarget.h:38` | the reference decoder's opcode name REQUEST_TARGETS_TARGET (the Net-7 opcode table; no structure check) |
 | 2 | `RequestTimePacketClass` | `app/packets/pkrequesttime.h:21` | the reference decoder's opcode name REQUEST_TIME (the Net-7 opcode table; no structure check) |
@@ -2140,29 +2146,29 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `kernel.h` | `app/kernel/kernel.h:18` | header name assumed from the client's kernel.cpp |
 | 3 | `PacketClass` | `app/packets/pk.h:101` | by convention (D24) from pk.h / pk.cpp |
 | 3 | `MessageLinePacketClass` | `app/packets/pk_classes.h:102` | by convention from its derived classes PriorityMessageLinePacketClass, QueueMessageLinePacketClass, PushMessageLinePacketClass |
-| 3 | `GameEditorRequestPlanetUnitTypesPacketClass` | `app/packets/pk_classes.h:454` | the client's Print text 'GameEditorRequestPlanetUnitTypes {' and the PacketClass convention |
-| 3 | `GameEditorSaveSectorPacketClass` | `app/packets/pk_classes.h:462` | the client's Print text 'GameEditorSaveSector {' and the PacketClass convention |
-| 3 | `PetitionStuckPacketClass` | `app/packets/pk_classes.h:686` | the client's Print text 'PetitionStuck {' and the PacketClass convention |
-| 3 | `GuildPlayerOnlinePacketClass` | `app/packets/pk_classes.h:941` | the client's Print text 'GuildPlayerOnline {' and the PacketClass convention |
-| 3 | `GuildAdjustContribPacketClass` | `app/packets/pk_classes.h:950` | the client's Print text 'GuildAdjustContrib {' and the PacketClass convention |
-| 3 | `GuildStatusUpdatePacketClass` | `app/packets/pk_classes.h:959` | the client's Print text 'GuildStatusUpdate {' and the PacketClass convention |
-| 3 | `GuildBeginCreationPacketClass` | `app/packets/pk_classes.h:968` | the client's Print text 'GuildBeginCreation {' and the PacketClass convention |
-| 3 | `GuildLeaderAcceptClientPacketClass` | `app/packets/pk_classes.h:977` | the client's Print text 'GuildLeaderAcceptClient {' and the PacketClass convention |
-| 3 | `GuildLeaderAcceptSectorPacketClass` | `app/packets/pk_classes.h:986` | the client's Print text 'GuildLeaderAcceptSector {' and the PacketClass convention |
-| 3 | `GuildRecruitConfirmGuildPacketClass` | `app/packets/pk_classes.h:995` | the client's Print text 'GuildRecruitConfirmGuild {' and the PacketClass convention |
-| 3 | `GuildRecruitAcceptClientPacketClass` | `app/packets/pk_classes.h:1004` | the client's Print text 'GuildRecruitAcceptClient {' and the PacketClass convention |
-| 3 | `GuildRecruitAcceptSectorPacketClass` | `app/packets/pk_classes.h:1013` | the client's Print text 'GuildRecruitAcceptSector {' and the PacketClass convention |
-| 3 | `GuildSimpleGuildSectorPacketClass` | `app/packets/pk_classes.h:1022` | the client's Print text 'GuildSimpleGuildSectorPacket {' and the PacketClass convention |
-| 3 | `GuildSimpleSectorGuildPacketClass` | `app/packets/pk_classes.h:1031` | the client's Print text 'GuildSimpleSectorGuildPacket {' and the PacketClass convention |
-| 3 | `GuildMessageGuildPacketClass` | `app/packets/pk_classes.h:1040` | the client's Print text 'GuildMessageGuild {' and the PacketClass convention |
-| 3 | `GuildPermissionsPacketClass` | `app/packets/pk_classes.h:1049` | the client's Print text 'GuildPermissionsPacket {' and the PacketClass convention |
-| 3 | `GuildRankNamesGuildPacketClass` | `app/packets/pk_classes.h:1074` | the client's Print text 'GuildRankNamesGuild {' and the PacketClass convention |
-| 3 | `GuildRankNamesRequestSectorPacketClass` | `app/packets/pk_classes.h:1083` | the client's Print text 'GuildRankNamesRequestSector {' and the PacketClass convention |
-| 3 | `GuildGMRenameConfirmGuildPacketClass` | `app/packets/pk_classes.h:1092` | the client's Print text 'GuildGMRenameConfirmGuild {' and the PacketClass convention |
-| 3 | `GuildGMRenameAcceptSectorPacketClass` | `app/packets/pk_classes.h:1101` | the client's Print text 'GuildGMRenameAcceptSector {' and the PacketClass convention |
-| 3 | `GuildDeletePlayerPacketClass` | `app/packets/pk_classes.h:1110` | the client's Print text 'GuildDeletePlayer {' and the PacketClass convention |
-| 3 | `GuildPlayerInfoDeletedPacketClass` | `app/packets/pk_classes.h:1119` | the client's Print text 'GuildPlayerInfoDeleted {' and the PacketClass convention |
-| 3 | `GuildDeductFeePacketClass` | `app/packets/pk_classes.h:1128` | the client's Print text 'GuildDeductFeePacket {' and the PacketClass convention |
+| 3 | `GameEditorRequestPlanetUnitTypesPacketClass` | `app/packets/pk_classes.h:430` | the client's Print text 'GameEditorRequestPlanetUnitTypes {' and the PacketClass convention |
+| 3 | `GameEditorSaveSectorPacketClass` | `app/packets/pk_classes.h:438` | the client's Print text 'GameEditorSaveSector {' and the PacketClass convention |
+| 3 | `PetitionStuckPacketClass` | `app/packets/pk_classes.h:662` | the client's Print text 'PetitionStuck {' and the PacketClass convention |
+| 3 | `GuildPlayerOnlinePacketClass` | `app/packets/pk_classes.h:917` | the client's Print text 'GuildPlayerOnline {' and the PacketClass convention |
+| 3 | `GuildAdjustContribPacketClass` | `app/packets/pk_classes.h:926` | the client's Print text 'GuildAdjustContrib {' and the PacketClass convention |
+| 3 | `GuildStatusUpdatePacketClass` | `app/packets/pk_classes.h:935` | the client's Print text 'GuildStatusUpdate {' and the PacketClass convention |
+| 3 | `GuildBeginCreationPacketClass` | `app/packets/pk_classes.h:944` | the client's Print text 'GuildBeginCreation {' and the PacketClass convention |
+| 3 | `GuildLeaderAcceptClientPacketClass` | `app/packets/pk_classes.h:953` | the client's Print text 'GuildLeaderAcceptClient {' and the PacketClass convention |
+| 3 | `GuildLeaderAcceptSectorPacketClass` | `app/packets/pk_classes.h:962` | the client's Print text 'GuildLeaderAcceptSector {' and the PacketClass convention |
+| 3 | `GuildRecruitConfirmGuildPacketClass` | `app/packets/pk_classes.h:971` | the client's Print text 'GuildRecruitConfirmGuild {' and the PacketClass convention |
+| 3 | `GuildRecruitAcceptClientPacketClass` | `app/packets/pk_classes.h:980` | the client's Print text 'GuildRecruitAcceptClient {' and the PacketClass convention |
+| 3 | `GuildRecruitAcceptSectorPacketClass` | `app/packets/pk_classes.h:989` | the client's Print text 'GuildRecruitAcceptSector {' and the PacketClass convention |
+| 3 | `GuildSimpleGuildSectorPacketClass` | `app/packets/pk_classes.h:998` | the client's Print text 'GuildSimpleGuildSectorPacket {' and the PacketClass convention |
+| 3 | `GuildSimpleSectorGuildPacketClass` | `app/packets/pk_classes.h:1007` | the client's Print text 'GuildSimpleSectorGuildPacket {' and the PacketClass convention |
+| 3 | `GuildMessageGuildPacketClass` | `app/packets/pk_classes.h:1016` | the client's Print text 'GuildMessageGuild {' and the PacketClass convention |
+| 3 | `GuildPermissionsPacketClass` | `app/packets/pk_classes.h:1025` | the client's Print text 'GuildPermissionsPacket {' and the PacketClass convention |
+| 3 | `GuildRankNamesGuildPacketClass` | `app/packets/pk_classes.h:1050` | the client's Print text 'GuildRankNamesGuild {' and the PacketClass convention |
+| 3 | `GuildRankNamesRequestSectorPacketClass` | `app/packets/pk_classes.h:1059` | the client's Print text 'GuildRankNamesRequestSector {' and the PacketClass convention |
+| 3 | `GuildGMRenameConfirmGuildPacketClass` | `app/packets/pk_classes.h:1068` | the client's Print text 'GuildGMRenameConfirmGuild {' and the PacketClass convention |
+| 3 | `GuildGMRenameAcceptSectorPacketClass` | `app/packets/pk_classes.h:1077` | the client's Print text 'GuildGMRenameAcceptSector {' and the PacketClass convention |
+| 3 | `GuildDeletePlayerPacketClass` | `app/packets/pk_classes.h:1086` | the client's Print text 'GuildDeletePlayer {' and the PacketClass convention |
+| 3 | `GuildPlayerInfoDeletedPacketClass` | `app/packets/pk_classes.h:1095` | the client's Print text 'GuildPlayerInfoDeleted {' and the PacketClass convention |
+| 3 | `GuildDeductFeePacketClass` | `app/packets/pk_classes.h:1104` | the client's Print text 'GuildDeductFeePacket {' and the PacketClass convention |
 | 3 | `pk_player_object_relationship.h` | `app/packets/pk_player_object_relationship.h:17` | after the client's .cpp (D57) |
 | 3 | `Reaction` | `app/packets/pk_player_object_relationship.h:40` | the client's Print text 'Reaction=' |
 | 3 | `IsAttacking` | `app/packets/pk_player_object_relationship.h:41` | the client's Print text 'IsAttacking=' |
@@ -2307,32 +2313,62 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `GameID` | `app/packets/pkoption.h:31` | the client's Print text 'GameID=' |
 | 3 | `OptionType` | `app/packets/pkoption.h:32` | the client's Print text 'OptionType=' |
 | 3 | `OptionVar` | `app/packets/pkoption.h:33` | the client's Print text 'OptionVar=' |
-| 3 | `EffectID` | `app/packets/pkpointeffect.h:40` | the client's Print text 'EffectID=' |
-| 3 | `TimeStamp` | `app/packets/pkpointeffect.h:41` | the client's Print text 'TimeStamp=' |
-| 3 | `GameID` | `app/packets/pkpointeffect.h:42` | the client's Print text 'GameID=' |
-| 3 | `Duration` | `app/packets/pkpointeffect.h:43` | the client's Print text 'Duration=' |
-| 3 | `EffectDescID` | `app/packets/pkpointeffect.h:44` | the client's Print text 'EffectDescID=' |
-| 3 | `Scale` | `app/packets/pkpointeffect.h:45` | the client's Print text 'Scale=' |
-| 3 | `HSVShift` | `app/packets/pkpointeffect.h:46` | the client's Print text 'HSVShift=' |
-| 3 | `EffectID` | `app/packets/pkpointeffect.h:61` | the client's Print text 'EffectID=' |
-| 3 | `TimeStamp` | `app/packets/pkpointeffect.h:62` | the client's Print text 'TimeStamp=' |
-| 3 | `Location` | `app/packets/pkpointeffect.h:63` | the client's Print text 'Location=' |
-| 3 | `Duration` | `app/packets/pkpointeffect.h:64` | the client's Print text 'Duration=' |
-| 3 | `EffectDescID` | `app/packets/pkpointeffect.h:65` | the client's Print text 'EffectDescID=' |
-| 3 | `Scale` | `app/packets/pkpointeffect.h:66` | the client's Print text 'Scale=' |
-| 3 | `HSVShift` | `app/packets/pkpointeffect.h:67` | the client's Print text 'HSVShift=' |
-| 3 | `EffectID` | `app/packets/pkpointeffect.h:86` | the client's Print text 'EffectID=' |
-| 3 | `TimeStamp` | `app/packets/pkpointeffect.h:87` | the client's Print text 'TimeStamp=' |
-| 3 | `SourceGameID` | `app/packets/pkpointeffect.h:88` | the client's Print text 'SourceGameID=' |
-| 3 | `TargetGameID` | `app/packets/pkpointeffect.h:90` | the client's Print text 'TargetGameID=' |
-| 3 | `Duration` | `app/packets/pkpointeffect.h:91` | the client's Print text 'Duration=' |
-| 3 | `EffectDescID` | `app/packets/pkpointeffect.h:92` | the client's Print text 'EffectDescID=' |
-| 3 | `OutsideTargetRadius` | `app/packets/pkpointeffect.h:95` | the client's Print text 'OutsideTargetRadius=' |
-| 3 | `TargetOffset` | `app/packets/pkpointeffect.h:96` | the client's Print text 'TargetOffset=' |
-| 3 | `Scale` | `app/packets/pkpointeffect.h:97` | the client's Print text 'Scale=' |
-| 3 | `HSVShift` | `app/packets/pkpointeffect.h:98` | the client's Print text 'HSVShift=' |
-| 3 | `Speedup` | `app/packets/pkpointeffect.h:99` | the client's Print text 'Speedup=' |
+| 3 | `EffectID` | `app/packets/pkpointeffect.h:39` | the client's Print text 'EffectID=' |
+| 3 | `TimeStamp` | `app/packets/pkpointeffect.h:40` | the client's Print text 'TimeStamp=' |
+| 3 | `GameID` | `app/packets/pkpointeffect.h:41` | the client's Print text 'GameID=' |
+| 3 | `Duration` | `app/packets/pkpointeffect.h:42` | the client's Print text 'Duration=' |
+| 3 | `EffectDescID` | `app/packets/pkpointeffect.h:43` | the client's Print text 'EffectDescID=' |
+| 3 | `Scale` | `app/packets/pkpointeffect.h:44` | the client's Print text 'Scale=' |
+| 3 | `HSVShift` | `app/packets/pkpointeffect.h:45` | the client's Print text 'HSVShift=' |
+| 3 | `EffectID` | `app/packets/pkpointeffect.h:60` | the client's Print text 'EffectID=' |
+| 3 | `TimeStamp` | `app/packets/pkpointeffect.h:61` | the client's Print text 'TimeStamp=' |
+| 3 | `Location` | `app/packets/pkpointeffect.h:62` | the client's Print text 'Location=' |
+| 3 | `Duration` | `app/packets/pkpointeffect.h:63` | the client's Print text 'Duration=' |
+| 3 | `EffectDescID` | `app/packets/pkpointeffect.h:64` | the client's Print text 'EffectDescID=' |
+| 3 | `Scale` | `app/packets/pkpointeffect.h:65` | the client's Print text 'Scale=' |
+| 3 | `HSVShift` | `app/packets/pkpointeffect.h:66` | the client's Print text 'HSVShift=' |
+| 3 | `EffectID` | `app/packets/pkpointeffect.h:85` | the client's Print text 'EffectID=' |
+| 3 | `TimeStamp` | `app/packets/pkpointeffect.h:86` | the client's Print text 'TimeStamp=' |
+| 3 | `SourceGameID` | `app/packets/pkpointeffect.h:87` | the client's Print text 'SourceGameID=' |
+| 3 | `TargetGameID` | `app/packets/pkpointeffect.h:89` | the client's Print text 'TargetGameID=' |
+| 3 | `Duration` | `app/packets/pkpointeffect.h:90` | the client's Print text 'Duration=' |
+| 3 | `EffectDescID` | `app/packets/pkpointeffect.h:91` | the client's Print text 'EffectDescID=' |
+| 3 | `OutsideTargetRadius` | `app/packets/pkpointeffect.h:94` | the client's Print text 'OutsideTargetRadius=' |
+| 3 | `TargetOffset` | `app/packets/pkpointeffect.h:95` | the client's Print text 'TargetOffset=' |
+| 3 | `Scale` | `app/packets/pkpointeffect.h:96` | the client's Print text 'Scale=' |
+| 3 | `HSVShift` | `app/packets/pkpointeffect.h:97` | the client's Print text 'HSVShift=' |
+| 3 | `Speedup` | `app/packets/pkpointeffect.h:98` | the client's Print text 'Speedup=' |
 | 3 | `EffectID` | `app/packets/pkpointeffect.h:114` | the client's Print text 'EffectID=' |
+| 3 | `TimeStamp` | `app/packets/pkpointeffect.h:115` | the client's Print text 'TimeStamp=' |
+| 3 | `SourceGameID` | `app/packets/pkpointeffect.h:116` | the client's Print text 'SourceGameID=' |
+| 3 | `TargetGameID` | `app/packets/pkpointeffect.h:118` | the client's Print text 'TargetGameID=' |
+| 3 | `Duration` | `app/packets/pkpointeffect.h:119` | the client's Print text 'Duration=' |
+| 3 | `EffectDescID` | `app/packets/pkpointeffect.h:120` | the client's Print text 'EffectDescID=' |
+| 3 | `TargetOffset` | `app/packets/pkpointeffect.h:123` | the client's Print text 'TargetOffset=' |
+| 3 | `Scale` | `app/packets/pkpointeffect.h:124` | the client's Print text 'Scale=' |
+| 3 | `HSVShift` | `app/packets/pkpointeffect.h:125` | the client's Print text 'HSVShift=' |
+| 3 | `Speedup` | `app/packets/pkpointeffect.h:126` | the client's Print text 'Speedup=' |
+| 3 | `EffectID` | `app/packets/pkpointeffect.h:142` | the client's Print text 'EffectID=' |
+| 3 | `TimeStamp` | `app/packets/pkpointeffect.h:143` | the client's Print text 'TimeStamp=' |
+| 3 | `SourceGameID` | `app/packets/pkpointeffect.h:144` | the client's Print text 'SourceGameID=' |
+| 3 | `TargetPoint` | `app/packets/pkpointeffect.h:146` | the client's Print text 'TargetPoint=' |
+| 3 | `Duration` | `app/packets/pkpointeffect.h:147` | the client's Print text 'Duration=' |
+| 3 | `EffectDescID` | `app/packets/pkpointeffect.h:148` | the client's Print text 'EffectDescID=' |
+| 3 | `Scale` | `app/packets/pkpointeffect.h:149` | the client's Print text 'Scale=' |
+| 3 | `HSVShift` | `app/packets/pkpointeffect.h:150` | the client's Print text 'HSVShift=' |
+| 3 | `Speedup` | `app/packets/pkpointeffect.h:151` | the client's Print text 'Speedup=' |
+| 3 | `EffectID` | `app/packets/pkpointeffect.h:167` | the client's Print text 'EffectID=' |
+| 3 | `TimeStamp` | `app/packets/pkpointeffect.h:168` | the client's Print text 'TimeStamp=' |
+| 3 | `SourceGameID` | `app/packets/pkpointeffect.h:169` | the client's Print text 'SourceGameID=' |
+| 3 | `TargetGameID` | `app/packets/pkpointeffect.h:171` | the client's Print text 'TargetGameID=' |
+| 3 | `DurationLinkedEffectDescID` | `app/packets/pkpointeffect.h:172` | the client's Print text 'DurationLinkedEffectDescID=' |
+| 3 | `EffectDescID` | `app/packets/pkpointeffect.h:173` | the client's Print text 'EffectDescID=' |
+| 3 | `OutsideTargetRadius` | `app/packets/pkpointeffect.h:176` | the client's Print text 'OutsideTargetRadius=' |
+| 3 | `TargetOffset` | `app/packets/pkpointeffect.h:177` | the client's Print text 'TargetOffset=' |
+| 3 | `Scale` | `app/packets/pkpointeffect.h:178` | the client's Print text 'Scale=' |
+| 3 | `HSVShift` | `app/packets/pkpointeffect.h:179` | the client's Print text 'HSVShift=' |
+| 3 | `Speedup` | `app/packets/pkpointeffect.h:180` | the client's Print text 'Speedup=' |
+| 3 | `EffectID` | `app/packets/pkpointeffect.h:195` | the client's Print text 'EffectID=' |
 | 3 | `PointsTotal` | `app/packets/pkreferralpointsavailable.h:31` | the client's Print text 'PointsTotal=' |
 | 3 | `PointsSpent` | `app/packets/pkreferralpointsavailable.h:32` | the client's Print text 'PointsSpent=' |
 | 3 | `GameID` | `app/packets/pkremove.h:33` | the client's Print text 'GameID=' |

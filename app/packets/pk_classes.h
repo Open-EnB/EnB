@@ -144,30 +144,6 @@ public:
 	char Unknown0C[0x18];	// +0x0C
 };
 
-// opcode 12 (0x000C, ?): vtable 0xB0A46C, constructor 0x884790, 0x5C bytes
-class ObjectToEffectEffectPacketClass : public PacketClass
-{
-public:
-	ObjectToEffectEffectPacketClass(RawPacketClass *raw);	// 0x884790
-	char Unknown0C[0x50];	// +0x0C
-};
-
-// opcode 13 (0x000D, ?): vtable 0xB0A49C, constructor 0x884FC0, 0x54 bytes
-class ObjectToPointEffectPacketClass : public PacketClass
-{
-public:
-	ObjectToPointEffectPacketClass(RawPacketClass *raw);	// 0x884FC0
-	char Unknown0C[0x48];	// +0x0C
-};
-
-// opcode 14 (0x000E, OBJECT_TO_OBJECT_LINKED_EFFECT): vtable 0xB0A4CC, constructor 0x885750, 0x60 bytes
-class ObjectToObjectDurationLinkedEffectPacketClass : public PacketClass
-{
-public:
-	ObjectToObjectDurationLinkedEffectPacketClass(RawPacketClass *raw);	// 0x885750
-	char Unknown0C[0x54];	// +0x0C
-};
-
 // opcode 16 (0x0010, DECAL): vtable 0xB0A200, constructor 0x8807B0, 0x24 bytes
 class DecalPacketClass : public PacketClass
 {

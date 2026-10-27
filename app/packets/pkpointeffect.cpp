@@ -290,6 +290,213 @@ int ObjectToObjectEffectPacketClass::Print(char *buffer, int)
 		EffectID, TimeStamp, SourceGameID, TargetGameID, Duration, EffectDescID, OutsideTargetRadius, TargetOffset.X, TargetOffset.Y, TargetOffset.Z, Scale, HSVShift.X, HSVShift.Y, HSVShift.Z, Speedup));
 }
 
+
+ObjectToEffectEffectPacketClass::ObjectToEffectEffectPacketClass(int effect_id, const DurationClass &time_stamp, int source_game_id, const LegoIdentifierClass &source_lego, int target_game_id, const DurationClass &duration, short effect_desc_id, const Vector3 &target_offset, short unknown34, short unknown36, float scale, const Vector3 &hsv_shift, float speedup) :
+	EffectID(effect_id),
+	TimeStamp(time_stamp.As_Int()),
+	SourceGameID(source_game_id),
+	SourceLego(source_lego),
+	TargetGameID(target_game_id),
+	Duration((short)duration.As_Int()),
+	EffectDescID(effect_desc_id),
+	Unknown34(unknown34),
+	Unknown36(unknown36),
+	TargetOffset(target_offset),
+	Scale(scale),
+	HSVShift(hsv_shift),
+	Speedup(speedup)
+{
+	Channel = Unknown_14(source_game_id, -1);
+}
+
+ObjectToEffectEffectPacketClass::ObjectToEffectEffectPacketClass(RawPacketClass *raw)
+{
+	raw->Get(&EffectID, sizeof(EffectID));
+	raw->Get(&TimeStamp, sizeof(TimeStamp));
+	raw->Get(&SourceGameID, sizeof(SourceGameID));
+	char *name = raw->Get_String();
+	if (name != NULL) {
+		SourceLego = std::string(name);
+		delete [] name;
+	}
+	raw->Get(&TargetGameID, sizeof(TargetGameID));
+	raw->Get(&Duration, sizeof(Duration));
+	raw->Get(&EffectDescID, sizeof(EffectDescID));
+	raw->Get(&TargetOffset, sizeof(TargetOffset));
+	raw->Get(&Unknown34, sizeof(Unknown34));
+	raw->Get(&Unknown36, sizeof(Unknown36));
+	raw->Get(&Scale, sizeof(Scale));
+	raw->Get(&HSVShift, sizeof(HSVShift));
+	raw->Get(&Speedup, sizeof(Speedup));
+}
+
+RawPacketClass *ObjectToEffectEffectPacketClass::Build()
+{
+	RawPacketClass *raw = new RawPacketClass(12, Get_Data_Size());
+	raw->Add(&EffectID, sizeof(EffectID));
+	raw->Add(&TimeStamp, sizeof(TimeStamp));
+	raw->Add(&SourceGameID, sizeof(SourceGameID));
+	raw->Add_String(SourceLego.Get_Name().c_str());
+	raw->Add(&TargetGameID, sizeof(TargetGameID));
+	raw->Add(&Duration, sizeof(Duration));
+	raw->Add(&EffectDescID, sizeof(EffectDescID));
+	raw->Add(&TargetOffset, sizeof(TargetOffset));
+	raw->Add(&Unknown34, sizeof(Unknown34));
+	raw->Add(&Unknown36, sizeof(Unknown36));
+	raw->Add(&Scale, sizeof(Scale));
+	raw->Add(&HSVShift, sizeof(HSVShift));
+	raw->Add(&Speedup, sizeof(Speedup));
+	return(raw);
+}
+
+int ObjectToEffectEffectPacketClass::Get_Data_Size()
+{
+	std::string name = SourceLego.Get_Name();
+	return(RawPacketClass::Get_Size(name.c_str()) + sizeof(EffectID) + sizeof(TimeStamp) + sizeof(SourceGameID) + sizeof(TargetGameID) + sizeof(Duration) + sizeof(EffectDescID) + sizeof(TargetOffset) + sizeof(Unknown34) + sizeof(Unknown36) + sizeof(Scale) + sizeof(HSVShift) + sizeof(Speedup));
+}
+
+int ObjectToEffectEffectPacketClass::Print(char *buffer, int)
+{
+	return(sprintf(buffer, "%s {EffectID=%d TimeStamp=%u SourceGameID=%d TargetGameID=%d Duration=%hd EffectDescID=%hd TargetOffset=%f %f %f Scale=%f HSVShift=%f %f %f Speedup=%f}", "Object_To_Effect_Effect",
+		EffectID, TimeStamp, SourceGameID, TargetGameID, Duration, EffectDescID, TargetOffset.X, TargetOffset.Y, TargetOffset.Z, Scale, HSVShift.X, HSVShift.Y, HSVShift.Z, Speedup));
+}
+
+
+ObjectToPointEffectPacketClass::ObjectToPointEffectPacketClass(int effect_id, const DurationClass &time_stamp, int source_game_id, const LegoIdentifierClass &source_lego, const Vector3 &target_point, const DurationClass &duration, short effect_desc_id, float scale, const Vector3 &hsv_shift, float speedup) :
+	EffectID(effect_id),
+	TimeStamp(time_stamp.As_Int()),
+	SourceGameID(source_game_id),
+	SourceLego(source_lego),
+	TargetPoint(target_point),
+	Duration((short)duration.As_Int()),
+	EffectDescID(effect_desc_id),
+	Scale(scale),
+	HSVShift(hsv_shift),
+	Speedup(speedup)
+{
+	Channel = Unknown_14(SourceGameID, -1);
+}
+
+ObjectToPointEffectPacketClass::ObjectToPointEffectPacketClass(RawPacketClass *raw)
+{
+	raw->Get(&EffectID, sizeof(EffectID));
+	raw->Get(&TimeStamp, sizeof(TimeStamp));
+	raw->Get(&SourceGameID, sizeof(SourceGameID));
+	char *name = raw->Get_String();
+	if (name != NULL) {
+		SourceLego = std::string(name);
+		delete [] name;
+	}
+	raw->Get(&TargetPoint, sizeof(TargetPoint));
+	raw->Get(&Duration, sizeof(Duration));
+	raw->Get(&EffectDescID, sizeof(EffectDescID));
+	raw->Get(&Scale, sizeof(Scale));
+	raw->Get(&HSVShift, sizeof(HSVShift));
+	raw->Get(&Speedup, sizeof(Speedup));
+}
+
+RawPacketClass *ObjectToPointEffectPacketClass::Build()
+{
+	RawPacketClass *raw = new RawPacketClass(13, Get_Data_Size());
+	raw->Add(&EffectID, sizeof(EffectID));
+	raw->Add(&TimeStamp, sizeof(TimeStamp));
+	raw->Add(&SourceGameID, sizeof(SourceGameID));
+	raw->Add_String(SourceLego.Get_Name().c_str());
+	raw->Add(&TargetPoint, sizeof(TargetPoint));
+	raw->Add(&Duration, sizeof(Duration));
+	raw->Add(&EffectDescID, sizeof(EffectDescID));
+	raw->Add(&Scale, sizeof(Scale));
+	raw->Add(&HSVShift, sizeof(HSVShift));
+	raw->Add(&Speedup, sizeof(Speedup));
+	return(raw);
+}
+
+int ObjectToPointEffectPacketClass::Get_Data_Size()
+{
+	std::string name = SourceLego.Get_Name();
+	return(RawPacketClass::Get_Size(name.c_str()) + sizeof(EffectID) + sizeof(TimeStamp) + sizeof(SourceGameID) + sizeof(TargetPoint) + sizeof(Duration) + sizeof(EffectDescID) + sizeof(Scale) + sizeof(HSVShift) + sizeof(Speedup));
+}
+
+int ObjectToPointEffectPacketClass::Print(char *buffer, int)
+{
+	return(sprintf(buffer, "%s {EffectID=%d TimeStamp=%u SourceGameID=%d TargetPoint={...} Duration=%hd EffectDescID=%hd Scale=%f HSVShift=%f %f %f Speedup=%f}", "Object_To_Point_Effect",
+		EffectID, TimeStamp, SourceGameID, Duration, EffectDescID, Scale, HSVShift.X, HSVShift.Y, HSVShift.Z, Speedup));
+}
+
+
+ObjectToObjectDurationLinkedEffectPacketClass::ObjectToObjectDurationLinkedEffectPacketClass(int effect_id, const DurationClass &time_stamp, int source_game_id, const LegoIdentifierClass &source_lego, int target_game_id, short duration_linked_effect_desc_id, short effect_desc_id, const Vector3 &target_offset, short unknown34, short unknown36, bool outside_target_radius, float scale, const Vector3 &hsv_shift, float speedup) :
+	EffectID(effect_id),
+	TimeStamp(time_stamp.As_Int()),
+	SourceGameID(source_game_id),
+	SourceLego(source_lego),
+	TargetGameID(target_game_id),
+	DurationLinkedEffectDescID(duration_linked_effect_desc_id),
+	EffectDescID(effect_desc_id),
+	Unknown34(unknown34),
+	Unknown36(unknown36),
+	OutsideTargetRadius(outside_target_radius),
+	TargetOffset(target_offset),
+	Scale(scale),
+	HSVShift(hsv_shift),
+	Speedup(speedup)
+{
+	Channel = Unknown_14(TargetGameID, -1);
+}
+
+ObjectToObjectDurationLinkedEffectPacketClass::ObjectToObjectDurationLinkedEffectPacketClass(RawPacketClass *raw)
+{
+	raw->Get(&EffectID, sizeof(EffectID));
+	raw->Get(&TimeStamp, sizeof(TimeStamp));
+	raw->Get(&SourceGameID, sizeof(SourceGameID));
+	char *name = raw->Get_String();
+	if (name != NULL) {
+		SourceLego = std::string(name);
+		delete [] name;
+	}
+	raw->Get(&TargetGameID, sizeof(TargetGameID));
+	raw->Get(&DurationLinkedEffectDescID, sizeof(DurationLinkedEffectDescID));
+	raw->Get(&EffectDescID, sizeof(EffectDescID));
+	raw->Get(&TargetOffset, sizeof(TargetOffset));
+	raw->Get(&Unknown34, sizeof(Unknown34));
+	raw->Get(&Unknown36, sizeof(Unknown36));
+	raw->Get(&OutsideTargetRadius, sizeof(OutsideTargetRadius));
+	raw->Get(&Scale, sizeof(Scale));
+	raw->Get(&HSVShift, sizeof(HSVShift));
+	raw->Get(&Speedup, sizeof(Speedup));
+}
+
+RawPacketClass *ObjectToObjectDurationLinkedEffectPacketClass::Build()
+{
+	RawPacketClass *raw = new RawPacketClass(14, Get_Data_Size());
+	raw->Add(&EffectID, sizeof(EffectID));
+	raw->Add(&TimeStamp, sizeof(TimeStamp));
+	raw->Add(&SourceGameID, sizeof(SourceGameID));
+	raw->Add_String(SourceLego.Get_Name().c_str());
+	raw->Add(&TargetGameID, sizeof(TargetGameID));
+	raw->Add(&DurationLinkedEffectDescID, sizeof(DurationLinkedEffectDescID));
+	raw->Add(&EffectDescID, sizeof(EffectDescID));
+	raw->Add(&TargetOffset, sizeof(TargetOffset));
+	raw->Add(&Unknown34, sizeof(Unknown34));
+	raw->Add(&Unknown36, sizeof(Unknown36));
+	raw->Add(&OutsideTargetRadius, sizeof(OutsideTargetRadius));
+	raw->Add(&Scale, sizeof(Scale));
+	raw->Add(&HSVShift, sizeof(HSVShift));
+	raw->Add(&Speedup, sizeof(Speedup));
+	return(raw);
+}
+
+int ObjectToObjectDurationLinkedEffectPacketClass::Get_Data_Size()
+{
+	std::string name = SourceLego.Get_Name();
+	return(RawPacketClass::Get_Size(name.c_str()) + sizeof(EffectID) + sizeof(TimeStamp) + sizeof(SourceGameID) + sizeof(TargetGameID) + sizeof(DurationLinkedEffectDescID) + sizeof(EffectDescID) + sizeof(TargetOffset) + sizeof(Unknown34) + sizeof(Unknown36) + sizeof(OutsideTargetRadius) + sizeof(Scale) + sizeof(HSVShift) + sizeof(Speedup));
+}
+
+int ObjectToObjectDurationLinkedEffectPacketClass::Print(char *buffer, int)
+{
+	return(sprintf(buffer, "%s {EffectID=%d TimeStamp=%u SourceGameID=%d TargetGameID=%d DurationLinkedEffectDescID=%hd EffectDescID=%hd OutsideTargetRadius=%d TargetOffset=%f %f %f Scale=%f HSVShift=%f %f %f Speedup=%f}", "Object_To_Object_Duration_Linked_Effect",
+		EffectID, TimeStamp, SourceGameID, TargetGameID, DurationLinkedEffectDescID, EffectDescID, OutsideTargetRadius, TargetOffset.X, TargetOffset.Y, TargetOffset.Z, Scale, HSVShift.X, HSVShift.Y, HSVShift.Z, Speedup));
+}
+
 RemoveEffectPacketClass::RemoveEffectPacketClass(RawPacketClass *raw)
 {
 	raw->Get(&EffectID, sizeof(EffectID));
