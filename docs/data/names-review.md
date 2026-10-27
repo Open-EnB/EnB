@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 30 |
 | 3 | by convention from a client-named file or sibling | 651 |
 | 2 | describes what the code does | 1221 |
-| 1 | neutral placeholder | 1636 |
+| 1 | neutral placeholder | 1640 |
 
 ## For review (score 3 and below)
 
@@ -521,13 +521,17 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Get_Error_Text` | `app/client/unknown_authlogin.h:84` | what it does |
 | 1 | `Get_Message` | `app/client/unknown_authlogin.h:86` | what it returns |
 | 1 | `Unknown28` | `app/client/unknown_authlogin.h:92` | untagged neutral name (D10) |
-| 1 | `Unknown_78D450` | `app/client/unknown_creator.cpp:55` | untagged neutral name (D10) |
+| 1 | `Unknown_78D450` | `app/client/unknown_creator.cpp:59` | untagged neutral name (D10) |
+| 1 | `Unknown_78D480` | `app/client/unknown_creator.cpp:70` | untagged neutral name (D10) |
+| 1 | `Unknown_78D8A0` | `app/client/unknown_creator.cpp:109` | untagged neutral name (D10) |
+| 1 | `Unknown_78DAF0` | `app/client/unknown_creator.cpp:136` | untagged neutral name (D10) |
 | 1 | `unknown_creator.h` | `app/client/unknown_creator.h:17` | neutral file name (D10) |
 | 1 | `LoginNameDataClass` | `app/client/unknown_creator.h:28` | neutral (D10) |
 | 1 | `avatar, ship` | `app/client/unknown_creator.h:45` | their classes |
 | 1 | `Unknown_78D480` | `app/client/unknown_creator.h:45` | untagged neutral name (D10) |
-| 1 | `Unknown_78DAF0` | `app/client/unknown_creator.h:46` | untagged neutral name (D10) |
-| 1 | `Unknown_78D450` | `app/client/unknown_creator.h:51` | neutral (D10) |
+| 1 | `Unknown_78D8A0` | `app/client/unknown_creator.h:46` | untagged neutral name (D10) |
+| 1 | `Unknown_78DAF0` | `app/client/unknown_creator.h:47` | untagged neutral name (D10) |
+| 1 | `Unknown_78D450` | `app/client/unknown_creator.h:52` | neutral (D10) |
 | 1 | `Unknown04` | `app/common/connect.cpp:10` | untagged neutral name (D10) |
 | 1 | `Unknown_Debug_Begin_Step` | `app/common/connect.cpp:33` | 0x509EF0 (dbgmgr.cpp), WinMain's step log |
 | 1 | `Unknown_Debug_End_Step` | `app/common/connect.cpp:34` | 0x50A1E0 (dbgmgr.cpp) |
@@ -1755,7 +1759,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `IComponentFactoryClass` | `app/client/unknown_authlogin.h:38` | authFactory (the assert) |
 | 2 | `Set_Name` | `app/client/unknown_creator.h:35` | what it does |
 | 2 | `CharacterCreatorClass` | `app/client/unknown_creator.h:41` | its folder and registry key, 'Character and Starship Creator' |
-| 2 | `Make_Folder` | `app/client/unknown_creator.h:52` | what it does |
+| 2 | `Make_Folder` | `app/client/unknown_creator.h:53` | what it does |
 | 2 | `Get_Average` | `app/common/average.h:106` | what it does |
 | 2 | `Current` | `app/common/average.h:115` | what it holds |
 | 2 | `Time` | `app/common/average.h:116` | what it holds |

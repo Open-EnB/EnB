@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-145 entries in 43 files.
+149 entries in 44 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -36,6 +36,9 @@ edit the comments in the code, not this file.
 | `app/client/tutorial_manager.cpp:185` | `TutorialManagerClass::Start_Step` | marker | NOT EXACT: inline budget (explain.py: inline-budget), the client calls the table's find 0x6AE490 and the key string's _Tidy out of line (frame 0x18), ours inlines find as Find does |
 | `app/client/tutorial_manager.cpp:262` | `TutorialManagerClass::Read_Completed_File` | marker | NOT EXACT: inline budget (explain.py: register-only), the client calls the list's insert 0x6AE5A0 out of line for the first nine names; ours for seven, then alternates |
 | `app/client/tutorial_manager.cpp:363` | `TutorialManagerClass::Reload` | marker | NOT EXACT: inline budget (explain.py: inline-budget), the destructor's iterator loop and the constructor's string inlining (see both) |
+| `app/client/unknown_creator.cpp:68` | `CharacterCreatorClass::Unknown_78D480` | marker | NOT EXACT: inline budget (the client calls StringClass::operator+= out of line, ours inlines the two string ones; dead inline reads, a top-declared checksum tried: attempts.py show 0x78D480) 0x78D480 |
+| `app/client/unknown_creator.cpp:107` | `CharacterCreatorClass::Unknown_78D8A0` | marker | NOT EXACT: inline budget (as 0x78D480: the client calls StringClass::operator+= (const char *) out of line, ours inlines it) 0x78D8A0 |
+| `app/client/unknown_creator.cpp:134` | `CharacterCreatorClass::Unknown_78DAF0` | marker | NOT EXACT: inline budget (as 0x78D480: the client calls StringClass::operator+= (const char *) out of line, ours inlines it) 0x78DAF0 |
 | `app/common/dbgconn.cpp:111` | `TimedLogConnectionClass::TimedLogConnectionClass` | marker | NOT EXACT: the client inlines LogConnectionClass's constructor here and keeps it out of line (0x823F70, no caller); `inline` on it matches this one and loses that one. |
 | `app/common/dbgconn.cpp:154` | `RateConnectionClass::Send_Message` | marker | NOT EXACT: the client inlines ~ForwardingConnectionClass here (inline in its connect.h; ours is in connect.cpp, see the notes). |
 | `app/common/dbgconn.cpp:183` | `RateConnectionClass::Count` | marker | NOT EXACT: the client stores Index before it loads Time (ours loads Time before the idiv); the slots that inline it (0x824CF0, 0x824D90, 0x824E20, 0x824F50) differ only there. |
@@ -93,8 +96,9 @@ edit the comments in the code, not this file.
 | `app/shared/heightfield.cpp:197` | `HeightFieldClass::Get_Downhill` | marker | NOT EXACT: written from the pseudocode (0x463F00: frame 0x1C in the client, the corner tests' scheduling) |
 | `app/shared/heightfield.cpp:256` | `HeightFieldClass::Get_Normal` | marker | NOT EXACT: written from the pseudocode (0x464290: the cross products and Normalize as Vector3's) |
 | `app/shared/heightfield.cpp:280` | `HeightFieldClass::Get_Height` | marker | NOT EXACT: written from the pseudocode (0x464600: the cell's two triangles) |
-| `app/shared/heightfield.cpp:381` | `HeightFieldClass::Cast_OBBox` | marker | NOT EXACT: frame (0x168, the client 0x164: a 4-byte local too many; 22 masked rows; 10 forms, attempts.csv 0x4654E0) |
-| `app/shared/heightfield.cpp:479` | `HeightFieldClass::Sample` | mention | NOT EXACT: frame): two triangles per cell over the sweep's bounds (LandClass's Cast_* forward to them through 0x46C680-0x46C6E0). Not rebuilt: Cast_Ray 0x4647C0 and 0x465D30 (called by the land's render). The functions after the notes' "Ours" are VIDTEST's land's (functional, D42). The decorations keep the bilinear Sample(u, v) for now: the client's Sample 0x463BF0 (two triangles per cell) moves a... |
+| `app/shared/heightfield.cpp:381` | `HeightFieldClass::Cast_Ray` | marker | NOT EXACT: frame (0xAC, the client 0xB0: it keeps tmax and the second slab's values on the FPU and swaps through a register; 90 masked rows; attempts.csv 0x4647C0) |
+| `app/shared/heightfield.cpp:528` | `HeightFieldClass::Cast_OBBox` | marker | NOT EXACT: frame (0x168, the client 0x164: a 4-byte local too many; 22 masked rows; 10 forms, attempts.csv 0x4654E0) |
+| `app/shared/heightfield.cpp:626` | `HeightFieldClass::Sample` | mention | NOT EXACT: frame): two triangles per cell over the sweep's bounds (LandClass's Cast_* forward to them through 0x46C680-0x46C6E0). Not rebuilt: 0x465D30 (called by the land's render). Cast_Ray clips the ray to the grid unless it wraps, then walks the cells it crosses (a 2D DDA) until a triangle is hit. The functions after the notes' "Ours" are VIDTEST's land's (functional, D42). The decorations kee... |
 | `app/shared/ini_manager.cpp:49` | `INIManagerClass::Get_INI` | marker | NOT EXACT: shape (explain.py: 53 masked rows), the holder's new and the Create_Peek temporary take other registers and frame slots; objmatch would also reject the atexit handler's name $E18 (symbols.json gives it to other objects) |
 | `app/shared/ini_manager.h:29` | `?` | marker | NOT EXACT: register-only (explain.py), eax / ecx / edx rotated in the inlined Free_Unused (0x4EA2B0) |
 | `app/shared/kv_list.cpp:10` | `KVListClass::~KVListClass` | marker | NOT EXACT: inline budget, the hashtable destructor's clear() inlines _M_delete_node (the client calls 0x4B7B60) |
