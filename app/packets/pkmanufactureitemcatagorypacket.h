@@ -118,7 +118,7 @@ public:
 	ManufactureSetPacketClass(int manufacture_id);	// 0x89C130
 	ManufactureSetPacketClass(RawPacketClass *raw);	// 0x89C1C0
 	virtual RawPacketClass *Build();	// +0x04 0x89C250
-	virtual bool Process_Packet(void *client);	// +0x08 0x739330 (not rebuilt)
+	virtual bool Process_Packet(void *client);	// +0x08 0x739330 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x89C310
 	virtual int Print(char *buffer, int len);	// +0x10 0x89C330
 

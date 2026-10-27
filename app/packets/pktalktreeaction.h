@@ -37,7 +37,7 @@ public:
 	TalkTreePacketClass(RawPacketClass *raw);	// 0x8A6CA0
 	virtual ~TalkTreePacketClass();	// +0x00 0x8A6B90 / 0x8A7040
 	virtual RawPacketClass *Build();	// +0x04 0x8A7180
-	virtual bool Process_Packet(void *client);	// +0x08 0x738670 (not rebuilt)
+	virtual bool Process_Packet(void *client);	// +0x08 0x738670 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x8A7300
 	virtual int Print(char *buffer, int len);	// +0x10 0x8A7340
 	virtual int Get_Priority() { return(0); }	// +0x1C 0x8A6B70
@@ -57,7 +57,7 @@ public:
 	TalkTreeActionPacketClass(int action);	// 0x8A73C0
 	TalkTreeActionPacketClass(RawPacketClass *raw);	// 0x8A7430
 	virtual RawPacketClass *Build();	// +0x04 0x8A74E0
-	virtual bool Process_Packet(void *client);	// +0x08 0x738730 (not rebuilt)
+	virtual bool Process_Packet(void *client);	// +0x08 0x738730 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x8A75A0
 	virtual int Print(char *buffer, int len);	// +0x10 0x8A75C0
 

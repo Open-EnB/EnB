@@ -61,7 +61,7 @@ public:
 	LoungeNPCPacketClass(RawPacketClass *raw);	// 0x8978D0
 	virtual ~LoungeNPCPacketClass();	// +0x00 0x8978A0 / 0x897FE0
 	virtual RawPacketClass *Build();	// +0x04 0x898080
-	virtual bool Process_Packet(void *client);	// +0x08 0x7385B0 (not rebuilt)
+	virtual bool Process_Packet(void *client);	// +0x08 0x7385B0 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x8983D0
 	virtual int Print(char *buffer, int len);	// +0x10 0x8984C0
 	virtual int Get_Priority() { return(-127); }	// +0x1C 0x897880

@@ -22,6 +22,8 @@
 #include "..\packets\pk_classes.h"
 #include "..\packets\pkmessageline.h"
 #include "..\packets\pkloothulkpermission.h"
+#include "..\packets\pkloungenpc.h"
+#include "..\packets\pkmanufactureitemcatagorypacket.h"
 #include "..\packets\pkmessagestring.h"
 #include "..\packets\pkmessagetime.h"
 #include "..\packets\pkmodechange.h"
@@ -39,6 +41,7 @@
 #include "..\packets\pkunknown_877640.h"
 #include "..\packets\pkspline.h"
 #include "..\packets\pkstarbasetow.h"
+#include "..\packets\pktalktreeaction.h"
 #include "..\packets\pktriggeremote.h"
 #include "..\packets\pkverblist.h"
 #include "..\packets\pkwarpindex.h"
@@ -100,6 +103,7 @@ public:
 class SBaseViewClass : public ViewClass	// NAME 3: class-from-file (D24) for app\client\sbaseview.cpp
 {
 public:
+	void Unknown_6A0FD0(LoungeNPCPacketClass *packet);	// 0x6A0FD0 (LOUNGE_NPC 82)  // NAME 1 [packet]: the handler's packet
 	RefCountPtr<UIJobsClass> Get_Jobs() { return(Jobs); }	// 0x73A300 (out of line after JOB_LIST 147, the first caller)  // NAME 2: what it returns
 
 	char Unknown04[0x194 - 0x04];	// +0x04
@@ -110,6 +114,20 @@ public:
 void Unknown_70CC40(SClient *sclient, PlayerObjectRelationshipPacket *packet);	// 0x70CC40 (RELATIONSHIP 137)  // NAME 1 [sclient, packet]: what the handler passes
 void Unknown_70CC90(SClient *sclient, PlayerObjectReactionUpdatePacket *packet);	// 0x70CC90 (138)  // NAME 1 [sclient, packet]: what the handler passes
 void Unknown_70CD50(SClient *sclient, PlayerObjectIsAttackingUpdatePacket *packet);	// 0x70CD50 (ATTACKER_UPDATES 139)  // NAME 1 [sclient, packet]: what the handler passes
+
+// ui_talkt.cpp's talk tree interface and ui_talkt_space.cpp's (SClient +0x1298), declared as far as the
+// talk tree packets call them
+class UITalkTreeClass : public InterfaceClass	// NAME 3: class-from-file (D24) for app\client\ui_talkt.cpp
+{
+public:
+	virtual void Unknown_88();
+	virtual void Unknown_8C();
+	virtual void Unknown_90(TalkTreePacketClass *packet);	// +0x90 (TALK_TREE 84)  // NAME 1 [packet]: the handler's packet
+	void Unknown_64D230(int action);	// 0x64D230 (TALK_TREE_ACTION 86)  // NAME 1 [action]: the packet's Action
+};
+class UITalkTreeSpaceClass : public UITalkTreeClass	// NAME 3: class-from-file (D24) for app\client\ui_talkt_space.cpp
+{
+};
 
 // shiputils.cpp's decal helper (cdecl): the packet's decals on the object's model, with the decal INI
 void Unknown_80E8C0(RenderObjClass *model, std::vector<DecalStruct> &decals, SClientUnknown1334Class *decal_ini);	// 0x80E8C0  // NAME 1 [model, decals, decal_ini]: what DECAL 16 passes
@@ -123,14 +141,14 @@ bool LogoffConfirmationPacketClass::Process_Packet(void *instance)
 	return(true);
 }
 
+// NOT EXACT: shape (the client loads the model straight into ecx; two forms; attempts.py show 0x733590)
 // 0x733590
 bool ClientAvatarPacketClass::Process_Packet(void *instance)
 {
 	WWPROFILE("ClientAvatarPacketClass::Process_Packet()");
 	ClientClass *client = (ClientClass *)instance;
 	client->Set_Debug_Object(AvatarID);
-	RenderObjClass *model = client->Get_Debug_Object()->Model;
-	model->Set_LOD_Bias(1000000000.0f);
+	client->Get_Debug_Object()->Model->Set_LOD_Bias(1000000000.0f);
 	return(true);
 }
 
@@ -1404,24 +1422,6 @@ bool SplinePacketClass::Process_Packet(void *instance)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // 0x737E10
 bool SetClientTypePacketClass::Process_Packet(void *instance)
 {
@@ -1590,6 +1590,39 @@ bool SoundCommandPacketClass::Process_Packet(void *instance)
 	return(true);
 }
 
+// 0x7385B0
+bool LoungeNPCPacketClass::Process_Packet(void *instance)
+{
+	WWPROFILE("LoungeNPCPacketClass::Process_Packet(void * instance)");
+	SClient *sclient = (SClient *)((ClientClass *)instance)->Unknown_18();
+	if (sclient->Unknown135C) {
+		((SBaseViewClass *)sclient->Unknown135C)->Unknown_6A0FD0(this);
+	}
+	return(true);
+}
+
+// 0x738670
+bool TalkTreePacketClass::Process_Packet(void *instance)
+{
+	WWPROFILE("TalkTreePacketClass::Process_Packet(void * instance)");
+	SClient *sclient = (SClient *)((ClientClass *)instance)->Unknown_18();
+	if (sclient->Unknown1298) {
+		sclient->Unknown1298->Unknown_90(this);
+	}
+	return(true);
+}
+
+// 0x738730
+bool TalkTreeActionPacketClass::Process_Packet(void *instance)
+{
+	WWPROFILE("TalkTreeActionPacketClass::Process_Packet(void * instance)");
+	SClient *sclient = (SClient *)((ClientClass *)instance)->Unknown_18();
+	if (sclient->Unknown1298) {
+		sclient->Unknown1298->Unknown_64D230(Action);
+	}
+	return(true);
+}
+
 // 0x7388B0
 bool VerbUpdatePacketClass::Process_Packet(void *instance)
 {
@@ -1598,6 +1631,14 @@ bool VerbUpdatePacketClass::Process_Packet(void *instance)
 	if (sclient->VerbManager) {
 		sclient->VerbManager->Unknown_81F810(GameID, &Drops, &Adds);
 	}
+	return(true);
+}
+
+// 0x739330
+bool ManufactureSetPacketClass::Process_Packet(void *instance)
+{
+	WWPROFILE("ManufactureSetPacketClass::Process_Packet(void * instance)");
+	((SClient *)((ClientClass *)instance)->Unknown_18())->Unknown1328 = ManufactureID;
 	return(true);
 }
 
@@ -1626,47 +1667,6 @@ bool LootHulkPermissionPacketClass::Process_Packet(void *instance)
 	}
 	return(true);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
