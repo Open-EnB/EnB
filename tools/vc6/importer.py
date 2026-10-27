@@ -3481,6 +3481,15 @@ RECONSTRUCTED = {
     ('app', 'shared/lookup_table.cpp'): "the lookup tables, client 0x4EC1F0-0x4F0080 with the instances: the asserts on the "
                                        "client's lines 38-433 (D25); NOT EXACT: the set's destructor 0x4ECE50, the continuous "
                                        "table's Create 0x4ED660, the sampled table's constructor 0x4EDBE0",
+    ('app', 'shared/definition_manager.h'): "DefinitionManagerClass<T> and DefinitionRefCount<T> (D24): a reference-counting "
+                                           "cache of named definitions in an SGI hash_map (libs/sgistl, D87); asserts on the "
+                                           "client's lines 105 / 119 / 133 / 146 / 212 (D25)",
+    ('app', 'shared/definition_auto_ptr.h'): "DefinitionAutoPtr<T>: a definition acquired from a DefinitionManagerClass; "
+                                            "the FAIL_IFs on the client's lines 119 / 120 (D25)",
+    ('app', 'shared/ini_manager.h'): "INIManagerClass (D24), the ini files as shared definitions",
+    ('app', 'shared/ini_manager.cpp'): "INIManagerClass, client 0x4E9D40-0x4EC260 with definition_manager.h's and "
+                                      "definition_auto_ptr.h's instances: the FAIL_IFs on lines 59 / 60 (D25); NOT EXACT: Get_INI "
+                                      "0x4E9E00 (objmatch's $E18), the destructors 0x4EA2B0 / 0x4EAFB0, Release 0x4EB1B0",
     ('app', 'client/sclient.h'): "SClient (the client's 'SClient::Process_Packets'), declared only as far as tsk_game.cpp uses "
                                 "it: constructor 0x7405E0, 0x14F8 bytes (kernel-map.md 6, step 9)",
     ('app', 'client/unknown_authlogin.h'): "EA.Com's login component as the client uses it (PROVISIONAL file name, D10): kcom's factory and IAuthLoginClass (authlogin.dll, tools/vc6/authlogin.def), AuthLoginResponseClass (0x38 bytes; kernel-map-step9.md 4)",
