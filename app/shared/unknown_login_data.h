@@ -78,8 +78,8 @@ public:
 	int Save_Count;										// +0x14 NAME 2: its key 'save_count'
 	__int64 ID;											// +0x18 NAME 1: key 'avatar_id'; 0 for a new character (Go_Next_Step)
 	__int64 Account_ID;									// +0x20 NAME 2: its key 'account_id'
-	unsigned int Admin_Level;							// +0x28 NAME 2: its key 'admin_level'
-	unsigned int GM_Flag;								// +0x2C NAME 2: its key 'gm_flag'
+	long Admin_Level;							// +0x28 NAME 2: its key 'admin_level'
+	long GM_Flag;								// +0x2C NAME 2: its key 'gm_flag'
 	int Level_Combat;									// +0x30 NAME 2: its key 'lvl_combat'
 	int Level_Explore;									// +0x34 NAME 2: its key 'lvl_explore'
 	int Level_Trade;									// +0x38 NAME 2: its key 'lvl_trade'

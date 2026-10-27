@@ -121,10 +121,10 @@ void LoginCharacterClass::Unknown_00(void *object)
 	visitor->Add(0x3FF, "sector", &Sector);
 	visitor->Add(0x3FF, "shard_id", &Galaxy_ID);
 	visitor->Add(0x3FF, "save_count", &Save_Count);
-	visitor->Add(0x3FF, "avatar_id", &ID);
-	visitor->Add(0x3FF, "account_id", &Account_ID);
-	visitor->Add(0x3FF, "admin_level", &Admin_Level);
-	visitor->Add(0x3FF, "gm_flag", &GM_Flag);
+	visitor->Add_Pointer(0x3FF, "avatar_id", &ID);
+	visitor->Add_Pointer(0x3FF, "account_id", &Account_ID);
+	visitor->Add_Pointer(0x3FF, "admin_level", &Admin_Level);
+	visitor->Add_Pointer(0x3FF, "gm_flag", &GM_Flag);
 	visitor->Add(0x3FF, "sector_name", Sector_Name, sizeof(Sector_Name));
 	visitor->Add(0x3FF, "lvl_combat", &Level_Combat);
 	visitor->Add(0x3FF, "lvl_explore", &Level_Explore);
