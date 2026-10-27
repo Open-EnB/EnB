@@ -21,6 +21,7 @@
 #include "tsk_game.h"
 #include "..\..\shared\unknown_login_data.h"		// LoginCharacterClass, the data interfaces
 #include "..\..\common\unknown_galaxy.h"			// LoginGalaxyClass
+#include "..\..\shared\avatar_desc.h"				// AvatarDescClass (LoginUnknown350Class)
 #include <string>
 #include <list>
 #include "vector3.h"
@@ -226,58 +227,8 @@ public:
 	char Unknown158[0x160 - 0x158];						// +0x158
 };
 
-// An entry of LoginTaskClass +0x350 (0x10C bytes, vtables 0xAEB9D0 / 0xAEB9CC; constructor 0x4BEB50).
-// Its destructor is the implicit one (inline in 0x7683F0, out of line at 0x53BB50).
-class LoginUnknown350Class : public LoginPacketDataClass, public LoginInterfaceAEADC8Class	// NAME 1: neutral (D10)
-{
-public:
-	LoginUnknown350Class();								// 0x4BEB50
-	void Unknown_4C1460(const char *name, int unknown);	// 0x4C1460 (the fast start's name 'Fast' + the user name, 1)
-	virtual bool Write(LinearBufferClass *buffer);		// +0x00 (vtable 0xAEB9D0)
-	virtual bool Read(LinearBufferClass *buffer);		// +0x04
-	virtual int Get_Size();								// +0x08
-	virtual void Unknown_00(void *visitor);				// second table +0x00 (0xAEB9CC)
-
-	int Unknown08;										// +0x08
-	char Unknown0C;										// +0x0C
-	char Unknown0D;										// +0x0D
-	int Unknown10;										// +0x10
-	int Unknown14;										// +0x14
-	int Unknown18;										// +0x18
-	int Unknown1C;										// +0x1C
-	char Unknown20;									// +0x20
-	char Unknown21;									// +0x21
-	char Unknown22;									// +0x22
-	char Unknown23;									// +0x23
-	char Unknown24;									// +0x24
-	char Unknown25;									// +0x25
-	char Unknown26;									// +0x26
-	char Unknown27;									// +0x27
-	char Unknown28;									// +0x28
-	char Unknown29;									// +0x29
-	char Unknown2A;									// +0x2A
-	char Unknown2B;									// +0x2B
-	char Unknown2C;									// +0x2C
-	char Unknown2D;									// +0x2D
-	Vector3 Unknown30;									// +0x30 (Write: 12 bytes)
-	Vector3 Unknown3C;									// +0x3C (Write: 12 bytes)
-	Vector3 Unknown48;									// +0x48 (Write: 12 bytes)
-	Vector3 Unknown54;									// +0x54 (Write: 12 bytes)
-	Vector3 Unknown60;									// +0x60 (Write: 12 bytes)
-	Vector3 Unknown6C;									// +0x6C (Write: 12 bytes)
-	Vector3 Unknown78;									// +0x78 (Write: 12 bytes)
-	Vector3 Unknown84;									// +0x84 (Write: 12 bytes)
-	Vector3 Unknown90;									// +0x90 (Write: 12 bytes)
-	int Unknown9C;										// +0x9C
-	int UnknownA0;										// +0xA0
-	int UnknownA4;										// +0xA4
-	int UnknownA8;										// +0xA8
-	int UnknownAC[5];									// +0xAC
-	int UnknownC0[5];									// +0xC0
-	char UnknownD4[0x14];								// +0xD4
-	char UnknownE8[0x14];								// +0xE8
-	std::string UnknownFC;								// +0xFC
-};
+// An entry of LoginTaskClass +0x350: avatar_desc.cpp's class; tsk_login.cpp keeps T4's name for now
+typedef AvatarDescClass LoginUnknown350Class;	// NAME 1: neutral (D10), AvatarDescClass's former name
 
 // The serialisable name (vtable 0xB04160: Write 0x78E0E0 writes its 0x80 bytes; 0x84 bytes)
 class LoginNameDataClass : public LoginPacketDataClass	// NAME 1: neutral (D10)

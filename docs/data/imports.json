@@ -108,6 +108,29 @@
     "merged": [],
     "name": "client/aux_roots.cpp"
    },
+   "avatar_desc": {
+    "ambiguous": [
+     "0x42A6C0",
+     "0x42B2F0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42A820",
+     "0x42AB30",
+     "0x4BEB50",
+     "0x4BEBF0",
+     "0x4BECC0",
+     "0x4BF260",
+     "0x4BF910",
+     "0x4BF930",
+     "0x4BFBF0",
+     "0x4BFED0",
+     "0x4C05A0"
+    ],
+    "merged": [],
+    "name": "shared/avatar_desc.cpp"
+   },
    "bandwidthaccounting": {
     "ambiguous": [],
     "copy": "reconstructed",
@@ -5097,6 +5120,7 @@
    "shared/auxdata/policy.h": "reconstructed",
    "shared/auxdata/unknown_changes.h": "reconstructed",
    "shared/auxdata/unknown_root.h": "reconstructed",
+   "shared/avatar_desc.h": "reconstructed",
    "shared/combo_ffactory.h": "reconstructed",
    "shared/duration.h": "reconstructed",
    "shared/heightfield.h": "reconstructed",

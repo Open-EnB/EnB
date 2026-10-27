@@ -1,0 +1,370 @@
+/*
+**	Earth & Beyond client (reconstruction)
+**	Portions Copyright Electronic Arts Inc., released under the GNU General Public License v3.
+**	Original location: e:\build\beta\G\app\shared\avatar_desc.cpp (client 0x4BEB50-0x4C45B0)
+**	AvatarDescClass (avatar_desc.h), partly rebuilt: the constructors, the wire and key/value slots,
+**	Clear. The asserted loader 0x4C05D0 and the rest of the window are not yet (notes at the end).
+*/
+#include "avatar_desc.h"
+#include "auxdata\linearbu.h"
+#include "kv_encoder_base.h"
+#include <stdio.h>
+
+StringValueClass *Unknown_4C3110(float *values, int count, char separator);	// NAME 1 [Unknown_4C3110]: 0x4C3110, the values as one text value (body_weight, head_weight)
+
+// 0x4BEB50
+AvatarDescClass::AvatarDescClass()
+{
+	Clear(0);
+	Unknown_4C05D0(0, 0);
+}
+
+// 0x4BEBF0
+AvatarDescClass::AvatarDescClass(int type, int unknown, int unknown2)
+{
+	Clear(0);
+	Race = type;
+	Profession = unknown;
+	Gender = unknown2;
+	Avatar_Version = 2;
+	Unknown_4C05D0(0, 0);
+}
+
+// 0x4BECC0
+AvatarDescClass::AvatarDescClass(int type, int unknown)
+{
+	Clear(type);
+	Avatar_Version = 2;
+	Unknown_4C05D0(type, unknown);
+}
+
+// 0x4BF260
+bool AvatarDescClass::Write(LinearBufferClass *buffer)
+{
+	buffer->Write(First_Name, sizeof(First_Name));
+	buffer->Write(Last_Name, sizeof(Last_Name));
+	buffer->Write(&Avatar_Type, 4);
+	buffer->Write(&Unknown0C, 1);
+	buffer->Write(&Avatar_Version, 1);
+	buffer->Write(&Race, 4);
+	buffer->Write(&Profession, 4);
+	buffer->Write(&Gender, 4);
+	buffer->Write(&Mood_Type, 4);
+	buffer->Write(&Personality, 1);
+	buffer->Write(&NLP, 1);
+	buffer->Write(&Body_Type, 1);
+	buffer->Write(&Pants_Type, 1);
+	buffer->Write(&Head_Type, 1);
+	buffer->Write(&Hair_Num, 1);
+	buffer->Write(&Ear_Num, 1);
+	buffer->Write(&Goggle_Num, 1);
+	buffer->Write(&Beard_Num, 1);
+	buffer->Write(&Weapon_Hip_Num, 1);
+	buffer->Write(&Weapon_Unique_Num, 1);
+	buffer->Write(&Weapon_Back_Num, 1);
+	buffer->Write(&Head_Texture_Num, 1);
+	buffer->Write(&Tattoo_Texture_Num, 1);
+	buffer->Write(&Tattoo_Offset, 12);
+	buffer->Write(&Hair_Color, 12);
+	buffer->Write(&Beard_Color, 12);
+	buffer->Write(&Eye_Color, 12);
+	buffer->Write(&Skin_Color, 12);
+	buffer->Write(&Shirt_Primary_Color, 12);
+	buffer->Write(&Shirt_Secondary_Color, 12);
+	buffer->Write(&Pants_Primary_Color, 12);
+	buffer->Write(&Pants_Secondary_Color, 12);
+	buffer->Write(&Shirt_Primary_Metal, 4);
+	buffer->Write(&Shirt_Secondary_Metal, 4);
+	buffer->Write(&Pants_Primary_Metal, 4);
+	buffer->Write(&Pants_Secondary_Metal, 4);
+	buffer->Write_String(UnknownFC.c_str());
+	int i;
+	for (i = 0; i < 5; i++) {
+		buffer->Write(&Body_Weight[i], 4);
+	}
+	for (i = 0; i < 5; i++) {
+		buffer->Write(&Head_Weight[i], 4);
+	}
+	return(true);
+}
+
+// NOT EXACT: inline budget (the client calls the string assignment's max_size, _Tidy and _Eos out of line, ours inlines them; six forms tried: dead size()/length() after it, assign(), assign(s, strlen), the Read_String call hoisted; attempts.py show 0x4BF550)
+// 0x4BF550
+bool AvatarDescClass::Read(LinearBufferClass *buffer)
+{
+	buffer->Read(First_Name, sizeof(First_Name));
+	buffer->Read(Last_Name, sizeof(Last_Name));
+	buffer->Read(&Avatar_Type, 4);
+	buffer->Read(&Unknown0C, 1);
+	buffer->Read(&Avatar_Version, 1);
+	buffer->Read(&Race, 4);
+	buffer->Read(&Profession, 4);
+	buffer->Read(&Gender, 4);
+	buffer->Read(&Mood_Type, 4);
+	buffer->Read(&Personality, 1);
+	buffer->Read(&NLP, 1);
+	buffer->Read(&Body_Type, 1);
+	buffer->Read(&Pants_Type, 1);
+	buffer->Read(&Head_Type, 1);
+	buffer->Read(&Hair_Num, 1);
+	buffer->Read(&Ear_Num, 1);
+	buffer->Read(&Goggle_Num, 1);
+	buffer->Read(&Beard_Num, 1);
+	buffer->Read(&Weapon_Hip_Num, 1);
+	buffer->Read(&Weapon_Unique_Num, 1);
+	buffer->Read(&Weapon_Back_Num, 1);
+	buffer->Read(&Head_Texture_Num, 1);
+	buffer->Read(&Tattoo_Texture_Num, 1);
+	buffer->Read(&Tattoo_Offset, 12);
+	buffer->Read(&Hair_Color, 12);
+	buffer->Read(&Beard_Color, 12);
+	buffer->Read(&Eye_Color, 12);
+	buffer->Read(&Skin_Color, 12);
+	buffer->Read(&Shirt_Primary_Color, 12);
+	buffer->Read(&Shirt_Secondary_Color, 12);
+	buffer->Read(&Pants_Primary_Color, 12);
+	buffer->Read(&Pants_Secondary_Color, 12);
+	buffer->Read(&Shirt_Primary_Metal, 4);
+	buffer->Read(&Shirt_Secondary_Metal, 4);
+	buffer->Read(&Pants_Primary_Metal, 4);
+	buffer->Read(&Pants_Secondary_Metal, 4);
+	char *text = buffer->Read_String();
+	UnknownFC = text;
+	delete text;
+	int i;
+	for (i = 0; i < 5; i++) {
+		buffer->Read(&Body_Weight[i], 4);
+	}
+	for (i = 0; i < 5; i++) {
+		buffer->Read(&Head_Weight[i], 4);
+	}
+	return(true);
+}
+
+// 0x4BF910
+int AvatarDescClass::Get_Size()
+{
+	return(UnknownFC.length() + 0xF1);
+}
+
+// 0x4BF930
+bool AvatarDescClass::Write_Short(LinearBufferClass *buffer)
+{
+	buffer->Write(First_Name, sizeof(First_Name));
+	buffer->Write(Last_Name, sizeof(Last_Name));
+	buffer->Write(&Avatar_Type, 4);
+	buffer->Write(&Avatar_Version, 1);
+	buffer->Write(&Race, 4);
+	buffer->Write(&Profession, 4);
+	buffer->Write(&Gender, 4);
+	buffer->Write(&Mood_Type, 4);
+	buffer->Write(&Personality, 1);
+	buffer->Write(&NLP, 1);
+	buffer->Write(&Body_Type, 1);
+	buffer->Write(&Pants_Type, 1);
+	buffer->Write(&Head_Type, 1);
+	buffer->Write(&Hair_Num, 1);
+	buffer->Write(&Ear_Num, 1);
+	buffer->Write(&Goggle_Num, 1);
+	buffer->Write(&Beard_Num, 1);
+	buffer->Write(&Weapon_Hip_Num, 1);
+	buffer->Write(&Weapon_Unique_Num, 1);
+	buffer->Write(&Weapon_Back_Num, 1);
+	buffer->Write(&Head_Texture_Num, 1);
+	buffer->Write(&Tattoo_Texture_Num, 1);
+	buffer->Write(&Tattoo_Offset, 12);
+	buffer->Write(&Hair_Color, 12);
+	buffer->Write(&Beard_Color, 12);
+	buffer->Write(&Eye_Color, 12);
+	buffer->Write(&Skin_Color, 12);
+	buffer->Write(&Shirt_Primary_Color, 12);
+	buffer->Write(&Shirt_Secondary_Color, 12);
+	buffer->Write(&Pants_Primary_Color, 12);
+	buffer->Write(&Pants_Secondary_Color, 12);
+	buffer->Write(&Shirt_Primary_Metal, 4);
+	buffer->Write(&Shirt_Secondary_Metal, 4);
+	buffer->Write(&Pants_Primary_Metal, 4);
+	buffer->Write(&Pants_Secondary_Metal, 4);
+	int i;
+	for (i = 0; i < 5; i++) {
+		buffer->Write(&Body_Weight[i], 4);
+	}
+	for (i = 0; i < 5; i++) {
+		buffer->Write(&Head_Weight[i], 4);
+	}
+	return(true);
+}
+
+// 0x4BFBF0
+bool AvatarDescClass::Read_Short(LinearBufferClass *buffer)
+{
+	buffer->Read(First_Name, sizeof(First_Name));
+	buffer->Read(Last_Name, sizeof(Last_Name));
+	buffer->Read(&Avatar_Type, 4);
+	buffer->Read(&Avatar_Version, 1);
+	buffer->Read(&Race, 4);
+	buffer->Read(&Profession, 4);
+	buffer->Read(&Gender, 4);
+	buffer->Read(&Mood_Type, 4);
+	buffer->Read(&Personality, 1);
+	buffer->Read(&NLP, 1);
+	buffer->Read(&Body_Type, 1);
+	buffer->Read(&Pants_Type, 1);
+	buffer->Read(&Head_Type, 1);
+	buffer->Read(&Hair_Num, 1);
+	buffer->Read(&Ear_Num, 1);
+	buffer->Read(&Goggle_Num, 1);
+	buffer->Read(&Beard_Num, 1);
+	buffer->Read(&Weapon_Hip_Num, 1);
+	buffer->Read(&Weapon_Unique_Num, 1);
+	buffer->Read(&Weapon_Back_Num, 1);
+	buffer->Read(&Head_Texture_Num, 1);
+	buffer->Read(&Tattoo_Texture_Num, 1);
+	buffer->Read(&Tattoo_Offset, 12);
+	buffer->Read(&Hair_Color, 12);
+	buffer->Read(&Beard_Color, 12);
+	buffer->Read(&Eye_Color, 12);
+	buffer->Read(&Skin_Color, 12);
+	buffer->Read(&Shirt_Primary_Color, 12);
+	buffer->Read(&Shirt_Secondary_Color, 12);
+	buffer->Read(&Pants_Primary_Color, 12);
+	buffer->Read(&Pants_Secondary_Color, 12);
+	buffer->Read(&Shirt_Primary_Metal, 4);
+	buffer->Read(&Shirt_Secondary_Metal, 4);
+	buffer->Read(&Pants_Primary_Metal, 4);
+	buffer->Read(&Pants_Secondary_Metal, 4);
+	int i;
+	for (i = 0; i < 5; i++) {
+		buffer->Read(&Body_Weight[i], 4);
+	}
+	for (i = 0; i < 5; i++) {
+		buffer->Read(&Head_Weight[i], 4);
+	}
+	return(true);
+}
+
+// 0x4BFEB0
+int AvatarDescClass::Get_Short_Size()
+{
+	return(0xEF);
+}
+
+// 0x4BFED0
+void AvatarDescClass::Unknown_00(void *object)
+{
+	LoginKVVisitorClass *visitor = (LoginKVVisitorClass *)object;
+
+	visitor->Add(0x3FF, "avatar_first_name", First_Name, sizeof(First_Name));
+	visitor->Add(0x3FF, "avatar_last_name", Last_Name, sizeof(Last_Name));
+	visitor->Add(0x3FF, "avatar_type", &Avatar_Type);
+	visitor->Add(0x3FF, "avatar_version", &Avatar_Version);
+	visitor->Add(0x3FF, "race", &Race);
+	visitor->Add(0x3FF, "profession", &Profession);
+	visitor->Add(0x3FF, "gender", &Gender);
+	visitor->Add(0x3FF, "mood_type", &Mood_Type);
+	visitor->Add(0x3FF, "personality", &Personality);
+	visitor->Add(0x3FF, "nlp", &NLP);
+	visitor->Add(0x3FF, "body_type", &Body_Type);
+	visitor->Add(0x3FF, "pants_type", &Pants_Type);
+	visitor->Add(0x3FF, "head_type", &Head_Type);
+	visitor->Add(0x3FF, "hair_num", &Hair_Num);
+	visitor->Add(0x3FF, "ear_num", &Ear_Num);
+	visitor->Add(0x3FF, "goggle_num", &Goggle_Num);
+	visitor->Add(0x3FF, "beard_num", &Beard_Num);
+	visitor->Add(0x3FF, "weapon_hip_num", &Weapon_Hip_Num);
+	visitor->Add(0x3FF, "weapon_unique_num", &Weapon_Unique_Num);
+	visitor->Add(0x3FF, "weapon_back_num", &Weapon_Back_Num);
+	visitor->Add(0x3FF, "head_texture_num", &Head_Texture_Num);
+	visitor->Add(0x3FF, "tattoo_texture_num", &Tattoo_Texture_Num);
+	visitor->Add(0x3FF, "tattoo_offset", &Tattoo_Offset);
+	visitor->Add(0x3FF, "hair_color", &Hair_Color);
+	visitor->Add(0x3FF, "beard_color", &Beard_Color);
+	visitor->Add(0x3FF, "eye_color", &Eye_Color);
+	visitor->Add(0x3FF, "skin_color", &Skin_Color);
+	visitor->Add(0x3FF, "shirt_primary_color", &Shirt_Primary_Color);
+	visitor->Add(0x3FF, "shirt_secondary_color", &Shirt_Secondary_Color);
+	visitor->Add(0x3FF, "pants_primary_color", &Pants_Primary_Color);
+	visitor->Add(0x3FF, "pants_secondary_color", &Pants_Secondary_Color);
+	visitor->Add(0x3FF, "shirt_primary_metal", &Shirt_Primary_Metal);
+	visitor->Add(0x3FF, "shirt_secondary_metal", &Shirt_Secondary_Metal);
+	visitor->Add(0x3FF, "pants_primary_metal", &Pants_Primary_Metal);
+	visitor->Add(0x3FF, "pants_secondary_metal", &Pants_Secondary_Metal);
+	((KVEncoderBaseClass *)visitor)->Add_String(0x3FF, "body_weight", Unknown_4C3110(Body_Weight, 5, ','));
+	((KVEncoderBaseClass *)visitor)->Add_String(0x3FF, "head_weight", Unknown_4C3110(Head_Weight, 5, ','));
+}
+
+// NOT EXACT: shape (the first sprintf's arguments pushed before the three stores, and Head_Weight cleared through a pointer in the client; five forms tried: memset / a loop for Head_Weight, the stores reordered; attempts.py show 0x4C0310)
+// 0x4C0310
+void AvatarDescClass::Clear(int type)
+{
+	Avatar_Type = type;
+	Unknown0C = 0;
+	Avatar_Version = 2;
+	sprintf(First_Name, "player");
+	sprintf(Last_Name, "");
+	Race = 0;
+	Profession = 0;
+	Gender = 0;
+	Mood_Type = 0;
+	Personality = 0;
+	NLP = 0;
+	Body_Type = 0;
+	Pants_Type = 0;
+	Head_Type = 0;
+	Hair_Num = 0;
+	Ear_Num = 0;
+	Goggle_Num = 0;
+	Beard_Num = 0;
+	Weapon_Hip_Num = 0;
+	Weapon_Unique_Num = 0;
+	Weapon_Back_Num = 0;
+	Head_Texture_Num = 0;
+	Tattoo_Texture_Num = 0;
+	Tattoo_Offset.Set(0.0F, 0.0F, 1.0F);
+	Hair_Color.Set(0.0F, 0.0F, 0.0F);
+	Beard_Color.Set(0.0F, 0.0F, 0.0F);
+	Eye_Color.Set(0.0F, 0.0F, 0.0F);
+	Skin_Color.Set(0.0F, 0.0F, 0.0F);
+	Shirt_Primary_Color.Set(0.0F, 0.0F, 0.0F);
+	Shirt_Secondary_Color.Set(0.0F, 0.0F, 0.0F);
+	Pants_Primary_Color.Set(0.0F, 0.0F, 0.0F);
+	Pants_Secondary_Color.Set(0.0F, 0.0F, 0.0F);
+	Shirt_Primary_Metal = -1;
+	Shirt_Secondary_Metal = -1;
+	Pants_Primary_Metal = -1;
+	Pants_Secondary_Metal = -1;
+	UnknownFC = "";
+	Body_Weight[0] = 1.0F;
+	Body_Weight[1] = 0.0F;
+	Body_Weight[2] = 0.0F;
+	Body_Weight[3] = 0.0F;
+	Body_Weight[4] = 0.0F;
+	Head_Weight[0] = 1.0F;
+	Head_Weight[1] = 0.0F;
+	Head_Weight[2] = 0.0F;
+	Head_Weight[3] = 0.0F;
+	Head_Weight[4] = 0.0F;
+}
+
+// 0x4C0580
+bool AvatarDescClass::Is_Valid()
+{
+	return(Avatar_Type != 0);
+}
+
+// 0x4C05A0
+void AvatarDescClass::Reset()
+{
+	Avatar_Type = 0;
+	Unknown_4C05D0(0, 0);
+}
+
+/*
+**	Reconstruction notes
+**
+**	Not rebuilt yet (declared in avatar_desc.h): the asserted 0x4C05D0 (avatardef.ini: 'avatardef.ini
+**	file not found', the assert 'strchr(buffer, Separator) == 0'), 0x4C1460 (sets the names), and
+**	the window's other functions 0x4C1020-0x4C45B0 (the INI sections' parser, '[%s]%s' / 'Name = %s%s',
+**	and the key/value templates the visitor instantiates: the int add 0x4C2EB0, the char add 0x4C2FE0,
+**	the array text 0x4C3110).
+*/

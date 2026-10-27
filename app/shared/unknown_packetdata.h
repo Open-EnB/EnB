@@ -17,6 +17,7 @@
 #define UNKNOWN_PACKETDATA_H
 
 class LinearBufferClass;
+class Vector3;
 
 // The interface vtable 0xAEB9EC (three pure slots): pk.h's Unknown_PacketDataClass with its third slot
 class LoginPacketDataClass	// NAME 1: neutral (D10)
@@ -37,6 +38,8 @@ public:
 	void Add(int mask, const char *name, __int64 *value);				// 0x8C0C40 (the character slot's module)
 	void Add(int mask, const char *name, unsigned int *value);			// 0x8C0D80 (the same)  // NAME 1 [unsigned int]: a 4-byte value other than int
 	void Add(int mask, const char *name, char *buffer, int size);		// 0x4B4A70 (kv_encoder_base.cpp)
+	void Add(int mask, const char *name, char *value);					// 0x4C2FE0 (in avatar_desc.cpp's run)
+	void Add(int mask, const char *name, Vector3 *value);				// 0x4B2BB0
 };
 
 // The one-slot interface vtable 0xAEADC8 (delta.h's DeltaInterfaceClass has the same table)

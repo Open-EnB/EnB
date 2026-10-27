@@ -156,16 +156,21 @@ bool LoginTaskClass::Accept_Focus() { fprintf(Out, "login accepts focus\n"); ret
 TicketClass::TicketClass(int) {}
 LoginCharacterClass::LoginCharacterClass() {}
 LoginCharacterClass::~LoginCharacterClass() {}
-LoginUnknown350Class::LoginUnknown350Class() {}
-LoginUnknown44Class::LoginUnknown44Class() {}
+AvatarDescClass::AvatarDescClass() {}
+LoginUnknown20Class::LoginUnknown20Class() {}
+void LoginUnknown20Class::Unknown_00(void *) {}
+void LoginUnknown44Class::Unknown_00(void *) {}
 bool LoginCharacterClass::Write(LinearBufferClass *) { return true; }
 bool LoginCharacterClass::Read(LinearBufferClass *) { return true; }
 int LoginCharacterClass::Get_Size() { return 0; }
 void LoginCharacterClass::Unknown_00(void *) {}
-bool LoginUnknown350Class::Write(LinearBufferClass *) { return true; }
-bool LoginUnknown350Class::Read(LinearBufferClass *) { return true; }
-int LoginUnknown350Class::Get_Size() { return 0; }
-void LoginUnknown350Class::Unknown_00(void *) {}
+bool AvatarDescClass::Write(LinearBufferClass *) { return true; }
+bool AvatarDescClass::Write_Short(LinearBufferClass *) { return true; }
+bool AvatarDescClass::Read_Short(LinearBufferClass *) { return true; }
+int AvatarDescClass::Get_Short_Size() { return 0; }
+bool AvatarDescClass::Read(LinearBufferClass *) { return true; }
+int AvatarDescClass::Get_Size() { return 0; }
+void AvatarDescClass::Unknown_00(void *) {}
 bool LoginUnknown88CClass::Write(LinearBufferClass *) { return true; }
 bool LoginUnknown88CClass::Read(LinearBufferClass *) { return true; }
 int LoginUnknown88CClass::Get_Size() { return 0; }
