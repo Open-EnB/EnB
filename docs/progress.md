@@ -4,7 +4,7 @@ Newest first within each section. Dates are when the entry was written.
 
 ## 1. Log
 
-### 2026-10-27 (12:30, day): the session cap and the reset; seven builders at a time; 270 commits, app +1,941 pairs, 0 lost; D90-D95; the eval D93 is next
+### 2026-10-27 (14:05, day): the session cap and the reset; seven builders at a time; 352 commits, app +2,175 pairs, 0 lost; D90-D95; the eval D93 is next
 
 Coordinator (Fable), 04:30 to 12:30, the user online 04:35-09:30 and then away. The API session cap stopped
 five builders at 06:05 (the user chose to spend the session window); all five resumed from their transcripts
@@ -64,6 +64,22 @@ at 08:11 with their leases intact and lost nothing. The pool grew to seven slots
   `build.py build --lib app` first; udpreplay's shipcust stand-in staged for clienttest). Every VM is released; the
   working copy's uncommitted imports.json totals hunk (commit_mine never commits the totals lines) was discarded: the
   next quiet-tree verify refreshes them. Usage at handoff: see the plan log's last heartbeat (weekly ~73%).
+
+* **The afternoon (12:20-14:05, the user: "use all our quota before reset", then "don't start anything new"):**
+  seven more builders on disjoint files, 81 commits, app +234 pairs, 0 lost (final totals since the 04:40 entry: 352
+  commits, +2,175 pairs; since 684cec2: 475 commits, +3,243 pairs, only the two D66 land copies lost). T16: ten more
+  cpacket handlers (64, 17, 37, 62 exact; the position-update family NOT EXACT on one Is_Valid_Float residue, P-T16-3);
+  clienttest drives 26 handlers over alex3's first 1,000 messages, trace 1,952 lines. T17: rtti.h's type test (a
+  class-static cast; the nesting-depth budget lever) made the parked co.cpp lookups exact, and the client object's
+  0x4C-byte base UnknownB02C90Class is in client.cpp (constructor / destructor exact). T18: sclient.cpp 22 -> 52 pairs;
+  Do_Frame / Render / chat wait for their clienttest stubs to go (P-T18-1). H17: client_lego_impl.cpp 0 -> 57 pairs
+  (LegoClass bases, bone maps, knobs, orphans; three Fable-eligible). H18: app/input/inpdsp.cpp 10 of 11 exact (+17;
+  the registry read only, unreachable from tests). P9: the login packets 111, 119, 2, 118, 112, 113, 114, 145 (+90) and
+  most of P-T5-2 (the visitor merge is P-P9-2). Tools: commit_mine selects imports.json hunks by file block
+  (`--file`, 3772169), attempts.py writes the csv's own line ending (e7995bb). Two incidents, both repaired by the
+  builders and filed as traps: H18's zero-context imports.json patch (89315ee) and H17's private-index commit racing
+  T18's (a6e1eb1; the compare-and-swap rule). New for the user in §3: P-P6-1, P-T12-2, P-P9-1, P-P9-2, P-T16-3,
+  P-T18-3. Every VM is stopped; the tree is clean.
 
 ### 2026-10-27 (04:40, overnight): twelve builders in parallel; app +1,018 pairs, 0 lost; step 9's tasks, the SGI hash_map, land, 190 packet classes; D85-D89
 
@@ -1276,35 +1292,44 @@ client's own code: [kernel-map.md](kernel-map.md) §6 and, for step 9's dependen
    free) and P-P6-1 if accepted (a tie goes to the object whose client range holds the address), each with a
    full verify of every library and pairs_cmp gains-only, like D88; then 117 from `.work/p5/park117` and 45 from
    `.work/p6/park45`. Also on that quiet tree: P-H7-1 (sgistl_adapt.py drops `typename` from out-of-class return
-   types; remove ini_manager's and attrib_dir's explicit specializations), P-F5-1 / the regenerated names-review.md.
-2. Step 9 (D90) continues: cpacket.cpp's remaining handlers (T10's report: 64 and 17 once co.h's +0x98 / +0xC8
-   exist, 27/28 after clienttest gets aux roots at SClient +0x12C0, 37, 4; P-T10-2: split InterfaceClass's
-   +0x4C..+0x84 array in ui_line_display.h so 158/160, 31 and 83 can declare +0x7C, whole-app verify; P-T10-1:
-   P4's two-int lever on client.h's `__int64` Unknown10C0 for SERVER_HANDOFF 58, one whole-app trial),
-   refreshing clienttest's expected.txt per commit; co.cpp's remainder (T11's report: the constructor 0x6F2820 needs client.cpp's base 0x725050 and
-   MultiFixedPoolDecalSystemClass at +0x4C, then the destructor; auxdata.h's lookup helper (line 155, 84 callers)
-   opens 0x6F58B0, 0x6F5E40-0x6F5F60, 0x6FF1D0-0x6FFC80, 0x700400, 0x7008B0; P-T11-1 Model -> RenderObject;
-   P-T11-2 the UnknownCOClass merge after the CREATE factory moves; T12's aux-data helper and its +5, then the
-   multi-field users 0x6FF1D0-0x6FFC80 and 0x700400, 0x6F4290, 0x6FFFF0: see T13's result in the log); SClient's frame 0x742B60, Render 0x744690, the chat commands
-   0x74ABC0, its 3.9 KB of statics, the Delta run; P-T5-2 (the login views into pk.h / delta.h, tsk_login.h's
-   typedefs dropped, the race / profession key-value `Type_Name` form); P-H9-3 / P-H11-1 / P-H12-3 / P-H13-2
-   (stand-in names switched to the real headers at the files' next edit; UnknownCOClass into co.h); the Fable
-   round D92 for ClientClass's constructor and Find_Object / Remove_Object. Parked after two rounds: Unknown_50,
-   the fast start 0x76A370, Pre_Run, Run, Start_Game, Go_Next/Back_Step, SClient's destructor / Init / Shutdown
-   (P-T7-2: after the UI base).
-3. The packet classes: ~252 of 260 rebuilt. Left: 2 and 111-119 (with P-T5-2), 145's value constructor 0x873260,
-   the three value constructors 0x8A0380 / 0x89FD80 / 0x85C800 after P8's trial (d391704 made the assignment
-   implicit, +0/-0; a plain `char Ship_Name[0x1A]` in place of the bool/char union gains the first two and 0x55D8A0
-   but loses tsk_login's constructor 0x767240 at 0.82: P-P8-1, one trial on 0x767240 under the char[] layout
-   (a byte reload `mov dl,[esp+0x13]` around the 0xB-state calls) before deciding), P-P7-2
-   (Packet_0048Class -> CreateCharacterPacketClass through pkclasses.py at its next regeneration),
-   91 (pkverblist.h), 181/182 (FIND_MEMBER's object; after the eval's task A), 45 and 117 (item 1), 82's raw
-   constructor and Build (parked), the decoder's destructor failures.
-4. The SGI hash_map's users (D87): left are inpdsp (the first object, registry), client_lego_impl (35 KB, needs
-   SClient: now possible), fontmanager's remainder (H14's report), control_keys_manager's remainder, the
-   hash-loop residues (P-H10-1: 0x5A7E80, 0x5A8100 with 0x677410, 0x6ACD10 as one batch when a lever names the
-   loop-register cause), kv_list's 0x4B6B60 (why 0x4B7030 is a one-caller find instance), co_player_relationship
-   and option.cpp after the eval. The retry rows: §3.1's `_M_destroy_val` and const_iterator rows.
+   types; remove ini_manager's and attrib_dir's explicit specializations), P-F5-1 / the regenerated names-review.md,
+   and a full verify to refresh imports.json's `in_tree_total` lines (commit_mine never commits them).
+2. Step 9 (D90) continues. co.cpp: derive ClientObjectClass from UnknownB02C90Class (client.cpp) and
+   MultiFixedPoolDecalSystemClass (layout and vtable 0xB006F4 in co.cpp's notes), then the constructor 0x6F2820 and
+   destructor 0x6F2FE0, with T16's co.h list in the same step (Unknown98Class's slots +0x18..+0x2C replacing
+   cpacket's Unknown98StateClass, a `std::vector<ColorizationRegionStruct>` at +0xC8, declarations for 0x6F2820 /
+   0x6F5140 / 0x6F33F0; clienttest's `new ClientObjectClass` stand-in changes with them), which unblocks CREATE 4;
+   the base's slot +0x04 0x7251C0 (pure placeholder) and its attach / detach rows. cpacket.cpp: CREATE 4, the effect
+   family 10/11/... (9's pattern), FORMATION 65, NAME_DECAL 178, CAMERA_CONTROL 146, CLIENT_DAMAGE 100,
+   CLIENT_CHAT_EVENT 165; P-T16-2 (Unknown831340Class's 4th constructor parameter is `const RefCountPtr<ItemBaseInfoClass> &`,
+   with client.cpp's "Null Item" call); P-T16-3 (one Opus round on 62, then Fable). sclient.cpp: P-T18-1 (the
+   rebuilding commit deletes the member's hand-written clienttest stub: Do_Frame 0x742B60, Render 0x744690, the chat
+   commands 0x74ABC0, Print, Unknown_34 / _64, ...), P-T18-2 (gen_stubs: class-by-value returns and template
+   parameters, unblocks 0x744C10 / 0x744D80), 0x7429B0 (line 749), 0x7436A0, 0x745750, 0x745AA0-0x745E40 (need
+   ClientClass +0x10D4's type), 0x74C3B0, 0x74D570 / 0x74D690 (aux data; auxdata.h in sclient.cpp breaks kv_pair.h's
+   Type_Name overloads, C2665), the dialogs 0x74E580-0x751660, the destructor's `++it` loop once the UI base exists
+   (P-T7-2). P-H9-3 / P-H11-1 / P-H12-3 / P-H13-2 / P-T11-1 / P-H18-1 (stand-in names and twins switched to the real
+   headers at the files' next edit; Model -> RenderObject; LoginUnknown0CClass from inpdsp.h); the Fable round D92
+   for ClientClass's constructor and Find_Object / Remove_Object. Parked after two rounds: Unknown_50, the fast start
+   0x76A370, Pre_Run, Run, Start_Game, Go_Next/Back_Step, SClient's destructor / Init / Shutdown.
+3. The packet classes: ~260 of 260 declared, ~252 rebuilt. Left: 181/182 (FIND_MEMBER's object; after the eval's task
+   A), 45 and 117 (item 1), 21 / 22 / 32-34 still declared in pk_classes.h, the value constructors 0x8A0380 / 0x89FD80
+   / 0x85C800 / 0x864090 (one cause: the ship-name union is copied with its first byte peeled; P-P8-1's char[] layout
+   trades them for tsk_login's constructor, T14: needs a lever that keeps the union), 82's raw constructor and Build,
+   P-P9-2 (LoginKVVisitorClass into DeltaChildVisitorClass / KVEncoderBaseClass with prof.cpp / race.cpp, about 30
+   functions 0x4F6A80-0x4F7820, so the race / profession `Type_Name` twins gain), P-P7-2 (Packet_0048Class ->
+   CreateCharacterPacketClass through pkclasses.py), the decoder's destructor failures. Tools to promote:
+   `.work/p9/wt.py`, `checks.sh`, `commit_wt.py` (a verify worktree with junctions, dgrams and libs; re-sorted maps);
+   commit_json.py must keep imports.json's maps sorted.
+4. The SGI hash_map's users (D87): left are the key-name object after inpdsp (0x42B610 / 0x42B7E0, init 0x42BC90),
+   client_lego_impl's seven NOT EXACT (Get_Lego_Transform 0x72B000, Child_Moved 0x72CE40, Attach 0x72D0E0
+   Fable-eligible, P-H17-2; Add / Remove one or two EH states off), fontmanager's 0x6D2700 (a block ending before the
+   G_ASSERT) and 0x6D2580 (the RefCountPtr-local lever), 0x6D0F70 (probably 0x6D0A70's file), control_keys_manager's
+   P-H11-2 pair and Load_Definitions 0x71B1F0 (Fable-eligible), inpdsp 0x429F60 (register), the hash-loop residues
+   (P-H10-1: 0x5A7E80, 0x5A8100 with 0x677410, 0x6ACD10 as one batch when a lever names the loop-register cause),
+   kv_list's 0x4B6B60 (why 0x4B7030 is a one-caller find instance), co_player_relationship and option.cpp after the
+   eval. P-H17-1: note in libs/sgistl's README that `insert_unique_noresize` fails in VC6 (C2899); the client inserts
+   through `operator[]`.
 5. Land (M2.4, D46): P-L6-2 (the four undefined land symbols' placement) then P-L6-1 (viddeco.* from vidland's
    decorations, the switch diff in `.work/l6/`, delete vidland.*; land test, drawcheck, sbs within ±1.5%); the
    parked rows (Compute_Lighting order-only, Update_Patches / Compute_Horizons shape, the scanners' frame,
@@ -1312,14 +1337,17 @@ client's own code: [kernel-map.md](kernel-map.md) §6 and, for step 9's dependen
 6. Step 8's tail: Key_Exchange (LIMIT), the UDP constructor over a CordCon 0x82CBF0 (register), Open_Fixed_Channel
    0x82D8C0 (field offset), `Send_Data` (wlib's Dictionary layout), 0x82E1D0 (needs CordMgr 0x8598F0), the
    TimedLog ctor, the memconn option slot, Rate Count (LIMIT), Listen.
-7. The Fable queue under D89 (six at most, by unlock value): D92's three (item 2), the kv_list destructor's twin
-   0x4B6B60 if a lever appears, the distortion draw 0x9961E0 (F4: frame and loop registers remain; its row is
-   LIMIT), the ShdMesh ctor 0xA08F80 (LIMIT; the un-threaded-test stop signal). Out for good (register/order):
-   Make_Screen_Shot, Update_Movie_Capture's LockRect residue, Rate Count, Run/Start_Game/Go_*.
-8. Tools: P-H14-1 (promote `.work/h14/commit_ck.py`: commit_mine hunks picked by the imports.json file block's line
-   range, since address keys take identical lines from other files' blocks); H14's fontmanager leftovers 0x6D0F70,
-   0x6D1220, 0x6D2700 (generators `.work/h14/gen.py`, `fm_gen.py`); Load_Definitions 0x71B1F0 is Fable-eligible (item 7).
+7. The Fable queue under D89 (six at most, by unlock value): D92's three (item 2), client_lego_impl's
+   Get_Lego_Transform first then Child_Moved / Attach (P-H17-2), cpacket 62 after its Opus round (P-T16-3),
+   Load_Definitions 0x71B1F0, the kv_list destructor's twin 0x4B6B60 if a lever appears, the distortion draw
+   0x9961E0 (LIMIT), the ShdMesh ctor 0xA08F80 (LIMIT). Out for good (register/order): Make_Screen_Shot,
+   Update_Movie_Capture's LockRect residue, Rate Count, Run/Start_Game/Go_*.
+8. Tools: done 2026-10-27 (commit_mine `--file`, attempts.py line endings, build.py's UNRES regex). Left: promote
+   P9's worktree scripts (item 3); the compare-and-swap commit rule (`update-ref master NEW OLD`) into commit_mine
+   (H17's race); gen_stubs' by-value returns (P-T18-2); H16's `.work/h16/fm_gen.py` / `commit_h16.py` pattern for
+   generated files.
 9. Leftovers: the shaders' `multiple` functions (D88 credits what it can), Compute_Caps 0x9B0160 (parked), the
    meshmatdesc noise (D18/D28), `CreateBrowser`'s app callers 0x7CA5C0 / 0x7CAD00 (E&B's `querydata`); P-H11-2
    (the _Instances destructor frees nodes without element destructors: leave unbuilt until another SGI user
-   shows it); `tiebreak` / `selfname` into imports.json only when something needs it (D88 row).
+   shows it); `tiebreak` / `selfname` into imports.json only when something needs it (D88 row); same-shape template
+   instances stay `multiple` until their relocation targets have names in symbols.json (P9).
