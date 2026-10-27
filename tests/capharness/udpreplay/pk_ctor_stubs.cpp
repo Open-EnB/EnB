@@ -16,7 +16,6 @@ MasterJoinPacketClass::MasterJoinPacketClass(RawPacketClass *raw) { Conn_Record(
 ServerRedirectPacketClass::ServerRedirectPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 ServerHandoffPacketClass::ServerHandoffPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_003BClass::Packet_003BClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-Packet_006CClass::Packet_006CClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 GlobalConnectPacketClass::GlobalConnectPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 GlobalTicketPacketClass::GlobalTicketPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 GlobalAvatarListPacketClass::GlobalAvatarListPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
@@ -51,7 +50,6 @@ AvatarDescPacketClass::AvatarDescPacketClass(RawPacketClass *raw) { Conn_Record(
 GadgetPacketClass::GadgetPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_0068Class::Packet_0068Class(RawPacketClass *raw) { Conn_Record(this, raw); }
 ManufactureTechLevelFilterPacketClass::ManufactureTechLevelFilterPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-PetitionStuckPacketClass::PetitionStuckPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 PlayerObjectReactionUpdatePacket::PlayerObjectReactionUpdatePacket(RawPacketClass *raw) { Conn_Record(this, raw); }
 IncapacitanceDetailsPacket::IncapacitanceDetailsPacket(RawPacketClass *raw) { Conn_Record(this, raw); }
 JobListPacketClass::JobListPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }

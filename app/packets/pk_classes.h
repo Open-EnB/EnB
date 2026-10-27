@@ -68,9 +68,11 @@
 #include "pkmove.h"	// rebuilt
 #include "pknamedecal.h"	// rebuilt
 #include "pknavdelete.h"	// rebuilt
+#include "pknote.h"	// rebuilt
 #include "pknotelist.h"	// rebuilt
 #include "pkopeninterface.h"	// rebuilt
 #include "pkoption.h"	// rebuilt
+#include "pkpetitionstuck.h"	// rebuilt
 #include "pkpointeffect.h"	// rebuilt
 #include "pkreferralpointsavailable.h"	// rebuilt
 #include "pkremove.h"	// rebuilt
@@ -263,15 +265,6 @@ public:
 	Packet_003BClass(RawPacketClass *raw);	// 0x8A61E0
 	virtual bool Process_Packet(void *client);	// +0x08 0x8683D0 (clientstub.cpp l.161)
 	char Unknown0C[0xC];	// +0x0C
-};
-
-// opcode 108 (0x006C, ?): vtable 0xB0B504, constructor 0x89EFC0, 0x28 bytes
-class Packet_006CClass : public PacketClass  // NAME 1: neutral (D10): opcode 0x006C
-{
-public:
-	Packet_006CClass(RawPacketClass *raw);	// 0x89EFC0
-	virtual bool Process_Packet(void *client);	// +0x08 0x868970 (clientstub.cpp l.251)
-	char Unknown0C[0x1C];	// +0x0C
 };
 
 // opcode 109 (0x006D, GLOBAL_CONNECT): vtable 0xB09398, constructor 0x8634D0, 0x14 bytes
@@ -573,15 +566,6 @@ public:
 	ManufactureTechLevelFilterPacketClass(RawPacketClass *raw);	// 0x89C3E0
 	virtual bool Process_Packet(void *client);	// +0x08 0x868790 (clientstub.cpp l.221)
 	char Unknown0C[0xC];	// +0x0C
-};
-
-// opcode 136 (0x0088, PETITION_STUCK): vtable 0xB0B594, constructor 0x89F860, 0x20 bytes
-class PetitionStuckPacketClass : public PacketClass  // NAME 3: the client's Print text 'PetitionStuck {' and the PacketClass convention
-{
-public:
-	PetitionStuckPacketClass(RawPacketClass *raw);	// 0x89F860
-	virtual bool Process_Packet(void *client);	// +0x08 0x868A00 (clientstub.cpp l.260)
-	char Unknown0C[0x14];	// +0x0C
 };
 
 // opcode 138 (0x008A, ?): vtable 0xB09B44, constructor 0x873F70, 0x20 bytes

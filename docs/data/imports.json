@@ -2756,6 +2756,26 @@
     "merged": [],
     "name": "packets/pknavdelete.cpp"
    },
+   "pknote": {
+    "ambiguous": [
+     "0x42B2F0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350",
+     "0x89EF20",
+     "0x89EFC0",
+     "0x89F0A0",
+     "0x89F190"
+    ],
+    "merged": [],
+    "name": "packets/pknote.cpp"
+   },
    "pknotelist": {
     "ambiguous": [
      "0x42B2F0"
@@ -2817,6 +2837,29 @@
     ],
     "merged": [],
     "name": "packets/pkoption.cpp"
+   },
+   "pkpetitionstuck": {
+    "ambiguous": [
+     "0x42B2F0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350",
+     "0x89F740",
+     "0x89F830",
+     "0x89F860",
+     "0x89F930",
+     "0x89F9A0",
+     "0x89FA90",
+     "0x89FAE0"
+    ],
+    "merged": [],
+    "name": "packets/pkpetitionstuck.cpp"
    },
    "pkpointeffect": {
     "ambiguous": [
@@ -4605,9 +4648,11 @@
    "packets/pkmove.h": "reconstructed",
    "packets/pknamedecal.h": "reconstructed",
    "packets/pknavdelete.h": "reconstructed",
+   "packets/pknote.h": "reconstructed",
    "packets/pknotelist.h": "reconstructed",
    "packets/pkopeninterface.h": "reconstructed",
    "packets/pkoption.h": "reconstructed",
+   "packets/pkpetitionstuck.h": "reconstructed",
    "packets/pkpointeffect.h": "reconstructed",
    "packets/pkreferralpointsavailable.h": "reconstructed",
    "packets/pkremove.h": "reconstructed",
