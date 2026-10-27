@@ -123,7 +123,7 @@ bool LandClass::Load_Assets(const char *ini_name)
 {
 	INIClass ini;
 	ini.Load(ini_name);
-	Field = HeightFieldClass::Load(ini_name);
+	Field = HeightFieldClass::Load(ini_name, 0xFFFFFFFF);	// ours: no maximum size (the client passes its graphics option)
 	if (Field == NULL) {
 		return false;
 	}

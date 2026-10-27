@@ -11,14 +11,13 @@
 **	FLIP_PGM. The field is centred on the origin: vertex (i, j) is at x = (i - Size / 2) * Spacing,
 **	y = (j - Size / 2) * Spacing.
 **
-**	The client: ctor 0x4634A0, Load 0x4634F0, the PGM reader 0x4637C0, the ray and box collision
-**	code 0x463F00-0x465D30 (VIDTEST's 2002 copy: 0x4023D0, 0x402420, 0x4026B0, Sample 0x402AE0).
-**	The client doesn't name the class (D24): HeightFieldClass is descriptive. VIDTEST's object is
-**	0x98 bytes: +0 heights, +8 maxval (16 bits), +0x0C/+0x10 spacing, +0x14 height scale,
-**	+0x18 wrapping, +0x1C log2(size), +0x20/+0x24 size, +0x28/+0x2C size - 1, +0x30 size / 2,
-**	+0x34 the PGM name (100).
-**
-**	NOT THE CLIENT'S LAYOUT: functional (D42); the heights are floats here.
+**	The client: ctor 0x4634A0, dtor 0x463790, Load 0x4634F0 (static, called by LandClass::Load_Assets
+**	0x4691D0 with a maximum size from the graphics options), the PGM reader 0x4637C0, Sample 0x463BF0,
+**	the vertex accessors 0x463C80-0x463E70, the height at a position 0x464600 (two triangles per
+**	cell), the ray and box collision code 0x463F00-0x465D30 (not rebuilt). VIDTEST's 2002 copy:
+**	0x4023D0, 0x402420, 0x4026B0, Sample 0x402AE0. The client doesn't name the class (D24):
+**	HeightFieldClass is descriptive. The object is 0x98 bytes; the heights are 16-bit, in a buffer
+**	aligned to 64 bytes (+0x04 is the allocation), indexed (j & Mask) << Log2 | (i & Mask).
 */
 
 #if defined(_MSC_VER)
@@ -31,7 +30,7 @@
 
 #include "vector3.h"
 
-class INIClass;
+class Vector2;
 
 // NAME 2: after land.ini's [HEIGHTMAP] / HEIGHT_MAP; the client names no class
 class HeightFieldClass
@@ -40,30 +39,45 @@ public:
 	HeightFieldClass(void);
 	~HeightFieldClass(void);
 
-// NAME 2: methods and members describe what they do / hold (VIDTEST 0x402420, 0x4026B0, 0x402AE0)
-	static HeightFieldClass *	Load(const char *ini_name);
-	bool						Load_PGM(const char *filename, bool flip);
+// NAME 2: methods after what they do (the client's 0x4634F0, 0x4637C0, 0x463BF0, 0x463C80-0x463E70, 0x464600)
+	static HeightFieldClass *	Load(const char *ini_name, unsigned int max_size);
+	bool						Load_PGM(const char *filename, bool flip, unsigned int max_size);
+	void						Sample(Vector3 *out, const Vector2 &uv);
+	float						Get_Height(unsigned int i, unsigned int j);
+	float						Get_Height_2(unsigned int i, unsigned int j);	// NAME 1: the same code at a second address (0x463CD0)
+	void						Set_Height(float height, unsigned int i, unsigned int j);
+	void						Set_Height_2(float height, unsigned int i, unsigned int j);	// NAME 1: the same code at a second address (0x463D90)
+	void						World_To_Grid(const Vector2 &pos, float *i, float *j);
+	void						Get_Vertex(unsigned int i, unsigned int j, Vector3 *out);
+	float						Get_Height(const Vector2 &pos);
 
-	int						Get_Size(void) const					{ return Width; }
-	float						Get_Spacing(void) const				{ return Spacing; }
-	float						Get_Extent(void) const				{ return Spacing * Width; }
+// NAME 2: ours (VIDTEST's land, functional): the grid clamped at the edges, world coordinates
+	int						Get_Size(void) const					{ return Size; }
+	float						Get_Spacing(void) const				{ return XSpacing; }
+	float						Get_Extent(void) const				{ return XSpacing * Size; }
 	float						Get_Vertex_Height(int i, int j) const;
 	Vector3					Get_Vertex(int i, int j) const;
 	Vector3					Get_Normal(int i, int j) const;
 	float						Get_Height(float x, float y) const;	// bilinear, world coordinates
-	void						Sample(Vector3 *out, float u, float v) const;	// u, v in [0, 1]
-
+	void						Sample(Vector3 *out, float u, float v) const;	// u, v in [0, 1], bilinear
 	const char *			Get_Name(void) const					{ return Name; }
 
 protected:
-	float *					Heights;
-	unsigned short			MaxValue;
-	float						Spacing;
-	float						HeightScale;
-	bool						Wrapping;
-	int						Width;
-	int						Height;
-	char						Name[100];
+// NAME 2: members after what Load and the PGM reader store
+	unsigned short *		Heights;				// +0x00, Buffer aligned to 64 bytes
+	void *					Buffer;				// +0x04
+	unsigned short			MaxValue;			// +0x08, the largest height read
+	float						XSpacing;			// +0x0C, HSCALE / size
+	float						YSpacing;			// +0x10
+	float						VScale;				// +0x14, VSCALE / MaxValue
+	bool						Wrapping;			// +0x18
+	unsigned int			Log2;					// +0x1C
+	unsigned int			Size;					// +0x20
+	unsigned int			Count;				// +0x24, Size * Size
+	unsigned int			Mask;					// +0x28, Size - 1
+	unsigned int			CountMask;			// +0x2C, Count - 1
+	unsigned int			HalfSize;			// +0x30
+	char						Name[100];			// +0x34
 };
 
 #endif //__HEIGHTFIELD_H

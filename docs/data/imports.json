@@ -714,12 +714,16 @@
    },
    "heightfield": {
     "ambiguous": [
-     "0x4AE1B0"
+     "0x463C80",
+     "0x463D20"
     ],
     "copy": "reconstructed",
     "expected": {},
     "in_tree": [
-     "0x447C40"
+     "0x447C40",
+     "0x4634A0",
+     "0x463790",
+     "0x463E70"
     ],
     "merged": [],
     "name": "shared/heightfield.cpp"
