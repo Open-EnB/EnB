@@ -1506,6 +1506,30 @@
     "merged": [],
     "name": "packets/pkcolorization.cpp"
    },
+   "pkconfirmedaction": {
+    "ambiguous": [
+     "0x42B2F0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350",
+     "0x870940",
+     "0x8709E0",
+     "0x870AA0",
+     "0x870B90",
+     "0x870BD0",
+     "0x870C50",
+     "0x870D20",
+     "0x870E20"
+    ],
+    "merged": [],
+    "name": "packets/pkconfirmedaction.cpp"
+   },
    "pkcreate": {
     "ambiguous": [
      "0x42B2F0"
@@ -4015,6 +4039,7 @@
    "packets/pkclientchat.h": "reconstructed",
    "packets/pkclientship.h": "reconstructed",
    "packets/pkcolorization.h": "reconstructed",
+   "packets/pkconfirmedaction.h": "reconstructed",
    "packets/pkcreate.h": "reconstructed",
    "packets/pkcreateattachment.h": "reconstructed",
    "packets/pkcta_request.h": "reconstructed",

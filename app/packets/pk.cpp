@@ -662,7 +662,7 @@ PacketClass *Unknown_869790(RawPacketClass *raw)
 			packet = new ConfirmedActionOfferPacketClass(raw);
 			break;
 		case 191:
-			packet = new Packet_00BFClass(raw);
+			packet = new ConfirmedActionTimeoutPacketClass(raw);
 			break;
 		case 192:
 			packet = new ConfirmedActionResponsePacketClass(raw);

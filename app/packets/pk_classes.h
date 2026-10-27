@@ -29,6 +29,7 @@
 #include "pkclientchat.h"	// rebuilt
 #include "pkclientship.h"	// rebuilt
 #include "pkcolorization.h"	// rebuilt
+#include "pkconfirmedaction.h"	// rebuilt
 #include "pkcreate.h"	// rebuilt
 #include "pkcreateattachment.h"	// rebuilt
 #include "pkcta_request.h"	// rebuilt
@@ -769,23 +770,6 @@ class ConfirmedActionOfferPacketClass : public PacketClass  // NAME 2: the refer
 public:
 	ConfirmedActionOfferPacketClass(RawPacketClass *raw);	// 0x870650
 	char Unknown0C[0x18];	// +0x0C
-};
-
-// opcode 191 (0x00BF, ?): vtable 0xB098CC, constructor 0x8709E0, 0x14 bytes
-class Packet_00BFClass : public PacketClass  // NAME 1: neutral (D10): opcode 0x00BF
-{
-public:
-	Packet_00BFClass(RawPacketClass *raw);	// 0x8709E0
-	char Unknown0C[0x8];	// +0x0C
-};
-
-// opcode 192 (0x00C0, CONFIRMED_ACTION_RESPONSE): vtable 0xB098FC, constructor 0x870C50, 0x18 bytes
-class ConfirmedActionResponsePacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name CONFIRMED_ACTION_RESPONSE (the Net-7 opcode table; no structure check)
-{
-public:
-	ConfirmedActionResponsePacketClass(RawPacketClass *raw);	// 0x870C50
-	virtual bool Process_Packet(void *client);	// +0x08 0x868E20 (clientstub.cpp l.326)
-	char Unknown0C[0xC];	// +0x0C
 };
 
 // opcode 193 (0x00C1, ?): vtable 0xB0AA64, constructor 0x88EE20, 0x30 bytes
