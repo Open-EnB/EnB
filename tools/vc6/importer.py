@@ -3463,6 +3463,13 @@ RECONSTRUCTED = {
     ('app', 'kernel/kernel.cpp'): "the task kernel, client 0x443020-0x444150 (kernel-map.md 6, step 1): KernelClass and TaskClass; "
                                   "the asserts on the client's lines 74 / 157 / 196 / 225 / 474 (D25); NOT EXACT: Remove_Task "
                                   "(the client calls list's iterator++ 0x444190 out of line), Is_Running, TaskClass::Is_Focused",
+    ('app', 'audio/soundlib.h'): "SoundDefClass and SoundLibraryClass (D24): sounds.ini's definitions in an SGI "
+                                "hash_map<std::string, SoundDefClass *> (libs/sgistl, D87), WWAudio's 2D / 3D sounds, "
+                                "the dialog channel (_NextDialogDef / _NextDialogName from the client's assert)",
+    ('app', 'audio/soundlib.cpp'): "SoundDefClass / SoundLibraryClass, client 0x43D3E0-0x43FE30 with the bridge's "
+                                  "slots and the table's instances to 0x441A50: the asserts on the client's lines "
+                                  "198 / 212 / 292 / 669 / 838 (D25); NOT EXACT: the ini constructor 0x43D3E0, "
+                                  "Play_2D_Sound 0x43ED30, Play_Dialog 0x43F2D0, Load 0x43FE30",
     ('app', 'client/buff_database.h'): "BuffDefStruct and BuffDatabaseClass (D24): buffdef.ini's BUFF-n sections in an "
                                       "SGI hash_map<std::string, BuffDefStruct *> (libs/sgistl, D87)",
     ('app', 'client/buff_database.cpp'): "BuffDefStruct / BuffDatabaseClass, client 0x676CD0-0x677660 with the table's "
