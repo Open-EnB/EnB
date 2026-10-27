@@ -9,7 +9,6 @@ LoginPacketClass::LoginPacketClass(RawPacketClass *raw) { Conn_Record(this, raw)
 SimplePositionalUpdatePacketClass::SimplePositionalUpdatePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 ComponentPositionalUpdatePacketClass::ComponentPositionalUpdatePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 FormationPositionalUpdatePacketClass::FormationPositionalUpdatePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-DecalPacketClass::DecalPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_0015Class::Packet_0015Class(RawPacketClass *raw) { Conn_Record(this, raw); }
 DebugPacketClass::DebugPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 ItemBasePacketClass::ItemBasePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
@@ -142,6 +141,7 @@ bool ObjectToEffectEffectPacketClass::Process_Packet(void *) { return(true); }	/
 bool ObjectToPointEffectPacketClass::Process_Packet(void *) { return(true); }	// 0x735B00
 bool ObjectToObjectDurationLinkedEffectPacketClass::Process_Packet(void *) { return(true); }	// 0x735880
 bool RemoveEffectPacketClass::Process_Packet(void *) { return(true); }	// 0x735D50
+bool DecalPacketClass::Process_Packet(void *) { return(true); }	// 0x735DF0
 bool ColorizationPacketClass::Process_Packet(void *) { return(true); }	// 0x735ED0
 bool SetTargetPacketClass::Process_Packet(void *) { return(true); }	// 0x7363E0
 bool AuxDataPacketClass::Process_Packet(void *) { return(true); }	// 0x7364C0

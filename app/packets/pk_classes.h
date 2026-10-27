@@ -144,14 +144,6 @@ public:
 	char Unknown0C[0x18];	// +0x0C
 };
 
-// opcode 16 (0x0010, DECAL): vtable 0xB0A200, constructor 0x8807B0, 0x24 bytes
-class DecalPacketClass : public PacketClass
-{
-public:
-	DecalPacketClass(RawPacketClass *raw);	// 0x8807B0
-	char Unknown0C[0x18];	// +0x0C
-};
-
 // opcode 21 (0x0015, ?): vtable 0xB0A61C, constructor 0x887370, 0x14 bytes
 class Packet_0015Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x0015
 {

@@ -2,6 +2,55 @@
 #include "pknamedecal.h"
 #include <stdio.h>
 
+// NOT EXACT: 0x8805C0, the inline vector copy's loop addresses each decal from +0x10 in the client
+// (shape, as COLORIZATION's 0x87F320; attempts.py show 0x8805C0)
+DecalPacketClass::DecalPacketClass(int game_id, const std::vector<DecalStruct> &decals) :
+	GameID(game_id),
+	Decals(decals)
+{
+	Channel = Unknown_14(GameID, -1);
+}
+
+// NOT EXACT: 0x8807B0, the client inlines push_back's insert (over this object's helpers 0x8810F0-
+// 0x881250), ours calls it (inline-budget; attempts.py show 0x8807B0)
+DecalPacketClass::DecalPacketClass(RawPacketClass *raw)
+{
+	raw->Get(&GameID, sizeof(GameID));
+	short count = 0;
+	raw->Get(&count, sizeof(count));
+	Decals.reserve(count);
+	for (int i = 0; i < count; i++) {
+		DecalStruct decal;
+		raw->Get(&decal.Unknown00, sizeof(decal.Unknown00));
+		raw->Get(&decal.Unknown04, sizeof(decal.Unknown04));
+		raw->Get(&decal.Unknown08, sizeof(decal.Unknown08));
+		Decals.push_back(decal);
+	}
+}
+
+RawPacketClass *DecalPacketClass::Build()
+{
+	RawPacketClass *raw = new RawPacketClass(16, Get_Data_Size());
+	raw->Add(&GameID, sizeof(GameID));
+	int count = Decals.size();
+	raw->Add(&count, sizeof(short));
+	for (std::vector<DecalStruct>::iterator it = Decals.begin(); it != Decals.end(); ++it) {
+		raw->Add(&it->Unknown00, sizeof(it->Unknown00));
+		raw->Add(&it->Unknown04, sizeof(it->Unknown04));
+		raw->Add(&it->Unknown08, sizeof(it->Unknown08));
+	}
+	return(raw);
+}
+
+int DecalPacketClass::Get_Data_Size()
+{
+	return(sizeof(GameID) + sizeof(short) + Decals.size() * sizeof(DecalStruct));
+}
+
+int DecalPacketClass::Print(char *buffer, int)
+{
+	return(sprintf(buffer, "%s {GameID=%d NumDecals=%d}", "Decal", GameID, Decals.size()));
+}
 
 NameDecalPacketClass::NameDecalPacketClass(RawPacketClass *raw)
 {

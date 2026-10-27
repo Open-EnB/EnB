@@ -1997,7 +1997,9 @@
    },
    "pknamedecal": {
     "ambiguous": [
-     "0x42B2F0"
+     "0x42A900",
+     "0x42B2F0",
+     "0x874BA0"
     ],
     "copy": "reconstructed",
     "expected": {},
@@ -2007,6 +2009,9 @@
      "0x52B270",
      "0x52B2A0",
      "0x52B350",
+     "0x880BC0",
+     "0x880D00",
+     "0x880D50",
      "0x880EE0",
      "0x880FA0",
      "0x8810A0"
