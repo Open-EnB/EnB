@@ -242,6 +242,7 @@ unless `--lever` cites a new row of this table.
 | `pop_back` vs `erase(end()-1)` | The client uses both forms: try the other | attrib_dir_collective (H7) |
 | A helper the client inlines, whose own callees the client calls | Route through the helper: its callees then go out of line | CharacterCreatorClass::Get_File_Name 0x78DE40 (T5) |
 | A clamp: the client's `movsx` and compare | Write it through an int local: `v = x; x = v < 6 ? v : 6` | avatar_desc (T5) |
+| A float copied through the FPU (`fld`/`fstp`) where ours uses `mov` | The value goes through an inline setter's parameter; a direct assignment gives `mov` | soundlib's dialog volume and Doppler members (H9, 1f32884) |
 
 * **A nested inline is a whole-function budget (2026-10-26, `Key_Exchange` 0x829180):** under `/Ob2` an
   inline helper's own callees (a `std::set` iterator's `_Inc`) are inlined only while the function as a
@@ -350,6 +351,10 @@ unless `--lever` cites a new row of this table.
 * **Compare against HEAD's imports.json, not a saved working copy:** another builder's verify rewrites the
   working copy with your uncommitted tree already in it (`git show HEAD:docs/data/imports.json` is the before-copy;
   2026-10-26, L4, F3). Compare over the whole app: a template header visible to other files moves their pairs.
+* **Adjacent new imports.json entries land in one insertion hunk** (soptions and soundlib; H9): a commit_mine key
+  then carries the other builder's entry. `.work/h9/commit_split.py` keeps only your block through a private index.
+  `appfile.py match` on app files that use wwaudio needs `-I` for libs/sgistl, wwlib, wwdebug, wwmath, wwaudio,
+  ww3d2 and wwsaveload (`.work/h9/match.sh`).
 * **commit_mine keys must cover every in_tree hunk of a file block:** a key such as "attrib_dir" matches only the
   block header's hunk; d8e3f1e had to record 19 pairs df8b6f3 missed (H7). Key by every address too.
 * **commit_mine.py hunks (2026-10-26/27):** keys must cover every `-U0` hunk of yours, and a key matches an

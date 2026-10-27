@@ -265,3 +265,5 @@ The repository is GPL v3 (decision D1, [progress.md](progress.md)), hence the li
 Files imported from EA's repositories keep their original banners and licence header unchanged;
 we add a line saying which EA copy (Renegade, Generals, Zero Hour) and commit it came from, and
 note any change made to match the client.
+
+* **SoundLibraryBridge (2026-10-27, H9):** the client's bridge vtable 0xAE74EC has two slots; the tree's `ww3d2/soundlibrarybridge.h` declares three pure virtuals (`Stop_Playing_Audio` is Zero Hour's). app/audio/soundlib.cpp implements the third as an empty slot; ww3d2 stays as it is (no pair depends on it).
