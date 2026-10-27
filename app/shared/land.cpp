@@ -1,14 +1,16 @@
 // Earth & Beyond client (reconstruction): app\shared\ terrain (file name unknown). Notes at the end.
+#define ENABLE_WWPROFILE
 #include "land.h"
 #include "heightfield.h"
 #include "texture.h"
 #include "vertmaterial.h"
 #include <windows.h>
+#include "wwprofile.h"
 
 void Unknown_466F10(void);	// NAME 1: unknown; deletes a global object (0xBDC0D8) and clears it; called by the land's dtor only
 
 LandClass::LandClass(void) :
-	m_Unknown8C(0),
+	LightmapSerial(0),
 	m_UnknownE4(NULL),
 	HasSea(false),
 	CameraCellX(-999999),
@@ -21,8 +23,8 @@ LandClass::LandClass(void) :
 	Is16Bit(false),
 	Flag(false),
 	Dirty(true),
-	m_Unknown137(false),
-	m_Unknown138(true),
+	FrontLightmap(0),
+	BackLightmap(1),
 	SeaCount(0),
 	m_Unknown17C(ShaderClass::_PresetOpaqueShader),
 	m_Unknown184(ShaderClass::_PresetOpaqueShader),
@@ -43,7 +45,7 @@ LandClass::LandClass(void) :
 	UpdateY1(0),
 	CursorX(0),
 	CursorY(0),
-	m_Unknown1E0(false),
+	ThreadDone(false),
 	m_Unknown1E4(NULL),
 	m_Unknown1E8(NULL),
 	m_Unknown1EC(NULL),
@@ -162,6 +164,121 @@ bool LandClass::Cast_AABox(AABoxCollisionTestClass &boxtest)
 bool LandClass::Cast_OBBox(OBBoxCollisionTestClass &boxtest)
 {
 	return Field->Cast_OBBox(boxtest);
+}
+
+void LandClass::Lightmap_Thread(void *land)
+{
+	((LandClass *)land)->Compute_Lighting();
+	((LandClass *)land)->Compute_Shadows();
+}
+
+void LandClass::Swap_Lightmaps(void)
+{
+	LightmapSerial++;
+	LightmapTextures[BackLightmap]->Clean();
+	BackLightmap ^= 1;
+	FrontLightmap ^= 1;
+}
+
+void LandClass::Update_Lightmap_Full(const LandLightingStruct &lighting)
+{
+	if (Thread != NULL) {
+		WaitForSingleObject(Thread, INFINITE);
+		Thread = NULL;
+	}
+	Set_Lighting(lighting);
+	Prepare_Lighting();
+	int *min = &UpdateX0;
+	int *max = &UpdateX1;
+	min[0] = 0;
+	min[1] = 0;
+	int size = Field->Get_Size();
+	max[0] = size;
+	max[1] = size;
+	Compute_Lighting();
+	Compute_Shadows();
+	Upload_Lightmap(min, max);
+	Swap_Lightmaps();
+}
+
+// NOT EXACT: the client calls the lighting record's operator= (0x4744C0) in the inlined Update_Lightmap_Full: the record is one struct member there (land.h)
+void LandClass::Update_Lightmap_ManualThreaded(const LandLightingStruct &lighting)
+{
+	WWPROFILE("Land::Update_Lightmap_ManualThreaded");
+	int size = Field->Get_Size();
+	if (Thread != NULL) {
+		WaitForSingleObject(Thread, INFINITE);
+		Thread = NULL;
+	}
+	if (LightmapTextures[FrontLightmap]->Is_Dirty()) {
+		Update_Lightmap_Full(lighting);
+	} else if (CursorY == size) {
+		Swap_Lightmaps();
+		CursorY = 0;
+		CursorX = 0;
+		Set_Lighting(lighting);
+		Prepare_Lighting();
+	} else {
+		UpdateX0 = CursorX;
+		UpdateY0 = CursorY;
+		UpdateY1 = CursorY + LightmapChunk;
+		UpdateX1 = LightmapChunk + CursorX;
+		Compute_Lighting();
+		Compute_Shadows();
+		Upload_Lightmap(&UpdateX0, &UpdateX1);
+		CursorX += LightmapChunk;
+		if (CursorX == size) {
+			CursorX = 0;
+			CursorY += LightmapChunk;
+		}
+	}
+}
+
+// NOT EXACT: as Update_Lightmap_ManualThreaded (the record's operator= 0x4744C0 in the inlined Update_Lightmap_Full)
+void LandClass::Update_Lightmap_Threaded(const LandLightingStruct &lighting)
+{
+	if (LightmapTextures[FrontLightmap]->Is_Dirty()) {
+		Update_Lightmap_Full(lighting);
+		return;
+	}
+	if (!ThreadDone) {
+		if (Thread == NULL) {
+			Set_Lighting(lighting);
+			Prepare_Lighting();
+			UpdateX0 = 0;
+			UpdateY0 = 0;
+			int size = Field->Get_Size();
+			UpdateX1 = size;
+			UpdateY1 = size;
+			Thread = CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)Lightmap_Thread, this, 0, NULL);
+		}
+		if (WaitForSingleObject(Thread, 0) == WAIT_OBJECT_0) {
+			Thread = NULL;
+			ThreadDone = true;
+		}
+	} else {
+		int y = CursorY;
+		int size = Field->Get_Size();
+		if (y == size) {
+			Swap_Lightmaps();
+			CursorY = 0;
+			CursorX = 0;
+			ThreadDone = false;
+			return;
+		}
+		int min[2];
+		int max[2];
+		min[0] = CursorX;
+		min[1] = y;
+		max[0] = min[0] + LightmapChunk;
+		max[1] = LightmapChunk + y;
+		Upload_Lightmap(min, max);
+		CursorX += LightmapChunk;
+		if (CursorX == size) {
+			CursorX = 0;
+			CursorY += LightmapChunk;
+		}
+	}
 }
 
 /*

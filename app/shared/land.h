@@ -48,6 +48,17 @@ class TextureClass;
 class VertexMaterialClass;
 class LandClass;
 
+// NAME 2: VIDTEST's name for the 0x30-byte lighting record its Update_Lighting 0x4250B0 hands the land (esp+0x74)
+struct LandLightingStruct
+{
+	Vector3		LightColor;		// clamped LightColor x LightIntensity
+	Vector3		SunDirection;	// towards the sun
+	float		SunAngle;		// pi/2 - elevation
+	float		ShadowBias;
+	Vector3		SkyColor;		// clamped SkyColor x SkyIntensity
+	bool		Valid;
+};
+
 // NAME 1: the land's patch (0x30 bytes, new'd per grid cell by Load_Assets 0x4691D0; ctor 0x474530, dtor 0x474560)
 class LandPatchClass
 {
@@ -125,9 +136,33 @@ public:
 	virtual bool					Cast_AABox(AABoxCollisionTestClass &boxtest);
 	virtual bool					Cast_OBBox(OBBoxCollisionTestClass &boxtest);
 
+// NAME 2: Update_Lightmap_Full and Update_Lightmap_Threaded describe 0x46D900 / 0x46DDD0 (VIDTEST 0x40A9F0)
+	void							Update_Lightmap_Full(const LandLightingStruct &lighting);
+// NAME 5: profile label "Land::Update_Lightmap_ManualThreaded" (client 0x46DAA2)
+	void							Update_Lightmap_ManualThreaded(const LandLightingStruct &lighting);
+	void							Update_Lightmap_Threaded(const LandLightingStruct &lighting);
+
+protected:
+// NAME 2: after what they do (0x46C730, 0x46CAE0, 0x46D410, 0x46D6B0: not rebuilt; 0x46D8B0, 0x46D880)
+	void							Prepare_Lighting(void);
+	void							Compute_Lighting(void);
+	void							Compute_Shadows(void);
+	void							Upload_Lightmap(int *min, int *max);
+	void							Swap_Lightmaps(void);
+	static void					Lightmap_Thread(void *land);
+	void							Set_Lighting(const LandLightingStruct &lighting)
+	{
+		LightColor = lighting.LightColor;
+		SunDirection = lighting.SunDirection;
+		SunAngle = lighting.SunAngle;
+		ShadowBias = lighting.ShadowBias;
+		SkyColor = lighting.SkyColor;
+		LightingValid = lighting.Valid;
+	}
+
 protected:
 // NAME 2: members after what the ctor 0x468E90, the dtor 0x46A480 and Load_Assets 0x4691D0 do with them; m_UnknownXX: use not known
-	int							m_Unknown8C;
+	int							LightmapSerial;						// +0x8C, counts the lightmap swaps (0x46D8B0)
 	HeightFieldClass *		Field;									// +0x90, HeightFieldClass::Load; never set by the ctor
 	RefCountClass *			m_Unknown94[MAX_LEVELS];			// released by the dtor
 	int							m_UnknownA8[MAX_LEVELS];
@@ -155,8 +190,8 @@ protected:
 	bool							Is16Bit;									// +0x134, the device's depth is 16 bits or less
 	bool							Flag;										// +0x135, Create's flag
 	bool							Dirty;									// +0x136
-	bool							m_Unknown137;
-	bool							m_Unknown138;
+	unsigned char				FrontLightmap;						// +0x137, LightmapTextures index shown (xor 1 per swap)
+	unsigned char				BackLightmap;						// +0x138, the one being computed
 	int							LightmapChunk;							// +0x13C, [LAND] LIGHTMAP_CHUNK (8)
 	RefCountClass *			m_Unknown140[MAX_SEAS][2];			// released by the dtor when HasSea
 	ShaderClass					SeaShaders[MAX_SEAS];				// +0x150
@@ -188,7 +223,7 @@ protected:
 	int							UpdateY1;								// +0x1D4
 	int							CursorX;									// +0x1D8, steps of LightmapChunk
 	int							CursorY;									// +0x1DC
-	bool							m_Unknown1E0;
+	bool							ThreadDone;							// +0x1E0, Update_Lightmap_Threaded's worker has finished
 	unsigned char *			m_Unknown1E4;							// Field Count bytes
 	unsigned short *			m_Unknown1E8;							// Field Count shorts
 	unsigned short *			m_Unknown1EC;							// Field Count shorts
