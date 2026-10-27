@@ -1,5 +1,5 @@
 // Earth & Beyond client (reconstruction): app\shared\stars.cpp. Notes at the end of the file.
-// NOT EXACT: Load and Init (notes).
+// Load and Init are not byte-exact yet (notes); the rest of the file is.
 #include "stars.h"
 #include "pointgr.h"
 #include "rinfo.h"
@@ -88,6 +88,9 @@ void StarLayerClass::Render(RenderInfoClass &rinfo, unsigned int max_polys)
 
 
 
+
+
+// NOT EXACT: order-only (the Hemisphere z load), parked: attempts.csv 0x481DB0
 bool StarLayerClass::Load(const INIClass &ini, const char *section)
 {
 	FAIL_IF(!section) return false;
@@ -138,26 +141,21 @@ bool StarLayerClass::Load(const INIClass &ini, const char *section)
 	unsigned char *frames = Frames->Get_Array();
 	sampler.Set_Offset(qmc_offset);
 
+	float r;
 	for (int i = 0; i < NumStars; i++) {
 		float sample[5];
 		sampler.Sample(sample);
 		if (hemisphere) {
-			float r = (float)pow(1.0f - sample[1] * sample[1], 0.5);
-			float a = sample[0] * 6.2831855f;
-			points[i].Set((float)cos(a) * r, (float)sin(a) * r, sample[1]);
+			r = powf(1.0f - sample[1] * sample[1], 0.5f);
+			points[i].Set((float)cos(sample[0] * 6.2831855f) * r, (float)sin(sample[0] * 6.2831855f) * r, sample[1]);
 		} else {
-			float r = (float)pow((1.0f - sample[1]) * sample[1], 0.5);
-			float a = sample[0] * 6.2831855f;
-			points[i].Set((float)cos(a) * r * 2.0f, (float)sin(a) * r * 2.0f, 1.0f - sample[1] * 2.0f);
+			r = powf((1.0f - sample[1]) * sample[1], 0.5f);
+			points[i].Set((float)cos(sample[0] * 6.2831855f) * r * 2.0f, (float)sin(sample[0] * 6.2831855f) * r * 2.0f, 1.0f - sample[1] * 2.0f);
 		}
 		points[i] *= 100.0f;
 		sizes[i] = sample[2] * size_range + min_size;
 		orientations[i] = (unsigned char)(sample[3] * 255.0f);
-		if (pick_randomly) {
-			frames[i] = (unsigned char)(frame_count * sample[4]);
-		} else {
-			frames[i] = (unsigned char)(i % frame_count);
-		}
+		frames[i] = pick_randomly ? (unsigned char)(frame_count * sample[4]) : (unsigned char)(i % frame_count);
 	}
 	return true;
 }
@@ -183,6 +181,7 @@ void StarFieldClass::Free_Layers(void)
 	Layers.clear();
 }
 
+// NOT EXACT: register-only (cmp al,bl on Load's result), parked: attempts.csv 0x4829E0
 void StarFieldClass::Init(int system)
 {
 	Free_Layers();
@@ -196,7 +195,7 @@ void StarFieldClass::Init(int system)
 		for (;;) {
 			_snprintf(section, 100, "STAR%.4d\\%d", system, count);
 			layer = new StarLayerClass;
-			if (!layer->Load(ini, section)) break;
+			if (layer->Load(ini, section) == false) break;
 			Layers.push_back(layer);
 			count++;
 		}
@@ -206,18 +205,19 @@ void StarFieldClass::Init(int system)
 			for (;;) {
 				_snprintf(section, 100, "STAR%.4d\\%d", (system / 100) * 100, count);
 				layer = new StarLayerClass;
-				if (!layer->Load(ini, section)) break;
+				if (layer->Load(ini, section) == false) break;
 				Layers.push_back(layer);
 				count++;
 			}
 			delete layer;
 
 			if (count == 0) {
-				for (int i = 0; ; i++) {
-					sprintf(section, "Default\\%d", i);
+				for (;;) {
+					sprintf(section, "Default\\%d", count);
 					layer = new StarLayerClass;
-					if (!layer->Load(ini, section)) break;
+					if (layer->Load(ini, section) == false) break;
 					Layers.push_back(layer);
+					count++;
 				}
 				delete layer;
 			}
@@ -276,6 +276,10 @@ float StarFieldClass::Get_Cost(void) const
 **	the points transformed into camera space and drawn with an identity transform; the budget
 **	counts polygons (two per star in quad mode).
 **
-**	NOT EXACT, the whole file: written functionally from the pseudocode (D42), not yet matched.
-**	E&B's operator new (0x4E9CB0) is not the tree's.
+**	NOT EXACT: Load and Init only (the other functions are exact). Load (0.70): the asserts on the
+**	client's lines, the frames store as one ternary and powf (r stored before pow) match; left: the
+**	Hemisphere branch loads z (sample[1]) last where the client loads it first, the fifth
+**	Create_NEW temporary zeroed after its release, frame 0x4C vs 0x50. Init (0.72): the client
+**	compares Load's result with cmp al,bl (ebx 0) and calls the vector's insert(it, x) 0x483020 out
+**	of line in the Default loop. Both parked (attempts.csv).
 */

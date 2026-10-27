@@ -81,6 +81,7 @@
 #include "ini.h"
 #include "stars.h"							// app\shared (M2.4)
 #include "spln_db.h"						// app\shared (M2.4)
+#include "curve.h"
 #include "land.h"							// app\shared (M2.4)
 
 static FILE *		LogFile = NULL;
@@ -364,7 +365,23 @@ static void Land_Update_Lightmap(LandClass *l, const LandLightingStruct &lightin
 }
 static SplineDatabaseClass *	Splines = NULL;			// 0x5EF19C: splines.wsd
 static char					ArtDir[MAX_PATH] = "";	// ours: the -art folder (VIDTEST opens splines.wsd in its working directory)
-static bool Splines_Loaded(void)					{ return Splines != NULL && Splines->Is_Loaded(); }
+static bool Splines_Loaded(void)					{ return Splines != NULL && Splines->Has_Splines(); }
+
+/*
+** ours: a colour spline's value at t (VIDTEST 0x4250B0 evaluates the curves of name_R, _G, _B as
+** the client's lighting does through 0x485440)
+*/
+static bool Evaluate_Color(const char *base_name, float t, float *r, float *g, float *b)
+{
+	Curve1DClass *cr, *cg, *cb;
+	if (!Splines->Get_Color_Curves(base_name, &cr, &cg, &cb)) {
+		return false;
+	}
+	cr->Evaluate(t, r);
+	cg->Evaluate(t, g);
+	cb->Evaluate(t, b);
+	return true;
+}
 
 /*
 ** ------------------------------------------------------------------------------------------------
@@ -628,13 +645,13 @@ static void Update_Lighting(Vector3 *out, bool full)
 	Vector3 emissive(0.1f, 0.1f, 0.1f);
 	if (Splines_Loaded()) {
 		Vector3 c, i;
-		Splines->Evaluate_Color("LightColor.Earth", TimeOfDay, &c.X, &c.Y, &c.Z);
-		Splines->Evaluate_Color("LightIntensity.Sun", TimeOfDay, &i.X, &i.Y, &i.Z);
+		Evaluate_Color("LightColor.Earth", TimeOfDay, &c.X, &c.Y, &c.Z);
+		Evaluate_Color("LightIntensity.Sun", TimeOfDay, &i.X, &i.Y, &i.Z);
 		light.Set(c.X * i.X, c.Y * i.Y, c.Z * i.Z);
-		Splines->Evaluate_Color("SkyColor.Earth", TimeOfDay, &c.X, &c.Y, &c.Z);
-		Splines->Evaluate_Color("SkyIntensity.Sun", TimeOfDay, &i.X, &i.Y, &i.Z);
+		Evaluate_Color("SkyColor.Earth", TimeOfDay, &c.X, &c.Y, &c.Z);
+		Evaluate_Color("SkyIntensity.Sun", TimeOfDay, &i.X, &i.Y, &i.Z);
 		sky.Set(c.X * i.X, c.Y * i.Y, c.Z * i.Z);
-		Splines->Evaluate_Color("SkyEmissive.Default", TimeOfDay, &emissive.X, &emissive.Y, &emissive.Z);
+		Evaluate_Color("SkyEmissive.Default", TimeOfDay, &emissive.X, &emissive.Y, &emissive.Z);
 	}
 	Sun->Set_Spot_Direction(-sun);
 	Vector3 diffuse(WWMath::Clamp(light.X), WWMath::Clamp(light.Y), WWMath::Clamp(light.Z));

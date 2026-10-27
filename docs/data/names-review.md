@@ -1021,6 +1021,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `m_Unknown09` | `app/shared/kv_pair_string.cpp:41` | untagged neutral name (D10) |
 | 1 | `m_Unknown10` | `app/shared/kv_pair_string.h:49` | untagged neutral name (D10) |
 | 1 | `m_Unknown00` | `app/shared/money.h:27` | untagged neutral name (D10) |
+| 1 | `unused` | `app/shared/spln_db.h:108` | the client's copy takes a second argument (ret 8) it never reads |
 | 1 | `Unknown_Report_Message` | `app/shared/unknown_debug.cpp:7` | 0x4BC260 (its "Message_Error" string is a profiler label) |
 | 1 | `Unknown_Assert_Failed` | `app/shared/unknown_debug.cpp:9` | untagged neutral name (D10) |
 | 1 | `Unknown_Fail_If_Report` | `app/shared/unknown_debug.cpp:14` | untagged neutral name (D10) |
@@ -1810,16 +1811,34 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Field` | `app/shared/land.h:108` | members describe what they hold (VIDTEST offsets in land.h's header) |
 | 2 | `Shadow` | `app/shared/land.h:149` | ours |
 | 2 | `Patch` | `app/shared/land.h:150` | ours |
-| 2 | `Read_String` | `app/shared/spln_db.cpp:91` | VIDTEST 0x420100 |
-| 2 | `Read_Curve` | `app/shared/spln_db.cpp:113` | VIDTEST 0x41FCB0 / 0x41FDA0 |
-| 2 | `SplineDatabaseClass` | `app/shared/spln_db.h:41` | after the mailslot "\\.\mailslot\G\SplineDatabaseUpdate"; the class name is not in the client |
-| 2 | `Load` | `app/shared/spln_db.h:55` | loads a .wsd (assert 'database_filename' is the client's argument name) |
-| 2 | `Get_Spline` | `app/shared/spln_db.h:61` | lookup by name (assert 'spline_name') |
-| 2 | `Get_Color_Splines` | `app/shared/spln_db.h:63` | name_R / name_G / name_B (VIDTEST 0x41D030; assert 'base_name') |
-| 2 | `Evaluate_Color` | `app/shared/spln_db.h:66` | ours, the three curves at t |
-| 2 | `EntryStruct` | `app/shared/spln_db.h:70` | one spline (the client's assert 'EntryArray[i]' names the array) |
-| 2 | `Load_Entry` | `app/shared/spln_db.h:80` | reads chunk 0x810 / 0x811 (VIDTEST 0x41F960) |
-| 2 | `Find` | `app/shared/spln_db.h:82` | name lookup (VIDTEST 0x41CFF0) |
+| 2 | `SplineFileHeaderStruct` | `app/shared/spln_db.cpp:14` | chunk 0x800 (version 0x100, entry count, 0, 0), read by Load_Header (0xBE34A8) |
+| 2 | `Copy_String` | `app/shared/spln_db.cpp:24` | an inline copy for the entry's strings (its inlining leaves VectorClass's constructor out of line, as the client's 0x489050) |
+| 2 | `SplineEntryHeaderStruct` | `app/shared/spln_db.cpp:31` | the 0x24 bytes before an entry's name (chunks 0x810 / 0x811) |
+| 2 | `SplineParamsStruct` | `app/shared/spln_db.h:45` | the four parameters an entry carries from the file (+0x10, copied as one) |
+| 2 | `SplineEntryClass` | `app/shared/spln_db.h:51` | one named spline (0x4C bytes, ctor 0x489050); the client names no class |
+| 2 | `Name` | `app/shared/spln_db.h:59` | after the assert 'name != NULL' and the file's header |
+| 2 | `SplineDatabaseClass` | `app/shared/spln_db.h:79` | after the mailslot "\\.\mailslot\G\SplineDatabaseUpdate"; the class name is not in the client |
+| 2 | `Load` | `app/shared/spln_db.h:93` | loads a .wsd through the file factory (0x484AB0) |
+| 2 | `Reload` | `app/shared/spln_db.h:95` | loads Filename again (0x487900, assert 'database_filename'; the mailslot's reload) |
+| 2 | `Get_Type` | `app/shared/spln_db.h:100` | an entry's type (0x485110, assert 'spline_name') |
+| 2 | `Get_Curve` | `app/shared/spln_db.h:102` | an entry's curve (0x485380, assert 'spline_name') |
+| 2 | `Get_Color_Curves` | `app/shared/spln_db.h:104` | the curves of name_R, name_G, name_B (0x485440; the client's lighting 0x4F2960, 0x4F34C0) |
+| 2 | `Find` | `app/shared/spln_db.h:107` | lookup by name (0x486BB0, assert 'spline_name != NULL') |
+| 2 | `Free_Splines` | `app/shared/spln_db.h:111` | deletes the entries (0x487190) |
+| 2 | `Free_Key_Names` | `app/shared/spln_db.h:113` | deletes the key names but entry 0 (0x487360) |
+| 2 | `Resolve` | `app/shared/spln_db.h:115` | checks the colour and blend entries' components and hides the colour components (0x487660) |
+| 2 | `Load_Chunks` | `app/shared/spln_db.h:117` | the chunks after the file's opening (0x488500) |
+| 2 | `Load_Header` | `app/shared/spln_db.h:119` | chunk 0x800 into a static record (0x4887F0) |
+| 2 | `Load_Entry` | `app/shared/spln_db.h:121` | one chunk 0x810 / 0x811 (0x488870) |
+| 2 | `Load_Hermite` | `app/shared/spln_db.h:123` | a Hermite curve's keys and tangents (0x488DC0) |
+| 2 | `Read_String` | `app/shared/spln_db.h:125` | a length-prefixed string (0x488F20) |
+| 2 | `ShowHidden` | `app/shared/spln_db.h:128` | +0x000, the name iteration (0x4869C0) returns hidden entries too when set |
+| 2 | `Splines` | `app/shared/spln_db.h:130` | the entries by CRC_String(name) |
+| 2 | `KeyNames` | `app/shared/spln_db.h:132` | chunk 0x808's names; entry 0 is NULL |
+| 2 | `Filename` | `app/shared/spln_db.h:134` | the assert 'database_filename' names the argument kept here |
+| 2 | `Iterator` | `app/shared/spln_db.h:136` | +0x844, the name iteration's node (0x4869C0, 0x486A40) |
+| 2 | `HasSplines` | `app/shared/spln_db.h:138` | set when an entry is added |
+| 2 | `Mailslot` | `app/shared/spln_db.h:140` | the mailslot "\\.\mailslot\G\SplineDatabaseUpdate" (0x486AD0) |
 | 2 | `StarLayerClass` | `app/shared/stars.h:42` | one stars.ini layer (Texture, NumStars, ...); the client names no class |
 | 2 | `Render` | `app/shared/stars.h:49` | draws the first max_polys polygons (0x481B70) |
 | 2 | `Load` | `app/shared/stars.h:51` | reads one ini section (0x481DB0, assert 'section') |
@@ -2352,7 +2371,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `Accessor` | `app/shared/kv_pair_string.h:48` | after the assert's parameter accessor (kv_pair_string.cpp) |
 | 3 | `money.h` | `app/shared/money.h:17` | header name assumed from the client's money.cpp |
 | 3 | `MoneyClass` | `app/shared/money.h:20` | by convention (D24) from the client's file money.cpp (D37) |
-| 3 | `spln_db.h` | `app/shared/spln_db.h:32` | header of the client's app\shared\spln_db.cpp (assert __FILE__) |
+| 3 | `spln_db.h` | `app/shared/spln_db.h:34` | header of the client's app\shared\spln_db.cpp (assert __FILE__) |
 | 3 | `stars.h` | `app/shared/stars.h:28` | header of the client's app\shared\stars.cpp (assert __FILE__) |
 | 3 | `strconv_lib.h` | `app/shared/strconv_lib.h:20` | header name assumed from the client's strconv_lib.cpp (D57) |
 | 3 | `cordcon.h` | `app/wwudp/cordcon.h:41` | header name assumed from the client's cordcon.cpp |
