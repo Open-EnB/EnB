@@ -1153,11 +1153,12 @@ Base copy: reconstructed. Headers: 121 from reconstructed.
 | packets/pkmessagestring.cpp | reconstructed | 12 | 1 | - | - | - |  |
 | packets/pkmissionforfeit.cpp | reconstructed | 13 | 1 | - | - | - |  |
 | packets/pknamedecal.cpp | reconstructed | 8 | 1 | - | - | - |  |
-| packets/pknavdelete.cpp | reconstructed | 8 | 1 | - | - | - |  |
+| packets/pknavdelete.cpp | reconstructed | 13 | 1 | - | - | - |  |
 | packets/pkopeninterface.cpp | reconstructed | 9 | 1 | - | - | - |  |
 | packets/pkoption.cpp | reconstructed | 8 | 1 | - | - | - |  |
 | packets/pkpointeffect.cpp | reconstructed | 19 | 1 | - | - | - |  |
 | packets/pkreferralpointsavailable.cpp | reconstructed | 8 | 1 | - | - | - |  |
+| packets/pkmove.cpp | reconstructed | 9 | 1 | - | - | - |  |
 | packets/pkremove.cpp | reconstructed | 8 | 1 | - | - | - |  |
 | packets/pkrequesttarget.cpp | reconstructed | 17 | 1 | - | - | - |  |
 | packets/pkrequesttransformchange.cpp | reconstructed | 8 | 1 | - | - | - |  |

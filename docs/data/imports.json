@@ -1823,6 +1823,26 @@
     "merged": [],
     "name": "packets/pkmissionforfeit.cpp"
    },
+   "pkmove": {
+    "ambiguous": [
+     "0x42B2F0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350",
+     "0x89D070",
+     "0x89D110",
+     "0x89D1B0",
+     "0x89D2A0"
+    ],
+    "merged": [],
+    "name": "packets/pkmove.cpp"
+   },
    "pknamedecal": {
     "ambiguous": [
      "0x42B2F0"
@@ -1854,6 +1874,11 @@
      "0x52B270",
      "0x52B2A0",
      "0x52B350",
+     "0x89E8C0",
+     "0x89E9F0",
+     "0x89EAE0",
+     "0x89EBF0",
+     "0x89EC40",
      "0x89ED50",
      "0x89EDE0",
      "0x89EEC0"
@@ -3331,6 +3356,7 @@
    "packets/pkmissionforfeit.h": "reconstructed",
    "packets/pknamedecal.h": "reconstructed",
    "packets/pknavdelete.h": "reconstructed",
+   "packets/pkmove.h": "reconstructed",
    "packets/pkopeninterface.h": "reconstructed",
    "packets/pkoption.h": "reconstructed",
    "packets/pkpointeffect.h": "reconstructed",

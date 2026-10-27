@@ -241,7 +241,7 @@ if os.path.exists(_p):
             NOTEXACT[int(_a, 16)] = _r
 
 # drafted files that hold classes written by hand too: never rewritten (their decoded classes are kept as drafted)
-HAND = {'pksoundcommand', 'pkupdate', 'pkpointeffect', 'pk_player_object_relationship', 'pkclientchat', 'pkmessagestring', 'pkgroup', 'pkdialog', 'pkunknown_877c80'}   # opcode 106 by hand (builder P, 2026-10-26); 62, 9, 137, 165, 29, 30, 98, 99 (builder P3, 2026-10-26)
+HAND = {'pksoundcommand', 'pkupdate', 'pkpointeffect', 'pk_player_object_relationship', 'pkclientchat', 'pkmessagestring', 'pkgroup', 'pkdialog', 'pkunknown_877c80', 'pkmove', 'pknavdelete'}   # opcode 106 by hand (builder P, 2026-10-26); 62, 9, 137, 165, 29, 30, 98, 99, 20, 153 (builder P3, 2026-10-26)
 
 # the names the files have in the tree (a file keeps its name when more of its classes are drafted)
 KEEP = dict((op, inc[:-2]) for op, (name, inc) in pkclasses.rebuilt_classes().items())

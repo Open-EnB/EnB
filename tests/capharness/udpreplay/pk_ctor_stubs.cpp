@@ -15,7 +15,6 @@ ObjectToPointEffectPacketClass::ObjectToPointEffectPacketClass(RawPacketClass *r
 ObjectToObjectDurationLinkedEffectPacketClass::ObjectToObjectDurationLinkedEffectPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 DecalPacketClass::DecalPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 ColorizationPacketClass::ColorizationPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-MovePacketClass::MovePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_0015Class::Packet_0015Class(RawPacketClass *raw) { Conn_Record(this, raw); }
 DebugPacketClass::DebugPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 SuperLinePacketClass::SuperLinePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
@@ -83,7 +82,6 @@ TriggerEmotePacketClass::TriggerEmotePacketClass(RawPacketClass *raw) { Conn_Rec
 NotifyEmotePacketClass::NotifyEmotePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 JobListPacketClass::JobListPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 JobDescriptionPacketClass::JobDescriptionPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-NavigationPacketClass::NavigationPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 WarpPacketClass::WarpPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 SubPartsPacket::SubPartsPacket(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_00B5Class::Packet_00B5Class(RawPacketClass *raw) { Conn_Record(this, raw); }
@@ -186,6 +184,7 @@ bool CameraControlPacketClass::Process_Packet(void *) { return(true); }	// 0x739
 bool JobDeletePacketClass::Process_Packet(void *) { return(true); }	// 0x73A420
 bool JobAcceptReplyPacketClass::Process_Packet(void *) { return(true); }	// 0x73A510
 bool GalaxyMapPacketClass::Process_Packet(void *) { return(true); }	// 0x73AC60
+bool NavigationPacketClass::Process_Packet(void *) { return(true); }	// 0x73A600
 bool NavDeletePacketClass::Process_Packet(void *) { return(true); }	// 0x73A710
 bool WarpIndexPacketClass::Process_Packet(void *) { return(true); }	// 0x73A7F0
 bool StarbaseAvatarUpdatePacketClass::Process_Packet(void *) { return(true); }	// 0x73A9F0

@@ -50,6 +50,7 @@
 #include "pkmanufactureitemcatagorypacket.h"	// rebuilt
 #include "pkmessagestring.h"	// rebuilt
 #include "pkmissionforfeit.h"	// rebuilt
+#include "pkmove.h"	// rebuilt
 #include "pknamedecal.h"	// rebuilt
 #include "pknavdelete.h"	// rebuilt
 #include "pkopeninterface.h"	// rebuilt
@@ -185,15 +186,6 @@ class ColorizationPacketClass : public PacketClass
 public:
 	ColorizationPacketClass(RawPacketClass *raw);	// 0x87F510
 	char Unknown0C[0x18];	// +0x0C
-};
-
-// opcode 20 (0x0014, MOVE): vtable 0xB0B344, constructor 0x89D110, 0x14 bytes
-class MovePacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name MOVE (the Net-7 opcode table; no structure check)
-{
-public:
-	MovePacketClass(RawPacketClass *raw);	// 0x89D110
-	virtual bool Process_Packet(void *client);	// +0x08 0x867C20 (clientstub.cpp l.38)
-	char Unknown0C[0x8];	// +0x0C
 };
 
 // opcode 21 (0x0015, ?): vtable 0xB0A61C, constructor 0x887370, 0x14 bytes
@@ -810,14 +802,6 @@ class JobDescriptionPacketClass : public PacketClass
 public:
 	JobDescriptionPacketClass(RawPacketClass *raw);	// 0x8969C0
 	char Unknown0C[0x10];	// +0x0C
-};
-
-// opcode 153 (0x0099, NAVIGATION): vtable 0xB0B4A4, constructor 0x89E9F0, 0x24 bytes
-class NavigationPacketClass : public PacketClass
-{
-public:
-	NavigationPacketClass(RawPacketClass *raw);	// 0x89E9F0
-	char Unknown0C[0x18];	// +0x0C
 };
 
 // opcode 155 (0x009B, WARP): vtable 0xB0C330, constructor 0x8B1BA0, 0x14 bytes
