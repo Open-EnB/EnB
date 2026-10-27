@@ -326,9 +326,7 @@ void SegLineRendererClass::Render
 		Vector4 subdiv_rgbas[MAX_SEGLINE_POINT_BUFFER_SIZE];
 		unsigned int sub_point_cnt;
 
-		Vector4 *rgbasPointer = rgbas ? &rgbas[ chidx ] : NULL;
-
-		subdivision_util(point_cnt, xformed_pts, base_tex_v, &sub_point_cnt, xformed_subdiv_pts, subdiv_tex_v, rgbasPointer, subdiv_rgbas);
+		subdivision_util(point_cnt, xformed_pts, base_tex_v, &sub_point_cnt, xformed_subdiv_pts, subdiv_tex_v, &rgbas[chidx], subdiv_rgbas);
 
 		// Start using subdivided points from now on
 		Vector3 *points = xformed_subdiv_pts;
@@ -1095,11 +1093,12 @@ void SegLineRendererClass::Render
 
 		VertexMaterialClass *mat;		
 
-		if (!rgba_all) {
+		// if there's a default color or an rgba array modulate
+		if (!rgba_all || (rgba != 0) ) {
 			shader.Set_Primary_Gradient(ShaderClass::GRADIENT_MODULATE);			
-			for (vidx = 0; vidx < vnum; vidx++)	vArray[vidx].diffuse=rgba;
 			mat=VertexMaterialClass::Get_Preset(VertexMaterialClass::PRELIT_DIFFUSE);
 		} else {
+			// othewise it's texture only
 			shader.Set_Primary_Gradient(ShaderClass::GRADIENT_DISABLE);
 			mat=VertexMaterialClass::Get_Preset(VertexMaterialClass::PRELIT_NODIFFUSE);
 		}
