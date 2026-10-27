@@ -3,6 +3,52 @@
 #include <stdio.h>
 
 
+// NOT EXACT: shape (the string assignment's tails: 9 calls against the client's 10; attempts.csv)
+Packet_00ADClass::Packet_00ADClass(int unknown0c, const std::string &unknown10, __int64 unknown20, __int64 unknown28) :
+	Unknown0C(unknown0c),
+	Unknown10(""),
+	Unknown20(0),
+	Unknown28(0)
+{
+	Unknown10 = unknown10;
+	Unknown20 = unknown20;
+	Unknown28 = unknown28;
+}
+
+// NOT EXACT: inline budget (the client calls the string's _Grow out of line for "", ours inlines it; attempts.csv)
+Packet_00ADClass::Packet_00ADClass(RawPacketClass *raw) :
+	Unknown0C(0),
+	Unknown10(""),
+	Unknown20(0),
+	Unknown28(0)
+{
+	raw->Get(Unknown0C);
+	raw->Get(&Unknown10);
+	raw->Get(Unknown20);
+	raw->Get(Unknown28);
+}
+
+// NOT EXACT: shape (the client advances this through the members: add edi, 0x10 / 0x18; attempts.csv)
+RawPacketClass *Packet_00ADClass::Build()
+{
+	RawPacketClass *raw = new RawPacketClass(173, Get_Data_Size());
+	raw->Add(Unknown0C);
+	raw->Add(Unknown10);
+	raw->Add(Unknown20);
+	raw->Add(Unknown28);
+	return(raw);
+}
+
+int Packet_00ADClass::Get_Data_Size()
+{
+	return(RawPacketClass::Get_Size(Unknown10) + sizeof(Unknown0C) + sizeof(Unknown20) + sizeof(Unknown28));
+}
+
+int Packet_00ADClass::Print(char *buffer, int)
+{
+	return(sprintf(buffer, "%s", "GroupServerLoginPacketClass"));
+}
+
 Packet_00AEClass::Packet_00AEClass(int unknown0c, int unknown10, __int64 unknown18, __int64 unknown20) :
 	Unknown0C(unknown0c),
 	Unknown10(unknown10),
@@ -82,5 +128,8 @@ int Packet_00AFClass::Print(char *buffer, int)
 **	* The file name is provisional (provisional, neutral (D10): the object's first address).
 **	* Opcode 174 (its Print: GroupServerRequestPacketClass) written by hand (builder P3, 2026-10-26),
 **	  5 of 5 exact in appfile.py match: an int and two __int64 in network order around a raw int.
-**	* Not rebuilt yet: opcode 173, 176, 177 (declared in pk_classes.h).
+**	* Opcode 173 (Print 'GroupServerLoginPacketClass') written by hand (builder P5, 2026-10-27) over an empty
+**	  base (vtable 0xB0A794) that 176 / 177's objects share: Get_Data_Size and Print exact, the constructors
+**	  and Build NOT EXACT (attempts.csv).
+**	* Not rebuilt yet: opcode 176, 177 (declared in pk_classes.h).
 */

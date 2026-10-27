@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 12 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 30 |
-| 3 | by convention from a client-named file or sibling | 649 |
-| 2 | describes what the code does | 1166 |
-| 1 | neutral placeholder | 1614 |
+| 3 | by convention from a client-named file or sibling | 651 |
+| 2 | describes what the code does | 1221 |
+| 1 | neutral placeholder | 1636 |
 
 ## For review (score 3 and below)
 
@@ -354,133 +354,130 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_7CB610` | `app/client/tasks/tsk_login.cpp:1117` | untagged neutral name (D10) |
 | 1 | `Unknown1B4` | `app/client/tasks/tsk_login.cpp:1225` | untagged neutral name (D10) |
 | 1 | `Unknown_78` | `app/client/tasks/tsk_login.cpp:1225` | untagged neutral name (D10) |
-| 1 | `CharacterViewUnknown34Class` | `app/client/tasks/tsk_login.h:42` | neutral (D10): what CharacterViewClass +0x34 points to |
-| 1 | `Unknown_00` | `app/client/tasks/tsk_login.h:45` | untagged neutral name (D10) |
-| 1 | `Unknown_04` | `app/client/tasks/tsk_login.h:46` | untagged neutral name (D10) |
-| 1 | `Unknown_08` | `app/client/tasks/tsk_login.h:47` | untagged neutral name (D10) |
-| 1 | `Unknown_0C` | `app/client/tasks/tsk_login.h:48` | untagged neutral name (D10) |
-| 1 | `Unknown_10` | `app/client/tasks/tsk_login.h:49` | untagged neutral name (D10) |
-| 1 | `Unknown_14` | `app/client/tasks/tsk_login.h:50` | untagged neutral name (D10) |
-| 1 | `Unknown_18` | `app/client/tasks/tsk_login.h:51` | untagged neutral name (D10) |
-| 1 | `Unknown_1C` | `app/client/tasks/tsk_login.h:52` | untagged neutral name (D10) |
-| 1 | `Unknown_20` | `app/client/tasks/tsk_login.h:53` | untagged neutral name (D10) |
-| 1 | `Unknown_24` | `app/client/tasks/tsk_login.h:54` | untagged neutral name (D10) |
-| 1 | `Unknown_28` | `app/client/tasks/tsk_login.h:55` | untagged neutral name (D10) |
-| 1 | `Unknown_2C` | `app/client/tasks/tsk_login.h:56` | untagged neutral name (D10) |
-| 1 | `Unknown_30` | `app/client/tasks/tsk_login.h:57` | untagged neutral name (D10) |
-| 1 | `Unknown_34` | `app/client/tasks/tsk_login.h:58` | untagged neutral name (D10) |
-| 1 | `Unknown_38` | `app/client/tasks/tsk_login.h:59` | untagged neutral name (D10) |
-| 1 | `Unknown_3C` | `app/client/tasks/tsk_login.h:60` | untagged neutral name (D10) |
-| 1 | `Unknown_40` | `app/client/tasks/tsk_login.h:61` | untagged neutral name (D10) |
-| 1 | `Unknown_44` | `app/client/tasks/tsk_login.h:62` | untagged neutral name (D10) |
-| 1 | `Unknown_48` | `app/client/tasks/tsk_login.h:63` | untagged neutral name (D10) |
-| 1 | `Unknown_4C` | `app/client/tasks/tsk_login.h:64` | untagged neutral name (D10) |
-| 1 | `Unknown_50` | `app/client/tasks/tsk_login.h:65` | untagged neutral name (D10) |
-| 1 | `Unknown_54` | `app/client/tasks/tsk_login.h:66` | untagged neutral name (D10) |
-| 1 | `Unknown_58` | `app/client/tasks/tsk_login.h:67` | untagged neutral name (D10) |
-| 1 | `Unknown_5C` | `app/client/tasks/tsk_login.h:68` | untagged neutral name (D10) |
-| 1 | `button, text, width` | `app/client/tasks/tsk_login.h:69` | 'OK', the message, 320 |
-| 1 | `Unknown_588A70` | `app/client/tasks/tsk_login.h:69` | untagged neutral name (D10) |
-| 1 | `Is_HTML` | `app/client/tasks/tsk_login.h:70` | what it tests |
-| 1 | `Unknown18C` | `app/client/tasks/tsk_login.h:70` | untagged neutral name (D10) |
-| 1 | `Unknown_5890B0` | `app/client/tasks/tsk_login.h:71` | untagged neutral name (D10) |
-| 1 | `Unknown004` | `app/client/tasks/tsk_login.h:73` | untagged neutral name (D10) |
-| 1 | `Unknown07C` | `app/client/tasks/tsk_login.h:74` | untagged neutral name (D10) |
-| 1 | `Unknown07D` | `app/client/tasks/tsk_login.h:75` | untagged neutral name (D10) |
-| 1 | `CharacterViewUnknown1B4Class` | `app/client/tasks/tsk_login.h:79` | neutral (D10): what CharacterViewClass +0x1B4 points to |
-| 1 | `Unknown_60` | `app/client/tasks/tsk_login.h:106` | untagged neutral name (D10) |
-| 1 | `Unknown_64` | `app/client/tasks/tsk_login.h:107` | untagged neutral name (D10) |
-| 1 | `Unknown_68` | `app/client/tasks/tsk_login.h:108` | untagged neutral name (D10) |
-| 1 | `Unknown_6C` | `app/client/tasks/tsk_login.h:109` | untagged neutral name (D10) |
-| 1 | `Unknown_70` | `app/client/tasks/tsk_login.h:110` | untagged neutral name (D10) |
-| 1 | `Unknown_74` | `app/client/tasks/tsk_login.h:111` | untagged neutral name (D10) |
-| 1 | `Unknown_78` | `app/client/tasks/tsk_login.h:112` | untagged neutral name (D10) |
-| 1 | `CharacterViewClass` | `app/client/tasks/tsk_login.h:115` | the member's name CharacterView (the FAIL_IFs) |
-| 1 | `Unknown_67A300` | `app/client/tasks/tsk_login.h:135` | untagged neutral name (D10) |
-| 1 | `Unknown_67A370` | `app/client/tasks/tsk_login.h:136` | untagged neutral name (D10) |
-| 1 | `Unknown008` | `app/client/tasks/tsk_login.h:139` | untagged neutral name (D10) |
-| 1 | `Unknown02C` | `app/client/tasks/tsk_login.h:140` | untagged neutral name (D10) |
-| 1 | `Unknown030` | `app/client/tasks/tsk_login.h:141` | untagged neutral name (D10) |
-| 1 | `Unknown034` | `app/client/tasks/tsk_login.h:142` | untagged neutral name (D10) |
-| 1 | `Unknown038` | `app/client/tasks/tsk_login.h:143` | untagged neutral name (D10) |
-| 1 | `Unknown1B4` | `app/client/tasks/tsk_login.h:144` | untagged neutral name (D10) |
-| 1 | `Unknown1B8` | `app/client/tasks/tsk_login.h:145` | untagged neutral name (D10) |
-| 1 | `Unknown1CD` | `app/client/tasks/tsk_login.h:146` | untagged neutral name (D10) |
-| 1 | `Unknown1CE` | `app/client/tasks/tsk_login.h:147` | untagged neutral name (D10) |
-| 1 | `Unknown1CF` | `app/client/tasks/tsk_login.h:148` | untagged neutral name (D10) |
-| 1 | `Unknown1D0` | `app/client/tasks/tsk_login.h:149` | untagged neutral name (D10) |
-| 1 | `Unknown1D1` | `app/client/tasks/tsk_login.h:150` | untagged neutral name (D10) |
-| 1 | `LoginTicketInfoClass` | `app/client/tasks/tsk_login.h:155` | what it holds |
-| 1 | `Unknown20` | `app/client/tasks/tsk_login.h:157` | untagged neutral name (D10) |
-| 1 | `Unknown24` | `app/client/tasks/tsk_login.h:157` | untagged neutral name (D10) |
-| 1 | `Unknown00` | `app/client/tasks/tsk_login.h:158` | untagged neutral name (D10) |
-| 1 | `Unknown10` | `app/client/tasks/tsk_login.h:159` | untagged neutral name (D10) |
-| 1 | `Unknown28` | `app/client/tasks/tsk_login.h:162` | untagged neutral name (D10) |
-| 1 | `Unknown48` | `app/client/tasks/tsk_login.h:164` | untagged neutral name (D10) |
-| 1 | `Unknown58` | `app/client/tasks/tsk_login.h:165` | untagged neutral name (D10) |
-| 1 | `Unknown68` | `app/client/tasks/tsk_login.h:166` | untagged neutral name (D10) |
-| 1 | `Unknown78` | `app/client/tasks/tsk_login.h:167` | untagged neutral name (D10) |
-| 1 | `Unknown88` | `app/client/tasks/tsk_login.h:168` | untagged neutral name (D10) |
-| 1 | `Unknown98` | `app/client/tasks/tsk_login.h:169` | untagged neutral name (D10) |
-| 1 | `LoginUnknown20Class` | `app/client/tasks/tsk_login.h:174` | neutral (D10), the former name |
-| 1 | `LoginUnknown44Class` | `app/client/tasks/tsk_login.h:175` | neutral (D10), the former name |
-| 1 | `LoginUnknown88CClass` | `app/client/tasks/tsk_login.h:176` | neutral (D10), the former name |
-| 1 | `LoginUnknown350Class` | `app/client/tasks/tsk_login.h:179` | neutral (D10), AvatarDescClass's former name |
-| 1 | `LoginNameDataClass` | `app/client/tasks/tsk_login.h:182` | neutral (D10) |
-| 1 | `LoginUnknown78CEE0Class` | `app/client/tasks/tsk_login.h:195` | neutral (D10) |
-| 1 | `Unknown_78D480` | `app/client/tasks/tsk_login.h:199` | untagged neutral name (D10) |
-| 1 | `Unknown_78DAF0` | `app/client/tasks/tsk_login.h:200` | untagged neutral name (D10) |
-| 1 | `LoginUnknown0CClass` | `app/client/tasks/tsk_login.h:205` | neutral (D10): what LoginTaskClass +0x0C points to (inpdsp.cpp) |
-| 1 | `Unknown_429A20` | `app/client/tasks/tsk_login.h:209` | untagged neutral name (D10) |
-| 1 | `LoginUnknown18Class` | `app/client/tasks/tsk_login.h:214` | neutral (D10): what LoginTaskClass +0x18 points to |
-| 1 | `Unknown_515120` | `app/client/tasks/tsk_login.h:219` | untagged neutral name (D10) |
-| 1 | `Unknown_515340` | `app/client/tasks/tsk_login.h:220` | untagged neutral name (D10) |
-| 1 | `Unknown_5153B0` | `app/client/tasks/tsk_login.h:221` | untagged neutral name (D10) |
-| 1 | `Unknown_515400` | `app/client/tasks/tsk_login.h:222` | untagged neutral name (D10) |
-| 1 | `Unknown_515440` | `app/client/tasks/tsk_login.h:223` | untagged neutral name (D10) |
-| 1 | `Unknown25` | `app/client/tasks/tsk_login.h:227` | untagged neutral name (D10) |
-| 1 | `mode` | `app/client/tasks/tsk_login.h:234` | MenuTask passes 1, or 9 (0x5FAE70 and not 0x5FAD50) |
-| 1 | `Set_Step` | `app/client/tasks/tsk_login.h:250` | what it does |
-| 1 | `Process_Packets` | `app/client/tasks/tsk_login.h:252` | what it does |
-| 1 | `Create_Character_View` | `app/client/tasks/tsk_login.h:254` | what it does |
-| 1 | `Galaxy_ID` | `app/client/tasks/tsk_login.h:256` | 0x769400 looks it up in the galaxies |
-| 1 | `Unknown_7692A0` | `app/client/tasks/tsk_login.h:257` | untagged neutral name (D10) |
-| 1 | `Unknown_7693E0` | `app/client/tasks/tsk_login.h:258` | untagged neutral name (D10) |
-| 1 | `Set_Username` | `app/client/tasks/tsk_login.h:259` | what it does |
-| 1 | `Set_Password` | `app/client/tasks/tsk_login.h:260` | what it does |
-| 1 | `Show_Message` | `app/client/tasks/tsk_login.h:261` | what it does |
-| 1 | `Show_Message` | `app/client/tasks/tsk_login.h:262` | what it does |
-| 1 | `Close_Global_Connection` | `app/client/tasks/tsk_login.h:263` | what it does |
-| 1 | `Delete_Character_View` | `app/client/tasks/tsk_login.h:264` | what it does |
-| 1 | `Fetch_EA_Ticket` | `app/client/tasks/tsk_login.h:265` | what it does |
-| 1 | `Start_Game` | `app/client/tasks/tsk_login.h:266` | what it does |
-| 1 | `Unknown_76A370` | `app/client/tasks/tsk_login.h:267` | untagged neutral name (D10) |
-| 1 | `Save_Login_Name` | `app/client/tasks/tsk_login.h:268` | what it does |
-| 1 | `Load_Login` | `app/client/tasks/tsk_login.h:269` | what it does |
-| 1 | `Unknown_768CB0` | `app/client/tasks/tsk_login.h:270` | untagged neutral name (D10) |
-| 1 | `Set_Galaxies` | `app/client/tasks/tsk_login.h:271` | what it does |
-| 1 | `Handle_Global_Error` | `app/client/tasks/tsk_login.h:272` | what it does |
-| 1 | `Handle_Global_Login` | `app/client/tasks/tsk_login.h:273` | what it does |
-| 1 | `Send_Referrer` | `app/client/tasks/tsk_login.h:274` | what it does |
-| 1 | `Handle_Referrer_Response` | `app/client/tasks/tsk_login.h:275` | what it does |
-| 1 | `Kill_Kernel` | `app/client/tasks/tsk_login.h:276` | what it does |
-| 1 | `Unknown000C` | `app/client/tasks/tsk_login.h:278` | untagged neutral name (D10) |
-| 1 | `Unknown0014` | `app/client/tasks/tsk_login.h:280` | untagged neutral name (D10) |
-| 1 | `Unknown0018` | `app/client/tasks/tsk_login.h:281` | untagged neutral name (D10) |
-| 1 | `Unknown001D` | `app/client/tasks/tsk_login.h:283` | untagged neutral name (D10) |
-| 1 | `Unknown0020` | `app/client/tasks/tsk_login.h:284` | untagged neutral name (D10) |
-| 1 | `Unknown0030` | `app/client/tasks/tsk_login.h:288` | untagged neutral name (D10) |
-| 1 | `Unknown0034` | `app/client/tasks/tsk_login.h:289` | untagged neutral name (D10) |
-| 1 | `Unknown0350` | `app/client/tasks/tsk_login.h:292` | untagged neutral name (D10) |
-| 1 | `Unknown088C` | `app/client/tasks/tsk_login.h:293` | untagged neutral name (D10) |
-| 1 | `Unknown107D` | `app/client/tasks/tsk_login.h:297` | untagged neutral name (D10) |
-| 1 | `Unknown108C` | `app/client/tasks/tsk_login.h:301` | untagged neutral name (D10) |
-| 1 | `Unknown1094` | `app/client/tasks/tsk_login.h:303` | untagged neutral name (D10) |
-| 1 | `Unknown1134` | `app/client/tasks/tsk_login.h:305` | untagged neutral name (D10) |
-| 1 | `Unknown1138` | `app/client/tasks/tsk_login.h:306` | untagged neutral name (D10) |
-| 1 | `Unknown1139` | `app/client/tasks/tsk_login.h:307` | untagged neutral name (D10) |
-| 1 | `Unknown113C` | `app/client/tasks/tsk_login.h:308` | untagged neutral name (D10) |
-| 1 | `Unknown1144` | `app/client/tasks/tsk_login.h:310` | untagged neutral name (D10) |
+| 1 | `CharacterViewUnknown34Class` | `app/client/tasks/tsk_login.h:43` | neutral (D10): what CharacterViewClass +0x34 points to |
+| 1 | `Unknown_00` | `app/client/tasks/tsk_login.h:46` | untagged neutral name (D10) |
+| 1 | `Unknown_04` | `app/client/tasks/tsk_login.h:47` | untagged neutral name (D10) |
+| 1 | `Unknown_08` | `app/client/tasks/tsk_login.h:48` | untagged neutral name (D10) |
+| 1 | `Unknown_0C` | `app/client/tasks/tsk_login.h:49` | untagged neutral name (D10) |
+| 1 | `Unknown_10` | `app/client/tasks/tsk_login.h:50` | untagged neutral name (D10) |
+| 1 | `Unknown_14` | `app/client/tasks/tsk_login.h:51` | untagged neutral name (D10) |
+| 1 | `Unknown_18` | `app/client/tasks/tsk_login.h:52` | untagged neutral name (D10) |
+| 1 | `Unknown_1C` | `app/client/tasks/tsk_login.h:53` | untagged neutral name (D10) |
+| 1 | `Unknown_20` | `app/client/tasks/tsk_login.h:54` | untagged neutral name (D10) |
+| 1 | `Unknown_24` | `app/client/tasks/tsk_login.h:55` | untagged neutral name (D10) |
+| 1 | `Unknown_28` | `app/client/tasks/tsk_login.h:56` | untagged neutral name (D10) |
+| 1 | `Unknown_2C` | `app/client/tasks/tsk_login.h:57` | untagged neutral name (D10) |
+| 1 | `Unknown_30` | `app/client/tasks/tsk_login.h:58` | untagged neutral name (D10) |
+| 1 | `Unknown_34` | `app/client/tasks/tsk_login.h:59` | untagged neutral name (D10) |
+| 1 | `Unknown_38` | `app/client/tasks/tsk_login.h:60` | untagged neutral name (D10) |
+| 1 | `Unknown_3C` | `app/client/tasks/tsk_login.h:61` | untagged neutral name (D10) |
+| 1 | `Unknown_40` | `app/client/tasks/tsk_login.h:62` | untagged neutral name (D10) |
+| 1 | `Unknown_44` | `app/client/tasks/tsk_login.h:63` | untagged neutral name (D10) |
+| 1 | `Unknown_48` | `app/client/tasks/tsk_login.h:64` | untagged neutral name (D10) |
+| 1 | `Unknown_4C` | `app/client/tasks/tsk_login.h:65` | untagged neutral name (D10) |
+| 1 | `Unknown_50` | `app/client/tasks/tsk_login.h:66` | untagged neutral name (D10) |
+| 1 | `Unknown_54` | `app/client/tasks/tsk_login.h:67` | untagged neutral name (D10) |
+| 1 | `Unknown_58` | `app/client/tasks/tsk_login.h:68` | untagged neutral name (D10) |
+| 1 | `Unknown_5C` | `app/client/tasks/tsk_login.h:69` | untagged neutral name (D10) |
+| 1 | `button, text, width` | `app/client/tasks/tsk_login.h:70` | 'OK', the message, 320 |
+| 1 | `Unknown_588A70` | `app/client/tasks/tsk_login.h:70` | untagged neutral name (D10) |
+| 1 | `Is_HTML` | `app/client/tasks/tsk_login.h:71` | what it tests |
+| 1 | `Unknown18C` | `app/client/tasks/tsk_login.h:71` | untagged neutral name (D10) |
+| 1 | `Unknown_5890B0` | `app/client/tasks/tsk_login.h:72` | untagged neutral name (D10) |
+| 1 | `Unknown004` | `app/client/tasks/tsk_login.h:74` | untagged neutral name (D10) |
+| 1 | `Unknown07C` | `app/client/tasks/tsk_login.h:75` | untagged neutral name (D10) |
+| 1 | `Unknown07D` | `app/client/tasks/tsk_login.h:76` | untagged neutral name (D10) |
+| 1 | `CharacterViewUnknown1B4Class` | `app/client/tasks/tsk_login.h:80` | neutral (D10): what CharacterViewClass +0x1B4 points to |
+| 1 | `Unknown_60` | `app/client/tasks/tsk_login.h:107` | untagged neutral name (D10) |
+| 1 | `Unknown_64` | `app/client/tasks/tsk_login.h:108` | untagged neutral name (D10) |
+| 1 | `Unknown_68` | `app/client/tasks/tsk_login.h:109` | untagged neutral name (D10) |
+| 1 | `Unknown_6C` | `app/client/tasks/tsk_login.h:110` | untagged neutral name (D10) |
+| 1 | `Unknown_70` | `app/client/tasks/tsk_login.h:111` | untagged neutral name (D10) |
+| 1 | `Unknown_74` | `app/client/tasks/tsk_login.h:112` | untagged neutral name (D10) |
+| 1 | `Unknown_78` | `app/client/tasks/tsk_login.h:113` | untagged neutral name (D10) |
+| 1 | `CharacterViewClass` | `app/client/tasks/tsk_login.h:116` | the member's name CharacterView (the FAIL_IFs) |
+| 1 | `Unknown_67A300` | `app/client/tasks/tsk_login.h:136` | untagged neutral name (D10) |
+| 1 | `Unknown_67A370` | `app/client/tasks/tsk_login.h:137` | untagged neutral name (D10) |
+| 1 | `Unknown008` | `app/client/tasks/tsk_login.h:140` | untagged neutral name (D10) |
+| 1 | `Unknown02C` | `app/client/tasks/tsk_login.h:141` | untagged neutral name (D10) |
+| 1 | `Unknown030` | `app/client/tasks/tsk_login.h:142` | untagged neutral name (D10) |
+| 1 | `Unknown034` | `app/client/tasks/tsk_login.h:143` | untagged neutral name (D10) |
+| 1 | `Unknown038` | `app/client/tasks/tsk_login.h:144` | untagged neutral name (D10) |
+| 1 | `Unknown1B4` | `app/client/tasks/tsk_login.h:145` | untagged neutral name (D10) |
+| 1 | `Unknown1B8` | `app/client/tasks/tsk_login.h:146` | untagged neutral name (D10) |
+| 1 | `Unknown1CD` | `app/client/tasks/tsk_login.h:147` | untagged neutral name (D10) |
+| 1 | `Unknown1CE` | `app/client/tasks/tsk_login.h:148` | untagged neutral name (D10) |
+| 1 | `Unknown1CF` | `app/client/tasks/tsk_login.h:149` | untagged neutral name (D10) |
+| 1 | `Unknown1D0` | `app/client/tasks/tsk_login.h:150` | untagged neutral name (D10) |
+| 1 | `Unknown1D1` | `app/client/tasks/tsk_login.h:151` | untagged neutral name (D10) |
+| 1 | `LoginTicketInfoClass` | `app/client/tasks/tsk_login.h:156` | what it holds |
+| 1 | `Unknown20` | `app/client/tasks/tsk_login.h:158` | untagged neutral name (D10) |
+| 1 | `Unknown24` | `app/client/tasks/tsk_login.h:158` | untagged neutral name (D10) |
+| 1 | `Unknown00` | `app/client/tasks/tsk_login.h:159` | untagged neutral name (D10) |
+| 1 | `Unknown10` | `app/client/tasks/tsk_login.h:160` | untagged neutral name (D10) |
+| 1 | `Unknown28` | `app/client/tasks/tsk_login.h:163` | untagged neutral name (D10) |
+| 1 | `Unknown48` | `app/client/tasks/tsk_login.h:165` | untagged neutral name (D10) |
+| 1 | `Unknown58` | `app/client/tasks/tsk_login.h:166` | untagged neutral name (D10) |
+| 1 | `Unknown68` | `app/client/tasks/tsk_login.h:167` | untagged neutral name (D10) |
+| 1 | `Unknown78` | `app/client/tasks/tsk_login.h:168` | untagged neutral name (D10) |
+| 1 | `Unknown88` | `app/client/tasks/tsk_login.h:169` | untagged neutral name (D10) |
+| 1 | `Unknown98` | `app/client/tasks/tsk_login.h:170` | untagged neutral name (D10) |
+| 1 | `LoginUnknown20Class` | `app/client/tasks/tsk_login.h:175` | neutral (D10), the former name |
+| 1 | `LoginUnknown44Class` | `app/client/tasks/tsk_login.h:176` | neutral (D10), the former name |
+| 1 | `LoginUnknown88CClass` | `app/client/tasks/tsk_login.h:177` | neutral (D10), the former name |
+| 1 | `LoginUnknown350Class` | `app/client/tasks/tsk_login.h:180` | neutral (D10), AvatarDescClass's former name |
+| 1 | `LoginUnknown78CEE0Class` | `app/client/tasks/tsk_login.h:183` | neutral (D10), the former name |
+| 1 | `LoginUnknown0CClass` | `app/client/tasks/tsk_login.h:185` | neutral (D10): what LoginTaskClass +0x0C points to (inpdsp.cpp) |
+| 1 | `Unknown_429A20` | `app/client/tasks/tsk_login.h:189` | untagged neutral name (D10) |
+| 1 | `LoginUnknown18Class` | `app/client/tasks/tsk_login.h:194` | neutral (D10): what LoginTaskClass +0x18 points to |
+| 1 | `Unknown_515120` | `app/client/tasks/tsk_login.h:199` | untagged neutral name (D10) |
+| 1 | `Unknown_515340` | `app/client/tasks/tsk_login.h:200` | untagged neutral name (D10) |
+| 1 | `Unknown_5153B0` | `app/client/tasks/tsk_login.h:201` | untagged neutral name (D10) |
+| 1 | `Unknown_515400` | `app/client/tasks/tsk_login.h:202` | untagged neutral name (D10) |
+| 1 | `Unknown_515440` | `app/client/tasks/tsk_login.h:203` | untagged neutral name (D10) |
+| 1 | `Unknown25` | `app/client/tasks/tsk_login.h:207` | untagged neutral name (D10) |
+| 1 | `mode` | `app/client/tasks/tsk_login.h:214` | MenuTask passes 1, or 9 (0x5FAE70 and not 0x5FAD50) |
+| 1 | `Set_Step` | `app/client/tasks/tsk_login.h:230` | what it does |
+| 1 | `Process_Packets` | `app/client/tasks/tsk_login.h:232` | what it does |
+| 1 | `Create_Character_View` | `app/client/tasks/tsk_login.h:234` | what it does |
+| 1 | `Galaxy_ID` | `app/client/tasks/tsk_login.h:236` | 0x769400 looks it up in the galaxies |
+| 1 | `Unknown_7692A0` | `app/client/tasks/tsk_login.h:237` | untagged neutral name (D10) |
+| 1 | `Unknown_7693E0` | `app/client/tasks/tsk_login.h:238` | untagged neutral name (D10) |
+| 1 | `Set_Username` | `app/client/tasks/tsk_login.h:239` | what it does |
+| 1 | `Set_Password` | `app/client/tasks/tsk_login.h:240` | what it does |
+| 1 | `Show_Message` | `app/client/tasks/tsk_login.h:241` | what it does |
+| 1 | `Show_Message` | `app/client/tasks/tsk_login.h:242` | what it does |
+| 1 | `Close_Global_Connection` | `app/client/tasks/tsk_login.h:243` | what it does |
+| 1 | `Delete_Character_View` | `app/client/tasks/tsk_login.h:244` | what it does |
+| 1 | `Fetch_EA_Ticket` | `app/client/tasks/tsk_login.h:245` | what it does |
+| 1 | `Start_Game` | `app/client/tasks/tsk_login.h:246` | what it does |
+| 1 | `Unknown_76A370` | `app/client/tasks/tsk_login.h:247` | untagged neutral name (D10) |
+| 1 | `Save_Login_Name` | `app/client/tasks/tsk_login.h:248` | what it does |
+| 1 | `Load_Login` | `app/client/tasks/tsk_login.h:249` | what it does |
+| 1 | `Unknown_768CB0` | `app/client/tasks/tsk_login.h:250` | untagged neutral name (D10) |
+| 1 | `Set_Galaxies` | `app/client/tasks/tsk_login.h:251` | what it does |
+| 1 | `Handle_Global_Error` | `app/client/tasks/tsk_login.h:252` | what it does |
+| 1 | `Handle_Global_Login` | `app/client/tasks/tsk_login.h:253` | what it does |
+| 1 | `Send_Referrer` | `app/client/tasks/tsk_login.h:254` | what it does |
+| 1 | `Handle_Referrer_Response` | `app/client/tasks/tsk_login.h:255` | what it does |
+| 1 | `Kill_Kernel` | `app/client/tasks/tsk_login.h:256` | what it does |
+| 1 | `Unknown000C` | `app/client/tasks/tsk_login.h:258` | untagged neutral name (D10) |
+| 1 | `Unknown0014` | `app/client/tasks/tsk_login.h:260` | untagged neutral name (D10) |
+| 1 | `Unknown0018` | `app/client/tasks/tsk_login.h:261` | untagged neutral name (D10) |
+| 1 | `Unknown001D` | `app/client/tasks/tsk_login.h:263` | untagged neutral name (D10) |
+| 1 | `Unknown0020` | `app/client/tasks/tsk_login.h:264` | untagged neutral name (D10) |
+| 1 | `Unknown0030` | `app/client/tasks/tsk_login.h:268` | untagged neutral name (D10) |
+| 1 | `Unknown0034` | `app/client/tasks/tsk_login.h:269` | untagged neutral name (D10) |
+| 1 | `Unknown0350` | `app/client/tasks/tsk_login.h:272` | untagged neutral name (D10) |
+| 1 | `Unknown088C` | `app/client/tasks/tsk_login.h:273` | untagged neutral name (D10) |
+| 1 | `Unknown107D` | `app/client/tasks/tsk_login.h:277` | untagged neutral name (D10) |
+| 1 | `Unknown108C` | `app/client/tasks/tsk_login.h:281` | untagged neutral name (D10) |
+| 1 | `Unknown1094` | `app/client/tasks/tsk_login.h:283` | untagged neutral name (D10) |
+| 1 | `Unknown1134` | `app/client/tasks/tsk_login.h:285` | untagged neutral name (D10) |
+| 1 | `Unknown1138` | `app/client/tasks/tsk_login.h:286` | untagged neutral name (D10) |
+| 1 | `Unknown1139` | `app/client/tasks/tsk_login.h:287` | untagged neutral name (D10) |
+| 1 | `Unknown113C` | `app/client/tasks/tsk_login.h:288` | untagged neutral name (D10) |
+| 1 | `Unknown1144` | `app/client/tasks/tsk_login.h:290` | untagged neutral name (D10) |
 | 1 | `tsk_menu.cpp` | `app/client/tasks/tsk_menu.cpp:16` | neutral name from the class's log text, sorting between tsk_login.cpp and tsk_movie.cpp (the link order) |
 | 1 | `Unknown_Debug_Print` | `app/client/tasks/tsk_menu.cpp:17` | 0x509E30 (dbgmgr.cpp), the log line |
 | 1 | `Unknown_Debug_Begin_Step` | `app/client/tasks/tsk_menu.cpp:18` | 0x509EF0 (dbgmgr.cpp), WinMain's step log |
@@ -524,6 +521,13 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Get_Error_Text` | `app/client/unknown_authlogin.h:84` | what it does |
 | 1 | `Get_Message` | `app/client/unknown_authlogin.h:86` | what it returns |
 | 1 | `Unknown28` | `app/client/unknown_authlogin.h:92` | untagged neutral name (D10) |
+| 1 | `Unknown_78D450` | `app/client/unknown_creator.cpp:55` | untagged neutral name (D10) |
+| 1 | `unknown_creator.h` | `app/client/unknown_creator.h:17` | neutral file name (D10) |
+| 1 | `LoginNameDataClass` | `app/client/unknown_creator.h:28` | neutral (D10) |
+| 1 | `avatar, ship` | `app/client/unknown_creator.h:45` | their classes |
+| 1 | `Unknown_78D480` | `app/client/unknown_creator.h:45` | untagged neutral name (D10) |
+| 1 | `Unknown_78DAF0` | `app/client/unknown_creator.h:46` | untagged neutral name (D10) |
+| 1 | `Unknown_78D450` | `app/client/unknown_creator.h:51` | neutral (D10) |
 | 1 | `Unknown04` | `app/common/connect.cpp:10` | untagged neutral name (D10) |
 | 1 | `Unknown_Debug_Begin_Step` | `app/common/connect.cpp:33` | 0x509EF0 (dbgmgr.cpp), WinMain's step log |
 | 1 | `Unknown_Debug_End_Step` | `app/common/connect.cpp:34` | 0x50A1E0 (dbgmgr.cpp) |
@@ -680,10 +684,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Packet_00A9Class` | `app/packets/pk_classes.h:491` | neutral (D10): opcode 0x00A9 |
 | 1 | `Packet_00ABClass` | `app/packets/pk_classes.h:500` | neutral (D10): opcode 0x00AB |
 | 1 | `Packet_00ACClass` | `app/packets/pk_classes.h:509` | neutral (D10): opcode 0x00AC |
-| 1 | `Packet_00ADClass` | `app/packets/pk_classes.h:518` | neutral (D10): opcode 0x00AD |
-| 1 | `Packet_00B0Class` | `app/packets/pk_classes.h:527` | neutral (D10): opcode 0x00B0 |
-| 1 | `Packet_00B1Class` | `app/packets/pk_classes.h:536` | neutral (D10): opcode 0x00B1 |
-| 1 | `Packet_0077Class` | `app/packets/pk_classes.h:545` | neutral (D10): opcode 0x0077 |
+| 1 | `Packet_00B0Class` | `app/packets/pk_classes.h:518` | neutral (D10): opcode 0x00B0 |
+| 1 | `Packet_00B1Class` | `app/packets/pk_classes.h:527` | neutral (D10): opcode 0x00B1 |
+| 1 | `Packet_0077Class` | `app/packets/pk_classes.h:536` | neutral (D10): opcode 0x0077 |
 | 1 | `Unknown_14` | `app/packets/pk_player_object_relationship.cpp:10` | untagged neutral name (D10) |
 | 1 | `Unknown_14` | `app/packets/pk_sub_parts.cpp:29` | untagged neutral name (D10) |
 | 1 | `Unknown14` | `app/packets/pkaction.cpp:10` | untagged neutral name (D10) |
@@ -1155,17 +1158,21 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_4C48C0` | `app/packets/pkunknown_87dec0.cpp:76` | untagged neutral name (D10) |
 | 1 | `pkunknown_87dec0` | `app/packets/pkunknown_87dec0.h:15` | provisional, neutral (D10): the object's first address |
 | 1 | `Unknown_ChatStreamClass` | `app/packets/pkunknown_87dec0.h:25` | untagged neutral name (D10) |
-| 1 | `Unknown0C` | `app/packets/pkunknown_888b60.cpp:7` | untagged neutral name (D10) |
-| 1 | `Unknown10` | `app/packets/pkunknown_888b60.cpp:8` | untagged neutral name (D10) |
-| 1 | `Unknown18` | `app/packets/pkunknown_888b60.cpp:9` | untagged neutral name (D10) |
+| 1 | `Unknown0C` | `app/packets/pkunknown_888b60.cpp:8` | untagged neutral name (D10) |
+| 1 | `Unknown10` | `app/packets/pkunknown_888b60.cpp:9` | untagged neutral name (D10) |
 | 1 | `Unknown20` | `app/packets/pkunknown_888b60.cpp:10` | untagged neutral name (D10) |
+| 1 | `Unknown28` | `app/packets/pkunknown_888b60.cpp:11` | untagged neutral name (D10) |
+| 1 | `Unknown18` | `app/packets/pkunknown_888b60.cpp:55` | untagged neutral name (D10) |
 | 1 | `pkunknown_888b60` | `app/packets/pkunknown_888b60.h:16` | provisional, neutral (D10): the object's first address |
-| 1 | `Packet_00AEClass` | `app/packets/pkunknown_888b60.h:22` | neutral (D10): opcode 0x00AE (its Print says 'GroupServerRequestPacketClass') |
-| 1 | `Unknown0C` | `app/packets/pkunknown_888b60.h:32` | untagged neutral name (D10) |
-| 1 | `Unknown10` | `app/packets/pkunknown_888b60.h:33` | untagged neutral name (D10) |
-| 1 | `Unknown18` | `app/packets/pkunknown_888b60.h:34` | untagged neutral name (D10) |
-| 1 | `Unknown20` | `app/packets/pkunknown_888b60.h:35` | untagged neutral name (D10) |
-| 1 | `Packet_00AFClass` | `app/packets/pkunknown_888b60.h:39` | neutral (D10): opcode 0x00AF |
+| 1 | `Unknown_B0A794PacketClass` | `app/packets/pkunknown_888b60.h:24` | neutral (D10): its vtable |
+| 1 | `Packet_00ADClass` | `app/packets/pkunknown_888b60.h:29` | neutral (D10): opcode 0x00AD (its Print says 'GroupServerLoginPacketClass') |
+| 1 | `Unknown0C` | `app/packets/pkunknown_888b60.h:39` | untagged neutral name (D10) |
+| 1 | `Unknown10` | `app/packets/pkunknown_888b60.h:40` | untagged neutral name (D10) |
+| 1 | `Unknown20` | `app/packets/pkunknown_888b60.h:41` | untagged neutral name (D10) |
+| 1 | `Unknown28` | `app/packets/pkunknown_888b60.h:42` | untagged neutral name (D10) |
+| 1 | `Packet_00AEClass` | `app/packets/pkunknown_888b60.h:46` | neutral (D10): opcode 0x00AE (its Print says 'GroupServerRequestPacketClass') |
+| 1 | `Unknown18` | `app/packets/pkunknown_888b60.h:58` | untagged neutral name (D10) |
+| 1 | `Packet_00AFClass` | `app/packets/pkunknown_888b60.h:63` | neutral (D10): opcode 0x00AF |
 | 1 | `pkunknown_8a2b70` | `app/packets/pkunknown_8a2b70.h:16` | provisional, neutral (D10): the object's first address |
 | 1 | `Packet_0045Class` | `app/packets/pkunknown_8a2b70.h:22` | neutral (D10): opcode 0x0045 |
 | 1 | `Unknown0C` | `app/packets/pkunknown_8a5510.cpp:6` | untagged neutral name (D10) |
@@ -1333,6 +1340,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_4C1460` | `app/shared/avatar_desc.h:45` | untagged neutral name (D10) |
 | 1 | `Unknown0C` | `app/shared/avatar_desc.h:48` | untagged neutral name (D10) |
 | 1 | `UnknownFC` | `app/shared/avatar_desc.h:85` | untagged neutral name (D10) |
+| 1 | `BoolContext` | `app/shared/boolpars.cpp:7` | 0xBE34D8, set only around BoolExpressionClass::Evaluate |
 | 1 | `Unknown08` | `app/shared/definition_manager.h:37` | neutral placeholder (D10) |
 | 1 | `Unknown08` | `app/shared/definition_manager.h:221` | neutral placeholder (D10) |
 | 1 | `Get_Height_2` | `app/shared/heightfield.h:50` | the same code at a second address (0x463CD0) |
@@ -1355,39 +1363,46 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_4A1590` | `app/shared/kv_tripl.cpp:6` | neutral placeholder (D10) |
 | 1 | `Type` | `app/shared/kv_tripl.h:47` | neutral guess, a short string beside the value |
 | 1 | `Get_Type` | `app/shared/kv_tripl.h:66` | neutral guess |
-| 1 | `Unknown_466E70` | `app/shared/land.cpp:32` | unknown; news the global object (0x90 bytes, 0xBDC0D8) Unknown_466F10 deletes; called by Load_Assets only |
-| 1 | `Unknown_466F10` | `app/shared/land.cpp:33` | untagged neutral name (D10) |
-| 1 | `LandUnknown466BE0Class` | `app/shared/land.cpp:34` | unknown; the object Unknown_466E70 makes (0x90 bytes, vtable 0xAE8974, ctor 0x466BE0): Update_Patches draws it with the land's scale while its +0x11 is set |
-| 1 | `Unknown_466F40` | `app/shared/land.cpp:39` | unknown |
-| 1 | `m_Unknown04` | `app/shared/land.cpp:40` | untagged neutral name (D10) |
-| 1 | `m_Unknown11` | `app/shared/land.cpp:41` | set by the ctor |
-| 1 | `Unknown_BDC0D8` | `app/shared/land.cpp:43` | unknown |
-| 1 | `LandClass::LandClass` | `app/shared/land.cpp:46` | unknown; deletes a global object (0xBDC0D8) and clears it; called by the land's dtor only |
-| 1 | `m_Unknown120` | `app/shared/land.cpp:55` | untagged neutral name (D10) |
-| 1 | `m_Unknown17C` | `app/shared/land.cpp:65` | untagged neutral name (D10) |
-| 1 | `m_Unknown184` | `app/shared/land.cpp:66` | untagged neutral name (D10) |
-| 1 | `m_Unknown190` | `app/shared/land.cpp:68` | untagged neutral name (D10) |
-| 1 | `m_Unknown191` | `app/shared/land.cpp:69` | untagged neutral name (D10) |
-| 1 | `m_Unknown192` | `app/shared/land.cpp:70` | untagged neutral name (D10) |
-| 1 | `m_Unknown1E4` | `app/shared/land.cpp:83` | untagged neutral name (D10) |
-| 1 | `m_Unknown1E8` | `app/shared/land.cpp:84` | untagged neutral name (D10) |
-| 1 | `m_Unknown1EC` | `app/shared/land.cpp:85` | untagged neutral name (D10) |
-| 1 | `m_Unknown1F0` | `app/shared/land.cpp:86` | untagged neutral name (D10) |
-| 1 | `m_Unknown1F4` | `app/shared/land.cpp:87` | untagged neutral name (D10) |
-| 1 | `m_Unknown1F8` | `app/shared/land.cpp:88` | untagged neutral name (D10) |
-| 1 | `m_Unknown120C` | `app/shared/land.cpp:94` | untagged neutral name (D10) |
-| 1 | `m_Unknown1214` | `app/shared/land.cpp:96` | untagged neutral name (D10) |
-| 1 | `m_Unknown178` | `app/shared/land.cpp:352` | untagged neutral name (D10) |
-| 1 | `m_Unknown180` | `app/shared/land.cpp:353` | untagged neutral name (D10) |
-| 1 | `m_Unknown188` | `app/shared/land.cpp:354` | untagged neutral name (D10) |
-| 1 | `m_Unknown10` | `app/shared/land.cpp:762` | untagged neutral name (D10) |
-| 1 | `m_Unknown14` | `app/shared/land.cpp:763` | untagged neutral name (D10) |
-| 1 | `m_Unknown18` | `app/shared/land.cpp:764` | untagged neutral name (D10) |
-| 1 | `m_Unknown1C` | `app/shared/land.cpp:765` | untagged neutral name (D10) |
-| 1 | `Add_Unknown1218` | `app/shared/land.cpp:781` | untagged neutral name (D10) |
-| 1 | `LandUnknownClass` | `app/shared/land.cpp:781` | untagged neutral name (D10) |
-| 1 | `m_Unknown1218` | `app/shared/land.cpp:783` | untagged neutral name (D10) |
-| 1 | `Clear_Unknown1218` | `app/shared/land.cpp:786` | untagged neutral name (D10) |
+| 1 | `Unknown_466E70` | `app/shared/land.cpp:34` | unknown; news the global object (0x90 bytes, 0xBDC0D8) Unknown_466F10 deletes; called by Load_Assets only |
+| 1 | `Unknown_466F10` | `app/shared/land.cpp:35` | untagged neutral name (D10) |
+| 1 | `LandUnknown466BE0Class` | `app/shared/land.cpp:36` | unknown; the object Unknown_466E70 makes (0x90 bytes, vtable 0xAE8974, ctor 0x466BE0): Update_Patches draws it with the land's scale while its +0x11 is set |
+| 1 | `Unknown_466F40` | `app/shared/land.cpp:41` | unknown |
+| 1 | `m_Unknown04` | `app/shared/land.cpp:42` | untagged neutral name (D10) |
+| 1 | `m_Unknown11` | `app/shared/land.cpp:43` | set by the ctor |
+| 1 | `Unknown_BDC0D8` | `app/shared/land.cpp:45` | unknown |
+| 1 | `LandClass::LandClass` | `app/shared/land.cpp:48` | unknown; deletes a global object (0xBDC0D8) and clears it; called by the land's dtor only |
+| 1 | `m_Unknown120` | `app/shared/land.cpp:57` | untagged neutral name (D10) |
+| 1 | `m_Unknown17C` | `app/shared/land.cpp:67` | untagged neutral name (D10) |
+| 1 | `m_Unknown184` | `app/shared/land.cpp:68` | untagged neutral name (D10) |
+| 1 | `m_Unknown190` | `app/shared/land.cpp:70` | untagged neutral name (D10) |
+| 1 | `m_Unknown191` | `app/shared/land.cpp:71` | untagged neutral name (D10) |
+| 1 | `m_Unknown192` | `app/shared/land.cpp:72` | untagged neutral name (D10) |
+| 1 | `m_Unknown1E4` | `app/shared/land.cpp:85` | untagged neutral name (D10) |
+| 1 | `m_Unknown1E8` | `app/shared/land.cpp:86` | untagged neutral name (D10) |
+| 1 | `m_Unknown1EC` | `app/shared/land.cpp:87` | untagged neutral name (D10) |
+| 1 | `m_Unknown1F0` | `app/shared/land.cpp:88` | untagged neutral name (D10) |
+| 1 | `m_Unknown1F4` | `app/shared/land.cpp:89` | untagged neutral name (D10) |
+| 1 | `m_Unknown1F8` | `app/shared/land.cpp:90` | untagged neutral name (D10) |
+| 1 | `m_Unknown120C` | `app/shared/land.cpp:96` | untagged neutral name (D10) |
+| 1 | `m_Unknown1214` | `app/shared/land.cpp:98` | untagged neutral name (D10) |
+| 1 | `m_Unknown178` | `app/shared/land.cpp:354` | untagged neutral name (D10) |
+| 1 | `m_Unknown180` | `app/shared/land.cpp:355` | untagged neutral name (D10) |
+| 1 | `m_Unknown188` | `app/shared/land.cpp:356` | untagged neutral name (D10) |
+| 1 | `m_Unknown10` | `app/shared/land.cpp:764` | untagged neutral name (D10) |
+| 1 | `m_Unknown14` | `app/shared/land.cpp:765` | untagged neutral name (D10) |
+| 1 | `m_Unknown18` | `app/shared/land.cpp:766` | untagged neutral name (D10) |
+| 1 | `m_Unknown1C` | `app/shared/land.cpp:767` | untagged neutral name (D10) |
+| 1 | `Add_Unknown1218` | `app/shared/land.cpp:783` | untagged neutral name (D10) |
+| 1 | `LandUnknownClass` | `app/shared/land.cpp:783` | untagged neutral name (D10) |
+| 1 | `m_Unknown1218` | `app/shared/land.cpp:785` | untagged neutral name (D10) |
+| 1 | `Clear_Unknown1218` | `app/shared/land.cpp:788` | untagged neutral name (D10) |
+| 1 | `Unknown_46E120` | `app/shared/land.cpp:1197` | untagged neutral name (D10) |
+| 1 | `Unknown_46F120` | `app/shared/land.cpp:1199` | untagged neutral name (D10) |
+| 1 | `Unknown_473290` | `app/shared/land.cpp:1203` | untagged neutral name (D10) |
+| 1 | `Unknown_470F80` | `app/shared/land.cpp:1204` | untagged neutral name (D10) |
+| 1 | `Unknown_4733C0` | `app/shared/land.cpp:1232` | untagged neutral name (D10) |
+| 1 | `Unknown_473780` | `app/shared/land.cpp:1234` | untagged neutral name (D10) |
+| 1 | `Unknown_473BC0` | `app/shared/land.cpp:1238` | untagged neutral name (D10) |
 | 1 | `m_UnknownXX` | `app/shared/land.h:21` | untagged neutral name (D10) |
 | 1 | `LandPatchClass` | `app/shared/land.h:69` | the land's patch (0x30 bytes, new'd per grid cell by Load_Assets 0x4691D0; ctor 0x474530, dtor 0x474560) |
 | 1 | `VertexBuffer` | `app/shared/land.h:82` | members after their offsets (ctor 0x474530) |
@@ -1404,24 +1419,31 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `LandUnknownClass` | `app/shared/land.h:124` | as above |
 | 1 | `Add_Unknown1218` | `app/shared/land.h:169` | the vector at +0x1218 (0x4786A0 push_back, 0x4788B0 clear; called by 0x75F8B0) |
 | 1 | `Clear_Unknown1218` | `app/shared/land.h:171` | untagged neutral name (D10) |
-| 1 | `m_Unknown120` | `app/shared/land.h:222` | untagged neutral name (D10) |
-| 1 | `m_Unknown178` | `app/shared/land.h:239` | untagged neutral name (D10) |
-| 1 | `m_Unknown17C` | `app/shared/land.h:240` | untagged neutral name (D10) |
-| 1 | `m_Unknown180` | `app/shared/land.h:241` | untagged neutral name (D10) |
-| 1 | `m_Unknown184` | `app/shared/land.h:242` | untagged neutral name (D10) |
-| 1 | `m_Unknown188` | `app/shared/land.h:243` | untagged neutral name (D10) |
-| 1 | `m_Unknown190` | `app/shared/land.h:245` | untagged neutral name (D10) |
-| 1 | `m_Unknown191` | `app/shared/land.h:246` | untagged neutral name (D10) |
-| 1 | `m_Unknown192` | `app/shared/land.h:247` | untagged neutral name (D10) |
-| 1 | `m_Unknown1E4` | `app/shared/land.h:262` | untagged neutral name (D10) |
-| 1 | `m_Unknown1E8` | `app/shared/land.h:263` | untagged neutral name (D10) |
-| 1 | `m_Unknown1EC` | `app/shared/land.h:264` | untagged neutral name (D10) |
-| 1 | `m_Unknown1F0` | `app/shared/land.h:265` | untagged neutral name (D10) |
-| 1 | `m_Unknown1F4` | `app/shared/land.h:266` | untagged neutral name (D10) |
-| 1 | `m_Unknown1F8` | `app/shared/land.h:267` | untagged neutral name (D10) |
-| 1 | `m_Unknown120C` | `app/shared/land.h:276` | untagged neutral name (D10) |
-| 1 | `m_Unknown1214` | `app/shared/land.h:278` | untagged neutral name (D10) |
-| 1 | `m_Unknown1218` | `app/shared/land.h:279` | untagged neutral name (D10) |
+| 1 | `Unknown_46E120` | `app/shared/land.h:189` | unknown; the steps of Compute_Horizons 0x46E670 (not rebuilt): the shadow casters into the height field (0x46E120), |
+| 1 | `Unknown_46F120` | `app/shared/land.h:192` | untagged neutral name (D10) |
+| 1 | `Unknown_473290` | `app/shared/land.h:193` | untagged neutral name (D10) |
+| 1 | `Unknown_470F80` | `app/shared/land.h:194` | untagged neutral name (D10) |
+| 1 | `Unknown_4733C0` | `app/shared/land.h:195` | unknown; one height-field row each into Unknown_473290's buffers, with VScale / Spacing (0x4733C0: 4 bytes a vertex, 0x473780 and 0x473BC0: 3) |
+| 1 | `Unknown_473780` | `app/shared/land.h:197` | untagged neutral name (D10) |
+| 1 | `Unknown_473BC0` | `app/shared/land.h:198` | untagged neutral name (D10) |
+| 1 | `m_Unknown120` | `app/shared/land.h:232` | untagged neutral name (D10) |
+| 1 | `m_Unknown178` | `app/shared/land.h:249` | untagged neutral name (D10) |
+| 1 | `m_Unknown17C` | `app/shared/land.h:250` | untagged neutral name (D10) |
+| 1 | `m_Unknown180` | `app/shared/land.h:251` | untagged neutral name (D10) |
+| 1 | `m_Unknown184` | `app/shared/land.h:252` | untagged neutral name (D10) |
+| 1 | `m_Unknown188` | `app/shared/land.h:253` | untagged neutral name (D10) |
+| 1 | `m_Unknown190` | `app/shared/land.h:255` | untagged neutral name (D10) |
+| 1 | `m_Unknown191` | `app/shared/land.h:256` | untagged neutral name (D10) |
+| 1 | `m_Unknown192` | `app/shared/land.h:257` | untagged neutral name (D10) |
+| 1 | `m_Unknown1E4` | `app/shared/land.h:272` | untagged neutral name (D10) |
+| 1 | `m_Unknown1E8` | `app/shared/land.h:273` | untagged neutral name (D10) |
+| 1 | `m_Unknown1EC` | `app/shared/land.h:274` | untagged neutral name (D10) |
+| 1 | `m_Unknown1F0` | `app/shared/land.h:275` | untagged neutral name (D10) |
+| 1 | `m_Unknown1F4` | `app/shared/land.h:276` | untagged neutral name (D10) |
+| 1 | `m_Unknown1F8` | `app/shared/land.h:277` | untagged neutral name (D10) |
+| 1 | `m_Unknown120C` | `app/shared/land.h:286` | untagged neutral name (D10) |
+| 1 | `m_Unknown1214` | `app/shared/land.h:288` | untagged neutral name (D10) |
+| 1 | `m_Unknown1218` | `app/shared/land.h:289` | untagged neutral name (D10) |
 | 1 | `Unknown_4FC2F0` | `app/shared/lookup_table.cpp:10` | neutral placeholder (D10) |
 | 1 | `m_Unknown00` | `app/shared/money.h:29` | untagged neutral name (D10) |
 | 1 | `std:` | `app/shared/money.h:36` | neutral placeholder (D10) |
@@ -1629,7 +1651,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_Debug_Begin_Step` | `tests/capharness/udpreplay/connect_stubs.cpp:35` | untagged neutral name (D10) |
 | 1 | `Unknown_Debug_End_Step` | `tests/capharness/udpreplay/connect_stubs.cpp:36` | untagged neutral name (D10) |
 | 1 | `Unknown_Debug_Print` | `tests/capharness/udpreplay/connect_stubs.cpp:37` | untagged neutral name (D10) |
-| 1 | `Unknown_2C` | `tests/capharness/udpreplay/pk_ctor_stubs.cpp:155` | untagged neutral name (D10) |
+| 1 | `Unknown_2C` | `tests/capharness/udpreplay/pk_ctor_stubs.cpp:154` | untagged neutral name (D10) |
 | 1 | `Unknown_4BC130` | `tests/capharness/udpreplay/udpreplay.cpp:70` | untagged neutral name (D10) |
 | 2 | `BuffDefStruct` | `app/client/buff_database.h:24` | what it holds (one BUFF-n section, 0x14 bytes) |
 | 2 | `Type` | `app/client/buff_database.h:29` | the ini key |
@@ -1731,6 +1753,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `LastFinished` | `app/client/tutorial_manager.h:89` | describes what it holds |
 | 2 | `Result` | `app/client/unknown_authlogin.h:27` | the assert's kr; tested >= 0 |
 | 2 | `IComponentFactoryClass` | `app/client/unknown_authlogin.h:38` | authFactory (the assert) |
+| 2 | `Set_Name` | `app/client/unknown_creator.h:35` | what it does |
+| 2 | `CharacterCreatorClass` | `app/client/unknown_creator.h:41` | its folder and registry key, 'Character and Starship Creator' |
+| 2 | `Make_Folder` | `app/client/unknown_creator.h:52` | what it does |
 | 2 | `Get_Average` | `app/common/average.h:106` | what it does |
 | 2 | `Current` | `app/common/average.h:115` | what it holds |
 | 2 | `Time` | `app/common/average.h:116` | what it holds |
@@ -1985,11 +2010,11 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `GlobalAvatarListPacketClass` | `app/packets/pk_classes.h:263` | the reference decoder's opcode name GLOBAL_AVATAR_LIST (the Net-7 opcode table; no structure check) |
 | 2 | `GlobalCreateCharacterPacketClass` | `app/packets/pk_classes.h:272` | the reference decoder's opcode name GLOBAL_CREATE_CHARACTER (the Net-7 opcode table; no structure check) |
 | 2 | `GlobalErrorPacketClass` | `app/packets/pk_classes.h:281` | the reference decoder's opcode name GLOBAL_ERROR (the Net-7 opcode table; no structure check) |
-| 2 | `RecustomizeShipStartPacketClass` | `app/packets/pk_classes.h:555` | the reference decoder's opcode name RECUSTOMIZE_SHIP_START (the Net-7 opcode table; no structure check) |
-| 2 | `RecustomizeShipDonePacketClass` | `app/packets/pk_classes.h:563` | the reference decoder's opcode name RECUSTOMIZE_SHIP_DONE (the Net-7 opcode table; no structure check) |
-| 2 | `RecustomizeAvatarStartPacketClass` | `app/packets/pk_classes.h:572` | the reference decoder's opcode name RECUSTOMIZE_AVATAR_START (the Net-7 opcode table; no structure check) |
-| 2 | `RecustomizeAvatarDonePacketClass` | `app/packets/pk_classes.h:580` | the reference decoder's opcode name RECUSTOMIZE_AVATAR_DONE (the Net-7 opcode table; no structure check) |
-| 2 | `RecustomizeAvatarUpdatePacketClass` | `app/packets/pk_classes.h:589` | the reference decoder's opcode name RECUSTOMIZE_AVATAR_UPDATE (the Net-7 opcode table; no structure check) |
+| 2 | `RecustomizeShipStartPacketClass` | `app/packets/pk_classes.h:546` | the reference decoder's opcode name RECUSTOMIZE_SHIP_START (the Net-7 opcode table; no structure check) |
+| 2 | `RecustomizeShipDonePacketClass` | `app/packets/pk_classes.h:554` | the reference decoder's opcode name RECUSTOMIZE_SHIP_DONE (the Net-7 opcode table; no structure check) |
+| 2 | `RecustomizeAvatarStartPacketClass` | `app/packets/pk_classes.h:563` | the reference decoder's opcode name RECUSTOMIZE_AVATAR_START (the Net-7 opcode table; no structure check) |
+| 2 | `RecustomizeAvatarDonePacketClass` | `app/packets/pk_classes.h:571` | the reference decoder's opcode name RECUSTOMIZE_AVATAR_DONE (the Net-7 opcode table; no structure check) |
+| 2 | `RecustomizeAvatarUpdatePacketClass` | `app/packets/pk_classes.h:580` | the reference decoder's opcode name RECUSTOMIZE_AVATAR_UPDATE (the Net-7 opcode table; no structure check) |
 | 2 | `MobReactionType` | `app/packets/pk_player_object_relationship.h:25` | what it holds, after the client's MOB_REACTION_COUNT |
 | 2 | `Value_To_String` | `app/packets/pk_player_object_relationship.h:31` | as strconv_lib.h's pairs |
 | 2 | `RelationshipClass` | `app/packets/pk_player_object_relationship.h:35` | what it holds (the packet's Print names both members) |
@@ -2408,6 +2433,57 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Clear` | `app/shared/avatar_desc.h:41` | what it does |
 | 2 | `Is_Valid` | `app/shared/avatar_desc.h:42` | what it does |
 | 2 | `Reset` | `app/shared/avatar_desc.h:43` | what it does |
+| 2 | `boolpars.cpp` | `app/shared/boolpars.cpp:9` | describes what it does |
+| 2 | `Duplicate_Text` | `app/shared/boolpars.cpp:300` | describes what it does (not in the client: inlined into Parse) |
+| 2 | `BoolValueStruct` | `app/shared/boolpars.h:29` | describes what it holds |
+| 2 | `?` | `app/shared/boolpars.h:31` | describes what they select |
+| 2 | `Get_Bool` | `app/shared/boolpars.h:46` | describes what it does |
+| 2 | `Get_Int` | `app/shared/boolpars.h:47` | describes what it does |
+| 2 | `Get_Float` | `app/shared/boolpars.h:48` | describes what it does |
+| 2 | `Get_String` | `app/shared/boolpars.h:49` | describes what it does |
+| 2 | `Get_Function` | `app/shared/boolpars.h:50` | describes what it does |
+| 2 | `Type` | `app/shared/boolpars.h:52` | describes what it holds |
+| 2 | `Bool` | `app/shared/boolpars.h:54` | describes what it holds |
+| 2 | `Int` | `app/shared/boolpars.h:55` | describes what it holds |
+| 2 | `Float` | `app/shared/boolpars.h:56` | describes what it holds |
+| 2 | `String` | `app/shared/boolpars.h:57` | describes what it holds |
+| 2 | `Function` | `app/shared/boolpars.h:58` | describes what it holds |
+| 2 | `BoolEvaluatorClass` | `app/shared/boolpars.h:62` | what the callbacks do (the client's EvaluatorCallbacks) |
+| 2 | `Evaluate` | `app/shared/boolpars.h:65` | describes what it does |
+| 2 | `std:` | `app/shared/boolpars.h:68` | describes what it holds |
+| 2 | `BoolNodeClass` | `app/shared/boolpars.h:72` | describes what it is (vtable 0xAEA95C) |
+| 2 | `Evaluate` | `app/shared/boolpars.h:76` | describes what it does |
+| 2 | `As_Logic` | `app/shared/boolpars.h:77` | describes what it does |
+| 2 | `As_Function` | `app/shared/boolpars.h:78` | describes what it does |
+| 2 | `BoolOperatorClass` | `app/shared/boolpars.h:81` | describes what it is (vtable 0xAEA958) |
+| 2 | `?` | `app/shared/boolpars.h:84` | describes what they select |
+| 2 | `Evaluate` | `app/shared/boolpars.h:93` | describes what it does |
+| 2 | `Op` | `app/shared/boolpars.h:95` | describes what it holds |
+| 2 | `BoolLogicNodeClass` | `app/shared/boolpars.h:98` | describes what it is (vtable 0xAEA944, 0x14 bytes) |
+| 2 | `Operator` | `app/shared/boolpars.h:116` | describes what it holds |
+| 2 | `Left` | `app/shared/boolpars.h:117` | describes what it holds |
+| 2 | `Right` | `app/shared/boolpars.h:118` | describes what it holds |
+| 2 | `BoolFunctionNodeClass` | `app/shared/boolpars.h:121` | describes what it is (vtable 0xAEA970, 0x14 bytes) |
+| 2 | `Constant` | `app/shared/boolpars.h:147` | describes what it holds |
+| 2 | `Callback` | `app/shared/boolpars.h:148` | describes what it holds |
+| 2 | `Params` | `app/shared/boolpars.h:149` | describes what it holds |
+| 2 | `Count` | `app/shared/boolpars.h:150` | describes what it holds |
+| 2 | `BoolExpressionClass` | `app/shared/boolpars.h:153` | describes what it is (4 bytes, no vtable) |
+| 2 | `Evaluate` | `app/shared/boolpars.h:159` | describes what it does |
+| 2 | `Set_Callbacks` | `app/shared/boolpars.h:169` | describes what it does |
+| 2 | `Parse` | `app/shared/boolpars.h:170` | describes what it does |
+| 2 | `Parse_Or` | `app/shared/boolpars.h:173` | describes what it does |
+| 2 | `Parse_Or_Rest` | `app/shared/boolpars.h:174` | describes what it does |
+| 2 | `Parse_And` | `app/shared/boolpars.h:175` | describes what it does |
+| 2 | `Parse_And_Rest` | `app/shared/boolpars.h:176` | describes what it does |
+| 2 | `Parse_Factor` | `app/shared/boolpars.h:177` | describes what it does |
+| 2 | `Parse_Function` | `app/shared/boolpars.h:178` | describes what it does |
+| 2 | `Parse_Params` | `app/shared/boolpars.h:179` | describes what it does |
+| 2 | `Parse_Param` | `app/shared/boolpars.h:180` | describes what it does |
+| 2 | `Create_Logic` | `app/shared/boolpars.h:181` | describes what it does |
+| 2 | `Create_Constant` | `app/shared/boolpars.h:182` | describes what it does |
+| 2 | `Create_Function` | `app/shared/boolpars.h:183` | describes what it does |
+| 2 | `Get_Callback` | `app/shared/boolpars.h:184` | describes what it does |
 | 2 | `Add_Mix` | `app/shared/combo_ffactory.h:38` | describes what it does |
 | 2 | `Simple` | `app/shared/combo_ffactory.h:41` | describes what it holds |
 | 2 | `std:` | `app/shared/combo_ffactory.h:43` | describes what it holds |
@@ -2432,8 +2508,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Get_Size` | `app/shared/heightfield.h:63` | ours (VIDTEST's land, functional): the grid clamped at the edges, world coordinates |
 | 2 | `Get_Log2` | `app/shared/heightfield.h:73` | the land's Load_Assets reads them (0x4691D0) |
 | 2 | `Get_YSpacing` | `app/shared/heightfield.h:75` | the land's Update_Patches reads them (0x46B3C0) |
-| 2 | `Get_VScale` | `app/shared/heightfield.h:78` | the land's patches read it (0x474790) |
-| 2 | `Heights` | `app/shared/heightfield.h:81` | members after what Load and the PGM reader store |
+| 2 | `Get_Heights` | `app/shared/heightfield.h:78` | the land's Compute_Horizons saves and restores them (0x46E670) |
+| 2 | `Get_VScale` | `app/shared/heightfield.h:79` | the land's patches read it (0x474790) |
+| 2 | `Heights` | `app/shared/heightfield.h:82` | members after what Load and the PGM reader store |
 | 2 | `Get_INI` | `app/shared/ini_manager.h:38` | what it does |
 | 2 | `Split_Name` | `app/shared/ini_manager.h:39` | what it does |
 | 2 | `KVEncoderDataClass` | `app/shared/kv_encoder_base.h:29` | after the asserts' Data |
@@ -2488,10 +2565,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Get_Count` | `app/shared/kv_tripl.h:69` | describes what it does |
 | 2 | `Get` | `app/shared/kv_tripl.h:70` | describes what it does |
 | 2 | `Index` | `app/shared/kv_tripl.h:73` | describes what it does |
-| 2 | `LandLodDistances` | `app/shared/land.cpp:44` | the distance (in field cells) of level 1 per lod setting, doubled per level (0xB7188C) |
-| 2 | `LandVertexStruct` | `app/shared/land.cpp:812` | the patch vertex, FVF 0x202 (0x4746C0) |
-| 2 | `LandDirectionX` | `app/shared/land.cpp:1133` | the eight compass directions' unit vectors x (1 - 1/sqrt 2) mixes, per direction (0xAE97BC, 0xAE97DC) |
-| 2 | `LandHorizonTable` | `app/shared/land.cpp:1136` | per direction and per horizon angle step (256), the sky area term and the sun term (0xBDC0E8) |
+| 2 | `LandLodDistances` | `app/shared/land.cpp:46` | the distance (in field cells) of level 1 per lod setting, doubled per level (0xB7188C) |
+| 2 | `LandVertexStruct` | `app/shared/land.cpp:814` | the patch vertex, FVF 0x202 (0x4746C0) |
+| 2 | `LandDirectionX` | `app/shared/land.cpp:1135` | the eight compass directions' unit vectors x (1 - 1/sqrt 2) mixes, per direction (0xAE97BC, 0xAE97DC) |
+| 2 | `LandHorizonTable` | `app/shared/land.cpp:1138` | per direction and per horizon angle step (256), the sky area term and the sun term (0xBDC0E8) |
 | 2 | `land.h` | `app/shared/land.h:36` | after LandClass; no assert or __FILE__ names the file |
 | 2 | `LandLightingStruct` | `app/shared/land.h:58` | VIDTEST's name for the 0x30-byte lighting record its Update_Lighting 0x4250B0 hands the land (esp+0x74) |
 | 2 | `Init` | `app/shared/land.h:76` | after what they do (0x4746C0, called by Load_Assets per patch; 0x474790) |
@@ -2515,18 +2592,18 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Limit_Levels` | `app/shared/land.h:181` | limits the patches' levels outwards from the camera's patch, one level per patch (0x46AA40, called by Update_Patches 0x46B3C0) |
 | 2 | `Load_PLD` | `app/shared/land.h:183` | the height map's horizon tables (+0x1E4..+0x1F8, the normals +0x1FC) in a .pld beside the .pgm (0x46EB60, 0x46ECF0), computed from the ini (0x46E670, not rebuilt) |
 | 2 | `Init_Horizon_Tables` | `app/shared/land.h:187` | the reciprocal table and the shared horizon table (0x46EF60, called by Compute_Horizons 0x46E670) |
-| 2 | `LightmapSerial` | `app/shared/land.h:201` | members after what the ctor 0x468E90, the dtor 0x46A480 and Load_Assets 0x4691D0 do with them; m_UnknownXX: use not known |
-| 2 | `StripBuffers` | `app/shared/land.h:204` | a level's triangle strip over a patch (Build_Index_Buffers 0x478240) |
-| 2 | `StripCounts` | `app/shared/land.h:205` | its index count less 2 |
-| 2 | `EdgeBuffers` | `app/shared/land.h:206` | a level's edge fans, four sides (none at level 0) |
-| 2 | `EdgeCounts` | `app/shared/land.h:207` | their index count: LandPatchClass::Draw draws a quarter (one side) per bit |
-| 2 | `Reciprocals` | `app/shared/land.h:208` | +0xE4, 1 / n for n = 1 .. 2 Size - 1 (0x46EF60) |
-| 2 | `CameraCellZ` | `app/shared/land.h:220` | +0x114, the camera's cell (patch units) at the last Update_Patches 0x46B3C0 |
-| 2 | `SeaTextures` | `app/shared/land.h:233` | +0x140, the sea swatch's textures, pass x stage (Load_Assets 0x4691D0) |
-| 2 | `SeaMaterials` | `app/shared/land.h:235` | +0x158, the swatch's material per pass |
-| 2 | `LightColor` | `app/shared/land.h:249` | +0x198..+0x1C4 is the 0x30-byte lighting record Update_Lightmap 0x46D900 / 0x46DA70 copy in (VIDTEST's LandLightingStruct, its names) |
-| 2 | `UpdateMin` | `app/shared/land.h:256` | the lightmap rectangle being updated and the time-sliced update's cursor (0x46D900 / 0x46DA70) |
-| 2 | `Normals` | `app/shared/land.h:268` | what Prepare_Lighting 0x46C730 makes of the lighting record |
+| 2 | `LightmapSerial` | `app/shared/land.h:211` | members after what the ctor 0x468E90, the dtor 0x46A480 and Load_Assets 0x4691D0 do with them; m_UnknownXX: use not known |
+| 2 | `StripBuffers` | `app/shared/land.h:214` | a level's triangle strip over a patch (Build_Index_Buffers 0x478240) |
+| 2 | `StripCounts` | `app/shared/land.h:215` | its index count less 2 |
+| 2 | `EdgeBuffers` | `app/shared/land.h:216` | a level's edge fans, four sides (none at level 0) |
+| 2 | `EdgeCounts` | `app/shared/land.h:217` | their index count: LandPatchClass::Draw draws a quarter (one side) per bit |
+| 2 | `Reciprocals` | `app/shared/land.h:218` | +0xE4, 1 / n for n = 1 .. 2 Size - 1 (0x46EF60) |
+| 2 | `CameraCellZ` | `app/shared/land.h:230` | +0x114, the camera's cell (patch units) at the last Update_Patches 0x46B3C0 |
+| 2 | `SeaTextures` | `app/shared/land.h:243` | +0x140, the sea swatch's textures, pass x stage (Load_Assets 0x4691D0) |
+| 2 | `SeaMaterials` | `app/shared/land.h:245` | +0x158, the swatch's material per pass |
+| 2 | `LightColor` | `app/shared/land.h:259` | +0x198..+0x1C4 is the 0x30-byte lighting record Update_Lightmap 0x46D900 / 0x46DA70 copy in (VIDTEST's LandLightingStruct, its names) |
+| 2 | `UpdateMin` | `app/shared/land.h:266` | the lightmap rectangle being updated and the time-sliced update's cursor (0x46D900 / 0x46DA70) |
+| 2 | `Normals` | `app/shared/land.h:278` | what Prepare_Lighting 0x46C730 makes of the lighting record |
 | 2 | `sample_indices` | `app/shared/lookup_table.cpp:15` | what it holds |
 | 2 | `Compare_Samples` | `app/shared/lookup_table.cpp:199` | what it does |
 | 2 | `Lookup` | `app/shared/lookup_table.h:38` | what it does (the self-test's floor->Lookup(index)) |
@@ -3412,6 +3489,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `PolicyClass` | `app/shared/auxdata/policy.h:141` | by convention (D24) from the client's file policy.cpp |
 | 3 | `avatar_desc.h` | `app/shared/avatar_desc.h:18` | header name assumed from the client's avatar_desc.cpp |
 | 3 | `AvatarDescClass` | `app/shared/avatar_desc.h:27` | by convention (D24) from the client's avatar_desc.cpp |
+| 3 | `boolpars.h` | `app/shared/boolpars.h:20` | header name assumed from the client's boolpars.cpp |
+| 3 | `BoolParserClass` | `app/shared/boolpars.h:164` | by convention (D24) from the client's file boolpars.cpp (vtable 0xAEA938) |
 | 3 | `combo_ffactory.h` | `app/shared/combo_ffactory.h:19` | header name assumed from the client's combo_ffactory.cpp |
 | 3 | `ComboFileFactoryClass` | `app/shared/combo_ffactory.h:29` | by convention (D24) from the client's file combo_ffactory.cpp |
 | 3 | `DefinitionAutoPtr` | `app/shared/definition_auto_ptr.h:25` | from the client's file definition_auto_ptr.h |

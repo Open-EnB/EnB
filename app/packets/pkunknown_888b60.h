@@ -5,7 +5,7 @@
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
 **	Original location: e:\build\beta\G\app\packets\pkunknown_888b60.h (the name provisional: see the .cpp)
 **
-**	The packet classes of client 0x888B60-0x88BD10 rebuilt so far (opcode 174, 175); the file's other classes
+**	The packet classes of client 0x888B60-0x88BD10 rebuilt so far (opcode 173, 174, 175); the file's other classes
 **	are still declared in pk_classes.h.
 */
 
@@ -17,6 +17,30 @@
 #define PKUNKNOWN_888B60_H
 
 #include "pk.h"
+#include <string>
+
+// An empty packet base (vtable 0xB0A794: PacketClass's defaults; its implicit destructor 0x889520 /
+// 0x8895B0 out of line here), under opcode 173 and others of this object (0x88A9A0, 0x88ABC0)
+class Unknown_B0A794PacketClass : public PacketClass  // NAME 1: neutral (D10): its vtable
+{
+};
+
+// opcode 173 (0x00AD, ?): vtable 0xB0A764, constructor 0x8895E0, 0x30 bytes
+class Packet_00ADClass : public Unknown_B0A794PacketClass  // NAME 1: neutral (D10): opcode 0x00AD (its Print says 'GroupServerLoginPacketClass')
+{
+public:
+	Packet_00ADClass(int unknown0c, const std::string &unknown10, __int64 unknown20, __int64 unknown28);	// 0x889280
+	Packet_00ADClass(RawPacketClass *raw);	// 0x8895E0
+	virtual RawPacketClass *Build();	// +0x04 0x889740
+	virtual bool Process_Packet(void *client);	// +0x08 0x868E50 (clientstub.cpp)
+	virtual int Get_Data_Size();	// +0x0C 0x889820
+	virtual int Print(char *buffer, int len);	// +0x10 0x889840
+
+	int Unknown0C;	// +0x0C (network order)
+	std::string Unknown10;	// +0x10 (a 2-byte length, then the bytes)
+	__int64 Unknown20;	// +0x20 (network order)
+	__int64 Unknown28;	// +0x28 (network order)
+};
 
 // opcode 174 (0x00AE, ?): vtable 0xB0A7C4, constructor 0x889940, 0x28 bytes
 class Packet_00AEClass : public PacketClass  // NAME 1: neutral (D10): opcode 0x00AE (its Print says 'GroupServerRequestPacketClass')
