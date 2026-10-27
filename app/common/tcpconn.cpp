@@ -576,8 +576,8 @@ TCPConnection::TCPConnection(SOCKET socket) :
 }
 
 
-// TCPListenerClass (vtable 0xB08880): the server's TCP listener; its Pump_Pending 0x82AA10 (the key
-// exchange's second step) isn't rebuilt. The key pair comes from 'server_rsa_keyset.dat'; every listener is in Listeners.
+// TCPListenerClass (vtable 0xB08880): the server's TCP listener; Pump_Pending 0x82AA10 takes the key
+// exchange's second step. The key pair comes from 'server_rsa_keyset.dat'; every listener is in Listeners.
 TCPListenerClass::TCPListenerClass() :
 	Socket(INVALID_SOCKET),
 	PortNumber(0)
@@ -813,6 +813,79 @@ void TCPListenerClass::Pump_All()
 	}
 }
 
+// The server's half, second step: the first pending connection whose answer has come ({u32 bytes,
+// the session key encrypted with the server's public key}) takes the key the private key decrypts
+// (by the Chinese remainder theorem), leaves Pending and is returned; a closed connection or a bad
+// answer is deleted. A zero key, or a key pair without n or e, takes the number as it came.
+ConnectionClass *TCPListenerClass::Pump_Pending()
+{
+	unsigned char *data = 0;
+	ConnectionClass *retval = 0;
+	std::list<TCPConnection *>::iterator it;
+	for (it = Pending.begin(); it != Pending.end(); ++it) {
+		TCPConnection *connection = *it;
+		if (connection != 0) {
+			connection->Con->pumpReads();
+			int available = connection->Con->peekRead(&data);
+			if (!connection->Con->isConnected()) {
+				delete *it;
+				*it = 0;
+			} else if (available >= 4) {
+				int len = *(int *)data;
+				len = ntohl(len);
+				if (len <= 0x200) {
+					if (available >= len + 4) {
+					BigInt c;
+					len = *(int *)data;
+					len = ntohl(len);
+					c.Unsigned_Decode(data + 4, len);
+					unsigned char buffer[0x204];
+					(*it)->Con->read(buffer, len + 4, 0);
+					__int64 key = 0;
+					BigInt zero;
+					if (c != zero) {
+						BigInt n;
+						BigInt e;
+						BigInt none;
+						const RSAKeyClass &pair = KeyPair;
+						n = pair.Modulus;
+						e = pair.Exponent;
+						if (n != none && e != none) {
+							BigInt m;
+							pair.Decrypt(m, c);
+							for (unsigned int bit = 0; bit < 64; bit++) {
+								key |= (__int64)m[bit] << bit;
+							}
+						} else {
+							for (unsigned int bit = 0; bit < 64; bit++) {
+								key |= (__int64)c[bit] << bit;
+							}
+						}
+					}
+					(*it)->Key = key;
+					(*it)->SendRC4.Prepare_Key((unsigned char *)&key, 8);
+					(*it)->ReceiveRC4.Prepare_Key((unsigned char *)&key, 8);
+					retval = *it;
+					Pending.erase(it);
+					break;
+					}
+				} else {
+					delete *it;
+					*it = 0;
+				}
+			}
+		}
+	}
+	for (it = Pending.begin(); it != Pending.end();) {
+		if (*it == 0) {
+			it = Pending.erase(it);
+		} else {
+			++it;
+		}
+	}
+	return(retval);
+}
+
 
 /*
 **	Reconstruction notes (tcpconn.cpp, PARTIAL; docs/kernel-map.md 4, step 8)
@@ -826,7 +899,8 @@ void TCPListenerClass::Pump_All()
 **	  Transport_Write 0x829A30 (line 440), Transport_Read 0x829BC0 (line 518), the constructor over an
 **	  accepted socket 0x829C80 (line 564); the listener 0x829E00-0x82AA10 (lines 645-780, the
 **	  server's): the constructor 0x829E50 (the key file), destructor, Listen 0x82A470 (functional), Stop, Accept and
-**	  Send_Key 0x82A830, Pump_All 0x82A990 rebuilt; Pump_Pending 0x82AA10 (the server's exchange) not. The exchange 0x829180 carries a marker.
+**	  Send_Key 0x82A830, Pump_All 0x82A990, Pump_Pending 0x82AA10 (the server's exchange: RSAKeyClass::Decrypt inlined, BigInt's
+**	  -=, +, >=, exp_b_mod_c, Unsigned_Divide out of line after it, 0x82C0B0-0x82C220) rebuilt. The exchange 0x829180 carries a marker.
 **	* The TCP layer is WWOnline wnet's TCPMgr / TCPCon (libs\wwonline\wnet, D73): E&B's TCPCon is an
 **	  OutputDevice with a lock and tcpqueue.cpp's queues (wnet's tcpcon.cpp and tcpqueue.cpp),
 **	  TCPMgr::cancelConnect 0x8BD940 is E&B's.

@@ -123,16 +123,16 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `MemoryListenerClass` | `app/common/memconn.h:78` | describes what it is |
 | 1 | `MemoryConnectionFactoryClass` | `app/common/memconn.h:97` | describes what it is |
 | 1 | `Unknown_4BC000` | `app/common/tcpconn.cpp:16` | 0x4BC000 |
-| 1 | `TCPConnection` | `app/common/tcpconn.h:33` | after the file tcpconn.cpp (no RTTI or string) |
-| 1 | `Close` | `app/common/tcpconn.h:49` | describes what it does |
-| 1 | `Unknown200` | `app/common/tcpconn.h:108` | untagged neutral name (D10) |
-| 1 | `Unknown300` | `app/common/tcpconn.h:114` | untagged neutral name (D10) |
-| 1 | `Unknown400` | `app/common/tcpconn.h:117` | untagged neutral name (D10) |
-| 1 | `Unknown500` | `app/common/tcpconn.h:155` | untagged neutral name (D10) |
-| 1 | `Unknown600` | `app/common/tcpconn.h:156` | untagged neutral name (D10) |
-| 1 | `Unknown700` | `app/common/tcpconn.h:157` | untagged neutral name (D10) |
-| 1 | `Unknown800` | `app/common/tcpconn.h:158` | untagged neutral name (D10) |
-| 1 | `TCPListenerClass` | `app/common/tcpconn.h:174` | after the file tcpconn.cpp |
+| 1 | `TCPConnection` | `app/common/tcpconn.h:32` | after the file tcpconn.cpp (no RTTI or string) |
+| 1 | `Close` | `app/common/tcpconn.h:48` | describes what it does |
+| 1 | `Unknown300` | `app/common/tcpconn.h:78` | untagged neutral name (D10) |
+| 1 | `Unknown400` | `app/common/tcpconn.h:79` | untagged neutral name (D10) |
+| 1 | `Unknown500` | `app/common/tcpconn.h:81` | untagged neutral name (D10) |
+| 1 | `Unknown600` | `app/common/tcpconn.h:83` | untagged neutral name (D10) |
+| 1 | `Unknown700` | `app/common/tcpconn.h:87` | untagged neutral name (D10) |
+| 1 | `Unknown800` | `app/common/tcpconn.h:88` | untagged neutral name (D10) |
+| 1 | `Unknown200` | `app/common/tcpconn.h:131` | untagged neutral name (D10) |
+| 1 | `TCPListenerClass` | `app/common/tcpconn.h:197` | after the file tcpconn.cpp |
 | 1 | `Get_Unknown04` | `app/common/udpconn.cpp:373` | untagged neutral name (D10) |
 | 1 | `Unknown_Create_Packet` | `app/common/udpconn.cpp:556` | untagged neutral name (D10) |
 | 1 | `UDPChannelKeyClass` | `app/common/udpconn.h:35` | describes what it is |
@@ -898,29 +898,30 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `TCPManager` | `app/common/tcpconn.cpp:10` | what it is |
 | 2 | `std:` | `app/common/tcpconn.cpp:11` | what it holds |
 | 2 | `WriteBuffer` | `app/common/tcpconn.cpp:12` | what it holds |
-| 2 | `Try_Connect` | `app/common/tcpconn.h:47` | what it does |
-| 2 | `Key_Exchange` | `app/common/tcpconn.h:48` | what it does |
-| 2 | `Encrypt` | `app/common/tcpconn.h:53` | what it holds |
-| 2 | `Key` | `app/common/tcpconn.h:54` | what it holds |
-| 2 | `SendRC4` | `app/common/tcpconn.h:55` | what it does |
-| 2 | `ReceiveRC4` | `app/common/tcpconn.h:56` | what it does |
-| 2 | `Name` | `app/common/tcpconn.h:57` | what it holds |
-| 2 | `IP` | `app/common/tcpconn.h:58` | what it holds |
-| 2 | `Port` | `app/common/tcpconn.h:59` | what it holds |
-| 2 | `tcpconn.h` | `app/common/tcpconn.h:65` | what it is |
-| 2 | `RSAKeyClass` | `app/common/tcpconn.h:67` | what it holds |
-| 2 | `Encrypt` | `app/common/tcpconn.h:71` | what it does |
-| 2 | `Load` | `app/common/tcpconn.h:75` | what it does |
-| 2 | `Read_Number` | `app/common/tcpconn.h:125` | what it does |
-| 2 | `Compute` | `app/common/tcpconn.h:143` | what it does |
-| 2 | `Modulus` | `app/common/tcpconn.h:161` | what it holds |
-| 2 | `Exponent` | `app/common/tcpconn.h:162` | what it holds |
-| 2 | `Accept` | `app/common/tcpconn.h:184` | what it does |
-| 2 | `Pump_Pending` | `app/common/tcpconn.h:185` | what it does |
-| 2 | `Send_Key` | `app/common/tcpconn.h:186` | what it does |
-| 2 | `Pump_All` | `app/common/tcpconn.h:187` | what it does |
-| 2 | `std:` | `app/common/tcpconn.h:191` | what it holds |
-| 2 | `KeyPair` | `app/common/tcpconn.h:192` | what it holds |
+| 2 | `Try_Connect` | `app/common/tcpconn.h:46` | what it does |
+| 2 | `Key_Exchange` | `app/common/tcpconn.h:47` | what it does |
+| 2 | `Encrypt` | `app/common/tcpconn.h:52` | what it holds |
+| 2 | `Key` | `app/common/tcpconn.h:53` | what it holds |
+| 2 | `SendRC4` | `app/common/tcpconn.h:54` | what it does |
+| 2 | `ReceiveRC4` | `app/common/tcpconn.h:55` | what it does |
+| 2 | `Name` | `app/common/tcpconn.h:56` | what it holds |
+| 2 | `IP` | `app/common/tcpconn.h:57` | what it holds |
+| 2 | `Port` | `app/common/tcpconn.h:58` | what it holds |
+| 2 | `tcpconn.h` | `app/common/tcpconn.h:64` | what it is |
+| 2 | `RSAKeyClass` | `app/common/tcpconn.h:66` | what it holds |
+| 2 | `Encrypt` | `app/common/tcpconn.h:70` | what it does |
+| 2 | `Decrypt` | `app/common/tcpconn.h:73` | what it does |
+| 2 | `Load` | `app/common/tcpconn.h:98` | what it does |
+| 2 | `Read_Number` | `app/common/tcpconn.h:148` | what it does |
+| 2 | `Compute` | `app/common/tcpconn.h:166` | what it does |
+| 2 | `Modulus` | `app/common/tcpconn.h:184` | what it holds |
+| 2 | `Exponent` | `app/common/tcpconn.h:185` | what it holds |
+| 2 | `Accept` | `app/common/tcpconn.h:207` | what it does |
+| 2 | `Pump_Pending` | `app/common/tcpconn.h:208` | what it does |
+| 2 | `Send_Key` | `app/common/tcpconn.h:209` | what it does |
+| 2 | `Pump_All` | `app/common/tcpconn.h:210` | what it does |
+| 2 | `std:` | `app/common/tcpconn.h:214` | what it holds |
+| 2 | `KeyPair` | `app/common/tcpconn.h:215` | what it holds |
 | 2 | `Channel` | `app/common/udpconn.h:37` | what it holds |
 | 2 | `Reliable` | `app/common/udpconn.h:38` | 3 reliable, 4 sequenced |
 | 2 | `Channel` | `app/common/udpconn.h:46` | the CordCon channel openc gave |
@@ -1572,7 +1573,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `CircBuffClass` | `app/common/circbuff.h:20` | by convention (D24) from the client's file circbuff.cpp |
 | 3 | `dbgconn.h` | `app/common/dbgconn.h:19` | a .h paired with the client's dbgconn.cpp (D24) |
 | 3 | `memconn.h` | `app/common/memconn.h:20` | a .h paired with the client's memconn.cpp (D24) |
-| 3 | `tcpconn.h` | `app/common/tcpconn.h:19` | header name assumed from the client's tcpconn.cpp |
+| 3 | `tcpconn.h` | `app/common/tcpconn.h:18` | header name assumed from the client's tcpconn.cpp |
 | 3 | `udpconn.h` | `app/common/udpconn.h:19` | header name assumed from the client's udpconn.cpp |
 | 3 | `kernel.h` | `app/kernel/kernel.h:18` | header name assumed from the client's kernel.cpp |
 | 3 | `PacketClass` | `app/packets/pk.h:101` | by convention (D24) from pk.h / pk.cpp |

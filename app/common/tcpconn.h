@@ -9,7 +9,6 @@
 **	PARTIAL (docs/kernel-map.md 4, step 8): the TCP connection (vtable 0xB08838, 0x248 bytes), a
 **	stream connection over WWOnline wnet's TCPCon with an RC4 stream each way, keyed by an RSA
 **	exchange at connect time. The members are at the client's offsets (constructor 0x828DE0).
-**	Not rebuilt yet: the listener's Pump_Pending 0x82AA10 (the session key's RSA decryption).
 */
 
 #if defined(_MSC_VER)
@@ -69,6 +68,30 @@ class RSAKeyClass	// NAME 2: what it holds
 public:
 	~RSAKeyClass() {}
 	BigInt Encrypt(BigInt m) const { return(m.exp_b_mod_c(Exponent, Modulus)); }	// inlined in 0x829180  // NAME 2: what it does
+	// m = c^d mod n by the Chinese remainder theorem (p, q, d mod (p-1), d mod (q-1) and the two
+	// factors from Compute); inlined in Pump_Pending 0x82AA10, its callees out of line there (0x82C0B0-0x82C220)
+	void Decrypt(BigInt &m, const BigInt &c) const	// NAME 2: what it does
+	{
+		BigInt quotient;
+		BigInt cp;
+		BigInt cq;
+		BigInt::Unsigned_Divide(cp, quotient, c, Unknown300);
+		BigInt::Unsigned_Divide(cq, quotient, c, Unknown400);
+		BigInt mp;
+		mp = cp.exp_b_mod_c(Unknown500, Unknown300);
+		BigInt mq;
+		mq = cq.exp_b_mod_c(Unknown600, Unknown400);
+		BigInt tp;
+		BigInt tq;
+		XMP_Prepare_Modulus(Modulus, MAX_UNIT_PRECISION);
+		XMP_Mod_Mult(tp, mp, Unknown700, MAX_UNIT_PRECISION);
+		XMP_Mod_Mult(tq, mq, Unknown800, MAX_UNIT_PRECISION);
+		XMP_Mod_Mult_Clear(MAX_UNIT_PRECISION);
+		m = tp + tq;
+		if (m >= Modulus) {
+			m -= Modulus;
+		}
+	}
 
 	// The key file: an SSH1 private key file ('SSH PRIVATE KEY FILE FORMAT 1.1\n', no cipher): n, e,
 	// the comment, the check bytes, d, u (not kept), p, q. Inlined in the listener's constructor.
@@ -182,7 +205,7 @@ public:
 	virtual bool Stop();											// +0x10 0x82A650
 	virtual ConnectionClass *Accept();								// +0x14 0x82A6A0: Accept(true)
 	ConnectionClass *Accept(bool pump);								// 0x82A6C0  // NAME 2: what it does
-	ConnectionClass *Pump_Pending();								// 0x82AA10 (not rebuilt): a connection whose exchange finished  // NAME 2: what it does
+	ConnectionClass *Pump_Pending();								// 0x82AA10: a connection whose exchange finished  // NAME 2: what it does
 	void Send_Key(TCPConnection *connection);						// 0x82A830: the server's public key  // NAME 2: what it does
 	static void Pump_All();										// 0x82A990 (no caller; inlined in 0x829180): Accept(false) on every listener  // NAME 2: what it does
 
