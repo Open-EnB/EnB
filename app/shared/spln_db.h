@@ -43,6 +43,8 @@ class FileClass;
 class ChunkLoadClass;
 class ChunkSaveClass;
 struct SplineFileHeaderStruct;
+class SplineFloatArrayClass;
+class SplineColorArrayClass;
 
 // NAME 2: the four parameters an entry carries from the file (+0x10, copied as one)
 struct SplineParamsStruct
@@ -119,6 +121,10 @@ public:
 // NAME 2: the curves of name_R, name_G, name_B (0x485440; the client's lighting 0x4F2960, 0x4F34C0)
 	bool						Get_Color_Curves(const char *base_name, Curve1DClass **r, Curve1DClass **g,
 									Curve1DClass **b);
+// NAME 2: an entry's curve sampled at resolution evenly spaced times in [0, 1) (0x485620), and the
+// colour curves name_R, _G, _B the same way (0x485790); asserts 'resolution >= 0'
+	bool						Evaluate_Curve(const char *spline_name, SplineFloatArrayClass &values, int resolution);
+	bool						Evaluate_Color(const char *base_name, SplineColorArrayClass &colors, int resolution);
 // NAME 2: new entries for an editor: a linear (0x485990) or Catmull-Rom (0x485C10) curve, the three
 // hidden name_R/_G/_B curves and their colour entry (0x485E80, 0x486040, asserts 'base_name'), a colour
 // entry over three keys (0x487400, assert 'name')

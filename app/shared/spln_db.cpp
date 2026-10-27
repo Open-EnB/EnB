@@ -11,7 +11,7 @@
 #include <string.h>
 #include <time.h>
 #include "unknown_debug.h"
-
+#include "spline.h"
 // NAME 2: chunk 0x800 (version 0x100, entry count, 0, 0), read by Load_Header (0xBE34A8)
 struct SplineFileHeaderStruct
 {
@@ -568,6 +568,27 @@ bool SplineDatabaseClass::Get_Color_Curves(const char *base_name, Curve1DClass *
 
 
 
+bool SplineDatabaseClass::Evaluate_Curve(const char *spline_name, SplineFloatArrayClass &values, int resolution)
+{
+	float value;
+	SplineEntryClass *entry = Find(spline_name);
+	if (entry == NULL) {
+		return false;
+	}
+	if (entry->Curve == NULL) {
+		return false;
+	}
+	G_ASSERT(resolution >= 0);
+	values.Resize(resolution, 0);
+	float t = 0.0f;
+	float step = 1.0f / (float)resolution;
+	for (int i = 0; i < resolution; i++) {
+		entry->Curve->Evaluate(t, &value);
+		values.Set(i, value);
+		t += step;
+	}
+	return true;
+}
 
 
 
@@ -591,51 +612,30 @@ bool SplineDatabaseClass::Get_Color_Curves(const char *base_name, Curve1DClass *
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+bool SplineDatabaseClass::Evaluate_Color(const char *base_name, SplineColorArrayClass &colors, int resolution)
+{
+	Curve1DClass *r;
+	Curve1DClass *g;
+	Curve1DClass *b;
+	if (!Get_Color_Curves(base_name, &r, &g, &b)) {
+		return false;
+	}
+	G_ASSERT(resolution >= 0);
+	colors.Red.Resize(resolution, 0);
+	colors.Green.Resize(resolution, 0);
+	colors.Blue.Resize(resolution, 0);
+	float t = 0.0f;
+	float step = 1.0f / (float)resolution;
+	for (int i = 0; i < resolution; i++) {
+		Vector3 color;
+		r->Evaluate(t, &color.X);
+		g->Evaluate(t, &color.Y);
+		b->Evaluate(t, &color.Z);
+		colors.Set(i, color);
+		t += step;
+	}
+	return true;
+}
 
 
 
@@ -3261,6 +3261,6 @@ void SplineEntryClass::Unpack(char **buffer)
 **	  (1333) and 0x4895E0 (2959), Pack 0x486EF0 (1356) and 0x489660 (3074), Unpack 0x486F60 (1409) and
 **	  0x489830 (3099-3226), the entry's second constructor 0x489480.
 **
-**	Not rebuilt yet (nothing in VIDTEST calls them): the evaluation helpers 0x485620, 0x485790 (on
-**	spline.h's arrays).
+**	The evaluation helpers on spline.h's arrays: Evaluate_Curve 0x485620 (581, Find inlined) and
+**	Evaluate_Color 0x485790 (623); spline.h holds only the two array classes they use.
 */
