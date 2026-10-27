@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-243 entries in 57 files.
+233 entries in 57 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -24,7 +24,6 @@ edit the comments in the code, not this file.
 | `app/client/client.cpp:225` | `ClientClass::Remove_Object` | marker | NOT EXACT: shape (the client puts the not-found return last; three forms; attempts.py show 0x727600) 0x727600 |
 | `app/client/client.cpp:307` | `ClientClass::Set_Debug_Object` | marker | NOT EXACT: register-only (the flag in dl, the id in eax; two forms; attempts.py show 0x728010) 0x728010 |
 | `app/client/client.cpp:374` | `ClientClass::Set_Debug_Mode` | marker | NOT EXACT: register-only (the id in eax, the flag in ecx; two forms; attempts.py show 0x728240) 0x728240 |
-| `app/client/client.cpp:430` | `ClientClass::Unknown_7283B0` | marker | NOT EXACT: relocation (the inlined aux-data FAIL_IF carries co.cpp's __FILE__ and line 2461 in the client) 0x7283B0 |
 | `app/client/co_data.h:55` | `?` | marker | NOT EXACT: frame (0x54 vs the client's 0x50: ours inlines the type map's default constructor, the client calls 0x79E6E0) |
 | `app/client/control_keys_manager.cpp:115` | `ControlKeysManager::Get_Key_Id` | marker | NOT EXACT: inline budget (ours inlines Get_Key_Id 0x71A190, which the client calls) |
 | `app/client/control_keys_manager.cpp:121` | `ControlKeysManager::Get_Key_Id` | marker | NOT EXACT: inline budget (ours inlines _KeyIds.find, the client calls 0x71EBC0; ~56 rows) |
@@ -43,25 +42,16 @@ edit the comments in the code, not this file.
 | `app/client/fontdatabase.cpp:507` | `FontDatabaseClass::Unknown_6C1500` | marker | NOT EXACT: inline-budget: the client inlines a const_iterator Add_String here (its find converted out of line); ours the Find_String form |
 | `app/client/fontdatabase.cpp:669` | `FontDatabaseClass::Parse_Directions` | marker | NOT EXACT: order-only: the client reads the first character into bl before the parts' constructor and saves ebp only around the loop (shrink-wrapped); ours in the prologue |
 | `app/client/fontdatabase.cpp:687` | `FontDatabaseClass::Split_Four` | marker | NOT EXACT: order-only: as Parse_Directions |
-| `app/client/fontdatabase.cpp:729` | `FontDatabaseClass::Find_Color` | marker | NOT EXACT: inline-budget: the client calls the table's find out of line and inlines the key string, ours the reverse (H6's parked pattern) |
-| `app/client/fontdatabase.cpp:738` | `FontDatabaseClass::Find_Effect` | marker | NOT EXACT: inline-budget: as Find_Color |
-| `app/client/fontdatabase.cpp:747` | `FontDatabaseClass::Find_String` | marker | NOT EXACT: inline-budget: as Find_Color |
-| `app/client/fontdatabase.cpp:755` | `FontDatabaseClass::Remove_String` | marker | NOT EXACT: frame: the client keeps this in a stack slot (frame 0x1C, ours 0x18) around the inlined destructor |
-| `app/client/fontdatabase.cpp:875` | `FontDatabaseClass::Add_String` | marker | NOT EXACT: register-only: the client copies the found node into edi before the key's destructor; the dead size() keeps find_or_insert out of line |
-| `app/client/fontdatabase.cpp:889` | `FontDatabaseClass::Add_Effect` | marker | NOT EXACT: register-only: as Add_String |
-| `app/client/fontdatabase.cpp:903` | `FontDatabaseClass::Add_Color` | marker | NOT EXACT: register-only: as Add_String |
+| `app/client/fontdatabase.cpp:750` | `FontDatabaseClass::Remove_String` | marker | NOT EXACT: frame: the client keeps this in a stack slot (frame 0x1C, ours 0x18) around the inlined destructor |
 | `app/client/fontdatabase.cpp:917` | `FontDatabaseClass::Set_Font` | marker | NOT EXACT: inline-budget: the client calls Get_Info(width, height) 0x6C2CB0 out of line, ours inlines it (the rest is the same) |
-| `app/client/fontdatabase.cpp:1140` | `FontStringFilesClass::Find` | marker | NOT EXACT: inline-budget: as FontDatabaseClass::Find_Color (the client calls find out of line) |
 | `app/client/fontdatabase.cpp:1275` | `FontInitStruct::Load_Font` | marker | NOT EXACT: register-only: the client zeroes scale / spacing / value98 from ebp (the loop counter's register), ours scale as an immediate and the rest from edi |
 | `app/client/fontdatabase.cpp:1329` | `FontInitStruct::Load_Font` | mention | NOT EXACT; the struct's implicit destructor is the client's folded copy 0x67F490 in chat_window.cpp), 0x6BE520 (walks Strings, its body compiled out), the constructor 0x6BE5C0 (through an inline Load: Clear_Infos, Clear_Tables, the three ini loaders, Clear_Strings, 0x6C2080), FontStruct's inline constructor 0x6BE7C0 and implicit destructor 0x6BEB60, the destructor 0x6BEBF0, Load_Init 0x6BF330 (an ... |
 | `app/client/fontdatabase.cpp:1334` | `FontInitStruct::Load_Font` | mention | NOT EXACT), |
 | `app/client/fontdatabase.cpp:1335` | `FontInitStruct::Load_Font` | mention | NOT EXACT) and unloader 0x6C1AA0 (STR-n / WRAP-n sections), Remove_String |
 | `app/client/fontdatabase.cpp:1336` | `FontInitStruct::Load_Font` | mention | NOT EXACT), Reload 0x6C1EC0 (the ini files again; the constructor's inline Load is the same plus 0x6C2080: written as one member the constructor inlines, it moved Load_Init's registers), 0x6C2080 (the eight fonts for the resolution: Font32Class through RefCountPtr's Create_NEW), Get_Blend_Type / Get_Direction / Get_Effect_Type 0x6C2340 / 0x6C2460 / 0x6C25A0 (the ini words to |
 | `app/client/fontdatabase.cpp:1339` | `FontInitStruct::Load_Font` | mention | NOT EXACT), 0x6BFD00 (fontcode.ini / fontart.ini: the COLOR-n and EFFECT-n sections through Add_Color / Add_Effect, inlined with the asserts on lines 909 / 895), Clear_Infos 0x6BEE60 (with FontInitStruct's implicit destructor 0x6BEEF0), Clear_Tables 0x6BEFD0 (Colors and Effects), Clear_Strings 0x6BF1F0, Find_Font 0x6C2BF0, Get_Info(width, height) 0x6C2CB0, the tables' Find_Color / Find_Effect / Fi... |
-| `app/client/fontdatabase.cpp:1343` | `FontInitStruct::Load_Font` | mention | NOT EXACT), the accessors on lines |
 | `app/client/fontdatabase.cpp:1344` | `FontInitStruct::Load_Font` | mention | NOT EXACT) and Restore_Font 0x6C3D40 (lines 986-991), Find_Font_File_Index 0x6C3FB0 (the client's name, its assert on line 1305), the chat font's file index 0x6C4070, the font file name 0x6C4270 (AllFonts), the chat font's scale / spacing / +0x98 value 0x6C42E0 / 0x6C4450 / 0x6C45B0, Get_Info 0x6C4720 (the INIT section for the current resolution: the last whose ResWidth / ResHeight fit), 0x6C47B0 ... |
-| `app/client/fontdatabase.cpp:1349` | `FontInitStruct::Load_Font` | mention | NOT EXACT); FontStringFilesClass (0xBE67BC: the string files in use, counted): Lower 0x6C4A80, the constructor |
-| `app/client/fontdatabase.cpp:1350` | `FontInitStruct::Load_Font` | mention | NOT EXACT) and Unload 0x6C55B0 (its destructor 0x6C4F50 and Load 0x6C52B0 declared only: written from the pseudocode they missed and moved vector<std::string>::insert 0x432D50). Every other function of the file is not written yet. Tables (the Add functions' offsets and instances): +0x10 Colors (find 0x6C65A0, find_or_insert 0x6C87A0), +0x28 Effects (0x6C68B0, 0x6C8950), +0x40 Strings (0x6C6BC0, 0x... |
+| `app/client/fontdatabase.cpp:1349` | `FontInitStruct::Load_Font` | mention | NOT EXACT); FontStringFilesClass (0xBE67BC: the string files in use, counted): Lower 0x6C4A80, the constructor 0x6C4C80, Find 0x6C51A0 and Unload 0x6C55B0 (its destructor 0x6C4F50 and Load 0x6C52B0 declared only: written from the pseudocode they missed and moved vector<std::string>::insert 0x432D50). Every other function of the file is not written yet. Tables (the Add functions' offsets and instan... |
 | `app/client/sclient.cpp:393` | `SClient::~SClient` | marker | NOT EXACT: inline budget (the client inlines the 0x24-byte object's destructor at the second delete, ours calls it: then every EH state after it is one lower; five forms, attempts.py show 0x740BB0) 0x740BB0 |
 | `app/client/sclient.cpp:430` | `SClient::Init` | marker | NOT EXACT: field offset (explain.py; 103 masked rows): the client keeps the options base (+0x1150) in a register from the Bridge_Mode branch and reads the camera mode through it, and its frame is 4 bytes larger; one form (attempts.py show 0x741180) 0x741180 |
 | `app/client/sclient.cpp:536` | `SClient::Shutdown` | marker | NOT EXACT: shape (explain.py: field offset first; 470 masked rows): the talk tree's reset goes through a null RefCountPtr temporary with its own EH state and the out-of-line assignment 0x758970, and the effect list's removal is inlined differently; one form (attempts.py show 0x741BB0) 0x741BB0 |
