@@ -3466,6 +3466,12 @@ RECONSTRUCTED = {
     ('app', 'kernel/kernel.cpp'): "the task kernel, client 0x443020-0x444150 (kernel-map.md 6, step 1): KernelClass and TaskClass; "
                                   "the asserts on the client's lines 74 / 157 / 196 / 225 / 474 (D25); NOT EXACT: Remove_Task "
                                   "(the client calls list's iterator++ 0x444190 out of line), Is_Running, TaskClass::Is_Focused",
+    ('app', 'input/inpdsp.h'): "the input dispatcher (LoginUnknown0CClass, 0x18 bytes: an SGI hash_map from an event's "
+                              "key to a stack of InputRecordStruct, D87), its records and their RefCountClass action "
+                              "(D10 names); tsk_login.h keeps an opaque declaration (P-H18-1)",
+    ('app', 'input/inpdsp.cpp'): "inpdsp.cpp, client 0x429630-0x429F60 with the table's instances (builder H18; G_ASSERT "
+                                "lines 32, 50, 51, 71, 104, 120, D25): 7 of 8 exact, the DisableExceptions registry read "
+                                "0x429D00 among them (read only); 0x429F60 NOT EXACT (register-only)",
     ('app', 'audio/soundlib.h'): "SoundDefClass and SoundLibraryClass (D24): sounds.ini's definitions in an SGI "
                                 "hash_map<std::string, SoundDefClass *> (libs/sgistl, D87), WWAudio's 2D / 3D sounds, "
                                 "the dialog channel (_NextDialogDef / _NextDialogName from the client's assert)",

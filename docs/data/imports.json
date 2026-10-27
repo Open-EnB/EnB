@@ -1774,6 +1774,35 @@
     "merged": [],
     "name": "shared/ini_manager.cpp"
    },
+   "inpdsp": {
+    "ambiguous": [
+     "0x42A890",
+     "0x42A900",
+     "0x42AAE0",
+     "0x42AC90",
+     "0x42AFF0",
+     "0x42B020",
+     "0x42B250",
+     "0x42B2C0",
+     "0x42B2F0",
+     "0x42B340"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x429630",
+     "0x429800",
+     "0x429A20",
+     "0x429AF0",
+     "0x429D00",
+     "0x429D90",
+     "0x429E50",
+     "0x42AF30",
+     "0x42B080"
+    ],
+    "merged": [],
+    "name": "input/inpdsp.cpp"
+   },
    "kernel": {
     "ambiguous": [
      "0x443F30"
@@ -7154,6 +7183,7 @@
    "common/unknown_navlist.h": "reconstructed",
    "common/unknown_rate.h": "reconstructed",
    "common/unknown_rsakey.h": "reconstructed",
+   "input/inpdsp.h": "reconstructed",
    "kernel/kernel.h": "reconstructed",
    "packets/gameedit/pkgeaset.h": "reconstructed",
    "packets/gameedit/pkgeclon.h": "reconstructed",
