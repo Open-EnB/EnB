@@ -674,7 +674,6 @@ void OptionClass::Load(__int64 character_id, SClient *client)
 	}
 }
 
-// NOT EXACT: frame (explain.py: 0xA4 vs 0xB0), the client keeps the index and a bool in memory and copies the Vector3 through two more slots
 void OptionClass::Save()
 {
 	char filename[64];
@@ -689,7 +688,7 @@ void OptionClass::Save()
 			BoolOptionStruct *option = (*it).second;
 			_snprintf(section, 64, "%s-%03d", "BOOL", index);
 			ini.Put_String(section, "OptionName", option->Get_Name());
-			ini.Put_Bool(section, "OptionValue", option->Value);
+			ini.Put_Bool(section, "OptionValue", option->Get_Value());
 			index++;
 		}
 	}
@@ -701,7 +700,7 @@ void OptionClass::Save()
 			IntOptionStruct *option = (*it).second;
 			_snprintf(section, 64, "%s-%03d", "INT", index);
 			ini.Put_String(section, "OptionName", option->Get_Name());
-			ini.Put_Int(section, "OptionValue", option->Value);
+			ini.Put_Int(section, "OptionValue", option->Get_Value());
 			index++;
 		}
 	}
@@ -713,7 +712,8 @@ void OptionClass::Save()
 			FloatOptionStruct *option = (*it).second;
 			_snprintf(section, 64, "%s-%03d", "FLOAT", index);
 			ini.Put_String(section, "OptionName", option->Get_Name());
-			ini.Put_Float(section, "OptionValue", option->Value);
+			float value = option->Value;
+			ini.Put_Float(section, "OptionValue", value);
 			index++;
 		}
 	}
@@ -725,7 +725,8 @@ void OptionClass::Save()
 			Vector3OptionStruct *option = (*it).second;
 			_snprintf(section, 64, "%s-%03d", "VECTOR3", index);
 			ini.Put_String(section, "OptionName", option->Get_Name());
-			ini.Put_Point(section, "OptionValue", TPoint3D<float>(option->Value.X, option->Value.Y, option->Value.Z));
+			Vector3 value = option->Get_Value();
+			ini.Put_Point(section, "OptionValue", TPoint3D<float>(value.X, value.Y, value.Z));
 			index++;
 		}
 	}
@@ -737,7 +738,7 @@ void OptionClass::Save()
 			StringOptionStruct *option = (*it).second;
 			_snprintf(section, 64, "%s-%03d", "STRING", index);
 			ini.Put_String(section, "OptionName", option->Get_Name());
-			ini.Put_String(section, "OptionValue", option->Value.c_str());
+			ini.Put_String(section, "OptionValue", option->Get_Value());
 			index++;
 		}
 	}
@@ -882,4 +883,9 @@ std::string OptionClass::Get_Default_String(const char *name)
 **	+0x1160, LandLOD +0x1164, TextureReduction +0x1168) into the graphics sliders' percentages.
 **	Load: an option the defaults don't have is reported ('Obsolete ... option encountered'); a
 **	section without OptionName is skipped without advancing the index (as the client).
+**	Forms: Load's sets go through the structs' inline Set_Value (that spends the inline budget so
+**	the bool and int finds stay calls, as the client's); Save reads through the inline Get_Value, a
+**	Vector3 local and a plain float local. Get_String / Get_Default_String (NOT EXACT): written with
+**	the empty-string return first they inline as the client's (the "" path calls _Grow) but the
+**	blocks come out in the other order; with the copy first the "" path inlines _Grow.
 */

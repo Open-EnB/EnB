@@ -32,6 +32,7 @@ struct BoolOptionStruct  // NAME 2: what it holds (0x14 bytes)
 {
 	BoolOptionStruct(const char *name, bool value) : Name(name), Value(value), Default(value) {}	// 0x7F7E10
 	const char *Get_Name() { return(Name.c_str()); }		// 0x7F7F30  // NAME 2: what it does
+	bool Get_Value() { return(Value); }		// inlined into Save  // NAME 2: what it does
 	void Set_Value(bool value) { Value = value; }		// inlined into Load  // NAME 2: what it does
 
 	std::string Name;										// +0x00  // NAME 2: the ini's OptionName
@@ -43,6 +44,7 @@ struct IntOptionStruct  // NAME 2: what it holds (0x18 bytes)
 {
 	IntOptionStruct(const char *name, int value) : Name(name), Value(value), Default(value) {}		// 0x7F7F50
 	const char *Get_Name() { return(Name.c_str()); }		// 0x7F8070  // NAME 2: what it does
+	int Get_Value() { return(Value); }		// inlined into Save  // NAME 2: what it does
 	void Set_Value(int value) { Value = value; }		// inlined into Load  // NAME 2: what it does
 
 	std::string Name;										// +0x00  // NAME 2: the ini's OptionName
@@ -65,6 +67,7 @@ struct Vector3OptionStruct  // NAME 2: what it holds (0x28 bytes)
 {
 	Vector3OptionStruct(const char *name, Vector3 value) : Name(name), Value(value), Default(value) {}	// 0x7F81A0
 	const char *Get_Name() { return(Name.c_str()); }		// 0x7F8240  // NAME 2: what it does
+	Vector3 Get_Value() { return(Value); }		// inlined into Save  // NAME 2: what it does
 	void Set_Value(Vector3 value) { Value = value; }		// 0x765BB0 (the linker's one copy)  // NAME 2: what it does
 
 	std::string Name;										// +0x00  // NAME 2: the ini's OptionName
@@ -76,6 +79,7 @@ struct StringOptionStruct  // NAME 2: what it holds (0x30 bytes)
 {
 	StringOptionStruct(const char *name, const char *value) : Name(name), Value(value), Default(value) {}	// 0x7F8260
 	const char *Get_Name() { return(Name.c_str()); }		// 0x7F83F0  // NAME 2: what it does
+	const char * Get_Value() { return(Value.c_str()); }		// inlined into Save  // NAME 2: what it does
 	void Set_Value(const char *value) { Value = value; }		// inlined into Load  // NAME 2: what it does
 
 	std::string Name;										// +0x00  // NAME 2: the ini's OptionName

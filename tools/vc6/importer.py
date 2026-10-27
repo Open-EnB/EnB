@@ -4016,7 +4016,7 @@ RECONSTRUCTED = {
                                  "structs: five SGI hash_maps by value type (libs/sgistl, D87)",
     ('app', 'client/option.cpp'): "OptionClass, the object 0x7F0F60-0x7FEBE0 with the hash_map instances: the "
                                    "defaults 0x7F1AD0, Load 0x7F84F0 (reports on the client's lines 571-669, D25), the "
-                                   "accessors; NOT EXACT: Save 0x7F8EF0, Get_String 0x7F9700, Get_Default_String 0x7F9970",
+                                   "Save 0x7F8EF0, the accessors; NOT EXACT: Get_String 0x7F9700, Get_Default_String 0x7F9970",
 }
 
 # Text appended to imported files (after everything, so no existing line moves).
