@@ -39,7 +39,7 @@ edit the comments in the code, not this file.
 | `app/client/cpacket.cpp:1985` | `OpenInterfacePacketClass::Process_Packet` | marker | NOT EXACT: shape (the client places the shared failure exit before the UIType test; two forms; attempts.py show 0x7397D0) 0x7397D0 |
 | `app/client/fontdatabase.cpp:58` | `FontStringStruct::Reset` | marker | NOT EXACT: inline-budget: the client inlines the first nine string assignments with Store_Length called and calls operator= in the loop; ours inlines all |
 | `app/client/fontdatabase.cpp:339` | `FontDatabaseClass::Load_String` | marker | NOT EXACT: inline-budget: ours inlines Parse_Directions / Split_Four / Get_Blend_Type and calls Get_Length; the client the reverse |
-| `app/client/fontdatabase.cpp:507` | `FontDatabaseClass::Unknown_6C1500` | marker | NOT EXACT: inline-budget: the client inlines a const_iterator Add_String here (its find converted out of line); ours the Find_String form |
+| `app/client/fontdatabase.cpp:507` | `FontDatabaseClass::Unknown_6C1500` | marker | NOT EXACT: frame: the inlined Add_String's key and iterator temporaries sit in other stack slots (0.76) |
 | `app/client/fontdatabase.cpp:669` | `FontDatabaseClass::Parse_Directions` | marker | NOT EXACT: order-only: the client reads the first character into bl before the parts' constructor and saves ebp only around the loop (shrink-wrapped); ours in the prologue |
 | `app/client/fontdatabase.cpp:687` | `FontDatabaseClass::Split_Four` | marker | NOT EXACT: order-only: as Parse_Directions |
 | `app/client/fontdatabase.cpp:750` | `FontDatabaseClass::Remove_String` | marker | NOT EXACT: frame: the client keeps this in a stack slot (frame 0x1C, ours 0x18) around the inlined destructor |

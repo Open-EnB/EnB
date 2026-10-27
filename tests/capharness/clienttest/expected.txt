@@ -234,8 +234,13 @@ gen Unknown_70CC40
 mainview add 48900994
 msg 269 SUBPARTS (180) size 58: cpacket.cpp's handler
 stub ClientObjectClass::Unknown_6FEF70 48900994
+msg 270 CLIENT_AVATAR (55) size 8: cpacket.cpp's handler
+sent DEBUG (26) size 16: 822bea022100000000000000
+model Set_LOD_Bias 1e+009
 msg 271 CLIENT_SHIP (71) size 8: cpacket.cpp's handler
 state ship id 48900994
+msg 272 AVATAR_DESCRIPTION (97) size 264: cpacket.cpp's handler
+gen SClient::Unknown_74C3B0
 msg 274 DECAL (16) size 58: cpacket.cpp's handler
 stub Unknown_80E8C0 2 decals
 msg 276 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -617,6 +622,8 @@ msg 754 MESSAGE_STRING (29) size 58: cpacket.cpp's handler
 stub SClient::Unknown_74D990 0x0 'We have entered Glory's Orbit (Beta Hydri System).' 0
 msg 760 CLIENT_SOUND (106) size 30: cpacket.cpp's handler
 stub SoundManagerClass::Unknown_75B0D0 'Device_Installed' 0
+msg 769 AVATAR_DESCRIPTION (97) size 264: cpacket.cpp's handler
+gen SClient::Unknown_74C3B0
 msg 771 REMOVE_EFFECT (15) size 8: cpacket.cpp's handler
 msg 773 MESSAGE_STRING (29) size 53: cpacket.cpp's handler
 stub SClient::Unknown_74D990 0x0 'Pehuo bestows a lesser psionic shield on you.' 0
@@ -802,14 +809,12 @@ recorded COLORIZATION (17) x2
 recorded AUX_DATA (27) x213
 recorded ITEM_BASE (37) x89
 recorded CLIENT_SET_TIME (52) x3
-recorded CLIENT_AVATAR (55) x1
 recorded ADVANCED_POSITIONAL_UPDATE (62) x31
 recorded PLANET_POSITIONAL_UPDATE (63) x1
 recorded CONSTANT_POSITIONAL_UPDATE (64) x195
-recorded AVATAR_DESCRIPTION (97) x2
 recorded CAMERA_CONTROL (146) x1
 recorded GALAXY_MAP (151) x2
 recorded CLIENT_CHAT_EVENT (165) x4
 recorded NAME_DECAL (178) x2
-recorded 761, through cpacket.cpp's handlers 239
+recorded 758, through cpacket.cpp's handlers 242
 == done: 0 checks failed

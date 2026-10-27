@@ -9,6 +9,7 @@
 #include "co_data.h"
 #include "..\packets\pk_player_object_relationship.h"
 #include "..\packets\pk_sub_parts.h"
+#include "..\packets\pkclientavatar.h"
 #include "..\packets\pkclientship.h"
 #include "..\packets\pkconfirmedaction.h"
 #include "..\packets\pkcreateattachment.h"
@@ -35,6 +36,7 @@
 #include "..\packets\pkrequesttarget.h"
 #include "..\packets\pksetzband.h"
 #include "..\packets\pksoundcommand.h"
+#include "..\packets\pkunknown_877640.h"
 #include "..\packets\pkspline.h"
 #include "..\packets\pkstarbasetow.h"
 #include "..\packets\pktriggeremote.h"
@@ -121,6 +123,17 @@ bool LogoffConfirmationPacketClass::Process_Packet(void *instance)
 	return(true);
 }
 
+// 0x733590
+bool ClientAvatarPacketClass::Process_Packet(void *instance)
+{
+	WWPROFILE("ClientAvatarPacketClass::Process_Packet()");
+	ClientClass *client = (ClientClass *)instance;
+	client->Set_Debug_Object(AvatarID);
+	RenderObjClass *model = client->Get_Debug_Object()->Model;
+	model->Set_LOD_Bias(1000000000.0f);
+	return(true);
+}
+
 // 0x733660
 bool ClientShipPacketClass::Process_Packet(void *instance)
 {
@@ -139,6 +152,14 @@ bool SubPartsPacket::Process_Packet(void *instance)
 	if (object) {
 		object->Unknown_6FEF70(this);
 	}
+	return(true);
+}
+
+// 0x733B10
+bool AvatarDescPacketClass::Process_Packet(void *instance)
+{
+	WWPROFILE("AvatarDescPacketClass::Process_Packet()");
+	((SClient *)((ClientClass *)instance)->Unknown_18())->Unknown_74C3B0(GameID, Desc);
 	return(true);
 }
 
@@ -372,27 +393,6 @@ bool SplinePacketClass::Process_Packet(void *instance)
 	splines->Unpack(Block);
 	return(true);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
