@@ -243,6 +243,8 @@ unless `--lever` cites a new row of this table.
 | A helper the client inlines, whose own callees the client calls | Route through the helper: its callees then go out of line | CharacterCreatorClass::Get_File_Name 0x78DE40 (T5) |
 | A clamp: the client's `movsx` and compare | Write it through an int local: `v = x; x = v < 6 ? v : 6` | avatar_desc (T5) |
 | A float copied through the FPU (`fld`/`fstp`) where ours uses `mov` | The value goes through an inline setter's parameter; a direct assignment gives `mov` | soundlib's dialog volume and Doppler members (H9, 1f32884) |
+| An out-of-line 0x13-byte copy of an SGI hashtable iterator in the client | The `const_iterator(const iterator &)` conversion: the client declared a const_iterator | ui_line_display (H10) |
+| `end()` read through the wrong register in a vector append | `push_back` and `insert(end(), x)` differ (`[ebx+8]` vs `[esi+0xa0]`): try the other | ui_line_display Flush_Lines (H10) |
 
 * **A nested inline is a whole-function budget (2026-10-26, `Key_Exchange` 0x829180):** under `/Ob2` an
   inline helper's own callees (a `std::set` iterator's `_Inc`) are inlined only while the function as a
@@ -446,6 +448,9 @@ unless `--lever` cites a new row of this table.
   out-of-line one comes after Build. pkdecode's range bound was exclusive and cut off the last object
   (fixed in d95d5e8); check the last class when a scan ends at a round address.
 
+* **Ghidra can attribute an argument pushed for a later call to the call before it** (H10, 2026-10-27): a pushed `1`
+  belonged to a sort object's constructor (`ret 8`), not to 0x541800 (no arguments). Check each callee's `ret N`.
+  Including ref_ptr.h needs unknown_debug.h first (G_ASSERT).
 * **`client.py dis` crashes on a cp1252 console:** set `PYTHONIOENCODING=utf-8`. `appfile.py match` on files
   that include dx8wrapper.h needs `-I C:/EnBDevelopment/SDK/directx8/include`. `attempts.py check` reports pk.h's
   parked 0x8770A0 for every packet file: `--ack 0x8770A0`. Constructors fall outside `appfile.py`'s `__FILE__`
