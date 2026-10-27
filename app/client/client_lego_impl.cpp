@@ -307,7 +307,7 @@ RefCountPtr<LegoClass> ClientLegoImplClass::Find(const LegoIdentifierClass &id) 
 
 
 
-// NOT EXACT: field offset at the Identity copy after line 339 (the client builds the result before the report), 0.76 (attempts.csv)
+// NOT EXACT: inline budget: the client builds one more Matrix3D result (6 ??_H against our 5), 0.88 (attempts.csv)
 Matrix3D ClientLegoImplClass::Get_Lego_Transform(const LegoIdentifierClass &id) const
 {
 	if (id.Is_Empty()) {
@@ -323,7 +323,7 @@ Matrix3D ClientLegoImplClass::Get_Lego_Transform(const LegoIdentifierClass &id) 
 		return RenderObject->Get_Transform();
 	}
 	std::hash_map<std::string, LegoChildStruct>::const_iterator child_find = Children.find(split.Name);
-	if (split.State == 0 || child_find == Children.end()) {
+	if ((split.State == 0) | (child_find == Children.end())) {
 
 
 
