@@ -3596,7 +3596,7 @@ RECONSTRUCTED = {
     ('app', 'packets/pkglobalticketrequest.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
     ('app', 'packets/pkcta_request.cpp'): "opcode 189 (CTA_RESPONSE) written by hand (builder P4, 4 of 4 exact); packet classes (opcode 188) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
     ('app', 'packets/pkcta_request.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
-    ('app', 'packets/pkincapacitancerequest.cpp'): "packet classes (opcode 141, 143, 145) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
+    ('app', 'packets/pkincapacitancerequest.cpp'): "opcode 142 written by hand (builder P4, 4 of 4 exact); packet classes (opcode 141, 143, 145) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
     ('app', 'packets/pkincapacitancerequest.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
     ('app', 'packets/pkloothulkpermission.cpp'): "packet classes (opcode 140) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
     ('app', 'packets/pkloothulkpermission.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
@@ -3699,7 +3699,7 @@ RECONSTRUCTED = {
     ('app', 'packets/pktriggeremote.cpp'): "opcodes 161 (TRIGGER_EMOTE) and 162 (NOTIFY_EMOTE) written by hand (builder P4, "
                                          "8 of 8 exact in appfile.py match), client 0x886000-0x886550; the file name provisional (NAME 1)",
     ('app', 'packets/pktriggeremote.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
-    ('app', 'packets/pkconfirmedaction.cpp'): "opcodes 191 and 192 (CONFIRMED_ACTION_RESPONSE) written by hand (builder P4, "
+    ('app', 'packets/pkconfirmedaction.cpp'): "opcodes 190 (CONFIRMED_ACTION_OFFER), 191 and 192 (CONFIRMED_ACTION_RESPONSE) written by hand (builder P4, 13 of 13 exact; "
                                             "8 of 8 exact in appfile.py match), client 0x8703C0-0x870E60; the file name provisional (NAME 1)",
     ('app', 'packets/pkconfirmedaction.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
     ('app', 'packets/pk_sub_parts.cpp'): "pk_sub_parts.cpp (the client's __FILE__, assert line 64): SUBPARTS 180 written by "

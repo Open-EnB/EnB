@@ -512,7 +512,7 @@ PacketClass *Unknown_869790(RawPacketClass *raw)
 			packet = new IncapacitanceRequestPacketClass(raw);
 			break;
 		case 142:
-			packet = new Packet_008EClass(raw);
+			packet = new IncapacitanceDistressBeaconPacketClass(raw);
 			break;
 		case 143:
 			packet = new Packet_008FClass(raw);

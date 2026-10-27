@@ -56,7 +56,6 @@ Packet_0068Class::Packet_0068Class(RawPacketClass *raw) { Conn_Record(this, raw)
 ManufactureTechLevelFilterPacketClass::ManufactureTechLevelFilterPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 PetitionStuckPacketClass::PetitionStuckPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 PlayerObjectReactionUpdatePacket::PlayerObjectReactionUpdatePacket(RawPacketClass *raw) { Conn_Record(this, raw); }
-Packet_008EClass::Packet_008EClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 IncapacitanceDetailsPacket::IncapacitanceDetailsPacket(RawPacketClass *raw) { Conn_Record(this, raw); }
 JobListPacketClass::JobListPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 JobDescriptionPacketClass::JobDescriptionPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
@@ -74,7 +73,6 @@ Packet_00EDClass::Packet_00EDClass(RawPacketClass *raw) { Conn_Record(this, raw)
 Packet_00ADClass::Packet_00ADClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_00B0Class::Packet_00B0Class(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_00B1Class::Packet_00B1Class(RawPacketClass *raw) { Conn_Record(this, raw); }
-ConfirmedActionOfferPacketClass::ConfirmedActionOfferPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 GuildPlayerOnlinePacketClass::GuildPlayerOnlinePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 GuildAdjustContribPacketClass::GuildAdjustContribPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 GuildStatusUpdatePacketClass::GuildStatusUpdatePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
@@ -177,6 +175,7 @@ bool ClientChatListPacketClass::Process_Packet(void *) { return(true); }	// 0x73
 bool ClientChatEventPacketClass::Process_Packet(void *) { return(true); }	// 0x73B150
 bool ClientChatErrorPacketClass::Process_Packet(void *) { return(true); }	// 0x73D170
 bool CTAResponsePacketClass::Process_Packet(void *) { return(true); }	// 0x73DAA0
+bool ConfirmedActionOfferPacketClass::Process_Packet(void *) { return(true); }	// 0x73DC60
 bool ConfirmedActionTimeoutPacketClass::Process_Packet(void *) { return(true); }	// 0x73DCB0
 bool GuildRecruitConfirmSectorPacket::Process_Packet(void *) { return(true); }	// 0x73E720
 bool GuildSimpleSectorClientPacket::Process_Packet(void *) { return(true); }	// 0x73DD00

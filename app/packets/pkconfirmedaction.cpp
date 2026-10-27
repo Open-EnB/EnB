@@ -2,6 +2,44 @@
 #include "pkconfirmedaction.h"
 #include <stdio.h>
 
+ConfirmedActionOfferPacketClass::ConfirmedActionOfferPacketClass(int id, const std::string &message, ConfirmedActionEnum type) :
+	ID(id),
+	Message(message),
+	Type(type)
+{
+}
+
+ConfirmedActionOfferPacketClass::ConfirmedActionOfferPacketClass(RawPacketClass *raw) :
+	ID(0),
+	Message(""),
+	Type(CONFIRMED_ACTION_NONE)
+{
+	int value;
+	raw->Get(value);
+	Type = (ConfirmedActionEnum)value;
+	raw->Get(ID);
+	raw->Get(&Message);
+}
+
+RawPacketClass *ConfirmedActionOfferPacketClass::Build()
+{
+	RawPacketClass *raw = new RawPacketClass(190, Get_Data_Size());
+	raw->Add((int)Type);
+	raw->Add(ID);
+	raw->Add(Message);
+	return(raw);
+}
+
+int ConfirmedActionOfferPacketClass::Get_Data_Size()
+{
+	return(RawPacketClass::Get_Size(Message) + sizeof(int) + sizeof(ID));
+}
+
+int ConfirmedActionOfferPacketClass::Print(char *buffer, int len)
+{
+	return(_snprintf(buffer, len, "Confirmed Action Offer {Type=%d ID=%d, Message=%s}", Type, ID, Message.c_str()));
+}
+
 ConfirmedActionTimeoutPacketClass::ConfirmedActionTimeoutPacketClass(ConfirmedActionEnum type, int id) :
 	ID(id),
 	Type(type)
@@ -80,7 +118,7 @@ int ConfirmedActionResponsePacketClass::Print(char *buffer, int len)
 **	Reconstruction notes (pkconfirmedaction.cpp)
 **
 **	* Client 0x8703C0-0x870E60 (0x8703A0 is the previous object's guarded static, 0xC416FC; this one's
-**	  is 0x870E60): CONFIRMED_ACTION_OFFER 190 (not rebuilt yet), then 191 and 192, written by hand
+**	  is 0x870E60): CONFIRMED_ACTION_OFFER 190, 191 and 192, written by hand
 **	  (builder P4, 2026-10-27). 191's implicit destructor is this object's (0x8709C0), 192's a copy
 **	  (0x74FA10).
 **	* The file name is provisional (no assert names it).

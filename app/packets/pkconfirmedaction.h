@@ -5,8 +5,7 @@
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
 **	Original location: e:\build\beta\G\app\packets\pkconfirmedaction.h (the name provisional: see the .cpp)
 **
-**	The packet classes of client 0x8703C0-0x870E60 rebuilt so far (opcodes 191, 192); the file's other
-**	classes are still declared in pk_classes.h.
+**	The packet classes of client 0x8703C0-0x870E60 (opcodes 190, 191, 192).
 */
 
 #if defined(_MSC_VER)
@@ -22,6 +21,22 @@
 enum ConfirmedActionEnum  // NAME 1: neutral placeholder (D10)
 {
 	CONFIRMED_ACTION_NONE = 0	// NAME 1: neutral placeholder (D10)
+};
+
+// opcode 190 (0x00BE, CONFIRMED_ACTION_OFFER): vtable 0xB0989C, constructor 0x870650, 0x24 bytes
+class ConfirmedActionOfferPacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name CONFIRMED_ACTION_OFFER (the Net-7 opcode table; no structure check)
+{
+public:
+	ConfirmedActionOfferPacketClass(int id, const std::string &message, ConfirmedActionEnum type);	// 0x8703D0
+	ConfirmedActionOfferPacketClass(RawPacketClass *raw);	// 0x870650
+	virtual RawPacketClass *Build();	// +0x04 0x870800
+	virtual bool Process_Packet(void *client);	// +0x08 0x8692A0 (clientstub.cpp l.398)
+	virtual int Get_Data_Size();	// +0x0C 0x8708E0
+	virtual int Print(char *buffer, int len);	// +0x10 0x870900
+
+	int ID;	// +0x0C (network order)  // NAME 3: the client's Print text 'ID='
+	std::string Message;	// +0x10  // NAME 3: the client's Print text 'Message='
+	ConfirmedActionEnum Type;	// +0x20 (network order)  // NAME 3: the client's Print text 'Type='
 };
 
 // opcode 191 (0x00BF, ?): vtable 0xB098CC, constructor 0x8709E0, 0x14 bytes

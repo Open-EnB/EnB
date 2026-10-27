@@ -5,7 +5,7 @@
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
 **	Original location: e:\build\beta\G\app\packets\pkincapacitancerequest.h (the name provisional: see the .cpp)
 **
-**	The packet classes of client 0x871F70-0x873770 rebuilt so far (opcode 141, 143, 145); the file's other classes
+**	The packet classes of client 0x871F70-0x873770 rebuilt so far (opcode 141, 142, 143, 145); the file's other classes
 **	are still declared in pk_classes.h.
 */
 
@@ -30,6 +30,21 @@ public:
 	virtual int Print(char *buffer, int len);	// +0x10 0x872150
 
 	int GameID;	// +0x0C  // NAME 3: the client's Print text 'GameID='
+};
+
+// opcode 142 (0x008E, ?): vtable 0xB09A24, constructor 0x872200, 0x14 bytes
+class IncapacitanceDistressBeaconPacketClass : public PacketClass  // NAME 3: the client's Print text 'Incapacitance Distress Beacon {'
+{
+public:
+	IncapacitanceDistressBeaconPacketClass(int game_id, bool on);	// 0x872180
+	IncapacitanceDistressBeaconPacketClass(RawPacketClass *raw);	// 0x872200
+	virtual RawPacketClass *Build();	// +0x04 0x8722A0
+	virtual bool Process_Packet(void *client);	// +0x08 0x868A60 (clientstub.cpp l.266)
+	virtual int Get_Data_Size();	// +0x0C 0x872370
+	virtual int Print(char *buffer, int len);	// +0x10 0x872390
+
+	int GameID;	// +0x0C (network order; -1 by default)  // NAME 3: the client's Print text 'GameID='
+	bool On;	// +0x10 (true by default)  // NAME 3: the client's Print text 'On='
 };
 
 // opcode 143 (0x008F, ?): vtable 0xB09A54, constructor 0x872450, 0x10 bytes

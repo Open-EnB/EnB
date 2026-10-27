@@ -1,5 +1,6 @@
 // Earth & Beyond client (reconstruction): app\packets\pkincapacitancerequest.cpp. Notes at the end of the file.
 #include "pkincapacitancerequest.h"
+#include "..\shared\strconv_lib.h"
 #include <stdio.h>
 
 
@@ -28,6 +29,36 @@ int IncapacitanceRequestPacketClass::Get_Data_Size()
 int IncapacitanceRequestPacketClass::Print(char *buffer, int len)
 {
 	return(_snprintf(buffer, len, "Incapacitance Details Request {GameID=%d}", GameID));
+}
+
+IncapacitanceDistressBeaconPacketClass::IncapacitanceDistressBeaconPacketClass(int game_id, bool on) : GameID(game_id), On(on)
+{
+}
+
+IncapacitanceDistressBeaconPacketClass::IncapacitanceDistressBeaconPacketClass(RawPacketClass *raw) : GameID(-1), On(true)
+{
+	raw->Get(GameID);
+	raw->Get(&On, sizeof(On));
+}
+
+RawPacketClass *IncapacitanceDistressBeaconPacketClass::Build()
+{
+	RawPacketClass *raw = new RawPacketClass(142, Get_Data_Size());
+	raw->Add(GameID);
+	raw->Add(&On, sizeof(On));
+	return(raw);
+}
+
+int IncapacitanceDistressBeaconPacketClass::Get_Data_Size()
+{
+	return(sizeof(GameID) + sizeof(On));
+}
+
+int IncapacitanceDistressBeaconPacketClass::Print(char *buffer, int len)
+{
+	char on[16];
+	Value_To_String(on, sizeof(on), On);
+	return(_snprintf(buffer, len, "Incapacitance Distress Beacon {GameID=%d, On=%s}", GameID, on));
 }
 
 Packet_008FClass::Packet_008FClass(int game_id) : GameID(game_id)

@@ -608,15 +608,6 @@ public:
 	char Unknown0C[0x14];	// +0x0C
 };
 
-// opcode 142 (0x008E, ?): vtable 0xB09A24, constructor 0x872200, 0x14 bytes
-class Packet_008EClass : public PacketClass  // NAME 1: neutral (D10): opcode 0x008E
-{
-public:
-	Packet_008EClass(RawPacketClass *raw);	// 0x872200
-	virtual bool Process_Packet(void *client);	// +0x08 0x868A60 (clientstub.cpp l.266)
-	char Unknown0C[0x8];	// +0x0C
-};
-
 // opcode 144 (0x0090, ?): vtable 0xB09A84, constructor 0x872A80, 0x198 bytes
 class IncapacitanceDetailsPacket : public PacketClass
 {
@@ -762,14 +753,6 @@ public:
 	Packet_00B1Class(RawPacketClass *raw);	// 0x88ABC0
 	virtual bool Process_Packet(void *client);	// +0x08 0x868F10 (clientstub.cpp l.341)
 	char Unknown0C[0x34];	// +0x0C
-};
-
-// opcode 190 (0x00BE, CONFIRMED_ACTION_OFFER): vtable 0xB0989C, constructor 0x870650, 0x24 bytes
-class ConfirmedActionOfferPacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name CONFIRMED_ACTION_OFFER (the Net-7 opcode table; no structure check)
-{
-public:
-	ConfirmedActionOfferPacketClass(RawPacketClass *raw);	// 0x870650
-	char Unknown0C[0x18];	// +0x0C
 };
 
 // opcode 193 (0x00C1, ?): vtable 0xB0AA64, constructor 0x88EE20, 0x30 bytes

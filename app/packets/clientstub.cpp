@@ -262,7 +262,7 @@ bool PetitionStuckPacketClass::Process_Packet(void *)	// 0x868A00
 bool IncapacitanceRequestPacketClass::Process_Packet(void *)	// 0x868A30
 {	G_ASSERT(0); return(true); }
 
-bool Packet_008EClass::Process_Packet(void *)	// 0x868A60
+bool IncapacitanceDistressBeaconPacketClass::Process_Packet(void *)	// 0x868A60
 {	G_ASSERT(0); return(true); }
 
 bool Packet_008FClass::Process_Packet(void *)	// 0x868A90
