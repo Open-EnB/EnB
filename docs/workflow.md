@@ -401,6 +401,14 @@ unless `--lever` cites a new row of this table.
   without their template arguments** (P7): a stand-in defines them as plain overloads in its own minimal class
   declaration (tests/capharness/udpreplay/shipcust_stubs.cpp). `appfile.py match` needs `-I wwmath -I wwlib
   -I wwdebug` (top-level folders) for headers like avatar_desc.h; `--diff` works only on a marked function.
+* **Including a packet header mid-file in tsk_login.cpp turns a handler order-only** (P9: 0x76B520 with 114's header):
+  keep the one-line views with the real signatures (P-P9-3). A flag parameter the client stores with `movzx` is
+  `bool`; a cast temporary for a count leaves the frame 4 bytes short: name the local (118, 112). P6's commit_json
+  method appends new entries at the end of imports.json's sorted maps (a duplicate key after another repair,
+  9593edb): `.work/p9/commit_wt.py` re-sorts and refuses until HEAD parses; `.work/p9/wt.py` + `checks.sh` set up and
+  check a verify worktree (to promote). pkclasses.py can write a handler stand-in twice into pk_ctor_stubs.cpp
+  (the OVERRIDES section; fixed 95c07a1). Same-shape template instances stay `multiple` until their relocation
+  targets have names in symbols.json.
 * **A pack(4) member changes a packet class's sizeof (0x5C for 0x60) and the factory switch 0x869790 in pk.cpp stops
   matching** (P6, 2026-10-27): check it whenever a packet layout changes. Put a needed `#include` after the asserted
   code so the asserts keep the client's lines. Python `replace` with `\n` in a CRLF header gives mixed endings.

@@ -1244,6 +1244,12 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 * **P-T12-2 (aux_roots.h's bool conversions, 2026-10-27):** the bool `Type_Name` / `String_To_Value` overloads live
   only in the generated aux_roots.h, so co.cpp includes it to use auxdata.h's lookup helper. Proposal: move them to
   strconv_lib.h through the aux_roots generator. Recommendation: accept when the generator is next touched.
+* **P-P9-1 (udpreplay's clock field, 2026-10-27):** LOGIN 2 carries a clock at byte 0x44; udpreplay compares it
+  zeroed, as it already does for 52 and 68 (f41cef7, README). Recommendation: ratify as the same rule (D91's family).
+* **P-P9-2 (P-T5-2's last part):** merge LoginKVVisitorClass into DeltaChildVisitorClass / KVEncoderBaseClass
+  (kv_encoder_base.h and delta.h, where the canary 0x6FB1E0 lives), together with prof.cpp / race.cpp (about 30
+  functions, 0x4F6A80-0x4F7820) so the race / profession `Type_Name` form (byte-identical twins, `.work/p9/typename.diff`)
+  gains when their converters have names. Recommendation: accept as one item.
 * **P-S3-2 / F3's leads for Key_Exchange 0x829180** are LIMIT REACHED (three Opus rounds, inline budget): it
   waits for a new §3.1 lever; F3's two untested leads are in its attempts.csv row.
 * D7 is to be revisited with the user if byte-exactness of E&B's code becomes too costly; D64's
