@@ -3488,6 +3488,11 @@ RECONSTRUCTED = {
     ('app', 'shared/boolpars.cpp'): "The boolean expression parser, client 0x499750-0x49B5E0 with the node classes' virtuals and "
                                    "the table's instances after it: the asserts on the client's lines 222 / 303 / 492 / 578 / 630 "
                                    "(D25); NOT EXACT: Parse 0x49A430, Parse_Params 0x49AE30",
+    ('app', 'shared/unique_design_id_lookup.h'): "UniqueDesignIDLookupClass (D24), ids of named designs from an ini section in an SGI "
+                                                "hash_map<std::string, int> (libs/sgistl, D87)",
+    ('app', 'shared/unique_design_id_lookup.cpp'): "UniqueDesignIDLookupClass, client 0x4FFC70-0x500760 with the iostream, string and "
+                                                  "table instances to about 0x509C40 (VC6's <sstream>): the reports on the client's "
+                                                  "lines 32 / 35 / 73, the asserts on 46 / 101 (D25); NOT EXACT: Add_Identifier 0x500760",
     ('app', 'shared/symbol_substitution.h'): "SymbolSubstitutionClass (D24), named symbols in an SGI hash_map<std::string, "
                                             "std::string> (libs/sgistl, D87), and the $name$ substitution",
     ('app', 'shared/symbol_substitution.cpp'): "SymbolSubstitutionClass, client 0x4FCBD0-0x4FD7A0 with the string's and the "
