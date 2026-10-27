@@ -452,6 +452,73 @@ void ClientLegoImplClass::Add(const RefCountPtr<LegoClass> &lego)
 	}
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// NOT EXACT: literal: 389 instructions on both sides, our EH states two lower in the orphans' loop, frame 0x88 vs 0x84 (attempts.csv)
+RefCountPtr<LegoClass> ClientLegoImplClass::Remove(const LegoIdentifierClass &id)
+{
+	LegoSplitStruct split(Identifier, id);
+	FAIL_IF(split.Is_Invalid()) return NULL;
+	std::hash_map<std::string, LegoChildStruct>::iterator child_find = Children.find(split.Name);
+	if (split.State == 0) {
+		if (child_find == Children.end()) {
+			return NULL;
+		}
+		RefCountPtr<LegoClass> child = (*child_find).second.Child;
+		RefCountPtr<LegoKnobClass> knob = (*child_find).second.Knob;
+		RefCountPtr<LegoOrphanDataClass> orphan_data = Create_NEW(new LegoOrphanDataClass);
+		child->Detach_All(orphan_data->Legos);
+		if (orphan_data->Legos.size() != 0) {
+			Orphans[split.Name] = orphan_data;
+		}
+		if (knob) {
+			Detach(child, RenderObject, knob);
+			Update_Radius();
+		}
+		Children.erase(child_find);
+		return child;
+	} else if (child_find == Children.end()) {
+		std::hash_map<std::string, RefCountPtr<LegoOrphanDataClass> >::iterator orphan_find = Orphans.find(split.Name);
+		if (orphan_find == Orphans.end()) {
+			return NULL;
+		}
+		RefCountPtr<LegoOrphanDataClass> data = (*orphan_find).second;
+		for (std::vector<RefCountPtr<LegoClass> >::iterator it = data->Legos.begin(); it != data->Legos.end(); ++it) {
+			RefCountPtr<LegoClass> lego = *it;
+			if (lego->Get_Identifier() == id) {
+				data->Legos.erase(it);
+				if (data->Legos.empty()) {
+					Orphans.erase(orphan_find);
+				}
+				return lego;
+			}
+		}
+		return NULL;
+	} else {
+		return (*child_find).second.Child->Remove(id);
+	}
+}
+
 void ClientLegoImplClass::Detach_All(std::vector<RefCountPtr<LegoClass> > &legos)
 {
 	for (std::hash_map<std::string, LegoChildStruct>::iterator it = Children.begin(); it != Children.end(); ++it) {
@@ -472,73 +539,6 @@ void ClientLegoImplClass::Detach_All(std::vector<RefCountPtr<LegoClass> > &legos
 	Orphans.clear();
 	Update_Radius();
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
