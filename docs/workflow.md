@@ -224,6 +224,9 @@ unless `--lever` cites a new row of this table.
 | A virtual `Set_Step` the client inlines | Call it qualified, `LoginTaskClass::Set_Step(...)`; a plain virtual call misses | tsk_login.cpp (T3) |
 | A hashtable's `_M_delete_node` out of line in the client, inlined by ours; callers inlining more table helpers than the client | In a template VC6 compiles `p->~T()` by where `T` comes from: a function template's parameter (`destroy`, `_Destroy`) gives `push 0; call ??_G` (the scalar deleting dtor), the class template's own `_Val` in a member gives a direct `??1` call, and the callers then inline less. `_M_destroy_val` member in sgistl_adapt.py (H6, de316de: +10 whole-app, none lost). Members out of class, `inline`, `#pragma inline_depth`, allocator forms, find's body: 0 or losses | kv_list 0x4B6520, combo_ffactory 0x4E5230, lookup_table 0x4ECE50 |
 | A hashtable's find / `_Eos` still called out of line in the client after the row above | Per-caller budget, not the header: every further table-level change loses callers that inline find today (H6, P-H6-1); parked until a caller-budget lever | 0x4B6B60, 0x6ACF50, 0x4E57A0 |
+| Our loop hoists addresses into stack slots the client doesn't have; the client writes a temporary into a dead parameter slot | Move loop-invariant inline math (a Matrix3D multiply, Vector constructs) out of the loop: VC6 then spills nothing | `SegLineRendererClass::Render` 0x9BEB20, 5c24e98 (F4: one move after W3's 16 forms) |
+| A repeated null test of a literal / 64-bit memory value: the client re-loads and tests again, ours threads it | Unsolved stop signal: VC6 keeps the second test when the tested value is a rematerialised constant or a 64-bit memory operand, threads it on a register value; 8 header and call forms plus a 30-flag sweep changed nothing. The lead: an E&B wwstring.h whose literal constructor does not call operator= | ShdMesh ctor 0xA08F80, 0xA0EC30; `Unknown_50` 0x7683F0 residue (F4) |
+| Index-building loops: the client keeps a running row base | `int row1 = 1; ... row1 += nx` with the Adds in the client's order; also makes the static guards exact (`mov cl,al; or cl,N`) | distortion draw 0x9961E0, 1306 -> 1045 rows (F4; frame and loop registers remain) |
 
 * **A nested inline is a whole-function budget (2026-10-26, `Key_Exchange` 0x829180):** under `/Ob2` an
   inline helper's own callees (a `std::set` iterator's `_Inc`) are inlined only while the function as a
@@ -340,6 +343,14 @@ unless `--lever` cites a new row of this table.
   invisible to the shared pool) and copy `.work/vc6_hosts.json`. `git merge --ff-only` into the shared tree aborts
   on another builder's uncommitted imports.json: wait for the importer lock, save their diff, `git checkout` the
   file, merge, `git apply --3way` their diff, `git reset` the file (the only conflict is `in_tree_total`).
+
+* **attempts.csv rows written minutes apart by two builders share a diff hunk** (F4, 2026-10-27): commit_mine keyed by
+  one address commits the neighbour's row too (harmless; the neighbour's own commit then finds nothing). A multi-line
+  `// NOT EXACT:` comment above asserts shifts `__LINE__` (10 tsk_login pairs lost): keep it to one line.
+* **Shared scratch:** `tryv2-base` objects and `%TEMP%\enb_import\verify-app` are overwritten by other builders:
+  objdiff a variant tag, never the base. tryv2.py writes the tree file back with `open(..., 'w')` and can fail with
+  OSError 22 when another process holds the file: the tree stays intact but later variants are skipped silently, so
+  check the log's variant lines. importer.py is CRLF: a patch-insertion script must convert its anchor newlines.
 
 ### 3.5 Build VMs and vc6.py
 
