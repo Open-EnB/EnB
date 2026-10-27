@@ -2,6 +2,13 @@
 #include "pkaction.h"
 #include <stdio.h>
 
+ActionPacketClass::ActionPacketClass(int game_id, char action, int unknown14, int unknown18) :
+	GameID(game_id),
+	Action(action),
+	Unknown14(unknown14),
+	Unknown18(unknown18)
+{
+}
 
 ActionPacketClass::ActionPacketClass(RawPacketClass *raw)
 {

@@ -22,6 +22,7 @@
 class ActionPacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name ACTION (the Net-7 opcode table; no structure check)
 {
 public:
+	ActionPacketClass(int game_id, char action, int unknown14, int unknown18);	// 0x876360
 	ActionPacketClass(RawPacketClass *raw);	// 0x876400
 	virtual RawPacketClass *Build();	// +0x04 0x8764C0
 	virtual bool Process_Packet(void *client);	// +0x08 0x867DD0 (clientstub.cpp l.65)
