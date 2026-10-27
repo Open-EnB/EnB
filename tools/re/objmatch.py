@@ -16,6 +16,12 @@ the client's string at the candidate's relocated field) and the symbols symbols.
 address against the field's target). A candidate with a contradiction drops out; if one is left
 and at least one target confirmed it, the function is `exact` there (`tiebreak` is set).
 
+What D80 leaves `multiple` gets a second tie-break (D88, the "self name"): of the candidates no
+target contradicts, the one address symbols.json names with the function's own mangled symbol
+from a proof other than an exact match (a vtable slot, a string) is credited, `exact` with
+`tiebreak` and `selfname` set. It runs only once D80 resolves nothing more, so D80 always decides
+first, and its credits feed D80's next round like any exact function.
+
     python objmatch.py [--client PATH] [--json OUT] file.obj...
 """
 import argparse
@@ -162,6 +168,7 @@ CoffObject.reloc_targets = _reloc_targets
 CoffObject.literal = _literal
 
 _symbol_addresses = None
+_self_names = None
 _thunk_cache = {}
 
 
@@ -186,6 +193,22 @@ def symbol_addresses():
         except (OSError, ValueError, KeyError):
             pass
     return _symbol_addresses
+
+
+def self_names():
+    """D88: {mangled name: {addresses}} of the functions symbols.json names from a proof other than
+    an exact match (a vtable slot, a string): the self names that break a `multiple`."""
+    global _self_names
+    if _self_names is None:
+        _self_names = {}
+        path = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', 'docs', 'data', 'symbols.json')
+        try:
+            for e in json.load(open(path)):
+                if e.get('kind') == 'function' and e.get('source') != 'exact':
+                    _self_names.setdefault(e['symbol'], set()).add(int(e['address'], 16))
+        except (OSError, ValueError, KeyError):
+            pass
+    return _self_names
 
 
 def vtable_check(obj, sym, raw, known, img):
@@ -392,6 +415,10 @@ def match_objects(img, paths, region=None):
     for r, obj, sec, s, length in results:
         if r['status'] == 'exact':
             learn(r, obj, sec, s, length, int(r['addresses'][0], 16))
+    # D88: when D80 resolves nothing more, the self name breaks a tie: the one survivor that
+    # symbols.json names with the function's own symbol (from a vtable slot or a string, not an
+    # exact match); its credits may let D80 resolve more, so the loop goes on
+    selfname = False
     changed = True
     while changed:
         changed = False
@@ -401,8 +428,13 @@ def match_objects(img, paths, region=None):
             if id(r) in done:
                 continue
             survivors, confirmed = break_tie(obj, sec, s, length, text, start, hits, img, known)
-            if len(survivors) == 1 and confirmed:
-                proposals.append((item, survivors[0]))
+            if not selfname:
+                if len(survivors) == 1 and confirmed:
+                    proposals.append((item, survivors[0]))
+            else:
+                own = [h for h in survivors if h in self_names().get(r['symbol'], ())]
+                if len(own) == 1:
+                    proposals.append((item, own[0]))
         by_addr = collections.defaultdict(set)
         for (r, *_), a in proposals:
             by_addr[a].add(r['symbol'])
@@ -413,11 +445,17 @@ def match_objects(img, paths, region=None):
             r['status'] = 'exact'
             r['addresses'] = [f'0x{a:06X}']
             r['tiebreak'] = True
+            if selfname:
+                r['selfname'] = True
             r.pop('count'), r.pop('identical')
             claimed[a].add(r['symbol'])
             learn(r, obj, sec, s, length, a)
             done.add(id(r))
             changed = True
+        if selfname:
+            selfname = False    # back to D80 after a self-name round
+        elif not changed:
+            selfname = changed = True   # D80 is done: one self-name round
     return [x[0] for x in results]
 
 
