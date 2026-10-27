@@ -5,8 +5,10 @@
 */
 #include <windows.h>
 #include "sclient.h"
+#include "..\packets\pk_sub_parts.h"
 #include "..\packets\pkclientship.h"
 #include "..\packets\pkconfirmedaction.h"
+#include "..\packets\pkcreateattachment.h"
 #include "..\packets\pkguildranknamesrequestclient.h"
 #include "..\packets\pkhullupgrade.h"
 #include "..\packets\pkinitrenderstate.h"
@@ -14,6 +16,7 @@
 #include "..\packets\pkmessagestring.h"
 #include "..\packets\pkmodechange.h"
 #include "..\packets\pkpointeffect.h"
+#include "..\packets\pkrequesttarget.h"
 #include "..\packets\pksetzband.h"
 #include "..\packets\pkspline.h"
 #include "..\packets\pkstarbasetow.h"
@@ -55,6 +58,31 @@ bool ClientShipPacketClass::Process_Packet(void *instance)
 	return(true);
 }
 
+// 0x733A50
+bool SubPartsPacket::Process_Packet(void *instance)
+{
+	WWPROFILE("SubPartsPacket::Process_Packet(void * instance)");
+	SClient *sclient = (SClient *)instance;
+	ClientObjectClass *object = sclient->Find_Object(GameID);
+	if (object) {
+		object->Unknown_6FEF70(this);
+	}
+	return(true);
+}
+
+// 0x733BB0
+bool CreateAttachmentPacketClass::Process_Packet(void *instance)
+{
+	WWPROFILE("CreateAttachmentPacketClass::Process_Packet()");
+	SClient *sclient = (SClient *)instance;
+	ClientObjectClass *parent = sclient->Find_Object(Parent_ID);
+	ClientObjectClass *child = sclient->Find_Object(Child_ID);
+	if (parent && child) {
+		parent->Unknown_0C(child, Unknown18, 0);
+	}
+	return(true);
+}
+
 // 0x735D50
 bool RemoveEffectPacketClass::Process_Packet(void *instance)
 {
@@ -63,6 +91,19 @@ bool RemoveEffectPacketClass::Process_Packet(void *instance)
 	EffectObjectClass *effect = sclient->Get_Effect(EffectID);
 	if (effect) {
 		effect->Unknown_6E6E30();
+	}
+	return(true);
+}
+
+// 0x7363E0
+bool SetTargetPacketClass::Process_Packet(void *instance)
+{
+	WWPROFILE("SetTargetPacketClass::Process_Packet()");
+	SClient *sclient = (SClient *)instance;
+	ClientObjectClass *target = sclient->Find_Object(TargetID);
+	ClientObjectClass *object = sclient->Find_Object(Unknown10);
+	if (Unknown10 != -1 && object && object->Unknown_6F5DC0()) {
+		object->Unknown_70E750(TargetID);
 	}
 	return(true);
 }
@@ -199,47 +240,6 @@ bool HullUpgradePacketClass::Process_Packet(void *instance)
 	WWPROFILE("HullUpgradePacketClass::Process_Packet(void * instance)");
 	return(true);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

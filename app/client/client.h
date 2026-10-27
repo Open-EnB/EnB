@@ -28,6 +28,7 @@
 
 class KernelClass;
 class RenderObjClass;
+class SubPartsPacket;
 class PacketClass;
 class ConnectionClass;
 class SplineDatabaseClass;
@@ -40,6 +41,7 @@ public:
 	virtual ~ClientObjectClass();						// +0x00 (ClientClass's destructor deletes through it)
 	virtual void Unknown_04();
 	virtual void Unknown_08();							// +0x08: ClientClass's destructor calls it before the delete
+	virtual void Unknown_0C(ClientObjectClass *child, int a, int b);	// +0x0C (cpacket.cpp: CREATE_ATTACHMENT 74 passes the child, its Unknown18 and 0)  // NAME 1 [child, a, b]: what the handler passes
 
 	unsigned Get_Game_ID() { return(GameID); }			// (the assert's name)
 	void Get_Name(std::string &name);					// 0x6FF4B0  // NAME 2: Find_Object compares it with a name
@@ -47,6 +49,9 @@ public:
 	int Unknown_6FFF00();								// 0x6FFF00 (co.cpp)
 	int Unknown_6FFF50();								// 0x6FFF50 (co.cpp)
 	bool Unknown_700400();								// 0x700400 (co.cpp)
+	bool Unknown_6F5DC0();								// 0x6F5DC0 (co.cpp; cpacket.cpp's SET_TARGET 25 tests it)
+	void Unknown_6FEF70(SubPartsPacket *packet);		// 0x6FEF70 (co.cpp; cpacket.cpp's SUBPARTS 180)  // NAME 1 [packet]: the handler's packet
+	void Unknown_70E750(int id);						// 0x70E750 (cpacket.cpp's SET_TARGET 25 passes its TargetID)  // NAME 1 [id]: the packet's TargetID
 	int Unknown_7283B0()								// co.cpp's, inline in client.cpp's 0x7283B0 (there its FAIL_IF has co.cpp's __FILE__, l.2461)
 	{
 		if (Unknown94 >= 0 && Unknown94 < 2) {
