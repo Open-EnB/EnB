@@ -52,7 +52,7 @@ struct FontInitStruct  // NAME 2: one INIT-n section of fontsys.ini (a screen re
 		}
 	}
 
-	bool Unknown_6C5C60(unsigned int idx, FontDatabaseClass *fdb);			// 0x6C5C60  // NAME 1 [Unknown_6C5C60]: neutral (D10)
+	bool Load_Font(unsigned int idx, FontDatabaseClass *fdb);				// 0x6C5C60: the chat font's saved font file, scale, spacing  // NAME 2: what it does
 	void Unknown_6C57B0(FontDatabaseClass *fdb);							// 0x6C57B0  // NAME 1 [Unknown_6C57B0]: neutral (D10)
 	int Find_Chat_Index(const char *chat_name);								// 0x6C5730  // NAME 2: the chat_index of the asserts
 
