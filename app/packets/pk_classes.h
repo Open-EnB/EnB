@@ -328,12 +328,4 @@ public:
 	char Unknown0C[0x14];	// +0x0C
 };
 
-// opcode 129 (0x0081, RECUSTOMIZE_SHIP_START): vtable 0xB0B5C4, constructor 0x89FB50, 0x1B4 bytes
-class RecustomizeShipStartPacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name RECUSTOMIZE_SHIP_START (the Net-7 opcode table; no structure check)
-{
-public:
-	RecustomizeShipStartPacketClass(RawPacketClass *raw);	// 0x89FB50
-	char Unknown0C[0x1A8];	// +0x0C
-};
-
 #endif

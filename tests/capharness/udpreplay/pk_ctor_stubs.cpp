@@ -20,7 +20,6 @@ IncapacitanceDetailsPacket::IncapacitanceDetailsPacket(RawPacketClass *raw) { Co
 Packet_00B5Class::Packet_00B5Class(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_00B6Class::Packet_00B6Class(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_0077Class::Packet_0077Class(RawPacketClass *raw) { Conn_Record(this, raw); }
-RecustomizeShipStartPacketClass::RecustomizeShipStartPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 
 // The rebuilt classes' Process_Packet defined in a file not rebuilt (cpacket.cpp, ...)
 bool VersionResponsePacketClass::Process_Packet(void *) { return(true); }	// 0x76B8A0
@@ -123,6 +122,7 @@ bool GuildRankNamesSectorPacket::Process_Packet(void *) { return(true); }	// 0x7
 bool GuildGMRenameConfirmSectorPacket::Process_Packet(void *) { return(true); }	// 0x73EEF0
 bool Packet_0078Class::Process_Packet(void *) { return(true); }	// 0x76BB70
 bool ReferralPointsAvailablePacketClass::Process_Packet(void *) { return(true); }	// 0x73F3D0
+bool RecustomizeShipStartPacketClass::Process_Packet(void *) { return(true); }	// 0x73F4B0
 bool RecustomizeAvatarStartPacketClass::Process_Packet(void *) { return(true); }	// 0x73F570
 bool RecustomizeAvatarUpdatePacketClass::Process_Packet(void *) { return(true); }	// 0x73F5F0
 

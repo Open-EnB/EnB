@@ -2,6 +2,56 @@
 #include "pkrecustomize.h"
 #include <stdio.h>
 
+RecustomizeShipStartPacketClass::RecustomizeShipStartPacketClass(RawPacketClass *raw) :
+	Unknown1A0(0)
+{
+	raw->Get((Unknown_PacketDataClass *)&Desc);
+	raw->Get(&Cost);
+	raw->Get(Unknown1A0);
+	raw->Get(Unknown1A4);
+	raw->Get(Unknown1A8);
+	raw->Get(Unknown1AC);
+	raw->Get(Unknown1B0);
+}
+
+// NOT EXACT: shape: ShipCustDescClass's assignment, as 130's 0x8A0380 (attempts.csv)
+RecustomizeShipStartPacketClass::RecustomizeShipStartPacketClass(int unknown1A0, const ShipCustDescClass &desc, const ShipRecustomizationCostClass &cost, int unknown1A4, int unknown1A8, int unknown1AC, int unknown1B0) :
+	Unknown1A0(unknown1A0),
+	Unknown1A4(unknown1A4),
+	Unknown1A8(unknown1A8),
+	Unknown1AC(unknown1AC),
+	Unknown1B0(unknown1B0)
+{
+	Desc = desc;
+	Cost = cost;
+}
+
+RawPacketClass *RecustomizeShipStartPacketClass::Build()
+{
+	RawPacketClass *raw = new RawPacketClass(129, Get_Data_Size());
+	raw->Add((Unknown_PacketDataClass &)Desc);
+	raw->Add(Cost);
+	raw->Add(Unknown1A0);
+	raw->Add(Unknown1A4);
+	raw->Add(Unknown1A8);
+	raw->Add(Unknown1AC);
+	raw->Add(Unknown1B0);
+	return(raw);
+}
+
+int RecustomizeShipStartPacketClass::Get_Data_Size()
+{
+	int size = 0x14;
+	size += ((Unknown_PacketDataClass &)Desc).Get_Size();
+	size += ((Unknown_PacketDataClass &)Cost).Get_Size();
+	return(size);
+}
+
+int RecustomizeShipStartPacketClass::Print(char *buffer, int)
+{
+	return(sprintf(buffer, "%s", "Recustomize Ship Start"));
+}
+
 RecustomizeShipDonePacketClass::RecustomizeShipDonePacketClass(RawPacketClass *raw) :
 	Unknown16C(0)
 {
@@ -138,9 +188,9 @@ int RecustomizeAvatarUpdatePacketClass::Print(char *buffer, int)
 **
 **	* Client 0x89FB50-0x8A14D0 (0x89FB20 is the previous object's guarded static, 0xC416FC; this one's is
 **	  0x8A14D0): RECUSTOMIZE_SHIP_START 129, RECUSTOMIZE_SHIP_DONE 130, RECUSTOMIZE_AVATAR_START 131,
-**	  RECUSTOMIZE_AVATAR_DONE 132 and RECUSTOMIZE_AVATAR_UPDATE 133 in that order. 130-133 written by hand
-**	  (builder P7, 2026-10-27): 130 over a ShipCustDescClass, 131 over recustomization_cost.cpp's wire object, 132 / 133 over an
-**	  AvatarDescClass; 129 (a ShipCustDescClass and another recustomization_cost.cpp object) is still
-**	  declared in pk_classes.h.
+**	  RECUSTOMIZE_AVATAR_DONE 132 and RECUSTOMIZE_AVATAR_UPDATE 133 in that order. 129-133 written by hand
+**	  (builder P7, 2026-10-27): 129 over a ShipCustDescClass and the 12-int cost object, 130 over a
+**	  ShipCustDescClass, 131 over recustomization_cost.cpp's wire object, 132 / 133 over an
+**	  AvatarDescClass.
 **	* The file name is provisional (no assert names it).
 */

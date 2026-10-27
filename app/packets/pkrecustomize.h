@@ -5,7 +5,7 @@
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
 **	Original location: e:\build\beta\G\app\packets\pkrecustomize.h (the name provisional: see the .cpp)
 **
-**	The packet classes of client 0x89FB50-0x8A14D0 (opcodes 129-133; 130-133 rebuilt so far).
+**	The packet classes of client 0x89FB50-0x8A14D0 (opcodes 129-133).
 */
 
 #if defined(_MSC_VER)
@@ -37,6 +37,46 @@ public:
 	virtual int Get_Size();	// +0x08 0x8499A0
 
 	RecustomizationCostDataStruct Data;	// +0x04  // NAME 2: what it holds
+};
+
+// The 12 ints of recustomization_cost.cpp's other wire object (0x30 bytes)
+struct ShipRecustomizationCostDataStruct  // NAME 1: neutral (D10)
+{
+	int Unknown00[12];	// +0x00  // NAME 1: neutral (D10)
+};
+
+// recustomization_cost.cpp's other wire object (not rebuilt): vtable 0xB08C7C, 0x34 bytes; Write 0x84A1D0 /
+// Read 0x84A210 move its 12 ints, Get_Size 0x84A250 returns 0x30
+class ShipRecustomizationCostClass : public Unknown_PacketDataClass  // NAME 1: neutral, the ship recustomization's (D10)
+{
+public:
+	ShipRecustomizationCostClass();	// 0x8499C0 (the 12 ints 0)
+	virtual bool Write(LinearBufferClass *buffer);	// +0x00 0x84A1D0
+	virtual bool Read(LinearBufferClass *buffer);	// +0x04 0x84A210
+	virtual int Get_Size();	// +0x08 0x84A250
+
+	ShipRecustomizationCostDataStruct Data;	// +0x04  // NAME 2: what it holds
+};
+
+// opcode 129 (0x0081, RECUSTOMIZE_SHIP_START): vtable 0xB0B5C4, constructor 0x89FB50, 0x1B4 bytes
+class RecustomizeShipStartPacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name RECUSTOMIZE_SHIP_START (the Net-7 opcode table), the client's Print text 'Recustomize Ship Start'
+{
+public:
+	RecustomizeShipStartPacketClass(RawPacketClass *raw);	// 0x89FB50
+	RecustomizeShipStartPacketClass(int unknown1A0, const ShipCustDescClass &desc, const ShipRecustomizationCostClass &cost, int unknown1A4, int unknown1A8, int unknown1AC, int unknown1B0);	// 0x89FD80
+	// the destructor is the implicit one: +0x00 0x89FD30 / 0x89FD60
+	virtual RawPacketClass *Build();	// +0x04 0x8A0040
+	virtual bool Process_Packet(void *client);	// +0x08 0x73F4B0 (cpacket.cpp, not rebuilt)
+	virtual int Get_Data_Size();	// +0x0C 0x8A0160
+	virtual int Print(char *buffer, int len);	// +0x10 0x8A01A0
+
+	ShipCustDescClass Desc;	// +0x0C  // NAME 2: what it holds
+	ShipRecustomizationCostClass Cost;	// +0x16C  // NAME 2: what it holds (its class's file)
+	int Unknown1A0;	// +0x1A0  // NAME 1: neutral (D10)
+	int Unknown1A4;	// +0x1A4  // NAME 1: neutral (D10)
+	int Unknown1A8;	// +0x1A8  // NAME 1: neutral (D10)
+	int Unknown1AC;	// +0x1AC  // NAME 1: neutral (D10)
+	int Unknown1B0;	// +0x1B0  // NAME 1: neutral (D10)
 };
 
 // opcode 130 (0x0082, RECUSTOMIZE_SHIP_DONE): vtable 0xB0B5F4, constructor 0x8A01D0, 0x170 bytes
