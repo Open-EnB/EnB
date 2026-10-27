@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 13 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 30 |
-| 3 | by convention from a client-named file or sibling | 654 |
-| 2 | describes what the code does | 1279 |
-| 1 | neutral placeholder | 1643 |
+| 3 | by convention from a client-named file or sibling | 659 |
+| 2 | describes what the code does | 1295 |
+| 1 | neutral placeholder | 1642 |
 
 ## For review (score 3 and below)
 
@@ -674,23 +674,20 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `std:` | `app/packets/pk_classes.h:290` | the same log |
 | 1 | `Packet_7535Class` | `app/packets/pk_classes.h:303` | neutral (D10): opcode 0x7535 |
 | 1 | `Packet_7538Class` | `app/packets/pk_classes.h:312` | neutral (D10): opcode 0x7538 |
-| 1 | `Packet_753CClass` | `app/packets/pk_classes.h:321` | neutral (D10): opcode 0x753C |
-| 1 | `Packet_753EClass` | `app/packets/pk_classes.h:330` | neutral (D10): opcode 0x753E |
-| 1 | `Packet_7540Class` | `app/packets/pk_classes.h:339` | neutral (D10): opcode 0x7540 |
-| 1 | `Packet_7541Class` | `app/packets/pk_classes.h:348` | neutral (D10): opcode 0x7541 |
-| 1 | `Packet_7545Class` | `app/packets/pk_classes.h:357` | neutral (D10): opcode 0x7545 |
-| 1 | `Packet_0048Class` | `app/packets/pk_classes.h:366` | neutral (D10): opcode 0x0048 |
-| 1 | `Unknown_28` | `app/packets/pk_classes.h:371` | neutral (D10) |
-| 1 | `Packet_004DClass` | `app/packets/pk_classes.h:376` | neutral (D10): opcode 0x004D |
-| 1 | `Packet_00B5Class` | `app/packets/pk_classes.h:441` | neutral (D10): opcode 0x00B5 |
-| 1 | `Packet_00B6Class` | `app/packets/pk_classes.h:450` | neutral (D10): opcode 0x00B6 |
-| 1 | `Packet_00A8Class` | `app/packets/pk_classes.h:467` | neutral (D10): opcode 0x00A8 |
-| 1 | `Packet_00A9Class` | `app/packets/pk_classes.h:476` | neutral (D10): opcode 0x00A9 |
-| 1 | `Packet_00ABClass` | `app/packets/pk_classes.h:485` | neutral (D10): opcode 0x00AB |
-| 1 | `Packet_00ACClass` | `app/packets/pk_classes.h:494` | neutral (D10): opcode 0x00AC |
-| 1 | `Packet_00B0Class` | `app/packets/pk_classes.h:503` | neutral (D10): opcode 0x00B0 |
-| 1 | `Packet_00B1Class` | `app/packets/pk_classes.h:512` | neutral (D10): opcode 0x00B1 |
-| 1 | `Packet_0077Class` | `app/packets/pk_classes.h:521` | neutral (D10): opcode 0x0077 |
+| 1 | `Packet_7541Class` | `app/packets/pk_classes.h:321` | neutral (D10): opcode 0x7541 |
+| 1 | `Packet_7545Class` | `app/packets/pk_classes.h:330` | neutral (D10): opcode 0x7545 |
+| 1 | `Packet_0048Class` | `app/packets/pk_classes.h:339` | neutral (D10): opcode 0x0048 |
+| 1 | `Unknown_28` | `app/packets/pk_classes.h:344` | neutral (D10) |
+| 1 | `Packet_004DClass` | `app/packets/pk_classes.h:349` | neutral (D10): opcode 0x004D |
+| 1 | `Packet_00B5Class` | `app/packets/pk_classes.h:414` | neutral (D10): opcode 0x00B5 |
+| 1 | `Packet_00B6Class` | `app/packets/pk_classes.h:423` | neutral (D10): opcode 0x00B6 |
+| 1 | `Packet_00A8Class` | `app/packets/pk_classes.h:440` | neutral (D10): opcode 0x00A8 |
+| 1 | `Packet_00A9Class` | `app/packets/pk_classes.h:449` | neutral (D10): opcode 0x00A9 |
+| 1 | `Packet_00ABClass` | `app/packets/pk_classes.h:458` | neutral (D10): opcode 0x00AB |
+| 1 | `Packet_00ACClass` | `app/packets/pk_classes.h:467` | neutral (D10): opcode 0x00AC |
+| 1 | `Packet_00B0Class` | `app/packets/pk_classes.h:476` | neutral (D10): opcode 0x00B0 |
+| 1 | `Packet_00B1Class` | `app/packets/pk_classes.h:485` | neutral (D10): opcode 0x00B1 |
+| 1 | `Packet_0077Class` | `app/packets/pk_classes.h:494` | neutral (D10): opcode 0x0077 |
 | 1 | `Unknown_14` | `app/packets/pk_player_object_relationship.cpp:10` | untagged neutral name (D10) |
 | 1 | `Unknown_14` | `app/packets/pk_sub_parts.cpp:29` | untagged neutral name (D10) |
 | 1 | `Unknown14` | `app/packets/pkaction.cpp:10` | untagged neutral name (D10) |
@@ -1076,12 +1073,17 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `pkunknown_85f250` | `app/packets/pkunknown_85f250.h:16` | provisional, neutral (D10): the object's first address |
 | 1 | `Packet_7530Class` | `app/packets/pkunknown_85f250.h:22` | neutral (D10): opcode 0x7530 |
 | 1 | `Packet_7531Class` | `app/packets/pkunknown_85f250.h:36` | neutral (D10): opcode 0x7531 |
-| 1 | `Unknown10` | `app/packets/pkunknown_85f870.cpp:59` | untagged neutral name (D10) |
+| 1 | `Unknown10` | `app/packets/pkunknown_85f870.cpp:160` | untagged neutral name (D10) |
 | 1 | `pkunknown_85f870` | `app/packets/pkunknown_85f870.h:16` | provisional, neutral (D10): the object's first address |
-| 1 | `Packet_753FClass` | `app/packets/pkunknown_85f870.h:22` | neutral (D10): opcode 0x753F |
-| 1 | `Packet_7539Class` | `app/packets/pkunknown_85f870.h:35` | neutral (D10): opcode 0x7539 |
-| 1 | `Packet_753AClass` | `app/packets/pkunknown_85f870.h:49` | neutral (D10): opcode 0x753A |
-| 1 | `Unknown10` | `app/packets/pkunknown_85f870.h:59` | untagged neutral name (D10) |
+| 1 | `Packet_7540Class` | `app/packets/pkunknown_85f870.h:22` | neutral (D10): opcode 0x7540 (Print 'GameEditorCreateFinal') |
+| 1 | `Packet_753EClass` | `app/packets/pkunknown_85f870.h:39` | neutral (D10): opcode 0x753E (Print 'GameEditorCreateEmpty') |
+| 1 | `Packet_753FClass` | `app/packets/pkunknown_85f870.h:56` | neutral (D10): opcode 0x753F |
+| 1 | `Packet_7539Class` | `app/packets/pkunknown_85f870.h:69` | neutral (D10): opcode 0x7539 |
+| 1 | `Packet_753AClass` | `app/packets/pkunknown_85f870.h:83` | neutral (D10): opcode 0x753A |
+| 1 | `Unknown10` | `app/packets/pkunknown_85f870.h:93` | untagged neutral name (D10) |
+| 1 | `Packet_753BClass` | `app/packets/pkunknown_85f870.h:97` | neutral (D10): opcode 0x753B (Print 'GameEditorTemplateCategories') |
+| 1 | `Packet_753CClass` | `app/packets/pkunknown_85f870.h:114` | neutral (D10): opcode 0x753C (Print 'GameEditorRequestTemplateList') |
+| 1 | `Packet_753DClass` | `app/packets/pkunknown_85f870.h:131` | neutral (D10): opcode 0x753D (Print 'GameEditorTemplateList') |
 | 1 | `pkunknown_860d30` | `app/packets/pkunknown_860d30.h:16` | provisional, neutral (D10): the object's first address |
 | 1 | `Packet_7549Class` | `app/packets/pkunknown_860d30.h:34` | neutral (D10): opcode 0x7549 |
 | 1 | `pkunknown_861db0` | `app/packets/pkunknown_861db0.h:15` | provisional, neutral (D10): the object's first address |
@@ -1332,19 +1334,16 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_48` | `app/shared/auxdata/unknown_root.h:54` | untagged neutral name (D10) |
 | 1 | `m_UnknownA4` | `app/shared/auxdata/unknown_root.h:60` | untagged neutral name (D10) |
 | 1 | `Unknown_Get_Ticks` | `app/shared/auxdata/unknown_root.h:65` | untagged neutral name (D10) |
-| 1 | `Unknown_4C3110` | `app/shared/avatar_desc.cpp:13` | 0x4C3110, the values as one text value (body_weight, head_weight) |
-| 1 | `Unknown_4C05D0` | `app/shared/avatar_desc.cpp:19` | untagged neutral name (D10) |
-| 1 | `Unknown0C` | `app/shared/avatar_desc.cpp:47` | untagged neutral name (D10) |
-| 1 | `UnknownFC` | `app/shared/avatar_desc.cpp:80` | untagged neutral name (D10) |
-| 1 | `Unknown_00` | `app/shared/avatar_desc.cpp:253` | untagged neutral name (D10) |
+| 1 | `Unknown_4C3110` | `app/shared/avatar_desc.cpp:16` | 0x4C3110, the values as one text value (body_weight, head_weight) |
+| 1 | `Unknown0C` | `app/shared/avatar_desc.cpp:50` | untagged neutral name (D10) |
+| 1 | `Unknown_00` | `app/shared/avatar_desc.cpp:256` | untagged neutral name (D10) |
+| 1 | `Unknown_4BC260` | `app/shared/avatar_desc.cpp:365` | 0x4BC260, E&B's message reporter (buff_database.cpp) |
+| 1 | `AvatarOtherNames` | `app/shared/avatar_desc.cpp:371` | what it holds |
 | 1 | `LoginUnknown350Class` | `app/shared/avatar_desc.h:11` | untagged neutral name (D10) |
 | 1 | `unknown, unknown2` | `app/shared/avatar_desc.h:31` | neutral (D10) |
-| 1 | `unknown` | `app/shared/avatar_desc.h:32` | neutral (D10) |
 | 1 | `Unknown_00` | `app/shared/avatar_desc.h:39` | untagged neutral name (D10) |
-| 1 | `Unknown_4C05D0` | `app/shared/avatar_desc.h:44` | untagged neutral name (D10) |
 | 1 | `Unknown_4C1460` | `app/shared/avatar_desc.h:45` | untagged neutral name (D10) |
 | 1 | `Unknown0C` | `app/shared/avatar_desc.h:48` | untagged neutral name (D10) |
-| 1 | `UnknownFC` | `app/shared/avatar_desc.h:85` | untagged neutral name (D10) |
 | 1 | `BoolContext` | `app/shared/boolpars.cpp:7` | 0xBE34D8, set only around BoolExpressionClass::Evaluate |
 | 1 | `Unknown08` | `app/shared/definition_manager.h:37` | neutral placeholder (D10) |
 | 1 | `Unknown08` | `app/shared/definition_manager.h:221` | neutral placeholder (D10) |
@@ -1658,7 +1657,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_Debug_Begin_Step` | `tests/capharness/udpreplay/connect_stubs.cpp:35` | untagged neutral name (D10) |
 | 1 | `Unknown_Debug_End_Step` | `tests/capharness/udpreplay/connect_stubs.cpp:36` | untagged neutral name (D10) |
 | 1 | `Unknown_Debug_Print` | `tests/capharness/udpreplay/connect_stubs.cpp:37` | untagged neutral name (D10) |
-| 1 | `Unknown_2C` | `tests/capharness/udpreplay/pk_ctor_stubs.cpp:152` | untagged neutral name (D10) |
+| 1 | `Unknown_2C` | `tests/capharness/udpreplay/pk_ctor_stubs.cpp:149` | untagged neutral name (D10) |
 | 1 | `Unknown_4BC130` | `tests/capharness/udpreplay/udpreplay.cpp:70` | untagged neutral name (D10) |
 | 2 | `BuffDefStruct` | `app/client/buff_database.h:24` | what it holds (one BUFF-n section, 0x14 bytes) |
 | 2 | `Type` | `app/client/buff_database.h:29` | the ini key |
@@ -2017,11 +2016,11 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `GlobalAvatarListPacketClass` | `app/packets/pk_classes.h:264` | the reference decoder's opcode name GLOBAL_AVATAR_LIST (the Net-7 opcode table; no structure check) |
 | 2 | `GlobalCreateCharacterPacketClass` | `app/packets/pk_classes.h:273` | the reference decoder's opcode name GLOBAL_CREATE_CHARACTER (the Net-7 opcode table; no structure check) |
 | 2 | `GlobalErrorPacketClass` | `app/packets/pk_classes.h:282` | the reference decoder's opcode name GLOBAL_ERROR (the Net-7 opcode table; no structure check) |
-| 2 | `RecustomizeShipStartPacketClass` | `app/packets/pk_classes.h:531` | the reference decoder's opcode name RECUSTOMIZE_SHIP_START (the Net-7 opcode table; no structure check) |
-| 2 | `RecustomizeShipDonePacketClass` | `app/packets/pk_classes.h:539` | the reference decoder's opcode name RECUSTOMIZE_SHIP_DONE (the Net-7 opcode table; no structure check) |
-| 2 | `RecustomizeAvatarStartPacketClass` | `app/packets/pk_classes.h:548` | the reference decoder's opcode name RECUSTOMIZE_AVATAR_START (the Net-7 opcode table; no structure check) |
-| 2 | `RecustomizeAvatarDonePacketClass` | `app/packets/pk_classes.h:556` | the reference decoder's opcode name RECUSTOMIZE_AVATAR_DONE (the Net-7 opcode table; no structure check) |
-| 2 | `RecustomizeAvatarUpdatePacketClass` | `app/packets/pk_classes.h:565` | the reference decoder's opcode name RECUSTOMIZE_AVATAR_UPDATE (the Net-7 opcode table; no structure check) |
+| 2 | `RecustomizeShipStartPacketClass` | `app/packets/pk_classes.h:504` | the reference decoder's opcode name RECUSTOMIZE_SHIP_START (the Net-7 opcode table; no structure check) |
+| 2 | `RecustomizeShipDonePacketClass` | `app/packets/pk_classes.h:512` | the reference decoder's opcode name RECUSTOMIZE_SHIP_DONE (the Net-7 opcode table; no structure check) |
+| 2 | `RecustomizeAvatarStartPacketClass` | `app/packets/pk_classes.h:521` | the reference decoder's opcode name RECUSTOMIZE_AVATAR_START (the Net-7 opcode table; no structure check) |
+| 2 | `RecustomizeAvatarDonePacketClass` | `app/packets/pk_classes.h:529` | the reference decoder's opcode name RECUSTOMIZE_AVATAR_DONE (the Net-7 opcode table; no structure check) |
+| 2 | `RecustomizeAvatarUpdatePacketClass` | `app/packets/pk_classes.h:538` | the reference decoder's opcode name RECUSTOMIZE_AVATAR_UPDATE (the Net-7 opcode table; no structure check) |
 | 2 | `MobReactionType` | `app/packets/pk_player_object_relationship.h:25` | what it holds, after the client's MOB_REACTION_COUNT |
 | 2 | `Value_To_String` | `app/packets/pk_player_object_relationship.h:31` | as strconv_lib.h's pairs |
 | 2 | `RelationshipClass` | `app/packets/pk_player_object_relationship.h:35` | what it holds (the packet's Print names both members) |
@@ -2175,6 +2174,16 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Channel` | `app/packets/pktriggeremote.h:50` | Get_Channel returns it |
 | 2 | `TurnPacketClass` | `app/packets/pkturn.h:22` | the reference decoder's opcode name TURN (the Net-7 opcode table; no structure check) |
 | 2 | `UiTriggerPacketClass` | `app/packets/pkuitrigger.h:22` | the reference decoder's opcode name UI_TRIGGER (the Net-7 opcode table; no structure check) |
+| 2 | `Size` | `app/packets/pkunknown_85f870.h:33` | what it holds |
+| 2 | `Owned` | `app/packets/pkunknown_85f870.h:35` | what it means, as MessageStringPacketClass's |
+| 2 | `Size` | `app/packets/pkunknown_85f870.h:50` | what it holds |
+| 2 | `Owned` | `app/packets/pkunknown_85f870.h:52` | what it means, as MessageStringPacketClass's |
+| 2 | `Size` | `app/packets/pkunknown_85f870.h:109` | what it holds |
+| 2 | `Owned` | `app/packets/pkunknown_85f870.h:110` | what it means, as MessageStringPacketClass's |
+| 2 | `Size` | `app/packets/pkunknown_85f870.h:125` | what it holds |
+| 2 | `Owned` | `app/packets/pkunknown_85f870.h:127` | what it means, as MessageStringPacketClass's |
+| 2 | `Size` | `app/packets/pkunknown_85f870.h:143` | what it holds |
+| 2 | `Owned` | `app/packets/pkunknown_85f870.h:144` | what it means, as MessageStringPacketClass's |
 | 2 | `Get_Type` | `app/packets/pkunknown_863720.h:31` | as Packet_138AClass's |
 | 2 | `Data` | `app/packets/pkunknown_863720.h:33` | what it holds |
 | 2 | `DataSize` | `app/packets/pkunknown_863720.h:34` | what it holds |
@@ -2485,12 +2494,18 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Encode_Changes` | `app/shared/auxdata/unknown_root.h:57` | describes what it does |
 | 2 | `Policy` | `app/shared/auxdata/unknown_root.h:59` | describes what it does |
 | 2 | `Changes` | `app/shared/auxdata/unknown_root.h:61` | describes what it does |
+| 2 | `AvatarDefinitions` | `app/shared/avatar_desc.cpp:367` | avatardef.ini |
+| 2 | `AvatarGenderNames` | `app/shared/avatar_desc.cpp:368` | what it holds |
+| 2 | `AvatarRaceNames` | `app/shared/avatar_desc.cpp:369` | what it holds |
+| 2 | `AvatarProfessionNames` | `app/shared/avatar_desc.cpp:370` | what it holds |
+| 2 | `name` | `app/shared/avatar_desc.h:32` | Load_Defaults' |
 | 2 | `Write_Short` | `app/shared/avatar_desc.h:36` | what it does |
 | 2 | `Read_Short` | `app/shared/avatar_desc.h:37` | what it does |
 | 2 | `Get_Short_Size` | `app/shared/avatar_desc.h:38` | what it does |
 | 2 | `Clear` | `app/shared/avatar_desc.h:41` | what it does |
 | 2 | `Is_Valid` | `app/shared/avatar_desc.h:42` | what it does |
 | 2 | `Reset` | `app/shared/avatar_desc.h:43` | what it does |
+| 2 | `Load_Defaults` | `app/shared/avatar_desc.h:44` | what it does |
 | 2 | `boolpars.cpp` | `app/shared/boolpars.cpp:9` | describes what it does |
 | 2 | `Duplicate_Text` | `app/shared/boolpars.cpp:300` | describes what it does (not in the client: inlined into Parse) |
 | 2 | `BoolValueStruct` | `app/shared/boolpars.h:29` | describes what it holds |
@@ -3480,8 +3495,13 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `Action` | `app/packets/pkuitrigger.h:33` | the client's Print text 'Action=' |
 | 3 | `GameID` | `app/packets/pkunknown_85e640.h:32` | the client's Print text 'GameID=' |
 | 3 | `EditorProtocolVersion` | `app/packets/pkunknown_85f250.h:32` | the client's Print text 'EditorProtocolVersion=' |
-| 3 | `GameID` | `app/packets/pkunknown_85f870.h:45` | the client's Print text 'GameID=' |
-| 3 | `GameID` | `app/packets/pkunknown_85f870.h:58` | the client's Print text 'GameID=' |
+| 3 | `Data` | `app/packets/pkunknown_85f870.h:34` | the client's assert 'Data' |
+| 3 | `Data` | `app/packets/pkunknown_85f870.h:51` | the client's assert 'Data' |
+| 3 | `GameID` | `app/packets/pkunknown_85f870.h:79` | the client's Print text 'GameID=' |
+| 3 | `GameID` | `app/packets/pkunknown_85f870.h:92` | the client's Print text 'GameID=' |
+| 3 | `Data` | `app/packets/pkunknown_85f870.h:108` | the client's assert 'Data' |
+| 3 | `Data` | `app/packets/pkunknown_85f870.h:126` | the client's assert 'Data' |
+| 3 | `Data` | `app/packets/pkunknown_85f870.h:142` | the client's assert 'Data' |
 | 3 | `GameEditorRequestPlanetUnitTypesPacketClass` | `app/packets/pkunknown_860d30.h:22` | the client's Print text 'GameEditorRequestPlanetUnitTypes {' and the PacketClass convention |
 | 3 | `UnitType` | `app/packets/pkunknown_860d30.h:44` | the client's Print text 'UnitType=' |
 | 3 | `GameEditorSaveSectorPacketClass` | `app/packets/pkunknown_861db0.h:21` | the client's Print text 'GameEditorSaveSector {' and the PacketClass convention |

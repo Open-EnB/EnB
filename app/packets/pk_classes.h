@@ -317,33 +317,6 @@ public:
 	char Unknown0C[0x10];	// +0x0C
 };
 
-// opcode 30012 (0x753C, ?): vtable 0xB09128, constructor 0x8607E0, 0x18 bytes
-class Packet_753CClass : public PacketClass  // NAME 1: neutral (D10): opcode 0x753C
-{
-public:
-	Packet_753CClass(RawPacketClass *raw);	// 0x8607E0
-	virtual bool Process_Packet(void *client);	// +0x08 0x8682B0 (clientstub.cpp l.143)
-	char Unknown0C[0xC];	// +0x0C
-};
-
-// opcode 30014 (0x753E, ?): vtable 0xB09038, constructor 0x85FBB0, 0x18 bytes
-class Packet_753EClass : public PacketClass  // NAME 1: neutral (D10): opcode 0x753E
-{
-public:
-	Packet_753EClass(RawPacketClass *raw);	// 0x85FBB0
-	virtual bool Process_Packet(void *client);	// +0x08 0x8681F0 (clientstub.cpp l.131)
-	char Unknown0C[0xC];	// +0x0C
-};
-
-// opcode 30016 (0x7540, ?): vtable 0xB09008, constructor 0x85F8F0, 0x18 bytes
-class Packet_7540Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x7540
-{
-public:
-	Packet_7540Class(RawPacketClass *raw);	// 0x85F8F0
-	virtual bool Process_Packet(void *client);	// +0x08 0x8681C0 (clientstub.cpp l.128)
-	char Unknown0C[0xC];	// +0x0C
-};
-
 // opcode 30017 (0x7541, ?): vtable 0xB09308, constructor 0x862440, 0x18 bytes
 class Packet_7541Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x7541
 {

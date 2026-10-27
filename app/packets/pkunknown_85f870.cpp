@@ -1,7 +1,108 @@
 // Earth & Beyond client (reconstruction): app\packets\pkunknown_85f870.cpp. Notes at the end of the file.
 #include "pkunknown_85f870.h"
+#include "..\shared\unknown_debug.h"
 #include <stdio.h>
 
+
+Packet_7540Class::Packet_7540Class(char *data, int size) :
+	Size(size),
+	Data(data),
+	Owned(false)
+{
+}
+
+Packet_7540Class::Packet_7540Class(RawPacketClass *raw)
+{
+	raw->Get(&Size, sizeof(Size));
+	Data = new char[Size];
+
+
+
+	G_ASSERT(Data);
+	Owned = true;
+	raw->Get(Data, Size);
+}
+
+Packet_7540Class::~Packet_7540Class()
+{
+	if (Owned) {
+		delete [] Data;
+		Data = NULL;
+	}
+}
+
+RawPacketClass *Packet_7540Class::Build()
+{
+	RawPacketClass *raw = new RawPacketClass(30016, Get_Data_Size());
+	raw->Add(&Size, sizeof(Size));
+	raw->Add(Data, Size);
+	return(raw);
+}
+
+int Packet_7540Class::Get_Data_Size()
+{
+	return(Size + sizeof(Size));
+}
+
+int Packet_7540Class::Print(char *buffer, int)
+{
+	return(sprintf(buffer, "%s {%s}", "GameEditorCreateFinal", Data));
+}
+
+Packet_753EClass::Packet_753EClass(char *data, int size) :
+	Size(size),
+	Data(data),
+	Owned(false)
+{
+}
+
+Packet_753EClass::Packet_753EClass(RawPacketClass *raw)
+{
+	raw->Get(&Size, sizeof(Size));
+	Data = new char[Size];
+
+
+
+
+
+
+
+
+
+
+
+
+
+	G_ASSERT(Data);
+	Owned = true;
+	raw->Get(Data, Size);
+}
+
+Packet_753EClass::~Packet_753EClass()
+{
+	if (Owned) {
+		delete [] Data;
+		Data = NULL;
+	}
+}
+
+RawPacketClass *Packet_753EClass::Build()
+{
+	RawPacketClass *raw = new RawPacketClass(30014, Get_Data_Size());
+	raw->Add(&Size, sizeof(Size));
+	raw->Add(Data, Size);
+	return(raw);
+}
+
+int Packet_753EClass::Get_Data_Size()
+{
+	return(Size + sizeof(Size));
+}
+
+int Packet_753EClass::Print(char *buffer, int)
+{
+	return(sprintf(buffer, "%s {%s}", "GameEditorCreateEmpty", Data));
+}
 
 Packet_753FClass::Packet_753FClass()
 {
@@ -77,6 +178,225 @@ int Packet_753AClass::Print(char *buffer, int)
 	return(sprintf(buffer, "%s {GameID=%d}", "GameEditorMove", GameID));
 }
 
+Packet_753BClass::Packet_753BClass(char *data, int size) :
+	Data(data),
+	Size(size),
+	Owned(false)
+{
+}
+
+Packet_753BClass::Packet_753BClass(RawPacketClass *raw)
+{
+	raw->Get(&Size, sizeof(Size));
+	Data = new char[Size];
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	G_ASSERT(Data);
+	Owned = true;
+	raw->Get(Data, Size);
+}
+
+Packet_753BClass::~Packet_753BClass()
+{
+	if (Owned) {
+		delete [] Data;
+		Data = NULL;
+	}
+}
+
+RawPacketClass *Packet_753BClass::Build()
+{
+	RawPacketClass *raw = new RawPacketClass(30011, Get_Data_Size());
+	raw->Add(&Size, sizeof(Size));
+	raw->Add(Data, Size);
+	return(raw);
+}
+
+int Packet_753BClass::Get_Data_Size()
+{
+	return(Size + sizeof(Size));
+}
+
+int Packet_753BClass::Print(char *buffer, int)
+{
+	return(sprintf(buffer, "%s {%s}", "GameEditorTemplateCategories", Data));
+}
+
+bool Packet_753BClass::Process_Packet(void *)
+{
+	return(true);
+}
+
+Packet_753CClass::Packet_753CClass(char *data, int size) :
+	Size(size),
+	Data(data),
+	Owned(false)
+{
+}
+
+Packet_753CClass::Packet_753CClass(RawPacketClass *raw)
+{
+	raw->Get(&Size, sizeof(Size));
+	Data = new char[Size];
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	G_ASSERT(Data);
+	Owned = true;
+	raw->Get(Data, Size);
+}
+
+Packet_753CClass::~Packet_753CClass()
+{
+	if (Owned) {
+		delete [] Data;
+		Data = NULL;
+	}
+}
+
+RawPacketClass *Packet_753CClass::Build()
+{
+	RawPacketClass *raw = new RawPacketClass(30012, Get_Data_Size());
+	raw->Add(&Size, sizeof(Size));
+	raw->Add(Data, Size);
+	return(raw);
+}
+
+int Packet_753CClass::Get_Data_Size()
+{
+	return(Size + sizeof(Size));
+}
+
+int Packet_753CClass::Print(char *buffer, int)
+{
+	return(sprintf(buffer, "%s {%s}", "GameEditorRequestTemplateList", Data));
+}
+
+Packet_753DClass::Packet_753DClass(char *data, int size) :
+	Data(data),
+	Size(size),
+	Owned(false)
+{
+}
+
+Packet_753DClass::Packet_753DClass(RawPacketClass *raw)
+{
+	raw->Get(&Size, sizeof(Size));
+	Data = new char[Size];
+
+
+
+
+
+
+
+
+
+
+
+
+
+	G_ASSERT(Data);
+	Owned = true;
+	raw->Get(Data, Size);
+}
+
+Packet_753DClass::~Packet_753DClass()
+{
+	if (Owned) {
+		delete [] Data;
+		Data = NULL;
+	}
+}
+
+RawPacketClass *Packet_753DClass::Build()
+{
+	RawPacketClass *raw = new RawPacketClass(30013, Get_Data_Size());
+	raw->Add(&Size, sizeof(Size));
+	raw->Add(Data, Size);
+	return(raw);
+}
+
+int Packet_753DClass::Get_Data_Size()
+{
+	return(Size + sizeof(Size));
+}
+
+int Packet_753DClass::Print(char *buffer, int)
+{
+	return(sprintf(buffer, "%s {%s}", "GameEditorTemplateList", Data));
+}
+
+bool Packet_753DClass::Process_Packet(void *)
+{
+	return(true);
+}
 
 /*
 **	Reconstruction notes (pkunknown_85f870.cpp)
@@ -86,5 +406,8 @@ int Packet_753AClass::Print(char *buffer, int)
 **	  pkemit.py): members from the raw message's Get / Build's Add (sizes) and Print (types,
 **	  names: 'Name=%d'), the constructors' stores in the initialiser list.
 **	* The file name is provisional (provisional, neutral (D10): the object's first address).
-**	* Not rebuilt yet: opcode 30016, 30014, 30012 (declared in pk_classes.h).
+**	* Opcodes 30016, 30014, 30012 and the send-only 30011 / 30013 (not in the packet switch; their
+**	  Process_Packet returns true) written by hand (builder P5, 2026-10-27): a sized data block each,
+**	  G_ASSERT(Data) on the client's lines 21, 76, 247, 310 and 365 (blank lines above them). The
+**	  object is the client's app\packets\gameedit\pkgeobj.cpp (those asserts' __FILE__).
 */

@@ -20,9 +20,6 @@ GlobalErrorPacketClass::GlobalErrorPacketClass(RawPacketClass *raw) { Conn_Recor
 GlobalLoginPacketClass::GlobalLoginPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_7535Class::Packet_7535Class(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_7538Class::Packet_7538Class(RawPacketClass *raw) { Conn_Record(this, raw); }
-Packet_753CClass::Packet_753CClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-Packet_753EClass::Packet_753EClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-Packet_7540Class::Packet_7540Class(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_7541Class::Packet_7541Class(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_7545Class::Packet_7545Class(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_0048Class::Packet_0048Class(RawPacketClass *raw) { Conn_Record(this, raw); }
