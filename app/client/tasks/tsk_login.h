@@ -100,6 +100,8 @@ public:
 // A character slot of the login's list (0x90 bytes; LoginTaskClass's destructor destroys five with 0x8C0750)
 struct LoginCharacterClass	// NAME 1: what it holds
 {
+	LoginCharacterClass();								// 0x8C06E0
+	~LoginCharacterClass();								// 0x8C0750
 	char Unknown00[0x10];								// +0x00
 	int Galaxy_ID;										// +0x10 NAME 1: compared with the galaxies' (0x769400)
 	int Unknown14;										// +0x14
@@ -132,9 +134,25 @@ struct LoginTicketInfoClass	// NAME 1: what it holds
 	int Unknown98;										// +0x98: handed to 0x8190D0 (step 16)
 };
 
+// An entry of LoginTaskClass +0x350 (0x10C bytes)
+struct LoginUnknown350Class	// NAME 1: neutral (D10)
+{
+	LoginUnknown350Class();								// 0x4BEB50
+	~LoginUnknown350Class();							// 0x53BB50
+	char Unknown00[0x10C];
+};
+
+class LoginUnknown0CClass	// NAME 1: neutral (D10): what LoginTaskClass +0x0C points to (inpdsp.cpp)
+{
+public:
+	~LoginUnknown0CClass();								// 0x429800 (inpdsp.cpp)
+};
+
 class LoginUnknown18Class	// NAME 1: neutral (D10): what LoginTaskClass +0x18 points to
 {
 public:
+	LoginUnknown18Class(int unknown);					// 0x514FE0 (0x30 bytes)
+	~LoginUnknown18Class();								// 0x515030
 	void Unknown_515340(void *unknown);					// 0x515340
 	void Unknown_5153B0();								// 0x5153B0
 	void Unknown_515400();								// 0x515400
@@ -186,7 +204,7 @@ public:
 	void Handle_Referrer_Response(Packet_0078Class *packet);	// 0x76B2F0 (inlined in the packet's Process_Packet)  // NAME 1: what it does
 	void Kill_Kernel();									// 0x769E40 ('LoginTask: killing kernel and exiting the game')  // NAME 1: what it does
 
-	int Unknown000C;									// +0x0C
+	LoginUnknown0CClass *Unknown000C;					// +0x0C
 	CharacterViewClass *CharacterView;					// +0x10 (the FAIL_IFs '!CharacterView')
 	bool Unknown0014;									// +0x14: Set_Step sets it
 	LoginUnknown18Class *Unknown0018;					// +0x18
@@ -200,7 +218,7 @@ public:
 	int Unknown0034;									// +0x34
 	TicketClass Ticket;									// +0x38 NAME 1: handed to ClientTaskClass::Init (step 16)
 	LoginCharacterClass Characters[5];					// +0x80 NAME 1: the character list's slots (Selected indexes them)
-	char Unknown0350[0x10C * 5];						// +0x350: five 0x10C-byte entries (destroyed with 0x53BB50)
+	LoginUnknown350Class Unknown0350[5];				// +0x350
 	char Unknown088C[0xF6C - 0x88C];					// +0x88C
 	std::list<LoginGalaxyClass> Galaxies;				// +0xF6C (the FAIL_IF 'Galaxies.empty()')
 	unsigned long Galaxy_Address;						// +0xF78 NAME 1: the selected character's galaxy's (0x769400)

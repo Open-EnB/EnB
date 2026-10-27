@@ -37,6 +37,7 @@ Unknown_VersionStruct *Unknown_4456C0();				// NAME 1 [Unknown_4456C0]: neutral 
 class Unknown_8190D0Class { public: void Unknown_8191B0(); };	// NAME 1 [Unknown_8190D0Class]: what 0x8190D0 returns
 Unknown_8190D0Class *Unknown_8190D0(int unknown);		// NAME 1 [Unknown_8190D0]: neutral (D10)
 class Unknown_6A9B60Class { public: Unknown_6A9B60Class(int unknown); ~Unknown_6A9B60Class(); void Unknown_6A9E40(); char Unknown00[0x10]; };	// NAME 1 [Unknown_6A9B60Class]: 0x10 bytes, constructor 0x6A9B60, destructor 0x6A9DB0
+void Unknown_723150();								// NAME 1 [Unknown_723150]: neutral (D10); the destructor calls it
 extern bool Unknown_BB9654;							// NAME 1 [Unknown_BB9654]: neutral (D10); Accept_Focus clears it
 
 
@@ -96,18 +97,17 @@ extern bool Unknown_BB9654;							// NAME 1 [Unknown_BB9654]: neutral (D10); Acc
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
+// 0x767A20
+LoginTaskClass::~LoginTaskClass()
+{
+	Delete_Character_View();
+	Unknown_723150();
+	delete Unknown0018;
+	delete Unknown000C;
+	delete GlobalConnection;
+	delete Username;
+	delete Password;
+}
 
 
 

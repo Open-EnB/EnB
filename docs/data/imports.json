@@ -2856,8 +2856,6 @@
    },
    "stars": {
     "ambiguous": [
-     "0x76AD30",
-     "0x76ADD0",
      "0x42A900",
      "0x42AAE0",
      "0x42AFF0",
@@ -3004,18 +3002,25 @@
    },
    "tsk_login": {
     "ambiguous": [
+     "0x42A6C0",
      "0x42B2F0",
+     "0x443F30",
+     "0x49CB70",
      "0x7671E0"
     ],
     "copy": "reconstructed",
     "expected": {},
     "in_tree": [
+     "0x42A820",
      "0x444160",
      "0x52B210",
      "0x52B240",
      "0x52B270",
      "0x52B2A0",
      "0x52B350",
+     "0x5AEF50",
+     "0x7675A0",
+     "0x767A20",
      "0x767CE0",
      "0x767D30",
      "0x767EE0",
