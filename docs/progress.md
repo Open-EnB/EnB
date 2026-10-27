@@ -4,6 +4,22 @@ Newest first within each section. Dates are when the entry was written.
 
 ## 1. Log
 
+### 2026-10-26 (21:25): Open-BFME's method adopted (D85); P-P1, P-P2 accepted, P2 kept; packet round 3 and step 8's tail launched
+
+Coordinator (Fable). The Open-BFME-1 assessment of 2026-10-25 (a read-only look at github.com/Open-BFME/Open-BFME-1
+@ 7b8a0f5: BFME's DX9 ww3d2 under MSVC 7.1, so its bytes, layouts and names prove nothing about E&B's client;
+its two register-allocation levers tested on Make_Screen_Shot gave our U form again) is recorded as D85: nothing
+of theirs enters the sources or roots, their method does. Carried out by Opus early on 2026-10-26, before the night's
+builders ran: the attempt log `tools/re/attempts.py` + `docs/data/attempts.csv` (b49ff3f), the near-miss classifier
+`tools/re/explain.py` (70784d3), the switch sweep `tools/vc6/flagsweep.py` with tryv2.py (996b68a), and workflow.md
+§3.1 as a symptom -> lever -> proof table with explain.py's triage order and the two-attempt stop rule (b23c08a).
+Builders P and S already used it (one attempts.csv row each, cited in their reports). The scratch clone is deleted.
+builders.md §3 now asks each report for the attempt rows written and explain.py's class per NOT EXACT function.
+User decisions: P-P1 and P-P2 accepted (packet round 3: 62 ADVANCED_POSITIONAL_UPDATE, effects 9 and 11, the
+udpreplay stubs for RELATIONSHIP 137); P2 kept (D86); D7 stays enforced (byte-exactness is the goal and the
+measure). Launched: the packet builder (P-P1, P-P2), then step 8's tail (`Pump_Pending` 0x82AA10) once the packet
+builder's first commit lands, to keep the shared-record window short (§3.8's imports.json trap).
+
 ### 2026-10-26 (07:57): packet classes round 2: 91 -> 114 classes, +159 pairs, 0 lost; udpreplay alex3 7,408 -> 19,084 messages
 
 Builder P (Opus, ~400k tokens over two runs, the first cut at 01:10; six commits dd0ca0e, 1b5dda9, da95d03,
@@ -1073,19 +1089,11 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 | D82 | 2026-10-25 | `app/shared/unknown_debug.cpp` (the assert reporters 0x4E9410/0x4E9450) and `unknown_new.cpp` (E&B's operator new/new[]/delete over FastAllocatorGeneral) stay two files although one object in the client, so kerneltest and movietest can define their own reporters without LNK2005 | user |
 | D83 | 2026-10-25 | Builder A's proposals accepted: BinkMovie lives at the top-level `binkmovie/` beside ww3d2 (the client has no path for it); wlib's wstypes.h takes sint8/sint32/uint32 from WWLib's bittype.h so one definition holds program-wide (same bytes, needed for linking); E&B's own tcpcon.cpp (0x8BBA70-0x8BCA50) and tcpqueue.cpp are rebuilt in wnet next, before connect.cpp's factories (RenegadeGR's tcpcon.cpp matches nothing: E&B's TCPCon is an OutputDevice with a lock writing through queues); build.py and `LINK_LIBS` learn the new libraries when a program first needs wlib | user |
 | D84 | 2026-10-26 | wnet's `~TCPMgr()` is declared `throw()`: wnet must build with /GX (TCPMgr::wait, TCPCon and TCPQueue have exception frames) but E&B's destructor has none, and `throw()` is the only form found that makes VC6 omit it. Compiler evidence, not a known source line (P-B1); kept because it gains and loses nothing. Per-file compile flags (P-B2) not added until a library really mixes /GX and none | user |
+| D85 | 2026-10-26 | Open-BFME-1 (a byte-exact BFME rebuild under MSVC 7.1) is not a source and not a root: its ww3d2 is the DX9 port with BFME's layouts and reverse-engineered names, so nothing of it is copied (the assessment is summarised in the 2026-10-26 21:25 log entry). Its method is taken: the attempt log (`attempts.py`, read before any retry), the near-miss classifier (`explain.py`) with §3.1's triage order, the one-shot switch sweep (`flagsweep.py`, never looped) and the two-attempt stop rule for register-only and order-only residues (a third attempt is a Fable job under D72) | user |
+| D86 | 2026-10-26 | Step 8's provisional names stay until the client names them (D10): `unknown_memregistry.cpp`, `unknown_listener.cpp`, `unknown_rate.cpp`, and `RSAKeyClass`'s `Unknown200..Unknown800` members (NAME 2) until a string or `__FILE__` gives the real one (P2) | user |
 
 ## 3. Open decisions
 
-* **P2 (step 8):** the provisional file names `unknown_memregistry.cpp` (its static initialiser 0x827560
-  follows memconn's template instances), `unknown_listener.cpp`, `unknown_rate.cpp` (D10). Recommendation:
-  keep until a string or `__FILE__` names them; the same for `RSAKeyClass`'s `Unknown200..Unknown800` members
-  (tcpconn.cpp, 2026-10-26).
-* **P-P1 (packets, 2026-10-26):** the next packet round takes 62 ADVANCED_POSITIONAL_UPDATE (13,833 of alex3's
-  messages), then effects 9 and 11, by hand over `FlagPacketClass` with `pkupdate` in pkemit's `HAND` set.
-  Recommendation: accept; it is the largest round-trip gain left.
-* **P-P2 (packets):** add udpreplay stubs for the strconv bool helper 0x4A30A0 and 0x835890 so RELATIONSHIP
-  137 (1,544 messages) can link. Recommendation: accept, done by the packet builder (step 8's builder has
-  finished; `stubs/` is a shared file, so through commit_mine).
 * D7 is to be revisited with the user if byte-exactness of E&B's code becomes too costly; D64's
   `docs/data/not-exact.md` shows how much functional code is waiting.
 * Which bool-return form gives a bare `setcc al` without the `xor` (moved from workflow.md §3).
@@ -1110,9 +1118,11 @@ client's own code: [kernel-map.md](kernel-map.md) §6. Adding a file: [workflow.
 3. Ship 0x6F66E0: VC6's inline budget (ours inlines the Buff array 0x707040, which the client calls);
    see the M1.3 leftovers in library-matching.md 3.8.
 4. The packet classes' own code 0x85C5F0-0x8B1EB0 (kernel-map step 5 and after): 114 of 260 classes rebuilt
-   (2026-10-26 07:57 entry). Next: P-P1 (62, then effects 9 and 11), P-P2 (137), GroupServer 173-177; the
+   (2026-10-26 07:57 entry). Round 3 in progress (P-P1 and P-P2 accepted 2026-10-26: 62, then effects 9
+   and 11, the stubs for 137); then GroupServer 173-177; the
    decoder's length-counted buffers; then the 33 destructor failures (vectors, aux data).
-5. Tools and defines (D74-D78): ENABLE_WWPROFILE in the app defines (D74), the funcmatch
+5. Tools and defines (D74-D78, D85): the near-miss tools are in (D85: explain.py, attempts.py, flagsweep.py,
+   §3.1's table). ENABLE_WWPROFILE in the app defines (D74), the funcmatch
    `__FILE__` rule (D77) and the draw-dump regression check (D78) are decided; carry them out where
    not yet done. `--pool K` exists for `importer.py verify` only (c7b8bcc); `bytematch_all.sh` and
    `importer.py refine` still lack it.

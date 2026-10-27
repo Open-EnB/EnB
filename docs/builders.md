@@ -86,7 +86,8 @@ ADDR`, REA last (5 minutes of start-up).
 
 1. Commits (hash, subject); counts before -> after where relevant.
 2. What was built and how to run it.
-3. What didn't work, so nobody repeats it.
+3. What didn't work, so nobody repeats it: every NOT EXACT function with `explain.py`'s class, and the
+   `attempts.csv` rows you wrote (`attempts.py record`), one line each.
 4. Proposals needing the user (with a recommendation each).
 5. New traps for workflow.md §3 (the coordinator files them).
 6. What's left and the best next lead. Confirm the tree is clean of your work and VMs released.
