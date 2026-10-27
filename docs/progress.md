@@ -1254,6 +1254,9 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
   SIMPLE 8 (0x733DC0) share one inline-budget residue: the client calls Is_Valid_Float out of line for Position's Z
   and Orientation's W. Proposal: one more Opus round on 62 only, then a Fable round under D89 if still not exact.
   Recommendation: accept (the Fable queue, §4 item 7).
+* **P-T18-3 (SOptionsClass +0x1C, 2026-10-27):** 0x745080 passes +0x1C (named TextureFilter, an int zeroed by the
+  constructor) straight to INIClass::Put_Float as `[Lights] GlobalZ`, so the member's type and name are in doubt.
+  Proposal: one whole-app trial with a float (soptions.cpp 7 of 7 must hold). Recommendation: accept.
 * **P-S3-2 / F3's leads for Key_Exchange 0x829180** are LIMIT REACHED (three Opus rounds, inline budget): it
   waits for a new §3.1 lever; F3's two untested leads are in its attempts.csv row.
 * D7 is to be revisited with the user if byte-exactness of E&B's code becomes too costly; D64's

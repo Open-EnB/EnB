@@ -281,6 +281,8 @@ unless `--lever` cites a new row of this table.
 | The const_iterator find lever on an int-keyed table | Works the same; a miss returned first | client_lego_impl Get_Bone_Map, Get_Knob (H17) |
 | An aux-data type test (rtti.h, G_ASSERT 'b' line 32) inlined for some fields and called out of line for others | A class-static `UnknownRTTIClass<T>::Cast` (a function template with an explicit argument hits VC6's one-instance bug; a ternary gives the wrong shape); a cast nested three deep (wrapper, lookup, cast) exhausts the budget at the first expansions, two deep at the last; the dead-call lever (row 164) for the rest | co.cpp 0x700400, 0x6FFC80 (T17, 8b82d30) |
 | A base's sub-block destructed in the wrong store order as plain fields | The block is a struct with its own inline destructor | client.cpp UnknownB02C90Class +0x0C (T17, 24d99bd) |
+| A small callee the client keeps out of line in several callers | `for (int i = 0; i < 0; i++) {}` inside the callee: compiles to nothing, stops auto-inlining | sclient 0x745F30's four callers (T18) |
+| Small residues in SClient's members | `++it` for `it++` (confirms ba71802); `&Packet(args)` passed directly instead of a named local; `while (true)` for `for (;;)`; a callback's vtable stored first: assign in the constructor body, not the initialiser; `snprintf` is VC6's `_snprintf` | sclient 0x74C690, 0x74BB50, 0x745350, 0x74BEC0 (T18) |
 
 * **A nested inline is a whole-function budget (2026-10-26, `Key_Exchange` 0x829180):** under `/Ob2` an
   inline helper's own callees (a `std::set` iterator's `_Inc`) are inlined only while the function as a
@@ -577,6 +579,12 @@ unless `--lever` cites a new row of this table.
 * **A worktree file list built from `git status` picks up other builders' half-done files** (T10: P6's pkupdate.cpp
   showed hundreds of false losses): list your own files by name. clienttest's fake model tables need a `__stdcall`
   stand-in for any slot that takes an argument (Set_LOD_Bias, slot 75).
+* **A shared-tree verify compiles another builder's half-edited file and empties its block in the shared
+  imports.json** (T18's sclient): verify in a worktree and put the worktree-verified block back before committing
+  (`.work/t18/fixblock.py`). Including auxdata.h in sclient.cpp breaks kv_pair.h's Type_Name overloads (C2665;
+  blocks 0x750B60). clienttest's gen_stubs cannot write a stand-in for a class-by-value return or a
+  `const RefCountPtr<T>&` parameter (P-T18-2); its hand-written stubs for SClient members must be deleted in the
+  same commit that rebuilds the member (P-T18-1).
 * **tryv2 can hit a PermissionError restoring the tree file and leave a variant in it** (T17, H14): grep after every
   run; copy `tryv2-base` objects out right away (shared between builders). A worktree script must `git checkout -- .`
   before `checkout --detach`, or it aborts and the next verify runs on a stale tree. Pure-virtual placeholders for
