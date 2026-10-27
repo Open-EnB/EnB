@@ -46,6 +46,8 @@ public:
 	void Unknown_78D8A0(int slot, AvatarDescClass *avatar, ShipCustDescClass *ship, LoginNameDataClass *name);	// 0x78D8A0 (no caller): writes 'Avatar<slot>.dat'
 	void Unknown_78DAF0(int slot);						// 0x78DAF0 (Unknown_50 passes the selected slot): deletes the slot's file when it checks
 
+	bool Get_File_Name(int slot, StringClass &name);		// 0x78DE40 (no caller): 'Avatar<slot + 1>.dat' in the folder  // NAME 2: what it does
+
 	StringClass Folder;									// +0x00 NAME 2: the folder, with its '\'
 };
 

@@ -160,6 +160,19 @@ void CharacterCreatorClass::Unknown_78DAF0(int slot)
 	}
 }
 
+// 0x78DE40
+bool CharacterCreatorClass::Get_File_Name(int slot, StringClass &name)
+{
+	if (!Folder.Is_Empty()) {
+		name = Folder;
+		name += "Avatar";
+		name += (char)(slot + '1');
+		name += ".dat";
+		return(true);
+	}
+	return(false);
+}
+
 // 0x78E060
 int Make_Folder(const char *path)
 {
