@@ -9,7 +9,6 @@ LoginPacketClass::LoginPacketClass(RawPacketClass *raw) { Conn_Record(this, raw)
 SimplePositionalUpdatePacketClass::SimplePositionalUpdatePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 ComponentPositionalUpdatePacketClass::ComponentPositionalUpdatePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 FormationPositionalUpdatePacketClass::FormationPositionalUpdatePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-ObjectEffectPacketClass::ObjectEffectPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 ObjectToObjectEffectPacketClass::ObjectToObjectEffectPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 ObjectToEffectEffectPacketClass::ObjectToEffectEffectPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 ObjectToPointEffectPacketClass::ObjectToPointEffectPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
@@ -159,6 +158,7 @@ bool RemovePacketClass::Process_Packet(void *) { return(true); }	// 0x7362F0
 bool ConstantPositionalUpdatePacketClass::Process_Packet(void *) { return(true); }	// 0x733C80
 bool AdvancedPositionalUpdatePacketClass::Process_Packet(void *) { return(true); }	// 0x734130
 bool PlanetPositionalUpdatePacketClass::Process_Packet(void *) { return(true); }	// 0x734A40
+bool ObjectEffectPacketClass::Process_Packet(void *) { return(true); }	// 0x734DF0
 bool PointEffectPacketClass::Process_Packet(void *) { return(true); }	// 0x735000
 bool RemoveEffectPacketClass::Process_Packet(void *) { return(true); }	// 0x735D50
 bool SetTargetPacketClass::Process_Packet(void *) { return(true); }	// 0x7363E0
