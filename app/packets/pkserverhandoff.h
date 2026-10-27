@@ -27,7 +27,7 @@ public:
 		const std::string &name, const std::string &system);	// 0x8943C0
 	ServerHandoffPacketClass(RawPacketClass *raw);	// 0x8946B0
 	virtual RawPacketClass *Build();	// +0x04 0x8947F0
-	virtual bool Process_Packet(void *client);	// +0x08 0x737CB0 (not rebuilt)
+	virtual bool Process_Packet(void *client);	// +0x08 0x737CB0 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x8948E0
 	virtual int Print(char *buffer, int len);	// +0x10 0x894950
 

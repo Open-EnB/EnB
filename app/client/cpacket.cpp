@@ -33,6 +33,7 @@
 #include "..\packets\pkpointeffect.h"
 #include "..\packets\pkreferralpointsavailable.h"
 #include "..\packets\pkremove.h"
+#include "..\packets\pkserverhandoff.h"
 #include "..\packets\pkserverparameters.h"
 #include "..\packets\pksetclienttype.h"
 #include "..\packets\pkrequesttarget.h"
@@ -1388,27 +1389,26 @@ bool SplinePacketClass::Process_Packet(void *instance)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// NOT EXACT: order-only (the __int64 Unknown10C0 store scheduled first; two forms; attempts.py show 0x737CB0)
+// 0x737CB0
+bool ServerHandoffPacketClass::Process_Packet(void *instance)
+{
+	WWPROFILE("ServerHandoffPacketClass::Process_Packet()");
+	Unknown_Log("HANDOFF:INF", "Received ServerHandoff packet to: %d", Ticket.Unknown18);
+	SClient *client = (SClient *)instance;
+	G_ASSERT(client);
+	client->Unknown_745750();
+	client->MainView->Unknown_513FC0();
+	client->Unknown1144 = 0;
+	client->Unknown10C8 = 0;
+	client->Unknown1198 = true;
+	client->Unknown10C0 = 0;
+	client->Unknown10D0 = 0;
+	client->Unknown12D4 = 4;
+	client->Ticket = Ticket;
+	client->LoadingView->Unknown_691830(Source_Sector, Source_System, Name, System);
+	return(true);
+}
 
 
 

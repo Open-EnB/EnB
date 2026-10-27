@@ -112,6 +112,7 @@ public:
 	void Unknown_5141A0();								// 0x5141A0 (Init, Unknown137C clear)
 	void Unknown_514220();								// 0x514220 (Init, Unknown137C set)
 	MainViewUnknown13CClass *Get_Unknown13C() { return(Unknown13C); }	// (inline: SERVER_PARAMETERS 66)  // NAME 1: neutral (D10): the member it returns
+	void Unknown_513FC0();								// 0x513FC0 (cpacket.cpp: SERVER_HANDOFF 58)
 	void Unknown_513700(unsigned sector);				// 0x513700 (cpacket.cpp: SERVER_PARAMETERS 66)  // NAME 1 [sector]: the packet's SectorNum
 	void Unknown_5137F0(unsigned sector);				// 0x5137F0 (cpacket.cpp: SERVER_PARAMETERS 66, view mode 1)  // NAME 1 [sector]: the packet's SectorNum
 	void Unknown_513B90(unsigned sector);				// 0x513B90 (cpacket.cpp: SERVER_PARAMETERS 66, view mode 5)  // NAME 1 [sector]: the packet's SectorNum
@@ -159,6 +160,7 @@ class LoadingViewClass : public ViewClass	// NAME 3: class-from-file (D24) for l
 {
 public:
 	LoadingViewClass(ClientTaskClass *task);			// 0x691570  // NAME 1 [task]: SClient::Init passes its task
+	void Unknown_691830(const std::string &source_sector, const std::string &source_system, const std::string &name, const std::string &system);	// 0x691830 (cpacket.cpp: SERVER_HANDOFF 58)  // NAME 1 [source_sector, source_system, name, system]: the packet's fields
 
 	char Unknown04[0x68 - 0x04];						// +0x04
 	bool Unknown68;										// +0x68 ClientTaskClass::Render renders when it is set
@@ -211,6 +213,7 @@ public:
 	void Unknown_74B600();								// 0x74B600 (cpacket.cpp: mode change 76, mode 0)
 	void Unknown_74B640();								// 0x74B640 (cpacket.cpp: mode change 76, mode 1)
 	void Unknown_74C3B0(int game_id, AvatarDescClass &desc);	// 0x74C3B0 (cpacket.cpp: AVATAR_DESCRIPTION 97 passes its GameID and Desc)  // NAME 1 [game_id, desc]: the packet's fields
+	void Unknown_745750();								// 0x745750 (cpacket.cpp: SERVER_HANDOFF 58)
 	void Unknown_745000(int base_asset);				// 0x745000 (cpacket.cpp: SERVER_PARAMETERS 66 passes its BackdropBaseAsset)  // NAME 1 [base_asset]: the packet's field
 	void Unknown_750A70(unsigned sector);				// 0x750A70 (cpacket.cpp: SERVER_PARAMETERS 66 passes its SectorNum)  // NAME 1 [sector]: the packet's field
 	void Unknown_745F30(int type);						// 0x745F30 (cpacket.cpp: CLIENT_TYPE 60 passes 0, 1 or 5 for the packet's Type 0, 1 or 2)  // NAME 1 [type]: what the handler passes
