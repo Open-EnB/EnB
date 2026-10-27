@@ -187,6 +187,10 @@ doesn't reach it). d3d8.dll is loaded at run time by `DX8Wrapper::Init`, as in R
 
 ### 4.1 The test
 
+Regression check (D78): after any change to a library or to vidtest, run `python tools/harness/drawcheck.py run`
+(frame 900's draw-call groups, original vs ours, against `drawcheck_baseline.json`; tools/harness/README.md, drawcheck.py);
+it must print PASS.
+
 `vidtest.exe` (our build) does what VIDTEST.EXE does:
 
 * Command line: `-device -resx -resy -depth -windowed -sync -filter`. E&BConfig.exe launches it
