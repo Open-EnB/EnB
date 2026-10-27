@@ -1155,6 +1155,7 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 | D92 | 2026-10-27 | One D89 Fable round for ClientClass's constructor 0x726100 (inline budget) and Find_Object 0x727070 / Remove_Object 0x727600 (shape; the untried `goto` to the found return), after the land lighting round F5 (P-T6-1). The clienttest program (P-T6-2) is deferred to step 9d and subsumed by P-T7-1 | user |
 | D93 | 2026-10-27 | A model evaluation on two fixed reconstruction tasks (A: three small packet classes; B: option.cpp's SGI hash_map file), the same brief for Opus 5.5, Sonnet 5.5 (twice) and Haiku 5.5, each in its own worktree and branch at one base commit, scored by the coordinator's re-verify (exact functions, pairs gained with nothing lost, tokens and relative dollars per pair, process compliance, report honesty, levers found); the best branch merges afterwards; D72 revised from the scores. Fable is not a candidate; the Opus-coordinator trial is a later session. Design and the brief: [eval-d93.md](eval-d93.md). The next coordinator session runs it first, after the weekly reset of 12:59 (coordinator's P-C1) | user |
 | D94 | 2026-10-27 | (a) T5's drop of (tsk_login, 0x85CB00), the avatar's implicit assignment, when account_id became `__int64` is a D66(iii) non-loss (c0091e0); the address returns with the packet file that carries the client's copy. (b) symbols.py and objmatch skip compiler-generated `_$E<n>` names (P-H7-2), carried out like D88 on a quiet tree with a full verify of every library, pairs_cmp gains-only. (c) The clienttest program (P-T7-1) is built once the first cpacket.cpp handlers exist, about one builder session | user |
+| D95 | 2026-10-27 | (a) udpreplay sends the recorded bytes for a rebuilt class whose client Build writes a size field larger than its payload, as an explicit opcode list (97 AVATAR_DESCRIPTION, 183), so 97 can be committed from `.work/p5/park97` (P-P5-1). (b) objmatch's D80 tie-break does not credit an implicit destructor to an identical twin when the function's own address is free (P-P5-2; unparks 117 GLOBAL_ERROR from `.work/p5/park117`), carried out with D94(b) on the quiet tree with a full verify. (c) D66 gains kind (iv): a file rename whose pairs reappear under the new name, named in the commit, is not a loss (P-P5-3: pkunknown_85e640 / 85f870 / 860d30 to gameedit/pkgekv, pkgeobj, pkgeplan) | user |
 
 ## 3. Open decisions
 
@@ -1164,16 +1165,6 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
   (DeltaChildVisitorClass) and drop tsk_login.h's typedefs at tsk_login.cpp's next edit; the race and profession
   key/value instances need a kv_pair.h `Type_Name` form (the client passes the value to an external Type_Name,
   which the `Type_Name((T*)0)` template can't produce). Recommendation: a tasks builder item, no decision.
-* **P-P5-1 (udpreplay, 2026-10-27):** for a rebuilt class whose client Build writes a size field larger than its
-  payload (97 AVATAR_DESCRIPTION: sizeof 0x114 for 0x108 bytes, 6 of 6 exact, parked in `.work/p5/park97`; 183:
-  0x4C for 0x49), let udpreplay send the recorded bytes, as an explicit opcode list. Recommendation: accept (+12 now).
-* **P-P5-2 (objmatch):** D80 should not credit an implicit destructor to an identical twin when its own address is
-  free (117 GLOBAL_ERROR, parked in `.work/p5/park117`: our implicit destructor is credited to 0x595410 and the
-  scalar deleting destructor then takes 0x876780 from pkguildranknamesrequestclient). A matching-rule change, carried
-  out like D88 with a full verify; can go with P-H7-2. Recommendation: accept.
-* **P-P5-3 (D66):** renaming pkunknown_85e640 / 85f870 / 860d30 to the client's gameedit/pkgekv, pkgeobj, pkgeplan
-  moves their pairs, which pairs_cmp shows as losses: a rename whose pairs reappear under the new file name, named
-  in the commit, as a D66 non-loss kind (iv). Recommendation: accept.
 * **P-S3-2 / F3's leads for Key_Exchange 0x829180** are LIMIT REACHED (three Opus rounds, inline budget): it
   waits for a new §3.1 lever; F3's two untested leads are in its attempts.csv row.
 * D7 is to be revisited with the user if byte-exactness of E&B's code becomes too costly; D64's
