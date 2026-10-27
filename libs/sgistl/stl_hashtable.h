@@ -214,7 +214,7 @@ private:
 #else /* __STL_USE_STD_ALLOCATORS */
 public:
   typedef _Alloc allocator_type;
-  allocator_type get_allocator() const { return allocator_type(); }
+  /* VC6 (E&B, D87): no get_allocator(): the client's table has no allocator (three-argument constructor, buckets without one); with it, the member count of the class moved two stack slots of DeltaPrimaryCategoryClass's constructor 0x6FB1E0 (aux_roots.cpp, through delta.h's kv_list.h; H6) */
 private:
   typedef simple_alloc<_Node, _Alloc> _M_node_allocator_type;
   _Node* _M_get_node() { return _M_node_allocator_type::allocate(1); }
@@ -548,9 +548,11 @@ private:
     __STL_UNWIND(_M_put_node(__n));
   }
   
+  /* VC6 (E&B, D87): the value's destructor through a member, so the class template's own _Val names it: the client calls the pair's destructor directly (ComboFileFactoryClass's _M_delete_node 0x4E6D00); destroy() / _Destroy(), a function template, give VC6's scalar deleting destructor (push 0; call ??_G) and inline more (H6: KVListClass's destructor 0x4B6520 and ComboFileFactoryClass's 0x4E5230 exact) */
+  void _M_destroy_val(_Val* __p) { __p->~_Val(); }  // NAME 2: describes what it does
   void _M_delete_node(_Node* __n)
   {
-    _Destroy(&__n->_M_val);
+    _M_destroy_val(&__n->_M_val);
     _M_put_node(__n);
   }
 

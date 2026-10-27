@@ -93,7 +93,7 @@ public:
 
   hasher hash_funct() const { return _M_ht.hash_funct(); }
   key_equal key_eq() const { return _M_ht.key_eq(); }
-  allocator_type get_allocator() const { return _M_ht.get_allocator(); }
+  /* VC6 (E&B, D87): no get_allocator(): the table has none */
 
 public:
   hash_map() : _M_ht(100, hasher(), key_equal()) {}
@@ -304,7 +304,7 @@ public:
 
   hasher hash_funct() const { return _M_ht.hash_funct(); }
   key_equal key_eq() const { return _M_ht.key_eq(); }
-  allocator_type get_allocator() const { return _M_ht.get_allocator(); }
+  /* VC6 (E&B, D87): no get_allocator(): the table has none */
 
 public:
   hash_multimap() : _M_ht(100, hasher(), key_equal()) {}

@@ -34,7 +34,17 @@ EDITS = {
          '  operator== __STL_NULL_TMPL_ARGS (const hashtable&, const hashtable&);\n',
          '#else /* __STL_MEMBER_TEMPLATES */\n  ' + TAG + 'no friend operator== (VC6 has no <> friends) */\n'),
         ('      construct(&__n->_M_val, __obj);', '      _Construct(&__n->_M_val, __obj);'),
-        ('    destroy(&__n->_M_val);', '    _Destroy(&__n->_M_val);'),
+        ('  allocator_type get_allocator() const { return allocator_type(); }\n',
+         '  ' + TAG + "no get_allocator(): the client's table has no allocator (three-argument constructor, buckets "
+         "without one); with it, the member count of the class moved two stack slots of DeltaPrimaryCategoryClass's "
+         "constructor 0x6FB1E0 (aux_roots.cpp, through delta.h's kv_list.h; H6) */\n"),
+        ('  void _M_delete_node(_Node* __n)\n  {\n    destroy(&__n->_M_val);\n',
+         '  ' + TAG + "the value's destructor through a member, so the class template's own _Val names it: the client "
+         "calls the pair's destructor directly (ComboFileFactoryClass's _M_delete_node 0x4E6D00); destroy() / "
+         "_Destroy(), a function template, give VC6's scalar deleting destructor (push 0; call ??_G) and inline more "
+         "(H6: KVListClass's destructor 0x4B6520 and ComboFileFactoryClass's 0x4E5230 exact) */\n"
+         '  void _M_destroy_val(_Val* __p) { __p->~_Val(); }  // NAME 2: describes what it does\n'
+         '  void _M_delete_node(_Node* __n)\n  {\n    _M_destroy_val(&__n->_M_val);\n'),
         ('      vector<_Node*, _All> __tmp(__n, (_Node*)(0),\n                                 _M_buckets.get_allocator());',
          '      vector<_Node*, _Bucket_allocator<_Node*> > __tmp(__n, (_Node*)(0));  ' + TAG + 'a default allocator: the client copies no allocator byte from the buckets (0x4B7B80) */'),
         ('            const _EqualKey&   __eql,\n            const allocator_type& __a = allocator_type())\n'
@@ -67,10 +77,14 @@ HEAD = ('/*\n * libs/sgistl (D87): SGI STL 3.3 (2000), adapted for VC6 as the Ea
         ' * hash_map. The changes are marked "VC6 (E&B, D87)"; tools/vc6/sgistl_adapt.py made them.\n */\n')
 
 
-# Every occurrence: the containers' constructors call the table's three-argument constructor (above)
+# Every occurrence: the containers' constructors call the table's three-argument constructor (above);
+# the containers have no get_allocator() either, as the table has none (H6: with the containers' own,
+# 0x6FB1E0's two stack slots swapped again once the tree moved on, see the table's edit above)
+GET_ALLOCATOR = ('  allocator_type get_allocator() const { return _M_ht.get_allocator(); }\n',
+                 '  ' + TAG + 'no get_allocator(): the table has none */\n')
 REPLACE_ALL = {
-    'stl_hash_map.h': [('key_equal(), allocator_type())', 'key_equal())')],
-    'stl_hash_set.h': [('key_equal(), allocator_type())', 'key_equal())')],
+    'stl_hash_map.h': [('key_equal(), allocator_type())', 'key_equal())'), GET_ALLOCATOR],
+    'stl_hash_set.h': [('key_equal(), allocator_type())', 'key_equal())'), GET_ALLOCATOR],
 }
 
 
