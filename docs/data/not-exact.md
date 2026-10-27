@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-272 entries in 64 files.
+274 entries in 65 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -86,6 +86,8 @@ edit the comments in the code, not this file.
 | `app/client/fontmanager.cpp:538` | `FontManagerClass::Unknown_6D2700` | marker | NOT EXACT: frame, 56 rows: ours keeps one more stack slot and releases style after the assert (attempts.csv) |
 | `app/client/fontmanager.cpp:554` | `FontManagerClass::Unknown_6D28C0` | marker | NOT EXACT: inline budget, 75 rows: the client calls the styles table's begin and bucket helpers out of line, ours inlines them (attempts.csv) |
 | `app/client/fontmanager.cpp:579` | `FontManagerClass::Find` | mention | NOT EXACT, frame). 0x6D2400 / 0x6D2480 / 0x6D2500 differ only by their callee: one pattern, not counted. The depth lever (workflow.md 3.1) made the destructor and 0x6D1C10 exact: the client calls the nested table helpers out of line when they sit one inline level deeper. |
+| `app/client/option.cpp:810` | `OptionClass::Get_String` | marker | NOT EXACT: shape, block order: this order gives the client's inlining (the "" path calls _Grow) but places the "" path first; the client places the copy first |
+| `app/client/option.cpp:856` | `OptionClass::Get_Default_String` | marker | NOT EXACT: shape, as Get_String |
 | `app/client/sclient.cpp:398` | `SClient::~SClient` | marker | NOT EXACT: inline budget (the client inlines the 0x24-byte object's destructor at the second delete, ours calls it: then every EH state after it is one lower; five forms, attempts.py show 0x740BB0) 0x740BB0 |
 | `app/client/sclient.cpp:435` | `SClient::Init` | marker | NOT EXACT: field offset (explain.py; 103 masked rows): the client keeps the options base (+0x1150) in a register from the Bridge_Mode branch and reads the camera mode through it, and its frame is 4 bytes larger; one form (attempts.py show 0x741180) 0x741180 |
 | `app/client/sclient.cpp:541` | `SClient::Shutdown` | marker | NOT EXACT: shape (explain.py: field offset first; 470 masked rows): the talk tree's reset goes through a null RefCountPtr temporary with its own EH state and the out-of-line assignment 0x758970, and the effect list's removal is inlined differently; one form (attempts.py show 0x741BB0) 0x741BB0 |

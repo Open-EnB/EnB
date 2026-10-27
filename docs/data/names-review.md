@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 34 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 36 |
-| 3 | by convention from a client-named file or sibling | 815 |
-| 2 | describes what the code does | 1866 |
-| 1 | neutral placeholder | 3443 |
+| 3 | by convention from a client-named file or sibling | 818 |
+| 2 | describes what the code does | 1929 |
+| 1 | neutral placeholder | 3448 |
 
 ## For review (score 3 and below)
 
@@ -857,6 +857,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_6D28C0` | `app/client/fontmanager.h:117` | neutral (D10) |
 | 1 | `Unknown08` | `app/client/gutter_data.h:26` | untagged neutral name (D10) |
 | 1 | `Unknown08` | `app/client/navigation_data.h:26` | untagged neutral name (D10) |
+| 1 | `Unknown_4BC000` | `app/client/option.cpp:11` | 0x4BC000, E&B's message reporter (tcpconn.cpp) |
+| 1 | `Unknown_Percent` | `app/client/option.cpp:174` | untagged neutral name (D10) |
+| 1 | `Unknown_BE8B38Class` | `app/client/option.h:15` | untagged neutral name (D10) |
 | 1 | `Unknown08` | `app/client/radar_data.h:26` | untagged neutral name (D10) |
 | 1 | `Unknown_719E10` | `app/client/sclient.cpp:28` | untagged neutral name (D10) |
 | 1 | `Unknown_7228C0` | `app/client/sclient.cpp:29` | neutral (D10), as tsk_login.cpp |
@@ -2992,6 +2995,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `DataBinderType` | `app/shared/data_binder.h:30` | neutral (D10), an empty tag type |
 | 1 | `Unknown08` | `app/shared/definition_manager.h:37` | neutral placeholder (D10) |
 | 1 | `Unknown08` | `app/shared/definition_manager.h:221` | neutral placeholder (D10) |
+| 1 | `Unknown_Percent` | `app/shared/graphics_settings.h:84` | neutral (D10): value's place in [min, max] as a percentage |
+| 1 | `Unknown_Percent` | `app/shared/graphics_settings.h:91` | neutral (D10) |
 | 1 | `Get_Height_2` | `app/shared/heightfield.h:52` | the same code at a second address (0x463CD0) |
 | 1 | `Set_Height_2` | `app/shared/heightfield.h:54` | the same code at a second address (0x463D90) |
 | 1 | `Unknown_Join` | `app/shared/kv_encoder_base.cpp:8` | untagged neutral name (D10) |
@@ -3820,6 +3825,69 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Find` | `app/client/fontmanager.h:119` | describes what it does |
 | 2 | `std:` | `app/client/fontmanager.h:121` | what it holds |
 | 2 | `DebugFont` | `app/client/fontmanager.h:122` | what it holds |
+| 2 | `Find_Option` | `app/client/option.cpp:15` | what it does |
+| 2 | `Free_Option_Map` | `app/client/option.cpp:22` | what it does |
+| 2 | `BoolOptionStruct` | `app/client/option.h:31` | what it holds (0x14 bytes) |
+| 2 | `Get_Name` | `app/client/option.h:34` | what it does |
+| 2 | `Get_Value` | `app/client/option.h:35` | what it does |
+| 2 | `Set_Value` | `app/client/option.h:36` | what it does |
+| 2 | `std:` | `app/client/option.h:38` | the ini's OptionName |
+| 2 | `Value` | `app/client/option.h:39` | the ini's OptionValue |
+| 2 | `Default` | `app/client/option.h:40` | what it holds |
+| 2 | `IntOptionStruct` | `app/client/option.h:43` | what it holds (0x18 bytes) |
+| 2 | `Get_Name` | `app/client/option.h:46` | what it does |
+| 2 | `Get_Value` | `app/client/option.h:47` | what it does |
+| 2 | `Set_Value` | `app/client/option.h:48` | what it does |
+| 2 | `std:` | `app/client/option.h:50` | the ini's OptionName |
+| 2 | `Value` | `app/client/option.h:51` | the ini's OptionValue |
+| 2 | `Default` | `app/client/option.h:52` | what it holds |
+| 2 | `FloatOptionStruct` | `app/client/option.h:55` | what it holds (0x18 bytes) |
+| 2 | `Get_Name` | `app/client/option.h:58` | what it does |
+| 2 | `Set_Value` | `app/client/option.h:59` | what it does |
+| 2 | `std:` | `app/client/option.h:61` | the ini's OptionName |
+| 2 | `Value` | `app/client/option.h:62` | the ini's OptionValue |
+| 2 | `Default` | `app/client/option.h:63` | what it holds |
+| 2 | `Vector3OptionStruct` | `app/client/option.h:66` | what it holds (0x28 bytes) |
+| 2 | `Get_Name` | `app/client/option.h:69` | what it does |
+| 2 | `Get_Value` | `app/client/option.h:70` | what it does |
+| 2 | `Set_Value` | `app/client/option.h:71` | what it does |
+| 2 | `std:` | `app/client/option.h:73` | the ini's OptionName |
+| 2 | `Value` | `app/client/option.h:74` | the ini's OptionValue |
+| 2 | `Default` | `app/client/option.h:75` | what it holds |
+| 2 | `StringOptionStruct` | `app/client/option.h:78` | what it holds (0x30 bytes) |
+| 2 | `Get_Name` | `app/client/option.h:81` | what it does |
+| 2 | `Get_Value` | `app/client/option.h:82` | what it does |
+| 2 | `Set_Value` | `app/client/option.h:83` | what it does |
+| 2 | `std:` | `app/client/option.h:85` | the ini's OptionName |
+| 2 | `std:` | `app/client/option.h:86` | the ini's OptionValue |
+| 2 | `std:` | `app/client/option.h:87` | what it holds |
+| 2 | `Set_Instance` | `app/client/option.h:96` | what it does |
+| 2 | `Free_Options` | `app/client/option.h:98` | what it does |
+| 2 | `Set_Defaults` | `app/client/option.h:99` | what it does |
+| 2 | `Load` | `app/client/option.h:100` | what it does |
+| 2 | `Save` | `app/client/option.h:101` | what it does |
+| 2 | `Find_Bool` | `app/client/option.h:103` | what it does |
+| 2 | `Find_Int` | `app/client/option.h:104` | what it does |
+| 2 | `Find_Float` | `app/client/option.h:105` | what it does |
+| 2 | `Find_Vector3` | `app/client/option.h:106` | what it does |
+| 2 | `Find_String` | `app/client/option.h:107` | what it does |
+| 2 | `Get_Bool` | `app/client/option.h:109` | what it does |
+| 2 | `Get_Int` | `app/client/option.h:110` | what it does |
+| 2 | `Get_Float` | `app/client/option.h:111` | what it does |
+| 2 | `Get_Vector3` | `app/client/option.h:112` | what it does |
+| 2 | `std:` | `app/client/option.h:113` | what it does |
+| 2 | `Get_Default_Bool` | `app/client/option.h:115` | what it does |
+| 2 | `Get_Default_Int` | `app/client/option.h:116` | what it does |
+| 2 | `Get_Default_Float` | `app/client/option.h:117` | what it does |
+| 2 | `Get_Default_Vector3` | `app/client/option.h:118` | what it does |
+| 2 | `std:` | `app/client/option.h:119` | what it does |
+| 2 | `Instance` | `app/client/option.h:121` | what it holds |
+| 2 | `std:` | `app/client/option.h:124` | what it holds |
+| 2 | `std:` | `app/client/option.h:125` | what it holds |
+| 2 | `std:` | `app/client/option.h:126` | what it holds |
+| 2 | `std:` | `app/client/option.h:127` | what it holds |
+| 2 | `std:` | `app/client/option.h:128` | what it holds |
+| 2 | `CharacterID` | `app/client/option.h:129` | what it holds |
 | 2 | `Unknown_Load_Assets` | `app/client/sclient.cpp:40` | 0x729BF0 (client_lego_impl.cpp), 'cbasset.ini' (as tsk_smovie.cpp) |
 | 2 | `Unknown_Free_Assets` | `app/client/sclient.cpp:41` | 0x729D60 (client_lego_impl.cpp) (as tsk_smovie.cpp) |
 | 2 | `Unknown_Main_Window` | `app/client/sclient.cpp:43` | what Pump_Messages redraws |
@@ -5386,6 +5454,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `FontManagerClass` | `app/client/fontmanager.h:99` | by convention (D24) from the client's fontmanager.cpp |
 | 3 | `gutter_data.h` | `app/client/gutter_data.h:16` | header name assumed from the client's gutter_data.cpp |
 | 3 | `navigation_data.h` | `app/client/navigation_data.h:16` | header name assumed from the client's navigation_data.cpp |
+| 3 | `option.h` | `app/client/option.h:22` | header name assumed from the client's option.cpp |
+| 3 | `OptionClass` | `app/client/option.h:90` | by convention (D24) from the client's file option.cpp (WinMain's 'options manager') |
 | 3 | `radar_data.h` | `app/client/radar_data.h:16` | header name assumed from the client's radar_data.cpp |
 | 3 | `radar_icon_data.h` | `app/client/radar_icon_data.h:16` | header name assumed from the client's radar_icon_data.cpp |
 | 3 | `RadarIconDataClass` | `app/client/radar_icon_data.h:21` | by convention (D24) from the client's radar_icon_data.cpp |
@@ -6110,6 +6180,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `DefinitionRefCount` | `app/shared/definition_manager.h:31` | from the client's 'drc->RefCount' |
 | 3 | `DefinitionManagerClass` | `app/shared/definition_manager.h:42` | by convention (D24) from the client's definition_manager.h |
 | 3 | `DurationClass` | `app/shared/duration.h:25` | by convention (D24) from the client's file duration.h (D37) |
+| 3 | `graphics_settings.h` | `app/shared/graphics_settings.h:18` | the client's header path |
 | 3 | `ini_manager.h` | `app/shared/ini_manager.h:17` | header name assumed from the client's ini_manager.cpp |
 | 3 | `INIManagerClass` | `app/shared/ini_manager.h:25` | by convention (D24) from the client's file ini_manager.cpp |
 | 3 | `KVArrayAccessorClass` | `app/shared/kv_acc_array.h:28` | by convention (D24) from kv_acc_array.h |

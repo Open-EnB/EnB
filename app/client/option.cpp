@@ -885,7 +885,7 @@ std::string OptionClass::Get_Default_String(const char *name)
 **	section without OptionName is skipped without advancing the index (as the client).
 **	Forms: Load's sets go through the structs' inline Set_Value (that spends the inline budget so
 **	the bool and int finds stay calls, as the client's); Save reads through the inline Get_Value, a
-**	Vector3 local and a plain float local. Get_String / Get_Default_String (NOT EXACT): written with
+**	Vector3 local and a plain float local. Get_String / Get_Default_String (near misses): written with
 **	the empty-string return first they inline as the client's (the "" path calls _Grow) but the
 **	blocks come out in the other order; with the copy first the "" path inlines _Grow.
 */
