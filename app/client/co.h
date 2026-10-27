@@ -139,6 +139,7 @@ public:
 	bool Unknown_6FC970();								// 0x6FC970
 	void Unknown_6FED30();								// 0x6FED30 the bounding sphere from the model
 	int Unknown_6FFFA0();								// 0x6FFFA0 (client.cpp's 0x7283B0 jumps to it)
+	bool Unknown_700670(Vector3 &color);				// 0x700670 (FAIL_IF '!aux_data' l.2519): the aux data's colour for the same guild as the player's ship or another  // NAME 2 [color]: what it receives
 	void Unknown_700820(const Vector3 &position);		// 0x700820  // NAME 1 [position]: a Vector3
 	bool Unknown_700860();								// 0x700860
 	void Unknown_6FC9A0();								// 0x6FC9A0 the aux data's changed values into the model

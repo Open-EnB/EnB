@@ -7,6 +7,7 @@
 #include "vector3.h"
 #include "ini.h"
 #include <stdio.h>
+#include <string.h>
 #include "control_keys_manager.h"
 #include "..\packets\pk_player_object_relationship.h"
 
@@ -75,7 +76,6 @@ void ClientObjectClass::Unknown_6F3810(RenderObjClass *model)
 		Unknown_6F3810(sub.Peek());
 	}
 }
-
 
 
 
@@ -2504,26 +2504,26 @@ int ClientObjectClass::Unknown_6FFFA0()
 
 
 
+// 0x700670
+bool ClientObjectClass::Unknown_700670(Vector3 &color)
+{
+	if (!Unknown_6FFE90()) {
+		return(false);
+	}
+	const char *guild = (const char *)Unknown_6FFF00();
+	const char *own_guild = (const char *)Client->Unknown_728330();
+	bool same = guild && own_guild && strcmp(guild, own_guild) == 0;
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	char *aux_data = AuxData; FAIL_IF(!aux_data) return(false);
+	if (same) {
+		color = *(Vector3 *)(aux_data + 0x3A4C);
+	} else {
+		color = *(Vector3 *)(aux_data + 0x3ADC);
+	}
+	return(true);
+}
 
 
 
