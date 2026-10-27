@@ -66,12 +66,6 @@ LandClass::LandClass(void) :
 	m_Unknown191(false),
 	m_Unknown192(true),
 	Thread(NULL),
-	LightColor(0.5f, 0.5f, 0.5f),
-	SunDirection(0.0f, 0.0f, 1.0f),
-	SunAngle(0.0f),
-	ShadowBias(0.05f),
-	SkyColor(0.1f, 0.1f, 0.5f),
-	LightingValid(true),
 	UpdateMin(0, 0),
 	UpdateMax(0, 0),
 	CursorX(0),
@@ -554,7 +548,6 @@ void LandClass::Update_Lightmap_Full(const LandLightingStruct &lighting)
 	Swap_Lightmaps();
 }
 
-// NOT EXACT: the client calls the lighting record's operator= (0x4744C0) in the inlined Update_Lightmap_Full: the record is one struct member there (land.h)
 void LandClass::Update_Lightmap_ManualThreaded(const LandLightingStruct &lighting)
 {
 	WWPROFILE("Land::Update_Lightmap_ManualThreaded");
@@ -565,20 +558,22 @@ void LandClass::Update_Lightmap_ManualThreaded(const LandLightingStruct &lightin
 	}
 	if (LightmapTextures[FrontLightmap]->Is_Dirty()) {
 		Update_Lightmap_Full(lighting);
-	} else if (CursorY == size) {
+		return;
+	}
+	if (CursorY == size) {
 		Swap_Lightmaps();
 		CursorY = 0;
 		CursorX = 0;
 		Set_Lighting(lighting);
 		Prepare_Lighting();
 	} else {
-		UpdateMin.I = CursorX;
-		UpdateMin.J = CursorY;
-		UpdateMax.J = CursorY + LightmapChunk;
-		UpdateMax.I = LightmapChunk + CursorX;
+		Vector2i &min = UpdateMin;
+		Vector2i &max = UpdateMax;
+		min.Set(CursorX, CursorY);
+		max.Set(LightmapChunk + CursorX, CursorY + LightmapChunk);
 		Compute_Lighting();
 		Apply_Colors();
-		Upload_Lightmap(UpdateMin, UpdateMax);
+		Upload_Lightmap(min, max);
 		CursorX += LightmapChunk;
 		if (CursorX == size) {
 			CursorX = 0;
@@ -587,29 +582,13 @@ void LandClass::Update_Lightmap_ManualThreaded(const LandLightingStruct &lightin
 	}
 }
 
-// NOT EXACT: as Update_Lightmap_ManualThreaded (the record's operator= 0x4744C0 in the inlined Update_Lightmap_Full)
 void LandClass::Update_Lightmap_Threaded(const LandLightingStruct &lighting)
 {
 	if (LightmapTextures[FrontLightmap]->Is_Dirty()) {
 		Update_Lightmap_Full(lighting);
 		return;
 	}
-	if (!ThreadDone) {
-		if (Thread == NULL) {
-			Set_Lighting(lighting);
-			Prepare_Lighting();
-			UpdateMin.I = 0;
-			UpdateMin.J = 0;
-			int size = Field->Get_Size();
-			UpdateMax.I = size;
-			UpdateMax.J = size;
-			Thread = CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)Lightmap_Thread, this, 0, NULL);
-		}
-		if (WaitForSingleObject(Thread, 0) == WAIT_OBJECT_0) {
-			Thread = NULL;
-			ThreadDone = true;
-		}
-	} else {
+	if (ThreadDone) {
 		int y = CursorY;
 		int size = Field->Get_Size();
 		if (y == size) {
@@ -621,15 +600,30 @@ void LandClass::Update_Lightmap_Threaded(const LandLightingStruct &lighting)
 		}
 		Vector2i min;
 		Vector2i max;
-		min.I = CursorX;
-		min.J = y;
-		max.I = min.I + LightmapChunk;
-		max.J = LightmapChunk + y;
+		min.Set(CursorX, y);
+		max.Set(CursorX + LightmapChunk, LightmapChunk + y);
 		Upload_Lightmap(min, max);
 		CursorX += LightmapChunk;
 		if (CursorX == size) {
 			CursorX = 0;
 			CursorY += LightmapChunk;
+		}
+	} else {
+		if (Thread == NULL) {
+			Set_Lighting(lighting);
+			Prepare_Lighting();
+			Vector2i &min = UpdateMin;
+			Vector2i &max = UpdateMax;
+			min.I = 0;
+			min.J = 0;
+			int size = Field->Get_Size();
+			max.I = size;
+			max.J = size;
+			Thread = CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)Lightmap_Thread, this, 0, NULL);
+		}
+		if (WaitForSingleObject(Thread, 0) == WAIT_OBJECT_0) {
+			Thread = NULL;
+			ThreadDone = true;
 		}
 	}
 }
@@ -1032,23 +1026,23 @@ void LandPatchClass::Draw(void)
 
 void LandClass::Prepare_Lighting(void)
 {
-	SkyColorDX8 = DX8Wrapper::Convert_Color(SkyColor, 0.0f);
-	if (LightingValid) {
+	SkyColorDX8 = DX8Wrapper::Convert_Color(Lighting.SkyColor, 0.0f);
+	if (Lighting.Valid) {
 		static const float max_angle = WWMATH_PI / 2.0f;
 		float scale = 65535.0f / max_angle;
-		float angle = SunAngle;
-		SunFromWest = SunDirection.X < 0.0f;
-		float low = WWMath::Clamp(angle - ShadowBias, 0.0f, max_angle);
-		float high = WWMath::Clamp(angle + ShadowBias, 0.0f, max_angle);
+		float angle = Lighting.SunAngle;
+		SunFromWest = Lighting.SunDirection.X < 0.0f;
+		float low = WWMath::Clamp(angle - Lighting.ShadowBias, 0.0f, max_angle);
+		float high = WWMath::Clamp(angle + Lighting.ShadowBias, 0.0f, max_angle);
 		HorizonLow = (unsigned short)(low * scale);
 		HorizonHigh = (unsigned short)(high * scale);
-		ShadowStep = (float)(1.0 / (ceil(scale * ShadowBias) * 2.0));
+		ShadowStep = (float)(1.0 / (ceil(scale * Lighting.ShadowBias) * 2.0));
 		for (int i = 0; i < 256; i++) {
 			const Vector3 &n = Normals[i];
-			float d = n.X * SunDirection.X + n.Z * SunDirection.Z + SunDirection.Y * n.Y;
+			float d = n.X * Lighting.SunDirection.X + n.Z * Lighting.SunDirection.Z + Lighting.SunDirection.Y * n.Y;
 			Vector3 color;
 			if (d > 0.0f) {
-				color = LightColor * d;
+				color = Lighting.LightColor * d;
 			} else {
 				color.Set(0.0f, 0.0f, 0.0f);
 			}
@@ -1063,7 +1057,7 @@ void LandClass::Compute_Lighting(void)
 	unsigned int i, j, n, r, g, b;
 	unsigned char *color;
 	unsigned char *sky = (unsigned char *)&SkyColorDX8;
-	if (LightingValid) {
+	if (Lighting.Valid) {
 		float step = ShadowStep;
 		unsigned short low = HorizonLow;
 		unsigned short high = HorizonHigh;

@@ -66,6 +66,15 @@ struct LandLightingStruct
 	float		ShadowBias;
 	Vector3		SkyColor;		// clamped SkyColor x SkyIntensity
 	bool		Valid;
+	LandLightingStruct(void) :
+		LightColor(0.5f, 0.5f, 0.5f),
+		SunDirection(0.0f, 0.0f, 1.0f),
+		SunAngle(0.0f),
+		ShadowBias(0.05f),
+		SkyColor(0.1f, 0.1f, 0.5f),
+		Valid(true)
+	{
+	}
 };
 
 // NAME 1: the land's patch (0x30 bytes, new'd per grid cell by Load_Assets 0x4691D0; ctor 0x474530, dtor 0x474560)
@@ -206,14 +215,11 @@ protected:
 	void							Unknown_473780(int row, float ratio, unsigned char *out);
 	void							Unknown_473BC0(int row, float ratio, unsigned char *out);
 	static void					Lightmap_Thread(void *land);
+// NAME 2: a one-line inline setter: its extra inline depth is what keeps the record's operator= out of line inside the inlined
+// Update_Lightmap_Full (0x46DA70 / 0x46DDD0) while the direct copies in the same functions inline (F5, 2026-10-27)
 	void							Set_Lighting(const LandLightingStruct &lighting)
 	{
-		LightColor = lighting.LightColor;
-		SunDirection = lighting.SunDirection;
-		SunAngle = lighting.SunAngle;
-		ShadowBias = lighting.ShadowBias;
-		SkyColor = lighting.SkyColor;
-		LightingValid = lighting.Valid;
+		Lighting = lighting;
 	}
 
 protected:
@@ -265,13 +271,9 @@ protected:
 	bool							m_Unknown191;
 	bool							m_Unknown192;
 	void *						Thread;									// +0x194, a HANDLE the dtor waits for
-// NAME 2: +0x198..+0x1C4 is the 0x30-byte lighting record Update_Lightmap 0x46D900 / 0x46DA70 copy in (VIDTEST's LandLightingStruct, its names)
-	Vector3						LightColor;								// +0x198
-	Vector3						SunDirection;							// +0x1A4
-	float							SunAngle;								// +0x1B0
-	float							ShadowBias;								// +0x1B4
-	Vector3						SkyColor;								// +0x1B8
-	bool							LightingValid;							// +0x1C4
+// NAME 2: the 0x2D-byte lighting record (VIDTEST's LandLightingStruct, its names), one struct member: its generated operator= 0x4744C0 is what the
+// inlined Update_Lightmap_Full calls in 0x46DA70 / 0x46DDD0; the defaults are its constructor's, inlined into the land's (0x468E90)
+	LandLightingStruct		Lighting;								// +0x198, 0x2D bytes; its operator= 0x4744C0
 // NAME 2: the lightmap rectangle being updated and the time-sliced update's cursor (0x46D900 / 0x46DA70)
 	Vector2i						UpdateMin;								// +0x1C8, SurfaceClass::Copy's min (0x46D6B0)
 	Vector2i						UpdateMax;								// +0x1D0
