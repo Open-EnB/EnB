@@ -95,6 +95,7 @@ class Unknown_BE8B38Class								// NAME 1 [Unknown_BE8B38Class]: option.cpp's o
 public:
 	void Unknown_7F84F0(__int64 character_id, SClient *client);	// 0x7F84F0 (option.cpp)
 	void Unknown_7F8EF0();								// 0x7F8EF0
+	bool Get_Bool(const char *name);					// 0x7F9610: SClient::Init asks 'Bridge_Mode'  // NAME 2: what it does
 };
 extern Unknown_BE8B38Class *Unknown_BE8B38;				// NAME 1 [Unknown_BE8B38]: neutral (D10)
 class Unknown_BE67B8Class								// NAME 1 [Unknown_BE67B8Class]: fontdatabase.cpp's object at 0xBE67B8

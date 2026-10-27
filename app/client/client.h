@@ -128,6 +128,8 @@ class Unknown763E00Class	// NAME 1: neutral (D10)
 {
 public:
 	Unknown763E00Class();								// 0x763E00
+	void Unknown_763E70(const char *ini);				// 0x763E70: SClient::Init passes 'rs.ini'
+	void Unknown_763FF0();								// 0x763FF0 (SClient::Shutdown, before the delete)
 	~Unknown763E00Class();								// 0x763E30
 
 	char Unknown00[0x10];

@@ -3530,7 +3530,7 @@ RECONSTRUCTED = {
                                 "constructor, destructor and Init (kernel-map-step9.md 2.2, D90 9d)",
     ('app', 'client/sclient.cpp'): "SClient's skeleton, client 0x7405E0-0x7429B0 (the window before the first assert, l.749) "
                                   "and the base slots' overrides 0x743330 / 0x744B90 / 0x744BD0 / 0x745730; NOT EXACT: the "
-                                  "destructor 0x740BB0 (D90 9d)",
+                                  "destructor 0x740BB0, Init 0x741180, Shutdown 0x741BB0 (D90 9d)",
     ('app', 'client/soptions.h'): "SOptionsClass (D24 after soptions.cpp), SClient's second base: 0x48 bytes, vtable 0xB03C00 "
                                  "(one slot), the camera modes; declared only (D90 9d)",
     ('app', 'client/unknown_authlogin.h'): "EA.Com's login component as the client uses it (PROVISIONAL file name, D10): kcom's factory and IAuthLoginClass (authlogin.dll, tools/vc6/authlogin.def), AuthLoginResponseClass (0x38 bytes; kernel-map-step9.md 4)",

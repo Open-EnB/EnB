@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-163 entries in 47 files.
+165 entries in 47 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -21,7 +21,9 @@ edit the comments in the code, not this file.
 | `app/client/client.cpp:307` | `ClientClass::Set_Debug_Object` | marker | NOT EXACT: register-only (the flag in dl, the id in eax; two forms; attempts.py show 0x728010) 0x728010 |
 | `app/client/client.cpp:374` | `ClientClass::Set_Debug_Mode` | marker | NOT EXACT: register-only (the id in eax, the flag in ecx; two forms; attempts.py show 0x728240) 0x728240 |
 | `app/client/client.cpp:430` | `ClientClass::Unknown_7283B0` | marker | NOT EXACT: relocation (the inlined aux-data FAIL_IF carries co.cpp's __FILE__ and line 2461 in the client) 0x7283B0 |
-| `app/client/sclient.cpp:197` | `SClient::~SClient` | marker | NOT EXACT: inline budget (the client inlines the 0x24-byte object's destructor at the second delete, ours calls it: then every EH state after it is one lower; five forms, attempts.py show 0x740BB0) 0x740BB0 |
+| `app/client/sclient.cpp:402` | `SClient::~SClient` | marker | NOT EXACT: inline budget (the client inlines the 0x24-byte object's destructor at the second delete, ours calls it: then every EH state after it is one lower; five forms, attempts.py show 0x740BB0) 0x740BB0 |
+| `app/client/sclient.cpp:439` | `SClient::Init` | marker | NOT EXACT: field offset (explain.py; 103 masked rows): the client keeps the options base (+0x1150) in a register from the Bridge_Mode branch and reads the camera mode through it, and its frame is 4 bytes larger; one form (attempts.py show 0x741180) 0x741180 |
+| `app/client/sclient.cpp:545` | `SClient::Shutdown` | marker | NOT EXACT: shape (explain.py: field offset first; 470 masked rows): the talk tree's reset goes through a null RefCountPtr temporary with its own EH state and the out-of-line assignment 0x758970, and the effect list's removal is inlined differently; one form (attempts.py show 0x741BB0) 0x741BB0 |
 | `app/client/tasks/tsk_login.cpp:219` | `LoginTaskClass::Pre_Run` | marker | NOT EXACT: shape (the event's bit 12 test and the dispatchers' argument order; attempts.py show 0x767DA0) 0x767DA0 |
 | `app/client/tasks/tsk_login.cpp:271` | `LoginTaskClass::Run` | marker | NOT EXACT: register-only (the final Process_Packets call loads the vtable in edx, the client eax; attempts.py show 0x767F50) |
 | `app/client/tasks/tsk_login.cpp:456` | `LoginTaskClass::Unknown_50` | marker | NOT EXACT: inline budget (the client inlines LoginUnknown350Class's implicit assignment and calls the 0x160 object's constructor 0x7688F0; ours the reverse; the two trade against one budget: a cheaper assignment (POD/grouped Vector3s) inlines it and puts the constructor out of line, exact at 0x7688F0, but changes the copy's bytes; attempts.py show 0x7683F0) 0x7683F0 |

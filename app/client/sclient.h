@@ -33,6 +33,7 @@
 class LoginUnknown0CClass;		// tsk_login.h: inpdsp.cpp's input dispatcher (0x18 bytes)
 class LoginUnknown18Class;		// tsk_login.h: the software mouse (0x30 bytes, 0x514FE0)
 class Font3DInstanceClass;
+class CameraClass;
 class Render2DTextClass;
 class MusicManagerClass;		// NAME 3: class-from-file (D24) for audio\musicmanager.cpp (constructor 0x439E40, 0x1FC bytes)
 class CameraManagerClass;		// NAME 3: class-from-file (D24) for camera_manager.cpp (constructor 0x798D20, 0x4C bytes)
@@ -46,9 +47,11 @@ class UITalkTreeSpaceClass;		// NAME 3: class-from-file (D24) for ui_talkt_space
 class GalaxyMapClientClass;		// NAME 3: class-from-file (D24) for galaxy_map_client.cpp (constructor 0x7A4830, 0xCC bytes)
 class UIStarmapClass;			// NAME 3: class-from-file (D24) for ui_starmap.cpp (constructor 0x7C6120, 0x14 bytes)
 class SClientUnknown12C4Class;	// NAME 1: neutral (D10): the elements of SClient +0x12C4
-class SClientUnknown1334Class;	// NAME 1: neutral (D10): 0xB8 bytes, destructor 0x618A50
-class SClientUnknown1338Class;	// NAME 1: neutral (D10): 0x24 bytes, an INIClass at +0x14
-class SClientUnknown133CClass;	// NAME 1: neutral (D10): the elements of SClient +0x133C
+class SClientUnknown1334Class;	// NAME 1: neutral (D10): 0xB8 bytes, destructor 0x618A50; decal.cpp's 0x75BE00 loads the decal INIs into it
+class SClientUnknown1338Class;	// NAME 1: neutral (D10): 0x24 bytes, an INIClass at +0x14; env_map_manager.cpp's 0x760360 loads 'envmaps.ini' into it
+class SClientUnknown12BCClass;	// NAME 1: neutral (D10): what SClient +0x12BC points to (a virtual destructor)
+class SClientUnknown1330Class;	// NAME 1: neutral (D10): what SClient +0x1330 points to (destructor 0x43C560, musicmanager.cpp's neighbourhood)
+class ProjDecalManagerClass;		// NAME 3: class-from-file (D24) for proj_decal_manager.cpp (0x763050 loads 'proj_dec.ini' into it; 0x10 bytes, one vector)
 class SClientUnknown1394Class;	// NAME 1: neutral (D10): the values of SClient +0x1394 (reference counted, slot +0x38)
 
 // view.cpp's view: the base of the six views at SClient +0x1354..+0x1368 (the slots every one of them
@@ -67,6 +70,10 @@ public:
 class MainViewClass : public ViewClass	// NAME 3: class-from-file (D24) for mainview.cpp
 {
 public:
+	MainViewClass(ClientTaskClass *task);				// 0x50B360  // NAME 1 [task]: SClient::Init passes its task
+	void Set_Camera(CameraClass *camera);				// 0x5123C0: Init's camera  // NAME 2: what Init hands it
+	void Unknown_5141A0();								// 0x5141A0 (Init, Unknown137C clear)
+	void Unknown_514220();								// 0x514220 (Init, Unknown137C set)
 	virtual void Unknown_14();
 	virtual void Unknown_18();
 	virtual void Unknown_1C();
@@ -96,12 +103,16 @@ public:
 	virtual void Unknown_7C();
 	virtual void Add_Object(ClientObjectClass *object);		// +0x80 SClient::Add_Object  // NAME 2: its caller's
 	virtual void Remove_Object(ClientObjectClass *object);	// +0x84 SClient::Remove_Object  // NAME 2: its caller's
+
+	char Unknown04[0x1EC - 0x04];						// +0x04
 };
 
 // loadingview.cpp's view (constructor 0x691570, 0x6C bytes)
 class LoadingViewClass : public ViewClass	// NAME 3: class-from-file (D24) for loadingview.cpp
 {
 public:
+	LoadingViewClass(ClientTaskClass *task);			// 0x691570  // NAME 1 [task]: SClient::Init passes its task
+
 	char Unknown04[0x68 - 0x04];						// +0x04
 	bool Unknown68;										// +0x68 ClientTaskClass::Render renders when it is set
 };
@@ -112,6 +123,7 @@ class Unknown764FD0Class	// NAME 1: neutral (D10)
 {
 public:
 	Unknown764FD0Class();								// 0x764FD0
+	void Unknown_765010();								// 0x765010 (SClient::Init)
 
 	Vector3 Unknown00[24];								// +0x00  // NAME 2: what the constructor writes
 };
@@ -139,6 +151,13 @@ public:
 	virtual void Unknown_64();							// +0x64 0x744690: ClientTaskClass::Render, Wait_For_Redirect
 
 	void Print(int channel, const char *format, ...);	// 0x74DF70 (cdecl): a line in the chat panel  // NAME 2: what it does
+	void Unknown_742530(int arg);						// 0x742530 (Shutdown passes 0)
+	void Unknown_7451D0();								// 0x7451D0 (Init)
+	void Unknown_745350();								// 0x745350 (Init)
+	void Unknown_744C10();								// 0x744C10 (Init, after the camera mode)
+	void Unknown_744E50();								// 0x744E50: the camera manager's callback (Init registers it, Shutdown removes it)
+	void Unknown_7518A0();								// 0x7518A0 (Init)
+	void Unknown_7555B0();								// 0x7555B0 (Shutdown)
 
 	bool Unknown1198;									// +0x1198 (true)
 	std::string Unknown119C;							// +0x119C
@@ -164,7 +183,7 @@ public:
 	int Unknown12B0;									// +0x12B0 Init: the base's Unknown10BC
 	int Unknown12B4;									// +0x12B4
 	int Unknown12B8;									// +0x12B8
-	int Unknown12BC;									// +0x12BC (an object Shutdown deletes)
+	SClientUnknown12BCClass *Unknown12BC;				// +0x12BC (Shutdown deletes it)
 	int Unknown12C0;									// +0x12C0
 	VectorClass<SClientUnknown12C4Class *> Unknown12C4;	// +0x12C4 vtable 0xB032BC, one entry (NULL)
 	int Unknown12D4;									// +0x12D4
@@ -173,10 +192,10 @@ public:
 	int Unknown1324;									// +0x1324
 	int Unknown1328;									// +0x1328 (the constructor leaves it)
 	MusicManagerClass *MusicManager;					// +0x132C Init  // NAME 3: its file's
-	int Unknown1330;									// +0x1330 (Shutdown: 0x43C560)
+	SClientUnknown1330Class *Unknown1330;				// +0x1330 (Shutdown deletes it: destructor 0x43C560)
 	SClientUnknown1334Class *Unknown1334;				// +0x1334
 	SClientUnknown1338Class *Unknown1338;				// +0x1338
-	std::vector<SClientUnknown133CClass> *Unknown133C;	// +0x133C (0x0C-byte elements, destructor 0x758F40)
+	ProjDecalManagerClass *ProjDecalManager;			// +0x133C  // NAME 3: its file's
 	VectorClass<Vector3> Unknown1340;					// +0x1340 vtable 0xAE9B0C
 	int Unknown1350;									// +0x1350
 	MainViewClass *MainView;							// +0x1354 Init  // NAME 3: its file's
