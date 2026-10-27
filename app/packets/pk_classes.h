@@ -754,24 +754,6 @@ public:
 	char Unknown0C[0x1C];	// +0x0C
 };
 
-// opcode 218 (0x00DA, ?): vtable 0xB0AD34, constructor 0x893710, 0x68 bytes
-class GuildDeletePlayerPacketClass : public PacketClass  // NAME 3: the client's Print text 'GuildDeletePlayer {' and the PacketClass convention
-{
-public:
-	GuildDeletePlayerPacketClass(RawPacketClass *raw);	// 0x893710
-	virtual bool Process_Packet(void *client);	// +0x08 0x8692D0 (clientstub.cpp l.401)
-	char Unknown0C[0x5C];	// +0x0C
-};
-
-// opcode 219 (0x00DB, ?): vtable 0xB0AD64, constructor 0x893A70, 0x70 bytes
-class GuildPlayerInfoDeletedPacketClass : public PacketClass  // NAME 3: the client's Print text 'GuildPlayerInfoDeleted {' and the PacketClass convention
-{
-public:
-	GuildPlayerInfoDeletedPacketClass(RawPacketClass *raw);	// 0x893A70
-	virtual bool Process_Packet(void *client);	// +0x08 0x869300 (clientstub.cpp l.404)
-	char Unknown0C[0x64];	// +0x0C
-};
-
 // opcode 220 (0x00DC, ?): vtable 0xB0AD94, constructor 0x893E80, 0x30 bytes
 class GuildDeductFeePacketClass : public PacketClass  // NAME 3: the client's Print text 'GuildDeductFeePacket {' and the PacketClass convention
 {

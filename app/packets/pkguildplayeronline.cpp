@@ -456,6 +456,86 @@ int GuildGMRenameAcceptSectorPacketClass::Print(char *buffer, int len)
 	return(_snprintf(buffer, len, "GuildGMRenameAcceptSector {PlayerID=%s OldGuildName=%s NewGuildName=%s}", Unknown_8B44E0(PlayerID, id), OldGuildName.c_str(), NewGuildName.c_str()));
 }
 
+GuildDeletePlayerPacketClass::GuildDeletePlayerPacketClass(__int64 player_id, int slot, const char *account_name, __int64 account_id) :
+	PlayerID(player_id),
+	Slot(slot),
+	AccountID(account_id)
+{
+	Unknown_4A1590(AccountName, sizeof(AccountName), account_name);
+}
+
+GuildDeletePlayerPacketClass::GuildDeletePlayerPacketClass(RawPacketClass *raw)
+{
+	raw->Get(PlayerID);
+	raw->Get(Slot);
+	raw->Get(AccountName, sizeof(AccountName));
+	raw->Get(AccountID);
+}
+
+RawPacketClass *GuildDeletePlayerPacketClass::Build()
+{
+	RawPacketClass *raw = new RawPacketClass(218, Get_Data_Size());
+	raw->Add(PlayerID);
+	raw->Add(Slot);
+	raw->Add(AccountName, sizeof(AccountName));
+	raw->Add(AccountID);
+	return(raw);
+}
+
+int GuildDeletePlayerPacketClass::Get_Data_Size()
+{
+	return(sizeof(PlayerID) + sizeof(Slot) + sizeof(AccountName) + sizeof(AccountID));
+}
+
+int GuildDeletePlayerPacketClass::Print(char *buffer, int len)
+{
+	char player_id[32];
+	char account_id[32];
+	return(_snprintf(buffer, len, "GuildDeletePlayer { PlayerID=%s Slot=%d AccountName=%s AccountID=%s }", Unknown_8B44E0(PlayerID, player_id), Slot, AccountName, Unknown_8B44E0(AccountID, account_id)));
+}
+
+// NOT EXACT: scheduling (the client zeroes Unknown68 after its EH state store; attempts.csv)
+GuildPlayerInfoDeletedPacketClass::GuildPlayerInfoDeletedPacketClass(__int64 player_id, int slot, const char *account_name, __int64 account_id) :
+	PlayerID(player_id),
+	Slot(slot),
+	AccountID(account_id),
+	Unknown68(0)
+{
+	Unknown_4A1590(AccountName, sizeof(AccountName), account_name);
+}
+
+// NOT EXACT: scheduling (as the value constructor; attempts.csv)
+GuildPlayerInfoDeletedPacketClass::GuildPlayerInfoDeletedPacketClass(RawPacketClass *raw) :
+	Unknown68(0)
+{
+	raw->Get(PlayerID);
+	raw->Get(Slot);
+	raw->Get(AccountName, sizeof(AccountName));
+	raw->Get(AccountID);
+}
+
+RawPacketClass *GuildPlayerInfoDeletedPacketClass::Build()
+{
+	RawPacketClass *raw = new RawPacketClass(219, Get_Data_Size());
+	raw->Add(PlayerID);
+	raw->Add(Slot);
+	raw->Add(AccountName, sizeof(AccountName));
+	raw->Add(AccountID);
+	return(raw);
+}
+
+int GuildPlayerInfoDeletedPacketClass::Get_Data_Size()
+{
+	return(sizeof(PlayerID) + sizeof(Slot) + sizeof(AccountName) + sizeof(AccountID));
+}
+
+int GuildPlayerInfoDeletedPacketClass::Print(char *buffer, int len)
+{
+	char player_id[32];
+	char account_id[32];
+	return(_snprintf(buffer, len, "GuildPlayerInfoDeleted { PlayerID=%s Slot=%d AccountName=%s AccountID=%s }", Unknown_8B44E0(PlayerID, player_id), Slot, AccountName, Unknown_8B44E0(AccountID, account_id)));
+}
+
 
 /*
 **	Reconstruction notes (pkguildplayeronline.cpp)
@@ -464,6 +544,6 @@ int GuildGMRenameAcceptSectorPacketClass::Print(char *buffer, int len)
 **	  is 0x894390): the guild packets 193-220 not in pkguildranknamesrequestclient.cpp. Written by hand
 **	  (builder P4, 2026-10-27); each class's value constructor comes first, then the raw one.
 **	* The file name is provisional (no assert names it).
-**	* Not rebuilt yet: opcode 195, 196, 213, 218, 219,
+**	* Not rebuilt yet: opcode 195, 196, 213,
 **	  220 (declared in pk_classes.h).
 */

@@ -5,7 +5,7 @@
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
 **	Original location: e:\build\beta\G\app\packets\pkguildplayeronline.h (the name provisional: see the .cpp)
 **
-**	The packet classes of client 0x88EC70-0x894390 rebuilt so far (opcode 193, 203, 206, 194, 198, 199, 202, 207, 209, 214, 215, 217); the file's other
+**	The packet classes of client 0x88EC70-0x894390 rebuilt so far (opcode 193, 203, 206, 194, 198, 199, 202, 207, 209, 214, 215, 217, 218, 219); the file's other
 **	classes are still declared in pk_classes.h.
 */
 
@@ -17,6 +17,7 @@
 #define PKGUILDPLAYERONLINE_H
 
 #include "pk.h"
+#include "pknotelist.h"
 #include <string>
 
 char *Unknown_8B44E0(__int64 value, char *buffer);	// 0x8B44E0: _i64toa(value, buffer, 10) (not rebuilt)  // NAME 1: neutral placeholder (D10)
@@ -228,6 +229,41 @@ public:
 	__int64 PlayerID;	// +0x10  // NAME 3: the client's Print text 'PlayerID='
 	std::string OldGuildName;	// +0x18  // NAME 3: the client's Print text 'OldGuildName='
 	std::string NewGuildName;	// +0x28  // NAME 3: the client's Print text 'NewGuildName='
+};
+
+// opcode 218 (0x00DA, ?): vtable 0xB0AD34, constructor 0x893710, 0x68 bytes
+class GuildDeletePlayerPacketClass : public PacketClass  // NAME 3: the client's Print text 'GuildDeletePlayer {' and the PacketClass convention
+{
+public:
+	GuildDeletePlayerPacketClass(__int64 player_id, int slot, const char *account_name, __int64 account_id);	// 0x893620
+	GuildDeletePlayerPacketClass(RawPacketClass *raw);	// 0x893710
+	virtual RawPacketClass *Build();	// +0x04 0x8937F0
+	virtual bool Process_Packet(void *client);	// +0x08 0x8692D0 (clientstub.cpp)
+	virtual int Get_Data_Size();	// +0x0C 0x8938D0
+	virtual int Print(char *buffer, int len);	// +0x10 0x8938F0
+
+	__int64 PlayerID;	// +0x10  // NAME 3: the client's Print text 'PlayerID='
+	int Slot;	// +0x18 (network order)  // NAME 3: the client's Print text 'Slot='
+	char AccountName[0x41];	// +0x1C (sent as its 0x41 bytes)  // NAME 3: the client's Print text 'AccountName='
+	__int64 AccountID;	// +0x60  // NAME 3: the client's Print text 'AccountID='
+};
+
+// opcode 219 (0x00DB, ?): vtable 0xB0AD64, constructor 0x893A70, 0x70 bytes
+class GuildPlayerInfoDeletedPacketClass : public PacketClass  // NAME 3: the client's Print text 'GuildPlayerInfoDeleted {' and the PacketClass convention
+{
+public:
+	GuildPlayerInfoDeletedPacketClass(__int64 player_id, int slot, const char *account_name, __int64 account_id);	// 0x893970
+	GuildPlayerInfoDeletedPacketClass(RawPacketClass *raw);	// 0x893A70
+	virtual RawPacketClass *Build();	// +0x04 0x893B50
+	virtual bool Process_Packet(void *client);	// +0x08 0x869300 (clientstub.cpp)
+	virtual int Get_Data_Size();	// +0x0C 0x893C30
+	virtual int Print(char *buffer, int len);	// +0x10 0x893C50
+
+	__int64 PlayerID;	// +0x10  // NAME 3: the client's Print text 'PlayerID='
+	int Slot;	// +0x18 (network order)  // NAME 3: the client's Print text 'Slot='
+	char AccountName[0x41];	// +0x1C (sent as its 0x41 bytes)  // NAME 3: the client's Print text 'AccountName='
+	__int64 AccountID;	// +0x60  // NAME 3: the client's Print text 'AccountID='
+	__int64 Unknown68;	// +0x68 (zeroed; not sent)
 };
 
 #endif

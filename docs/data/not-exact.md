@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-100 entries in 30 files.
+106 entries in 31 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -48,6 +48,8 @@ edit the comments in the code, not this file.
 | `app/packets/pkauxdata.cpp:43` | `AuxDataPacketClass::Print` | marker | NOT EXACT: the client reads Size before the first dword of Data (register order; 2 forms, workflow.md 3.1) |
 | `app/packets/pkcolorization.cpp:5` | `ColorizationPacketClass::ColorizationPacketClass` | marker | NOT EXACT: 0x87F320, the inline vector copy's loop addresses each region from its last dword in the client (shape; attempts.py show 0x87F320) |
 | `app/packets/pkcolorization.cpp:62` | `ColorizationPacketClass::Print` | mention | NOT EXACT (parked, attempts.csv). * The file name is provisional (no assert names it). |
+| `app/packets/pkguildplayeronline.cpp:497` | `GuildPlayerInfoDeletedPacketClass::GuildPlayerInfoDeletedPacketClass` | marker | NOT EXACT: scheduling (the client zeroes Unknown68 after its EH state store; attempts.csv) |
+| `app/packets/pkguildplayeronline.cpp:507` | `GuildPlayerInfoDeletedPacketClass::GuildPlayerInfoDeletedPacketClass` | marker | NOT EXACT: scheduling (as the value constructor; attempts.csv) |
 | `app/packets/pknamedecal.cpp:5` | `DecalPacketClass::DecalPacketClass` | marker | NOT EXACT: 0x8805C0, the inline vector copy's loop addresses each decal from +0x10 in the client (shape, as COLORIZATION's 0x87F320; attempts.py show 0x8805C0) |
 | `app/packets/pknamedecal.cpp:14` | `DecalPacketClass::DecalPacketClass` | marker | NOT EXACT: 0x8807B0, the client inlines push_back's insert (over this object's helpers 0x8810F0- 0x881250), ours calls it (inline-budget; attempts.py show 0x8807B0) |
 | `app/packets/pkunknown_867010.cpp:6` | `Packet_00B3Class::Packet_00B3Class` | marker | NOT EXACT: the inline std::string assign's terminating store indexes [ebx + ecx], the client's [ecx + ebx] (otherwise the same bytes) |
