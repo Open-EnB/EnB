@@ -419,6 +419,13 @@ void FontManagerClass::Add(const StringClass &name)
 	Add((const char *)name);
 }
 
+ManagedFontClass *FontManagerClass::Create(const char *name, int unknown)
+{
+	ManagedFontClass *font = new ManagedFontClass(name, unknown);
+	Add(font);
+	return font;
+}
+
 void FontManagerClass::Remove(unsigned int id)
 {
 	std::hash_map<unsigned int, ManagedFontClass *>::iterator it = Fonts.find(id);
@@ -458,13 +465,6 @@ void FontManagerClass::Unknown_6D2580(const char *name, TPoint3D<int> color, uns
 {
 	Find(id)->Unknown_6D1010(name, color);
 }
-
-
-
-
-
-
-
 
 
 

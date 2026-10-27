@@ -22,9 +22,12 @@
 #include "..\shared\unknown_debug.h"
 #include "..\..\wwlib\refcount.h"
 #include "..\..\wwlib\ref_ptr.h"
+#include "..\..\wwlib\wwstring.h"
+#include "fontdatabase.h"
 #include "..\..\wwlib\point.h"
 
-class StringClass;
+struct FontStringStruct;
+class FontDatabaseClass;
 
 class FontStyleClass : public RefCountClass  // NAME 1 [FontStyleClass]: neutral (D10): the debug font's class (0x4E8 bytes, reference counted)
 {
@@ -42,6 +45,15 @@ class ManagedFontClass  // NAME 2 [ManagedFontClass]: what the manager holds per
 {
 public:
 	ManagedFontClass(const char *name);									// 0x6CE990
+	ManagedFontClass(const char *name, int unknown)						// inlined in 0x6D1FD0  // NAME 1 [unknown]: neutral (D10)
+	{
+		FontStringStruct *def = Unknown_BE67B8->Find_String(name);
+		Styles.clear();
+		if (def) {
+			Unknown_6CF930(def, unknown);
+		}
+	}
+	void Unknown_6CF930(FontStringStruct *def, int unknown);				// 0x6CF930: loads the font from its database entry  // NAME 1 [Unknown_6CF930]: neutral (D10)
 	~ManagedFontClass();												// 0x6CF730
 	void Unknown_All_Styles(int unknown1, int unknown2)					// inlined in 0x6D1C10 (its own begin / ++ called out of line)  // NAME 1 [Unknown_All_Styles]: neutral (D10)
 	{
@@ -61,7 +73,7 @@ public:
 	void Unknown_6D0550(void *unknown);									// 0x6D0550  // NAME 1 [Unknown_6D0550]: neutral (D10)
 	void Unknown_6D0A20(void *unknown);									// 0x6D0A20  // NAME 1 [Unknown_6D0A20]: neutral (D10)
 
-	char *Unknown00;													// +0x00 (a StringClass in the client)  // NAME 1: neutral (D10)
+	StringClass Name;													// +0x00  // NAME 2: the name 0x6D1FD0 looks up in the font database
 	unsigned int Id;													// +0x04: the manager's key  // NAME 2: what it holds
 	int Unknown08;														// +0x08  // NAME 1: neutral (D10)
 	std::hash_map<std::string, FontStyleClass *> Styles;				// +0x0C: its styles by name (0x6D1C10 walks them)  // NAME 2: what it holds
@@ -76,6 +88,7 @@ public:
 	void Unknown_6D1C10(int unknown1, int unknown2);					// 0x6D1C10: each font's 0x6CD950  // NAME 1 [Unknown_6D1C10]: neutral (D10)
 	void Add(const char *name);											// 0x6D1D80: a new font by name, under its id  // NAME 2: describes what it does
 	void Add(const StringClass &name);									// 0x6D1FB0  // NAME 2: describes what it does
+	ManagedFontClass *Create(const char *name, int unknown);			// 0x6D1FD0: a font from the font database, added under its id  // NAME 2: describes what it does
 	void Remove(unsigned int id);										// 0x6D2220  // NAME 2: describes what it does
 	void Unknown_6D2310(const unsigned int &id);						// 0x6D2310: Remove through a reference (a screen's member)  // NAME 1 [Unknown_6D2310]: neutral (D10)
 	void Unknown_6D2400(unsigned int id);								// 0x6D2400  // NAME 1 [Unknown_6D2400]: neutral (D10)
