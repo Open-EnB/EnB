@@ -36,7 +36,6 @@ FindMemberPacketClass::FindMemberPacketClass(RawPacketClass *raw) { Conn_Record(
 TalkTreePacketClass::TalkTreePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_1388Class::Packet_1388Class(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_1389Class::Packet_1389Class(RawPacketClass *raw) { Conn_Record(this, raw); }
-Packet_138CClass::Packet_138CClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_138DClass::Packet_138DClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_138EClass::Packet_138EClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_1391Class::Packet_1391Class(RawPacketClass *raw) { Conn_Record(this, raw); }

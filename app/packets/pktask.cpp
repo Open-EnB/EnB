@@ -69,6 +69,28 @@ int Packet_138BClass::Print(char *buffer, int)
 	return(sprintf(buffer, "%s {Type=%d Num=%d}", "Task Stop", Type, Num));
 }
 
+Packet_138CClass::Packet_138CClass(int type, int num) :
+	Packet_138AClass(type, num)
+{
+	Unknown14 = 0;
+}
+
+Packet_138CClass::Packet_138CClass(RawPacketClass *raw) :
+	Packet_138AClass(raw)
+{
+	Unknown14 = 0;
+}
+
+int Packet_138CClass::Get_Type()
+{
+	return(5004);
+}
+
+int Packet_138CClass::Print(char *buffer, int)
+{
+	return(sprintf(buffer, "%s {Type=%d Num=%d}", "Task Request", Type, Num));
+}
+
 Packet_1393Class::Packet_1393Class()
 {
 }
@@ -106,5 +128,6 @@ int Packet_1393Class::Print(char *buffer, int)
 **	  0xC416FC, atexit 0x42B320). Drafted from the client by the packet decoder (tools/re/pkdecode.py,
 **	  pkemit.py): members from the raw message's Get / Build's Add (sizes) and Print (types,
 **	  names: 'Name=%d'), the constructors' stores in the initialiser list.
-**	* Not rebuilt yet: opcode 5000, 5001, 5004, 5005, 5006, 5009, 5010 (declared in pk_classes.h).
+**	* Opcode 5004 (Packet_138AClass's derived class) written by hand (builder P4, 2026-10-27).
+**	* Not rebuilt yet: opcode 5000, 5001, 5005, 5006, 5009, 5010 (declared in pk_classes.h).
 */
