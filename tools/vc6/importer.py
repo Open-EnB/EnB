@@ -1460,6 +1460,12 @@ TEXTURE_API_PATCHES = {
         ('\t\t} else {\n\t\t\tshader.Set_Primary_Gradient(ShaderClass::GRADIENT_DISABLE);\n',
          "\t\t} else {\n\t\t\t// othewise it's texture only\n\t\t\tshader.Set_Primary_Gradient(ShaderClass::GRADIENT_DISABLE);\n",
          "SegLineRendererClass::Render 0x9BEB20 as the client has it (neutral, D66): the subdivision gets &rgbas[chidx] with no null test (0x9BF368: shl/add, no branch), and Zero Hour's modulate test (rgba_all and a second value tested, one Get_Preset call for both arms at 0x9C1F6D) without the per-vertex rgba fill loop"),
+        ('\t\tMatrix3D view2(\tview[0].X,view[0].Y,view[0].Z,view[0].W,\n\t\t\t\t\t\t\t\tview[1].X,view[1].Y,view[1].Z,view[1].W,\n\t\t\t\t\t\t\t\tview[2].X,view[2].Y,view[2].Z,view[2].W);\n\n\t\tMatrix3D modelview=view2*transform;\n\n',
+         '',
+         "SegLineRendererClass::Render 0x9BEB20: the client builds view2 and modelview once before the chunk loop (Zero Hour builds them in every chunk); inside the loop VC6 hoists twelve &transform[i][j] addresses into stack slots and keeps the transform reference alive, outside it copies B's column into the dead parameter slot: byte-exact with them outside"),
+        ('\t// Chunk through the points (we increment by chunk_size - 1 because the last point of this\n',
+         '\tMatrix3D view2(\tview[0].X,view[0].Y,view[0].Z,view[0].W,\n\t\t\t\t\t\t\tview[1].X,view[1].Y,view[1].Z,view[1].W,\n\t\t\t\t\t\t\tview[2].X,view[2].Y,view[2].Z,view[2].W);\n\n\tMatrix3D modelview=view2*transform;\n\t// (the modelview before the chunk loop, not inside it as in Zero Hour: this makes 0x9BEB20 byte-exact)\n\t// Chunk through the points (we increment by chunk_size - 1 because the last point of this\n',
+         "SegLineRendererClass::Render 0x9BEB20: the client builds view2 and modelview once before the chunk loop (Zero Hour builds them in every chunk); inside the loop VC6 hoists twelve &transform[i][j] addresses into stack slots and keeps the transform reference alive, outside it copies B's column into the dead parameter slot: byte-exact with them outside"),
     ],
     ('ww3d2', 'mesh.h'): [
         ('\tvoid\t\t\t\t\t\t\t\tMake_Unique();\n',

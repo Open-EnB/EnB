@@ -250,6 +250,12 @@ void SegLineRendererClass::Render
 	unsigned int chunk_size = (SEGLINE_CHUNK_SIZE >> SubdivisionLevel) + 1;
 	if (chunk_size > num_points) chunk_size = num_points;
 
+	Matrix3D view2(	view[0].X,view[0].Y,view[0].Z,view[0].W,
+							view[1].X,view[1].Y,view[1].Z,view[1].W,
+							view[2].X,view[2].Y,view[2].Z,view[2].W);
+
+	Matrix3D modelview=view2*transform;
+	// (the modelview before the chunk loop, not inside it as in Zero Hour: this makes 0x9BEB20 byte-exact)
 	// Chunk through the points (we increment by chunk_size - 1 because the last point of this
 	// chunk must be reused as the first point of the next chunk. This is also the reason we stop
 	// when chidx = NumPoints - 1: the last point has already been processed in the previous
@@ -269,12 +275,6 @@ void SegLineRendererClass::Render
 		*/
 
 		Vector3 xformed_pts[MAX_SEGLINE_POINT_BUFFER_SIZE];
-
-		Matrix3D view2(	view[0].X,view[0].Y,view[0].Z,view[0].W,
-								view[1].X,view[1].Y,view[1].Z,view[1].W,
-								view[2].X,view[2].Y,view[2].Z,view[2].W);
-
-		Matrix3D modelview=view2*transform;
 
 		VectorProcessorClass::Transform(&xformed_pts[0],
 			&points[chidx], modelview, point_cnt);
