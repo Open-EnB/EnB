@@ -255,6 +255,7 @@ public:
 	MusicManagerClass();								// 0x439E40
 	~MusicManagerClass();								// 0x43A040
 	void Unknown_43AD70();								// 0x43AD70 (Shutdown, before the delete)
+	void Unknown_43B760(unsigned sector);				// 0x43B760 (0x750A70: SERVER_PARAMETERS 66's SectorNum)  // NAME 1 [sector]: what it gets
 
 	char Unknown00[0x1FC];
 };
@@ -262,7 +263,9 @@ public:
 class SClientUnknown1330Class
 {
 public:
+	SClientUnknown1330Class(unsigned sector);			// 0x43C4A0 (0x750A70, 0x58 bytes)  // NAME 1 [sector]: what 0x750A70 passes
 	~SClientUnknown1330Class();							// 0x43C560
+	char Unknown00[0x58];
 	void Unknown_43C660(int a, int b);					// 0x43C660 (0x750B30 passes the base's Unknown10BC and its argument)  // NAME 1 [a, b]: neutral
 };
 
@@ -716,9 +719,6 @@ unsigned SClient::Set_Debug_Object(unsigned id)
 {
 	return(ClientClass::Set_Debug_Object(id));
 }
-
-
-
 
 
 
@@ -4538,13 +4538,13 @@ void SClient::Unknown_74C9D0(const RefCountPtr<UITalkTreeSpaceClass> &tree)
 
 
 
-
-
-
-
-
-
-
+// 0x74D870
+bool SClient::Unknown_74D870()
+{
+	ClientObjectClass *co = Get_Debug_Object();
+	FAIL_IF(!co) return(false);
+	return(co->Unknown_6F5ED0());
+}
 
 
 
@@ -5223,15 +5223,15 @@ void SClient::Unknown_750210()
 
 
 
-
-
-
-
-
-
-
-
-
+// 0x750A70
+void SClient::Unknown_750A70(unsigned sector)
+{
+	if (MusicManager) {
+		MusicManager->Unknown_43B760(sector);
+	}
+	delete Unknown1330;
+	Unknown1330 = new SClientUnknown1330Class(sector);
+}
 
 
 
