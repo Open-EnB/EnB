@@ -5,9 +5,9 @@
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
 **	Original location: e:\build\beta\G\app\client\co.h (name assumed from co.cpp)
 **
-**	co.cpp's client object, ClientObjectClass (the RTTI's .?AVClientObjectClass@@): co.cpp is not
-**	rebuilt, so the class is declared only as far as client.cpp, cpacket.cpp and co_data.cpp use it
-**	(moved here from client.h). What the client shows of it: the constructor 0x6F2820 (vtable
+**	co.cpp's client object, ClientObjectClass (the RTTI's .?AVClientObjectClass@@): co.cpp is rebuilt
+**	only in part (its small members), so the class is declared as far as co.cpp, client.cpp, cpacket.cpp
+**	and co_data.cpp use it (moved here from client.h). What the client shows of it: the constructor 0x6F2820 (vtable
 **	0xB0070C; its first argument, the client, at +0x7C: CREATE 0x733700 passes its SClient), the
 **	destructor 0x6F2FE0 (it deletes the object's data through co_data.cpp's Remove_All 0x79D390 and
 **	resets a MultiFixedPoolDecalSystemClass vtable at +0x4C), ClientClass's object list node at
@@ -27,6 +27,7 @@
 #include "..\shared\unknown_debug.h"
 
 class RenderObjClass;
+class Vector3;
 class SubPartsPacket;
 class ClientClass;
 
@@ -48,16 +49,45 @@ public:
 	bool Unknown_6F5DC0();								// 0x6F5DC0 (co.cpp; cpacket.cpp's SET_TARGET 25 tests it)
 	void Unknown_6FEF70(SubPartsPacket *packet);		// 0x6FEF70 (co.cpp; cpacket.cpp's SUBPARTS 180)  // NAME 1 [packet]: the handler's packet
 	void Unknown_70E750(int id);						// 0x70E750 (cpacket.cpp's SET_TARGET 25 passes its TargetID)  // NAME 1 [id]: the packet's TargetID
-	int Unknown_7283B0()								// co.cpp's, inline in client.cpp's 0x7283B0 (there its FAIL_IF has co.cpp's __FILE__, l.2461)
-	{
-		if (Unknown94 >= 0 && Unknown94 < 2) {
-			FAIL_IF(!AuxData) {
-				return(0);
-			}
-			return(*(int *)(AuxData + 0x39C4));
-		}
-		return(0);
-	}
+	void Unknown_6F3BF0(bool hidden);					// 0x6F3BF0 (the model's Set_Hidden)  // NAME 2 [hidden]: Set_Hidden's argument
+	float Unknown_6F45E0();								// 0x6F45E0
+	float Unknown_6F4590();								// 0x6F4590
+	bool Unknown_6F5850();								// 0x6F5850 the type tests on Type, 0x6F5850-0x6F5E20
+	bool Unknown_6F5980();
+	bool Unknown_6F5A10();
+	bool Unknown_6F5A40();
+	bool Unknown_6F5A60();
+	bool Unknown_6F5A80();
+	bool Unknown_6F5AB0();
+	bool Unknown_6F5AD0();
+	bool Unknown_6F5AF0();
+	bool Unknown_6F5B10();
+	bool Unknown_6F5B30();
+	bool Unknown_6F5B50();
+	bool Unknown_6F5B70();
+	bool Unknown_6F5B90();
+	bool Unknown_6F5BB0();
+	bool Unknown_6F5BD0();
+	bool Unknown_6F5BF0();
+	bool Unknown_6F5C20();
+	bool Unknown_6F5C50();
+	bool Unknown_6F5C80();
+	bool Unknown_6F5CA0();
+	bool Unknown_6F5CD0();
+	bool Unknown_6F5D00();
+	bool Unknown_6F5D30();
+	bool Unknown_6F5D50();
+	bool Unknown_6F5D70();
+	bool Unknown_6F5D90();
+	int Unknown_6F5DE0();
+	int Unknown_6F5E00();
+	int Unknown_6F5E20();
+	void Unknown_6FC950(bool value);					// 0x6FC950  // NAME 1 [value]: neutral
+	bool Unknown_6FC970();								// 0x6FC970
+	void Unknown_6FED30();								// 0x6FED30 the bounding sphere from the model
+	int Unknown_6FFFA0();								// 0x6FFFA0 (client.cpp's 0x7283B0 jumps to it)
+	void Unknown_700820(const Vector3 &position);		// 0x700820  // NAME 1 [position]: a Vector3
+	bool Unknown_700860();								// 0x700860
 
 	char Unknown04[0x60 - 0x04];						// +0x04
 	HashNodeClass<ClientObjectClass *> Node;			// +0x60 ClientClass::ObjectList's node  // NAME 2: what it is
@@ -66,9 +96,21 @@ public:
 	char *AuxData;										// +0x88 (co.cpp's FAIL_IF '!aux_data', l.2461)  // NAME 3: the FAIL_IF's name
 	int Unknown8C;										// +0x8C
 	unsigned GameID;									// +0x90  // NAME 3: Get_Game_ID's
-	char Unknown94;										// +0x94
-	char Unknown95[0xAC - 0x95];						// +0x95
-	RenderObjClass *Model;								// +0xAC (cpacket.cpp's render-state handlers: Class_ID, then rs_track.cpp's methods)  // NAME 2: what it holds
+	char Type;											// +0x94 the constructor's second argument, CREATE's object type (the factory 0x6F6000 switches on it)  // NAME 2: what it holds
+	char Unknown95[0x98 - 0x95];						// +0x95
+	void *Unknown98;									// +0x98 a 4-byte object with vtable 0xB006B8 (the constructor's new)
+	float Unknown9C;									// +0x9C 1.0f (0x6F3BA0 sets it; 0x6FED30's radius without a model)
+	char UnknownA0[0xAC - 0xA0];						// +0xA0
+	RenderObjClass *Model;								// +0xAC (cpacket.cpp's render-state handlers: Class_ID, then rs_track.cpp's methods; co.cpp's G_ASSERT 'RenderObject != 0', l.361, names it RenderObject)  // NAME 2: what it holds
+	char UnknownB0[0xE8 - 0xB0];						// +0xB0
+	float Sphere[4];									// +0xE8 a SphereClass (center, radius): 0x6FED30 fills it from the model  // NAME 2: what it holds
+	int UnknownF8;										// +0xF8
+	char UnknownFC[0x128 - 0xFC];						// +0xFC
+	bool Unknown128;									// +0x128 (0x6FC950 sets it)
+	char Unknown129[0x174 - 0x129];						// +0x129
+	float Unknown174;									// +0x174 (0x700820 sets 2.0f)
+	float Unknown178[3];								// +0x178 a Vector3 (0x700820)
+	char Unknown184[0x188 - 0x184];						// +0x184 (CREATE allocates 0x188 bytes)
 };
 
 #endif //__CO_H

@@ -427,13 +427,13 @@ int ClientClass::Unknown_728370()
 	FAIL_IF(!ship) {return(-1);}
 	return(ship->Unknown_6FFF50());
 }
-// NOT EXACT: relocation (the inlined aux-data FAIL_IF carries co.cpp's __FILE__ and line 2461 in the client)
+// (the client jumps to co.cpp's 0x6FFFA0)
 // 0x7283B0
 int ClientClass::Unknown_7283B0()
 {
 	ClientObjectClass *ship = Get_Ship();
 	FAIL_IF(!ship) {return(0);}
-	return(ship->Unknown_7283B0());
+	return(ship->Unknown_6FFFA0());
 }
 
 // 0x7283F0

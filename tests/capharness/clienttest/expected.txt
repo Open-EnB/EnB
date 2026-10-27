@@ -34,7 +34,6 @@ mainview add 262
 check 262 added back, found: ok
 check Set_Ship_ID 1000: Get_Ship is object 1000: ok
 check Set_Ship_ID 4 returns 1000; no object 4: ok
-stub ClientObjectClass::Unknown_6FFF50 1000
 check Unknown_728370 asks the ship's 0x6FFF50: ok
 stub EffectObjectClass::Unknown_6E74B0 40 1
 stub EffectObjectClass::Unknown_6E6ED0 40 2
@@ -238,7 +237,7 @@ stub ClientObjectClass::Unknown_6FEF70 48900994
 msg 271 CLIENT_SHIP (71) size 8: cpacket.cpp's handler
 state ship id 48900994
 msg 274 DECAL (16) size 58: cpacket.cpp's handler
-stub ClientObjectClass::Unknown_6F3BC0 48900994 -> 0
+stub Unknown_80E8C0 2 decals
 msg 276 RELATIONSHIP (137) size 13: cpacket.cpp's handler
 gen Unknown_70CC40
 mainview add 38888
@@ -322,7 +321,7 @@ mainview add 48887635
 msg 375 SUBPARTS (180) size 58: cpacket.cpp's handler
 stub ClientObjectClass::Unknown_6FEF70 48887635
 msg 377 DECAL (16) size 58: cpacket.cpp's handler
-stub ClientObjectClass::Unknown_6F3BC0 48887635 -> 0
+stub Unknown_80E8C0 2 decals
 msg 379 RELATIONSHIP (137) size 13: cpacket.cpp's handler
 gen Unknown_70CC40
 mainview add 38700

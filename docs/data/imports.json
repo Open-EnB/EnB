@@ -571,6 +571,7 @@
      "0x728300",
      "0x728330",
      "0x728370",
+     "0x7283B0",
      "0x7283F0",
      "0x728430",
      "0x729320"
@@ -738,6 +739,46 @@
     ],
     "merged": [],
     "name": "packets/clientstub.cpp"
+   },
+   "co": {
+    "ambiguous": [
+     "0x42B2F0",
+     "0x6F5850"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42F250",
+     "0x6F3BC0",
+     "0x6F3BF0",
+     "0x6F4590",
+     "0x6F45E0",
+     "0x6F5980",
+     "0x6F5A10",
+     "0x6F5A40",
+     "0x6F5A80",
+     "0x6F5BF0",
+     "0x6F5C20",
+     "0x6F5C50",
+     "0x6F5CA0",
+     "0x6F5CD0",
+     "0x6F5D00",
+     "0x6F5D90",
+     "0x6F5DE0",
+     "0x6F5E00",
+     "0x6F5E20",
+     "0x6FC950",
+     "0x6FC970",
+     "0x6FED30",
+     "0x6FFE90",
+     "0x6FFF00",
+     "0x6FFF50",
+     "0x6FFFA0",
+     "0x700820",
+     "0x700860"
+    ],
+    "merged": [],
+    "name": "client/co.cpp"
    },
    "co_data": {
     "ambiguous": [

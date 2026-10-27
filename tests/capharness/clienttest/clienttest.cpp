@@ -126,6 +126,7 @@ public:
 // that isn't (0).
 static int Zero_Slot() { return 0; }
 static int Track_Slot() { return 0x10001; }
+static void __stdcall Lod_Bias_Slot(float bias) { Trace("model Set_LOD_Bias %g", bias); }	// slot +0x12C (75), CLIENT_AVATAR 55: one argument, popped
 struct FakeModelStruct
 {
 	void **Table;
@@ -136,10 +137,14 @@ static void *Track_Table[256];
 static FakeModelStruct Fake_Model;
 static FakeModelStruct Track_Model;
 
+static char Fake_Aux[0x4000];		// the player aux data co.cpp's accessors read (zeros)
+
 static ClientObjectClass *New_Object(unsigned id)
 {
 	ClientObjectClass *object = new ClientObjectClass;
 	object->GameID = id;
+	object->Type = 0;			// a player ship for co.cpp's type tests (0x6F5A10)
+	object->AuxData = Fake_Aux;
 	object->Node.Set(object);		// co.cpp's constructor makes the node hold its object
 	object->Model = (RenderObjClass *)((id & 1) ? &Track_Model : &Fake_Model);
 	return object;
@@ -530,6 +535,8 @@ int main(int argc, char **argv)
 		Zero_Table[i] = (void *)Zero_Slot;
 		Track_Table[i] = (void *)Track_Slot;
 	}
+	Zero_Table[75] = (void *)Lod_Bias_Slot;
+	Track_Table[75] = (void *)Lod_Bias_Slot;
 	Fake_Model.Table = Zero_Table;
 	Track_Model.Table = Track_Table;
 
