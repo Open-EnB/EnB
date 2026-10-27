@@ -2,7 +2,7 @@
 stub Unknown763E00Class::Unknown763E00Class
 stub PxClass::PxClass
 stub PxProcessClass::PxProcessClass
-stub Unknown831340Class::Unknown831340Class 'Null Item'
+stub Unknown831340Class::Unknown831340Class -1 'Null Item' type -1
 stub SOptionsClass::SOptionsClass (0x75A280, registry: not run)
 gen Unknown764FD0Class::Unknown764FD0Class
 gen Unknown619280Class::Unknown619280Class
@@ -87,10 +87,188 @@ check taken on the third call; nothing more to read: ok
 messages 1000
 stub TaskClass::Is_Focused -> 1
 loadingview 0C 1
+msg 2 ITEM_BASE (37) size 126: cpacket.cpp's handler
+stub Unknown831340Class::Unknown831340Class 7745 'Aquitaine Dark Matter' type 13
+msg 3 ITEM_BASE (37) size 178: cpacket.cpp's handler
+stub Unknown831340Class::Unknown831340Class 8355 'Booney's Best Handle' type 13
+msg 4 ITEM_BASE (37) size 177: cpacket.cpp's handler
+stub Unknown831340Class::Unknown831340Class 8356 'Line Eye' type 13
+msg 5 ITEM_BASE (37) size 128: cpacket.cpp's handler
+stub Unknown831340Class::Unknown831340Class 7928 'Small Solar Panel' type 13
+msg 6 ITEM_BASE (37) size 151: cpacket.cpp's handler
+stub Unknown831340Class::Unknown831340Class 7281 'Roller Press' type 13
+msg 7 ITEM_BASE (37) size 170: cpacket.cpp's handler
+stub Unknown831340Class::Unknown831340Class 8183 'Symbol of Duty' type 13
+msg 8 ITEM_BASE (37) size 418: cpacket.cpp's handler
+stub Unknown831340Class::Unknown831340Class 7716 'Zeke's Solar Sail' type 6
+msg 9 ITEM_BASE (37) size 466: cpacket.cpp's handler
+stub Unknown831340Class::Unknown831340Class 7623 'Terminal Override v4.0' type 18
+msg 10 ITEM_BASE (37) size 732: cpacket.cpp's handler
+stub Unknown831340Class::Unknown831340Class 4027 'RE-X8 "Nova" Mk. VII' type 7
+msg 11 ITEM_BASE (37) size 492: cpacket.cpp's handler
+stub Unknown831340Class::Unknown831340Class 4007 'RE-X2 "Red Dwarf" Mk. IV' type 7
+msg 12 ITEM_BASE (37) size 959: cpacket.cpp's handler
+stub Unknown831340Class::Unknown831340Class 4896 'Harpy's Dread Gorge' type 11
+msg 13 ITEM_BASE (37) size 746: cpacket.cpp's handler
+stub Unknown831340Class::Unknown831340Class 4844 'Basilisk's Dire Torrent' type 11
+msg 14 ITEM_BASE (37) size 577: cpacket.cpp's handler
+stub Unknown831340Class::Unknown831340Class 6645 'Crystal Force Emitter' type 11
+msg 15 ITEM_BASE (37) size 591: cpacket.cpp's handler
+stub Unknown831340Class::Unknown831340Class 6630 'Vibrant Power Crystal' type 11
+msg 16 ITEM_BASE (37) size 908: cpacket.cpp's handler
+stub Unknown831340Class::Unknown831340Class 4863 'Wyvern's Fell Strike' type 11
+msg 17 ITEM_BASE (37) size 587: cpacket.cpp's handler
+stub Unknown831340Class::Unknown831340Class 7929 'Duct Tape' type 11
+msg 18 ITEM_BASE (37) size 875: cpacket.cpp's handler
+stub Unknown831340Class::Unknown831340Class 4870 'Manticore's Fell Barb' type 11
+msg 19 ITEM_BASE (37) size 627: cpacket.cpp's handler
+stub Unknown831340Class::Unknown831340Class 6172 'Armored Bogeril Solar Sails' type 11
+msg 20 ITEM_BASE (37) size 571: cpacket.cpp's handler
+stub Unknown831340Class::Unknown831340Class 8217 'der Todesengel Gate Access Key' type 11
+msg 21 ITEM_BASE (37) size 272: cpacket.cpp's handler
+stub Unknown831340Class::Unknown831340Class 6473 'Universal Maelstrom Key' type 11
+msg 22 ITEM_BASE (37) size 195: cpacket.cpp's handler
+stub Unknown831340Class::Unknown831340Class 6418 'Chemical Smiter's' type 10
+msg 23 ITEM_BASE (37) size 479: cpacket.cpp's handler
+stub Unknown831340Class::Unknown831340Class 4860 'Wyvern's Claw' type 11
+msg 24 ITEM_BASE (37) size 390: cpacket.cpp's handler
+stub Unknown831340Class::Unknown831340Class 3471 'Plasma Rocket Type Zet' type 10
+msg 25 ITEM_BASE (37) size 217: cpacket.cpp's handler
+stub Unknown831340Class::Unknown831340Class 6032 'Oya Plasma Shells' type 10
+msg 26 ITEM_BASE (37) size 235: cpacket.cpp's handler
+stub Unknown831340Class::Unknown831340Class 5064 'Superior Ogun Plasma Missiles' type 10
+msg 27 ITEM_BASE (37) size 309: cpacket.cpp's handler
+stub Unknown831340Class::Unknown831340Class 1842 'Brimstone Flux X2' type 13
+msg 28 ITEM_BASE (37) size 300: cpacket.cpp's handler
+stub Unknown831340Class::Unknown831340Class 1720 'CE3K TR-12' type 13
+msg 29 ITEM_BASE (37) size 115: cpacket.cpp's handler
+stub Unknown831340Class::Unknown831340Class 8528 'Ten-Gu Cranium' type 13
+msg 30 ITEM_BASE (37) size 326: cpacket.cpp's handler
+stub Unknown831340Class::Unknown831340Class 5871 'Athanor Luna' type 13
+msg 31 ITEM_BASE (37) size 198: cpacket.cpp's handler
+stub Unknown831340Class::Unknown831340Class 8309 'Whittled Steel Thumpin' Stick' type 13
+msg 32 ITEM_BASE (37) size 184: cpacket.cpp's handler
+stub Unknown831340Class::Unknown831340Class 7079 'Crushed Chitin Plating' type 13
+msg 33 ITEM_BASE (37) size 118: cpacket.cpp's handler
+stub Unknown831340Class::Unknown831340Class 8236 'Blinkin' Lights' type 13
+msg 34 ITEM_BASE (37) size 227: cpacket.cpp's handler
+stub Unknown831340Class::Unknown831340Class 8357 'Bogeril Fishing Pole' type 13
+msg 35 ITEM_BASE (37) size 295: cpacket.cpp's handler
+stub Unknown831340Class::Unknown831340Class 1785 'CE3K Adm BL24' type 13
+msg 36 ITEM_BASE (37) size 278: cpacket.cpp's handler
+stub Unknown831340Class::Unknown831340Class 1699 'CE3K PM-89' type 13
+msg 37 ITEM_BASE (37) size 321: cpacket.cpp's handler
+stub Unknown831340Class::Unknown831340Class 1461 'Athanor Solar Mounts' type 13
+msg 38 ITEM_BASE (37) size 310: cpacket.cpp's handler
+stub Unknown831340Class::Unknown831340Class 1444 'BlackBox R58' type 13
+msg 39 ITEM_BASE (37) size 288: cpacket.cpp's handler
+stub Unknown831340Class::Unknown831340Class 1486 'CE3K Pulsar' type 13
+msg 40 ITEM_BASE (37) size 255: cpacket.cpp's handler
+stub Unknown831340Class::Unknown831340Class 1462 'K3 MountTECH A9' type 13
+msg 41 ITEM_BASE (37) size 129: cpacket.cpp's handler
+stub Unknown831340Class::Unknown831340Class 6866 'Mantichora Juice' type 13
+msg 42 ITEM_BASE (37) size 119: cpacket.cpp's handler
+stub Unknown831340Class::Unknown831340Class 8237 'Thumpin' Stick' type 13
+msg 43 ITEM_BASE (37) size 138: cpacket.cpp's handler
+stub Unknown831340Class::Unknown831340Class 1485 'Ultra ActuPlus 22' type 13
+msg 44 ITEM_BASE (37) size 268: cpacket.cpp's handler
+stub Unknown831340Class::Unknown831340Class 1472 'Evolver Magn8' type 13
+msg 45 ITEM_BASE (37) size 131: cpacket.cpp's handler
+stub Unknown831340Class::Unknown831340Class 5839 'Mangled Terran DNA' type 13
+msg 46 ITEM_BASE (37) size 121: cpacket.cpp's handler
+stub Unknown831340Class::Unknown831340Class 2387 'Mantichora Comb' type 13
+msg 47 ITEM_BASE (37) size 139: cpacket.cpp's handler
+stub Unknown831340Class::Unknown831340Class 1416 'Nebula PowerCon' type 13
+msg 48 ITEM_BASE (37) size 114: cpacket.cpp's handler
+stub Unknown831340Class::Unknown831340Class 8238 'Bailing Wire' type 13
+msg 49 ITEM_BASE (37) size 330: cpacket.cpp's handler
+stub Unknown831340Class::Unknown831340Class 503 'BlackBox M22' type 13
+msg 50 ITEM_BASE (37) size 123: cpacket.cpp's handler
+stub Unknown831340Class::Unknown831340Class 2389 'Mantichora Spine' type 13
+msg 51 ITEM_BASE (37) size 135: cpacket.cpp's handler
+stub Unknown831340Class::Unknown831340Class 6784 'Broken Drill Assembly' type 13
+msg 52 ITEM_BASE (37) size 152: cpacket.cpp's handler
+stub Unknown831340Class::Unknown831340Class 5819 'Decayed Human Bones' type 13
+msg 53 ITEM_BASE (37) size 119: cpacket.cpp's handler
+stub Unknown831340Class::Unknown831340Class 1371 'Grail Water' type 13
+msg 54 ITEM_BASE (37) size 111: cpacket.cpp's handler
+stub Unknown831340Class::Unknown831340Class 1364 'Thothium Ore' type 13
+msg 55 ITEM_BASE (37) size 111: cpacket.cpp's handler
+stub Unknown831340Class::Unknown831340Class 1306 'Apollonite' type 13
+msg 56 ITEM_BASE (37) size 113: cpacket.cpp's handler
+stub Unknown831340Class::Unknown831340Class 1305 'Raw Eye Stone' type 13
+msg 57 ITEM_BASE (37) size 111: cpacket.cpp's handler
+stub Unknown831340Class::Unknown831340Class 1289 'Discordite' type 13
+msg 58 ITEM_BASE (37) size 121: cpacket.cpp's handler
+stub Unknown831340Class::Unknown831340Class 1288 'Raw Flawless Ruby' type 13
+msg 59 ITEM_BASE (37) size 128: cpacket.cpp's handler
+stub Unknown831340Class::Unknown831340Class 1284 'Stygian Blackwater' type 13
+msg 60 ITEM_BASE (37) size 233: cpacket.cpp's handler
+stub Unknown831340Class::Unknown831340Class 417 'Star Steel' type 13
+msg 61 ITEM_BASE (37) size 124: cpacket.cpp's handler
+stub Unknown831340Class::Unknown831340Class 1252 'Solar FlexiGlass' type 13
+msg 62 ITEM_BASE (37) size 120: cpacket.cpp's handler
+stub Unknown831340Class::Unknown831340Class 399 'Quartz Crystals' type 13
+msg 63 ITEM_BASE (37) size 119: cpacket.cpp's handler
+stub Unknown831340Class::Unknown831340Class 8363 'Rewired Fishing Reel' type 13
+msg 64 ITEM_BASE (37) size 285: cpacket.cpp's handler
+stub Unknown831340Class::Unknown831340Class 7042 'CE3K MG-15' type 13
+msg 65 ITEM_BASE (37) size 325: cpacket.cpp's handler
+stub Unknown831340Class::Unknown831340Class 1708 'Athanor Hyperion Mounts' type 13
 msg 66 CLIENT_TYPE (60) size 8: cpacket.cpp's handler
 gen Unknown_Log
 gen SClient::Unknown_742530
 gen MainViewClass::Unknown_514010
+msg 67 ITEM_BASE (37) size 234: cpacket.cpp's handler
+stub Unknown831340Class::Unknown831340Class 2886 'Arduinne Security Pass' type 13
+msg 68 ITEM_BASE (37) size 179: cpacket.cpp's handler
+stub Unknown831340Class::Unknown831340Class 3268 'K3 Plasma Cartridge' type 13
+msg 69 ITEM_BASE (37) size 313: cpacket.cpp's handler
+stub Unknown831340Class::Unknown831340Class 3344 'Explosive Rocket Type Zet' type 10
+msg 70 ITEM_BASE (37) size 111: cpacket.cpp's handler
+stub Unknown831340Class::Unknown831340Class 1300 'Horusium Ore' type 13
+msg 71 ITEM_BASE (37) size 113: cpacket.cpp's handler
+stub Unknown831340Class::Unknown831340Class 8526 'Ten-Gu Tooth' type 13
+msg 72 ITEM_BASE (37) size 127: cpacket.cpp's handler
+stub Unknown831340Class::Unknown831340Class 8534 'Ossified Ten-Gu Bile' type 13
+msg 73 ITEM_BASE (37) size 125: cpacket.cpp's handler
+stub Unknown831340Class::Unknown831340Class 8533 'Flaming Ten-Gu Bile' type 13
+msg 74 ITEM_BASE (37) size 123: cpacket.cpp's handler
+stub Unknown831340Class::Unknown831340Class 8532 'Cobalt Ten-Gu Bile' type 13
+msg 75 ITEM_BASE (37) size 122: cpacket.cpp's handler
+stub Unknown831340Class::Unknown831340Class 8535 'Amber Ten-Gu Bile' type 13
+msg 76 ITEM_BASE (37) size 280: cpacket.cpp's handler
+stub Unknown831340Class::Unknown831340Class 1705 'K3 MountTECH P39' type 13
+msg 77 ITEM_BASE (37) size 233: cpacket.cpp's handler
+stub Unknown831340Class::Unknown831340Class 1706 'Evolver PowR-Forge Max' type 13
+msg 78 ITEM_BASE (37) size 722: cpacket.cpp's handler
+stub Unknown831340Class::Unknown831340Class 6262 'Bulwark of the Reaver' type 2
+msg 79 ITEM_BASE (37) size 629: cpacket.cpp's handler
+stub Unknown831340Class::Unknown831340Class 6923 'Intolerance Mk. VIII' type 11
+msg 80 ITEM_BASE (37) size 714: cpacket.cpp's handler
+stub Unknown831340Class::Unknown831340Class 3343 'No 1 Most Prize ML Type Zet' type 15
+msg 81 ITEM_BASE (37) size 559: cpacket.cpp's handler
+stub Unknown831340Class::Unknown831340Class 6407 'Smiter's Fury' type 15
+msg 82 ITEM_BASE (37) size 554: cpacket.cpp's handler
+stub Unknown831340Class::Unknown831340Class 7297 'Dragon's Spite' type 15
+msg 83 ITEM_BASE (37) size 652: cpacket.cpp's handler
+stub Unknown831340Class::Unknown831340Class 6643 'Focused Voltoi Essence Seven' type 11
+msg 84 ITEM_BASE (37) size 715: cpacket.cpp's handler
+stub Unknown831340Class::Unknown831340Class 4029 'RE-X9 "Supernova" Mk. VIII' type 7
+msg 85 ITEM_BASE (37) size 809: cpacket.cpp's handler
+stub Unknown831340Class::Unknown831340Class 3324 'No 1 Most Amazing Shield Model Z' type 2
+msg 86 ITEM_BASE (37) size 585: cpacket.cpp's handler
+stub Unknown831340Class::Unknown831340Class 4604 'DV-WR-X3 "Lazarus" Mk. VIII' type 11
+msg 87 ITEM_BASE (37) size 433: cpacket.cpp's handler
+stub Unknown831340Class::Unknown831340Class 4191 'Trifid LGS 8' type 6
+msg 88 ITEM_BASE (37) size 608: cpacket.cpp's handler
+stub Unknown831340Class::Unknown831340Class 4886 'Roc's Dire Celerity' type 11
+msg 89 ITEM_BASE (37) size 228: cpacket.cpp's handler
+stub Unknown831340Class::Unknown831340Class 7922 'V'rix Xerion Device' type 11
+msg 90 ITEM_BASE (37) size 786: cpacket.cpp's handler
+stub Unknown831340Class::Unknown831340Class 5990 'Ivory Ward' type 11
+msg 91 ITEM_BASE (37) size 679: cpacket.cpp's handler
+stub Unknown831340Class::Unknown831340Class 3214 'Sai'li's Circle' type 11
 msg 92 GALAXY_MAP (151) size 46: cpacket.cpp's handler
 fail_if !map (line 2358)
 msg 93 ? (33) size 65: cpacket.cpp's handler
@@ -1631,12 +1809,11 @@ recorded START (5) x1
 recorded SIMPLE_POSITIONAL_UDPATE (8) x1
 recorded OBJECT_EFFECT (9) x10
 recorded OBJECT_TO_OBJECT_EFFECT (11) x1
-recorded ITEM_BASE (37) x89
 recorded CLIENT_SET_TIME (52) x3
 recorded ADVANCED_POSITIONAL_UPDATE (62) x31
 recorded PLANET_POSITIONAL_UPDATE (63) x1
 recorded CAMERA_CONTROL (146) x1
 recorded CLIENT_CHAT_EVENT (165) x4
 recorded NAME_DECAL (178) x2
-recorded 346, through cpacket.cpp's handlers 654
+recorded 257, through cpacket.cpp's handlers 743
 == done: 0 checks failed

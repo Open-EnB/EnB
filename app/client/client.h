@@ -70,7 +70,14 @@ public:
 		const std::string &name, const std::string &m, const std::string &n);	// 0x831340  // NAME 1 [a..n]: the arguments are unknown  // NAME 2 [name]: 'Null Item'
 	~Unknown831340Class();								// 0x8316D0 (not virtual: delete calls it directly)
 
-	char Unknown00[0x60];
+	int Get_Item_Type() { return(ItemType); }			// (cpacket.cpp: ITEM_BASE 37's G_ASSERT 'ItemType == inode->Get()->Get_Item_Type()', l.1234)  // NAME 3: the assert's
+	const std::string &Get_Name() { return(Name); }		// (ITEM_BASE 37's G_ASSERT 'Name == inode->Get()->Get_Name()', l.1235)  // NAME 3: the assert's
+
+	char Unknown00[0x0C];
+	int ItemType;										// +0x0C the constructor's g (ITEM_BASE 37 passes its ItemType)  // NAME 3: Get_Item_Type's
+	char Unknown10[0x14 - 0x10];
+	std::string Name;									// +0x14 the constructor's name  // NAME 3: Get_Name's
+	char Unknown24[0x60 - 0x24];
 };
 
 // px.cpp's object (0x34 bytes, constructor 0x44BE90, destructor 0x44BF00; not rebuilt)

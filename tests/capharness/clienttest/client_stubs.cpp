@@ -104,10 +104,11 @@ Unknown86CRecordClass::~Unknown86CRecordClass() { Trace("stub Unknown86CRecordCl
 
 // ------------------------------------------------------------------------- ClientClass's members (client.h)
 
-Unknown831340Class::Unknown831340Class(int, int, int, const RefCountPtr<RefCountClass> &, int, int, int, int, int, int, int, int,
-	const std::string &name, const std::string &, const std::string &)
+// (ITEM_BASE 37 asserts on the item type and name of a template it has already: the stand-in keeps both)
+Unknown831340Class::Unknown831340Class(int a, int, int, const RefCountPtr<RefCountClass> &, int, int, int g, int, int, int, int, int,
+	const std::string &name, const std::string &, const std::string &) : ItemType(g), Name(name)
 {
-	Trace("stub Unknown831340Class::Unknown831340Class '%s'", name.c_str());
+	Trace("stub Unknown831340Class::Unknown831340Class %d '%s' type %d", a, name.c_str(), g);
 }
 Unknown831340Class::~Unknown831340Class() { Trace("stub Unknown831340Class::~Unknown831340Class"); }
 PxClass::PxClass() { Trace("stub PxClass::PxClass"); }
