@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-133 entries in 40 files.
+134 entries in 41 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -15,8 +15,8 @@ edit the comments in the code, not this file.
 | `app/client/aux_roots.h:12` | `Read` | mention | NOT EXACT (D42): functional; see the generator's docstring for what differs. |
 | `app/client/buff_database.cpp:86` | `BuffDatabaseClass::~BuffDatabaseClass` | marker | NOT EXACT: inline budget (explain.py: frame 8 vs 4), the client inlines the iterator's ++ but calls the bucket size 0x677AB0 and _M_bkt_num 0x677AE0 out of line; ours keeps the iterator in the frame |
 | `app/client/cfaction_database.cpp:10` | `CFactionDatabaseClass::Init` | marker | NOT EXACT: register-only in the first string assignment (the client moves the length to ecx before the _Eos store); explain.py says shape (195 vs 197 instructions) |
-| `app/client/client.cpp:19` | `ClientClass::ClientClass` | marker | NOT EXACT: inline budget (the client calls the third string's assign out of line, ours inlines all three; the member stores scheduled differently; attempts.py show 0x726100) 0x726100 |
-| `app/client/client.cpp:102` | `ClientClass::Find_Object` | marker | NOT EXACT: shape (the client lays out the list check before the found return; three forms; attempts.py show 0x727070) 0x727070 |
+| `app/client/client.cpp:19` | `ClientClass::ClientClass` | marker | NOT EXACT: inline budget (the client calls the 'Null Item' string's assign out of line, ours inlines all three strings and swaps two temporaries' slots; the member stores and the prologue scheduled differently; five forms; attempts.py show 0x726100) 0x726100 |
+| `app/client/client.cpp:105` | `ClientClass::Find_Object` | marker | NOT EXACT: shape (the client lays out the list check before the found return; three forms; attempts.py show 0x727070) 0x727070 |
 | `app/client/client.cpp:225` | `ClientClass::Remove_Object` | marker | NOT EXACT: shape (the client puts the not-found return last; three forms; attempts.py show 0x727600) 0x727600 |
 | `app/client/client.cpp:307` | `ClientClass::Set_Debug_Object` | marker | NOT EXACT: register-only (the flag in dl, the id in eax; two forms; attempts.py show 0x728010) 0x728010 |
 | `app/client/client.cpp:374` | `ClientClass::Set_Debug_Mode` | marker | NOT EXACT: register-only (the id in eax, the flag in ecx; two forms; attempts.py show 0x728240) 0x728240 |
@@ -79,13 +79,13 @@ edit the comments in the code, not this file.
 | `app/shared/combo_ffactory.cpp:105` | `ComboFileFactoryClass::Get_File` | marker | NOT EXACT: inline budget (explain.py: inline-budget), the client calls the table's find 0x4E5D60 and the string's _Eos out of line (frame 0x18); ours inlines both |
 | `app/shared/definition_auto_ptr.h:110` | `?` | marker | NOT EXACT: register-only (explain.py), the inlined erase's terminator store addresses [edi+eax] in the client, [eax+edi] in ours (0x4EB1B0) |
 | `app/shared/definition_manager.h:115` | `?` | marker | NOT EXACT: shape (explain.py), two registers swapped in the inlined hashtable destructor and one EH state store more in ours (0x4EAFB0) |
-| `app/shared/heightfield.cpp:30` | `HeightFieldClass::Load` | marker | NOT EXACT: order-only (the client loads Size before Count - 1 and copies it for HalfSize), parked |
-| `app/shared/heightfield.cpp:67` | `HeightFieldClass::Load_PGM` | marker | NOT EXACT: written from the pseudocode (the PGM reader 0x4637C0, the same as VIDTEST's 0x4026B0) |
-| `app/shared/heightfield.cpp:145` | `HeightFieldClass::Sample` | marker | NOT EXACT: frame (0xC in the client: one more local) and the y copy through a register |
-| `app/shared/heightfield.cpp:180` | `HeightFieldClass::World_To_Grid` | marker | NOT EXACT: order-only (the client loads HalfSize before the position) |
-| `app/shared/heightfield.cpp:194` | `HeightFieldClass::Get_Downhill` | marker | NOT EXACT: written from the pseudocode (0x463F00: frame 0x1C in the client, the corner tests' scheduling) |
-| `app/shared/heightfield.cpp:253` | `HeightFieldClass::Get_Normal` | marker | NOT EXACT: written from the pseudocode (0x464290: the cross products and Normalize as Vector3's) |
-| `app/shared/heightfield.cpp:277` | `HeightFieldClass::Get_Height` | marker | NOT EXACT: written from the pseudocode (0x464600: the cell's two triangles) |
+| `app/shared/heightfield.cpp:33` | `HeightFieldClass::Load` | marker | NOT EXACT: order-only (the client loads Size before Count - 1 and copies it for HalfSize), parked |
+| `app/shared/heightfield.cpp:70` | `HeightFieldClass::Load_PGM` | marker | NOT EXACT: written from the pseudocode (the PGM reader 0x4637C0, the same as VIDTEST's 0x4026B0) |
+| `app/shared/heightfield.cpp:148` | `HeightFieldClass::Sample` | marker | NOT EXACT: frame (0xC in the client: one more local) and the y copy through a register |
+| `app/shared/heightfield.cpp:183` | `HeightFieldClass::World_To_Grid` | marker | NOT EXACT: order-only (the client loads HalfSize before the position) |
+| `app/shared/heightfield.cpp:197` | `HeightFieldClass::Get_Downhill` | marker | NOT EXACT: written from the pseudocode (0x463F00: frame 0x1C in the client, the corner tests' scheduling) |
+| `app/shared/heightfield.cpp:256` | `HeightFieldClass::Get_Normal` | marker | NOT EXACT: written from the pseudocode (0x464290: the cross products and Normalize as Vector3's) |
+| `app/shared/heightfield.cpp:280` | `HeightFieldClass::Get_Height` | marker | NOT EXACT: written from the pseudocode (0x464600: the cell's two triangles) |
 | `app/shared/ini_manager.cpp:49` | `INIManagerClass::Get_INI` | marker | NOT EXACT: the bytes are the client's, but tools/re/objmatch.py rejects the reference to the atexit handler $E18 (symbols.json holds other objects' $E18) |
 | `app/shared/ini_manager.h:29` | `?` | marker | NOT EXACT: register-only (explain.py), eax / ecx / edx rotated in the inlined Free_Unused (0x4EA2B0) |
 | `app/shared/kv_list.cpp:10` | `KVListClass::~KVListClass` | marker | NOT EXACT: inline budget, the hashtable destructor's clear() inlines _M_delete_node (the client calls 0x4B7B60) |
@@ -105,7 +105,6 @@ edit the comments in the code, not this file.
 | `app/shared/land.cpp:898` | `LandClass::Compute_Lighting` | marker | NOT EXACT: order-only (the shadowed vertex: the client loads +0x1F0's factor first; 64 rows masked; attempts.csv 0x46CAE0). The lit vertices: the sun's normal colour plus the sky's; the shadowed: the sky's; between the horizons a blend |
 | `app/shared/land.cpp:1018` | `LandClass::Apply_Colors` | marker | NOT EXACT: shape (the client steps a colour pointer by 3 and tests extra before its loads; the loop bodies match); 3 forms tried |
 | `app/shared/land.cpp:1062` | `LandClass::Build_Index_Buffers` | marker | NOT EXACT: field-offset / order (the store order of the strip's index pairs; 2 forms, attempts.csv 0x478240) |
-| `app/shared/lookup_table.cpp:111` | `LookupTableSetClass::~LookupTableSetClass` | marker | NOT EXACT: inline budget (explain.py: inline-budget), the client calls the bucket vector's _Destroy 0x4EF140 out of line in the table's destructor; ours inlines it |
 | `app/shared/lookup_table.cpp:142` | `ContinuousLookupTableClass::Create` | marker | NOT EXACT: inline budget (explain.py: shape, 19 vs 17 calls), the client inlines the values vector's constructor and resize's first size(); ours calls them (frame 0x2C, the client 0x28) |
 | `app/shared/lookup_table.cpp:204` | `SampledLookupTableClass::SampledLookupTableClass` | marker | NOT EXACT: order-only, the client stores the sample's Value (atof) after pushing push_back's arguments, ours before; everything else equal |
 | `app/shared/spln_db.cpp:57` | `SplineDatabaseClass::~SplineDatabaseClass` | marker | NOT EXACT: inline-budget (the client inlines HashListClass::First_Valid in the Free_Splines loop; ours calls it) |
@@ -128,6 +127,8 @@ edit the comments in the code, not this file.
 | `app/shared/stars.cpp:93` | `StarLayerClass::Load` | marker | NOT EXACT: order-only (the Hemisphere z load), parked: attempts.csv 0x481DB0 |
 | `app/shared/stars.cpp:184` | `StarFieldClass::Init` | marker | NOT EXACT: register-only (cmp al,bl on Load's result), parked: attempts.csv 0x4829E0 |
 | `app/shared/stars.cpp:279` | `StarFieldClass::Get_Cost` | mention | NOT EXACT: Load and Init only (the other functions are exact). Load (0.70): the asserts on the client's lines, the frames store as one ternary and powf (r stored before pow) match; left: the Hemisphere branch loads z (sample[1]) last where the client loads it first, the fifth Create_NEW temporary zeroed after its release, frame 0x4C vs 0x50. Init (0.72): the client compares Load's result with cmp ... |
+| `app/shared/symbol_substitution.cpp:99` | `Substitute_Symbols` | marker | NOT EXACT: inline budget, the client calls string::erase(iterator) 0x4E2A00 out of line in the last loop |
+| `app/shared/symbol_substitution.cpp:156` | `Escape_Symbols` | mention | NOT EXACT: Substitute_Symbols, the client calls string::erase(iterator) 0x4E2A00 out of line in the unescape loop (inline budget). |
 | `app/wwudp/cordcon.cpp:8` | `Get_Short` | mention | NOT EXACT, D42): the receive path (handlePacket, examinePacket, read) follows the client's code statement by statement; the send path (write, openc, buildHeader, buildMsgHeader, pump, pumpInternal with its priority order, resend timer and send window, getHighestPriorityMessage) too. Time is wlib's Xtime (libs\wwonline\wlib, D73), as in the client. The client's asserts sit on lines 521, 632 and 977... |
 | `app/wwudp/cordcon.cpp:944` | `CordCon::close` | mention | NOT EXACT: the vectors' and wlib's inlined code): with now, every channel's queued and sent records are freed and its acks and resend requests dropped; then the state: 3 (the peer's close read) -> 4, 0 -> 1 and pumpClose (the "CLOSE" once nothing is queued or due). Nothing changes once closed (4). |
 | `app/wwudp/cordcon.cpp:1054` | `CordCon::pump` | mention | NOT EXACT: Xtime and the vectors' inlined code differ): pumpInternal, and while acks or resend requests are due with nothing queued, an empty message on channel 0 to carry them; the keep-alive (an empty message after 5 s without a send, every second until something arrives), the idle close (90 s without a datagram), and the channels this side opened that are closed and empty leave the active list. |

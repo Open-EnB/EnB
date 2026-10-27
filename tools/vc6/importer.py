@@ -3486,7 +3486,7 @@ RECONSTRUCTED = {
                                      "LookupTableSetClass (the tables of an ini by section name in an SGI hash_map, libs/sgistl, "
                                      "D87) and LookupTableManagerClass (D24): reference counted (ref_ptr.h)",
     ('app', 'shared/lookup_table.cpp'): "the lookup tables, client 0x4EC1F0-0x4F0080 with the instances: the asserts on the "
-                                       "client's lines 38-433 (D25); NOT EXACT: the set's destructor 0x4ECE50, the continuous "
+                                       "client's lines 38-433 (D25); NOT EXACT: the continuous "
                                        "table's Create 0x4ED660, the sampled table's constructor 0x4EDBE0",
     ('app', 'shared/definition_manager.h'): "DefinitionManagerClass<T> and DefinitionRefCount<T> (D24): a reference-counting "
                                            "cache of named definitions in an SGI hash_map (libs/sgistl, D87); asserts on the "
