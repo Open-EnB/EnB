@@ -27,6 +27,9 @@
 #include <vector>
 #include <hash_map.h>
 
+// Keep_Only's argument; the class itself in libs/sgistl/hash_set.h, which only kv_list.cpp includes
+namespace std { template <class _Value, class _HashFcn, class _EqualKey, class _Alloc> class hash_set; }
+
 class KVPairClass;
 
 class KVListClass  // NAME 3: by convention (D24) from the client's file kv_list.cpp
@@ -41,6 +44,7 @@ public:
 	const char *Get_Value_String(const char *key);					// 0x4B6B60 (line 82; a static 0x1000-byte buffer, 0xBE3B60)  // NAME 2: describes what it does
 	char *Get_Value_String(const char *key, char *buf, int size);	// 0x4B6BF0 (line 97)
 	bool Set_Value_String(const char *key, const char *value);		// 0x4B6CE0 (line 113)  // NAME 2: describes what it does
+	void Keep_Only(std::hash_set<std::string, std::hash<std::string>, std::equal_to<std::string>, std::allocator<std::string> > &keys);					// 0x4B6DC0: drops (and deletes) the pairs whose key isn't in keys; no caller in the client  // NAME 2: describes what it does
 
 	int Get_Count() const { return Pairs.size(); }  // NAME 2: describes what it does
 	KVPairClass *Get(int index) const { return Pairs[index]; }  // NAME 2: describes what it does

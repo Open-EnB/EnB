@@ -47,6 +47,15 @@ EDITS = {
          '  operator== __STL_NULL_TMPL_ARGS (const hash_multimap&,const hash_multimap&);\n',
          '#else /* __STL_MEMBER_TEMPLATES */\n  ' + TAG + 'no friend operator== (VC6 has no <> friends) */\n'),
     ],
+    'stl_hash_set.h': [
+        ('#include <concept_checks.h>\n', ''),
+        ('#else /* __STL_MEMBER_TEMPLATES */\n  friend bool __STD_QUALIFIER\n'
+         '  operator== __STL_NULL_TMPL_ARGS (const hash_set&, const hash_set&);\n',
+         '#else /* __STL_MEMBER_TEMPLATES */\n  ' + TAG + 'no friend operator== (VC6 has no <> friends) */\n'),
+        ('#else /* __STL_MEMBER_TEMPLATES */\n  friend bool __STD_QUALIFIER\n'
+         '  operator== __STL_NULL_TMPL_ARGS (const hash_multiset&,const hash_multiset&);\n',
+         '#else /* __STL_MEMBER_TEMPLATES */\n  ' + TAG + 'no friend operator== (VC6 has no <> friends) */\n'),
+    ],
 }
 
 HEAD = ('/*\n * libs/sgistl (D87): SGI STL 3.3 (2000), adapted for VC6 as the Earth & Beyond client\'s\n'

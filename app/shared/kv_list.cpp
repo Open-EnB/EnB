@@ -1,5 +1,5 @@
 // Earth & Beyond client (reconstruction): app\shared\kv_list.cpp. Notes at the end of the file.
-// The index is SGI STL's hash_map (libs/sgistl, D87).
+#include <hash_set.h>
 #include "kv_list.h"
 #include "kv_pair.h"
 #include "unknown_debug.h"
@@ -118,6 +118,23 @@ bool KVListClass::Set_Value_String(const char *key, const char *value)
 	if (pair != 0) return pair->Set_Value_String(value);
 	return false;
 }
+
+void KVListClass::Keep_Only(std::hash_set<std::string> &keys)
+{
+	std::vector<KVPairClass *>::iterator i = Pairs.begin();
+	while (i != Pairs.end()) {
+		KVPairClass *pair = *i;
+		const char *key = pair->Key.Get_String();
+		if (keys.find(key) == keys.end()) {
+			Index.erase(key);
+			Pairs.erase(i);
+			delete pair;
+		} else {
+			i++;
+		}
+	}
+}
+
 /*
 **	Reconstruction notes
 **
@@ -128,5 +145,8 @@ bool KVListClass::Set_Value_String(const char *key, const char *value)
 **	0x4B7870, resize 0x4B7B80, find 0x4B7030, __stl_hash_string 0x4B6970; the one-argument
 **	Get_Value_String writes into a static 0x1000-byte buffer (0xBE3B60). Forms: the lookups return
 **	through `if (pair != 0) return ...; return 0;` (one shared failure tail, no shrink-wrapped prologue).
+**	Keep_Only 0x4B6DC0 (no caller in the client) takes a hash_set<std::string> of keys (or a
+**	hash_map<std::string, ...>: the client only looks keys up in it) and erases the others (the
+**	index's erase 0x4B79A0, then the vector's, then deletes the pair).
 **	NOT EXACT: the destructor 0x4B6520 and Get_Value_String 0x4B6B60 (inline budget, attempts.csv).
 */

@@ -1816,16 +1816,17 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Add_String` | `app/shared/kv_encoder_base.h:57` | describes what it does (D38) |
 | 2 | `Add_Value` | `app/shared/kv_encoder_base.h:59` | describes what it does |
 | 2 | `List` | `app/shared/kv_encoder_base.h:72` | describes what it does |
-| 2 | `Add` | `app/shared/kv_list.h:38` | describes what it does |
-| 2 | `Find` | `app/shared/kv_list.h:39` | describes what it does |
-| 2 | `Get_Type_Name` | `app/shared/kv_list.h:40` | describes what it does |
-| 2 | `Get_Value_String` | `app/shared/kv_list.h:41` | describes what it does |
-| 2 | `Set_Value_String` | `app/shared/kv_list.h:43` | describes what it does |
-| 2 | `Get_Count` | `app/shared/kv_list.h:45` | describes what it does |
-| 2 | `Get` | `app/shared/kv_list.h:46` | describes what it does |
-| 2 | `KeyEqual` | `app/shared/kv_list.h:48` | describes what it does (the SGI documentation's eqstr) |
-| 2 | `Pairs` | `app/shared/kv_list.h:53` | describes what it does |
-| 2 | `Index` | `app/shared/kv_list.h:54` | describes what it does |
+| 2 | `Add` | `app/shared/kv_list.h:41` | describes what it does |
+| 2 | `Find` | `app/shared/kv_list.h:42` | describes what it does |
+| 2 | `Get_Type_Name` | `app/shared/kv_list.h:43` | describes what it does |
+| 2 | `Get_Value_String` | `app/shared/kv_list.h:44` | describes what it does |
+| 2 | `Set_Value_String` | `app/shared/kv_list.h:46` | describes what it does |
+| 2 | `Keep_Only` | `app/shared/kv_list.h:47` | describes what it does |
+| 2 | `Get_Count` | `app/shared/kv_list.h:49` | describes what it does |
+| 2 | `Get` | `app/shared/kv_list.h:50` | describes what it does |
+| 2 | `KeyEqual` | `app/shared/kv_list.h:52` | describes what it does (the SGI documentation's eqstr) |
+| 2 | `Pairs` | `app/shared/kv_list.h:57` | describes what it does |
+| 2 | `Index` | `app/shared/kv_list.h:58` | describes what it does |
 | 2 | `Clone` | `app/shared/kv_pair.h:32` | descriptive name of the vtable slot (D57) |
 | 2 | `Get_Type_Name` | `app/shared/kv_pair.h:33` | descriptive name of the vtable slot (D57) |
 | 2 | `Get_Value_String` | `app/shared/kv_pair.h:34` | descriptive name of the vtable slot (D57) |
@@ -2409,7 +2410,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `DurationClass` | `app/shared/duration.h:25` | by convention (D24) from the client's file duration.h (D37) |
 | 3 | `kv_encoder_base.h` | `app/shared/kv_encoder_base.h:18` | header name assumed from the client's kv_encoder_base.cpp |
 | 3 | `KVEncoderBaseClass` | `app/shared/kv_encoder_base.h:40` | by convention (D24) from the client's file kv_encoder_base.cpp |
-| 3 | `KVListClass` | `app/shared/kv_list.h:32` | by convention (D24) from the client's file kv_list.cpp |
+| 3 | `KVListClass` | `app/shared/kv_list.h:35` | by convention (D24) from the client's file kv_list.cpp |
 | 3 | `kv_pair.h` | `app/shared/kv_pair.h:18` | header name assumed from the client's kv_pair.cpp |
 | 3 | `KVPairClass` | `app/shared/kv_pair.h:25` | by convention (D24) from the client's file kv_pair.cpp |
 | 3 | `Key` | `app/shared/kv_pair.h:39` | after the assert's parameter key (kv_pair.cpp) |
