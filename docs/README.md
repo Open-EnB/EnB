@@ -16,6 +16,7 @@
 | [app-plan.md](app-plan.md) | Proposal for reconstructing E&B's own code (decisions D6-D8) |
 | [kernel-map.md](kernel-map.md) | The client's task kernel (KernelClass, the tasks, WinMain's start-up) and the packet layer (connections, the opcode factory, the handlers): a map and a reconstruction order |
 | [kernel-map-step9.md](kernel-map-step9.md) | Step 9's dependencies (2026-10-27): client.cpp's client base and SClient, the login and character-select screens with their UI base classes and CharacterViewClass, kcom auth (authlogin.dll), the login's data objects; an order with sizes and a recommendation |
+| [eval-d93.md](eval-d93.md) | The D93 model evaluation: tasks, candidates, protocol, scoring, the shared brief; the next coordinator session runs it first |
 | [milestones.md](milestones.md) | Milestones M1 (capture harness) and M2 (working VIDTEST): spec per work item, link procedure |
 | [vidtest.md](vidtest.md) | VIDTEST.EXE's functional spec: program flow, scenes, tests and results.ini, E&B scene classes, library API, function table (M2.0) |
 | [builders.md](builders.md) | Builder subagents: startup set per kind, rules, models (D72), report format |
