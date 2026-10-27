@@ -46,6 +46,7 @@
 #include "pkequipuse.h"	// rebuilt
 #include "pkgadget.h"	// rebuilt
 #include "pkgalaxymap.h"	// rebuilt
+#include "pkglobalavatarlist.h"	// rebuilt
 #include "pkglobalconnect.h"	// rebuilt
 #include "pkglobalcreatecharacter.h"	// rebuilt
 #include "pkglobaldeletecharacter.h"	// rebuilt
@@ -212,15 +213,6 @@ public:
 	int Unknown0C;	// +0x0C
 	unsigned long Address;	// +0x10  // NAME 1: handed to Redirect (tsk_game.cpp 0x766FC0)
 	unsigned short Port;	// +0x14  // NAME 1: handed to Redirect (tsk_game.cpp 0x766FC0)
-};
-
-// opcode 112 (0x0070, GLOBAL_AVATAR_LIST): vtable 0xB09368, constructor 0x862D90, 0x20 bytes
-class GlobalAvatarListPacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name GLOBAL_AVATAR_LIST (the Net-7 opcode table; no structure check)
-{
-public:
-	GlobalAvatarListPacketClass(RawPacketClass *raw);	// 0x862D90
-	virtual bool Process_Packet(void *client);	// +0x08 0x76B520 (tsk_login.cpp)
-	char Unknown0C[0x14];	// +0x0C
 };
 
 // opcode 117 (0x0075, GLOBAL_ERROR): vtable 0xB09490, constructor 0x864C90, 0x24 bytes

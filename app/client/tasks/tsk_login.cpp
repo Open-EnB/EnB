@@ -44,7 +44,7 @@ class GlobalErrorPacketClass : public PacketClass { public: GlobalErrorPacketCla
 #include "..\..\packets\pkglobalticket.h"	// opcode 111 (GLOBAL_TICKET)
 // opcode 118 (GlobalLoginPacketClass): pkgloballogin.h, included by tsk_login.h
 // opcode 119 (Packet_0077Class): pkunknown_866ac0.h, included above
-class GlobalAvatarListPacketClass : public PacketClass { public: GlobalAvatarListPacketClass(RawPacketClass *raw); virtual bool Process_Packet(void *client); LoginCharacterClass *Unknown0C; AvatarDescClass *Unknown10; std::list<LoginGalaxyClass> Galaxies; };	// opcode 112: 0x862D90, 0x20 bytes  // NAME 1 [Galaxies]: copied to the task's
+class GlobalAvatarListPacketClass : public PacketClass { public: GlobalAvatarListPacketClass(RawPacketClass *raw); virtual ~GlobalAvatarListPacketClass(); virtual bool Process_Packet(void *client); LoginCharacterClass *Characters; AvatarDescClass *Avatars; std::list<LoginGalaxyClass> Galaxies; };	// opcode 112: 0x862D90, 0x20 bytes  // NAME 1 [Galaxies]: copied to the task's
 void Unknown_7E5F70();								// NAME 1 [Unknown_7E5F70]: neutral (D10); once, by the first LoginTaskClass(mode)
 void Unknown_7228C0();								// NAME 1 [Unknown_7228C0]: neutral (D10)
 void Unknown_43FA80();								// NAME 1 [Unknown_43FA80]: neutral (D10) (soundlib.cpp)
@@ -1312,7 +1312,7 @@ bool GlobalAvatarListPacketClass::Process_Packet(void *client)
 	task->Unknown0020 = 1;
 	Unknown_Log("LOGIN:INF", "Got the avatar list packet.");
 	task->Set_Galaxies(Galaxies);
-	task->Unknown_768CB0(Unknown0C, Unknown10);
+	task->Unknown_768CB0(Characters, Avatars);
 	return true;
 }
 

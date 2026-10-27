@@ -7,7 +7,6 @@ void Conn_Record(PacketClass *packet, RawPacketClass *raw);
 Packet_0015Class::Packet_0015Class(RawPacketClass *raw) { Conn_Record(this, raw); }
 Action2PacketClass::Action2PacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 ServerRedirectPacketClass::ServerRedirectPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-GlobalAvatarListPacketClass::GlobalAvatarListPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 GlobalErrorPacketClass::GlobalErrorPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 FindMemberPacketClass::FindMemberPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 VerbListPacketClass::VerbListPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
@@ -60,6 +59,7 @@ bool ServerParametersPacketClass::Process_Packet(void *) { return(true); }	// 0x
 bool ClientShipPacketClass::Process_Packet(void *) { return(true); }	// 0x733660
 bool DialogPacketClass::Process_Packet(void *) { return(true); }	// 0x736DA0
 bool GlobalTicketPacketClass::Process_Packet(void *) { return(true); }	// 0x76B730
+bool GlobalAvatarListPacketClass::Process_Packet(void *) { return(true); }	// 0x76B520
 bool GlobalLoginPacketClass::Process_Packet(void *) { return(true); }	// 0x76B9C0
 bool CreateAttachmentPacketClass::Process_Packet(void *) { return(true); }	// 0x733BB0
 bool ModeChangePacketClass::Process_Packet(void *) { return(true); }	// 0x738100
@@ -123,7 +123,6 @@ bool RecustomizeAvatarStartPacketClass::Process_Packet(void *) { return(true); }
 bool RecustomizeAvatarUpdatePacketClass::Process_Packet(void *) { return(true); }	// 0x73F5F0
 
 // What OVERRIDES declares out of line (the classes' own files, not rebuilt)
-bool GlobalAvatarListPacketClass::Process_Packet(void *) { return(true); }
 bool GlobalErrorPacketClass::Process_Packet(void *) { return(true); }
 int Packet_0015Class::Get_Type() { return(0x15); }
 bool Packet_0015Class::Unknown_2C() { return(false); }

@@ -3305,6 +3305,36 @@
     "merged": [],
     "name": "packets/gameedit/pkgespwn.cpp"
    },
+   "pkglobalavatarlist": {
+    "ambiguous": [
+     "0x42B2F0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350",
+     "0x53BB50",
+     "0x560010",
+     "0x560160",
+     "0x5601D0",
+     "0x8629A0",
+     "0x862C60",
+     "0x862C90",
+     "0x862D10",
+     "0x862D90",
+     "0x863050",
+     "0x863170",
+     "0x8632A0",
+     "0x863330",
+     "0x863360"
+    ],
+    "merged": [],
+    "name": "packets/pkglobalavatarlist.cpp"
+   },
    "pkglobalconnect": {
     "ambiguous": [
      "0x42B2F0",
@@ -7392,6 +7422,7 @@
    "packets/pkflag.h": "reconstructed",
    "packets/pkgadget.h": "reconstructed",
    "packets/pkgalaxymap.h": "reconstructed",
+   "packets/pkglobalavatarlist.h": "reconstructed",
    "packets/pkglobalconnect.h": "reconstructed",
    "packets/pkglobalcreatecharacter.h": "reconstructed",
    "packets/pkglobaldeletecharacter.h": "reconstructed",
