@@ -4,6 +4,9 @@
 #include "heightfield.h"
 #include "texture.h"
 #include "vertmaterial.h"
+#include "dx8wrapper.h"
+#include "dx8indexbuffer.h"
+#include "vector2.h"
 #include <windows.h>
 #include "wwprofile.h"
 
@@ -279,6 +282,65 @@ void LandClass::Update_Lightmap_Threaded(const LandLightingStruct &lighting)
 			CursorY += LightmapChunk;
 		}
 	}
+}
+
+Vector3 LandClass::Get_Color(const Vector2 &pos)
+{
+	float i, j;
+	Field->World_To_Grid(pos, &i, &j);
+	unsigned char *color = &Colors[((int)j * Field->Get_Size() + (int)i) * 3];
+	return Vector3(color[2] * (1.0f / 255.0f), color[1] * (1.0f / 255.0f), color[0] * (1.0f / 255.0f));
+}
+
+void LandClass::Set_Color(const Vector2 &pos, const Vector3 &color)
+{
+	float i, j;
+	Field->World_To_Grid(pos, &i, &j);
+	int index = ((int)j * Field->Get_Size() + (int)i) * 3;
+	Colors[index++] = (unsigned char)(color.Z * 255.0f);
+	Colors[index++] = (unsigned char)(color.Y * 255.0f);
+	Colors[index] = (unsigned char)(color.X * 255.0f);
+}
+
+LandPatchClass::LandPatchClass(LandClass *land) :
+	m_Unknown00(NULL),
+	Land(land),
+	m_Unknown10(0),
+	m_Unknown14(0),
+	m_Unknown18(0),
+	m_Unknown1C(0),
+	m_Unknown20(0)
+{
+}
+
+LandPatchRecordClass::LandPatchRecordClass(void) :
+	m_Unknown10(0),
+	m_Unknown14(0),
+	m_Unknown18(0),
+	m_Unknown1C(0),
+	m_Unknown20(false),
+	m_Unknown24(0)
+{
+}
+
+void LandClass::Set_Index_Buffer_94(int level)
+{
+	DX8Wrapper::Set_Index_Buffer(m_Unknown94[level], 0);
+}
+
+void LandClass::Set_Index_Buffer_BC(int level)
+{
+	DX8Wrapper::Set_Index_Buffer(m_UnknownBC[level], 0);
+}
+
+void LandClass::Add_Unknown1218(const RefCountPtr<LandUnknownClass> &object)
+{
+	m_Unknown1218.push_back(object);
+}
+
+void LandClass::Clear_Unknown1218(void)
+{
+	m_Unknown1218.clear();
 }
 
 /*
