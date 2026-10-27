@@ -7,11 +7,11 @@ are listed here until better evidence raises their tag. Regenerate with
 
 | Score | Meaning | Names |
 |---|---|---|
-| 5 | the client names it | 31 |
+| 5 | the client names it | 34 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 36 |
-| 3 | by convention from a client-named file or sibling | 810 |
-| 2 | describes what the code does | 1864 |
-| 1 | neutral placeholder | 3436 |
+| 3 | by convention from a client-named file or sibling | 815 |
+| 2 | describes what the code does | 1866 |
+| 1 | neutral placeholder | 3443 |
 
 ## For review (score 3 and below)
 
@@ -2057,17 +2057,15 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_Create_Packet` | `app/packets/pk.h:127` | what it does |
 | 1 | `Unknown_869790` | `app/packets/pk.h:130` | neutral (D10) |
 | 1 | `pk_classes.h` | `app/packets/pk_classes.h:17` | provisional file name (D37) |
-| 1 | `Packet_0015Class` | `app/packets/pk_classes.h:144` | neutral (D10): opcode 0x0015 |
-| 1 | `Unknown_2C` | `app/packets/pk_classes.h:151` | untagged neutral name (D10) |
-| 1 | `Unknown0C` | `app/packets/pk_classes.h:153` | untagged neutral name (D10) |
-| 1 | `Packet_0016Class` | `app/packets/pk_classes.h:157` | neutral (D10): opcode 0x0016 |
-| 1 | `Unknown14` | `app/packets/pk_classes.h:164` | untagged neutral name (D10) |
-| 1 | `Address` | `app/packets/pk_classes.h:214` | handed to Redirect (tsk_game.cpp 0x766FC0) |
-| 1 | `Port` | `app/packets/pk_classes.h:215` | handed to Redirect (tsk_game.cpp 0x766FC0) |
-| 1 | `Error` | `app/packets/pk_classes.h:226` | the log 'GlobalErrorPacketClass recv: %d : %d : %s' (tsk_login.cpp) |
-| 1 | `std:` | `app/packets/pk_classes.h:227` | the same log |
-| 1 | `Packet_00B5Class` | `app/packets/pk_classes.h:247` | neutral (D10): opcode 0x00B5 |
-| 1 | `Packet_00B6Class` | `app/packets/pk_classes.h:256` | neutral (D10): opcode 0x00B6 |
+| 1 | `Packet_0015Class` | `app/packets/pk_classes.h:146` | neutral (D10): opcode 0x0015 |
+| 1 | `Unknown_2C` | `app/packets/pk_classes.h:153` | untagged neutral name (D10) |
+| 1 | `Unknown0C` | `app/packets/pk_classes.h:155` | untagged neutral name (D10) |
+| 1 | `Packet_0016Class` | `app/packets/pk_classes.h:159` | neutral (D10): opcode 0x0016 |
+| 1 | `Unknown14` | `app/packets/pk_classes.h:166` | untagged neutral name (D10) |
+| 1 | `Error` | `app/packets/pk_classes.h:216` | the log 'GlobalErrorPacketClass recv: %d : %d : %s' (tsk_login.cpp) |
+| 1 | `std:` | `app/packets/pk_classes.h:217` | the same log |
+| 1 | `Packet_00B5Class` | `app/packets/pk_classes.h:229` | neutral (D10): opcode 0x00B5 |
+| 1 | `Packet_00B6Class` | `app/packets/pk_classes.h:238` | neutral (D10): opcode 0x00B6 |
 | 1 | `Unknown_14` | `app/packets/pk_player_object_relationship.cpp:12` | untagged neutral name (D10) |
 | 1 | `std:` | `app/packets/pk_player_object_relationship.cpp:85` | neutral (D10) |
 | 1 | `Unknown_8743C0` | `app/packets/pk_player_object_relationship.cpp:85` | untagged neutral name (D10) |
@@ -2194,6 +2192,15 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown34` | `app/packets/pkdirlock.h:87` | untagged neutral name (D10) |
 | 1 | `pkequipuse` | `app/packets/pkequipuse.h:16` | provisional, pk + its first named class's name |
 | 1 | `Unknown12` | `app/packets/pkequipuse.h:35` | untagged neutral name (D10) |
+| 1 | `Unknown00` | `app/packets/pkfindmember.cpp:14` | untagged neutral name (D10) |
+| 1 | `Unknown04` | `app/packets/pkfindmember.cpp:15` | untagged neutral name (D10) |
+| 1 | `Unknown08` | `app/packets/pkfindmember.cpp:16` | untagged neutral name (D10) |
+| 1 | `Unknown0C` | `app/packets/pkfindmember.cpp:17` | untagged neutral name (D10) |
+| 1 | `FindMemberStruct` | `app/packets/pkfindmember.h:22` | neutral (D10): what it holds |
+| 1 | `Unknown00` | `app/packets/pkfindmember.h:24` | neutral (D10) |
+| 1 | `Unknown04` | `app/packets/pkfindmember.h:25` | neutral (D10) |
+| 1 | `Unknown08` | `app/packets/pkfindmember.h:26` | neutral (D10) |
+| 1 | `Unknown0C` | `app/packets/pkfindmember.h:27` | neutral (D10) |
 | 1 | `Unknown18` | `app/packets/pkgadget.cpp:57` | untagged neutral name (D10) |
 | 1 | `pkgadget` | `app/packets/pkgadget.h:15` | provisional, pk + its class's name |
 | 1 | `Packet_0068Class` | `app/packets/pkgadget.h:43` | neutral (D10): opcode 0x0068 (Get_Name 'Request Gadget Control') |
@@ -2547,6 +2554,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `pkserverparameters` | `app/packets/pkserverparameters.h:15` | provisional, pk + its class's name |
 | 1 | `pkserverready` | `app/packets/pkserverready.h:15` | provisional, pk + its Print text 'Server_Ready' |
 | 1 | `Packet_003BClass` | `app/packets/pkserverready.h:21` | neutral (D10): opcode 0x003B |
+| 1 | `pkserverredirect` | `app/packets/pkserverredirect.h:15` | provisional, pk + its first named class's name |
 | 1 | `pksetclienttype` | `app/packets/pksetclienttype.h:15` | provisional, pk + its class's name |
 | 1 | `pksetzband` | `app/packets/pksetzband.h:16` | provisional, pk + its first named class's name |
 | 1 | `pkskill` | `app/packets/pkskill.h:16` | provisional, pk + its first named class's name |
@@ -2641,7 +2649,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Packet_7532Class` | `app/packets/pkunknown_861760.h:22` | neutral (D10): opcode 0x7532 (Print 'GameEditorPositionalUpdate') |
 | 1 | `pkunknown_861b30` | `app/packets/pkunknown_861b30.h:15` | provisional, neutral (D10): the object's first address |
 | 1 | `Packet_7534Class` | `app/packets/pkunknown_861b30.h:21` | neutral (D10): opcode 0x7534 (Print 'GameEditorRemove') |
-| 1 | `pkunknown_861db0` | `app/packets/pkunknown_861db0.h:15` | provisional, neutral (D10): the object's first address |
 | 1 | `Unknown18` | `app/packets/pkunknown_863720.cpp:10` | untagged neutral name (D10) |
 | 1 | `Unknown28` | `app/packets/pkunknown_863720.cpp:12` | untagged neutral name (D10) |
 | 1 | `Unknown30` | `app/packets/pkunknown_863720.cpp:13` | untagged neutral name (D10) |
@@ -4190,6 +4197,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Owned` | `app/packets/gameedit/pkgeplan.h:47` | what it means, as MessageStringPacketClass's |
 | 2 | `Size` | `app/packets/gameedit/pkgeplan.h:77` | what it holds |
 | 2 | `Owned` | `app/packets/gameedit/pkgeplan.h:78` | what it means, as MessageStringPacketClass's |
+| 2 | `Length` | `app/packets/gameedit/pkgesave.h:46` | what it holds |
 | 2 | `Size` | `app/packets/gameedit/pkgespwn.h:32` | what it holds |
 | 2 | `Owned` | `app/packets/gameedit/pkgespwn.h:34` | what it means, as MessageStringPacketClass's |
 | 2 | `Size` | `app/packets/gameedit/pkgespwn.h:50` | what it holds |
@@ -4210,11 +4218,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Connection` | `app/packets/pk.h:120` | what it holds |
 | 2 | `Serial` | `app/packets/pk.h:121` | what it holds |
 | 2 | `Next_Serial` | `app/packets/pk.h:122` | what it holds |
-| 2 | `Get_Type` | `app/packets/pk_classes.h:150` | what the derived classes' return (their opcode) |
-| 2 | `Get_Name` | `app/packets/pk_classes.h:152` | what the derived classes' return (a name) |
-| 2 | `Action2PacketClass` | `app/packets/pk_classes.h:198` | the reference decoder's opcode name ACTION2 (the Net-7 opcode table; no structure check) |
-| 2 | `ServerRedirectPacketClass` | `app/packets/pk_classes.h:207` | the reference decoder's opcode name SERVER_REDIRECT (the Net-7 opcode table; no structure check) |
-| 2 | `GlobalErrorPacketClass` | `app/packets/pk_classes.h:219` | the reference decoder's opcode name GLOBAL_ERROR (the Net-7 opcode table; no structure check) |
+| 2 | `Get_Type` | `app/packets/pk_classes.h:152` | what the derived classes' return (their opcode) |
+| 2 | `Get_Name` | `app/packets/pk_classes.h:154` | what the derived classes' return (a name) |
+| 2 | `Action2PacketClass` | `app/packets/pk_classes.h:200` | the reference decoder's opcode name ACTION2 (the Net-7 opcode table; no structure check) |
+| 2 | `GlobalErrorPacketClass` | `app/packets/pk_classes.h:209` | the reference decoder's opcode name GLOBAL_ERROR (the Net-7 opcode table; no structure check) |
 | 2 | `std:` | `app/packets/pk_player_object_relationship.cpp:166` | what it holds |
 | 2 | `std:` | `app/packets/pk_player_object_relationship.cpp:167` | what it holds |
 | 2 | `std:` | `app/packets/pk_player_object_relationship.cpp:258` | what it holds |
@@ -4266,6 +4273,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `DebugLabels` | `app/packets/pkdebug.cpp:9` | what it holds |
 | 2 | `DebugPacketClass` | `app/packets/pkdebug.h:22` | the reference decoder's opcode name DEBUG (the Net-7 opcode table; no structure check) |
 | 2 | `EquipUsePacketClass` | `app/packets/pkequipuse.h:22` | the reference decoder's opcode name EQUIP_USE (the Net-7 opcode table; no structure check) |
+| 2 | `Add_Player` | `app/packets/pkfindmember.h:42` | what it does |
 | 2 | `Get_Flag_Count` | `app/packets/pkflag.h:27` | what pkflag.cpp's asserts call it (flag_max) |
 | 2 | `Write_Flags` | `app/packets/pkflag.h:29` | what it does |
 | 2 | `Read_Flags` | `app/packets/pkflag.h:30` | what it does |
@@ -4395,6 +4403,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `RequestTransformChangePacketClass` | `app/packets/pkrequesttransformchange.h:22` | the reference decoder's opcode name REQUEST_TRANSFORM_CHANGE (the Net-7 opcode table; no structure check) |
 | 2 | `Ticket` | `app/packets/pkserverhandoff.h:35` | what it holds |
 | 2 | `Get_Type` | `app/packets/pkserverready.h:30` | what it returns (the opcode Build sends), as SuperLinePacketClass's |
+| 2 | `ServerRedirectPacketClass` | `app/packets/pkserverredirect.h:22` | the reference decoder's opcode name SERVER_REDIRECT (the Net-7 opcode table; the client's Print text 'Client_Redirect') |
 | 2 | `Sector_Type_Name` | `app/packets/pksetclienttype.h:20` | what it returns |
 | 2 | `SkillStringRqPacketClass` | `app/packets/pkskillstringrq.h:22` | the reference decoder's opcode name SKILL_STRING_RQ (the Net-7 opcode table; no structure check) |
 | 2 | `Length` | `app/packets/pksoundcommand.h:34` | what it holds |
@@ -5481,6 +5490,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `Data` | `app/packets/gameedit/pkgeplan.h:45` | the client's assert 'Data' and Print text 'Types=' |
 | 3 | `UnitType` | `app/packets/gameedit/pkgeplan.h:61` | the client's Print text 'UnitType=' |
 | 3 | `Data` | `app/packets/gameedit/pkgeplan.h:76` | the client's assert 'Data' and Print text 'Details=' |
+| 3 | `pkgesave.h` | `app/packets/gameedit/pkgesave.h:15` | the header of the client's gameedit\pkgesave.cpp |
+| 3 | `GameEditorSaveSectorPacketClass` | `app/packets/gameedit/pkgesave.h:21` | the client's Print text 'GameEditorSaveSector {' and the PacketClass convention |
+| 3 | `GameEditorSectorSavedPacketClass` | `app/packets/gameedit/pkgesave.h:34` | the client's Print text 'GameEditorSectorSaved' and the PacketClass convention |
+| 3 | `Success` | `app/packets/gameedit/pkgesave.h:45` | the client's Print text 'Success=' |
 | 3 | `pkgespwn.h` | `app/packets/gameedit/pkgespwn.h:15` | the header of the client's gameedit\pkgespwn.cpp |
 | 3 | `Data` | `app/packets/gameedit/pkgespwn.h:33` | the client's assert 'Data' and Print text 'SpawnLocationTemplateName=' |
 | 3 | `Data` | `app/packets/gameedit/pkgespwn.h:49` | the client's assert 'Data' and Print text 'DefaultValues=' |
@@ -5557,6 +5570,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `GameID` | `app/packets/pkequipuse.h:32` | the client's Print text 'GameID=' |
 | 3 | `Inventory` | `app/packets/pkequipuse.h:33` | the client's Print text 'Inventory=' |
 | 3 | `Slot` | `app/packets/pkequipuse.h:34` | the client's Print text 'Slot=' |
+| 3 | `pkfindmember.h` | `app/packets/pkfindmember.h:15` | the header of the client's pkfindmember.cpp |
+| 3 | `FindMemberPacketClass` | `app/packets/pkfindmember.h:31` | the client's file pkfindmember.cpp and the reference decoder's opcode name FIND_MEMBER |
 | 3 | `pkflag.h` | `app/packets/pkflag.h:17` | after the client's pkflag.cpp (D57) |
 | 3 | `FlagPacketClass` | `app/packets/pkflag.h:24` | after the client's file pkflag.cpp (D24) |
 | 3 | `GadgetPacketClass` | `app/packets/pkgadget.h:21` | the client's Print text 'Gadget Control' |
@@ -5998,7 +6013,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `ServerProtocolVersion` | `app/packets/pkunknown_85f250.h:57` | the client's Print text 'ServerProtocolVersion=' |
 | 3 | `GameID` | `app/packets/pkunknown_861760.h:32` | the client's Print text 'GameID=' |
 | 3 | `GameID` | `app/packets/pkunknown_861b30.h:31` | the client's Print text 'GameID=' |
-| 3 | `GameEditorSaveSectorPacketClass` | `app/packets/pkunknown_861db0.h:21` | the client's Print text 'GameEditorSaveSector {' and the PacketClass convention |
 | 3 | `Result` | `app/packets/pkunknown_866ac0.h:47` | the client's Print text 'Result=' |
 | 3 | `std:` | `app/packets/pkunknown_867010.h:33` | the client's Print text 'Name=' |
 | 3 | `GameID` | `app/packets/pkunknown_877640.h:33` | the client's Print text 'GameID=' |

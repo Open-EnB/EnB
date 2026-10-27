@@ -22,6 +22,7 @@
 #include "gameedit\pkgekv.h"	// rebuilt
 #include "gameedit\pkgeobj.h"	// rebuilt
 #include "gameedit\pkgeplan.h"	// rebuilt
+#include "gameedit\pkgesave.h"	// rebuilt
 #include "gameedit\pkgespwn.h"	// rebuilt
 #include "pk_player_object_relationship.h"	// rebuilt
 #include "pk_sub_parts.h"	// rebuilt
@@ -44,6 +45,7 @@
 #include "pkdialog.h"	// rebuilt
 #include "pkdirlock.h"	// rebuilt
 #include "pkequipuse.h"	// rebuilt
+#include "pkfindmember.h"	// rebuilt
 #include "pkgadget.h"	// rebuilt
 #include "pkgalaxymap.h"	// rebuilt
 #include "pkglobalavatarlist.h"	// rebuilt
@@ -100,6 +102,7 @@
 #include "pkserverhandoff.h"	// rebuilt
 #include "pkserverparameters.h"	// rebuilt
 #include "pkserverready.h"	// rebuilt
+#include "pkserverredirect.h"	// rebuilt
 #include "pksetclienttype.h"	// rebuilt
 #include "pksetzband.h"	// rebuilt
 #include "pkskill.h"	// rebuilt
@@ -119,7 +122,6 @@
 #include "pkunknown_85d1a0.h"	// rebuilt
 #include "pkunknown_85d4b0.h"	// rebuilt
 #include "pkunknown_85f250.h"	// rebuilt
-#include "pkunknown_861db0.h"	// rebuilt
 #include "pkunknown_863720.h"	// rebuilt
 #include "pkunknown_865020.h"	// rebuilt
 #include "pkunknown_8667a0.h"	// rebuilt
@@ -203,18 +205,6 @@ public:
 	char Unknown0C[0x1C];	// +0x0C
 };
 
-// opcode 54 (0x0036, SERVER_REDIRECT): vtable 0xB0B6B4, constructor 0x8A1590, 0x18 bytes
-class ServerRedirectPacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name SERVER_REDIRECT (the Net-7 opcode table; no structure check)
-{
-public:
-	ServerRedirectPacketClass(RawPacketClass *raw);	// 0x8A1590
-	virtual bool Process_Packet(void *client);	// +0x08 0x766FC0 (tsk_game.cpp)
-
-	int Unknown0C;	// +0x0C
-	unsigned long Address;	// +0x10  // NAME 1: handed to Redirect (tsk_game.cpp 0x766FC0)
-	unsigned short Port;	// +0x14  // NAME 1: handed to Redirect (tsk_game.cpp 0x766FC0)
-};
-
 // opcode 117 (0x0075, GLOBAL_ERROR): vtable 0xB09490, constructor 0x864C90, 0x24 bytes
 class GlobalErrorPacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name GLOBAL_ERROR (the Net-7 opcode table; no structure check)
 {
@@ -225,14 +215,6 @@ public:
 	int Unknown0C;	// +0x0C
 	int Error;	// +0x10  // NAME 1: the log 'GlobalErrorPacketClass recv: %d : %d : %s' (tsk_login.cpp)
 	std::string Message;	// +0x14  // NAME 1: the same log
-};
-
-// opcode 83 (0x0053, FIND_MEMBER): vtable 0xB0A58C, constructor 0x886710, 0x1C bytes
-class FindMemberPacketClass : public PacketClass
-{
-public:
-	FindMemberPacketClass(RawPacketClass *raw);	// 0x886710
-	char Unknown0C[0x10];	// +0x0C
 };
 
 // opcode 91 (0x005B, ?): vtable 0xB0C268, constructor 0x8AF150, 0x20 bytes

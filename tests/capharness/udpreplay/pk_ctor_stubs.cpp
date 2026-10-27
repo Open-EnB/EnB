@@ -6,9 +6,7 @@ void Conn_Record(PacketClass *packet, RawPacketClass *raw);
 
 Packet_0015Class::Packet_0015Class(RawPacketClass *raw) { Conn_Record(this, raw); }
 Action2PacketClass::Action2PacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-ServerRedirectPacketClass::ServerRedirectPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 GlobalErrorPacketClass::GlobalErrorPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-FindMemberPacketClass::FindMemberPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 VerbListPacketClass::VerbListPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_00B5Class::Packet_00B5Class(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_00B6Class::Packet_00B6Class(RawPacketClass *raw) { Conn_Record(this, raw); }
@@ -53,6 +51,7 @@ bool DeactivateRenderStatePacketClass::Process_Packet(void *) { return(true); }	
 bool SetClientTimePacketClass::Process_Packet(void *) { return(true); }	// 0x737960
 bool ClientAvatarPacketClass::Process_Packet(void *) { return(true); }	// 0x733590
 bool SplinePacketClass::Process_Packet(void *) { return(true); }	// 0x737C10
+bool ServerRedirectPacketClass::Process_Packet(void *) { return(true); }	// 0x766FC0
 bool ServerHandoffPacketClass::Process_Packet(void *) { return(true); }	// 0x737CB0
 bool SetClientTypePacketClass::Process_Packet(void *) { return(true); }	// 0x737E10
 bool ServerParametersPacketClass::Process_Packet(void *) { return(true); }	// 0x737F00
@@ -66,6 +65,7 @@ bool ModeChangePacketClass::Process_Packet(void *) { return(true); }	// 0x738100
 bool StarbaseSetPacketClass::Process_Packet(void *) { return(true); }	// 0x7381C0
 bool StarbaseTowPacketClass::Process_Packet(void *) { return(true); }	// 0x738330
 bool LoungeNPCPacketClass::Process_Packet(void *) { return(true); }	// 0x7385B0
+bool FindMemberPacketClass::Process_Packet(void *) { return(true); }	// 0x739500
 bool TalkTreePacketClass::Process_Packet(void *) { return(true); }	// 0x738670
 bool TalkTreeActionPacketClass::Process_Packet(void *) { return(true); }	// 0x738730
 bool VerbUpdatePacketClass::Process_Packet(void *) { return(true); }	// 0x7388B0
@@ -130,4 +130,3 @@ const char *Packet_0015Class::Get_Name() { return("Packet_0015Class"); }
 bool PriorityMessageLinePacketClass::Process_Packet(void *) { return(true); }
 bool QueueMessageLinePacketClass::Process_Packet(void *) { return(true); }
 bool PushMessageLinePacketClass::Process_Packet(void *) { return(true); }
-bool ServerRedirectPacketClass::Process_Packet(void *) { return(true); }
