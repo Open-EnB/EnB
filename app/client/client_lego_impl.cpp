@@ -280,6 +280,178 @@ RefCountPtr<LegoClass> ClientLegoImplClass::Find(const LegoIdentifierClass &id) 
 	return NULL;
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// NOT EXACT: literal (EH states one lower than the client's from the new-child branch on), frame 0x9C vs 0xA8 (attempts.csv)
+void ClientLegoImplClass::Add(const RefCountPtr<LegoClass> &lego)
+{
+	LegoSplitStruct split(Identifier, lego->Get_Identifier());
+	FAIL_IF(split.Is_Invalid()) return;
+	std::hash_map<std::string, LegoChildStruct>::iterator child_find = Children.find(split.Name);
+	if (split.State == 0) {
+		if (child_find != Children.end()) {
+			LegoChildStruct &record = (*child_find).second;
+			std::vector<RefCountPtr<LegoClass> > legos;
+			record.Child->Detach_All(legos);
+			if (record.Knob) {
+				Detach(record.Child, RenderObject, record.Knob);
+			}
+			record.Child = lego;
+			if (record.Knob) {
+				Attach(lego, RenderObject, record.Knob);
+				Update_Radius();
+			}
+			for (std::vector<RefCountPtr<LegoClass> >::iterator it = legos.begin(); it != legos.end(); ++it) {
+				lego->Add(*it);
+			}
+		} else {
+			RefCountPtr<LegoKnobClass> knob;
+			RefCountPtr<LegoClass> child = lego;
+			if (BoneMap) {
+				knob = BoneMap->Get_Knob(split.Name);
+			}
+			LegoChildStruct &record = Children[split.Name];
+			record.Child = child;
+			record.Knob = knob;
+			if (knob) {
+				Attach(lego, RenderObject, knob);
+				Update_Radius();
+			}
+			std::hash_map<std::string, RefCountPtr<LegoOrphanDataClass> >::iterator orphan_find = Orphans.find(split.Name);
+			if (orphan_find != Orphans.end()) {
+				RefCountPtr<LegoOrphanDataClass> child_orphan_data = (*orphan_find).second;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+				FAIL_IF(!child_orphan_data) return;
+				Orphans.erase(orphan_find);
+				for (std::vector<RefCountPtr<LegoClass> >::iterator it = child_orphan_data->Legos.begin(); it != child_orphan_data->Legos.end(); ++it) {
+					lego->Add(*it);
+				}
+			}
+		}
+	} else if (child_find != Children.end()) {
+		RefCountPtr<LegoClass> child = (*child_find).second.Child;
+		child->Add(lego);
+	} else {
+		std::hash_map<std::string, RefCountPtr<LegoOrphanDataClass> >::iterator orphan_find = Orphans.find(split.Name);
+		RefCountPtr<LegoOrphanDataClass> data;
+		if (orphan_find == Orphans.end()) {
+			data = Create_NEW(new LegoOrphanDataClass);
+			Orphans[split.Name] = data;
+		} else {
+			data = (*orphan_find).second;
+		}
+		data->Legos.push_back(lego);
+	}
+}
+
 void ClientLegoImplClass::Detach_All(std::vector<RefCountPtr<LegoClass> > &legos)
 {
 	for (std::hash_map<std::string, LegoChildStruct>::iterator it = Children.begin(); it != Children.end(); ++it) {
@@ -300,178 +472,6 @@ void ClientLegoImplClass::Detach_All(std::vector<RefCountPtr<LegoClass> > &legos
 	Orphans.clear();
 	Update_Radius();
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

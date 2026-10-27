@@ -71,7 +71,7 @@ public:
 	virtual RefCountPtr<RenderObjClass> Get_Render_Object(void) const = 0;	// +0x24  // NAME 2: what it returns
 	virtual RefCountPtr<LegoClass> Find(const LegoIdentifierClass &id) const = 0;	// +0x28: a lego below this one, by its identifier  // NAME 2: what it does
 	virtual Matrix3D Get_Lego_Transform(const LegoIdentifierClass &id) const = 0;	// +0x2C: the bone a lego below this one hangs on  // NAME 2: what it returns
-	virtual void Unknown_30(void) = 0;								// +0x30  // NAME 1: neutral (D10)
+	virtual void Add(const RefCountPtr<LegoClass> &lego) = 0;		// +0x30: hangs a lego below this one, or keeps it as an orphan  // NAME 2: what it does
 	virtual void Unknown_34(void) = 0;								// +0x34  // NAME 1: neutral (D10)
 	virtual void Detach_All(std::vector<RefCountPtr<LegoClass> > &legos) = 0;	// +0x38  // NAME 2: what it does
 	virtual void Unknown_3C(int unknown) = 0;						// +0x3C  // NAME 1: neutral (D10)
@@ -142,7 +142,7 @@ public:
 	virtual RefCountPtr<RenderObjClass> Get_Render_Object(void) const;	// 0x72AB80
 	virtual RefCountPtr<LegoClass> Find(const LegoIdentifierClass &id) const;	// 0x72ABB0
 	virtual Matrix3D Get_Lego_Transform(const LegoIdentifierClass &id) const;	// 0x72B000
-	virtual void Unknown_30(void);									// 0x72B7F0
+	virtual void Add(const RefCountPtr<LegoClass> &lego);			// 0x72B7F0
 	virtual void Unknown_34(void);									// 0x72C1D0
 	virtual void Detach_All(std::vector<RefCountPtr<LegoClass> > &legos);	// 0x72C8B0
 	virtual void Unknown_3C(int unknown);							// 0x72CBF0
