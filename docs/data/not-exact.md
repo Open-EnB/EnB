@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-189 entries in 51 files.
+190 entries in 51 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -43,9 +43,10 @@ edit the comments in the code, not this file.
 | `app/client/tutorial_manager.cpp:185` | `TutorialManagerClass::Start_Step` | marker | NOT EXACT: inline budget (explain.py: inline-budget), the client calls the table's find 0x6AE490 and the key string's _Tidy out of line (frame 0x18), ours inlines find as Find does |
 | `app/client/tutorial_manager.cpp:262` | `TutorialManagerClass::Read_Completed_File` | marker | NOT EXACT: inline budget (explain.py: register-only), the client calls the list's insert 0x6AE5A0 out of line for the first nine names; ours for seven, then alternates |
 | `app/client/tutorial_manager.cpp:363` | `TutorialManagerClass::Reload` | marker | NOT EXACT: inline budget (explain.py: inline-budget), the destructor's iterator loop and the constructor's string inlining (see both) |
-| `app/client/ui_line_display.cpp:50` | `EphemeralStruct::EphemeralStruct` | marker | NOT EXACT: register-only (explain.py), the Chance pointer stepped before the type string is freed; the client after it |
+| `app/client/ui_line_display.cpp:94` | `EphemeralStruct::EphemeralStruct` | marker | NOT EXACT: register-only (explain.py), the Chance pointer stepped before the type string is freed; the client after it |
 | `app/client/ui_line_display.cpp:176` | `UILineDisplayClass::~UILineDisplayClass` | marker | NOT EXACT: shape (explain.py: 31 vs 30 calls), as buff_database.cpp's 0x677410: the hash_map loops keep other registers and ours calls the vector's empty _Destroy |
-| `app/client/ui_line_display.cpp:343` | `UILineDisplayClass::Show_Ephemeral` | marker | NOT EXACT: inline budget (explain.py), the client converts find's and end()'s iterators to const_iterator out of line (0x5A9010), ours inline |
+| `app/client/ui_line_display.cpp:316` | `UILineDisplayClass::Unknown_60` | marker | NOT EXACT: inline budget (explain.py), the client calls the 30-line trim's push_back insert 0x5A8DD0 out of line, ours inlines it |
+| `app/client/ui_line_display.cpp:520` | `UILineDisplayClass::Show_Ephemeral` | marker | NOT EXACT: inline budget (explain.py), the client converts find's and end()'s iterators to const_iterator out of line (0x5A9010), ours inline |
 | `app/client/ui_line_display.cpp:590` | `UILineDisplayClass::Unknown_7C` | marker | NOT EXACT: shape (explain.py), the hash_map loop's first bucket search laid out differently (as 0x677410) |
 | `app/client/ui_line_display.cpp:617` | `UILineDisplayClass::Clear` | marker | NOT EXACT: shape (explain.py), the hash_map iterator kept in esi by the client, in the frame by ours (as 0x677410) |
 | `app/client/ui_line_display.cpp:642` | `UILineDisplayClass::Find_Ephemeral` | marker | NOT EXACT: inline budget (explain.py), the client inlines the key's assign and calls find 0x5A9460 out of line, ours the reverse (as 0x6ACF50) |
