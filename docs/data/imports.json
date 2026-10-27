@@ -877,6 +877,22 @@
     "merged": [],
     "name": "common/connect.cpp"
    },
+   "control_keys_manager": {
+    "ambiguous": [
+     "0x42B2F0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x71CC20",
+     "0x71CC60",
+     "0x71CCA0",
+     "0x71CCE0",
+     "0x71CD20"
+    ],
+    "merged": [],
+    "name": "client/control_keys_manager.cpp"
+   },
    "cordcon": {
     "ambiguous": [
      "0x42A900",
@@ -6178,6 +6194,7 @@
    "client/buff_database.h": "reconstructed",
    "client/cfaction_database.h": "reconstructed",
    "client/client.h": "reconstructed",
+   "client/control_keys_manager.h": "reconstructed",
    "client/sclient.h": "reconstructed",
    "client/soptions.h": "reconstructed",
    "client/tasks/tsk_game.h": "reconstructed",

@@ -3489,6 +3489,8 @@ RECONSTRUCTED = {
                                            "table's and list's instances after it: the reports on the client's lines 94 / 114 / "
                                            "190 / 382 / 402 (D25); NOT EXACT: the constructor 0x6AC600, the destructor 0x6ACD10, "
                                            "Start_Step 0x6ACF50, Read_Completed_File 0x6AD4B0, Reload 0x6AD7B0",
+    ('app', 'client/control_keys_manager.h'): "ControlKeysManager's key definitions (D10, D24): the definition holder ControlKeyDefClass (the client's DefPtr) and what it points at, declared as far as the rebuilt functions need",
+    ('app', 'client/control_keys_manager.cpp'): "control_keys_manager.cpp, client 0x7197A0-0x720F80: the static empty string 0xBE7B80 and the definition accessors 0x71CC20-0x71CD20 (FAIL_IF lines 651-676, D25); the manager, its tables (_Instances, _KeyDefinitions on libs/sgistl, D87) and the ini loaders not yet",
     ('app', 'client/ui_line_display.h'): "UILineDisplayClass (D24), the line display screen on intrface.cpp's base "
                                         "(declared as far as the file needs it, D10): ephemeral.ini's entries and "
                                         "fc_line_display.ini's STR-n text objects in SGI hash_maps (libs/sgistl, D87)",
