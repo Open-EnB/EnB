@@ -99,6 +99,7 @@ public:
 	bool Unknown_6F5DC0();								// 0x6F5DC0 (co.cpp; cpacket.cpp's SET_TARGET 25 tests it)
 	void Unknown_6FEF70(SubPartsPacket *packet);		// 0x6FEF70 (co.cpp; cpacket.cpp's SUBPARTS 180)  // NAME 1 [packet]: the handler's packet
 	void Unknown_70E750(int id);						// 0x70E750 (cpacket.cpp's SET_TARGET 25 passes its TargetID)  // NAME 1 [id]: the packet's TargetID
+	void Unknown_6F3810(RenderObjClass *model);			// 0x6F3810 the +0x158 models on the model's bones, then its sub-objects'  // NAME 2 [model]: what it is
 	float Unknown_6F3ED0();								// 0x6F3ED0 an angle from +0x98's slot +0x14, clamped to 36 degrees
 	float Unknown_6F4290();								// 0x6F4290 (not rebuilt)
 	void Unknown_6F3BF0(bool hidden);					// 0x6F3BF0 (the model's Set_Hidden)  // NAME 2 [hidden]: Set_Hidden's argument
@@ -176,7 +177,9 @@ public:
 	bool Unknown128;									// +0x128 (0x6FC950 sets it)
 	char Unknown129[0x12C - 0x129];						// +0x129
 	int Relationship[2];								// +0x12C a RelationshipClass (pk_player_object_relationship.h; the constructor's 0x848C80): 0x6FEEE0 sets it  // NAME 2: what it holds
-	char Unknown134[0x174 - 0x134];						// +0x134
+	char Unknown134[0x158 - 0x134];						// +0x134
+	RenderObjClass *Unknown158[6];						// +0x158 the models 0x6F3810 hangs on the ~FL ~FR ~BL ~BR ~FL ~FR bones: RefCountPtr<RenderObjClass> in the client (the constructor's vector constructor 0x5464F0 / 0x4740B0), raw here until the constructor is rebuilt
+	char Unknown170[0x174 - 0x170];						// +0x170
 	float Unknown174;									// +0x174 (0x700820 sets 2.0f)
 	float Unknown178[3];								// +0x178 a Vector3 (0x700820)
 	bool Unknown184;									// +0x184 (the constructor's 1; 0x7009A0's state)

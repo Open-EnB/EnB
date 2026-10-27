@@ -52,29 +52,29 @@ RenderObjClass *ClientObjectClass::Unknown_6F3BC0()
 	Model->Add_Ref();
 	return(Model);
 }
+static inline void Attach_To_Bone(RenderObjClass *model, RenderObjClass *object, const char *bone_name)
+{
+	int bone = model->Get_Bone_Index(bone_name);
+	if (bone) {
+		model->Add_Sub_Object_To_Bone(object, bone);
+	}
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// 0x6F3810
+void ClientObjectClass::Unknown_6F3810(RenderObjClass *model)
+{
+	Attach_To_Bone(model, Unknown158[0], "~FL");
+	Attach_To_Bone(model, Unknown158[1], "~FR");
+	Attach_To_Bone(model, Unknown158[2], "~BL");
+	Attach_To_Bone(model, Unknown158[3], "~BR");
+	Attach_To_Bone(model, Unknown158[4], "~FL");
+	Attach_To_Bone(model, Unknown158[5], "~FR");
+	int count = model->Get_Num_Sub_Objects();
+	for (int i = 0; i < count; i++) {
+		RefCountPtr<RenderObjClass> sub = Create_Get(model->Get_Sub_Object(i));
+		Unknown_6F3810(sub.Peek());
+	}
+}
 
 
 
