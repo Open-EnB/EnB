@@ -79,16 +79,13 @@ GuildPlayerOnlinePacketClass::GuildPlayerOnlinePacketClass(RawPacketClass *raw) 
 GuildAdjustContribPacketClass::GuildAdjustContribPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 GuildStatusUpdatePacketClass::GuildStatusUpdatePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 GuildBeginCreationPacketClass::GuildBeginCreationPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-GuildLeaderAcceptClientPacketClass::GuildLeaderAcceptClientPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 GuildLeaderAcceptSectorPacketClass::GuildLeaderAcceptSectorPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 GuildRecruitConfirmGuildPacketClass::GuildRecruitConfirmGuildPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-GuildRecruitAcceptClientPacketClass::GuildRecruitAcceptClientPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 GuildRecruitAcceptSectorPacketClass::GuildRecruitAcceptSectorPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 GuildSimpleGuildSectorPacketClass::GuildSimpleGuildSectorPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 GuildSimpleSectorGuildPacketClass::GuildSimpleSectorGuildPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 GuildMessageGuildPacketClass::GuildMessageGuildPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 GuildPermissionsPacketClass::GuildPermissionsPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-GuildPlayerPermissionsPacket::GuildPlayerPermissionsPacket(RawPacketClass *raw) { Conn_Record(this, raw); }
 GuildRankNamesSectorPacket::GuildRankNamesSectorPacket(RawPacketClass *raw) { Conn_Record(this, raw); }
 GuildRankNamesGuildPacketClass::GuildRankNamesGuildPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 GuildRankNamesRequestSectorPacketClass::GuildRankNamesRequestSectorPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
@@ -184,6 +181,7 @@ bool ConfirmedActionTimeoutPacketClass::Process_Packet(void *) { return(true); }
 bool GuildRecruitConfirmSectorPacket::Process_Packet(void *) { return(true); }	// 0x73E720
 bool GuildSimpleSectorClientPacket::Process_Packet(void *) { return(true); }	// 0x73DD00
 bool GuildMessageSectorPacket::Process_Packet(void *) { return(true); }	// 0x73E9E0
+bool GuildPlayerPermissionsPacket::Process_Packet(void *) { return(true); }	// 0x73ED40
 bool GuildGMRenameConfirmSectorPacket::Process_Packet(void *) { return(true); }	// 0x73EEF0
 bool Packet_0078Class::Process_Packet(void *) { return(true); }	// 0x76BB70
 bool ReferralPointsAvailablePacketClass::Process_Packet(void *) { return(true); }	// 0x73F3D0

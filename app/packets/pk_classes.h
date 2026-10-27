@@ -808,15 +808,6 @@ public:
 	char Unknown0C[0x2C];	// +0x0C
 };
 
-// opcode 197 (0x00C5, GUILD_LEADER_ACCEPT_CLIENT): vtable 0xB0A8E4, constructor 0x88C6E0, 0x24 bytes
-class GuildLeaderAcceptClientPacketClass : public PacketClass  // NAME 3: the client's Print text 'GuildLeaderAcceptClient {' and the PacketClass convention
-{
-public:
-	GuildLeaderAcceptClientPacketClass(RawPacketClass *raw);	// 0x88C6E0
-	virtual bool Process_Packet(void *client);	// +0x08 0x869030 (clientstub.cpp l.359)
-	char Unknown0C[0x18];	// +0x0C
-};
-
 // opcode 198 (0x00C6, ?): vtable 0xB0AB54, constructor 0x890540, 0x30 bytes
 class GuildLeaderAcceptSectorPacketClass : public PacketClass  // NAME 3: the client's Print text 'GuildLeaderAcceptSector {' and the PacketClass convention
 {
@@ -833,15 +824,6 @@ public:
 	GuildRecruitConfirmGuildPacketClass(RawPacketClass *raw);	// 0x890A00
 	virtual bool Process_Packet(void *client);	// +0x08 0x869090 (clientstub.cpp l.365)
 	char Unknown0C[0x2C];	// +0x0C
-};
-
-// opcode 201 (0x00C9, GUILD_RECRUIT_ACCEPT_CLIENT): vtable 0xB0A944, constructor 0x88CEB0, 0x14 bytes
-class GuildRecruitAcceptClientPacketClass : public PacketClass  // NAME 3: the client's Print text 'GuildRecruitAcceptClient {' and the PacketClass convention
-{
-public:
-	GuildRecruitAcceptClientPacketClass(RawPacketClass *raw);	// 0x88CEB0
-	virtual bool Process_Packet(void *client);	// +0x08 0x8690C0 (clientstub.cpp l.368)
-	char Unknown0C[0x8];	// +0x0C
 };
 
 // opcode 202 (0x00CA, ?): vtable 0xB0ABB4, constructor 0x890F30, 0x40 bytes
@@ -887,14 +869,6 @@ public:
 	GuildPermissionsPacketClass(RawPacketClass *raw);	// 0x891E90
 	virtual bool Process_Packet(void *client);	// +0x08 0x869180 (clientstub.cpp l.380)
 	char Unknown0C[0x1C];	// +0x0C
-};
-
-// opcode 210 (0x00D2, GUILD_PLAYER_PERMISSIONS): vtable 0xB0A9A4, constructor 0x88D630, 0x1C bytes
-class GuildPlayerPermissionsPacket : public PacketClass
-{
-public:
-	GuildPlayerPermissionsPacket(RawPacketClass *raw);	// 0x88D630
-	char Unknown0C[0x10];	// +0x0C
 };
 
 // opcode 211 (0x00D3, GUILD_RANK_NAMES_SECTOR): vtable 0xB0AA04, constructor 0x88DE10, 0x1C bytes

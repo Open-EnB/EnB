@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 11 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 29 |
-| 3 | by convention from a client-named file or sibling | 487 |
+| 3 | by convention from a client-named file or sibling | 492 |
 | 2 | describes what the code does | 932 |
-| 1 | neutral placeholder | 1336 |
+| 1 | neutral placeholder | 1346 |
 
 ## For review (score 3 and below)
 
@@ -631,10 +631,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Packet_00ADClass` | `app/packets/pk_classes.h:741` | neutral (D10): opcode 0x00AD |
 | 1 | `Packet_00B0Class` | `app/packets/pk_classes.h:750` | neutral (D10): opcode 0x00B0 |
 | 1 | `Packet_00B1Class` | `app/packets/pk_classes.h:759` | neutral (D10): opcode 0x00B1 |
-| 1 | `Packet_00DEClass` | `app/packets/pk_classes.h:981` | neutral (D10): opcode 0x00DE |
-| 1 | `Packet_00E6Class` | `app/packets/pk_classes.h:990` | neutral (D10): opcode 0x00E6 |
-| 1 | `Packet_00E7Class` | `app/packets/pk_classes.h:999` | neutral (D10): opcode 0x00E7 |
-| 1 | `Packet_0077Class` | `app/packets/pk_classes.h:1008` | neutral (D10): opcode 0x0077 |
+| 1 | `Packet_00DEClass` | `app/packets/pk_classes.h:955` | neutral (D10): opcode 0x00DE |
+| 1 | `Packet_00E6Class` | `app/packets/pk_classes.h:964` | neutral (D10): opcode 0x00E6 |
+| 1 | `Packet_00E7Class` | `app/packets/pk_classes.h:973` | neutral (D10): opcode 0x00E7 |
+| 1 | `Packet_0077Class` | `app/packets/pk_classes.h:982` | neutral (D10): opcode 0x0077 |
 | 1 | `Unknown_14` | `app/packets/pk_player_object_relationship.cpp:10` | untagged neutral name (D10) |
 | 1 | `Unknown_14` | `app/packets/pk_sub_parts.cpp:29` | untagged neutral name (D10) |
 | 1 | `Unknown14` | `app/packets/pkaction.cpp:10` | untagged neutral name (D10) |
@@ -756,7 +756,17 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `pkglobalticketrequest` | `app/packets/pkglobalticketrequest.h:16` | provisional, pk + its first named class's name |
 | 1 | `Unknown0C` | `app/packets/pkglobalticketrequest.h:32` | untagged neutral name (D10) |
 | 1 | `pkgroup` | `app/packets/pkgroup.h:15` | provisional, pk + its class's name |
+| 1 | `Unknown0C` | `app/packets/pkguildranknamesrequestclient.cpp:169` | untagged neutral name (D10) |
+| 1 | `Unknown10` | `app/packets/pkguildranknamesrequestclient.cpp:169` | untagged neutral name (D10) |
+| 1 | `Unknown14` | `app/packets/pkguildranknamesrequestclient.cpp:169` | untagged neutral name (D10) |
+| 1 | `Unknown18` | `app/packets/pkguildranknamesrequestclient.cpp:169` | untagged neutral name (D10) |
 | 1 | `pkguildranknamesrequestclient` | `app/packets/pkguildranknamesrequestclient.h:16` | provisional, pk + its first named class's name |
+| 1 | `GuildPermissionEnum` | `app/packets/pkguildranknamesrequestclient.h:22` | neutral placeholder (D10) |
+| 1 | `GUILD_PERMISSION_NONE` | `app/packets/pkguildranknamesrequestclient.h:24` | neutral placeholder (D10) |
+| 1 | `Unknown0C` | `app/packets/pkguildranknamesrequestclient.h:128` | untagged neutral name (D10) |
+| 1 | `Unknown10` | `app/packets/pkguildranknamesrequestclient.h:129` | untagged neutral name (D10) |
+| 1 | `Unknown14` | `app/packets/pkguildranknamesrequestclient.h:130` | untagged neutral name (D10) |
+| 1 | `Unknown18` | `app/packets/pkguildranknamesrequestclient.h:131` | untagged neutral name (D10) |
 | 1 | `pkhullupgrade` | `app/packets/pkhullupgrade.h:16` | provisional, pk + its first named class's name |
 | 1 | `Unknown0C` | `app/packets/pkincapacitancerequest.cpp:63` | untagged neutral name (D10) |
 | 1 | `pkincapacitancerequest` | `app/packets/pkincapacitancerequest.h:16` | provisional, pk + its first named class's name |
@@ -1122,86 +1132,93 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_4A1590` | `app/shared/kv_tripl.cpp:6` | neutral placeholder (D10) |
 | 1 | `Type` | `app/shared/kv_tripl.h:47` | neutral guess, a short string beside the value |
 | 1 | `Get_Type` | `app/shared/kv_tripl.h:66` | neutral guess |
-| 1 | `Unknown_466F10` | `app/shared/land.cpp:10` | unknown; deletes a global object (0xBDC0D8) and clears it; called by the land's dtor only |
-| 1 | `m_UnknownE4` | `app/shared/land.cpp:14` | untagged neutral name (D10) |
-| 1 | `m_Unknown114` | `app/shared/land.cpp:18` | untagged neutral name (D10) |
-| 1 | `m_Unknown120` | `app/shared/land.cpp:19` | untagged neutral name (D10) |
-| 1 | `m_Unknown17C` | `app/shared/land.cpp:29` | untagged neutral name (D10) |
-| 1 | `m_Unknown184` | `app/shared/land.cpp:30` | untagged neutral name (D10) |
-| 1 | `m_Unknown190` | `app/shared/land.cpp:32` | untagged neutral name (D10) |
-| 1 | `m_Unknown191` | `app/shared/land.cpp:33` | untagged neutral name (D10) |
-| 1 | `m_Unknown192` | `app/shared/land.cpp:34` | untagged neutral name (D10) |
-| 1 | `m_Unknown1E4` | `app/shared/land.cpp:49` | untagged neutral name (D10) |
-| 1 | `m_Unknown1E8` | `app/shared/land.cpp:50` | untagged neutral name (D10) |
-| 1 | `m_Unknown1EC` | `app/shared/land.cpp:51` | untagged neutral name (D10) |
-| 1 | `m_Unknown1F0` | `app/shared/land.cpp:52` | untagged neutral name (D10) |
-| 1 | `m_Unknown1F4` | `app/shared/land.cpp:53` | untagged neutral name (D10) |
-| 1 | `m_Unknown1F8` | `app/shared/land.cpp:54` | untagged neutral name (D10) |
-| 1 | `m_UnknownDFC` | `app/shared/land.cpp:55` | untagged neutral name (D10) |
-| 1 | `m_UnknownDFE` | `app/shared/land.cpp:56` | untagged neutral name (D10) |
-| 1 | `m_UnknownE00` | `app/shared/land.cpp:57` | untagged neutral name (D10) |
-| 1 | `m_UnknownE04` | `app/shared/land.cpp:58` | untagged neutral name (D10) |
-| 1 | `m_UnknownE08` | `app/shared/land.cpp:59` | untagged neutral name (D10) |
-| 1 | `m_Unknown120C` | `app/shared/land.cpp:60` | untagged neutral name (D10) |
-| 1 | `m_Unknown1214` | `app/shared/land.cpp:62` | untagged neutral name (D10) |
-| 1 | `m_Unknown94` | `app/shared/land.cpp:67` | untagged neutral name (D10) |
-| 1 | `m_UnknownBC` | `app/shared/land.cpp:68` | untagged neutral name (D10) |
-| 1 | `m_Unknown158` | `app/shared/land.cpp:71` | untagged neutral name (D10) |
-| 1 | `m_Unknown140` | `app/shared/land.cpp:72` | untagged neutral name (D10) |
-| 1 | `m_Unknown178` | `app/shared/land.cpp:89` | untagged neutral name (D10) |
-| 1 | `m_Unknown180` | `app/shared/land.cpp:90` | untagged neutral name (D10) |
-| 1 | `m_Unknown188` | `app/shared/land.cpp:91` | untagged neutral name (D10) |
+| 1 | `Unknown_466F10` | `app/shared/land.cpp:8` | unknown; deletes a global object (0xBDC0D8) and clears it; called by the land's dtor only |
+| 1 | `m_Unknown8C` | `app/shared/land.cpp:11` | untagged neutral name (D10) |
+| 1 | `m_UnknownE4` | `app/shared/land.cpp:12` | untagged neutral name (D10) |
+| 1 | `m_Unknown114` | `app/shared/land.cpp:16` | untagged neutral name (D10) |
+| 1 | `m_Unknown120` | `app/shared/land.cpp:17` | untagged neutral name (D10) |
+| 1 | `m_Unknown137` | `app/shared/land.cpp:24` | untagged neutral name (D10) |
+| 1 | `m_Unknown138` | `app/shared/land.cpp:25` | untagged neutral name (D10) |
+| 1 | `m_Unknown17C` | `app/shared/land.cpp:27` | untagged neutral name (D10) |
+| 1 | `m_Unknown184` | `app/shared/land.cpp:28` | untagged neutral name (D10) |
+| 1 | `m_Unknown190` | `app/shared/land.cpp:30` | untagged neutral name (D10) |
+| 1 | `m_Unknown191` | `app/shared/land.cpp:31` | untagged neutral name (D10) |
+| 1 | `m_Unknown192` | `app/shared/land.cpp:32` | untagged neutral name (D10) |
+| 1 | `m_Unknown1E0` | `app/shared/land.cpp:46` | untagged neutral name (D10) |
+| 1 | `m_Unknown1E4` | `app/shared/land.cpp:47` | untagged neutral name (D10) |
+| 1 | `m_Unknown1E8` | `app/shared/land.cpp:48` | untagged neutral name (D10) |
+| 1 | `m_Unknown1EC` | `app/shared/land.cpp:49` | untagged neutral name (D10) |
+| 1 | `m_Unknown1F0` | `app/shared/land.cpp:50` | untagged neutral name (D10) |
+| 1 | `m_Unknown1F4` | `app/shared/land.cpp:51` | untagged neutral name (D10) |
+| 1 | `m_Unknown1F8` | `app/shared/land.cpp:52` | untagged neutral name (D10) |
+| 1 | `m_UnknownDFC` | `app/shared/land.cpp:53` | untagged neutral name (D10) |
+| 1 | `m_UnknownDFE` | `app/shared/land.cpp:54` | untagged neutral name (D10) |
+| 1 | `m_UnknownE00` | `app/shared/land.cpp:55` | untagged neutral name (D10) |
+| 1 | `m_UnknownE04` | `app/shared/land.cpp:56` | untagged neutral name (D10) |
+| 1 | `m_UnknownE08` | `app/shared/land.cpp:57` | untagged neutral name (D10) |
+| 1 | `m_Unknown120C` | `app/shared/land.cpp:58` | untagged neutral name (D10) |
+| 1 | `m_Unknown1214` | `app/shared/land.cpp:60` | untagged neutral name (D10) |
+| 1 | `m_Unknown94` | `app/shared/land.cpp:65` | untagged neutral name (D10) |
+| 1 | `m_UnknownBC` | `app/shared/land.cpp:66` | untagged neutral name (D10) |
+| 1 | `m_Unknown158` | `app/shared/land.cpp:69` | untagged neutral name (D10) |
+| 1 | `m_Unknown140` | `app/shared/land.cpp:70` | untagged neutral name (D10) |
+| 1 | `m_Unknown178` | `app/shared/land.cpp:87` | untagged neutral name (D10) |
+| 1 | `m_Unknown180` | `app/shared/land.cpp:88` | untagged neutral name (D10) |
+| 1 | `m_Unknown188` | `app/shared/land.cpp:89` | untagged neutral name (D10) |
 | 1 | `m_UnknownXX` | `app/shared/land.h:21` | untagged neutral name (D10) |
-| 1 | `LandPatchClass` | `app/shared/land.h:62` | the land's patch (0x30 bytes, new'd per grid cell by Load_Assets 0x4691D0; ctor 0x474530, dtor 0x474560) |
-| 1 | `m_Unknown00` | `app/shared/land.h:69` | members after their offsets (ctor 0x474530) |
-| 1 | `m_Unknown08` | `app/shared/land.h:72` | untagged neutral name (D10) |
-| 1 | `m_Unknown0C` | `app/shared/land.h:73` | untagged neutral name (D10) |
-| 1 | `m_Unknown10` | `app/shared/land.h:74` | untagged neutral name (D10) |
-| 1 | `m_Unknown14` | `app/shared/land.h:75` | untagged neutral name (D10) |
-| 1 | `m_Unknown18` | `app/shared/land.h:76` | untagged neutral name (D10) |
-| 1 | `m_Unknown1C` | `app/shared/land.h:77` | untagged neutral name (D10) |
-| 1 | `m_Unknown20` | `app/shared/land.h:78` | untagged neutral name (D10) |
-| 1 | `m_Unknown24` | `app/shared/land.h:79` | untagged neutral name (D10) |
-| 1 | `m_Unknown28` | `app/shared/land.h:80` | untagged neutral name (D10) |
-| 1 | `m_Unknown2C` | `app/shared/land.h:81` | untagged neutral name (D10) |
-| 1 | `LandPatchRecordClass` | `app/shared/land.h:84` | one record per patch, 0x28 bytes (new[]'d by Load_Assets 0x4691D0; ctor 0x474990, dtor 0x4749D0) |
-| 1 | `m_Unknown00` | `app/shared/land.h:91` | members after their offsets (ctor 0x474990) |
-| 1 | `m_Unknown04` | `app/shared/land.h:93` | untagged neutral name (D10) |
-| 1 | `LandUnknownBaseClass` | `app/shared/land.h:104` | unknown; what the land's vector at +0x1218 holds: RefCountClass at +0xCC (dtor 0x46A7F1), added by 0x75F8B0 through 0x4786A0 |
-| 1 | `LandUnknownClass` | `app/shared/land.h:111` | as above |
-| 1 | `m_Unknown94` | `app/shared/land.h:167` | untagged neutral name (D10) |
-| 1 | `m_UnknownA8` | `app/shared/land.h:168` | untagged neutral name (D10) |
-| 1 | `m_UnknownBC` | `app/shared/land.h:169` | untagged neutral name (D10) |
-| 1 | `m_UnknownD0` | `app/shared/land.h:170` | untagged neutral name (D10) |
-| 1 | `m_UnknownE4` | `app/shared/land.h:171` | untagged neutral name (D10) |
-| 1 | `m_Unknown114` | `app/shared/land.h:183` | untagged neutral name (D10) |
-| 1 | `m_Unknown120` | `app/shared/land.h:185` | untagged neutral name (D10) |
-| 1 | `m_Unknown140` | `app/shared/land.h:196` | untagged neutral name (D10) |
-| 1 | `m_Unknown158` | `app/shared/land.h:198` | untagged neutral name (D10) |
-| 1 | `m_Unknown178` | `app/shared/land.h:202` | untagged neutral name (D10) |
-| 1 | `m_Unknown17C` | `app/shared/land.h:203` | untagged neutral name (D10) |
-| 1 | `m_Unknown180` | `app/shared/land.h:204` | untagged neutral name (D10) |
-| 1 | `m_Unknown184` | `app/shared/land.h:205` | untagged neutral name (D10) |
-| 1 | `m_Unknown188` | `app/shared/land.h:206` | untagged neutral name (D10) |
-| 1 | `m_Unknown190` | `app/shared/land.h:208` | untagged neutral name (D10) |
-| 1 | `m_Unknown191` | `app/shared/land.h:209` | untagged neutral name (D10) |
-| 1 | `m_Unknown192` | `app/shared/land.h:210` | untagged neutral name (D10) |
-| 1 | `m_Unknown1E4` | `app/shared/land.h:227` | untagged neutral name (D10) |
-| 1 | `m_Unknown1E8` | `app/shared/land.h:228` | untagged neutral name (D10) |
-| 1 | `m_Unknown1EC` | `app/shared/land.h:229` | untagged neutral name (D10) |
-| 1 | `m_Unknown1F0` | `app/shared/land.h:230` | untagged neutral name (D10) |
-| 1 | `m_Unknown1F4` | `app/shared/land.h:231` | untagged neutral name (D10) |
-| 1 | `m_Unknown1F8` | `app/shared/land.h:232` | untagged neutral name (D10) |
-| 1 | `m_Unknown1FC` | `app/shared/land.h:233` | untagged neutral name (D10) |
-| 1 | `m_UnknownDFC` | `app/shared/land.h:234` | untagged neutral name (D10) |
-| 1 | `m_UnknownDFE` | `app/shared/land.h:235` | untagged neutral name (D10) |
-| 1 | `m_UnknownE00` | `app/shared/land.h:236` | untagged neutral name (D10) |
-| 1 | `m_UnknownE04` | `app/shared/land.h:237` | untagged neutral name (D10) |
-| 1 | `m_UnknownE08` | `app/shared/land.h:238` | untagged neutral name (D10) |
-| 1 | `m_UnknownE0C` | `app/shared/land.h:239` | untagged neutral name (D10) |
-| 1 | `m_Unknown120C` | `app/shared/land.h:240` | untagged neutral name (D10) |
-| 1 | `m_Unknown1214` | `app/shared/land.h:242` | untagged neutral name (D10) |
-| 1 | `m_Unknown1218` | `app/shared/land.h:243` | untagged neutral name (D10) |
+| 1 | `LandPatchClass` | `app/shared/land.h:51` | the land's patch (0x30 bytes, new'd per grid cell by Load_Assets 0x4691D0; ctor 0x474530, dtor 0x474560) |
+| 1 | `m_Unknown00` | `app/shared/land.h:58` | members after their offsets (ctor 0x474530) |
+| 1 | `m_Unknown08` | `app/shared/land.h:61` | untagged neutral name (D10) |
+| 1 | `m_Unknown0C` | `app/shared/land.h:62` | untagged neutral name (D10) |
+| 1 | `m_Unknown10` | `app/shared/land.h:63` | untagged neutral name (D10) |
+| 1 | `m_Unknown14` | `app/shared/land.h:64` | untagged neutral name (D10) |
+| 1 | `m_Unknown18` | `app/shared/land.h:65` | untagged neutral name (D10) |
+| 1 | `m_Unknown1C` | `app/shared/land.h:66` | untagged neutral name (D10) |
+| 1 | `m_Unknown20` | `app/shared/land.h:67` | untagged neutral name (D10) |
+| 1 | `m_Unknown24` | `app/shared/land.h:68` | untagged neutral name (D10) |
+| 1 | `m_Unknown28` | `app/shared/land.h:69` | untagged neutral name (D10) |
+| 1 | `m_Unknown2C` | `app/shared/land.h:70` | untagged neutral name (D10) |
+| 1 | `LandPatchRecordClass` | `app/shared/land.h:73` | one record per patch, 0x28 bytes (new[]'d by Load_Assets 0x4691D0; ctor 0x474990, dtor 0x4749D0) |
+| 1 | `m_Unknown00` | `app/shared/land.h:80` | members after their offsets (ctor 0x474990) |
+| 1 | `m_Unknown04` | `app/shared/land.h:82` | untagged neutral name (D10) |
+| 1 | `LandUnknownBaseClass` | `app/shared/land.h:93` | unknown; what the land's vector at +0x1218 holds: RefCountClass at +0xCC (dtor 0x46A7F1), added by 0x75F8B0 through 0x4786A0 |
+| 1 | `LandUnknownClass` | `app/shared/land.h:100` | as above |
+| 1 | `m_Unknown94` | `app/shared/land.h:132` | untagged neutral name (D10) |
+| 1 | `m_UnknownA8` | `app/shared/land.h:133` | untagged neutral name (D10) |
+| 1 | `m_UnknownBC` | `app/shared/land.h:134` | untagged neutral name (D10) |
+| 1 | `m_UnknownD0` | `app/shared/land.h:135` | untagged neutral name (D10) |
+| 1 | `m_UnknownE4` | `app/shared/land.h:136` | untagged neutral name (D10) |
+| 1 | `m_Unknown114` | `app/shared/land.h:148` | untagged neutral name (D10) |
+| 1 | `m_Unknown120` | `app/shared/land.h:150` | untagged neutral name (D10) |
+| 1 | `m_Unknown137` | `app/shared/land.h:158` | untagged neutral name (D10) |
+| 1 | `m_Unknown138` | `app/shared/land.h:159` | untagged neutral name (D10) |
+| 1 | `m_Unknown140` | `app/shared/land.h:161` | untagged neutral name (D10) |
+| 1 | `m_Unknown158` | `app/shared/land.h:163` | untagged neutral name (D10) |
+| 1 | `m_Unknown178` | `app/shared/land.h:167` | untagged neutral name (D10) |
+| 1 | `m_Unknown17C` | `app/shared/land.h:168` | untagged neutral name (D10) |
+| 1 | `m_Unknown180` | `app/shared/land.h:169` | untagged neutral name (D10) |
+| 1 | `m_Unknown184` | `app/shared/land.h:170` | untagged neutral name (D10) |
+| 1 | `m_Unknown188` | `app/shared/land.h:171` | untagged neutral name (D10) |
+| 1 | `m_Unknown190` | `app/shared/land.h:173` | untagged neutral name (D10) |
+| 1 | `m_Unknown191` | `app/shared/land.h:174` | untagged neutral name (D10) |
+| 1 | `m_Unknown192` | `app/shared/land.h:175` | untagged neutral name (D10) |
+| 1 | `m_Unknown1E0` | `app/shared/land.h:191` | untagged neutral name (D10) |
+| 1 | `m_Unknown1E4` | `app/shared/land.h:192` | untagged neutral name (D10) |
+| 1 | `m_Unknown1E8` | `app/shared/land.h:193` | untagged neutral name (D10) |
+| 1 | `m_Unknown1EC` | `app/shared/land.h:194` | untagged neutral name (D10) |
+| 1 | `m_Unknown1F0` | `app/shared/land.h:195` | untagged neutral name (D10) |
+| 1 | `m_Unknown1F4` | `app/shared/land.h:196` | untagged neutral name (D10) |
+| 1 | `m_Unknown1F8` | `app/shared/land.h:197` | untagged neutral name (D10) |
+| 1 | `m_Unknown1FC` | `app/shared/land.h:198` | untagged neutral name (D10) |
+| 1 | `m_UnknownDFC` | `app/shared/land.h:199` | untagged neutral name (D10) |
+| 1 | `m_UnknownDFE` | `app/shared/land.h:200` | untagged neutral name (D10) |
+| 1 | `m_UnknownE00` | `app/shared/land.h:201` | untagged neutral name (D10) |
+| 1 | `m_UnknownE04` | `app/shared/land.h:202` | untagged neutral name (D10) |
+| 1 | `m_UnknownE08` | `app/shared/land.h:203` | untagged neutral name (D10) |
+| 1 | `m_UnknownE0C` | `app/shared/land.h:204` | untagged neutral name (D10) |
+| 1 | `m_Unknown120C` | `app/shared/land.h:205` | untagged neutral name (D10) |
+| 1 | `m_Unknown1214` | `app/shared/land.h:207` | untagged neutral name (D10) |
+| 1 | `m_Unknown1218` | `app/shared/land.h:208` | untagged neutral name (D10) |
 | 1 | `m_Unknown00` | `app/shared/money.h:27` | untagged neutral name (D10) |
 | 1 | `unused` | `app/shared/spln_db.h:157` | the client's copy takes a second argument (ret 8) it never reads |
 | 1 | `Unknown_Report_Message` | `app/shared/unknown_debug.cpp:7` | 0x4BC260 (its "Message_Error" string is a profiler label) |
@@ -1344,7 +1361,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_Debug_Begin_Step` | `tests/capharness/udpreplay/connect_stubs.cpp:35` | untagged neutral name (D10) |
 | 1 | `Unknown_Debug_End_Step` | `tests/capharness/udpreplay/connect_stubs.cpp:36` | untagged neutral name (D10) |
 | 1 | `Unknown_Debug_Print` | `tests/capharness/udpreplay/connect_stubs.cpp:37` | untagged neutral name (D10) |
-| 1 | `Unknown_2C` | `tests/capharness/udpreplay/pk_ctor_stubs.cpp:197` | untagged neutral name (D10) |
+| 1 | `Unknown_2C` | `tests/capharness/udpreplay/pk_ctor_stubs.cpp:195` | untagged neutral name (D10) |
 | 1 | `Unknown_4BC130` | `tests/capharness/udpreplay/udpreplay.cpp:70` | untagged neutral name (D10) |
 | 2 | `std:` | `app/client/cfaction_database.cpp:39` | what Get_Name and Get_Description return for an unknown faction |
 | 2 | `Init` | `app/client/cfaction_database.h:27` | describes what it does |
@@ -1632,12 +1649,12 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `AvatarEmotePacketClass` | `app/packets/pk_classes.h:536` | the reference decoder's opcode name AVATAR_EMOTE (the Net-7 opcode table; no structure check) |
 | 2 | `ManufactureTechLevelFilterPacketClass` | `app/packets/pk_classes.h:586` | the reference decoder's opcode name MANUFACTURE_TECH_LEVEL_FILTER (the Net-7 opcode table; no structure check) |
 | 2 | `ConfirmedActionOfferPacketClass` | `app/packets/pk_classes.h:768` | the reference decoder's opcode name CONFIRMED_ACTION_OFFER (the Net-7 opcode table; no structure check) |
-| 2 | `GpsRequestPacketClass` | `app/packets/pk_classes.h:972` | the reference decoder's opcode name GPS_REQUEST (the Net-7 opcode table; no structure check) |
-| 2 | `RecustomizeShipStartPacketClass` | `app/packets/pk_classes.h:1018` | the reference decoder's opcode name RECUSTOMIZE_SHIP_START (the Net-7 opcode table; no structure check) |
-| 2 | `RecustomizeShipDonePacketClass` | `app/packets/pk_classes.h:1026` | the reference decoder's opcode name RECUSTOMIZE_SHIP_DONE (the Net-7 opcode table; no structure check) |
-| 2 | `RecustomizeAvatarStartPacketClass` | `app/packets/pk_classes.h:1035` | the reference decoder's opcode name RECUSTOMIZE_AVATAR_START (the Net-7 opcode table; no structure check) |
-| 2 | `RecustomizeAvatarDonePacketClass` | `app/packets/pk_classes.h:1043` | the reference decoder's opcode name RECUSTOMIZE_AVATAR_DONE (the Net-7 opcode table; no structure check) |
-| 2 | `RecustomizeAvatarUpdatePacketClass` | `app/packets/pk_classes.h:1052` | the reference decoder's opcode name RECUSTOMIZE_AVATAR_UPDATE (the Net-7 opcode table; no structure check) |
+| 2 | `GpsRequestPacketClass` | `app/packets/pk_classes.h:946` | the reference decoder's opcode name GPS_REQUEST (the Net-7 opcode table; no structure check) |
+| 2 | `RecustomizeShipStartPacketClass` | `app/packets/pk_classes.h:992` | the reference decoder's opcode name RECUSTOMIZE_SHIP_START (the Net-7 opcode table; no structure check) |
+| 2 | `RecustomizeShipDonePacketClass` | `app/packets/pk_classes.h:1000` | the reference decoder's opcode name RECUSTOMIZE_SHIP_DONE (the Net-7 opcode table; no structure check) |
+| 2 | `RecustomizeAvatarStartPacketClass` | `app/packets/pk_classes.h:1009` | the reference decoder's opcode name RECUSTOMIZE_AVATAR_START (the Net-7 opcode table; no structure check) |
+| 2 | `RecustomizeAvatarDonePacketClass` | `app/packets/pk_classes.h:1017` | the reference decoder's opcode name RECUSTOMIZE_AVATAR_DONE (the Net-7 opcode table; no structure check) |
+| 2 | `RecustomizeAvatarUpdatePacketClass` | `app/packets/pk_classes.h:1026` | the reference decoder's opcode name RECUSTOMIZE_AVATAR_UPDATE (the Net-7 opcode table; no structure check) |
 | 2 | `MobReactionType` | `app/packets/pk_player_object_relationship.h:25` | what it holds, after the client's MOB_REACTION_COUNT |
 | 2 | `Value_To_String` | `app/packets/pk_player_object_relationship.h:31` | as strconv_lib.h's pairs |
 | 2 | `RelationshipClass` | `app/packets/pk_player_object_relationship.h:35` | what it holds (the packet's Print names both members) |
@@ -2055,15 +2072,12 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Get` | `app/shared/kv_tripl.h:70` | describes what it does |
 | 2 | `Index` | `app/shared/kv_tripl.h:73` | describes what it does |
 | 2 | `land.h` | `app/shared/land.h:36` | after LandClass; no assert or __FILE__ names the file |
-| 2 | `LandLightingStruct` | `app/shared/land.h:51` | VIDTEST's name for the 0x30-byte lighting record its Update_Lighting 0x4250B0 hands the land (esp+0x74) |
-| 2 | `MAX_LEVELS` | `app/shared/land.h:120` | the per-level arrays at +0x94..+0xE0 (5 each) |
-| 2 | `MAX_SEAS` | `app/shared/land.h:121` | the sea arrays at +0x140..+0x170 (2 each; Load_Assets clamps to 2) |
-| 2 | `Create` | `app/shared/land.h:127` | Create, Load_Assets describe VIDTEST 0x4068F0 / 0x405750 and the client's 0x46A3A0 / 0x4691D0 ("LoadAssets" in symbols.json) |
-| 2 | `Update_Lightmap_Full` | `app/shared/land.h:139` | Update_Lightmap_Full and Update_Lightmap_Threaded describe 0x46D900 / 0x46DDD0 (VIDTEST 0x40A9F0) |
-| 2 | `Prepare_Lighting` | `app/shared/land.h:146` | after what they do (0x46C730, 0x46CAE0, 0x46D410, 0x46D6B0: not rebuilt; 0x46D8B0, 0x46D880) |
-| 2 | `LightmapSerial` | `app/shared/land.h:164` | members after what the ctor 0x468E90, the dtor 0x46A480 and Load_Assets 0x4691D0 do with them; m_UnknownXX: use not known |
-| 2 | `LightColor` | `app/shared/land.h:212` | +0x198..+0x1C4 is the 0x30-byte lighting record Update_Lightmap 0x46D900 / 0x46DA70 copy in (VIDTEST's LandLightingStruct, its names) |
-| 2 | `UpdateX0` | `app/shared/land.h:219` | the lightmap rectangle being updated and the time-sliced update's cursor (0x46D900 / 0x46DA70) |
+| 2 | `MAX_LEVELS` | `app/shared/land.h:109` | the per-level arrays at +0x94..+0xE0 (5 each) |
+| 2 | `MAX_SEAS` | `app/shared/land.h:110` | the sea arrays at +0x140..+0x170 (2 each; Load_Assets clamps to 2) |
+| 2 | `Create` | `app/shared/land.h:116` | Create, Load_Assets describe VIDTEST 0x4068F0 / 0x405750 and the client's 0x46A3A0 / 0x4691D0 ("LoadAssets" in symbols.json) |
+| 2 | `m_Unknown8C` | `app/shared/land.h:129` | members after what the ctor 0x468E90, the dtor 0x46A480 and Load_Assets 0x4691D0 do with them; m_UnknownXX: use not known |
+| 2 | `LightColor` | `app/shared/land.h:177` | +0x198..+0x1C4 is the 0x30-byte lighting record Update_Lightmap 0x46D900 / 0x46DA70 copy in (VIDTEST's LandLightingStruct, its names) |
+| 2 | `UpdateX0` | `app/shared/land.h:184` | the lightmap rectangle being updated and the time-sliced update's cursor (0x46D900 / 0x46DA70) |
 | 2 | `SplineFileHeaderStruct` | `app/shared/spln_db.cpp:15` | chunk 0x800 (version 0x100, entry count, 0, 0), read by Load_Header (0xBE34A8) |
 | 2 | `Copy_String` | `app/shared/spln_db.cpp:25` | an inline copy for the entry's strings (its inlining leaves VectorClass's constructor out of line, as the client's 0x489050) |
 | 2 | `SplineEntryHeaderStruct` | `app/shared/spln_db.cpp:32` | the 0x24 bytes before an entry's name (chunks 0x810 / 0x811) |
@@ -2269,12 +2283,12 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `RoundTripRound` | `app/wwudp/unknown_cordmsg.cpp:152` | 0xBB1DB8 |
 | 2 | `LossRound` | `app/wwudp/unknown_cordmsg.cpp:175` | 0xBB1DBC |
 | 2 | `LimitedAt` | `app/wwudp/unknown_cordmsg.cpp:202` | 0xBF4120 when the rate limit last held a send back |
-| 2 | `LandVertexStruct` | `programs/vidtest/vidland.cpp:31` | ours |
-| 2 | `Int_Min` | `programs/vidtest/vidland.cpp:40` | ours |
-| 2 | `DecoPartStruct` | `programs/vidtest/vidland.cpp:620` | ours (VIDTEST 0x416170 batches the prototypes) |
-| 2 | `DecoVertexStruct` | `programs/vidtest/vidland.cpp:633` | ours |
-| 2 | `DecoInstanceStruct` | `programs/vidtest/vidland.cpp:640` | ours |
-| 2 | `Find_Deco_Mesh` | `programs/vidtest/vidland.cpp:651` | ours |
+| 2 | `LandVertexStruct` | `programs/vidtest/vidland.cpp:32` | ours |
+| 2 | `Int_Min` | `programs/vidtest/vidland.cpp:41` | ours |
+| 2 | `DecoPartStruct` | `programs/vidtest/vidland.cpp:621` | ours (VIDTEST 0x416170 batches the prototypes) |
+| 2 | `DecoVertexStruct` | `programs/vidtest/vidland.cpp:634` | ours |
+| 2 | `DecoInstanceStruct` | `programs/vidtest/vidland.cpp:641` | ours |
+| 2 | `Find_Deco_Mesh` | `programs/vidtest/vidland.cpp:652` | ours |
 | 2 | `LandLightingStruct` | `programs/vidtest/vidland.h:62` | the record Update_Lighting hands the land (VIDTEST esp+0x74) |
 | 2 | `VidtestLandClass` | `programs/vidtest/vidland.h:73` | VIDTEST's stand-in for the client's VidtestLandClass (app\shared\land.h) |
 | 2 | `Create` | `programs/vidtest/vidland.h:84` | Create, Load_Assets, Create_Decorations, Update_Patches, Set_Dirty, Update_Lightmap_Full describe VIDTEST 0x4068F0, 0x405750, 0x415C40, 0x4078F0, +0x136, 0x40A9F0 |
@@ -2324,22 +2338,20 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `GuildAdjustContribPacketClass` | `app/packets/pk_classes.h:785` | the client's Print text 'GuildAdjustContrib {' and the PacketClass convention |
 | 3 | `GuildStatusUpdatePacketClass` | `app/packets/pk_classes.h:794` | the client's Print text 'GuildStatusUpdate {' and the PacketClass convention |
 | 3 | `GuildBeginCreationPacketClass` | `app/packets/pk_classes.h:803` | the client's Print text 'GuildBeginCreation {' and the PacketClass convention |
-| 3 | `GuildLeaderAcceptClientPacketClass` | `app/packets/pk_classes.h:812` | the client's Print text 'GuildLeaderAcceptClient {' and the PacketClass convention |
-| 3 | `GuildLeaderAcceptSectorPacketClass` | `app/packets/pk_classes.h:821` | the client's Print text 'GuildLeaderAcceptSector {' and the PacketClass convention |
-| 3 | `GuildRecruitConfirmGuildPacketClass` | `app/packets/pk_classes.h:830` | the client's Print text 'GuildRecruitConfirmGuild {' and the PacketClass convention |
-| 3 | `GuildRecruitAcceptClientPacketClass` | `app/packets/pk_classes.h:839` | the client's Print text 'GuildRecruitAcceptClient {' and the PacketClass convention |
-| 3 | `GuildRecruitAcceptSectorPacketClass` | `app/packets/pk_classes.h:848` | the client's Print text 'GuildRecruitAcceptSector {' and the PacketClass convention |
-| 3 | `GuildSimpleGuildSectorPacketClass` | `app/packets/pk_classes.h:857` | the client's Print text 'GuildSimpleGuildSectorPacket {' and the PacketClass convention |
-| 3 | `GuildSimpleSectorGuildPacketClass` | `app/packets/pk_classes.h:866` | the client's Print text 'GuildSimpleSectorGuildPacket {' and the PacketClass convention |
-| 3 | `GuildMessageGuildPacketClass` | `app/packets/pk_classes.h:875` | the client's Print text 'GuildMessageGuild {' and the PacketClass convention |
-| 3 | `GuildPermissionsPacketClass` | `app/packets/pk_classes.h:884` | the client's Print text 'GuildPermissionsPacket {' and the PacketClass convention |
-| 3 | `GuildRankNamesGuildPacketClass` | `app/packets/pk_classes.h:909` | the client's Print text 'GuildRankNamesGuild {' and the PacketClass convention |
-| 3 | `GuildRankNamesRequestSectorPacketClass` | `app/packets/pk_classes.h:918` | the client's Print text 'GuildRankNamesRequestSector {' and the PacketClass convention |
-| 3 | `GuildGMRenameConfirmGuildPacketClass` | `app/packets/pk_classes.h:927` | the client's Print text 'GuildGMRenameConfirmGuild {' and the PacketClass convention |
-| 3 | `GuildGMRenameAcceptSectorPacketClass` | `app/packets/pk_classes.h:936` | the client's Print text 'GuildGMRenameAcceptSector {' and the PacketClass convention |
-| 3 | `GuildDeletePlayerPacketClass` | `app/packets/pk_classes.h:945` | the client's Print text 'GuildDeletePlayer {' and the PacketClass convention |
-| 3 | `GuildPlayerInfoDeletedPacketClass` | `app/packets/pk_classes.h:954` | the client's Print text 'GuildPlayerInfoDeleted {' and the PacketClass convention |
-| 3 | `GuildDeductFeePacketClass` | `app/packets/pk_classes.h:963` | the client's Print text 'GuildDeductFeePacket {' and the PacketClass convention |
+| 3 | `GuildLeaderAcceptSectorPacketClass` | `app/packets/pk_classes.h:812` | the client's Print text 'GuildLeaderAcceptSector {' and the PacketClass convention |
+| 3 | `GuildRecruitConfirmGuildPacketClass` | `app/packets/pk_classes.h:821` | the client's Print text 'GuildRecruitConfirmGuild {' and the PacketClass convention |
+| 3 | `GuildRecruitAcceptSectorPacketClass` | `app/packets/pk_classes.h:830` | the client's Print text 'GuildRecruitAcceptSector {' and the PacketClass convention |
+| 3 | `GuildSimpleGuildSectorPacketClass` | `app/packets/pk_classes.h:839` | the client's Print text 'GuildSimpleGuildSectorPacket {' and the PacketClass convention |
+| 3 | `GuildSimpleSectorGuildPacketClass` | `app/packets/pk_classes.h:848` | the client's Print text 'GuildSimpleSectorGuildPacket {' and the PacketClass convention |
+| 3 | `GuildMessageGuildPacketClass` | `app/packets/pk_classes.h:857` | the client's Print text 'GuildMessageGuild {' and the PacketClass convention |
+| 3 | `GuildPermissionsPacketClass` | `app/packets/pk_classes.h:866` | the client's Print text 'GuildPermissionsPacket {' and the PacketClass convention |
+| 3 | `GuildRankNamesGuildPacketClass` | `app/packets/pk_classes.h:883` | the client's Print text 'GuildRankNamesGuild {' and the PacketClass convention |
+| 3 | `GuildRankNamesRequestSectorPacketClass` | `app/packets/pk_classes.h:892` | the client's Print text 'GuildRankNamesRequestSector {' and the PacketClass convention |
+| 3 | `GuildGMRenameConfirmGuildPacketClass` | `app/packets/pk_classes.h:901` | the client's Print text 'GuildGMRenameConfirmGuild {' and the PacketClass convention |
+| 3 | `GuildGMRenameAcceptSectorPacketClass` | `app/packets/pk_classes.h:910` | the client's Print text 'GuildGMRenameAcceptSector {' and the PacketClass convention |
+| 3 | `GuildDeletePlayerPacketClass` | `app/packets/pk_classes.h:919` | the client's Print text 'GuildDeletePlayer {' and the PacketClass convention |
+| 3 | `GuildPlayerInfoDeletedPacketClass` | `app/packets/pk_classes.h:928` | the client's Print text 'GuildPlayerInfoDeleted {' and the PacketClass convention |
+| 3 | `GuildDeductFeePacketClass` | `app/packets/pk_classes.h:937` | the client's Print text 'GuildDeductFeePacket {' and the PacketClass convention |
 | 3 | `pk_player_object_relationship.h` | `app/packets/pk_player_object_relationship.h:17` | after the client's .cpp (D57) |
 | 3 | `Reaction` | `app/packets/pk_player_object_relationship.h:40` | the client's Print text 'Reaction=' |
 | 3 | `IsAttacking` | `app/packets/pk_player_object_relationship.h:41` | the client's Print text 'IsAttacking=' |
@@ -2420,21 +2432,28 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `String` | `app/packets/pkgroup.h:35` | the client's Print text 'String=' |
 | 3 | `Size` | `app/packets/pkgroup.h:36` | the client's Print text 'Size=' |
 | 3 | `Type` | `app/packets/pkgroup.h:37` | the client's Print text 'Type=' |
-| 3 | `Type` | `app/packets/pkguildranknamesrequestclient.h:31` | the client's Print text 'Type=' |
-| 3 | `std:` | `app/packets/pkguildranknamesrequestclient.h:32` | the client's Print text 'OptionalParam=' |
-| 3 | `GuildSimpleClientSectorPacketClass` | `app/packets/pkguildranknamesrequestclient.h:36` | the client's Print text 'GuildSimpleClientSectorPacket {' and the PacketClass convention |
-| 3 | `Type` | `app/packets/pkguildranknamesrequestclient.h:45` | the client's Print text 'Type=' |
-| 3 | `PlayerID` | `app/packets/pkguildranknamesrequestclient.h:46` | the client's Print text 'PlayerID=' |
-| 3 | `std:` | `app/packets/pkguildranknamesrequestclient.h:47` | the client's Print text 'OptionalParam=' |
-| 3 | `std:` | `app/packets/pkguildranknamesrequestclient.h:60` | the client's Print text 'InviterName=' |
-| 3 | `std:` | `app/packets/pkguildranknamesrequestclient.h:61` | the client's Print text 'GuildName=' |
-| 3 | `MessageType` | `app/packets/pkguildranknamesrequestclient.h:74` | the client's Print text 'MessageType=' |
-| 3 | `std:` | `app/packets/pkguildranknamesrequestclient.h:75` | the client's Print text 'OtherName=' |
-| 3 | `std:` | `app/packets/pkguildranknamesrequestclient.h:76` | the client's Print text 'GuildName=' |
-| 3 | `GuildRankNamesRequestClientPacketClass` | `app/packets/pkguildranknamesrequestclient.h:80` | the client's Print text 'GuildRankNamesRequestClient {' and the PacketClass convention |
-| 3 | `PlayerID` | `app/packets/pkguildranknamesrequestclient.h:90` | the client's Print text 'PlayerID=' |
-| 3 | `std:` | `app/packets/pkguildranknamesrequestclient.h:103` | the client's Print text 'OldGuildName=' |
-| 3 | `std:` | `app/packets/pkguildranknamesrequestclient.h:104` | the client's Print text 'NewGuildName=' |
+| 3 | `Type` | `app/packets/pkguildranknamesrequestclient.h:37` | the client's Print text 'Type=' |
+| 3 | `std:` | `app/packets/pkguildranknamesrequestclient.h:38` | the client's Print text 'OptionalParam=' |
+| 3 | `GuildSimpleClientSectorPacketClass` | `app/packets/pkguildranknamesrequestclient.h:42` | the client's Print text 'GuildSimpleClientSectorPacket {' and the PacketClass convention |
+| 3 | `Type` | `app/packets/pkguildranknamesrequestclient.h:51` | the client's Print text 'Type=' |
+| 3 | `PlayerID` | `app/packets/pkguildranknamesrequestclient.h:52` | the client's Print text 'PlayerID=' |
+| 3 | `std:` | `app/packets/pkguildranknamesrequestclient.h:53` | the client's Print text 'OptionalParam=' |
+| 3 | `GuildLeaderAcceptClientPacketClass` | `app/packets/pkguildranknamesrequestclient.h:57` | the client's Print text 'GuildLeaderAcceptClient {' and the PacketClass convention |
+| 3 | `PlayerID` | `app/packets/pkguildranknamesrequestclient.h:68` | the client's Print text 'PlayerID=' |
+| 3 | `std:` | `app/packets/pkguildranknamesrequestclient.h:69` | the client's Print text 'GuildName=' |
+| 3 | `Accept` | `app/packets/pkguildranknamesrequestclient.h:70` | the client's Print text 'Accept=' |
+| 3 | `std:` | `app/packets/pkguildranknamesrequestclient.h:83` | the client's Print text 'InviterName=' |
+| 3 | `std:` | `app/packets/pkguildranknamesrequestclient.h:84` | the client's Print text 'GuildName=' |
+| 3 | `GuildRecruitAcceptClientPacketClass` | `app/packets/pkguildranknamesrequestclient.h:88` | the client's Print text 'GuildRecruitAcceptClient {' and the PacketClass convention |
+| 3 | `PlayerID` | `app/packets/pkguildranknamesrequestclient.h:98` | the client's Print text 'PlayerID=' |
+| 3 | `Accept` | `app/packets/pkguildranknamesrequestclient.h:99` | the client's Print text 'Accept=' |
+| 3 | `MessageType` | `app/packets/pkguildranknamesrequestclient.h:112` | the client's Print text 'MessageType=' |
+| 3 | `std:` | `app/packets/pkguildranknamesrequestclient.h:113` | the client's Print text 'OtherName=' |
+| 3 | `std:` | `app/packets/pkguildranknamesrequestclient.h:114` | the client's Print text 'GuildName=' |
+| 3 | `GuildRankNamesRequestClientPacketClass` | `app/packets/pkguildranknamesrequestclient.h:135` | the client's Print text 'GuildRankNamesRequestClient {' and the PacketClass convention |
+| 3 | `PlayerID` | `app/packets/pkguildranknamesrequestclient.h:145` | the client's Print text 'PlayerID=' |
+| 3 | `std:` | `app/packets/pkguildranknamesrequestclient.h:158` | the client's Print text 'OldGuildName=' |
+| 3 | `std:` | `app/packets/pkguildranknamesrequestclient.h:159` | the client's Print text 'NewGuildName=' |
 | 3 | `ShipID` | `app/packets/pkhullupgrade.h:32` | the client's Print text 'ShipID=' |
 | 3 | `HullUpgradeLevel` | `app/packets/pkhullupgrade.h:33` | the client's Print text 'HullUpgradeLevel=' |
 | 3 | `GameID` | `app/packets/pkincapacitancerequest.h:32` | the client's Print text 'GameID=' |
