@@ -727,24 +727,6 @@ public:
 	char Unknown0C[0x34];	// +0x0C
 };
 
-// opcode 195 (0x00C3, ?): vtable 0xB0AC14, constructor 0x891A20, 0x58 bytes
-class GuildStatusUpdatePacketClass : public PacketClass  // NAME 3: the client's Print text 'GuildStatusUpdate {' and the PacketClass convention
-{
-public:
-	GuildStatusUpdatePacketClass(RawPacketClass *raw);	// 0x891A20
-	virtual bool Process_Packet(void *client);	// +0x08 0x869150 (clientstub.cpp l.377)
-	char Unknown0C[0x4C];	// +0x0C
-};
-
-// opcode 196 (0x00C4, ?): vtable 0xB0AB24, constructor 0x88FE40, 0x38 bytes
-class GuildBeginCreationPacketClass : public PacketClass  // NAME 3: the client's Print text 'GuildBeginCreation {' and the PacketClass convention
-{
-public:
-	GuildBeginCreationPacketClass(RawPacketClass *raw);	// 0x88FE40
-	virtual bool Process_Packet(void *client);	// +0x08 0x869000 (clientstub.cpp l.356)
-	char Unknown0C[0x2C];	// +0x0C
-};
-
 // opcode 213 (0x00D5, GUILD_RANK_NAMES_GUILD): vtable 0xB0ACA4, constructor 0x892670, 0x28 bytes
 class GuildRankNamesGuildPacketClass : public PacketClass  // NAME 3: the client's Print text 'GuildRankNamesGuild {' and the PacketClass convention
 {

@@ -41,6 +41,56 @@ int GuildPlayerOnlinePacketClass::Print(char *buffer, int len)
 	return(_snprintf(buffer, len, "GuildPlayerOnline { PlayerID=%s PlayerName=%s AccountID=%s }", Unknown_8B44E0(PlayerID, player_id), PlayerName.c_str(), Unknown_8B44E0(PlayerID, account_id)));
 }
 
+GuildStatusUpdatePacketClass::GuildStatusUpdatePacketClass(__int64 player_id, int unknown18, const char *rank_name, Vector3 same_guild_tag_color, Vector3 other_guild_tag_color, const char *new_guild_name) :
+	PlayerID(player_id),
+	Unknown18(unknown18),
+	RankName(rank_name),
+	SameGuildTagColor(same_guild_tag_color),
+	OtherGuildTagColor(other_guild_tag_color),
+	NewGuildName(new_guild_name)
+{
+}
+
+GuildStatusUpdatePacketClass::GuildStatusUpdatePacketClass(RawPacketClass *raw)
+{
+	raw->Get(PlayerID);
+	raw->Get(&Unknown18, sizeof(Unknown18));
+	raw->Get(&RankName);
+	raw->Get(&SameGuildTagColor, sizeof(SameGuildTagColor));
+	raw->Get(&OtherGuildTagColor, sizeof(OtherGuildTagColor));
+	raw->Get(&NewGuildName);
+}
+
+GuildStatusUpdatePacketClass::~GuildStatusUpdatePacketClass()
+{
+}
+
+RawPacketClass *GuildStatusUpdatePacketClass::Build()
+{
+	RawPacketClass *raw = new RawPacketClass(195, Get_Data_Size());
+	raw->Add(PlayerID);
+	raw->Add(&Unknown18, sizeof(Unknown18));
+	raw->Add(RankName);
+	raw->Add(&SameGuildTagColor, sizeof(SameGuildTagColor));
+	raw->Add(&OtherGuildTagColor, sizeof(OtherGuildTagColor));
+	raw->Add(NewGuildName);
+	return(raw);
+}
+
+int GuildStatusUpdatePacketClass::Get_Data_Size()
+{
+	return(RawPacketClass::Get_Size(NewGuildName) + RawPacketClass::Get_Size(RankName) + 36);
+}
+
+int GuildStatusUpdatePacketClass::Print(char *buffer, int len)
+{
+	char id[32];
+	return(_snprintf(buffer, len, "GuildStatusUpdate {PlayerID=%s RankName='%s' SameGuildTagColor=(%g,%g,%g) OtherGuildTagColor=(%g,%g,%g) NewGuildName='%s'}",
+		Unknown_8B44E0(PlayerID, id), RankName.c_str(),
+		SameGuildTagColor.X, SameGuildTagColor.Y, SameGuildTagColor.Z,
+		OtherGuildTagColor.X, OtherGuildTagColor.Y, OtherGuildTagColor.Z, NewGuildName.c_str()));
+}
+
 GuildSimpleGuildSectorPacketClass::GuildSimpleGuildSectorPacketClass(int type, __int64 player_id, const char *optional_param) :
 	Type(type),
 	PlayerID(player_id),
@@ -149,6 +199,54 @@ int GuildAdjustContribPacketClass::Print(char *buffer, int len)
 {
 	char id[32];
 	return(_snprintf(buffer, len, "GuildAdjustContrib {PlayerID=%s Contrib=%d Amount=%g}", Unknown_8B44E0(PlayerID, id), Contrib, Amount));
+}
+
+GuildBeginCreationPacketClass::GuildBeginCreationPacketClass(__int64 leader, const std::vector<__int64> &founders, const char *guild_name) :
+	Leader(leader),
+	Founders(founders),
+	GuildName(guild_name)
+{
+}
+
+GuildBeginCreationPacketClass::GuildBeginCreationPacketClass(RawPacketClass *raw)
+{
+	raw->Get(Leader);
+	int count;
+	raw->Get(count);
+	for (int i = 0; i < count; i++) {
+		__int64 founder;
+		raw->Get(founder);
+		Founders.push_back(founder);
+	}
+	raw->Get(&GuildName);
+}
+
+GuildBeginCreationPacketClass::~GuildBeginCreationPacketClass()
+{
+}
+
+RawPacketClass *GuildBeginCreationPacketClass::Build()
+{
+	RawPacketClass *raw = new RawPacketClass(196, Get_Data_Size());
+	raw->Add(Leader);
+	int count = Founders.size();
+	raw->Add(count);
+	for (int i = 0; i < count; i++) {
+		raw->Add(Founders[i]);
+	}
+	raw->Add(GuildName);
+	return(raw);
+}
+
+int GuildBeginCreationPacketClass::Get_Data_Size()
+{
+	return(sizeof(Leader) + sizeof(int) + Founders.size() * sizeof(__int64) + RawPacketClass::Get_Size(GuildName));
+}
+
+int GuildBeginCreationPacketClass::Print(char *buffer, int len)
+{
+	char id[32];
+	return(_snprintf(buffer, len, "GuildBeginCreation {Leader=%s Founders[%u] GuildName=%s}", Unknown_8B44E0(Leader, id), Founders.size(), GuildName.c_str()));
 }
 
 GuildLeaderAcceptSectorPacketClass::GuildLeaderAcceptSectorPacketClass(__int64 player_id, const char *guild_name, bool accept) :
@@ -544,6 +642,6 @@ int GuildPlayerInfoDeletedPacketClass::Print(char *buffer, int len)
 **	  is 0x894390): the guild packets 193-220 not in pkguildranknamesrequestclient.cpp. Written by hand
 **	  (builder P4, 2026-10-27); each class's value constructor comes first, then the raw one.
 **	* The file name is provisional (no assert names it).
-**	* Not rebuilt yet: opcode 195, 196, 213,
+**	* Not rebuilt yet: opcode 213,
 **	  220 (declared in pk_classes.h).
 */

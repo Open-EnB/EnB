@@ -5,7 +5,7 @@
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
 **	Original location: e:\build\beta\G\app\packets\pkguildplayeronline.h (the name provisional: see the .cpp)
 **
-**	The packet classes of client 0x88EC70-0x894390 rebuilt so far (opcode 193, 203, 206, 194, 198, 199, 202, 207, 209, 214, 215, 217, 218, 219); the file's other
+**	The packet classes of client 0x88EC70-0x894390 rebuilt so far (opcode 193, 194, 195, 196, 198, 199, 202, 203, 206, 207, 209, 214, 215, 217, 218, 219); the file's other
 **	classes are still declared in pk_classes.h.
 */
 
@@ -17,8 +17,10 @@
 #define PKGUILDPLAYERONLINE_H
 
 #include "pk.h"
+#include "vector3.h"
 #include "pknotelist.h"
 #include <string>
+#include <vector>
 
 char *Unknown_8B44E0(__int64 value, char *buffer);	// 0x8B44E0: _i64toa(value, buffer, 10) (not rebuilt)  // NAME 1: neutral placeholder (D10)
 
@@ -43,6 +45,26 @@ public:
 	__int64 PlayerID;	// +0x10  // NAME 3: the client's Print text 'PlayerID='
 	std::string PlayerName;	// +0x18  // NAME 3: the client's Print text 'PlayerName='
 	__int64 AccountID;	// +0x28  // NAME 3: the client's Print text 'AccountID='
+};
+
+// opcode 195 (0x00C3, ?): vtable 0xB0AC14, constructor 0x891A20, 0x58 bytes
+class GuildStatusUpdatePacketClass : public PacketClass  // NAME 3: the client's Print text 'GuildStatusUpdate {' and the PacketClass convention
+{
+public:
+	GuildStatusUpdatePacketClass(__int64 player_id, int unknown18, const char *rank_name, Vector3 same_guild_tag_color, Vector3 other_guild_tag_color, const char *new_guild_name);	// 0x8917D0
+	GuildStatusUpdatePacketClass(RawPacketClass *raw);	// 0x891A20
+	virtual ~GuildStatusUpdatePacketClass();	// +0x00 0x8919F0 / 0x891B30
+	virtual RawPacketClass *Build();	// +0x04 0x891BD0
+	virtual bool Process_Packet(void *client);	// +0x08 0x869150 (clientstub.cpp)
+	virtual int Get_Data_Size();	// +0x0C 0x891CE0
+	virtual int Print(char *buffer, int len);	// +0x10 0x891D20
+
+	__int64 PlayerID;	// +0x10  // NAME 3: the client's Print text 'PlayerID='
+	int Unknown18;	// +0x18 (4 bytes as they are; not printed)
+	std::string RankName;	// +0x1C  // NAME 3: the client's Print text 'RankName='
+	Vector3 SameGuildTagColor;	// +0x2C (12 bytes as they are)  // NAME 3: the client's Print text 'SameGuildTagColor='
+	Vector3 OtherGuildTagColor;	// +0x38 (12 bytes as they are)  // NAME 3: the client's Print text 'OtherGuildTagColor='
+	std::string NewGuildName;	// +0x44  // NAME 3: the client's Print text 'NewGuildName='
 };
 
 // opcode 203 (0x00CB, ?): vtable 0xB0AA94, constructor 0x88F280, 0x28 bytes
@@ -93,6 +115,23 @@ public:
 	__int64 PlayerID;	// +0x10  // NAME 3: the client's Print text 'PlayerID='
 	int Contrib;	// +0x18 (4 bytes as they are)  // NAME 3: the client's Print text 'Contrib='
 	float Amount;	// +0x1C (4 bytes as they are)  // NAME 3: the client's Print text 'Amount='
+};
+
+// opcode 196 (0x00C4, ?): vtable 0xB0AB24, constructor 0x88FE40, 0x38 bytes
+class GuildBeginCreationPacketClass : public PacketClass  // NAME 3: the client's Print text 'GuildBeginCreation {' and the PacketClass convention
+{
+public:
+	GuildBeginCreationPacketClass(__int64 leader, const std::vector<__int64> &founders, const char *guild_name);	// 0x88FC30
+	GuildBeginCreationPacketClass(RawPacketClass *raw);	// 0x88FE40
+	virtual ~GuildBeginCreationPacketClass();	// +0x00 0x88FE10 / 0x890130
+	virtual RawPacketClass *Build();	// +0x04 0x8901B0
+	virtual bool Process_Packet(void *client);	// +0x08 0x869000 (clientstub.cpp)
+	virtual int Get_Data_Size();	// +0x0C 0x8902D0
+	virtual int Print(char *buffer, int len);	// +0x10 0x890320
+
+	__int64 Leader;	// +0x10  // NAME 3: the client's Print text 'Leader='
+	std::vector<__int64> Founders;	// +0x18 (a network-order count, then each)  // NAME 3: the client's Print text 'Founders['
+	std::string GuildName;	// +0x28  // NAME 3: the client's Print text 'GuildName='
 };
 
 // opcode 198 (0x00C6, ?): vtable 0xB0AB54, constructor 0x890540, 0x30 bytes
