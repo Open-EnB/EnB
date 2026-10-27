@@ -276,7 +276,7 @@ class Unknown514CC0ViewClass : public ViewClass	// NAME 1: neutral (D10)
 public:
 	Unknown514CC0ViewClass(ClientTaskClass *task);		// 0x514CC0
 
-	char Unknown04[0x50 - 0x04];
+	char Unknown38[0x50 - 0x38];
 };
 
 // The camera manager's callback (vtable 0xB032D8 over the base's 0xAEDB58): an object and a member function

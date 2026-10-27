@@ -66,6 +66,13 @@ public:
 	char Unknown00[0x14];
 };
 
+// what every view holds at +0x34 (a 0x6B4480 result), as far as cpacket.cpp calls it
+class ViewUnknown34Class	// NAME 1: neutral (D10)
+{
+public:
+	void Unknown_588A70(const char *type, int unknown1, const char *text, int flags, int unknown2, int unknown3);	// 0x588A70 (102 callers; GROUP 30, DIALOG 98: "GROUP_INVITE", "OK", "YES_NO", "OK_CANCEL", "server_message")  // NAME 1 [type, unknown1, text, flags, unknown2, unknown3]: neutral, the handlers' arguments
+};
+
 // view.cpp's view: the base of the six views at SClient +0x1354..+0x1368 (the slots every one of them
 // gets: the deleting destructor, +0x04 after construction, +0x10 in Shutdown)
 class ViewClass			// NAME 2: what the six objects share (kernel-map-step9.md 9f's view.cpp)
@@ -76,6 +83,11 @@ public:
 	virtual void Unknown_08();							// +0x08 Init (the main view, +0x1358)
 	virtual void Unknown_0C(bool on);					// +0x0C Process_Packets passes true to the loading view
 	virtual void Unknown_10();							// +0x10 Shutdown
+
+	ViewUnknown34Class *Get_Unknown34() { return(Unknown34); }	// inline (GROUP 30 and DIALOG 98 read it into eax first)  // NAME 1: neutral (D10): the member it returns
+
+	char Unknown04[0x34 - 0x04];						// +0x04
+	ViewUnknown34Class *Unknown34;						// +0x34 (view.cpp's constructors 0x65A6C0 / 0x65B810 set it; cpacket.cpp's GROUP 30 and DIALOG 98 call it)
 };
 
 // radar_system.cpp's radar (the main view's +0x80), declared as far as cpacket.cpp calls it
@@ -146,7 +158,7 @@ public:
 	virtual void Add_Object(ClientObjectClass *object);		// +0x80 SClient::Add_Object  // NAME 2: its caller's
 	virtual void Remove_Object(ClientObjectClass *object);	// +0x84 SClient::Remove_Object  // NAME 2: its caller's
 
-	char Unknown04[0x80 - 0x04];						// +0x04
+	char Unknown38[0x80 - 0x38];						// +0x38
 	RadarSystemClass *Radar;							// +0x80 (cpacket.cpp: WARP_INDEX 156's FAIL_IF '!radar')  // NAME 3: the FAIL_IF's name
 	char Unknown84[0x13C - 0x84];						// +0x84
 	MainViewUnknown13CClass *Unknown13C;				// +0x13C (SERVER_PARAMETERS 66 copies its +0x90 to the client's +0x1144 in view mode 1)
@@ -162,7 +174,7 @@ public:
 	LoadingViewClass(ClientTaskClass *task);			// 0x691570  // NAME 1 [task]: SClient::Init passes its task
 	void Unknown_691830(const std::string &source_sector, const std::string &source_system, const std::string &name, const std::string &system);	// 0x691830 (cpacket.cpp: SERVER_HANDOFF 58)  // NAME 1 [source_sector, source_system, name, system]: the packet's fields
 
-	char Unknown04[0x68 - 0x04];						// +0x04
+	char Unknown38[0x68 - 0x38];						// +0x38
 	bool Unknown68;										// +0x68 ClientTaskClass::Render renders when it is set
 };
 

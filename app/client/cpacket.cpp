@@ -13,6 +13,8 @@
 #include "..\packets\pkclientship.h"
 #include "..\packets\pkconfirmedaction.h"
 #include "..\packets\pkcreateattachment.h"
+#include "..\packets\pkdialog.h"
+#include "..\packets\pkgroup.h"
 #include "..\packets\pkguildranknamesrequestclient.h"
 #include "..\packets\pkhullupgrade.h"
 #include "..\packets\pkincapacitancerequest.h"
@@ -107,7 +109,7 @@ public:
 	void Unknown_6A0FD0(LoungeNPCPacketClass *packet);	// 0x6A0FD0 (LOUNGE_NPC 82)  // NAME 1 [packet]: the handler's packet
 	RefCountPtr<UIJobsClass> Get_Jobs() { return(Jobs); }	// 0x73A300 (out of line after JOB_LIST 147, the first caller)  // NAME 2: what it returns
 
-	char Unknown04[0x194 - 0x04];	// +0x04
+	char Unknown38[0x194 - 0x38];	// +0x38
 	RefCountPtr<UIJobsClass> Jobs;	// +0x194  // NAME 2: what it holds
 };
 
@@ -277,6 +279,28 @@ bool MessageTimePacketClass::Process_Packet(void *instance)
 	return(true);
 }
 
+// 0x736930
+bool GroupPacketClass::Process_Packet(void *instance)
+{
+	WWPROFILE("GroupPacketClass::Process_Packet()");
+	SClient *sclient = (SClient *)instance;
+	ViewClass *view;
+	if (sclient->Unknown_744B60()) {
+		view = sclient->Unknown135C;
+	} else {
+		view = sclient->MainView;
+	}
+	if (!view) {
+		return(true);
+	}
+	switch (Type) {
+		case 1:
+			view->Get_Unknown34()->Unknown_588A70("GROUP_INVITE", 0, String, 0x140, 0, 0);
+			break;
+	}
+	return(true);
+}
+
 // 0x736A20
 bool PriorityMessageLinePacketClass::Process_Packet(void *instance)
 {
@@ -328,6 +352,37 @@ bool ClearMessageLinePacketClass::Process_Packet(void *instance)
 	SClient *sclient = (SClient *)instance;
 	if (sclient->LineDisplay) {
 		sclient->LineDisplay->Flush_Lines();
+	}
+	return(true);
+}
+
+// 0x736DA0
+bool DialogPacketClass::Process_Packet(void *instance)
+{
+	WWPROFILE("DialogPacketClass::Process_Packet()");
+	SClient *sclient = (SClient *)instance;
+	ViewClass *view;
+	if (sclient->Unknown_744B60()) {
+		view = sclient->Unknown135C;
+	} else {
+		view = sclient->MainView;
+	}
+	if (!view) {
+		return(true);
+	}
+	switch (Type) {
+		case 0:
+			view->Get_Unknown34()->Unknown_588A70("OK", 0, String, 0x140, 1, 0);
+			break;
+		case 1:
+			view->Get_Unknown34()->Unknown_588A70("YES_NO", 0, String, 0x140, 0, 0);
+			break;
+		case 2:
+			view->Get_Unknown34()->Unknown_588A70("OK_CANCEL", 0, String, 0x140, 0, 0);
+			break;
+		default:
+			view->Get_Unknown34()->Unknown_588A70("server_message", 0, String, 0x140, 1, 0);
+			break;
 	}
 	return(true);
 }
@@ -412,61 +467,6 @@ bool SplinePacketClass::Process_Packet(void *instance)
 	splines->Unpack(Block);
 	return(true);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

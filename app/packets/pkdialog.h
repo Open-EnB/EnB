@@ -25,7 +25,7 @@ public:
 	DialogPacketClass(RawPacketClass *raw);	// 0x881410
 	virtual ~DialogPacketClass();	// +0x00 0x8813E0 / 0x8814E0
 	virtual RawPacketClass *Build();	// +0x04 0x881520
-	virtual bool Process_Packet(void *client);	// +0x08 0x736DA0 (not rebuilt)
+	virtual bool Process_Packet(void *client);	// +0x08 0x736DA0 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x881600
 	virtual int Print(char *buffer, int len);	// +0x10 0x881620
 	virtual int Get_Channel() { return(-2); }	// +0x18 0x8813C0
