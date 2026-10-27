@@ -24,8 +24,8 @@ edit the comments in the code, not this file.
 | `app/client/client.cpp:225` | `ClientClass::Remove_Object` | marker | NOT EXACT: shape (the client puts the not-found return last; three forms; attempts.py show 0x727600) 0x727600 |
 | `app/client/client.cpp:307` | `ClientClass::Set_Debug_Object` | marker | NOT EXACT: register-only (the flag in dl, the id in eax; two forms; attempts.py show 0x728010) 0x728010 |
 | `app/client/client.cpp:374` | `ClientClass::Set_Debug_Mode` | marker | NOT EXACT: register-only (the id in eax, the flag in ecx; two forms; attempts.py show 0x728240) 0x728240 |
-| `app/client/co.cpp:1716` | `ClientObjectClass::Unknown_6FC9A0` | marker | NOT EXACT: shape (case 2's 'pop esi' scheduled between its two stores in ours, after them in the client; 3 forms) 0x6FC9A0 |
-| `app/client/co.cpp:1752` | `ClientObjectClass::Unknown_6FCB20` | marker | NOT EXACT: shape (the client keeps the argument in eax and masks a copy for the compare; 3 forms) 0x6FCB20 |
+| `app/client/co.cpp:1679` | `ClientObjectClass::Unknown_6FC9A0` | marker | NOT EXACT: shape (case 2's 'pop esi' scheduled between its two stores in ours, after them in the client; 3 forms) 0x6FC9A0 |
+| `app/client/co.cpp:1715` | `ClientObjectClass::Unknown_6FCB20` | marker | NOT EXACT: shape (the client keeps the argument in eax and masks a copy for the compare; 3 forms) 0x6FCB20 |
 | `app/client/co.cpp:2227` | `ClientObjectClass::Unknown_6FEC40` | marker | NOT EXACT: order (the client sums the transform's products in another order; explain.py says field-offset; 2 forms) 0x6FEC40 |
 | `app/client/co_data.h:55` | `?` | marker | NOT EXACT: frame (0x54 vs the client's 0x50: ours inlines the type map's default constructor, the client calls 0x79E6E0) |
 | `app/client/control_keys_manager.cpp:115` | `ControlKeysManager::Get_Key_Id` | marker | NOT EXACT: inline budget (ours inlines Get_Key_Id 0x71A190, which the client calls) |
