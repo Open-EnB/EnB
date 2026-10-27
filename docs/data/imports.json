@@ -1,6 +1,6 @@
 {
  "app": {
-  "ambiguous_total": 69,
+  "ambiguous_total": 97,
   "base": "reconstructed",
   "compile_errors": [],
   "files": {
@@ -2289,6 +2289,7 @@
     "ambiguous": [
      "0x42A6C0",
      "0x42B2F0",
+     "0x42CA60",
      "0x88CDB0"
     ],
     "copy": "reconstructed",
@@ -4830,7 +4831,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 1460,
+  "in_tree_total": 1997,
   "totals": {}
  },
  "binkmovie": {
