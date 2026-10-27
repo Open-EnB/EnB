@@ -326,6 +326,7 @@ public:
 	void Unknown_745000(int base_asset);				// 0x745000 (cpacket.cpp: SERVER_PARAMETERS 66 passes its BackdropBaseAsset)  // NAME 1 [base_asset]: the packet's field
 	void Unknown_750A70(unsigned sector);				// 0x750A70 (cpacket.cpp: SERVER_PARAMETERS 66 passes its SectorNum)  // NAME 1 [sector]: the packet's field
 	void Unknown_74BB50(int type);						// 0x74BB50: 'Logging off to desktop.' (1), '... login screen.' (2), '... character selection.' (3) when Unknown138C is set, then LOGOFF_REQUEST on the connection  // NAME 1 [type]: what it selects
+	void Unknown_74C690();								// 0x74C690: every Unknown1394 value's slot +0x38 and release, then the table cleared (as the destructor)
 	bool Unknown_745490();								// 0x745490: the current camera mode saved into 'cam<character id>.ini' (angles in degrees)
 	bool Unknown_74D780(ClientObjectClass *co);			// 0x74D780: co is another avatar, not skipped by 0x70BAC0, and both are in PvP (FAIL_IFs '!co', '!avatar', ll.4521 / 4524)  // NAME 1 [co]: the FAIL_IF's name
 	bool Unknown_74D8B0(ClientObjectClass *co);			// 0x74D8B0: the debug object's or co's 0x6F5F60 (FAIL_IFs '!player_co', '!co', ll.4552 / 4553)  // NAME 1 [co]: the FAIL_IF's name

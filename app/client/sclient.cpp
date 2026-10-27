@@ -4267,19 +4267,19 @@ void SClient::Unknown_74C370(RefCountClass *object)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+// 0x74C690
+void SClient::Unknown_74C690()
+{
+	std::hash_map<unsigned, SClientUnknown1394Class *>::iterator it;
+	for (it = Unknown1394.begin(); it != Unknown1394.end(); ++it) {
+		SClientUnknown1394Class *object = (*it).second;
+		if (object) {
+			object->Unknown_38();
+			object->Release_Ref();
+		}
+	}
+	Unknown1394.clear();
+}
 
 
 
