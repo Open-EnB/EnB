@@ -34,8 +34,6 @@ ServerHandoffPacketClass::ServerHandoffPacketClass(RawPacketClass *raw) { Conn_R
 Packet_003BClass::Packet_003BClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 SetClientTypePacketClass::SetClientTypePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 ServerParametersPacketClass::ServerParametersPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-DialogPacketClass::DialogPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-Packet_0063Class::Packet_0063Class(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_006CClass::Packet_006CClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 GlobalConnectPacketClass::GlobalConnectPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 GlobalTicketPacketClass::GlobalTicketPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
@@ -172,6 +170,7 @@ bool ActivateNextRenderStateOncePacketClass::Process_Packet(void *) { return(tru
 bool DeactivateRenderStatePacketClass::Process_Packet(void *) { return(true); }	// 0x737890
 bool ClientAvatarPacketClass::Process_Packet(void *) { return(true); }	// 0x733590
 bool ClientShipPacketClass::Process_Packet(void *) { return(true); }	// 0x733660
+bool DialogPacketClass::Process_Packet(void *) { return(true); }	// 0x736DA0
 bool CreateAttachmentPacketClass::Process_Packet(void *) { return(true); }	// 0x733BB0
 bool StarbaseTowPacketClass::Process_Packet(void *) { return(true); }	// 0x738330
 bool TalkTreeActionPacketClass::Process_Packet(void *) { return(true); }	// 0x738730

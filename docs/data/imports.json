@@ -1294,6 +1294,28 @@
     "merged": [],
     "name": "packets/pkdamage.cpp"
    },
+   "pkdialog": {
+    "ambiguous": [
+     "0x42B2F0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350",
+     "0x881300",
+     "0x8813E0",
+     "0x881410",
+     "0x8814E0",
+     "0x881520",
+     "0x881620"
+    ],
+    "merged": [],
+    "name": "packets/pkdialog.cpp"
+   },
    "pkdirlock": {
     "ambiguous": [
      "0x42B2F0",
@@ -2462,6 +2484,28 @@
     "merged": [],
     "name": "packets/pkunknown_867010.cpp"
    },
+   "pkunknown_877c80": {
+    "ambiguous": [
+     "0x42B2F0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350",
+     "0x877C80",
+     "0x877D40",
+     "0x877D70",
+     "0x877E40",
+     "0x877E80",
+     "0x877F80"
+    ],
+    "merged": [],
+    "name": "packets/pkunknown_877c80.cpp"
+   },
    "pkunknown_87a940": {
     "ambiguous": [
      "0x42A6C0",
@@ -3170,6 +3214,7 @@
    "packets/pkdamage.h": "reconstructed",
    "packets/pkdirlock.h": "reconstructed",
    "packets/pkequipuse.h": "reconstructed",
+   "packets/pkdialog.h": "reconstructed",
    "packets/pkflag.h": "reconstructed",
    "packets/pkgalaxymap.h": "reconstructed",
    "packets/pkglobaldeletecharacter.h": "reconstructed",
@@ -3220,6 +3265,7 @@
    "packets/pkunknown_867010.h": "reconstructed",
    "packets/pkunknown_87a940.h": "reconstructed",
    "packets/pkunknown_87acd0.h": "reconstructed",
+   "packets/pkunknown_877c80.h": "reconstructed",
    "packets/pkunknown_888b60.h": "reconstructed",
    "packets/pkunknown_8a2b70.h": "reconstructed",
    "packets/pkunknown_8a5510.h": "reconstructed",

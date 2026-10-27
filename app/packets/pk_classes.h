@@ -31,6 +31,7 @@
 #include "pkcreateattachment.h"	// rebuilt
 #include "pkcta_request.h"	// rebuilt
 #include "pkdamage.h"	// rebuilt
+#include "pkdialog.h"	// rebuilt
 #include "pkdirlock.h"	// rebuilt
 #include "pkequipuse.h"	// rebuilt
 #include "pkgalaxymap.h"	// rebuilt
@@ -80,6 +81,7 @@
 #include "pkunknown_8667a0.h"	// rebuilt
 #include "pkunknown_866ac0.h"	// rebuilt
 #include "pkunknown_867010.h"	// rebuilt
+#include "pkunknown_877c80.h"	// rebuilt
 #include "pkunknown_87a940.h"	// rebuilt
 #include "pkunknown_87acd0.h"	// rebuilt
 #include "pkunknown_888b60.h"	// rebuilt
@@ -389,23 +391,6 @@ class ServerParametersPacketClass : public PacketClass
 public:
 	ServerParametersPacketClass(RawPacketClass *raw);	// 0x8A5C10
 	char Unknown0C[0x4C];	// +0x0C
-};
-
-// opcode 98 (0x0062, ?): vtable 0xB0A260, constructor 0x881410, 0x18 bytes
-class DialogPacketClass : public PacketClass
-{
-public:
-	DialogPacketClass(RawPacketClass *raw);	// 0x881410
-	char Unknown0C[0xC];	// +0x0C
-};
-
-// opcode 99 (0x0063, ?): vtable 0xB09D7C, constructor 0x877D70, 0x18 bytes
-class Packet_0063Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x0063
-{
-public:
-	Packet_0063Class(RawPacketClass *raw);	// 0x877D70
-	virtual bool Process_Packet(void *client);	// +0x08 0x868610 (clientstub.cpp l.197)
-	char Unknown0C[0xC];	// +0x0C
 };
 
 // opcode 108 (0x006C, ?): vtable 0xB0B504, constructor 0x89EFC0, 0x28 bytes
