@@ -15,6 +15,7 @@
 #include "..\packets\pkconfirmedaction.h"
 #include "..\packets\pkcreateattachment.h"
 #include "..\packets\pkdialog.h"
+#include "..\packets\pkgalaxymap.h"
 #include "..\packets\pkgroup.h"
 #include "..\packets\pkguildranknamesrequestclient.h"
 #include "..\packets\pkhullupgrade.h"
@@ -49,6 +50,7 @@
 #include "..\packets\pktriggeremote.h"
 #include "..\packets\pkverblist.h"
 #include "..\packets\pkwarpindex.h"
+#include "..\shared\auxdata\linearbu.h"
 #include "..\shared\spln_db.h"
 #include "wwprofile.h"
 #include "rendobj.h"
@@ -136,6 +138,19 @@ public:
 };
 class UITalkTreeSpaceClass : public UITalkTreeClass	// NAME 3: class-from-file (D24) for app\client\ui_talkt_space.cpp
 {
+};
+
+// galaxy_map_client.cpp's map (SClient +0x12A0), declared as far as GALAXY_MAP 151 calls it (each reads
+// the packet's data from the buffer)
+class GalaxyMapClientClass	// NAME 3: class-from-file (D24) for app\client\galaxy_map_client.cpp
+{
+public:
+	void Unknown_7A4C50(SClient *sclient, LinearBufferClass &buffer);	// 0x7A4C50 (type 4)  // NAME 1 [sclient, buffer]: what the handler passes
+	void Unknown_7A4FC0(LinearBufferClass &buffer);	// 0x7A4FC0 (type 5)  // NAME 1 [buffer]: the packet's data
+	void Unknown_7A50A0(LinearBufferClass &buffer);	// 0x7A50A0 (types 6, 7, 8, 11)  // NAME 1 [buffer]: the packet's data
+	void Unknown_7A5180(LinearBufferClass &buffer);	// 0x7A5180 (type 9)  // NAME 1 [buffer]: the packet's data
+	void Unknown_7A5260(LinearBufferClass &buffer);	// 0x7A5260 (type 2)  // NAME 1 [buffer]: the packet's data
+	void Unknown_7A52F0(LinearBufferClass &buffer);	// 0x7A52F0 (type 3)  // NAME 1 [buffer]: the packet's data
 };
 
 // shiputils.cpp's decal helper (cdecl): the packet's decals on the object's model, with the decal INI
@@ -473,21 +488,6 @@ bool SplinePacketClass::Process_Packet(void *instance)
 	splines->Unpack(Block);
 	return(true);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -2349,6 +2349,36 @@ bool NotifyEmotePacketClass::Process_Packet(void *instance)
 
 
 
+// 0x73AC60
+bool GalaxyMapPacketClass::Process_Packet(void *instance)
+{
+	WWPROFILE("GalaxyMapPacketClass::Process_Packet()");
+	SClient *sclient = (SClient *)instance;
+	GalaxyMapClientClass *map = sclient->GalaxyMap;
+	FAIL_IF(!map) return(true);
+	LinearBufferClass buffer(Data, Size, 0x400, false);
+	switch (Type) {
+		case 2:
+			map->Unknown_7A5260(buffer);
+			break;
+		case 4:
+			map->Unknown_7A4C50(sclient, buffer);
+			break;
+		case 5:
+			map->Unknown_7A4FC0(buffer);
+			break;
+		case 6:
+		case 7:
+		case 8:
+		case 11:
+			map->Unknown_7A50A0(buffer);
+			break;
+		case 9:
+			map->Unknown_7A5180(buffer);
+			break;
+		case 3:
+			map->Unknown_7A52F0(buffer);
+			break;
 
 
 
@@ -2357,42 +2387,12 @@ bool NotifyEmotePacketClass::Process_Packet(void *instance)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+		default:
+			G_ASSERT(false);
+			break;
+	}
+	return(true);
+}
 
 
 

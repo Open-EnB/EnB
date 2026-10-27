@@ -90,6 +90,8 @@ loadingview 0C 1
 msg 66 CLIENT_TYPE (60) size 8: cpacket.cpp's handler
 gen Unknown_Log
 gen SClient::Unknown_745F30
+msg 92 GALAXY_MAP (151) size 46: cpacket.cpp's handler
+fail_if !map (line 2358)
 msg 93 ? (33) size 65: cpacket.cpp's handler
 stub UILineDisplayClass::Add_Line_7 'Group bonus gained: +5% item sell value.' 3000 'MessageLine'
 msg 94 ? (33) size 106: cpacket.cpp's handler
@@ -625,6 +627,8 @@ stub SoundManagerClass::Unknown_75B0D0 'Device_Installed' 0
 msg 769 AVATAR_DESCRIPTION (97) size 264: cpacket.cpp's handler
 gen SClient::Unknown_74C3B0
 msg 771 REMOVE_EFFECT (15) size 8: cpacket.cpp's handler
+msg 772 GALAXY_MAP (151) size 59: cpacket.cpp's handler
+fail_if !map (line 2358)
 msg 773 MESSAGE_STRING (29) size 53: cpacket.cpp's handler
 stub SClient::Unknown_74D990 0x0 'Pehuo bestows a lesser psionic shield on you.' 0
 msg 774 MESSAGE_STRING (29) size 44: cpacket.cpp's handler
@@ -813,8 +817,7 @@ recorded ADVANCED_POSITIONAL_UPDATE (62) x31
 recorded PLANET_POSITIONAL_UPDATE (63) x1
 recorded CONSTANT_POSITIONAL_UPDATE (64) x195
 recorded CAMERA_CONTROL (146) x1
-recorded GALAXY_MAP (151) x2
 recorded CLIENT_CHAT_EVENT (165) x4
 recorded NAME_DECAL (178) x2
-recorded 758, through cpacket.cpp's handlers 242
+recorded 756, through cpacket.cpp's handlers 244
 == done: 0 checks failed

@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-242 entries in 59 files.
+239 entries in 59 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -26,6 +26,7 @@ edit the comments in the code, not this file.
 | `app/client/client.cpp:374` | `ClientClass::Set_Debug_Mode` | marker | NOT EXACT: register-only (the id in eax, the flag in ecx; two forms; attempts.py show 0x728240) 0x728240 |
 | `app/client/co.cpp:1716` | `ClientObjectClass::Unknown_6FC9A0` | marker | NOT EXACT: shape (case 2's 'pop esi' scheduled between its two stores in ours, after them in the client; 3 forms) 0x6FC9A0 |
 | `app/client/co.cpp:1752` | `ClientObjectClass::Unknown_6FCB20` | marker | NOT EXACT: shape (the client keeps the argument in eax and masks a copy for the compare; 3 forms) 0x6FCB20 |
+| `app/client/co.cpp:2227` | `ClientObjectClass::Unknown_6FEC40` | marker | NOT EXACT: order (the client sums the transform's products in another order; explain.py says field-offset; 2 forms) 0x6FEC40 |
 | `app/client/co_data.h:55` | `?` | marker | NOT EXACT: frame (0x54 vs the client's 0x50: ours inlines the type map's default constructor, the client calls 0x79E6E0) |
 | `app/client/control_keys_manager.cpp:115` | `ControlKeysManager::Get_Key_Id` | marker | NOT EXACT: inline budget (ours inlines Get_Key_Id 0x71A190, which the client calls) |
 | `app/client/control_keys_manager.cpp:121` | `ControlKeysManager::Get_Key_Id` | marker | NOT EXACT: inline budget (ours inlines _KeyIds.find, the client calls 0x71EBC0; ~56 rows) |
@@ -36,7 +37,7 @@ edit the comments in the code, not this file.
 | `app/client/control_keys_manager.cpp:524` | `ControlKeysManager::Save_Keys` | marker | NOT EXACT: shape, 12 rows: the client keeps the 1-based set count in a register (inc at the loop top), ours in a frame slot (attempts.csv) |
 | `app/client/control_keys_manager.cpp:570` | `ControlKeysManager::Reset_Keys` | marker | NOT EXACT: shape, ~56 rows: the client calls 0x71E850 on the whole vector where our erase inlines a copy loop (attempts.csv) |
 | `app/client/control_keys_manager.cpp:639` | `KeyMappingStruct::Get_Key_String` | marker | NOT EXACT: register-only in the failure path (out in ebp, npos in ebx; the client swaps them); erase(0, npos) and resize(0) the same |
-| `app/client/cpacket.cpp:153` | `ClientAvatarPacketClass::Process_Packet` | marker | NOT EXACT: shape (the client loads the model straight into ecx; two forms; attempts.py show 0x733590) 0x733590 |
+| `app/client/cpacket.cpp:168` | `ClientAvatarPacketClass::Process_Packet` | marker | NOT EXACT: shape (the client loads the model straight into ecx; two forms; attempts.py show 0x733590) 0x733590 |
 | `app/client/cpacket.cpp:1392` | `ServerHandoffPacketClass::Process_Packet` | marker | NOT EXACT: order-only (the __int64 Unknown10C0 store scheduled first; two forms; attempts.py show 0x737CB0) 0x737CB0 |
 | `app/client/cpacket.cpp:1513` | `StarbaseSetPacketClass::Process_Packet` | marker | NOT EXACT: shape (the client keeps four calls of 0x74BA30, ours merges them; attempts.py show 0x7381C0) 0x7381C0 |
 | `app/client/cpacket.cpp:1918` | `LootHulkPermissionPacketClass::Process_Packet` | marker | NOT EXACT: shape (the client places the shared failure exit before the call; three forms; attempts.py show 0x7396F0) 0x7396F0 |
@@ -58,7 +59,7 @@ edit the comments in the code, not this file.
 | `app/client/fontdatabase.cpp:1350` | `FontInitStruct::Load_Font` | mention | NOT EXACT); FontStringFilesClass (0xBE67BC: the string files in use, counted): Lower 0x6C4A80, the constructor 0x6C4C80, Find 0x6C51A0 and Unload 0x6C55B0 (its destructor 0x6C4F50 and Load 0x6C52B0 declared only: written from the pseudocode they missed and moved vector<std::string>::insert 0x432D50). Every other function of the file is not written yet. Tables (the Add functions' offsets and instan... |
 | `app/client/fontmanager.cpp:407` | `FontManagerClass::Add` | marker | NOT EXACT: register-only, 3 rows: the client loads the id into ecx and keeps the font in eax (attempts.csv) |
 | `app/client/fontmanager.cpp:416` | `FontManagerClass::Add` | marker | NOT EXACT: register-only, 2 rows: the client reloads the buffer into eax, ours into edx (attempts.csv) |
-| `app/client/fontmanager.cpp:456` | `FontManagerClass::Unknown_6D2580` | marker | NOT EXACT: inline budget: the client calls Find 0x6D2A70 out of line (after pushing the arguments), ours inlines it (attempts.csv) |
+| `app/client/fontmanager.cpp:463` | `FontManagerClass::Unknown_6D2580` | marker | NOT EXACT: inline budget: the client calls Find 0x6D2A70 out of line (after pushing the arguments), ours inlines it (attempts.csv) |
 | `app/client/fontmanager.cpp:519` | `FontManagerClass::Get_Style` | marker | NOT EXACT: order-only, 1 row: the inlined std::string(name) stores its terminator through [ebx+eax], ours [eax+ebx] (attempts.csv) |
 | `app/client/fontmanager.cpp:539` | `FontManagerClass::Unknown_6D28C0` | marker | NOT EXACT: inline budget, 75 rows: the client calls the styles table's begin and bucket helpers out of line, ours inlines them (attempts.csv) |
 | `app/client/sclient.cpp:393` | `SClient::~SClient` | marker | NOT EXACT: inline budget (the client inlines the 0x24-byte object's destructor at the second delete, ours calls it: then every EH state after it is one lower; five forms, attempts.py show 0x740BB0) 0x740BB0 |

@@ -26,7 +26,7 @@ public:
 	GalaxyMapPacketClass(RawPacketClass *raw);	// 0x870FD0
 	virtual ~GalaxyMapPacketClass();	// +0x00 0x871180 / 0x870FA0
 	virtual RawPacketClass *Build();	// +0x04 0x8710A0
-	virtual bool Process_Packet(void *client);	// +0x08 0x73AC60 (not rebuilt)
+	virtual bool Process_Packet(void *client);	// +0x08 0x73AC60 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x8711C0
 	virtual int Print(char *buffer, int len);	// +0x10 0x8711E0
 	virtual int Get_Channel() { return(Channel); }	// +0x18 0x870F60
