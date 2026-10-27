@@ -1,0 +1,30 @@
+"""Builder W3: a hybrid of two versions of a file: apply only some of the differences (difflib opcodes) of
+OTHER over BASE.
+    python hybrid.py BASE OTHER --list                 numbered differences with their first lines
+    python hybrid.py BASE OTHER OUT --skip 1,2,5        write OUT = BASE with every difference except the skipped
+    python hybrid.py BASE OTHER OUT --only 3,4          ... or only the listed ones
+Line endings follow BASE."""
+import difflib, sys
+base_p, other_p = sys.argv[1], sys.argv[2]
+B = open(base_p, encoding='latin-1', newline='').read()
+nl = '\r\n' if '\r\n' in B else '\n'
+b = B.replace('\r\n', '\n').split('\n')
+o = open(other_p, encoding='latin-1', newline='').read().replace('\r\n', '\n').split('\n')
+ops = [op for op in difflib.SequenceMatcher(None, b, o, autojunk=False).get_opcodes() if op[0] != 'equal']
+if sys.argv[3] == '--list':
+    for i, (tag, i1, i2, j1, j2) in enumerate(ops):
+        print('%2d %s base %d-%d other %d-%d' % (i, tag, i1 + 1, i2, j1 + 1, j2))
+        for l in b[i1:min(i2, i1 + 2)]:
+            print('     < ' + l[:110])
+        for l in o[j1:min(j2, j1 + 3)]:
+            print('     > ' + l[:110])
+    sys.exit()
+out = sys.argv[3]
+mode, ids = sys.argv[4], {int(x) for x in sys.argv[5].split(',') if x}
+use = [i for i in range(len(ops)) if (i not in ids if mode == '--skip' else i in ids)]
+res = list(b)
+for i in sorted(use, key=lambda k: -ops[k][1]):
+    tag, i1, i2, j1, j2 = ops[i]
+    res[i1:i2] = o[j1:j2]
+open(out, 'w', encoding='latin-1', newline='').write(nl.join(res))
+print('applied', len(use), 'of', len(ops))
