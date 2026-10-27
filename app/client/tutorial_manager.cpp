@@ -182,10 +182,10 @@ void TutorialManagerClass::Set_Instance(TutorialManagerClass *manager)
 
 
 
-// NOT EXACT: inline budget (explain.py: inline-budget), the client calls the table's find 0x6AE490 and the key string's _Tidy out of line (frame 0x18), ours inlines find as Find does
+
 void TutorialManagerClass::Start_Step(const char *name)
 {
-	std::hash_map<std::string, TutorialStepStruct *>::iterator i = Steps.find(name);
+	std::hash_map<std::string, TutorialStepStruct *>::const_iterator i = Steps.find(std::string(name));
 	if (i == Steps.end()) {
 		Unknown_4BC260("Tutorial Manager", "", __FILE__, __LINE__, "Tutorial step %s not found!", name);
 		CurrentStep = 0;
