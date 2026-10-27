@@ -1175,6 +1175,11 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
   0x474560 (in land.cpp it inlines into the land's destructor and loses 0x46A480 / 0x4691A0), ~LandPatchRecordClass,
   Unknown_477E20, LandUnknownClass::Peek_Material_Pass 0x93D6C0. One probe of their file placement before the switch.
   Recommendation: accept, as the first step of P-L6-1's builder.
+* **P-P6-1 (objmatch ties, 2026-10-27):** 45 ACTION2 is 7 of 7 exact, parked in `.work/p6/park45` (+8): its scalar
+  deleting destructor 0x876780, inside pkaction's own client range, is credited to pkguildranknamesrequestclient
+  through a byte-identical twin, and once pkaction emits it too the tie credits neither. Proposal: extend D95(b)'s
+  quiet-tree objmatch change so a tie goes to the object whose client range contains the address (settles 0x87CD10
+  the same way). Recommendation: accept, carried out with D94(b) / D95(b).
 * **P-S3-2 / F3's leads for Key_Exchange 0x829180** are LIMIT REACHED (three Opus rounds, inline budget): it
   waits for a new §3.1 lever; F3's two untested leads are in its attempts.csv row.
 * D7 is to be revisited with the user if byte-exactness of E&B's code becomes too costly; D64's

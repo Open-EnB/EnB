@@ -255,6 +255,9 @@ unless `--lever` cites a new row of this table.
 | One-byte temporaries where the client passes an empty tag type by reference | A fresh temporary per call | co_data (H13) |
 | A dead `size()` read's position, not only its count, tunes the budget | One before the loop and one after: exact; two after: 0.81 | fontdatabase Save_Fonts 0x6C57B0, 23bdb2d (H12) |
 | A class template instantiated in a header struct member moves a function's registers (`TPoint3D<int>`) | Define such structs in the .cpp after the affected functions | fontdatabase Load_Init (H12) |
+| Calls in a `+` chain evaluated right to left where the client calls in source order | Separate `size += ...` statements | Get_Data_Size of 169, 171, 172, 82 (P6) |
+| A base vtable store that survives in the client | A member initialiser reading through a reference that may alias `this` (a Matrix3D copy; an iterator whose constructor takes the container) | 30010, 888b60 (P6) |
+| Several members reached through a pointer to a sub-block | Those members are a struct; helper members that ignore `this` (`ret N`, ecx unused) sit on the base | pkunknown_888b60 (P6) |
 
 * **A nested inline is a whole-function budget (2026-10-26, `Key_Exchange` 0x829180):** under `/Ob2` an
   inline helper's own callees (a `std::set` iterator's `_Inc`) are inlined only while the function as a
@@ -379,6 +382,9 @@ unless `--lever` cites a new row of this table.
   (attempts.csv, not-exact.md, names-review.md) are one hunk, so a path commit or a regeneration sweeps the
   neighbours' rows (`git log -S` before assuming a row is lost); copy a regenerated file in and commit it in one
   step. The -U0 placement bug itself is fixed (af0a8a5).
+* **A pack(4) member changes a packet class's sizeof (0x5C for 0x60) and the factory switch 0x869790 in pk.cpp stops
+  matching** (P6, 2026-10-27): check it whenever a packet layout changes. Put a needed `#include` after the asserted
+  code so the asserts keep the client's lines. Python `replace` with `\n` in a CRLF header gives mixed endings.
 * **Packet stand-ins belong in tests/capharness/udpreplay/, never stubs/app_stubs.cpp** (P5, 2026-10-27): a stub that
   calls RawPacketClass drags pk.obj and ~280 externals into VIDTEST's link (ee8fa6f, fixed 0f87385). A new header line
   above pk.h's PacketClass shifts its assert lines and loses ~400 pairs. Game-editor packets whose Process_Packet
