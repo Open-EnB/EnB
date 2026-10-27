@@ -222,7 +222,8 @@ unless `--lever` cites a new row of this table.
 | An order-only residue in a scheduled store pair | Model the 8-byte member as two ints (`Unknown68`) | opcode 108, 7d3e7fc (P4); candidate for 219's ctors 0x893970 / 0x893A70 |
 | `std::string(const char *)` shows three inlining profiles in one file (`_Tidy` inline / `assign` out, the reverse, `_Eos` out) | Budget, not source: don't read the profile as a different form | tutorial_manager.cpp (H5) |
 | A virtual `Set_Step` the client inlines | Call it qualified, `LoginTaskClass::Set_Step(...)`; a plain virtual call misses | tsk_login.cpp (T3) |
-| A hashtable's find / `_M_delete_node` / bucket size / `_Eos` called out of line in the client, inlined by ours | Open: a whole-function budget difference between the client's SGI headers and `libs/sgistl` (H5, P-H5-1): test header-level changes on a quiet tree, not per-function forms | kv_list, buff/tutorial/combo (seven parked rows) |
+| A hashtable's `_M_delete_node` out of line in the client, inlined by ours; callers inlining more table helpers than the client | In a template VC6 compiles `p->~T()` by where `T` comes from: a function template's parameter (`destroy`, `_Destroy`) gives `push 0; call ??_G` (the scalar deleting dtor), the class template's own `_Val` in a member gives a direct `??1` call, and the callers then inline less. `_M_destroy_val` member in sgistl_adapt.py (H6, de316de: +10 whole-app, none lost). Members out of class, `inline`, `#pragma inline_depth`, allocator forms, find's body: 0 or losses | kv_list 0x4B6520, combo_ffactory 0x4E5230, lookup_table 0x4ECE50 |
+| A hashtable's find / `_Eos` still called out of line in the client after the row above | Per-caller budget, not the header: every further table-level change loses callers that inline find today (H6, P-H6-1); parked until a caller-budget lever | 0x4B6B60, 0x6ACF50, 0x4E57A0 |
 
 * **A nested inline is a whole-function budget (2026-10-26, `Key_Exchange` 0x829180):** under `/Ob2` an
   inline helper's own callees (a `std::set` iterator's `_Inc`) are inlined only while the function as a
@@ -324,6 +325,15 @@ unless `--lever` cites a new row of this table.
   difference was another builder's untracked files). Draft `obj/` folders left under app/ are reported by replay.
 * **D66(i) in practice:** a rewrite that stops emitting an inline COMDAT copy drops that (file, address) pair while
   the address stays matched elsewhere (land's 0x447C40 / 0x47F300 / 0x7F0EC0, c0f8569): name them in the commit.
+
+* **Header changes reach aux_roots through delta.h (H6, 2026-10-27):** adding or removing an inline member of a
+  class template that delta.h reaches (hashtable through kv_list.h) swaps two stack slots in
+  DeltaPrimaryCategoryClass's constructor 0x6FB1E0; which member count keeps it exact moved after other
+  builders' commits. Treat 0x6FB1E0 as the canary for any header change and re-verify after every rebase.
+* **Worktree verifies:** junction `.work/pool` as well as `.work/locks` into the worktree (else its leases are
+  invisible to the shared pool) and copy `.work/vc6_hosts.json`. `git merge --ff-only` into the shared tree aborts
+  on another builder's uncommitted imports.json: wait for the importer lock, save their diff, `git checkout` the
+  file, merge, `git apply --3way` their diff, `git reset` the file (the only conflict is `in_tree_total`).
 
 ### 3.5 Build VMs and vc6.py
 
