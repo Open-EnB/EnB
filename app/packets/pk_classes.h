@@ -49,6 +49,7 @@
 #include "pkglobalconnect.h"	// rebuilt
 #include "pkglobaldeletecharacter.h"	// rebuilt
 #include "pkgloballock.h"	// rebuilt
+#include "pkglobalticket.h"	// rebuilt
 #include "pkglobalticketrequest.h"	// rebuilt
 #include "pkgmdestroyitem.h"	// rebuilt
 #include "pkgmeditplayerinventory.h"	// rebuilt
@@ -217,15 +218,6 @@ public:
 	int Unknown0C;	// +0x0C
 	unsigned long Address;	// +0x10  // NAME 1: handed to Redirect (tsk_game.cpp 0x766FC0)
 	unsigned short Port;	// +0x14  // NAME 1: handed to Redirect (tsk_game.cpp 0x766FC0)
-};
-
-// opcode 111 (0x006F, GLOBAL_TICKET): vtable 0xB09688, constructor 0x867650, 0x58 bytes
-class GlobalTicketPacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name GLOBAL_TICKET (the Net-7 opcode table; no structure check)
-{
-public:
-	GlobalTicketPacketClass(RawPacketClass *raw);	// 0x867650
-	virtual bool Process_Packet(void *client);	// +0x08 0x76B730 (tsk_login.cpp)
-	char Unknown0C[0x4C];	// +0x0C
 };
 
 // opcode 112 (0x0070, GLOBAL_AVATAR_LIST): vtable 0xB09368, constructor 0x862D90, 0x20 bytes

@@ -6857,7 +6857,9 @@
     "name": "shared/unknown_debug.cpp"
    },
    "unknown_galaxy": {
-    "ambiguous": [],
+    "ambiguous": [
+     "0x42B2F0"
+    ],
     "copy": "reconstructed",
     "expected": {},
     "in_tree": [
@@ -7027,6 +7029,29 @@
     ],
     "merged": [],
     "name": "shared/auxdata/unknown_root.cpp"
+   },
+   "pkglobalticket": {
+    "ambiguous": [
+     "0x42B2F0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350",
+     "0x867520",
+     "0x8675B0",
+     "0x8675E0",
+     "0x867650",
+     "0x867710",
+     "0x8677E0",
+     "0x867800"
+    ],
+    "merged": [],
+    "name": "packets/pkglobalticket.cpp"
    }
   },
   "headers": {
@@ -7243,7 +7268,8 @@
    "shared/unknown_packetdata.h": "reconstructed",
    "wwudp/cordcon.h": "reconstructed",
    "wwudp/cordmgr.h": "reconstructed",
-   "wwudp/udp.h": "reconstructed"
+   "wwudp/udp.h": "reconstructed",
+   "packets/pkglobalticket.h": "reconstructed"
   },
   "in_tree_total": 3161,
   "totals": {}

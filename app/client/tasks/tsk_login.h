@@ -21,8 +21,8 @@
 #include "tsk_game.h"
 #include "..\..\shared\unknown_login_data.h"		// LoginCharacterClass, the data interfaces
 #include "..\..\common\unknown_galaxy.h"			// LoginGalaxyClass
-#include "..\..\shared\avatar_desc.h"				// AvatarDescClass (LoginUnknown350Class)
-#include "..\..\shared\shipcust_desc.h"				// ShipCustDescClass (LoginUnknown88CClass)
+#include "..\..\shared\avatar_desc.h"				// AvatarDescClass
+#include "..\..\shared\shipcust_desc.h"				// ShipCustDescClass
 #include "..\unknown_creator.h"						// CharacterCreatorClass, LoginNameDataClass
 #include <string>
 #include <list>
@@ -171,17 +171,6 @@ struct LoginTicketInfoClass	// NAME 1: what it holds
 };
 
 
-// The ship customisation (shipcust_desc.cpp's classes); tsk_login.cpp keeps T4's names for now
-typedef ShipCustSettingsClass LoginUnknown20Class;	// NAME 1: neutral (D10), the former name
-typedef ShipCustPartClass LoginUnknown44Class;		// NAME 1: neutral (D10), the former name
-typedef ShipCustDescClass LoginUnknown88CClass;		// NAME 1: neutral (D10), the former name
-
-// An entry of LoginTaskClass +0x350: avatar_desc.cpp's class; tsk_login.cpp keeps T4's name for now
-typedef AvatarDescClass LoginUnknown350Class;	// NAME 1: neutral (D10), AvatarDescClass's former name
-
-// The creator's folder (unknown_creator.h); tsk_login.cpp keeps T4's name for now
-typedef CharacterCreatorClass LoginUnknown78CEE0Class;	// NAME 1: neutral (D10), the former name
-
 class LoginUnknown0CClass	// NAME 1: neutral (D10): what LoginTaskClass +0x0C points to (inpdsp.cpp)
 {
 public:
@@ -221,7 +210,7 @@ public:
 	virtual void Pre_Run();								// +0x38 0x767DA0
 	virtual void Render();								// +0x3C 0x767EE0
 	virtual bool Delete_On_Remove() { return true; }	// +0x44 0x767580
-	virtual void Unknown_48(LoginUnknown350Class *a, LoginUnknown88CClass *b, int galaxy, int c);	// +0x48 0x7689E0 (the FAIL_IF 'Galaxies.empty()'): sends the character creation
+	virtual void Unknown_48(AvatarDescClass *a, ShipCustDescClass *b, int galaxy, int c);	// +0x48 0x7689E0 (the FAIL_IF 'Galaxies.empty()'): sends the character creation
 	virtual bool Unknown_4C();							// +0x4C 0x768B00: the ticket step
 	virtual void Unknown_50();							// +0x50 0x7683F0
 	virtual void Go_Next_Step();						// +0x54 0x769500 (S)
@@ -247,7 +236,7 @@ public:
 	void Unknown_76A370();								// 0x76A370 (step 18: the fast start, Unknown108C's states 1-3: 'LoginTask: Request Character List.')
 	void Save_Login_Name();								// 0x76AD30: login.ini's LOGIN_DATA Name  // NAME 1: what it does
 	void Load_Login();									// 0x76ADD0: login.ini, -LOGIN, -PASSWORD  // NAME 1: what it does
-	void Unknown_768CB0(LoginCharacterClass *characters, LoginUnknown350Class *unknown);	// 0x768CB0: the avatar list's five characters (0x90 bytes each) and five 0x10C entries
+	void Unknown_768CB0(LoginCharacterClass *characters, AvatarDescClass *unknown);	// 0x768CB0: the avatar list's five characters (0x90 bytes each) and five 0x10C entries
 	void Set_Galaxies(const std::list<LoginGalaxyClass> &galaxies);	// 0x769110 (inlined in the avatar list's handler)  // NAME 1: what it does
 	void Handle_Global_Error(GlobalErrorPacketClass *packet);	// 0x76B000 (GlobalErrorPacketClass's handler)  // NAME 1: what it does
 	void Handle_Global_Login(Packet_0076Class *packet);	// 0x76B170 (inlined in the packet's Process_Packet: 'GlobalLoginPacketClass recv')  // NAME 1: what it does
@@ -269,8 +258,8 @@ public:
 	int Unknown0034;									// +0x34
 	TicketClass Ticket;									// +0x38 NAME 1: handed to ClientTaskClass::Init (step 16)
 	LoginCharacterClass Characters[5];					// +0x80 NAME 1: the character list's slots (Selected indexes them)
-	LoginUnknown350Class Unknown0350[5];				// +0x350
-	LoginUnknown88CClass Unknown088C[5];				// +0x88C
+	AvatarDescClass Unknown0350[5];				// +0x350
+	ShipCustDescClass Unknown088C[5];				// +0x88C
 	std::list<LoginGalaxyClass> Galaxies;				// +0xF6C (the FAIL_IF 'Galaxies.empty()')
 	unsigned long Galaxy_Address;						// +0xF78 NAME 1: the selected character's galaxy's (0x769400)
 	char EATicket[0x101];								// +0xF7C (the assert 'sizeof(EATicket) > strlen(response.Get_Ticket()) + 1': 0x101)

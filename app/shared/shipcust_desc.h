@@ -66,7 +66,7 @@ public:
 
 // vtables 0xAF78A0 (wire: six slots) / 0xAF789C (key/value). Its constructor is inline: in both
 // LoginTaskClass constructors, in 0x76A370, and out of line at 0x7688F0 after its first caller 0x7683F0.
-class ShipCustDescClass : public LoginPacketDataClass, public LoginInterfaceAEADC8Class	// NAME 3: by convention (D24) from the client's shipcust_desc.cpp
+class ShipCustDescClass : public Unknown_PacketDataClass, public LoginInterfaceAEADC8Class	// NAME 3: by convention (D24) from the client's shipcust_desc.cpp
 {
 public:
 	ShipCustDescClass() :

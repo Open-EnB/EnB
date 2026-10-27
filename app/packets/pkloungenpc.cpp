@@ -115,7 +115,7 @@ int LoungeNPCPacketClass::Get_Data_Size()
 		if (entry.Length != 0) {
 			size += entry.Length;
 		}
-		size += ((LoginPacketDataClass &)entry.Desc).Get_Size();
+		size += ((Unknown_PacketDataClass &)entry.Desc).Get_Size();
 	}
 	return(size);
 }

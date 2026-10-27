@@ -18,7 +18,7 @@
 #include "..\shared\unknown_packetdata.h"
 
 // A galaxy of the login's list (vtable 0xAEFBD0, 0x60 bytes): written and read raw (no byte swap)
-class LoginGalaxyClass : public LoginPacketDataClass	// NAME 1: what it holds
+class LoginGalaxyClass : public Unknown_PacketDataClass	// NAME 1: what it holds
 {
 public:
 	~LoginGalaxyClass() {}								// 0x76BBF0 (stores the vtable: explicit)

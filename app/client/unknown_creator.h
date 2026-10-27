@@ -25,7 +25,7 @@ class AvatarDescClass;
 class ShipCustDescClass;
 
 // The serialisable name (vtable 0xB04160: Write 0x78E0E0 writes its 0x80 bytes; 0x84 bytes)
-class LoginNameDataClass : public LoginPacketDataClass	// NAME 1: neutral (D10)
+class LoginNameDataClass : public Unknown_PacketDataClass	// NAME 1: neutral (D10)
 {
 public:
 	LoginNameDataClass() { Name[0] = 0; }

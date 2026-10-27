@@ -35,7 +35,7 @@ RawPacketClass *ServerHandoffPacketClass::Build()
 
 int ServerHandoffPacketClass::Get_Data_Size()
 {
-	return(((LoginPacketDataClass &)Ticket).Get_Size() + RawPacketClass::Get_Size(Source_Sector) +
+	return(((Unknown_PacketDataClass &)Ticket).Get_Size() + RawPacketClass::Get_Size(Source_Sector) +
 		RawPacketClass::Get_Size(Source_System) + RawPacketClass::Get_Size(Name) + RawPacketClass::Get_Size(System));
 }
 

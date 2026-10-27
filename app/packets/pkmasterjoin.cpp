@@ -28,7 +28,7 @@ RawPacketClass *MasterJoinPacketClass::Build()
 
 int MasterJoinPacketClass::Get_Data_Size()
 {
-	return(((LoginPacketDataClass &)Ticket).Get_Size());
+	return(((Unknown_PacketDataClass &)Ticket).Get_Size());
 }
 
 int MasterJoinPacketClass::Print(char *buffer, int)

@@ -25,7 +25,7 @@
 
 // vtables 0xAEB9D0 (wire: six slots) / 0xAEB9CC (key/value); constructors 0x4BEB50, 0x4BEBF0, 0x4BECC0.
 // The destructor is the implicit one (inline in 0x7683F0, out of line at 0x53BB50).
-class AvatarDescClass : public LoginPacketDataClass, public LoginInterfaceAEADC8Class	// NAME 3: by convention (D24) from the client's avatar_desc.cpp
+class AvatarDescClass : public Unknown_PacketDataClass, public LoginInterfaceAEADC8Class	// NAME 3: by convention (D24) from the client's avatar_desc.cpp
 {
 public:
 	AvatarDescClass();									// 0x4BEB50

@@ -42,7 +42,7 @@ int AvatarDescPacketClass::Print(char *buffer, int)
 **	* Client 0x877640-0x877C50 (0x877610 is the previous object's guarded static, 0xC416FC; this one's is
 **	  0x877C50): opcode 97, written by hand (builder P5, 2026-10-27), the value constructor first.
 **	* Desc goes through RawPacketClass::Add / Get of pk.h's Unknown_PacketDataClass, the same three-slot
-**	  interface as avatar_desc.h's LoginPacketDataClass (its first base, at offset 0): cast until the two
+**	  interface as pk.h's Unknown_PacketDataClass (its first base, at offset 0): cast until the two
 **	  declarations are one. Get_Data_Size is the class's size (0x110), not Desc's Get_Size.
 **	* The file name is provisional (no assert names it).
 */

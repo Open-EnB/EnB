@@ -4,7 +4,7 @@
 **
 **	PROVISIONAL file name (no assert or __FILE__ names it): the two interfaces the login's data
 **	objects implement (docs/kernel-map-step9.md 5), moved here from tsk_login.h (D90 9b):
-**	the wire interface 0xAEB9EC (pk.h's Unknown_PacketDataClass with a third slot, the size) and
+**	the wire interface 0xAEB9EC (now pk.h's Unknown_PacketDataClass itself, included) and
 **	the key/value visitor interface 0xAEADC8 (delta.h's DeltaInterfaceClass has the same table),
 **	and the KV encoder's typed adds their visitors call, declared only.
 */
@@ -43,18 +43,10 @@ public:
 };
 #endif
 
-class LinearBufferClass;
+// The wire interface 0xAEB9EC (three pure slots) is pk.h's Unknown_PacketDataClass (P-T5-2)
+#include "..\packets\pk.h"
+
 class Vector3;
-
-
-// The interface vtable 0xAEB9EC (three pure slots): pk.h's Unknown_PacketDataClass with its third slot
-class LoginPacketDataClass	// NAME 1: neutral (D10)
-{
-public:
-	virtual bool Write(LinearBufferClass *buffer) = 0;	// +0x00 NAME 2: pk.h's (the objects return true)
-	virtual bool Read(LinearBufferClass *buffer) = 0;	// +0x04 NAME 2: pk.h's
-	virtual int Get_Size() = 0;							// +0x08 NAME 1: the bytes Write writes (the galaxy's 0x54)
-};
 
 // The KV encoder's typed adds as the visitors call them (ecx the encoder; KVEncoderBaseClass's
 // out-of-line members, not rebuilt): a pair over a pointer to the member, kept when the mask

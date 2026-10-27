@@ -483,7 +483,10 @@ def main():
         if r.get('rebuilt') and 'op' not in r:
             continue
         for d in OVERRIDES.get(key(r), ([], []))[1]:
-            st.append(d.replace('{C}', r['name']))
+            d = d.replace('{C}', r['name'])
+            if any(s.startswith(d) for s in st):	# a rebuilt class's handler stub is above already (P9)
+                continue
+            st.append(d)
     stubs = '\n'.join(st) + '\n'
 
     # ---- clientstub.cpp: each stub on its client line (D25), the notes after the last one

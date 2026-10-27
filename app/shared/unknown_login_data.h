@@ -33,7 +33,7 @@ public:
 // The login ticket (vtable 0xB0C608, 0x48 bytes; constructor 0x8C15F0, destructor 0x8C16D0, assignment
 // 0x8C16F0): the master server's answer to the login, copied into SClient (+0x12D8) and the task.
 #pragma pack(push, 4)		// the client's layout: the vtable pointer isn't padded for Character_ID
-class TicketClass : public LoginPacketDataClass	// NAME 1: Init's assert 'kernel && ticket'
+class TicketClass : public Unknown_PacketDataClass	// NAME 1: Init's assert 'kernel && ticket'
 {
 public:
 	TicketClass(int unknown);							// 0x8C15F0 (ClientTask passes 0)
@@ -62,7 +62,7 @@ public:
 // A character slot of the login's list (0x90 bytes, vtables 0xB0C560 / 0xB0C55C; LoginTaskClass's
 // destructor destroys five with 0x8C0750). Its assignment is the implicit one (0x7683F0, 0x768CB0).
 // The members' names are the visitor's keys (0x8C0AE0).
-class LoginCharacterClass : public LoginPacketDataClass, public LoginInterfaceAEADC8Class	// NAME 1: what it holds
+class LoginCharacterClass : public Unknown_PacketDataClass, public LoginInterfaceAEADC8Class	// NAME 1: what it holds
 {
 public:
 	LoginCharacterClass();								// 0x8C06E0
