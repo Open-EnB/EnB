@@ -231,7 +231,24 @@ Matrix3D Unknown98Class::Unknown_08(int) { Matrix3D m(true); return(m); }
 Vector3 Unknown98Class::Unknown_0C(int) { return(Vector3(0, 0, 0)); }
 Vector3 Unknown98Class::Unknown_10(int) { return(Vector3(0, 0, 0)); }
 Vector3 Unknown98Class::Unknown_14(int) { return(Vector3(0, 0, 0)); }
-class Unknown714B50Class : public Unknown98Class
+// the slots ADVANCED_POSITIONAL_UPDATE 62 calls (declared as cpacket.cpp declares them)
+class Unknown98StateClass : public Unknown98Class
+{
+public:
+	virtual void Unknown_18();
+	virtual void Unknown_1C();
+	virtual void Unknown_20();
+	virtual void Unknown_24(Unknown98Class *state);
+	virtual Unknown98Class *Unknown_28();
+	virtual bool Unknown_2C();
+};
+void Unknown98StateClass::Unknown_18() {}
+void Unknown98StateClass::Unknown_1C() {}
+void Unknown98StateClass::Unknown_20() {}
+void Unknown98StateClass::Unknown_24(Unknown98Class *state) { Trace("stub Unknown98StateClass::Unknown_24"); delete state; }
+Unknown98Class *Unknown98StateClass::Unknown_28() { return(0); }
+bool Unknown98StateClass::Unknown_2C() { return(false); }
+class Unknown714B50Class : public Unknown98StateClass
 {
 public:
 	Unknown714B50Class(ConstantPositionalUpdatePacketClass *packet);
@@ -267,4 +284,45 @@ bool DeltaCompoundClass::Decode(LinearBufferClass &buf, const DurationClass &)
 {
 	Trace("stub DeltaCompoundClass::Decode %s, %d bytes", Aux_Root_Name(this), buf.Size);
 	return(true);
+}
+// ------------------------------------------------------------------------- ADVANCED_POSITIONAL_UPDATE 62's states (postate.cpp)
+
+class Unknown717010Class : public Unknown98StateClass
+{
+public:
+	Unknown717010Class(int time, AdvancedPositionalUpdatePacketClass *packet);
+	virtual ~Unknown717010Class();
+	virtual int Unknown_04();
+	void Unknown_717290(AdvancedPositionalUpdatePacketClass *packet, int time);
+	int GameID;
+};
+Unknown717010Class::Unknown717010Class(int time, AdvancedPositionalUpdatePacketClass *packet) : GameID(packet->GameID)
+{
+	Trace("stub Unknown717010Class::Unknown717010Class %u (the player's) time %d stamp %d", GameID, time, (int)packet->TimeStamp);
+}
+Unknown717010Class::~Unknown717010Class() { Trace("stub Unknown717010Class::~Unknown717010Class %u", GameID); }
+int Unknown717010Class::Unknown_04() { return(4); }
+void Unknown717010Class::Unknown_717290(AdvancedPositionalUpdatePacketClass *packet, int time)
+{
+	Trace("stub Unknown717010Class::Unknown_717290 %u time %d stamp %d", packet->GameID, time, (int)packet->TimeStamp);
+}
+
+class Unknown715EF0Class : public Unknown98StateClass
+{
+public:
+	Unknown715EF0Class(int time, AdvancedPositionalUpdatePacketClass *packet);
+	virtual ~Unknown715EF0Class();
+	virtual int Unknown_04();
+	void Unknown_716140(int time, AdvancedPositionalUpdatePacketClass *packet);
+	int GameID;
+};
+Unknown715EF0Class::Unknown715EF0Class(int time, AdvancedPositionalUpdatePacketClass *packet) : GameID(packet->GameID)
+{
+	Trace("stub Unknown715EF0Class::Unknown715EF0Class %u time %d stamp %d", GameID, time, (int)packet->TimeStamp);
+}
+Unknown715EF0Class::~Unknown715EF0Class() { Trace("stub Unknown715EF0Class::~Unknown715EF0Class %u", GameID); }
+int Unknown715EF0Class::Unknown_04() { return(8); }
+void Unknown715EF0Class::Unknown_716140(int time, AdvancedPositionalUpdatePacketClass *packet)
+{
+	Trace("stub Unknown715EF0Class::Unknown_716140 %u time %d stamp %d", packet->GameID, time, (int)packet->TimeStamp);
 }

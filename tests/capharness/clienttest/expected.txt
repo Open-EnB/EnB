@@ -308,6 +308,8 @@ stub DeltaCompoundClass::Decode object, 21 bytes
 mainview add 39074
 msg 113 RELATIONSHIP (137) size 13: cpacket.cpp's handler
 gen Unknown_70CC40
+msg 114 ADVANCED_POSITIONAL_UPDATE (62) size 50: cpacket.cpp's handler
+stub Unknown715EF0Class::Unknown715EF0Class 39074 time 0 stamp 2142305000
 msg 115 AUX_DATA (27) size 73: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 63 bytes
 mainview add 38899
@@ -590,6 +592,8 @@ msg 274 DECAL (16) size 58: cpacket.cpp's handler
 stub Unknown_80E8C0 2 decals
 msg 276 RELATIONSHIP (137) size 13: cpacket.cpp's handler
 gen Unknown_70CC40
+msg 277 ADVANCED_POSITIONAL_UPDATE (62) size 46: cpacket.cpp's handler
+stub Unknown717010Class::Unknown717010Class 48900994 (the player's) time 0 stamp 2142305000
 msg 278 AUX_DATA (27) size 2261: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 2251 bytes
 mainview add 38888
@@ -770,6 +774,8 @@ msg 377 DECAL (16) size 58: cpacket.cpp's handler
 stub Unknown_80E8C0 2 decals
 msg 379 RELATIONSHIP (137) size 13: cpacket.cpp's handler
 gen Unknown_70CC40
+msg 380 ADVANCED_POSITIONAL_UPDATE (62) size 50: cpacket.cpp's handler
+stub Unknown715EF0Class::Unknown715EF0Class 48887635 time 0 stamp 2142305000
 msg 381 AUX_DATA (27) size 181: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 171 bytes
 mainview add 38700
@@ -1453,15 +1459,35 @@ msg 779 AUX_DATA (27) size 38: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode player, 28 bytes
 msg 780 AUX_DATA (27) size 43: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 33 bytes
+msg 781 ADVANCED_POSITIONAL_UPDATE (62) size 50: cpacket.cpp's handler
+stub Unknown715EF0Class::Unknown_716140 39074 time 0 stamp 2142315000
+msg 782 ADVANCED_POSITIONAL_UPDATE (62) size 50: cpacket.cpp's handler
+stub Unknown715EF0Class::Unknown_716140 39074 time 0 stamp 2142318300
 msg 783 SET_TARGET (25) size 12: cpacket.cpp's handler
 msg 784 AUX_DATA (27) size 153: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode player, 143 bytes
 msg 785 AUX_DATA (27) size 36: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 26 bytes
+msg 786 ADVANCED_POSITIONAL_UPDATE (62) size 50: cpacket.cpp's handler
+stub Unknown715EF0Class::Unknown_716140 39074 time 0 stamp 2142321600
+msg 787 ADVANCED_POSITIONAL_UPDATE (62) size 46: cpacket.cpp's handler
+stub Unknown717010Class::Unknown_717290 48900994 time 0 stamp 2142322500
 msg 788 AUX_DATA (27) size 71: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 61 bytes
+msg 789 ADVANCED_POSITIONAL_UPDATE (62) size 50: cpacket.cpp's handler
+stub Unknown717010Class::Unknown_717290 48900994 time 0 stamp 2142323000
+msg 790 ADVANCED_POSITIONAL_UPDATE (62) size 50: cpacket.cpp's handler
+stub Unknown717010Class::Unknown_717290 48900994 time 0 stamp 2142323500
+msg 791 ADVANCED_POSITIONAL_UPDATE (62) size 50: cpacket.cpp's handler
+stub Unknown717010Class::Unknown_717290 48900994 time 0 stamp 2142324000
+msg 792 ADVANCED_POSITIONAL_UPDATE (62) size 54: cpacket.cpp's handler
+stub Unknown717010Class::Unknown_717290 48900994 time 0 stamp 2142324500
 msg 794 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
+msg 795 ADVANCED_POSITIONAL_UPDATE (62) size 50: cpacket.cpp's handler
+stub Unknown715EF0Class::Unknown_716140 39074 time 0 stamp 2142324900
+msg 796 ADVANCED_POSITIONAL_UPDATE (62) size 54: cpacket.cpp's handler
+stub Unknown717010Class::Unknown_717290 48900994 time 0 stamp 2142325000
 mainview add 38852
 msg 798 RELATIONSHIP (137) size 13: cpacket.cpp's handler
 gen Unknown_70CC40
@@ -1476,6 +1502,8 @@ msg 803 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 stub Unknown714B50Class::Unknown714B50Class 38874 (97369.41 -48799.77 -472.06)
 msg 804 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
+msg 805 ADVANCED_POSITIONAL_UPDATE (62) size 54: cpacket.cpp's handler
+stub Unknown717010Class::Unknown_717290 48900994 time 0 stamp 2142325500
 mainview add 38863
 msg 807 RELATIONSHIP (137) size 13: cpacket.cpp's handler
 gen Unknown_70CC40
@@ -1490,6 +1518,8 @@ msg 813 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 stub Unknown714B50Class::Unknown714B50Class 38855 (95624.02 -58642.02 802.50)
 msg 814 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
+msg 815 ADVANCED_POSITIONAL_UPDATE (62) size 54: cpacket.cpp's handler
+stub Unknown717010Class::Unknown_717290 48900994 time 0 stamp 2142326000
 mainview add 38839
 msg 817 RELATIONSHIP (137) size 13: cpacket.cpp's handler
 gen Unknown_70CC40
@@ -1509,6 +1539,8 @@ msg 825 RELATIONSHIP (137) size 13: cpacket.cpp's handler
 gen Unknown_70CC40
 msg 826 AUX_DATA (27) size 62: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 52 bytes
+msg 827 ADVANCED_POSITIONAL_UPDATE (62) size 62: cpacket.cpp's handler
+stub Unknown715EF0Class::Unknown715EF0Class 41213 time 0 stamp 2142326100
 mainview add 38859
 msg 829 RELATIONSHIP (137) size 13: cpacket.cpp's handler
 gen Unknown_70CC40
@@ -1536,6 +1568,8 @@ stub SClient::Unknown_74C530 38957
 mainview remove 38957
 stub ClientObjectClass::Unknown_08 38957
 stub ClientObjectClass::~ClientObjectClass 38957
+msg 841 ADVANCED_POSITIONAL_UPDATE (62) size 54: cpacket.cpp's handler
+stub Unknown717010Class::Unknown_717290 48900994 time 0 stamp 2142326500
 mainview add 38861
 msg 843 RELATIONSHIP (137) size 13: cpacket.cpp's handler
 gen Unknown_70CC40
@@ -1550,6 +1584,8 @@ msg 848 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 stub Unknown714B50Class::Unknown714B50Class 38876 (91512.52 -46567.90 -967.72)
 msg 849 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
+msg 850 ADVANCED_POSITIONAL_UPDATE (62) size 54: cpacket.cpp's handler
+stub Unknown717010Class::Unknown_717290 48900994 time 0 stamp 2142327000
 msg 851 NAVIGATION (153) size 18: cpacket.cpp's handler
 gen NavigationDataClass::Unknown_7BA940
 mainview add 43912
@@ -1557,6 +1593,8 @@ msg 853 RELATIONSHIP (137) size 13: cpacket.cpp's handler
 gen Unknown_70CC40
 msg 854 AUX_DATA (27) size 62: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 52 bytes
+msg 855 ADVANCED_POSITIONAL_UPDATE (62) size 62: cpacket.cpp's handler
+stub Unknown715EF0Class::Unknown715EF0Class 43912 time 0 stamp 2142327000
 msg 856 WARP_INDEX (156) size 8: cpacket.cpp's handler
 fail_if !radar (line 2292)
 mainview add 38844
@@ -1589,6 +1627,8 @@ msg 872 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 stub Unknown714B50Class::Unknown714B50Class 38853 (89275.78 -64319.11 -896.91)
 msg 873 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
+msg 874 ADVANCED_POSITIONAL_UPDATE (62) size 54: cpacket.cpp's handler
+stub Unknown717010Class::Unknown_717290 48900994 time 0 stamp 2142327500
 mainview add 38860
 msg 876 RELATIONSHIP (137) size 13: cpacket.cpp's handler
 gen Unknown_70CC40
@@ -1617,6 +1657,8 @@ msg 889 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 stub Unknown714B50Class::Unknown714B50Class 38840 (89275.78 -76264.31 -896.91)
 msg 890 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
+msg 891 ADVANCED_POSITIONAL_UPDATE (62) size 54: cpacket.cpp's handler
+stub Unknown717010Class::Unknown_717290 48900994 time 0 stamp 2142328000
 mainview add 38848
 msg 893 RELATIONSHIP (137) size 13: cpacket.cpp's handler
 gen Unknown_70CC40
@@ -1637,6 +1679,8 @@ stub SClient::Unknown_74C530 39074
 mainview remove 39074
 stub ClientObjectClass::Unknown_08 39074
 stub ClientObjectClass::~ClientObjectClass 39074
+msg 901 ADVANCED_POSITIONAL_UPDATE (62) size 54: cpacket.cpp's handler
+stub Unknown717010Class::Unknown_717290 48900994 time 0 stamp 2142328500
 mainview add 38851
 msg 903 RELATIONSHIP (137) size 13: cpacket.cpp's handler
 gen Unknown_70CC40
@@ -1665,6 +1709,10 @@ msg 916 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 stub Unknown714B50Class::Unknown714B50Class 38845 (84802.28 -75312.50 -849.71)
 msg 917 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
+msg 918 ADVANCED_POSITIONAL_UPDATE (62) size 54: cpacket.cpp's handler
+stub Unknown717010Class::Unknown_717290 48900994 time 0 stamp 2142329000
+msg 919 ADVANCED_POSITIONAL_UPDATE (62) size 50: cpacket.cpp's handler
+stub Unknown715EF0Class::Unknown_716140 48887635 time 0 stamp 2142329100
 mainview add 38847
 msg 921 RELATIONSHIP (137) size 13: cpacket.cpp's handler
 gen Unknown_70CC40
@@ -1686,6 +1734,8 @@ msg 930 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 stub Unknown714B50Class::Unknown714B50Class 38830 (81613.73 -70886.59 802.50)
 msg 931 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
+msg 932 ADVANCED_POSITIONAL_UPDATE (62) size 54: cpacket.cpp's handler
+stub Unknown717010Class::Unknown_717290 48900994 time 0 stamp 2142329500
 mainview add 38843
 msg 934 RELATIONSHIP (137) size 13: cpacket.cpp's handler
 gen Unknown_70CC40
@@ -1721,6 +1771,8 @@ msg 951 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 stub Unknown714B50Class::Unknown714B50Class 38827 (83898.06 -83355.27 -896.91)
 msg 952 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
+msg 953 ADVANCED_POSITIONAL_UPDATE (62) size 54: cpacket.cpp's handler
+stub Unknown717010Class::Unknown_717290 48900994 time 0 stamp 2142330000
 msg 954 REMOVE (7) size 8: cpacket.cpp's handler
 stub SClient::Unknown_744B60 -> 0
 stub SClient::Unknown_74C530 41213
@@ -1734,6 +1786,8 @@ msg 957 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 stub Unknown714B50Class::Unknown714B50Class 38841 (77765.20 -70189.24 637.28)
 msg 958 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
+msg 959 ADVANCED_POSITIONAL_UPDATE (62) size 54: cpacket.cpp's handler
+stub Unknown717010Class::Unknown_717290 48900994 time 0 stamp 2142330500
 mainview add 38849
 msg 961 RELATIONSHIP (137) size 13: cpacket.cpp's handler
 gen Unknown_70CC40
@@ -1741,6 +1795,8 @@ msg 962 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 stub Unknown714B50Class::Unknown714B50Class 38849 (75154.98 -61852.12 -967.72)
 msg 963 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
+msg 964 ADVANCED_POSITIONAL_UPDATE (62) size 50: cpacket.cpp's handler
+stub Unknown717010Class::Unknown_717290 48900994 time 0 stamp 2142331000
 mainview add 38832
 msg 966 RELATIONSHIP (137) size 13: cpacket.cpp's handler
 gen Unknown_70CC40
@@ -1748,6 +1804,8 @@ msg 967 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 stub Unknown714B50Class::Unknown714B50Class 38832 (76521.56 -79072.14 0.00)
 msg 968 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
+msg 969 ADVANCED_POSITIONAL_UPDATE (62) size 50: cpacket.cpp's handler
+stub Unknown717010Class::Unknown_717290 48900994 time 0 stamp 2142331500
 mainview add 38836
 msg 971 RELATIONSHIP (137) size 13: cpacket.cpp's handler
 gen Unknown_70CC40
@@ -1775,6 +1833,8 @@ msg 981 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 stub Unknown714B50Class::Unknown714B50Class 38826 (78092.03 -87590.82 -967.72)
 msg 982 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
+msg 983 ADVANCED_POSITIONAL_UPDATE (62) size 50: cpacket.cpp's handler
+stub Unknown717010Class::Unknown_717290 48900994 time 0 stamp 2142332000
 mainview add 38842
 msg 985 RELATIONSHIP (137) size 13: cpacket.cpp's handler
 gen Unknown_70CC40
@@ -1796,6 +1856,8 @@ msg 994 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 stub Unknown714B50Class::Unknown714B50Class 38834 (72960.57 -78670.78 -566.47)
 msg 995 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
+msg 996 ADVANCED_POSITIONAL_UPDATE (62) size 50: cpacket.cpp's handler
+stub Unknown717010Class::Unknown_717290 48900994 time 0 stamp 2142332500
 mainview add 38816
 msg 998 RELATIONSHIP (137) size 13: cpacket.cpp's handler
 gen Unknown_70CC40
@@ -1810,10 +1872,9 @@ recorded SIMPLE_POSITIONAL_UDPATE (8) x1
 recorded OBJECT_EFFECT (9) x10
 recorded OBJECT_TO_OBJECT_EFFECT (11) x1
 recorded CLIENT_SET_TIME (52) x3
-recorded ADVANCED_POSITIONAL_UPDATE (62) x31
 recorded PLANET_POSITIONAL_UPDATE (63) x1
 recorded CAMERA_CONTROL (146) x1
 recorded CLIENT_CHAT_EVENT (165) x4
 recorded NAME_DECAL (178) x2
-recorded 257, through cpacket.cpp's handlers 743
+recorded 226, through cpacket.cpp's handlers 774
 == done: 0 checks failed

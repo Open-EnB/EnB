@@ -1,0 +1,54 @@
+// NOT EXACT: inline-budget (the client calls WWMath::Is_Valid_Float out of line for Position's Z and Orientation's W; attempts.py show 0x734130)
+// 0x734130
+bool AdvancedPositionalUpdatePacketClass::Process_Packet(void *instance)
+{
+	WWPROFILE("AdvancedPositionalUpdatePacketClass::Process_Packet()");
+	SClient *sclient = (SClient *)instance;
+	FAIL_IF(!(Position.Is_Valid() && Orientation.Is_Valid() && WWMath::Is_Valid_Float(CurrentSpeed) && ImpartedVelocity.Is_Valid())) return(true);
+	TimeStamp = (DurationClass(TimeStamp) - DurationClass(sclient->Unknown10C0)).As_Int();
+	sclient->Unknown10D0++;
+	sclient->Unknown10C8 = sclient->Unknown10C8 - sclient->Unknown10C8 / sclient->Unknown10CC + (sclient->Unknown10BC - (int)TimeStamp);
+	if (fabs(sclient->Unknown10C8 / sclient->Unknown10CC) > 50.0 && sclient->Unknown10D0 > 64) {
+		sclient->Unknown_728180();
+	}
+	ClientObjectClass *object = sclient->Find_Object(GameID);
+	if (object) {
+		if (GameID == sclient->DebugObjectID) {
+			static int requests;	// 0xBE7D6C  // NAME 1: what it counts
+			if (++requests > 32) {
+				sclient->Send_Packet(&RequestTimePacketClass());
+				requests = 0;
+			}
+			if (object->Unknown98 && object->Unknown98->Unknown_04() == 4) {
+				((Unknown717010Class *)object->Unknown98)->Unknown_717290(this, sclient->Unknown10BC);
+			} else if (object->Unknown98 && ((Unknown98StateClass *)object->Unknown98)->Unknown_2C()) {
+				Unknown98Class *state = ((Unknown98StateClass *)object->Unknown98)->Unknown_28();
+				if (state && state->Unknown_04() == 4) {
+					((Unknown717010Class *)state)->Unknown_717290(this, sclient->Unknown10BC);
+				} else {
+					delete state;
+					((Unknown98StateClass *)object->Unknown98)->Unknown_24(new Unknown717010Class(sclient->Unknown10BC, this));
+				}
+			} else {
+				delete object->Unknown98;
+				object->Unknown98 = new Unknown717010Class(sclient->Unknown10BC, this);
+			}
+		} else {
+			if (object->Unknown98 && object->Unknown98->Unknown_04() == 8) {
+				((Unknown715EF0Class *)object->Unknown98)->Unknown_716140(sclient->Unknown10BC, this);
+			} else if (object->Unknown98 && ((Unknown98StateClass *)object->Unknown98)->Unknown_2C()) {
+				Unknown98Class *state = ((Unknown98StateClass *)object->Unknown98)->Unknown_28();
+				if (state && state->Unknown_04() == 8) {
+					((Unknown715EF0Class *)state)->Unknown_716140(sclient->Unknown10BC, this);
+				} else {
+					delete state;
+					((Unknown98StateClass *)object->Unknown98)->Unknown_24(new Unknown715EF0Class(sclient->Unknown10BC, this));
+				}
+			} else {
+				delete object->Unknown98;
+				object->Unknown98 = new Unknown715EF0Class(sclient->Unknown10BC, this);
+			}
+		}
+	}
+	return(true);
+}
