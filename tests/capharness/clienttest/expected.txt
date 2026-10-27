@@ -89,7 +89,8 @@ stub TaskClass::Is_Focused -> 1
 loadingview 0C 1
 msg 66 CLIENT_TYPE (60) size 8: cpacket.cpp's handler
 gen Unknown_Log
-gen SClient::Unknown_745F30
+gen SClient::Unknown_742530
+gen MainViewClass::Unknown_514010
 msg 92 GALAXY_MAP (151) size 46: cpacket.cpp's handler
 fail_if !map (line 2358)
 msg 93 ? (33) size 65: cpacket.cpp's handler

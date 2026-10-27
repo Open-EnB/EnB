@@ -153,6 +153,7 @@ public:
 	void Unknown_513CD0(int mode);						// 0x513CD0 (SClient 0x7456B0 passes the base's Unknown10F4, DebrisMode)  // NAME 1 [mode]: what it gets
 	void Unknown_513D20(float value);					// 0x513D20 (SClient 0x7456B0 passes 1.0)  // NAME 1 [value]: neutral
 	void Unknown_513F60(FileClass *file, int indent);	// 0x513F60 (SClient 0x745EC0's dump, two deeper)  // NAME 1 [file, indent]: Printf_Indented's
+	void Unknown_514010(int old_mode, int mode);		// 0x514010 (SClient 0x745F30: the view mode before and after)  // NAME 1 [old_mode, mode]: what it gets
 	virtual void Unknown_14();
 	virtual void Unknown_18();
 	virtual void Unknown_1C();
@@ -239,7 +240,7 @@ public:
 	virtual void Unknown_64();							// +0x64 0x744690: ClientTaskClass::Render, Wait_For_Redirect
 
 	void Print(int channel, const char *format, ...);	// 0x74DF70 (cdecl): a line in the chat panel  // NAME 2: what it does
-	void Unknown_742530(int arg);						// 0x742530 (Shutdown passes 0)
+	void Unknown_742530(ViewClass *view);				// 0x742530 (Shutdown passes 0; 0x745F30 the view of the new view mode)  // NAME 1 [view]: what it gets
 	void Unknown_7451D0();								// 0x7451D0 (Init)
 	void Unknown_745350();								// 0x745350 (Init)
 	void Unknown_744C10();								// 0x744C10 (Init, after the camera mode)
@@ -313,7 +314,7 @@ public:
 	SClientUnknown1338Class *Unknown1338;				// +0x1338
 	ProjDecalManagerClass *ProjDecalManager;			// +0x133C  // NAME 3: its file's
 	VectorClass<Vector3> Unknown1340;					// +0x1340 vtable 0xAE9B0C
-	int Unknown1350;									// +0x1350
+	ViewClass *CurrentView;								// +0x1350 (0x7429B0's FAIL_IF '!CurrentView')
 	MainViewClass *MainView;							// +0x1354 Init  // NAME 3: its file's
 	ViewClass *Unknown1358;								// +0x1358 Init (0x514CC0, 0x50 bytes)
 	ViewClass *Unknown135C;								// +0x135C

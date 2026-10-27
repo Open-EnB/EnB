@@ -368,7 +368,7 @@ SClient::SClient(ClientTaskClass *task) :
 	Unknown1334(NULL),
 	Unknown1338(NULL),
 	ProjDecalManager(NULL),
-	Unknown1350(0),
+	CurrentView(0),
 	MainView(NULL),
 	Unknown1358(NULL),
 	Unknown135C(NULL),
@@ -2327,37 +2327,37 @@ void SClient::Unknown_745EC0(FileClass *file, int indent)
 
 
 
+// 0x745F30
+void SClient::Unknown_745F30(int type)
+{
+	int old_mode = ViewMode;
+	ViewMode = type;
+	switch (type) {
+		case 0:
+		case 1:
+		case 5:
+			Unknown_742530(MainView);
+			break;
 
+		case 2:
+			Unknown_742530(Unknown1358);
+			break;
 
+		case 4:
+			Unknown_742530(Unknown135C);
+			break;
 
+		case 3:
+			Unknown_742530(Unknown1360);
+			break;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+		case 6:
+			Unknown_742530(Unknown1364);
+			break;
+	}
+	MainView->Unknown_514010(old_mode, type);
+	Unknown1374 = 3;
+}
 
 
 
