@@ -157,9 +157,9 @@ TicketClass::TicketClass(int) {}
 LoginCharacterClass::LoginCharacterClass() {}
 LoginCharacterClass::~LoginCharacterClass() {}
 AvatarDescClass::AvatarDescClass() {}
-LoginUnknown20Class::LoginUnknown20Class() {}
-void LoginUnknown20Class::Unknown_00(void *) {}
-void LoginUnknown44Class::Unknown_00(void *) {}
+ShipCustSettingsClass::ShipCustSettingsClass() {}
+void ShipCustSettingsClass::Unknown_00(void *) {}
+void ShipCustPartClass::Unknown_00(void *) {}
 bool LoginCharacterClass::Write(LinearBufferClass *) { return true; }
 bool LoginCharacterClass::Read(LinearBufferClass *) { return true; }
 int LoginCharacterClass::Get_Size() { return 0; }
@@ -171,14 +171,16 @@ int AvatarDescClass::Get_Short_Size() { return 0; }
 bool AvatarDescClass::Read(LinearBufferClass *) { return true; }
 int AvatarDescClass::Get_Size() { return 0; }
 void AvatarDescClass::Unknown_00(void *) {}
-bool LoginUnknown88CClass::Write(LinearBufferClass *) { return true; }
-bool LoginUnknown88CClass::Read(LinearBufferClass *) { return true; }
-int LoginUnknown88CClass::Get_Size() { return 0; }
-void LoginUnknown88CClass::Unknown_0C() {}
-void LoginUnknown88CClass::Unknown_00(void *) {}
-void LoginUnknown88CClass::Unknown_4F6210(int) {}
-void LoginUnknown88CClass::Unknown_4F6230() {}
-void LoginUnknown88CClass::Unknown_4F62F0(int) {}
+bool ShipCustDescClass::Write(LinearBufferClass *) { return true; }
+bool ShipCustDescClass::Read(LinearBufferClass *) { return true; }
+int ShipCustDescClass::Get_Size() { return 0; }
+bool ShipCustDescClass::Write_Short(LinearBufferClass *) { return true; }
+bool ShipCustDescClass::Read_Short(LinearBufferClass *) { return true; }
+int ShipCustDescClass::Get_Short_Size() { return 0; }
+void ShipCustDescClass::Unknown_00(void *) {}
+void ShipCustDescClass::Set_Race(int) {}
+void ShipCustDescClass::Reset_Parts() {}
+void ShipCustDescClass::Set_Profession(int) {}
 bool LoginGalaxyClass::Write(LinearBufferClass *) { return true; }
 bool LoginGalaxyClass::Read(LinearBufferClass *) { return true; }
 int LoginGalaxyClass::Get_Size() { return 0; }

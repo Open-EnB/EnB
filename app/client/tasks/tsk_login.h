@@ -22,6 +22,7 @@
 #include "..\..\shared\unknown_login_data.h"		// LoginCharacterClass, the data interfaces
 #include "..\..\common\unknown_galaxy.h"			// LoginGalaxyClass
 #include "..\..\shared\avatar_desc.h"				// AvatarDescClass (LoginUnknown350Class)
+#include "..\..\shared\shipcust_desc.h"				// ShipCustDescClass (LoginUnknown88CClass)
 #include <string>
 #include <list>
 #include "vector3.h"
@@ -169,63 +170,10 @@ struct LoginTicketInfoClass	// NAME 1: what it holds
 };
 
 
-// A 0x20-byte object (constructor 0x618500 out of line; vtable 0xAEC91C over 0xAEADC8), two in each
-// LoginUnknown44Class
-class LoginUnknown20Class : public LoginInterfaceAEADC8Class	// NAME 1: neutral (D10)
-{
-public:
-	LoginUnknown20Class();								// 0x618500
-	virtual void Unknown_00(void *visitor);				// (vtable 0xAEC91C)
-	char Unknown04[0x20 - 4];
-};
-
-// A 0x44-byte object (vtable 0xAF78BC over 0xAEADC8), four in each LoginUnknown88CClass. Its constructor
-// is inline (in 0x7688F0: the two 0x20-byte objects through ??_H with 0x618500) and out of line at
-// 0x6191F0 (another file, where 0x618500 is inlined); the LoginTaskClass constructors call 0x6191F0.
-class LoginUnknown44Class : public LoginInterfaceAEADC8Class	// NAME 1: neutral (D10)
-{
-public:
-	LoginUnknown44Class() {}
-	virtual void Unknown_00(void *visitor);				// 0x4F6890 (vtable 0xAF78BC)
-	LoginUnknown20Class Unknown04[2];					// +0x04
-};
-
-// The five 0x160-byte objects at LoginTaskClass +0x88C (vtables 0xAF78A0 / 0xAF789C over 0xAEB9EC /
-// 0xAEADC8). Its constructor is inline: in both LoginTaskClass constructors, in 0x76A370, and out of
-// line at 0x7688F0 after its first caller 0x7683F0.
-class LoginUnknown88CClass : public LoginPacketDataClass, public LoginInterfaceAEADC8Class	// NAME 1: neutral (D10)
-{
-public:
-	LoginUnknown88CClass() :
-		Unknown08(0), Unknown0C(0), Unknown10(0), Unknown30(1.0F, 1.0F, 1.0F),
-		Unknown3C(0.5F, 0.5F), Unknown44(0x7FFFFFF)
-	{
-		Unknown14 = false;
-		Unknown_4F6210(0);
-		Unknown_4F62F0(0);
-		Unknown_4F6230();
-	}
-	virtual bool Write(LinearBufferClass *buffer);		// +0x00 0x4F6330 (thunk 0x40C7F2)
-	virtual bool Read(LinearBufferClass *buffer);		// +0x04 (thunk 0x405F9C)
-	virtual int Get_Size();								// +0x08 (thunk 0x414AB5)
-	virtual void Unknown_0C();							// +0x0C (thunk 0x403701)
-	virtual void Unknown_00(void *visitor);				// second table +0x00 0x4F6750 (thunk 0x40AEE8)
-	LoginUnknown88CClass &operator=(const LoginUnknown88CClass &that);	// 0x55D8A0
-	void Unknown_4F6210(int unknown);					// 0x4F6210
-	void Unknown_4F6230();								// 0x4F6230
-	void Unknown_4F62F0(int unknown);					// 0x4F62F0
-
-	int Unknown08;										// +0x08
-	int Unknown0C;										// +0x0C
-	int Unknown10;										// +0x10
-	bool Unknown14;										// +0x14
-	char Unknown15[0x30 - 0x15];						// +0x15
-	Vector3 Unknown30;									// +0x30
-	Vector2 Unknown3C;									// +0x3C
-	int Unknown44;										// +0x44
-	LoginUnknown44Class Unknown48[4];					// +0x48
-	char Unknown158[0x160 - 0x158];						// +0x158
-};
+// The ship customisation (shipcust_desc.cpp's classes); tsk_login.cpp keeps T4's names for now
+typedef ShipCustSettingsClass LoginUnknown20Class;	// NAME 1: neutral (D10), the former name
+typedef ShipCustPartClass LoginUnknown44Class;		// NAME 1: neutral (D10), the former name
+typedef ShipCustDescClass LoginUnknown88CClass;		// NAME 1: neutral (D10), the former name
 
 // An entry of LoginTaskClass +0x350: avatar_desc.cpp's class; tsk_login.cpp keeps T4's name for now
 typedef AvatarDescClass LoginUnknown350Class;	// NAME 1: neutral (D10), AvatarDescClass's former name

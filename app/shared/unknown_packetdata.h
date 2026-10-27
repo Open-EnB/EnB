@@ -40,6 +40,12 @@ public:
 	void Add(int mask, const char *name, char *buffer, int size);		// 0x4B4A70 (kv_encoder_base.cpp)
 	void Add(int mask, const char *name, char *value);					// 0x4C2FE0 (in avatar_desc.cpp's run)
 	void Add(int mask, const char *name, Vector3 *value);				// 0x4B2BB0
+	template<class T> void Add_Typed(int mask, const char *name, T *value);	// the other typed adds (shipcust_desc.cpp: 0x4F6A80, 0x4F6BB0, 0x4F6CE0, the bool one)
+	virtual ~LoginKVVisitorClass();									// +0x00 (the encoder's virtuals: delta.h's DeltaChildVisitorClass)
+	virtual void Add_Child(int mask, const char *name, void *child);	// +0x04 a key/value object under the name  // NAME 2: what it does
+	virtual void Unknown_08();
+	virtual void Unknown_0C();
+	virtual void Add_Color(int mask, const char *name, Vector3 *value);	// +0x10 (shipcust_desc.cpp's colours)  // NAME 1: its users' keys
 };
 
 // The one-slot interface vtable 0xAEADC8 (delta.h's DeltaInterfaceClass has the same table)

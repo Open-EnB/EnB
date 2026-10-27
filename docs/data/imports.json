@@ -4368,6 +4368,26 @@
     "merged": [],
     "name": "shared/auxdata/policy.cpp"
    },
+   "shipcust_desc": {
+    "ambiguous": [],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42F250",
+     "0x4F6210",
+     "0x4F6230",
+     "0x4F62F0",
+     "0x4F6330",
+     "0x4F6420",
+     "0x4F6530",
+     "0x4F6620",
+     "0x4F6750",
+     "0x4F6890",
+     "0x4F6900"
+    ],
+    "merged": [],
+    "name": "shared/shipcust_desc.cpp"
+   },
    "spln_db": {
     "ambiguous": [
      "0x457CA0",
@@ -5244,6 +5264,7 @@
    "shared/land.h": "reconstructed",
    "shared/lookup_table.h": "reconstructed",
    "shared/money.h": "reconstructed",
+   "shared/shipcust_desc.h": "reconstructed",
    "shared/spline.h": "reconstructed",
    "shared/spln_db.h": "reconstructed",
    "shared/stars.h": "reconstructed",
