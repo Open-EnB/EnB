@@ -264,7 +264,11 @@ def break_tie(obj, sec, start, length, text, base, hits, img, known=None):
                     ok = False
                     break
                 have = img.data[co:co + len(want)]
-                if have == want or norm(have.rstrip(b'\0')) == norm(want.rstrip(b'\0')) and have[-1:] == b'\0':
+                # the client's whole string: a header's __FILE__ there can be shorter than ours
+                # ('..\shared/auxdata/auxdata.h' against 'e:\build\...\client\..\shared\auxdata\auxdata.h')
+                end = img.data.find(b'\0', co)
+                whole = img.data[co:end] if end >= 0 else have
+                if have == want or norm(whole) == norm(want.rstrip(b'\0')) and want[-1:] == b'\0':
                     sure = True
                 else:
                     ok = False
