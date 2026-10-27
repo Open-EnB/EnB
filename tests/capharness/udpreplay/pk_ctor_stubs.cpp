@@ -36,7 +36,6 @@ FindMemberPacketClass::FindMemberPacketClass(RawPacketClass *raw) { Conn_Record(
 TalkTreePacketClass::TalkTreePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_1388Class::Packet_1388Class(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_1389Class::Packet_1389Class(RawPacketClass *raw) { Conn_Record(this, raw); }
-Packet_1391Class::Packet_1391Class(RawPacketClass *raw) { Conn_Record(this, raw); }
 VerbListPacketClass::VerbListPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_1392Class::Packet_1392Class(RawPacketClass *raw) { Conn_Record(this, raw); }
 AvatarEmotePacketClass::AvatarEmotePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }

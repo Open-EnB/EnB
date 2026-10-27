@@ -1,5 +1,7 @@
 // Earth & Beyond client (reconstruction): app\packets\pktask.cpp. Notes at the end of the file.
 #include "pktask.h"
+#include "pkguildplayeronline.h"
+#include "..\shared\unknown_debug.h"
 #include "nstrdup.h"
 #include <string.h>
 #include <stdio.h>
@@ -161,6 +163,81 @@ int Packet_138EClass::Print(char *buffer, int)
 	return(sprintf(buffer, "%s {Ip=%x Port=%hx}", "Task Pong", Ip, Port));
 }
 
+#line 411
+Packet_1391Class::Packet_1391Class(char *name, __int64 character_object_id, char *account, __int64 account_id, int ip, unsigned short port, int sector, int status, __int64 unknown38) :
+	Name(NULL),
+	CharacterObjectID(character_object_id),
+	Account(NULL),
+	AccountID(account_id),
+	Ip(ip),
+	Port(port),
+	Sector(sector),
+	Status(status),
+	Unknown38(unknown38)
+{
+	G_ASSERT(name && account);
+	Name = nstrdup(name);
+	Account = nstrdup(account);
+	G_ASSERT(Name && Account);
+}
+
+Packet_1391Class::Packet_1391Class(RawPacketClass *raw)
+{
+	raw->Get(&Name);
+	raw->Get(&CharacterObjectID, sizeof(CharacterObjectID));
+	raw->Get(&Account);
+	raw->Get(AccountID);
+	raw->Get(&Ip, sizeof(Ip));
+	raw->Get(&Port, sizeof(Port));
+	raw->Get(Sector);
+	raw->Get(&Status, sizeof(Status));
+	raw->Get(&Unknown38, sizeof(Unknown38));
+}
+
+#line 442
+Packet_1391Class::~Packet_1391Class()
+{
+	G_ASSERT(Name && Account);
+	delete [] Name;
+	delete [] Account;
+	Account = NULL;
+	Name = NULL;
+}
+
+RawPacketClass *Packet_1391Class::Build()
+{
+	RawPacketClass *raw = new RawPacketClass(Get_Type(), Get_Data_Size());
+	raw->Add(Name);
+	raw->Add(&CharacterObjectID, sizeof(CharacterObjectID));
+	raw->Add(Account);
+	raw->Add(AccountID);
+	raw->Add(&Ip, sizeof(Ip));
+	raw->Add(&Port, sizeof(Port));
+	raw->Add(Sector);
+	raw->Add(&Status, sizeof(Status));
+	raw->Add(&Unknown38, sizeof(Unknown38));
+	return(raw);
+}
+
+int Packet_1391Class::Get_Type()
+{
+	return(5009);
+}
+
+int Packet_1391Class::Get_Data_Size()
+{
+	return(strlen(Account) + strlen(Name) + 2 * (sizeof(int) + 1) + sizeof(CharacterObjectID) + sizeof(AccountID) + sizeof(Ip) + sizeof(Port) + sizeof(Sector) + sizeof(Status) + sizeof(Unknown38));
+}
+
+int Packet_1391Class::Print(char *buffer, int)
+{
+	char object_id[32];
+	char account_id[32];
+	Unknown_8B44E0(CharacterObjectID, object_id);
+	Unknown_8B44E0(AccountID, account_id);
+	return(sprintf(buffer, "%s { Name=%s CharacterObjectID=%s Account=%s AccountID=%s Ip=%x Port=%hx Sector=%d Status=%d }", "PlayerStatus", Name, object_id, Account, account_id, Ip, Port, Sector, Status));
+}
+
 Packet_1393Class::Packet_1393Class()
 {
 }
@@ -198,6 +275,6 @@ int Packet_1393Class::Print(char *buffer, int)
 **	  0xC416FC, atexit 0x42B320). Drafted from the client by the packet decoder (tools/re/pkdecode.py,
 **	  pkemit.py): members from the raw message's Get / Build's Add (sizes) and Print (types,
 **	  names: 'Name=%d'), the constructors' stores in the initialiser list.
-**	* Opcodes 5004 (Packet_138AClass's derived class), 5005 and 5006 (its derived class) written by hand (builder P4, 2026-10-27).
-**	* Not rebuilt yet: opcode 5000, 5001, 5009, 5010 (declared in pk_classes.h).
+**	* Opcodes 5004 (Packet_138AClass's derived class), 5005, 5006 (its derived class) and 5009 written by hand (5009's asserts on the client's lines 422, 425 and 444: #line) (builder P4, 2026-10-27).
+**	* Not rebuilt yet: opcode 5000, 5001, 5010 (declared in pk_classes.h).
 */

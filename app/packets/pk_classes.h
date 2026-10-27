@@ -450,15 +450,6 @@ public:
 	char Unknown0C[0x218];	// +0x0C
 };
 
-// opcode 5009 (0x1391, ?): vtable 0xB0BEEC, constructor 0x8A9E80, 0x40 bytes
-class Packet_1391Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x1391
-{
-public:
-	Packet_1391Class(RawPacketClass *raw);	// 0x8A9E80
-	virtual bool Process_Packet(void *client);	// +0x08 0x868550 (clientstub.cpp l.185)
-	char Unknown0C[0x34];	// +0x0C
-};
-
 // opcode 91 (0x005B, ?): vtable 0xB0C268, constructor 0x8AF150, 0x20 bytes
 class VerbListPacketClass : public PacketClass
 {
