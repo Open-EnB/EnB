@@ -46,6 +46,9 @@ public:
 	std::string &Get_Full_Name(std::string &name);		// 0x4C1200: the same into name  // NAME 2: what it does
 	void Unknown_4C1460(const char *name, bool convert);	// 0x4C1460: First_Name (the fast start's 'Fast' + the user name, 1; convert: through 0x4BE9D0)  // NAME 1 [convert]: what it selects
 	void Unknown_4C15F0(const char *name, bool convert);	// 0x4C15F0: Last_Name, the same way
+	void Get_Body_Morph(Vector3 &scale, int morph);		// 0x4C1780: avatardef.ini's '<gender><race>morph' section, 1-4 short_skinny .. tall_skinny  // NAME 2: what it does
+	void Get_Head_Morph(Vector3 &scale, int morph);		// 0x4C1930: the same, short_narrow .. long_narrow (Y and Z)  // NAME 2: what it does
+	void Get_Facial_Feature(bool &movable, int &scale);	// 0x4C1AC0: 'FacialFeature%02d' of the tattoo texture  // NAME 2: what it does
 
 	int Avatar_Type;									// +0x08 NAME 2: its key 'avatar_type' (Clear's argument)
 	char Unknown0C;										// +0x0C (written, not a key)

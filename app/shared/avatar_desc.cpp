@@ -792,6 +792,71 @@ void AvatarDescClass::Unknown_4C15F0(const char *name, bool convert)
 	Unknown_4A1590(Last_Name, sizeof(Last_Name), text.c_str());
 }
 
+// 0x4C1780
+void AvatarDescClass::Get_Body_Morph(Vector3 &scale, int morph)
+{
+	const char *names[5] = { "normal", "short_skinny", "short_fat", "tall_fat", "tall_skinny" };
+	Vector3 result(1.0F, 1.0F, 1.0F);
+	char section[64];
+
+	if (!AvatarDefinitions.Is_Loaded() || morph < 1 || morph > 4) {
+		scale.Set(1.0F, 1.0F, 1.0F);
+		return;
+	}
+	_snprintf(section, sizeof(section), "%s%smorph", AvatarGenderNames[Gender], AvatarRaceNames[Race]);
+	if (AvatarDefinitions.Find_Section(section) != NULL) {
+		const char *entry = names[morph];
+		TPoint3D<float> one(1.0F, 1.0F, 1.0F);
+		if (AvatarDefinitions.Find_Entry(section, entry) != NULL) {
+			TPoint3D<float> point = AvatarDefinitions.Get_Point(section, entry, one);
+			result.X = point.X;
+			result.Y = point.Y;
+			result.Z = point.Z;
+		}
+	}
+	scale = result;
+}
+
+// 0x4C1930
+void AvatarDescClass::Get_Head_Morph(Vector3 &scale, int morph)
+{
+	const char *names[5] = { "normal", "short_narrow", "short_wide", "long_wide", "long_narrow" };
+	Vector3 result(1.0F, 1.0F, 1.0F);
+	char section[64];
+
+	if (!AvatarDefinitions.Is_Loaded() || morph < 1 || morph > 4) {
+		scale.Set(1.0F, 1.0F, 1.0F);
+		return;
+	}
+	_snprintf(section, sizeof(section), "%s%smorph", AvatarGenderNames[Gender], AvatarRaceNames[Race]);
+	if (AvatarDefinitions.Find_Section(section) != NULL) {
+		const char *entry = names[morph];
+		TPoint3D<float> one(1.0F, 1.0F, 1.0F);
+		if (AvatarDefinitions.Find_Entry(section, entry) != NULL) {
+			TPoint3D<float> point = AvatarDefinitions.Get_Point(section, entry, one);
+			result.Y = point.X;
+			result.Z = point.Y;
+		}
+	}
+	scale = result;
+}
+
+// 0x4C1AC0
+void AvatarDescClass::Get_Facial_Feature(bool &movable, int &scale)
+{
+	char section[64];
+
+	movable = false;
+	scale = 1;
+	if (AvatarDefinitions.Is_Loaded()) {
+		_snprintf(section, sizeof(section), "FacialFeature%02d", Tattoo_Texture_Num);
+		if (AvatarDefinitions.Find_Section(section) != NULL) {
+			movable = AvatarDefinitions.Get_Bool(section, "Movable", false);
+			scale = AvatarDefinitions.Get_Int(section, "Scale", 1);
+		}
+	}
+}
+
 /*
 **	Reconstruction notes
 **

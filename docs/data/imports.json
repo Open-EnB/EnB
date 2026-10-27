@@ -209,6 +209,8 @@
     "expected": {},
     "in_tree": [
      "0x42A820",
+     "0x42A940",
+     "0x42A970",
      "0x42AB30",
      "0x42CAB0",
      "0x42CD30",
@@ -226,7 +228,10 @@
      "0x4C1020",
      "0x4C1200",
      "0x4C1460",
-     "0x4C15F0"
+     "0x4C15F0",
+     "0x4C1780",
+     "0x4C1930",
+     "0x4C1AC0"
     ],
     "merged": [],
     "name": "shared/avatar_desc.cpp"
