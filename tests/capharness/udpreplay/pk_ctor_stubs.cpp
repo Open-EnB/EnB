@@ -48,7 +48,6 @@ MessageChatstreamPacketClass::MessageChatstreamPacketClass(RawPacketClass *raw) 
 AvatarDescPacketClass::AvatarDescPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 GadgetPacketClass::GadgetPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_0068Class::Packet_0068Class(RawPacketClass *raw) { Conn_Record(this, raw); }
-ManufactureTechLevelFilterPacketClass::ManufactureTechLevelFilterPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 PlayerObjectReactionUpdatePacket::PlayerObjectReactionUpdatePacket(RawPacketClass *raw) { Conn_Record(this, raw); }
 IncapacitanceDetailsPacket::IncapacitanceDetailsPacket(RawPacketClass *raw) { Conn_Record(this, raw); }
 JobListPacketClass::JobListPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }

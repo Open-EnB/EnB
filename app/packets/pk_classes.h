@@ -552,15 +552,6 @@ public:
 	char Unknown0C[0x10];	// +0x0C
 };
 
-// opcode 128 (0x0080, MANUFACTURE_TECH_LEVEL_FILTER): vtable 0xB0B254, constructor 0x89C3E0, 0x18 bytes
-class ManufactureTechLevelFilterPacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name MANUFACTURE_TECH_LEVEL_FILTER (the Net-7 opcode table; no structure check)
-{
-public:
-	ManufactureTechLevelFilterPacketClass(RawPacketClass *raw);	// 0x89C3E0
-	virtual bool Process_Packet(void *client);	// +0x08 0x868790 (clientstub.cpp l.221)
-	char Unknown0C[0xC];	// +0x0C
-};
-
 // opcode 138 (0x008A, ?): vtable 0xB09B44, constructor 0x873F70, 0x20 bytes
 class PlayerObjectReactionUpdatePacket : public PacketClass
 {

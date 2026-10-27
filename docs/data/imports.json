@@ -2548,7 +2548,11 @@
      "0x89C130",
      "0x89C1C0",
      "0x89C250",
-     "0x89C330"
+     "0x89C330",
+     "0x89C360",
+     "0x89C3E0",
+     "0x89C4A0",
+     "0x89C5A0"
     ],
     "merged": [],
     "name": "packets/pkmanufactureitemcatagorypacket.cpp"

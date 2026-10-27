@@ -5,8 +5,7 @@
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
 **	Original location: e:\build\beta\G\app\packets\pkmanufactureitemcatagorypacket.h (the name provisional: see the .cpp)
 **
-**	The packet classes of client 0x89B340-0x89C610 rebuilt so far (opcode 121, 122, 123, 124, 125, 126, 127); the file's other classes
-**	are still declared in pk_classes.h.
+**	The packet classes of client 0x89B340-0x89C610 rebuilt so far (opcode 121, 122, 123, 124, 125, 126, 127, 128): all of them.
 */
 
 #if defined(_MSC_VER)
@@ -17,6 +16,7 @@
 #define PKMANUFACTUREITEMCATAGORYPACKET_H
 
 #include "pk.h"
+#include "..\shared\strconv_lib.h"
 
 char *Manufacturing_Mode_Name(char *buffer, int len, int mode);	// 0x845910 (manufacturing_defs.cpp, not rebuilt: 'None', 'Manufacture', 'Analyze', 'Dismantle')  // NAME 2: what it does
 
@@ -123,6 +123,22 @@ public:
 	virtual int Print(char *buffer, int len);	// +0x10 0x89C330
 
 	int ManufactureID;	// +0x0C  // NAME 3: the client's Print text 'ManufactureID='
+};
+
+// opcode 128 (0x0080, MANUFACTURE_TECH_LEVEL_FILTER): vtable 0xB0B254, constructor 0x89C3E0, 0x18 bytes
+class ManufactureTechLevelFilterPacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name MANUFACTURE_TECH_LEVEL_FILTER (the Net-7 opcode table; no structure check)
+{
+public:
+	ManufactureTechLevelFilterPacketClass(int player, bool mode, unsigned int bit_field);	// 0x89C360
+	ManufactureTechLevelFilterPacketClass(RawPacketClass *raw);	// 0x89C3E0
+	virtual RawPacketClass *Build();	// +0x04 0x89C4A0
+	virtual bool Process_Packet(void *client);	// +0x08 0x868790 (clientstub.cpp)
+	virtual int Get_Data_Size();	// +0x0C 0x89C580
+	virtual int Print(char *buffer, int len);	// +0x10 0x89C5A0 (its format has three conversions for two values, as the client's)
+
+	int Player;	// +0x0C (network order)  // NAME 3: the client's Print text 'player='
+	bool Mode;	// +0x10 (true by default)  // NAME 3: the client's Print text 'Mode = '
+	unsigned int BitField;	// +0x14 (network order)  // NAME 3: the client's Print text 'BitField = '
 };
 
 #endif

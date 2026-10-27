@@ -201,6 +201,43 @@ int ManufactureSetPacketClass::Print(char *buffer, int)
 	return(sprintf(buffer, "Manufacture Set ManufactureID = %d", ManufactureID));
 }
 
+ManufactureTechLevelFilterPacketClass::ManufactureTechLevelFilterPacketClass(int player, bool mode, unsigned int bit_field) :
+	Player(player),
+	Mode(mode),
+	BitField(bit_field)
+{
+}
+
+ManufactureTechLevelFilterPacketClass::ManufactureTechLevelFilterPacketClass(RawPacketClass *raw) :
+	Player(0),
+	Mode(true),
+	BitField(0)
+{
+	raw->Get(Player);
+	raw->Get(Mode);
+	raw->Get((int &)BitField);
+}
+
+RawPacketClass *ManufactureTechLevelFilterPacketClass::Build()
+{
+	RawPacketClass *raw = new RawPacketClass(128, Get_Data_Size());
+	raw->Add(Player);
+	raw->Add(Mode);
+	raw->Add((int)BitField);
+	return(raw);
+}
+
+int ManufactureTechLevelFilterPacketClass::Get_Data_Size()
+{
+	return(sizeof(Player) + sizeof(Mode) + sizeof(BitField));
+}
+
+int ManufactureTechLevelFilterPacketClass::Print(char *buffer, int)
+{
+	char text[128];
+	return(sprintf(buffer, "Manufacture Tech Level Filter request {player=%d} Mode = %s BitField = %u", Player, Value_To_String(text, sizeof(text) - 1, Mode), BitField));
+}
+
 
 /*
 **	Reconstruction notes (pkmanufactureitemcatagorypacket.cpp)
@@ -210,5 +247,5 @@ int ManufactureSetPacketClass::Print(char *buffer, int)
 **	  pkemit.py): members from the raw message's Get / Build's Add (sizes) and Print (types,
 **	  names: 'Name=%d'), the constructors' stores in the initialiser list.
 **	* The file name is provisional (provisional, pk + its first named class's name).
-**	* Not rebuilt yet: opcode 121, 128 (declared in pk_classes.h).
+**	* Opcodes 121 and 128 written by hand (builder P4, 2026-10-27).
 */
