@@ -89,6 +89,7 @@ public:
 class IncapacitanceRescueConfirmationPacket : public PacketClass
 {
 public:
+	IncapacitanceRescueConfirmationPacket(const std::string &unknown);	// 0x873260  // NAME 1 [unknown]: neutral (D10)
 	IncapacitanceRescueConfirmationPacket(RawPacketClass *raw);	// 0x8734E0
 	virtual RawPacketClass *Build();	// +0x04 0x873650
 	virtual bool Process_Packet(void *client);	// +0x08 0x739CD0 (cpacket.cpp)

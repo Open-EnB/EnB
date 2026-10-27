@@ -150,6 +150,11 @@ int IncapacitanceDetailsPacket::Print(char *buffer, int len)
 	return(_snprintf(buffer, len, "Incapacitance Details"));
 }
 
+IncapacitanceRescueConfirmationPacket::IncapacitanceRescueConfirmationPacket(const std::string &unknown) :
+	Unknown0C(unknown)
+{
+}
+
 IncapacitanceRescueConfirmationPacket::IncapacitanceRescueConfirmationPacket(RawPacketClass *raw)
 {
 	char *string = raw->Get_String();
