@@ -1,5 +1,6 @@
 // Earth & Beyond client (reconstruction): app\packets\pkunknown_860d30.cpp. Notes at the end of the file.
 #include "pkunknown_860d30.h"
+#include "..\shared\unknown_debug.h"
 #include <stdio.h>
 #include <string.h>
 
@@ -29,6 +30,80 @@ int GameEditorRequestPlanetUnitTypesPacketClass::Print(char *buffer, int)
 	return(strlen(buffer));
 }
 
+Packet_7548Class::Packet_7548Class(char *data, int size) :
+	Data(data),
+	Size(size),
+	Owned(false)
+{
+}
+
+Packet_7548Class::Packet_7548Class(RawPacketClass *raw) :
+	Data(NULL),
+	Size(0),
+	Owned(false)
+{
+	raw->Get(&Size, sizeof(Size));
+	if (Size > 0) {
+		Data = new char[Size];
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		G_ASSERT(Data);
+		Owned = true;
+		raw->Get(Data, Size);
+	}
+}
+
+Packet_7548Class::~Packet_7548Class()
+{
+	if (Owned) {
+		delete [] Data;
+	}
+}
+
+RawPacketClass *Packet_7548Class::Build()
+{
+	RawPacketClass *packet = new RawPacketClass(30024, Get_Data_Size());
+	G_ASSERT(packet);
+	packet->Add(&Size, sizeof(Size));
+	packet->Add(Data, Size);
+	return(packet);
+}
+
+int Packet_7548Class::Get_Data_Size()
+{
+	return(Size + sizeof(Size));
+}
+
+int Packet_7548Class::Print(char *buffer, int)
+{
+	return(sprintf(buffer, "%s {Types=%s}", "GameEditorPlanetUnitTypes", Data));
+}
+
+bool Packet_7548Class::Process_Packet(void *)
+{
+	return(true);
+}
+
+
 Packet_7549Class::Packet_7549Class(int unit_type) : UnitType(unit_type)
 {
 }
@@ -55,6 +130,92 @@ int Packet_7549Class::Print(char *buffer, int)
 	return(sprintf(buffer, "%s {UnitType=%d}", "GameEditorRequestPlanetUnitDetails", UnitType));
 }
 
+Packet_754AClass::Packet_754AClass(char *data, int size) :
+	Data(data),
+	Size(size),
+	Owned(false)
+{
+}
+
+Packet_754AClass::Packet_754AClass(RawPacketClass *raw) :
+	Data(NULL),
+	Size(0),
+	Owned(false)
+{
+	raw->Get(&Size, sizeof(Size));
+	if (Size > 0) {
+		Data = new char[Size];
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		G_ASSERT(Data);
+		Owned = true;
+		raw->Get(Data, Size);
+	}
+}
+
+Packet_754AClass::~Packet_754AClass()
+{
+	if (Owned) {
+		delete [] Data;
+	}
+}
+
+RawPacketClass *Packet_754AClass::Build()
+{
+	RawPacketClass *packet = new RawPacketClass(30026, Get_Data_Size());
+	G_ASSERT(packet);
+	packet->Add(&Size, sizeof(Size));
+	packet->Add(Data, Size);
+	return(packet);
+}
+
+int Packet_754AClass::Get_Data_Size()
+{
+	return(Size + sizeof(Size));
+}
+
+int Packet_754AClass::Print(char *buffer, int)
+{
+	return(sprintf(buffer, "%s {Details=%s}", "GameEditorPlanetUnitDetails", Data));
+}
+
+bool Packet_754AClass::Process_Packet(void *)
+{
+	return(true);
+}
+
 
 /*
 **	Reconstruction notes (pkunknown_860d30.cpp)
@@ -66,5 +227,7 @@ int Packet_7549Class::Print(char *buffer, int)
 **	* The file name is provisional (provisional, neutral (D10): the object's first address).
 **	* Opcode 30023 written by hand (builder P5, 2026-10-27). The object is the client's
 **	  app\Packets\gameedit\pkgeplan.cpp: the raw constructor at 0x860F80 between 30023 and 30025 asserts
-**	  on its line 69 (not rebuilt yet).
+**	  on its line 69. The send-only 30024 and 30026 (not in the packet switch; Process_Packet true) written
+**	  by hand (builder P5, 2026-10-27): G_ASSERT(Data) on lines 69 and 182, Build's G_ASSERT(packet) on 85
+**	  and 198 (blank lines above them).
 */
