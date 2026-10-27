@@ -3520,6 +3520,11 @@ RECONSTRUCTED = {
                                      "instances and the mod iterators: the asserts on the client's lines 200-1066 (D25); NOT EXACT: "
                                      "0x4D4490, 0x4D4810, 0x4D4BD0, 0x4D5000, 0x4D55D0, 0x4D6620, 0x4D6820, 0x4D71D0, "
                                      "0x4D8240, 0x4D8690",
+    ('app', 'shared/attrib_dir_collective.h'): "the value functions (average, smallest, largest) and the function mod "
+                                              "(D24), declared as far as rebuilt",
+    ('app', 'shared/attrib_dir_collective.cpp'): "the value functions and the function mod, client 0x4DA7F0-0x4DBBA0 with "
+                                                "their instances: the asserts on the client's lines 54-206 (D25); not yet the "
+                                                "collective 0x4DBBC0-0x4DCFF0",
     ('app', 'client/sclient.h'): "SClient (the client's 'SClient::Process_Packets'): 0x14F8 bytes packed to 4, ClientClass at "
                                 "+0x00 and SOptionsClass at +0x1150, vtable 0xB03240 (26 slots); the layout from the "
                                 "constructor, destructor and Init (kernel-map-step9.md 2.2, D90 9d)",

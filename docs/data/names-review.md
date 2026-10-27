@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 13 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 30 |
-| 3 | by convention from a client-named file or sibling | 696 |
-| 2 | describes what the code does | 1346 |
-| 1 | neutral placeholder | 1825 |
+| 3 | by convention from a client-named file or sibling | 697 |
+| 2 | describes what the code does | 1366 |
+| 1 | neutral placeholder | 1827 |
 
 ## For review (score 3 and below)
 
@@ -1381,6 +1381,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `pkverbrequest` | `app/packets/pkverbrequest.h:16` | provisional, pk + its first named class's name |
 | 1 | `pkversionrequest` | `app/packets/pkversionrequest.h:16` | provisional, pk + its first named class's name |
 | 1 | `pkwarpindex` | `app/packets/pkwarpindex.h:15` | provisional, pk + its first named class's name |
+| 1 | `Unknown1C` | `app/shared/attrib_dir_collective.cpp:33` | untagged neutral name (D10) |
+| 1 | `Unknown1C` | `app/shared/attrib_dir_collective.h:52` | neutral placeholder (D10) |
 | 1 | `m_Unknown70` | `app/shared/auxdata/delta.cpp:9` | untagged neutral name (D10) |
 | 1 | `m_Unknown78` | `app/shared/auxdata/delta.cpp:11` | untagged neutral name (D10) |
 | 1 | `m_Unknown7C` | `app/shared/auxdata/delta.cpp:12` | untagged neutral name (D10) |
@@ -1526,7 +1528,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `convert` | `app/shared/avatar_desc.h:47` | what it selects |
 | 1 | `Unknown_4C1460` | `app/shared/avatar_desc.h:47` | untagged neutral name (D10) |
 | 1 | `Unknown_4C15F0` | `app/shared/avatar_desc.h:48` | untagged neutral name (D10) |
-| 1 | `Unknown0C` | `app/shared/avatar_desc.h:51` | untagged neutral name (D10) |
+| 1 | `Unknown0C` | `app/shared/avatar_desc.h:54` | untagged neutral name (D10) |
 | 1 | `BoolContext` | `app/shared/boolpars.cpp:7` | 0xBE34D8, set only around BoolExpressionClass::Evaluate |
 | 1 | `Unknown08` | `app/shared/definition_manager.h:37` | neutral placeholder (D10) |
 | 1 | `Unknown08` | `app/shared/definition_manager.h:221` | neutral placeholder (D10) |
@@ -2502,6 +2504,23 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Find_Info` | `app/shared/attrib_dir.h:268` | what it does |
 | 2 | `std:` | `app/shared/attrib_dir.h:269` | what it does |
 | 2 | `Attributes` | `app/shared/attrib_dir.h:271` | what it holds |
+| 2 | `AttribValueFunctionClass` | `app/shared/attrib_dir_collective.h:28` | what it is |
+| 2 | `Add` | `app/shared/attrib_dir_collective.h:31` | what it does |
+| 2 | `Remove` | `app/shared/attrib_dir_collective.h:32` | what it does |
+| 2 | `Replace` | `app/shared/attrib_dir_collective.h:33` | what it does |
+| 2 | `Calculate` | `app/shared/attrib_dir_collective.h:34` | what it does |
+| 2 | `AttribAverageFunctionClass` | `app/shared/attrib_dir_collective.h:38` | what it computes |
+| 2 | `Create` | `app/shared/attrib_dir_collective.h:48` | what it does |
+| 2 | `Changed` | `app/shared/attrib_dir_collective.h:51` | set by every change |
+| 2 | `AttribMinFunctionClass` | `app/shared/attrib_dir_collective.h:56` | what it computes |
+| 2 | `Create` | `app/shared/attrib_dir_collective.h:66` | what it does |
+| 2 | `Sorted` | `app/shared/attrib_dir_collective.h:69` | what it means |
+| 2 | `AttribMaxFunctionClass` | `app/shared/attrib_dir_collective.h:73` | what it computes |
+| 2 | `Create` | `app/shared/attrib_dir_collective.h:83` | what it does |
+| 2 | `Sorted` | `app/shared/attrib_dir_collective.h:86` | what it means |
+| 2 | `AttribFunctionModClass` | `app/shared/attrib_dir_collective.h:90` | what it is |
+| 2 | `Type` | `app/shared/attrib_dir_collective.h:100` | as AttribModValueClass |
+| 2 | `Owner` | `app/shared/attrib_dir_collective.h:101` | as AttribModValueClass |
 | 2 | `Swap` | `app/shared/auxdata/bitset.h:26` | describes what it does |
 | 2 | `Is_Set` | `app/shared/auxdata/bitset.h:30` | describes what it does |
 | 2 | `Set` | `app/shared/auxdata/bitset.h:32` | describes what it does |
@@ -2740,6 +2759,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Load_Defaults` | `app/shared/avatar_desc.h:44` | what it does |
 | 2 | `std:` | `app/shared/avatar_desc.h:45` | what it does |
 | 2 | `std:` | `app/shared/avatar_desc.h:46` | what it does |
+| 2 | `Get_Body_Morph` | `app/shared/avatar_desc.h:49` | what it does |
+| 2 | `Get_Head_Morph` | `app/shared/avatar_desc.h:50` | what it does |
+| 2 | `Get_Facial_Feature` | `app/shared/avatar_desc.h:51` | what it does |
 | 2 | `boolpars.cpp` | `app/shared/boolpars.cpp:9` | describes what it does |
 | 2 | `Duplicate_Text` | `app/shared/boolpars.cpp:300` | describes what it does (not in the client: inlined into Parse) |
 | 2 | `BoolValueStruct` | `app/shared/boolpars.h:29` | describes what it holds |
@@ -3818,6 +3840,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `List` | `app/packets/pkwarpindex.h:35` | the client's Print text 'NavigationListSize=' |
 | 3 | `Index` | `app/packets/pkwarpindex.h:49` | the client's Print text 'Index=' |
 | 3 | `attrib_dir.h` | `app/shared/attrib_dir.h:21` | header name assumed from the client's attrib_dir.cpp |
+| 3 | `attrib_dir_collective.h` | `app/shared/attrib_dir_collective.h:19` | header name assumed from the client's attrib_dir_collective.cpp |
 | 3 | `bitset.h` | `app/shared/auxdata/bitset.h:16` | header name assumed from the client's bitset.cpp |
 | 3 | `BitSetClass` | `app/shared/auxdata/bitset.h:19` | by convention (D24) from the client's file bitset.cpp |
 | 3 | `delta.h` | `app/shared/auxdata/delta.h:19` | header name assumed from the client's delta.cpp |
