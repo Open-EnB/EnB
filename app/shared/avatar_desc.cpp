@@ -857,6 +857,261 @@ void AvatarDescClass::Get_Facial_Feature(bool &movable, int &scale)
 	}
 }
 
+// NOT EXACT: frame (the client keeps the 0.5, 0.5 result in an 8-byte local, ours folds it; attempts.py show 0x4C1B80)
+// 0x4C1B80
+void AvatarDescClass::Get_Hair_Offset(Vector2 &offset)
+{
+	Vector2 result(0.5F, 0.5F);
+	char section[64];
+
+	if (AvatarDefinitions.Is_Loaded()) {
+		_snprintf(section, sizeof(section), "%s%s%s", AvatarGenderNames[Gender], AvatarRaceNames[Race], AvatarProfessionNames[Profession]);
+		TPoint2D<float> half(0.5F, 0.5F);
+		if (AvatarDefinitions.Find_Entry(section, "HairOffset") != NULL) {
+			TPoint2D<float> point = AvatarDefinitions.Get_Point(section, "HairOffset", half);
+			result.X = point.X;
+			result.Y = point.Y;
+			offset = result;
+			return;
+		}
+	}
+	offset = result;
+}
+
+// NOT EXACT: frame (the client keeps the 0.5, 0.5 result in an 8-byte local, ours folds it; attempts.py show 0x4C1B80)
+// 0x4C1CA0
+void AvatarDescClass::Get_Skin_Offset(Vector2 &offset)
+{
+	Vector2 result(0.5F, 0.5F);
+	char section[64];
+
+	if (AvatarDefinitions.Is_Loaded()) {
+		_snprintf(section, sizeof(section), "%s%s%s", AvatarGenderNames[Gender], AvatarRaceNames[Race], AvatarProfessionNames[Profession]);
+		TPoint2D<float> half(0.5F, 0.5F);
+		if (AvatarDefinitions.Find_Entry(section, "SkinOffset") != NULL) {
+			TPoint2D<float> point = AvatarDefinitions.Get_Point(section, "SkinOffset", half);
+			result.X = point.X;
+			result.Y = point.Y;
+			offset = result;
+			return;
+		}
+	}
+	offset = result;
+}
+
+// NOT EXACT: frame (the client keeps the 0.5, 0.5 result in an 8-byte local, ours folds it; attempts.py show 0x4C1B80)
+// 0x4C1DC0
+void AvatarDescClass::Get_Eye_Offset(Vector2 &offset)
+{
+	Vector2 result(0.5F, 0.5F);
+	char section[64];
+
+	if (AvatarDefinitions.Is_Loaded()) {
+		_snprintf(section, sizeof(section), "%s%s%s", AvatarGenderNames[Gender], AvatarRaceNames[Race], AvatarProfessionNames[Profession]);
+		TPoint2D<float> half(0.5F, 0.5F);
+		if (AvatarDefinitions.Find_Entry(section, "EyeOffset") != NULL) {
+			TPoint2D<float> point = AvatarDefinitions.Get_Point(section, "EyeOffset", half);
+			result.X = point.X;
+			result.Y = point.Y;
+			offset = result;
+			return;
+		}
+	}
+	offset = result;
+}
+
+// NOT EXACT: frame (the client keeps the 0.5, 0.5 result in an 8-byte local, ours folds it; attempts.py show 0x4C1B80)
+// 0x4C1EE0
+void AvatarDescClass::Get_Shirt_Primary_Offset(Vector2 &offset)
+{
+	Vector2 result(0.5F, 0.5F);
+	char section[64];
+
+	if (AvatarDefinitions.Is_Loaded()) {
+		_snprintf(section, sizeof(section), "%s%s%s", AvatarGenderNames[Gender], AvatarRaceNames[Race], AvatarProfessionNames[Profession]);
+		TPoint2D<float> half(0.5F, 0.5F);
+		if (AvatarDefinitions.Find_Entry(section, "ShirtPrimaryOffset") != NULL) {
+			TPoint2D<float> point = AvatarDefinitions.Get_Point(section, "ShirtPrimaryOffset", half);
+			result.X = point.X;
+			result.Y = point.Y;
+			offset = result;
+			return;
+		}
+	}
+	offset = result;
+}
+
+// NOT EXACT: frame (the client keeps the 0.5, 0.5 result in an 8-byte local, ours folds it; attempts.py show 0x4C1B80)
+// 0x4C2000
+void AvatarDescClass::Get_Shirt_Secondary_Offset(Vector2 &offset)
+{
+	Vector2 result(0.5F, 0.5F);
+	char section[64];
+
+	if (AvatarDefinitions.Is_Loaded()) {
+		_snprintf(section, sizeof(section), "%s%s%s", AvatarGenderNames[Gender], AvatarRaceNames[Race], AvatarProfessionNames[Profession]);
+		TPoint2D<float> half(0.5F, 0.5F);
+		if (AvatarDefinitions.Find_Entry(section, "ShirtSecondaryOffset") != NULL) {
+			TPoint2D<float> point = AvatarDefinitions.Get_Point(section, "ShirtSecondaryOffset", half);
+			result.X = point.X;
+			result.Y = point.Y;
+			offset = result;
+			return;
+		}
+	}
+	offset = result;
+}
+
+// NOT EXACT: frame (the client keeps the 0.5, 0.5 result in an 8-byte local, ours folds it; attempts.py show 0x4C1B80)
+// 0x4C2120
+void AvatarDescClass::Get_Pants_Primary_Offset(Vector2 &offset)
+{
+	Vector2 result(0.5F, 0.5F);
+	char section[64];
+
+	if (AvatarDefinitions.Is_Loaded()) {
+		_snprintf(section, sizeof(section), "%s%s%s", AvatarGenderNames[Gender], AvatarRaceNames[Race], AvatarProfessionNames[Profession]);
+		TPoint2D<float> half(0.5F, 0.5F);
+		if (AvatarDefinitions.Find_Entry(section, "PantsPrimaryOffset") != NULL) {
+			TPoint2D<float> point = AvatarDefinitions.Get_Point(section, "PantsPrimaryOffset", half);
+			result.X = point.X;
+			result.Y = point.Y;
+			offset = result;
+			return;
+		}
+	}
+	offset = result;
+}
+
+// NOT EXACT: frame (the client keeps the 0.5, 0.5 result in an 8-byte local, ours folds it; attempts.py show 0x4C1B80)
+// 0x4C2240
+void AvatarDescClass::Get_Pants_Secondary_Offset(Vector2 &offset)
+{
+	Vector2 result(0.5F, 0.5F);
+	char section[64];
+
+	if (AvatarDefinitions.Is_Loaded()) {
+		_snprintf(section, sizeof(section), "%s%s%s", AvatarGenderNames[Gender], AvatarRaceNames[Race], AvatarProfessionNames[Profession]);
+		TPoint2D<float> half(0.5F, 0.5F);
+		if (AvatarDefinitions.Find_Entry(section, "PantsSecondaryOffset") != NULL) {
+			TPoint2D<float> point = AvatarDefinitions.Get_Point(section, "PantsSecondaryOffset", half);
+			result.X = point.X;
+			result.Y = point.Y;
+			offset = result;
+			return;
+		}
+	}
+	offset = result;
+}
+
+// NOT EXACT: order (the client's offsets and weights interleave differently; nine forms tried: attempts.py show 0x4C2360)
+// 0x4C2360
+void AvatarDescClass::Save_Defaults(const Vector2 *offsets)
+{
+	char section[64];
+	TPoint3D<float> color;
+	TPoint3D<float> offset;
+	Vector2 uv;
+
+	_snprintf(section, sizeof(section), "%s%s%s", AvatarGenderNames[Gender], AvatarRaceNames[Race], AvatarProfessionNames[Profession]);
+	if (AvatarDefinitions.Find_Section(section) != NULL) {
+		AvatarDefinitions.Put_Int(section, "Gender", Gender);
+		AvatarDefinitions.Put_Int(section, "BodyType", Body_Type);
+		AvatarDefinitions.Put_Int(section, "PantsType", Pants_Type);
+		AvatarDefinitions.Put_Int(section, "HeadType", Head_Type);
+		AvatarDefinitions.Put_Int(section, "HeadTextureNum", Head_Texture_Num);
+		AvatarDefinitions.Put_Int(section, "TattooTextureNum", Tattoo_Texture_Num);
+		AvatarDefinitions.Put_Int(section, "HairNum", Hair_Num);
+		AvatarDefinitions.Put_Int(section, "BeardNum", Beard_Num);
+		AvatarDefinitions.Put_Int(section, "EarNum", Ear_Num);
+		AvatarDefinitions.Put_Int(section, "GoggleNum", Goggle_Num);
+		AvatarDefinitions.Put_Int(section, "BeardNum", Beard_Num);
+		color.X = Hair_Color.X;
+		color.Y = Hair_Color.Y;
+		color.Z = Hair_Color.Z;
+		AvatarDefinitions.Put_Point(section, "HairColor", color);
+		color.X = Eye_Color.X;
+		color.Y = Eye_Color.Y;
+		color.Z = Eye_Color.Z;
+		AvatarDefinitions.Put_Point(section, "EyeColor", color);
+		color.X = Skin_Color.X;
+		color.Y = Skin_Color.Y;
+		color.Z = Skin_Color.Z;
+		AvatarDefinitions.Put_Point(section, "SkinColor", color);
+		color.X = Shirt_Primary_Color.X;
+		color.Y = Shirt_Primary_Color.Y;
+		color.Z = Shirt_Primary_Color.Z;
+		AvatarDefinitions.Put_Point(section, "ShirtPrimaryColor", color);
+		color.X = Shirt_Secondary_Color.X;
+		color.Y = Shirt_Secondary_Color.Y;
+		color.Z = Shirt_Secondary_Color.Z;
+		AvatarDefinitions.Put_Point(section, "ShirtSecondaryColor", color);
+		color.X = Pants_Primary_Color.X;
+		color.Y = Pants_Primary_Color.Y;
+		color.Z = Pants_Primary_Color.Z;
+		AvatarDefinitions.Put_Point(section, "PantsPrimaryColor", color);
+		color.X = Pants_Secondary_Color.X;
+		color.Y = Pants_Secondary_Color.Y;
+		color.Z = Pants_Secondary_Color.Z;
+		AvatarDefinitions.Put_Point(section, "PantsSecondaryColor", color);
+		color.X = Tattoo_Offset.X;
+		color.Y = Tattoo_Offset.Y;
+		color.Z = Tattoo_Offset.Z;
+		AvatarDefinitions.Put_Point(section, "TattooOffset", color);
+		AvatarDefinitions.Put_Int(section, "ShirtPrimaryMetal", Shirt_Primary_Metal);
+		AvatarDefinitions.Put_Int(section, "ShirtSecondaryMetal", Shirt_Secondary_Metal);
+		AvatarDefinitions.Put_Int(section, "PantsPrimaryMetal", Pants_Primary_Metal);
+		AvatarDefinitions.Put_Int(section, "PantsSecondaryMetal", Pants_Secondary_Metal);
+		uv.Set(offsets[0].X, 1.0 - offsets[0].Y);
+		offset.X = uv.X;
+		offset.Y = uv.Y;
+		offset.Z = 0.0F;
+		AvatarDefinitions.Put_Point(section, "HairOffset", offset);
+		uv.Set(offsets[1].X, 1.0 - offsets[1].Y);
+		offset.X = uv.X;
+		offset.Y = uv.Y;
+		offset.Z = 0.0F;
+		AvatarDefinitions.Put_Point(section, "EyeOffset", offset);
+		uv.Set(offsets[2].X, 1.0 - offsets[2].Y);
+		offset.X = uv.X;
+		offset.Y = uv.Y;
+		offset.Z = 0.0F;
+		AvatarDefinitions.Put_Point(section, "SkinOffset", offset);
+		uv.Set(offsets[3].X, 1.0 - offsets[3].Y);
+		offset.X = uv.X;
+		offset.Y = uv.Y;
+		offset.Z = 0.0F;
+		AvatarDefinitions.Put_Point(section, "ShirtPrimaryOffset", offset);
+		uv.Set(offsets[4].X, 1.0 - offsets[4].Y);
+		offset.X = uv.X;
+		offset.Y = uv.Y;
+		offset.Z = 0.0F;
+		AvatarDefinitions.Put_Point(section, "ShirtSecondaryOffset", offset);
+		uv.Set(offsets[5].X, 1.0 - offsets[5].Y);
+		offset.X = uv.X;
+		offset.Y = uv.Y;
+		offset.Z = 0.0F;
+		AvatarDefinitions.Put_Point(section, "PantsPrimaryOffset", offset);
+		uv.Set(offsets[6].X, 1.0 - offsets[6].Y);
+		offset.X = uv.X;
+		offset.Y = uv.Y;
+		offset.Z = 0.0F;
+		AvatarDefinitions.Put_Point(section, "PantsSecondaryOffset", offset);
+		AvatarDefinitions.Put_String(section, "Skeleton", Skeleton.c_str());
+		AvatarDefinitions.Put_Float(section, "BodyWeight0", Body_Weight[0]);
+		AvatarDefinitions.Put_Float(section, "BodyWeight1", Body_Weight[1]);
+		AvatarDefinitions.Put_Float(section, "BodyWeight2", Body_Weight[2]);
+		AvatarDefinitions.Put_Float(section, "BodyWeight3", Body_Weight[3]);
+		AvatarDefinitions.Put_Float(section, "BodyWeight4", Body_Weight[4]);
+		AvatarDefinitions.Put_Float(section, "HeadWeight0", Head_Weight[0]);
+		AvatarDefinitions.Put_Float(section, "HeadWeight1", Head_Weight[1]);
+		AvatarDefinitions.Put_Float(section, "HeadWeight2", Head_Weight[2]);
+		AvatarDefinitions.Put_Float(section, "HeadWeight3", Head_Weight[3]);
+		AvatarDefinitions.Put_Float(section, "HeadWeight4", Head_Weight[4]);
+	}
+	AvatarDefinitions.Save("avatardef.ini");
+}
+
 /*
 **	Reconstruction notes
 **

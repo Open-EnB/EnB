@@ -20,6 +20,7 @@
 
 #include "unknown_packetdata.h"
 #include "vector3.h"
+#include "vector2.h"
 #include <string>
 
 // vtables 0xAEB9D0 (wire: six slots) / 0xAEB9CC (key/value); constructors 0x4BEB50, 0x4BEBF0, 0x4BECC0.
@@ -49,6 +50,14 @@ public:
 	void Get_Body_Morph(Vector3 &scale, int morph);		// 0x4C1780: avatardef.ini's '<gender><race>morph' section, 1-4 short_skinny .. tall_skinny  // NAME 2: what it does
 	void Get_Head_Morph(Vector3 &scale, int morph);		// 0x4C1930: the same, short_narrow .. long_narrow (Y and Z)  // NAME 2: what it does
 	void Get_Facial_Feature(bool &movable, int &scale);	// 0x4C1AC0: 'FacialFeature%02d' of the tattoo texture  // NAME 2: what it does
+	void Get_Hair_Offset(Vector2 &offset);		// 0x4C1B80: avatardef.ini's HairOffset (0.5, 0.5 by default)  // NAME 2: its key
+	void Get_Skin_Offset(Vector2 &offset);		// 0x4C1CA0: avatardef.ini's SkinOffset (0.5, 0.5 by default)  // NAME 2: its key
+	void Get_Eye_Offset(Vector2 &offset);		// 0x4C1DC0: avatardef.ini's EyeOffset (0.5, 0.5 by default)  // NAME 2: its key
+	void Get_Shirt_Primary_Offset(Vector2 &offset);		// 0x4C1EE0: avatardef.ini's ShirtPrimaryOffset (0.5, 0.5 by default)  // NAME 2: its key
+	void Get_Shirt_Secondary_Offset(Vector2 &offset);		// 0x4C2000: avatardef.ini's ShirtSecondaryOffset (0.5, 0.5 by default)  // NAME 2: its key
+	void Get_Pants_Primary_Offset(Vector2 &offset);		// 0x4C2120: avatardef.ini's PantsPrimaryOffset (0.5, 0.5 by default)  // NAME 2: its key
+	void Get_Pants_Secondary_Offset(Vector2 &offset);		// 0x4C2240: avatardef.ini's PantsSecondaryOffset (0.5, 0.5 by default)  // NAME 2: its key
+	void Save_Defaults(const Vector2 *offsets);			// 0x4C2360: the description into avatardef.ini (offsets: the seven texture offsets, Y flipped)  // NAME 2: what it does
 
 	int Avatar_Type;									// +0x08 NAME 2: its key 'avatar_type' (Clear's argument)
 	char Unknown0C;										// +0x0C (written, not a key)
