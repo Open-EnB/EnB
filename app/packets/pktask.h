@@ -5,7 +5,7 @@
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
 **	Original location: e:\build\beta\G\app\packets\pktask.h (the .cpp named by an assert)
 **
-**	The packet classes of client 0x8A8610-0x8AAA80 rebuilt so far (opcode 5002, 5003, 5004, 5005, 5006, 5009, 5011); the file's other classes
+**	The packet classes of client 0x8A8610-0x8AAA80 rebuilt so far (opcode 5000, 5001, 5002, 5003, 5004, 5005, 5006, 5009, 5010, 5011); the file's other classes
 **	are still declared in pk_classes.h.
 */
 
@@ -17,6 +17,65 @@
 #define PKTASK_H
 
 #include "pk.h"
+#include <list>
+
+// The data of opcode 5000 (Print 'Task Hello'): 0x210 bytes, sent as they are
+struct Unknown1388Struct  // NAME 1: neutral (D10): opcode 0x1388's data
+{
+	Unknown1388Struct();	// 0x8A8610
+	Unknown1388Struct(int unknown00, int unknown04, short unknown08, const char *unknown0a, const char *unknown10a, int unknown20c);	// 0x8A8640
+	Unknown1388Struct(const Unknown1388Struct &that);	// 0x8A86D0
+	Unknown1388Struct &operator=(const Unknown1388Struct &that);	// 0x8A8750
+
+	int Unknown00;	// +0x00
+	int Unknown04;	// +0x04
+	short Unknown08;	// +0x08
+	char Unknown0A[0x100];	// +0x0A (strncpy'd)
+	char Unknown10A[0x100];	// +0x10A (strncpy'd)
+	int Unknown20C;	// +0x20C
+};
+
+// The data of opcode 5001 (Print 'Sector Hello') and of 5010's list entries: 0x218 bytes, sent as they are
+struct Unknown1389Struct : public Unknown1388Struct  // NAME 1: neutral (D10): opcode 0x1389's data
+{
+	Unknown1389Struct();	// 0x8A87D0
+	Unknown1389Struct(int unknown00, int unknown04, short unknown08, const char *unknown0a, const char *unknown10a, int unknown210, int unknown214);	// 0x8A8810 (unknown214 also goes to Unknown20C)
+	Unknown1389Struct(const Unknown1389Struct &that);	// 0x8A88B0
+	Unknown1389Struct &operator=(const Unknown1389Struct &that);	// 0x8A8970
+
+	int Unknown210;	// +0x210
+	int Unknown214;	// +0x214
+};
+
+// opcode 5000 (0x1388, ?): vtable 0xB0BD80, constructor 0x8A8B20, 0x21C bytes
+class Packet_1388Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x1388 (Print 'Task Hello')
+{
+public:
+	Packet_1388Class(const Unknown1388Struct &data);	// 0x8A8A10
+	Packet_1388Class(RawPacketClass *raw);	// 0x8A8B20
+	virtual RawPacketClass *Build();	// +0x04 0x8A8BC0
+	virtual bool Process_Packet(void *client);	// +0x08 0x868400 (clientstub.cpp)
+	virtual int Get_Data_Size();	// +0x0C 0x8A8CB0
+	virtual int Print(char *buffer, int len);	// +0x10 0x8A8CD0
+	virtual int Get_Type();	// +0x28 0x8A8C90  // NAME 2: as Packet_138AClass's
+
+	Unknown1388Struct Data;	// +0x0C  // NAME 2: what it holds
+};
+
+// opcode 5001 (0x1389, ?): vtable 0xB0BDB4, constructor 0x8A8E30, 0x224 bytes
+class Packet_1389Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x1389 (Print 'Sector Hello')
+{
+public:
+	Packet_1389Class(const Unknown1389Struct &data);	// 0x8A8D00
+	Packet_1389Class(RawPacketClass *raw);	// 0x8A8E30
+	virtual RawPacketClass *Build();	// +0x04 0x8A8EF0
+	virtual bool Process_Packet(void *client);	// +0x08 0x868430 (clientstub.cpp)
+	virtual int Get_Data_Size();	// +0x0C 0x8A8FE0
+	virtual int Print(char *buffer, int len);	// +0x10 0x8A9000
+	virtual int Get_Type();	// +0x28 0x8A8FC0  // NAME 2: as Packet_138AClass's
+
+	Unknown1389Struct Data;	// +0x0C  // NAME 2: what it holds
+};
 
 // opcode 5002 (0x138A, ?): vtable 0xB0BDE8, constructor 0x8A90D0, 0x14 bytes
 class Packet_138AClass : public PacketClass  // NAME 1: neutral (D10): opcode 0x138A
@@ -115,6 +174,21 @@ public:
 	int Sector;	// +0x30 (network order)  // NAME 3: the client's Print text 'Sector='
 	int Status;	// +0x34 (4 bytes as they are)  // NAME 3: the client's Print text 'Status='
 	__int64 Unknown38;	// +0x38 (8 bytes as they are; not printed)
+};
+
+// opcode 5010 (0x1392, ?): vtable 0xB0BF20, constructor 0x8AA490, 0x18 bytes
+class Packet_1392Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x1392 (Print 'SectorList')
+{
+public:
+	Packet_1392Class(const std::list<Unknown1389Struct> &list);	// 0x8AA280
+	Packet_1392Class(RawPacketClass *raw);	// 0x8AA490
+	virtual RawPacketClass *Build();	// +0x04 0x8AA670
+	virtual bool Process_Packet(void *client);	// +0x08 0x868580 (clientstub.cpp)
+	virtual int Get_Data_Size();	// +0x0C 0x8AA780
+	virtual int Print(char *buffer, int len);	// +0x10 0x8AA7B0
+	virtual int Get_Type();	// +0x28 0x8AA760  // NAME 2: as Packet_138AClass's
+
+	std::list<Unknown1389Struct> List;	// +0x0C (a 4-byte count, then the entries as they are)  // NAME 2: what it holds
 };
 
 // opcode 5011 (0x1393, ?): vtable 0xB0BF54, constructor 0x8AA870, 0xC bytes

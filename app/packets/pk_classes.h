@@ -424,39 +424,12 @@ public:
 	char Unknown0C[0x30];	// +0x0C
 };
 
-// opcode 5000 (0x1388, ?): vtable 0xB0BD80, constructor 0x8A8B20, 0x21C bytes
-class Packet_1388Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x1388
-{
-public:
-	Packet_1388Class(RawPacketClass *raw);	// 0x8A8B20
-	virtual bool Process_Packet(void *client);	// +0x08 0x868400 (clientstub.cpp l.164)
-	char Unknown0C[0x210];	// +0x0C
-};
-
-// opcode 5001 (0x1389, ?): vtable 0xB0BDB4, constructor 0x8A8E30, 0x224 bytes
-class Packet_1389Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x1389
-{
-public:
-	Packet_1389Class(RawPacketClass *raw);	// 0x8A8E30
-	virtual bool Process_Packet(void *client);	// +0x08 0x868430 (clientstub.cpp l.167)
-	char Unknown0C[0x218];	// +0x0C
-};
-
 // opcode 91 (0x005B, ?): vtable 0xB0C268, constructor 0x8AF150, 0x20 bytes
 class VerbListPacketClass : public PacketClass
 {
 public:
 	VerbListPacketClass(RawPacketClass *raw);	// 0x8AF150
 	char Unknown0C[0x14];	// +0x0C
-};
-
-// opcode 5010 (0x1392, ?): vtable 0xB0BF20, constructor 0x8AA490, 0x18 bytes
-class Packet_1392Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x1392
-{
-public:
-	Packet_1392Class(RawPacketClass *raw);	// 0x8AA490
-	virtual bool Process_Packet(void *client);	// +0x08 0x868580 (clientstub.cpp l.188)
-	char Unknown0C[0xC];	// +0x0C
 };
 
 // opcode 94 (0x005E, AVATAR_EMOTE): vtable 0xB0A020, constructor 0x87E010, 0x24 bytes
