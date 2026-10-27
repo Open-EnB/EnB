@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-251 entries in 63 files.
+259 entries in 63 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -24,10 +24,16 @@ edit the comments in the code, not this file.
 | `app/client/client.cpp:225` | `ClientClass::Remove_Object` | marker | NOT EXACT: shape (the client puts the not-found return last; three forms; attempts.py show 0x727600) 0x727600 |
 | `app/client/client.cpp:307` | `ClientClass::Set_Debug_Object` | marker | NOT EXACT: register-only (the flag in dl, the id in eax; two forms; attempts.py show 0x728010) 0x728010 |
 | `app/client/client.cpp:374` | `ClientClass::Set_Debug_Mode` | marker | NOT EXACT: register-only (the id in eax, the flag in ecx; two forms; attempts.py show 0x728240) 0x728240 |
+| `app/client/client_lego_impl.cpp:164` | `ClientLegoImplClass::Init` | marker | NOT EXACT: shape, mostly registers: the client keeps the child record and the key in ebx / ebp across the loop |
 | `app/client/client_lego_impl.cpp:632` | `ClientLegoImplClass::Update_Radius` | marker | NOT EXACT: frame: ours 0x30, the client 0x60 (its bone translation goes through FPU temporaries; attempts.csv) |
+| `app/client/client_lego_impl.cpp:679` | `ClientLegoImplClass::Child_Moved` | marker | NOT EXACT: shape, 4 rows: the client forms &child (lea ebp) before loading it, ours after (attempts.csv) |
+| `app/client/client_lego_impl.cpp:710` | `ClientLegoImplClass::Attach` | marker | NOT EXACT: frame: the client keeps the child's render object in its own stack slot (sub esp 8), ours in a dead parameter's (attempts.csv) |
+| `app/client/client_lego_impl.cpp:742` | `ClientLegoImplClass::Detach` | marker | NOT EXACT: register-only, 4 rows: eax / edx swapped around the Get_Render_Object call (attempts.csv) |
+| `app/client/client_lego_impl.cpp:754` | `ClientLegoImplClass::Get_Bone_Map` | marker | NOT EXACT: frame: ours 0x1C, the client 0x14 (the client reuses the iterator's slots for operator[]'s pair) |
 | `app/client/co.cpp:1679` | `ClientObjectClass::Unknown_6FC9A0` | marker | NOT EXACT: shape (case 2's 'pop esi' scheduled between its two stores in ours, after them in the client; 3 forms) 0x6FC9A0 |
 | `app/client/co.cpp:1715` | `ClientObjectClass::Unknown_6FCB20` | marker | NOT EXACT: shape (the client keeps the argument in eax and masks a copy for the compare; 3 forms) 0x6FCB20 |
 | `app/client/co.cpp:2227` | `ClientObjectClass::Unknown_6FEC40` | marker | NOT EXACT: order (the client sums the transform's products in another order; explain.py says field-offset; 2 forms) 0x6FEC40 |
+| `app/client/co.cpp:2326` | `ClientObjectClass::Get_Name` | marker | NOT EXACT: inline-budget (the client calls rtti.h's cast 0x5469C0 at all four lookups and the string assign's helpers; ours inlines them) |
 | `app/client/co_data.h:55` | `?` | marker | NOT EXACT: frame (0x54 vs the client's 0x50: ours inlines the type map's default constructor, the client calls 0x79E6E0) |
 | `app/client/control_keys_manager.cpp:115` | `ControlKeysManager::Get_Key_Id` | marker | NOT EXACT: inline budget (ours inlines Get_Key_Id 0x71A190, which the client calls) |
 | `app/client/control_keys_manager.cpp:121` | `ControlKeysManager::Get_Key_Id` | marker | NOT EXACT: inline budget (ours inlines _KeyIds.find, the client calls 0x71EBC0; ~56 rows) |
@@ -38,7 +44,9 @@ edit the comments in the code, not this file.
 | `app/client/control_keys_manager.cpp:524` | `ControlKeysManager::Save_Keys` | marker | NOT EXACT: shape, 12 rows: the client keeps the 1-based set count in a register (inc at the loop top), ours in a frame slot (attempts.csv) |
 | `app/client/control_keys_manager.cpp:570` | `ControlKeysManager::Reset_Keys` | marker | NOT EXACT: shape, ~56 rows: the client calls 0x71E850 on the whole vector where our erase inlines a copy loop (attempts.csv) |
 | `app/client/control_keys_manager.cpp:639` | `KeyMappingStruct::Get_Key_String` | marker | NOT EXACT: register-only in the failure path (out in ebp, npos in ebx; the client swaps them); erase(0, npos) and resize(0) the same |
-| `app/client/cpacket.cpp:169` | `ClientAvatarPacketClass::Process_Packet` | marker | NOT EXACT: shape (the client loads the model straight into ecx; two forms; attempts.py show 0x733590) 0x733590 |
+| `app/client/cpacket.cpp:195` | `ClientAvatarPacketClass::Process_Packet` | marker | NOT EXACT: shape (the client loads the model straight into ecx; two forms; attempts.py show 0x733590) 0x733590 |
+| `app/client/cpacket.cpp:344` | `AuxDataPacketClass::Process_Packet` | marker | NOT EXACT: register-only (the client loads Size and the duration before pushing 0x400; 16 forms; attempts.py show 0x7364C0) 0x7364C0 |
+| `app/client/cpacket.cpp:362` | `AuxDataPlayerVarPacketClass::Process_Packet` | marker | NOT EXACT: register-only (the client loads Size and the duration before pushing 0x400; 16 forms; attempts.py show 0x736650) 0x736650 |
 | `app/client/cpacket.cpp:1392` | `ServerHandoffPacketClass::Process_Packet` | marker | NOT EXACT: order-only (the __int64 Unknown10C0 store scheduled first; two forms; attempts.py show 0x737CB0) 0x737CB0 |
 | `app/client/cpacket.cpp:1513` | `StarbaseSetPacketClass::Process_Packet` | marker | NOT EXACT: shape (the client keeps four calls of 0x74BA30, ours merges them; attempts.py show 0x7381C0) 0x7381C0 |
 | `app/client/cpacket.cpp:1918` | `LootHulkPermissionPacketClass::Process_Packet` | marker | NOT EXACT: shape (the client places the shared failure exit before the call; three forms; attempts.py show 0x7396F0) 0x7396F0 |
@@ -114,7 +122,7 @@ edit the comments in the code, not this file.
 | `app/common/udpconn.cpp:431` | `UDPConnection::Open_Fixed_Channel` | marker | NOT EXACT: the client keeps -1 - channel and Fixed's +0x80 apart, and the -4 priority in esi |
 | `app/common/udpconn.cpp:805` | `UDPListenerClass::Accept` | mention | NOT EXACT (functional, D42): the constructor over a CordCon (registers), Send_Data (wlib's Dictionary), Open_Fixed_Channel (the index's form). * The checks of the CordCon's state compare with true (`cmp bl, 1`): `closed == true`, except in Send_Data and Receive. * Pending (+0x7C) holds the session id CordMgr::Connect started (the client's 0x859440 and 0x8595B0 search by it), not a pointer. |
 | `app/input/inpdsp.cpp:128` | `LoginUnknown0CClass::Unknown_429F60` | marker | NOT EXACT: register-only, 1 row: the client reloads rec->Next through prev (edi) in the search loop (attempts.csv) |
-| `app/input/inpdsp.cpp:166` | `LoginUnknown0CClass::Unknown_429F60` | mention | NOT EXACT (register-only, parked after three forms of the search loop). |
+| `app/input/inpdsp.cpp:226` | `Unknown_42A410` | mention | NOT EXACT (register-only, parked after three forms of the search loop). After 0x429F60: the event key 0x42A170 (a member defined after its users: /Ob2 inlines it everywhere and still emits it), the ini reader 0x42A1A0 and writer 0x42A410 (the key names themselves are the next file's, 0x42B610 / 0x42B7E0). The writer tests the flags through bool accessors on bit fields (the client's word load, shr ... |
 | `app/kernel/kernel.cpp:208` | `KernelClass::Remove_Task` | marker | NOT EXACT: the client calls the iterator's operator++(int) 0x444190 out of line |
 | `app/kernel/kernel.cpp:350` | `KernelClass::Is_Running` | marker | NOT EXACT: the client's has no xor before the setne |
 | `app/packets/pkauxdata.cpp:43` | `AuxDataPacketClass::Print` | marker | NOT EXACT: the client reads Size before the first dword of Data (register order; 2 forms, workflow.md 3.1) |
