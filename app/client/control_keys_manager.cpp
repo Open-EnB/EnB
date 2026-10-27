@@ -1,8 +1,13 @@
 // Earth & Beyond client (reconstruction): app\Client\control_keys_manager.cpp. Notes at the end of the file.
 #include "control_keys_manager.h"
 #include "..\shared\unknown_debug.h"
+#include "..\..\wwlib\ini.h"
+#include <stdio.h>
+#include <stdlib.h>
 
 char *Unknown_8B44E0(__int64 value, char *buffer);	// 0x8B44E0: _i64toa(value, buffer, 10), as pkguildplayeronline.h  // NAME 1: neutral placeholder (D10)
+ControlKeyComboStruct Unknown_42A1A0(INIClass &ini, const char *section, const char *entry);	// NAME 1 [Unknown_42A1A0]: neutral (D10): 0x42A1A0 (app\input), a key read from an ini entry
+void Unknown_42A410(INIClass &ini, const char *section, const char *entry, const ControlKeyComboStruct &key);	// NAME 1 [Unknown_42A410]: neutral (D10): 0x42A410 (app\input), a key written to an ini entry
 std::string &Unknown_42B7E0(const ControlKeyComboStruct &key, std::string &out);	// NAME 1 [Unknown_42B7E0]: neutral (D10): 0x42B7E0, the key's text
 
 static std::string _Empty;  // NAME 2: 0xBE7B80, what the accessors return without a definition
@@ -12,12 +17,7 @@ std::hash_map<std::string, std::auto_ptr<ControlKeyDefStruct> > ControlKeysManag
 std::hash_map<std::string, KeyIdStruct> ControlKeysManager::_KeyIds;
 std::vector<KeyMappingStruct> ControlKeysManager::_DefaultPSW;
 std::vector<KeyMappingStruct> ControlKeysManager::_DefaultSIM;
-
-
-
-
-
-
+std::vector<KeyMappingStruct> ControlKeysManager::_DefaultUser;
 
 
 
@@ -289,13 +289,13 @@ int ControlKeysManager::Remove_Keys(ControlKeyListClass *keylist, const std::str
 	return count;
 }
 
-
-
-
-
-
-
-
+void ControlKeysManager::Save()
+{
+	Save_Keys(&UserKeys, PlayerID);
+	Build_Keys_Map();
+	Get_Signal_Map().emit(this, KeysSavedEvent());
+	Copy_Keys(&RestoreKeys, UserKeys);
+}
 
 
 
@@ -359,10 +359,10 @@ void ControlKeysManager::Build_Keys_Map()
 	}
 }
 
-
-
-
-
+SignalMap &ControlKeysManager::Get_Signal_Map()
+{
+	static SignalMap signal_map; return signal_map;
+}
 
 
 bool ControlKeysManager::_Does_Key_Exist(const std::string &key_name)
@@ -462,85 +462,85 @@ bool ControlKeysManager::_Does_Key_Exist(const std::string &key_name)
 
 
 
+void ControlKeysManager::Load_Keys(std::vector<KeyMappingStruct> *keys, const char *section)
+{
+	FAIL_IF(!keys) return;
 
+	INIClass ini("keymap.ini");
+	char user[0x18];
+	if (!section) {
+		ini.Get_String("Default", "User", "", user, sizeof(user));
+		section = user;
+	}
 
+	if (!ini.Is_Present(section)) {
+		if (keys == &_DefaultUser) {
+			Copy_Keys(keys, _DefaultPSW);
+		} else {
+			Copy_Keys(keys, _DefaultUser);
+		}
+		return;
+	}
 
+	Reset_Keys(keys);
+	int count = ini.Entry_Count(section);
+	for (int index = 0; index < count; index++) {
+		const char *entry = ini.Get_Entry(section, index);
 
 
 
 
 
+		FAIL_IF(!entry) continue;
 
+		const char *key_ptr = entry;
+		while (*key_ptr != '_') {
 
+			FAIL_IF(!*key_ptr) break;
+			key_ptr++;
+		}
 
 
+		FAIL_IF(!*key_ptr) continue;
+		key_ptr++;
+		FAIL_IF(!*key_ptr) continue;
 
+		std::hash_map<std::string, std::auto_ptr<ControlKeyDefStruct> >::const_iterator it = _KeyDefinitions.find(key_ptr);
+		if (it == _KeyDefinitions.end()) continue;
 
+		ControlKeyDefStruct *def = it->second.get();
 
+		FAIL_IF(!def) continue;
 
+		FAIL_IF(def->Get_Index() >= keys->size()) continue;
 
+		int set = atoi(entry) - 1;
 
+		FAIL_IF(set < 0) continue;
+		(*keys)[def->Get_Index()].Keys[set] = Unknown_42A1A0(ini, section, entry);
+	}
+}
 
+// NOT EXACT: shape, 12 rows: the client keeps the 1-based set count in a register (inc at the loop top), ours in a frame slot (attempts.csv)
+void ControlKeysManager::Save_Keys(std::vector<KeyMappingStruct> *keys, const char *section)
+{
+	FAIL_IF(!keys) return;
+	FAIL_IF(!section) return;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	INIClass ini("keymap.ini");
+	ini.Clear(section);
+	ini.Put_String("Default", "User", section);
+	for (std::vector<KeyMappingStruct>::iterator it = keys->begin(); it != keys->end(); ++it) {
+		for (int set = 1; set <= NUM_MAPPING_SETS; set++) {
+			char buffer[32];
+			sprintf(buffer, "%d_", set);
+			std::string entry(buffer);
+			entry += it->Get_Name();
+			Unknown_42A410(ini, section, entry.c_str(), ControlKeyComboStruct(it->Keys[set - 1].Key, it->Keys[set - 1].Modifiers));
+		}
+	}
+	ini.Save("keymap.ini");
+}
 
 
 

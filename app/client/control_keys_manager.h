@@ -22,6 +22,7 @@
 #include <vector>
 #include <memory>
 #include <hash_map.h>
+#include <typeinfo.h>
 
 #define NUM_MAPPING_SETS	2	// the client's asserts compare '(unsigned int)set > NUM_MAPPING_SETS' with 2
 
@@ -62,6 +63,7 @@ struct ControlKeyComboStruct  // NAME 1: neutral (D10): 0x10 bytes, what 0x42B7E
 struct ControlKeyStruct  // NAME 1: neutral (D10): one key of a mapping (4 bytes)
 {
 	ControlKeyStruct() : Key(0), Modifiers(0) {}
+	ControlKeyStruct &operator=(const ControlKeyComboStruct &combo) { Key = combo.Key; Modifiers = combo.Modifiers; return *this; }	// Load_Keys' ini read
 
 	unsigned short Key;																	// +0x00  // NAME 2: the key's code
 	unsigned short Modifiers;															// +0x02  // NAME 2: the modifier bits
@@ -107,6 +109,21 @@ public:
 	void Remove(const ControlKeyComboStruct &combo);						// 0x721EF0  // NAME 2: describes what it does
 };
 
+class SignalMap  // NAME 5: the client's profile string 'SignalMap::emit' (0x4F9AD0); declared as far as Save needs it
+{
+public:
+	SignalMap();														// 0x4F9350
+	~SignalMap();														// 0x4F9530
+	void emit(unsigned int sender, const void *event, const type_info &sender_type, const type_info &event_type);	// 0x4F9AD0: the client's 'SignalMap::emit'
+	template <class S, class E> void emit(S *sender, const E &event) { emit((unsigned int)sender, &event, typeid(S), typeid(E)); }	// NAME 2: the typed form Save's call expands to
+
+	char Unknown00[0x38];												// 0xBE7C08-0xBE7C40 in the client  // NAME 1: neutral (D10)
+};
+
+class KeysSavedEvent  // NAME 5: the client's RTTI .?AVKeysSavedEvent@@ (Save's signal)
+{
+};
+
 class ControlKeysManager  // NAME 5: the client's RTTI .?AVControlKeysManager@@
 {
 public:
@@ -115,6 +132,8 @@ public:
 	KeyMappingStruct *Set_Key(KeyMappingStruct *entry, int set, const ControlKeyStruct &key, bool force);	// 0x71A860: returns the mapping already using key unless force  // NAME 2: describes what it does
 	int Add_Keys(ControlKeyListClass *keylist, const std::string &name, void *handler, unsigned short modifiers);	// 0x71A960  // NAME 2: describes what it does
 	int Remove_Keys(ControlKeyListClass *keylist, const std::string &name, unsigned short modifiers);	// 0x71AB40  // NAME 2: describes what it does
+	void Save();														// 0x71AD20: keymap.ini, then KeysSavedEvent  // NAME 2: describes what it does
+	static SignalMap &Get_Signal_Map();								// 0x71B0F0: the function-local static 0xBE7C08  // NAME 2: describes what it does
 	void Restore_Keys();												// 0x71ADC0: RestoreKeys back into UserKeys  // NAME 2: describes what it does
 	void Set_Default_PSW();											// 0x71ADF0  // NAME 2: describes what it does
 	void Set_Default_SIM();											// 0x71AE20  // NAME 2: describes what it does
@@ -122,7 +141,8 @@ public:
 	void Build_Keys_Map();											// 0x71AEF0: UserKeysMap from UserKeys  // NAME 2: describes what it does
 	void Init(ControlKeysSClientClass *sclient);					// 0x719D50's, 0x71A3F0  // NAME 2: describes what it does
 	static void Load_Definitions();									// 0x71B1F0: control_keys.ini (not rebuilt yet)  // NAME 2: describes what it does
-	static void Load_Keys(std::vector<KeyMappingStruct> *keys, const char *player_id);	// 0x71BD90: keymap.ini (not rebuilt yet)  // NAME 2: describes what it does
+	static void Load_Keys(std::vector<KeyMappingStruct> *keys, const char *section);	// 0x71BD90: keymap.ini's section (the player's id), else _DefaultUser  // NAME 2: describes what it does
+	static void Save_Keys(std::vector<KeyMappingStruct> *keys, const char *section);	// 0x71C170: keymap.ini's section, and [Default] User  // NAME 2: describes what it does
 	void Find_Mappings(std::vector<KeyMappingStruct *> *vector, int unknown30);	// 0x71A5B0: the user mappings whose definition's +0x30 matches  // NAME 2: describes what it does
 	static bool Create(ControlKeysSClientClass *client);				// 0x719D50 (sclient.cpp's Init): the client's manager, initialised  // NAME 2: describes what it does
 	static bool Destroy(ControlKeysSClientClass *client);				// 0x719E10 (sclient.cpp's destructor): only checks that one exists  // NAME 2: what its caller uses it for
@@ -140,6 +160,7 @@ public:
 	static std::hash_map<std::string, KeyIdStruct> _KeyIds;				// 0xBE7B98 (ctor 0x71D8F0, dtor 0x719C80)  // NAME 1: neutral (D10)
 	static std::vector<KeyMappingStruct> _DefaultPSW;					// 0xBE7BB8: the client's asserts
 	static std::vector<KeyMappingStruct> _DefaultSIM;					// 0xBE7C30: the client's asserts
+	static std::vector<KeyMappingStruct> _DefaultUser;					// 0xBE7BF8: keymap.ini's [Default] User section (Load_Definitions), _DefaultPSW's copy without one  // NAME 2: what it holds
 	static unsigned int _NumKeyDefs;								// 0xBE7C44: the client's asserts
 
 	std::vector<KeyMappingStruct> UserKeys;				// +0x1C: the client's asserts
