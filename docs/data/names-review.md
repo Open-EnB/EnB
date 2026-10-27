@@ -10,8 +10,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 30 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 35 |
 | 3 | by convention from a client-named file or sibling | 764 |
-| 2 | describes what the code does | 1744 |
-| 1 | neutral placeholder | 2599 |
+| 2 | describes what the code does | 1748 |
+| 1 | neutral placeholder | 2605 |
 
 ## For review (score 3 and below)
 
@@ -341,23 +341,29 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_751850` | `app/client/cpacket.cpp:3345` | untagged neutral name (D10) |
 | 1 | `Unknown_751460` | `app/client/cpacket.cpp:3413` | untagged neutral name (D10) |
 | 1 | `Unknown08` | `app/client/emote_data.h:26` | untagged neutral name (D10) |
-| 1 | `Unknown04` | `app/client/fontdatabase.cpp:37` | untagged neutral name (D10) |
-| 1 | `Unknown_6BE520` | `app/client/fontdatabase.cpp:80` | untagged neutral name (D10) |
-| 1 | `Unknown_6BF910` | `app/client/fontdatabase.cpp:91` | untagged neutral name (D10) |
-| 1 | `Unknown_6BFD00` | `app/client/fontdatabase.cpp:92` | untagged neutral name (D10) |
-| 1 | `Unknown_6C2080` | `app/client/fontdatabase.cpp:95` | untagged neutral name (D10) |
-| 1 | `Unknown98` | `app/client/fontdatabase.cpp:160` | untagged neutral name (D10) |
-| 1 | `DefaultUnknown98` | `app/client/fontdatabase.cpp:164` | untagged neutral name (D10) |
-| 1 | `Unknown_6C1500` | `app/client/fontdatabase.cpp:483` | untagged neutral name (D10) |
-| 1 | `Unknown_6C1AA0` | `app/client/fontdatabase.cpp:520` | untagged neutral name (D10) |
+| 1 | `FontOptionStruct` | `app/client/fontdatabase.cpp:18` | neutral (D10): what option.cpp's 0x7F95E0 returns |
+| 1 | `Unknown00` | `app/client/fontdatabase.cpp:20` | neutral (D10) |
+| 1 | `Unknown_BE8B38Class` | `app/client/fontdatabase.cpp:24` | neutral (D10): option.cpp's object (tsk_game.h declares the same class) |
+| 1 | `Unknown_7F95E0` | `app/client/fontdatabase.cpp:27` | neutral (D10) |
+| 1 | `Unknown_BE8B38` | `app/client/fontdatabase.cpp:29` | neutral (D10) |
+| 1 | `FontTextFileClass` | `app/client/fontdatabase.cpp:31` | neutral (D10): a text file read into lines (0x28 bytes) |
+| 1 | `unknown` | `app/client/fontdatabase.cpp:34` | neutral (D10) |
+| 1 | `Unknown00` | `app/client/fontdatabase.cpp:40` | neutral (D10) |
+| 1 | `Unknown04` | `app/client/fontdatabase.cpp:62` | untagged neutral name (D10) |
+| 1 | `Unknown_6BE520` | `app/client/fontdatabase.cpp:105` | untagged neutral name (D10) |
+| 1 | `Unknown_6BF910` | `app/client/fontdatabase.cpp:116` | untagged neutral name (D10) |
+| 1 | `Unknown_6BFD00` | `app/client/fontdatabase.cpp:117` | untagged neutral name (D10) |
+| 1 | `Unknown_6C2080` | `app/client/fontdatabase.cpp:120` | untagged neutral name (D10) |
+| 1 | `Unknown98` | `app/client/fontdatabase.cpp:185` | untagged neutral name (D10) |
+| 1 | `DefaultUnknown98` | `app/client/fontdatabase.cpp:189` | untagged neutral name (D10) |
+| 1 | `Unknown_6C1500` | `app/client/fontdatabase.cpp:508` | untagged neutral name (D10) |
+| 1 | `Unknown_6C1AA0` | `app/client/fontdatabase.cpp:545` | untagged neutral name (D10) |
 | 1 | `Unknown_1C` | `app/client/fontdatabase.cpp:953` | untagged neutral name (D10) |
 | 1 | `Get_Unknown98` | `app/client/fontdatabase.cpp:1068` | untagged neutral name (D10) |
 | 1 | `Unknown_6C47B0` | `app/client/fontdatabase.cpp:1093` | untagged neutral name (D10) |
-| 1 | `Unknown_6C5C60` | `app/client/fontdatabase.cpp:1098` | untagged neutral name (D10) |
 | 1 | `Unknown_6C49C0` | `app/client/fontdatabase.cpp:1118` | untagged neutral name (D10) |
 | 1 | `Unknown_6C57B0` | `app/client/fontdatabase.cpp:1122` | untagged neutral name (D10) |
 | 1 | `Unknown_BE67B8` | `app/client/fontdatabase.cpp:1159` | untagged neutral name (D10) |
-| 1 | `Unknown_6C5C60` | `app/client/fontdatabase.h:55` | neutral (D10) |
 | 1 | `Unknown_6C57B0` | `app/client/fontdatabase.h:56` | neutral (D10) |
 | 1 | `Unknown98` | `app/client/fontdatabase.h:66` | neutral (D10) |
 | 1 | `DefaultUnknown98` | `app/client/fontdatabase.h:70` | neutral (D10) |
@@ -2789,19 +2795,23 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `EmoteDataClass` | `app/client/cpacket.cpp:79` | co_data.h's name for what Get_Emote_Data returns |
 | 2 | `Get_Jobs` | `app/client/cpacket.cpp:98` | what it returns |
 | 2 | `Jobs` | `app/client/cpacket.cpp:101` | what it holds |
-| 2 | `FontColorStruct` | `app/client/fontdatabase.cpp:218` | one COLOR-n section of fontcode.ini / fontart.ini (0x10 bytes) |
-| 2 | `Name` | `app/client/fontdatabase.cpp:222` | the ini key |
-| 2 | `RGB` | `app/client/fontdatabase.cpp:223` | the ini key |
-| 2 | `FontEffectStruct` | `app/client/fontdatabase.cpp:226` | one EFFECT-n section of fontcode.ini / fontart.ini (0x24 bytes) |
-| 2 | `Name` | `app/client/fontdatabase.cpp:241` | the ini key |
-| 2 | `EffectType` | `app/client/fontdatabase.cpp:242` | the ini key |
-| 2 | `Initial` | `app/client/fontdatabase.cpp:243` | the ini key |
-| 2 | `Intensity` | `app/client/fontdatabase.cpp:244` | the ini key |
-| 2 | `Speed` | `app/client/fontdatabase.cpp:245` | the ini key |
-| 2 | `Time` | `app/client/fontdatabase.cpp:246` | the ini key |
-| 2 | `Direction` | `app/client/fontdatabase.cpp:247` | the ini key |
-| 2 | `Offset` | `app/client/fontdatabase.cpp:248` | the ini key |
+| 2 | `std:` | `app/client/fontdatabase.cpp:21` | what it holds |
+| 2 | `Count` | `app/client/fontdatabase.cpp:36` | what it returns |
+| 2 | `Get` | `app/client/fontdatabase.cpp:37` | what it returns |
+| 2 | `FontColorStruct` | `app/client/fontdatabase.cpp:243` | one COLOR-n section of fontcode.ini / fontart.ini (0x10 bytes) |
+| 2 | `Name` | `app/client/fontdatabase.cpp:247` | the ini key |
+| 2 | `RGB` | `app/client/fontdatabase.cpp:248` | the ini key |
+| 2 | `FontEffectStruct` | `app/client/fontdatabase.cpp:251` | one EFFECT-n section of fontcode.ini / fontart.ini (0x24 bytes) |
+| 2 | `Name` | `app/client/fontdatabase.cpp:266` | the ini key |
+| 2 | `EffectType` | `app/client/fontdatabase.cpp:267` | the ini key |
+| 2 | `Initial` | `app/client/fontdatabase.cpp:268` | the ini key |
+| 2 | `Intensity` | `app/client/fontdatabase.cpp:269` | the ini key |
+| 2 | `Speed` | `app/client/fontdatabase.cpp:270` | the ini key |
+| 2 | `Time` | `app/client/fontdatabase.cpp:271` | the ini key |
+| 2 | `Direction` | `app/client/fontdatabase.cpp:272` | the ini key |
+| 2 | `Offset` | `app/client/fontdatabase.cpp:273` | the ini key |
 | 2 | `FontInitStruct` | `app/client/fontdatabase.h:36` | one INIT-n section of fontsys.ini (a screen resolution's fonts) |
+| 2 | `Load_Font` | `app/client/fontdatabase.h:55` | what it does |
 | 2 | `Find_Chat_Index` | `app/client/fontdatabase.h:57` | the chat_index of the asserts |
 | 2 | `ResWidth` | `app/client/fontdatabase.h:59` | the ini key |
 | 2 | `ResHeight` | `app/client/fontdatabase.h:60` | the ini key |
