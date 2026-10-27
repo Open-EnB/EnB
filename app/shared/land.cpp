@@ -1216,6 +1216,30 @@ void LandClass::Compute_Horizons(INIClass &ini)
 	delete [] mask;
 }
 
+// NOT EXACT: order-only (3 masked rows: the client loads Spacing before VScale for VScale / Spacing; 6 forms, attempts.csv 0x473290)
+void LandClass::Unknown_473290(unsigned char **a, unsigned char **b, unsigned char **c)
+{
+	int size = Field->Get_Size();
+	*a = new unsigned char[Field->Get_Count() * 3];
+	*b = new unsigned char[Field->Get_Count() * 3];
+	*c = new unsigned char[Field->Get_Count() * 4];
+	float ratio = Field->Get_VScale() / Field->Get_Spacing();
+	unsigned char *a_row = *a;
+	unsigned char *b_row = *b;
+	unsigned char *c_row = *c;
+	int row;
+	for (row = 0; row < size; row++) {
+		Unknown_4733C0(row, ratio, c_row);
+		c_row += size * 4;
+		Unknown_473780(row, ratio, b_row);
+		b_row += size * 3;
+	}
+	for (row = 0; row < size; row++) {
+		Unknown_473BC0(row, ratio, a_row);
+		a_row += size * 3;
+	}
+}
+
 bool LandClass::Load_PLD(const char *filename)
 {
 	FILE *file = fopen(filename, "rb");

@@ -192,6 +192,10 @@ protected:
 	void							Unknown_46F120(void);
 	void							Unknown_473290(unsigned char **a, unsigned char **b, unsigned char **c);
 	void							Unknown_470F80(unsigned char *a, unsigned char *b, unsigned char *c);
+// NAME 1: unknown; one height-field row each into Unknown_473290's buffers, with VScale / Spacing (0x4733C0: 4 bytes a vertex, 0x473780 and 0x473BC0: 3)
+	void							Unknown_4733C0(int row, float ratio, unsigned char *out);
+	void							Unknown_473780(int row, float ratio, unsigned char *out);
+	void							Unknown_473BC0(int row, float ratio, unsigned char *out);
 	static void					Lightmap_Thread(void *land);
 	void							Set_Lighting(const LandLightingStruct &lighting)
 	{
