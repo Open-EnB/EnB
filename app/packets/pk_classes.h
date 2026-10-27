@@ -37,6 +37,7 @@
 #include "pkglobaldeletecharacter.h"	// rebuilt
 #include "pkgloballock.h"	// rebuilt
 #include "pkglobalticketrequest.h"	// rebuilt
+#include "pkgroup.h"	// rebuilt
 #include "pkguildranknamesrequestclient.h"	// rebuilt
 #include "pkhullupgrade.h"	// rebuilt
 #include "pkincapacitancerequest.h"	// rebuilt
@@ -46,6 +47,7 @@
 #include "pklogoff.h"	// rebuilt
 #include "pkloothulkpermission.h"	// rebuilt
 #include "pkmanufactureitemcatagorypacket.h"	// rebuilt
+#include "pkmessagestring.h"	// rebuilt
 #include "pkmissionforfeit.h"	// rebuilt
 #include "pknamedecal.h"	// rebuilt
 #include "pknavdelete.h"	// rebuilt
@@ -223,22 +225,6 @@ public:
 	DebugPacketClass(RawPacketClass *raw);	// 0x880340
 	virtual bool Process_Packet(void *client);	// +0x08 0x867CB0 (clientstub.cpp l.47)
 	char Unknown0C[0xC];	// +0x0C
-};
-
-// opcode 29 (0x001D, MESSAGE_STRING): vtable 0xB0B444, constructor 0x89E310, 0x14 bytes
-class MessageStringPacketClass : public PacketClass
-{
-public:
-	MessageStringPacketClass(RawPacketClass *raw);	// 0x89E310
-	char Unknown0C[0x8];	// +0x0C
-};
-
-// opcode 30 (0x001E, GROUP): vtable 0xB0A734, constructor 0x888890, 0x14 bytes
-class GroupPacketClass : public PacketClass
-{
-public:
-	GroupPacketClass(RawPacketClass *raw);	// 0x888890
-	char Unknown0C[0x8];	// +0x0C
 };
 
 // opcode 32 (0x0020, PRIORITY_MESSAGE): vtable 0xB09760, constructor 0x89D8A0, 0x1C bytes

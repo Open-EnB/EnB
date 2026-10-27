@@ -1463,6 +1463,29 @@
     "merged": [],
     "name": "packets/pkglobalticketrequest.cpp"
    },
+   "pkgroup": {
+    "ambiguous": [
+     "0x42B2F0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350",
+     "0x8886A0",
+     "0x888750",
+     "0x888780",
+     "0x888890",
+     "0x888960",
+     "0x8889A0",
+     "0x888AA0"
+    ],
+    "merged": [],
+    "name": "packets/pkgroup.cpp"
+   },
    "pkguildranknamesrequestclient": {
     "ambiguous": [
      "0x42A6C0",
@@ -1715,6 +1738,29 @@
     ],
     "merged": [],
     "name": "packets/pkmanufactureitemcatagorypacket.cpp"
+   },
+   "pkmessagestring": {
+    "ambiguous": [
+     "0x42B2F0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350",
+     "0x89E120",
+     "0x89E1D0",
+     "0x89E200",
+     "0x89E310",
+     "0x89E3E0",
+     "0x89E420",
+     "0x89E520"
+    ],
+    "merged": [],
+    "name": "packets/pkmessagestring.cpp"
    },
    "pkmissionforfeit": {
     "ambiguous": [
@@ -3129,6 +3175,7 @@
    "packets/pkglobaldeletecharacter.h": "reconstructed",
    "packets/pkgloballock.h": "reconstructed",
    "packets/pkglobalticketrequest.h": "reconstructed",
+   "packets/pkgroup.h": "reconstructed",
    "packets/pkguildranknamesrequestclient.h": "reconstructed",
    "packets/pkhullupgrade.h": "reconstructed",
    "packets/pkincapacitancerequest.h": "reconstructed",
@@ -3138,6 +3185,7 @@
    "packets/pklogoff.h": "reconstructed",
    "packets/pkloothulkpermission.h": "reconstructed",
    "packets/pkmanufactureitemcatagorypacket.h": "reconstructed",
+   "packets/pkmessagestring.h": "reconstructed",
    "packets/pkmissionforfeit.h": "reconstructed",
    "packets/pknamedecal.h": "reconstructed",
    "packets/pknavdelete.h": "reconstructed",
@@ -3211,7 +3259,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 1296,
+  "in_tree_total": 1310,
   "totals": {}
  },
  "binkmovie": {

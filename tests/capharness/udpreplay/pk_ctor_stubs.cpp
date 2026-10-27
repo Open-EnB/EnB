@@ -18,8 +18,6 @@ ColorizationPacketClass::ColorizationPacketClass(RawPacketClass *raw) { Conn_Rec
 MovePacketClass::MovePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_0015Class::Packet_0015Class(RawPacketClass *raw) { Conn_Record(this, raw); }
 DebugPacketClass::DebugPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-MessageStringPacketClass::MessageStringPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-GroupPacketClass::GroupPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 SuperLinePacketClass::SuperLinePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 ClearMessageLinePacketClass::ClearMessageLinePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 ItemBasePacketClass::ItemBasePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
@@ -162,6 +160,8 @@ bool RemoveEffectPacketClass::Process_Packet(void *) { return(true); }	// 0x735D
 bool SetTargetPacketClass::Process_Packet(void *) { return(true); }	// 0x7363E0
 bool AuxDataPacketClass::Process_Packet(void *) { return(true); }	// 0x7364C0
 bool AuxDataPlayerVarPacketClass::Process_Packet(void *) { return(true); }	// 0x736650
+bool MessageStringPacketClass::Process_Packet(void *) { return(true); }	// 0x736760
+bool GroupPacketClass::Process_Packet(void *) { return(true); }	// 0x736930
 bool TradePacketClass::Process_Packet(void *) { return(true); }	// 0x739DE0
 bool ChangeBaseAssetPacketClass::Process_Packet(void *) { return(true); }	// 0x737400
 bool SetZBandPacketClass::Process_Packet(void *) { return(true); }	// 0x737520
