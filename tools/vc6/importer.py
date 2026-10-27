@@ -3518,9 +3518,8 @@ RECONSTRUCTED = {
     ('app', 'client/fontdatabase.cpp'): "fontdatabase.cpp, client 0x6BDA40-0x6C9E30 with the tables' instances: the "
                                        "asserts on the client's lines 881-1308 (D25); NOT EXACT: Reset 0x6BE0E0, "
                                        "Load_String 0x6C0430, 0x6C1500, Parse_Directions 0x6C2890, Split_Four 0x6C2A10, "
-                                       "the Find / Add functions 0x6C2D00-0x6C3720, Remove_String 0x6C3030, Set_Font "
-                                       "0x6C38F0, FontStringFilesClass::Find 0x6C51A0, Load_Font 0x6C5C60; declared "
-                                       "only: 0x6C4F50, 0x6C52B0, 0x6C57B0",
+                                       "Remove_String 0x6C3030, Set_Font 0x6C38F0, Load_Font 0x6C5C60; declared only: "
+                                       "FontStringFilesClass's destructor 0x6C4F50 and Load 0x6C52B0",
     ('app', 'shared/combo_ffactory.h'): "ComboFileFactoryClass (D24), a FileFactoryClass over a directory and its *.MIX files, "
                                        "MixMap an SGI hash_map<std::string, MixFileFactoryClass *> (libs/sgistl, D87)",
     ('app', 'shared/combo_ffactory.cpp'): "ComboFileFactoryClass, client 0x4E4D10-0x4E5A00 with the table's and list's instances "
