@@ -1162,6 +1162,14 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 * **P-T6-2 (clienttest):** a program as the step-9c test (add / find / remove by game id, collisions 257 apart, the DEBUG
   packets, the redirect); it needs stubs for connect.cpp's wrappers or a memory connection. Recommendation: defer to
   9d, when SClient is the derived client.
+* **P-T7-1 (clienttest, 2026-10-27):** a program in tests/capharness/clienttest linking client.cpp, sclient.cpp,
+  connect.cpp and the packet objects (stubs for the registry read 0x75A280 and soptions' constructor): an SClient
+  over a fake ClientTaskClass; add / find / remove by game id with collisions 257 apart and a fake MainView's
+  notifications; the DEBUG-packet setters and the redirect over a memory connection; Process_Packets fed from a
+  PeekConnection loaded with alex3's decoded messages through one recording test packet class. Recommendation:
+  build it once the first cpacket.cpp handlers exist (about one builder session); it subsumes P-T6-2.
+* **P-T7-2:** SClient's Init 0x741180 (field offset, 103 rows) and Shutdown 0x741BB0 (shape, 470 rows) get a
+  second Opus round only after the UI base classes they call exist. Recommendation: hold.
 * **P-S3-2 / F3's leads for Key_Exchange 0x829180** are LIMIT REACHED (three Opus rounds, inline budget): it
   waits for a new §3.1 lever; F3's two untested leads are in its attempts.csv row.
 * D7 is to be revisited with the user if byte-exactness of E&B's code becomes too costly; D64's

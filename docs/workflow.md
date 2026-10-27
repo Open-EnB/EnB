@@ -285,6 +285,11 @@ unless `--lever` cites a new row of this table.
 * **One `__FILE__` window can mix two files** (appfile.py): `.work/h8/layout.py` places each `#line N` from a draft
   and pads inside a function when several asserts share it. explain.py reports a static's atexit `$E` as a false
   relocation before the real class.
+* **A `VectorClass<T>` member needs `operator==` / `operator!=` declared on T** even when no constructor is emitted
+  (VC6 compiles VectorClass's virtuals; declaration-only operators on CameraModeStruct; T7, 2026-10-27).
+  `appfile.py match` also needs `-I app/client/tasks` and `app/kernel` for sclient.h, else the VM uses stale copies.
+  Any program that constructs an SClient needs a stub for the registry read 0x75A280 (D69).
+
 ### 3.4 Importer, verify and pairs
 
 * **Header origins live in `imports.json`'s `headers` map** (`headers_from`: swapped with the
