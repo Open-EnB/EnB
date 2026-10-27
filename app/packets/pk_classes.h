@@ -18,6 +18,7 @@
 #define PK_CLASSES_H
 
 #include "pk.h"
+#include "gameedit\pkgeclon.h"	// rebuilt
 #include "gameedit\pkgespwn.h"	// rebuilt
 #include "pk_player_object_relationship.h"	// rebuilt
 #include "pk_sub_parts.h"	// rebuilt
@@ -317,15 +318,6 @@ public:
 	Packet_7538Class(RawPacketClass *raw);	// 0x85EFC0
 	virtual bool Process_Packet(void *client);	// +0x08 0x868160 (clientstub.cpp l.122)
 	char Unknown0C[0x10];	// +0x0C
-};
-
-// opcode 30021 (0x7545, ?): vtable 0xB08E58, constructor 0x85DFB0, 0x48 bytes
-class Packet_7545Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x7545
-{
-public:
-	Packet_7545Class(RawPacketClass *raw);	// 0x85DFB0
-	virtual bool Process_Packet(void *client);	// +0x08 0x8680D0 (clientstub.cpp l.113)
-	char Unknown0C[0x3C];	// +0x0C
 };
 
 // opcode 72 (0x0048, ?): vtable 0xB08D64, constructor 0x85C5F0, 0x2E0 bytes

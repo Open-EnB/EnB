@@ -3673,6 +3673,8 @@ RECONSTRUCTED = {
     ('app', 'packets/pkunknown_85d7b0.h'): "its class",
     ('app', 'packets/gameedit/pkgeaset.cpp'): "the send-only opcode 30020, client 0x85DAA0-0x85DE00, the client's file (its asserts' __FILE__): written by hand (builder P5)",
     ('app', 'packets/gameedit/pkgeaset.h'): "its class",
+    ('app', 'packets/gameedit/pkgeclon.cpp'): "opcodes 30021 and 30022 (send-only), client 0x85DE30-0x85E610, the client's file (its asserts' __FILE__): written by hand (builder P5)",
+    ('app', 'packets/gameedit/pkgeclon.h'): "its classes (pk_classes.h includes it: tools/re/pkclasses.py)",
     ('app', 'packets/pkunknown_85e640.cpp'): "packet classes (opcode 30006) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
     ('app', 'packets/pkunknown_85e640.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
     ('app', 'packets/pkunknown_85f250.cpp'): "packet classes (opcode 30000, 30001) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",

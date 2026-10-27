@@ -7,11 +7,11 @@ are listed here until better evidence raises their tag. Regenerate with
 
 | Score | Meaning | Names |
 |---|---|---|
-| 5 | the client names it | 13 |
+| 5 | the client names it | 16 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 30 |
-| 3 | by convention from a client-named file or sibling | 705 |
-| 2 | describes what the code does | 1404 |
-| 1 | neutral placeholder | 1920 |
+| 3 | by convention from a client-named file or sibling | 714 |
+| 2 | describes what the code does | 1409 |
+| 1 | neutral placeholder | 1922 |
 
 ## For review (score 3 and below)
 
@@ -899,6 +899,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Remove_Running` | `app/kernel/kernel.h:86` | what it does |
 | 1 | `Unknown_28` | `app/packets/clientstub.cpp:106` | untagged neutral name (D10) |
 | 1 | `Packet_7544Class` | `app/packets/gameedit/pkgeaset.h:21` | neutral (D10): opcode 0x7544 (Print 'GameEditorAssetMapping') |
+| 1 | `Packet_7545Class` | `app/packets/gameedit/pkgeclon.h:22` | neutral (D10): opcode 0x7545 (Print 'GameEditorClone') |
+| 1 | `Packet_7546Class` | `app/packets/gameedit/pkgeclon.h:39` | neutral (D10): opcode 0x7546 (Print 'GameEditorCloneResponse') |
 | 1 | `Packet_7541Class` | `app/packets/gameedit/pkgespwn.h:21` | neutral (D10): opcode 0x7541 (Print 'GameEditorRequestSpawnDefaults') |
 | 1 | `Packet_7542Class` | `app/packets/gameedit/pkgespwn.h:38` | neutral (D10): opcode 0x7542 (Print 'GameEditorSpawnDefaults') |
 | 1 | `Unknown_8B4510` | `app/packets/pk.cpp:9` | wwonline's 64-bit htonl (a byte-order probe, then two htonl) |
@@ -916,29 +918,28 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_Create_Packet` | `app/packets/pk.h:127` | what it does |
 | 1 | `Unknown_869790` | `app/packets/pk.h:130` | neutral (D10) |
 | 1 | `pk_classes.h` | `app/packets/pk_classes.h:17` | provisional file name (D37) |
-| 1 | `Unknown0C` | `app/packets/pk_classes.h:137` | untagged neutral name (D10) |
-| 1 | `Packet_0015Class` | `app/packets/pk_classes.h:165` | neutral (D10): opcode 0x0015 |
-| 1 | `Unknown_2C` | `app/packets/pk_classes.h:172` | untagged neutral name (D10) |
-| 1 | `Packet_0016Class` | `app/packets/pk_classes.h:178` | neutral (D10): opcode 0x0016 |
-| 1 | `Unknown14` | `app/packets/pk_classes.h:185` | untagged neutral name (D10) |
-| 1 | `Address` | `app/packets/pk_classes.h:244` | handed to Redirect (tsk_game.cpp 0x766FC0) |
-| 1 | `Port` | `app/packets/pk_classes.h:245` | handed to Redirect (tsk_game.cpp 0x766FC0) |
-| 1 | `Error` | `app/packets/pk_classes.h:291` | the log 'GlobalErrorPacketClass recv: %d : %d : %s' (tsk_login.cpp) |
-| 1 | `std:` | `app/packets/pk_classes.h:292` | the same log |
-| 1 | `Packet_7535Class` | `app/packets/pk_classes.h:305` | neutral (D10): opcode 0x7535 |
-| 1 | `Packet_7538Class` | `app/packets/pk_classes.h:314` | neutral (D10): opcode 0x7538 |
-| 1 | `Packet_7545Class` | `app/packets/pk_classes.h:323` | neutral (D10): opcode 0x7545 |
-| 1 | `Packet_0048Class` | `app/packets/pk_classes.h:332` | neutral (D10): opcode 0x0048 |
-| 1 | `Unknown_28` | `app/packets/pk_classes.h:337` | neutral (D10) |
-| 1 | `Packet_00B5Class` | `app/packets/pk_classes.h:398` | neutral (D10): opcode 0x00B5 |
-| 1 | `Packet_00B6Class` | `app/packets/pk_classes.h:407` | neutral (D10): opcode 0x00B6 |
-| 1 | `Packet_00A8Class` | `app/packets/pk_classes.h:424` | neutral (D10): opcode 0x00A8 |
-| 1 | `Packet_00A9Class` | `app/packets/pk_classes.h:433` | neutral (D10): opcode 0x00A9 |
-| 1 | `Packet_00ABClass` | `app/packets/pk_classes.h:442` | neutral (D10): opcode 0x00AB |
-| 1 | `Packet_00ACClass` | `app/packets/pk_classes.h:451` | neutral (D10): opcode 0x00AC |
-| 1 | `Packet_00B0Class` | `app/packets/pk_classes.h:460` | neutral (D10): opcode 0x00B0 |
-| 1 | `Packet_00B1Class` | `app/packets/pk_classes.h:469` | neutral (D10): opcode 0x00B1 |
-| 1 | `Packet_0077Class` | `app/packets/pk_classes.h:478` | neutral (D10): opcode 0x0077 |
+| 1 | `Unknown0C` | `app/packets/pk_classes.h:138` | untagged neutral name (D10) |
+| 1 | `Packet_0015Class` | `app/packets/pk_classes.h:166` | neutral (D10): opcode 0x0015 |
+| 1 | `Unknown_2C` | `app/packets/pk_classes.h:173` | untagged neutral name (D10) |
+| 1 | `Packet_0016Class` | `app/packets/pk_classes.h:179` | neutral (D10): opcode 0x0016 |
+| 1 | `Unknown14` | `app/packets/pk_classes.h:186` | untagged neutral name (D10) |
+| 1 | `Address` | `app/packets/pk_classes.h:245` | handed to Redirect (tsk_game.cpp 0x766FC0) |
+| 1 | `Port` | `app/packets/pk_classes.h:246` | handed to Redirect (tsk_game.cpp 0x766FC0) |
+| 1 | `Error` | `app/packets/pk_classes.h:292` | the log 'GlobalErrorPacketClass recv: %d : %d : %s' (tsk_login.cpp) |
+| 1 | `std:` | `app/packets/pk_classes.h:293` | the same log |
+| 1 | `Packet_7535Class` | `app/packets/pk_classes.h:306` | neutral (D10): opcode 0x7535 |
+| 1 | `Packet_7538Class` | `app/packets/pk_classes.h:315` | neutral (D10): opcode 0x7538 |
+| 1 | `Packet_0048Class` | `app/packets/pk_classes.h:324` | neutral (D10): opcode 0x0048 |
+| 1 | `Unknown_28` | `app/packets/pk_classes.h:329` | neutral (D10) |
+| 1 | `Packet_00B5Class` | `app/packets/pk_classes.h:390` | neutral (D10): opcode 0x00B5 |
+| 1 | `Packet_00B6Class` | `app/packets/pk_classes.h:399` | neutral (D10): opcode 0x00B6 |
+| 1 | `Packet_00A8Class` | `app/packets/pk_classes.h:416` | neutral (D10): opcode 0x00A8 |
+| 1 | `Packet_00A9Class` | `app/packets/pk_classes.h:425` | neutral (D10): opcode 0x00A9 |
+| 1 | `Packet_00ABClass` | `app/packets/pk_classes.h:434` | neutral (D10): opcode 0x00AB |
+| 1 | `Packet_00ACClass` | `app/packets/pk_classes.h:443` | neutral (D10): opcode 0x00AC |
+| 1 | `Packet_00B0Class` | `app/packets/pk_classes.h:452` | neutral (D10): opcode 0x00B0 |
+| 1 | `Packet_00B1Class` | `app/packets/pk_classes.h:461` | neutral (D10): opcode 0x00B1 |
+| 1 | `Packet_0077Class` | `app/packets/pk_classes.h:470` | neutral (D10): opcode 0x0077 |
 | 1 | `Unknown_14` | `app/packets/pk_player_object_relationship.cpp:10` | untagged neutral name (D10) |
 | 1 | `Unknown_14` | `app/packets/pk_sub_parts.cpp:29` | untagged neutral name (D10) |
 | 1 | `Unknown14` | `app/packets/pkaction.cpp:10` | untagged neutral name (D10) |
@@ -1599,22 +1600,21 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_48` | `app/shared/auxdata/unknown_root.h:54` | untagged neutral name (D10) |
 | 1 | `m_UnknownA4` | `app/shared/auxdata/unknown_root.h:60` | untagged neutral name (D10) |
 | 1 | `Unknown_Get_Ticks` | `app/shared/auxdata/unknown_root.h:65` | untagged neutral name (D10) |
-| 1 | `Unknown_4C3110` | `app/shared/avatar_desc.cpp:16` | 0x4C3110, the values as one text value (body_weight, head_weight) |
-| 1 | `Unknown0C` | `app/shared/avatar_desc.cpp:50` | untagged neutral name (D10) |
-| 1 | `Unknown_00` | `app/shared/avatar_desc.cpp:256` | untagged neutral name (D10) |
-| 1 | `Unknown_4BC260` | `app/shared/avatar_desc.cpp:365` | 0x4BC260, E&B's message reporter (buff_database.cpp) |
-| 1 | `AvatarOtherNames` | `app/shared/avatar_desc.cpp:371` | what it holds |
+| 1 | `Unknown0C` | `app/shared/avatar_desc.cpp:51` | untagged neutral name (D10) |
+| 1 | `Unknown_00` | `app/shared/avatar_desc.cpp:301` | untagged neutral name (D10) |
+| 1 | `Unknown_4BC260` | `app/shared/avatar_desc.cpp:410` | 0x4BC260, E&B's message reporter (buff_database.cpp) |
+| 1 | `AvatarOtherNames` | `app/shared/avatar_desc.cpp:416` | what it holds |
 | 1 | `Unknown_4BE9D0` | `app/shared/avatar_desc.cpp:749` | 0x4BE9D0, a name turned into another (kv_util.cpp's run) |
 | 1 | `Unknown_4A1590` | `app/shared/avatar_desc.cpp:750` | neutral placeholder (D10) |
 | 1 | `Unknown_4C1460` | `app/shared/avatar_desc.cpp:772` | untagged neutral name (D10) |
 | 1 | `Unknown_4C15F0` | `app/shared/avatar_desc.cpp:784` | untagged neutral name (D10) |
 | 1 | `LoginUnknown350Class` | `app/shared/avatar_desc.h:11` | untagged neutral name (D10) |
 | 1 | `unknown, unknown2` | `app/shared/avatar_desc.h:32` | neutral (D10) |
-| 1 | `Unknown_00` | `app/shared/avatar_desc.h:40` | untagged neutral name (D10) |
-| 1 | `convert` | `app/shared/avatar_desc.h:48` | what it selects |
-| 1 | `Unknown_4C1460` | `app/shared/avatar_desc.h:48` | untagged neutral name (D10) |
-| 1 | `Unknown_4C15F0` | `app/shared/avatar_desc.h:49` | untagged neutral name (D10) |
-| 1 | `Unknown0C` | `app/shared/avatar_desc.h:65` | untagged neutral name (D10) |
+| 1 | `Unknown_00` | `app/shared/avatar_desc.h:41` | untagged neutral name (D10) |
+| 1 | `convert` | `app/shared/avatar_desc.h:49` | what it selects |
+| 1 | `Unknown_4C1460` | `app/shared/avatar_desc.h:49` | untagged neutral name (D10) |
+| 1 | `Unknown_4C15F0` | `app/shared/avatar_desc.h:50` | untagged neutral name (D10) |
+| 1 | `Unknown0C` | `app/shared/avatar_desc.h:66` | untagged neutral name (D10) |
 | 1 | `BoolContext` | `app/shared/boolpars.cpp:7` | 0xBE34D8, set only around BoolExpressionClass::Evaluate |
 | 1 | `Unknown08` | `app/shared/definition_manager.h:37` | neutral placeholder (D10) |
 | 1 | `Unknown08` | `app/shared/definition_manager.h:221` | neutral placeholder (D10) |
@@ -1732,20 +1732,22 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_BE56D8` | `app/shared/shipcust_desc.cpp:15` | 0xBE56D8, each race's two default settings (filled at run time) |
 | 1 | `Unknown_B75D28` | `app/shared/shipcust_desc.cpp:17` | 0xB75D28, the hull style per race and profession |
 | 1 | `Unknown_B75D4C` | `app/shared/shipcust_desc.cpp:18` | 0xB75D4C, the wing style per race and profession |
-| 1 | `Unknown_00` | `app/shared/shipcust_desc.cpp:137` | untagged neutral name (D10) |
-| 1 | `Unknown_4A1590` | `app/shared/shipcust_desc.cpp:178` | neutral placeholder (D10) |
-| 1 | `ShipCustMetalNameStruct` | `app/shared/shipcust_desc.cpp:181` | what it holds |
-| 1 | `ShipCustMetalNames` | `app/shared/shipcust_desc.cpp:187` | what it holds |
+| 1 | `Unknown10` | `app/shared/shipcust_desc.cpp:22` | untagged neutral name (D10) |
+| 1 | `Unknown14` | `app/shared/shipcust_desc.cpp:22` | untagged neutral name (D10) |
+| 1 | `Unknown_00` | `app/shared/shipcust_desc.cpp:143` | untagged neutral name (D10) |
+| 1 | `Unknown_4A1590` | `app/shared/shipcust_desc.cpp:184` | neutral placeholder (D10) |
+| 1 | `ShipCustMetalNameStruct` | `app/shared/shipcust_desc.cpp:187` | what it holds |
+| 1 | `ShipCustMetalNames` | `app/shared/shipcust_desc.cpp:193` | what it holds |
 | 1 | `LoginUnknown88CClass` | `app/shared/shipcust_desc.h:12` | untagged neutral name (D10) |
 | 1 | `LoginUnknown44Class` | `app/shared/shipcust_desc.h:12` | untagged neutral name (D10) |
 | 1 | `LoginUnknown20Class` | `app/shared/shipcust_desc.h:12` | untagged neutral name (D10) |
 | 1 | `ShipCustRaceType` | `app/shared/shipcust_desc.h:29` | neutral (D10) |
 | 1 | `ShipCustProfessionType` | `app/shared/shipcust_desc.h:30` | neutral (D10) |
-| 1 | `Unknown_00` | `app/shared/shipcust_desc.h:45` | untagged neutral name (D10) |
-| 1 | `Unknown10` | `app/shared/shipcust_desc.h:48` | untagged neutral name (D10) |
-| 1 | `Unknown14` | `app/shared/shipcust_desc.h:49` | untagged neutral name (D10) |
-| 1 | `Unknown3C` | `app/shared/shipcust_desc.h:73` | untagged neutral name (D10) |
-| 1 | `Ship_Name_Empty` | `app/shared/shipcust_desc.h:96` | what the constructor stores |
+| 1 | `Unknown_00` | `app/shared/shipcust_desc.h:46` | untagged neutral name (D10) |
+| 1 | `Unknown10` | `app/shared/shipcust_desc.h:49` | untagged neutral name (D10) |
+| 1 | `Unknown14` | `app/shared/shipcust_desc.h:50` | untagged neutral name (D10) |
+| 1 | `Unknown3C` | `app/shared/shipcust_desc.h:74` | untagged neutral name (D10) |
+| 1 | `Ship_Name_Empty` | `app/shared/shipcust_desc.h:97` | what the constructor stores |
 | 1 | `SplineFloatArrayClass` | `app/shared/spline.h:26` | a float array of a set size (0x10 bytes: +0x04 the values, +0x08 their count, +0x0C the last index) |
 | 1 | `m_Unknown00` | `app/shared/spline.h:52` | members after their offsets (Resize 0x483820); +0x00 unknown |
 | 1 | `SplineColorArrayClass` | `app/shared/spline.h:170` | three float arrays (red, green, blue) and a count (0x38 bytes: +0x04, +0x14, +0x24, +0x34) |
@@ -1934,7 +1936,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_Debug_Begin_Step` | `tests/capharness/udpreplay/connect_stubs.cpp:35` | untagged neutral name (D10) |
 | 1 | `Unknown_Debug_End_Step` | `tests/capharness/udpreplay/connect_stubs.cpp:36` | untagged neutral name (D10) |
 | 1 | `Unknown_Debug_Print` | `tests/capharness/udpreplay/connect_stubs.cpp:37` | untagged neutral name (D10) |
-| 1 | `Unknown_2C` | `tests/capharness/udpreplay/pk_ctor_stubs.cpp:147` | untagged neutral name (D10) |
+| 1 | `Unknown_2C` | `tests/capharness/udpreplay/pk_ctor_stubs.cpp:146` | untagged neutral name (D10) |
 | 1 | `Unknown08` | `tests/capharness/udpreplay/pkitemba_stubs.cpp:13` | untagged neutral name (D10) |
 | 1 | `Unknown_4BC130` | `tests/capharness/udpreplay/udpreplay.cpp:70` | untagged neutral name (D10) |
 | 2 | `BuffDefStruct` | `app/client/buff_database.h:24` | what it holds (one BUFF-n section, 0x14 bytes) |
@@ -2300,6 +2302,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Process_Input` | `app/kernel/kernel.h:92` | what it does |
 | 2 | `Pump_Messages` | `app/kernel/kernel.h:93` | what it does |
 | 2 | `Size` | `app/packets/gameedit/pkgeaset.h:33` | what it holds |
+| 2 | `Transform` | `app/packets/gameedit/pkgeclon.h:33` | what it holds (twelve floats, copied whole) |
+| 2 | `NewNameSize` | `app/packets/gameedit/pkgeclon.h:34` | what it holds |
 | 2 | `Size` | `app/packets/gameedit/pkgespwn.h:32` | what it holds |
 | 2 | `Owned` | `app/packets/gameedit/pkgespwn.h:34` | what it means, as MessageStringPacketClass's |
 | 2 | `Size` | `app/packets/gameedit/pkgespwn.h:50` | what it holds |
@@ -2320,22 +2324,22 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Connection` | `app/packets/pk.h:120` | what it holds |
 | 2 | `Serial` | `app/packets/pk.h:121` | what it holds |
 | 2 | `Next_Serial` | `app/packets/pk.h:122` | what it holds |
-| 2 | `LoginPacketClass` | `app/packets/pk_classes.h:132` | the reference decoder's opcode name LOGIN (the Net-7 opcode table; no structure check) |
-| 2 | `FormationPositionalUpdatePacketClass` | `app/packets/pk_classes.h:157` | the reference decoder's opcode name FORMATION_POSITIONAL_UPDATE (the Net-7 opcode table; no structure check) |
-| 2 | `Get_Type` | `app/packets/pk_classes.h:171` | what the derived classes' return (their opcode) |
-| 2 | `Get_Name` | `app/packets/pk_classes.h:173` | what the derived classes' return (a name) |
-| 2 | `Action2PacketClass` | `app/packets/pk_classes.h:219` | the reference decoder's opcode name ACTION2 (the Net-7 opcode table; no structure check) |
-| 2 | `MasterJoinPacketClass` | `app/packets/pk_classes.h:228` | the reference decoder's opcode name MASTER_JOIN (the Net-7 opcode table; no structure check) |
-| 2 | `ServerRedirectPacketClass` | `app/packets/pk_classes.h:237` | the reference decoder's opcode name SERVER_REDIRECT (the Net-7 opcode table; no structure check) |
-| 2 | `GlobalTicketPacketClass` | `app/packets/pk_classes.h:257` | the reference decoder's opcode name GLOBAL_TICKET (the Net-7 opcode table; no structure check) |
-| 2 | `GlobalAvatarListPacketClass` | `app/packets/pk_classes.h:266` | the reference decoder's opcode name GLOBAL_AVATAR_LIST (the Net-7 opcode table; no structure check) |
-| 2 | `GlobalCreateCharacterPacketClass` | `app/packets/pk_classes.h:275` | the reference decoder's opcode name GLOBAL_CREATE_CHARACTER (the Net-7 opcode table; no structure check) |
-| 2 | `GlobalErrorPacketClass` | `app/packets/pk_classes.h:284` | the reference decoder's opcode name GLOBAL_ERROR (the Net-7 opcode table; no structure check) |
-| 2 | `RecustomizeShipStartPacketClass` | `app/packets/pk_classes.h:488` | the reference decoder's opcode name RECUSTOMIZE_SHIP_START (the Net-7 opcode table; no structure check) |
-| 2 | `RecustomizeShipDonePacketClass` | `app/packets/pk_classes.h:496` | the reference decoder's opcode name RECUSTOMIZE_SHIP_DONE (the Net-7 opcode table; no structure check) |
-| 2 | `RecustomizeAvatarStartPacketClass` | `app/packets/pk_classes.h:505` | the reference decoder's opcode name RECUSTOMIZE_AVATAR_START (the Net-7 opcode table; no structure check) |
-| 2 | `RecustomizeAvatarDonePacketClass` | `app/packets/pk_classes.h:513` | the reference decoder's opcode name RECUSTOMIZE_AVATAR_DONE (the Net-7 opcode table; no structure check) |
-| 2 | `RecustomizeAvatarUpdatePacketClass` | `app/packets/pk_classes.h:522` | the reference decoder's opcode name RECUSTOMIZE_AVATAR_UPDATE (the Net-7 opcode table; no structure check) |
+| 2 | `LoginPacketClass` | `app/packets/pk_classes.h:133` | the reference decoder's opcode name LOGIN (the Net-7 opcode table; no structure check) |
+| 2 | `FormationPositionalUpdatePacketClass` | `app/packets/pk_classes.h:158` | the reference decoder's opcode name FORMATION_POSITIONAL_UPDATE (the Net-7 opcode table; no structure check) |
+| 2 | `Get_Type` | `app/packets/pk_classes.h:172` | what the derived classes' return (their opcode) |
+| 2 | `Get_Name` | `app/packets/pk_classes.h:174` | what the derived classes' return (a name) |
+| 2 | `Action2PacketClass` | `app/packets/pk_classes.h:220` | the reference decoder's opcode name ACTION2 (the Net-7 opcode table; no structure check) |
+| 2 | `MasterJoinPacketClass` | `app/packets/pk_classes.h:229` | the reference decoder's opcode name MASTER_JOIN (the Net-7 opcode table; no structure check) |
+| 2 | `ServerRedirectPacketClass` | `app/packets/pk_classes.h:238` | the reference decoder's opcode name SERVER_REDIRECT (the Net-7 opcode table; no structure check) |
+| 2 | `GlobalTicketPacketClass` | `app/packets/pk_classes.h:258` | the reference decoder's opcode name GLOBAL_TICKET (the Net-7 opcode table; no structure check) |
+| 2 | `GlobalAvatarListPacketClass` | `app/packets/pk_classes.h:267` | the reference decoder's opcode name GLOBAL_AVATAR_LIST (the Net-7 opcode table; no structure check) |
+| 2 | `GlobalCreateCharacterPacketClass` | `app/packets/pk_classes.h:276` | the reference decoder's opcode name GLOBAL_CREATE_CHARACTER (the Net-7 opcode table; no structure check) |
+| 2 | `GlobalErrorPacketClass` | `app/packets/pk_classes.h:285` | the reference decoder's opcode name GLOBAL_ERROR (the Net-7 opcode table; no structure check) |
+| 2 | `RecustomizeShipStartPacketClass` | `app/packets/pk_classes.h:480` | the reference decoder's opcode name RECUSTOMIZE_SHIP_START (the Net-7 opcode table; no structure check) |
+| 2 | `RecustomizeShipDonePacketClass` | `app/packets/pk_classes.h:488` | the reference decoder's opcode name RECUSTOMIZE_SHIP_DONE (the Net-7 opcode table; no structure check) |
+| 2 | `RecustomizeAvatarStartPacketClass` | `app/packets/pk_classes.h:497` | the reference decoder's opcode name RECUSTOMIZE_AVATAR_START (the Net-7 opcode table; no structure check) |
+| 2 | `RecustomizeAvatarDonePacketClass` | `app/packets/pk_classes.h:505` | the reference decoder's opcode name RECUSTOMIZE_AVATAR_DONE (the Net-7 opcode table; no structure check) |
+| 2 | `RecustomizeAvatarUpdatePacketClass` | `app/packets/pk_classes.h:514` | the reference decoder's opcode name RECUSTOMIZE_AVATAR_UPDATE (the Net-7 opcode table; no structure check) |
 | 2 | `MobReactionType` | `app/packets/pk_player_object_relationship.h:25` | what it holds, after the client's MOB_REACTION_COUNT |
 | 2 | `Value_To_String` | `app/packets/pk_player_object_relationship.h:31` | as strconv_lib.h's pairs |
 | 2 | `RelationshipClass` | `app/packets/pk_player_object_relationship.h:35` | what it holds (the packet's Print names both members) |
@@ -2865,33 +2869,33 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Encode_Changes` | `app/shared/auxdata/unknown_root.h:57` | describes what it does |
 | 2 | `Policy` | `app/shared/auxdata/unknown_root.h:59` | describes what it does |
 | 2 | `Changes` | `app/shared/auxdata/unknown_root.h:61` | describes what it does |
-| 2 | `AvatarDefinitions` | `app/shared/avatar_desc.cpp:367` | avatardef.ini |
-| 2 | `AvatarGenderNames` | `app/shared/avatar_desc.cpp:368` | what it holds |
-| 2 | `AvatarRaceNames` | `app/shared/avatar_desc.cpp:369` | what it holds |
-| 2 | `AvatarProfessionNames` | `app/shared/avatar_desc.cpp:370` | what it holds |
+| 2 | `AvatarDefinitions` | `app/shared/avatar_desc.cpp:412` | avatardef.ini |
+| 2 | `AvatarGenderNames` | `app/shared/avatar_desc.cpp:413` | what it holds |
+| 2 | `AvatarRaceNames` | `app/shared/avatar_desc.cpp:414` | what it holds |
+| 2 | `AvatarProfessionNames` | `app/shared/avatar_desc.cpp:415` | what it holds |
 | 2 | `name` | `app/shared/avatar_desc.h:33` | Load_Defaults' |
-| 2 | `Write_Short` | `app/shared/avatar_desc.h:37` | what it does |
-| 2 | `Read_Short` | `app/shared/avatar_desc.h:38` | what it does |
-| 2 | `Get_Short_Size` | `app/shared/avatar_desc.h:39` | what it does |
-| 2 | `Clear` | `app/shared/avatar_desc.h:42` | what it does |
-| 2 | `Is_Valid` | `app/shared/avatar_desc.h:43` | what it does |
-| 2 | `Reset` | `app/shared/avatar_desc.h:44` | what it does |
-| 2 | `Load_Defaults` | `app/shared/avatar_desc.h:45` | what it does |
-| 2 | `std:` | `app/shared/avatar_desc.h:46` | what it does |
+| 2 | `Write_Short` | `app/shared/avatar_desc.h:38` | what it does |
+| 2 | `Read_Short` | `app/shared/avatar_desc.h:39` | what it does |
+| 2 | `Get_Short_Size` | `app/shared/avatar_desc.h:40` | what it does |
+| 2 | `Clear` | `app/shared/avatar_desc.h:43` | what it does |
+| 2 | `Is_Valid` | `app/shared/avatar_desc.h:44` | what it does |
+| 2 | `Reset` | `app/shared/avatar_desc.h:45` | what it does |
+| 2 | `Load_Defaults` | `app/shared/avatar_desc.h:46` | what it does |
 | 2 | `std:` | `app/shared/avatar_desc.h:47` | what it does |
-| 2 | `Get_Body_Morph` | `app/shared/avatar_desc.h:50` | what it does |
-| 2 | `Get_Head_Morph` | `app/shared/avatar_desc.h:51` | what it does |
-| 2 | `Get_Facial_Feature` | `app/shared/avatar_desc.h:52` | what it does |
-| 2 | `Get_Hair_Offset` | `app/shared/avatar_desc.h:53` | its key |
-| 2 | `Get_Skin_Offset` | `app/shared/avatar_desc.h:54` | its key |
-| 2 | `Get_Eye_Offset` | `app/shared/avatar_desc.h:55` | its key |
-| 2 | `Get_Shirt_Primary_Offset` | `app/shared/avatar_desc.h:56` | its key |
-| 2 | `Get_Shirt_Secondary_Offset` | `app/shared/avatar_desc.h:57` | its key |
-| 2 | `Get_Pants_Primary_Offset` | `app/shared/avatar_desc.h:58` | its key |
-| 2 | `Get_Pants_Secondary_Offset` | `app/shared/avatar_desc.h:59` | its key |
-| 2 | `Save_Defaults` | `app/shared/avatar_desc.h:60` | what it does |
-| 2 | `Upgrade` | `app/shared/avatar_desc.h:61` | what it does |
-| 2 | `Convert_Names` | `app/shared/avatar_desc.h:62` | what it does |
+| 2 | `std:` | `app/shared/avatar_desc.h:48` | what it does |
+| 2 | `Get_Body_Morph` | `app/shared/avatar_desc.h:51` | what it does |
+| 2 | `Get_Head_Morph` | `app/shared/avatar_desc.h:52` | what it does |
+| 2 | `Get_Facial_Feature` | `app/shared/avatar_desc.h:53` | what it does |
+| 2 | `Get_Hair_Offset` | `app/shared/avatar_desc.h:54` | its key |
+| 2 | `Get_Skin_Offset` | `app/shared/avatar_desc.h:55` | its key |
+| 2 | `Get_Eye_Offset` | `app/shared/avatar_desc.h:56` | its key |
+| 2 | `Get_Shirt_Primary_Offset` | `app/shared/avatar_desc.h:57` | its key |
+| 2 | `Get_Shirt_Secondary_Offset` | `app/shared/avatar_desc.h:58` | its key |
+| 2 | `Get_Pants_Primary_Offset` | `app/shared/avatar_desc.h:59` | its key |
+| 2 | `Get_Pants_Secondary_Offset` | `app/shared/avatar_desc.h:60` | its key |
+| 2 | `Save_Defaults` | `app/shared/avatar_desc.h:61` | what it does |
+| 2 | `Upgrade` | `app/shared/avatar_desc.h:62` | what it does |
+| 2 | `Convert_Names` | `app/shared/avatar_desc.h:63` | what it does |
 | 2 | `boolpars.cpp` | `app/shared/boolpars.cpp:9` | describes what it does |
 | 2 | `Duplicate_Text` | `app/shared/boolpars.cpp:300` | describes what it does (not in the client: inlined into Parse) |
 | 2 | `BoolValueStruct` | `app/shared/boolpars.h:29` | describes what it holds |
@@ -2973,6 +2977,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Heights` | `app/shared/heightfield.h:86` | members after what Load and the PGM reader store |
 | 2 | `Get_INI` | `app/shared/ini_manager.h:38` | what it does |
 | 2 | `Split_Name` | `app/shared/ini_manager.h:39` | what it does |
+| 2 | `Array` | `app/shared/kv_acc_array.h:39` | what it holds |
+| 2 | `std:` | `app/shared/kv_acc_array.h:42` | what it holds |
+| 2 | `Make_Array_Accessor` | `app/shared/kv_acc_array.h:46` | what it does |
 | 2 | `KVEncoderDataClass` | `app/shared/kv_encoder_base.h:29` | after the asserts' Data |
 | 2 | `Flags` | `app/shared/kv_encoder_base.h:34` | after the asserts' FlagList |
 | 2 | `Make_Key` | `app/shared/kv_encoder_base.h:46` | describes what it does |
@@ -3096,14 +3103,14 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Lookup` | `app/shared/lookup_table.h:137` | what it does |
 | 2 | `Get_Table` | `app/shared/lookup_table.h:138` | what it does |
 | 2 | `ShipCustSettingsClass` | `app/shared/shipcust_desc.h:41` | the parts' key 'Settings%d' |
-| 2 | `ShipCustPartClass` | `app/shared/shipcust_desc.h:57` | the description's key 'PartAttributes%d' |
-| 2 | `Write_Short` | `app/shared/shipcust_desc.h:83` | what it does |
-| 2 | `Read_Short` | `app/shared/shipcust_desc.h:84` | what it does |
-| 2 | `Get_Short_Size` | `app/shared/shipcust_desc.h:85` | what it does |
-| 2 | `Set_Race` | `app/shared/shipcust_desc.h:88` | what it does |
-| 2 | `Reset_Parts` | `app/shared/shipcust_desc.h:89` | what it does |
-| 2 | `Set_Profession` | `app/shared/shipcust_desc.h:90` | what it does |
-| 2 | `Ship_Name` | `app/shared/shipcust_desc.h:97` | its key 'ShipName' |
+| 2 | `ShipCustPartClass` | `app/shared/shipcust_desc.h:58` | the description's key 'PartAttributes%d' |
+| 2 | `Write_Short` | `app/shared/shipcust_desc.h:84` | what it does |
+| 2 | `Read_Short` | `app/shared/shipcust_desc.h:85` | what it does |
+| 2 | `Get_Short_Size` | `app/shared/shipcust_desc.h:86` | what it does |
+| 2 | `Set_Race` | `app/shared/shipcust_desc.h:89` | what it does |
+| 2 | `Reset_Parts` | `app/shared/shipcust_desc.h:90` | what it does |
+| 2 | `Set_Profession` | `app/shared/shipcust_desc.h:91` | what it does |
+| 2 | `Ship_Name` | `app/shared/shipcust_desc.h:98` | its key 'ShipName' |
 | 2 | `spline.h` | `app/shared/spline.h:19` | the client's __FILE__ |
 | 2 | `Resize` | `app/shared/spline.h:30` | after what it does (0x483820: deletes the values, news size of them set to value) |
 | 2 | `Set` | `app/shared/spline.h:174` | after what it does (inlined in 0x485790) |
@@ -3429,6 +3436,14 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `kernel.h` | `app/kernel/kernel.h:18` | header name assumed from the client's kernel.cpp |
 | 3 | `pkgeaset.h` | `app/packets/gameedit/pkgeaset.h:15` | the header of the client's gameedit\pkgeaset.cpp |
 | 3 | `Data` | `app/packets/gameedit/pkgeaset.h:32` | the client's assert 'Data' |
+| 3 | `pkgeclon.h` | `app/packets/gameedit/pkgeclon.h:15` | the header of the client's gameedit\pkgeclon.cpp |
+| 3 | `GameID` | `app/packets/gameedit/pkgeclon.h:32` | the client's Print text 'GameID=' |
+| 3 | `NewName` | `app/packets/gameedit/pkgeclon.h:35` | the client's assert 'new_name' and Print text 'NewName=' |
+| 3 | `CloneSuccess` | `app/packets/gameedit/pkgeclon.h:50` | the client's Print text 'CloneSuccess=' |
+| 3 | `OriginalGameID` | `app/packets/gameedit/pkgeclon.h:51` | the client's Print text 'OriginalGameID=' |
+| 3 | `CloneGameID` | `app/packets/gameedit/pkgeclon.h:52` | the client's Print text 'CloneGameID=' |
+| 3 | `Size` | `app/packets/gameedit/pkgeclon.h:53` | the client's Print text 'Size=' |
+| 3 | `ErrorMsg` | `app/packets/gameedit/pkgeclon.h:54` | the client's assert 'ErrorMsg' and Print text 'ErrorMsg=' |
 | 3 | `pkgespwn.h` | `app/packets/gameedit/pkgespwn.h:15` | the header of the client's gameedit\pkgespwn.cpp |
 | 3 | `Data` | `app/packets/gameedit/pkgespwn.h:33` | the client's assert 'Data' and Print text 'SpawnLocationTemplateName=' |
 | 3 | `Data` | `app/packets/gameedit/pkgespwn.h:49` | the client's assert 'Data' and Print text 'DefaultValues=' |
@@ -4018,6 +4033,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `DurationClass` | `app/shared/duration.h:25` | by convention (D24) from the client's file duration.h (D37) |
 | 3 | `ini_manager.h` | `app/shared/ini_manager.h:17` | header name assumed from the client's ini_manager.cpp |
 | 3 | `INIManagerClass` | `app/shared/ini_manager.h:25` | by convention (D24) from the client's file ini_manager.cpp |
+| 3 | `KVArrayAccessorClass` | `app/shared/kv_acc_array.h:28` | by convention (D24) from kv_acc_array.h |
 | 3 | `kv_encoder_base.h` | `app/shared/kv_encoder_base.h:18` | header name assumed from the client's kv_encoder_base.cpp |
 | 3 | `KVEncoderBaseClass` | `app/shared/kv_encoder_base.h:40` | by convention (D24) from the client's file kv_encoder_base.cpp |
 | 3 | `KVListClass` | `app/shared/kv_list.h:35` | by convention (D24) from the client's file kv_list.cpp |
@@ -4036,7 +4052,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `money.h` | `app/shared/money.h:17` | header name assumed from the client's money.cpp |
 | 3 | `MoneyClass` | `app/shared/money.h:22` | by convention (D24) from the client's file money.cpp (D37) |
 | 3 | `shipcust_desc.h` | `app/shared/shipcust_desc.h:20` | header name assumed from the client's shipcust_desc.cpp |
-| 3 | `ShipCustDescClass` | `app/shared/shipcust_desc.h:68` | by convention (D24) from the client's shipcust_desc.cpp |
+| 3 | `ShipCustDescClass` | `app/shared/shipcust_desc.h:69` | by convention (D24) from the client's shipcust_desc.cpp |
 | 3 | `spln_db.h` | `app/shared/spln_db.h:34` | header of the client's app\shared\spln_db.cpp (assert __FILE__) |
 | 3 | `stars.h` | `app/shared/stars.h:28` | header of the client's app\shared\stars.cpp (assert __FILE__) |
 | 3 | `strconv_lib.h` | `app/shared/strconv_lib.h:20` | header name assumed from the client's strconv_lib.cpp (D57) |

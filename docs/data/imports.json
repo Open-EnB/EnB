@@ -2398,6 +2398,34 @@
     "merged": [],
     "name": "packets/gameedit/pkgeaset.cpp"
    },
+   "pkgeclon": {
+    "ambiguous": [
+     "0x42B2F0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42F250",
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350",
+     "0x85DE30",
+     "0x85DFB0",
+     "0x85E080",
+     "0x85E190",
+     "0x85E1D0",
+     "0x85E2A0",
+     "0x85E2D0",
+     "0x85E400",
+     "0x85E440",
+     "0x85E560",
+     "0x85E580"
+    ],
+    "merged": [],
+    "name": "packets/gameedit/pkgeclon.cpp"
+   },
    "pkgespwn": {
     "ambiguous": [
      "0x42B2F0"
@@ -5896,6 +5924,7 @@
    "common/unknown_rsakey.h": "reconstructed",
    "kernel/kernel.h": "reconstructed",
    "packets/gameedit/pkgeaset.h": "reconstructed",
+   "packets/gameedit/pkgeclon.h": "reconstructed",
    "packets/gameedit/pkgespwn.h": "reconstructed",
    "packets/pk.h": "reconstructed",
    "packets/pk_classes.h": "reconstructed",
