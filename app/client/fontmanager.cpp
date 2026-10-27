@@ -364,6 +364,26 @@ void ManagedFontClass::Unknown_6D10B0(const char *name, TPoint3D<int> color)
 
 
 
+// NOT EXACT: shape, 38 rows: the key copy and its destruction differ (attempts.csv)
+FontStyleClass *ManagedFontClass::Unknown_6D1480(std::string name)
+{
+	std::string key = name;
+	key += "_0";
+	std::hash_map<std::string, FontStyleClass *>::iterator it = Styles.find(key);
+	if (it == Styles.end()) return NULL;
+	return it->second;
+}
+
+// NOT EXACT: shape, 39 rows: the client destroys the name in one shared tail, ours in each return (attempts.csv)
+FontStyleClass *ManagedFontClass::Unknown_6D1600(std::string name)
+{
+	std::hash_map<std::string, FontStyleClass *>::iterator it = Styles.find(name);
+	if (it == Styles.end()) return Unknown_6D1480(name);
+	return it->second;
+}
+
+
+
 
 
 
@@ -496,26 +516,6 @@ void FontManagerClass::Unknown_6D2580(const char *name, TPoint3D<int> color, uns
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // NOT EXACT: order-only, 1 row: the inlined std::string(name) stores its terminator through [ebx+eax], ours [eax+ebx] (attempts.csv)
 FontStyleClass *FontManagerClass::Get_Style(const char *name, unsigned int id)
 {
@@ -559,9 +559,8 @@ ManagedFontClass *FontManagerClass::Find(unsigned int id)
 **	Reconstruction notes
 **
 **	client.exe: the window 0x6D0F70-0x6D2A70 (asserts on lines 360, 524, 533 and 550), then the
-**	containers' instances. Not rebuilt yet: the font's own functions 0x6D0F70, 0x6D1220-0x6D1600
-**	(the asserting 0x6D1220 on line 360) and the manager's 0x6D2700 (line 550, a style by name as
-**	a RefCountPtr). 0x6D2400 / 0x6D2480 / 0x6D2500 differ only by their callee: one pattern, not counted.
+**	containers' instances. Not rebuilt yet: the font's 0x6D0F70 and 0x6D1220 (its assert on line
+**	360) and the manager's 0x6D2700 (line 550, a style by name as a RefCountPtr). 0x6D2400 / 0x6D2480 / 0x6D2500 differ only by their callee: one pattern, not counted.
 **	The depth lever (workflow.md 3.1) made the destructor and 0x6D1C10 exact: the client calls the
 **	nested table helpers out of line when they sit one inline level deeper.
 */
