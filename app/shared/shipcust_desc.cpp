@@ -17,6 +17,12 @@ extern ShipCustSettingsClass Unknown_BE56D8[][2];		// NAME 1 [Unknown_BE56D8]: 0
 static int Unknown_B75D28[3][3] = { { 1, 0, 2 }, { 1, 0, 2 }, { 1, 0, 2 } };	// NAME 1 [Unknown_B75D28]: 0xB75D28, the hull style per race and profession
 static int Unknown_B75D4C[3][3] = { { 1, 0, 2 }, { 1, 0, 2 }, { 1, 0, 2 } };	// NAME 1 [Unknown_B75D4C]: 0xB75D4C, the wing style per race and profession
 
+// 0x4F61C0
+ShipCustSettingsClass::ShipCustSettingsClass(float red, float green, float blue, float unknown10, float unknown14, bool matte, ShipCustomizationMetal metal) :
+	Color(red, green, blue), Unknown10(unknown10), Unknown14(unknown14), Is_Matte(matte), Metal(metal)
+{
+}
+
 // 0x4F6210
 void ShipCustDescClass::Set_Race(int race)
 {
@@ -191,12 +197,6 @@ static ShipCustMetalNameStruct ShipCustMetalNames[] = {	// NAME 1: what it holds
 	{ "copper", METAL_COPPER },
 	{ NULL, METAL_NONE }
 };
-
-
-
-
-
-
 
 
 

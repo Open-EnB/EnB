@@ -42,6 +42,7 @@ class ShipCustSettingsClass : public LoginInterfaceAEADC8Class	// NAME 2: the pa
 {
 public:
 	ShipCustSettingsClass();							// 0x618500
+	ShipCustSettingsClass(float red, float green, float blue, float unknown10, float unknown14, bool matte, ShipCustomizationMetal metal);	// 0x4F61C0
 	virtual void Unknown_00(void *visitor);				// 0x4F6900 (vtable 0xAEC91C)
 
 	Vector3 Color;										// +0x04 NAME 2: its key 'Color'
