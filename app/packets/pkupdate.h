@@ -5,7 +5,7 @@
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
 **	Original location: e:\build\beta\G\app\packets\pkupdate.h (the .cpp named by an assert)
 **
-**	The packet classes of client 0x8ABA80-0x8AE7E0 rebuilt so far (opcode 64, 63); the file's other classes
+**	The packet classes of client 0x8ABA80-0x8AE7E0 rebuilt so far (opcode 64, 62, 63); the file's other classes
 **	are still declared in pk_classes.h.
 */
 
@@ -16,7 +16,9 @@
 #ifndef PKUPDATE_H
 #define PKUPDATE_H
 
-#include "pk.h"
+#include "pkflag.h"
+#include "vector3.h"
+#include "quat.h"
 
 // opcode 64 (0x0040, CONSTANT_POSITIONAL_UPDATE): vtable 0xB0C0B4, constructor 0x8ABBF0, 0x34 bytes
 class ConstantPositionalUpdatePacketClass : public PacketClass
@@ -36,6 +38,56 @@ public:
 	char Unknown1C[16];	// +0x1C
 	int Unknown2C;	// +0x2C
 	int Unknown30;	// +0x30
+};
+
+// opcode 62 (0x003E, ADVANCED_POSITIONAL_UPDATE): vtable 0xB0C11C, constructor 0x8ACAB0, 0x74 bytes
+class AdvancedPositionalUpdatePacketClass : public FlagPacketClass
+{
+public:
+	AdvancedPositionalUpdatePacketClass(int priority, int game_id, unsigned int time_stamp, const Vector3 &position, const Quaternion &orientation, float current_speed, float set_speed, float acceleration, float roty, float desiredy, float rotz, float desiredz, const Vector3 &imparted_velocity, float imparted_spin, float imparted_roll, float imparted_pitch, unsigned int movement_id, unsigned int update_period);	// 0x8AC5B0 (the parameter names from its asserts)
+	AdvancedPositionalUpdatePacketClass();	// 0x8ACA10
+	AdvancedPositionalUpdatePacketClass(RawPacketClass *raw);	// 0x8ACAB0
+	virtual RawPacketClass *Build();	// +0x04 0x8AD000
+	virtual bool Process_Packet(void *client);	// +0x08 0x734130 (not rebuilt)
+	virtual int Get_Data_Size();	// +0x0C 0x8AD9A0
+	virtual int Print(char *buffer, int len);	// +0x10 0x8AD9F0
+	virtual int Get_Channel() { return(Channel); }	// +0x18 0x8AC960
+	virtual int Get_Priority() { return(Priority); }	// +0x1C 0x8AC980
+	virtual bool Is_Reliable() { return(false); }	// +0x20 0x8AC9A0
+	virtual int Get_Flag_Count();	// +0x28 0x8AD9D0 (9)
+	virtual int Get_Type();	// +0x2C 0x8AD200  // NAME 2: what it returns (the opcode Build sends), as MessageLinePacketClass's
+
+	int Get_Size(unsigned int flags);	// 0x8AD220 (the payload's bytes for these flags)  // NAME 2: what it returns
+	unsigned int Get_Flags();	// 0x8AD300 (the bit of each field that differs from its default)  // NAME 2: what it returns
+	bool Has_Current_Speed();	// 0x8AD690 (flag 0; inlined in Get_Flags)  // NAME 2: what it tests
+	bool Has_Set_Speed();	// 0x8AD6C0 (flag 1)  // NAME 2: what it tests
+	bool Has_Acceleration();	// 0x8AD6F0 (flag 2)  // NAME 2: what it tests
+	bool Has_RotY();	// 0x8AD730 (flag 3)  // NAME 2: what it tests
+	bool Has_DesiredY();	// 0x8AD760 (flag 4: not the default, +-pi by RotY's sign)  // NAME 2: what it tests
+	bool Has_RotZ();	// 0x8AD7E0 (flag 5)  // NAME 2: what it tests
+	bool Has_DesiredZ();	// 0x8AD810 (flag 6: not the default, +-1000 by RotZ's sign)  // NAME 2: what it tests
+	bool Has_Imparted();	// 0x8AD890 (flag 7: ImpartedVelocity, -Spin, -Roll, -Pitch)  // NAME 2: what it tests
+	bool Has_Update_Period();	// 0x8AD980 (flag 8: not 500)  // NAME 2: what it tests
+
+	int GameID;	// +0x0C  // NAME 3: the client's Print text 'GameID='
+	unsigned int TimeStamp;	// +0x10  // NAME 3: the client's Print text 'TimeStamp='
+	Vector3 Position;	// +0x14  // NAME 3: the client's Print text 'Position='
+	Quaternion Orientation;	// +0x20  // NAME 3: the client's Print text 'Orientation='
+	float CurrentSpeed;	// +0x30 (flag 0) (named by the client's assert)
+	float SetSpeed;	// +0x34 (flag 1; CurrentSpeed when absent) (named by the client's assert)
+	float Acceleration;	// +0x38 (flag 2) (named by the client's assert)
+	float RotY;	// +0x3C (flag 3) (named by the client's assert)
+	float DesiredY;	// +0x40 (flag 4)  // NAME 3: the client's Print text 'DesiredY='
+	float RotZ;	// +0x44 (flag 5) (named by the client's assert)
+	float DesiredZ;	// +0x48 (flag 6)  // NAME 3: the client's Print text 'DesiredZ='
+	Vector3 ImpartedVelocity;	// +0x4C (flag 7) (named by the client's assert)
+	float ImpartedSpin;	// +0x58 (flag 7) (named by the client's assert)
+	float ImpartedRoll;	// +0x5C (flag 7) (named by the client's assert)
+	float ImpartedPitch;	// +0x60 (flag 7) (named by the client's assert)
+	unsigned int MovementID;	// +0x64  // NAME 3: the client's Print text 'MovementID='
+	unsigned int UpdatePeriod;	// +0x68 (flag 8; 500 by default)  // NAME 3: the client's Print text 'UpdatePeriod='
+	int Channel;	// +0x6C (PacketClass::Unknown_14 of GameID; not read from the message)  // NAME 2: Get_Channel returns it
+	int Priority;	// +0x70 (not read from the message)  // NAME 2: Get_Priority returns it
 };
 
 // opcode 63 (0x003F, PLANET_POSITIONAL_UPDATE): vtable 0xB0C16C, constructor 0x8ADDF0, 0x3C bytes
