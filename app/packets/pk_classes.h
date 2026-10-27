@@ -56,6 +56,7 @@
 #include "pkincapacitancerequest.h"	// rebuilt
 #include "pkinitrenderstate.h"	// rebuilt
 #include "pkinventorymove.h"	// rebuilt
+#include "pkitemba.h"	// rebuilt
 #include "pkitemstate.h"	// rebuilt
 #include "pkjoblist.h"	// rebuilt
 #include "pklogoff.h"	// rebuilt
@@ -208,14 +209,6 @@ public:
 	virtual bool Process_Packet(void *client);	// +0x08 0x736BA0 (cpacket.cpp)
 	virtual int Get_Type() { return(0x22); }	// +0x28 0x86E7E0
 	virtual const char *Get_Name() { return("PushMessage"); }	// +0x2C 0x86E800
-};
-
-// opcode 37 (0x0025, ITEM_BASE): vtable 0xB0AE94, constructor 0x8955C0, 0x6C bytes
-class ItemBasePacketClass : public PacketClass
-{
-public:
-	ItemBasePacketClass(RawPacketClass *raw);	// 0x8955C0
-	char Unknown0C[0x60];	// +0x0C
 };
 
 // opcode 45 (0x002D, ACTION2): vtable 0xB09C44, constructor 0x8767B0, 0x28 bytes

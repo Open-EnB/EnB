@@ -3671,6 +3671,8 @@ RECONSTRUCTED = {
     ('app', 'packets/pkguildranknamesrequestclient.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
     ('app', 'packets/pkhullupgrade.cpp'): "packet classes (opcode 89) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
     ('app', 'packets/pkhullupgrade.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
+    ('app', 'packets/pkitemba.cpp'): "opcode 37 (ITEM_BASE), client 0x895300-0x895BD0, the client's file (its FAIL_IF '!Info' on line 42): written by hand (builder P5)",
+    ('app', 'packets/pkitemba.h'): "its class (pk_classes.h includes it: tools/re/pkclasses.py)",
     ('app', 'packets/pkitemstate.cpp'): "packet classes (opcode 41) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
     ('app', 'packets/pkitemstate.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
     ('app', 'packets/pkjoblist.cpp'): "opcode 147 written by hand (builder P5, 8 of 8 exact); opcode 148 written by hand (builder P4, 6 of 6 exact); packet classes (opcode 149, 150) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",

@@ -2697,6 +2697,38 @@
     "merged": [],
     "name": "packets/pkinventorymove.cpp"
    },
+   "pkitemba": {
+    "ambiguous": [
+     "0x42A6C0",
+     "0x42B2F0",
+     "0x46BE90",
+     "0x474080"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42A820",
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30",
+     "0x42CAB0",
+     "0x42CD30",
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350",
+     "0x895300",
+     "0x895590",
+     "0x8955C0",
+     "0x895820",
+     "0x895960",
+     "0x895AF0",
+     "0x895B40"
+    ],
+    "merged": [],
+    "name": "packets/pkitemba.cpp"
+   },
    "pkitemstate": {
     "ambiguous": [
      "0x42B2F0"
@@ -5167,6 +5199,7 @@
    "packets/pkincapacitancerequest.h": "reconstructed",
    "packets/pkinitrenderstate.h": "reconstructed",
    "packets/pkinventorymove.h": "reconstructed",
+   "packets/pkitemba.h": "reconstructed",
    "packets/pkitemstate.h": "reconstructed",
    "packets/pkjoblist.h": "reconstructed",
    "packets/pklogoff.h": "reconstructed",

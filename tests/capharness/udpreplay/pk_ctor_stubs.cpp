@@ -9,7 +9,6 @@ SimplePositionalUpdatePacketClass::SimplePositionalUpdatePacketClass(RawPacketCl
 ComponentPositionalUpdatePacketClass::ComponentPositionalUpdatePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 FormationPositionalUpdatePacketClass::FormationPositionalUpdatePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_0015Class::Packet_0015Class(RawPacketClass *raw) { Conn_Record(this, raw); }
-ItemBasePacketClass::ItemBasePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 Action2PacketClass::Action2PacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 MasterJoinPacketClass::MasterJoinPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 ServerRedirectPacketClass::ServerRedirectPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
@@ -81,6 +80,7 @@ bool GroupPacketClass::Process_Packet(void *) { return(true); }	// 0x736930
 bool TradePacketClass::Process_Packet(void *) { return(true); }	// 0x739DE0
 bool SuperLinePacketClass::Process_Packet(void *) { return(true); }	// 0x736C60
 bool ClearMessageLinePacketClass::Process_Packet(void *) { return(true); }	// 0x736D00
+bool ItemBasePacketClass::Process_Packet(void *) { return(true); }	// 0x7371B0
 bool ChangeBaseAssetPacketClass::Process_Packet(void *) { return(true); }	// 0x737400
 bool SetZBandPacketClass::Process_Packet(void *) { return(true); }	// 0x737520
 bool SetBBoxPacketClass::Process_Packet(void *) { return(true); }	// 0x737590
