@@ -1908,6 +1908,40 @@
     "merged": [],
     "name": "packets/pkgmdestroyitem.cpp"
    },
+   "pkgmeditplayerinventory": {
+    "ambiguous": [
+     "0x42A6C0",
+     "0x42B2F0",
+     "0x86FC50"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42A820",
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30",
+     "0x42CAB0",
+     "0x42CD30",
+     "0x432B80",
+     "0x432D50",
+     "0x433700",
+     "0x4B5740",
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350",
+     "0x86F630",
+     "0x86F840",
+     "0x86F870",
+     "0x86FAA0",
+     "0x86FB30",
+     "0x86FCA0"
+    ],
+    "merged": [],
+    "name": "packets/pkgmeditplayerinventory.cpp"
+   },
    "pkgmresetmission": {
     "ambiguous": [
      "0x42A6C0",
@@ -1932,6 +1966,40 @@
     ],
     "merged": [],
     "name": "packets/pkgmresetmission.cpp"
+   },
+   "pkgmviewmissionlog": {
+    "ambiguous": [
+     "0x42A6C0",
+     "0x42B2F0",
+     "0x86FC50"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42A820",
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30",
+     "0x42CAB0",
+     "0x42CD30",
+     "0x432B80",
+     "0x432D50",
+     "0x433700",
+     "0x4B5740",
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350",
+     "0x86FD00",
+     "0x86FF10",
+     "0x86FF40",
+     "0x870170",
+     "0x870200",
+     "0x870370"
+    ],
+    "merged": [],
+    "name": "packets/pkgmviewmissionlog.cpp"
    },
    "pkgpsrequest": {
     "ambiguous": [
@@ -4216,7 +4284,9 @@
    "packets/pkgloballock.h": "reconstructed",
    "packets/pkglobalticketrequest.h": "reconstructed",
    "packets/pkgmdestroyitem.h": "reconstructed",
+   "packets/pkgmeditplayerinventory.h": "reconstructed",
    "packets/pkgmresetmission.h": "reconstructed",
+   "packets/pkgmviewmissionlog.h": "reconstructed",
    "packets/pkgpsrequest.h": "reconstructed",
    "packets/pkgroup.h": "reconstructed",
    "packets/pkguildranknamesrequestclient.h": "reconstructed",

@@ -620,10 +620,10 @@ PacketClass *Unknown_869790(RawPacketClass *raw)
 			packet = new ClientChatListPacketClass(raw);
 			break;
 		case 234:
-			packet = new Packet_00EAClass(raw);
+			packet = new GMEditPlayerInventoryPacketClass(raw);
 			break;
 		case 235:
-			packet = new Packet_00EBClass(raw);
+			packet = new GMViewMissionLogPacketClass(raw);
 			break;
 		case 236:
 			packet = new GMDestroyItemPacketClass(raw);

@@ -43,7 +43,9 @@
 #include "pkgloballock.h"	// rebuilt
 #include "pkglobalticketrequest.h"	// rebuilt
 #include "pkgmdestroyitem.h"	// rebuilt
+#include "pkgmeditplayerinventory.h"	// rebuilt
 #include "pkgmresetmission.h"	// rebuilt
+#include "pkgmviewmissionlog.h"	// rebuilt
 #include "pkgpsrequest.h"	// rebuilt
 #include "pkgroup.h"	// rebuilt
 #include "pkguildranknamesrequestclient.h"	// rebuilt
@@ -695,22 +697,6 @@ public:
 	Packet_00ACClass(RawPacketClass *raw);	// 0x87D2E0
 	virtual bool Process_Packet(void *client);	// +0x08 0x868D90 (clientstub.cpp l.317)
 	char Unknown0C[0x80];	// +0x0C
-};
-
-// opcode 234 (0x00EA, ?): vtable 0xB0983C, constructor 0x86F630, 0x20 bytes
-class Packet_00EAClass : public PacketClass  // NAME 1: neutral (D10): opcode 0x00EA
-{
-public:
-	Packet_00EAClass(RawPacketClass *raw);	// 0x86F630
-	char Unknown0C[0x14];	// +0x0C
-};
-
-// opcode 235 (0x00EB, ?): vtable 0xB0986C, constructor 0x86FD00, 0x20 bytes
-class Packet_00EBClass : public PacketClass  // NAME 1: neutral (D10): opcode 0x00EB
-{
-public:
-	Packet_00EBClass(RawPacketClass *raw);	// 0x86FD00
-	char Unknown0C[0x14];	// +0x0C
 };
 
 // opcode 173 (0x00AD, ?): vtable 0xB0A764, constructor 0x8895E0, 0x30 bytes
