@@ -3500,7 +3500,7 @@ RECONSTRUCTED = {
                                    "and over a socket; the RSA key exchange Key_Exchange (functional, NOT EXACT); the listener's "
                                    "destructor, Stop / Accept (Listen functional), Pump_All and the set of listeners "
                                    "(0xBE91A8) with its std::set instances, the listener's constructor with RSAKeyClass's SSH1 key "
-                                   "file loader, Send_Key; Pump_Pending not rebuilt",
+                                   "file loader, Send_Key, Pump_Pending (RSAKeyClass::Decrypt inlined; BigInt's helpers 0x82C0B0-0x82C220 out of line); Key_Exchange 0x829180 and Listen 0x82A470 NOT EXACT",
     ('app', 'common/tcpconn.h'): "TCPConnection (vtable 0xB08838, 0x248 bytes, the client's offsets)",
     ('app', 'common/udpconn.h'): "UDPConnection (vtable 0xB088F4, 0xD0 bytes, the client's layout), its channel key, "
                                  "the CordMgr pump task (vtable 0xB0889C), UDPConnectionManager (0xB08934) and the listener "
@@ -3511,8 +3511,10 @@ RECONSTRUCTED = {
                                    "Get_Interval, Delete_On_Remove, Get_Mgr, Shutdown_Task; functional (NOT EXACT, D42): "
                                    "the rest (CordCon / CordMgr members not in the tree); wlib's Dictionary members "
                                    "0x82E6A0-0x82EBB0 exact (libs\\wwonline\\wlib, D73); "
-                                   "the listener 0x82E360-0x82E5B0 exact (lines 707-778), UDPConnectionManager and the listener's "
-                                   "constructor functional; the constructor by name 0x82C680 not rebuilt",
+                                   "the listener 0x82E360-0x82E5B0 exact (lines 707-778); since CordMgr has its key pair (S3, "
+                                   "2026-10-26): the constructors by name 0x82C680 (line 91) and by address, Init_Mgr 0x82C660, "
+                                   "UDPConnectionManager's and the listener's constructors, the task's constructor and Init, the "
+                                   "destructor, Get_Stats, Try_Connect exact",
     ('app', 'common/unknown_rsakey.h'): "PROVISIONAL file name (D10, D86): RSAKeyClass, the 0x900-byte RSA key of tcpconn.cpp's listener (+0x18) and CordMgr (+0x5C), inline in both",
     ('app', 'packets/pk.h'): "PARTIAL: the packet base class (vtable 0xAEDE88, 10 slots; its inline defaults on the "
                              "client's lines 483-502), the message header, the raw message (0x22C bytes) with pk.cpp's "
