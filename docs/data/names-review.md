@@ -10,8 +10,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 12 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 30 |
 | 3 | by convention from a client-named file or sibling | 644 |
-| 2 | describes what the code does | 1162 |
-| 1 | neutral placeholder | 1610 |
+| 2 | describes what the code does | 1164 |
+| 1 | neutral placeholder | 1606 |
 
 ## For review (score 3 and below)
 
@@ -490,13 +490,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `tsk_menu.h` | `app/client/tasks/tsk_menu.h:18` | as tsk_menu.cpp |
 | 1 | `Unknown_42EA80` | `app/client/tasks/tsk_movie.cpp:26` | the input queue's next event (input.cpp) |
 | 1 | `Unknown_42E8A0` | `app/client/tasks/tsk_movie.cpp:27` | hands the event on (input.cpp) |
-| 1 | `Unknown_00` | `app/client/tasks/tsk_smovie.cpp:27` | untagged neutral name (D10) |
-| 1 | `Unknown_04` | `app/client/tasks/tsk_smovie.cpp:28` | untagged neutral name (D10) |
 | 1 | `Unknown_08` | `app/client/tasks/tsk_smovie.cpp:29` | untagged neutral name (D10) |
-| 1 | `Unknown_0C` | `app/client/tasks/tsk_smovie.cpp:30` | untagged neutral name (D10) |
 | 1 | `Unknown_10` | `app/client/tasks/tsk_smovie.cpp:31` | untagged neutral name (D10) |
-| 1 | `Unknown_14` | `app/client/tasks/tsk_smovie.cpp:32` | untagged neutral name (D10) |
-| 1 | `Unknown0004` | `app/client/tasks/tsk_smovie.cpp:38` | untagged neutral name (D10) |
+| 1 | `Unknown1150` | `app/client/tasks/tsk_smovie.cpp:38` | untagged neutral name (D10) |
 | 1 | `Unknown_42EA80` | `app/client/tasks/tsk_smovie.cpp:43` | the input queue's next event (input.cpp) |
 | 1 | `Unknown_42E8A0` | `app/client/tasks/tsk_smovie.cpp:44` | hands the event on (input.cpp) |
 | 1 | `Unknown_18` | `app/client/tasks/tsk_smovie.h:30` | untagged neutral name (D10) |
@@ -1480,14 +1476,14 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_00` | `app/shared/unknown_login_data.h:73` | untagged neutral name (D10) |
 | 1 | `Unknown_PacketDataClass` | `app/shared/unknown_packetdata.h:7` | untagged neutral name (D10) |
 | 1 | `unknown_packetdata.h` | `app/shared/unknown_packetdata.h:16` | neutral file name (D10) |
-| 1 | `LoginPacketDataClass` | `app/shared/unknown_packetdata.h:23` | neutral (D10) |
-| 1 | `LoginKVVisitorClass` | `app/shared/unknown_packetdata.h:34` | neutral (D10): the visitor argument, a KVEncoderBaseClass |
-| 1 | `unsigned int` | `app/shared/unknown_packetdata.h:39` | a 4-byte value other than int |
-| 1 | `Unknown_08` | `app/shared/unknown_packetdata.h:46` | untagged neutral name (D10) |
-| 1 | `Unknown_0C` | `app/shared/unknown_packetdata.h:47` | untagged neutral name (D10) |
-| 1 | `Add_Color` | `app/shared/unknown_packetdata.h:48` | its users' keys |
-| 1 | `LoginInterfaceAEADC8Class` | `app/shared/unknown_packetdata.h:52` | neutral (D10) |
-| 1 | `Unknown_00` | `app/shared/unknown_packetdata.h:55` | untagged neutral name (D10) |
+| 1 | `LoginPacketDataClass` | `app/shared/unknown_packetdata.h:47` | neutral (D10) |
+| 1 | `LoginKVVisitorClass` | `app/shared/unknown_packetdata.h:58` | neutral (D10): the visitor argument, a KVEncoderBaseClass |
+| 1 | `Unknown_Test` | `app/shared/unknown_packetdata.h:73` | untagged neutral name (D10) |
+| 1 | `Unknown_08` | `app/shared/unknown_packetdata.h:80` | untagged neutral name (D10) |
+| 1 | `Unknown_0C` | `app/shared/unknown_packetdata.h:81` | untagged neutral name (D10) |
+| 1 | `Add_Color` | `app/shared/unknown_packetdata.h:82` | its users' keys |
+| 1 | `LoginInterfaceAEADC8Class` | `app/shared/unknown_packetdata.h:86` | neutral (D10) |
+| 1 | `Unknown_00` | `app/shared/unknown_packetdata.h:89` | untagged neutral name (D10) |
 | 1 | `Unknown_4BC460` | `app/wwudp/bandwidthaccounting.cpp:29` | the debug window print |
 | 1 | `Unknown_Get_Ticks` | `app/wwudp/bandwidthaccounting.cpp:31` | untagged neutral name (D10) |
 | 1 | `ExtraIn` | `app/wwudp/bandwidthaccounting.cpp:43` | +0x10 Record_In's third argument (0 from the callback) |
@@ -2628,7 +2624,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `std:` | `app/shared/symbol_substitution.h:35` | describes what it holds |
 | 2 | `Substitute_Symbols` | `app/shared/symbol_substitution.h:38` | describes what it does |
 | 2 | `Escape_Symbols` | `app/shared/symbol_substitution.h:39` | describes what it does |
-| 2 | `Add_Child` | `app/shared/unknown_packetdata.h:45` | what it does |
+| 2 | `KVPointerAccessorClass` | `app/shared/unknown_packetdata.h:35` | what it does |
+| 2 | `Add_Pointer` | `app/shared/unknown_packetdata.h:68` | what it does |
+| 2 | `Add_Child` | `app/shared/unknown_packetdata.h:79` | what it does |
 | 2 | `BandwidthEntryClass` | `app/wwudp/bandwidthaccounting.cpp:34` | describes what it holds |
 | 2 | `Ip` | `app/wwudp/bandwidthaccounting.cpp:39` | +0x00 (host order) |
 | 2 | `Port` | `app/wwudp/bandwidthaccounting.cpp:40` | +0x04 |
