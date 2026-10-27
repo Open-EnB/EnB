@@ -202,6 +202,16 @@ public:
 	int Unknown04;
 };
 
+// postate.cpp's type 5 state, PLANET_POSITIONAL_UPDATE 63's (0x0C bytes)
+class Unknown715CF0Class : public Unknown98StateClass	// NAME 1: neutral (D10)
+{
+public:
+	Unknown715CF0Class(PlanetPositionalUpdatePacketClass *packet, ClientClass *client);	// 0x715CF0  // NAME 1 [packet, client]: what the handler passes
+	void Unknown_715E60(PlanetPositionalUpdatePacketClass *packet);	// 0x715E60  // NAME 1 [packet]: what the handler passes
+
+	int Unknown04[2];
+};
+
 // postate.cpp's states ADVANCED_POSITIONAL_UPDATE 62 makes: type 4 for the player's own object (0x28 bytes),
 // type 8 for the others (0x1C bytes); both take the client's +0x10BC and the packet
 class Unknown717010Class : public Unknown98StateClass	// NAME 1: neutral (D10)
@@ -360,16 +370,6 @@ bool ConstantPositionalUpdatePacketClass::Process_Packet(void *instance)
 
 
 
-
-
-
-
-
-
-
-
-
-
 // NOT EXACT: inline-budget (the client calls WWMath::Is_Valid_Float out of line for Position's Z, Orientation's Z and W, Velocity's Z; attempts.py show 0x733DC0)
 // 0x733DC0
 bool SimplePositionalUpdatePacketClass::Process_Packet(void *instance)
@@ -454,27 +454,27 @@ bool AdvancedPositionalUpdatePacketClass::Process_Packet(void *instance)
 	}
 	return(true);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// NOT EXACT: register-only (the client loads the +0x10C0 duration's halves into ebp / edx, ours the reverse; 6 forms; attempts.py show 0x734A40)
+// 0x734A40
+bool PlanetPositionalUpdatePacketClass::Process_Packet(void *instance)
+{
+	WWPROFILE("PlanetPositionalUpdatePacketClass::Process_Packet()");
+	SClient *sclient = (SClient *)instance;
+	TimeStamp = (DurationClass((unsigned)TimeStamp) - DurationClass(sclient->Unknown10C0)).As_Int();
+	ClientObjectClass *object = sclient->Find_Object(GameID);
+	if (object) {
+		if (!object->Unknown98) {
+			object->Unknown98 = new Unknown715CF0Class(this, sclient);
+		} else if (object->Unknown98->Unknown_04() != 5) {
+			delete object->Unknown98;
+			object->Unknown98 = new Unknown715CF0Class(this, sclient);
+		} else {
+			Unknown715CF0Class *state = (Unknown715CF0Class *)object->Unknown98;
+			state->Unknown_715E60(this);
+		}
+	}
+	return(true);
+}
 
 
 

@@ -397,3 +397,23 @@ void Unknown715AB0Class::Unknown_715C20(SimplePositionalUpdatePacketClass *packe
 {
 	Trace("stub Unknown715AB0Class::Unknown_715C20 %u stamp %d", packet->GameID, (int)packet->TimeStamp);
 }
+// PLANET_POSITIONAL_UPDATE 63's state (postate.cpp)
+class Unknown715CF0Class : public Unknown98StateClass
+{
+public:
+	Unknown715CF0Class(PlanetPositionalUpdatePacketClass *packet, ClientClass *client);
+	virtual ~Unknown715CF0Class();
+	virtual int Unknown_04();
+	void Unknown_715E60(PlanetPositionalUpdatePacketClass *packet);
+	int GameID;
+};
+Unknown715CF0Class::Unknown715CF0Class(PlanetPositionalUpdatePacketClass *packet, ClientClass *) : GameID(packet->GameID)
+{
+	Trace("stub Unknown715CF0Class::Unknown715CF0Class %u orbit %d dist %.2f angle %.2f", GameID, packet->OrbitID, packet->OrbitDist, packet->OrbitAngle);
+}
+Unknown715CF0Class::~Unknown715CF0Class() { Trace("stub Unknown715CF0Class::~Unknown715CF0Class %u", GameID); }
+int Unknown715CF0Class::Unknown_04() { return(5); }
+void Unknown715CF0Class::Unknown_715E60(PlanetPositionalUpdatePacketClass *packet)
+{
+	Trace("stub Unknown715CF0Class::Unknown_715E60 %u orbit %d", packet->GameID, packet->OrbitID);
+}

@@ -1010,6 +1010,8 @@ stub EffectObjectClass::Unknown_6E74B0 39023 100
 stub EffectObjectClass::Unknown_6E6ED0 39023 124
 msg 501 RELATIONSHIP (137) size 13: cpacket.cpp's handler
 gen Unknown_70CC40
+msg 502 PLANET_POSITIONAL_UPDATE (63) size 52: cpacket.cpp's handler
+stub Unknown715CF0Class::Unknown715CF0Class 38970 orbit 0 dist 0.00 angle 0.00
 msg 503 AUX_DATA (27) size 21: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 11 bytes
 msg 504 NAVIGATION (153) size 18: cpacket.cpp's handler
@@ -1943,9 +1945,8 @@ recorded CREATE (4) x202
 recorded START (5) x1
 recorded OBJECT_TO_OBJECT_EFFECT (11) x1
 recorded CLIENT_SET_TIME (52) x3
-recorded PLANET_POSITIONAL_UPDATE (63) x1
 recorded CAMERA_CONTROL (146) x1
 recorded CLIENT_CHAT_EVENT (165) x4
 recorded NAME_DECAL (178) x2
-recorded 215, through cpacket.cpp's handlers 785
+recorded 214, through cpacket.cpp's handlers 786
 == done: 0 checks failed
