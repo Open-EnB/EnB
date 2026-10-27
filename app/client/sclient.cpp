@@ -2270,27 +2270,27 @@ void SClient::Unknown_745350()
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// NOT EXACT: field offset (explain.py; first: the FOV load): sprintf's CameraMode load is scheduled into another register and the Put_Float loads shift; four forms (attempts.py show 0x745490)
+// 0x745490
+bool SClient::Unknown_745490()
+{
+	INIClass ini;
+	char section[256];
+	char filename[256];
+	_snprintf(filename, 255, "cam%d.ini", Ticket.Character_ID);
+	ini.Load(filename);
+	sprintf(section, "Mode%02d", CameraMode);
+	if (!ini.Find_Section(section)) {
+		return(false);
+	}
+	CameraModeStruct &mode = CameraModes[CameraMode];
+	ini.Put_Float(section, "Heading", RAD_TO_DEG(mode.Heading));
+	ini.Put_Float(section, "Distance", mode.Distance);
+	ini.Put_Float(section, "Tilt", RAD_TO_DEG(mode.Tilt));
+	ini.Put_Float(section, "FOV", RAD_TO_DEG(mode.FOV));
+	ini.Put_Float(section, "ElevationOffset", RAD_TO_DEG(mode.ElevationOffset));
+	return(ini.Save(filename) > 0);
+}
 
 
 
