@@ -65,7 +65,7 @@ int __stdcall Unknown_78D450(const unsigned char *data, unsigned int size)
 	return(sum);
 }
 
-// NOT EXACT: inline budget (the client calls StringClass::operator+= out of line, ours inlines the two string ones; dead inline reads, a top-declared checksum tried: attempts.py show 0x78D480)
+// NOT EXACT: shape (through Get_File_Name, inlined, the appends come out of line as in the client; the inlined byte sum's loop still differs, nine forms: attempts.py show 0x78D480)
 // 0x78D480
 void CharacterCreatorClass::Unknown_78D480(int slot, LoginCharacterClass *character, AvatarDescClass *avatar, ShipCustDescClass *ship, LoginNameDataClass *name)
 {
@@ -75,11 +75,7 @@ void CharacterCreatorClass::Unknown_78D480(int slot, LoginCharacterClass *charac
 	RawFileClass file;
 
 	*character = LoginCharacterClass();
-	if (!Folder.Is_Empty()) {
-		path = Folder;
-		path += "Avatar";
-		path += (char)(slot + '1');
-		path += ".dat";
+	if (Get_File_Name(slot, path)) {
 		file.Open(path, RawFileClass::READ);
 		if (file.Is_Open()) {
 			int checksum;
@@ -104,7 +100,7 @@ void CharacterCreatorClass::Unknown_78D480(int slot, LoginCharacterClass *charac
 	}
 }
 
-// NOT EXACT: inline budget (as 0x78D480: the client calls StringClass::operator+= (const char *) out of line, ours inlines it)
+// NOT EXACT: inline budget (through Get_File_Name one append still inlines in ours)
 // 0x78D8A0
 void CharacterCreatorClass::Unknown_78D8A0(int slot, AvatarDescClass *avatar, ShipCustDescClass *ship, LoginNameDataClass *name)
 {
@@ -113,11 +109,7 @@ void CharacterCreatorClass::Unknown_78D8A0(int slot, AvatarDescClass *avatar, Sh
 	LinearBufferClass buffer(size, 0x400);
 	RawFileClass file;
 
-	if (!Folder.Is_Empty()) {
-		path = Folder;
-		path += "Avatar";
-		path += (char)(slot + '1');
-		path += ".dat";
+	if (Get_File_Name(slot, path)) {
 		file.Open(path, RawFileClass::WRITE);
 		if (file.Is_Open()) {
 			avatar->Write_Short(&buffer);
@@ -131,7 +123,7 @@ void CharacterCreatorClass::Unknown_78D8A0(int slot, AvatarDescClass *avatar, Sh
 	}
 }
 
-// NOT EXACT: inline budget (as 0x78D480: the client calls StringClass::operator+= (const char *) out of line, ours inlines it)
+// NOT EXACT: shape (through Get_File_Name; the inlined byte sum as in 0x78D480)
 // 0x78DAF0
 void CharacterCreatorClass::Unknown_78DAF0(int slot)
 {
@@ -139,11 +131,7 @@ void CharacterCreatorClass::Unknown_78DAF0(int slot)
 	RawFileClass file;
 	int size = AvatarDescClass().Get_Short_Size() + LoginNameDataClass().Get_Size() + ShipCustDescClass().Get_Short_Size();
 
-	if (!Folder.Is_Empty()) {
-		path = Folder;
-		path += "Avatar";
-		path += (char)(slot + '1');
-		path += ".dat";
+	if (Get_File_Name(slot, path)) {
 		file.Open(path, RawFileClass::READ | RawFileClass::WRITE);
 		if (file.Is_Open()) {
 			int checksum;
