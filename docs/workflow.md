@@ -235,6 +235,11 @@ unless `--lever` cites a new row of this table.
 | `[base + index]` operands swapped in a store | `mask[row + i]` with an unsigned row offset, not `row[i]` through a pointer | land's sea mask (L5) |
 | The client copies a float argument before a bounds assert | An inline setter taking the float by value | spline.h Set (L5) |
 | A second triangle's normal through TriClass | Set all three V pointers again before the second triangle | land Compute_Normal (L5) |
+| A float constant loaded from memory where ours folds a literal | A named `const float` | attrib_dir (H7, 2026-10-27) |
+| `v*(p*k+1)` folded where the client computes `v + (v*p*k + a)` | Spell it as the client computes it; read the old value before calculating | attrib_dir (H7) |
+| A pointer-keyed hash find converts into a temporary per find | Keys as `unsigned int` | attrib_dir (H7) |
+| Two FAIL_IFs sharing one exit | Nest them as `{} else {}` | attrib_dir (H7) |
+| `pop_back` vs `erase(end()-1)` | The client uses both forms: try the other | attrib_dir_collective (H7) |
 
 * **A nested inline is a whole-function budget (2026-10-26, `Key_Exchange` 0x829180):** under `/Ob2` an
   inline helper's own callees (a `std::set` iterator's `_Inc`) are inlined only while the function as a
@@ -343,6 +348,8 @@ unless `--lever` cites a new row of this table.
 * **Compare against HEAD's imports.json, not a saved working copy:** another builder's verify rewrites the
   working copy with your uncommitted tree already in it (`git show HEAD:docs/data/imports.json` is the before-copy;
   2026-10-26, L4, F3). Compare over the whole app: a template header visible to other files moves their pairs.
+* **commit_mine keys must cover every in_tree hunk of a file block:** a key such as "attrib_dir" matches only the
+  block header's hunk; d8e3f1e had to record 19 pairs df8b6f3 missed (H7). Key by every address too.
 * **commit_mine.py hunks (2026-10-26/27):** keys must cover every `-U0` hunk of yours, and a key matches an
   identical hunk anywhere in the file (c9d9e0c missed two; P4 found another builder's identical line taken):
   after the commit `git diff docs/data/imports.json` must no longer show your addresses. Contiguous appended rows
@@ -393,6 +400,9 @@ unless `--lever` cites a new row of this table.
   sync doesn't know breaks every builder's tryv2 compile (C1083) with no change in your tree (libs/sgistl while
   untracked). `.work/f3/tryv3.py`'s EXTRA_INC is the fix to promote.
 
+* **The VM's `e:\build\beta\G` junction pointed at the last worktree that compiled on it** (H7, 2026-10-27): a
+  main-tree verify then compiled another builder's worktree and new files failed with C1083. vc6.py makes the
+  junction again on every compile since ab8355a; results from enb-vc6-02 between 04:36 and 05:25 were suspect.
 ### 3.6 RE tools, Ghidra and REA
 
 * **`gaps.py` pairings can be wrong** (whole objects via shared helpers, overloads, neighbours,

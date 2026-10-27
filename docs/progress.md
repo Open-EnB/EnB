@@ -1170,6 +1170,10 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
   build it once the first cpacket.cpp handlers exist (about one builder session); it subsumes P-T6-2.
 * **P-T7-2:** SClient's Init 0x741180 (field offset, 103 rows) and Shutdown 0x741BB0 (shape, 470 rows) get a
   second Opus round only after the UI base classes they call exist. Recommendation: hold.
+* **P-H7-2 (symbols, 2026-10-27):** symbols.py and objmatch should skip compiler-generated `_$E<n>` names (per
+  translation unit; symbols.json lists `_$E18` at 0x8DEF20 / 0x9FBBC0, and objmatch rejects ini_manager's 0x4E9E00
+  on it). A matching-rule change: carried out like D88, on a quiet tree with a full verify of every library and
+  pairs_cmp gains-only. Recommendation: accept, at the next quiet window.
 * **P-S3-2 / F3's leads for Key_Exchange 0x829180** are LIMIT REACHED (three Opus rounds, inline budget): it
   waits for a new §3.1 lever; F3's two untested leads are in its attempts.csv row.
 * D7 is to be revisited with the user if byte-exactness of E&B's code becomes too costly; D64's
