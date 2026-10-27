@@ -365,6 +365,13 @@ unless `--lever` cites a new row of this table.
   (attempts.csv, not-exact.md, names-review.md) are one hunk, so a path commit or a regeneration sweeps the
   neighbours' rows (`git log -S` before assuming a row is lost); copy a regenerated file in and commit it in one
   step. The -U0 placement bug itself is fixed (af0a8a5).
+* **Packet stand-ins belong in tests/capharness/udpreplay/, never stubs/app_stubs.cpp** (P5, 2026-10-27): a stub that
+  calls RawPacketClass drags pk.obj and ~280 externals into VIDTEST's link (ee8fa6f, fixed 0f87385). A new header line
+  above pk.h's PacketClass shifts its assert lines and loses ~400 pairs. Game-editor packets whose Process_Packet
+  returns true are not in the switch, so pk_classes.h does not list them: find them by unmatched objects.
+* **Between a worktree merge and commit_mine another builder's verify can rewrite imports.json** (1e35db6, 4fd16e4):
+  check HEAD's in_tree for your files after every commit. A bring-over script that only checks "main == HEAD" can
+  overwrite another builder's commit when HEAD moved past the worktree's base: check against the base too.
 * **A command chain that commits after `replay` must stop on "N files differ"** (L3 committed through it; the
   difference was another builder's untracked files). Draft `obj/` folders left under app/ are reported by replay.
 * **D66(i) in practice:** a rewrite that stops emitting an inline COMDAT copy drops that (file, address) pair while

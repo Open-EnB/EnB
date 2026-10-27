@@ -9,7 +9,7 @@ quiet tree (no other builder until the candidates are launched and the base comm
 
 | Task | What | Why |
 |---|---|---|
-| A, pattern | three packet classes, one file each, chosen at launch from P5's "unstarted, similar size" list (its report of 2026-10-27 10:45 in `.work/run-2026-10-26/plan.md`); fall back to `python tools/re/pkdecode.py` for opcodes with 2-4 functions and no new base class | most remaining app work looks like this; udpreplay is a functional check |
+| A, pattern | three packet classes from P5's list (its report of 2026-10-27 08:50): 83 FIND_MEMBER (0x886620-0x886900, ~5 functions), 30028 GameEditorSectorSaved (~7 small functions, in pkunknown_861db0's object) and 54 SERVER_REDIRECT (0x8A14A0-0x8A1780, ~12 small functions, probably two classes; its handler is tsk_game.cpp's). Confirm sizes with `python tools/re/pkdecode.py` at launch; avoid 21/22, 32-34 (shared base constructors) and 97/183 (the Build size problem, P-P5-1) | most remaining app work looks like this; udpreplay is a functional check |
 | B, puzzle | `option.cpp` (0x7FD960-0x7FE0E0, six SGI hash_map instances over the string hash 0x42DB00); fallback `co_player_relationship.cpp` (0x70D280 / 0x70D860, needs ClientObjectClass +0x12C/+0x130 in client.h) | §3.1's levers and the two-attempt rule decide the result; both files are reserved for this |
 
 ## 2. Candidates and runs

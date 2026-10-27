@@ -1179,6 +1179,16 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
   (DeltaChildVisitorClass) and drop tsk_login.h's typedefs at tsk_login.cpp's next edit; the race and profession
   key/value instances need a kv_pair.h `Type_Name` form (the client passes the value to an external Type_Name,
   which the `Type_Name((T*)0)` template can't produce). Recommendation: a tasks builder item, no decision.
+* **P-P5-1 (udpreplay, 2026-10-27):** for a rebuilt class whose client Build writes a size field larger than its
+  payload (97 AVATAR_DESCRIPTION: sizeof 0x114 for 0x108 bytes, 6 of 6 exact, parked in `.work/p5/park97`; 183:
+  0x4C for 0x49), let udpreplay send the recorded bytes, as an explicit opcode list. Recommendation: accept (+12 now).
+* **P-P5-2 (objmatch):** D80 should not credit an implicit destructor to an identical twin when its own address is
+  free (117 GLOBAL_ERROR, parked in `.work/p5/park117`: our implicit destructor is credited to 0x595410 and the
+  scalar deleting destructor then takes 0x876780 from pkguildranknamesrequestclient). A matching-rule change, carried
+  out like D88 with a full verify; can go with P-H7-2. Recommendation: accept.
+* **P-P5-3 (D66):** renaming pkunknown_85e640 / 85f870 / 860d30 to the client's gameedit/pkgekv, pkgeobj, pkgeplan
+  moves their pairs, which pairs_cmp shows as losses: a rename whose pairs reappear under the new file name, named
+  in the commit, as a D66 non-loss kind (iv). Recommendation: accept.
 * **P-S3-2 / F3's leads for Key_Exchange 0x829180** are LIMIT REACHED (three Opus rounds, inline budget): it
   waits for a new §3.1 lever; F3's two untested leads are in its attempts.csv row.
 * D7 is to be revisited with the user if byte-exactness of E&B's code becomes too costly; D64's
