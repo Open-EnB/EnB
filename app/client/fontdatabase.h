@@ -145,6 +145,9 @@ public:
 	int Get_Spacing(const char *chat_name);									// 0x6C4450  // NAME 2: what it returns
 	int Get_Unknown98(const char *chat_name);								// 0x6C45B0  // NAME 1 [Get_Unknown98]: neutral (D10)
 	FontInitStruct *Get_Info();												// 0x6C4720  // NAME 2: the INIT section for the resolution
+	void Unknown_6C1500(const char *file_name);								// 0x6C1500: a string file's templates into Strings (FontStringFilesClass::Load)  // NAME 1 [Unknown_6C1500]: neutral (D10)
+	void Unknown_6C1AA0(const char *file_name);								// 0x6C1AA0: their removal (FontStringFilesClass::Unload)  // NAME 1 [Unknown_6C1AA0]: neutral (D10)
+	void Unknown_6C47B0();												// 0x6C47B0: the fonts whose INIT entry 0x6C5C60 changes, set again  // NAME 1 [Unknown_6C47B0]: neutral (D10)
 	void Unknown_6C49C0();													// 0x6C49C0  // NAME 1 [Unknown_6C49C0]: neutral (D10)
 
 	std::vector<FontInitStruct *> Infos;									// +0x00  // NAME 2: the INIT sections, by resolution
@@ -153,6 +156,30 @@ public:
 	std::hash_map<std::string, FontStringStruct *> Strings;					// +0x40  // NAME 2: what it holds
 	std::vector<std::string> AllFonts;										// +0x58, the client's name (its assert)
 	FontStruct Font[MAXFONTS];												// +0x68, the client's name (its assert)
+};
+
+extern FontDatabaseClass *Unknown_BE67B8;									// 0xBE67B8, created by 0x526DE0  // NAME 1 [Unknown_BE67B8]: neutral (D10)
+
+struct FontStringFileStruct  // NAME 2: one loaded string file (0x14 bytes)
+{
+	FontStringFileStruct() : Name(""), Count(0) {}
+
+	std::string Name;														// +0x00: the file name in lower case  // NAME 2: what it holds
+	int Count;															// +0x10: Load / Unload references  // NAME 2: what it counts
+};
+
+class FontStringFilesClass  // NAME 2: the string files in use, counted (0x18 bytes, 0xBE67BC; fc_default.ini always)
+{
+public:
+	FontStringFilesClass();												// 0x6C4C80
+	~FontStringFilesClass();											// 0x6C4F50
+
+	static std::string Lower(const char *name);							// 0x6C4A80  // NAME 2: what it does
+	FontStringFileStruct *Find(const char *name);							// 0x6C51A0  // NAME 2: what it does
+	void Load(const char *name);											// 0x6C52B0  // NAME 2: what it does
+	void Unload(const char *name);											// 0x6C55B0  // NAME 2: what it does
+
+	std::hash_map<std::string, FontStringFileStruct *> Files;				// +0x00  // NAME 2: what it holds
 };
 
 #endif //__FONTDATABASE_H

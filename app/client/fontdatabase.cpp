@@ -2,6 +2,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
+#include <algorithm>
 #include "fontdatabase.h"
 #include "..\shared\unknown_debug.h"
 #include "..\..\wwlib\ini.h"
@@ -870,8 +872,6 @@ FontStringStruct *FontDatabaseClass::Find_String(const char *name)
 
 
 
-
-
 // NOT EXACT: register-only: the client copies the found node into edi before the key's destructor; the dead size() keeps find_or_insert out of line
 void FontDatabaseClass::Add_String(FontStringStruct *str)
 {
@@ -1078,10 +1078,7 @@ int FontDatabaseClass::Get_Unknown98(const char *chat_name)
 
 FontInitStruct *FontDatabaseClass::Get_Info()
 {
-	int width = 0;
-	int height = 0;
-	int bits = 0;
-	bool windowed = false;
+	int width = 0; int height = 0; int bits = 0; bool windowed = false;
 	WW3D::Get_Device_Resolution(width, height, bits, windowed);
 	FontInitStruct *info = NULL;
 	for (std::vector<FontInitStruct *>::iterator it = Infos.begin(); it != Infos.end(); it++) {
@@ -1093,15 +1090,18 @@ FontInitStruct *FontDatabaseClass::Get_Info()
 
 
 
-
-
-
-
-
-
-
-
-
+void FontDatabaseClass::Unknown_6C47B0()
+{
+	FontInitStruct *info = Get_Info();
+	FAIL_IF(!info) return;
+	for (int i = 0; i < MAXFONTS; i++) {
+		if (info->Unknown_6C5C60(i, this)) {
+			Font[i].Scale = info->Scale[i];
+			int index = Find_Font_File_Index(info->Font[i]);
+			Set_Font(info->FontID[i], index, info->Scale[i], info->Spacing[i], info->Unknown98[i], true);
+		}
+	}
+}
 
 
 
@@ -1120,6 +1120,44 @@ void FontDatabaseClass::Unknown_6C49C0()
 	FontInitStruct *info = Get_Info();
 	FAIL_IF(!info) return;
 	info->Unknown_6C57B0(this);
+}
+
+
+std::string FontStringFilesClass::Lower(const char *name)
+{
+	std::string lower(name);
+	std::transform(lower.begin(), lower.end(), lower.begin(), tolower);
+	return lower;
+}
+
+
+FontStringFilesClass::FontStringFilesClass()
+{
+	Load("fc_default.ini");
+}
+
+
+// NOT EXACT: inline-budget: as FontDatabaseClass::Find_Color (the client calls find out of line)
+FontStringFileStruct *FontStringFilesClass::Find(const char *name)
+{
+	std::hash_map<std::string, FontStringFileStruct *>::iterator it = Files.find(std::string(name));
+	if (it == Files.end()) return NULL;
+	return (*it).second;
+}
+
+
+void FontStringFilesClass::Unload(const char *name)
+{
+	if (name == NULL) return;
+	std::string key = Lower(name);
+	std::hash_map<std::string, FontStringFileStruct *>::iterator it = Files.find(key);
+	if (it == Files.end()) return;
+	FontStringFileStruct *file = (*it).second;
+	if (--file->Count == 0) {
+		delete file;
+		Files.erase(key);
+		Unknown_BE67B8->Unknown_6C1AA0(key.c_str());
+	}
 }
 
 
@@ -1154,8 +1192,11 @@ int FontInitStruct::Find_Chat_Index(const char *chat_name)
 **	1023-1121 (FAIL_IF): Set_Font 0x6C38F0 (lines 923-928, NOT EXACT) and Restore_Font 0x6C3D40 (lines 986-991), Find_Font_File_Index 0x6C3FB0 (the client's name, its assert on line 1305), the chat
 **	font's file index 0x6C4070, the font file name 0x6C4270 (AllFonts), the chat font's scale / spacing /
 **	+0x98 value 0x6C42E0 / 0x6C4450 / 0x6C45B0, Get_Info 0x6C4720 (the INIT section for the current
-**	resolution: the last whose ResWidth / ResHeight fit), 0x6C49C0, and FontInitStruct::Find_Chat_Index
-**	0x6C5730. Every other function of the file is not written yet.
+**	resolution: the last whose ResWidth / ResHeight fit), 0x6C47B0 (line 1096), 0x6C49C0, and FontInitStruct::Find_Chat_Index
+**	0x6C5730; FontStringFilesClass (0xBE67BC: the string files in use, counted): Lower 0x6C4A80, the constructor
+**	0x6C4C80, Find 0x6C51A0 (NOT EXACT) and Unload 0x6C55B0 (its destructor 0x6C4F50 and Load 0x6C52B0 declared only: written
+**	from the pseudocode they missed and moved vector<std::string>::insert 0x432D50). Every other function of the
+**	file is not written yet.
 **
 **	Tables (the Add functions' offsets and instances): +0x10 Colors (find 0x6C65A0, find_or_insert 0x6C87A0),
 **	+0x28 Effects (0x6C68B0, 0x6C8950), +0x40 Strings (0x6C6BC0, 0x6C8B80); 0x6BFD00 adds the COLOR-n
