@@ -58,8 +58,6 @@ PetitionStuckPacketClass::PetitionStuckPacketClass(RawPacketClass *raw) { Conn_R
 PlayerObjectReactionUpdatePacket::PlayerObjectReactionUpdatePacket(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_008EClass::Packet_008EClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 IncapacitanceDetailsPacket::IncapacitanceDetailsPacket(RawPacketClass *raw) { Conn_Record(this, raw); }
-TriggerEmotePacketClass::TriggerEmotePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-NotifyEmotePacketClass::NotifyEmotePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 JobListPacketClass::JobListPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 JobDescriptionPacketClass::JobDescriptionPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_00B5Class::Packet_00B5Class(RawPacketClass *raw) { Conn_Record(this, raw); }
@@ -76,7 +74,6 @@ Packet_00EDClass::Packet_00EDClass(RawPacketClass *raw) { Conn_Record(this, raw)
 Packet_00ADClass::Packet_00ADClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_00B0Class::Packet_00B0Class(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_00B1Class::Packet_00B1Class(RawPacketClass *raw) { Conn_Record(this, raw); }
-CTAResponsePacketClass::CTAResponsePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 ConfirmedActionOfferPacketClass::ConfirmedActionOfferPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_00BFClass::Packet_00BFClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 ConfirmedActionResponsePacketClass::ConfirmedActionResponsePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
@@ -169,6 +166,7 @@ bool PlayerObjectRelationshipPacket::Process_Packet(void *) { return(true); }	//
 bool PlayerObjectIsAttackingUpdatePacket::Process_Packet(void *) { return(true); }	// 0x739AC0
 bool IncapacitanceRescueConfirmationPacket::Process_Packet(void *) { return(true); }	// 0x739CD0
 bool CameraControlPacketClass::Process_Packet(void *) { return(true); }	// 0x739FF0
+bool NotifyEmotePacketClass::Process_Packet(void *) { return(true); }	// 0x73A8E0
 bool JobDeletePacketClass::Process_Packet(void *) { return(true); }	// 0x73A420
 bool JobAcceptReplyPacketClass::Process_Packet(void *) { return(true); }	// 0x73A510
 bool GalaxyMapPacketClass::Process_Packet(void *) { return(true); }	// 0x73AC60
@@ -183,6 +181,7 @@ bool NoteContentPacketClass::Process_Packet(void *) { return(true); }	// 0x73AF8
 bool ClientChatListPacketClass::Process_Packet(void *) { return(true); }	// 0x73CC90
 bool ClientChatEventPacketClass::Process_Packet(void *) { return(true); }	// 0x73B150
 bool ClientChatErrorPacketClass::Process_Packet(void *) { return(true); }	// 0x73D170
+bool CTAResponsePacketClass::Process_Packet(void *) { return(true); }	// 0x73DAA0
 bool GuildRecruitConfirmSectorPacket::Process_Packet(void *) { return(true); }	// 0x73E720
 bool GuildSimpleSectorClientPacket::Process_Packet(void *) { return(true); }	// 0x73DD00
 bool GuildMessageSectorPacket::Process_Packet(void *) { return(true); }	// 0x73E9E0

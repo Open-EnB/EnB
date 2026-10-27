@@ -3589,7 +3589,7 @@ RECONSTRUCTED = {
     ('app', 'packets/pkunknown_866ac0.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
     ('app', 'packets/pkglobalticketrequest.cpp'): "packet classes (opcode 110) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
     ('app', 'packets/pkglobalticketrequest.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
-    ('app', 'packets/pkcta_request.cpp'): "packet classes (opcode 188) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
+    ('app', 'packets/pkcta_request.cpp'): "opcode 189 (CTA_RESPONSE) written by hand (builder P4, 4 of 4 exact); packet classes (opcode 188) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
     ('app', 'packets/pkcta_request.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
     ('app', 'packets/pkincapacitancerequest.cpp'): "packet classes (opcode 141, 143, 145) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
     ('app', 'packets/pkincapacitancerequest.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
@@ -3691,6 +3691,9 @@ RECONSTRUCTED = {
     ('app', 'packets/pksetclienttype.cpp'): "opcode 60 (CLIENT_TYPE) written by hand (builder P4, 4 of 4 exact in "
                                           "appfile.py match), client 0x87FCF0-0x87FF30; the file name provisional (NAME 1)",
     ('app', 'packets/pksetclienttype.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
+    ('app', 'packets/pktriggeremote.cpp'): "opcodes 161 (TRIGGER_EMOTE) and 162 (NOTIFY_EMOTE) written by hand (builder P4, "
+                                         "8 of 8 exact in appfile.py match), client 0x886000-0x886550; the file name provisional (NAME 1)",
+    ('app', 'packets/pktriggeremote.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
     ('app', 'packets/pk_sub_parts.cpp'): "pk_sub_parts.cpp (the client's __FILE__, assert line 64): SUBPARTS 180 written by "
                                        "hand (builder P4, 8 of 8 exact in appfile.py match), client 0x8754D0-0x875CF0",
     ('app', 'packets/pk_sub_parts.h'): "SubPartsPacket and SubPartStruct (D24 header name; pk_classes.h includes it)",

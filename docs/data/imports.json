@@ -1559,7 +1559,11 @@
      "0x86F070",
      "0x86F0F0",
      "0x86F1E0",
-     "0x86F2E0"
+     "0x86F2E0",
+     "0x86F320",
+     "0x86F3C0",
+     "0x86F4B0",
+     "0x86F5B0"
     ],
     "merged": [],
     "name": "packets/pkcta_request.cpp"
@@ -2773,6 +2777,30 @@
     ],
     "merged": [],
     "name": "packets/pktrade.cpp"
+   },
+   "pktriggeremote": {
+    "ambiguous": [
+     "0x42B2F0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350",
+     "0x886000",
+     "0x8860A0",
+     "0x886140",
+     "0x886230",
+     "0x886270",
+     "0x886380",
+     "0x886420",
+     "0x886510"
+    ],
+    "merged": [],
+    "name": "packets/pktriggeremote.cpp"
    },
    "pkturn": {
     "ambiguous": [
@@ -4039,6 +4067,7 @@
    "packets/pktask.h": "reconstructed",
    "packets/pktilt.h": "reconstructed",
    "packets/pktrade.h": "reconstructed",
+   "packets/pktriggeremote.h": "reconstructed",
    "packets/pkturn.h": "reconstructed",
    "packets/pkuitrigger.h": "reconstructed",
    "packets/pkunknown_85d1a0.h": "reconstructed",

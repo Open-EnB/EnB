@@ -34,6 +34,37 @@ int CTA_Request_PacketClass::Print(char *buffer, int len)
 }
 
 
+CTAResponsePacketClass::CTAResponsePacketClass(int avatar_id, int request_type, bool success) : AvatarID(avatar_id), RequestType(request_type), Success(success)
+{
+}
+
+CTAResponsePacketClass::CTAResponsePacketClass(RawPacketClass *raw) : AvatarID(-1), RequestType(-1), Success(false)
+{
+	raw->Get(&AvatarID, sizeof(AvatarID));
+	raw->Get(&RequestType, sizeof(RequestType));
+	raw->Get(&Success, sizeof(Success));
+}
+
+RawPacketClass *CTAResponsePacketClass::Build()
+{
+	RawPacketClass *raw = new RawPacketClass(189, Get_Data_Size());
+	raw->Add(&AvatarID, sizeof(AvatarID));
+	raw->Add(&RequestType, sizeof(RequestType));
+	raw->Add(&Success, sizeof(Success));
+	return(raw);
+}
+
+int CTAResponsePacketClass::Get_Data_Size()
+{
+	return(sizeof(AvatarID) + sizeof(RequestType) + sizeof(Success));
+}
+
+int CTAResponsePacketClass::Print(char *buffer, int len)
+{
+	return(_snprintf(buffer, len, "CTA_Response_Packet {AvatarID=%d RequestType=%d Success=%s}", AvatarID, RequestType, Success ? "true" : "false"));
+}
+
+
 /*
 **	Reconstruction notes (pkcta_request.cpp)
 **

@@ -80,6 +80,7 @@
 #include "pktask.h"	// rebuilt
 #include "pktilt.h"	// rebuilt
 #include "pktrade.h"	// rebuilt
+#include "pktriggeremote.h"	// rebuilt
 #include "pkturn.h"	// rebuilt
 #include "pkuitrigger.h"	// rebuilt
 #include "pkunknown_85d1a0.h"	// rebuilt
@@ -623,23 +624,6 @@ public:
 	char Unknown0C[0x18C];	// +0x0C
 };
 
-// opcode 161 (0x00A1, TRIGGER_EMOTE): vtable 0xB0A52C, constructor 0x8860A0, 0x14 bytes
-class TriggerEmotePacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name TRIGGER_EMOTE (the Net-7 opcode table; no structure check)
-{
-public:
-	TriggerEmotePacketClass(RawPacketClass *raw);	// 0x8860A0
-	virtual bool Process_Packet(void *client);	// +0x08 0x868C40 (clientstub.cpp l.296)
-	char Unknown0C[0x8];	// +0x0C
-};
-
-// opcode 162 (0x00A2, NOTIFY_EMOTE): vtable 0xB0A55C, constructor 0x886380, 0x18 bytes
-class NotifyEmotePacketClass : public PacketClass
-{
-public:
-	NotifyEmotePacketClass(RawPacketClass *raw);	// 0x886380
-	char Unknown0C[0xC];	// +0x0C
-};
-
 // opcode 147 (0x0093, JOB_LIST): vtable 0xB0AEF4, constructor 0x895F80, 0x20 bytes
 class JobListPacketClass : public PacketClass
 {
@@ -777,14 +761,6 @@ public:
 	Packet_00B1Class(RawPacketClass *raw);	// 0x88ABC0
 	virtual bool Process_Packet(void *client);	// +0x08 0x868F10 (clientstub.cpp l.341)
 	char Unknown0C[0x34];	// +0x0C
-};
-
-// opcode 189 (0x00BD, CTA_RESPONSE): vtable 0xB0980C, constructor 0x86F3C0, 0x18 bytes
-class CTAResponsePacketClass : public PacketClass
-{
-public:
-	CTAResponsePacketClass(RawPacketClass *raw);	// 0x86F3C0
-	char Unknown0C[0xC];	// +0x0C
 };
 
 // opcode 190 (0x00BE, CONFIRMED_ACTION_OFFER): vtable 0xB0989C, constructor 0x870650, 0x24 bytes

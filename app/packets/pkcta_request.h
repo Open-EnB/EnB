@@ -5,8 +5,7 @@
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
 **	Original location: e:\build\beta\G\app\packets\pkcta_request.h (the name provisional: see the .cpp)
 **
-**	The packet classes of client 0x86F070-0x86F600 rebuilt so far (opcode 188); the file's other classes
-**	are still declared in pk_classes.h.
+**	The packet classes of client 0x86F070-0x86F600 (opcodes 188 and 189).
 */
 
 #if defined(_MSC_VER)
@@ -32,6 +31,23 @@ public:
 	int AvatarID;	// +0x0C  // NAME 3: the client's Print text 'AvatarID='
 	int TargetID;	// +0x10  // NAME 3: the client's Print text 'TargetID='
 	int RequestType;	// +0x14  // NAME 3: the client's Print text 'RequestType='
+};
+
+// opcode 189 (0x00BD, CTA_RESPONSE): vtable 0xB0980C, constructor 0x86F3C0, 0x18 bytes
+class CTAResponsePacketClass : public PacketClass
+{
+public:
+	CTAResponsePacketClass(int avatar_id, int request_type, bool success);	// 0x86F320
+	CTAResponsePacketClass(RawPacketClass *raw);	// 0x86F3C0
+	virtual RawPacketClass *Build();	// +0x04 0x86F4B0
+	virtual bool Process_Packet(void *client);	// +0x08 0x73DAA0 (not rebuilt)
+	virtual int Get_Data_Size();	// +0x0C 0x86F590
+	virtual int Print(char *buffer, int len);	// +0x10 0x86F5B0
+	virtual int Get_Channel() { return(AvatarID); }	// +0x18 0x86F370
+
+	int AvatarID;	// +0x0C  // NAME 3: the client's Print text 'AvatarID='
+	int RequestType;	// +0x10  // NAME 3: the client's Print text 'RequestType='
+	bool Success;	// +0x14  // NAME 3: the client's Print text 'Success='
 };
 
 #endif
