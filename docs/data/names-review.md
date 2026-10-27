@@ -101,6 +101,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown136C` | `app/client/sclient.h:73` | untagged neutral name (D10) |
 | 1 | `Unknown0C` | `app/client/tasks/tsk_game.cpp:18` | untagged neutral name (D10) |
 | 1 | `gm_name` | `app/client/tasks/tsk_game.cpp:19` | '-GM_NAME' |
+| 1 | `Address, Port` | `app/client/tasks/tsk_game.cpp:20` | handed to Redirect |
 | 1 | `Unknown_BE8B38` | `app/client/tasks/tsk_game.cpp:41` | untagged neutral name (D10) |
 | 1 | `Unknown_7F8EF0` | `app/client/tasks/tsk_game.cpp:41` | untagged neutral name (D10) |
 | 1 | `Unknown_7F84F0` | `app/client/tasks/tsk_game.cpp:65` | untagged neutral name (D10) |
