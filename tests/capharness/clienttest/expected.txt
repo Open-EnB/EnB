@@ -78,6 +78,12 @@ check Set_Debug_Object 6 returns 1000: ok
   parsed back: Debug {GameID=6 Command=Snoop UserData=1}
 check with +0x11 set, DEBUG {6, 0x21, 1}: ok
 check four DEBUG messages over the memory connection: ok
+== (3a) a handler that refuses twice
+recording packet 0: refused (1 more)
+recording packet 0: refused (0 more)
+check refused twice: read from the connection once: ok
+recording packet 0: taken
+check taken on the third call; nothing more to read: ok
 == (3) Process_Packets
 messages 1000
 stub TaskClass::Is_Focused -> 1
@@ -150,6 +156,7 @@ mainview add 38882
 mainview add 38944
 mainview add 38961
 msg 344 ACTIVATE_RENDER_STATE (48) size 12: cpacket.cpp's handler
+stub RsTrackClass::Unknown_4604D0 1
 mainview add 38703
 mainview add 38964
 mainview add 38919

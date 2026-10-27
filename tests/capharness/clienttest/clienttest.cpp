@@ -16,7 +16,8 @@
 //     alex3.trace.jsonl): opcodes whose handler cpacket.cpp defines go through the factory and the real
 //     handler, the rest become one recording test packet (counted per opcode); CREATE also adds a
 //     client object with its game id (the trace shows the main view's 'add'), so REMOVE and the object
-//     handlers find it.
+//     handlers find it; an odd game id gets a fake rs_track model. Before that, (3a): a packet whose
+//     handler returns false stays on the peek connection and comes back on the next call.
 //
 // Never: a modal dialog (asserts and FAIL_IF go to the trace), the registry (SOptionsClass's
 // constructor is a stand-in), the network (the memory connection), the game's install folder.
@@ -118,23 +119,28 @@ public:
 	bool Unknown68;		// +0x68
 };
 
-// A client object's model (co.cpp +0xAC): the render-state handlers ask its Class_ID. Every slot of the
-// fake's table returns 0 (no argument slot is called), so no model is an rs_track one (0x10001).
+// A client object's model (co.cpp +0xAC): the render-state handlers ask its Class_ID (no other slot, and
+// none with an argument, is called). Every slot of a fake's table returns the same value: an object with
+// an odd game id gets an rs_track model (0x10001, the handlers call RsTrackClass), an even one a model
+// that isn't (0).
 static int Zero_Slot() { return 0; }
+static int Track_Slot() { return 0x10001; }
 struct FakeModelStruct
 {
 	void **Table;
 	char Unknown04[0x100];
 };
 static void *Zero_Table[256];
+static void *Track_Table[256];
 static FakeModelStruct Fake_Model;
+static FakeModelStruct Track_Model;
 
 static ClientObjectClass *New_Object(unsigned id)
 {
 	ClientObjectClass *object = new ClientObjectClass;
 	object->GameID = id;
 	object->Node.Set(object);		// co.cpp's constructor makes the node hold its object
-	object->Model = (RenderObjClass *)&Fake_Model;
+	object->Model = (RenderObjClass *)((id & 1) ? &Track_Model : &Fake_Model);
 	return object;
 }
 
@@ -165,11 +171,26 @@ static std::map<int, int> Recorded;
 class RecordingPacketClass : public PacketClass
 {
 public:
-	RecordingPacketClass(int opcode, int size) : Opcode(opcode), Size(size) {}
-	virtual bool Process_Packet(void *) { Recorded[Opcode]++; return(true); }
+	RecordingPacketClass(int opcode, int size) : Opcode(opcode), Size(size), Refuse(opcode == REFUSE_OPCODE ? 2 : 0) { Serial = 0; }
+	virtual bool Process_Packet(void *)
+	{
+		if (Refuse > 0) {
+			// the harness's own message (Test_Refuse): false leaves the packet on the connection
+			Trace("recording packet %d: refused (%d more)", Serial, --Refuse);
+			return(false);
+		}
+		if (Opcode == REFUSE_OPCODE) {
+			Trace("recording packet %d: taken", Serial);
+			return(true);
+		}
+		Recorded[Opcode]++;
+		return(true);
+	}
 	virtual int Get_Data_Size() { return(Size); }
+	enum { REFUSE_OPCODE = 0xFFFE };
 	int Opcode;
 	int Size;
+	int Refuse;
 };
 
 static std::vector<unsigned char> Message_Bytes(int opcode, const std::vector<unsigned char> &payload)
@@ -415,6 +436,27 @@ static bool Load_Messages(const char *path)
 	return true;
 }
 
+// SClient::Process_Packets stops at a handler that returns false and leaves the packet on the peek
+// connection (PeekConnectionClass +0x34 keeps it): the next call hands the same packet over again
+static void Test_Refuse(SClient *client)
+{
+	Trace("== (3a) a handler that refuses twice");
+	if (Memory == 0) {
+		Check(false, "the memory connection");
+		return;
+	}
+	std::vector<unsigned char> none;
+	Memory->Incoming.push_back(Message_Bytes(RecordingPacketClass::REFUSE_OPCODE, none));
+	int before = Memory->Received;
+	client->Process_Packets();
+	client->Process_Packets();
+	Check(Memory->Received == before + 1, "refused twice: read from the connection once");
+	client->Process_Packets();
+	client->Process_Packets();
+	Check(Memory->Received == before + 1 && Memory->Incoming.empty(), "taken on the third call; nothing more to read");
+	Memory->Received = 0;
+}
+
 static void Test_Packets(SClient *client, const char *path)
 {
 	Trace("== (3) Process_Packets");
@@ -485,8 +527,10 @@ int main(int argc, char **argv)
 	}
 	for (int i = 0; i < 256; i++) {
 		Zero_Table[i] = (void *)Zero_Slot;
+		Track_Table[i] = (void *)Track_Slot;
 	}
 	Fake_Model.Table = Zero_Table;
+	Track_Model.Table = Track_Table;
 
 	Trace("== SClient (its constructor, the base's)");
 	SClient *client = new SClient(0);
@@ -497,6 +541,7 @@ int main(int argc, char **argv)
 
 	Test_Lists(client);
 	Test_Debug(client);
+	Test_Refuse(client);
 	if (argc > 2) {
 		Test_Packets(client, argv[2]);
 	}

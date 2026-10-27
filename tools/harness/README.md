@@ -463,9 +463,12 @@ lookup, the ship); (2) the DEBUG setters before and after the redirect (Open_Con
 connect.cpp's factory, MEMORY protocol, to the harness's memory connection), each DEBUG message parsed back by
 the factory and printed with the class's Print; (3) SClient::Process_Packets over that connection: an opcode
 cpacket.cpp handles goes through the factory and the real handler, the rest become one recording test packet
-(counted per opcode); a CREATE also adds a client object with its game id. 2026-10-27, alex3 ffff9b25's first
-1,000 messages: 36 of 36 checks, 21 messages through 9 handlers (ACTIVATE_RENDER_STATE, SUBPARTS, CLIENT_SHIP,
-DECAL, MESSAGE_STRING, CLIENT_SOUND, REMOVE_EFFECT, SET_TARGET, REMOVE), 979 recorded, 366 trace lines.
+(counted per opcode); a CREATE also adds a client object with its game id (an odd id gets a fake rs_track model,
+Class_ID 0x10001, so the render-state handlers reach RsTrackClass); before that (3a) a packet whose handler refuses
+twice stays on the peek connection and is handed over again. 2026-10-27, alex3 ffff9b25's first 1,000 messages:
+38 of 38 checks, 21 messages through 9 handlers (ACTIVATE_RENDER_STATE, SUBPARTS, CLIENT_SHIP, DECAL,
+MESSAGE_STRING, CLIENT_SOUND, REMOVE_EFFECT, SET_TARGET, REMOVE), 979 recorded, 373 trace lines. A handler added
+to cpacket.cpp changes the trace: check the difference, then `run --update`.
 
 ## Other harness programs (index)
 
