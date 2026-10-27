@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 13 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 30 |
-| 3 | by convention from a client-named file or sibling | 704 |
-| 2 | describes what the code does | 1390 |
-| 1 | neutral placeholder | 1918 |
+| 3 | by convention from a client-named file or sibling | 705 |
+| 2 | describes what the code does | 1404 |
+| 1 | neutral placeholder | 1920 |
 
 ## For review (score 3 and below)
 
@@ -1466,6 +1466,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `pkversionrequest` | `app/packets/pkversionrequest.h:16` | provisional, pk + its first named class's name |
 | 1 | `pkwarpindex` | `app/packets/pkwarpindex.h:15` | provisional, pk + its first named class's name |
 | 1 | `Unknown1C` | `app/shared/attrib_dir_collective.cpp:33` | untagged neutral name (D10) |
+| 1 | `Unknown_4E0700` | `app/shared/attrib_dir_collective.cpp:211` | neutral placeholder (D10) |
+| 1 | `Unknown_4DFBF0` | `app/shared/attrib_dir_collective.cpp:212` | neutral placeholder (D10) |
 | 1 | `Unknown1C` | `app/shared/attrib_dir_collective.h:52` | neutral placeholder (D10) |
 | 1 | `m_Unknown70` | `app/shared/auxdata/delta.cpp:9` | untagged neutral name (D10) |
 | 1 | `m_Unknown78` | `app/shared/auxdata/delta.cpp:11` | untagged neutral name (D10) |
@@ -2625,6 +2627,20 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `AttribFunctionModClass` | `app/shared/attrib_dir_collective.h:90` | what it is |
 | 2 | `Type` | `app/shared/attrib_dir_collective.h:100` | as AttribModValueClass |
 | 2 | `Owner` | `app/shared/attrib_dir_collective.h:101` | as AttribModValueClass |
+| 2 | `DestinationStruct` | `app/shared/attrib_dir_collective.h:110` | what it holds |
+| 2 | `std:` | `app/shared/attrib_dir_collective.h:113` | what it holds |
+| 2 | `Function` | `app/shared/attrib_dir_collective.h:114` | what it holds |
+| 2 | `MemberCallbackClass` | `app/shared/attrib_dir_collective.h:118` | what it is |
+| 2 | `Member` | `app/shared/attrib_dir_collective.h:124` | what it holds |
+| 2 | `MemberStruct` | `app/shared/attrib_dir_collective.h:128` | what it holds |
+| 2 | `std:` | `app/shared/attrib_dir_collective.h:131` | what it holds |
+| 2 | `Callback` | `app/shared/attrib_dir_collective.h:132` | what it holds |
+| 2 | `Add_Destination` | `app/shared/attrib_dir_collective.h:141` | what it does |
+| 2 | `Add_Member` | `app/shared/attrib_dir_collective.h:142` | what it does |
+| 2 | `Remove_Member` | `app/shared/attrib_dir_collective.h:143` | what it does |
+| 2 | `Link` | `app/shared/attrib_dir_collective.h:144` | what it does |
+| 2 | `Detach_Owned_Mods` | `app/shared/attrib_dir_collective.h:145` | what it does |
+| 2 | `Dir` | `app/shared/attrib_dir_collective.h:149` | what it holds |
 | 2 | `Swap` | `app/shared/auxdata/bitset.h:26` | describes what it does |
 | 2 | `Is_Set` | `app/shared/auxdata/bitset.h:30` | describes what it does |
 | 2 | `Set` | `app/shared/auxdata/bitset.h:32` | describes what it does |
@@ -3963,6 +3979,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `Index` | `app/packets/pkwarpindex.h:49` | the client's Print text 'Index=' |
 | 3 | `attrib_dir.h` | `app/shared/attrib_dir.h:21` | header name assumed from the client's attrib_dir.cpp |
 | 3 | `attrib_dir_collective.h` | `app/shared/attrib_dir_collective.h:19` | header name assumed from the client's attrib_dir_collective.cpp |
+| 3 | `AttribDirCollective` | `app/shared/attrib_dir_collective.h:106` | by convention (D24) from the client's attrib_dir_collective.cpp |
 | 3 | `bitset.h` | `app/shared/auxdata/bitset.h:16` | header name assumed from the client's bitset.cpp |
 | 3 | `BitSetClass` | `app/shared/auxdata/bitset.h:19` | by convention (D24) from the client's file bitset.cpp |
 | 3 | `delta.h` | `app/shared/auxdata/delta.h:19` | header name assumed from the client's delta.cpp |

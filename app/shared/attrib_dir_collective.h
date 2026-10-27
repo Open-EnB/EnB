@@ -101,4 +101,52 @@ public:
 	void *Owner;																						// +0x0C  // NAME 2: as AttribModValueClass
 };
 
+
+// Several directories' attributes combined into one directory's (0x48 bytes)
+class AttribDirCollective  // NAME 3: by convention (D24) from the client's attrib_dir_collective.cpp
+{
+public:
+	// A member attribute's destination: its name in Dir and the value function (0x14 bytes)
+	struct DestinationStruct  // NAME 2: what it holds
+	{
+		DestinationStruct(const std::string &name, const RefCountPtr<AttribValueFunctionClass> &function) : Name(name), Function(function) {}
+		std::string Name;																			// +0x00  // NAME 2: what it holds
+		RefCountPtr<AttribValueFunctionClass> Function;									// +0x10  // NAME 2: what it holds
+	};
+
+	// Told when a member's attribute changes (vtable 0xAEC344, 0x0C bytes)
+	class MemberCallbackClass : public AttribCallbackClass  // NAME 2: what it is
+	{
+	public:
+		MemberCallbackClass(AttribDirCollective &parent, AttribDir *member);		// 0x4DCD10
+		virtual void Value_Changed(const char *name, float value);					// 0x4DCD40
+		AttribDirCollective &Parent;															// +0x04 (the FAIL_IFs' Parent)
+		AttribDir *Member;																		// +0x08  // NAME 2: what it holds
+	};
+
+	// One member: its last values by attribute and its callback (0x1C bytes)
+	struct MemberStruct  // NAME 2: what it holds
+	{
+		MemberStruct();																			// 0x4DD240
+		std::hash_map<std::string, float> Values;											// +0x00  // NAME 2: what it holds
+		MemberCallbackClass *Callback;														// +0x18  // NAME 2: what it holds
+	};
+
+	typedef std::hash_map<unsigned int, MemberStruct *> MemberMap;	// keyed by the member AttribDir's address
+	typedef std::hash_map<std::string, DestinationStruct *> DestinationMap;
+
+	AttribDirCollective();																		// 0x4DBBC0
+	~AttribDirCollective();																		// 0x4DBFD0
+
+	void Add_Destination(const std::string &source, const std::string &destination, const RefCountPtr<AttribValueFunctionClass> &function);	// 0x4DC310  // NAME 2: what it does
+	void Add_Member(AttribDir *member);														// 0x4DC720  // NAME 2: what it does
+	void Remove_Member(AttribDir *member);													// 0x4DC9E0  // NAME 2: what it does
+	void Link(AttribDir *member, const std::string &destination);						// 0x4DCC80  // NAME 2: what it does
+	void Detach_Owned_Mods(AttribDir *dir);													// 0x4DCCD0  // NAME 2: what it does
+
+	MemberMap Members;																			// +0x00
+	DestinationMap DestinationAttributes;													// +0x18
+	AttribDir Dir;																					// +0x30  // NAME 2: what it holds
+};
+
 #endif //__ATTRIB_DIR_COLLECTIVE_H

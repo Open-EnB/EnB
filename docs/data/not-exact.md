@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-174 entries in 47 files.
+177 entries in 48 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -87,6 +87,9 @@ edit the comments in the code, not this file.
 | `app/shared/attrib_dir.cpp:690` | `AttributeInfo::Notify` | marker | NOT EXACT: inline budget (explain.py: shape), the client inlines the update table's begin() (ours calls it; frame 0x2C vs 0x28); the callback loop is the client's |
 | `app/shared/attrib_dir.cpp:1031` | `AttribDirModIteratorClass::Next` | marker | NOT EXACT: shape (explain.py: 8 masked rows), registers swapped after ++ModCur and the client tests MapCur != MapEnd twice before the inlined Skip_Empty |
 | `app/shared/attrib_dir.cpp:1058` | `AttribDirModIteratorClass::Unlock` | marker | NOT EXACT: inline budget (explain.py: 4 vs 5 calls), the client calls the bucket function out of line in the inlined ++MapCur |
+| `app/shared/attrib_dir_collective.cpp:222` | `AttribDirCollective::~AttribDirCollective` | marker | NOT EXACT: inline budget (explain.py: 19 vs 20 calls), the client keeps the member loop's test without a zero register and calls more of the tables' helpers out of line |
+| `app/shared/attrib_dir_collective.cpp:248` | `AttribDirCollective::Add_Destination` | marker | NOT EXACT: shape (explain.py), the client keeps the member loop's iterator in memory and the member and its struct in edi / ebx (a member / info local pair grows our frame instead) |
+| `app/shared/attrib_dir_collective.cpp:295` | `AttribDirCollective::Add_Member` | marker | NOT EXACT: inline budget (explain.py: frame 0x34 vs 0x28), the client calls MemberStruct's constructor 0x4DD240 out of line; ours inlines it (defined here or in the class alike) |
 | `app/shared/auxdata/delta_time.cpp:94` | `DurationAccessorClass::Get` | marker | NOT EXACT: the zero time is a function-local static the client destroys at exit (atexit 0x4A8590: its DurationClass has a destructor ours lacks); the 64-bit arithmetic follows the client's order |
 | `app/shared/auxdata/delta_time.cpp:111` | `DurationAccessorClass::Set` | marker | NOT EXACT: the client keeps time()'s 0 argument in ebx and adds the ticks' zero high half from it; VC6 here pushes an immediate (tried: other orders, a DurationClass temporary) |
 | `app/shared/auxdata/encode.cpp:560` | `RecordTableClass::Add` | marker | NOT EXACT: the client keeps the node in the list argument's slot, calls the first Children.size() out of line (0x4A58C0) in the new compound record and allocates the walk's records inline; VC6 here inlines all three sizes and uses other slots. |
