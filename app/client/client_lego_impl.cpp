@@ -187,7 +187,7 @@ void ClientLegoImplClass::Init(int asset_id, const RefCountPtr<RenderObjClass> &
 	}
 	Update_Radius();
 	if (Parent) {
-		Parent->Unknown_00(Get_Identifier());
+		Parent->Child_Moved(Get_Identifier());
 	}
 }
 
@@ -666,42 +666,42 @@ void ClientLegoImplClass::Update_Radius(void)
 	Notify_Parent();
 }
 
+
+
+
+
+
+
+
+
+
+
+// NOT EXACT: shape, 4 rows: the client forms &child (lea ebp) before loading it, ours after (attempts.csv)
+void ClientLegoImplClass::Child_Moved(const LegoIdentifierClass &id)
+{
+	LegoSplitStruct split(Identifier, id);
+	FAIL_IF(split.Is_Invalid()) return;
+	std::hash_map<std::string, LegoChildStruct>::iterator child_find = Children.find(split.Name);
+
+	FAIL_IF(child_find == Children.end()) return;
+
+
+	const RefCountPtr<LegoClass> &child = (*child_find).second.Child;
+
+	FAIL_IF(!child) return;
+
+	const RefCountPtr<LegoKnobClass> &knob = (*child_find).second.Knob;
+	FAIL_IF(!knob) return;
+	int bone = knob->BoneIndex;
+	RenderObject->Release_Bone(bone);
+	RenderObject->Capture_Bone(bone);
+	RenderObject->Control_Bone(bone, child->Get_Transform());
+}
+
 void ClientLegoImplClass::Child_Changed(const LegoIdentifierClass &)
 {
 	Update_Radius();
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -776,7 +776,7 @@ RefCountPtr<LegoBoneMapClass> ClientLegoImplClass::Get_Bone_Map(int asset_id)
 
 
 
-// NOT EXACT: order-only, 2 rows: the loop's back edge reloads two stack values in the other order (attempts.csv)
+
 LegoBoneMapClass::LegoBoneMapClass(int asset_id) :
 	Radius(0.0f)
 {
