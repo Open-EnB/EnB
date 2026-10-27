@@ -10,8 +10,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 22 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 35 |
 | 3 | by convention from a client-named file or sibling | 742 |
-| 2 | describes what the code does | 1575 |
-| 1 | neutral placeholder | 2351 |
+| 2 | describes what the code does | 1577 |
+| 1 | neutral placeholder | 2349 |
 
 ## For review (score 3 and below)
 
@@ -1277,16 +1277,14 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Packet_7536Class` | `app/packets/gameedit/pkgekv.h:41` | neutral (D10): opcode 0x7536 |
 | 1 | `Packet_7537Class` | `app/packets/gameedit/pkgekv.h:55` | neutral (D10): opcode 0x7537 (Print 'GameEditorUpdateKeyValues') |
 | 1 | `Packet_7538Class` | `app/packets/gameedit/pkgekv.h:73` | neutral (D10): opcode 0x7538 (Print 'GameEditorModifyKeyValues') |
-| 1 | `Unknown10` | `app/packets/gameedit/pkgeobj.cpp:160` | untagged neutral name (D10) |
-| 1 | `Packet_7540Class` | `app/packets/gameedit/pkgeobj.h:22` | neutral (D10): opcode 0x7540 (Print 'GameEditorCreateFinal') |
-| 1 | `Packet_753EClass` | `app/packets/gameedit/pkgeobj.h:39` | neutral (D10): opcode 0x753E (Print 'GameEditorCreateEmpty') |
-| 1 | `Packet_753FClass` | `app/packets/gameedit/pkgeobj.h:56` | neutral (D10): opcode 0x753F |
-| 1 | `Packet_7539Class` | `app/packets/gameedit/pkgeobj.h:69` | neutral (D10): opcode 0x7539 |
-| 1 | `Packet_753AClass` | `app/packets/gameedit/pkgeobj.h:83` | neutral (D10): opcode 0x753A |
-| 1 | `Unknown10` | `app/packets/gameedit/pkgeobj.h:93` | untagged neutral name (D10) |
-| 1 | `Packet_753BClass` | `app/packets/gameedit/pkgeobj.h:97` | neutral (D10): opcode 0x753B (Print 'GameEditorTemplateCategories') |
-| 1 | `Packet_753CClass` | `app/packets/gameedit/pkgeobj.h:114` | neutral (D10): opcode 0x753C (Print 'GameEditorRequestTemplateList') |
-| 1 | `Packet_753DClass` | `app/packets/gameedit/pkgeobj.h:131` | neutral (D10): opcode 0x753D (Print 'GameEditorTemplateList') |
+| 1 | `Packet_7540Class` | `app/packets/gameedit/pkgeobj.h:23` | neutral (D10): opcode 0x7540 (Print 'GameEditorCreateFinal') |
+| 1 | `Packet_753EClass` | `app/packets/gameedit/pkgeobj.h:40` | neutral (D10): opcode 0x753E (Print 'GameEditorCreateEmpty') |
+| 1 | `Packet_753FClass` | `app/packets/gameedit/pkgeobj.h:57` | neutral (D10): opcode 0x753F |
+| 1 | `Packet_7539Class` | `app/packets/gameedit/pkgeobj.h:70` | neutral (D10): opcode 0x7539 |
+| 1 | `Packet_753AClass` | `app/packets/gameedit/pkgeobj.h:84` | neutral (D10): opcode 0x753A |
+| 1 | `Packet_753BClass` | `app/packets/gameedit/pkgeobj.h:99` | neutral (D10): opcode 0x753B (Print 'GameEditorTemplateCategories') |
+| 1 | `Packet_753CClass` | `app/packets/gameedit/pkgeobj.h:116` | neutral (D10): opcode 0x753C (Print 'GameEditorRequestTemplateList') |
+| 1 | `Packet_753DClass` | `app/packets/gameedit/pkgeobj.h:133` | neutral (D10): opcode 0x753D (Print 'GameEditorTemplateList') |
 | 1 | `Packet_7548Class` | `app/packets/gameedit/pkgeplan.h:34` | neutral (D10): opcode 0x7548 (Print 'GameEditorPlanetUnitTypes') |
 | 1 | `Packet_7549Class` | `app/packets/gameedit/pkgeplan.h:51` | neutral (D10): opcode 0x7549 |
 | 1 | `Packet_754AClass` | `app/packets/gameedit/pkgeplan.h:65` | neutral (D10): opcode 0x754A (Print 'GameEditorPlanetUnitDetails') |
@@ -2876,16 +2874,18 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Owned` | `app/packets/gameedit/pkgekv.h:69` | what it means, as MessageStringPacketClass's |
 | 2 | `Size` | `app/packets/gameedit/pkgekv.h:86` | what it holds |
 | 2 | `Owned` | `app/packets/gameedit/pkgekv.h:87` | what it means, as MessageStringPacketClass's |
-| 2 | `Size` | `app/packets/gameedit/pkgeobj.h:33` | what it holds |
-| 2 | `Owned` | `app/packets/gameedit/pkgeobj.h:35` | what it means, as MessageStringPacketClass's |
-| 2 | `Size` | `app/packets/gameedit/pkgeobj.h:50` | what it holds |
-| 2 | `Owned` | `app/packets/gameedit/pkgeobj.h:52` | what it means, as MessageStringPacketClass's |
-| 2 | `Size` | `app/packets/gameedit/pkgeobj.h:109` | what it holds |
-| 2 | `Owned` | `app/packets/gameedit/pkgeobj.h:110` | what it means, as MessageStringPacketClass's |
-| 2 | `Size` | `app/packets/gameedit/pkgeobj.h:125` | what it holds |
-| 2 | `Owned` | `app/packets/gameedit/pkgeobj.h:127` | what it means, as MessageStringPacketClass's |
-| 2 | `Size` | `app/packets/gameedit/pkgeobj.h:143` | what it holds |
-| 2 | `Owned` | `app/packets/gameedit/pkgeobj.h:144` | what it means, as MessageStringPacketClass's |
+| 2 | `Size` | `app/packets/gameedit/pkgeobj.h:34` | what it holds |
+| 2 | `Owned` | `app/packets/gameedit/pkgeobj.h:36` | what it means, as MessageStringPacketClass's |
+| 2 | `Size` | `app/packets/gameedit/pkgeobj.h:51` | what it holds |
+| 2 | `Owned` | `app/packets/gameedit/pkgeobj.h:53` | what it means, as MessageStringPacketClass's |
+| 2 | `transform` | `app/packets/gameedit/pkgeobj.h:87` | what it is |
+| 2 | `Transform` | `app/packets/gameedit/pkgeobj.h:95` | GameEditorMove's new transform |
+| 2 | `Size` | `app/packets/gameedit/pkgeobj.h:111` | what it holds |
+| 2 | `Owned` | `app/packets/gameedit/pkgeobj.h:112` | what it means, as MessageStringPacketClass's |
+| 2 | `Size` | `app/packets/gameedit/pkgeobj.h:127` | what it holds |
+| 2 | `Owned` | `app/packets/gameedit/pkgeobj.h:129` | what it means, as MessageStringPacketClass's |
+| 2 | `Size` | `app/packets/gameedit/pkgeobj.h:145` | what it holds |
+| 2 | `Owned` | `app/packets/gameedit/pkgeobj.h:146` | what it means, as MessageStringPacketClass's |
 | 2 | `Size` | `app/packets/gameedit/pkgeplan.h:46` | what it holds |
 | 2 | `Owned` | `app/packets/gameedit/pkgeplan.h:47` | what it means, as MessageStringPacketClass's |
 | 2 | `Size` | `app/packets/gameedit/pkgeplan.h:77` | what it holds |
@@ -4061,13 +4061,13 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `GameID` | `app/packets/gameedit/pkgekv.h:84` | the client's Print text 'GameID=' |
 | 3 | `Data` | `app/packets/gameedit/pkgekv.h:85` | the client's assert 'Data' |
 | 3 | `pkgeobj.h` | `app/packets/gameedit/pkgeobj.h:16` | the header of the client's gameedit\pkgeobj.cpp |
-| 3 | `Data` | `app/packets/gameedit/pkgeobj.h:34` | the client's assert 'Data' |
-| 3 | `Data` | `app/packets/gameedit/pkgeobj.h:51` | the client's assert 'Data' |
-| 3 | `GameID` | `app/packets/gameedit/pkgeobj.h:79` | the client's Print text 'GameID=' |
-| 3 | `GameID` | `app/packets/gameedit/pkgeobj.h:92` | the client's Print text 'GameID=' |
-| 3 | `Data` | `app/packets/gameedit/pkgeobj.h:108` | the client's assert 'Data' |
-| 3 | `Data` | `app/packets/gameedit/pkgeobj.h:126` | the client's assert 'Data' |
-| 3 | `Data` | `app/packets/gameedit/pkgeobj.h:142` | the client's assert 'Data' |
+| 3 | `Data` | `app/packets/gameedit/pkgeobj.h:35` | the client's assert 'Data' |
+| 3 | `Data` | `app/packets/gameedit/pkgeobj.h:52` | the client's assert 'Data' |
+| 3 | `GameID` | `app/packets/gameedit/pkgeobj.h:80` | the client's Print text 'GameID=' |
+| 3 | `GameID` | `app/packets/gameedit/pkgeobj.h:94` | the client's Print text 'GameID=' |
+| 3 | `Data` | `app/packets/gameedit/pkgeobj.h:110` | the client's assert 'Data' |
+| 3 | `Data` | `app/packets/gameedit/pkgeobj.h:128` | the client's assert 'Data' |
+| 3 | `Data` | `app/packets/gameedit/pkgeobj.h:144` | the client's assert 'Data' |
 | 3 | `pkgeplan.h` | `app/packets/gameedit/pkgeplan.h:16` | the header of the client's gameedit\pkgeplan.cpp |
 | 3 | `GameEditorRequestPlanetUnitTypesPacketClass` | `app/packets/gameedit/pkgeplan.h:22` | the client's Print text 'GameEditorRequestPlanetUnitTypes {' and the PacketClass convention |
 | 3 | `Data` | `app/packets/gameedit/pkgeplan.h:45` | the client's assert 'Data' and Print text 'Types=' |

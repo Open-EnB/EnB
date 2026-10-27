@@ -17,6 +17,7 @@
 #define PKGEOBJ_H
 
 #include "..\pk.h"
+#include "matrix3d.h"
 
 // opcode 30016 (0x7540, ?): vtable 0xB09008, constructor 0x85F8F0, 0x18 bytes
 class Packet_7540Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x7540 (Print 'GameEditorCreateFinal')
@@ -83,6 +84,7 @@ public:
 class Packet_753AClass : public PacketClass  // NAME 1: neutral (D10): opcode 0x753A
 {
 public:
+	Packet_753AClass(int game_id, const Matrix3D &transform);	// 0x8601D0  // NAME 2 [transform]: what it is
 	Packet_753AClass(RawPacketClass *raw);	// 0x8602C0
 	virtual RawPacketClass *Build();	// +0x04 0x860360
 	virtual bool Process_Packet(void *client);	// +0x08 0x868280 (clientstub.cpp l.140)
@@ -90,7 +92,7 @@ public:
 	virtual int Print(char *buffer, int len);	// +0x10 0x860450
 
 	int GameID;	// +0x0C  // NAME 3: the client's Print text 'GameID='
-	char Unknown10[48];	// +0x10
+	Matrix3D Transform;	// +0x10 (sent as its 48 bytes; the value constructor copies it through Matrix3D's copy constructor)  // NAME 2: GameEditorMove's new transform
 };
 
 // 0x753B (30011, not in the packet switch: sent only): vtable 0xB090F8, constructor 0x860500, 0x18 bytes

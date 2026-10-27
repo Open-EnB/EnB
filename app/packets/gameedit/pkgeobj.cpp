@@ -154,23 +154,25 @@ int Packet_7539Class::Print(char *buffer, int)
 	return(sprintf(buffer, "%s {GameID=%d}", "GameEditorDelete", GameID));
 }
 
+Packet_753AClass::Packet_753AClass(int game_id, const Matrix3D &transform) : GameID(game_id), Transform(transform) {}
+
 Packet_753AClass::Packet_753AClass(RawPacketClass *raw)
 {
 	raw->Get(&GameID, sizeof(GameID));
-	raw->Get(Unknown10, sizeof(Unknown10));
+	raw->Get(&Transform, sizeof(Transform));
 }
 
 RawPacketClass *Packet_753AClass::Build()
 {
 	RawPacketClass *raw = new RawPacketClass(30010, Get_Data_Size());
 	raw->Add(&GameID, sizeof(GameID));
-	raw->Add(Unknown10, sizeof(Unknown10));
+	raw->Add(&Transform, sizeof(Transform));
 	return(raw);
 }
 
 int Packet_753AClass::Get_Data_Size()
 {
-	return(sizeof(GameID) + sizeof(Unknown10));
+	return(sizeof(GameID) + sizeof(Transform));
 }
 
 int Packet_753AClass::Print(char *buffer, int)
@@ -189,8 +191,6 @@ Packet_753BClass::Packet_753BClass(RawPacketClass *raw)
 {
 	raw->Get(&Size, sizeof(Size));
 	Data = new char[Size];
-
-
 
 
 
