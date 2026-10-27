@@ -51,6 +51,7 @@ class IndexBufferClass;
 class Vector2;
 class VertexMaterialClass;
 class LandClass;
+class INIClass;
 
 // NAME 2: VIDTEST's name for the 0x30-byte lighting record its Update_Lighting 0x4250B0 hands the land (esp+0x74)
 struct LandLightingStruct
@@ -171,6 +172,10 @@ protected:
 	void							Apply_Colors(void);		// NAME 2: the lit rectangle times the colour map, plus +0x1214 when there is one (0x46D410)
 	void							Upload_Lightmap(Vector2i &min, Vector2i &max);
 	void							Swap_Lightmaps(void);
+// NAME 2: the height map's horizon tables (+0x1E4..+0x1F8, the normals +0x1FC) in a .pld beside the .pgm (0x46EB60, 0x46ECF0), computed from the ini (0x46E670, not rebuilt)
+	bool							Load_PLD(const char *filename);
+	void							Save_PLD(const char *filename);
+	void							Compute_Horizons(INIClass &ini);
 	static void					Lightmap_Thread(void *land);
 	void							Set_Lighting(const LandLightingStruct &lighting)
 	{
@@ -196,7 +201,7 @@ protected:
 	int							PatchSize;								// +0xF0, cells per patch side
 	int							PatchVerts;								// +0xF4, PatchSize + 1
 	int							GridLog2;								// +0xF8
-	int							GridWidth;								// +0xFC, [LAND] Patch_Grid_Width (16)
+	unsigned int				GridWidth;								// +0xFC, [LAND] Patch_Grid_Width (16)
 	int							HalfGridWidth;							// +0x100
 	int							PatchCount;								// +0x104, GridWidth squared
 	int							GridMask;								// +0x108, GridWidth - 1
@@ -215,9 +220,9 @@ protected:
 	unsigned char				FrontLightmap;						// +0x137, LightmapTextures index shown (xor 1 per swap)
 	unsigned char				BackLightmap;						// +0x138, the one being computed
 	int							LightmapChunk;							// +0x13C, [LAND] LIGHTMAP_CHUNK (8)
-	RefCountClass *			m_Unknown140[MAX_SEAS][2];			// released by the dtor when HasSea
+	TextureClass *				SeaTextures[MAX_SEAS][2];			// NAME 2: +0x140, the sea swatch's textures, pass x stage (Load_Assets 0x4691D0)
 	ShaderClass					SeaShaders[MAX_SEAS];				// +0x150
-	RefCountClass *			m_Unknown158[MAX_SEAS];				// released by the dtor when HasSea
+	VertexMaterialClass *	SeaMaterials[MAX_SEAS];				// NAME 2: +0x158, the swatch's material per pass
 	float							SeaLevel;								// +0x160, [SEA] SEA_LEVEL
 	float							SeaDetailScales[MAX_SEAS][2];		// +0x164, [SEA] DETAIL_SCALE..DETAIL_SCALE4
 	int							SeaCount;								// +0x174

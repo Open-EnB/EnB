@@ -13,7 +13,20 @@
 #include "wwprofile.h"
 #include "wwmath.h"
 #include <math.h>
+#include "ini.h"
+#include "targa.h"
+#include "ffactory.h"
+#include "wwfile.h"
+#include "assetmgr.h"
+#include "textureloader.h"
+#include "mesh.h"
+#include "meshmdl.h"
+#include "ww3d.h"
+#include "pot.h"
+#include <stdio.h>
+#include <string.h>
 
+void Unknown_466E70(HeightFieldClass *field, float detail_u, float detail_v);	// NAME 1: unknown; news the global object (0x90 bytes, 0xBDC0D8) Unknown_466F10 deletes; called by Load_Assets only
 void Unknown_466F10(void);	// NAME 1: unknown; deletes a global object (0xBDC0D8) and clears it; called by the land's dtor only
 
 LandClass::LandClass(void) :
@@ -73,12 +86,241 @@ LandClass::LandClass(void) :
 		EdgeBuffers[i] = NULL;
 	}
 	for (i = 0; i < MAX_SEAS; i++) {
-		m_Unknown158[i] = NULL;
-		m_Unknown140[i][0] = NULL;
-		m_Unknown140[i][1] = NULL;
+		SeaMaterials[i] = NULL;
+		SeaTextures[i][0] = NULL;
+		SeaTextures[i][1] = NULL;
 		SeaDetailScales[i][0] = 1.0f;
 		SeaDetailScales[i][1] = 1.0f;
 	}
+}
+
+// NOT EXACT: inline-budget (ours inlines LandPatchClass's ctor and Init, the client calls 0x474530 / 0x4746C0; without them the frame slots differ); 7 forms (attempts.csv 0x4691D0)
+bool LandClass::Load_Assets(const char *ini_name, bool flag)
+{
+	Set_Force_Visible(true);
+	INIClass ini;
+	ini.Load(ini_name);
+	unsigned int max_size = DX8Wrapper::Get_Current_Caps()->Get_DX8_Caps().MaxTextureWidth;
+	Field = HeightFieldClass::Load(ini_name, max_size);
+	if (Field == NULL) {
+		return false;
+	}
+	HasSea = ini.Get_Bool("GENERAL", "HASSEA", false);
+	char color_map[100];
+	char detail_map[100];
+	ini.Get_String("LAND", "COLOR_MAP", "", color_map, sizeof(color_map));
+	ini.Get_String("LAND", "DETAIL_MAP", "", detail_map, sizeof(detail_map));
+	float detail_u = ini.Get_Float("LAND", "XDETAIL_SCALE", 1.0f);
+	float detail_v = ini.Get_Float("LAND", "YDETAIL_SCALE", 1.0f);
+	bool flip_tga = ini.Get_Bool("LAND", "FLIP_TGA", false);
+	GridWidth = ini.Get_Int("LAND", "Patch_Grid_Width", 16);
+	LightmapChunk = ini.Get_Int("LAND", "LIGHTMAP_CHUNK", 8);
+	GridMask = GridWidth - 1;
+	GridLog2 = Find_POT_Log2(GridWidth);
+	HalfGridWidth = GridWidth >> 1;
+	PatchCount = GridWidth * GridWidth;
+	PatchLog2 = Field->Get_Log2() - GridLog2;
+	PatchSize = 1 << PatchLog2;
+	PatchVerts = PatchSize + 1;
+	m_UnknownE4 = new unsigned char[Field->Get_Size() * 8 - 4];
+	m_Unknown1E4 = new unsigned char[Field->Get_Count()];
+	m_Unknown1E8 = new unsigned short[Field->Get_Count()];
+	m_Unknown1EC = new unsigned short[Field->Get_Count()];
+	m_Unknown1F0 = new unsigned char[Field->Get_Count()];
+	m_Unknown1F4 = new unsigned char[Field->Get_Count()];
+	m_Unknown1F8 = new unsigned char[Field->Get_Count()];
+	m_Unknown120C = new unsigned int[Field->Get_Count()];
+	PatchRecords = new LandPatchRecordClass[PatchCount];
+	Patches = new LandPatchClass *[PatchCount];
+	int i;
+	for (i = 0; i < PatchCount; i++) {
+		Patches[i] = NULL;
+	}
+
+	int width, height, bits;
+	bool windowed;
+	WW3D::Get_Device_Resolution(width, height, bits, windowed);
+	Is16Bit = bits <= 16;
+	WW3DFormat format = Is16Bit ? WW3D_FORMAT_A4R4G4B4 : WW3D_FORMAT_A8R8G8B8;
+	m_Unknown120 = new TextureClass(Field->Get_Size(), Field->Get_Size(), format, MIP_LEVELS_1, TextureClass::POOL_SYSTEMMEM);
+	for (i = 0; i < 2; i++) {
+		LightmapTextures[i] = new TextureClass(Field->Get_Size(), Field->Get_Size(), format, MIP_LEVELS_1, TextureClass::POOL_DEFAULT);
+		LightmapTextures[i]->Set_Mag_Filter(TextureClass::FILTER_TYPE_BEST);
+		LightmapTextures[i]->Set_Min_Filter(TextureClass::FILTER_TYPE_BEST);
+		LightmapTextures[i]->Set_Mip_Mapping(TextureClass::FILTER_TYPE_NONE);
+	}
+
+	Targa targa;
+	if (targa.Open(color_map, TGA_READMODE) != 0) {
+		return false;
+	}
+	if (!flip_tga) {
+		targa.Header.ImageDescriptor ^= 0x20;
+	}
+	if (targa.Load(color_map, TGAF_IMAGE, false) != 0) {
+		return false;
+	}
+	int pixels = targa.Header.Width * targa.Header.Height;
+	unsigned char *image = (unsigned char *)targa.GetImage();
+	Colors = new unsigned char[pixels * 3];
+	switch (targa.Header.PixelDepth) {
+		case 24:
+			memcpy(Colors, image, pixels * 3);
+			break;
+		case 32:
+			m_Unknown1214 = new unsigned char[pixels];
+			for (int y = 0; y < targa.Header.Height; y++) {
+				for (int x = 0; x < targa.Header.Width; x++) {
+					int n = y * targa.Header.Width + x;
+					Colors[n * 3] = image[n * 4];
+					Colors[n * 3 + 1] = image[n * 4 + 1];
+					Colors[n * 3 + 2] = image[n * 4 + 2];
+					m_Unknown1214[n] = image[n * 4 + 3];
+				}
+			}
+			break;
+	}
+
+	// a colour map larger than a texture may be: average it down to max_size a side
+	if (max_size < (unsigned int)targa.Header.Width) {
+		unsigned char *colors = new unsigned char[max_size * max_size * 3];
+		unsigned char *extra = NULL;
+		if (m_Unknown1214 != NULL) {
+			extra = new unsigned char[max_size * max_size];
+		}
+		unsigned int step = (unsigned int)targa.Header.Width / max_size;
+		unsigned int area = step * step;
+		for (unsigned int j = 0; j < max_size; j++) {
+			for (unsigned int i = 0; i < max_size; i++) {
+				unsigned int r = 0;
+				unsigned int g = 0;
+				unsigned int b = 0;
+				unsigned int a = 0;
+				for (unsigned int y = 0; y < step; y++) {
+					for (unsigned int x = 0; x < step; x++) {
+						int n = (j * step + y) * targa.Header.Width + i * step + x;
+						r += Colors[n * 3];
+						g += Colors[n * 3 + 1];
+						b += Colors[n * 3 + 2];
+						if (m_Unknown1214 != NULL) {
+							a += m_Unknown1214[n];
+						}
+					}
+				}
+				r /= area;
+				g /= area;
+				b /= area;
+				a /= area;
+				int k = j * max_size + i;
+				colors[k * 3] = (unsigned char)r;
+				colors[k * 3 + 1] = (unsigned char)g;
+				colors[k * 3 + 2] = (unsigned char)b;
+				if (m_Unknown1214 != NULL) {
+					extra[k] = (unsigned char)a;
+				}
+			}
+		}
+		delete [] Colors;
+		Colors = colors;
+		if (m_Unknown1214 != NULL) {
+			delete [] m_Unknown1214;
+			m_Unknown1214 = extra;
+		}
+	}
+
+	DetailTexture = WW3DAssetManager::Get_Instance()->Get_Texture(detail_map);
+	if (!DetailTexture->Is_Initialized()) {
+		TextureLoader::Request_Foreground_Loading(DetailTexture);
+	}
+	DetailTexture->Set_Mag_Filter(TextureClass::FILTER_TYPE_BEST);
+	DetailTexture->Set_Min_Filter(TextureClass::FILTER_TYPE_BEST);
+	DetailTexture->Set_Mip_Mapping(TextureClass::FILTER_TYPE_BEST);
+
+	Material = new VertexMaterialClass;
+	Material->Set_Lighting(false);
+	Shader.Set_Primary_Gradient(ShaderClass::GRADIENT_DISABLE);
+	Shader.Set_Secondary_Gradient(ShaderClass::SECONDARY_GRADIENT_DISABLE);
+	Shader.Set_Texturing(ShaderClass::TEXTURING_ENABLE);
+	Shader.Set_Post_Detail_Color_Func(flag ? ShaderClass::DETAILCOLOR_SCALE2X : ShaderClass::DETAILCOLOR_SCALE);
+	Shader.Set_Fog_Func(ShaderClass::FOG_ENABLE);
+	Shader.Set_Cull_Mode(ShaderClass::CULL_MODE_ENABLE);
+
+	i = PatchCount;
+	while (i--) {
+		Patches[i] = new LandPatchClass(this);
+	}
+	Build_Index_Buffers(PatchVerts);
+	for (unsigned int x = 0; x < (unsigned int)GridWidth; x++) {
+		for (unsigned int y = 0; y < (unsigned int)GridWidth; y++) {
+			Patches[y * GridWidth + x]->Init(PatchVerts, x * PatchSize, y * PatchSize, detail_u, detail_v);
+		}
+	}
+
+	// the horizons: from the height map's .pld when it is newer than the map, the colour map and the ini
+	char name[100];
+	strcpy(name, Field->Get_Name());
+	_strlwr(name);
+	char *ext = strchr(name, '.');
+	file_auto_ptr pgm(_TheFileFactory, Field->Get_Name());
+	if (ext != NULL && ext[1] == 'p' && ext[2] == 'g' && ext[3] == 'm' && pgm->Is_Available()) {
+		ext[2] = 'l';
+		ext[3] = 'd';
+		bool newer = false;
+		file_auto_ptr pld(_TheFileFactory, name);
+		if (pld->Is_Available()) {
+			unsigned long time = pld->Get_Date_Time();
+			newer = time > pgm->Get_Date_Time();
+			file_auto_ptr colors(_TheFileFactory, color_map);
+			if (colors->Is_Available() && colors->Get_Date_Time() >= time) {
+				newer = false;
+			}
+			file_auto_ptr ini_file(_TheFileFactory, ini_name);
+			if (ini_file->Is_Available() && ini_file->Get_Date_Time() >= time) {
+				newer = false;
+			}
+		}
+		bool loaded = false;
+		if (newer) {
+			loaded = Load_PLD(pld->File_Name());
+		}
+		if (!loaded) {
+			Compute_Horizons(ini);
+			Save_PLD(pld->File_Name());
+		}
+	}
+
+	if (HasSea) {
+		char swatch[100];
+		ini.Get_String("SEA", "SWATCH", "water_swatch", swatch, sizeof(swatch));
+		SeaLevel = ini.Get_Float("SEA", "SEA_LEVEL", 0.0f);
+		SeaDetailScales[0][0] = ini.Get_Float("SEA", "DETAIL_SCALE", 1.0f);
+		SeaDetailScales[0][1] = ini.Get_Float("SEA", "DETAIL_SCALE2", 1.0f);
+		SeaDetailScales[1][0] = ini.Get_Float("SEA", "DETAIL_SCALE3", 1.0f);
+		SeaDetailScales[1][1] = ini.Get_Float("SEA", "DETAIL_SCALE4", 1.0f);
+		RenderObjClass *sea = WW3DAssetManager::Get_Instance()->Create_Render_Obj(swatch);
+		if (sea != NULL) {
+			if (sea->Class_ID() == RenderObjClass::CLASSID_MESH) {
+				MeshModelClass *model = ((MeshClass *)sea)->Get_Model();
+				SeaCount = model->Get_Pass_Count();
+				if (SeaCount > MAX_SEAS) {
+					SeaCount = MAX_SEAS;
+				}
+				for (int pass = 0; pass < SeaCount; pass++) {
+					SeaTextures[pass][0] = model->Get_Single_Texture(pass, 0);
+					SeaTextures[pass][1] = model->Get_Single_Texture(pass, 1);
+					SeaShaders[pass] = model->Get_Single_Shader(pass);
+					SeaMaterials[pass] = model->Get_Single_Material(pass);
+				}
+			}
+			sea->Release_Ref();
+		}
+		SeaShaders[0].Set_Fog_Func(ShaderClass::FOG_ENABLE);
+		SeaShaders[0].Set_Cull_Mode(ShaderClass::CULL_MODE_DISABLE);
+		SeaShaders[1].Set_Fog_Func(ShaderClass::FOG_ENABLE);
+		SeaShaders[1].Set_Cull_Mode(ShaderClass::CULL_MODE_DISABLE);
+	}
+	Unknown_466E70(Field, detail_u, detail_v);
+	return true;
 }
 
 LandClass::~LandClass(void)
@@ -97,9 +339,9 @@ LandClass::~LandClass(void)
 	int i;
 	if (HasSea) {
 		for (i = 0; i < MAX_SEAS; i++) {
-			REF_PTR_RELEASE(m_Unknown158[i]);
-			REF_PTR_RELEASE(m_Unknown140[i][0]);
-			REF_PTR_RELEASE(m_Unknown140[i][1]);
+			REF_PTR_RELEASE(SeaMaterials[i]);
+			REF_PTR_RELEASE(SeaTextures[i][0]);
+			REF_PTR_RELEASE(SeaTextures[i][1]);
 		}
 	}
 	if (Patches != NULL) {
@@ -567,14 +809,56 @@ void LandClass::Build_Index_Buffers(int size)
 	} while (level-- != 0);
 }
 
+bool LandClass::Load_PLD(const char *filename)
+{
+	FILE *file = fopen(filename, "rb");
+	if (file != NULL) {
+		unsigned int count = 0;
+		if (fread(&count, 4, 1, file) == 1 && count == Field->Get_Count()
+			&& fread(m_Unknown1E4, 1, count, file) == count
+			&& fread(m_Unknown1E8, 2, count, file) == count
+			&& fread(m_Unknown1EC, 2, count, file) == count
+			&& fread(m_Unknown1F0, 1, count, file) == count
+			&& fread(m_Unknown1F4, 1, count, file) == count
+			&& fread(m_Unknown1F8, 1, count, file) == count
+			&& fread(Normals, sizeof(Vector3), 256, file) == 256) {
+			fclose(file);
+			return true;
+		}
+		fclose(file);
+	}
+	return false;
+}
+
+void LandClass::Save_PLD(const char *filename)
+{
+	FILE *file = fopen(filename, "wb");
+	if (file != NULL) {
+		unsigned int count = Field->Get_Count();
+		if (fwrite(&count, 4, 1, file) == 1
+			&& fwrite(m_Unknown1E4, 1, count, file) == count
+			&& fwrite(m_Unknown1E8, 2, count, file) == count
+			&& fwrite(m_Unknown1EC, 2, count, file) == count
+			&& fwrite(m_Unknown1F0, 1, count, file) == count
+			&& fwrite(m_Unknown1F4, 1, count, file) == count
+			&& fwrite(m_Unknown1F8, 1, count, file) == count) {
+			fwrite(Normals, sizeof(Vector3), 256, file);
+		}
+	}
+	fclose(file);
+}
+
 /*
 **	Notes
 **
 **	The client's terrain, rebuilt on its own layout (land.h) from the constructor 0x468E90 and the
 **	destructor 0x46A480 out: Create 0x46A3A0 (it stores the flag through a null pointer when
 **	Load_Assets fails: REF_PTR_RELEASE clears the pointer first), the constructor, the destructor,
-**	Clone 0x46C640, Class_ID 0x46C660 and the Cast_* virtuals 0x46C680-0x46C6E0. The rest of the
-**	window (Load_Assets 0x4691D0, the patches, the lightmap, the tessellation, Render 0x474B30, the
-**	decorations) is not rebuilt yet: VIDTEST draws with programs\vidtest\vidland.cpp, the functional
-**	land this file held until 2026-10-27 (M2.4).
+**	Clone 0x46C640, Class_ID 0x46C660 and the Cast_* virtuals 0x46C680-0x46C6E0. Load_Assets 0x4691D0
+**	(functional: the height field, the colour map averaged down to the device's largest texture, the
+**	lightmap textures, the patches, the horizon tables from a .pld beside the .pgm when it is newer
+**	than the .pgm, the colour map and the ini (Load_PLD 0x46EB60 / Save_PLD 0x46ECF0), the sea swatch).
+**	The rest of the window (Compute_Horizons 0x46E670, Update_Patches, the tessellation, Render
+**	0x474B30, the decorations) is not rebuilt yet: VIDTEST draws with programs\vidtest\vidland.cpp,
+**	the functional land this file held until 2026-10-27 (M2.4).
 */
