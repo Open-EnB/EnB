@@ -32,6 +32,7 @@
 #include "..\packets\pkmessagetime.h"
 #include "..\packets\pkmodechange.h"
 #include "..\packets\pknavdelete.h"
+#include "..\packets\pknotelist.h"
 #include "..\packets\pkopeninterface.h"
 #include "..\packets\pknamedecal.h"
 #include "..\packets\pkpointeffect.h"
@@ -488,7 +489,6 @@ bool SplinePacketClass::Process_Packet(void *instance)
 	splines->Unpack(Block);
 	return(true);
 }
-
 
 
 
@@ -2394,20 +2394,20 @@ bool GalaxyMapPacketClass::Process_Packet(void *instance)
 	return(true);
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// 0x73AE40
+bool NoteListPacketClass::Process_Packet(void *instance)
+{
+	WWPROFILE("NoteListPacketClass::Process_Packet(void * instance)");
+	SClient *sclient = (SClient *)instance;
+	for (std::list<NoteListEntryStruct>::iterator it = Notes.begin(); it != Notes.end(); it++) {
+		char buffer[128];
+		_snprintf(buffer, sizeof(buffer), "%3d : %s : %s", it->Unknown00, it->Unknown08, ctime((time_t *)&it->Unknown04));
+		buffer[strlen(buffer) - 1] = 0;
+		sclient->Unknown_74D990(6, buffer, 0);
+	}
+	sclient->Unknown_74D990(6, "Usage: /mail read X or /mail delete X", 0);
+	return(true);
+}
 
 
 

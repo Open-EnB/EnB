@@ -38,7 +38,7 @@ public:
 	NoteListPacketClass(RawPacketClass *raw);	// 0x87EB30
 	virtual ~NoteListPacketClass();	// +0x00 0x87EB00 / 0x87ECB0
 	virtual RawPacketClass *Build();	// +0x04 0x87ED50
-	virtual bool Process_Packet(void *client);	// +0x08 0x73AE40 (not rebuilt)
+	virtual bool Process_Packet(void *client);	// +0x08 0x73AE40 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x87EE40 (0x4C a note: 3 bytes more than Build adds, D95(a))
 	virtual int Print(char *buffer, int len);	// +0x10 0x87EE60 ('NoteList:')
 	bool Add_Note(int unknown00, int unknown04, const char *unknown08);	// 0x87EE90: up to 16 notes  // NAME 2: what it does
