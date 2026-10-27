@@ -2,6 +2,7 @@
 // NOT EXACT, the whole file: functional, after VIDTEST's 2002 copy (land.h).
 #include "vidland.h"
 #include "heightfield.h"
+#include "vector2.h"
 #include "ini.h"
 #include "TARGA.H"
 #include "texture.h"
@@ -752,7 +753,7 @@ bool VidtestLandClass::Create_Decorations(int set)
 		float u = random.Get_Float();
 		float angle = random.Get_Float() * 2.0f * WWMATH_PI;
 		Vector3 pos;
-		Field->Sample(&pos, u, v);
+		Field->Sample(&pos, Vector2(u, v));		// the client's 0x463BF0 = VIDTEST 0x402AE0: the cell's two triangles (VIDTEST 0x403400), not bilinear
 		Matrix3D tm(true);
 		tm.Set_Translation(pos);
 		tm.Rotate_Z(angle);
