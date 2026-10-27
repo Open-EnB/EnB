@@ -359,7 +359,9 @@ static void Handshake(FILE *out, const char *line)
 	Replay[sock].FromPort = (unsigned short)port;
 	CordDataSocketClass ds = { sock, 0, 0, 0 };
 	mgr.DataSockets_.addTail(ds);
-	CordConnectingClass *c = mgr.Connect(ip, (unsigned short)port, true);
+	mgr.Connect(ip, (unsigned short)port, true);	// the session id; its record is Pending_'s last
+	CordConnectingClass *c = 0;
+	mgr.Pending_.getTail(c);
 	c->Session = (int)session;
 	std::vector<unsigned char> k = From_Hex(key);
 	memcpy(&c->Key, &k[0], 8);

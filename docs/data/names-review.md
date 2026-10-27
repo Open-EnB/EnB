@@ -945,7 +945,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown0C` | `app/wwudp/cordmgr.h:41` | untagged neutral name (D10) |
 | 1 | `Unknown24` | `app/wwudp/cordmgr.h:70` | untagged neutral name (D10) |
 | 1 | `Unknown134` | `app/wwudp/cordmgr.h:75` | untagged neutral name (D10) |
-| 1 | `Release` | `app/wwudp/cordmgr.h:106` | after Pump_Releases |
+| 1 | `Release` | `app/wwudp/cordmgr.h:107` | after Pump_Releases |
 | 1 | `Set_Accounting_Callback` | `app/wwudp/udp.h:42` | what it does |
 | 1 | `Clear_Accounting_Callback` | `app/wwudp/udp.h:43` | what it does |
 | 1 | `unknown_cordmsg.cpp` | `app/wwudp/unknown_cordmsg.cpp:12` | PROVISIONAL file name (no assert or __FILE__ names the object) |
@@ -1829,15 +1829,15 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `CordListenSocketClass` | `app/wwudp/cordmgr.h:44` | a listening socket's record (the +0x4C list, 12 bytes) |
 | 2 | `CordReleaseClass` | `app/wwudp/cordmgr.h:52` | describes what it holds (the +0x1C list, 8 bytes) |
 | 2 | `CordConnectingClass` | `app/wwudp/cordmgr.h:60` | describes what it is |
-| 2 | `Connect` | `app/wwudp/cordmgr.h:96` | what it does |
-| 2 | `Process_Zero_Read` | `app/wwudp/cordmgr.h:104` | what it does |
-| 2 | `Wait` | `app/wwudp/cordmgr.h:108` | what it does |
-| 2 | `Find_Connection` | `app/wwudp/cordmgr.h:111` | what it does |
-| 2 | `Listen` | `app/wwudp/cordmgr.h:114` | what it does |
-| 2 | `Unlisten` | `app/wwudp/cordmgr.h:115` | what it does |
-| 2 | `Cancel_Connect` | `app/wwudp/cordmgr.h:118` | what it does |
-| 2 | `Releases_` | `app/wwudp/cordmgr.h:127` | +0x1C connections to free (Release, Pump_Releases) |
-| 2 | `KeyPair` | `app/wwudp/cordmgr.h:134` | what it holds |
+| 2 | `Connect` | `app/wwudp/cordmgr.h:97` | what it does |
+| 2 | `Process_Zero_Read` | `app/wwudp/cordmgr.h:105` | what it does |
+| 2 | `Wait` | `app/wwudp/cordmgr.h:109` | what it does |
+| 2 | `Find_Connection` | `app/wwudp/cordmgr.h:112` | what it does |
+| 2 | `Listen` | `app/wwudp/cordmgr.h:115` | what it does |
+| 2 | `Unlisten` | `app/wwudp/cordmgr.h:116` | what it does |
+| 2 | `Cancel_Connect` | `app/wwudp/cordmgr.h:119` | what it does |
+| 2 | `Releases_` | `app/wwudp/cordmgr.h:128` | +0x1C connections to free (Release, Pump_Releases) |
+| 2 | `KeyPair` | `app/wwudp/cordmgr.h:135` | what it holds |
 | 2 | `AckRound` | `app/wwudp/unknown_cordmsg.cpp:122` | 0xBB1DB4 |
 | 2 | `AckGrowth` | `app/wwudp/unknown_cordmsg.cpp:123` | 0xBF411C the window growth this round, all connections |
 | 2 | `RoundTripRound` | `app/wwudp/unknown_cordmsg.cpp:152` | 0xBB1DB8 |

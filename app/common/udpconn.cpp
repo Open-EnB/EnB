@@ -145,7 +145,7 @@ UDPConnection::UDPConnection(CordCon *con, CordMgr *mgr) :
 }
 
 
-// functional (NOT EXACT): wlib's Dictionary clear inlined; the difference not traced yet.
+// Disconnect through the base class (the client's virtual call); Pending and Name go with it
 UDPConnection::~UDPConnection()
 {
 	if (Con) {
@@ -153,7 +153,7 @@ UDPConnection::~UDPConnection()
 		bool closed = Con->Is_Closed();
 		Lock.unlock();
 		if (closed == true) {
-			Disconnect();
+			((ConnectionClass &)*this).Disconnect();
 		} else {
 			if (Pending) {
 				Mgr->Cancel_Connect(Pending);
@@ -180,12 +180,12 @@ UDPConnection::~UDPConnection()
 bool UDPConnection::Get_Stats(float *out_rate, float *in_rate, float *round_trip, float *window, float *in_flight,
 	float *quality, int *idle)
 {
+	int messages_sent, packets_in, bytes_sent, bytes_read, resends, dup_acks;
+	unsigned int window_bytes, in_flight_bytes, round_trip_ms, quality_percent;
+	int idle_seconds;
 	*in_rate = (float)InRate.Get();
 	*out_rate = (float)OutRate.Get();
 	if (Con) {
-		int messages_sent, packets_in, bytes_sent, bytes_read, resends, dup_acks;
-		unsigned int window_bytes, in_flight_bytes, round_trip_ms, quality_percent;
-		int idle_seconds;
 		Con->getStats(&messages_sent, &packets_in, &bytes_sent, &bytes_read, &resends, &dup_acks, &window_bytes,
 			&in_flight_bytes, &round_trip_ms, &quality_percent, &idle_seconds);
 		*round_trip = (float)round_trip_ms;
@@ -228,11 +228,10 @@ bool UDPConnection::Connect(bool wait)
 bool UDPConnection::Try_Connect()
 {
 	if (Pending == 0) {
-		if (Con) {
-			return(true);
+		if (Con == 0) {
+			Pending = Mgr->Connect(ntohl(Address), ntohs(Port), Encrypt);
+			return(false);
 		}
-		CordConnectingClass *c = Mgr->Connect(ntohl(Address), ntohs(Port), Encrypt);
-		Pending = c ? c->Session : 0;
 	} else {
 		Mgr->Pump();
 		if (Mgr->Find_Connection(&Con, 0, Pending)) {
@@ -243,8 +242,9 @@ bool UDPConnection::Try_Connect()
 			Lock.unlock();
 			return(true);
 		}
+		return(false);
 	}
-	return(false);
+	return(true);
 }
 
 
@@ -428,7 +428,7 @@ bool UDPChannelKeyClass::operator == (const UDPChannelKeyClass &other) const
 	return(false);
 }
 
-
+// NOT EXACT: the client keeps -1 - channel and Fixed's +0x80 apart, and the -4 priority in esi
 void UDPConnection::Open_Fixed_Channel(int channel)
 {
 	unsigned int *slot = &Fixed[-1 - channel];
@@ -799,10 +799,11 @@ ConnectionClass *UDPListenerClass::Accept()
 **	  Get_Mgr, Shutdown_Task, Run (with its profile sample) and Get_Interval; since CordMgr has its
 **	  key pair (0x95C bytes, step 8's tail): the constructors by name and by address (their members
 **	  in the initialiser list, a dead ntohs(Port) each), the task's constructor and Init,
-**	  UDPConnectionManager's and the listener's constructors. NOT EXACT (functional, D42): the
-**	  constructor over a CordCon (registers), the destructor and Send_Data (wlib's Dictionary),
-**	  Get_Stats, Try_Connect (the tree's CordMgr::Connect returns its record, the client's the
-**	  session id), Open_Fixed_Channel.
+**	  UDPConnectionManager's and the listener's constructors; the destructor (Disconnect through
+**	  the base class), Get_Stats (its locals declared at the top: declared in the block they take
+**	  the dead parameters' slots) and Try_Connect (CordMgr::Connect returns the session id).
+**	  NOT EXACT (functional, D42): the constructor over a CordCon (registers), Send_Data (wlib's
+**	  Dictionary), Open_Fixed_Channel (the index's form).
 **	* The checks of the CordCon's state compare with true (`cmp bl, 1`): `closed == true`, except in
 **	  Send_Data and Receive.
 **	* Pending (+0x7C) holds the session id CordMgr::Connect started (the client's 0x859440 and

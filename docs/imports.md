@@ -1202,7 +1202,7 @@ Base copy: reconstructed. Headers: 121 from reconstructed.
 | client/tasks/tsk_menu.cpp | reconstructed | 4 | 0 | - | - | - |  |
 | client/tasks/tsk_movie.cpp | reconstructed | 19 | 5 | - | - | - |  |
 | client/tasks/tsk_smovie.cpp | reconstructed | 12 | 5 | - | - | - |  |
-| common/udpconn.cpp | reconstructed | 30 | 1 | - | - | - |  |
+| common/udpconn.cpp | reconstructed | 34 | 1 | - | - | - |  |
 | shared/auxdata/unknown_changes.cpp | reconstructed | 15 | 2 | - | - | - |  |
 | wwudp/unknown_cordmsg.cpp | reconstructed | 13 | 1 | - | - | - |  |
 | shared/unknown_debug.cpp | reconstructed | 2 | 0 | - | - | - |  |

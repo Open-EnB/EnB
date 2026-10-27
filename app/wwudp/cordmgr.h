@@ -92,8 +92,9 @@ public:
 	bool Process_SYN2_Packet(unsigned char *data, int len, sockaddr_in *from, UDP *socket, int unknown);	// 0x85AB30
 	bool Process_ACK1_Packet(unsigned char *data, int len, sockaddr_in *from, UDP *socket, int unknown);	// 0x85A430
 	bool Process_ACK2_Packet(unsigned char *data, int len, sockaddr_in *from, UDP *socket, int unknown);	// 0x85ABB0
-	// Starts a connection to ip:port on the first data socket (0x858EC0, reduced: no socket binding).
-	CordConnectingClass *Connect(unsigned int ip, unsigned short port, bool encrypt);	// NAME 2: what it does
+	// Starts a connection to ip:port on the first data socket and returns its session id (0x858EC0,
+	// reduced: no socket binding).
+	int Connect(unsigned int ip, unsigned short port, bool encrypt);	// NAME 2: what it does
 	// Sends SYN1 / SYN2 for the connections in the handshake (0x858A60, reduced: every call, no
 	// resend timer or time-out).
 	bool Pump_Connections();
