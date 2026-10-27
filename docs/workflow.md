@@ -205,6 +205,24 @@ unless `--lever` cites a new row of this table.
 | 0x9CCD10 (`xor eax,eax; ret`) in a vtable | A pure virtual slot: `= 0` | |
 | A static function right after an unrelated one (misplaced start) | A static sits right after its first out-of-line caller | 0x4B43E0 after `Pop_Prefix` |
 | C2660 on wwlib vector.h's placement `new[]` | Declaring `operator new[]` in a file makes VC6 resolve it there: declare the allocator's members instead of including FastAllocator.h | app/shared/unknown_new.cpp, 27812b5 |
+| **levers found 2026-10-26/27 (S3, T4, W3, F3, L4, P4, H5)** | | |
+| A register mismatch on a converted argument (`ntohl(*(int *)p)`) | Assign twice: `len = *(int *)data; len = ntohl(len);` | tcpconn.cpp (S3) |
+| A pump loop duplicated / rotated by the compiler | `while (true)` where ours had `for (;;)` | tcpconn.cpp, udpconn.cpp (S3) |
+| A callee the client inlines at one site and calls at another, nested | A nested inline method moves its own callees out of line (`RSAKeyClass::Decrypt` inline took the CRT helpers out) | `Pump_Pending` 0x82AA10, fb24feb |
+| The client keeps a nested `_Construct` out of line | `std::distance(begin, it)` spends the budget that `it - begin` doesn't | `Remove_Dead` 0x822B50, 37028db |
+| Locals share dead parameters' stack slots in the client | Declare the locals at the top of the function, not in a later block | udpconn.cpp (S3) |
+| A virtual call in a destructor | `((Base &)*this).X()` | dbgconn (S3) |
+| A dead `ntohs(Port)` / accessor call the client keeps | Keep it; constructor members in the initialiser list | udpconn ctor 0x82C680, 139c184 |
+| Our inlined call that the client makes out of line (string::erase, size) | One or two dead `size()` calls *after* the call site push the earlier call out of line; only the first dead read inlines, the rest are called | `ClientTaskClass::Init` 0x766350, bb5578b (T4; D40) |
+| Nested inline temporaries flip (the sixth `??_H` Transpose temp) | VC6 spends nested inlines in reverse source order: an inline cost placed *after* an expression (`Matrix4(view)` in a restore) decides whether that expression is inlined | distortion draw 0x9961E0, 342 -> 121 rows (W3) |
+| The budget model (F3, confirmed by T3/H3) | Function-wide, spent by every expansion anywhere in the function; unused plain locals add nothing; dead accessor reads add; template declarations visible in the translation unit (delta.h's include chain) move which instantiations inline, so a header change can gain and lose pairs in files that never use it | Ship 0x6F66E0 probes; aux_roots 0x702240/0x7045F0 vs 0x7014B0/0x701D70/0x758210 (H3) |
+| The client divides at run time where ours folds (`65535.0f / (WWMATH_PI/2)`) | A function-scope `static const float` reproduces the `fdiv` | `Prepare_Lighting` 0x46C730, cd3e56f (L4) |
+| A caller's destructor gets extra EH states (7 -> 11) | Defining an out-of-line class's destructor in the same file inlines it into the caller's destructor; leave it declared only when its bytes occur at several client addresses anyway | land.cpp (L4) |
+| A temporary for an `Add()` argument grows the frame | A cast temporary instead of a named local | opcode 128, 1c76fb5 (P4) |
+| An order-only residue in a scheduled store pair | Model the 8-byte member as two ints (`Unknown68`) | opcode 108, 7d3e7fc (P4); candidate for 219's ctors 0x893970 / 0x893A70 |
+| `std::string(const char *)` shows three inlining profiles in one file (`_Tidy` inline / `assign` out, the reverse, `_Eos` out) | Budget, not source: don't read the profile as a different form | tutorial_manager.cpp (H5) |
+| A virtual `Set_Step` the client inlines | Call it qualified, `LoginTaskClass::Set_Step(...)`; a plain virtual call misses | tsk_login.cpp (T3) |
+| A hashtable's find / `_M_delete_node` / bucket size / `_Eos` called out of line in the client, inlined by ours | Open: a whole-function budget difference between the client's SGI headers and `libs/sgistl` (H5, P-H5-1): test header-level changes on a quiet tree, not per-function forms | kv_list, buff/tutorial/combo (seven parked rows) |
 
 * **A nested inline is a whole-function budget (2026-10-26, `Key_Exchange` 0x829180):** under `/Ob2` an
   inline helper's own callees (a `std::set` iterator's `_Inc`) are inlined only while the function as a
@@ -293,6 +311,20 @@ unless `--lever` cites a new row of this table.
   original (so relative includes resolve) leaves a `<dir>/obj/` folder: delete it before replay.
   `tools/vc6/mkspec.py` splits paths as `lib/file` and fails on `libs/wwonline/...`.
 
+* **Compare against HEAD's imports.json, not a saved working copy:** another builder's verify rewrites the
+  working copy with your uncommitted tree already in it (`git show HEAD:docs/data/imports.json` is the before-copy;
+  2026-10-26, L4, F3). Compare over the whole app: a template header visible to other files moves their pairs.
+* **commit_mine.py hunks (2026-10-26/27):** keys must cover every `-U0` hunk of yours, and a key matches an
+  identical hunk anywhere in the file (c9d9e0c missed two; P4 found another builder's identical line taken):
+  after the commit `git diff docs/data/imports.json` must no longer show your addresses. Contiguous appended rows
+  (attempts.csv, not-exact.md, names-review.md) are one hunk, so a path commit or a regeneration sweeps the
+  neighbours' rows (`git log -S` before assuming a row is lost); copy a regenerated file in and commit it in one
+  step. The -U0 placement bug itself is fixed (af0a8a5).
+* **A command chain that commits after `replay` must stop on "N files differ"** (L3 committed through it; the
+  difference was another builder's untracked files). Draft `obj/` folders left under app/ are reported by replay.
+* **D66(i) in practice:** a rewrite that stops emitting an inline COMDAT copy drops that (file, address) pair while
+  the address stays matched elsewhere (land's 0x447C40 / 0x47F300 / 0x7F0EC0, c0f8569): name them in the commit.
+
 ### 3.5 Build VMs and vc6.py
 
 * **Address VMs by IP** (`ENB_VC6_HOST`/`ENB_VC6_HOSTS`, from `pool.py`); after a restart
@@ -304,6 +336,16 @@ unless `--lever` cites a new row of this table.
   overwrites `.work/milestones/l1/unresolved.txt`. A stub constructor emits its vtable, so every
   virtual needs a stub: link every object.
 * **Checked builds** (`ENB_CHECKED=1`) change mangled names: build every library the same way.
+
+* **Pool leases (2026-10-26/27):** a lease can fail for 25 minutes with "Unable to allocate 4096 MB" while a
+  memory-heavy program runs on the host: retry in a loop. Never pass `pool.py lease --max-age H`: it reclaims
+  the other builders' leases (H5 released P4's). Lease holder pids die across an API outage, so the lease is
+  reclaimed silently: re-lease and check `pool.py list`. When every VM is leased, verify with `ENB_VC6_HOST`
+  pointing at your own lease and no `--pool`. A worktree verify on a freshly leased VM can fail with "cannot open
+  linearbu.h": delete `%TEMP%\enb_vc6_synccache_<ip>.json` or run a full verify first.
+* **tryv2.py and an untracked include directory:** another builder's uncommitted `#include` of a directory the VM
+  sync doesn't know breaks every builder's tryv2 compile (C1083) with no change in your tree (libs/sgistl while
+  untracked). `.work/f3/tryv3.py`'s EXTRA_INC is the fix to promote.
 
 ### 3.6 RE tools, Ghidra and REA
 
@@ -337,6 +379,11 @@ unless `--lever` cites a new row of this table.
   (Get_Channel, Get_Type, Get_Name) come before its scalar deleting destructor in the object; an
   out-of-line one comes after Build. pkdecode's range bound was exclusive and cut off the last object
   (fixed in d95d5e8); check the last class when a scan ends at a round address.
+
+* **`client.py dis` crashes on a cp1252 console:** set `PYTHONIOENCODING=utf-8`. `appfile.py match` on files
+  that include dx8wrapper.h needs `-I C:/EnBDevelopment/SDK/directx8/include`. `attempts.py check` reports pk.h's
+  parked 0x8770A0 for every packet file: `--ack 0x8770A0`. Constructors fall outside `appfile.py`'s `__FILE__`
+  windows; `client.py refs` misses vtable references that point at thunks (mapper, 2026-10-27).
 
 ### 3.7 Harnesses, programs, unattended runs
 
@@ -380,6 +427,15 @@ unless `--lever` cites a new row of this table.
 * **Untracked files are not protected by the private index:** another builder's `commit_mine` or path
   commit takes your importer.py / imports.json hunks while the files they name are still untracked
   (5e7f96d took pkflag's). Commit a new file with its records in the same step.
+
+* **Shared builds (2026-10-26/27):** `udpreplay.py build` writes the shared `build/` and `conn` runs whatever exe
+  is there, so another builder's half-done file can break or taint your run: build before `conn`, or build in a
+  clean worktree of HEAD plus your files. Two `static` tables with the same name break udpreplay's single-TU
+  build. Removing a worktree that holds a `.work/locks` junction: `cmd /c rmdir` the junction, then
+  `git worktree remove`.
+* **`open(p, 'w').write(open(p).read()...)` truncates p to empty** (the write handle opens first): read, then
+  write. A draft regenerated from a template overwrites an applied fix: check the tree file before verifying.
+  Regenerate names-review.md and not-exact.md in a clean worktree, never in the shared tree.
 
 ### 3.9 Library-specific
 

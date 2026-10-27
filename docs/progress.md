@@ -4,6 +4,62 @@ Newest first within each section. Dates are when the entry was written.
 
 ## 1. Log
 
+### 2026-10-27 (04:40, overnight): twelve builders in parallel; app +1,018 pairs, 0 lost; step 9's tasks, the SGI hash_map, land, 190 packet classes; D85-D89
+
+Coordinator (Fable), 2026-10-26 21:30 to 2026-10-27 04:30, the user away from 23:05. Tree 684cec2 -> HEAD before
+the quiet window: **121 commits, +1,019 pairs, 0 lost** (`pairs_cmp`; app 1,018, ww3d2 1; the only "lost"
+entries are three inline COMDAT copies land.cpp no longer emits, still matched in other files: D66(i)).
+App went 1,256 -> 1,997 client functions. Up to five builders at a time on disjoint file sets (D62), ~9.5M
+builder tokens, the run plan and log in `.work/run-2026-10-26/plan.md`. A three-hour API outage (DNS, ~00:11
+to 03:00) killed three builders mid-item; all three were resumed from their transcripts with their leases
+intact and lost nothing.
+
+* **Packets, P3 and P4** (Opus, ~650k + ~2.5M; 52 commits): 114 -> ~190 of 260 classes. ADVANCED_POSITIONAL_UPDATE 62
+  over FlagPacketClass (19 of 19 exact), OBJECT_EFFECT 9, RELATIONSHIP 137 with udpreplay stubs (P-P1, P-P2),
+  the chat packets, the guild object's 18 classes (pkguildplayeronline.cpp, +110), the GM packets, VERB_UPDATE
+  92 with `std::set`, the navigation list file (app/common/unknown_navlist.cpp) with WARP 155, the time packets
+  52/68 with udpreplay comparing their clock fields masked, 5004-5009 in pktask.cpp with `#line`. udpreplay's
+  alex3 round trip 19,084 -> 51,800 messages, alex7 3,618 -> 4,516. NOT EXACT: Colorization's value ctor
+  0x87F320 (shape), 219's two ctors (order-only; P4's lever "Unknown68 as two ints" fixed 108 in 7d3e7fc).
+  59 Server_Ready is 5 of 5 exact but parked in `.work/p4/park59/` behind P-P4-1 (§3).
+* **Step 8's tail, S3** (Opus, ~450k): `Pump_Pending` 0x82AA10 exact through an inline RSA decrypt, the UDP
+  constructors and listener exact once `CordMgr` got its key pair (+0x5C, 0x95C bytes; `unknown_rsakey.h`),
+  `Remove_Dead`, the rate destructor; +19. Key_Exchange parked at 0.87 (inline budget, LIMIT under D89).
+  Seven code-generation levers filed in workflow.md §3.1.
+* **Step 9, T3 and T4** (Opus, ~545k + ~475k): tsk_game.cpp complete (ClientTaskClass, 16 of 16; Init through
+  D40's dead-call lever), tsk_login.cpp 48 functions exact (the login packet handlers, both constructors with
+  the five 0x160-byte ship-customisation objects, the avatar copy, the galaxy list), the kcom ticket and fast
+  start NOT EXACT; +86. Six LoginTaskClass functions parked after two rounds (register-only or inline budget).
+  The mapper's `docs/kernel-map-step9.md` (7695c98) sizes what step 9 still needs: client.cpp's base class,
+  SClient (0x14F8 bytes; 111 functions, 62 KB; cpacket.cpp's 99 handlers depend on it), the login and
+  character-select screens (the kernel map's 0xAF2C30/0xAEFB60 are slot +0x40 of the real vtables), kcom
+  (authlogin.dll, an import library from a .def), the login data objects (~43 KB); recommends 9a-9d (§3).
+* **SGI hash_map, D87: H3, H4, H5** (Opus, ~330k + ~450k + ~280k): SGI STL 3.3 fetched into
+  `C:\EnBDevelopment\SDK\stl-3.3` (github.com/steveLauwh/SGI-STL, the SGI/HP notice kept; roots.py `SGI_STL`,
+  toolchain.md §2), VC6-adapted headers generated into `libs/sgistl/` by `tools/vc6/sgistl_adapt.py` (the
+  client's hashtable ctor takes 3 arguments: the allocator dropped). On it, byte-exact: kv_list's index and
+  `Keep_Only`, dbgconn's counters, kv_tripl.cpp, cfaction_database.cpp, buff_database.cpp, tutorial_manager.cpp,
+  combo_ffactory.cpp; +134. Every parked miss there is the client inlining fewer hashtable/string helpers than
+  our headers (H5's P-H5-1): a header-level lever to test on a quiet tree (§4 item 3), not per-function puzzles.
+  H4's report lists the 20 remaining caller clusters of the string hash 0x42DB00 by file.
+* **Land and splines, L3 and L4** (Opus, ~650k + ~450k): spln_db.cpp as the client's spline database (30 of 50
+  exact, +45), heightfield.cpp on the client's 0x98-byte layout, LandClass on its 0x1228-byte layout with 18
+  exact (land 21 -> 44); VIDTEST draws through `programs/vidtest/vidland.*` until LandClass can render (P-L4-1,
+  then Load_Assets, Compute_Lighting, Update_Patches, Render 0x474B30). VIDTEST.EXE's height sampling is the
+  client's two-triangle one (its Sample 0x402AE0 is byte-identical to 0x463BF0): the trees switched, every
+  compared frame closer to the original.
+* **WW3D2, W3** (Opus, ~480k): `subdivision_util` 0x9C2390 exact through a per-function Zero Hour hybrid (+1), the
+  3-argument `Make_Screen_Shot` declared; the distortion draw to 0.92 (the sixth `??_H` is an inline spend after
+  the view restore), Compute_Caps, SegLineRenderer's Render and the ShdMesh ctor parked with stashes.
+* **Fable, F3** (~540k, 0 pairs): Ship's zeroed members are floats (residue -9 rows); the lookup tests, the kv ctor
+  and Key_Exchange (57 -> 43 rows) recorded with written explanations. The cost of that round is what D89 limits.
+* **Tools:** commit_mine.py's -U0 hunk placement fixed (af0a8a5: a skipped earlier hunk shifted an insertion into
+  another imports.json entry; 139c184 had broken the file), explain.py's window ends at the nearest verified or
+  proven start (e2e8e7c: Create_Device reads identical), `attempts.py` LIMIT REACHED and `check --lever` (D89).
+* **Decisions:** D85 Open-BFME's method (not its code), D86 step 8's provisional names kept, D87 SGI hash_map,
+  D88 the self-name tie-break (carried out in the quiet window after this entry), D89 the Fable limits.
+  Open for the user: §3.
+
 ### 2026-10-26 (21:25): Open-BFME's method adopted (D85); P-P1, P-P2 accepted, P2 kept; packet round 3 and step 8's tail launched
 
 Coordinator (Fable). The Open-BFME-1 assessment of 2026-10-25 (a read-only look at github.com/Open-BFME/Open-BFME-1
@@ -1091,12 +1147,28 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 | D84 | 2026-10-26 | wnet's `~TCPMgr()` is declared `throw()`: wnet must build with /GX (TCPMgr::wait, TCPCon and TCPQueue have exception frames) but E&B's destructor has none, and `throw()` is the only form found that makes VC6 omit it. Compiler evidence, not a known source line (P-B1); kept because it gains and loses nothing. Per-file compile flags (P-B2) not added until a library really mixes /GX and none | user |
 | D85 | 2026-10-26 | Open-BFME-1 (a byte-exact BFME rebuild under MSVC 7.1) is not a source and not a root: its ww3d2 is the DX9 port with BFME's layouts and reverse-engineered names, so nothing of it is copied (the assessment is summarised in the 2026-10-26 21:25 log entry). Its method is taken: the attempt log (`attempts.py`, read before any retry), the near-miss classifier (`explain.py`) with §3.1's triage order, the one-shot switch sweep (`flagsweep.py`, never looped) and the two-attempt stop rule for register-only and order-only residues (a third attempt is a Fable job under D72) | user |
 | D86 | 2026-10-26 | Step 8's provisional names stay until the client names them (D10): `unknown_memregistry.cpp`, `unknown_listener.cpp`, `unknown_rate.cpp`, and `RSAKeyClass`'s `Unknown200..Unknown800` members (NAME 2) until a string or `__FILE__` gives the real one (P2) | user |
-| D87 | 2026-10-26 | SGI STL 3.3's `stl_hashtable.h` / `stl_hash_map.h` (the permissive SGI/HP notice, compatible with D1) are imported, adapted for VC6, as the client's hash_map: the string hash `__stl_hash_string` 0x42DB00 (h*5+c, 65 callers), `__stl_prime_list` once per translation unit (336 copies, the first 0xAE701C), the buckets a VC6 `std::vector` at +4. First users: dbgconn's counters 0x825390 / 0x8255B0 (keyed by std::string, bucket function 0x825B30) and kv_list's index 0x4B62B0 (replacing its std::map stand-in). Builder S3's P-S3-1 | user |
+| D87 | 2026-10-26 | SGI STL 3.3's `stl_hashtable.h` / `stl_hash_map.h` (the permissive SGI/HP notice, compatible with D1) are imported, adapted for VC6, as the client's hash_map: the string hash `__stl_hash_string` 0x42DB00 (h*5+c, 65 callers), `__stl_prime_list` once per translation unit (336 copies, the first 0xAE701C), the buckets a VC6 `std::vector` at +4. First users: dbgconn's counters 0x825390 / 0x8255B0 (keyed by std::string, bucket function 0x825B30) and kv_list's index 0x4B62B0 (replacing its std::map stand-in). Builder S3's P-S3-1. Carried out 2026-10-26/27 (H3, H4): the source lives with the other SDKs at `C:\EnBDevelopment\SDK\stl-3.3` (user), the VC6 headers in `libs/sgistl/` (generated by `tools/vc6/sgistl_adapt.py`, outside the importer's libraries); the client's out-of-line hashtable constructors take three arguments (no allocator), so the adapter drops it | user |
 | D88 | 2026-10-26 | objmatch's `multiple` ties get a second tie-break after D80, the "self name": the one candidate address that symbols.json names with the function's own mangled symbol from a non-exact proof (a vtable slot) is credited when D80 finds no contradiction there. Measured by builder W3 at the objmatch level: +337 pairs, 0 lost (ww3d2 188, wwmath 60, wwaudio 45, wwshade 31, wwlib 10, wwdebug 2, wwsaveload 1; prototype `.work/w3/objmatch_sn.py`). Adopted after a full verify snapshot of a quiet tree (as D80 was), with pairs_cmp proving the gain, not while builders are verifying: a rule change mid-run would show up in their before/after sets. W3's P1 | user |
 | D89 | 2026-10-26 | Fable near-miss limits, so Fable loops no more than Opus: (1) entry only after two recorded Opus rounds with a stashed best form and an explain.py class of inline-budget, frame or shape; register-only and order-only residues never enter (VC6 collapses them to a few canonical outputs: Make_Screen_Shot's 110 forms), they stay parked until a lever proven elsewhere names a cause; (2) one Fable round per function, ever, ending exact or with a written hypothesis in attempts.csv; a second needs a new §3.1 lever filed since, cited in the row; (3) at most 8 forms in that round, each from a stated hypothesis, batched through tryv2.py; (4) at most 4 functions per Fable session and 6 in the queue, chosen by what they unlock, the rest parked outright; (5) one Fable builder at a time, under about 15% of a run's tokens; (6) `attempts.py show` prints LIMIT REACHED for such functions and `attempts.py check` refuses a retry of one unless `--lever` cites the new §3.1 row | user |
 
 ## 3. Open decisions
 
+* **Step 9's next subsystem (2026-10-27, `kernel-map-step9.md`):** the mapper proposes 9a kcom auth (an import
+  library from authlogin.dll's .def; AuthLoginResponseClass), 9b the login data objects (the character slot and
+  ticket, avatar_desc's 0x10C objects, shipcust_desc's 0x160 objects, the galaxy entry: ~43 KB; unblocks packets
+  112/114/118 and the parked Unknown_50), 9c client.cpp's client base class (48 functions), 9d SClient's skeleton
+  (what cpacket.cpp's 99 handlers need; udpreplay-testable), deferring the UI front end (290-345 KB).
+  Recommendation: accept 9a-9d in that order.
+* **P-P4-1 (udpreplay, 2026-10-27):** let udpreplay's `same()` skip the 2-byte size field when the plain message's
+  own size field is not its length (alex7 session 625d message #89 is a cut dump message, size 0x1E0A; the
+  rebuilt Build fixes it, so 59 Server_Ready, 5 of 5 exact, fails the loop). Recommendation: accept, limited
+  to messages whose recorded size disagrees with their length, then commit 59 from `.work/p4/park59/` (+9).
+* **P-P4-3 (duration.h):** moving `Clamp_Int` into duration.h is +3/-2 at aux_roots (a D80 tie-break swap).
+  Recommendation: decline until it is gains-only; D66 doesn't cover a swap.
+* **P-L4-2 (land):** one Fable round under D89 on the lighting-record struct form (the constructor with the two
+  lightmap threads 0x46DA70 / 0x46DDD0 together), only after Load_Assets is built. Recommendation: accept then.
+* **P-S3-2 / F3's leads for Key_Exchange 0x829180** are LIMIT REACHED (three Opus rounds, inline budget): it
+  waits for a new §3.1 lever; F3's two untested leads are in its attempts.csv row.
 * D7 is to be revisited with the user if byte-exactness of E&B's code becomes too costly; D64's
   `docs/data/not-exact.md` shows how much functional code is waiting.
 * Which bool-return form gives a bare `setcc al` without the `xor` (moved from workflow.md §3).
@@ -1104,43 +1176,44 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 ## 4. Next steps
 
 Milestones M1 and M2 are met (D42, D63; [milestones.md](milestones.md)). Order and detail of the
-client's own code: [kernel-map.md](kernel-map.md) §6. Adding a file: [workflow.md](workflow.md) §2.1.
+client's own code: [kernel-map.md](kernel-map.md) §6 and, for step 9's dependencies,
+[kernel-map-step9.md](kernel-map-step9.md). Adding a file: [workflow.md](workflow.md) §2.1.
 
-1. Left over from finished work: the shaders' Init, destructors, Copy_Vertex_Stream and Peek_Texture
-   are byte-exact but `multiple` (verify cannot credit them; D54 column). The app library's debug
-   functions 0x4E9410/0x4E9450 (they call a reporter on an object at 0xBDA908; D75) and E&B's
-   operator new/delete 0x4E9CB0/0x4E9D10 are open. delta.cpp's `Add` (D11/D40) and the twin
-   constructors 0x4A7080/0x4A8150 (uncounted) remain; so do the name tests 0x4ACA90/0x4ACB20 and
-   kv_encoder_base's constructor 0x4B3850.
-2. Kernel-map step 8, the tail (D83): `Pump_Pending` 0x82AA10 (the server's RSA decryption through Int's
-   CRT helpers 0x82C0B0-0x82C220; the key class is in tcpconn.cpp); `Key_Exchange` 0x829180 NOT EXACT
-   (`attempts.py show 0x829180` first); dbgconn's counters 0x825390/0x8255B0 (a hash map keyed by
-   std::string, bucket function 0x825B30, to identify); the UDP constructor by name 0x82C680 (its assert is
-   on line 91: udpconn.cpp would reorder); the NOT EXACT list of the 2026-10-26 00:05 entry; the app's own
-   ArrayList copies (0x778CF0, 0x84F480, 0x85B6F0: `multiple`). Then step 9 (tsk_game.cpp, tsk_login.cpp).
-3. Ship 0x6F66E0: VC6's inline budget (ours inlines the Buff array 0x707040, which the client calls);
-   see the M1.3 leftovers in library-matching.md 3.8.
-4. The packet classes' own code 0x85C5F0-0x8B1EB0 (kernel-map step 5 and after): 114 of 260 classes rebuilt
-   (2026-10-26 07:57 entry). Round 3 in progress (P-P1 and P-P2 accepted 2026-10-26: 62, then effects 9
-   and 11, the stubs for 137); then GroupServer 173-177; the
-   decoder's length-counted buffers; then the 33 destructor failures (vectors, aux data).
-5. Tools and defines (D74-D78, D85): the near-miss tools are in (D85: explain.py, attempts.py, flagsweep.py,
-   §3.1's table). ENABLE_WWPROFILE in the app defines (D74), the funcmatch
-   `__FILE__` rule (D77) and the draw-dump regression check (D78) are decided; carry them out where
-   not yet done. `--pool K` exists for `importer.py verify` only (c7b8bcc); `bytematch_all.sh` and
-   `importer.py refine` still lack it.
-6. `WW3D::Make_Screen_Shot` 0x9182C0 and `Update_Movie_Capture` 0x918B20 (the same residue): E&B's
-   rebased LockRect rectangle. **Parked 2026-10-25** after builder C (~60 forms) and the coordinator
-   (~50 more, `.work/c/README-mss.md`): VC6 collapses every local source form into two canonical outputs,
-   neither the client's (left loaded first, the subtrahend register reused, the bottom edge stored after
-   the leas, esi/ebx unused though free); a second RECT grows the frame; /G3-/GB change nothing. Next
-   lead: a function-wide allocation effect from the JPG path's locals, or a shared E&B helper; not
-   another local rewrite.
-7. D19's distortion draw 0x9961E0 (369 masked rows): the client builds 6 `??_H` Transpose temps
-   with out-of-line `Vector4()`, ours 5; look for missing inline calls/temporaries earlier in the
-   function (fits the 0x18-bigger frame).
-8. `PointGroupClass::Render` 0x954960 (slot shuffle in inlined Transpose temps); the meshmatdesc
-   noise mechanism (then drop D28's declarations and revisit D18).
-   Other WW3D2 leads: `Process_Foreground_Load` 0x949C60 (inline budget), `Compute_Caps` 0x9B0160,
-   `Update_Movie_Capture` 0x918B20, `Create_Device`'s format retry, `CreateBrowser`'s app callers
-   0x7CA5C0/0x7CAD00 (E&B's `querydata`). wwshade: the two `"UnNamed"` constructors (D17).
+1. Kernel-map step 9 (tsk_game.cpp complete; tsk_login.cpp 48 exact): the subsystem chosen from §3 (9a-9d);
+   T4's local packet views move into pk_classes.h / pkemit (P4 was asked); LoginPacketDataClass and
+   LoginInterfaceAEADC8Class merge into pk.h / delta.h. Parked after two rounds: Unknown_50 0x7683F0 (inline
+   budget; brings 0x7688F0 / 0x7689C0), the fast start 0x76A370, Pre_Run, Run, Start_Game, Go_Next/Back_Step.
+2. The packet classes 0x85C5F0-0x8B1EB0: ~190 of 260 rebuilt. Next (P4's leads): 147 JOB_LIST (pkjoblist.cpp is
+   HAND now), 220 (a MoneyClass wrapper, vtable 0xB0ADC4, money.cpp 0x4F00C0), 5000/5001/5010 (`std::list` of
+   0x218-byte structs), 95, 112, 230/231, 37 ITEM_BASE (a 0x90-byte item class), 97 (an avatar description),
+   168-177; effects 12-14 now that the list file exists; 59 behind P-P4-1; the decoder's destructor failures.
+3. The SGI hash_map's users (D87): H5's P-H5-1 first, on a quiet tree: the client inlines fewer hashtable and
+   string helpers than `libs/sgistl` (find, `_M_delete_node`, the bucket size, `_Eos` called out of line);
+   test an explicit pair destroy in `_M_delete_node` and hash_map members defined out of class as header
+   changes through `sgistl_adapt.py`, whole-app verify, keep only a gains-only flip (it would free up to eight
+   parked functions). Then the remaining caller clusters of 0x42DB00 by file (H4's report, 2026-10-27 plan log):
+   inpdsp, soundlib, boolpars, attrib_dir(_collective), definition_manager, lookup_table, symbol_substitution,
+   unique_design_id_lookup, ui_line_display, fontdatabase (20 KB), fontmanager, co_player_relationship,
+   ui_mfd_extended_context_strings, client_lego_impl, co_data, option; the stricmp/lowercase hash functors at
+   0x4E4AA0-0x4E4B50.
+4. Land (M2.4, D46): Load_Assets 0x4691D0 (needs a `std::deque` instantiation 0x46C320 / 0x46C4E0),
+   Compute_Lighting 0x46CAE0, Update_Patches, Render 0x474B30, the decorations; then VIDTEST back on LandClass
+   and `vidland.*` deleted (P-L4-1). The height field's collision code 0x4647C0 / 0x465030 / 0x4654E0 /
+   0x465D30; spln_db's 0x485620 / 0x485790 (E&B's spline.h). Parked: the lightmap threads (P-L4-2),
+   Upload_Lightmap, Build_Vertices, Apply_Colors, Build_Index_Buffers, stars' Load / Init.
+5. Step 8's tail: Key_Exchange (LIMIT), the UDP constructor over a CordCon 0x82CBF0 (register), Open_Fixed_Channel
+   0x82D8C0 (field offset: `-1 - channel` and +0x80 kept apart), `Send_Data` (wlib's Dictionary layout), 0x82E1D0
+   (needs CordMgr 0x8598F0), the TimedLog ctor, the memconn option slot, Rate Count (LIMIT), Listen.
+6. Tools and defines: D88 carried out (the quiet window, 2026-10-27); D74 ENABLE_WWPROFILE in the app defines,
+   D77 funcmatch `__FILE__`, D78 the draw-dump check, `--pool K` for `bytematch_all.sh` and `importer.py refine`
+   where not yet done; tryv2.py takes extra include directories (F3: `.work/f3/tryv3.py`'s EXTRA_INC; an
+   untracked include directory broke every builder's tryv2 compile); the §3.1 row for P4's "Unknown68 as two
+   ints" lever (7d3e7fc) so 219's constructors can be retried with `attempts.py check --lever`.
+7. The Fable queue under D89 (six at most, by unlock value): Unknown_50 0x7683F0, the kv_list destructor 0x4B6520
+   and `Get_Value_String` 0x4B6B60, the distortion draw 0x9961E0 (frame, 0.92), the ShdMesh ctor 0xA08F80 (shape),
+   SegLineRenderer's Render 0x9BEB20 (shape, 16 forms). Out for good (register/order): Make_Screen_Shot and
+   Update_Movie_Capture's LockRect residue, Rate Count, Run/Start_Game/Go_*; Ship 0x6F66E0, the lookup tests and
+   the kv ctor have had their Fable round (F3).
+8. Leftovers: the shaders' `multiple` functions (D88 should credit them), Compute_Caps 0x9B0160 (function-wide
+   allocation, parked), `Process_Foreground_Load` and `PointGroupClass::Render` are exact; the meshmatdesc noise
+   (D18/D28 confirmed as noise); `CreateBrowser`'s app callers 0x7CA5C0 / 0x7CAD00 (E&B's `querydata`).
