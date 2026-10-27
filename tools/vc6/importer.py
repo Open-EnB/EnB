@@ -3666,6 +3666,8 @@ RECONSTRUCTED = {
     ('app', 'packets/pktrade.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
     ('app', 'packets/pkunknown_85d1a0.cpp'): "packet classes (opcode 73) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
     ('app', 'packets/pkunknown_85d1a0.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
+    ('app', 'packets/pkunknown_85d4b0.cpp'): "opcode 77's object, 0x85D4B0-0x85D780 (no assert: the file name provisional, NAME 1): written by hand (builder P5)",
+    ('app', 'packets/pkunknown_85d4b0.h'): "its class (pk_classes.h includes it: tools/re/pkclasses.py)",
     ('app', 'packets/pkunknown_85e640.cpp'): "packet classes (opcode 30006) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
     ('app', 'packets/pkunknown_85e640.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
     ('app', 'packets/pkunknown_85f250.cpp'): "packet classes (opcode 30000, 30001) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",

@@ -2336,6 +2336,28 @@
     "merged": [],
     "name": "packets/pkgalaxymap.cpp"
    },
+   "pkgeaset": {
+    "ambiguous": [
+     "0x42B2F0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350",
+     "0x85DAA0",
+     "0x85DB60",
+     "0x85DB90",
+     "0x85DC70",
+     "0x85DCB0",
+     "0x85DDB0"
+    ],
+    "merged": [],
+    "name": "packets/gameedit/pkgeaset.cpp"
+   },
    "pkgespwn": {
     "ambiguous": [
      "0x42B2F0"
@@ -4105,6 +4127,45 @@
     "merged": [],
     "name": "packets/pkunknown_85d1a0.cpp"
    },
+   "pkunknown_85d4b0": {
+    "ambiguous": [
+     "0x42B2F0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350",
+     "0x85D4B0",
+     "0x85D570",
+     "0x85D650"
+    ],
+    "merged": [],
+    "name": "packets/pkunknown_85d4b0.cpp"
+   },
+   "pkunknown_85d7b0": {
+    "ambiguous": [
+     "0x42B2F0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350",
+     "0x85D7B0",
+     "0x85D850",
+     "0x85D910",
+     "0x85DA10"
+    ],
+    "merged": [],
+    "name": "packets/pkunknown_85d7b0.cpp"
+   },
    "pkunknown_85e640": {
     "ambiguous": [
      "0x42B2F0"
@@ -5793,6 +5854,7 @@
    "common/unknown_rate.h": "reconstructed",
    "common/unknown_rsakey.h": "reconstructed",
    "kernel/kernel.h": "reconstructed",
+   "packets/gameedit/pkgeaset.h": "reconstructed",
    "packets/gameedit/pkgespwn.h": "reconstructed",
    "packets/pk.h": "reconstructed",
    "packets/pk_classes.h": "reconstructed",
@@ -5881,6 +5943,8 @@
    "packets/pkturn.h": "reconstructed",
    "packets/pkuitrigger.h": "reconstructed",
    "packets/pkunknown_85d1a0.h": "reconstructed",
+   "packets/pkunknown_85d4b0.h": "reconstructed",
+   "packets/pkunknown_85d7b0.h": "reconstructed",
    "packets/pkunknown_85e640.h": "reconstructed",
    "packets/pkunknown_85f250.h": "reconstructed",
    "packets/pkunknown_85f870.h": "reconstructed",

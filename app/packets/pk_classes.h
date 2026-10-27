@@ -103,6 +103,7 @@
 #include "pkturn.h"	// rebuilt
 #include "pkuitrigger.h"	// rebuilt
 #include "pkunknown_85d1a0.h"	// rebuilt
+#include "pkunknown_85d4b0.h"	// rebuilt
 #include "pkunknown_85e640.h"	// rebuilt
 #include "pkunknown_85f250.h"	// rebuilt
 #include "pkunknown_85f870.h"	// rebuilt
@@ -335,15 +336,6 @@ public:
 	virtual bool Process_Packet(void *client);	// +0x08 0x868040 (clientstub.cpp l.104)
 	virtual bool Unknown_28(void *a);	// +0x28 0x868070 (clientstub.cpp l.107)  // NAME 1: neutral (D10)
 	char Unknown0C[0x2D4];	// +0x0C
-};
-
-// opcode 77 (0x004D, ?): vtable 0xB08DC8, constructor 0x85D570, 0x60 bytes
-class Packet_004DClass : public PacketClass  // NAME 1: neutral (D10): opcode 0x004D
-{
-public:
-	Packet_004DClass(RawPacketClass *raw);	// 0x85D570
-	virtual bool Process_Packet(void *client);	// +0x08 0x8689A0 (clientstub.cpp l.254)
-	char Unknown0C[0x54];	// +0x0C
 };
 
 // opcode 82 (0x0052, LOUNGE_NPC): vtable 0xB0AFE4, constructor 0x8978D0, 0x40 bytes

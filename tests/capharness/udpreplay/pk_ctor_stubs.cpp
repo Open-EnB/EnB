@@ -22,7 +22,6 @@ Packet_7535Class::Packet_7535Class(RawPacketClass *raw) { Conn_Record(this, raw)
 Packet_7538Class::Packet_7538Class(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_7545Class::Packet_7545Class(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_0048Class::Packet_0048Class(RawPacketClass *raw) { Conn_Record(this, raw); }
-Packet_004DClass::Packet_004DClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 LoungeNPCPacketClass::LoungeNPCPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 FindMemberPacketClass::FindMemberPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 TalkTreePacketClass::TalkTreePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }

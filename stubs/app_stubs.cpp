@@ -33,7 +33,6 @@
 #include "pkmanufactureitemcatagorypacket.h"
 #include "pkguildplayeronline.h"
 #include "pkmessagechatstream.h"
-#include "pkitemba.h"
 
 // ------------------------------------------------------------------------- E&B debug hooks
 
@@ -163,55 +162,6 @@ Unknown_ChatStreamClass::~Unknown_ChatStreamClass() {}
 char *Unknown_ChatStreamClass::Unknown_00() { return (char *)Unknown04; }
 int Unknown_ChatStreamClass::Unknown_04() { return Unknown08; }
 void Unknown_ChatStreamClass::Unknown_4C48C0(char *) { STUB_CALLED("Unknown_ChatStreamClass::Unknown_4C48C0 (0x4C48C0)"); }
-
-// 0x83F490 / 0x840030 / 0x83FEF0 / 0x83FE30: ITEM_BASE's item description (opcode 37). The harness keeps
-// its part of the message as bytes: its length depends on the client's attribute type table (filled at
-// run time), so Read takes the first split after which the packet's fixed tail (22 bytes, then three
-// strings of text with 2-byte lengths) ends exactly at the message's end.
-ItemBaseInfoClass::ItemBaseInfoClass()
-{
-	memset(Unknown08, 0, sizeof(Unknown08));
-}
-
-void ItemBaseInfoClass::Read(RawPacketClass *raw)
-{
-	const unsigned char *p = (const unsigned char *)raw->Data.Buffer + raw->Data.Pos;
-	int left = raw->Data.Size - raw->Data.Pos;
-	int len = 0;
-	for (int k = 1; k + 28 <= left; k++) {
-		int q = k + 22;
-		int s;
-		bool text = true;
-		for (s = 0; s < 3 && q + 2 <= left; s++) {
-			int n = p[q] | (p[q + 1] << 8);
-			q += 2;
-			for (int c = 0; c < n && q + c < left; c++) {
-				if (p[q + c] < 0x20 && p[q + c] != '\n' && p[q + c] != '\r' && p[q + c] != '\t') {
-					text = false;
-				}
-			}
-			q += n;
-		}
-		if (s == 3 && q == left && text) {
-			len = k;
-			break;
-		}
-	}
-	char *bytes = new char[len + 1];
-	raw->Get(bytes, len);
-	*(char **)Unknown08 = bytes;
-	*(int *)(Unknown08 + 4) = len;
-}
-
-void ItemBaseInfoClass::Write(RawPacketClass *raw)
-{
-	raw->Add(*(char **)Unknown08, *(int *)(Unknown08 + 4));
-}
-
-int ItemBaseInfoClass::Get_Size()
-{
-	return *(int *)(Unknown08 + 4);
-}
 
 // 0x8B44E0: the int64 in decimal (the client's behaviour)
 char *Unknown_8B44E0(__int64 value, char *buffer)
