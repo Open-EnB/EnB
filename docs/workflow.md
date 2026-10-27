@@ -434,8 +434,10 @@ unless `--lever` cites a new row of this table.
   (the worktree is yours alone) before `udpreplay build`. commit_mine's hunk keys select whole hunks: another
   builder's rows appended next to yours in attempts.csv go into your commit (P8 took T12's 0x6F5F60).
 * **commit_mine keys by address take identical lines from other files' imports.json blocks** (H14: 0x42D050 sits in
-  control_keys_manager's and pkunknown_87acd0's blocks): `.work/h14/commit_ck.py` picks hunks by the file block's
-  line range (P-H14-1, to promote). A tryv2 PermissionError (a concurrent replay) leaves a variant in the tree
+  control_keys_manager's and pkunknown_87acd0's blocks): for docs/data/imports.json give the file name as the key
+  (or `--file NAME`, repeatable) and commit_mine selects the hunks inside that `"NAME": {` block's line span
+  (P-H14-1, done; tested on a worktree with two blocks sharing an identical added line); `in_tree_total` hunks are
+  dropped. A tryv2 PermissionError (a concurrent replay) leaves a variant in the tree
   file: regenerate it. Verifies made while other builders' files fail to compile add COMDAT instances to your
   file's ambiguous list.
 * **A generated docs/data file committed whole by another builder brings back rows you removed** (T10's b0104e7 to
