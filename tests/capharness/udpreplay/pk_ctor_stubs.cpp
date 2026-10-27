@@ -15,7 +15,6 @@ MasterJoinPacketClass::MasterJoinPacketClass(RawPacketClass *raw) { Conn_Record(
 ServerRedirectPacketClass::ServerRedirectPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 ServerHandoffPacketClass::ServerHandoffPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_003BClass::Packet_003BClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-GlobalConnectPacketClass::GlobalConnectPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 GlobalTicketPacketClass::GlobalTicketPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 GlobalAvatarListPacketClass::GlobalAvatarListPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 GlobalCreateCharacterPacketClass::GlobalCreateCharacterPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }

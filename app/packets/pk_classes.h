@@ -39,6 +39,7 @@
 #include "pkdirlock.h"	// rebuilt
 #include "pkequipuse.h"	// rebuilt
 #include "pkgalaxymap.h"	// rebuilt
+#include "pkglobalconnect.h"	// rebuilt
 #include "pkglobaldeletecharacter.h"	// rebuilt
 #include "pkgloballock.h"	// rebuilt
 #include "pkglobalticketrequest.h"	// rebuilt
@@ -258,15 +259,6 @@ public:
 	Packet_003BClass(RawPacketClass *raw);	// 0x8A61E0
 	virtual bool Process_Packet(void *client);	// +0x08 0x8683D0 (clientstub.cpp l.161)
 	char Unknown0C[0xC];	// +0x0C
-};
-
-// opcode 109 (0x006D, GLOBAL_CONNECT): vtable 0xB09398, constructor 0x8634D0, 0x14 bytes
-class GlobalConnectPacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name GLOBAL_CONNECT (the Net-7 opcode table; no structure check)
-{
-public:
-	GlobalConnectPacketClass(RawPacketClass *raw);	// 0x8634D0
-	virtual bool Process_Packet(void *client);	// +0x08 0x868850 (clientstub.cpp l.233)
-	char Unknown0C[0x8];	// +0x0C
 };
 
 // opcode 111 (0x006F, GLOBAL_TICKET): vtable 0xB09688, constructor 0x867650, 0x58 bytes
