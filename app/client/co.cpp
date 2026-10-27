@@ -2462,25 +2462,25 @@ int ClientObjectClass::Unknown_6FFFA0()
 	return(*(int *)(aux_data + 0x39C4));
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// 0x6FFFF0
+void ClientObjectClass::Unknown_6FFFF0(std::string &text)
+{
+	if (Unknown_6FFE90()) {
+		const char *guild = (const char *)Unknown_6FFF00();
+		const char *own = (const char *)Client->Unknown_728330();
+		if (guild && own && strcmp(own, guild) == 0) {
+			text = "[";
+			text += guild;
+			text += " ";
+			text += (const char *)Unknown_6FFFA0();
+			text += "]";
+		} else {
+			text = "[";
+			text += guild;
+			text += "]";
+		}
+	}
+}
 
 
 

@@ -93,6 +93,7 @@ public:
 
 	unsigned Get_Game_ID() { return(GameID); }			// (the assert's name)
 	void Get_Name(std::string &name);					// 0x6FF4B0  // NAME 2: Find_Object compares it with a name
+	void Unknown_6FFFF0(std::string &text);				// 0x6FFFF0 (co.cpp; '[guild]', or '[guild rank]' when the client's own guild is the same)  // NAME 2 [text]: what it receives
 	void Unknown_6FF1D0();								// 0x6FF1D0 (co.cpp; the rs_track model's render state from the aux data's PercentFull)
 	void Unknown_6FF330(std::string &text);				// 0x6FF330 (co.cpp; ' (%d)' with the aux data's CombatLevel)  // NAME 2 [text]: what it receives
 	bool Unknown_6FFE90();								// 0x6FFE90 (co.cpp)
