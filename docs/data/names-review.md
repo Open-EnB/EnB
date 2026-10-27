@@ -1063,7 +1063,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `m_Unknown09` | `app/shared/kv_pair_string.cpp:41` | untagged neutral name (D10) |
 | 1 | `m_Unknown10` | `app/shared/kv_pair_string.h:49` | untagged neutral name (D10) |
 | 1 | `m_Unknown00` | `app/shared/money.h:27` | untagged neutral name (D10) |
-| 1 | `unused` | `app/shared/spln_db.h:108` | the client's copy takes a second argument (ret 8) it never reads |
+| 1 | `unused` | `app/shared/spln_db.h:126` | the client's copy takes a second argument (ret 8) it never reads |
 | 1 | `Unknown_Report_Message` | `app/shared/unknown_debug.cpp:7` | 0x4BC260 (its "Message_Error" string is a profiler label) |
 | 1 | `Unknown_Assert_Failed` | `app/shared/unknown_debug.cpp:9` | untagged neutral name (D10) |
 | 1 | `Unknown_Fail_If_Report` | `app/shared/unknown_debug.cpp:14` | untagged neutral name (D10) |
@@ -1866,22 +1866,27 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Get_Type` | `app/shared/spln_db.h:100` | an entry's type (0x485110, assert 'spline_name') |
 | 2 | `Get_Curve` | `app/shared/spln_db.h:102` | an entry's curve (0x485380, assert 'spline_name') |
 | 2 | `Get_Color_Curves` | `app/shared/spln_db.h:104` | the curves of name_R, name_G, name_B (0x485440; the client's lighting 0x4F2960, 0x4F34C0) |
-| 2 | `Find` | `app/shared/spln_db.h:107` | lookup by name (0x486BB0, assert 'spline_name != NULL') |
-| 2 | `Free_Splines` | `app/shared/spln_db.h:111` | deletes the entries (0x487190) |
-| 2 | `Free_Key_Names` | `app/shared/spln_db.h:113` | deletes the key names but entry 0 (0x487360) |
-| 2 | `Resolve` | `app/shared/spln_db.h:115` | checks the colour and blend entries' components and hides the colour components (0x487660) |
-| 2 | `Load_Chunks` | `app/shared/spln_db.h:117` | the chunks after the file's opening (0x488500) |
-| 2 | `Load_Header` | `app/shared/spln_db.h:119` | chunk 0x800 into a static record (0x4887F0) |
-| 2 | `Load_Entry` | `app/shared/spln_db.h:121` | one chunk 0x810 / 0x811 (0x488870) |
-| 2 | `Load_Hermite` | `app/shared/spln_db.h:123` | a Hermite curve's keys and tangents (0x488DC0) |
-| 2 | `Read_String` | `app/shared/spln_db.h:125` | a length-prefixed string (0x488F20) |
-| 2 | `ShowHidden` | `app/shared/spln_db.h:128` | +0x000, the name iteration (0x4869C0) returns hidden entries too when set |
-| 2 | `Splines` | `app/shared/spln_db.h:130` | the entries by CRC_String(name) |
-| 2 | `KeyNames` | `app/shared/spln_db.h:132` | chunk 0x808's names; entry 0 is NULL |
-| 2 | `Filename` | `app/shared/spln_db.h:134` | the assert 'database_filename' names the argument kept here |
-| 2 | `Iterator` | `app/shared/spln_db.h:136` | +0x844, the name iteration's node (0x4869C0, 0x486A40) |
-| 2 | `HasSplines` | `app/shared/spln_db.h:138` | set when an entry is added |
-| 2 | `Mailslot` | `app/shared/spln_db.h:140` | the mailslot "\\.\mailslot\G\SplineDatabaseUpdate" (0x486AD0) |
+| 2 | `Add_Key_Name` | `app/shared/spln_db.h:107` | the key names (chunk 0x808): add 0x4867B0, find 0x4868A0, get 0x486930, remove 0x486970 |
+| 2 | `Get_First_Name` | `app/shared/spln_db.h:112` | the entries' names in list order, hidden ones only with ShowHidden (0x4869C0, 0x486A40) |
+| 2 | `Update` | `app/shared/spln_db.h:115` | polls the mailslot and reloads when an editor wrote to it (0x486AD0) |
+| 2 | `Find` | `app/shared/spln_db.h:117` | lookups by key (0x486C40, 0x486CE0), by curve (0x486C90) |
+| 2 | `Get_Keys` | `app/shared/spln_db.h:121` | names to keys (0x486D30), keys to entries (0x486D80), a name's key (0x4873E0) |
+| 2 | `Find` | `app/shared/spln_db.h:125` | lookup by name (0x486BB0, assert 'spline_name != NULL') |
+| 2 | `Free_Splines` | `app/shared/spln_db.h:129` | deletes the entries (0x487190) |
+| 2 | `Free_Key_Names` | `app/shared/spln_db.h:131` | deletes the key names but entry 0 (0x487360) |
+| 2 | `Resolve` | `app/shared/spln_db.h:133` | checks the colour and blend entries' components and hides the colour components (0x487660) |
+| 2 | `Load_Chunks` | `app/shared/spln_db.h:135` | the chunks after the file's opening (0x488500) |
+| 2 | `Load_Header` | `app/shared/spln_db.h:137` | chunk 0x800 into a static record (0x4887F0) |
+| 2 | `Load_Entry` | `app/shared/spln_db.h:139` | one chunk 0x810 / 0x811 (0x488870) |
+| 2 | `Load_Hermite` | `app/shared/spln_db.h:141` | a Hermite curve's keys and tangents (0x488DC0) |
+| 2 | `Read_String` | `app/shared/spln_db.h:143` | a length-prefixed string (0x488F20) |
+| 2 | `ShowHidden` | `app/shared/spln_db.h:146` | +0x000, the name iteration (0x4869C0) returns hidden entries too when set |
+| 2 | `Splines` | `app/shared/spln_db.h:148` | the entries by CRC_String(name) |
+| 2 | `KeyNames` | `app/shared/spln_db.h:150` | chunk 0x808's names; entry 0 is NULL |
+| 2 | `Filename` | `app/shared/spln_db.h:152` | the assert 'database_filename' names the argument kept here |
+| 2 | `Iterator` | `app/shared/spln_db.h:154` | +0x844, the name iteration's node (0x4869C0, 0x486A40) |
+| 2 | `HasSplines` | `app/shared/spln_db.h:156` | set when an entry is added |
+| 2 | `Mailslot` | `app/shared/spln_db.h:158` | the mailslot "\\.\mailslot\G\SplineDatabaseUpdate" (0x486AD0) |
 | 2 | `StarLayerClass` | `app/shared/stars.h:42` | one stars.ini layer (Texture, NumStars, ...); the client names no class |
 | 2 | `Render` | `app/shared/stars.h:49` | draws the first max_polys polygons (0x481B70) |
 | 2 | `Load` | `app/shared/stars.h:51` | reads one ini section (0x481DB0, assert 'section') |

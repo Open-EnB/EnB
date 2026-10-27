@@ -104,6 +104,24 @@ public:
 // NAME 2: the curves of name_R, name_G, name_B (0x485440; the client's lighting 0x4F2960, 0x4F34C0)
 	bool						Get_Color_Curves(const char *base_name, Curve1DClass **r, Curve1DClass **g,
 									Curve1DClass **b);
+// NAME 2: the key names (chunk 0x808): add 0x4867B0, find 0x4868A0, get 0x486930, remove 0x486970
+	int						Add_Key_Name(const char *name);
+	int						Find_Key_Name(const char *name);
+	bool						Get_Key_Name(unsigned int index, char **name);
+	bool						Remove_Key_Name(unsigned int index);
+// NAME 2: the entries' names in list order, hidden ones only with ShowHidden (0x4869C0, 0x486A40)
+	const char *			Get_First_Name(void);
+	const char *			Get_Next_Name(void);
+// NAME 2: polls the mailslot and reloads when an editor wrote to it (0x486AD0)
+	bool						Update(void);
+// NAME 2: lookups by key (0x486C40, 0x486CE0), by curve (0x486C90)
+	SplineEntryClass *	Find(unsigned int key);
+	SplineEntryClass *	Find(Curve1DClass *curve);
+	Curve1DClass *			Get_Curve(unsigned int key);
+// NAME 2: names to keys (0x486D30), keys to entries (0x486D80), a name's key (0x4873E0)
+	void						Get_Keys(unsigned int count, const char **names, unsigned int *keys);
+	void						Get_Entries(unsigned int count, const unsigned int *keys, SplineEntryClass **entries);
+	static unsigned int	Get_Key(const char *name);
 // NAME 2: lookup by name (0x486BB0, assert 'spline_name != NULL')
 	SplineEntryClass *	Find(const char *spline_name, int unused = 0);	// NAME 1 [unused]: the client's copy takes a second argument (ret 8) it never reads
 

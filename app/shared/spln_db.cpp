@@ -53,7 +53,7 @@ SplineDatabaseClass::SplineDatabaseClass(const char *database_filename) :
 	KeyNames.Add(NULL);
 }
 
-// NOT EXACT: shape (the inlined Free_Splines loop: registers and the next-node test)
+// NOT EXACT: inline-budget (the client inlines HashListClass::First_Valid in the Free_Splines loop; ours calls it)
 SplineDatabaseClass::~SplineDatabaseClass(void)
 {
 	if (Mailslot != INVALID_HANDLE_VALUE) {
@@ -66,7 +66,6 @@ SplineDatabaseClass::~SplineDatabaseClass(void)
 	Free_Key_Names();
 }
 
-// NOT EXACT: shape (the inlined Free_Splines and Free_Key_Names loops)
 bool SplineDatabaseClass::Load(const char *database_filename)
 {
 	clock();
@@ -76,20 +75,21 @@ bool SplineDatabaseClass::Load(const char *database_filename)
 	Filename = new char[strlen(database_filename) + 1];
 	strcpy(Filename, database_filename);
 	file_auto_ptr file(_TheFileFactory, Filename);
-	if (file->Open(FileClass::READ)) {
-		Free_Splines();
-		Free_Key_Names();
-		ChunkLoadClass cload(file);
-		if (Load_Chunks(cload) && Resolve()) {
-			clock();
-			return true;
-		}
+	if (!file->Open(FileClass::READ)) {
+		return false;
 	}
-	return false;
+	Free_Splines();
+	Free_Key_Names();
+	ChunkLoadClass cload(file);
+	if (!Load_Chunks(cload)) {
+		return false;
+	}
+	if (!Resolve()) {
+		return false;
+	}
+	clock();
+	return true;
 }
-
-
-
 
 
 
@@ -514,100 +514,100 @@ bool SplineDatabaseClass::Get_Color_Curves(const char *base_name, Curve1DClass *
 	return false;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+int SplineDatabaseClass::Add_Key_Name(const char *name)
+{
+	if (name != NULL && strlen(name) != 0) {
+		char *copy = new char[strlen(name) + 1];
+		strcpy(copy, name);
+		if (KeyNames.Add(copy)) {
+			return KeyNames.Count() - 1;
+		}
+		return -1;
+	}
+	return 0;
+}
+
+int SplineDatabaseClass::Find_Key_Name(const char *name)
+{
+	if (name != NULL && strlen(name) != 0) {
+		for (int i = 1; i < KeyNames.Count(); i++) {
+			if (KeyNames[i] != NULL && stricmp(KeyNames[i], name) == 0) {
+				return i;
+			}
+		}
+		return -1;
+	}
+	return 0;
+}
+
+bool SplineDatabaseClass::Get_Key_Name(unsigned int index, char **name)
+{
+	if (index >= (unsigned int)KeyNames.Count()) {
+		return false;
+	}
+	*name = KeyNames[index];
+	return true;
+}
+
+bool SplineDatabaseClass::Remove_Key_Name(unsigned int index)
+{
+	if (index >= (unsigned int)KeyNames.Count()) {
+		return false;
+	}
+	delete [] KeyNames[index];
+	KeyNames[index] = NULL;
+	return true;
+}
+
+const char *SplineDatabaseClass::Get_First_Name(void)
+{
+	for (Iterator = Splines.First_Valid(); Iterator != NULL; Iterator = Iterator->Next_Valid()) {
+		SplineEntryClass *entry = Iterator->Get();
+		if (entry != NULL && (!entry->Hidden || ShowHidden == true)) {
+			return entry->Name;
+		}
+	}
+	return NULL;
+}
+
+const char *SplineDatabaseClass::Get_Next_Name(void)
+{
+	if (Iterator != NULL) {
+		for (Iterator = Iterator->Next_Valid(); Iterator != NULL; Iterator = Iterator->Next_Valid()) {
+			SplineEntryClass *entry = Iterator->Get();
+			if (entry != NULL && (!entry->Hidden || ShowHidden == true)) {
+				return entry->Name;
+			}
+		}
+	}
+	return NULL;
+}
+
+bool SplineDatabaseClass::Update(void)
+{
+	if (HasSplines) {
+		if (Mailslot == INVALID_HANDLE_VALUE) {
+			Mailslot = CreateMailslotA("\\\\.\\mailslot\\G\\SplineDatabaseUpdate", 4, 0, NULL);
+			if (Mailslot == INVALID_HANDLE_VALUE) {
+				return false;
+			}
+		}
+		DWORD count;
+		if (GetMailslotInfo(Mailslot, NULL, NULL, &count, NULL)) {
+			bool reload = count > 0;
+			while (count > 0) {
+				char buffer[4];
+				DWORD read;
+				ReadFile(Mailslot, buffer, 4, &read, NULL);
+				count--;
+			}
+			if (reload) {
+				return Reload();
+			}
+		}
+	}
+	return false;
+}
 
 
 
@@ -1221,38 +1221,90 @@ bool SplineDatabaseClass::Get_Color_Curves(const char *base_name, Curve1DClass *
 SplineEntryClass *SplineDatabaseClass::Find(const char *spline_name, int unused)
 {
 	G_ASSERT(spline_name != NULL);
-	HashNodeClass<SplineEntryClass *> *node = Splines.Find(CRC_String(spline_name));
+	HashNodeClass<SplineEntryClass *> *node = Splines.Find(Get_Key(spline_name));
 	if (node == NULL) {
 		return NULL;
 	}
 	return node->Get();
 }
 
-// NOT EXACT: shape (the client tests the first node before the loop; no zero register)
+SplineEntryClass *SplineDatabaseClass::Find(unsigned int key)
+{
+	HashNodeClass<SplineEntryClass *> *node = Splines.Find(key);
+	if (node == NULL) {
+		return NULL;
+	}
+	return node->Get();
+}
+
+SplineEntryClass *SplineDatabaseClass::Find(Curve1DClass *curve)
+{
+	if (curve != NULL) {
+		for (HashNodeClass<SplineEntryClass *> *node = Splines.First_Valid(); node != NULL; node = node->Next_Valid()) {
+			SplineEntryClass *entry = node->Get();
+			if (entry != NULL && entry->Curve == curve) {
+				return entry;
+			}
+		}
+	}
+	return NULL;
+}
+
+Curve1DClass *SplineDatabaseClass::Get_Curve(unsigned int key)
+{
+	SplineEntryClass *entry = Find(key);
+	if (entry == NULL) {
+		return NULL;
+	}
+	return entry->Curve;
+}
+
+void SplineDatabaseClass::Get_Keys(unsigned int count, const char **names, unsigned int *keys)
+{
+	while (count--) {
+		keys[count] = Get_Key(names[count]);
+	}
+}
+
+void SplineDatabaseClass::Get_Entries(unsigned int count, const unsigned int *keys, SplineEntryClass **entries)
+{
+	while (count--) {
+		entries[count] = Find(keys[count]);
+	}
+}
+
+// NOT EXACT: register-only / shape (the client keeps the next node on the stack and tests the first node before the loop); its inlined copy in Load and Reload is exact
 void SplineDatabaseClass::Free_Splines(void)
 {
-	HashNodeClass<SplineEntryClass *> *node = Splines.First_Valid();
-	while (node != NULL) {
-		HashNodeClass<SplineEntryClass *> *next = node->Next_Valid();
+	HashNodeClass<SplineEntryClass *> *next = Splines.First_Valid();
+	while (next != NULL) {
+		HashNodeClass<SplineEntryClass *> *node = next;
+		next = node->Next();
+		if (!next->Is_Valid()) {
+			next = NULL;
+		}
 		SplineEntryClass *entry = node->Get();
 		if (entry != NULL) {
 			delete entry;
 		}
 		Splines.Remove(node);
-		node = next;
 	}
 	HasSplines = false;
 }
 
 void SplineDatabaseClass::Free_Key_Names(void)
 {
-	int i = KeyNames.Count();
-	while (--i > 0) {
+	for (int i = KeyNames.Count() - 1; i > 0; i--) {
 		if (KeyNames[i] != NULL) {
 			delete [] KeyNames[i];
 			KeyNames.Delete(i);
 		}
 	}
+}
+
+unsigned int SplineDatabaseClass::Get_Key(const char *name)
+{
+	return CRC_String(name);
 }
 
 // NOT EXACT: inline-budget (HashListClass::Find out of line at some lookups)
@@ -1604,61 +1656,9 @@ bool SplineDatabaseClass::Resolve(void)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// NOT EXACT: shape (the inlined Free_Key_Names loop)
 bool SplineDatabaseClass::Reload(void)
 {
-	const char *database_filename = Filename;
+	char *&database_filename = Filename;
 	G_ASSERT(database_filename);
 	clock();
 	file_auto_ptr file(_TheFileFactory, database_filename);
@@ -1677,7 +1677,7 @@ bool SplineDatabaseClass::Reload(void)
 	return true;
 }
 
-// NOT EXACT: field-offset / shape (KeyNames kept in a register, the header test)
+// NOT EXACT: shape (the client repeats the epilogue for the header's two failures and keeps &KeyNames in edi)
 bool SplineDatabaseClass::Load_Chunks(ChunkLoadClass &cload)
 {
 	SplineFileHeaderStruct *header = Load_Header(cload);
@@ -1708,7 +1708,7 @@ bool SplineDatabaseClass::Load_Chunks(ChunkLoadClass &cload)
 		if (entry == NULL) {
 			return false;
 		}
-		unsigned int key = CRC_String(entry->Name);
+		unsigned int key = Get_Key(entry->Name);
 		HashNodeClass<SplineEntryClass *> *node = Splines.Find(key);
 		SplineEntryClass *existing;
 		if (node != NULL && (existing = node->Get()) != NULL) {
@@ -1741,7 +1741,10 @@ SplineFileHeaderStruct *SplineDatabaseClass::Load_Header(ChunkLoadClass &cload)
 	if (cload.Read(&_Header, sizeof(_Header)) < sizeof(_Header)) {
 		return NULL;
 	}
-	return cload.Close_Chunk() ? &_Header : NULL;
+	if (!cload.Close_Chunk()) {
+		return NULL;
+	}
+	return &_Header;
 }
 
 // NOT EXACT: shape (the switch's layout; the TYPE_BLEND strings)
@@ -1786,11 +1789,11 @@ SplineEntryClass *SplineDatabaseClass::Load_Entry(ChunkLoadClass &cload)
 			strcpy(component, entry->Name);
 			strcat(component, "_R");
 			int len = strlen(component);
-			entry->RedKey = CRC_String(component);
+			entry->RedKey = Get_Key(component);
 			component[len - 1] = 'G';
-			entry->GreenKey = CRC_String(component);
+			entry->GreenKey = Get_Key(component);
 			component[len - 1] = 'B';
-			entry->BlueKey = CRC_String(component);
+			entry->BlueKey = Get_Key(component);
 			ok = true;
 			break;
 		}
@@ -1804,13 +1807,13 @@ SplineEntryClass *SplineDatabaseClass::Load_Entry(ChunkLoadClass &cload)
 					if (!Read_String(cload, &alpha_clr)) {
 						ok = false;
 					} else {
-						entry->AlphaKey = CRC_String(alpha_clr);
+						entry->AlphaKey = Get_Key(alpha_clr);
 						delete [] alpha_clr;
 						char *beta_clr = NULL;
 						if (!Read_String(cload, &beta_clr)) {
 							ok = false;
 						} else {
-							entry->BetaKey = CRC_String(beta_clr);
+							entry->BetaKey = Get_Key(beta_clr);
 							delete [] beta_clr;
 						}
 					}
@@ -2776,9 +2779,6 @@ bool SplineDatabaseClass::Read_String(ChunkLoadClass &cload, char **string)
 
 
 
-
-
-
 SplineEntryClass::SplineEntryClass(int type, const char *name, const char *description, bool flag,
 	const char *alpha_clr, const char *beta_clr) :
 	Alpha(NULL),
@@ -2883,24 +2883,26 @@ SplineEntryClass::~SplineEntryClass(void)
 /*
 **	Reconstruction notes
 **
-**	client.exe 0x4845F0-0x489C70 (spln_db.cpp, 44 asserts: spline_name, base_name, alpha_clr,
+**	client.exe 0x4845F0-0x489590 (spln_db.cpp, 44 asserts: spline_name, base_name, alpha_clr,
 **	beta_clr, resolution, database_filename, EntryArray[i], ...), the file's code in the client's
 **	order; the asserts sit on the client's lines (D25). VIDTEST.EXE's 2002 copy is 0x41C660-0x420F50.
 **	The entries live in wwlib's HashListClass (512 hash values) keyed by CRC_String of the name
-**	(0x9D4840); the find helper (0x486BB0, line 1223) and HashListClass::Find are inlined in most
-**	callers.
+**	(0x9D4840, Get_Key 0x4873E0); the find helper (0x486BB0, line 1223) and HashListClass::Find are
+**	inlined in most callers.
 **
-**	  0x4845F0 SplineDatabaseClass             0x486BB0 Find (1223)
-**	  0x484810 ~SplineDatabaseClass            0x487190 Free_Splines, 0x487360 Free_Key_Names
-**	  0x484AB0 Load                            0x487660 Resolve, 0x487900 Reload (1662)
-**	  0x485110 Get_Type (400)                  0x488500 Load_Chunks, 0x4887F0 Load_Header
-**	  0x485380 Get_Curve (478)                 0x488870 Load_Entry, 0x488DC0 Load_Hermite
-**	  0x485440 Get_Color_Curves                0x488F20 Read_String
-**	                                           0x489050 SplineEntryClass (2795), 0x489590 ~
+**	  0x4845F0 SplineDatabaseClass             0x4867B0-0x486970 the key names
+**	  0x484810 ~SplineDatabaseClass (NE)       0x4869C0 / 0x486A40 Get_First_Name / Get_Next_Name
+**	  0x484AB0 Load                            0x486AD0 Update (the mailslot)
+**	  0x485110 Get_Type (400)                  0x486BB0 Find (1223), 0x486C40 / 0x486C90 Find
+**	  0x485380 Get_Curve (478)                 0x486CE0 Get_Curve, 0x486D30 Get_Keys, 0x486D80 Get_Entries
+**	  0x485440 Get_Color_Curves (NE)           0x487190 Free_Splines (NE), 0x487360 Free_Key_Names
+**	  0x487660 Resolve (NE)                    0x4873E0 Get_Key, 0x487900 Reload (1662)
+**	  0x488500 Load_Chunks (NE)                0x4887F0 Load_Header, 0x488870 Load_Entry (NE)
+**	  0x488DC0 Load_Hermite                    0x488F20 Read_String
+**	  0x489050 SplineEntryClass (2795)         0x489590 ~SplineEntryClass
 **
-**	Not rebuilt yet (the client has them; nothing in VIDTEST calls them): the save code (0x484D00,
-**	0x487B20-0x4883A0, 0x488FB0, 0x486E10-0x486F60, 0x489660, 0x489830), Print 0x485020, the blend
-**	and evaluation helpers 0x4851D0, 0x485620, 0x485790, the editing functions 0x485990-0x4864F0 and
-**	0x487400, the key-name and iteration helpers 0x4867B0-0x486A40, the mailslot update 0x486AD0, the
-**	key lookups 0x486C40-0x486D80, 0x4873E0, the entry's second constructor 0x489480.
+**	Not rebuilt yet (nothing in VIDTEST calls them): the save code (0x484D00, 0x487B20-0x4883A0,
+**	0x488FB0, 0x486E10-0x486F60, 0x489660, 0x489830), Print 0x485020, the blend and evaluation helpers
+**	0x4851D0, 0x485620, 0x485790, the editing functions 0x485990-0x4864F0 and 0x487400, the entry's
+**	second constructor 0x489480.
 */
