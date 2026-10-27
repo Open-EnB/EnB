@@ -32,6 +32,7 @@ class Vector3;
 class Matrix3D;
 class SphereClass;
 class RelationshipClass;
+class AudibleSoundClass;
 
 // co.cpp's +0xB4 object: a RefCountClass the constructor gets from 0x731FA0 (0xB8 bytes, constructor
 // 0x732030); 0x6FCB20 passes the visibility to its slot +0x18
@@ -142,6 +143,7 @@ public:
 	bool Unknown_700670(Vector3 &color);				// 0x700670 (FAIL_IF '!aux_data' l.2519): the aux data's colour for the same guild as the player's ship or another  // NAME 2 [color]: what it receives
 	void Unknown_700820(const Vector3 &position);		// 0x700820  // NAME 1 [position]: a Vector3
 	bool Unknown_700860();								// 0x700860
+	void Unknown_6FC880();								// 0x6FC880 stops the two sounds, removes the effect, sets the model's state 2 for a type-1 object
 	void Unknown_6FC9A0();								// 0x6FC9A0 the aux data's changed values into the model
 	void Unknown_6FCB20(bool visible);					// 0x6FCB20  // NAME 2 [visible]: what it toggles
 	void Unknown_6FD2C0();								// 0x6FD2C0 (FAIL_IF '!RenderObject', l.1779)
@@ -174,11 +176,16 @@ public:
 	char UnknownB8[0xE8 - 0xB8];						// +0xB8
 	float Sphere[4];									// +0xE8 a SphereClass (center, radius): 0x6FED30 fills it from the model  // NAME 2: what it holds
 	int UnknownF8;										// +0xF8
-	char UnknownFC[0x128 - 0xFC];						// +0xFC
+	char UnknownFC[0x118 - 0xFC];						// +0xFC
+	AudibleSoundClass *Unknown118;						// +0x118 a sound 0x6FC880 stops (the destructor releases it)
+	AudibleSoundClass *Unknown11C;						// +0x11C a sound 0x6FC880 stops (the destructor releases it)
+	char Unknown120[0x128 - 0x120];						// +0x120
 	bool Unknown128;									// +0x128 (0x6FC950 sets it)
 	char Unknown129[0x12C - 0x129];						// +0x129
 	int Relationship[2];								// +0x12C a RelationshipClass (pk_player_object_relationship.h; the constructor's 0x848C80): 0x6FEEE0 sets it  // NAME 2: what it holds
-	char Unknown134[0x158 - 0x134];						// +0x134
+	char Unknown134[0x14C - 0x134];						// +0x134
+	unsigned Unknown14C;								// +0x14C an effect's id (0x6FC880 removes the effect through the client's Get_Effect)
+	char Unknown150[0x158 - 0x150];						// +0x150
 	RenderObjClass *Unknown158[6];						// +0x158 the models 0x6F3810 hangs on the ~FL ~FR ~BL ~BR ~FL ~FR bones: RefCountPtr<RenderObjClass> in the client (the constructor's vector constructor 0x5464F0 / 0x4740B0), raw here until the constructor is rebuilt
 	char Unknown170[0x174 - 0x170];						// +0x170
 	float Unknown174;									// +0x174 (0x700820 sets 2.0f)

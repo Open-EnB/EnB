@@ -8,6 +8,7 @@
 #include "ini.h"
 #include <stdio.h>
 #include <string.h>
+#include "..\..\wwaudio\AudibleSound.h"
 #include "control_keys_manager.h"
 #include "..\packets\pk_player_object_relationship.h"
 
@@ -76,7 +77,6 @@ void ClientObjectClass::Unknown_6F3810(RenderObjClass *model)
 		Unknown_6F3810(sub.Peek());
 	}
 }
-
 
 
 
@@ -1637,66 +1637,29 @@ int ClientObjectClass::Unknown_6F5E20() { return(Type == 38); }
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// 0x6FC880
+void ClientObjectClass::Unknown_6FC880()
+{
+	if (Unknown118) {
+		Unknown118->Stop(true);
+		Unknown118->Remove_From_Scene();
+	}
+	if (Unknown11C) {
+		Unknown11C->Stop(true);
+		Unknown11C->Remove_From_Scene();
+	}
+	if (Unknown14C) {
+		EffectObjectClass *effect = Client->Get_Effect(Unknown14C);
+		if (effect) {
+			effect->Unknown_6E6E30();
+		}
+		Unknown14C = 0;
+	}
+	if (Unknown_6F5A40() && Unknown184 != true) {
+		Unknown_810540(Model, 2, 0);
+		Unknown184 = true;
+	}
+}
 // 0x6FC950
 void ClientObjectClass::Unknown_6FC950(bool value)
 {
@@ -1761,6 +1724,43 @@ void ClientObjectClass::Unknown_6FCB20(bool visible)
 		}
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
