@@ -2650,14 +2650,29 @@ void ClientObjectClass::Unknown_6FF7A0(std::string &text)
 **	Reconstruction notes (T11, 2026-10-27)
 **
 **	co.cpp in the client: 0x6F2820-0x700A50 (__FILE__ e:\build\beta\G\app\Client\co.cpp). Not rebuilt
-**	yet: the constructor 0x6F2820 (vtable 0xB0070C; base constructor 0x725050 in client.cpp's region,
-**	which takes the object itself and holds a Matrix3D at +0x1C; MultiFixedPoolDecalSystemClass's
-**	vtable 0xB006F4 at +0x4C), the destructor 0x6F2FE0, the slots +0x20 0x6F3C60 and +0x28 0x6F4610,
-**	the damage / engine / warp members (0x6FBEF0, 0x6FCB70, 0x6FD310-0x6FE1E0), Get_Name 0x6FF4B0
-**	and the members that read the aux data through auxdata.h's lookup (G_ASSERT 't', auxdata.h line
-**	155: 0x6F58B0, 0x6F5E40-0x6F5F60, 0x6FF1D0-0x6FFC80, 0x700400, 0x7008B0). The aux-data roots'
-**	constructors and the CREATE factory 0x6F6000-0x6FBEF0 are in aux_roots.cpp (generated). The asserts
-**	sit on the client's lines (D25): the blank stretches hold the members not yet written.
+**	yet: the constructor 0x6F2820, the destructor 0x6F2FE0, the slots +0x20 0x6F3C60 and +0x28 0x6F4610,
+**	the damage / engine / warp members (0x6FBEF0, 0x6FCB70, 0x6FD310-0x6FE1E0), 0x6FEF70 (l.2284) and
+**	0x6F5F60. The aux-data roots' constructors and the CREATE factory 0x6F6000-0x6FBEF0 are in
+**	aux_roots.cpp (generated). The asserts sit on the client's lines (D25): the blank stretches hold the
+**	members not yet written; members without asserts (0x6FF4B0-0x700400, 0x6FF7A0) sit where room was.
+**
+**	The constructor (T17's reading of 0x6F2820, for whoever rebuilds it): ClientObjectClass is
+**	'UnknownB02C90Class (client.h, +0x00, 0x4C bytes, constructed with the object itself), then
+**	MultiFixedPoolDecalSystemClass (+0x4C, 0x14 bytes, ww3d2's decalsys.h; constructed (3, the pool sizes at
+**	0xB93ACC); its vtable in the object 0xB006F4: 0x709E90, ww3d2's 0x981A40 / 0x981BB0 / 0x981CC0 and
+**	Generate_Decal_Id 0x6F2C90)'. Then in order: the node at +0x60 (vtable 0xB00764, GenericNode; +0x6C the
+**	node's address, +0x74 -1, +0x78 4), +0x7C the client, +0x8C 0, +0x90 the id (third argument), +0x94 the type
+**	(second argument, a byte), +0x98 0, +0x9C 1.0f, +0xA0 0, +0xA4 1.0f, +0xA8 -1, +0xAC 0, +0xB0 false,
+**	+0xB4 0, an object at +0xB8 (0x843910; byte +0xB8 = type), +0xBC/+0xC0/+0xC4 one 0x4E9CB0(0) result,
+**	+0xC8 (0x843DB0; +0xCC 0, byte +0xC8 = type), +0xD0/+0xD4 0, byte +0xD8 = type, a std::string at +0xDC,
+**	+0xE8-+0xF4 0 (the sphere), +0xF8 0, +0xFC false, +0x100 -1, +0x118-+0x124 0, +0x128 false, the
+**	RelationshipClass at +0x12C (0x848C80), 0x498C10 at +0x134, +0x144 0, +0x148 -1, +0x14C-+0x154 0, six
+**	RefCountPtr at +0x158 (vector constructor 0x5464F0 / 0x4740B0), +0x170 false, +0x174-+0x180 0,
+**	+0x184 true; then the two vtables, AuxData = UnknownCOClass's Unknown_Create_Aux_Root(type, id),
+**	+0x98 = new Unknown98Class (4 bytes, vtable 0xB006B8), +0x70 = this, +0xB4 = 0x731FA0(...) (a
+**	RefCountPtr assignment), 0x498F00 at +0x134 with a radius from the floats 0xB93AD8-0xB93AE4 by type,
+**	+0x104-+0x114 = 1 and the six RefCountPtrs cleared. The destructor 0x6F2FE0 has 7 EH states and
+**	releases +0x118-+0x124 (slots +0xA0 / +0x70, a ref count at +0x14), +0x8C, +0xB4 (0x732690), +0xAC.
 **
 **	Forms: the aux-data accessors leave through 'if (!Unknown_6F5A10()) return(x);' (the inline type
 **	test): a plain '(Type >= 0 && Type <= 1)' merges the early return with the FAIL_IF's tail. Tests of

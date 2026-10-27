@@ -1,0 +1,19 @@
+// 0x6FF4B0 forms (T17): the client calls rtti.h's cast 0x5469C0 at all four lookups and std::string's _Tidy/_Copy/_Eos.
+// Tried: the named-local form in co.cpp (Owner first when Unknown_6F5A40), the reverse branch order (the client's je), NameClass temporaries
+// (the client's four 0x34 slots), the Unknown_Changed accessor, and 2/4/8 dead type tests in front: at most 2 of 4 casts out of line (below, 8 dead tests).
+	DeltaStringClass *t; Unknown_6F5A40(); Unknown_6F5A40(); Unknown_6F5A40(); Unknown_6F5A40(); Unknown_6F5A40(); Unknown_6F5A40(); Unknown_6F5A40(); Unknown_6F5A40();
+	if (!Unknown_6F5A40()) {
+		t = Unknown_Find_Field<DeltaStringClass>((DeltaCompoundClass *)AuxData, NameClass("Name"));
+		if (!t || !Unknown_Changed(t)) t = Unknown_Find_Field<DeltaStringClass>((DeltaCompoundClass *)AuxData, NameClass("Owner"));
+	} else {
+		t = Unknown_Find_Field<DeltaStringClass>((DeltaCompoundClass *)AuxData, NameClass("Owner"));
+		if (!t || !Unknown_Changed(t)) t = Unknown_Find_Field<DeltaStringClass>((DeltaCompoundClass *)AuxData, NameClass("Name"));
+	}
+	name = (t && Unknown_Changed(t)) ? t->String : "Unknown";
+
+
+
+
+
+
+
