@@ -32,7 +32,6 @@
 #include "pkstarbasetow.h"
 #include "pkmanufactureitemcatagorypacket.h"
 #include "pkguildplayeronline.h"
-#include "spln_db.h"
 
 // ------------------------------------------------------------------------- E&B debug hooks
 
@@ -148,18 +147,6 @@ bool String_To_Value(const char *text, MoneyClass *value)
 
 #include <string>
 #include <vector>
-
-// 0x486E10, 0x486EF0: SPLINE 56's value constructor packs the spline entries (spln_db.cpp is not in the harness)
-int SplineDatabaseClass::Get_Packed_Size(unsigned int, SplineEntryClass **)
-{
-	STUB_CALLED("SplineDatabaseClass::Get_Packed_Size (0x486E10)");
-	return 0;
-}
-
-void SplineDatabaseClass::Pack(int, SplineEntryClass **, char *)
-{
-	STUB_CALLED("SplineDatabaseClass::Pack (0x486EF0)");
-}
 
 // 0x8B44E0: the int64 in decimal (the client's behaviour)
 char *Unknown_8B44E0(__int64 value, char *buffer)

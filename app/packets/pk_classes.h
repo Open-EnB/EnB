@@ -508,14 +508,6 @@ public:
 	char Unknown0C[0x18C];	// +0x0C
 };
 
-// opcode 147 (0x0093, JOB_LIST): vtable 0xB0AEF4, constructor 0x895F80, 0x20 bytes
-class JobListPacketClass : public PacketClass
-{
-public:
-	JobListPacketClass(RawPacketClass *raw);	// 0x895F80
-	char Unknown0C[0x14];	// +0x0C
-};
-
 // opcode 181 (0x00B5, ?): vtable 0xB0A5BC, constructor 0x886D40, 0x54 bytes
 class Packet_00B5Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x00B5
 {

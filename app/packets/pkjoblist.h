@@ -5,8 +5,7 @@
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
 **	Original location: e:\build\beta\G\app\packets\pkjoblist.h (the .cpp named by an assert)
 **
-**	The packet classes of client 0x895F00-0x897490 rebuilt so far (opcode 148, 149, 150); the file's other classes
-**	are still declared in pk_classes.h.
+**	The packet classes of client 0x895F00-0x897490 rebuilt (opcode 147, 148, 149, 150).
 */
 
 #if defined(_MSC_VER)
@@ -17,6 +16,38 @@
 #define PKJOBLIST_H
 
 #include "pk.h"
+#include <string>
+#include <vector>
+
+// opcode 147 (0x0093, JOB_LIST): one job of the list (0x40 bytes, new'd; ints sent as their bytes, strings with Add_String)
+struct JobStruct  // NAME 1: neutral (D10): what it holds
+{
+	int Unknown00;	// +0x00
+	int Unknown04;	// +0x04
+	int Unknown08;	// +0x08
+	int Unknown0C;	// +0x0C
+	std::string Unknown10;	// +0x10
+	std::string Unknown20;	// +0x20
+	std::string Unknown30;	// +0x30
+};
+
+// opcode 147 (0x0093, JOB_LIST): vtable 0xB0AEF4, constructor 0x895F80, 0x20 bytes
+class JobListPacketClass : public PacketClass  // NAME 3: the client's Print text 'JobList'
+{
+public:
+	JobListPacketClass();	// 0x895F00
+	JobListPacketClass(RawPacketClass *raw);	// 0x895F80
+	virtual ~JobListPacketClass();	// +0x00 0x8962F0 / 0x895F50
+	virtual RawPacketClass *Build();	// +0x04 0x896430
+	virtual bool Process_Packet(void *client);	// +0x08 0x73A210 (not rebuilt)
+	virtual int Get_Data_Size();	// +0x0C 0x896600
+	virtual int Print(char *buffer, int len);	// +0x10 0x896680
+
+	void Add(int unknown00, int unknown04, const char *unknown10, int unknown0c, const char *unknown20, int unknown08, const char *unknown30);	// 0x8966B0  // NAME 2: what it does
+
+	int Count;	// +0x0C (4 bytes as they are)  // NAME 2: the number of jobs
+	std::vector<JobStruct *> JobList;	// +0x10  // NAME 2: what it holds
+};
 
 // opcode 148 (0x0094, JOB_DESCRIPTION): vtable 0xB0AF24, constructor 0x8969C0, 0x1C bytes
 class JobDescriptionPacketClass : public PacketClass  // NAME 3: the client's Print text 'JobDescription' and FAIL_IF '!Title || !Description'
