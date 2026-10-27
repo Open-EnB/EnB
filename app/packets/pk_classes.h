@@ -142,14 +142,6 @@ public:
 	char Unknown0C[0xAC];	// +0x0C
 };
 
-// opcode 8 (0x0008, SIMPLE_POSITIONAL_UDPATE): vtable 0xB0C0E8, constructor 0x8AC1B0, 0x44 bytes
-class SimplePositionalUpdatePacketClass : public PacketClass
-{
-public:
-	SimplePositionalUpdatePacketClass(RawPacketClass *raw);	// 0x8AC1B0
-	char Unknown0C[0x38];	// +0x0C
-};
-
 // opcode 70 (0x0046, COMPONENT_POSITIONAL_UPDATE): vtable 0xB0C1A0, constructor 0x8AE240, 0x54 bytes
 class ComponentPositionalUpdatePacketClass : public PacketClass
 {

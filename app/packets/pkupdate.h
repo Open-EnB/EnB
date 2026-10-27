@@ -40,6 +40,31 @@ public:
 	int Unknown30;	// +0x30
 };
 
+// opcode 8 (0x0008, SIMPLE_POSITIONAL_UDPATE): vtable 0xB0C0E8, constructor 0x8AC1B0, 0x44 bytes
+class SimplePositionalUpdatePacketClass : public PacketClass  // NAME 3: the client's Print text 'Simple_Positional_Update'
+{
+public:
+	SimplePositionalUpdatePacketClass();	// 0x8ABE20
+	SimplePositionalUpdatePacketClass(int priority, int game_id, unsigned int time_stamp, const Vector3 &pos, const Quaternion &orient, const Vector3 &vel);	// 0x8ABF40 (its asserts' names)
+	SimplePositionalUpdatePacketClass(RawPacketClass *raw);	// 0x8AC1B0
+	virtual RawPacketClass *Build();	// +0x04 0x8AC3E0
+	virtual bool Process_Packet(void *client);	// +0x08 0x733DC0 (not rebuilt)
+	virtual int Get_Data_Size();	// +0x0C 0x8AC510
+	virtual int Print(char *buffer, int len);	// +0x10 0x8AC530
+	virtual int Get_Channel() { return(Channel); }	// +0x18 0x8ABE90
+	virtual int Get_Priority() { return(Priority); }	// +0x1C 0x8ABEB0
+	virtual bool Is_Reliable() { return(false); }	// +0x20 0x8ABED0
+	virtual int Get_Type();	// +0x28 0x8AC4F0  // NAME 2: what it returns (the opcode Build sends), as MessageLinePacketClass's
+
+	int GameID;	// +0x0C  // NAME 3: the client's Print text 'GameID='
+	unsigned int TimeStamp;	// +0x10  // NAME 3: the client's Print text 'TimeStamp='
+	Vector3 Position;	// +0x14  // NAME 3: the client's assert 'Position.Is_Valid()'
+	Quaternion Orientation;	// +0x20  // NAME 3: the client's assert 'Orientation.Is_Valid()'
+	Vector3 Velocity;	// +0x30  // NAME 3: the client's assert 'Velocity.Is_Valid()'
+	int Channel;	// +0x3C (PacketClass::Unknown_14 of GameID in the value constructor; not in the message)  // NAME 2: Get_Channel returns it
+	int Priority;	// +0x40 (not in the message)  // NAME 2: Get_Priority returns it
+};
+
 // opcode 62 (0x003E, ADVANCED_POSITIONAL_UPDATE): vtable 0xB0C11C, constructor 0x8ACAB0, 0x74 bytes
 class AdvancedPositionalUpdatePacketClass : public FlagPacketClass
 {

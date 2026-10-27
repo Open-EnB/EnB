@@ -38,7 +38,23 @@ int ConstantPositionalUpdatePacketClass::Print(char *buffer, int)
 	return(sprintf(buffer, "%s {GameID=%d Position={%f %f %f}}", "Constant_Positional_Update", GameID, Unknown10[0], Unknown10[1], Unknown10[2]));
 }
 
+SimplePositionalUpdatePacketClass::SimplePositionalUpdatePacketClass() :
+	GameID(0),
+	TimeStamp(0),
+	Position(0.0f, 0.0f, 0.0f),
+	Orientation(0.0f, 0.0f, 0.0f, 0.0f),
+	Velocity(0.0f, 0.0f, 0.0f)
+{
+}
 
+SimplePositionalUpdatePacketClass::SimplePositionalUpdatePacketClass(int priority, int game_id, unsigned int time_stamp, const Vector3 &pos, const Quaternion &orient, const Vector3 &vel) :
+	GameID(game_id),
+	TimeStamp(time_stamp),
+	Position(pos),
+	Orientation(orient),
+	Velocity(vel),
+	Priority(priority)
+{
 
 
 
@@ -61,68 +77,52 @@ int ConstantPositionalUpdatePacketClass::Print(char *buffer, int)
 
 
 
+	G_ASSERT(pos.Is_Valid());
+	G_ASSERT(orient.Is_Valid());
+	G_ASSERT(vel.Is_Valid());
+	Channel = Unknown_14(GameID, -1);
+}
 
+SimplePositionalUpdatePacketClass::SimplePositionalUpdatePacketClass(RawPacketClass *raw)
+{
+	raw->Get(&GameID, sizeof(GameID));
+	raw->Get(&TimeStamp, sizeof(TimeStamp));
+	raw->Get(&Position, sizeof(Position));
+	raw->Get(&Orientation, sizeof(Orientation));
+	raw->Get(&Velocity, sizeof(Velocity));
 
 
+	G_ASSERT(Position.Is_Valid());
+	G_ASSERT(Orientation.Is_Valid());
+	G_ASSERT(Velocity.Is_Valid());
+}
 
+RawPacketClass *SimplePositionalUpdatePacketClass::Build()
+{
+	RawPacketClass *raw = new RawPacketClass(Get_Type(), Get_Data_Size());
+	raw->Add(&GameID, sizeof(GameID));
+	raw->Add(&TimeStamp, sizeof(TimeStamp));
+	raw->Add(&Position, sizeof(Position));
+	raw->Add(&Orientation, sizeof(Orientation));
+	raw->Add(&Velocity, sizeof(Velocity));
+	return(raw);
+}
 
+int SimplePositionalUpdatePacketClass::Get_Type()
+{
+	return(8);
+}
 
+int SimplePositionalUpdatePacketClass::Get_Data_Size()
+{
+	return(sizeof(GameID) + sizeof(TimeStamp) + sizeof(Position) + sizeof(Orientation) + sizeof(Velocity));
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+int SimplePositionalUpdatePacketClass::Print(char *buffer, int)
+{
+	return(sprintf(buffer, "%s {GameID=%d TimeStamp=%u Position={%f %f %f} Velocity={%f %f %f}}", "Simple_Positional_Update", GameID, TimeStamp,
+		Position.X, Position.Y, Position.Z, Velocity.X, Velocity.Y, Velocity.Z));
+}
 
 
 
@@ -492,5 +492,7 @@ int PlanetPositionalUpdatePacketClass::Print(char *buffer, int)
 **	  client's lines 179-187 and 277-285 (D25); the blank stretches above them hold opcode 8's place.
 **	  Build sizes the message before the new (`int size = Get_Size(flags);`: Get_Size in the new's
 **	  arguments is evaluated after the allocation) and Get_Size adds one field per statement.
-**	* Not rebuilt yet: opcode 8, 70, 65 (declared in pk_classes.h).
+**	* Opcode 8 (SIMPLE_POSITIONAL_UPDATE) written by hand (builder P6, 2026-10-27) in the lines kept for it:
+**	  its asserts on the client's lines 80-82 (the value constructor) and 95-97 (the raw one).
+**	* Not rebuilt yet: opcode 70, 65 (declared in pk_classes.h).
 */
