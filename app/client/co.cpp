@@ -381,6 +381,14 @@ float ClientObjectClass::Unknown_6F4590()
 	}
 	return(Unknown_6F45E0() * Unknown_B93ADC);
 }
+static inline void Clamp_In_Place(float &value, float min, float max)
+{
+	if (value < min) {
+		value = min;
+	} else if (value > max) {
+		value = max;
+	}
+}
 
 
 
@@ -727,6 +735,19 @@ float ClientObjectClass::Unknown_6F4590()
 
 
 
+// 0x6F4C20
+Vector3 ClientObjectClass::Unknown_24()
+{
+	Vector3 pos = Unknown98->Unknown_0C(Client->Unknown10BC);
+	if (Type == 1) {
+		if (Unknown98->Unknown_04() != 12 && Unknown98->Unknown_04() != 13 && Unknown98->Unknown_04() != 14) {
+			Clamp_In_Place(pos.Z, Client->Unknown10D4, Client->Unknown10D8);
+		}
+		if (Unknown98->Unknown_04() != 12 && Unknown98->Unknown_04() != 13 && Unknown98->Unknown_04() != 14) {
+			Clamp_In_Place(pos.X, Client->Unknown10DC, Client->Unknown10E4);
+			Clamp_In_Place(pos.Y, Client->Unknown10E0, Client->Unknown10E8);
+		}
+	}
 
 
 
@@ -738,30 +759,9 @@ float ClientObjectClass::Unknown_6F4590()
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	G_ASSERT(pos.Is_Valid());
+	return(pos);
+}
 
 
 

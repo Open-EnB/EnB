@@ -79,7 +79,7 @@ public:
 	virtual void Unknown_18(int a, int b, int c) {}		// +0x18 0x6F2C70 (empty)  // NAME 1 [a, b, c]: neutral
 	virtual void Unknown_1C();							// +0x1C 0x6F5120 (the aux data's slot +0x20)
 	virtual void Unknown_20();							// +0x20 0x6F3C60 (FAIL_IF '!RenderObject' l.1779 inline: 0x6FD2C0)
-	virtual void Unknown_24(const Vector3 &pos);		// +0x24 0x6F4C20 (G_ASSERT 'pos.Is_Valid()', l.762)
+	virtual Vector3 Unknown_24();						// +0x24 0x6F4C20: +0x98's slot +0x0C clamped to the client's bounds (G_ASSERT 'pos.Is_Valid()', l.762)
 	virtual Matrix3D Unknown_28(int unknown);			// +0x28 0x6F4610 (0x6FEC40 transforms the sphere by it)  // NAME 1 [unknown]: neutral
 	virtual Vector3 Unknown_2C();						// +0x2C 0x6F5050
 	virtual float Unknown_30() { return(Unknown9C); }	// +0x30 0x6F2CC0
