@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-93 entries in 26 files.
+96 entries in 27 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -68,6 +68,9 @@ edit the comments in the code, not this file.
 | `app/shared/kv_list.cpp:10` | `KVListClass::~KVListClass` | marker | NOT EXACT: inline budget, the hashtable destructor's clear() inlines _M_delete_node (the client calls 0x4B7B60) |
 | `app/shared/kv_list.cpp:77` | `KVListClass::Get_Value_String` | marker | NOT EXACT: inline budget, the client calls the hashtable's find 0x4B7030 out of line here |
 | `app/shared/kv_pair_string.cpp:39` | `KVPairStringClass::KVPairStringClass` | marker | NOT EXACT (also Clone, which inlines it): the client passes the two flags through byte temporaries on the stack (stored, then pushed as dwords), as for a by-value argument |
+| `app/shared/kv_tripl.cpp:56` | `KVTripleListClass::KVTripleListClass` | marker | NOT EXACT: inline budget, the client inlines the triple's copy constructor here (Copy_Member out of line); ours calls 0x4B85F0 |
+| `app/shared/kv_tripl.cpp:61` | `KVTripleListClass::KVTripleListClass` | marker | NOT EXACT: frame (0x38 vs 0x3C) and inline budget, the client calls the bucket vector's constructor 0x4BA530 out of line and keeps match in ebx |
+| `app/shared/kv_tripl.cpp:77` | `KVTripleListClass::~KVTripleListClass` | marker | NOT EXACT: inline budget, the client calls the vector's erase pieces (0x4BAC30, 0x4B9D60), bucket size() and _M_delete_node out of line |
 | `app/shared/land.cpp:2` | `(whole file)` | marker | NOT EXACT, the whole file: functional, after VIDTEST's 2002 copy (land.h). |
 | `app/shared/land.cpp:939` | `LandClass::Render_Decorations` | mention | NOT EXACT: written functionally (D42) for VIDTEST's land test (milestones.md M2.4). Kept from VIDTEST: the ini keys and defaults (and the case-sensitive Patch_Grid_Width), the lightmap (0x409820: a 256-entry table of light x max(0, n.sun) over the quantised normals; 0x409BD0: that plus the sky x the vertex's sky share where the sun clears the horizon, a penumbra, the sky term alone in shadow; 0x40... |
 | `app/shared/spln_db.cpp:57` | `SplineDatabaseClass::~SplineDatabaseClass` | marker | NOT EXACT: inline-budget (the client inlines HashListClass::First_Valid in the Free_Splines loop; ours calls it) |

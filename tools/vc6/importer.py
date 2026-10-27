@@ -3356,6 +3356,12 @@ RECONSTRUCTED = {
     ('app', 'shared/kv_list.cpp'): "KVListClass, client 0x4B62B0-0x4B6D90 with the index's instances to 0x4B7E30: "
                                    "Add 0x4B6760, the lookups and Keep_Only 0x4B6DC0, asserts on the client's lines 23-113 (D25); "
                                    "NOT EXACT: the destructor 0x4B6520 and Get_Value_String 0x4B6B60",
+    ('app', 'shared/kv_tripl.h'): "KVTripleClass (three fixed strings, 0x340 bytes) and KVTripleListClass (D24): "
+                                  "the triples in order (V) and a key index, SGI STL's hash_map<std::string> "
+                                  "(libs/sgistl, D87) at +0x10; Get's assert on the client's line 92",
+    ('app', 'shared/kv_tripl.cpp'): "KVTripleClass / KVTripleListClass, client 0x4B84C0-0x4B9BB0 with the index's "
+                                    "instances to 0x4BAEB0: asserts on the client's lines 34-164 (D25); NOT EXACT: "
+                                    "the copy constructor 0x4B8A20, the prefix constructor 0x4B8DC0, the destructor 0x4B9180",
     ('app', 'shared/auxdata/encode.cpp'): "RecordTableClass (D24; Records from the asserts), client "
                                           "0x4A9A70-0x4A9C1A: ctor (line 512, D25), dtor, Unknown_Sum, "
                                           "Unknown_All; the decoders (M1.2): RecordCodecClass::Decode "
