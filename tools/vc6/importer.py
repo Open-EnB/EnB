@@ -3680,6 +3680,12 @@ RECONSTRUCTED = {
     ('app', 'packets/pknotelist.cpp'): "opcode 184 (NoteContent) written by hand (builder P4, 6 of 6 exact in appfile.py "
                                      "match), client 0x87EA50-0x87F2F0 (183 not yet); the file name provisional (NAME 1)",
     ('app', 'packets/pknotelist.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
+    ('app', 'packets/pkserverparameters.cpp'): "opcode 66 (SERVER_PARAMETERS) written by hand (builder P4, 4 of 4 exact "
+                                             "in appfile.py match), client 0x8A5AB0-0x8A60F0; the file name provisional (NAME 1)",
+    ('app', 'packets/pkserverparameters.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
+    ('app', 'packets/pksetclienttype.cpp'): "opcode 60 (CLIENT_TYPE) written by hand (builder P4, 4 of 4 exact in "
+                                          "appfile.py match), client 0x87FCF0-0x87FF30; the file name provisional (NAME 1)",
+    ('app', 'packets/pksetclienttype.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
     ('app', 'packets/pk_sub_parts.cpp'): "pk_sub_parts.cpp (the client's __FILE__, assert line 64): SUBPARTS 180 written by "
                                        "hand (builder P4, 8 of 8 exact in appfile.py match), client 0x8754D0-0x875CF0",
     ('app', 'packets/pk_sub_parts.h'): "SubPartsPacket and SubPartStruct (D24 header name; pk_classes.h includes it)",

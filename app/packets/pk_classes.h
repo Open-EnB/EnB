@@ -67,6 +67,8 @@
 #include "pkrequesttarget.h"	// rebuilt
 #include "pkrequesttime.h"	// rebuilt
 #include "pkrequesttransformchange.h"	// rebuilt
+#include "pkserverparameters.h"	// rebuilt
+#include "pksetclienttype.h"	// rebuilt
 #include "pksetzband.h"	// rebuilt
 #include "pkskill.h"	// rebuilt
 #include "pkskillstringrq.h"	// rebuilt
@@ -250,22 +252,6 @@ public:
 	Packet_003BClass(RawPacketClass *raw);	// 0x8A61E0
 	virtual bool Process_Packet(void *client);	// +0x08 0x8683D0 (clientstub.cpp l.161)
 	char Unknown0C[0xC];	// +0x0C
-};
-
-// opcode 60 (0x003C, CLIENT_TYPE): vtable 0xB0A170, constructor 0x87FD80, 0x10 bytes
-class SetClientTypePacketClass : public PacketClass
-{
-public:
-	SetClientTypePacketClass(RawPacketClass *raw);	// 0x87FD80
-	char Unknown0C[0x4];	// +0x0C
-};
-
-// opcode 66 (0x0042, SERVER_PARAMETERS): vtable 0xB0BB6C, constructor 0x8A5C10, 0x58 bytes
-class ServerParametersPacketClass : public PacketClass
-{
-public:
-	ServerParametersPacketClass(RawPacketClass *raw);	// 0x8A5C10
-	char Unknown0C[0x4C];	// +0x0C
 };
 
 // opcode 108 (0x006C, ?): vtable 0xB0B504, constructor 0x89EFC0, 0x28 bytes

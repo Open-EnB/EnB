@@ -2432,6 +2432,46 @@
     "merged": [],
     "name": "packets/pkrequesttransformchange.cpp"
    },
+   "pkserverparameters": {
+    "ambiguous": [
+     "0x42B2F0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350",
+     "0x8A5AB0",
+     "0x8A5C10",
+     "0x8A5DD0",
+     "0x8A5FD0"
+    ],
+    "merged": [],
+    "name": "packets/pkserverparameters.cpp"
+   },
+   "pksetclienttype": {
+    "ambiguous": [
+     "0x42B2F0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350",
+     "0x87FCF0",
+     "0x87FD80",
+     "0x87FE10",
+     "0x87FEF0"
+    ],
+    "merged": [],
+    "name": "packets/pksetclienttype.cpp"
+   },
    "pksetzband": {
     "ambiguous": [
      "0x42B2F0"
@@ -3944,6 +3984,8 @@
    "packets/pkrequesttarget.h": "reconstructed",
    "packets/pkrequesttime.h": "reconstructed",
    "packets/pkrequesttransformchange.h": "reconstructed",
+   "packets/pkserverparameters.h": "reconstructed",
+   "packets/pksetclienttype.h": "reconstructed",
    "packets/pksetzband.h": "reconstructed",
    "packets/pkskill.h": "reconstructed",
    "packets/pkskillstringrq.h": "reconstructed",
