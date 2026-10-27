@@ -29,6 +29,12 @@
 struct FontStringStruct;
 class FontDatabaseClass;
 
+struct FontStyleColorStruct  // NAME 1 [FontStyleColorStruct]: neutral (D10): 16 bytes, a color and one more word
+{
+	TPoint3D<int> Color;												// +0x00  // NAME 2: what 0x6D1010 stores
+	int Unknown0C;														// +0x0C  // NAME 1: neutral (D10)
+};
+
 class FontStyleClass : public RefCountClass  // NAME 1 [FontStyleClass]: neutral (D10): the debug font's class (0x4E8 bytes, reference counted)
 {
 public:
@@ -38,7 +44,10 @@ public:
 
 	char Unknown08[0x248];											// +0x08  // NAME 1: neutral (D10)
 	int Unknown250;														// +0x250: 0x6D28C0 sets it in every style of a font  // NAME 1: neutral (D10)
-	char Unknown254[0x294];											// +0x254  // NAME 1: neutral (D10)
+	char Unknown254[0x240];											// +0x254  // NAME 1: neutral (D10)
+	FontStyleColorStruct Unknown494;									// +0x494: 0x6D1010's color  // NAME 1: neutral (D10)
+	FontStyleColorStruct Unknown4A4;									// +0x4A4: a copy of +0x494 (0x6D1010)  // NAME 1: neutral (D10)
+	char Unknown4B4[0x34];												// +0x4B4  // NAME 1: neutral (D10)
 };
 
 class ManagedFontClass  // NAME 2 [ManagedFontClass]: what the manager holds per id (0x24 bytes; its +4 is the id)

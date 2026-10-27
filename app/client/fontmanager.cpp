@@ -97,13 +97,13 @@
 
 
 
-
-
-
-
-
-
-
+// NOT EXACT: inline budget: the client calls the std::string(const char *, allocator) constructor out of line, ours inlines it (attempts.csv)
+void ManagedFontClass::Unknown_6D1010(const char *name, TPoint3D<int> color)
+{
+	FontStyleClass *style = Unknown_6D1600(name);
+	style->Unknown494.Color = color;
+	style->Unknown4A4 = style->Unknown494;
+}
 
 
 
@@ -559,10 +559,9 @@ ManagedFontClass *FontManagerClass::Find(unsigned int id)
 **	Reconstruction notes
 **
 **	client.exe: the window 0x6D0F70-0x6D2A70 (asserts on lines 360, 524, 533 and 550), then the
-**	containers' instances. Not rebuilt yet: the font's own functions (0x6D0F70-0x6D1600, the
-**	asserting 0x6D1220 on line 360) and the manager's 0x6D1FD0 (a font created from the font
-**	database's 0x6C2F20, its constructor inlined), 0x6D25D0 and 0x6D2700 (lines 524-550, a style
-**	by name). 0x6D2400 / 0x6D2480 / 0x6D2500 differ only by their callee: one pattern, not counted.
+**	containers' instances. Not rebuilt yet: the font's own functions 0x6D0F70, 0x6D10B0-0x6D1600
+**	(the asserting 0x6D1220 on line 360) and the manager's 0x6D2700 (line 550, a style by name as
+**	a RefCountPtr). 0x6D2400 / 0x6D2480 / 0x6D2500 differ only by their callee: one pattern, not counted.
 **	The depth lever (workflow.md 3.1) made the destructor and 0x6D1C10 exact: the client calls the
 **	nested table helpers out of line when they sit one inline level deeper.
 */
