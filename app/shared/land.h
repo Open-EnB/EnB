@@ -41,6 +41,7 @@
 #include "rendobj.h"
 #include "ref_ptr.h"
 #include "vector3.h"
+#include "vector2i.h"
 #include "shader.h"
 
 class HeightFieldClass;
@@ -159,7 +160,7 @@ protected:
 	void							Prepare_Lighting(void);
 	void							Compute_Lighting(void);
 	void							Compute_Shadows(void);
-	void							Upload_Lightmap(int *min, int *max);
+	void							Upload_Lightmap(Vector2i &min, Vector2i &max);
 	void							Swap_Lightmaps(void);
 	static void					Lightmap_Thread(void *land);
 	void							Set_Lighting(const LandLightingStruct &lighting)
@@ -229,10 +230,8 @@ protected:
 	Vector3						SkyColor;								// +0x1B8
 	bool							LightingValid;							// +0x1C4
 // NAME 2: the lightmap rectangle being updated and the time-sliced update's cursor (0x46D900 / 0x46DA70)
-	int							UpdateX0;								// +0x1C8
-	int							UpdateY0;								// +0x1CC
-	int							UpdateX1;								// +0x1D0
-	int							UpdateY1;								// +0x1D4
+	Vector2i						UpdateMin;								// +0x1C8, SurfaceClass::Copy's min (0x46D6B0)
+	Vector2i						UpdateMax;								// +0x1D0
 	int							CursorX;									// +0x1D8, steps of LightmapChunk
 	int							CursorY;									// +0x1DC
 	bool							ThreadDone;							// +0x1E0, Update_Lightmap_Threaded's worker has finished

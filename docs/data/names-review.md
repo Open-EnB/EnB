@@ -1145,100 +1145,100 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_4A1590` | `app/shared/kv_tripl.cpp:6` | neutral placeholder (D10) |
 | 1 | `Type` | `app/shared/kv_tripl.h:47` | neutral guess, a short string beside the value |
 | 1 | `Get_Type` | `app/shared/kv_tripl.h:66` | neutral guess |
-| 1 | `Unknown_466F10` | `app/shared/land.cpp:13` | unknown; deletes a global object (0xBDC0D8) and clears it; called by the land's dtor only |
-| 1 | `m_UnknownE4` | `app/shared/land.cpp:17` | untagged neutral name (D10) |
-| 1 | `m_Unknown114` | `app/shared/land.cpp:21` | untagged neutral name (D10) |
-| 1 | `m_Unknown120` | `app/shared/land.cpp:22` | untagged neutral name (D10) |
-| 1 | `m_Unknown17C` | `app/shared/land.cpp:32` | untagged neutral name (D10) |
-| 1 | `m_Unknown184` | `app/shared/land.cpp:33` | untagged neutral name (D10) |
-| 1 | `m_Unknown190` | `app/shared/land.cpp:35` | untagged neutral name (D10) |
-| 1 | `m_Unknown191` | `app/shared/land.cpp:36` | untagged neutral name (D10) |
-| 1 | `m_Unknown192` | `app/shared/land.cpp:37` | untagged neutral name (D10) |
-| 1 | `m_Unknown1E4` | `app/shared/land.cpp:52` | untagged neutral name (D10) |
-| 1 | `m_Unknown1E8` | `app/shared/land.cpp:53` | untagged neutral name (D10) |
-| 1 | `m_Unknown1EC` | `app/shared/land.cpp:54` | untagged neutral name (D10) |
-| 1 | `m_Unknown1F0` | `app/shared/land.cpp:55` | untagged neutral name (D10) |
-| 1 | `m_Unknown1F4` | `app/shared/land.cpp:56` | untagged neutral name (D10) |
-| 1 | `m_Unknown1F8` | `app/shared/land.cpp:57` | untagged neutral name (D10) |
-| 1 | `m_UnknownDFC` | `app/shared/land.cpp:58` | untagged neutral name (D10) |
-| 1 | `m_UnknownDFE` | `app/shared/land.cpp:59` | untagged neutral name (D10) |
-| 1 | `m_UnknownE00` | `app/shared/land.cpp:60` | untagged neutral name (D10) |
-| 1 | `m_UnknownE04` | `app/shared/land.cpp:61` | untagged neutral name (D10) |
-| 1 | `m_UnknownE08` | `app/shared/land.cpp:62` | untagged neutral name (D10) |
-| 1 | `m_Unknown120C` | `app/shared/land.cpp:63` | untagged neutral name (D10) |
-| 1 | `m_Unknown1214` | `app/shared/land.cpp:65` | untagged neutral name (D10) |
-| 1 | `m_Unknown94` | `app/shared/land.cpp:70` | untagged neutral name (D10) |
-| 1 | `m_UnknownBC` | `app/shared/land.cpp:71` | untagged neutral name (D10) |
-| 1 | `m_Unknown158` | `app/shared/land.cpp:74` | untagged neutral name (D10) |
-| 1 | `m_Unknown140` | `app/shared/land.cpp:75` | untagged neutral name (D10) |
-| 1 | `m_Unknown178` | `app/shared/land.cpp:92` | untagged neutral name (D10) |
-| 1 | `m_Unknown180` | `app/shared/land.cpp:93` | untagged neutral name (D10) |
-| 1 | `m_Unknown188` | `app/shared/land.cpp:94` | untagged neutral name (D10) |
-| 1 | `m_Unknown00` | `app/shared/land.cpp:306` | untagged neutral name (D10) |
-| 1 | `m_Unknown10` | `app/shared/land.cpp:308` | untagged neutral name (D10) |
-| 1 | `m_Unknown14` | `app/shared/land.cpp:309` | untagged neutral name (D10) |
-| 1 | `m_Unknown18` | `app/shared/land.cpp:310` | untagged neutral name (D10) |
-| 1 | `m_Unknown1C` | `app/shared/land.cpp:311` | untagged neutral name (D10) |
-| 1 | `m_Unknown20` | `app/shared/land.cpp:312` | untagged neutral name (D10) |
-| 1 | `m_Unknown24` | `app/shared/land.cpp:322` | untagged neutral name (D10) |
-| 1 | `Add_Unknown1218` | `app/shared/land.cpp:336` | untagged neutral name (D10) |
-| 1 | `LandUnknownClass` | `app/shared/land.cpp:336` | untagged neutral name (D10) |
-| 1 | `m_Unknown1218` | `app/shared/land.cpp:338` | untagged neutral name (D10) |
-| 1 | `Clear_Unknown1218` | `app/shared/land.cpp:341` | untagged neutral name (D10) |
+| 1 | `Unknown_466F10` | `app/shared/land.cpp:14` | unknown; deletes a global object (0xBDC0D8) and clears it; called by the land's dtor only |
+| 1 | `m_UnknownE4` | `app/shared/land.cpp:18` | untagged neutral name (D10) |
+| 1 | `m_Unknown114` | `app/shared/land.cpp:22` | untagged neutral name (D10) |
+| 1 | `m_Unknown120` | `app/shared/land.cpp:23` | untagged neutral name (D10) |
+| 1 | `m_Unknown17C` | `app/shared/land.cpp:33` | untagged neutral name (D10) |
+| 1 | `m_Unknown184` | `app/shared/land.cpp:34` | untagged neutral name (D10) |
+| 1 | `m_Unknown190` | `app/shared/land.cpp:36` | untagged neutral name (D10) |
+| 1 | `m_Unknown191` | `app/shared/land.cpp:37` | untagged neutral name (D10) |
+| 1 | `m_Unknown192` | `app/shared/land.cpp:38` | untagged neutral name (D10) |
+| 1 | `m_Unknown1E4` | `app/shared/land.cpp:51` | untagged neutral name (D10) |
+| 1 | `m_Unknown1E8` | `app/shared/land.cpp:52` | untagged neutral name (D10) |
+| 1 | `m_Unknown1EC` | `app/shared/land.cpp:53` | untagged neutral name (D10) |
+| 1 | `m_Unknown1F0` | `app/shared/land.cpp:54` | untagged neutral name (D10) |
+| 1 | `m_Unknown1F4` | `app/shared/land.cpp:55` | untagged neutral name (D10) |
+| 1 | `m_Unknown1F8` | `app/shared/land.cpp:56` | untagged neutral name (D10) |
+| 1 | `m_UnknownDFC` | `app/shared/land.cpp:57` | untagged neutral name (D10) |
+| 1 | `m_UnknownDFE` | `app/shared/land.cpp:58` | untagged neutral name (D10) |
+| 1 | `m_UnknownE00` | `app/shared/land.cpp:59` | untagged neutral name (D10) |
+| 1 | `m_UnknownE04` | `app/shared/land.cpp:60` | untagged neutral name (D10) |
+| 1 | `m_UnknownE08` | `app/shared/land.cpp:61` | untagged neutral name (D10) |
+| 1 | `m_Unknown120C` | `app/shared/land.cpp:62` | untagged neutral name (D10) |
+| 1 | `m_Unknown1214` | `app/shared/land.cpp:64` | untagged neutral name (D10) |
+| 1 | `m_Unknown94` | `app/shared/land.cpp:69` | untagged neutral name (D10) |
+| 1 | `m_UnknownBC` | `app/shared/land.cpp:70` | untagged neutral name (D10) |
+| 1 | `m_Unknown158` | `app/shared/land.cpp:73` | untagged neutral name (D10) |
+| 1 | `m_Unknown140` | `app/shared/land.cpp:74` | untagged neutral name (D10) |
+| 1 | `m_Unknown178` | `app/shared/land.cpp:91` | untagged neutral name (D10) |
+| 1 | `m_Unknown180` | `app/shared/land.cpp:92` | untagged neutral name (D10) |
+| 1 | `m_Unknown188` | `app/shared/land.cpp:93` | untagged neutral name (D10) |
+| 1 | `m_Unknown00` | `app/shared/land.cpp:305` | untagged neutral name (D10) |
+| 1 | `m_Unknown10` | `app/shared/land.cpp:307` | untagged neutral name (D10) |
+| 1 | `m_Unknown14` | `app/shared/land.cpp:308` | untagged neutral name (D10) |
+| 1 | `m_Unknown18` | `app/shared/land.cpp:309` | untagged neutral name (D10) |
+| 1 | `m_Unknown1C` | `app/shared/land.cpp:310` | untagged neutral name (D10) |
+| 1 | `m_Unknown20` | `app/shared/land.cpp:311` | untagged neutral name (D10) |
+| 1 | `m_Unknown24` | `app/shared/land.cpp:321` | untagged neutral name (D10) |
+| 1 | `Add_Unknown1218` | `app/shared/land.cpp:335` | untagged neutral name (D10) |
+| 1 | `LandUnknownClass` | `app/shared/land.cpp:335` | untagged neutral name (D10) |
+| 1 | `m_Unknown1218` | `app/shared/land.cpp:337` | untagged neutral name (D10) |
+| 1 | `Clear_Unknown1218` | `app/shared/land.cpp:340` | untagged neutral name (D10) |
 | 1 | `m_UnknownXX` | `app/shared/land.h:21` | untagged neutral name (D10) |
-| 1 | `LandPatchClass` | `app/shared/land.h:64` | the land's patch (0x30 bytes, new'd per grid cell by Load_Assets 0x4691D0; ctor 0x474530, dtor 0x474560) |
-| 1 | `m_Unknown00` | `app/shared/land.h:71` | members after their offsets (ctor 0x474530) |
-| 1 | `m_Unknown08` | `app/shared/land.h:74` | untagged neutral name (D10) |
-| 1 | `m_Unknown0C` | `app/shared/land.h:75` | untagged neutral name (D10) |
-| 1 | `m_Unknown10` | `app/shared/land.h:76` | untagged neutral name (D10) |
-| 1 | `m_Unknown14` | `app/shared/land.h:77` | untagged neutral name (D10) |
-| 1 | `m_Unknown18` | `app/shared/land.h:78` | untagged neutral name (D10) |
-| 1 | `m_Unknown1C` | `app/shared/land.h:79` | untagged neutral name (D10) |
-| 1 | `m_Unknown20` | `app/shared/land.h:80` | untagged neutral name (D10) |
-| 1 | `m_Unknown24` | `app/shared/land.h:81` | untagged neutral name (D10) |
-| 1 | `m_Unknown28` | `app/shared/land.h:82` | untagged neutral name (D10) |
-| 1 | `m_Unknown2C` | `app/shared/land.h:83` | untagged neutral name (D10) |
-| 1 | `LandPatchRecordClass` | `app/shared/land.h:86` | one record per patch, 0x28 bytes (new[]'d by Load_Assets 0x4691D0; ctor 0x474990, dtor 0x4749D0) |
-| 1 | `m_Unknown00` | `app/shared/land.h:93` | members after their offsets (ctor 0x474990) |
-| 1 | `m_Unknown04` | `app/shared/land.h:95` | untagged neutral name (D10) |
-| 1 | `LandUnknownBaseClass` | `app/shared/land.h:106` | unknown; what the land's vector at +0x1218 holds: RefCountClass at +0xCC (dtor 0x46A7F1), added by 0x75F8B0 through 0x4786A0 |
-| 1 | `LandUnknownClass` | `app/shared/land.h:113` | as above |
-| 1 | `Set_Index_Buffer_94` | `app/shared/land.h:150` | what they set (0x478640 / 0x478670); the arrays' use isn't known yet |
-| 1 | `Add_Unknown1218` | `app/shared/land.h:153` | the vector at +0x1218 (0x4786A0 push_back, 0x4788B0 clear; called by 0x75F8B0) |
-| 1 | `Clear_Unknown1218` | `app/shared/land.h:155` | untagged neutral name (D10) |
-| 1 | `m_Unknown94` | `app/shared/land.h:179` | untagged neutral name (D10) |
-| 1 | `m_UnknownA8` | `app/shared/land.h:180` | untagged neutral name (D10) |
-| 1 | `m_UnknownBC` | `app/shared/land.h:181` | untagged neutral name (D10) |
-| 1 | `m_UnknownD0` | `app/shared/land.h:182` | untagged neutral name (D10) |
-| 1 | `m_UnknownE4` | `app/shared/land.h:183` | untagged neutral name (D10) |
-| 1 | `m_Unknown114` | `app/shared/land.h:195` | untagged neutral name (D10) |
-| 1 | `m_Unknown120` | `app/shared/land.h:197` | untagged neutral name (D10) |
-| 1 | `m_Unknown140` | `app/shared/land.h:208` | untagged neutral name (D10) |
-| 1 | `m_Unknown158` | `app/shared/land.h:210` | untagged neutral name (D10) |
-| 1 | `m_Unknown178` | `app/shared/land.h:214` | untagged neutral name (D10) |
-| 1 | `m_Unknown17C` | `app/shared/land.h:215` | untagged neutral name (D10) |
-| 1 | `m_Unknown180` | `app/shared/land.h:216` | untagged neutral name (D10) |
-| 1 | `m_Unknown184` | `app/shared/land.h:217` | untagged neutral name (D10) |
-| 1 | `m_Unknown188` | `app/shared/land.h:218` | untagged neutral name (D10) |
-| 1 | `m_Unknown190` | `app/shared/land.h:220` | untagged neutral name (D10) |
-| 1 | `m_Unknown191` | `app/shared/land.h:221` | untagged neutral name (D10) |
-| 1 | `m_Unknown192` | `app/shared/land.h:222` | untagged neutral name (D10) |
-| 1 | `m_Unknown1E4` | `app/shared/land.h:239` | untagged neutral name (D10) |
-| 1 | `m_Unknown1E8` | `app/shared/land.h:240` | untagged neutral name (D10) |
-| 1 | `m_Unknown1EC` | `app/shared/land.h:241` | untagged neutral name (D10) |
-| 1 | `m_Unknown1F0` | `app/shared/land.h:242` | untagged neutral name (D10) |
-| 1 | `m_Unknown1F4` | `app/shared/land.h:243` | untagged neutral name (D10) |
-| 1 | `m_Unknown1F8` | `app/shared/land.h:244` | untagged neutral name (D10) |
-| 1 | `m_Unknown1FC` | `app/shared/land.h:245` | untagged neutral name (D10) |
-| 1 | `m_UnknownDFC` | `app/shared/land.h:246` | untagged neutral name (D10) |
-| 1 | `m_UnknownDFE` | `app/shared/land.h:247` | untagged neutral name (D10) |
-| 1 | `m_UnknownE00` | `app/shared/land.h:248` | untagged neutral name (D10) |
-| 1 | `m_UnknownE04` | `app/shared/land.h:249` | untagged neutral name (D10) |
-| 1 | `m_UnknownE08` | `app/shared/land.h:250` | untagged neutral name (D10) |
-| 1 | `m_UnknownE0C` | `app/shared/land.h:251` | untagged neutral name (D10) |
-| 1 | `m_Unknown120C` | `app/shared/land.h:252` | untagged neutral name (D10) |
-| 1 | `m_Unknown1214` | `app/shared/land.h:254` | untagged neutral name (D10) |
-| 1 | `m_Unknown1218` | `app/shared/land.h:255` | untagged neutral name (D10) |
+| 1 | `LandPatchClass` | `app/shared/land.h:65` | the land's patch (0x30 bytes, new'd per grid cell by Load_Assets 0x4691D0; ctor 0x474530, dtor 0x474560) |
+| 1 | `m_Unknown00` | `app/shared/land.h:72` | members after their offsets (ctor 0x474530) |
+| 1 | `m_Unknown08` | `app/shared/land.h:75` | untagged neutral name (D10) |
+| 1 | `m_Unknown0C` | `app/shared/land.h:76` | untagged neutral name (D10) |
+| 1 | `m_Unknown10` | `app/shared/land.h:77` | untagged neutral name (D10) |
+| 1 | `m_Unknown14` | `app/shared/land.h:78` | untagged neutral name (D10) |
+| 1 | `m_Unknown18` | `app/shared/land.h:79` | untagged neutral name (D10) |
+| 1 | `m_Unknown1C` | `app/shared/land.h:80` | untagged neutral name (D10) |
+| 1 | `m_Unknown20` | `app/shared/land.h:81` | untagged neutral name (D10) |
+| 1 | `m_Unknown24` | `app/shared/land.h:82` | untagged neutral name (D10) |
+| 1 | `m_Unknown28` | `app/shared/land.h:83` | untagged neutral name (D10) |
+| 1 | `m_Unknown2C` | `app/shared/land.h:84` | untagged neutral name (D10) |
+| 1 | `LandPatchRecordClass` | `app/shared/land.h:87` | one record per patch, 0x28 bytes (new[]'d by Load_Assets 0x4691D0; ctor 0x474990, dtor 0x4749D0) |
+| 1 | `m_Unknown00` | `app/shared/land.h:94` | members after their offsets (ctor 0x474990) |
+| 1 | `m_Unknown04` | `app/shared/land.h:96` | untagged neutral name (D10) |
+| 1 | `LandUnknownBaseClass` | `app/shared/land.h:107` | unknown; what the land's vector at +0x1218 holds: RefCountClass at +0xCC (dtor 0x46A7F1), added by 0x75F8B0 through 0x4786A0 |
+| 1 | `LandUnknownClass` | `app/shared/land.h:114` | as above |
+| 1 | `Set_Index_Buffer_94` | `app/shared/land.h:151` | what they set (0x478640 / 0x478670); the arrays' use isn't known yet |
+| 1 | `Add_Unknown1218` | `app/shared/land.h:154` | the vector at +0x1218 (0x4786A0 push_back, 0x4788B0 clear; called by 0x75F8B0) |
+| 1 | `Clear_Unknown1218` | `app/shared/land.h:156` | untagged neutral name (D10) |
+| 1 | `m_Unknown94` | `app/shared/land.h:180` | untagged neutral name (D10) |
+| 1 | `m_UnknownA8` | `app/shared/land.h:181` | untagged neutral name (D10) |
+| 1 | `m_UnknownBC` | `app/shared/land.h:182` | untagged neutral name (D10) |
+| 1 | `m_UnknownD0` | `app/shared/land.h:183` | untagged neutral name (D10) |
+| 1 | `m_UnknownE4` | `app/shared/land.h:184` | untagged neutral name (D10) |
+| 1 | `m_Unknown114` | `app/shared/land.h:196` | untagged neutral name (D10) |
+| 1 | `m_Unknown120` | `app/shared/land.h:198` | untagged neutral name (D10) |
+| 1 | `m_Unknown140` | `app/shared/land.h:209` | untagged neutral name (D10) |
+| 1 | `m_Unknown158` | `app/shared/land.h:211` | untagged neutral name (D10) |
+| 1 | `m_Unknown178` | `app/shared/land.h:215` | untagged neutral name (D10) |
+| 1 | `m_Unknown17C` | `app/shared/land.h:216` | untagged neutral name (D10) |
+| 1 | `m_Unknown180` | `app/shared/land.h:217` | untagged neutral name (D10) |
+| 1 | `m_Unknown184` | `app/shared/land.h:218` | untagged neutral name (D10) |
+| 1 | `m_Unknown188` | `app/shared/land.h:219` | untagged neutral name (D10) |
+| 1 | `m_Unknown190` | `app/shared/land.h:221` | untagged neutral name (D10) |
+| 1 | `m_Unknown191` | `app/shared/land.h:222` | untagged neutral name (D10) |
+| 1 | `m_Unknown192` | `app/shared/land.h:223` | untagged neutral name (D10) |
+| 1 | `m_Unknown1E4` | `app/shared/land.h:238` | untagged neutral name (D10) |
+| 1 | `m_Unknown1E8` | `app/shared/land.h:239` | untagged neutral name (D10) |
+| 1 | `m_Unknown1EC` | `app/shared/land.h:240` | untagged neutral name (D10) |
+| 1 | `m_Unknown1F0` | `app/shared/land.h:241` | untagged neutral name (D10) |
+| 1 | `m_Unknown1F4` | `app/shared/land.h:242` | untagged neutral name (D10) |
+| 1 | `m_Unknown1F8` | `app/shared/land.h:243` | untagged neutral name (D10) |
+| 1 | `m_Unknown1FC` | `app/shared/land.h:244` | untagged neutral name (D10) |
+| 1 | `m_UnknownDFC` | `app/shared/land.h:245` | untagged neutral name (D10) |
+| 1 | `m_UnknownDFE` | `app/shared/land.h:246` | untagged neutral name (D10) |
+| 1 | `m_UnknownE00` | `app/shared/land.h:247` | untagged neutral name (D10) |
+| 1 | `m_UnknownE04` | `app/shared/land.h:248` | untagged neutral name (D10) |
+| 1 | `m_UnknownE08` | `app/shared/land.h:249` | untagged neutral name (D10) |
+| 1 | `m_UnknownE0C` | `app/shared/land.h:250` | untagged neutral name (D10) |
+| 1 | `m_Unknown120C` | `app/shared/land.h:251` | untagged neutral name (D10) |
+| 1 | `m_Unknown1214` | `app/shared/land.h:253` | untagged neutral name (D10) |
+| 1 | `m_Unknown1218` | `app/shared/land.h:254` | untagged neutral name (D10) |
 | 1 | `m_Unknown00` | `app/shared/money.h:27` | untagged neutral name (D10) |
 | 1 | `unused` | `app/shared/spln_db.h:157` | the client's copy takes a second argument (ret 8) it never reads |
 | 1 | `Unknown_Report_Message` | `app/shared/unknown_debug.cpp:7` | 0x4BC260 (its "Message_Error" string is a profiler label) |
@@ -2102,16 +2102,16 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Get` | `app/shared/kv_tripl.h:70` | describes what it does |
 | 2 | `Index` | `app/shared/kv_tripl.h:73` | describes what it does |
 | 2 | `land.h` | `app/shared/land.h:36` | after LandClass; no assert or __FILE__ names the file |
-| 2 | `LandLightingStruct` | `app/shared/land.h:53` | VIDTEST's name for the 0x30-byte lighting record its Update_Lighting 0x4250B0 hands the land (esp+0x74) |
-| 2 | `MAX_LEVELS` | `app/shared/land.h:122` | the per-level arrays at +0x94..+0xE0 (5 each) |
-| 2 | `MAX_SEAS` | `app/shared/land.h:123` | the sea arrays at +0x140..+0x170 (2 each; Load_Assets clamps to 2) |
-| 2 | `Create` | `app/shared/land.h:129` | Create, Load_Assets describe VIDTEST 0x4068F0 / 0x405750 and the client's 0x46A3A0 / 0x4691D0 ("LoadAssets" in symbols.json) |
-| 2 | `Update_Lightmap_Full` | `app/shared/land.h:141` | Update_Lightmap_Full and Update_Lightmap_Threaded describe 0x46D900 / 0x46DDD0 (VIDTEST 0x40A9F0) |
-| 2 | `Get_Color` | `app/shared/land.h:147` | the colour map at a position (0x46BB20 / 0x46BBF0: Colors, B G R per vertex) |
-| 2 | `Prepare_Lighting` | `app/shared/land.h:158` | after what they do (0x46C730, 0x46CAE0, 0x46D410, 0x46D6B0: not rebuilt; 0x46D8B0, 0x46D880) |
-| 2 | `LightmapSerial` | `app/shared/land.h:176` | members after what the ctor 0x468E90, the dtor 0x46A480 and Load_Assets 0x4691D0 do with them; m_UnknownXX: use not known |
-| 2 | `LightColor` | `app/shared/land.h:224` | +0x198..+0x1C4 is the 0x30-byte lighting record Update_Lightmap 0x46D900 / 0x46DA70 copy in (VIDTEST's LandLightingStruct, its names) |
-| 2 | `UpdateX0` | `app/shared/land.h:231` | the lightmap rectangle being updated and the time-sliced update's cursor (0x46D900 / 0x46DA70) |
+| 2 | `LandLightingStruct` | `app/shared/land.h:54` | VIDTEST's name for the 0x30-byte lighting record its Update_Lighting 0x4250B0 hands the land (esp+0x74) |
+| 2 | `MAX_LEVELS` | `app/shared/land.h:123` | the per-level arrays at +0x94..+0xE0 (5 each) |
+| 2 | `MAX_SEAS` | `app/shared/land.h:124` | the sea arrays at +0x140..+0x170 (2 each; Load_Assets clamps to 2) |
+| 2 | `Create` | `app/shared/land.h:130` | Create, Load_Assets describe VIDTEST 0x4068F0 / 0x405750 and the client's 0x46A3A0 / 0x4691D0 ("LoadAssets" in symbols.json) |
+| 2 | `Update_Lightmap_Full` | `app/shared/land.h:142` | Update_Lightmap_Full and Update_Lightmap_Threaded describe 0x46D900 / 0x46DDD0 (VIDTEST 0x40A9F0) |
+| 2 | `Get_Color` | `app/shared/land.h:148` | the colour map at a position (0x46BB20 / 0x46BBF0: Colors, B G R per vertex) |
+| 2 | `Prepare_Lighting` | `app/shared/land.h:159` | after what they do (0x46C730, 0x46CAE0, 0x46D410, 0x46D6B0: not rebuilt; 0x46D8B0, 0x46D880) |
+| 2 | `LightmapSerial` | `app/shared/land.h:177` | members after what the ctor 0x468E90, the dtor 0x46A480 and Load_Assets 0x4691D0 do with them; m_UnknownXX: use not known |
+| 2 | `LightColor` | `app/shared/land.h:225` | +0x198..+0x1C4 is the 0x30-byte lighting record Update_Lightmap 0x46D900 / 0x46DA70 copy in (VIDTEST's LandLightingStruct, its names) |
+| 2 | `UpdateMin` | `app/shared/land.h:232` | the lightmap rectangle being updated and the time-sliced update's cursor (0x46D900 / 0x46DA70) |
 | 2 | `SplineFileHeaderStruct` | `app/shared/spln_db.cpp:15` | chunk 0x800 (version 0x100, entry count, 0, 0), read by Load_Header (0xBE34A8) |
 | 2 | `Copy_String` | `app/shared/spln_db.cpp:25` | an inline copy for the entry's strings (its inlining leaves VectorClass's constructor out of line, as the client's 0x489050) |
 | 2 | `SplineEntryHeaderStruct` | `app/shared/spln_db.cpp:32` | the 0x24 bytes before an entry's name (chunks 0x810 / 0x811) |

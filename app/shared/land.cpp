@@ -7,6 +7,7 @@
 #include "dx8wrapper.h"
 #include "dx8indexbuffer.h"
 #include "vector2.h"
+#include "surfaceclass.h"
 #include <windows.h>
 #include "wwprofile.h"
 
@@ -42,10 +43,8 @@ LandClass::LandClass(void) :
 	ShadowBias(0.05f),
 	SkyColor(0.1f, 0.1f, 0.5f),
 	LightingValid(true),
-	UpdateX0(0),
-	UpdateY0(0),
-	UpdateX1(0),
-	UpdateY1(0),
+	UpdateMin(0, 0),
+	UpdateMax(0, 0),
 	CursorX(0),
 	CursorY(0),
 	ThreadDone(false),
@@ -191,13 +190,13 @@ void LandClass::Update_Lightmap_Full(const LandLightingStruct &lighting)
 	}
 	Set_Lighting(lighting);
 	Prepare_Lighting();
-	int *min = &UpdateX0;
-	int *max = &UpdateX1;
-	min[0] = 0;
-	min[1] = 0;
+	Vector2i &min = UpdateMin;
+	Vector2i &max = UpdateMax;
+	min.I = 0;
+	min.J = 0;
 	int size = Field->Get_Size();
-	max[0] = size;
-	max[1] = size;
+	max.I = size;
+	max.J = size;
 	Compute_Lighting();
 	Compute_Shadows();
 	Upload_Lightmap(min, max);
@@ -222,13 +221,13 @@ void LandClass::Update_Lightmap_ManualThreaded(const LandLightingStruct &lightin
 		Set_Lighting(lighting);
 		Prepare_Lighting();
 	} else {
-		UpdateX0 = CursorX;
-		UpdateY0 = CursorY;
-		UpdateY1 = CursorY + LightmapChunk;
-		UpdateX1 = LightmapChunk + CursorX;
+		UpdateMin.I = CursorX;
+		UpdateMin.J = CursorY;
+		UpdateMax.J = CursorY + LightmapChunk;
+		UpdateMax.I = LightmapChunk + CursorX;
 		Compute_Lighting();
 		Compute_Shadows();
-		Upload_Lightmap(&UpdateX0, &UpdateX1);
+		Upload_Lightmap(UpdateMin, UpdateMax);
 		CursorX += LightmapChunk;
 		if (CursorX == size) {
 			CursorX = 0;
@@ -248,11 +247,11 @@ void LandClass::Update_Lightmap_Threaded(const LandLightingStruct &lighting)
 		if (Thread == NULL) {
 			Set_Lighting(lighting);
 			Prepare_Lighting();
-			UpdateX0 = 0;
-			UpdateY0 = 0;
+			UpdateMin.I = 0;
+			UpdateMin.J = 0;
 			int size = Field->Get_Size();
-			UpdateX1 = size;
-			UpdateY1 = size;
+			UpdateMax.I = size;
+			UpdateMax.J = size;
 			Thread = CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)Lightmap_Thread, this, 0, NULL);
 		}
 		if (WaitForSingleObject(Thread, 0) == WAIT_OBJECT_0) {
@@ -269,12 +268,12 @@ void LandClass::Update_Lightmap_Threaded(const LandLightingStruct &lighting)
 			ThreadDone = false;
 			return;
 		}
-		int min[2];
-		int max[2];
-		min[0] = CursorX;
-		min[1] = y;
-		max[0] = min[0] + LightmapChunk;
-		max[1] = LightmapChunk + y;
+		Vector2i min;
+		Vector2i max;
+		min.I = CursorX;
+		min.J = y;
+		max.I = min.I + LightmapChunk;
+		max.J = LightmapChunk + y;
 		Upload_Lightmap(min, max);
 		CursorX += LightmapChunk;
 		if (CursorX == size) {
@@ -341,6 +340,27 @@ void LandClass::Add_Unknown1218(const RefCountPtr<LandUnknownClass> &object)
 void LandClass::Clear_Unknown1218(void)
 {
 	m_Unknown1218.clear();
+}
+
+// NOT EXACT: frame (0x14, the client 0x20: it keeps this, the size and the buffer in frame slots); 2 forms tried
+void LandClass::Upload_Lightmap(Vector2i &min, Vector2i &max)
+{
+	SurfaceClass *surface = m_Unknown120->Get_Surface_Level(0);
+	if (Is16Bit) {
+		unsigned char *bytes = (unsigned char *)m_Unknown120C;
+		unsigned short *words = (unsigned short *)m_Unknown120C;
+		int size = Field->Get_Size();
+		for (int j = min.J; j < max.J; j++) {
+			for (int i = min.I; i < max.I; i++) {
+				int n = j * size + i;
+				words[n] = (unsigned short)((((unsigned short)(bytes[n * 4 + 3] & 0xF0) << 4) | (unsigned short)(bytes[n * 4 + 2] & 0xF0)) << 4)
+					| (unsigned short)(unsigned char)((bytes[n * 4 + 1] & 0xF0) | (bytes[n * 4] >> 4));
+			}
+		}
+	}
+	surface->Copy(min, max, (unsigned char *)m_Unknown120C);
+	DX8Wrapper::_Update_Texture(m_Unknown120, LightmapTextures[BackLightmap]);
+	REF_PTR_RELEASE(surface);
 }
 
 /*
