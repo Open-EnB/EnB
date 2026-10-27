@@ -16,6 +16,7 @@
 #include "..\packets\pklogoff.h"
 #include "..\packets\pkmessagestring.h"
 #include "..\packets\pkmodechange.h"
+#include "..\packets\pknamedecal.h"
 #include "..\packets\pkpointeffect.h"
 #include "..\packets\pkreferralpointsavailable.h"
 #include "..\packets\pkremove.h"
@@ -54,6 +55,9 @@ public:
 	void Unknown_75B2B0(int channel);	// 0x75B2B0 (SOUND_COMMAND 107)  // NAME 1 [channel]: the packet's field
 };
 extern SoundManagerClass *SoundManager;	// 0xBE82A4  // NAME 2: what it holds
+
+// shiputils.cpp's decal helper (cdecl): the packet's decals on the object's model, with the decal INI
+void Unknown_80E8C0(RenderObjClass *model, std::vector<DecalStruct> &decals, SClientUnknown1334Class *decal_ini);	// 0x80E8C0  // NAME 1 [model, decals, decal_ini]: what DECAL 16 passes
 
 // 0x7333B0
 bool LogoffConfirmationPacketClass::Process_Packet(void *instance)
@@ -106,6 +110,22 @@ bool RemoveEffectPacketClass::Process_Packet(void *instance)
 	EffectObjectClass *effect = sclient->Get_Effect(EffectID);
 	if (effect) {
 		effect->Unknown_6E6E30();
+	}
+	return(true);
+}
+
+// 0x735DF0
+bool DecalPacketClass::Process_Packet(void *instance)
+{
+	WWPROFILE("DecalPacketClass::Process_Packet()");
+	SClient *sclient = (SClient *)instance;
+	ClientObjectClass *object = sclient->Find_Object(GameID);
+	if (object) {
+		RenderObjClass *model = object->Unknown_6F3BC0();
+		if (model) {
+			Unknown_80E8C0(model, Decals, sclient->Unknown1334);
+			model->Release_Ref();
+		}
 	}
 	return(true);
 }
@@ -306,26 +326,6 @@ bool HullUpgradePacketClass::Process_Packet(void *instance)
 	WWPROFILE("HullUpgradePacketClass::Process_Packet(void * instance)");
 	return(true);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
