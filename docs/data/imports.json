@@ -1161,6 +1161,40 @@
     "merged": [],
     "name": "packets/pk_player_object_relationship.cpp"
    },
+   "pk_sub_parts": {
+    "ambiguous": [
+     "0x42A6C0",
+     "0x42B2F0",
+     "0x44C8D0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42A820",
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30",
+     "0x42CAB0",
+     "0x42CD30",
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350",
+     "0x8754D0",
+     "0x875590",
+     "0x8755C0",
+     "0x8756B0",
+     "0x875910",
+     "0x875A40",
+     "0x875A80",
+     "0x875B70",
+     "0x875CA0",
+     "0x875CF0"
+    ],
+    "merged": [],
+    "name": "packets/pk_sub_parts.cpp"
+   },
    "pkaction": {
     "ambiguous": [
      "0x42B2F0"
@@ -3708,6 +3742,7 @@
    "packets/pk.h": "reconstructed",
    "packets/pk_classes.h": "reconstructed",
    "packets/pk_player_object_relationship.h": "reconstructed",
+   "packets/pk_sub_parts.h": "reconstructed",
    "packets/pkaction.h": "reconstructed",
    "packets/pkauxdata.h": "reconstructed",
    "packets/pkcameracontrol.h": "reconstructed",

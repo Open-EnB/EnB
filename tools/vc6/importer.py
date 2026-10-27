@@ -3665,6 +3665,9 @@ RECONSTRUCTED = {
     ('app', 'packets/pkequipuse.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
     ('app', 'packets/pkversionrequest.cpp'): "packet classes (opcode 0, 1) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
     ('app', 'packets/pkversionrequest.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
+    ('app', 'packets/pk_sub_parts.cpp'): "pk_sub_parts.cpp (the client's __FILE__, assert line 64): SUBPARTS 180 written by "
+                                       "hand (builder P4, 8 of 8 exact in appfile.py match), client 0x8754D0-0x875CF0",
+    ('app', 'packets/pk_sub_parts.h'): "SubPartsPacket and SubPartStruct (D24 header name; pk_classes.h includes it)",
     ('app', 'packets/pkverblist.cpp'): "opcode 92 (VERB_UPDATE) written by hand (builder P4: Get_Data_Size and the implicit "
                                      "destructor exact, the constructor, Build and Print NOT EXACT: inline-budget) with "
                                      "std::set<VerbEnum>'s members, client 0x8AEAD0-0x8B15C0; the file name provisional (NAME 1)",

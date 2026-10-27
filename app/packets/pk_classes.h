@@ -19,6 +19,7 @@
 
 #include "pk.h"
 #include "pk_player_object_relationship.h"	// rebuilt
+#include "pk_sub_parts.h"	// rebuilt
 #include "pkaction.h"	// rebuilt
 #include "pkauxdata.h"	// rebuilt
 #include "pkcameracontrol.h"	// rebuilt
@@ -721,14 +722,6 @@ class JobDescriptionPacketClass : public PacketClass
 public:
 	JobDescriptionPacketClass(RawPacketClass *raw);	// 0x8969C0
 	char Unknown0C[0x10];	// +0x0C
-};
-
-// opcode 180 (0x00B4, SUBPARTS): vtable 0xB09BE4, constructor 0x8756B0, 0x24 bytes
-class SubPartsPacket : public PacketClass
-{
-public:
-	SubPartsPacket(RawPacketClass *raw);	// 0x8756B0
-	char Unknown0C[0x18];	// +0x0C
 };
 
 // opcode 181 (0x00B5, ?): vtable 0xB0A5BC, constructor 0x886D40, 0x54 bytes

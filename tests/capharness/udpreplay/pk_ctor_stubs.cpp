@@ -70,7 +70,6 @@ TriggerEmotePacketClass::TriggerEmotePacketClass(RawPacketClass *raw) { Conn_Rec
 NotifyEmotePacketClass::NotifyEmotePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 JobListPacketClass::JobListPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 JobDescriptionPacketClass::JobDescriptionPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-SubPartsPacket::SubPartsPacket(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_00B5Class::Packet_00B5Class(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_00B6Class::Packet_00B6Class(RawPacketClass *raw) { Conn_Record(this, raw); }
 NoteListPacketClass::NoteListPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
@@ -187,6 +186,7 @@ bool WarpIndexPacketClass::Process_Packet(void *) { return(true); }	// 0x73A7F0
 bool StarbaseAvatarUpdatePacketClass::Process_Packet(void *) { return(true); }	// 0x73A9F0
 bool StarbaseAvatarRoomUpdatePacketClass::Process_Packet(void *) { return(true); }	// 0x73AB50
 bool NameDecalPacketClass::Process_Packet(void *) { return(true); }	// 0x735FC0
+bool SubPartsPacket::Process_Packet(void *) { return(true); }	// 0x733A50
 bool ClientChatEventPacketClass::Process_Packet(void *) { return(true); }	// 0x73B150
 bool GuildRecruitConfirmSectorPacket::Process_Packet(void *) { return(true); }	// 0x73E720
 bool GuildSimpleSectorClientPacket::Process_Packet(void *) { return(true); }	// 0x73DD00
