@@ -3496,7 +3496,7 @@ RECONSTRUCTED = {
     ('app', 'shared/ini_manager.h'): "INIManagerClass (D24), the ini files as shared definitions",
     ('app', 'shared/ini_manager.cpp'): "INIManagerClass, client 0x4E9D40-0x4EC260 with definition_manager.h's and "
                                       "definition_auto_ptr.h's instances: the FAIL_IFs on lines 59 / 60 (D25); NOT EXACT: Get_INI "
-                                      "0x4E9E00 (objmatch's $E18), the destructors 0x4EA2B0 / 0x4EAFB0, Release 0x4EB1B0",
+                                      "0x4E9E00, the destructors 0x4EA2B0 / 0x4EAFB0, Release 0x4EB1B0",
     ('app', 'client/sclient.h'): "SClient (the client's 'SClient::Process_Packets'), declared only as far as tsk_game.cpp uses "
                                 "it: constructor 0x7405E0, 0x14F8 bytes (kernel-map.md 6, step 9)",
     ('app', 'client/unknown_authlogin.h'): "EA.Com's login component as the client uses it (PROVISIONAL file name, D10): kcom's factory and IAuthLoginClass (authlogin.dll, tools/vc6/authlogin.def), AuthLoginResponseClass (0x38 bytes; kernel-map-step9.md 4)",

@@ -46,7 +46,7 @@ struct INIManagerHolder
 	RefCountPtr<DefinitionManagerClass<INIClass> > Manager;
 };
 
-// NOT EXACT: the bytes are the client's, but tools/re/objmatch.py rejects the reference to the atexit handler $E18 (symbols.json holds other objects' $E18)
+// NOT EXACT: shape (explain.py: 53 masked rows), the holder's new and the Create_Peek temporary take other registers and frame slots; objmatch would also reject the atexit handler's name $E18 (symbols.json gives it to other objects)
 DefinitionAutoPtr<INIClass> INIManagerClass::Get_INI(const std::string &name)
 {
 	DefinitionAutoPtr<INIClass> ini;

@@ -86,7 +86,7 @@ edit the comments in the code, not this file.
 | `app/shared/heightfield.cpp:197` | `HeightFieldClass::Get_Downhill` | marker | NOT EXACT: written from the pseudocode (0x463F00: frame 0x1C in the client, the corner tests' scheduling) |
 | `app/shared/heightfield.cpp:256` | `HeightFieldClass::Get_Normal` | marker | NOT EXACT: written from the pseudocode (0x464290: the cross products and Normalize as Vector3's) |
 | `app/shared/heightfield.cpp:280` | `HeightFieldClass::Get_Height` | marker | NOT EXACT: written from the pseudocode (0x464600: the cell's two triangles) |
-| `app/shared/ini_manager.cpp:49` | `INIManagerClass::Get_INI` | marker | NOT EXACT: the bytes are the client's, but tools/re/objmatch.py rejects the reference to the atexit handler $E18 (symbols.json holds other objects' $E18) |
+| `app/shared/ini_manager.cpp:49` | `INIManagerClass::Get_INI` | marker | NOT EXACT: shape (explain.py: 53 masked rows), the holder's new and the Create_Peek temporary take other registers and frame slots; objmatch would also reject the atexit handler's name $E18 (symbols.json gives it to other objects) |
 | `app/shared/ini_manager.h:29` | `?` | marker | NOT EXACT: register-only (explain.py), eax / ecx / edx rotated in the inlined Free_Unused (0x4EA2B0) |
 | `app/shared/kv_list.cpp:10` | `KVListClass::~KVListClass` | marker | NOT EXACT: inline budget, the hashtable destructor's clear() inlines _M_delete_node (the client calls 0x4B7B60) |
 | `app/shared/kv_list.cpp:77` | `KVListClass::Get_Value_String` | marker | NOT EXACT: inline budget, the client calls the hashtable's find 0x4B7030 out of line here |
