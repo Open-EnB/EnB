@@ -10,8 +10,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 28 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 35 |
 | 3 | by convention from a client-named file or sibling | 759 |
-| 2 | describes what the code does | 1675 |
-| 1 | neutral placeholder | 2474 |
+| 2 | describes what the code does | 1678 |
+| 1 | neutral placeholder | 2482 |
 
 ## For review (score 3 and below)
 
@@ -305,6 +305,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_6C2080` | `app/client/fontdatabase.cpp:25` | untagged neutral name (D10) |
 | 1 | `Unknown98` | `app/client/fontdatabase.cpp:90` | untagged neutral name (D10) |
 | 1 | `DefaultUnknown98` | `app/client/fontdatabase.cpp:94` | untagged neutral name (D10) |
+| 1 | `Unknown_1C` | `app/client/fontdatabase.cpp:953` | untagged neutral name (D10) |
 | 1 | `Get_Unknown98` | `app/client/fontdatabase.cpp:1068` | untagged neutral name (D10) |
 | 1 | `Unknown_6C49C0` | `app/client/fontdatabase.cpp:1118` | untagged neutral name (D10) |
 | 1 | `Unknown_6C57B0` | `app/client/fontdatabase.cpp:1122` | untagged neutral name (D10) |
@@ -314,11 +315,18 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `DefaultUnknown98` | `app/client/fontdatabase.h:70` | neutral (D10) |
 | 1 | `Font32BaseClass` | `app/client/fontdatabase.h:73` | neutral (D10): the font object's first base (vtable 0xAFE94C) |
 | 1 | `Unknown_00` | `app/client/fontdatabase.h:76` | neutral (D10) |
-| 1 | `Unknown_6BF910` | `app/client/fontdatabase.h:108` | neutral (D10) |
-| 1 | `Unknown_6BFD00` | `app/client/fontdatabase.h:109` | neutral (D10) |
-| 1 | `Unknown_6C2080` | `app/client/fontdatabase.h:110` | untagged neutral name (D10) |
-| 1 | `Get_Unknown98` | `app/client/fontdatabase.h:132` | neutral (D10) |
-| 1 | `Unknown_6C49C0` | `app/client/fontdatabase.h:134` | neutral (D10) |
+| 1 | `Unknown_04` | `app/client/fontdatabase.h:77` | neutral (D10) |
+| 1 | `Unknown_08` | `app/client/fontdatabase.h:78` | neutral (D10) |
+| 1 | `Unknown_0C` | `app/client/fontdatabase.h:79` | neutral (D10) |
+| 1 | `Unknown_10` | `app/client/fontdatabase.h:80` | neutral (D10) |
+| 1 | `Unknown_14` | `app/client/fontdatabase.h:81` | neutral (D10) |
+| 1 | `Unknown_1C` | `app/client/fontdatabase.h:83` | neutral (D10) |
+| 1 | `Unknown0C` | `app/client/fontdatabase.h:92` | neutral (D10) |
+| 1 | `Unknown_6BF910` | `app/client/fontdatabase.h:120` | neutral (D10) |
+| 1 | `Unknown_6BFD00` | `app/client/fontdatabase.h:121` | neutral (D10) |
+| 1 | `Unknown_6C2080` | `app/client/fontdatabase.h:122` | untagged neutral name (D10) |
+| 1 | `Get_Unknown98` | `app/client/fontdatabase.h:146` | neutral (D10) |
+| 1 | `Unknown_6C49C0` | `app/client/fontdatabase.h:148` | neutral (D10) |
 | 1 | `Unknown08` | `app/client/gutter_data.h:26` | untagged neutral name (D10) |
 | 1 | `Unknown08` | `app/client/navigation_data.h:26` | untagged neutral name (D10) |
 | 1 | `Unknown08` | `app/client/radar_data.h:26` | untagged neutral name (D10) |
@@ -2488,7 +2496,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_Debug_Begin_Step` | `tests/capharness/udpreplay/connect_stubs.cpp:35` | untagged neutral name (D10) |
 | 1 | `Unknown_Debug_End_Step` | `tests/capharness/udpreplay/connect_stubs.cpp:36` | untagged neutral name (D10) |
 | 1 | `Unknown_Debug_Print` | `tests/capharness/udpreplay/connect_stubs.cpp:37` | untagged neutral name (D10) |
-| 1 | `Unknown_2C` | `tests/capharness/udpreplay/pk_ctor_stubs.cpp:144` | untagged neutral name (D10) |
+| 1 | `Unknown_2C` | `tests/capharness/udpreplay/pk_ctor_stubs.cpp:142` | untagged neutral name (D10) |
 | 1 | `Unknown08` | `tests/capharness/udpreplay/pkitemba_stubs.cpp:13` | untagged neutral name (D10) |
 | 1 | `Unknown_4BC130` | `tests/capharness/udpreplay/udpreplay.cpp:71` | untagged neutral name (D10) |
 | 2 | `Get_Float` | `app/audio/soundlib.cpp:26` | what it does |
@@ -2679,39 +2687,42 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `DefaultFont` | `app/client/fontdatabase.h:67` | what 0x6C3D40 restores Font from |
 | 2 | `DefaultScale` | `app/client/fontdatabase.h:68` | what 0x6C3D40 restores Scale from |
 | 2 | `DefaultSpacing` | `app/client/fontdatabase.h:69` | what 0x6C3D40 restores Spacing from |
-| 2 | `Font32Class` | `app/client/fontdatabase.h:79` | what font32Ptr points at (0xD30 bytes, constructor 0x6BBAC0) |
-| 2 | `FontStruct` | `app/client/fontdatabase.h:83` | one of the fonts in use (0xC bytes) |
-| 2 | `Name` | `app/client/fontdatabase.h:88` | what Find_Font compares |
-| 2 | `Scale` | `app/client/fontdatabase.h:89` | Scale%d is copied in |
-| 2 | `FontStringStruct` | `app/client/fontdatabase.h:95` | one string template (Template%d, String%d), declared as far as the file needs it |
-| 2 | `Name` | `app/client/fontdatabase.h:98` | the table's key |
-| 2 | `Load` | `app/client/fontdatabase.h:106` | what it does |
-| 2 | `Load_Init` | `app/client/fontdatabase.h:107` | what it does |
-| 2 | `Get_Blend_Type` | `app/client/fontdatabase.h:111` | what it does |
-| 2 | `Get_Direction` | `app/client/fontdatabase.h:112` | what it does |
-| 2 | `Get_Effect_Type` | `app/client/fontdatabase.h:113` | what it does												// 0x6C2080  // NAME 1 [Unknown_6C2080]: neutral (D10) |
-| 2 | `Parse_Directions` | `app/client/fontdatabase.h:114` | what it does |
-| 2 | `Split_Four` | `app/client/fontdatabase.h:115` | what it does |
-| 2 | `Find_Font` | `app/client/fontdatabase.h:116` | what it does |
-| 2 | `Get_Info` | `app/client/fontdatabase.h:117` | as Get_Info, for a given resolution |
-| 2 | `Find_Color` | `app/client/fontdatabase.h:118` | what it does |
-| 2 | `Find_Effect` | `app/client/fontdatabase.h:119` | what it does |
-| 2 | `Find_String` | `app/client/fontdatabase.h:120` | what it does |
-| 2 | `Add_String` | `app/client/fontdatabase.h:121` | what it does |
-| 2 | `Add_Effect` | `app/client/fontdatabase.h:122` | what it does |
-| 2 | `Add_Color` | `app/client/fontdatabase.h:123` | what it does |
-| 2 | `Clear_Infos` | `app/client/fontdatabase.h:124` | what it does |
-| 2 | `Clear_Tables` | `app/client/fontdatabase.h:125` | what it does |
-| 2 | `Clear_Strings` | `app/client/fontdatabase.h:126` | what it does |
-| 2 | `Get_Font_File_Index` | `app/client/fontdatabase.h:128` | what it does |
-| 2 | `Get_Font_File_Name` | `app/client/fontdatabase.h:129` | what it does |
-| 2 | `Get_Scale` | `app/client/fontdatabase.h:130` | what it returns |
-| 2 | `Get_Spacing` | `app/client/fontdatabase.h:131` | what it returns |
-| 2 | `Get_Info` | `app/client/fontdatabase.h:133` | the INIT section for the resolution |
-| 2 | `std:` | `app/client/fontdatabase.h:136` | the INIT sections, by resolution |
-| 2 | `std:` | `app/client/fontdatabase.h:137` | what it holds |
-| 2 | `std:` | `app/client/fontdatabase.h:138` | what it holds |
-| 2 | `std:` | `app/client/fontdatabase.h:139` | what it holds |
+| 2 | `Set_Spacing` | `app/client/fontdatabase.h:82` | what it is given |
+| 2 | `Font32Class` | `app/client/fontdatabase.h:86` | what font32Ptr points at (0xD30 bytes) |
+| 2 | `FontStruct` | `app/client/fontdatabase.h:95` | one of the fonts in use (0xC bytes) |
+| 2 | `Name` | `app/client/fontdatabase.h:100` | what Find_Font compares |
+| 2 | `Scale` | `app/client/fontdatabase.h:101` | Scale%d is copied in |
+| 2 | `FontStringStruct` | `app/client/fontdatabase.h:107` | one string template (Template%d, String%d), declared as far as the file needs it |
+| 2 | `Name` | `app/client/fontdatabase.h:110` | the table's key |
+| 2 | `Load` | `app/client/fontdatabase.h:118` | what it does |
+| 2 | `Load_Init` | `app/client/fontdatabase.h:119` | what it does |
+| 2 | `Get_Blend_Type` | `app/client/fontdatabase.h:123` | what it does |
+| 2 | `Get_Direction` | `app/client/fontdatabase.h:124` | what it does |
+| 2 | `Get_Effect_Type` | `app/client/fontdatabase.h:125` | what it does												// 0x6C2080  // NAME 1 [Unknown_6C2080]: neutral (D10) |
+| 2 | `Parse_Directions` | `app/client/fontdatabase.h:126` | what it does |
+| 2 | `Split_Four` | `app/client/fontdatabase.h:127` | what it does |
+| 2 | `Find_Font` | `app/client/fontdatabase.h:128` | what it does |
+| 2 | `Get_Info` | `app/client/fontdatabase.h:129` | as Get_Info, for a given resolution |
+| 2 | `Find_Color` | `app/client/fontdatabase.h:130` | what it does |
+| 2 | `Find_Effect` | `app/client/fontdatabase.h:131` | what it does |
+| 2 | `Find_String` | `app/client/fontdatabase.h:132` | what it does |
+| 2 | `Add_String` | `app/client/fontdatabase.h:133` | what it does |
+| 2 | `Add_Effect` | `app/client/fontdatabase.h:134` | what it does |
+| 2 | `Add_Color` | `app/client/fontdatabase.h:135` | what it does |
+| 2 | `Clear_Infos` | `app/client/fontdatabase.h:136` | what it does |
+| 2 | `Clear_Tables` | `app/client/fontdatabase.h:137` | what it does |
+| 2 | `Clear_Strings` | `app/client/fontdatabase.h:138` | what it does |
+| 2 | `Set_Font` | `app/client/fontdatabase.h:139` | what it does |
+| 2 | `Restore_Font` | `app/client/fontdatabase.h:140` | what it does |
+| 2 | `Get_Font_File_Index` | `app/client/fontdatabase.h:142` | what it does |
+| 2 | `Get_Font_File_Name` | `app/client/fontdatabase.h:143` | what it does |
+| 2 | `Get_Scale` | `app/client/fontdatabase.h:144` | what it returns |
+| 2 | `Get_Spacing` | `app/client/fontdatabase.h:145` | what it returns |
+| 2 | `Get_Info` | `app/client/fontdatabase.h:147` | the INIT section for the resolution |
+| 2 | `std:` | `app/client/fontdatabase.h:150` | the INIT sections, by resolution |
+| 2 | `std:` | `app/client/fontdatabase.h:151` | what it holds |
+| 2 | `std:` | `app/client/fontdatabase.h:152` | what it holds |
+| 2 | `std:` | `app/client/fontdatabase.h:153` | what it holds |
 | 2 | `Unknown_Load_Assets` | `app/client/sclient.cpp:36` | 0x729BF0 (client_lego_impl.cpp), 'cbasset.ini' (as tsk_smovie.cpp) |
 | 2 | `Unknown_Free_Assets` | `app/client/sclient.cpp:37` | 0x729D60 (client_lego_impl.cpp) (as tsk_smovie.cpp) |
 | 2 | `Unknown_Main_Window` | `app/client/sclient.cpp:39` | what Pump_Messages redraws |
@@ -4205,7 +4216,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `SoundManagerClass` | `app/client/cpacket.cpp:52` | class-from-file (D24) for app\client\sound_manager.cpp |
 | 3 | `emote_data.h` | `app/client/emote_data.h:16` | header name assumed from the client's emote_data.cpp |
 | 3 | `fontdatabase.h` | `app/client/fontdatabase.h:19` | header name assumed from the client's fontdatabase.cpp |
-| 3 | `FontDatabaseClass` | `app/client/fontdatabase.h:101` | by convention (D24) from the client's fontdatabase.cpp |
+| 3 | `FontDatabaseClass` | `app/client/fontdatabase.h:113` | by convention (D24) from the client's fontdatabase.cpp |
 | 3 | `gutter_data.h` | `app/client/gutter_data.h:16` | header name assumed from the client's gutter_data.cpp |
 | 3 | `navigation_data.h` | `app/client/navigation_data.h:16` | header name assumed from the client's navigation_data.cpp |
 | 3 | `radar_data.h` | `app/client/radar_data.h:16` | header name assumed from the client's radar_data.cpp |
