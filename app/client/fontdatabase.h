@@ -104,10 +104,47 @@ struct FontStruct  // NAME 2: one of the fonts in use (0xC bytes)
 struct FontColorStruct;		// fontdatabase.cpp (its TPoint3D<int> member instantiated after the INIT loaders, see the notes)
 struct FontEffectStruct;	// fontdatabase.cpp
 
-struct FontStringStruct  // NAME 2: one string template (Template%d, String%d), declared as far as the file needs it
+struct FontStringStruct  // NAME 2: one string template of a string file (Template%d / String%d keys; 0xEC bytes; "NewStringInfo" by default)
 {
-	~FontStringStruct();													// 0x67F490 (chat_window.cpp's object)
-	StringClass Name;														// +0x00  // NAME 2: the table's key
+	FontStringStruct();													// 0x6BDA40
+	FontStringStruct(const char *string_id, const char *text);				// 0x6BDD30
+	void Reset();														// 0x6BE0E0: the defaults  // NAME 2: what it does
+
+	StringClass StringID;													// +0x00, StringID (the table's key)  // NAME 2: the ini key
+	StringClass Unknown04;												// +0x04  // NAME 1 [Unknown04]: neutral (D10)
+	StringClass Text;														// +0x08: the String%d lines joined by spaces  // NAME 2: what it holds
+	StringClass RenderObj;													// +0x0C, RenderObj  // NAME 2: the ini key
+	StringClass Attach;													// +0x10, Attach  // NAME 2: the ini key
+	int BlendType[2];														// +0x14, BlendType / AltBlendType  // NAME 2: the ini keys
+	StringClass FontType[2];												// +0x1C, FontType / AltFontType  // NAME 2: the ini keys
+	StringClass Color[2];													// +0x24, Color / AltColor  // NAME 2: the ini keys
+	int Justify[2];															// +0x2C, Justify (two directions)  // NAME 2: the ini key
+	float Offset[2];														// +0x34, Offset  // NAME 2: the ini key
+	float Target[2];														// +0x3C, Target  // NAME 2: the ini key
+	float BoxOffset[2];													// +0x44, BoxOffset  // NAME 2: the ini key
+	float Width;															// +0x4C, Width  // NAME 2: the ini key
+	float Wait;															// +0x50, Wait  // NAME 2: the ini key
+	float TimeSpacing;														// +0x54, TimeSpacing  // NAME 2: the ini key
+	float TriggerTime;														// +0x58, TriggerTime  // NAME 2: the ini key
+	float Spacing;															// +0x5C, Spacing  // NAME 2: the ini key
+	float WrapWidth;														// +0x60, WrapWidth  // NAME 2: the ini key
+	bool Rotate90;															// +0x64, Rotate90  // NAME 2: the ini key
+	bool Underline;															// +0x65, Underline  // NAME 2: the ini key
+	StringClass SoundOnID;													// +0x68, SoundOnID  // NAME 2: the ini key
+	float SoundOnVol;														// +0x6C, SoundOnVol  // NAME 2: the ini key
+	float SoundOnDur;														// +0x70, SoundOnDur  // NAME 2: the ini key
+	StringClass SoundOverID;												// +0x74, SoundOverID  // NAME 2: the ini key
+	float SoundOverVol;														// +0x78, SoundOverVol  // NAME 2: the ini key
+	float SoundOverDur;														// +0x7C, SoundOverDur  // NAME 2: the ini key
+	StringClass SoundClickID;												// +0x80, SoundClickID  // NAME 2: the ini key
+	float SoundClickVol;													// +0x84, SoundClickVol  // NAME 2: the ini key
+	float SoundClickDur;													// +0x88, SoundClickDur  // NAME 2: the ini key
+	StringClass EffectOn[4];												// +0x8C, EffectOn  // NAME 2: the ini key
+	StringClass EffectConst[4];												// +0x9C, EffectConst  // NAME 2: the ini key
+	StringClass EffectOff[4];												// +0xAC, EffectOff  // NAME 2: the ini key
+	StringClass MouseOver[4];												// +0xBC, MouseOver  // NAME 2: the ini key
+	StringClass MouseClick[4];												// +0xCC, MouseClick  // NAME 2: the ini key
+	StringClass EffectTriggered[4];											// +0xDC, EffectTriggered  // NAME 2: the ini key
 };
 
 class FontDatabaseClass  // NAME 3: by convention (D24) from the client's fontdatabase.cpp

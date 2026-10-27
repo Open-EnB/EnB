@@ -16,6 +16,67 @@ public:
 };
 
 
+FontStringStruct::FontStringStruct()
+{
+	Reset();
+}
+
+
+FontStringStruct::FontStringStruct(const char *string_id, const char *text)
+{
+	Reset();
+	StringID = string_id;
+	Text = text;
+}
+
+
+// NOT EXACT: inline-budget: the client inlines the first nine string assignments with Store_Length called and calls operator= in the loop; ours inlines all
+void FontStringStruct::Reset()
+{
+	StringID = "NewStringInfo";
+	Unknown04 = "";
+	Text = "";
+	RenderObj = "";
+	Attach = "";
+	FontType[0] = "space6";
+	FontType[1] = "space6";
+	BlendType[0] = 0;
+	BlendType[1] = 0;
+	Color[0] = "WHITE";
+	Color[1] = "BLACK";
+	Justify[0] = 1;
+	Justify[1] = 3;
+	Offset[0] = 0;
+	Offset[1] = 0;
+	Target[0] = 0;
+	Target[1] = 0;
+	BoxOffset[0] = 0;
+	BoxOffset[1] = 0;
+	Width = 0;
+	Wait = 0;
+	Spacing = 1.0f;
+	WrapWidth = 0;
+	TimeSpacing = 0;
+	TriggerTime = 1.0f;
+	Rotate90 = false;
+	Underline = false;
+	SoundOnVol = 1.0f;
+	SoundOnDur = -1.0f;
+	SoundOverVol = 1.0f;
+	SoundOverDur = -1.0f;
+	SoundClickVol = 1.0f;
+	SoundClickDur = -1.0f;
+	for (int i = 0; i < 4; i++) {
+		EffectOn[i] = "";
+		EffectConst[i] = "";
+		EffectOff[i] = "";
+		MouseOver[i] = "";
+		MouseClick[i] = "";
+		EffectTriggered[i] = "";
+	}
+}
+
+
 inline void FontDatabaseClass::Load()
 {
 	Clear_Infos();
@@ -811,72 +872,11 @@ FontStringStruct *FontDatabaseClass::Find_String(const char *name)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // NOT EXACT: register-only: the client copies the found node into edi before the key's destructor; the dead size() keeps find_or_insert out of line
 void FontDatabaseClass::Add_String(FontStringStruct *str)
 {
-	if (str && str->Name) {
-		std::string name(str->Name);
+	if (str && str->StringID) {
+		std::string name(str->StringID);
 		if (Find_String(name.c_str()) != NULL) {
 			G_ASSERT(0);
 		} else {
@@ -1179,7 +1179,8 @@ int FontInitStruct::Find_Chat_Index(const char *chat_name)
 **	hash_map instances (libs/sgistl, D87; the bucket functions over the string hash 0x42DB00 at 0x6C7D80 /
 **	0x6C7F00 / 0x6C8080 / 0x6C8200).
 **
-**	Written so far: the constructor 0x6BE5C0 (through an inline Load: Clear_Infos, Clear_Tables, the three ini
+**	Written so far: FontStringStruct's constructors 0x6BDA40 / 0x6BDD30 and Reset 0x6BE0E0 (NOT EXACT; the
+**	struct's implicit destructor is the client's folded copy 0x67F490 in chat_window.cpp), the constructor 0x6BE5C0 (through an inline Load: Clear_Infos, Clear_Tables, the three ini
 **	loaders, Clear_Strings, 0x6C2080), FontStruct's inline constructor 0x6BE7C0 and implicit destructor
 **	0x6BEB60, the destructor 0x6BEBF0, Load_Init 0x6BF330 (an INIT section, its Template%d sections first,
 **	recursively), 0x6BF910 (fontsys.ini: ALL_FONTS into AllFonts, the INIT-n sections into Infos, with
