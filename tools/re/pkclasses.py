@@ -165,6 +165,26 @@ def rebuilt_classes():
     return out
 
 
+def rebuilt_names():
+    """The names of every class a rebuilt header (app/packets/*.h but pk.h / pk_classes.h) declares:
+    a base the factory never makes is rebuilt when its name is among them (pk_classes.h then neither
+    declares it nor gives the harness its constructor or OVERRIDES' stubs)."""
+    out = set()
+    base = os.path.join(ROOT, 'app', 'packets')
+    for sub in ('', 'gameedit'):
+        d = os.path.join(base, sub)
+        if not os.path.isdir(d):
+            continue
+        for fn in sorted(os.listdir(d)):
+            if not fn.endswith('.h') or (not sub and fn in ('pk.h', 'pk_classes.h')):
+                continue
+            for l in open(os.path.join(d, fn)).read().splitlines():
+                m = re.match(r'^class (\w+)', l)
+                if m:
+                    out.add(m.group(1))
+    return out
+
+
 def camel(op_name):
     return ''.join(w[:1] + w[1:].lower() for w in op_name.split('_') if w)
 
@@ -316,6 +336,9 @@ def main():
         else:
             e['name'] = 'Unknown_%XPacketClass' % e['ctor']
             e['tag'] = 'NAME 1: neutral (D10)'
+    base_rebuilt = rebuilt_names()
+    for e in extra.values():
+        e['rebuilt'] = e['name'] in base_rebuilt
 
     # the stubs each class declares (not those it inherits from its base)
     for r in list(extra.values()) + rows:
@@ -391,7 +414,8 @@ def main():
         return out
 
     for e in sorted(extra.values(), key=lambda e: e['ctor']):
-        h += decl(e)
+        if not e['rebuilt']:
+            h += decl(e)
     done = set()
     for r in sorted(rows, key=lambda r: r['state']):
         if r['inline'] and r['base'].get('op') is not None and r['base']['op'] not in done:
@@ -441,7 +465,8 @@ def main():
           '#include "..\\..\\..\\app\\packets\\pk_classes.h"', '',
           'void Conn_Record(PacketClass *packet, RawPacketClass *raw);', '']
     for e in sorted(extra.values(), key=lambda e: e['ctor']):
-        st.append('%s::%s(RawPacketClass *raw) { Conn_Record(this, raw); }' % (e['name'], e['name']))
+        if not e['rebuilt']:
+            st.append('%s::%s(RawPacketClass *raw) { Conn_Record(this, raw); }' % (e['name'], e['name']))
     for r in sorted(rows, key=lambda r: r['state']):
         if not r['inline'] and not r.get('rebuilt'):
             st.append('%s::%s(RawPacketClass *raw) { Conn_Record(this, raw); }' % (r['name'], r['name']))
@@ -455,6 +480,8 @@ def main():
     st.append('// What OVERRIDES declares out of line (the classes\' own files, not rebuilt)')
     allr = list(extra.values()) + rows
     for r in sorted(allr, key=lambda r: str(key(r))):
+        if r.get('rebuilt') and 'op' not in r:
+            continue
         for d in OVERRIDES.get(key(r), ([], []))[1]:
             st.append(d.replace('{C}', r['name']))
     stubs = '\n'.join(st) + '\n'

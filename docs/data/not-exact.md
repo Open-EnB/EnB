@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-91 entries in 26 files.
+93 entries in 26 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|

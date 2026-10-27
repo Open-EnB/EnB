@@ -99,19 +99,6 @@
 #include "pkversionrequest.h"	// rebuilt
 #include "pkwarpindex.h"	// rebuilt
 
-// the base of PriorityMessageLinePacketClass, QueueMessageLinePacketClass, PushMessageLinePacketClass: vtable 0xB0B3A4, constructor 0x89D8A0
-class MessageLinePacketClass : public PacketClass  // NAME 3: by convention from its derived classes PriorityMessageLinePacketClass, QueueMessageLinePacketClass, PushMessageLinePacketClass
-{
-public:
-	MessageLinePacketClass(RawPacketClass *raw);	// 0x89D8A0
-	virtual ~MessageLinePacketClass();	// +0x00 0x89D870 / 0x89D970
-	virtual int Get_Channel() { return(-2); }	// +0x18 0x86E6A0
-	virtual int Get_Priority() { return(0); }	// +0x1C 0x86E680
-	virtual int Get_Type() = 0;	// +0x28  // NAME 2: what the derived classes' return (their opcode)
-	virtual const char *Get_Name() = 0;	// +0x2C  // NAME 2: what the derived classes' return (a name)
-	char Unknown0C[0x10];	// +0x0C
-};
-
 // opcode 2 (0x0002, LOGIN): vtable 0xB0B014, constructor 0x89A850, 0xB8 bytes
 class LoginPacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name LOGIN (the Net-7 opcode table; no structure check)
 {

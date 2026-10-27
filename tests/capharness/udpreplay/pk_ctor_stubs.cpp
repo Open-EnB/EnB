@@ -4,7 +4,6 @@
 
 void Conn_Record(PacketClass *packet, RawPacketClass *raw);
 
-MessageLinePacketClass::MessageLinePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 LoginPacketClass::LoginPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 SimplePositionalUpdatePacketClass::SimplePositionalUpdatePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 ComponentPositionalUpdatePacketClass::ComponentPositionalUpdatePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
@@ -207,4 +206,3 @@ bool PriorityMessageLinePacketClass::Process_Packet(void *) { return(true); }
 bool QueueMessageLinePacketClass::Process_Packet(void *) { return(true); }
 bool PushMessageLinePacketClass::Process_Packet(void *) { return(true); }
 bool ServerRedirectPacketClass::Process_Packet(void *) { return(true); }
-MessageLinePacketClass::~MessageLinePacketClass() {}
