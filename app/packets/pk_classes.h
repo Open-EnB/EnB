@@ -589,15 +589,6 @@ public:
 	char Unknown0C[0x34];	// +0x0C
 };
 
-// opcode 220 (0x00DC, ?): vtable 0xB0AD94, constructor 0x893E80, 0x30 bytes
-class GuildDeductFeePacketClass : public PacketClass  // NAME 3: the client's Print text 'GuildDeductFeePacket {' and the PacketClass convention
-{
-public:
-	GuildDeductFeePacketClass(RawPacketClass *raw);	// 0x893E80
-	virtual bool Process_Packet(void *client);	// +0x08 0x869330 (clientstub.cpp l.407)
-	char Unknown0C[0x24];	// +0x0C
-};
-
 // opcode 230 (0x00E6, ?): vtable 0xB093C8, constructor 0x863940, 0x38 bytes
 class Packet_00E6Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x00E6
 {

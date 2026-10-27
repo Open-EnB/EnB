@@ -20,6 +20,7 @@
 #include "vector3.h"
 #include "pknotelist.h"
 #include "pkguildranknamesrequestclient.h"
+#include "pkunknown_873a00.h"
 #include <string>
 #include <vector>
 
@@ -320,6 +321,23 @@ public:
 	char AccountName[0x41];	// +0x1C (sent as its 0x41 bytes)  // NAME 3: the client's Print text 'AccountName='
 	__int64 AccountID;	// +0x60  // NAME 3: the client's Print text 'AccountID='
 	__int64 Unknown68;	// +0x68 (zeroed; not sent)
+};
+
+// opcode 220 (0x00DC, ?): vtable 0xB0AD94, constructor 0x893E80, 0x30 bytes
+class GuildDeductFeePacketClass : public PacketClass  // NAME 3: the client's Print text 'GuildDeductFeePacket {' and the PacketClass convention
+{
+public:
+	GuildDeductFeePacketClass(__int64 player_id, const MoneyClass &num_credits, const char *description);	// 0x893CD0
+	GuildDeductFeePacketClass(RawPacketClass *raw);	// 0x893E80
+	virtual ~GuildDeductFeePacketClass();	// +0x00 0x893FE0 / 0x893E50
+	virtual RawPacketClass *Build();	// +0x04 0x894050
+	virtual bool Process_Packet(void *client);	// +0x08 0x869330 (clientstub.cpp)
+	virtual int Get_Data_Size();	// +0x0C 0x894130
+	virtual int Print(char *buffer, int len);	// +0x10 0x894180
+
+	__int64 PlayerID;	// +0x10  // NAME 3: the client's Print text 'PlayerID='
+	MoneyClass NumCredits;	// +0x18 (8 bytes, through MoneyPacketDataClass)  // NAME 3: the client's Print text 'NumCredits='
+	std::string Description;	// +0x20 (a 2-byte length, then the bytes)  // NAME 3: the client's Print text 'Description='
 };
 
 #endif

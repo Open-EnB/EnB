@@ -148,6 +148,13 @@ bool String_To_Value(const char *text, MoneyClass *value)
 #include <string>
 #include <vector>
 
+// 0x4F00C0: money.cpp's conversion (opcode 220's Print): the amount in decimal
+std::string MoneyClass::Unknown_4F00C0(bool) const
+{
+	char buffer[32];
+	return std::string(_i64toa(m_Unknown00, buffer, 10));
+}
+
 // 0x8B44E0: the int64 in decimal (the client's behaviour)
 char *Unknown_8B44E0(__int64 value, char *buffer)
 {

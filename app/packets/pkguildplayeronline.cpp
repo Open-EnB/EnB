@@ -684,6 +684,49 @@ int GuildPlayerInfoDeletedPacketClass::Print(char *buffer, int len)
 	return(_snprintf(buffer, len, "GuildPlayerInfoDeleted { PlayerID=%s Slot=%d AccountName=%s AccountID=%s }", Unknown_8B44E0(PlayerID, player_id), Slot, AccountName, Unknown_8B44E0(AccountID, account_id)));
 }
 
+GuildDeductFeePacketClass::GuildDeductFeePacketClass(__int64 player_id, const MoneyClass &num_credits, const char *description) :
+	PlayerID(player_id),
+	NumCredits(num_credits),
+	Description(description)
+{
+}
+
+GuildDeductFeePacketClass::GuildDeductFeePacketClass(RawPacketClass *raw) :
+	PlayerID(0),
+	NumCredits(),
+	Description("")
+{
+	raw->Get(PlayerID);
+	MoneyPacketDataClass money(&NumCredits);
+	raw->Get(money);
+	raw->Get(&Description);
+}
+
+GuildDeductFeePacketClass::~GuildDeductFeePacketClass()
+{
+}
+
+RawPacketClass *GuildDeductFeePacketClass::Build()
+{
+	RawPacketClass *raw = new RawPacketClass(220, Get_Data_Size());
+	raw->Add(PlayerID);
+	MoneyPacketDataClass money(&NumCredits);
+	raw->Add(money);
+	raw->Add(Description);
+	return(raw);
+}
+
+int GuildDeductFeePacketClass::Get_Data_Size()
+{
+	return(RawPacketClass::Get_Size(Description) + sizeof(PlayerID) + MoneyPacketDataClass(&NumCredits).Get_Size());
+}
+
+int GuildDeductFeePacketClass::Print(char *buffer, int len)
+{
+	char player_id[32];
+	return(_snprintf(buffer, len, "GuildDeductFeePacket { PlayerID=%s NumCredits=%s Description=%s }", Unknown_8B44E0(PlayerID, player_id), NumCredits.Unknown_4F00C0(false).c_str(), Description.c_str()));
+}
+
 
 /*
 **	Reconstruction notes (pkguildplayeronline.cpp)
@@ -692,6 +735,6 @@ int GuildPlayerInfoDeletedPacketClass::Print(char *buffer, int len)
 **	  is 0x894390): the guild packets 193-220 not in pkguildranknamesrequestclient.cpp. Written by hand
 **	  (builder P4, 2026-10-27); each class's value constructor comes first, then the raw one.
 **	* The file name is provisional (no assert names it).
-**	* Not rebuilt yet: opcode 220 (declared in pk_classes.h: its MoneyClass NumCredits goes through money.cpp
-**	  0x4F00C0 and a packet-data wrapper, vtable 0xB0ADC4).
+**	* Opcode 220 written by hand (builder P5, 2026-10-27): NumCredits goes through the packet-data wrapper
+**	  MoneyPacketDataClass (pkunknown_873a00.cpp, vtable 0xB0ADC4) and Print through money.cpp's 0x4F00C0.
 */

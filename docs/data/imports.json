@@ -2288,7 +2288,14 @@
      "0x8937F0",
      "0x8938F0",
      "0x893B50",
-     "0x893C50"
+     "0x893C50",
+     "0x893CD0",
+     "0x893E50",
+     "0x893E80",
+     "0x893FE0",
+     "0x894050",
+     "0x894130",
+     "0x894180"
     ],
     "merged": [],
     "name": "packets/pkguildplayeronline.cpp"
@@ -3722,6 +3729,19 @@
     "merged": [],
     "name": "packets/pkunknown_867010.cpp"
    },
+   "pkunknown_873a00": {
+    "ambiguous": [
+     "0x42B2F0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x873A00",
+     "0x873A40"
+    ],
+    "merged": [],
+    "name": "packets/pkunknown_873a00.cpp"
+   },
    "pkunknown_877c80": {
     "ambiguous": [
      "0x42B2F0"
@@ -4856,6 +4876,7 @@
    "packets/pkunknown_8667a0.h": "reconstructed",
    "packets/pkunknown_866ac0.h": "reconstructed",
    "packets/pkunknown_867010.h": "reconstructed",
+   "packets/pkunknown_873a00.h": "reconstructed",
    "packets/pkunknown_877c80.h": "reconstructed",
    "packets/pkunknown_87a940.h": "reconstructed",
    "packets/pkunknown_87acd0.h": "reconstructed",
