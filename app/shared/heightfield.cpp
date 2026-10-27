@@ -191,6 +191,89 @@ void HeightFieldClass::Get_Vertex(unsigned int i, unsigned int j, Vector3 *out)
 	out->Z = Get_Height(i, j);
 }
 
+// NOT EXACT: written from the pseudocode (0x463F00: frame 0x1C in the client, the corner tests' scheduling)
+void HeightFieldClass::Get_Downhill(Vector3 *direction, const Vector2 &pos)
+{
+	float fx = pos.X / XSpacing + HalfSize;
+	float fy = pos.Y / YSpacing + HalfSize;
+	int i = (int)floor(fx);
+	int j = (int)floor(fy);
+	unsigned int row1 = ((j + 1) & Mask) << Log2;
+	float tx = fx - i;
+	float ty = fy - j;
+	unsigned int row0 = (j & Mask) << Log2;
+	unsigned int i1 = (i + 1) & Mask;
+	float h01 = Heights[row1 + (i & Mask)] * VScale;
+	float h10 = Heights[i1 + row0] * VScale;
+	float h00 = Heights[row0 + (i & Mask)] * VScale;
+	float h11 = Heights[i1 + row1] * VScale;
+	float h;
+	if (ty <= tx) {
+		h = (h11 - h10) * ty + (1.0f - tx) * (h00 - h10) + h10;
+	} else {
+		h = (h11 - h01) * tx + (1.0f - ty) * (h00 - h01) + h01;
+	}
+	int corner = -1;
+	if (h00 < h) {
+		corner = 0;
+		h = h00;
+	}
+	if (h10 < h) {
+		corner = 1;
+		h = h10;
+	}
+	if (h11 < h) {
+		corner = 2;
+		h = h11;
+	}
+	if (h01 < h) {
+		corner = 3;
+	}
+	Vector2 d(0.0f, 0.0f);
+	switch (corner) {
+		case 0:
+			d.Set(-tx, -ty);
+			break;
+		case 1:
+			d.Set(1.0f - tx, -ty);
+			break;
+		case 2:
+			d.Set(1.0f - tx, 1.0f - ty);
+			break;
+		case 3:
+			d.Set(-tx, 1.0f - ty);
+			break;
+	}
+	if (corner >= 0) {
+		d.Normalize();
+	}
+	direction->Set(d.X, d.Y, 0.0f);
+}
+
+// NOT EXACT: written from the pseudocode (0x464290: the cross products and Normalize as Vector3's)
+void HeightFieldClass::Get_Normal(Vector3 *normal, const Vector2 &pos)
+{
+	float fx = pos.X / XSpacing + HalfSize;
+	float fy = pos.Y / YSpacing + HalfSize;
+	int i = (int)floor(fx);
+	int j = (int)floor(fy);
+	unsigned int i1 = (i + 1) & Mask;
+	unsigned int row0 = (j & Mask) << Log2;
+	unsigned int row1 = ((j + 1) & Mask) << Log2;
+	float h00 = Heights[row0 + (i & Mask)] * VScale;
+	float h11 = Heights[i1 + row1] * VScale;
+	Vector3 n;
+	if (fy - j <= fx - i) {
+		float h10 = Heights[i1 + row0] * VScale;
+		n = Vector3::Cross_Product(Vector3(XSpacing, 0.0f, h10 - h00), Vector3(XSpacing, YSpacing, h11 - h00));
+	} else {
+		float h01 = Heights[row1 + (i & Mask)] * VScale;
+		n = Vector3::Cross_Product(Vector3(XSpacing, YSpacing, h11 - h00), Vector3(0.0f, YSpacing, h01 - h00));
+	}
+	n.Normalize();
+	*normal = n;
+}
+
 // NOT EXACT: written from the pseudocode (0x464600: the cell's two triangles)
 float HeightFieldClass::Get_Height(const Vector2 &pos)
 {
@@ -274,8 +357,9 @@ void HeightFieldClass::Sample(Vector3 *out, float u, float v) const
 **	heightfield.cpp is a proposal), and VIDTEST's 2002 copy 0x4023D0-0x404B30, in the client's order:
 **	the constructor 0x4634A0, Load 0x4634F0, the destructor 0x463790, the PGM reader 0x4637C0, Sample
 **	0x463BF0, Get_Height 0x463C80 / 0x463CD0, Set_Height 0x463D20 / 0x463D90, World_To_Grid 0x463E00,
-**	Get_Vertex 0x463E70, Get_Height(position) 0x464600. Not rebuilt: the collision code 0x463F00-
-**	0x465D30 (CollisionMath::Collide over the field's triangles). The functions after the notes'
+**	Get_Vertex 0x463E70, Get_Downhill 0x463F00, Get_Normal 0x464290, Get_Height(position) 0x464600. Not
+**	rebuilt: the collision code 0x4647C0, 0x465030, 0x4654E0 (LandClass's Cast_Ray, Cast_AABox,
+**	Cast_OBBox forward to them through 0x46C680-0x46C6E0) and 0x465D30 (called by the land's render). The functions after the notes'
 **	"Ours" are VIDTEST's land's (functional, D42). The decorations keep the bilinear Sample(u, v)
 **	for now: the client's Sample 0x463BF0 (two triangles per cell) moves a tree 1.8 units on average
 **	over the river map (52 at most), and vidtest_sbs's run-to-run spread (about 1.5% of the pixels)

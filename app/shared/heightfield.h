@@ -49,6 +49,8 @@ public:
 	void						Set_Height_2(float height, unsigned int i, unsigned int j);	// NAME 1: the same code at a second address (0x463D90)
 	void						World_To_Grid(const Vector2 &pos, float *i, float *j);
 	void						Get_Vertex(unsigned int i, unsigned int j, Vector3 *out);
+	void						Get_Downhill(Vector3 *direction, const Vector2 &pos);	// NAME 2: towards the cell's lowest corner below the point (0x463F00)
+	void						Get_Normal(Vector3 *normal, const Vector2 &pos);	// NAME 2: the triangle's normal (0x464290)
 	float						Get_Height(const Vector2 &pos);
 
 // NAME 2: ours (VIDTEST's land, functional): the grid clamped at the edges, world coordinates

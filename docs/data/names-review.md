@@ -1080,6 +1080,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_48` | `app/shared/auxdata/unknown_root.h:54` | untagged neutral name (D10) |
 | 1 | `m_UnknownA4` | `app/shared/auxdata/unknown_root.h:60` | untagged neutral name (D10) |
 | 1 | `Unknown_Get_Ticks` | `app/shared/auxdata/unknown_root.h:65` | untagged neutral name (D10) |
+| 1 | `Get_Height_2` | `app/shared/heightfield.h:47` | the same code at a second address (0x463CD0) |
+| 1 | `Set_Height_2` | `app/shared/heightfield.h:49` | the same code at a second address (0x463D90) |
 | 1 | `Unknown_Join` | `app/shared/kv_encoder_base.cpp:8` | untagged neutral name (D10) |
 | 1 | `m_Unknown2C` | `app/shared/kv_encoder_base.cpp:63` | untagged neutral name (D10) |
 | 1 | `m_Unknown1C` | `app/shared/kv_encoder_base.cpp:63` | untagged neutral name (D10) |
@@ -1870,10 +1872,14 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Policy` | `app/shared/auxdata/unknown_root.h:59` | describes what it does |
 | 2 | `Changes` | `app/shared/auxdata/unknown_root.h:61` | describes what it does |
 | 2 | `As_Int` | `app/shared/duration.h:188` | describes what it does |
-| 2 | `Next_Token` | `app/shared/heightfield.cpp:58` | ours, the PGM tokenizer |
-| 2 | `heightfield.h` | `app/shared/heightfield.h:28` | describes the class; no assert or __FILE__ names the file |
-| 2 | `HeightFieldClass` | `app/shared/heightfield.h:36` | after land.ini's [HEIGHTMAP] / HEIGHT_MAP; the client names no class |
-| 2 | `Load` | `app/shared/heightfield.h:43` | methods and members describe what they do / hold (VIDTEST 0x402420, 0x4026B0, 0x402AE0) |
+| 2 | `Clamp_Int` | `app/shared/duration.h:200` | describes what it does |
+| 2 | `heightfield.h` | `app/shared/heightfield.h:27` | describes the class; no assert or __FILE__ names the file |
+| 2 | `HeightFieldClass` | `app/shared/heightfield.h:35` | after land.ini's [HEIGHTMAP] / HEIGHT_MAP; the client names no class |
+| 2 | `Load` | `app/shared/heightfield.h:42` | methods after what they do (the client's 0x4634F0, 0x4637C0, 0x463BF0, 0x463C80-0x463E70, 0x464600) |
+| 2 | `Get_Downhill` | `app/shared/heightfield.h:52` | towards the cell's lowest corner below the point (0x463F00) |
+| 2 | `Get_Normal` | `app/shared/heightfield.h:53` | the triangle's normal (0x464290) |
+| 2 | `Get_Size` | `app/shared/heightfield.h:56` | ours (VIDTEST's land, functional): the grid clamped at the edges, world coordinates |
+| 2 | `Heights` | `app/shared/heightfield.h:68` | members after what Load and the PGM reader store |
 | 2 | `KVEncoderDataClass` | `app/shared/kv_encoder_base.h:29` | after the asserts' Data |
 | 2 | `Flags` | `app/shared/kv_encoder_base.h:34` | after the asserts' FlagList |
 | 2 | `Make_Key` | `app/shared/kv_encoder_base.h:46` | describes what it does |
