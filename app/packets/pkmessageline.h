@@ -34,6 +34,10 @@ public:
 	virtual int Get_Priority() { return(0); }	// +0x1C 0x86E680
 	virtual int Get_Type() = 0;	// +0x28  // NAME 2: what the derived classes' return (their opcode)
 	virtual const char *Get_Name() = 0;	// +0x2C  // NAME 2: what the derived classes' return (a name)
+	char *Get_String() { return(String); }	// inline (the handlers 32-34 read it)  // NAME 2: what it returns
+	int Get_Time_MS() { return(TimeMS); }	// inline  // NAME 2: what it returns
+	char *Get_Ephemeral_Type() { return(Ephemeral_Type); }	// inline  // NAME 2: what it returns
+	int Get_Display_Priority() { return(Display_Priority); }	// inline  // NAME 2: what it returns
 
 	char *String;	// +0x0C (new[]'d)  // NAME 3: the client's Print text 'String='
 	char *Ephemeral_Type;	// +0x10 (new[]'d)  // NAME 3: the client's Print text 'Ephemeral_Type='
@@ -49,7 +53,7 @@ public:
 	ClearMessageLinePacketClass();	// 0x89DBB0
 	ClearMessageLinePacketClass(RawPacketClass *raw);	// 0x89DC60
 	virtual RawPacketClass *Build();	// +0x04 0x89DCC0
-	virtual bool Process_Packet(void *client);	// +0x08 0x736D00 (not rebuilt)
+	virtual bool Process_Packet(void *client);	// +0x08 0x736D00 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x89DD40
 	virtual int Print(char *buffer, int len);	// +0x10 0x89DD60
 	virtual int Get_Channel() { return(-2); }	// +0x18 0x89DC10
@@ -64,12 +68,13 @@ public:
 	SuperLinePacketClass(RawPacketClass *raw);	// 0x89DEB0
 	virtual ~SuperLinePacketClass();	// +0x00 0x89DE80 / 0x89DF40
 	virtual RawPacketClass *Build();	// +0x04 0x89DF80
-	virtual bool Process_Packet(void *client);	// +0x08 0x736C60 (not rebuilt)
+	virtual bool Process_Packet(void *client);	// +0x08 0x736C60 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x89E050
 	virtual int Print(char *buffer, int len);	// +0x10 0x89E080
 	virtual int Get_Channel() { return(-2); }	// +0x18 0x89DE40
 	virtual int Get_Priority() { return(0); }	// +0x1C 0x89DE20
 	virtual int Get_Type() { return(35); }	// +0x28 0x89DE60  // NAME 2: what it returns (the opcode Build sends), as MessageLinePacketClass's
+	char *Get_String() { return(String); }	// inline (the handler 35 reads it)  // NAME 2: what it returns
 
 	char *String;	// +0x0C (new[]'d, a 0-terminated string)  // NAME 3: the client's Print text 'String='
 };

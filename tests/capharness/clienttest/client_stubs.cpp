@@ -157,6 +157,23 @@ void SoundManagerClass::Unknown_75B2B0(int channel) { Trace("stub SoundManagerCl
 static SoundManagerClass The_Sound_Manager;
 SoundManagerClass *SoundManager = &The_Sound_Manager;
 
+// ui_line_display.cpp (the handlers 32-36 through SClient +0x1280): the members cpacket.cpp calls, as
+// ui_line_display.h declares them (non-virtual: same mangling); clienttest.cpp points LineDisplay at a fake
+class UILineDisplayClass
+{
+public:
+	void Add_Line(const char *text, int display_time, const char *font, int priority);
+	void Add_Line_7(const char *text, int display_time, const char *font);
+	void Add_Line_3(const char *text, int display_time, const char *font);
+	void Show_Ephemeral(const char *type);
+	void Flush_Lines();
+};
+void UILineDisplayClass::Add_Line(const char *text, int display_time, const char *font, int priority) { Trace("stub UILineDisplayClass::Add_Line '%s' %d '%s' %d", text ? text : "(null)", display_time, font ? font : "(null)", priority); }
+void UILineDisplayClass::Add_Line_7(const char *text, int display_time, const char *font) { Trace("stub UILineDisplayClass::Add_Line_7 '%s' %d '%s'", text ? text : "(null)", display_time, font ? font : "(null)"); }
+void UILineDisplayClass::Add_Line_3(const char *text, int display_time, const char *font) { Trace("stub UILineDisplayClass::Add_Line_3 '%s' %d '%s'", text ? text : "(null)", display_time, font ? font : "(null)"); }
+void UILineDisplayClass::Show_Ephemeral(const char *type) { Trace("stub UILineDisplayClass::Show_Ephemeral '%s'", type ? type : "(null)"); }
+void UILineDisplayClass::Flush_Lines() { Trace("stub UILineDisplayClass::Flush_Lines"); }
+
 // shiputils.cpp 0x80E8C0 (DECAL 16)
 class SClientUnknown1334Class;
 void Unknown_80E8C0(RenderObjClass *, std::vector<DecalStruct> &decals, SClientUnknown1334Class *) { Trace("stub Unknown_80E8C0 %d decals", (int)decals.size()); }

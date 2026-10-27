@@ -88,6 +88,10 @@ check taken on the third call; nothing more to read: ok
 messages 1000
 stub TaskClass::Is_Focused -> 1
 loadingview 0C 1
+msg 93 ? (33) size 65: cpacket.cpp's handler
+stub UILineDisplayClass::Add_Line_7 'Group bonus gained: +5% item sell value.' 3000 'MessageLine'
+msg 94 ? (33) size 106: cpacket.cpp's handler
+stub UILineDisplayClass::Add_Line_7 'Pehuo must obtain level 72 in order to contribute a grouping bonus to this group.' 3000 'MessageLine'
 mainview add 38884
 mainview add 38687
 mainview add 38946
@@ -352,7 +356,6 @@ recorded OBJECT_EFFECT (9) x10
 recorded OBJECT_TO_OBJECT_EFFECT (11) x1
 recorded COLORIZATION (17) x2
 recorded AUX_DATA (27) x213
-recorded ? (33) x2
 recorded ITEM_BASE (37) x89
 recorded CLIENT_SET_TIME (52) x3
 recorded CLIENT_AVATAR (55) x1
@@ -369,5 +372,5 @@ recorded NAVIGATION (153) x11
 recorded WARP_INDEX (156) x1
 recorded CLIENT_CHAT_EVENT (165) x4
 recorded NAME_DECAL (178) x2
-recorded 979, through cpacket.cpp's handlers 21
+recorded 977, through cpacket.cpp's handlers 23
 == done: 0 checks failed

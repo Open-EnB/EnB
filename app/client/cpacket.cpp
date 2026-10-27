@@ -5,6 +5,7 @@
 */
 #include <windows.h>
 #include "sclient.h"
+#include "ui_line_display.h"
 #include "..\packets\pk_sub_parts.h"
 #include "..\packets\pkclientship.h"
 #include "..\packets\pkconfirmedaction.h"
@@ -14,6 +15,8 @@
 #include "..\packets\pkincapacitancerequest.h"
 #include "..\packets\pkinitrenderstate.h"
 #include "..\packets\pklogoff.h"
+#include "..\packets\pk_classes.h"
+#include "..\packets\pkmessageline.h"
 #include "..\packets\pkmessagestring.h"
 #include "..\packets\pkmessagetime.h"
 #include "..\packets\pkmodechange.h"
@@ -187,6 +190,61 @@ bool MessageTimePacketClass::Process_Packet(void *instance)
 	return(true);
 }
 
+// 0x736A20
+bool PriorityMessageLinePacketClass::Process_Packet(void *instance)
+{
+	WWPROFILE("PriorityMessageLinePacketClass::Process_Packet()");
+	UILineDisplayClass *display = ((SClient *)instance)->LineDisplay;
+	if (display) {
+		display->Add_Line(Get_String(), Get_Time_MS(), Get_Ephemeral_Type(), Get_Display_Priority());
+	}
+	return(true);
+}
+
+// 0x736AE0
+bool QueueMessageLinePacketClass::Process_Packet(void *instance)
+{
+	WWPROFILE("QueueMessageLinePacketClass::Process_Packet()");
+	UILineDisplayClass *display = ((SClient *)instance)->LineDisplay;
+	if (display) {
+		display->Add_Line_7(Get_String(), Get_Time_MS(), Get_Ephemeral_Type());
+	}
+	return(true);
+}
+
+// 0x736BA0
+bool PushMessageLinePacketClass::Process_Packet(void *instance)
+{
+	WWPROFILE("PushMessageLinePacketClass::Process_Packet()");
+	UILineDisplayClass *display = ((SClient *)instance)->LineDisplay;
+	if (display) {
+		display->Add_Line_3(Get_String(), Get_Time_MS(), Get_Ephemeral_Type());
+	}
+	return(true);
+}
+
+// 0x736C60
+bool SuperLinePacketClass::Process_Packet(void *instance)
+{
+	WWPROFILE("SuperLinePacketClass::Process_Packet()");
+	UILineDisplayClass *display = ((SClient *)instance)->LineDisplay;
+	if (display) {
+		display->Show_Ephemeral(Get_String());
+	}
+	return(true);
+}
+
+// 0x736D00
+bool ClearMessageLinePacketClass::Process_Packet(void *instance)
+{
+	WWPROFILE("ClearMessageLinePacketClass::Process_Packet()");
+	SClient *sclient = (SClient *)instance;
+	if (sclient->LineDisplay) {
+		sclient->LineDisplay->Flush_Lines();
+	}
+	return(true);
+}
+
 // 0x737520
 bool SetZBandPacketClass::Process_Packet(void *instance)
 {
@@ -283,64 +341,6 @@ bool ModeChangePacketClass::Process_Packet(void *instance)
 	}
 	return(true);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

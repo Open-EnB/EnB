@@ -537,6 +537,8 @@ int main(int argc, char **argv)
 	The_Client = client;
 	FakeMainViewClass main_view;
 	client->MainView = (MainViewClass *)&main_view;
+	static char fake_line_display[0x100];	// ui_line_display.cpp's object (0x100 bytes): client_stubs.cpp's members trace
+	client->LineDisplay = (UILineDisplayClass *)fake_line_display;
 	Check(client->Unknown_18() == (int)client, "SClient's slot +0x18 returns the client");
 
 	Test_Lists(client);
