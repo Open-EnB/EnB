@@ -105,16 +105,16 @@ void ManagedFontClass::Unknown_6D1010(const char *name, TPoint3D<int> color)
 	style->Unknown4A4 = style->Unknown494;
 }
 
-
-
-
-
-
-
-
-
-
-
+// NOT EXACT: shape, 18 rows: the client stores the color through [ebp+0x494] directly, ours through the member's address (attempts.csv)
+void ManagedFontClass::Unknown_6D10B0(const char *name, TPoint3D<int> color)
+{
+	for (std::hash_map<std::string, FontStyleClass *>::iterator it = Styles.begin(); it != Styles.end(); ++it) {
+		FontStyleClass *style = it->second;
+		if (strcmp(name, style->Name) == 0) {
+			style->Set_Color(color);
+		}
+	}
+}
 
 
 
@@ -559,7 +559,7 @@ ManagedFontClass *FontManagerClass::Find(unsigned int id)
 **	Reconstruction notes
 **
 **	client.exe: the window 0x6D0F70-0x6D2A70 (asserts on lines 360, 524, 533 and 550), then the
-**	containers' instances. Not rebuilt yet: the font's own functions 0x6D0F70, 0x6D10B0-0x6D1600
+**	containers' instances. Not rebuilt yet: the font's own functions 0x6D0F70, 0x6D1220-0x6D1600
 **	(the asserting 0x6D1220 on line 360) and the manager's 0x6D2700 (line 550, a style by name as
 **	a RefCountPtr). 0x6D2400 / 0x6D2480 / 0x6D2500 differ only by their callee: one pattern, not counted.
 **	The depth lever (workflow.md 3.1) made the destructor and 0x6D1C10 exact: the client calls the

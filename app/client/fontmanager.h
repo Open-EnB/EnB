@@ -24,6 +24,7 @@
 #include "..\..\wwlib\ref_ptr.h"
 #include "..\..\wwlib\wwstring.h"
 #include "fontdatabase.h"
+#include <string.h>
 #include "..\..\wwlib\point.h"
 
 struct FontStringStruct;
@@ -39,10 +40,14 @@ class FontStyleClass : public RefCountClass  // NAME 1 [FontStyleClass]: neutral
 {
 public:
 	FontStyleClass(const char *name, int unknown1, int unknown2);		// 0x6D47C0  // NAME 1 [unknown1]: neutral (D10)
+	void Set_Color(const TPoint3D<int> &color) { Unknown494.Color = color; Unknown4A4 = Unknown494; }	// inlined in 0x6D10B0  // NAME 2: describes what it does
 
 	void Unknown_6CD950(int unknown1, int unknown2);						// 0x6CD950  // NAME 1 [Unknown_6CD950]: neutral (D10)
 
-	char Unknown08[0x248];											// +0x08  // NAME 1: neutral (D10)
+	char Unknown08[0xEC];												// +0x08  // NAME 1: neutral (D10)
+	StringClass Name;													// +0xF4: what 0x6D10B0 compares  // NAME 2: what it holds
+	StringClass Unknown0F8;												// +0xF8  // NAME 1: neutral (D10)
+	char Unknown0FC[0x154];											// +0xFC  // NAME 1: neutral (D10)
 	int Unknown250;														// +0x250: 0x6D28C0 sets it in every style of a font  // NAME 1: neutral (D10)
 	char Unknown254[0x240];											// +0x254  // NAME 1: neutral (D10)
 	FontStyleColorStruct Unknown494;									// +0x494: 0x6D1010's color  // NAME 1: neutral (D10)
@@ -76,6 +81,7 @@ public:
 			style->second->Unknown250 = value;
 		}
 	}
+	void Unknown_6D10B0(const char *name, TPoint3D<int> color);			// 0x6D10B0 (no caller): the color of every style named name  // NAME 1 [Unknown_6D10B0]: neutral (D10)
 	FontStyleClass *Unknown_6D1600(std::string name);					// 0x6D1600: the named style  // NAME 1 [Unknown_6D1600]: neutral (D10)
 	void Unknown_6D1010(const char *name, TPoint3D<int> color);			// 0x6D1010: the named style's color (+0x494, +0x4A4)  // NAME 1 [Unknown_6D1010]: neutral (D10)
 	void Unknown_6D0390(void *unknown);									// 0x6D0390  // NAME 1 [Unknown_6D0390]: neutral (D10)
