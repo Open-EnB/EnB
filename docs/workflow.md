@@ -266,6 +266,12 @@ unless `--lever` cites a new row of this table.
   `<string>`: a reliable file boundary. `tools/re/pkdecode.py --report` says why a class doesn't
   decode yet; `pkemit.py --write` drafts the files (builder B, 2026-10-25).
 
+* **A class holding an `__int64` needs `#pragma pack(push, 4)`** or VC6 pads the vtable pointer (ClientClass 0x1150
+  bytes, tsk_game.h; T6, 2026-10-27). An inlined FAIL_IF can carry another file's `__FILE__` (co.cpp's line 2461 inside
+  client.cpp's 0x7283B0): explain.py classes it as relocation; a source of that file cannot produce it.
+* **`appfile.py match` on the draft VM resolves `..\common\x.h` from stale copies** unless every app directory is
+  passed with `-I` (app/common, app/packets, app/shared) plus radtools' include_enb and the directx8 SDK.
+
 ### 3.4 Importer, verify and pairs
 
 * **Header origins live in `imports.json`'s `headers` map** (`headers_from`: swapped with the

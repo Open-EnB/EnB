@@ -1155,6 +1155,13 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 
 ## 3. Open decisions
 
+* **P-T6-1 (client.cpp, 2026-10-27):** one D89 Fable round for ClientClass's constructor 0x726100 (inline budget: the
+  'Null Item' assign out of line in the client; 5 forms) and Find_Object 0x727070 / Remove_Object 0x727600 (shape: the
+  list check and the not-found return laid out last; an untried `goto` to the found return). Find_Object exact brings
+  Get_Debug_Object and Get_Ship with it. Recommendation: accept, after the current Fable queue (F4).
+* **P-T6-2 (clienttest):** a program as the step-9c test (add / find / remove by game id, collisions 257 apart, the DEBUG
+  packets, the redirect); it needs stubs for connect.cpp's wrappers or a memory connection. Recommendation: defer to
+  9d, when SClient is the derived client.
 * **P-S3-2 / F3's leads for Key_Exchange 0x829180** are LIMIT REACHED (three Opus rounds, inline budget): it
   waits for a new §3.1 lever; F3's two untested leads are in its attempts.csv row.
 * D7 is to be revisited with the user if byte-exactness of E&B's code becomes too costly; D64's
