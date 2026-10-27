@@ -2897,6 +2897,46 @@
     "merged": [],
     "name": "packets/pkupdate.cpp"
    },
+   "pkverblist": {
+    "ambiguous": [
+     "0x42A6C0",
+     "0x42AFF0",
+     "0x42B2F0",
+     "0x4ACBB0",
+     "0x4ACF00",
+     "0x632690"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42A820",
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30",
+     "0x4407B0",
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350",
+     "0x659C40",
+     "0x8AF420",
+     "0x8AFB80",
+     "0x8AFBB0",
+     "0x8B0130",
+     "0x8B0460",
+     "0x8B0730",
+     "0x8B0940",
+     "0x8B0A40",
+     "0x8B0FD0",
+     "0x8B1020",
+     "0x8B1410",
+     "0x8B1490",
+     "0x8B1510"
+    ],
+    "merged": [],
+    "name": "packets/pkverblist.cpp"
+   },
    "pkverbrequest": {
     "ambiguous": [
      "0x42B2F0"
@@ -3713,6 +3753,7 @@
    "packets/pkunknown_8a5510.h": "reconstructed",
    "packets/pkunknown_8a6430.h": "reconstructed",
    "packets/pkupdate.h": "reconstructed",
+   "packets/pkverblist.h": "reconstructed",
    "packets/pkverbrequest.h": "reconstructed",
    "packets/pkversionrequest.h": "reconstructed",
    "packets/pkwarpindex.h": "reconstructed",

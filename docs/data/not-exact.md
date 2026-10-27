@@ -7,13 +7,12 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-72 entries in 25 files.
+82 entries in 25 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
 | `app/client/aux_roots.cpp:2` | `UnknownCOClass::Unknown_Create_Aux_Root` | mention | NOT EXACT (D42): functional. NAME 1 [aux_roots.cpp]: provisional file name (the client's constructors are in co.cpp 0x6F6000-0x6FBEF0 and the Player object 0x751BE0) |
 | `app/client/aux_roots.h:12` | `Read` | mention | NOT EXACT (D42): functional; see the generator's docstring for what differs. |
-| `app/client/tasks/tsk_game.cpp:54` | `ClientTaskClass::Init` | marker | NOT EXACT: inline budget (the client calls string::erase out of line in the assignment; attempts.py show 0x766350) 0x766350 |
 | `app/client/tasks/tsk_login.cpp:219` | `LoginTaskClass::Pre_Run` | marker | NOT EXACT: shape (the event's bit 12 test and the dispatchers' argument order; attempts.py show 0x767DA0) 0x767DA0 |
 | `app/client/tasks/tsk_login.cpp:271` | `LoginTaskClass::Run` | marker | NOT EXACT: register-only (stricmp's argument in ecx, the client's eax; attempts.py show 0x767F50) |
 | `app/client/tasks/tsk_login.cpp:456` | `LoginTaskClass::Unknown_50` | marker | NOT EXACT: inline budget (the client inlines LoginUnknown350Class's assignment and calls the 0x160 object's constructor 0x7688F0; ours the reverse; attempts.py show 0x7683F0) 0x7683F0 |
@@ -21,6 +20,7 @@ edit the comments in the code, not this file.
 | `app/client/tasks/tsk_login.cpp:711` | `LoginTaskClass::Go_Back_Step` | marker | NOT EXACT: register-only (the client keeps 1 in ebx for the flag and step 1; attempts.py show 0x769680) |
 | `app/client/tasks/tsk_login.cpp:829` | `LoginTaskClass::Unknown_64` | marker | NOT EXACT: shape (the client shares its 'return true' tails; attempts.py show 0x7698E0) 0x7698E0 |
 | `app/client/tasks/tsk_login.cpp:1011` | `LoginTaskClass::Unknown_76A370` | marker | NOT EXACT: inline budget (ours inlines std::string("Fast")'s assign, the client calls it; attempts.py show 0x76A370) 0x76A370 |
+| `app/client/tasks/tsk_login.cpp:1098` | `LoginTaskClass::Fetch_EA_Ticket` | marker | NOT EXACT: shape (the client merges the two message boxes' tails; attempts.py show 0x76A7B0) 0x76A7B0 |
 | `app/client/tasks/tsk_login.cpp:1221` | `LoginTaskClass::Handle_Global_Error` | marker | NOT EXACT: shape (the CharacterView test's registers: the client loads +0x1B4 into ecx; attempts.py show 0x76B000) 0x76B000 |
 | `app/client/tasks/tsk_smovie.cpp:113` | `ScriptedMovieTaskClass::Init` | marker | NOT EXACT: the client's loop keeps its test at the top (a jmp back to it); while, for, for (;;) with a break, a goto and ++ in the call all give VC6's rotated loop (the test at the bottom) |
 | `app/common/dbgconn.cpp:111` | `TimedLogConnectionClass::TimedLogConnectionClass` | marker | NOT EXACT: the client inlines LogConnectionClass's constructor here and keeps it out of line (0x823F70, no caller); `inline` on it matches this one and loses that one. |
@@ -47,6 +47,9 @@ edit the comments in the code, not this file.
 | `app/packets/pkcolorization.cpp:5` | `ColorizationPacketClass::ColorizationPacketClass` | marker | NOT EXACT: 0x87F320, the inline vector copy's loop addresses each region from its last dword in the client (shape; attempts.py show 0x87F320) |
 | `app/packets/pkcolorization.cpp:62` | `ColorizationPacketClass::Print` | mention | NOT EXACT (parked, attempts.csv). * The file name is provisional (no assert names it). |
 | `app/packets/pkunknown_867010.cpp:6` | `Packet_00B3Class::Packet_00B3Class` | marker | NOT EXACT: the inline std::string assign's terminating store indexes [ebx + ecx], the client's [ecx + ebx] (otherwise the same bytes) |
+| `app/packets/pkverblist.cpp:5` | `VerbUpdatePacketClass::VerbUpdatePacketClass` | marker | NOT EXACT: 0x8AFD10, the client calls the first set's _Init and inlines the second's (inline-budget; attempts.py show 0x8AFD10) |
+| `app/packets/pkverblist.cpp:26` | `VerbUpdatePacketClass::Build` | marker | NOT EXACT: 0x8AFF40, the client inlines both loops' iterator steps (inline-budget; attempts.py show 0x8AFF40) |
+| `app/packets/pkverblist.cpp:51` | `VerbUpdatePacketClass::Print` | marker | NOT EXACT: 0x8B0150, the client inlines the first loop's iterator step only (inline-budget; attempts.py show 0x8B0150) |
 | `app/shared/auxdata/delta_time.cpp:94` | `DurationAccessorClass::Get` | marker | NOT EXACT: the zero time is a function-local static the client destroys at exit (atexit 0x4A8590: its DurationClass has a destructor ours lacks); the 64-bit arithmetic follows the client's order |
 | `app/shared/auxdata/delta_time.cpp:111` | `DurationAccessorClass::Set` | marker | NOT EXACT: the client keeps time()'s 0 argument in ebx and adds the ticks' zero high half from it; VC6 here pushes an immediate (tried: other orders, a DurationClass temporary) |
 | `app/shared/auxdata/encode.cpp:560` | `RecordTableClass::Add` | marker | NOT EXACT: the client keeps the node in the list argument's slot, calls the first Children.size() out of line (0x4A58C0) in the new compound record and allocates the walk's records inline; VC6 here inlines all three sizes and uses other slots. |

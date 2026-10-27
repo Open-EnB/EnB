@@ -28,6 +28,7 @@
 #include "money.h"
 #include "delta_template.h"
 #include "pk_player_object_relationship.h"
+#include "pkverblist.h"
 
 // ------------------------------------------------------------------------- E&B debug hooks
 
@@ -173,4 +174,14 @@ void Unknown_4FC2F0(std::vector<std::string> &list, const std::string &string, c
 		list.push_back(string.substr(pos, at - pos));
 		pos = at + separator.size();
 	}
+}
+
+// ------------------------------------------------------------------------- VERB_UPDATE's Print (pkverblist.cpp)
+
+// 0x84C470: a verb's name from the client's table 0xBB1218 (not known yet: its number)
+char *Value_To_String(char *buf, int size, VerbEnum verb)
+{
+	STUB_CALLED("Value_To_String(VerbEnum) (0x84C470)");
+	_snprintf(buf, size, "%d", (int)verb);
+	return buf;
 }

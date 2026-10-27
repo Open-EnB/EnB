@@ -93,6 +93,7 @@
 #include "pkunknown_8a5510.h"	// rebuilt
 #include "pkunknown_8a6430.h"	// rebuilt
 #include "pkupdate.h"	// rebuilt
+#include "pkverblist.h"	// rebuilt
 #include "pkverbrequest.h"	// rebuilt
 #include "pkversionrequest.h"	// rebuilt
 #include "pkwarpindex.h"	// rebuilt
@@ -602,14 +603,6 @@ class VerbListPacketClass : public PacketClass
 public:
 	VerbListPacketClass(RawPacketClass *raw);	// 0x8AF150
 	char Unknown0C[0x14];	// +0x0C
-};
-
-// opcode 92 (0x005C, VERB_UPDATE): vtable 0xB0C29C, constructor 0x8AFD10, 0x30 bytes
-class VerbUpdatePacketClass : public PacketClass
-{
-public:
-	VerbUpdatePacketClass(RawPacketClass *raw);	// 0x8AFD10
-	char Unknown0C[0x24];	// +0x0C
 };
 
 // opcode 5010 (0x1392, ?): vtable 0xB0BF20, constructor 0x8AA490, 0x18 bytes

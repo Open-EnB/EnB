@@ -57,7 +57,6 @@ Packet_138DClass::Packet_138DClass(RawPacketClass *raw) { Conn_Record(this, raw)
 Packet_138EClass::Packet_138EClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_1391Class::Packet_1391Class(RawPacketClass *raw) { Conn_Record(this, raw); }
 VerbListPacketClass::VerbListPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-VerbUpdatePacketClass::VerbUpdatePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_1392Class::Packet_1392Class(RawPacketClass *raw) { Conn_Record(this, raw); }
 AvatarEmotePacketClass::AvatarEmotePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 MessageChatstreamPacketClass::MessageChatstreamPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
@@ -166,6 +165,7 @@ bool DialogPacketClass::Process_Packet(void *) { return(true); }	// 0x736DA0
 bool CreateAttachmentPacketClass::Process_Packet(void *) { return(true); }	// 0x733BB0
 bool StarbaseTowPacketClass::Process_Packet(void *) { return(true); }	// 0x738330
 bool TalkTreeActionPacketClass::Process_Packet(void *) { return(true); }	// 0x738730
+bool VerbUpdatePacketClass::Process_Packet(void *) { return(true); }	// 0x7388B0
 bool DamagePacketClass::Process_Packet(void *) { return(true); }	// 0x738970
 bool ClickIndicatorPacketClass::Process_Packet(void *) { return(true); }	// 0x7393D0
 bool ClientSoundPacketClass::Process_Packet(void *) { return(true); }	// 0x7383D0
