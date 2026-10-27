@@ -3335,7 +3335,8 @@
    },
    "pktask": {
     "ambiguous": [
-     "0x42B2F0"
+     "0x42B2F0",
+     "0x8A98D0"
     ],
     "copy": "reconstructed",
     "expected": {},
