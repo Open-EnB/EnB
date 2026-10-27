@@ -232,6 +232,120 @@ int ClientChatEventPacketClass::Print(char *buffer, int len)
 	return(_snprintf(buffer, len, "ClientChatEventPacketClass"));
 }
 
+ClientChatListPacketClass::ClientChatListPacketClass(int unknown0c, const std::string &unknown10) :
+	Unknown0C(unknown0c),
+	Unknown10(unknown10)
+{
+}
+
+ClientChatListPacketClass::ClientChatListPacketClass(RawPacketClass *raw) :
+	Unknown0C(-1)
+{
+	raw->Get(&Unknown0C, sizeof(Unknown0C));
+	raw->Get(&Unknown10);
+	unsigned int count = 0;
+	raw->Get(&count, sizeof(count));
+	Unknown20.reserve(count);
+	unsigned int i;
+	for (i = 0; i < count; i++) {
+		std::string name;
+		raw->Get(&name);
+		Unknown20.push_back(name);
+	}
+	count = 0;
+	raw->Get(&count, sizeof(count));
+	Unknown30.reserve(count);
+	for (i = 0; i < count; i++) {
+		std::string name;
+		raw->Get(&name);
+		Unknown30.push_back(name);
+	}
+}
+
+RawPacketClass *ClientChatListPacketClass::Build()
+{
+	RawPacketClass *raw = new RawPacketClass(164, Get_Data_Size());
+	raw->Add(&Unknown0C, sizeof(Unknown0C));
+	raw->Add(Unknown10);
+	int count = Unknown20.size();
+	raw->Add(&count, sizeof(count));
+	std::vector<std::string>::iterator it;
+	for (it = Unknown20.begin(); it != Unknown20.end(); ++it) {
+		raw->Add(*it);
+	}
+	count = Unknown30.size();
+	raw->Add(&count, sizeof(count));
+	for (it = Unknown30.begin(); it != Unknown30.end(); ++it) {
+		raw->Add(*it);
+	}
+	return(raw);
+}
+
+int ClientChatListPacketClass::Get_Data_Size()
+{
+	int size = RawPacketClass::Get_Size(Unknown10) + sizeof(Unknown0C) + sizeof(int);
+	std::vector<std::string>::iterator it;
+	for (it = Unknown20.begin(); it != Unknown20.end(); ++it) {
+		size += RawPacketClass::Get_Size(*it);
+	}
+	size += sizeof(int);
+	for (it = Unknown30.begin(); it != Unknown30.end(); ++it) {
+		size += RawPacketClass::Get_Size(*it);
+	}
+	return(size);
+}
+
+int ClientChatListPacketClass::Print(char *buffer, int len)
+{
+	return(_snprintf(buffer, len, "ClientChatListPacketClass"));
+}
+
+ClientChatErrorPacketClass::ClientChatErrorPacketClass(int unknown0c) :
+	Unknown0C(unknown0c),
+	Unknown10(-1),
+	Unknown14(""),
+	Unknown24(""),
+	Unknown34("")
+{
+}
+
+ClientChatErrorPacketClass::ClientChatErrorPacketClass(RawPacketClass *raw) :
+	Unknown0C(1),
+	Unknown10(-1),
+	Unknown14(""),
+	Unknown24(""),
+	Unknown34("")
+{
+	raw->Get(&Unknown0C, sizeof(Unknown0C));
+	raw->Get(&Unknown10, sizeof(Unknown10));
+	raw->Get(&Unknown14);
+	raw->Get(&Unknown24);
+	raw->Get(&Unknown34);
+}
+
+RawPacketClass *ClientChatErrorPacketClass::Build()
+{
+	RawPacketClass *raw = new RawPacketClass(166, Get_Data_Size());
+	raw->Add(&Unknown0C, sizeof(Unknown0C));
+	raw->Add(&Unknown10, sizeof(Unknown10));
+	raw->Add(Unknown14);
+	raw->Add(Unknown24);
+	raw->Add(Unknown34);
+	return(raw);
+}
+
+int ClientChatErrorPacketClass::Get_Data_Size()
+{
+	int size = RawPacketClass::Get_Size(Unknown14) + sizeof(Unknown0C) + sizeof(Unknown10);
+	size += RawPacketClass::Get_Size(Unknown24);
+	return(size + RawPacketClass::Get_Size(Unknown34));
+}
+
+int ClientChatErrorPacketClass::Print(char *buffer, int len)
+{
+	return(_snprintf(buffer, len, "ClientChatErrorPacketClass"));
+}
+
 /*
 **	Reconstruction notes (pkclientchat.cpp)
 **
@@ -241,7 +355,10 @@ int ClientChatEventPacketClass::Print(char *buffer, int len)
 **	  18 of 18 exact in appfile.py match: length-counted strings (51) or std::strings and a
 **	  length-counted buffer the packet owns once it has read one (163, 165). The value constructors
 **	  count a string before storing it (strlen first: the zero store of the initialiser stays).
-**	  Get_Data_Size adds one string per statement and the buffer's count and bytes last. 163's
+**	  Get_Data_Size adds one string per statement and the buffer's count and bytes last.
+**	* Opcodes 164 (two std::vector<std::string>, a 4-byte count each; the raw constructor zeroes the
+**	  count again before the second) and 166 (three strings, "" by default) by builder P4 (2026-10-26),
+**	  10 of 10 exact. 163's
 **	  0x878D90 (it sets the buffer from another object's virtual +4 and member +4) is not rebuilt.
 **	* The file name is provisional (no assert names it). Not rebuilt yet: opcode 164, 166 (vectors of strings)
 **	  (declared in pk_classes.h).

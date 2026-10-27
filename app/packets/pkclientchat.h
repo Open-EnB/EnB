@@ -5,7 +5,7 @@
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
 **	Original location: e:\build\beta\G\app\packets\pkclientchat.h (the name provisional: see the .cpp)
 **
-**	The packet classes of client 0x8785B0-0x87A910 rebuilt so far (opcode 51, 163, 165); the file's other
+**	The packet classes of client 0x8785B0-0x87A910 rebuilt so far (opcode 51, 163, 165, 164, 166); the file's other
 **	classes (164, 166) are still declared in pk_classes.h.
 */
 
@@ -17,6 +17,7 @@
 #define PKCLIENTCHAT_H
 
 #include "pk.h"
+#include <vector>
 
 // opcode 51 (0x0033, CLIENT_CHAT): vtable 0xB09E10, constructor 0x8786E0, 0x20 bytes
 class ClientChatPacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name CLIENT_CHAT (the Net-7 opcode table; no structure check)
@@ -86,6 +87,41 @@ public:
 	char *Unknown74;	// +0x74 (new[] Unknown78 bytes when Unknown78 isn't 0)
 	int Unknown78;	// +0x78 (the bytes at Unknown74)
 	bool Unknown7C;	// +0x7C (Unknown74 is the packet's: the destructor deletes it)
+};
+
+// opcode 164 (0x00A4, CLIENT_CHAT_LIST): vtable 0xB09EA0, constructor 0x879850, 0x40 bytes
+class ClientChatListPacketClass : public PacketClass
+{
+public:
+	ClientChatListPacketClass(int unknown0c, const std::string &unknown10);	// 0x879620
+	ClientChatListPacketClass(RawPacketClass *raw);	// 0x879850
+	virtual RawPacketClass *Build();	// +0x04 0x879BF0
+	virtual bool Process_Packet(void *client);	// +0x08 0x73CC90 (not rebuilt)
+	virtual int Get_Data_Size();	// +0x0C 0x879D60
+	virtual int Print(char *buffer, int len);	// +0x10 0x87A220 (the class name: 'ClientChatListPacketClass')
+
+	int Unknown0C;	// +0x0C
+	std::string Unknown10;	// +0x10
+	std::vector<std::string> Unknown20;	// +0x20 (a 4-byte count, then the strings)
+	std::vector<std::string> Unknown30;	// +0x30 (a 4-byte count, then the strings)
+};
+
+// opcode 166 (0x00A6, CLIENT_CHAT_ERROR): vtable 0xB09ED0, constructor 0x87A560, 0x44 bytes
+class ClientChatErrorPacketClass : public PacketClass
+{
+public:
+	ClientChatErrorPacketClass(int unknown0c);	// 0x87A250
+	ClientChatErrorPacketClass(RawPacketClass *raw);	// 0x87A560
+	virtual RawPacketClass *Build();	// +0x04 0x87A7B0
+	virtual bool Process_Packet(void *client);	// +0x08 0x73D170 (not rebuilt)
+	virtual int Get_Data_Size();	// +0x0C 0x87A8A0
+	virtual int Print(char *buffer, int len);	// +0x10 0x87A8E0 (the class name: 'ClientChatErrorPacketClass')
+
+	int Unknown0C;	// +0x0C (1 when received)
+	int Unknown10;	// +0x10 (-1 by default)
+	std::string Unknown14;	// +0x14
+	std::string Unknown24;	// +0x24
+	std::string Unknown34;	// +0x34
 };
 
 #endif

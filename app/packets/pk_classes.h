@@ -781,14 +781,6 @@ public:
 	char Unknown0C[0x80];	// +0x0C
 };
 
-// opcode 164 (0x00A4, CLIENT_CHAT_LIST): vtable 0xB09EA0, constructor 0x879850, 0x40 bytes
-class ClientChatListPacketClass : public PacketClass
-{
-public:
-	ClientChatListPacketClass(RawPacketClass *raw);	// 0x879850
-	char Unknown0C[0x34];	// +0x0C
-};
-
 // opcode 234 (0x00EA, ?): vtable 0xB0983C, constructor 0x86F630, 0x20 bytes
 class Packet_00EAClass : public PacketClass  // NAME 1: neutral (D10): opcode 0x00EA
 {
@@ -821,14 +813,6 @@ public:
 	Packet_00EDClass(RawPacketClass *raw);	// 0x871A30
 	virtual bool Process_Packet(void *client);	// +0x08 0x8695A0 (clientstub.cpp l.446)
 	char Unknown0C[0x18];	// +0x0C
-};
-
-// opcode 166 (0x00A6, CLIENT_CHAT_ERROR): vtable 0xB09ED0, constructor 0x87A560, 0x44 bytes
-class ClientChatErrorPacketClass : public PacketClass
-{
-public:
-	ClientChatErrorPacketClass(RawPacketClass *raw);	// 0x87A560
-	char Unknown0C[0x38];	// +0x0C
 };
 
 // opcode 173 (0x00AD, ?): vtable 0xB0A764, constructor 0x8895E0, 0x30 bytes
