@@ -186,6 +186,17 @@ The 30 functions the old import library lacks are: `AIL_3D_sample_length`, `AIL_
 A Miles SDK whose `mss.h` declares `AIL_open_stream_by_sample` (6.1 or later, contemporary with
 Renegade, 2001–2002) would remove both fixes, but isn't required.
 
+### EA.Com's login component (authlogin.dll)
+
+`release\authlogin.dll` (114,688 bytes, linked 2002-07-17, 3.3.0.6) has no SDK or published source:
+it exports `AuthLoginLib_GetAuthorize` and `AuthLoginLib_GetComponentFactory`, undecorated, and the
+client imports only the factory (`LoginTaskClass::Fetch_EA_Ticket` 0x76A7B0). `tools/vc6/authlogin.def`
+lists the two names; `tools/vc6/mkauthlogin.py` turns it into `build/authlogin/authlogin.lib` with
+VC6's `lib /def` (undecorated names import correctly that way, unlike Miles' stdcall ones), and
+`build.py link` adds that library when it exists. The interfaces are declared in
+`app/client/unknown_authlogin.h` (D90 9a). No program here loads the real DLL: a test supplies a
+stand-in exporting the factory.
+
 ### Consequence for WW3D2
 
 E&B compiled its WW3D2 against DirectX **8.0**. If Zero Hour's WW3D2 uses anything only DirectX

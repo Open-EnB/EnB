@@ -4530,6 +4530,23 @@
     "merged": [],
     "name": "common/udpconn.cpp"
    },
+   "unknown_authlogin": {
+    "ambiguous": [
+     "0x42A6C0",
+     "0x42B2F0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42A820",
+     "0x42A970",
+     "0x42AB30",
+     "0x792040",
+     "0x7922B0"
+    ],
+    "merged": [],
+    "name": "client/unknown_authlogin.cpp"
+   },
    "unknown_changes": {
     "ambiguous": [
      "0x42A900",
@@ -4733,6 +4750,7 @@
    "client/tasks/tsk_movie.h": "reconstructed",
    "client/tasks/tsk_smovie.h": "reconstructed",
    "client/tutorial_manager.h": "reconstructed",
+   "client/unknown_authlogin.h": "reconstructed",
    "common/average.h": "reconstructed",
    "common/circbuff.h": "reconstructed",
    "common/connect.h": "reconstructed",
@@ -4883,7 +4901,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 2033,
+  "in_tree_total": 2038,
   "totals": {}
  },
  "binkmovie": {

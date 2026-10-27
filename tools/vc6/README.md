@@ -33,7 +33,8 @@ A job takes its VMs from `ENB_VC6_HOSTS=Daniel@<ip>[,...]` (printed by `pool.py 
 | `build.py unresolved [--out DIR] [--report FILE]` | External symbols no library defines, by library and cause |
 | `build.py link [--program vidtest] [--pool K] [--out DIR]` | Compile `programs/<name>` and `stubs/` and link against the libraries (L2); the test programs of `tools/harness` use this step |
 | `mkmss32.py def` / `lib [--out DIR]` | Make `mss32.def` from the game's Mss32.dll exports, then the import library `mss32.lib` (D51) |
-| `mss32.def`, `checked/enb_checked.h` | Generated export list; the forced header of the checked build (`ENB_CHECKED=1`) |
+| `mkauthlogin.py [--out DIR]` | Make `DIR/authlogin/authlogin.lib`, the import library of EA.Com's login component, from `authlogin.def` with VC6's `lib /def` (D90 9a; `build.py link` adds it when present) |
+| `mss32.def`, `authlogin.def`, `checked/enb_checked.h` | Export lists (Mss32.dll's generated, authlogin.dll's two names by hand); the forced header of the checked build (`ENB_CHECKED=1`) |
 | `layout.py CLASS HEADER [-I dir]...` | A class's member offsets as VC6 lays them out |
 | `sdk_patch.py` | Derive `radtools\include_enb` (the Miles headers as E&B's build had them) beside the SDK |
 | `runtime_match.sh` | Byte-match the VC6 runtime libraries and D3DX (`docs/data/bytematch-*`) |

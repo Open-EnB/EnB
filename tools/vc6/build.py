@@ -68,6 +68,9 @@ SYS_LIBS_EXTRA = ['IMM32.LIB', 'VERSION.LIB', 'SHELL32.LIB', 'COMCTL32.LIB', 'CO
 # Miles (D51): mss32.lib generated from the game's Mss32.dll by tools/vc6/mkmss32.py into
 # DIR/mss32/ (its linkermember.txt lists the publics for `unresolved`).
 MSS32 = os.path.join('mss32', 'mss32.lib')
+# EA.Com's login component (D90 9a): authlogin.lib from tools/vc6/authlogin.def by
+# tools/vc6/mkauthlogin.py into DIR/authlogin/; linked when present (only LoginTaskClass needs it).
+AUTHLOGIN = os.path.join('authlogin', 'authlogin.lib')
 
 
 def git(*args):
@@ -513,6 +516,8 @@ def link_program(name, out):
     libs = [os.path.join(out, l, l + '.lib') for l in LINK_LIBS]
     libs.append(os.path.join(out, MSS32))
     missing = [l for l in libs if not os.path.exists(l)]
+    if os.path.exists(os.path.join(out, AUTHLOGIN)):
+        libs.append(os.path.join(out, AUTHLOGIN))
     if missing:
         raise SystemExit('build the libraries first (build.py; mkmss32.py lib): missing ' + ', '.join(missing))
     app_dirs = [d for d, _, _ in os.walk(I.dest('app'))]

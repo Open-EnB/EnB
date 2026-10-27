@@ -374,63 +374,6 @@ public:
 	char Unknown25[0x30 - 0x25];						// +0x25
 };
 
-// EA.Com's component interfaces (authlogin.dll's AuthLoginLib_GetComponentFactory), as far as
-// LoginTaskClass::Fetch_EA_Ticket uses them: C++ virtuals (thiscall), Release at +0x08.
-namespace kcom	// NAME 5: the client's assert 'iauth && kcom::ResultSucceeded(kr)'
-{
-	typedef long Result;								// NAME 2: the assert's kr; tested >= 0
-	inline bool ResultSucceeded(Result result) { return result >= 0; }	// NAME 5: the assert
-
-	class IUnknownClass	// NAME 1: the COM-style base (+0x08 Release)
-	{
-	public:
-		virtual void Unknown_00();
-		virtual void Unknown_04();
-		virtual void Release();							// +0x08 NAME 2: COM's slot
-	};
-
-	class IComponentFactoryClass : public IUnknownClass	// NAME 2: authFactory (the assert)
-	{
-	public:
-		virtual void Unknown_0C();
-		virtual void Unknown_10();
-		virtual void Unknown_14();
-		virtual void Unknown_18();
-		virtual IUnknownClass *Create(int id, Result *result);	// +0x1C (id 0x67: the auth interface)  // NAME 1: what it does
-	};
-}
-
-class IAuthLoginClass : public kcom::IUnknownClass	// NAME 1: iauth (the assert)
-{
-public:
-	virtual void Unknown_0C();
-	virtual void Unknown_10();
-	virtual void Unknown_14();
-	virtual void Unknown_18();
-	virtual void Unknown_1C();
-	virtual void Unknown_20();
-	virtual void Unknown_24();
-	virtual void *Login(const char *name, const char *password, const char *product, const char *base, const char *url, int unknown);	// +0x28  // NAME 1: what it does
-};
-
-extern "C" __declspec(dllimport) kcom::IComponentFactoryClass *AuthLoginLib_GetComponentFactory();	// authlogin.dll (docs/binary.md)
-
-// The login's answer (0x38 bytes; constructor 0x792040 from Login's result, destructor implicit: 0x76AC60)
-class AuthLoginResponseClass	// NAME 1: the assert's 'response'
-{
-public:
-	AuthLoginResponseClass(void *result);				// 0x792040
-	const char *Get_Error_Text();						// 0x7922B0: the code as text  // NAME 1: what it does
-	const char *Get_Ticket() { return Ticket.c_str(); }	// NAME 5: the assert 'strlen(response.Get_Ticket())'
-	const char *Get_Message() { return Message.c_str(); }	// NAME 1: what it returns
-
-	std::string Message;								// +0x00 NAME 1: shown when the login fails
-	std::string Ticket;									// +0x10 NAME 2: Get_Ticket's
-	int Code;											// +0x20 NAME 1: 0x89 the demo's end
-	bool Success;										// +0x24 NAME 1: the ticket is taken when set
-	std::string Unknown28;								// +0x28
-};
-
 class LoginTaskClass : public TaskClass
 {
 public:

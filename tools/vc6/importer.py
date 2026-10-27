@@ -3471,6 +3471,8 @@ RECONSTRUCTED = {
                                          "destructor 0x4E5230, Get_File 0x4E57A0",
     ('app', 'client/sclient.h'): "SClient (the client's 'SClient::Process_Packets'), declared only as far as tsk_game.cpp uses "
                                 "it: constructor 0x7405E0, 0x14F8 bytes (kernel-map.md 6, step 9)",
+    ('app', 'client/unknown_authlogin.h'): "EA.Com's login component as the client uses it (PROVISIONAL file name, D10): kcom's factory and IAuthLoginClass (authlogin.dll, tools/vc6/authlogin.def), AuthLoginResponseClass (0x38 bytes; kernel-map-step9.md 4)",
+    ('app', 'client/unknown_authlogin.cpp'): "AuthLoginResponseClass, client 0x792040-0x7922F0 (PROVISIONAL file name, D10: the unattributed run after nlp.cpp, no __FILE__): the constructor 0x792040 and Get_Error_Text 0x7922B0 with its table 0xB9DC90; exact",
     ('app', 'client/tasks/tsk_game.h'): "ClientTaskClass (D24 after its profile label 'ClientTask'), vtable 0xB03FF4, 0xA8 "
                                         "bytes; TicketClass (0x48 bytes) and what tsk_game.cpp calls, declared only",
     ('app', 'client/tasks/tsk_game.cpp'): "the game task, client 0x765F80-0x767230 (kernel-map.md 6, step 9): the asserts on "

@@ -5,7 +5,7 @@
 */
 #define ENABLE_WWPROFILE
 #include "tsk_login.h"
-#include "tsk_game.h"
+#include "..\unknown_authlogin.h"
 #include "..\..\common\connect.h"
 #include "..\..\packets\pk.h"
 #include "..\..\packets\pkglobalticketrequest.h"
