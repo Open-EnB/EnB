@@ -746,14 +746,6 @@ public:
 	char Unknown0C[0x14];	// +0x0C
 };
 
-// opcode 139 (0x008B, ATTACKER_UPDATES): vtable 0xB09B94, constructor 0x874BE0, 0x24 bytes
-class PlayerObjectIsAttackingUpdatePacket : public PacketClass
-{
-public:
-	PlayerObjectIsAttackingUpdatePacket(RawPacketClass *raw);	// 0x874BE0
-	char Unknown0C[0x18];	// +0x0C
-};
-
 // opcode 142 (0x008E, ?): vtable 0xB09A24, constructor 0x872200, 0x14 bytes
 class Packet_008EClass : public PacketClass  // NAME 1: neutral (D10): opcode 0x008E
 {

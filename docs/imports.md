@@ -1119,7 +1119,7 @@ Base copy: reconstructed. Headers: 121 from reconstructed.
 | shared/auxdata/name.cpp | reconstructed | 13 | 0 | - | - | - |  |
 | shared/auxdata/permstr.cpp | reconstructed | 6 | 2 | - | - | - |  |
 | packets/pk.cpp | reconstructed | 31 | 2 | - | - | - |  |
-| packets/pk_player_object_relationship.cpp | reconstructed | 9 | 1 | - | - | - |  |
+| packets/pk_player_object_relationship.cpp | reconstructed | 15 | 7 | - | - | - |  |
 | packets/pkaction.cpp | reconstructed | 8 | 1 | - | - | - |  |
 | packets/pkauxdata.cpp | reconstructed | 10 | 2 | - | - | - |  |
 | packets/pkcameracontrol.cpp | reconstructed | 8 | 1 | - | - | - |  |

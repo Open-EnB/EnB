@@ -45,6 +45,54 @@ int PlayerObjectRelationshipPacket::Print(char *buffer, int)
 }
 
 
+PlayerObjectIsAttackingUpdatePacket::PlayerObjectIsAttackingUpdatePacket(bool attacking, int priority) :
+	Attacking(attacking),
+	Priority(priority)
+{
+}
+
+PlayerObjectIsAttackingUpdatePacket::PlayerObjectIsAttackingUpdatePacket(RawPacketClass *raw)
+{
+	raw->Get(&Attacking, sizeof(Attacking));
+	int count = 0;
+	raw->Get(count);
+	int id = 0;
+	while (count--) {
+		raw->Get(id);
+		int value = id;
+		Attackers.push_back(value);
+	}
+}
+
+RawPacketClass *PlayerObjectIsAttackingUpdatePacket::Build()
+{
+	RawPacketClass *raw = new RawPacketClass(139, Get_Data_Size());
+	raw->Add(&Attacking, sizeof(Attacking));
+	int count = Attackers.size();
+	raw->Add(count);
+	for (std::vector<int>::iterator it = Attackers.begin(); it != Attackers.end(); ++it) {
+		raw->Add(*it);
+	}
+	return(raw);
+}
+
+int PlayerObjectIsAttackingUpdatePacket::Get_Data_Size()
+{
+	return(sizeof(Attacking) + sizeof(int) + Attackers.size() * sizeof(int));
+}
+
+int PlayerObjectIsAttackingUpdatePacket::Print(char *buffer, int)
+{
+	char attacking[16];
+	Value_To_String(attacking, sizeof(attacking), Attacking);
+	return(sprintf(buffer, "Attacker Updates. {Attacking=%s} [data not displayed]", attacking));
+}
+
+void PlayerObjectIsAttackingUpdatePacket::Add_Attacker(int id)
+{
+	Attackers.push_back(id);
+}
+
 /*
 **	Reconstruction notes (pk_player_object_relationship.cpp)
 **
@@ -55,6 +103,10 @@ int PlayerObjectRelationshipPacket::Print(char *buffer, int)
 **	  one constructs RelationshipClass out of line (0x848C80) and reads ObjectID through Get(int &).
 **	  Print's conversions are faction_and_reputation.cpp's (0x835890) and strconv_lib.cpp's (0x4A30A0),
 **	  both not rebuilt: stubs/app_stubs.cpp stands in for them and for RelationshipClass's constructor.
-**	* Not rebuilt yet: opcode 138, 139 (declared in pk_classes.h; the FAIL_IFs on lines 159 and 251 are
-**	  theirs).
+**	* Opcode 139 (ATTACKER_UPDATES) written by hand (builder P3, 2026-10-26), 6 of 6 exact in
+**	  appfile.py match: a std::vector<int> of attacker ids, a count before them in the message; its
+**	  push_back helper 0x875060 is a member defined after Print. The raw constructor pushes a copy
+**	  of the id read (`int value = id;`: the client's frame has that slot).
+**	* Not rebuilt yet: opcode 138 (declared in pk_classes.h); the FAIL_IFs on lines 159 and 251 are
+**	  its or the helper classes' between.
 */

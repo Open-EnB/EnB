@@ -6,8 +6,8 @@
 **	Original location: e:\build\beta\G\app\Packets\pk_player_object_relationship.h (the name from the
 **	client's pk_player_object_relationship.cpp)
 **
-**	The packet classes of client 0x873AE0-0x8754A0 rebuilt so far (opcode 137); the file's other classes
-**	(138, 139) are still declared in pk_classes.h.
+**	The packet classes of client 0x873AE0-0x8754A0 rebuilt so far (opcode 137, 139); the file's other
+**	class (138) is still declared in pk_classes.h.
 */
 
 #if defined(_MSC_VER)
@@ -18,6 +18,7 @@
 #define PK_PLAYER_OBJECT_RELATIONSHIP_H
 
 #include "pk.h"
+#include <vector>
 
 // A mob's reaction to the player (app\Common\faction_and_reputation.cpp's FAIL_IFs: 'reaction < 0',
 // 'reaction >= MOB_REACTION_COUNT'); only the count is known
@@ -57,6 +58,25 @@ public:
 	RelationshipClass Relationship;	// +0x10  // NAME 2: what it holds
 	int Priority;	// +0x18 (-63 by default; not read from the message)  // NAME 2: Get_Priority returns it
 	int Channel;	// +0x1C (PacketClass::Unknown_14 of ObjectID; -1 by default)  // NAME 2: Get_Channel returns it
+};
+
+// opcode 139 (0x008B, ATTACKER_UPDATES): vtable 0xB09B94, constructor 0x874BE0, 0x24 bytes
+class PlayerObjectIsAttackingUpdatePacket : public PacketClass
+{
+public:
+	PlayerObjectIsAttackingUpdatePacket(bool attacking, int priority);	// 0x874AE0
+	PlayerObjectIsAttackingUpdatePacket(RawPacketClass *raw);	// 0x874BE0
+	virtual RawPacketClass *Build();	// +0x04 0x874ED0
+	virtual bool Process_Packet(void *client);	// +0x08 0x739AC0 (not rebuilt)
+	virtual int Get_Data_Size();	// +0x0C 0x874FE0
+	virtual int Print(char *buffer, int len);	// +0x10 0x875020
+	virtual int Get_Priority() { return(Priority); }	// +0x1C 0x874B50
+
+	void Add_Attacker(int id);	// 0x875060 (push_back)  // NAME 2: what it does
+
+	bool Attacking;	// +0x0C  // NAME 3: the client's Print text 'Attacking='
+	std::vector<int> Attackers;	// +0x10 (a count and the ids in the message: Print says '[data not displayed]')  // NAME 2: what it holds
+	int Priority;	// +0x20 (not read from the message)  // NAME 2: Get_Priority returns it
 };
 
 #endif

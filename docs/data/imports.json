@@ -1050,7 +1050,13 @@
      "0x873AE0",
      "0x873C30",
      "0x873D10",
-     "0x873E10"
+     "0x873E10",
+     "0x874AE0",
+     "0x874BE0",
+     "0x874ED0",
+     "0x874FE0",
+     "0x875020",
+     "0x875060"
     ],
     "merged": [],
     "name": "packets/pk_player_object_relationship.cpp"

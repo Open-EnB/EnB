@@ -3560,7 +3560,7 @@ RECONSTRUCTED = {
     ('app', 'packets/pkmove.h'): "its class (pk_classes.h includes it: tools/re/pkclasses.py)",
     ('app', 'packets/pkclientchat.cpp'): "the chat packets' object, 0x8785B0-0x87A910 (no assert: the file name provisional, NAME 1): opcodes 51 CLIENT_CHAT, 163 CLIENT_CHAT_REQUEST and 165 CLIENT_CHAT_EVENT written by hand (builder P3), 18 of 18 exact in appfile.py match",
     ('app', 'packets/pkclientchat.h'): "its classes (pk_classes.h includes it: tools/re/pkclasses.py)",
-    ('app', 'packets/pk_player_object_relationship.cpp'): "the client's file (FAIL_IFs on lines 159 and 251), 0x873AE0-0x8754A0: opcode 137 RELATIONSHIP written by hand (builder P3), 5 of 5 exact in appfile.py match",
+    ('app', 'packets/pk_player_object_relationship.cpp'): "the client's file (FAIL_IFs on lines 159 and 251), 0x873AE0-0x8754A0: opcodes 137 RELATIONSHIP and 139 ATTACKER_UPDATES written by hand (builder P3), 11 of 11 exact in appfile.py match",
     ('app', 'packets/pk_player_object_relationship.h'): "its classes (pk_classes.h includes it: tools/re/pkclasses.py) and RelationshipClass (0x848C80, not rebuilt)",
     ('app', 'packets/pkupdate.cpp'): "opcode 62 written by hand over FlagPacketClass (builder P3, 19 of 19 exact in appfile.py match; asserts on the client's lines 179-187 and 277-285); packet classes (opcode 64, 63) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build (its opcode from Get_Type where the client calls it), Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
     ('app', 'packets/pkupdate.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
