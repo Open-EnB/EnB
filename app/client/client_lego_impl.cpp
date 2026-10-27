@@ -818,16 +818,32 @@ LegoBoneMapClass::~LegoBoneMapClass(void)
 {
 	Knobs.clear();
 }
+
+RefCountPtr<LegoKnobClass> LegoBoneMapClass::Get_Knob(const std::string &bone_name)
+{
+	std::hash_map<std::string, RefCountPtr<LegoKnobClass> >::iterator it = Knobs.find(bone_name);
+	if (it == Knobs.end()) {
+		return NULL;
+	}
+	return (*it).second;
+}
+
+LegoKnobClass::LegoKnobClass(std::string bone_name, int bone_index) :
+	BoneName(bone_name),
+	BoneIndex(bone_index)
+{
+}
 /*
 **	Reconstruction notes
 **
 **	client.exe: the window 0x729BF0-0x72DC10 (asserts on lines 69-809), then the containers'
 **	instances (0x72E090-0x731F20). Every function of the window is written; exact: the bone maps'
 **	Init / Shutdown, Create, the constructor and destructor, the small virtuals, Detach_All, the
-**	parent links, Get_Bone_Map, the bone map's constructor and destructor. NOT EXACT (attempts.csv): Init,
+**	parent links, Get_Bone_Map, the bone map's constructor, destructor and Get_Knob, the knob's
+**	constructor. NOT EXACT (attempts.csv): Init,
 **	Find, Get_Lego_Transform, Add, Remove, Update_Radius, Child_Moved, Attach and Detach.
-**	Get_Bone_Map is exact with a const_iterator for its find (H12's lever). Not written: the knob's constructor 0x72DE40 and the bone map's Get_Knob
-**	0x72DDA0 (after the window), lego_identifier.cpp's split 0x844ED0 / 0x8451A0.
+**	Get_Bone_Map is exact with a const_iterator for its find (H12's lever). The knob's constructor 0x72DE40 and the bone map's Get_Knob 0x72DDA0
+**	follow the window, exact. Not here: lego_identifier.cpp's split 0x844ED0 / 0x8451A0.
 **	* The bone map's constructor 0x72D5F0 is exact or 2 rows off (order) with the same source,
 **	  depending on what else the file holds (the inline budget's file state): re-check it after
 **	  any change here.
