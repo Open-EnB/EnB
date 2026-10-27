@@ -83,7 +83,7 @@ struct KeyMappingStruct  // NAME 1: neutral (D10): one key definition's mapping 
 {
 	std::string &Get_Key_String(int set, std::string &out);					// 0x71CAB0  // NAME 2: describes what it does
 
-	int Index;																				// +0x00  // NAME 2: the definition's index
+	ControlKeyDefStruct *Def;											// +0x00: what UserKeysMap maps the keys to  // NAME 2: what it holds
 	ControlKeyStruct Keys[NUM_MAPPING_SETS];										// +0x04: the client's 'set'
 };
 
@@ -103,7 +103,7 @@ public:
 class ControlKeysManager  // NAME 5: the client's RTTI .?AVControlKeysManager@@
 {
 public:
-	virtual ~ControlKeysManager();													// not rebuilt yet
+	ControlKeysManager();												// 0x71A300
 
 	KeyMappingStruct *Set_Key(KeyMappingStruct *entry, int set, const ControlKeyStruct &key, bool force);	// 0x71A860: returns the mapping already using key unless force  // NAME 2: describes what it does
 	int Add_Keys(ControlKeyListClass *keylist, const std::string &name, void *handler, unsigned short modifiers);	// 0x71A960  // NAME 2: describes what it does
@@ -112,12 +112,13 @@ public:
 	void Set_Default_PSW();											// 0x71ADF0  // NAME 2: describes what it does
 	void Set_Default_SIM();											// 0x71AE20  // NAME 2: describes what it does
 	const std::string &Get_Key_Name(const ControlKeyValueStruct &key);	// 0x71AE50: the definition's name for a key  // NAME 2: describes what it does
-	void Build_Keys_Map();											// 0x71AEF0: UserKeysMap from UserKeys (not rebuilt yet)  // NAME 2: describes what it does
+	void Build_Keys_Map();											// 0x71AEF0: UserKeysMap from UserKeys  // NAME 2: describes what it does
 	static bool Register_Key(const std::string &module_name, const std::string &key_name, int key_id);	// 0x719ED0  // NAME 2: describes what it does
 	static bool _Does_Key_Exist(const std::string &key_name);	// 0x71B160 (no caller; inlined at 0x719ED0): the client's assert
 	static void Copy_Keys(std::vector<KeyMappingStruct> *to, const std::vector<KeyMappingStruct> &from);	// 0x71C4C0  // NAME 2: describes what it does
 
-	std::hash_map<unsigned int, ControlKeyDefStruct *> UserKeysMap;		// +0x04: the client's asserts, keyed by the key value
+	int Unknown00;														// +0x00: the constructor zeroes it (no vtable here)  // NAME 1: neutral (D10)
+	std::hash_map<unsigned int, ControlKeyDefStruct *> UserKeysMap;		// +0x04: the client's asserts, keyed by the key value; 100 buckets
 	static std::hash_map<std::string, std::auto_ptr<ControlKeyDefStruct> > _KeyDefinitions;	// 0xBE7BC8: the client's asserts
 	static std::hash_map<std::string, KeyIdStruct> _KeyIds;				// 0xBE7B98 (ctor 0x71D8F0, dtor 0x719C80)  // NAME 1: neutral (D10)
 	static std::vector<KeyMappingStruct> _DefaultPSW;					// 0xBE7BB8: the client's asserts

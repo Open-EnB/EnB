@@ -137,11 +137,11 @@ bool ControlKeysManager::Register_Key(const std::string &module_name, const std:
 
 
 
-
-
-
-
-
+ControlKeysManager::ControlKeysManager() :
+	Unknown00(0),
+	UserKeysMap(100)
+{
+}
 
 
 
@@ -343,21 +343,21 @@ const std::string &ControlKeysManager::Get_Key_Name(const ControlKeyValueStruct 
 
 
 
+// NOT EXACT: registers and the loop bounds (begin/end swapped, ~28 rows); four loop forms tried (attempts.csv)
+void ControlKeysManager::Build_Keys_Map()
+{
+	UserKeysMap.clear();
+	for (std::vector<KeyMappingStruct>::iterator it = UserKeys.begin(); it != UserKeys.end(); ++it) {
+		for (int set = 0; set < NUM_MAPPING_SETS; set++) {
+			unsigned int event = *(unsigned int *)&it->Keys[set];
+			if (event) {
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+				G_ASSERT(UserKeysMap.find(event) == UserKeysMap.end());
+				UserKeysMap[event] = it->Def;
+			}
+		}
+	}
+}
 
 
 
