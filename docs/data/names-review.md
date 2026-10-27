@@ -7,11 +7,11 @@ are listed here until better evidence raises their tag. Regenerate with
 
 | Score | Meaning | Names |
 |---|---|---|
-| 5 | the client names it | 28 |
+| 5 | the client names it | 30 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 35 |
 | 3 | by convention from a client-named file or sibling | 759 |
-| 2 | describes what the code does | 1683 |
-| 1 | neutral placeholder | 2482 |
+| 2 | describes what the code does | 1688 |
+| 1 | neutral placeholder | 2499 |
 
 ## For review (score 3 and below)
 
@@ -217,8 +217,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_18` | `app/client/co_data.cpp:60` | untagged neutral name (D10) |
 | 1 | `Unknown_18` | `app/client/co_data.h:42` | the client's slot |
 | 1 | `ClientObjectDataAccessClass` | `app/client/co_data.h:52` | neutral (D10), the per-type access |
-| 1 | `Unknown_8B44E0` | `app/client/control_keys_manager.cpp:5` | neutral placeholder (D10) |
-| 1 | `Unknown_42B7E0` | `app/client/control_keys_manager.cpp:6` | neutral (D10): 0x42B7E0, the key's text |
+| 1 | `Unknown_8B44E0` | `app/client/control_keys_manager.cpp:8` | neutral placeholder (D10) |
+| 1 | `Unknown_42A1A0` | `app/client/control_keys_manager.cpp:9` | neutral (D10): 0x42A1A0 (app\input), a key read from an ini entry |
+| 1 | `Unknown_42A410` | `app/client/control_keys_manager.cpp:10` | neutral (D10): 0x42A410 (app\input), a key written to an ini entry |
+| 1 | `Unknown_42B7E0` | `app/client/control_keys_manager.cpp:11` | neutral (D10): 0x42B7E0, the key's text |
 | 1 | `Unknown12E8` | `app/client/control_keys_manager.cpp:168` | untagged neutral name (D10) |
 | 1 | `Get_Unknown30` | `app/client/control_keys_manager.cpp:189` | untagged neutral name (D10) |
 | 1 | `Get_Unknown10` | `app/client/control_keys_manager.cpp:649` | untagged neutral name (D10) |
@@ -226,31 +228,32 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Get_Unknown20` | `app/client/control_keys_manager.cpp:661` | untagged neutral name (D10) |
 | 1 | `Unknown20` | `app/client/control_keys_manager.cpp:664` | untagged neutral name (D10) |
 | 1 | `Unknown30` | `app/client/control_keys_manager.cpp:671` | untagged neutral name (D10) |
-| 1 | `ControlKeyDefStruct` | `app/client/control_keys_manager.h:28` | neutral (D10): what a key definition's DefPtr points at (0x38 bytes or more) |
-| 1 | `std:` | `app/client/control_keys_manager.h:31` | neutral (D10) |
-| 1 | `Unknown10` | `app/client/control_keys_manager.h:31` | untagged neutral name (D10) |
+| 1 | `ControlKeyDefStruct` | `app/client/control_keys_manager.h:29` | neutral (D10): what a key definition's DefPtr points at (0x38 bytes or more) |
 | 1 | `std:` | `app/client/control_keys_manager.h:32` | neutral (D10) |
-| 1 | `Unknown20` | `app/client/control_keys_manager.h:32` | untagged neutral name (D10) |
-| 1 | `Unknown30` | `app/client/control_keys_manager.h:35` | neutral (D10) |
-| 1 | `ControlKeyDefClass` | `app/client/control_keys_manager.h:39` | neutral (D10): the holder whose member the asserts call DefPtr |
-| 1 | `std:` | `app/client/control_keys_manager.h:42` | neutral (D10) |
-| 1 | `Get_Unknown10` | `app/client/control_keys_manager.h:42` | untagged neutral name (D10) |
-| 1 | `std:` | `app/client/control_keys_manager.h:44` | neutral (D10) |
-| 1 | `Get_Unknown20` | `app/client/control_keys_manager.h:44` | untagged neutral name (D10) |
-| 1 | `Get_Unknown30` | `app/client/control_keys_manager.h:45` | neutral (D10) |
-| 1 | `ControlKeyComboStruct` | `app/client/control_keys_manager.h:51` | neutral (D10): 0x10 bytes, what 0x42B7E0 turns into text |
-| 1 | `Unknown04` | `app/client/control_keys_manager.h:57` | neutral (D10) |
-| 1 | `Unknown08` | `app/client/control_keys_manager.h:58` | neutral (D10) |
-| 1 | `Unknown0C` | `app/client/control_keys_manager.h:59` | neutral (D10) |
-| 1 | `ControlKeyStruct` | `app/client/control_keys_manager.h:62` | neutral (D10): one key of a mapping (4 bytes) |
-| 1 | `ControlKeyValueStruct` | `app/client/control_keys_manager.h:70` | neutral (D10): the 4-byte key value 0x5CB000's options screen copies |
-| 1 | `KeyMappingStruct` | `app/client/control_keys_manager.h:82` | neutral (D10): one key definition's mapping (0xC bytes): its DefPtr and keys |
-| 1 | `KeyIdStruct` | `app/client/control_keys_manager.h:90` | neutral (D10): the value of _KeyIds (0x14 bytes) |
-| 1 | `ControlKeysSClientClass` | `app/client/control_keys_manager.h:96` | neutral (D10): sclient.cpp's SClient, as far as Init reads it |
-| 1 | `Unknown0000` | `app/client/control_keys_manager.h:99` | untagged neutral name (D10) |
-| 1 | `Unknown12E8` | `app/client/control_keys_manager.h:100` | neutral (D10) |
-| 1 | `ControlKeyListClass` | `app/client/control_keys_manager.h:103` | neutral (D10): the screen's key list Add_Keys / Remove_Keys fill ('keylist') |
-| 1 | `std:` | `app/client/control_keys_manager.h:140` | neutral (D10) |
+| 1 | `Unknown10` | `app/client/control_keys_manager.h:32` | untagged neutral name (D10) |
+| 1 | `std:` | `app/client/control_keys_manager.h:33` | neutral (D10) |
+| 1 | `Unknown20` | `app/client/control_keys_manager.h:33` | untagged neutral name (D10) |
+| 1 | `Unknown30` | `app/client/control_keys_manager.h:36` | neutral (D10) |
+| 1 | `ControlKeyDefClass` | `app/client/control_keys_manager.h:40` | neutral (D10): the holder whose member the asserts call DefPtr |
+| 1 | `std:` | `app/client/control_keys_manager.h:43` | neutral (D10) |
+| 1 | `Get_Unknown10` | `app/client/control_keys_manager.h:43` | untagged neutral name (D10) |
+| 1 | `std:` | `app/client/control_keys_manager.h:45` | neutral (D10) |
+| 1 | `Get_Unknown20` | `app/client/control_keys_manager.h:45` | untagged neutral name (D10) |
+| 1 | `Get_Unknown30` | `app/client/control_keys_manager.h:46` | neutral (D10) |
+| 1 | `ControlKeyComboStruct` | `app/client/control_keys_manager.h:52` | neutral (D10): 0x10 bytes, what 0x42B7E0 turns into text |
+| 1 | `Unknown04` | `app/client/control_keys_manager.h:58` | neutral (D10) |
+| 1 | `Unknown08` | `app/client/control_keys_manager.h:59` | neutral (D10) |
+| 1 | `Unknown0C` | `app/client/control_keys_manager.h:60` | neutral (D10) |
+| 1 | `ControlKeyStruct` | `app/client/control_keys_manager.h:63` | neutral (D10): one key of a mapping (4 bytes) |
+| 1 | `ControlKeyValueStruct` | `app/client/control_keys_manager.h:72` | neutral (D10): the 4-byte key value 0x5CB000's options screen copies |
+| 1 | `KeyMappingStruct` | `app/client/control_keys_manager.h:84` | neutral (D10): one key definition's mapping (0xC bytes): its DefPtr and keys |
+| 1 | `KeyIdStruct` | `app/client/control_keys_manager.h:92` | neutral (D10): the value of _KeyIds (0x14 bytes) |
+| 1 | `ControlKeysSClientClass` | `app/client/control_keys_manager.h:98` | neutral (D10): sclient.cpp's SClient, as far as Init reads it |
+| 1 | `Unknown0000` | `app/client/control_keys_manager.h:101` | untagged neutral name (D10) |
+| 1 | `Unknown12E8` | `app/client/control_keys_manager.h:102` | neutral (D10) |
+| 1 | `ControlKeyListClass` | `app/client/control_keys_manager.h:105` | neutral (D10): the screen's key list Add_Keys / Remove_Keys fill ('keylist') |
+| 1 | `Unknown00` | `app/client/control_keys_manager.h:120` | neutral (D10) |
+| 1 | `std:` | `app/client/control_keys_manager.h:160` | neutral (D10) |
 | 1 | `Unknown_4604D0` | `app/client/cpacket.cpp:48` | untagged neutral name (D10) |
 | 1 | `Unknown_460780` | `app/client/cpacket.cpp:49` | untagged neutral name (D10) |
 | 1 | `Unknown_460850` | `app/client/cpacket.cpp:50` | untagged neutral name (D10) |
@@ -1350,11 +1353,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_28` | `app/packets/pk_classes.h:312` | neutral (D10) |
 | 1 | `Packet_00B5Class` | `app/packets/pk_classes.h:349` | neutral (D10): opcode 0x00B5 |
 | 1 | `Packet_00B6Class` | `app/packets/pk_classes.h:358` | neutral (D10): opcode 0x00B6 |
-| 1 | `Packet_00A8Class` | `app/packets/pk_classes.h:367` | neutral (D10): opcode 0x00A8 |
-| 1 | `Packet_00A9Class` | `app/packets/pk_classes.h:376` | neutral (D10): opcode 0x00A9 |
-| 1 | `Packet_00ABClass` | `app/packets/pk_classes.h:385` | neutral (D10): opcode 0x00AB |
-| 1 | `Packet_00ACClass` | `app/packets/pk_classes.h:394` | neutral (D10): opcode 0x00AC |
-| 1 | `Packet_0077Class` | `app/packets/pk_classes.h:403` | neutral (D10): opcode 0x0077 |
+| 1 | `Packet_00A9Class` | `app/packets/pk_classes.h:367` | neutral (D10): opcode 0x00A9 |
+| 1 | `Packet_00ABClass` | `app/packets/pk_classes.h:376` | neutral (D10): opcode 0x00AB |
+| 1 | `Packet_00ACClass` | `app/packets/pk_classes.h:385` | neutral (D10): opcode 0x00AC |
+| 1 | `Packet_0077Class` | `app/packets/pk_classes.h:394` | neutral (D10): opcode 0x0077 |
 | 1 | `Unknown_14` | `app/packets/pk_player_object_relationship.cpp:12` | untagged neutral name (D10) |
 | 1 | `std:` | `app/packets/pk_player_object_relationship.cpp:85` | neutral (D10) |
 | 1 | `Unknown_8743C0` | `app/packets/pk_player_object_relationship.cpp:85` | untagged neutral name (D10) |
@@ -1840,11 +1842,26 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown10` | `app/packets/pkunknown_87a940.h:33` | untagged neutral name (D10) |
 | 1 | `Unknown20` | `app/packets/pkunknown_87a940.h:34` | untagged neutral name (D10) |
 | 1 | `Unknown0C` | `app/packets/pkunknown_87acd0.cpp:6` | untagged neutral name (D10) |
-| 1 | `Unknown10` | `app/packets/pkunknown_87acd0.cpp:6` | untagged neutral name (D10) |
+| 1 | `Unknown10` | `app/packets/pkunknown_87acd0.cpp:7` | untagged neutral name (D10) |
+| 1 | `Unknown20` | `app/packets/pkunknown_87acd0.cpp:8` | untagged neutral name (D10) |
+| 1 | `Unknown30` | `app/packets/pkunknown_87acd0.cpp:9` | untagged neutral name (D10) |
+| 1 | `Unknown34` | `app/packets/pkunknown_87acd0.cpp:10` | untagged neutral name (D10) |
+| 1 | `Unknown38` | `app/packets/pkunknown_87acd0.cpp:11` | untagged neutral name (D10) |
+| 1 | `Unknown40` | `app/packets/pkunknown_87acd0.cpp:12` | untagged neutral name (D10) |
+| 1 | `Unknown48` | `app/packets/pkunknown_87acd0.cpp:44` | untagged neutral name (D10) |
+| 1 | `Unknown58` | `app/packets/pkunknown_87acd0.cpp:45` | untagged neutral name (D10) |
 | 1 | `pkunknown_87acd0` | `app/packets/pkunknown_87acd0.h:16` | provisional, neutral (D10): the object's first address |
-| 1 | `Packet_00AAClass` | `app/packets/pkunknown_87acd0.h:22` | neutral (D10): opcode 0x00AA |
-| 1 | `Unknown0C` | `app/packets/pkunknown_87acd0.h:32` | untagged neutral name (D10) |
-| 1 | `Unknown10` | `app/packets/pkunknown_87acd0.h:33` | untagged neutral name (D10) |
+| 1 | `Packet_00A8Class` | `app/packets/pkunknown_87acd0.h:24` | neutral (D10): opcode 0x00A8 (its Print says 'ChatProxyLoginPacketClass') |
+| 1 | `Unknown0C` | `app/packets/pkunknown_87acd0.h:35` | untagged neutral name (D10) |
+| 1 | `Unknown10` | `app/packets/pkunknown_87acd0.h:36` | untagged neutral name (D10) |
+| 1 | `Unknown20` | `app/packets/pkunknown_87acd0.h:37` | untagged neutral name (D10) |
+| 1 | `Unknown30` | `app/packets/pkunknown_87acd0.h:38` | untagged neutral name (D10) |
+| 1 | `Unknown34` | `app/packets/pkunknown_87acd0.h:39` | untagged neutral name (D10) |
+| 1 | `Unknown38` | `app/packets/pkunknown_87acd0.h:40` | untagged neutral name (D10) |
+| 1 | `Unknown40` | `app/packets/pkunknown_87acd0.h:41` | untagged neutral name (D10) |
+| 1 | `Unknown48` | `app/packets/pkunknown_87acd0.h:42` | untagged neutral name (D10) |
+| 1 | `Unknown58` | `app/packets/pkunknown_87acd0.h:43` | untagged neutral name (D10) |
+| 1 | `Packet_00AAClass` | `app/packets/pkunknown_87acd0.h:47` | neutral (D10): opcode 0x00AA |
 | 1 | `Unknown_ChatStreamClass` | `app/packets/pkunknown_87dec0.cpp:6` | untagged neutral name (D10) |
 | 1 | `Unknown_04` | `app/packets/pkunknown_87dec0.cpp:15` | untagged neutral name (D10) |
 | 1 | `Unknown04` | `app/packets/pkunknown_87dec0.cpp:16` | untagged neutral name (D10) |
@@ -2626,41 +2643,46 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Remove_Navigation_Data` | `app/client/co_data.h:89` | what it does |
 | 2 | `Get_Emote_Data` | `app/client/co_data.h:90` | what it does |
 | 2 | `Remove_Emote_Data` | `app/client/co_data.h:91` | what it does |
-| 2 | `std:` | `app/client/control_keys_manager.cpp:8` | 0xBE7B80, what the accessors return without a definition |
-| 2 | `std:` | `app/client/control_keys_manager.h:30` | 0x71CC60 returns it; the table's key |
-| 2 | `std:` | `app/client/control_keys_manager.h:43` | returns the definition's first string |
-| 2 | `Key` | `app/client/control_keys_manager.h:55` | the key's code |
-| 2 | `Modifiers` | `app/client/control_keys_manager.h:56` | the modifier bits |
-| 2 | `Key` | `app/client/control_keys_manager.h:66` | the key's code |
-| 2 | `Modifiers` | `app/client/control_keys_manager.h:67` | the modifier bits |
-| 2 | `Key` | `app/client/control_keys_manager.h:78` | the key's code |
-| 2 | `Modifiers` | `app/client/control_keys_manager.h:79` | the modifier bits |
-| 2 | `std:` | `app/client/control_keys_manager.h:84` | describes what it does |
-| 2 | `Id` | `app/client/control_keys_manager.h:92` | what it holds |
-| 2 | `Add` | `app/client/control_keys_manager.h:106` | describes what it does |
-| 2 | `Remove` | `app/client/control_keys_manager.h:107` | describes what it does |
-| 2 | `Set_Key` | `app/client/control_keys_manager.h:115` | describes what it does |
-| 2 | `Add_Keys` | `app/client/control_keys_manager.h:116` | describes what it does |
-| 2 | `Remove_Keys` | `app/client/control_keys_manager.h:117` | describes what it does |
-| 2 | `Restore_Keys` | `app/client/control_keys_manager.h:118` | describes what it does |
-| 2 | `Set_Default_PSW` | `app/client/control_keys_manager.h:119` | describes what it does |
-| 2 | `Set_Default_SIM` | `app/client/control_keys_manager.h:120` | describes what it does |
-| 2 | `std:` | `app/client/control_keys_manager.h:121` | describes what it does |
-| 2 | `Build_Keys_Map` | `app/client/control_keys_manager.h:122` | describes what it does |
-| 2 | `Init` | `app/client/control_keys_manager.h:123` | describes what it does |
-| 2 | `Load_Definitions` | `app/client/control_keys_manager.h:124` | describes what it does |
-| 2 | `Load_Keys` | `app/client/control_keys_manager.h:125` | describes what it does |
-| 2 | `Find_Mappings` | `app/client/control_keys_manager.h:126` | describes what it does |
-| 2 | `Create` | `app/client/control_keys_manager.h:127` | describes what it does |
-| 2 | `Destroy` | `app/client/control_keys_manager.h:128` | what its caller uses it for |
-| 2 | `Get` | `app/client/control_keys_manager.h:129` | describes what it does |
-| 2 | `Get_Key_Id` | `app/client/control_keys_manager.h:130` | describes what it does |
-| 2 | `Get_Key_Id` | `app/client/control_keys_manager.h:131` | describes what it does |
-| 2 | `Register_Key` | `app/client/control_keys_manager.h:132` | describes what it does |
-| 2 | `Reset_Keys` | `app/client/control_keys_manager.h:134` | describes what it does |
-| 2 | `Copy_Keys` | `app/client/control_keys_manager.h:135` | describes what it does |
-| 2 | `Client` | `app/client/control_keys_manager.h:137` | what it holds |
-| 2 | `PlayerID` | `app/client/control_keys_manager.h:147` | what it holds |
+| 2 | `std:` | `app/client/control_keys_manager.cpp:13` | 0xBE7B80, what the accessors return without a definition |
+| 2 | `std:` | `app/client/control_keys_manager.h:31` | 0x71CC60 returns it; the table's key |
+| 2 | `std:` | `app/client/control_keys_manager.h:44` | returns the definition's first string |
+| 2 | `Key` | `app/client/control_keys_manager.h:56` | the key's code |
+| 2 | `Modifiers` | `app/client/control_keys_manager.h:57` | the modifier bits |
+| 2 | `Key` | `app/client/control_keys_manager.h:68` | the key's code |
+| 2 | `Modifiers` | `app/client/control_keys_manager.h:69` | the modifier bits |
+| 2 | `Key` | `app/client/control_keys_manager.h:80` | the key's code |
+| 2 | `Modifiers` | `app/client/control_keys_manager.h:81` | the modifier bits |
+| 2 | `std:` | `app/client/control_keys_manager.h:86` | describes what it does |
+| 2 | `Id` | `app/client/control_keys_manager.h:94` | what it holds |
+| 2 | `Add` | `app/client/control_keys_manager.h:108` | describes what it does |
+| 2 | `Remove` | `app/client/control_keys_manager.h:109` | describes what it does |
+| 2 | `emit` | `app/client/control_keys_manager.h:118` | the typed form Save's call expands to |
+| 2 | `Set_Key` | `app/client/control_keys_manager.h:132` | describes what it does |
+| 2 | `Add_Keys` | `app/client/control_keys_manager.h:133` | describes what it does |
+| 2 | `Remove_Keys` | `app/client/control_keys_manager.h:134` | describes what it does |
+| 2 | `Save` | `app/client/control_keys_manager.h:135` | describes what it does |
+| 2 | `Get_Signal_Map` | `app/client/control_keys_manager.h:136` | describes what it does |
+| 2 | `Restore_Keys` | `app/client/control_keys_manager.h:137` | describes what it does |
+| 2 | `Set_Default_PSW` | `app/client/control_keys_manager.h:138` | describes what it does |
+| 2 | `Set_Default_SIM` | `app/client/control_keys_manager.h:139` | describes what it does |
+| 2 | `std:` | `app/client/control_keys_manager.h:140` | describes what it does |
+| 2 | `Build_Keys_Map` | `app/client/control_keys_manager.h:141` | describes what it does |
+| 2 | `Init` | `app/client/control_keys_manager.h:142` | describes what it does |
+| 2 | `Load_Definitions` | `app/client/control_keys_manager.h:143` | describes what it does |
+| 2 | `Load_Keys` | `app/client/control_keys_manager.h:144` | describes what it does |
+| 2 | `Save_Keys` | `app/client/control_keys_manager.h:145` | describes what it does |
+| 2 | `Find_Mappings` | `app/client/control_keys_manager.h:146` | describes what it does |
+| 2 | `Create` | `app/client/control_keys_manager.h:147` | describes what it does |
+| 2 | `Destroy` | `app/client/control_keys_manager.h:148` | what its caller uses it for |
+| 2 | `Get` | `app/client/control_keys_manager.h:149` | describes what it does |
+| 2 | `Get_Key_Id` | `app/client/control_keys_manager.h:150` | describes what it does |
+| 2 | `Get_Key_Id` | `app/client/control_keys_manager.h:151` | describes what it does |
+| 2 | `Register_Key` | `app/client/control_keys_manager.h:152` | describes what it does |
+| 2 | `Reset_Keys` | `app/client/control_keys_manager.h:154` | describes what it does |
+| 2 | `Copy_Keys` | `app/client/control_keys_manager.h:155` | describes what it does |
+| 2 | `Client` | `app/client/control_keys_manager.h:157` | what it holds |
+| 2 | `std:` | `app/client/control_keys_manager.h:163` | what it holds |
+| 2 | `PlayerID` | `app/client/control_keys_manager.h:168` | what it holds |
 | 2 | `cpacket.cpp` | `app/client/cpacket.cpp:44` | the class id the handlers test |
 | 2 | `SoundManager` | `app/client/cpacket.cpp:63` | what it holds |
 | 2 | `FontColorStruct` | `app/client/fontdatabase.cpp:148` | one COLOR-n section of fontcode.ini / fontart.ini (0x10 bytes) |
@@ -3122,11 +3144,11 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `GlobalAvatarListPacketClass` | `app/packets/pk_classes.h:268` | the reference decoder's opcode name GLOBAL_AVATAR_LIST (the Net-7 opcode table; no structure check) |
 | 2 | `GlobalCreateCharacterPacketClass` | `app/packets/pk_classes.h:277` | the reference decoder's opcode name GLOBAL_CREATE_CHARACTER (the Net-7 opcode table; no structure check) |
 | 2 | `GlobalErrorPacketClass` | `app/packets/pk_classes.h:286` | the reference decoder's opcode name GLOBAL_ERROR (the Net-7 opcode table; no structure check) |
-| 2 | `RecustomizeShipStartPacketClass` | `app/packets/pk_classes.h:413` | the reference decoder's opcode name RECUSTOMIZE_SHIP_START (the Net-7 opcode table; no structure check) |
-| 2 | `RecustomizeShipDonePacketClass` | `app/packets/pk_classes.h:421` | the reference decoder's opcode name RECUSTOMIZE_SHIP_DONE (the Net-7 opcode table; no structure check) |
-| 2 | `RecustomizeAvatarStartPacketClass` | `app/packets/pk_classes.h:430` | the reference decoder's opcode name RECUSTOMIZE_AVATAR_START (the Net-7 opcode table; no structure check) |
-| 2 | `RecustomizeAvatarDonePacketClass` | `app/packets/pk_classes.h:438` | the reference decoder's opcode name RECUSTOMIZE_AVATAR_DONE (the Net-7 opcode table; no structure check) |
-| 2 | `RecustomizeAvatarUpdatePacketClass` | `app/packets/pk_classes.h:447` | the reference decoder's opcode name RECUSTOMIZE_AVATAR_UPDATE (the Net-7 opcode table; no structure check) |
+| 2 | `RecustomizeShipStartPacketClass` | `app/packets/pk_classes.h:404` | the reference decoder's opcode name RECUSTOMIZE_SHIP_START (the Net-7 opcode table; no structure check) |
+| 2 | `RecustomizeShipDonePacketClass` | `app/packets/pk_classes.h:412` | the reference decoder's opcode name RECUSTOMIZE_SHIP_DONE (the Net-7 opcode table; no structure check) |
+| 2 | `RecustomizeAvatarStartPacketClass` | `app/packets/pk_classes.h:421` | the reference decoder's opcode name RECUSTOMIZE_AVATAR_START (the Net-7 opcode table; no structure check) |
+| 2 | `RecustomizeAvatarDonePacketClass` | `app/packets/pk_classes.h:429` | the reference decoder's opcode name RECUSTOMIZE_AVATAR_DONE (the Net-7 opcode table; no structure check) |
+| 2 | `RecustomizeAvatarUpdatePacketClass` | `app/packets/pk_classes.h:438` | the reference decoder's opcode name RECUSTOMIZE_AVATAR_UPDATE (the Net-7 opcode table; no structure check) |
 | 2 | `std:` | `app/packets/pk_player_object_relationship.cpp:166` | what it holds |
 | 2 | `std:` | `app/packets/pk_player_object_relationship.cpp:167` | what it holds |
 | 2 | `std:` | `app/packets/pk_player_object_relationship.cpp:258` | what it holds |

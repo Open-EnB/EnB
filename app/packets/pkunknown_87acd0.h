@@ -17,6 +17,31 @@
 #define PKUNKNOWN_87ACD0_H
 
 #include "pk.h"
+#include <string>
+#include <vector>
+
+// opcode 168 (0x00A8, ?): vtable 0xB09F30, constructor 0x87AE80, 0x68 bytes
+class Packet_00A8Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x00A8 (its Print says 'ChatProxyLoginPacketClass')
+{
+public:
+	Packet_00A8Class();	// 0x87ACD0
+	Packet_00A8Class(RawPacketClass *raw);	// 0x87AE80
+	virtual ~Packet_00A8Class();	// +0x00 0x87AE50 / 0x87B280
+	virtual RawPacketClass *Build();	// +0x04 0x87B3E0
+	virtual bool Process_Packet(void *client);	// +0x08 0x868DC0 (clientstub.cpp l.320)
+	virtual int Get_Data_Size();	// +0x0C 0x87B5A0
+	virtual int Print(char *buffer, int len);	// +0x10 0x87B640
+
+	int Unknown0C;	// +0x0C (4 bytes as they are)
+	std::string Unknown10;	// +0x10 (a 2-byte length, then the bytes)
+	std::string Unknown20;	// +0x20
+	int Unknown30;	// +0x30 (network order)
+	char Unknown34;	// +0x34 (1 byte)
+	__int64 Unknown38;	// +0x38 (network order)
+	__int64 Unknown40;	// +0x40 (network order)
+	std::vector<std::string> Unknown48;	// +0x48 (a 4-byte count, then the strings)
+	std::vector<std::string> Unknown58;	// +0x58 (a 4-byte count, then the strings)
+};
 
 // opcode 170 (0x00AA, ?): vtable 0xB09F90, constructor 0x87C230, 0x14 bytes
 class Packet_00AAClass : public PacketClass  // NAME 1: neutral (D10): opcode 0x00AA
