@@ -74,10 +74,22 @@ class Font32BaseClass  // NAME 1 [Font32BaseClass]: neutral (D10): the font obje
 {
 public:
 	virtual void Unknown_00();												// 0x6BBC90  // NAME 1 [Unknown_00]: neutral (D10)
+	virtual void Unknown_04();												// slot +0x04  // NAME 1 [Unknown_04]: neutral (D10)
+	virtual void Unknown_08();												// slot +0x08  // NAME 1 [Unknown_08]: neutral (D10)
+	virtual void Unknown_0C();												// slot +0x0C  // NAME 1 [Unknown_0C]: neutral (D10)
+	virtual void Unknown_10();												// slot +0x10  // NAME 1 [Unknown_10]: neutral (D10)
+	virtual void Unknown_14();												// slot +0x14  // NAME 1 [Unknown_14]: neutral (D10)
+	virtual void Set_Spacing(int spacing);									// slot +0x18: Spacing%d is passed  // NAME 2: what it is given
+	virtual int Unknown_1C(int value);										// slot +0x1C: given and returns the +0x98 value  // NAME 1 [Unknown_1C]: neutral (D10)
 };
 
-class Font32Class : public Font32BaseClass, public RefCountClass  // NAME 2: what font32Ptr points at (0xD30 bytes, constructor 0x6BBAC0)
+class Font32Class : public Font32BaseClass, public RefCountClass  // NAME 2: what font32Ptr points at (0xD30 bytes)
 {
+public:
+	Font32Class(const char *font_name, int spacing, float scale);			// 0x6BBAC0
+
+private:
+	char Unknown0C[0xD30 - 0x0C];											// +0x0C  // NAME 1 [Unknown0C]: neutral (D10)
 };
 
 struct FontStruct  // NAME 2: one of the fonts in use (0xC bytes)
@@ -124,6 +136,8 @@ public:
 	void Clear_Infos();													// 0x6BEE60  // NAME 2: what it does
 	void Clear_Tables();													// 0x6BEFD0: Colors and Effects  // NAME 2: what it does
 	void Clear_Strings();												// 0x6BF1F0  // NAME 2: what it does
+	void Set_Font(const char *chat_name, unsigned int font_index, float scale, int spacing, int value98, bool force);	// 0x6C38F0: 0xFFFFFF (16777215.0f) keeps a value  // NAME 2: what it does
+	void Restore_Font(const char *chat_name);								// 0x6C3D40: the INIT section's defaults  // NAME 2: what it does
 	int Find_Font_File_Index(const char *name);							// 0x6C3FB0, the client's name (its assert)
 	int Get_Font_File_Index(const char *chat_name);							// 0x6C4070  // NAME 2: what it does
 	const char *Get_Font_File_Name(unsigned int index);						// 0x6C4270  // NAME 2: what it does

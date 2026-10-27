@@ -241,6 +241,29 @@ void FontDatabaseClass::Unknown_6BFD00(const char *ini_name)
 }
 
 
+void FontDatabaseClass::Unknown_6C2080()
+{
+	int width = 0;
+	int height = 0;
+	int bits = 0;
+	bool windowed = false;
+	WW3D::Get_Device_Resolution(width, height, bits, windowed);
+	for (int i = 0; i < MAXFONTS; i++) {
+		Font[i].font32Ptr = NULL;
+	}
+	FontInitStruct *info = Get_Info(width, height);
+	for (i = 0; i < MAXFONTS; i++) {
+		Font[i].Name = info->FontID[i];
+		Font[i].Scale = info->Scale[i];
+	}
+	for (i = 0; i < MAXFONTS; i++) {
+		if (info->Font[i].Get_Length() > 0) {
+			Font[i].font32Ptr = Create_NEW(new Font32Class(info->Font[i], info->Spacing[i], info->Scale[i]));
+		}
+	}
+}
+
+
 int FontDatabaseClass::Get_Blend_Type(StringClass &name)
 {
 	char *text = name.Get_Buffer(name.Get_Length());
@@ -849,29 +872,6 @@ FontStringStruct *FontDatabaseClass::Find_String(const char *name)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // NOT EXACT: register-only: the client copies the found node into edi before the key's destructor; the dead size() keeps find_or_insert out of line
 void FontDatabaseClass::Add_String(FontStringStruct *str)
 {
@@ -914,17 +914,43 @@ void FontDatabaseClass::Add_Color(FontColorStruct *color)
 	}
 }
 
-
-int FontDatabaseClass::Find_Font_File_Index(const char *name)
+// NOT EXACT: inline-budget: the client calls Get_Info(width, height) 0x6C2CB0 out of line, ours inlines it (the rest is the same)
+void FontDatabaseClass::Set_Font(const char *chat_name, unsigned int font_index, float scale, int spacing, int value98, bool force)
 {
-	int index = 0;
-	for (std::vector<std::string>::iterator it = AllFonts.begin(); it != AllFonts.end(); it++) {
-		if (*it == name) {
-			return index;
-		}
-		index++;
+	int width = 0; int height = 0; int bits = 0; bool windowed = false;
+	WW3D::Get_Device_Resolution(width, height, bits, windowed);
+	FontInitStruct *info = Get_Info(width, height);
+	FAIL_IF(!info) return;
+	unsigned int chat_index;
+	for (chat_index = 0; (int)chat_index < MAXFONTS; chat_index++) if (strcmp(info->FontID[chat_index], chat_name) == 0) break;
+	FAIL_IF(chat_index >= MAXFONTS) return;
+
+	FAIL_IF(!Font[chat_index].font32Ptr) return;
+	bool changed = force;
+	if (font_index < AllFonts.size() && strcmp(AllFonts[font_index].c_str(), info->Font[chat_index]) != 0) {
+		info->Font[chat_index] = AllFonts[font_index].c_str();
+		changed = true;
 	}
-	return -1;
+	if (scale != 16777215.0f && info->Scale[chat_index] != scale) {
+		changed = true;
+		info->Scale[chat_index] = scale;
+		Font[chat_index].Scale = scale;
+	}
+	if (spacing != 0xFFFFFF && info->Spacing[chat_index] != spacing) {
+		info->Spacing[chat_index] = spacing;
+		Font[chat_index].font32Ptr->Set_Spacing(spacing);
+		Font[chat_index].font32Ptr->Set_Spacing(spacing);
+		changed = true;
+	}
+	if (value98 != 0xFFFFFF && info->Unknown98[chat_index] != value98) {
+		info->Unknown98[chat_index] = value98;
+	}
+	if (changed) {
+		Font[chat_index].font32Ptr = Create_NEW(new Font32Class(info->Font[chat_index], info->Spacing[chat_index], info->Scale[chat_index]));
+	} else {
+		Font[chat_index].font32Ptr->Set_Spacing(info->Spacing[chat_index]);
+	}
+	info->Unknown98[chat_index] = Font[chat_index].font32Ptr->Unknown_1C(info->Unknown98[chat_index]);
 }
 
 
@@ -954,61 +980,35 @@ int FontDatabaseClass::Find_Font_File_Index(const char *name)
 
 
 
+void FontDatabaseClass::Restore_Font(const char *chat_name)
+{
+	FontInitStruct *info = Get_Info();
+	FAIL_IF(!info) return;
+	unsigned int chat_index;
+	for (chat_index = 0; (int)chat_index < MAXFONTS; chat_index++) if (strcmp(info->FontID[chat_index], chat_name) == 0) break;
+	FAIL_IF(chat_index >= MAXFONTS) return;
+
+	FAIL_IF(!Font[chat_index].font32Ptr) return;
+	info->Font[chat_index] = info->DefaultFont[chat_index];
+	Font[chat_index].Scale = info->DefaultScale[chat_index];
+	info->Scale[chat_index] = info->DefaultScale[chat_index];
+	info->Spacing[chat_index] = info->DefaultSpacing[chat_index];
+	info->Unknown98[chat_index] = info->DefaultUnknown98[chat_index];
+	Set_Font(chat_name, 0xFFFFFF, 16777215.0f, 0xFFFFFF, 0xFFFFFF, true);
+}
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+int FontDatabaseClass::Find_Font_File_Index(const char *name)
+{
+	int index = 0;
+	for (std::vector<std::string>::iterator it = AllFonts.begin(); it != AllFonts.end(); it++) {
+		if (*it == name) {
+			return index;
+		}
+		index++;
+	}
+	return -1;
+}
 
 
 
@@ -1145,13 +1145,13 @@ int FontInitStruct::Find_Chat_Index(const char *chat_name)
 **	loaders, Clear_Strings, 0x6C2080), FontStruct's inline constructor 0x6BE7C0 and implicit destructor
 **	0x6BEB60, the destructor 0x6BEBF0, Load_Init 0x6BF330 (an INIT section, its Template%d sections first,
 **	recursively), 0x6BF910 (fontsys.ini: ALL_FONTS into AllFonts, the INIT-n sections into Infos, with
-**	FontInitStruct's inline constructor), Get_Blend_Type / Get_Direction / Get_Effect_Type 0x6C2340 / 0x6C2460 / 0x6C25A0 (the ini words to
+**	FontInitStruct's inline constructor), 0x6C2080 (the eight fonts for the resolution: Font32Class through RefCountPtr's Create_NEW), Get_Blend_Type / Get_Direction / Get_Effect_Type 0x6C2340 / 0x6C2460 / 0x6C25A0 (the ini words to
 **	their values), Parse_Directions 0x6C2890 and Split_Four 0x6C2A10 (NOT EXACT), 0x6BFD00 (fontcode.ini / fontart.ini: the COLOR-n and EFFECT-n
 **	sections through Add_Color / Add_Effect, inlined with the asserts on lines 909 / 895), Clear_Infos 0x6BEE60 (with FontInitStruct's implicit destructor 0x6BEEF0), Clear_Tables
 **	0x6BEFD0 (Colors and Effects), Clear_Strings 0x6BF1F0, Find_Font 0x6C2BF0, Get_Info(width, height) 0x6C2CB0, the tables' Find_Color /
 **	Find_Effect / Find_String 0x6C2D00-0x6C2F20 and Add_String / Add_Effect / Add_Color 0x6C3380-0x6C3720
 **	(G_ASSERT(0) on the client's lines 881 / 895 / 909, D25; the six NOT EXACT), the accessors on lines
-**	1023-1121 (FAIL_IF): Find_Font_File_Index 0x6C3FB0 (the client's name, its assert on line 1305), the chat
+**	1023-1121 (FAIL_IF): Set_Font 0x6C38F0 (lines 923-928, NOT EXACT) and Restore_Font 0x6C3D40 (lines 986-991), Find_Font_File_Index 0x6C3FB0 (the client's name, its assert on line 1305), the chat
 **	font's file index 0x6C4070, the font file name 0x6C4270 (AllFonts), the chat font's scale / spacing /
 **	+0x98 value 0x6C42E0 / 0x6C4450 / 0x6C45B0, Get_Info 0x6C4720 (the INIT section for the current
 **	resolution: the last whose ResWidth / ResHeight fit), 0x6C49C0, and FontInitStruct::Find_Chat_Index
