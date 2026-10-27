@@ -25,7 +25,7 @@ public:
 	NavigationPacketClass(int game_id, float signature, bool player_has_visited, int nav_type, bool is_huge);	// 0x89E8C0
 	NavigationPacketClass(RawPacketClass *raw);	// 0x89E9F0
 	virtual RawPacketClass *Build();	// +0x04 0x89EAE0
-	virtual bool Process_Packet(void *client);	// +0x08 0x73A600 (not rebuilt)
+	virtual bool Process_Packet(void *client);	// +0x08 0x73A600 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x89EBD0
 	virtual int Print(char *buffer, int len);	// +0x10 0x89EBF0
 	virtual int Get_Channel() { return(Channel); }	// +0x18 0x89E980
@@ -45,7 +45,7 @@ public:
 	NavDeletePacketClass(int game_id);	// 0x89EC40
 	NavDeletePacketClass(RawPacketClass *raw);	// 0x89ED50
 	virtual RawPacketClass *Build();	// +0x04 0x89EDE0
-	virtual bool Process_Packet(void *client);	// +0x08 0x73A710 (not rebuilt)
+	virtual bool Process_Packet(void *client);	// +0x08 0x73A710 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x89EEA0
 	virtual int Print(char *buffer, int len);	// +0x10 0x89EEC0
 	virtual int Get_Channel() { return(Unknown10); }	// +0x18 0x89ECE0

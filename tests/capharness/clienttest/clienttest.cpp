@@ -94,6 +94,7 @@ void Conn_Record(PacketClass *packet, RawPacketClass *)
 class FakeMainViewClass
 {
 public:
+	FakeMainViewClass() { memset(Unknown04, 0, sizeof(Unknown04)); }	// the radar (+0x80) and the rest null: WARP_INDEX's FAIL_IF
 	virtual ~FakeMainViewClass() {}
 	virtual void S04() {} virtual void S08() {} virtual void S0C() {} virtual void S10() {}
 	virtual void S14() {} virtual void S18() {} virtual void S1C() {} virtual void S20() {}

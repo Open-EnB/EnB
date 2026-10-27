@@ -6,6 +6,7 @@
 #include <windows.h>
 #include "sclient.h"
 #include "ui_line_display.h"
+#include "co_data.h"
 #include "..\packets\pk_sub_parts.h"
 #include "..\packets\pkclientship.h"
 #include "..\packets\pkconfirmedaction.h"
@@ -14,12 +15,14 @@
 #include "..\packets\pkhullupgrade.h"
 #include "..\packets\pkincapacitancerequest.h"
 #include "..\packets\pkinitrenderstate.h"
+#include "..\packets\pkjoblist.h"
 #include "..\packets\pklogoff.h"
 #include "..\packets\pk_classes.h"
 #include "..\packets\pkmessageline.h"
 #include "..\packets\pkmessagestring.h"
 #include "..\packets\pkmessagetime.h"
 #include "..\packets\pkmodechange.h"
+#include "..\packets\pknavdelete.h"
 #include "..\packets\pknamedecal.h"
 #include "..\packets\pkpointeffect.h"
 #include "..\packets\pkreferralpointsavailable.h"
@@ -29,7 +32,9 @@
 #include "..\packets\pksoundcommand.h"
 #include "..\packets\pkspline.h"
 #include "..\packets\pkstarbasetow.h"
+#include "..\packets\pktriggeremote.h"
 #include "..\packets\pkverblist.h"
+#include "..\packets\pkwarpindex.h"
 #include "..\shared\spln_db.h"
 #include "wwprofile.h"
 #include "rendobj.h"
@@ -61,6 +66,38 @@ public:
 	void Unknown_75B2B0(int channel);	// 0x75B2B0 (SOUND_COMMAND 107)  // NAME 1 [channel]: the packet's field
 };
 extern SoundManagerClass *SoundManager;	// 0xBE82A4  // NAME 2: what it holds
+
+// navigation_data.cpp's and the emote data's per-object records (co_data.h's Get_Navigation_Data /
+// Get_Emote_Data), declared as far as the handlers call them
+class NavigationDataClass	// NAME 3: class-from-file (D24) for app\client\navigation_data.cpp
+{
+public:
+	void Unknown_7BA940(NavigationPacketClass *packet);	// 0x7BA940 (NAVIGATION 153)  // NAME 1 [packet]: the handler's packet
+};
+class EmoteDataClass	// NAME 2: co_data.h's name for what Get_Emote_Data returns
+{
+public:
+	void Unknown_7E6650(int emote);	// 0x7E6650 (NOTIFY_EMOTE 162)  // NAME 1 [emote]: the packet's Emote
+};
+
+// ui_jobs.cpp's interface (an InterfaceClass: its reference count at +0x3C) and sbaseview.cpp's view
+// (SClient +0x135C; LOUNGE_NPC 82 calls its 0x6A0FD0) that holds it, declared as far as the job packets call them
+class UIJobsClass : public InterfaceClass	// NAME 3: class-from-file (D24) for app\client\ui_jobs.cpp
+{
+public:
+	void Unknown_5A3BC0(JobListPacketClass *packet);	// 0x5A3BC0 (JOB_LIST 147)  // NAME 1 [packet]: the handler's packet
+	void Unknown_5A3F10(JobDescriptionPacketClass *packet);	// 0x5A3F10 (JOB_DESCRIPTION 148)  // NAME 1 [packet]: the handler's packet
+	void Unknown_5A3FB0(JobAcceptReplyPacketClass *packet);	// 0x5A3FB0 (JOB_ACCEPT_REPLY 150)  // NAME 1 [packet]: the handler's packet
+	void Unknown_5A4430(int job_id);	// 0x5A4430 (JOB_DELETE 149)  // NAME 1 [job_id]: the packet's JobID
+};
+class SBaseViewClass : public ViewClass	// NAME 3: class-from-file (D24) for app\client\sbaseview.cpp
+{
+public:
+	RefCountPtr<UIJobsClass> Get_Jobs() { return(Jobs); }	// 0x73A300 (out of line after JOB_LIST 147, the first caller)  // NAME 2: what it returns
+
+	char Unknown04[0x194 - 0x04];	// +0x04
+	RefCountPtr<UIJobsClass> Jobs;	// +0x194  // NAME 2: what it holds
+};
 
 // shiputils.cpp's decal helper (cdecl): the packet's decals on the object's model, with the decal INI
 void Unknown_80E8C0(RenderObjClass *model, std::vector<DecalStruct> &decals, SClientUnknown1334Class *decal_ini);	// 0x80E8C0  // NAME 1 [model, decals, decal_ini]: what DECAL 16 passes
@@ -341,43 +378,6 @@ bool ModeChangePacketClass::Process_Packet(void *instance)
 	}
 	return(true);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -2070,9 +2070,61 @@ bool IncapacitanceRescueConfirmationPacket::Process_Packet(void *instance)
 	return(true);
 }
 
+// 0x73A210
+bool JobListPacketClass::Process_Packet(void *instance)
+{
+	WWPROFILE("JobListPacketClass::Process_Packet()");
+	SClient *sclient = (SClient *)((ClientClass *)instance)->Unknown_18();
+	if (sclient->Unknown135C) {
+		RefCountPtr<UIJobsClass> jobs = ((SBaseViewClass *)sclient->Unknown135C)->Get_Jobs();
+		if (jobs) {
+			jobs->Unknown_5A3BC0(this);
+		}
+	}
+	return(true);
+}
 
+// 0x73A330
+bool JobDescriptionPacketClass::Process_Packet(void *instance)
+{
+	WWPROFILE("JobDescriptionPacketClass::Process_Packet()");
+	SClient *sclient = (SClient *)((ClientClass *)instance)->Unknown_18();
+	if (sclient->Unknown135C) {
+		RefCountPtr<UIJobsClass> jobs = ((SBaseViewClass *)sclient->Unknown135C)->Get_Jobs();
+		if (jobs) {
+			jobs->Unknown_5A3F10(this);
+		}
+	}
+	return(true);
+}
 
+// 0x73A420
+bool JobDeletePacketClass::Process_Packet(void *instance)
+{
+	WWPROFILE("JobDeletePacketClass::Process_Packet()");
+	SClient *sclient = (SClient *)((ClientClass *)instance)->Unknown_18();
+	if (sclient->Unknown135C) {
+		RefCountPtr<UIJobsClass> jobs = ((SBaseViewClass *)sclient->Unknown135C)->Get_Jobs();
+		if (jobs) {
+			jobs->Unknown_5A4430(JobID);
+		}
+	}
+	return(true);
+}
 
+// 0x73A510
+bool JobAcceptReplyPacketClass::Process_Packet(void *instance)
+{
+	WWPROFILE("JobAcceptReplyPacketClass::Process_Packet()");
+	SClient *sclient = (SClient *)((ClientClass *)instance)->Unknown_18();
+	if (sclient->Unknown135C) {
+		RefCountPtr<UIJobsClass> jobs = ((SBaseViewClass *)sclient->Unknown135C)->Get_Jobs();
+		if (jobs) {
+			jobs->Unknown_5A3FB0(this);
+		}
+	}
+	return(true);
+}
 
 
 
@@ -2193,124 +2245,72 @@ bool IncapacitanceRescueConfirmationPacket::Process_Packet(void *instance)
 
 
 
+// 0x73A600
+bool NavigationPacketClass::Process_Packet(void *instance)
+{
+	WWPROFILE("NavigationPacketClass::Process_Packet(void * instance)");
+	SClient *sclient = (SClient *)instance;
+	ClientObjectClass *co = sclient->Find_Object(GameID);
+	FAIL_IF(!co) return(true);
+	NavigationDataClass *nav = Get_Navigation_Data(co, true);
 
 
+	FAIL_IF(!nav) return(true);
+	nav->Unknown_7BA940(this);
+	return(true);
+}
 
 
 
 
 
+// 0x73A710
+bool NavDeletePacketClass::Process_Packet(void *instance)
+{
+	WWPROFILE("NavDeletePacketClass::Process_Packet(void * instance)");
+	SClient *sclient = (SClient *)instance;
+	ClientObjectClass *co = sclient->Find_Object(GameID);
+	FAIL_IF(!co) return(true);
+	Remove_Navigation_Data(co);
+	return(true);
+}
 
 
 
 
 
 
+// 0x73A7F0
+bool WarpIndexPacketClass::Process_Packet(void *instance)
+{
+	WWPROFILE("WarpIndexPacketClass::Process_Packet(void * instance)");
+	SClient *sclient = (SClient *)instance;
+	MainViewClass *mainview = sclient->MainView;
+	FAIL_IF(!mainview) return(true);
+	RadarSystemClass *radar = mainview->Radar;
 
+	FAIL_IF(!radar) return(true);
+	radar->Unknown_7BD920(Index);
+	return(true);
+}
 
 
 
 
+// 0x73A8E0
+bool NotifyEmotePacketClass::Process_Packet(void *instance)
+{
+	WWPROFILE("NotifyEmotePacketClass::Process_Packet()");
+	SClient *sclient = (SClient *)instance;
+	ClientObjectClass *co = sclient->Find_Object(GameID);
+	FAIL_IF(!co) return(true);
+	EmoteDataClass *emote = Get_Emote_Data(co, true);
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	FAIL_IF(!emote) return(true);
+	emote->Unknown_7E6650(Emote);
+	return(true);
+}
 
 
 

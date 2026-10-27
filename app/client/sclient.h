@@ -77,6 +77,13 @@ public:
 	virtual void Unknown_10();							// +0x10 Shutdown
 };
 
+// radar_system.cpp's radar (the main view's +0x80), declared as far as cpacket.cpp calls it
+class RadarSystemClass	// NAME 3: class-from-file (D24) for radar_system.cpp
+{
+public:
+	void Unknown_7BD920(int index);						// 0x7BD920 (cpacket.cpp: WARP_INDEX 156)  // NAME 1 [index]: the packet's Index
+};
+
 // mainview.cpp's view (constructor 0x50B360, 0x1EC bytes): SClient's Add_Object / Remove_Object tell it
 class MainViewClass : public ViewClass	// NAME 3: class-from-file (D24) for mainview.cpp
 {
@@ -115,7 +122,9 @@ public:
 	virtual void Add_Object(ClientObjectClass *object);		// +0x80 SClient::Add_Object  // NAME 2: its caller's
 	virtual void Remove_Object(ClientObjectClass *object);	// +0x84 SClient::Remove_Object  // NAME 2: its caller's
 
-	char Unknown04[0x1EC - 0x04];						// +0x04
+	char Unknown04[0x80 - 0x04];						// +0x04
+	RadarSystemClass *Radar;							// +0x80 (cpacket.cpp: WARP_INDEX 156's FAIL_IF '!radar')  // NAME 3: the FAIL_IF's name
+	char Unknown84[0x1EC - 0x84];						// +0x84
 };
 
 // loadingview.cpp's view (constructor 0x691570, 0x6C bytes)

@@ -39,7 +39,7 @@ public:
 	JobListPacketClass(RawPacketClass *raw);	// 0x895F80
 	virtual ~JobListPacketClass();	// +0x00 0x8962F0 / 0x895F50
 	virtual RawPacketClass *Build();	// +0x04 0x896430
-	virtual bool Process_Packet(void *client);	// +0x08 0x73A210 (not rebuilt)
+	virtual bool Process_Packet(void *client);	// +0x08 0x73A210 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x896600
 	virtual int Print(char *buffer, int len);	// +0x10 0x896680
 
@@ -57,7 +57,7 @@ public:
 	JobDescriptionPacketClass(RawPacketClass *raw);	// 0x8969C0
 	virtual ~JobDescriptionPacketClass();	// +0x00 0x896990 / 0x896A90
 	virtual RawPacketClass *Build();	// +0x04 0x896AE0
-	virtual bool Process_Packet(void *client);	// +0x08 0x73A330 (not rebuilt)
+	virtual bool Process_Packet(void *client);	// +0x08 0x73A330 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x896BC0
 	virtual int Print(char *buffer, int len);	// +0x10 0x896C30
 
@@ -74,7 +74,7 @@ public:
 	JobDeletePacketClass(int job_id);	// 0x896C80
 	JobDeletePacketClass(RawPacketClass *raw);	// 0x896D10
 	virtual RawPacketClass *Build();	// +0x04 0x896DA0
-	virtual bool Process_Packet(void *client);	// +0x08 0x73A420 (not rebuilt)
+	virtual bool Process_Packet(void *client);	// +0x08 0x73A420 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x896E60
 	virtual int Print(char *buffer, int len);	// +0x10 0x896E80
 
@@ -88,7 +88,7 @@ public:
 	JobAcceptReplyPacketClass(int job_id, int accept_status, int seconds_remaining);	// 0x896EC0
 	JobAcceptReplyPacketClass(RawPacketClass *raw);	// 0x896F60
 	virtual RawPacketClass *Build();	// +0x04 0x897020
-	virtual bool Process_Packet(void *client);	// +0x08 0x73A510 (not rebuilt)
+	virtual bool Process_Packet(void *client);	// +0x08 0x73A510 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x897100
 	virtual int Print(char *buffer, int len);	// +0x10 0x897120
 

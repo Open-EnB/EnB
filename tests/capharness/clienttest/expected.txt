@@ -103,6 +103,9 @@ mainview add 38881
 mainview add 38943
 mainview add 38702
 mainview add 38963
+msg 140 NAVIGATION (153) size 18: cpacket.cpp's handler
+gen NavigationDataClass::NavigationDataClass
+gen NavigationDataClass::Unknown_7BA940
 mainview add 38914
 mainview add 38918
 mainview add 38896
@@ -112,6 +115,9 @@ mainview add 38684
 mainview add 38722
 mainview add 38958
 mainview add 38640
+msg 177 NAVIGATION (153) size 18: cpacket.cpp's handler
+gen NavigationDataClass::NavigationDataClass
+gen NavigationDataClass::Unknown_7BA940
 mainview add 38911
 mainview add 38915
 mainview add 38893
@@ -126,9 +132,15 @@ mainview add 38935
 mainview add 38673
 mainview add 38694
 mainview add 38650
+msg 234 NAVIGATION (153) size 18: cpacket.cpp's handler
+gen NavigationDataClass::NavigationDataClass
+gen NavigationDataClass::Unknown_7BA940
 mainview add 38962
 msg 236 ACTIVATE_RENDER_STATE (48) size 12: cpacket.cpp's handler
 msg 237 ACTIVATE_RENDER_STATE (48) size 12: cpacket.cpp's handler
+msg 243 NAVIGATION (153) size 18: cpacket.cpp's handler
+gen NavigationDataClass::NavigationDataClass
+gen NavigationDataClass::Unknown_7BA940
 mainview add 38678
 mainview add 38716
 mainview add 38952
@@ -161,8 +173,14 @@ mainview add 38944
 mainview add 38961
 msg 344 ACTIVATE_RENDER_STATE (48) size 12: cpacket.cpp's handler
 stub RsTrackClass::Unknown_4604D0 1
+msg 348 NAVIGATION (153) size 18: cpacket.cpp's handler
+gen NavigationDataClass::NavigationDataClass
+gen NavigationDataClass::Unknown_7BA940
 mainview add 38703
 mainview add 38964
+msg 357 NAVIGATION (153) size 18: cpacket.cpp's handler
+gen NavigationDataClass::NavigationDataClass
+gen NavigationDataClass::Unknown_7BA940
 mainview add 38919
 mainview add 38897
 mainview add 38879
@@ -191,6 +209,9 @@ mainview add 38674
 mainview add 38695
 mainview add 38968
 mainview add 38651
+msg 458 NAVIGATION (153) size 18: cpacket.cpp's handler
+gen NavigationDataClass::NavigationDataClass
+gen NavigationDataClass::Unknown_7BA940
 mainview add 38679
 mainview add 38717
 mainview add 38953
@@ -202,6 +223,9 @@ mainview add 38692
 mainview add 38676
 mainview add 38714
 mainview add 38970
+msg 504 NAVIGATION (153) size 18: cpacket.cpp's handler
+gen NavigationDataClass::NavigationDataClass
+gen NavigationDataClass::Unknown_7BA940
 mainview add 38710
 mainview add 38868
 mainview add 38969
@@ -215,6 +239,9 @@ mainview add 38866
 mainview add 38711
 mainview add 38707
 mainview add 38965
+msg 558 NAVIGATION (153) size 18: cpacket.cpp's handler
+gen NavigationDataClass::NavigationDataClass
+gen NavigationDataClass::Unknown_7BA940
 mainview add 38923
 mainview add 38901
 mainview add 38927
@@ -249,6 +276,9 @@ mainview add 38934
 mainview add 38890
 mainview add 38693
 mainview add 38649
+msg 695 NAVIGATION (153) size 18: cpacket.cpp's handler
+gen NavigationDataClass::NavigationDataClass
+gen NavigationDataClass::Unknown_7BA940
 mainview add 38677
 mainview add 38715
 mainview add 38951
@@ -297,7 +327,11 @@ stub ClientObjectClass::Unknown_08 38957
 stub ClientObjectClass::~ClientObjectClass 38957
 mainview add 38861
 mainview add 38876
+msg 851 NAVIGATION (153) size 18: cpacket.cpp's handler
+gen NavigationDataClass::Unknown_7BA940
 mainview add 43912
+msg 856 WARP_INDEX (156) size 8: cpacket.cpp's handler
+fail_if !radar (line 2292)
 mainview add 38844
 mainview add 38854
 mainview add 38872
@@ -368,9 +402,7 @@ recorded AVATAR_DESCRIPTION (97) x2
 recorded RELATIONSHIP (137) x202
 recorded CAMERA_CONTROL (146) x1
 recorded GALAXY_MAP (151) x2
-recorded NAVIGATION (153) x11
-recorded WARP_INDEX (156) x1
 recorded CLIENT_CHAT_EVENT (165) x4
 recorded NAME_DECAL (178) x2
-recorded 977, through cpacket.cpp's handlers 23
+recorded 965, through cpacket.cpp's handlers 35
 == done: 0 checks failed

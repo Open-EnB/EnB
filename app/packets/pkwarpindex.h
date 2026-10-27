@@ -42,7 +42,7 @@ public:
 	WarpIndexPacketClass(int index);	// 0x8B1E20
 	WarpIndexPacketClass(RawPacketClass *raw);	// 0x8B1EB0
 	virtual RawPacketClass *Build();	// +0x04 0x8B1F40
-	virtual bool Process_Packet(void *client);	// +0x08 0x73A7F0 (not rebuilt)
+	virtual bool Process_Packet(void *client);	// +0x08 0x73A7F0 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x8B2000
 	virtual int Print(char *buffer, int len);	// +0x10 0x8B2020
 
