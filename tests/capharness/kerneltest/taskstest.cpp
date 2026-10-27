@@ -157,8 +157,15 @@ TicketClass::TicketClass(int) {}
 LoginCharacterClass::LoginCharacterClass() {}
 LoginCharacterClass::~LoginCharacterClass() {}
 LoginUnknown350Class::LoginUnknown350Class() {}
-LoginUnknown350Class::~LoginUnknown350Class() {}
 LoginUnknown44Class::LoginUnknown44Class() {}
+void LoginCharacterClass::Write(LinearBufferClass *) {}
+void LoginCharacterClass::Read(LinearBufferClass *) {}
+int LoginCharacterClass::Get_Size() { return 0; }
+void LoginCharacterClass::Unknown_00(void *) {}
+void LoginUnknown350Class::Write(LinearBufferClass *) {}
+void LoginUnknown350Class::Read(LinearBufferClass *) {}
+int LoginUnknown350Class::Get_Size() { return 0; }
+void LoginUnknown350Class::Unknown_00(void *) {}
 void LoginUnknown88CClass::Write(LinearBufferClass *) {}
 void LoginUnknown88CClass::Read(LinearBufferClass *) {}
 int LoginUnknown88CClass::Get_Size() { return 0; }

@@ -23,6 +23,7 @@
 #include <list>
 #include "vector3.h"
 #include "vector2.h"
+#include "wwstring.h"
 
 class ConnectionClass;
 class Packet_0078Class;
@@ -144,17 +145,6 @@ public:
 	char Unknown1D1[0x514 - 0x1D1];						// +0x1D1
 };
 
-// A character slot of the login's list (0x90 bytes; LoginTaskClass's destructor destroys five with 0x8C0750)
-struct LoginCharacterClass	// NAME 1: what it holds
-{
-	LoginCharacterClass();								// 0x8C06E0
-	~LoginCharacterClass();								// 0x8C0750
-	char Unknown00[0x10];								// +0x00
-	int Galaxy_ID;										// +0x10 NAME 1: compared with the galaxies' (0x769400)
-	int Unknown14;										// +0x14
-	__int64 ID;											// +0x18 NAME 1: 0 for a new character (Go_Next_Step)
-	char Unknown20[0x70];								// +0x20
-};
 
 // The interface vtable 0xAEB9EC (three pure slots): pk.h's Unknown_PacketDataClass with its third slot
 class LoginPacketDataClass	// NAME 1: neutral (D10)
@@ -201,13 +191,6 @@ struct LoginTicketInfoClass	// NAME 1: what it holds
 	int Unknown98;										// +0x98: handed to 0x8190D0 (step 16)
 };
 
-// An entry of LoginTaskClass +0x350 (0x10C bytes)
-struct LoginUnknown350Class	// NAME 1: neutral (D10)
-{
-	LoginUnknown350Class();								// 0x4BEB50
-	~LoginUnknown350Class();							// 0x53BB50
-	char Unknown00[0x10C];
-};
 
 // The one-slot interface vtable 0xAEADC8 (delta.h's DeltaInterfaceClass has the same table)
 class LoginInterfaceAEADC8Class	// NAME 1: neutral (D10)
@@ -244,6 +227,7 @@ public:
 	virtual int Get_Size();								// +0x08 (thunk 0x414AB5)
 	virtual void Unknown_0C();							// +0x0C (thunk 0x403701)
 	virtual void Unknown_00(void *visitor);				// second table +0x00 0x4F6750 (thunk 0x40AEE8)
+	LoginUnknown88CClass &operator=(const LoginUnknown88CClass &that);	// 0x55D8A0
 	void Unknown_4F6210(int unknown);					// 0x4F6210
 	void Unknown_4F6230();								// 0x4F6230
 	void Unknown_4F62F0(int unknown);					// 0x4F62F0
@@ -258,6 +242,109 @@ public:
 	int Unknown44;										// +0x44
 	LoginUnknown44Class Unknown48[4];					// +0x48
 	char Unknown158[0x160 - 0x158];						// +0x158
+};
+
+// A character slot of the login's list (0x90 bytes, vtables 0xB0C560 / 0xB0C55C; LoginTaskClass's
+// destructor destroys five with 0x8C0750). Its assignment is the implicit one (0x7683F0, 0x768CB0).
+class LoginCharacterClass : public LoginPacketDataClass, public LoginInterfaceAEADC8Class	// NAME 1: what it holds
+{
+public:
+	LoginCharacterClass();								// 0x8C06E0
+	~LoginCharacterClass();								// 0x8C0750
+	virtual void Write(LinearBufferClass *buffer);		// +0x00 (vtable 0xB0C560)
+	virtual void Read(LinearBufferClass *buffer);		// +0x04
+	virtual int Get_Size();								// +0x08
+	virtual void Unknown_00(void *visitor);				// second table +0x00 (0xB0C55C)
+
+	int Unknown08;										// +0x08
+	int Unknown0C;										// +0x0C
+	int Galaxy_ID;										// +0x10 NAME 1: compared with the galaxies' (0x769400)
+	int Unknown14;										// +0x14
+	__int64 ID;											// +0x18 NAME 1: 0 for a new character (Go_Next_Step)
+	int Unknown20;										// +0x20
+	int Unknown24;										// +0x24
+	int Unknown28;										// +0x28
+	int Unknown2C;										// +0x2C
+	int Unknown30;										// +0x30
+	int Unknown34;										// +0x34
+	int Unknown38;										// +0x38
+	char Unknown3C[0x51];								// +0x3C (the constructor clears its first byte)
+};
+
+// An entry of LoginTaskClass +0x350 (0x10C bytes, vtables 0xAEB9D0 / 0xAEB9CC; constructor 0x4BEB50).
+// Its destructor is the implicit one (inline in 0x7683F0, out of line at 0x53BB50).
+class LoginUnknown350Class : public LoginPacketDataClass, public LoginInterfaceAEADC8Class	// NAME 1: neutral (D10)
+{
+public:
+	LoginUnknown350Class();								// 0x4BEB50
+	virtual void Write(LinearBufferClass *buffer);		// +0x00 (vtable 0xAEB9D0)
+	virtual void Read(LinearBufferClass *buffer);		// +0x04
+	virtual int Get_Size();								// +0x08
+	virtual void Unknown_00(void *visitor);				// second table +0x00 (0xAEB9CC)
+
+	int Unknown08;										// +0x08
+	char Unknown0C;										// +0x0C
+	char Unknown0D;										// +0x0D
+	int Unknown10;										// +0x10
+	int Unknown14;										// +0x14
+	int Unknown18;										// +0x18
+	int Unknown1C;										// +0x1C
+	char Unknown20;									// +0x20
+	char Unknown21;									// +0x21
+	char Unknown22;									// +0x22
+	char Unknown23;									// +0x23
+	char Unknown24;									// +0x24
+	char Unknown25;									// +0x25
+	char Unknown26;									// +0x26
+	char Unknown27;									// +0x27
+	char Unknown28;									// +0x28
+	char Unknown29;									// +0x29
+	char Unknown2A;									// +0x2A
+	char Unknown2B;									// +0x2B
+	char Unknown2C;									// +0x2C
+	char Unknown2D;									// +0x2D
+	Vector3 Unknown30;									// +0x30 (Write: 12 bytes)
+	Vector3 Unknown3C;									// +0x3C (Write: 12 bytes)
+	Vector3 Unknown48;									// +0x48 (Write: 12 bytes)
+	Vector3 Unknown54;									// +0x54 (Write: 12 bytes)
+	Vector3 Unknown60;									// +0x60 (Write: 12 bytes)
+	Vector3 Unknown6C;									// +0x6C (Write: 12 bytes)
+	Vector3 Unknown78;									// +0x78 (Write: 12 bytes)
+	Vector3 Unknown84;									// +0x84 (Write: 12 bytes)
+	Vector3 Unknown90;									// +0x90 (Write: 12 bytes)
+	int Unknown9C;										// +0x9C
+	int UnknownA0;										// +0xA0
+	int UnknownA4;										// +0xA4
+	int UnknownA8;										// +0xA8
+	int UnknownAC[5];									// +0xAC
+	int UnknownC0[5];									// +0xC0
+	char UnknownD4[0x14];								// +0xD4
+	char UnknownE8[0x14];								// +0xE8
+	std::string UnknownFC;								// +0xFC
+};
+
+// The serialisable name (vtable 0xB04160: Write 0x78E0E0 writes its 0x80 bytes; 0x84 bytes)
+class LoginNameDataClass : public LoginPacketDataClass	// NAME 1: neutral (D10)
+{
+public:
+	LoginNameDataClass() { Name[0] = 0; }
+	virtual void Write(LinearBufferClass *buffer);		// +0x00 0x78E0E0
+	virtual void Read(LinearBufferClass *buffer);		// +0x04 0x78E110
+	virtual int Get_Size();								// +0x08 0x78E140
+
+	char Name[0x80];									// +0x04 NAME 1: 0x80 bytes on the wire
+};
+
+// What 0x7683F0 and 0x768CB0 make on the stack (constructor 0x78CEE0: the registry key 'SOFTWARE\Westwood
+// Studios\Earth and Beyond\Character and Starship Creator'); its destructor is StringClass's (0x7689C0)
+class LoginUnknown78CEE0Class	// NAME 1: neutral (D10)
+{
+public:
+	LoginUnknown78CEE0Class();							// 0x78CEE0
+	void Unknown_78D480(int slot, LoginCharacterClass *character, LoginUnknown350Class *unknown, LoginUnknown88CClass *unknown2, LoginNameDataClass *name);	// 0x78D480
+	void Unknown_78DAF0(int slot);						// 0x78DAF0 (Unknown_50 passes the selected slot)
+
+	StringClass Unknown00;								// +0x00
 };
 
 class LoginUnknown0CClass	// NAME 1: neutral (D10): what LoginTaskClass +0x0C points to (inpdsp.cpp)
@@ -325,7 +412,7 @@ public:
 	void Unknown_76A370();								// 0x76A370 (step 18: 'LoginTask: Request Character List.')
 	void Save_Login_Name();								// 0x76AD30: login.ini's LOGIN_DATA Name  // NAME 1: what it does
 	void Load_Login();									// 0x76ADD0: login.ini, -LOGIN, -PASSWORD  // NAME 1: what it does
-	void Unknown_768CB0(void *characters, void *unknown);	// 0x768CB0: the avatar list's five characters (0x90 bytes each) and five 0x10C entries
+	void Unknown_768CB0(LoginCharacterClass *characters, LoginUnknown350Class *unknown);	// 0x768CB0: the avatar list's five characters (0x90 bytes each) and five 0x10C entries
 	void Set_Galaxies(const std::list<LoginGalaxyClass> &galaxies);	// 0x769110 (inlined in the avatar list's handler)  // NAME 1: what it does
 	void Handle_Global_Error(GlobalErrorPacketClass *packet);	// 0x76B000 (GlobalErrorPacketClass's handler)  // NAME 1: what it does
 	void Handle_Global_Login(Packet_0076Class *packet);	// 0x76B170 (inlined in the packet's Process_Packet: 'GlobalLoginPacketClass recv')  // NAME 1: what it does

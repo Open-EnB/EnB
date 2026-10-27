@@ -43,7 +43,7 @@ class GlobalErrorPacketClass : public PacketClass { public: GlobalErrorPacketCla
 class GlobalTicketPacketClass : public PacketClass { public: GlobalTicketPacketClass(RawPacketClass *raw); virtual bool Process_Packet(void *client); int Status; TicketClass Ticket; };	// opcode 111: 0x867650, 0x58 bytes  // NAME 1 [Status, Ticket]: 'Got the global ticket: %d', copied to the task's Ticket
 class Packet_0076Class : public PacketClass { public: Packet_0076Class(RawPacketClass *raw); virtual bool Process_Packet(void *client); int Unknown0C; LoginTicketInfoClass Ticket_Info; int Unknown0AC; short Unknown0B0; int Unknown0B4; int Unknown0B8; int Unknown0BC; bool Is_Unknown0B0() const { return Unknown0B0 != 0; } int Get_Unknown0B4() const { return Unknown0B4 - Unknown0B8; } };	// opcode 118 (the client's log: GlobalLoginPacketClass): 0x866050, 0xC0 bytes  // NAME 1 [Ticket_Info, Is_Unknown0B0, Get_Unknown0B4]: copied whole to the task's; the two accessors (inline budget: 0x76B170 calls string::assign out of line only with them)
 class Packet_0077Class : public PacketClass { public: Packet_0077Class(const char *name); virtual ~Packet_0077Class() {} virtual RawPacketClass *Build(); virtual bool Process_Packet(void *client); virtual int Get_Data_Size(); virtual int Print(char *buffer, int len); std::string Name; int Unknown1C; };	// opcode 119: 0x866AC0 (the sending constructor), 0x20 bytes; its destructor 0x76B400 is emitted here  // NAME 1 [name]: the referrer's name (0x55D060)
-class GlobalAvatarListPacketClass : public PacketClass { public: GlobalAvatarListPacketClass(RawPacketClass *raw); virtual bool Process_Packet(void *client); void *Unknown0C; void *Unknown10; std::list<LoginGalaxyClass> Galaxies; };	// opcode 112: 0x862D90, 0x20 bytes  // NAME 1 [Galaxies]: copied to the task's
+class GlobalAvatarListPacketClass : public PacketClass { public: GlobalAvatarListPacketClass(RawPacketClass *raw); virtual bool Process_Packet(void *client); LoginCharacterClass *Unknown0C; LoginUnknown350Class *Unknown10; std::list<LoginGalaxyClass> Galaxies; };	// opcode 112: 0x862D90, 0x20 bytes  // NAME 1 [Galaxies]: copied to the task's
 void Unknown_7E5F70();								// NAME 1 [Unknown_7E5F70]: neutral (D10); once, by the first LoginTaskClass(mode)
 void Unknown_7228C0();								// NAME 1 [Unknown_7228C0]: neutral (D10)
 void Unknown_43FA80();								// NAME 1 [Unknown_43FA80]: neutral (D10) (soundlib.cpp)
@@ -84,7 +84,7 @@ void Unknown_42EDB0();								// NAME 1 [Unknown_42EDB0]: neutral (D10) (input.c
 bool Unknown_42EA80(KernelEventClass *event);		// NAME 1 [Unknown_42EA80]: the input queue's next event (input.cpp)
 void Unknown_42E8A0(KernelEventClass *event);		// NAME 1 [Unknown_42E8A0]: hands the event on (input.cpp)
 KernelEventClass Unknown_65F780(void *unknown);		// NAME 1 [Unknown_65F780]: neutral (D10) (gadget.cpp)
-
+class GlobalDeleteCharacterPacketClass : public PacketClass { public: GlobalDeleteCharacterPacketClass(int slot); ~GlobalDeleteCharacterPacketClass(); int Unknown0C; char Unknown10[4]; };	// opcode 113: 0x8647B0, 0x8648B0 (pkglobaldeletecharacter.h: the receiving side only)
 
 
 
@@ -453,25 +453,25 @@ void LoginTaskClass::Process_Packets()
 	}
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// NOT EXACT: inline budget (the client inlines LoginUnknown350Class's assignment and calls the 0x160 object's constructor 0x7688F0; ours the reverse; attempts.py show 0x7683F0)
+// 0x7683F0
+void LoginTaskClass::Unknown_50()
+{
+	LoginUnknown78CEE0Class unknown;
+	if (Characters[Selected].ID == 0) {
+		return;
+	}
+	if (Is_Registered_Character()) {
+		GlobalConnection->Send_Packet(&GlobalDeleteCharacterPacketClass(Selected));
+		unknown.Unknown_78DAF0(Selected);
+	} else {
+		unknown.Unknown_78DAF0(Selected);
+		Unknown001D = true;
+	}
+	Characters[Selected] = LoginCharacterClass();
+	Unknown0350[Selected] = LoginUnknown350Class();
+	Unknown088C[Selected] = LoginUnknown88CClass();
+}
 
 
 // 0x7689E0
@@ -518,21 +518,21 @@ bool LoginTaskClass::Unknown_4C()
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// 0x768CB0
+void LoginTaskClass::Unknown_768CB0(LoginCharacterClass *characters, LoginUnknown350Class *unknown)
+{
+	for (int i = 0; i < 5; i++) {
+		if (characters[i].ID != 0) {
+			Characters[i] = characters[i];
+			Unknown0350[i] = unknown[i];
+		} else {
+			LoginUnknown78CEE0Class creator;
+			LoginNameDataClass name;
+			creator.Unknown_78D480(i, &Characters[i], &Unknown0350[i], &Unknown088C[i], &name);
+		}
+	}
+	Unknown001D = true;
+}
 
 
 
