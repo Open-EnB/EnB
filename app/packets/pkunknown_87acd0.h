@@ -106,4 +106,31 @@ public:
 	std::vector<std::string> Unknown40;	// +0x40 (a 4-byte count, then the strings)
 };
 
+// opcode 172 (0x00AC, ?): vtable 0xB09FF0, constructor 0x87D2E0, 0x8C bytes
+class Packet_00ACClass : public PacketClass  // NAME 1: neutral (D10): opcode 0x00AC (its Print says 'ChatProxyEventPacketClass')
+{
+public:
+	Packet_00ACClass();	// 0x87D180
+	Packet_00ACClass(RawPacketClass *raw);	// 0x87D2E0
+	virtual ~Packet_00ACClass();	// +0x00 0x87D2B0 / 0x87D690
+	virtual RawPacketClass *Build();	// +0x04 0x87D860
+	virtual bool Process_Packet(void *client);	// +0x08 0x868D90 (clientstub.cpp)
+	virtual int Get_Data_Size();	// +0x0C 0x87D9F0
+	virtual int Print(char *buffer, int len);	// +0x10 0x87DA90
+
+	void Add_Unknown0C(const std::string &string);	// 0x87DAC0 (push_back unless already there)  // NAME 1: neutral (D10)
+
+	std::vector<std::string> Unknown0C;	// +0x0C (a 4-byte count, then the strings)
+	int Unknown1C;	// +0x1C (4 bytes as they are)
+	std::string Unknown20;	// +0x20 (a 2-byte length, then the bytes)
+	std::string Unknown30;	// +0x30
+	std::string Unknown40;	// +0x40
+	std::string Unknown50;	// +0x50
+	std::string Unknown60;	// +0x60
+	std::string Unknown70;	// +0x70
+	char *Data;	// +0x80 (Size bytes, new'd when read)  // NAME 2: what it holds
+	int Size;	// +0x84 (4 bytes as they are, before the data)  // NAME 2: what it holds
+	bool Owned;	// +0x88 (the destructor deletes Data)  // NAME 2: what it means
+};
+
 #endif

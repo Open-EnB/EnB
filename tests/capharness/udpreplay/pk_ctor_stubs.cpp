@@ -25,7 +25,6 @@ VerbListPacketClass::VerbListPacketClass(RawPacketClass *raw) { Conn_Record(this
 IncapacitanceDetailsPacket::IncapacitanceDetailsPacket(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_00B5Class::Packet_00B5Class(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_00B6Class::Packet_00B6Class(RawPacketClass *raw) { Conn_Record(this, raw); }
-Packet_00ACClass::Packet_00ACClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_0077Class::Packet_0077Class(RawPacketClass *raw) { Conn_Record(this, raw); }
 RecustomizeShipStartPacketClass::RecustomizeShipStartPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 RecustomizeShipDonePacketClass::RecustomizeShipDonePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }

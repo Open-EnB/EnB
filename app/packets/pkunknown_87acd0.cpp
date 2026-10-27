@@ -1,6 +1,7 @@
 // Earth & Beyond client (reconstruction): app\packets\pkunknown_87acd0.cpp. Notes at the end of the file.
 #include "pkunknown_87acd0.h"
 #include <stdio.h>
+#include <algorithm>
 
 Packet_00A8Class::Packet_00A8Class() :
 	Unknown0C(0),
@@ -295,6 +296,100 @@ int Packet_00ABClass::Print(char *buffer, int len)
 	return(_snprintf(buffer, len, "ChatProxyResponseListPacketClass"));
 }
 
+Packet_00ACClass::Packet_00ACClass() :
+	Unknown1C(0),
+	Data(0),
+	Size(0),
+	Owned(false)
+{
+}
+
+Packet_00ACClass::Packet_00ACClass(RawPacketClass *raw) :
+	Unknown1C(0),
+	Data(0),
+	Size(0),
+	Owned(false)
+{
+	unsigned int count = 0;
+	raw->Get(&count, sizeof(count));
+	Unknown0C.reserve(count);
+	for (unsigned int i = 0; i < count; i++) {
+		std::string string;
+		raw->Get(&string);
+		Unknown0C.push_back(string);
+	}
+	raw->Get(&Unknown1C, sizeof(Unknown1C));
+	raw->Get(&Unknown20);
+	raw->Get(&Unknown30);
+	raw->Get(&Unknown40);
+	raw->Get(&Unknown50);
+	raw->Get(&Unknown60);
+	raw->Get(&Unknown70);
+	raw->Get(&Size, sizeof(Size));
+	if (Size != 0) {
+		Owned = true;
+		Data = new char[Size];
+		raw->Get(Data, Size);
+	}
+}
+
+Packet_00ACClass::~Packet_00ACClass()
+{
+	if (Owned && Data != 0) {
+		delete [] Data;
+		Data = 0;
+	}
+}
+
+RawPacketClass *Packet_00ACClass::Build()
+{
+	RawPacketClass *raw = new RawPacketClass(172, Get_Data_Size());
+	int count = Unknown0C.size();
+	raw->Add(&count, sizeof(count));
+	for (std::vector<std::string>::iterator it = Unknown0C.begin(); it != Unknown0C.end(); it++) {
+		raw->Add(*it);
+	}
+	raw->Add(&Unknown1C, sizeof(Unknown1C));
+	raw->Add(Unknown20);
+	raw->Add(Unknown30);
+	raw->Add(Unknown40);
+	raw->Add(Unknown50);
+	raw->Add(Unknown60);
+	raw->Add(Unknown70);
+	raw->Add(&Size, sizeof(Size));
+	if (Size != 0) {
+		raw->Add(Data, Size);
+	}
+	return(raw);
+}
+
+int Packet_00ACClass::Get_Data_Size()
+{
+	int size = sizeof(int);
+	for (std::vector<std::string>::iterator it = Unknown0C.begin(); it != Unknown0C.end(); it++) {
+		size += RawPacketClass::Get_Size(*it);
+	}
+	size += RawPacketClass::Get_Size(Unknown20) + sizeof(Unknown1C);
+	size += RawPacketClass::Get_Size(Unknown30);
+	size += RawPacketClass::Get_Size(Unknown40);
+	size += RawPacketClass::Get_Size(Unknown50);
+	size += RawPacketClass::Get_Size(Unknown60);
+	size += RawPacketClass::Get_Size(Unknown70);
+	return(Size + size + sizeof(Size));
+}
+
+int Packet_00ACClass::Print(char *buffer, int len)
+{
+	return(_snprintf(buffer, len, "ChatProxyEventPacketClass"));
+}
+
+void Packet_00ACClass::Add_Unknown0C(const std::string &string)
+{
+	if (std::find(Unknown0C.begin(), Unknown0C.end(), string) == Unknown0C.end()) {
+		Unknown0C.push_back(string);
+	}
+}
+
 
 /*
 **	Reconstruction notes (pkunknown_87acd0.cpp)
@@ -309,5 +404,6 @@ int Packet_00ABClass::Print(char *buffer, int len)
 **	* Opcode 169 (Print 'ChatProxyRequestPacketClass') written by hand (builder P6, 2026-10-27): five strings,
 **	  a string list and a sized data block it owns when read.
 **	* Opcode 171 (Print 'ChatProxyResponseListPacketClass') written by hand (builder P6, 2026-10-27).
-**	* Not rebuilt yet: opcode 172 (declared in pk_classes.h).
+**	* Opcode 172 (Print 'ChatProxyEventPacketClass') written by hand (builder P6, 2026-10-27): a string list,
+**	  an int, six strings and a sized data block it owns when read.
 */
