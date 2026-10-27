@@ -329,14 +329,6 @@ public:
 	char Unknown0C[0x10];	// +0x0C
 };
 
-// opcode 84 (0x0054, TALK_TREE): vtable 0xB0BC60, constructor 0x8A6CA0, 0x3C bytes
-class TalkTreePacketClass : public PacketClass
-{
-public:
-	TalkTreePacketClass(RawPacketClass *raw);	// 0x8A6CA0
-	char Unknown0C[0x30];	// +0x0C
-};
-
 // opcode 91 (0x005B, ?): vtable 0xB0C268, constructor 0x8AF150, 0x20 bytes
 class VerbListPacketClass : public PacketClass
 {

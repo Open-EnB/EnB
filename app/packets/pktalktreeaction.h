@@ -17,6 +17,38 @@
 #define PKTALKTREEACTION_H
 
 #include "pk.h"
+#include <string>
+#include <vector>
+
+// One response of TALK_TREE 84: 0x14 bytes (an int sent as its 4 bytes, the text as a 0-terminated string)
+struct TalkTreeResponseStruct  // NAME 2: Print's 'NumResponses' counts them
+{
+	TalkTreeResponseStruct(int unknown00, const std::string &text) : Unknown00(unknown00), Text(text) {}
+
+	int Unknown00;	// +0x00  // NAME 1: neutral (D10)
+	std::string Text;	// +0x04  // NAME 2: what it holds
+};
+
+// opcode 84 (0x0054, TALK_TREE): vtable 0xB0BC60, constructor 0x8A6CA0, 0x3C bytes
+class TalkTreePacketClass : public PacketClass  // NAME 3: the client's Print text 'TalkTreePacket'
+{
+public:
+	TalkTreePacketClass(const std::string &npc_say, const std::string &npc_sound_file_name);	// 0x8A6A80
+	TalkTreePacketClass(RawPacketClass *raw);	// 0x8A6CA0
+	virtual ~TalkTreePacketClass();	// +0x00 0x8A6B90 / 0x8A7040
+	virtual RawPacketClass *Build();	// +0x04 0x8A7180
+	virtual bool Process_Packet(void *client);	// +0x08 0x738670 (not rebuilt)
+	virtual int Get_Data_Size();	// +0x0C 0x8A7300
+	virtual int Print(char *buffer, int len);	// +0x10 0x8A7340
+	virtual int Get_Priority() { return(0); }	// +0x1C 0x8A6B70
+
+	void Add_Response(int unknown00, const std::string &text);	// 0x8A6BC0 (push_back)  // NAME 2: what it does
+	void Swap_Responses(std::vector<TalkTreeResponseStruct> &responses);	// 0x8A7160 (the UI's 0x64CC90)  // NAME 2: what it does
+
+	std::string NPCSay;	// +0x0C  // NAME 3: the client's Print text 'NPCSay='
+	std::string NPCSoundFileName;	// +0x1C  // NAME 3: the client's Print text 'NPCSoundFileName'
+	std::vector<TalkTreeResponseStruct> Responses;	// +0x2C (a 1-byte count, then each response)  // NAME 3: the client's Print text 'NumResponses='
+};
 
 // opcode 86 (0x0056, TALK_TREE_ACTION): vtable 0xB0BC90, constructor 0x8A7430, 0x10 bytes
 class TalkTreeActionPacketClass : public PacketClass
