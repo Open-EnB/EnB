@@ -19,6 +19,7 @@
 
 #include "..\..\kernel\kernel.h"
 #include "tsk_game.h"
+#include "..\..\shared\unknown_login_data.h"		// LoginCharacterClass, the data interfaces
 #include <string>
 #include <list>
 #include "vector3.h"
@@ -147,22 +148,13 @@ public:
 };
 
 
-// The interface vtable 0xAEB9EC (three pure slots): pk.h's Unknown_PacketDataClass with its third slot
-class LoginPacketDataClass	// NAME 1: neutral (D10)
-{
-public:
-	virtual void Write(LinearBufferClass *buffer) = 0;	// +0x00 NAME 2: pk.h's
-	virtual void Read(LinearBufferClass *buffer) = 0;	// +0x04 NAME 2: pk.h's
-	virtual int Get_Size() = 0;							// +0x08 NAME 1: the galaxy's returns 0x54, the bytes Write writes
-};
-
 // A galaxy of the login's list (vtable 0xAEFBD0, 0x60 bytes; the avatar list packet's, 0x862D90)
 class LoginGalaxyClass : public LoginPacketDataClass	// NAME 1: what it holds
 {
 public:
 	~LoginGalaxyClass() {}								// 0x76BBF0 (stores the vtable: explicit)
-	virtual void Write(LinearBufferClass *buffer);		// +0x00 0x83C730
-	virtual void Read(LinearBufferClass *buffer);		// +0x04 0x83C7C0
+	virtual bool Write(LinearBufferClass *buffer);		// +0x00 0x83C730
+	virtual bool Read(LinearBufferClass *buffer);		// +0x04 0x83C7C0
 	virtual int Get_Size();								// +0x08 0x83C850
 
 	char Name[0x41];									// +0x04 NAME 1: 0x40 bytes on the wire
@@ -193,13 +185,6 @@ struct LoginTicketInfoClass	// NAME 1: what it holds
 };
 
 
-// The one-slot interface vtable 0xAEADC8 (delta.h's DeltaInterfaceClass has the same table)
-class LoginInterfaceAEADC8Class	// NAME 1: neutral (D10)
-{
-public:
-	virtual void Unknown_00(void *visitor) = 0;
-};
-
 // A 0x44-byte object (constructor 0x6191F0), four in each LoginUnknown88CClass
 class LoginUnknown44Class	// NAME 1: neutral (D10)
 {
@@ -223,8 +208,8 @@ public:
 		Unknown_4F62F0(0);
 		Unknown_4F6230();
 	}
-	virtual void Write(LinearBufferClass *buffer);		// +0x00 0x4F6330 (thunk 0x40C7F2)
-	virtual void Read(LinearBufferClass *buffer);		// +0x04 (thunk 0x405F9C)
+	virtual bool Write(LinearBufferClass *buffer);		// +0x00 0x4F6330 (thunk 0x40C7F2)
+	virtual bool Read(LinearBufferClass *buffer);		// +0x04 (thunk 0x405F9C)
 	virtual int Get_Size();								// +0x08 (thunk 0x414AB5)
 	virtual void Unknown_0C();							// +0x0C (thunk 0x403701)
 	virtual void Unknown_00(void *visitor);				// second table +0x00 0x4F6750 (thunk 0x40AEE8)
@@ -245,33 +230,6 @@ public:
 	char Unknown158[0x160 - 0x158];						// +0x158
 };
 
-// A character slot of the login's list (0x90 bytes, vtables 0xB0C560 / 0xB0C55C; LoginTaskClass's
-// destructor destroys five with 0x8C0750). Its assignment is the implicit one (0x7683F0, 0x768CB0).
-class LoginCharacterClass : public LoginPacketDataClass, public LoginInterfaceAEADC8Class	// NAME 1: what it holds
-{
-public:
-	LoginCharacterClass();								// 0x8C06E0
-	~LoginCharacterClass();								// 0x8C0750
-	virtual void Write(LinearBufferClass *buffer);		// +0x00 (vtable 0xB0C560)
-	virtual void Read(LinearBufferClass *buffer);		// +0x04
-	virtual int Get_Size();								// +0x08
-	virtual void Unknown_00(void *visitor);				// second table +0x00 (0xB0C55C)
-
-	int Unknown08;										// +0x08
-	int Unknown0C;										// +0x0C
-	int Galaxy_ID;										// +0x10 NAME 1: compared with the galaxies' (0x769400)
-	int Unknown14;										// +0x14
-	__int64 ID;											// +0x18 NAME 1: 0 for a new character (Go_Next_Step)
-	int Unknown20;										// +0x20
-	int Unknown24;										// +0x24
-	int Unknown28;										// +0x28
-	int Unknown2C;										// +0x2C
-	int Unknown30;										// +0x30
-	int Unknown34;										// +0x34
-	int Unknown38;										// +0x38
-	char Unknown3C[0x51];								// +0x3C (the constructor clears its first byte)
-};
-
 // An entry of LoginTaskClass +0x350 (0x10C bytes, vtables 0xAEB9D0 / 0xAEB9CC; constructor 0x4BEB50).
 // Its destructor is the implicit one (inline in 0x7683F0, out of line at 0x53BB50).
 class LoginUnknown350Class : public LoginPacketDataClass, public LoginInterfaceAEADC8Class	// NAME 1: neutral (D10)
@@ -279,8 +237,8 @@ class LoginUnknown350Class : public LoginPacketDataClass, public LoginInterfaceA
 public:
 	LoginUnknown350Class();								// 0x4BEB50
 	void Unknown_4C1460(const char *name, int unknown);	// 0x4C1460 (the fast start's name 'Fast' + the user name, 1)
-	virtual void Write(LinearBufferClass *buffer);		// +0x00 (vtable 0xAEB9D0)
-	virtual void Read(LinearBufferClass *buffer);		// +0x04
+	virtual bool Write(LinearBufferClass *buffer);		// +0x00 (vtable 0xAEB9D0)
+	virtual bool Read(LinearBufferClass *buffer);		// +0x04
 	virtual int Get_Size();								// +0x08
 	virtual void Unknown_00(void *visitor);				// second table +0x00 (0xAEB9CC)
 
@@ -330,8 +288,8 @@ class LoginNameDataClass : public LoginPacketDataClass	// NAME 1: neutral (D10)
 {
 public:
 	LoginNameDataClass() { Name[0] = 0; }
-	virtual void Write(LinearBufferClass *buffer);		// +0x00 0x78E0E0
-	virtual void Read(LinearBufferClass *buffer);		// +0x04 0x78E110
+	virtual bool Write(LinearBufferClass *buffer);		// +0x00 0x78E0E0
+	virtual bool Read(LinearBufferClass *buffer);		// +0x04 0x78E110
 	virtual int Get_Size();								// +0x08 0x78E140
 
 	char Name[0x80];									// +0x04 NAME 1: 0x80 bytes on the wire

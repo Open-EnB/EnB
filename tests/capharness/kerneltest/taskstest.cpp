@@ -158,26 +158,29 @@ LoginCharacterClass::LoginCharacterClass() {}
 LoginCharacterClass::~LoginCharacterClass() {}
 LoginUnknown350Class::LoginUnknown350Class() {}
 LoginUnknown44Class::LoginUnknown44Class() {}
-void LoginCharacterClass::Write(LinearBufferClass *) {}
-void LoginCharacterClass::Read(LinearBufferClass *) {}
+bool LoginCharacterClass::Write(LinearBufferClass *) { return true; }
+bool LoginCharacterClass::Read(LinearBufferClass *) { return true; }
 int LoginCharacterClass::Get_Size() { return 0; }
 void LoginCharacterClass::Unknown_00(void *) {}
-void LoginUnknown350Class::Write(LinearBufferClass *) {}
-void LoginUnknown350Class::Read(LinearBufferClass *) {}
+bool LoginUnknown350Class::Write(LinearBufferClass *) { return true; }
+bool LoginUnknown350Class::Read(LinearBufferClass *) { return true; }
 int LoginUnknown350Class::Get_Size() { return 0; }
 void LoginUnknown350Class::Unknown_00(void *) {}
-void LoginUnknown88CClass::Write(LinearBufferClass *) {}
-void LoginUnknown88CClass::Read(LinearBufferClass *) {}
+bool LoginUnknown88CClass::Write(LinearBufferClass *) { return true; }
+bool LoginUnknown88CClass::Read(LinearBufferClass *) { return true; }
 int LoginUnknown88CClass::Get_Size() { return 0; }
 void LoginUnknown88CClass::Unknown_0C() {}
 void LoginUnknown88CClass::Unknown_00(void *) {}
 void LoginUnknown88CClass::Unknown_4F6210(int) {}
 void LoginUnknown88CClass::Unknown_4F6230() {}
 void LoginUnknown88CClass::Unknown_4F62F0(int) {}
-void LoginGalaxyClass::Write(LinearBufferClass *) {}
-void LoginGalaxyClass::Read(LinearBufferClass *) {}
+bool LoginGalaxyClass::Write(LinearBufferClass *) { return true; }
+bool LoginGalaxyClass::Read(LinearBufferClass *) { return true; }
 int LoginGalaxyClass::Get_Size() { return 0; }
 TicketClass::~TicketClass() {}
+bool TicketClass::Write(LinearBufferClass *) { return true; }
+bool TicketClass::Read(LinearBufferClass *) { return true; }
+int TicketClass::Get_Size() { return 0; }
 LoginTaskClass::LoginTaskClass(int mode) : Ticket(0)
 {
 	Login = this;

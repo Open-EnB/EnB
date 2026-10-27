@@ -20,29 +20,10 @@
 
 #include "..\..\kernel\kernel.h"
 #include <string>
+#include "..\..\shared\unknown_login_data.h"		// TicketClass
 
 class ConnectionClass;
 class SClient;
-
-// The login ticket (vtable 0xB0C608, 0x48 bytes; constructor 0x8C15F0, destructor 0x8C16D0, assignment
-// 0x8C16F0): the master server's answer to the login, copied into SClient (+0x12D8) and the task.
-#pragma pack(push, 4)		// the client's layout: the vtable pointer isn't padded for Character_ID
-class TicketClass	// NAME 1: Init's assert 'kernel && ticket'
-{
-public:
-	TicketClass(int unknown);							// 0x8C15F0 (ClientTask passes 0)
-	virtual ~TicketClass();								// 0x8C16D0
-	TicketClass &operator=(const TicketClass &that);	// 0x8C16F0
-
-	int Unknown04;										// +0x04 (the constructor's argument)
-	int Unknown08;										// +0x08
-	int Unknown0C;										// +0x0C
-	__int64 Character_ID;								// +0x10 NAME 2: stored as 'characterid' (Accept_Focus)
-	int Unknown18[6];									// +0x18
-	int Unknown30[5];									// +0x30
-	bool Unknown44;										// +0x44
-};
-#pragma pack(pop)
 
 class ClientTaskClass : public TaskClass		// NAME 3: the client's 'ClientTask' (its profile label) in LoginTaskClass's form (D24)
 {

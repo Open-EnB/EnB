@@ -4466,8 +4466,7 @@
      "0x76B8A0",
      "0x76B9C0",
      "0x76BB70",
-     "0x76BBF0",
-     "0x85CB00"
+     "0x76BBF0"
     ],
     "merged": [],
     "name": "client/tasks/tsk_login.cpp"
@@ -4733,6 +4732,25 @@
     ],
     "merged": [],
     "name": "common/unknown_listener.cpp"
+   },
+   "unknown_login_data": {
+    "ambiguous": [],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x8C06E0",
+     "0x8C0770",
+     "0x8C0940",
+     "0x8C0AE0",
+     "0x8C15F0",
+     "0x8C1660",
+     "0x8C1690",
+     "0x8C16F0",
+     "0x8C1780",
+     "0x8C1960"
+    ],
+    "merged": [],
+    "name": "shared/unknown_login_data.cpp"
    },
    "unknown_memregistry": {
     "ambiguous": [
@@ -5007,6 +5025,8 @@
    "shared/stars.h": "reconstructed",
    "shared/strconv_lib.h": "reconstructed",
    "shared/unknown_debug.h": "reconstructed",
+   "shared/unknown_login_data.h": "reconstructed",
+   "shared/unknown_packetdata.h": "reconstructed",
    "wwudp/cordcon.h": "reconstructed",
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
