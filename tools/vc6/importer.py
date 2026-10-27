@@ -3892,6 +3892,8 @@ RECONSTRUCTED = {
     ('app', 'packets/pkunknown_873a00.h'): "its class (pkguildplayeronline.h includes it)",
     ('app', 'packets/pkunknown_87dec0.cpp'): "opcode 94's object, 0x87DEC0-0x87E3F0 (no assert: the file name provisional, NAME 1): written by hand (builder P5)",
     ('app', 'packets/pkunknown_87dec0.h'): "its class (pk_classes.h includes it: tools/re/pkclasses.py)",
+    ('app', 'packets/pkunknown_877640.cpp'): "opcode 97's object, 0x877640-0x877C50 (no assert: the file name provisional, NAME 1): written by hand (builder P5)",
+    ('app', 'packets/pkunknown_877640.h'): "its class (pk_classes.h includes it: tools/re/pkclasses.py)",
     ('app', 'packets/pkunknown_877c80.cpp'): "opcode 99's object, 0x877C50-0x878000 (no assert: the file name provisional, NAME 1): written by hand (builder P3), 6 of 6 exact in appfile.py match",
     ('app', 'packets/pkunknown_877c80.h'): "its class (pk_classes.h includes it: tools/re/pkclasses.py)",
     ('app', 'packets/pkmove.cpp'): "opcode 20's object, 0x89D040-0x89D2E0 (no assert: the file name provisional, NAME 1): written by hand (builder P3), 5 of 5 exact in appfile.py match",

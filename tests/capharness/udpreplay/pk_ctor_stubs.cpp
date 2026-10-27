@@ -23,7 +23,6 @@ LoungeNPCPacketClass::LoungeNPCPacketClass(RawPacketClass *raw) { Conn_Record(th
 FindMemberPacketClass::FindMemberPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 TalkTreePacketClass::TalkTreePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 VerbListPacketClass::VerbListPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-AvatarDescPacketClass::AvatarDescPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 PlayerObjectReactionUpdatePacket::PlayerObjectReactionUpdatePacket(RawPacketClass *raw) { Conn_Record(this, raw); }
 IncapacitanceDetailsPacket::IncapacitanceDetailsPacket(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_00B5Class::Packet_00B5Class(RawPacketClass *raw) { Conn_Record(this, raw); }
@@ -91,6 +90,7 @@ bool TalkTreeActionPacketClass::Process_Packet(void *) { return(true); }	// 0x73
 bool VerbUpdatePacketClass::Process_Packet(void *) { return(true); }	// 0x7388B0
 bool MessageChatstreamPacketClass::Process_Packet(void *) { return(true); }	// 0x736F10
 bool MessageTimePacketClass::Process_Packet(void *) { return(true); }	// 0x736800
+bool AvatarDescPacketClass::Process_Packet(void *) { return(true); }	// 0x733B10
 bool DamagePacketClass::Process_Packet(void *) { return(true); }	// 0x738970
 bool GadgetPacketClass::Process_Packet(void *) { return(true); }	// 0x739180
 bool ClickIndicatorPacketClass::Process_Packet(void *) { return(true); }	// 0x7393D0

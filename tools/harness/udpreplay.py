@@ -64,7 +64,8 @@ CONN = [r'app\common\circbuff.cpp', r'app\common\connect.cpp', r'app\common\udpc
         r'app\kernel\kernel.cpp', r'app\shared\auxdata\linearbu.cpp', r'app\packets\pk.cpp',
         r'app\packets\clientstub.cpp', r'app\shared\unknown_debug.cpp',
         r'app\common\unknown_navlist.cpp',   # WARP 155's navigation list
-        r'app\common\lego_identifier.cpp']   # the object-to-object effects' bone path (opcodes 11-14)
+        r'app\common\lego_identifier.cpp',   # the object-to-object effects' bone path (opcodes 11-14)
+        r'app\shared\avatar_desc.cpp']       # AVATAR_DESCRIPTION 97's member (avatar_desc_stubs.cpp)
 # the packet classes rebuilt in their own files (pkclasses.py: pk_classes.h includes their headers;
 # conn_replay.cpp sends what their Build makes)
 for _sub in ('', 'gameedit'):
@@ -103,6 +104,9 @@ def build(out):
         f.write('// app\\wwudp, compiled into the program (udpreplay.py build)\n')
         for p in WWUDP + CONN:
             f.write('#include "' + os.path.relpath(os.path.join(REPO, p), stage) + '"\n')
+            if p.endswith('udpconn.cpp'):
+                # D95(a): conn_replay.cpp sends RECORDED's messages as received, from Receive's buffer
+                f.write('char *Conn_Receive_Buffer() { return(Buffer); }\n')
     B.PROGRAMS['udpreplay'] = {'dir': os.path.relpath(stage, REPO), 'flags': B.I.LIB_FLAGS['ww3d2'] + ' /GX',
                                'subsystem': 'console', 'runtime': []}
     B.link_program('udpreplay', out)
@@ -688,10 +692,12 @@ def conn(name, exe, drops, step):
                 errors = int(q[3])
                 shorts = int(q[5])
                 BUILT[0] = int(q[7]) if len(q) > 7 else 0
+                RECORDED[0] = int(q[9]) if len(q) > 9 else 0
         return msgs, errors, sizes_bad, shorts, dropped
 
     ok = True
     BUILT = [0]     # the messages the rebuilt packet classes' Build wrote (conn_replay.cpp)
+    RECORDED = [0]  # D95(a): rebuilt classes whose client Build oversizes, sent as received (Recorded_Opcodes)
     for label, extra in [('capture replay', [])] + [('loop, drop every %d' % n, ['--loop', str(n)]) for n in drops]:
         tag = 'replay' if not extra else 'loop' + extra[1]
         plain, _, _, plain_short, _ = run_one(extra, os.path.join(WORK, '%s.%s.plain.txt' % (name, tag)))
@@ -731,9 +737,9 @@ def conn(name, exe, drops, step):
         line = '  %s: CordCon::read %d, through UDPConnection and the stream %d (+ %d left in a closed CordCon: %s); ' \
                'sessions/directions equal in order %d of %d; size fields wrong %d; harness errors %s; under 4 bytes ' \
                '(no header: counted, not framed) %d of %d; size field not the length (compared over the length) %d; ' \
-               'written by a rebuilt class\'s Build %d (time field masked: %d)' % (
+               'written by a rebuilt class\'s Build %d (time field masked: %d); sent as received (D95) %d' % (
                    label, n_plain, n_mine, n_dropped, ', '.join('%s %s' % k for k in sorted(dropped)) or '-', equal,
-                   len(keys_all), sizes_bad, errors, shorts, plain_short, resized, BUILT[0], timed)
+                   len(keys_all), sizes_bad, errors, shorts, plain_short, resized, BUILT[0], timed, RECORDED[0])
         good = equal == len(keys_all) and n_plain == n_mine + n_dropped and sizes_bad == 0 and errors == 0 \
             and shorts == plain_short
         if not extra:

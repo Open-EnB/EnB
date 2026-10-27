@@ -304,7 +304,15 @@ A packet class rebuilt in the tree sends what its own Build writes (conn_replay.
 "written by a rebuilt class's Build"). Two Builds stamp a field with the aux-data clock
 (Unknown_Get_Ticks, 0 in the harness): CLIENT_SET_TIME 52 (ServerSent, message byte 12) and REQUEST_TIME 68
 (TimeSent, byte 4). Those two opcodes are compared with that field zeroed (`TICKS` in udpreplay.py; counted as
-"time field masked"); every other byte must still be equal.
+"time field masked"); every other byte must still be equal. D95(a): a rebuilt class whose client Build writes a
+size field larger than the payload it adds can't give the received message back, so for the opcodes in
+conn_replay.cpp's explicit list `Recorded_Opcodes` (AVATAR_DESCRIPTION 97: Get_Data_Size 0x110 for 0x108 bytes;
+183: an entry sized 0x4C for 0x49 bytes) the harness sends the message as received instead: on the UDP side
+from UDPConnection::Receive's buffer (`Conn_Receive_Buffer`, which `udpreplay.py build` defines after
+udpconn.cpp), on the stream side the bytes its transport read (a size field that isn't the length is a harness
+error). The rebuilt raw constructor still parses the message; its Build is not compared. Counted as "sent as
+received (D95)", once per side (alex3 38, alex7 22 for 97). avatar_desc.cpp is compiled in for 97's member,
+its unbuilt callees in `avatar_desc_stubs.cpp`.
 
 ## Net-7 recordings (M1.5, gate (d))
 

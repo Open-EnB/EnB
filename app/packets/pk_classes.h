@@ -115,6 +115,7 @@
 #include "pkunknown_8667a0.h"	// rebuilt
 #include "pkunknown_866ac0.h"	// rebuilt
 #include "pkunknown_867010.h"	// rebuilt
+#include "pkunknown_877640.h"	// rebuilt
 #include "pkunknown_877c80.h"	// rebuilt
 #include "pkunknown_87a940.h"	// rebuilt
 #include "pkunknown_87acd0.h"	// rebuilt
@@ -342,14 +343,6 @@ class VerbListPacketClass : public PacketClass
 public:
 	VerbListPacketClass(RawPacketClass *raw);	// 0x8AF150
 	char Unknown0C[0x14];	// +0x0C
-};
-
-// opcode 97 (0x0061, AVATAR_DESCRIPTION): vtable 0xB09D4C, constructor 0x877A60, 0x120 bytes
-class AvatarDescPacketClass : public PacketClass
-{
-public:
-	AvatarDescPacketClass(RawPacketClass *raw);	// 0x877A60
-	char Unknown0C[0x114];	// +0x0C
 };
 
 // opcode 138 (0x008A, ?): vtable 0xB09B44, constructor 0x873F70, 0x20 bytes
