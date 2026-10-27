@@ -3437,8 +3437,8 @@ RECONSTRUCTED = {
     ('app', 'shared/spln_db.cpp'): "the spline database, client 0x485000-0x48A000 (39 asserts), functional from VIDTEST's loader 0x41CB20/0x41F620-0x420100 (NOT EXACT, D42; M2.4)",
     ('app', 'shared/heightfield.h'): "HeightFieldClass (descriptive, D24; PROVISIONAL file name: no assert or __FILE__): the land's [HEIGHTMAP] (M2.4); not the client's layout",
     ('app', 'shared/heightfield.cpp'): 'the height field, client 0x4634A0-0x465D30 (PROVISIONAL file name), functional from VIDTEST 0x402420/0x4026B0/0x402AE0 (NOT EXACT, D42; M2.4)',
-    ('app', 'shared/land.h'): 'LandClass (the client\'s "(LandClass*)obj"; vtable 0xAE8994; PROVISIONAL file name): the terrain render object and its decorations (M2.4); not the client\'s layout',
-    ('app', 'shared/land.cpp'): 'the terrain, client 0x4668F0-0x47A2F0 (PROVISIONAL file name; profile label Land::Update_Lightmap_ManualThreaded 0x46DA70), functional after VIDTEST 0x405410-0x416170 (NOT EXACT, D42; M2.4)',
+    ('app', 'shared/land.h'): 'LandClass (the client\'s "(LandClass*)obj"; vtable 0xAE8994; PROVISIONAL file name): the terrain render object and its decorations (M2.4); the client\'s 0x1228-byte layout from its ctor 0x468E90 and dtor 0x46A480',
+    ('app', 'shared/land.cpp'): 'the terrain, client 0x468E90-0x47A2F0 (PROVISIONAL file name; profile label Land::Update_Lightmap_ManualThreaded 0x46DA70): Create, ctor, dtor and the small virtuals rebuilt; the rest not yet (VIDTEST draws with programs/vidtest/vidland.cpp; M2.4)',
     ('app', 'wwudp/udp.h'): "the UDP socket CordMgr and CordCon use (CordCon::Udp_): WWOnline's wnet UDP (libs\\wwonline\\wnet, "
                             "client 0x8BF990-0x8C0540), the part the wwudp code calls (EA's Generals Tools\\matchbot\\wnet\\udp.h interface); "
                             "defined by the program (the capture harness's replay socket, M1.4)",

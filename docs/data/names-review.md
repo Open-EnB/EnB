@@ -1084,8 +1084,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_48` | `app/shared/auxdata/unknown_root.h:54` | untagged neutral name (D10) |
 | 1 | `m_UnknownA4` | `app/shared/auxdata/unknown_root.h:60` | untagged neutral name (D10) |
 | 1 | `Unknown_Get_Ticks` | `app/shared/auxdata/unknown_root.h:65` | untagged neutral name (D10) |
-| 1 | `Get_Height_2` | `app/shared/heightfield.h:47` | the same code at a second address (0x463CD0) |
-| 1 | `Set_Height_2` | `app/shared/heightfield.h:49` | the same code at a second address (0x463D90) |
+| 1 | `Get_Height_2` | `app/shared/heightfield.h:50` | the same code at a second address (0x463CD0) |
+| 1 | `Set_Height_2` | `app/shared/heightfield.h:52` | the same code at a second address (0x463D90) |
 | 1 | `Unknown_Join` | `app/shared/kv_encoder_base.cpp:8` | untagged neutral name (D10) |
 | 1 | `m_Unknown2C` | `app/shared/kv_encoder_base.cpp:63` | untagged neutral name (D10) |
 | 1 | `m_Unknown1C` | `app/shared/kv_encoder_base.cpp:63` | untagged neutral name (D10) |
@@ -1104,6 +1104,121 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_4A1590` | `app/shared/kv_tripl.cpp:6` | neutral placeholder (D10) |
 | 1 | `Type` | `app/shared/kv_tripl.h:47` | neutral guess, a short string beside the value |
 | 1 | `Get_Type` | `app/shared/kv_tripl.h:66` | neutral guess |
+| 1 | `Unknown_466F10` | `app/shared/land.cpp:8` | unknown; deletes a global object (0xBDC0D8) and clears it; called by the land's dtor only |
+| 1 | `m_Unknown8C` | `app/shared/land.cpp:12` | untagged neutral name (D10) |
+| 1 | `m_UnknownE4` | `app/shared/land.cpp:13` | untagged neutral name (D10) |
+| 1 | `m_Unknown114` | `app/shared/land.cpp:17` | untagged neutral name (D10) |
+| 1 | `m_Unknown120` | `app/shared/land.cpp:18` | untagged neutral name (D10) |
+| 1 | `m_Unknown137` | `app/shared/land.cpp:25` | untagged neutral name (D10) |
+| 1 | `m_Unknown138` | `app/shared/land.cpp:26` | untagged neutral name (D10) |
+| 1 | `m_Unknown17C` | `app/shared/land.cpp:28` | untagged neutral name (D10) |
+| 1 | `m_Unknown184` | `app/shared/land.cpp:29` | untagged neutral name (D10) |
+| 1 | `m_Unknown190` | `app/shared/land.cpp:31` | untagged neutral name (D10) |
+| 1 | `m_Unknown191` | `app/shared/land.cpp:32` | untagged neutral name (D10) |
+| 1 | `m_Unknown192` | `app/shared/land.cpp:33` | untagged neutral name (D10) |
+| 1 | `m_Unknown198` | `app/shared/land.cpp:35` | untagged neutral name (D10) |
+| 1 | `m_Unknown1A4` | `app/shared/land.cpp:36` | untagged neutral name (D10) |
+| 1 | `m_Unknown1B0` | `app/shared/land.cpp:37` | untagged neutral name (D10) |
+| 1 | `m_Unknown1B4` | `app/shared/land.cpp:38` | untagged neutral name (D10) |
+| 1 | `m_Unknown1B8` | `app/shared/land.cpp:39` | untagged neutral name (D10) |
+| 1 | `m_Unknown1BC` | `app/shared/land.cpp:40` | untagged neutral name (D10) |
+| 1 | `m_Unknown1C0` | `app/shared/land.cpp:41` | untagged neutral name (D10) |
+| 1 | `m_Unknown1C4` | `app/shared/land.cpp:42` | untagged neutral name (D10) |
+| 1 | `m_Unknown1C8` | `app/shared/land.cpp:43` | untagged neutral name (D10) |
+| 1 | `m_Unknown1CC` | `app/shared/land.cpp:44` | untagged neutral name (D10) |
+| 1 | `m_Unknown1D0` | `app/shared/land.cpp:45` | untagged neutral name (D10) |
+| 1 | `m_Unknown1D4` | `app/shared/land.cpp:46` | untagged neutral name (D10) |
+| 1 | `m_Unknown1D8` | `app/shared/land.cpp:47` | untagged neutral name (D10) |
+| 1 | `m_Unknown1DC` | `app/shared/land.cpp:48` | untagged neutral name (D10) |
+| 1 | `m_Unknown1E0` | `app/shared/land.cpp:49` | untagged neutral name (D10) |
+| 1 | `m_Unknown1E4` | `app/shared/land.cpp:50` | untagged neutral name (D10) |
+| 1 | `m_Unknown1E8` | `app/shared/land.cpp:51` | untagged neutral name (D10) |
+| 1 | `m_Unknown1EC` | `app/shared/land.cpp:52` | untagged neutral name (D10) |
+| 1 | `m_Unknown1F0` | `app/shared/land.cpp:53` | untagged neutral name (D10) |
+| 1 | `m_Unknown1F4` | `app/shared/land.cpp:54` | untagged neutral name (D10) |
+| 1 | `m_Unknown1F8` | `app/shared/land.cpp:55` | untagged neutral name (D10) |
+| 1 | `m_UnknownDFC` | `app/shared/land.cpp:56` | untagged neutral name (D10) |
+| 1 | `m_UnknownDFE` | `app/shared/land.cpp:57` | untagged neutral name (D10) |
+| 1 | `m_UnknownE00` | `app/shared/land.cpp:58` | untagged neutral name (D10) |
+| 1 | `m_UnknownE04` | `app/shared/land.cpp:59` | untagged neutral name (D10) |
+| 1 | `m_UnknownE08` | `app/shared/land.cpp:60` | untagged neutral name (D10) |
+| 1 | `m_Unknown120C` | `app/shared/land.cpp:61` | untagged neutral name (D10) |
+| 1 | `m_Unknown1214` | `app/shared/land.cpp:63` | untagged neutral name (D10) |
+| 1 | `m_Unknown94` | `app/shared/land.cpp:68` | untagged neutral name (D10) |
+| 1 | `m_UnknownBC` | `app/shared/land.cpp:69` | untagged neutral name (D10) |
+| 1 | `m_Unknown158` | `app/shared/land.cpp:72` | untagged neutral name (D10) |
+| 1 | `m_Unknown140` | `app/shared/land.cpp:73` | untagged neutral name (D10) |
+| 1 | `m_Unknown178` | `app/shared/land.cpp:90` | untagged neutral name (D10) |
+| 1 | `m_Unknown180` | `app/shared/land.cpp:91` | untagged neutral name (D10) |
+| 1 | `m_Unknown188` | `app/shared/land.cpp:92` | untagged neutral name (D10) |
+| 1 | `m_UnknownXX` | `app/shared/land.h:21` | untagged neutral name (D10) |
+| 1 | `LandPatchClass` | `app/shared/land.h:51` | the land's patch (0x30 bytes, new'd per grid cell by Load_Assets 0x4691D0; ctor 0x474530, dtor 0x474560) |
+| 1 | `m_Unknown00` | `app/shared/land.h:58` | members after their offsets (ctor 0x474530) |
+| 1 | `m_Unknown08` | `app/shared/land.h:61` | untagged neutral name (D10) |
+| 1 | `m_Unknown0C` | `app/shared/land.h:62` | untagged neutral name (D10) |
+| 1 | `m_Unknown10` | `app/shared/land.h:63` | untagged neutral name (D10) |
+| 1 | `m_Unknown14` | `app/shared/land.h:64` | untagged neutral name (D10) |
+| 1 | `m_Unknown18` | `app/shared/land.h:65` | untagged neutral name (D10) |
+| 1 | `m_Unknown1C` | `app/shared/land.h:66` | untagged neutral name (D10) |
+| 1 | `m_Unknown20` | `app/shared/land.h:67` | untagged neutral name (D10) |
+| 1 | `m_Unknown24` | `app/shared/land.h:68` | untagged neutral name (D10) |
+| 1 | `m_Unknown28` | `app/shared/land.h:69` | untagged neutral name (D10) |
+| 1 | `m_Unknown2C` | `app/shared/land.h:70` | untagged neutral name (D10) |
+| 1 | `LandPatchRecordClass` | `app/shared/land.h:73` | one record per patch, 0x28 bytes (new[]'d by Load_Assets 0x4691D0; ctor 0x474990, dtor 0x4749D0) |
+| 1 | `m_Unknown00` | `app/shared/land.h:80` | members after their offsets (ctor 0x474990) |
+| 1 | `m_Unknown04` | `app/shared/land.h:82` | untagged neutral name (D10) |
+| 1 | `LandUnknownBaseClass` | `app/shared/land.h:93` | unknown; what the land's vector at +0x1218 holds: RefCountClass at +0xCC (dtor 0x46A7F1), added by 0x75F8B0 through 0x4786A0 |
+| 1 | `LandUnknownClass` | `app/shared/land.h:100` | as above |
+| 1 | `m_Unknown94` | `app/shared/land.h:132` | untagged neutral name (D10) |
+| 1 | `m_UnknownA8` | `app/shared/land.h:133` | untagged neutral name (D10) |
+| 1 | `m_UnknownBC` | `app/shared/land.h:134` | untagged neutral name (D10) |
+| 1 | `m_UnknownD0` | `app/shared/land.h:135` | untagged neutral name (D10) |
+| 1 | `m_UnknownE4` | `app/shared/land.h:136` | untagged neutral name (D10) |
+| 1 | `m_Unknown114` | `app/shared/land.h:148` | untagged neutral name (D10) |
+| 1 | `m_Unknown120` | `app/shared/land.h:150` | untagged neutral name (D10) |
+| 1 | `m_Unknown137` | `app/shared/land.h:158` | untagged neutral name (D10) |
+| 1 | `m_Unknown138` | `app/shared/land.h:159` | untagged neutral name (D10) |
+| 1 | `m_Unknown140` | `app/shared/land.h:161` | untagged neutral name (D10) |
+| 1 | `m_Unknown158` | `app/shared/land.h:163` | untagged neutral name (D10) |
+| 1 | `m_Unknown178` | `app/shared/land.h:167` | untagged neutral name (D10) |
+| 1 | `m_Unknown17C` | `app/shared/land.h:168` | untagged neutral name (D10) |
+| 1 | `m_Unknown180` | `app/shared/land.h:169` | untagged neutral name (D10) |
+| 1 | `m_Unknown184` | `app/shared/land.h:170` | untagged neutral name (D10) |
+| 1 | `m_Unknown188` | `app/shared/land.h:171` | untagged neutral name (D10) |
+| 1 | `m_Unknown190` | `app/shared/land.h:173` | untagged neutral name (D10) |
+| 1 | `m_Unknown191` | `app/shared/land.h:174` | untagged neutral name (D10) |
+| 1 | `m_Unknown192` | `app/shared/land.h:175` | untagged neutral name (D10) |
+| 1 | `m_Unknown198` | `app/shared/land.h:177` | untagged neutral name (D10) |
+| 1 | `m_Unknown1A4` | `app/shared/land.h:178` | untagged neutral name (D10) |
+| 1 | `m_Unknown1B0` | `app/shared/land.h:179` | untagged neutral name (D10) |
+| 1 | `m_Unknown1B4` | `app/shared/land.h:180` | untagged neutral name (D10) |
+| 1 | `m_Unknown1B8` | `app/shared/land.h:181` | untagged neutral name (D10) |
+| 1 | `m_Unknown1BC` | `app/shared/land.h:182` | untagged neutral name (D10) |
+| 1 | `m_Unknown1C0` | `app/shared/land.h:183` | untagged neutral name (D10) |
+| 1 | `m_Unknown1C4` | `app/shared/land.h:184` | untagged neutral name (D10) |
+| 1 | `m_Unknown1C8` | `app/shared/land.h:185` | untagged neutral name (D10) |
+| 1 | `m_Unknown1CC` | `app/shared/land.h:186` | untagged neutral name (D10) |
+| 1 | `m_Unknown1D0` | `app/shared/land.h:187` | untagged neutral name (D10) |
+| 1 | `m_Unknown1D4` | `app/shared/land.h:188` | untagged neutral name (D10) |
+| 1 | `m_Unknown1D8` | `app/shared/land.h:189` | untagged neutral name (D10) |
+| 1 | `m_Unknown1DC` | `app/shared/land.h:190` | untagged neutral name (D10) |
+| 1 | `m_Unknown1E0` | `app/shared/land.h:191` | untagged neutral name (D10) |
+| 1 | `m_Unknown1E4` | `app/shared/land.h:192` | untagged neutral name (D10) |
+| 1 | `m_Unknown1E8` | `app/shared/land.h:193` | untagged neutral name (D10) |
+| 1 | `m_Unknown1EC` | `app/shared/land.h:194` | untagged neutral name (D10) |
+| 1 | `m_Unknown1F0` | `app/shared/land.h:195` | untagged neutral name (D10) |
+| 1 | `m_Unknown1F4` | `app/shared/land.h:196` | untagged neutral name (D10) |
+| 1 | `m_Unknown1F8` | `app/shared/land.h:197` | untagged neutral name (D10) |
+| 1 | `m_Unknown1FC` | `app/shared/land.h:198` | untagged neutral name (D10) |
+| 1 | `m_UnknownDFC` | `app/shared/land.h:199` | untagged neutral name (D10) |
+| 1 | `m_UnknownDFE` | `app/shared/land.h:200` | untagged neutral name (D10) |
+| 1 | `m_UnknownE00` | `app/shared/land.h:201` | untagged neutral name (D10) |
+| 1 | `m_UnknownE04` | `app/shared/land.h:202` | untagged neutral name (D10) |
+| 1 | `m_UnknownE08` | `app/shared/land.h:203` | untagged neutral name (D10) |
+| 1 | `m_UnknownE0C` | `app/shared/land.h:204` | untagged neutral name (D10) |
+| 1 | `m_Unknown120C` | `app/shared/land.h:205` | untagged neutral name (D10) |
+| 1 | `m_Unknown1214` | `app/shared/land.h:207` | untagged neutral name (D10) |
+| 1 | `m_Unknown1218` | `app/shared/land.h:208` | untagged neutral name (D10) |
 | 1 | `m_Unknown00` | `app/shared/money.h:27` | untagged neutral name (D10) |
 | 1 | `unused` | `app/shared/spln_db.h:157` | the client's copy takes a second argument (ret 8) it never reads |
 | 1 | `Unknown_Report_Message` | `app/shared/unknown_debug.cpp:7` | 0x4BC260 (its "Message_Error" string is a profiler label) |
@@ -1881,12 +1996,13 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Changes` | `app/shared/auxdata/unknown_root.h:61` | describes what it does |
 | 2 | `As_Int` | `app/shared/duration.h:188` | describes what it does |
 | 2 | `heightfield.h` | `app/shared/heightfield.h:27` | describes the class; no assert or __FILE__ names the file |
-| 2 | `HeightFieldClass` | `app/shared/heightfield.h:35` | after land.ini's [HEIGHTMAP] / HEIGHT_MAP; the client names no class |
-| 2 | `Load` | `app/shared/heightfield.h:42` | methods after what they do (the client's 0x4634F0, 0x4637C0, 0x463BF0, 0x463C80-0x463E70, 0x464600) |
-| 2 | `Get_Downhill` | `app/shared/heightfield.h:52` | towards the cell's lowest corner below the point (0x463F00) |
-| 2 | `Get_Normal` | `app/shared/heightfield.h:53` | the triangle's normal (0x464290) |
-| 2 | `Get_Size` | `app/shared/heightfield.h:56` | ours (VIDTEST's land, functional): the grid clamped at the edges, world coordinates |
-| 2 | `Heights` | `app/shared/heightfield.h:68` | members after what Load and the PGM reader store |
+| 2 | `HeightFieldClass` | `app/shared/heightfield.h:38` | after land.ini's [HEIGHTMAP] / HEIGHT_MAP; the client names no class |
+| 2 | `Load` | `app/shared/heightfield.h:45` | methods after what they do (the client's 0x4634F0, 0x4637C0, 0x463BF0, 0x463C80-0x463E70, 0x464600) |
+| 2 | `Get_Downhill` | `app/shared/heightfield.h:55` | towards the cell's lowest corner below the point (0x463F00) |
+| 2 | `Get_Normal` | `app/shared/heightfield.h:56` | the triangle's normal (0x464290) |
+| 2 | `Cast_Ray` | `app/shared/heightfield.h:58` | after LandClass's Cast_Ray / Cast_AABox / Cast_OBBox (0x46C680-0x46C6E0), which forward to them (0x4647C0, 0x465030, 0x4654E0; not rebuilt) |
+| 2 | `Get_Size` | `app/shared/heightfield.h:63` | ours (VIDTEST's land, functional): the grid clamped at the edges, world coordinates |
+| 2 | `Heights` | `app/shared/heightfield.h:75` | members after what Load and the PGM reader store |
 | 2 | `KVEncoderDataClass` | `app/shared/kv_encoder_base.h:29` | after the asserts' Data |
 | 2 | `Flags` | `app/shared/kv_encoder_base.h:34` | after the asserts' FlagList |
 | 2 | `Make_Key` | `app/shared/kv_encoder_base.h:46` | describes what it does |
@@ -1939,18 +2055,11 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Get_Count` | `app/shared/kv_tripl.h:69` | describes what it does |
 | 2 | `Get` | `app/shared/kv_tripl.h:70` | describes what it does |
 | 2 | `Index` | `app/shared/kv_tripl.h:73` | describes what it does |
-| 2 | `LandVertexStruct` | `app/shared/land.cpp:31` | ours |
-| 2 | `Int_Min` | `app/shared/land.cpp:40` | ours |
-| 2 | `DecoPartStruct` | `app/shared/land.cpp:620` | ours (VIDTEST 0x416170 batches the prototypes) |
-| 2 | `DecoVertexStruct` | `app/shared/land.cpp:633` | ours |
-| 2 | `DecoInstanceStruct` | `app/shared/land.cpp:640` | ours |
-| 2 | `Find_Deco_Mesh` | `app/shared/land.cpp:651` | ours |
-| 2 | `land.h` | `app/shared/land.h:37` | after LandClass; no assert or __FILE__ names the file |
-| 2 | `LandLightingStruct` | `app/shared/land.h:58` | the record Update_Lighting hands the land (VIDTEST esp+0x74) |
-| 2 | `Create` | `app/shared/land.h:80` | Create, Load_Assets, Create_Decorations, Update_Patches, Set_Dirty, Update_Lightmap_Full describe VIDTEST 0x4068F0, 0x405750, 0x415C40, 0x4078F0, +0x136, 0x40A9F0 |
-| 2 | `Field` | `app/shared/land.h:108` | members describe what they hold (VIDTEST offsets in land.h's header) |
-| 2 | `Shadow` | `app/shared/land.h:149` | ours |
-| 2 | `Patch` | `app/shared/land.h:150` | ours |
+| 2 | `land.h` | `app/shared/land.h:36` | after LandClass; no assert or __FILE__ names the file |
+| 2 | `MAX_LEVELS` | `app/shared/land.h:109` | the per-level arrays at +0x94..+0xE0 (5 each) |
+| 2 | `MAX_SEAS` | `app/shared/land.h:110` | the sea arrays at +0x140..+0x170 (2 each; Load_Assets clamps to 2) |
+| 2 | `Create` | `app/shared/land.h:116` | Create, Load_Assets describe VIDTEST 0x4068F0 / 0x405750 and the client's 0x46A3A0 / 0x4691D0 ("LoadAssets" in symbols.json) |
+| 2 | `m_Unknown8C` | `app/shared/land.h:129` | members after what the ctor 0x468E90, the dtor 0x46A480 and Load_Assets 0x4691D0 do with them; m_UnknownXX: use not known |
 | 2 | `SplineFileHeaderStruct` | `app/shared/spln_db.cpp:15` | chunk 0x800 (version 0x100, entry count, 0, 0), read by Load_Header (0xBE34A8) |
 | 2 | `Copy_String` | `app/shared/spln_db.cpp:25` | an inline copy for the entry's strings (its inlining leaves VectorClass's constructor out of line, as the client's 0x489050) |
 | 2 | `SplineEntryHeaderStruct` | `app/shared/spln_db.cpp:32` | the 0x24 bytes before an entry's name (chunks 0x810 / 0x811) |
@@ -2156,6 +2265,18 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `RoundTripRound` | `app/wwudp/unknown_cordmsg.cpp:152` | 0xBB1DB8 |
 | 2 | `LossRound` | `app/wwudp/unknown_cordmsg.cpp:175` | 0xBB1DBC |
 | 2 | `LimitedAt` | `app/wwudp/unknown_cordmsg.cpp:202` | 0xBF4120 when the rate limit last held a send back |
+| 2 | `LandVertexStruct` | `programs/vidtest/vidland.cpp:31` | ours |
+| 2 | `Int_Min` | `programs/vidtest/vidland.cpp:40` | ours |
+| 2 | `DecoPartStruct` | `programs/vidtest/vidland.cpp:620` | ours (VIDTEST 0x416170 batches the prototypes) |
+| 2 | `DecoVertexStruct` | `programs/vidtest/vidland.cpp:633` | ours |
+| 2 | `DecoInstanceStruct` | `programs/vidtest/vidland.cpp:640` | ours |
+| 2 | `Find_Deco_Mesh` | `programs/vidtest/vidland.cpp:651` | ours |
+| 2 | `LandLightingStruct` | `programs/vidtest/vidland.h:62` | the record Update_Lighting hands the land (VIDTEST esp+0x74) |
+| 2 | `VidtestLandClass` | `programs/vidtest/vidland.h:73` | VIDTEST's stand-in for the client's VidtestLandClass (app\shared\land.h) |
+| 2 | `Create` | `programs/vidtest/vidland.h:84` | Create, Load_Assets, Create_Decorations, Update_Patches, Set_Dirty, Update_Lightmap_Full describe VIDTEST 0x4068F0, 0x405750, 0x415C40, 0x4078F0, +0x136, 0x40A9F0 |
+| 2 | `Field` | `programs/vidtest/vidland.h:112` | members describe what they hold (VIDTEST offsets in land.h's header) |
+| 2 | `Shadow` | `programs/vidtest/vidland.h:153` | ours |
+| 2 | `Patch` | `programs/vidtest/vidland.h:154` | ours |
 | 3 | `DeltaElementsClass` | `app/client/aux_roots.h:378` | Net-7 AuxElements at the same place in the tree, its child count differs (Net-7 Construct 4 children != ours 5) |
 | 3 | `DeltaBuffsClass` | `app/client/aux_roots.h:418` | Net-7 AuxBuffs at the same place in the tree, its child count differs (Net-7 Construct 16 children != ours 15) |
 | 3 | `DeltaShipClass` | `app/client/aux_roots.h:488` | the client's root string "Ship", Westwood XxxClass (D24); structure = Net-7 AuxShipIndex / C# ShipObject (C# fields = ours (same names, same order); Net-7 Construct 58 children = ours) |

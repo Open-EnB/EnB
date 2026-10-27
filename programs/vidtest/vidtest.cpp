@@ -82,7 +82,7 @@
 #include "stars.h"							// app\shared (M2.4)
 #include "spln_db.h"						// app\shared (M2.4)
 #include "curve.h"
-#include "land.h"							// app\shared (M2.4)
+#include "vidland.h"						// the land's stand-in until app\shared\land.cpp can draw (M2.4)
 
 static FILE *		LogFile = NULL;
 static bool			Quit = false;
@@ -355,9 +355,9 @@ static bool Save_Back_Buffer(const char *filename)
 */
 static int Stars_Get_Num_Polys(StarFieldClass *s)	{ return s->Get_Num_Polys(); }	// vtable +0x20
 static void Stars_Set_Budget(StarFieldClass *s, int n)	{ s->Set_Budget(n); }	// field +0xA0
-static void Land_Set_Dirty(LandClass *l)			{ if (l) l->Set_Dirty(); }	// field +0x136
-static void Land_Update_Patches(LandClass *l, CameraClass *c, int lod)	{ if (l) l->Update_Patches(*c, lod); }	// 0x4078F0
-static void Land_Update_Lightmap(LandClass *l, const LandLightingStruct &lighting, bool full)	// 0x40A9F0 / 0x40AB10
+static void Land_Set_Dirty(VidtestLandClass *l)			{ if (l) l->Set_Dirty(); }	// field +0x136
+static void Land_Update_Patches(VidtestLandClass *l, CameraClass *c, int lod)	{ if (l) l->Update_Patches(*c, lod); }	// 0x4078F0
+static void Land_Update_Lightmap(VidtestLandClass *l, const LandLightingStruct &lighting, bool full)	// 0x40A9F0 / 0x40AB10
 {
 	if (l == NULL) return;
 	if (full) l->Update_Lightmap_Full(lighting);
@@ -406,7 +406,7 @@ static RenderObjClass *		Mu01a = NULL;				// 0x5EF170
 static RenderObjClass *		Back01 = NULL;				// 0x5EF164
 static RenderObjClass *		Mu02 = NULL;				// 0x5EF160
 static StarFieldClass *		StarField = NULL;			// 0x5EF16C
-static LandClass *			Land = NULL;				// 0x5EF168
+static VidtestLandClass *			Land = NULL;				// 0x5EF168
 
 static int					TestState = 0;				// 0x5EF15C: 0 fill, 1 polygon, 2 land, 3 done
 static unsigned char		SpaceBudget = 9;			// 0x5C5508 byte 0 (x1000 polygons)
@@ -1077,8 +1077,8 @@ static bool Build_Scenes(void)
 	LandScene = new SimpleSceneClass;
 	LandScene->Set_Ambient_Light(Vector3(0.5f, 0.5f, 0.5f));
 	LandScene->Add_Render_Object(Sun);
-	Land = LandClass::Create("land.ini", true);				// 0x4068F0
-	Log("LandClass::Create(\"land.ini\") = %p\n", Land);
+	Land = VidtestLandClass::Create("land.ini", true);				// 0x4068F0
+	Log("VidtestLandClass::Create(\"land.ini\") = %p\n", Land);
 	if (Land) {
 		bool decos = Land->Create_Decorations(0);				// 0x415C40
 		Log("Create_Decorations(0) = %d\n", (int)decos);

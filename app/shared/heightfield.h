@@ -31,6 +31,9 @@
 #include "vector3.h"
 
 class Vector2;
+class RayCollisionTestClass;
+class AABoxCollisionTestClass;
+class OBBoxCollisionTestClass;
 
 // NAME 2: after land.ini's [HEIGHTMAP] / HEIGHT_MAP; the client names no class
 class HeightFieldClass
@@ -52,6 +55,10 @@ public:
 	void						Get_Downhill(Vector3 *direction, const Vector2 &pos);	// NAME 2: towards the cell's lowest corner below the point (0x463F00)
 	void						Get_Normal(Vector3 *normal, const Vector2 &pos);	// NAME 2: the triangle's normal (0x464290)
 	float						Get_Height(const Vector2 &pos);
+// NAME 2: after LandClass's Cast_Ray / Cast_AABox / Cast_OBBox (0x46C680-0x46C6E0), which forward to them (0x4647C0, 0x465030, 0x4654E0; not rebuilt)
+	bool						Cast_Ray(RayCollisionTestClass &raytest);
+	bool						Cast_AABox(AABoxCollisionTestClass &boxtest);
+	bool						Cast_OBBox(OBBoxCollisionTestClass &boxtest);
 
 // NAME 2: ours (VIDTEST's land, functional): the grid clamped at the edges, world coordinates
 	int						Get_Size(void) const					{ return Size; }
