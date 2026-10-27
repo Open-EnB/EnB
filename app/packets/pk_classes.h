@@ -105,6 +105,7 @@
 #include "pkunknown_85f250.h"	// rebuilt
 #include "pkunknown_85f870.h"	// rebuilt
 #include "pkunknown_860d30.h"	// rebuilt
+#include "pkunknown_863720.h"	// rebuilt
 #include "pkunknown_865020.h"	// rebuilt
 #include "pkunknown_8667a0.h"	// rebuilt
 #include "pkunknown_866ac0.h"	// rebuilt
@@ -553,24 +554,6 @@ public:
 	Packet_00B1Class(RawPacketClass *raw);	// 0x88ABC0
 	virtual bool Process_Packet(void *client);	// +0x08 0x868F10 (clientstub.cpp l.341)
 	char Unknown0C[0x34];	// +0x0C
-};
-
-// opcode 230 (0x00E6, ?): vtable 0xB093C8, constructor 0x863940, 0x38 bytes
-class Packet_00E6Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x00E6
-{
-public:
-	Packet_00E6Class(RawPacketClass *raw);	// 0x863940
-	virtual bool Process_Packet(void *client);	// +0x08 0x869360 (clientstub.cpp l.410)
-	char Unknown0C[0x2C];	// +0x0C
-};
-
-// opcode 231 (0x00E7, ?): vtable 0xB093FC, constructor 0x863DC0, 0x38 bytes
-class Packet_00E7Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x00E7
-{
-public:
-	Packet_00E7Class(RawPacketClass *raw);	// 0x863DC0
-	virtual bool Process_Packet(void *client);	// +0x08 0x869390 (clientstub.cpp l.413)
-	char Unknown0C[0x2C];	// +0x0C
 };
 
 // opcode 119 (0x0077, ?): vtable 0xB04170, constructor 0x866C20, 0x20 bytes

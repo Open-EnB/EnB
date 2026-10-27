@@ -3787,6 +3787,8 @@ RECONSTRUCTED = {
     ('app', 'packets/pkgroup.h'): "its class (pk_classes.h includes it: tools/re/pkclasses.py)",
     ('app', 'packets/pkdialog.cpp'): "opcode 98's object, 0x8812D0-0x8816A0 (no assert: the file name provisional, NAME 1): written by hand (builder P3), 6 of 6 exact in appfile.py match",
     ('app', 'packets/pkdialog.h'): "its class (pk_classes.h includes it: tools/re/pkclasses.py)",
+    ('app', 'packets/pkunknown_863720.cpp'): "opcodes 230 and 231's object, 0x863720-0x864090 (no assert: the file name provisional, NAME 1): written by hand (builder P5)",
+    ('app', 'packets/pkunknown_863720.h'): "its classes (pk_classes.h includes it: tools/re/pkclasses.py)",
     ('app', 'packets/pkunknown_873a00.cpp'): "the MoneyClass packet-data wrapper's object, 0x873A00-0x873AE0 (no assert: the file name provisional, NAME 1): written by hand (builder P5)",
     ('app', 'packets/pkunknown_873a00.h'): "its class (pkguildplayeronline.h includes it)",
     ('app', 'packets/pkunknown_877c80.cpp'): "opcode 99's object, 0x877C50-0x878000 (no assert: the file name provisional, NAME 1): written by hand (builder P3), 6 of 6 exact in appfile.py match",

@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-117 entries in 33 files.
+120 entries in 34 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -17,7 +17,7 @@ edit the comments in the code, not this file.
 | `app/client/cfaction_database.cpp:10` | `CFactionDatabaseClass::Init` | marker | NOT EXACT: register-only in the first string assignment (the client moves the length to ecx before the _Eos store); explain.py says shape (195 vs 197 instructions) |
 | `app/client/tasks/tsk_login.cpp:219` | `LoginTaskClass::Pre_Run` | marker | NOT EXACT: shape (the event's bit 12 test and the dispatchers' argument order; attempts.py show 0x767DA0) 0x767DA0 |
 | `app/client/tasks/tsk_login.cpp:271` | `LoginTaskClass::Run` | marker | NOT EXACT: register-only (the final Process_Packets call loads the vtable in edx, the client eax; attempts.py show 0x767F50) |
-| `app/client/tasks/tsk_login.cpp:456` | `LoginTaskClass::Unknown_50` | marker | NOT EXACT: inline budget (the client inlines LoginUnknown350Class's assignment and calls the 0x160 object's constructor 0x7688F0; ours the reverse; attempts.py show 0x7683F0) 0x7683F0 |
+| `app/client/tasks/tsk_login.cpp:456` | `LoginTaskClass::Unknown_50` | marker | NOT EXACT: inline budget (the client inlines LoginUnknown350Class's implicit assignment and calls the 0x160 object's constructor 0x7688F0; ours the reverse; the two trade against one budget: a cheaper assignment (POD/grouped Vector3s) inlines it and puts the constructor out of line, exact at 0x7688F0, but changes the copy's bytes; attempts.py show 0x7683F0) 0x7683F0 |
 | `app/client/tasks/tsk_login.cpp:644` | `LoginTaskClass::Go_Next_Step` | marker | NOT EXACT: register-only (the client keeps 1 in ebx and the slot's address; attempts.py show 0x769500) 0x769500 |
 | `app/client/tasks/tsk_login.cpp:711` | `LoginTaskClass::Go_Back_Step` | marker | NOT EXACT: register-only (the client keeps 1 in ebx for the flag and step 1; attempts.py show 0x769680) |
 | `app/client/tasks/tsk_login.cpp:829` | `LoginTaskClass::Unknown_64` | marker | NOT EXACT: shape (the client shares its 'return true' tails; attempts.py show 0x7698E0) 0x7698E0 |
@@ -55,6 +55,8 @@ edit the comments in the code, not this file.
 | `app/packets/pkcolorization.cpp:62` | `ColorizationPacketClass::Print` | mention | NOT EXACT (parked, attempts.csv). * The file name is provisional (no assert names it). |
 | `app/packets/pknamedecal.cpp:5` | `DecalPacketClass::DecalPacketClass` | marker | NOT EXACT: 0x8805C0, the inline vector copy's loop addresses each decal from +0x10 in the client (shape, as COLORIZATION's 0x87F320; attempts.py show 0x8805C0) |
 | `app/packets/pknamedecal.cpp:14` | `DecalPacketClass::DecalPacketClass` | marker | NOT EXACT: 0x8807B0, the client inlines push_back's insert (over this object's helpers 0x8810F0- 0x881250), ours calls it (inline-budget; attempts.py show 0x8807B0) |
+| `app/packets/pkunknown_863720.cpp:75` | `Packet_00E6Class::Get_Data_Size` | marker | NOT EXACT: shape (the client adds the string's size and 0x18 first, then DataSize; attempts.csv) |
+| `app/packets/pkunknown_863720.cpp:148` | `Packet_00E7Class::Get_Data_Size` | marker | NOT EXACT: shape (as opcode 230's; attempts.csv) |
 | `app/packets/pkunknown_867010.cpp:6` | `Packet_00B3Class::Packet_00B3Class` | marker | NOT EXACT: the inline std::string assign's terminating store indexes [ebx + ecx], the client's [ecx + ebx] (otherwise the same bytes) |
 | `app/packets/pkverblist.cpp:5` | `VerbUpdatePacketClass::VerbUpdatePacketClass` | marker | NOT EXACT: 0x8AFD10, the client calls the first set's _Init and inlines the second's (inline-budget; attempts.py show 0x8AFD10) |
 | `app/packets/pkverblist.cpp:26` | `VerbUpdatePacketClass::Build` | marker | NOT EXACT: 0x8AFF40, the client inlines both loops' iterator steps (inline-budget; attempts.py show 0x8AFF40) |
@@ -87,8 +89,9 @@ edit the comments in the code, not this file.
 | `app/shared/land.cpp:603` | `LandClass::Update_Patches` | marker | NOT EXACT: shape (written from the disassembly: the client's frame is 0x18 larger, it copies the camera position and ors the change tests; 5 forms, attempts.csv 0x46B3C0) |
 | `app/shared/land.cpp:754` | `LandClass::Upload_Lightmap` | marker | NOT EXACT: frame (0x14, the client 0x20: it keeps this, the size and the buffer in frame slots); 2 forms tried |
 | `app/shared/land.cpp:795` | `LandPatchClass::Build_Vertices` | marker | NOT EXACT: frame (0x3C, the client 0x38); 3 forms tried (attempts.csv 0x474790) |
-| `app/shared/land.cpp:861` | `LandClass::Apply_Colors` | marker | NOT EXACT: shape (the client steps a colour pointer by 3 and tests extra before its loads; the loop bodies match); 3 forms tried |
-| `app/shared/land.cpp:905` | `LandClass::Build_Index_Buffers` | marker | NOT EXACT: field-offset / order (the store order of the strip's index pairs; 2 forms, attempts.csv 0x478240) |
+| `app/shared/land.cpp:861` | `LandClass::Compute_Lighting` | marker | NOT EXACT: order-only (the shadowed vertex: the client loads +0x1F0's factor first; 64 rows masked; attempts.csv 0x46CAE0). The lit vertices: the sun's normal colour plus the sky's; the shadowed: the sky's; between the horizons a blend |
+| `app/shared/land.cpp:981` | `LandClass::Apply_Colors` | marker | NOT EXACT: shape (the client steps a colour pointer by 3 and tests extra before its loads; the loop bodies match); 3 forms tried |
+| `app/shared/land.cpp:1025` | `LandClass::Build_Index_Buffers` | marker | NOT EXACT: field-offset / order (the store order of the strip's index pairs; 2 forms, attempts.csv 0x478240) |
 | `app/shared/lookup_table.cpp:111` | `LookupTableSetClass::~LookupTableSetClass` | marker | NOT EXACT: inline budget (explain.py: inline-budget), the client calls the bucket vector's _Destroy 0x4EF140 out of line in the table's destructor; ours inlines it |
 | `app/shared/lookup_table.cpp:142` | `ContinuousLookupTableClass::Create` | marker | NOT EXACT: inline budget (explain.py: shape, 19 vs 17 calls), the client inlines the values vector's constructor and resize's first size(); ours calls them (frame 0x2C, the client 0x28) |
 | `app/shared/lookup_table.cpp:204` | `SampledLookupTableClass::SampledLookupTableClass` | marker | NOT EXACT: order-only, the client stores the sample's Value (atof) after pushing push_back's arguments, ours before; everything else equal |
