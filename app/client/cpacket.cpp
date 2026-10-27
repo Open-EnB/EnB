@@ -15,6 +15,7 @@
 #include "..\packets\pkinitrenderstate.h"
 #include "..\packets\pklogoff.h"
 #include "..\packets\pkmessagestring.h"
+#include "..\packets\pkmessagetime.h"
 #include "..\packets\pkmodechange.h"
 #include "..\packets\pknamedecal.h"
 #include "..\packets\pkpointeffect.h"
@@ -30,6 +31,8 @@
 #include "wwprofile.h"
 #include "rendobj.h"
 #include "..\shared\unknown_debug.h"
+#include <stdio.h>
+#include <time.h>
 #include <string>
 #include <vector>
 
@@ -169,6 +172,21 @@ bool MessageStringPacketClass::Process_Packet(void *instance)
 	return(true);
 }
 
+// 0x736800
+bool MessageTimePacketClass::Process_Packet(void *instance)
+{
+	WWPROFILE("MessageTimePacketClass::Process_Packet()");
+	time_t now;
+	char buffer[64];
+	sprintf(buffer, "Server Time: %s", ctime(&Time));
+	SClient *sclient = (SClient *)instance;
+	sclient->Unknown_74D990(Color, buffer, 0);
+	time(&now);
+	sprintf(buffer, "Local Time: %s", ctime(&now));
+	sclient->Unknown_74D990(Color, buffer, 0);
+	return(true);
+}
+
 // 0x737520
 bool SetZBandPacketClass::Process_Packet(void *instance)
 {
@@ -265,24 +283,6 @@ bool ModeChangePacketClass::Process_Packet(void *instance)
 	}
 	return(true);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
