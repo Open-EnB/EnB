@@ -158,6 +158,18 @@ LoginCharacterClass::LoginCharacterClass() {}
 LoginCharacterClass::~LoginCharacterClass() {}
 LoginUnknown350Class::LoginUnknown350Class() {}
 LoginUnknown350Class::~LoginUnknown350Class() {}
+LoginUnknown44Class::LoginUnknown44Class() {}
+void LoginUnknown88CClass::Write(LinearBufferClass *) {}
+void LoginUnknown88CClass::Read(LinearBufferClass *) {}
+int LoginUnknown88CClass::Get_Size() { return 0; }
+void LoginUnknown88CClass::Unknown_0C() {}
+void LoginUnknown88CClass::Unknown_00(void *) {}
+void LoginUnknown88CClass::Unknown_4F6210(int) {}
+void LoginUnknown88CClass::Unknown_4F6230() {}
+void LoginUnknown88CClass::Unknown_4F62F0(int) {}
+void LoginGalaxyClass::Write(LinearBufferClass *) {}
+void LoginGalaxyClass::Read(LinearBufferClass *) {}
+int LoginGalaxyClass::Get_Size() { return 0; }
 TicketClass::~TicketClass() {}
 LoginTaskClass::LoginTaskClass(int mode) : Ticket(0)
 {

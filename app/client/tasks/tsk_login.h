@@ -21,12 +21,15 @@
 #include "tsk_game.h"
 #include <string>
 #include <list>
+#include "vector3.h"
+#include "vector2.h"
 
 class ConnectionClass;
 class Packet_0078Class;
 class GlobalErrorPacketClass;
 class Packet_0076Class;
 class LinearBufferClass;
+class LoginUnknown0CClass;
 class LoginTaskClass;
 
 // The character view (charview.cpp: constructor 0x678450, 0x514 bytes), declared only as far as
@@ -126,7 +129,10 @@ public:
 	void Unknown_67A300();								// 0x67A300 (charview.cpp)
 	void Unknown_67A370(int step);						// 0x67A370 (charview.cpp)
 
-	char Unknown004[0x30];								// +0x04
+	LoginUnknown0CClass *Unknown004;					// +0x04: gets the event Pre_Run's +0x0C didn't take (0x429A20)
+	char Unknown008[0x2C - 0x08];						// +0x08
+	void *Unknown02C;									// +0x2C: when set, Pre_Run's event comes from 0x65F780 (gadget.cpp)
+	char Unknown030[0x34 - 0x30];						// +0x30
 	CharacterViewUnknown34Class *Unknown034;			// +0x34
 	char Unknown038[0x1B4 - 0x38];						// +0x38
 	CharacterViewUnknown1B4Class *Unknown1B4;			// +0x1B4
@@ -180,6 +186,7 @@ public:
 // What the global ticket packet's handler 0x76B170 copies (0x9C bytes; step 16 copies it whole)
 struct LoginTicketInfoClass	// NAME 1: what it holds
 {
+	LoginTicketInfoClass() : Unknown20(0), Unknown24(0) {}	// (LoginTaskClass's constructors)
 	std::string Unknown00;								// +0x00
 	std::string Unknown10;								// +0x10
 	int Unknown20;										// +0x20
@@ -202,9 +209,63 @@ struct LoginUnknown350Class	// NAME 1: neutral (D10)
 	char Unknown00[0x10C];
 };
 
+// The one-slot interface vtable 0xAEADC8 (delta.h's DeltaInterfaceClass has the same table)
+class LoginInterfaceAEADC8Class	// NAME 1: neutral (D10)
+{
+public:
+	virtual void Unknown_00(void *visitor) = 0;
+};
+
+// A 0x44-byte object (constructor 0x6191F0), four in each LoginUnknown88CClass
+class LoginUnknown44Class	// NAME 1: neutral (D10)
+{
+public:
+	LoginUnknown44Class();								// 0x6191F0
+	char Unknown00[0x44];
+};
+
+// The five 0x160-byte objects at LoginTaskClass +0x88C (vtables 0xAF78A0 / 0xAF789C over 0xAEB9EC /
+// 0xAEADC8). Its constructor is inline: in both LoginTaskClass constructors, in 0x76A370, and out of
+// line at 0x7688F0 after its first caller 0x7683F0.
+class LoginUnknown88CClass : public LoginPacketDataClass, public LoginInterfaceAEADC8Class	// NAME 1: neutral (D10)
+{
+public:
+	LoginUnknown88CClass() :
+		Unknown08(0), Unknown0C(0), Unknown10(0), Unknown30(1.0F, 1.0F, 1.0F),
+		Unknown3C(0.5F, 0.5F), Unknown44(0x7FFFFFF)
+	{
+		Unknown14 = false;
+		Unknown_4F6210(0);
+		Unknown_4F62F0(0);
+		Unknown_4F6230();
+	}
+	virtual void Write(LinearBufferClass *buffer);		// +0x00 0x4F6330 (thunk 0x40C7F2)
+	virtual void Read(LinearBufferClass *buffer);		// +0x04 (thunk 0x405F9C)
+	virtual int Get_Size();								// +0x08 (thunk 0x414AB5)
+	virtual void Unknown_0C();							// +0x0C (thunk 0x403701)
+	virtual void Unknown_00(void *visitor);				// second table +0x00 0x4F6750 (thunk 0x40AEE8)
+	void Unknown_4F6210(int unknown);					// 0x4F6210
+	void Unknown_4F6230();								// 0x4F6230
+	void Unknown_4F62F0(int unknown);					// 0x4F62F0
+
+	int Unknown08;										// +0x08
+	int Unknown0C;										// +0x0C
+	int Unknown10;										// +0x10
+	bool Unknown14;										// +0x14
+	char Unknown15[0x30 - 0x15];						// +0x15
+	Vector3 Unknown30;									// +0x30
+	Vector2 Unknown3C;									// +0x3C
+	int Unknown44;										// +0x44
+	LoginUnknown44Class Unknown48[4];					// +0x48
+	char Unknown158[0x160 - 0x158];						// +0x158
+};
+
 class LoginUnknown0CClass	// NAME 1: neutral (D10): what LoginTaskClass +0x0C points to (inpdsp.cpp)
 {
 public:
+	LoginUnknown0CClass();								// 0x429630 (0x18 bytes)
+	bool Unknown_429A20(KernelEventClass *event);		// 0x429A20 (inpdsp.cpp): true when it took the event
+	char Unknown00[0x18];
 	~LoginUnknown0CClass();								// 0x429800 (inpdsp.cpp)
 };
 
@@ -213,6 +274,7 @@ class LoginUnknown18Class	// NAME 1: neutral (D10): what LoginTaskClass +0x18 po
 public:
 	LoginUnknown18Class(int unknown);					// 0x514FE0 (0x30 bytes)
 	~LoginUnknown18Class();								// 0x515030
+	void Unknown_515120(int unknown);					// 0x515120 (the constructor passes 1)
 	void Unknown_515340(void *unknown);					// 0x515340
 	void Unknown_5153B0();								// 0x5153B0
 	void Unknown_515400();								// 0x515400
@@ -220,11 +282,13 @@ public:
 
 	char Unknown00[0x24];
 	bool Unknown24;										// +0x24
+	char Unknown25[0x30 - 0x25];						// +0x25
 };
 
 class LoginTaskClass : public TaskClass
 {
 public:
+	LoginTaskClass();									// 0x767240 (no caller: Step 14)
 	LoginTaskClass(int mode);							// 0x7675D0  // NAME 1 [mode]: MenuTask passes 1, or 9 (0x5FAE70 and not 0x5FAD50)
 	virtual ~LoginTaskClass();							// +0x04 0x7675A0 / 0x767A20
 	virtual int Unknown_08() { return (int)this; }		// +0x08 0x767560 (the base's returns 0)
@@ -284,7 +348,7 @@ public:
 	TicketClass Ticket;									// +0x38 NAME 1: handed to ClientTaskClass::Init (step 16)
 	LoginCharacterClass Characters[5];					// +0x80 NAME 1: the character list's slots (Selected indexes them)
 	LoginUnknown350Class Unknown0350[5];				// +0x350
-	char Unknown088C[0xF6C - 0x88C];					// +0x88C
+	LoginUnknown88CClass Unknown088C[5];				// +0x88C
 	std::list<LoginGalaxyClass> Galaxies;				// +0xF6C (the FAIL_IF 'Galaxies.empty()')
 	unsigned long Galaxy_Address;						// +0xF78 NAME 1: the selected character's galaxy's (0x769400)
 	char EATicket[0x1080 - 0xF7C];						// +0xF7C (the assert 'sizeof(EATicket) > strlen(response.Get_Ticket()) + 1')

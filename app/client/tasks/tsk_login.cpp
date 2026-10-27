@@ -44,8 +44,46 @@ class GlobalTicketPacketClass : public PacketClass { public: GlobalTicketPacketC
 class Packet_0076Class : public PacketClass { public: Packet_0076Class(RawPacketClass *raw); virtual bool Process_Packet(void *client); int Unknown0C; LoginTicketInfoClass Ticket_Info; int Unknown0AC; short Unknown0B0; int Unknown0B4; int Unknown0B8; int Unknown0BC; bool Is_Unknown0B0() const { return Unknown0B0 != 0; } int Get_Unknown0B4() const { return Unknown0B4 - Unknown0B8; } };	// opcode 118 (the client's log: GlobalLoginPacketClass): 0x866050, 0xC0 bytes  // NAME 1 [Ticket_Info, Is_Unknown0B0, Get_Unknown0B4]: copied whole to the task's; the two accessors (inline budget: 0x76B170 calls string::assign out of line only with them)
 class Packet_0077Class : public PacketClass { public: Packet_0077Class(const char *name); virtual ~Packet_0077Class() {} virtual RawPacketClass *Build(); virtual bool Process_Packet(void *client); virtual int Get_Data_Size(); virtual int Print(char *buffer, int len); std::string Name; int Unknown1C; };	// opcode 119: 0x866AC0 (the sending constructor), 0x20 bytes; its destructor 0x76B400 is emitted here  // NAME 1 [name]: the referrer's name (0x55D060)
 class GlobalAvatarListPacketClass : public PacketClass { public: GlobalAvatarListPacketClass(RawPacketClass *raw); virtual bool Process_Packet(void *client); void *Unknown0C; void *Unknown10; std::list<LoginGalaxyClass> Galaxies; };	// opcode 112: 0x862D90, 0x20 bytes  // NAME 1 [Galaxies]: copied to the task's
+void Unknown_7E5F70();								// NAME 1 [Unknown_7E5F70]: neutral (D10); once, by the first LoginTaskClass(mode)
+void Unknown_7228C0();								// NAME 1 [Unknown_7228C0]: neutral (D10)
+void Unknown_43FA80();								// NAME 1 [Unknown_43FA80]: neutral (D10) (soundlib.cpp)
+static bool Unknown_BE82D4 = false;				// NAME 1 [Unknown_BE82D4]: neutral (D10): set once Unknown_7E5F70 ran
+
+// 0x767240
+LoginTaskClass::LoginTaskClass() :
+	Unknown000C(NULL), CharacterView(NULL), Unknown0014(false), Unknown0018(NULL), Done(false), Unknown001D(false),
+	Unknown0020(0), Step(14), Previous_Step(14), GlobalConnection(NULL), Unknown0030(false), Ticket(0),
+	Galaxy_Address(0), Selected(0), Username(NULL), Password(NULL), Unknown108C(0), Error(0),
+	Unknown1138(false), Unknown113C(0), Referrer_Result(0)
+{
+}
+
+// 0x7675D0
+LoginTaskClass::LoginTaskClass(int mode) :
+	Unknown000C(NULL), CharacterView(NULL), Unknown0014(false), Unknown0018(NULL), Done(false), Unknown001D(false),
+	Unknown0020(0), Step(mode), Previous_Step(mode), GlobalConnection(NULL), Unknown0030(false), Ticket(0),
+	Galaxy_Address(0), Selected(0), Username(NULL), Password(NULL), Unknown108C(0), Error(0),
+	Unknown1138(false), Unknown113C(0), Referrer_Result(0)
+{
+	if (!Unknown_BE82D4) {
+		Unknown_7E5F70();
+		Unknown_BE82D4 = true;
+	}
+	Load_Login();
+	EATicket[0] = 0;
+	Unknown_7228C0();
+	Unknown_43FA80();
+	Unknown0018 = new LoginUnknown18Class(0);
+	Unknown0018->Unknown_515120(1);
+	Create_Character_View();
+	Unknown000C = new LoginUnknown0CClass;
+}
 
 
+void Unknown_42EDB0();								// NAME 1 [Unknown_42EDB0]: neutral (D10) (input.cpp's neighbourhood)
+bool Unknown_42EA80(KernelEventClass *event);		// NAME 1 [Unknown_42EA80]: the input queue's next event (input.cpp)
+void Unknown_42E8A0(KernelEventClass *event);		// NAME 1 [Unknown_42E8A0]: hands the event on (input.cpp)
+KernelEventClass Unknown_65F780(void *unknown);		// NAME 1 [Unknown_65F780]: neutral (D10) (gadget.cpp)
 
 
 
@@ -108,44 +146,6 @@ LoginTaskClass::~LoginTaskClass()
 	delete Username;
 	delete Password;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // 0x767CE0
 bool LoginTaskClass::Accept_Focus()
@@ -216,27 +216,27 @@ int LoginTaskClass::Get_Interval()
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// NOT EXACT: shape (the event's bit 12 test and the dispatchers' argument order; attempts.py show 0x767DA0)
+// 0x767DA0
+void LoginTaskClass::Pre_Run()
+{
+	if (Step < 16) {
+		FAIL_IF(!CharacterView) return;
+		Unknown_42EDB0();
+		KernelEventClass event;
+		if (CharacterView->Unknown02C) {
+			event = Unknown_65F780(CharacterView->Unknown02C);
+		} else if (Unknown_42EA80(&event)) {
+			Unknown_42E8A0(&event);
+		}
+		if (event.Key == 0x91 && ((event.Flags >> 12) & 1)) {
+			WW3D::Make_Screen_Shot("ScreenShot", 1.3f, 1);
+		}
+		if (!Unknown000C->Unknown_429A20(&event)) {
+			CharacterView->Unknown004->Unknown_429A20(&event);
+		}
+	}
+}
 
 
 
