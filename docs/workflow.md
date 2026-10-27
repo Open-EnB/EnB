@@ -258,6 +258,7 @@ unless `--lever` cites a new row of this table.
 | Calls in a `+` chain evaluated right to left where the client calls in source order | Separate `size += ...` statements | Get_Data_Size of 169, 171, 172, 82 (P6) |
 | A base vtable store that survives in the client | A member initialiser reading through a reference that may alias `this` (a Matrix3D copy; an iterator whose constructor takes the container) | 30010, 888b60 (P6) |
 | Several members reached through a pointer to a sub-block | Those members are a struct; helper members that ignore `this` (`ret N`, ecx unused) sit on the base | pkunknown_888b60 (P6) |
+| The client loads packet fields or a member chain into eax and the other registers before the argument pushes | Read them through inline accessors | cpacket handlers 32-35, 66, 30, 98 (T10, c3b7f1b / 48b1d58) |
 
 * **A nested inline is a whole-function budget (2026-10-26, `Key_Exchange` 0x829180):** under `/Ob2` an
   inline helper's own callees (a `std::set` iterator's `_Inc`) are inlined only while the function as a
@@ -509,6 +510,9 @@ unless `--lever` cites a new row of this table.
   The land companion (vtable 0xAE8974, displacement maps, Matrox-only) needs its own file: inside land.cpp the land's
   destructor inlines its delete and loses 0x46A480 / 0x4691A0.
 
+* **A worktree file list built from `git status` picks up other builders' half-done files** (T10: P6's pkupdate.cpp
+  showed hundreds of false losses): list your own files by name. clienttest's fake model tables need a `__stdcall`
+  stand-in for any slot that takes an argument (Set_LOD_Bias, slot 75).
 * **clienttest (T9, 2026-10-27; `python tools/harness/clienttest.py build|run`):** hand-written stand-ins must cover
   every member of an app.lib object the program reaches, or the linker pulls the whole object and reports LNK2005 on
   the rest (app.lib changes under you when other builders verify: soptions.obj did). A stand-in object whose real
