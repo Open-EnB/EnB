@@ -55,6 +55,7 @@ public:
 			style->second->Unknown250 = value;
 		}
 	}
+	FontStyleClass *Unknown_6D1600(std::string name);					// 0x6D1600: the named style  // NAME 1 [Unknown_6D1600]: neutral (D10)
 	void Unknown_6D1010(const char *name, TPoint3D<int> color);			// 0x6D1010: the named style's color (+0x494, +0x4A4)  // NAME 1 [Unknown_6D1010]: neutral (D10)
 	void Unknown_6D0390(void *unknown);									// 0x6D0390  // NAME 1 [Unknown_6D0390]: neutral (D10)
 	void Unknown_6D0550(void *unknown);									// 0x6D0550  // NAME 1 [Unknown_6D0550]: neutral (D10)
@@ -81,6 +82,7 @@ public:
 	void Unknown_6D2480(unsigned int id);								// 0x6D2480  // NAME 1 [Unknown_6D2480]: neutral (D10)
 	void Unknown_6D2500(unsigned int id);								// 0x6D2500  // NAME 1 [Unknown_6D2500]: neutral (D10)
 	void Unknown_6D2580(const char *name, TPoint3D<int> color, unsigned int id);	// 0x6D2580: a font's style color  // NAME 1 [Unknown_6D2580]: neutral (D10)
+	FontStyleClass *Get_Style(const char *name, unsigned int id);		// 0x6D25D0: a font's named style, else the debug font  // NAME 2: describes what it does
 	void Unknown_6D28C0(int value, unsigned int id);					// 0x6D28C0: each style's +0x250 of a font  // NAME 1 [Unknown_6D28C0]: neutral (D10)
 	void Add(ManagedFontClass *font);									// 0x6D29A0: under its id  // NAME 2: describes what it does
 	ManagedFontClass *Find(unsigned int id);							// 0x6D2A70  // NAME 2: describes what it does

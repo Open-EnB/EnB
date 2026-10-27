@@ -459,6 +459,83 @@ void FontManagerClass::Unknown_6D2580(const char *name, TPoint3D<int> color, uns
 	Find(id)->Unknown_6D1010(name, color);
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// NOT EXACT: order-only, 1 row: the inlined std::string(name) stores its terminator through [ebx+eax], ours [eax+ebx] (attempts.csv)
+FontStyleClass *FontManagerClass::Get_Style(const char *name, unsigned int id)
+{
+	ManagedFontClass *font = Find(id);
+	if (!font) {
+		G_ASSERT(0);
+		return DebugFont.Peek();
+	}
+
+	FontStyleClass *style = font->Unknown_6D1600(name);
+	if (!style) {
+
+
+
+		G_ASSERT(0);
+		return DebugFont.Peek();
+	}
+	return style;
+}
+
 // NOT EXACT: inline budget, 75 rows: the client calls the styles table's begin and bucket helpers out of line, ours inlines them (attempts.csv)
 void FontManagerClass::Unknown_6D28C0(int value, unsigned int id)
 {
