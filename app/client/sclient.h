@@ -172,7 +172,7 @@ public:
 	virtual void Unknown_50();
 	virtual void Unknown_54();
 	virtual void Unknown_58();
-	virtual void Unknown_5C();
+	virtual ClientObjectClass *Unknown_5C();			// +0x5C (SClient 0x744E70's FAIL_IF '!target' on its result)
 	virtual void Unknown_60();
 	virtual MainViewUnknown64Class *Unknown_64();		// +0x64 (SClient 0x7456B0)
 	virtual void Unknown_68();
@@ -217,6 +217,55 @@ public:
 	Vector3 Unknown00[24];								// +0x00  // NAME 2: what the constructor writes
 };
 
+// What the +0x1394 values' 0x77E3F0 / 0x77E610 return, as far as SClient calls it
+class Unknown77E3F0Class	// NAME 1: neutral (D10)
+{
+public:
+	void Unknown_780810(SClientUnknown1338Class *unknown);	// 0x780810 (SClient 0x74C7B0 / 0x74C840 / 0x74C8D0 pass Unknown1338)  // NAME 1 [unknown]: neutral
+};
+
+// The values of SClient +0x1394 (reference counted: Delete_This in slot 0, the count at +0x04)
+class SClientUnknown1394Class : public RefCountClass	// NAME 1: neutral (D10)
+{
+public:
+	virtual void Unknown_08();
+	virtual void Unknown_0C();
+	virtual void Unknown_10();
+	virtual void Unknown_14();
+	virtual void Unknown_18();
+	virtual void Unknown_1C();
+	virtual void Unknown_20();
+	virtual void Unknown_24();
+	virtual void Unknown_28();
+	virtual void Unknown_2C();
+	virtual void Unknown_30();
+	virtual void Unknown_34();
+	virtual void Unknown_38();							// +0x38 the destructor calls it before the release
+	Unknown77E3F0Class *Unknown_77E3F0();				// 0x77E3F0 (SClient 0x74C7B0)
+	Unknown77E3F0Class *Unknown_77E610();				// 0x77E610 (SClient 0x74C840)
+
+	char Unknown08[0xF8 - 0x08];						// +0x08
+	int UnknownF8;										// +0xF8 (SClient 0x74C960 returns its address)
+};
+
+// What the chat panel's +0x138 points to, as far as SClient 0x744E70 calls it
+class UIChatPanelUnknown138Class	// NAME 1: neutral (D10)
+{
+public:
+	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
+	virtual void Unknown_10(); virtual void Unknown_14(); virtual void Unknown_18(); virtual void Unknown_1C();
+	virtual void Unknown_20(); virtual void Unknown_24(); virtual void Unknown_28(); virtual void Unknown_2C();
+	virtual void Unknown_30(); virtual void Unknown_34(); virtual void Unknown_38(); virtual void Unknown_3C();
+	virtual void Unknown_40(); virtual void Unknown_44(); virtual void Unknown_48(); virtual void Unknown_4C();
+	virtual void Unknown_50(); virtual void Unknown_54(); virtual void Unknown_58(); virtual void Unknown_5C();
+	virtual void Unknown_60(); virtual void Unknown_64(); virtual void Unknown_68(); virtual void Unknown_6C();
+	virtual void Unknown_70(); virtual void Unknown_74(); virtual void Unknown_78(); virtual void Unknown_7C();
+	virtual void Unknown_80(); virtual void Unknown_84(); virtual void Unknown_88(); virtual void Unknown_8C();
+	virtual void Unknown_90(); virtual void Unknown_94(); virtual void Unknown_98(); virtual void Unknown_9C();
+	virtual void Unknown_A0(); virtual void Unknown_A4(); virtual void Unknown_A8();
+	virtual void Unknown_AC(bool on);					// +0xAC (0x744E70: false when the current view is +0x135C or asked, true for a type-1 target)  // NAME 1 [on]: neutral
+};
+
 #pragma pack(push, 4)		// as ClientClass (client.h)
 class SClient : public ClientClass, public SOptionsClass	// NAME 2: the client's 'SClient::Process_Packets' (0x7427C0)
 {
@@ -256,6 +305,11 @@ public:
 	void Unknown_745750();								// 0x745750 (cpacket.cpp: SERVER_HANDOFF 58)
 	void Unknown_745000(int base_asset);				// 0x745000 (cpacket.cpp: SERVER_PARAMETERS 66 passes its BackdropBaseAsset)  // NAME 1 [base_asset]: the packet's field
 	void Unknown_750A70(unsigned sector);				// 0x750A70 (cpacket.cpp: SERVER_PARAMETERS 66 passes its SectorNum)  // NAME 1 [sector]: the packet's field
+	void Unknown_744E70(bool arg);						// 0x744E70: the main view's target (FAIL_IF '!target', l.2110) as an ACTION 44 packet, else the chat panel's +0x138  // NAME 1 [arg]: neutral
+	Unknown77E3F0Class *Unknown_74C7B0(unsigned id);	// 0x74C7B0: Unknown1394's value of id, its 0x77E3F0 given Unknown1338  // NAME 1 [id]: the table's key
+	Unknown77E3F0Class *Unknown_74C840(unsigned id);	// 0x74C840: as 0x74C7B0 through 0x77E610  // NAME 1 [id]: the table's key
+	int *Unknown_74C960(unsigned id);					// 0x74C960: Unknown1394's value's +0xF8  // NAME 1 [id]: the table's key
+	void Unknown_74C9D0(const RefCountPtr<UITalkTreeSpaceClass> &tree);	// 0x74C9D0: Unknown1298 set, or reset to Unknown129C  // NAME 1 [tree]: what it holds
 	void Unknown_745F30(int type);						// 0x745F30 (cpacket.cpp: CLIENT_TYPE 60 passes 0, 1 or 5 for the packet's Type 0, 1 or 2)  // NAME 1 [type]: what the handler passes
 	void Unknown_74B680(int a, int starbase_id);		// 0x74B680 (cpacket.cpp: starbase tow 80 passes 0 and StarbaseID1)  // NAME 1 [a, starbase_id]: what the handler passes
 	void Unknown_74BA30(int a, int starbase_id, int mode);	// 0x74BA30 (cpacket.cpp: STARBASE_SET 79 passes 0, StarbaseID and 0 / 1 / 5 by its exit mode)  // NAME 1 [a, starbase_id, mode]: what the handler passes

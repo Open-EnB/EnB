@@ -9,6 +9,7 @@
 #include "..\packets\pk.h"
 #include "ini.h"
 #include "wwfile.h"
+#include "..\packets\pkaction.h"
 #include "refcount.h"
 #include "wwprofile.h"
 #include "font3d.h"
@@ -106,24 +107,6 @@ public:
 	std::vector<Unknown758F40Class> Unknown00;			// +0x00 (its destructor 0x755CE0)
 };
 
-class SClientUnknown1394Class : public RefCountClass
-{
-public:
-	virtual void Unknown_08();
-	virtual void Unknown_0C();
-	virtual void Unknown_10();
-	virtual void Unknown_14();
-	virtual void Unknown_18();
-	virtual void Unknown_1C();
-	virtual void Unknown_20();
-	virtual void Unknown_24();
-	virtual void Unknown_28();
-	virtual void Unknown_2C();
-	virtual void Unknown_30();
-	virtual void Unknown_34();
-	virtual void Unknown_38();							// +0x38 the destructor calls it before the release
-};
-
 // The interface objects Init creates (each file's constructor before its first assert; kernel-map-step9.md
 // 9f's interface base not rebuilt). The reference-counted ones keep their count in a second base at +0x38
 // (RefCountPtr's release reads +0x3C and calls +0x38's slot 0; Shutdown releases the raw pointers so)
@@ -183,7 +166,9 @@ public:
 
 	char Unknown40[0xE0 - 0x40];
 	UIChatPanelUnknownE0Class *UnknownE0;				// +0xE0 (0x750210, 0x7517E0, 0x751850 test its +0x7C)
-	char UnknownE4[0x268 - 0xE4];
+	char UnknownE4[0x138 - 0xE4];
+	UIChatPanelUnknown138Class *Unknown138;				// +0x138 (0x744E70 calls its slot +0xAC)
+	char Unknown13C[0x268 - 0x13C];
 };
 
 class UILineDisplayClass : public SClientUnknownWindowClass, public RefCountClass
@@ -2107,16 +2092,31 @@ unsigned SClient::Set_Debug_Object(unsigned id)
 
 
 
+// NOT EXACT: shape (explain.py; 35 masked rows): the client lays the chat panel's false call last and jumps to it from both tests; four forms (attempts.py show 0x744E70)
+// 0x744E70
+void SClient::Unknown_744E70(bool arg)
+{
+	if ((CurrentView != NULL && CurrentView == Unknown135C) || arg) {
+		if (ChatPanel && ChatPanel->Unknown138) {
+			ChatPanel->Unknown138->Unknown_AC(false);
+		}
+		return;
+	}
+
+	ClientObjectClass *target = MainView->Unknown_5C();
 
 
 
-
-
-
-
-
-
-
+	FAIL_IF(!target) return;
+	if (target->Type == 1) {
+		if (ChatPanel && ChatPanel->Unknown138) {
+			ChatPanel->Unknown138->Unknown_AC(true);
+		}
+		return;
+	}
+	ActionPacketClass packet(DebugObjectID, 2, target->Get_Game_ID(), 0);
+	Send_Packet(&packet);
+}
 
 
 
@@ -4287,51 +4287,51 @@ void SClient::Unknown_74C370(RefCountClass *object)
 
 
 
+// 0x74C7B0
+Unknown77E3F0Class *SClient::Unknown_74C7B0(unsigned id)
+{
+	std::hash_map<unsigned, SClientUnknown1394Class *>::iterator it = Unknown1394.find(id);
+	if (it != Unknown1394.end() && (*it).second) {
+		Unknown77E3F0Class *object = (*it).second->Unknown_77E3F0();
+		object->Unknown_780810(Unknown1338);
+		return(object);
+	}
+	return(NULL);
+}
 
+// 0x74C840
+Unknown77E3F0Class *SClient::Unknown_74C840(unsigned id)
+{
+	std::hash_map<unsigned, SClientUnknown1394Class *>::iterator it = Unknown1394.find(id);
+	if (it != Unknown1394.end() && (*it).second) {
+		Unknown77E3F0Class *object = (*it).second->Unknown_77E610();
+		object->Unknown_780810(Unknown1338);
+		return(object);
+	}
+	return(NULL);
+}
 
+// 0x74C960
+int *SClient::Unknown_74C960(unsigned id)
+{
+	std::hash_map<unsigned, SClientUnknown1394Class *>::iterator it = Unknown1394.find(id);
+	if (it != Unknown1394.end() && (*it).second) {
+		return(&(*it).second->UnknownF8);
+	}
+	return(NULL);
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// 0x74C9D0
+void SClient::Unknown_74C9D0(const RefCountPtr<UITalkTreeSpaceClass> &tree)
+{
+	if (!(tree == Unknown1298)) {
+		if (tree) {
+			Unknown1298 = tree;
+		} else {
+			Unknown1298 = Unknown129C;
+		}
+	}
+}
 
 
 
@@ -5254,6 +5254,363 @@ void SClient::Unknown_750B30(int arg)
 		Unknown1330->Unknown_43C660(Unknown10BC, arg);
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /*
 **	Reconstruction notes
