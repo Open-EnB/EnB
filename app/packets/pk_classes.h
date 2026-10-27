@@ -727,15 +727,6 @@ public:
 	char Unknown0C[0x34];	// +0x0C
 };
 
-// opcode 213 (0x00D5, GUILD_RANK_NAMES_GUILD): vtable 0xB0ACA4, constructor 0x892670, 0x28 bytes
-class GuildRankNamesGuildPacketClass : public PacketClass  // NAME 3: the client's Print text 'GuildRankNamesGuild {' and the PacketClass convention
-{
-public:
-	GuildRankNamesGuildPacketClass(RawPacketClass *raw);	// 0x892670
-	virtual bool Process_Packet(void *client);	// +0x08 0x869210 (clientstub.cpp l.389)
-	char Unknown0C[0x1C];	// +0x0C
-};
-
 // opcode 220 (0x00DC, ?): vtable 0xB0AD94, constructor 0x893E80, 0x30 bytes
 class GuildDeductFeePacketClass : public PacketClass  // NAME 3: the client's Print text 'GuildDeductFeePacket {' and the PacketClass convention
 {

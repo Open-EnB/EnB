@@ -5,7 +5,7 @@
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
 **	Original location: e:\build\beta\G\app\packets\pkguildplayeronline.h (the name provisional: see the .cpp)
 **
-**	The packet classes of client 0x88EC70-0x894390 rebuilt so far (opcode 193, 194, 195, 196, 198, 199, 202, 203, 206, 207, 209, 214, 215, 217, 218, 219); the file's other
+**	The packet classes of client 0x88EC70-0x894390 rebuilt so far (opcode 193, 194, 195, 196, 198, 199, 202, 203, 206, 207, 209, 213, 214, 215, 217, 218, 219); the file's other
 **	classes are still declared in pk_classes.h.
 */
 
@@ -19,6 +19,7 @@
 #include "pk.h"
 #include "vector3.h"
 #include "pknotelist.h"
+#include "pkguildranknamesrequestclient.h"
 #include <string>
 #include <vector>
 
@@ -220,6 +221,22 @@ public:
 	int Unknown1C;	// +0x1C (network order)
 	int Unknown20;	// +0x20 (network order)
 	int Unknown24;	// +0x24 (network order)
+};
+
+// opcode 213 (0x00D5, GUILD_RANK_NAMES_GUILD): vtable 0xB0ACA4, constructor 0x892670, 0x28 bytes
+class GuildRankNamesGuildPacketClass : public PacketClass  // NAME 3: the client's Print text 'GuildRankNamesGuild {' and the PacketClass convention
+{
+public:
+	GuildRankNamesGuildPacketClass(RawPacketClass *raw);	// 0x892670
+	virtual RawPacketClass *Build();	// +0x04 0x8928E0
+	virtual bool Process_Packet(void *client);	// +0x08 0x869210 (clientstub.cpp)
+	virtual int Get_Data_Size();	// +0x0C 0x892A20
+	virtual int Print(char *buffer, int len);	// +0x10 0x892A90
+
+	void Add(const std::string &name, int rank);	// 0x892AE0  // NAME 2: what it does (as GuildRankNamesSectorPacket's)
+
+	__int64 PlayerID;	// +0x10  // NAME 3: the client's Print text 'PlayerID='
+	std::vector<GuildRankNameStruct> Ranks;	// +0x18 (a network-order count, then name and rank each)  // NAME 2: as GuildRankNamesSectorPacket's
 };
 
 // opcode 214 (0x00D6, ?): vtable 0xB0AC74, constructor 0x892180, 0x18 bytes

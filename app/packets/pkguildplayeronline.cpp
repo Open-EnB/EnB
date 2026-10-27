@@ -450,6 +450,56 @@ int GuildPermissionsPacketClass::Print(char *buffer, int len)
 	return(_snprintf(buffer, len, "GuildPermissionsPacket {PlayerID=%s}", Unknown_8B44E0(PlayerID, id)));
 }
 
+GuildRankNamesGuildPacketClass::GuildRankNamesGuildPacketClass(RawPacketClass *raw)
+{
+	raw->Get(PlayerID);
+	int count = 0;
+	raw->Get(count);
+	for (int i = 0; i < count; i++) {
+		char *name = raw->Get_String();
+		int rank = 0;
+		raw->Get(rank);
+		Add(name, rank);
+		delete [] name;
+	}
+}
+
+RawPacketClass *GuildRankNamesGuildPacketClass::Build()
+{
+	RawPacketClass *raw = new RawPacketClass(213, Get_Data_Size());
+	raw->Add(PlayerID);
+	int count = Ranks.size();
+	raw->Add(count);
+	for (std::vector<GuildRankNameStruct>::iterator it = Ranks.begin(); it != Ranks.end(); ++it) {
+		raw->Add_String(it->Name.c_str());
+		raw->Add(it->Rank);
+	}
+	return(raw);
+}
+
+int GuildRankNamesGuildPacketClass::Get_Data_Size()
+{
+	int size = sizeof(PlayerID) + sizeof(int);
+	for (std::vector<GuildRankNameStruct>::iterator it = Ranks.begin(); it != Ranks.end(); ++it) {
+		size += sizeof(it->Rank) + RawPacketClass::Get_Size(it->Name.c_str());
+	}
+	return(size);
+}
+
+int GuildRankNamesGuildPacketClass::Print(char *buffer, int len)
+{
+	char id[32];
+	return(_snprintf(buffer, len, "GuildRankNamesGuild {PlayerID=%s}", Unknown_8B44E0(PlayerID, id)));
+}
+
+void GuildRankNamesGuildPacketClass::Add(const std::string &name, int rank)
+{
+	GuildRankNameStruct entry;
+	entry.Name = name;
+	entry.Rank = rank;
+	Ranks.push_back(entry);
+}
+
 GuildRankNamesRequestSectorPacketClass::GuildRankNamesRequestSectorPacketClass(__int64 player_id) :
 	PlayerID(player_id)
 {
@@ -642,6 +692,6 @@ int GuildPlayerInfoDeletedPacketClass::Print(char *buffer, int len)
 **	  is 0x894390): the guild packets 193-220 not in pkguildranknamesrequestclient.cpp. Written by hand
 **	  (builder P4, 2026-10-27); each class's value constructor comes first, then the raw one.
 **	* The file name is provisional (no assert names it).
-**	* Not rebuilt yet: opcode 213,
-**	  220 (declared in pk_classes.h).
+**	* Not rebuilt yet: opcode 220 (declared in pk_classes.h: its MoneyClass NumCredits goes through money.cpp
+**	  0x4F00C0 and a packet-data wrapper, vtable 0xB0ADC4).
 */
