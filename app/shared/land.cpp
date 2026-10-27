@@ -23,11 +23,27 @@
 #include "meshmdl.h"
 #include "ww3d.h"
 #include "pot.h"
+#include "camera.h"
+#include "matrix4.h"
+#include "aabox.h"
 #include <stdio.h>
 #include <string.h>
 
 void Unknown_466E70(HeightFieldClass *field, float detail_u, float detail_v);	// NAME 1: unknown; news the global object (0x90 bytes, 0xBDC0D8) Unknown_466F10 deletes; called by Load_Assets only
-void Unknown_466F10(void);	// NAME 1: unknown; deletes a global object (0xBDC0D8) and clears it; called by the land's dtor only
+void Unknown_466F10(void);
+// NAME 1: unknown; the object Unknown_466E70 makes (0x90 bytes, vtable 0xAE8974, ctor 0x466BE0): Update_Patches draws it with the land's scale while its +0x11 is set
+class LandUnknown466BE0Class
+{
+public:
+	virtual ~LandUnknown466BE0Class(void);
+	void							Unknown_466F40(CameraClass &camera, int lod, const Matrix4 &scale);	// NAME 1: unknown
+	char							m_Unknown04[0xD];
+	bool							m_Unknown11;				// NAME 1: set by the ctor
+};
+extern LandUnknown466BE0Class *Unknown_BDC0D8;	// NAME 1: unknown
+// NAME 2: the distance (in field cells) of level 1 per lod setting, doubled per level (0xB7188C)
+int LandLodDistances[6] = { 8, 16, 24, 32, 48, 64 };
+	// NAME 1: unknown; deletes a global object (0xBDC0D8) and clears it; called by the land's dtor only
 
 LandClass::LandClass(void) :
 	LightmapSerial(0),
@@ -35,7 +51,7 @@ LandClass::LandClass(void) :
 	HasSea(false),
 	CameraCellX(-999999),
 	CameraCellY(-999999),
-	m_Unknown114(0),
+	CameraCellZ(0),
 	m_Unknown120(NULL),
 	DetailTexture(NULL),
 	Material(NULL),
@@ -117,7 +133,7 @@ bool LandClass::Load_Assets(const char *ini_name, bool flag)
 	LightmapChunk = ini.Get_Int("LAND", "LIGHTMAP_CHUNK", 8);
 	GridMask = GridWidth - 1;
 	GridLog2 = Find_POT_Log2(GridWidth);
-	HalfGridWidth = GridWidth >> 1;
+	HalfGridWidth = (unsigned int)GridWidth >> 1;
 	PatchCount = GridWidth * GridWidth;
 	PatchLog2 = Field->Get_Log2() - GridLog2;
 	PatchSize = 1 << PatchLog2;
@@ -378,6 +394,62 @@ LandClass::~LandClass(void)
 	Unknown_466F10();
 }
 
+// NOT EXACT: inline-budget (the client calls the first push_back out of line (0x46BF70) and inlines _Freefront in pop_front and the destructor; ours the reverse)
+void LandClass::Limit_Levels(int x, int y)
+{
+	std::deque<Vector2i> queue;
+	queue.push_back(Vector2i(x, y));
+	Vector2i next;
+	while (!queue.empty()) {
+		Vector2i &cell = queue.front();
+		LandPatchClass *patch = Patches[cell.J * GridWidth + cell.I];
+		if (patch->Visited) {
+			queue.pop_front();
+		} else {
+			patch->Visited = true;
+			unsigned int level = Patches[cell.J * GridWidth + cell.I]->Level + 1;
+			if (level > 4) {
+				level = 4;
+			}
+			next.J = cell.J;
+			next.I = cell.I + 1;
+			if (next.I < GridWidth && !Patches[next.J * GridWidth + next.I]->Visited) {
+				queue.push_back(next);
+				patch = Patches[next.J * GridWidth + next.I];
+				if ((unsigned int)patch->Level > level) {
+					patch->Level = level;
+				}
+			}
+			next.I = cell.I - 1;
+			if (next.I >= 0 && !Patches[next.J * GridWidth + next.I]->Visited) {
+				queue.push_back(next);
+				patch = Patches[next.J * GridWidth + next.I];
+				if ((unsigned int)patch->Level > level) {
+					patch->Level = level;
+				}
+			}
+			next.I = cell.I;
+			next.J = cell.J + 1;
+			if (next.J < GridWidth && !Patches[next.J * GridWidth + next.I]->Visited) {
+				queue.push_back(next);
+				patch = Patches[next.J * GridWidth + next.I];
+				if ((unsigned int)patch->Level > level) {
+					patch->Level = level;
+				}
+			}
+			next.J = cell.J - 1;
+			if (next.J >= 0 && !Patches[next.J * GridWidth + next.I]->Visited) {
+				queue.push_back(next);
+				patch = Patches[next.J * GridWidth + next.I];
+				if ((unsigned int)patch->Level > level) {
+					patch->Level = level;
+				}
+			}
+			queue.pop_front();
+		}
+	}
+}
+
 LandClass *LandClass::Create(const char *ini_name, bool flag)
 {
 	LandClass *land = new LandClass;
@@ -528,6 +600,98 @@ void LandClass::Update_Lightmap_Threaded(const LandLightingStruct &lighting)
 	}
 }
 
+// NOT EXACT: shape (written from the disassembly: the client's frame is 0x18 larger, it copies the camera position and ors the change tests; 5 forms, attempts.csv 0x46B3C0)
+void LandClass::Update_Patches(CameraClass &camera, int lod)
+{
+	Vector3 pos = camera.Get_Position();
+	float extent = (float)(unsigned int)PatchSize * Field->Get_Spacing();
+	float half = extent * 0.5f;
+	float inv_extent = 1.0f / extent;
+	float inv_spacing = 1.0f / Field->Get_Spacing();
+	int cell_x = (int)(inv_extent * pos.X);
+	int cell_y = (int)(inv_extent * pos.Y);
+	int cell_z = (int)(inv_extent * pos.Z);
+	int i, j;
+	if (Dirty == true || CameraCellX != cell_x || CameraCellZ != cell_z || CameraCellY != cell_y) {
+		Dirty = false;
+		for (i = 0; i < GridWidth; i++) {
+			for (j = 0; j < GridWidth; j++) {
+				LandPatchClass *patch = Patches[j * GridWidth + i];
+				int x, y;
+				if (Field->Is_Wrapping()) {
+					x = ((i - cell_x) & GridMask) - HalfGridWidth + cell_x;
+					y = ((j - cell_y) & GridMask) - HalfGridWidth + cell_y;
+				} else {
+					x = i - HalfGridWidth;
+					y = j - HalfGridWidth;
+				}
+				patch->X = x * extent;
+				patch->Y = y * extent;
+				patch->Z = 0.0f;
+				Vector3 center(patch->X + half, patch->Y + half, Field->Get_VScale() * patch->MidHeight);
+				float distance = (pos - center).Length();
+				int cells = (int)(distance * inv_spacing);
+				int threshold = LandLodDistances[lod];
+				int level;
+				for (level = 0; level < 4; level++) {
+					if (cells < threshold) {
+						break;
+					}
+					threshold <<= 1;
+				}
+				patch->Level = level;
+				patch->Quarters = 0;
+				patch->Visited = false;
+			}
+		}
+		Limit_Levels((HalfGridWidth + cell_x) & GridMask, (HalfGridWidth + cell_y) & GridMask);
+		for (i = 0; i < GridWidth; i++) {
+			for (j = 0; j < GridWidth; j++) {
+				LandPatchClass *patch = Patches[j * GridWidth + i];
+				int level = patch->Level;
+				if (level != 0) {
+					if (Patches[((i - 1) & GridMask) + j * GridWidth]->Level < level) {
+						patch->Quarters |= 1;
+					}
+					if (Patches[((i + 1) & GridMask) + j * GridWidth]->Level < level) {
+						patch->Quarters |= 2;
+					}
+					if (Patches[((j - 1) & GridMask) * GridWidth + i]->Level < level) {
+						patch->Quarters |= 4;
+					}
+					if (Patches[((j + 1) & GridMask) * GridWidth + i]->Level < level) {
+						patch->Quarters |= 8;
+					}
+				}
+			}
+		}
+		CameraCellX = cell_x;
+		CameraCellY = cell_y;
+		CameraCellZ = cell_z;
+	}
+	for (i = 0; i < GridWidth; i++) {
+		for (j = 0; j < GridWidth; j++) {
+			int index = j * GridWidth + i;
+			LandPatchClass *patch = Patches[index];
+			LandPatchRecordClass *record = &PatchRecords[index];
+			Vector3 min(patch->X, patch->Y, patch->Z);
+			Vector3 size((float)(unsigned int)PatchSize * Field->Get_Spacing(), (float)(unsigned int)PatchSize * Field->Get_YSpacing(),
+				(float)Field->Get_Max_Value() * Field->Get_VScale());
+			Vector3 max = min + size;
+			AABoxClass box(MinMaxAABoxClass(min, max));
+			bool visible = !camera.Cull_Box(box);
+			patch->Visible = visible;
+			record->Visible = visible;
+			record->Level = patch->Level;
+		}
+	}
+	if (Unknown_BDC0D8->m_Unknown11) {
+		Matrix4 scale(Vector4(Field->Get_Spacing(), 0.0f, 0.0f, 0.0f), Vector4(0.0f, Field->Get_YSpacing(), 0.0f, 0.0f),
+			Vector4(0.0f, 0.0f, Field->Get_VScale(), 0.0f), Vector4(0.0f, 0.0f, 0.0f, 1.0f));
+		Unknown_BDC0D8->Unknown_466F40(camera, lod, scale);
+	}
+}
+
 Vector3 LandClass::Get_Color(const Vector2 &pos)
 {
 	float i, j;
@@ -551,9 +715,9 @@ LandPatchClass::LandPatchClass(LandClass *land) :
 	Land(land),
 	Level(0),
 	Quarters(0),
-	m_Unknown18(0),
-	m_Unknown1C(0),
-	m_Unknown20(0)
+	X(0),
+	Y(0),
+	Z(0)
 {
 }
 
@@ -562,8 +726,8 @@ LandPatchRecordClass::LandPatchRecordClass(void) :
 	m_Unknown14(0),
 	m_Unknown18(0),
 	m_Unknown1C(0),
-	m_Unknown20(false),
-	m_Unknown24(0)
+	Visible(false),
+	Level(0)
 {
 }
 

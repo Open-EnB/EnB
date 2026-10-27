@@ -72,6 +72,9 @@ public:
 	const char *			Get_Name(void) const					{ return Name; }
 	unsigned int			Get_Log2(void) const					{ return Log2; }	// NAME 2: the land's Load_Assets reads them (0x4691D0)
 	unsigned int			Get_Count(void) const				{ return Count; }
+	float						Get_YSpacing(void) const			{ return YSpacing; }	// NAME 2: the land's Update_Patches reads them (0x46B3C0)
+	unsigned short			Get_Max_Value(void) const			{ return MaxValue; }
+	bool						Is_Wrapping(void) const				{ return Wrapping; }
 	float						Get_VScale(void) const				{ return VScale; }	// NAME 2: the land's patches read it (0x474790)
 
 protected:

@@ -38,6 +38,7 @@
 #define __LAND_H
 
 #include <vector>
+#include <deque>
 #include "rendobj.h"
 #include "ref_ptr.h"
 #include "vector3.h"
@@ -52,6 +53,7 @@ class Vector2;
 class VertexMaterialClass;
 class LandClass;
 class INIClass;
+class CameraClass;
 
 // NAME 2: VIDTEST's name for the 0x30-byte lighting record its Update_Lighting 0x4250B0 hands the land (esp+0x74)
 struct LandLightingStruct
@@ -84,12 +86,12 @@ public:
 	int							Size;					// +0x0C, vertices a side
 	int							Level;					// +0x10, indexes the land's EdgeCounts (0x4745D0)
 	int							Quarters;				// +0x14, bits 0-3: which quarters Draw draws
-	int							m_Unknown18;
-	int							m_Unknown1C;
-	int							m_Unknown20;
-	int							m_Unknown24;
+	float							X;						// NAME 2: +0x18, the patch's corner in world units (Update_Patches 0x46B3C0)
+	float							Y;						// +0x1C
+	float							Z;						// +0x20, 0
+	bool							Visible;				// NAME 2: +0x24, not culled by the camera (Update_Patches)
 	float							MidHeight;			// +0x28, (lowest + highest) / 2, in PGM units
-	int							m_Unknown2C;
+	bool							Visited;				// NAME 2: +0x2C, Limit_Levels' mark (0x46AA40)
 };
 
 // NAME 1: one record per patch, 0x28 bytes (new[]'d by Load_Assets 0x4691D0; ctor 0x474990, dtor 0x4749D0)
@@ -108,8 +110,8 @@ public:
 	int							m_Unknown14;
 	int							m_Unknown18;
 	int							m_Unknown1C;
-	bool							m_Unknown20;
-	int							m_Unknown24;
+	bool							Visible;				// NAME 2: +0x20, the patch's Visible (Update_Patches 0x46B3C0)
+	int							Level;					// NAME 2: +0x24, the patch's Level (Update_Patches)
 };
 
 // NAME 1: unknown; what the land's vector at +0x1218 holds: RefCountClass at +0xCC (dtor 0x46A7F1), added by 0x75F8B0 through 0x4786A0
@@ -157,6 +159,8 @@ public:
 // NAME 2: the colour map at a position (0x46BB20 / 0x46BBF0: Colors, B G R per vertex)
 	Vector3						Get_Color(const Vector2 &pos);
 	void							Set_Color(const Vector2 &pos, const Vector3 &color);
+// NAME 2: each patch's position, level of detail (lod: an index into the distance table 0xB7188C), edge quarters and visibility (0x46B3C0, called by 0x50F1B0)
+	void							Update_Patches(CameraClass &camera, int lod);
 // NAME 2: what they set (0x478640 / 0x478670)
 	void							Set_Strip_Buffer(int level);
 	void							Set_Edge_Buffer(int level);
@@ -172,6 +176,8 @@ protected:
 	void							Apply_Colors(void);		// NAME 2: the lit rectangle times the colour map, plus +0x1214 when there is one (0x46D410)
 	void							Upload_Lightmap(Vector2i &min, Vector2i &max);
 	void							Swap_Lightmaps(void);
+// NAME 2: limits the patches' levels outwards from the camera's patch, one level per patch (0x46AA40, called by Update_Patches 0x46B3C0)
+	void							Limit_Levels(int x, int y);
 // NAME 2: the height map's horizon tables (+0x1E4..+0x1F8, the normals +0x1FC) in a .pld beside the .pgm (0x46EB60, 0x46ECF0), computed from the ini (0x46E670, not rebuilt)
 	bool							Load_PLD(const char *filename);
 	void							Save_PLD(const char *filename);
@@ -201,13 +207,13 @@ protected:
 	int							PatchSize;								// +0xF0, cells per patch side
 	int							PatchVerts;								// +0xF4, PatchSize + 1
 	int							GridLog2;								// +0xF8
-	unsigned int				GridWidth;								// +0xFC, [LAND] Patch_Grid_Width (16)
+	int							GridWidth;								// +0xFC, [LAND] Patch_Grid_Width (16)
 	int							HalfGridWidth;							// +0x100
 	int							PatchCount;								// +0x104, GridWidth squared
 	int							GridMask;								// +0x108, GridWidth - 1
 	int							CameraCellX;							// +0x10C, -999999: none yet
 	int							CameraCellY;							// +0x110
-	int							m_Unknown114;
+	int							CameraCellZ;							// NAME 2: +0x114, the camera's cell (patch units) at the last Update_Patches 0x46B3C0
 	TextureClass *				LightmapTextures[2];					// +0x118
 	TextureClass *				m_Unknown120;							// a third texture of the field's size
 	TextureClass *				DetailTexture;							// +0x124, [LAND] DETAIL_MAP
