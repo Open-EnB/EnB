@@ -82,9 +82,9 @@ public:
 	virtual Vector3 Unknown_24();						// +0x24 0x6F4C20: +0x98's slot +0x0C clamped to the client's bounds (G_ASSERT 'pos.Is_Valid()', l.762)
 	virtual Matrix3D Unknown_28(int unknown);			// +0x28 0x6F4610 (0x6FEC40 transforms the sphere by it)  // NAME 1 [unknown]: neutral
 	virtual Vector3 Unknown_2C();						// +0x2C 0x6F5050
-	virtual float Unknown_30() { return(Unknown9C); }	// +0x30 0x6F2CC0
+	virtual float Unknown_30() { return(Radius); }		// +0x30 0x6F2CC0
 	virtual void Unknown_34(float value);				// +0x34 0x6F3BA0  // NAME 1 [value]: neutral
-	virtual void Unknown_38();							// +0x38 0x6F39F0 (cbasset.ini's Radius, asserts l.331 / 336)
+	virtual void Unknown_38();							// +0x38 0x6F39F0: the radius from cbasset.ini's BASE-n section (FAIL_IF l.331 / 336)
 	virtual void Unknown_3C() {}						// +0x3C 0x6F2CE0 (empty)
 	virtual int Unknown_40() { return(0); }				// +0x40 0x6F2D00
 	virtual int Unknown_44() { return(0); }				// +0x44 0x6F2D20
@@ -161,8 +161,10 @@ public:
 	char Type;											// +0x94 the constructor's second argument, CREATE's object type (the factory 0x6F6000 switches on it)  // NAME 2: what it holds
 	char Unknown95[0x98 - 0x95];						// +0x95
 	Unknown98Class *Unknown98;							// +0x98 (the constructor's new)
-	float Unknown9C;									// +0x9C 1.0f (0x6F3BA0 sets it; 0x6FED30's radius without a model)
-	char UnknownA0[0xAC - 0xA0];						// +0xA0
+	float Radius;										// +0x9C 1.0f (slot +0x34 0x6F3BA0 sets it from 0x6F39F0's radius; 0x6FED30's sphere radius without a model)  // NAME 2: what it holds
+	float RadiusAdjust;									// +0xA0 (0x6F39F0: cbasset.ini's RadiusAdjust)  // NAME 3: the INI key
+	float Scale;										// +0xA4 1.0f (co.cpp's FAIL_IF 'Scale <= 0.0f', l.331)
+	int UnknownA8;										// +0xA8 -1 (0x6F39F0's 'BASE-%d' number)
 	RenderObjClass *Model;								// +0xAC (cpacket.cpp's render-state handlers: Class_ID, then rs_track.cpp's methods; co.cpp's G_ASSERT 'RenderObject != 0', l.361, names it RenderObject)  // NAME 2: what it holds
 	bool UnknownB0;										// +0xB0 (0x6FCB20 toggles it)
 	char UnknownB1[0xB4 - 0xB1];						// +0xB1

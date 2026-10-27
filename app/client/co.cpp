@@ -5,6 +5,8 @@
 #include "rendobj.h"
 #include "sphere.h"
 #include "vector3.h"
+#include "ini.h"
+#include <stdio.h>
 #include "control_keys_manager.h"
 #include "..\packets\pk_player_object_relationship.h"
 
@@ -38,7 +40,7 @@ float Unknown_B93AEC = 1.5f;			// 0xB93AEC
 // 0x6F3BA0
 void ClientObjectClass::Unknown_34(float value)
 {
-	Unknown9C = value;
+	Radius = value;
 }
 
 // 0x6F3BC0
@@ -50,295 +52,293 @@ RenderObjClass *ClientObjectClass::Unknown_6F3BC0()
 	Model->Add_Ref();
 	return(Model);
 }
-// 0x6F3ED0
-float ClientObjectClass::Unknown_6F3ED0()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 0x6F39F0
+void ClientObjectClass::Unknown_38()
 {
-	Vector3 v = Unknown98->Unknown_14(Client->Unknown10BC);
-	float x = v.Z * -500.0f;
-	float k;
-	if (Unknown_6F5A40()) {
-		k = Unknown_B93AE8;
-	} else {
-		if (Unknown_6F4290() < 0.174532935f) {
-			return(0.0f);
+	if (Model) {
+		static INIClass ini;
+		if (!ini.Is_Loaded()) {
+			ini.Load("cbasset.ini");
 		}
-		k = Unknown_B93AEC;
+		char section[64];
+		_snprintf(section, sizeof(section), "BASE-%d", UnknownA8);
+		float radius = ini.Get_Float(section, "Radius");
+		RadiusAdjust = ini.Get_Float(section, "RadiusAdjust");
+		FAIL_IF(Scale <= 0.0f) {
+			Scale = 1.0f;
+		}
+		radius = (radius + RadiusAdjust) * Scale;
+
+		FAIL_IF(radius < 0.0f) {
+			radius = 0.0f;
+		}
+		Unknown_34(radius);
 	}
-	return(WWMath::Clamp(k * x, -0.628318548f, 0.628318548f));
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -362,6 +362,23 @@ void ClientObjectClass::Unknown_6F3BF0(bool hidden)
 	if (Model) {
 		Model->Set_Hidden(hidden);
 	}
+}
+
+// 0x6F3ED0
+float ClientObjectClass::Unknown_6F3ED0()
+{
+	Vector3 v = Unknown98->Unknown_14(Client->Unknown10BC);
+	float x = v.Z * -500.0f;
+	float k;
+	if (Unknown_6F5A40()) {
+		k = Unknown_B93AE8;
+	} else {
+		if (Unknown_6F4290() < 0.174532935f) {
+			return(0.0f);
+		}
+		k = Unknown_B93AEC;
+	}
+	return(WWMath::Clamp(k * x, -0.628318548f, 0.628318548f));
 }
 
 // 0x6F45E0
@@ -389,23 +406,6 @@ static inline void Clamp_In_Place(float &value, float min, float max)
 		value = max;
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -2237,7 +2237,7 @@ void ClientObjectClass::Unknown_6FEC40(SphereClass *sphere)
 void ClientObjectClass::Unknown_6FED30()
 {
 	if (Model == 0) {
-		((SphereClass *)Sphere)->Init(Vector3(0.0f, 0.0f, 0.0f), Unknown9C);
+		((SphereClass *)Sphere)->Init(Vector3(0.0f, 0.0f, 0.0f), Radius);
 	} else {
 		Model->Get_Obj_Space_Bounding_Sphere(*(SphereClass *)Sphere);
 	}
