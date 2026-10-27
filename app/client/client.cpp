@@ -16,7 +16,7 @@
 
 void Unknown_Debug_Printf(const char *format, ...);	// 0x509DC0 (dbgmgr.cpp, D38)
 
-// NOT EXACT: inline budget (the client calls the third string's assign out of line, ours inlines all three; the member stores scheduled differently; attempts.py show 0x726100)
+// NOT EXACT: inline budget (the client calls the 'Null Item' string's assign out of line, ours inlines all three strings and swaps two temporaries' slots; the member stores and the prologue scheduled differently; five forms; attempts.py show 0x726100)
 // 0x726100
 ClientClass::ClientClass() :
 	Px(NULL),
@@ -31,7 +31,10 @@ ClientClass::ClientClass() :
 	Unknown10D0(0),
 	Unknown10D4(-2500.0f),
 	Unknown10D8(2500.0f),
-	Unknown10DC(-1000000.0f, -1000000.0f, 1000000.0f, 1000000.0f),
+	Unknown10DC(-1000000.0f),
+	Unknown10E0(-1000000.0f),
+	Unknown10E4(1000000.0f),
+	Unknown10E8(1000000.0f),
 	Unknown10EC(0),
 	Unknown10F0(0),
 	Unknown10F4(0),
@@ -110,9 +113,6 @@ ClientObjectClass *ClientClass::Find_Object(unsigned id)
 	node = ObjectList.First_Valid();
 	while (node) {
 		if (node->Get_Record()->Get_Game_ID() == id) {
-
-
-
 
 
 

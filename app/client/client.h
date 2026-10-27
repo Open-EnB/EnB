@@ -23,7 +23,6 @@
 #include "hashlist.h"
 #include "refcount.h"
 #include "ref_ptr.h"
-#include "rect.h"
 #include <string>
 #include "..\shared\unknown_debug.h"
 
@@ -202,7 +201,10 @@ public:
 	int Unknown10D0;									// +0x10D0
 	float Unknown10D4;									// +0x10D4 (-2500)
 	float Unknown10D8;									// +0x10D8 (2500)
-	RectClass Unknown10DC;								// +0x10DC (-1e6, -1e6, 1e6, 1e6)
+	float Unknown10DC;									// +0x10DC (-1e6)
+	float Unknown10E0;									// +0x10E0 (-1e6)
+	float Unknown10E4;									// +0x10E4 (1e6)
+	float Unknown10E8;									// +0x10E8 (1e6)
 	int Unknown10EC;									// +0x10EC
 	int Unknown10F0;									// +0x10F0
 	int Unknown10F4;									// +0x10F4
