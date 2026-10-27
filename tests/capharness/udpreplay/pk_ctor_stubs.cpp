@@ -35,7 +35,6 @@ FindMemberPacketClass::FindMemberPacketClass(RawPacketClass *raw) { Conn_Record(
 TalkTreePacketClass::TalkTreePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 VerbListPacketClass::VerbListPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 AvatarEmotePacketClass::AvatarEmotePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-MessageChatstreamPacketClass::MessageChatstreamPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 AvatarDescPacketClass::AvatarDescPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 PlayerObjectReactionUpdatePacket::PlayerObjectReactionUpdatePacket(RawPacketClass *raw) { Conn_Record(this, raw); }
 IncapacitanceDetailsPacket::IncapacitanceDetailsPacket(RawPacketClass *raw) { Conn_Record(this, raw); }
@@ -104,6 +103,7 @@ bool StarbaseSetPacketClass::Process_Packet(void *) { return(true); }	// 0x7381C
 bool StarbaseTowPacketClass::Process_Packet(void *) { return(true); }	// 0x738330
 bool TalkTreeActionPacketClass::Process_Packet(void *) { return(true); }	// 0x738730
 bool VerbUpdatePacketClass::Process_Packet(void *) { return(true); }	// 0x7388B0
+bool MessageChatstreamPacketClass::Process_Packet(void *) { return(true); }	// 0x736F10
 bool MessageTimePacketClass::Process_Packet(void *) { return(true); }	// 0x736800
 bool DamagePacketClass::Process_Packet(void *) { return(true); }	// 0x738970
 bool GadgetPacketClass::Process_Packet(void *) { return(true); }	// 0x739180

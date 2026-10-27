@@ -61,6 +61,7 @@
 #include "pklogoff.h"	// rebuilt
 #include "pkloothulkpermission.h"	// rebuilt
 #include "pkmanufactureitemcatagorypacket.h"	// rebuilt
+#include "pkmessagechatstream.h"	// rebuilt
 #include "pkmessageline.h"	// rebuilt
 #include "pkmessagestring.h"	// rebuilt
 #include "pkmessagetime.h"	// rebuilt
@@ -439,14 +440,6 @@ public:
 	AvatarEmotePacketClass(RawPacketClass *raw);	// 0x87E010
 	virtual bool Process_Packet(void *client);	// +0x08 0x8685E0 (clientstub.cpp l.194)
 	char Unknown0C[0x18];	// +0x0C
-};
-
-// opcode 95 (0x005F, AVATAR_EMOTE_RESPONSE): vtable 0xB0B374, constructor 0x89D3F0, 0x1C bytes
-class MessageChatstreamPacketClass : public PacketClass
-{
-public:
-	MessageChatstreamPacketClass(RawPacketClass *raw);	// 0x89D3F0
-	char Unknown0C[0x10];	// +0x0C
 };
 
 // opcode 97 (0x0061, AVATAR_DESCRIPTION): vtable 0xB09D4C, constructor 0x877A60, 0x120 bytes

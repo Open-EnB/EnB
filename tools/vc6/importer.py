@@ -3778,6 +3778,8 @@ RECONSTRUCTED = {
     ('app', 'packets/pkgalaxymap.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
     ('app', 'packets/pkverbrequest.cpp'): "packet classes (opcode 90) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build (its opcode from Get_Type where the client calls it), Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
     ('app', 'packets/pkverbrequest.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
+    ('app', 'packets/pkmessagechatstream.cpp'): "opcode 95's object, 0x89D310-0x89D740 (no assert: the file name provisional, NAME 1): written by hand (builder P5)",
+    ('app', 'packets/pkmessagechatstream.h'): "its class (pk_classes.h includes it: tools/re/pkclasses.py)",
     ('app', 'packets/pkmessagestring.cpp'): "opcode 29's object, 0x89E110-0x89E5B0 (no assert: the file name provisional, NAME 1): written by hand (builder P3), 7 of 7 exact in appfile.py match",
     ('app', 'packets/pkmessagestring.h'): "its class (pk_classes.h includes it: tools/re/pkclasses.py)",
     ('app', 'packets/pkgroup.cpp'): "opcode 30's object, 0x888690-0x888B30 (no assert: the file name provisional, NAME 1): written by hand (builder P3), 7 of 7 exact in appfile.py match",
