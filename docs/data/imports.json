@@ -5097,14 +5097,19 @@
     "name": "wwudp/unknown_cordmsg.cpp"
    },
    "unknown_creator": {
-    "ambiguous": [],
+    "ambiguous": [
+     "0x42B2F0"
+    ],
     "copy": "reconstructed",
     "expected": {},
     "in_tree": [
+     "0x42A820",
+     "0x42F250",
      "0x48C500",
      "0x48CA70",
      "0x48E910",
      "0x510CC0",
+     "0x53BB50",
      "0x6CE730",
      "0x78CEE0",
      "0x78D450",
@@ -5156,7 +5161,13 @@
     "name": "common/unknown_listener.cpp"
    },
    "unknown_login_data": {
-    "ambiguous": [],
+    "ambiguous": [
+     "0x42B2F0",
+     "0x448610",
+     "0x448660",
+     "0x4A76A0",
+     "0x4A8880"
+    ],
     "copy": "reconstructed",
     "expected": {},
     "in_tree": [

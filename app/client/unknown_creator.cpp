@@ -9,6 +9,10 @@
 #include "unknown_creator.h"
 #include "..\shared\auxdata\linearbu.h"
 #include "registry.h"
+#include "rawfile.h"
+#include "..\shared\unknown_login_data.h"
+#include "..\shared\avatar_desc.h"
+#include "..\shared\shipcust_desc.h"
 #include <windows.h>
 #include <stdlib.h>
 #include <string.h>
@@ -59,6 +63,101 @@ int __stdcall Unknown_78D450(const unsigned char *data, unsigned int size)
 		sum += *data + i;
 	}
 	return(sum);
+}
+
+// NOT EXACT: inline budget (the client calls StringClass::operator+= out of line, ours inlines the two string ones; dead inline reads, a top-declared checksum tried: attempts.py show 0x78D480)
+// 0x78D480
+void CharacterCreatorClass::Unknown_78D480(int slot, LoginCharacterClass *character, AvatarDescClass *avatar, ShipCustDescClass *ship, LoginNameDataClass *name)
+{
+	int size = avatar->Get_Short_Size() + ship->Get_Short_Size() + name->Get_Size();
+	LinearBufferClass buffer(size, 0x400);
+	StringClass path;
+	RawFileClass file;
+
+	*character = LoginCharacterClass();
+	if (!Folder.Is_Empty()) {
+		path = Folder;
+		path += "Avatar";
+		path += (char)(slot + '1');
+		path += ".dat";
+		file.Open(path, RawFileClass::READ);
+		if (file.Is_Open()) {
+			int checksum;
+			if (file.Read(&checksum, 4)) {
+				unsigned char *data = new unsigned char[size];
+				if (file.Read(data, size)) {
+					if (checksum == Unknown_78D450(data, size)) {
+						character->ID = -1;
+						character->Galaxy_ID = -1;
+						buffer.Write(data, size);
+						buffer.Seek(0);
+						avatar->Read_Short(&buffer);
+						ship->Read_Short(&buffer);
+						name->Read(&buffer);
+						ship->Tech_Level = 0;
+					}
+				}
+				delete [] data;
+			}
+			file.Close();
+		}
+	}
+}
+
+// NOT EXACT: inline budget (as 0x78D480: the client calls StringClass::operator+= (const char *) out of line, ours inlines it)
+// 0x78D8A0
+void CharacterCreatorClass::Unknown_78D8A0(int slot, AvatarDescClass *avatar, ShipCustDescClass *ship, LoginNameDataClass *name)
+{
+	StringClass path;
+	int size = avatar->Get_Short_Size() + ship->Get_Short_Size() + name->Get_Size();
+	LinearBufferClass buffer(size, 0x400);
+	RawFileClass file;
+
+	if (!Folder.Is_Empty()) {
+		path = Folder;
+		path += "Avatar";
+		path += (char)(slot + '1');
+		path += ".dat";
+		file.Open(path, RawFileClass::WRITE);
+		if (file.Is_Open()) {
+			avatar->Write_Short(&buffer);
+			ship->Write_Short(&buffer);
+			name->Write(&buffer);
+			int checksum = Unknown_78D450((unsigned char *)buffer.Buffer, size);
+			file.Write(&checksum, 4);
+			file.Write(buffer.Buffer, size);
+			file.Close();
+		}
+	}
+}
+
+// NOT EXACT: inline budget (as 0x78D480: the client calls StringClass::operator+= (const char *) out of line, ours inlines it)
+// 0x78DAF0
+void CharacterCreatorClass::Unknown_78DAF0(int slot)
+{
+	StringClass path;
+	RawFileClass file;
+	int size = AvatarDescClass().Get_Short_Size() + LoginNameDataClass().Get_Size() + ShipCustDescClass().Get_Short_Size();
+
+	if (!Folder.Is_Empty()) {
+		path = Folder;
+		path += "Avatar";
+		path += (char)(slot + '1');
+		path += ".dat";
+		file.Open(path, RawFileClass::READ | RawFileClass::WRITE);
+		if (file.Is_Open()) {
+			int checksum;
+			if (file.Read(&checksum, 4)) {
+				unsigned char *data = new unsigned char[size];
+				if (file.Read(data, size)) {
+					file.Close();
+					if (checksum == Unknown_78D450(data, size)) {
+						file.Delete();
+					}
+				}
+			}
+		}
+	}
 }
 
 // 0x78E060

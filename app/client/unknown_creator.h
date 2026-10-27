@@ -43,7 +43,8 @@ class CharacterCreatorClass	// NAME 2: its folder and registry key, 'Character a
 public:
 	CharacterCreatorClass();							// 0x78CEE0: the folder, made if needed
 	void Unknown_78D480(int slot, LoginCharacterClass *character, AvatarDescClass *avatar, ShipCustDescClass *ship, LoginNameDataClass *name);	// 0x78D480: reads 'Avatar<slot>.dat'  // NAME 1 [avatar, ship]: their classes
-	void Unknown_78DAF0(int slot);						// 0x78DAF0 (Unknown_50 passes the selected slot)
+	void Unknown_78D8A0(int slot, AvatarDescClass *avatar, ShipCustDescClass *ship, LoginNameDataClass *name);	// 0x78D8A0 (no caller): writes 'Avatar<slot>.dat'
+	void Unknown_78DAF0(int slot);						// 0x78DAF0 (Unknown_50 passes the selected slot): deletes the slot's file when it checks
 
 	StringClass Folder;									// +0x00 NAME 2: the folder, with its '\'
 };
