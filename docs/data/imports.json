@@ -4669,6 +4669,16 @@
     "merged": [],
     "name": "shared/shipcust_desc.cpp"
    },
+   "spline": {
+    "ambiguous": [],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x483820"
+    ],
+    "merged": [],
+    "name": "shared/spline.cpp"
+   },
    "spln_db": {
     "ambiguous": [
      "0x457CA0",
