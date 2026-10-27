@@ -2,13 +2,20 @@
 #include "control_keys_manager.h"
 #include "..\shared\unknown_debug.h"
 #include "..\..\wwlib\ini.h"
+#include "..\..\wwlib\inisup.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 char *Unknown_8B44E0(__int64 value, char *buffer);	// 0x8B44E0: _i64toa(value, buffer, 10), as pkguildplayeronline.h  // NAME 1: neutral placeholder (D10)
 ControlKeyComboStruct Unknown_42A1A0(INIClass &ini, const char *section, const char *entry);	// NAME 1 [Unknown_42A1A0]: neutral (D10): 0x42A1A0 (app\input), a key read from an ini entry
 void Unknown_42A410(INIClass &ini, const char *section, const char *entry, const ControlKeyComboStruct &key);	// NAME 1 [Unknown_42A410]: neutral (D10): 0x42A410 (app\input), a key written to an ini entry
 std::string &Unknown_42B7E0(const ControlKeyComboStruct &key, std::string &out);	// NAME 1 [Unknown_42B7E0]: neutral (D10): 0x42B7E0, the key's text
+
+struct ContextEqualStruct  // NAME 2: describes what it does (the SGI documentation's eqstr; strcmp inlined in 0x71ECD0)
+{
+	bool operator()(const char *a, const char *b) const { return strcmp(a, b) == 0; }
+};
 
 static std::string _Empty;  // NAME 2: 0xBE7B80, what the accessors return without a definition
 static std::hash_map<unsigned int, ControlKeysManager> _Instances;  // 0xBE7BE0: the client's asserts, one manager per SClient
@@ -18,13 +25,6 @@ std::hash_map<std::string, KeyIdStruct> ControlKeysManager::_KeyIds;
 std::vector<KeyMappingStruct> ControlKeysManager::_DefaultPSW;
 std::vector<KeyMappingStruct> ControlKeysManager::_DefaultSIM;
 std::vector<KeyMappingStruct> ControlKeysManager::_DefaultUser;
-
-
-
-
-
-
-
 
 
 
@@ -372,81 +372,81 @@ bool ControlKeysManager::_Does_Key_Exist(const std::string &key_name)
 
 
 
+// NOT EXACT: inline budget, ~195 rows: the client calls the contexts hash_map ctor 0x71DCE0 and inlines both first resizes; ours the reverse
+void ControlKeysManager::Load_Definitions()
+{
+	FAIL_IF(_NumKeyDefs) return;
 
+	std::hash_map<const char *, int, std::hash<const char *>, ContextEqualStruct> contexts;
+	contexts["Targeting"] = 0;
+	contexts["Navigation"] = 1;
+	contexts["Camera"] = 2;
+	contexts["Activation"] = 3;
+	contexts["Chat"] = 4;
+	contexts["General"] = 5;
 
+	INIClass ini("control_keys.ini");
+	List<INISection *> &list = ini.Get_Section_List();
+	INISection *section = list.First_Valid();
+	int count = list.Get_Valid_Count();
+	_DefaultPSW.resize(count);
+	_DefaultSIM.resize(count);
 
+	INISection *next_section;
+	for (; section; section = next_section) {
 
 
 
 
+		FAIL_IF(_NumKeyDefs >= _DefaultPSW.size()) break;
+		FAIL_IF(_NumKeyDefs >= _DefaultSIM.size()) break;
 
+		const char *section_name = section->Section;
+		next_section = section->Next_Valid();
 
 
 
+		FAIL_IF(!section_name) break;
+		if (*section_name == '-') continue;
 
+		char text_str[256];
+		ini.Get_String(section_name, "Text", "", text_str, sizeof(text_str));
 
 
 
+		FAIL_IF(!text_str[0]) continue;
 
+		char context_str[256];
+		ini.Get_String(section_name, "Context", "", context_str, sizeof(context_str));
+		int context = 5;
+		std::hash_map<const char *, int, std::hash<const char *>, ContextEqualStruct>::iterator it = contexts.find(context_str);
+		if (it != contexts.end()) {
+			context = it->second;
+		} else {
 
 
+			G_ASSERT(false && "Context is not valid");
+		}
 
+		char key_str[256];
+		ini.Get_String(section_name, "KEY", "", key_str, sizeof(key_str));
+		ControlKeyDefStruct *def = new ControlKeyDefStruct(section_name, text_str, key_str, context, _NumKeyDefs);
+		std::auto_ptr<ControlKeyDefStruct> def_ptr(def);
+		_KeyDefinitions[def->Name] = def_ptr;
+		_DefaultPSW[_NumKeyDefs].DefPtr = _DefaultSIM[_NumKeyDefs].DefPtr = def;
+		if (!key_str[0]) {
+			_DefaultPSW[_NumKeyDefs].Keys[0] = Unknown_42A1A0(ini, section_name, "PSW_1");
+			_DefaultPSW[_NumKeyDefs].Keys[1] = Unknown_42A1A0(ini, section_name, "PSW_2");
+			_DefaultSIM[_NumKeyDefs].Keys[0] = Unknown_42A1A0(ini, section_name, "SIM_1");
+			_DefaultSIM[_NumKeyDefs].Keys[1] = Unknown_42A1A0(ini, section_name, "SIM_2");
+		}
+		_NumKeyDefs++;
+	}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	_DefaultPSW.resize(_NumKeyDefs);
+	_DefaultSIM.resize(_NumKeyDefs);
+	Load_Keys(&_DefaultUser, NULL);
+}
 
 
 
@@ -687,4 +687,11 @@ int ControlKeyDefClass::Get_Index() const
 **	the containers' instances to 0x720F80. Rebuilt so far: the static string, Set_Key 0x71A860, the
 **	key value's helpers 0x71C9C0-0x71CA80 (called from the options screen 0x5CB000), Get_Key_String
 **	0x71CAB0 and the definition accessors.
+**
+**	keymap.ini (Load_Keys 0x71BD90, Save_Keys 0x71C170): one section per player id ("1_Name" /
+**	"2_Name" entries, 0x42A1A0 / 0x42A410 read and write a key), [Default] User names the section
+**	Load_Definitions loads into _DefaultUser (0xBE7BF8). control_keys.ini (Load_Definitions
+**	0x71B1F0): one section per key definition (Text, Context, KEY, PSW_1/2, SIM_1/2; a name starting
+**	with '-' is skipped). Save 0x71AD20 emits KeysSavedEvent on the SignalMap 0x71B0F0 returns.
+**	Left unbuilt: the _Instances destructor 0x7198B0 and 0x71BCE0 (P-H11-2).
 */

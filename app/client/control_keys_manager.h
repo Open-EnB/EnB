@@ -31,6 +31,7 @@ struct ControlKeyDefStruct  // NAME 1: neutral (D10): what a key definition's De
 	std::string Name;																		// +0x00  // NAME 2: 0x71CC60 returns it; the table's key
 	std::string Unknown10;																// +0x10  // NAME 1: neutral (D10)
 	std::string Unknown20;																// +0x20  // NAME 1: neutral (D10)
+	ControlKeyDefStruct(const std::string &name, const std::string &text, const std::string &key, int context, int index) : Name(name), Unknown10(text), Unknown20(key), Unknown30(context), Index(index) {}	// Load_Definitions' new, inlined
 	int Get_Index() const { return Index; }				// the client's 'def->Get_Index()', inlined
 
 	int Unknown30;								// +0x30  // NAME 1: neutral (D10)
@@ -140,7 +141,7 @@ public:
 	const std::string &Get_Key_Name(const ControlKeyValueStruct &key);	// 0x71AE50: the definition's name for a key  // NAME 2: describes what it does
 	void Build_Keys_Map();											// 0x71AEF0: UserKeysMap from UserKeys  // NAME 2: describes what it does
 	void Init(ControlKeysSClientClass *sclient);					// 0x719D50's, 0x71A3F0  // NAME 2: describes what it does
-	static void Load_Definitions();									// 0x71B1F0: control_keys.ini (not rebuilt yet)  // NAME 2: describes what it does
+	static void Load_Definitions();									// 0x71B1F0: control_keys.ini's sections  // NAME 2: describes what it does
 	static void Load_Keys(std::vector<KeyMappingStruct> *keys, const char *section);	// 0x71BD90: keymap.ini's section (the player's id), else _DefaultUser  // NAME 2: describes what it does
 	static void Save_Keys(std::vector<KeyMappingStruct> *keys, const char *section);	// 0x71C170: keymap.ini's section, and [Default] User  // NAME 2: describes what it does
 	void Find_Mappings(std::vector<KeyMappingStruct *> *vector, int unknown30);	// 0x71A5B0: the user mappings whose definition's +0x30 matches  // NAME 2: describes what it does
