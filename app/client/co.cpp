@@ -2608,15 +2608,19 @@ void ClientObjectClass::Unknown_7009A0(bool on, bool force)
 /*
 **	Reconstruction notes (T11, 2026-10-27)
 **
-**	co.cpp in the client: 0x6F2820-0x700A50 (__FILE__ e:\build\beta\G\app\Client\co.cpp). The
-**	constructor 0x6F2820 (vtable 0xB0070C, base constructor 0x725050 in client.cpp's region, a second
-**	vtable 0xB006F4 at +0x4C), the destructor 0x6F2FE0, the slots and the larger members are not
-**	rebuilt yet; the aux-data roots' constructors and the CREATE factory 0x6F6000-0x6FBEF0 are in
-**	aux_roots.cpp (generated). Rebuilt here: the model accessors, the type tests 0x6F5850-0x6F5E20,
-**	the size factors and the player aux-data accessors (FAIL_IF '!aux_data', lines 2431-2590). The
-**	asserts sit on the client's lines (D25): the blank stretches hold the members not yet written.
+**	co.cpp in the client: 0x6F2820-0x700A50 (__FILE__ e:\build\beta\G\app\Client\co.cpp). Not rebuilt
+**	yet: the constructor 0x6F2820 (vtable 0xB0070C; base constructor 0x725050 in client.cpp's region,
+**	which takes the object itself and holds a Matrix3D at +0x1C; MultiFixedPoolDecalSystemClass's
+**	vtable 0xB006F4 at +0x4C), the destructor 0x6F2FE0, the slots +0x20 0x6F3C60 and +0x28 0x6F4610,
+**	the damage / engine / warp members (0x6FBEF0, 0x6FCB70, 0x6FD310-0x6FE1E0), Get_Name 0x6FF4B0
+**	and the members that read the aux data through auxdata.h's lookup (G_ASSERT 't', auxdata.h line
+**	155: 0x6F58B0, 0x6F5E40-0x6F5F60, 0x6FF1D0-0x6FFC80, 0x700400, 0x7008B0). The aux-data roots'
+**	constructors and the CREATE factory 0x6F6000-0x6FBEF0 are in aux_roots.cpp (generated). The asserts
+**	sit on the client's lines (D25): the blank stretches hold the members not yet written.
 **
 **	Forms: the aux-data accessors leave through 'if (!Unknown_6F5A10()) return(x);' (the inline type
-**	test): a plain '(Type >= 0 && Type <= 1)' merges the early return with the FAIL_IF's tail. The
-**	size factors test through the inline Unknown_6F5A40 (a one-case switch: movsx, dec, jne).
+**	test): a plain '(Type >= 0 && Type <= 1)' merges the early return with the FAIL_IF's tail. Tests of
+**	type 1 go through the inline one-case switch 0x6F5A40 (movsx, dec, jne) where the client has that
+**	form, and a plain 'Type == 1' where it compares the byte. Float copies the client makes through the
+**	FPU need an inline getter or setter (Get_Float / Set_Floats, SphereClass::Init).
 */
