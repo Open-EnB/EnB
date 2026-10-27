@@ -156,7 +156,6 @@ edit the comments in the code, not this file.
 | `app/shared/boolpars.cpp:488` | `BoolParserClass::Parse_Params` | marker | NOT EXACT: shape, the loop's failure returns jump to the second 'return 0' tail in the client, the first in ours |
 | `app/shared/boolpars.cpp:655` | `BoolParserClass::Get_Callback` | mention | NOT EXACT: Parse 0x49A430 (inline budget) and Parse_Params 0x49AE30 (shape). |
 | `app/shared/combo_ffactory.cpp:50` | `ComboFileFactoryClass::~ComboFileFactoryClass` | marker | NOT EXACT: shape (explain.py), the client calls the table's _M_delete_node 0x4E6D00 out of line in MixMap.clear() and keeps this in ebx; ours inlines it |
-| `app/shared/combo_ffactory.cpp:105` | `ComboFileFactoryClass::Get_File` | marker | NOT EXACT: inline budget (explain.py: inline-budget), the client calls the table's find 0x4E5D60 and the string's _Eos out of line (frame 0x18); ours inlines both |
 | `app/shared/data_binder.h:71` | `?` | marker | NOT EXACT: order-only (the client's 0x7A1050 takes the type name's length before the string's zero stores) |
 | `app/shared/data_binder.h:116` | `?` | marker | NOT EXACT: frame (0x28 vs the client's 0x2c: the client keeps value_map in esi and a stack slot, zero in ebx, and clears the erased name), 0x79F980 and the next four |
 | `app/shared/definition_auto_ptr.h:110` | `?` | marker | NOT EXACT: register-only (explain.py), the inlined erase's terminator store addresses [edi+eax] in the client, [eax+edi] in ours (0x4EB1B0) |

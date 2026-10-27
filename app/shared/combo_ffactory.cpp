@@ -102,7 +102,7 @@ void ComboFileFactoryClass::Add_Mix(MixFileFactoryClass *mix)
 		MixMap[temp_string] = mix;
 	}
 }
-// NOT EXACT: inline budget (explain.py: inline-budget), the client calls the table's find 0x4E5D60 and the string's _Eos out of line (frame 0x18); ours inlines both
+
 FileClass *ComboFileFactoryClass::Get_File(char const *filename)
 {
 	FileClass *file = _TheFileFactory->Get_File(filename);
@@ -111,7 +111,7 @@ FileClass *ComboFileFactoryClass::Get_File(char const *filename)
 	}
 	std::string temp_string(filename);
 	std::transform(temp_string.begin(), temp_string.end(), temp_string.begin(), tolower);
-	std::hash_map<std::string, MixFileFactoryClass *>::iterator i = MixMap.find(temp_string);
+	std::hash_map<std::string, MixFileFactoryClass *>::const_iterator i = MixMap.find(temp_string);
 	if (i != MixMap.end()) {
 		FileFactoryClass *mix = (*i).second;
 		FileClass *mix_file = mix->Get_File(filename);
