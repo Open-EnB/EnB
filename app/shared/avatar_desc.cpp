@@ -746,11 +746,57 @@ void AvatarDescClass::Load_Defaults(int type, const char *name)
 }
 
 
+std::string Unknown_4BE9D0(const char *name);	// NAME 1 [Unknown_4BE9D0]: 0x4BE9D0, a name turned into another (kv_util.cpp's run)
+char *Unknown_4A1590(char *buffer, int size, const char *string);	// 0x4A1590: a bounded strcpy  // NAME 1 [Unknown_4A1590]: neutral placeholder (D10)
+
+// 0x4C1020
+std::string AvatarDescClass::Get_Full_Name()
+{
+	std::string name;
+	Get_Full_Name(name);
+	return(name);
+}
+
+// 0x4C1200
+std::string &AvatarDescClass::Get_Full_Name(std::string &name)
+{
+	name = First_Name;
+	if (Last_Name[0] != 0) {
+		name += " ";
+		name += Last_Name;
+	}
+	return(name);
+}
+
+// 0x4C1460
+void AvatarDescClass::Unknown_4C1460(const char *name, bool convert)
+{
+	std::string text;
+	if (convert) {
+		text = Unknown_4BE9D0(name);
+	} else {
+		text = name;
+	}
+	Unknown_4A1590(First_Name, sizeof(First_Name), text.c_str());
+}
+
+// 0x4C15F0
+void AvatarDescClass::Unknown_4C15F0(const char *name, bool convert)
+{
+	std::string text;
+	if (convert) {
+		text = Unknown_4BE9D0(name);
+	} else {
+		text = name;
+	}
+	Unknown_4A1590(Last_Name, sizeof(Last_Name), text.c_str());
+}
+
 /*
 **	Reconstruction notes
 **
-**	Not rebuilt yet: 0x4C1460 (sets the names; the assert 'strchr(buffer, Separator) == 0' is in the
-**	window's parser), and the window's other functions 0x4C1020-0x4C45B0 (the INI sections' parser, '[%s]%s' / 'Name = %s%s',
+**	Not rebuilt yet (the assert 'strchr(buffer, Separator) == 0' is in the window's parser): the
+**	window's other functions 0x4C1020-0x4C45B0 (the INI sections' parser, '[%s]%s' / 'Name = %s%s',
 **	and the key/value templates the visitor instantiates: the int add 0x4C2EB0, the char add 0x4C2FE0,
 **	the array text 0x4C3110).
 */

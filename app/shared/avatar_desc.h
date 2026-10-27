@@ -42,7 +42,10 @@ public:
 	bool Is_Valid();									// 0x4C0580: a type is set  // NAME 2: what it does
 	void Reset();										// 0x4C05A0  // NAME 2: what it does
 	void Load_Defaults(int type, const char *name);		// 0x4C05D0: avatardef.ini's section for the type (0 the gender, race and profession, 1 the narrator, 2 the name)  // NAME 2: what it does
-	void Unknown_4C1460(const char *name, bool unknown);	// 0x4C1460 (the fast start's name 'Fast' + the user name, 1)
+	std::string Get_Full_Name();						// 0x4C1020: the first and last names, a space between  // NAME 2: what it does
+	std::string &Get_Full_Name(std::string &name);		// 0x4C1200: the same into name  // NAME 2: what it does
+	void Unknown_4C1460(const char *name, bool convert);	// 0x4C1460: First_Name (the fast start's 'Fast' + the user name, 1; convert: through 0x4BE9D0)  // NAME 1 [convert]: what it selects
+	void Unknown_4C15F0(const char *name, bool convert);	// 0x4C15F0: Last_Name, the same way
 
 	int Avatar_Type;									// +0x08 NAME 2: its key 'avatar_type' (Clear's argument)
 	char Unknown0C;										// +0x0C (written, not a key)

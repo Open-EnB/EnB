@@ -210,6 +210,9 @@
     "in_tree": [
      "0x42A820",
      "0x42AB30",
+     "0x42CAB0",
+     "0x42CD30",
+     "0x4407B0",
      "0x4BEB50",
      "0x4BEBF0",
      "0x4BECC0",
@@ -219,7 +222,11 @@
      "0x4BFBF0",
      "0x4BFED0",
      "0x4C05A0",
-     "0x4C05D0"
+     "0x4C05D0",
+     "0x4C1020",
+     "0x4C1200",
+     "0x4C1460",
+     "0x4C15F0"
     ],
     "merged": [],
     "name": "shared/avatar_desc.cpp"
