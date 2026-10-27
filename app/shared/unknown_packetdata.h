@@ -82,11 +82,7 @@ public:
 	virtual void Add_Color(int mask, const char *name, Vector3 *value);	// +0x10 (shipcust_desc.cpp's colours)  // NAME 1: its users' keys
 };
 
-// The one-slot interface vtable 0xAEADC8 (delta.h's DeltaInterfaceClass has the same table)
-class LoginInterfaceAEADC8Class	// NAME 1: neutral (D10)
-{
-public:
-	virtual void Unknown_00(void *visitor) = 0;			// a LoginKVVisitorClass (the encoder)
-};
+// The one-slot interface vtable 0xAEADC8 is delta.h's DeltaInterfaceClass (P-T5-2)
+#include "auxdata\delta.h"
 
 #endif

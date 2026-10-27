@@ -62,7 +62,7 @@ public:
 // A character slot of the login's list (0x90 bytes, vtables 0xB0C560 / 0xB0C55C; LoginTaskClass's
 // destructor destroys five with 0x8C0750). Its assignment is the implicit one (0x7683F0, 0x768CB0).
 // The members' names are the visitor's keys (0x8C0AE0).
-class LoginCharacterClass : public Unknown_PacketDataClass, public LoginInterfaceAEADC8Class	// NAME 1: what it holds
+class LoginCharacterClass : public Unknown_PacketDataClass, public DeltaInterfaceClass	// NAME 1: what it holds
 {
 public:
 	LoginCharacterClass();								// 0x8C06E0
@@ -70,7 +70,7 @@ public:
 	virtual bool Write(LinearBufferClass *buffer);		// +0x00 0x8C0770 (vtable 0xB0C560)
 	virtual bool Read(LinearBufferClass *buffer);		// +0x04 0x8C0940
 	virtual int Get_Size();								// +0x08 0x8C0AC0
-	virtual void Unknown_00(void *visitor);			// second table +0x00 0x8C0AE0 (0xB0C55C)
+	virtual void Unknown_00(DeltaChildVisitorClass *visitor);			// second table +0x00 0x8C0AE0 (0xB0C55C)
 
 	int Slot;											// +0x08 NAME 2: its key 'slot'
 	int Sector;											// +0x0C NAME 2: its key 'sector'

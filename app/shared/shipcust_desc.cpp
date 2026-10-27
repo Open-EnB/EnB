@@ -146,7 +146,7 @@ int ShipCustDescClass::Get_Short_Size()
 }
 
 // 0x4F6750
-void ShipCustDescClass::Unknown_00(void *object)
+void ShipCustDescClass::Unknown_00(DeltaChildVisitorClass *object)
 {
 	LoginKVVisitorClass *visitor = (LoginKVVisitorClass *)object;
 	char name[64];
@@ -166,7 +166,7 @@ void ShipCustDescClass::Unknown_00(void *object)
 }
 
 // 0x4F6890
-void ShipCustPartClass::Unknown_00(void *object)
+void ShipCustPartClass::Unknown_00(DeltaChildVisitorClass *object)
 {
 	LoginKVVisitorClass *visitor = (LoginKVVisitorClass *)object;
 	char name[64];
@@ -178,7 +178,7 @@ void ShipCustPartClass::Unknown_00(void *object)
 }
 
 // 0x4F6900
-void ShipCustSettingsClass::Unknown_00(void *object)
+void ShipCustSettingsClass::Unknown_00(DeltaChildVisitorClass *object)
 {
 	LoginKVVisitorClass *visitor = (LoginKVVisitorClass *)object;
 

@@ -114,7 +114,7 @@ int LoginCharacterClass::Get_Size()
 }
 
 // 0x8C0AE0
-void LoginCharacterClass::Unknown_00(void *object)
+void LoginCharacterClass::Unknown_00(DeltaChildVisitorClass *object)
 {
 	LoginKVVisitorClass *visitor = (LoginKVVisitorClass *)object;
 

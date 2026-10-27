@@ -38,12 +38,12 @@ inline const char *Type_Name(ShipCustomizationMetal *) { return "ShipCustomizati
 
 // A colour setting (0x20 bytes, vtable 0xAEC91C over 0xAEADC8; constructor 0x618500 out of line), two in
 // each part. Its assignment is the implicit one (0x4F6230 copies the race's defaults with it).
-class ShipCustSettingsClass : public LoginInterfaceAEADC8Class	// NAME 2: the parts' key 'Settings%d'
+class ShipCustSettingsClass : public DeltaInterfaceClass	// NAME 2: the parts' key 'Settings%d'
 {
 public:
 	ShipCustSettingsClass();							// 0x618500
 	ShipCustSettingsClass(float red, float green, float blue, float unknown10, float unknown14, bool matte, ShipCustomizationMetal metal);	// 0x4F61C0
-	virtual void Unknown_00(void *visitor);				// 0x4F6900 (vtable 0xAEC91C)
+	virtual void Unknown_00(DeltaChildVisitorClass *visitor);				// 0x4F6900 (vtable 0xAEC91C)
 
 	Vector3 Color;										// +0x04 NAME 2: its key 'Color'
 	float Unknown10;									// +0x10 (copied, not a key)
@@ -55,18 +55,18 @@ public:
 // A part (0x44 bytes, vtable 0xAF78BC over 0xAEADC8), four in each description. Its constructor is
 // inline (in 0x7688F0: the two settings through ??_H with 0x618500) and out of line at 0x6191F0
 // (another file, where 0x618500 is inlined); the LoginTaskClass constructors call 0x6191F0.
-class ShipCustPartClass : public LoginInterfaceAEADC8Class	// NAME 2: the description's key 'PartAttributes%d'
+class ShipCustPartClass : public DeltaInterfaceClass	// NAME 2: the description's key 'PartAttributes%d'
 {
 public:
 	ShipCustPartClass() {}
-	virtual void Unknown_00(void *visitor);				// 0x4F6890 (vtable 0xAF78BC)
+	virtual void Unknown_00(DeltaChildVisitorClass *visitor);				// 0x4F6890 (vtable 0xAF78BC)
 
 	ShipCustSettingsClass Settings[2];					// +0x04 NAME 2: its keys 'Settings%d'
 };
 
 // vtables 0xAF78A0 (wire: six slots) / 0xAF789C (key/value). Its constructor is inline: in both
 // LoginTaskClass constructors, in 0x76A370, and out of line at 0x7688F0 after its first caller 0x7683F0.
-class ShipCustDescClass : public Unknown_PacketDataClass, public LoginInterfaceAEADC8Class	// NAME 3: by convention (D24) from the client's shipcust_desc.cpp
+class ShipCustDescClass : public Unknown_PacketDataClass, public DeltaInterfaceClass	// NAME 3: by convention (D24) from the client's shipcust_desc.cpp
 {
 public:
 	ShipCustDescClass() :
@@ -84,7 +84,7 @@ public:
 	virtual bool Write_Short(LinearBufferClass *buffer);	// +0x0C 0x4F6530: the name one byte shorter  // NAME 2: what it does
 	virtual bool Read_Short(LinearBufferClass *buffer);	// +0x10 0x4F6620  // NAME 2: what it does
 	virtual int Get_Short_Size();						// +0x14 0x4F6730  // NAME 2: what it does
-	virtual void Unknown_00(void *visitor);				// second table +0x00 0x4F6750 (thunk 0x40AEE8)
+	virtual void Unknown_00(DeltaChildVisitorClass *visitor);				// second table +0x00 0x4F6750 (thunk 0x40AEE8)
 	// operator= is implicit (P-P7-1): 130's 0x8A0380 inlines it; its out-of-line copy 0x55D8A0 (in ui_avsel.cpp's
 	// window) and 129/130's constructors match only with Ship_Name a plain char[0x1A], which loses 0x767240
 	void Set_Race(int race);							// 0x4F6210  // NAME 2: what it does

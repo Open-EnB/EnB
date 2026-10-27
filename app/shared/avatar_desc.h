@@ -25,7 +25,7 @@
 
 // vtables 0xAEB9D0 (wire: six slots) / 0xAEB9CC (key/value); constructors 0x4BEB50, 0x4BEBF0, 0x4BECC0.
 // The destructor is the implicit one (inline in 0x7683F0, out of line at 0x53BB50).
-class AvatarDescClass : public Unknown_PacketDataClass, public LoginInterfaceAEADC8Class	// NAME 3: by convention (D24) from the client's avatar_desc.cpp
+class AvatarDescClass : public Unknown_PacketDataClass, public DeltaInterfaceClass	// NAME 3: by convention (D24) from the client's avatar_desc.cpp
 {
 public:
 	AvatarDescClass();									// 0x4BEB50
@@ -38,7 +38,7 @@ public:
 	virtual bool Write_Short(LinearBufferClass *buffer);	// +0x0C 0x4BF930: without +0x0C and the string  // NAME 2: what it does
 	virtual bool Read_Short(LinearBufferClass *buffer);	// +0x10 0x4BFBF0  // NAME 2: what it does
 	virtual int Get_Short_Size();						// +0x14 0x4BFEB0  // NAME 2: what it does
-	virtual void Unknown_00(void *visitor);				// second table +0x00 0x4BFED0 (a LoginKVVisitorClass)
+	virtual void Unknown_00(DeltaChildVisitorClass *visitor);				// second table +0x00 0x4BFED0 (a LoginKVVisitorClass)
 
 	void Clear(int type);								// 0x4C0310  // NAME 2: what it does
 	bool Is_Valid();									// 0x4C0580: a type is set  // NAME 2: what it does

@@ -298,7 +298,7 @@ int AvatarDescClass::Get_Short_Size()
 }
 
 // 0x4BFED0
-void AvatarDescClass::Unknown_00(void *object)
+void AvatarDescClass::Unknown_00(DeltaChildVisitorClass *object)
 {
 	LoginKVVisitorClass *visitor = (LoginKVVisitorClass *)object;
 
