@@ -340,6 +340,7 @@ class ServerRedirectPacketClass : public PacketClass  // NAME 2: the reference d
 {
 public:
 	ServerRedirectPacketClass(RawPacketClass *raw);	// 0x8A1590
+	virtual bool Process_Packet(void *client);	// +0x08 0x766FC0 (tsk_game.cpp)
 	char Unknown0C[0xC];	// +0x0C
 };
 
@@ -399,6 +400,7 @@ class GlobalTicketPacketClass : public PacketClass  // NAME 2: the reference dec
 {
 public:
 	GlobalTicketPacketClass(RawPacketClass *raw);	// 0x867650
+	virtual bool Process_Packet(void *client);	// +0x08 0x76B730 (tsk_login.cpp)
 	char Unknown0C[0x4C];	// +0x0C
 };
 
@@ -407,6 +409,7 @@ class GlobalAvatarListPacketClass : public PacketClass  // NAME 2: the reference
 {
 public:
 	GlobalAvatarListPacketClass(RawPacketClass *raw);	// 0x862D90
+	virtual bool Process_Packet(void *client);	// +0x08 0x76B520 (tsk_login.cpp)
 	char Unknown0C[0x14];	// +0x0C
 };
 
@@ -424,6 +427,7 @@ class GlobalErrorPacketClass : public PacketClass  // NAME 2: the reference deco
 {
 public:
 	GlobalErrorPacketClass(RawPacketClass *raw);	// 0x864C90
+	virtual bool Process_Packet(void *client);	// +0x08 0x76B4A0 (tsk_login.cpp)
 	char Unknown0C[0x18];	// +0x0C
 };
 
@@ -432,6 +436,7 @@ class Packet_0076Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x
 {
 public:
 	Packet_0076Class(RawPacketClass *raw);	// 0x866050
+	virtual bool Process_Packet(void *client);	// +0x08 0x76B9C0 (tsk_login.cpp)
 	char Unknown0C[0xB4];	// +0x0C
 };
 
@@ -1231,6 +1236,7 @@ class Packet_0077Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x
 public:
 	Packet_0077Class(RawPacketClass *raw);	// 0x866C20
 	virtual bool Process_Packet(void *client);	// +0x08 0x8695D0 (clientstub.cpp l.449)
+	virtual ~Packet_0077Class() {}	// +0x00 0x76B470 (inline: emitted in tsk_login.cpp)
 	char Unknown0C[0x14];	// +0x0C
 };
 

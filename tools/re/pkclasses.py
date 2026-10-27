@@ -87,6 +87,34 @@ OVERRIDES = {
     ], [
         'bool {C}::Process_Packet(void *) { return(true); }',
     ]),
+    54: ([	# the handler is tsk_game.cpp's (builder T3's step 9, 2026-10-26)
+        'virtual bool Process_Packet(void *client);	// +0x08 0x766FC0 (tsk_game.cpp)',
+    ], [
+        'bool {C}::Process_Packet(void *) { return(true); }',
+    ]),
+    111: ([	# the handler is tsk_login.cpp's (builder T3's step 9, 2026-10-26)
+        'virtual bool Process_Packet(void *client);	// +0x08 0x76B730 (tsk_login.cpp)',
+    ], [
+        'bool {C}::Process_Packet(void *) { return(true); }',
+    ]),
+    112: ([	# the handler is tsk_login.cpp's (builder T3's step 9, 2026-10-26)
+        'virtual bool Process_Packet(void *client);	// +0x08 0x76B520 (tsk_login.cpp)',
+    ], [
+        'bool {C}::Process_Packet(void *) { return(true); }',
+    ]),
+    117: ([	# the handler is tsk_login.cpp's (builder T3's step 9, 2026-10-26)
+        'virtual bool Process_Packet(void *client);	// +0x08 0x76B4A0 (tsk_login.cpp)',
+    ], [
+        'bool {C}::Process_Packet(void *) { return(true); }',
+    ]),
+    118: ([	# the handler is tsk_login.cpp's (builder T3's step 9, 2026-10-26)
+        'virtual bool Process_Packet(void *client);	// +0x08 0x76B9C0 (tsk_login.cpp)',
+    ], [
+        'bool {C}::Process_Packet(void *) { return(true); }',
+    ]),
+    119: ([	# its scalar deleting destructor 0x76B470 is emitted in tsk_login.cpp (builder T3's step 9)
+        'virtual ~{C}() {}	// +0x00 0x76B470 (inline: emitted in tsk_login.cpp)',
+    ], []),
 }
 
 BEGIN = '// BEGIN pkclasses.py (generated: the switch 0x869790; do not edit by hand)'

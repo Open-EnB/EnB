@@ -1041,7 +1041,13 @@
    },
    "pk_player_object_relationship": {
     "ambiguous": [
-     "0x42B2F0"
+     "0x42A900",
+     "0x42AAE0",
+     "0x42AFF0",
+     "0x42B2F0",
+     "0x4333D0",
+     "0x436730",
+     "0x874BA0"
     ],
     "copy": "reconstructed",
     "expected": {},

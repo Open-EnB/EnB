@@ -198,10 +198,15 @@ bool Packet_0078Class::Process_Packet(void *) { return(true); }	// 0x76BB70
 bool ReferralPointsAvailablePacketClass::Process_Packet(void *) { return(true); }	// 0x73F3D0
 
 // What OVERRIDES declares out of line (the classes' own files, not rebuilt)
+bool GlobalTicketPacketClass::Process_Packet(void *) { return(true); }
+bool GlobalAvatarListPacketClass::Process_Packet(void *) { return(true); }
+bool GlobalErrorPacketClass::Process_Packet(void *) { return(true); }
+bool Packet_0076Class::Process_Packet(void *) { return(true); }
 int Packet_0015Class::Get_Type() { return(0x15); }
 bool Packet_0015Class::Unknown_2C() { return(false); }
 const char *Packet_0015Class::Get_Name() { return("Packet_0015Class"); }
 bool PriorityMessageLinePacketClass::Process_Packet(void *) { return(true); }
 bool QueueMessageLinePacketClass::Process_Packet(void *) { return(true); }
 bool PushMessageLinePacketClass::Process_Packet(void *) { return(true); }
+bool ServerRedirectPacketClass::Process_Packet(void *) { return(true); }
 MessageLinePacketClass::~MessageLinePacketClass() {}
