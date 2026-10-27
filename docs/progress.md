@@ -1168,6 +1168,16 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
   translation unit; symbols.json lists `_$E18` at 0x8DEF20 / 0x9FBBC0, and objmatch rejects ini_manager's 0x4E9E00
   on it). A matching-rule change: carried out like D88, on a quiet tree with a full verify of every library and
   pairs_cmp gains-only. Recommendation: accept, at the next quiet window.
+* **T5's D66(iii) claim (2026-10-27, c0091e0):** the pair (tsk_login, 0x85CB00), the avatar's implicit assignment,
+  dropped when account_id became `__int64` (Unknown_50 then inlines it as the client does). No file matches
+  0x85CB00 at HEAD; T5 says the client's copy sits in the packet objects, after tsk_login in link order. This is
+  the D66(iii) pattern (a match that existed only while a type was wrong, as 0x8C1520 was) but it was committed
+  before the user saw it. Recommendation: accept as D66(iii); the address returns with the packet file that
+  carries it.
+* **P-T5-2:** merge LoginPacketDataClass / LoginInterfaceAEADC8Class / LoginKVVisitorClass into pk.h / delta.h
+  (DeltaChildVisitorClass) and drop tsk_login.h's typedefs at tsk_login.cpp's next edit; the race and profession
+  key/value instances need a kv_pair.h `Type_Name` form (the client passes the value to an external Type_Name,
+  which the `Type_Name((T*)0)` template can't produce). Recommendation: a tasks builder item, no decision.
 * **P-S3-2 / F3's leads for Key_Exchange 0x829180** are LIMIT REACHED (three Opus rounds, inline budget): it
   waits for a new §3.1 lever; F3's two untested leads are in its attempts.csv row.
 * D7 is to be revisited with the user if byte-exactness of E&B's code becomes too costly; D64's

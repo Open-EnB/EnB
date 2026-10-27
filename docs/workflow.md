@@ -240,6 +240,8 @@ unless `--lever` cites a new row of this table.
 | A pointer-keyed hash find converts into a temporary per find | Keys as `unsigned int` | attrib_dir (H7) |
 | Two FAIL_IFs sharing one exit | Nest them as `{} else {}` | attrib_dir (H7) |
 | `pop_back` vs `erase(end()-1)` | The client uses both forms: try the other | attrib_dir_collective (H7) |
+| A helper the client inlines, whose own callees the client calls | Route through the helper: its callees then go out of line | CharacterCreatorClass::Get_File_Name 0x78DE40 (T5) |
+| A clamp: the client's `movsx` and compare | Write it through an int local: `v = x; x = v < 6 ? v : 6` | avatar_desc (T5) |
 
 * **A nested inline is a whole-function budget (2026-10-26, `Key_Exchange` 0x829180):** under `/Ob2` an
   inline helper's own callees (a `std::set` iterator's `_Inc`) are inlined only while the function as a
@@ -361,6 +363,9 @@ unless `--lever` cites a new row of this table.
 * **D66(i) in practice:** a rewrite that stops emitting an inline COMDAT copy drops that (file, address) pair while
   the address stays matched elsewhere (land's 0x447C40 / 0x47F300 / 0x7F0EC0, c0f8569): name them in the commit.
 
+* **A new overload in strconv_lib.h moves aux_roots.cpp's inlining** (T5: the canary 0x6FB1E0 traded against
+  0x7014B0); template bodies in a header that tsk_login.h includes broke kerneltest (gated behind
+  UNKNOWN_PACKETDATA_BODIES). commit_mine cannot tell identical one-line imports.json hunks of two files apart.
 * **Header changes reach aux_roots through delta.h (H6, 2026-10-27):** adding or removing an inline member of a
   class template that delta.h reaches (hashtable through kv_list.h) swaps two stack slots in
   DeltaPrimaryCategoryClass's constructor 0x6FB1E0; which member count keeps it exact moved after other
