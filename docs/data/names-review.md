@@ -10,8 +10,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 30 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 35 |
 | 3 | by convention from a client-named file or sibling | 768 |
-| 2 | describes what the code does | 1765 |
-| 1 | neutral placeholder | 2779 |
+| 2 | describes what the code does | 1768 |
+| 1 | neutral placeholder | 2785 |
 
 ## For review (score 3 and below)
 
@@ -459,26 +459,25 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown00` | `app/client/fontdatabase.cpp:20` | neutral (D10) |
 | 1 | `Unknown_BE8B38Class` | `app/client/fontdatabase.cpp:24` | neutral (D10): option.cpp's object (tsk_game.h declares the same class) |
 | 1 | `Unknown_7F95E0` | `app/client/fontdatabase.cpp:27` | neutral (D10) |
-| 1 | `Unknown_BE8B38` | `app/client/fontdatabase.cpp:29` | neutral (D10) |
-| 1 | `FontTextFileClass` | `app/client/fontdatabase.cpp:31` | neutral (D10): a text file read into lines (0x28 bytes) |
-| 1 | `unknown` | `app/client/fontdatabase.cpp:34` | neutral (D10) |
-| 1 | `Unknown00` | `app/client/fontdatabase.cpp:40` | neutral (D10) |
-| 1 | `Unknown04` | `app/client/fontdatabase.cpp:62` | untagged neutral name (D10) |
-| 1 | `Unknown_6BE520` | `app/client/fontdatabase.cpp:105` | untagged neutral name (D10) |
-| 1 | `Unknown_6BF910` | `app/client/fontdatabase.cpp:116` | untagged neutral name (D10) |
-| 1 | `Unknown_6BFD00` | `app/client/fontdatabase.cpp:117` | untagged neutral name (D10) |
-| 1 | `Unknown_6C2080` | `app/client/fontdatabase.cpp:120` | untagged neutral name (D10) |
-| 1 | `Unknown98` | `app/client/fontdatabase.cpp:185` | untagged neutral name (D10) |
-| 1 | `DefaultUnknown98` | `app/client/fontdatabase.cpp:189` | untagged neutral name (D10) |
-| 1 | `Unknown_6C1500` | `app/client/fontdatabase.cpp:508` | untagged neutral name (D10) |
-| 1 | `Unknown_6C1AA0` | `app/client/fontdatabase.cpp:545` | untagged neutral name (D10) |
+| 1 | `Unknown_7F8EF0` | `app/client/fontdatabase.cpp:28` | neutral (D10) |
+| 1 | `Unknown_BE8B38` | `app/client/fontdatabase.cpp:30` | neutral (D10) |
+| 1 | `FontTextFileClass` | `app/client/fontdatabase.cpp:32` | neutral (D10): a text file read into lines (0x28 bytes) |
+| 1 | `unknown` | `app/client/fontdatabase.cpp:35` | neutral (D10) |
+| 1 | `Unknown00` | `app/client/fontdatabase.cpp:41` | neutral (D10) |
+| 1 | `Unknown04` | `app/client/fontdatabase.cpp:63` | untagged neutral name (D10) |
+| 1 | `Unknown_6BE520` | `app/client/fontdatabase.cpp:106` | untagged neutral name (D10) |
+| 1 | `Unknown_6BF910` | `app/client/fontdatabase.cpp:117` | untagged neutral name (D10) |
+| 1 | `Unknown_6BFD00` | `app/client/fontdatabase.cpp:118` | untagged neutral name (D10) |
+| 1 | `Unknown_6C2080` | `app/client/fontdatabase.cpp:121` | untagged neutral name (D10) |
+| 1 | `Unknown98` | `app/client/fontdatabase.cpp:186` | untagged neutral name (D10) |
+| 1 | `DefaultUnknown98` | `app/client/fontdatabase.cpp:190` | untagged neutral name (D10) |
+| 1 | `Unknown_6C1500` | `app/client/fontdatabase.cpp:509` | untagged neutral name (D10) |
+| 1 | `Unknown_6C1AA0` | `app/client/fontdatabase.cpp:546` | untagged neutral name (D10) |
 | 1 | `Unknown_1C` | `app/client/fontdatabase.cpp:953` | untagged neutral name (D10) |
 | 1 | `Get_Unknown98` | `app/client/fontdatabase.cpp:1068` | untagged neutral name (D10) |
 | 1 | `Unknown_6C47B0` | `app/client/fontdatabase.cpp:1093` | untagged neutral name (D10) |
 | 1 | `Unknown_6C49C0` | `app/client/fontdatabase.cpp:1118` | untagged neutral name (D10) |
-| 1 | `Unknown_6C57B0` | `app/client/fontdatabase.cpp:1122` | untagged neutral name (D10) |
 | 1 | `Unknown_BE67B8` | `app/client/fontdatabase.cpp:1157` | untagged neutral name (D10) |
-| 1 | `Unknown_6C57B0` | `app/client/fontdatabase.h:56` | neutral (D10) |
 | 1 | `Unknown98` | `app/client/fontdatabase.h:66` | neutral (D10) |
 | 1 | `DefaultUnknown98` | `app/client/fontdatabase.h:70` | neutral (D10) |
 | 1 | `Font32BaseClass` | `app/client/fontdatabase.h:73` | neutral (D10): the font object's first base (vtable 0xAFE94C) |
@@ -501,27 +500,28 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_6C47B0` | `app/client/fontdatabase.h:191` | neutral (D10) |
 | 1 | `Unknown_6C49C0` | `app/client/fontdatabase.h:192` | neutral (D10) |
 | 1 | `Unknown_BE67B8` | `app/client/fontdatabase.h:202` | neutral (D10) |
-| 1 | `Unknown_6D1C10` | `app/client/fontmanager.cpp:403` | untagged neutral name (D10) |
-| 1 | `Unknown_6CD950` | `app/client/fontmanager.cpp:406` | untagged neutral name (D10) |
-| 1 | `Unknown_6D2400` | `app/client/fontmanager.cpp:432` | untagged neutral name (D10) |
-| 1 | `Unknown_6D0390` | `app/client/fontmanager.cpp:434` | untagged neutral name (D10) |
-| 1 | `Unknown_6D2480` | `app/client/fontmanager.cpp:437` | untagged neutral name (D10) |
-| 1 | `Unknown_6D0550` | `app/client/fontmanager.cpp:439` | untagged neutral name (D10) |
-| 1 | `Unknown_6D2500` | `app/client/fontmanager.cpp:442` | untagged neutral name (D10) |
-| 1 | `Unknown_6D0A20` | `app/client/fontmanager.cpp:444` | untagged neutral name (D10) |
-| 1 | `FontStyleClass` | `app/client/fontmanager.h:27` | neutral (D10): the debug font's class (0x4E8 bytes, reference counted) |
-| 1 | `unknown1` | `app/client/fontmanager.h:30` | neutral (D10) |
-| 1 | `Unknown08` | `app/client/fontmanager.h:32` | neutral (D10) |
-| 1 | `Unknown_6CD950` | `app/client/fontmanager.h:40` | neutral (D10) |
-| 1 | `Unknown_6D0390` | `app/client/fontmanager.h:41` | neutral (D10) |
-| 1 | `Unknown_6D0550` | `app/client/fontmanager.h:42` | neutral (D10) |
-| 1 | `Unknown_6D0A20` | `app/client/fontmanager.h:43` | neutral (D10) |
-| 1 | `Unknown00` | `app/client/fontmanager.h:45` | neutral (D10) |
-| 1 | `Unknown08` | `app/client/fontmanager.h:47` | neutral (D10) |
-| 1 | `Unknown_6D1C10` | `app/client/fontmanager.h:56` | neutral (D10) |
-| 1 | `Unknown_6D2400` | `app/client/fontmanager.h:60` | neutral (D10) |
-| 1 | `Unknown_6D2480` | `app/client/fontmanager.h:61` | neutral (D10) |
-| 1 | `Unknown_6D2500` | `app/client/fontmanager.h:62` | neutral (D10) |
+| 1 | `Unknown_6D1C10` | `app/client/fontmanager.cpp:400` | untagged neutral name (D10) |
+| 1 | `Unknown_All_Styles` | `app/client/fontmanager.cpp:403` | untagged neutral name (D10) |
+| 1 | `Unknown_6D2400` | `app/client/fontmanager.cpp:429` | untagged neutral name (D10) |
+| 1 | `Unknown_6D0390` | `app/client/fontmanager.cpp:431` | untagged neutral name (D10) |
+| 1 | `Unknown_6D2480` | `app/client/fontmanager.cpp:434` | untagged neutral name (D10) |
+| 1 | `Unknown_6D0550` | `app/client/fontmanager.cpp:436` | untagged neutral name (D10) |
+| 1 | `Unknown_6D2500` | `app/client/fontmanager.cpp:439` | untagged neutral name (D10) |
+| 1 | `Unknown_6D0A20` | `app/client/fontmanager.cpp:441` | untagged neutral name (D10) |
+| 1 | `FontStyleClass` | `app/client/fontmanager.h:28` | neutral (D10): the debug font's class (0x4E8 bytes, reference counted) |
+| 1 | `unknown1` | `app/client/fontmanager.h:31` | neutral (D10) |
+| 1 | `Unknown_6CD950` | `app/client/fontmanager.h:33` | neutral (D10) |
+| 1 | `Unknown08` | `app/client/fontmanager.h:35` | neutral (D10) |
+| 1 | `Unknown_All_Styles` | `app/client/fontmanager.h:43` | neutral (D10) |
+| 1 | `Unknown_6D0390` | `app/client/fontmanager.h:49` | neutral (D10) |
+| 1 | `Unknown_6D0550` | `app/client/fontmanager.h:50` | neutral (D10) |
+| 1 | `Unknown_6D0A20` | `app/client/fontmanager.h:51` | neutral (D10) |
+| 1 | `Unknown00` | `app/client/fontmanager.h:53` | neutral (D10) |
+| 1 | `Unknown08` | `app/client/fontmanager.h:55` | neutral (D10) |
+| 1 | `Unknown_6D1C10` | `app/client/fontmanager.h:65` | neutral (D10) |
+| 1 | `Unknown_6D2400` | `app/client/fontmanager.h:69` | neutral (D10) |
+| 1 | `Unknown_6D2480` | `app/client/fontmanager.h:70` | neutral (D10) |
+| 1 | `Unknown_6D2500` | `app/client/fontmanager.h:71` | neutral (D10) |
 | 1 | `Unknown08` | `app/client/gutter_data.h:26` | untagged neutral name (D10) |
 | 1 | `Unknown08` | `app/client/navigation_data.h:26` | untagged neutral name (D10) |
 | 1 | `Unknown08` | `app/client/radar_data.h:26` | untagged neutral name (D10) |
@@ -1560,20 +1560,20 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_Create_Packet` | `app/packets/pk.h:127` | what it does |
 | 1 | `Unknown_869790` | `app/packets/pk.h:130` | neutral (D10) |
 | 1 | `pk_classes.h` | `app/packets/pk_classes.h:17` | provisional file name (D37) |
-| 1 | `Unknown0C` | `app/packets/pk_classes.h:140` | untagged neutral name (D10) |
-| 1 | `Packet_0015Class` | `app/packets/pk_classes.h:168` | neutral (D10): opcode 0x0015 |
-| 1 | `Unknown_2C` | `app/packets/pk_classes.h:175` | untagged neutral name (D10) |
-| 1 | `Packet_0016Class` | `app/packets/pk_classes.h:181` | neutral (D10): opcode 0x0016 |
-| 1 | `Unknown14` | `app/packets/pk_classes.h:188` | untagged neutral name (D10) |
-| 1 | `Address` | `app/packets/pk_classes.h:247` | handed to Redirect (tsk_game.cpp 0x766FC0) |
-| 1 | `Port` | `app/packets/pk_classes.h:248` | handed to Redirect (tsk_game.cpp 0x766FC0) |
-| 1 | `Error` | `app/packets/pk_classes.h:294` | the log 'GlobalErrorPacketClass recv: %d : %d : %s' (tsk_login.cpp) |
-| 1 | `std:` | `app/packets/pk_classes.h:295` | the same log |
-| 1 | `Packet_0048Class` | `app/packets/pk_classes.h:308` | neutral (D10): opcode 0x0048 |
-| 1 | `Unknown_28` | `app/packets/pk_classes.h:313` | neutral (D10) |
-| 1 | `Packet_00B5Class` | `app/packets/pk_classes.h:342` | neutral (D10): opcode 0x00B5 |
-| 1 | `Packet_00B6Class` | `app/packets/pk_classes.h:351` | neutral (D10): opcode 0x00B6 |
-| 1 | `Packet_0077Class` | `app/packets/pk_classes.h:360` | neutral (D10): opcode 0x0077 |
+| 1 | `Unknown0C` | `app/packets/pk_classes.h:141` | untagged neutral name (D10) |
+| 1 | `Packet_0015Class` | `app/packets/pk_classes.h:169` | neutral (D10): opcode 0x0015 |
+| 1 | `Unknown_2C` | `app/packets/pk_classes.h:176` | untagged neutral name (D10) |
+| 1 | `Packet_0016Class` | `app/packets/pk_classes.h:182` | neutral (D10): opcode 0x0016 |
+| 1 | `Unknown14` | `app/packets/pk_classes.h:189` | untagged neutral name (D10) |
+| 1 | `Address` | `app/packets/pk_classes.h:239` | handed to Redirect (tsk_game.cpp 0x766FC0) |
+| 1 | `Port` | `app/packets/pk_classes.h:240` | handed to Redirect (tsk_game.cpp 0x766FC0) |
+| 1 | `Error` | `app/packets/pk_classes.h:286` | the log 'GlobalErrorPacketClass recv: %d : %d : %s' (tsk_login.cpp) |
+| 1 | `std:` | `app/packets/pk_classes.h:287` | the same log |
+| 1 | `Packet_0048Class` | `app/packets/pk_classes.h:300` | neutral (D10): opcode 0x0048 |
+| 1 | `Unknown_28` | `app/packets/pk_classes.h:305` | neutral (D10) |
+| 1 | `Packet_00B5Class` | `app/packets/pk_classes.h:334` | neutral (D10): opcode 0x00B5 |
+| 1 | `Packet_00B6Class` | `app/packets/pk_classes.h:343` | neutral (D10): opcode 0x00B6 |
+| 1 | `Packet_0077Class` | `app/packets/pk_classes.h:352` | neutral (D10): opcode 0x0077 |
 | 1 | `Unknown_14` | `app/packets/pk_player_object_relationship.cpp:12` | untagged neutral name (D10) |
 | 1 | `std:` | `app/packets/pk_player_object_relationship.cpp:85` | neutral (D10) |
 | 1 | `Unknown_8743C0` | `app/packets/pk_player_object_relationship.cpp:85` | untagged neutral name (D10) |
@@ -1841,6 +1841,12 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown30` | `app/packets/pkloungenpc.h:76` | untagged neutral name (D10) |
 | 1 | `pkmanufactureitemcatagorypacket` | `app/packets/pkmanufactureitemcatagorypacket.h:15` | provisional, pk + its first named class's name |
 | 1 | `Packet_007DClass` | `app/packets/pkmanufactureitemcatagorypacket.h:84` | neutral (D10): opcode 0x007D |
+| 1 | `Unknown58` | `app/packets/pkmasterjoin.cpp:7` | untagged neutral name (D10) |
+| 1 | `Unknown_PacketDataClass` | `app/packets/pkmasterjoin.cpp:15` | untagged neutral name (D10) |
+| 1 | `pkmasterjoin` | `app/packets/pkmasterjoin.h:15` | provisional, pk + its first named class's name |
+| 1 | `Unknown0C` | `app/packets/pkmasterjoin.h:33` | neutral (D10) |
+| 1 | `Unknown58` | `app/packets/pkmasterjoin.h:35` | neutral (D10) |
+| 1 | `Unknown5C` | `app/packets/pkmasterjoin.h:36` | neutral (D10) |
 | 1 | `Unknown_ChatStreamClass` | `app/packets/pkmessagechatstream.cpp:48` | untagged neutral name (D10) |
 | 1 | `Unknown_4C48C0` | `app/packets/pkmessagechatstream.cpp:50` | untagged neutral name (D10) |
 | 1 | `pkmessagechatstream` | `app/packets/pkmessagechatstream.h:15` | provisional, pk + its class's name |
@@ -2793,7 +2799,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_Debug_Begin_Step` | `tests/capharness/udpreplay/connect_stubs.cpp:35` | untagged neutral name (D10) |
 | 1 | `Unknown_Debug_End_Step` | `tests/capharness/udpreplay/connect_stubs.cpp:36` | untagged neutral name (D10) |
 | 1 | `Unknown_Debug_Print` | `tests/capharness/udpreplay/connect_stubs.cpp:37` | untagged neutral name (D10) |
-| 1 | `Unknown_2C` | `tests/capharness/udpreplay/pk_ctor_stubs.cpp:138` | untagged neutral name (D10) |
+| 1 | `Unknown_2C` | `tests/capharness/udpreplay/pk_ctor_stubs.cpp:137` | untagged neutral name (D10) |
 | 1 | `Unknown08` | `tests/capharness/udpreplay/pkitemba_stubs.cpp:13` | untagged neutral name (D10) |
 | 1 | `Unknown_4BC130` | `tests/capharness/udpreplay/udpreplay.cpp:71` | untagged neutral name (D10) |
 | 2 | `Get_Float` | `app/audio/soundlib.cpp:26` | what it does |
@@ -2973,22 +2979,23 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Get_Jobs` | `app/client/cpacket.cpp:103` | what it returns |
 | 2 | `Jobs` | `app/client/cpacket.cpp:106` | what it holds |
 | 2 | `std:` | `app/client/fontdatabase.cpp:21` | what it holds |
-| 2 | `Count` | `app/client/fontdatabase.cpp:36` | what it returns |
-| 2 | `Get` | `app/client/fontdatabase.cpp:37` | what it returns |
-| 2 | `FontColorStruct` | `app/client/fontdatabase.cpp:243` | one COLOR-n section of fontcode.ini / fontart.ini (0x10 bytes) |
-| 2 | `Name` | `app/client/fontdatabase.cpp:247` | the ini key |
-| 2 | `RGB` | `app/client/fontdatabase.cpp:248` | the ini key |
-| 2 | `FontEffectStruct` | `app/client/fontdatabase.cpp:251` | one EFFECT-n section of fontcode.ini / fontart.ini (0x24 bytes) |
-| 2 | `Name` | `app/client/fontdatabase.cpp:266` | the ini key |
-| 2 | `EffectType` | `app/client/fontdatabase.cpp:267` | the ini key |
-| 2 | `Initial` | `app/client/fontdatabase.cpp:268` | the ini key |
-| 2 | `Intensity` | `app/client/fontdatabase.cpp:269` | the ini key |
-| 2 | `Speed` | `app/client/fontdatabase.cpp:270` | the ini key |
-| 2 | `Time` | `app/client/fontdatabase.cpp:271` | the ini key |
-| 2 | `Direction` | `app/client/fontdatabase.cpp:272` | the ini key |
-| 2 | `Offset` | `app/client/fontdatabase.cpp:273` | the ini key |
+| 2 | `Count` | `app/client/fontdatabase.cpp:37` | what it returns |
+| 2 | `Get` | `app/client/fontdatabase.cpp:38` | what it returns |
+| 2 | `FontColorStruct` | `app/client/fontdatabase.cpp:244` | one COLOR-n section of fontcode.ini / fontart.ini (0x10 bytes) |
+| 2 | `Name` | `app/client/fontdatabase.cpp:248` | the ini key |
+| 2 | `RGB` | `app/client/fontdatabase.cpp:249` | the ini key |
+| 2 | `FontEffectStruct` | `app/client/fontdatabase.cpp:252` | one EFFECT-n section of fontcode.ini / fontart.ini (0x24 bytes) |
+| 2 | `Name` | `app/client/fontdatabase.cpp:267` | the ini key |
+| 2 | `EffectType` | `app/client/fontdatabase.cpp:268` | the ini key |
+| 2 | `Initial` | `app/client/fontdatabase.cpp:269` | the ini key |
+| 2 | `Intensity` | `app/client/fontdatabase.cpp:270` | the ini key |
+| 2 | `Speed` | `app/client/fontdatabase.cpp:271` | the ini key |
+| 2 | `Time` | `app/client/fontdatabase.cpp:272` | the ini key |
+| 2 | `Direction` | `app/client/fontdatabase.cpp:273` | the ini key |
+| 2 | `Offset` | `app/client/fontdatabase.cpp:274` | the ini key |
 | 2 | `FontInitStruct` | `app/client/fontdatabase.h:36` | one INIT-n section of fontsys.ini (a screen resolution's fonts) |
 | 2 | `Load_Font` | `app/client/fontdatabase.h:55` | what it does |
+| 2 | `Save_Fonts` | `app/client/fontdatabase.h:56` | what it does |
 | 2 | `Find_Chat_Index` | `app/client/fontdatabase.h:57` | the chat_index of the asserts |
 | 2 | `ResWidth` | `app/client/fontdatabase.h:59` | the ini key |
 | 2 | `ResHeight` | `app/client/fontdatabase.h:60` | the ini key |
@@ -3082,16 +3089,17 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Load` | `app/client/fontdatabase.h:220` | what it does |
 | 2 | `Unload` | `app/client/fontdatabase.h:221` | what it does |
 | 2 | `std:` | `app/client/fontdatabase.h:223` | what it holds |
-| 2 | `ManagedFontClass` | `app/client/fontmanager.h:35` | what the manager holds per id (0x24 bytes; its +4 is the id) |
-| 2 | `Id` | `app/client/fontmanager.h:46` | what it holds |
-| 2 | `Remove_All` | `app/client/fontmanager.h:55` | describes what it does |
-| 2 | `Add` | `app/client/fontmanager.h:57` | describes what it does |
-| 2 | `Add` | `app/client/fontmanager.h:58` | describes what it does |
-| 2 | `Remove` | `app/client/fontmanager.h:59` | describes what it does |
-| 2 | `Add` | `app/client/fontmanager.h:63` | describes what it does |
-| 2 | `Find` | `app/client/fontmanager.h:64` | describes what it does |
-| 2 | `std:` | `app/client/fontmanager.h:66` | what it holds |
-| 2 | `DebugFont` | `app/client/fontmanager.h:67` | what it holds |
+| 2 | `ManagedFontClass` | `app/client/fontmanager.h:38` | what the manager holds per id (0x24 bytes; its +4 is the id) |
+| 2 | `Id` | `app/client/fontmanager.h:54` | what it holds |
+| 2 | `std:` | `app/client/fontmanager.h:56` | what it holds |
+| 2 | `Remove_All` | `app/client/fontmanager.h:64` | describes what it does |
+| 2 | `Add` | `app/client/fontmanager.h:66` | describes what it does |
+| 2 | `Add` | `app/client/fontmanager.h:67` | describes what it does |
+| 2 | `Remove` | `app/client/fontmanager.h:68` | describes what it does |
+| 2 | `Add` | `app/client/fontmanager.h:72` | describes what it does |
+| 2 | `Find` | `app/client/fontmanager.h:73` | describes what it does |
+| 2 | `std:` | `app/client/fontmanager.h:75` | what it holds |
+| 2 | `DebugFont` | `app/client/fontmanager.h:76` | what it holds |
 | 2 | `Unknown_Load_Assets` | `app/client/sclient.cpp:36` | 0x729BF0 (client_lego_impl.cpp), 'cbasset.ini' (as tsk_smovie.cpp) |
 | 2 | `Unknown_Free_Assets` | `app/client/sclient.cpp:37` | 0x729D60 (client_lego_impl.cpp) (as tsk_smovie.cpp) |
 | 2 | `Unknown_Main_Window` | `app/client/sclient.cpp:39` | what Pump_Messages redraws |
@@ -3480,22 +3488,21 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Connection` | `app/packets/pk.h:120` | what it holds |
 | 2 | `Serial` | `app/packets/pk.h:121` | what it holds |
 | 2 | `Next_Serial` | `app/packets/pk.h:122` | what it holds |
-| 2 | `LoginPacketClass` | `app/packets/pk_classes.h:135` | the reference decoder's opcode name LOGIN (the Net-7 opcode table; no structure check) |
-| 2 | `FormationPositionalUpdatePacketClass` | `app/packets/pk_classes.h:160` | the reference decoder's opcode name FORMATION_POSITIONAL_UPDATE (the Net-7 opcode table; no structure check) |
-| 2 | `Get_Type` | `app/packets/pk_classes.h:174` | what the derived classes' return (their opcode) |
-| 2 | `Get_Name` | `app/packets/pk_classes.h:176` | what the derived classes' return (a name) |
-| 2 | `Action2PacketClass` | `app/packets/pk_classes.h:222` | the reference decoder's opcode name ACTION2 (the Net-7 opcode table; no structure check) |
-| 2 | `MasterJoinPacketClass` | `app/packets/pk_classes.h:231` | the reference decoder's opcode name MASTER_JOIN (the Net-7 opcode table; no structure check) |
-| 2 | `ServerRedirectPacketClass` | `app/packets/pk_classes.h:240` | the reference decoder's opcode name SERVER_REDIRECT (the Net-7 opcode table; no structure check) |
-| 2 | `GlobalTicketPacketClass` | `app/packets/pk_classes.h:260` | the reference decoder's opcode name GLOBAL_TICKET (the Net-7 opcode table; no structure check) |
-| 2 | `GlobalAvatarListPacketClass` | `app/packets/pk_classes.h:269` | the reference decoder's opcode name GLOBAL_AVATAR_LIST (the Net-7 opcode table; no structure check) |
-| 2 | `GlobalCreateCharacterPacketClass` | `app/packets/pk_classes.h:278` | the reference decoder's opcode name GLOBAL_CREATE_CHARACTER (the Net-7 opcode table; no structure check) |
-| 2 | `GlobalErrorPacketClass` | `app/packets/pk_classes.h:287` | the reference decoder's opcode name GLOBAL_ERROR (the Net-7 opcode table; no structure check) |
-| 2 | `RecustomizeShipStartPacketClass` | `app/packets/pk_classes.h:370` | the reference decoder's opcode name RECUSTOMIZE_SHIP_START (the Net-7 opcode table; no structure check) |
-| 2 | `RecustomizeShipDonePacketClass` | `app/packets/pk_classes.h:378` | the reference decoder's opcode name RECUSTOMIZE_SHIP_DONE (the Net-7 opcode table; no structure check) |
-| 2 | `RecustomizeAvatarStartPacketClass` | `app/packets/pk_classes.h:387` | the reference decoder's opcode name RECUSTOMIZE_AVATAR_START (the Net-7 opcode table; no structure check) |
-| 2 | `RecustomizeAvatarDonePacketClass` | `app/packets/pk_classes.h:395` | the reference decoder's opcode name RECUSTOMIZE_AVATAR_DONE (the Net-7 opcode table; no structure check) |
-| 2 | `RecustomizeAvatarUpdatePacketClass` | `app/packets/pk_classes.h:404` | the reference decoder's opcode name RECUSTOMIZE_AVATAR_UPDATE (the Net-7 opcode table; no structure check) |
+| 2 | `LoginPacketClass` | `app/packets/pk_classes.h:136` | the reference decoder's opcode name LOGIN (the Net-7 opcode table; no structure check) |
+| 2 | `FormationPositionalUpdatePacketClass` | `app/packets/pk_classes.h:161` | the reference decoder's opcode name FORMATION_POSITIONAL_UPDATE (the Net-7 opcode table; no structure check) |
+| 2 | `Get_Type` | `app/packets/pk_classes.h:175` | what the derived classes' return (their opcode) |
+| 2 | `Get_Name` | `app/packets/pk_classes.h:177` | what the derived classes' return (a name) |
+| 2 | `Action2PacketClass` | `app/packets/pk_classes.h:223` | the reference decoder's opcode name ACTION2 (the Net-7 opcode table; no structure check) |
+| 2 | `ServerRedirectPacketClass` | `app/packets/pk_classes.h:232` | the reference decoder's opcode name SERVER_REDIRECT (the Net-7 opcode table; no structure check) |
+| 2 | `GlobalTicketPacketClass` | `app/packets/pk_classes.h:252` | the reference decoder's opcode name GLOBAL_TICKET (the Net-7 opcode table; no structure check) |
+| 2 | `GlobalAvatarListPacketClass` | `app/packets/pk_classes.h:261` | the reference decoder's opcode name GLOBAL_AVATAR_LIST (the Net-7 opcode table; no structure check) |
+| 2 | `GlobalCreateCharacterPacketClass` | `app/packets/pk_classes.h:270` | the reference decoder's opcode name GLOBAL_CREATE_CHARACTER (the Net-7 opcode table; no structure check) |
+| 2 | `GlobalErrorPacketClass` | `app/packets/pk_classes.h:279` | the reference decoder's opcode name GLOBAL_ERROR (the Net-7 opcode table; no structure check) |
+| 2 | `RecustomizeShipStartPacketClass` | `app/packets/pk_classes.h:362` | the reference decoder's opcode name RECUSTOMIZE_SHIP_START (the Net-7 opcode table; no structure check) |
+| 2 | `RecustomizeShipDonePacketClass` | `app/packets/pk_classes.h:370` | the reference decoder's opcode name RECUSTOMIZE_SHIP_DONE (the Net-7 opcode table; no structure check) |
+| 2 | `RecustomizeAvatarStartPacketClass` | `app/packets/pk_classes.h:379` | the reference decoder's opcode name RECUSTOMIZE_AVATAR_START (the Net-7 opcode table; no structure check) |
+| 2 | `RecustomizeAvatarDonePacketClass` | `app/packets/pk_classes.h:387` | the reference decoder's opcode name RECUSTOMIZE_AVATAR_DONE (the Net-7 opcode table; no structure check) |
+| 2 | `RecustomizeAvatarUpdatePacketClass` | `app/packets/pk_classes.h:396` | the reference decoder's opcode name RECUSTOMIZE_AVATAR_UPDATE (the Net-7 opcode table; no structure check) |
 | 2 | `std:` | `app/packets/pk_player_object_relationship.cpp:166` | what it holds |
 | 2 | `std:` | `app/packets/pk_player_object_relationship.cpp:167` | what it holds |
 | 2 | `std:` | `app/packets/pk_player_object_relationship.cpp:258` | what it holds |
@@ -3600,6 +3607,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `RefineryItemIdPacketClass` | `app/packets/pkmanufactureitemcatagorypacket.h:69` | the reference decoder's opcode name REFINERY_ITEM_ID (the Net-7 opcode table; no structure check) |
 | 2 | `ManufactureActionPacketClass` | `app/packets/pkmanufactureitemcatagorypacket.h:100` | the reference decoder's opcode name MANUFACTURE_ACTION (the Net-7 opcode table; no structure check) |
 | 2 | `ManufactureTechLevelFilterPacketClass` | `app/packets/pkmanufactureitemcatagorypacket.h:129` | the reference decoder's opcode name MANUFACTURE_TECH_LEVEL_FILTER (the Net-7 opcode table; no structure check) |
+| 2 | `MasterJoinPacketClass` | `app/packets/pkmasterjoin.h:22` | the reference decoder's opcode name MASTER_JOIN (the Net-7 opcode table), the client's Print text 'Master Join' |
+| 2 | `Ticket` | `app/packets/pkmasterjoin.h:34` | what it holds |
 | 2 | `Owned` | `app/packets/pkmessagechatstream.h:53` | what it means, as MessageStringPacketClass's |
 | 2 | `Clamp_Int` | `app/packets/pkmessageline.cpp:7` | describes what it does |
 | 2 | `Get_Type` | `app/packets/pkmessageline.h:35` | what the derived classes' return (their opcode) |
@@ -4605,7 +4614,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `fontdatabase.h` | `app/client/fontdatabase.h:19` | header name assumed from the client's fontdatabase.cpp |
 | 3 | `FontDatabaseClass` | `app/client/fontdatabase.h:150` | by convention (D24) from the client's fontdatabase.cpp |
 | 3 | `fontmanager.h` | `app/client/fontmanager.h:17` | header name assumed from the client's fontmanager.cpp |
-| 3 | `FontManagerClass` | `app/client/fontmanager.h:50` | by convention (D24) from the client's fontmanager.cpp |
+| 3 | `FontManagerClass` | `app/client/fontmanager.h:59` | by convention (D24) from the client's fontmanager.cpp |
 | 3 | `gutter_data.h` | `app/client/gutter_data.h:16` | header name assumed from the client's gutter_data.cpp |
 | 3 | `navigation_data.h` | `app/client/navigation_data.h:16` | header name assumed from the client's navigation_data.cpp |
 | 3 | `radar_data.h` | `app/client/radar_data.h:16` | header name assumed from the client's radar_data.cpp |
