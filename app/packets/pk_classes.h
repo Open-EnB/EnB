@@ -66,6 +66,7 @@
 #include "pkjoblist.h"	// rebuilt
 #include "pklogoff.h"	// rebuilt
 #include "pkloothulkpermission.h"	// rebuilt
+#include "pkloungenpc.h"	// rebuilt
 #include "pkmanufactureitemcatagorypacket.h"	// rebuilt
 #include "pkmessagechatstream.h"	// rebuilt
 #include "pkmessageline.h"	// rebuilt
@@ -311,14 +312,6 @@ public:
 	virtual bool Process_Packet(void *client);	// +0x08 0x868040 (clientstub.cpp l.104)
 	virtual bool Unknown_28(void *a);	// +0x28 0x868070 (clientstub.cpp l.107)  // NAME 1: neutral (D10)
 	char Unknown0C[0x2D4];	// +0x0C
-};
-
-// opcode 82 (0x0052, LOUNGE_NPC): vtable 0xB0AFE4, constructor 0x8978D0, 0x40 bytes
-class LoungeNPCPacketClass : public PacketClass
-{
-public:
-	LoungeNPCPacketClass(RawPacketClass *raw);	// 0x8978D0
-	char Unknown0C[0x34];	// +0x0C
 };
 
 // opcode 83 (0x0053, FIND_MEMBER): vtable 0xB0A58C, constructor 0x886710, 0x1C bytes

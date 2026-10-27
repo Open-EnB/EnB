@@ -3803,6 +3803,8 @@ RECONSTRUCTED = {
     ('app', 'packets/pkunknown_8a6430.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
     ('app', 'packets/pkstart.cpp'): "packet classes (opcode 5, 6) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
     ('app', 'packets/pkstart.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
+    ('app', 'packets/pkloungenpc.cpp'): "LOUNGE_NPC 82's object, 0x897800-0x89A710 (no assert: the file name provisional, NAME 1): written by hand (builder P6)",
+    ('app', 'packets/pkloungenpc.h'): "its class (pk_classes.h includes it: tools/re/pkclasses.py)",
     ('app', 'packets/pktalktreeaction.cpp'): "packet classes (opcode 86, 85) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
     ('app', 'packets/pktalktreeaction.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
     ('app', 'packets/pkrequesttarget.cpp'): "packet classes (opcode 23, 24, 25) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",

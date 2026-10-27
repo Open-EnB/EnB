@@ -19,7 +19,6 @@ GlobalCreateCharacterPacketClass::GlobalCreateCharacterPacketClass(RawPacketClas
 GlobalErrorPacketClass::GlobalErrorPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 GlobalLoginPacketClass::GlobalLoginPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_0048Class::Packet_0048Class(RawPacketClass *raw) { Conn_Record(this, raw); }
-LoungeNPCPacketClass::LoungeNPCPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 FindMemberPacketClass::FindMemberPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 VerbListPacketClass::VerbListPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 IncapacitanceDetailsPacket::IncapacitanceDetailsPacket(RawPacketClass *raw) { Conn_Record(this, raw); }
@@ -77,6 +76,7 @@ bool CreateAttachmentPacketClass::Process_Packet(void *) { return(true); }	// 0x
 bool ModeChangePacketClass::Process_Packet(void *) { return(true); }	// 0x738100
 bool StarbaseSetPacketClass::Process_Packet(void *) { return(true); }	// 0x7381C0
 bool StarbaseTowPacketClass::Process_Packet(void *) { return(true); }	// 0x738330
+bool LoungeNPCPacketClass::Process_Packet(void *) { return(true); }	// 0x7385B0
 bool TalkTreePacketClass::Process_Packet(void *) { return(true); }	// 0x738670
 bool TalkTreeActionPacketClass::Process_Packet(void *) { return(true); }	// 0x738730
 bool VerbUpdatePacketClass::Process_Packet(void *) { return(true); }	// 0x7388B0

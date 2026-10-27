@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-240 entries in 56 files.
+243 entries in 57 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -114,6 +114,9 @@ edit the comments in the code, not this file.
 | `app/packets/pkauxdata.cpp:43` | `AuxDataPacketClass::Print` | marker | NOT EXACT: the client reads Size before the first dword of Data (register order; 2 forms, workflow.md 3.1) |
 | `app/packets/pkcolorization.cpp:5` | `ColorizationPacketClass::ColorizationPacketClass` | marker | NOT EXACT: 0x87F320, the inline vector copy's loop addresses each region from its last dword in the client (shape; attempts.py show 0x87F320) |
 | `app/packets/pkcolorization.cpp:62` | `ColorizationPacketClass::Print` | mention | NOT EXACT (parked, attempts.csv). * The file name is provisional (no assert names it). |
+| `app/packets/pkloungenpc.cpp:10` | `LoungeNPCPacketClass::LoungeNPCPacketClass` | marker | NOT EXACT: inline budget (frame 0x170 against 0x168, one string destructor inlined that the client calls; attempts.csv) |
+| `app/packets/pkloungenpc.cpp:56` | `LoungeNPCPacketClass::Build` | marker | NOT EXACT: shape (the client keeps each list's byte offset in a stack slot; attempts.csv) |
+| `app/packets/pkloungenpc.cpp:151` | `LoungeNPCPacketClass::Add_Unknown30` | mention | NOT EXACT: the raw constructor (inline budget: frame and one string destructor) and Build (shape: the client's per-list offset slot), two rounds each (.work/p6/v82.py; attempts.csv). * The file name is provisional (no assert names it). |
 | `app/packets/pknamedecal.cpp:5` | `DecalPacketClass::DecalPacketClass` | marker | NOT EXACT: 0x8805C0, the inline vector copy's loop addresses each decal from +0x10 in the client (shape, as COLORIZATION's 0x87F320; attempts.py show 0x8805C0) |
 | `app/packets/pknamedecal.cpp:14` | `DecalPacketClass::DecalPacketClass` | marker | NOT EXACT: 0x8807B0, the client inlines push_back's insert (over this object's helpers 0x8810F0- 0x881250), ours calls it (inline-budget; attempts.py show 0x8807B0) |
 | `app/packets/pkunknown_863720.cpp:75` | `Packet_00E6Class::Get_Data_Size` | marker | NOT EXACT: shape (the client adds the string's size and 0x18 first, then DataSize; attempts.csv) |

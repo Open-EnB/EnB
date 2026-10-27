@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 30 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 35 |
-| 3 | by convention from a client-named file or sibling | 766 |
-| 2 | describes what the code does | 1748 |
-| 1 | neutral placeholder | 2618 |
+| 3 | by convention from a client-named file or sibling | 768 |
+| 2 | describes what the code does | 1762 |
+| 1 | neutral placeholder | 2676 |
 
 ## For review (score 3 and below)
 
@@ -395,6 +395,27 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_6C47B0` | `app/client/fontdatabase.h:191` | neutral (D10) |
 | 1 | `Unknown_6C49C0` | `app/client/fontdatabase.h:192` | neutral (D10) |
 | 1 | `Unknown_BE67B8` | `app/client/fontdatabase.h:202` | neutral (D10) |
+| 1 | `Unknown_6D1C10` | `app/client/fontmanager.cpp:403` | untagged neutral name (D10) |
+| 1 | `Unknown_6CD950` | `app/client/fontmanager.cpp:406` | untagged neutral name (D10) |
+| 1 | `Unknown_6D2400` | `app/client/fontmanager.cpp:432` | untagged neutral name (D10) |
+| 1 | `Unknown_6D0390` | `app/client/fontmanager.cpp:434` | untagged neutral name (D10) |
+| 1 | `Unknown_6D2480` | `app/client/fontmanager.cpp:437` | untagged neutral name (D10) |
+| 1 | `Unknown_6D0550` | `app/client/fontmanager.cpp:439` | untagged neutral name (D10) |
+| 1 | `Unknown_6D2500` | `app/client/fontmanager.cpp:442` | untagged neutral name (D10) |
+| 1 | `Unknown_6D0A20` | `app/client/fontmanager.cpp:444` | untagged neutral name (D10) |
+| 1 | `FontStyleClass` | `app/client/fontmanager.h:27` | neutral (D10): the debug font's class (0x4E8 bytes, reference counted) |
+| 1 | `unknown1` | `app/client/fontmanager.h:30` | neutral (D10) |
+| 1 | `Unknown08` | `app/client/fontmanager.h:32` | neutral (D10) |
+| 1 | `Unknown_6CD950` | `app/client/fontmanager.h:40` | neutral (D10) |
+| 1 | `Unknown_6D0390` | `app/client/fontmanager.h:41` | neutral (D10) |
+| 1 | `Unknown_6D0550` | `app/client/fontmanager.h:42` | neutral (D10) |
+| 1 | `Unknown_6D0A20` | `app/client/fontmanager.h:43` | neutral (D10) |
+| 1 | `Unknown00` | `app/client/fontmanager.h:45` | neutral (D10) |
+| 1 | `Unknown08` | `app/client/fontmanager.h:47` | neutral (D10) |
+| 1 | `Unknown_6D1C10` | `app/client/fontmanager.h:56` | neutral (D10) |
+| 1 | `Unknown_6D2400` | `app/client/fontmanager.h:60` | neutral (D10) |
+| 1 | `Unknown_6D2480` | `app/client/fontmanager.h:61` | neutral (D10) |
+| 1 | `Unknown_6D2500` | `app/client/fontmanager.h:62` | neutral (D10) |
 | 1 | `Unknown08` | `app/client/gutter_data.h:26` | untagged neutral name (D10) |
 | 1 | `Unknown08` | `app/client/navigation_data.h:26` | untagged neutral name (D10) |
 | 1 | `Unknown08` | `app/client/radar_data.h:26` | untagged neutral name (D10) |
@@ -1431,20 +1452,20 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_Create_Packet` | `app/packets/pk.h:127` | what it does |
 | 1 | `Unknown_869790` | `app/packets/pk.h:130` | neutral (D10) |
 | 1 | `pk_classes.h` | `app/packets/pk_classes.h:17` | provisional file name (D37) |
-| 1 | `Unknown0C` | `app/packets/pk_classes.h:139` | untagged neutral name (D10) |
-| 1 | `Packet_0015Class` | `app/packets/pk_classes.h:167` | neutral (D10): opcode 0x0015 |
-| 1 | `Unknown_2C` | `app/packets/pk_classes.h:174` | untagged neutral name (D10) |
-| 1 | `Packet_0016Class` | `app/packets/pk_classes.h:180` | neutral (D10): opcode 0x0016 |
-| 1 | `Unknown14` | `app/packets/pk_classes.h:187` | untagged neutral name (D10) |
-| 1 | `Address` | `app/packets/pk_classes.h:246` | handed to Redirect (tsk_game.cpp 0x766FC0) |
-| 1 | `Port` | `app/packets/pk_classes.h:247` | handed to Redirect (tsk_game.cpp 0x766FC0) |
-| 1 | `Error` | `app/packets/pk_classes.h:293` | the log 'GlobalErrorPacketClass recv: %d : %d : %s' (tsk_login.cpp) |
-| 1 | `std:` | `app/packets/pk_classes.h:294` | the same log |
-| 1 | `Packet_0048Class` | `app/packets/pk_classes.h:307` | neutral (D10): opcode 0x0048 |
-| 1 | `Unknown_28` | `app/packets/pk_classes.h:312` | neutral (D10) |
-| 1 | `Packet_00B5Class` | `app/packets/pk_classes.h:349` | neutral (D10): opcode 0x00B5 |
-| 1 | `Packet_00B6Class` | `app/packets/pk_classes.h:358` | neutral (D10): opcode 0x00B6 |
-| 1 | `Packet_0077Class` | `app/packets/pk_classes.h:367` | neutral (D10): opcode 0x0077 |
+| 1 | `Unknown0C` | `app/packets/pk_classes.h:140` | untagged neutral name (D10) |
+| 1 | `Packet_0015Class` | `app/packets/pk_classes.h:168` | neutral (D10): opcode 0x0015 |
+| 1 | `Unknown_2C` | `app/packets/pk_classes.h:175` | untagged neutral name (D10) |
+| 1 | `Packet_0016Class` | `app/packets/pk_classes.h:181` | neutral (D10): opcode 0x0016 |
+| 1 | `Unknown14` | `app/packets/pk_classes.h:188` | untagged neutral name (D10) |
+| 1 | `Address` | `app/packets/pk_classes.h:247` | handed to Redirect (tsk_game.cpp 0x766FC0) |
+| 1 | `Port` | `app/packets/pk_classes.h:248` | handed to Redirect (tsk_game.cpp 0x766FC0) |
+| 1 | `Error` | `app/packets/pk_classes.h:294` | the log 'GlobalErrorPacketClass recv: %d : %d : %s' (tsk_login.cpp) |
+| 1 | `std:` | `app/packets/pk_classes.h:295` | the same log |
+| 1 | `Packet_0048Class` | `app/packets/pk_classes.h:308` | neutral (D10): opcode 0x0048 |
+| 1 | `Unknown_28` | `app/packets/pk_classes.h:313` | neutral (D10) |
+| 1 | `Packet_00B5Class` | `app/packets/pk_classes.h:342` | neutral (D10): opcode 0x00B5 |
+| 1 | `Packet_00B6Class` | `app/packets/pk_classes.h:351` | neutral (D10): opcode 0x00B6 |
+| 1 | `Packet_0077Class` | `app/packets/pk_classes.h:360` | neutral (D10): opcode 0x0077 |
 | 1 | `Unknown_14` | `app/packets/pk_player_object_relationship.cpp:12` | untagged neutral name (D10) |
 | 1 | `std:` | `app/packets/pk_player_object_relationship.cpp:85` | neutral (D10) |
 | 1 | `Unknown_8743C0` | `app/packets/pk_player_object_relationship.cpp:85` | untagged neutral name (D10) |
@@ -1673,6 +1694,43 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown30` | `app/packets/pkjoblist.h:31` | untagged neutral name (D10) |
 | 1 | `Packet_00BBClass` | `app/packets/pklogoff.h:64` | neutral (D10): opcode 0x00BB |
 | 1 | `pkloothulkpermission` | `app/packets/pkloothulkpermission.h:16` | provisional, pk + its first named class's name |
+| 1 | `Unknown0C` | `app/packets/pkloungenpc.cpp:6` | untagged neutral name (D10) |
+| 1 | `Unknown10` | `app/packets/pkloungenpc.cpp:16` | untagged neutral name (D10) |
+| 1 | `Unknown00` | `app/packets/pkloungenpc.cpp:18` | untagged neutral name (D10) |
+| 1 | `Unknown04` | `app/packets/pkloungenpc.cpp:19` | untagged neutral name (D10) |
+| 1 | `Unknown08` | `app/packets/pkloungenpc.cpp:20` | untagged neutral name (D10) |
+| 1 | `Unknown20` | `app/packets/pkloungenpc.cpp:25` | untagged neutral name (D10) |
+| 1 | `Unknown30` | `app/packets/pkloungenpc.cpp:33` | untagged neutral name (D10) |
+| 1 | `LoungeNPCUnknown30Struct` | `app/packets/pkloungenpc.cpp:35` | untagged neutral name (D10) |
+| 1 | `Unknown_PacketDataClass` | `app/packets/pkloungenpc.cpp:48` | untagged neutral name (D10) |
+| 1 | `LoungeNPCUnknown10Struct` | `app/packets/pkloungenpc.cpp:102` | untagged neutral name (D10) |
+| 1 | `LoungeNPCUnknown20Struct` | `app/packets/pkloungenpc.cpp:107` | untagged neutral name (D10) |
+| 1 | `Add_Unknown10` | `app/packets/pkloungenpc.cpp:128` | untagged neutral name (D10) |
+| 1 | `Add_Unknown20` | `app/packets/pkloungenpc.cpp:133` | untagged neutral name (D10) |
+| 1 | `Add_Unknown30` | `app/packets/pkloungenpc.cpp:138` | untagged neutral name (D10) |
+| 1 | `pkloungenpc` | `app/packets/pkloungenpc.h:15` | provisional, pk + its first named class's name |
+| 1 | `LoungeNPCUnknown10Struct` | `app/packets/pkloungenpc.h:25` | neutral (D10): what it holds |
+| 1 | `Unknown00` | `app/packets/pkloungenpc.h:27` | neutral (D10) |
+| 1 | `Unknown04` | `app/packets/pkloungenpc.h:28` | neutral (D10) |
+| 1 | `Unknown08` | `app/packets/pkloungenpc.h:29` | neutral (D10) |
+| 1 | `Unknown0C` | `app/packets/pkloungenpc.h:30` | neutral (D10) |
+| 1 | `Unknown10` | `app/packets/pkloungenpc.h:31` | neutral (D10) |
+| 1 | `LoungeNPCUnknown20Struct` | `app/packets/pkloungenpc.h:35` | neutral (D10): what it holds |
+| 1 | `Unknown00` | `app/packets/pkloungenpc.h:37` | neutral (D10) |
+| 1 | `Unknown04` | `app/packets/pkloungenpc.h:38` | neutral (D10) |
+| 1 | `Unknown08` | `app/packets/pkloungenpc.h:39` | neutral (D10) |
+| 1 | `Unknown0C` | `app/packets/pkloungenpc.h:40` | neutral (D10) |
+| 1 | `LoungeNPCUnknown30Struct` | `app/packets/pkloungenpc.h:44` | neutral (D10): what it holds |
+| 1 | `Unknown00` | `app/packets/pkloungenpc.h:46` | neutral (D10) |
+| 1 | `Unknown04` | `app/packets/pkloungenpc.h:47` | neutral (D10) |
+| 1 | `Unknown08` | `app/packets/pkloungenpc.h:48` | neutral (D10) |
+| 1 | `Unknown0C` | `app/packets/pkloungenpc.h:49` | neutral (D10) |
+| 1 | `Unknown10` | `app/packets/pkloungenpc.h:50` | neutral (D10) |
+| 1 | `Add_Unknown10` | `app/packets/pkloungenpc.h:69` | neutral (D10) |
+| 1 | `Add_Unknown20` | `app/packets/pkloungenpc.h:70` | neutral (D10) |
+| 1 | `Add_Unknown30` | `app/packets/pkloungenpc.h:71` | neutral (D10) |
+| 1 | `Unknown20` | `app/packets/pkloungenpc.h:75` | untagged neutral name (D10) |
+| 1 | `Unknown30` | `app/packets/pkloungenpc.h:76` | untagged neutral name (D10) |
 | 1 | `pkmanufactureitemcatagorypacket` | `app/packets/pkmanufactureitemcatagorypacket.h:15` | provisional, pk + its first named class's name |
 | 1 | `Packet_007DClass` | `app/packets/pkmanufactureitemcatagorypacket.h:84` | neutral (D10): opcode 0x007D |
 | 1 | `Unknown_ChatStreamClass` | `app/packets/pkmessagechatstream.cpp:48` | untagged neutral name (D10) |
@@ -2918,6 +2976,16 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Load` | `app/client/fontdatabase.h:220` | what it does |
 | 2 | `Unload` | `app/client/fontdatabase.h:221` | what it does |
 | 2 | `std:` | `app/client/fontdatabase.h:223` | what it holds |
+| 2 | `ManagedFontClass` | `app/client/fontmanager.h:35` | what the manager holds per id (0x24 bytes; its +4 is the id) |
+| 2 | `Id` | `app/client/fontmanager.h:46` | what it holds |
+| 2 | `Remove_All` | `app/client/fontmanager.h:55` | describes what it does |
+| 2 | `Add` | `app/client/fontmanager.h:57` | describes what it does |
+| 2 | `Add` | `app/client/fontmanager.h:58` | describes what it does |
+| 2 | `Remove` | `app/client/fontmanager.h:59` | describes what it does |
+| 2 | `Add` | `app/client/fontmanager.h:63` | describes what it does |
+| 2 | `Find` | `app/client/fontmanager.h:64` | describes what it does |
+| 2 | `std:` | `app/client/fontmanager.h:66` | what it holds |
+| 2 | `DebugFont` | `app/client/fontmanager.h:67` | what it holds |
 | 2 | `Unknown_Load_Assets` | `app/client/sclient.cpp:36` | 0x729BF0 (client_lego_impl.cpp), 'cbasset.ini' (as tsk_smovie.cpp) |
 | 2 | `Unknown_Free_Assets` | `app/client/sclient.cpp:37` | 0x729D60 (client_lego_impl.cpp) (as tsk_smovie.cpp) |
 | 2 | `Unknown_Main_Window` | `app/client/sclient.cpp:39` | what Pump_Messages redraws |
@@ -3306,22 +3374,22 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Connection` | `app/packets/pk.h:120` | what it holds |
 | 2 | `Serial` | `app/packets/pk.h:121` | what it holds |
 | 2 | `Next_Serial` | `app/packets/pk.h:122` | what it holds |
-| 2 | `LoginPacketClass` | `app/packets/pk_classes.h:134` | the reference decoder's opcode name LOGIN (the Net-7 opcode table; no structure check) |
-| 2 | `FormationPositionalUpdatePacketClass` | `app/packets/pk_classes.h:159` | the reference decoder's opcode name FORMATION_POSITIONAL_UPDATE (the Net-7 opcode table; no structure check) |
-| 2 | `Get_Type` | `app/packets/pk_classes.h:173` | what the derived classes' return (their opcode) |
-| 2 | `Get_Name` | `app/packets/pk_classes.h:175` | what the derived classes' return (a name) |
-| 2 | `Action2PacketClass` | `app/packets/pk_classes.h:221` | the reference decoder's opcode name ACTION2 (the Net-7 opcode table; no structure check) |
-| 2 | `MasterJoinPacketClass` | `app/packets/pk_classes.h:230` | the reference decoder's opcode name MASTER_JOIN (the Net-7 opcode table; no structure check) |
-| 2 | `ServerRedirectPacketClass` | `app/packets/pk_classes.h:239` | the reference decoder's opcode name SERVER_REDIRECT (the Net-7 opcode table; no structure check) |
-| 2 | `GlobalTicketPacketClass` | `app/packets/pk_classes.h:259` | the reference decoder's opcode name GLOBAL_TICKET (the Net-7 opcode table; no structure check) |
-| 2 | `GlobalAvatarListPacketClass` | `app/packets/pk_classes.h:268` | the reference decoder's opcode name GLOBAL_AVATAR_LIST (the Net-7 opcode table; no structure check) |
-| 2 | `GlobalCreateCharacterPacketClass` | `app/packets/pk_classes.h:277` | the reference decoder's opcode name GLOBAL_CREATE_CHARACTER (the Net-7 opcode table; no structure check) |
-| 2 | `GlobalErrorPacketClass` | `app/packets/pk_classes.h:286` | the reference decoder's opcode name GLOBAL_ERROR (the Net-7 opcode table; no structure check) |
-| 2 | `RecustomizeShipStartPacketClass` | `app/packets/pk_classes.h:377` | the reference decoder's opcode name RECUSTOMIZE_SHIP_START (the Net-7 opcode table; no structure check) |
-| 2 | `RecustomizeShipDonePacketClass` | `app/packets/pk_classes.h:385` | the reference decoder's opcode name RECUSTOMIZE_SHIP_DONE (the Net-7 opcode table; no structure check) |
-| 2 | `RecustomizeAvatarStartPacketClass` | `app/packets/pk_classes.h:394` | the reference decoder's opcode name RECUSTOMIZE_AVATAR_START (the Net-7 opcode table; no structure check) |
-| 2 | `RecustomizeAvatarDonePacketClass` | `app/packets/pk_classes.h:402` | the reference decoder's opcode name RECUSTOMIZE_AVATAR_DONE (the Net-7 opcode table; no structure check) |
-| 2 | `RecustomizeAvatarUpdatePacketClass` | `app/packets/pk_classes.h:411` | the reference decoder's opcode name RECUSTOMIZE_AVATAR_UPDATE (the Net-7 opcode table; no structure check) |
+| 2 | `LoginPacketClass` | `app/packets/pk_classes.h:135` | the reference decoder's opcode name LOGIN (the Net-7 opcode table; no structure check) |
+| 2 | `FormationPositionalUpdatePacketClass` | `app/packets/pk_classes.h:160` | the reference decoder's opcode name FORMATION_POSITIONAL_UPDATE (the Net-7 opcode table; no structure check) |
+| 2 | `Get_Type` | `app/packets/pk_classes.h:174` | what the derived classes' return (their opcode) |
+| 2 | `Get_Name` | `app/packets/pk_classes.h:176` | what the derived classes' return (a name) |
+| 2 | `Action2PacketClass` | `app/packets/pk_classes.h:222` | the reference decoder's opcode name ACTION2 (the Net-7 opcode table; no structure check) |
+| 2 | `MasterJoinPacketClass` | `app/packets/pk_classes.h:231` | the reference decoder's opcode name MASTER_JOIN (the Net-7 opcode table; no structure check) |
+| 2 | `ServerRedirectPacketClass` | `app/packets/pk_classes.h:240` | the reference decoder's opcode name SERVER_REDIRECT (the Net-7 opcode table; no structure check) |
+| 2 | `GlobalTicketPacketClass` | `app/packets/pk_classes.h:260` | the reference decoder's opcode name GLOBAL_TICKET (the Net-7 opcode table; no structure check) |
+| 2 | `GlobalAvatarListPacketClass` | `app/packets/pk_classes.h:269` | the reference decoder's opcode name GLOBAL_AVATAR_LIST (the Net-7 opcode table; no structure check) |
+| 2 | `GlobalCreateCharacterPacketClass` | `app/packets/pk_classes.h:278` | the reference decoder's opcode name GLOBAL_CREATE_CHARACTER (the Net-7 opcode table; no structure check) |
+| 2 | `GlobalErrorPacketClass` | `app/packets/pk_classes.h:287` | the reference decoder's opcode name GLOBAL_ERROR (the Net-7 opcode table; no structure check) |
+| 2 | `RecustomizeShipStartPacketClass` | `app/packets/pk_classes.h:370` | the reference decoder's opcode name RECUSTOMIZE_SHIP_START (the Net-7 opcode table; no structure check) |
+| 2 | `RecustomizeShipDonePacketClass` | `app/packets/pk_classes.h:378` | the reference decoder's opcode name RECUSTOMIZE_SHIP_DONE (the Net-7 opcode table; no structure check) |
+| 2 | `RecustomizeAvatarStartPacketClass` | `app/packets/pk_classes.h:387` | the reference decoder's opcode name RECUSTOMIZE_AVATAR_START (the Net-7 opcode table; no structure check) |
+| 2 | `RecustomizeAvatarDonePacketClass` | `app/packets/pk_classes.h:395` | the reference decoder's opcode name RECUSTOMIZE_AVATAR_DONE (the Net-7 opcode table; no structure check) |
+| 2 | `RecustomizeAvatarUpdatePacketClass` | `app/packets/pk_classes.h:404` | the reference decoder's opcode name RECUSTOMIZE_AVATAR_UPDATE (the Net-7 opcode table; no structure check) |
 | 2 | `std:` | `app/packets/pk_player_object_relationship.cpp:166` | what it holds |
 | 2 | `std:` | `app/packets/pk_player_object_relationship.cpp:167` | what it holds |
 | 2 | `std:` | `app/packets/pk_player_object_relationship.cpp:258` | what it holds |
@@ -3415,6 +3483,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Count` | `app/packets/pkjoblist.h:48` | the number of jobs |
 | 2 | `std:` | `app/packets/pkjoblist.h:49` | what it holds |
 | 2 | `pklogoff.h` | `app/packets/pklogoff.h:15` | the file's name assumed from its classes and its place in the link order |
+| 2 | `std:` | `app/packets/pkloungenpc.h:51` | what it holds |
+| 2 | `Length` | `app/packets/pkloungenpc.h:52` | what it holds |
+| 2 | `Desc` | `app/packets/pkloungenpc.h:53` | what it holds |
+| 2 | `LoungeNPCPacketClass` | `app/packets/pkloungenpc.h:57` | the reference decoder's opcode name LOUNGE_NPC (the Net-7 opcode table), the client's Print text 'LoungeNPC' |
 | 2 | `Manufacturing_Mode_Name` | `app/packets/pkmanufactureitemcatagorypacket.h:21` | what it does |
 | 2 | `ManufactureItemCatagoryPacketClass` | `app/packets/pkmanufactureitemcatagorypacket.h:24` | the reference decoder's opcode name MANUFACTURE_ITEM_CATAGORY (the Net-7 opcode table; no structure check) |
 | 2 | `ManufactureItemCatagoryPacket_122Class` | `app/packets/pkmanufactureitemcatagorypacket.h:39` | the reference decoder's opcode name MANUFACTURE_ITEM_CATAGORY (the Net-7 opcode table; no structure check); opcode added (another opcode's class has the name) |
@@ -4426,6 +4498,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `emote_data.h` | `app/client/emote_data.h:16` | header name assumed from the client's emote_data.cpp |
 | 3 | `fontdatabase.h` | `app/client/fontdatabase.h:19` | header name assumed from the client's fontdatabase.cpp |
 | 3 | `FontDatabaseClass` | `app/client/fontdatabase.h:150` | by convention (D24) from the client's fontdatabase.cpp |
+| 3 | `fontmanager.h` | `app/client/fontmanager.h:17` | header name assumed from the client's fontmanager.cpp |
+| 3 | `FontManagerClass` | `app/client/fontmanager.h:50` | by convention (D24) from the client's fontmanager.cpp |
 | 3 | `gutter_data.h` | `app/client/gutter_data.h:16` | header name assumed from the client's gutter_data.cpp |
 | 3 | `navigation_data.h` | `app/client/navigation_data.h:16` | header name assumed from the client's navigation_data.cpp |
 | 3 | `radar_data.h` | `app/client/radar_data.h:16` | header name assumed from the client's radar_data.cpp |
