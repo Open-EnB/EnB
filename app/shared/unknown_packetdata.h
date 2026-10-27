@@ -16,6 +16,8 @@
 #ifndef UNKNOWN_PACKETDATA_H  // NAME 1 [unknown_packetdata.h]: neutral file name (D10)
 #define UNKNOWN_PACKETDATA_H
 
+#ifdef UNKNOWN_PACKETDATA_BODIES	// the key/value adds' bodies: unknown_login_data.cpp only (kerneltest's stand-ins
+								// and tsk_login.cpp see the declaration; the KV headers pulled app.lib objects into kerneltest)
 #include "kv_encoder_base.h"
 #include "strconv_lib.h"
 
@@ -28,9 +30,6 @@ bool String_To_Value(const char *text, __int64 *value);					// 0x4A3AB0
 inline const char *Type_Name(long *) { return "long"; }					// 0x8C1190
 inline const char *Type_Name(__int64 *) { return "quad"; }				// 0x8C0F70
 
-class LinearBufferClass;
-class Vector3;
-
 // A pair's accessor over a member (the character slot's: vtables 0xB0C594 quad, 0xB0C5CC long)
 template<class T> class KVPointerAccessorClass : public KVAccessorClass<T>	// NAME 2: what it does
 {
@@ -42,6 +41,11 @@ public:
 
 	T *Value;
 };
+#endif
+
+class LinearBufferClass;
+class Vector3;
+
 
 // The interface vtable 0xAEB9EC (three pure slots): pk.h's Unknown_PacketDataClass with its third slot
 class LoginPacketDataClass	// NAME 1: neutral (D10)
@@ -65,6 +69,7 @@ public:
 	template<class T> void Add_Typed(int mask, const char *name, T *value);	// the other typed adds (shipcust_desc.cpp: 0x4F6A80, 0x4F6BB0, 0x4F6CE0, the bool one)
 	// The adds the character slot's module instantiates (0x8C0C40 quad, 0x8C0D80 long): a pair over a
 	// pointer accessor, kept when the mask has either bit class
+#ifdef UNKNOWN_PACKETDATA_BODIES
 	template<class T> void Add_Pointer(int mask, const char *name, T *value)	// NAME 2: what it does
 	{
 		KVEncoderBaseClass *encoder = (KVEncoderBaseClass *)this;
@@ -75,6 +80,9 @@ public:
 			encoder->List->Add(new KVPairTemplateClass<T>(encoder->Make_Key(name), new KVPointerAccessorClass<T>(value), even, odd));
 		}
 	}
+#else
+	template<class T> void Add_Pointer(int mask, const char *name, T *value);
+#endif
 	virtual ~LoginKVVisitorClass();									// +0x00 (the encoder's virtuals: delta.h's DeltaChildVisitorClass)
 	virtual void Add_Child(int mask, const char *name, void *child);	// +0x04 a key/value object under the name  // NAME 2: what it does
 	virtual void Unknown_08();
