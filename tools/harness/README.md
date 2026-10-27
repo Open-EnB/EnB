@@ -433,6 +433,40 @@ another removed from inside a Run is deleted at once, Shutdown asks the focused 
 then shuts down and deletes every task, and the asserts fire on their lines (157: added twice; 74:
 a second kernel). 2026-10-24: 35 of 35 expected lines in order.
 
+## The client base, SClient and the packet handlers (D94(c), kernel-map step 9d)
+
+```
+ENB_VC6_HOSTS=Daniel@<ip> python tools/harness/clienttest.py build [--out DIR]
+python tools/harness/clienttest.py run [--name alex3] [--session ffff9b25] [--count 1000] [--update]
+```
+
+tests/capharness/clienttest links app\client's client.cpp, sclient.cpp and cpacket.cpp, connect.cpp, dbgconn.cpp,
+circbuff.cpp, pk.cpp and every rebuilt packet file (one object per app file, so two files' statics never meet)
+with logging stand-ins: `client_stubs.cpp` by hand (SClient's members the handlers call, co.cpp's object,
+eff_o.cpp's effect, rs_track, sound_manager, shiputils, verbmanager, every SOptionsClass member SClient reaches:
+its constructor 0x75A280 reads the registry and never runs, D69), `transport_stubs.cpp` (TCP, UDP, the composite
+listener: exit 3 if reached) and two files `gen_stubs.py` writes into the stage: `pk_stubs.cpp` (udpreplay's
+pk_ctor_stubs.cpp without the Process_Packet lines cpacket.cpp defines, P-T8-1; pkclasses.py is not touched) and
+`clienttest_tables.cpp` (the factory's opcodes, names and classes; a handler is driven when cpacket.cpp defines it
+and the class's raw constructor is rebuilt). `build` links twice when the first link leaves symbols unresolved:
+`gen_stubs.py --link` writes `link_stubs.cpp`, a stand-in per unresolved symbol from its demangled name (Init's,
+Shutdown's and Load_INIs' callees: about 80; a call to one shows as `gen NAME` in the trace; what it can't write,
+a class by value, goes in client_stubs.cpp by hand). The SClient is made with its own constructor (the base's
+included); its views are fakes with the client's slot layout (main view +0x80 / +0x84, loading view +0x0C, +0x68).
+
+`run` writes the first COUNT server-to-client messages of SESSION from the reference decoder's NAME.trace.jsonl (udpreplay's
+reference) to `.work/harness/clienttest/`, runs the program there and compares its trace with
+`tests/capharness/clienttest/expected.txt` line for line (the first run, or `--update`, writes it; only a run
+whose checks all pass). The tests: (1) the object, effect and record lists keyed by game id (ids 257 apart share
+wwlib's bucket; Add / Find / Remove through SClient's overrides and the main view's notifications, the name
+lookup, the ship); (2) the DEBUG setters before and after the redirect (Open_Connection 0x727F00 through
+connect.cpp's factory, MEMORY protocol, to the harness's memory connection), each DEBUG message parsed back by
+the factory and printed with the class's Print; (3) SClient::Process_Packets over that connection: an opcode
+cpacket.cpp handles goes through the factory and the real handler, the rest become one recording test packet
+(counted per opcode); a CREATE also adds a client object with its game id. 2026-10-27, alex3 ffff9b25's first
+1,000 messages: 36 of 36 checks, 21 messages through 9 handlers (ACTIVATE_RENDER_STATE, SUBPARTS, CLIENT_SHIP,
+DECAL, MESSAGE_STRING, CLIENT_SOUND, REMOVE_EFFECT, SET_TARGET, REMOVE), 979 recorded, 366 trace lines.
+
 ## Other harness programs (index)
 
 Each script has its usage in its docstring; `python tools/harness/X.py --help` where it has argparse.
@@ -448,6 +482,7 @@ Each script has its usage in its docstring; `python tools/harness/X.py --help` w
 | `n7aux.py` | AUX_DATA of Net-7 recordings through auxreplay (M1.5, above) | the reference decoder, sessions |
 | `udpreplay.py` | EA-UDP transport, handshake, loop, connection layer (M1.4, above) | `.dgram` files, pool VM |
 | `kerneltest.py` | `tests/capharness/kerneltest` (task kernel, scripted tasks, 35 expected trace lines); `build` then `run`. `taskstest.cpp` beside it has no script of its own | pool VM |
+| `clienttest.py` | `tests/capharness/clienttest` (ClientClass's lists, the DEBUG setters and the redirect, SClient::Process_Packets through cpacket.cpp's handlers on a capture's messages; trace against `expected.txt`); `build` then `run` | pool VM, the reference decoder's trace.jsonl |
 | `movietest.py` | `tests/capharness/movietest`: the movie task plays a Bink movie (kernel-map step 7); `build` stages Renegade's BinkMovie source from `roots.EA_ROOT`, `run` copies `binkw32.dll` and the movie from the retail install (read only) and runs in `.work/harness/movietest` | retail install, pool VM |
 | `run_vidtest.py`, `vidtest_sbs.py`, `run_reference.py`, `drawdump.py`, `symbolize.py`, `bmp2png.py`, `d3d8shot.c` | vidtest (above) | |
 | `vidtest_e2e.py` | starts vidtest as E&BConfig does (its command line, `CreateProcessA` with a relative name, E&BConfig's working directory = a copy of EBCONFIG at `build/programs/vidtest/e2e_ebconfig`, never the install) and reads `results.ini` as E&BConfig does; `--original` runs the retail VIDTEST (which has no `-nomsgbox`; ours gets it appended) | built vidtest, retail EBCONFIG folder to copy |

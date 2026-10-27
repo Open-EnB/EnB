@@ -1,0 +1,366 @@
+== SClient (its constructor, the base's)
+stub Unknown763E00Class::Unknown763E00Class
+stub PxClass::PxClass
+stub PxProcessClass::PxProcessClass
+stub Unknown831340Class::Unknown831340Class 'Null Item'
+stub SOptionsClass::SOptionsClass (0x75A280, registry: not run)
+gen Unknown764FD0Class::Unknown764FD0Class
+gen Unknown619280Class::Unknown619280Class
+gen Unknown619280Class::Unknown619280Class
+check SClient's slot +0x18 returns the client: ok
+== (1) the lists
+mainview add 5
+mainview add 262
+mainview add 519
+mainview add 6
+mainview add 1000
+check objects changed after Add_Object: ok
+check Get_Objects_Changed clears the flag: ok
+check Find_Object finds each of 5, 262, 519, 6, 1000 (5 / 262 / 519 share a bucket): ok
+check Find_Object 776 (same bucket, not added): NULL: ok
+check Find_Object by name 'obj6': ok
+check Find_Object by name 'obj7': NULL: ok
+mainview remove 262
+check Remove_Object 262 (the bucket's middle): ok
+check objects changed after Remove_Object: ok
+check 262 gone, 5 and 519 still found: ok
+check Remove_Object 262 again: NULL, no notification: ok
+check a failed Remove_Object leaves the flag: ok
+mainview remove 519
+mainview remove 5
+check Remove_Object 519, then 5: ok
+check 6 and 1000 untouched: ok
+mainview add 262
+check 262 added back, found: ok
+check Set_Ship_ID 1000: Get_Ship is object 1000: ok
+check Set_Ship_ID 4 returns 1000; no object 4: ok
+stub ClientObjectClass::Unknown_6FFF50 1000
+check Unknown_728370 asks the ship's 0x6FFF50: ok
+stub EffectObjectClass::Unknown_6E74B0 40 1
+stub EffectObjectClass::Unknown_6E6ED0 40 2
+stub EffectObjectClass::Unknown_6E74B0 40 3
+stub EffectObjectClass::Unknown_6E6ED0 40 4
+stub EffectObjectClass::Unknown_6E74B0 297 5
+stub EffectObjectClass::Unknown_6E6ED0 297 6
+check Get_Effect 297: ok
+check Find_Effect 40 finds one of the two: ok
+check Remove_Effects 40 takes both, returns the last: ok
+check 297 left: ok
+check Remove_Effects 41: NULL: ok
+stub EffectObjectClass::~EffectObjectClass 40
+stub EffectObjectClass::~EffectObjectClass 40
+== (2) DEBUG and the redirect
+stub SClient::Print 0x17 'Debug mode turned ON.'
+check Set_Debug_Mode true before the redirect (the do-nothing connection): ok
+step: connecting to 127.0.0.1 on port 7000
+memconn is_listening 7000
+memconn connect 7000
+step end: done
+check the redirect opened the memory connection: ok
+sent DEBUG (26) size 16: e80300002100000000000000
+check Set_Debug_Object 1000 returns the old id 0: ok
+  parsed back: Debug {GameID=1000 Command=Snoop UserData=0}
+check Set_Debug_Object sends DEBUG {1000, 0x21, 0}: ok
+check Get_Debug_Object is object 1000: ok
+sent DEBUG (26) size 16: e80300001e00000000000000
+stub SClient::Print 0x17 'Debug mode turned OFF.'
+  parsed back: Debug {GameID=1000 Command=Toggle_invulnerability,Buff_skills UserData=0}
+check Set_Debug_Mode false sends DEBUG {1000, 0x1E, 0}: ok
+stub SClient::Print 0x17 'Debug mode turned OFF.'
+check Set_Debug_Mode false again sends nothing: ok
+sent DEBUG (26) size 16: e80300001e00000001000000
+stub SClient::Print 0x17 'Debug mode turned ON.'
+check Toggle_Debug_Mode returns true: ok
+  parsed back: Debug {GameID=1000 Command=Toggle_invulnerability,Buff_skills UserData=1}
+check Toggle_Debug_Mode sends DEBUG {1000, 0x1E, 1}: ok
+sent DEBUG (26) size 16: 060000002100000001000000
+check Set_Debug_Object 6 returns 1000: ok
+  parsed back: Debug {GameID=6 Command=Snoop UserData=1}
+check with +0x11 set, DEBUG {6, 0x21, 1}: ok
+check four DEBUG messages over the memory connection: ok
+== (3) Process_Packets
+messages 1000
+stub TaskClass::Is_Focused -> 1
+loadingview 0C 1
+mainview add 38884
+mainview add 38687
+mainview add 38946
+mainview add 38705
+mainview add 39074
+mainview add 38899
+mainview add 38921
+mainview add 38881
+mainview add 38943
+mainview add 38702
+mainview add 38963
+mainview add 38914
+mainview add 38918
+mainview add 38896
+mainview add 38940
+mainview add 38699
+mainview add 38684
+mainview add 38722
+mainview add 38958
+mainview add 38640
+mainview add 38911
+mainview add 38915
+mainview add 38893
+mainview add 38938
+mainview add 38697
+mainview add 38681
+mainview add 38719
+mainview add 38955
+mainview add 38873
+mainview add 38908
+mainview add 38935
+mainview add 38673
+mainview add 38694
+mainview add 38650
+mainview add 38962
+msg 236 ACTIVATE_RENDER_STATE (48) size 12: cpacket.cpp's handler
+msg 237 ACTIVATE_RENDER_STATE (48) size 12: cpacket.cpp's handler
+mainview add 38678
+mainview add 38716
+mainview add 38952
+mainview add 38870
+mainview add 38905
+mainview add 38932
+mainview add 48900994
+msg 269 SUBPARTS (180) size 58: cpacket.cpp's handler
+stub ClientObjectClass::Unknown_6FEF70 48900994
+msg 271 CLIENT_SHIP (71) size 8: cpacket.cpp's handler
+state ship id 48900994
+msg 274 DECAL (16) size 58: cpacket.cpp's handler
+stub ClientObjectClass::Unknown_6F3BC0 48900994 -> 0
+mainview add 38888
+mainview add 38691
+mainview add 38950
+mainview add 38675
+mainview add 38709
+mainview add 38929
+mainview add 38925
+mainview add 38885
+mainview add 38688
+mainview add 38947
+mainview add 38865
+mainview add 38706
+mainview add 38922
+mainview add 38900
+mainview add 38882
+mainview add 38944
+mainview add 38961
+msg 344 ACTIVATE_RENDER_STATE (48) size 12: cpacket.cpp's handler
+mainview add 38703
+mainview add 38964
+mainview add 38919
+mainview add 38897
+mainview add 38879
+mainview add 38941
+mainview add 48887635
+msg 375 SUBPARTS (180) size 58: cpacket.cpp's handler
+stub ClientObjectClass::Unknown_6FEF70 48887635
+msg 377 DECAL (16) size 58: cpacket.cpp's handler
+stub ClientObjectClass::Unknown_6F3BC0 48887635 -> 0
+mainview add 38700
+mainview add 38685
+mainview add 38959
+mainview add 38877
+mainview add 38916
+mainview add 38894
+mainview add 38912
+mainview add 38698
+mainview add 38856
+mainview add 38682
+mainview add 38720
+mainview add 38956
+mainview add 38909
+mainview add 38891
+mainview add 38936
+mainview add 38674
+mainview add 38695
+mainview add 38968
+mainview add 38651
+mainview add 38679
+mainview add 38717
+mainview add 38953
+mainview add 38871
+mainview add 38906
+mainview add 38933
+mainview add 38889
+mainview add 38692
+mainview add 38676
+mainview add 38714
+mainview add 38970
+mainview add 38710
+mainview add 38868
+mainview add 38969
+mainview add 38903
+mainview add 38930
+mainview add 38926
+mainview add 38886
+mainview add 38689
+mainview add 38948
+mainview add 38866
+mainview add 38711
+mainview add 38707
+mainview add 38965
+mainview add 38923
+mainview add 38901
+mainview add 38927
+mainview add 38883
+mainview add 38945
+mainview add 38704
+mainview add 38920
+mainview add 38898
+mainview add 38880
+mainview add 38942
+mainview add 38701
+mainview add 38686
+mainview add 38960
+mainview add 38878
+mainview add 38917
+mainview add 38895
+mainview add 38913
+mainview add 38939
+mainview add 38683
+mainview add 38721
+mainview add 38957
+mainview add 38875
+mainview add 38910
+mainview add 38892
+mainview add 38937
+mainview add 38696
+mainview add 38680
+mainview add 38954
+mainview add 38718
+mainview add 38907
+mainview add 38934
+mainview add 38890
+mainview add 38693
+mainview add 38649
+mainview add 38677
+mainview add 38715
+mainview add 38951
+mainview add 38869
+mainview add 38904
+mainview add 38931
+mainview add 38887
+mainview add 38690
+mainview add 38949
+mainview add 38708
+mainview add 38712
+mainview add 38924
+mainview add 38902
+mainview add 38928
+msg 754 MESSAGE_STRING (29) size 58: cpacket.cpp's handler
+stub SClient::Unknown_74D990 0x0 'We have entered Glory's Orbit (Beta Hydri System).' 0
+msg 760 CLIENT_SOUND (106) size 30: cpacket.cpp's handler
+stub SoundManagerClass::Unknown_75B0D0 'Device_Installed' 0
+msg 771 REMOVE_EFFECT (15) size 8: cpacket.cpp's handler
+msg 773 MESSAGE_STRING (29) size 53: cpacket.cpp's handler
+stub SClient::Unknown_74D990 0x0 'Pehuo bestows a lesser psionic shield on you.' 0
+msg 774 MESSAGE_STRING (29) size 44: cpacket.cpp's handler
+stub SClient::Unknown_74D990 0x0 'You steel yourself against psionics.' 0
+msg 775 MESSAGE_STRING (29) size 36: cpacket.cpp's handler
+stub SClient::Unknown_74D990 0x0 'Your hull takes less damage.' 0
+msg 776 MESSAGE_STRING (29) size 46: cpacket.cpp's handler
+stub SClient::Unknown_74D990 0x0 'Your shield begins to recharge faster.' 0
+msg 777 MESSAGE_STRING (29) size 34: cpacket.cpp's handler
+stub SClient::Unknown_74D990 0x0 'Sai'li's Circle installed.' 0
+msg 783 SET_TARGET (25) size 12: cpacket.cpp's handler
+mainview add 38852
+mainview add 38874
+mainview add 38863
+mainview add 38855
+mainview add 38839
+mainview add 38867
+mainview add 41213
+mainview add 38859
+mainview add 38864
+mainview add 38857
+msg 840 REMOVE (7) size 8: cpacket.cpp's handler
+stub SClient::Unknown_744B60 -> 0
+stub SClient::Unknown_74C530 38957
+mainview remove 38957
+stub ClientObjectClass::Unknown_08 38957
+stub ClientObjectClass::~ClientObjectClass 38957
+mainview add 38861
+mainview add 38876
+mainview add 43912
+mainview add 38844
+mainview add 38854
+mainview add 38872
+mainview add 38853
+mainview add 38860
+mainview add 38858
+mainview add 38850
+mainview add 38840
+mainview add 38848
+mainview add 38831
+msg 900 REMOVE (7) size 8: cpacket.cpp's handler
+stub SClient::Unknown_744B60 -> 0
+stub SClient::Unknown_74C530 39074
+mainview remove 39074
+stub ClientObjectClass::Unknown_08 39074
+stub ClientObjectClass::~ClientObjectClass 39074
+mainview add 38851
+mainview add 38862
+mainview add 38846
+mainview add 38845
+mainview add 38847
+mainview add 38835
+mainview add 38830
+mainview add 38843
+mainview add 38829
+mainview add 38957
+mainview add 38838
+mainview add 38827
+msg 954 REMOVE (7) size 8: cpacket.cpp's handler
+stub SClient::Unknown_744B60 -> 0
+stub SClient::Unknown_74C530 41213
+mainview remove 41213
+stub ClientObjectClass::Unknown_08 41213
+stub ClientObjectClass::~ClientObjectClass 41213
+mainview add 38841
+mainview add 38849
+mainview add 38832
+mainview add 38836
+mainview add 38824
+msg 978 REMOVE (7) size 8: cpacket.cpp's handler
+stub SClient::Unknown_744B60 -> 0
+stub SClient::Unknown_74C530 43912
+mainview remove 43912
+stub ClientObjectClass::Unknown_08 43912
+stub ClientObjectClass::~ClientObjectClass 43912
+mainview add 38826
+mainview add 38842
+mainview add 38825
+mainview add 38834
+mainview add 38816
+check every message taken off the connection: ok
+recorded CREATE (4) x202
+recorded START (5) x1
+recorded SIMPLE_POSITIONAL_UDPATE (8) x1
+recorded OBJECT_EFFECT (9) x10
+recorded OBJECT_TO_OBJECT_EFFECT (11) x1
+recorded COLORIZATION (17) x2
+recorded AUX_DATA (27) x213
+recorded ? (33) x2
+recorded ITEM_BASE (37) x89
+recorded CLIENT_SET_TIME (52) x3
+recorded CLIENT_AVATAR (55) x1
+recorded CLIENT_TYPE (60) x1
+recorded ADVANCED_POSITIONAL_UPDATE (62) x31
+recorded PLANET_POSITIONAL_UPDATE (63) x1
+recorded CONSTANT_POSITIONAL_UPDATE (64) x195
+recorded SERVER_PARAMETERS (66) x1
+recorded AVATAR_DESCRIPTION (97) x2
+recorded RELATIONSHIP (137) x202
+recorded CAMERA_CONTROL (146) x1
+recorded GALAXY_MAP (151) x2
+recorded NAVIGATION (153) x11
+recorded WARP_INDEX (156) x1
+recorded CLIENT_CHAT_EVENT (165) x4
+recorded NAME_DECAL (178) x2
+recorded 979, through cpacket.cpp's handlers 21
+== done: 0 checks failed

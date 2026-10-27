@@ -1,0 +1,508 @@
+// clienttest (D94(c), P-T7-1, P-T8-1): the client base (app\client\client.cpp), SClient (sclient.cpp) and
+// the packets' client-side handlers (cpacket.cpp) over a memory connection, with logging stand-ins for
+// what they call outside the rebuilt files (client_stubs.cpp). Writes one line per event to OUT;
+// tools/harness/clienttest.py compares the trace with tests/capharness/clienttest/expected.txt.
+//
+//     clienttest OUT.txt [MESSAGES.txt]
+//
+// (1) ClientClass's object, effect and record lists keyed by game id (wwlib's 257-bucket hash list):
+//     ids 257 apart share a bucket; Add / Find / Remove through SClient's overrides, which tell a fake
+//     main view; the name lookup; the ship.
+// (2) The DEBUG packet's setters (Set_Debug_Mode, Set_Debug_Object, Toggle_Debug_Mode) before and
+//     after the redirect (Open_Connection 0x727F00: connect.cpp's factory, MEMORY protocol, the memory
+//     connection below); each DEBUG message sent is parsed back by the factory and its fields checked.
+// (3) SClient::Process_Packets over the redirected connection loaded with MESSAGES (a capture's
+//     messages, one per line: opcode and payload hex; clienttest.py writes them from the reference decoder's
+//     alex3.trace.jsonl): opcodes whose handler cpacket.cpp defines go through the factory and the real
+//     handler, the rest become one recording test packet (counted per opcode); CREATE also adds a
+//     client object with its game id (the trace shows the main view's 'add'), so REMOVE and the object
+//     handlers find it.
+//
+// Never: a modal dialog (asserts and FAIL_IF go to the trace), the registry (SOptionsClass's
+// constructor is a stand-in), the network (the memory connection), the game's install folder.
+#include <windows.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdarg.h>
+#include <string.h>
+#include <string>
+#include <vector>
+#include <deque>
+#include <map>
+#include "clienttest.h"
+#include "..\..\..\app\client\sclient.h"
+#include "..\..\..\app\common\connect.h"
+#include "..\..\..\app\packets\pk.h"
+#include "..\..\..\app\packets\pkdebug.h"
+#include "..\..\..\app\packets\pkcreate.h"
+
+static FILE *Out;
+static int Lines = 0;
+static int Failures = 0;
+bool Stub_744B60 = false;
+bool Stub_Focused = false;
+
+void Trace(const char *format, ...)
+{
+	va_list va;
+	va_start(va, format);
+	vfprintf(Out, format, va);
+	va_end(va);
+	fputc('\n', Out);
+	fflush(Out);		// the trace survives a crash
+	Lines++;
+}
+
+static void Check(bool ok, const char *what)
+{
+	Trace("check %s: %s", what, ok ? "ok" : "FAIL");
+	if (!ok) {
+		Failures++;
+	}
+}
+
+// ------------------------------------------------------------------------- what the app files call, functional
+
+unsigned int Unknown_Get_Ticks() { return 0; }		// the aux-data clock (dbgconn.cpp's rate wrapper)
+
+// wwonline's 64-bit byte order pair (pk.cpp's Add / Get of an __int64), as udpreplay's conn_replay.cpp
+static unsigned __int64 Swap64(unsigned __int64 v)
+{
+	unsigned __int64 r = 0;
+	for (int i = 0; i < 8; i++) {
+		r = (r << 8) | ((v >> (8 * i)) & 0xFF);
+	}
+	return r;
+}
+unsigned __int64 Unknown_8B4510(unsigned __int64 value) { return Swap64(value); }
+unsigned __int64 Unknown_8B4560(unsigned __int64 value) { return Swap64(value); }
+
+// The packets whose raw constructor isn't rebuilt (pk_stubs.cpp, generated): the factory still makes
+// them; the harness never hands one to a handler (Opcode_Table's Handler 0 / 2 go to the recording packet)
+void Conn_Record(PacketClass *packet, RawPacketClass *)
+{
+	packet->Connection = 0;
+	packet->Serial = 0;
+}
+
+// ------------------------------------------------------------------------- the fakes
+
+// The main view (mainview.cpp, MainViewClass: 0x1EC bytes, slots +0x80 / +0x84 SClient's Add_Object /
+// Remove_Object call) and the loading view (+0x0C, the flag at +0x68): the views' constructors are not
+// rebuilt, so the harness gives SClient objects with the same slot layout (32 slots before +0x80).
+class FakeMainViewClass
+{
+public:
+	virtual ~FakeMainViewClass() {}
+	virtual void S04() {} virtual void S08() {} virtual void S0C() {} virtual void S10() {}
+	virtual void S14() {} virtual void S18() {} virtual void S1C() {} virtual void S20() {}
+	virtual void S24() {} virtual void S28() {} virtual void S2C() {} virtual void S30() {}
+	virtual void S34() {} virtual void S38() {} virtual void S3C() {} virtual void S40() {}
+	virtual void S44() {} virtual void S48() {} virtual void S4C() {} virtual void S50() {}
+	virtual void S54() {} virtual void S58() {} virtual void S5C() {} virtual void S60() {}
+	virtual void S64() {} virtual void S68() {} virtual void S6C() {} virtual void S70() {}
+	virtual void S74() {} virtual void S78() {} virtual void S7C() {}
+	virtual void Add_Object(ClientObjectClass *object) { Trace("mainview add %u", object->Get_Game_ID()); }			// +0x80
+	virtual void Remove_Object(ClientObjectClass *object) { Trace("mainview remove %u", object->Get_Game_ID()); }	// +0x84
+	char Unknown04[0x1EC - 0x04];
+};
+
+class FakeLoadingViewClass
+{
+public:
+	virtual ~FakeLoadingViewClass() {}
+	virtual void S04() {} virtual void S08() {}
+	virtual void Unknown_0C(bool on) { Trace("loadingview 0C %d", on); }	// +0x0C
+	virtual void S10() {}
+	char Unknown04[0x68 - 0x04];
+	bool Unknown68;		// +0x68
+};
+
+// A client object's model (co.cpp +0xAC): the render-state handlers ask its Class_ID. Every slot of the
+// fake's table returns 0 (no argument slot is called), so no model is an rs_track one (0x10001).
+static int Zero_Slot() { return 0; }
+struct FakeModelStruct
+{
+	void **Table;
+	char Unknown04[0x100];
+};
+static void *Zero_Table[256];
+static FakeModelStruct Fake_Model;
+
+static ClientObjectClass *New_Object(unsigned id)
+{
+	ClientObjectClass *object = new ClientObjectClass;
+	object->GameID = id;
+	object->Node.Set(object);		// co.cpp's constructor makes the node hold its object
+	object->Model = (RenderObjClass *)&Fake_Model;
+	return object;
+}
+
+static EffectObjectClass *New_Effect(unsigned id)
+{
+	EffectObjectClass *effect = new EffectObjectClass;
+	effect->ID = id;
+	effect->Node.Set(effect);		// eff_o.cpp's, likewise
+	return effect;
+}
+
+// ------------------------------------------------------------------------- the memory connection
+
+static const char *Opcode_Name(int opcode, int *handler)
+{
+	for (int i = 0; i < Opcode_Count; i++) {
+		if (Opcode_Table[i].Opcode == opcode) {
+			if (handler) *handler = Opcode_Table[i].Handler;
+			return Opcode_Table[i].Name;
+		}
+	}
+	if (handler) *handler = 0;
+	return "?";
+}
+
+// What the harness hands Process_Packets for an opcode it doesn't drive: counts and accepts it
+static std::map<int, int> Recorded;
+class RecordingPacketClass : public PacketClass
+{
+public:
+	RecordingPacketClass(int opcode, int size) : Opcode(opcode), Size(size) {}
+	virtual bool Process_Packet(void *) { Recorded[Opcode]++; return(true); }
+	virtual int Get_Data_Size() { return(Size); }
+	int Opcode;
+	int Size;
+};
+
+static std::vector<unsigned char> Message_Bytes(int opcode, const std::vector<unsigned char> &payload)
+{
+	std::vector<unsigned char> m(4 + payload.size());
+	*(short *)&m[0] = (short)m.size();
+	*(unsigned short *)&m[2] = (unsigned short)opcode;
+	if (!payload.empty()) {
+		memcpy(&m[4], &payload[0], payload.size());
+	}
+	return m;
+}
+
+// The redirect's connection (memconn.cpp's factory below hands it out): what is sent is kept as
+// messages; what is received comes from Incoming, one message per Receive.
+class MemoryConnectionClass : public ConnectionClass
+{
+public:
+	MemoryConnectionClass() : Received(0) {}
+	virtual ~MemoryConnectionClass() { Trace("memory connection deleted"); }
+	virtual bool Send_Message(RawPacketClass *raw)
+	{
+		std::vector<unsigned char> m(raw->Header.Size < 4 ? 4 : raw->Header.Size);
+		memcpy(&m[0], &raw->Header, 4);
+		if (m.size() > 4) {
+			memcpy(&m[4], raw->Data.Buffer, m.size() - 4);
+		}
+		std::string hex;
+		char b[4];
+		for (size_t i = 4; i < m.size(); i++) {
+			sprintf(b, "%02x", m[i]);
+			hex += b;
+		}
+		Trace("sent %s (%d) size %d: %s", Opcode_Name(*(unsigned short *)&m[2], 0), *(unsigned short *)&m[2], (int)*(short *)&m[0], hex.c_str());
+		Sent.push_back(m);
+		return(true);
+	}
+	virtual bool Send_Packet(PacketClass *packet)
+	{
+		RawPacketClass *raw = packet->Build();
+		if (raw == 0) {
+			Trace("sent: Build gave nothing");
+			return(false);
+		}
+		bool ok = Send_Message(raw);
+		delete raw;
+		return(ok);
+	}
+	virtual PacketClass *Receive()
+	{
+		if (Incoming.empty()) {
+			return(0);
+		}
+		std::vector<unsigned char> m = Incoming.front();
+		Incoming.pop_front();
+		Received++;
+		int opcode = *(unsigned short *)&m[2];
+		int handler;
+		const char *name = Opcode_Name(opcode, &handler);
+		PacketClass *packet;
+		if (handler == 1) {
+			Trace("msg %d %s (%d) size %d: cpacket.cpp's handler", Received, name, opcode, (int)m.size());
+			packet = Unknown_Create_Packet(&m[0]);
+			if (packet == 0) {
+				Trace("msg %d: the factory made nothing", Received);
+				Failures++;
+				packet = new RecordingPacketClass(opcode, (int)m.size() - 4);
+			}
+		} else {
+			if (opcode == 4) {
+				// CREATE: the object the client would make (co.cpp isn't rebuilt), with the message's game id
+				CreatePacketClass *create = (CreatePacketClass *)Unknown_Create_Packet(&m[0]);
+				if (create) {
+					Client->Add_Object(New_Object((unsigned)create->GameID));
+					delete create;
+				}
+			}
+			packet = new RecordingPacketClass(opcode, (int)m.size() - 4);
+		}
+		packet->Connection = this;
+		return(packet);
+	}
+	std::vector<std::vector<unsigned char> > Sent;
+	std::deque<std::vector<unsigned char> > Incoming;
+	int Received;
+	SClient *Client;
+};
+
+static MemoryConnectionClass *Memory = 0;
+static SClient *The_Client = 0;
+
+// memconn.cpp's factory (not rebuilt): one server listening, on the redirect's port
+class MemoryConnectionFactoryClass
+{
+public:
+	bool Is_Listening(unsigned short port);
+	ConnectionClass *Connect(unsigned short port);
+};
+bool MemoryConnectionFactoryClass::Is_Listening(unsigned short port)
+{
+	Trace("memconn is_listening %u", port);
+	return(port == 7000);
+}
+ConnectionClass *MemoryConnectionFactoryClass::Connect(unsigned short port)
+{
+	Trace("memconn connect %u", port);
+	Memory = new MemoryConnectionClass;
+	Memory->Client = The_Client;
+	return(Memory);
+}
+
+// ------------------------------------------------------------------------- (1) the lists
+
+static void Test_Lists(SClient *client)
+{
+	Trace("== (1) the lists");
+	const unsigned ids[] = { 5, 5 + 257, 5 + 514, 6, 1000 };
+	ClientObjectClass *objects[5];
+	for (int i = 0; i < 5; i++) {
+		objects[i] = New_Object(ids[i]);
+		client->Add_Object(objects[i]);
+	}
+	Check(client->Get_Objects_Changed(), "objects changed after Add_Object");
+	Check(!client->Get_Objects_Changed(), "Get_Objects_Changed clears the flag");
+	bool all = true;
+	for (int j = 0; j < 5; j++) {
+		all = all && client->Find_Object(ids[j]) == objects[j];
+	}
+	Check(all, "Find_Object finds each of 5, 262, 519, 6, 1000 (5 / 262 / 519 share a bucket)");
+	Check(client->Find_Object(5 + 3 * 257) == 0, "Find_Object 776 (same bucket, not added): NULL");
+	Check(client->Find_Object("obj6") == objects[3], "Find_Object by name 'obj6'");
+	Check(client->Find_Object("obj7") == 0, "Find_Object by name 'obj7': NULL");
+
+	Check(client->Remove_Object(262) == objects[1], "Remove_Object 262 (the bucket's middle)");
+	Check(client->Get_Objects_Changed(), "objects changed after Remove_Object");
+	Check(client->Find_Object(262) == 0 && client->Find_Object(5) == objects[0] && client->Find_Object(519) == objects[2],
+		"262 gone, 5 and 519 still found");
+	Check(client->Remove_Object(262) == 0, "Remove_Object 262 again: NULL, no notification");
+	Check(!client->Get_Objects_Changed(), "a failed Remove_Object leaves the flag");
+	Check(client->Remove_Object(519) == objects[2] && client->Remove_Object(5) == objects[0], "Remove_Object 519, then 5");
+	Check(client->Find_Object(6) == objects[3] && client->Find_Object(1000) == objects[4], "6 and 1000 untouched");
+	client->Add_Object(objects[1]);
+	Check(client->Find_Object(262) == objects[1], "262 added back, found");
+
+	Check(client->Set_Ship_ID(1000) == 0 && client->Get_Ship() == objects[4], "Set_Ship_ID 1000: Get_Ship is object 1000");
+	Check(client->Set_Ship_ID(4) == 1000 && client->Get_Ship() == 0, "Set_Ship_ID 4 returns 1000; no object 4");
+	client->Set_Ship_ID(1000);
+	Check(client->Unknown_728370() == 0, "Unknown_728370 asks the ship's 0x6FFF50");
+
+	EffectObjectClass *e1 = New_Effect(40);
+	EffectObjectClass *e2 = New_Effect(40);
+	EffectObjectClass *e3 = New_Effect(40 + 257);
+	client->Add_Effect(e1, 1, 2);
+	client->Add_Effect(e2, 3, 4);
+	client->Add_Effect(e3, 5, 6);
+	Check(client->Get_Effect(40 + 257) == e3, "Get_Effect 297");
+	Check(client->Find_Effect(40) == e1 || client->Find_Effect(40) == e2, "Find_Effect 40 finds one of the two");
+	EffectObjectClass *last = client->Remove_Effects(40);
+	Check((last == e1 || last == e2) && client->Get_Effect(40) == 0, "Remove_Effects 40 takes both, returns the last");
+	Check(client->Get_Effect(40 + 257) == e3, "297 left");
+	Check(client->Remove_Effects(41) == 0, "Remove_Effects 41: NULL");
+	delete e1;
+	delete e2;
+}
+
+// ------------------------------------------------------------------------- (2) DEBUG and the redirect
+
+static void Check_Debug(const char *what, int id, int idx, int user)
+{
+	if (Memory == 0 || Memory->Sent.empty()) {
+		Check(false, what);
+		return;
+	}
+	std::vector<unsigned char> m = Memory->Sent.back();
+	DebugPacketClass *packet = (DebugPacketClass *)Unknown_Create_Packet(&m[0]);
+	bool ok = packet != 0 && *(unsigned short *)&m[2] == 26 && packet->GameID == id && packet->DebugIdx == idx && packet->UserData == user;
+	if (packet) {
+		char text[256];
+		memset(text, 0, sizeof(text));
+		packet->Print(text, sizeof(text) - 1);
+		Trace("  parsed back: %s", text);
+	}
+	delete packet;
+	Check(ok, what);
+}
+
+static void Test_Debug(SClient *client)
+{
+	Trace("== (2) DEBUG and the redirect");
+	client->Set_Debug_Mode(true);
+	Check(client->DebugMode, "Set_Debug_Mode true before the redirect (the do-nothing connection)");
+	client->Open_Connection(0x7F000001, 7000);
+	Check(Memory != 0, "the redirect opened the memory connection");
+	if (Memory == 0) {
+		return;
+	}
+	size_t before = Memory->Sent.size();
+	Check(client->Set_Debug_Object(1000) == 0, "Set_Debug_Object 1000 returns the old id 0");
+	Check_Debug("Set_Debug_Object sends DEBUG {1000, 0x21, 0}", 1000, 0x21, 0);
+	Check(client->Get_Debug_Object() == client->Find_Object(1000), "Get_Debug_Object is object 1000");
+	client->Set_Debug_Mode(false);
+	Check_Debug("Set_Debug_Mode false sends DEBUG {1000, 0x1E, 0}", 1000, 0x1E, 0);
+	size_t n = Memory->Sent.size();
+	client->Set_Debug_Mode(false);
+	Check(Memory->Sent.size() == n, "Set_Debug_Mode false again sends nothing");
+	Check(client->Toggle_Debug_Mode(0), "Toggle_Debug_Mode returns true");
+	Check_Debug("Toggle_Debug_Mode sends DEBUG {1000, 0x1E, 1}", 1000, 0x1E, 1);
+	client->Unknown11 = true;
+	Check(client->Set_Debug_Object(6) == 1000, "Set_Debug_Object 6 returns 1000");
+	Check_Debug("with +0x11 set, DEBUG {6, 0x21, 1}", 6, 0x21, 1);
+	client->Unknown11 = false;
+	Check(Memory->Sent.size() - before == 4, "four DEBUG messages over the memory connection");
+}
+
+// ------------------------------------------------------------------------- (3) Process_Packets
+
+static bool Load_Messages(const char *path)
+{
+	FILE *f = fopen(path, "r");
+	if (f == 0) {
+		return false;
+	}
+	static char line[0x30000];
+	while (fgets(line, sizeof(line), f)) {
+		int opcode;
+		char *p = line;
+		if (sscanf(p, "%d", &opcode) != 1) {
+			continue;
+		}
+		while (*p && *p != ' ') p++;
+		while (*p == ' ') p++;
+		std::vector<unsigned char> payload;
+		while (p[0] && p[1] && p[0] != '\n' && p[0] != '\r') {
+			unsigned v;
+			char b[3] = { p[0], p[1], 0 };
+			sscanf(b, "%x", &v);
+			payload.push_back((unsigned char)v);
+			p += 2;
+		}
+		Memory->Incoming.push_back(Message_Bytes(opcode, payload));
+	}
+	fclose(f);
+	return true;
+}
+
+static void Test_Packets(SClient *client, const char *path)
+{
+	Trace("== (3) Process_Packets");
+	if (Memory == 0 || !Load_Messages(path)) {
+		Check(false, "messages loaded");
+		return;
+	}
+	int total = (int)Memory->Incoming.size();
+	Trace("messages %d", total);
+	FakeLoadingViewClass loading;
+	loading.Unknown68 = true;
+	client->LoadingView = (LoadingViewClass *)&loading;
+	// the first message with the task focused and the loading view up (Process_Packets tells it), then not
+	Stub_Focused = true;
+	if (!Memory->Incoming.empty()) {
+		std::vector<unsigned char> first = Memory->Incoming.front();
+		Memory->Incoming.pop_front();
+		std::deque<std::vector<unsigned char> > rest;
+		rest.swap(Memory->Incoming);
+		Memory->Incoming.push_back(first);
+		client->Process_Packets();
+		Memory->Incoming.swap(rest);
+	}
+	Stub_Focused = false;
+	unsigned ship = client->ShipID;
+	float zmin = client->Unknown10D4, zmax = client->Unknown10D8;
+	while (!Memory->Incoming.empty()) {
+		// one message per call, so that the state after each is traced
+		std::vector<unsigned char> next = Memory->Incoming.front();
+		Memory->Incoming.pop_front();
+		std::deque<std::vector<unsigned char> > rest;
+		rest.swap(Memory->Incoming);
+		Memory->Incoming.push_back(next);
+		client->Process_Packets();
+		Memory->Incoming.swap(rest);
+		if (client->ShipID != ship) {
+			ship = client->ShipID;
+			Trace("state ship id %u", ship);
+		}
+		if (client->Unknown10D4 != zmin || client->Unknown10D8 != zmax) {
+			zmin = client->Unknown10D4;
+			zmax = client->Unknown10D8;
+			Trace("state z band %g %g", zmin, zmax);
+		}
+	}
+	Check(Memory->Received == total, "every message taken off the connection");
+	int recorded = 0;
+	for (std::map<int, int>::iterator it = Recorded.begin(); it != Recorded.end(); it++) {
+		Trace("recorded %s (%d) x%d", Opcode_Name(it->first, 0), it->first, it->second);
+		recorded += it->second;
+	}
+	Trace("recorded %d, through cpacket.cpp's handlers %d", recorded, total - recorded);
+	client->LoadingView = 0;
+}
+
+// ------------------------------------------------------------------------- main
+
+int main(int argc, char **argv)
+{
+	if (argc < 2) {
+		printf("usage: clienttest OUT.txt [MESSAGES.txt]\n");
+		return 2;
+	}
+	SetErrorMode(SEM_FAILCRITICALERRORS | SEM_NOGPFAULTERRORBOX | SEM_NOOPENFILEERRORBOX);
+	Out = fopen(argv[1], "w");
+	if (Out == 0) {
+		return 2;
+	}
+	for (int i = 0; i < 256; i++) {
+		Zero_Table[i] = (void *)Zero_Slot;
+	}
+	Fake_Model.Table = Zero_Table;
+
+	Trace("== SClient (its constructor, the base's)");
+	SClient *client = new SClient(0);
+	The_Client = client;
+	FakeMainViewClass main_view;
+	client->MainView = (MainViewClass *)&main_view;
+	Check(client->Unknown_18() == (int)client, "SClient's slot +0x18 returns the client");
+
+	Test_Lists(client);
+	Test_Debug(client);
+	if (argc > 2) {
+		Test_Packets(client, argv[2]);
+	}
+	// the client isn't deleted: its destructor reaches control_keys_manager.cpp and WWAudio
+	Trace("== done: %d checks failed", Failures);
+	fclose(Out);
+	printf("clienttest: %d lines, %d checks failed\n", Lines + 1, Failures);
+	return Failures ? 1 : 0;
+}
