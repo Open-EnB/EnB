@@ -85,7 +85,8 @@ public:
 	virtual bool Read_Short(LinearBufferClass *buffer);	// +0x10 0x4F6620  // NAME 2: what it does
 	virtual int Get_Short_Size();						// +0x14 0x4F6730  // NAME 2: what it does
 	virtual void Unknown_00(void *visitor);				// second table +0x00 0x4F6750 (thunk 0x40AEE8)
-	ShipCustDescClass &operator=(const ShipCustDescClass &that);	// 0x55D8A0 (in ui_avsel.cpp's window)
+	// operator= is implicit (P-P7-1): 130's 0x8A0380 inlines it; its out-of-line copy 0x55D8A0 (in ui_avsel.cpp's
+	// window) and 129/130's constructors match only with Ship_Name a plain char[0x1A], which loses 0x767240
 	void Set_Race(int race);							// 0x4F6210  // NAME 2: what it does
 	void Reset_Parts();									// 0x4F6230: the race's default settings  // NAME 2: what it does
 	void Set_Profession(int profession);				// 0x4F62F0: with the race's hull and wing  // NAME 2: what it does
