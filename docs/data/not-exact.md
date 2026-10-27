@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-156 entries in 45 files.
+159 entries in 46 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -96,16 +96,17 @@ edit the comments in the code, not this file.
 | `app/shared/combo_ffactory.cpp:105` | `ComboFileFactoryClass::Get_File` | marker | NOT EXACT: inline budget (explain.py: inline-budget), the client calls the table's find 0x4E5D60 and the string's _Eos out of line (frame 0x18); ours inlines both |
 | `app/shared/definition_auto_ptr.h:110` | `?` | marker | NOT EXACT: register-only (explain.py), the inlined erase's terminator store addresses [edi+eax] in the client, [eax+edi] in ours (0x4EB1B0) |
 | `app/shared/definition_manager.h:115` | `?` | marker | NOT EXACT: shape (explain.py), two registers swapped in the inlined hashtable destructor and one EH state store more in ours (0x4EAFB0) |
-| `app/shared/heightfield.cpp:33` | `HeightFieldClass::Load` | marker | NOT EXACT: order-only (the client loads Size before Count - 1 and copies it for HalfSize), parked |
-| `app/shared/heightfield.cpp:70` | `HeightFieldClass::Load_PGM` | marker | NOT EXACT: written from the pseudocode (the PGM reader 0x4637C0, the same as VIDTEST's 0x4026B0) |
-| `app/shared/heightfield.cpp:148` | `HeightFieldClass::Sample` | marker | NOT EXACT: frame (0xC in the client: one more local) and the y copy through a register |
-| `app/shared/heightfield.cpp:183` | `HeightFieldClass::World_To_Grid` | marker | NOT EXACT: order-only (the client loads HalfSize before the position) |
-| `app/shared/heightfield.cpp:197` | `HeightFieldClass::Get_Downhill` | marker | NOT EXACT: written from the pseudocode (0x463F00: frame 0x1C in the client, the corner tests' scheduling) |
-| `app/shared/heightfield.cpp:256` | `HeightFieldClass::Get_Normal` | marker | NOT EXACT: written from the pseudocode (0x464290: the cross products and Normalize as Vector3's) |
-| `app/shared/heightfield.cpp:280` | `HeightFieldClass::Get_Height` | marker | NOT EXACT: written from the pseudocode (0x464600: the cell's two triangles) |
-| `app/shared/heightfield.cpp:381` | `HeightFieldClass::Cast_Ray` | marker | NOT EXACT: frame (0xAC, the client 0xB0: it keeps tmax and the second slab's values on the FPU and swaps through a register; 90 masked rows; attempts.csv 0x4647C0) |
-| `app/shared/heightfield.cpp:528` | `HeightFieldClass::Cast_OBBox` | marker | NOT EXACT: frame (0x168, the client 0x164: a 4-byte local too many; 22 masked rows; 10 forms, attempts.csv 0x4654E0) |
-| `app/shared/heightfield.cpp:626` | `HeightFieldClass::Sample` | mention | NOT EXACT: frame): two triangles per cell over the sweep's bounds (LandClass's Cast_* forward to them through 0x46C680-0x46C6E0). Not rebuilt: 0x465D30 (called by the land's render). Cast_Ray clips the ray to the grid unless it wraps, then walks the cells it crosses (a 2D DDA) until a triangle is hit. The functions after the notes' "Ours" are VIDTEST's land's (functional, D42). The decorations kee... |
+| `app/shared/heightfield.cpp:34` | `HeightFieldClass::Load` | marker | NOT EXACT: order-only (the client loads Size before Count - 1 and copies it for HalfSize), parked |
+| `app/shared/heightfield.cpp:71` | `HeightFieldClass::Load_PGM` | marker | NOT EXACT: written from the pseudocode (the PGM reader 0x4637C0, the same as VIDTEST's 0x4026B0) |
+| `app/shared/heightfield.cpp:149` | `HeightFieldClass::Sample` | marker | NOT EXACT: frame (0xC in the client: one more local) and the y copy through a register |
+| `app/shared/heightfield.cpp:184` | `HeightFieldClass::World_To_Grid` | marker | NOT EXACT: order-only (the client loads HalfSize before the position) |
+| `app/shared/heightfield.cpp:198` | `HeightFieldClass::Get_Downhill` | marker | NOT EXACT: written from the pseudocode (0x463F00: frame 0x1C in the client, the corner tests' scheduling) |
+| `app/shared/heightfield.cpp:257` | `HeightFieldClass::Get_Normal` | marker | NOT EXACT: written from the pseudocode (0x464290: the cross products and Normalize as Vector3's) |
+| `app/shared/heightfield.cpp:281` | `HeightFieldClass::Get_Height` | marker | NOT EXACT: written from the pseudocode (0x464600: the cell's two triangles) |
+| `app/shared/heightfield.cpp:382` | `HeightFieldClass::Cast_Ray` | marker | NOT EXACT: frame (0xAC, the client 0xB0: it keeps tmax and the second slab's values on the FPU and swaps through a register; 90 masked rows; attempts.csv 0x4647C0) |
+| `app/shared/heightfield.cpp:529` | `HeightFieldClass::Cast_OBBox` | marker | NOT EXACT: frame (0x168, the client 0x164: a 4-byte local too many; 22 masked rows; 10 forms, attempts.csv 0x4654E0) |
+| `app/shared/heightfield.cpp:597` | `HeightFieldClass::Get_Triangles` | marker | NOT EXACT: inline-budget (the client calls the first push_back's insert out of line, 0x466180; 28 masked rows; attempts.csv 0x465D30) |
+| `app/shared/heightfield.cpp:678` | `HeightFieldClass::Sample` | mention | NOT EXACT: frame): two triangles per cell over the sweep's bounds (LandClass's Cast_* forward to them through 0x46C680-0x46C6E0). Get_Triangles 0x465D30 (NOT EXACT, for the land's render) with vector<Vector3>::insert 0x4663E0. Cast_Ray clips the ray to the grid unless it wraps, then walks the cells it crosses (a 2D DDA) until a triangle is hit. The functions after the notes' "Ours" are VIDTEST's l... |
 | `app/shared/ini_manager.cpp:49` | `INIManagerClass::Get_INI` | marker | NOT EXACT: shape (explain.py: 53 masked rows), the holder's new and the Create_Peek temporary take other registers and frame slots; objmatch would also reject the atexit handler's name $E18 (symbols.json gives it to other objects) |
 | `app/shared/ini_manager.h:29` | `?` | marker | NOT EXACT: register-only (explain.py), eax / ecx / edx rotated in the inlined Free_Unused (0x4EA2B0) |
 | `app/shared/kv_list.cpp:10` | `KVListClass::~KVListClass` | marker | NOT EXACT: inline budget, the hashtable destructor's clear() inlines _M_delete_node (the client calls 0x4B7B60) |
@@ -151,6 +152,8 @@ edit the comments in the code, not this file.
 | `app/shared/stars.cpp:279` | `StarFieldClass::Get_Cost` | mention | NOT EXACT: Load and Init only (the other functions are exact). Load (0.70): the asserts on the client's lines, the frames store as one ternary and powf (r stored before pow) match; left: the Hemisphere branch loads z (sample[1]) last where the client loads it first, the fifth Create_NEW temporary zeroed after its release, frame 0x4C vs 0x50. Init (0.72): the client compares Load's result with cmp ... |
 | `app/shared/symbol_substitution.cpp:99` | `Substitute_Symbols` | marker | NOT EXACT: inline budget, the client calls string::erase(iterator) 0x4E2A00 out of line in the last loop |
 | `app/shared/symbol_substitution.cpp:156` | `Escape_Symbols` | mention | NOT EXACT: Substitute_Symbols, the client calls string::erase(iterator) 0x4E2A00 out of line in the unescape loop (inline budget). |
+| `app/shared/unique_design_id_lookup.cpp:92` | `UniqueDesignIDLookupClass::Add_Identifier` | marker | NOT EXACT: inline budget, the client calls the pair constructor 0x5024A0 out of line in Map[identifier] (frame 0xC0, ours 0xBC) |
+| `app/shared/unique_design_id_lookup.cpp:122` | `UniqueDesignIDLookupClass::Add_Identifier` | mention | NOT EXACT: Add_Identifier 0x500760 (inline budget). |
 | `app/wwudp/cordcon.cpp:8` | `Get_Short` | mention | NOT EXACT, D42): the receive path (handlePacket, examinePacket, read) follows the client's code statement by statement; the send path (write, openc, buildHeader, buildMsgHeader, pump, pumpInternal with its priority order, resend timer and send window, getHighestPriorityMessage) too. Time is wlib's Xtime (libs\wwonline\wlib, D73), as in the client. The client's asserts sit on lines 521, 632 and 977... |
 | `app/wwudp/cordcon.cpp:944` | `CordCon::close` | mention | NOT EXACT: the vectors' and wlib's inlined code): with now, every channel's queued and sent records are freed and its acks and resend requests dropped; then the state: 3 (the peer's close read) -> 4, 0 -> 1 and pumpClose (the "CLOSE" once nothing is queued or due). Nothing changes once closed (4). |
 | `app/wwudp/cordcon.cpp:1054` | `CordCon::pump` | mention | NOT EXACT: Xtime and the vectors' inlined code differ): pumpInternal, and while acks or resend requests are due with nothing queued, an empty message on channel 0 to carry them; the keep-alive (an empty message after 5 s without a send, every second until something arrives), the idle close (90 s without a datagram), and the channels this side opened that are closed and empty leave the active list. |

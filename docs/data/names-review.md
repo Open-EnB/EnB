@@ -9,8 +9,8 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 13 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 30 |
-| 3 | by convention from a client-named file or sibling | 652 |
-| 2 | describes what the code does | 1272 |
+| 3 | by convention from a client-named file or sibling | 654 |
+| 2 | describes what the code does | 1279 |
 | 1 | neutral placeholder | 1643 |
 
 ## For review (score 3 and below)
@@ -1348,8 +1348,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `BoolContext` | `app/shared/boolpars.cpp:7` | 0xBE34D8, set only around BoolExpressionClass::Evaluate |
 | 1 | `Unknown08` | `app/shared/definition_manager.h:37` | neutral placeholder (D10) |
 | 1 | `Unknown08` | `app/shared/definition_manager.h:221` | neutral placeholder (D10) |
-| 1 | `Get_Height_2` | `app/shared/heightfield.h:50` | the same code at a second address (0x463CD0) |
-| 1 | `Set_Height_2` | `app/shared/heightfield.h:52` | the same code at a second address (0x463D90) |
+| 1 | `Get_Height_2` | `app/shared/heightfield.h:52` | the same code at a second address (0x463CD0) |
+| 1 | `Set_Height_2` | `app/shared/heightfield.h:54` | the same code at a second address (0x463D90) |
 | 1 | `Unknown_Join` | `app/shared/kv_encoder_base.cpp:8` | untagged neutral name (D10) |
 | 1 | `m_Unknown2C` | `app/shared/kv_encoder_base.cpp:63` | untagged neutral name (D10) |
 | 1 | `m_Unknown1C` | `app/shared/kv_encoder_base.cpp:63` | untagged neutral name (D10) |
@@ -2558,17 +2558,18 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Remove` | `app/shared/definition_manager.h:209` | what it does |
 | 2 | `As_Int` | `app/shared/duration.h:188` | describes what it does |
 | 2 | `heightfield.h` | `app/shared/heightfield.h:27` | describes the class; no assert or __FILE__ names the file |
-| 2 | `HeightFieldClass` | `app/shared/heightfield.h:38` | after land.ini's [HEIGHTMAP] / HEIGHT_MAP; the client names no class |
-| 2 | `Load` | `app/shared/heightfield.h:45` | methods after what they do (the client's 0x4634F0, 0x4637C0, 0x463BF0, 0x463C80-0x463E70, 0x464600) |
-| 2 | `Get_Downhill` | `app/shared/heightfield.h:55` | towards the cell's lowest corner below the point (0x463F00) |
-| 2 | `Get_Normal` | `app/shared/heightfield.h:56` | the triangle's normal (0x464290) |
-| 2 | `Cast_Ray` | `app/shared/heightfield.h:58` | after LandClass's Cast_Ray / Cast_AABox / Cast_OBBox (0x46C680-0x46C6E0), which forward to them (0x4647C0, 0x465030, 0x4654E0; not rebuilt) |
-| 2 | `Get_Size` | `app/shared/heightfield.h:63` | ours (VIDTEST's land, functional): the grid clamped at the edges, world coordinates |
-| 2 | `Get_Log2` | `app/shared/heightfield.h:73` | the land's Load_Assets reads them (0x4691D0) |
-| 2 | `Get_YSpacing` | `app/shared/heightfield.h:75` | the land's Update_Patches reads them (0x46B3C0) |
-| 2 | `Get_Heights` | `app/shared/heightfield.h:78` | the land's Compute_Horizons saves and restores them (0x46E670) |
-| 2 | `Get_VScale` | `app/shared/heightfield.h:79` | the land's patches read it (0x474790) |
-| 2 | `Heights` | `app/shared/heightfield.h:82` | members after what Load and the PGM reader store |
+| 2 | `HeightFieldClass` | `app/shared/heightfield.h:40` | after land.ini's [HEIGHTMAP] / HEIGHT_MAP; the client names no class |
+| 2 | `Load` | `app/shared/heightfield.h:47` | methods after what they do (the client's 0x4634F0, 0x4637C0, 0x463BF0, 0x463C80-0x463E70, 0x464600) |
+| 2 | `Get_Downhill` | `app/shared/heightfield.h:57` | towards the cell's lowest corner below the point (0x463F00) |
+| 2 | `Get_Normal` | `app/shared/heightfield.h:58` | the triangle's normal (0x464290) |
+| 2 | `Cast_Ray` | `app/shared/heightfield.h:60` | after LandClass's Cast_Ray / Cast_AABox / Cast_OBBox (0x46C680-0x46C6E0), which forward to them (0x4647C0, 0x465030, 0x4654E0; not rebuilt) |
+| 2 | `Get_Triangles` | `app/shared/heightfield.h:64` | the triangles (three corners each) of the cells under a box, for the land's render 0x474B30 (0x465D30) |
+| 2 | `Get_Size` | `app/shared/heightfield.h:67` | ours (VIDTEST's land, functional): the grid clamped at the edges, world coordinates |
+| 2 | `Get_Log2` | `app/shared/heightfield.h:77` | the land's Load_Assets reads them (0x4691D0) |
+| 2 | `Get_YSpacing` | `app/shared/heightfield.h:79` | the land's Update_Patches reads them (0x46B3C0) |
+| 2 | `Get_Heights` | `app/shared/heightfield.h:82` | the land's Compute_Horizons saves and restores them (0x46E670) |
+| 2 | `Get_VScale` | `app/shared/heightfield.h:83` | the land's patches read it (0x474790) |
+| 2 | `Heights` | `app/shared/heightfield.h:86` | members after what Load and the PGM reader store |
 | 2 | `Get_INI` | `app/shared/ini_manager.h:38` | what it does |
 | 2 | `Split_Name` | `app/shared/ini_manager.h:39` | what it does |
 | 2 | `KVEncoderDataClass` | `app/shared/kv_encoder_base.h:29` | after the asserts' Data |
@@ -2769,6 +2770,12 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `std:` | `app/shared/symbol_substitution.h:35` | describes what it holds |
 | 2 | `Substitute_Symbols` | `app/shared/symbol_substitution.h:38` | describes what it does |
 | 2 | `Escape_Symbols` | `app/shared/symbol_substitution.h:39` | describes what it does |
+| 2 | `Add_Identifier` | `app/shared/unique_design_id_lookup.h:31` | describes what it does |
+| 2 | `Get_ID` | `app/shared/unique_design_id_lookup.h:33` | describes what it does |
+| 2 | `std:` | `app/shared/unique_design_id_lookup.h:34` | describes what it does |
+| 2 | `INVALID_ID` | `app/shared/unique_design_id_lookup.h:36` | describes what it is |
+| 2 | `std:` | `app/shared/unique_design_id_lookup.h:39` | describes what it holds |
+| 2 | `std:` | `app/shared/unique_design_id_lookup.h:41` | describes what it holds |
 | 2 | `KVPointerAccessorClass` | `app/shared/unknown_packetdata.h:34` | what it does |
 | 2 | `Add_Pointer` | `app/shared/unknown_packetdata.h:73` | what it does |
 | 2 | `Add_Child` | `app/shared/unknown_packetdata.h:87` | what it does |
@@ -3582,5 +3589,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `strconv_lib.h` | `app/shared/strconv_lib.h:20` | header name assumed from the client's strconv_lib.cpp (D57) |
 | 3 | `symbol_substitution.h` | `app/shared/symbol_substitution.h:18` | header name assumed from the client's symbol_substitution.cpp |
 | 3 | `SymbolSubstitutionClass` | `app/shared/symbol_substitution.h:24` | by convention (D24) from the client's file symbol_substitution.cpp |
+| 3 | `unique_design_id_lookup.h` | `app/shared/unique_design_id_lookup.h:19` | header name assumed from the client's unique_design_id_lookup.cpp |
+| 3 | `UniqueDesignIDLookupClass` | `app/shared/unique_design_id_lookup.h:26` | by convention (D24) from the client's file unique_design_id_lookup.cpp (vtable 0xAECCF4) |
 | 3 | `cordcon.h` | `app/wwudp/cordcon.h:41` | header name assumed from the client's cordcon.cpp |
 | 3 | `cordmgr.h` | `app/wwudp/cordmgr.h:28` | header name assumed from the client's cordmgr.cpp |
