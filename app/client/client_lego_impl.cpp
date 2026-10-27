@@ -161,7 +161,6 @@ void ClientLegoImplClass::Unknown_1C(void)
 	}
 }
 
-// NOT EXACT: shape, mostly registers: the client keeps the child record and the key in ebx / ebp across the loop
 void ClientLegoImplClass::Init(int asset_id, const RefCountPtr<RenderObjClass> &render_object)
 {
 	BoneMap = Get_Bone_Map(asset_id);
@@ -170,7 +169,7 @@ void ClientLegoImplClass::Init(int asset_id, const RefCountPtr<RenderObjClass> &
 	for (std::hash_map<std::string, LegoChildStruct>::iterator it = Children.begin(); it != Children.end(); ++it) {
 		LegoChildStruct &child = (*it).second;
 		const std::string &bone_name = (*it).first;
-		if (child.Knob) {
+		if (0 != child.Knob) {
 			Detach(child.Child, RenderObject, child.Knob);
 		}
 		child.Knob = BoneMap->Get_Knob(bone_name);
@@ -195,6 +194,7 @@ RefCountPtr<RenderObjClass> ClientLegoImplClass::Get_Render_Object(void) const
 {
 	return RenderObject;
 }
+
 
 
 
@@ -840,7 +840,7 @@ LegoKnobClass::LegoKnobClass(std::string bone_name, int bone_index) :
 **	instances (0x72E090-0x731F20). Every function of the window is written; exact: the bone maps'
 **	Init / Shutdown, Create, the constructor and destructor, the small virtuals, Detach_All, the
 **	parent links, Get_Bone_Map, the bone map's constructor, destructor and Get_Knob, the knob's
-**	constructor. NOT EXACT (attempts.csv): Init,
+**	constructor, Init. NOT EXACT (attempts.csv):
 **	Find, Get_Lego_Transform, Add, Remove, Update_Radius, Child_Moved, Attach and Detach.
 **	Get_Bone_Map is exact with a const_iterator for its find (H12's lever). The knob's constructor 0x72DE40 and the bone map's Get_Knob 0x72DDA0
 **	follow the window, exact. Not here: lego_identifier.cpp's split 0x844ED0 / 0x8451A0.
@@ -851,5 +851,7 @@ LegoKnobClass::LegoKnobClass(std::string bone_name, int bone_index) :
 **	  _CBASSET_INI unqualified in its assert.
 **	* New children go through the children table's operator[] (0x72C040 / 0x72EBA0 / 0x730C10):
 **	  sgistl's insert_unique_noresize does not compile in VC6 (C2899).
+**	* Init's first knob test is `0 != child.Knob` (ref_ptr.h's template operator!=: the client's
+**	  setne / test); a plain `if (child.Knob)` leaves the loop's registers swapped.
 **	* Written by builder H17 (2026-10-27).
 */
