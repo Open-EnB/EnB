@@ -5,7 +5,7 @@
 std::string &Unknown_42B7E0(const ControlKeyComboStruct &key, std::string &out);	// NAME 1 [Unknown_42B7E0]: neutral (D10): 0x42B7E0, the key's text
 
 static std::string _Empty;  // NAME 2: 0xBE7B80, what the accessors return without a definition
-
+unsigned int ControlKeysManager::_NumKeyDefs;
 
 
 
@@ -549,19 +549,19 @@ KeyMappingStruct *ControlKeysManager::Set_Key(KeyMappingStruct *entry, int set, 
 
 
 
+void ControlKeysManager::Copy_Keys(std::vector<KeyMappingStruct> *to, const std::vector<KeyMappingStruct> &from)
+{
+	FAIL_IF(!to) return;
+	FAIL_IF(from.size() != _NumKeyDefs) return;
 
-
-
-
-
-
-
-
-
-
-
-
-
+	if (to->size() != _NumKeyDefs) {
+		G_ASSERT(to->empty());
+		to->resize(_NumKeyDefs);
+	}
+	std::vector<KeyMappingStruct>::iterator d = to->begin();
+	std::vector<KeyMappingStruct>::const_iterator s = from.begin();
+	for (unsigned int i = 0; i < _NumKeyDefs; i++) *d++ = *s++;
+}
 
 
 

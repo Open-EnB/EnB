@@ -57,6 +57,8 @@ struct ControlKeyComboStruct  // NAME 1: neutral (D10): 0x10 bytes, what 0x42B7E
 
 struct ControlKeyStruct  // NAME 1: neutral (D10): one key of a mapping (4 bytes)
 {
+	ControlKeyStruct() : Key(0), Modifiers(0) {}
+
 	unsigned short Key;																	// +0x00  // NAME 2: the key's code
 	unsigned short Modifiers;															// +0x02  // NAME 2: the modifier bits
 };
@@ -87,8 +89,11 @@ public:
 	virtual ~ControlKeysManager();													// not rebuilt yet
 
 	KeyMappingStruct *Set_Key(KeyMappingStruct *entry, int set, const ControlKeyStruct &key, bool force);	// 0x71A860: returns the mapping already using key unless force  // NAME 2: describes what it does
+	static void Copy_Keys(std::vector<KeyMappingStruct> *to, const std::vector<KeyMappingStruct> &from);	// 0x71C4C0  // NAME 2: describes what it does
 
 	char Unknown04[0x18];																// +0x04: a hash table (UserKeysMap?)  // NAME 1: neutral (D10)
+	static unsigned int _NumKeyDefs;												// 0xBE7C44: the client's asserts
+
 	std::vector<KeyMappingStruct> UserKeys;										// +0x1C  // NAME 3: the client's assert 'def->Get_Index() >= UserKeys.size()'
 };
 

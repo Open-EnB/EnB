@@ -880,6 +880,8 @@
    "control_keys_manager": {
     "ambiguous": [
      "0x42B2F0",
+     "0x43CEA0",
+     "0x43D2A0",
      "0x71C9C0"
     ],
     "copy": "reconstructed",
@@ -889,7 +891,9 @@
      "0x42A940",
      "0x42A970",
      "0x42AB30",
+     "0x42F250",
      "0x71A860",
+     "0x71C4C0",
      "0x71CA20",
      "0x71CA50",
      "0x71CA80",
