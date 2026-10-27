@@ -196,6 +196,90 @@ RefCountPtr<RenderObjClass> ClientLegoImplClass::Get_Render_Object(void) const
 	return RenderObject;
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// NOT EXACT: inline budget: the client inlines the split's string destructor at the orphan returns, ours calls _Tidy (attempts.csv)
+RefCountPtr<LegoClass> ClientLegoImplClass::Find(const LegoIdentifierClass &id) const
+{
+	if (id.Is_Empty()) {
+		return NULL;
+	}
+	LegoSplitStruct split(Identifier, id);
+	FAIL_IF(split.Is_Invalid()) return NULL;
+	std::hash_map<std::string, LegoChildStruct>::const_iterator child_find = Children.find(split.Name);
+	if (split.State == 0) {
+		if (child_find == Children.end()) {
+			return NULL;
+		}
+		return (*child_find).second.Child;
+	}
+	if (child_find != Children.end()) {
+		return (*child_find).second.Child->Find(id);
+	}
+	std::hash_map<std::string, RefCountPtr<LegoOrphanDataClass> >::const_iterator orphan_find = Orphans.find(split.Name);
+	if (orphan_find == Orphans.end()) {
+		return NULL;
+	}
+	const std::vector<RefCountPtr<LegoClass> > &legos = (*orphan_find).second->Legos;
+	for (std::vector<RefCountPtr<LegoClass> >::const_iterator lego = legos.begin(); lego != legos.end(); ++lego) {
+		const LegoIdentifierClass &lego_id = (*lego)->Get_Identifier();
+		if (lego_id == id) {
+			return *lego;
+		}
+	}
+	return NULL;
+}
+
 void ClientLegoImplClass::Detach_All(std::vector<RefCountPtr<LegoClass> > &legos)
 {
 	for (std::hash_map<std::string, LegoChildStruct>::iterator it = Children.begin(); it != Children.end(); ++it) {
@@ -216,90 +300,6 @@ void ClientLegoImplClass::Detach_All(std::vector<RefCountPtr<LegoClass> > &legos
 	Orphans.clear();
 	Update_Radius();
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

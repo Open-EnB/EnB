@@ -69,8 +69,8 @@ public:
 	virtual void Unknown_1C(void) = 0;								// +0x1C: recursive over the children  // NAME 1: neutral (D10)
 	virtual void Init(int asset_id, const RefCountPtr<RenderObjClass> &render_object) = 0;	// +0x20  // NAME 2: what it does
 	virtual RefCountPtr<RenderObjClass> Get_Render_Object(void) const = 0;	// +0x24  // NAME 2: what it returns
-	virtual void Unknown_28(void) = 0;								// +0x28  // NAME 1: neutral (D10)
-	virtual void Unknown_2C(void) = 0;								// +0x2C  // NAME 1: neutral (D10)
+	virtual RefCountPtr<LegoClass> Find(const LegoIdentifierClass &id) const = 0;	// +0x28: a lego below this one, by its identifier  // NAME 2: what it does
+	virtual Matrix3D Get_Lego_Transform(const LegoIdentifierClass &id) const = 0;	// +0x2C: the bone a lego below this one hangs on  // NAME 2: what it returns
 	virtual void Unknown_30(void) = 0;								// +0x30  // NAME 1: neutral (D10)
 	virtual void Unknown_34(void) = 0;								// +0x34  // NAME 1: neutral (D10)
 	virtual void Detach_All(std::vector<RefCountPtr<LegoClass> > &legos) = 0;	// +0x38  // NAME 2: what it does
@@ -140,8 +140,8 @@ public:
 	virtual void Unknown_1C(void);									// 0x72A700
 	virtual void Init(int asset_id, const RefCountPtr<RenderObjClass> &render_object);	// 0x72A7C0
 	virtual RefCountPtr<RenderObjClass> Get_Render_Object(void) const;	// 0x72AB80
-	virtual void Unknown_28(void);									// 0x72ABB0
-	virtual void Unknown_2C(void);									// 0x72B000
+	virtual RefCountPtr<LegoClass> Find(const LegoIdentifierClass &id) const;	// 0x72ABB0
+	virtual Matrix3D Get_Lego_Transform(const LegoIdentifierClass &id) const;	// 0x72B000
 	virtual void Unknown_30(void);									// 0x72B7F0
 	virtual void Unknown_34(void);									// 0x72C1D0
 	virtual void Detach_All(std::vector<RefCountPtr<LegoClass> > &legos);	// 0x72C8B0
