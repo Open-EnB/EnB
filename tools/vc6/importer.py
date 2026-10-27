@@ -3513,7 +3513,7 @@ RECONSTRUCTED = {
     ('app', 'client/fontmanager.h'): "FontManagerClass (D24, 0x1C bytes, 0xBE67C4): the fonts by id (an SGI hash_map, D87) and the debug font (RefCountPtr); the font (0x24 bytes) and the debug font's class declared only",
     ('app', 'client/fontmanager.cpp'): "FontManagerClass 0x6D16E0-0x6D2A70 and the font's 0x6D1010-0x6D1600, with the tables' instances (builder H14; G_ASSERT lines 524 / 533, D25); 0x6D1220 (line 360) exact (H16); 0x6D2700 (line 550) written, NOT EXACT; not rebuilt yet: 0x6D0F70",
     ('app', 'client/client_lego_impl.h'): "ClientLegoImplClass (D24, 0xA0 bytes, vtables 0xB02F1C / 0xB02F10), its abstract bases, the bone map, knob, orphan and child records (D10 names); the tables are SGI hash_maps (D87)",
-    ('app', 'client/client_lego_impl.cpp'): "ClientLegoImplClass 0x729BF0-0x72D0C0 (builder H17; asserts on lines 69-635, D25) with the tables' instances; Update_Radius 0x72CC10 written, NOT EXACT; not rebuilt yet: Init 0x72A7C0, slots +0x28-+0x38, 0x72CE40, 0x72D0E0-0x72D5F0",
+    ('app', 'client/client_lego_impl.cpp'): "ClientLegoImplClass 0x729BF0-0x72DC10, the whole window written (builder H17; asserts on lines 69-809, D25) with the tables' instances; NOT EXACT: Init, Find, Get_Lego_Transform, Add, Remove, Update_Radius, Child_Moved, Attach, Detach, Get_Bone_Map (attempts.csv)",
     ('app', 'client/ui_line_display.h'): "UILineDisplayClass (D24), the line display screen on intrface.cpp's base "
                                         "(declared as far as the file needs it, D10): ephemeral.ini's entries and "
                                         "fc_line_display.ini's STR-n text objects in SGI hash_maps (libs/sgistl, D87)",

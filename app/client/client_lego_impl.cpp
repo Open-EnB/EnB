@@ -307,6 +307,23 @@ RefCountPtr<LegoClass> ClientLegoImplClass::Find(const LegoIdentifierClass &id) 
 
 
 
+// NOT EXACT: field offset at the Identity copy after line 339 (the client builds the result before the report), 0.76 (attempts.csv)
+Matrix3D ClientLegoImplClass::Get_Lego_Transform(const LegoIdentifierClass &id) const
+{
+	if (id.Is_Empty()) {
+		FAIL_IF(!RenderObject) return Matrix3D::Identity;
+		return RenderObject->Get_Transform();
+	}
+	LegoSplitStruct split(Identifier, id);
+
+
+
+	FAIL_IF(split.Is_Invalid()) {
+		FAIL_IF(!RenderObject) return Matrix3D::Identity;
+		return RenderObject->Get_Transform();
+	}
+	std::hash_map<std::string, LegoChildStruct>::const_iterator child_find = Children.find(split.Name);
+	if (split.State == 0 || child_find == Children.end()) {
 
 
 
@@ -319,35 +336,18 @@ RefCountPtr<LegoClass> ClientLegoImplClass::Find(const LegoIdentifierClass &id) 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+		FAIL_IF(!RenderObject) return Matrix3D::Identity;
+		if (!BoneMap) {
+			return RenderObject->Get_Transform();
+		}
+		RefCountPtr<LegoKnobClass> knob = BoneMap->Get_Knob(split.Name);
+		if (!knob) {
+			return RenderObject->Get_Bone_Transform(split.Name.c_str());
+		}
+		return RenderObject->Get_Bone_Transform(knob->BoneIndex);
+	}
+	return (*child_find).second.Child->Get_Lego_Transform(id);
+}
 
 
 
@@ -822,8 +822,18 @@ LegoBoneMapClass::~LegoBoneMapClass(void)
 **	Reconstruction notes
 **
 **	client.exe: the window 0x729BF0-0x72DC10 (asserts on lines 69-809), then the containers'
-**	instances (0x72E090-0x731F20). Rebuilt: the bone maps' Init / Shutdown, Create, the constructor
-**	and destructor, the small virtuals, the parent links and Update_Radius. Not rebuilt yet: Init
-**	0x72A7C0, the slots +0x28-+0x38 (0x72ABB0, 0x72B000, 0x72B7F0, 0x72C1D0, 0x72C8B0), the parent
-**	slot 0x72CE40, Attach 0x72D0E0 / Detach 0x72D2A0, the bone map loader 0x72D3E0 / 0x72D5F0.
+**	instances (0x72E090-0x731F20). Every function of the window is written; exact: the bone maps'
+**	Init / Shutdown, Create, the constructor and destructor, the small virtuals, Detach_All, the
+**	parent links, the bone map's constructor and destructor. NOT EXACT (attempts.csv): Init,
+**	Find, Get_Lego_Transform, Add, Remove, Update_Radius, Child_Moved, Attach, Detach and
+**	Get_Bone_Map. Not written: the knob's constructor 0x72DE40 and the bone map's Get_Knob
+**	0x72DDA0 (after the window), lego_identifier.cpp's split 0x844ED0 / 0x8451A0.
+**	* The bone map's constructor 0x72D5F0 is exact or 2 rows off (order) with the same source,
+**	  depending on what else the file holds (the inline budget's file state): re-check it after
+**	  any change here.
+**	* _Global_Bone_Maps and _CBASSET_INI are file statics: the bone map's constructor names
+**	  _CBASSET_INI unqualified in its assert.
+**	* New children go through the children table's operator[] (0x72C040 / 0x72EBA0 / 0x730C10):
+**	  sgistl's insert_unique_noresize does not compile in VC6 (C2899).
+**	* Written by builder H17 (2026-10-27).
 */
