@@ -12,8 +12,12 @@
 #include "..\packets\pklogoff.h"
 #include "..\packets\pkmessagestring.h"
 #include "..\packets\pkmodechange.h"
+#include "..\packets\pkpointeffect.h"
 #include "..\packets\pksetzband.h"
+#include "..\packets\pkspline.h"
 #include "..\packets\pkstarbasetow.h"
+#include "..\packets\pkverblist.h"
+#include "..\shared\spln_db.h"
 #include "wwprofile.h"
 #include "..\shared\unknown_debug.h"
 #include <string>
@@ -34,6 +38,18 @@ bool ClientShipPacketClass::Process_Packet(void *instance)
 	WWPROFILE("ClientShipPacketClass::Process_Packet()");
 	SClient *sclient = (SClient *)instance;
 	sclient->Set_Ship_ID(ShipID);
+	return(true);
+}
+
+// 0x735D50
+bool RemoveEffectPacketClass::Process_Packet(void *instance)
+{
+	WWPROFILE("RemoveEffectPacketClass::Process_Packet()");
+	SClient *sclient = (SClient *)instance;
+	EffectObjectClass *effect = sclient->Get_Effect(EffectID);
+	if (effect) {
+		effect->Unknown_6E6E30();
+	}
 	return(true);
 }
 
@@ -68,6 +84,16 @@ bool SetBBoxPacketClass::Process_Packet(void *instance)
 	return(true);
 }
 
+// NOT EXACT: register-only (the client loads instance into eax, ours into ecx; attempts.py show 0x737C10)
+// 0x737C10
+bool SplinePacketClass::Process_Packet(void *instance)
+{
+	WWPROFILE("SplinePacketClass::Process_Packet()");
+	SClient *sclient = (SClient *)instance;
+	sclient->Splines->Unpack(Block);
+	return(true);
+}
+
 // 0x738100
 bool ModeChangePacketClass::Process_Packet(void *instance)
 {
@@ -93,49 +119,23 @@ bool StarbaseTowPacketClass::Process_Packet(void *instance)
 	return(true);
 }
 
+// 0x7388B0
+bool VerbUpdatePacketClass::Process_Packet(void *instance)
+{
+	WWPROFILE("VerbUpdatePacketClass::Process_Packet(void * instance)");
+	SClient *sclient = (SClient *)instance;
+	if (sclient->VerbManager) {
+		sclient->VerbManager->Unknown_81F810(GameID, &Drops, &Adds);
+	}
+	return(true);
+}
+
 // 0x7396C0
 bool HullUpgradePacketClass::Process_Packet(void *instance)
 {
 	WWPROFILE("HullUpgradePacketClass::Process_Packet(void * instance)");
 	return(true);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

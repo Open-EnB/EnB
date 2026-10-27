@@ -73,6 +73,7 @@ public:
 	virtual ~EffectObjectClass();						// +0x00
 	void Unknown_6E74B0(int arg);						// 0x6E74B0 (eff_o.cpp)
 	void Unknown_6E6ED0(int arg);						// 0x6E6ED0 (eff_o.cpp)
+	void Unknown_6E6E30();								// 0x6E6E30 (eff_o.cpp; cpacket.cpp's REMOVE_EFFECT 15)
 
 	HashNodeClass<EffectObjectClass *> Node;			// +0x04 ClientClass::EffectList's node  // NAME 2: what it is
 	char Unknown20[0x30 - 0x20];						// +0x20

@@ -231,15 +231,6 @@ public:
 	char Unknown04[0x14 - 0x04];
 };
 
-class VerbManagerClass
-{
-public:
-	VerbManagerClass(SClient *client);					// 0x81F100
-	~VerbManagerClass();								// 0x81F1E0
-
-	char Unknown00[0x14];
-};
-
 class CameraManagerClass
 {
 public:

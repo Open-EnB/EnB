@@ -42,7 +42,6 @@ class UILineDisplayClass;		// NAME 3: class-from-file (D24) for ui_line_display.
 class PDAInterfaceClass;		// NAME 3: class-from-file (D24) for pdaint.cpp (constructor 0x693140, 0xC0 bytes)
 class BridgeInterfaceClass;		// NAME 3: class-from-file (D24) for bridge_int.cpp (constructor 0x53B040, 0xC4 bytes)
 class UIHotKeysClass;			// NAME 3: class-from-file (D24) for ui_hot_keys.cpp (constructor 0x59C6F0, 0x84 bytes)
-class VerbManagerClass;			// NAME 3: class-from-file (D24) for verbmanager.cpp (constructor 0x81F100, 0x14 bytes)
 class UITalkTreeSpaceClass;		// NAME 3: class-from-file (D24) for ui_talkt_space.cpp (constructor 0x64F310, 0x184 bytes)
 class GalaxyMapClientClass;		// NAME 3: class-from-file (D24) for galaxy_map_client.cpp (constructor 0x7A4830, 0xCC bytes)
 class UIStarmapClass;			// NAME 3: class-from-file (D24) for ui_starmap.cpp (constructor 0x7C6120, 0x14 bytes)
@@ -54,6 +53,17 @@ class SClientUnknown1330Class;	// NAME 1: neutral (D10): what SClient +0x1330 po
 class ProjDecalManagerClass;		// NAME 3: class-from-file (D24) for proj_decal_manager.cpp (0x763050 loads 'proj_dec.ini' into it; 0x10 bytes, one vector)
 class SClientUnknown1394Class;	// NAME 1: neutral (D10): the values of SClient +0x1394 (reference counted, slot +0x38)
 struct GuildRankNameStruct;			// pkguildranknamesrequestclient.h
+
+// verbmanager.cpp's verb manager (0x14 bytes): SClient::Init creates it, the verb packets update it
+class VerbManagerClass		// NAME 3: class-from-file (D24) for verbmanager.cpp (constructor 0x81F100, 0x14 bytes)
+{
+public:
+	VerbManagerClass(SClient *client);					// 0x81F100
+	~VerbManagerClass();								// 0x81F1E0
+	void Unknown_81F810(int game_id, void *drops, void *adds);	// 0x81F810 (cpacket.cpp: VERB_UPDATE 92 passes its GameID, &Drops, &Adds)  // NAME 1 [game_id, drops, adds]: the packet's fields
+
+	char Unknown00[0x14];
+};
 
 // view.cpp's view: the base of the six views at SClient +0x1354..+0x1368 (the slots every one of them
 // gets: the deleting destructor, +0x04 after construction, +0x10 in Shutdown)
