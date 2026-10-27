@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-270 entries in 64 files.
+271 entries in 64 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -25,8 +25,9 @@ edit the comments in the code, not this file.
 | `app/client/client.cpp:307` | `ClientClass::Set_Debug_Object` | marker | NOT EXACT: register-only (the flag in dl, the id in eax; two forms; attempts.py show 0x728010) 0x728010 |
 | `app/client/client.cpp:374` | `ClientClass::Set_Debug_Mode` | marker | NOT EXACT: register-only (the id in eax, the flag in ecx; two forms; attempts.py show 0x728240) 0x728240 |
 | `app/client/client.cpp:468` | `UnknownB02C90Class::Unknown_0C` | marker | NOT EXACT: shape (the client loads both models first and keeps the element in the child argument's stack slot; 2 forms) |
+| `app/client/client.cpp:497` | `UnknownB02C90Class::Unknown_10` | marker | NOT EXACT: shape (the client stores each radius before it loads the object for Unknown_34; 3 forms) |
 | `app/client/client_lego_impl.cpp:251` | `ClientLegoImplClass::Find` | marker | NOT EXACT: inline budget: the client inlines the split's string destructor at the orphan returns, ours calls _Tidy (attempts.csv) |
-| `app/client/client_lego_impl.cpp:310` | `ClientLegoImplClass::Get_Lego_Transform` | marker | NOT EXACT: field offset at the Identity copy after line 339 (the client builds the result before the report), 0.76 (attempts.csv) |
+| `app/client/client_lego_impl.cpp:310` | `ClientLegoImplClass::Get_Lego_Transform` | marker | NOT EXACT: inline budget: the client builds one more Matrix3D result (6 ??_H against our 5), 0.88 (attempts.csv) |
 | `app/client/client_lego_impl.cpp:363` | `ClientLegoImplClass::Add` | marker | NOT EXACT: literal (EH states one lower than the client's from the new-child branch on), frame 0x9C vs 0xA8 (attempts.csv) |
 | `app/client/client_lego_impl.cpp:477` | `ClientLegoImplClass::Remove` | marker | NOT EXACT: literal: 389 instructions on both sides, our EH states two lower in the orphans' loop, frame 0x88 vs 0x84 (attempts.csv) |
 | `app/client/client_lego_impl.cpp:679` | `ClientLegoImplClass::Child_Moved` | marker | NOT EXACT: shape, 4 rows: the client forms &child (lea ebp) before loading it, ours after (attempts.csv) |

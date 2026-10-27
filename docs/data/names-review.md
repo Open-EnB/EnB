@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 35 |
 | 3 | by convention from a client-named file or sibling | 810 |
 | 2 | describes what the code does | 1864 |
-| 1 | neutral placeholder | 3434 |
+| 1 | neutral placeholder | 3435 |
 
 ## For review (score 3 and below)
 
@@ -140,7 +140,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown3C` | `app/client/client.cpp:476` | untagged neutral name (D10) |
 | 1 | `Unknown_14` | `app/client/client.cpp:484` | untagged neutral name (D10) |
 | 1 | `Unknown_725C60` | `app/client/client.cpp:486` | untagged neutral name (D10) |
-| 1 | `Unknown_10` | `app/client/client.cpp:525` | untagged neutral name (D10) |
+| 1 | `Unknown_10` | `app/client/client.cpp:498` | untagged neutral name (D10) |
+| 1 | `Unknown_18` | `app/client/client.cpp:523` | untagged neutral name (D10) |
 | 1 | `Unknown_6E74B0` | `app/client/client.h:44` | untagged neutral name (D10) |
 | 1 | `Unknown_6E6ED0` | `app/client/client.h:45` | untagged neutral name (D10) |
 | 1 | `Unknown_6E6E30` | `app/client/client.h:46` | untagged neutral name (D10) |
@@ -210,12 +211,12 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_04` | `app/client/client.h:224` | untagged neutral name (D10) |
 | 1 | `child, slot, child_slot` | `app/client/client.h:226` | what it does with them |
 | 1 | `Unknown_0C` | `app/client/client.h:226` | untagged neutral name (D10) |
-| 1 | `child, index, unknown` | `app/client/client.h:227` | what 0x725120 passes |
+| 1 | `child, slot, child_slot` | `app/client/client.h:227` | what it does with them |
 | 1 | `parent, slot, child_slot` | `app/client/client.h:228` | what 0x725610 passes |
 | 1 | `Unknown_14` | `app/client/client.h:228` | untagged neutral name (D10) |
 | 1 | `center, radius` | `app/client/client.h:229` | what it computes |
 | 1 | `Unknown_725C60` | `app/client/client.h:229` | untagged neutral name (D10) |
-| 1 | `a, b, c` | `app/client/client.h:230` | neutral |
+| 1 | `parent, slot, child_slot` | `app/client/client.h:230` | what 0x7257F0 passes |
 | 1 | `Unknown08` | `app/client/client.h:233` | untagged neutral name (D10) |
 | 1 | `BufferStruct` | `app/client/client.h:236` | neutral (D10) |
 | 1 | `ElementStruct` | `app/client/client.h:237` | neutral (D10) |
