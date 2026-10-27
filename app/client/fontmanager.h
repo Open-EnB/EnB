@@ -17,6 +17,7 @@
 #ifndef __FONTMANAGER_H  // NAME 3 [fontmanager.h]: header name assumed from the client's fontmanager.cpp
 #define __FONTMANAGER_H
 
+#include <string>
 #include <hash_map.h>
 #include "..\shared\unknown_debug.h"
 #include "..\..\wwlib\refcount.h"
@@ -29,6 +30,8 @@ class FontStyleClass : public RefCountClass  // NAME 1 [FontStyleClass]: neutral
 public:
 	FontStyleClass(const char *name, int unknown1, int unknown2);		// 0x6D47C0  // NAME 1 [unknown1]: neutral (D10)
 
+	void Unknown_6CD950(int unknown1, int unknown2);						// 0x6CD950  // NAME 1 [Unknown_6CD950]: neutral (D10)
+
 	char Unknown08[0x4E0];											// +0x08  // NAME 1: neutral (D10)
 };
 
@@ -37,14 +40,20 @@ class ManagedFontClass  // NAME 2 [ManagedFontClass]: what the manager holds per
 public:
 	ManagedFontClass(const char *name);									// 0x6CE990
 	~ManagedFontClass();												// 0x6CF730
-	void Unknown_6CD950(int unknown1, int unknown2);						// 0x6CD950  // NAME 1 [Unknown_6CD950]: neutral (D10)
+	void Unknown_All_Styles(int unknown1, int unknown2)					// inlined in 0x6D1C10 (its own begin / ++ called out of line)  // NAME 1 [Unknown_All_Styles]: neutral (D10)
+	{
+		for (std::hash_map<std::string, FontStyleClass *>::iterator style = Styles.begin(); style != Styles.end(); ++style) {
+			style->second->Unknown_6CD950(unknown1, unknown2);
+		}
+	}
 	void Unknown_6D0390(void *unknown);									// 0x6D0390  // NAME 1 [Unknown_6D0390]: neutral (D10)
 	void Unknown_6D0550(void *unknown);									// 0x6D0550  // NAME 1 [Unknown_6D0550]: neutral (D10)
 	void Unknown_6D0A20(void *unknown);									// 0x6D0A20  // NAME 1 [Unknown_6D0A20]: neutral (D10)
 
 	char *Unknown00;													// +0x00 (a StringClass in the client)  // NAME 1: neutral (D10)
 	unsigned int Id;													// +0x04: the manager's key  // NAME 2: what it holds
-	char Unknown08[0x1C];												// +0x08  // NAME 1: neutral (D10)
+	int Unknown08;														// +0x08  // NAME 1: neutral (D10)
+	std::hash_map<std::string, FontStyleClass *> Styles;				// +0x0C: its styles by name (0x6D1C10 walks them)  // NAME 2: what it holds
 };
 
 class FontManagerClass  // NAME 3 [FontManagerClass]: by convention (D24) from the client's fontmanager.cpp

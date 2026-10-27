@@ -386,10 +386,7 @@ FontManagerClass::FontManagerClass()
 FontManagerClass::~FontManagerClass()
 {
 	DebugFont = NULL;
-	for (std::hash_map<unsigned int, ManagedFontClass *>::iterator it = Fonts.begin(); it != Fonts.end(); ++it) {
-		delete it->second;
-	}
-	Fonts.clear();
+	Remove_All();
 }
 
 void FontManagerClass::Remove_All()
@@ -403,7 +400,7 @@ void FontManagerClass::Remove_All()
 void FontManagerClass::Unknown_6D1C10(int unknown1, int unknown2)
 {
 	for (std::hash_map<unsigned int, ManagedFontClass *>::iterator it = Fonts.begin(); it != Fonts.end(); ++it) {
-		it->second->Unknown_6CD950(unknown1, unknown2);
+		it->second->Unknown_All_Styles(unknown1, unknown2);
 	}
 }
 
