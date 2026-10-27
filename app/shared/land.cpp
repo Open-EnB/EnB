@@ -8,6 +8,7 @@
 #include "dx8indexbuffer.h"
 #include "vector2.h"
 #include "surfaceclass.h"
+#include "dx8vertexbuffer.h"
 #include <windows.h>
 #include "wwprofile.h"
 
@@ -302,7 +303,7 @@ void LandClass::Set_Color(const Vector2 &pos, const Vector3 &color)
 }
 
 LandPatchClass::LandPatchClass(LandClass *land) :
-	m_Unknown00(NULL),
+	VertexBuffer(NULL),
 	Land(land),
 	m_Unknown10(0),
 	m_Unknown14(0),
@@ -361,6 +362,56 @@ void LandClass::Upload_Lightmap(Vector2i &min, Vector2i &max)
 	surface->Copy(min, max, (unsigned char *)m_Unknown120C);
 	DX8Wrapper::_Update_Texture(m_Unknown120, LightmapTextures[BackLightmap]);
 	REF_PTR_RELEASE(surface);
+}
+
+// NAME 2: the patch vertex, FVF 0x202 (0x4746C0)
+struct LandVertexStruct
+{
+	float	X;
+	float	Y;
+	float	Z;
+	float	U1;
+	float	V1;
+	float	U2;
+	float	V2;
+};
+
+void LandPatchClass::Init(int size, int x, int y, float detail_u, float detail_v)
+{
+	Size = size;
+	VertexCount = size * size;
+	VertexBuffer = new DX8VertexBufferClass(0x202, VertexCount);
+	Build_Vertices(x, y, detail_u, detail_v);
+}
+
+// NOT EXACT: frame (0x3C, the client 0x38); 3 forms tried (attempts.csv 0x474790)
+void LandPatchClass::Build_Vertices(int x, int y, float detail_u, float detail_v)
+{
+	float lowest = 2.0f;
+	float highest = -1.0f;
+	float inv_size = 1.0f / (float)(unsigned int)Land->Field->Get_Size();
+	float vscale = Land->Field->Get_VScale();
+	VertexBufferClass::WriteLockClass lock(VertexBuffer);
+	LandVertexStruct *vertex = (LandVertexStruct *)lock.Get_Vertex_Array();
+	for (int j = 0; j < Size; j++) {
+		int xi = x;
+		for (int i = 0; i < Size; i++) {
+			vertex->Y = (float)j;
+			vertex->X = (float)i;
+			float height = Land->Field->Get_Height_2(xi, j + y) * (1.0f / vscale);
+			if (height <= lowest) lowest = height;
+			if (highest <= height) highest = height;
+			vertex->Z = height;
+			vertex->V1 = (float)(j + y) * inv_size;
+			vertex->V2 = vertex->V1 * detail_v;
+			float u = (float)xi * inv_size;
+			vertex->U1 = u;
+			vertex->U2 = u * detail_u;
+			vertex++;
+			xi++;
+		}
+	}
+	MidHeight = (highest + lowest) * 0.5f;
 }
 
 /*

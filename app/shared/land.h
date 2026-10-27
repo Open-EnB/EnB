@@ -46,6 +46,7 @@
 
 class HeightFieldClass;
 class TextureClass;
+class DX8VertexBufferClass;
 class IndexBufferClass;
 class Vector2;
 class VertexMaterialClass;
@@ -69,18 +70,23 @@ public:
 	LandPatchClass(LandClass *land);
 	~LandPatchClass(void);
 
+// NAME 2: after what they do (0x4746C0, called by Load_Assets per patch; 0x474790)
+	void							Init(int size, int x, int y, float detail_u, float detail_v);
+	void							Build_Vertices(int x, int y, float detail_u, float detail_v);
+
+
 // NAME 1: members after their offsets (ctor 0x474530)
-	RefCountClass *			m_Unknown00;		// released by the dtor
+	DX8VertexBufferClass *	VertexBuffer;		// +0x00, FVF 0x202 (xyz, two uv sets), released by the dtor
 	LandClass *					Land;					// +0x04
-	int							m_Unknown08;
-	int							m_Unknown0C;
+	int							VertexCount;		// +0x08, Size squared
+	int							Size;					// +0x0C, vertices a side
 	int							m_Unknown10;
 	int							m_Unknown14;
 	int							m_Unknown18;
 	int							m_Unknown1C;
 	int							m_Unknown20;
 	int							m_Unknown24;
-	int							m_Unknown28;
+	float							MidHeight;			// +0x28, (lowest + highest) / 2, in PGM units
 	int							m_Unknown2C;
 };
 
@@ -118,6 +124,7 @@ class LandUnknownClass : public LandUnknownBaseClass, public RefCountClass	// NA
 // NAME 5: "Land.Peek() == (LandClass*)obj" (client assert)
 class LandClass : public RenderObjClass
 {
+	friend class LandPatchClass;
 public:
 	enum {
 		MAX_LEVELS = 5,		// NAME 2: the per-level arrays at +0x94..+0xE0 (5 each)
