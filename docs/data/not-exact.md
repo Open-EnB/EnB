@@ -7,21 +7,33 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-54 entries in 24 files.
+72 entries in 25 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
 | `app/client/aux_roots.cpp:2` | `UnknownCOClass::Unknown_Create_Aux_Root` | mention | NOT EXACT (D42): functional. NAME 1 [aux_roots.cpp]: provisional file name (the client's constructors are in co.cpp 0x6F6000-0x6FBEF0 and the Player object 0x751BE0) |
 | `app/client/aux_roots.h:12` | `Read` | mention | NOT EXACT (D42): functional; see the generator's docstring for what differs. |
 | `app/client/tasks/tsk_game.cpp:54` | `ClientTaskClass::Init` | marker | NOT EXACT: inline budget (the client calls string::erase out of line in the assignment; attempts.py show 0x766350) 0x766350 |
+| `app/client/tasks/tsk_login.cpp:219` | `LoginTaskClass::Pre_Run` | marker | NOT EXACT: shape (the event's bit 12 test and the dispatchers' argument order; attempts.py show 0x767DA0) 0x767DA0 |
 | `app/client/tasks/tsk_login.cpp:271` | `LoginTaskClass::Run` | marker | NOT EXACT: register-only (stricmp's argument in ecx, the client's eax; attempts.py show 0x767F50) |
+| `app/client/tasks/tsk_login.cpp:456` | `LoginTaskClass::Unknown_50` | marker | NOT EXACT: inline budget (the client inlines LoginUnknown350Class's assignment and calls the 0x160 object's constructor 0x7688F0; ours the reverse; attempts.py show 0x7683F0) 0x7683F0 |
 | `app/client/tasks/tsk_login.cpp:644` | `LoginTaskClass::Go_Next_Step` | marker | NOT EXACT: register-only (the client keeps 1 in ebx and the slot's address; attempts.py show 0x769500) 0x769500 |
 | `app/client/tasks/tsk_login.cpp:711` | `LoginTaskClass::Go_Back_Step` | marker | NOT EXACT: register-only (the client keeps 1 in ebx for the flag and step 1; attempts.py show 0x769680) |
 | `app/client/tasks/tsk_login.cpp:829` | `LoginTaskClass::Unknown_64` | marker | NOT EXACT: shape (the client shares its 'return true' tails; attempts.py show 0x7698E0) 0x7698E0 |
+| `app/client/tasks/tsk_login.cpp:1011` | `LoginTaskClass::Unknown_76A370` | marker | NOT EXACT: inline budget (ours inlines std::string("Fast")'s assign, the client calls it; attempts.py show 0x76A370) 0x76A370 |
+| `app/client/tasks/tsk_login.cpp:1221` | `LoginTaskClass::Handle_Global_Error` | marker | NOT EXACT: shape (the CharacterView test's registers: the client loads +0x1B4 into ecx; attempts.py show 0x76B000) 0x76B000 |
 | `app/client/tasks/tsk_smovie.cpp:113` | `ScriptedMovieTaskClass::Init` | marker | NOT EXACT: the client's loop keeps its test at the top (a jmp back to it); while, for, for (;;) with a break, a goto and ++ in the call all give VC6's rotated loop (the test at the bottom) |
 | `app/common/dbgconn.cpp:111` | `TimedLogConnectionClass::TimedLogConnectionClass` | marker | NOT EXACT: the client inlines LogConnectionClass's constructor here and keeps it out of line (0x823F70, no caller); `inline` on it matches this one and loses that one. |
 | `app/common/dbgconn.cpp:154` | `RateConnectionClass::Send_Message` | marker | NOT EXACT: the client inlines ~ForwardingConnectionClass here (inline in its connect.h; ours is in connect.cpp, see the notes). |
 | `app/common/dbgconn.cpp:183` | `RateConnectionClass::Count` | marker | NOT EXACT: the client stores Index before it loads Time (ours loads Time before the idiv); the slots that inline it (0x824CF0, 0x824D90, 0x824E20, 0x824F50) differ only there. |
+| `app/common/lego_identifier.cpp:83` | `LegoIdentifierClass::LegoIdentifierClass` | marker | NOT EXACT: 0x843970, the client inlines Set_Name here (inline-budget; attempts.py show 0x843970) |
+| `app/common/lego_identifier.cpp:102` | `LegoIdentifierClass::Get_Count` | marker | NOT EXACT: 0x843E80, registers in the inlined vector assignment (shape; attempts.py show 0x843E80) |
+| `app/common/lego_identifier.cpp:108` | `LegoIdentifierClass::Get_Count` | marker | NOT EXACT: 0x844120, npos read from memory in the client's clear (shape; attempts.py show 0x844120) |
+| `app/common/lego_identifier.cpp:115` | `LegoIdentifierClass::Get_Count` | marker | NOT EXACT: 0x844210 (shape; attempts.py show 0x844210) |
+| `app/common/lego_identifier.cpp:128` | `LegoIdentifierClass::Get_Root` | marker | NOT EXACT: 0x844330, the client tests for the empty name first (shape; attempts.py show 0x844330) |
+| `app/common/lego_identifier.cpp:133` | `LegoIdentifierClass::Pop_Root` | marker | NOT EXACT: 0x8444C0, npos read from memory in the client's erase (shape; attempts.py show 0x8444C0) |
+| `app/common/lego_identifier.cpp:150` | `LegoIdentifierClass::Add` | marker | NOT EXACT: 0x8448A0, npos read from memory in the client's copy (shape; attempts.py show 0x8448A0). The client copies over the chain's end without growing it (kept: it is the client's code). |
+| `app/common/lego_identifier.cpp:171` | `LegoIdentifierClass::Set_Name` | marker | NOT EXACT: 0x844CD0, registers (attempts.py show 0x844CD0) |
 | `app/common/memconn.cpp:183` | `MemoryConnectionClass::Unknown_30` | marker | NOT EXACT: the two null-data asserts share one call; the client keeps the first and jumps from the second. |
 | `app/common/tcpconn.cpp:172` | `TCPConnection::Key_Exchange` | marker | NOT EXACT: the client inlines the listener loop's iterator increment (_Tree::_Inc), ours calls it (inline budget); two register swaps. |
 | `app/common/tcpconn.cpp:661` | `TCPListenerClass::Listen` | marker | NOT EXACT: ours merges the two `ret == SOCKET_ERROR` failure tails (lines 706 / 716); the client keeps both. |

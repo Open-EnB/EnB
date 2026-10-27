@@ -138,3 +138,39 @@ bool String_To_Value(const char *text, MoneyClass *value)
 	STUB_CALLED("String_To_Value(MoneyClass) (0x4F0640)");
 	return false;
 }
+
+// ------------------------------------------------------------------------- lego_identifier.cpp's helpers
+
+#include <string>
+#include <vector>
+
+// 0x4A1590: a bounded strcpy (at most size - 1 characters, always ended): the client's behaviour
+char *Unknown_4A1590(char *buffer, int size, const char *string)
+{
+	if (size == 0) {
+		return buffer;
+	}
+	strncpy(buffer, string, size - 1);
+	buffer[size - 1] = 0;
+	return buffer;
+}
+
+// 0x4FC2F0: string split at separator into list (lego_identifier.cpp's Set_Name), the client's
+// behaviour as far as the lego identifiers need it
+void Unknown_4FC2F0(std::vector<std::string> &list, const std::string &string, const std::string &separator)
+{
+	list.clear();
+	if (string.size() == 0) {
+		return;
+	}
+	std::string::size_type pos = 0;
+	for (;;) {
+		std::string::size_type at = string.find(separator, pos);
+		if (at == std::string::npos || separator.size() == 0) {
+			list.push_back(string.substr(pos));
+			return;
+		}
+		list.push_back(string.substr(pos, at - pos));
+		pos = at + separator.size();
+	}
+}

@@ -63,7 +63,8 @@ WWUDP = [r'app\wwudp\cordcon.cpp', r'app\wwudp\cordmgr.cpp', r'app\wwudp\unknown
 CONN = [r'app\common\circbuff.cpp', r'app\common\connect.cpp', r'app\common\udpconn.cpp',
         r'app\kernel\kernel.cpp', r'app\shared\auxdata\linearbu.cpp', r'app\packets\pk.cpp',
         r'app\packets\clientstub.cpp', r'app\shared\unknown_debug.cpp',
-        r'app\common\unknown_navlist.cpp']   # WARP 155's navigation list
+        r'app\common\unknown_navlist.cpp',   # WARP 155's navigation list
+        r'app\common\lego_identifier.cpp']   # the object-to-object effects' bone path (opcodes 11-14)
 # the packet classes rebuilt in their own files (pkclasses.py: pk_classes.h includes their headers;
 # conn_replay.cpp sends what their Build makes)
 for _sub in ('', 'gameedit'):

@@ -143,14 +143,6 @@ public:
 	char Unknown0C[0x18];	// +0x0C
 };
 
-// opcode 11 (0x000B, OBJECT_TO_OBJECT_EFFECT): vtable 0xB0A438, constructor 0x883A60, 0x60 bytes
-class ObjectToObjectEffectPacketClass : public PacketClass
-{
-public:
-	ObjectToObjectEffectPacketClass(RawPacketClass *raw);	// 0x883A60
-	char Unknown0C[0x54];	// +0x0C
-};
-
 // opcode 12 (0x000C, ?): vtable 0xB0A46C, constructor 0x884790, 0x5C bytes
 class ObjectToEffectEffectPacketClass : public PacketClass
 {

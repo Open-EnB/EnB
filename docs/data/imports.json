@@ -909,6 +909,45 @@
     "merged": [],
     "name": "shared/land.cpp"
    },
+   "lego_identifier": {
+    "ambiguous": [
+     "0x42A6C0",
+     "0x42B2F0",
+     "0x4FA710"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42A820",
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30",
+     "0x42CAB0",
+     "0x42CD30",
+     "0x42D050",
+     "0x432B80",
+     "0x432C30",
+     "0x433700",
+     "0x433A10",
+     "0x47E480",
+     "0x47E4D0",
+     "0x47EB50",
+     "0x47ED00",
+     "0x4B5740",
+     "0x8436D0",
+     "0x843810",
+     "0x843890",
+     "0x843910",
+     "0x843940",
+     "0x843B50",
+     "0x843DB0",
+     "0x843E40",
+     "0x844680",
+     "0x844A60"
+    ],
+    "merged": [],
+    "name": "common/lego_identifier.cpp"
+   },
    "linearbu": {
     "ambiguous": [],
     "copy": "reconstructed",
@@ -2040,11 +2079,14 @@
    },
    "pkpointeffect": {
     "ambiguous": [
+     "0x42A6C0",
      "0x42B2F0"
     ],
     "copy": "reconstructed",
     "expected": {},
     "in_tree": [
+     "0x42A970",
+     "0x42AB30",
      "0x52B210",
      "0x52B240",
      "0x52B270",
@@ -2061,6 +2103,12 @@
      "0x8834D0",
      "0x8835C0",
      "0x883700",
+     "0x883790",
+     "0x883A60",
+     "0x883DD0",
+     "0x884050",
+     "0x8841D0",
+     "0x884410",
      "0x885E30",
      "0x885EC0",
      "0x885FA0"
@@ -3567,6 +3615,7 @@
    "common/circbuff.h": "reconstructed",
    "common/connect.h": "reconstructed",
    "common/dbgconn.h": "reconstructed",
+   "common/lego_identifier.h": "reconstructed",
    "common/memconn.h": "reconstructed",
    "common/tcpconn.h": "reconstructed",
    "common/udpconn.h": "reconstructed",

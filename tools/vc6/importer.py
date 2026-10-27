@@ -3502,6 +3502,10 @@ RECONSTRUCTED = {
                                       "(Unknown_RateClass), client 0x820830-0x820AF7",
     ('app', 'common/unknown_rate.h'): "PROVISIONAL file name: the bytes-per-second average 0x820830-0x820A20 "
                                       "(Unknown_RateClass, D10); rebuilt in unknown_rate.cpp",
+    ('app', 'common/lego_identifier.cpp'): "lego_identifier.cpp (the client's __FILE__): the lego types' lookups and "
+                                         "LegoIdentifierClass (vtable 0xB08C5C, a bone path), client 0x8436D0-0x8451A0 but 0x844ED0 "
+                                         "(builder P4: 10 of 17 exact, 8 NOT EXACT)",
+    ('app', 'common/lego_identifier.h'): "LegoIdentifierClass (0x14 bytes: the vtable, BoneNameChain); D24 header name",
     ('app', 'common/unknown_navlist.cpp'): "PROVISIONAL file name (D10): the music types' names and the navigation "
                                          "list (NavigationListClass, vtable 0xB08C60; WARP 155's), client 0x8462A0-0x846A3F "
                                          "(builder P4, 15 of 15 exact in appfile.py match)",
@@ -3598,7 +3602,7 @@ RECONSTRUCTED = {
     ('app', 'packets/pkdamage.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
     ('app', 'packets/pknamedecal.cpp'): "packet classes (opcode 178) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
     ('app', 'packets/pknamedecal.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
-    ('app', 'packets/pkpointeffect.cpp'): "opcode 9 written by hand over FlagPacketClass and PointEffect's value constructor (builder P3, 10 of 10 exact in appfile.py match); packet classes (opcode 10, 15) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
+    ('app', 'packets/pkpointeffect.cpp'): "opcode 11 (OBJECT_TO_OBJECT_EFFECT) written by hand over lego_identifier.cpp (builder P4, 8 of 8 exact in appfile.py match); opcode 9 written by hand over FlagPacketClass and PointEffect's value constructor (builder P3, 10 of 10 exact in appfile.py match); packet classes (opcode 10, 15) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
     ('app', 'packets/pkpointeffect.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
     ('app', 'packets/pkunknown_888b60.cpp'): "opcode 174 written by hand (builder P3, 5 of 5 exact in appfile.py match); packet classes (opcode 175) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
     ('app', 'packets/pkunknown_888b60.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
