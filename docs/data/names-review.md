@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 16 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 35 |
-| 3 | by convention from a client-named file or sibling | 731 |
-| 2 | describes what the code does | 1509 |
-| 1 | neutral placeholder | 2160 |
+| 3 | by convention from a client-named file or sibling | 733 |
+| 2 | describes what the code does | 1511 |
+| 1 | neutral placeholder | 2207 |
 
 ## For review (score 3 and below)
 
@@ -481,15 +481,24 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown14EC` | `app/client/sclient.h:237` | untagged neutral name (D10) |
 | 1 | `Unknown14F0` | `app/client/sclient.h:238` | untagged neutral name (D10) |
 | 1 | `Unknown14F4` | `app/client/sclient.h:239` | untagged neutral name (D10) |
-| 1 | `Unknown_75A570` | `app/client/soptions.h:47` | untagged neutral name (D10) |
-| 1 | `Unknown_75A5A0` | `app/client/soptions.h:48` | untagged neutral name (D10) |
-| 1 | `Unknown_75A5D0` | `app/client/soptions.h:49` | untagged neutral name (D10) |
-| 1 | `Unknown04` | `app/client/soptions.h:52` | untagged neutral name (D10) |
-| 1 | `Unknown05` | `app/client/soptions.h:53` | untagged neutral name (D10) |
-| 1 | `Unknown06` | `app/client/soptions.h:54` | untagged neutral name (D10) |
-| 1 | `Unknown20` | `app/client/soptions.h:61` | untagged neutral name (D10) |
-| 1 | `Unknown24` | `app/client/soptions.h:62` | untagged neutral name (D10) |
-| 1 | `Unknown28` | `app/client/soptions.h:63` | untagged neutral name (D10) |
+| 1 | `Unknown04` | `app/client/soptions.cpp:14` | untagged neutral name (D10) |
+| 1 | `Unknown05` | `app/client/soptions.cpp:14` | untagged neutral name (D10) |
+| 1 | `Unknown06` | `app/client/soptions.cpp:14` | untagged neutral name (D10) |
+| 1 | `Unknown20` | `app/client/soptions.cpp:15` | untagged neutral name (D10) |
+| 1 | `Unknown24` | `app/client/soptions.cpp:15` | untagged neutral name (D10) |
+| 1 | `Unknown28` | `app/client/soptions.cpp:15` | untagged neutral name (D10) |
+| 1 | `Unknown_75A570` | `app/client/soptions.cpp:63` | untagged neutral name (D10) |
+| 1 | `Unknown_75A5A0` | `app/client/soptions.cpp:73` | untagged neutral name (D10) |
+| 1 | `Unknown_75A5D0` | `app/client/soptions.cpp:83` | untagged neutral name (D10) |
+| 1 | `Unknown_75A570` | `app/client/soptions.h:46` | untagged neutral name (D10) |
+| 1 | `Unknown_75A5A0` | `app/client/soptions.h:47` | untagged neutral name (D10) |
+| 1 | `Unknown_75A5D0` | `app/client/soptions.h:48` | untagged neutral name (D10) |
+| 1 | `Unknown04` | `app/client/soptions.h:51` | untagged neutral name (D10) |
+| 1 | `Unknown05` | `app/client/soptions.h:52` | untagged neutral name (D10) |
+| 1 | `Unknown06` | `app/client/soptions.h:53` | untagged neutral name (D10) |
+| 1 | `Unknown20` | `app/client/soptions.h:60` | untagged neutral name (D10) |
+| 1 | `Unknown24` | `app/client/soptions.h:61` | untagged neutral name (D10) |
+| 1 | `Unknown28` | `app/client/soptions.h:62` | untagged neutral name (D10) |
 | 1 | `Unknown0C` | `app/client/tasks/tsk_game.cpp:18` | untagged neutral name (D10) |
 | 1 | `gm_name` | `app/client/tasks/tsk_game.cpp:19` | '-GM_NAME' |
 | 1 | `Address, Port` | `app/client/tasks/tsk_game.cpp:20` | handed to Redirect |
@@ -794,20 +803,36 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_BE67BC` | `app/client/ui_line_display.cpp:19` | neutral (D10) |
 | 1 | `Unknown_71A960` | `app/client/ui_line_display.cpp:24` | untagged neutral name (D10) |
 | 1 | `Unknown_71AB40` | `app/client/ui_line_display.cpp:25` | untagged neutral name (D10) |
-| 1 | `LineDisplaySClientClass` | `app/client/ui_line_display.cpp:28` | neutral (D10): sclient.cpp's class, as far as slot +0x7C reads it |
-| 1 | `Unknown0000` | `app/client/ui_line_display.cpp:31` | untagged neutral name (D10) |
-| 1 | `Unknown1354` | `app/client/ui_line_display.cpp:32` | untagged neutral name (D10) |
-| 1 | `Unknown1358` | `app/client/ui_line_display.cpp:33` | untagged neutral name (D10) |
-| 1 | `Unknown135C` | `app/client/ui_line_display.cpp:34` | untagged neutral name (D10) |
-| 1 | `LineDisplayClientClass` | `app/client/ui_line_display.cpp:37` | neutral (D10) |
-| 1 | `Unknown_00` | `app/client/ui_line_display.cpp:40` | untagged neutral name (D10) |
-| 1 | `Unknown_04` | `app/client/ui_line_display.cpp:41` | untagged neutral name (D10) |
-| 1 | `Unknown_08` | `app/client/ui_line_display.cpp:42` | untagged neutral name (D10) |
-| 1 | `Unknown_0C` | `app/client/ui_line_display.cpp:43` | untagged neutral name (D10) |
-| 1 | `Unknown_10` | `app/client/ui_line_display.cpp:44` | untagged neutral name (D10) |
-| 1 | `Unknown_14` | `app/client/ui_line_display.cpp:45` | untagged neutral name (D10) |
-| 1 | `Unknown_18` | `app/client/ui_line_display.cpp:46` | untagged neutral name (D10) |
-| 1 | `Unknown_16C` | `app/client/ui_line_display.cpp:105` | untagged neutral name (D10) |
+| 1 | `LineDisplayUnknown138Class` | `app/client/ui_line_display.cpp:28` | neutral (D10) |
+| 1 | `Unknown000` | `app/client/ui_line_display.cpp:31` | untagged neutral name (D10) |
+| 1 | `UnknownC8` | `app/client/ui_line_display.cpp:32` | untagged neutral name (D10) |
+| 1 | `LineDisplayUnknown127CClass` | `app/client/ui_line_display.cpp:35` | neutral (D10) |
+| 1 | `Unknown138` | `app/client/ui_line_display.cpp:39` | untagged neutral name (D10) |
+| 1 | `LineDisplaySClientClass` | `app/client/ui_line_display.cpp:42` | neutral (D10): sclient.cpp's class, as far as this file reads it |
+| 1 | `Unknown0000` | `app/client/ui_line_display.cpp:45` | untagged neutral name (D10) |
+| 1 | `Unknown127C` | `app/client/ui_line_display.cpp:46` | untagged neutral name (D10) |
+| 1 | `Unknown1280` | `app/client/ui_line_display.cpp:47` | untagged neutral name (D10) |
+| 1 | `Unknown1354` | `app/client/ui_line_display.cpp:48` | untagged neutral name (D10) |
+| 1 | `Unknown1358` | `app/client/ui_line_display.cpp:49` | untagged neutral name (D10) |
+| 1 | `Unknown135C` | `app/client/ui_line_display.cpp:50` | untagged neutral name (D10) |
+| 1 | `LineDisplayClientClass` | `app/client/ui_line_display.cpp:53` | neutral (D10) |
+| 1 | `Unknown_00` | `app/client/ui_line_display.cpp:56` | untagged neutral name (D10) |
+| 1 | `Unknown_04` | `app/client/ui_line_display.cpp:57` | untagged neutral name (D10) |
+| 1 | `Unknown_08` | `app/client/ui_line_display.cpp:58` | untagged neutral name (D10) |
+| 1 | `Unknown_0C` | `app/client/ui_line_display.cpp:59` | untagged neutral name (D10) |
+| 1 | `Unknown_10` | `app/client/ui_line_display.cpp:60` | untagged neutral name (D10) |
+| 1 | `Unknown_14` | `app/client/ui_line_display.cpp:61` | untagged neutral name (D10) |
+| 1 | `Unknown_18` | `app/client/ui_line_display.cpp:62` | untagged neutral name (D10) |
+| 1 | `LineDisplayWrapClass` | `app/client/ui_line_display.cpp:66` | neutral (D10) |
+| 1 | `Unknown_4F9D90` | `app/client/ui_line_display.cpp:71` | untagged neutral name (D10) |
+| 1 | `Unknown_4FA710` | `app/client/ui_line_display.cpp:72` | untagged neutral name (D10) |
+| 1 | `Unknown_4FA740` | `app/client/ui_line_display.cpp:73` | untagged neutral name (D10) |
+| 1 | `Unknown04` | `app/client/ui_line_display.cpp:76` | untagged neutral name (D10) |
+| 1 | `LineDisplaySortClass` | `app/client/ui_line_display.cpp:80` | neutral (D10) |
+| 1 | `Unknown00` | `app/client/ui_line_display.cpp:87` | untagged neutral name (D10) |
+| 1 | `Unknown_BFAE3C` | `app/client/ui_line_display.cpp:90` | neutral (D10): the time now, as slot +0x60 reads it |
+| 1 | `Unknown_BFAE40` | `app/client/ui_line_display.cpp:91` | neutral (D10): the time of the last frame |
+| 1 | `Unknown_16C` | `app/client/ui_line_display.cpp:149` | untagged neutral name (D10) |
 | 1 | `UnknownAD` | `app/client/ui_line_display.cpp:165` | untagged neutral name (D10) |
 | 1 | `UnknownB8` | `app/client/ui_line_display.cpp:166` | untagged neutral name (D10) |
 | 1 | `UnknownFC` | `app/client/ui_line_display.cpp:168` | untagged neutral name (D10) |
@@ -817,168 +842,186 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_70` | `app/client/ui_line_display.cpp:281` | untagged neutral name (D10) |
 | 1 | `Unknown4C` | `app/client/ui_line_display.cpp:284` | untagged neutral name (D10) |
 | 1 | `Unknown_74` | `app/client/ui_line_display.cpp:288` | untagged neutral name (D10) |
-| 1 | `Unknown_68` | `app/client/ui_line_display.cpp:296` | untagged neutral name (D10) |
+| 1 | `Unknown_60` | `app/client/ui_line_display.cpp:317` | untagged neutral name (D10) |
+| 1 | `Unknown_5A8350` | `app/client/ui_line_display.cpp:319` | untagged neutral name (D10) |
+| 1 | `Unknown44` | `app/client/ui_line_display.cpp:320` | untagged neutral name (D10) |
+| 1 | `Unknown440` | `app/client/ui_line_display.cpp:358` | untagged neutral name (D10) |
+| 1 | `Unknown_1A8` | `app/client/ui_line_display.cpp:358` | untagged neutral name (D10) |
+| 1 | `Unknown_6D89C0` | `app/client/ui_line_display.cpp:358` | untagged neutral name (D10) |
+| 1 | `Unknown_6CE910` | `app/client/ui_line_display.cpp:401` | untagged neutral name (D10) |
+| 1 | `Unknown_6CE420` | `app/client/ui_line_display.cpp:403` | untagged neutral name (D10) |
+| 1 | `Unknown_6CDBC0` | `app/client/ui_line_display.cpp:405` | untagged neutral name (D10) |
+| 1 | `Unknown_054` | `app/client/ui_line_display.cpp:412` | untagged neutral name (D10) |
+| 1 | `Unknown_541800` | `app/client/ui_line_display.cpp:415` | untagged neutral name (D10) |
+| 1 | `Unknown_034` | `app/client/ui_line_display.cpp:416` | untagged neutral name (D10) |
+| 1 | `Unknown_68` | `app/client/ui_line_display.cpp:420` | untagged neutral name (D10) |
+| 1 | `Unknown24C` | `app/client/ui_line_display.cpp:482` | untagged neutral name (D10) |
 | 1 | `Unknown_7C` | `app/client/ui_line_display.cpp:591` | untagged neutral name (D10) |
-| 1 | `Unknown_054` | `app/client/ui_line_display.cpp:611` | untagged neutral name (D10) |
 | 1 | `Unknown_040` | `app/client/ui_line_display.cpp:624` | untagged neutral name (D10) |
 | 1 | `Unknown_038` | `app/client/ui_line_display.cpp:625` | untagged neutral name (D10) |
 | 1 | `LineDisplayTextClass` | `app/client/ui_line_display.h:35` | neutral (D10): what the line display keeps per STR-n |
-| 1 | `Unknown_008` | `app/client/ui_line_display.h:40` | untagged neutral name (D10) |
-| 1 | `Unknown_00C` | `app/client/ui_line_display.h:41` | untagged neutral name (D10) |
-| 1 | `Unknown_010` | `app/client/ui_line_display.h:42` | untagged neutral name (D10) |
-| 1 | `Unknown_014` | `app/client/ui_line_display.h:43` | untagged neutral name (D10) |
-| 1 | `Unknown_018` | `app/client/ui_line_display.h:44` | untagged neutral name (D10) |
-| 1 | `Unknown_01C` | `app/client/ui_line_display.h:45` | untagged neutral name (D10) |
-| 1 | `Unknown_020` | `app/client/ui_line_display.h:46` | untagged neutral name (D10) |
-| 1 | `Unknown_024` | `app/client/ui_line_display.h:47` | untagged neutral name (D10) |
-| 1 | `Unknown_028` | `app/client/ui_line_display.h:48` | untagged neutral name (D10) |
-| 1 | `Unknown_02C` | `app/client/ui_line_display.h:49` | untagged neutral name (D10) |
-| 1 | `Unknown_030` | `app/client/ui_line_display.h:50` | untagged neutral name (D10) |
-| 1 | `Unknown_034` | `app/client/ui_line_display.h:51` | untagged neutral name (D10) |
-| 1 | `Unknown_038` | `app/client/ui_line_display.h:52` | untagged neutral name (D10) |
-| 1 | `Unknown_03C` | `app/client/ui_line_display.h:53` | untagged neutral name (D10) |
-| 1 | `Unknown_040` | `app/client/ui_line_display.h:54` | untagged neutral name (D10) |
-| 1 | `Unknown_044` | `app/client/ui_line_display.h:55` | untagged neutral name (D10) |
-| 1 | `Unknown_048` | `app/client/ui_line_display.h:56` | untagged neutral name (D10) |
-| 1 | `Unknown_04C` | `app/client/ui_line_display.h:57` | untagged neutral name (D10) |
-| 1 | `Unknown_050` | `app/client/ui_line_display.h:58` | untagged neutral name (D10) |
-| 1 | `Unknown_054` | `app/client/ui_line_display.h:59` | untagged neutral name (D10) |
-| 1 | `Unknown_058` | `app/client/ui_line_display.h:60` | untagged neutral name (D10) |
-| 1 | `Unknown_05C` | `app/client/ui_line_display.h:61` | untagged neutral name (D10) |
-| 1 | `Unknown_060` | `app/client/ui_line_display.h:62` | untagged neutral name (D10) |
-| 1 | `Unknown_064` | `app/client/ui_line_display.h:63` | untagged neutral name (D10) |
-| 1 | `Unknown_068` | `app/client/ui_line_display.h:64` | untagged neutral name (D10) |
-| 1 | `Unknown_06C` | `app/client/ui_line_display.h:65` | untagged neutral name (D10) |
-| 1 | `Unknown_070` | `app/client/ui_line_display.h:66` | untagged neutral name (D10) |
-| 1 | `Unknown_074` | `app/client/ui_line_display.h:67` | untagged neutral name (D10) |
-| 1 | `Unknown_078` | `app/client/ui_line_display.h:68` | untagged neutral name (D10) |
-| 1 | `Unknown_07C` | `app/client/ui_line_display.h:69` | untagged neutral name (D10) |
-| 1 | `Unknown_080` | `app/client/ui_line_display.h:70` | untagged neutral name (D10) |
-| 1 | `Unknown_084` | `app/client/ui_line_display.h:71` | untagged neutral name (D10) |
-| 1 | `Unknown_088` | `app/client/ui_line_display.h:72` | untagged neutral name (D10) |
-| 1 | `Unknown_08C` | `app/client/ui_line_display.h:73` | untagged neutral name (D10) |
-| 1 | `Unknown_090` | `app/client/ui_line_display.h:74` | untagged neutral name (D10) |
-| 1 | `Unknown_094` | `app/client/ui_line_display.h:75` | untagged neutral name (D10) |
-| 1 | `Unknown_098` | `app/client/ui_line_display.h:76` | untagged neutral name (D10) |
-| 1 | `Unknown_09C` | `app/client/ui_line_display.h:77` | untagged neutral name (D10) |
-| 1 | `Unknown_0A0` | `app/client/ui_line_display.h:78` | untagged neutral name (D10) |
-| 1 | `Unknown_0A4` | `app/client/ui_line_display.h:79` | untagged neutral name (D10) |
-| 1 | `Unknown_0A8` | `app/client/ui_line_display.h:80` | untagged neutral name (D10) |
-| 1 | `Unknown_0AC` | `app/client/ui_line_display.h:81` | untagged neutral name (D10) |
-| 1 | `Unknown_0B0` | `app/client/ui_line_display.h:82` | untagged neutral name (D10) |
-| 1 | `Unknown_0B4` | `app/client/ui_line_display.h:83` | untagged neutral name (D10) |
-| 1 | `Unknown_0B8` | `app/client/ui_line_display.h:84` | untagged neutral name (D10) |
-| 1 | `Unknown_0BC` | `app/client/ui_line_display.h:85` | untagged neutral name (D10) |
-| 1 | `Unknown_0C0` | `app/client/ui_line_display.h:86` | untagged neutral name (D10) |
-| 1 | `Unknown_0C4` | `app/client/ui_line_display.h:87` | untagged neutral name (D10) |
-| 1 | `Unknown_0C8` | `app/client/ui_line_display.h:88` | untagged neutral name (D10) |
-| 1 | `Unknown_0CC` | `app/client/ui_line_display.h:89` | untagged neutral name (D10) |
-| 1 | `Unknown_0D0` | `app/client/ui_line_display.h:90` | untagged neutral name (D10) |
-| 1 | `Unknown_0D4` | `app/client/ui_line_display.h:91` | untagged neutral name (D10) |
-| 1 | `Unknown_0D8` | `app/client/ui_line_display.h:92` | untagged neutral name (D10) |
-| 1 | `Unknown_0DC` | `app/client/ui_line_display.h:93` | untagged neutral name (D10) |
-| 1 | `Unknown_0E0` | `app/client/ui_line_display.h:94` | untagged neutral name (D10) |
-| 1 | `Unknown_0E4` | `app/client/ui_line_display.h:95` | untagged neutral name (D10) |
-| 1 | `Unknown_0E8` | `app/client/ui_line_display.h:96` | untagged neutral name (D10) |
-| 1 | `Unknown_0EC` | `app/client/ui_line_display.h:97` | untagged neutral name (D10) |
-| 1 | `Unknown_0F0` | `app/client/ui_line_display.h:98` | untagged neutral name (D10) |
-| 1 | `Unknown_0F4` | `app/client/ui_line_display.h:99` | untagged neutral name (D10) |
-| 1 | `Unknown_0F8` | `app/client/ui_line_display.h:100` | untagged neutral name (D10) |
-| 1 | `Unknown_0FC` | `app/client/ui_line_display.h:101` | untagged neutral name (D10) |
-| 1 | `Unknown_100` | `app/client/ui_line_display.h:102` | untagged neutral name (D10) |
-| 1 | `Unknown_104` | `app/client/ui_line_display.h:103` | untagged neutral name (D10) |
-| 1 | `Unknown_108` | `app/client/ui_line_display.h:104` | untagged neutral name (D10) |
-| 1 | `Unknown_10C` | `app/client/ui_line_display.h:105` | untagged neutral name (D10) |
-| 1 | `Unknown_110` | `app/client/ui_line_display.h:106` | untagged neutral name (D10) |
-| 1 | `Unknown_114` | `app/client/ui_line_display.h:107` | untagged neutral name (D10) |
-| 1 | `Unknown_118` | `app/client/ui_line_display.h:108` | untagged neutral name (D10) |
-| 1 | `Unknown_11C` | `app/client/ui_line_display.h:109` | untagged neutral name (D10) |
-| 1 | `Unknown_120` | `app/client/ui_line_display.h:110` | untagged neutral name (D10) |
-| 1 | `Unknown_124` | `app/client/ui_line_display.h:111` | untagged neutral name (D10) |
-| 1 | `Unknown_128` | `app/client/ui_line_display.h:112` | untagged neutral name (D10) |
-| 1 | `Unknown_12C` | `app/client/ui_line_display.h:113` | untagged neutral name (D10) |
-| 1 | `Unknown_130` | `app/client/ui_line_display.h:114` | untagged neutral name (D10) |
-| 1 | `Unknown_134` | `app/client/ui_line_display.h:115` | untagged neutral name (D10) |
-| 1 | `Unknown_138` | `app/client/ui_line_display.h:116` | untagged neutral name (D10) |
-| 1 | `Unknown_13C` | `app/client/ui_line_display.h:117` | untagged neutral name (D10) |
-| 1 | `Unknown_140` | `app/client/ui_line_display.h:118` | untagged neutral name (D10) |
-| 1 | `Unknown_144` | `app/client/ui_line_display.h:119` | untagged neutral name (D10) |
-| 1 | `Unknown_148` | `app/client/ui_line_display.h:120` | untagged neutral name (D10) |
-| 1 | `Unknown_14C` | `app/client/ui_line_display.h:121` | untagged neutral name (D10) |
-| 1 | `Unknown_150` | `app/client/ui_line_display.h:122` | untagged neutral name (D10) |
-| 1 | `Unknown_154` | `app/client/ui_line_display.h:123` | untagged neutral name (D10) |
-| 1 | `Unknown_158` | `app/client/ui_line_display.h:124` | untagged neutral name (D10) |
-| 1 | `Unknown_15C` | `app/client/ui_line_display.h:125` | untagged neutral name (D10) |
-| 1 | `Unknown_160` | `app/client/ui_line_display.h:126` | untagged neutral name (D10) |
-| 1 | `Unknown_164` | `app/client/ui_line_display.h:127` | untagged neutral name (D10) |
-| 1 | `Unknown_168` | `app/client/ui_line_display.h:128` | untagged neutral name (D10) |
-| 1 | `Unknown_16C` | `app/client/ui_line_display.h:129` | untagged neutral name (D10) |
-| 1 | `Unknown_170` | `app/client/ui_line_display.h:130` | untagged neutral name (D10) |
-| 1 | `Unknown_174` | `app/client/ui_line_display.h:131` | untagged neutral name (D10) |
-| 1 | `Unknown_178` | `app/client/ui_line_display.h:132` | untagged neutral name (D10) |
-| 1 | `Unknown_17C` | `app/client/ui_line_display.h:133` | untagged neutral name (D10) |
-| 1 | `Unknown_180` | `app/client/ui_line_display.h:134` | untagged neutral name (D10) |
-| 1 | `Unknown_184` | `app/client/ui_line_display.h:135` | untagged neutral name (D10) |
-| 1 | `Unknown_188` | `app/client/ui_line_display.h:136` | untagged neutral name (D10) |
-| 1 | `Unknown_18C` | `app/client/ui_line_display.h:137` | untagged neutral name (D10) |
-| 1 | `Unknown_190` | `app/client/ui_line_display.h:138` | untagged neutral name (D10) |
-| 1 | `Unknown_194` | `app/client/ui_line_display.h:139` | untagged neutral name (D10) |
-| 1 | `Unknown_198` | `app/client/ui_line_display.h:140` | untagged neutral name (D10) |
-| 1 | `Unknown_19C` | `app/client/ui_line_display.h:141` | untagged neutral name (D10) |
-| 1 | `Unknown_1A0` | `app/client/ui_line_display.h:142` | untagged neutral name (D10) |
-| 1 | `Unknown_1A4` | `app/client/ui_line_display.h:143` | untagged neutral name (D10) |
-| 1 | `Unknown_1A8` | `app/client/ui_line_display.h:144` | untagged neutral name (D10) |
-| 1 | `Unknown008` | `app/client/ui_line_display.h:146` | untagged neutral name (D10) |
-| 1 | `Unknown440` | `app/client/ui_line_display.h:147` | untagged neutral name (D10) |
-| 1 | `Unknown444` | `app/client/ui_line_display.h:148` | untagged neutral name (D10) |
-| 1 | `UnknownGadgetBase00Class` | `app/client/ui_line_display.h:192` | neutral (D10): the inline base's first table (0xAEAB48) |
-| 1 | `Unknown_04` | `app/client/ui_line_display.h:196` | untagged neutral name (D10) |
-| 1 | `Unknown_08` | `app/client/ui_line_display.h:197` | untagged neutral name (D10) |
-| 1 | `Unknown_0C` | `app/client/ui_line_display.h:198` | untagged neutral name (D10) |
-| 1 | `Unknown_10` | `app/client/ui_line_display.h:199` | untagged neutral name (D10) |
-| 1 | `Unknown_14` | `app/client/ui_line_display.h:200` | untagged neutral name (D10) |
-| 1 | `Unknown_18` | `app/client/ui_line_display.h:201` | untagged neutral name (D10) |
-| 1 | `Unknown_1C` | `app/client/ui_line_display.h:202` | untagged neutral name (D10) |
-| 1 | `Unknown_20` | `app/client/ui_line_display.h:203` | untagged neutral name (D10) |
-| 1 | `Unknown_24` | `app/client/ui_line_display.h:204` | untagged neutral name (D10) |
-| 1 | `Unknown_28` | `app/client/ui_line_display.h:205` | untagged neutral name (D10) |
-| 1 | `Unknown_2C` | `app/client/ui_line_display.h:206` | untagged neutral name (D10) |
-| 1 | `Unknown_30` | `app/client/ui_line_display.h:207` | untagged neutral name (D10) |
-| 1 | `Unknown_34` | `app/client/ui_line_display.h:208` | untagged neutral name (D10) |
-| 1 | `Unknown_38` | `app/client/ui_line_display.h:209` | untagged neutral name (D10) |
-| 1 | `Unknown_3C` | `app/client/ui_line_display.h:210` | untagged neutral name (D10) |
-| 1 | `Unknown_40` | `app/client/ui_line_display.h:211` | untagged neutral name (D10) |
-| 1 | `Unknown_44` | `app/client/ui_line_display.h:212` | untagged neutral name (D10) |
-| 1 | `Unknown_48` | `app/client/ui_line_display.h:213` | untagged neutral name (D10) |
-| 1 | `Unknown_4C` | `app/client/ui_line_display.h:214` | untagged neutral name (D10) |
-| 1 | `Unknown_50` | `app/client/ui_line_display.h:215` | untagged neutral name (D10) |
-| 1 | `UnknownGadgetBase04Class` | `app/client/ui_line_display.h:218` | neutral (D10): the inline base's second table (0xAEAB3C) |
-| 1 | `GClassUnknownClass` | `app/client/ui_line_display.h:225` | neutral (D10): gclass.cpp's class (constructor 0x4A1880) |
-| 1 | `Unknown08` | `app/client/ui_line_display.h:228` | untagged neutral name (D10) |
-| 1 | `Unknown_58` | `app/client/ui_line_display.h:237` | untagged neutral name (D10) |
-| 1 | `Unknown_5C` | `app/client/ui_line_display.h:238` | untagged neutral name (D10) |
-| 1 | `Unknown_60` | `app/client/ui_line_display.h:239` | untagged neutral name (D10) |
-| 1 | `Unknown_64` | `app/client/ui_line_display.h:240` | untagged neutral name (D10) |
-| 1 | `Unknown_68` | `app/client/ui_line_display.h:241` | untagged neutral name (D10) |
-| 1 | `Unknown_6C` | `app/client/ui_line_display.h:242` | untagged neutral name (D10) |
-| 1 | `Unknown_70` | `app/client/ui_line_display.h:243` | untagged neutral name (D10) |
-| 1 | `Unknown_74` | `app/client/ui_line_display.h:244` | untagged neutral name (D10) |
-| 1 | `Unknown_78` | `app/client/ui_line_display.h:245` | untagged neutral name (D10) |
-| 1 | `Unknown_7C` | `app/client/ui_line_display.h:246` | untagged neutral name (D10) |
-| 1 | `Unknown_80` | `app/client/ui_line_display.h:247` | untagged neutral name (D10) |
-| 1 | `Unknown_84` | `app/client/ui_line_display.h:248` | untagged neutral name (D10) |
-| 1 | `Unknown44` | `app/client/ui_line_display.h:252` | untagged neutral name (D10) |
-| 1 | `Unknown48` | `app/client/ui_line_display.h:253` | untagged neutral name (D10) |
-| 1 | `Unknown4C` | `app/client/ui_line_display.h:254` | untagged neutral name (D10) |
-| 1 | `Unknown_54` | `app/client/ui_line_display.h:262` | neutral (D10) |
-| 1 | `Add_Line_7` | `app/client/ui_line_display.h:272` | neutral (D10): Add_Line at priority 7 |
-| 1 | `Add_Line_3` | `app/client/ui_line_display.h:273` | neutral (D10): Add_Line at priority 3 |
-| 1 | `Unknown_5A8350` | `app/client/ui_line_display.h:278` | untagged neutral name (D10) |
-| 1 | `UnknownAD` | `app/client/ui_line_display.h:288` | untagged neutral name (D10) |
-| 1 | `UnknownB0` | `app/client/ui_line_display.h:289` | untagged neutral name (D10) |
-| 1 | `UnknownB4` | `app/client/ui_line_display.h:290` | untagged neutral name (D10) |
-| 1 | `UnknownB8` | `app/client/ui_line_display.h:291` | untagged neutral name (D10) |
-| 1 | `UnknownFC` | `app/client/ui_line_display.h:295` | untagged neutral name (D10) |
+| 1 | `Unknown_6D89C0` | `app/client/ui_line_display.h:39` | untagged neutral name (D10) |
+| 1 | `Unknown_6CDBC0` | `app/client/ui_line_display.h:40` | untagged neutral name (D10) |
+| 1 | `Unknown_6CE910` | `app/client/ui_line_display.h:41` | untagged neutral name (D10) |
+| 1 | `Unknown_6CE420` | `app/client/ui_line_display.h:42` | untagged neutral name (D10) |
+| 1 | `Unknown_008` | `app/client/ui_line_display.h:44` | untagged neutral name (D10) |
+| 1 | `Unknown_00C` | `app/client/ui_line_display.h:45` | untagged neutral name (D10) |
+| 1 | `Unknown_010` | `app/client/ui_line_display.h:46` | untagged neutral name (D10) |
+| 1 | `Unknown_014` | `app/client/ui_line_display.h:47` | untagged neutral name (D10) |
+| 1 | `Unknown_018` | `app/client/ui_line_display.h:48` | untagged neutral name (D10) |
+| 1 | `Unknown_01C` | `app/client/ui_line_display.h:49` | untagged neutral name (D10) |
+| 1 | `Unknown_020` | `app/client/ui_line_display.h:50` | untagged neutral name (D10) |
+| 1 | `Unknown_024` | `app/client/ui_line_display.h:51` | untagged neutral name (D10) |
+| 1 | `Unknown_028` | `app/client/ui_line_display.h:52` | untagged neutral name (D10) |
+| 1 | `Unknown_02C` | `app/client/ui_line_display.h:53` | untagged neutral name (D10) |
+| 1 | `Unknown_030` | `app/client/ui_line_display.h:54` | untagged neutral name (D10) |
+| 1 | `Unknown_034` | `app/client/ui_line_display.h:55` | untagged neutral name (D10) |
+| 1 | `Unknown_038` | `app/client/ui_line_display.h:56` | untagged neutral name (D10) |
+| 1 | `Unknown_03C` | `app/client/ui_line_display.h:57` | untagged neutral name (D10) |
+| 1 | `Unknown_040` | `app/client/ui_line_display.h:58` | untagged neutral name (D10) |
+| 1 | `Unknown_044` | `app/client/ui_line_display.h:59` | untagged neutral name (D10) |
+| 1 | `Unknown_048` | `app/client/ui_line_display.h:60` | untagged neutral name (D10) |
+| 1 | `Unknown_04C` | `app/client/ui_line_display.h:61` | untagged neutral name (D10) |
+| 1 | `Unknown_050` | `app/client/ui_line_display.h:62` | untagged neutral name (D10) |
+| 1 | `Unknown_054` | `app/client/ui_line_display.h:63` | untagged neutral name (D10) |
+| 1 | `Unknown_058` | `app/client/ui_line_display.h:64` | untagged neutral name (D10) |
+| 1 | `Unknown_05C` | `app/client/ui_line_display.h:65` | untagged neutral name (D10) |
+| 1 | `Unknown_060` | `app/client/ui_line_display.h:66` | untagged neutral name (D10) |
+| 1 | `Unknown_064` | `app/client/ui_line_display.h:67` | untagged neutral name (D10) |
+| 1 | `Unknown_068` | `app/client/ui_line_display.h:68` | untagged neutral name (D10) |
+| 1 | `Unknown_06C` | `app/client/ui_line_display.h:69` | untagged neutral name (D10) |
+| 1 | `Unknown_070` | `app/client/ui_line_display.h:70` | untagged neutral name (D10) |
+| 1 | `Unknown_074` | `app/client/ui_line_display.h:71` | untagged neutral name (D10) |
+| 1 | `Unknown_078` | `app/client/ui_line_display.h:72` | untagged neutral name (D10) |
+| 1 | `Unknown_07C` | `app/client/ui_line_display.h:73` | untagged neutral name (D10) |
+| 1 | `Unknown_080` | `app/client/ui_line_display.h:74` | untagged neutral name (D10) |
+| 1 | `Unknown_084` | `app/client/ui_line_display.h:75` | untagged neutral name (D10) |
+| 1 | `Unknown_088` | `app/client/ui_line_display.h:76` | untagged neutral name (D10) |
+| 1 | `Unknown_08C` | `app/client/ui_line_display.h:77` | untagged neutral name (D10) |
+| 1 | `Unknown_090` | `app/client/ui_line_display.h:78` | untagged neutral name (D10) |
+| 1 | `Unknown_094` | `app/client/ui_line_display.h:79` | untagged neutral name (D10) |
+| 1 | `Unknown_098` | `app/client/ui_line_display.h:80` | untagged neutral name (D10) |
+| 1 | `Unknown_09C` | `app/client/ui_line_display.h:81` | untagged neutral name (D10) |
+| 1 | `Unknown_0A0` | `app/client/ui_line_display.h:82` | untagged neutral name (D10) |
+| 1 | `Unknown_0A4` | `app/client/ui_line_display.h:83` | untagged neutral name (D10) |
+| 1 | `Unknown_0A8` | `app/client/ui_line_display.h:84` | untagged neutral name (D10) |
+| 1 | `Unknown_0AC` | `app/client/ui_line_display.h:85` | untagged neutral name (D10) |
+| 1 | `Unknown_0B0` | `app/client/ui_line_display.h:86` | untagged neutral name (D10) |
+| 1 | `Unknown_0B4` | `app/client/ui_line_display.h:87` | untagged neutral name (D10) |
+| 1 | `Unknown_0B8` | `app/client/ui_line_display.h:88` | untagged neutral name (D10) |
+| 1 | `Unknown_0BC` | `app/client/ui_line_display.h:89` | untagged neutral name (D10) |
+| 1 | `Unknown_0C0` | `app/client/ui_line_display.h:90` | untagged neutral name (D10) |
+| 1 | `Unknown_0C4` | `app/client/ui_line_display.h:91` | untagged neutral name (D10) |
+| 1 | `Unknown_0C8` | `app/client/ui_line_display.h:92` | untagged neutral name (D10) |
+| 1 | `Unknown_0CC` | `app/client/ui_line_display.h:93` | untagged neutral name (D10) |
+| 1 | `Unknown_0D0` | `app/client/ui_line_display.h:94` | untagged neutral name (D10) |
+| 1 | `Unknown_0D4` | `app/client/ui_line_display.h:95` | untagged neutral name (D10) |
+| 1 | `Unknown_0D8` | `app/client/ui_line_display.h:96` | untagged neutral name (D10) |
+| 1 | `Unknown_0DC` | `app/client/ui_line_display.h:97` | untagged neutral name (D10) |
+| 1 | `Unknown_0E0` | `app/client/ui_line_display.h:98` | untagged neutral name (D10) |
+| 1 | `Unknown_0E4` | `app/client/ui_line_display.h:99` | untagged neutral name (D10) |
+| 1 | `Unknown_0E8` | `app/client/ui_line_display.h:100` | untagged neutral name (D10) |
+| 1 | `Unknown_0EC` | `app/client/ui_line_display.h:101` | untagged neutral name (D10) |
+| 1 | `Unknown_0F0` | `app/client/ui_line_display.h:102` | untagged neutral name (D10) |
+| 1 | `Unknown_0F4` | `app/client/ui_line_display.h:103` | untagged neutral name (D10) |
+| 1 | `Unknown_0F8` | `app/client/ui_line_display.h:104` | untagged neutral name (D10) |
+| 1 | `Unknown_0FC` | `app/client/ui_line_display.h:105` | untagged neutral name (D10) |
+| 1 | `Unknown_100` | `app/client/ui_line_display.h:106` | untagged neutral name (D10) |
+| 1 | `Unknown_104` | `app/client/ui_line_display.h:107` | untagged neutral name (D10) |
+| 1 | `Unknown_108` | `app/client/ui_line_display.h:108` | untagged neutral name (D10) |
+| 1 | `Unknown_10C` | `app/client/ui_line_display.h:109` | untagged neutral name (D10) |
+| 1 | `Unknown_110` | `app/client/ui_line_display.h:110` | untagged neutral name (D10) |
+| 1 | `Unknown_114` | `app/client/ui_line_display.h:111` | untagged neutral name (D10) |
+| 1 | `Unknown_118` | `app/client/ui_line_display.h:112` | untagged neutral name (D10) |
+| 1 | `Unknown_11C` | `app/client/ui_line_display.h:113` | untagged neutral name (D10) |
+| 1 | `Unknown_120` | `app/client/ui_line_display.h:114` | untagged neutral name (D10) |
+| 1 | `Unknown_124` | `app/client/ui_line_display.h:115` | untagged neutral name (D10) |
+| 1 | `Unknown_128` | `app/client/ui_line_display.h:116` | untagged neutral name (D10) |
+| 1 | `Unknown_12C` | `app/client/ui_line_display.h:117` | untagged neutral name (D10) |
+| 1 | `Unknown_130` | `app/client/ui_line_display.h:118` | untagged neutral name (D10) |
+| 1 | `Unknown_134` | `app/client/ui_line_display.h:119` | untagged neutral name (D10) |
+| 1 | `Unknown_138` | `app/client/ui_line_display.h:120` | untagged neutral name (D10) |
+| 1 | `Unknown_13C` | `app/client/ui_line_display.h:121` | untagged neutral name (D10) |
+| 1 | `Unknown_140` | `app/client/ui_line_display.h:122` | untagged neutral name (D10) |
+| 1 | `Unknown_144` | `app/client/ui_line_display.h:123` | untagged neutral name (D10) |
+| 1 | `Unknown_148` | `app/client/ui_line_display.h:124` | untagged neutral name (D10) |
+| 1 | `Unknown_14C` | `app/client/ui_line_display.h:125` | untagged neutral name (D10) |
+| 1 | `Unknown_150` | `app/client/ui_line_display.h:126` | untagged neutral name (D10) |
+| 1 | `Unknown_154` | `app/client/ui_line_display.h:127` | untagged neutral name (D10) |
+| 1 | `Unknown_158` | `app/client/ui_line_display.h:128` | untagged neutral name (D10) |
+| 1 | `Unknown_15C` | `app/client/ui_line_display.h:129` | untagged neutral name (D10) |
+| 1 | `Unknown_160` | `app/client/ui_line_display.h:130` | untagged neutral name (D10) |
+| 1 | `Unknown_164` | `app/client/ui_line_display.h:131` | untagged neutral name (D10) |
+| 1 | `Unknown_168` | `app/client/ui_line_display.h:132` | untagged neutral name (D10) |
+| 1 | `Unknown_16C` | `app/client/ui_line_display.h:133` | untagged neutral name (D10) |
+| 1 | `Unknown_170` | `app/client/ui_line_display.h:134` | untagged neutral name (D10) |
+| 1 | `Unknown_174` | `app/client/ui_line_display.h:135` | untagged neutral name (D10) |
+| 1 | `Unknown_178` | `app/client/ui_line_display.h:136` | untagged neutral name (D10) |
+| 1 | `Unknown_17C` | `app/client/ui_line_display.h:137` | untagged neutral name (D10) |
+| 1 | `Unknown_180` | `app/client/ui_line_display.h:138` | untagged neutral name (D10) |
+| 1 | `Unknown_184` | `app/client/ui_line_display.h:139` | untagged neutral name (D10) |
+| 1 | `Unknown_188` | `app/client/ui_line_display.h:140` | untagged neutral name (D10) |
+| 1 | `Unknown_18C` | `app/client/ui_line_display.h:141` | untagged neutral name (D10) |
+| 1 | `Unknown_190` | `app/client/ui_line_display.h:142` | untagged neutral name (D10) |
+| 1 | `Unknown_194` | `app/client/ui_line_display.h:143` | untagged neutral name (D10) |
+| 1 | `Unknown_198` | `app/client/ui_line_display.h:144` | untagged neutral name (D10) |
+| 1 | `Unknown_19C` | `app/client/ui_line_display.h:145` | untagged neutral name (D10) |
+| 1 | `Unknown_1A0` | `app/client/ui_line_display.h:146` | untagged neutral name (D10) |
+| 1 | `Unknown_1A4` | `app/client/ui_line_display.h:147` | untagged neutral name (D10) |
+| 1 | `Unknown_1A8` | `app/client/ui_line_display.h:148` | untagged neutral name (D10) |
+| 1 | `Unknown008` | `app/client/ui_line_display.h:150` | untagged neutral name (D10) |
+| 1 | `Unknown24C` | `app/client/ui_line_display.h:151` | untagged neutral name (D10) |
+| 1 | `Unknown440` | `app/client/ui_line_display.h:152` | untagged neutral name (D10) |
+| 1 | `Unknown444` | `app/client/ui_line_display.h:153` | untagged neutral name (D10) |
+| 1 | `UnknownGadgetBase00Class` | `app/client/ui_line_display.h:197` | neutral (D10): the inline base's first table (0xAEAB48) |
+| 1 | `Unknown_04` | `app/client/ui_line_display.h:201` | untagged neutral name (D10) |
+| 1 | `Unknown_08` | `app/client/ui_line_display.h:202` | untagged neutral name (D10) |
+| 1 | `Unknown_0C` | `app/client/ui_line_display.h:203` | untagged neutral name (D10) |
+| 1 | `Unknown_10` | `app/client/ui_line_display.h:204` | untagged neutral name (D10) |
+| 1 | `Unknown_14` | `app/client/ui_line_display.h:205` | untagged neutral name (D10) |
+| 1 | `Unknown_18` | `app/client/ui_line_display.h:206` | untagged neutral name (D10) |
+| 1 | `Unknown_1C` | `app/client/ui_line_display.h:207` | untagged neutral name (D10) |
+| 1 | `Unknown_20` | `app/client/ui_line_display.h:208` | untagged neutral name (D10) |
+| 1 | `Unknown_24` | `app/client/ui_line_display.h:209` | untagged neutral name (D10) |
+| 1 | `Unknown_28` | `app/client/ui_line_display.h:210` | untagged neutral name (D10) |
+| 1 | `Unknown_2C` | `app/client/ui_line_display.h:211` | untagged neutral name (D10) |
+| 1 | `Unknown_30` | `app/client/ui_line_display.h:212` | untagged neutral name (D10) |
+| 1 | `Unknown_34` | `app/client/ui_line_display.h:213` | untagged neutral name (D10) |
+| 1 | `Unknown_38` | `app/client/ui_line_display.h:214` | untagged neutral name (D10) |
+| 1 | `Unknown_3C` | `app/client/ui_line_display.h:215` | untagged neutral name (D10) |
+| 1 | `Unknown_40` | `app/client/ui_line_display.h:216` | untagged neutral name (D10) |
+| 1 | `Unknown_44` | `app/client/ui_line_display.h:217` | untagged neutral name (D10) |
+| 1 | `Unknown_48` | `app/client/ui_line_display.h:218` | untagged neutral name (D10) |
+| 1 | `Unknown_4C` | `app/client/ui_line_display.h:219` | untagged neutral name (D10) |
+| 1 | `Unknown_50` | `app/client/ui_line_display.h:220` | untagged neutral name (D10) |
+| 1 | `UnknownGadgetBase04Class` | `app/client/ui_line_display.h:223` | neutral (D10): the inline base's second table (0xAEAB3C) |
+| 1 | `GClassUnknownClass` | `app/client/ui_line_display.h:230` | neutral (D10): gclass.cpp's class (constructor 0x4A1880) |
+| 1 | `Unknown08` | `app/client/ui_line_display.h:233` | untagged neutral name (D10) |
+| 1 | `Unknown_58` | `app/client/ui_line_display.h:242` | untagged neutral name (D10) |
+| 1 | `Unknown_5C` | `app/client/ui_line_display.h:243` | untagged neutral name (D10) |
+| 1 | `Unknown_60` | `app/client/ui_line_display.h:244` | untagged neutral name (D10) |
+| 1 | `Unknown_64` | `app/client/ui_line_display.h:245` | untagged neutral name (D10) |
+| 1 | `Unknown_68` | `app/client/ui_line_display.h:246` | untagged neutral name (D10) |
+| 1 | `Unknown_6C` | `app/client/ui_line_display.h:247` | untagged neutral name (D10) |
+| 1 | `Unknown_70` | `app/client/ui_line_display.h:248` | untagged neutral name (D10) |
+| 1 | `Unknown_74` | `app/client/ui_line_display.h:249` | untagged neutral name (D10) |
+| 1 | `Unknown_78` | `app/client/ui_line_display.h:250` | untagged neutral name (D10) |
+| 1 | `Unknown_7C` | `app/client/ui_line_display.h:251` | untagged neutral name (D10) |
+| 1 | `Unknown_80` | `app/client/ui_line_display.h:252` | untagged neutral name (D10) |
+| 1 | `Unknown_84` | `app/client/ui_line_display.h:253` | untagged neutral name (D10) |
+| 1 | `Unknown_541800` | `app/client/ui_line_display.h:254` | untagged neutral name (D10) |
+| 1 | `Unknown44` | `app/client/ui_line_display.h:258` | untagged neutral name (D10) |
+| 1 | `Unknown48` | `app/client/ui_line_display.h:259` | untagged neutral name (D10) |
+| 1 | `Unknown4C` | `app/client/ui_line_display.h:260` | untagged neutral name (D10) |
+| 1 | `Unknown_54` | `app/client/ui_line_display.h:268` | neutral (D10) |
+| 1 | `Add_Line_7` | `app/client/ui_line_display.h:279` | neutral (D10): Add_Line at priority 7 |
+| 1 | `Add_Line_3` | `app/client/ui_line_display.h:280` | neutral (D10): Add_Line at priority 3 |
+| 1 | `Unknown_5A8350` | `app/client/ui_line_display.h:285` | untagged neutral name (D10) |
+| 1 | `UnknownAD` | `app/client/ui_line_display.h:295` | untagged neutral name (D10) |
+| 1 | `UnknownB0` | `app/client/ui_line_display.h:296` | untagged neutral name (D10) |
+| 1 | `UnknownB4` | `app/client/ui_line_display.h:297` | untagged neutral name (D10) |
+| 1 | `UnknownB8` | `app/client/ui_line_display.h:298` | untagged neutral name (D10) |
+| 1 | `UnknownFC` | `app/client/ui_line_display.h:302` | untagged neutral name (D10) |
 | 1 | `AuthLoginErrorStruct` | `app/client/unknown_authlogin.cpp:14` | what it holds |
 | 1 | `AuthLoginUnknownError` | `app/client/unknown_authlogin.cpp:20` | its text |
 | 1 | `Unknown` | `app/client/unknown_authlogin.cpp:20` | untagged neutral name (D10) |
@@ -1586,6 +1629,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Packet_7548Class` | `app/packets/pkunknown_860d30.h:34` | neutral (D10): opcode 0x7548 (Print 'GameEditorPlanetUnitTypes') |
 | 1 | `Packet_7549Class` | `app/packets/pkunknown_860d30.h:51` | neutral (D10): opcode 0x7549 |
 | 1 | `Packet_754AClass` | `app/packets/pkunknown_860d30.h:65` | neutral (D10): opcode 0x754A (Print 'GameEditorPlanetUnitDetails') |
+| 1 | `pkunknown_861760` | `app/packets/pkunknown_861760.h:15` | provisional, neutral (D10): the object's first address |
+| 1 | `Packet_7532Class` | `app/packets/pkunknown_861760.h:22` | neutral (D10): opcode 0x7532 (Print 'GameEditorPositionalUpdate') |
+| 1 | `pkunknown_861b30` | `app/packets/pkunknown_861b30.h:15` | provisional, neutral (D10): the object's first address |
+| 1 | `Packet_7534Class` | `app/packets/pkunknown_861b30.h:21` | neutral (D10): opcode 0x7534 (Print 'GameEditorRemove') |
 | 1 | `pkunknown_861db0` | `app/packets/pkunknown_861db0.h:15` | provisional, neutral (D10): the object's first address |
 | 1 | `Unknown18` | `app/packets/pkunknown_863720.cpp:10` | untagged neutral name (D10) |
 | 1 | `Unknown28` | `app/packets/pkunknown_863720.cpp:12` | untagged neutral name (D10) |
@@ -2315,10 +2362,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Task` | `app/client/sclient.h:222` | what it holds |
 | 2 | `Text` | `app/client/sclient.h:234` | what it holds |
 | 2 | `Font` | `app/client/sclient.h:235` | what it holds |
-| 2 | `CameraModeStruct` | `app/client/soptions.h:27` | what it holds |
-| 2 | `Set_Camera_Mode` | `app/client/soptions.h:45` | what it does |
-| 2 | `Load_Camera_Mode` | `app/client/soptions.h:50` | what it does  // NAME 1 [ini, section]: the arguments' order is unchecked |
-| 2 | `LastCameraMode` | `app/client/soptions.h:66` | what it holds |
+| 2 | `CameraModeStruct` | `app/client/soptions.h:26` | what it holds |
+| 2 | `Set_Camera_Mode` | `app/client/soptions.h:44` | what it does |
+| 2 | `Load_Camera_Mode` | `app/client/soptions.h:49` | what it does  // NAME 1 [ini, section]: the arguments' order is unchecked |
+| 2 | `LastCameraMode` | `app/client/soptions.h:65` | what it holds |
 | 2 | `username, password` | `app/client/tasks/tsk_game.h:38` | LoginTaskClass's 0x7697A0 / 0x7697E0 get them back |
 | 2 | `Get_Bool` | `app/client/tasks/tsk_game.h:98` | what it does |
 | 2 | `Handle_Input` | `app/client/tasks/tsk_menu.h:33` | what it does |
@@ -2363,39 +2410,40 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `CurrentStep` | `app/client/tutorial_manager.h:87` | describes what it holds |
 | 2 | `CurrentLine` | `app/client/tutorial_manager.h:88` | describes what it holds |
 | 2 | `LastFinished` | `app/client/tutorial_manager.h:89` | describes what it holds |
-| 2 | `EphemeralStruct` | `app/client/ui_line_display.h:152` | what it holds (the ini's section name) |
-| 2 | `std:` | `app/client/ui_line_display.h:155` | describes what it does |
-| 2 | `std:` | `app/client/ui_line_display.h:156` | describes what it does |
-| 2 | `std:` | `app/client/ui_line_display.h:157` | describes what it does |
-| 2 | `std:` | `app/client/ui_line_display.h:159` | the ini key |
-| 2 | `std:` | `app/client/ui_line_display.h:160` | the ini key |
-| 2 | `std:` | `app/client/ui_line_display.h:161` | the ini key |
-| 2 | `Chance` | `app/client/ui_line_display.h:162` | the ini key |
-| 2 | `TotalChance` | `app/client/ui_line_display.h:163` | describes what it holds |
-| 2 | `LineDisplayStringStruct` | `app/client/ui_line_display.h:167` | what it holds (the ini's section name) |
-| 2 | `Show` | `app/client/ui_line_display.h:170` | describes what it does |
-| 2 | `std:` | `app/client/ui_line_display.h:171` | describes what it does |
-| 2 | `Get_Text` | `app/client/ui_line_display.h:172` | describes what it does |
-| 2 | `std:` | `app/client/ui_line_display.h:174` | the ini key |
-| 2 | `Text` | `app/client/ui_line_display.h:175` | describes what it holds |
-| 2 | `LineDisplayLineStruct` | `app/client/ui_line_display.h:179` | what it holds |
-| 2 | `std:` | `app/client/ui_line_display.h:181` | describes what it holds |
-| 2 | `std:` | `app/client/ui_line_display.h:182` | describes what it holds |
-| 2 | `Priority` | `app/client/ui_line_display.h:184` | describes what it holds |
-| 2 | `Add_Line` | `app/client/ui_line_display.h:271` | describes what it does |
-| 2 | `Show_Ephemeral` | `app/client/ui_line_display.h:274` | describes what it does |
-| 2 | `Flush_Lines` | `app/client/ui_line_display.h:275` | describes what it does |
-| 2 | `Clear` | `app/client/ui_line_display.h:276` | describes what it does |
-| 2 | `Skip` | `app/client/ui_line_display.h:277` | describes what it does |
-| 2 | `Find_Ephemeral` | `app/client/ui_line_display.h:279` | describes what it does |
-| 2 | `Find_Text` | `app/client/ui_line_display.h:280` | describes what it does |
-| 2 | `std:` | `app/client/ui_line_display.h:284` | describes what it holds |
-| 2 | `std:` | `app/client/ui_line_display.h:285` | describes what it holds |
-| 2 | `HistoryIndex` | `app/client/ui_line_display.h:286` | describes what it holds |
-| 2 | `HistoryMode` | `app/client/ui_line_display.h:287` | describes what it holds |
+| 2 | `EphemeralStruct` | `app/client/ui_line_display.h:157` | what it holds (the ini's section name) |
+| 2 | `std:` | `app/client/ui_line_display.h:160` | describes what it does |
+| 2 | `std:` | `app/client/ui_line_display.h:161` | describes what it does |
+| 2 | `std:` | `app/client/ui_line_display.h:162` | describes what it does |
+| 2 | `std:` | `app/client/ui_line_display.h:164` | the ini key |
+| 2 | `std:` | `app/client/ui_line_display.h:165` | the ini key |
+| 2 | `std:` | `app/client/ui_line_display.h:166` | the ini key |
+| 2 | `Chance` | `app/client/ui_line_display.h:167` | the ini key |
+| 2 | `TotalChance` | `app/client/ui_line_display.h:168` | describes what it holds |
+| 2 | `LineDisplayStringStruct` | `app/client/ui_line_display.h:172` | what it holds (the ini's section name) |
+| 2 | `Show` | `app/client/ui_line_display.h:175` | describes what it does |
+| 2 | `std:` | `app/client/ui_line_display.h:176` | describes what it does |
+| 2 | `Get_Text` | `app/client/ui_line_display.h:177` | describes what it does |
+| 2 | `std:` | `app/client/ui_line_display.h:179` | the ini key |
+| 2 | `Text` | `app/client/ui_line_display.h:180` | describes what it holds |
+| 2 | `LineDisplayLineStruct` | `app/client/ui_line_display.h:184` | what it holds |
+| 2 | `std:` | `app/client/ui_line_display.h:186` | describes what it holds |
+| 2 | `std:` | `app/client/ui_line_display.h:187` | describes what it holds |
+| 2 | `Priority` | `app/client/ui_line_display.h:189` | describes what it holds |
+| 2 | `std:` | `app/client/ui_line_display.h:277` | describes what it does |
+| 2 | `Add_Line` | `app/client/ui_line_display.h:278` | describes what it does |
+| 2 | `Show_Ephemeral` | `app/client/ui_line_display.h:281` | describes what it does |
+| 2 | `Flush_Lines` | `app/client/ui_line_display.h:282` | describes what it does |
+| 2 | `Clear` | `app/client/ui_line_display.h:283` | describes what it does |
+| 2 | `Skip` | `app/client/ui_line_display.h:284` | describes what it does |
+| 2 | `Find_Ephemeral` | `app/client/ui_line_display.h:286` | describes what it does |
+| 2 | `Find_Text` | `app/client/ui_line_display.h:287` | describes what it does |
+| 2 | `std:` | `app/client/ui_line_display.h:291` | describes what it holds |
 | 2 | `std:` | `app/client/ui_line_display.h:292` | describes what it holds |
-| 2 | `std:` | `app/client/ui_line_display.h:293` | describes what it holds |
-| 2 | `std:` | `app/client/ui_line_display.h:294` | describes what it holds |
+| 2 | `HistoryIndex` | `app/client/ui_line_display.h:293` | describes what it holds |
+| 2 | `HistoryMode` | `app/client/ui_line_display.h:294` | describes what it holds |
+| 2 | `std:` | `app/client/ui_line_display.h:299` | describes what it holds |
+| 2 | `std:` | `app/client/ui_line_display.h:300` | describes what it holds |
+| 2 | `std:` | `app/client/ui_line_display.h:301` | describes what it holds |
 | 2 | `Result` | `app/client/unknown_authlogin.h:27` | the assert's kr; tested >= 0 |
 | 2 | `IComponentFactoryClass` | `app/client/unknown_authlogin.h:38` | authFactory (the assert) |
 | 2 | `Set_Name` | `app/client/unknown_creator.h:35` | what it does |
@@ -2841,6 +2889,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Owned` | `app/packets/pkunknown_860d30.h:47` | what it means, as MessageStringPacketClass's |
 | 2 | `Size` | `app/packets/pkunknown_860d30.h:77` | what it holds |
 | 2 | `Owned` | `app/packets/pkunknown_860d30.h:78` | what it means, as MessageStringPacketClass's |
+| 2 | `Transform` | `app/packets/pkunknown_861760.h:33` | what it holds |
 | 2 | `Get_Type` | `app/packets/pkunknown_863720.h:31` | as Packet_138AClass's |
 | 2 | `Data` | `app/packets/pkunknown_863720.h:33` | what it holds |
 | 2 | `DataSize` | `app/packets/pkunknown_863720.h:34` | what it holds |
@@ -3745,15 +3794,15 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `ProjDecalManager` | `app/client/sclient.h:207` | its file's |
 | 3 | `MainView` | `app/client/sclient.h:210` | its file's |
 | 3 | `LoadingView` | `app/client/sclient.h:215` | its file's |
-| 3 | `soptions.h` | `app/client/soptions.h:19` | header name assumed from the client's soptions.cpp |
-| 3 | `SOptionsClass` | `app/client/soptions.h:39` | class-from-file (D24) for soptions.cpp |
-| 3 | `PolyBudget` | `app/client/soptions.h:55` | the registry value's name |
-| 3 | `StarBudget` | `app/client/soptions.h:56` | the registry value's name |
-| 3 | `LandPolyBudget` | `app/client/soptions.h:57` | the registry value's name |
-| 3 | `LandLOD` | `app/client/soptions.h:58` | the registry value's name |
-| 3 | `TextureReduction` | `app/client/soptions.h:59` | the registry value's name |
-| 3 | `TextureFilter` | `app/client/soptions.h:60` | the registry value's name |
-| 3 | `CameraMode` | `app/client/soptions.h:64` | the assert's 'cameramode' |
+| 3 | `soptions.h` | `app/client/soptions.h:18` | header name assumed from the client's soptions.cpp |
+| 3 | `SOptionsClass` | `app/client/soptions.h:38` | class-from-file (D24) for soptions.cpp |
+| 3 | `PolyBudget` | `app/client/soptions.h:54` | the registry value's name |
+| 3 | `StarBudget` | `app/client/soptions.h:55` | the registry value's name |
+| 3 | `LandPolyBudget` | `app/client/soptions.h:56` | the registry value's name |
+| 3 | `LandLOD` | `app/client/soptions.h:57` | the registry value's name |
+| 3 | `TextureReduction` | `app/client/soptions.h:58` | the registry value's name |
+| 3 | `TextureFilter` | `app/client/soptions.h:59` | the registry value's name |
+| 3 | `CameraMode` | `app/client/soptions.h:63` | the assert's 'cameramode' |
 | 3 | `tsk_game.h` | `app/client/tasks/tsk_game.h:18` | header name assumed from the client's tsk_game.cpp |
 | 3 | `ClientTaskClass` | `app/client/tasks/tsk_game.h:28` | the client's 'ClientTask' (its profile label) in LoginTaskClass's form (D24) |
 | 3 | `tsk_login.h` | `app/client/tasks/tsk_login.h:17` | header name assumed from the client's tsk_login.cpp |
@@ -3765,8 +3814,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `TutorialManagerClass` | `app/client/tutorial_manager.h:64` | by convention (D24) from the client's file tutorial_manager.cpp ('Tutorial Manager' in its messages, 'starting up Tutorial Manager system') |
 | 3 | `ControlKeysManagerClass` | `app/client/ui_line_display.cpp:21` | by convention (D24) from the client's control_keys_manager.cpp |
 | 3 | `ui_line_display.h` | `app/client/ui_line_display.h:21` | header name assumed from the client's ui_line_display.cpp |
-| 3 | `InterfaceClass` | `app/client/ui_line_display.h:231` | by convention (D24) from the client's intrface.cpp (constructors 0x540A90 / 0x540D30, table 0xAEEF98) |
-| 3 | `UILineDisplayClass` | `app/client/ui_line_display.h:257` | by convention (D24) from the client's ui_line_display.cpp (table 0xAF2930) |
+| 3 | `InterfaceClass` | `app/client/ui_line_display.h:236` | by convention (D24) from the client's intrface.cpp (constructors 0x540A90 / 0x540D30, table 0xAEEF98) |
+| 3 | `UILineDisplayClass` | `app/client/ui_line_display.h:263` | by convention (D24) from the client's ui_line_display.cpp (table 0xAF2930) |
 | 3 | `average.h` | `app/common/average.h:22` | after the client's average.h (D24) |
 | 3 | `AverageClass` | `app/common/average.h:26` | after the client's average.h (D24) |
 | 3 | `circbuff.h` | `app/common/circbuff.h:17` | header name assumed from the client's circbuff.cpp |
@@ -4305,6 +4354,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `Data` | `app/packets/pkunknown_860d30.h:45` | the client's assert 'Data' and Print text 'Types=' |
 | 3 | `UnitType` | `app/packets/pkunknown_860d30.h:61` | the client's Print text 'UnitType=' |
 | 3 | `Data` | `app/packets/pkunknown_860d30.h:76` | the client's assert 'Data' and Print text 'Details=' |
+| 3 | `GameID` | `app/packets/pkunknown_861760.h:32` | the client's Print text 'GameID=' |
+| 3 | `GameID` | `app/packets/pkunknown_861b30.h:31` | the client's Print text 'GameID=' |
 | 3 | `GameEditorSaveSectorPacketClass` | `app/packets/pkunknown_861db0.h:21` | the client's Print text 'GameEditorSaveSector {' and the PacketClass convention |
 | 3 | `Result` | `app/packets/pkunknown_866ac0.h:31` | the client's Print text 'Result=' |
 | 3 | `std:` | `app/packets/pkunknown_867010.h:33` | the client's Print text 'Name=' |
