@@ -1247,6 +1247,29 @@
     "merged": [],
     "name": "packets/pkclientship.cpp"
    },
+   "pkcolorization": {
+    "ambiguous": [
+     "0x42A900",
+     "0x42B2F0",
+     "0x874BA0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350",
+     "0x62A560",
+     "0x87F510",
+     "0x87F730",
+     "0x87F870",
+     "0x87F8A0"
+    ],
+    "merged": [],
+    "name": "packets/pkcolorization.cpp"
+   },
    "pkcreate": {
     "ambiguous": [
      "0x42B2F0"
@@ -3394,6 +3417,7 @@
    "packets/pkclientavatar.h": "reconstructed",
    "packets/pkclientchat.h": "reconstructed",
    "packets/pkclientship.h": "reconstructed",
+   "packets/pkcolorization.h": "reconstructed",
    "packets/pkcreate.h": "reconstructed",
    "packets/pkcreateattachment.h": "reconstructed",
    "packets/pkcta_request.h": "reconstructed",
@@ -3493,7 +3517,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 1421,
+  "in_tree_total": 1426,
   "totals": {}
  },
  "binkmovie": {

@@ -27,6 +27,7 @@
 #include "pkclientavatar.h"	// rebuilt
 #include "pkclientchat.h"	// rebuilt
 #include "pkclientship.h"	// rebuilt
+#include "pkcolorization.h"	// rebuilt
 #include "pkcreate.h"	// rebuilt
 #include "pkcreateattachment.h"	// rebuilt
 #include "pkcta_request.h"	// rebuilt
@@ -178,14 +179,6 @@ class DecalPacketClass : public PacketClass
 {
 public:
 	DecalPacketClass(RawPacketClass *raw);	// 0x8807B0
-	char Unknown0C[0x18];	// +0x0C
-};
-
-// opcode 17 (0x0011, COLORIZATION): vtable 0xB0A110, constructor 0x87F510, 0x24 bytes
-class ColorizationPacketClass : public PacketClass
-{
-public:
-	ColorizationPacketClass(RawPacketClass *raw);	// 0x87F510
 	char Unknown0C[0x18];	// +0x0C
 };
 

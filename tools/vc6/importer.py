@@ -3670,6 +3670,8 @@ RECONSTRUCTED = {
     ('app', 'packets/pkmove.h'): "its class (pk_classes.h includes it: tools/re/pkclasses.py)",
     ('app', 'packets/pkmessageline.cpp'): "the message-line object, 0x89D730-0x89E0F0 (no assert: the file name provisional, NAME 1): opcodes 36 and 35 written by hand (builder P3), 11 of 11 exact in appfile.py match; the base of 32-34 still in pk_classes.h",
     ('app', 'packets/pkmessageline.h'): "its classes (pk_classes.h includes it: tools/re/pkclasses.py)",
+    ('app', 'packets/pkcolorization.cpp'): "opcode 17's object, 0x87F2F0-0x87F8F0 (no assert: the file name provisional, NAME 1): written by hand (builder P3), 4 of 5 exact in appfile.py match (the value constructor 0x87F320 NOT EXACT, parked)",
+    ('app', 'packets/pkcolorization.h'): "its class (pk_classes.h includes it: tools/re/pkclasses.py)",
     ('app', 'packets/pkclientchat.cpp'): "the chat packets' object, 0x8785B0-0x87A910 (no assert: the file name provisional, NAME 1): opcodes 51 CLIENT_CHAT, 163 CLIENT_CHAT_REQUEST and 165 CLIENT_CHAT_EVENT written by hand (builder P3), 18 of 18 exact in appfile.py match",
     ('app', 'packets/pkclientchat.h'): "its classes (pk_classes.h includes it: tools/re/pkclasses.py)",
     ('app', 'packets/pk_player_object_relationship.cpp'): "the client's file (FAIL_IFs on lines 159 and 251), 0x873AE0-0x8754A0: opcodes 137 RELATIONSHIP and 139 ATTACKER_UPDATES written by hand (builder P3), 11 of 11 exact in appfile.py match",

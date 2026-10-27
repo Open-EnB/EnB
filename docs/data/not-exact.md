@@ -7,30 +7,33 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-51 entries in 22 files.
+54 entries in 24 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
 | `app/client/aux_roots.cpp:2` | `UnknownCOClass::Unknown_Create_Aux_Root` | mention | NOT EXACT (D42): functional. NAME 1 [aux_roots.cpp]: provisional file name (the client's constructors are in co.cpp 0x6F6000-0x6FBEF0 and the Player object 0x751BE0) |
 | `app/client/aux_roots.h:12` | `Read` | mention | NOT EXACT (D42): functional; see the generator's docstring for what differs. |
+| `app/client/tasks/tsk_game.cpp:54` | `ClientTaskClass::Init` | marker | NOT EXACT: inline budget (the client calls string::erase out of line in the assignment; attempts.py show 0x766350) 0x766350 |
+| `app/client/tasks/tsk_login.cpp:271` | `LoginTaskClass::Run` | marker | NOT EXACT: register-only (stricmp's argument in ecx, the client's eax; attempts.py show 0x767F50) |
+| `app/client/tasks/tsk_login.cpp:644` | `LoginTaskClass::Go_Next_Step` | marker | NOT EXACT: register-only (the client keeps 1 in ebx and the slot's address; attempts.py show 0x769500) 0x769500 |
+| `app/client/tasks/tsk_login.cpp:711` | `LoginTaskClass::Go_Back_Step` | marker | NOT EXACT: register-only (the client keeps 1 in ebx for the flag and step 1; attempts.py show 0x769680) |
+| `app/client/tasks/tsk_login.cpp:829` | `LoginTaskClass::Unknown_64` | marker | NOT EXACT: shape (the client shares its 'return true' tails; attempts.py show 0x7698E0) 0x7698E0 |
 | `app/client/tasks/tsk_smovie.cpp:113` | `ScriptedMovieTaskClass::Init` | marker | NOT EXACT: the client's loop keeps its test at the top (a jmp back to it); while, for, for (;;) with a break, a goto and ++ in the call all give VC6's rotated loop (the test at the bottom) |
-| `app/common/connect.cpp:800` | `ConnectionManagerClass::Remove_Dead` | marker | NOT EXACT: the client calls the list's element construct 0x823DB0 out of line (on a copy of the pointer); ours inlines it. |
 | `app/common/dbgconn.cpp:111` | `TimedLogConnectionClass::TimedLogConnectionClass` | marker | NOT EXACT: the client inlines LogConnectionClass's constructor here and keeps it out of line (0x823F70, no caller); `inline` on it matches this one and loses that one. |
-| `app/common/dbgconn.cpp:154` | `RateConnectionClass::~RateConnectionClass` | marker | NOT EXACT: the client inlines ~ForwardingConnectionClass here (inline in its connect.h; ours is in connect.cpp, see the notes). |
+| `app/common/dbgconn.cpp:154` | `RateConnectionClass::Send_Message` | marker | NOT EXACT: the client inlines ~ForwardingConnectionClass here (inline in its connect.h; ours is in connect.cpp, see the notes). |
 | `app/common/dbgconn.cpp:183` | `RateConnectionClass::Count` | marker | NOT EXACT: the client stores Index before it loads Time (ours loads Time before the idiv); the slots that inline it (0x824CF0, 0x824D90, 0x824E20, 0x824F50) differ only there. |
 | `app/common/memconn.cpp:183` | `MemoryConnectionClass::Unknown_30` | marker | NOT EXACT: the two null-data asserts share one call; the client keeps the first and jumps from the second. |
 | `app/common/tcpconn.cpp:172` | `TCPConnection::Key_Exchange` | marker | NOT EXACT: the client inlines the listener loop's iterator increment (_Tree::_Inc), ours calls it (inline budget); two register swaps. |
 | `app/common/tcpconn.cpp:661` | `TCPListenerClass::Listen` | marker | NOT EXACT: ours merges the two `ret == SOCKET_ERROR` failure tails (lines 706 / 716); the client keeps both. |
-| `app/common/udpconn.cpp:30` | `UDPConnection::UDPConnection` | mention | NOT EXACT): wlib's Dictionary constructor inlined; the difference not traced yet. |
-| `app/common/udpconn.cpp:53` | `UDPConnection::UDPConnection` | mention | NOT EXACT): wlib's Dictionary constructor inlined; the difference not traced yet. |
-| `app/common/udpconn.cpp:75` | `UDPConnection::~UDPConnection` | mention | NOT EXACT): wlib's Dictionary clear inlined; the difference not traced yet. |
+| `app/common/udpconn.cpp:126` | `UDPConnection::UDPConnection` | marker | NOT EXACT: two register choices (con's Ip_ / Port_ reads, the openc tail); Encrypt stays unset |
 | `app/common/udpconn.cpp:356` | `UDPConnection::Send_Data` | mention | NOT EXACT): wlib's Dictionary inlined; the difference not traced yet. |
-| `app/common/udpconn.cpp:623` | `UDPConnectionManagerClass::UDPConnectionManagerClass` | marker | NOT EXACT: CordMgrTaskClass::Init inlined (the tree's CordMgr isn't the client's 0x95C bytes). |
-| `app/common/udpconn.cpp:634` | `UDPListenerClass::UDPListenerClass` | marker | NOT EXACT: as UDPConnectionManagerClass's constructor. |
-| `app/common/udpconn.cpp:799` | `UDPListenerClass::Accept` | mention | NOT EXACT (functional, D42): what inlines wlib's Dictionary (libs\wwonline\wlib: the constructors, the destructor, Send_Data), Get_Stats, Try_Connect (the tree's CordMgr::Connect returns its record, the client's the session id), Open_Fixed_Channel, the task's constructor and Init (the tree's CordMgr isn't the client's 0x95C bytes). * The checks of the CordCon's state compare with true (`cmp bl, 1`... |
+| `app/common/udpconn.cpp:431` | `UDPConnection::Open_Fixed_Channel` | marker | NOT EXACT: the client keeps -1 - channel and Fixed's +0x80 apart, and the -4 priority in esi |
+| `app/common/udpconn.cpp:805` | `UDPListenerClass::Accept` | mention | NOT EXACT (functional, D42): the constructor over a CordCon (registers), Send_Data (wlib's Dictionary), Open_Fixed_Channel (the index's form). * The checks of the CordCon's state compare with true (`cmp bl, 1`): `closed == true`, except in Send_Data and Receive. * Pending (+0x7C) holds the session id CordMgr::Connect started (the client's 0x859440 and 0x8595B0 search by it), not a pointer. |
 | `app/kernel/kernel.cpp:208` | `KernelClass::Remove_Task` | marker | NOT EXACT: the client calls the iterator's operator++(int) 0x444190 out of line |
 | `app/kernel/kernel.cpp:350` | `KernelClass::Is_Running` | marker | NOT EXACT: the client's has no xor before the setne |
 | `app/packets/pkauxdata.cpp:43` | `AuxDataPacketClass::Print` | marker | NOT EXACT: the client reads Size before the first dword of Data (register order; 2 forms, workflow.md 3.1) |
+| `app/packets/pkcolorization.cpp:5` | `ColorizationPacketClass::ColorizationPacketClass` | marker | NOT EXACT: 0x87F320, the inline vector copy's loop addresses each region from its last dword in the client (shape; attempts.py show 0x87F320) |
+| `app/packets/pkcolorization.cpp:62` | `ColorizationPacketClass::Print` | mention | NOT EXACT (parked, attempts.csv). * The file name is provisional (no assert names it). |
 | `app/packets/pkunknown_867010.cpp:6` | `Packet_00B3Class::Packet_00B3Class` | marker | NOT EXACT: the inline std::string assign's terminating store indexes [ebx + ecx], the client's [ecx + ebx] (otherwise the same bytes) |
 | `app/shared/auxdata/delta_time.cpp:94` | `DurationAccessorClass::Get` | marker | NOT EXACT: the zero time is a function-local static the client destroys at exit (atexit 0x4A8590: its DurationClass has a destructor ours lacks); the 64-bit arithmetic follows the client's order |
 | `app/shared/auxdata/delta_time.cpp:111` | `DurationAccessorClass::Set` | marker | NOT EXACT: the client keeps time()'s 0 argument in ebx and adds the ticks' zero high half from it; VC6 here pushes an immediate (tried: other orders, a DurationClass temporary) |
