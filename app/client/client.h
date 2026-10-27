@@ -223,9 +223,10 @@ public:
 	virtual ~UnknownB02C90Class();						// 0x7250F0 (scalar deleting 0x7250C0)
 	virtual void Unknown_04() = 0;						// +0x04 0x7251C0 (not rebuilt: pure here so no program needs a stand-in)
 	virtual void Unknown_08();							// +0x08 0x725120 detaches every child: Unknown_10 and the client's Remove_Object, then deletes it
-	virtual void Unknown_0C(UnknownB02C90Class *child, int a, int b) = 0;	// +0x0C 0x725610 (not rebuilt)  // NAME 1 [child, a, b]: neutral
+	virtual bool Unknown_0C(UnknownB02C90Class *child, int slot, int child_slot);	// +0x0C 0x725610 attaches child's element child_slot to this one's slot  // NAME 1 [child, slot, child_slot]: what it does with them
 	virtual void Unknown_10(UnknownB02C90Class *child, int index, int unknown) = 0;	// +0x10 0x7257F0 (not rebuilt; 0x725120 passes the child and its index)  // NAME 1 [child, index, unknown]: what 0x725120 passes
-	virtual void Unknown_14(int a, int b, int c) {}		// +0x14 0x6F2C50 (empty)  // NAME 1 [a, b, c]: neutral
+	virtual void Unknown_14(UnknownB02C90Class *parent, int slot, int child_slot) {}	// +0x14 0x6F2C50 (empty; 0x725610 calls the child's)  // NAME 1 [parent, slot, child_slot]: what 0x725610 passes
+	float Unknown_725C60(const Vector3 &center, float radius);	// 0x725C60 the radius around center that holds the attached objects of type 29, recursively  // NAME 1 [center, radius]: what it computes
 	virtual void Unknown_18(int a, int b, int c) {}		// +0x18 0x6F2C70 (empty)  // NAME 1 [a, b, c]: neutral
 
 	void *Unknown04;									// +0x04 the constructor's argument
@@ -234,17 +235,19 @@ public:
 	// fields in the base's destructor, the client's vtable store moves first and 0x7250C0 calls 0x7250F0
 	struct BufferStruct {								// NAME 1: neutral (D10)
 		struct ElementStruct {							// 0x44 bytes  // NAME 1: neutral (D10)
-			char Unknown00[0x3C];						// +0x00
+			int Bone;									// +0x00 (0x725610 hangs the child's model on this bone)  // NAME 2: what it holds
+			Matrix3D Transform;							// +0x04 (0x725610: the child's +0x1C is it times this one's)  // NAME 2: what it holds
+			char Unknown34[0x3C - 0x34];				// +0x34
 			UnknownB02C90Class *Unknown3C;				// +0x3C (0x725120 calls its slot +0x10 with -1, -1 when there is no child)
 			UnknownB02C90Class *Child;					// +0x40  // NAME 2: 0x725120 detaches and deletes it
 		};
-		BufferStruct() : Count(0), Unknown04(0), Data(0), Unknown0C(0) {}
+		BufferStruct() : Count(0), Unknown04(0), Data(0), Radius(0) {}
 		~BufferStruct() { Count = 0; delete Data; }
 		ElementStruct *Get(int index) { if (index < 0 || index >= Count) return(NULL); return(&Data[index]); }  // NAME 1: neutral
 		int Count;										// +0x0C (+0x00) cleared by the destructor  // NAME 1: neutral
 		int Unknown04;									// +0x10 (+0x04)
 		ElementStruct *Data;							// +0x14 (+0x08) deleted by the destructor  // NAME 1: neutral
-		int Unknown0C;									// +0x18 (+0x0C)
+		float Radius;									// +0x18 (+0x0C) (0x725C60's starting radius)  // NAME 2: what it holds
 	} Buffer;											// +0x0C
 	Matrix3D Unknown1C;									// +0x1C identity
 };

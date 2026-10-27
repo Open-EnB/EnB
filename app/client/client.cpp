@@ -463,6 +463,57 @@ UnknownB02C90Class::~UnknownB02C90Class()
 {
 }
 
+#include "rendobj.h"
+
+// 0x725610  // NOT EXACT: shape (the client loads both models first and keeps the element in the child argument's stack slot; 2 forms)
+bool UnknownB02C90Class::Unknown_0C(UnknownB02C90Class *child, int slot, int child_slot)
+{
+	if (child) {
+		BufferStruct::ElementStruct *e = Buffer.Get(slot);
+		BufferStruct::ElementStruct *ce = child->Buffer.Get(child_slot);
+		if (e && ce) {
+			e->Child = child;
+			ce->Unknown3C = this;
+			child->Unknown08 = Unknown08;
+			RenderObjClass *model = ((ClientObjectClass *)Unknown04)->Model;
+			if (model && ((ClientObjectClass *)child->Unknown04)->Model) {
+				BufferStruct::ElementStruct *b = Buffer.Get(slot);
+				model->Add_Sub_Object_To_Bone(((ClientObjectClass *)child->Unknown04)->Model, b ? b->Bone : -1);
+			}
+			Matrix3D::Multiply(e->Transform, Unknown1C, &child->Unknown1C);
+			child->Unknown_14(this, slot, child_slot);
+			if (((ClientObjectClass *)child->Unknown04)->Type != 29) {
+				((ClientObjectClass *)child->Unknown04)->Unknown_34(child->Unknown_725C60(Vector3(0, 0, 0), child->Buffer.Radius));
+			}
+			if (((ClientObjectClass *)Unknown04)->Type != 29) {
+				((ClientObjectClass *)Unknown04)->Unknown_34(Unknown_725C60(Vector3(0, 0, 0), Buffer.Radius));
+			}
+			return(true);
+		}
+	}
+	return(false);
+}
+
+// 0x725C60
+float UnknownB02C90Class::Unknown_725C60(const Vector3 &center, float radius)
+{
+	for (int i = 0; i < Buffer.Count; i++) {
+		BufferStruct::ElementStruct *e = Buffer.Get(i);
+		if (e->Child && ((ClientObjectClass *)e->Child->Unknown04)->Type == 29) {
+			Vector3 pos; e->Child->Unknown1C.Get_Translation(&pos);
+			Vector3 dir = pos + center;
+			dir.Normalize();
+			dir *= e->Child->Buffer.Radius;
+
+			Vector3 d = (dir + pos) - center;
+			float dist = d.Length();
+			if (dist > radius) radius = dist;
+			radius = e->Child->Unknown_725C60(pos, radius);
+		}
+	}
+	return(radius);
+}
+
 // 0x725120
 void UnknownB02C90Class::Unknown_08()
 {
