@@ -1,0 +1,20 @@
+// helper and rtti.h: as docs/attempts/700400's stash (with #line 155 "..\shared/auxdata/auxdata.h")
+// 0x6FFC80
+template<class C> inline bool Unknown_Field_Changed(C *type, ClientObjectClass *object, const char *field)  // NAME 1: neutral (D10)
+{
+	NameClass name(field);
+	C *t = Unknown_Find_Delta(type, (DeltaCompoundClass *)object->AuxData, name);
+	return(t && t->m_Unknown70 > 1);
+}
+bool ClientObjectClass::Unknown_6FFC80(std::string &text)
+{
+	if (Unknown_Field_Changed((DeltaStringClass *)NULL, this, "Owner")
+		|| Unknown_Field_Changed((DeltaStringClass *)NULL, this, "Name")
+		|| Unknown_Field_Changed((DeltaStringClass *)NULL, this, "Rank")
+		|| Unknown_Field_Changed((DeltaStringClass *)NULL, this, "Title")) {
+		Unknown_6FF7A0(text);
+		return(true);
+	}
+	return(false);
+}
+// form 1: the wrapper took AuxData (char *) by value: cached in esi, 17 calls vs 18, 61 rows
