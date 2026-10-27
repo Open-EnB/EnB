@@ -1175,8 +1175,6 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
   0x474560 (in land.cpp it inlines into the land's destructor and loses 0x46A480 / 0x4691A0), ~LandPatchRecordClass,
   Unknown_477E20, LandUnknownClass::Peek_Material_Pass 0x93D6C0. One probe of their file placement before the switch.
   Recommendation: accept, as the first step of P-L6-1's builder.
-* **P-T9-1 (build.py, 2026-10-27):** `UNRES` reads VC6's quoted demangled LNK2001 text as `"public:`, so link
-  summaries list truncated names; parse the `(mangled)` in parentheses. Recommendation: a tools item, no decision.
 * **P-S3-2 / F3's leads for Key_Exchange 0x829180** are LIMIT REACHED (three Opus rounds, inline budget): it
   waits for a new §3.1 lever; F3's two untested leads are in its attempts.csv row.
 * D7 is to be revisited with the user if byte-exactness of E&B's code becomes too costly; D64's
