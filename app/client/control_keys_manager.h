@@ -63,7 +63,7 @@ struct ControlKeyComboStruct  // NAME 1: neutral (D10): 0x10 bytes, what 0x42B7E
 
 struct ControlKeyStruct  // NAME 1: neutral (D10): one key of a mapping (4 bytes)
 {
-	ControlKeyStruct() : Key(0), Modifiers(0) {}
+	ControlKeyStruct(unsigned short key = 0, unsigned short modifiers = 0) : Key(key), Modifiers(modifiers) {}	// default arguments: an array's ??_H gets the default constructor closure 0x71BD70 (no return value)
 	ControlKeyStruct &operator=(const ControlKeyComboStruct &combo) { Key = combo.Key; Modifiers = combo.Modifiers; return *this; }	// Load_Keys' ini read
 
 	unsigned short Key;																	// +0x00  // NAME 2: the key's code
