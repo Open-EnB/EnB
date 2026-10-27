@@ -248,6 +248,8 @@ unless `--lever` cites a new row of this table.
 | A callee the client calls out of line only inside an inlined function, inlined at the direct sites | Wrap the call in a one-line inline helper (depth +1): the budget drops the deepest nested expansion, not the biggest or the latest in source order (the depth counted is the chain's cost) | land's lightmap threads 0x46DA70 / 0x46DDD0, 9f51294 (F5) |
 | A duplicated WWPROFILE destructor test at a branch's end | An early `return` in that branch | land (F5) |
 | Both sums of a Vector2i computed before the two stores; `lea` addressing of the target | `Set(a, b)` on a reference local (`Vector2i &min = UpdateMin`); member stores don't give the `lea` | land (F5) |
+| Register-only: the client loads the called object after the arguments | A named local for that object (`RsTrackClass *track = ...; track->X(a, b);`) | cpacket 0x737610, 0x737C10, 8235889 (T8) |
+| `G_ASSERT(!"text")` tests the string pointer in the client | VC6 doesn't fold it: keep the form | cpacket (T8) |
 
 * **A nested inline is a whole-function budget (2026-10-26, `Key_Exchange` 0x829180):** under `/Ob2` an
   inline helper's own callees (a `std::set` iterator's `_Inc`) are inlined only while the function as a
@@ -461,6 +463,9 @@ unless `--lever` cites a new row of this table.
 * **Ghidra can attribute an argument pushed for a later call to the call before it** (H10, 2026-10-27): a pushed `1`
   belonged to a sort object's constructor (`ret 8`), not to 0x541800 (no arguments). Check each callee's `ret N`.
   Including ref_ptr.h needs unknown_debug.h first (G_ASSERT).
+* **Drafts for `appfile.py match` belong in a private subfolder (app/t8draft/)**: app/client/obj/ is shared and match
+  clears its .obj files (T8, 2026-10-27). In Git Bash `cmd //c mklink //J` makes broken links: use PowerShell
+  `New-Item -ItemType Junction`. A `__FILE__` that differs only in case (`app\Client\`) differs in the string, not the bytes.
 * **`client.py dis` crashes on a cp1252 console:** set `PYTHONIOENCODING=utf-8`. `appfile.py match` on files
   that include dx8wrapper.h needs `-I C:/EnBDevelopment/SDK/directx8/include`. `attempts.py check` reports pk.h's
   parked 0x8770A0 for every packet file: `--ack 0x8770A0`. Constructors fall outside `appfile.py`'s `__FILE__`
