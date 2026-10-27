@@ -1,0 +1,102 @@
+// Earth & Beyond client (reconstruction): app\shared\symbol_substitution.cpp. Notes at the end of the file.
+#include "..\..\app\shared\symbol_substitution.h"
+#include "..\..\app\shared\unknown_debug.h"
+
+void Unknown_4BC260(const char *sender, const char *category, const char *file, int line, const char *format, ...);	// NAME 1 [Unknown_4BC260]: 0x4BC260, 0x4BC000's sibling
+
+// @0x4FCBD0
+SymbolSubstitutionClass::SymbolSubstitutionClass()
+{
+}
+
+// @0x4FCE00
+SymbolSubstitutionClass::~SymbolSubstitutionClass()
+{
+	Symbols.clear();
+}
+
+// @0x4FD000
+void SymbolSubstitutionClass::Add_Symbol(const std::string &name, const std::string &value)
+{
+	Symbols[name] = value;
+}
+
+// @0x4FD190
+const std::string &SymbolSubstitutionClass::Get_Symbol(const std::string &name) const
+{
+	std::hash_map<std::string, std::string>::const_iterator it = Symbols.find(name);
+	if (it == Symbols.end()) {
+		static std::string empty("");
+		return empty;
+	}
+	return it->second;
+}
+
+// @0x4FD330
+void SymbolSubstitutionClass::Clear()
+{
+	Symbols.clear();
+}
+
+static size_t Find_Mark(const std::string &str, size_t pos)
+{
+	size_t index = str.find('$', pos);
+	while (index != std::string::npos && index != 0 && str.at(index - 1) == '\\') {
+		index = str.find('$', index + 1);
+	}
+	return index;
+}
+
+static void Unescape_Symbols(std::string &str)
+{
+	for (std::string::iterator it = str.begin(); it != str.end(); ++it) {
+		if (*it == '\\' && it + 1 != str.end() && it[1] == '$') {
+			it = str.erase(it);
+		}
+	}
+}
+
+// @0x4FD3B0
+bool Substitute_Symbols(std::string &str, const SymbolSubstitutionClass &symbols)
+{
+	std::string original(str);
+	size_t start;
+	size_t end;
+
+	while (true) {
+		start = Find_Mark(str, 0);
+		if (start == std::string::npos) break;
+
+		end = Find_Mark(str, start + 1);
+		if (end == std::string::npos) {
+#line 112
+			Unknown_4BC260("", "SymbolSubstitution", __FILE__, __LINE__, "Unmatched '%c' pair! Cannot perform string substitution on string \"%s\"", '$', original.c_str());
+			str = original;
+			return false;
+		}
+
+		size_t len = end - start + 1;
+		std::string name = str.substr(start + 1, len - 2);
+		const std::string &value = symbols.Get_Symbol(name);
+		if (value.length() == 0) {
+			str.erase(start, len);
+		} else {
+			str.reserve(str.length() - len - 2 + value.length());
+			str.replace(start, len, value);
+		}
+	}
+
+	Unescape_Symbols(str);
+	return true;
+}
+
+// @0x4FD7A0
+void Escape_Symbols(std::string &str)
+{
+	for (std::string::iterator it = str.begin(); it != str.end(); ++it) {
+		if (*it == '$') {
+			it = str.insert(it, '\\');
+			++it;
+		}
+	}
+}

@@ -3477,6 +3477,11 @@ RECONSTRUCTED = {
     ('app', 'shared/combo_ffactory.cpp'): "ComboFileFactoryClass, client 0x4E4D10-0x4E5A00 with the table's and list's instances "
                                          "after it: the asserts on the client's lines 29 / 30 / 85 / 101 (D25); NOT EXACT: the "
                                          "destructor 0x4E5230, Get_File 0x4E57A0",
+    ('app', 'shared/symbol_substitution.h'): "SymbolSubstitutionClass (D24), named symbols in an SGI hash_map<std::string, "
+                                            "std::string> (libs/sgistl, D87), and the $name$ substitution",
+    ('app', 'shared/symbol_substitution.cpp'): "SymbolSubstitutionClass, client 0x4FCBD0-0x4FD7A0 with the string's and the "
+                                              "table's instances to 0x4FE770: the report on the client's line 112 (D25); NOT "
+                                              "EXACT: Substitute_Symbols 0x4FD3B0",
     ('app', 'shared/lookup_table.h'): "LookupTableClass and its continuous / floor / ceiling / closest / interpolated tables, "
                                      "LookupTableSetClass (the tables of an ini by section name in an SGI hash_map, libs/sgistl, "
                                      "D87) and LookupTableManagerClass (D24): reference counted (ref_ptr.h)",
