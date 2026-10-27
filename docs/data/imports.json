@@ -931,10 +931,12 @@
     "copy": "reconstructed",
     "expected": {},
     "in_tree": [
+     "0x42F250",
      "0x447C40",
      "0x4634A0",
      "0x463790",
-     "0x463E70"
+     "0x463E70",
+     "0x465030"
     ],
     "merged": [],
     "name": "shared/heightfield.cpp"
@@ -1232,6 +1234,7 @@
      "0x46BB20",
      "0x46BBF0",
      "0x46BEF0",
+     "0x46C6B0",
      "0x46C730",
      "0x46D880",
      "0x46D8B0",

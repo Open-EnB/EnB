@@ -9,6 +9,9 @@
 #include <string.h>
 #include <math.h>
 #include "pot.h"
+#include "coltest.h"
+#include "colmath.h"
+#include "tri.h"
 
 HeightFieldClass::HeightFieldClass(void) :
 	Heights(NULL),
@@ -326,6 +329,53 @@ Vector3 HeightFieldClass::Get_Normal(int i, int j) const
 	Vector3 n(-dx, -dy, 2.0f * XSpacing);
 	n.Normalize();
 	return n;
+}
+
+bool HeightFieldClass::Cast_AABox(AABoxCollisionTestClass &boxtest)
+{
+	const Vector3 &min = boxtest.SweepMin;
+	const Vector3 &max = boxtest.SweepMax;
+	bool hit = false;
+	float half = (float)HalfSize;
+	float x0 = min.X / XSpacing + half;
+	float y0 = min.Y / YSpacing + half;
+	float x1 = max.X / XSpacing + half;
+	float y1 = max.Y / YSpacing + half;
+	int i0 = WWMath::Float_To_Long(floor(x0));
+	int j0 = WWMath::Float_To_Long(floor(y0));
+	int i1 = WWMath::Float_To_Long(ceil(x1));
+	int j1 = WWMath::Float_To_Long(ceil(y1));
+	for (int j = j0; j <= j1; j++) {
+		for (int i = i0; i <= i1; i++) {
+			Vector3 verts[4];
+			Vector3 normal;
+			TriClass tri;
+			tri.N = &normal;
+			verts[0].X = (float)(int)(i - HalfSize) * XSpacing;
+			verts[0].Y = (float)(int)(j - HalfSize) * YSpacing;
+			verts[0].Z = Get_Height(i, j);
+			verts[1].X = verts[0].X + XSpacing;
+			verts[1].Y = verts[0].Y;
+			verts[1].Z = Get_Height(i + 1, j);
+			verts[2].X = verts[0].X + XSpacing;
+			verts[2].Y = verts[0].Y + YSpacing;
+			verts[2].Z = Get_Height(i + 1, j + 1);
+			verts[3].X = verts[0].X;
+			verts[3].Y = verts[0].Y + YSpacing;
+			verts[3].Z = Get_Height(i, j + 1);
+			tri.V[0] = &verts[0];
+			tri.V[1] = &verts[2];
+			tri.V[2] = &verts[3];
+			tri.Compute_Normal();
+			hit |= CollisionMath::Collide(boxtest.Box, boxtest.Move, tri, boxtest.Result);
+			tri.V[0] = &verts[0];
+			tri.V[1] = &verts[1];
+			tri.V[2] = &verts[2];
+			tri.Compute_Normal();
+			hit |= CollisionMath::Collide(boxtest.Box, boxtest.Move, tri, boxtest.Result);
+		}
+	}
+	return hit;
 }
 
 float HeightFieldClass::Get_Height(float x, float y) const
