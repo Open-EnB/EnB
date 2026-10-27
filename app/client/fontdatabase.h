@@ -115,6 +115,7 @@ class FontDatabaseClass  // NAME 3: by convention (D24) from the client's fontda
 public:
 	FontDatabaseClass();													// 0x6BE5C0
 	~FontDatabaseClass();													// 0x6BEBF0
+	void Reload();														// 0x6C1EC0: the ini files again (the constructor inlines it)  // NAME 2: what it does
 	void Load();														// inline: what the constructor does  // NAME 2: what it does
 	void Load_Init(INIClass &ini, char *section, FontInitStruct *info);	// 0x6BF330: one INIT section and its templates  // NAME 2: what it does
 	void Unknown_6BF910();												// 0x6BF910: loads fontsys.ini's INIT sections  // NAME 1 [Unknown_6BF910]: neutral (D10)

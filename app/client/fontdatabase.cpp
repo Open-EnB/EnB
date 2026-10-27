@@ -243,6 +243,17 @@ void FontDatabaseClass::Unknown_6BFD00(const char *ini_name)
 }
 
 
+void FontDatabaseClass::Reload()
+{
+	Clear_Infos();
+	Clear_Tables();
+	Unknown_6BF910();
+	Unknown_6BFD00("fontcode.ini");
+	Unknown_6BFD00("fontart.ini");
+	Clear_Strings();
+}
+
+
 void FontDatabaseClass::Unknown_6C2080()
 {
 	int width = 0;
@@ -404,17 +415,6 @@ FontStringStruct *FontDatabaseClass::Find_String(const char *name)
 	std::hash_map<std::string, FontStringStruct *>::iterator it = Strings.find(name);
 	return it == Strings.end() ? NULL : (*it).second;
 }
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -1183,7 +1183,9 @@ int FontInitStruct::Find_Chat_Index(const char *chat_name)
 **	loaders, Clear_Strings, 0x6C2080), FontStruct's inline constructor 0x6BE7C0 and implicit destructor
 **	0x6BEB60, the destructor 0x6BEBF0, Load_Init 0x6BF330 (an INIT section, its Template%d sections first,
 **	recursively), 0x6BF910 (fontsys.ini: ALL_FONTS into AllFonts, the INIT-n sections into Infos, with
-**	FontInitStruct's inline constructor), 0x6C2080 (the eight fonts for the resolution: Font32Class through RefCountPtr's Create_NEW), Get_Blend_Type / Get_Direction / Get_Effect_Type 0x6C2340 / 0x6C2460 / 0x6C25A0 (the ini words to
+**	FontInitStruct's inline constructor), Reload 0x6C1EC0 (the ini files again; the
+**	constructor's inline Load is the same plus 0x6C2080: written as one member the constructor inlines, it moved
+**	Load_Init's registers), 0x6C2080 (the eight fonts for the resolution: Font32Class through RefCountPtr's Create_NEW), Get_Blend_Type / Get_Direction / Get_Effect_Type 0x6C2340 / 0x6C2460 / 0x6C25A0 (the ini words to
 **	their values), Parse_Directions 0x6C2890 and Split_Four 0x6C2A10 (NOT EXACT), 0x6BFD00 (fontcode.ini / fontart.ini: the COLOR-n and EFFECT-n
 **	sections through Add_Color / Add_Effect, inlined with the asserts on lines 909 / 895), Clear_Infos 0x6BEE60 (with FontInitStruct's implicit destructor 0x6BEEF0), Clear_Tables
 **	0x6BEFD0 (Colors and Effects), Clear_Strings 0x6BF1F0, Find_Font 0x6C2BF0, Get_Info(width, height) 0x6C2CB0, the tables' Find_Color /
