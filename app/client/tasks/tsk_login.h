@@ -23,6 +23,7 @@
 #include "..\..\common\unknown_galaxy.h"			// LoginGalaxyClass
 #include "..\..\shared\avatar_desc.h"				// AvatarDescClass (LoginUnknown350Class)
 #include "..\..\shared\shipcust_desc.h"				// ShipCustDescClass (LoginUnknown88CClass)
+#include "..\unknown_creator.h"						// CharacterCreatorClass, LoginNameDataClass
 #include <string>
 #include <list>
 #include "vector3.h"
@@ -178,29 +179,8 @@ typedef ShipCustDescClass LoginUnknown88CClass;		// NAME 1: neutral (D10), the f
 // An entry of LoginTaskClass +0x350: avatar_desc.cpp's class; tsk_login.cpp keeps T4's name for now
 typedef AvatarDescClass LoginUnknown350Class;	// NAME 1: neutral (D10), AvatarDescClass's former name
 
-// The serialisable name (vtable 0xB04160: Write 0x78E0E0 writes its 0x80 bytes; 0x84 bytes)
-class LoginNameDataClass : public LoginPacketDataClass	// NAME 1: neutral (D10)
-{
-public:
-	LoginNameDataClass() { Name[0] = 0; }
-	virtual bool Write(LinearBufferClass *buffer);		// +0x00 0x78E0E0
-	virtual bool Read(LinearBufferClass *buffer);		// +0x04 0x78E110
-	virtual int Get_Size();								// +0x08 0x78E140
-
-	char Name[0x80];									// +0x04 NAME 1: 0x80 bytes on the wire
-};
-
-// What 0x7683F0 and 0x768CB0 make on the stack (constructor 0x78CEE0: the registry key 'SOFTWARE\Westwood
-// Studios\Earth and Beyond\Character and Starship Creator'); its destructor is StringClass's (0x7689C0)
-class LoginUnknown78CEE0Class	// NAME 1: neutral (D10)
-{
-public:
-	LoginUnknown78CEE0Class();							// 0x78CEE0
-	void Unknown_78D480(int slot, LoginCharacterClass *character, LoginUnknown350Class *unknown, LoginUnknown88CClass *unknown2, LoginNameDataClass *name);	// 0x78D480
-	void Unknown_78DAF0(int slot);						// 0x78DAF0 (Unknown_50 passes the selected slot)
-
-	StringClass Unknown00;								// +0x00
-};
+// The creator's folder (unknown_creator.h); tsk_login.cpp keeps T4's name for now
+typedef CharacterCreatorClass LoginUnknown78CEE0Class;	// NAME 1: neutral (D10), the former name
 
 class LoginUnknown0CClass	// NAME 1: neutral (D10): what LoginTaskClass +0x0C points to (inpdsp.cpp)
 {

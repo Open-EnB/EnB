@@ -5035,6 +5035,26 @@
     "merged": [],
     "name": "wwudp/unknown_cordmsg.cpp"
    },
+   "unknown_creator": {
+    "ambiguous": [],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x48C500",
+     "0x48CA70",
+     "0x48E910",
+     "0x510CC0",
+     "0x6CE730",
+     "0x78CEE0",
+     "0x78D450",
+     "0x78E060",
+     "0x78E0A0",
+     "0x78E0E0",
+     "0x78E110"
+    ],
+    "merged": [],
+    "name": "client/unknown_creator.cpp"
+   },
    "unknown_debug": {
     "ambiguous": [],
     "copy": "reconstructed",
@@ -5226,6 +5246,7 @@
    "client/tasks/tsk_smovie.h": "reconstructed",
    "client/tutorial_manager.h": "reconstructed",
    "client/unknown_authlogin.h": "reconstructed",
+   "client/unknown_creator.h": "reconstructed",
    "common/average.h": "reconstructed",
    "common/circbuff.h": "reconstructed",
    "common/connect.h": "reconstructed",

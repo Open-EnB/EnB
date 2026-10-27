@@ -3513,6 +3513,8 @@ RECONSTRUCTED = {
     ('app', 'client/client.cpp'): "ClientClass, client 0x726100-0x728450 with the hash lists' instances: the asserts on the "
                                  "client's lines 165-443 (D25); NOT EXACT: the constructor 0x726100, Find_Object 0x727070, "
                                  "Remove_Object 0x727600, the DEBUG packet senders 0x728010 / 0x728240, 0x7283B0",
+    ('app', 'client/unknown_creator.h'): "CharacterCreatorClass (the Character and Starship Creator's folder) and LoginNameDataClass (0x84 bytes, vtable 0xB04160) (PROVISIONAL file name, D10; from tsk_login.h, D90 9b)",
+    ('app', 'client/unknown_creator.cpp'): "client 0x78CEE0-0x78E190, the run between avatar.cpp and nlp.cpp (PROVISIONAL file name, D10: no __FILE__): the creator's constructor (registry, folders; D69: never run), the byte sum, Make_Folder, the name's Set_Name / Write / Read / Get_Size; exact; the avatar files' functions 0x78D480-0x78DE40 not yet",
     ('app', 'client/tasks/tsk_game.h'): "ClientTaskClass (D24 after its profile label 'ClientTask'), vtable 0xB03FF4, 0xA8 "
                                         "bytes; TicketClass (0x48 bytes) and what tsk_game.cpp calls, declared only",
     ('app', 'client/tasks/tsk_game.cpp'): "the game task, client 0x765F80-0x767230 (kernel-map.md 6, step 9): the asserts on "
