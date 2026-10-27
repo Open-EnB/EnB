@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-159 entries in 46 files.
+162 entries in 46 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -76,19 +76,22 @@ edit the comments in the code, not this file.
 | `app/packets/pkverblist.cpp:51` | `VerbUpdatePacketClass::Print` | marker | NOT EXACT: 0x8B0150, the client inlines the first loop's iterator step only (inline-budget; attempts.py show 0x8B0150) |
 | `app/shared/attrib_dir.cpp:114` | `AttribDir::~AttribDir` | marker | NOT EXACT: frame (explain.py: 8 vs 0x10), the client inlines each AttributeInfo's destructor into the delete loop; ours calls it |
 | `app/shared/attrib_dir.cpp:196` | `AttribDir::Attach_Mod` | marker | NOT EXACT: shape (explain.py: 9 vs 8 calls), as AttributeInfo::Attach_Mod: the client calls the list's insert 0x4D8F00 out of line and the value's construction |
+| `app/shared/attrib_dir.cpp:227` | `AttribDir::Detach_Mod` | marker | NOT EXACT: shape (explain.py: 24 vs 25 calls), the client inlines the handle's Is_Done / Get_Name and Find_Info with Make_Key called (frame 0x28; ours 0x3C) |
 | `app/shared/attrib_dir.cpp:273` | `AttribDir::Detach_Callback` | marker | NOT EXACT: inline budget (explain.py: shape, 10 vs 9 calls), the client inlines the iterator list's Advance, ours calls it |
 | `app/shared/attrib_dir.cpp:322` | `AttribDir::Recalculate` | marker | NOT EXACT: shape (explain.py: 4 rows), the client keeps the inlined Recalculate's result in bl as a bool; ours in eax, converted after (int Recalculate keeps 0x4D7060 exact) |
 | `app/shared/attrib_dir.cpp:510` | `AttributeInfo::~AttributeInfo` | marker | NOT EXACT: inline budget (explain.py), the client inlines the update table's bucket vector destructor and keeps &ModIterators in edi (frame 0x14 vs 0x10) |
 | `app/shared/attrib_dir.cpp:517` | `AttributeInfo::Attach_Mod` | marker | NOT EXACT: inline budget (explain.py), the client calls the list node value's construction 0x4D9FB0 out of line; ours inlines it |
 | `app/shared/attrib_dir.cpp:690` | `AttributeInfo::Notify` | marker | NOT EXACT: inline budget (explain.py: shape), the client inlines the update table's begin() (ours calls it; frame 0x2C vs 0x28); the callback loop is the client's |
+| `app/shared/attrib_dir.cpp:1031` | `AttribDirModIteratorClass::Next` | marker | NOT EXACT: shape (explain.py: 8 masked rows), registers swapped after ++ModCur and the client tests MapCur != MapEnd twice before the inlined Skip_Empty |
+| `app/shared/attrib_dir.cpp:1058` | `AttribDirModIteratorClass::Unlock` | marker | NOT EXACT: inline budget (explain.py: 4 vs 5 calls), the client calls the bucket function out of line in the inlined ++MapCur |
 | `app/shared/auxdata/delta_time.cpp:94` | `DurationAccessorClass::Get` | marker | NOT EXACT: the zero time is a function-local static the client destroys at exit (atexit 0x4A8590: its DurationClass has a destructor ours lacks); the 64-bit arithmetic follows the client's order |
 | `app/shared/auxdata/delta_time.cpp:111` | `DurationAccessorClass::Set` | marker | NOT EXACT: the client keeps time()'s 0 argument in ebx and adds the ticks' zero high half from it; VC6 here pushes an immediate (tried: other orders, a DurationClass temporary) |
 | `app/shared/auxdata/encode.cpp:560` | `RecordTableClass::Add` | marker | NOT EXACT: the client keeps the node in the list argument's slot, calls the first Children.size() out of line (0x4A58C0) in the new compound record and allocates the walk's records inline; VC6 here inlines all three sizes and uses other slots. |
 | `app/shared/auxdata/encode.cpp:729` | `DeltaListClass::Add` | marker | NOT EXACT: the client loads Count between the two loads of Tail (`*Tail` then `->Next`); tried: Count first, `++Count`, the new in the assignment. |
 | `app/shared/auxdata/lookup.cpp:116` | `LookupClass::Unknown_Test_70` | marker | NOT EXACT: the client calls the map's find out of line (0x4ACBD0); VC6 here inlines it |
 | `app/shared/auxdata/lookup.cpp:125` | `LookupClass::Unknown_Test_70_Above_1` | marker | NOT EXACT: as above (find 0x4ACBD0 out of line in the client) |
-| `app/shared/avatar_desc.cpp:91` | `AvatarDescClass::Read` | marker | NOT EXACT: inline budget (the client calls the string assignment's max_size, _Tidy and _Eos out of line, ours inlines them; six forms tried: dead size()/length() after it, assign(), assign(s, strlen), the Read_String call hoisted; attempts.py show 0x4BF550) 0x4BF550 |
-| `app/shared/avatar_desc.cpp:296` | `AvatarDescClass::Clear` | marker | NOT EXACT: shape (the first sprintf's arguments pushed before the three stores, and Head_Weight cleared through a pointer in the client; five forms tried: memset / a loop for Head_Weight, the stores reordered; attempts.py show 0x4C0310) 0x4C0310 |
+| `app/shared/avatar_desc.cpp:94` | `AvatarDescClass::Read` | marker | NOT EXACT: inline budget (the client calls the string assignment's max_size, _Tidy and _Eos out of line, ours inlines them; six forms tried: dead size()/length() after it, assign(), assign(s, strlen), the Read_String call hoisted; attempts.py show 0x4BF550) 0x4BF550 |
+| `app/shared/avatar_desc.cpp:299` | `AvatarDescClass::Clear` | marker | NOT EXACT: shape (the first sprintf's arguments pushed before the three stores, and Head_Weight cleared through a pointer in the client; five forms tried: memset / a loop for Head_Weight, the stores reordered; attempts.py show 0x4C0310) 0x4C0310 |
 | `app/shared/boolpars.cpp:311` | `BoolParserClass::Parse` | marker | NOT EXACT: inline budget, the client calls the second Parse_And 0x49A900 out of line (ours inlines it) |
 | `app/shared/boolpars.cpp:488` | `BoolParserClass::Parse_Params` | marker | NOT EXACT: shape, the loop's failure returns jump to the second 'return 0' tail in the client, the first in ours |
 | `app/shared/boolpars.cpp:655` | `BoolParserClass::Get_Callback` | mention | NOT EXACT: Parse 0x49A430 (inline budget) and Parse_Params 0x49AE30 (shape). |

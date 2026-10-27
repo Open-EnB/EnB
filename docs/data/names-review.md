@@ -10,7 +10,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 13 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 30 |
 | 3 | by convention from a client-named file or sibling | 659 |
-| 2 | describes what the code does | 1295 |
+| 2 | describes what the code does | 1320 |
 | 1 | neutral placeholder | 1642 |
 
 ## For review (score 3 and below)
@@ -2219,57 +2219,82 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `VerbRequestPacketClass` | `app/packets/pkverbrequest.h:22` | the reference decoder's opcode name VERB_REQUEST (the Net-7 opcode table; no structure check) |
 | 2 | `Get_Type` | `app/packets/pkverbrequest.h:31` | what it returns (the opcode Build sends), as MessageLinePacketClass's |
 | 2 | `WarpPacketClass` | `app/packets/pkwarpindex.h:23` | the reference decoder's opcode name WARP (the Net-7 opcode table; no structure check) |
-| 2 | `AttribModClass` | `app/shared/attrib_dir.h:33` | what it is |
-| 2 | `Get_Type` | `app/shared/attrib_dir.h:37` | what it returns |
-| 2 | `Get_Value` | `app/shared/attrib_dir.h:38` | what it returns |
-| 2 | `Get_Owner` | `app/shared/attrib_dir.h:39` | what it returns |
-| 2 | `AttribModValueClass` | `app/shared/attrib_dir.h:43` | what it is |
-| 2 | `Type` | `app/shared/attrib_dir.h:51` | what it holds |
-| 2 | `Value` | `app/shared/attrib_dir.h:52` | what it holds |
-| 2 | `Owner` | `app/shared/attrib_dir.h:53` | what it holds |
-| 2 | `AttribCallbackClass` | `app/shared/attrib_dir.h:57` | what it is |
-| 2 | `Value_Changed` | `app/shared/attrib_dir.h:60` | what it is told |
-| 2 | `ATTRIB_MIN_VALUE` | `app/shared/attrib_dir.h:63` | what it holds |
-| 2 | `ATTRIB_MAX_VALUE` | `app/shared/attrib_dir.h:64` | what it holds |
-| 2 | `AttribModValuesStruct` | `app/shared/attrib_dir.h:67` | what it holds |
-| 2 | `BaseMin` | `app/shared/attrib_dir.h:71` | what it holds |
-| 2 | `BaseMax` | `app/shared/attrib_dir.h:72` | what it holds |
-| 2 | `Add` | `app/shared/attrib_dir.h:73` | what it holds |
-| 2 | `Percent` | `app/shared/attrib_dir.h:74` | what it holds |
-| 2 | `Min` | `app/shared/attrib_dir.h:75` | what it holds |
-| 2 | `Max` | `app/shared/attrib_dir.h:76` | what it holds |
-| 2 | `AttribIteratorListClass` | `app/shared/attrib_dir.h:81` | what it holds |
-| 2 | `Advance` | `app/shared/attrib_dir.h:84` | what it does |
-| 2 | `Invalidate` | `app/shared/attrib_dir.h:92` | what it does |
-| 2 | `Pop` | `app/shared/attrib_dir.h:100` | what it does |
-| 2 | `AttributeInfoHash` | `app/shared/attrib_dir.h:111` | what it does |
-| 2 | `Attach_Mod` | `app/shared/attrib_dir.h:126` | as AttribDir's |
-| 2 | `Detach_Mod` | `app/shared/attrib_dir.h:127` | as AttribDir's |
-| 2 | `Attach_Callback` | `app/shared/attrib_dir.h:128` | as AttribDir's |
-| 2 | `Detach_Callback` | `app/shared/attrib_dir.h:129` | as AttribDir's |
-| 2 | `Attach_Update` | `app/shared/attrib_dir.h:130` | as AttribDir's |
-| 2 | `Detach_Update` | `app/shared/attrib_dir.h:131` | as AttribDir's |
-| 2 | `Get_Base` | `app/shared/attrib_dir.h:133` | as AttribDir's |
-| 2 | `Calculate` | `app/shared/attrib_dir.h:134` | what it does |
-| 2 | `Recalculate` | `app/shared/attrib_dir.h:135` | as AttribDir's |
-| 2 | `Notify` | `app/shared/attrib_dir.h:136` | what it does |
-| 2 | `Update_Value` | `app/shared/attrib_dir.h:137` | what it does |
-| 2 | `std:` | `app/shared/attrib_dir.h:139` | what it holds |
-| 2 | `Values` | `app/shared/attrib_dir.h:140` | what it holds |
-| 2 | `Mods` | `app/shared/attrib_dir.h:141` | what it holds |
-| 2 | `ModList:` | `app/shared/attrib_dir.h:142` | what it holds |
-| 2 | `Callbacks` | `app/shared/attrib_dir.h:143` | what it holds |
-| 2 | `CallbackList:` | `app/shared/attrib_dir.h:144` | what it holds |
-| 2 | `std:` | `app/shared/attrib_dir.h:145` | what it holds |
-| 2 | `Value` | `app/shared/attrib_dir.h:146` | what it holds |
-| 2 | `AttribShadowClass` | `app/shared/attrib_dir.h:150` | from AttribDir::Get_Shadow |
-| 2 | `Get_Value` | `app/shared/attrib_dir.h:156` | as AttribDir's |
-| 2 | `Get_Base` | `app/shared/attrib_dir.h:157` | as AttribDir's |
-| 2 | `Get_Info` | `app/shared/attrib_dir.h:182` | what it does |
-| 2 | `Find_Info` | `app/shared/attrib_dir.h:183` | what it does |
-| 2 | `Find_Info` | `app/shared/attrib_dir.h:184` | what it does |
-| 2 | `std:` | `app/shared/attrib_dir.h:185` | what it does |
-| 2 | `Attributes` | `app/shared/attrib_dir.h:187` | what it holds |
+| 2 | `AttribModClass` | `app/shared/attrib_dir.h:34` | what it is |
+| 2 | `Get_Type` | `app/shared/attrib_dir.h:38` | what it returns |
+| 2 | `Get_Value` | `app/shared/attrib_dir.h:39` | what it returns |
+| 2 | `Get_Owner` | `app/shared/attrib_dir.h:40` | what it returns |
+| 2 | `AttribModValueClass` | `app/shared/attrib_dir.h:44` | what it is |
+| 2 | `Type` | `app/shared/attrib_dir.h:52` | what it holds |
+| 2 | `Value` | `app/shared/attrib_dir.h:53` | what it holds |
+| 2 | `Owner` | `app/shared/attrib_dir.h:54` | what it holds |
+| 2 | `AttribCallbackClass` | `app/shared/attrib_dir.h:58` | what it is |
+| 2 | `Value_Changed` | `app/shared/attrib_dir.h:61` | what it is told |
+| 2 | `ATTRIB_MIN_VALUE` | `app/shared/attrib_dir.h:64` | what it holds |
+| 2 | `ATTRIB_MAX_VALUE` | `app/shared/attrib_dir.h:65` | what it holds |
+| 2 | `AttribModValuesStruct` | `app/shared/attrib_dir.h:68` | what it holds |
+| 2 | `BaseMin` | `app/shared/attrib_dir.h:72` | what it holds |
+| 2 | `BaseMax` | `app/shared/attrib_dir.h:73` | what it holds |
+| 2 | `Add` | `app/shared/attrib_dir.h:74` | what it holds |
+| 2 | `Percent` | `app/shared/attrib_dir.h:75` | what it holds |
+| 2 | `Min` | `app/shared/attrib_dir.h:76` | what it holds |
+| 2 | `Max` | `app/shared/attrib_dir.h:77` | what it holds |
+| 2 | `AttribIteratorListClass` | `app/shared/attrib_dir.h:82` | what it holds |
+| 2 | `Advance` | `app/shared/attrib_dir.h:85` | what it does |
+| 2 | `Invalidate` | `app/shared/attrib_dir.h:93` | what it does |
+| 2 | `Pop_Back` | `app/shared/attrib_dir.h:101` | what it does |
+| 2 | `Pop` | `app/shared/attrib_dir.h:110` | what it does |
+| 2 | `AttributeInfoHash` | `app/shared/attrib_dir.h:121` | what it does |
+| 2 | `Attach_Mod` | `app/shared/attrib_dir.h:136` | as AttribDir's |
+| 2 | `Detach_Mod` | `app/shared/attrib_dir.h:137` | as AttribDir's |
+| 2 | `Attach_Callback` | `app/shared/attrib_dir.h:138` | as AttribDir's |
+| 2 | `Detach_Callback` | `app/shared/attrib_dir.h:139` | as AttribDir's |
+| 2 | `Attach_Update` | `app/shared/attrib_dir.h:140` | as AttribDir's |
+| 2 | `Detach_Update` | `app/shared/attrib_dir.h:141` | as AttribDir's |
+| 2 | `Get_Base` | `app/shared/attrib_dir.h:143` | as AttribDir's |
+| 2 | `Calculate` | `app/shared/attrib_dir.h:144` | what it does |
+| 2 | `Recalculate` | `app/shared/attrib_dir.h:145` | as AttribDir's |
+| 2 | `Notify` | `app/shared/attrib_dir.h:146` | what it does |
+| 2 | `Update_Value` | `app/shared/attrib_dir.h:147` | what it does |
+| 2 | `std:` | `app/shared/attrib_dir.h:149` | what it holds |
+| 2 | `Values` | `app/shared/attrib_dir.h:150` | what it holds |
+| 2 | `Mods` | `app/shared/attrib_dir.h:151` | what it holds |
+| 2 | `ModList:` | `app/shared/attrib_dir.h:152` | what it holds |
+| 2 | `Callbacks` | `app/shared/attrib_dir.h:153` | what it holds |
+| 2 | `CallbackList:` | `app/shared/attrib_dir.h:154` | what it holds |
+| 2 | `std:` | `app/shared/attrib_dir.h:155` | what it holds |
+| 2 | `Value` | `app/shared/attrib_dir.h:156` | what it holds |
+| 2 | `AttribShadowClass` | `app/shared/attrib_dir.h:160` | from AttribDir::Get_Shadow |
+| 2 | `Get_Value` | `app/shared/attrib_dir.h:166` | as AttribDir's |
+| 2 | `Get_Base` | `app/shared/attrib_dir.h:167` | as AttribDir's |
+| 2 | `AttribModIteratorClass` | `app/shared/attrib_dir.h:173` | what it does |
+| 2 | `Get_Mod` | `app/shared/attrib_dir.h:176` | what it returns |
+| 2 | `Get_Name` | `app/shared/attrib_dir.h:177` | what it returns |
+| 2 | `Is_Done` | `app/shared/attrib_dir.h:178` | what it returns |
+| 2 | `Clone` | `app/shared/attrib_dir.h:179` | what it does |
+| 2 | `Next` | `app/shared/attrib_dir.h:180` | what it does |
+| 2 | `Lock_Next` | `app/shared/attrib_dir.h:181` | what it does |
+| 2 | `Unlock` | `app/shared/attrib_dir.h:182` | what it does |
+| 2 | `AttribInfoModIteratorClass` | `app/shared/attrib_dir.h:186` | what it does |
+| 2 | `AttributeInfo::ModList:` | `app/shared/attrib_dir.h:198` | what it holds |
+| 2 | `AttributeInfo::ModList:` | `app/shared/attrib_dir.h:199` | what it holds |
+| 2 | `Info` | `app/shared/attrib_dir.h:200` | what it holds |
+| 2 | `AttribDirModIteratorClass` | `app/shared/attrib_dir.h:204` | what it does |
+| 2 | `Skip_Empty` | `app/shared/attrib_dir.h:216` | what it does |
+| 2 | `AttributeInfo::ModList:` | `app/shared/attrib_dir.h:220` | as MapCur |
+| 2 | `AttributeInfo::ModList:` | `app/shared/attrib_dir.h:221` | as MapEnd |
+| 2 | `AttribModIterator` | `app/shared/attrib_dir.h:225` | what it is |
+| 2 | `Get_Mod` | `app/shared/attrib_dir.h:234` | as the iterator's |
+| 2 | `Get_Name` | `app/shared/attrib_dir.h:235` | as the iterator's |
+| 2 | `Next` | `app/shared/attrib_dir.h:237` | as the iterator's |
+| 2 | `Iterator` | `app/shared/attrib_dir.h:239` | what it holds |
+| 2 | `Detach_Mod` | `app/shared/attrib_dir.h:262` | as the other Detach_Mod |
+| 2 | `Get_All_Mods` | `app/shared/attrib_dir.h:263` | what it returns |
+| 2 | `Get_Mods` | `app/shared/attrib_dir.h:264` | what it returns |
+| 2 | `Get_Info` | `app/shared/attrib_dir.h:266` | what it does |
+| 2 | `Find_Info` | `app/shared/attrib_dir.h:267` | what it does |
+| 2 | `Find_Info` | `app/shared/attrib_dir.h:268` | what it does |
+| 2 | `std:` | `app/shared/attrib_dir.h:269` | what it does |
+| 2 | `Attributes` | `app/shared/attrib_dir.h:271` | what it holds |
 | 2 | `Swap` | `app/shared/auxdata/bitset.h:26` | describes what it does |
 | 2 | `Is_Set` | `app/shared/auxdata/bitset.h:30` | describes what it does |
 | 2 | `Set` | `app/shared/auxdata/bitset.h:32` | describes what it does |

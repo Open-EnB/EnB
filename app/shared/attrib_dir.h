@@ -28,6 +28,7 @@
 #include <hash_map.h>
 
 class AttributeInfo;
+class AttribDir;
 
 // A mod of an attribute's value (vtable 0xAEC1D4)
 class AttribModClass  // NAME 2: what it is
@@ -43,7 +44,7 @@ public:
 class AttribModValueClass : public AttribModClass  // NAME 2: what it is
 {
 public:
-	AttribModValueClass(int type, float value, void *owner) : Type(type), Value(value), Owner(owner) {}	// 0x4D7620
+	AttribModValueClass(int type, float value, void *owner);										// 0x4D7620
 	virtual int Get_Type() { return Type; }									// 0x4D76F0
 	virtual float Get_Value() { return Value; }								// 0x4D7710
 	virtual void *Get_Owner() { return Owner; }								// 0x4D7730
@@ -66,7 +67,7 @@ const float ATTRIB_MAX_VALUE = FLT_MAX;										// 0xAEC1A4  // NAME 2: what it
 // The sums of an attribute's mods (0x18 bytes)
 struct AttribModValuesStruct  // NAME 2: what it holds
 {
-	AttribModValuesStruct() : BaseMin(ATTRIB_MIN_VALUE), BaseMax(ATTRIB_MAX_VALUE), Add(0), Percent(0), Min(ATTRIB_MIN_VALUE), Max(ATTRIB_MAX_VALUE) {}	// 0x4D74D0
+	AttribModValuesStruct();																		// 0x4D74D0
 
 	float BaseMin;																		// +0x00 type 0: the largest  // NAME 2: what it holds
 	float BaseMax;																		// +0x04 type 1: the smallest  // NAME 2: what it holds
@@ -96,6 +97,15 @@ public:
 				*i = 0;
 			}
 		}
+	}
+	bool Pop_Back()																	// NAME 2: what it does
+	{
+		if (empty()) {
+			return false;
+		}
+		IT *it = back();
+		pop_back();
+		return it != 0;
 	}
 	bool Pop()																			// NAME 2: what it does
 	{
@@ -150,13 +160,83 @@ public:
 class AttribShadowClass  // NAME 2: from AttribDir::Get_Shadow
 {
 public:
-	AttribShadowClass() : Info(0) {}												// 0x4D7510
-	AttribShadowClass(AttributeInfo *info) : Info(info) {}					// 0x4D7530
+	AttribShadowClass();																				// 0x4D7510
+	AttribShadowClass(AttributeInfo *info);																// 0x4D7530
 
 	float Get_Value();																// 0x4D7550  // NAME 2: as AttribDir's
 	float Get_Base();																	// 0x4D7590  // NAME 2: as AttribDir's
 
 	AttributeInfo *Info;																// +0x00 (the FAIL_IF's '!Info')
+};
+
+// Walks mods (vtable 0xAEC20C: every slot pure, no destructor)
+class AttribModIteratorClass  // NAME 2: what it does
+{
+public:
+	virtual AttribModClass *Get_Mod() = 0;											// slot 0  // NAME 2: what it returns
+	virtual const char *Get_Name() = 0;												// slot 1: the mod's attribute  // NAME 2: what it returns
+	virtual bool Is_Done() = 0;														// slot 2  // NAME 2: what it returns
+	virtual AttribModIteratorClass *Clone() = 0;									// slot 3  // NAME 2: what it does
+	virtual void Next() = 0;															// slot 4  // NAME 2: what it does
+	virtual void Lock_Next() = 0;														// slot 5: steps on and registers with the attribute (Detach_Mod)  // NAME 2: what it does
+	virtual void Unlock() = 0;															// slot 6  // NAME 2: what it does
+};
+
+// The mods of one attribute (vtable 0xAEC230, 0x10 bytes)
+class AttribInfoModIteratorClass : public AttribModIteratorClass  // NAME 2: what it does
+{
+public:
+	AttribInfoModIteratorClass(AttributeInfo *info) : Cur(info->Mods.begin()), End(info->Mods.end()), Info(info) {}	// 0x4D7E20
+	virtual AttribModClass *Get_Mod() { return *Cur; }							// 0x4D7BB0
+	virtual const char *Get_Name() { return Info->Name.c_str(); }				// 0x4D7BD0
+	virtual bool Is_Done() { return Cur == End; }									// 0x4D7BF0
+	virtual AttribModIteratorClass *Clone() { return new AttribInfoModIteratorClass(*this); }	// 0x4D7C20
+	virtual void Next() { ++Cur; }													// 0x4D7C70
+	virtual void Lock_Next();															// 0x4D7E60
+	virtual void Unlock();																// 0x4D8090
+
+	AttributeInfo::ModList::iterator Cur;										// +0x04  // NAME 2: what it holds
+	AttributeInfo::ModList::iterator End;										// +0x08  // NAME 2: what it holds
+	AttributeInfo *Info;																// +0x0C  // NAME 2: what it holds
+};
+
+// The mods of every attribute of a directory (vtable 0xAEC1E8, 0x1C bytes)
+class AttribDirModIteratorClass : public AttribModIteratorClass  // NAME 2: what it does
+{
+public:
+	AttribDirModIteratorClass(AttribDir *dir);										// 0x4D8120
+	virtual AttribModClass *Get_Mod() { return *ModCur; }						// 0x4D7930
+	virtual const char *Get_Name() { return (*MapCur).first.c_str(); }		// 0x4D7950
+	virtual bool Is_Done() { return ModCur == ModEnd && MapCur == MapEnd; }	// 0x4D7980
+	virtual AttribModIteratorClass *Clone() { return new AttribDirModIteratorClass(*this); }	// 0x4D79B0
+	virtual void Next();																	// 0x4D8240
+	virtual void Lock_Next();															// 0x4D8430
+	virtual void Unlock();																// 0x4D8690
+
+	void Skip_Empty();																	// 0x4D8370  // NAME 2: what it does
+
+	std::hash_map<std::string, AttributeInfo *>::iterator MapCur;			// +0x04 (the FAIL_IFs' MapCur)
+	std::hash_map<std::string, AttributeInfo *>::iterator MapEnd;			// +0x0C (the FAIL_IFs' MapEnd)
+	AttributeInfo::ModList::iterator ModCur;									// +0x14  // NAME 2: as MapCur
+	AttributeInfo::ModList::iterator ModEnd;									// +0x18  // NAME 2: as MapEnd
+};
+
+// What AttribDir's mod walks return: owns an iterator (4 bytes)
+class AttribModIterator  // NAME 2: what it is
+{
+public:
+	AttribModIterator();																	// 0x4D7C90
+	AttribModIterator(AttribModIteratorClass *iterator);						// 0x4D7CB0
+	AttribModIterator(const AttribModIterator &src);								// 0x4D7CD0
+	~AttribModIterator();																// 0x4D7D20
+	AttribModIterator &operator=(const AttribModIterator &src);				// 0x4D7D50
+
+	AttribModClass *Get_Mod();															// 0x4D7DA0  // NAME 2: as the iterator's
+	const char *Get_Name();																// 0x4D7DC0  // NAME 2: as the iterator's
+	bool Is_Done();																		// 0x4D7DE0 (the FAIL_IF's 'iter.Is_Done()')
+	void Next();																			// 0x4D7E00  // NAME 2: as the iterator's
+
+	AttribModIteratorClass *Iterator;												// +0x00  // NAME 2: what it holds
 };
 
 // The directory (0x18 bytes)
@@ -178,6 +258,10 @@ public:
 	float Get_Value(const char *name) const;									// 0x4D57E0
 	float Get_Base(const char *name) const;									// 0x4D5950
 	AttribShadowClass Get_Shadow(const char *name);							// 0x4D5B00
+
+	AttribModIterator Detach_Mod(AttribModIterator &iter);				// 0x4D4BD0: returns the next  // NAME 2: as the other Detach_Mod
+	AttribModIterator Get_All_Mods();												// 0x4D77D0  // NAME 2: what it returns
+	AttribModIterator Get_Mods(const char *name);								// 0x4D7A20  // NAME 2: what it returns
 
 	AttributeInfo *Get_Info(const char *name);								// 0x4D5C50: made when missing  // NAME 2: what it does
 	AttributeInfo *Find_Info(const char *name);								// 0x4D5F10  // NAME 2: what it does

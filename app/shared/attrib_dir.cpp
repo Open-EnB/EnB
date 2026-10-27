@@ -224,27 +224,27 @@ bool AttribDir::Detach_Mod(const char *name, AttribModClass *mod)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// NOT EXACT: shape (explain.py: 24 vs 25 calls), the client inlines the handle's Is_Done / Get_Name and Find_Info with Make_Key called (frame 0x28; ours 0x3C)
+AttribModIterator AttribDir::Detach_Mod(AttribModIterator &iter)
+{
+	WWPROFILE("AttribDir::Detach_Mod");
+	FAIL_IF(iter.Is_Done()) return iter;
+	AttributeInfo *info = Find_Info(iter.Get_Name());
+	if (info == 0) {
+		return iter;
+	}
+	AttribModClass *mod = iter.Get_Mod();
+	AttribModIterator next(iter);
+	next.Iterator->Lock_Next();
+	AttributeInfo::ModList::iterator it = std::find(info->Mods.begin(), info->Mods.end(), mod);
+	if (it != info->Mods.end()) {
+		info->ModIterators.Advance(it);
+		info->Mods.erase(it);
+		info->Recalculate();
+	}
+	next.Iterator->Unlock();
+	return next;
+}
 
 
 
@@ -738,17 +738,17 @@ void AttributeInfo::Notify()
 
 
 
+AttribModValuesStruct::AttribModValuesStruct() : BaseMin(ATTRIB_MIN_VALUE), BaseMax(ATTRIB_MAX_VALUE), Add(0), Percent(0), Min(ATTRIB_MIN_VALUE), Max(ATTRIB_MAX_VALUE)
+{
+}
 
+AttribShadowClass::AttribShadowClass() : Info(0)
+{
+}
 
-
-
-
-
-
-
-
-
-
+AttribShadowClass::AttribShadowClass(AttributeInfo *info) : Info(info)
+{
+}
 
 float AttribShadowClass::Get_Value()
 {
@@ -763,6 +763,314 @@ float AttribShadowClass::Get_Base()
 }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+AttribModValueClass::AttribModValueClass(int type, float value, void *owner) : Type(type), Value(value), Owner(owner)
+{
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+AttribModIterator AttribDir::Get_All_Mods()
+{
+	return AttribModIterator(new AttribDirModIteratorClass(this));
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+AttribModIterator AttribDir::Get_Mods(const char *name)
+{
+	FAIL_IF(!name) return AttribModIterator();
+	AttributeInfo *info = Find_Info(name);
+	if (info == 0) {
+		return AttribModIterator();
+	}
+	return AttribModIterator(new AttribInfoModIteratorClass(info));
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+AttribModIterator::AttribModIterator() : Iterator(0)
+{
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+AttribModIterator::AttribModIterator(AttribModIteratorClass *iterator) : Iterator(iterator)
+{
+}
+
+AttribModIterator::AttribModIterator(const AttribModIterator &src) : Iterator(0)
+{
+	*this = src;
+}
+
+AttribModIterator::~AttribModIterator()
+{
+	delete Iterator;
+	Iterator = 0;
+}
+
+AttribModIterator &AttribModIterator::operator=(const AttribModIterator &src)
+{
+	if (&src != this) {
+		delete Iterator;
+		Iterator = src.Iterator ? src.Iterator->Clone() : 0;
+	}
+	return *this;
+}
+
+AttribModClass *AttribModIterator::Get_Mod()
+{
+	return Iterator ? Iterator->Get_Mod() : 0;
+}
+
+const char *AttribModIterator::Get_Name()
+{
+	return Iterator ? Iterator->Get_Name() : 0;
+}
+
+bool AttribModIterator::Is_Done()
+{
+	return Iterator ? Iterator->Is_Done() : true;
+}
+
+void AttribModIterator::Next()
+{
+	if (Iterator) {
+		Iterator->Next();
+	}
+}
+
+void AttribInfoModIteratorClass::Lock_Next()
+{
+	++Cur;
+	Info->ModIterators.push_back(&Cur);
+}
+
+void AttribInfoModIteratorClass::Unlock()
+{
+	bool ok = Info->ModIterators.Pop_Back();
+	G_ASSERT(ok);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+AttribDirModIteratorClass::AttribDirModIteratorClass(AttribDir *dir) : MapCur(dir->Attributes.begin()), MapEnd(dir->Attributes.end())
+{
+	Skip_Empty();
+}
+
+void AttribDirModIteratorClass::Skip_Empty()
+{
+	while (MapCur != MapEnd) {
+		ModCur = (*MapCur).second->Mods.begin();
+		ModEnd = (*MapCur).second->Mods.end();
+		if (ModCur != ModEnd) {
+			return;
+		}
+		++MapCur;
+	}
+}
+
+// NOT EXACT: shape (explain.py: 8 masked rows), registers swapped after ++ModCur and the client tests MapCur != MapEnd twice before the inlined Skip_Empty
+void AttribDirModIteratorClass::Next()
+{
+	++ModCur;
+	if (ModCur == ModEnd) {
+		++MapCur;
+		Skip_Empty();
+	}
+}
+
+
+void AttribDirModIteratorClass::Lock_Next()
+{
+	FAIL_IF(MapCur == MapEnd) return;
+	++ModCur;
+	(*MapCur).second->ModIterators.push_back(&ModCur);
+}
+
+
+
+
+
+
+
+
+
+
+// NOT EXACT: inline budget (explain.py: 4 vs 5 calls), the client calls the bucket function out of line in the inlined ++MapCur
+void AttribDirModIteratorClass::Unlock()
+{
+	FAIL_IF(MapCur == MapEnd) return;
+
+
+	bool ok = (*MapCur).second->ModIterators.Pop_Back();
+
+	G_ASSERT(ok);
+	if (ModCur == ModEnd) {
+		++MapCur;
+		Skip_Empty();
+	}
+}
+
+
 /*
 **	Reconstruction notes
 **
@@ -771,10 +1079,12 @@ float AttribShadowClass::Get_Base()
 **	profile labels 'AttribDir::Attach_Mod' ... are its WWPROFILEs), Get_Info / Find_Info (two copies,
 **	0x4D5F10 and 0x4D6070) / Make_Key, AttributeInfo's constructor, destructor and methods (Apply_Mod
 **	on line 603, Notify's G_ASSERT(ok) on 700), AttribShadowClass (755 / 761), and the list, vector and
-**	hashtable instances. Not rebuilt yet: Detach_Mod by iterator 0x4D4BD0 (line 231) and the mod
-**	iterators 0x4D77D0-0x4D8690 (lines 882 / 990: the iterator interface, vtable 0xAEC20C, its two
-**	implementations 0xAEC1E8 / 0xAEC230 and the handle class around them), and the object's
-**	initializer, if any.
+**	hashtable instances; the out-of-line constructors 0x4D74D0 / 0x4D7510 / 0x4D7530 / 0x4D7620 (no
+**	caller: defined in this file); the mod iterators: the interface (vtable 0xAEC20C, every slot pure),
+**	one attribute's (0xAEC230, Unlock's G_ASSERT(ok) on 990), the directory's (0xAEC1E8, the FAIL_IFs
+**	'MapCur == MapEnd' on 1044 / 1061 and G_ASSERT(ok) on 1066), the handle AttribModIterator
+**	(0x4D7C90-0x4D7E00), Get_All_Mods 0x4D77D0, Get_Mods 0x4D7A20 (882) and Detach_Mod by iterator
+**	0x4D4BD0 (231). Unlock pops with pop_back, Notify with erase(end() - 1) (the client's two forms).
 **	Forms: -FLT_MAX / FLT_MAX are named consts (the client loads them from 0xAEC1A0 / 0xAEC1A4); min and
 **	max are VC6's reference-returning std::_cpp_min / _cpp_max with the bound first; the value is
 **	value + (value * Percent * 0.01f + Add) (other spellings fold to value * (Percent * 0.01f + 1));

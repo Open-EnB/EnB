@@ -3515,12 +3515,18 @@ RECONSTRUCTED = {
                                       "0x4E9E00, the destructors 0x4EA2B0 / 0x4EAFB0, Release 0x4EB1B0",
     ('app', 'shared/attrib_dir.h'): "AttribDir, AttributeInfo (the client's names), their mods, callbacks, shadow and iterator "
                                    "lists (D24): named attributes in an SGI hash_map (libs/sgistl, D87)",
-    ('app', 'shared/attrib_dir.cpp'): "AttribDir / AttributeInfo, client 0x4D42C0-0x4D7730 with the list, vector and table "
-                                     "instances: the asserts on the client's lines 200-761 (D25); not yet the mod iterators "
-                                     "0x4D77D0-0x4D8690 and Detach_Mod 0x4D4BD0; NOT EXACT: 0x4D4490, 0x4D4810, 0x4D5000, "
-                                     "0x4D55D0, 0x4D6620, 0x4D6820, 0x4D71D0",
-    ('app', 'client/sclient.h'): "SClient (the client's 'SClient::Process_Packets'), declared only as far as tsk_game.cpp uses "
-                                "it: constructor 0x7405E0, 0x14F8 bytes (kernel-map.md 6, step 9)",
+    ('app', 'shared/attrib_dir.cpp'): "AttribDir / AttributeInfo, client 0x4D42C0-0x4D8690 with the list, vector and table "
+                                     "instances and the mod iterators: the asserts on the client's lines 200-1066 (D25); NOT EXACT: "
+                                     "0x4D4490, 0x4D4810, 0x4D4BD0, 0x4D5000, 0x4D55D0, 0x4D6620, 0x4D6820, 0x4D71D0, "
+                                     "0x4D8240, 0x4D8690",
+    ('app', 'client/sclient.h'): "SClient (the client's 'SClient::Process_Packets'): 0x14F8 bytes packed to 4, ClientClass at "
+                                "+0x00 and SOptionsClass at +0x1150, vtable 0xB03240 (26 slots); the layout from the "
+                                "constructor, destructor and Init (kernel-map-step9.md 2.2, D90 9d)",
+    ('app', 'client/sclient.cpp'): "SClient's skeleton, client 0x7405E0-0x7429B0 (the window before the first assert, l.749) "
+                                  "and the base slots' overrides 0x743330 / 0x744B90 / 0x744BD0 / 0x745730; NOT EXACT: the "
+                                  "destructor 0x740BB0 (D90 9d)",
+    ('app', 'client/soptions.h'): "SOptionsClass (D24 after soptions.cpp), SClient's second base: 0x48 bytes, vtable 0xB03C00 "
+                                 "(one slot), the camera modes; declared only (D90 9d)",
     ('app', 'client/unknown_authlogin.h'): "EA.Com's login component as the client uses it (PROVISIONAL file name, D10): kcom's factory and IAuthLoginClass (authlogin.dll, tools/vc6/authlogin.def), AuthLoginResponseClass (0x38 bytes; kernel-map-step9.md 4)",
     ('app', 'client/unknown_authlogin.cpp'): "AuthLoginResponseClass, client 0x792040-0x7922F0 (PROVISIONAL file name, D10: the unattributed run after nlp.cpp, no __FILE__): the constructor 0x792040 and Get_Error_Text 0x7922B0 with its table 0xB9DC90; exact",
     ('app', 'client/client.h'): "ClientClass (D24 after client.cpp), the client base SClient and the movie client derive from: "
