@@ -19,6 +19,9 @@
 
 #include "pk.h"
 #include "gameedit\pkgeclon.h"	// rebuilt
+#include "gameedit\pkgekv.h"	// rebuilt
+#include "gameedit\pkgeobj.h"	// rebuilt
+#include "gameedit\pkgeplan.h"	// rebuilt
 #include "gameedit\pkgespwn.h"	// rebuilt
 #include "pk_player_object_relationship.h"	// rebuilt
 #include "pk_sub_parts.h"	// rebuilt
@@ -105,10 +108,7 @@
 #include "pkuitrigger.h"	// rebuilt
 #include "pkunknown_85d1a0.h"	// rebuilt
 #include "pkunknown_85d4b0.h"	// rebuilt
-#include "pkunknown_85e640.h"	// rebuilt
 #include "pkunknown_85f250.h"	// rebuilt
-#include "pkunknown_85f870.h"	// rebuilt
-#include "pkunknown_860d30.h"	// rebuilt
 #include "pkunknown_861db0.h"	// rebuilt
 #include "pkunknown_863720.h"	// rebuilt
 #include "pkunknown_865020.h"	// rebuilt

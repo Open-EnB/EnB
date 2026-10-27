@@ -1,6 +1,6 @@
-// Earth & Beyond client (reconstruction): app\packets\pkunknown_85f870.cpp. Notes at the end of the file.
-#include "pkunknown_85f870.h"
-#include "..\shared\unknown_debug.h"
+// Earth & Beyond client (reconstruction): app\packets\gameedit\pkgeobj.cpp. Notes at the end of the file.
+#include "pkgeobj.h"
+#include "..\..\shared\unknown_debug.h"
 #include <stdio.h>
 
 
@@ -399,13 +399,13 @@ bool Packet_753DClass::Process_Packet(void *)
 }
 
 /*
-**	Reconstruction notes (pkunknown_85f870.cpp)
+**	Reconstruction notes (gameedit\pkgeobj.cpp)
 **
 **	* Client 0x85F870-0x860D00 (the object ends with the guarded static every <string> includer has,
 **	  0xC416FC, atexit 0x42B320). Drafted from the client by the packet decoder (tools/re/pkdecode.py,
 **	  pkemit.py): members from the raw message's Get / Build's Add (sizes) and Print (types,
 **	  names: 'Name=%d'), the constructors' stores in the initialiser list.
-**	* The file name is provisional (provisional, neutral (D10): the object's first address).
+**	* Named pkunknown_85f870.cpp until the rename (D95(c), builder P6, 2026-10-27).
 **	* Opcodes 30016, 30014, 30012 and the send-only 30011 / 30013 (not in the packet switch; their
 **	  Process_Packet returns true) written by hand (builder P5, 2026-10-27): a sized data block each,
 **	  G_ASSERT(Data) on the client's lines 21, 76, 247, 310 and 365 (blank lines above them). The

@@ -1,6 +1,6 @@
-// Earth & Beyond client (reconstruction): app\packets\pkunknown_85e640.cpp. Notes at the end of the file.
-#include "pkunknown_85e640.h"
-#include "..\shared\unknown_debug.h"
+// Earth & Beyond client (reconstruction): app\packets\gameedit\pkgekv.cpp. Notes at the end of the file.
+#include "pkgekv.h"
+#include "..\..\shared\unknown_debug.h"
 #include <stdio.h>
 #include <string.h>
 
@@ -211,7 +211,7 @@ int Packet_7538Class::Print(char *buffer, int)
 
 
 /*
-**	Reconstruction notes (pkunknown_85e640.cpp)
+**	Reconstruction notes (gameedit\pkgekv.cpp)
 **
 **	* Client 0x85E640-0x85F220 (the object ends with the guarded static every <string> includer has,
 **	  0xC416FC, atexit 0x42B320). Drafted from the client by the packet decoder (tools/re/pkdecode.py,
@@ -221,5 +221,5 @@ int Packet_7538Class::Print(char *buffer, int)
 **	  by hand (builder P5, 2026-10-27): G_ASSERT(s) on line 12, G_ASSERT(Data) on lines 28, 120 and 181,
 **	  30007 Build's G_ASSERT(packet) on line 136 (blank lines above them).
 **	* The object is the client's app\packets\gameedit\pkgekv.cpp (those asserts' __FILE__); the file
-**	  keeps its provisional name here until the rename is decided (P5's report).
+**	  was pkunknown_85e640.cpp until the rename (D95(c), builder P6, 2026-10-27).
 */

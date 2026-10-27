@@ -3,7 +3,7 @@
 **	Portions Copyright Electronic Arts Inc., released under the GNU General Public License v3.
 **
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
-**	Original location: e:\build\beta\G\app\packets\pkunknown_85f870.h (the name provisional: see the .cpp)
+**	Original location: e:\build\beta\G\app\Packets\gameedit\pkgeobj.h (the .cpp named by its asserts)
 **
 **	The packet classes of client 0x85F870-0x860D00 rebuilt so far (opcode 30016, 30014, 30015, 30009, 30010, 30012; 30011 and 30013, not in the switch); the file's other classes
 **	are still declared in pk_classes.h.
@@ -13,10 +13,10 @@
 #pragma once
 #endif
 
-#ifndef PKUNKNOWN_85F870_H  // NAME 1 [pkunknown_85f870]: provisional, neutral (D10): the object's first address
-#define PKUNKNOWN_85F870_H
+#ifndef PKGEOBJ_H  // NAME 3 [pkgeobj.h]: the header of the client's gameedit\pkgeobj.cpp
+#define PKGEOBJ_H
 
-#include "pk.h"
+#include "..\pk.h"
 
 // opcode 30016 (0x7540, ?): vtable 0xB09008, constructor 0x85F8F0, 0x18 bytes
 class Packet_7540Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x7540 (Print 'GameEditorCreateFinal')

@@ -3,7 +3,7 @@
 **	Portions Copyright Electronic Arts Inc., released under the GNU General Public License v3.
 **
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
-**	Original location: e:\build\beta\G\app\packets\pkunknown_85e640.h (the name provisional: see the .cpp)
+**	Original location: e:\build\beta\G\app\Packets\gameedit\pkgekv.h (the .cpp named by its asserts)
 **
 **	The packet classes of client 0x85E640-0x85F220 rebuilt so far (opcode 30006); the file's other classes
 **	are still declared in pk_classes.h.
@@ -13,10 +13,10 @@
 #pragma once
 #endif
 
-#ifndef PKUNKNOWN_85E640_H  // NAME 1 [pkunknown_85e640]: provisional, neutral (D10): the object's first address
-#define PKUNKNOWN_85E640_H
+#ifndef PKGEKV_H  // NAME 3 [pkgekv.h]: the header of the client's gameedit\pkgekv.cpp
+#define PKGEKV_H
 
-#include "pk.h"
+#include "..\pk.h"
 
 // opcode 30005 (0x7535, ?): vtable 0xB08EB8, constructor 0x85E750, 0x20 bytes
 class Packet_7535Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x7535 (Print 'GameEditorRequestKeyValues')

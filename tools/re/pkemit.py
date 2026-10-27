@@ -24,7 +24,8 @@ import pkdecode as gen  # noqa: E402
 import pkclasses  # noqa: E402
 
 # files the client names (asserts), by an address inside them
-NAMED = {0x8622A0: 'gameedit\\pkgespwn', 0x874790: 'pk_player_object_relationship', 0x875910: 'pk_sub_parts',
+NAMED = {0x8622A0: 'gameedit\\pkgespwn', 0x85E640: 'gameedit\\pkgekv', 0x85F870: 'gameedit\\pkgeobj', 0x860D30: 'gameedit\\pkgeplan',
+         0x874790: 'pk_player_object_relationship', 0x875910: 'pk_sub_parts',
          0x880340: 'pkdebug', 0x886640: 'pkfindmember', 0x895F50: 'pkjoblist', 0x8A9BB0: 'pktask',
          0x8ABED0: 'pkupdate', 0x89AB30: 'pklogoff'}
 WIDTH = {'int': 4, 'float': 4, 'short': 2, 'unsigned short': 2, 'char': 1, 'unsigned char': 1, 'bool': 1,
@@ -241,7 +242,7 @@ if os.path.exists(_p):
             NOTEXACT[int(_a, 16)] = _r
 
 # drafted files that hold classes written by hand too: never rewritten (their decoded classes are kept as drafted)
-HAND = {'pkunknown_877640', 'pkunknown_85d1a0', 'pkunknown_85f250', 'pkunknown_85e640', 'pkunknown_85d4b0', 'pkunknown_85f870', 'pkunknown_860d30', 'pkunknown_861db0', 'pkunknown_87dec0', 'pkitemba', 'pkunknown_863720', 'pkmessagechatstream', 'pkserverready', 'pkjoblist', 'pktask', 'pkgadget', 'pkglobalconnect', 'pkspline', 'pknote', 'pkpetitionstuck', 'pkmessagetime', 'pkmodechange', 'pkmoderequest', 'pkguildplayeronline', 'pkgmeditplayerinventory', 'pkgmviewmissionlog', 'pkgmdestroyitem', 'pkgmresetmission', 'pkgpsrequest', 'pkincapacitancerequest', 'pkguildranknamesrequestclient', 'pkconfirmedaction', 'pktriggeremote', 'pkcta_request', 'pkserverparameters', 'pksetclienttype', 'pknotelist', 'pkmanufactureitemcatagorypacket', 'pkstarbasetow', 'pkdebug', 'pkinventorymove', 'pknamedecal', 'pkverblist', 'pkrequesttime', 'pkwarpindex', 'pksoundcommand', 'pkupdate', 'pkpointeffect', 'pk_player_object_relationship', 'pkclientchat', 'pkmessagestring', 'pkgroup', 'pkdialog', 'pkunknown_877c80', 'pkmove', 'pknavdelete', 'pkunknown_888b60', 'pkmessageline', 'pkcolorization'}   # opcode 106 by hand (builder P, 2026-10-26); 62, 9, 137, 165, 29, 30, 98, 99, 20, 153, 139, 174, 35, 36, 17 (builder P3, 2026-10-26)
+HAND = {'pkunknown_877640', 'pkunknown_85d1a0', 'pkunknown_85f250', 'gameedit\\pkgekv', 'pkunknown_85d4b0', 'gameedit\\pkgeobj', 'gameedit\\pkgeplan', 'pkunknown_861db0', 'pkunknown_87dec0', 'pkitemba', 'pkunknown_863720', 'pkmessagechatstream', 'pkserverready', 'pkjoblist', 'pktask', 'pkgadget', 'pkglobalconnect', 'pkspline', 'pknote', 'pkpetitionstuck', 'pkmessagetime', 'pkmodechange', 'pkmoderequest', 'pkguildplayeronline', 'pkgmeditplayerinventory', 'pkgmviewmissionlog', 'pkgmdestroyitem', 'pkgmresetmission', 'pkgpsrequest', 'pkincapacitancerequest', 'pkguildranknamesrequestclient', 'pkconfirmedaction', 'pktriggeremote', 'pkcta_request', 'pkserverparameters', 'pksetclienttype', 'pknotelist', 'pkmanufactureitemcatagorypacket', 'pkstarbasetow', 'pkdebug', 'pkinventorymove', 'pknamedecal', 'pkverblist', 'pkrequesttime', 'pkwarpindex', 'pksoundcommand', 'pkupdate', 'pkpointeffect', 'pk_player_object_relationship', 'pkclientchat', 'pkmessagestring', 'pkgroup', 'pkdialog', 'pkunknown_877c80', 'pkmove', 'pknavdelete', 'pkunknown_888b60', 'pkmessageline', 'pkcolorization'}   # opcode 106 by hand (builder P, 2026-10-26); 62, 9, 137, 165, 29, 30, 98, 99, 20, 153, 139, 174, 35, 36, 17 (builder P3, 2026-10-26)
 
 # the names the files have in the tree (a file keeps its name when more of its classes are drafted)
 KEEP = dict((op, inc[:-2]) for op, (name, inc) in pkclasses.rebuilt_classes().items())

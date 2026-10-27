@@ -1,6 +1,6 @@
-// Earth & Beyond client (reconstruction): app\packets\pkunknown_860d30.cpp. Notes at the end of the file.
-#include "pkunknown_860d30.h"
-#include "..\shared\unknown_debug.h"
+// Earth & Beyond client (reconstruction): app\packets\gameedit\pkgeplan.cpp. Notes at the end of the file.
+#include "pkgeplan.h"
+#include "..\..\shared\unknown_debug.h"
 #include <stdio.h>
 #include <string.h>
 
@@ -218,13 +218,13 @@ bool Packet_754AClass::Process_Packet(void *)
 
 
 /*
-**	Reconstruction notes (pkunknown_860d30.cpp)
+**	Reconstruction notes (gameedit\pkgeplan.cpp)
 **
 **	* Client 0x860D30-0x861730 (the object ends with the guarded static every <string> includer has,
 **	  0xC416FC, atexit 0x42B320). Drafted from the client by the packet decoder (tools/re/pkdecode.py,
 **	  pkemit.py): members from the raw message's Get / Build's Add (sizes) and Print (types,
 **	  names: 'Name=%d'), the constructors' stores in the initialiser list.
-**	* The file name is provisional (provisional, neutral (D10): the object's first address).
+**	* Named pkunknown_860d30.cpp until the rename (D95(c), builder P6, 2026-10-27).
 **	* Opcode 30023 written by hand (builder P5, 2026-10-27). The object is the client's
 **	  app\Packets\gameedit\pkgeplan.cpp: the raw constructor at 0x860F80 between 30023 and 30025 asserts
 **	  on its line 69. The send-only 30024 and 30026 (not in the packet switch; Process_Packet true) written

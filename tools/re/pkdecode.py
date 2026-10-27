@@ -956,7 +956,8 @@ def main():
         m = re.match(r'^// opcode (\d+) ', l)
         if m:
             c = re.match(r'^class (\w+) : public (\w+)(.*)$', txt[i + 1])
-            names[int(m.group(1))] = (c.group(1), c.group(2), c.group(3).strip())
+            if c:   # an opcode comment above a helper struct (pkjoblist.h's JobStruct) names no class
+                names[int(m.group(1))] = (c.group(1), c.group(2), c.group(3).strip())
     ends = []
     o0, o1 = ci.offset(0x85C5F0), ci.offset(0x8B2100)    # past WARP_INDEX's object (0x8B1BA0-0x8B2050)
     k = ci.data.find(STATIC_END, o0, o1)

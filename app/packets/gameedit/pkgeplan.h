@@ -3,7 +3,7 @@
 **	Portions Copyright Electronic Arts Inc., released under the GNU General Public License v3.
 **
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
-**	Original location: e:\build\beta\G\app\packets\pkunknown_860d30.h (the name provisional: see the .cpp)
+**	Original location: e:\build\beta\G\app\Packets\gameedit\pkgeplan.h (the .cpp named by its asserts)
 **
 **	The packet classes of client 0x860D30-0x861730 rebuilt so far (opcode 30025); the file's other classes
 **	are still declared in pk_classes.h.
@@ -13,10 +13,10 @@
 #pragma once
 #endif
 
-#ifndef PKUNKNOWN_860D30_H  // NAME 1 [pkunknown_860d30]: provisional, neutral (D10): the object's first address
-#define PKUNKNOWN_860D30_H
+#ifndef PKGEPLAN_H  // NAME 3 [pkgeplan.h]: the header of the client's gameedit\pkgeplan.cpp
+#define PKGEPLAN_H
 
-#include "pk.h"
+#include "..\pk.h"
 
 // opcode 30023 (0x7547, ?): vtable 0xB09188, constructor 0x860DA0, 0xC bytes
 class GameEditorRequestPlanetUnitTypesPacketClass : public PacketClass  // NAME 3: the client's Print text 'GameEditorRequestPlanetUnitTypes {' and the PacketClass convention
