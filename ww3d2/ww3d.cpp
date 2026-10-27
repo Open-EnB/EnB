@@ -1268,7 +1268,7 @@ void WW3D::Normalize_Coordinates(int x, int y, float &fx, float &fy)
  *   5/19/99    GTH : Created.                                                                 *
  *   2/26/2001  hy : Updated to DX8                                                            *
  *=============================================================================================*/
-void WW3D::Make_Screen_Shot( const char * filename_base )
+void WW3D::Make_Screen_Shot( const char * filename_base, float unknown, int format )
 {
 
 	WWASSERT(!IsRendering);

@@ -834,6 +834,9 @@ TEXTURE_API_PATCHES = {
         ('\nvoid WW3D::_Invalidate_Mesh_Cache()\n',
          '\n// E&B (name not known, D10): 0x9179D0 calls DX8Wrapper::Unknown_Restore_Device (0x921C50) and maps\n// its result to an error code (neg/sbb/and 0xFB/add 5: true -> 0, false -> 5).\nWW3DErrorType WW3D::Unknown_Restore_Device(void)\n{\n\treturn DX8Wrapper::Unknown_Restore_Device() ? WW3D_ERROR_OK : WW3D_ERROR_INITIALIZATION_FAILED;\n}\n\nvoid WW3D::_Invalidate_Mesh_Cache()\n',
          'E&B: 0x9179D0 returns WW3D_ERROR_OK when DX8Wrapper::Unknown_Restore_Device (0x921C50) succeeds, else 5 (WW3D_ERROR_INITIALIZATION_FAILED)'),
+        ('void WW3D::Make_Screen_Shot( const char * filename_base )\n',
+         'void WW3D::Make_Screen_Shot( const char * filename_base, float unknown, int format )\n',
+         "E&B's WW3D::Make_Screen_Shot takes three arguments: the app calls 0x9182C0 with a name, 1.3f and 0/1/2 (0x767E65, 0x743A85, 0x7ECBCB; cdecl, add esp 0xC), and the client switches on the third for 'tga'/'bmp'/'jpg' (0x9182C0-0x918300). The body stays Renegade's (NOT EXACT, parked: attempts.py show 0x9182C0)"),
     ],
     ('ww3d2', 'assetmgr.h'): [
         ('\t\tTextureClass::MipCountType mip_level_count=TextureClass::MIP_LEVELS_ALL,',
@@ -1612,6 +1615,9 @@ TEXTURE_API_PATCHES = {
         ('\tstatic void\t\t\t\t\t_Invalidate_Mesh_Cache();\n',
          '\t// E&B (name not known, D10): 0x9179D0, DX8Wrapper::Unknown_Restore_Device as an error code\n\tstatic WW3DErrorType\t\tUnknown_Restore_Device(void);\n\tstatic void\t\t\t\t\t_Invalidate_Mesh_Cache();\n',
          'E&B: a WW3D function at 0x9179D0 (between Registry_Load_Render_Device 0x9179A0 and _Invalidate_Mesh_Cache 0x9179E0), called from the app at 0x4439B6'),
+        ('\tstatic void\t\t\t\t\tMake_Screen_Shot( const char * filename = "ScreenShot");\n',
+         '\tstatic void\t\t\t\t\tMake_Screen_Shot( const char * filename = "ScreenShot", float unknown = 1.3f, int format = 0);\t// NAME 2: unknown (1.3f at every call) and format (0 tga, 1 bmp, 2 jpg: the switch at 0x9182C0)\n',
+         "E&B's WW3D::Make_Screen_Shot takes three arguments: the app calls 0x9182C0 with a name, 1.3f and 0/1/2 (0x767E65, 0x743A85, 0x7ECBCB; cdecl, add esp 0xC), and the client switches on the third for 'tga'/'bmp'/'jpg' (0x9182C0-0x918300). The body stays Renegade's (NOT EXACT, parked: attempts.py show 0x9182C0)"),
     ],
     ('wwdebug', 'wwprofile.cpp'): [
         ('\t\telse {\n\t\t\tpos++;\n\t\t}\n\t}\n\n\treturn Read_Line(memory,pos,maxpos);\n}\n',
