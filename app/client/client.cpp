@@ -463,6 +463,23 @@ UnknownB02C90Class::~UnknownB02C90Class()
 {
 }
 
+// 0x725120
+void UnknownB02C90Class::Unknown_08()
+{
+	for (int i = 0; i < Buffer.Count; i++) {
+		BufferStruct::ElementStruct *e = Buffer.Get(i);
+		UnknownB02C90Class *child = e->Child;
+		if (child) {
+			child->Unknown_08();
+			Unknown_10(child, i, 0);
+			((ClientObjectClass *)Unknown04)->Client->Remove_Object(((ClientObjectClass *)child->Unknown04)->Get_Game_ID());
+			delete child;
+		} else if (e->Unknown3C) {
+			e->Unknown3C->Unknown_10(this, -1, -1);
+		}
+	}
+}
+
 /*
 **	Reconstruction notes (client.cpp, 0x726100-0x728450; kernel-map-step9.md 2.1)
 **

@@ -221,17 +221,29 @@ class UnknownB02C90Class							// NAME 1: neutral (D10), named by its vtable
 public:
 	UnknownB02C90Class(void *owner);					// 0x725050  // NAME 1 [owner]: co.cpp passes the object itself
 	virtual ~UnknownB02C90Class();						// 0x7250F0 (scalar deleting 0x7250C0)
+	virtual void Unknown_04() = 0;						// +0x04 0x7251C0 (not rebuilt: pure here so no program needs a stand-in)
+	virtual void Unknown_08();							// +0x08 0x725120 detaches every child: Unknown_10 and the client's Remove_Object, then deletes it
+	virtual void Unknown_0C(UnknownB02C90Class *child, int a, int b) = 0;	// +0x0C 0x725610 (not rebuilt)  // NAME 1 [child, a, b]: neutral
+	virtual void Unknown_10(UnknownB02C90Class *child, int index, int unknown) = 0;	// +0x10 0x7257F0 (not rebuilt; 0x725120 passes the child and its index)  // NAME 1 [child, index, unknown]: what 0x725120 passes
+	virtual void Unknown_14(int a, int b, int c) {}		// +0x14 0x6F2C50 (empty)  // NAME 1 [a, b, c]: neutral
+	virtual void Unknown_18(int a, int b, int c) {}		// +0x18 0x6F2C70 (empty)  // NAME 1 [a, b, c]: neutral
 
 	void *Unknown04;									// +0x04 the constructor's argument
 	void *Unknown08;									// +0x08 the constructor's argument
 	// +0x0C .. +0x18: a buffer with its own inline destructor (clears the count, deletes the data): written as
 	// fields in the base's destructor, the client's vtable store moves first and 0x7250C0 calls 0x7250F0
 	struct BufferStruct {								// NAME 1: neutral (D10)
+		struct ElementStruct {							// 0x44 bytes  // NAME 1: neutral (D10)
+			char Unknown00[0x3C];						// +0x00
+			UnknownB02C90Class *Unknown3C;				// +0x3C (0x725120 calls its slot +0x10 with -1, -1 when there is no child)
+			UnknownB02C90Class *Child;					// +0x40  // NAME 2: 0x725120 detaches and deletes it
+		};
 		BufferStruct() : Count(0), Unknown04(0), Data(0), Unknown0C(0) {}
 		~BufferStruct() { Count = 0; delete Data; }
+		ElementStruct *Get(int index) { if (index < 0 || index >= Count) return(NULL); return(&Data[index]); }  // NAME 1: neutral
 		int Count;										// +0x0C (+0x00) cleared by the destructor  // NAME 1: neutral
 		int Unknown04;									// +0x10 (+0x04)
-		char *Data;									// +0x14 (+0x08) deleted by the destructor  // NAME 1: neutral
+		ElementStruct *Data;							// +0x14 (+0x08) deleted by the destructor  // NAME 1: neutral
 		int Unknown0C;									// +0x18 (+0x0C)
 	} Buffer;											// +0x0C
 	Matrix3D Unknown1C;									// +0x1C identity
