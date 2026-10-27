@@ -751,19 +751,19 @@ void ClientLegoImplClass::Detach(const RefCountPtr<LegoClass> &child, const RefC
 	}
 }
 
-// NOT EXACT: frame: ours 0x1C, the client 0x14 (the client reuses the iterator's slots for operator[]'s pair)
 RefCountPtr<LegoBoneMapClass> ClientLegoImplClass::Get_Bone_Map(int asset_id)
 {
-	{
-		std::hash_map<int, RefCountPtr<LegoBoneMapClass> >::iterator it = _Global_Bone_Maps.find(asset_id);
-		if (it != _Global_Bone_Maps.end()) {
-			return (*it).second;
-		}
+	std::hash_map<int, RefCountPtr<LegoBoneMapClass> >::const_iterator it = _Global_Bone_Maps.find(asset_id);
+	if (it != _Global_Bone_Maps.end()) {
+		return (*it).second;
 	}
 	RefCountPtr<LegoBoneMapClass> bone_map = Create_NEW(new LegoBoneMapClass(asset_id));
 	_Global_Bone_Maps[asset_id] = bone_map;
 	return bone_map;
 }
+
+
+
 
 
 
@@ -824,9 +824,9 @@ LegoBoneMapClass::~LegoBoneMapClass(void)
 **	client.exe: the window 0x729BF0-0x72DC10 (asserts on lines 69-809), then the containers'
 **	instances (0x72E090-0x731F20). Every function of the window is written; exact: the bone maps'
 **	Init / Shutdown, Create, the constructor and destructor, the small virtuals, Detach_All, the
-**	parent links, the bone map's constructor and destructor. NOT EXACT (attempts.csv): Init,
-**	Find, Get_Lego_Transform, Add, Remove, Update_Radius, Child_Moved, Attach, Detach and
-**	Get_Bone_Map. Not written: the knob's constructor 0x72DE40 and the bone map's Get_Knob
+**	parent links, Get_Bone_Map, the bone map's constructor and destructor. NOT EXACT (attempts.csv): Init,
+**	Find, Get_Lego_Transform, Add, Remove, Update_Radius, Child_Moved, Attach and Detach.
+**	Get_Bone_Map is exact with a const_iterator for its find (H12's lever). Not written: the knob's constructor 0x72DE40 and the bone map's Get_Knob
 **	0x72DDA0 (after the window), lego_identifier.cpp's split 0x844ED0 / 0x8451A0.
 **	* The bone map's constructor 0x72D5F0 is exact or 2 rows off (order) with the same source,
 **	  depending on what else the file holds (the inline budget's file state): re-check it after
