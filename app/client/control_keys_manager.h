@@ -87,6 +87,12 @@ struct KeyMappingStruct  // NAME 1: neutral (D10): one key definition's mapping 
 	ControlKeyStruct Keys[NUM_MAPPING_SETS];										// +0x04: the client's 'set'
 };
 
+struct KeyIdStruct  // NAME 1: neutral (D10): the value of _KeyIds (0x14 bytes)
+{
+	int Id;																	// +0x00: the client's 'key_id'  // NAME 2: what it holds
+	std::string ModuleName;												// +0x04: the client's 'key_id_ref.ModuleName'
+};
+
 class ControlKeyListClass  // NAME 1: neutral (D10): the screen's key list Add_Keys / Remove_Keys fill ('keylist')
 {
 public:
@@ -102,11 +108,13 @@ public:
 	KeyMappingStruct *Set_Key(KeyMappingStruct *entry, int set, const ControlKeyStruct &key, bool force);	// 0x71A860: returns the mapping already using key unless force  // NAME 2: describes what it does
 	int Add_Keys(ControlKeyListClass *keylist, const std::string &name, void *handler, unsigned short modifiers);	// 0x71A960  // NAME 2: describes what it does
 	int Remove_Keys(ControlKeyListClass *keylist, const std::string &name, unsigned short modifiers);	// 0x71AB40  // NAME 2: describes what it does
+	static bool Register_Key(const std::string &module_name, const std::string &key_name, int key_id);	// 0x719ED0  // NAME 2: describes what it does
 	static bool _Does_Key_Exist(const std::string &key_name);	// 0x71B160 (no caller; inlined at 0x719ED0): the client's assert
 	static void Copy_Keys(std::vector<KeyMappingStruct> *to, const std::vector<KeyMappingStruct> &from);	// 0x71C4C0  // NAME 2: describes what it does
 
 	char Unknown04[0x18];																// +0x04: a hash table (UserKeysMap?)  // NAME 1: neutral (D10)
 	static std::hash_map<std::string, std::auto_ptr<ControlKeyDefStruct> > _KeyDefinitions;	// 0xBE7BC8: the client's asserts
+	static std::hash_map<std::string, KeyIdStruct> _KeyIds;				// 0xBE7B98 (ctor 0x71D8F0, dtor 0x719C80)  // NAME 1: neutral (D10)
 	static unsigned int _NumKeyDefs;												// 0xBE7C44: the client's asserts
 
 	std::vector<KeyMappingStruct> UserKeys;				// +0x1C: the client's asserts

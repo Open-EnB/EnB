@@ -7,6 +7,7 @@ std::string &Unknown_42B7E0(const ControlKeyComboStruct &key, std::string &out);
 static std::string _Empty;  // NAME 2: 0xBE7B80, what the accessors return without a definition
 unsigned int ControlKeysManager::_NumKeyDefs;
 std::hash_map<std::string, std::auto_ptr<ControlKeyDefStruct> > ControlKeysManager::_KeyDefinitions;
+std::hash_map<std::string, KeyIdStruct> ControlKeysManager::_KeyIds;
 
 
 
@@ -95,21 +96,20 @@ std::hash_map<std::string, std::auto_ptr<ControlKeyDefStruct> > ControlKeysManag
 
 
 
+bool ControlKeysManager::Register_Key(const std::string &module_name, const std::string &key_name, int key_id)
+{
+	FAIL_IF(!ControlKeysManager::_Does_Key_Exist(key_name)) return false;
+	FAIL_IF(key_id == -1) return false;
 
+	KeyIdStruct &key_id_ref = _KeyIds[key_name];
 
 
 
-
-
-
-
-
-
-
-
-
-
-
+	FAIL_IF(!key_id_ref.ModuleName.empty()) return false;
+	key_id_ref.Id = key_id;
+	key_id_ref.ModuleName = module_name;
+	return true;
+}
 
 
 
