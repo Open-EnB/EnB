@@ -3,6 +3,59 @@
 #include "nstrdup.h"
 #include <stdio.h>
 
+NoteListPacketClass::NoteListPacketClass()
+{
+}
+
+NoteListPacketClass::NoteListPacketClass(RawPacketClass *raw)
+{
+	while (raw->Data.Get_Size() - raw->Data.Get_Pos() >= sizeof(NoteListEntryStruct)) {
+		NoteListEntryStruct note;
+		raw->Get(note.Unknown00);
+		raw->Get(note.Unknown04);
+		raw->Get(note.Unknown08, sizeof(note.Unknown08));
+		Notes.push_back(note);
+	}
+}
+
+NoteListPacketClass::~NoteListPacketClass()
+{
+}
+
+RawPacketClass *NoteListPacketClass::Build()
+{
+	RawPacketClass *raw = new RawPacketClass(183, Get_Data_Size());
+	for (std::list<NoteListEntryStruct>::iterator it = Notes.begin(); it != Notes.end(); it++) {
+		raw->Add(it->Unknown00);
+		raw->Add(it->Unknown04);
+		raw->Add(it->Unknown08, sizeof(it->Unknown08));
+	}
+	return(raw);
+}
+
+int NoteListPacketClass::Get_Data_Size()
+{
+	return(Notes.size() * sizeof(NoteListEntryStruct));
+}
+
+int NoteListPacketClass::Print(char *buffer, int)
+{
+	return(sprintf(buffer, "NoteList:"));
+}
+
+bool NoteListPacketClass::Add_Note(int unknown00, int unknown04, const char *unknown08)
+{
+	if (Notes.size() > 15) {
+		return(false);
+	}
+	NoteListEntryStruct note;
+	note.Unknown00 = unknown00;
+	note.Unknown04 = unknown04;
+	Unknown_4A1590(note.Unknown08, sizeof(note.Unknown08), unknown08);
+	Notes.push_back(note);
+	return(true);
+}
+
 NoteContentPacketClass::NoteContentPacketClass(int unknown0c, const char *unknown10, const char *unknown54) :
 	Unknown0C(unknown0c),
 	Unknown54(0)
@@ -49,7 +102,7 @@ int NoteContentPacketClass::Print(char *buffer, int)
 **	Reconstruction notes (pknotelist.cpp)
 **
 **	* Client 0x87EA50-0x87F2F0 (0x87EA30 is the previous object's guarded static, 0xC416FC; this one's
-**	  is at 0x87F2F0): NoteList 183 (a std::list of 0x4C-byte notes, not rebuilt yet), then NoteContent
-**	  184, written by hand (builder P4, 2026-10-26).
+**	  is at 0x87F2F0): NoteList 183 (a std::list of 0x4C-byte notes:
+**	  builder P6, 2026-10-27), then NoteContent 184 (builder P4, 2026-10-26), written by hand.
 **	* The file name is provisional (no assert names it).
 */

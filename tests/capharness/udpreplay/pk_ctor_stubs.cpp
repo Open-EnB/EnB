@@ -27,7 +27,6 @@ PlayerObjectReactionUpdatePacket::PlayerObjectReactionUpdatePacket(RawPacketClas
 IncapacitanceDetailsPacket::IncapacitanceDetailsPacket(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_00B5Class::Packet_00B5Class(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_00B6Class::Packet_00B6Class(RawPacketClass *raw) { Conn_Record(this, raw); }
-NoteListPacketClass::NoteListPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_00A8Class::Packet_00A8Class(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_00A9Class::Packet_00A9Class(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_00ABClass::Packet_00ABClass(RawPacketClass *raw) { Conn_Record(this, raw); }
@@ -117,6 +116,7 @@ bool StarbaseAvatarUpdatePacketClass::Process_Packet(void *) { return(true); }	/
 bool StarbaseAvatarRoomUpdatePacketClass::Process_Packet(void *) { return(true); }	// 0x73AB50
 bool NameDecalPacketClass::Process_Packet(void *) { return(true); }	// 0x735FC0
 bool SubPartsPacket::Process_Packet(void *) { return(true); }	// 0x733A50
+bool NoteListPacketClass::Process_Packet(void *) { return(true); }	// 0x73AE40
 bool NoteContentPacketClass::Process_Packet(void *) { return(true); }	// 0x73AF80
 bool ClientChatListPacketClass::Process_Packet(void *) { return(true); }	// 0x73CC90
 bool GMEditPlayerInventoryPacketClass::Process_Packet(void *) { return(true); }	// 0x73F2E0

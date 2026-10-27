@@ -3783,7 +3783,9 @@
    },
    "pknotelist": {
     "ambiguous": [
-     "0x42B2F0"
+     "0x42B2F0",
+     "0x443F30",
+     "0x49CB70"
     ],
     "copy": "reconstructed",
     "expected": {},
@@ -3793,6 +3795,14 @@
      "0x52B270",
      "0x52B2A0",
      "0x52B350",
+     "0x87EA60",
+     "0x87EB00",
+     "0x87EB30",
+     "0x87ECB0",
+     "0x87ED50",
+     "0x87EE40",
+     "0x87EE60",
+     "0x87EE90",
      "0x87EF50",
      "0x87EFF0",
      "0x87F020",
