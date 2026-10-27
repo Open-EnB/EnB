@@ -3456,7 +3456,7 @@ RECONSTRUCTED = {
     ('app', 'shared/land.h'): 'LandClass (the client\'s "(LandClass*)obj"; vtable 0xAE8994; PROVISIONAL file name): the terrain render object and its decorations (M2.4); the client\'s 0x1228-byte layout from its ctor 0x468E90 and dtor 0x46A480',
     ('app', 'shared/land.cpp'): 'the terrain, client 0x468E90-0x47A2F0 (PROVISIONAL file name; profile label Land::Update_Lightmap_ManualThreaded 0x46DA70): Create, ctor, dtor and the small virtuals rebuilt; the rest not yet (VIDTEST draws with programs/vidtest/vidland.cpp; M2.4)',
     ('app', 'shared/landdmap.h'): 'LandUnknown466BE0Class (PROVISIONAL file and class names): the land\'s displacement-mapped companion, vtable 0xAE8974, 0x90 bytes, the global 0xBDC0D8',
-    ('app', 'shared/landdmap.cpp'): 'the land\'s displacement-mapped companion, client 0x466BE0-0x468E70 (PROVISIONAL file name; the land\'s dtor calls 0x466F10 out of line): ctor, dtor, create / delete 0x466E70 / 0x466F10, the DMap registry reader 0x468120; the Matrox-only draw not rebuilt',
+    ('app', 'shared/landdmap.cpp'): 'the land\'s displacement-mapped companion, client 0x466BE0-0x468E70 (PROVISIONAL file name; the land\'s dtor calls 0x466F10 out of line): ctor, dtor, create / delete 0x466E70 / 0x466F10, the DMap registry reader 0x468120, 0x467910; the Matrox-only draw 0x466F60 and the rest functional (NOT EXACT)',
     ('app', 'wwudp/udp.h'): "the UDP socket CordMgr and CordCon use (CordCon::Udp_): WWOnline's wnet UDP (libs\\wwonline\\wnet, "
                             "client 0x8BF990-0x8C0540), the part the wwudp code calls (EA's Generals Tools\\matchbot\\wnet\\udp.h interface); "
                             "defined by the program (the capture harness's replay socket, M1.4)",

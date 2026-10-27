@@ -3,6 +3,8 @@
 #define __LANDDMAP_H
 
 #include "dx8wrapper.h"
+#include "aabox.h"
+#include <d3dx8.h>
 
 class HeightFieldClass;
 class CameraClass;
@@ -11,6 +13,13 @@ class RenderInfoClass;
 
 void Unknown_466E70(HeightFieldClass *field, float detail_u, float detail_v);	// NAME 1: unknown; news the global object (0x90 bytes, 0xBDC0D8) Unknown_466F10 deletes; called by Load_Assets only
 void Unknown_466F10(void);
+// NAME 1: unknown; a cell of the base mesh: its bounds (0x468BE0) and its four corner vertices (0x468920)
+struct LandUnknown466BE0CellStruct
+{
+	AABoxClass					Box;			// +0x00
+	unsigned int				Corner[4];	// +0x18, vertex indices (y-1, x-1), (y, x-1), (y-1, x), (y, x)
+};
+
 // NAME 1: unknown; the object Unknown_466E70 makes (0x90 bytes, vtable 0xAE8974, ctor 0x466BE0): the land's displacement-mapped
 // variant, on only for a Matrox adapter (vendor 0x102B) with pixel shader 1.3 and the registry's DisplacementMappingEnabled
 // (Software\Westwood Studios\Earth and Beyond\Render\DMap, 0x468120); Update_Patches and Render use it while its +0x11 is set
@@ -26,9 +35,14 @@ public:
 	void							Unknown_467910(void);	// NAME 1: unknown; the L8 texture's levels into the displacement map (+0x30)
 	void							Unknown_467A50(float detail_u, float detail_v);	// NAME 1: unknown; the base mesh's index and vertex buffers
 	void							Unknown_467E40(void);	// NAME 1: unknown; the vertex shader (+0x2C)
+	void							Unknown_468240(CameraClass &camera, const D3DXMATRIX &scale);	// NAME 1: unknown; the planes (+0x40) from scale * view * proj
+	int							Unknown_468760(const Vector3 &center, const Vector3 &extent);	// NAME 1: unknown; 0 outside a plane, 1 crossing, 2 inside
+	void							Unknown_468920(void);	// NAME 1: unknown; the cells (+0x04) and their bounds
+	void							Unknown_468BE0(AABoxClass &box, const Vector3 *points);	// NAME 1: unknown; the box around eight points
+	void							Unknown_468D50(void);	// NAME 1: unknown; marks the vertices of the cells inside the planes
 
-	unsigned char *			m_Unknown04;							// NAME 1: +0x04, deleted by the dtor and 0x467A50
-	int							m_Unknown08;
+	LandUnknown466BE0CellStruct *	m_Unknown04;			// NAME 1: +0x04, the cells (0x468920), deleted by the dtor and 0x467A50
+	int							m_Unknown08;							// NAME 1: +0x08, the cell count, (size - 1) squared (0x468920)
 	int							m_Unknown0C;							// NAME 1: +0x0C, 1 after the ctor
 	bool							Enabled;									// NAME 5: +0x10, DisplacementMappingEnabled (registry), cleared without the hardware
 	bool							m_Unknown11;							// NAME 1: +0x11, the land uses the object (cleared when not Enabled)
@@ -44,7 +58,11 @@ public:
 	IDirect3DTexture8 *		HeightTexture;							// NAME 2: +0x34, D3DFMT_L8, managed (D3DXCreateTexture in the ctor)
 	int							IndexCount;								// NAME 2: +0x38, (6 size - 6)(size - 1) (0x467A50)
 	int							VertexCount;							// NAME 2: +0x3C, size squared (0x467A50)
-	char							m_Unknown40[0x50];
+	D3DXPLANE					Planes[4];							// NAME 2: +0x40, the side planes of scale * view * proj (0x468240)
+	float							FogStart;								// NAME 2: +0x80, D3DRS_FOGSTART read back by 0x466F60
+	float							FogEnd;								// NAME 2: +0x84
+	float							FogRange;								// NAME 2: +0x88, FogEnd - FogStart
+	float							m_Unknown8C;							// NAME 1: +0x8C, never written
 };
 
 #endif //__LANDDMAP_H
