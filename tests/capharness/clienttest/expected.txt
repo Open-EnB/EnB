@@ -527,6 +527,20 @@ gen NavigationDataClass::Unknown_7BA940
 mainview add 38962
 msg 236 ACTIVATE_RENDER_STATE (48) size 12: cpacket.cpp's handler
 msg 237 ACTIVATE_RENDER_STATE (48) size 12: cpacket.cpp's handler
+msg 238 OBJECT_EFFECT (9) size 19: cpacket.cpp's handler
+stub Unknown_6E9490 desc 20313 effect 39020 duration 0 time 2142295100 scale 1.00 hsv (0.00 0.00 0.00) 1.00 -1 0
+stub Unknown6E9490TargetClass::Unknown_28 38962
+mainview 7C
+mainview 64
+stub EffectObjectClass::Unknown_6E74B0 39020 100
+stub EffectObjectClass::Unknown_6E6ED0 39020 124
+msg 239 OBJECT_EFFECT (9) size 19: cpacket.cpp's handler
+stub Unknown_6E9490 desc 20362 effect 39021 duration 0 time 2142295100 scale 1.00 hsv (0.00 0.00 0.00) 1.00 -1 0
+stub Unknown6E9490TargetClass::Unknown_28 38962
+mainview 7C
+mainview 64
+stub EffectObjectClass::Unknown_6E74B0 39021 100
+stub EffectObjectClass::Unknown_6E6ED0 39021 124
 msg 240 RELATIONSHIP (137) size 13: cpacket.cpp's handler
 gen Unknown_70CC40
 msg 242 AUX_DATA (27) size 29: cpacket.cpp's handler
@@ -985,6 +999,13 @@ stub Unknown714B50Class::Unknown714B50Class 38714 (191888.16 53005.32 -873.31)
 msg 498 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 mainview add 38970
+msg 500 OBJECT_EFFECT (9) size 19: cpacket.cpp's handler
+stub Unknown_6E9490 desc 20282 effect 39023 duration 0 time 2142295100 scale 1.00 hsv (0.00 0.00 0.00) 1.00 -1 0
+stub Unknown6E9490TargetClass::Unknown_28 38970
+mainview 7C
+mainview 64
+stub EffectObjectClass::Unknown_6E74B0 39023 100
+stub EffectObjectClass::Unknown_6E6ED0 39023 124
 msg 501 RELATIONSHIP (137) size 13: cpacket.cpp's handler
 gen Unknown_70CC40
 msg 503 AUX_DATA (27) size 21: cpacket.cpp's handler
@@ -1007,6 +1028,13 @@ stub Unknown714B50Class::Unknown714B50Class 38868 (111214.94 -48566.70 -873.31)
 msg 512 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 mainview add 38969
+msg 514 OBJECT_EFFECT (9) size 19: cpacket.cpp's handler
+stub Unknown_6E9490 desc 20407 effect 39022 duration 0 time 2142295100 scale 1.00 hsv (0.00 0.00 0.00) 1.00 -1 0
+stub Unknown6E9490TargetClass::Unknown_28 38969
+mainview 7C
+mainview 64
+stub EffectObjectClass::Unknown_6E74B0 39022 100
+stub EffectObjectClass::Unknown_6E6ED0 39022 124
 msg 515 RELATIONSHIP (137) size 13: cpacket.cpp's handler
 gen Unknown_70CC40
 msg 516 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
@@ -1436,13 +1464,49 @@ msg 757 AUX_DATA (27) size 81: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 71 bytes
 msg 760 CLIENT_SOUND (106) size 30: cpacket.cpp's handler
 stub SoundManagerClass::Unknown_75B0D0 'Device_Installed' 0
+msg 762 OBJECT_EFFECT (9) size 23: cpacket.cpp's handler
+stub Unknown_6E9490 desc 214 effect 48901062 duration 0 time 2142310900 scale 1.00 hsv (60.00 0.00 0.00) 1.00 -1 0
+stub Unknown6E9490TargetClass::Unknown_28 48900994
+mainview 7C
+mainview 64
+stub EffectObjectClass::Unknown_6E74B0 48901062 100
+stub EffectObjectClass::Unknown_6E6ED0 48901062 124
 msg 764 AUX_DATA (27) size 100: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 90 bytes
+msg 765 OBJECT_EFFECT (9) size 19: cpacket.cpp's handler
+stub Unknown_6E9490 desc 530 effect 48901075 duration 0 time 2142315900 scale 1.00 hsv (0.00 0.00 0.00) 1.00 -1 0
+stub Unknown6E9490TargetClass::Unknown_28 48900994
+mainview 7C
+mainview 64
+stub EffectObjectClass::Unknown_6E74B0 48901075 100
+stub EffectObjectClass::Unknown_6E6ED0 48901075 124
+msg 766 OBJECT_EFFECT (9) size 19: cpacket.cpp's handler
+stub Unknown_6E9490 desc 564 effect 48901076 duration 0 time 2142315900 scale 1.00 hsv (0.00 0.00 0.00) 1.00 -1 0
+stub Unknown6E9490TargetClass::Unknown_28 48900994
+mainview 7C
+mainview 64
+stub EffectObjectClass::Unknown_6E74B0 48901076 100
+stub EffectObjectClass::Unknown_6E6ED0 48901076 124
+msg 767 OBJECT_EFFECT (9) size 19: cpacket.cpp's handler
+stub Unknown_6E9490 desc 553 effect 48901077 duration 0 time 2142315900 scale 1.00 hsv (0.00 0.00 0.00) 1.00 -1 0
+stub Unknown6E9490TargetClass::Unknown_28 48900994
+mainview 7C
+mainview 64
+stub EffectObjectClass::Unknown_6E74B0 48901077 100
+stub EffectObjectClass::Unknown_6E6ED0 48901077 124
 msg 768 AUX_DATA (27) size 35: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 25 bytes
 msg 769 AVATAR_DESCRIPTION (97) size 264: cpacket.cpp's handler
 gen SClient::Unknown_74C3B0
+msg 770 OBJECT_EFFECT (9) size 19: cpacket.cpp's handler
+stub Unknown_6E9490 desc 727 effect 48901060 duration 0 time 2142308900 scale 1.00 hsv (0.00 0.00 0.00) 1.00 -1 0
+stub Unknown6E9490TargetClass::Unknown_28 48887635
+mainview 7C
+mainview 64
+stub EffectObjectClass::Unknown_6E74B0 48901060 100
+stub EffectObjectClass::Unknown_6E6ED0 48901060 124
 msg 771 REMOVE_EFFECT (15) size 8: cpacket.cpp's handler
+stub EffectObjectClass::Unknown_6E6E30 48901060
 msg 772 GALAXY_MAP (151) size 59: cpacket.cpp's handler
 fail_if !map (line 2358)
 msg 773 MESSAGE_STRING (29) size 53: cpacket.cpp's handler
@@ -1482,6 +1546,13 @@ msg 791 ADVANCED_POSITIONAL_UPDATE (62) size 50: cpacket.cpp's handler
 stub Unknown717010Class::Unknown_717290 48900994 time 0 stamp 2142324000
 msg 792 ADVANCED_POSITIONAL_UPDATE (62) size 54: cpacket.cpp's handler
 stub Unknown717010Class::Unknown_717290 48900994 time 0 stamp 2142324500
+msg 793 OBJECT_EFFECT (9) size 19: cpacket.cpp's handler
+stub Unknown_6E9490 desc 23 effect 48901090 duration 0 time 2142324500 scale 1.00 hsv (0.00 0.00 0.00) 1.00 -1 0
+stub Unknown6E9490TargetClass::Unknown_28 48900994
+mainview 7C
+mainview 64
+stub EffectObjectClass::Unknown_6E74B0 48901090 100
+stub EffectObjectClass::Unknown_6E6ED0 48901090 124
 msg 794 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 795 ADVANCED_POSITIONAL_UPDATE (62) size 50: cpacket.cpp's handler
@@ -1869,12 +1940,11 @@ check every message taken off the connection: ok
 recorded CREATE (4) x202
 recorded START (5) x1
 recorded SIMPLE_POSITIONAL_UDPATE (8) x1
-recorded OBJECT_EFFECT (9) x10
 recorded OBJECT_TO_OBJECT_EFFECT (11) x1
 recorded CLIENT_SET_TIME (52) x3
 recorded PLANET_POSITIONAL_UPDATE (63) x1
 recorded CAMERA_CONTROL (146) x1
 recorded CLIENT_CHAT_EVENT (165) x4
 recorded NAME_DECAL (178) x2
-recorded 226, through cpacket.cpp's handlers 774
+recorded 216, through cpacket.cpp's handlers 784
 == done: 0 checks failed

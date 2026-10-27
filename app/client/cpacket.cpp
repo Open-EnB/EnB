@@ -212,6 +212,36 @@ public:
 	char Unknown04[0x1C - 0x04];
 };
 
+// eff_o.cpp's effects as far as the effect packets call them: the factory (cdecl) and two slots past
+// EffectObjectClass's destructor: +0x10 the effect's target end, whose slot +0x28 takes the object's id
+class Unknown6E9490TargetClass	// NAME 1: neutral (D10)
+{
+public:
+	virtual void Unknown_00();
+	virtual void Unknown_04();
+	virtual void Unknown_08();
+	virtual void Unknown_0C();
+	virtual void Unknown_10();
+	virtual void Unknown_14();
+	virtual void Unknown_18();
+	virtual void Unknown_1C();
+	virtual void Unknown_20();
+	virtual void Unknown_24();
+	virtual void Unknown_28(int game_id);	// NAME 1 [game_id]: what OBJECT_EFFECT 9 passes
+};
+
+class Unknown6E9490EffectClass : public EffectObjectClass	// NAME 1: neutral (D10)
+{
+public:
+	virtual void Unknown_04();
+	virtual void Unknown_08();
+	virtual void Unknown_0C();
+	virtual Unknown6E9490TargetClass *Unknown_10();
+};
+
+Unknown6E9490EffectClass *Unknown_6E9490(int desc_id, int effect_id, int duration, int time, ClientClass *client, float scale, const Vector3 &hsv_shift, float a, int b, int c);	// 0x6E9490  // NAME 1 [desc_id .. c]: what OBJECT_EFFECT 9 passes
+void Unknown_4BC260(const char *sender, const char *category, const char *file, int line, const char *format, ...);	// 0x4BC260 (unknown_debug.h's reporter)
+
 // SClient +0x12C4's elements: the player-variable aux data roots (an UnknownSendRootClass, 0xADC bytes, made
 // in 0x7518A0), declared as far as PLAYER_VAR_AUX_DATA 28 calls them
 class SClientUnknown12C4Class : public UnknownSendRootClass
@@ -300,36 +330,6 @@ bool ConstantPositionalUpdatePacketClass::Process_Packet(void *instance)
 	}
 	return(true);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -603,8 +603,28 @@ bool AdvancedPositionalUpdatePacketClass::Process_Packet(void *instance)
 
 
 
+// NOT EXACT: register-only (the client keeps the packet in esi and the client in edi; ours the reverse; 12 forms; attempts.py show 0x734DF0)
+// 0x734DF0
+bool ObjectEffectPacketClass::Process_Packet(void *instance)
+{
+	WWPROFILE("ObjectEffectPacketClass::Process_Packet()");
+	SClient *sclient = (SClient *)instance;
+	int time = (DurationClass(TimeStamp) - DurationClass(sclient->Unknown10C0)).As_Int();
+	int duration = Duration >= 0 ? Duration : -1;
+	Unknown6E9490EffectClass *effect = Unknown_6E9490(EffectDescID, EffectID, duration, time, sclient, Scale, HSVShift, 1.0f, -1, 0);
+	FAIL_IF(!effect) return(true);
+	Unknown6E9490TargetClass *target = effect->Unknown_10();
+	if (target) {
+		target->Unknown_28(GameID);
+	} else {
 
-
+		Unknown_4BC260("A/V Effects", "", __FILE__, __LINE__, "A non-unary effect descriptor %d was given for an effect on an object", EffectDescID);
+		G_ASSERT(0);
+	}
+	MainViewClass *view = sclient->MainView;
+	sclient->Add_Effect(effect, (int)view->Unknown_64(), view->Unknown_7C());
+	return(true);
+}
 
 
 
@@ -1031,26 +1051,6 @@ bool DialogPacketClass::Process_Packet(void *instance)
 	}
 	return(true);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

@@ -180,7 +180,7 @@ public:
 	virtual void Unknown_70();
 	virtual void Unknown_74();
 	virtual void Unknown_78();
-	virtual void Unknown_7C();
+	virtual int Unknown_7C();							// +0x7C (OBJECT_EFFECT 9 hands its result to Add_Effect)
 	virtual void Add_Object(ClientObjectClass *object);		// +0x80 SClient::Add_Object  // NAME 2: its caller's
 	virtual void Remove_Object(ClientObjectClass *object);	// +0x84 SClient::Remove_Object  // NAME 2: its caller's
 

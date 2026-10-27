@@ -102,8 +102,8 @@ public:
 	virtual void S34() {} virtual void S38() {} virtual void S3C() {} virtual void S40() {}
 	virtual void S44() {} virtual void S48() {} virtual void S4C() {} virtual void S50() {}
 	virtual void S54() {} virtual void S58() {} virtual void S5C() {} virtual void S60() {}
-	virtual void S64() {} virtual void S68() {} virtual void S6C() {} virtual void S70() {}
-	virtual void S74() {} virtual void S78() {} virtual void S7C() {}
+	virtual int S64() { Trace("mainview 64"); return(0x64); } virtual void S68() {} virtual void S6C() {} virtual void S70() {}
+	virtual void S74() {} virtual void S78() {} virtual int S7C() { Trace("mainview 7C"); return(0x7C); }	// +0x64 / +0x7C: OBJECT_EFFECT 9's Add_Effect arguments
 	virtual void Add_Object(ClientObjectClass *object) { Trace("mainview add %u", object->Get_Game_ID()); }			// +0x80
 	virtual void Remove_Object(ClientObjectClass *object) { Trace("mainview remove %u", object->Get_Game_ID()); }	// +0x84
 	char Unknown04[0x1EC - 0x04];

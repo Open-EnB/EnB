@@ -326,3 +326,54 @@ void Unknown715EF0Class::Unknown_716140(int time, AdvancedPositionalUpdatePacket
 {
 	Trace("stub Unknown715EF0Class::Unknown_716140 %u time %d stamp %d", packet->GameID, time, (int)packet->TimeStamp);
 }
+// ------------------------------------------------------------------------- eff_o.cpp's effect factory (OBJECT_EFFECT 9)
+
+// declared as cpacket.cpp declares them; the factory's effect has a target end that logs the object's id
+class Unknown6E9490TargetClass
+{
+public:
+	virtual void Unknown_00();
+	virtual void Unknown_04();
+	virtual void Unknown_08();
+	virtual void Unknown_0C();
+	virtual void Unknown_10();
+	virtual void Unknown_14();
+	virtual void Unknown_18();
+	virtual void Unknown_1C();
+	virtual void Unknown_20();
+	virtual void Unknown_24();
+	virtual void Unknown_28(int game_id);
+};
+void Unknown6E9490TargetClass::Unknown_00() {}
+void Unknown6E9490TargetClass::Unknown_04() {}
+void Unknown6E9490TargetClass::Unknown_08() {}
+void Unknown6E9490TargetClass::Unknown_0C() {}
+void Unknown6E9490TargetClass::Unknown_10() {}
+void Unknown6E9490TargetClass::Unknown_14() {}
+void Unknown6E9490TargetClass::Unknown_18() {}
+void Unknown6E9490TargetClass::Unknown_1C() {}
+void Unknown6E9490TargetClass::Unknown_20() {}
+void Unknown6E9490TargetClass::Unknown_24() {}
+void Unknown6E9490TargetClass::Unknown_28(int game_id) { Trace("stub Unknown6E9490TargetClass::Unknown_28 %d", game_id); }
+static Unknown6E9490TargetClass The_Effect_Target;
+class Unknown6E9490EffectClass : public EffectObjectClass
+{
+public:
+	virtual void Unknown_04();
+	virtual void Unknown_08();
+	virtual void Unknown_0C();
+	virtual Unknown6E9490TargetClass *Unknown_10();
+};
+void Unknown6E9490EffectClass::Unknown_04() {}
+void Unknown6E9490EffectClass::Unknown_08() {}
+void Unknown6E9490EffectClass::Unknown_0C() {}
+Unknown6E9490TargetClass *Unknown6E9490EffectClass::Unknown_10() { return(&The_Effect_Target); }
+Unknown6E9490EffectClass *Unknown_6E9490(int desc_id, int effect_id, int duration, int time, ClientClass *, float scale, const Vector3 &hsv_shift, float a, int b, int c)
+{
+	Trace("stub Unknown_6E9490 desc %d effect %d duration %d time %d scale %.2f hsv (%.2f %.2f %.2f) %.2f %d %d", desc_id, effect_id,
+		duration, time, scale, hsv_shift.X, hsv_shift.Y, hsv_shift.Z, a, b, c);
+	Unknown6E9490EffectClass *effect = new Unknown6E9490EffectClass;
+	effect->ID = effect_id;
+	effect->Node.Set(effect);
+	return(effect);
+}
