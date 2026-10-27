@@ -1175,12 +1175,8 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
   0x474560 (in land.cpp it inlines into the land's destructor and loses 0x46A480 / 0x4691A0), ~LandPatchRecordClass,
   Unknown_477E20, LandUnknownClass::Peek_Material_Pass 0x93D6C0. One probe of their file placement before the switch.
   Recommendation: accept, as the first step of P-L6-1's builder.
-* **P-T8-1 (clienttest's needs, 2026-10-27; refines D94(c)):** an SClient whose constructor doesn't run (SOptionsClass
-  0x75A280 reads the registry); logging stubs for the SClient / ClientClass methods the handlers call (0x743290, 0x744B60,
-  0x74B600 / 0x74B640 / 0x74B680, 0x74BA30, 0x74C530, 0x74D990, 0x74DF70, 0x74E710, 0x74EB00, 0x751460, 0x7517E0,
-  0x751850) and for co, eff_o, rs_track, shiputils, sound_manager, verbmanager; cpacket.obj in place of the matching
-  pk_ctor_stubs.cpp lines (pkclasses.py should skip classes cpacket.cpp defines). Recommendation: build clienttest as
-  a new harness that links cpacket.cpp and reuses udpreplay's decoding; the next tasks builder's item.
+* **P-T9-1 (build.py, 2026-10-27):** `UNRES` reads VC6's quoted demangled LNK2001 text as `"public:`, so link
+  summaries list truncated names; parse the `(mangled)` in parentheses. Recommendation: a tools item, no decision.
 * **P-S3-2 / F3's leads for Key_Exchange 0x829180** are LIMIT REACHED (three Opus rounds, inline budget): it
   waits for a new §3.1 lever; F3's two untested leads are in its attempts.csv row.
 * D7 is to be revisited with the user if byte-exactness of E&B's code becomes too costly; D64's

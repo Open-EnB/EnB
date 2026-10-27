@@ -496,6 +496,13 @@ unless `--lever` cites a new row of this table.
   The land companion (vtable 0xAE8974, displacement maps, Matrox-only) needs its own file: inside land.cpp the land's
   destructor inlines its delete and loses 0x46A480 / 0x4691A0.
 
+* **clienttest (T9, 2026-10-27; `python tools/harness/clienttest.py build|run`):** hand-written stand-ins must cover
+  every member of an app.lib object the program reaches, or the linker pulls the whole object and reports LNK2005 on
+  the rest (app.lib changes under you when other builders verify: soptions.obj did). A stand-in object whose real
+  constructor isn't run needs `Node.Set(object)` before Add_Object. VC6 with /GX catches an access violation in a
+  constructor and unwinds before crashing: flush the trace per line. When cpacket.cpp gains handlers, re-run
+  clienttest and refresh expected.txt with `--update` after checking the difference (the tasks builder owns that).
+
 ### 3.8 Git, docs and scripting hygiene
 
 * **The Write tool writes LF:** after writing a tracked doc or source, restore CRLF if the file had
