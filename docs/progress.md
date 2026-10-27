@@ -1180,6 +1180,9 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
   through a byte-identical twin, and once pkaction emits it too the tie credits neither. Proposal: extend D95(b)'s
   quiet-tree objmatch change so a tie goes to the object whose client range contains the address (settles 0x87CD10
   the same way). Recommendation: accept, carried out with D94(b) / D95(b).
+* **P-T12-2 (aux_roots.h's bool conversions, 2026-10-27):** the bool `Type_Name` / `String_To_Value` overloads live
+  only in the generated aux_roots.h, so co.cpp includes it to use auxdata.h's lookup helper. Proposal: move them to
+  strconv_lib.h through the aux_roots generator. Recommendation: accept when the generator is next touched.
 * **P-S3-2 / F3's leads for Key_Exchange 0x829180** are LIMIT REACHED (three Opus rounds, inline budget): it
   waits for a new §3.1 lever; F3's two untested leads are in its attempts.csv row.
 * D7 is to be revisited with the user if byte-exactness of E&B's code becomes too costly; D64's

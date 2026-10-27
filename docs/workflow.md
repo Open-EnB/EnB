@@ -265,6 +265,7 @@ unless `--lever` cites a new row of this table.
 | A packet destructor stores the class's own vtable in ours, not in the client | The implicit destructor (a declared empty one adds the store); where the client does store it, declare it | 129-133 implicit, 72 declared (P7) |
 | A copy compiled to `rep movsd` in the client | A data struct member | pkrecustomize (P7) |
 | A helper the client calls out of line from one packet | A file-static helper defined after its caller | 144's Get_String 0x872E30 (P7) |
+| An aux-data lookup with `G_ASSERT(t)` (auxdata.h line 155) inlined in 84 callers | A template helper `Unknown_Find_Field<T>(root, name)`: `NameClass name(...)` a local in the caller, the lookup a separate statement (or the push lands before Get_Lookup), no ternary (setne/dec/and) | co.cpp 0x6F5E40 / 0x6F5ED0 / 0x6F58B0 / 0x7008B0 (T12, `.work/t12/aux_t12.diff`) |
 
 * **A nested inline is a whole-function budget (2026-10-26, `Key_Exchange` 0x829180):** under `/Ob2` an
   inline helper's own callees (a `std::set` iterator's `_Inc`) are inlined only while the function as a
@@ -424,6 +425,14 @@ unless `--lever` cites a new row of this table.
   `RefCountPtr<T>` member in a header breaks every file that builds the class without T complete (clienttest):
   keep it a raw pointer until the constructor is rebuilt. Levers that matched co.cpp (`if (!Is_X()) return x;`,
   the one-case switch, `Get_Float` / `Set_Floats` / `SphereClass::Init`) are in co.cpp's notes.
+* **Never split attempts.csv on line endings** (T12 truncated 157 rows): its rows hold quoted multi-line text; use
+  `attempts.py` or the csv module. `build.py --lib` refuses a dirty library: commit a detached WIP inside the
+  worktree before `build.py` / `clienttest.py build`. A header `__FILE__` the client keeps relative
+  (`..\shared/auxdata/auxdata.h`) defeated D80's tie-break until f308ceb read the client's string to its NUL.
+* **A verify worktree has no `.work/harness/*.dgram` and no built libraries** (P8): copy alex3 / alex7 in for
+  `udpreplay conn`, copy the non-app `build/*/*.lib` across and run `build.py build --lib app --allow-dirty` there
+  (the worktree is yours alone) before `udpreplay build`. commit_mine's hunk keys select whole hunks: another
+  builder's rows appended next to yours in attempts.csv go into your commit (P8 took T12's 0x6F5F60).
 * **commit_mine keys by address take identical lines from other files' imports.json blocks** (H14: 0x42D050 sits in
   control_keys_manager's and pkunknown_87acd0's blocks): `.work/h14/commit_ck.py` picks hunks by the file block's
   line range (P-H14-1, to promote). A tryv2 PermissionError (a concurrent replay) leaves a variant in the tree
