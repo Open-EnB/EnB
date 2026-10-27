@@ -196,18 +196,17 @@ float HeightFieldClass::Get_Height(const Vector2 &pos)
 {
 	float fx = pos.X / XSpacing + HalfSize;
 	float fy = pos.Y / YSpacing + HalfSize;
-	int i = WWMath::Float_To_Long((float)floor(fx));
-	int j = WWMath::Float_To_Long((float)floor(fy));
+	int i = (int)floor(fx);
+	int j = (int)floor(fy);
 	float tx = fx - i;
 	float ty = fy - j;
 	unsigned int row0 = (j & Mask) << Log2;
 	unsigned int row1 = ((j + 1) & Mask) << Log2;
-	unsigned int i0 = i & Mask;
 	unsigned int i1 = (i + 1) & Mask;
-	float h00 = Heights[i0 + row0] * VScale;
+	float h00 = Heights[(i & Mask) + row0] * VScale;
 	float h11 = Heights[i1 + row1] * VScale;
 	if (tx < ty) {
-		float h01 = Heights[i0 + row1] * VScale;
+		float h01 = Heights[row1 + (i & Mask)] * VScale;
 		return (h11 - h01) * tx + (1.0f - ty) * (h00 - h01) + h01;
 	}
 	float h10 = Heights[i1 + row0] * VScale;

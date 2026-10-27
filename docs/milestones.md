@@ -254,7 +254,8 @@ and layout must be visible.
 * **Done when:** (a) and (b) complete, then (d)
 * **Size:** large
 * **Status:** Mostly done 2026-10-24; results in library-matching.md §3.8.
-* Open: the client's own tessellation/render (0x474B30, strips, no skirts), the land and spline code byte-exact (D46), StarLayer Load 0x481DB0 and StarField Init 0x4829E0
+* 2026-10-26 (builder L3): spln_db.cpp rebuilt as the client's (0x4845F0-0x489830, HashListClass of CRC-keyed entries; +45 pairs, 30 of 50 functions exact, the rest marked NOT EXACT) and the height field on the client's layout (+3 pairs); VIDTEST loads the same 52 splines, drawcheck PASS. StarLayer Load 0x481DB0 (order-only) and StarField Init 0x4829E0 (register-only) parked in attempts.csv.
+* Open: land.cpp on the client's LandClass layout (0x468E90-0x47A2F0, about 89 functions: ctor 0x468E90, Load_Assets 0x4691D0, dtor 0x46A480, the tessellation 0x46DDD0-0x473BC0, render 0x474B30 with strips and no skirts, the decorations 0x478B50-0x47A2F0; the small virtuals 0x46C600-0x46C6E0 forward Cast_Ray / Cast_AABox / Cast_OBBox to the height field's collision code 0x4647C0 / 0x465030 / 0x4654E0, not rebuilt yet); spln_db's evaluation helpers 0x485620 / 0x485790 (need spline.h)
 
 ## 5. Proposals
 
