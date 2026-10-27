@@ -33,8 +33,6 @@ GameEditorRequestPlanetUnitTypesPacketClass::GameEditorRequestPlanetUnitTypesPac
 GameEditorSaveSectorPacketClass::GameEditorSaveSectorPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_7545Class::Packet_7545Class(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_0048Class::Packet_0048Class(RawPacketClass *raw) { Conn_Record(this, raw); }
-ModeChangePacketClass::ModeChangePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-Packet_004BClass::Packet_004BClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_004DClass::Packet_004DClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 LoungeNPCPacketClass::LoungeNPCPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 FindMemberPacketClass::FindMemberPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
@@ -49,7 +47,6 @@ VerbListPacketClass::VerbListPacketClass(RawPacketClass *raw) { Conn_Record(this
 Packet_1392Class::Packet_1392Class(RawPacketClass *raw) { Conn_Record(this, raw); }
 AvatarEmotePacketClass::AvatarEmotePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 MessageChatstreamPacketClass::MessageChatstreamPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-MessageTimePacketClass::MessageTimePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 AvatarDescPacketClass::AvatarDescPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 GadgetPacketClass::GadgetPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_0068Class::Packet_0068Class(RawPacketClass *raw) { Conn_Record(this, raw); }
@@ -119,10 +116,12 @@ bool ServerParametersPacketClass::Process_Packet(void *) { return(true); }	// 0x
 bool ClientShipPacketClass::Process_Packet(void *) { return(true); }	// 0x733660
 bool DialogPacketClass::Process_Packet(void *) { return(true); }	// 0x736DA0
 bool CreateAttachmentPacketClass::Process_Packet(void *) { return(true); }	// 0x733BB0
+bool ModeChangePacketClass::Process_Packet(void *) { return(true); }	// 0x738100
 bool StarbaseSetPacketClass::Process_Packet(void *) { return(true); }	// 0x7381C0
 bool StarbaseTowPacketClass::Process_Packet(void *) { return(true); }	// 0x738330
 bool TalkTreeActionPacketClass::Process_Packet(void *) { return(true); }	// 0x738730
 bool VerbUpdatePacketClass::Process_Packet(void *) { return(true); }	// 0x7388B0
+bool MessageTimePacketClass::Process_Packet(void *) { return(true); }	// 0x736800
 bool DamagePacketClass::Process_Packet(void *) { return(true); }	// 0x738970
 bool ClickIndicatorPacketClass::Process_Packet(void *) { return(true); }	// 0x7393D0
 bool ClientSoundPacketClass::Process_Packet(void *) { return(true); }	// 0x7383D0

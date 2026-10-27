@@ -2610,6 +2610,26 @@
     "merged": [],
     "name": "packets/pkmessagestring.cpp"
    },
+   "pkmessagetime": {
+    "ambiguous": [
+     "0x42B2F0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350",
+     "0x89E5E0",
+     "0x89E6A0",
+     "0x89E760",
+     "0x89E850"
+    ],
+    "merged": [],
+    "name": "packets/pkmessagetime.cpp"
+   },
    "pkmissionforfeit": {
     "ambiguous": [
      "0x42B2F0"
@@ -2633,6 +2653,40 @@
     ],
     "merged": [],
     "name": "packets/pkmissionforfeit.cpp"
+   },
+   "pkmodechange": {
+    "ambiguous": [
+     "0x42B2F0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350",
+     "0x89CC50"
+    ],
+    "merged": [],
+    "name": "packets/pkmodechange.cpp"
+   },
+   "pkmoderequest": {
+    "ambiguous": [
+     "0x42B2F0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350",
+     "0x89CF10"
+    ],
+    "merged": [],
+    "name": "packets/pkmoderequest.cpp"
    },
    "pkmove": {
     "ambiguous": [
@@ -4544,7 +4598,10 @@
    "packets/pkmanufactureitemcatagorypacket.h": "reconstructed",
    "packets/pkmessageline.h": "reconstructed",
    "packets/pkmessagestring.h": "reconstructed",
+   "packets/pkmessagetime.h": "reconstructed",
    "packets/pkmissionforfeit.h": "reconstructed",
+   "packets/pkmodechange.h": "reconstructed",
+   "packets/pkmoderequest.h": "reconstructed",
    "packets/pkmove.h": "reconstructed",
    "packets/pknamedecal.h": "reconstructed",
    "packets/pknavdelete.h": "reconstructed",

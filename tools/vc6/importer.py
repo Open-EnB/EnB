@@ -3732,6 +3732,12 @@ RECONSTRUCTED = {
     ('app', 'packets/pkguildplayeronline.cpp'): "guild opcodes 193-196, 198, 199, 202, 203, 206, 207, 209, 213-215, 217, 218 and 219 written by hand (builder P4, "
                                               "all exact but 219's two constructors), client 0x88EC70-0x894390; the file name provisional (NAME 1)",
     ('app', 'packets/pkguildplayeronline.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
+    ('app', 'packets/pkmodechange.cpp'): "opcode 76 written by hand (builder P4), client 0x89CAF0-0x89CD80; the file name provisional (NAME 1)",
+    ('app', 'packets/pkmodechange.h'): "its class (pk_classes.h includes it: tools/re/pkclasses.py)",
+    ('app', 'packets/pkmoderequest.cpp'): "opcode 75 written by hand (builder P4), client 0x89CDB0-0x89D040; the file name provisional (NAME 1)",
+    ('app', 'packets/pkmoderequest.h'): "its class (pk_classes.h includes it: tools/re/pkclasses.py)",
+    ('app', 'packets/pkmessagetime.cpp'): "opcode 96 written by hand (builder P4), client 0x89E5E0-0x89E890; the file name provisional (NAME 1)",
+    ('app', 'packets/pkmessagetime.h'): "its class (pk_classes.h includes it: tools/re/pkclasses.py)",
     ('app', 'packets/pk_sub_parts.cpp'): "pk_sub_parts.cpp (the client's __FILE__, assert line 64): SUBPARTS 180 written by "
                                        "hand (builder P4, 8 of 8 exact in appfile.py match), client 0x8754D0-0x875CF0",
     ('app', 'packets/pk_sub_parts.h'): "SubPartsPacket and SubPartStruct (D24 header name; pk_classes.h includes it)",

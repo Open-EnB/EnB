@@ -61,7 +61,10 @@
 #include "pkmanufactureitemcatagorypacket.h"	// rebuilt
 #include "pkmessageline.h"	// rebuilt
 #include "pkmessagestring.h"	// rebuilt
+#include "pkmessagetime.h"	// rebuilt
 #include "pkmissionforfeit.h"	// rebuilt
+#include "pkmodechange.h"	// rebuilt
+#include "pkmoderequest.h"	// rebuilt
 #include "pkmove.h"	// rebuilt
 #include "pknamedecal.h"	// rebuilt
 #include "pknavdelete.h"	// rebuilt
@@ -417,23 +420,6 @@ public:
 	char Unknown0C[0x2D4];	// +0x0C
 };
 
-// opcode 76 (0x004C, ?): vtable 0xB0B2E4, constructor 0x89CBB0, 0x14 bytes
-class ModeChangePacketClass : public PacketClass
-{
-public:
-	ModeChangePacketClass(RawPacketClass *raw);	// 0x89CBB0
-	char Unknown0C[0x8];	// +0x0C
-};
-
-// opcode 75 (0x004B, ?): vtable 0xB0B314, constructor 0x89CE70, 0x14 bytes
-class Packet_004BClass : public PacketClass  // NAME 1: neutral (D10): opcode 0x004B
-{
-public:
-	Packet_004BClass(RawPacketClass *raw);	// 0x89CE70
-	virtual bool Process_Packet(void *client);	// +0x08 0x867F50 (clientstub.cpp l.89)
-	char Unknown0C[0x8];	// +0x0C
-};
-
 // opcode 77 (0x004D, ?): vtable 0xB08DC8, constructor 0x85D570, 0x60 bytes
 class Packet_004DClass : public PacketClass  // NAME 1: neutral (D10): opcode 0x004D
 {
@@ -553,14 +539,6 @@ class MessageChatstreamPacketClass : public PacketClass
 public:
 	MessageChatstreamPacketClass(RawPacketClass *raw);	// 0x89D3F0
 	char Unknown0C[0x10];	// +0x0C
-};
-
-// opcode 96 (0x0060, ?): vtable 0xB0B474, constructor 0x89E6A0, 0x14 bytes
-class MessageTimePacketClass : public PacketClass
-{
-public:
-	MessageTimePacketClass(RawPacketClass *raw);	// 0x89E6A0
-	char Unknown0C[0x8];	// +0x0C
 };
 
 // opcode 97 (0x0061, AVATAR_DESCRIPTION): vtable 0xB09D4C, constructor 0x877A60, 0x120 bytes
