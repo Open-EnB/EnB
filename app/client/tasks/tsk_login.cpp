@@ -16,25 +16,25 @@
 #include "ww3d.h"
 #include "wwprofile.h"
 #include "nstrdup.h"
+#include "ini.h"
+#include "argv.h"
+#include "wwstring.h"
+#include <stdio.h>
 #include <string.h>
 
 void Unknown_Debug_Print(const char *text);			// NAME 1 [Unknown_Debug_Print]: 0x509E30 (dbgmgr.cpp), the log line
 class GlobalCreateCharacterPacketClass : public PacketClass { public: GlobalCreateCharacterPacketClass(int galaxy, int slot, const char *name, int a, int b, int c); ~GlobalCreateCharacterPacketClass(); char Unknown0C[0x2BC]; };	// opcode 114: 0x864090, 0x864590 (pk_classes.h: the receiving side only)
+class GlobalConnectPacketClass : public PacketClass { public: GlobalConnectPacketClass(const char *ticket, const char *password); ~GlobalConnectPacketClass(); char Unknown0C[0x08]; };	// opcode 109: 0x863400, 0x863570  // NAME 1 [password]: '123456'
+void Unknown_4BC000(const char *sender, const char *category, const char *file, int line, const char *format, ...);	// NAME 1 [Unknown_4BC000]: 0x4BC000, E&B's message reporter (tcpconn.cpp)
+static char *AUTH_INI = "auth.ini";				// 0xB9B9D0  // NAME 1: its text
+static char *LOGIN_INI = "login.ini";				// 0xB9B9D4  // NAME 1: its text
+static char *LOGIN_DATA = "LOGIN_DATA";			// 0xB9B9D8  // NAME 1: its text
+static char *LOGIN_NAME = "Name";					// 0xB9B9DC  // NAME 1: its text
+static char *LOGIN_NAME_DEFAULT = "Click to enter name";	// 0xB9B9E0  // NAME 1: its text
+static char *LOGIN_PASSWORD_DEFAULT = "";			// 0xB9B9E4  // NAME 1: Load_Login's second default
+struct Unknown_VersionStruct { int Major; int Minor; };	// NAME 1 [Unknown_VersionStruct]: the version 0x4456C0 returns (0xBDBE78)
+Unknown_VersionStruct *Unknown_4456C0();				// NAME 1 [Unknown_4456C0]: neutral (D10)
 extern bool Unknown_BB9654;							// NAME 1 [Unknown_BB9654]: neutral (D10); Accept_Focus clears it
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -498,29 +498,24 @@ void LoginTaskClass::Unknown_48(int a, int b, int galaxy, int c)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// 0x768B00
+bool LoginTaskClass::Unknown_4C()
+{
+	EATicket[0] = 0;
+	Unknown_Log("LOGIN:INF", "Fetching EA.Com ticket.");
+	if (!Fetch_EA_Ticket()) {
+		Unknown_Log("LOGIN", "Failed to fetch EA.Com ticket.");
+		return true;
+	}
+	Unknown_Log("LOGIN:INF", "EA.Com ticket fetched.");
+	Unknown_4BC000("", "", __FILE__, __LINE__, "EA Ticket: %s", EATicket);
+	if (GlobalConnection == NULL) {
+		return true;
+	}
+	GlobalConnection->Send_Packet(&GlobalConnectPacketClass(EATicket, "123456"));
+	Save_Login_Name();
+	return false;
+}
 
 
 
@@ -616,6 +611,7 @@ void LoginTaskClass::Unknown_7693E0()
 }
 
 
+
 // 0x769400
 void LoginTaskClass::Unknown_5C()
 {
@@ -631,6 +627,10 @@ void LoginTaskClass::Unknown_5C()
 		Step = 16;
 	}
 }
+
+
+
+
 
 // 0x7694D0
 void LoginTaskClass::Set_Step(int step, bool force)
@@ -791,11 +791,6 @@ void LoginTaskClass::Go_Back_Step()
 
 
 
-
-
-
-
-
 // 0x7697A0
 void LoginTaskClass::Set_Username(const char *name)
 {
@@ -831,76 +826,81 @@ void LoginTaskClass::Show_Message(const char *text, const char *button)
 	}
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// NOT EXACT: shape (the client shares its 'return true' tails; attempts.py show 0x7698E0)
+// 0x7698E0
+bool LoginTaskClass::Unknown_64()
+{
+	if (Unknown0030 || Step == 16 || Step == 15 || Step == 17 || Step == 0) {
+		return false;
+	}
+
+	const char *protocol = ArgvClass().Find_Value("-PROTOCOL");
+	if (protocol && (stricmp(protocol, "UDP") == 0 || stricmp(protocol, "TCP") == 0)) {
+		if (GlobalConnection == NULL) {
+			GlobalConnection = Create_Connection("GlobalServer_Client", false);
+			G_ASSERT(GlobalConnection);
+			char text[128];
+			sprintf(text, "Connecting to server...");
+			Show_Message(text, "CANCEL");
+		}
+		if (!GlobalConnection->Is_Connected()) {
+			if (GlobalConnection->Connect(false)) {
+				if (!GlobalConnection->Is_Connected()) {
+					Show_Message("Connection to the global server failed.");
+					return false;
+				}
+				if (CharacterView) {
+					CharacterView->Unknown034->Unknown_5C();
+				}
+				Unknown0030 = true;
+				Unknown_VersionStruct *version = Unknown_4456C0();
+				GlobalConnection->Send_Packet(&VersionRequestPacketClass(version->Major, version->Minor));
+			}
+			return true;
+		}
+		if (Unknown0030) {
+			return false;
+		}
+
+
+
+
+
+
+
+
+
+		G_ASSERT(0);
+		if (CharacterView) {
+			CharacterView->Unknown034->Unknown_5C();
+		}
+		Unknown0030 = true;
+		return false;
+	}
+
+	if (GlobalConnection && GlobalConnection->Is_Dead()) {
+		delete GlobalConnection;
+		GlobalConnection = NULL;
+	}
+	if (GlobalConnection) {
+		return true;
+	}
+	GlobalConnection = Create_Connection("GlobalServer_Client", true);
+
+
+
+
+
+	G_ASSERT(GlobalConnection);
+	if (GlobalConnection && GlobalConnection->Is_Connected()) {
+		Unknown0030 = true;
+		Unknown_VersionStruct *version = Unknown_4456C0();
+		GlobalConnection->Send_Packet(&VersionRequestPacketClass(version->Major, version->Minor));
+		return true;
+	}
+	Show_Message("Couldn't connect to the server, try again later.");
+	return false;
+}
 
 
 
@@ -1187,36 +1187,36 @@ void LoginTaskClass::Kill_Kernel()
 
 
 
+// 0x76AD30
+void LoginTaskClass::Save_Login_Name()
+{
+	INIClass ini(LOGIN_INI);
+	ini.Put_String(LOGIN_DATA, LOGIN_NAME, Username);
+	ini.Save(LOGIN_INI);
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// 0x76ADD0
+void LoginTaskClass::Load_Login()
+{
+	INIClass ini(LOGIN_INI);
+	if (ini.Is_Loaded()) {
+		StringClass name;
+		ini.Get_String(name, LOGIN_DATA, LOGIN_NAME, LOGIN_NAME_DEFAULT);
+		Set_Username(name);
+		Set_Password(LOGIN_PASSWORD_DEFAULT);
+	} else {
+		Set_Username(LOGIN_NAME_DEFAULT);
+		Set_Password(LOGIN_PASSWORD_DEFAULT);
+	}
+	const char *login = ArgvClass().Find_Value("-LOGIN");
+	if (login) {
+		Set_Username(login);
+	}
+	const char *password = ArgvClass().Find_Value("-PASSWORD");
+	if (password) {
+		Set_Password(password);
+	}
+}
 
 
 

@@ -158,8 +158,11 @@ public:
 	void Show_Message(const char *text, const char *button);	// 0x769870  // NAME 1: what it does
 	void Close_Global_Connection();						// 0x769CE0  // NAME 1: what it does
 	void Delete_Character_View();						// 0x769D20  // NAME 1: what it does
+	bool Fetch_EA_Ticket();								// 0x76A7B0 ('AuthLogin': kcom's authFactory / iauth)  // NAME 1: what it does
 	void Unknown_769E70();								// 0x769E70 (step 16: 'LoginTask: removing self.', the ClientTaskClass)
 	void Unknown_76A370();								// 0x76A370 (step 18: 'LoginTask: Request Character List.')
+	void Save_Login_Name();								// 0x76AD30: login.ini's LOGIN_DATA Name  // NAME 1: what it does
+	void Load_Login();									// 0x76ADD0: login.ini, -LOGIN, -PASSWORD  // NAME 1: what it does
 	void Handle_Referrer_Response(Packet_0078Class *packet);	// 0x76B2F0 (inlined in the packet's Process_Packet)  // NAME 1: what it does
 	void Kill_Kernel();									// 0x769E40 ('LoginTask: killing kernel and exiting the game')  // NAME 1: what it does
 
@@ -179,7 +182,7 @@ public:
 	char Unknown0F30[0xF6C - 0xF30];					// +0xF30
 	std::list<LoginGalaxyClass> Galaxies;				// +0xF6C (the FAIL_IF 'Galaxies.empty()')
 	unsigned long Galaxy_Address;						// +0xF78 NAME 1: the selected character's galaxy's (0x769400)
-	char Unknown0F7C[0x1080 - 0xF7C];					// +0xF7C
+	char EATicket[0x1080 - 0xF7C];						// +0xF7C (the assert 'sizeof(EATicket) > strlen(response.Get_Ticket()) + 1')
 	int Selected;										// +0x1080 NAME 1: the selected character's slot
 	char *Username;										// +0x1084 NAME 1: Set_Username's (nstrdup)
 	char *Password;										// +0x1088 NAME 1: Set_Password's (nstrdup)

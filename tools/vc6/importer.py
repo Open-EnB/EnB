@@ -3344,7 +3344,7 @@ RECONSTRUCTED = {
                                          "(charview.cpp) declared only",
     ('app', 'client/tasks/tsk_login.cpp'): "the login task, client 0x767240-0x76BC40 (kernel-map.md 6, step 9), partly: the "
                                            "slots, helpers and two packets' handlers; the asserts on the client's lines 263-1405 (D25); "
-                                           "NOT EXACT: Run, Go_Next_Step, Go_Back_Step (register-only)",
+                                           "NOT EXACT: Run, Go_Next_Step, Go_Back_Step (register-only), the global connection 0x7698E0 (shape)",
     ('app', 'client/tasks/tsk_menu.h'): "MenuTaskClass (D24 after its log 'MenuTask'), vtable 0xB04228, 0x10 bytes",
     ('app', 'client/tasks/tsk_menu.cpp'): "MenuTask, client 0x76BC50-0x76BF2F (kernel-map.md 6, step 7): the object has no "
                                           "__FILE__, the name sorts between tsk_login.cpp and tsk_movie.cpp (the link order; "
