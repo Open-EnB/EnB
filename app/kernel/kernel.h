@@ -26,6 +26,7 @@ class KernelClass;
 struct KernelEventClass		// NAME 1: describes what it holds; the input code's name not found
 {
 	KernelEventClass() : Key(0), Flags(0), Unknown04(0.0f), Unknown08(0.0f), Unknown0C(0) {}
+	KernelEventClass(unsigned short key, unsigned short flags = 0) : Key(key), Flags(flags), Unknown04(0.0f), Unknown08(0.0f), Unknown0C(0) {}	// inpdsp.cpp's ini reader 0x42A1A0 and writer 0x42A410
 	unsigned short Key;		// NAME 2: +0x00 Handle_Key: 0x1B Esc, 0x6A
 	unsigned short Flags;	// NAME 1: +0x02 0x1000: Handle_Key ignores the event
 	float Unknown04;		// +0x04 (floats: the constructor stores 0.0f as immediates)

@@ -3471,7 +3471,7 @@ RECONSTRUCTED = {
                               "key to a stack of InputRecordStruct, D87), its records and their RefCountClass action "
                               "(D10 names); tsk_login.h keeps an opaque declaration (P-H18-1)",
     ('app', 'input/inpdsp.cpp'): "inpdsp.cpp, client 0x429630-0x429F60 with the table's instances (builder H18; G_ASSERT "
-                                "lines 32, 50, 51, 71, 104, 120, D25): 7 of 8 exact, the DisableExceptions registry read "
+                                "lines 32, 50, 51, 71, 104, 120, D25): 10 of 11 exact (the key 0x42A170, the ini reader 0x42A1A0 and writer 0x42A410 too), the DisableExceptions registry read "
                                 "0x429D00 among them (read only); 0x429F60 NOT EXACT (register-only)",
     ('app', 'audio/soundlib.h'): "SoundDefClass and SoundLibraryClass (D24): sounds.ini's definitions in an SGI "
                                 "hash_map<std::string, SoundDefClass *> (libs/sgistl, D87), WWAudio's 2D / 3D sounds, "
