@@ -279,6 +279,8 @@ unless `--lever` cites a new row of this table.
 | A frame 0x30 too small; int-move copies | A Matrix3D local (its user copy constructor); a float max as `min > r ? min : r` gives `test ah,0x41 / jne` | client_lego_impl Update_Radius (H17) |
 | Two `sete` combined | A bitwise or of the tests: `(a == 0) \| (it == end)` | client_lego_impl Get_Lego_Transform (H17) |
 | The const_iterator find lever on an int-keyed table | Works the same; a miss returned first | client_lego_impl Get_Bone_Map, Get_Knob (H17) |
+| An aux-data type test (rtti.h, G_ASSERT 'b' line 32) inlined for some fields and called out of line for others | A class-static `UnknownRTTIClass<T>::Cast` (a function template with an explicit argument hits VC6's one-instance bug; a ternary gives the wrong shape); a cast nested three deep (wrapper, lookup, cast) exhausts the budget at the first expansions, two deep at the last; the dead-call lever (row 164) for the rest | co.cpp 0x700400, 0x6FFC80 (T17, 8b82d30) |
+| A base's sub-block destructed in the wrong store order as plain fields | The block is a struct with its own inline destructor | client.cpp UnknownB02C90Class +0x0C (T17, 24d99bd) |
 
 * **A nested inline is a whole-function budget (2026-10-26, `Key_Exchange` 0x829180):** under `/Ob2` an
   inline helper's own callees (a `std::set` iterator's `_Inc`) are inlined only while the function as a
@@ -575,6 +577,11 @@ unless `--lever` cites a new row of this table.
 * **A worktree file list built from `git status` picks up other builders' half-done files** (T10: P6's pkupdate.cpp
   showed hundreds of false losses): list your own files by name. clienttest's fake model tables need a `__stdcall`
   stand-in for any slot that takes an argument (Set_LOD_Bias, slot 75).
+* **tryv2 can hit a PermissionError restoring the tree file and leave a variant in it** (T17, H14): grep after every
+  run; copy `tryv2-base` objects out right away (shared between builders). A worktree script must `git checkout -- .`
+  before `checkout --detach`, or it aborts and the next verify runs on a stale tree. Pure-virtual placeholders for
+  not-yet-rebuilt slots of a base no program instantiates are an accepted interim (T17's 0x7251C0): they must
+  become real before a program instantiates a derived class.
 * **tryv2 tags are global under `%TEMP%\enb_import\tryv2-<name>`** (T16): prefix variant names with your builder id.
   explain.py reports a false relocation on PacketClass's vtable 0xAEDE88 (a COMDAT name shared with
   PushMessageLinePacketClass): the masked residue is what counts (P7, P8, T16). Handlers without asserts can be
