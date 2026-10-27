@@ -24,7 +24,6 @@ ItemBasePacketClass::ItemBasePacketClass(RawPacketClass *raw) { Conn_Record(this
 InventoryMovePacketClass::InventoryMovePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 InventorySortPacketClass::InventorySortPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 Action2PacketClass::Action2PacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-ClientChatPacketClass::ClientChatPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 RequestTimePacketClass::RequestTimePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 SetClientTimePacketClass::SetClientTimePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 SplinePacketClass::SplinePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
@@ -95,7 +94,6 @@ Packet_00A8Class::Packet_00A8Class(RawPacketClass *raw) { Conn_Record(this, raw)
 Packet_00A9Class::Packet_00A9Class(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_00ABClass::Packet_00ABClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_00ACClass::Packet_00ACClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-ClientChatRequestPacketClass::ClientChatRequestPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 ClientChatListPacketClass::ClientChatListPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_00EAClass::Packet_00EAClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_00EBClass::Packet_00EBClass(RawPacketClass *raw) { Conn_Record(this, raw); }

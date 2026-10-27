@@ -1,6 +1,170 @@
 // Earth & Beyond client (reconstruction): app\packets\pkclientchat.cpp. Notes at the end of the file.
 #include "pkclientchat.h"
 #include <stdio.h>
+#include <string.h>
+
+static char *ChatTypeNames[] = {	// 0xBB363C (Print's Type)  // NAME 2: what it holds
+	"To_Target",
+	"To_Group",
+	"To_Guild",
+	"To_Local_Area",
+	"To_Entire_Sector",
+	0
+};
+
+ClientChatPacketClass::ClientChatPacketClass(int game_id, char *string, char type, char *target) :
+	GameID(game_id),
+	String(0),
+	Size(0),
+	Type(type),
+	Target(0),
+	TargetSize(0),
+	Owned(false)
+{
+	Size = (short)(strlen(string) + 1);
+	String = string;
+	if (target != 0) {
+		TargetSize = (short)(strlen(target) + 1);
+		Target = target;
+	}
+}
+
+ClientChatPacketClass::ClientChatPacketClass(RawPacketClass *raw) :
+	Target(0),
+	Owned(true)
+{
+	raw->Get(&GameID, sizeof(GameID));
+	raw->Get(&Type, sizeof(Type));
+	raw->Get(&Size, sizeof(Size));
+	String = new char[Size];
+	raw->Get(String, Size);
+	raw->Get(&TargetSize, sizeof(TargetSize));
+	if (TargetSize != 0) {
+		Target = new char[TargetSize];
+		raw->Get(Target, TargetSize);
+	}
+}
+
+ClientChatPacketClass::~ClientChatPacketClass()
+{
+	if (Owned) {
+		if (String != 0) {
+			delete [] String;
+			String = 0;
+		}
+		if (Target != 0) {
+			delete [] Target;
+			Target = 0;
+		}
+	}
+}
+
+RawPacketClass *ClientChatPacketClass::Build()
+{
+	RawPacketClass *raw = new RawPacketClass(51, Get_Data_Size());
+	raw->Add(&GameID, sizeof(GameID));
+	raw->Add(&Type, sizeof(Type));
+	raw->Add(&Size, sizeof(Size));
+	raw->Add(String, Size);
+	raw->Add(&TargetSize, sizeof(TargetSize));
+	if (Target != 0) {
+		raw->Add(Target, TargetSize);
+	}
+	return(raw);
+}
+
+int ClientChatPacketClass::Get_Data_Size()
+{
+	return(sizeof(GameID) + sizeof(Type) + sizeof(Size) + Size + sizeof(TargetSize) + TargetSize);
+}
+
+int ClientChatPacketClass::Print(char *buffer, int)
+{
+	char *type = ChatTypeNames[Type];
+	char text[128];
+	short len = Size;
+	if (len >= 128) {
+		len = 128;
+	}
+	strncpy(text, String, len);
+	return(sprintf(buffer, "%s {GameID=%d Type=%s String=%s Size=%hd Target=%s}", "Client_Chat", GameID, type, text, Size, Target));
+}
+
+ClientChatRequestPacketClass::ClientChatRequestPacketClass(int unknown10, int unknown0c) :
+	Unknown0C(unknown0c),
+	Unknown10(unknown10),
+	Unknown44(0),
+	Unknown48(0),
+	Unknown4C(false)
+{
+}
+
+ClientChatRequestPacketClass::ClientChatRequestPacketClass(RawPacketClass *raw) :
+	Unknown0C(0),
+	Unknown10(-1),
+	Unknown44(0),
+	Unknown48(0),
+	Unknown4C(false)
+{
+	raw->Get(&Unknown0C, sizeof(Unknown0C));
+	raw->Get(&Unknown10, sizeof(Unknown10));
+	raw->Get(&Unknown14);
+	raw->Get(&Unknown24);
+	raw->Get(&Unknown34);
+	raw->Get(&Unknown48, sizeof(Unknown48));
+	if (Unknown48 != 0) {
+		Unknown4C = true;
+		Unknown44 = new char[Unknown48];
+		raw->Get(Unknown44, Unknown48);
+	}
+}
+
+ClientChatRequestPacketClass::~ClientChatRequestPacketClass()
+{
+	if (Unknown4C && Unknown44 != 0) {
+		delete [] Unknown44;
+		Unknown44 = 0;
+	}
+}
+
+RawPacketClass *ClientChatRequestPacketClass::Build()
+{
+	RawPacketClass *raw = new RawPacketClass(163, Get_Data_Size());
+	raw->Add(&Unknown0C, sizeof(Unknown0C));
+	raw->Add(&Unknown10, sizeof(Unknown10));
+	raw->Add(Unknown14);
+	raw->Add(Unknown24);
+	raw->Add(Unknown34);
+	raw->Add(&Unknown48, sizeof(Unknown48));
+	if (Unknown48 != 0) {
+		raw->Add(Unknown44, Unknown48);
+	}
+	return(raw);
+}
+
+int ClientChatRequestPacketClass::Get_Data_Size()
+{
+	int size = sizeof(Unknown0C) + sizeof(Unknown10);
+	size += RawPacketClass::Get_Size(Unknown14);
+	size += RawPacketClass::Get_Size(Unknown24);
+	size += RawPacketClass::Get_Size(Unknown34);
+	return(size + sizeof(Unknown48) + Unknown48);
+}
+
+int ClientChatRequestPacketClass::Print(char *buffer, int len)
+{
+	return(_snprintf(buffer, len, "ClientChatRequestPacketClass"));
+}
+
+ClientChatEventPacketClass::ClientChatEventPacketClass(int unknown0c) :
+	Unknown0C(unknown0c),
+	Unknown10(0),
+	Unknown74(0),
+	Unknown78(0),
+	Unknown7C(false)
+{
+}
+
 
 ClientChatEventPacketClass::ClientChatEventPacketClass(RawPacketClass *raw) :
 	Unknown0C(0),
@@ -68,15 +232,17 @@ int ClientChatEventPacketClass::Print(char *buffer, int len)
 	return(_snprintf(buffer, len, "ClientChatEventPacketClass"));
 }
 
-
 /*
 **	Reconstruction notes (pkclientchat.cpp)
 **
 **	* Client 0x8785B0-0x87A910 (the object ends with the guarded static every <string> includer has,
-**	  0xC416FC, atexit 0x42B320): the chat packets 51, 163, 165, 164, 166 in that order. Opcode 165
-**	  (CLIENT_CHAT_EVENT, the class named by its Print) written by hand (builder P3, 2026-10-26), 5 of 5
-**	  exact in appfile.py match: six strings and a length-counted buffer the packet owns once it has
-**	  read one. Get_Data_Size adds one string per statement and the buffer's count and bytes last.
-**	* The file name is provisional (no assert names it). Not rebuilt yet: opcode 51, 163, 164, 166
+**	  0xC416FC, atexit 0x42B320): the chat packets 51, 163, 165, 164, 166 in that order. Opcodes 51, 163
+**	  and 165 (CLIENT_CHAT_EVENT, the class named by its Print) written by hand (builder P3, 2026-10-26),
+**	  18 of 18 exact in appfile.py match: length-counted strings (51) or std::strings and a
+**	  length-counted buffer the packet owns once it has read one (163, 165). The value constructors
+**	  count a string before storing it (strlen first: the zero store of the initialiser stays).
+**	  Get_Data_Size adds one string per statement and the buffer's count and bytes last. 163's
+**	  0x878D90 (it sets the buffer from another object's virtual +4 and member +4) is not rebuilt.
+**	* The file name is provisional (no assert names it). Not rebuilt yet: opcode 164, 166 (vectors of strings)
 **	  (declared in pk_classes.h).
 */

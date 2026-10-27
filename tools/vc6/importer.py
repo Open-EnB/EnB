@@ -3544,7 +3544,7 @@ RECONSTRUCTED = {
     ('app', 'packets/pkdialog.h'): "its class (pk_classes.h includes it: tools/re/pkclasses.py)",
     ('app', 'packets/pkunknown_877c80.cpp'): "opcode 99's object, 0x877C50-0x878000 (no assert: the file name provisional, NAME 1): written by hand (builder P3), 6 of 6 exact in appfile.py match",
     ('app', 'packets/pkunknown_877c80.h'): "its class (pk_classes.h includes it: tools/re/pkclasses.py)",
-    ('app', 'packets/pkclientchat.cpp'): "the chat packets' object, 0x8785B0-0x87A910 (no assert: the file name provisional, NAME 1): opcode 165 CLIENT_CHAT_EVENT written by hand (builder P3), 5 of 5 exact in appfile.py match",
+    ('app', 'packets/pkclientchat.cpp'): "the chat packets' object, 0x8785B0-0x87A910 (no assert: the file name provisional, NAME 1): opcodes 51 CLIENT_CHAT, 163 CLIENT_CHAT_REQUEST and 165 CLIENT_CHAT_EVENT written by hand (builder P3), 18 of 18 exact in appfile.py match",
     ('app', 'packets/pkclientchat.h'): "its classes (pk_classes.h includes it: tools/re/pkclasses.py)",
     ('app', 'packets/pk_player_object_relationship.cpp'): "the client's file (FAIL_IFs on lines 159 and 251), 0x873AE0-0x8754A0: opcode 137 RELATIONSHIP written by hand (builder P3), 5 of 5 exact in appfile.py match",
     ('app', 'packets/pk_player_object_relationship.h'): "its classes (pk_classes.h includes it: tools/re/pkclasses.py) and RelationshipClass (0x848C80, not rebuilt)",

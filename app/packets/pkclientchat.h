@@ -5,8 +5,8 @@
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
 **	Original location: e:\build\beta\G\app\packets\pkclientchat.h (the name provisional: see the .cpp)
 **
-**	The packet classes of client 0x8785B0-0x87A910 rebuilt so far (opcode 165); the file's other classes
-**	(51, 163, 164, 166) are still declared in pk_classes.h.
+**	The packet classes of client 0x8785B0-0x87A910 rebuilt so far (opcode 51, 163, 165); the file's other
+**	classes (164, 166) are still declared in pk_classes.h.
 */
 
 #if defined(_MSC_VER)
@@ -18,10 +18,56 @@
 
 #include "pk.h"
 
+// opcode 51 (0x0033, CLIENT_CHAT): vtable 0xB09E10, constructor 0x8786E0, 0x20 bytes
+class ClientChatPacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name CLIENT_CHAT (the Net-7 opcode table; no structure check)
+{
+public:
+	ClientChatPacketClass(int game_id, char *string, char type, char *target);	// 0x8785D0 (the strings not copied)
+	ClientChatPacketClass(RawPacketClass *raw);	// 0x8786E0
+	virtual ~ClientChatPacketClass();	// +0x00 0x8786B0 / 0x878800
+	virtual RawPacketClass *Build();	// +0x04 0x878870
+	virtual bool Process_Packet(void *client);	// +0x08 0x867DA0 (clientstub.cpp l.62)
+	virtual int Get_Data_Size();	// +0x0C 0x878990
+	virtual int Print(char *buffer, int len);	// +0x10 0x8789B0
+	virtual int Get_Channel() { return(-2); }	// +0x18 0x878690
+	virtual int Get_Priority() { return(0); }	// +0x1C 0x878670
+
+	int GameID;	// +0x0C  // NAME 3: the client's Print text 'GameID='
+	char *String;	// +0x10 (Size bytes, the text and its 0)  // NAME 3: the client's Print text 'String='
+	short Size;	// +0x14  // NAME 3: the client's Print text 'Size='
+	char Type;	// +0x16 (ChatTypeNames' index)  // NAME 3: the client's Print text 'Type='
+	char *Target;	// +0x18 (TargetSize bytes, or none)  // NAME 3: the client's Print text 'Target='
+	short TargetSize;	// +0x1C  // NAME 2: Target's Size
+	bool Owned;	// +0x1E (the raw constructor new[]'d the strings: the destructor deletes them)  // NAME 2: what it means
+};
+
+// opcode 163 (0x00A3, CLIENT_CHAT_REQUEST): vtable 0xB09E40, constructor 0x878B10, 0x50 bytes
+class ClientChatRequestPacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name CLIENT_CHAT_REQUEST (the Net-7 opcode table; no structure check)
+{
+public:
+	ClientChatRequestPacketClass(int unknown10, int unknown0c);	// 0x878A50
+	ClientChatRequestPacketClass(RawPacketClass *raw);	// 0x878B10
+	virtual ~ClientChatRequestPacketClass();	// +0x00 0x878AE0 / 0x878C80
+	virtual RawPacketClass *Build();	// +0x04 0x878DC0
+	virtual bool Process_Packet(void *client);	// +0x08 0x868CA0 (clientstub.cpp l.302)
+	virtual int Get_Data_Size();	// +0x0C 0x878EE0
+	virtual int Print(char *buffer, int len);	// +0x10 0x878F30 (the class name: 'ClientChatRequestPacketClass')
+
+	int Unknown0C;	// +0x0C
+	int Unknown10;	// +0x10 (-1 by default)
+	std::string Unknown14;	// +0x14
+	std::string Unknown24;	// +0x24
+	std::string Unknown34;	// +0x34
+	char *Unknown44;	// +0x44 (new[] Unknown48 bytes when Unknown48 isn't 0; 0x878D90, not rebuilt, sets it from another object)
+	int Unknown48;	// +0x48 (the bytes at Unknown44)
+	bool Unknown4C;	// +0x4C (Unknown44 is the packet's: the destructor deletes it)
+};
+
 // opcode 165 (0x00A5, CLIENT_CHAT_EVENT): vtable 0xB09E70, constructor 0x8790B0, 0x80 bytes
 class ClientChatEventPacketClass : public PacketClass
 {
 public:
+	ClientChatEventPacketClass(int unknown0c);	// 0x878F60
 	ClientChatEventPacketClass(RawPacketClass *raw);	// 0x8790B0
 	virtual ~ClientChatEventPacketClass();	// +0x00 0x879080 / 0x879280
 	virtual RawPacketClass *Build();	// +0x04 0x879430

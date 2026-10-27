@@ -309,15 +309,6 @@ public:
 	char Unknown0C[0x1C];	// +0x0C
 };
 
-// opcode 51 (0x0033, CLIENT_CHAT): vtable 0xB09E10, constructor 0x8786E0, 0x20 bytes
-class ClientChatPacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name CLIENT_CHAT (the Net-7 opcode table; no structure check)
-{
-public:
-	ClientChatPacketClass(RawPacketClass *raw);	// 0x8786E0
-	virtual bool Process_Packet(void *client);	// +0x08 0x867DA0 (clientstub.cpp l.62)
-	char Unknown0C[0x14];	// +0x0C
-};
-
 // opcode 68 (0x0044, REQUEST_TIME): vtable 0xB0BFB8, constructor 0x8AADE0, 0x14 bytes
 class RequestTimePacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name REQUEST_TIME (the Net-7 opcode table; no structure check)
 {
@@ -914,15 +905,6 @@ public:
 	Packet_00ACClass(RawPacketClass *raw);	// 0x87D2E0
 	virtual bool Process_Packet(void *client);	// +0x08 0x868D90 (clientstub.cpp l.317)
 	char Unknown0C[0x80];	// +0x0C
-};
-
-// opcode 163 (0x00A3, CLIENT_CHAT_REQUEST): vtable 0xB09E40, constructor 0x878B10, 0x50 bytes
-class ClientChatRequestPacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name CLIENT_CHAT_REQUEST (the Net-7 opcode table; no structure check)
-{
-public:
-	ClientChatRequestPacketClass(RawPacketClass *raw);	// 0x878B10
-	virtual bool Process_Packet(void *client);	// +0x08 0x868CA0 (clientstub.cpp l.302)
-	char Unknown0C[0x44];	// +0x0C
 };
 
 // opcode 164 (0x00A4, CLIENT_CHAT_LIST): vtable 0xB09EA0, constructor 0x879850, 0x40 bytes
