@@ -31,6 +31,7 @@ public:
 	AvatarDescClass();									// 0x4BEB50
 	AvatarDescClass(int type, int unknown, int unknown2);	// 0x4BEBF0 (Race, Profession, Gender)  // NAME 1 [unknown, unknown2]: neutral (D10)
 	AvatarDescClass(int type, const char *name);		// 0x4BECC0  // NAME 2 [name]: Load_Defaults'
+	AvatarDescClass(const AvatarDescClass &that);		// 0x4BED80 (16 callers in the UI)
 	virtual bool Write(LinearBufferClass *buffer);		// +0x00 0x4BF260
 	virtual bool Read(LinearBufferClass *buffer);		// +0x04 0x4BF550
 	virtual int Get_Size();								// +0x08 0x4BF910

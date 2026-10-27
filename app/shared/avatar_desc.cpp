@@ -9,6 +9,7 @@
 #include "auxdata\linearbu.h"
 #include "kv_encoder_base.h"
 #include <stdio.h>
+#include <string.h>
 #include "unknown_debug.h"
 #include "..\..\wwlib\ini.h"
 #include "..\..\wwlib\point.h"
@@ -39,6 +40,50 @@ AvatarDescClass::AvatarDescClass(int type, const char *name)
 	Clear(type);
 	Avatar_Version = 2;
 	Load_Defaults(type, name);
+}
+
+// 0x4BED80
+AvatarDescClass::AvatarDescClass(const AvatarDescClass &that)
+{
+	memcpy(First_Name, that.First_Name, sizeof(First_Name));
+	memcpy(Last_Name, that.Last_Name, sizeof(Last_Name));
+	Avatar_Type = that.Avatar_Type;
+	Unknown0C = that.Unknown0C;
+	Avatar_Version = that.Avatar_Version;
+	Race = that.Race;
+	Profession = that.Profession;
+	Gender = that.Gender;
+	Mood_Type = that.Mood_Type;
+	Personality = that.Personality;
+	NLP = that.NLP;
+	Body_Type = that.Body_Type;
+	Pants_Type = that.Pants_Type;
+	Head_Type = that.Head_Type;
+	Hair_Num = that.Hair_Num;
+	Ear_Num = that.Ear_Num;
+	Goggle_Num = that.Goggle_Num;
+	Beard_Num = that.Beard_Num;
+	Weapon_Hip_Num = that.Weapon_Hip_Num;
+	Weapon_Unique_Num = that.Weapon_Unique_Num;
+	Weapon_Back_Num = that.Weapon_Back_Num;
+	Head_Texture_Num = that.Head_Texture_Num;
+	Tattoo_Texture_Num = that.Tattoo_Texture_Num;
+	Tattoo_Offset = that.Tattoo_Offset;
+	Hair_Color = that.Hair_Color;
+	Beard_Color = that.Beard_Color;
+	Eye_Color = that.Eye_Color;
+	Skin_Color = that.Skin_Color;
+	Shirt_Primary_Color = that.Shirt_Primary_Color;
+	Shirt_Secondary_Color = that.Shirt_Secondary_Color;
+	Pants_Primary_Color = that.Pants_Primary_Color;
+	Pants_Secondary_Color = that.Pants_Secondary_Color;
+	Shirt_Primary_Metal = that.Shirt_Primary_Metal;
+	Shirt_Secondary_Metal = that.Shirt_Secondary_Metal;
+	Pants_Primary_Metal = that.Pants_Primary_Metal;
+	Pants_Secondary_Metal = that.Pants_Secondary_Metal;
+	Skeleton = that.Skeleton;
+	memcpy(Body_Weight, that.Body_Weight, sizeof(Body_Weight));
+	memcpy(Head_Weight, that.Head_Weight, sizeof(Head_Weight));
 }
 
 // 0x4BF260
@@ -369,51 +414,6 @@ static const char *AvatarGenderNames[] = { "male_", "female_" };	// 0xB73CC8  //
 static const char *AvatarRaceNames[] = { "terran_", "jenquai_", "progen_" };	// 0xB73CD0  // NAME 2: what it holds
 static const char *AvatarProfessionNames[] = { "warrior", "tradesman", "explorer", "default" };	// 0xB73CDC  // NAME 2: what it holds
 static const char *AvatarOtherNames[] = { "narrator", "npc" };	// 0xB73CEC  // NAME 1: what it holds
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
