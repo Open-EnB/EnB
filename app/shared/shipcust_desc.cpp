@@ -5,9 +5,12 @@
 **	ShipCustDescClass (shipcust_desc.h), partly rebuilt: the race and profession setters, the wire
 **	and key/value slots of the description, its parts and their settings.
 */
+#define UNKNOWN_PACKETDATA_BODIES
 #include "shipcust_desc.h"
 #include "auxdata\linearbu.h"
 #include <stdio.h>
+#include <string.h>
+#include "unknown_debug.h"
 
 extern ShipCustSettingsClass Unknown_BE56D8[][2];		// NAME 1 [Unknown_BE56D8]: 0xBE56D8, each race's two default settings (filled at run time)
 
@@ -169,8 +172,236 @@ void ShipCustSettingsClass::Unknown_00(void *object)
 
 	visitor->Add_Color(0x3FF, "Color", &Color);
 	visitor->Add_Typed(0x3FF, "IsMatte", &Is_Matte);
-	visitor->Add_Typed(0x3FF, "Metal", &Metal);
+	visitor->Add_Pointer(0x3FF, "Metal", &Metal);
 }
+
+char *Unknown_4A1590(char *buffer, int size, const char *string);	// 0x4A1590: a bounded strcpy  // NAME 1 [Unknown_4A1590]: neutral placeholder (D10)
+
+// The metals by name (0xB75D70)
+struct ShipCustMetalNameStruct	// NAME 1: what it holds
+{
+	const char *Name;
+	ShipCustomizationMetal Metal;
+};
+
+static ShipCustMetalNameStruct ShipCustMetalNames[] = {	// NAME 1: what it holds
+	{ "none", METAL_NONE },
+	{ "chrome", METAL_CHROME },
+	{ "bronze", METAL_BRONZE },
+	{ "copper", METAL_COPPER },
+	{ NULL, METAL_NONE }
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 0x4F6970
+char *Value_To_String(char *buf, int size, const ShipCustomizationMetal &value)
+{
+	for (ShipCustMetalNameStruct *entry = ShipCustMetalNames; entry->Name != NULL; entry++) {
+		if (entry->Metal == value) {
+			return(Unknown_4A1590(buf, size, entry->Name));
+		}
+	}
+	G_ASSERT(0);
+	return(Unknown_4A1590(buf, size, "none"));
+}
+
+
+
+
+
+// 0x4F6A00
+bool String_To_Value(const char *text, ShipCustomizationMetal *value)
+{
+	for (ShipCustMetalNameStruct *entry = ShipCustMetalNames; entry->Name != NULL; entry++) {
+		if (stricmp(entry->Name, text) == 0) {
+			*value = entry->Metal;
+			return(true);
+		}
+	}
+	G_ASSERT(0);
+	return(false);
+}
+
 
 /*
 **	Reconstruction notes

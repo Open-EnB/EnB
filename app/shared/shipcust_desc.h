@@ -28,7 +28,13 @@
 // 0x4F6CE0 metal: three instantiations besides the int one)
 enum ShipCustRaceType {};								// NAME 1: neutral (D10)
 enum ShipCustProfessionType {};							// NAME 1: neutral (D10)
-enum ShipCustMetalType {};								// NAME 1: neutral (D10)
+enum ShipCustomizationMetal { METAL_NONE = -1, METAL_CHROME, METAL_BRONZE, METAL_COPPER };	// NAME 5: its pairs' type name; NAME 2 [METAL_*]: the converters' names
+#ifdef UNKNOWN_PACKETDATA_BODIES	// the converters the key/value pair template calls (shipcust_desc.cpp only)
+class LinearBufferClass;
+char *Value_To_String(char *buf, int size, const ShipCustomizationMetal &value);	// 0x4F6970 (line 384)
+bool String_To_Value(const char *text, ShipCustomizationMetal *value);			// 0x4F6A00 (line 401)
+inline const char *Type_Name(ShipCustomizationMetal *) { return "ShipCustomizationMetal"; }	// 0x4F72B0
+#endif
 
 // A colour setting (0x20 bytes, vtable 0xAEC91C over 0xAEADC8; constructor 0x618500 out of line), two in
 // each part. Its assignment is the implicit one (0x4F6230 copies the race's defaults with it).
@@ -42,7 +48,7 @@ public:
 	float Unknown10;									// +0x10 (copied, not a key)
 	float Unknown14;									// +0x14
 	bool Is_Matte;										// +0x18 NAME 2: its key 'IsMatte'
-	ShipCustMetalType Metal;							// +0x1C NAME 2: its key 'Metal'
+	ShipCustomizationMetal Metal;							// +0x1C NAME 2: its key 'Metal'
 };
 
 // A part (0x44 bytes, vtable 0xAF78BC over 0xAEADC8), four in each description. Its constructor is

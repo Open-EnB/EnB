@@ -4493,7 +4493,12 @@
     "name": "shared/auxdata/policy.cpp"
    },
    "shipcust_desc": {
-    "ambiguous": [],
+    "ambiguous": [
+     "0x42B2F0",
+     "0x448610",
+     "0x448660",
+     "0x4A8880"
+    ],
     "copy": "reconstructed",
     "expected": {},
     "in_tree": [
@@ -4507,7 +4512,15 @@
      "0x4F6620",
      "0x4F6750",
      "0x4F6890",
-     "0x4F6900"
+     "0x4F6900",
+     "0x4F6970",
+     "0x4F6A00",
+     "0x4F6CE0",
+     "0x4F72D0",
+     "0x4F7400",
+     "0x4F7600",
+     "0x4F7630",
+     "0x4F7870"
     ],
     "merged": [],
     "name": "shared/shipcust_desc.cpp"
