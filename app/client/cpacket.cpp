@@ -11,11 +11,13 @@
 #include "..\packets\pkcreateattachment.h"
 #include "..\packets\pkguildranknamesrequestclient.h"
 #include "..\packets\pkhullupgrade.h"
+#include "..\packets\pkincapacitancerequest.h"
 #include "..\packets\pkinitrenderstate.h"
 #include "..\packets\pklogoff.h"
 #include "..\packets\pkmessagestring.h"
 #include "..\packets\pkmodechange.h"
 #include "..\packets\pkpointeffect.h"
+#include "..\packets\pkreferralpointsavailable.h"
 #include "..\packets\pkrequesttarget.h"
 #include "..\packets\pksetzband.h"
 #include "..\packets\pkspline.h"
@@ -2055,20 +2057,18 @@ bool HullUpgradePacketClass::Process_Packet(void *instance)
 
 
 
+// 0x739CD0
+bool IncapacitanceRescueConfirmationPacket::Process_Packet(void *instance)
+{
+	WWPROFILE("IncapacitanceRescueConfirmationPacket::Process_Packet(void * instance)");
+	ClientClass *client = (ClientClass *)instance;
+	FAIL_IF(!client) return(true);
+	SClient *sclient = (SClient *)client->Unknown_18();
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+	FAIL_IF(!sclient) return(true);
+	sclient->Print(5, "%s", Unknown0C.c_str());
+	return(true);
+}
 
 
 
@@ -3324,15 +3324,15 @@ bool ConfirmedActionTimeoutPacketClass::Process_Packet(void *instance)
 
 
 
-
-
-
-
-
-
-
-
-
+// 0x73ED40
+bool GuildPlayerPermissionsPacket::Process_Packet(void *instance)
+{
+	WWPROFILE("GuildPlayerPermissionsPacket::Process_Packet");
+	SClient *sclient = (SClient *)instance;
+	FAIL_IF(!sclient) return(true);
+	sclient->Unknown_7517E0(Unknown0C, Unknown10, Unknown14, Unknown18);
+	return(true);
+}
 
 
 
@@ -3343,6 +3343,74 @@ bool GuildRankNamesSectorPacket::Process_Packet(void *instance)
 	SClient *sclient = (SClient *)instance;
 	FAIL_IF(!sclient) return(true);
 	sclient->Unknown_751850(Ranks);
+	return(true);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 0x73F3D0
+bool ReferralPointsAvailablePacketClass::Process_Packet(void *instance)
+{
+	WWPROFILE("ReferralPointsAvailablePacketClass::Process_Packet");
+	SClient *sclient = (SClient *)instance;
+	FAIL_IF(!sclient) return(true);
+	sclient->Unknown_751460(PointsTotal, PointsSpent);
 	return(true);
 }
 

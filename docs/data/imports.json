@@ -993,9 +993,12 @@
      "0x738330",
      "0x7388B0",
      "0x7396C0",
+     "0x739CD0",
      "0x73DC60",
      "0x73DCB0",
-     "0x73EE20"
+     "0x73ED40",
+     "0x73EE20",
+     "0x73F3D0"
     ],
     "merged": [],
     "name": "client/cpacket.cpp"
