@@ -96,9 +96,9 @@ INTERPOLATOR = 0xAEAE54
 BLOB_FORMS = {
     0xB00A00: ('three floats (a colour), constructor empty',
                'float R; float G; float B; NAME() {} NAME(const NAME &v) { R = v.R; G = v.G; B = v.B; }'),
-    0xB01A40: ('20 bytes, constructed {1.0f, 0, 0, -1, 0} (0x705640)',
-               'float F00; int I04; int I08; int I0C; int I10; NAME() : F00(1.0f), I04(0), I08(0), I0C(-1), I10(0) {} '
-               'NAME(const NAME &v) { F00 = v.F00; I04 = v.I04; I08 = v.I08; I0C = v.I0C; I10 = v.I10; }'),
+    0xB01A40: ('20 bytes, constructed {1.0f, 0.0f, 0.0f, -1, 0.0f} (0x705640; the zeros are floats: Ship 0x6F70BE stores them as immediates)',
+               'float F00; float F04; float F08; int I0C; float F10; NAME() : F00(1.0f), F04(0.0f), F08(0.0f), I0C(-1), F10(0.0f) {} '
+               'NAME(const NAME &v) { F00 = v.F00; F04 = v.F04; F08 = v.F08; I0C = v.I0C; F10 = v.F10; }'),
     0xB016DC: ('12 bytes, constructed {-1, -1, -1} (the Mounts elements\' default, Ship 0x6F6E29)',
                'int I00; int I04; int I08; NAME() : I00(-1), I04(-1), I08(-1) {}'),
     0xB03694: ('16 bytes, zeroed (0x757B00)',

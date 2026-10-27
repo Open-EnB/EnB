@@ -1,0 +1,38 @@
+DeltaShipClass::DeltaShipClass 0x6F66E0 (app/client/aux_roots.h), builder F3 (Fable), 2026-10-26 night.
+
+Residue (after the float fix of UnknownB01A40Type's zeros, committed): two inline-budget effects
+and their register/slot consequences, nothing else:
+  1. The client inlines UnknownB00A00Type's user copy constructor (3 loads, 3 stores through the
+     member's base register) inside the inlined DeltaTemplateClass<UnknownB00A00Type> constructors of
+     SameGuildTagColor (54th member) and OtherGuildTagColor (55th); ours calls it out of line there
+     (the extra EH states 0x72/0x74, the extra frame slot at [esp+0x14], the 3-dword temporary at
+     [esp+0x28] instead of [esp+0x24], ebp/edi holding BaseStats/CurrentStats instead of the colours).
+     Light 0x6F9870 (exact) shows the same copy constructor inlined: the client has the user copy.
+  2. The client inlines the narrow Add (0x6F8C70) at 4 body sites (Name, Owner, Title, Rank) and calls it
+     from EnergyPercent on; ours inlines 5.
+
+What the probes established (tools/vc6/tryv2.py / .work/f3/tryv3.py, one compile each):
+  - trivial/pod copy (no user copy ctor): the copy becomes a POD block copy with a different form
+    (lea + interleaved stores) and loses Light 0x6F9870 and 0x706DF0: the user copy ctor stays.
+  - The copy IS inlined when the colour members are declared anywhere up to the 35th member
+    (after Rank, Acceleration, IsRescueBeaconActive, TargetThreatLevel, WarpTriggerTime; each then
+    costs about one Add of budget: 4 -> 2 inlined Adds) and refused from the 36th on (after Shake,
+    whose constructor is inlined with its 4 members; after Inventory): a nested (depth-2) expansion is
+    admitted only while the function's accumulated expansion is under a threshold; depth-1 Adds
+    keep being admitted afterwards.
+  - The budget is function-wide and grows with the function's own IL: a dead `Children.size()` at the
+    END of the body adds one inlined Add (at the start: no change; it spends what it adds); removing
+    10 Adds removes 4 inlined Adds; an empty body still refuses the copies; 6/12/20 dead reads at the
+    end give 7/10/1 inlined Adds and at 20 the first copy is admitted (every dead read is then called
+    out of line, D40): not a source form.
+  - No change: the constructor non-inline; the narrow Add defined in-class; `Add(&Name)` through the
+    1-arg wrapper (+1 Add); casts on the Add arguments; G_ASSERT as `if`/`do-while`; `!item` in the
+    array constructor; a dead read in the narrow Add (-1 Add but size() called out of line).
+  - Making Shake's constructor non-inline admits the copies (and 8 Adds) only because Ship shrinks:
+    the client inlines Shake (its vtable store is at 0x6F6D94, inside Ship).
+Best explanation: at the colour sites the client has more budget headroom than ours with identical
+bytes before them, so the client's Ship (or the inlined nested constructors Shake, Inventory, Legos,
+Stats) carries more own IL that emits no code, or spends less (a leaner IL form of something inlined
+before the 54th member). Not found in 14 forms. Next lead: compare with the Player object's class at
+0x751BE0 (it inlines Shake too) once it is in the tree, and look for byte-neutral IL in
+DeltaShipInvClass/DeltaStatsClass (the biggest inlined bodies before the colours).
