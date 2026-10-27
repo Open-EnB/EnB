@@ -751,6 +751,8 @@
     "copy": "reconstructed",
     "expected": {},
     "in_tree": [
+     "0x42A820",
+     "0x42AB30",
      "0x42F250",
      "0x6F3810",
      "0x6F39F0",
@@ -787,6 +789,8 @@
      "0x6FED30",
      "0x6FED80",
      "0x6FEEE0",
+     "0x6FF1D0",
+     "0x6FF330",
      "0x6FFE90",
      "0x6FFF00",
      "0x6FFF50",
@@ -7174,6 +7178,7 @@
    "packets/pkwarpindex.h": "reconstructed",
    "shared/attrib_dir.h": "reconstructed",
    "shared/attrib_dir_collective.h": "reconstructed",
+   "shared/auxdata/auxdata.h": "reconstructed",
    "shared/auxdata/bitset.h": "reconstructed",
    "shared/auxdata/delta.h": "reconstructed",
    "shared/auxdata/delta_array.h": "reconstructed",
@@ -7222,7 +7227,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 3155,
+  "in_tree_total": 3157,
   "totals": {}
  },
  "binkmovie": {

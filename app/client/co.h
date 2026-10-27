@@ -93,6 +93,8 @@ public:
 
 	unsigned Get_Game_ID() { return(GameID); }			// (the assert's name)
 	void Get_Name(std::string &name);					// 0x6FF4B0  // NAME 2: Find_Object compares it with a name
+	void Unknown_6FF1D0();								// 0x6FF1D0 (co.cpp; the rs_track model's render state from the aux data's PercentFull)
+	void Unknown_6FF330(std::string &text);				// 0x6FF330 (co.cpp; ' (%d)' with the aux data's CombatLevel)  // NAME 2 [text]: what it receives
 	bool Unknown_6FFE90();								// 0x6FFE90 (co.cpp)
 	int Unknown_6FFF00();								// 0x6FFF00 (co.cpp)
 	int Unknown_6FFF50();								// 0x6FFF50 (co.cpp)
@@ -190,7 +192,8 @@ public:
 	bool Unknown128;									// +0x128 (0x6FC950 sets it)
 	char Unknown129[0x12C - 0x129];						// +0x129
 	int Relationship[2];								// +0x12C a RelationshipClass (pk_player_object_relationship.h; the constructor's 0x848C80): 0x6FEEE0 sets it  // NAME 2: what it holds
-	char Unknown134[0x14C - 0x134];						// +0x134
+	char Unknown134[0x148 - 0x134];						// +0x134
+	int Unknown148;										// +0x148 the render state 0x6FF1D0 last set (0 to 3 from PercentFull)
 	unsigned Unknown14C;								// +0x14C an effect's id (0x6FC880 removes the effect through the client's Get_Effect)
 	char Unknown150[0x158 - 0x150];						// +0x150
 	RenderObjClass *Unknown158[6];						// +0x158 the models 0x6F3810 hangs on the ~FL ~FR ~BL ~BR ~FL ~FR bones: RefCountPtr<RenderObjClass> in the client (the constructor's vector constructor 0x5464F0 / 0x4740B0), raw here until the constructor is rebuilt

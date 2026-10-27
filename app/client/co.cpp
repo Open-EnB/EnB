@@ -2383,46 +2383,46 @@ void ClientObjectClass::Unknown_6FEEE0(const RelationshipClass &relationship)
 
 
 
+// rs_track.cpp's render object (Class_ID 0x10001), declared as far as 0x6FF1D0 calls it (as cpacket.cpp)
+#define RSTRACK_CLASSID	0x10001	// NAME 2: the class id the handlers test
+class RsTrackClass	// NAME 3: class-from-file (D24) for app\shared\rs_track.cpp
+{
+public:
+	void Unknown_4604D0(int render_state_id);	// 0x4604D0 (ACTIVATE_RENDER_STATE 48)
+};
 
+// 0x6FF1D0
+void ClientObjectClass::Unknown_6FF1D0()
+{
+	if (Type == 38 && Model && Model->Class_ID() == RSTRACK_CLASSID && AuxData) {
+		NameClass name("PercentFull");
+		DeltaTemplateClass<float> *t = Unknown_Find_Field<float>((DeltaCompoundClass *)AuxData, name);
+		if (t && t->m_Unknown70 > 1) {
+			float percent = t->Value;
+			int state;
+			if (percent < 0.0001f) state = 3;
+			else if (percent < 0.3f) state = 2;
+			else if (percent < 0.75f) state = 1;
+			else state = 0;
+			if (Unknown148 != state) {
+				Unknown148 = state;
+				((RsTrackClass *)Model)->Unknown_4604D0(state);
+			}
+		}
+	}
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// 0x6FF330
+void ClientObjectClass::Unknown_6FF330(std::string &text)
+{
+	int level = 0;
+	NameClass name("CombatLevel");
+	DeltaTemplateClass<int> *t = Unknown_Find_Field<int>((DeltaCompoundClass *)AuxData, name);
+	if (t && t->m_Unknown70) level = t->Value;
+	char buf[64];
+	_snprintf(buf, sizeof(buf), " (%d)", level);
+	text = buf;
+}
 
 // 0x6FFE90
 bool ClientObjectClass::Unknown_6FFE90()
