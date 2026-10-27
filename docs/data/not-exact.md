@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-269 entries in 64 files.
+270 entries in 64 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -24,6 +24,7 @@ edit the comments in the code, not this file.
 | `app/client/client.cpp:225` | `ClientClass::Remove_Object` | marker | NOT EXACT: shape (the client puts the not-found return last; three forms; attempts.py show 0x727600) 0x727600 |
 | `app/client/client.cpp:307` | `ClientClass::Set_Debug_Object` | marker | NOT EXACT: register-only (the flag in dl, the id in eax; two forms; attempts.py show 0x728010) 0x728010 |
 | `app/client/client.cpp:374` | `ClientClass::Set_Debug_Mode` | marker | NOT EXACT: register-only (the id in eax, the flag in ecx; two forms; attempts.py show 0x728240) 0x728240 |
+| `app/client/client.cpp:468` | `UnknownB02C90Class::Unknown_0C` | marker | NOT EXACT: shape (the client loads both models first and keeps the element in the child argument's stack slot; 2 forms) |
 | `app/client/client_lego_impl.cpp:251` | `ClientLegoImplClass::Find` | marker | NOT EXACT: inline budget: the client inlines the split's string destructor at the orphan returns, ours calls _Tidy (attempts.csv) |
 | `app/client/client_lego_impl.cpp:310` | `ClientLegoImplClass::Get_Lego_Transform` | marker | NOT EXACT: field offset at the Identity copy after line 339 (the client builds the result before the report), 0.76 (attempts.csv) |
 | `app/client/client_lego_impl.cpp:363` | `ClientLegoImplClass::Add` | marker | NOT EXACT: literal (EH states one lower than the client's from the new-child branch on), frame 0x9C vs 0xA8 (attempts.csv) |
@@ -84,9 +85,9 @@ edit the comments in the code, not this file.
 | `app/client/fontmanager.cpp:538` | `FontManagerClass::Unknown_6D2700` | marker | NOT EXACT: frame, 56 rows: ours keeps one more stack slot and releases style after the assert (attempts.csv) |
 | `app/client/fontmanager.cpp:554` | `FontManagerClass::Unknown_6D28C0` | marker | NOT EXACT: inline budget, 75 rows: the client calls the styles table's begin and bucket helpers out of line, ours inlines them (attempts.csv) |
 | `app/client/fontmanager.cpp:579` | `FontManagerClass::Find` | mention | NOT EXACT, frame). 0x6D2400 / 0x6D2480 / 0x6D2500 differ only by their callee: one pattern, not counted. The depth lever (workflow.md 3.1) made the destructor and 0x6D1C10 exact: the client calls the nested table helpers out of line when they sit one inline level deeper. |
-| `app/client/sclient.cpp:395` | `SClient::~SClient` | marker | NOT EXACT: inline budget (the client inlines the 0x24-byte object's destructor at the second delete, ours calls it: then every EH state after it is one lower; five forms, attempts.py show 0x740BB0) 0x740BB0 |
-| `app/client/sclient.cpp:432` | `SClient::Init` | marker | NOT EXACT: field offset (explain.py; 103 masked rows): the client keeps the options base (+0x1150) in a register from the Bridge_Mode branch and reads the camera mode through it, and its frame is 4 bytes larger; one form (attempts.py show 0x741180) 0x741180 |
-| `app/client/sclient.cpp:538` | `SClient::Shutdown` | marker | NOT EXACT: shape (explain.py: field offset first; 470 masked rows): the talk tree's reset goes through a null RefCountPtr temporary with its own EH state and the out-of-line assignment 0x758970, and the effect list's removal is inlined differently; one form (attempts.py show 0x741BB0) 0x741BB0 |
+| `app/client/sclient.cpp:398` | `SClient::~SClient` | marker | NOT EXACT: inline budget (the client inlines the 0x24-byte object's destructor at the second delete, ours calls it: then every EH state after it is one lower; five forms, attempts.py show 0x740BB0) 0x740BB0 |
+| `app/client/sclient.cpp:435` | `SClient::Init` | marker | NOT EXACT: field offset (explain.py; 103 masked rows): the client keeps the options base (+0x1150) in a register from the Bridge_Mode branch and reads the camera mode through it, and its frame is 4 bytes larger; one form (attempts.py show 0x741180) 0x741180 |
+| `app/client/sclient.cpp:541` | `SClient::Shutdown` | marker | NOT EXACT: shape (explain.py: field offset first; 470 masked rows): the talk tree's reset goes through a null RefCountPtr temporary with its own EH state and the out-of-line assignment 0x758970, and the effect list's removal is inlined differently; one form (attempts.py show 0x741BB0) 0x741BB0 |
 | `app/client/sclient.cpp:2095` | `SClient::Unknown_744E70` | marker | NOT EXACT: shape (explain.py; 35 masked rows): the client lays the chat panel's false call last and jumps to it from both tests; four forms (attempts.py show 0x744E70) 0x744E70 |
 | `app/client/sclient.cpp:2194` | `SClient::Unknown_7451D0` | marker | NOT EXACT: shape (explain.py; 15 masked rows): the client copies Get_Point's returned point through eax into a local before the fld/fstp into the element; four forms (attempts.py show 0x7451D0) 0x7451D0 |
 | `app/client/tasks/tsk_login.cpp:219` | `LoginTaskClass::Pre_Run` | marker | NOT EXACT: shape (the event's bit 12 test and the dispatchers' argument order; attempts.py show 0x767DA0) 0x767DA0 |
