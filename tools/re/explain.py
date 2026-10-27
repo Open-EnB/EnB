@@ -232,7 +232,8 @@ def explain(obj_path, symbol, address, n=0, window=3):
     name, sec, s, e = cands[n]
     img = ClientImage()
     addr = int(address, 16)
-    starts = sorted(img.function_starts()[0])
+    # the window ends at the nearest verified or proven start (symbols.json), else it runs into the next function
+    starts = sorted(set(img.function_starts()[0]) | set(_names_at()))
     nxt = next((x for x in starts if x > addr), addr + (e - s) + 64)
     length = max(1, min(nxt - addr, (e - s) * 2 + 64))
     L, R = obj_side(obj, sec, s, e), client_side(img, addr, length)

@@ -19,6 +19,7 @@ OBJS = os.environ.get('EXPLAIN_OBJS', os.path.join(REPO, '.work', 'tools4', 'obj
 CASES = [
     # object, symbol, client address, expected class
     (os.path.join(REPO, '.work', 'c', 'mss_out', 'U', 'ww3d.obj'), 'Make_Screen_Shot', '0x9182C0', 'register-only'),
+    (os.path.join(REPO, 'build', 'ww3d2', 'obj', 'dx8wrapper.obj'), 'Create_Device', '0x921EF0', 'identical'),
     (os.path.join(OBJS, 'dbgconn.obj'), '?Count@RateConnectionClass', '0x824EC0', 'order-only'),
     (os.path.join(OBJS, 'connect.obj'), 'Remove_Dead', '0x822B50', 'inline-budget'),
     (os.path.join(OBJS, 'dbgconn.obj'), '??0TimedLogConnectionClass', '0x824540', 'inline-budget'),
