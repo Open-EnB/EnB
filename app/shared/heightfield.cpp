@@ -378,6 +378,74 @@ bool HeightFieldClass::Cast_AABox(AABoxCollisionTestClass &boxtest)
 	return hit;
 }
 
+// NOT EXACT: frame (0x168, the client 0x164: a 4-byte local too many; 22 masked rows; 10 forms, attempts.csv 0x4654E0)
+bool HeightFieldClass::Cast_OBBox(OBBoxCollisionTestClass &boxtest)
+{
+	bool hit = false;
+	Vector3 corners[16];
+	int n = 0;
+	int i, j, k;
+	for (i = -1; i <= 1; i += 2) {
+		for (j = -1; j <= 1; j += 2) {
+			for (k = -1; k <= 1; k += 2) {
+				float params[3];
+				params[0] = (float)i;
+				params[1] = (float)j;
+				params[2] = (float)k;
+				boxtest.Box.Compute_Point(params, &corners[n]);
+				n++;
+			}
+		}
+	}
+	for (i = 0; i < 8; i++) {
+		corners[i + 8] = corners[i] + boxtest.Move;
+	}
+	Vector3 min = corners[0];
+	Vector3 max = corners[0];
+	for (i = 1; i < 16; i++) {
+		min.X = WWMath::Min(min.X, corners[i].X);
+		max.X = WWMath::Max(max.X, corners[i].X);
+		min.Y = WWMath::Min(min.Y, corners[i].Y);
+		max.Y = WWMath::Max(max.Y, corners[i].Y);
+	}
+	float half = (float)HalfSize;
+	int i0 = (int)(min.X / XSpacing + half - 1.0f);
+	int i1 = (int)(max.X / XSpacing + half + 1.0f);
+	int j1 = (int)(max.Y / YSpacing + half + 1.0f);
+	int j0 = (int)(min.Y / YSpacing + half - 1.0f);
+	for (j = j0; j <= j1; j++) {
+		for (i = i0; i <= i1; i++) {
+			Vector3 verts[4];
+			Vector3 normal;
+			TriClass tri;
+			tri.N = &normal;
+			verts[0].X = (float)(int)(i - HalfSize) * XSpacing;
+			verts[0].Y = (float)(int)(j - HalfSize) * YSpacing;
+			verts[0].Z = Get_Height(i, j);
+			verts[1].X = verts[0].X + XSpacing;
+			verts[1].Y = verts[0].Y;
+			verts[1].Z = Get_Height(i + 1, j);
+			verts[2].X = verts[0].X + XSpacing;
+			verts[2].Y = verts[0].Y + YSpacing;
+			verts[2].Z = Get_Height(i + 1, j + 1);
+			verts[3].X = verts[0].X;
+			verts[3].Y = verts[0].Y + YSpacing;
+			verts[3].Z = Get_Height(i, j + 1);
+			tri.V[0] = &verts[0];
+			tri.V[1] = &verts[2];
+			tri.V[2] = &verts[3];
+			tri.Compute_Normal();
+			hit |= CollisionMath::Collide(boxtest.Box, boxtest.Move, tri, Vector3(0, 0, 0), boxtest.Result);
+			tri.V[0] = &verts[0];
+			tri.V[1] = &verts[1];
+			tri.V[2] = &verts[2];
+			tri.Compute_Normal();
+			hit |= CollisionMath::Collide(boxtest.Box, boxtest.Move, tri, Vector3(0, 0, 0), boxtest.Result);
+		}
+	}
+	return hit;
+}
+
 float HeightFieldClass::Get_Height(float x, float y) const
 {
 	float fx = x / XSpacing + (int)Size / 2;
@@ -407,9 +475,10 @@ void HeightFieldClass::Sample(Vector3 *out, float u, float v) const
 **	heightfield.cpp is a proposal), and VIDTEST's 2002 copy 0x4023D0-0x404B30, in the client's order:
 **	the constructor 0x4634A0, Load 0x4634F0, the destructor 0x463790, the PGM reader 0x4637C0, Sample
 **	0x463BF0, Get_Height 0x463C80 / 0x463CD0, Set_Height 0x463D20 / 0x463D90, World_To_Grid 0x463E00,
-**	Get_Vertex 0x463E70, Get_Downhill 0x463F00, Get_Normal 0x464290, Get_Height(position) 0x464600. Not
-**	rebuilt: the collision code 0x4647C0, 0x465030, 0x4654E0 (LandClass's Cast_Ray, Cast_AABox,
-**	Cast_OBBox forward to them through 0x46C680-0x46C6E0) and 0x465D30 (called by the land's render). The functions after the notes'
+**	Get_Vertex 0x463E70, Get_Downhill 0x463F00, Get_Normal 0x464290, Get_Height(position) 0x464600,
+**	Cast_AABox 0x465030 and Cast_OBBox 0x4654E0 (NOT EXACT: frame): two triangles per cell over the
+**	sweep's bounds (LandClass's Cast_* forward to them through 0x46C680-0x46C6E0). Not rebuilt:
+**	Cast_Ray 0x4647C0 and 0x465D30 (called by the land's render). The functions after the notes'
 **	"Ours" are VIDTEST's land's (functional, D42). The decorations keep the bilinear Sample(u, v)
 **	for now: the client's Sample 0x463BF0 (two triangles per cell) moves a tree 1.8 units on average
 **	over the river map (52 at most), and vidtest_sbs's run-to-run spread (about 1.5% of the pixels)
