@@ -195,7 +195,8 @@
      "0x4BF930",
      "0x4BFBF0",
      "0x4BFED0",
-     "0x4C05A0"
+     "0x4C05A0",
+     "0x4C05D0"
     ],
     "merged": [],
     "name": "shared/avatar_desc.cpp"

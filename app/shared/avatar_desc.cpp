@@ -9,6 +9,9 @@
 #include "auxdata\linearbu.h"
 #include "kv_encoder_base.h"
 #include <stdio.h>
+#include "unknown_debug.h"
+#include "..\..\wwlib\ini.h"
+#include "..\..\wwlib\point.h"
 
 StringValueClass *Unknown_4C3110(float *values, int count, char separator);	// NAME 1 [Unknown_4C3110]: 0x4C3110, the values as one text value (body_weight, head_weight)
 
@@ -16,7 +19,7 @@ StringValueClass *Unknown_4C3110(float *values, int count, char separator);	// N
 AvatarDescClass::AvatarDescClass()
 {
 	Clear(0);
-	Unknown_4C05D0(0, 0);
+	Load_Defaults(0, 0);
 }
 
 // 0x4BEBF0
@@ -27,15 +30,15 @@ AvatarDescClass::AvatarDescClass(int type, int unknown, int unknown2)
 	Profession = unknown;
 	Gender = unknown2;
 	Avatar_Version = 2;
-	Unknown_4C05D0(0, 0);
+	Load_Defaults(0, 0);
 }
 
 // 0x4BECC0
-AvatarDescClass::AvatarDescClass(int type, int unknown)
+AvatarDescClass::AvatarDescClass(int type, const char *name)
 {
 	Clear(type);
 	Avatar_Version = 2;
-	Unknown_4C05D0(type, unknown);
+	Load_Defaults(type, name);
 }
 
 // 0x4BF260
@@ -77,7 +80,7 @@ bool AvatarDescClass::Write(LinearBufferClass *buffer)
 	buffer->Write(&Shirt_Secondary_Metal, 4);
 	buffer->Write(&Pants_Primary_Metal, 4);
 	buffer->Write(&Pants_Secondary_Metal, 4);
-	buffer->Write_String(UnknownFC.c_str());
+	buffer->Write_String(Skeleton.c_str());
 	int i;
 	for (i = 0; i < 5; i++) {
 		buffer->Write(&Body_Weight[i], 4);
@@ -129,7 +132,7 @@ bool AvatarDescClass::Read(LinearBufferClass *buffer)
 	buffer->Read(&Pants_Primary_Metal, 4);
 	buffer->Read(&Pants_Secondary_Metal, 4);
 	char *text = buffer->Read_String();
-	UnknownFC = text;
+	Skeleton = text;
 	delete text;
 	int i;
 	for (i = 0; i < 5; i++) {
@@ -144,7 +147,7 @@ bool AvatarDescClass::Read(LinearBufferClass *buffer)
 // 0x4BF910
 int AvatarDescClass::Get_Size()
 {
-	return(UnknownFC.length() + 0xF1);
+	return(Skeleton.length() + 0xF1);
 }
 
 // 0x4BF930
@@ -333,7 +336,7 @@ void AvatarDescClass::Clear(int type)
 	Shirt_Secondary_Metal = -1;
 	Pants_Primary_Metal = -1;
 	Pants_Secondary_Metal = -1;
-	UnknownFC = "";
+	Skeleton = "";
 	Body_Weight[0] = 1.0F;
 	Body_Weight[1] = 0.0F;
 	Body_Weight[2] = 0.0F;
@@ -356,15 +359,398 @@ bool AvatarDescClass::Is_Valid()
 void AvatarDescClass::Reset()
 {
 	Avatar_Type = 0;
-	Unknown_4C05D0(0, 0);
+	Load_Defaults(0, 0);
 }
+
+void Unknown_4BC260(const char *sender, const char *category, const char *file, int line, const char *format, ...);	// NAME 1 [Unknown_4BC260]: 0x4BC260, E&B's message reporter (buff_database.cpp)
+
+static INIClass AvatarDefinitions;	// 0xBE55D8  // NAME 2: avatardef.ini
+static const char *AvatarGenderNames[] = { "male_", "female_" };	// 0xB73CC8  // NAME 2: what it holds
+static const char *AvatarRaceNames[] = { "terran_", "jenquai_", "progen_" };	// 0xB73CD0  // NAME 2: what it holds
+static const char *AvatarProfessionNames[] = { "warrior", "tradesman", "explorer", "default" };	// 0xB73CDC  // NAME 2: what it holds
+static const char *AvatarOtherNames[] = { "narrator", "npc" };	// 0xB73CEC  // NAME 1: what it holds
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 0x4C05D0
+void AvatarDescClass::Load_Defaults(int type, const char *name)
+{
+	char section[64];
+
+	if (!AvatarDefinitions.Is_Loaded()) {
+		AvatarDefinitions.Load("avatardef.ini");
+		if (!AvatarDefinitions.Is_Loaded()) {
+			Unknown_4BC260("Avatar Descriptions", "", __FILE__, __LINE__, "avatardef.ini file not found");
+			return;
+		}
+	}
+	if (type == 0) {
+		_snprintf(section, sizeof(section), "%s%s%s", AvatarGenderNames[Gender], AvatarRaceNames[Race], AvatarProfessionNames[Profession]);
+	} else if (type == 1) {
+		_snprintf(section, sizeof(section), "%s", AvatarOtherNames[0]);
+	} else if (type == 2 && name != NULL) {
+		_snprintf(section, sizeof(section), "%s", name);
+	} else {
+		return;
+	}
+	if (AvatarDefinitions.Find_Section(section) == NULL) {
+		return;
+	}
+	if (AvatarDefinitions.Find_Entry(section, "Gender") != NULL) {
+		Gender = AvatarDefinitions.Get_Int(section, "Gender", 0);
+	}
+	if (AvatarDefinitions.Find_Entry(section, "BodyType") != NULL) {
+		Body_Type = AvatarDefinitions.Get_Int(section, "BodyType", 0);
+	}
+	if (AvatarDefinitions.Find_Entry(section, "PantsType") != NULL) {
+		Pants_Type = AvatarDefinitions.Get_Int(section, "PantsType", 0);
+	}
+	if (AvatarDefinitions.Find_Entry(section, "HeadType") != NULL) {
+		Head_Type = AvatarDefinitions.Get_Int(section, "HeadType", 0);
+	}
+	if (AvatarDefinitions.Find_Entry(section, "HeadTextureNum") != NULL) {
+		Head_Texture_Num = AvatarDefinitions.Get_Int(section, "HeadTextureNum", 0);
+	}
+	if (AvatarDefinitions.Find_Entry(section, "TattooTexture") != NULL) {
+		Tattoo_Texture_Num = AvatarDefinitions.Get_Int(section, "TattooTexture", 0);
+	}
+	if (AvatarDefinitions.Find_Entry(section, "HairNum") != NULL) {
+		Hair_Num = AvatarDefinitions.Get_Int(section, "HairNum", 0);
+	}
+	if (AvatarDefinitions.Find_Entry(section, "BeardNum") != NULL) {
+		Beard_Num = AvatarDefinitions.Get_Int(section, "BeardNum", 0);
+	}
+	if (AvatarDefinitions.Find_Entry(section, "EarNum") != NULL) {
+		Ear_Num = AvatarDefinitions.Get_Int(section, "EarNum", 0);
+	}
+	if (AvatarDefinitions.Find_Entry(section, "GoggleNum") != NULL) {
+		Goggle_Num = AvatarDefinitions.Get_Int(section, "GoggleNum", 0);
+	}
+	if (AvatarDefinitions.Find_Entry(section, "BeardNum") != NULL) {
+		Beard_Num = AvatarDefinitions.Get_Int(section, "BeardNum", 0);
+	}
+	if (AvatarDefinitions.Find_Entry(section, "Personality") != NULL) {
+		Personality = AvatarDefinitions.Get_Int(section, "Personality", 0);
+	}
+	if (AvatarDefinitions.Find_Entry(section, "NLP") != NULL) {
+		NLP = AvatarDefinitions.Get_Int(section, "NLP", 0);
+	}
+	TPoint3D<float> black(0.0F, 0.0F, 0.0F);
+	if (AvatarDefinitions.Find_Entry(section, "HairColor") != NULL) {
+		TPoint3D<float> color = AvatarDefinitions.Get_Point(section, "HairColor", black);
+		Hair_Color.X = color.X;
+		Hair_Color.Y = color.Y;
+		Hair_Color.Z = color.Z;
+		Beard_Color.X = color.X;
+		Beard_Color.Y = color.Y;
+		Beard_Color.Z = color.Z;
+	}
+	if (AvatarDefinitions.Find_Entry(section, "EyeColor") != NULL) {
+		TPoint3D<float> color = AvatarDefinitions.Get_Point(section, "EyeColor", black);
+		Eye_Color.X = color.X;
+		Eye_Color.Y = color.Y;
+		Eye_Color.Z = color.Z;
+	}
+	if (AvatarDefinitions.Find_Entry(section, "SkinColor") != NULL) {
+		TPoint3D<float> color = AvatarDefinitions.Get_Point(section, "SkinColor", black);
+		Skin_Color.X = color.X;
+		Skin_Color.Y = color.Y;
+		Skin_Color.Z = color.Z;
+	}
+	if (AvatarDefinitions.Find_Entry(section, "ShirtPrimaryColor") != NULL) {
+		TPoint3D<float> color = AvatarDefinitions.Get_Point(section, "ShirtPrimaryColor", black);
+		Shirt_Primary_Color.X = color.X;
+		Shirt_Primary_Color.Y = color.Y;
+		Shirt_Primary_Color.Z = color.Z;
+	}
+	if (AvatarDefinitions.Find_Entry(section, "ShirtSecondaryColor") != NULL) {
+		TPoint3D<float> color = AvatarDefinitions.Get_Point(section, "ShirtSecondaryColor", black);
+		Shirt_Secondary_Color.X = color.X;
+		Shirt_Secondary_Color.Y = color.Y;
+		Shirt_Secondary_Color.Z = color.Z;
+	}
+	if (AvatarDefinitions.Find_Entry(section, "PantsPrimaryColor") != NULL) {
+		TPoint3D<float> color = AvatarDefinitions.Get_Point(section, "PantsPrimaryColor", black);
+		Pants_Primary_Color.X = color.X;
+		Pants_Primary_Color.Y = color.Y;
+		Pants_Primary_Color.Z = color.Z;
+	}
+	if (AvatarDefinitions.Find_Entry(section, "PantsSecondaryColor") != NULL) {
+		TPoint3D<float> color = AvatarDefinitions.Get_Point(section, "PantsSecondaryColor", black);
+		Pants_Secondary_Color.X = color.X;
+		Pants_Secondary_Color.Y = color.Y;
+		Pants_Secondary_Color.Z = color.Z;
+	}
+	if (AvatarDefinitions.Find_Entry(section, "TattooOffset") != NULL) {
+		TPoint3D<float> color = AvatarDefinitions.Get_Point(section, "TattooOffset", black);
+		Tattoo_Offset.X = color.X;
+		Tattoo_Offset.Y = color.Y;
+		Tattoo_Offset.Z = color.Z;
+	}
+	if (AvatarDefinitions.Find_Entry(section, "ShirtPrimaryMetal") != NULL) {
+		Shirt_Primary_Metal = AvatarDefinitions.Get_Int(section, "ShirtPrimaryMetal", -1);
+	}
+	if (AvatarDefinitions.Find_Entry(section, "ShirtSecondaryMetal") != NULL) {
+		Shirt_Secondary_Metal = AvatarDefinitions.Get_Int(section, "ShirtSecondaryMetal", -1);
+	}
+	if (AvatarDefinitions.Find_Entry(section, "PantsPrimaryMetal") != NULL) {
+		Pants_Primary_Metal = AvatarDefinitions.Get_Int(section, "PantsPrimaryMetal", -1);
+	}
+	if (AvatarDefinitions.Find_Entry(section, "PantsSecondaryMetal") != NULL) {
+		Pants_Secondary_Metal = AvatarDefinitions.Get_Int(section, "PantsSecondaryMetal", -1);
+	}
+	if (AvatarDefinitions.Find_Entry(section, "Skeleton") == NULL) {
+		return;
+	}
+	char skeleton[256];
+	AvatarDefinitions.Get_String(section, "Skeleton", "", skeleton, 0xFF);
+	Skeleton = skeleton;
+}
+
 
 /*
 **	Reconstruction notes
 **
-**	Not rebuilt yet (declared in avatar_desc.h): the asserted 0x4C05D0 (avatardef.ini: 'avatardef.ini
-**	file not found', the assert 'strchr(buffer, Separator) == 0'), 0x4C1460 (sets the names), and
-**	the window's other functions 0x4C1020-0x4C45B0 (the INI sections' parser, '[%s]%s' / 'Name = %s%s',
+**	Not rebuilt yet: 0x4C1460 (sets the names; the assert 'strchr(buffer, Separator) == 0' is in the
+**	window's parser), and the window's other functions 0x4C1020-0x4C45B0 (the INI sections' parser, '[%s]%s' / 'Name = %s%s',
 **	and the key/value templates the visitor instantiates: the int add 0x4C2EB0, the char add 0x4C2FE0,
 **	the array text 0x4C3110).
 */

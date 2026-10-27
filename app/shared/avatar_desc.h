@@ -29,7 +29,7 @@ class AvatarDescClass : public LoginPacketDataClass, public LoginInterfaceAEADC8
 public:
 	AvatarDescClass();									// 0x4BEB50
 	AvatarDescClass(int type, int unknown, int unknown2);	// 0x4BEBF0 (Race, Profession, Gender)  // NAME 1 [unknown, unknown2]: neutral (D10)
-	AvatarDescClass(int type, int unknown);				// 0x4BECC0  // NAME 1 [unknown]: neutral (D10)
+	AvatarDescClass(int type, const char *name);		// 0x4BECC0  // NAME 2 [name]: Load_Defaults'
 	virtual bool Write(LinearBufferClass *buffer);		// +0x00 0x4BF260
 	virtual bool Read(LinearBufferClass *buffer);		// +0x04 0x4BF550
 	virtual int Get_Size();								// +0x08 0x4BF910
@@ -41,7 +41,7 @@ public:
 	void Clear(int type);								// 0x4C0310  // NAME 2: what it does
 	bool Is_Valid();									// 0x4C0580: a type is set  // NAME 2: what it does
 	void Reset();										// 0x4C05A0  // NAME 2: what it does
-	void Unknown_4C05D0(int type, int unknown);			// 0x4C05D0 (the asserted function: 'strchr(buffer, Separator) == 0')
+	void Load_Defaults(int type, const char *name);		// 0x4C05D0: avatardef.ini's section for the type (0 the gender, race and profession, 1 the narrator, 2 the name)  // NAME 2: what it does
 	void Unknown_4C1460(const char *name, bool unknown);	// 0x4C1460 (the fast start's name 'Fast' + the user name, 1)
 
 	int Avatar_Type;									// +0x08 NAME 2: its key 'avatar_type' (Clear's argument)
@@ -82,7 +82,7 @@ public:
 	float Head_Weight[5];								// +0xC0 NAME 2: its key 'head_weight'
 	char First_Name[0x14];								// +0xD4 NAME 2: its key 'avatar_first_name'
 	char Last_Name[0x14];								// +0xE8 NAME 2: its key 'avatar_last_name'
-	std::string UnknownFC;								// +0xFC (written as a string, after the metals)
+	std::string Skeleton;								// +0xFC NAME 2: avatardef.ini's key 'Skeleton'
 };
 
 #endif
