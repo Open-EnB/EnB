@@ -10,6 +10,8 @@
 #include "ini.h"
 #include "wwfile.h"
 #include "..\packets\pkaction.h"
+#include "..\packets\pklogoff.h"
+#include "point.h"
 #include "refcount.h"
 #include "wwprofile.h"
 #include "font3d.h"
@@ -2090,8 +2092,6 @@ unsigned SClient::Set_Debug_Object(unsigned id)
 
 
 
-
-
 // NOT EXACT: shape (explain.py; 35 masked rows): the client lays the chat panel's false call last and jumps to it from both tests; four forms (attempts.py show 0x744E70)
 // 0x744E70
 void SClient::Unknown_744E70(bool arg)
@@ -2191,24 +2191,24 @@ void SClient::Unknown_745050()
 	Unknown1338->Unknown_760770(Unknown126C, Unknown1320);
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// NOT EXACT: shape (explain.py; 15 masked rows): the client copies Get_Point's returned point through eax into a local before the fld/fstp into the element; four forms (attempts.py show 0x7451D0)
+// 0x7451D0
+void SClient::Unknown_7451D0()
+{
+	TPoint3D<float> white(1.0f, 1.0f, 1.0f);
+	INIClass ini;
+	ini.Load("colors.ini");
+	char section[256];
+	int i = 0; while (true) {
+		_snprintf(section, 255, "Color%02d", i);
+		if (!ini.Find_Section(section)) break;
+		if (i >= Unknown1340.Length()) {
+			((VectorClass<Vector3> &)Unknown1340).Resize(i + 10);
+		}
+		TPoint3D<float> color = ini.Get_Point(section, "RGB", white);
+		Unknown1340[i] = Vector3(color.X, color.Y, color.Z);
+		i++; }
+}
 
 
 
@@ -2249,24 +2249,24 @@ void SClient::Unknown_7456B0()
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// 0x745350
+void SClient::Unknown_745350()
+{
+	INIClass ini;
+	char filename[256];
+	_snprintf(filename, 255, "cam%d.ini", Ticket.Character_ID);
+	ini.Load(filename);
+	if (!ini.Is_Loaded()) {
+		ini.Load("spacecam.ini");
+		ini.Save(filename);
+	}
+	char section[256];
+	int i = 0; while (true) {
+		sprintf(section, "Mode%02d", i);
+		if (!ini.Find_Section(section)) break;
+		Load_Camera_Mode(ini, section);
+		i++; }
+}
 
 
 
@@ -4055,30 +4055,30 @@ void SClient::Unknown_745F30(int type)
 
 
 
+// 0x74BB50
+void SClient::Unknown_74BB50(int type)
+{
+	if (Unknown138C) {
+		switch (type) {
+			case 1:
+				Unknown_74D990(0x13, "Logging off to desktop.", 0);
+				break;
 
+			case 2:
+				Unknown_74D990(0x13, "Logging off to login screen.", 0);
+				break;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+			case 3:
+				Unknown_74D990(0x13, "Logging off to character selection.", 0);
+				break;
+		}
+	}
+	if (Connection) {
+		;
+		Connection->Send_Packet(&LogoffRequestPacketClass(Unknown1138));
+	}
+	Unknown138C = type;
+}
 
 
 

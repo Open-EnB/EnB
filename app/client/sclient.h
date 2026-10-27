@@ -325,6 +325,7 @@ public:
 	void Unknown_745750();								// 0x745750 (cpacket.cpp: SERVER_HANDOFF 58)
 	void Unknown_745000(int base_asset);				// 0x745000 (cpacket.cpp: SERVER_PARAMETERS 66 passes its BackdropBaseAsset)  // NAME 1 [base_asset]: the packet's field
 	void Unknown_750A70(unsigned sector);				// 0x750A70 (cpacket.cpp: SERVER_PARAMETERS 66 passes its SectorNum)  // NAME 1 [sector]: the packet's field
+	void Unknown_74BB50(int type);						// 0x74BB50: 'Logging off to desktop.' (1), '... login screen.' (2), '... character selection.' (3) when Unknown138C is set, then LOGOFF_REQUEST on the connection  // NAME 1 [type]: what it selects
 	void Unknown_74BC20(int arg);						// 0x74BC20: the 3-D movie view made and shown, view mode 3 (G_ASSERT '!Movie3DView', l.4090)  // NAME 1 [arg]: neutral
 	void Unknown_74BD10();								// 0x74BD10: the 3-D movie view ended, the view mode before it back (l.4104)
 	void Unknown_74BD90(int arg);						// 0x74BD90: the scripted movie view made, view mode 6 (G_ASSERT '!ScriptedMovieView', l.4117)  // NAME 1 [arg]: neutral
