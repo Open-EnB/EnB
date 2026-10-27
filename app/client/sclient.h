@@ -53,6 +53,7 @@ class SClientUnknown12BCClass;	// NAME 1: neutral (D10): what SClient +0x12BC po
 class SClientUnknown1330Class;	// NAME 1: neutral (D10): what SClient +0x1330 points to (destructor 0x43C560, musicmanager.cpp's neighbourhood)
 class ProjDecalManagerClass;		// NAME 3: class-from-file (D24) for proj_decal_manager.cpp (0x763050 loads 'proj_dec.ini' into it; 0x10 bytes, one vector)
 class SClientUnknown1394Class;	// NAME 1: neutral (D10): the values of SClient +0x1394 (reference counted, slot +0x38)
+struct GuildRankNameStruct;			// pkguildranknamesrequestclient.h
 
 // view.cpp's view: the base of the six views at SClient +0x1354..+0x1368 (the slots every one of them
 // gets: the deleting destructor, +0x04 after construction, +0x10 in Shutdown)
@@ -158,6 +159,14 @@ public:
 	void Unknown_744E50();								// 0x744E50: the camera manager's callback (Init registers it, Shutdown removes it)
 	void Unknown_7518A0();								// 0x7518A0 (Init)
 	void Unknown_7555B0();								// 0x7555B0 (Shutdown)
+	void Unknown_743290();								// 0x743290 (cpacket.cpp: LOGOFF_CONFIRMATION 186)
+	void Unknown_74B600();								// 0x74B600 (cpacket.cpp: mode change 76, mode 0)
+	void Unknown_74B640();								// 0x74B640 (cpacket.cpp: mode change 76, mode 1)
+	void Unknown_74B680(int a, int starbase_id);		// 0x74B680 (cpacket.cpp: starbase tow 80 passes 0 and StarbaseID1)  // NAME 1 [a, starbase_id]: what the handler passes
+	void Unknown_74D990(int color, char *text, int a);	// 0x74D990 (cpacket.cpp: MESSAGE_STRING 29 passes 0 last)  // NAME 1 [color, text, a]: what the handler passes
+	void Unknown_74E710(const std::string &message, int id, int type);	// 0x74E710 (cpacket.cpp: CONFIRMED_ACTION_OFFER 190)  // NAME 1 [message, id, type]: the packet's fields
+	void Unknown_74EB00(int type, int id);				// 0x74EB00 (cpacket.cpp: the confirmed action's timeout 191)  // NAME 1 [type, id]: the packet's fields
+	void Unknown_751850(std::vector<GuildRankNameStruct> &ranks);	// 0x751850 (cpacket.cpp: GUILD_RANK_NAMES_SECTOR 211)  // NAME 1 [ranks]: the packet's field
 
 	bool Unknown1198;									// +0x1198 (true)
 	std::string Unknown119C;							// +0x119C

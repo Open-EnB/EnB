@@ -3529,6 +3529,7 @@ RECONSTRUCTED = {
     ('app', 'client/sclient.h'): "SClient (the client's 'SClient::Process_Packets'): 0x14F8 bytes packed to 4, ClientClass at "
                                 "+0x00 and SOptionsClass at +0x1150, vtable 0xB03240 (26 slots); the layout from the "
                                 "constructor, destructor and Init (kernel-map-step9.md 2.2, D90 9d)",
+    ('app', 'client/cpacket.cpp'): "the packets' client-side handlers (its asserts' __FILE__ e:\\build\\beta\\G\\app\\client\\cpacket.cpp), client 0x7333B0-0x73F680: PacketClass slot +0x08 Process_Packet(SClient *) per class, the bodies here, the classes in app/packets (D90 9d)",
     ('app', 'client/sclient.cpp'): "SClient's skeleton, client 0x7405E0-0x7429B0 (the window before the first assert, l.749) "
                                   "and the base slots' overrides 0x743330 / 0x744B90 / 0x744BD0 / 0x745730; NOT EXACT: the "
                                   "destructor 0x740BB0, Init 0x741180, Shutdown 0x741BB0 (D90 9d)",
