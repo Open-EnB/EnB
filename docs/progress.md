@@ -1204,11 +1204,11 @@ client's own code: [kernel-map.md](kernel-map.md) §6 and, for step 9's dependen
 5. Step 8's tail: Key_Exchange (LIMIT), the UDP constructor over a CordCon 0x82CBF0 (register), Open_Fixed_Channel
    0x82D8C0 (field offset: `-1 - channel` and +0x80 kept apart), `Send_Data` (wlib's Dictionary layout), 0x82E1D0
    (needs CordMgr 0x8598F0), the TimedLog ctor, the memconn option slot, Rate Count (LIMIT), Listen.
-6. Tools and defines: D88 carried out (the quiet window, 2026-10-27); D74 ENABLE_WWPROFILE in the app defines,
-   D77 funcmatch `__FILE__`, D78 the draw-dump check, `--pool K` for `bytematch_all.sh` and `importer.py refine`
-   where not yet done; tryv2.py takes extra include directories (F3: `.work/f3/tryv3.py`'s EXTRA_INC; an
-   untracked include directory broke every builder's tryv2 compile); the §3.1 row for P4's "Unknown68 as two
-   ints" lever (7d3e7fc) so 219's constructors can be retried with `attempts.py check --lever`.
+6. Tools and defines: done 2026-10-27 (D88 carried out, +368; D74 was in since dd68f38; D77 enforced by funcmatch.py;
+   D78 pointed to from milestones.md §4.1 and run_vidtest.py; `--pool K` was already in bytematch_all.sh and refine;
+   tryv2.py takes EXTRA_INC, default libs/sgistl). Left: the §3.1 row for P4's "Unknown68 as two ints" lever is
+   filed; 219's constructors can be retried with `attempts.py check --lever`; `tiebreak`/`selfname` into
+   imports.json only when something needs it (D88 row).
 7. The Fable queue under D89 (six at most, by unlock value): Unknown_50 0x7683F0, the kv_list destructor 0x4B6520
    and `Get_Value_String` 0x4B6B60, the distortion draw 0x9961E0 (frame, 0.92), the ShdMesh ctor 0xA08F80 (shape),
    SegLineRenderer's Render 0x9BEB20 (shape, 16 forms). Out for good (register/order): Make_Screen_Shot and
