@@ -39,6 +39,7 @@
 #include "hashlist.h"
 
 class Curve1DClass;
+class FileClass;
 class ChunkLoadClass;
 struct SplineFileHeaderStruct;
 
@@ -97,13 +98,25 @@ public:
 	bool						Has_Splines(void) const		{ return HasSplines; }
 	int						Get_Count(void)				{ return Splines.Num_Records(); }
 
+// NAME 2: prints "name description" or "name <not present>" (0x485020, assert 'SplineName')
+	void						Print(FileClass *file, unsigned int depth, const char *SplineName);
 // NAME 2: an entry's type (0x485110, assert 'spline_name')
 	bool						Get_Type(const char *spline_name, int *type);
+// NAME 2: a blend entry's two entries' names, resolved once (0x4851D0, assert 'spline_name')
+	bool						Get_Blend_Names(const char *spline_name, char **alpha_clr, char **beta_clr);
 // NAME 2: an entry's curve (0x485380, assert 'spline_name')
 	bool						Get_Curve(const char *spline_name, Curve1DClass **curve);
 // NAME 2: the curves of name_R, name_G, name_B (0x485440; the client's lighting 0x4F2960, 0x4F34C0)
 	bool						Get_Color_Curves(const char *base_name, Curve1DClass **r, Curve1DClass **g,
 									Curve1DClass **b);
+// NAME 2: new entries for an editor: a linear (0x485990) or Catmull-Rom (0x485C10) curve, the three
+// hidden name_R/_G/_B curves and their colour entry (0x485E80, 0x486040, asserts 'base_name'), a colour
+// entry over three keys (0x487400, assert 'name')
+	bool						Create_Linear(const char *spline_name, const char *description, Curve1DClass **curve, bool hidden);
+	bool						Create_Hermite(const char *spline_name, const char *description, Curve1DClass **curve, bool hidden);
+	bool						Create_Linear_Color(const char *base_name, const char *description, Curve1DClass **r, Curve1DClass **g, Curve1DClass **b);
+	bool						Create_Hermite_Color(const char *base_name, const char *description, Curve1DClass **r, Curve1DClass **g, Curve1DClass **b);
+	bool						Create_Color(const char *name, const char *description, unsigned int red_key, unsigned int green_key, unsigned int blue_key);
 // NAME 2: the key names (chunk 0x808): add 0x4867B0, find 0x4868A0, get 0x486930, remove 0x486970
 	int						Add_Key_Name(const char *name);
 	int						Find_Key_Name(const char *name);

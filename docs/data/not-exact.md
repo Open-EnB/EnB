@@ -60,10 +60,12 @@ edit the comments in the code, not this file.
 | `app/shared/kv_pair_string.cpp:39` | `KVPairStringClass::KVPairStringClass` | marker | NOT EXACT (also Clone, which inlines it): the client passes the two flags through byte temporaries on the stack (stored, then pushed as dwords), as for a by-value argument |
 | `app/shared/land.cpp:2` | `(whole file)` | marker | NOT EXACT, the whole file: functional, after VIDTEST's 2002 copy (land.h). |
 | `app/shared/land.cpp:939` | `LandClass::Render_Decorations` | mention | NOT EXACT: written functionally (D42) for VIDTEST's land test (milestones.md M2.4). Kept from VIDTEST: the ini keys and defaults (and the case-sensitive Patch_Grid_Width), the lightmap (0x409820: a 256-entry table of light x max(0, n.sun) over the quantised normals; 0x409BD0: that plus the sky x the vertex's sky share where the sun clears the horizon, a penumbra, the sky term alone in shadow; 0x40... |
-| `app/shared/spln_db.cpp:56` | `SplineDatabaseClass::~SplineDatabaseClass` | marker | NOT EXACT: inline-budget (the client inlines HashListClass::First_Valid in the Free_Splines loop; ours calls it) |
+| `app/shared/spln_db.cpp:57` | `SplineDatabaseClass::~SplineDatabaseClass` | marker | NOT EXACT: inline-budget (the client inlines HashListClass::First_Valid in the Free_Splines loop; ours calls it) |
 | `app/shared/spln_db.cpp:487` | `SplineDatabaseClass::Get_Color_Curves` | marker | NOT EXACT: inline-budget (the client calls HashListClass::Find out of line for _G only) |
+| `app/shared/spln_db.cpp:710` | `SplineDatabaseClass::Create_Hermite` | marker | NOT EXACT: inline-budget (the client calls GenericNode's constructor out of line inside the new HashNodeClass, so the new keeps an EH state) |
 | `app/shared/spln_db.cpp:1276` | `SplineDatabaseClass::Free_Splines` | marker | NOT EXACT: register-only / shape (the client keeps the next node on the stack and tests the first node before the loop); its inlined copy in Load and Reload is exact |
-| `app/shared/spln_db.cpp:1310` | `SplineDatabaseClass::Resolve` | marker | NOT EXACT: inline-budget (HashListClass::Find out of line at some lookups) |
+| `app/shared/spln_db.cpp:1520` | `SplineDatabaseClass::Create_Color` | marker | NOT EXACT: inline-budget (as Create_Hermite: GenericNode's constructor out of line in the client) |
+| `app/shared/spln_db.cpp:1539` | `SplineDatabaseClass::Resolve` | marker | NOT EXACT: inline-budget (HashListClass::Find out of line at some lookups) |
 | `app/shared/spln_db.cpp:1680` | `SplineDatabaseClass::Load_Chunks` | marker | NOT EXACT: shape (the client repeats the epilogue for the header's two failures and keeps &KeyNames in edi) |
 | `app/shared/spln_db.cpp:1750` | `SplineDatabaseClass::Load_Entry` | marker | NOT EXACT: shape (the switch's layout; the TYPE_BLEND strings) |
 | `app/shared/stars.cpp:93` | `StarLayerClass::Load` | marker | NOT EXACT: order-only (the Hemisphere z load), parked: attempts.csv 0x481DB0 |

@@ -6,6 +6,7 @@
 #include "chunkio.h"
 #include "ffactory.h"
 #include "realcrc.h"
+#include "wwfile.h"
 #include <windows.h>
 #include <string.h>
 #include <time.h>
@@ -366,17 +367,16 @@ bool SplineDatabaseClass::Load(const char *database_filename)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
+void SplineDatabaseClass::Print(FileClass *file, unsigned int depth, const char *SplineName)
+{
+	G_ASSERT(SplineName);
+	SplineEntryClass *entry = Find(SplineName);
+	if (entry == NULL) {
+		file->Printf_Indented(depth, "%s <not present>\n", SplineName);
+	} else {
+		file->Printf_Indented(depth, "%s %s\n", entry->Name, entry->Description);
+	}
+}
 
 
 
@@ -421,37 +421,37 @@ bool SplineDatabaseClass::Get_Type(const char *spline_name, int *type)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+bool SplineDatabaseClass::Get_Blend_Names(const char *spline_name, char **alpha_clr, char **beta_clr)
+{
+	G_ASSERT(spline_name);
+	SplineEntryClass *entry = Find(spline_name);
+	if (entry == NULL) {
+		return false;
+	}
+	if (entry->Alpha != NULL) {
+		*alpha_clr = entry->Alpha->Name;
+	} else {
+		SplineEntryClass *alpha = Find(entry->AlphaKey);
+		if (alpha != NULL) {
+			*alpha_clr = alpha->Name;
+			entry->Alpha = alpha;
+		} else {
+			*alpha_clr = NULL;
+		}
+	}
+	if (entry->Beta != NULL) {
+		*beta_clr = entry->Beta->Name;
+		return true;
+	}
+	SplineEntryClass *beta = Find(entry->BetaKey);
+	if (beta != NULL) {
+		*beta_clr = beta->Name;
+		entry->Beta = beta;
+		return true;
+	}
+	*beta_clr = NULL;
+	return true;
+}
 
 
 
@@ -493,15 +493,15 @@ bool SplineDatabaseClass::Get_Color_Curves(const char *base_name, Curve1DClass *
 	}
 	strcpy(name, base_name);
 	strcat(name, "_R");
-	int len = strlen(name);
+	char *suffix = &name[strlen(name) - 1];
 	SplineEntryClass *entry = Find(name);
 	if (entry != NULL) {
 		*r = entry->Curve;
-		name[len - 1] = 'G';
+		*suffix = 'G';
 		entry = Find(name);
 		if (entry != NULL) {
 			*g = entry->Curve;
-			name[len - 1] = 'B';
+			*suffix = 'B';
 			entry = Find(name);
 			if (entry != NULL) {
 				*b = entry->Curve;
@@ -512,6 +512,350 @@ bool SplineDatabaseClass::Get_Color_Curves(const char *base_name, Curve1DClass *
 	}
 	delete [] name;
 	return false;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+bool SplineDatabaseClass::Create_Linear(const char *spline_name, const char *description, Curve1DClass **curve, bool hidden)
+{
+	G_ASSERT(spline_name);
+	if (strlen(spline_name) >= 0x80) {
+		return false;
+	}
+	if (description != NULL && strlen(description) >= 0x80) {
+		return false;
+	}
+	SplineEntryClass *entry = new SplineEntryClass(TYPE_LINEAR, spline_name, description, hidden, NULL, NULL);
+	if (entry == NULL) {
+		return false;
+	}
+	if (entry->Curve == NULL) {
+		return false;
+	}
+	if (Splines.Add(entry, Get_Key(entry->Name)) == NULL) {
+		delete entry;
+		return false;
+	}
+	HasSplines = true;
+	*curve = entry->Curve;
+	return true;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// NOT EXACT: inline-budget (the client calls GenericNode's constructor out of line inside the new HashNodeClass, so the new keeps an EH state)
+bool SplineDatabaseClass::Create_Hermite(const char *spline_name, const char *description, Curve1DClass **curve, bool hidden)
+{
+	G_ASSERT(spline_name);
+	if (strlen(spline_name) >= 0x80) {
+		return false;
+	}
+	if (description != NULL && strlen(description) >= 0x80) {
+		return false;
+	}
+	SplineEntryClass *entry = new SplineEntryClass(TYPE_HERMITE, spline_name, description, hidden, NULL, NULL);
+	if (entry == NULL) {
+		return false;
+	}
+	if (entry->Curve == NULL) {
+		return false;
+	}
+	if (Splines.Add(entry, Get_Key(entry->Name)) == NULL) {
+		delete entry;
+		return false;
+	}
+	HasSplines = true;
+	*curve = entry->Curve;
+	return true;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+bool SplineDatabaseClass::Create_Linear_Color(const char *base_name, const char *description, Curve1DClass **r, Curve1DClass **g, Curve1DClass **b)
+{
+	G_ASSERT(base_name);
+	char *name = new char[strlen(base_name) + 3];
+	if (name == NULL) {
+		return false;
+	}
+	strcpy(name, base_name);
+	strcat(name, "_R");
+	char *suffix = &name[strlen(name) - 1];
+	if (!Create_Linear(name, NULL, r, true)) {
+		return false;
+	}
+	unsigned int red_key = Get_Key(name);
+	*suffix = 'G';
+	if (!Create_Linear(name, NULL, g, true)) {
+		return false;
+	}
+	unsigned int green_key = Get_Key(name);
+	*suffix = 'B';
+	if (!Create_Linear(name, NULL, b, true)) {
+		return false;
+	}
+	unsigned int blue_key = Get_Key(name);
+	if (!Create_Color(base_name, description, red_key, green_key, blue_key)) {
+		return false;
+	}
+	delete [] name;
+	return true;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+bool SplineDatabaseClass::Create_Hermite_Color(const char *base_name, const char *description, Curve1DClass **r, Curve1DClass **g, Curve1DClass **b)
+{
+	G_ASSERT(base_name);
+	char *name = new char[strlen(base_name) + 3];
+	if (name == NULL) {
+		return false;
+	}
+	strcpy(name, base_name);
+	strcat(name, "_R");
+	char *suffix = &name[strlen(name) - 1];
+	if (!Create_Hermite(name, NULL, r, true)) {
+		return false;
+	}
+	unsigned int red_key = Get_Key(name);
+	*suffix = 'G';
+	if (!Create_Hermite(name, NULL, g, true)) {
+		return false;
+	}
+	unsigned int green_key = Get_Key(name);
+	*suffix = 'B';
+	if (!Create_Hermite(name, NULL, b, true)) {
+		return false;
+	}
+	unsigned int blue_key = Get_Key(name);
+	if (!Create_Color(base_name, description, red_key, green_key, blue_key)) {
+		return false;
+	}
+	delete [] name;
+	return true;
 }
 
 int SplineDatabaseClass::Add_Key_Name(const char *name)
@@ -874,350 +1218,6 @@ bool SplineDatabaseClass::Update(void)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 SplineEntryClass *SplineDatabaseClass::Find(const char *spline_name, int unused)
 {
 	G_ASSERT(spline_name != NULL);
@@ -1307,6 +1307,235 @@ unsigned int SplineDatabaseClass::Get_Key(const char *name)
 	return CRC_String(name);
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// NOT EXACT: inline-budget (as Create_Hermite: GenericNode's constructor out of line in the client)
+bool SplineDatabaseClass::Create_Color(const char *name, const char *description, unsigned int red_key, unsigned int green_key, unsigned int blue_key)
+{
+	G_ASSERT(name);
+	SplineEntryClass *entry = new SplineEntryClass(TYPE_COLOR, name, description, false, NULL, NULL);
+	if (entry == NULL) {
+		return false;
+	}
+	entry->RedKey = red_key;
+	entry->GreenKey = green_key;
+	entry->BlueKey = blue_key;
+	if (Splines.Add(entry, Get_Key(entry->Name)) == NULL) {
+		delete entry;
+		return false;
+	}
+	HasSplines = true;
+	return true;
+}
+
 // NOT EXACT: inline-budget (HashListClass::Find out of line at some lookups)
 bool SplineDatabaseClass::Resolve(void)
 {
@@ -1317,21 +1546,21 @@ bool SplineDatabaseClass::Resolve(void)
 			char name[128];
 			strcpy(name, entry->Name);
 			strcat(name, "_R");
-			int len = strlen(name);
+			char *suffix = &name[strlen(name) - 1];
 			SplineEntryClass *component = Find(name);
 			if (component != NULL) {
 				component->Hidden = true;
 			} else {
 				ok = false;
 			}
-			name[len - 1] = 'G';
+			*suffix = 'G';
 			component = Find(name);
 			if (component != NULL) {
 				component->Hidden = true;
 			} else {
 				ok = false;
 			}
-			name[len - 1] = 'B';
+			*suffix = 'B';
 			component = Find(name);
 			if (component != NULL) {
 				component->Hidden = true;
@@ -1351,235 +1580,6 @@ bool SplineDatabaseClass::Resolve(void)
 	}
 	return ok;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -1788,11 +1788,11 @@ SplineEntryClass *SplineDatabaseClass::Load_Entry(ChunkLoadClass &cload)
 			char component[128];
 			strcpy(component, entry->Name);
 			strcat(component, "_R");
-			int len = strlen(component);
+			char *suffix = &component[strlen(component) - 1];
 			entry->RedKey = Get_Key(component);
-			component[len - 1] = 'G';
+			*suffix = 'G';
 			entry->GreenKey = Get_Key(component);
-			component[len - 1] = 'B';
+			*suffix = 'B';
 			entry->BlueKey = Get_Key(component);
 			ok = true;
 			break;
@@ -2901,8 +2901,11 @@ SplineEntryClass::~SplineEntryClass(void)
 **	  0x488DC0 Load_Hermite                    0x488F20 Read_String
 **	  0x489050 SplineEntryClass (2795)         0x489590 ~SplineEntryClass
 **
+**	  0x485020 Print (372), 0x4851D0 Get_Blend_Names (426), 0x485990 / 0x485C10 Create_Linear /
+**	  Create_Hermite (662, 713), 0x485E80 / 0x486040 Create_Linear_Color / Create_Hermite_Color (782,
+**	  832), 0x487400 Create_Color (1523).
+**
 **	Not rebuilt yet (nothing in VIDTEST calls them): the save code (0x484D00, 0x487B20-0x4883A0,
-**	0x488FB0, 0x486E10-0x486F60, 0x489660, 0x489830), Print 0x485020, the blend and evaluation helpers
-**	0x4851D0, 0x485620, 0x485790, the editing functions 0x485990-0x4864F0 and 0x487400, the entry's
-**	second constructor 0x489480.
+**	0x488FB0, 0x486E10-0x486F60, 0x489660, 0x489830), the evaluation helpers 0x485620, 0x485790 (on
+**	spline.h's arrays), 0x486200 (896) and 0x4864F0 (965), the entry's second constructor 0x489480.
 */
