@@ -9,9 +9,7 @@ SimplePositionalUpdatePacketClass::SimplePositionalUpdatePacketClass(RawPacketCl
 ComponentPositionalUpdatePacketClass::ComponentPositionalUpdatePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 FormationPositionalUpdatePacketClass::FormationPositionalUpdatePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_0015Class::Packet_0015Class(RawPacketClass *raw) { Conn_Record(this, raw); }
-DebugPacketClass::DebugPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 ItemBasePacketClass::ItemBasePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-InventoryMovePacketClass::InventoryMovePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 InventorySortPacketClass::InventorySortPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 Action2PacketClass::Action2PacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 SplinePacketClass::SplinePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
@@ -41,7 +39,6 @@ Packet_0048Class::Packet_0048Class(RawPacketClass *raw) { Conn_Record(this, raw)
 ModeChangePacketClass::ModeChangePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_004BClass::Packet_004BClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_004DClass::Packet_004DClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-StarbaseSetPacketClass::StarbaseSetPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 LoungeNPCPacketClass::LoungeNPCPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 FindMemberPacketClass::FindMemberPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 TalkTreePacketClass::TalkTreePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
@@ -159,6 +156,7 @@ bool ClientAvatarPacketClass::Process_Packet(void *) { return(true); }	// 0x7335
 bool ClientShipPacketClass::Process_Packet(void *) { return(true); }	// 0x733660
 bool DialogPacketClass::Process_Packet(void *) { return(true); }	// 0x736DA0
 bool CreateAttachmentPacketClass::Process_Packet(void *) { return(true); }	// 0x733BB0
+bool StarbaseSetPacketClass::Process_Packet(void *) { return(true); }	// 0x7381C0
 bool StarbaseTowPacketClass::Process_Packet(void *) { return(true); }	// 0x738330
 bool TalkTreeActionPacketClass::Process_Packet(void *) { return(true); }	// 0x738730
 bool VerbUpdatePacketClass::Process_Packet(void *) { return(true); }	// 0x7388B0

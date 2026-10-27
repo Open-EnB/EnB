@@ -33,6 +33,7 @@
 #include "pkcreateattachment.h"	// rebuilt
 #include "pkcta_request.h"	// rebuilt
 #include "pkdamage.h"	// rebuilt
+#include "pkdebug.h"	// rebuilt
 #include "pkdialog.h"	// rebuilt
 #include "pkdirlock.h"	// rebuilt
 #include "pkequipuse.h"	// rebuilt
@@ -45,6 +46,7 @@
 #include "pkhullupgrade.h"	// rebuilt
 #include "pkincapacitancerequest.h"	// rebuilt
 #include "pkinitrenderstate.h"	// rebuilt
+#include "pkinventorymove.h"	// rebuilt
 #include "pkitemstate.h"	// rebuilt
 #include "pkjoblist.h"	// rebuilt
 #include "pklogoff.h"	// rebuilt
@@ -156,15 +158,6 @@ public:
 	char Unknown14[0x8];	// +0x14
 };
 
-// opcode 26 (0x001A, DEBUG): vtable 0xB0A1D0, constructor 0x880340, 0x18 bytes
-class DebugPacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name DEBUG (the Net-7 opcode table; no structure check)
-{
-public:
-	DebugPacketClass(RawPacketClass *raw);	// 0x880340
-	virtual bool Process_Packet(void *client);	// +0x08 0x867CB0 (clientstub.cpp l.47)
-	char Unknown0C[0xC];	// +0x0C
-};
-
 // opcode 32 (0x0020, PRIORITY_MESSAGE): vtable 0xB09760, constructor 0x89D8A0, 0x1C bytes
 class PriorityMessageLinePacketClass : public MessageLinePacketClass
 {
@@ -201,15 +194,6 @@ class ItemBasePacketClass : public PacketClass
 public:
 	ItemBasePacketClass(RawPacketClass *raw);	// 0x8955C0
 	char Unknown0C[0x60];	// +0x0C
-};
-
-// opcode 39 (0x0027, INVENTORY_MOVE): vtable 0xB0AE34, constructor 0x894D50, 0x24 bytes
-class InventoryMovePacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name INVENTORY_MOVE (the Net-7 opcode table; no structure check)
-{
-public:
-	InventoryMovePacketClass(RawPacketClass *raw);	// 0x894D50
-	virtual bool Process_Packet(void *client);	// +0x08 0x867D10 (clientstub.cpp l.53)
-	char Unknown0C[0x18];	// +0x0C
 };
 
 // opcode 40 (0x0028, INVENTORY_SORT): vtable 0xB0AE64, constructor 0x895070, 0x24 bytes
@@ -471,14 +455,6 @@ public:
 	Packet_004DClass(RawPacketClass *raw);	// 0x85D570
 	virtual bool Process_Packet(void *client);	// +0x08 0x8689A0 (clientstub.cpp l.254)
 	char Unknown0C[0x54];	// +0x0C
-};
-
-// opcode 79 (0x004F, STARBASE_SET): vtable 0xB0B898, constructor 0x8A3090, 0x14 bytes
-class StarbaseSetPacketClass : public PacketClass
-{
-public:
-	StarbaseSetPacketClass(RawPacketClass *raw);	// 0x8A3090
-	char Unknown0C[0x8];	// +0x0C
 };
 
 // opcode 82 (0x0052, LOUNGE_NPC): vtable 0xB0AFE4, constructor 0x8978D0, 0x40 bytes

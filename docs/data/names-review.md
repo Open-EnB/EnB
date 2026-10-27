@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 9 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 29 |
-| 3 | by convention from a client-named file or sibling | 429 |
-| 2 | describes what the code does | 896 |
-| 1 | neutral placeholder | 1228 |
+| 3 | by convention from a client-named file or sibling | 432 |
+| 2 | describes what the code does | 908 |
+| 1 | neutral placeholder | 1231 |
 
 ## For review (score 3 and below)
 
@@ -1101,6 +1101,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `m_Unknown08` | `app/shared/kv_pair_string.cpp:41` | untagged neutral name (D10) |
 | 1 | `m_Unknown09` | `app/shared/kv_pair_string.cpp:41` | untagged neutral name (D10) |
 | 1 | `m_Unknown10` | `app/shared/kv_pair_string.h:49` | untagged neutral name (D10) |
+| 1 | `Unknown_4A1590` | `app/shared/kv_tripl.cpp:6` | neutral placeholder (D10) |
+| 1 | `Type` | `app/shared/kv_tripl.h:47` | neutral guess, a short string beside the value |
+| 1 | `Get_Type` | `app/shared/kv_tripl.h:66` | neutral guess |
 | 1 | `m_Unknown00` | `app/shared/money.h:27` | untagged neutral name (D10) |
 | 1 | `unused` | `app/shared/spln_db.h:157` | the client's copy takes a second argument (ret 8) it never reads |
 | 1 | `Unknown_Report_Message` | `app/shared/unknown_debug.cpp:7` | 0x4BC260 (its "Message_Error" string is a profiler label) |
@@ -1924,6 +1927,18 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Get` | `app/shared/kv_pair_string.h:29` | describes what it does |
 | 2 | `Set` | `app/shared/kv_pair_string.h:30` | describes what it does |
 | 2 | `Clone` | `app/shared/kv_pair_string.h:31` | describes what it does |
+| 2 | `Copy_Member` | `app/shared/kv_tripl.h:43` | describes what it does |
+| 2 | `Key` | `app/shared/kv_tripl.h:45` | describes what it does |
+| 2 | `Value` | `app/shared/kv_tripl.h:46` | describes what it does (KVPairClass's analogue) |
+| 2 | `KVTripleListClass` | `app/shared/kv_tripl.h:58` | describes what it does |
+| 2 | `Add` | `app/shared/kv_tripl.h:62` | describes what it does |
+| 2 | `Clear` | `app/shared/kv_tripl.h:63` | describes what it does |
+| 2 | `Find` | `app/shared/kv_tripl.h:64` | describes what it does |
+| 2 | `Set` | `app/shared/kv_tripl.h:65` | describes what it does |
+| 2 | `Get_Value` | `app/shared/kv_tripl.h:67` | describes what it does |
+| 2 | `Get_Count` | `app/shared/kv_tripl.h:69` | describes what it does |
+| 2 | `Get` | `app/shared/kv_tripl.h:70` | describes what it does |
+| 2 | `Index` | `app/shared/kv_tripl.h:73` | describes what it does |
 | 2 | `LandVertexStruct` | `app/shared/land.cpp:31` | ours |
 | 2 | `Int_Min` | `app/shared/land.cpp:40` | ours |
 | 2 | `DecoPartStruct` | `app/shared/land.cpp:620` | ours (VIDTEST 0x416170 batches the prototypes) |
@@ -2563,6 +2578,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `kv_pair_string.h` | `app/shared/kv_pair_string.h:18` | header name assumed from the client's kv_pair_string.cpp |
 | 3 | `KVPairStringClass` | `app/shared/kv_pair_string.h:35` | by convention (D24) from the client's file kv_pair_string.cpp |
 | 3 | `Accessor` | `app/shared/kv_pair_string.h:48` | after the assert's parameter accessor (kv_pair_string.cpp) |
+| 3 | `kv_tripl.h` | `app/shared/kv_tripl.h:24` | by convention from the client's kv_tripl.cpp and this header's assert |
+| 3 | `KVTripleClass` | `app/shared/kv_tripl.h:37` | by convention (D24) from the client's file kv_tripl.cpp |
+| 3 | `KVTripleListClass` | `app/shared/kv_tripl.h:53` | by convention (D24) from kv_tripl.cpp, KVListClass's sibling |
 | 3 | `money.h` | `app/shared/money.h:17` | header name assumed from the client's money.cpp |
 | 3 | `MoneyClass` | `app/shared/money.h:20` | by convention (D24) from the client's file money.cpp (D37) |
 | 3 | `spln_db.h` | `app/shared/spln_db.h:34` | header of the client's app\shared\spln_db.cpp (assert __FILE__) |

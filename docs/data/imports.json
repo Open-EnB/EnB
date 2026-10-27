@@ -1497,6 +1497,26 @@
     "merged": [],
     "name": "packets/pkdamage.cpp"
    },
+   "pkdebug": {
+    "ambiguous": [
+     "0x42B2F0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350",
+     "0x8802C0",
+     "0x880340",
+     "0x880400",
+     "0x880500"
+    ],
+    "merged": [],
+    "name": "packets/pkdebug.cpp"
+   },
    "pkdialog": {
     "ambiguous": [
      "0x42B2F0"
@@ -1830,6 +1850,26 @@
     ],
     "merged": [],
     "name": "packets/pkinitrenderstate.cpp"
+   },
+   "pkinventorymove": {
+    "ambiguous": [
+     "0x42B2F0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350",
+     "0x894CA0",
+     "0x894D50",
+     "0x894E30",
+     "0x894F70"
+    ],
+    "merged": [],
+    "name": "packets/pkinventorymove.cpp"
    },
    "pkitemstate": {
     "ambiguous": [
@@ -2453,6 +2493,10 @@
      "0x8A2DF0",
      "0x8A2EB0",
      "0x8A2FB0",
+     "0x8A2FF0",
+     "0x8A3090",
+     "0x8A3150",
+     "0x8A3250",
      "0x8A32A0",
      "0x8A3370",
      "0x8A3450",
@@ -3788,6 +3832,7 @@
    "packets/pkcreateattachment.h": "reconstructed",
    "packets/pkcta_request.h": "reconstructed",
    "packets/pkdamage.h": "reconstructed",
+   "packets/pkdebug.h": "reconstructed",
    "packets/pkdialog.h": "reconstructed",
    "packets/pkdirlock.h": "reconstructed",
    "packets/pkequipuse.h": "reconstructed",
@@ -3801,6 +3846,7 @@
    "packets/pkhullupgrade.h": "reconstructed",
    "packets/pkincapacitancerequest.h": "reconstructed",
    "packets/pkinitrenderstate.h": "reconstructed",
+   "packets/pkinventorymove.h": "reconstructed",
    "packets/pkitemstate.h": "reconstructed",
    "packets/pkjoblist.h": "reconstructed",
    "packets/pklogoff.h": "reconstructed",
