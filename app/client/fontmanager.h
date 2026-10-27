@@ -33,7 +33,9 @@ public:
 
 	void Unknown_6CD950(int unknown1, int unknown2);						// 0x6CD950  // NAME 1 [Unknown_6CD950]: neutral (D10)
 
-	char Unknown08[0x4E0];											// +0x08  // NAME 1: neutral (D10)
+	char Unknown08[0x248];											// +0x08  // NAME 1: neutral (D10)
+	int Unknown250;														// +0x250: 0x6D28C0 sets it in every style of a font  // NAME 1: neutral (D10)
+	char Unknown254[0x294];											// +0x254  // NAME 1: neutral (D10)
 };
 
 class ManagedFontClass  // NAME 2 [ManagedFontClass]: what the manager holds per id (0x24 bytes; its +4 is the id)
@@ -45,6 +47,12 @@ public:
 	{
 		for (std::hash_map<std::string, FontStyleClass *>::iterator style = Styles.begin(); style != Styles.end(); ++style) {
 			style->second->Unknown_6CD950(unknown1, unknown2);
+		}
+	}
+	void Unknown_Set_Styles(int value)									// inlined in 0x6D28C0 (its own begin / ++ called out of line)  // NAME 1 [Unknown_Set_Styles]: neutral (D10)
+	{
+		for (std::hash_map<std::string, FontStyleClass *>::iterator style = Styles.begin(); style != Styles.end(); ++style) {
+			style->second->Unknown250 = value;
 		}
 	}
 	void Unknown_6D1010(const char *name, TPoint3D<int> color);			// 0x6D1010: the named style's color (+0x494, +0x4A4)  // NAME 1 [Unknown_6D1010]: neutral (D10)
@@ -73,6 +81,7 @@ public:
 	void Unknown_6D2480(unsigned int id);								// 0x6D2480  // NAME 1 [Unknown_6D2480]: neutral (D10)
 	void Unknown_6D2500(unsigned int id);								// 0x6D2500  // NAME 1 [Unknown_6D2500]: neutral (D10)
 	void Unknown_6D2580(const char *name, TPoint3D<int> color, unsigned int id);	// 0x6D2580: a font's style color  // NAME 1 [Unknown_6D2580]: neutral (D10)
+	void Unknown_6D28C0(int value, unsigned int id);					// 0x6D28C0: each style's +0x250 of a font  // NAME 1 [Unknown_6D28C0]: neutral (D10)
 	void Add(ManagedFontClass *font);									// 0x6D29A0: under its id  // NAME 2: describes what it does
 	ManagedFontClass *Find(unsigned int id);							// 0x6D2A70  // NAME 2: describes what it does
 

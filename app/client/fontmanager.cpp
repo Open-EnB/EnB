@@ -459,6 +459,12 @@ void FontManagerClass::Unknown_6D2580(const char *name, TPoint3D<int> color, uns
 	Find(id)->Unknown_6D1010(name, color);
 }
 
+// NOT EXACT: inline budget, 75 rows: the client calls the styles table's begin and bucket helpers out of line, ours inlines them (attempts.csv)
+void FontManagerClass::Unknown_6D28C0(int value, unsigned int id)
+{
+	Find(id)->Unknown_Set_Styles(value);
+}
+
 void FontManagerClass::Add(ManagedFontClass *font)
 {
 	if (font && font->Id) {
@@ -476,6 +482,10 @@ ManagedFontClass *FontManagerClass::Find(unsigned int id)
 **	Reconstruction notes
 **
 **	client.exe: the window 0x6D0F70-0x6D2A70 (asserts on lines 360, 524, 533 and 550), then the
-**	containers' instances. The font's own functions (0x6D0F70-0x6D1600) and the manager's
-**	0x6D1FD0, 0x6D2580, 0x6D25D0, 0x6D2700 and 0x6D28C0 are not rebuilt yet.
+**	containers' instances. Not rebuilt yet: the font's own functions (0x6D0F70-0x6D1600, the
+**	asserting 0x6D1220 on line 360) and the manager's 0x6D1FD0 (a font created from the font
+**	database's 0x6C2F20, its constructor inlined), 0x6D25D0 and 0x6D2700 (lines 524-550, a style
+**	by name). 0x6D2400 / 0x6D2480 / 0x6D2500 differ only by their callee: one pattern, not counted.
+**	The depth lever (workflow.md 3.1) made the destructor and 0x6D1C10 exact: the client calls the
+**	nested table helpers out of line when they sit one inline level deeper.
 */
