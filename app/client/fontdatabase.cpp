@@ -10,16 +10,53 @@ public:
 };
 
 
-int FontDatabaseClass::Find_Font_File_Index(const char *name)
+FontStruct *FontDatabaseClass::Find_Font(const StringClass &name, float &scale)
 {
-	int index = 0;
-	for (std::vector<std::string>::iterator it = AllFonts.begin(); it != AllFonts.end(); it++) {
-		if (*it == name) {
-			return index;
+	for (int i = 0; i < MAXFONTS; i++) {
+		if (strcmp(name, Font[i].Name) == 0 && Font[i].font32Ptr) {
+			scale = Font[i].Scale;
+			return &Font[i];
 		}
-		index++;
 	}
-	return -1;
+	scale = 1.0f;
+	return &Font[0];
+}
+
+
+FontInitStruct *FontDatabaseClass::Get_Info(int width, int height)
+{
+	FontInitStruct *info = NULL;
+	for (std::vector<FontInitStruct *>::iterator it = Infos.begin(); it != Infos.end(); it++) {
+		if (width < (*it)->ResWidth || height < (*it)->ResHeight) break;
+		info = *it;
+	}
+	return info;
+}
+
+
+// NOT EXACT: inline-budget: the client calls the table's find out of line and inlines the key string, ours the reverse (H6's parked pattern)
+FontColorStruct *FontDatabaseClass::Find_Color(const char *name)
+{
+	std::hash_map<std::string, FontColorStruct *>::iterator it = Colors.find(name);
+	if (it == Colors.end()) return NULL;
+	return (*it).second;
+}
+
+
+// NOT EXACT: inline-budget: as Find_Color
+FontEffectStruct *FontDatabaseClass::Find_Effect(const char *name)
+{
+	std::hash_map<std::string, FontEffectStruct *>::iterator it = Effects.find(std::string(name));
+	if (it == Effects.end()) return NULL;
+	return (*it).second;
+}
+
+
+// NOT EXACT: inline-budget: as Find_Color
+FontStringStruct *FontDatabaseClass::Find_String(const char *name)
+{
+	std::hash_map<std::string, FontStringStruct *>::iterator it = Strings.find(name);
+	return it == Strings.end() ? NULL : (*it).second;
 }
 
 
@@ -835,97 +872,60 @@ int FontDatabaseClass::Find_Font_File_Index(const char *name)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// NOT EXACT: register-only: the client copies the found node into edi before the key's destructor; the dead size() keeps find_or_insert out of line
+void FontDatabaseClass::Add_String(FontStringStruct *str)
+{
+	if (str && str->Name) {
+		std::string name(str->Name);
+		if (Find_String(name.c_str()) != NULL) {
+			G_ASSERT(0);
+		} else {
+			Strings[name] = str;
+			Strings.size();
+		}
+	}
+}
+
+// NOT EXACT: register-only: as Add_String
+void FontDatabaseClass::Add_Effect(FontEffectStruct *effect)
+{
+	if (effect && effect->Name) {
+		std::string name(effect->Name);
+		if (Find_Effect(name.c_str()) != NULL) {
+			G_ASSERT(0);
+		} else {
+			Effects[name] = effect;
+			Effects.size();
+		}
+	}
+}
+
+// NOT EXACT: register-only: as Add_String
+void FontDatabaseClass::Add_Color(FontColorStruct *color)
+{
+	if (color && color->Name) {
+		std::string name(color->Name);
+		if (Find_Color(name.c_str()) != NULL) {
+			G_ASSERT(0);
+		} else {
+			Colors[name] = color;
+			Colors.size();
+		}
+	}
+}
+
+
+int FontDatabaseClass::Find_Font_File_Index(const char *name)
+{
+	int index = 0;
+	for (std::vector<std::string>::iterator it = AllFonts.begin(); it != AllFonts.end(); it++) {
+		if (*it == name) {
+			return index;
+		}
+		index++;
+	}
+	return -1;
+}
 
 
 
@@ -1122,23 +1122,41 @@ void FontDatabaseClass::Unknown_6C49C0()
 	info->Unknown_6C57B0(this);
 }
 
+
+int FontInitStruct::Find_Chat_Index(const char *chat_name)
+{
+	for (int i = 0; i < MAXFONTS; i++) {
+		if (strcmp(FontID[i], chat_name) == 0) return i;
+	}
+	return -1;
+}
+
 /*
 **	Reconstruction notes (fontdatabase.cpp)
 **
 **	The client's object runs 0x6BDA40-0x6C9E30 (between <string>'s guarded statics 0x6BD9E0 and 0x6C9E30):
 **	the INIT / template structures' constructors, FontDatabaseClass (0xC8 bytes, created by 0x526DE0 into
-**	0xBE67B8: constructor 0x6BE5C0 loads fontsys.ini, fontcode.ini and fontart.ini), the 0x18-byte string table
-**	at 0xBE67BC (constructor 0x6C4C80, the ini loaders 0x6C52B0 / 0x6C55B0) and the SGI hash_map instances
-**	(libs/sgistl, D87; the bucket functions over the string hash 0x42DB00 at 0x6C7D80 / 0x6C7F00 / 0x6C8080 /
-**	0x6C8200).
+**	0xBE67B8: constructor 0x6BE5C0 loads fontsys.ini, fontcode.ini and fontart.ini; destructor 0x6BEBF0), the
+**	0x18-byte string table at 0xBE67BC (constructor 0x6C4C80, the ini loaders 0x6C52B0 / 0x6C55B0) and the SGI
+**	hash_map instances (libs/sgistl, D87; the bucket functions over the string hash 0x42DB00 at 0x6C7D80 /
+**	0x6C7F00 / 0x6C8080 / 0x6C8200).
 **
-**	Written so far: the accessors on the client's lines 1023-1121 (FAIL_IF, D25): Find_Font_File_Index
-**	0x6C3FB0 (the client's name, its assert on line 1305), the chat font's file index 0x6C4070, the font file
-**	name 0x6C4270 (AllFonts), the chat font's scale / spacing / +0x98 value 0x6C42E0 / 0x6C4450 / 0x6C45B0,
-**	Get_Info 0x6C4720 (the INIT section for the current resolution: the last whose ResWidth / ResHeight fit)
-**	and 0x6C49C0. Every other function of the file is not written yet.
+**	Written so far: Find_Font 0x6C2BF0, Get_Info(width, height) 0x6C2CB0, the tables' Find_Color /
+**	Find_Effect / Find_String 0x6C2D00-0x6C2F20 and Add_String / Add_Effect / Add_Color 0x6C3380-0x6C3720
+**	(G_ASSERT(0) on the client's lines 881 / 895 / 909, D25; the six NOT EXACT), the accessors on lines
+**	1023-1121 (FAIL_IF): Find_Font_File_Index 0x6C3FB0 (the client's name, its assert on line 1305), the chat
+**	font's file index 0x6C4070, the font file name 0x6C4270 (AllFonts), the chat font's scale / spacing /
+**	+0x98 value 0x6C42E0 / 0x6C4450 / 0x6C45B0, Get_Info 0x6C4720 (the INIT section for the current
+**	resolution: the last whose ResWidth / ResHeight fit), 0x6C49C0, and FontInitStruct::Find_Chat_Index
+**	0x6C5730. Every other function of the file is not written yet.
+**
+**	Tables (the Add functions' offsets and instances): +0x10 Colors (find 0x6C65A0, find_or_insert 0x6C87A0),
+**	+0x28 Effects (0x6C68B0, 0x6C8950), +0x40 Strings (0x6C6BC0, 0x6C8B80); 0x6BFD00 adds the COLOR-n
+**	sections through line 909 first, then the EFFECT-n ones through line 895.
 **
 **	Forms that mattered: chat_index unsigned with the search loop's bound signed (`jl` in the loop, `jb` in
 **	the FAIL_IF); Find_Font_File_Index's counter stepped in the body after the test, not in the for header
-**	(the latter keeps it in another register).
+**	(the latter keeps it in another register); in the Add functions a dead size() after the insert keeps
+**	find_or_insert out of line as in the client (D40's lever), and the found test first (the assert falls
+**	through, the insert follows).
 */

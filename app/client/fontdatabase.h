@@ -32,6 +32,7 @@ struct FontInitStruct  // NAME 2: one INIT-n section of fontsys.ini (a screen re
 {
 	bool Unknown_6C5C60(unsigned int idx, FontDatabaseClass *fdb);			// 0x6C5C60  // NAME 1 [Unknown_6C5C60]: neutral (D10)
 	void Unknown_6C57B0(FontDatabaseClass *fdb);							// 0x6C57B0  // NAME 1 [Unknown_6C57B0]: neutral (D10)
+	int Find_Chat_Index(const char *chat_name);								// 0x6C5730  // NAME 2: the chat_index of the asserts
 
 	int ResWidth;															// +0x00, ResWidth  // NAME 2: the ini key
 	int ResHeight;															// +0x04, ResHeight  // NAME 2: the ini key
@@ -50,13 +51,36 @@ struct FontInitStruct  // NAME 2: one INIT-n section of fontsys.ini (a screen re
 struct FontStruct  // NAME 2: one of the fonts in use (0xC bytes)
 {
 	void *font32Ptr;														// +0x00, the client's name (its assert)
-	int Unknown04;															// +0x04  // NAME 1 [Unknown04]: neutral (D10)
+	StringClass Name;														// +0x04  // NAME 2: what Find_Font compares
 	float Scale;															// +0x08  // NAME 2: Scale%d is copied in
+};
+
+struct FontColorStruct  // NAME 2: one COLOR-n section (ColorID, RGB), declared as far as the file needs it
+{
+	char *Name;																// +0x00  // NAME 2: the table's key
+};
+
+struct FontEffectStruct  // NAME 2: one EFFECT-n section (EffectID, Intensity, ...), declared as far as the file needs it
+{
+	char *Name;																// +0x00  // NAME 2: the table's key
+};
+
+struct FontStringStruct  // NAME 2: one string template (Template%d, String%d), declared as far as the file needs it
+{
+	char *Name;																// +0x00  // NAME 2: the table's key
 };
 
 class FontDatabaseClass  // NAME 3: by convention (D24) from the client's fontdatabase.cpp
 {
 public:
+	FontStruct *Find_Font(const StringClass &name, float &scale);			// 0x6C2BF0  // NAME 2: what it does
+	FontInitStruct *Get_Info(int width, int height);						// 0x6C2CB0  // NAME 2: as Get_Info, for a given resolution
+	FontColorStruct *Find_Color(const char *name);							// 0x6C2D00  // NAME 2: what it does
+	FontEffectStruct *Find_Effect(const char *name);						// 0x6C2E10  // NAME 2: what it does
+	FontStringStruct *Find_String(const char *name);						// 0x6C2F20  // NAME 2: what it does
+	void Add_String(FontStringStruct *str);									// 0x6C3380  // NAME 2: what it does
+	void Add_Effect(FontEffectStruct *effect);								// 0x6C3550  // NAME 2: what it does
+	void Add_Color(FontColorStruct *color);									// 0x6C3720  // NAME 2: what it does
 	int Find_Font_File_Index(const char *name);							// 0x6C3FB0, the client's name (its assert)
 	int Get_Font_File_Index(const char *chat_name);							// 0x6C4070  // NAME 2: what it does
 	const char *Get_Font_File_Name(unsigned int index);						// 0x6C4270  // NAME 2: what it does
@@ -67,7 +91,9 @@ public:
 	void Unknown_6C49C0();													// 0x6C49C0  // NAME 1 [Unknown_6C49C0]: neutral (D10)
 
 	std::vector<FontInitStruct *> Infos;									// +0x00  // NAME 2: the INIT sections, by resolution
-	int Unknown10[18];														// +0x10: three SGI hash_maps keyed by std::string  // NAME 1 [Unknown10]: neutral (D10)
+	std::hash_map<std::string, FontColorStruct *> Colors;					// +0x10  // NAME 2: what it holds
+	std::hash_map<std::string, FontEffectStruct *> Effects;					// +0x28  // NAME 2: what it holds
+	std::hash_map<std::string, FontStringStruct *> Strings;					// +0x40  // NAME 2: what it holds
 	std::vector<std::string> AllFonts;										// +0x58, the client's name (its assert)
 	FontStruct Font[MAXFONTS];												// +0x68, the client's name (its assert)
 };

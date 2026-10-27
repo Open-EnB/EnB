@@ -1276,11 +1276,28 @@
    },
    "fontdatabase": {
     "ambiguous": [
-     "0x42B2F0"
+     "0x42A6C0",
+     "0x42A900",
+     "0x42AAE0",
+     "0x42AFF0",
+     "0x42B250",
+     "0x42B2F0",
+     "0x42D180"
     ],
     "copy": "reconstructed",
     "expected": {},
     "in_tree": [
+     "0x42A820",
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30",
+     "0x42C4E0",
+     "0x42CD30",
+     "0x42D050",
+     "0x42DB00",
+     "0x441480",
+     "0x6C2BF0",
+     "0x6C2CB0",
      "0x6C3FB0",
      "0x6C4070",
      "0x6C4270",
@@ -1288,7 +1305,8 @@
      "0x6C4450",
      "0x6C45B0",
      "0x6C4720",
-     "0x6C49C0"
+     "0x6C49C0",
+     "0x6C5730"
     ],
     "merged": [],
     "name": "client/fontdatabase.cpp"
