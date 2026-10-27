@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-206 entries in 53 files.
+209 entries in 54 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -25,7 +25,10 @@ edit the comments in the code, not this file.
 | `app/client/client.cpp:307` | `ClientClass::Set_Debug_Object` | marker | NOT EXACT: register-only (the flag in dl, the id in eax; two forms; attempts.py show 0x728010) 0x728010 |
 | `app/client/client.cpp:374` | `ClientClass::Set_Debug_Mode` | marker | NOT EXACT: register-only (the id in eax, the flag in ecx; two forms; attempts.py show 0x728240) 0x728240 |
 | `app/client/client.cpp:430` | `ClientClass::Unknown_7283B0` | marker | NOT EXACT: relocation (the inlined aux-data FAIL_IF carries co.cpp's __FILE__ and line 2461 in the client) 0x7283B0 |
+| `app/client/control_keys_manager.cpp:236` | `ControlKeysManager::Add_Keys` | marker | NOT EXACT: frame 0x2C vs the client 0x28, ~60 rows; the client keeps count in the dead name argument slot and builds the converted key once per set (attempts.csv) |
+| `app/client/control_keys_manager.cpp:263` | `ControlKeysManager::Remove_Keys` | marker | NOT EXACT: frame 0x2C vs the client 0x28, ~60 rows; the client keeps count in the dead name argument slot and builds the converted key once per set (attempts.csv) |
 | `app/client/control_keys_manager.cpp:639` | `KeyMappingStruct::Get_Key_String` | marker | NOT EXACT: register-only in the failure path (out in ebp, npos in ebx; the client swaps them); erase(0, npos) and resize(0) the same |
+| `app/client/cpacket.cpp:1513` | `StarbaseSetPacketClass::Process_Packet` | marker | NOT EXACT: shape (the client keeps four calls of 0x74BA30, ours merges them; attempts.py show 0x7381C0) 0x7381C0 |
 | `app/client/sclient.cpp:393` | `SClient::~SClient` | marker | NOT EXACT: inline budget (the client inlines the 0x24-byte object's destructor at the second delete, ours calls it: then every EH state after it is one lower; five forms, attempts.py show 0x740BB0) 0x740BB0 |
 | `app/client/sclient.cpp:430` | `SClient::Init` | marker | NOT EXACT: field offset (explain.py; 103 masked rows): the client keeps the options base (+0x1150) in a register from the Bridge_Mode branch and reads the camera mode through it, and its frame is 4 bytes larger; one form (attempts.py show 0x741180) 0x741180 |
 | `app/client/sclient.cpp:536` | `SClient::Shutdown` | marker | NOT EXACT: shape (explain.py: field offset first; 470 masked rows): the talk tree's reset goes through a null RefCountPtr temporary with its own EH state and the out-of-line assignment 0x758970, and the effect list's removal is inlined differently; one form (attempts.py show 0x741BB0) 0x741BB0 |
