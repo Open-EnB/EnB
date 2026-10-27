@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-190 entries in 51 files.
+206 entries in 53 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -25,9 +25,10 @@ edit the comments in the code, not this file.
 | `app/client/client.cpp:307` | `ClientClass::Set_Debug_Object` | marker | NOT EXACT: register-only (the flag in dl, the id in eax; two forms; attempts.py show 0x728010) 0x728010 |
 | `app/client/client.cpp:374` | `ClientClass::Set_Debug_Mode` | marker | NOT EXACT: register-only (the id in eax, the flag in ecx; two forms; attempts.py show 0x728240) 0x728240 |
 | `app/client/client.cpp:430` | `ClientClass::Unknown_7283B0` | marker | NOT EXACT: relocation (the inlined aux-data FAIL_IF carries co.cpp's __FILE__ and line 2461 in the client) 0x7283B0 |
-| `app/client/sclient.cpp:402` | `SClient::~SClient` | marker | NOT EXACT: inline budget (the client inlines the 0x24-byte object's destructor at the second delete, ours calls it: then every EH state after it is one lower; five forms, attempts.py show 0x740BB0) 0x740BB0 |
-| `app/client/sclient.cpp:439` | `SClient::Init` | marker | NOT EXACT: field offset (explain.py; 103 masked rows): the client keeps the options base (+0x1150) in a register from the Bridge_Mode branch and reads the camera mode through it, and its frame is 4 bytes larger; one form (attempts.py show 0x741180) 0x741180 |
-| `app/client/sclient.cpp:545` | `SClient::Shutdown` | marker | NOT EXACT: shape (explain.py: field offset first; 470 masked rows): the talk tree's reset goes through a null RefCountPtr temporary with its own EH state and the out-of-line assignment 0x758970, and the effect list's removal is inlined differently; one form (attempts.py show 0x741BB0) 0x741BB0 |
+| `app/client/control_keys_manager.cpp:639` | `KeyMappingStruct::Get_Key_String` | marker | NOT EXACT: register-only in the failure path (out in ebp, npos in ebx; the client swaps them); erase(0, npos) and resize(0) the same |
+| `app/client/sclient.cpp:393` | `SClient::~SClient` | marker | NOT EXACT: inline budget (the client inlines the 0x24-byte object's destructor at the second delete, ours calls it: then every EH state after it is one lower; five forms, attempts.py show 0x740BB0) 0x740BB0 |
+| `app/client/sclient.cpp:430` | `SClient::Init` | marker | NOT EXACT: field offset (explain.py; 103 masked rows): the client keeps the options base (+0x1150) in a register from the Bridge_Mode branch and reads the camera mode through it, and its frame is 4 bytes larger; one form (attempts.py show 0x741180) 0x741180 |
+| `app/client/sclient.cpp:536` | `SClient::Shutdown` | marker | NOT EXACT: shape (explain.py: field offset first; 470 masked rows): the talk tree's reset goes through a null RefCountPtr temporary with its own EH state and the out-of-line assignment 0x758970, and the effect list's removal is inlined differently; one form (attempts.py show 0x741BB0) 0x741BB0 |
 | `app/client/tasks/tsk_login.cpp:219` | `LoginTaskClass::Pre_Run` | marker | NOT EXACT: shape (the event's bit 12 test and the dispatchers' argument order; attempts.py show 0x767DA0) 0x767DA0 |
 | `app/client/tasks/tsk_login.cpp:271` | `LoginTaskClass::Run` | marker | NOT EXACT: register-only (the final Process_Packets call loads the vtable in edx, the client eax; attempts.py show 0x767F50) |
 | `app/client/tasks/tsk_login.cpp:456` | `LoginTaskClass::Unknown_50` | marker | NOT EXACT: inline budget (the client inlines LoginUnknown350Class's implicit assignment and calls the 0x160 object's constructor 0x7688F0; ours the reverse; the two trade against one budget: a cheaper assignment (POD/grouped Vector3s) inlines it and puts the constructor out of line, exact at 0x7688F0, but changes the copy's bytes; attempts.py show 0x7683F0) 0x7683F0 |
@@ -145,20 +146,35 @@ edit the comments in the code, not this file.
 | `app/shared/kv_tripl.cpp:56` | `KVTripleListClass::KVTripleListClass` | marker | NOT EXACT: inline budget, the client inlines the triple's copy constructor here (Copy_Member out of line); ours calls 0x4B85F0 |
 | `app/shared/kv_tripl.cpp:61` | `KVTripleListClass::KVTripleListClass` | marker | NOT EXACT: frame (0x38 vs 0x3C) and inline budget, the client calls the bucket vector's constructor 0x4BA530 out of line and keeps match in ebx |
 | `app/shared/kv_tripl.cpp:77` | `KVTripleListClass::~KVTripleListClass` | marker | NOT EXACT: inline budget, the client calls the vector's erase pieces (0x4BAC30, 0x4B9D60), bucket size() and _M_delete_node out of line |
-| `app/shared/land.cpp:121` | `LandClass::Load_Assets` | marker | NOT EXACT: inline-budget (ours inlines LandPatchClass's ctor and Init, the client calls 0x474530 / 0x4746C0; without them the frame slots differ); 7 forms (attempts.csv 0x4691D0) |
-| `app/shared/land.cpp:405` | `LandClass::Save_Sea_Mask` | marker | NOT EXACT: shape (2 rows: the client returns false through al = HasSea, ours xor al, al; 7 forms, attempts.csv 0x46BCC0) |
-| `app/shared/land.cpp:442` | `LandClass::Limit_Levels` | marker | NOT EXACT: inline-budget (the client calls the first push_back out of line (0x46BF70) and inlines _Freefront in pop_front and the destructor; ours the reverse) |
-| `app/shared/land.cpp:568` | `LandClass::Update_Lightmap_ManualThreaded` | marker | NOT EXACT: the client calls the lighting record's operator= (0x4744C0) in the inlined Update_Lightmap_Full: the record is one struct member there (land.h) |
-| `app/shared/land.cpp:601` | `LandClass::Update_Lightmap_Threaded` | marker | NOT EXACT: as Update_Lightmap_ManualThreaded (the record's operator= 0x4744C0 in the inlined Update_Lightmap_Full) |
-| `app/shared/land.cpp:648` | `LandClass::Update_Patches` | marker | NOT EXACT: shape (written from the disassembly: the client's frame is 0x18 larger, it copies the camera position and ors the change tests; 5 forms, attempts.csv 0x46B3C0) |
-| `app/shared/land.cpp:752` | `LandClass::Render` | marker | NOT EXACT: written from the pseudocode (0x474B30); not run yet (VIDTEST draws with vidland.cpp) |
-| `app/shared/land.cpp:964` | `LandClass::Upload_Lightmap` | marker | NOT EXACT: frame (0x14, the client 0x20: it keeps this, the size and the buffer in frame slots); 2 forms tried |
-| `app/shared/land.cpp:1005` | `LandPatchClass::Build_Vertices` | marker | NOT EXACT: frame (0x3C, the client 0x38); 3 forms tried (attempts.csv 0x474790) |
-| `app/shared/land.cpp:1071` | `LandClass::Compute_Lighting` | marker | NOT EXACT: order-only (the shadowed vertex: the client loads +0x1F0's factor first; 64 rows masked; attempts.csv 0x46CAE0). The lit vertices: the sun's normal colour plus the sky's; the shadowed: the sky's; between the horizons a blend |
-| `app/shared/land.cpp:1191` | `LandClass::Apply_Colors` | marker | NOT EXACT: shape (the client steps a colour pointer by 3 and tests extra before its loads; the loop bodies match); 3 forms tried |
-| `app/shared/land.cpp:1235` | `LandClass::Build_Index_Buffers` | marker | NOT EXACT: field-offset / order (the store order of the strip's index pairs; 2 forms, attempts.csv 0x478240) |
-| `app/shared/land.cpp:1331` | `LandClass::Compute_Horizons` | marker | NOT EXACT: shape (21 masked rows: the mask test's operand order and the heights' restore; 5 forms, attempts.csv 0x46E670) |
-| `app/shared/land.cpp:1390` | `LandClass::Unknown_473290` | marker | NOT EXACT: order-only (3 masked rows: the client loads Spacing before VScale for VScale / Spacing; 6 forms, attempts.csv 0x473290) |
+| `app/shared/land.cpp:104` | `LandClass::Load_Assets` | marker | NOT EXACT: inline-budget (ours inlines LandPatchClass's ctor and Init, the client calls 0x474530 / 0x4746C0; without them the frame slots differ); 7 forms (attempts.csv 0x4691D0) |
+| `app/shared/land.cpp:388` | `LandClass::Save_Sea_Mask` | marker | NOT EXACT: shape (2 rows: the client returns false through al = HasSea, ours xor al, al; 7 forms, attempts.csv 0x46BCC0) |
+| `app/shared/land.cpp:425` | `LandClass::Limit_Levels` | marker | NOT EXACT: inline-budget (the client calls the first push_back out of line (0x46BF70) and inlines _Freefront in pop_front and the destructor; ours the reverse) |
+| `app/shared/land.cpp:631` | `LandClass::Update_Patches` | marker | NOT EXACT: shape (written from the disassembly: the client's frame is 0x18 larger, it copies the camera position and ors the change tests; 5 forms, attempts.csv 0x46B3C0) |
+| `app/shared/land.cpp:735` | `LandClass::Render` | marker | NOT EXACT: written from the pseudocode (0x474B30); not run yet (VIDTEST draws with vidland.cpp) |
+| `app/shared/land.cpp:947` | `LandClass::Upload_Lightmap` | marker | NOT EXACT: frame (0x14, the client 0x20: it keeps this, the size and the buffer in frame slots); 2 forms tried |
+| `app/shared/land.cpp:988` | `LandPatchClass::Build_Vertices` | marker | NOT EXACT: frame (0x3C, the client 0x38); 3 forms tried (attempts.csv 0x474790) |
+| `app/shared/land.cpp:1054` | `LandClass::Compute_Lighting` | marker | NOT EXACT: order-only (the shadowed vertex: the client loads +0x1F0's factor first; 64 rows masked; attempts.csv 0x46CAE0). The lit vertices: the sun's normal colour plus the sky's; the shadowed: the sky's; between the horizons a blend |
+| `app/shared/land.cpp:1174` | `LandClass::Apply_Colors` | marker | NOT EXACT: shape (the client steps a colour pointer by 3 and tests extra before its loads; the loop bodies match); 3 forms tried |
+| `app/shared/land.cpp:1218` | `LandClass::Build_Index_Buffers` | marker | NOT EXACT: field-offset / order (the store order of the strip's index pairs; 2 forms, attempts.csv 0x478240) |
+| `app/shared/land.cpp:1314` | `LandClass::Unknown_46E120` | marker | NOT EXACT: functional, from the disassembly of 0x46E120 |
+| `app/shared/land.cpp:1479` | `LandClass::Unknown_46F120` | marker | NOT EXACT: functional, from the disassembly and pseudocode of 0x46F120 |
+| `app/shared/land.cpp:1622` | `LandClass::Unknown_470F80` | marker | NOT EXACT: functional, from the disassembly and pseudocode of 0x470F80 |
+| `app/shared/land.cpp:1863` | `LandClass::Compute_Horizons` | marker | NOT EXACT: functional, from the disassembly and pseudocode of 0x472F80 |
+| `app/shared/land.cpp:1930` | `LandClass::Compute_Horizons` | marker | NOT EXACT: shape (21 masked rows: the mask test's operand order and the heights' restore; 5 forms, attempts.csv 0x46E670) |
+| `app/shared/land.cpp:1989` | `LandClass::Unknown_473290` | marker | NOT EXACT: order-only (3 masked rows: the client loads Spacing before VScale for VScale / Spacing; 6 forms, attempts.csv 0x473290) |
+| `app/shared/land.cpp:2075` | `LandClass::Unknown_473780` | marker | NOT EXACT: frame (the client's frame 0x14 bigger, 147 masked rows; 2 forms, attempts.csv 0x473780) |
+| `app/shared/land.cpp:2126` | `LandClass::Unknown_473BC0` | marker | NOT EXACT: frame (the client's frame 0x14 bigger; 2 forms, attempts.csv 0x473BC0) |
+| `app/shared/landdmap.cpp:13` | `Height_Low_Byte` | marker | NOT EXACT: functional, from the disassembly of 0x466140 (a height-field function in the client) |
+| `app/shared/landdmap.cpp:162` | `LandUnknown466BE0Class::Unknown_466F60` | marker | NOT EXACT: functional, from the disassembly and pseudocode of 0x466F60 |
+| `app/shared/landdmap.cpp:254` | `LandUnknown466BE0Class::Unknown_4677B0` | marker | NOT EXACT: functional, from the disassembly and pseudocode of 0x4677B0 |
+| `app/shared/landdmap.cpp:297` | `LandUnknown466BE0Class::Unknown_467A50` | marker | NOT EXACT: functional, from the disassembly and pseudocode of 0x467A50 |
+| `app/shared/landdmap.cpp:354` | `LandUnknown466BE0Class::Unknown_467E40` | marker | NOT EXACT: functional, from the disassembly and pseudocode of 0x467E40 |
+| `app/shared/landdmap.cpp:382` | `LandUnknown466BE0Class::Unknown_468240` | marker | NOT EXACT: functional, from the disassembly and pseudocode of 0x468240 |
+| `app/shared/landdmap.cpp:405` | `LandUnknown466BE0Class::Unknown_468760` | marker | NOT EXACT: functional, from the disassembly and pseudocode of 0x468760 |
+| `app/shared/landdmap.cpp:429` | `LandUnknown466BE0Class::Unknown_468920` | marker | NOT EXACT: functional, from the disassembly and pseudocode of 0x468920 |
+| `app/shared/landdmap.cpp:462` | `LandUnknown466BE0Class::Unknown_468BE0` | marker | NOT EXACT: functional, from the disassembly and pseudocode of 0x468BE0 |
+| `app/shared/landdmap.cpp:483` | `LandUnknown466BE0Class::Unknown_468D50` | marker | NOT EXACT: functional, from the disassembly and pseudocode of 0x468D50 |
+| `app/shared/landdmap.cpp:509` | `LandUnknown466BE0Class::Unknown_468D50` | mention | NOT EXACT (Matrox only, never run): 0x4677B0, 0x467A50, 0x467E40, the draw 0x466F60 and its helpers 0x468240-0x468D50. |
 | `app/shared/lookup_table.cpp:142` | `ContinuousLookupTableClass::Create` | marker | NOT EXACT: inline budget (explain.py: shape, 19 vs 17 calls), the client inlines the values vector's constructor and resize's first size(); ours calls them (frame 0x2C, the client 0x28) |
 | `app/shared/lookup_table.cpp:204` | `SampledLookupTableClass::SampledLookupTableClass` | marker | NOT EXACT: order-only, the client stores the sample's Value (atof) after pushing push_back's arguments, ours before; everything else equal |
 | `app/shared/spln_db.cpp:57` | `SplineDatabaseClass::~SplineDatabaseClass` | marker | NOT EXACT: inline-budget (the client inlines HashListClass::First_Valid in the Free_Splines loop; ours calls it) |
