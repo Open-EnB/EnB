@@ -16,26 +16,26 @@
 #include "nstrdup.h"
 #include <stdio.h>
 #include <string>
-
-// mclient.cpp's movie client (0x1178 bytes; mclient.cpp isn't rebuilt): declared here only, as far
-// as this task uses it.
-class MovieClientClass		// NAME 2: mclient.cpp's class, the movie script's player
+#include "..\client.h"
+// mclient.cpp's movie client (0x1178 bytes, vtable 0xB07864; mclient.cpp isn't rebuilt) on the client
+// base ClientClass (client.h): declared here only, as far as this task uses it.
+class MovieClientClass : public ClientClass	// NAME 2: mclient.cpp's class, the movie script's player
 {
 public:
 	MovieClientClass(ScriptedMovieTaskClass *task, KernelClass *kernel);	// 0x7EC3E0
 	~MovieClientClass();										// 0x7EC570 (not virtual: delete calls it directly)
-	virtual void Unknown_00();
-	virtual void Unknown_04();
+	virtual void Init();										// +0x00 .. +0x14 (and +0x1C): its own, 0x7EC550-0x7ECAA0
+	virtual void Shutdown();
 	virtual void Unknown_08();
-	virtual void Unknown_0C();
+	virtual void Process_Packets();
 	virtual void Unknown_10();
-	virtual void Unknown_14(bool focused);						// +0x14: Run passes Is_Focused()
+	virtual int Do_Frame(bool focused);							// +0x14: Run passes Is_Focused()
 	void Load_Script(const char *filename);					// 0x7ECC80  // NAME 2: Accept_Focus's '%s%d.txt'
 	void Handle_Input(KernelEventClass event);				// 0x7ECA50  // NAME 2: Pre_Run's events
 	void Render();											// 0x7ECDC0  // NAME 2: called from Render
 	bool Is_Done();											// 0x7ED090  // NAME 2: Run deletes the client then
 
-	char Unknown0004[0x1178 - 4];
+	char Unknown1150[0x1178 - 0x1150];						// +0x1150
 };
 
 void Unknown_Load_Assets(const std::string &ini);	// NAME 2 [Unknown_Load_Assets]: 0x729BF0 (client_lego_impl.cpp), 'cbasset.ini'
@@ -305,7 +305,7 @@ void ScriptedMovieTaskClass::Run()
 	FAIL_IF(Clients.size() == 0) {
 		return;
 	}
-	Clients[0]->Unknown_14(Is_Focused());
+	Clients[0]->Do_Frame(Is_Focused());
 	if (Clients[0]->Is_Done()) {
 		delete Clients[0];
 		Clients[0] = NULL;
