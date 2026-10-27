@@ -105,7 +105,6 @@ Packet_00EAClass::Packet_00EAClass(RawPacketClass *raw) { Conn_Record(this, raw)
 Packet_00EBClass::Packet_00EBClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_00ECClass::Packet_00ECClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_00EDClass::Packet_00EDClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-ClientChatEventPacketClass::ClientChatEventPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 ClientChatErrorPacketClass::ClientChatErrorPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_00ADClass::Packet_00ADClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_00AEClass::Packet_00AEClass(RawPacketClass *raw) { Conn_Record(this, raw); }
@@ -195,6 +194,7 @@ bool WarpIndexPacketClass::Process_Packet(void *) { return(true); }	// 0x73A7F0
 bool StarbaseAvatarUpdatePacketClass::Process_Packet(void *) { return(true); }	// 0x73A9F0
 bool StarbaseAvatarRoomUpdatePacketClass::Process_Packet(void *) { return(true); }	// 0x73AB50
 bool NameDecalPacketClass::Process_Packet(void *) { return(true); }	// 0x735FC0
+bool ClientChatEventPacketClass::Process_Packet(void *) { return(true); }	// 0x73B150
 bool GuildRecruitConfirmSectorPacket::Process_Packet(void *) { return(true); }	// 0x73E720
 bool GuildSimpleSectorClientPacket::Process_Packet(void *) { return(true); }	// 0x73DD00
 bool GuildMessageSectorPacket::Process_Packet(void *) { return(true); }	// 0x73E9E0

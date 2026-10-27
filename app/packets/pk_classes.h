@@ -25,6 +25,7 @@
 #include "pkchangebaseasset.h"	// rebuilt
 #include "pkclickindicator.h"	// rebuilt
 #include "pkclientavatar.h"	// rebuilt
+#include "pkclientchat.h"	// rebuilt
 #include "pkclientship.h"	// rebuilt
 #include "pkcreate.h"	// rebuilt
 #include "pkcreateattachment.h"	// rebuilt
@@ -993,14 +994,6 @@ public:
 	Packet_00EDClass(RawPacketClass *raw);	// 0x871A30
 	virtual bool Process_Packet(void *client);	// +0x08 0x8695A0 (clientstub.cpp l.446)
 	char Unknown0C[0x18];	// +0x0C
-};
-
-// opcode 165 (0x00A5, CLIENT_CHAT_EVENT): vtable 0xB09E70, constructor 0x8790B0, 0x80 bytes
-class ClientChatEventPacketClass : public PacketClass
-{
-public:
-	ClientChatEventPacketClass(RawPacketClass *raw);	// 0x8790B0
-	char Unknown0C[0x74];	// +0x0C
 };
 
 // opcode 166 (0x00A6, CLIENT_CHAT_ERROR): vtable 0xB09ED0, constructor 0x87A560, 0x44 bytes

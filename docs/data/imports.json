@@ -1172,6 +1172,30 @@
     "merged": [],
     "name": "packets/pkclientavatar.cpp"
    },
+   "pkclientchat": {
+    "ambiguous": [
+     "0x42A6C0",
+     "0x42B2F0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42A820",
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350",
+     "0x879080",
+     "0x8790B0",
+     "0x879280",
+     "0x879430",
+     "0x879570",
+     "0x8795F0"
+    ],
+    "merged": [],
+    "name": "packets/pkclientchat.cpp"
+   },
    "pkclientship": {
     "ambiguous": [
      "0x42B2F0"
@@ -3085,13 +3109,14 @@
    "kernel/kernel.h": "reconstructed",
    "packets/pk.h": "reconstructed",
    "packets/pk_classes.h": "reconstructed",
+   "packets/pk_player_object_relationship.h": "reconstructed",
    "packets/pkaction.h": "reconstructed",
    "packets/pkauxdata.h": "reconstructed",
    "packets/pkcameracontrol.h": "reconstructed",
    "packets/pkchangebaseasset.h": "reconstructed",
    "packets/pkclickindicator.h": "reconstructed",
    "packets/pkclientavatar.h": "reconstructed",
-   "packets/pk_player_object_relationship.h": "reconstructed",
+   "packets/pkclientchat.h": "reconstructed",
    "packets/pkclientship.h": "reconstructed",
    "packets/pkcreate.h": "reconstructed",
    "packets/pkcreateattachment.h": "reconstructed",
@@ -3186,7 +3211,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 1290,
+  "in_tree_total": 1296,
   "totals": {}
  },
  "binkmovie": {
