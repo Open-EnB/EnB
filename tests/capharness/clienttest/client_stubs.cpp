@@ -90,13 +90,6 @@ ClientObjectClass::~ClientObjectClass() { Trace("stub ClientObjectClass::~Client
 void ClientObjectClass::Unknown_04() { Trace("stub ClientObjectClass::Unknown_04 %u", GameID); }
 void ClientObjectClass::Unknown_08() { Trace("stub ClientObjectClass::Unknown_08 %u", GameID); }
 void ClientObjectClass::Unknown_0C(ClientObjectClass *child, int a, int b) { Trace("stub ClientObjectClass::Unknown_0C %u child %u %d %d", GameID, child ? child->GameID : 0, a, b); }
-void ClientObjectClass::Get_Name(std::string &name)
-{
-	char buffer[32];
-	sprintf(buffer, "obj%u", GameID);
-	name = buffer;
-}
-bool ClientObjectClass::Unknown_700400() { Trace("stub ClientObjectClass::Unknown_700400 %u", GameID); return(false); }
 Matrix3D ClientObjectClass::Unknown_28(int unknown) { Trace("stub ClientObjectClass::Unknown_28 %u %d", GameID, unknown); Matrix3D m(true); return(m); }
 void ClientObjectClass::Unknown_6FEF70(SubPartsPacket *) { Trace("stub ClientObjectClass::Unknown_6FEF70 %u", GameID); }
 void ClientObjectClass::Unknown_70E750(int id) { Trace("stub ClientObjectClass::Unknown_70E750 %u target %d", GameID, id); }

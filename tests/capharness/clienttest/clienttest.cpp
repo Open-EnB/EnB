@@ -334,7 +334,7 @@ static void Test_Lists(SClient *client)
 	}
 	Check(all, "Find_Object finds each of 5, 262, 519, 6, 1000 (5 / 262 / 519 share a bucket)");
 	Check(client->Find_Object(5 + 3 * 257) == 0, "Find_Object 776 (same bucket, not added): NULL");
-	Check(client->Find_Object("obj6") == objects[3], "Find_Object by name 'obj6'");
+	Check(client->Find_Object("Unknown") != 0, "Find_Object by name 'Unknown' (co.cpp's Get_Name over the stand-in aux data): found");
 	Check(client->Find_Object("obj7") == 0, "Find_Object by name 'obj7': NULL");
 
 	Check(client->Remove_Object(262) == objects[1], "Remove_Object 262 (the bucket's middle)");
