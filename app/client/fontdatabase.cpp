@@ -25,6 +25,7 @@ class Unknown_BE8B38Class  // NAME 1 [Unknown_BE8B38Class]: neutral (D10): optio
 {
 public:
 	FontOptionStruct *Unknown_7F95E0(const char *name);				// 0x7F95E0  // NAME 1 [Unknown_7F95E0]: neutral (D10)
+	void Unknown_7F8EF0();											// 0x7F8EF0: after the fonts are saved  // NAME 1 [Unknown_7F8EF0]: neutral (D10)
 };
 extern Unknown_BE8B38Class *Unknown_BE8B38;							// 0xBE8B38  // NAME 1 [Unknown_BE8B38]: neutral (D10)
 
@@ -872,7 +873,6 @@ void FontDatabaseClass::Remove_String(const char *name)
 
 
 
-
 void FontDatabaseClass::Add_String(FontStringStruct *str)
 {
 	if (str && str->StringID) {
@@ -1119,7 +1119,7 @@ void FontDatabaseClass::Unknown_6C49C0()
 {
 	FontInitStruct *info = Get_Info();
 	FAIL_IF(!info) return;
-	info->Unknown_6C57B0(this);
+	info->Save_Fonts(this);
 }
 
 
@@ -1230,6 +1230,25 @@ int FontInitStruct::Find_Chat_Index(const char *chat_name)
 
 
 
+bool FontInitStruct::Save_Fonts(FontDatabaseClass *fdb)
+{
+	FAIL_IF(!fdb) return false;
+	for (int i = 0; i < MAXFONTS; i++) {
+		FontOptionStruct *option = Unknown_BE8B38->Unknown_7F95E0(FontID[i]);
+		if (option != NULL) {
+			std::string text(option->Value);
+			int length = Name.length();
+			FontTextFileClass file(text.c_str(), 1024.0f, 0);
+			char buffer[1024];
+			sprintf(buffer, "%1.1f,%d,%d", Scale[i], Spacing[i], Unknown98[i]);
+			text = Name;
+			text += Font[i];
+			text += ':';
+			text += buffer;
+			text += "\\n";
+			text.size();
+			for (unsigned int j = 0; j < file.Count(); j++) {
+				char *str = file.Get(j);
 
 
 
@@ -1239,38 +1258,19 @@ int FontInitStruct::Find_Chat_Index(const char *chat_name)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+				FAIL_IF(!str) continue;
+				if (strncmp(str, Name.c_str(), length) != 0) {
+					text += str;
+					text += "\\n";
+				}
+			}
+			option->Value = text.c_str();
+			text.size();
+		}
+	}
+	Unknown_BE8B38->Unknown_7F8EF0();
+	return true;
+}
 
 // NOT EXACT: register-only: the client zeroes scale / spacing / value98 from ebp (the loop counter's register), ours scale as an immediate and the rest from edi
 bool FontInitStruct::Load_Font(unsigned int idx, FontDatabaseClass *fdb)
@@ -1345,7 +1345,8 @@ bool FontInitStruct::Load_Font(unsigned int idx, FontDatabaseClass *fdb)
 **	font's file index 0x6C4070, the font file name 0x6C4270 (AllFonts), the chat font's scale / spacing /
 **	+0x98 value 0x6C42E0 / 0x6C4450 / 0x6C45B0, Get_Info 0x6C4720 (the INIT section for the current
 **	resolution: the last whose ResWidth / ResHeight fit), 0x6C47B0 (line 1096), 0x6C49C0, and FontInitStruct::Find_Chat_Index
-**	0x6C5730 and Load_Font 0x6C5C60 (lines 1278-1308: the chat font's saved file through option.cpp's
+**	0x6C5730, Save_Fonts 0x6C57B0 (lines 1235 / 1261: the chat fonts' lines into their options' text, then
+**	option.cpp's 0x7F8EF0; two dead text.size() place the budget as the client's) and Load_Font 0x6C5C60 (lines 1278-1308: the chat font's saved file through option.cpp's
 **	0x7F95E0 and the text file reader 0x4F9BF0; NOT EXACT); FontStringFilesClass (0xBE67BC: the string files in use, counted): Lower 0x6C4A80, the constructor
 **	0x6C4C80, Find 0x6C51A0 and Unload 0x6C55B0 (its destructor 0x6C4F50 and Load 0x6C52B0 declared only: written
 **	from the pseudocode they missed and moved vector<std::string>::insert 0x432D50). Every other function of the
