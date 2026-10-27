@@ -3482,7 +3482,7 @@ RECONSTRUCTED = {
     ('app', 'packets/pknamedecal.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
     ('app', 'packets/pkpointeffect.cpp'): "opcode 9 written by hand over FlagPacketClass and PointEffect's value constructor (builder P3, 10 of 10 exact in appfile.py match); packet classes (opcode 10, 15) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
     ('app', 'packets/pkpointeffect.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
-    ('app', 'packets/pkunknown_888b60.cpp'): "packet classes (opcode 175) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
+    ('app', 'packets/pkunknown_888b60.cpp'): "opcode 174 written by hand (builder P3, 5 of 5 exact in appfile.py match); packet classes (opcode 175) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
     ('app', 'packets/pkunknown_888b60.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
     ('app', 'packets/pkguildranknamesrequestclient.cpp'): "packet classes (opcode 204, 205, 200, 208, 212, 216) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
     ('app', 'packets/pkguildranknamesrequestclient.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",

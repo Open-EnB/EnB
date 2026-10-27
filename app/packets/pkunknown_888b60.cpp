@@ -3,6 +3,46 @@
 #include <stdio.h>
 
 
+Packet_00AEClass::Packet_00AEClass(int unknown0c, int unknown10, __int64 unknown18, __int64 unknown20) :
+	Unknown0C(unknown0c),
+	Unknown10(unknown10),
+	Unknown18(unknown18),
+	Unknown20(unknown20)
+{
+}
+
+Packet_00AEClass::Packet_00AEClass(RawPacketClass *raw) :
+	Unknown0C(0),
+	Unknown10(0),
+	Unknown18(0),
+	Unknown20(0)
+{
+	raw->Get(Unknown0C);
+	raw->Get(&Unknown10, sizeof(Unknown10));
+	raw->Get(Unknown18);
+	raw->Get(Unknown20);
+}
+
+RawPacketClass *Packet_00AEClass::Build()
+{
+	RawPacketClass *raw = new RawPacketClass(174, Get_Data_Size());
+	raw->Add(Unknown0C);
+	raw->Add(&Unknown10, sizeof(Unknown10));
+	raw->Add(Unknown18);
+	raw->Add(Unknown20);
+	return(raw);
+}
+
+int Packet_00AEClass::Get_Data_Size()
+{
+	return(sizeof(Unknown0C) + sizeof(Unknown10) + sizeof(Unknown18) + sizeof(Unknown20));
+}
+
+int Packet_00AEClass::Print(char *buffer, int)
+{
+	return(sprintf(buffer, "%s", "GroupServerRequestPacketClass"));
+}
+
 Packet_00AFClass::Packet_00AFClass(int unknown0_c, int unknown10) : Unknown0C(unknown0_c), Unknown10(unknown10)
 {
 }
@@ -40,5 +80,7 @@ int Packet_00AFClass::Print(char *buffer, int)
 **	  pkemit.py): members from the raw message's Get / Build's Add (sizes) and Print (types,
 **	  names: 'Name=%d'), the constructors' stores in the initialiser list.
 **	* The file name is provisional (provisional, neutral (D10): the object's first address).
-**	* Not rebuilt yet: opcode 173, 174, 176, 177 (declared in pk_classes.h).
+**	* Opcode 174 (its Print: GroupServerRequestPacketClass) written by hand (builder P3, 2026-10-26),
+**	  5 of 5 exact in appfile.py match: an int and two __int64 in network order around a raw int.
+**	* Not rebuilt yet: opcode 173, 176, 177 (declared in pk_classes.h).
 */

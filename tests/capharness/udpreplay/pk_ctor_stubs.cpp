@@ -98,7 +98,6 @@ Packet_00ECClass::Packet_00ECClass(RawPacketClass *raw) { Conn_Record(this, raw)
 Packet_00EDClass::Packet_00EDClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 ClientChatErrorPacketClass::ClientChatErrorPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_00ADClass::Packet_00ADClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-Packet_00AEClass::Packet_00AEClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_00B0Class::Packet_00B0Class(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_00B1Class::Packet_00B1Class(RawPacketClass *raw) { Conn_Record(this, raw); }
 CTAResponsePacketClass::CTAResponsePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
