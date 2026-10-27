@@ -93,6 +93,13 @@ struct KeyIdStruct  // NAME 1: neutral (D10): the value of _KeyIds (0x14 bytes)
 	std::string ModuleName;												// +0x04: the client's 'key_id_ref.ModuleName'
 };
 
+class ControlKeysSClientClass  // NAME 1: neutral (D10): sclient.cpp's SClient, as far as Init reads it
+{
+public:
+	char Unknown0000[0x12E8];
+	__int64 Unknown12E8;												// +0x12E8: the player's id (in the ticket at +0x12D8)  // NAME 1: neutral (D10)
+};
+
 class ControlKeyListClass  // NAME 1: neutral (D10): the screen's key list Add_Keys / Remove_Keys fill ('keylist')
 {
 public:
@@ -113,11 +120,15 @@ public:
 	void Set_Default_SIM();											// 0x71AE20  // NAME 2: describes what it does
 	const std::string &Get_Key_Name(const ControlKeyValueStruct &key);	// 0x71AE50: the definition's name for a key  // NAME 2: describes what it does
 	void Build_Keys_Map();											// 0x71AEF0: UserKeysMap from UserKeys  // NAME 2: describes what it does
+	void Init(ControlKeysSClientClass *sclient);					// 0x719D50's, 0x71A3F0  // NAME 2: describes what it does
+	static void Load_Definitions();									// 0x71B1F0: control_keys.ini (not rebuilt yet)  // NAME 2: describes what it does
+	static void Load_Keys(std::vector<KeyMappingStruct> *keys, const char *player_id);	// 0x71BD90: keymap.ini (not rebuilt yet)  // NAME 2: describes what it does
+	static int Get_Key_Id(ControlKeysManager *manager, const std::string &module_name, const ControlKeyValueStruct &key);	// 0x71A190: the id Register_Key gave the key's definition, or -1  // NAME 2: describes what it does
 	static bool Register_Key(const std::string &module_name, const std::string &key_name, int key_id);	// 0x719ED0  // NAME 2: describes what it does
 	static bool _Does_Key_Exist(const std::string &key_name);	// 0x71B160 (no caller; inlined at 0x719ED0): the client's assert
 	static void Copy_Keys(std::vector<KeyMappingStruct> *to, const std::vector<KeyMappingStruct> &from);	// 0x71C4C0  // NAME 2: describes what it does
 
-	int Unknown00;														// +0x00: the constructor zeroes it (no vtable here)  // NAME 1: neutral (D10)
+	ControlKeysSClientClass *Client;									// +0x00: Init's sclient (the constructor zeroes it)  // NAME 2: what it holds
 	std::hash_map<unsigned int, ControlKeyDefStruct *> UserKeysMap;		// +0x04: the client's asserts, keyed by the key value; 100 buckets
 	static std::hash_map<std::string, std::auto_ptr<ControlKeyDefStruct> > _KeyDefinitions;	// 0xBE7BC8: the client's asserts
 	static std::hash_map<std::string, KeyIdStruct> _KeyIds;				// 0xBE7B98 (ctor 0x71D8F0, dtor 0x719C80)  // NAME 1: neutral (D10)
@@ -127,6 +138,7 @@ public:
 
 	std::vector<KeyMappingStruct> UserKeys;				// +0x1C: the client's asserts
 	std::vector<KeyMappingStruct> RestoreKeys;				// +0x2C: the client's asserts
+	char PlayerID[0x18];												// +0x3C: the player's 64-bit id in decimal (0x8B44E0)  // NAME 2: what it holds
 };
 
 #endif //__CONTROL_KEYS_MANAGER_H

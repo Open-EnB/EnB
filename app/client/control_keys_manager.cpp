@@ -2,6 +2,7 @@
 #include "control_keys_manager.h"
 #include "..\shared\unknown_debug.h"
 
+char *Unknown_8B44E0(__int64 value, char *buffer);	// 0x8B44E0: _i64toa(value, buffer, 10), as pkguildplayeronline.h  // NAME 1: neutral placeholder (D10)
 std::string &Unknown_42B7E0(const ControlKeyComboStruct &key, std::string &out);	// NAME 1 [Unknown_42B7E0]: neutral (D10): 0x42B7E0, the key's text
 
 static std::string _Empty;  // NAME 2: 0xBE7B80, what the accessors return without a definition
@@ -10,7 +11,6 @@ std::hash_map<std::string, std::auto_ptr<ControlKeyDefStruct> > ControlKeysManag
 std::hash_map<std::string, KeyIdStruct> ControlKeysManager::_KeyIds;
 std::vector<KeyMappingStruct> ControlKeysManager::_DefaultPSW;
 std::vector<KeyMappingStruct> ControlKeysManager::_DefaultSIM;
-
 
 
 
@@ -118,27 +118,27 @@ bool ControlKeysManager::Register_Key(const std::string &module_name, const std:
 
 
 
+// NOT EXACT: inline budget (ours inlines _KeyIds.find, the client calls 0x71EBC0; ~56 rows)
+int ControlKeysManager::Get_Key_Id(ControlKeysManager *manager, const std::string &module_name, const ControlKeyValueStruct &key)
+{
+	FAIL_IF(!manager) return -1;
+	ControlKeyValueStruct k(key);
+	const std::string &name = manager->Get_Key_Name(k);
+	if (name.empty()) return -1;
 
+	std::hash_map<std::string, KeyIdStruct>::iterator it = _KeyIds.find(name);
+	if (it == _KeyIds.end()) return -1;
 
-
-
-
-
-
-
-
-
-
-
-
-
+	if (it->second.ModuleName == module_name) return it->second.Id;
+	return -1;
+}
 
 
 
 
 
 ControlKeysManager::ControlKeysManager() :
-	Unknown00(0),
+	Client(0),
 	UserKeysMap(100)
 {
 }
@@ -152,24 +152,24 @@ ControlKeysManager::ControlKeysManager() :
 
 
 
+void ControlKeysManager::Init(ControlKeysSClientClass *sclient)
+{
+	if (!_NumKeyDefs) {
+		G_ASSERT(_DefaultPSW.empty());
+		G_ASSERT(_DefaultSIM.empty());
+		Load_Definitions();
+	} else {
+		G_ASSERT(!_DefaultSIM.empty());
+		G_ASSERT(!_DefaultPSW.empty());
+	}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	FAIL_IF(!sclient) return;
+	Client = sclient;
+	Unknown_8B44E0(sclient->Unknown12E8, PlayerID);
+	Load_Keys(&UserKeys, PlayerID);
+	Build_Keys_Map();
+	Copy_Keys(&RestoreKeys, UserKeys);
+}
 
 
 
