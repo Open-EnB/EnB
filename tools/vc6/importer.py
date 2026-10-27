@@ -3301,6 +3301,7 @@ RECONSTRUCTED = {
                                            "the client's lines 63-213 (D25)",
     ('app', 'shared/auxdata/lookup.h'): "LookupClass (D24), only what delta.cpp uses: ctor 0x4AC250, a vector at +0 "
                                         "and a map at +0x10 (size 0x20), element types placeholders",
+    ('app', 'shared/auxdata/rtti.h'): "the aux data's type test (D24 class name; __FILE__ ..\\shared/auxdata/rtti.h, G_ASSERT 'b' on the client's line 32): UnknownRTTIClass<T>::Cast, out of line at 0x5469C0 (DeltaStringClass) and 0x709B30 (the GuildRank class, global 0xC4158C), inlined elsewhere; Unknown_Find_Field<C> calls it",
     ('app', 'shared/auxdata/auxdata.h'): "the aux-data field lookup the client inlines in its callers (D24 helper name; __FILE__ ..\\shared/auxdata/auxdata.h, G_ASSERT 't' on the client's line 155): Unknown_Find_Field<T>, co.cpp's 0x6F58B0, 0x6F5E40, 0x6F5ED0, 0x7008B0",
     ('app', 'shared/auxdata/delta_money.cpp'): "the money field's Read 0x4A7470 and Write 0x4A74F0 "
                                                "(DeltaTemplateClass<MoneyClass> specialisations), asserts on "

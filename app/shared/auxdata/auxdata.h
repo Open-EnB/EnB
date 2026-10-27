@@ -22,6 +22,7 @@
 #include "lookup.h"
 #include "name.h"
 #include "..\unknown_debug.h"
+#include "rtti.h"
 
 
 
@@ -141,17 +142,16 @@
 
 
 
-
-// The field named name under root, as a DeltaTemplateClass<T>; NULL when there is no root, no such
-// field, or (asserting) a field of another type.
-template<class T> DeltaTemplateClass<T> *Unknown_Find_Field(DeltaCompoundClass *root, const NameClass &name)  // NAME 1: neutral (D10)
+// The field named name under root, as a C (a delta class: DeltaTemplateClass<T>, DeltaStringClass);
+// NULL when there is no root, no such field, or (asserting) a field of another type (rtti.h's test).
+template<class C> C *Unknown_Find_Field(DeltaCompoundClass *root, const NameClass &name)  // NAME 1: neutral (D10)
 {
 	if (root) {
 		LookupClass *lookup = root->Get_Lookup();
 		DeltaClass *d = lookup->Find(name);
 		if (d) {
-			DeltaTemplateClass<T> *t = NULL;
-			if (d->m_Unknown04 == DeltaTemplateClass<T>::UnknownGlobal) t = (DeltaTemplateClass<T> *)d;
+
+			C *t = UnknownRTTIClass<C>::Cast(d);
 			G_ASSERT(t);
 			return(t);
 		}

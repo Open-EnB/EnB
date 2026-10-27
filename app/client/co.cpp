@@ -1174,7 +1174,7 @@ int ClientObjectClass::Unknown_6F5E20() { return(Type == 38); }
 bool ClientObjectClass::Unknown_6F5E40()
 {
 	NameClass name("IsOrganic");
-	DeltaTemplateClass<bool> *t = Unknown_Find_Field<bool>((DeltaCompoundClass *)AuxData, name);
+	DeltaTemplateClass<bool> *t = Unknown_Find_Field<DeltaTemplateClass<bool> >((DeltaCompoundClass *)AuxData, name);
 	if (t && t->m_Unknown70) return(t->Value);
 	return(false);
 }
@@ -1183,7 +1183,7 @@ bool ClientObjectClass::Unknown_6F5E40()
 bool ClientObjectClass::Unknown_6F5ED0()
 {
 	NameClass name("IsInPVP");
-	DeltaTemplateClass<bool> *t = Unknown_Find_Field<bool>((DeltaCompoundClass *)AuxData, name);
+	DeltaTemplateClass<bool> *t = Unknown_Find_Field<DeltaTemplateClass<bool> >((DeltaCompoundClass *)AuxData, name);
 	if (t && t->m_Unknown70) return(t->Value);
 	return(false);
 }
@@ -1201,7 +1201,7 @@ bool ClientObjectClass::Unknown_6F58B0()
 bool ClientObjectClass::Unknown_6F5F60()
 {
 	NameClass name("IsInPVP");
-	DeltaTemplateClass<bool> *t = Unknown_Find_Field<bool>((DeltaCompoundClass *)AuxData, name);
+	DeltaTemplateClass<bool> *t = Unknown_Find_Field<DeltaTemplateClass<bool> >((DeltaCompoundClass *)AuxData, name);
 	if (t && t->m_Unknown70 <= 1) t = NULL;
 	return(t != NULL);
 }
@@ -2322,60 +2322,60 @@ void ClientObjectClass::Unknown_6FEEE0(const RelationshipClass &relationship)
 
 
 
+inline unsigned Unknown_Changed(DeltaClass *d) { return(d->m_Unknown70); }	// +0x70: 2 when the field changed since the last update, 1 when set, 0 when not  // NAME 1: neutral (D10)
+// 0x6FF4B0  // NOT EXACT: inline-budget (the client calls rtti.h's cast 0x5469C0 at all four lookups and the string assign's helpers; ours inlines them)
+void ClientObjectClass::Get_Name(std::string &name)
+{
+	DeltaStringClass *t;
+	if (Unknown_6F5A40()) {
+		NameClass owner("Owner");
+		t = Unknown_Find_Field<DeltaStringClass>((DeltaCompoundClass *)AuxData, owner);
+		if (!t || !t->m_Unknown70) {
+			NameClass field("Name");
+			t = Unknown_Find_Field<DeltaStringClass>((DeltaCompoundClass *)AuxData, field);
+		}
+	} else {
+		NameClass field("Name");
+		t = Unknown_Find_Field<DeltaStringClass>((DeltaCompoundClass *)AuxData, field);
+		if (!t || !t->m_Unknown70) {
+			NameClass owner("Owner");
+			t = Unknown_Find_Field<DeltaStringClass>((DeltaCompoundClass *)AuxData, owner);
+		}
+	}
+	name = (t && t->m_Unknown70) ? t->String : "Unknown";
+}
 
+// A field of the aux data changed since the last update (+0x70 above 1)
+template<class C> inline bool Unknown_Field_Changed(C *, ClientObjectClass *object, const char *field)  // NAME 1: neutral (D10)
+{
+	NameClass name(field);
+	C *t = Unknown_Find_Field<C>((DeltaCompoundClass *)object->AuxData, name);
+	return(t && Unknown_Changed(t) > 1);
+}
 
+// 0x6FFC80 (the two dead type tests spend the inline budget: rtti.h's cast then stays out of line for Owner only, as the client's)
+bool ClientObjectClass::Unknown_6FFC80(std::string &text)
+{
+	Unknown_6F5A40(); Unknown_6F5A40(); if (Unknown_Field_Changed((DeltaStringClass *)NULL, this, "Owner")
+		|| Unknown_Field_Changed((DeltaStringClass *)NULL, this, "Name")
+		|| Unknown_Field_Changed((DeltaStringClass *)NULL, this, "Rank")
+		|| Unknown_Field_Changed((DeltaStringClass *)NULL, this, "Title")) {
+		Unknown_6FF7A0(text);
+		return(true);
+	}
+	return(false);
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// 0x700400
+bool ClientObjectClass::Unknown_700400()
+{
+	if (Unknown_Field_Changed((DeltaStringClass *)NULL, this, "GuildName")
+		|| Unknown_Field_Changed((DeltaTemplateClass<UnknownB00A58Enum> *)NULL, this, "GuildRank")
+		|| Unknown_Field_Changed((DeltaStringClass *)NULL, this, "GuildRankName")
+		|| Unknown_Field_Changed((DeltaTemplateClass<UnknownB00A00Type> *)NULL, this, "SameGuildTagColor")
+		|| Unknown_Field_Changed((DeltaTemplateClass<UnknownB00A00Type> *)NULL, this, "OtherGuildTagColor")) return(true);
+	return(false);
+}
 
 
 
@@ -2396,7 +2396,7 @@ void ClientObjectClass::Unknown_6FF1D0()
 {
 	if (Type == 38 && Model && Model->Class_ID() == RSTRACK_CLASSID && AuxData) {
 		NameClass name("PercentFull");
-		DeltaTemplateClass<float> *t = Unknown_Find_Field<float>((DeltaCompoundClass *)AuxData, name);
+		DeltaTemplateClass<float> *t = Unknown_Find_Field<DeltaTemplateClass<float> >((DeltaCompoundClass *)AuxData, name);
 		if (t && t->m_Unknown70 > 1) {
 			float percent = t->Value;
 			int state;
@@ -2417,7 +2417,7 @@ void ClientObjectClass::Unknown_6FF330(std::string &text)
 {
 	int level = 0;
 	NameClass name("CombatLevel");
-	DeltaTemplateClass<int> *t = Unknown_Find_Field<int>((DeltaCompoundClass *)AuxData, name);
+	DeltaTemplateClass<int> *t = Unknown_Find_Field<DeltaTemplateClass<int> >((DeltaCompoundClass *)AuxData, name);
 	if (t && t->m_Unknown70) level = t->Value;
 	char buf[64];
 	_snprintf(buf, sizeof(buf), " (%d)", level);

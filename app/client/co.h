@@ -100,6 +100,8 @@ public:
 	int Unknown_6FFF00();								// 0x6FFF00 (co.cpp)
 	int Unknown_6FFF50();								// 0x6FFF50 (co.cpp)
 	bool Unknown_700400();								// 0x700400 (co.cpp)
+	bool Unknown_6FFC80(std::string &text);				// 0x6FFC80 (co.cpp; 0x6FF7A0 when Owner, Name, Rank or Title changed)  // NAME 1 [text]: passed on to 0x6FF7A0
+	void Unknown_6FF7A0(std::string &text);				// 0x6FF7A0 (co.cpp, not rebuilt)  // NAME 1 [text]: neutral
 	RenderObjClass *Unknown_6F3BC0();					// 0x6F3BC0 (co.cpp; cpacket.cpp's DECAL 16 releases the model it returns)
 	bool Unknown_6F5DC0();								// 0x6F5DC0 (co.cpp; cpacket.cpp's SET_TARGET 25 tests it)
 	void Unknown_6FEF70(SubPartsPacket *packet);		// 0x6FEF70 (co.cpp; cpacket.cpp's SUBPARTS 180)  // NAME 1 [packet]: the handler's packet
