@@ -567,25 +567,25 @@ void ControlKeysManager::Copy_Keys(std::vector<KeyMappingStruct> *to, const std:
 
 
 
+// NOT EXACT: shape, ~56 rows: the client calls 0x71E850 on the whole vector where our erase inlines a copy loop (attempts.csv)
+void ControlKeysManager::Reset_Keys(std::vector<KeyMappingStruct> *keys)
+{
+	FAIL_IF(!_NumKeyDefs) return;
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	if (keys->size() != _NumKeyDefs) {
+		FAIL_IF(!keys->empty()) keys->erase(keys->begin(), keys->end());
+		keys->resize(_NumKeyDefs);
+	} else {
+		for (std::vector<KeyMappingStruct>::iterator it = keys->begin(); it != keys->end(); ++it) { *(unsigned int *)&it->Keys[0] = 0; *(unsigned int *)&it->Keys[1] = 0; }
+	}
+	for (std::hash_map<std::string, std::auto_ptr<ControlKeyDefStruct> >::iterator it = _KeyDefinitions.begin(); it != _KeyDefinitions.end(); ++it) { ControlKeyDefStruct *def_ptr = it->second.get();
+		FAIL_IF(!def_ptr) continue;
+		FAIL_IF(def_ptr->Get_Index() >= _NumKeyDefs) continue;
+		(*keys)[def_ptr->Get_Index()].Def = def_ptr;
+	}
+}
 
 
 

@@ -126,6 +126,7 @@ public:
 	static int Get_Key_Id(ControlKeysManager *manager, const std::string &module_name, const ControlKeyValueStruct &key);	// 0x71A190: the id Register_Key gave the key's definition, or -1  // NAME 2: describes what it does
 	static bool Register_Key(const std::string &module_name, const std::string &key_name, int key_id);	// 0x719ED0  // NAME 2: describes what it does
 	static bool _Does_Key_Exist(const std::string &key_name);	// 0x71B160 (no caller; inlined at 0x719ED0): the client's assert
+	static void Reset_Keys(std::vector<KeyMappingStruct> *keys);			// 0x71C710: one cleared mapping per definition  // NAME 2: describes what it does
 	static void Copy_Keys(std::vector<KeyMappingStruct> *to, const std::vector<KeyMappingStruct> &from);	// 0x71C4C0  // NAME 2: describes what it does
 
 	ControlKeysSClientClass *Client;									// +0x00: Init's sclient (the constructor zeroes it)  // NAME 2: what it holds
