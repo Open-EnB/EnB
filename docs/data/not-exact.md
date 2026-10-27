@@ -61,13 +61,18 @@ edit the comments in the code, not this file.
 | `app/shared/land.cpp:2` | `(whole file)` | marker | NOT EXACT, the whole file: functional, after VIDTEST's 2002 copy (land.h). |
 | `app/shared/land.cpp:939` | `LandClass::Render_Decorations` | mention | NOT EXACT: written functionally (D42) for VIDTEST's land test (milestones.md M2.4). Kept from VIDTEST: the ini keys and defaults (and the case-sensitive Patch_Grid_Width), the lightmap (0x409820: a 256-entry table of light x max(0, n.sun) over the quantised normals; 0x409BD0: that plus the sky x the vertex's sky share where the sun clears the horizon, a penumbra, the sky term alone in shadow; 0x40... |
 | `app/shared/spln_db.cpp:57` | `SplineDatabaseClass::~SplineDatabaseClass` | marker | NOT EXACT: inline-budget (the client inlines HashListClass::First_Valid in the Free_Splines loop; ours calls it) |
+| `app/shared/spln_db.cpp:96` | `SplineDatabaseClass::Save` | marker | NOT EXACT: shape (the filename copy and the save chunks: the client inlines Save_Chunks with Write_String and Save_Entry out of line) |
 | `app/shared/spln_db.cpp:487` | `SplineDatabaseClass::Get_Color_Curves` | marker | NOT EXACT: inline-budget (the client calls HashListClass::Find out of line for _G only) |
 | `app/shared/spln_db.cpp:710` | `SplineDatabaseClass::Create_Hermite` | marker | NOT EXACT: inline-budget (the client calls GenericNode's constructor out of line inside the new HashNodeClass, so the new keeps an EH state) |
 | `app/shared/spln_db.cpp:1276` | `SplineDatabaseClass::Free_Splines` | marker | NOT EXACT: register-only / shape (the client keeps the next node on the stack and tests the first node before the loop); its inlined copy in Load and Reload is exact |
 | `app/shared/spln_db.cpp:1520` | `SplineDatabaseClass::Create_Color` | marker | NOT EXACT: inline-budget (as Create_Hermite: GenericNode's constructor out of line in the client) |
 | `app/shared/spln_db.cpp:1539` | `SplineDatabaseClass::Resolve` | marker | NOT EXACT: inline-budget (HashListClass::Find out of line at some lookups) |
-| `app/shared/spln_db.cpp:1680` | `SplineDatabaseClass::Load_Chunks` | marker | NOT EXACT: shape (the client repeats the epilogue for the header's two failures and keeps &KeyNames in edi) |
-| `app/shared/spln_db.cpp:1750` | `SplineDatabaseClass::Load_Entry` | marker | NOT EXACT: shape (the switch's layout; the TYPE_BLEND strings) |
+| `app/shared/spln_db.cpp:1681` | `SplineDatabaseClass::Save_Chunks` | marker | NOT EXACT: shape / inline budget (the client inlines Save_Entry here and calls Save_Curve) |
+| `app/shared/spln_db.cpp:1732` | `SplineDatabaseClass::Save_Entry` | marker | NOT EXACT: shape / inline budget (the client inlines Save_Curve's switch) |
+| `app/shared/spln_db.cpp:1759` | `SplineDatabaseClass::Save_Curve` | marker | NOT EXACT: shape (the switch layout) |
+| `app/shared/spln_db.cpp:1807` | `SplineDatabaseClass::Save_Hermite` | marker | NOT EXACT: frame (0x18 in the client: the key and tangent locals share other slots) |
+| `app/shared/spln_db.cpp:1846` | `SplineDatabaseClass::Load_Chunks` | marker | NOT EXACT: shape (the client repeats the epilogue for the header's two failures and keeps &KeyNames in edi) |
+| `app/shared/spln_db.cpp:1916` | `SplineDatabaseClass::Load_Entry` | marker | NOT EXACT: shape (the switch's layout; the TYPE_BLEND strings) |
 | `app/shared/stars.cpp:93` | `StarLayerClass::Load` | marker | NOT EXACT: order-only (the Hemisphere z load), parked: attempts.csv 0x481DB0 |
 | `app/shared/stars.cpp:184` | `StarFieldClass::Init` | marker | NOT EXACT: register-only (cmp al,bl on Load's result), parked: attempts.csv 0x4829E0 |
 | `app/shared/stars.cpp:279` | `StarFieldClass::Get_Cost` | mention | NOT EXACT: Load and Init only (the other functions are exact). Load (0.70): the asserts on the client's lines, the frames store as one ternary and powf (r stored before pow) match; left: the Hemisphere branch loads z (sample[1]) last where the client loads it first, the fifth Create_NEW temporary zeroed after its release, frame 0x4C vs 0x50. Init (0.72): the client compares Load's result with cmp ... |

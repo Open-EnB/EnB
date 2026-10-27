@@ -93,31 +93,31 @@ bool SplineDatabaseClass::Load(const char *database_filename)
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// NOT EXACT: shape (the filename copy and the save chunks: the client inlines Save_Chunks with Write_String and Save_Entry out of line)
+bool SplineDatabaseClass::Save(const char *database_filename)
+{
+	if (!HasSplines) {
+		return false;
+	}
+	if (Filename == NULL) {
+		if (database_filename == NULL) {
+			return false;
+		}
+		Copy_String(Filename, database_filename);
+	} else if (database_filename != NULL && stricmp(Filename, database_filename) != 0) {
+		delete [] Filename;
+		Copy_String(Filename, database_filename);
+	}
+	file_auto_ptr file(_TheFileFactory, Filename);
+	if (file->Open(FileClass::WRITE)) {
+		ChunkSaveClass csave(file);
+		if (Save_Chunks(csave)) {
+			file->Close();
+			return true;
+		}
+	}
+	return false;
+}
 
 
 
@@ -1677,6 +1677,172 @@ bool SplineDatabaseClass::Reload(void)
 	return true;
 }
 
+
+// NOT EXACT: shape / inline budget (the client inlines Save_Entry here and calls Save_Curve)
+bool SplineDatabaseClass::Save_Chunks(ChunkSaveClass &csave)
+{
+	if (!Save_Header(csave)) {
+		return false;
+	}
+	if (!csave.Begin_Chunk(0x808)) {
+		return false;
+	}
+	int count = KeyNames.Count() - 1;
+	if (csave.Write(&count, 4) < 4) {
+		return false;
+	}
+	for (unsigned int i = 1; i < (unsigned int)(count + 1); i++) {
+		if (!Write_String(csave, KeyNames[i])) {
+			return false;
+		}
+	}
+	if (!csave.End_Chunk()) {
+		return false;
+	}
+	for (HashNodeClass<SplineEntryClass *> *node = Splines.First_Valid(); node != NULL; node = node->Next_Valid()) {
+		SplineEntryClass *entry = node->Get();
+		if (entry == NULL) {
+			return false;
+		}
+		if (!Save_Entry(csave, entry)) {
+			return false;
+		}
+	}
+	return true;
+}
+
+bool SplineDatabaseClass::Save_Header(ChunkSaveClass &csave)
+{
+	SplineFileHeaderStruct header;
+	header.Version = 0x100;
+	header.Count = Splines.Num_Records();
+	header.Reserved[0] = header.Reserved[1] = 0;
+	if (!csave.Begin_Chunk(0x800)) {
+		return false;
+	}
+	if (csave.Write(&header, sizeof(header)) < sizeof(header)) {
+		return false;
+	}
+	if (csave.End_Chunk()) {
+		return true;
+	}
+	return false;
+}
+
+// NOT EXACT: shape / inline budget (the client inlines Save_Curve's switch)
+bool SplineDatabaseClass::Save_Entry(ChunkSaveClass &csave, SplineEntryClass *entry)
+{
+	SplineEntryHeaderStruct header;
+	header.Type = entry->Type;
+	header.NameLength = strlen(entry->Name) + 1;
+	header.Flag = entry->FileFlag;
+	header.Params = entry->Params;
+	header.Reserved[0] = header.Reserved[1] = 0;
+	if (!csave.Begin_Chunk(0x811)) {
+		return false;
+	}
+	if (!csave.Write(&header, sizeof(header))) {
+		return false;
+	}
+	if (!csave.Write(entry->Name, header.NameLength)) {
+		return false;
+	}
+	if (!Write_String(csave, entry->Description)) {
+		return false;
+	}
+	if (!Save_Curve(csave, entry)) {
+		return false;
+	}
+	return csave.End_Chunk();
+}
+
+// NOT EXACT: shape (the switch layout)
+bool SplineDatabaseClass::Save_Curve(ChunkSaveClass &csave, SplineEntryClass *entry)
+{
+	switch (entry->Type) {
+		case TYPE_COLOR:
+			return true;
+		case TYPE_BLEND:
+			if (!Save_Hermite(csave, entry)) {
+				return false;
+			}
+			if (!csave.Write(&entry->AlphaKey, 4)) {
+				return false;
+			}
+			return csave.Write(&entry->BetaKey, 4) != 0;
+		case TYPE_LINEAR:
+		{
+			Curve1DClass *curve = entry->Curve;
+			bool looping = curve->Is_Looping();
+			if (!csave.Write(&looping, 1)) {
+				return false;
+			}
+			int count = curve->Key_Count();
+			if (!csave.Write(&count, 4)) {
+				return false;
+			}
+			for (int i = 0; i < count; i++) {
+				float point;
+				float t;
+				unsigned int extra;
+				curve->Get_Key(i, &point, &t, &extra);
+				if (!csave.Write(&point, 4)) {
+					return false;
+				}
+				if (!csave.Write(&t, 4)) {
+					return false;
+				}
+				if (!csave.Write(&extra, 4)) {
+					return false;
+				}
+			}
+			return true;
+		}
+		case TYPE_HERMITE:
+			return Save_Hermite(csave, entry);
+	}
+	return false;
+}
+
+// NOT EXACT: frame (0x18 in the client: the key and tangent locals share other slots)
+bool SplineDatabaseClass::Save_Hermite(ChunkSaveClass &csave, SplineEntryClass *entry)
+{
+	HermiteSpline1DClass *curve = (HermiteSpline1DClass *)entry->Curve;
+	bool looping = curve->Is_Looping();
+	if (!csave.Write(&looping, 1)) {
+		return false;
+	}
+	int count = curve->Key_Count();
+	if (!csave.Write(&count, 4)) {
+		return false;
+	}
+	for (int i = 0; i < count; i++) {
+		unsigned int extra;
+		float t;
+		float point;
+		curve->Get_Key(i, &point, &t, &extra);
+		if (!csave.Write(&point, 4)) {
+			return false;
+		}
+		if (!csave.Write(&t, 4)) {
+			return false;
+		}
+		if (!csave.Write(&extra, 4)) {
+			return false;
+		}
+		float in_tan;
+		float out_tan;
+		curve->Get_Tangents(i, &in_tan, &out_tan);
+		if (!csave.Write(&in_tan, 4)) {
+			return false;
+		}
+		if (!csave.Write(&out_tan, 4)) {
+			return false;
+		}
+	}
+	return true;
+}
+
 // NOT EXACT: shape (the client repeats the epilogue for the header's two failures and keeps &KeyNames in edi)
 bool SplineDatabaseClass::Load_Chunks(ChunkLoadClass &cload)
 {
@@ -1921,190 +2087,24 @@ bool SplineDatabaseClass::Read_String(ChunkLoadClass &cload, char **string)
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+bool SplineDatabaseClass::Write_String(ChunkSaveClass &csave, const char *string)
+{
+	unsigned int length = 0;
+	if (string != NULL && strlen(string) != 0) {
+		length = strlen(string) + 1;
+		if (csave.Write(&length, 4) < 4) {
+			return false;
+		}
+		if (csave.Write(string, length) >= length) {
+			return true;
+		}
+		return false;
+	}
+	if (csave.Write(&length, 4) >= 4) {
+		return true;
+	}
+	return false;
+}
 
 
 
@@ -2905,7 +2905,10 @@ SplineEntryClass::~SplineEntryClass(void)
 **	  Create_Hermite (662, 713), 0x485E80 / 0x486040 Create_Linear_Color / Create_Hermite_Color (782,
 **	  832), 0x487400 Create_Color (1523).
 **
-**	Not rebuilt yet (nothing in VIDTEST calls them): the save code (0x484D00, 0x487B20-0x4883A0,
-**	0x488FB0, 0x486E10-0x486F60, 0x489660, 0x489830), the evaluation helpers 0x485620, 0x485790 (on
+**	  The save side: Save 0x484D00, Save_Chunks 0x487B20, Save_Header 0x487E70, Save_Entry 0x487F00,
+**	  Save_Curve 0x4881F0, Save_Hermite 0x4883A0, Write_String 0x488FB0.
+**
+**	Not rebuilt yet (nothing in VIDTEST calls them): the packing code (0x486E10-0x486F60, 0x4895E0,
+**	0x489660, 0x489830), the evaluation helpers 0x485620, 0x485790 (on
 **	spline.h's arrays), 0x486200 (896) and 0x4864F0 (965), the entry's second constructor 0x489480.
 */

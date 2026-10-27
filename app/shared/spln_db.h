@@ -41,6 +41,7 @@
 class Curve1DClass;
 class FileClass;
 class ChunkLoadClass;
+class ChunkSaveClass;
 struct SplineFileHeaderStruct;
 
 // NAME 2: the four parameters an entry carries from the file (+0x10, copied as one)
@@ -93,6 +94,8 @@ public:
 
 // NAME 2: loads a .wsd through the file factory (0x484AB0)
 	bool						Load(const char *database_filename);
+// NAME 2: writes the database to database_filename, or Filename (0x484D00)
+	bool						Save(const char *database_filename);
 // NAME 2: loads Filename again (0x487900, assert 'database_filename'; the mailslot's reload)
 	bool						Reload(void);
 	bool						Has_Splines(void) const		{ return HasSplines; }
@@ -143,6 +146,13 @@ protected:
 	void						Free_Splines(void);
 // NAME 2: deletes the key names but entry 0 (0x487360)
 	void						Free_Key_Names(void);
+// NAME 2: the save side (0x487B20, 0x487E70, 0x487F00, 0x4881F0, 0x4883A0, 0x488FB0): chunk 0x800, 0x808, one 0x811 per entry
+	bool						Save_Chunks(ChunkSaveClass &csave);
+	bool						Save_Header(ChunkSaveClass &csave);
+	static bool				Save_Entry(ChunkSaveClass &csave, SplineEntryClass *entry);
+	static bool				Save_Curve(ChunkSaveClass &csave, SplineEntryClass *entry);
+	static bool				Save_Hermite(ChunkSaveClass &csave, SplineEntryClass *entry);
+	static bool				Write_String(ChunkSaveClass &csave, const char *string);
 // NAME 2: checks the colour and blend entries' components and hides the colour components (0x487660)
 	bool						Resolve(void);
 // NAME 2: the chunks after the file's opening (0x488500)
