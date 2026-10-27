@@ -11,7 +11,7 @@
 #include <sys/stat.h>
 
 INIClass &Get_Network_INI();	// connect.cpp 0x821B40
-
+static std::hash_map<std::string, PacketStatsStruct> Packet_Stats;	// 0xBE9008 (the statistics wrapper's)  // NAME 2: what it holds
 static char Log_Directory[256];	// 0xBE9024  // NAME 2: what it holds
 
 // LogConnectionClass (vtable 0xB086C4)
@@ -207,8 +207,8 @@ bool RateConnectionClass::Get_Stats(float *out_rate, float *in_rate, float *c, f
 }
 
 // StatsConnectionClass (vtable 0xB08794): -PACKET_STATS; counts by the packet's printed name
-void Record_Sent(const char *name, int bytes);		// 0x8255B0 (not rebuilt)  // NAME 2: what it does
-void Record_Received(const char *name, int bytes);	// 0x825390 (not rebuilt)  // NAME 2: what it does
+void Record_Sent(const char *name, int bytes);		// 0x8255B0  // NAME 2: what it does
+void Record_Received(const char *name, int bytes);	// 0x825390  // NAME 2: what it does
 
 StatsConnectionClass::StatsConnectionClass(ConnectionClass *connection) :
 	ForwardingConnectionClass(connection)
@@ -337,6 +337,40 @@ PacketClass *StatsConnectionClass::Receive()
 	return(packet);
 }
 
+void Record_Received(const char *name, int bytes)
+{
+	if (name != 0) {
+		std::string key(name);
+		std::hash_map<std::string, PacketStatsStruct>::iterator i = Packet_Stats.find(key);
+		if (i == Packet_Stats.end()) {
+			PacketStatsStruct stats;
+			stats.ReceivedBytes = bytes;
+			stats.ReceivedCount = 1;
+			Packet_Stats[key] = stats;
+		} else {
+			(*i).second.ReceivedBytes += bytes;
+			(*i).second.ReceivedCount++;
+		}
+	}
+}
+
+void Record_Sent(const char *name, int bytes)
+{
+	if (name != 0) {
+		std::string key(name);
+		std::hash_map<std::string, PacketStatsStruct>::iterator i = Packet_Stats.find(key);
+		if (i == Packet_Stats.end()) {
+			PacketStatsStruct stats;
+			stats.SentBytes = bytes;
+			stats.SentCount = 1;
+			Packet_Stats[key] = stats;
+		} else {
+			(*i).second.SentBytes += bytes;
+			(*i).second.SentCount++;
+		}
+	}
+}
+
 /*
 **	Reconstruction notes (dbgconn.cpp, PARTIAL; docs/kernel-map.md 4, step 8)
 **
@@ -345,9 +379,11 @@ PacketClass *StatsConnectionClass::Receive()
 **	  the timed packet log 0x824540-0x824A20 (Format_Time last, a member: `ret 8`), the rate wrapper
 **	  0x824A90-0x825050 (average.h's two AverageClass: the constructor exact, the rest functional);
 **	  the statistics wrapper's constructor (line 298), Send_Message (line 308), Send_Packet and
-**	  Receive 0x8250B0-0x825300; not rebuilt: its counters Record_Received 0x825390 / Record_Sent
-**	  0x8255B0 (by the packet's printed name up to '{', in a std::map keyed by std::string with
-**	  64-bit byte totals) and their template instances to 0x826470.
+**	  Receive 0x8250B0-0x825300; its counters Record_Received 0x825390 / Record_Sent 0x8255B0 (by the
+**	  packet's printed name up to '{', in one SGI hash_map keyed by std::string, 0xBE9008, D87: its
+**	  initializer 0x823E40 and destructor 0x823EA0, the table's instances 0x8257D0-0x826470, the
+**	  string hash 0x42DB00). PacketStatsStruct's zeroing constructor is what makes the client's
+**	  operator[] temporary zero-filled.
 **	* Forms: Get_Log_Directory's success leaves through a goto to the one return; Format_Time
 **	  takes `ms %= 60000` after the minutes; the timed Describe adds the text's length to len
 **	  before the last sprintf; the raw one reads Header.Size first.

@@ -10,10 +10,10 @@
 **	key. The client doesn't name the class (D24); the method names are guesses (D10), their
 **	asserts' arguments are the client's (key, buf, value, item).
 **
-**	NOT THE CLIENT'S LAYOUT: the client's index is an SGI-style hash_map<const char *, KVPairClass *>
-**	(at +0x10: buckets +0x18, count +0x24, hash h * 5 + c, 0x4B6970; its constructor 0x4B62B0 asks for
-**	100 buckets, a prime from the table at 0xAEB764), which the tree has no header for. Here it is a
-**	std::map; nothing outside kv_list.cpp reaches the members.
+**	The index is SGI STL's hash_map<const char *, KVPairClass *> (libs/sgistl, D87): at +0x10, its
+**	buckets +0x18, its count +0x24; the hash __stl_hash_string 0x4B6970 (this file's copy), the
+**	keys compared with strcmp; the default constructor's 100 buckets come from this file's copy of
+**	__stl_prime_list (0xAEB764).
 */
 
 #if defined(_MSC_VER)
@@ -25,7 +25,7 @@
 
 #include <string.h>
 #include <vector>
-#include <map>
+#include <hash_map.h>
 
 class KVPairClass;
 
@@ -45,13 +45,13 @@ public:
 	int Get_Count() const { return Pairs.size(); }  // NAME 2: describes what it does
 	KVPairClass *Get(int index) const { return Pairs[index]; }  // NAME 2: describes what it does
 
-	struct KeyLess  // NAME 2: describes what it does
+	struct KeyEqual  // NAME 2: describes what it does (the SGI documentation's eqstr)
 	{
-		bool operator()(const char *a, const char *b) const { return strcmp(a, b) < 0; }
+		bool operator()(const char *a, const char *b) const { return strcmp(a, b) == 0; }
 	};
 
 	std::vector<KVPairClass *> Pairs;											// +0x00 (the client's too)  // NAME 2 [Pairs]: describes what it does
-	std::map<const char *, KVPairClass *, KeyLess> Index;						// (the client's hash_map, see above)  // NAME 2 [Index]: describes what it does
+	std::hash_map<const char *, KVPairClass *, std::hash<const char *>, KeyEqual> Index;	// +0x10  // NAME 2 [Index]: describes what it does
 };
 
 #endif //__KV_LIST_H

@@ -21,6 +21,19 @@
 #include "connect.h"
 #include "average.h"
 #include <stdio.h>
+#include <string>
+#include <hash_map.h>
+
+// The statistics wrapper's counts per packet name (the node's value at +0x18 / +0x20 / +0x28 / +0x2C)
+struct PacketStatsStruct	// NAME 2: what it holds
+{
+	PacketStatsStruct() : ReceivedBytes(0), SentBytes(0), ReceivedCount(0), SentCount(0) {}
+
+	__int64 ReceivedBytes;	// NAME 2: what it holds
+	__int64 SentBytes;		// NAME 2: what it holds
+	int ReceivedCount;		// NAME 2: what it holds
+	int SentCount;			// NAME 2: what it holds
+};
 
 // The log directory: network.ini's [Network] LogPath with the first free 3-digit suffix (0x824450)
 const char *Get_Log_Directory();	// NAME 2: what it does

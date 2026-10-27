@@ -477,11 +477,25 @@
    },
    "dbgconn": {
     "ambiguous": [
-     "0x42B2F0"
+     "0x42A6C0",
+     "0x42A900",
+     "0x42AAE0",
+     "0x42AC90",
+     "0x42AFF0",
+     "0x42B250",
+     "0x42B2F0",
+     "0x42D180"
     ],
     "copy": "reconstructed",
     "expected": {},
     "in_tree": [
+     "0x42A820",
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30",
+     "0x42C4E0",
+     "0x42CD30",
+     "0x42DB00",
      "0x821E40",
      "0x823F70",
      "0x824270",
@@ -501,7 +515,13 @@
      "0x8251A0",
      "0x825220",
      "0x825260",
-     "0x825300"
+     "0x825300",
+     "0x825390",
+     "0x8255B0",
+     "0x825A00",
+     "0x825F50",
+     "0x8260B0",
+     "0x826290"
     ],
     "merged": [],
     "name": "common/dbgconn.cpp"
@@ -783,14 +803,30 @@
    "kv_list": {
     "ambiguous": [
      "0x42A900",
+     "0x42AAE0",
+     "0x42AC90",
+     "0x42AFF0",
+     "0x42B250",
      "0x42B2C0",
+     "0x42B2F0",
+     "0x42B340",
      "0x436420",
-     "0x4ACBB0",
-     "0x4E3EE0"
+     "0x4B7E00",
+     "0x4B7E30"
     ],
     "copy": "reconstructed",
     "expected": {},
-    "in_tree": [],
+    "in_tree": [
+     "0x4B62B0",
+     "0x4B6760",
+     "0x4B6970",
+     "0x4B69A0",
+     "0x4B6A80",
+     "0x4B6BF0",
+     "0x4B6CE0",
+     "0x4B7870",
+     "0x4B7B80"
+    ],
     "merged": [],
     "name": "shared/kv_list.cpp"
    },

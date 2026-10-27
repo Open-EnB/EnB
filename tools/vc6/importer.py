@@ -3351,10 +3351,11 @@ RECONSTRUCTED = {
     ('app', 'shared/strconv_lib.h'): "the key/value pairs' value <-> text conversions (name assumed "
                                      "from strconv_lib.cpp, whose object holds them: 0x4A30A0-0x4A35F0); "
                                      "only float and unsigned int declared, defined in stubs/",
-    ('app', 'shared/kv_list.h'): "KVListClass (D24), functional: the pairs in order and a key index (a std::map "
-                                 "for the client's SGI-style hash_map, 0x4B62B0)",
-    ('app', 'shared/kv_list.cpp'): "KVListClass, client 0x4B62B0-0x4B6D90, functional (NOT EXACT): Add "
-                                   "0x4B6760 and the lookups, asserts on the client's lines 23-113 (D25)",
+    ('app', 'shared/kv_list.h'): "KVListClass (D24): the pairs in order and a key index, SGI STL's hash_map "
+                                 "(libs/sgistl, D87) at +0x10",
+    ('app', 'shared/kv_list.cpp'): "KVListClass, client 0x4B62B0-0x4B6D90 with the index's instances to 0x4B7E30: "
+                                   "Add 0x4B6760 and the lookups, asserts on the client's lines 23-113 (D25); "
+                                   "NOT EXACT: the destructor 0x4B6520 and Get_Value_String 0x4B6B60",
     ('app', 'shared/auxdata/encode.cpp'): "RecordTableClass (D24; Records from the asserts), client "
                                           "0x4A9A70-0x4A9C1A: ctor (line 512, D25), dtor, Unknown_Sum, "
                                           "Unknown_All; the decoders (M1.2): RecordCodecClass::Decode "
@@ -3478,8 +3479,9 @@ RECONSTRUCTED = {
                                    "the forwarding and peek wrappers 0x821BB0-0x822060, ConnectionManager 0x822070-0x822EA0 "
                                    "and its factory 0x822F10, the stream connection 0x823320-0x8238C0, the asserts on the "
                                    "client's lines (D25); Remove_Dead 0x822B50 NOT EXACT",
-    ('app', 'common/dbgconn.h'): "dbgconn.cpp's packet logs and (declared) the statistics wrapper (constructors "
-                                 "0x823F70 / 0x824540 / 0x8250B0 and sizes), for Add_Connection 0x822CC0",
+    ('app', 'common/dbgconn.h'): "dbgconn.cpp's packet logs and the statistics wrapper (constructors "
+                                 "0x823F70 / 0x824540 / 0x8250B0 and sizes), for Add_Connection 0x822CC0; the "
+                                 "wrapper's counts per packet name (PacketStatsStruct, 0x18 bytes)",
     ('app', 'common/memconn.h'): "the in-process transport (descriptive names, D24): the memory connection "
                                  "(vtable 0xB087D4), its pipes, the memory listener (0xB08818 / 0xB08814) and the "
                                  "registry by port",
@@ -3490,7 +3492,8 @@ RECONSTRUCTED = {
                                              "by port, client 0x827560-0x828A00 (after memconn.cpp's template "
                                              "instances; memconn.cpp calls it out of line)",
     ('app', 'common/dbgconn.cpp'): "PARTIAL: dbgconn.cpp's packet logs, rate and statistics wrappers, client 0x823F70-0x825300; the counters "
-                                   "0x825390-0x826470 not rebuilt",
+                                   "Record_Received 0x825390 / Record_Sent 0x8255B0 on an SGI hash_map (D87) with its "
+                                   "instances to 0x826470",
     ('app', 'common/average.h'): "AverageClass (D24, after the client's average.h, assert l.98): a running "
                                  "average over one-second samples, inline (the destructor 0x824C30)",
     ('app', 'common/unknown_listener.cpp'): "PROVISIONAL file name (D10): the composite listener "
@@ -4133,8 +4136,10 @@ def image():
 
 def tree_includes():
     wwonline = [os.path.join(REPO, 'libs', 'wwonline')] if os.path.isdir(os.path.join(REPO, 'libs', 'wwonline')) else []
+    # D87: SGI STL 3.3's hash_map adapted for VC6 (libs\sgistl\hash_map.h), after the SDKs and VC6's own STL
+    sgistl = [os.path.join(REPO, 'libs', 'sgistl')] if os.path.isdir(os.path.join(REPO, 'libs', 'sgistl')) else []
     return [dest(l) for l in LIBS if l not in LATE_INCLUDE_LIBS and os.path.isdir(dest(l))] + SDK_INCLUDES + \
-        wwonline + [REPO]  # the repository root last: BinkMovie's subtitle headers include <wwlib\vector.h>
+        wwonline + sgistl + [REPO]  # the repository root last: BinkMovie's subtitle headers include <wwlib\vector.h>
 
 
 def late_sync():
