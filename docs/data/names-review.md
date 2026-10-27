@@ -10,8 +10,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 30 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 35 |
 | 3 | by convention from a client-named file or sibling | 759 |
-| 2 | describes what the code does | 1688 |
-| 1 | neutral placeholder | 2499 |
+| 2 | describes what the code does | 1736 |
+| 1 | neutral placeholder | 2529 |
 
 ## For review (score 3 and below)
 
@@ -217,10 +217,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_18` | `app/client/co_data.cpp:60` | untagged neutral name (D10) |
 | 1 | `Unknown_18` | `app/client/co_data.h:42` | the client's slot |
 | 1 | `ClientObjectDataAccessClass` | `app/client/co_data.h:52` | neutral (D10), the per-type access |
-| 1 | `Unknown_8B44E0` | `app/client/control_keys_manager.cpp:8` | neutral placeholder (D10) |
-| 1 | `Unknown_42A1A0` | `app/client/control_keys_manager.cpp:9` | neutral (D10): 0x42A1A0 (app\input), a key read from an ini entry |
-| 1 | `Unknown_42A410` | `app/client/control_keys_manager.cpp:10` | neutral (D10): 0x42A410 (app\input), a key written to an ini entry |
-| 1 | `Unknown_42B7E0` | `app/client/control_keys_manager.cpp:11` | neutral (D10): 0x42B7E0, the key's text |
+| 1 | `Unknown_8B44E0` | `app/client/control_keys_manager.cpp:10` | neutral placeholder (D10) |
+| 1 | `Unknown_42A1A0` | `app/client/control_keys_manager.cpp:11` | neutral (D10): 0x42A1A0 (app\input), a key read from an ini entry |
+| 1 | `Unknown_42A410` | `app/client/control_keys_manager.cpp:12` | neutral (D10): 0x42A410 (app\input), a key written to an ini entry |
+| 1 | `Unknown_42B7E0` | `app/client/control_keys_manager.cpp:13` | neutral (D10): 0x42B7E0, the key's text |
 | 1 | `Unknown12E8` | `app/client/control_keys_manager.cpp:168` | untagged neutral name (D10) |
 | 1 | `Get_Unknown30` | `app/client/control_keys_manager.cpp:189` | untagged neutral name (D10) |
 | 1 | `Get_Unknown10` | `app/client/control_keys_manager.cpp:649` | untagged neutral name (D10) |
@@ -233,27 +233,27 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown10` | `app/client/control_keys_manager.h:32` | untagged neutral name (D10) |
 | 1 | `std:` | `app/client/control_keys_manager.h:33` | neutral (D10) |
 | 1 | `Unknown20` | `app/client/control_keys_manager.h:33` | untagged neutral name (D10) |
-| 1 | `Unknown30` | `app/client/control_keys_manager.h:36` | neutral (D10) |
-| 1 | `ControlKeyDefClass` | `app/client/control_keys_manager.h:40` | neutral (D10): the holder whose member the asserts call DefPtr |
-| 1 | `std:` | `app/client/control_keys_manager.h:43` | neutral (D10) |
-| 1 | `Get_Unknown10` | `app/client/control_keys_manager.h:43` | untagged neutral name (D10) |
-| 1 | `std:` | `app/client/control_keys_manager.h:45` | neutral (D10) |
-| 1 | `Get_Unknown20` | `app/client/control_keys_manager.h:45` | untagged neutral name (D10) |
-| 1 | `Get_Unknown30` | `app/client/control_keys_manager.h:46` | neutral (D10) |
-| 1 | `ControlKeyComboStruct` | `app/client/control_keys_manager.h:52` | neutral (D10): 0x10 bytes, what 0x42B7E0 turns into text |
-| 1 | `Unknown04` | `app/client/control_keys_manager.h:58` | neutral (D10) |
-| 1 | `Unknown08` | `app/client/control_keys_manager.h:59` | neutral (D10) |
-| 1 | `Unknown0C` | `app/client/control_keys_manager.h:60` | neutral (D10) |
-| 1 | `ControlKeyStruct` | `app/client/control_keys_manager.h:63` | neutral (D10): one key of a mapping (4 bytes) |
-| 1 | `ControlKeyValueStruct` | `app/client/control_keys_manager.h:72` | neutral (D10): the 4-byte key value 0x5CB000's options screen copies |
-| 1 | `KeyMappingStruct` | `app/client/control_keys_manager.h:84` | neutral (D10): one key definition's mapping (0xC bytes): its DefPtr and keys |
-| 1 | `KeyIdStruct` | `app/client/control_keys_manager.h:92` | neutral (D10): the value of _KeyIds (0x14 bytes) |
-| 1 | `ControlKeysSClientClass` | `app/client/control_keys_manager.h:98` | neutral (D10): sclient.cpp's SClient, as far as Init reads it |
-| 1 | `Unknown0000` | `app/client/control_keys_manager.h:101` | untagged neutral name (D10) |
-| 1 | `Unknown12E8` | `app/client/control_keys_manager.h:102` | neutral (D10) |
-| 1 | `ControlKeyListClass` | `app/client/control_keys_manager.h:105` | neutral (D10): the screen's key list Add_Keys / Remove_Keys fill ('keylist') |
-| 1 | `Unknown00` | `app/client/control_keys_manager.h:120` | neutral (D10) |
-| 1 | `std:` | `app/client/control_keys_manager.h:160` | neutral (D10) |
+| 1 | `Unknown30` | `app/client/control_keys_manager.h:37` | neutral (D10) |
+| 1 | `ControlKeyDefClass` | `app/client/control_keys_manager.h:41` | neutral (D10): the holder whose member the asserts call DefPtr |
+| 1 | `std:` | `app/client/control_keys_manager.h:44` | neutral (D10) |
+| 1 | `Get_Unknown10` | `app/client/control_keys_manager.h:44` | untagged neutral name (D10) |
+| 1 | `std:` | `app/client/control_keys_manager.h:46` | neutral (D10) |
+| 1 | `Get_Unknown20` | `app/client/control_keys_manager.h:46` | untagged neutral name (D10) |
+| 1 | `Get_Unknown30` | `app/client/control_keys_manager.h:47` | neutral (D10) |
+| 1 | `ControlKeyComboStruct` | `app/client/control_keys_manager.h:53` | neutral (D10): 0x10 bytes, what 0x42B7E0 turns into text |
+| 1 | `Unknown04` | `app/client/control_keys_manager.h:59` | neutral (D10) |
+| 1 | `Unknown08` | `app/client/control_keys_manager.h:60` | neutral (D10) |
+| 1 | `Unknown0C` | `app/client/control_keys_manager.h:61` | neutral (D10) |
+| 1 | `ControlKeyStruct` | `app/client/control_keys_manager.h:64` | neutral (D10): one key of a mapping (4 bytes) |
+| 1 | `ControlKeyValueStruct` | `app/client/control_keys_manager.h:73` | neutral (D10): the 4-byte key value 0x5CB000's options screen copies |
+| 1 | `KeyMappingStruct` | `app/client/control_keys_manager.h:85` | neutral (D10): one key definition's mapping (0xC bytes): its DefPtr and keys |
+| 1 | `KeyIdStruct` | `app/client/control_keys_manager.h:93` | neutral (D10): the value of _KeyIds (0x14 bytes) |
+| 1 | `ControlKeysSClientClass` | `app/client/control_keys_manager.h:99` | neutral (D10): sclient.cpp's SClient, as far as Init reads it |
+| 1 | `Unknown0000` | `app/client/control_keys_manager.h:102` | untagged neutral name (D10) |
+| 1 | `Unknown12E8` | `app/client/control_keys_manager.h:103` | neutral (D10) |
+| 1 | `ControlKeyListClass` | `app/client/control_keys_manager.h:106` | neutral (D10): the screen's key list Add_Keys / Remove_Keys fill ('keylist') |
+| 1 | `Unknown00` | `app/client/control_keys_manager.h:121` | neutral (D10) |
+| 1 | `std:` | `app/client/control_keys_manager.h:161` | neutral (D10) |
 | 1 | `Unknown_4604D0` | `app/client/cpacket.cpp:48` | untagged neutral name (D10) |
 | 1 | `Unknown_460780` | `app/client/cpacket.cpp:49` | untagged neutral name (D10) |
 | 1 | `Unknown_460850` | `app/client/cpacket.cpp:50` | untagged neutral name (D10) |
@@ -303,15 +303,20 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_751850` | `app/client/cpacket.cpp:3345` | untagged neutral name (D10) |
 | 1 | `Unknown_751460` | `app/client/cpacket.cpp:3413` | untagged neutral name (D10) |
 | 1 | `Unknown08` | `app/client/emote_data.h:26` | untagged neutral name (D10) |
-| 1 | `Unknown_6BF910` | `app/client/fontdatabase.cpp:21` | untagged neutral name (D10) |
-| 1 | `Unknown_6BFD00` | `app/client/fontdatabase.cpp:22` | untagged neutral name (D10) |
-| 1 | `Unknown_6C2080` | `app/client/fontdatabase.cpp:25` | untagged neutral name (D10) |
-| 1 | `Unknown98` | `app/client/fontdatabase.cpp:90` | untagged neutral name (D10) |
-| 1 | `DefaultUnknown98` | `app/client/fontdatabase.cpp:94` | untagged neutral name (D10) |
+| 1 | `Unknown04` | `app/client/fontdatabase.cpp:37` | untagged neutral name (D10) |
+| 1 | `Unknown_6BF910` | `app/client/fontdatabase.cpp:84` | untagged neutral name (D10) |
+| 1 | `Unknown_6BFD00` | `app/client/fontdatabase.cpp:85` | untagged neutral name (D10) |
+| 1 | `Unknown_6C2080` | `app/client/fontdatabase.cpp:88` | untagged neutral name (D10) |
+| 1 | `Unknown98` | `app/client/fontdatabase.cpp:153` | untagged neutral name (D10) |
+| 1 | `DefaultUnknown98` | `app/client/fontdatabase.cpp:157` | untagged neutral name (D10) |
 | 1 | `Unknown_1C` | `app/client/fontdatabase.cpp:953` | untagged neutral name (D10) |
 | 1 | `Get_Unknown98` | `app/client/fontdatabase.cpp:1068` | untagged neutral name (D10) |
+| 1 | `Unknown_6C47B0` | `app/client/fontdatabase.cpp:1093` | untagged neutral name (D10) |
+| 1 | `Unknown_6C5C60` | `app/client/fontdatabase.cpp:1098` | untagged neutral name (D10) |
 | 1 | `Unknown_6C49C0` | `app/client/fontdatabase.cpp:1118` | untagged neutral name (D10) |
 | 1 | `Unknown_6C57B0` | `app/client/fontdatabase.cpp:1122` | untagged neutral name (D10) |
+| 1 | `Unknown_BE67B8` | `app/client/fontdatabase.cpp:1159` | untagged neutral name (D10) |
+| 1 | `Unknown_6C1AA0` | `app/client/fontdatabase.cpp:1159` | untagged neutral name (D10) |
 | 1 | `Unknown_6C5C60` | `app/client/fontdatabase.h:55` | neutral (D10) |
 | 1 | `Unknown_6C57B0` | `app/client/fontdatabase.h:56` | neutral (D10) |
 | 1 | `Unknown98` | `app/client/fontdatabase.h:66` | neutral (D10) |
@@ -325,11 +330,16 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_14` | `app/client/fontdatabase.h:81` | neutral (D10) |
 | 1 | `Unknown_1C` | `app/client/fontdatabase.h:83` | neutral (D10) |
 | 1 | `Unknown0C` | `app/client/fontdatabase.h:92` | neutral (D10) |
-| 1 | `Unknown_6BF910` | `app/client/fontdatabase.h:120` | neutral (D10) |
-| 1 | `Unknown_6BFD00` | `app/client/fontdatabase.h:121` | neutral (D10) |
-| 1 | `Unknown_6C2080` | `app/client/fontdatabase.h:122` | untagged neutral name (D10) |
-| 1 | `Get_Unknown98` | `app/client/fontdatabase.h:146` | neutral (D10) |
-| 1 | `Unknown_6C49C0` | `app/client/fontdatabase.h:148` | neutral (D10) |
+| 1 | `Unknown04` | `app/client/fontdatabase.h:114` | neutral (D10) |
+| 1 | `Unknown_6BF910` | `app/client/fontdatabase.h:158` | neutral (D10) |
+| 1 | `Unknown_6BFD00` | `app/client/fontdatabase.h:159` | neutral (D10) |
+| 1 | `Unknown_6C2080` | `app/client/fontdatabase.h:160` | untagged neutral name (D10) |
+| 1 | `Get_Unknown98` | `app/client/fontdatabase.h:184` | neutral (D10) |
+| 1 | `Unknown_6C1500` | `app/client/fontdatabase.h:186` | neutral (D10) |
+| 1 | `Unknown_6C1AA0` | `app/client/fontdatabase.h:187` | neutral (D10) |
+| 1 | `Unknown_6C47B0` | `app/client/fontdatabase.h:188` | neutral (D10) |
+| 1 | `Unknown_6C49C0` | `app/client/fontdatabase.h:189` | neutral (D10) |
+| 1 | `Unknown_BE67B8` | `app/client/fontdatabase.h:199` | neutral (D10) |
 | 1 | `Unknown08` | `app/client/gutter_data.h:26` | untagged neutral name (D10) |
 | 1 | `Unknown08` | `app/client/navigation_data.h:26` | untagged neutral name (D10) |
 | 1 | `Unknown08` | `app/client/radar_data.h:26` | untagged neutral name (D10) |
@@ -1353,10 +1363,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_28` | `app/packets/pk_classes.h:312` | neutral (D10) |
 | 1 | `Packet_00B5Class` | `app/packets/pk_classes.h:349` | neutral (D10): opcode 0x00B5 |
 | 1 | `Packet_00B6Class` | `app/packets/pk_classes.h:358` | neutral (D10): opcode 0x00B6 |
-| 1 | `Packet_00A9Class` | `app/packets/pk_classes.h:367` | neutral (D10): opcode 0x00A9 |
-| 1 | `Packet_00ABClass` | `app/packets/pk_classes.h:376` | neutral (D10): opcode 0x00AB |
-| 1 | `Packet_00ACClass` | `app/packets/pk_classes.h:385` | neutral (D10): opcode 0x00AC |
-| 1 | `Packet_0077Class` | `app/packets/pk_classes.h:394` | neutral (D10): opcode 0x0077 |
+| 1 | `Packet_00ACClass` | `app/packets/pk_classes.h:367` | neutral (D10): opcode 0x00AC |
+| 1 | `Packet_0077Class` | `app/packets/pk_classes.h:376` | neutral (D10): opcode 0x0077 |
 | 1 | `Unknown_14` | `app/packets/pk_player_object_relationship.cpp:12` | untagged neutral name (D10) |
 | 1 | `std:` | `app/packets/pk_player_object_relationship.cpp:85` | neutral (D10) |
 | 1 | `Unknown_8743C0` | `app/packets/pk_player_object_relationship.cpp:85` | untagged neutral name (D10) |
@@ -1850,6 +1858,16 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown40` | `app/packets/pkunknown_87acd0.cpp:12` | untagged neutral name (D10) |
 | 1 | `Unknown48` | `app/packets/pkunknown_87acd0.cpp:44` | untagged neutral name (D10) |
 | 1 | `Unknown58` | `app/packets/pkunknown_87acd0.cpp:45` | untagged neutral name (D10) |
+| 1 | `Unknown14` | `app/packets/pkunknown_87acd0.cpp:116` | untagged neutral name (D10) |
+| 1 | `Unknown24` | `app/packets/pkunknown_87acd0.cpp:117` | untagged neutral name (D10) |
+| 1 | `Unknown44` | `app/packets/pkunknown_87acd0.cpp:119` | untagged neutral name (D10) |
+| 1 | `Unknown54` | `app/packets/pkunknown_87acd0.cpp:120` | untagged neutral name (D10) |
+| 1 | `Unknown64` | `app/packets/pkunknown_87acd0.cpp:123` | untagged neutral name (D10) |
+| 1 | `Add_Unknown64` | `app/packets/pkunknown_87acd0.cpp:180` | untagged neutral name (D10) |
+| 1 | `Unknown1C` | `app/packets/pkunknown_87acd0.cpp:220` | untagged neutral name (D10) |
+| 1 | `Unknown2C` | `app/packets/pkunknown_87acd0.cpp:221` | untagged neutral name (D10) |
+| 1 | `Add_Unknown30` | `app/packets/pkunknown_87acd0.cpp:283` | untagged neutral name (D10) |
+| 1 | `Add_Unknown40` | `app/packets/pkunknown_87acd0.cpp:288` | untagged neutral name (D10) |
 | 1 | `pkunknown_87acd0` | `app/packets/pkunknown_87acd0.h:16` | provisional, neutral (D10): the object's first address |
 | 1 | `Packet_00A8Class` | `app/packets/pkunknown_87acd0.h:24` | neutral (D10): opcode 0x00A8 (its Print says 'ChatProxyLoginPacketClass') |
 | 1 | `Unknown0C` | `app/packets/pkunknown_87acd0.h:35` | untagged neutral name (D10) |
@@ -1861,7 +1879,19 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown40` | `app/packets/pkunknown_87acd0.h:41` | untagged neutral name (D10) |
 | 1 | `Unknown48` | `app/packets/pkunknown_87acd0.h:42` | untagged neutral name (D10) |
 | 1 | `Unknown58` | `app/packets/pkunknown_87acd0.h:43` | untagged neutral name (D10) |
-| 1 | `Packet_00AAClass` | `app/packets/pkunknown_87acd0.h:47` | neutral (D10): opcode 0x00AA |
+| 1 | `Packet_00A9Class` | `app/packets/pkunknown_87acd0.h:47` | neutral (D10): opcode 0x00A9 (its Print says 'ChatProxyRequestPacketClass') |
+| 1 | `Add_Unknown64` | `app/packets/pkunknown_87acd0.h:58` | neutral (D10) |
+| 1 | `Unknown14` | `app/packets/pkunknown_87acd0.h:62` | untagged neutral name (D10) |
+| 1 | `Unknown24` | `app/packets/pkunknown_87acd0.h:63` | untagged neutral name (D10) |
+| 1 | `Unknown44` | `app/packets/pkunknown_87acd0.h:65` | untagged neutral name (D10) |
+| 1 | `Unknown54` | `app/packets/pkunknown_87acd0.h:66` | untagged neutral name (D10) |
+| 1 | `Unknown64` | `app/packets/pkunknown_87acd0.h:67` | untagged neutral name (D10) |
+| 1 | `Packet_00AAClass` | `app/packets/pkunknown_87acd0.h:74` | neutral (D10): opcode 0x00AA |
+| 1 | `Packet_00ABClass` | `app/packets/pkunknown_87acd0.h:89` | neutral (D10): opcode 0x00AB (its Print says 'ChatProxyResponseListPacketClass') |
+| 1 | `Add_Unknown30` | `app/packets/pkunknown_87acd0.h:99` | neutral (D10) |
+| 1 | `Add_Unknown40` | `app/packets/pkunknown_87acd0.h:100` | neutral (D10) |
+| 1 | `Unknown1C` | `app/packets/pkunknown_87acd0.h:103` | untagged neutral name (D10) |
+| 1 | `Unknown2C` | `app/packets/pkunknown_87acd0.h:104` | untagged neutral name (D10) |
 | 1 | `Unknown_ChatStreamClass` | `app/packets/pkunknown_87dec0.cpp:6` | untagged neutral name (D10) |
 | 1 | `Unknown_04` | `app/packets/pkunknown_87dec0.cpp:15` | untagged neutral name (D10) |
 | 1 | `Unknown04` | `app/packets/pkunknown_87dec0.cpp:16` | untagged neutral name (D10) |
@@ -2513,7 +2543,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_Debug_Begin_Step` | `tests/capharness/udpreplay/connect_stubs.cpp:35` | untagged neutral name (D10) |
 | 1 | `Unknown_Debug_End_Step` | `tests/capharness/udpreplay/connect_stubs.cpp:36` | untagged neutral name (D10) |
 | 1 | `Unknown_Debug_Print` | `tests/capharness/udpreplay/connect_stubs.cpp:37` | untagged neutral name (D10) |
-| 1 | `Unknown_2C` | `tests/capharness/udpreplay/pk_ctor_stubs.cpp:142` | untagged neutral name (D10) |
+| 1 | `Unknown_2C` | `tests/capharness/udpreplay/pk_ctor_stubs.cpp:141` | untagged neutral name (D10) |
 | 1 | `Unknown08` | `tests/capharness/udpreplay/pkitemba_stubs.cpp:13` | untagged neutral name (D10) |
 | 1 | `Unknown_4BC130` | `tests/capharness/udpreplay/udpreplay.cpp:71` | untagged neutral name (D10) |
 | 2 | `Get_Float` | `app/audio/soundlib.cpp:26` | what it does |
@@ -2643,60 +2673,61 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Remove_Navigation_Data` | `app/client/co_data.h:89` | what it does |
 | 2 | `Get_Emote_Data` | `app/client/co_data.h:90` | what it does |
 | 2 | `Remove_Emote_Data` | `app/client/co_data.h:91` | what it does |
-| 2 | `std:` | `app/client/control_keys_manager.cpp:13` | 0xBE7B80, what the accessors return without a definition |
+| 2 | `ContextEqualStruct` | `app/client/control_keys_manager.cpp:15` | describes what it does (the SGI documentation's eqstr; strcmp inlined in 0x71ECD0) |
+| 2 | `std:` | `app/client/control_keys_manager.cpp:20` | 0xBE7B80, what the accessors return without a definition |
 | 2 | `std:` | `app/client/control_keys_manager.h:31` | 0x71CC60 returns it; the table's key |
-| 2 | `std:` | `app/client/control_keys_manager.h:44` | returns the definition's first string |
-| 2 | `Key` | `app/client/control_keys_manager.h:56` | the key's code |
-| 2 | `Modifiers` | `app/client/control_keys_manager.h:57` | the modifier bits |
-| 2 | `Key` | `app/client/control_keys_manager.h:68` | the key's code |
-| 2 | `Modifiers` | `app/client/control_keys_manager.h:69` | the modifier bits |
-| 2 | `Key` | `app/client/control_keys_manager.h:80` | the key's code |
-| 2 | `Modifiers` | `app/client/control_keys_manager.h:81` | the modifier bits |
-| 2 | `std:` | `app/client/control_keys_manager.h:86` | describes what it does |
-| 2 | `Id` | `app/client/control_keys_manager.h:94` | what it holds |
-| 2 | `Add` | `app/client/control_keys_manager.h:108` | describes what it does |
-| 2 | `Remove` | `app/client/control_keys_manager.h:109` | describes what it does |
-| 2 | `emit` | `app/client/control_keys_manager.h:118` | the typed form Save's call expands to |
-| 2 | `Set_Key` | `app/client/control_keys_manager.h:132` | describes what it does |
-| 2 | `Add_Keys` | `app/client/control_keys_manager.h:133` | describes what it does |
-| 2 | `Remove_Keys` | `app/client/control_keys_manager.h:134` | describes what it does |
-| 2 | `Save` | `app/client/control_keys_manager.h:135` | describes what it does |
-| 2 | `Get_Signal_Map` | `app/client/control_keys_manager.h:136` | describes what it does |
-| 2 | `Restore_Keys` | `app/client/control_keys_manager.h:137` | describes what it does |
-| 2 | `Set_Default_PSW` | `app/client/control_keys_manager.h:138` | describes what it does |
-| 2 | `Set_Default_SIM` | `app/client/control_keys_manager.h:139` | describes what it does |
-| 2 | `std:` | `app/client/control_keys_manager.h:140` | describes what it does |
-| 2 | `Build_Keys_Map` | `app/client/control_keys_manager.h:141` | describes what it does |
-| 2 | `Init` | `app/client/control_keys_manager.h:142` | describes what it does |
-| 2 | `Load_Definitions` | `app/client/control_keys_manager.h:143` | describes what it does |
-| 2 | `Load_Keys` | `app/client/control_keys_manager.h:144` | describes what it does |
-| 2 | `Save_Keys` | `app/client/control_keys_manager.h:145` | describes what it does |
-| 2 | `Find_Mappings` | `app/client/control_keys_manager.h:146` | describes what it does |
-| 2 | `Create` | `app/client/control_keys_manager.h:147` | describes what it does |
-| 2 | `Destroy` | `app/client/control_keys_manager.h:148` | what its caller uses it for |
-| 2 | `Get` | `app/client/control_keys_manager.h:149` | describes what it does |
-| 2 | `Get_Key_Id` | `app/client/control_keys_manager.h:150` | describes what it does |
+| 2 | `std:` | `app/client/control_keys_manager.h:45` | returns the definition's first string |
+| 2 | `Key` | `app/client/control_keys_manager.h:57` | the key's code |
+| 2 | `Modifiers` | `app/client/control_keys_manager.h:58` | the modifier bits |
+| 2 | `Key` | `app/client/control_keys_manager.h:69` | the key's code |
+| 2 | `Modifiers` | `app/client/control_keys_manager.h:70` | the modifier bits |
+| 2 | `Key` | `app/client/control_keys_manager.h:81` | the key's code |
+| 2 | `Modifiers` | `app/client/control_keys_manager.h:82` | the modifier bits |
+| 2 | `std:` | `app/client/control_keys_manager.h:87` | describes what it does |
+| 2 | `Id` | `app/client/control_keys_manager.h:95` | what it holds |
+| 2 | `Add` | `app/client/control_keys_manager.h:109` | describes what it does |
+| 2 | `Remove` | `app/client/control_keys_manager.h:110` | describes what it does |
+| 2 | `emit` | `app/client/control_keys_manager.h:119` | the typed form Save's call expands to |
+| 2 | `Set_Key` | `app/client/control_keys_manager.h:133` | describes what it does |
+| 2 | `Add_Keys` | `app/client/control_keys_manager.h:134` | describes what it does |
+| 2 | `Remove_Keys` | `app/client/control_keys_manager.h:135` | describes what it does |
+| 2 | `Save` | `app/client/control_keys_manager.h:136` | describes what it does |
+| 2 | `Get_Signal_Map` | `app/client/control_keys_manager.h:137` | describes what it does |
+| 2 | `Restore_Keys` | `app/client/control_keys_manager.h:138` | describes what it does |
+| 2 | `Set_Default_PSW` | `app/client/control_keys_manager.h:139` | describes what it does |
+| 2 | `Set_Default_SIM` | `app/client/control_keys_manager.h:140` | describes what it does |
+| 2 | `std:` | `app/client/control_keys_manager.h:141` | describes what it does |
+| 2 | `Build_Keys_Map` | `app/client/control_keys_manager.h:142` | describes what it does |
+| 2 | `Init` | `app/client/control_keys_manager.h:143` | describes what it does |
+| 2 | `Load_Definitions` | `app/client/control_keys_manager.h:144` | describes what it does |
+| 2 | `Load_Keys` | `app/client/control_keys_manager.h:145` | describes what it does |
+| 2 | `Save_Keys` | `app/client/control_keys_manager.h:146` | describes what it does |
+| 2 | `Find_Mappings` | `app/client/control_keys_manager.h:147` | describes what it does |
+| 2 | `Create` | `app/client/control_keys_manager.h:148` | describes what it does |
+| 2 | `Destroy` | `app/client/control_keys_manager.h:149` | what its caller uses it for |
+| 2 | `Get` | `app/client/control_keys_manager.h:150` | describes what it does |
 | 2 | `Get_Key_Id` | `app/client/control_keys_manager.h:151` | describes what it does |
-| 2 | `Register_Key` | `app/client/control_keys_manager.h:152` | describes what it does |
-| 2 | `Reset_Keys` | `app/client/control_keys_manager.h:154` | describes what it does |
-| 2 | `Copy_Keys` | `app/client/control_keys_manager.h:155` | describes what it does |
-| 2 | `Client` | `app/client/control_keys_manager.h:157` | what it holds |
-| 2 | `std:` | `app/client/control_keys_manager.h:163` | what it holds |
-| 2 | `PlayerID` | `app/client/control_keys_manager.h:168` | what it holds |
+| 2 | `Get_Key_Id` | `app/client/control_keys_manager.h:152` | describes what it does |
+| 2 | `Register_Key` | `app/client/control_keys_manager.h:153` | describes what it does |
+| 2 | `Reset_Keys` | `app/client/control_keys_manager.h:155` | describes what it does |
+| 2 | `Copy_Keys` | `app/client/control_keys_manager.h:156` | describes what it does |
+| 2 | `Client` | `app/client/control_keys_manager.h:158` | what it holds |
+| 2 | `std:` | `app/client/control_keys_manager.h:164` | what it holds |
+| 2 | `PlayerID` | `app/client/control_keys_manager.h:169` | what it holds |
 | 2 | `cpacket.cpp` | `app/client/cpacket.cpp:44` | the class id the handlers test |
 | 2 | `SoundManager` | `app/client/cpacket.cpp:63` | what it holds |
-| 2 | `FontColorStruct` | `app/client/fontdatabase.cpp:148` | one COLOR-n section of fontcode.ini / fontart.ini (0x10 bytes) |
-| 2 | `Name` | `app/client/fontdatabase.cpp:152` | the ini key |
-| 2 | `RGB` | `app/client/fontdatabase.cpp:153` | the ini key |
-| 2 | `FontEffectStruct` | `app/client/fontdatabase.cpp:156` | one EFFECT-n section of fontcode.ini / fontart.ini (0x24 bytes) |
-| 2 | `Name` | `app/client/fontdatabase.cpp:171` | the ini key |
-| 2 | `EffectType` | `app/client/fontdatabase.cpp:172` | the ini key |
-| 2 | `Initial` | `app/client/fontdatabase.cpp:173` | the ini key |
-| 2 | `Intensity` | `app/client/fontdatabase.cpp:174` | the ini key |
-| 2 | `Speed` | `app/client/fontdatabase.cpp:175` | the ini key |
-| 2 | `Time` | `app/client/fontdatabase.cpp:176` | the ini key |
-| 2 | `Direction` | `app/client/fontdatabase.cpp:177` | the ini key |
-| 2 | `Offset` | `app/client/fontdatabase.cpp:178` | the ini key |
+| 2 | `FontColorStruct` | `app/client/fontdatabase.cpp:211` | one COLOR-n section of fontcode.ini / fontart.ini (0x10 bytes) |
+| 2 | `Name` | `app/client/fontdatabase.cpp:215` | the ini key |
+| 2 | `RGB` | `app/client/fontdatabase.cpp:216` | the ini key |
+| 2 | `FontEffectStruct` | `app/client/fontdatabase.cpp:219` | one EFFECT-n section of fontcode.ini / fontart.ini (0x24 bytes) |
+| 2 | `Name` | `app/client/fontdatabase.cpp:234` | the ini key |
+| 2 | `EffectType` | `app/client/fontdatabase.cpp:235` | the ini key |
+| 2 | `Initial` | `app/client/fontdatabase.cpp:236` | the ini key |
+| 2 | `Intensity` | `app/client/fontdatabase.cpp:237` | the ini key |
+| 2 | `Speed` | `app/client/fontdatabase.cpp:238` | the ini key |
+| 2 | `Time` | `app/client/fontdatabase.cpp:239` | the ini key |
+| 2 | `Direction` | `app/client/fontdatabase.cpp:240` | the ini key |
+| 2 | `Offset` | `app/client/fontdatabase.cpp:241` | the ini key |
 | 2 | `FontInitStruct` | `app/client/fontdatabase.h:36` | one INIT-n section of fontsys.ini (a screen resolution's fonts) |
 | 2 | `Find_Chat_Index` | `app/client/fontdatabase.h:57` | the chat_index of the asserts |
 | 2 | `ResWidth` | `app/client/fontdatabase.h:59` | the ini key |
@@ -2714,37 +2745,81 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `FontStruct` | `app/client/fontdatabase.h:95` | one of the fonts in use (0xC bytes) |
 | 2 | `Name` | `app/client/fontdatabase.h:100` | what Find_Font compares |
 | 2 | `Scale` | `app/client/fontdatabase.h:101` | Scale%d is copied in |
-| 2 | `FontStringStruct` | `app/client/fontdatabase.h:107` | one string template (Template%d, String%d), declared as far as the file needs it |
-| 2 | `Name` | `app/client/fontdatabase.h:110` | the table's key |
-| 2 | `Load` | `app/client/fontdatabase.h:118` | what it does |
-| 2 | `Load_Init` | `app/client/fontdatabase.h:119` | what it does |
-| 2 | `Get_Blend_Type` | `app/client/fontdatabase.h:123` | what it does |
-| 2 | `Get_Direction` | `app/client/fontdatabase.h:124` | what it does |
-| 2 | `Get_Effect_Type` | `app/client/fontdatabase.h:125` | what it does												// 0x6C2080  // NAME 1 [Unknown_6C2080]: neutral (D10) |
-| 2 | `Parse_Directions` | `app/client/fontdatabase.h:126` | what it does |
-| 2 | `Split_Four` | `app/client/fontdatabase.h:127` | what it does |
-| 2 | `Find_Font` | `app/client/fontdatabase.h:128` | what it does |
-| 2 | `Get_Info` | `app/client/fontdatabase.h:129` | as Get_Info, for a given resolution |
-| 2 | `Find_Color` | `app/client/fontdatabase.h:130` | what it does |
-| 2 | `Find_Effect` | `app/client/fontdatabase.h:131` | what it does |
-| 2 | `Find_String` | `app/client/fontdatabase.h:132` | what it does |
-| 2 | `Add_String` | `app/client/fontdatabase.h:133` | what it does |
-| 2 | `Add_Effect` | `app/client/fontdatabase.h:134` | what it does |
-| 2 | `Add_Color` | `app/client/fontdatabase.h:135` | what it does |
-| 2 | `Clear_Infos` | `app/client/fontdatabase.h:136` | what it does |
-| 2 | `Clear_Tables` | `app/client/fontdatabase.h:137` | what it does |
-| 2 | `Clear_Strings` | `app/client/fontdatabase.h:138` | what it does |
-| 2 | `Set_Font` | `app/client/fontdatabase.h:139` | what it does |
-| 2 | `Restore_Font` | `app/client/fontdatabase.h:140` | what it does |
-| 2 | `Get_Font_File_Index` | `app/client/fontdatabase.h:142` | what it does |
-| 2 | `Get_Font_File_Name` | `app/client/fontdatabase.h:143` | what it does |
-| 2 | `Get_Scale` | `app/client/fontdatabase.h:144` | what it returns |
-| 2 | `Get_Spacing` | `app/client/fontdatabase.h:145` | what it returns |
-| 2 | `Get_Info` | `app/client/fontdatabase.h:147` | the INIT section for the resolution |
-| 2 | `std:` | `app/client/fontdatabase.h:150` | the INIT sections, by resolution |
-| 2 | `std:` | `app/client/fontdatabase.h:151` | what it holds |
-| 2 | `std:` | `app/client/fontdatabase.h:152` | what it holds |
-| 2 | `std:` | `app/client/fontdatabase.h:153` | what it holds |
+| 2 | `FontStringStruct` | `app/client/fontdatabase.h:107` | one string template of a string file (Template%d / String%d keys; 0xEC bytes; "NewStringInfo" by default) |
+| 2 | `Reset` | `app/client/fontdatabase.h:111` | what it does |
+| 2 | `StringID` | `app/client/fontdatabase.h:113` | the ini key |
+| 2 | `Text` | `app/client/fontdatabase.h:115` | what it holds |
+| 2 | `RenderObj` | `app/client/fontdatabase.h:116` | the ini key |
+| 2 | `Attach` | `app/client/fontdatabase.h:117` | the ini key |
+| 2 | `BlendType` | `app/client/fontdatabase.h:118` | the ini keys |
+| 2 | `FontType` | `app/client/fontdatabase.h:119` | the ini keys |
+| 2 | `Color` | `app/client/fontdatabase.h:120` | the ini keys |
+| 2 | `Justify` | `app/client/fontdatabase.h:121` | the ini key |
+| 2 | `Offset` | `app/client/fontdatabase.h:122` | the ini key |
+| 2 | `Target` | `app/client/fontdatabase.h:123` | the ini key |
+| 2 | `BoxOffset` | `app/client/fontdatabase.h:124` | the ini key |
+| 2 | `Width` | `app/client/fontdatabase.h:125` | the ini key |
+| 2 | `Wait` | `app/client/fontdatabase.h:126` | the ini key |
+| 2 | `TimeSpacing` | `app/client/fontdatabase.h:127` | the ini key |
+| 2 | `TriggerTime` | `app/client/fontdatabase.h:128` | the ini key |
+| 2 | `Spacing` | `app/client/fontdatabase.h:129` | the ini key |
+| 2 | `WrapWidth` | `app/client/fontdatabase.h:130` | the ini key |
+| 2 | `Rotate90` | `app/client/fontdatabase.h:131` | the ini key |
+| 2 | `Underline` | `app/client/fontdatabase.h:132` | the ini key |
+| 2 | `SoundOnID` | `app/client/fontdatabase.h:133` | the ini key |
+| 2 | `SoundOnVol` | `app/client/fontdatabase.h:134` | the ini key |
+| 2 | `SoundOnDur` | `app/client/fontdatabase.h:135` | the ini key |
+| 2 | `SoundOverID` | `app/client/fontdatabase.h:136` | the ini key |
+| 2 | `SoundOverVol` | `app/client/fontdatabase.h:137` | the ini key |
+| 2 | `SoundOverDur` | `app/client/fontdatabase.h:138` | the ini key |
+| 2 | `SoundClickID` | `app/client/fontdatabase.h:139` | the ini key |
+| 2 | `SoundClickVol` | `app/client/fontdatabase.h:140` | the ini key |
+| 2 | `SoundClickDur` | `app/client/fontdatabase.h:141` | the ini key |
+| 2 | `EffectOn` | `app/client/fontdatabase.h:142` | the ini key |
+| 2 | `EffectConst` | `app/client/fontdatabase.h:143` | the ini key |
+| 2 | `EffectOff` | `app/client/fontdatabase.h:144` | the ini key |
+| 2 | `MouseOver` | `app/client/fontdatabase.h:145` | the ini key |
+| 2 | `MouseClick` | `app/client/fontdatabase.h:146` | the ini key |
+| 2 | `EffectTriggered` | `app/client/fontdatabase.h:147` | the ini key |
+| 2 | `Reload` | `app/client/fontdatabase.h:155` | what it does |
+| 2 | `Load` | `app/client/fontdatabase.h:156` | what it does |
+| 2 | `Load_Init` | `app/client/fontdatabase.h:157` | what it does |
+| 2 | `Get_Blend_Type` | `app/client/fontdatabase.h:161` | what it does |
+| 2 | `Get_Direction` | `app/client/fontdatabase.h:162` | what it does |
+| 2 | `Get_Effect_Type` | `app/client/fontdatabase.h:163` | what it does												// 0x6C2080  // NAME 1 [Unknown_6C2080]: neutral (D10) |
+| 2 | `Parse_Directions` | `app/client/fontdatabase.h:164` | what it does |
+| 2 | `Split_Four` | `app/client/fontdatabase.h:165` | what it does |
+| 2 | `Find_Font` | `app/client/fontdatabase.h:166` | what it does |
+| 2 | `Get_Info` | `app/client/fontdatabase.h:167` | as Get_Info, for a given resolution |
+| 2 | `Find_Color` | `app/client/fontdatabase.h:168` | what it does |
+| 2 | `Find_Effect` | `app/client/fontdatabase.h:169` | what it does |
+| 2 | `Find_String` | `app/client/fontdatabase.h:170` | what it does |
+| 2 | `Add_String` | `app/client/fontdatabase.h:171` | what it does |
+| 2 | `Add_Effect` | `app/client/fontdatabase.h:172` | what it does |
+| 2 | `Add_Color` | `app/client/fontdatabase.h:173` | what it does |
+| 2 | `Clear_Infos` | `app/client/fontdatabase.h:174` | what it does |
+| 2 | `Clear_Tables` | `app/client/fontdatabase.h:175` | what it does |
+| 2 | `Clear_Strings` | `app/client/fontdatabase.h:176` | what it does |
+| 2 | `Set_Font` | `app/client/fontdatabase.h:177` | what it does |
+| 2 | `Restore_Font` | `app/client/fontdatabase.h:178` | what it does |
+| 2 | `Get_Font_File_Index` | `app/client/fontdatabase.h:180` | what it does |
+| 2 | `Get_Font_File_Name` | `app/client/fontdatabase.h:181` | what it does |
+| 2 | `Get_Scale` | `app/client/fontdatabase.h:182` | what it returns |
+| 2 | `Get_Spacing` | `app/client/fontdatabase.h:183` | what it returns |
+| 2 | `Get_Info` | `app/client/fontdatabase.h:185` | the INIT section for the resolution |
+| 2 | `std:` | `app/client/fontdatabase.h:191` | the INIT sections, by resolution |
+| 2 | `std:` | `app/client/fontdatabase.h:192` | what it holds |
+| 2 | `std:` | `app/client/fontdatabase.h:193` | what it holds |
+| 2 | `std:` | `app/client/fontdatabase.h:194` | what it holds |
+| 2 | `FontStringFileStruct` | `app/client/fontdatabase.h:201` | one loaded string file (0x14 bytes) |
+| 2 | `std:` | `app/client/fontdatabase.h:205` | what it holds |
+| 2 | `Count` | `app/client/fontdatabase.h:206` | what it counts |
+| 2 | `FontStringFilesClass` | `app/client/fontdatabase.h:209` | the string files in use, counted (0x18 bytes, 0xBE67BC; fc_default.ini always) |
+| 2 | `std:` | `app/client/fontdatabase.h:215` | what it does |
+| 2 | `Find` | `app/client/fontdatabase.h:216` | what it does |
+| 2 | `Load` | `app/client/fontdatabase.h:217` | what it does |
+| 2 | `Unload` | `app/client/fontdatabase.h:218` | what it does |
+| 2 | `std:` | `app/client/fontdatabase.h:220` | what it holds |
 | 2 | `Unknown_Load_Assets` | `app/client/sclient.cpp:36` | 0x729BF0 (client_lego_impl.cpp), 'cbasset.ini' (as tsk_smovie.cpp) |
 | 2 | `Unknown_Free_Assets` | `app/client/sclient.cpp:37` | 0x729D60 (client_lego_impl.cpp) (as tsk_smovie.cpp) |
 | 2 | `Unknown_Main_Window` | `app/client/sclient.cpp:39` | what Pump_Messages redraws |
@@ -3144,11 +3219,11 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `GlobalAvatarListPacketClass` | `app/packets/pk_classes.h:268` | the reference decoder's opcode name GLOBAL_AVATAR_LIST (the Net-7 opcode table; no structure check) |
 | 2 | `GlobalCreateCharacterPacketClass` | `app/packets/pk_classes.h:277` | the reference decoder's opcode name GLOBAL_CREATE_CHARACTER (the Net-7 opcode table; no structure check) |
 | 2 | `GlobalErrorPacketClass` | `app/packets/pk_classes.h:286` | the reference decoder's opcode name GLOBAL_ERROR (the Net-7 opcode table; no structure check) |
-| 2 | `RecustomizeShipStartPacketClass` | `app/packets/pk_classes.h:404` | the reference decoder's opcode name RECUSTOMIZE_SHIP_START (the Net-7 opcode table; no structure check) |
-| 2 | `RecustomizeShipDonePacketClass` | `app/packets/pk_classes.h:412` | the reference decoder's opcode name RECUSTOMIZE_SHIP_DONE (the Net-7 opcode table; no structure check) |
-| 2 | `RecustomizeAvatarStartPacketClass` | `app/packets/pk_classes.h:421` | the reference decoder's opcode name RECUSTOMIZE_AVATAR_START (the Net-7 opcode table; no structure check) |
-| 2 | `RecustomizeAvatarDonePacketClass` | `app/packets/pk_classes.h:429` | the reference decoder's opcode name RECUSTOMIZE_AVATAR_DONE (the Net-7 opcode table; no structure check) |
-| 2 | `RecustomizeAvatarUpdatePacketClass` | `app/packets/pk_classes.h:438` | the reference decoder's opcode name RECUSTOMIZE_AVATAR_UPDATE (the Net-7 opcode table; no structure check) |
+| 2 | `RecustomizeShipStartPacketClass` | `app/packets/pk_classes.h:386` | the reference decoder's opcode name RECUSTOMIZE_SHIP_START (the Net-7 opcode table; no structure check) |
+| 2 | `RecustomizeShipDonePacketClass` | `app/packets/pk_classes.h:394` | the reference decoder's opcode name RECUSTOMIZE_SHIP_DONE (the Net-7 opcode table; no structure check) |
+| 2 | `RecustomizeAvatarStartPacketClass` | `app/packets/pk_classes.h:403` | the reference decoder's opcode name RECUSTOMIZE_AVATAR_START (the Net-7 opcode table; no structure check) |
+| 2 | `RecustomizeAvatarDonePacketClass` | `app/packets/pk_classes.h:411` | the reference decoder's opcode name RECUSTOMIZE_AVATAR_DONE (the Net-7 opcode table; no structure check) |
+| 2 | `RecustomizeAvatarUpdatePacketClass` | `app/packets/pk_classes.h:420` | the reference decoder's opcode name RECUSTOMIZE_AVATAR_UPDATE (the Net-7 opcode table; no structure check) |
 | 2 | `std:` | `app/packets/pk_player_object_relationship.cpp:166` | what it holds |
 | 2 | `std:` | `app/packets/pk_player_object_relationship.cpp:167` | what it holds |
 | 2 | `std:` | `app/packets/pk_player_object_relationship.cpp:258` | what it holds |
@@ -3341,6 +3416,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Money` | `app/packets/pkunknown_873a00.h:31` | what it points at |
 | 2 | `Desc` | `app/packets/pkunknown_877640.h:34` | what it holds |
 | 2 | `Channel` | `app/packets/pkunknown_877640.h:35` | Get_Channel returns it |
+| 2 | `Data` | `app/packets/pkunknown_87acd0.h:68` | what it holds |
+| 2 | `Size` | `app/packets/pkunknown_87acd0.h:69` | what it holds |
+| 2 | `Owned` | `app/packets/pkunknown_87acd0.h:70` | what it means |
 | 2 | `AvatarEmotePacketClass` | `app/packets/pkunknown_87dec0.h:22` | the reference decoder's opcode name AVATAR_EMOTE (the Net-7 opcode table; no structure check) |
 | 2 | `TargetNameSize` | `app/packets/pkunknown_87dec0.h:40` | what it holds |
 | 2 | `Owned` | `app/packets/pkunknown_87dec0.h:41` | what it means, as MessageStringPacketClass's |
@@ -4243,7 +4321,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `SoundManagerClass` | `app/client/cpacket.cpp:55` | class-from-file (D24) for app\client\sound_manager.cpp |
 | 3 | `emote_data.h` | `app/client/emote_data.h:16` | header name assumed from the client's emote_data.cpp |
 | 3 | `fontdatabase.h` | `app/client/fontdatabase.h:19` | header name assumed from the client's fontdatabase.cpp |
-| 3 | `FontDatabaseClass` | `app/client/fontdatabase.h:113` | by convention (D24) from the client's fontdatabase.cpp |
+| 3 | `FontDatabaseClass` | `app/client/fontdatabase.h:150` | by convention (D24) from the client's fontdatabase.cpp |
 | 3 | `gutter_data.h` | `app/client/gutter_data.h:16` | header name assumed from the client's gutter_data.cpp |
 | 3 | `navigation_data.h` | `app/client/navigation_data.h:16` | header name assumed from the client's navigation_data.cpp |
 | 3 | `radar_data.h` | `app/client/radar_data.h:16` | header name assumed from the client's radar_data.cpp |
