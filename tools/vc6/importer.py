@@ -3742,6 +3742,8 @@ RECONSTRUCTED = {
     ('app', 'packets/pknote.h'): "its class (pk_classes.h includes it: tools/re/pkclasses.py)",
     ('app', 'packets/pkpetitionstuck.cpp'): "opcode 136 written by hand (builder P4), client 0x89F740-0x89FB20; the file name provisional (NAME 1)",
     ('app', 'packets/pkpetitionstuck.h'): "its class (pk_classes.h includes it: tools/re/pkclasses.py)",
+    ('app', 'packets/pkspline.cpp'): "opcode 56 written by hand (builder P4), client 0x8A57A0-0x8A5A80; the file name provisional (NAME 1)",
+    ('app', 'packets/pkspline.h'): "its class (pk_classes.h includes it: tools/re/pkclasses.py)",
     ('app', 'packets/pk_sub_parts.cpp'): "pk_sub_parts.cpp (the client's __FILE__, assert line 64): SUBPARTS 180 written by "
                                        "hand (builder P4, 8 of 8 exact in appfile.py match), client 0x8754D0-0x875CF0",
     ('app', 'packets/pk_sub_parts.h'): "SubPartsPacket and SubPartStruct (D24 header name; pk_classes.h includes it)",

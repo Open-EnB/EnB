@@ -85,6 +85,7 @@
 #include "pkskill.h"	// rebuilt
 #include "pkskillstringrq.h"	// rebuilt
 #include "pksoundcommand.h"	// rebuilt
+#include "pkspline.h"	// rebuilt
 #include "pkstarbase_avatar_change.h"	// rebuilt
 #include "pkstarbasetow.h"	// rebuilt
 #include "pkstart.h"	// rebuilt
@@ -219,14 +220,6 @@ public:
 	Action2PacketClass(RawPacketClass *raw);	// 0x8767B0
 	virtual bool Process_Packet(void *client);	// +0x08 0x867E00 (clientstub.cpp l.68)
 	char Unknown0C[0x1C];	// +0x0C
-};
-
-// opcode 56 (0x0038, ?): vtable 0xB0BB3C, constructor 0x8A5870, 0x14 bytes
-class SplinePacketClass : public PacketClass
-{
-public:
-	SplinePacketClass(RawPacketClass *raw);	// 0x8A5870
-	char Unknown0C[0x8];	// +0x0C
 };
 
 // opcode 53 (0x0035, MASTER_JOIN): vtable 0xB0AFB4, constructor 0x897590, 0x60 bytes

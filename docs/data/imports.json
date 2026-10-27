@@ -3157,6 +3157,28 @@
     "merged": [],
     "name": "packets/pksoundcommand.cpp"
    },
+   "pkspline": {
+    "ambiguous": [
+     "0x42B2F0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350",
+     "0x8A57A0",
+     "0x8A5840",
+     "0x8A5870",
+     "0x8A5930",
+     "0x8A5960",
+     "0x8A5A50"
+    ],
+    "merged": [],
+    "name": "packets/pkspline.cpp"
+   },
    "pkstarbase_avatar_change": {
     "ambiguous": [
      "0x42B2F0"
@@ -4665,6 +4687,7 @@
    "packets/pkskill.h": "reconstructed",
    "packets/pkskillstringrq.h": "reconstructed",
    "packets/pksoundcommand.h": "reconstructed",
+   "packets/pkspline.h": "reconstructed",
    "packets/pkstarbase_avatar_change.h": "reconstructed",
    "packets/pkstarbasetow.h": "reconstructed",
    "packets/pkstart.h": "reconstructed",
