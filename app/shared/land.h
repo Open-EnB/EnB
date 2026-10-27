@@ -199,8 +199,10 @@ protected:
 	void							Unknown_46F120(void);
 	void							Unknown_473290(unsigned char **a, unsigned char **b, unsigned char **c);
 	void							Unknown_470F80(unsigned char *a, unsigned char *b, unsigned char *c);
+// NAME 1: unknown; the sky's share per vertex in R, G, B from eight horizon codes, the normal's index and the colour (0x472F80, called by 0x470F80)
+	void							Unknown_472F80(unsigned char *red, unsigned char *green, unsigned char *blue, unsigned char *horizons, unsigned char normal, const Vector3 &color);
 // NAME 1: unknown; one height-field row each into Unknown_473290's buffers, with VScale / Spacing (0x4733C0: 4 bytes a vertex, 0x473780 and 0x473BC0: 3)
-	void							Unknown_4733C0(int row, float ratio, unsigned char *out);
+	void							Unknown_4733C0(int row, float ratio, unsigned short *out);
 	void							Unknown_473780(int row, float ratio, unsigned char *out);
 	void							Unknown_473BC0(int row, float ratio, unsigned char *out);
 	static void					Lightmap_Thread(void *land);

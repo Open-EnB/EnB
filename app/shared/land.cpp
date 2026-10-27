@@ -32,22 +32,11 @@
 #include "rinfo.h"
 #include "dx8fvf.h"
 #include "vector.h"
+#include "landdmap.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
 
-void Unknown_466E70(HeightFieldClass *field, float detail_u, float detail_v);	// NAME 1: unknown; news the global object (0x90 bytes, 0xBDC0D8) Unknown_466F10 deletes; called by Load_Assets only
-void Unknown_466F10(void);
-// NAME 1: unknown; the object Unknown_466E70 makes (0x90 bytes, vtable 0xAE8974, ctor 0x466BE0): Update_Patches draws it with the land's scale while its +0x11 is set
-class LandUnknown466BE0Class
-{
-public:
-	virtual ~LandUnknown466BE0Class(void);
-	void							Unknown_466F40(CameraClass &camera, int lod, const Matrix4 &scale);	// NAME 1: unknown
-	void							Unknown_466F60(RenderInfoClass &rinfo);	// NAME 1: unknown; called first by Render 0x474B30
-	char							m_Unknown04[0xD];
-	bool							m_Unknown11;				// NAME 1: set by the ctor
-};
 extern LandUnknown466BE0Class *Unknown_BDC0D8;	// NAME 1: unknown
 // NAME 2: the distance (in field cells) of level 1 per lod setting, doubled per level (0xB7188C)
 int LandLodDistances[6] = { 8, 16, 24, 32, 48, 64 };
@@ -1328,6 +1317,622 @@ void LandClass::Init_Horizon_Tables(void)
 	}
 }
 
+// NOT EXACT: functional, from the disassembly of 0x46E120
+void LandClass::Unknown_46E120(std::vector< RefCountPtr<RenderObjClass> > &casters, unsigned char *mask)
+{
+	if (Field->Is_Wrapping()) {
+		return;
+	}
+	int size = Field->Get_Size();
+	for (int k = 0; k < (int)casters.size(); k++) {
+		RenderObjClass *caster = casters[k].Peek();
+		const AABoxClass &box = caster->Get_Bounding_Box();
+		float top = 0.0f;
+		Vector3 corner = box.Center - box.Extent;
+		if (corner.Z >= top) {
+			top = corner.Z;
+		}
+		float x0, y0;
+		Field->World_To_Grid(Vector2(corner.X, corner.Y), &x0, &y0);
+		corner = box.Center + box.Extent;
+		if (top <= corner.Z) {
+			top = corner.Z;
+		}
+		float x1, y1;
+		Field->World_To_Grid(Vector2(corner.X, corner.Y), &x1, &y1);
+		if (x1 < x0 || y1 < y0) {
+			continue;
+		}
+		int ix0 = (int)floor(x0);
+		int ix1 = (int)ceil(x1);
+		int iy0 = (int)floor(y0);
+		int iy1 = (int)ceil(y1);
+		if (ix0 < 0) {
+			ix0 = 0;
+		}
+		if (ix1 >= size) {
+			ix1 = size - 1;
+		}
+		if (iy0 < 0) {
+			iy0 = 0;
+		}
+		if (iy1 >= size) {
+			iy1 = size - 1;
+		}
+		for (int y = iy0; y <= iy1; y++) {
+			unsigned char *row = mask + y * size;
+			for (int x = ix0; x <= ix1; x++) {
+				Vector3 vertex(0.0f, 0.0f, 0.0f);
+				Field->Get_Vertex(x, y, &vertex);
+				if (vertex.Z < top) {
+					// a ray straight down from the casters' top onto the vertex: a hit raises the vertex to it
+					LineSegClass ray(Vector3(vertex.X, vertex.Y, top), vertex);
+					CastResultStruct result;
+					result.ComputeContactPoint = true;
+					RayCollisionTestClass raytest(ray, &result);
+					caster->Cast_Ray(raytest);
+					if (result.Fraction < 1.0f) {
+						Field->Set_Height_2(result.ContactPoint.Z > vertex.Z ? result.ContactPoint.Z : vertex.Z, x, y);
+						row[x] = 1;
+					}
+				}
+			}
+		}
+	}
+}
+
+// NAME 1: unknown; the 256 unit normals Unknown_46F120 copies into Normals (0xAE8BBC .. 0xAE97BC, .rdata, 6-digit literals):
+// index = azimuth * 16 + elevation, (cos a sqrt(1 - z^2), sin a sqrt(1 - z^2), z) with a = azimuth x 22.5 degrees, z = elevation / 16
+static const float LandNormalTable[256][3] = {
+	// azimuth 0 x 22.5 degrees, Z = 0 .. 15/16
+	{ 1.0f, 0.0f, 0.0f }, { 0.998045f, 0.0f, 0.0625f }, { 0.992157f, 0.0f, 0.125f }, { 0.982265f, 0.0f, 0.1875f },
+	{ 0.968246f, 0.0f, 0.25f }, { 0.949918f, 0.0f, 0.3125f }, { 0.927025f, 0.0f, 0.375f }, { 0.899218f, 0.0f, 0.4375f },
+	{ 0.866025f, 0.0f, 0.5f }, { 0.826797f, 0.0f, 0.5625f }, { 0.780625f, 0.0f, 0.625f }, { 0.726184f, 0.0f, 0.6875f },
+	{ 0.661438f, 0.0f, 0.75f }, { 0.582961f, 0.0f, 0.8125f }, { 0.484123f, 0.0f, 0.875f }, { 0.347985f, 0.0f, 0.9375f },
+	// azimuth 1 x 22.5 degrees, Z = 0 .. 15/16
+	{ 0.92388f, 0.382683f, 0.0f }, { 0.922073f, 0.381935f, 0.0625f }, { 0.916633f, 0.379682f, 0.125f }, { 0.907494f, 0.375896f, 0.1875f },
+	{ 0.894543f, 0.370532f, 0.25f }, { 0.87761f, 0.363518f, 0.3125f }, { 0.856459f, 0.354757f, 0.375f }, { 0.830769f, 0.344116f, 0.4375f },
+	{ 0.800103f, 0.331414f, 0.5f }, { 0.763861f, 0.316402f, 0.5625f }, { 0.721203f, 0.298732f, 0.625f }, { 0.670907f, 0.277899f, 0.6875f },
+	{ 0.611089f, 0.253121f, 0.75f }, { 0.538586f, 0.22309f, 0.8125f }, { 0.447271f, 0.185266f, 0.875f }, { 0.321496f, 0.133168f, 0.9375f },
+	// azimuth 2 x 22.5 degrees, Z = 0 .. 15/16
+	{ 0.707107f, 0.707107f, 0.0f }, { 0.705724f, 0.705724f, 0.0625f }, { 0.701561f, 0.701561f, 0.125f }, { 0.694566f, 0.694566f, 0.1875f },
+	{ 0.684653f, 0.684653f, 0.25f }, { 0.671693f, 0.671693f, 0.3125f }, { 0.655506f, 0.655506f, 0.375f }, { 0.635843f, 0.635843f, 0.4375f },
+	{ 0.612372f, 0.612372f, 0.5f }, { 0.584634f, 0.584634f, 0.5625f }, { 0.551985f, 0.551985f, 0.625f }, { 0.51349f, 0.51349f, 0.6875f },
+	{ 0.467707f, 0.467707f, 0.75f }, { 0.412216f, 0.412216f, 0.8125f }, { 0.342327f, 0.342327f, 0.875f }, { 0.246063f, 0.246063f, 0.9375f },
+	// azimuth 3 x 22.5 degrees, Z = 0 .. 15/16
+	{ 0.382683f, 0.92388f, 0.0f }, { 0.381935f, 0.922073f, 0.0625f }, { 0.379682f, 0.916633f, 0.125f }, { 0.375896f, 0.907494f, 0.1875f },
+	{ 0.370532f, 0.894543f, 0.25f }, { 0.363518f, 0.87761f, 0.3125f }, { 0.354757f, 0.856459f, 0.375f }, { 0.344116f, 0.830769f, 0.4375f },
+	{ 0.331414f, 0.800103f, 0.5f }, { 0.316402f, 0.763861f, 0.5625f }, { 0.298732f, 0.721203f, 0.625f }, { 0.277899f, 0.670907f, 0.6875f },
+	{ 0.253121f, 0.611089f, 0.75f }, { 0.22309f, 0.538586f, 0.8125f }, { 0.185266f, 0.447271f, 0.875f }, { 0.133168f, 0.321496f, 0.9375f },
+	// azimuth 4 x 22.5 degrees, Z = 0 .. 15/16
+	{ 0.0f, 1.0f, 0.0f }, { 0.0f, 0.998045f, 0.0625f }, { 0.0f, 0.992157f, 0.125f }, { 0.0f, 0.982265f, 0.1875f },
+	{ 0.0f, 0.968246f, 0.25f }, { 0.0f, 0.949918f, 0.3125f }, { 0.0f, 0.927025f, 0.375f }, { 0.0f, 0.899218f, 0.4375f },
+	{ 0.0f, 0.866025f, 0.5f }, { 0.0f, 0.826797f, 0.5625f }, { 0.0f, 0.780625f, 0.625f }, { 0.0f, 0.726184f, 0.6875f },
+	{ 0.0f, 0.661438f, 0.75f }, { 0.0f, 0.582961f, 0.8125f }, { 0.0f, 0.484123f, 0.875f }, { 0.0f, 0.347985f, 0.9375f },
+	// azimuth 5 x 22.5 degrees, Z = 0 .. 15/16
+	{ -0.382683f, 0.92388f, 0.0f }, { -0.381935f, 0.922073f, 0.0625f }, { -0.379682f, 0.916633f, 0.125f }, { -0.375896f, 0.907494f, 0.1875f },
+	{ -0.370532f, 0.894543f, 0.25f }, { -0.363518f, 0.87761f, 0.3125f }, { -0.354757f, 0.856459f, 0.375f }, { -0.344116f, 0.830769f, 0.4375f },
+	{ -0.331414f, 0.800103f, 0.5f }, { -0.316402f, 0.763861f, 0.5625f }, { -0.298732f, 0.721203f, 0.625f }, { -0.277899f, 0.670907f, 0.6875f },
+	{ -0.253121f, 0.611089f, 0.75f }, { -0.22309f, 0.538586f, 0.8125f }, { -0.185266f, 0.447271f, 0.875f }, { -0.133168f, 0.321496f, 0.9375f },
+	// azimuth 6 x 22.5 degrees, Z = 0 .. 15/16
+	{ -0.707107f, 0.707107f, 0.0f }, { -0.705724f, 0.705724f, 0.0625f }, { -0.701561f, 0.701561f, 0.125f }, { -0.694566f, 0.694566f, 0.1875f },
+	{ -0.684653f, 0.684653f, 0.25f }, { -0.671693f, 0.671693f, 0.3125f }, { -0.655506f, 0.655505f, 0.375f }, { -0.635843f, 0.635843f, 0.4375f },
+	{ -0.612372f, 0.612372f, 0.5f }, { -0.584634f, 0.584634f, 0.5625f }, { -0.551985f, 0.551985f, 0.625f }, { -0.51349f, 0.51349f, 0.6875f },
+	{ -0.467707f, 0.467707f, 0.75f }, { -0.412216f, 0.412216f, 0.8125f }, { -0.342327f, 0.342327f, 0.875f }, { -0.246063f, 0.246063f, 0.9375f },
+	// azimuth 7 x 22.5 degrees, Z = 0 .. 15/16
+	{ -0.92388f, 0.382683f, 0.0f }, { -0.922073f, 0.381935f, 0.0625f }, { -0.916633f, 0.379682f, 0.125f }, { -0.907494f, 0.375896f, 0.1875f },
+	{ -0.894543f, 0.370532f, 0.25f }, { -0.87761f, 0.363518f, 0.3125f }, { -0.856459f, 0.354757f, 0.375f }, { -0.83077f, 0.344116f, 0.4375f },
+	{ -0.800103f, 0.331414f, 0.5f }, { -0.763861f, 0.316402f, 0.5625f }, { -0.721203f, 0.298732f, 0.625f }, { -0.670907f, 0.277899f, 0.6875f },
+	{ -0.611089f, 0.253121f, 0.75f }, { -0.538586f, 0.22309f, 0.8125f }, { -0.447271f, 0.185266f, 0.875f }, { -0.321496f, 0.133168f, 0.9375f },
+	// azimuth 8 x 22.5 degrees, Z = 0 .. 15/16
+	{ -1.0f, 0.0f, 0.0f }, { -0.998045f, 0.0f, 0.0625f }, { -0.992157f, 0.0f, 0.125f }, { -0.982265f, 0.0f, 0.1875f },
+	{ -0.968246f, 0.0f, 0.25f }, { -0.949918f, 0.0f, 0.3125f }, { -0.927025f, 0.0f, 0.375f }, { -0.899218f, 0.0f, 0.4375f },
+	{ -0.866025f, 0.0f, 0.5f }, { -0.826797f, 0.0f, 0.5625f }, { -0.780625f, 0.0f, 0.625f }, { -0.726184f, 0.0f, 0.6875f },
+	{ -0.661438f, 0.0f, 0.75f }, { -0.582961f, 0.0f, 0.8125f }, { -0.484123f, 0.0f, 0.875f }, { -0.347985f, 0.0f, 0.9375f },
+	// azimuth 9 x 22.5 degrees, Z = 0 .. 15/16
+	{ -0.92388f, -0.382684f, 0.0f }, { -0.922073f, -0.381935f, 0.0625f }, { -0.916633f, -0.379682f, 0.125f }, { -0.907494f, -0.375896f, 0.1875f },
+	{ -0.894542f, -0.370532f, 0.25f }, { -0.87761f, -0.363518f, 0.3125f }, { -0.856459f, -0.354757f, 0.375f }, { -0.830769f, -0.344116f, 0.4375f },
+	{ -0.800103f, -0.331414f, 0.5f }, { -0.763861f, -0.316402f, 0.5625f }, { -0.721203f, -0.298732f, 0.625f }, { -0.670907f, -0.277899f, 0.6875f },
+	{ -0.611089f, -0.253121f, 0.75f }, { -0.538586f, -0.22309f, 0.8125f }, { -0.447271f, -0.185266f, 0.875f }, { -0.321496f, -0.133168f, 0.9375f },
+	// azimuth 10 x 22.5 degrees, Z = 0 .. 15/16
+	{ -0.707107f, -0.707107f, 0.0f }, { -0.705724f, -0.705724f, 0.0625f }, { -0.701561f, -0.701561f, 0.125f }, { -0.694566f, -0.694566f, 0.1875f },
+	{ -0.684653f, -0.684653f, 0.25f }, { -0.671693f, -0.671693f, 0.3125f }, { -0.655505f, -0.655506f, 0.375f }, { -0.635843f, -0.635844f, 0.4375f },
+	{ -0.612372f, -0.612373f, 0.5f }, { -0.584634f, -0.584634f, 0.5625f }, { -0.551985f, -0.551985f, 0.625f }, { -0.51349f, -0.51349f, 0.6875f },
+	{ -0.467707f, -0.467707f, 0.75f }, { -0.412216f, -0.412216f, 0.8125f }, { -0.342327f, -0.342327f, 0.875f }, { -0.246063f, -0.246063f, 0.9375f },
+	// azimuth 11 x 22.5 degrees, Z = 0 .. 15/16
+	{ -0.382683f, -0.92388f, 0.0f }, { -0.381935f, -0.922073f, 0.0625f }, { -0.379682f, -0.916633f, 0.125f }, { -0.375896f, -0.907494f, 0.1875f },
+	{ -0.370532f, -0.894543f, 0.25f }, { -0.363518f, -0.87761f, 0.3125f }, { -0.354757f, -0.856459f, 0.375f }, { -0.344116f, -0.83077f, 0.4375f },
+	{ -0.331413f, -0.800103f, 0.5f }, { -0.316402f, -0.763861f, 0.5625f }, { -0.298732f, -0.721203f, 0.625f }, { -0.277899f, -0.670907f, 0.6875f },
+	{ -0.253121f, -0.611089f, 0.75f }, { -0.22309f, -0.538586f, 0.8125f }, { -0.185266f, -0.447271f, 0.875f }, { -0.133168f, -0.321496f, 0.9375f },
+	// azimuth 12 x 22.5 degrees, Z = 0 .. 15/16
+	{ 0.0f, -1.0f, 0.0f }, { 0.0f, -0.998045f, 0.0625f }, { 0.0f, -0.992157f, 0.125f }, { 0.0f, -0.982265f, 0.1875f },
+	{ 0.0f, -0.968246f, 0.25f }, { 0.0f, -0.949918f, 0.3125f }, { 0.0f, -0.927025f, 0.375f }, { 0.0f, -0.899218f, 0.4375f },
+	{ 0.0f, -0.866025f, 0.5f }, { 0.0f, -0.826797f, 0.5625f }, { 0.0f, -0.780625f, 0.625f }, { 0.0f, -0.726184f, 0.6875f },
+	{ 0.0f, -0.661438f, 0.75f }, { 0.0f, -0.582961f, 0.8125f }, { 0.0f, -0.484123f, 0.875f }, { 0.0f, -0.347985f, 0.9375f },
+	// azimuth 13 x 22.5 degrees, Z = 0 .. 15/16
+	{ 0.382684f, -0.92388f, 0.0f }, { 0.381935f, -0.922073f, 0.0625f }, { 0.379682f, -0.916633f, 0.125f }, { 0.375897f, -0.907494f, 0.1875f },
+	{ 0.370532f, -0.894542f, 0.25f }, { 0.363518f, -0.87761f, 0.3125f }, { 0.354757f, -0.856459f, 0.375f }, { 0.344116f, -0.830769f, 0.4375f },
+	{ 0.331414f, -0.800103f, 0.5f }, { 0.316402f, -0.763861f, 0.5625f }, { 0.298732f, -0.721203f, 0.625f }, { 0.277899f, -0.670907f, 0.6875f },
+	{ 0.253121f, -0.611089f, 0.75f }, { 0.22309f, -0.538586f, 0.8125f }, { 0.185266f, -0.447271f, 0.875f }, { 0.133168f, -0.321496f, 0.9375f },
+	// azimuth 14 x 22.5 degrees, Z = 0 .. 15/16
+	{ 0.707107f, -0.707107f, 0.0f }, { 0.705724f, -0.705724f, 0.0625f }, { 0.701561f, -0.701561f, 0.125f }, { 0.694566f, -0.694566f, 0.1875f },
+	{ 0.684653f, -0.684653f, 0.25f }, { 0.671693f, -0.671693f, 0.3125f }, { 0.655506f, -0.655505f, 0.375f }, { 0.635844f, -0.635843f, 0.4375f },
+	{ 0.612373f, -0.612372f, 0.5f }, { 0.584634f, -0.584634f, 0.5625f }, { 0.551985f, -0.551985f, 0.625f }, { 0.51349f, -0.51349f, 0.6875f },
+	{ 0.467707f, -0.467707f, 0.75f }, { 0.412216f, -0.412216f, 0.8125f }, { 0.342327f, -0.342327f, 0.875f }, { 0.246063f, -0.246063f, 0.9375f },
+	// azimuth 15 x 22.5 degrees, Z = 0 .. 15/16
+	{ 0.92388f, -0.382683f, 0.0f }, { 0.922073f, -0.381935f, 0.0625f }, { 0.916633f, -0.379682f, 0.125f }, { 0.907494f, -0.375896f, 0.1875f },
+	{ 0.894543f, -0.370531f, 0.25f }, { 0.87761f, -0.363518f, 0.3125f }, { 0.856459f, -0.354757f, 0.375f }, { 0.83077f, -0.344116f, 0.4375f },
+	{ 0.800103f, -0.331413f, 0.5f }, { 0.763861f, -0.316402f, 0.5625f }, { 0.721203f, -0.298732f, 0.625f }, { 0.670907f, -0.277899f, 0.6875f },
+	{ 0.611089f, -0.253121f, 0.75f }, { 0.538586f, -0.22309f, 0.8125f }, { 0.447271f, -0.185266f, 0.875f }, { 0.321496f, -0.133168f, 0.9375f }
+};
+
+// NAME 1: unknown; the index of the table normal nearest a vertex normal (largest dot product, first wins ties).
+// The client inlines it eight times; it adds the dot product's terms Z first: n.Z * N.Z + n.X * N.X + n.Y * N.Y
+static inline unsigned char Land_Nearest_Normal(const Vector3 *normals, const Vector3 &n)
+{
+	unsigned char best_index = 0;
+	float best = -1.0f;
+	for (int k = 0; k < 256; k++) {
+		float dot = n.Z * normals[k].Z + n.X * normals[k].X + n.Y * normals[k].Y;
+		if (dot > best) {
+			best = dot;
+			best_index = (unsigned char)k;
+		}
+	}
+	return best_index;
+}
+
+// NOT EXACT: functional, from the disassembly and pseudocode of 0x46F120
+void LandClass::Unknown_46F120(void)
+{
+	int i;
+	for (i = 0; i < 256; i++) {
+		Normals[i].Set(LandNormalTable[i][0], LandNormalTable[i][1], LandNormalTable[i][2]);
+	}
+
+	// Per height-field vertex: the normal of the triangles around it (vectors to its neighbours, cross products of neighbour pairs
+	// around it, the client's -1 / +1 neighbours wrap through Get_Height_2's mask), matched against Normals into m_Unknown1E4.
+	// Only even grid vertices (0 .. Size) are visited: the four corners get all eight triangles, the edge vertices one normal per
+	// half (left / right, top / bottom) and the interior ones one per quadrant, written to the 1 or 2 x 2 bytes beside them.
+	float spacing = Field->Get_Spacing();
+	int size = Field->Get_Size();
+	float neg = -spacing;
+	int index = 0;
+	int x;
+	int y;
+	Vector3 n;
+
+	// the four corners (x, y in { 0, Size }): written at (0, 0), (Size - 1, 0), (0, Size - 1), (Size - 1, Size - 1)
+	for (y = 0; y < size + 1; y += size) {
+		for (x = 0; x < size + 1; x += size) {
+			float h00 = Field->Get_Height_2(x - 1, y - 1);
+			float h10 = Field->Get_Height_2(x, y - 1);
+			float h20 = Field->Get_Height_2(x + 1, y - 1);
+			float h01 = Field->Get_Height_2(x - 1, y);
+			float h = Field->Get_Height_2(x, y);
+			float h21 = Field->Get_Height_2(x + 1, y);
+			float h02 = Field->Get_Height_2(x - 1, y + 1);
+			float h12 = Field->Get_Height_2(x, y + 1);
+			float h22 = Field->Get_Height_2(x + 1, y + 1);
+			Vector3 v00(neg, neg, h00 - h);
+			Vector3 v10(0.0f, neg, h10 - h);
+			Vector3 v20(spacing, neg, h20 - h);
+			Vector3 v01(neg, 0.0f, h01 - h);
+			Vector3 v21(spacing, 0.0f, h21 - h);
+			Vector3 v02(neg, spacing, h02 - h);
+			Vector3 v12(0.0f, spacing, h12 - h);
+			Vector3 v22(spacing, spacing, h22 - h);
+			// the client's sum order: the first two terms swapped against the ring
+			n = Vector3::Cross_Product(v10, v20) + Vector3::Cross_Product(v00, v10) + Vector3::Cross_Product(v20, v21)
+				+ Vector3::Cross_Product(v21, v22) + Vector3::Cross_Product(v22, v12) + Vector3::Cross_Product(v12, v02)
+				+ Vector3::Cross_Product(v02, v01) + Vector3::Cross_Product(v01, v00);
+			n.Normalize();
+			m_Unknown1E4[index] = Land_Nearest_Normal(Normals, n);
+			index += size - 1;
+		}
+		index = (size - 1) * size;
+	}
+
+	// the top and bottom rows (y in { 0, Size }), even x in 2 .. Size - 2: the left half at x - 1, the right half at x
+	index = 1;
+	for (y = 0; y < size + 1; y += size) {
+		for (x = 2; x <= size - 2; x += 2) {
+			float h00 = Field->Get_Height_2(x - 1, y - 1);
+			float h20 = Field->Get_Height_2(x + 1, y - 1);
+			float h01 = Field->Get_Height_2(x - 1, y);
+			float h = Field->Get_Height_2(x, y);
+			float h21 = Field->Get_Height_2(x + 1, y);
+			float h02 = Field->Get_Height_2(x - 1, y + 1);
+			float h22 = Field->Get_Height_2(x + 1, y + 1);
+			Vector3 v00(neg, neg, h00 - h);
+			Vector3 v20(spacing, neg, h20 - h);
+			Vector3 v01(neg, 0.0f, h01 - h);
+			Vector3 v21(spacing, 0.0f, h21 - h);
+			Vector3 v02(neg, spacing, h02 - h);
+			Vector3 v22(spacing, spacing, h22 - h);
+			n = Vector3::Cross_Product(v01, v00) + Vector3::Cross_Product(v02, v01);
+			n.Normalize();
+			m_Unknown1E4[index] = Land_Nearest_Normal(Normals, n);
+			n = Vector3::Cross_Product(v20, v21) + Vector3::Cross_Product(v21, v22);
+			n.Normalize();
+			m_Unknown1E4[index + 1] = Land_Nearest_Normal(Normals, n);
+			index += 2;
+		}
+		index = (size - 1) * size + 1;
+	}
+
+	// even rows y in 2 .. Size - 2
+	index = size;
+	for (y = 2; y <= size - 2; y += 2) {
+		// the left and right columns (x in { 0, Size }): the top half at row y - 1, the bottom half at row y
+		for (x = 0; x < size + 1; x += size) {
+			float h00 = Field->Get_Height_2(x - 1, y - 1);
+			float h10 = Field->Get_Height_2(x, y - 1);
+			float h20 = Field->Get_Height_2(x + 1, y - 1);
+			float h = Field->Get_Height_2(x, y);
+			float h02 = Field->Get_Height_2(x - 1, y + 1);
+			float h12 = Field->Get_Height_2(x, y + 1);
+			float h22 = Field->Get_Height_2(x + 1, y + 1);
+			Vector3 v00(neg, neg, h00 - h);
+			Vector3 v10(0.0f, neg, h10 - h);
+			Vector3 v20(spacing, neg, h20 - h);
+			Vector3 v02(neg, spacing, h02 - h);
+			Vector3 v12(0.0f, spacing, h12 - h);
+			Vector3 v22(spacing, spacing, h22 - h);
+			n = Vector3::Cross_Product(v10, v20) + Vector3::Cross_Product(v00, v10);
+			n.Normalize();
+			m_Unknown1E4[index] = Land_Nearest_Normal(Normals, n);
+			n = Vector3::Cross_Product(v12, v02) + Vector3::Cross_Product(v22, v12);
+			n.Normalize();
+			m_Unknown1E4[index + size] = Land_Nearest_Normal(Normals, n);
+			index += size - 1;
+		}
+		index += 3 - size * 2;
+		// the interior even x in 2 .. Size - 2: one quadrant each at (x - 1, y - 1), (x, y - 1), (x - 1, y), (x, y)
+		for (x = 2; x <= size - 2; x += 2) {
+			float h00 = Field->Get_Height_2(x - 1, y - 1);
+			float h10 = Field->Get_Height_2(x, y - 1);
+			float h20 = Field->Get_Height_2(x + 1, y - 1);
+			float h01 = Field->Get_Height_2(x - 1, y);
+			float h = Field->Get_Height_2(x, y);
+			float h21 = Field->Get_Height_2(x + 1, y);
+			float h02 = Field->Get_Height_2(x - 1, y + 1);
+			float h12 = Field->Get_Height_2(x, y + 1);
+			float h22 = Field->Get_Height_2(x + 1, y + 1);
+			Vector3 v00(neg, neg, h00 - h);
+			Vector3 v10(0.0f, neg, h10 - h);
+			Vector3 v20(spacing, neg, h20 - h);
+			Vector3 v01(neg, 0.0f, h01 - h);
+			Vector3 v21(spacing, 0.0f, h21 - h);
+			Vector3 v02(neg, spacing, h02 - h);
+			Vector3 v12(0.0f, spacing, h12 - h);
+			Vector3 v22(spacing, spacing, h22 - h);
+			n = Vector3::Cross_Product(v01, v00) + Vector3::Cross_Product(v00, v10);
+			n.Normalize();
+			m_Unknown1E4[index] = Land_Nearest_Normal(Normals, n);
+			n = Vector3::Cross_Product(v20, v21) + Vector3::Cross_Product(v10, v20);
+			n.Normalize();
+			m_Unknown1E4[index + 1] = Land_Nearest_Normal(Normals, n);
+			n = Vector3::Cross_Product(v02, v01) + Vector3::Cross_Product(v12, v02);
+			n.Normalize();
+			m_Unknown1E4[index + size] = Land_Nearest_Normal(Normals, n);
+			n = Vector3::Cross_Product(v22, v12) + Vector3::Cross_Product(v21, v22);
+			n.Normalize();
+			m_Unknown1E4[index + size + 1] = Land_Nearest_Normal(Normals, n);
+			index += 2;
+		}
+		index += size + 1;
+	}
+}
+
+// NOT EXACT: functional, from the disassembly and pseudocode of 0x470F80
+void LandClass::Unknown_470F80(unsigned char *a, unsigned char *b, unsigned char *c)
+{
+	// the client: three copies of 65535 / (pi / 2) = 41720.875 (float 0xAE9AD0 in the four corners'
+	// blocks, float 0xAE9ACC in the edges', double 0xAE9AC0 inside): likely one inline helper or macro per kind
+	static const float HORIZON_SCALE_4 = 41720.875f;
+	static const float HORIZON_SCALE_2 = 41720.875f;
+	static const double HORIZON_SCALE_1 = 41720.875;
+	unsigned int size = Field->Get_Size();
+	unsigned int mask = Field->Get_Mask();
+	unsigned int last = size - 1;
+	unsigned int last_row = mask & last;			// the last row (column), wrapped
+	unsigned int wrap = mask & size;				// the row (column) after the last, wrapped: 0
+	unsigned short *hz = (unsigned short *)c;	// per cell: the horizons towards -x and +x (log-coded tangents)
+	unsigned short avg[2];
+	unsigned char h[8];
+	unsigned int bits;
+	unsigned char *rgb;
+	unsigned int n = 0;
+	unsigned int x;
+	unsigned int y;
+	unsigned int k0, k1, k2, k3;
+
+	// the first row: its vertices average with the last row's (the field wraps); the corners with all four corners
+	k0 = (0 << Field->Get_Log2());
+	k1 = k0 + mask;
+	k2 = (mask << Field->Get_Log2());
+	k3 = k2 + mask;
+	avg[0] = (unsigned short)((hz[k0 * 2 + 0] + hz[k1 * 2 + 0] + hz[k2 * 2 + 0] + hz[k3 * 2 + 0]) >> 2);
+	avg[1] = (unsigned short)((hz[k0 * 2 + 1] + hz[k1 * 2 + 1] + hz[k2 * 2 + 1] + hz[k3 * 2 + 1]) >> 2);
+	bits = (avg[0] + 0x77000) << 11 | 0x7FF;
+	m_Unknown1E8[n] = (unsigned short)(atan(*(float *)&bits) * HORIZON_SCALE_4);
+	bits = (avg[1] + 0x77000) << 11 | 0x7FF;
+	m_Unknown1EC[n] = (unsigned short)(atan(*(float *)&bits) * HORIZON_SCALE_4);
+	h[0] = (unsigned char)(avg[0] >> 8);
+	h[1] = (unsigned char)(avg[1] >> 8);
+	h[2] = (unsigned char)((a[k0 * 3 + 1] + a[k1 * 3 + 1] + a[k2 * 3 + 1] + a[k3 * 3 + 1]) >> 2);
+	h[3] = (unsigned char)((b[k0 * 3 + 1] + b[k1 * 3 + 1] + b[k2 * 3 + 1] + b[k3 * 3 + 1]) >> 2);
+	h[4] = (unsigned char)((a[k0 * 3] + a[k1 * 3] + a[k2 * 3] + a[k3 * 3]) >> 2);
+	h[5] = (unsigned char)((b[k0 * 3 + 2] + b[k1 * 3 + 2] + b[k2 * 3 + 2] + b[k3 * 3 + 2]) >> 2);
+	h[6] = (unsigned char)((b[k0 * 3] + b[k1 * 3] + b[k2 * 3] + b[k3 * 3]) >> 2);
+	h[7] = (unsigned char)((a[k0 * 3 + 2] + a[k1 * 3 + 2] + a[k2 * 3 + 2] + a[k3 * 3 + 2]) >> 2);
+	rgb = &Colors[(0 << Field->Get_Log2()) * 3];
+	{
+		Vector3 color((float)rgb[2] * (1.0f / 255.0f), (float)rgb[1] * (1.0f / 255.0f), (float)rgb[0] * (1.0f / 255.0f));
+		Unknown_472F80(&m_Unknown1F0[n], &m_Unknown1F4[n], &m_Unknown1F8[n], h, m_Unknown1E4[n], color);
+	}
+	n++;
+	for (x = 1; x < last; x++) {
+		k0 = (0 << Field->Get_Log2()) + x;
+		k1 = (mask << Field->Get_Log2()) + x;
+		avg[0] = (unsigned short)((hz[k0 * 2 + 0] + hz[k1 * 2 + 0]) >> 1);
+		avg[1] = (unsigned short)((hz[k0 * 2 + 1] + hz[k1 * 2 + 1]) >> 1);
+		bits = (avg[0] + 0x77000) << 11 | 0x7FF;
+		m_Unknown1E8[n] = (unsigned short)(atan(*(float *)&bits) * HORIZON_SCALE_2);
+		bits = (avg[1] + 0x77000) << 11 | 0x7FF;
+		m_Unknown1EC[n] = (unsigned short)(atan(*(float *)&bits) * HORIZON_SCALE_2);
+		h[0] = (unsigned char)(avg[0] >> 8);
+		h[1] = (unsigned char)(avg[1] >> 8);
+		h[2] = (unsigned char)((a[k0 * 3 + 1] + a[k1 * 3 + 1]) >> 1);
+		h[3] = (unsigned char)((b[k0 * 3 + 1] + b[k1 * 3 + 1]) >> 1);
+		h[4] = (unsigned char)((a[k0 * 3] + a[k1 * 3]) >> 1);
+		h[5] = (unsigned char)((b[k0 * 3 + 2] + b[k1 * 3 + 2]) >> 1);
+		h[6] = (unsigned char)((b[k0 * 3] + b[k1 * 3]) >> 1);
+		h[7] = (unsigned char)((a[k0 * 3 + 2] + a[k1 * 3 + 2]) >> 1);
+		rgb = &Colors[((0 << Field->Get_Log2()) + x) * 3];
+		{
+			Vector3 color((float)rgb[2] * (1.0f / 255.0f), (float)rgb[1] * (1.0f / 255.0f), (float)rgb[0] * (1.0f / 255.0f));
+			Unknown_472F80(&m_Unknown1F0[n], &m_Unknown1F4[n], &m_Unknown1F8[n], h, m_Unknown1E4[n], color);
+		}
+		n++;
+	}
+	k0 = (0 << Field->Get_Log2()) + wrap;
+	k1 = (mask << Field->Get_Log2()) + wrap;
+	k2 = (0 << Field->Get_Log2()) + last;
+	k3 = (mask << Field->Get_Log2()) + last;
+	avg[0] = (unsigned short)((hz[k0 * 2 + 0] + hz[k1 * 2 + 0] + hz[k2 * 2 + 0] + hz[k3 * 2 + 0]) >> 2);
+	avg[1] = (unsigned short)((hz[k0 * 2 + 1] + hz[k1 * 2 + 1] + hz[k2 * 2 + 1] + hz[k3 * 2 + 1]) >> 2);
+	bits = (avg[0] + 0x77000) << 11 | 0x7FF;
+	m_Unknown1E8[n] = (unsigned short)(atan(*(float *)&bits) * HORIZON_SCALE_4);
+	bits = (avg[1] + 0x77000) << 11 | 0x7FF;
+	m_Unknown1EC[n] = (unsigned short)(atan(*(float *)&bits) * HORIZON_SCALE_4);
+	h[0] = (unsigned char)(avg[0] >> 8);
+	h[1] = (unsigned char)(avg[1] >> 8);
+	h[2] = (unsigned char)((a[k0 * 3 + 1] + a[k1 * 3 + 1] + a[k2 * 3 + 1] + a[k3 * 3 + 1]) >> 2);
+	h[3] = (unsigned char)((b[k0 * 3 + 1] + b[k1 * 3 + 1] + b[k2 * 3 + 1] + b[k3 * 3 + 1]) >> 2);
+	h[4] = (unsigned char)((a[k0 * 3] + a[k1 * 3] + a[k2 * 3] + a[k3 * 3]) >> 2);
+	h[5] = (unsigned char)((b[k0 * 3 + 2] + b[k1 * 3 + 2] + b[k2 * 3 + 2] + b[k3 * 3 + 2]) >> 2);
+	h[6] = (unsigned char)((b[k0 * 3] + b[k1 * 3] + b[k2 * 3] + b[k3 * 3]) >> 2);
+	h[7] = (unsigned char)((a[k0 * 3 + 2] + a[k1 * 3 + 2] + a[k2 * 3 + 2] + a[k3 * 3 + 2]) >> 2);
+	rgb = &Colors[((0 << Field->Get_Log2()) + size) * 3 - 3];
+	{
+		Vector3 color((float)rgb[2] * (1.0f / 255.0f), (float)rgb[1] * (1.0f / 255.0f), (float)rgb[0] * (1.0f / 255.0f));
+		Unknown_472F80(&m_Unknown1F0[n], &m_Unknown1F4[n], &m_Unknown1F8[n], h, m_Unknown1E4[n], color);
+	}
+	n++;
+	// the inner rows: the first and last columns average with each other, the rest is the cell's own
+	for (y = 1; y < last; y++) {
+		k0 = y << Field->Get_Log2();
+		k1 = k0 + mask;
+		avg[0] = (unsigned short)((hz[k0 * 2 + 0] + hz[k1 * 2 + 0]) >> 1);
+		avg[1] = (unsigned short)((hz[k0 * 2 + 1] + hz[k1 * 2 + 1]) >> 1);
+		bits = (avg[0] + 0x77000) << 11 | 0x7FF;
+		m_Unknown1E8[n] = (unsigned short)(atan(*(float *)&bits) * HORIZON_SCALE_2);
+		bits = (avg[1] + 0x77000) << 11 | 0x7FF;
+		m_Unknown1EC[n] = (unsigned short)(atan(*(float *)&bits) * HORIZON_SCALE_2);
+		h[0] = (unsigned char)(avg[0] >> 8);
+		h[1] = (unsigned char)(avg[1] >> 8);
+		h[2] = (unsigned char)((a[k0 * 3 + 1] + a[k1 * 3 + 1]) >> 1);
+		h[3] = (unsigned char)((b[k0 * 3 + 1] + b[k1 * 3 + 1]) >> 1);
+		h[4] = (unsigned char)((a[k0 * 3] + a[k1 * 3]) >> 1);
+		h[5] = (unsigned char)((b[k0 * 3 + 2] + b[k1 * 3 + 2]) >> 1);
+		h[6] = (unsigned char)((b[k0 * 3] + b[k1 * 3]) >> 1);
+		h[7] = (unsigned char)((a[k0 * 3 + 2] + a[k1 * 3 + 2]) >> 1);
+		rgb = &Colors[(y << Field->Get_Log2()) * 3];
+		{
+			Vector3 color((float)rgb[2] * (1.0f / 255.0f), (float)rgb[1] * (1.0f / 255.0f), (float)rgb[0] * (1.0f / 255.0f));
+			Unknown_472F80(&m_Unknown1F0[n], &m_Unknown1F4[n], &m_Unknown1F8[n], h, m_Unknown1E4[n], color);
+		}
+		n++;
+		for (x = 1; x < last; x++) {
+			k0 = (y << Field->Get_Log2()) + x;
+			avg[0] = hz[k0 * 2 + 0];
+			avg[1] = hz[k0 * 2 + 1];
+			bits = (avg[0] + 0x77000) << 11 | 0x7FF;
+			m_Unknown1E8[n] = (unsigned short)(atan(*(float *)&bits) * HORIZON_SCALE_1);
+			bits = (avg[1] + 0x77000) << 11 | 0x7FF;
+			m_Unknown1EC[n] = (unsigned short)(atan(*(float *)&bits) * HORIZON_SCALE_1);
+			h[0] = (unsigned char)(avg[0] >> 8);
+			h[1] = (unsigned char)(avg[1] >> 8);
+			h[2] = a[k0 * 3 + 1];
+			h[3] = b[k0 * 3 + 1];
+			h[4] = a[k0 * 3];
+			h[5] = b[k0 * 3 + 2];
+			h[6] = b[k0 * 3];
+			h[7] = a[k0 * 3 + 2];
+			rgb = &Colors[((y << Field->Get_Log2()) + x) * 3];
+			{
+				Vector3 color((float)rgb[2] * (1.0f / 255.0f), (float)rgb[1] * (1.0f / 255.0f), (float)rgb[0] * (1.0f / 255.0f));
+				Unknown_472F80(&m_Unknown1F0[n], &m_Unknown1F4[n], &m_Unknown1F8[n], h, m_Unknown1E4[n], color);
+			}
+			n++;
+		}
+		k0 = (y << Field->Get_Log2()) + wrap;
+		k1 = (y << Field->Get_Log2()) + last;
+		avg[0] = (unsigned short)((hz[k0 * 2 + 0] + hz[k1 * 2 + 0]) >> 1);
+		avg[1] = (unsigned short)((hz[k0 * 2 + 1] + hz[k1 * 2 + 1]) >> 1);
+		bits = (avg[0] + 0x77000) << 11 | 0x7FF;
+		m_Unknown1E8[n] = (unsigned short)(atan(*(float *)&bits) * HORIZON_SCALE_2);
+		bits = (avg[1] + 0x77000) << 11 | 0x7FF;
+		m_Unknown1EC[n] = (unsigned short)(atan(*(float *)&bits) * HORIZON_SCALE_2);
+		h[0] = (unsigned char)(avg[0] >> 8);
+		h[1] = (unsigned char)(avg[1] >> 8);
+		h[2] = (unsigned char)((a[k0 * 3 + 1] + a[k1 * 3 + 1]) >> 1);
+		h[3] = (unsigned char)((b[k0 * 3 + 1] + b[k1 * 3 + 1]) >> 1);
+		h[4] = (unsigned char)((a[k0 * 3] + a[k1 * 3]) >> 1);
+		h[5] = (unsigned char)((b[k0 * 3 + 2] + b[k1 * 3 + 2]) >> 1);
+		h[6] = (unsigned char)((b[k0 * 3] + b[k1 * 3]) >> 1);
+		h[7] = (unsigned char)((a[k0 * 3 + 2] + a[k1 * 3 + 2]) >> 1);
+		rgb = &Colors[((y << Field->Get_Log2()) + size) * 3 - 3];
+		{
+			Vector3 color((float)rgb[2] * (1.0f / 255.0f), (float)rgb[1] * (1.0f / 255.0f), (float)rgb[0] * (1.0f / 255.0f));
+			Unknown_472F80(&m_Unknown1F0[n], &m_Unknown1F4[n], &m_Unknown1F8[n], h, m_Unknown1E4[n], color);
+		}
+		n++;
+	}
+	// the last row: averages with the first
+	k0 = last_row << Field->Get_Log2();
+	k1 = wrap << Field->Get_Log2();
+	k2 = k0 + mask;
+	k3 = k1 + mask;
+	avg[0] = (unsigned short)((hz[k0 * 2 + 0] + hz[k1 * 2 + 0] + hz[k2 * 2 + 0] + hz[k3 * 2 + 0]) >> 2);
+	avg[1] = (unsigned short)((hz[k0 * 2 + 1] + hz[k1 * 2 + 1] + hz[k2 * 2 + 1] + hz[k3 * 2 + 1]) >> 2);
+	bits = (avg[0] + 0x77000) << 11 | 0x7FF;
+	m_Unknown1E8[n] = (unsigned short)(atan(*(float *)&bits) * HORIZON_SCALE_4);
+	bits = (avg[1] + 0x77000) << 11 | 0x7FF;
+	m_Unknown1EC[n] = (unsigned short)(atan(*(float *)&bits) * HORIZON_SCALE_4);
+	h[0] = (unsigned char)(avg[0] >> 8);
+	h[1] = (unsigned char)(avg[1] >> 8);
+	h[2] = (unsigned char)((a[k0 * 3 + 1] + a[k1 * 3 + 1] + a[k2 * 3 + 1] + a[k3 * 3 + 1]) >> 2);
+	h[3] = (unsigned char)((b[k0 * 3 + 1] + b[k1 * 3 + 1] + b[k2 * 3 + 1] + b[k3 * 3 + 1]) >> 2);
+	h[4] = (unsigned char)((a[k0 * 3] + a[k1 * 3] + a[k2 * 3] + a[k3 * 3]) >> 2);
+	h[5] = (unsigned char)((b[k0 * 3 + 2] + b[k1 * 3 + 2] + b[k2 * 3 + 2] + b[k3 * 3 + 2]) >> 2);
+	h[6] = (unsigned char)((b[k0 * 3] + b[k1 * 3] + b[k2 * 3] + b[k3 * 3]) >> 2);
+	h[7] = (unsigned char)((a[k0 * 3 + 2] + a[k1 * 3 + 2] + a[k2 * 3 + 2] + a[k3 * 3 + 2]) >> 2);
+	rgb = &Colors[(last << Field->Get_Log2()) * 3];
+	{
+		Vector3 color((float)rgb[2] * (1.0f / 255.0f), (float)rgb[1] * (1.0f / 255.0f), (float)rgb[0] * (1.0f / 255.0f));
+		Unknown_472F80(&m_Unknown1F0[n], &m_Unknown1F4[n], &m_Unknown1F8[n], h, m_Unknown1E4[n], color);
+	}
+	n++;
+	for (x = 1; x < last; x++) {
+		k0 = (last_row << Field->Get_Log2()) + x;
+		k1 = (wrap << Field->Get_Log2()) + x;
+		avg[0] = (unsigned short)((hz[k0 * 2 + 0] + hz[k1 * 2 + 0]) >> 1);
+		avg[1] = (unsigned short)((hz[k0 * 2 + 1] + hz[k1 * 2 + 1]) >> 1);
+		bits = (avg[0] + 0x77000) << 11 | 0x7FF;
+		m_Unknown1E8[n] = (unsigned short)(atan(*(float *)&bits) * HORIZON_SCALE_2);
+		bits = (avg[1] + 0x77000) << 11 | 0x7FF;
+		m_Unknown1EC[n] = (unsigned short)(atan(*(float *)&bits) * HORIZON_SCALE_2);
+		h[0] = (unsigned char)(avg[0] >> 8);
+		h[1] = (unsigned char)(avg[1] >> 8);
+		h[2] = (unsigned char)((a[k0 * 3 + 1] + a[k1 * 3 + 1]) >> 1);
+		h[3] = (unsigned char)((b[k0 * 3 + 1] + b[k1 * 3 + 1]) >> 1);
+		h[4] = (unsigned char)((a[k0 * 3] + a[k1 * 3]) >> 1);
+		h[5] = (unsigned char)((b[k0 * 3 + 2] + b[k1 * 3 + 2]) >> 1);
+		h[6] = (unsigned char)((b[k0 * 3] + b[k1 * 3]) >> 1);
+		h[7] = (unsigned char)((a[k0 * 3 + 2] + a[k1 * 3 + 2]) >> 1);
+		rgb = &Colors[((last << Field->Get_Log2()) + x) * 3];
+		{
+			Vector3 color((float)rgb[2] * (1.0f / 255.0f), (float)rgb[1] * (1.0f / 255.0f), (float)rgb[0] * (1.0f / 255.0f));
+			Unknown_472F80(&m_Unknown1F0[n], &m_Unknown1F4[n], &m_Unknown1F8[n], h, m_Unknown1E4[n], color);
+		}
+		n++;
+	}
+	k0 = (last_row << Field->Get_Log2()) + wrap;
+	k1 = (wrap << Field->Get_Log2()) + wrap;
+	k2 = (wrap << Field->Get_Log2()) + last;
+	k3 = (last_row << Field->Get_Log2()) + last;
+	avg[0] = (unsigned short)((hz[k0 * 2 + 0] + hz[k1 * 2 + 0] + hz[k2 * 2 + 0] + hz[k3 * 2 + 0]) >> 2);
+	avg[1] = (unsigned short)((hz[k0 * 2 + 1] + hz[k1 * 2 + 1] + hz[k2 * 2 + 1] + hz[k3 * 2 + 1]) >> 2);
+	bits = (avg[0] + 0x77000) << 11 | 0x7FF;
+	m_Unknown1E8[n] = (unsigned short)(atan(*(float *)&bits) * HORIZON_SCALE_4);
+	bits = (avg[1] + 0x77000) << 11 | 0x7FF;
+	m_Unknown1EC[n] = (unsigned short)(atan(*(float *)&bits) * HORIZON_SCALE_4);
+	h[0] = (unsigned char)(avg[0] >> 8);
+	h[1] = (unsigned char)(avg[1] >> 8);
+	h[2] = (unsigned char)((a[k0 * 3 + 1] + a[k1 * 3 + 1] + a[k2 * 3 + 1] + a[k3 * 3 + 1]) >> 2);
+	h[3] = (unsigned char)((b[k0 * 3 + 1] + b[k1 * 3 + 1] + b[k2 * 3 + 1] + b[k3 * 3 + 1]) >> 2);
+	h[4] = (unsigned char)((a[k0 * 3] + a[k1 * 3] + a[k2 * 3] + a[k3 * 3]) >> 2);
+	h[5] = (unsigned char)((b[k0 * 3 + 2] + b[k1 * 3 + 2] + b[k2 * 3 + 2] + b[k3 * 3 + 2]) >> 2);
+	h[6] = (unsigned char)((b[k0 * 3] + b[k1 * 3] + b[k2 * 3] + b[k3 * 3]) >> 2);
+	h[7] = (unsigned char)((a[k0 * 3 + 2] + a[k1 * 3 + 2] + a[k2 * 3 + 2] + a[k3 * 3 + 2]) >> 2);
+	rgb = &Colors[((last << Field->Get_Log2()) + size) * 3 - 3];
+	{
+		Vector3 color((float)rgb[2] * (1.0f / 255.0f), (float)rgb[1] * (1.0f / 255.0f), (float)rgb[0] * (1.0f / 255.0f));
+		Unknown_472F80(&m_Unknown1F0[n], &m_Unknown1F4[n], &m_Unknown1F8[n], h, m_Unknown1E4[n], color);
+	}
+	n++;
+}
+
+// NOT EXACT: functional, from the disassembly and pseudocode of 0x472F80
+void LandClass::Unknown_472F80(unsigned char *red, unsigned char *green, unsigned char *blue,
+	unsigned char *horizons, unsigned char normal, const Vector3 &color)
+{
+	// 1 / sin(67.5), 1 / sin(22.5) degrees: per direction 2..5, the step's length over the cell
+	float scales[4] = { 1.0823922f, 2.613126f, 2.613126f, 1.0823922f };
+	float nx = Normals[normal].X;
+	float ny = Normals[normal].Y;
+	float nz = Normals[normal].Z;
+	// the caller's codes into LandDirection order: 0 is +x (the horizon at +0x1EC), 4 is -x (+0x1E8)
+	unsigned char dirs[8];
+	dirs[0] = horizons[1];
+	dirs[1] = horizons[5];
+	dirs[2] = horizons[3];
+	dirs[3] = horizons[6];
+	dirs[4] = horizons[0];
+	dirs[5] = horizons[4];
+	dirs[6] = horizons[2];
+	dirs[7] = horizons[7];
+	// the vertex's own slope raises the horizon on the side it faces away from
+	int i;
+	for (i = 0; i < 4; i++) {
+		float z = nz * LandDirectionY[i + 2];
+		float d = LandDirectionX[i + 2] * ny - LandDirectionY[i + 2] * nx;
+		int dir = i;
+		if (d <= 0.0f) {
+			dir = i + 4;
+		}
+		float t = (float)fabs(d) / ((float)fabs(z) * scales[i]);
+		unsigned char code;
+		if (t < 248.0f) {
+			if (t > 0.00390625f) {
+				code = (unsigned char)((*(unsigned int *)&t >> 19) - 0x770);	// the client: sub al, 0x70
+			} else {
+				code = 0;
+			}
+		} else {
+			code = 0x7F;
+		}
+		if (dirs[dir] > code) {
+			code = dirs[dir];
+		}
+		dirs[dir] = code;
+	}
+	// the sky seen over the eight horizons, cosine-weighted by the normal
+	float sx = 0.0f;
+	float sy = 0.0f;
+	float sz = 0.0f;
+	for (i = 0; i < 8; i++) {
+		sx += LandHorizonTable[i][dirs[i]].X;
+		sy += LandHorizonTable[i][dirs[i]].Y;
+		sz += LandHorizonTable[i][dirs[i]].Z;
+	}
+	float sky = sx * nx + (sy * ny + sz * nz);	// the client adds y and z first
+	// bounced light: the share grows with the ground's colour where the sky is hidden
+	float r = sky / (1.0f - (1.0f - sky) * color.X);
+	float g = sky / (1.0f - (1.0f - sky) * color.Y);
+	float b = sky / (1.0f - (1.0f - sky) * color.Z);
+	// at least 1 / 512 (a double), then 0..1 to a byte as 256 x - 1: the low byte of x + 32768 as a float
+	float fr = (float)((r > 0.00195314 ? r : 0.00195314) + 32768.0f);
+	float fg = (float)((g > 0.00195314 ? g : 0.00195314) + 32768.0f);
+	float fb = (float)((b > 0.00195314 ? b : 0.00195314) + 32768.0f);
+	*red = (unsigned char)(*(unsigned char *)&fr - 1);
+	*green = (unsigned char)(*(unsigned char *)&fg - 1);
+	*blue = (unsigned char)(*(unsigned char *)&fb - 1);
+}
+
 // NOT EXACT: shape (21 masked rows: the mask test's operand order and the heights' restore; 5 forms, attempts.csv 0x46E670)
 void LandClass::Compute_Horizons(INIClass &ini)
 {
@@ -1400,7 +2005,7 @@ void LandClass::Unknown_473290(unsigned char **a, unsigned char **b, unsigned ch
 	unsigned char *c_row = *c;
 	int row;
 	for (row = 0; row < size; row++) {
-		Unknown_4733C0(row, ratio, c_row);
+		Unknown_4733C0(row, ratio, (unsigned short *)c_row);
 		c_row += size * 4;
 		Unknown_473780(row, ratio, b_row);
 		b_row += size * 3;
@@ -1408,6 +2013,169 @@ void LandClass::Unknown_473290(unsigned char **a, unsigned char **b, unsigned ch
 	for (row = 0; row < size; row++) {
 		Unknown_473BC0(row, ratio, a_row);
 		a_row += size * 3;
+	}
+}
+
+// NAME 2: a horizon slope as the high bits of its float, saturating (0x4733C0: 16 bits; 0x473780 / 0x473BC0: 8 bits)
+static inline unsigned short Pack_Slope16(float slope)
+{
+	if (slope >= 255.96875f) {
+		return 0x7FFF;
+	}
+	if (slope <= 0.00390625f) {
+		return 0;
+	}
+	return (unsigned short)((*(unsigned int *)&slope >> 11) - 0x7000);
+}
+
+static inline unsigned char Pack_Slope8(float slope)
+{
+	if (slope >= 248.0f) {
+		return 0x7F;
+	}
+	if (slope <= 0.00390625f) {
+		return 0;
+	}
+	return (unsigned char)((*(unsigned int *)&slope >> 19) - 0x70);
+}
+
+void LandClass::Unknown_4733C0(int row, float ratio, unsigned short *out)
+{
+	unsigned int row0 = (Field->Get_Mask() & row) << Field->Get_Log2();
+	unsigned short *heights = Field->Get_Heights();
+	unsigned int row1 = ((row + 1) & Field->Get_Mask()) << Field->Get_Log2();
+	unsigned int steps = ((unsigned int)Field->Get_Size() > 128 ? 128 : Field->Get_Size()) * 2;
+	float scale = ratio + ratio;
+	for (unsigned int i = 0; i < Field->Get_Size(); i++) {
+		unsigned int i1 = (i + 1) & Field->Get_Mask();
+		float center = ((float)heights[row1 + i1] + heights[row0 + i1] + heights[row1 + i] + heights[row0 + i]) * 0.25f;
+		float rise = (Field->Get_Max_Value() - center) * scale;
+		float best = 0.05f;
+		float dist = 1.0f;
+		unsigned int x = i;
+		unsigned int k;
+		for (k = 1; k < steps && dist * best < rise; k += 2) {
+			float slope = (((float)heights[x + row1] + heights[x + row0]) * 0.5f - center) * Reciprocals[k - 1] * scale;
+			if (slope > best) {
+				best = slope;
+			}
+			dist += 2.0f;
+			x = (x - 1) & Field->Get_Mask();
+		}
+		*out++ = Pack_Slope16(best);
+		best = 0.05f;
+		dist = 1.0f;
+		x = i + 1;
+		for (k = 1; k < steps && dist * best < rise; k += 2) {
+			float slope = (((float)heights[x + row1] + heights[x + row0]) * 0.5f - center) * Reciprocals[k - 1] * scale;
+			if (slope > best) {
+				best = slope;
+			}
+			x = (x + 1) & Field->Get_Mask();
+			dist += 2.0f;
+		}
+		*out++ = Pack_Slope16(best);
+	}
+}
+
+// NOT EXACT: frame (the client's frame 0x14 bigger, 147 masked rows; 2 forms, attempts.csv 0x473780)
+void LandClass::Unknown_473780(int row, float ratio, unsigned char *out)
+{
+	unsigned int row0 = (Field->Get_Mask() & row) << Field->Get_Log2();
+	float scale = ratio + ratio;
+	unsigned short *heights = Field->Get_Heights();
+	unsigned int next = row + 1;
+	float diagonal = scale * 0.70710677f;
+	unsigned int row1 = (next & Field->Get_Mask()) << Field->Get_Log2();
+	for (unsigned int i = 0; i < Field->Get_Size(); i++) {
+		unsigned int i1 = (i + 1) & Field->Get_Mask();
+		float center = ((float)heights[row1 + i1] + heights[row0 + i1] + heights[row1 + i] + heights[row0 + i]) * 0.25f;
+		float best_left = 0.05f;
+		float best_mid = 0.05f;
+		float best_right = 0.05f;
+		const float *recip = Reciprocals;
+		float dist = 1.0f;
+		unsigned int y = next;
+		unsigned int offset = row1;
+		unsigned int left = i;
+		unsigned int right = i1;
+		for (int k = 0; k < 12; k++) {
+			float h_left = heights[(left & Field->Get_Mask()) + offset];
+			float mid = ((float)heights[offset + i1] + heights[i + offset]) * 0.5f;
+			float h_right = heights[(right & Field->Get_Mask()) + offset];
+			float s_left = (h_left - center) * diagonal * *recip;
+			float s_mid = (mid - center) * scale * *recip;
+			float s_right = (h_right - center) * diagonal * *recip;
+			if (s_left > best_left) {
+				best_left = s_left;
+			}
+			if (s_mid > best_mid) {
+				best_mid = s_mid;
+			}
+			if (s_right > best_right) {
+				best_right = s_right;
+			}
+			y = (y + 1) & Field->Get_Mask();
+			recip += 2;
+			left--;
+			right++;
+			offset = (offset + Field->Get_Size()) & Field->Get_Count_Mask();
+			dist += 2.0f;
+		}
+		out[0] = Pack_Slope8(best_left);
+		out[1] = Pack_Slope8(best_mid);
+		out[2] = Pack_Slope8(best_right);
+		out += 3;
+	}
+}
+
+// NOT EXACT: frame (the client's frame 0x14 bigger; 2 forms, attempts.csv 0x473BC0)
+void LandClass::Unknown_473BC0(int row, float ratio, unsigned char *out)
+{
+	unsigned int row0 = (Field->Get_Mask() & row) << Field->Get_Log2();
+	float scale = ratio + ratio;
+	unsigned short *heights = Field->Get_Heights();
+	float diagonal = scale * 0.70710677f;
+	unsigned int row1 = ((row + 1) & Field->Get_Mask()) << Field->Get_Log2();
+	for (unsigned int i = 0; i < Field->Get_Size(); i++) {
+		unsigned int i1 = (i + 1) & Field->Get_Mask();
+		float center = ((float)heights[row1 + i1] + heights[i1 + row0] + heights[row1 + i] + heights[row0 + i]) * 0.25f;
+		float best_left = 0.05f;
+		float best_mid = 0.05f;
+		float best_right = 0.05f;
+		const float *recip = Reciprocals;
+		float dist = 1.0f;
+		unsigned int y = row;
+		unsigned int offset = row0;
+		unsigned int left = i;
+		unsigned int right = i1;
+		for (int k = 0; k < 12; k++) {
+			float h_left = heights[(left & Field->Get_Mask()) + offset];
+			float mid = ((float)heights[offset + i1] + heights[i + offset]) * 0.5f;
+			float h_right = heights[(right & Field->Get_Mask()) + offset];
+			float s_left = (h_left - center) * diagonal * *recip;
+			float s_mid = (mid - center) * scale * *recip;
+			float s_right = (h_right - center) * diagonal * *recip;
+			if (s_left > best_left) {
+				best_left = s_left;
+			}
+			if (s_mid > best_mid) {
+				best_mid = s_mid;
+			}
+			if (s_right > best_right) {
+				best_right = s_right;
+			}
+			y = (y - 1) & Field->Get_Mask();
+			recip += 2;
+			left--;
+			right++;
+			offset = (offset - Field->Get_Size()) & Field->Get_Count_Mask();
+			dist += 2.0f;
+		}
+		out[0] = Pack_Slope8(best_left);
+		out[1] = Pack_Slope8(best_mid);
+		out[2] = Pack_Slope8(best_right);
+		out += 3;
 	}
 }
 

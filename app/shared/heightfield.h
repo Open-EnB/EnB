@@ -78,6 +78,8 @@ public:
 	unsigned int			Get_Count(void) const				{ return Count; }
 	float						Get_YSpacing(void) const			{ return YSpacing; }	// NAME 2: the land's Update_Patches reads them (0x46B3C0)
 	unsigned short			Get_Max_Value(void) const			{ return MaxValue; }
+	unsigned int			Get_Mask(void) const					{ return Mask; }	// NAME 2: the land's horizon scanners read them (0x4733C0-0x473BC0)
+	unsigned int			Get_Count_Mask(void) const			{ return CountMask; }
 	bool						Is_Wrapping(void) const				{ return Wrapping; }
 	unsigned short *		Get_Heights(void) const				{ return Heights; }	// NAME 2: the land's Compute_Horizons saves and restores them (0x46E670)
 	float						Get_VScale(void) const				{ return VScale; }	// NAME 2: the land's patches read it (0x474790)
