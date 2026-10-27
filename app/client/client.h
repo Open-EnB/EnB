@@ -27,6 +27,7 @@
 #include "..\shared\unknown_debug.h"
 
 class KernelClass;
+class RenderObjClass;
 class PacketClass;
 class ConnectionClass;
 class SplineDatabaseClass;
@@ -64,6 +65,8 @@ public:
 	int Unknown8C;										// +0x8C
 	unsigned GameID;									// +0x90  // NAME 3: Get_Game_ID's
 	char Unknown94;										// +0x94
+	char Unknown95[0xAC - 0x95];						// +0x95
+	RenderObjClass *Model;								// +0xAC (cpacket.cpp's render-state handlers: Class_ID, then rs_track.cpp's methods)  // NAME 2: what it holds
 };
 
 // eff_o.cpp's effect object (not rebuilt): ClientClass's second list

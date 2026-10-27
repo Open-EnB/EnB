@@ -9,6 +9,7 @@
 #include "..\packets\pkconfirmedaction.h"
 #include "..\packets\pkguildranknamesrequestclient.h"
 #include "..\packets\pkhullupgrade.h"
+#include "..\packets\pkinitrenderstate.h"
 #include "..\packets\pklogoff.h"
 #include "..\packets\pkmessagestring.h"
 #include "..\packets\pkmodechange.h"
@@ -19,9 +20,22 @@
 #include "..\packets\pkverblist.h"
 #include "..\shared\spln_db.h"
 #include "wwprofile.h"
+#include "rendobj.h"
 #include "..\shared\unknown_debug.h"
 #include <string>
 #include <vector>
+
+// rs_track.cpp's render object (Class_ID 0x10001): the render states the packets switch, declared as far as
+// the handlers call it
+#define RSTRACK_CLASSID	0x10001	// NAME 2: the class id the handlers test
+class RsTrackClass	// NAME 3: class-from-file (D24) for app\shared\rs_track.cpp
+{
+public:
+	void Unknown_4604D0(int render_state_id);	// 0x4604D0 (ACTIVATE_RENDER_STATE 48)
+	void Unknown_460780(int render_state_id);	// 0x460780 (DEACTIVATE_RENDER_STATE 50)
+	void Unknown_460850(int render_state_id);	// 0x460850 (ACTIVATE_NEXT_RENDER_STATE 49)
+	void Unknown_460880(int render_state_id, int link_id);	// 0x460880 (INIT_RENDER_STATE 47)
+};
 
 // 0x7333B0
 bool LogoffConfirmationPacketClass::Process_Packet(void *instance)
@@ -84,13 +98,62 @@ bool SetBBoxPacketClass::Process_Packet(void *instance)
 	return(true);
 }
 
-// NOT EXACT: register-only (the client loads instance into eax, ours into ecx; attempts.py show 0x737C10)
+// 0x737610
+bool InitRenderStatePacketClass::Process_Packet(void *instance)
+{
+	WWPROFILE("InitRenderStatePacketClass::Process_Packet()");
+	SClient *sclient = (SClient *)instance;
+	ClientObjectClass *object = sclient->Find_Object(GameID);
+	if (object && object->Model->Class_ID() == RSTRACK_CLASSID) {
+		RsTrackClass *track = (RsTrackClass *)object->Model;
+		track->Unknown_460880(RenderStateID, LinkID);
+	}
+	return(true);
+}
+
+// 0x7376F0
+bool ActivateRenderStatePacketClass::Process_Packet(void *instance)
+{
+	WWPROFILE("ActivateRenderStatePacketClass::Process_Packet()");
+	SClient *sclient = (SClient *)instance;
+	ClientObjectClass *object = sclient->Find_Object(GameID);
+	if (object && object->Model->Class_ID() == RSTRACK_CLASSID) {
+		((RsTrackClass *)object->Model)->Unknown_4604D0(RenderStateID);
+	}
+	return(true);
+}
+
+// 0x7377C0
+bool ActivateNextRenderStateOncePacketClass::Process_Packet(void *instance)
+{
+	WWPROFILE("ActivateNextRenderStateOncePacketClass::Process_Packet()");
+	SClient *sclient = (SClient *)instance;
+	ClientObjectClass *object = sclient->Find_Object(GameID);
+	if (object && object->Model->Class_ID() == RSTRACK_CLASSID) {
+		((RsTrackClass *)object->Model)->Unknown_460850(RenderStateID);
+	}
+	return(true);
+}
+
+// 0x737890
+bool DeactivateRenderStatePacketClass::Process_Packet(void *instance)
+{
+	WWPROFILE("DeactivateRenderStatePacketClass::Process_Packet()");
+	SClient *sclient = (SClient *)instance;
+	ClientObjectClass *object = sclient->Find_Object(GameID);
+	if (object && object->Model->Class_ID() == RSTRACK_CLASSID) {
+		((RsTrackClass *)object->Model)->Unknown_460780(RenderStateID);
+	}
+	return(true);
+}
+
 // 0x737C10
 bool SplinePacketClass::Process_Packet(void *instance)
 {
 	WWPROFILE("SplinePacketClass::Process_Packet()");
 	SClient *sclient = (SClient *)instance;
-	sclient->Splines->Unpack(Block);
+	SplineDatabaseClass *splines = sclient->Splines;
+	splines->Unpack(Block);
 	return(true);
 }
 
@@ -136,69 +199,6 @@ bool HullUpgradePacketClass::Process_Packet(void *instance)
 	WWPROFILE("HullUpgradePacketClass::Process_Packet(void * instance)");
 	return(true);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
