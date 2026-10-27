@@ -20,8 +20,6 @@ ItemBasePacketClass::ItemBasePacketClass(RawPacketClass *raw) { Conn_Record(this
 InventoryMovePacketClass::InventoryMovePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 InventorySortPacketClass::InventorySortPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 Action2PacketClass::Action2PacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-RequestTimePacketClass::RequestTimePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-SetClientTimePacketClass::SetClientTimePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 SplinePacketClass::SplinePacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 MasterJoinPacketClass::MasterJoinPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 ServerRedirectPacketClass::ServerRedirectPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
@@ -161,6 +159,7 @@ bool InitRenderStatePacketClass::Process_Packet(void *) { return(true); }	// 0x7
 bool ActivateRenderStatePacketClass::Process_Packet(void *) { return(true); }	// 0x7376F0
 bool ActivateNextRenderStateOncePacketClass::Process_Packet(void *) { return(true); }	// 0x7377C0
 bool DeactivateRenderStatePacketClass::Process_Packet(void *) { return(true); }	// 0x737890
+bool SetClientTimePacketClass::Process_Packet(void *) { return(true); }	// 0x737960
 bool ClientAvatarPacketClass::Process_Packet(void *) { return(true); }	// 0x733590
 bool ClientShipPacketClass::Process_Packet(void *) { return(true); }	// 0x733660
 bool DialogPacketClass::Process_Packet(void *) { return(true); }	// 0x736DA0

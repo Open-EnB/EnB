@@ -3645,6 +3645,9 @@ RECONSTRUCTED = {
     ('app', 'packets/pktalktreeaction.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
     ('app', 'packets/pkrequesttarget.cpp'): "packet classes (opcode 23, 24, 25) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
     ('app', 'packets/pkrequesttarget.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
+    ('app', 'packets/pkrequesttime.cpp'): "opcodes 68 (REQUEST_TIME) and 52 (CLIENT_SET_TIME) written by hand (builder P4, "
+                                        "10 of 10 exact in appfile.py match), client 0x8AAD50-0x8AB27F; the file name provisional (NAME 1)",
+    ('app', 'packets/pkrequesttime.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
     ('app', 'packets/pktilt.cpp'): "packet classes (opcode 19) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
     ('app', 'packets/pktilt.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
     ('app', 'packets/pkturn.cpp'): "packet classes (opcode 18) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",

@@ -61,6 +61,7 @@
 #include "pkreferralpointsavailable.h"	// rebuilt
 #include "pkremove.h"	// rebuilt
 #include "pkrequesttarget.h"	// rebuilt
+#include "pkrequesttime.h"	// rebuilt
 #include "pkrequesttransformchange.h"	// rebuilt
 #include "pksetzband.h"	// rebuilt
 #include "pkskill.h"	// rebuilt
@@ -278,23 +279,6 @@ public:
 	Action2PacketClass(RawPacketClass *raw);	// 0x8767B0
 	virtual bool Process_Packet(void *client);	// +0x08 0x867E00 (clientstub.cpp l.68)
 	char Unknown0C[0x1C];	// +0x0C
-};
-
-// opcode 68 (0x0044, REQUEST_TIME): vtable 0xB0BFB8, constructor 0x8AADE0, 0x14 bytes
-class RequestTimePacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name REQUEST_TIME (the Net-7 opcode table; no structure check)
-{
-public:
-	RequestTimePacketClass(RawPacketClass *raw);	// 0x8AADE0
-	virtual bool Process_Packet(void *client);	// +0x08 0x867AD0 (clientstub.cpp l.17)
-	char Unknown0C[0x8];	// +0x0C
-};
-
-// opcode 52 (0x0034, CLIENT_SET_TIME): vtable 0xB0BFE8, constructor 0x8AB060, 0x1C bytes
-class SetClientTimePacketClass : public PacketClass
-{
-public:
-	SetClientTimePacketClass(RawPacketClass *raw);	// 0x8AB060
-	char Unknown0C[0x10];	// +0x0C
 };
 
 // opcode 56 (0x0038, ?): vtable 0xB0BB3C, constructor 0x8A5870, 0x14 bytes

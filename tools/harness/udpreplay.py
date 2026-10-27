@@ -74,6 +74,20 @@ for _sub in ('', 'gameedit'):
 sys.path.insert(0, HERE)
 import convert as C  # noqa: E402
 
+# The messages whose rebuilt Build stamps a field with the aux-data clock (Unknown_Get_Ticks 0x4A3B40,
+# 0 in the harness: conn_replay.cpp), so it can't give the received bytes back: opcode -> the field's
+# offset in the message (header included). CLIENT_SET_TIME 52: ServerSent; REQUEST_TIME 68: TimeSent.
+TICKS = {52: 12, 68: 4}
+
+
+def masked(m):
+    """The message with its clock field zeroed (TICKS), else unchanged."""
+    if len(m) >= 4:
+        off = TICKS.get(struct.unpack_from('<h', m, 2)[0])
+        if off is not None and len(m) >= off + 4:
+            return m[:off] + bytes(4) + m[off + 4:]
+    return m
+
 
 def build(out):
     sys.path.insert(0, os.path.join(REPO, 'tools', 'vc6'))
@@ -690,9 +704,12 @@ def conn(name, exe, drops, step):
         # short) comes out as long as its header says (the factory takes the header's size): compared
         # over the bytes CordCon delivered
         resized = 0
+        timed = 0
 
         def same(a, b):
             if a == b:
+                return True
+            if masked(a) == masked(b):
                 return True
             if len(a) >= 4 and struct.unpack_from('<h', a)[0] != len(a) and b[:len(a)] == a[:len(b)]:
                 return True
@@ -705,13 +722,14 @@ def conn(name, exe, drops, step):
             b = mine.get(k, [])
             if len(a) == len(b) and all(same(x, y) for x, y in zip(a, b)):
                 equal += 1
-                resized += sum(1 for x, y in zip(a, b) if x != y)
+                resized += sum(1 for x, y in zip(a, b) if x != y and masked(x) != masked(y))
+                timed += sum(1 for x, y in zip(a, b) if x != y and masked(x) == masked(y))
         line = '  %s: CordCon::read %d, through UDPConnection and the stream %d (+ %d left in a closed CordCon: %s); ' \
                'sessions/directions equal in order %d of %d; size fields wrong %d; harness errors %s; under 4 bytes ' \
                '(no header: counted, not framed) %d of %d; size field not the length (compared over the length) %d; ' \
-               'written by a rebuilt class\'s Build %d' % (
+               'written by a rebuilt class\'s Build %d (time field masked: %d)' % (
                    label, n_plain, n_mine, n_dropped, ', '.join('%s %s' % k for k in sorted(dropped)) or '-', equal,
-                   len(keys_all), sizes_bad, errors, shorts, plain_short, resized, BUILT[0])
+                   len(keys_all), sizes_bad, errors, shorts, plain_short, resized, BUILT[0], timed)
         good = equal == len(keys_all) and n_plain == n_mine + n_dropped and sizes_bad == 0 and errors == 0 \
             and shorts == plain_short
         if not extra:

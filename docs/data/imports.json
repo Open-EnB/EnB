@@ -2087,6 +2087,30 @@
     "merged": [],
     "name": "packets/pkrequesttarget.cpp"
    },
+   "pkrequesttime": {
+    "ambiguous": [
+     "0x42B2F0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350",
+     "0x8AAD50",
+     "0x8AADE0",
+     "0x8AAE70",
+     "0x8AAF60",
+     "0x8AAFA0",
+     "0x8AB060",
+     "0x8AB120",
+     "0x8AB220"
+    ],
+    "merged": [],
+    "name": "packets/pkrequesttime.cpp"
+   },
    "pkrequesttransformchange": {
     "ambiguous": [
      "0x42B2F0"
@@ -3511,6 +3535,7 @@
    "packets/pkreferralpointsavailable.h": "reconstructed",
    "packets/pkremove.h": "reconstructed",
    "packets/pkrequesttarget.h": "reconstructed",
+   "packets/pkrequesttime.h": "reconstructed",
    "packets/pkrequesttransformchange.h": "reconstructed",
    "packets/pksetzband.h": "reconstructed",
    "packets/pkskill.h": "reconstructed",

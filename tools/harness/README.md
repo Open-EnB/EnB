@@ -298,6 +298,11 @@ alex7 message whose size field (7,690) isn't the 264 bytes CordCon delivers (the
 message: the factory takes the header's size), compared over the delivered bytes. The UDPConnection
 is made over each side's CordCon with the constructor for an accepted one (0x82CBF0); the default
 channel it opens is taken back, since the replay opens the capture's channels.
+A packet class rebuilt in the tree sends what its own Build writes (conn_replay.cpp; counted as
+"written by a rebuilt class's Build"). Two Builds stamp a field with the aux-data clock
+(Unknown_Get_Ticks, 0 in the harness): CLIENT_SET_TIME 52 (ServerSent, message byte 12) and REQUEST_TIME 68
+(TimeSent, byte 4). Those two opcodes are compared with that field zeroed (`TICKS` in udpreplay.py; counted as
+"time field masked"); every other byte must still be equal.
 
 ## Net-7 recordings (M1.5, gate (d))
 
