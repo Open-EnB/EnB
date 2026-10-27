@@ -2927,6 +2927,80 @@
     "merged": [],
     "name": "common/tcpconn.cpp"
    },
+   "tsk_game": {
+    "ambiguous": [
+     "0x42A6C0",
+     "0x42B2F0",
+     "0x7671E0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42A820",
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30",
+     "0x42CAB0",
+     "0x42CD30",
+     "0x444160",
+     "0x4B5740",
+     "0x765F80",
+     "0x766190",
+     "0x7661C0",
+     "0x7665A0",
+     "0x7665F0",
+     "0x766630",
+     "0x7667F0",
+     "0x7668E0",
+     "0x7669F0",
+     "0x766AB0",
+     "0x766BD0",
+     "0x766F10",
+     "0x766F80",
+     "0x767030",
+     "0x7670A0"
+    ],
+    "merged": [],
+    "name": "client/tasks/tsk_game.cpp"
+   },
+   "tsk_login": {
+    "ambiguous": [
+     "0x42B2F0",
+     "0x7671E0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x444160",
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350",
+     "0x767CE0",
+     "0x767D30",
+     "0x767EE0",
+     "0x7683A0",
+     "0x7689E0",
+     "0x7692A0",
+     "0x769360",
+     "0x769400",
+     "0x7694D0",
+     "0x7697A0",
+     "0x7697E0",
+     "0x769820",
+     "0x769870",
+     "0x769CE0",
+     "0x769D20",
+     "0x769D60",
+     "0x769E40",
+     "0x76B2F0",
+     "0x76B8A0",
+     "0x76BB70"
+    ],
+    "merged": [],
+    "name": "client/tasks/tsk_login.cpp"
+   },
    "tsk_menu": {
     "ambiguous": [],
     "copy": "reconstructed",
@@ -3205,6 +3279,8 @@
   },
   "headers": {
    "client/aux_roots.h": "reconstructed",
+   "client/sclient.h": "reconstructed",
+   "client/tasks/tsk_game.h": "reconstructed",
    "client/tasks/tsk_login.h": "reconstructed",
    "client/tasks/tsk_menu.h": "reconstructed",
    "client/tasks/tsk_movie.h": "reconstructed",
@@ -3327,7 +3403,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 1310,
+  "in_tree_total": 1378,
   "totals": {}
  },
  "binkmovie": {

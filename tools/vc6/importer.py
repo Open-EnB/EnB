@@ -3332,8 +3332,19 @@ RECONSTRUCTED = {
     ('app', 'kernel/kernel.cpp'): "the task kernel, client 0x443020-0x444150 (kernel-map.md 6, step 1): KernelClass and TaskClass; "
                                   "the asserts on the client's lines 74 / 157 / 196 / 225 / 474 (D25); NOT EXACT: Remove_Task "
                                   "(the client calls list's iterator++ 0x444190 out of line), Is_Running, TaskClass::Is_Focused",
-    ('app', 'client/tasks/tsk_login.h'): "LoginTaskClass (the client's name), declared only as far as MenuTask uses it: "
-                                         "the constructor 0x7675D0, the size 0x1148; tsk_login.cpp not rebuilt",
+    ('app', 'client/sclient.h'): "SClient (the client's 'SClient::Process_Packets'), declared only as far as tsk_game.cpp uses "
+                                "it: constructor 0x7405E0, 0x14F8 bytes (kernel-map.md 6, step 9)",
+    ('app', 'client/tasks/tsk_game.h'): "ClientTaskClass (D24 after its profile label 'ClientTask'), vtable 0xB03FF4, 0xA8 "
+                                        "bytes; TicketClass (0x48 bytes) and what tsk_game.cpp calls, declared only",
+    ('app', 'client/tasks/tsk_game.cpp'): "the game task, client 0x765F80-0x767230 (kernel-map.md 6, step 9): the asserts on "
+                                          "the client's lines 58-389 (D25); NOT EXACT: Init (inline budget); the redirect packet's "
+                                          "handler 0x766FC0 not rebuilt",
+    ('app', 'client/tasks/tsk_login.h'): "LoginTaskClass (the client's name: the asserts), vtable 0xB040D4 (29 slots), 0x1148 "
+                                         "bytes, members traced as far as the rebuilt functions use them; CharacterViewClass "
+                                         "(charview.cpp) declared only",
+    ('app', 'client/tasks/tsk_login.cpp'): "the login task, client 0x767240-0x76BC40 (kernel-map.md 6, step 9), partly: the "
+                                           "slots, helpers and two packets' handlers; the asserts on the client's lines 263-1405 (D25); "
+                                           "NOT EXACT: Run, Go_Next_Step, Go_Back_Step (register-only)",
     ('app', 'client/tasks/tsk_menu.h'): "MenuTaskClass (D24 after its log 'MenuTask'), vtable 0xB04228, 0x10 bytes",
     ('app', 'client/tasks/tsk_menu.cpp'): "MenuTask, client 0x76BC50-0x76BF2F (kernel-map.md 6, step 7): the object has no "
                                           "__FILE__, the name sorts between tsk_login.cpp and tsk_movie.cpp (the link order; "

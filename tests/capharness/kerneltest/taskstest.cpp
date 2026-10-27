@@ -159,7 +159,23 @@ LoginTaskClass::LoginTaskClass(int mode)
 	fprintf(Out, "login task mode %d\n", mode);
 }
 int LoginTaskClass::Get_Interval() { return 0; }
-bool LoginTaskClass::Delete_On_Remove() { return true; }
+// the rest of tsk_login.h's virtuals (not reached here)
+LoginTaskClass::~LoginTaskClass() {}
+bool LoginTaskClass::Yield_Focus() { return true; }
+void LoginTaskClass::Run() {}
+void LoginTaskClass::Pre_Run() {}
+void LoginTaskClass::Render() {}
+void LoginTaskClass::Unknown_48(int, int, int, int) {}
+bool LoginTaskClass::Unknown_4C() { return false; }
+void LoginTaskClass::Unknown_50() {}
+void LoginTaskClass::Go_Next_Step() {}
+void LoginTaskClass::Go_Back_Step() {}
+void LoginTaskClass::Unknown_5C() {}
+void LoginTaskClass::Set_Step(int, bool) {}
+bool LoginTaskClass::Unknown_64() { return false; }
+void LoginTaskClass::Process_Packets() {}
+void LoginTaskClass::Unknown_6C() {}
+void LoginTaskClass::Create_Character_View() {}
 
 // mclient.cpp's client: each script plays for 2 runs.
 static int Clients_Made;
