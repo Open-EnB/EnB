@@ -62,7 +62,7 @@ class RateConnectionClass : public ForwardingConnectionClass	// NAME 2: what it 
 {
 public:
 	RateConnectionClass(ConnectionClass *connection);					// 0x824A90
-	virtual ~RateConnectionClass();										// +0x00 0x824C00 / 0x824C50
+	// +0x00 0x824C00 / 0x824C50: the implicit destructor (no vtable store of its own)
 	virtual bool Send_Message(RawPacketClass *packet);					// +0x04 0x824CF0
 	virtual bool Send_Packet(PacketClass *packet);						// +0x08 0x824D90
 	virtual PacketClass *Receive();										// +0x0C 0x824E20

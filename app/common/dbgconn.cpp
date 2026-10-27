@@ -153,9 +153,9 @@ RateConnectionClass::RateConnectionClass(ConnectionClass *connection) :
 
 // NOT EXACT: the client inlines ~ForwardingConnectionClass here (inline in its connect.h; ours is in
 // connect.cpp, see the notes).
-RateConnectionClass::~RateConnectionClass()
-{
-}
+
+
+
 
 bool RateConnectionClass::Send_Message(RawPacketClass *packet)
 {

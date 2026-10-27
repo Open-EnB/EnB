@@ -1133,7 +1133,7 @@ Base copy: reconstructed. Headers: 121 from reconstructed.
 | common/connect.cpp | reconstructed | 57 | 10 | - | - | - |  |
 | wwudp/cordcon.cpp | reconstructed | 21 | 11 | - | - | - |  |
 | wwudp/cordmgr.cpp | reconstructed | 4 | 4 | - | - | - |  |
-| common/dbgconn.cpp | reconstructed | 18 | 1 | - | - | - |  |
+| common/dbgconn.cpp | reconstructed | 20 | 1 | - | - | - |  |
 | shared/auxdata/delta.cpp | reconstructed | 29 | 8 | - | - | - |  |
 | shared/auxdata/delta_interpolator.cpp | reconstructed | 19 | 4 | - | - | - |  |
 | shared/auxdata/delta_money.cpp | reconstructed | 10 | 2 | - | - | - |  |
