@@ -5013,6 +5013,29 @@
     "merged": [],
     "name": "shared/shipcust_desc.cpp"
    },
+   "soptions": {
+    "ambiguous": [
+     "0x45CDC0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x75A280",
+     "0x75A4E0",
+     "0x75A530",
+     "0x75A570",
+     "0x75A5A0",
+     "0x75A5F0",
+     "0x75A750",
+     "0x75A790",
+     "0x75A830",
+     "0x75A960",
+     "0x75AA00",
+     "0x75AA40"
+    ],
+    "merged": [],
+    "name": "client/soptions.cpp"
+   },
    "soundlib": {
     "ambiguous": [
      "0x42A6C0",

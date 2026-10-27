@@ -8,8 +8,7 @@
 **	SOptionsClass, the client's options: SClient's second base (+0x1150). 0x48 bytes, constructor
 **	0x75A280 (the render budgets from the registry key 'Software\Westwood Studios\Earth and
 **	Beyond\Render', read only), destructor 0x75A4E0, vtable 0xB03C00 (one slot; SClient's copy
-**	0xB0323C). soptions.cpp isn't rebuilt: declared as far as SClient uses it
-**	(docs/kernel-map-step9.md 2.2, D90 9d).
+**	0xB0323C), soptions.cpp (docs/kernel-map-step9.md 2.2, D90 9d).
 */
 
 #if defined(_MSC_VER)
@@ -32,8 +31,8 @@ struct CameraModeStruct		// NAME 2: what it holds
 	float FOV;											// +0x0C 'FOV' (radians; 90 degrees by default)
 	float ElevationOffset;								// +0x10 'ElevationOffset'
 
-	bool operator==(const CameraModeStruct &that) const;	// (VectorClass's virtuals compare elements; not seen in the client)
-	bool operator!=(const CameraModeStruct &that) const;
+	bool operator==(const CameraModeStruct &that) const { return(Heading == that.Heading && Distance == that.Distance && Tilt == that.Tilt && FOV == that.FOV && ElevationOffset == that.ElevationOffset); }	// VectorClass's ID 0x75A960 compares the five in order
+	bool operator!=(const CameraModeStruct &that) const { return(!(*this == that)); }	// VectorClass's operator== 0x75A790
 };
 
 class SOptionsClass		// NAME 3: class-from-file (D24) for soptions.cpp
