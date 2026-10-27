@@ -12,6 +12,7 @@
 #include "coltest.h"
 #include "colmath.h"
 #include "tri.h"
+#include "obbox.h"
 
 HeightFieldClass::HeightFieldClass(void) :
 	Heights(NULL),
@@ -593,6 +594,57 @@ bool HeightFieldClass::Cast_OBBox(OBBoxCollisionTestClass &boxtest)
 	return hit;
 }
 
+// NOT EXACT: inline-budget (the client calls the first push_back's insert out of line, 0x466180; 28 masked rows; attempts.csv 0x465D30)
+void HeightFieldClass::Get_Triangles(const OBBoxClass &box, std::vector<Vector3> &verts)
+{
+	Vector3 extent;
+	box.Compute_Axis_Aligned_Extent(&extent);
+	Vector3 min = box.Center - extent;
+	float half = (float)HalfSize;
+	float x0 = min.X / XSpacing + half;
+	float y0 = min.Y / YSpacing + half;
+	Vector3 max = box.Center + extent;
+	float x1 = max.X / XSpacing + half;
+	float y1 = max.Y / YSpacing + half;
+	if (x0 > x1) {
+		float swap = x0;
+		x0 = x1;
+		x1 = swap;
+	}
+	if (y0 > y1) {
+		float swap = y0;
+		y0 = y1;
+		y1 = swap;
+	}
+	int i0 = (int)(x0 - 1.0f);
+	int i1 = (int)(x1 + 1.0f);
+	int j1 = (int)(y1 + 1.0f);
+	int j0 = (int)(y0 - 1.0f);
+	for (int j = j0; j <= j1; j++) {
+		for (int i = i0; i <= i1; i++) {
+			Vector3 verts4[4];
+			verts4[0].X = (float)(int)(i - HalfSize) * XSpacing;
+			verts4[0].Y = (float)(int)(j - HalfSize) * YSpacing;
+			verts4[0].Z = Get_Height(i, j);
+			verts4[1].X = verts4[0].X + XSpacing;
+			verts4[1].Y = verts4[0].Y;
+			verts4[1].Z = Get_Height(i + 1, j);
+			verts4[2].X = verts4[1].X;
+			verts4[2].Y = verts4[0].Y + YSpacing;
+			verts4[2].Z = Get_Height(i + 1, j + 1);
+			verts4[3].X = verts4[0].X;
+			verts4[3].Y = verts4[2].Y;
+			verts4[3].Z = Get_Height(i, j + 1);
+			verts.push_back(verts4[0]);
+			verts.push_back(verts4[2]);
+			verts.push_back(verts4[3]);
+			verts.push_back(verts4[0]);
+			verts.push_back(verts4[1]);
+			verts.push_back(verts4[2]);
+		}
+	}
+}
+
 float HeightFieldClass::Get_Height(float x, float y) const
 {
 	float fx = x / XSpacing + (int)Size / 2;
@@ -624,8 +676,8 @@ void HeightFieldClass::Sample(Vector3 *out, float u, float v) const
 **	0x463BF0, Get_Height 0x463C80 / 0x463CD0, Set_Height 0x463D20 / 0x463D90, World_To_Grid 0x463E00,
 **	Get_Vertex 0x463E70, Get_Downhill 0x463F00, Get_Normal 0x464290, Get_Height(position) 0x464600,
 **	Cast_AABox 0x465030 (exact), Cast_OBBox 0x4654E0 and Cast_Ray 0x4647C0 (NOT EXACT: frame): two triangles
-**	per cell over the sweep's bounds (LandClass's Cast_* forward to them through 0x46C680-0x46C6E0). Not rebuilt:
-**	0x465D30 (called by the land's render). Cast_Ray clips the ray to the grid unless it wraps, then
+**	per cell over the sweep's bounds (LandClass's Cast_* forward to them through 0x46C680-0x46C6E0). Get_Triangles 0x465D30 (NOT
+**	EXACT, for the land's render) with vector<Vector3>::insert 0x4663E0. Cast_Ray clips the ray to the grid unless it wraps, then
 **	walks the cells it crosses (a 2D DDA) until a triangle is hit. The functions after the notes'
 **	"Ours" are VIDTEST's land's (functional, D42). The decorations keep the bilinear Sample(u, v)
 **	for now: the client's Sample 0x463BF0 (two triangles per cell) moves a tree 1.8 units on average

@@ -29,11 +29,13 @@
 #define __HEIGHTFIELD_H
 
 #include "vector3.h"
+#include <vector>
 
 class Vector2;
 class RayCollisionTestClass;
 class AABoxCollisionTestClass;
 class OBBoxCollisionTestClass;
+class OBBoxClass;
 
 // NAME 2: after land.ini's [HEIGHTMAP] / HEIGHT_MAP; the client names no class
 class HeightFieldClass
@@ -59,6 +61,8 @@ public:
 	bool						Cast_Ray(RayCollisionTestClass &raytest);
 	bool						Cast_AABox(AABoxCollisionTestClass &boxtest);
 	bool						Cast_OBBox(OBBoxCollisionTestClass &boxtest);
+// NAME 2: the triangles (three corners each) of the cells under a box, for the land's render 0x474B30 (0x465D30)
+	void						Get_Triangles(const OBBoxClass &box, std::vector<Vector3> &verts);
 
 // NAME 2: ours (VIDTEST's land, functional): the grid clamped at the edges, world coordinates
 	int						Get_Size(void) const					{ return Size; }
