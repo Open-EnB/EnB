@@ -3640,7 +3640,7 @@ RECONSTRUCTED = {
     ('app', 'packets/pkhullupgrade.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
     ('app', 'packets/pkitemstate.cpp'): "packet classes (opcode 41) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
     ('app', 'packets/pkitemstate.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
-    ('app', 'packets/pkjoblist.cpp'): "packet classes (opcode 149, 150) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
+    ('app', 'packets/pkjoblist.cpp'): "opcode 148 written by hand (builder P4, 6 of 6 exact); packet classes (opcode 149, 150) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
     ('app', 'packets/pkjoblist.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
     ('app', 'packets/pkmanufactureitemcatagorypacket.cpp'): "opcodes 121 and 128 written by hand (builder P4, 9 of 9 exact); packet classes (opcode 122, 123, 124, 125, 126, 127) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
     ('app', 'packets/pkmanufactureitemcatagorypacket.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",

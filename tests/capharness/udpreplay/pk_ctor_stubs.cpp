@@ -44,7 +44,6 @@ AvatarDescPacketClass::AvatarDescPacketClass(RawPacketClass *raw) { Conn_Record(
 PlayerObjectReactionUpdatePacket::PlayerObjectReactionUpdatePacket(RawPacketClass *raw) { Conn_Record(this, raw); }
 IncapacitanceDetailsPacket::IncapacitanceDetailsPacket(RawPacketClass *raw) { Conn_Record(this, raw); }
 JobListPacketClass::JobListPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-JobDescriptionPacketClass::JobDescriptionPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_00B5Class::Packet_00B5Class(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_00B6Class::Packet_00B6Class(RawPacketClass *raw) { Conn_Record(this, raw); }
 NoteListPacketClass::NoteListPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
@@ -126,6 +125,7 @@ bool PlayerObjectIsAttackingUpdatePacket::Process_Packet(void *) { return(true);
 bool IncapacitanceRescueConfirmationPacket::Process_Packet(void *) { return(true); }	// 0x739CD0
 bool CameraControlPacketClass::Process_Packet(void *) { return(true); }	// 0x739FF0
 bool NotifyEmotePacketClass::Process_Packet(void *) { return(true); }	// 0x73A8E0
+bool JobDescriptionPacketClass::Process_Packet(void *) { return(true); }	// 0x73A330
 bool JobDeletePacketClass::Process_Packet(void *) { return(true); }	// 0x73A420
 bool JobAcceptReplyPacketClass::Process_Packet(void *) { return(true); }	// 0x73A510
 bool GalaxyMapPacketClass::Process_Packet(void *) { return(true); }	// 0x73AC60
