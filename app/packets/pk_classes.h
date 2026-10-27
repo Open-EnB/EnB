@@ -90,6 +90,7 @@
 #include "pkrequesttarget.h"	// rebuilt
 #include "pkrequesttime.h"	// rebuilt
 #include "pkrequesttransformchange.h"	// rebuilt
+#include "pkserverhandoff.h"	// rebuilt
 #include "pkserverparameters.h"	// rebuilt
 #include "pkserverready.h"	// rebuilt
 #include "pksetclienttype.h"	// rebuilt
@@ -238,14 +239,6 @@ public:
 	int Unknown0C;	// +0x0C
 	unsigned long Address;	// +0x10  // NAME 1: handed to Redirect (tsk_game.cpp 0x766FC0)
 	unsigned short Port;	// +0x14  // NAME 1: handed to Redirect (tsk_game.cpp 0x766FC0)
-};
-
-// opcode 58 (0x003A, SERVER_HANDOFF): vtable 0xB0ADD4, constructor 0x8946B0, 0x98 bytes
-class ServerHandoffPacketClass : public PacketClass
-{
-public:
-	ServerHandoffPacketClass(RawPacketClass *raw);	// 0x8946B0
-	char Unknown0C[0x8C];	// +0x0C
 };
 
 // opcode 111 (0x006F, GLOBAL_TICKET): vtable 0xB09688, constructor 0x867650, 0x58 bytes

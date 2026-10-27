@@ -4417,6 +4417,36 @@
     "merged": [],
     "name": "packets/pkrequesttransformchange.cpp"
    },
+   "pkserverhandoff": {
+    "ambiguous": [
+     "0x42A6C0",
+     "0x42B2F0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42A820",
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30",
+     "0x42CAB0",
+     "0x42CD30",
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350",
+     "0x8943C0",
+     "0x894520",
+     "0x894550",
+     "0x8946B0",
+     "0x8947F0",
+     "0x8948E0",
+     "0x894950"
+    ],
+    "merged": [],
+    "name": "packets/pkserverhandoff.cpp"
+   },
    "pkserverparameters": {
     "ambiguous": [
      "0x42B2F0"
@@ -6938,6 +6968,7 @@
    "packets/pkrequesttarget.h": "reconstructed",
    "packets/pkrequesttime.h": "reconstructed",
    "packets/pkrequesttransformchange.h": "reconstructed",
+   "packets/pkserverhandoff.h": "reconstructed",
    "packets/pkserverparameters.h": "reconstructed",
    "packets/pkserverready.h": "reconstructed",
    "packets/pksetclienttype.h": "reconstructed",
