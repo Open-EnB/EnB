@@ -51,7 +51,7 @@ ClientTaskClass::~ClientTaskClass()
 
 
 
-// NOT EXACT: inline budget (the client calls string::erase out of line in the assignment; attempts.py show 0x766350)
+
 // 0x766350
 bool ClientTaskClass::Init(KernelClass *kernel, TicketClass *ticket, const std::string &login_key, unsigned long address)
 {
@@ -68,7 +68,7 @@ bool ClientTaskClass::Init(KernelClass *kernel, TicketClass *ticket, const std::
 	Client->Kernel = kernel;
 	Client->Unknown_00();
 	Address = address;
-	Set_Mode(MODE_JOIN);
+	Set_Mode(MODE_JOIN); Login_Key.size(); login_key.size();	// two dead size() calls: inline budget (D40's lever), the client calls string::erase out of line
 	return true;
 }
 
