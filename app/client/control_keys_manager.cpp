@@ -8,8 +8,8 @@ static std::string _Empty;  // NAME 2: 0xBE7B80, what the accessors return witho
 unsigned int ControlKeysManager::_NumKeyDefs;
 std::hash_map<std::string, std::auto_ptr<ControlKeyDefStruct> > ControlKeysManager::_KeyDefinitions;
 std::hash_map<std::string, KeyIdStruct> ControlKeysManager::_KeyIds;
-
-
+std::vector<KeyMappingStruct> ControlKeysManager::_DefaultPSW;
+std::vector<KeyMappingStruct> ControlKeysManager::_DefaultSIM;
 
 
 
@@ -305,6 +305,22 @@ int ControlKeysManager::Remove_Keys(ControlKeyListClass *keylist, const std::str
 
 
 
+void ControlKeysManager::Restore_Keys()
+{
+	Copy_Keys(&UserKeys, RestoreKeys);
+}
+
+void ControlKeysManager::Set_Default_PSW()
+{
+	Copy_Keys(&UserKeys, _DefaultPSW);
+	Build_Keys_Map();
+}
+
+void ControlKeysManager::Set_Default_SIM()
+{
+	Copy_Keys(&UserKeys, _DefaultSIM);
+	Build_Keys_Map();
+}
 
 
 
@@ -312,29 +328,13 @@ int ControlKeysManager::Remove_Keys(ControlKeyListClass *keylist, const std::str
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+const std::string &ControlKeysManager::Get_Key_Name(const ControlKeyValueStruct &key)
+{
+	std::hash_map<unsigned int, ControlKeyDefStruct *>::iterator it = UserKeysMap.find(key);
+	if (it == UserKeysMap.end()) return _Empty;
+	FAIL_IF(!it->second) return _Empty;
+	return it->second->Name;
+}
 
 
 
