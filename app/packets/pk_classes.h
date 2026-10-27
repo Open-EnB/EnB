@@ -42,6 +42,8 @@
 #include "pkglobaldeletecharacter.h"	// rebuilt
 #include "pkgloballock.h"	// rebuilt
 #include "pkglobalticketrequest.h"	// rebuilt
+#include "pkgmdestroyitem.h"	// rebuilt
+#include "pkgmresetmission.h"	// rebuilt
 #include "pkgpsrequest.h"	// rebuilt
 #include "pkgroup.h"	// rebuilt
 #include "pkguildranknamesrequestclient.h"	// rebuilt
@@ -709,24 +711,6 @@ class Packet_00EBClass : public PacketClass  // NAME 1: neutral (D10): opcode 0x
 public:
 	Packet_00EBClass(RawPacketClass *raw);	// 0x86FD00
 	char Unknown0C[0x14];	// +0x0C
-};
-
-// opcode 236 (0x00EC, ?): vtable 0xB09994, constructor 0x8714F0, 0x24 bytes
-class Packet_00ECClass : public PacketClass  // NAME 1: neutral (D10): opcode 0x00EC
-{
-public:
-	Packet_00ECClass(RawPacketClass *raw);	// 0x8714F0
-	virtual bool Process_Packet(void *client);	// +0x08 0x869570 (clientstub.cpp l.443)
-	char Unknown0C[0x18];	// +0x0C
-};
-
-// opcode 237 (0x00ED, ?): vtable 0xB099C4, constructor 0x871A30, 0x24 bytes
-class Packet_00EDClass : public PacketClass  // NAME 1: neutral (D10): opcode 0x00ED
-{
-public:
-	Packet_00EDClass(RawPacketClass *raw);	// 0x871A30
-	virtual bool Process_Packet(void *client);	// +0x08 0x8695A0 (clientstub.cpp l.446)
-	char Unknown0C[0x18];	// +0x0C
 };
 
 // opcode 173 (0x00AD, ?): vtable 0xB0A764, constructor 0x8895E0, 0x30 bytes

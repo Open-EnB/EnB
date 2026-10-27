@@ -626,10 +626,10 @@ PacketClass *Unknown_869790(RawPacketClass *raw)
 			packet = new Packet_00EBClass(raw);
 			break;
 		case 236:
-			packet = new Packet_00ECClass(raw);
+			packet = new GMDestroyItemPacketClass(raw);
 			break;
 		case 237:
-			packet = new Packet_00EDClass(raw);
+			packet = new GMResetMissionPacketClass(raw);
 			break;
 		case 165:
 			packet = new ClientChatEventPacketClass(raw);

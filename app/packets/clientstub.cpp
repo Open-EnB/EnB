@@ -439,10 +439,10 @@ bool GlobalLockResponsePacketClass::Process_Packet(void *)	// 0x869510
 bool GlobalLockReleasePacketClass::Process_Packet(void *)	// 0x869540
 {	G_ASSERT(0); return(true); }
 
-bool Packet_00ECClass::Process_Packet(void *)	// 0x869570
+bool GMDestroyItemPacketClass::Process_Packet(void *)	// 0x869570
 {	G_ASSERT(0); return(true); }
 
-bool Packet_00EDClass::Process_Packet(void *)	// 0x8695A0
+bool GMResetMissionPacketClass::Process_Packet(void *)	// 0x8695A0
 {	G_ASSERT(0); return(true); }
 
 bool Packet_0077Class::Process_Packet(void *)	// 0x8695D0

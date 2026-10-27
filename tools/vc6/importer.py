@@ -3705,6 +3705,12 @@ RECONSTRUCTED = {
     ('app', 'packets/pkgpsrequest.cpp'): "opcodes 221 (GPS_REQUEST) and 222 (GPSResponse) written by hand (builder P4, "
                                        "12 of 12 exact in appfile.py match), client 0x887F20-0x888670; the file name provisional (NAME 1)",
     ('app', 'packets/pkgpsrequest.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
+    ('app', 'packets/pkgmdestroyitem.cpp'): "opcode 236 (GM Destroy Item) written by hand (builder P4, 6 of 6 exact in "
+                                          "appfile.py match), client 0x8714F0-0x871A00; the file name provisional (NAME 1)",
+    ('app', 'packets/pkgmdestroyitem.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
+    ('app', 'packets/pkgmresetmission.cpp'): "opcode 237 (GM Reset Mission) written by hand (builder P4, 6 of 6 exact in "
+                                           "appfile.py match), client 0x871A30-0x871F40; the file name provisional (NAME 1)",
+    ('app', 'packets/pkgmresetmission.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
     ('app', 'packets/pk_sub_parts.cpp'): "pk_sub_parts.cpp (the client's __FILE__, assert line 64): SUBPARTS 180 written by "
                                        "hand (builder P4, 8 of 8 exact in appfile.py match), client 0x8754D0-0x875CF0",
     ('app', 'packets/pk_sub_parts.h'): "SubPartsPacket and SubPartStruct (D24 header name; pk_classes.h includes it)",
