@@ -83,8 +83,6 @@ edit the comments in the code, not this file.
 | `app/client/ui_line_display.cpp:520` | `UILineDisplayClass::Show_Ephemeral` | marker | NOT EXACT: inline budget (explain.py), the client converts find's and end()'s iterators to const_iterator out of line (0x5A9010), ours inline |
 | `app/client/ui_line_display.cpp:590` | `UILineDisplayClass::Unknown_7C` | marker | NOT EXACT: shape (explain.py), the hash_map loop's first bucket search laid out differently (as 0x677410) |
 | `app/client/ui_line_display.cpp:617` | `UILineDisplayClass::Clear` | marker | NOT EXACT: shape (explain.py), the hash_map iterator kept in esi by the client, in the frame by ours (as 0x677410) |
-| `app/client/ui_line_display.cpp:642` | `UILineDisplayClass::Find_Ephemeral` | marker | NOT EXACT: inline budget (explain.py), the client inlines the key's assign and calls find 0x5A9460 out of line, ours the reverse (as 0x6ACF50) |
-| `app/client/ui_line_display.cpp:653` | `UILineDisplayClass::Find_Text` | marker | NOT EXACT: inline budget (explain.py), the client calls find 0x5A95E0 and the key's _Eos out of line (as 0x4E57A0) |
 | `app/client/unknown_creator.cpp:68` | `CharacterCreatorClass::Unknown_78D480` | marker | NOT EXACT: shape (through Get_File_Name, inlined, the appends come out of line as in the client; the inlined byte sum's loop still differs, nine forms: attempts.py show 0x78D480) 0x78D480 |
 | `app/client/unknown_creator.cpp:103` | `CharacterCreatorClass::Unknown_78D8A0` | marker | NOT EXACT: inline budget (through Get_File_Name one append still inlines in ours) 0x78D8A0 |
 | `app/client/unknown_creator.cpp:126` | `CharacterCreatorClass::Unknown_78DAF0` | marker | NOT EXACT: shape (through Get_File_Name; the inlined byte sum as in 0x78D480) 0x78DAF0 |

@@ -639,21 +639,21 @@ void UILineDisplayClass::Skip()
 }
 
 
-// NOT EXACT: inline budget (explain.py), the client inlines the key's assign and calls find 0x5A9460 out of line, ours the reverse (as 0x6ACF50)
+
 EphemeralStruct *UILineDisplayClass::Find_Ephemeral(const char *type)
 {
-	std::hash_map<std::string, EphemeralStruct *>::iterator i = Ephemerals.find(std::string(type));
-	if (i == Ephemerals.end()) {
-		return 0;
-	}
-	return (*i).second;
+	std::hash_map<std::string, EphemeralStruct *>::const_iterator i = Ephemerals.find(std::string(type));
+	return i == Ephemerals.end() ? NULL : (*i).second;
+
+
+
 }
 
 
-// NOT EXACT: inline budget (explain.py), the client calls find 0x5A95E0 and the key's _Eos out of line (as 0x4E57A0)
+
 RefCountPtr<LineDisplayTextClass> UILineDisplayClass::Find_Text(const char *name)
 {
-	std::hash_map<std::string, LineDisplayStringStruct *>::iterator i = Strings.find(std::string(name));
+	std::hash_map<std::string, LineDisplayStringStruct *>::const_iterator i = Strings.find(std::string(name));
 	if (i == Strings.end()) {
 		return 0;
 	}
