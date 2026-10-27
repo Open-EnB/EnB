@@ -1154,27 +1154,12 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 | D91 | 2026-10-27 | udpreplay's `same()` skips a message's 2-byte size field only when the recorded message's size field disagrees with its length (alex7 session 625d message #89, a cut dump message with size 0x1E0A; the rebuilt Build writes the true size), so 59 Server_Ready (5 of 5 exact) can be committed (P-P4-1). Declined the same day: moving `Clamp_Int` into duration.h, +3/-2 at aux_roots through a D80 tie-break swap (P-P4-3): a swap is not a D66 non-loss. Accepted for after Load_Assets: one D89 Fable round on land's lighting-record struct form, the constructor with the lightmap threads 0x46DA70 / 0x46DDD0 together (P-L4-2). D88's `tiebreak`/`selfname` markers stay out of imports.json until something needs them | user |
 | D92 | 2026-10-27 | One D89 Fable round for ClientClass's constructor 0x726100 (inline budget) and Find_Object 0x727070 / Remove_Object 0x727600 (shape; the untried `goto` to the found return), after the land lighting round F5 (P-T6-1). The clienttest program (P-T6-2) is deferred to step 9d and subsumed by P-T7-1 | user |
 | D93 | 2026-10-27 | A model evaluation on two fixed reconstruction tasks (A: three small packet classes; B: option.cpp's SGI hash_map file), the same brief for Opus 5.5, Sonnet 5.5 (twice) and Haiku 5.5, each in its own worktree and branch at one base commit, scored by the coordinator's re-verify (exact functions, pairs gained with nothing lost, tokens and relative dollars per pair, process compliance, report honesty, levers found); the best branch merges afterwards; D72 revised from the scores. Fable is not a candidate; the Opus-coordinator trial is a later session. Design and the brief: [eval-d93.md](eval-d93.md). The next coordinator session runs it first, after the weekly reset of 12:59 (coordinator's P-C1) | user |
+| D94 | 2026-10-27 | (a) T5's drop of (tsk_login, 0x85CB00), the avatar's implicit assignment, when account_id became `__int64` is a D66(iii) non-loss (c0091e0); the address returns with the packet file that carries the client's copy. (b) symbols.py and objmatch skip compiler-generated `_$E<n>` names (P-H7-2), carried out like D88 on a quiet tree with a full verify of every library, pairs_cmp gains-only. (c) The clienttest program (P-T7-1) is built once the first cpacket.cpp handlers exist, about one builder session | user |
 
 ## 3. Open decisions
 
-* **P-T7-1 (clienttest, 2026-10-27):** a program in tests/capharness/clienttest linking client.cpp, sclient.cpp,
-  connect.cpp and the packet objects (stubs for the registry read 0x75A280 and soptions' constructor): an SClient
-  over a fake ClientTaskClass; add / find / remove by game id with collisions 257 apart and a fake MainView's
-  notifications; the DEBUG-packet setters and the redirect over a memory connection; Process_Packets fed from a
-  PeekConnection loaded with alex3's decoded messages through one recording test packet class. Recommendation:
-  build it once the first cpacket.cpp handlers exist (about one builder session); it subsumes P-T6-2.
 * **P-T7-2:** SClient's Init 0x741180 (field offset, 103 rows) and Shutdown 0x741BB0 (shape, 470 rows) get a
   second Opus round only after the UI base classes they call exist. Recommendation: hold.
-* **P-H7-2 (symbols, 2026-10-27):** symbols.py and objmatch should skip compiler-generated `_$E<n>` names (per
-  translation unit; symbols.json lists `_$E18` at 0x8DEF20 / 0x9FBBC0, and objmatch rejects ini_manager's 0x4E9E00
-  on it). A matching-rule change: carried out like D88, on a quiet tree with a full verify of every library and
-  pairs_cmp gains-only. Recommendation: accept, at the next quiet window.
-* **T5's D66(iii) claim (2026-10-27, c0091e0):** the pair (tsk_login, 0x85CB00), the avatar's implicit assignment,
-  dropped when account_id became `__int64` (Unknown_50 then inlines it as the client does). No file matches
-  0x85CB00 at HEAD; T5 says the client's copy sits in the packet objects, after tsk_login in link order. This is
-  the D66(iii) pattern (a match that existed only while a type was wrong, as 0x8C1520 was) but it was committed
-  before the user saw it. Recommendation: accept as D66(iii); the address returns with the packet file that
-  carries it.
 * **P-T5-2:** merge LoginPacketDataClass / LoginInterfaceAEADC8Class / LoginKVVisitorClass into pk.h / delta.h
   (DeltaChildVisitorClass) and drop tsk_login.h's typedefs at tsk_login.cpp's next edit; the race and profession
   key/value instances need a kv_pair.h `Type_Name` form (the client passes the value to an external Type_Name,
