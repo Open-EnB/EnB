@@ -174,20 +174,20 @@ protected:
 	bool							m_Unknown191;
 	bool							m_Unknown192;
 	void *						Thread;									// +0x194, a HANDLE the dtor waits for
-	Vector3						m_Unknown198;
-	Vector3						m_Unknown1A4;
-	float							m_Unknown1B0;
-	float							m_Unknown1B4;
-	float							m_Unknown1B8;
-	float							m_Unknown1BC;
-	float							m_Unknown1C0;
-	bool							m_Unknown1C4;
-	int							m_Unknown1C8;
-	int							m_Unknown1CC;
-	int							m_Unknown1D0;
-	int							m_Unknown1D4;
-	int							m_Unknown1D8;
-	int							m_Unknown1DC;
+// NAME 2: +0x198..+0x1C4 is the 0x30-byte lighting record Update_Lightmap 0x46D900 / 0x46DA70 copy in (VIDTEST's LandLightingStruct, its names)
+	Vector3						LightColor;								// +0x198
+	Vector3						SunDirection;							// +0x1A4
+	float							SunAngle;								// +0x1B0
+	float							ShadowBias;								// +0x1B4
+	Vector3						SkyColor;								// +0x1B8
+	bool							LightingValid;							// +0x1C4
+// NAME 2: the lightmap rectangle being updated and the time-sliced update's cursor (0x46D900 / 0x46DA70)
+	int							UpdateX0;								// +0x1C8
+	int							UpdateY0;								// +0x1CC
+	int							UpdateX1;								// +0x1D0
+	int							UpdateY1;								// +0x1D4
+	int							CursorX;									// +0x1D8, steps of LightmapChunk
+	int							CursorY;									// +0x1DC
 	bool							m_Unknown1E0;
 	unsigned char *			m_Unknown1E4;							// Field Count bytes
 	unsigned short *			m_Unknown1E8;							// Field Count shorts
