@@ -38,6 +38,7 @@
 #include "pkdialog.h"	// rebuilt
 #include "pkdirlock.h"	// rebuilt
 #include "pkequipuse.h"	// rebuilt
+#include "pkgadget.h"	// rebuilt
 #include "pkgalaxymap.h"	// rebuilt
 #include "pkglobalconnect.h"	// rebuilt
 #include "pkglobaldeletecharacter.h"	// rebuilt
@@ -525,23 +526,6 @@ class AvatarDescPacketClass : public PacketClass
 public:
 	AvatarDescPacketClass(RawPacketClass *raw);	// 0x877A60
 	char Unknown0C[0x114];	// +0x0C
-};
-
-// opcode 103 (0x0067, ?): vtable 0xB0A65C, constructor 0x887A20, 0x18 bytes
-class GadgetPacketClass : public PacketClass
-{
-public:
-	GadgetPacketClass(RawPacketClass *raw);	// 0x887A20
-	char Unknown0C[0xC];	// +0x0C
-};
-
-// opcode 104 (0x0068, ?): vtable 0xB0A698, constructor 0x887DB0, 0x1C bytes
-class Packet_0068Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x0068
-{
-public:
-	Packet_0068Class(RawPacketClass *raw);	// 0x887DB0
-	virtual bool Process_Packet(void *client);	// +0x08 0x868640 (clientstub.cpp l.200)
-	char Unknown0C[0x10];	// +0x0C
 };
 
 // opcode 138 (0x008A, ?): vtable 0xB09B44, constructor 0x873F70, 0x20 bytes

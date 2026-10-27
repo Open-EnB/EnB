@@ -1845,6 +1845,30 @@
     "merged": [],
     "name": "packets/pkflag.cpp"
    },
+   "pkgadget": {
+    "ambiguous": [
+     "0x42B2F0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350",
+     "0x887900",
+     "0x887A20",
+     "0x887AF0",
+     "0x887B30",
+     "0x887C30",
+     "0x887CC0",
+     "0x887DB0",
+     "0x887EC0"
+    ],
+    "merged": [],
+    "name": "packets/pkgadget.cpp"
+   },
    "pkgalaxymap": {
     "ambiguous": [
      "0x42B2F0"
@@ -4667,6 +4691,7 @@
    "packets/pkdirlock.h": "reconstructed",
    "packets/pkequipuse.h": "reconstructed",
    "packets/pkflag.h": "reconstructed",
+   "packets/pkgadget.h": "reconstructed",
    "packets/pkgalaxymap.h": "reconstructed",
    "packets/pkglobalconnect.h": "reconstructed",
    "packets/pkglobaldeletecharacter.h": "reconstructed",
