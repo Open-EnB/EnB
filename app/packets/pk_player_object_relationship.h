@@ -48,7 +48,7 @@ public:
 	PlayerObjectRelationshipPacket(int object_id, int channel, const RelationshipClass &relationship, int priority);	// 0x873AE0
 	PlayerObjectRelationshipPacket(RawPacketClass *raw);	// 0x873C30
 	virtual RawPacketClass *Build();	// +0x04 0x873D10
-	virtual bool Process_Packet(void *client);	// +0x08 0x7398E0 (not rebuilt)
+	virtual bool Process_Packet(void *client);	// +0x08 0x7398E0 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x873DF0
 	virtual int Print(char *buffer, int len);	// +0x10 0x873E10
 	virtual int Get_Channel() { return(Channel); }	// +0x18 0x873BC0
@@ -94,7 +94,7 @@ public:
 	PlayerObjectReactionUpdatePacket(int priority);	// 0x873E90
 	PlayerObjectReactionUpdatePacket(RawPacketClass *raw);	// 0x873F70
 	virtual RawPacketClass *Build();	// +0x04 0x874270
-	virtual bool Process_Packet(void *client);	// +0x08 0x7399D0 (not rebuilt)
+	virtual bool Process_Packet(void *client);	// +0x08 0x7399D0 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x874380
 	virtual int Print(char *buffer, int len);	// +0x10 0x874530
 	virtual int Get_Priority() { return(Priority); }	// +0x1C 0x873EE0
@@ -113,7 +113,7 @@ public:
 	PlayerObjectIsAttackingUpdatePacket(bool attacking, int priority);	// 0x874AE0
 	PlayerObjectIsAttackingUpdatePacket(RawPacketClass *raw);	// 0x874BE0
 	virtual RawPacketClass *Build();	// +0x04 0x874ED0
-	virtual bool Process_Packet(void *client);	// +0x08 0x739AC0 (not rebuilt)
+	virtual bool Process_Packet(void *client);	// +0x08 0x739AC0 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x874FE0
 	virtual int Print(char *buffer, int len);	// +0x10 0x875020
 	virtual int Get_Priority() { return(Priority); }	// +0x1C 0x874B50

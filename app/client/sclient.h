@@ -84,6 +84,14 @@ public:
 	void Unknown_7BD920(int index);						// 0x7BD920 (cpacket.cpp: WARP_INDEX 156)  // NAME 1 [index]: the packet's Index
 };
 
+// ui_cpit.cpp's cockpit interface (the main view's +0x1D0), declared as far as cpacket.cpp calls it
+class UICpitClass	// NAME 3: class-from-file (D24) for ui_cpit.cpp
+{
+public:
+	void Unknown_581F90(ClientObjectClass *hulk);		// 0x581F90 (cpacket.cpp: LOOT_HULK_PERMISSION 140)  // NAME 1 [hulk]: the packet's HulkGameID's object
+	void Unknown_5820C0(bool on);						// 0x5820C0 (cpacket.cpp: OPEN_INTERFACE 102 passes UIChange == 0)  // NAME 1 [on]: what the handler passes
+};
+
 // what the main view's +0x13C points to, as far as SERVER_PARAMETERS 66 reads it
 class MainViewUnknown13CClass	// NAME 1: neutral (D10)
 {
@@ -140,7 +148,9 @@ public:
 	RadarSystemClass *Radar;							// +0x80 (cpacket.cpp: WARP_INDEX 156's FAIL_IF '!radar')  // NAME 3: the FAIL_IF's name
 	char Unknown84[0x13C - 0x84];						// +0x84
 	MainViewUnknown13CClass *Unknown13C;				// +0x13C (SERVER_PARAMETERS 66 copies its +0x90 to the client's +0x1144 in view mode 1)
-	char Unknown140[0x1EC - 0x140];						// +0x140
+	char Unknown140[0x1D0 - 0x140];						// +0x140
+	UICpitClass *Cpit;									// +0x1D0 (cpacket.cpp: LOOT_HULK_PERMISSION 140, OPEN_INTERFACE 102)  // NAME 3: its file's (ui_cpit.cpp)
+	char Unknown1D4[0x1EC - 0x1D4];						// +0x1D4
 };
 
 // loadingview.cpp's view (constructor 0x691570, 0x6C bytes)

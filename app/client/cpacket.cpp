@@ -7,6 +7,7 @@
 #include "sclient.h"
 #include "ui_line_display.h"
 #include "co_data.h"
+#include "..\packets\pk_player_object_relationship.h"
 #include "..\packets\pk_sub_parts.h"
 #include "..\packets\pkclientship.h"
 #include "..\packets\pkconfirmedaction.h"
@@ -19,10 +20,12 @@
 #include "..\packets\pklogoff.h"
 #include "..\packets\pk_classes.h"
 #include "..\packets\pkmessageline.h"
+#include "..\packets\pkloothulkpermission.h"
 #include "..\packets\pkmessagestring.h"
 #include "..\packets\pkmessagetime.h"
 #include "..\packets\pkmodechange.h"
 #include "..\packets\pknavdelete.h"
+#include "..\packets\pkopeninterface.h"
 #include "..\packets\pknamedecal.h"
 #include "..\packets\pkpointeffect.h"
 #include "..\packets\pkreferralpointsavailable.h"
@@ -100,6 +103,11 @@ public:
 	char Unknown04[0x194 - 0x04];	// +0x04
 	RefCountPtr<UIJobsClass> Jobs;	// +0x194  // NAME 2: what it holds
 };
+
+// co_player_relationship.cpp's handlers of the relationship packets (cdecl)
+void Unknown_70CC40(SClient *sclient, PlayerObjectRelationshipPacket *packet);	// 0x70CC40 (RELATIONSHIP 137)  // NAME 1 [sclient, packet]: what the handler passes
+void Unknown_70CC90(SClient *sclient, PlayerObjectReactionUpdatePacket *packet);	// 0x70CC90 (138)  // NAME 1 [sclient, packet]: what the handler passes
+void Unknown_70CD50(SClient *sclient, PlayerObjectIsAttackingUpdatePacket *packet);	// 0x70CD50 (ATTACKER_UPDATES 139)  // NAME 1 [sclient, packet]: what the handler passes
 
 // shiputils.cpp's decal helper (cdecl): the packet's decals on the object's model, with the decal INI
 void Unknown_80E8C0(RenderObjClass *model, std::vector<DecalStruct> &decals, SClientUnknown1334Class *decal_ini);	// 0x80E8C0  // NAME 1 [model, decals, decal_ini]: what DECAL 16 passes
@@ -1414,14 +1422,6 @@ bool SplinePacketClass::Process_Packet(void *instance)
 
 
 
-
-
-
-
-
-
-
-
 // 0x737E10
 bool SetClientTypePacketClass::Process_Packet(void *instance)
 {
@@ -1608,6 +1608,24 @@ bool HullUpgradePacketClass::Process_Packet(void *instance)
 	return(true);
 }
 
+// NOT EXACT: shape (the client places the shared failure exit before the call; three forms; attempts.py show 0x7396F0)
+// 0x7396F0
+bool LootHulkPermissionPacketClass::Process_Packet(void *instance)
+{
+	WWPROFILE("LootHulkPermissionPacketClass::Process_Packet()");
+	SClient *sclient = (SClient *)((ClientClass *)instance)->Unknown_18();
+	if (sclient->MainView) {
+		UICpitClass *cpit = sclient->MainView->Cpit;
+		if (cpit) {
+			ClientObjectClass *hulk = sclient->Find_Object(HulkGameID);
+			if (hulk) {
+				cpit->Unknown_581F90(hulk);
+				return(true);
+			}
+		}
+	}
+	return(true);
+}
 
 
 
@@ -1964,80 +1982,62 @@ bool HullUpgradePacketClass::Process_Packet(void *instance)
 
 
 
+// NOT EXACT: shape (the client places the shared failure exit before the UIType test; two forms; attempts.py show 0x7397D0)
+// 0x7397D0
+bool OpenInterfacePacketClass::Process_Packet(void *instance)
+{
+	WWPROFILE("OpenInterfacePacketClass::Process_Packet(void * instance)");
+	SClient *sclient = (SClient *)((ClientClass *)instance)->Unknown_18();
+	UICpitClass *cpit;
+	if (sclient->MainView && (cpit = sclient->MainView->Cpit) != NULL) {
+		if (UIType) {
+			G_ASSERT(false);
+		} else cpit->Unknown_5820C0(UIChange == 0);
+		return(true);
+	}
+	return(true);
+}
 
+// 0x7398E0
+bool PlayerObjectRelationshipPacket::Process_Packet(void *instance)
+{
+	WWPROFILE("PlayerObjectRelationshipPacket::Process_Packet(void * instance)");
+	ClientClass *client = (ClientClass *)instance;
+	FAIL_IF(!client) return(true);
+	SClient *sclient = (SClient *)client->Unknown_18();
 
+	FAIL_IF(!sclient) return(true);
+	Unknown_70CC40(sclient, this);
+	return(true);
+}
 
 
+// 0x7399D0
+bool PlayerObjectReactionUpdatePacket::Process_Packet(void *instance)
+{
+	WWPROFILE("PlayerObjectReactionUpdatePacket::Process_Packet(void * instance)");
+	ClientClass *client = (ClientClass *)instance;
+	FAIL_IF(!client) return(true);
+	SClient *sclient = (SClient *)client->Unknown_18();
 
+	FAIL_IF(!sclient) return(true);
+	Unknown_70CC90(sclient, this);
+	return(true);
+}
 
 
+// 0x739AC0
+bool PlayerObjectIsAttackingUpdatePacket::Process_Packet(void *instance)
+{
+	WWPROFILE("PlayerObjectIsAttackingUpdatePacket::Process_Packet(void * instance)");
+	ClientClass *client = (ClientClass *)instance;
+	FAIL_IF(!client) return(true);
+	SClient *sclient = (SClient *)client->Unknown_18();
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	FAIL_IF(!sclient) return(true);
+	Unknown_70CD50(sclient, this);
+	return(true);
+}
 
 
 
