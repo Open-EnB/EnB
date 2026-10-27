@@ -26,6 +26,8 @@
 #include "camera.h"
 #include "matrix4.h"
 #include "aabox.h"
+#include "matrix3d.h"
+#include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
 
@@ -1153,6 +1155,65 @@ void LandClass::Init_Horizon_Tables(void)
 			LandHorizonTable[d][i].Set(area * LandDirectionX[d], area * LandDirectionY[d], s * s * 0.125f);
 		}
 	}
+}
+
+// NOT EXACT: shape (21 masked rows: the mask test's operand order and the heights' restore; 5 forms, attempts.csv 0x46E670)
+void LandClass::Compute_Horizons(INIClass &ini)
+{
+	std::vector< RefCountPtr<RenderObjClass> > casters;
+	int index = 0;
+	char section[128];
+	sprintf(section, "SHADOW%d", 0);
+	while (ini.Find_Section(section) != NULL) {
+		char asset[128];
+		ini.Get_String(section, "Asset", "", asset, sizeof(asset));
+		RefCountPtr<RenderObjClass> caster = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj(asset));
+		if (caster != NULL) {
+			float scale = ini.Get_Float(section, "Scale", 1.0f);
+			caster->Scale(scale);
+			Matrix3D tm(true);
+			char text[256];
+			ini.Get_String(section, "M", "", text, sizeof(text));
+			char *token = strtok(text, ",");
+			for (int col = 0; col < 4; col++) {
+				for (int row = 0; row < 3; row++) {
+					if (token != NULL) {
+						tm[row][col] = (float)atof(token);
+						token = strtok(NULL, ",");
+					}
+				}
+			}
+			caster->Set_Transform(tm);
+			casters.push_back(caster);
+		}
+		index++;
+		sprintf(section, "SHADOW%d", index);
+	}
+	unsigned short *heights = new unsigned short[Field->Get_Count()];
+	unsigned char *mask = new unsigned char[Field->Get_Count()];
+	unsigned short *field_heights = Field->Get_Heights();
+	memcpy(heights, field_heights, Field->Get_Count() * 2);
+	memset(mask, 0, Field->Get_Count());
+	Unknown_46E120(casters, mask);
+	Init_Horizon_Tables();
+	Unknown_46F120();
+	unsigned char *a;
+	unsigned char *b;
+	unsigned char *c;
+	Unknown_473290(&a, &b, &c);
+	Unknown_470F80(a, b, c);
+	for (int i = 0; i < (int)Field->Get_Count(); i++) {
+		if (mask[i] != 0) {
+			m_Unknown1E8[i] = 0xFFFF;
+			m_Unknown1EC[i] = 0xFFFF;
+		}
+	}
+	memcpy(Field->Get_Heights(), heights, Field->Get_Count() * 2);
+	delete [] a;
+	delete [] b;
+	delete [] c;
+	delete [] heights;
+	delete [] mask;
 }
 
 bool LandClass::Load_PLD(const char *filename)

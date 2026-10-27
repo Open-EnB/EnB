@@ -186,6 +186,12 @@ protected:
 	void							Compute_Horizons(INIClass &ini);
 // NAME 2: the reciprocal table and the shared horizon table (0x46EF60, called by Compute_Horizons 0x46E670)
 	void							Init_Horizon_Tables(void);
+// NAME 1: unknown; the steps of Compute_Horizons 0x46E670 (not rebuilt): the shadow casters into the height field (0x46E120),
+// the horizons (0x46F120), three work buffers (0x473290) and their use (0x470F80)
+	void							Unknown_46E120(std::vector< RefCountPtr<RenderObjClass> > &casters, unsigned char *mask);
+	void							Unknown_46F120(void);
+	void							Unknown_473290(unsigned char **a, unsigned char **b, unsigned char **c);
+	void							Unknown_470F80(unsigned char *a, unsigned char *b, unsigned char *c);
 	static void					Lightmap_Thread(void *land);
 	void							Set_Lighting(const LandLightingStruct &lighting)
 	{
