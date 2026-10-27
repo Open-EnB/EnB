@@ -24,7 +24,7 @@
 #include <ctype.h>
 
 void Unknown_Debug_Print(const char *text);			// NAME 1 [Unknown_Debug_Print]: 0x509E30 (dbgmgr.cpp), the log line
-class GlobalCreateCharacterPacketClass : public PacketClass { public: GlobalCreateCharacterPacketClass(int galaxy, int slot, const char *name, AvatarDescClass *a, ShipCustDescClass *b, int c); ~GlobalCreateCharacterPacketClass(); char Unknown0C[0x2BC]; };	// opcode 114: 0x864090, 0x864590 (pk_classes.h: the receiving side only)
+class GlobalCreateCharacterPacketClass : public PacketClass { public: GlobalCreateCharacterPacketClass(int galaxy, int slot, const char *name, const AvatarDescClass *desc, const ShipCustDescClass *ship, unsigned char unknown); virtual ~GlobalCreateCharacterPacketClass(); char Unknown0C[0x2BC]; };	// opcode 114: a view of pkglobalcreatecharacter.h's class (including that header moves 0x76B520's scheduling: order-only)
 class GlobalConnectPacketClass : public PacketClass { public: GlobalConnectPacketClass(const char *ticket, const char *password); ~GlobalConnectPacketClass(); char Unknown0C[0x08]; };	// opcode 109: 0x863400, 0x863570  // NAME 1 [password]: '123456'
 void Unknown_4BC000(const char *sender, const char *category, const char *file, int line, const char *format, ...);	// NAME 1 [Unknown_4BC000]: 0x4BC000, E&B's message reporter (tcpconn.cpp)
 static char *AUTH_PRODUCT = "2184"; static char *AUTH_INI = "auth.ini";				// 0xB9B9CC, 0xB9B9D0  // NAME 1 [AUTH_PRODUCT, AUTH_INI]: their texts

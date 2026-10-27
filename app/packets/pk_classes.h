@@ -47,6 +47,7 @@
 #include "pkgadget.h"	// rebuilt
 #include "pkgalaxymap.h"	// rebuilt
 #include "pkglobalconnect.h"	// rebuilt
+#include "pkglobalcreatecharacter.h"	// rebuilt
 #include "pkglobaldeletecharacter.h"	// rebuilt
 #include "pkgloballock.h"	// rebuilt
 #include "pkgloballogin.h"	// rebuilt
@@ -220,15 +221,6 @@ public:
 	GlobalAvatarListPacketClass(RawPacketClass *raw);	// 0x862D90
 	virtual bool Process_Packet(void *client);	// +0x08 0x76B520 (tsk_login.cpp)
 	char Unknown0C[0x14];	// +0x0C
-};
-
-// opcode 114 (0x0072, GLOBAL_CREATE_CHARACTER): vtable 0xB09430, constructor 0x864380, 0x2C8 bytes
-class GlobalCreateCharacterPacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name GLOBAL_CREATE_CHARACTER (the Net-7 opcode table; no structure check)
-{
-public:
-	GlobalCreateCharacterPacketClass(RawPacketClass *raw);	// 0x864380
-	virtual bool Process_Packet(void *client);	// +0x08 0x868880 (clientstub.cpp l.236)
-	char Unknown0C[0x2BC];	// +0x0C
 };
 
 // opcode 117 (0x0075, GLOBAL_ERROR): vtable 0xB09490, constructor 0x864C90, 0x24 bytes

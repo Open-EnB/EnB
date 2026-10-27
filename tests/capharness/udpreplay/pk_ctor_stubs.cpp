@@ -8,7 +8,6 @@ Packet_0015Class::Packet_0015Class(RawPacketClass *raw) { Conn_Record(this, raw)
 Action2PacketClass::Action2PacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 ServerRedirectPacketClass::ServerRedirectPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 GlobalAvatarListPacketClass::GlobalAvatarListPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-GlobalCreateCharacterPacketClass::GlobalCreateCharacterPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 GlobalErrorPacketClass::GlobalErrorPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 FindMemberPacketClass::FindMemberPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 VerbListPacketClass::VerbListPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }

@@ -3821,6 +3821,8 @@ RECONSTRUCTED = {
     ('app', 'packets/pkrecustomize.h'): "its classes (pk_classes.h includes it: tools/re/pkclasses.py)",
     ('app', 'packets/pkmasterjoin.cpp'): "MASTER_JOIN 53's object, 0x8974C0-0x8977D0 (no assert: the file name provisional, NAME 1): written by hand (builder P6)",
     ('app', 'packets/pkmasterjoin.h'): "its class (pk_classes.h includes it: tools/re/pkclasses.py)",
+    ('app', 'packets/pkglobalcreatecharacter.cpp'): "GLOBAL_CREATE_CHARACTER 114's object, 0x864090-0x864780 (no assert: the file name provisional, NAME 1): written by hand (builder P9)",
+    ('app', 'packets/pkglobalcreatecharacter.h'): "its class (pk_classes.h includes it: tools/re/pkclasses.py)",
     ('app', 'packets/pkgloballogin.cpp'): "opcode 118's object (GlobalLoginPacketClass), 0x865D60-0x866770 (no assert: the file name provisional, NAME 1): written by hand (builder P9)",
     ('app', 'packets/pkgloballogin.h'): "its class and LoginTicketInfoClass (pk_classes.h and tsk_login.h include it)",
     ('app', 'packets/pklogin.cpp'): "LOGIN 2's object, 0x89A740-0x89AB00 (no assert: the file name provisional, NAME 1): written by hand (builder P9)",

@@ -3318,6 +3318,35 @@
     "merged": [],
     "name": "packets/pkglobalconnect.cpp"
    },
+   "pkglobalcreatecharacter": {
+    "ambiguous": [
+     "0x42B2F0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42A820",
+     "0x42A970",
+     "0x42AB30",
+     "0x42CD30",
+     "0x42F250",
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350",
+     "0x53BB50",
+     "0x85CB00",
+     "0x864350",
+     "0x864380",
+     "0x864590",
+     "0x864610",
+     "0x864720",
+     "0x864750"
+    ],
+    "merged": [],
+    "name": "packets/pkglobalcreatecharacter.cpp"
+   },
    "pkglobaldeletecharacter": {
     "ambiguous": [
      "0x42B2F0"
@@ -7348,6 +7377,7 @@
    "packets/pkgadget.h": "reconstructed",
    "packets/pkgalaxymap.h": "reconstructed",
    "packets/pkglobalconnect.h": "reconstructed",
+   "packets/pkglobalcreatecharacter.h": "reconstructed",
    "packets/pkglobaldeletecharacter.h": "reconstructed",
    "packets/pkgloballock.h": "reconstructed",
    "packets/pkgloballogin.h": "reconstructed",
