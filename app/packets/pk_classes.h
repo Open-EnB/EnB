@@ -336,13 +336,4 @@ public:
 	char Unknown0C[0x1A8];	// +0x0C
 };
 
-// opcode 130 (0x0082, RECUSTOMIZE_SHIP_DONE): vtable 0xB0B5F4, constructor 0x8A01D0, 0x170 bytes
-class RecustomizeShipDonePacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name RECUSTOMIZE_SHIP_DONE (the Net-7 opcode table; no structure check)
-{
-public:
-	RecustomizeShipDonePacketClass(RawPacketClass *raw);	// 0x8A01D0
-	virtual bool Process_Packet(void *client);	// +0x08 0x869630 (clientstub.cpp l.455)
-	char Unknown0C[0x164];	// +0x0C
-};
-
 #endif

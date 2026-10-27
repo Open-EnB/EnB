@@ -2,6 +2,39 @@
 #include "pkrecustomize.h"
 #include <stdio.h>
 
+RecustomizeShipDonePacketClass::RecustomizeShipDonePacketClass(RawPacketClass *raw) :
+	Unknown16C(0)
+{
+	raw->Get((Unknown_PacketDataClass *)&Desc);
+	raw->Get(Unknown16C);
+}
+
+// NOT EXACT: shape: the client inlines ShipCustDescClass's assignment (shipcust_desc.h declares it out of line,
+// 0x55D8A0); with it implicit 0.82, the ship name union copied with its first byte peeled (attempts.csv)
+RecustomizeShipDonePacketClass::RecustomizeShipDonePacketClass(int unknown16C, const ShipCustDescClass &desc) :
+	Unknown16C(unknown16C)
+{
+	Desc = desc;
+}
+
+RawPacketClass *RecustomizeShipDonePacketClass::Build()
+{
+	RawPacketClass *raw = new RawPacketClass(130, Get_Data_Size());
+	raw->Add((Unknown_PacketDataClass &)Desc);
+	raw->Add(Unknown16C);
+	return(raw);
+}
+
+int RecustomizeShipDonePacketClass::Get_Data_Size()
+{
+	return(((Unknown_PacketDataClass &)Desc).Get_Size() + 4);
+}
+
+int RecustomizeShipDonePacketClass::Print(char *buffer, int)
+{
+	return(sprintf(buffer, "%s", "Recustomize Ship Done"));
+}
+
 RecustomizeAvatarStartPacketClass::RecustomizeAvatarStartPacketClass(RawPacketClass *raw) :
 	Unknown48(0)
 {
@@ -105,8 +138,9 @@ int RecustomizeAvatarUpdatePacketClass::Print(char *buffer, int)
 **
 **	* Client 0x89FB50-0x8A14D0 (0x89FB20 is the previous object's guarded static, 0xC416FC; this one's is
 **	  0x8A14D0): RECUSTOMIZE_SHIP_START 129, RECUSTOMIZE_SHIP_DONE 130, RECUSTOMIZE_AVATAR_START 131,
-**	  RECUSTOMIZE_AVATAR_DONE 132 and RECUSTOMIZE_AVATAR_UPDATE 133 in that order. 131-133 written by hand
-**	  (builder P7, 2026-10-27): 131 over recustomization_cost.cpp's wire object, 132 / 133 over an
-**	  AvatarDescClass; 129 / 130 (a ShipCustDescClass) are still declared in pk_classes.h.
+**	  RECUSTOMIZE_AVATAR_DONE 132 and RECUSTOMIZE_AVATAR_UPDATE 133 in that order. 130-133 written by hand
+**	  (builder P7, 2026-10-27): 130 over a ShipCustDescClass, 131 over recustomization_cost.cpp's wire object, 132 / 133 over an
+**	  AvatarDescClass; 129 (a ShipCustDescClass and another recustomization_cost.cpp object) is still
+**	  declared in pk_classes.h.
 **	* The file name is provisional (no assert names it).
 */

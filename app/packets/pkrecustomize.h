@@ -5,7 +5,7 @@
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
 **	Original location: e:\build\beta\G\app\packets\pkrecustomize.h (the name provisional: see the .cpp)
 **
-**	The packet classes of client 0x89FB50-0x8A14D0 (opcodes 129-133; 131-133 rebuilt so far).
+**	The packet classes of client 0x89FB50-0x8A14D0 (opcodes 129-133; 130-133 rebuilt so far).
 */
 
 #if defined(_MSC_VER)
@@ -17,6 +17,7 @@
 
 #include "pk.h"
 #include "..\shared\avatar_desc.h"
+#include "..\shared\shipcust_desc.h"
 
 // The 14 ints of recustomization_cost.cpp's wire object (0x38 bytes; the constructor 0x849320 copies one)
 struct RecustomizationCostDataStruct  // NAME 1: neutral (D10)
@@ -36,6 +37,22 @@ public:
 	virtual int Get_Size();	// +0x08 0x8499A0
 
 	RecustomizationCostDataStruct Data;	// +0x04  // NAME 2: what it holds
+};
+
+// opcode 130 (0x0082, RECUSTOMIZE_SHIP_DONE): vtable 0xB0B5F4, constructor 0x8A01D0, 0x170 bytes
+class RecustomizeShipDonePacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name RECUSTOMIZE_SHIP_DONE (the Net-7 opcode table), the client's Print text 'Recustomize Ship Done'
+{
+public:
+	RecustomizeShipDonePacketClass(RawPacketClass *raw);	// 0x8A01D0
+	RecustomizeShipDonePacketClass(int unknown16C, const ShipCustDescClass &desc);	// 0x8A0380
+	// the destructor is the implicit one: +0x00 0x8A0350 / 0x61F720 (the linker folded its body with another; a declared one stores the class's own vtable first, the client's doesn't)
+	virtual RawPacketClass *Build();	// +0x04 0x8A05F0
+	virtual bool Process_Packet(void *client);	// +0x08 0x869630 (clientstub.cpp l.455)
+	virtual int Get_Data_Size();	// +0x0C 0x8A06C0
+	virtual int Print(char *buffer, int len);	// +0x10 0x8A06E0
+
+	ShipCustDescClass Desc;	// +0x0C  // NAME 2: what it holds
+	int Unknown16C;	// +0x16C  // NAME 1: neutral (D10)
 };
 
 // opcode 131 (0x0083, RECUSTOMIZE_AVATAR_START): vtable 0xB0B624, constructor 0x8A0710, 0x4C bytes
