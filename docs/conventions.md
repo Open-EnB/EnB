@@ -271,3 +271,5 @@ note any change made to match the client.
 * **ControlKeysManager (2026-10-27, H11):** the RTTI names it `ControlKeysManager` (no `Class` suffix); ui_line_display.cpp's `ControlKeysManagerClass` (NAME 3) and its Unknown_71A960 / 71AB40 (Add_Keys / Remove_Keys), sclient.cpp's Unknown_719D50 / 719E10 (Create / Destroy) switch to control_keys_manager.h's names at their next edit, once SClient replaces the file's ControlKeysSClientClass stand-in (P-H11-1).
 
 * **ClientObjectClass (2026-10-27, H13):** declared in app/client/co.h (vtable 0xB0070C, constructor 0x6F2820, destructor 0x6F2FE0). aux_roots.h's `UnknownCOClass` (the factory 0x6F6000) is the same class: merge it into co.h at aux_roots.h's next edit (P-H13-2). co_data's Remove_All 0x79D390 keeps a dead `Get_Game_ID()` call (the D40 budget lever, P-H13-1).
+
+* **FontDatabaseClass (2026-10-27, H12):** app/client/fontdatabase.h; the globals 0xBE67B8 / 0xBE67BC are declared under stand-in names in tsk_game.h, sclient.cpp and ui_line_display.cpp: point them at fontdatabase.h at those files' next edit (P-H12-3).
