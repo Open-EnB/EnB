@@ -858,6 +858,126 @@ void LandClass::Prepare_Lighting(void)
 	}
 }
 
+// NOT EXACT: order-only (the shadowed vertex: the client loads +0x1F0's factor first; 64 rows masked; attempts.csv 0x46CAE0). The lit vertices: the sun's normal colour plus the sky's; the shadowed: the sky's; between the horizons a blend
+void LandClass::Compute_Lighting(void)
+{
+	unsigned int i, j, n, r, g, b;
+	unsigned char *color;
+	unsigned char *sky = (unsigned char *)&SkyColorDX8;
+	if (LightingValid) {
+		float step = ShadowStep;
+		unsigned short low = HorizonLow;
+		unsigned short high = HorizonHigh;
+		unsigned short horizon;
+		if (SunFromWest) {
+		for (j = UpdateMin.J; j < (unsigned int)UpdateMax.J; j++) {
+			for (i = UpdateMin.I; i < (unsigned int)UpdateMax.I; i++) {
+				n = Field->Get_Size() * j + i;
+				horizon = m_Unknown1E8[n];
+				if (low > horizon) {
+					m_Unknown120C[n] = NormalColors[m_Unknown1E4[n]];
+					color = (unsigned char *)&m_Unknown120C[n];
+					r = (unsigned char)((m_Unknown1F0[n] * sky[2]) >> 8) + color[2];
+					g = (unsigned char)((m_Unknown1F4[n] * sky[1]) >> 8) + color[1];
+					b = (unsigned char)((m_Unknown1F8[n] * sky[0]) >> 8) + color[0];
+					if (r > 255) r = 255;
+					if (g > 255) g = 255;
+					if (b > 255) b = 255;
+					color[0] = (unsigned char)b;
+					color[1] = (unsigned char)g;
+					color[2] = (unsigned char)r;
+					color[3] = 0xFF;
+				} else if (high > horizon) {
+					float t = (float)(int)(high - horizon) * step;
+					m_Unknown120C[n] = NormalColors[m_Unknown1E4[n]];
+					color = (unsigned char *)&m_Unknown120C[n];
+					r = (unsigned int)((float)(unsigned char)((m_Unknown1F0[n] * sky[2]) >> 8) + (float)color[2] * t);
+					g = (unsigned int)((float)(unsigned char)((m_Unknown1F4[n] * sky[1]) >> 8) + (float)color[1] * t);
+					b = (unsigned int)((float)(unsigned char)((m_Unknown1F8[n] * sky[0]) >> 8) + (float)color[0] * t);
+					if (r > 255) r = 255;
+					if (g > 255) g = 255;
+					if (b > 255) b = 255;
+					color[0] = (unsigned char)b;
+					color[1] = (unsigned char)g;
+					color[2] = (unsigned char)r;
+					color[3] = 0xFF;
+				} else {
+					m_Unknown120C[n] = SkyColorDX8;
+					color = (unsigned char *)&m_Unknown120C[n];
+					unsigned int f1 = m_Unknown1F4[n];
+					unsigned int f2 = m_Unknown1F8[n];
+					color[2] = (unsigned char)((color[2] * m_Unknown1F0[n]) >> 8);
+					color[3] = 0xFF;
+					color[1] = (unsigned char)((color[1] * f1) >> 8);
+					color[0] = (unsigned char)((color[0] * f2) >> 8);
+				}
+			}
+		}
+		} else {
+		for (j = UpdateMin.J; j < (unsigned int)UpdateMax.J; j++) {
+			for (i = UpdateMin.I; i < (unsigned int)UpdateMax.I; i++) {
+				n = Field->Get_Size() * j + i;
+				horizon = m_Unknown1EC[n];
+				if (low > horizon) {
+					m_Unknown120C[n] = NormalColors[m_Unknown1E4[n]];
+					color = (unsigned char *)&m_Unknown120C[n];
+					r = (unsigned char)((m_Unknown1F0[n] * sky[2]) >> 8) + color[2];
+					g = (unsigned char)((m_Unknown1F4[n] * sky[1]) >> 8) + color[1];
+					b = (unsigned char)((m_Unknown1F8[n] * sky[0]) >> 8) + color[0];
+					if (r > 255) r = 255;
+					if (g > 255) g = 255;
+					if (b > 255) b = 255;
+					color[0] = (unsigned char)b;
+					color[1] = (unsigned char)g;
+					color[2] = (unsigned char)r;
+					color[3] = 0xFF;
+				} else if (high > horizon) {
+					float t = (float)(int)(high - horizon) * step;
+					m_Unknown120C[n] = NormalColors[m_Unknown1E4[n]];
+					color = (unsigned char *)&m_Unknown120C[n];
+					r = (unsigned int)((float)(unsigned char)((m_Unknown1F0[n] * sky[2]) >> 8) + (float)color[2] * t);
+					g = (unsigned int)((float)(unsigned char)((m_Unknown1F4[n] * sky[1]) >> 8) + (float)color[1] * t);
+					b = (unsigned int)((float)(unsigned char)((m_Unknown1F8[n] * sky[0]) >> 8) + (float)color[0] * t);
+					if (r > 255) r = 255;
+					if (g > 255) g = 255;
+					if (b > 255) b = 255;
+					color[0] = (unsigned char)b;
+					color[1] = (unsigned char)g;
+					color[2] = (unsigned char)r;
+					color[3] = 0xFF;
+				} else {
+					m_Unknown120C[n] = SkyColorDX8;
+					color = (unsigned char *)&m_Unknown120C[n];
+					unsigned int f1 = m_Unknown1F4[n];
+					unsigned int f2 = m_Unknown1F8[n];
+					color[2] = (unsigned char)((color[2] * m_Unknown1F0[n]) >> 8);
+					color[3] = 0xFF;
+					color[1] = (unsigned char)((color[1] * f1) >> 8);
+					color[0] = (unsigned char)((color[0] * f2) >> 8);
+				}
+			}
+		}
+		}
+	} else {
+		for (j = UpdateMin.J; j < (unsigned int)UpdateMax.J; j++) {
+			for (i = UpdateMin.I; i < (unsigned int)UpdateMax.I; i++) {
+				n = Field->Get_Size() * j + i;
+				m_Unknown120C[n] = SkyColorDX8;
+				color = (unsigned char *)&m_Unknown120C[n];
+				unsigned int f1 = m_Unknown1F4[n];
+				unsigned int f2 = m_Unknown1F8[n];
+				unsigned int f0 = m_Unknown1F0[n];
+				unsigned int c2 = color[2];
+				unsigned int c1 = color[1];
+				unsigned int c0 = color[0];
+				color[2] = (unsigned char)((f0 * c2) >> 8);
+				color[1] = (unsigned char)((c1 * f1) >> 8);
+				color[0] = (unsigned char)((c0 * f2) >> 8);
+			}
+		}
+	}
+}
+
 // NOT EXACT: shape (the client steps a colour pointer by 3 and tests extra before its loads; the loop bodies match); 3 forms tried
 void LandClass::Apply_Colors(void)
 {
