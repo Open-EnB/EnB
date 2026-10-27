@@ -274,6 +274,11 @@ unless `--lever` cites a new row of this table.
 | An EH-tracked RefCountPtr local declared at the top of the function | Sends Find and std::string's `_Eos` out of line as the client has them (block-local: both inlined) | fontmanager 0x6D2700's calls (H16); try on 0x6D2580 |
 | A large constructor loses a neighbouring inline after a header layout change | Not the changed statement: objdiff for a call that replaced inlined code first (a budget knock-on) | tsk_login 0x767240 under the char[] ship name (T14, d405690) |
 | A string compare pushed out of line by a C-style reference cast between RefCountPtr types (it builds a temporary) | Cast through a pointer | cpacket ITEM_BASE 37 (T16) |
+| `setne / test al,al` on a RefCountPtr test | `0 != ptr` (ref_ptr.h's template operator!=), not `if (ptr)` | client_lego_impl Init (H17) |
+| `lea reg,[node+0x14]` on a table node's value | A reference local to the value: `T &v = (*it).second` | client_lego_impl Detach_All, Init (H17) |
+| A frame 0x30 too small; int-move copies | A Matrix3D local (its user copy constructor); a float max as `min > r ? min : r` gives `test ah,0x41 / jne` | client_lego_impl Update_Radius (H17) |
+| Two `sete` combined | A bitwise or of the tests: `(a == 0) \| (it == end)` | client_lego_impl Get_Lego_Transform (H17) |
+| The const_iterator find lever on an int-keyed table | Works the same; a miss returned first | client_lego_impl Get_Bone_Map, Get_Knob (H17) |
 
 * **A nested inline is a whole-function budget (2026-10-26, `Key_Exchange` 0x829180):** under `/Ob2` an
   inline helper's own callees (a `std::set` iterator's `_Inc`) are inlined only while the function as a
@@ -454,6 +459,12 @@ unless `--lever` cites a new row of this table.
   `udpreplay conn`, copy the non-app `build/*/*.lib` across and run `build.py build --lib app --allow-dirty` there
   (the worktree is yours alone) before `udpreplay build`. commit_mine's hunk keys select whole hunks: another
   builder's rows appended next to yours in attempts.csv go into your commit (P8 took T12's 0x6F5F60).
+* **The private-index commit flow races with other builders' commits** (H17's 5918bbe reverted T18's 02a95cd: the
+  index was read, T18 committed, then `git commit` took 02a95cd as parent with a stale tree; restored in a6e1eb1):
+  commit with `commit-tree` plus `update-ref refs/heads/master NEW OLD` (a compare-and-swap, `.work/h17/repair.py`),
+  and guard an empty patch when only attempts.csv changed. sgistl's `insert_unique_noresize` fails in VC6 (C2899):
+  `hash_map::insert` is unusable, the client's inserts go through `operator[]` (P-H17-1). A file's canary function
+  (client_lego_impl: the bone map constructor 0x72D5F0) flips with the file's contents: check it each verify.
 * **commit_mine keys by address take identical lines from other files' imports.json blocks** (H14: 0x42D050 sits in
   control_keys_manager's and pkunknown_87acd0's blocks): for docs/data/imports.json give the file name as the key
   (or `--file NAME`, repeatable) and commit_mine selects the hunks inside that `"NAME": {` block's line span
