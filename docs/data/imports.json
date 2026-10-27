@@ -8326,6 +8326,7 @@
      {
       "copy": "Z",
       "function": "SegLineRendererClass::Set_Texture_Tile_Factor"
+     "0x9C2390",
      }
     ],
     "name": "seglinerenderer.cpp"
@@ -9630,7 +9631,7 @@
    "ww3dids.h": "R",
    "ww3dtrig.h": "R"
   },
-  "in_tree_total": 2706,
+  "in_tree_total": 2707,
   "totals": {
    "G": 548,
    "R": 1323,

@@ -132,7 +132,8 @@ private:
 	// Utility functions
 	void								subdivision_util(unsigned int point_cnt, const Vector3 *xformed_pts,
 											const float *base_tex_v, unsigned int *p_sub_point_cnt,
-											Vector3 *xformed_subdiv_pts, float *subdiv_tex_v);
+											Vector3 *xformed_subdiv_pts, float *subdiv_tex_v,
+											Vector4 *base_diffuse, Vector4 *subdiv_diffuse);
 
 	// Global properties
 	TextureClass *					Texture;
