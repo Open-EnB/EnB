@@ -16,7 +16,6 @@ GlobalLoginPacketClass::GlobalLoginPacketClass(RawPacketClass *raw) { Conn_Recor
 Packet_0048Class::Packet_0048Class(RawPacketClass *raw) { Conn_Record(this, raw); }
 FindMemberPacketClass::FindMemberPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 VerbListPacketClass::VerbListPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-IncapacitanceDetailsPacket::IncapacitanceDetailsPacket(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_00B5Class::Packet_00B5Class(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_00B6Class::Packet_00B6Class(RawPacketClass *raw) { Conn_Record(this, raw); }
 Packet_0077Class::Packet_0077Class(RawPacketClass *raw) { Conn_Record(this, raw); }
@@ -89,6 +88,7 @@ bool OpenInterfacePacketClass::Process_Packet(void *) { return(true); }	// 0x739
 bool PlayerObjectRelationshipPacket::Process_Packet(void *) { return(true); }	// 0x7398E0
 bool PlayerObjectReactionUpdatePacket::Process_Packet(void *) { return(true); }	// 0x7399D0
 bool PlayerObjectIsAttackingUpdatePacket::Process_Packet(void *) { return(true); }	// 0x739AC0
+bool IncapacitanceDetailsPacket::Process_Packet(void *) { return(true); }	// 0x739BB0
 bool IncapacitanceRescueConfirmationPacket::Process_Packet(void *) { return(true); }	// 0x739CD0
 bool CameraControlPacketClass::Process_Packet(void *) { return(true); }	// 0x739FF0
 bool NotifyEmotePacketClass::Process_Packet(void *) { return(true); }	// 0x73A8E0

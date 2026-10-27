@@ -292,14 +292,6 @@ public:
 	char Unknown0C[0x14];	// +0x0C
 };
 
-// opcode 144 (0x0090, ?): vtable 0xB09A84, constructor 0x872A80, 0x198 bytes
-class IncapacitanceDetailsPacket : public PacketClass
-{
-public:
-	IncapacitanceDetailsPacket(RawPacketClass *raw);	// 0x872A80
-	char Unknown0C[0x18C];	// +0x0C
-};
-
 // opcode 181 (0x00B5, ?): vtable 0xB0A5BC, constructor 0x886D40, 0x54 bytes
 class Packet_00B5Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x00B5
 {
