@@ -1447,6 +1447,62 @@ Unknown7125F0Class::~Unknown7125F0Class()
 }
 
 
+
+
+
+
+
+
+
+// NOT EXACT: 0x712780 shape: the client's speed is (s - s) * t + s of EndState's speed alone (its other slot reused for t), a form that folds here
+void Unknown7125F0Class::Unknown_1C(int time, Vector3 *position, Quaternion *orientation, Vector3 *velocity, float *speed, Vector3 *rotrate, bool unknown)
+{
+	if (time <= StartTime) {
+		G_ASSERT(StartState);
+		StartState->Unknown_1C(time, position, orientation, velocity, speed, rotrate, unknown);
+		return;
+	}
+
+
+	if (time >= EndTime) {
+		G_ASSERT(EndState);
+		EndState->Unknown_1C(time, position, orientation, velocity, speed, rotrate, unknown);
+		return;
+	}
+
+
+
+
+	float end_speed, start_speed;
+	Vector3 start_position, start_velocity, start_rotrate;
+	Vector3 end_position, end_velocity, end_rotrate;
+	Quaternion start_orientation, end_orientation;
+	G_ASSERT(StartState && EndState);
+	StartState->Unknown_1C(time, position ? &start_position : 0, orientation ? &start_orientation : 0, velocity ? &start_velocity : 0, speed ? &start_speed : 0, rotrate ? &start_rotrate : 0, unknown);
+	EndState->Unknown_1C(time, position ? &end_position : 0, orientation ? &end_orientation : 0, velocity ? &end_velocity : 0, speed ? &end_speed : 0, rotrate ? &end_rotrate : 0, unknown);
+	float t = (float)(time - StartTime) / (float)(EndTime - StartTime);
+	if (position) {
+		Vector3::Lerp(start_position, end_position, t, position);
+	}
+	if (orientation) {
+		if (Equal_Within_Epsilon(start_orientation, end_orientation, 0.0001f)) {
+			*orientation = start_orientation;
+		} else {
+			Slerp(*orientation, start_orientation, end_orientation, t);
+		}
+	}
+	if (velocity) {
+		Vector3::Lerp(start_velocity, end_velocity, t, velocity);
+	}
+	if (speed) {
+		*speed = WWMath::Lerp(start_speed, end_speed, t);
+	}
+	if (rotrate) {
+		Vector3::Lerp(start_rotrate, end_rotrate, t, rotrate);
+	}
+}
+
+
 Vector3 Unknown7125F0Class::Unknown_18(int time)
 {
 	StateNode *state = EndState;
@@ -1458,62 +1514,6 @@ Vector3 Unknown7125F0Class::Unknown_18(int time)
 	}
 	return(state->Unknown_18(time));
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -1554,6 +1554,63 @@ Unknown712DB0Class::Unknown712DB0Class(StateNode *start, StateNode *end, unsigne
 	Unknown7125F0Class(start, end, start_time, end_time)
 {
 	Unknown_7132F0(start_time, end_time);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+void Unknown712DB0Class::Unknown_1C(int time, Vector3 *position, Quaternion *orientation, Vector3 *velocity, float *speed, Vector3 *rotrate, bool unknown)
+{
+	if (time <= StartTime) {
+		G_ASSERT(StartState);
+		StartState->Unknown_1C(time, position, orientation, velocity, speed, rotrate, unknown);
+		return;
+	}
+
+
+	if (time >= EndTime) {
+		G_ASSERT(EndState);
+		EndState->Unknown_1C(time, position, orientation, velocity, speed, rotrate, unknown);
+		return;
+	}
+	float t = (float)(time - StartTime) / (float)(EndTime - StartTime);
+	if (position) {
+		Vector3::Lerp(Start.Position, End.Position, t, position);
+	}
+	if (orientation) {
+		if (Equal_Within_Epsilon(Start.Orientation, End.Orientation, 0.0001f)) {
+			*orientation = Start.Orientation;
+		} else {
+			Slerp(*orientation, Start.Orientation, End.Orientation, t);
+		}
+	}
+	if (velocity) {
+		Vector3::Lerp(Start.Velocity, End.Velocity, t, velocity);
+	}
+	if (speed) {
+		*speed = WWMath::Lerp(Start.Speed, End.Speed, t);
+	}
+	if (rotrate) {
+		Vector3::Lerp(Start.RotRate, End.RotRate, t, rotrate);
+	}
 }
 
 
@@ -1620,63 +1677,6 @@ bool Unknown713520Class::Unknown_7135F0(int time, int unknown, Vector3 *result)
 	*result = object->Unknown98->Unknown_1C(time);
 	return(true);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

@@ -243,8 +243,6 @@ static void Stand_In_State(Vector3 *position, Quaternion *orientation, Vector3 *
 }
 void Unknown70F4F0Class::Unknown_1C(int, Vector3 *p, Quaternion *o, Vector3 *v, float *s, Vector3 *r, bool) { Stand_In_State(p, o, v, s, r); }
 void Unknown7119B0Class::Unknown_1C(int, Vector3 *p, Quaternion *o, Vector3 *v, float *s, Vector3 *r, bool) { Stand_In_State(p, o, v, s, r); }
-void Unknown7125F0Class::Unknown_1C(int, Vector3 *p, Quaternion *o, Vector3 *v, float *s, Vector3 *r, bool) { Stand_In_State(p, o, v, s, r); }
-void Unknown712DB0Class::Unknown_1C(int, Vector3 *p, Quaternion *o, Vector3 *v, float *s, Vector3 *r, bool) { Stand_In_State(p, o, v, s, r); }
 void Unknown713520Class::Unknown_1C(int, Vector3 *p, Quaternion *o, Vector3 *v, float *s, Vector3 *r, bool) { Stand_In_State(p, o, v, s, r); }
 void Unknown714340Class::Unknown_1C(int, Vector3 *p, Quaternion *o, Vector3 *v, float *s, Vector3 *r, bool) { Stand_In_State(p, o, v, s, r); }
 Unknown7119B0Class::Unknown7119B0Class(StateNode *start, StateNode *end, unsigned int start_time, unsigned int end_time) : StartState(start), StartTime(start_time), EndState(end), EndTime(end_time) { Trace("stub Unknown7119B0Class::Unknown7119B0Class %u %u", start_time, end_time); }
