@@ -431,17 +431,17 @@ bool UDPChannelKeyClass::operator == (const UDPChannelKeyClass &other) const
 // NOT EXACT: the client keeps -1 - channel and Fixed's +0x80 apart, and the -4 priority in esi
 void UDPConnection::Open_Fixed_Channel(int channel)
 {
-	unsigned int *slot = &Fixed[-1 - channel];
-	if (*slot == (unsigned int)-1) {
+	// an index subscripted twice keeps the client's unfolded [this + index*4 + 0x80]
+	// (a slot pointer folds the -1 into the displacement)
+	int index = -1 - channel;
+	if (Fixed[index] == (unsigned int)-1) {
 		int priority = 0;
 		if (channel == -4) {
-			Con->openc(slot, 3, 0x80);
-			return;
-		}
-		if (channel == -5) {
+			priority = 0x80;
+		} else if (channel == -5) {
 			priority = -127;
 		}
-		Con->openc(slot, 3, priority);
+		Con->openc(&Fixed[index], 3, priority);
 	}
 }
 
