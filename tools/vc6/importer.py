@@ -4122,13 +4122,15 @@ RECONSTRUCTED = {
                                       "PxWrapper forwarders 0x44AF50-0x44B070, Update_Proximity 0x44B090, "
                                       "Update_Avoidance 0x44B150",
     ('app', 'shared/px_wrapper.h'): "PxWrapper (the client's name, 0x456B60's profile strings) and the other px_*.cpp "
-                                   "classes it uses (PxObject, PxCallback, PxBoxList, PxCollisionBox, PxCollision; not "
+                                   "classes it uses (PxObject, PxCallback, PxCollisionBox, PxCollision; not "
                                    "rebuilt, declared as far as px_wrapper.cpp uses them); provisional header name",
     ('app', 'shared/px_wrapper.cpp'): "PxWrapper, client 0x4560B0-0x457740 (its __FILE__; FAIL_IFs lines 108-273): the "
                                      "constructors, Create_Boxes 0x456350, the list and flag members, Update 0x456B60 "
                                      "(NOT EXACT), the callback members, _Collision_Callback 0x457670",
     ('app', 'shared/px.h'): "PxEnd / PxBox / PxList, the proximity system's sweep and prune (PxBox and PxList the client's names, their profile and debug strings); provisional header name",
     ('app', 'shared/px.cpp'): "px.cpp, client 0x44B760-0x44D740 (its __FILE__; FAIL_IFs lines 180-564): PxEnd, PxBox (vtable 0xAE7A3C) and PxList: Insert 0x44BFC0, Remove 0x44C2E0, Set_Corners 0x44C900 (NOT EXACT), the filter setters, Dump 0x44D210",
+    ('app', 'shared/px_box_list.h'): "PxBoxList / PxOwnerList, px_box_list.cpp's boxes keeping what overlaps them (the vectors Boxes / Owners are the asserts' names); provisional class and header names",
+    ('app', 'shared/px_box_list.cpp'): "px_box_list.cpp, client 0x44D740-0x44E020 (its __FILE__; FAIL_IFs lines 41-111): PxBoxList (vtable 0xAE7A4C) and PxOwnerList (vtable 0xAE7A5C, PxWrapper's callback box): constructors, destructors, On_Enter / On_Exit (sorted insert / erase)",
     ('app', 'client/extrap.h'): "extrap.cpp's state nodes: the client's StateNode (vtable 0xB02398; its asserts "
                                "'Bad function call! StateNode::Set_Motion()' / '... End_Tilt()'), the nodes 0xB02364-0xB02628 "
                                "and the motion objects 0xB02400 / 0xB02480 / 0xB025FC (layouts from the constructors "

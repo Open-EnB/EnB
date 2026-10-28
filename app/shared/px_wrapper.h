@@ -20,6 +20,7 @@
 
 #include "vector3.h"
 #include "px.h"
+#include "px_box_list.h"
 #include <vector>
 
 class DynObj;
@@ -59,24 +60,14 @@ PxCallback *Unknown_452460(int a, PxObject *object, int b, int c);	// 0x452460 (
 typedef void (*PxCollisionCallback)(PxBox *a, PxBox *b);  // NAME 2: _Collision_Callback's type
 
 /*
-** px_box_list.cpp's two box classes (vtables 0xAE7A4C / 0xAE7A5C, 0x30 bytes: a PxBox and a vector).
+** The loose box (0x50 bytes, constructor 0x452780 in px_callback_accurate.cpp's range: a PxBoxList with a collision
+** callback and an extent; the box is the extent around its object's position).
 */
-class PxBoxList : public PxBox  // NAME 2: px_box_list.cpp's (0x44DB50)
-{
-public:
-	PxBoxList(PxObject *object);							// 0x44DB50  // NAME 2 [object]: the PxBox owner
-	std::vector<PxBox *> Boxes;								// +0x20  // NAME 3: px_box_list.cpp's asserts 'it != Boxes.end()'
-};
-
-/*
-** The loose box (0x50 bytes, constructor 0x452780: a box list with a collision callback and an extent; the box is
-** the extent around its object's position).
-*/
-class PxCollisionBox : public PxBox  // NAME 2: what it reports
+class PxCollisionBox : public PxBoxList  // NAME 2: what it reports
 {
 public:
 	PxCollisionBox(PxObject *object, PxCollisionCallback callback, const Vector3 &extent);	// 0x452780  // NAME 2 [object, callback, extent]: what it stores
-	char Unknown20[0x50 - 0x20];							// +0x20  // NAME 1: not rebuilt
+	char Unknown30[0x50 - 0x30];							// +0x30  // NAME 1: not rebuilt
 };
 
 /*
@@ -116,7 +107,7 @@ public:
 	void Unknown_4567D0(bool value);									// 0x4567D0 (sets +0x0E)  // NAME 1 [value]: what it stores
 	void Unknown_456840(bool value);									// 0x456840 (sets +0x0C)  // NAME 1 [value]: what it stores
 	void Unknown_456890(bool value);									// 0x456890 (sets +0x0D)  // NAME 1 [value]: what it stores
-	std::vector<PxBox *> &Unknown_4568E0();								// 0x4568E0 (the callback box's Boxes)
+	std::vector<DynObj *> &Unknown_4568E0();								// 0x4568E0 (the callback box's Owners)
 	void Unknown_456900(const Vector3 &low, const Vector3 &high);		// 0x456900 (FAIL_IF '!low.Is_Valid()' l.247, '!high.Is_Valid()' l.248)
 	void Update(const Vector3 &pos, float radius);						// 0x456B60 'PxWrapper::Update' (FAIL_IF '!pos.Is_Valid()' l.272, '!WWMath::Is_Valid_Float(radius)')
 	PxCallback *Unknown_456F60(int a, int b, int c);					// 0x456F60 (adds 0x452140's callback)  // NAME 1 [a, b, c]: neutral
@@ -132,7 +123,7 @@ public:
 	bool Unknown0E;														// +0x0E (the constructor sets it: bit 0x10 of the loose and tight boxes)
 	PxBox *TightBox;													// +0x10  // NAME 3: 'PxWrapper::Update(TightBox)'
 	PxCollisionBox *LooseBox;											// +0x14  // NAME 3: 'PxWrapper::Update(LooseBox)'
-	PxBoxList *CallbackBox;												// +0x18  // NAME 2: in the list with Unknown0D
+	PxOwnerList *CallbackBox;												// +0x18  // NAME 2: in the list with Unknown0D
 	std::vector<PxCallback *> Callbacks;								// +0x1C  // NAME 3: 'PxWrapper::Update(Callbacks)'
 };
 

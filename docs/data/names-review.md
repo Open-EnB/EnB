@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 33 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 36 |
-| 3 | by convention from a client-named file or sibling | 923 |
-| 2 | describes what the code does | 2236 |
-| 1 | neutral placeholder | 4923 |
+| 3 | by convention from a client-named file or sibling | 922 |
+| 2 | describes what the code does | 2240 |
+| 1 | neutral placeholder | 4925 |
 
 ## For review (score 3 and below)
 
@@ -4560,6 +4560,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_4F00C0` | `app/shared/money.h:36` | untagged neutral name (D10) |
 | 1 | `Unknown2C` | `app/shared/px.cpp:280` | untagged neutral name (D10) |
 | 1 | `Unknown2C` | `app/shared/px.h:94` | only the constructor sets it |
+| 1 | `px_box_list.h` | `app/shared/px_box_list.h:12` | provisional header name (px_box_list.cpp's) |
 | 1 | `Unknown0C` | `app/shared/px_wrapper.cpp:17` | untagged neutral name (D10) |
 | 1 | `Unknown0D` | `app/shared/px_wrapper.cpp:18` | untagged neutral name (D10) |
 | 1 | `Unknown0E` | `app/shared/px_wrapper.cpp:19` | untagged neutral name (D10) |
@@ -4578,35 +4579,36 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_456F60` | `app/shared/px_wrapper.h:10` | untagged neutral name (D10) |
 | 1 | `Unknown_457190` | `app/shared/px_wrapper.h:10` | untagged neutral name (D10) |
 | 1 | `px_wrapper.h` | `app/shared/px_wrapper.h:18` | provisional header name (px_wrapper.cpp's) |
-| 1 | `a, b, c` | `app/shared/px_wrapper.h:56` | neutral |
-| 1 | `Unknown_452140` | `app/shared/px_wrapper.h:56` | untagged neutral name (D10) |
 | 1 | `a, b, c` | `app/shared/px_wrapper.h:57` | neutral |
-| 1 | `Unknown_452460` | `app/shared/px_wrapper.h:57` | untagged neutral name (D10) |
-| 1 | `Unknown20` | `app/shared/px_wrapper.h:79` | not rebuilt |
-| 1 | `Unknown08` | `app/shared/px_wrapper.h:89` | untagged neutral name (D10) |
-| 1 | `Unknown0C` | `app/shared/px_wrapper.h:89` | untagged neutral name (D10) |
-| 1 | `Unknown10` | `app/shared/px_wrapper.h:89` | untagged neutral name (D10) |
-| 1 | `Unknown14` | `app/shared/px_wrapper.h:89` | untagged neutral name (D10) |
-| 1 | `Unknown18` | `app/shared/px_wrapper.h:89` | untagged neutral name (D10) |
-| 1 | `Unknown1C` | `app/shared/px_wrapper.h:89` | untagged neutral name (D10) |
-| 1 | `Unknown24` | `app/shared/px_wrapper.h:90` | untagged neutral name (D10) |
-| 1 | `owner` | `app/shared/px_wrapper.h:108` | it stores it at +0x00 |
-| 1 | `owner, src` | `app/shared/px_wrapper.h:109` | as above |
-| 1 | `Unknown_456730` | `app/shared/px_wrapper.h:115` | untagged neutral name (D10) |
-| 1 | `value` | `app/shared/px_wrapper.h:116` | what it stores |
-| 1 | `Unknown_4567D0` | `app/shared/px_wrapper.h:116` | untagged neutral name (D10) |
-| 1 | `value` | `app/shared/px_wrapper.h:117` | what it stores |
-| 1 | `Unknown_456840` | `app/shared/px_wrapper.h:117` | untagged neutral name (D10) |
-| 1 | `value` | `app/shared/px_wrapper.h:118` | what it stores |
-| 1 | `Unknown_456890` | `app/shared/px_wrapper.h:118` | untagged neutral name (D10) |
-| 1 | `Unknown_4568E0` | `app/shared/px_wrapper.h:119` | untagged neutral name (D10) |
-| 1 | `Unknown_456900` | `app/shared/px_wrapper.h:120` | untagged neutral name (D10) |
-| 1 | `a, b, c` | `app/shared/px_wrapper.h:122` | neutral |
-| 1 | `a, b, c` | `app/shared/px_wrapper.h:123` | neutral |
-| 1 | `callback` | `app/shared/px_wrapper.h:125` | what it searches for |
-| 1 | `Unknown_4575E0` | `app/shared/px_wrapper.h:125` | untagged neutral name (D10) |
-| 1 | `Owner` | `app/shared/px_wrapper.h:127` | the constructor's argument |
-| 1 | `Unknown0E` | `app/shared/px_wrapper.h:132` | untagged neutral name (D10) |
+| 1 | `Unknown_452140` | `app/shared/px_wrapper.h:57` | untagged neutral name (D10) |
+| 1 | `a, b, c` | `app/shared/px_wrapper.h:58` | neutral |
+| 1 | `Unknown_452460` | `app/shared/px_wrapper.h:58` | untagged neutral name (D10) |
+| 1 | `Unknown30` | `app/shared/px_wrapper.h:70` | not rebuilt |
+| 1 | `Unknown08` | `app/shared/px_wrapper.h:80` | untagged neutral name (D10) |
+| 1 | `Unknown0C` | `app/shared/px_wrapper.h:80` | untagged neutral name (D10) |
+| 1 | `Unknown10` | `app/shared/px_wrapper.h:80` | untagged neutral name (D10) |
+| 1 | `Unknown14` | `app/shared/px_wrapper.h:80` | untagged neutral name (D10) |
+| 1 | `Unknown18` | `app/shared/px_wrapper.h:80` | untagged neutral name (D10) |
+| 1 | `Unknown1C` | `app/shared/px_wrapper.h:80` | untagged neutral name (D10) |
+| 1 | `Unknown20` | `app/shared/px_wrapper.h:81` | untagged neutral name (D10) |
+| 1 | `Unknown24` | `app/shared/px_wrapper.h:81` | untagged neutral name (D10) |
+| 1 | `owner` | `app/shared/px_wrapper.h:99` | it stores it at +0x00 |
+| 1 | `owner, src` | `app/shared/px_wrapper.h:100` | as above |
+| 1 | `Unknown_456730` | `app/shared/px_wrapper.h:106` | untagged neutral name (D10) |
+| 1 | `value` | `app/shared/px_wrapper.h:107` | what it stores |
+| 1 | `Unknown_4567D0` | `app/shared/px_wrapper.h:107` | untagged neutral name (D10) |
+| 1 | `value` | `app/shared/px_wrapper.h:108` | what it stores |
+| 1 | `Unknown_456840` | `app/shared/px_wrapper.h:108` | untagged neutral name (D10) |
+| 1 | `value` | `app/shared/px_wrapper.h:109` | what it stores |
+| 1 | `Unknown_456890` | `app/shared/px_wrapper.h:109` | untagged neutral name (D10) |
+| 1 | `Unknown_4568E0` | `app/shared/px_wrapper.h:110` | untagged neutral name (D10) |
+| 1 | `Unknown_456900` | `app/shared/px_wrapper.h:111` | untagged neutral name (D10) |
+| 1 | `a, b, c` | `app/shared/px_wrapper.h:113` | neutral |
+| 1 | `a, b, c` | `app/shared/px_wrapper.h:114` | neutral |
+| 1 | `callback` | `app/shared/px_wrapper.h:116` | what it searches for |
+| 1 | `Unknown_4575E0` | `app/shared/px_wrapper.h:116` | untagged neutral name (D10) |
+| 1 | `Owner` | `app/shared/px_wrapper.h:118` | the constructor's argument |
+| 1 | `Unknown0E` | `app/shared/px_wrapper.h:123` | untagged neutral name (D10) |
 | 1 | `Unknown_BE56D8` | `app/shared/shipcust_desc.cpp:15` | 0xBE56D8, each race's two default settings (filled at run time) |
 | 1 | `Unknown_B75D28` | `app/shared/shipcust_desc.cpp:17` | 0xB75D28, the hull style per race and profession |
 | 1 | `Unknown_B75D4C` | `app/shared/shipcust_desc.cpp:18` | 0xB75D4C, the wing style per race and profession |
@@ -6919,30 +6921,34 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Dump` | `app/shared/px.h:91` | what it does |
 | 2 | `Is_Sorted` | `app/shared/px.h:92` | what it tests |
 | 2 | `Updating` | `app/shared/px.h:95` | what it marks |
+| 2 | `PxBoxList` | `app/shared/px_box_list.h:24` | px_box_list.cpp's class with the 'Boxes' asserts |
+| 2 | `owner` | `app/shared/px_box_list.h:27` | the PxBox owner |
+| 2 | `owner, src` | `app/shared/px_box_list.h:28` | as PxBox's |
+| 2 | `PxOwnerList` | `app/shared/px_box_list.h:41` | px_box_list.cpp's class with the 'Owners' asserts |
+| 2 | `owner` | `app/shared/px_box_list.h:44` | the PxBox owner |
+| 2 | `owner, src` | `app/shared/px_box_list.h:45` | as PxBox's |
 | 2 | `Is_Close` | `app/shared/px_wrapper.cpp:208` | what it tests |
 | 2 | `Is_Close` | `app/shared/px_wrapper.cpp:213` | as above |
-| 2 | `PxObject` | `app/shared/px_wrapper.h:32` | the boxes' owner (PxBox::Owner) |
-| 2 | `owner` | `app/shared/px_wrapper.h:35` | stored at +0x00 |
-| 2 | `Owner` | `app/shared/px_wrapper.h:38` | the constructor's argument |
-| 2 | `Pos` | `app/shared/px_wrapper.h:39` | Update's pos |
-| 2 | `Radius` | `app/shared/px_wrapper.h:40` | Update's radius |
-| 2 | `PxCallback` | `app/shared/px_wrapper.h:46` | PxWrapper's 'Update(Callbacks)' calls them |
-| 2 | `Clone` | `app/shared/px_wrapper.h:50` | what the copy uses it for |
-| 2 | `Attach` | `app/shared/px_wrapper.h:51` | called on entering a list |
-| 2 | `Detach` | `app/shared/px_wrapper.h:52` | called on leaving it |
-| 2 | `b` | `app/shared/px_wrapper.h:59` | _Collision_Callback's type |
-| 2 | `PxBoxList` | `app/shared/px_wrapper.h:64` | px_box_list.cpp's (0x44DB50) |
-| 2 | `object` | `app/shared/px_wrapper.h:67` | the PxBox owner |
-| 2 | `PxCollisionBox` | `app/shared/px_wrapper.h:75` | what it reports |
-| 2 | `object, callback, extent` | `app/shared/px_wrapper.h:78` | what it stores |
-| 2 | `a, b` | `app/shared/px_wrapper.h:88` | _Collision_Callback's arguments |
-| 2 | `A` | `app/shared/px_wrapper.h:93` | the constructor's argument |
-| 2 | `B` | `app/shared/px_wrapper.h:94` | as above |
-| 2 | `Create_Boxes` | `app/shared/px_wrapper.h:113` | what it does |
-| 2 | `Add_To_List` | `app/shared/px_wrapper.h:114` | what it does |
-| 2 | `Add_Callback` | `app/shared/px_wrapper.h:124` | what it does |
-| 2 | `Object` | `app/shared/px_wrapper.h:128` | the boxes' owner |
-| 2 | `CallbackBox` | `app/shared/px_wrapper.h:135` | in the list with Unknown0D |
+| 2 | `PxObject` | `app/shared/px_wrapper.h:33` | the boxes' owner (PxBox::Owner) |
+| 2 | `owner` | `app/shared/px_wrapper.h:36` | stored at +0x00 |
+| 2 | `Owner` | `app/shared/px_wrapper.h:39` | the constructor's argument |
+| 2 | `Pos` | `app/shared/px_wrapper.h:40` | Update's pos |
+| 2 | `Radius` | `app/shared/px_wrapper.h:41` | Update's radius |
+| 2 | `PxCallback` | `app/shared/px_wrapper.h:47` | PxWrapper's 'Update(Callbacks)' calls them |
+| 2 | `Clone` | `app/shared/px_wrapper.h:51` | what the copy uses it for |
+| 2 | `Attach` | `app/shared/px_wrapper.h:52` | called on entering a list |
+| 2 | `Detach` | `app/shared/px_wrapper.h:53` | called on leaving it |
+| 2 | `b` | `app/shared/px_wrapper.h:60` | _Collision_Callback's type |
+| 2 | `PxCollisionBox` | `app/shared/px_wrapper.h:66` | what it reports |
+| 2 | `object, callback, extent` | `app/shared/px_wrapper.h:69` | what it stores |
+| 2 | `a, b` | `app/shared/px_wrapper.h:79` | _Collision_Callback's arguments |
+| 2 | `A` | `app/shared/px_wrapper.h:84` | the constructor's argument |
+| 2 | `B` | `app/shared/px_wrapper.h:85` | as above |
+| 2 | `Create_Boxes` | `app/shared/px_wrapper.h:104` | what it does |
+| 2 | `Add_To_List` | `app/shared/px_wrapper.h:105` | what it does |
+| 2 | `Add_Callback` | `app/shared/px_wrapper.h:115` | what it does |
+| 2 | `Object` | `app/shared/px_wrapper.h:119` | the boxes' owner |
+| 2 | `CallbackBox` | `app/shared/px_wrapper.h:126` | in the list with Unknown0D |
 | 2 | `ShipCustSettingsClass` | `app/shared/shipcust_desc.h:44` | the parts' key 'Settings%d' |
 | 2 | `ShipCustPartClass` | `app/shared/shipcust_desc.h:61` | the description's key 'PartAttributes%d' |
 | 2 | `Write_Short` | `app/shared/shipcust_desc.h:87` | what it does |
@@ -8083,11 +8089,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `PxList` | `app/shared/px.h:81` | PxList is the client's (PxList::Insert) |
 | 3 | `Set_Self` | `app/shared/px.h:88` | PxBox::Set_Self's |
 | 3 | `Set_Test_Mask` | `app/shared/px.h:89` | as above |
-| 3 | `Update` | `app/shared/px_wrapper.h:53` | the profile string |
-| 3 | `std:` | `app/shared/px_wrapper.h:68` | px_box_list.cpp's asserts 'it != Boxes.end()' |
-| 3 | `TightBox` | `app/shared/px_wrapper.h:133` | 'PxWrapper::Update(TightBox)' |
-| 3 | `LooseBox` | `app/shared/px_wrapper.h:134` | 'PxWrapper::Update(LooseBox)' |
-| 3 | `std:` | `app/shared/px_wrapper.h:136` | 'PxWrapper::Update(Callbacks)' |
+| 3 | `Update` | `app/shared/px_wrapper.h:54` | the profile string |
+| 3 | `TightBox` | `app/shared/px_wrapper.h:124` | 'PxWrapper::Update(TightBox)' |
+| 3 | `LooseBox` | `app/shared/px_wrapper.h:125` | 'PxWrapper::Update(LooseBox)' |
+| 3 | `std:` | `app/shared/px_wrapper.h:127` | 'PxWrapper::Update(Callbacks)' |
 | 3 | `shipcust_desc.h` | `app/shared/shipcust_desc.h:20` | header name assumed from the client's shipcust_desc.cpp |
 | 3 | `ShipCustDescClass` | `app/shared/shipcust_desc.h:72` | by convention (D24) from the client's shipcust_desc.cpp |
 | 3 | `spln_db.h` | `app/shared/spln_db.h:34` | header of the client's app\shared\spln_db.cpp (assert __FILE__) |

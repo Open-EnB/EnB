@@ -59,7 +59,7 @@ void PxWrapper::Create_Boxes()
 	LooseBox->Set_Self(5);
 	LooseBox->Set_Test(0x1D);
 	LooseBox->Set_Mask(0x15);
-	CallbackBox = new PxBoxList(Object);
+	CallbackBox = new PxOwnerList(Object);
 	CallbackBox->Set_Test(5);
 	CallbackBox->Set_Mask(5);
 }
@@ -200,9 +200,9 @@ void PxWrapper::Unknown_456890(bool value)
 }
 
 // 0x4568E0
-std::vector<PxBox *> &PxWrapper::Unknown_4568E0()
+std::vector<DynObj *> &PxWrapper::Unknown_4568E0()
 {
-	return(CallbackBox->Boxes);
+	return(CallbackBox->Owners);
 }
 
 static bool Is_Close(const Vector3 &a, const Vector3 &b)  // NAME 2: what it tests
@@ -348,7 +348,7 @@ static void _Collision_Callback(PxBox *a, PxBox *b)
 ** px_wrapper.cpp is client 0x4560B0-0x457740 (its __FILE__; FAIL_IFs lines 108-273), after px_process.cpp. The class
 ** name PxWrapper and _Collision_Callback are the client's (their profile strings); the member and function names
 ** other than List, TightBox, LooseBox and Callbacks are provisional, as are the declarations of the other px_*.cpp
-** classes in px_wrapper.h (PxObject, PxCallback, PxBoxList, PxCollisionBox, PxCollision).
+** classes in px_wrapper.h (PxObject, PxCallback, PxCollisionBox, PxCollision; px_box_list.h has PxBoxList / PxOwnerList).
 **
 ** The constructors build the boxes (Create_Boxes: the tight box Self 3, the loose box Self 5 / Test 0x1D / Mask 0x15
 ** reporting to _Collision_Callback, the callback box Test 5 / Mask 5); the copy clones the source's callbacks and
