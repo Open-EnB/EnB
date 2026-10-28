@@ -4029,7 +4029,8 @@ RECONSTRUCTED = {
     ('app', 'client/co_player_relationship.cpp'): "the player-object relationship file, the object "
                                                "0x709EA0-0x70DC00: the gutter colours (gutter_color.ini's sets in "
                                                "an SGI hash_map, lines 63-117, D25), the relationship checks "
-                                               "Attacking / Player, the packet handlers 0x70CC40 (line 310), "
+                                               "Attacking / PVPAttackable / Player, the dispatcher 0x70B0A0, the "
+                                               "reaction colours 0x70C5D0 (line 301), the packet handlers 0x70CC40 (line 310), "
                                                "0x70CC90, 0x70CD50; NOT EXACT: Neutral 0x70B450",
 }
 

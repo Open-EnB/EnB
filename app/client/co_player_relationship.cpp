@@ -345,10 +345,18 @@ void Unknown_70CD50(SClient *sclient, PlayerObjectIsAttackingUpdatePacket *packe
 **	Reconstruction notes
 **
 **	The object 0x709EA0-0x70DC00 (asserts' __FILE__ 'e:\build\beta\G\app\Client\co_player_relationship.cpp'):
-**	the static initialisers 0x709EA0 (a PermStringInitClass at 0xBE7078) and 0x709EF0 (an SGI hash_map at
-**	0xBE70E8, constructor 0x70CE50, destructor 0x709F40), the gutter colours read from an ini (0x70A010-0x70CAF0,
-**	asserts on lines 63-301, not rebuilt yet), the three packet handlers cpacket.cpp calls (0x70CC40, 0x70CC90,
-**	0x70CD50) and the table's out-of-line helpers (0x70CDF0-0x70DBC0). The next object is extrap.cpp (0x70F1D0).
-**	The handlers read the object's relationship at +0x12C / +0x130 (co.h's Relationship) through a cast, as
-**	co.cpp's 0x6FEEE0 does.
+**	the static initialisers 0x709EA0 (a PermStringInitClass at 0xBE7078, from a permstr.h include not made yet)
+**	and 0x709EF0 (GutterColors, constructor 0x70CE50, destructor 0x709F40); gutter_color.ini's colour sets
+**	(0x70A010 / 0x70A2E0, the loader 0x70A7E0 sclient.cpp calls, the lookup 0x70ADF0); the dispatcher 0x70B0A0
+**	(radar_data.cpp's callers) over the checks Neutral 0x70B450 (NOT EXACT), Attacking 0x70B790, Group 0x70BC30
+**	(not rebuilt: it needs 0x70BAC0, the GroupInfo aux-data test with asserts on lines 207 / 210 and SClient
+**	+0x12C0), PVPAttackable 0x70BF90 (through 0x70BF60), Player 0x70C2A0 and the reaction colours 0x70C5D0;
+**	the three packet handlers cpacket.cpp calls (0x70CC40, 0x70CC90, 0x70CD50) and the table's out-of-line
+**	helpers (0x70CDF0-0x70DBC0). Not counted: GutterColorSetStruct's operator= 0x70CAF0 (the client's window
+**	runs on over the four statics' empty atexit destructors 0x70CBC0-0x70CC20), the copies 0x70AC60 / 0x70ACA0
+**	(ambiguous), 0x70B390 / 0x70B3D0 (not emitted yet).
+**	Forms that mattered: GutterColors is a global (a file static's [8] reference was not matched); the set has
+**	no destructor (a declared one gave the loader's local an EH state); the lookup tests the miss first with a
+**	plain iterator and no dead read; PVPAttackable shares its `return false` tail. The handlers and checks read
+**	the object's relationship at +0x12C / +0x130 (co.h's Relationship) through a cast, as co.cpp's 0x6FEEE0 does.
 */
