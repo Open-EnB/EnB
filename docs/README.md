@@ -21,6 +21,7 @@
 | [vidtest.md](vidtest.md) | VIDTEST.EXE's functional spec: program flow, scenes, tests and results.ini, E&B scene classes, library API, function table (M2.0) |
 | [builders.md](builders.md) | Builder subagents: startup set per kind, rules, models (D72), report format |
 | [decode-path.md](decode-path.md) | The client's AUX_DATA decode path, function by function (M1.1) |
+| [packet-flow.md](packet-flow.md) | From a received packet to the object model (2026-10-28): the Process_Packet dispatch and the frame it runs in, the client base's object tables, ClientObjectClass (bases, layout, vtable), create / find / update / remove, how AUX_DATA deltas and positional states reach an object, the object-affecting opcodes with handler addresses and rebuild states, a worked example, an unblock order |
 | [archive/](archive/) | Dated one-off reports (overnight runs), superseded by progress.md's log |
 
 Generated data ([data/](data/); regenerate with the tools in `tools/re`):
