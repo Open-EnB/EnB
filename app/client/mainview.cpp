@@ -1128,83 +1128,83 @@ public:
 	char Unknown11[0x14 - 0x11];
 };
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+extern unsigned int Unknown_BFAE3C;		// NAME 1: neutral (D10): the time now in ms (ui_line_display.cpp declares it too)
+// Renegade's console.cpp profile display (Commando, CConsoleClass's profile text), as
+// the client has it: SClient's Unknown14EC == 3 shows it, every 250 ms rebuilt from the profile iterator (+0x1E8)
+void MainViewClass::Unknown_510440()
+{
+	static StringClass profile_string(1024, true);
+	static StringClass working_string(255, true);
+	if (((SClient *)Client->Unknown_18())->Unknown14EC != 3) return;
+	((SClient *)Client->Unknown_18())->Text->Draw_Text(profile_string, 0xFF00FF00);
+	// Only update every 1/4 second
+	static unsigned int last_time;
+	if (Unknown_BFAE3C - last_time < 250) return;
+	last_time = Unknown_BFAE3C;
+	profile_string = "";
+	working_string = "";
+	/*
+	** Update the profile display
+	*/
+	const char *parent_name = ProfileIterator->Get_Current_Parent_Name();
+	float parent_time = ProfileIterator->Get_Current_Parent_Total_Time();
+	profile_string.Format("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nPROFILE DATA for %s\n\n", parent_name);
+	working_string.Format("   Name                      %%parent  %%total  ms/f   ms/call   calls/f\n\n");
+	profile_string += working_string;
+	int index = 0;
+	float total_time = WWProfileManager::Get_Time_Since_Reset();
+	int total_frames = WWProfileManager::Get_Frame_Count_Since_Reset();
+	float missing_parent_time = parent_time;
+	if ((total_frames > 0) && (total_time > 0.0f)) {
+		float percent_of_parent;
+		float percent_of_total;
+		float ms_per_frame;
+		float ms_per_call;
+		int calls_per_frame;
+		/*
+		** Display stats for each child node
+		*/
+		for (ProfileIterator->First(); !ProfileIterator->Is_Done(); ProfileIterator->Next()) {
+			int calls = ProfileIterator->Get_Current_Total_Calls();
+			float time = ProfileIterator->Get_Current_Total_Time();
+			const char *name = ProfileIterator->Get_Current_Name();
+			missing_parent_time -= time;
+			working_string.Format("%-2d %-25s", index, name);
+			profile_string += working_string;
+			percent_of_total = 100.0f * time / total_time;
+			if (parent_time != 0.0f) {
+				percent_of_parent = 100.0f * time / parent_time;
+				working_string.Format(" %-6.2f   %-6.2f", percent_of_parent, percent_of_total);
+			} else {
+				percent_of_parent = 100.0f;
+				working_string.Format("   --     %-6.2f", percent_of_total);
+			}
+			profile_string += working_string;
+			ms_per_frame = 1000.0f * time / total_frames;
+			working_string.Format("  %-6.2f", ms_per_frame);
+			profile_string += working_string;
+			if (calls > 0) {
+				ms_per_call = 1000.0f * time / (float)calls;
+				calls_per_frame = calls / total_frames;
+				working_string.Format(" %-6.2f    %-4d (%4d)\n", ms_per_call, calls_per_frame, calls);
+			} else {
+				working_string.Format("   --       -- \n");
+			}
+			profile_string += working_string;
+			index++;
+		}
+		/*
+		** Display stats for the un-accounted time.
+		*/
+		if (parent_time > 0.0f) {
+			percent_of_parent = 100.0f * missing_parent_time / parent_time;
+			percent_of_total = 100.0f * missing_parent_time / total_time;
+			ms_per_frame = 1000.0f * missing_parent_time / total_frames;
+			working_string.Format("   %-25s %-6.2f   %-6.2f  %-6.2f\n", "MISSING TIME", percent_of_parent, percent_of_total, ms_per_frame);
+			profile_string += working_string;
+		}
+	}
+}
 
 
 

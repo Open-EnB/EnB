@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 36 |
 | 3 | by convention from a client-named file or sibling | 937 |
 | 2 | describes what the code does | 2274 |
-| 1 | neutral placeholder | 5011 |
+| 1 | neutral placeholder | 5012 |
 
 ## For review (score 3 and below)
 
@@ -1690,6 +1690,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown04` | `app/client/mainview.cpp:1126` | untagged neutral name (D10) |
 | 1 | `Unknown10` | `app/client/mainview.cpp:1127` | untagged neutral name (D10) |
 | 1 | `Unknown11` | `app/client/mainview.cpp:1128` | untagged neutral name (D10) |
+| 1 | `Unknown_BFAE3C` | `app/client/mainview.cpp:1131` | neutral (D10): the time now in ms (ui_line_display.cpp declares it too) |
 | 1 | `Unknown_512400` | `app/client/mainview.cpp:1409` | untagged neutral name (D10) |
 | 1 | `Unknown88` | `app/client/mainview.cpp:1412` | untagged neutral name (D10) |
 | 1 | `Unknown_Find_Field` | `app/client/mainview.cpp:1419` | untagged neutral name (D10) |
