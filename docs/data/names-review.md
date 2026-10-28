@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 36 |
 | 3 | by convention from a client-named file or sibling | 876 |
 | 2 | describes what the code does | 2134 |
-| 1 | neutral placeholder | 4067 |
+| 1 | neutral placeholder | 4069 |
 
 ## For review (score 3 and below)
 
@@ -3636,6 +3636,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `m_Unknown09` | `app/shared/kv_pair.cpp:18` | untagged neutral name (D10) |
 | 1 | `m_Unknown08` | `app/shared/kv_pair.h:40` | untagged neutral name (D10) |
 | 1 | `m_Unknown09` | `app/shared/kv_pair.h:41` | untagged neutral name (D10) |
+| 1 | `Get_Unknown08` | `app/shared/kv_pair.h:44` | neutral (D10) |
+| 1 | `Get_Unknown09` | `app/shared/kv_pair.h:45` | neutral (D10) |
 | 1 | `m_Unknown10` | `app/shared/kv_pair_string.cpp:20` | untagged neutral name (D10) |
 | 1 | `m_Unknown08` | `app/shared/kv_pair_string.cpp:41` | untagged neutral name (D10) |
 | 1 | `m_Unknown09` | `app/shared/kv_pair_string.cpp:41` | untagged neutral name (D10) |
@@ -5867,12 +5869,12 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Set_Value_String` | `app/shared/kv_pair.h:35` | descriptive name of the vtable slot (D57) |
 | 2 | `Is_Changed` | `app/shared/kv_pair.h:36` | descriptive name of the vtable slot (D57) |
 | 2 | `Update_Saved` | `app/shared/kv_pair.h:37` | descriptive name of the vtable slot (D57) |
-| 2 | `KVAccessorClass` | `app/shared/kv_pair.h:46` | after the assert's parameter accessor (kv_pair.cpp); the class name describes it |
-| 2 | `Get` | `app/shared/kv_pair.h:50` | describes what it does |
-| 2 | `Set` | `app/shared/kv_pair.h:51` | describes what it does |
-| 2 | `Clone` | `app/shared/kv_pair.h:52` | describes what it does |
-| 2 | `KVPairTemplateClass` | `app/shared/kv_pair.h:57` | after KVPairClass (D24) and its template role |
-| 2 | `Value` | `app/shared/kv_pair.h:82` | describes what it does |
+| 2 | `KVAccessorClass` | `app/shared/kv_pair.h:50` | after the assert's parameter accessor (kv_pair.cpp); the class name describes it |
+| 2 | `Get` | `app/shared/kv_pair.h:54` | describes what it does |
+| 2 | `Set` | `app/shared/kv_pair.h:55` | describes what it does |
+| 2 | `Clone` | `app/shared/kv_pair.h:56` | describes what it does |
+| 2 | `KVPairTemplateClass` | `app/shared/kv_pair.h:61` | after KVPairClass (D24) and its template role |
+| 2 | `Value` | `app/shared/kv_pair.h:86` | describes what it does |
 | 2 | `StringValueClass` | `app/shared/kv_pair_string.h:25` | describes what it does (D38) |
 | 2 | `Get` | `app/shared/kv_pair_string.h:29` | describes what it does |
 | 2 | `Set` | `app/shared/kv_pair_string.h:30` | describes what it does |
@@ -7072,7 +7074,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `kv_pair.h` | `app/shared/kv_pair.h:18` | header name assumed from the client's kv_pair.cpp |
 | 3 | `KVPairClass` | `app/shared/kv_pair.h:25` | by convention (D24) from the client's file kv_pair.cpp |
 | 3 | `Key` | `app/shared/kv_pair.h:39` | after the assert's parameter key (kv_pair.cpp) |
-| 3 | `Accessor` | `app/shared/kv_pair.h:81` | after the assert's parameter accessor (kv_pair.cpp) |
+| 3 | `Accessor` | `app/shared/kv_pair.h:85` | after the assert's parameter accessor (kv_pair.cpp) |
 | 3 | `kv_pair_string.h` | `app/shared/kv_pair_string.h:18` | header name assumed from the client's kv_pair_string.cpp |
 | 3 | `KVPairStringClass` | `app/shared/kv_pair_string.h:35` | by convention (D24) from the client's file kv_pair_string.cpp |
 | 3 | `Accessor` | `app/shared/kv_pair_string.h:48` | after the assert's parameter accessor (kv_pair_string.cpp) |

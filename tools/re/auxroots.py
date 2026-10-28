@@ -568,7 +568,7 @@ public:
 # 0x7045F0, 0x7014B0, 0x701D70, 0x758210) by one step of a cycle of 64: each matches only in a window of
 # it. The pad's enumerators put the file inside the windows; retune SYMBOL_PAD when a header aux_roots.cpp
 # includes gains or loses declarations (.work/hx1/exp.py sweeps it by compiling aux_roots.cpp alone).
-SYMBOL_PAD = 29
+SYMBOL_PAD = 16
 PAD = '''
 // VC6 symbol pad (not the client's code): the constructors above match only when the count of the
 // declarations this file sees falls in a window of a cycle of 64 (tools/re/auxroots.py SYMBOL_PAD)
