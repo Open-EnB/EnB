@@ -79,7 +79,7 @@ void ClientObjectClass::Unknown_6F3810(RenderObjClass *model)
 	}
 }
 
-// 0x6F2820  // NOT EXACT: relocation (symbols.json names the vtable 0xB006F4 ??_7MultiFixedPoolDecalSystemClass@@6B@, ours ClientObjectClass's), then two schedule residues: the 1.0f load and the five 1 stores (ecx in the client)
+// 0x6F2820
 ClientObjectClass::ClientObjectClass(ClientClass *client, int type, unsigned id) :
 	UnknownB02C90Class(this),
 	MultiFixedPoolDecalSystemClass(3, (const uint32 *)Unknown_B93ACC),
@@ -119,12 +119,12 @@ ClientObjectClass::ClientObjectClass(ClientClass *client, int type, unsigned id)
 	Node.Set(this);
 	UnknownB4 = Unknown_731FA0(this);
 	Unknown134.Unknown_498F00(0, 0, Unknown_6F4590());
-	Unknown104[0] = 1;
-	Unknown104[1] = 1;
-	Unknown104[2] = 1;
-	Unknown104[3] = 1;
-	Unknown104[4] = 1;
-	for (int i = 0; i < 6; i++) {
+	int i;
+	for (i = 0; i < 5; i++) {
+		Unknown104[i] = 1;
+	}
+
+	for (i = 0; i < 6; i++) {
 		Unknown158[i] = NULL;
 	}
 }
@@ -139,7 +139,7 @@ static inline void Release_Sound(AudibleSoundClass *&sound)
 	}
 }
 
-// 0x6F2FE0  // NOT EXACT: relocation (the vtable 0xB006F4, as the constructor), register choice (the client's zero in edi, then ebx) and inline-budget (the client inlines the std::string's _Tidy(true))
+// 0x6F2FE0  // NOT EXACT: register choice (the client's zero in edi, then ebx; its loop count in ebp) and inline-budget (the client inlines the std::string's _Tidy(true))
 ClientObjectClass::~ClientObjectClass()
 {
 	ClientObjectDataClass::Remove_All(this);
