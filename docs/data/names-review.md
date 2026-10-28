@@ -3017,19 +3017,19 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Packet_00BBClass` | `app/packets/pklogoff.h:64` | neutral (D10): opcode 0x00BB |
 | 1 | `pkloothulkpermission` | `app/packets/pkloothulkpermission.h:16` | provisional, pk + its first named class's name |
 | 1 | `Unknown0C` | `app/packets/pkloungenpc.cpp:6` | untagged neutral name (D10) |
-| 1 | `Unknown10` | `app/packets/pkloungenpc.cpp:16` | untagged neutral name (D10) |
+| 1 | `Unknown10` | `app/packets/pkloungenpc.cpp:15` | untagged neutral name (D10) |
+| 1 | `LoungeNPCUnknown10Struct` | `app/packets/pkloungenpc.cpp:17` | untagged neutral name (D10) |
 | 1 | `Unknown00` | `app/packets/pkloungenpc.cpp:18` | untagged neutral name (D10) |
 | 1 | `Unknown04` | `app/packets/pkloungenpc.cpp:19` | untagged neutral name (D10) |
 | 1 | `Unknown08` | `app/packets/pkloungenpc.cpp:20` | untagged neutral name (D10) |
 | 1 | `Unknown20` | `app/packets/pkloungenpc.cpp:25` | untagged neutral name (D10) |
-| 1 | `Unknown30` | `app/packets/pkloungenpc.cpp:33` | untagged neutral name (D10) |
-| 1 | `LoungeNPCUnknown30Struct` | `app/packets/pkloungenpc.cpp:35` | untagged neutral name (D10) |
-| 1 | `Unknown_PacketDataClass` | `app/packets/pkloungenpc.cpp:48` | untagged neutral name (D10) |
-| 1 | `LoungeNPCUnknown10Struct` | `app/packets/pkloungenpc.cpp:102` | untagged neutral name (D10) |
-| 1 | `LoungeNPCUnknown20Struct` | `app/packets/pkloungenpc.cpp:107` | untagged neutral name (D10) |
-| 1 | `Add_Unknown10` | `app/packets/pkloungenpc.cpp:128` | untagged neutral name (D10) |
-| 1 | `Add_Unknown20` | `app/packets/pkloungenpc.cpp:133` | untagged neutral name (D10) |
-| 1 | `Add_Unknown30` | `app/packets/pkloungenpc.cpp:138` | untagged neutral name (D10) |
+| 1 | `LoungeNPCUnknown20Struct` | `app/packets/pkloungenpc.cpp:27` | untagged neutral name (D10) |
+| 1 | `Unknown30` | `app/packets/pkloungenpc.cpp:34` | untagged neutral name (D10) |
+| 1 | `LoungeNPCUnknown30Struct` | `app/packets/pkloungenpc.cpp:36` | untagged neutral name (D10) |
+| 1 | `Unknown_PacketDataClass` | `app/packets/pkloungenpc.cpp:49` | untagged neutral name (D10) |
+| 1 | `Add_Unknown10` | `app/packets/pkloungenpc.cpp:130` | untagged neutral name (D10) |
+| 1 | `Add_Unknown20` | `app/packets/pkloungenpc.cpp:135` | untagged neutral name (D10) |
+| 1 | `Add_Unknown30` | `app/packets/pkloungenpc.cpp:140` | untagged neutral name (D10) |
 | 1 | `pkloungenpc` | `app/packets/pkloungenpc.h:15` | provisional, pk + its first named class's name |
 | 1 | `LoungeNPCUnknown10Struct` | `app/packets/pkloungenpc.h:25` | neutral (D10): what it holds |
 | 1 | `Unknown00` | `app/packets/pkloungenpc.h:27` | neutral (D10) |

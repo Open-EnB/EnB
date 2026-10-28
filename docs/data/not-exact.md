@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-294 entries in 68 files.
+291 entries in 67 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -164,9 +164,6 @@ edit the comments in the code, not this file.
 | `app/packets/pkcreatecharacter.cpp:20` | `CreateCharacterPacketClass::CreateCharacterPacketClass` | marker | NOT EXACT: shape: the client calls AvatarDescClass's assignment out of line (0x85CB00, emitted in this object) and inlines ShipCustDescClass's (shipcust_desc.h declares it out of line, 0x55D8A0) |
 | `app/packets/pkglobalcreatecharacter.cpp:7` | `GlobalCreateCharacterPacketClass::GlobalCreateCharacterPacketClass` | marker | NOT EXACT: shape: the client copies ShipCustDescClass's 0x1A bytes at +0x14 in one loop; ours copies the bool / char union's first byte apart (shipcust_desc.h's layout: P-P8-1, as 0x85C800 and 0x8A0380 / 0x89FD80) |
 | `app/packets/pkglobalerror.cpp:27` | `GlobalErrorPacketClass::GlobalErrorPacketClass` | marker | NOT EXACT: 0x864A10, shape (explain.py: 31 masked rows; the client stores the vtable after the members, 159 against 164 instructions) |
-| `app/packets/pkloungenpc.cpp:10` | `LoungeNPCPacketClass::LoungeNPCPacketClass` | marker | NOT EXACT: inline budget (frame 0x170 against 0x168, one string destructor inlined that the client calls; attempts.csv) |
-| `app/packets/pkloungenpc.cpp:56` | `LoungeNPCPacketClass::Build` | marker | NOT EXACT: shape (the client keeps each list's byte offset in a stack slot; attempts.csv) |
-| `app/packets/pkloungenpc.cpp:151` | `LoungeNPCPacketClass::Add_Unknown30` | mention | NOT EXACT: the raw constructor (inline budget: frame and one string destructor) and Build (shape: the client's per-list offset slot), two rounds each (.work/p6/v82.py; attempts.csv). * The file name is provisional (no assert names it). |
 | `app/packets/pknamedecal.cpp:5` | `DecalPacketClass::DecalPacketClass` | marker | NOT EXACT: 0x8805C0, the inline vector copy's loop addresses each decal from +0x10 in the client (shape, as COLORIZATION's 0x87F320; attempts.py show 0x8805C0) |
 | `app/packets/pknamedecal.cpp:14` | `DecalPacketClass::DecalPacketClass` | marker | NOT EXACT: 0x8807B0, the client inlines push_back's insert (over this object's helpers 0x8810F0- 0x881250), ours calls it (inline-budget; attempts.py show 0x8807B0) |
 | `app/packets/pkrecustomize.cpp:17` | `RecustomizeShipStartPacketClass::RecustomizeShipStartPacketClass` | marker | NOT EXACT: shape: ShipCustDescClass's assignment, as 130's 0x8A0380 (attempts.csv) |

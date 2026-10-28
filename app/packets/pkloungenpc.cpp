@@ -7,7 +7,6 @@ LoungeNPCPacketClass::LoungeNPCPacketClass(int unknown0c) :
 {
 }
 
-// NOT EXACT: inline budget (frame 0x170 against 0x168, one string destructor inlined that the client calls; attempts.csv)
 LoungeNPCPacketClass::LoungeNPCPacketClass(RawPacketClass *raw)
 {
 	int count = 0;
@@ -15,19 +14,21 @@ LoungeNPCPacketClass::LoungeNPCPacketClass(RawPacketClass *raw)
 	raw->Get(&count, sizeof(count));
 	Unknown10.resize(count);
 	for (int i = 0; i < count; i++) {
-		raw->Get(&Unknown10[i].Unknown00, sizeof(Unknown10[i].Unknown00));
-		raw->Get(&Unknown10[i].Unknown04, sizeof(Unknown10[i].Unknown04));
-		raw->Get(&Unknown10[i].Unknown08, sizeof(Unknown10[i].Unknown08));
-		raw->Get(&Unknown10[i].Unknown0C, sizeof(Unknown10[i].Unknown0C));
-		raw->Get(&Unknown10[i].Unknown10, sizeof(Unknown10[i].Unknown10));
+		LoungeNPCUnknown10Struct &entry = Unknown10[i];
+		raw->Get(&entry.Unknown00, sizeof(entry.Unknown00));
+		raw->Get(&entry.Unknown04, sizeof(entry.Unknown04));
+		raw->Get(&entry.Unknown08, sizeof(entry.Unknown08));
+		raw->Get(&entry.Unknown0C, sizeof(entry.Unknown0C));
+		raw->Get(&entry.Unknown10, sizeof(entry.Unknown10));
 	}
 	raw->Get(&count, sizeof(count));
 	Unknown20.resize(count);
 	for (i = 0; i < count; i++) {
-		raw->Get(&Unknown20[i].Unknown00, sizeof(Unknown20[i].Unknown00));
-		raw->Get(&Unknown20[i].Unknown04, sizeof(Unknown20[i].Unknown04));
-		raw->Get(&Unknown20[i].Unknown08, sizeof(Unknown20[i].Unknown08));
-		raw->Get(&Unknown20[i].Unknown0C, sizeof(Unknown20[i].Unknown0C));
+		LoungeNPCUnknown20Struct &entry = Unknown20[i];
+		raw->Get(&entry.Unknown00, sizeof(entry.Unknown00));
+		raw->Get(&entry.Unknown04, sizeof(entry.Unknown04));
+		raw->Get(&entry.Unknown08, sizeof(entry.Unknown08));
+		raw->Get(&entry.Unknown0C, sizeof(entry.Unknown0C));
 	}
 	raw->Get(&count, sizeof(count));
 	Unknown30.resize(count);
@@ -43,7 +44,7 @@ LoungeNPCPacketClass::LoungeNPCPacketClass(RawPacketClass *raw)
 			char text[256];
 			raw->Get(text, entry.Length);
 			text[entry.Length] = 0;
-			entry.Text = text;
+			if (text != NULL) entry.Text = text;	// the client tests the buffer
 		}
 		raw->Get((Unknown_PacketDataClass *)&entry.Desc);
 	}
@@ -53,7 +54,6 @@ LoungeNPCPacketClass::~LoungeNPCPacketClass()
 {
 }
 
-// NOT EXACT: shape (the client keeps each list's byte offset in a stack slot; attempts.csv)
 RawPacketClass *LoungeNPCPacketClass::Build()
 {
 	RawPacketClass *raw = new RawPacketClass(82, Get_Data_Size());
@@ -62,19 +62,21 @@ RawPacketClass *LoungeNPCPacketClass::Build()
 	count = Unknown10.size();
 	raw->Add(&count, sizeof(count));
 	for (int i = 0; i < count; i++) {
-		raw->Add(&Unknown10[i].Unknown00, sizeof(Unknown10[i].Unknown00));
-		raw->Add(&Unknown10[i].Unknown04, sizeof(Unknown10[i].Unknown04));
-		raw->Add(&Unknown10[i].Unknown08, sizeof(Unknown10[i].Unknown08));
-		raw->Add(&Unknown10[i].Unknown0C, sizeof(Unknown10[i].Unknown0C));
-		raw->Add(&Unknown10[i].Unknown10, sizeof(Unknown10[i].Unknown10));
+		LoungeNPCUnknown10Struct &entry = Unknown10[i];
+		raw->Add(&entry.Unknown00, sizeof(entry.Unknown00));
+		raw->Add(&entry.Unknown04, sizeof(entry.Unknown04));
+		raw->Add(&entry.Unknown08, sizeof(entry.Unknown08));
+		raw->Add(&entry.Unknown0C, sizeof(entry.Unknown0C));
+		raw->Add(&entry.Unknown10, sizeof(entry.Unknown10));
 	}
 	count = Unknown20.size();
 	raw->Add(&count, sizeof(count));
 	for (i = 0; i < count; i++) {
-		raw->Add(&Unknown20[i].Unknown00, sizeof(Unknown20[i].Unknown00));
-		raw->Add(&Unknown20[i].Unknown04, sizeof(Unknown20[i].Unknown04));
-		raw->Add(&Unknown20[i].Unknown08, sizeof(Unknown20[i].Unknown08));
-		raw->Add(&Unknown20[i].Unknown0C, sizeof(Unknown20[i].Unknown0C));
+		LoungeNPCUnknown20Struct &entry = Unknown20[i];
+		raw->Add(&entry.Unknown00, sizeof(entry.Unknown00));
+		raw->Add(&entry.Unknown04, sizeof(entry.Unknown04));
+		raw->Add(&entry.Unknown08, sizeof(entry.Unknown08));
+		raw->Add(&entry.Unknown0C, sizeof(entry.Unknown0C));
 	}
 	count = Unknown30.size();
 	raw->Add(&count, sizeof(count));
@@ -148,7 +150,7 @@ void LoungeNPCPacketClass::Add_Unknown30(const LoungeNPCUnknown30Struct &entry)
 **	  0x89A710): LOUNGE_NPC 82, written by hand (builder P6, 2026-10-27): three std::vectors behind 4-byte
 **	  counts, resized to the count and filled by index; the third's entries carry a text with its length
 **	  and an AvatarDescClass through RawPacketClass's Get / Add of its wire interface.
-**	* NOT EXACT: the raw constructor (inline budget: frame and one string destructor) and Build (shape:
-**	  the client's per-list offset slot), two rounds each (.work/p6/v82.py; attempts.csv).
+**	* The raw constructor and Build are exact (builder PK1, 2026-10-28): every list's entries through a
+**	  reference, and the constructor tests the text buffer before the assignment (P6's two near misses).
 **	* The file name is provisional (no assert names it).
 */
