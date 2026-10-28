@@ -427,6 +427,10 @@ unless `--lever` cites a new row of this table.
   with duplicated .rdata values (0.95 several times at 0xAECEF0-0xAECF40) is a named `static const float` (0x50CC10,
   0x50CE00 exact). A hidden output pointer as first argument plus two Vector3s in the frame is a Vector3 returned by
   value (0x50EE60 0.42 -> 1.0); a float copied with `fld` / `fstp` instead of `mov` comes from an inline float getter.
+* **A float member passed by value after a by-value virtual call matches only through a named local**
+  (`float radius = Unknown04; Update(Unknown_24(), radius);`): the client's extra stack slot is that local
+  (2026-10-28, DO1). At a file boundary, check the `__FILE__` the function pushes before trusting asserts.txt's file
+  (px.cpp's 0x44BA70 is filed under dynamic_obj.cpp).
 * **Asserts sit on the client's lines (D25).** To add code above a logged line, remove as many
   blank lines from the same function's stretch (cordmgr.cpp; `.work/milestones/a3/relines.py`);
   pad inside a function, not only before it (Get(char **); pk.cpp's helpers take single blanks).
@@ -749,6 +753,8 @@ unless `--lever` cites a new row of this table.
 
 ### 3.8 Git, docs and scripting hygiene
 
+* **`build.py` lists files with `git ls-files`** (2026-10-28, DO1): in a worktree a new file needs only `git add`
+  before `build.py build --allow-dirty` (LD3's "commit first" is the stricter form).
 * **In a rebase or bring-over conflict, `git show HEAD:file` gives LF endings** (2026-10-28, PK2): read a saved
   working copy instead; `checkout --ours` takes master's generated files, then verify again and re-record your
   attempts rows before `rebase --continue`.
