@@ -577,6 +577,8 @@ unless `--lever` cites a new row of this table.
 
 ### 3.5 Build VMs and vc6.py
 
+* **tryv2 without `--pool` uses `.work/vc6_hosts.json`, which can name a stopped VM** (2026-10-28, LD2): lease
+  one and set `ENB_VC6_HOSTS=Daniel@IP`.
 * **Address VMs by IP** (`ENB_VC6_HOST`/`ENB_VC6_HOSTS`, from `pool.py`); after a restart
   `vc6.py discover`.
 * **vc6.py syncs only `SOURCE_EXT`** (else C1083). `#import`'s `.tlh` holds absolute
@@ -704,6 +706,11 @@ unless `--lever` cites a new row of this table.
 * **LandClass writes the .pld beside the art it reads (2026-10-28, LD1):** VIDTEST and drawcheck run on LandClass
   now; always pass `-art` / `--art` with a copy of EBCONFIG made with `cp -rp` (without -p the .pld's date changes
   and Save_PLD rewrites it). drawcheck without `--art` runs ours on the install folder (P-LD1-2).
+* **Before tuning land lighting, diff the lightmap dumps texel by texel** (2026-10-28, LD2): `run_reference --dump`'s
+  `tex_00900_*.bmp` against ours, read with the .pld's horizons; every shadowed texel lit in the original pointed at
+  the sun input (0x5286A0 is the CRT's acos: SunAngle is the elevation), not at the land code.
+* **capstone shows the CRT's `fpatan` helpers as plain calls** (2026-10-28, LD2): read the callee's body before
+  trusting a doc's asin / acos.
 * **SimpleSceneClass adds at the head and renders from the head:** an object meant to draw after another is
   added before it (2026-10-28, LD1: the trees' shadows were overdrawn by the land).
 * **clienttest stand-ins (2026-10-28, DF1):** Play_3D_Sound beside Play_2D_Sound (else all of soundlib.obj links,
@@ -722,6 +729,8 @@ unless `--lever` cites a new row of this table.
 
 ### 3.8 Git, docs and scripting hygiene
 
+* **`wt.py bring-over` refusing on an imports.json conflict** (2026-10-28, LD2): `git rebase master` in the
+  worktree, take master's imports.json, re-verify, union attempts.csv, run names.py, `git rebase --continue`.
 * **After a bring-over, `git rebase master` in the worktree can conflict on names-review.md:** `git rebase --skip`
   drops the commit that already landed; "master moved while landing": rerun (2026-10-28, EF2).
 * **When master moves every few minutes, `wt.py bring-over` keeps conflicting on imports.json** (2026-10-28, DM1):

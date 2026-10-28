@@ -1372,7 +1372,8 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
   ungated, P-PK1-2) and 45bf5c0 (P-PK1-3's Clone form, now gains-only), +16 pairs, 0 lost; reverting both loses
   the 16. (P-PK1-3's D66 trade is no longer needed.)
 
-* **D101's sbs criterion** (2026-10-28, LD1; recommend accept as met): the means moved 0.4-0.7 points (2.6-2.8 %
+* **D101's sbs criterion** (2026-10-28, LD1; recommend accept as met; since LD2's sun fix the means are 2.03-2.09 %,
+  inside vidland's 1.9-2.4 %, frames 600-900 1.4-2.0 %): the means moved 0.4-0.7 points (2.6-2.8 %
   against vidland's 1.9-2.4 %), within ±1.5 points; frames 600-900 are 2.8-3.0 % against 1.5-2.4 %. LD1 reads
   "within ±1.5 %" as points of difference; the user confirms or asks for the lighting fix first.
 
@@ -1439,9 +1440,13 @@ client's own code: [kernel-map.md](kernel-map.md) §6 and, for step 9's dependen
    through `operator[]`.
 5. Land (M2.4, D46): P-L6-2 and P-L6-1 done 2026-10-28 (LD1: 30431ad, 84a3871, 614854d; VIDTEST on LandClass,
    vidland.* deleted, viddeco.* draws the trees; drawcheck PASS at frame 900, sbs mean 2.6-2.8 % against vidland's
-   1.9-2.4 %, frames 600-900 2.8-3.0 %; LandLodDistances has 8 entries, not 6). Next: the land's lighting difference
-   (Compute_Lighting / Update_Lightmap against vidland), then the zone loader 0x478970-0x479D00 that fills the patch
-   records +0x18C (P-LD1-1: it retires viddeco.*); Load_Assets 0x4691D0 (the pragma keeps the patch ctor / Init
+   1.9-2.4 %, frames 600-900 2.8-3.0 %; LandLodDistances has 8 entries, not 6). LD2 (7a79042, 3457856, 7916522,
+   06166a9: app +25): the lighting difference was VIDTEST's sun input (acos, the lightmap now the original's), P-LD1-1
+   done (Create_Decorations 0x479D00 / Build_Decorations 0x47A2F0 fill the patch records, viddeco.* deleted,
+   drawcheck f900 every group the original's, sbs mean 2.03-2.09 %); NOT EXACT Save_Decorations 0x479A50 frame,
+   0x479D00 / 0x47C580 / 0x47C6A0 shape, 0x478B50 budget, Build 0x47A2F0 parked shape; the global byte 0xBFAE52 set
+   during the prototype load is unknown. Next: D119's work item (Land_Set_Ref back to the client's `Create_*`), D120
+   (the `--art build/art` default), the mainview zone loader 0x5137F0, the ini writer 0x4791D0; Load_Assets 0x4691D0 (the pragma keeps the patch ctor / Init
    out of line, frame left), Update_Patches 0x46B3C0 (frame, PatchSize's unsigned conversion), Get_Triangles
    0x465D30 (Fable-eligible); the
    parked rows (Compute_Lighting order-only, Update_Patches / Compute_Horizons shape, the scanners' frame,
