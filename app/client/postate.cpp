@@ -37,12 +37,12 @@ public:
 	Unknown713520Class(PlanetPositionalUpdatePacketClass *packet, ClientClass *client);	// 0x713520  // NAME 1 [packet, client]: what the state passes
 	char Unknown04[0x34 - 0x04];
 };
-
-
-
-
-
-
+class Unknown713C80Class : public ExtrapClass	// NAME 1: neutral (D10)
+{
+public:
+	Unknown713C80Class(ComponentPositionalUpdatePacketClass *packet, ClientClass *client);	// 0x713C80  // NAME 1 [packet, client]: what the state passes
+	char Unknown04[0x14 - 0x04];
+};
 
 
 
@@ -206,6 +206,22 @@ void Unknown715CF0Class::Unknown_715E60(PlanetPositionalUpdatePacketClass *packe
 {
 	delete Extrap;
 	Extrap = new Unknown713520Class(packet, Client);
+}
+
+Unknown717EF0Class::Unknown717EF0Class(ComponentPositionalUpdatePacketClass *packet, ClientClass *client)
+{
+	Extrap = new Unknown713C80Class(packet, client);
+	TractorID = packet->TractorID;
+	TractorEffectID = packet->TractorEffectID;
+}
+
+void Unknown717EF0Class::Unknown_718080(ComponentPositionalUpdatePacketClass *packet, ClientClass *client)
+{
+	unsigned int start = packet->TimeStamp;
+	unsigned int end = start + 250;
+	Extrap = new Unknown7125F0Class(Extrap, new Unknown713C80Class(packet, client), start, end);
+	TractorID = packet->TractorID;
+	TractorEffectID = packet->TractorEffectID;
 }
 
 /*

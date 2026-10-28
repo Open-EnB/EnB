@@ -6681,7 +6681,9 @@
      "0x715AB0",
      "0x715C20",
      "0x715CF0",
-     "0x715E60"
+     "0x715E60",
+     "0x717EF0",
+     "0x718080"
     ],
     "merged": [],
     "name": "client/postate.cpp"

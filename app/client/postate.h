@@ -26,6 +26,7 @@ class ClientClass;
 class ConstantPositionalUpdatePacketClass;
 class SimplePositionalUpdatePacketClass;
 class PlanetPositionalUpdatePacketClass;
+class ComponentPositionalUpdatePacketClass;
 class ExtrapClass;
 
 #ifndef __CO_H
@@ -120,6 +121,19 @@ public:
 	virtual int Unknown_04() { return(5); }		// +0x04 0x715D90
 
 	ClientClass *Client;						// +0x08  // NAME 2: what the handler passes
+};
+
+// Type 11, COMPONENT_POSITIONAL_UPDATE 70's state (vtable 0xB028F0, 0x10 bytes)
+class Unknown717EF0Class : public UnknownB027A0Class	// NAME 1: neutral (D10)
+{
+public:
+	Unknown717EF0Class(ComponentPositionalUpdatePacketClass *packet, ClientClass *client);	// 0x717EF0  // NAME 1 [packet, client]: what the handler passes
+	void Unknown_718080(ComponentPositionalUpdatePacketClass *packet, ClientClass *client);	// 0x718080  // NAME 1 [packet, client]: what the handler passes
+
+	virtual int Unknown_04() { return(11); }	// +0x04 0x717FB0
+
+	int TractorID;								// +0x08 (the packet's)  // NAME 2: the packet's TractorID
+	int TractorEffectID;						// +0x0C (the packet's)  // NAME 2: the packet's TractorEffectID
 };
 
 #endif
