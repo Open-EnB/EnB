@@ -22,6 +22,12 @@ from a proof other than an exact match (a vtable slot, a string) is credited, `e
 `tiebreak` and `selfname` set. It runs only once D80 resolves nothing more, so D80 always decides
 first, and its credits feed D80's next round like any exact function.
 
+What neither resolves gets the object's client range (D100, P-P6-1): of the survivors, the one
+address inside the object's own range (first..last address of its exact functions that are its
+alone: not COMDAT copies of inline, template or compiler-generated functions, which the linker
+may place with another object) is credited, `exact` with `tiebreak` and `range` set. It runs only
+when D80 and the self name resolve nothing more; its credits feed D80's next round.
+
     python objmatch.py [--client PATH] [--json OUT] file.obj...
 """
 import argparse
@@ -68,6 +74,10 @@ class CoffObject:
             else:
                 name = raw.rstrip(b'\0')
             value, secnum, typ, cls, naux = struct.unpack_from('<IhHBB', d, o + 8)
+            if cls == 3 and naux and secnum > 0 and value == 0 and typ == 0 \
+                    and name.decode('latin1') == self.sections[secnum - 1]['name']:
+                # a section definition: its aux record holds the COMDAT selection (D100)
+                self.sections[secnum - 1]['select'] = d[o + 18 + 14]
             self.symbols.append({'name': name.decode('latin1'), 'value': value, 'section': secnum,
                                  'type': typ, 'class': cls, 'index': i})
             i += 1 + naux
@@ -88,6 +98,13 @@ class CoffObject:
                 end = syms[k + 1]['value'] if k + 1 < len(syms) else info['size']
                 out.append((s['name'], sec, s['value'], end))
         return out
+
+    def own(self, sec):
+        """True if the code section holds a function of this translation unit alone (not a COMDAT,
+        or a COMDAT with selection NODUPLICATES): not an inline, template or compiler-generated
+        copy that the linker may take from another object."""
+        info = self.sections[sec]
+        return not info['flags'] & 0x1000 or info.get('select') == 1
 
     def pattern(self, sec, start, end):
         """(regex bytes, fixed byte count, length) for a function, relocations as wildcards."""
@@ -422,23 +439,39 @@ def match_objects(img, paths, region=None):
     # D88: when D80 resolves nothing more, the self name breaks a tie: the one survivor that
     # symbols.json names with the function's own symbol (from a vtable slot or a string, not an
     # exact match); its credits may let D80 resolve more, so the loop goes on
-    selfname = False
+    # D100: when the self name resolves nothing more either, the range breaks a tie: the one survivor
+    # inside the object's client range (first..last address of its own exact functions, not COMDAT
+    # copies the linker may take from another object); then back to D80
+    phase = 'd80'
     changed = True
     while changed:
         changed = False
         proposals = []
+        selfname = phase == 'selfname'
+        ranges = {}
+        if phase == 'range':
+            for r, obj, sec, s, length in results:
+                if r['status'] == 'exact' and obj.own(sec):
+                    a = int(r['addresses'][0], 16)
+                    lo, hi = ranges.get(id(obj), (a, a))
+                    ranges[id(obj)] = (min(lo, a), max(hi, a))
         for item in pending:
             r, obj, sec, s, length, hits = item
             if id(r) in done:
                 continue
             survivors, confirmed = break_tie(obj, sec, s, length, text, start, hits, img, known)
-            if not selfname:
+            if phase == 'd80':
                 if len(survivors) == 1 and confirmed:
                     proposals.append((item, survivors[0]))
-            else:
+            elif phase == 'selfname':
                 own = [h for h in survivors if h in self_names().get(r['symbol'], ())]
                 if len(own) == 1:
                     proposals.append((item, own[0]))
+            elif id(obj) in ranges:
+                lo, hi = ranges[id(obj)]
+                inside = [h for h in survivors if lo <= h <= hi]
+                if len(inside) == 1:
+                    proposals.append((item, inside[0]))
         by_addr = collections.defaultdict(set)
         for (r, *_), a in proposals:
             by_addr[a].add(r['symbol'])
@@ -451,15 +484,20 @@ def match_objects(img, paths, region=None):
             r['tiebreak'] = True
             if selfname:
                 r['selfname'] = True
+            if phase == 'range':
+                r['range'] = True
             r.pop('count'), r.pop('identical')
             claimed[a].add(r['symbol'])
             learn(r, obj, sec, s, length, a)
             done.add(id(r))
             changed = True
-        if selfname:
-            selfname = False    # back to D80 after a self-name round
-        elif not changed:
-            selfname = changed = True   # D80 is done: one self-name round
+        if phase == 'd80':
+            if not changed:
+                phase, changed = 'selfname', True   # D80 is done: one self-name round
+        elif changed:
+            phase = 'd80'                           # back to D80 after a round that credited
+        elif phase == 'selfname':
+            phase, changed = 'range', True          # neither D80 nor the self name: one range round
     return [x[0] for x in results]
 
 
