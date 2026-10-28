@@ -1460,7 +1460,15 @@ client's own code: [kernel-map.md](kernel-map.md) §6 and, for step 9's dependen
    17a366f, 029e4f9, fa4255e NOT EXACT frame, 3551b97 mainview.cpp new with 0x5137F0 exact, 2530d1f wind 0x513B90
    exact; the stars' 0x513700 is exact in `docs/attempts/513700/` and lands once clienttest's fake main view has
    StarField / OrbitalManager stand-ins (P-LD3-1); Build's RefCountPtr form parked: the client calls
-   insert(it, n, x) 0x47D690 out of line); then the rest of mainview.cpp (97 functions); Load_Assets 0x4691D0 (the pragma keeps the patch ctor / Init
+   insert(it, n, x) 0x47D690 out of line); mainview.cpp (MV1: ea1f012, bd26d4b, 275d5a2, a7ba945:
+   +32, MainViewClass typed +0x48..+0x1E8, Add_Object / Remove_Object, the render path; NOT EXACT ctor 0x50B360 order,
+   0x50D060 register, the three Render_*_Mode; left ~55: Update 0x50F1B0, targeting 0x512400, picking +0x60 0x512BB0,
+   overlays 0x50D520, profile text 0x510440, sea 0x510D40; Init 0x50BA60 is exact-but-registers in
+   `docs/attempts/50BA60` and needs a hand stand-in for MainViewUnknown84Class's ctor in client_stubs.cpp (P-MV1-1,
+   with P-LD3-1's StarField / OrbitalManager); 0x5146D0 needs E&B's WW3D::Set_Gamma 0x919090 declared in ww3d.h as an
+   importer patch (P-MV1-2); Shutdown 0x50C2F0 / slot +0x08 need UIGroupClass moved from cpacket.cpp to a header;
+   the Doppler flag 0xC404F8 lives in mainview.cpp until its file is known (P-MV1-3); clienttest-driven
+   0x512A00, 0x513540, 0x513600, 0x513CD0, 0x513D20, 0x514010 wait for clienttest's main view stand-ins); Load_Assets 0x4691D0 (the pragma keeps the patch ctor / Init
    out of line, frame left), Update_Patches 0x46B3C0 (frame, PatchSize's unsigned conversion), Get_Triangles
    0x465D30 (Fable-eligible); the
    parked rows (Compute_Lighting order-only, Update_Patches / Compute_Horizons shape, the scanners' frame,
