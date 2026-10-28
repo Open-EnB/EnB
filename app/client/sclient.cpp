@@ -112,7 +112,7 @@ public:
 // The interface objects Init creates (each file's constructor before its first assert; kernel-map-step9.md
 // 9f's interface base not rebuilt). The reference-counted ones keep their count in a second base at +0x38
 // (RefCountPtr's release reads +0x3C and calls +0x38's slot 0; Shutdown releases the raw pointers so)
-// (SClientUnknownWindowClass, their first base, is in sclient.h with pdaint.cpp's PDAInterfaceClass: the main view reads the PDA)
+// (UIUnknownBaseClass, their first base, is in sclient.h with pdaint.cpp's PDAInterfaceClass: the main view reads the PDA)
 
 
 
@@ -161,7 +161,7 @@ public:
 	bool Unknown7C;										// +0x7C (tested before every call)
 };
 
-class UIChatPanelClass : public SClientUnknownWindowClass, public RefCountClass
+class UIChatPanelClass : public UIUnknownBaseClass, public RefCountClass
 {
 public:
 	UIChatPanelClass(SClient *client);					// 0x561DD0
@@ -175,7 +175,7 @@ public:
 	char Unknown13C[0x268 - 0x13C];
 };
 
-class UILineDisplayClass : public SClientUnknownWindowClass, public RefCountClass
+class UILineDisplayClass : public UIUnknownBaseClass, public RefCountClass
 {
 public:
 	UILineDisplayClass(SClient *client);				// 0x5A5410
@@ -191,7 +191,7 @@ public:
 
 
 
-class UIHotKeysClass : public SClientUnknownWindowClass, public RefCountClass
+class UIHotKeysClass : public UIUnknownBaseClass, public RefCountClass
 {
 public:
 	UIHotKeysClass(SClient *client);					// 0x59C6F0
@@ -199,7 +199,7 @@ public:
 	char Unknown40[0x84 - 0x40];
 };
 
-class UITalkTreeSpaceClass : public SClientUnknownWindowClass, public RefCountClass
+class UITalkTreeSpaceClass : public UIUnknownBaseClass, public RefCountClass
 {
 public:
 	UITalkTreeSpaceClass(SClient *client);				// 0x64F310

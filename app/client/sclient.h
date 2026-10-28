@@ -92,10 +92,43 @@ public:
 
 // the interface objects' first base (0x38 bytes, its table at +0x00); a RefCountClass follows it at +0x38 in each
 // (the main view's Shutdown 0x50C2F0 releases them through it: dec [p+0x3C], then [[p+0x38]]'s slot 0)
-class UIUnknownBaseClass	// NAME 1: neutral (D10)
+class ViewClass;
+class UIUnknownBaseClass	// NAME 1: neutral (D10): the interface base of kernel-map-step9.md 9f (sclient.cpp's interface objects, the PDA, the main view's)
 {
 public:
-	virtual void Unknown_00();
+	virtual ~UIUnknownBaseClass();
+	virtual void Unknown_04();
+	virtual void Unknown_08();
+	virtual void Unknown_0C();
+	virtual void Unknown_10();
+	virtual void Unknown_14();
+	virtual void Unknown_18();
+	virtual void Unknown_1C();
+	virtual void Unknown_20();
+	virtual void Unknown_24();
+	virtual void Unknown_28();
+	virtual void Unknown_2C();
+	virtual void Unknown_30();
+	virtual void Unknown_34();
+	virtual void Unknown_38();
+	virtual void Unknown_3C();
+	virtual void Unknown_40();
+	virtual void Unknown_44();
+	virtual void Unknown_48();
+	virtual void Unknown_4C();
+	virtual void Unknown_50();
+	virtual void Unknown_54();							// +0x54 Init calls it after construction
+	virtual void Unknown_58();
+	virtual void Unknown_5C();
+	virtual void Unknown_60();
+	virtual void Unknown_64();
+	virtual void Unknown_68();
+	virtual void Unknown_6C();
+	virtual void Unknown_70();
+	virtual void Unknown_74();
+	virtual void Unknown_78();
+	virtual void Unknown_7C(ViewClass *view, int arg);	// +0x7C Init: the talk tree gets the main view and 0
+
 	char Unknown04[0x38 - 0x04];						// +0x04
 };
 
@@ -105,7 +138,7 @@ class ViewUnknown34Class : public UIUnknownBaseClass, public RefCountClass	// NA
 public:
 	void Unknown_588A70(const char *type, int unknown1, const char *text, int flags, int unknown2, int unknown3);	// 0x588A70 (102 callers; GROUP 30, DIALOG 98: "GROUP_INVITE", "OK", "YES_NO", "OK_CANCEL", "server_message")  // NAME 1 [type, unknown1, text, flags, unknown2, unknown3]: neutral, the handlers' arguments
 	int Unknown_5890B0(const char *button);				// 0x5890B0 (SClient::Do_Frame passes NULL after 'Lost connection to server.'; tsk_login.h: the button pressed)  // NAME 2 [button]: tsk_login.h's
-	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
+	virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
 	virtual void Unknown_10(); virtual void Unknown_14(); virtual void Unknown_18(); virtual void Unknown_1C();
 	virtual void Unknown_20(); virtual void Unknown_24(); virtual void Unknown_28(); virtual void Unknown_2C();
 	virtual void Unknown_30(); virtual void Unknown_34(); virtual void Unknown_38(); virtual void Unknown_3C();
@@ -172,47 +205,6 @@ public:
 	char Unknown00[0x50];
 };
 
-// The interface objects' first base (0x38 bytes; sclient.cpp's interface objects, the PDA; the same shape as
-// UIUnknownBaseClass above, not yet merged)
-class SClientUnknownWindowClass	// NAME 1: neutral (D10): their first base (0x38 bytes, the interface base of kernel-map-step9.md 9f)
-{
-public:
-	virtual ~SClientUnknownWindowClass();
-	virtual void Unknown_04();
-	virtual void Unknown_08();
-	virtual void Unknown_0C();
-	virtual void Unknown_10();
-	virtual void Unknown_14();
-	virtual void Unknown_18();
-	virtual void Unknown_1C();
-	virtual void Unknown_20();
-	virtual void Unknown_24();
-	virtual void Unknown_28();
-	virtual void Unknown_2C();
-	virtual void Unknown_30();
-	virtual void Unknown_34();
-	virtual void Unknown_38();
-	virtual void Unknown_3C();
-	virtual void Unknown_40();
-	virtual void Unknown_44();
-	virtual void Unknown_48();
-	virtual void Unknown_4C();
-	virtual void Unknown_50();
-	virtual void Unknown_54();							// +0x54 Init calls it after construction
-	virtual void Unknown_58();
-	virtual void Unknown_5C();
-	virtual void Unknown_60();
-	virtual void Unknown_64();
-	virtual void Unknown_68();
-	virtual void Unknown_6C();
-	virtual void Unknown_70();
-	virtual void Unknown_74();
-	virtual void Unknown_78();
-	virtual void Unknown_7C(ViewClass *view, int arg);	// +0x7C Init: the talk tree gets the main view and 0
-
-	char Unknown04[0x38 - 0x04];
-};
-
 // what the PDA's +0xA8 points to, as far as the main view's 0x512A00 calls it
 class PDAInterfaceUnknownA8Class	// NAME 1: neutral (D10)
 {
@@ -221,7 +213,7 @@ public:
 };
 
 // pdaint.cpp's PDA (SClient +0x1284; Init news it, 0xC0 bytes), as far as SClient and the main view's 0x512A00 use it
-class PDAInterfaceClass : public SClientUnknownWindowClass, public RefCountClass
+class PDAInterfaceClass : public UIUnknownBaseClass, public RefCountClass
 {
 public:
 	PDAInterfaceClass(SClient *client);					// 0x693140
@@ -251,7 +243,7 @@ public:
 	void Unknown_584A60();								// 0x584A60 (SClient 0x745160)
 	void Unknown_583DC0(Unknown6D47C0Class *text, Unknown6D47C0Class *header, int inflicted, bool emp);	// 0x583DC0 (cpacket.cpp: CLIENT_DAMAGE 100 for the player's own damage)  // NAME 1 [text, header, inflicted, emp]: what the handler passes
 
-	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
+	virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
 	virtual void Unknown_10(); virtual void Unknown_14(); virtual void Unknown_18(); virtual void Unknown_1C();
 	virtual void Unknown_20(); virtual void Unknown_24(); virtual void Unknown_28(); virtual void Unknown_2C();
 	virtual void Unknown_30(); virtual void Unknown_34(); virtual void Unknown_38(); virtual void Unknown_3C();
@@ -345,7 +337,7 @@ public:
 	MainViewUnknown1E4Class(SClient *client);			// 0x5E1BE0 (0xE8 bytes)  // NAME 1 [client]: what 0x50C690 passes
 	virtual void Unknown_60(); virtual void Unknown_64(); virtual void Unknown_68(); virtual void Unknown_6C();
 	virtual void Unknown_70(); virtual void Unknown_74(); virtual void Unknown_78();
-	virtual void Unknown_7C(MainViewClass *view, int arg);	// +0x7C (0x50C690: the view, 0)  // NAME 1 [view, arg]: what 0x50C690 passes
+	virtual void Unknown_7C(ViewClass *view, int arg);	// +0x7C (0x50C690: the view, 0)  // NAME 1 [view, arg]: what 0x50C690 passes
 	char Unknown40[0xE8 - 0x40];						// +0x40
 };
 
@@ -354,7 +346,7 @@ class MainViewUnknown53E970Class : public UIUnknownBaseClass, public RefCountCla
 {
 public:
 	MainViewUnknown53E970Class(MainViewClass *view, SimpleSceneClass *scene);	// 0x53E970  // NAME 1 [view, scene]: what 0x50C690 passes
-	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
+	virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
 	virtual void Unknown_10(); virtual void Unknown_14(); virtual void Unknown_18(); virtual void Unknown_1C();
 	virtual void Unknown_20(); virtual void Unknown_24(); virtual void Unknown_28(); virtual void Unknown_2C();
 	virtual void Unknown_30(); virtual void Unknown_34(); virtual void Unknown_38(); virtual void Unknown_3C();
@@ -374,14 +366,14 @@ class MainViewUnknown1E0Class : public UIUnknownBaseClass, public RefCountClass	
 class MainViewUnknown1DCClass : public UIUnknownBaseClass, public RefCountClass	// NAME 1: neutral (D10)
 {
 public:
-	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
+	virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
 	virtual void Unknown_10(); virtual void Unknown_14(); virtual void Unknown_18(); virtual void Unknown_1C();
 	virtual void Unknown_20(); virtual void Unknown_24(); virtual void Unknown_28(); virtual void Unknown_2C();
 	virtual void Unknown_30(); virtual void Unknown_34(); virtual void Unknown_38(); virtual void Unknown_3C();
 	virtual void Unknown_40(); virtual void Unknown_44(); virtual void Unknown_48(); virtual void Unknown_4C();
 	virtual void Unknown_50(); virtual void Unknown_54(); virtual void Unknown_58(); virtual void Unknown_5C();
 	virtual void Unknown_60(); virtual void Unknown_64(); virtual void Unknown_68(); virtual void Unknown_6C();
-	virtual void Unknown_70(); virtual void Unknown_74(); virtual void Unknown_78(); virtual void Unknown_7C();
+	virtual void Unknown_70(); virtual void Unknown_74(); virtual void Unknown_78();
 	virtual void Unknown_80(); virtual void Unknown_84();
 	virtual void Unknown_88(RenderObjClass *model);	// +0x88 (0x513540: the backdrop model)  // NAME 2 [model]: what 0x513540 passes
 	virtual void Unknown_8C(int arg);					// +0x8C (0x513600)  // NAME 1 [arg]: neutral
@@ -411,7 +403,7 @@ public:
 	void Unknown_53E3C0();								// 0x53E3C0
 	void Unknown_53E3F0(int arg);						// 0x53E3F0  // NAME 1 [arg]: neutral
 
-	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
+	virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
 	virtual void Unknown_10(); virtual void Unknown_14(); virtual void Unknown_18(); virtual void Unknown_1C();
 	virtual void Unknown_20(); virtual void Unknown_24(); virtual void Unknown_28(); virtual void Unknown_2C();
 	virtual void Unknown_30(); virtual void Unknown_34(); virtual void Unknown_38(); virtual void Unknown_3C();
