@@ -284,7 +284,18 @@ public:
 	void Unknown_53E3C0();								// 0x53E3C0
 	void Unknown_53E3F0(int arg);						// 0x53E3F0  // NAME 1 [arg]: neutral
 
-	char Unknown00[0x9C];								// +0x00
+	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
+	virtual void Unknown_10(); virtual void Unknown_14(); virtual void Unknown_18(); virtual void Unknown_1C();
+	virtual void Unknown_20(); virtual void Unknown_24(); virtual void Unknown_28(); virtual void Unknown_2C();
+	virtual void Unknown_30(); virtual void Unknown_34(); virtual void Unknown_38(); virtual void Unknown_3C();
+	virtual void Unknown_40(); virtual void Unknown_44(); virtual void Unknown_48(); virtual void Unknown_4C();
+	virtual void Unknown_50(); virtual void Unknown_54();
+	virtual void Unknown_58();							// +0x58 (the main view's 0x514010: on)
+	virtual void Unknown_5C();							// +0x5C (0x514010: off)
+
+	char Unknown04[0x7C - 0x04];						// +0x04
+	bool Unknown7C;										// +0x7C (0x514010: set while it runs)
+	char Unknown7D[0x9C - 0x7D];						// +0x7D
 	int Unknown9C;										// +0x9C (the main view's 0x513D00 returns it)
 };
 
@@ -363,7 +374,7 @@ public:
 	void Unknown_513F80(int arg);						// 0x513F80 (empty)  // NAME 1 [arg]: neutral
 	void Unknown_513FA0();								// 0x513FA0 (empty)
 	void Unknown_513FC0();								// 0x513FC0 (cpacket.cpp: SERVER_HANDOFF 58: the land out of the scene)
-	void Unknown_514010(int old_mode, int mode);		// 0x514010 (SClient 0x745F30: the view mode before and after)  // NAME 1 [old_mode, mode]: what it gets
+	void Unknown_514010(int oldmode, int newmode);		// 0x514010 (SClient 0x745F30: the view mode before and after)  // NAME 3 [newmode]: its G_ASSERT's  // NAME 2 [oldmode]: newmode's counterpart
 	void Unknown_512B10(int x, int y, float *fx, float *fy);	// 0x512B10 (a screen point clamped to the device and divided by its size; inlined in 0x512BB0)  // NAME 1 [x, y, fx, fy]: neutral
 	void Unknown_514480();								// 0x514480 (the Graphics_* options into +0x50..+0x64, the flags +0x68 / +0x69; Doppler_Enabled)
 	void Unknown_5146D0();								// 0x5146D0 (Gamma and the budgets from the options or the defaults; WW3D::Set_Gamma, Set_Texture_Reduction)
@@ -372,6 +383,7 @@ public:
 
 	char Unknown38[0x48 - 0x38];						// +0x38
 	MainViewUnknown48Class *Unknown48;					// +0x48 (the base clears it; the constructor makes it)
+	SClient *Get_Client() { return(Client); }			// (inline: 0x514010's G_ASSERT 'Get_Client()->Get_Mode() == newmode')  // NAME 3: the assert's
 	SClient *Client;									// +0x4C view.cpp's 0x65B810 copies the task's Client (+0x78); 0x5137F0 asks its slot +0x18 for the SClient  // NAME 2: what it holds
 	bool GraphicsDefault;							// +0x50 (0x514480: the option 'Graphics_Default')  // NAME 2: its option's
 	float GraphicsGamma;								// +0x54 ('Graphics_Gamma', percent)  // NAME 2: its option's
@@ -573,6 +585,7 @@ public:
 	void Unknown_744C10();								// 0x744C10 (Init, after the camera mode)
 	void Unknown_744E50();								// 0x744E50: the camera manager's callback (Init registers it, Shutdown removes it)
 	void Unknown_7518A0();								// 0x7518A0 (Init)
+	void Unknown_7511A0();								// 0x7511A0 (the main view's 0x514010, on every view-mode change)
 	void Unknown_7555B0();								// 0x7555B0 (Shutdown)
 	void Unknown_743290();								// 0x743290 (cpacket.cpp: LOGOFF_CONFIRMATION 186)
 	void Unknown_74D950();								// 0x74D950 (CHANGE_BASE_ASSET 38, after 0x744B60, for the objects 0x6F5A40 picks)
@@ -666,6 +679,7 @@ public:
 	Movie3DViewClass *Movie3DView;						// +0x1360 view mode 3 (the client's G_ASSERT names, ll.4090 / 4104)
 	ScriptedMovieViewClass *ScriptedMovieView;			// +0x1364 view mode 6 (the client's G_ASSERT names, ll.4117 / 4127)
 	LoadingViewClass *LoadingView;						// +0x1368 Init  // NAME 3: its file's
+	int Get_Mode() { return(ViewMode); }				// (inline: the main view's 0x514010 G_ASSERT 'Get_Client()->Get_Mode() == newmode')  // NAME 3: the assert's
 	int ViewMode;										// +0x136C (2; 3: the 3-D movie view, 6: the scripted movie view)  // NAME 2: what Do_Frame's asserts show
 	int Unknown1370;									// +0x1370 (3)
 	int Unknown1374;									// +0x1374 (3)

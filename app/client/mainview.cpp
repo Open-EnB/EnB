@@ -2143,44 +2143,44 @@ void MainViewClass::Unknown_513FC0()
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// 0x514010: the view mode changed (SClient 0x745F30): between the space modes 0, 1 and 5 the +0x10C scene is emptied
+// (+0x138 paused around it when its +0x7C is set); then each mode's off and on (cockpit, +0x138, mode 1's camera and land)
+// NOT EXACT: shape (the second switch's case 0 / 5 block sits after the dispatch in the client); attempts.csv 0x514010
+void MainViewClass::Unknown_514010(int oldmode, int newmode)
+{
+	if ((oldmode == 5 || oldmode == 0 || oldmode == 1) && (newmode == 5 || newmode == 0 || newmode == 1)) {
+		bool on = Unknown138->Unknown7C;
+		if (on) Unknown138->Unknown_5C();
+		Scene->Remove_All_Render_Objects();
+		if (on) Unknown138->Unknown_58();
+	}
+	Client->Unknown_7511A0();
+	if (oldmode == newmode) return;
+	G_ASSERT(Get_Client()->Get_Mode() == newmode);
+	switch (oldmode) {
+		case 0:
+		case 5:
+			Cpit->Unknown_5C();
+			Unknown138->Unknown_5C();
+			break;
+		case 1:
+			Cpit->Unknown_5C();
+			Camera->Set_Depth_Range(0.0f, 1.0f);
+			break;
+	}
+	switch (newmode) {
+		case 0:
+		case 5:
+			Cpit->Unknown_58();
+			Unknown138->Unknown_58();
+			break;
+		case 1:
+			Cpit->Unknown_58();
+			Unknown138->Unknown_5C();
+			if (Land) Scene->Add_Render_Object(Land);
+			break;
+	}
+}
 
 
 
@@ -2373,6 +2373,6 @@ void MainViewClass::Unknown_18(int arg)
 **	the base's own table is 0xAF9854, 0x65B810's). Add_Object 0x514270 / Remove_Object 0x514390: the model's
 **	Set_User_Data, Add to the scene slot +0x64 returns (the +0x10C scene) unless the object's 0x6F5D90 says
 **	otherwise, an identity transform; Remove only in the same case. The constructor is not exact (scheduling)
-**	(attempts.csv 0x50B360). Not rebuilt yet because clienttest drives their stand-ins: 0x512A00,
-**	0x514010 (expected.txt 'gen MainViewClass::').
+**	(attempts.csv 0x50B360). Not rebuilt yet because clienttest drives its stand-in: 0x512A00
+**	(expected.txt 'gen MainViewClass::').
 */

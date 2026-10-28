@@ -120,6 +120,15 @@ static void *View1DC_Table[64];
 static FakeTableStruct Fake_View1DC = { View1DC_Table };
 static void __stdcall View1DC_88_Slot(RenderObjClass *model) { Trace("mainview 1DC's +0x88 %s", model ? "a model" : "NULL"); }	// 0x513540: the backdrop model
 static void __stdcall View1DC_8C_Slot(int arg) { Trace("mainview 1DC's +0x8C %d", arg); }	// 0x513600
+static void *View138_Table[32];
+static void *Cpit_Table[64];
+static void View138_58_Slot() { Trace("mainview 138's +0x58 (on)"); }	// 0x514010
+static void View138_5C_Slot() { Trace("mainview 138's +0x5C (off)"); }
+static void Cpit_58_Slot() { Trace("cockpit +0x58 (on)"); }	// 0x514010 (UICpitClass)
+static void Cpit_5C_Slot() { Trace("cockpit +0x5C (off)"); }
+static void *Scene10C_Table[32];
+static void __stdcall Scene10C_Add_Slot(RenderObjClass *obj) { Trace("mainview scene Add_Render_Object"); }	// slot 3
+static void Scene10C_Remove_All_Slot() { Trace("mainview scene Remove_All_Render_Objects"); }	// slot 24 (0x514010)
 class FakeMainViewClass
 {
 public:
@@ -995,6 +1004,19 @@ int main(int argc, char **argv)
 	}
 	View1DC_Table[0x88 / 4] = (void *)View1DC_88_Slot;
 	View1DC_Table[0x8C / 4] = (void *)View1DC_8C_Slot;
+	for (int c = 0; c < 64; c++) {
+		Cpit_Table[c] = (void *)Zero_Slot;
+		if (c < 32) View138_Table[c] = (void *)Zero_Slot;
+	}
+	for (int t = 0; t < 32; t++) {
+		Scene10C_Table[t] = (void *)Zero_Slot;
+	}
+	Scene10C_Table[3] = (void *)Scene10C_Add_Slot;
+	Scene10C_Table[24] = (void *)Scene10C_Remove_All_Slot;
+	View138_Table[0x58 / 4] = (void *)View138_58_Slot;
+	View138_Table[0x5C / 4] = (void *)View138_5C_Slot;
+	Cpit_Table[0x58 / 4] = (void *)Cpit_58_Slot;
+	Cpit_Table[0x5C / 4] = (void *)Cpit_5C_Slot;
 	Fake_Model.Table = Zero_Table;
 	Track_Model.Table = Track_Table;
 	for (int a = 0; a < 256; a++) {
@@ -1018,6 +1040,15 @@ int main(int argc, char **argv)
 	*(OrbitalManager **)&main_view.Unknown04[0x140 - 0x04] = (OrbitalManager *)fake_orbitals;
 	// 0x513540 / 0x513600 (SClient 0x745000, 0x7456B0) call the +0x1DC object's slots +0x88 / +0x8C
 	*(FakeTableStruct **)&main_view.Unknown04[0x1DC - 0x04] = &Fake_View1DC;
+	// 0x514010 (SClient 0x745F30, CLIENT_TYPE 60) turns the cockpit (+0x1D0, zeroed: no scanner) and the +0x138
+	// object (+0x7C false) off and on
+	static void **fake_cpit[0x100 / 4] = { Cpit_Table };
+	static void **fake_138[0xA0 / 4] = { View138_Table };
+	*(void ***)&main_view.Unknown04[0x1D0 - 0x04] = (void **)fake_cpit;
+	*(void ***)&main_view.Unknown04[0x138 - 0x04] = (void **)fake_138;
+	static void **fake_scene[0x100 / 4] = { Scene10C_Table };	// the +0x10C scene (0x514010)
+	*(void ***)&main_view.Unknown04[0x10C - 0x04] = (void **)fake_scene;
+	*(SClient **)&main_view.Unknown04[0x4C - 0x04] = client;	// +0x4C, the view's client (0x514010's G_ASSERT reads its mode)
 	static char fake_line_display[0x100];	// ui_line_display.cpp's object (0x100 bytes): client_stubs.cpp's members trace
 	client->LineDisplay = (UILineDisplayClass *)fake_line_display;
 	client->AuxData = (DeltaPlayerClass *)Fake_Player_Root;	// Init's roots (sclient.cpp 0x7518A0, not run)

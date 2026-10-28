@@ -483,7 +483,9 @@ stub Unknown831340Class::Unknown831340Class 1708 'Athanor Hyperion Mounts' type 
 msg 66 CLIENT_TYPE (60) size 8: cpacket.cpp's handler
 gen Unknown_Log
 gen SClient::Unknown_742530
-gen MainViewClass::Unknown_514010
+gen SClient::Unknown_7511A0
+cockpit +0x58 (on)
+mainview 138's +0x58 (on)
 msg 67 ITEM_BASE (37) size 234: cpacket.cpp's handler
 stub Unknown831340Class::Unknown831340Class 2886 'Arduinne Security Pass' type 13
 msg 68 ITEM_BASE (37) size 179: cpacket.cpp's handler
