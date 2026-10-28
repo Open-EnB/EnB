@@ -1471,6 +1471,19 @@ bool CordMgr::Cancel_Connect(int session)
 	return false;
 }
 
+// 0x8598F0 (via the game's 0x82E1D0; after Release 0x8596F0 in the client, here last so the log
+// calls keep their lines)
+int CordMgr::Pending_Messages()
+{
+	CordCon *con = 0;
+	int total = 0;
+	for (int i = 0; i < Connections_.length(); i++) {
+		Connections_.get(con, i);
+		total += con->Pending_Messages();
+	}
+	return total;
+}
+
 
 /*
 **	Reconstruction notes

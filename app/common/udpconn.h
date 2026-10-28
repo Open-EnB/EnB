@@ -97,6 +97,8 @@ public:
 	virtual ~UDPConnectionManagerClass();							// +0x00 0x82E180 / 0x82E1B0
 };
 
+int Unknown_82E1D0();	// NAME 1 [Unknown_82E1D0]: the CordMgr's pending messages (ClientTask::Run; tsk_game.h)
+
 // The UDP listener (vtable 0xB08958, constructor 0x82E200, 0x0C bytes): handshakes on a port
 class UDPListenerClass : public ConnectionListenerClass	// NAME 1: after the file udpconn.cpp
 {

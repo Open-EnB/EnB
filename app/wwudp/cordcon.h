@@ -272,6 +272,8 @@ public:
 		unsigned char frag, char flags);												// 0x854FC0
 
 	CordChannelClass *Get_Channel(int channel);	// NAME 2: grows Channels_ as the client does
+	// The messages the active channels hold (queued or awaiting an ack). 0x84FED0
+	int Pending_Messages();	// NAME 2: what it counts
 	// The counts the game's connection reads (UDPConnection::Receive / Get_Stats). 0x84FDE0
 	void getStats(int *messages_sent, int *packets_in, int *bytes_sent, int *bytes_read, int *resends,
 		int *dup_acks, unsigned int *window, unsigned int *in_flight, unsigned int *round_trip, unsigned int *quality, int *idle);	// NAME 1: after openc / read

@@ -781,6 +781,16 @@ ConnectionClass *UDPListenerClass::Accept()
 	return(0);
 }
 
+// 0x82E1D0 (between the manager and the listener in the client; here last, so the listener's
+// assert lines stay): the CordMgr's pending messages, 0 without one (ClientTask::Run)
+int Unknown_82E1D0()
+{
+	int pending = 0;
+	if (TheMgr) {
+		pending = TheMgr->Pending_Messages();
+	}
+	return(pending);
+}
 
 /*
 **	Reconstruction notes (udpconn.cpp, PARTIAL)
