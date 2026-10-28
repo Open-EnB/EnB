@@ -180,7 +180,7 @@ void MemoryConnectionClass::Set_Recv_Delay(int delay)
 }
 
 // Options 0 / 1 read the send / receive delay into *data, 2 / 3 set it from *data
-// NOT EXACT: the two null-data asserts share one call; the client keeps the first and jumps from the second.
+// (the first case nested: the client keeps its null-data assert and jumps to it from the second)
 bool MemoryConnectionClass::Unknown_30(int option, int *data)
 {
 	switch (option) {
@@ -189,14 +189,14 @@ bool MemoryConnectionClass::Unknown_30(int option, int *data)
 
 
 			G_ASSERT(data);
-			if (data == 0) {
-				return(false);
+			if (data != 0) {
+
+
+				G_ASSERT(SendPipe);
+				if (SendPipe == 0) return(false);
+				break;
 			}
-			G_ASSERT(SendPipe);
-			if (SendPipe == 0) {
-				return(false);
-			}
-			break;
+			return(false);
 
 		case 1:
 		case 3:

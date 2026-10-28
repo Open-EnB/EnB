@@ -123,7 +123,6 @@ edit the comments in the code, not this file.
 | `app/common/lego_identifier.cpp:133` | `LegoIdentifierClass::Pop_Root` | marker | NOT EXACT: 0x8444C0, npos read from memory in the client's erase (shape; attempts.py show 0x8444C0) |
 | `app/common/lego_identifier.cpp:150` | `LegoIdentifierClass::Add` | marker | NOT EXACT: 0x8448A0, npos read from memory in the client's copy (shape; attempts.py show 0x8448A0). The client copies over the chain's end without growing it (kept: it is the client's code). |
 | `app/common/lego_identifier.cpp:171` | `LegoIdentifierClass::Set_Name` | marker | NOT EXACT: 0x844CD0, registers (attempts.py show 0x844CD0) |
-| `app/common/memconn.cpp:183` | `MemoryConnectionClass::Unknown_30` | marker | NOT EXACT: the two null-data asserts share one call; the client keeps the first and jumps from the second. |
 | `app/common/tcpconn.cpp:172` | `TCPConnection::Key_Exchange` | marker | NOT EXACT: the client inlines the listener loop's iterator increment (_Tree::_Inc), ours calls it (inline budget); two register swaps. |
 | `app/common/tcpconn.cpp:661` | `TCPListenerClass::Listen` | marker | NOT EXACT: ours merges the two `ret == SOCKET_ERROR` failure tails (lines 706 / 716); the client keeps both. |
 | `app/common/udpconn.cpp:126` | `UDPConnection::UDPConnection` | marker | NOT EXACT: two register choices (con's Ip_ / Port_ reads, the openc tail); Encrypt stays unset |
