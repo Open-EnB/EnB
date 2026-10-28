@@ -242,11 +242,8 @@ static void Stand_In_State(Vector3 *position, Quaternion *orientation, Vector3 *
 	if (rotrate) *rotrate = Vector3(0, 0, 0);
 }
 void Unknown70F4F0Class::Unknown_1C(int, Vector3 *p, Quaternion *o, Vector3 *v, float *s, Vector3 *r, bool) { Stand_In_State(p, o, v, s, r); }
-void Unknown7119B0Class::Unknown_1C(int, Vector3 *p, Quaternion *o, Vector3 *v, float *s, Vector3 *r, bool) { Stand_In_State(p, o, v, s, r); }
 void Unknown713520Class::Unknown_1C(int, Vector3 *p, Quaternion *o, Vector3 *v, float *s, Vector3 *r, bool) { Stand_In_State(p, o, v, s, r); }
 void Unknown714340Class::Unknown_1C(int, Vector3 *p, Quaternion *o, Vector3 *v, float *s, Vector3 *r, bool) { Stand_In_State(p, o, v, s, r); }
-Unknown7119B0Class::Unknown7119B0Class(StateNode *start, StateNode *end, unsigned int start_time, unsigned int end_time) : StartState(start), StartTime(start_time), EndState(end), EndTime(end_time) { Trace("stub Unknown7119B0Class::Unknown7119B0Class %u %u", start_time, end_time); }
-void Unknown7119B0Class::Unknown_712480(int) {}
 // the advanced motion object: at rest at the origin, stepped 100 ms at a time
 Unknown710530Class::Unknown710530Class(AdvancedPositionalUpdatePacketClass *packet) { Trace("stub Unknown710530Class::Unknown710530Class %u stamp %d", packet->GameID, (int)packet->TimeStamp); Time = packet->TimeStamp; Transform.Make_Identity(); Speed = Unknown3C = Unknown44 = Unknown50 = Unknown54 = Unknown5C = Unknown60 = Unknown64 = 0; Unknown40 = Unknown48 = Unknown58 = false; Unknown6C = Vector3(0, 0, 0); }
 void Unknown710530Class::Unknown_711050() { Time -= 100; }

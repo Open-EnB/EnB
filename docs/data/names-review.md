@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 34 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 36 |
-| 3 | by convention from a client-named file or sibling | 862 |
+| 3 | by convention from a client-named file or sibling | 863 |
 | 2 | describes what the code does | 2133 |
-| 1 | neutral placeholder | 3976 |
+| 1 | neutral placeholder | 3982 |
 
 ## For review (score 3 and below)
 
@@ -965,14 +965,19 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_711490` | `app/client/extrap.cpp:823` | untagged neutral name (D10) |
 | 1 | `Unknown6C` | `app/client/extrap.cpp:829` | untagged neutral name (D10) |
 | 1 | `Unknown_711050` | `app/client/extrap.cpp:845` | untagged neutral name (D10) |
-| 1 | `Unknown7119B0Class` | `app/client/extrap.cpp:884` | untagged neutral name (D10) |
-| 1 | `Unknown_28` | `app/client/extrap.cpp:884` | untagged neutral name (D10) |
-| 1 | `Unknown_712480` | `app/client/extrap.cpp:931` | untagged neutral name (D10) |
+| 1 | `Unknown7119B0Class` | `app/client/extrap.cpp:1192` | untagged neutral name (D10) |
+| 1 | `Unknown14` | `app/client/extrap.cpp:1202` | untagged neutral name (D10) |
+| 1 | `Unknown28` | `app/client/extrap.cpp:1208` | untagged neutral name (D10) |
+| 1 | `Unknown34` | `app/client/extrap.cpp:1208` | untagged neutral name (D10) |
+| 1 | `Unknown74` | `app/client/extrap.cpp:1216` | untagged neutral name (D10) |
+| 1 | `Unknown75` | `app/client/extrap.cpp:1222` | untagged neutral name (D10) |
+| 1 | `Unknown_28` | `app/client/extrap.cpp:1226` | untagged neutral name (D10) |
+| 1 | `Unknown_712170` | `app/client/extrap.cpp:1292` | untagged neutral name (D10) |
+| 1 | `Unknown_712480` | `app/client/extrap.cpp:1348` | untagged neutral name (D10) |
 | 1 | `Unknown7125F0Class` | `app/client/extrap.cpp:1426` | untagged neutral name (D10) |
 | 1 | `Unknown712DB0Class` | `app/client/extrap.cpp:1553` | untagged neutral name (D10) |
 | 1 | `Unknown_7132F0` | `app/client/extrap.cpp:1556` | untagged neutral name (D10) |
 | 1 | `Unknown713520Class` | `app/client/extrap.cpp:1653` | untagged neutral name (D10) |
-| 1 | `Unknown14` | `app/client/extrap.cpp:1656` | untagged neutral name (D10) |
 | 1 | `Unknown_7135F0` | `app/client/extrap.cpp:1668` | untagged neutral name (D10) |
 | 1 | `Unknown98` | `app/client/extrap.cpp:1677` | untagged neutral name (D10) |
 | 1 | `Unknown713B00Class` | `app/client/extrap.cpp:1795` | untagged neutral name (D10) |
@@ -1036,24 +1041,27 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown713C80Class` | `app/client/extrap.h:177` | neutral (D10) |
 | 1 | `packet, client` | `app/client/extrap.h:180` | what postate's state passes |
 | 1 | `Unknown7119B0Class` | `app/client/extrap.h:184` | neutral (D10) |
-| 1 | `Unknown_712480` | `app/client/extrap.h:193` | untagged neutral name (D10) |
-| 1 | `Unknown14` | `app/client/extrap.h:197` | untagged neutral name (D10) |
-| 1 | `Unknown28` | `app/client/extrap.h:200` | untagged neutral name (D10) |
-| 1 | `Unknown74` | `app/client/extrap.h:203` | untagged neutral name (D10) |
-| 1 | `Unknown7125F0Class` | `app/client/extrap.h:207` | neutral (D10) |
-| 1 | `Unknown712DB0Struct` | `app/client/extrap.h:225` | neutral (D10) |
-| 1 | `Unknown712DB0Class` | `app/client/extrap.h:235` | neutral (D10) |
-| 1 | `Unknown_7132F0` | `app/client/extrap.h:243` | untagged neutral name (D10) |
-| 1 | `Unknown713520Class` | `app/client/extrap.h:250` | neutral (D10) |
-| 1 | `packet, client` | `app/client/extrap.h:253` | what postate's state passes |
-| 1 | `time, unknown, result` | `app/client/extrap.h:255` | neutral |
-| 1 | `Unknown_7135F0` | `app/client/extrap.h:255` | untagged neutral name (D10) |
-| 1 | `Unknown713B00Class` | `app/client/extrap.h:270` | neutral (D10) |
-| 1 | `state, offset` | `app/client/extrap.h:273` | neutral |
-| 1 | `State` | `app/client/extrap.h:277` | neutral |
-| 1 | `Unknown714340Class` | `app/client/extrap.h:282` | neutral (D10) |
-| 1 | `client, packet` | `app/client/extrap.h:285` | what postate's state passes |
-| 1 | `Unknown18` | `app/client/extrap.h:293` | untagged neutral name (D10) |
+| 1 | `Unknown_712170` | `app/client/extrap.h:193` | untagged neutral name (D10) |
+| 1 | `Unknown_712480` | `app/client/extrap.h:194` | untagged neutral name (D10) |
+| 1 | `Unknown14` | `app/client/extrap.h:198` | untagged neutral name (D10) |
+| 1 | `Unknown28` | `app/client/extrap.h:201` | untagged neutral name (D10) |
+| 1 | `Unknown34` | `app/client/extrap.h:202` | untagged neutral name (D10) |
+| 1 | `Unknown74` | `app/client/extrap.h:205` | untagged neutral name (D10) |
+| 1 | `Unknown75` | `app/client/extrap.h:206` | untagged neutral name (D10) |
+| 1 | `Unknown7125F0Class` | `app/client/extrap.h:210` | neutral (D10) |
+| 1 | `Unknown712DB0Struct` | `app/client/extrap.h:228` | neutral (D10) |
+| 1 | `Unknown712DB0Class` | `app/client/extrap.h:238` | neutral (D10) |
+| 1 | `Unknown_7132F0` | `app/client/extrap.h:246` | untagged neutral name (D10) |
+| 1 | `Unknown713520Class` | `app/client/extrap.h:253` | neutral (D10) |
+| 1 | `packet, client` | `app/client/extrap.h:256` | what postate's state passes |
+| 1 | `time, unknown, result` | `app/client/extrap.h:258` | neutral |
+| 1 | `Unknown_7135F0` | `app/client/extrap.h:258` | untagged neutral name (D10) |
+| 1 | `Unknown713B00Class` | `app/client/extrap.h:273` | neutral (D10) |
+| 1 | `state, offset` | `app/client/extrap.h:276` | neutral |
+| 1 | `State` | `app/client/extrap.h:280` | neutral |
+| 1 | `Unknown714340Class` | `app/client/extrap.h:285` | neutral (D10) |
+| 1 | `client, packet` | `app/client/extrap.h:288` | what postate's state passes |
+| 1 | `Unknown18` | `app/client/extrap.h:296` | untagged neutral name (D10) |
 | 1 | `FontOptionStruct` | `app/client/fontdatabase.cpp:18` | neutral (D10): what option.cpp's 0x7F95E0 returns |
 | 1 | `Unknown00` | `app/client/fontdatabase.cpp:20` | neutral (D10) |
 | 1 | `Unknown_BE8B38Class` | `app/client/fontdatabase.cpp:24` | neutral (D10): option.cpp's object (tsk_game.h declares the same class) |
@@ -3862,40 +3870,38 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_Create_Aux_Root` | `tests/capharness/clienttest/client_stubs.cpp:229` | untagged neutral name (D10) |
 | 1 | `Unknown70F4F0Class` | `tests/capharness/clienttest/client_stubs.cpp:244` | untagged neutral name (D10) |
 | 1 | `Unknown_1C` | `tests/capharness/clienttest/client_stubs.cpp:244` | untagged neutral name (D10) |
-| 1 | `Unknown7119B0Class` | `tests/capharness/clienttest/client_stubs.cpp:245` | untagged neutral name (D10) |
-| 1 | `Unknown713520Class` | `tests/capharness/clienttest/client_stubs.cpp:246` | untagged neutral name (D10) |
-| 1 | `Unknown714340Class` | `tests/capharness/clienttest/client_stubs.cpp:247` | untagged neutral name (D10) |
-| 1 | `Unknown_712480` | `tests/capharness/clienttest/client_stubs.cpp:249` | untagged neutral name (D10) |
-| 1 | `Unknown710530Class` | `tests/capharness/clienttest/client_stubs.cpp:251` | untagged neutral name (D10) |
-| 1 | `Unknown3C` | `tests/capharness/clienttest/client_stubs.cpp:251` | untagged neutral name (D10) |
-| 1 | `Unknown44` | `tests/capharness/clienttest/client_stubs.cpp:251` | untagged neutral name (D10) |
-| 1 | `Unknown50` | `tests/capharness/clienttest/client_stubs.cpp:251` | untagged neutral name (D10) |
-| 1 | `Unknown54` | `tests/capharness/clienttest/client_stubs.cpp:251` | untagged neutral name (D10) |
-| 1 | `Unknown5C` | `tests/capharness/clienttest/client_stubs.cpp:251` | untagged neutral name (D10) |
-| 1 | `Unknown60` | `tests/capharness/clienttest/client_stubs.cpp:251` | untagged neutral name (D10) |
-| 1 | `Unknown64` | `tests/capharness/clienttest/client_stubs.cpp:251` | untagged neutral name (D10) |
-| 1 | `Unknown40` | `tests/capharness/clienttest/client_stubs.cpp:251` | untagged neutral name (D10) |
-| 1 | `Unknown48` | `tests/capharness/clienttest/client_stubs.cpp:251` | untagged neutral name (D10) |
-| 1 | `Unknown58` | `tests/capharness/clienttest/client_stubs.cpp:251` | untagged neutral name (D10) |
-| 1 | `Unknown6C` | `tests/capharness/clienttest/client_stubs.cpp:251` | untagged neutral name (D10) |
-| 1 | `Unknown_711050` | `tests/capharness/clienttest/client_stubs.cpp:252` | untagged neutral name (D10) |
-| 1 | `Unknown_08` | `tests/capharness/clienttest/client_stubs.cpp:253` | untagged neutral name (D10) |
-| 1 | `Unknown_14` | `tests/capharness/clienttest/client_stubs.cpp:254` | untagged neutral name (D10) |
-| 1 | `UnknownB02C90Class` | `tests/capharness/clienttest/client_stubs.cpp:256` | untagged neutral name (D10) |
-| 1 | `Unknown_8ADB20` | `tests/capharness/clienttest/client_stubs.cpp:258` | untagged neutral name (D10) |
-| 1 | `SClientUnknown1338Class` | `tests/capharness/clienttest/client_stubs.cpp:261` | untagged neutral name (D10) |
-| 1 | `Unknown_80EFF0` | `tests/capharness/clienttest/client_stubs.cpp:262` | untagged neutral name (D10) |
-| 1 | `Unknown6E9490TargetClass` | `tests/capharness/clienttest/client_stubs.cpp:280` | untagged neutral name (D10) |
-| 1 | `Unknown_00` | `tests/capharness/clienttest/client_stubs.cpp:283` | untagged neutral name (D10) |
-| 1 | `Unknown_04` | `tests/capharness/clienttest/client_stubs.cpp:284` | untagged neutral name (D10) |
-| 1 | `Unknown_0C` | `tests/capharness/clienttest/client_stubs.cpp:286` | untagged neutral name (D10) |
-| 1 | `Unknown_10` | `tests/capharness/clienttest/client_stubs.cpp:287` | untagged neutral name (D10) |
-| 1 | `Unknown_18` | `tests/capharness/clienttest/client_stubs.cpp:289` | untagged neutral name (D10) |
-| 1 | `Unknown_20` | `tests/capharness/clienttest/client_stubs.cpp:291` | untagged neutral name (D10) |
-| 1 | `Unknown_24` | `tests/capharness/clienttest/client_stubs.cpp:292` | untagged neutral name (D10) |
-| 1 | `Unknown_28` | `tests/capharness/clienttest/client_stubs.cpp:293` | untagged neutral name (D10) |
-| 1 | `Unknown6E9490EffectClass` | `tests/capharness/clienttest/client_stubs.cpp:307` | untagged neutral name (D10) |
-| 1 | `Unknown_6E9490` | `tests/capharness/clienttest/client_stubs.cpp:319` | untagged neutral name (D10) |
+| 1 | `Unknown713520Class` | `tests/capharness/clienttest/client_stubs.cpp:245` | untagged neutral name (D10) |
+| 1 | `Unknown714340Class` | `tests/capharness/clienttest/client_stubs.cpp:246` | untagged neutral name (D10) |
+| 1 | `Unknown710530Class` | `tests/capharness/clienttest/client_stubs.cpp:248` | untagged neutral name (D10) |
+| 1 | `Unknown3C` | `tests/capharness/clienttest/client_stubs.cpp:248` | untagged neutral name (D10) |
+| 1 | `Unknown44` | `tests/capharness/clienttest/client_stubs.cpp:248` | untagged neutral name (D10) |
+| 1 | `Unknown50` | `tests/capharness/clienttest/client_stubs.cpp:248` | untagged neutral name (D10) |
+| 1 | `Unknown54` | `tests/capharness/clienttest/client_stubs.cpp:248` | untagged neutral name (D10) |
+| 1 | `Unknown5C` | `tests/capharness/clienttest/client_stubs.cpp:248` | untagged neutral name (D10) |
+| 1 | `Unknown60` | `tests/capharness/clienttest/client_stubs.cpp:248` | untagged neutral name (D10) |
+| 1 | `Unknown64` | `tests/capharness/clienttest/client_stubs.cpp:248` | untagged neutral name (D10) |
+| 1 | `Unknown40` | `tests/capharness/clienttest/client_stubs.cpp:248` | untagged neutral name (D10) |
+| 1 | `Unknown48` | `tests/capharness/clienttest/client_stubs.cpp:248` | untagged neutral name (D10) |
+| 1 | `Unknown58` | `tests/capharness/clienttest/client_stubs.cpp:248` | untagged neutral name (D10) |
+| 1 | `Unknown6C` | `tests/capharness/clienttest/client_stubs.cpp:248` | untagged neutral name (D10) |
+| 1 | `Unknown_711050` | `tests/capharness/clienttest/client_stubs.cpp:249` | untagged neutral name (D10) |
+| 1 | `Unknown_08` | `tests/capharness/clienttest/client_stubs.cpp:250` | untagged neutral name (D10) |
+| 1 | `Unknown_14` | `tests/capharness/clienttest/client_stubs.cpp:251` | untagged neutral name (D10) |
+| 1 | `UnknownB02C90Class` | `tests/capharness/clienttest/client_stubs.cpp:253` | untagged neutral name (D10) |
+| 1 | `Unknown_8ADB20` | `tests/capharness/clienttest/client_stubs.cpp:255` | untagged neutral name (D10) |
+| 1 | `SClientUnknown1338Class` | `tests/capharness/clienttest/client_stubs.cpp:258` | untagged neutral name (D10) |
+| 1 | `Unknown_80EFF0` | `tests/capharness/clienttest/client_stubs.cpp:259` | untagged neutral name (D10) |
+| 1 | `Unknown6E9490TargetClass` | `tests/capharness/clienttest/client_stubs.cpp:277` | untagged neutral name (D10) |
+| 1 | `Unknown_00` | `tests/capharness/clienttest/client_stubs.cpp:280` | untagged neutral name (D10) |
+| 1 | `Unknown_04` | `tests/capharness/clienttest/client_stubs.cpp:281` | untagged neutral name (D10) |
+| 1 | `Unknown_0C` | `tests/capharness/clienttest/client_stubs.cpp:283` | untagged neutral name (D10) |
+| 1 | `Unknown_10` | `tests/capharness/clienttest/client_stubs.cpp:284` | untagged neutral name (D10) |
+| 1 | `Unknown_18` | `tests/capharness/clienttest/client_stubs.cpp:286` | untagged neutral name (D10) |
+| 1 | `Unknown_20` | `tests/capharness/clienttest/client_stubs.cpp:288` | untagged neutral name (D10) |
+| 1 | `Unknown_24` | `tests/capharness/clienttest/client_stubs.cpp:289` | untagged neutral name (D10) |
+| 1 | `Unknown_28` | `tests/capharness/clienttest/client_stubs.cpp:290` | untagged neutral name (D10) |
+| 1 | `Unknown6E9490EffectClass` | `tests/capharness/clienttest/client_stubs.cpp:304` | untagged neutral name (D10) |
+| 1 | `Unknown_6E9490` | `tests/capharness/clienttest/client_stubs.cpp:316` | untagged neutral name (D10) |
 | 1 | `Unknown_Get_Ticks` | `tests/capharness/clienttest/clienttest.cpp:67` | untagged neutral name (D10) |
 | 1 | `Unknown_8B4510` | `tests/capharness/clienttest/clienttest.cpp:78` | untagged neutral name (D10) |
 | 1 | `Unknown_8B4560` | `tests/capharness/clienttest/clienttest.cpp:79` | untagged neutral name (D10) |
@@ -4291,43 +4297,43 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Unknown_1C` | `app/client/extrap.h:190` | as the base's |
 | 2 | `Set_Motion` | `app/client/extrap.h:191` | as the base's |
 | 2 | `time` | `app/client/extrap.h:192` | as the base's |
-| 2 | `time` | `app/client/extrap.h:193` | what Set_Motion passes |
-| 2 | `time` | `app/client/extrap.h:212` | as the base's |
-| 2 | `Unknown_1C` | `app/client/extrap.h:213` | as the base's |
-| 2 | `Set_Motion` | `app/client/extrap.h:214` | as the base's |
-| 2 | `End_Tilt` | `app/client/extrap.h:215` | as the base's |
-| 2 | `time` | `app/client/extrap.h:216` | as the base's |
-| 2 | `Position` | `app/client/extrap.h:227` | Unknown_1C's position |
-| 2 | `Velocity` | `app/client/extrap.h:228` | Unknown_1C's velocity |
-| 2 | `Orientation` | `app/client/extrap.h:229` | Unknown_1C's orientation |
-| 2 | `Speed` | `app/client/extrap.h:230` | Unknown_1C's speed |
-| 2 | `RotRate` | `app/client/extrap.h:231` | Unknown_1C's rotrate |
-| 2 | `start, end, start_time, end_time` | `app/client/extrap.h:238` | as the base's |
-| 2 | `time` | `app/client/extrap.h:239` | as the base's |
-| 2 | `Unknown_1C` | `app/client/extrap.h:240` | as the base's |
-| 2 | `Set_Motion` | `app/client/extrap.h:241` | as the base's |
-| 2 | `End_Tilt` | `app/client/extrap.h:242` | as the base's |
-| 2 | `start_time, end_time` | `app/client/extrap.h:243` | the members it sets |
-| 2 | `Start` | `app/client/extrap.h:245` | what it holds |
-| 2 | `End` | `app/client/extrap.h:246` | what it holds |
-| 2 | `Unknown_1C` | `app/client/extrap.h:254` | as the base's |
-| 2 | `Time` | `app/client/extrap.h:257` | what it holds |
-| 2 | `Client` | `app/client/extrap.h:258` | what the state passes |
-| 2 | `OrbitID` | `app/client/extrap.h:260` | the packet's OrbitID |
-| 2 | `OrbitDist` | `app/client/extrap.h:261` | the packet's OrbitDist |
-| 2 | `OrbitAngle` | `app/client/extrap.h:262` | the packet's OrbitAngle |
-| 2 | `OrbitRate` | `app/client/extrap.h:263` | the packet's OrbitRate |
-| 2 | `RotateAngle` | `app/client/extrap.h:264` | the packet's RotateAngle |
-| 2 | `RotateRate` | `app/client/extrap.h:265` | the packet's RotateRate |
-| 2 | `TiltAngle` | `app/client/extrap.h:266` | the packet's TiltAngle |
-| 2 | `Unknown_1C` | `app/client/extrap.h:275` | as the base's |
-| 2 | `Offset` | `app/client/extrap.h:278` | what it does |
-| 2 | `Unknown_1C` | `app/client/extrap.h:286` | as the base's |
-| 2 | `Set_Motion` | `app/client/extrap.h:287` | as the base's |
-| 2 | `End_Tilt` | `app/client/extrap.h:288` | as the base's |
-| 2 | `Client` | `app/client/extrap.h:290` | what the state passes |
-| 2 | `LeaderID` | `app/client/extrap.h:291` | the packet's LeaderID |
-| 2 | `Offset` | `app/client/extrap.h:292` | the packet's Offset |
+| 2 | `time` | `app/client/extrap.h:194` | what Set_Motion passes |
+| 2 | `time` | `app/client/extrap.h:215` | as the base's |
+| 2 | `Unknown_1C` | `app/client/extrap.h:216` | as the base's |
+| 2 | `Set_Motion` | `app/client/extrap.h:217` | as the base's |
+| 2 | `End_Tilt` | `app/client/extrap.h:218` | as the base's |
+| 2 | `time` | `app/client/extrap.h:219` | as the base's |
+| 2 | `Position` | `app/client/extrap.h:230` | Unknown_1C's position |
+| 2 | `Velocity` | `app/client/extrap.h:231` | Unknown_1C's velocity |
+| 2 | `Orientation` | `app/client/extrap.h:232` | Unknown_1C's orientation |
+| 2 | `Speed` | `app/client/extrap.h:233` | Unknown_1C's speed |
+| 2 | `RotRate` | `app/client/extrap.h:234` | Unknown_1C's rotrate |
+| 2 | `start, end, start_time, end_time` | `app/client/extrap.h:241` | as the base's |
+| 2 | `time` | `app/client/extrap.h:242` | as the base's |
+| 2 | `Unknown_1C` | `app/client/extrap.h:243` | as the base's |
+| 2 | `Set_Motion` | `app/client/extrap.h:244` | as the base's |
+| 2 | `End_Tilt` | `app/client/extrap.h:245` | as the base's |
+| 2 | `start_time, end_time` | `app/client/extrap.h:246` | the members it sets |
+| 2 | `Start` | `app/client/extrap.h:248` | what it holds |
+| 2 | `End` | `app/client/extrap.h:249` | what it holds |
+| 2 | `Unknown_1C` | `app/client/extrap.h:257` | as the base's |
+| 2 | `Time` | `app/client/extrap.h:260` | what it holds |
+| 2 | `Client` | `app/client/extrap.h:261` | what the state passes |
+| 2 | `OrbitID` | `app/client/extrap.h:263` | the packet's OrbitID |
+| 2 | `OrbitDist` | `app/client/extrap.h:264` | the packet's OrbitDist |
+| 2 | `OrbitAngle` | `app/client/extrap.h:265` | the packet's OrbitAngle |
+| 2 | `OrbitRate` | `app/client/extrap.h:266` | the packet's OrbitRate |
+| 2 | `RotateAngle` | `app/client/extrap.h:267` | the packet's RotateAngle |
+| 2 | `RotateRate` | `app/client/extrap.h:268` | the packet's RotateRate |
+| 2 | `TiltAngle` | `app/client/extrap.h:269` | the packet's TiltAngle |
+| 2 | `Unknown_1C` | `app/client/extrap.h:278` | as the base's |
+| 2 | `Offset` | `app/client/extrap.h:281` | what it does |
+| 2 | `Unknown_1C` | `app/client/extrap.h:289` | as the base's |
+| 2 | `Set_Motion` | `app/client/extrap.h:290` | as the base's |
+| 2 | `End_Tilt` | `app/client/extrap.h:291` | as the base's |
+| 2 | `Client` | `app/client/extrap.h:293` | what the state passes |
+| 2 | `LeaderID` | `app/client/extrap.h:294` | the packet's LeaderID |
+| 2 | `Offset` | `app/client/extrap.h:295` | the packet's Offset |
 | 2 | `std:` | `app/client/fontdatabase.cpp:21` | what it holds |
 | 2 | `Count` | `app/client/fontdatabase.cpp:37` | what it returns |
 | 2 | `Get` | `app/client/fontdatabase.cpp:38` | what it returns |
@@ -6195,15 +6201,16 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `End_Tilt` | `app/client/extrap.h:47` | the client's assert text  // NAME 2 [time, rate]: what postate's 0x7179A0 passes |
 | 3 | `Current` | `app/client/extrap.h:158` | the client's assert 'Current' (0x710110) |
 | 3 | `start, end, start_time, end_time` | `app/client/extrap.h:187` | the client's asserts 'StartState && EndState', 'EndTime >= StartTime' |
-| 3 | `StartState` | `app/client/extrap.h:195` | the client's assert 'StartState && EndState' |
-| 3 | `StartTime` | `app/client/extrap.h:198` | the client's assert 'EndTime >= StartTime' |
-| 3 | `EndState` | `app/client/extrap.h:199` | as StartState |
-| 3 | `EndTime` | `app/client/extrap.h:201` | as StartTime |
-| 3 | `start, end, start_time, end_time` | `app/client/extrap.h:210` | the client's asserts 'StartState && EndState', 'EndTime >= StartTime' |
-| 3 | `StartState` | `app/client/extrap.h:218` | the client's assert 'StartState && EndState' |
-| 3 | `EndState` | `app/client/extrap.h:219` | as StartState |
-| 3 | `StartTime` | `app/client/extrap.h:220` | the client's assert 'EndTime >= StartTime' |
-| 3 | `EndTime` | `app/client/extrap.h:221` | as StartTime |
+| 3 | `time` | `app/client/extrap.h:193` | the client's assert  // NAME 2 [position, velocity]: what Unknown_1C does with them |
+| 3 | `StartState` | `app/client/extrap.h:196` | the client's assert 'StartState && EndState' |
+| 3 | `StartTime` | `app/client/extrap.h:199` | the client's assert 'EndTime >= StartTime' |
+| 3 | `EndState` | `app/client/extrap.h:200` | as StartState |
+| 3 | `EndTime` | `app/client/extrap.h:203` | as StartTime |
+| 3 | `start, end, start_time, end_time` | `app/client/extrap.h:213` | the client's asserts 'StartState && EndState', 'EndTime >= StartTime' |
+| 3 | `StartState` | `app/client/extrap.h:221` | the client's assert 'StartState && EndState' |
+| 3 | `EndState` | `app/client/extrap.h:222` | as StartState |
+| 3 | `StartTime` | `app/client/extrap.h:223` | the client's assert 'EndTime >= StartTime' |
+| 3 | `EndTime` | `app/client/extrap.h:224` | as StartTime |
 | 3 | `fontdatabase.h` | `app/client/fontdatabase.h:19` | header name assumed from the client's fontdatabase.cpp |
 | 3 | `FontDatabaseClass` | `app/client/fontdatabase.h:150` | by convention (D24) from the client's fontdatabase.cpp |
 | 3 | `fontmanager.h` | `app/client/fontmanager.h:17` | header name assumed from the client's fontmanager.cpp |

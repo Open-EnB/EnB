@@ -190,17 +190,20 @@ public:
 	virtual void Unknown_1C(int time, Vector3 *position, Quaternion *orientation, Vector3 *velocity, float *speed, Vector3 *rotrate, bool unknown);	// +0x1C 0x711D60  // NAME 2: as the base's
 	virtual void Set_Motion(int time, float *speed, float *acceleration, float *turn_rate, float *tilt_rate);	// +0x20 0x7120F0  // NAME 2: as the base's
 	virtual StateNode *Unknown_28(int time);	// +0x28 0x711D10  // NAME 2 [time]: as the base's
-	void Unknown_712480(int time);	// 0x712480  // NAME 2 [time]: what Set_Motion passes
+	void Unknown_712170(int time, Vector3 *position, Vector3 *velocity);	// 0x712170 (the Hermite curve's point and tangent; 'time >= StartTime && time <= EndTime')  // NAME 3 [time]: the client's assert  // NAME 2 [position, velocity]: what Unknown_1C does with them
+	void Unknown_712480(int time);	// 0x712480 (a new start at time: Set_Motion's)  // NAME 2 [time]: what Set_Motion passes
 
 	StateNode *StartState;		// +0x04  // NAME 3: the client's assert 'StartState && EndState'
 	Vector3 Unknown08;			// +0x08 (StartState's position at StartTime)
 	Vector3 Unknown14;			// +0x14 (StartState's velocity at StartTime, times the blend's length)
 	unsigned int StartTime;		// +0x20  // NAME 3: the client's assert 'EndTime >= StartTime'
 	StateNode *EndState;		// +0x24  // NAME 3: as StartState
-	char Unknown28[0x40 - 0x28];
+	Vector3 Unknown28;			// +0x28 (EndState's position at EndTime, less Unknown08)
+	Vector3 Unknown34;			// +0x34 (EndState's velocity at EndTime, times the blend's length)
 	unsigned int EndTime;		// +0x40  // NAME 3: as StartTime
 	Matrix3D Unknown44;			// +0x44 (Build_Matrix3D of StartState's orientation)
-	float Unknown74;			// +0x74 (StartState's speed)
+	bool Unknown74;				// +0x74 (EndState's speed is negative: the orientation looks back)
+	bool Unknown75;				// +0x75 (restarted by Unknown_712480: Unknown_1C holds at StartTime)
 };
 
 // A blend from one node to another between two times (vtable 0xB024F8, 0x14 bytes)

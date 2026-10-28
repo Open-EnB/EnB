@@ -881,6 +881,348 @@ Vector3 Unknown710530Class::Unknown_20()
 }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Unknown7119B0Class::Unknown7119B0Class(StateNode *start, StateNode *end, unsigned int start_time, unsigned int end_time) :
+	StartState(start),
+	StartTime(start_time),
+	EndState(end),
+	EndTime(end_time)
+{
+	G_ASSERT(StartState && EndState);
+	G_ASSERT(EndTime >= StartTime);
+	Quaternion orientation;
+	float start_speed;
+	StartState->Unknown_1C(start_time, &Unknown08, &orientation, &Unknown14, &start_speed, 0, true);
+	float duration = (float)(EndTime - StartTime);
+	Unknown14 *= duration;
+	Unknown44 = Build_Matrix3D(orientation);
+	Unknown44.Set_Translation(Unknown08);
+	float end_speed;
+	EndState->Unknown_1C(end_time, &Unknown28, 0, &Unknown34, &end_speed, 0, true);
+
+
+
+
+
+	G_ASSERT(end_speed * start_speed >= 0.0f);
+	if (end_speed < 0.0f) {
+		Unknown74 = true;
+	} else {
+		Unknown74 = false;
+	}
+	Unknown28 -= Unknown08;
+	Unknown34 *= duration;
+	Unknown75 = false;
+}
+
+
 StateNode *Unknown7119B0Class::Unknown_28(int time)
 {
 	if (time >= EndTime) {
@@ -903,6 +1245,81 @@ Unknown7119B0Class::~Unknown7119B0Class()
 	if (EndState) {
 		delete EndState;
 		EndState = 0;
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+void Unknown7119B0Class::Unknown_1C(int time, Vector3 *position, Quaternion *orientation, Vector3 *velocity, float *speed, Vector3 *rotrate, bool unknown)
+{
+	unsigned int when = Unknown75 ? StartTime : time;
+	if (when <= StartTime) {
+		G_ASSERT(StartState);
+		StartState->Unknown_1C(when, position, orientation, velocity, speed, rotrate, unknown);
+		return;
+	}
+
+
+	if (when >= EndTime) {
+		G_ASSERT(EndState);
+		EndState->Unknown_1C(when, position, orientation, velocity, speed, rotrate, unknown);
+		return;
+	}
+	Vector3 point(0.0f, 0.0f, 0.0f);
+	Vector3 tangent(0.0f, 0.0f, 0.0f);
+	Unknown_712170(when, &point, &tangent);
+	if (position) {
+		*position = point;
+	}
+	if (velocity) {
+		*velocity = tangent;
+	}
+	if (orientation) {
+		Vector3 target;
+		if (Unknown74) {
+			target = point - tangent;
+		} else {
+			target = tangent + point;
+		}
+		if (tangent.Length2() > 0.0001f) {
+			Unknown44.Obj_Look_At(point, target, 0.0f);
+		}
+		*orientation = Build_Quaternion(Unknown44);
+	}
+	if (speed) {
+		*speed = tangent.Length();
+		if (Unknown74) {
+			*speed = -*speed;
+		}
+	}
+	if (rotrate) {
+		float t = (float)(when - StartTime) / (float)(EndTime - StartTime);
+		Vector3 start_rotrate, end_rotrate;
+		start_rotrate = StartState->Unknown_14(when);
+		end_rotrate = EndState->Unknown_14(when);
+		Vector3::Lerp(start_rotrate, end_rotrate, t, rotrate);
 	}
 }
 
@@ -941,6 +1358,26 @@ void Unknown7119B0Class::Set_Motion(int time, float *speed, float *acceleration,
 
 
 
+// NOT EXACT: 0x712170 order: the tangent's three products come in the client's order but its sums pair (V0 + D) first and use other slots
+void Unknown7119B0Class::Unknown_712170(int time, Vector3 *position, Vector3 *velocity)
+{
+	G_ASSERT(time >= StartTime && time <= EndTime);
+	float t = (float)(time - StartTime) / (float)(EndTime - StartTime);
+	float t2 = t * t;
+	float t3 = t2 * t;
+	if (position) {
+		float h = 3.0f * t2 - 2.0f * t3;
+		float c = t3 - 2.0f * t2 + t;
+		float d = t3 - t2;
+		*position = Unknown28 * h + Unknown14 * c + Unknown34 * d + Unknown08;
+	}
+	if (velocity) {
+		float dh = 6.0f * t - 6.0f * t2;
+		float dc = 3.0f * t2 - 4.0f * t + 1.0f;
+		float dd = 3.0f * t2 - 2.0f * t;
+		*velocity = (1.0f / (float)(EndTime - StartTime)) * (Unknown34 * dd + Unknown14 * dc + Unknown28 * dh);
+	}
+}
 
 
 
@@ -963,461 +1400,24 @@ void Unknown7119B0Class::Set_Motion(int time, float *speed, float *acceleration,
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+void Unknown7119B0Class::Unknown_712480(int time)
+{
+	Vector3 position;
+	Vector3 velocity;
+	float start_speed;
+	Unknown_1C(time, &position, 0, &velocity, &start_speed, 0, true);
+	Unknown08 = position;
+	Unknown14 = velocity;
+	StartTime = time;
+	float duration = (float)(EndTime - time);
+	Unknown14 *= duration;
+	float end_speed;
+	EndState->Unknown_1C(EndTime, &Unknown28, 0, &Unknown34, &end_speed, 0, true);
+	G_ASSERT(start_speed * end_speed >= 0.0f);
+	Unknown28 -= Unknown08;
+	Unknown34 *= duration;
+	Unknown75 = true;
+}
 
 
 
