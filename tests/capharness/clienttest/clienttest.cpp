@@ -115,7 +115,7 @@ static void *View64_Table[16];
 static FakeTableStruct Fake_View64 = { View64_Table };
 static double Fake_Camera_Storage[0x400 / sizeof(double)];
 static char *Fake_Camera = (char *)Fake_Camera_Storage;
-static void __stdcall View64_24_Slot(int arg) { Trace("mainview 64's +0x24 %d", arg); }	// MainViewUnknown64Class +0x24: one argument, popped
+static void __stdcall View64_24_Slot(int arg) { Trace("mainview 64's +0x24 %d", arg); }	// slot +0x64's scene, +0x24 SceneClass::Set_Fog_Enable: one argument, popped
 static void *View1DC_Table[64];
 static FakeTableStruct Fake_View1DC = { View1DC_Table };
 static void __stdcall View1DC_88_Slot(RenderObjClass *model) { Trace("mainview 1DC's +0x88 %s", model ? "a model" : "NULL"); }	// 0x513540: the backdrop model

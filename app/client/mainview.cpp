@@ -2244,7 +2244,7 @@ void MainViewClass::Add_Object(ClientObjectClass *object)
 	RenderObjClass *model = object->Model;
 	if (model) {
 		model->Set_User_Data(object);
-		if (!object->Unknown_6F5D90()) model->Add((SceneClass *)Unknown_64());
+		if (!object->Unknown_6F5D90()) model->Add(Unknown_64());
 		model->Set_Transform(Matrix3D(true));
 	}
 }
@@ -2269,9 +2269,9 @@ int MainViewClass::Unknown_514400()
 	return(Cpit ? Cpit->UnknownDC : 0);
 }
 
-MainViewUnknown64Class *MainViewClass::Unknown_64()
+SimpleSceneClass *MainViewClass::Unknown_64()
 {
-	return((MainViewUnknown64Class *)Scene);
+	return(Scene);
 }
 
 void MainViewClass::Unknown_514450()

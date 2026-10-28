@@ -205,22 +205,6 @@ public:
 	char UnknownE0[0x178 - 0xE0];						// +0xE0
 };
 
-// what the main view's slot +0x64 returns, as far as SClient 0x7456B0 calls it
-class MainViewUnknown64Class	// NAME 1: neutral (D10)
-{
-public:
-	virtual void Unknown_00();
-	virtual void Unknown_04();
-	virtual void Unknown_08();
-	virtual void Unknown_0C();
-	virtual void Unknown_10();
-	virtual void Unknown_14();
-	virtual void Unknown_18();
-	virtual void Unknown_1C();
-	virtual void Unknown_20();
-	virtual void Unknown_24(int arg);					// +0x24 (0x7456B0 passes 0)  // NAME 1 [arg]: neutral
-};
-
 // what the main view's +0x13C points to, as far as SERVER_PARAMETERS 66 reads it
 class MainViewUnknown13CClass	// NAME 1: neutral (D10)
 {
@@ -377,7 +361,7 @@ public:
 	virtual CameraClass *Unknown_58() { return(Camera); }	// +0x58 0x50B8C0
 	virtual ClientObjectClass *Unknown_5C();			// +0x5C 0x5136D0 (the scanner's +0x88; SClient 0x744E70's FAIL_IF '!target' on its result)
 	virtual void Unknown_60(int arg1, int arg2, int arg3, int arg4);	// +0x60 0x512BB0 (asserts 'cam_dist_idx < InfoCount', 'cos_occluder_size > 0.0f')  // NAME 1 [arg1, arg2, arg3, arg4]: neutral
-	virtual MainViewUnknown64Class *Unknown_64();		// +0x64 0x514430 (Scene; SClient 0x7456B0)
+	virtual SimpleSceneClass *Unknown_64();			// +0x64 0x514430 (Scene; SClient 0x7456B0 calls its slot +0x24, SceneClass::Set_Fog_Enable)
 	virtual SimpleSceneClass *Unknown_68() { return(Unknown110); }	// +0x68 0x50B820
 	virtual SimpleSceneClass *Unknown_6C() { return(Unknown114); }	// +0x6C 0x50B840
 	virtual SimpleSceneClass *Unknown_70() { return(Unknown118); }	// +0x70 0x50B860

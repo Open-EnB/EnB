@@ -2244,7 +2244,7 @@ void SClient::Unknown_7456B0()
 	MainView->Unknown_513D20(1.0f);
 	MainView->Unknown_513600(0);
 	MainView->Unknown130 = true;
-	MainView->Unknown_64()->Unknown_24(0);
+	MainView->Unknown_64()->Set_Fog_Enable(false);
 }
 
 
