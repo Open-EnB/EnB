@@ -26,7 +26,7 @@
 class StringValueClass;
 class Vector3;
 
-#ifdef UNKNOWN_PACKETDATA_BODIES	// (the login objects' files only: a new template here moves aux_roots.cpp's inlining)
+// (D104: the login objects' accessor; aux_roots.cpp's symbol pad keeps its constructors in place, workflow.md 3.3)
 // A pair's accessor over a member (the character slot's: vtables 0xB0C594 quad, 0xB0C5CC long)
 template<class T> class KVPointerAccessorClass : public KVAccessorClass<T>	// NAME 2: what it does
 {
@@ -38,7 +38,7 @@ public:
 
 	T *Value;
 };
-#endif
+
 
 // The encoder's state (0x3C bytes, the asserts' Data; its destructor 0x4B3C00 is the compiler's)
 class KVEncoderDataClass  // NAME 2: after the asserts' Data
@@ -82,8 +82,8 @@ public:
 		}
 		List->Add(new KVPairTemplateClass<T>(Make_Key(name), accessor, even, odd));
 	}
-#ifdef UNKNOWN_PACKETDATA_BODIES	// declared for the login objects' files only: any member declared here
-								// moves aux_roots.cpp's inlining (0x6FB1E0, 0x702240, 0x7045F0)
+	// (any member declared here moves aux_roots.cpp's VC6 symbol count: its pad absorbs these,
+	// workflow.md 3.3)
 	// The typed adds the login objects' visitors call (D104: they were unknown_packetdata.h's
 	// LoginKVVisitorClass): a pair over a pointer to the member, kept when the mask has either bit class
 	void Add(int mask, const char *name, int *value);					// 0x4C2EB0 (in avatar_desc.cpp's run)
@@ -102,7 +102,7 @@ public:
 			List->Add(new KVPairTemplateClass<T>(Make_Key(name), new KVPointerAccessorClass<T>(value), even, odd));
 		}
 	}
-#endif
+
 
 	KVEncoderDataClass *Data;		// +0x04
 	KVListClass *List;				// +0x08 where the pairs go (kv_list.cpp's 0x4B6760 adds one)  // NAME 2: describes what it does

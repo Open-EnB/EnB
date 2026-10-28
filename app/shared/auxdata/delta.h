@@ -55,12 +55,12 @@ class DeltaChildVisitorClass : public KVEncoderBaseClass  // NAME 2: describes w
 {
 public:
 	virtual void Add_Child(int mask, const char *name, DeltaInterfaceClass *child) = 0;	// +0x04 a key/value object under the name  // NAME 2: what it does
-#ifdef UNKNOWN_PACKETDATA_BODIES	// declared for the login objects' files only (a virtual more here moves
-								// aux_roots.cpp's inlining: 0x702240, 0x7045F0)
+	// the login objects' slots (a virtual more here moves aux_roots.cpp's VC6 symbol count: its pad
+	// absorbs these, workflow.md 3.3)
 	virtual void Unknown_08() = 0;
 	virtual void Unknown_0C() = 0;
 	virtual void Add_Color(int mask, const char *name, Vector3 *value) = 0;	// +0x10 (shipcust_desc.cpp's colours)  // NAME 1: its users' keys
-#endif
+
 };
 
 // The base DeltaClass's constructor stores first (vtable 0xAEADC8: one slot, _purecall).

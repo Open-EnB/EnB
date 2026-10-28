@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 36 |
 | 3 | by convention from a client-named file or sibling | 876 |
 | 2 | describes what the code does | 2134 |
-| 1 | neutral placeholder | 4066 |
+| 1 | neutral placeholder | 4067 |
 
 ## For review (score 3 and below)
 
@@ -39,6 +39,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `m_Unknown80` | `app/client/aux_roots.cpp:46` | untagged neutral name (D10) |
 | 1 | `UnknownSendRootClass` | `app/client/aux_roots.cpp:119` | untagged neutral name (D10) |
 | 1 | `Unknown_48` | `app/client/aux_roots.cpp:157` | untagged neutral name (D10) |
+| 1 | `AuxRootsSymbolPadType` | `app/client/aux_roots.cpp:332` | a build aid (HX1) |
 | 1 | `aux_roots.h` | `app/client/aux_roots.h:10` | provisional file name (the client's code is in co.cpp and an unattributed object) |
 | 1 | `Unknown_Hex_String` | `app/client/aux_roots.h:49` | untagged neutral name (D10) |
 | 1 | `UnknownB009A8Enum` | `app/client/aux_roots.h:61` | the value type of the leaf vtable 0xB009A8 (no name in the client, Net-7 or C#) |
