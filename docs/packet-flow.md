@@ -125,8 +125,8 @@ base 0x70DBC0, vtable 0xB02084, itself over 0x6F2820), type 28 -> 0x70E5A0 (0x1D
 0xB0230C, over 0x6F2820); all others are plain `ClientObjectClass`. The three are app/client/co_subtypes.cpp
 (a provisional name, D122: the run 0x70DBC0-0x70F030 after co_player_relationship.cpp, before extrap.cpp).
 Type 24's base is also a `DynObj` at +0x188 (app/shared/dynamic_obj.cpp, client 0x44AC70-0x44B740, the
-client's class name): an object the proximity system tracks; its constructor allocates a `PxWrapper`
-(px_wrapper.cpp, not rebuilt) and its slots give the proximity code the object's position, transform,
+client's class name): an object the proximity system tracks (§2.6); its constructor allocates a `PxWrapper`
+(px_wrapper.cpp) and its slots give the proximity code the object's position, transform,
 radius (+0x04), type and the client's time. What types 24 and 28 are is open (*guess*: objects that need
 proximity / avoidance tests, such as moving NPC ships).
 
@@ -212,6 +212,38 @@ engine-thrust adjustments; the result re-orthogonalised and given to the model's
 `Set_Transform`); then the damage decals 0x6FD310, engine sounds 0x6FDBD0 and damage state 0x6FE1E0;
 type 8 -> 0x6FC9A0 (aux -> light), types 0/1 -> 0x6FBEF0, type 38 -> 0x6FF1D0 (render state from
 PercentFull). The 'Player Pos' mono print names the player's object by +0x112C.
+
+### 2.6 The proximity system (app\shared\px.cpp, px_wrapper.cpp)
+
+A sweep and prune over axis-aligned boxes (PX1, 2026-10-28; px.cpp 0x44B760-0x44D740 and px_wrapper.cpp
+0x4560B0-0x457740 are rebuilt). **PxList** (`ClientClass::Px` at +0x08, made in the constructor 0x726100 beside
+the PxProcessClass at +0x0C) keeps three sorted, doubly linked lists of box ends, one per axis; it is their
+sentinel. A **PxBox** has a low and a high end and a filter: it is told about another box b (`On_Enter(b)` /
+`On_Exit(b)`, vtable slots +0x04 / +0x08) only when `(b->Self & Mask) == Test`. `PxList::Insert` links a box's
+ends and reports every box it overlaps; `Remove` reports the overlaps ending; `Set_Corners` walks each moved end
+past its neighbours, so a frame's cost is the number of ends crossed, and reports each newly overlapping or
+separated box once (the static `Notified` vector); `Set_Self` / `Set_Test_Mask` report the boxes whose filter
+result flips.
+
+**PxWrapper** (a `DynObj`'s ProximityObject, type 24's base at +0x188) keeps: the `PxObject` (its owner, the
+last position and radius), three boxes, its `PxList` (`List`, NULL while not inserted), three flags and a vector
+of `PxCallback`s. The **tight box** (Self 3) is the radius / sqrt(3) cube around the position (the cube inside the
+sphere), the **loose box** (Self 5, Test 0x1D, Mask 0x15; a `PxCollisionBox` whose overlaps go to
+`_Collision_Callback`, which hands each pair once, lower address first, to px_collision.cpp's
+`PxCollision::Process`) the radius cube (the cube around the sphere), the **callback box** (Test 5, Mask 5; in
+the list only while flag +0x0D is set) takes the corners `DynObj::Update_Avoidance(low, high)` gives it. Flag
++0x0C flips bit 8 of the loose box's Self and Mask, flag +0x0E (set by the constructor) bit 0x10 of the loose and
+tight boxes' filters.
+
+**Per frame** `DynObj::Update_Proximity` 0x44B090 passes the object's position (its slot +0x24) and radius
+(+0x04, type 24's slot +0x34 sets it) to `PxWrapper::Update` 0x456B60, which ignores changes under 0.1, moves the
+loose and tight boxes (`PxList::Set_Corners` when in a list) and then calls every callback's slot +0x10;
+`Update_Avoidance` 0x44B150 sets the callback box's corners (0x456900, also under 0.1 ignored). **No caller is
+known**: client.py finds no call or pointer reference to Update_Proximity, Update_Avoidance, fp_tt.cpp's
+0x449EA0 (the other caller of 0x456900) or `PxWrapper::Add_To_List` 0x456660, the only way a wrapper enters
+the list. So in the retail client the wrappers and boxes are built and kept, but (as far as the references
+show) never inserted into ClientClass's PxList nor updated: *guess*: the proximity / avoidance code is dormant,
+or reached through a path not yet found (a vtable of an unrebuilt class would show as a pointer reference).
 
 ## 3. The object-affecting opcodes
 

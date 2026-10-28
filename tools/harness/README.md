@@ -504,6 +504,9 @@ REMOVE through both destructors. 66 checks, 2,993 trace lines.
 **dynamic_obj.cpp (2026-10-28, DO1):** type 24's DynObj is rebuilt (its slots no longer stand-ins); its PxWrapper
 (px_wrapper.cpp, not rebuilt) has stand-ins in client_stubs.cpp: the constructors record the owner and clear the list,
 so the destructor's FAIL_IF (line 70) stays quiet. 67 checks (the PxWrapper's owner), 2,994 trace lines.
+**px.cpp and px_wrapper.cpp (2026-10-28, PX1):** ClientClass's PxList and type 24's PxWrapper are real code now; the
+PxClass and PxWrapper stand-ins are gone, client_stubs.cpp has stand-ins for the other px_*.cpp classes the wrapper
+builds (PxObject, PxBoxList, PxCollisionBox: the box classes construct their PxBox base). 67 checks, 2,999 trace lines.
 
 ## Other harness programs (index)
 

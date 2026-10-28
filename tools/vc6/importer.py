@@ -4121,8 +4121,12 @@ RECONSTRUCTED = {
                                       "constructors 0x44AC70 / 0x44ADA0 (NOT EXACT), the destructor 0x44AE70, the "
                                       "PxWrapper forwarders 0x44AF50-0x44B070, Update_Proximity 0x44B090, "
                                       "Update_Avoidance 0x44B150",
-    ('app', 'shared/px_wrapper.h'): "PxWrapper (the client's name, 0x456B60's profile strings; px_wrapper.cpp not "
-                                   "rebuilt), declared as far as dynamic_obj.cpp calls it; provisional header name",
+    ('app', 'shared/px_wrapper.h'): "PxWrapper (the client's name, 0x456B60's profile strings) and the other px_*.cpp "
+                                   "classes it uses (PxObject, PxCallback, PxBoxList, PxCollisionBox, PxCollision; not "
+                                   "rebuilt, declared as far as px_wrapper.cpp uses them); provisional header name",
+    ('app', 'shared/px_wrapper.cpp'): "PxWrapper, client 0x4560B0-0x457740 (its __FILE__; FAIL_IFs lines 108-273): the "
+                                     "constructors, Create_Boxes 0x456350, the list and flag members, Update 0x456B60 "
+                                     "(NOT EXACT), the callback members, _Collision_Callback 0x457670",
     ('app', 'shared/px.h'): "PxEnd / PxBox / PxList, the proximity system's sweep and prune (PxBox and PxList the client's names, their profile and debug strings); provisional header name",
     ('app', 'shared/px.cpp'): "px.cpp, client 0x44B760-0x44D740 (its __FILE__; FAIL_IFs lines 180-564): PxEnd, PxBox (vtable 0xAE7A3C) and PxList: Insert 0x44BFC0, Remove 0x44C2E0, Set_Corners 0x44C900 (NOT EXACT), the filter setters, Dump 0x44D210",
     ('app', 'client/extrap.h'): "extrap.cpp's state nodes: the client's StateNode (vtable 0xB02398; its asserts "

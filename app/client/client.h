@@ -84,15 +84,8 @@ public:
 	char Unknown24[0x60 - 0x24];
 };
 
-// px.cpp's object (0x34 bytes, constructor 0x44BE90, destructor 0x44BF00; not rebuilt)
-class PxClass				// NAME 3: class-from-file (D24) for px.cpp
-{
-public:
-	PxClass();											// 0x44BE90
-	~PxClass();											// 0x44BF00
-
-	char Unknown00[0x34];
-};
+// px.cpp's PxList (0x34 bytes, constructor 0x44BE90, destructor 0x44BF00; app\shared\px.h)
+class PxList;
 
 // px_process.cpp's object (0x0C bytes, constructor 0x455A90, destructor 0x455AB0; not rebuilt)
 class PxProcessClass		// NAME 3: class-from-file (D24) for px_process.cpp
@@ -169,7 +162,7 @@ public:
 	bool Get_Objects_Changed();							// 0x728430: reads and clears ObjectsChanged  // NAME 2: what it does
 
 	int Unknown04;										// +0x04 (the constructor leaves it)
-	PxClass *Px;										// +0x08  // NAME 3: px.cpp's
+	PxList *Px;											// +0x08  // NAME 3: px.cpp's
 	PxProcessClass *PxProcess;							// +0x0C  // NAME 3: px_process.cpp's
 	bool DebugMode;										// +0x10 (slots +0x38 / +0x3C, the DEBUG packet's user data)  // NAME 2: what it holds
 	bool Unknown11;										// +0x11 (Set_Debug_Object's DEBUG packet's user data)

@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-308 entries in 67 files.
+309 entries in 68 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -281,6 +281,7 @@ edit the comments in the code, not this file.
 | `app/shared/px.cpp:487` | `PxList::Set_Self` | marker | NOT EXACT: register (as 0x44C2E0; attempts.py show 0x44C520) |
 | `app/shared/px.cpp:561` | `PxList::Set_Test_Mask` | marker | NOT EXACT: register (as 0x44C2E0; attempts.py show 0x44C690) |
 | `app/shared/px.cpp:600` | `PxList::Set_Corners` | marker | NOT EXACT: inline budget (the client calls vector::insert(it, x) out of line; attempts.py show 0x44C900) |
+| `app/shared/px_wrapper.cpp:269` | `PxWrapper::Update` | marker | NOT EXACT: shape (the client loads Object->Radius before radius: fld; fsub st(1); attempts.py show 0x456B60) |
 | `app/shared/spln_db.cpp:57` | `SplineDatabaseClass::~SplineDatabaseClass` | marker | NOT EXACT: inline-budget (the client inlines HashListClass::First_Valid in the Free_Splines loop; ours calls it) |
 | `app/shared/spln_db.cpp:96` | `SplineDatabaseClass::Save` | marker | NOT EXACT: shape (the filename copy and the save chunks: the client inlines Save_Chunks with Write_String and Save_Entry out of line) |
 | `app/shared/spln_db.cpp:487` | `SplineDatabaseClass::Get_Color_Curves` | marker | NOT EXACT: inline-budget (the client calls HashListClass::Find out of line for _G only) |

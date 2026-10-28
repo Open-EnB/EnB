@@ -1,6 +1,5 @@
 == SClient (its constructor, the base's)
 stub Unknown763E00Class::Unknown763E00Class
-stub PxClass::PxClass
 stub PxProcessClass::PxProcessClass
 stub Unknown831340Class::Unknown831340Class -1 'Null Item' type -1
 stub SOptionsClass::SOptionsClass (0x75A280, registry: not run)
@@ -316,7 +315,9 @@ check REMOVE 7: the object is out of the client's table: ok
 check REMOVE 7 deleted the object, its model and its part models: ok
 == (4b) CREATE 4's types 24 and 28 make co_subtypes.cpp's subclasses
 msg 1 CREATE (4) size 27: cpacket.cpp's handler
-stub PxWrapper::PxWrapper
+stub PxObject::PxObject
+stub PxCollisionBox::PxCollisionBox
+stub PxBoxList::PxBoxList
 asset manager +0x78 'ship_test' scale 0.5 hsv (0 0 0) -> model 15
 gen Unknown_831950
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -340,7 +341,7 @@ msg 4 REMOVE (7) size 8: cpacket.cpp's handler
 stub SClient::Unknown_744B60 -> 0
 stub SClient::Unknown_74C530 4100
 mainview remove 4100
-stub PxWrapper::~PxWrapper
+stub PxObject::~PxObject
 model 15 'ship_test' deleted
 msg 5 REMOVE (7) size 8: cpacket.cpp's handler
 stub SClient::Unknown_744B60 -> 0

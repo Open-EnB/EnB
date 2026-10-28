@@ -143,8 +143,6 @@ Unknown831340Class::Unknown831340Class(int a, int, int, const RefCountPtr<RefCou
 	Trace("stub Unknown831340Class::Unknown831340Class %d '%s' type %d", a, name.c_str(), g);
 }
 Unknown831340Class::~Unknown831340Class() { Trace("stub Unknown831340Class::~Unknown831340Class"); }
-PxClass::PxClass() { Trace("stub PxClass::PxClass"); }
-PxClass::~PxClass() { Trace("stub PxClass::~PxClass"); }
 PxProcessClass::PxProcessClass() { Trace("stub PxProcessClass::PxProcessClass"); }
 PxProcessClass::~PxProcessClass() { Trace("stub PxProcessClass::~PxProcessClass"); }
 Unknown763E00Class::Unknown763E00Class() { Trace("stub Unknown763E00Class::Unknown763E00Class"); }
@@ -385,10 +383,10 @@ EffectObjectClass *Unknown_6E9490(int desc_id, unsigned effect_id, unsigned dura
 #include "..\..\..\app\audio\soundlib.h"
 AudibleSoundClass *SoundLibraryClass::Play_2D_Sound(const char *name, int mode) { Trace("stub SoundLibraryClass::Play_2D_Sound '%s' %d", name, mode); return(0); }
 Sound3DClass *SoundLibraryClass::Play_3D_Sound(const char *name, const Matrix3D &tm, int mode, float scale) { Trace("stub SoundLibraryClass::Play_3D_Sound '%s' at (%g, %g, %g) %d %g", name, tm[0][3], tm[1][3], tm[2][3], mode, scale); return(0); }	// co.cpp's engine sounds 0x6FDBD0
-// dynamic_obj.cpp's PxWrapper (px_wrapper.cpp, not rebuilt; type 24's DynObj allocates one): the constructors record
-// the owner and start off any list, so the destructor's FAIL_IF stays quiet; gen_stubs.py writes the other members
+// px_wrapper.cpp's helpers in the other px_*.cpp files (not rebuilt; type 24's DynObj builds a PxWrapper): the box
+// classes construct their PxBox base so px.cpp's setters see an empty filter and no list; gen_stubs.py writes the rest
 #include "..\..\..\app\shared\px_wrapper.h"
-PxWrapper::PxWrapper(DynObj *owner) { memset(this, 0, sizeof(*this)); Owner = owner; Trace("stub PxWrapper::PxWrapper"); }
-PxWrapper::PxWrapper(DynObj *owner, const PxWrapper &) { memset(this, 0, sizeof(*this)); Owner = owner; Trace("stub PxWrapper::PxWrapper (copy)"); }
-PxWrapper::~PxWrapper() { Trace("stub PxWrapper::~PxWrapper"); }
-void PxWrapper::Unknown_456730() { List = NULL; Trace("stub PxWrapper::Unknown_456730"); }
+PxObject::PxObject(DynObj *owner) : Owner(owner), Pos(0.0f, 0.0f, 0.0f), Radius(0.0f) { Trace("stub PxObject::PxObject"); }
+PxObject::~PxObject() { Trace("stub PxObject::~PxObject"); }
+PxBoxList::PxBoxList(PxObject *object) : PxBox(object) { Trace("stub PxBoxList::PxBoxList"); }
+PxCollisionBox::PxCollisionBox(PxObject *object, PxCollisionCallback, const Vector3 &) : PxBox(object) { memset(Unknown20, 0, sizeof(Unknown20)); Trace("stub PxCollisionBox::PxCollisionBox"); }

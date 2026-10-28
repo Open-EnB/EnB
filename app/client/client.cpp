@@ -13,7 +13,7 @@
 #include "..\shared\unknown_debug.h"
 #include "wwaudio.h"
 #include <stdlib.h>
-
+#include "..\shared\px.h"
 void Unknown_Debug_Printf(const char *format, ...);	// 0x509DC0 (dbgmgr.cpp, D38)
 
 // NOT EXACT: inline budget (the client calls the 'Null Item' string's assign out of line, ours inlines all three strings and swaps two temporaries' slots; the member stores and the prologue scheduled differently; five forms; attempts.py show 0x726100)
@@ -62,7 +62,7 @@ ClientClass::ClientClass() :
 	Unknown1138 = rand();
 	Connection = new PeekConnectionClass(new NullConnectionClass);
 	Unknown18 = new Unknown763E00Class;
-	Px = new PxClass;
+	Px = new PxList;
 	PxProcess = new PxProcessClass;
 	Splines = new SplineDatabaseClass(NULL);
 	Splines->Load("splines.wsd");
@@ -648,7 +648,7 @@ void UnknownB02C90Class::Unknown_04(int base_asset)
 **	* Inline in client.h and emitted after the constructor: slots +0x18 .. +0x30 (0x7268E0 ..
 **	  0x726A30; +0x28 / +0x30 inline Find_Object), then connect.h's ConnectionClass slots and the
 **	  do-nothing connection's implicit destructor (0x726AF0 .. 0x726C40; too short to count).
-**	  0x727040 is PxClass's scalar deleting destructor, 0x7280E0 DebugPacketClass's inline one.
+**	  0x727040 is PxList's scalar deleting destructor, 0x7280E0 DebugPacketClass's inline one.
 **	* Forms: Find_Object(const char *) takes the next node before the name's destructor (a while
 **	  loop); Get_Effect and Remove_Unknown86C return through a local set to NULL; Remove_Effects
 **	  looks the id up again after each Remove; the DEBUG packets are temporaries.
