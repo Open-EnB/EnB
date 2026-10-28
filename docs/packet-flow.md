@@ -272,11 +272,15 @@ One frame of `SClient::Do_Frame` 0x742B60 with three packets queued (CREATE, AUX
 **State 2026-10-28 (overnight run):** this path now runs as real code in clienttest's section (4)
 (`build.py build --lib app`; `python tools/harness/clienttest.py build`, then `run`; 45 checks). Do_Frame 0x742B60
 (exact), Process_Packets with the real SIMPLE 8 handler, postate / extrap's state (PS1, EX1), Process_AI 0x744260,
-0x6F3C60 (exact) and 0x6F4610 drive the model's Set_Transform. The test creates its object directly, since CREATE 4
-(exact, CR1) needs the game's asset manager and stays in gen_stubs' NOT_DRIVEN. Its checks: the model is at the
+0x6F3C60 (exact) and 0x6F4610 drive the model's Set_Transform. Since HN1 (7089f1d, 57 checks) the object comes from
+the real CREATE 4 through a fake asset manager (clienttest's own basset.ini / cbasset.ini; fake models log their
+slots): CREATE puts it in the tables with the packet's GameID / type / base asset / scale and loads base asset 900's
+model, SUBPARTS hangs six part models on its bones, CHANGE_BASE_ASSET 38 swaps the model, REMOVE deletes object and
+models; all 202 CREATEs and 4 REMOVEs of the alex3 capture are checked too. NOT_DRIVEN is empty (CREATE types
+10 / 24 / 28 would still crash on generated constructors; no capture sends them). Its checks: the model is at the
 packet's position + velocity x 500 ticks, turned 90 degrees about Z; a second packet updates the state in place; past
 the 2000-tick blend the model follows the second packet. Not exact yet: 0x6F4610, the roll 0x6F3FA0, Process_AI,
-0x6FD310, 0x6FDBD0, 0x6FBEF0, all inline budget except Process_AI (shape); 0x6FE1E0 (damage state) not written.
+0x6FD310, 0x6FDBD0, 0x6FBEF0, 0x6FE1E0, all inline budget except Process_AI (shape); see progress.md §4 item 2.
 
 1. Age step: `[+0x12C0]->Unknown_20()`; each existing object's slot +0x1C 0x6F5120 -> `AuxData->Unknown_20()`.
 2. `+0x10BC = Unknown_Get_Ticks()`; input.

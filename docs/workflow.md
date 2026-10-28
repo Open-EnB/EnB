@@ -689,7 +689,10 @@ unless `--lever` cites a new row of this table.
   lib hid 24 LNK2005 and new unresolved symbols. After a fixpad / assert-line script, check every assert of the
   file, not the first few: a moved line broke postate's type 15 constructor silently.
 * **A rebuilt handler whose callees are generated NULL-returning stand-ins can crash a test program**
-  (2026-10-28, CR1): list it in `gen_stubs.py`'s `NOT_DRIVEN` until its callees exist (CREATE, CHANGE_BASE_ASSET).
+  (2026-10-28, CR1): list it in `gen_stubs.py`'s `NOT_DRIVEN` until its callees exist (empty since HN1's fake
+  asset manager, 7089f1d). co.cpp's loader 0x6F51D0 reads basset.ini, Set_Model's radius 0x6F39F0 and the mount
+  points 0x7251C0 read cbasset.ini, both from the working directory (clienttest's copies in its data folder).
+  ~ClientObjectClass deletes AuxData through slot +0x04: a fake root's table needs a `__stdcall(unsigned)` there.
 * **`gen_stubs --link` skips data globals** (`MonoClass Mono`): write them by hand in client_stubs.cpp (2026-10-28, UP1).
 * **LandClass writes the .pld beside the art it reads (2026-10-28, LD1):** VIDTEST and drawcheck run on LandClass
   now; always pass `-art` / `--art` with a copy of EBCONFIG made with `cp -rp` (without -p the .pld's date changes
