@@ -467,31 +467,31 @@ void FontManagerClass::Unknown_6D2310(const unsigned int &id)
 
 void FontManagerClass::Unknown_6D2400(unsigned int id)
 {
-	Find(id)->Unknown_6D0390(NULL);
+	Peek_Font(id)->Unknown_6D0390(NULL);
 }
 
 void FontManagerClass::Unknown_6D2480(unsigned int id)
 {
-	Find(id)->Unknown_6D0550(NULL);
+	Peek_Font(id)->Unknown_6D0550(NULL);
 }
 
 void FontManagerClass::Unknown_6D2500(unsigned int id)
 {
-	Find(id)->Unknown_6D0A20(NULL);
+	Peek_Font(id)->Unknown_6D0A20(NULL);
 }
 
-// NOT EXACT: inline budget: the client calls Find 0x6D2A70 out of line (after pushing the arguments), ours inlines it (attempts.csv)
+// Find 0x6D2A70 out of line here and in 0x6D2700 (auto_inline off); Peek_Font is its inlined twin elsewhere (H19)
 void FontManagerClass::Unknown_6D2580(const char *name, TPoint3D<int> color, unsigned int id)
 {
 	Find(id)->Unknown_6D1010(name, color);
 }
 
-
-
-
-
-
-
+inline ManagedFontClass *FontManagerClass::Peek_Font(unsigned int id)
+{
+	std::hash_map<unsigned int, ManagedFontClass *>::iterator it = Fonts.find(id);
+	if (it == Fonts.end()) return NULL;
+	return it->second;
+}
 
 
 
@@ -519,7 +519,7 @@ void FontManagerClass::Unknown_6D2580(const char *name, TPoint3D<int> color, uns
 // NOT EXACT: order-only, 1 row: the inlined std::string(name) stores its terminator through [ebx+eax], ours [eax+ebx] (attempts.csv)
 FontStyleClass *FontManagerClass::Get_Style(const char *name, unsigned int id)
 {
-	ManagedFontClass *font = Find(id);
+	ManagedFontClass *font = Peek_Font(id);
 	if (!font) {
 		G_ASSERT(0);
 		return DebugFont.Peek();
@@ -554,7 +554,7 @@ RefCountPtr<FontStyleClass> FontManagerClass::Unknown_6D2700(const char *name, c
 // NOT EXACT: inline budget, 75 rows: the client calls the styles table's begin and bucket helpers out of line, ours inlines them (attempts.csv)
 void FontManagerClass::Unknown_6D28C0(int value, unsigned int id)
 {
-	Find(id)->Unknown_Set_Styles(value);
+	Peek_Font(id)->Unknown_Set_Styles(value);
 }
 
 void FontManagerClass::Add(ManagedFontClass *font)
@@ -564,12 +564,14 @@ void FontManagerClass::Add(ManagedFontClass *font)
 	}
 }
 
+#pragma auto_inline(off)
 ManagedFontClass *FontManagerClass::Find(unsigned int id)
 {
 	std::hash_map<unsigned int, ManagedFontClass *>::iterator it = Fonts.find(id);
 	if (it == Fonts.end()) return NULL;
 	return it->second;
 }
+#pragma auto_inline(on)
 /*
 **	Reconstruction notes
 **
@@ -579,4 +581,8 @@ ManagedFontClass *FontManagerClass::Find(unsigned int id)
 **	0x6D4C70 are in other files). 0x6D2700 is written (NOT EXACT, frame). 0x6D2400 / 0x6D2480 / 0x6D2500 differ only by their callee: one pattern, not counted.
 **	The depth lever (workflow.md 3.1) made the destructor and 0x6D1C10 exact: the client calls the
 **	nested table helpers out of line when they sit one inline level deeper.
+**	Find 0x6D2A70 is never inlined (#pragma auto_inline(off)): the client calls it out of line in
+**	0x6D2580 and 0x6D2700 and inlines the same body in the trio, Get_Style and 0x6D28C0, written as
+**	the inline twin Peek_Font (builder H19: 0x6D2580 exact; no budget form inside 0x6D2580 sent
+**	Find out of line: dead reads, a depth wrapper, a constructed color, a RefCountPtr local).
 */
