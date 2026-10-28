@@ -464,7 +464,13 @@
      "0x441480",
      "0x676CD0",
      "0x676D40",
-     "0x676DB0"
+     "0x676DB0",
+     "0x677410",
+     "0x677660",
+     "0x677780",
+     "0x6778A0",
+     "0x677F00",
+     "0x678060"
     ],
     "merged": [],
     "name": "client/buff_database.cpp"
@@ -7134,13 +7140,18 @@
      "0x6AC280",
      "0x6AC340",
      "0x6AC5C0",
+     "0x6ACD10",
      "0x6ACF50",
      "0x6AD0A0",
      "0x6AD120",
      "0x6AD1A0",
+     "0x6AD230",
      "0x6AD350",
      "0x6AD3E0",
-     "0x6AE020"
+     "0x6AE020",
+     "0x6AE250",
+     "0x6AEBF0",
+     "0x6AEE60"
     ],
     "merged": [],
     "name": "client/tutorial_manager.cpp"
@@ -7243,10 +7254,14 @@
      "0x5A7A50",
      "0x5A7C60",
      "0x5A7DE0",
+     "0x5A7E80",
      "0x5A80D0",
+     "0x5A8100",
      "0x5A8310",
      "0x5A8B60",
-     "0x5A8C70"
+     "0x5A8C70",
+     "0x5A95E0",
+     "0x5AA360"
     ],
     "merged": [],
     "name": "client/ui_line_display.cpp"

@@ -139,10 +139,11 @@ TutorialManagerClass::TutorialManagerClass() : Steps(100), CurrentStep(0), Curre
 		Read_Completed_File(false);
 	}
 }
-// NOT EXACT: shape (explain.py), as buff_database.cpp's destructor 0x677410: the client keeps the hash_map iterator in registers and calls the bucket size 0x6AE6D0 and _M_bkt_num 0x6AE7D0 out of line
+// The hash_map iterator declared before the loop and assigned from begin() keeps it in registers as the client (0x5A7E80, 0x5A8100, 0x677410, 0x6ACD10) (one padding line below removed for Start_Step's __LINE__)
 TutorialManagerClass::~TutorialManagerClass()
 {
-	for (std::hash_map<std::string, TutorialStepStruct *>::iterator i = Steps.begin(); i != Steps.end(); ++i) {
+	std::hash_map<std::string, TutorialStepStruct *>::iterator i;
+	for (i = Steps.begin(); i != Steps.end(); ++i) {
 		delete (*i).second;
 	}
 	Steps.clear();
@@ -158,7 +159,6 @@ void TutorialManagerClass::Set_Instance(TutorialManagerClass *manager)
 {
 	Instance = manager;
 }
-
 
 
 

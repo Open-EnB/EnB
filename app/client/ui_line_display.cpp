@@ -587,7 +587,7 @@ void UILineDisplayClass::Flush_Lines()
 
 
 
-// NOT EXACT: shape (explain.py), the hash_map loop's first bucket search laid out differently (as 0x677410)
+// The iterator declared before the loop (registers as the client); the called string in a named local (the client loads it before the argument)
 void UILineDisplayClass::Unknown_7C(int unknown1, int unknown2)
 {
 	Clear();
@@ -607,19 +607,22 @@ void UILineDisplayClass::Unknown_7C(int unknown1, int unknown2)
 			unknown1 = 0;
 		}
 	}
-	for (std::hash_map<std::string, LineDisplayStringStruct *>::iterator s = Strings.begin(); s != Strings.end(); ++s) {
-		(*s).second->Get_Text()->Unknown_054(offset);
+	std::hash_map<std::string, LineDisplayStringStruct *>::iterator s;
+	for (s = Strings.begin(); s != Strings.end(); ++s) {
+		LineDisplayStringStruct *string = (*s).second;
+		string->Get_Text()->Unknown_054(offset);
 	}
 	InterfaceClass::Unknown_7C(unknown1, unknown2);
 }
 
 
-// NOT EXACT: shape (explain.py), the hash_map iterator kept in esi by the client, in the frame by ours (as 0x677410)
+// The hash_map iterator declared before the loop and assigned from begin() keeps it in registers as the client (0x5A7E80, 0x5A8100, 0x677410, 0x6ACD10)
 void UILineDisplayClass::Clear()
 {
 	Style = "";
 	UnknownFC = false;
-	for (std::hash_map<std::string, LineDisplayStringStruct *>::iterator s = Strings.begin(); s != Strings.end(); ++s) {
+	std::hash_map<std::string, LineDisplayStringStruct *>::iterator s;
+	for (s = Strings.begin(); s != Strings.end(); ++s) {
 		LineDisplayStringStruct *string = (*s).second;
 		if (string->Get_Text()->Unknown_040()) {
 			string->Get_Text()->Unknown_038();

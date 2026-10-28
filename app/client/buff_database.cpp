@@ -83,10 +83,11 @@ BuffDatabaseClass::BuffDatabaseClass() : Buffs(0)
 		index++;
 	}
 }
-// NOT EXACT: inline budget (explain.py: frame 8 vs 4), the client inlines the iterator's ++ but calls the bucket size 0x677AB0 and _M_bkt_num 0x677AE0 out of line; ours keeps the iterator in the frame
+// The hash_map iterator declared before the loop and assigned from begin() keeps it in registers as the client (0x5A7E80, 0x5A8100, 0x677410, 0x6ACD10)
 BuffDatabaseClass::~BuffDatabaseClass()
 {
-	for (std::hash_map<std::string, BuffDefStruct *>::iterator i = Buffs.begin(); i != Buffs.end(); ++i) {
+	std::hash_map<std::string, BuffDefStruct *>::iterator i;
+	for (i = Buffs.begin(); i != Buffs.end(); ++i) {
 		delete (*i).second;
 	}
 	Buffs.clear();

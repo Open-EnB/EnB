@@ -1721,8 +1721,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_68` | `app/client/ui_line_display.cpp:420` | untagged neutral name (D10) |
 | 1 | `Unknown24C` | `app/client/ui_line_display.cpp:482` | untagged neutral name (D10) |
 | 1 | `Unknown_7C` | `app/client/ui_line_display.cpp:591` | untagged neutral name (D10) |
-| 1 | `Unknown_040` | `app/client/ui_line_display.cpp:624` | untagged neutral name (D10) |
-| 1 | `Unknown_038` | `app/client/ui_line_display.cpp:625` | untagged neutral name (D10) |
+| 1 | `Unknown_040` | `app/client/ui_line_display.cpp:627` | untagged neutral name (D10) |
+| 1 | `Unknown_038` | `app/client/ui_line_display.cpp:628` | untagged neutral name (D10) |
 | 1 | `LineDisplayTextClass` | `app/client/ui_line_display.h:35` | neutral (D10): what the line display keeps per STR-n |
 | 1 | `Unknown_6D89C0` | `app/client/ui_line_display.h:39` | untagged neutral name (D10) |
 | 1 | `Unknown_6CDBC0` | `app/client/ui_line_display.h:40` | untagged neutral name (D10) |
