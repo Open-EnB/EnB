@@ -501,6 +501,12 @@ unless `--lever` cites a new row of this table.
   as losses and their gains as yours; commit only your blocks. `attempts.py
   record` takes `--score` float, `--forms` int, and a function-only `--stash`. A file-static reached by displacement
   (`[GutterColors+8]`) is unrelocated in objdiff: make it a global (R1).
+* **symbols.json regeneration is not neutral (2026-10-27, M2 / M3):** symbols.py used to promote D88's self-named functions to
+  `source: exact`, deleting the evidence that made them exact (-323 pairs); it now keeps the proof (`proof`, ae85fb4).
+  Regenerate only with a full verify of every library. An object's client range never comes from imports.json's
+  `in_tree` (it holds COMDAT copies elsewhere): use the object's own non-COMDAT / NODUPLICATES exact functions (M1).
+  `build.py build --lib app --allow-dirty` compiles tracked files only: `git add` a new .cpp first (M1). Park scripts go
+  stale when part of the work lands separately: diff the park folder against HEAD before using it (M1).
 
 ### 3.5 Build VMs and vc6.py
 
@@ -575,6 +581,9 @@ unless `--lever` cites a new row of this table.
   so explain.py's "relocation" class on handlers that destroy a packet temporary is a false lead (T19). For a large
   function with a different instruction count, `.work/t20/align.py` lines up explain.py's `--window` columns with difflib.
   Python's `subprocess` 'bash' on this host is not Git Bash: use `C:\Program Files\Git\usr\bin\bash.exe` (H20).
+* **`_$E` initialisers are `short` (2026-10-27, M3):** never exact by themselves; D115's round locates one by its relocated
+  fields (atexit, the global) inside the object's range +-0x1000. ref_ptr.h: a script that finds `G_ASSERT(0 != Referent)`
+  by text also hits ref_ptr.h's new header note (F7): match the whole statement line.
 
 ### 3.7 Harnesses, programs, unattended runs
 

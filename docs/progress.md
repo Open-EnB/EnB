@@ -4,6 +4,32 @@ Newest first within each section. Dates are when the entry was written.
 
 ## 1. Log
 
+### 2026-10-27 (20:30, night): decisions D96-D115, the audit, six tools, objmatch's range / initialiser rounds; +568 pairs, 0 lost
+
+Coordinator Opus 5.5 (D96). Base 6bcc001; HEAD +568 pairs against it (+811 against a76b92e, the day's start), no address
+lost outright (one D66(v) move: dbgconn 0x821E40, still matched in connect). Plan log: `.work/run-2026-10-27b/plan.md`.
+
+* **Matching (quiet tree, every library verified in full each time):** D100's range round +192 (ab7656d) and its held-address
+  refinement +25 (9339007); D94(b) `_$E` names skipped (fcc5f49, 0/0); D95(b) closed unimplemented (D114(a)); D114(b) the
+  range widened by an object's lone exact COMDATs within 0x1000, +245 (0de0e6c); D114(c) symbols.json regenerated
+  (10,422 -> 17,300 symbols) with symbols.py keeping a name's vtable / string proof beside `exact`, +72 (ae85fb4: the
+  plain regeneration measured +63 / -323, it erased D88's evidence); D115's initialiser round +7 (092776b: 0x709F40,
+  inpkeys 0x42B420 / 0x42B540, permstr 0x4AE2D0, 0x729B00, 0xA06000 / 0xA06020). objmatch's order: D80, self name, D80,
+  range, D80, initialiser, D80 (tools/re/README.md). `.work/pseudo/` is deleted: rerun `python tools/re/pseudocode.py`.
+* **Builds:** packets 45 (2d2dba7) and 117 (32da0be); F6's Fable round (D97) found E&B's ref_ptr.h has no
+  `G_ASSERT(dummy == 0)` (964f95e: client_lego_impl Find exact; every library 0 lost); F7 trimmed ref_ptr.h's comments so
+  operator*'s assert sits on the client's line 356 (92e0e2d, 0/0: its two users are not built yet) and made Remove
+  0x72C1D0 exact (595c6b1, +5). Add 0x72B7F0 stays parked.
+* **Tools (D112, D113):** private scratch per agent and `importer.py --agent` (999f780); commit_mine by entry and by row,
+  `--refresh-totals`, compare-and-swap (3b6d6fc); the root guard (420f76e); `appfile.py match -I auto` / `--pool`
+  (3ed6d2b); names.py over untracked files, refreshing not-exact.md (cdf3e23); `tools/vc6/wt.py` new / bring-over /
+  remove / list (67c2b7d; a real landing on master is still untested); pacing.py's lost-outright check counts an address
+  still matched anywhere as a move (5b9d86f). About 30 trap bullets retired (42ff582).
+* **Decisions:** D96-D115 (§2); the audit's amendments are D110. Two audits (decisions; traps -> tools) and the Open-BFME
+  comparison (they claim an address per ledger row and verify bytes there; ties never arise) are in the plan log.
+* **Open for the user (§3):** P-M3-1 (D115 credits by symbol across objects, beyond its wording); P-M3-2 (pairs_cmp's
+  address-level lost-outright list); evidence-backed pins, Open-BFME style (asked, not yet proposed as a row).
+
 ### 2026-10-27 (17:30, evening): the D93 model evaluation, eight runs scored; A-opus and B-opus merged (+113 pairs, 0 lost); P-E1 proposes the D72 revision
 
 Coordinator Opus 5.5 (the user, 14:50: changes eval-d93.md's "the coordinator stays on Fable"; noted in D93's row).
@@ -1315,6 +1341,17 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 
 ## 3. Open decisions
 
+* **P-M3-1 (D115's scope, 2026-10-27):** builder M3 credits an initialiser-proven constructor / destructor by symbol
+  across objects (one mangled symbol is one address in the linked image), not only within the initialiser's own object as
+  D115 reads; that is how permstr 0x4AE2D0 and definitionfactory 0xA06000 / 0xA06020 gained (092776b, +7 in all, 0 lost).
+  Recommendation: accept the wider reading and amend D115.
+* **P-M3-2 (pairs_cmp, 2026-10-27):** pairs_cmp lists lost pairs but not the addresses lost outright, which D66(v) now
+  depends on (pacing.py and `.work/m3/cmp.py` each compute it). Proposal: pairs_cmp prints the lost-outright list and the
+  moves. Recommendation: accept (S, a Sonnet tools item).
+* **Evidence-backed pins (Open-BFME's ledger, 2026-10-27):** let a reconstructed file pin a still-tied function to one client
+  address with an evidence note (initialiser, caller in the object, placement), accepted when the bytes match there and no
+  other file claims the address; changes D54's "ties never pair". Recommendation: a builder designs and measures it on a
+  quiet tree before a decision row.
 ## 4. Next steps
 
 Milestones M1 and M2 are met (D42, D63; [milestones.md](milestones.md)). Order and detail of the
