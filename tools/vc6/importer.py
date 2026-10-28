@@ -4092,8 +4092,8 @@ RECONSTRUCTED = {
                                "0x70F250-0x714340); moved out of postate.h",
     ('app', 'client/extrap.cpp'): "the state nodes, client 0x70F040-0x714810 (<string>'s guarded static last; "
                                  "postate.cpp follows at 0x714820): StateNode's slots 0x70F040-0x70F210 (lines 238, "
-                                 "246, D25), the nodes' constructors, destructors and small slots; the asserts on the "
-                                 "client's lines 757, 1432-1433, 1525, 1534, 1799",
+                                 "246, D25), every node, blend and motion object of the window (NOT EXACT ones marked); the "
+                                 "asserts on the client's lines 349-433, 757, 1198-1214, 1279-1416, 1432-1590, 1799",
 }
 
 # Text appended to imported files (after everything, so no existing line moves).
