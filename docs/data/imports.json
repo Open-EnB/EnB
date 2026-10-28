@@ -977,12 +977,23 @@
    },
    "co_player_relationship": {
     "ambiguous": [
+     "0x42A6C0",
      "0x42B2F0"
     ],
     "copy": "reconstructed",
     "expected": {},
     "in_tree": [
+     "0x42A820",
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30",
+     "0x42CAB0",
+     "0x42CD30",
+     "0x42D050",
      "0x42F250",
+     "0x4B58D0",
+     "0x70A010",
+     "0x70A2E0",
      "0x70CC40",
      "0x70CC90",
      "0x70CD50"

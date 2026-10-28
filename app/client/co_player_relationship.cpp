@@ -3,15 +3,36 @@
 #include "co.h"
 #include "..\packets\pk_player_object_relationship.h"
 #include "..\shared\unknown_debug.h"
+#include "..\..\wwlib\inisup.h"
+#include <string>
 
 void Unknown_70CC40(SClient *sclient, PlayerObjectRelationshipPacket *packet);	// NAME 1 [Unknown_70CC40, sclient, packet]: cpacket.cpp's RELATIONSHIP 137 handler
 void Unknown_70CC90(SClient *sclient, PlayerObjectReactionUpdatePacket *packet);	// NAME 1 [Unknown_70CC90, sclient, packet]: cpacket.cpp's 138 handler
 void Unknown_70CD50(SClient *sclient, PlayerObjectIsAttackingUpdatePacket *packet);	// NAME 1 [Unknown_70CD50, sclient, packet]: cpacket.cpp's ATTACKER_UPDATES 139 handler
 
+bool String_To_Value(const char *text, Vector3 *value);	// 0x4A3810 (strconv_lib.cpp, not in strconv_lib.h: sscanf "%f %f %f")  // NAME 2: as strconv_lib.h's pairs
 
+// One gutter colour: the ini's <name>1 and <name>2 entries (0.66 grey when missing; 0x18 bytes)
+struct GutterColorStruct	// NAME 2: what it holds ('Failed to lookup gutter color %s')
+{
+	GutterColorStruct() {}
+	GutterColorStruct(const Vector3 &color_1, const Vector3 &color_2) : Color1(color_1), Color2(color_2) {}	// 0x70CE10 (out of line in 0x70A7E0)
 
+	Vector3 Color1;	// +0x00  // NAME 2: the assert's color_1
+	Vector3 Color2;	// +0x0C  // NAME 2: the assert's color_2
+};
 
+// The colours of one gutter ini section (0x60 bytes; copied whole by 0x70ACA0)
+struct GutterColorSetStruct	// NAME 2: what it holds
+{
+	GutterColorSetStruct(INISection *section);	// 0x70A010
+	void Read_Color(INISection *section, const std::string &name, GutterColorStruct &color);	// 0x70A2E0 (ecx unused)  // NAME 2: what it does
 
+	GutterColorStruct Target;	// +0x00  // NAME 3: the ini name 'Target'
+	GutterColorStruct Mouse;	// +0x18  // NAME 3: the ini name 'Mouse'
+	GutterColorStruct NotTarget;	// +0x30  // NAME 3: the ini name 'NotTarget'
+	GutterColorStruct JumpStart;	// +0x48  // NAME 3: the ini name 'JumpStart'
+};
 
 
 
@@ -21,59 +42,38 @@ void Unknown_70CD50(SClient *sclient, PlayerObjectIsAttackingUpdatePacket *packe
 
 
 
+GutterColorSetStruct::GutterColorSetStruct(INISection *section)
+{
+	Read_Color(section, std::string("Target"), Target);
+	Read_Color(section, std::string("Mouse"), Mouse);
+	Read_Color(section, std::string("NotTarget"), NotTarget);
+	Read_Color(section, std::string("JumpStart"), JumpStart);
+}
 
 
+void GutterColorSetStruct::Read_Color(INISection *section, const std::string &name, GutterColorStruct &color)
+{
+	std::string color_1_name = name + "1";
+	std::string color_2_name = name + "2";
+	INIEntry *color_1_entry = section->Find_Entry(color_1_name.c_str());
+	INIEntry *color_2_entry = section->Find_Entry(color_2_name.c_str());
+	if (color_2_entry == NULL) {
+		color_2_entry = color_1_entry;
+	}
+	FAIL_IF(!color_1_entry) {
+		color.Color1.Set(0.66f, 0.66f, 0.66f);
+		color.Color2.Set(0.66f, 0.66f, 0.66f);
+		return;
+	}
 
+	Vector3 color_1;
+	Vector3 color_2;
+	bool color_1_result = String_To_Value(color_1_entry->Value, &color_1);
+	bool color_2_result = String_To_Value(color_2_entry->Value, &color_2);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	G_ASSERT(color_1_result && color_2_result);
+	color = GutterColorStruct(color_1, color_2);
+}
 
 
 

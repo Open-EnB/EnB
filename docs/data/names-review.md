@@ -9,8 +9,8 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 34 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 36 |
-| 3 | by convention from a client-named file or sibling | 818 |
-| 2 | describes what the code does | 1929 |
+| 3 | by convention from a client-named file or sibling | 822 |
+| 2 | describes what the code does | 1935 |
 | 1 | neutral placeholder | 3455 |
 
 ## For review (score 3 and below)
@@ -518,12 +518,12 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_18` | `app/client/co_data.cpp:60` | untagged neutral name (D10) |
 | 1 | `Unknown_18` | `app/client/co_data.h:42` | the client's slot |
 | 1 | `ClientObjectDataAccessClass` | `app/client/co_data.h:52` | neutral (D10), the per-type access |
-| 1 | `Unknown_70CC40, sclient, packet` | `app/client/co_player_relationship.cpp:7` | cpacket.cpp's RELATIONSHIP 137 handler |
-| 1 | `Unknown_70CC40` | `app/client/co_player_relationship.cpp:7` | untagged neutral name (D10) |
-| 1 | `Unknown_70CC90, sclient, packet` | `app/client/co_player_relationship.cpp:8` | cpacket.cpp's 138 handler |
-| 1 | `Unknown_70CC90` | `app/client/co_player_relationship.cpp:8` | untagged neutral name (D10) |
-| 1 | `Unknown_70CD50, sclient, packet` | `app/client/co_player_relationship.cpp:9` | cpacket.cpp's ATTACKER_UPDATES 139 handler |
-| 1 | `Unknown_70CD50` | `app/client/co_player_relationship.cpp:9` | untagged neutral name (D10) |
+| 1 | `Unknown_70CC40, sclient, packet` | `app/client/co_player_relationship.cpp:9` | cpacket.cpp's RELATIONSHIP 137 handler |
+| 1 | `Unknown_70CC40` | `app/client/co_player_relationship.cpp:9` | untagged neutral name (D10) |
+| 1 | `Unknown_70CC90, sclient, packet` | `app/client/co_player_relationship.cpp:10` | cpacket.cpp's 138 handler |
+| 1 | `Unknown_70CC90` | `app/client/co_player_relationship.cpp:10` | untagged neutral name (D10) |
+| 1 | `Unknown_70CD50, sclient, packet` | `app/client/co_player_relationship.cpp:11` | cpacket.cpp's ATTACKER_UPDATES 139 handler |
+| 1 | `Unknown_70CD50` | `app/client/co_player_relationship.cpp:11` | untagged neutral name (D10) |
 | 1 | `Unknown_6FEEE0` | `app/client/co_player_relationship.cpp:311` | untagged neutral name (D10) |
 | 1 | `Unknown_8B44E0` | `app/client/control_keys_manager.cpp:10` | neutral placeholder (D10) |
 | 1 | `Unknown_42A1A0` | `app/client/control_keys_manager.cpp:11` | neutral (D10): 0x42A1A0 (app\input), a key read from an ini entry |
@@ -3658,6 +3658,12 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Remove_Navigation_Data` | `app/client/co_data.h:89` | what it does |
 | 2 | `Get_Emote_Data` | `app/client/co_data.h:90` | what it does |
 | 2 | `Remove_Emote_Data` | `app/client/co_data.h:91` | what it does |
+| 2 | `String_To_Value` | `app/client/co_player_relationship.cpp:13` | as strconv_lib.h's pairs |
+| 2 | `GutterColorStruct` | `app/client/co_player_relationship.cpp:16` | what it holds ('Failed to lookup gutter color %s') |
+| 2 | `Color1` | `app/client/co_player_relationship.cpp:21` | the assert's color_1 |
+| 2 | `Color2` | `app/client/co_player_relationship.cpp:22` | the assert's color_2 |
+| 2 | `GutterColorSetStruct` | `app/client/co_player_relationship.cpp:26` | what it holds |
+| 2 | `Read_Color` | `app/client/co_player_relationship.cpp:29` | what it does |
 | 2 | `ContextEqualStruct` | `app/client/control_keys_manager.cpp:15` | describes what it does (the SGI documentation's eqstr; strcmp inlined in 0x71ECD0) |
 | 2 | `std:` | `app/client/control_keys_manager.cpp:20` | 0xBE7B80, what the accessors return without a definition |
 | 2 | `std:` | `app/client/control_keys_manager.h:31` | 0x71CC60 returns it; the table's key |
@@ -5444,6 +5450,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `RadiusAdjust` | `app/client/co.h:180` | the INI key |
 | 3 | `co_data.h` | `app/client/co_data.h:19` | header name assumed from the client's co_data.cpp |
 | 3 | `ClientObjectDataClass` | `app/client/co_data.h:34` | by convention (D24) from the client's co_data.cpp |
+| 3 | `Target` | `app/client/co_player_relationship.cpp:31` | the ini name 'Target' |
+| 3 | `Mouse` | `app/client/co_player_relationship.cpp:32` | the ini name 'Mouse' |
+| 3 | `NotTarget` | `app/client/co_player_relationship.cpp:33` | the ini name 'NotTarget' |
+| 3 | `JumpStart` | `app/client/co_player_relationship.cpp:34` | the ini name 'JumpStart' |
 | 3 | `control_keys_manager.h` | `app/client/control_keys_manager.h:18` | header name assumed from the client's control_keys_manager.cpp |
 | 3 | `RsTrackClass` | `app/client/cpacket.cpp:70` | class-from-file (D24) for app\shared\rs_track.cpp |
 | 3 | `SoundManagerClass` | `app/client/cpacket.cpp:80` | class-from-file (D24) for app\client\sound_manager.cpp |
