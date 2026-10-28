@@ -304,6 +304,23 @@ unless `--lever` cites a new row of this table.
   (`entry = *it`) before several `raw->Add` calls made Build 0x8869F0 exact (three builders independently); the
   client's `Add(..., char, char)` takes `movsx` arguments: declare them `char`, not `bool`; a `Vector3` member
   copies register-wise (z first for a Default copy), a `TPoint3D` as a structure.
+* **Declare-then-assign iterator (2026-10-27, H22; P-H10-1 closed):** `T::iterator it; for (it = X.begin(); it != X.end();
+  ++it)` keeps the iterator in registers and lays out begin()'s first-bucket search as the client does in hash_map / map
+  delete loops: 0x5A7E80, 0x5A8100, 0x677410, 0x6ACD10, 0x5A58A0, 0x4D4490, option.cpp's 0x7FC600, and (inside an inlined
+  helper) the LIMIT row 0x4B3850. Per function, not per file: a 30-file sweep gained nothing else and loses where the
+  client uses the in-`for` declaration (fontdatabase, soundlib 0x43EA10, unique_design_id_lookup 0x5005F0). The extra
+  line moves later `__LINE__`s: pair it with a removed blank line, or test it on the `for`'s own line first.
+* **Out-of-line here, inlined there (2026-10-27, H19 / H21):** `#pragma auto_inline(off)` on the function plus an inline
+  twin for the inlining sites (fontmanager 0x6D2580); a success test after the `if (x)` block, not inside it, gives the
+  return-value EH flag (0x6D2700); a reference parameter copied into a plain local keeps ecx = `this` across a thiscall
+  (`unsigned int key = id; Find(key)`). Dead reads at the top of a wrapper set an inline threshold that can be searched:
+  3 too few, 4-5 right, 6 too many (R2, rtti.h's cast 0x598D80 out of line).
+* **Tail merges and folded displacements (2026-10-27, S1):** when the client keeps the first of two identical failure
+  tails, nest the first case's success path (`if (x != 0) { ...; break; } return(false);`), not both (0x826D00). An `int
+  index` local subscripted twice keeps the -1 out of `[reg + idx*4 + disp]`; a slot pointer or an inline index helper
+  folds it (0x82D8C0). Two RefCountPtr locals zeroed under one EH state are a struct local (H20, client_lego_impl).
+  Separately: a `const_iterator` sent find out of line in co_player_relationship's lookup where this client inlines it
+  (plain iterator, `it == end()` tested first: R1); an empty `~T() {}` on a value type adds EH states.
 
 ### 3.2 Templates and STL
 
@@ -512,6 +529,17 @@ unless `--lever` cites a new row of this table.
 * **Concurrent verifies queue on the importer lock, but `%TEMP%\enb_import\verify-app` and `tryv2-<tag>` are shared
   (2026-10-27, A-sonnet-2, B-sonnet-1):** another builder's verify deletes your objs before explain.py reads them.
   Set TEMP and TMP to a private folder (`.work/tmp`) for verify and explain.py; give tryv2 a unique tag.
+* **A template copy an eval or trial pairs to file X may come from X's own non-exact code (2026-10-27, O1):** 0x603D70
+  (`std::string::assign(const char *)`, 17 callers all in 0x5FBD30) paired to option.cpp on two Sonnet branches only
+  because their non-exact Set_Defaults called it out of line. Before crediting or porting one: `client.py callers ADDR`
+  and the obj's relocations (`.work/o1/who.py OBJ SYMBOL`). A COMDAT placed after file F's last function puts every
+  lower caller in F's object (H21); one placed inside a window can belong to code the linker dropped (H19, 0x42C330).
+* **Shared-tree verifies show other builders' uncommitted work (2026-10-27, R1 / H21 / H22):** their compile errors appear
+  as losses and their gains as yours; commit only your blocks. Rows in one csv hunk travel together (F4's trap: H21's and
+  H22's attempts rows were committed by H22 and R2); a `commit_mine --dry` taken during another commit can show the csv
+  as a whole-file delete: rerun it. `notexact.py`, not names.py, refreshes a changed `// NOT EXACT:` text. `attempts.py
+  record` takes `--score` float, `--forms` int, and a function-only `--stash`. A file-static reached by displacement
+  (`[GutterColors+8]`) is unrelocated in objdiff: make it a global (R1).
 
 ### 3.5 Build VMs and vc6.py
 
@@ -586,6 +614,11 @@ unless `--lever` cites a new row of this table.
   file; pass them absolute. It runs on `ENB_VC6_HOSTS` (no `--pool`): lease and export it. A gameedit draft's
   relative include is one level deeper (`..\..\..\wwlib\nstrdup.h`). `explain.py --window 200` shows a whole
   function; `--n` is the candidate index, not a row count.
+* **Pseudocode `__thiscall` can be a cdecl free function (2026-10-27, B-haiku):** check the `ret N` and the caller's pushes
+  before writing a member. symbols.json names 0xAEDE88 PushMessageLinePacketClass's vtable; it is PacketClass's (pk.h),
+  so explain.py's "relocation" class on handlers that destroy a packet temporary is a false lead (T19). For a large
+  function with a different instruction count, `.work/t20/align.py` lines up explain.py's `--window` columns with difflib.
+  Python's `subprocess` 'bash' on this host is not Git Bash: use `C:\Program Files\Git\usr\bin\bash.exe` (H20).
 
 ### 3.7 Harnesses, programs, unattended runs
 
@@ -685,6 +718,10 @@ unless `--lever` cites a new row of this table.
 * **Run `python tools/vc6/build.py link` for the programs after adding a function to a library file or touching
   stubs/ or pk.h** (L5, 2026-10-27: a missing Resize, then ee8fa6f's stub change pulled pk.obj and 280 externals
   into VIDTEST). A commit subject must not claim a program links unless that command ran at that commit.
+* **`__LINE__` files (2026-10-27, S1 / R1 / R2):** new code goes after the file's last `__LINE__` user, or every later
+  assert moves; a tryv2 variant that adds or removes one line shows false losses: pair it with an opposite edit; a
+  trailing blank line before an appfile `@N` anchor eats a line. A tryv2 edit anchored on a loop line can match twice
+  (H22): anchor on the line before it.
 ### 3.9 Library-specific
 
 * **wnet (E&B's TCPCon):** a reset connection is `CONNRESET` (-16): reads and writes end quietly on it
@@ -716,3 +753,7 @@ unless `--lever` cites a new row of this table.
   `// opcode N (` sits directly above `class X`; a comment between them duplicates it in pk_classes.h.
   Game-editor objects share one `__FILE__`: read the assert string (0xBB2410: gameedit\pkgesave.cpp) before naming
   a pkunknown_* file, and rename the whole object (A-haiku split 30027 / 30028 across two files instead).
+* **Packets (2026-10-27, P10):** when a class in pkclasses.py's OVERRIDES is rebuilt with inline virtuals, empty its
+  harness stub list (pk_ctor_stubs.cpp would redefine them); an object without an assert ends at the guarded-static
+  atexit call inside its last Print. cpacket.cpp calling SoundLibraryClass needs a clienttest stand-in (wwaudio's globals
+  break the link, T19).

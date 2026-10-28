@@ -22,8 +22,8 @@ Usage at 17:29: session 27 %, week 8 % (HEAD +185 pairs against a76b92e, 0 lost)
 | A-sonnet-2 | 5 of 6 for 83 | +33 / -9 (+24, 23) | 1 (0x886890) | 213,638 | 29 | exact | tokens said ~450k; tsk_game.cpp view replaced by an include (unasked) |
 | A-haiku | 2 parked | +29 / 0 (no rename: object split in two files, 19) | 2 (0x886710, 0x862300 prefix) | 344,774 | 34 | exact | alex7 "fails at HEAD" wrong (used `run`, baseline its own commit); built udpreplay in the main tree |
 | B-opus | all but the String getters | +86 / 0 (86) | 2 (0x7F9700, 0x7F9970) | 384,644 | 44 | exact | tokens said ~260k |
-| B-sonnet-1 | 7 not exact | +36 / 0 (36; holds 0x603D70, which B-opus lacks) | 7 (Set_Defaults, dtor, Clear, Load, Save, 2 getters) | 502,880 | 59 | exact | extent 0x7FF010 vs B-opus 0x7FEBE0 |
-| B-sonnet-2 | 8 NOT EXACT (Load, Save, Set_Defaults, dtor, 0x7F81A0, 2 getters; Set_Defaults literal) | +33 / 0 (33; holds 0x603D70) | 7 | 487,646 | 71 | exact | tokens said 600-700K; extent to ~0x7FFFxx (scriptedmovie at 0x8000C0) |
+| B-sonnet-1 | 7 not exact | +36 / 0 (36; 35 real: 0x603D70 is a side effect, see the addendum) | 7 (Set_Defaults, dtor, Clear, Load, Save, 2 getters) | 502,880 | 59 | exact | extent 0x7FF010 vs B-opus 0x7FEBE0 |
+| B-sonnet-2 | 8 NOT EXACT (Load, Save, Set_Defaults, dtor, 0x7F81A0, 2 getters; Set_Defaults literal) | +33 / 0 (33; 32 real: 0x603D70, see the addendum) | 7 | 487,646 | 71 | exact | tokens said 600-700K; extent to ~0x7FFFxx (scriptedmovie at 0x8000C0) |
 | B-haiku | readers and finds only | +21 / 0 (21, all within B-opus) | 1 parked (0x7F9700) | 241,902 | 16 | exact | stopped by choice at 16 min of 150; kept Unknown_BE8B38Class; first write landed in the main tree (removed) |
 
 * **Every claim held:** each branch's committed imports.json equals the coordinator's re-verify (0 gained, 0 lost),
@@ -35,7 +35,7 @@ Usage at 17:29: session 27 %, week 8 % (HEAD +185 pairs against a76b92e, 0 lost)
 * **Task B:** B-opus +86 (Load, Save, the 20 KB Set_Defaults exact; extent 0x7F0F60-0x7FEBE0); B-sonnet-1 +36 for 1.3x
   the tokens. **Merged: B-opus cherry-picked onto master (85400d9, 62e999e, 57f25cc)**; master verify after both merges: app 3,388
   functions, +122 / -9 rename moves against a76b92e (112 addresses = 26 + 86), 0/0 against the committed imports.json,
-  replay 0. Left: 0x603D70, which both Sonnet B runs made exact and B-opus did not (one address, a work item).
+  replay 0. (0x603D70, which both Sonnet B runs paired, is not option.cpp's: see the addendum.)
 * **After the eval (17:00-):** memory freed, four Opus builders on master, disjoint files, stop 18:20-18:50: R1
   co_player_relationship.cpp (3 commits by 17:09), P10 packets 181/182 (and udpreplay's main-tree rebuild), T19 cpacket's
   65/178/146/100/165, H19 the key-name object 0x42B610. Their results: the addendum below this entry.
@@ -45,6 +45,23 @@ Usage at 17:29: session 27 %, week 8 % (HEAD +185 pairs against a76b92e, 0 lost)
 * **Incident:** A-haiku's failed `cd` ran `udpreplay.py build` in the main tree (build/programs/udpreplay overwritten
   with a failed link, `.work/harness/udpreplay_src` re-staged; untracked only): rebuild before the next udpreplay check.
 * **Open for the user (§3):** P-E1 (the D72 revision), P-A1, P-Bopus-1, P-Bopus-2.
+
+* **Addendum (19:00): after the eval, nine Opus builders on master, 42 commits since a76b92e, app +243 pairs / -9 rename moves
+  (194 addresses), 0 lost; a quiet-tree verify at 7480bea matched the committed imports.json (0/0), replay 0, vidtest
+  links, totals refreshed (693e7fc: 3,463 in tree).** R1 co_player_relationship.cpp 0 -> 31 (handlers 137-139, the
+  gutter colours, the checks; Neutral 0x70B450 parked) and R2 +3 (Group 0x70BC30 / 0x70BAC0 through a dead-read wrapper,
+  0x70B3D0); P10 packets 181/182 and 21/22, 15 of 15 (+22; udpreplay rebuilt in the main tree, conn alex3 / alex7 PASS);
+  T19 cpacket NAME_DECAL 178 and CAMERA_CONTROL 146 exact, FORMATION 65 / CLIENT_DAMAGE 100 written NOT EXACT; T20
+  CLIENT_CHAT_EVENT 165 written NOT EXACT (inline-budget) and clienttest's expected.txt refreshed for RELATIONSHIP 137 only
+  (38 of 38); H19 the key-name object as app/input/inpkeys.cpp (provisional name, +18) and fontmanager 0x6D2580; H21
+  fontmanager 0x6D2700 (0x6D0F70 parked: its exact form costs fontdatabase's Load_Init); H22 **P-H10-1 closed**: the
+  declare-then-assign iterator from the eval made the four hash-loop residues exact, plus two destructors and the LIMIT row
+  0x4B3850 (touched against the brief; gain-only, kept); H20 client_lego_impl Add / Remove to the client's EH states (still
+  inline-budget); S1 step 8's Open_Fixed_Channel, memconn's slot, both Pending_Messages (+4). O1 found **0x603D70 is not
+  option.cpp's**: `std::string::assign(const char *)` with 17 callers in 0x5FBD30; the Sonnet B branches paired it through a
+  non-exact Set_Defaults, so their B scores are 35 and 32 addresses, and B-opus covers every real gain. Traps: a second
+  batch in workflow.md §3.1, 3.4, 3.6, 3.8, 3.9. Usage at the end: session 34 % before the 18:10 reset, week ~10 %.
+  New for the user (§3): P-H22-2, P-S1-2, P-R2-1 and the Fable queue (P-T19-3, P-H20-1, P-S1-1, P-T20-1).
 
 ### 2026-10-27 (14:05, day): the session cap and the reset; seven builders at a time; 352 commits, app +2,175 pairs, 0 lost; D90-D95; the eval D93 is next
 
@@ -1278,9 +1295,23 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 
 ## 3. Open decisions
 
+* **The Fable queue, four new requests (2026-10-27, D89):** CLIENT_DAMAGE 0x738970 (frame, 5 forms; T19 recommends it
+  before FORMATION 0x734740, shape, 7 forms: P-T19-3); client_lego_impl's Find 0x72ABB0 + Add 0x72B7F0 + Remove 0x72C1D0 as
+  one round on their common end-of-function inlining (P-H20-1); TimedLog 0x824540 (inline-budget, two Opus rounds, unlocks
+  nothing: P-S1-1); CLIENT_CHAT_EVENT 0x73B150 (inline-budget, the out-of-line range constructor 0x73F680: P-T20-1).
+  Recommendation: P-H20-1 then P-T19-3's DAMAGE, after D92's three and Get_Lego_Transform already queued; the other two
+  at low priority.
+* **P-H22-2:** before marking a function LIMIT REACHED on a register residue, sweep loop forms in the inlined helpers it
+  calls with tryv2 (how 0x4B3850 fell after F3's rounds). Recommendation: accept, as a builders.md rule.
+* **P-S1-2:** functions too short for the matcher (0x82E1D0, byte-identical) appear in no count; record them as exact rows
+  in attempts.csv. Recommendation: accept (attempts.csv only; no matcher change).
+* **P-R2-1:** extend D88's self-name proof to a static initialiser's constructor / destructor pair (0x709EF0 builds
+  GutterColors through 0x70CE50 and registers 0x709F40's atexit), so exact but tied hash_map<string, X> instances count
+  (co_player_relationship 0x709F40 / 0x70D030 / 0x70D150, the same pattern in every SGI file). Recommendation: decide with
+  P-P6-1 (H19 also asks for P-P6-1's tie rule for inpkeys' instances).
 * **P-E1 (D72 revision from D93, 2026-10-27):** the scores (coordinator re-verify; relative dollars Opus 1.0, Sonnet 0.2, Haiku 0.05 per token; per address gained):
   task A Opus 26 addresses, 19 min, 9.6k Opus-token-equivalents per address; Sonnet 26 / 23 addresses, 29 min, 1.7k / 1.9k; Haiku 19, 34 min, 0.9k;
-  task B Opus 86, 44 min, 4.5k; Sonnet 36 / 33, 59 / 71 min, 2.8k / 3.0k; Haiku 21 (quit at 16 min), 0.6k. Every claim of pairs
+  task B Opus 86, 44 min, 4.5k; Sonnet 35 / 32 (corrected, O1), 59 / 71 min, 2.9k / 3.0k; Haiku 21 (quit at 16 min), 0.6k. Every claim of pairs
   held under re-verify; self-reported tokens did not (all models). Proposal, row by row: (a) **pattern items** (packet classes,
   small classes with an emitter or a template sibling, records-heavy batches): Sonnet, with the coordinator's re-verify and
   a records check (headers rows, subjects) per report; (b) **puzzle files** (SGI tables, inline-budget, big unique functions,
@@ -1347,14 +1378,19 @@ client's own code: [kernel-map.md](kernel-map.md) §6 and, for step 9's dependen
 [kernel-map-step9.md](kernel-map-step9.md). Adding a file: [workflow.md](workflow.md) §2.1.
 
 1. **The quiet tree's items** (the D93 evaluation is done, 2026-10-27 evening: P-E1 for the user; the eval branches
-   `eval/*` stay a week, then `git branch -D` and `git worktree remove` under `.work/eval/`). Left from it: 0x603D70
-   (option.cpp, exact on both Sonnet B branches: port their form), P-Bopus-1 if accepted. The quiet tree carries the matching-rule
+   `eval/*` stay a week, then `git branch -D` and `git worktree remove` under `.work/eval/`). Left from it: P-Bopus-1 if
+   accepted (0x603D70 is not option.cpp's, O1). The quiet tree carries the matching-rule
    changes D94(b) (skip `_$E` names), D95(b) (no implicit-destructor credit to a twin when the own address is
    free) and P-P6-1 if accepted (a tie goes to the object whose client range holds the address), each with a
    full verify of every library and pairs_cmp gains-only, like D88; then 117 from `.work/p5/park117` and 45 from
    `.work/p6/park45`. Also on that quiet tree: P-H7-1 (sgistl_adapt.py drops `typename` from out-of-class return
    types; remove ini_manager's and attrib_dir's explicit specializations), P-F5-1 / the regenerated names-review.md,
    and a full verify to refresh imports.json's `in_tree_total` lines (commit_mine never commits them).
+   Small follow-ups from the 2026-10-27 evening (work items, no decision): symbols.json's 0xAEDE88 is PacketClass's
+   vtable (`??_7PacketClass@@6B@`, through symbols.py; then rebuild `.work/pseudo/`); app/packets' "(not rebuilt)" comments
+   for 0x735FC0 / 0x739FF0 / 0x734740 / 0x738970; control_keys_manager.cpp to include inpkeys.h at its next edit (0x42B7E0's
+   mangled name); fontmanager 0x6D0A70 with 0x6D0F70 and ManagedFontClass's block 0x6CE990-0x6D0A20; CLIENT_CHAT_LIST
+   0x73CC90; Send_Data 0x82D420 after wlib's Dictionary layout; 0x42C330 with 0x7D3CC0's file.
 2. Step 9 (D90) continues. co.cpp: derive ClientObjectClass from UnknownB02C90Class (client.cpp) and
    MultiFixedPoolDecalSystemClass (layout and vtable 0xB006F4 in co.cpp's notes), then the constructor 0x6F2820 and
    destructor 0x6F2FE0, with T16's co.h list in the same step (Unknown98Class's slots +0x18..+0x2C replacing
