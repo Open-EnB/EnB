@@ -12,7 +12,8 @@
 **	destructor 0x6F2FE0 (it deletes the object's data through co_data.cpp's Remove_All 0x79D390 and
 **	resets a MultiFixedPoolDecalSystemClass vtable at +0x4C), ClientClass's object list node at
 **	+0x60 and the game id at +0x90. aux_roots.h's UnknownCOClass (the factory 0x6F6000) is the
-**	same class. Names: D10, D24, D56.
+**	same class. Its bases: client.cpp's UnknownB02C90Class (declared here, moved from client.h, so
+**	that co.h stands alone) and ww3d2's MultiFixedPoolDecalSystemClass at +0x4C. Names: D10, D24, D56.
 */
 
 #if defined(_MSC_VER)
@@ -25,11 +26,14 @@
 #include "hashlist.h"
 #include "refcount.h"
 #include <string>
+#include <vector>
+#include "vector3.h"
+#include "matrix3d.h"
+#include "decalsys.h"
+#include "..\packets\pkcolorization.h"
 #include "..\shared\unknown_debug.h"
 
 class RenderObjClass;
-class Vector3;
-class Matrix3D;
 class SphereClass;
 class RelationshipClass;
 class AudibleSoundClass;
@@ -51,17 +55,36 @@ public:
 	virtual Matrix3D Unknown_2C(int unknown);		// +0x2C (0x6FED80 returns it when the object is set)  // NAME 1 [unknown]: neutral
 };
 
-// co.cpp's +0x98 object: 4 bytes, vtable 0xB006B8 (its trivial slots 0x6F2D40-0x6F2F00), base vtable
-// 0xB00768; the constructor news it
+// co.cpp's +0x98 object, the object's positional state (postate.cpp's states derive from it): vtable
+// 0xB00768, its slots +0x04-+0x14 pure (_purecall), +0x18-+0x2C inline (0x6F2D40-0x6F2E10, emitted with
+// co.cpp's default state); ADVANCED_POSITIONAL_UPDATE 62 asks a state's type (+0x04), whether it holds
+// a second state (+0x2C), that state (+0x28), and replaces it (+0x24)
 class Unknown98Class							// NAME 1: neutral (D10)
 {
 public:
-	virtual ~Unknown98Class();
-	virtual int Unknown_04();
-	virtual Matrix3D Unknown_08(int unknown);
-	virtual Vector3 Unknown_0C(int unknown);
-	virtual Vector3 Unknown_10(int unknown);	// +0x10 (0x6F2ED0: a zero Vector3); 0x6F5050 passes the client's +0x10BC  // NAME 1 [unknown]: neutral
-	virtual Vector3 Unknown_14(int unknown);	// +0x14 (0x6F2F00: a zero Vector3); 0x6F3ED0 passes the client's +0x10BC  // NAME 1 [unknown]: neutral
+	virtual ~Unknown98Class() {}				// 0x6F2FB0 (scalar deleting), 0x6F2F90
+	virtual int Unknown_04() = 0;				// +0x04 the state's type
+	virtual Matrix3D Unknown_08(int unknown) = 0;	// NAME 1 [unknown]: neutral
+	virtual Vector3 Unknown_0C(int unknown) = 0;	// NAME 1 [unknown]: neutral
+	virtual Vector3 Unknown_10(int unknown) = 0;	// +0x10 0x6F5050 passes the client's +0x10BC  // NAME 1 [unknown]: neutral
+	virtual Vector3 Unknown_14(int unknown) = 0;	// +0x14 0x6F3ED0 passes the client's +0x10BC  // NAME 1 [unknown]: neutral
+	virtual Vector3 Unknown_18(int unknown) { return(Vector3(0.0f, 0.0f, 0.0f)); }	// +0x18 0x6F2D40  // NAME 1 [unknown]: neutral
+	virtual Vector3 Unknown_1C(int unknown) { return(Unknown_0C(unknown)); }		// +0x1C 0x6F2D70  // NAME 1 [unknown]: neutral
+	virtual Matrix3D Unknown_20(int unknown) { return(Unknown_08(unknown)); }		// +0x20 0x6F2DA0  // NAME 1 [unknown]: neutral
+	virtual void Unknown_24(Unknown98Class *state) {}							// +0x24 0x6F2DD0  // NAME 1 [state]: neutral
+	virtual Unknown98Class *Unknown_28() { return(0); }						// +0x28 0x6F2DF0
+	virtual bool Unknown_2C() { return(false); }								// +0x2C 0x6F2E10
+};
+
+// The default state co.cpp's constructor news (4 bytes, vtable 0xB006B8): type 0, no motion
+class UnknownB006B8Class : public Unknown98Class	// NAME 1: neutral (D10), named by its vtable
+{
+public:
+	virtual int Unknown_04() { return(0); }										// +0x04 0x6F2E30
+	virtual Matrix3D Unknown_08(int unknown) { return(Matrix3D(true)); }		// +0x08 0x6F2E50  // NAME 1 [unknown]: neutral
+	virtual Vector3 Unknown_0C(int unknown) { return(Vector3(0.0f, 0.0f, 0.0f)); }	// +0x0C 0x6F2EA0  // NAME 1 [unknown]: neutral
+	virtual Vector3 Unknown_10(int unknown) { return(Vector3(0.0f, 0.0f, 0.0f)); }	// +0x10 0x6F2ED0  // NAME 1 [unknown]: neutral
+	virtual Vector3 Unknown_14(int unknown) { return(Vector3(0.0f, 0.0f, 0.0f)); }	// +0x14 0x6F2F00  // NAME 1 [unknown]: neutral
 };
 
 void Unknown_810540(RenderObjClass *model, int state, int unknown);	// shiputils.cpp (cdecl)  // NAME 1 [model, state, unknown]: co.cpp passes the model, 1 or 2, and 0
@@ -69,16 +92,54 @@ void Unknown_810750(RenderObjClass *model, int unknown);	// (cdecl; co.cpp's 0x7
 class SubPartsPacket;
 class ClientClass;
 
-class ClientObjectClass		// NAME 3: the RTTI's .?AVClientObjectClass@@ for co.cpp's class, not tied to this layout by a vtable
+// The base of co.cpp's object (0x4C bytes, vtable 0xB02C90; co.cpp's constructor 0x6F2820 calls its constructor
+// with the object itself): the client's code for it sits before ClientClass's in client.cpp's region
+// (0x725050-0x7260FF). The slots +0x04 .. +0x10 (0x7251C0, 0x725120, 0x725610, 0x7257F0) are not rebuilt.
+class UnknownB02C90Class							// NAME 1: neutral (D10), named by its vtable
 {
 public:
-	virtual ~ClientObjectClass();						// +0x00 (ClientClass's destructor deletes through it)
-	virtual void Unknown_04();
-	virtual void Unknown_08();							// +0x08: ClientClass's destructor calls it before the delete
-	virtual void Unknown_0C(ClientObjectClass *child, int a, int b);	// +0x0C (cpacket.cpp: CREATE_ATTACHMENT 74 passes the child, its Unknown18 and 0)  // NAME 1 [child, a, b]: what the handler passes
-	virtual void Unknown_10(int a, int b, int c);		// +0x10 0x7257F0 (the base's, client.cpp's region)  // NAME 1 [a, b, c]: neutral
-	virtual void Unknown_14(int a, int b, int c) {}		// +0x14 0x6F2C50 (empty)  // NAME 1 [a, b, c]: neutral
-	virtual void Unknown_18(int a, int b, int c) {}		// +0x18 0x6F2C70 (empty)  // NAME 1 [a, b, c]: neutral
+	UnknownB02C90Class(void *owner);					// 0x725050  // NAME 1 [owner]: co.cpp passes the object itself
+	virtual ~UnknownB02C90Class();						// 0x7250F0 (scalar deleting 0x7250C0)
+	virtual void Unknown_04(int base_asset);			// +0x04 0x7251C0 the mount points of cbasset.ini's BASE-n section (CREATE 4 passes the packet's BaseAsset)  // NAME 2 [base_asset]: what CREATE passes
+	virtual void Unknown_08();							// +0x08 0x725120 detaches every child: Unknown_10 and the client's Remove_Object, then deletes it
+	virtual bool Unknown_0C(UnknownB02C90Class *child, int slot, int child_slot);	// +0x0C 0x725610 attaches child's element child_slot to this one's slot  // NAME 1 [child, slot, child_slot]: what it does with them
+	virtual bool Unknown_10(UnknownB02C90Class *child, int slot, int child_slot);	// +0x10 0x7257F0 detaches child (a slot of -1: the one that holds it)  // NAME 1 [child, slot, child_slot]: what it does with them
+	virtual void Unknown_14(UnknownB02C90Class *parent, int slot, int child_slot) {}	// +0x14 0x6F2C50 (empty; 0x725610 calls the child's)  // NAME 1 [parent, slot, child_slot]: what 0x725610 passes
+	float Unknown_725C60(const Vector3 &center, float radius);	// 0x725C60 the radius around center that holds the attached objects of type 29, recursively  // NAME 1 [center, radius]: what it computes
+	virtual void Unknown_18(UnknownB02C90Class *parent, int slot, int child_slot) {}	// +0x18 0x6F2C70 (empty; 0x7257F0 calls the child's)  // NAME 1 [parent, slot, child_slot]: what 0x7257F0 passes
+
+	void *Unknown04;									// +0x04 the constructor's argument
+	void *Unknown08;									// +0x08 the constructor's argument
+	// +0x0C .. +0x18: a buffer with its own inline destructor (clears the count, deletes the data): written as
+	// fields in the base's destructor, the client's vtable store moves first and 0x7250C0 calls 0x7250F0
+	struct BufferStruct {								// NAME 1: neutral (D10)
+		struct ElementStruct {							// 0x44 bytes  // NAME 1: neutral (D10)
+			int Bone;									// +0x00 (0x725610 hangs the child's model on this bone)  // NAME 2: what it holds
+			Matrix3D Transform;							// +0x04 (0x725610: the child's +0x1C is it times this one's)  // NAME 2: what it holds
+			char Unknown34[0x3C - 0x34];				// +0x34
+			UnknownB02C90Class *Unknown3C;				// +0x3C (0x725120 calls its slot +0x10 with -1, -1 when there is no child)
+			UnknownB02C90Class *Child;					// +0x40  // NAME 2: 0x725120 detaches and deletes it
+		};
+		BufferStruct() : Count(0), Unknown04(0), Data(0), Radius(0) {}
+		~BufferStruct() { Count = 0; delete Data; }
+		ElementStruct *Get(int index) { if (index < 0 || index >= Count) return(NULL); return(&Data[index]); }  // NAME 1: neutral
+		int Count;										// +0x0C (+0x00) cleared by the destructor  // NAME 1: neutral
+		int Unknown04;									// +0x10 (+0x04)
+		ElementStruct *Data;							// +0x14 (+0x08) deleted by the destructor  // NAME 1: neutral
+		float Radius;									// +0x18 (+0x0C) (0x725C60's starting radius)  // NAME 2: what it holds
+	} Buffer;											// +0x0C
+	Matrix3D Unknown1C;									// +0x1C identity
+};
+
+
+// The object's own vtable 0xB0070C (slots +0x04-+0x18 the base's: ClientClass's destructor calls +0x08 before
+// the delete, CREATE 4 calls +0x04 with the BaseAsset, CREATE_ATTACHMENT 74 calls +0x0C), the decal system's
+// 0xB006F4 at +0x4C (its slot +0x00 the thunk 0x709E90, +0x10 the inline Generate_Decal_Id 0x6F2C90)
+class ClientObjectClass : public UnknownB02C90Class, public MultiFixedPoolDecalSystemClass		// NAME 3: the RTTI's .?AVClientObjectClass@@ for co.cpp's class, not tied to this layout by a vtable
+{
+public:
+	ClientObjectClass(ClientClass *client, int type, unsigned id);	// 0x6F2820 (CREATE 4 passes its SClient, the packet's Type and GameID)  // NAME 2 [client, type, id]: what CREATE passes
+	virtual ~ClientObjectClass();						// +0x00 0x6F2FE0 (scalar deleting 0x6F2F30; ClientClass's destructor deletes through it)
 	virtual void Unknown_1C();							// +0x1C 0x6F5120 (the aux data's slot +0x20)
 	virtual void Unknown_20();							// +0x20 0x6F3C60 (FAIL_IF '!RenderObject' l.1779 inline: 0x6FD2C0)
 	virtual Vector3 Unknown_24();						// +0x24 0x6F4C20: +0x98's slot +0x0C clamped to the client's bounds (G_ASSERT 'pos.Is_Valid()', l.762)
@@ -165,9 +226,10 @@ public:
 	void Unknown_7009A0(bool on, bool force);			// 0x7009A0  // NAME 2 [on, force]: what it tests
 	void Unknown_6FEC40(SphereClass *sphere);			// 0x6FEC40 (FAIL_IF '!sphere', l.2232): the bounding sphere in slot +0x28's frame
 	void Unknown_6FEEE0(const RelationshipClass &relationship);	// 0x6FEEE0: sets +0x12C and emits PlayerObjectRelationshipChangeEvent
+	void Unknown_6F33F0(RenderObjClass *model, int base_asset, float scale);	// 0x6F33F0 (CREATE 4: the new model, the packet's BaseAsset and Scale; a NULL Null3DObjClass, -1 and 1.0f for type 10)  // NAME 2 [model, base_asset, scale]: what CREATE passes
+	static RenderObjClass *Unknown_6F5140(int base_asset, ClientClass *client, float scale, float *hsv);	// 0x6F5140 (cdecl; CREATE 4 and 19 other callers: the model for a BaseAsset)  // NAME 2 [base_asset, client, scale, hsv]: what CREATE passes
 	Matrix3D Unknown_6FED80(int unknown);				// 0x6FED80 (G_ASSERT 'RenderObject', l.2259): +0xB4's or the model's transform  // NAME 1 [unknown]: neutral
 
-	char Unknown04[0x60 - 0x04];						// +0x04
 	HashNodeClass<ClientObjectClass *> Node;			// +0x60 ClientClass::ObjectList's node  // NAME 2: what it is
 	ClientClass *Client;								// +0x7C the constructor's first argument (CREATE passes its SClient; co_data.cpp calls its slot +0x18)  // NAME 2: what it holds
 	char Unknown80[0x88 - 0x80];						// +0x80
@@ -185,7 +247,8 @@ public:
 	bool UnknownB0;										// +0xB0 (0x6FCB20 toggles it)
 	char UnknownB1[0xB4 - 0xB1];						// +0xB1
 	UnknownB4Class *UnknownB4;							// +0xB4 a RefCountPtr in the client (0x731FA0's result)
-	char UnknownB8[0xD8 - 0xB8];						// +0xB8
+	char UnknownB8[0xC8 - 0xB8];						// +0xB8
+	std::vector<ColorizationRegionStruct> Colorization;	// +0xC8 the model's colorization regions (cpacket.cpp's COLORIZATION 17 assigns them, 0x73F770 their operator=)  // NAME 2: what it holds
 	std::string DecalName;								// +0xD8 (cpacket.cpp's NAME_DECAL 178 sets it through 0x736140)  // NAME 2: what NAME_DECAL stores in it
 	float Sphere[4];									// +0xE8 a SphereClass (center, radius): 0x6FED30 fills it from the model  // NAME 2: what it holds
 	int UnknownF8;										// +0xF8

@@ -164,7 +164,7 @@ void Unknown_80E8C0(RenderObjClass *model, std::vector<DecalStruct> &decals, SCl
 // CONSTANT_POSITIONAL_UPDATE 64, 0x40 bytes
 class Unknown714B50Class : public Unknown98Class	// NAME 1: neutral (D10)
 {
-public:
+public:	virtual int Unknown_04(); virtual Matrix3D Unknown_08(int unknown); virtual Vector3 Unknown_0C(int unknown); virtual Vector3 Unknown_10(int unknown); virtual Vector3 Unknown_14(int unknown);	// (postate.cpp's slots, not rebuilt)  // NAME 1 [unknown]: neutral
 	Unknown714B50Class(ConstantPositionalUpdatePacketClass *packet);	// 0x714B50 (a Matrix3D from the packet's +0x1C and +0x10, the +0x10 Vector3 again)  // NAME 1 [packet]: what the handler passes
 	void Unknown_714D50(ConstantPositionalUpdatePacketClass *packet);	// 0x714D50 (the same fields again)  // NAME 1 [packet]: what the handler passes
 
@@ -175,27 +175,27 @@ public:
 // shiputils.cpp's colorization helper (cdecl): the packet's regions on the object's model
 void Unknown_80EFF0(RenderObjClass *model, std::vector<ColorizationRegionStruct> &regions, SClientUnknown1338Class *unknown);	// 0x80EFF0  // NAME 1 [model, regions, unknown]: what COLORIZATION 17 passes
 
-// co.h's +0xC8 (inside its UnknownB8 block): the object's colorization regions, which COLORIZATION 17 assigns
+// co.h's +0xC8 Colorization: the object's colorization regions, which COLORIZATION 17 assigns
 // (0x73F770, their vector's operator=)
-inline std::vector<ColorizationRegionStruct> &Unknown_Colorization(ClientObjectClass *object) { return(*(std::vector<ColorizationRegionStruct> *)&object->UnknownB8[0xC8 - 0xB8]); }	// NAME 1: neutral
 
-// co.h's +0x98 object's slots beyond Unknown98Class's (postate.cpp's states): ADVANCED_POSITIONAL_UPDATE 62
-// asks a state's type (+0x04), whether it holds a second state (+0x2C), that state (+0x28), and replaces it (+0x24)
-class Unknown98StateClass : public Unknown98Class	// NAME 1: neutral (D10)
-{
-public:
-	virtual void Unknown_18();
-	virtual void Unknown_1C();
-	virtual void Unknown_20();
-	virtual void Unknown_24(Unknown98Class *state);	// NAME 1 [state]: neutral
-	virtual Unknown98Class *Unknown_28();
-	virtual bool Unknown_2C();
-};
+
+// co.h's +0x98 object, Unknown98Class (postate.cpp's states derive from it, each with its own slots +0x04-+0x14):
+// ADVANCED_POSITIONAL_UPDATE 62 asks a state's type (+0x04), whether it holds a second state (+0x2C), that state
+// (+0x28), and replaces it (+0x24)
+
+
+
+
+
+
+
+
+
 
 // postate.cpp's type 3 state, SIMPLE_POSITIONAL_UPDATE 8's (8 bytes)
-class Unknown715AB0Class : public Unknown98StateClass	// NAME 1: neutral (D10)
+class Unknown715AB0Class : public Unknown98Class	// NAME 1: neutral (D10)
 {
-public:
+public:	virtual int Unknown_04(); virtual Matrix3D Unknown_08(int unknown); virtual Vector3 Unknown_0C(int unknown); virtual Vector3 Unknown_10(int unknown); virtual Vector3 Unknown_14(int unknown);	// (postate.cpp's slots, not rebuilt)  // NAME 1 [unknown]: neutral
 	Unknown715AB0Class(SimplePositionalUpdatePacketClass *packet);	// 0x715AB0  // NAME 1 [packet]: what the handler passes
 	void Unknown_715C20(SimplePositionalUpdatePacketClass *packet);	// 0x715C20  // NAME 1 [packet]: what the handler passes
 
@@ -203,9 +203,9 @@ public:
 };
 
 // postate.cpp's type 5 state, PLANET_POSITIONAL_UPDATE 63's (0x0C bytes)
-class Unknown715CF0Class : public Unknown98StateClass	// NAME 1: neutral (D10)
+class Unknown715CF0Class : public Unknown98Class	// NAME 1: neutral (D10)
 {
-public:
+public:	virtual int Unknown_04(); virtual Matrix3D Unknown_08(int unknown); virtual Vector3 Unknown_0C(int unknown); virtual Vector3 Unknown_10(int unknown); virtual Vector3 Unknown_14(int unknown);	// (postate.cpp's slots, not rebuilt)  // NAME 1 [unknown]: neutral
 	Unknown715CF0Class(PlanetPositionalUpdatePacketClass *packet, ClientClass *client);	// 0x715CF0  // NAME 1 [packet, client]: what the handler passes
 	void Unknown_715E60(PlanetPositionalUpdatePacketClass *packet);	// 0x715E60  // NAME 1 [packet]: what the handler passes
 
@@ -213,9 +213,9 @@ public:
 };
 
 // postate.cpp's type 11 state, COMPONENT_POSITIONAL_UPDATE 70's (0x10 bytes)
-class Unknown717EF0Class : public Unknown98StateClass	// NAME 1: neutral (D10)
+class Unknown717EF0Class : public Unknown98Class	// NAME 1: neutral (D10)
 {
-public:
+public:	virtual int Unknown_04(); virtual Matrix3D Unknown_08(int unknown); virtual Vector3 Unknown_0C(int unknown); virtual Vector3 Unknown_10(int unknown); virtual Vector3 Unknown_14(int unknown);	// (postate.cpp's slots, not rebuilt)  // NAME 1 [unknown]: neutral
 	Unknown717EF0Class(ComponentPositionalUpdatePacketClass *packet, ClientClass *client);	// 0x717EF0  // NAME 1 [packet, client]: what the handler passes
 	void Unknown_718080(ComponentPositionalUpdatePacketClass *packet, ClientClass *client);	// 0x718080  // NAME 1 [packet, client]: what the handler passes
 
@@ -224,18 +224,18 @@ public:
 
 // postate.cpp's states ADVANCED_POSITIONAL_UPDATE 62 makes: type 4 for the player's own object (0x28 bytes),
 // type 8 for the others (0x1C bytes); both take the client's +0x10BC and the packet
-class Unknown717010Class : public Unknown98StateClass	// NAME 1: neutral (D10)
+class Unknown717010Class : public Unknown98Class	// NAME 1: neutral (D10)
 {
-public:
+public:	virtual int Unknown_04(); virtual Matrix3D Unknown_08(int unknown); virtual Vector3 Unknown_0C(int unknown); virtual Vector3 Unknown_10(int unknown); virtual Vector3 Unknown_14(int unknown);	// (postate.cpp's slots, not rebuilt)  // NAME 1 [unknown]: neutral
 	Unknown717010Class(int time, AdvancedPositionalUpdatePacketClass *packet);	// 0x717010  // NAME 1 [time, packet]: what the handler passes
 	void Unknown_717290(AdvancedPositionalUpdatePacketClass *packet, int time);	// 0x717290  // NAME 1 [packet, time]: what the handler passes
 	Unknown717010Class(SClient *client, FormationPositionalUpdatePacketClass *packet);	// 0x7171C0 (FORMATION_POSITIONAL_UPDATE 65)  // NAME 1 [client, packet]: what the handler passes
 	void Unknown_717400(FormationPositionalUpdatePacketClass *packet, SClient *client);	// 0x717400 (FORMATION_POSITIONAL_UPDATE 65)  // NAME 1 [packet, client]: what the handler passes
 	char Unknown04[0x28 - 0x04];
 };
-class Unknown715EF0Class : public Unknown98StateClass	// NAME 1: neutral (D10)
+class Unknown715EF0Class : public Unknown98Class	// NAME 1: neutral (D10)
 {
-public:
+public:	virtual int Unknown_04(); virtual Matrix3D Unknown_08(int unknown); virtual Vector3 Unknown_0C(int unknown); virtual Vector3 Unknown_10(int unknown); virtual Vector3 Unknown_14(int unknown);	// (postate.cpp's slots, not rebuilt)  // NAME 1 [unknown]: neutral
 	Unknown715EF0Class(int time, AdvancedPositionalUpdatePacketClass *packet);	// 0x715EF0  // NAME 1 [time, packet]: what the handler passes
 	void Unknown_716140(int time, AdvancedPositionalUpdatePacketClass *packet);	// 0x716140  // NAME 1 [time, packet]: what the handler passes
 	Unknown715EF0Class(SClient *client, FormationPositionalUpdatePacketClass *packet);	// 0x716080 (FORMATION_POSITIONAL_UPDATE 65)  // NAME 1 [client, packet]: what the handler passes
@@ -277,7 +277,7 @@ void Unknown_4BC260(const char *sender, const char *category, const char *file, 
 class SClientUnknown12C4Class : public UnknownSendRootClass
 {
 };
-inline void Unknown_Set_Colorization(ClientObjectClass *object, const std::vector<ColorizationRegionStruct> &regions) { Unknown_Colorization(object) = regions; }
+inline void Unknown_Set_Colorization(ClientObjectClass *object, const std::vector<ColorizationRegionStruct> &regions) { object->Colorization = regions; }
 // 0x7333B0
 bool LogoffConfirmationPacketClass::Process_Packet(void *instance)
 {
@@ -423,13 +423,13 @@ bool AdvancedPositionalUpdatePacketClass::Process_Packet(void *instance)
 			}
 			if (object->Unknown98 && object->Unknown98->Unknown_04() == 4) {
 				((Unknown717010Class *)object->Unknown98)->Unknown_717290(this, sclient->Unknown10BC);
-			} else if (object->Unknown98 && ((Unknown98StateClass *)object->Unknown98)->Unknown_2C()) {
-				Unknown98Class *state = ((Unknown98StateClass *)object->Unknown98)->Unknown_28();
+			} else if (object->Unknown98 && object->Unknown98->Unknown_2C()) {
+				Unknown98Class *state = object->Unknown98->Unknown_28();
 				if (state && state->Unknown_04() == 4) {
 					((Unknown717010Class *)state)->Unknown_717290(this, sclient->Unknown10BC);
 				} else {
 					delete state;
-					((Unknown98StateClass *)object->Unknown98)->Unknown_24(new Unknown717010Class(sclient->Unknown10BC, this));
+					object->Unknown98->Unknown_24(new Unknown717010Class(sclient->Unknown10BC, this));
 				}
 			} else {
 				delete object->Unknown98;
@@ -438,13 +438,13 @@ bool AdvancedPositionalUpdatePacketClass::Process_Packet(void *instance)
 		} else {
 			if (object->Unknown98 && object->Unknown98->Unknown_04() == 8) {
 				((Unknown715EF0Class *)object->Unknown98)->Unknown_716140(sclient->Unknown10BC, this);
-			} else if (object->Unknown98 && ((Unknown98StateClass *)object->Unknown98)->Unknown_2C()) {
-				Unknown98Class *state = ((Unknown98StateClass *)object->Unknown98)->Unknown_28();
+			} else if (object->Unknown98 && object->Unknown98->Unknown_2C()) {
+				Unknown98Class *state = object->Unknown98->Unknown_28();
 				if (state && state->Unknown_04() == 8) {
 					((Unknown715EF0Class *)state)->Unknown_716140(sclient->Unknown10BC, this);
 				} else {
 					delete state;
-					((Unknown98StateClass *)object->Unknown98)->Unknown_24(new Unknown715EF0Class(sclient->Unknown10BC, this));
+					object->Unknown98->Unknown_24(new Unknown715EF0Class(sclient->Unknown10BC, this));
 				}
 			} else {
 				delete object->Unknown98;
@@ -1155,13 +1155,13 @@ bool FormationPositionalUpdatePacketClass::Process_Packet(void *instance)
 			}
 			if (object->Unknown98 && object->Unknown98->Unknown_04() == 4) {
 				((Unknown717010Class *)object->Unknown98)->Unknown_717400(this, sclient);
-			} else if (object->Unknown98 && ((Unknown98StateClass *)object->Unknown98)->Unknown_2C()) {
-				Unknown98Class *state = ((Unknown98StateClass *)object->Unknown98)->Unknown_28();
+			} else if (object->Unknown98 && object->Unknown98->Unknown_2C()) {
+				Unknown98Class *state = object->Unknown98->Unknown_28();
 				if (state && state->Unknown_04() == 4) {
 					((Unknown717010Class *)state)->Unknown_717400(this, sclient);
 				} else {
 					delete state;
-					((Unknown98StateClass *)object->Unknown98)->Unknown_24(new Unknown717010Class(sclient, this));
+					object->Unknown98->Unknown_24(new Unknown717010Class(sclient, this));
 				}
 			} else {
 				delete object->Unknown98;
@@ -1170,13 +1170,13 @@ bool FormationPositionalUpdatePacketClass::Process_Packet(void *instance)
 		} else {
 			if (object->Unknown98 && object->Unknown98->Unknown_04() == 8) {
 				((Unknown715EF0Class *)object->Unknown98)->Unknown_716220(sclient, this);
-			} else if (object->Unknown98 && ((Unknown98StateClass *)object->Unknown98)->Unknown_2C()) {
-				Unknown98Class *state = ((Unknown98StateClass *)object->Unknown98)->Unknown_28();
+			} else if (object->Unknown98 && object->Unknown98->Unknown_2C()) {
+				Unknown98Class *state = object->Unknown98->Unknown_28();
 				if (state && state->Unknown_04() == 8) {
 					((Unknown715EF0Class *)state)->Unknown_716220(sclient, this);
 				} else {
 					delete state;
-					((Unknown98StateClass *)object->Unknown98)->Unknown_24(new Unknown715EF0Class(sclient, this));
+					object->Unknown98->Unknown_24(new Unknown715EF0Class(sclient, this));
 				}
 			} else {
 				delete object->Unknown98;

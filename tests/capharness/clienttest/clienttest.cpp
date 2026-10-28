@@ -147,9 +147,7 @@ const char *Aux_Root_Name(const void *root)
 
 static ClientObjectClass *New_Object(unsigned id)
 {
-	ClientObjectClass *object = new ClientObjectClass;
-	object->GameID = id;
-	object->Type = 0;			// a player ship for co.cpp's type tests (0x6F5A10)
+	ClientObjectClass *object = new ClientObjectClass(0, 0, id);	// type 0: a player ship for co.cpp's type tests (0x6F5A10)
 	object->AuxData = Fake_Aux;
 	object->Unknown98 = 0;			// (co.cpp's constructor news a default state; CONSTANT_POSITIONAL_UPDATE replaces it)
 	object->Node.Set(object);		// co.cpp's constructor makes the node hold its object

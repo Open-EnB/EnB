@@ -87,9 +87,12 @@ bool TaskClass::Is_Focused()
 // accessors 0x6FFE90-0x6FFFA0; what remains here is not rebuilt yet)
 
 ClientObjectClass::~ClientObjectClass() { Trace("stub ClientObjectClass::~ClientObjectClass %u", GameID); }
-void ClientObjectClass::Unknown_04() { Trace("stub ClientObjectClass::Unknown_04 %u", GameID); }
-void ClientObjectClass::Unknown_08() { Trace("stub ClientObjectClass::Unknown_08 %u", GameID); }
-void ClientObjectClass::Unknown_0C(ClientObjectClass *child, int a, int b) { Trace("stub ClientObjectClass::Unknown_0C %u child %u %d %d", GameID, child ? child->GameID : 0, a, b); }
+// (the slots +0x04-+0x18 are the base's, client.cpp's UnknownB02C90Class: +0x08 and +0x0C link from it)
+static const uint32 Stub_Pool_Sizes[3] = { 15, 10, 5 };
+ClientObjectClass::ClientObjectClass(ClientClass *client, int type, unsigned id) :
+	UnknownB02C90Class(this), MultiFixedPoolDecalSystemClass(3, Stub_Pool_Sizes), Client(client), AuxData(0), GameID(id), Type((char)type), Unknown98(0)
+{
+}
 Matrix3D ClientObjectClass::Unknown_28(int unknown) { Trace("stub ClientObjectClass::Unknown_28 %u %d", GameID, unknown); Matrix3D m(true); return(m); }
 void ClientObjectClass::Unknown_6FEF70(SubPartsPacket *) { Trace("stub ClientObjectClass::Unknown_6FEF70 %u", GameID); }
 void ClientObjectClass::Unknown_70E750(int id) { Trace("stub ClientObjectClass::Unknown_70E750 %u target %d", GameID, id); }
@@ -222,32 +225,18 @@ template<> int DeltaTemplateClass<bool>::UnknownGlobal = 0;
 
 // ------------------------------------------------------------------------- co.h's +0x98 state (postate.cpp)
 
-// co.cpp doesn't define Unknown98Class's slots yet: these stand in. CONSTANT_POSITIONAL_UPDATE 64 news
-// postate.cpp's constant state (declared as cpacket.cpp declares it, plus the two slots the handler calls:
-// its type, 1, and the deleting destructor) and updates it
-Unknown98Class::~Unknown98Class() {}
-int Unknown98Class::Unknown_04() { Trace("stub Unknown98Class::Unknown_04 -> 0"); return(0); }
-Matrix3D Unknown98Class::Unknown_08(int) { Matrix3D m(true); return(m); }
-Vector3 Unknown98Class::Unknown_0C(int) { return(Vector3(0, 0, 0)); }
-Vector3 Unknown98Class::Unknown_10(int) { return(Vector3(0, 0, 0)); }
-Vector3 Unknown98Class::Unknown_14(int) { return(Vector3(0, 0, 0)); }
-// the slots ADVANCED_POSITIONAL_UPDATE 62 calls (declared as cpacket.cpp declares them)
+// postate.cpp's states (not rebuilt) stand in on one shim with Unknown98Class's pure slots (co.h; its +0x18-+0x2C
+// are inline there). CONSTANT_POSITIONAL_UPDATE 64 news postate.cpp's constant state (declared as cpacket.cpp
+// declares it, plus the two slots the handler calls: its type, 1, and the deleting destructor) and updates it
 class Unknown98StateClass : public Unknown98Class
 {
 public:
-	virtual void Unknown_18();
-	virtual void Unknown_1C();
-	virtual void Unknown_20();
-	virtual void Unknown_24(Unknown98Class *state);
-	virtual Unknown98Class *Unknown_28();
-	virtual bool Unknown_2C();
+	virtual int Unknown_04() { Trace("stub Unknown98Class::Unknown_04 -> 0"); return(0); }
+	virtual Matrix3D Unknown_08(int) { Matrix3D m(true); return(m); }
+	virtual Vector3 Unknown_0C(int) { return(Vector3(0, 0, 0)); }
+	virtual Vector3 Unknown_10(int) { return(Vector3(0, 0, 0)); }
+	virtual Vector3 Unknown_14(int) { return(Vector3(0, 0, 0)); }
 };
-void Unknown98StateClass::Unknown_18() {}
-void Unknown98StateClass::Unknown_1C() {}
-void Unknown98StateClass::Unknown_20() {}
-void Unknown98StateClass::Unknown_24(Unknown98Class *state) { Trace("stub Unknown98StateClass::Unknown_24"); delete state; }
-Unknown98Class *Unknown98StateClass::Unknown_28() { return(0); }
-bool Unknown98StateClass::Unknown_2C() { return(false); }
 class Unknown714B50Class : public Unknown98StateClass
 {
 public:
