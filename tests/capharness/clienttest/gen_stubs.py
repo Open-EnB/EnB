@@ -25,6 +25,9 @@ PK_CTOR_STUBS = os.path.join(REPO, 'tests', 'capharness', 'udpreplay', 'pk_ctor_
 CPACKET = os.path.join(REPO, 'app', 'client', 'cpacket.cpp')
 PK_CPP = os.path.join(REPO, 'app', 'packets', 'pk.cpp')
 FACTORY = os.path.join(REPO, 'docs', 'data', 'packet-factory.txt')
+# cpacket.cpp's handlers clienttest records instead of driving: CREATE 4 needs co.cpp's model loader 0x6F5140
+# (not rebuilt; its stand-in returns no model), so clienttest.cpp makes its own objects for it
+NOT_DRIVEN = {'CreatePacketClass'}
 
 
 def read(p):
@@ -66,7 +69,7 @@ def main(out):
     cases = [(int(o), c) for o, c in re.findall(r'case (\d+):\s*\n\s*packet = new (\w+)\(raw\);', read(PK_CPP))]
     rows, driven, waiting = [], 0, []
     for op, cls in sorted(cases):
-        if cls in handled and cls not in stubbed_ctor:
+        if cls in handled and cls not in stubbed_ctor and cls not in NOT_DRIVEN:
             mode = 1
             driven += 1
         elif cls in handled:

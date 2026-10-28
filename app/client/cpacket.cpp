@@ -58,6 +58,11 @@
 #include "..\shared\spln_db.h"
 #include "wwprofile.h"
 #include "rendobj.h"
+#include "light.h"
+#include "nullrobj.h"
+#include "influence.h"
+#include "postate.h"
+#include "..\packets\pkcreate.h"
 #include "..\shared\unknown_debug.h"
 #include <stdio.h>
 #include <time.h>
@@ -105,72 +110,8 @@ public:
 	void Unknown_7E6650(int emote);	// 0x7E6650 (NOTIFY_EMOTE 162)  // NAME 1 [emote]: the packet's Emote
 };
 
-// ui_jobs.cpp's interface (an InterfaceClass: its reference count at +0x3C) and sbaseview.cpp's view
-// (SClient +0x135C; LOUNGE_NPC 82 calls its 0x6A0FD0) that holds it, declared as far as the job packets call them
-class UIJobsClass : public InterfaceClass	// NAME 3: class-from-file (D24) for app\client\ui_jobs.cpp
-{
-public:
-	void Unknown_5A3BC0(JobListPacketClass *packet);	// 0x5A3BC0 (JOB_LIST 147)  // NAME 1 [packet]: the handler's packet
-	void Unknown_5A3F10(JobDescriptionPacketClass *packet);	// 0x5A3F10 (JOB_DESCRIPTION 148)  // NAME 1 [packet]: the handler's packet
-	void Unknown_5A3FB0(JobAcceptReplyPacketClass *packet);	// 0x5A3FB0 (JOB_ACCEPT_REPLY 150)  // NAME 1 [packet]: the handler's packet
-	void Unknown_5A4430(int job_id);	// 0x5A4430 (JOB_DELETE 149)  // NAME 1 [job_id]: the packet's JobID
-};
-class SBaseViewClass : public ViewClass	// NAME 3: class-from-file (D24) for app\client\sbaseview.cpp
-{
-public:
-	void Unknown_6A0FD0(LoungeNPCPacketClass *packet);	// 0x6A0FD0 (LOUNGE_NPC 82)  // NAME 1 [packet]: the handler's packet
-	RefCountPtr<UIJobsClass> Get_Jobs() { return(Jobs); }	// 0x73A300 (out of line after JOB_LIST 147, the first caller)  // NAME 2: what it returns
-
-	char Unknown38[0x194 - 0x38];	// +0x38
-	RefCountPtr<UIJobsClass> Jobs;	// +0x194  // NAME 2: what it holds
-};
-
-// co_player_relationship.cpp's handlers of the relationship packets (cdecl)
-void Unknown_70CC40(SClient *sclient, PlayerObjectRelationshipPacket *packet);	// 0x70CC40 (RELATIONSHIP 137)  // NAME 1 [sclient, packet]: what the handler passes
-void Unknown_70CC90(SClient *sclient, PlayerObjectReactionUpdatePacket *packet);	// 0x70CC90 (138)  // NAME 1 [sclient, packet]: what the handler passes
-void Unknown_70CD50(SClient *sclient, PlayerObjectIsAttackingUpdatePacket *packet);	// 0x70CD50 (ATTACKER_UPDATES 139)  // NAME 1 [sclient, packet]: what the handler passes
-
-// ui_talkt.cpp's talk tree interface and ui_talkt_space.cpp's (SClient +0x1298), declared as far as the
-// talk tree packets call them
-class UITalkTreeClass : public InterfaceClass	// NAME 3: class-from-file (D24) for app\client\ui_talkt.cpp
-{
-public:
-	virtual void Unknown_88();
-	virtual void Unknown_8C();
-	virtual void Unknown_90(TalkTreePacketClass *packet);	// +0x90 (TALK_TREE 84)  // NAME 1 [packet]: the handler's packet
-	void Unknown_64D230(int action);	// 0x64D230 (TALK_TREE_ACTION 86)  // NAME 1 [action]: the packet's Action
-};
-class UITalkTreeSpaceClass : public UITalkTreeClass	// NAME 3: class-from-file (D24) for app\client\ui_talkt_space.cpp
-{
-};
-
-// galaxy_map_client.cpp's map (SClient +0x12A0), declared as far as GALAXY_MAP 151 calls it (each reads
-// the packet's data from the buffer)
-class GalaxyMapClientClass	// NAME 3: class-from-file (D24) for app\client\galaxy_map_client.cpp
-{
-public:
-	void Unknown_7A4C50(SClient *sclient, LinearBufferClass &buffer);	// 0x7A4C50 (type 4)  // NAME 1 [sclient, buffer]: what the handler passes
-	void Unknown_7A4FC0(LinearBufferClass &buffer);	// 0x7A4FC0 (type 5)  // NAME 1 [buffer]: the packet's data
-	void Unknown_7A50A0(LinearBufferClass &buffer);	// 0x7A50A0 (types 6, 7, 8, 11)  // NAME 1 [buffer]: the packet's data
-	void Unknown_7A5180(LinearBufferClass &buffer);	// 0x7A5180 (type 9)  // NAME 1 [buffer]: the packet's data
-	void Unknown_7A5260(LinearBufferClass &buffer);	// 0x7A5260 (type 2)  // NAME 1 [buffer]: the packet's data
-	void Unknown_7A52F0(LinearBufferClass &buffer);	// 0x7A52F0 (type 3)  // NAME 1 [buffer]: the packet's data
-};
-
 // shiputils.cpp's decal helper (cdecl): the packet's decals on the object's model, with the decal INI
 void Unknown_80E8C0(RenderObjClass *model, std::vector<DecalStruct> &decals, SClientUnknown1334Class *decal_ini);	// 0x80E8C0  // NAME 1 [model, decals, decal_ini]: what DECAL 16 passes
-
-// postate.cpp's constant positional state (vtable 0xB02728; its base's 0xB00768): co.h's +0x98 object for
-// CONSTANT_POSITIONAL_UPDATE 64, 0x40 bytes
-class Unknown714B50Class : public Unknown98Class	// NAME 1: neutral (D10)
-{
-public:	virtual int Unknown_04(); virtual Matrix3D Unknown_08(int unknown); virtual Vector3 Unknown_0C(int unknown); virtual Vector3 Unknown_10(int unknown); virtual Vector3 Unknown_14(int unknown);	// (postate.cpp's slots, not rebuilt)  // NAME 1 [unknown]: neutral
-	Unknown714B50Class(ConstantPositionalUpdatePacketClass *packet);	// 0x714B50 (a Matrix3D from the packet's +0x1C and +0x10, the +0x10 Vector3 again)  // NAME 1 [packet]: what the handler passes
-	void Unknown_714D50(ConstantPositionalUpdatePacketClass *packet);	// 0x714D50 (the same fields again)  // NAME 1 [packet]: what the handler passes
-
-	float Unknown04[12];	// +0x04 a Matrix3D
-	float Unknown34[3];		// +0x34 a Vector3
-};
 
 // shiputils.cpp's colorization helper (cdecl): the packet's regions on the object's model
 void Unknown_80EFF0(RenderObjClass *model, std::vector<ColorizationRegionStruct> &regions, SClientUnknown1338Class *unknown);	// 0x80EFF0  // NAME 1 [model, regions, unknown]: what COLORIZATION 17 passes
@@ -179,69 +120,6 @@ void Unknown_80EFF0(RenderObjClass *model, std::vector<ColorizationRegionStruct>
 // (0x73F770, their vector's operator=)
 
 
-// co.h's +0x98 object, Unknown98Class (postate.cpp's states derive from it, each with its own slots +0x04-+0x14):
-// ADVANCED_POSITIONAL_UPDATE 62 asks a state's type (+0x04), whether it holds a second state (+0x2C), that state
-// (+0x28), and replaces it (+0x24)
-
-
-
-
-
-
-
-
-
-
-// postate.cpp's type 3 state, SIMPLE_POSITIONAL_UPDATE 8's (8 bytes)
-class Unknown715AB0Class : public Unknown98Class	// NAME 1: neutral (D10)
-{
-public:	virtual int Unknown_04(); virtual Matrix3D Unknown_08(int unknown); virtual Vector3 Unknown_0C(int unknown); virtual Vector3 Unknown_10(int unknown); virtual Vector3 Unknown_14(int unknown);	// (postate.cpp's slots, not rebuilt)  // NAME 1 [unknown]: neutral
-	Unknown715AB0Class(SimplePositionalUpdatePacketClass *packet);	// 0x715AB0  // NAME 1 [packet]: what the handler passes
-	void Unknown_715C20(SimplePositionalUpdatePacketClass *packet);	// 0x715C20  // NAME 1 [packet]: what the handler passes
-
-	int Unknown04;
-};
-
-// postate.cpp's type 5 state, PLANET_POSITIONAL_UPDATE 63's (0x0C bytes)
-class Unknown715CF0Class : public Unknown98Class	// NAME 1: neutral (D10)
-{
-public:	virtual int Unknown_04(); virtual Matrix3D Unknown_08(int unknown); virtual Vector3 Unknown_0C(int unknown); virtual Vector3 Unknown_10(int unknown); virtual Vector3 Unknown_14(int unknown);	// (postate.cpp's slots, not rebuilt)  // NAME 1 [unknown]: neutral
-	Unknown715CF0Class(PlanetPositionalUpdatePacketClass *packet, ClientClass *client);	// 0x715CF0  // NAME 1 [packet, client]: what the handler passes
-	void Unknown_715E60(PlanetPositionalUpdatePacketClass *packet);	// 0x715E60  // NAME 1 [packet]: what the handler passes
-
-	int Unknown04[2];
-};
-
-// postate.cpp's type 11 state, COMPONENT_POSITIONAL_UPDATE 70's (0x10 bytes)
-class Unknown717EF0Class : public Unknown98Class	// NAME 1: neutral (D10)
-{
-public:	virtual int Unknown_04(); virtual Matrix3D Unknown_08(int unknown); virtual Vector3 Unknown_0C(int unknown); virtual Vector3 Unknown_10(int unknown); virtual Vector3 Unknown_14(int unknown);	// (postate.cpp's slots, not rebuilt)  // NAME 1 [unknown]: neutral
-	Unknown717EF0Class(ComponentPositionalUpdatePacketClass *packet, ClientClass *client);	// 0x717EF0  // NAME 1 [packet, client]: what the handler passes
-	void Unknown_718080(ComponentPositionalUpdatePacketClass *packet, ClientClass *client);	// 0x718080  // NAME 1 [packet, client]: what the handler passes
-
-	int Unknown04[3];
-};
-
-// postate.cpp's states ADVANCED_POSITIONAL_UPDATE 62 makes: type 4 for the player's own object (0x28 bytes),
-// type 8 for the others (0x1C bytes); both take the client's +0x10BC and the packet
-class Unknown717010Class : public Unknown98Class	// NAME 1: neutral (D10)
-{
-public:	virtual int Unknown_04(); virtual Matrix3D Unknown_08(int unknown); virtual Vector3 Unknown_0C(int unknown); virtual Vector3 Unknown_10(int unknown); virtual Vector3 Unknown_14(int unknown);	// (postate.cpp's slots, not rebuilt)  // NAME 1 [unknown]: neutral
-	Unknown717010Class(int time, AdvancedPositionalUpdatePacketClass *packet);	// 0x717010  // NAME 1 [time, packet]: what the handler passes
-	void Unknown_717290(AdvancedPositionalUpdatePacketClass *packet, int time);	// 0x717290  // NAME 1 [packet, time]: what the handler passes
-	Unknown717010Class(SClient *client, FormationPositionalUpdatePacketClass *packet);	// 0x7171C0 (FORMATION_POSITIONAL_UPDATE 65)  // NAME 1 [client, packet]: what the handler passes
-	void Unknown_717400(FormationPositionalUpdatePacketClass *packet, SClient *client);	// 0x717400 (FORMATION_POSITIONAL_UPDATE 65)  // NAME 1 [packet, client]: what the handler passes
-	char Unknown04[0x28 - 0x04];
-};
-class Unknown715EF0Class : public Unknown98Class	// NAME 1: neutral (D10)
-{
-public:	virtual int Unknown_04(); virtual Matrix3D Unknown_08(int unknown); virtual Vector3 Unknown_0C(int unknown); virtual Vector3 Unknown_10(int unknown); virtual Vector3 Unknown_14(int unknown);	// (postate.cpp's slots, not rebuilt)  // NAME 1 [unknown]: neutral
-	Unknown715EF0Class(int time, AdvancedPositionalUpdatePacketClass *packet);	// 0x715EF0  // NAME 1 [time, packet]: what the handler passes
-	void Unknown_716140(int time, AdvancedPositionalUpdatePacketClass *packet);	// 0x716140  // NAME 1 [time, packet]: what the handler passes
-	Unknown715EF0Class(SClient *client, FormationPositionalUpdatePacketClass *packet);	// 0x716080 (FORMATION_POSITIONAL_UPDATE 65)  // NAME 1 [client, packet]: what the handler passes
-	void Unknown_716220(SClient *client, FormationPositionalUpdatePacketClass *packet);	// 0x716220 (FORMATION_POSITIONAL_UPDATE 65)  // NAME 1 [client, packet]: what the handler passes
-	char Unknown04[0x1C - 0x04];
-};
 // eff_o.cpp's effects as far as the effect packets call them: the factory (cdecl) and two slots past
 // EffectObjectClass's destructor: +0x10 the effect's target end, whose slot +0x28 takes the object's id
 class Unknown6E9490TargetClass	// NAME 1: neutral (D10)
@@ -278,6 +156,13 @@ class SClientUnknown12C4Class : public UnknownSendRootClass
 {
 };
 inline void Unknown_Set_Colorization(ClientObjectClass *object, const std::vector<ColorizationRegionStruct> &regions) { object->Colorization = regions; }
+
+
+
+
+
+
+
 // 0x7333B0
 bool LogoffConfirmationPacketClass::Process_Packet(void *instance)
 {
@@ -306,6 +191,107 @@ bool ClientShipPacketClass::Process_Packet(void *instance)
 	sclient->Set_Ship_ID(ShipID);
 	return(true);
 }
+
+// 0x733700
+bool CreatePacketClass::Process_Packet(void *instance)
+{
+	WWPROFILE("CreatePacketClass::Process_Packet()");
+	SClient *sclient = (SClient *)instance;
+	ClientObjectClass *obj;
+	switch (Type) {
+		case 24:
+			obj = new Unknown70E2E0Class(sclient, Type, GameID);
+			break;
+		case 28:
+			obj = new Unknown70E5A0Class(sclient, GameID);
+			break;
+		default:
+			obj = new ClientObjectClass(sclient, Type, GameID);
+			break;
+	}
+	G_ASSERT(obj);
+
+	// The object's model: a light for type 8, otherwise the base asset's model (co.cpp's 0x6F5140,
+	// at the packet's scale and HSV shift). The packet's Type is CREATE's object type: 24 and 28
+	// have their own classes, 10 also gets an influence record and an empty model (below), 2 a
+	// low LOD bias.
+
+	RenderObjClass *robj;
+	if (Type != 8) {
+		robj = ClientObjectClass::Unknown_6F5140(BaseAsset, sclient, Scale, HSV);
+	} else {
+		robj = new LightClass(LightClass::POINT);
+	}
+	G_ASSERT(robj);
+	if (Type == 2) {
+		robj->Set_LOD_Bias(0.1f);
+	}
+	obj->Unknown_6F33F0(robj, BaseAsset, Scale);
+	obj->Unknown_04(BaseAsset);
+	sclient->Add_Object(obj);
+	if (Type == 10) {
+		InfluenceClass *influence = new InfluenceClass(sclient, --sclient->Unknown113C, robj);
+		influence->Unknown_10(GameID);
+		sclient->Add_Unknown86C(influence);
+		RenderObjClass *null_obj = new Null3DObjClass("NULL");
+		obj->Unknown_6F33F0(null_obj, -1, 1.0f);
+		null_obj->Release_Ref();
+	}
+	robj->Release_Ref();
+	return(true);
+}
+
+// ui_jobs.cpp's interface (an InterfaceClass: its reference count at +0x3C) and sbaseview.cpp's view
+// (SClient +0x135C; LOUNGE_NPC 82 calls its 0x6A0FD0) that holds it, declared as far as the job packets call them
+class UIJobsClass : public InterfaceClass	// NAME 3: class-from-file (D24) for app\client\ui_jobs.cpp
+{
+public:
+	void Unknown_5A3BC0(JobListPacketClass *packet);	// 0x5A3BC0 (JOB_LIST 147)  // NAME 1 [packet]: the handler's packet
+	void Unknown_5A3F10(JobDescriptionPacketClass *packet);	// 0x5A3F10 (JOB_DESCRIPTION 148)  // NAME 1 [packet]: the handler's packet
+	void Unknown_5A3FB0(JobAcceptReplyPacketClass *packet);	// 0x5A3FB0 (JOB_ACCEPT_REPLY 150)  // NAME 1 [packet]: the handler's packet
+	void Unknown_5A4430(int job_id);	// 0x5A4430 (JOB_DELETE 149)  // NAME 1 [job_id]: the packet's JobID
+};
+class SBaseViewClass : public ViewClass	// NAME 3: class-from-file (D24) for app\client\sbaseview.cpp
+{
+public:
+	void Unknown_6A0FD0(LoungeNPCPacketClass *packet);	// 0x6A0FD0 (LOUNGE_NPC 82)  // NAME 1 [packet]: the handler's packet
+	RefCountPtr<UIJobsClass> Get_Jobs() { return(Jobs); }	// 0x73A300 (out of line after JOB_LIST 147, the first caller)  // NAME 2: what it returns
+
+	char Unknown38[0x194 - 0x38];	// +0x38
+	RefCountPtr<UIJobsClass> Jobs;	// +0x194  // NAME 2: what it holds
+};
+
+// ui_talkt.cpp's talk tree interface and ui_talkt_space.cpp's (SClient +0x1298), declared as far as the
+// talk tree packets call them
+class UITalkTreeClass : public InterfaceClass	// NAME 3: class-from-file (D24) for app\client\ui_talkt.cpp
+{
+public:
+	virtual void Unknown_88();
+	virtual void Unknown_8C();
+	virtual void Unknown_90(TalkTreePacketClass *packet);	// +0x90 (TALK_TREE 84)  // NAME 1 [packet]: the handler's packet
+	void Unknown_64D230(int action);	// 0x64D230 (TALK_TREE_ACTION 86)  // NAME 1 [action]: the packet's Action
+};
+class UITalkTreeSpaceClass : public UITalkTreeClass	// NAME 3: class-from-file (D24) for app\client\ui_talkt_space.cpp
+{
+};
+
+// galaxy_map_client.cpp's map (SClient +0x12A0), declared as far as GALAXY_MAP 151 calls it (each reads
+// the packet's data from the buffer)
+class GalaxyMapClientClass	// NAME 3: class-from-file (D24) for app\client\galaxy_map_client.cpp
+{
+public:
+	void Unknown_7A4C50(SClient *sclient, LinearBufferClass &buffer);	// 0x7A4C50 (type 4)  // NAME 1 [sclient, buffer]: what the handler passes
+	void Unknown_7A4FC0(LinearBufferClass &buffer);	// 0x7A4FC0 (type 5)  // NAME 1 [buffer]: the packet's data
+	void Unknown_7A50A0(LinearBufferClass &buffer);	// 0x7A50A0 (types 6, 7, 8, 11)  // NAME 1 [buffer]: the packet's data
+	void Unknown_7A5180(LinearBufferClass &buffer);	// 0x7A5180 (type 9)  // NAME 1 [buffer]: the packet's data
+	void Unknown_7A5260(LinearBufferClass &buffer);	// 0x7A5260 (type 2)  // NAME 1 [buffer]: the packet's data
+	void Unknown_7A52F0(LinearBufferClass &buffer);	// 0x7A52F0 (type 3)  // NAME 1 [buffer]: the packet's data
+};
+
+// co_player_relationship.cpp's handlers of the relationship packets (cdecl)
+void Unknown_70CC40(SClient *sclient, PlayerObjectRelationshipPacket *packet);	// 0x70CC40 (RELATIONSHIP 137)  // NAME 1 [sclient, packet]: what the handler passes
+void Unknown_70CC90(SClient *sclient, PlayerObjectReactionUpdatePacket *packet);	// 0x70CC90 (138)  // NAME 1 [sclient, packet]: what the handler passes
+void Unknown_70CD50(SClient *sclient, PlayerObjectIsAttackingUpdatePacket *packet);	// 0x70CD50 (ATTACKER_UPDATES 139)  // NAME 1 [sclient, packet]: what the handler passes
 
 // 0x733A50
 bool SubPartsPacket::Process_Packet(void *instance)
@@ -360,6 +346,20 @@ bool ConstantPositionalUpdatePacketClass::Process_Packet(void *instance)
 	}
 	return(true);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

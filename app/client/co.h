@@ -305,4 +305,29 @@ public:
 	char Unknown185[0x188 - 0x185];						// +0x185 (CREATE allocates 0x188 bytes)
 };
 
+// CREATE 4's two subclasses, declared as far as CREATE calls them. Their constructors lie in the unattributed run
+// 0x70CC90-0x70F1D0 (after co_player_relationship.cpp, before extrap.cpp; no file known), so they are declared here
+// type 24's base (constructor 0x70DBC0, vtable 0xB02084, over 0x6F2820)
+class Unknown70DBC0Class : public ClientObjectClass	// NAME 1: neutral (D10)
+{
+public:
+	Unknown70DBC0Class(ClientClass *client, int type, unsigned id);	// 0x70DBC0  // NAME 1 [client, type, id]: as the base's
+};
+// type 24 (constructor 0x70E2E0, vtable 0xB02294, 0x224 bytes)
+class Unknown70E2E0Class : public Unknown70DBC0Class	// NAME 1: neutral (D10)
+{
+public:
+	Unknown70E2E0Class(ClientClass *client, int type, unsigned id);	// 0x70E2E0 (CREATE 4 passes its SClient, the packet's Type and GameID)  // NAME 1 [client, type, id]: as the base's
+
+	char Unknown188[0x224 - 0x188];						// +0x188 (CREATE allocates 0x224 bytes; the split with 0x70DBC0's part is unknown)
+};
+// type 28 (constructor 0x70E5A0, vtable 0xB0230C, 0x1D4 bytes, over 0x6F2820)
+class Unknown70E5A0Class : public ClientObjectClass	// NAME 1: neutral (D10)
+{
+public:
+	Unknown70E5A0Class(ClientClass *client, unsigned id);	// 0x70E5A0 (CREATE 4 passes its SClient and the packet's GameID)  // NAME 1 [client, id]: as the base's
+
+	char Unknown188[0x1D4 - 0x188];						// +0x188 (CREATE allocates 0x1D4 bytes)
+};
+
 #endif //__CO_H

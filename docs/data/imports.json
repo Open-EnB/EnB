@@ -1,6 +1,6 @@
 {
  "app": {
-  "ambiguous_total": 119,
+  "ambiguous_total": 120,
   "base": "reconstructed",
   "compile_errors": [],
   "files": {
@@ -1433,6 +1433,7 @@
      "0x729320",
      "0x7333B0",
      "0x733660",
+     "0x733700",
      "0x733A50",
      "0x733B10",
      "0x733BB0",
@@ -7996,6 +7997,7 @@
    "client/fontdatabase.h": "reconstructed",
    "client/fontmanager.h": "reconstructed",
    "client/gutter_data.h": "reconstructed",
+   "client/influence.h": "reconstructed",
    "client/navigation_data.h": "reconstructed",
    "client/option.h": "reconstructed",
    "client/postate.h": "reconstructed",
@@ -8215,7 +8217,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 3797,
+  "in_tree_total": 3872,
   "totals": {}
  },
  "binkmovie": {
