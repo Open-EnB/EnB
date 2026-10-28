@@ -442,7 +442,7 @@ public:
 	virtual ViewClass *Unknown_24() { return(this); }	// +0x24 0x50B800
 	virtual CameraClass *Unknown_58() { return(Camera); }	// +0x58 0x50B8C0
 	virtual ClientObjectClass *Unknown_5C();			// +0x5C 0x5136D0 (the scanner's +0x88; SClient 0x744E70's FAIL_IF '!target' on its result)
-	virtual void Unknown_60(int arg1, int arg2, int arg3, int arg4);	// +0x60 0x512BB0 (asserts 'cam_dist_idx < InfoCount', 'cos_occluder_size > 0.0f')  // NAME 1 [arg1, arg2, arg3, arg4]: neutral
+	virtual ClientObjectClass *Unknown_60(float x, float y, bool skip_avatar, int arg4);	// +0x60 0x512BB0 (the object under a screen point; arg4 unused) (asserts 'cam_dist_idx < InfoCount', 'cos_occluder_size > 0.0f')  // NAME 1 [x, y, skip_avatar, arg4]: what the body does with them
 	virtual SimpleSceneClass *Unknown_64();			// +0x64 0x514430 (Scene; SClient 0x7456B0 calls its slot +0x24, SceneClass::Set_Fog_Enable)
 	virtual SimpleSceneClass *Unknown_68() { return(Unknown110); }	// +0x68 0x50B820
 	virtual SimpleSceneClass *Unknown_6C() { return(Unknown114); }	// +0x6C 0x50B840

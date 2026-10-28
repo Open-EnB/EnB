@@ -1767,134 +1767,134 @@ void MainViewClass::Unknown_512B10(int x, int y, float *fx, float *fy)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// the picking candidates (0xBE71E0, 64 entries of 0x20 bytes) and their count (0xBE79E0; the G_ASSERT's 'InfoCount'):
+// qsort's comparators 0x7196C0 (by distance) and 0x719730 (by angle) read them (their file is unknown)
+struct PickInfoStruct	// NAME 1: neutral (D10)
+{
+	Vector3 Dir;									// +0x00 towards the object, normalised
+	float Dist2;									// +0x0C the squared distance
+	float Cos;										// +0x10 the cosine between Dir and the ray
+	float CosSize;									// +0x14 the cosine of the occluder's half angle, -1 for the others  // NAME 3: the G_ASSERT's 'cos_occluder_size'
+	ClientObjectClass *Object;						// +0x18
+	bool Occluder;									// +0x1C (types 2, 3 and 10)
+};
+PickInfoStruct Info[64];		// NAME 2: InfoCount's
+int InfoCount;					// NAME 3: the G_ASSERT's
+int __cdecl Unknown_7196C0(const void *a, const void *b);	// 0x7196C0 (qsort: the indices by distance)  // NAME 1 [a, b]: qsort's
+int __cdecl Unknown_719730(const void *a, const void *b);	// 0x719730 (qsort: the indices by angle)  // NAME 1 [a, b]: qsort's
+
+// NOT EXACT: functional (MV2, from the disassembly)
+// slot +0x60: the object under the screen point (x, y in 0..1): the avatar's model first unless skip_avatar, then the
+// objects within the camera's far distance and 5 degrees of the ray (the planets and stations, types 2 / 3 / 10,
+// within their apparent size), the one nearest the ray that no nearer occluder covers
+ClientObjectClass *MainViewClass::Unknown_60(float x, float y, bool skip_avatar, int arg4)
+{
+	if (!skip_avatar) {
+		LayerClass layer(Scene, Camera, false, false, Vector3(0.0f, 0.0f, 0.0f));
+		ClientObjectClass *avatar = Client->Get_Avatar();
+		if (avatar && Intersection.Intersect_Screen_Point_RenderObject(x, y, layer, avatar->Model, NULL)) {
+			return(avatar);
+		}
+		skip_avatar = true;
+	}
+	Matrix3D tm = Camera->Get_Transform();
+	Vector3 eye = Camera->Get_Position();
+	Vector2 plane_min, plane_max;
+	Camera->Get_View_Plane(plane_min, plane_max);
+	const ViewportClass &viewport = Camera->Get_Viewport();
+	float dx = (float)(((viewport.Min.X - x) + 0.5) * (plane_max.X - plane_min.X) * -1.0);
+	float dy = (float)(((y - 0.5) - viewport.Min.Y) * (plane_max.Y - plane_min.Y) * -1.0);
+	Vector3 ray;
+	Matrix3D::Rotate_Vector(tm, Vector3(dx, dy, -1.0f), &ray);
+	ray.Normalize();
+	float far2 = Camera->Get_Depth();
+	far2 = far2 * far2;
+	InfoCount = 0;
+	HashNodeClass<ClientObjectClass *> *node = Client->ObjectList.First_Valid();
+	while (node && node->Next()) {
+		ClientObjectClass *object = node->Get_Record();
+		switch (object->Type) {
+		case 0:
+			if (skip_avatar && object->GameID == Client->AvatarID) break;
+			// fall through
+		default:
+			{
+				Vector3 dir = object->Unknown_24() - eye;
+				float dist2 = dir.Length2();
+				float oolen = WWMath::Inv_Sqrt(dist2);
+				dir *= oolen;
+				float cos;
+				if (dist2 <= far2 && (cos = Vector3::Dot_Product(dir, ray)) >= 0.9961947f && object->Unknown_30() * oolen >= 0.004886902454025) {
+					PickInfoStruct &info = Info[InfoCount];
+					info.Dir = dir; info.Dist2 = dist2; info.Cos = cos; info.CosSize = -1.0f; info.Object = object; info.Occluder = false;
+					if (++InfoCount == 64) goto sort;
+				}
+			}
+			break;
+		case 2:
+		case 3:
+		case 10:
+			{
+				Vector3 dir = object->Unknown_24() - eye;
+				float dist2 = dir.Length2();
+				float oolen = WWMath::Inv_Sqrt(dist2);
+				dir *= oolen;
+				float cos;
+				if (dist2 <= far2 && (cos = Vector3::Dot_Product(ray, dir)) >= 0.70710677f) {
+					float radius = object->Unknown_30();
+					double size = sqrt(dist2 - radius * radius) * oolen;
+					if (size > 0.9999880590209) break;
+					double limit = (size >= 0.9961946980917) ? 0.9961946980917 : size;
+					if (cos < limit) break;
+					PickInfoStruct &info = Info[InfoCount];
+					info.CosSize = (float)size; info.Dir = dir; info.Dist2 = dist2; info.Cos = cos; info.Object = object; info.Occluder = true;
+					if (++InfoCount == 64) goto sort;
+				}
+			}
+			break;
+		case 5: case 6: case 7: case 8: case 9:
+			break;
+		}
+		node = node->Next();
+	}
+sort:
+	int by_distance[64];
+	int by_angle[64];
+	for (int i = 0; i < InfoCount; i++) {
+		by_distance[i] = i;
+		by_angle[i] = i;
+	}
+	qsort(by_distance, InfoCount, sizeof(int), Unknown_7196C0);
+	qsort(by_angle, InfoCount, sizeof(int), Unknown_719730);
+	for (int k = 0; k < InfoCount; k++) {
+		int index = by_angle[k];
+		int cam_dist_idx = 0;
+		while (by_distance[cam_dist_idx] != index) {
+			G_ASSERT(cam_dist_idx < InfoCount);
+			cam_dist_idx++;
+		}
+		bool occluded = false;
+		for (int j = cam_dist_idx + 1; j < InfoCount && !occluded; j++) {
+			PickInfoStruct &occluder = Info[by_distance[j]];
+			if (occluder.Occluder) {
+				float cos_occluder_size = occluder.CosSize;
+				float cos_size = Info[index].CosSize;
+
+
+
+
+				G_ASSERT(cos_occluder_size > 0.0f);
+				if ((cos_size <= 0.0f || cos_occluder_size <= cos_size) && cos_occluder_size < Vector3::Dot_Product(occluder.Dir, Info[index].Dir)) {
+					occluded = true;
+				}
+			}
+		}
+		if (!occluded) {
+			return(Info[index].Object);
+		}
+	}
+	return(NULL);
+}
 
 
 

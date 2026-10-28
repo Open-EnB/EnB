@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 33 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 36 |
-| 3 | by convention from a client-named file or sibling | 934 |
-| 2 | describes what the code does | 2267 |
-| 1 | neutral placeholder | 4991 |
+| 3 | by convention from a client-named file or sibling | 936 |
+| 2 | describes what the code does | 2268 |
+| 1 | neutral placeholder | 4999 |
 
 ## For review (score 3 and below)
 
@@ -1698,6 +1698,14 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_7C8DB0` | `app/client/mainview.cpp:1614` | untagged neutral name (D10) |
 | 1 | `Unknown_64` | `app/client/mainview.cpp:1614` | untagged neutral name (D10) |
 | 1 | `Unknown_512B10` | `app/client/mainview.cpp:1700` | untagged neutral name (D10) |
+| 1 | `PickInfoStruct` | `app/client/mainview.cpp:1772` | neutral (D10) |
+| 1 | `a, b` | `app/client/mainview.cpp:1783` | qsort's |
+| 1 | `Unknown_7196C0` | `app/client/mainview.cpp:1783` | untagged neutral name (D10) |
+| 1 | `a, b` | `app/client/mainview.cpp:1784` | qsort's |
+| 1 | `Unknown_719730` | `app/client/mainview.cpp:1784` | untagged neutral name (D10) |
+| 1 | `Unknown_60` | `app/client/mainview.cpp:1790` | untagged neutral name (D10) |
+| 1 | `Unknown_24` | `app/client/mainview.cpp:1822` | untagged neutral name (D10) |
+| 1 | `Unknown_30` | `app/client/mainview.cpp:1827` | untagged neutral name (D10) |
 | 1 | `Unknown_513540` | `app/client/mainview.cpp:1902` | untagged neutral name (D10) |
 | 1 | `Unknown_6F5140` | `app/client/mainview.cpp:1915` | untagged neutral name (D10) |
 | 1 | `Unknown_88` | `app/client/mainview.cpp:1916` | untagged neutral name (D10) |
@@ -2328,7 +2336,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown9C` | `app/client/sclient.h:426` | untagged neutral name (D10) |
 | 1 | `UnknownA0` | `app/client/sclient.h:427` | untagged neutral name (D10) |
 | 1 | `arg` | `app/client/sclient.h:441` | neutral |
-| 1 | `arg1, arg2, arg3, arg4` | `app/client/sclient.h:445` | neutral |
+| 1 | `x, y, skip_avatar, arg4` | `app/client/sclient.h:445` | what the body does with them |
 | 1 | `Unknown110` | `app/client/sclient.h:447` | untagged neutral name (D10) |
 | 1 | `Unknown114` | `app/client/sclient.h:448` | untagged neutral name (D10) |
 | 1 | `Unknown118` | `app/client/sclient.h:449` | untagged neutral name (D10) |
@@ -5494,6 +5502,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `DebugFont` | `app/client/fontmanager.h:123` | what it holds |
 | 2 | `Client` | `app/client/mainview.cpp:36` | what it holds |
 | 2 | `View` | `app/client/mainview.cpp:54` | what it holds |
+| 2 | `Info` | `app/client/mainview.cpp:1781` | InfoCount's |
 | 2 | `Find_Option` | `app/client/option.cpp:15` | what it does |
 | 2 | `Free_Option_Map` | `app/client/option.cpp:22` | what it does |
 | 2 | `BoolOptionStruct` | `app/client/option.h:31` | what it holds (0x14 bytes) |
@@ -7377,6 +7386,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `InfluenceClass` | `app/client/influence.h:24` | class-from-file (D24) for app\client\influence.cpp |
 | 3 | `UIChatPanelClass` | `app/client/mainview.cpp:1111` | class-from-file (D24) for app\client\ui_chat_panel.cpp |
 | 3 | `UIStarmapClass` | `app/client/mainview.cpp:1121` | class-from-file (D24) for ui_starmap.cpp |
+| 3 | `CosSize` | `app/client/mainview.cpp:1777` | the G_ASSERT's 'cos_occluder_size' |
+| 3 | `InfoCount` | `app/client/mainview.cpp:1782` | the G_ASSERT's |
 | 3 | `navigation_data.h` | `app/client/navigation_data.h:16` | header name assumed from the client's navigation_data.cpp |
 | 3 | `option.h` | `app/client/option.h:22` | header name assumed from the client's option.cpp |
 | 3 | `OptionClass` | `app/client/option.h:90` | by convention (D24) from the client's file option.cpp (WinMain's 'options manager') |
