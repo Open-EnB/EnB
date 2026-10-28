@@ -478,7 +478,9 @@ def match_objects(img, paths, region=None):
                     proposals.append((item, own[0]))
             elif id(obj) in ranges:
                 lo, hi = ranges[id(obj)]
-                inside = [h for h in survivors if lo <= h <= hi]
+                # an address another function is already exact at is not this one's (one client function
+                # is one source function)
+                inside = [h for h in survivors if lo <= h <= hi and not claimed[h] - {r['symbol']}]
                 if len(inside) == 1:
                     proposals.append((item, inside[0]))
         by_addr = collections.defaultdict(set)
