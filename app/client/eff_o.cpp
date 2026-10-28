@@ -1377,8 +1377,8 @@ EffectObjectClass *Unknown_6EAFA0(INIClass *ini, const char *section, unsigned i
 
 
 
-// NOT EXACT: order-only (the client reloads the ResetMappers bool before the spin rate's fmul; 4 forms)
-// 0x6EB150
+
+// 0x6EB150 (the spin rate's 2 pi / 1000 as a statement of its own: the client loads ResetMappers before the fmul)
 EffectObjectClass *Unknown_6EB150(INIClass *ini, const char *section, unsigned id, unsigned start_time, unsigned duration, unsigned cycle_time, ClientClass *client, float scale, float *hsv)
 {
 	int base_asset = ini->Get_Int(section, "BaseAssetID", -1);
@@ -1387,7 +1387,8 @@ EffectObjectClass *Unknown_6EB150(INIClass *ini, const char *section, unsigned i
 	bool next_link_to_robj = ini->Get_Bool(section, "UnaryNextLinkToRObj", false);
 	bool reset_mappers = ini->Get_Bool(section, "ResetMappers", false);
 	float radius = ini->Get_Float(section, "SpiralRadius", 0.0f);
-	float spin_rate = ini->Get_Float(section, "SpiralSpinRate", 0.0f) * (WWMATH_PI * 2.0f / 1000.0f);
+	float spin_rate = ini->Get_Float(section, "SpiralSpinRate", 0.0f);
+	spin_rate *= WWMATH_PI * 2.0f / 1000.0f;
 	if (reset_mappers) {
 		Unknown_496AE0(robj, 0);
 	}
@@ -1397,7 +1398,6 @@ EffectObjectClass *Unknown_6EB150(INIClass *ini, const char *section, unsigned i
 	robj->Release_Ref();
 	return(effect);
 }
-
 
 
 

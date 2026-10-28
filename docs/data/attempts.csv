@@ -469,3 +469,4 @@ date,address,symbol,file,library,status,score,forms,blocker,evidence,stash,model
 2026-10-28 07:27,0x737CB0,,app/client/cpacket.cpp,app,exact,,1,,"EF2 2026-10-28: exact once client.h declares ClientClass +0x10C0 as DurationClass (P-EF1-1), the __int64 halves' stores and registers as the client's",,opus
 2026-10-28 07:27,0x7364C0,,app/client/cpacket.cpp,app,exact,,1,,"EF2 2026-10-28: exact once client.h declares ClientClass +0x10C0 as DurationClass (P-EF1-1), the __int64 halves' stores and registers as the client's",,opus
 2026-10-28 07:27,0x736650,,app/client/cpacket.cpp,app,exact,,1,,"EF2 2026-10-28: exact once client.h declares ClientClass +0x10C0 as DurationClass (P-EF1-1), the __int64 halves' stores and registers as the client's",,opus
+2026-10-28 07:33,0x6EB150,,app/client/eff_o.cpp,app,exact,,1,,EF2 2026-10-28: the spin rate's 2 pi / 1000 as a statement of its own (spin_rate *= ...) puts the ResetMappers load before the fmul as the client's,,opus
