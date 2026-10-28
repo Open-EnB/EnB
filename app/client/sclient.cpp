@@ -5501,7 +5501,7 @@ void SClient::Unknown_751660()
 #include "..\packets\pkincapacitancerequest.h"
 // sbaseview.h's two classes as far as '/starbase reset' needs them (the header includes ui_line_display.h, whose
 // UILineDisplayClass clashes with this file's own, C2011)
-class UIStarbaseClass : public UIUnknownBaseClass, public RefCountClass { public: void Unknown_640150(); };	// NAME 3: sbaseview.h's (ui_starbase.cpp); 0x640150: '/starbase reset'
+class UIStarbaseClass : public UIUnknownBaseClass, public RefCountClass { public: void Unknown_640150(); void Unknown_6425D0(const char *name, const Vector3 &color); };	// NAME 3: sbaseview.h's (ui_starbase.cpp); 0x640150: '/starbase reset'
 class SBaseViewUnknown174Class { public: char Unknown00[0x18C]; bool Unknown18C; };	// NAME 1: neutral (D10): the starbase view's +0x174 (0x74D950 sets its +0x18C)
 class SBaseViewClass : public ViewClass { public: RefCountPtr<UIStarbaseClass> Get_Starbase() { return(Starbase); } char Unknown38[0x60 - 0x38]; RefCountPtr<UIStarbaseClass> Starbase; char Unknown64[0x174 - 0x64]; SBaseViewUnknown174Class *Unknown174; };	// NAME 3: sbaseview.h's; Get_Starbase 0x54EDA0
 
@@ -5688,6 +5688,34 @@ void SClient::Print(int channel, const char *format, ...)
 	va_end(va);
 	buffer[sizeof(buffer) - 1] = 0;
 	Unknown_74D990(channel, buffer, 0);
+}
+
+// NOT EXACT: shape (explain.py: 144 instructions, the client 159; 36 masked rows, 35 of them registers; 10 calls, the client 11): the client sends the empty sender, a NULL starbase view and a NULL interface to one _Tidy(true) exit and destroys the string inline elsewhere (ebx holds this); two forms (early return on empty: 58 rows)
+// 0x750F70 (cpacket.cpp: CLIENT_CHAT_EVENT 165, the sender and 2..15 by the channel): the channel's colour (+0x13CC)
+// goes to the sender's object, or in the starbase view to its interface
+void SClient::Unknown_750F70(const char *name, int channel)
+{
+	if (name == NULL) {
+		return;
+	}
+	std::string sender(name);
+	if (!sender.empty()) {
+		Vector3 color = Unknown13CC.Unknown_765DF0(channel);
+		if (CurrentView && CurrentView == Unknown135C) {
+			if (Unknown135C) {
+				UIStarbaseClass *starbase = ((SBaseViewClass *)Unknown135C)->Get_Starbase().Peek();
+				if (starbase) {
+					starbase->Unknown_6425D0(sender.c_str(), color);
+				}
+			}
+		} else {
+			ClientObjectClass *object = Find_Object(sender.c_str());
+			if (!object) {
+				return;
+			}
+			object->Unknown_700820(color);
+		}
+	}
 }
 
 /*

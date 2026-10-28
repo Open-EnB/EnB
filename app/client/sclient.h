@@ -629,6 +629,7 @@ class Unknown764FD0Class	// NAME 1: neutral (D10)
 public:
 	Unknown764FD0Class();								// 0x764FD0
 	void Unknown_765010();								// 0x765010 (SClient::Init)
+	Vector3 Unknown_765DF0(int index);					// 0x765DF0: colour index (0..23), else (1, 1, 1) (SClient 0x750F70: the chat channel)  // NAME 1 [index]: neutral
 
 	Vector3 Unknown00[24];								// +0x00  // NAME 2: what the constructor writes
 };

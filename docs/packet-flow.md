@@ -372,6 +372,10 @@ and hides the button; 0x751460 (the referral points 233) keeps total - spent in 
 0x49F300 lists for them (12-byte entries: skill points at +4, credits at +8) and asks SPEND_BUDDY_POINTS in the
 current view's dialog (0x751660 sends the answer). Neither touches the object model.
 
+0x750F70 (CLIENT_CHAT_EVENT 165) takes the channel's colour from SClient +0x13CC (0x765DF0: 24 colours, (1, 1, 1)
+otherwise) and gives it to the sender's object (Find_Object by name, ClientObjectClass 0x700820: +0x174 = 2.0f and the
+colour in +0x178) or, in the starbase view, to its interface (0x6425D0 with the name).
+
 ## 3. The object-affecting opcodes
 
 Handler = slot +0x08 (all in cpacket.cpp unless noted). "Object" = `Find_Object(GameID)` unless said.

@@ -60,6 +60,8 @@ void SClient::Unknown_74D990(int color, char *text, int a)
 	}
 	Trace("stub SClient::Unknown_74D990 0x%X '%s' %d", color, t.c_str(), a);
 }
+// gen_stubs cannot return a class by value (P-T18-2): the chat colour SClient 0x750F70 reads (0x765DF0's body)
+Vector3 Unknown764FD0Class::Unknown_765DF0(int index) { Trace("stub Unknown764FD0Class::Unknown_765DF0 %d", index); return((index >= 0 && index < 24) ? Unknown00[index] : Vector3(1.0f, 1.0f, 1.0f)); }
 // gen_stubs cannot return a class by value (P-T18-2): the referral rewards SClient 0x751460 sums
 std::vector<BuddyRewardStruct> Unknown49F200Class::Unknown_49F300(int points_spent, int points) { Trace("stub Unknown49F200Class::Unknown_49F300 %d %d", points_spent, points); return(std::vector<BuddyRewardStruct>()); }
 void SClient::Unknown_7517E0(int a, int b, int c, int d) { Trace("stub SClient::Unknown_7517E0 %d %d %d %d", a, b, c, d); }
