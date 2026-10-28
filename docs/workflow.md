@@ -293,6 +293,11 @@ unless `--lever` cites a new row of this table.
   `for(;;)` over `strtok_r` peels the first `strtok_r(text)`; `do { tok = strtok_r(text, ...); text = NULL;
   if (tok) ... } while (tok);` keeps one call site.
 * **`b ? x : -1` emits the x branch first;** `(b == NULL) ? -1 : x` gives the other order (2026-10-28, CO1, 0x725610).
+* **Forms read from the listing (2026-10-28, PS1, postate.cpp):** a vtable store after the member stores is an
+  init list; `esi = this + 8` is a struct assigned from a temporary; one call fed by a duration local comes out
+  as four tail-duplicated pushes; an inline helper whose inlined and out-of-line copies must both match took
+  `if (a == b) return(true); return(false);`; `Get_Position()` is out of line, the client inlines
+  `Get_Transform().Get_Translation()`.
 * **A nested inline is a whole-function budget (2026-10-26, `Key_Exchange` 0x829180):** under `/Ob2` an
   inline helper's own callees (a `std::set` iterator's `_Inc`) are inlined only while the function as a
   whole is under budget; removing unrelated code elsewhere in the function flips one nested call, so a
@@ -638,6 +643,9 @@ unless `--lever` cites a new row of this table.
 * explain.py reports a false relocation on PacketClass's vtable 0xAEDE88 (a COMDAT name shared with
   PushMessageLinePacketClass): the masked residue is what counts (P7, P8, T16). Handlers without asserts can be
   moved so the asserted ones sit on the client's lines (T16: cpacket blocks 0x737520-0x737C10 and 0x735D50-0x736DA0).
+* **clienttest links build/app/app.lib as it is (2026-10-28, PS1):** run `build.py build --lib app` first; a stale
+  lib hid 24 LNK2005 and new unresolved symbols. After a fixpad / assert-line script, check every assert of the
+  file, not the first few: a moved line broke postate's type 15 constructor silently.
 * **clienttest (T9, 2026-10-27; `python tools/harness/clienttest.py build|run`):** hand-written stand-ins must cover
   every member of an app.lib object the program reaches, or the linker pulls the whole object and reports LNK2005 on
   the rest (app.lib changes under you when other builders verify: soptions.obj did). A stand-in object whose real
@@ -652,6 +660,8 @@ unless `--lever` cites a new row of this table.
 
 ### 3.8 Git, docs and scripting hygiene
 
+* **commit_mine keys on a RECONSTRUCTED continuation line must be in the changed line itself** (2026-10-28,
+  PS1): a key on the entry's first line misses an edit to its continuation; the hunk lands in the next commit.
 * **The Write tool writes LF:** after writing a tracked doc or source, restore CRLF if the file had
   it (python: read bytes, replace b'\n' with b'\r\n' where not already). Check line ends before
   `\r\n` anchors; Python's Windows text mode writes CRLF: match `\r?\n` later.
