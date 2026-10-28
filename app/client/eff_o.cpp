@@ -14,12 +14,17 @@
 #include "rendobj.h"
 #include "camera.h"
 #include "random.h"
+#include "colmath.h"
+#include "lineseg.h"
+#include "sphere.h"
+#include "castres.h"
 #include "nstrdup.h"
 #include "..\audio\soundlib.h"
 #include "..\..\wwaudio\Sound3D.h"
 
 void Unknown_4BC260(const char *sender, const char *category, const char *file, int line, const char *format, ...);	// 0x4BC260 (unknown_debug.h's reporter)
 EffectObjectClass *Unknown_6E9490(int desc_id, int effect_id, int duration, int time, ClientClass *client, float scale, const Vector3 &hsv_shift, float speedup, int linked_desc_id, bool unknown);	// 0x6E9490 (the factory, not rebuilt yet)  // NAME 1 [desc_id .. unknown]: what the effect packets pass
+Matrix3D Unknown_82ECB0(const Vector3 &direction, const Vector3 &position);	// 0x82ECB0 (cdecl; a transform at the position facing along the direction)  // NAME 1 [direction, position]: what 0x6E8DD0 passes
 extern RandomClass Unknown_BDBB84;	// NAME 1 [Unknown_BDBB84]: neutral (D10), as ui_line_display.cpp's
 static inline int Unknown_Time(const ClientClass *client) { return(client->Unknown10BC); }	// NAME 1 [Unknown_Time]: neutral (D10): the client clock as the link calls read it (evaluated before the other arguments)
 
@@ -104,11 +109,6 @@ EffectObjectClass::~EffectObjectClass()
 		Unknown_6E6A90(NextLink);
 	}
 }
-
-
-
-
-
 
 
 
@@ -683,25 +683,25 @@ void UnknownB0009CEffectClass::Unknown_18()
 	}
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// NOT EXACT: frame (0x8C bytes of locals, the client's 0x80: one Vector3 temporary more; the target's position plus TargetOffset also loads in the other order; 4 forms)
+// 0x6E8890
+void UnknownB0009CEffectClass::Unknown_1C()
+{
+	if (SourceObject && (bool)Flag.Unknown7) {
+		Unknown_6E8F80();
+	}
+	if (TargetObject && (bool)Flag.Unknown8) {
+		TargetPosition = TargetObject->Unknown_24() + TargetOffset;
+	}
+	if ((bool)Flag.Unknown13 && TargetObject) {
+		SphereClass sphere(TargetObject->Unknown_24(), TargetObject->Unknown_30());
+		LineSegClass line(SourcePosition, TargetPosition);
+		CastResultStruct result;
+		if (CollisionMath::Collide(line, sphere, &result)) {
+			TargetPosition = line.Get_P0() + line.Get_DP() * result.Fraction;
+		}
+	}
+}
 
 
 
@@ -818,27 +818,27 @@ void UnknownB0009CEffectClass::Unknown_24(int next)
 	}
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// 0x6E8DD0
+void UnknownB0009CEffectClass::Unknown_3C(UnknownB00060EffectClass *unary, int next)
+{
+	if (Flags & ((next != 0) ? 0x1000 : 0x800)) {
+		if (TargetObject) {
+			unary->Unknown_28(TargetObject->Get_Game_ID());
+			return;
+		}
+		unary->Unknown_2C(Unknown_82ECB0(SourcePosition - TargetPosition, TargetPosition));
+	} else {
+		if (SourceObject) {
+			if (!SourceLego.Is_Empty()) {
+				unary->Unknown_6E7810(SourceObject->Get_Game_ID(), SourceLego);
+			} else {
+				unary->Unknown_28(SourceObject->Get_Game_ID());
+			}
+			return;
+		}
+		unary->Unknown_2C(Unknown_82ECB0(TargetPosition - SourcePosition, SourcePosition));
+	}
+}
 
 
 

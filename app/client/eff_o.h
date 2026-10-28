@@ -121,6 +121,9 @@ public:
 			unsigned Unknown8 : 1;						// 0x100 (the unary end: GoAwayWhenSourceDoes; the binary end: TrackTarget)
 			unsigned Unknown9 : 1;						// 0x200 (the binary end: GoAwayWhenSourceDoes)
 			unsigned Unknown10 : 1;						// 0x400 (the binary end: GoAwayWhenTargetDoes)
+			unsigned Unknown11 : 1;						// 0x800 (the binary end: UnaryStartLinkToTarget)
+			unsigned Unknown12 : 1;						// 0x1000 (the binary end: UnaryNextLinkToTarget)
+			unsigned Unknown13 : 1;						// 0x2000 (the binary end: the effect packets' OutsideTargetRadius)
 		} Flag;
 	};
 };
