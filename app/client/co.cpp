@@ -129,24 +129,34 @@ ClientObjectClass::ClientObjectClass(ClientClass *client, int type, unsigned id)
 	}
 }
 
-static inline void Release_Sound(AudibleSoundClass *&sound)
-{
-	if (sound) {
-		sound->Stop(true);
-		sound->Remove_From_Scene();
-		sound->Release_Ref();
-		sound = NULL;
-	}
-}
-
-// 0x6F2FE0  // NOT EXACT: register choice (the client's zero in edi, then ebx; its loop count in ebp) and inline-budget (the client inlines the std::string's _Tidy(true))
+// 0x6F2FE0
 ClientObjectClass::~ClientObjectClass()
 {
 	ClientObjectDataClass::Remove_All(this);
-	Release_Sound(Unknown118);
-	Release_Sound(Unknown11C);
-	Release_Sound(Unknown120);
-	Release_Sound(Unknown124);
+	if (Unknown118) {
+		Unknown118->Stop(true);
+		Unknown118->Remove_From_Scene();
+		Unknown118->Release_Ref();
+		Unknown118 = NULL;
+	}
+	if (Unknown11C) {
+		Unknown11C->Stop(true);
+		Unknown11C->Remove_From_Scene();
+		Unknown11C->Release_Ref();
+		Unknown11C = NULL;
+	}
+	if (Unknown120) {
+		Unknown120->Stop(true);
+		Unknown120->Remove_From_Scene();
+		Unknown120->Release_Ref();
+		Unknown120 = NULL;
+	}
+	if (Unknown124) {
+		Unknown124->Stop(true);
+		Unknown124->Remove_From_Scene();
+		Unknown124->Release_Ref();
+		Unknown124 = NULL;
+	}
 	if (Unknown8C) {
 		delete Unknown8C;
 		Unknown8C = NULL;
@@ -173,16 +183,6 @@ ClientObjectClass::~ClientObjectClass()
 		Unknown158[i] = NULL;
 	}
 }
-
-
-
-
-
-
-
-
-
-
 
 
 
