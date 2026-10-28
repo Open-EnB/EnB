@@ -172,14 +172,14 @@ bool LogoffConfirmationPacketClass::Process_Packet(void *instance)
 	return(true);
 }
 
-// NOT EXACT: shape (the client loads the model straight into ecx; two forms; attempts.py show 0x733590)
+// (the debug object named: the client loads its model straight into ecx)
 // 0x733590
 bool ClientAvatarPacketClass::Process_Packet(void *instance)
 {
 	WWPROFILE("ClientAvatarPacketClass::Process_Packet()");
 	ClientClass *client = (ClientClass *)instance;
 	client->Set_Debug_Object(AvatarID);
-	client->Get_Debug_Object()->Model->Set_LOD_Bias(1000000000.0f);
+	ClientObjectClass *object = client->Get_Debug_Object(); object->Model->Set_LOD_Bias(1000000000.0f);
 	return(true);
 }
 
