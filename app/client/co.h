@@ -172,7 +172,7 @@ public:
 	virtual void Unknown_1C();							// +0x1C 0x6F5120 (the aux data's slot +0x20)
 	virtual void Unknown_20();							// +0x20 0x6F3C60 (FAIL_IF '!RenderObject' l.1779 inline: 0x6FD2C0)
 	virtual Vector3 Unknown_24();						// +0x24 0x6F4C20: +0x98's slot +0x0C clamped to the client's bounds (G_ASSERT 'pos.Is_Valid()', l.762)
-	virtual Matrix3D Unknown_28(int unknown);			// +0x28 0x6F4610 (0x6FEC40 transforms the sphere by it)  // NAME 1 [unknown]: neutral
+	virtual Matrix3D Unknown_28(bool thrust);			// +0x28 0x6F4610 the state's transform at the client clock (0x6FEC40 transforms the sphere by it; the per-frame update passes true: the engine-thrust tilt 0x6F3FA0 and the thrust models)  // NAME 2 [thrust]: what true adds
 	virtual Vector3 Unknown_2C();						// +0x2C 0x6F5050
 	virtual float Unknown_30() { return(Radius); }		// +0x30 0x6F2CC0
 	virtual void Unknown_34(float value);				// +0x34 0x6F3BA0  // NAME 1 [value]: neutral
@@ -200,6 +200,8 @@ public:
 	void Unknown_6F3810(RenderObjClass *model);			// 0x6F3810 the +0x158 models on the model's bones, then its sub-objects'  // NAME 2 [model]: what it is
 	float Unknown_6F3ED0();								// 0x6F3ED0 an angle from +0x98's slot +0x14, clamped to 36 degrees
 	float Unknown_6F4290();								// 0x6F4290 (not rebuilt)
+	void Unknown_6F3FA0(Matrix3D &tm);					// 0x6F3FA0 (not rebuilt; slot +0x28 hands it the transform: the IsOrganic tilt)  // NAME 1 [tm]: a Matrix3D
+	void Unknown_6FBEF0();								// 0x6FBEF0 (not rebuilt; the per-frame update calls it for types 0 and 1)
 	void Unknown_6F3BF0(bool hidden);					// 0x6F3BF0 (the model's Set_Hidden)  // NAME 2 [hidden]: Set_Hidden's argument
 	float Unknown_6F45E0();								// 0x6F45E0
 	float Unknown_6F4590();								// 0x6F4590
@@ -293,7 +295,7 @@ public:
 	char Unknown129[0x12C - 0x129];						// +0x129
 	RelationshipClass Relationship;						// +0x12C (pk_player_object_relationship.h; constructor 0x848C80): 0x6FEEE0 sets it  // NAME 2: what it holds
 	Unknown498C10Class Unknown134;						// +0x134 (the constructor's 0x498F00 with the size factors)
-	int Unknown144;										// +0x144
+	float Unknown144;										// +0x144 (slot +0x28 compares it with +-0.157: which thrust models show)
 	int Unknown148;										// +0x148 the render state 0x6FF1D0 last set (0 to 3 from PercentFull)
 	unsigned Unknown14C;								// +0x14C an effect's id (0x6FC880 removes the effect through the client's Get_Effect)
 	int Unknown150;										// +0x150

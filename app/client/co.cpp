@@ -407,158 +407,158 @@ static inline void Clamp_In_Place(float &value, float min, float max)
 	}
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#include "_mono.h"
+#include "ww3d.h"
+#include "sclient.h"
+#include "emote_data.h"
+
+// camera_manager.cpp's class (sclient.cpp declares its other members): the per-frame update's calls
+class CameraManagerClass
+{
+public:
+	bool Unknown_79B670();			// 0x79B670 (the per-frame update tests it for the player's object)
+	void Unknown_79B2B0(int mode);	// 0x79B2B0  // NAME 1 [mode]: CAMERA_CONTROL 146 passes 0x0C, 0x0D, 0, 0x0F, 6, 0x0A, 0x17, 0x10 or 0x19
+};
+
+// 0x6F3C60 (out of address order: here the includes above it move no assert line)
+void ClientObjectClass::Unknown_20()
+{
+	EmoteDataClass *emote = Get_Emote_Data(this, false);
+	if (emote) {
+		if (GameID == Client->DebugObjectID && emote->Unknown_7E7A40()) {
+			if (((SClient *)Client->Unknown_18())->CameraManager->Unknown_79B670()) {
+				((SClient *)Client->Unknown_18())->CameraManager->Unknown_79B2B0(0x14);
+				emote->Unknown_7E76E0();
+			}
+		}
+		emote->Unknown_7E6860();
+	}
+	if (UnknownB4) {
+		UnknownB4->Unknown_1C();
+	}
+	Matrix3D tm = Unknown_28(true);
+	if (Client->DebugObjectID == GameID) {
+		Mono.Set_Cursor(0, 1);
+		Vector3 pos = tm.Get_Translation(); Mono.Printf("Player Pos(%6.1f,%6.1f,%3.1f) ", pos.X, pos.Y, pos.Z);
+	}
+	switch (Type) {
+		case 8: Unknown_6FC9A0(); break;
+		case 41: return;
+	}
+
+	if (Model) {
+		if (!tm.Is_Orthogonal()) {
+			tm.Re_Orthogonalize();
+		}
+		Model->Set_Transform(tm);
+		Unknown_6FD2C0();
+	}
+	if (Type == 0 || Type == 1) {
+		Unknown_6FBEF0();
+	}
+	if (Type == 38) {
+		Unknown_6FF1D0();
+	}
+	if (Unknown174 > 0.0f) {
+		Unknown174 -= (float)WW3D::Get_Frame_Time() * 0.001f;
+		if (Unknown174 < 0.0f) {
+			Unknown174 = 0.0f;
+		}
+	}
+}
+
+static inline bool Clamp_Changed(float &value, float min, float max)
+{
+	if (value < min) {
+		value = min;
+		return(true);
+	}
+	if (value > max) {
+		value = max;
+		return(true);
+	}
+	return(false);
+}
+// NOT EXACT: inline budget (the client calls auxdata.h's find 0x514B60 out of line, ours inlines it; 14 forms)
+// 0x6F4610
+Matrix3D ClientObjectClass::Unknown_28(bool thrust)
+{
+	Matrix3D tm = Unknown98->Unknown_08(Client->Unknown10BC);
+	if (thrust) {
+		Unknown_6F3FA0(tm);
+		float turn = Unknown144;
+		if (Unknown170) {
+			bool on = false;
+			NameClass name("EngineThrustState");
+			DeltaTemplateClass<int> *t = Unknown_Find_Field<DeltaTemplateClass<int> >((DeltaCompoundClass *)AuxData, name);
+			if (t && t->m_Unknown70) {
+				bool full = (t->Value == 2);
+				on = (t->Value == 1 || Unknown_6FC970());
+				if (full) {
+					if (Unknown124 && !Unknown124->Is_In_Scene()) {
+						Unknown124->Add_To_Scene(true);
+					}
+					Unknown158[0]->Set_Hidden(true);
+					Unknown158[1]->Set_Hidden(true);
+					Unknown158[2]->Set_Hidden(true);
+					Unknown158[3]->Set_Hidden(true);
+					Unknown158[4]->Set_Hidden(false);
+					Unknown158[5]->Set_Hidden(false);
+					goto done;
+				}
+			}
+			if (turn < -0.15707964f) {
+				if (Unknown124 && !Unknown124->Is_In_Scene() && !on) {
+					Unknown124->Add_To_Scene(true);
+				}
+				Unknown158[0]->Set_Hidden(true);
+				Unknown158[1]->Set_Hidden(false);
+				Unknown158[2]->Set_Hidden(false);
+				Unknown158[3]->Set_Hidden(true);
+				Unknown158[4]->Set_Hidden(true);
+				Unknown158[5]->Set_Hidden(true);
+			} else if (turn > 0.15707964f) {
+				if (Unknown124 && !Unknown124->Is_In_Scene() && !on) {
+					Unknown124->Add_To_Scene(true);
+				}
+				Unknown158[0]->Set_Hidden(false);
+				Unknown158[1]->Set_Hidden(true);
+				Unknown158[2]->Set_Hidden(true);
+				Unknown158[3]->Set_Hidden(false);
+				Unknown158[4]->Set_Hidden(true);
+				Unknown158[5]->Set_Hidden(true);
+			} else {
+				if (Unknown124 && Unknown124->Is_In_Scene()) {
+					Unknown124->Stop(true);
+					Unknown124->Remove_From_Scene();
+				}
+				Unknown158[0]->Set_Hidden(true);
+				Unknown158[1]->Set_Hidden(true);
+				Unknown158[2]->Set_Hidden(true);
+				Unknown158[3]->Set_Hidden(true);
+				Unknown158[4]->Set_Hidden(true);
+				Unknown158[5]->Set_Hidden(true);
+			}
+		}
+	}
+done:
+	if (Unknown_6F5A40()) {
+		Vector3 pos = tm.Get_Translation();
+		if (Unknown98->Unknown_04() != 12 && Unknown98->Unknown_04() != 13 && Unknown98->Unknown_04() != 14) {
+			if (Clamp_Changed(pos.Z, Client->Unknown10D4, Client->Unknown10D8)) {
+				tm.Set_Translation(pos);
+			}
+		}
+		if (Unknown98->Unknown_04() != 12 && Unknown98->Unknown_04() != 13 && Unknown98->Unknown_04() != 14) {
+			bool x = Clamp_Changed(pos.X, Client->Unknown10DC, Client->Unknown10E4);
+			bool y = Clamp_Changed(pos.Y, Client->Unknown10E0, Client->Unknown10E8);
+			if (x || y) {
+				tm.Set_Translation(pos);
+			}
+		}
+	}
+	return(tm);
+}
 
 
 

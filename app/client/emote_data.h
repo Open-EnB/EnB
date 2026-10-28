@@ -22,6 +22,9 @@ class EmoteDataClass : public ClientObjectDataClass  // NAME 5: the client's typ
 {
 public:
 	EmoteDataClass(ClientObjectClass *co);			// 0x7E62F0 (emote_data.cpp)
+	bool Unknown_7E7A40();							// 0x7E7A40 (co.cpp's per-frame update tests it for the player's object)
+	void Unknown_7E76E0();							// 0x7E76E0 (after the camera call 0x79B2B0(0x14))
+	void Unknown_7E6860();							// 0x7E6860 (every frame, for every object with emote data)
 
 	char Unknown08[0x48 - 0x08];		// +0x08: not rebuilt (0x48 bytes: co_data.cpp's new)
 };
