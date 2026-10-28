@@ -1999,12 +1999,26 @@ void MainViewClass::Unknown_5137F0(unsigned sector)
 	}
 }
 
+// 0x513B90: the sector's wind from gas%04d.ini (cpacket.cpp: SERVER_PARAMETERS 66, view mode 5), per hour
+void MainViewClass::Unknown_513B90(unsigned sector)
+{
+	char filename[100];
+	sprintf(filename, "gas%04d.ini", sector);
+	INIClass ini(filename);
+	Wind.X = ini.Get_Float("GENERAL", "WINDX", 0.0f);
+	Wind.Y = ini.Get_Float("GENERAL", "WINDY", 0.0f);
+	Wind.Z = ini.Get_Float("GENERAL", "WINDZ", 0.0f);
+	Wind *= 3600.0f;
+}
+
 /*
 **	Notes (LD3, 2026-10-28)
 **
 **	mainview.cpp is the main view (MainViewClass, sclient.h; constructor 0x50B360, client 0x50B2C0-0x5146xx,
-**	97 functions, appfile.py show app\client\mainview.cpp). Only the zone loader 0x5137F0 is rebuilt; it sits on the
-**	client's FAIL_IF lines 1974 / 1981 / 1983 (the lines above are left empty for the functions not yet rebuilt).
+**	97 functions, appfile.py show app\client\mainview.cpp). The zone loader 0x5137F0 sits on the
+**	client's FAIL_IF lines 1974 / 1981 / 1983 (the lines above are left empty for the functions not yet rebuilt), with its
+**	neighbour 0x513B90 (gas%04d.ini's wind) after it. 0x513700 (the stars, orbital%04d.ini) is exact in a trial but
+**	clienttest's SERVER_PARAMETERS 66 reaches it with a fake main view (no StarField): attempts.csv 0x513700.
 **	Client->Unknown_18() is ClientClass's slot +0x18 (0 in the base, 0x7268E0); SClient's override returns the
 **	SClient ('!sclient'). Its +0x1320 byte is LandClass::Create's flag.
 */

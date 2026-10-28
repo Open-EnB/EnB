@@ -216,7 +216,8 @@ public:
 	float SeaFogNear;									// +0x1A8 0x5137F0: land%04d.ini [GENERAL] SEAFOGNEAR (100)  // NAME 2: its ini key
 	float SeaFogFar;									// +0x1AC SEAFOGFAR (3000)  // NAME 2: its ini key
 	Vector3 SeaColor;									// +0x1B0 SEACOLORR / G / B (1, 1, 1)  // NAME 2: its ini keys
-	char Unknown1BC[0x1D0 - 0x1BC];						// +0x1BC
+	Vector3 Wind;										// +0x1BC 0x513B90: gas%04d.ini [GENERAL] WINDX / Y / Z (0) times 3600  // NAME 2: its ini keys
+	char Unknown1C8[0x1D0 - 0x1C8];						// +0x1C8 (0x513700 keeps its sector at +0x1C8)
 	UICpitClass *Cpit;									// +0x1D0 (cpacket.cpp: LOOT_HULK_PERMISSION 140, OPEN_INTERFACE 102)  // NAME 3: its file's (ui_cpit.cpp)
 	char Unknown1D4[0x1D8 - 0x1D4];						// +0x1D4
 	UIGroupClass *Group;								// +0x1D8 (cpacket.cpp: CLIENT_CHAT_EVENT 165's group messages)  // NAME 3: its file's (ui_group.cpp)
