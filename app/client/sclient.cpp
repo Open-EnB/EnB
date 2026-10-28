@@ -247,7 +247,7 @@ public:
 	void Set_Tilt(float tilt);							// 0x79B3F0  // NAME 2: Init passes the camera mode's Tilt
 	void Set_Elevation_Offset(float offset);			// 0x79B470  // NAME 2: Init passes the camera mode's ElevationOffset
 	void Unknown_79B4B0(bool first_mode);				// 0x79B4B0: Init passes CameraMode == 0  // NAME 1 [first_mode]: what it is
-	ChaseCameraModuleClass *Get_Player_Chase_Camera_Module() { return((ChaseCameraModuleClass *)Unknown04); }	void Unknown_799E40();	// inline (0x744C10's FAIL_IF); 0x799E40 (Process_AI, unless the current view is +0x135C)
+	ChaseCameraModuleClass *Get_Player_Chase_Camera_Module() { return((ChaseCameraModuleClass *)Unknown04); }	void Unknown_799E40(); void Unknown_79B2B0(bool on);	// inline (0x744C10's FAIL_IF); 0x799E40 (Process_AI, unless the current view is +0x135C); 0x79B2B0 (0x745750 passes true)  // NAME 1 [on]: what 0x745750 passes
 
 	int Unknown00;										// +0x00
 	int Unknown04;										// +0x04 (Init and Shutdown hand it to the notifier)
@@ -1042,48 +1042,48 @@ void SClient::Process_AI()
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#include "dx8renderer.h"
+// NOT EXACT: shape (explain.py: 25 calls, the client 20; 283 instructions, 234): the client inlines the first two lists' First_Valid and Remove's next-valid helper for the objects (0x7559E0 out of line for the effects), ours calls GenericList::First_Valid 0x71BCC0 out of line
+// 0x745750 (SERVER_HANDOFF 58: the sector's objects, effects and third-list records go, then the +0x1394 values)
+void SClient::Unknown_745750()
+{
+	TheDX8MeshRenderer.Invalidate();
+	HashNodeClass<ClientObjectClass *> *node = ObjectList.First_Valid();
+	CameraManager->Unknown_79B2B0(true);
+	while (node && node->Next()) {
+		HashNodeClass<ClientObjectClass *> *next = node->Next();
+		ClientObjectClass *object = node->Get_Record();
+		ObjectList.Remove(node);
+		delete object;
+		node = next;
+	}
+	HashNodeClass<EffectObjectClass *> *enode = EffectList.First_Valid();
+	while (enode && enode->Next()) {
+		HashNodeClass<EffectObjectClass *> *next = enode->Next();
+		EffectObjectClass *effect = enode->Get_Record();
+		EffectList.Remove(enode);
+		Unknown_6E6A90(effect);
+		enode = next;
+	}
+	HashNodeClass<Unknown86CRecordClass *> *rnode = Unknown86CList.First_Valid();
+	while (rnode && rnode->Next()) {
+		HashNodeClass<Unknown86CRecordClass *> *next = rnode->Next();
+		Unknown86CRecordClass *record = rnode->Get_Record();
+		Unknown86CList.Remove(rnode);
+		delete record;
+		rnode = next;
+	}
+	Unknown_755600();
+	std::hash_map<unsigned, SClientUnknown1394Class *>::iterator it;
+	for (it = Unknown1394.begin(); it != Unknown1394.end(); ++it) {
+		SClientUnknown1394Class *object = (*it).second;
+		if (object) {
+			object->Unknown_38();
+			object->Release_Ref();
+		}
+	}
+	Unknown1394.clear();
+}
 
 
 

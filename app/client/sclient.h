@@ -716,6 +716,7 @@ public:
 	void Unknown_7518A0();								// 0x7518A0 (Init)
 	void Unknown_7511A0();								// 0x7511A0 (the main view's 0x514010, on every view-mode change)
 	void Unknown_7555B0();								// 0x7555B0 (Shutdown)
+	void Unknown_755600();								// 0x755600 (0x745750, before the +0x1394 values go)
 	void Unknown_743290();								// 0x743290 (cpacket.cpp: LOGOFF_CONFIRMATION 186)
 	void Unknown_74D950();								// 0x74D950 (CHANGE_BASE_ASSET 38, after 0x744B60, for the objects 0x6F5A40 picks)
 	bool Unknown_744B60();								// 0x744B60 (cpacket.cpp: REMOVE 7, GROUP 30)

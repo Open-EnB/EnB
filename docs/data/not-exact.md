@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-332 entries in 71 files.
+333 entries in 71 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -128,6 +128,7 @@ edit the comments in the code, not this file.
 | `app/client/sclient.cpp:548` | `SClient::Shutdown` | marker | NOT EXACT: shape (explain.py: field offset first; 470 masked rows): the talk tree's reset goes through a null RefCountPtr temporary with its own EH state and the out-of-line assignment 0x758970, and the effect list's removal is inlined differently; one form (attempts.py show 0x741BB0) 0x741BB0 |
 | `app/client/sclient.cpp:741` | `SClient::Unknown_7429B0` | marker | NOT EXACT: register (explain.py register-only, 2 rows): the client loads the dialog's table into eax for the button > 1 call, ours into edx; the packet is a temporary (a named local cost 6 rows) 0x7429B0 (Do_Frame, after the lost-connection check: the reset-ship question; out of line as the client has it) |
 | `app/client/sclient.cpp:1000` | `SClient::Process_AI` | marker | NOT EXACT: shape, 10 masked rows (the effect loop: ours reads the record before the next-node test and loops with a jmp, the client tests the next node again; the dead First_Valid spends the inline budget so that the third list's Remove 0x7572E0 is called out of line, as the client's; 30 forms) 0x744260 (placed in the blank run after Do_Frame, before 0x744C10: no assert line moves; no asserts of i... |
+| `app/client/sclient.cpp:1046` | `SClient::Unknown_745750` | marker | NOT EXACT: shape (explain.py: 25 calls, the client 20; 283 instructions, 234): the client inlines the first two lists' First_Valid and Remove's next-valid helper for the objects (0x7559E0 out of line for the effects), ours calls GenericList::First_Valid 0x71BCC0 out of line 0x745750 (SERVER_HANDOFF 58: the sector's objects, effects and third-list records go, then the +0x1394 values) |
 | `app/client/sclient.cpp:2062` | `SClient::Unknown_744C10` | marker | NOT EXACT: shape (explain.py): the client keeps the chase module in ecx for the +0x34 test and zeroes the argument before the FAIL_IFs (attempts.py show 0x744C10) 0x744C10 |
 | `app/client/sclient.cpp:2076` | `SClient::Unknown_744D80` | marker | NOT EXACT: shape (explain.py): the client stores Unknown12B0 before Unknown12B4 and pushes Heading before taking the mode's address (attempts.py show 0x744D80) 0x744D80 |
 | `app/client/sclient.cpp:2095` | `SClient::Unknown_744E70` | marker | NOT EXACT: shape (explain.py; 35 masked rows): the client lays the chat panel's false call last and jumps to it from both tests; four forms (attempts.py show 0x744E70) 0x744E70 |
