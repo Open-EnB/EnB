@@ -1472,145 +1472,145 @@ EffectObjectClass *Unknown_6EB850(INIClass *ini, const char *section, unsigned i
 	return(new UnknownB000F0EffectClass(client, id, start_time, duration, cycle_time));
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// 0x6EB9B0 (the pass effect's helper; its declarations first)
+#include "assetmgr.h"
+#include "point.h"
+#include "mesh.h"
+#include "meshmdl.h"
+#include "matpass.h"
+#include "vertmaterial.h"
+#include "texture.h"
+#include "vector2.h"
+// E&B's asset manager (as co.cpp declares it): its first own slot makes a model at a scale and HSV shift
+class UnknownBDADC0Class : public WW3DAssetManager	// NAME 1: neutral (D10)
+{
+public:
+	virtual RenderObjClass *Unknown_78(const char *name, float scale, float *hsv);	// +0x78  // NAME 1 [name, scale, hsv]: what 0x6F51D0 passes
+};
+extern UnknownBDADC0Class *Unknown_BDADC0;	// NAME 1 [Unknown_BDADC0]: 0xBDADC0
+// eff_pass.cpp's pass effect that the helper 0x6EB9B0 makes (0x174 bytes; not rebuilt): declared as far as it calls it
+class Unknown6ED6C0EffectClass : public EffectObjectClass { public: Unknown6ED6C0EffectClass(ClientClass *client, unsigned id, unsigned start_time, unsigned duration, unsigned cycle_time, RefCountPtr<MaterialPassClass> &pass, bool projection0, bool projection1); void Unknown_6EDBB0(const Vector2 &scale, int projection); virtual void Unknown_24(int next); char Unknown80[0x174 - 0x80]; };	// NAME 1: neutral (D10); 0x6ED6C0, 0x6EDBB0  // NAME 1 [client .. projection1, scale, projection, next]: what the helper passes; [next]: the base's
+static char *Unknown_B92E68[] = {"X", "Y", "Z", NULL};	// 0xB92E68: effect.ini's Projection0Axis / Projection1Axis values  // NAME 1: neutral (D10)
+EffectObjectClass *Unknown_6EB9B0(INIClass *ini, const char *section, unsigned id, unsigned start_time, unsigned duration, unsigned cycle_time, ClientClass *client, float scale, float *hsv)
+{
+	RefCountPtr<MaterialPassClass> pass;
+	char swatch[252];
+	ini->Get_String(section, "Swatch", "", swatch, sizeof(swatch) - 1);
+	bool reset_mappers = ini->Get_Bool(section, "ResetMappers", false);
+	bool hide_base_mesh = ini->Get_Bool(section, "HideBaseMesh", false);
+	bool projection0 = ini->Is_Present(section, "Projection0Axis");
+	bool projection1 = ini->Is_Present(section, "Projection1Axis");
+	if (swatch[0] != '\0') {
+		char filename[256];
+		sprintf(filename, "%s.w3d", swatch);
+		RenderObjClass *robj = Unknown_BDADC0->Unknown_78(swatch, 1.0f, hsv);
+		if (robj == NULL) {
+			Unknown_BDADC0->Load_3D_Assets(filename);
+			robj = Unknown_BDADC0->Unknown_78(swatch, 1.0f, hsv);
+		}
+		if (robj) {
+			if (robj->Class_ID() == RenderObjClass::CLASSID_MESH) {
+				MeshModelClass *model = ((MeshClass *)robj)->Peek_Model();
+				pass = Create_NEW(new MaterialPassClass);
+				pass->Set_Texture(model->Peek_Single_Texture(0, 0), 0);
+				pass->Set_Texture(model->Peek_Single_Texture(0, 1), 1);
+				pass->Set_Shader(model->Get_Single_Shader(0));
+				if (!reset_mappers && !projection0 && !projection1) {
+					pass->Set_Material(model->Peek_Single_Material(0));
+				} else {
+					VertexMaterialClass *source = model->Peek_Single_Material(0);
+					VertexMaterialClass *material = new VertexMaterialClass;
+					*material = *source;
+					pass->Set_Material(material);
+					material->Release_Ref();
+				}
+				pass->Enable_On_Translucent_Meshes(false);
+			} else {
+
+
+
+
+
+
+
+
+
+
+
+				G_ASSERT(0);
+				Unknown_4BC260("A/V Effects", "", __FILE__, __LINE__, "Swatch %s for PassEffect %d is not a mesh!", swatch, section);
+			}
+			robj->Release_Ref();
+		} else {
+
+
+			G_ASSERT(0);
+			Unknown_4BC260("A/V Effects", "", __FILE__, __LINE__, "Could not create swatch %s from file %s for PassEffect %d", swatch, filename, section);
+		}
+	} else {
+
+		G_ASSERT(0);
+		Unknown_4BC260("A/V Effects", "", __FILE__, __LINE__, "No Swatch specified in effect.ini for PassEffect %d", section);
+	}
+	if (!pass) {
+		pass = Create_NEW(new MaterialPassClass);
+		TextureClass *texture = Unknown_BDADC0->Get_Texture("missingtexture.tga");
+		pass->Set_Texture(texture, 0);
+		texture->Release_Ref();
+		pass->Set_Shader(ShaderClass::_PresetOpaqueShader);
+		VertexMaterialClass *material = VertexMaterialClass::Get_Preset(VertexMaterialClass::PRELIT_NODIFFUSE);
+		if (reset_mappers || projection0 || projection1) {
+			VertexMaterialClass *copy = new VertexMaterialClass;
+			*copy = *material;
+			material->Release_Ref();
+			material = copy;
+		}
+		pass->Set_Material(material);
+		material->Release_Ref();
+	}
+	Unknown6ED6C0EffectClass *effect = new Unknown6ED6C0EffectClass(client, id, start_time, duration, cycle_time, pass, projection0, projection1);
+	effect->Set_Flag(0x200, hide_base_mesh);
+	effect->Set_Flag(0x400, reset_mappers);
+	if (projection0) {
+		int axis = ini->Get_List_Index(section, "Projection0Axis", 0, Unknown_B92E68);
+		effect->Set_Flag(0x800, axis == 1);
+		effect->Set_Flag(0x1000, axis == 2);
+		Vector2 projection_scale(0.0f, 0.0f);
+		if (ini->Is_Present(section, "Projection0WorldScale")) {
+			effect->Set_Flag(0x2000, true);
+			projection_scale.X = ini->Get_Float(section, "Projection0WorldScale", 1.0f);
+		} else if (ini->Is_Present(section, "Projection0BoxScale")) {
+			effect->Set_Flag(0x4000, true);
+			TPoint2D<float> box = ini->Get_Point(section, "Projection0BoxScale", TPoint2D<float>(1.0f, 1.0f));
+			projection_scale.X = (box.X != 0.0f) ? 1.0f / box.X : 0.0f;
+			projection_scale.Y = (box.Y != 0.0f) ? 1.0f / box.Y : 0.0f;
+		} else {
+			float cylinder = ini->Get_Float(section, "Projection0CylinderScale", 1.0f);
+			projection_scale.X = (cylinder != 0.0f) ? 1.0f / cylinder : 0.0f;
+		}
+		effect->Unknown_6EDBB0(projection_scale, 0);
+	}
+	if (projection1) {
+		int axis = ini->Get_List_Index(section, "Projection1Axis", 0, Unknown_B92E68);
+		effect->Set_Flag(0x8000, axis == 1);
+		effect->Set_Flag(0x10000, axis == 2);
+		Vector2 projection_scale(0.0f, 0.0f);
+		if (ini->Is_Present(section, "Projection1WorldScale")) {
+			effect->Set_Flag(0x20000, true);
+			projection_scale.X = ini->Get_Float(section, "Projection1WorldScale", 1.0f);
+		} else if (ini->Is_Present(section, "Projection1BoxScale")) {
+			effect->Set_Flag(0x40000, true);
+			TPoint2D<float> box = ini->Get_Point(section, "Projection1BoxScale", TPoint2D<float>(1.0f, 1.0f));
+			projection_scale.X = (box.X != 0.0f) ? 1.0f / box.X : 0.0f;
+			projection_scale.Y = (box.Y != 0.0f) ? 1.0f / box.Y : 0.0f;
+		} else {
+			float cylinder = ini->Get_Float(section, "Projection1CylinderScale", 1.0f);
+			projection_scale.X = (cylinder != 0.0f) ? 1.0f / cylinder : 0.0f;
+		}
+		effect->Unknown_6EDBB0(projection_scale, 1);
+	}
+	return(effect);
+}
 
 
 

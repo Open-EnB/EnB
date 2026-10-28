@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 36 |
 | 3 | by convention from a client-named file or sibling | 891 |
 | 2 | describes what the code does | 2152 |
-| 1 | neutral placeholder | 4319 |
+| 1 | neutral placeholder | 4326 |
 
 ## For review (score 3 and below)
 
@@ -1082,6 +1082,13 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_6EC7D0` | `app/client/eff_o.cpp:1100` | untagged neutral name (D10) |
 | 1 | `Unknown_6EC950` | `app/client/eff_o.cpp:1103` | untagged neutral name (D10) |
 | 1 | `Unknown_6F5140` | `app/client/eff_o.cpp:1234` | untagged neutral name (D10) |
+| 1 | `UnknownBDADC0Class` | `app/client/eff_o.cpp:1485` | neutral (D10) |
+| 1 | `name, scale, hsv` | `app/client/eff_o.cpp:1488` | what 0x6F51D0 passes |
+| 1 | `Unknown_78` | `app/client/eff_o.cpp:1488` | untagged neutral name (D10) |
+| 1 | `Unknown_BDADC0` | `app/client/eff_o.cpp:1490` | 0xBDADC0 |
+| 1 | `Unknown6ED6C0EffectClass` | `app/client/eff_o.cpp:1492` | neutral (D10); 0x6ED6C0, 0x6EDBB0  // NAME 1 [client .. projection1, scale, projection, next]: what the helper passes; [next]: the base's |
+| 1 | `Unknown_6EDBB0` | `app/client/eff_o.cpp:1492` | untagged neutral name (D10) |
+| 1 | `Unknown_B92E68` | `app/client/eff_o.cpp:1493` | neutral (D10) |
 | 1 | `UnknownAF0DD0Class` | `app/client/eff_o.h:43` | neutral (D10) |
 | 1 | `node, object` | `app/client/eff_o.h:47` | what the effects pass |
 | 1 | `Unknown_73FDB0` | `app/client/eff_o.h:47` | untagged neutral name (D10) |
