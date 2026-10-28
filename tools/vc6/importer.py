@@ -3473,6 +3473,11 @@ RECONSTRUCTED = {
     ('app', 'input/inpdsp.cpp'): "inpdsp.cpp, client 0x429630-0x429F60 with the table's instances (builder H18; G_ASSERT "
                                 "lines 32, 50, 51, 71, 104, 120, D25): 10 of 11 exact (the key 0x42A170, the ini reader 0x42A1A0 and writer 0x42A410 too), the DisableExceptions registry read "
                                 "0x429D00 among them (read only); 0x429F60 NOT EXACT (register-only)",
+    ('app', 'input/inpkeys.h'): "the key names (PROVISIONAL file name, D10: the object has no __FILE__; linked between "
+                               "inpdsp.cpp and input.cpp): name <-> code lookups on two SGI hash_maps (D87)",
+    ('app', 'input/inpkeys.cpp'): "the key names, client 0x42B3D0-0x42E350 (the object after inpdsp.cpp; builder H19): "
+                                 "the name -> code and code -> name lookups 0x42B610 / 0x42B6A0, the event text 0x42B7E0, "
+                                 "the table fill 0x42BAE0 / 0x42BC90 and the tables' instances",
     ('app', 'audio/soundlib.h'): "SoundDefClass and SoundLibraryClass (D24): sounds.ini's definitions in an SGI "
                                 "hash_map<std::string, SoundDefClass *> (libs/sgistl, D87), WWAudio's 2D / 3D sounds, "
                                 "the dialog channel (_NextDialogDef / _NextDialogName from the client's assert)",

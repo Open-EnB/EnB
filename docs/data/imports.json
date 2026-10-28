@@ -1938,6 +1938,41 @@
     "merged": [],
     "name": "input/inpdsp.cpp"
    },
+   "inpkeys": {
+    "ambiguous": [
+     "0x42A6C0",
+     "0x42A890",
+     "0x42A900",
+     "0x42AAE0",
+     "0x42AC90",
+     "0x42AFF0",
+     "0x42B250",
+     "0x42B2F0",
+     "0x42CA60",
+     "0x42D180"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42A820",
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30",
+     "0x42B6A0",
+     "0x42BAE0",
+     "0x42BC90",
+     "0x42C4E0",
+     "0x42CAB0",
+     "0x42CD30",
+     "0x42CF30",
+     "0x42D050",
+     "0x42D9D0",
+     "0x42DB00",
+     "0x42DB80"
+    ],
+    "merged": [],
+    "name": "input/inpkeys.cpp"
+   },
    "kernel": {
     "ambiguous": [
      "0x443F30"
@@ -7620,6 +7655,7 @@
    "common/unknown_rate.h": "reconstructed",
    "common/unknown_rsakey.h": "reconstructed",
    "input/inpdsp.h": "reconstructed",
+   "input/inpkeys.h": "reconstructed",
    "kernel/kernel.h": "reconstructed",
    "packets/gameedit/pkgeaset.h": "reconstructed",
    "packets/gameedit/pkgeclon.h": "reconstructed",
