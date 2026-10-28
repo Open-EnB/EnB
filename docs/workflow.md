@@ -377,6 +377,11 @@ unless `--lever` cites a new row of this table.
   0x6F4610, 0x6F3FA0, 0x6FD310, 0x6FDBD0, 0x6FBEF0 all call a Cast / find out of line that ours inlines); one
   cause suspected (P-DF1-1: is auxdata.h's `Unknown_Find_Field` body larger in the client?).
 * **Do_Frame's lost-connection dialog matches only as an if / else of two complete calls** (2026-10-28, DF1).
+* **H3's aux_roots swap flips on any extra member declaration in a header aux_roots.cpp includes** (2026-10-28,
+  PK1, DF1): 0x6FB1E0 / 0x702240 / 0x7045F0 trade for 0x7014B0 / 0x701D70 / 0x758210 whatever the names, order or
+  types; compiling aux_roots.cpp alone is enough to test it.
+* **udpreplay compiles its app files as one translation unit:** a header's macro gate is defined at the top of
+  app_sources.cpp (udpreplay.py writes it, 2026-10-28, PK1).
 * **Asserts sit on the client's lines (D25).** To add code above a logged line, remove as many
   blank lines from the same function's stretch (cordmgr.cpp; `.work/milestones/a3/relines.py`);
   pad inside a function, not only before it (Get(char **); pk.cpp's helpers take single blanks).
@@ -691,6 +696,9 @@ unless `--lever` cites a new row of this table.
 
 ### 3.8 Git, docs and scripting hygiene
 
+* **tryvariants.py only sees a library folder's top level** (`app/packets/x.cpp` can't be tried; `.work/pk1/tv.py`
+  and `hv.py` can); **build.py compiles tracked files only** (a new app file is harness-tested after its commit, or
+  with `--allow-dirty` and a private `--out`) (2026-10-28, PK1).
 * **A wt.py worktree checks out CRLF (autocrlf) where the main tree's programs/ files are LF** (2026-10-28,
   LD1): scripts that edit them handle both.
 * **`wt.py bring-over` refuses while the main tree has another builder's uncommitted generated file**
