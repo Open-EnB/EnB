@@ -30,9 +30,10 @@ A job takes its VMs from `ENB_VC6_HOSTS=Daniel@<ip>[,...]` (printed by `pool.py 
 
 | Script | Does |
 |---|---|
-| `build.py [--pool K] [--lib X]... [--out DIR] [--allow-dirty]` | Build each library of the tree into DIR/<lib>/<lib>.lib (L1); refuses a dirty library unless `--allow-dirty`; never assembles |
+| `build.py [--pool K] [--lib X]... [--out DIR] [--allow-dirty] [--root DIR]` | Build each library of the tree into DIR/<lib>/<lib>.lib (L1); refuses a dirty library unless `--allow-dirty`; never assembles. Every build.py command refuses a cwd outside the script's own tree (rootguard.py) |
 | `build.py unresolved [--out DIR] [--report FILE]` | External symbols no library defines, by library and cause |
 | `build.py link [--program vidtest] [--pool K] [--out DIR]` | Compile `programs/<name>` and `stubs/` and link against the libraries (L2); the test programs of `tools/harness` use this step |
+| `rootguard.py` (module) | D112(4): `check(__file__, a.root)` refuses (naming both) when the cwd's git tree (nearest `.git`: a worktree under .work/ is its own) is not the tree holding the script; `--root DIR` replaces the cwd test and must name that tree. Used by build.py, appfile.py draft/match, udpreplay.py, clienttest.py |
 | `mkmss32.py def` / `lib [--out DIR]` | Make `mss32.def` from the game's Mss32.dll exports, then the import library `mss32.lib` (D51) |
 | `mkauthlogin.py [--out DIR]` | Make `DIR/authlogin/authlogin.lib`, the import library of EA.Com's login component, from `authlogin.def` with VC6's `lib /def` (D90 9a; `build.py link` adds it when present) |
 | `mss32.def`, `authlogin.def`, `checked/enb_checked.h` | Export lists (Mss32.dll's generated, authlogin.dll's two names by hand); the forced header of the checked build (`ENB_CHECKED=1`) |

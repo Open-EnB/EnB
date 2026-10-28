@@ -175,6 +175,10 @@ python tools/harness/udpreplay.py loop alex3 [--drop 0,10,4] [--step 20]
 python tools/harness/udpreplay.py conn alex3 [--drop 0,10,4]          # through UDPConnection and the stream framing
 ```
 
+udpreplay.py and clienttest.py (every command) refuse to run when the current directory is not inside the tree
+holding the script (D112(4), tools/vc6/rootguard.py; `--root DIR` names the tree instead): a failed `cd` into a
+worktree can no longer build or test the main tree's build/ in its place.
+
 * **The wire datagram** (app/wwudp/cordcon.h): the dumps start at byte 5 of it. Bytes 0-4 are
   the type (5 from the client, 4 from the server), the session id and the sender's datagram
   counter (CordCon +0x8C), which is the dump's `seq`. Bytes 5 to the end are RC4-encrypted with a

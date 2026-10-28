@@ -50,6 +50,7 @@ REPO = os.path.dirname(os.path.dirname(HERE))
 sys.path.insert(0, HERE)
 import importer as I  # noqa: E402
 import vc6  # noqa: E402
+import rootguard  # noqa: E402
 
 ORDER = I.LIBS + list(I.APP_LIBS)
 BS = chr(92)
@@ -638,7 +639,9 @@ def main():
     ap.add_argument('--holder-pid', type=int)
     ap.add_argument('--allow-dirty', action='store_true',
                     help='build even if a library has uncommitted changes')
+    ap.add_argument('--root', help=rootguard.HELP)
     a = ap.parse_args()
+    rootguard.check(__file__, a.root)   # D112(4): every command writes build/ or .work/
     if a.command == 'unresolved':
         unresolved(a.out, a.report)
         return

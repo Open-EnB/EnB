@@ -57,6 +57,8 @@ REPO = os.path.dirname(os.path.dirname(HERE))
 WORK = os.path.join(REPO, '.work', 'harness', 'udpreplay')
 sys.path.insert(0, os.path.join(REPO, 'tools', 're'))
 import roots  # noqa: E402
+sys.path.insert(0, os.path.join(REPO, 'tools', 'vc6'))
+import rootguard  # noqa: E402
 CAPS = roots.N7_CAPTURES
 WWUDP = [r'app\wwudp\cordcon.cpp', r'app\wwudp\cordmgr.cpp', r'app\wwudp\unknown_cordmsg.cpp']
 # --conn (conn): the connection layer over them (docs/kernel-map.md 4), with what it needs
@@ -776,7 +778,9 @@ def main():
     ap.add_argument('--aux', action='store_true')
     ap.add_argument('--drop', default='0,10,4', help='loop: drop every Nth datagram, for each N')
     ap.add_argument('--step', type=int, default=20, help='loop: ms per datagram of the dump')
+    ap.add_argument('--root', help=rootguard.HELP)
     a = ap.parse_args()
+    rootguard.check(__file__, a.root)   # D112(4): build writes build/, the others .work/harness/ (and test that tree)
     if a.cmd == 'build':
         build(a.out)
         return 0

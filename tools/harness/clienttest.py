@@ -31,6 +31,8 @@ WORK = os.path.join(REPO, '.work', 'harness', 'clienttest')
 EXPECTED = os.path.join(SRC, 'expected.txt')
 sys.path.insert(0, os.path.join(REPO, 'tools', 're'))
 import roots  # noqa: E402
+sys.path.insert(0, os.path.join(REPO, 'tools', 'vc6'))
+import rootguard  # noqa: E402
 CAPS = roots.N7_CAPTURES
 
 APP = [r'app\client\client.cpp', r'app\client\sclient.cpp', r'app\client\cpacket.cpp',
@@ -156,7 +158,9 @@ def main():
     ap.add_argument('--session', default='ffff9b25')
     ap.add_argument('--count', type=int, default=1000)
     ap.add_argument('--update', action='store_true', help='write expected.txt from this run')
+    ap.add_argument('--root', help=rootguard.HELP)
     a = ap.parse_args()
+    rootguard.check(__file__, a.root)   # D112(4): build writes build/, run .work/harness/ (--update the tree)
     if a.cmd == 'build':
         build(a.out)
         return 0
