@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-315 entries in 70 files.
+316 entries in 70 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -104,6 +104,7 @@ edit the comments in the code, not this file.
 | `app/client/mainview.cpp:184` | `MainViewClass::Unknown_04` | marker | NOT EXACT: similarity 0.84, registers only (the first light's and the stars' RefCountPtr assignments); attempts.csv 0x50BA60 |
 | `app/client/mainview.cpp:302` | `MainViewClass::Unknown_08` | marker | NOT EXACT: register (the layers' Vector3 stores); attempts.csv 0x50C690 |
 | `app/client/mainview.cpp:487` | `MainViewClass::Unknown_50D060` | marker | NOT EXACT: register / order only (the client reloads ViewMode after the +0x10FA test; ours keeps it in eax); attempts.csv 0x50D060 |
+| `app/client/mainview.cpp:548` | `MainViewClass::Unknown_50D520` | marker | NOT EXACT: functional (MV2, from the disassembly) 0x50D520: the bridge (+0x120, in the bridge's camera space), the base view's 2-D scene, the debug texts |
 | `app/client/mainview.cpp:614` | `MainViewClass::Render_Gas_Giant_Mode` | marker | NOT EXACT: similarity 0.84 (the inlined 0x50CCF0 stores zfar first in the client; scheduling); attempts.csv 0x50DB20 |
 | `app/client/mainview.cpp:647` | `MainViewClass::Render_Space_Mode` | marker | NOT EXACT: similarity 0.75 (as Render_Gas_Giant_Mode, and the inline choices of 0x50D1E0 / 0x50E6A0); attempts.csv 0x50E090 |
 | `app/client/mainview.cpp:687` | `MainViewClass::Render_Planet_Mode` | marker | NOT EXACT: similarity 0.67 (functional from the pseudocode; the inline choices differ); attempts.csv 0x50E6E0 |

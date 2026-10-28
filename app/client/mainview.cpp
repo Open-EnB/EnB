@@ -66,17 +66,17 @@ private:
 };
 
 
-
-
-
-
-
-
-
-
-
-
-
+#include "..\..\ww3d2\render2d.h"
+// what SClient's +0x128C (bridge_int.cpp's bridge, sclient.cpp's local class) holds, as far as 0x50D520 reads it
+class BridgeInterfaceClass	// NAME 3: class-from-file (D24) for bridge_int.cpp
+{
+public:
+	char Unknown00[0x14]; int Unknown14; char Unknown18[0x28 - 0x18];	// +0x14 (0x50D520: the bridge is drawn when it is set)
+	Matrix3D Unknown28;								// +0x28 (0x50D520: the camera's transform for the bridge scene)
+};
+// what the base view's +0x1C points to, as far as 0x50D520 calls it (0x6DA760, with the base's +0x20 camera)
+class ViewUnknown1CClass { public: void Unknown_6DA760(CameraClass *&camera); };	// NAME 1: neutral (D10)  // NAME 1 [camera]: what 0x50D520 passes
+static const float BridgeNear = 1.0f, BridgeFar = 150.0f;	// NAME 1: neutral (D10): the bridge scene's clip planes (0xAECF48 / 0xAECF44)
 
 
 
@@ -545,46 +545,46 @@ void MainViewClass::Unknown_50D430(float znear, float zfar)
 	Camera->Set_Depth_Range(zmin, zmax);
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// NOT EXACT: functional (MV2, from the disassembly)
+// 0x50D520: the bridge (+0x120, in the bridge's camera space), the base view's 2-D scene, the debug texts
+void MainViewClass::Unknown_50D520()
+{
+	SClient *sclient = (SClient *)Client->Unknown_18();
+	BridgeInterfaceClass *bridge = sclient->BridgeInterface;
+	if (bridge && bridge->Unknown14) {
+		CameraClass *camera = Camera;
+		float old_near, old_far; camera->Get_Clip_Planes(old_near, old_far);
+		float zmin, zmax; camera->Get_Depth_Range(&zmin, &zmax);
+		Matrix3D tm = camera->Get_Transform();
+		camera->Set_Depth_Range(0.0f, 0.95f);
+		camera->Set_Clip_Planes(BridgeNear, BridgeFar);
+		camera->Set_Transform(bridge->Unknown28);
+		for (int i = 0; i < 4; i++) {
+			LightClass *light = Unknown154[i].Peek();
+			*light = *Unknown144[i].Peek();
+			Vector3 dir; light->Get_Spot_Direction(dir);
+			light->Set_Spot_Direction(Vector3(tm[0][0] * dir.X + tm[0][1] * dir.Y + tm[0][2] * dir.Z, tm[1][0] * dir.X + tm[1][1] * dir.Y + tm[1][2] * dir.Z, tm[2][0] * dir.X + tm[2][1] * dir.Y + tm[2][2] * dir.Z));
+		}
+		Unknown120->Set_Ambient_Light(Scene->Get_Ambient_Light());
+		WW3D::Render(Unknown120, camera, false, true, Vector3(0.0f, 0.0f, 0.0f));
+		camera->Set_Transform(tm);
+		camera->Set_Clip_Planes(old_near, old_far);
+		camera->Set_Depth_Range(zmin, zmax);
+	}
+	((ViewUnknown1CClass *)Unknown1C)->Unknown_6DA760(Unknown20);
+	WW3D::Render(Unknown24, Unknown28, false, false, Vector3(0.0f, 0.0f, 0.0f));
+	if (Client->Unknown05) {
+		sclient->Unknown_750260(0);
+		Unknown_510440();
+		if (sclient->Unknown14EC == 1) {
+			StringClass text;
+			text.Format("PB=%d SB=%d LB=%d LOD=%d\n", PolyBudget, Client->StarBudget, LandPolyBudget, LandLOD);
+			sclient->Text->Draw_Text(text, 0xFFFF0000);
+		}
+		sclient->Text->Render();
+	}
+	sclient->Text->Reset();
+}
 
 
 

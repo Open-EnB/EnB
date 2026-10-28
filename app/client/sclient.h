@@ -462,6 +462,7 @@ public:
 	void Unknown_50D310(float znear, float zfar);		// 0x50D310 (renders the +0x10C scene)  // NAME 2 [znear, zfar]: Set_Clip_Planes's
 	void Unknown_50D430(float znear, float zfar);		// 0x50D430 (renders the dazzle layer)  // NAME 2 [znear, zfar]: Set_Clip_Planes's
 	void Unknown_50D520();								// 0x50D520 (the 2-D overlays, 'PB=%d SB=%d LB=%d LOD=%d')
+	void Unknown_510440();								// 0x510440 (0x50D520 with the options' +0x05: the profile text)
 	WW3DErrorType Render_Initializing();				// 0x50DA00  // NAME 2: its profile label 'MainView::Render_Initializing'
 	WW3DErrorType Render_Gas_Giant_Mode(float znear, float zfar);	// 0x50DB20  // NAME 2: its profile label
 	WW3DErrorType Render_Space_Mode(float znear, float zfar);	// 0x50E090  // NAME 2: its profile label
@@ -760,6 +761,7 @@ public:
 	void Unknown_74FA30();								// 0x74FA30 (0x750210)
 	void Unknown_74FEC0();								// 0x74FEC0 (0x750210)
 	void Unknown_750210();								// 0x750210: 0x74FA30, 0x74FEC0, then the chat panel's +0xE0
+	void Unknown_750260(int arg);						// 0x750260 (the main view's 0x50D520 passes 0 with the options' +0x05)  // NAME 1 [arg]: neutral
 	void Unknown_750B30(int arg);						// 0x750B30: Unknown1330's 0x43C660  // NAME 1 [arg]: neutral
 
 	bool Unknown1198;									// +0x1198 (true)
