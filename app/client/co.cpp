@@ -2113,10 +2113,10 @@ int Unknown_8117D0(RenderObjClass *model, int hull_level, int number, unsigned i
 // a damage fraction's level: 4 from one half, 3 from a quarter, 2 above 0, else 1 (inline in 0x6FE1E0)
 static inline int Unknown_Damage_Level(float damage) { if (damage >= 0.5f) return(4); if (damage >= 0.25f) return(3); if (damage > 0.0f) return(2); return(1); }	// NAME 1 [damage]: what it is
 
-// NOT EXACT: inline budget (the client calls IsOrganic's find 0x7079B0 out of line inside the inlined 0x6F5E40, ours inlines it: six dead finds do it, 2-5 don't; registers follow; attempts.py show 0x6FE1E0)
+// NOT EXACT: inline budget (the client calls IsOrganic's find 0x7079B0 out of line inside the inlined 0x6F5E40, ours inlines it; registers follow; attempts.py show 0x6FE1E0)
 // 0x6FE1E0 (the damage state: the damage sounds of a type-1 object, then the shield or hull and the four quadrants' levels into the model)
 void ClientObjectClass::Unknown_6FE1E0()
-{	Unknown_Find_Field<DeltaTemplateClass<int> >(NULL, *(NameClass *)this); Unknown_Find_Field<DeltaTemplateClass<int> >(NULL, *(NameClass *)this); 	// dead finds (root NULL: no code) spend the inline budget (P-IB1-1): the float field's Cast 0x546970 then goes out of line as the client's
+{	Unknown_Find_Field<DeltaTemplateClass<int> >(NULL, *(NameClass *)this); Unknown_Find_Field<DeltaTemplateClass<int> >(NULL, *(NameClass *)this); Unknown_Find_Field<DeltaTemplateClass<int> >(NULL, *(NameClass *)this); Unknown_Find_Field<DeltaTemplateClass<int> >(NULL, *(NameClass *)this); 	// dead finds (root NULL: no code) spend the inline budget (P-IB1-1): the float field's Cast 0x546970 then goes out of line as the client's; with Unknown_Find_Valid on ShieldPercent and the quadrants 96 -> 73 rows
 	if (!Unknown_6F5850()) {
 		return;
 	}
@@ -2137,10 +2137,10 @@ void ClientObjectClass::Unknown_6FE1E0()
 	}
 	float hull = 0.0f;
 	if (Unknown_6F5E40()) {
-
-		DeltaInterpolatorClass *t = Unknown_Find_Aux((DeltaInterpolatorClass *)NULL, this, "ShieldPercent");
+		NameClass name("ShieldPercent");
+		DeltaInterpolatorClass *t = Unknown_Find_Valid<DeltaInterpolatorClass>((DeltaCompoundClass *)AuxData, name);
 		float shield;
-		if (t && t->m_Unknown70) shield = t->Get_Value(DurationClass((unsigned)Client->Unknown10BC));
+		if (t) shield = t->Get_Value(DurationClass((unsigned)Client->Unknown10BC));
 		else shield = 1.0f;
 		hull = WWMath::Clamp(1.0f - shield, 0.0f, 1.0f);
 	} else {
@@ -2157,8 +2157,8 @@ void ClientObjectClass::Unknown_6FE1E0()
 	float quadrant[4];
 	{
 		NameClass name("VisibleQuadrantDamagePercent");
-		DeltaArrayClass<float> *t = Unknown_Find_Field<DeltaArrayClass<float> >((DeltaCompoundClass *)AuxData, name);
-		if (t && !t->m_Unknown70) t = NULL;
+		DeltaArrayClass<float> *t = Unknown_Find_Valid<DeltaArrayClass<float> >((DeltaCompoundClass *)AuxData, name);
+
 		if (t) {
 			for (int i = 0; i < 4; i++) {
 				quadrant[i] = 1.0f - WWMath::Clamp(Unknown_Get_Item(t, i)->Value, 0.0f, 1.0f);
