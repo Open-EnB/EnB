@@ -10,7 +10,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 33 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 36 |
 | 3 | by convention from a client-named file or sibling | 891 |
-| 2 | describes what the code does | 2153 |
+| 2 | describes what the code does | 2152 |
 | 1 | neutral placeholder | 4328 |
 
 ## For review (score 3 and below)
@@ -3926,16 +3926,16 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Add_Unknown1218` | `app/shared/land.cpp:1000` | untagged neutral name (D10) |
 | 1 | `Clear_Unknown1218` | `app/shared/land.cpp:1005` | untagged neutral name (D10) |
 | 1 | `Unknown_4A1590` | `app/shared/land.cpp:1010` | neutral placeholder (D10) |
-| 1 | `Unknown_46E120` | `app/shared/land.cpp:1881` | untagged neutral name (D10) |
-| 1 | `LandNormalTable` | `app/shared/land.cpp:1944` | unknown; the 256 unit normals Unknown_46F120 copies into Normals (0xAE8BBC .. 0xAE97BC, .rdata, 6-digit literals): |
-| 1 | `Land_Nearest_Normal` | `app/shared/land.cpp:2029` | unknown; the index of the table normal nearest a vertex normal (largest dot product, first wins ties). |
-| 1 | `Unknown_46F120` | `app/shared/land.cpp:2046` | untagged neutral name (D10) |
-| 1 | `Unknown_470F80` | `app/shared/land.cpp:2189` | untagged neutral name (D10) |
-| 1 | `Unknown_472F80` | `app/shared/land.cpp:2233` | untagged neutral name (D10) |
-| 1 | `Unknown_473290` | `app/shared/land.cpp:2539` | untagged neutral name (D10) |
-| 1 | `Unknown_4733C0` | `app/shared/land.cpp:2568` | untagged neutral name (D10) |
-| 1 | `Unknown_473780` | `app/shared/land.cpp:2570` | untagged neutral name (D10) |
-| 1 | `Unknown_473BC0` | `app/shared/land.cpp:2574` | untagged neutral name (D10) |
+| 1 | `Unknown_46E120` | `app/shared/land.cpp:1873` | untagged neutral name (D10) |
+| 1 | `LandNormalTable` | `app/shared/land.cpp:1936` | unknown; the 256 unit normals Unknown_46F120 copies into Normals (0xAE8BBC .. 0xAE97BC, .rdata, 6-digit literals): |
+| 1 | `Land_Nearest_Normal` | `app/shared/land.cpp:2021` | unknown; the index of the table normal nearest a vertex normal (largest dot product, first wins ties). |
+| 1 | `Unknown_46F120` | `app/shared/land.cpp:2038` | untagged neutral name (D10) |
+| 1 | `Unknown_470F80` | `app/shared/land.cpp:2181` | untagged neutral name (D10) |
+| 1 | `Unknown_472F80` | `app/shared/land.cpp:2225` | untagged neutral name (D10) |
+| 1 | `Unknown_473290` | `app/shared/land.cpp:2531` | untagged neutral name (D10) |
+| 1 | `Unknown_4733C0` | `app/shared/land.cpp:2560` | untagged neutral name (D10) |
+| 1 | `Unknown_473780` | `app/shared/land.cpp:2562` | untagged neutral name (D10) |
+| 1 | `Unknown_473BC0` | `app/shared/land.cpp:2566` | untagged neutral name (D10) |
 | 1 | `m_UnknownXX` | `app/shared/land.h:21` | untagged neutral name (D10) |
 | 1 | `LandPatchClass` | `app/shared/land.h:91` | the land's patch (0x30 bytes, new'd per grid cell by Load_Assets 0x4691D0; ctor 0x474530, dtor 0x474560) |
 | 1 | `VertexBuffer` | `app/shared/land.h:104` | members after their offsets (ctor 0x474530) |
@@ -6176,11 +6176,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `LandDecorationVertexStruct` | `app/shared/land.cpp:1142` | a decoration vertex, FVF 0x112 (0x47C6A0; the patch records' buffers, 0x47A2F0) |
 | 2 | `Land_Find_Decoration_Mesh` | `app/shared/land.cpp:1199` | after what it does |
 | 2 | `std:` | `app/shared/land.cpp:1236` | after what it does |
-| 2 | `Land_Set_Ref` | `app/shared/land.cpp:1278` | ours; takes over a reference |
-| 2 | `LandVertexStruct` | `app/shared/land.cpp:1534` | the patch vertex, FVF 0x202 (0x4746C0) |
-| 2 | `LandDirectionX` | `app/shared/land.cpp:1855` | the eight compass directions' unit vectors x (1 - 1/sqrt 2) mixes, per direction (0xAE97BC, 0xAE97DC) |
-| 2 | `LandHorizonTable` | `app/shared/land.cpp:1858` | per direction and per horizon angle step (256), the sky area term and the sun term (0xBDC0E8) |
-| 2 | `Pack_Slope16` | `app/shared/land.cpp:2579` | a horizon slope as the high bits of its float, saturating (0x4733C0: 16 bits; 0x473780 / 0x473BC0: 8 bits) |
+| 2 | `LandVertexStruct` | `app/shared/land.cpp:1526` | the patch vertex, FVF 0x202 (0x4746C0) |
+| 2 | `LandDirectionX` | `app/shared/land.cpp:1847` | the eight compass directions' unit vectors x (1 - 1/sqrt 2) mixes, per direction (0xAE97BC, 0xAE97DC) |
+| 2 | `LandHorizonTable` | `app/shared/land.cpp:1850` | per direction and per horizon angle step (256), the sky area term and the sun term (0xBDC0E8) |
+| 2 | `Pack_Slope16` | `app/shared/land.cpp:2571` | a horizon slope as the high bits of its float, saturating (0x4733C0: 16 bits; 0x473780 / 0x473BC0: 8 bits) |
 | 2 | `land.h` | `app/shared/land.h:36` | after LandClass; no assert or __FILE__ names the file |
 | 2 | `LandDecorationStruct` | `app/shared/land.h:62` | one decoration, 0x38 bytes (Create_Decorations 0x479D00's local, the .dcb reader 0x4795D0); a tree's |
 | 2 | `LandLightingStruct` | `app/shared/land.h:71` | VIDTEST's name for the 0x30-byte lighting record its Update_Lighting 0x4250B0 hands the land (esp+0x74) |

@@ -1273,14 +1273,6 @@ static unsigned short Land_Append_Decoration_Mesh(MeshClass *mesh, std::vector<L
 	return largest;
 }
 
-// The client fills its RefCountPtrs through Create_NEW / Create_Get / Create_Peek instances (0x47CF50 .. 0x47D370); written
-// here without them (Land_Set_Ref), since more byte-identical instances in land.obj make 0x474080 ambiguous (a pair lost).
-static void Land_Set_Ref(RefCountPtr<RefCountClass> &ptr, RefCountClass *object)	// NAME 2: ours; takes over a reference
-{
-	ptr = NULL;
-	*(RefCountClass **)&ptr = object;
-}
-
 // NOT EXACT: functional, from the disassembly and the pseudocode (0x47A2F0 = VIDTEST 0x416170, 7 KB). The prototypes' tree
 // and shadow meshes; the first tree's texture, shader and vertex material (+0x178 / +0x17C / +0x180) and the first shadow's
 // shader and material (+0x184 / +0x188), every other prototype's must be the same (else no decorations); each decoration
@@ -1322,9 +1314,9 @@ void LandClass::Build_Decorations(std::vector<std::string> &names, std::vector<L
 		if (trees[i] != NULL) {
 			MaterialInfoClass *info = trees[i]->Get_Material_Info();
 			TextureClass *texture = info->Get_Texture(0);
-			Land_Set_Ref(m_Unknown178, texture);
+			m_Unknown178 = Create_Get(texture);
 			m_Unknown17C = trees[i]->Peek_Model()->Get_Shader(0, 0);
-			Land_Set_Ref(m_Unknown180, info->Get_Vertex_Material(0));
+			m_Unknown180 = Create_Get(info->Get_Vertex_Material(0));
 			has_trees = true;
 			info->Release_Ref();
 			break;
@@ -1334,7 +1326,7 @@ void LandClass::Build_Decorations(std::vector<std::string> &names, std::vector<L
 		if (shadows[i] != NULL) {
 			MaterialInfoClass *info = shadows[i]->Get_Material_Info();
 			m_Unknown184 = shadows[i]->Peek_Model()->Get_Shader(0, 0);
-			Land_Set_Ref(m_Unknown188, info->Get_Vertex_Material(0));
+			m_Unknown188 = Create_Get(info->Get_Vertex_Material(0));
 			has_shadows = true;
 			info->Release_Ref();
 			break;
@@ -1444,9 +1436,9 @@ void LandClass::Build_Decorations(std::vector<std::string> &names, std::vector<L
 				vertex_count = nv;
 				index_count = ni;
 				DX8VertexBufferClass *vertex_buffer = new DX8VertexBufferClass(0x112, (unsigned short)nv);
-				Land_Set_Ref(vb, vertex_buffer);
+				vb = Create_NEW(vertex_buffer);
 				DX8IndexBufferClass *index_buffer = new DX8IndexBufferClass((unsigned short)ni);
-				Land_Set_Ref(ib, index_buffer);
+				ib = Create_NEW(index_buffer);
 				{
 					VertexBufferClass::WriteLockClass lock(vertex_buffer);
 					LandDecorationVertexStruct *out = (LandDecorationVertexStruct *)lock.Get_Vertex_Array();
