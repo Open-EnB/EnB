@@ -79,7 +79,10 @@ public:
 class Unknown8CClass								// NAME 1: neutral (D10)
 {
 public:
+	Unknown8CClass();								// 0x73FA60 (not rebuilt; 0x6F5090 news the object, 0x1C bytes)
 	virtual ~Unknown8CClass();
+
+	char Unknown04[0x1C - 0x04];					// +0x04
 };
 
 // co.cpp's +0x98 object, the object's positional state (postate.cpp's states derive from it): vtable
@@ -259,6 +262,8 @@ public:
 	void Unknown_6FDBD0();								// 0x6FDBD0 the engine sounds: the engine and thrust loops from EngineTrailType, the thrust state from EngineThrustState
 	void Unknown_6FD7A0(RenderObjClass *model);			// 0x6FD7A0 (co.cpp, not rebuilt: the engine sounds call it for a type-1 object in view mode 1 when EngineTrailType changed)  // NAME 1 [model]: what 0x6FDBD0 passes
 	void Unknown_6FE1E0();								// 0x6FE1E0 the damage state: the damage sounds of a type-1 object, the shield or hull and the four quadrants' levels (+0x104) into the model
+	Unknown8CClass *Unknown_6F5090();					// 0x6F5090 the +0x8C object, made on first use (0x73FDB0 asks for it)
+	void Unknown_6FEAC0();								// 0x6FEAC0 the damage state back to level 1 (unreferenced)
 	void Unknown_7009A0(bool on, bool force);			// 0x7009A0  // NAME 2 [on, force]: what it tests
 	void Unknown_6FEC40(SphereClass *sphere);			// 0x6FEC40 (FAIL_IF '!sphere', l.2232): the bounding sphere in slot +0x28's frame
 	void Unknown_6FEEE0(const RelationshipClass &relationship);	// 0x6FEEE0: sets +0x12C and emits PlayerObjectRelationshipChangeEvent

@@ -784,14 +784,14 @@ bool ClientObjectClass::Unknown_6F4F30(Vector3 &pos)
 }
 
 
-
-
-
-
-
-
-
-
+// 0x6F5090 the +0x8C object, made on first use (0x73FDB0 asks for it)
+Unknown8CClass *ClientObjectClass::Unknown_6F5090()
+{
+	if (!Unknown8C) {
+		Unknown8C = new Unknown8CClass;
+	}
+	return(Unknown8C);
+}
 
 
 
@@ -2205,19 +2205,19 @@ void ClientObjectClass::Unknown_6FE1E0()
 	if (hull_level) Unknown104[4] = hull_level;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+// NOT EXACT: inline budget (the client calls the bool field's Cast 0x584FF0 out of line in the inlined 0x6F58B0, ours inlines it; ebx holds the 1 in the client; 16 forms, attempts.py show 0x6FEAC0)
+// 0x6FEAC0 (unreferenced in the client) the damage state back to level 1: the model's levels and +0x104
+void ClientObjectClass::Unknown_6FEAC0()
+{
+	if ((Unknown_6F58B0() || Unknown_6F5850()) && Model) {
+		int levels[4];
+		for (int i = 0; i < 4; i++) levels[i] = 1;
+		Unknown_810750(Model, 0);
+		Unknown150 = Unknown_810CF0(Model, levels, 1, Client, GameID, Unknown150);
+		UnknownFC = false;
+		for (int j = 0; j < 4; j++) Unknown104[j] = 1; Unknown104[4] = 1;
+	}
+}
 
 
 
