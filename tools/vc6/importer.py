@@ -4155,6 +4155,7 @@ RECONSTRUCTED = {
     ('app', 'client/eff_o.h'): "eff_o.cpp's effect object: the base EffectObjectClass (vtable 0xB0002C, 0x80 bytes, layout from the constructor 0x6E6710), its base UnknownAF0DD0Class (0xAF0DD0); client.h's partial declaration steps aside when EFF_O_H is defined",
     ('app', 'client/eff_o.cpp'): "the effect object, client 0x6E6710-0x6ECBA0 (eff_line.cpp's guarded static at 0x6E66E0 before it): so far the base's constructor, slots, destructor 0x6E6930, Unknown_6E6A90 and 0x6E6E30 / 0x6E6ED0 / 0x6E6F10 / 0x6E74B0",
     ('app', 'client/mainview.cpp'): "the main view (MainViewClass, sclient.h; client 0x50B2C0-0x5146xx, 97 functions): so far the zone loader 0x5137F0 on the client's FAIL_IF lines 1974 / 1981 / 1983 (LD3)",
+    ('app', 'client/sbaseview.h'): "SBaseViewClass, sbaseview.cpp's starbase view (SClient +0x135C), with the interfaces it holds (UIJobsClass, UIStarbaseClass, the +0x19C / +0x1A0 classes), declared as far as cpacket.cpp calls them; moved out of cpacket.cpp (CP1, P-SC1-1), the header's name provisional",
     ('app', 'client/ui_group.h'): "UIGroupClass, ui_group.cpp's group window (the main view's +0x1D8; the client's file per its asserts, this header's name provisional), declared as far as cpacket.cpp and the main view call it; moved out of cpacket.cpp (HN2)",
 }
 

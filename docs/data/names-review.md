@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 36 |
 | 3 | by convention from a client-named file or sibling | 942 |
 | 2 | describes what the code does | 2312 |
-| 1 | neutral placeholder | 5162 |
+| 1 | neutral placeholder | 5178 |
 
 ## For review (score 3 and below)
 
@@ -841,20 +841,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown1138` | `app/client/cpacket.cpp:134` | untagged neutral name (D10) |
 | 1 | `Unknown_745160` | `app/client/cpacket.cpp:135` | untagged neutral name (D10) |
 | 1 | `Unknown_692330` | `app/client/cpacket.cpp:136` | untagged neutral name (D10) |
-| 1 | `UIUnknownBaseClass` | `app/client/cpacket.cpp:145` | untagged neutral name (D10) |
-| 1 | `avatar_id, new_room` | `app/client/cpacket.cpp:148` | the packet's fields |
-| 1 | `Unknown_63CF30` | `app/client/cpacket.cpp:148` | untagged neutral name (D10) |
-| 1 | `avatar_id, orient, position, action` | `app/client/cpacket.cpp:149` | the packet's fields |
-| 1 | `Unknown_63E5C0` | `app/client/cpacket.cpp:149` | untagged neutral name (D10) |
-| 1 | `Unknown40` | `app/client/cpacket.cpp:150` | untagged neutral name (D10) |
-| 1 | `Unknown7C` | `app/client/cpacket.cpp:150` | untagged neutral name (D10) |
-| 1 | `Unknown7D` | `app/client/cpacket.cpp:150` | untagged neutral name (D10) |
-| 1 | `unknown, desc` | `app/client/cpacket.cpp:152` | the packet's fields |
-| 1 | `Unknown_6437A0` | `app/client/cpacket.cpp:152` | untagged neutral name (D10) |
-| 1 | `SBaseViewUnknown1A0Class` | `app/client/cpacket.cpp:155` | neutral (D10): the starbase view's +0x1A0 (RECUSTOMIZE_SHIP_START 129: 0x61F250)  // NAME 1 [desc, cost, a, b, c, d]: the packet's fields |
-| 1 | `Unknown_61F250` | `app/client/cpacket.cpp:155` | untagged neutral name (D10) |
-| 1 | `SBaseViewUnknown19CClass` | `app/client/cpacket.cpp:156` | neutral (D10): the starbase view's +0x19C (RECUSTOMIZE_AVATAR_START 131: 0x551C40)  // NAME 1 [cost]: the packet's field |
-| 1 | `Unknown_551C40` | `app/client/cpacket.cpp:156` | untagged neutral name (D10) |
 | 1 | `Unknown_4BC260` | `app/client/cpacket.cpp:158` | untagged neutral name (D10) |
 | 1 | `SClientUnknown12C4Class` | `app/client/cpacket.cpp:161` | untagged neutral name (D10) |
 | 1 | `UnknownSendRootClass` | `app/client/cpacket.cpp:161` | untagged neutral name (D10) |
@@ -868,19 +854,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown113C` | `app/client/cpacket.cpp:233` | untagged neutral name (D10) |
 | 1 | `Unknown_10` | `app/client/cpacket.cpp:234` | untagged neutral name (D10) |
 | 1 | `Add_Unknown86C` | `app/client/cpacket.cpp:235` | untagged neutral name (D10) |
-| 1 | `packet` | `app/client/cpacket.cpp:249` | the handler's packet |
-| 1 | `Unknown_5A3BC0` | `app/client/cpacket.cpp:249` | untagged neutral name (D10) |
-| 1 | `packet` | `app/client/cpacket.cpp:250` | the handler's packet |
-| 1 | `Unknown_5A3F10` | `app/client/cpacket.cpp:250` | untagged neutral name (D10) |
-| 1 | `packet` | `app/client/cpacket.cpp:251` | the handler's packet |
-| 1 | `Unknown_5A3FB0` | `app/client/cpacket.cpp:251` | untagged neutral name (D10) |
-| 1 | `job_id` | `app/client/cpacket.cpp:252` | the packet's JobID |
-| 1 | `Unknown_5A4430` | `app/client/cpacket.cpp:252` | untagged neutral name (D10) |
-| 1 | `packet` | `app/client/cpacket.cpp:257` | the handler's packet |
-| 1 | `Unknown_6A0FD0` | `app/client/cpacket.cpp:257` | untagged neutral name (D10) |
-| 1 | `Unknown38` | `app/client/cpacket.cpp:260` | untagged neutral name (D10) |
-| 1 | `Unknown64` | `app/client/cpacket.cpp:260` | untagged neutral name (D10) |
-| 1 | `Unknown198` | `app/client/cpacket.cpp:261` | untagged neutral name (D10) |
 | 1 | `Unknown_88` | `app/client/cpacket.cpp:269` | untagged neutral name (D10) |
 | 1 | `Unknown_8C` | `app/client/cpacket.cpp:270` | untagged neutral name (D10) |
 | 1 | `packet` | `app/client/cpacket.cpp:271` | the handler's packet |
@@ -979,6 +952,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown831340Class` | `app/client/cpacket.cpp:1232` | untagged neutral name (D10) |
 | 1 | `Unknown831340List` | `app/client/cpacket.cpp:1232` | untagged neutral name (D10) |
 | 1 | `Unknown30` | `app/client/cpacket.cpp:1233` | untagged neutral name (D10) |
+| 1 | `Unknown40` | `app/client/cpacket.cpp:1233` | untagged neutral name (D10) |
 | 1 | `Unknown_6F5A40` | `app/client/cpacket.cpp:1252` | untagged neutral name (D10) |
 | 1 | `Unknown_74D950` | `app/client/cpacket.cpp:1253` | untagged neutral name (D10) |
 | 1 | `Unknown10D4` | `app/client/cpacket.cpp:1264` | untagged neutral name (D10) |
@@ -1020,6 +994,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_74B640` | `app/client/cpacket.cpp:1497` | untagged neutral name (D10) |
 | 1 | `Unknown_74B680` | `app/client/cpacket.cpp:1521` | untagged neutral name (D10) |
 | 1 | `Unknown_74BA30` | `app/client/cpacket.cpp:1529` | untagged neutral name (D10) |
+| 1 | `Unknown_6A0FD0` | `app/client/cpacket.cpp:1599` | untagged neutral name (D10) |
 | 1 | `Unknown1298` | `app/client/cpacket.cpp:1609` | untagged neutral name (D10) |
 | 1 | `Unknown_81F810` | `app/client/cpacket.cpp:1632` | untagged neutral name (D10) |
 | 1 | `Unknown_81F780` | `app/client/cpacket.cpp:1643` | untagged neutral name (D10) |
@@ -1052,9 +1027,16 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_5820C0` | `app/client/cpacket.cpp:1995` | untagged neutral name (D10) |
 | 1 | `Unknown_584690` | `app/client/cpacket.cpp:2053` | untagged neutral name (D10) |
 | 1 | `Unknown0C` | `app/client/cpacket.cpp:2069` | untagged neutral name (D10) |
+| 1 | `Unknown_5A3BC0` | `app/client/cpacket.cpp:2081` | untagged neutral name (D10) |
+| 1 | `Unknown_5A3F10` | `app/client/cpacket.cpp:2095` | untagged neutral name (D10) |
+| 1 | `Unknown_5A4430` | `app/client/cpacket.cpp:2109` | untagged neutral name (D10) |
+| 1 | `Unknown_5A3FB0` | `app/client/cpacket.cpp:2123` | untagged neutral name (D10) |
 | 1 | `Unknown_7BD920` | `app/client/cpacket.cpp:2293` | untagged neutral name (D10) |
+| 1 | `Unknown7C` | `app/client/cpacket.cpp:2322` | untagged neutral name (D10) |
+| 1 | `Unknown_63E5C0` | `app/client/cpacket.cpp:2323` | untagged neutral name (D10) |
 | 1 | `Unknown14` | `app/client/cpacket.cpp:2323` | untagged neutral name (D10) |
 | 1 | `Unknown1C` | `app/client/cpacket.cpp:2323` | untagged neutral name (D10) |
+| 1 | `Unknown_63CF30` | `app/client/cpacket.cpp:2338` | untagged neutral name (D10) |
 | 1 | `Unknown00` | `app/client/cpacket.cpp:2404` | untagged neutral name (D10) |
 | 1 | `UIChatPanelUnknownD8Class` | `app/client/cpacket.cpp:2413` | neutral (D10) |
 | 1 | `name` | `app/client/cpacket.cpp:2416` | the event's Unknown54 |
@@ -1103,6 +1085,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_728300` | `app/client/cpacket.cpp:2608` | untagged neutral name (D10) |
 | 1 | `Get_Unknown54` | `app/client/cpacket.cpp:2655` | untagged neutral name (D10) |
 | 1 | `Get_Unknown64` | `app/client/cpacket.cpp:2690` | untagged neutral name (D10) |
+| 1 | `Unknown64` | `app/client/cpacket.cpp:2772` | untagged neutral name (D10) |
 | 1 | `Unknown13C0` | `app/client/cpacket.cpp:3141` | untagged neutral name (D10) |
 | 1 | `Unknown_74D690` | `app/client/cpacket.cpp:3142` | untagged neutral name (D10) |
 | 1 | `Unknown_5981B0` | `app/client/cpacket.cpp:3143` | untagged neutral name (D10) |
@@ -1119,10 +1102,15 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_6B09D0` | `app/client/cpacket.cpp:3353` | untagged neutral name (D10) |
 | 1 | `Unknown_54` | `app/client/cpacket.cpp:3375` | untagged neutral name (D10) |
 | 1 | `Unknown_751460` | `app/client/cpacket.cpp:3413` | untagged neutral name (D10) |
+| 1 | `SBaseViewUnknown1A0Class` | `app/client/cpacket.cpp:3423` | untagged neutral name (D10) |
+| 1 | `Unknown_61F250` | `app/client/cpacket.cpp:3426` | untagged neutral name (D10) |
 | 1 | `Unknown1A4` | `app/client/cpacket.cpp:3426` | untagged neutral name (D10) |
 | 1 | `Unknown1A8` | `app/client/cpacket.cpp:3426` | untagged neutral name (D10) |
 | 1 | `Unknown1AC` | `app/client/cpacket.cpp:3426` | untagged neutral name (D10) |
 | 1 | `Unknown1B0` | `app/client/cpacket.cpp:3426` | untagged neutral name (D10) |
+| 1 | `SBaseViewUnknown19CClass` | `app/client/cpacket.cpp:3436` | untagged neutral name (D10) |
+| 1 | `Unknown_551C40` | `app/client/cpacket.cpp:3439` | untagged neutral name (D10) |
+| 1 | `Unknown_6437A0` | `app/client/cpacket.cpp:3449` | untagged neutral name (D10) |
 | 1 | `Unknown118` | `app/client/cpacket.cpp:3449` | untagged neutral name (D10) |
 | 1 | `Unknown_4BC260` | `app/client/eff_o.cpp:29` | untagged neutral name (D10) |
 | 1 | `Unknown_B92E30` | `app/client/eff_o.cpp:30` | neutral (D10) |
@@ -1999,6 +1987,34 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_7151D0` | `app/client/postate.h:333` | untagged neutral name (D10) |
 | 1 | `Unknown00` | `app/client/postate.h:335` | untagged neutral name (D10) |
 | 1 | `Unknown08` | `app/client/radar_data.h:26` | untagged neutral name (D10) |
+| 1 | `sbaseview` | `app/client/sbaseview.h:10` | provisional, the view's file (sbaseview.cpp, D24) |
+| 1 | `UIUnknownBaseClass` | `app/client/sbaseview.h:28` | untagged neutral name (D10) |
+| 1 | `avatar_id, new_room` | `app/client/sbaseview.h:31` | the packet's fields |
+| 1 | `Unknown_63CF30` | `app/client/sbaseview.h:31` | untagged neutral name (D10) |
+| 1 | `avatar_id, orient, position, action` | `app/client/sbaseview.h:32` | the packet's fields |
+| 1 | `Unknown_63E5C0` | `app/client/sbaseview.h:32` | untagged neutral name (D10) |
+| 1 | `Unknown40` | `app/client/sbaseview.h:33` | untagged neutral name (D10) |
+| 1 | `Unknown7C` | `app/client/sbaseview.h:33` | untagged neutral name (D10) |
+| 1 | `Unknown7D` | `app/client/sbaseview.h:33` | untagged neutral name (D10) |
+| 1 | `unknown, desc` | `app/client/sbaseview.h:35` | the packet's fields |
+| 1 | `Unknown_6437A0` | `app/client/sbaseview.h:35` | untagged neutral name (D10) |
+| 1 | `SBaseViewUnknown1A0Class` | `app/client/sbaseview.h:38` | neutral (D10): the starbase view's +0x1A0 (RECUSTOMIZE_SHIP_START 129: 0x61F250)  // NAME 1 [desc, cost, a, b, c, d]: the packet's fields |
+| 1 | `Unknown_61F250` | `app/client/sbaseview.h:38` | untagged neutral name (D10) |
+| 1 | `SBaseViewUnknown19CClass` | `app/client/sbaseview.h:39` | neutral (D10): the starbase view's +0x19C (RECUSTOMIZE_AVATAR_START 131: 0x551C40)  // NAME 1 [cost]: the packet's field |
+| 1 | `Unknown_551C40` | `app/client/sbaseview.h:39` | untagged neutral name (D10) |
+| 1 | `packet` | `app/client/sbaseview.h:46` | the handler's packet |
+| 1 | `Unknown_5A3BC0` | `app/client/sbaseview.h:46` | untagged neutral name (D10) |
+| 1 | `packet` | `app/client/sbaseview.h:47` | the handler's packet |
+| 1 | `Unknown_5A3F10` | `app/client/sbaseview.h:47` | untagged neutral name (D10) |
+| 1 | `packet` | `app/client/sbaseview.h:48` | the handler's packet |
+| 1 | `Unknown_5A3FB0` | `app/client/sbaseview.h:48` | untagged neutral name (D10) |
+| 1 | `job_id` | `app/client/sbaseview.h:49` | the packet's JobID |
+| 1 | `Unknown_5A4430` | `app/client/sbaseview.h:49` | untagged neutral name (D10) |
+| 1 | `packet` | `app/client/sbaseview.h:54` | the handler's packet |
+| 1 | `Unknown_6A0FD0` | `app/client/sbaseview.h:54` | untagged neutral name (D10) |
+| 1 | `Unknown38` | `app/client/sbaseview.h:57` | untagged neutral name (D10) |
+| 1 | `Unknown64` | `app/client/sbaseview.h:57` | untagged neutral name (D10) |
+| 1 | `Unknown198` | `app/client/sbaseview.h:58` | untagged neutral name (D10) |
 | 1 | `Unknown_719E10` | `app/client/sclient.cpp:28` | untagged neutral name (D10) |
 | 1 | `Unknown_7228C0` | `app/client/sclient.cpp:29` | neutral (D10), as tsk_login.cpp |
 | 1 | `Unknown_723150` | `app/client/sclient.cpp:30` | neutral (D10), as tsk_login.cpp |
@@ -5444,11 +5460,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `cpacket.cpp` | `app/client/cpacket.cpp:75` | the class id the handlers test |
 | 2 | `SoundManager` | `app/client/cpacket.cpp:94` | what it holds |
 | 2 | `EmoteDataClass` | `app/client/cpacket.cpp:108` | co_data.h's name for what Get_Emote_Data returns |
-| 2 | `Room` | `app/client/cpacket.cpp:151` | what the handler compares with the packet's Room |
-| 2 | `Get_Jobs` | `app/client/cpacket.cpp:258` | what it returns |
-| 2 | `Get_Starbase` | `app/client/cpacket.cpp:259` | what it returns |
-| 2 | `Starbase` | `app/client/cpacket.cpp:260` | what it holds |
-| 2 | `Jobs` | `app/client/cpacket.cpp:261` | what it holds; +0x19C / +0x1A0  // NAME 3 [AvatarUI, ShipUI]: the recustomize handlers' '!avatar_ui' / '!ship_ui' tests |
 | 2 | `String_To_Value` | `app/client/eff_o.cpp:28` | as strconv_lib.h's pairs |
 | 2 | `Get_Flag` | `app/client/eff_o.h:82` | what it does |
 | 2 | `Set_Flag` | `app/client/eff_o.h:83` | what it does |
@@ -5826,6 +5837,11 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Position` | `app/client/postate.h:337` | what it holds |
 | 2 | `Velocity` | `app/client/postate.h:338` | what it holds |
 | 2 | `Time` | `app/client/postate.h:339` | what it holds |
+| 2 | `Room` | `app/client/sbaseview.h:34` | what the handler compares with the packet's Room |
+| 2 | `Get_Jobs` | `app/client/sbaseview.h:55` | what it returns |
+| 2 | `Get_Starbase` | `app/client/sbaseview.h:56` | what it returns |
+| 2 | `Starbase` | `app/client/sbaseview.h:57` | what it holds |
+| 2 | `Jobs` | `app/client/sbaseview.h:58` | what it holds; +0x19C / +0x1A0  // NAME 3 [AvatarUI, ShipUI]: the recustomize handlers' '!avatar_ui' / '!ship_ui' tests |
 | 2 | `Unknown_Load_Assets` | `app/client/sclient.cpp:40` | 0x729BF0 (client_lego_impl.cpp), 'cbasset.ini' (as tsk_smovie.cpp) |
 | 2 | `Unknown_Free_Assets` | `app/client/sclient.cpp:41` | 0x729D60 (client_lego_impl.cpp) (as tsk_smovie.cpp) |
 | 2 | `Unknown_Main_Window` | `app/client/sclient.cpp:43` | what Pump_Messages redraws |
@@ -7543,9 +7559,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `SoundManagerClass` | `app/client/cpacket.cpp:86` | class-from-file (D24) for app\client\sound_manager.cpp |
 | 3 | `NavigationDataClass` | `app/client/cpacket.cpp:98` | class-from-file (D24) for app\client\navigation_data.cpp |
 | 3 | `GutterDataClass` | `app/client/cpacket.cpp:103` | class-from-file (D24) for app\client\gutter_data.cpp |
-| 3 | `UIStarbaseClass` | `app/client/cpacket.cpp:145` | class-from-file (D24) for app\client\ui_starbase.cpp |
-| 3 | `UIJobsClass` | `app/client/cpacket.cpp:246` | class-from-file (D24) for app\client\ui_jobs.cpp |
-| 3 | `SBaseViewClass` | `app/client/cpacket.cpp:254` | class-from-file (D24) for app\client\sbaseview.cpp |
 | 3 | `UITalkTreeClass` | `app/client/cpacket.cpp:266` | class-from-file (D24) for app\client\ui_talkt.cpp |
 | 3 | `UITalkTreeSpaceClass` | `app/client/cpacket.cpp:274` | class-from-file (D24) for app\client\ui_talkt_space.cpp |
 | 3 | `GalaxyMapClientClass` | `app/client/cpacket.cpp:280` | class-from-file (D24) for app\client\galaxy_map_client.cpp |
@@ -7611,6 +7624,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `radar_data.h` | `app/client/radar_data.h:16` | header name assumed from the client's radar_data.cpp |
 | 3 | `radar_icon_data.h` | `app/client/radar_icon_data.h:16` | header name assumed from the client's radar_icon_data.cpp |
 | 3 | `RadarIconDataClass` | `app/client/radar_icon_data.h:21` | by convention (D24) from the client's radar_icon_data.cpp |
+| 3 | `UIStarbaseClass` | `app/client/sbaseview.h:28` | class-from-file (D24) for app\client\ui_starbase.cpp |
+| 3 | `UIJobsClass` | `app/client/sbaseview.h:43` | class-from-file (D24) for app\client\ui_jobs.cpp |
+| 3 | `SBaseViewClass` | `app/client/sbaseview.h:51` | class-from-file (D24) for app\client\sbaseview.cpp |
 | 3 | `SoundManagerClass` | `app/client/sclient.cpp:774` | class-from-file (D24) for app\client\sound_manager.cpp |
 | 3 | `ACTIONTYPE_MAX` | `app/client/sclient.cpp:4790` | the assert's (Unknown120C's two queues) |
 | 3 | `sclient.h` | `app/client/sclient.h:21` | header name assumed from the class |

@@ -8927,6 +8927,7 @@
    "client/postate.h": "reconstructed",
    "client/radar_data.h": "reconstructed",
    "client/radar_icon_data.h": "reconstructed",
+   "client/sbaseview.h": "reconstructed",
    "client/sclient.h": "reconstructed",
    "client/soptions.h": "reconstructed",
    "client/starmap_data.h": "reconstructed",
