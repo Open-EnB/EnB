@@ -101,16 +101,12 @@ gen Unknown_42EA80
 gen SClient::Unknown_743380
 msg 1 SIMPLE_POSITIONAL_UDPATE (8) size 52: cpacket.cpp's handler
 gen SoundManagerClass::Unknown_75B320
-gen ClientObjectClass::Unknown_6F4290
 gen Unknown498C10Class::Unknown_498CC0
 path model Set_Transform (105, 210, 28)
-gen ClientObjectClass::Unknown_6F4290
 gen Unknown498C10Class::Unknown_498CC0
 model Set_Transform (0, 0, 0)
-gen ClientObjectClass::Unknown_6F4290
 gen Unknown498C10Class::Unknown_498CC0
 model Set_Transform (0, 0, 0)
-gen ClientObjectClass::Unknown_6F4290
 gen Unknown498C10Class::Unknown_498CC0
 model Set_Transform (0, 0, 0)
 gen CameraManagerClass::Unknown_799E40
@@ -146,16 +142,12 @@ aux data +0x20 (the age step)
 gen Unknown_455D10
 msg 2 SIMPLE_POSITIONAL_UDPATE (8) size 52: cpacket.cpp's handler
 gen SoundManagerClass::Unknown_75B320
-gen ClientObjectClass::Unknown_6F4290
 gen Unknown498C10Class::Unknown_498CC0
 path model Set_Transform (110, 220, 26)
-gen ClientObjectClass::Unknown_6F4290
 gen Unknown498C10Class::Unknown_498CC0
 model Set_Transform (0, 0, 0)
-gen ClientObjectClass::Unknown_6F4290
 gen Unknown498C10Class::Unknown_498CC0
 model Set_Transform (0, 0, 0)
-gen ClientObjectClass::Unknown_6F4290
 gen Unknown498C10Class::Unknown_498CC0
 model Set_Transform (0, 0, 0)
 gen CameraManagerClass::Unknown_799E40
@@ -181,16 +173,12 @@ aux data +0x20 (the age step)
 aux data +0x20 (the age step)
 gen Unknown_455D10
 gen SoundManagerClass::Unknown_75B320
-gen ClientObjectClass::Unknown_6F4290
 gen Unknown498C10Class::Unknown_498CC0
 path model Set_Transform (-50, -15, 5)
-gen ClientObjectClass::Unknown_6F4290
 gen Unknown498C10Class::Unknown_498CC0
 model Set_Transform (0, 0, 0)
-gen ClientObjectClass::Unknown_6F4290
 gen Unknown498C10Class::Unknown_498CC0
 model Set_Transform (0, 0, 0)
-gen ClientObjectClass::Unknown_6F4290
 gen Unknown498C10Class::Unknown_498CC0
 model Set_Transform (0, 0, 0)
 gen CameraManagerClass::Unknown_799E40

@@ -209,7 +209,7 @@ public:
 	float Unknown_6F3ED0();								// 0x6F3ED0 an angle from +0x98's slot +0x14, clamped to 36 degrees
 	bool Unknown_6F4E70(Vector3 &pos);					// 0x6F4E70 the height into the client's bounds (+0x10D4 / +0x10D8) unless the state is 12-14 (unreferenced)  // NAME 1 [pos]: a Vector3
 	bool Unknown_6F4F30(Vector3 &pos);					// 0x6F4F30 X and Y into the client's bounds unless the state is 12-14 (unreferenced)  // NAME 1 [pos]: a Vector3
-	float Unknown_6F4290();								// 0x6F4290 (not rebuilt)
+	float Unknown_6F4290();								// 0x6F4290 the turn toward the heading of the state's matrix (0x6F3ED0 calls it)
 	void Unknown_6F3FA0(Matrix3D &tm);					// 0x6F3FA0 slot +0x28's roll: the turn +0x144 steered toward 0x6F3ED0's angle (types 0 and 1 that aren't IsOrganic)  // NAME 1 [tm]: a Matrix3D
 	void Unknown_6FBEF0();								// 0x6FBEF0 the warp state: PrivateWarpState's messages, GlobalWarpState's sounds, effects and camera modes (the per-frame update calls it for types 0 and 1)
 	void Unknown_6F3BF0(bool hidden);					// 0x6F3BF0 (the model's Set_Hidden)  // NAME 2 [hidden]: Set_Hidden's argument

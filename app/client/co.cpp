@@ -793,42 +793,42 @@ Unknown8CClass *ClientObjectClass::Unknown_6F5090()
 	return(Unknown8C);
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#include "vector2.h"
+#include <math.h>
+// 0x6F4290 (0x6F3ED0 calls it): the turn left toward the heading of the state's matrix, 0 within 0.001
+float ClientObjectClass::Unknown_6F4290()
+{
+	if (Unknown_6F5A40()) return(0.0f);
+	int id = Client->Unknown10BC;
+	Vector3 facing = Unknown98->Unknown_18(id);
+	float heading = facing.Z;
+	if (facing.Z < 0.0f) heading = facing.Z + 6.28318548f;
+	Vector3 rotation = Unknown98->Unknown_14(id);
+	float turn = rotation.Z;
+	if (rotation.Z == 0.0f) return(0.0f);
+	Vector3 axis = Unknown98->Unknown_08(id).Get_X_Vector();
+	Vector2 dir(axis.X, axis.Y);
+	dir.Normalize();
+	if (dir.X * dir.X + dir.Y * dir.Y < 0.0001f) {
+		dir.X = 1.0f;
+		dir.Y = 0.0f;
+	}
+	float angle = (float)acos(WWMath::Clamp(dir.X, -1.0f, 1.0f));
+	if (dir.Y < 0.0f) {
+		angle = 6.28318548f - angle;
+	}
+	float result = 0.0f;
+	float diff = angle - heading;
+	if (fabs(diff) > 0.001) {
+		if (turn > 0.0f) {
+			if (heading >= angle) return(heading - angle);
+			return(heading + 6.28318548f - angle);
+		}
+		if (heading <= angle) return(diff);
+		result = angle + 6.28318548f - heading;
+	}
+	return(result);
+}
 
 
 template<class C> inline C *Unknown_Find_Valid(DeltaCompoundClass *root, const NameClass &name) { C *t = Unknown_Find_Field<C>(root, name); if (t && t->m_Unknown70) return(t); return(NULL); }	// NAME 1: neutral (D10)
