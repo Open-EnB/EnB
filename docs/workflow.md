@@ -389,6 +389,10 @@ unless `--lever` cites a new row of this table.
   functions, so the small finds keep their explicit NameClass. `#pragma auto_inline(off)` and `/Ob1` do not stop
   Unknown_Find_Field's inlining; for an out-of-line copy to compare, write a dummy with 40+ calls. A helper put on
   a new line moves every later `__LINE__` (~13 pairs): use an existing blank line.
+  The client's find-if-set helper (bool copy 0x705450) is auxdata.h's find followed by "NULL unless +0x70 is
+  set": co.cpp's `Unknown_Find_Valid` (DM1, acd5e81: 0x6FE1E0 96 -> 40 rows). VC6 did not inline 0x6FEAC0 into
+  0x6FCB70 while 0x6FEAC0 was defined later in the file: an inline member defined before both reproduced it. Frame
+  bytes the client has and ours lacks can come from a by-value getter's temporary (`Get_X_Vector()`, 0x6F4290).
 * **Do_Frame's lost-connection dialog matches only as an if / else of two complete calls** (2026-10-28, DF1).
 * **udpreplay compiles its app files as one translation unit:** a header's macro gate is defined at the top of
   app_sources.cpp (udpreplay.py writes it, 2026-10-28, PK1).
@@ -708,6 +712,9 @@ unless `--lever` cites a new row of this table.
 
 ### 3.8 Git, docs and scripting hygiene
 
+* **When master moves every few minutes, `wt.py bring-over` keeps conflicting on imports.json** (2026-10-28, DM1):
+  verify in the worktree, then commit_mine from the main tree with the whole file and its imports entry copied
+  over (`commit_rows.set_entries`; `.work/dm1/land.sh`).
 * **`wt.py bring-over` refuses an imports.json cherry-pick conflict when master has moved** (2026-10-28, HX1):
   recreate the commit in a fresh worktree from master (`cherry-pick -n`, take HEAD's imports.json, re-verify).
 * **tryv2 refuses an anchor that occurs twice** (co.cpp's two IsInPVP finds); a long experiment script that holds
