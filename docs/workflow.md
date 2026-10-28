@@ -431,6 +431,12 @@ unless `--lever` cites a new row of this table.
   (`float radius = Unknown04; Update(Unknown_24(), radius);`): the client's extra stack slot is that local
   (2026-10-28, DO1). At a file boundary, check the `__FILE__` the function pushes before trusting asserts.txt's file
   (px.cpp's 0x44BA70 is filed under dynamic_obj.cpp).
+* **Forms seen in px.cpp / px_wrapper.cpp** (2026-10-28, PX1): a run of `mov [x], 0` immediates with no zero register
+  is float members set to 0.0f (typed `int` they give `xor reg` and register stores); `lea reg,[this+N]` then stores
+  through reg is an inlined `memset` of a member array; a find loop loading `end()` before `begin()` is
+  `std::find(begin, end, x)` (arguments right to left), with the not-found return first; whether VC6 inlines
+  Is_Valid / Fabs depends on the wrapping comparison: a static `Is_Close(const Vector3 &, const Vector3 &)` made
+  0x456900 exact.
 * **Asserts sit on the client's lines (D25).** To add code above a logged line, remove as many
   blank lines from the same function's stretch (cordmgr.cpp; `.work/milestones/a3/relines.py`);
   pad inside a function, not only before it (Get(char **); pk.cpp's helpers take single blanks).
@@ -758,6 +764,8 @@ unless `--lever` cites a new row of this table.
 * **In a rebase or bring-over conflict, `git show HEAD:file` gives LF endings** (2026-10-28, PK2): read a saved
   working copy instead; `checkout --ours` takes master's generated files, then verify again and re-record your
   attempts rows before `rebase --continue`.
+* **`appfile.py match` reports the previous function as PREFIX when a start is missing from function_starts**
+  (2026-10-28, PX1: 0x457670): give it its own `// @` marker.
 * **`appfile.py match` needs `-D ENABLE_WWPROFILE` for app files** or drafts differ from verify (2026-10-28, MV1).
 * **`appfile.py match` wants bare `// @0xADDR` marker lines** (2026-10-28, CS1): stripping a trailing comment can make a
   declaration look like a definition (co.cpp's Unknown_7294D0); use `--allow-missing`.
