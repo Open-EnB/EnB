@@ -313,4 +313,23 @@ public:
 	Matrix3D LastTransform;			// +0x40  // NAME 2: what it holds
 };
 
+// Type 15, a render object's bone (or the object itself) as the transform (vtable 0xB02A40, 0x0C bytes);
+// the constructor deletes the state it replaces
+class RenderObjClass;
+class Unknown7192A0Class : public Unknown98Class	// NAME 1: neutral (D10)
+{
+public:
+	Unknown7192A0Class(RenderObjClass *render_object, Unknown98Class *state, const char *bone_name);	// 0x7192A0  // NAME 2 [render_object, state, bone_name]: what it does with them
+
+	virtual bool Unknown_2C() { return(true); }	// +0x2C 0x719380
+	virtual int Unknown_04();					// +0x04 0x7193F0 (15)
+	virtual Matrix3D Unknown_08(int time);		// +0x08 0x719410 (the bone's transform, or the object's)  // NAME 2 [time]: as the others'
+	virtual Vector3 Unknown_0C(int time);		// +0x0C 0x719550 (its translation)  // NAME 2 [time]: as the others'
+	virtual Vector3 Unknown_10(int time);		// +0x10 0x7195E0 (zero)  // NAME 2 [time]: as the others'
+	virtual Vector3 Unknown_14(int time);		// +0x14 0x719610 (zero)  // NAME 2 [time]: as the others'
+
+	RenderObjClass *RenderObject;	// +0x04  // NAME 3: the client's assert 'RenderObject'
+	int BoneIndex;					// +0x08 (-1 without a bone)  // NAME 3: the client's assert 'BoneIndex > 0'
+};
+
 #endif
