@@ -41,11 +41,11 @@ public:
 	SOptionsClass();									// 0x75A280
 	~SOptionsClass();									// 0x75A4E0 (not virtual: it stores its vtable first)
 
-	virtual void Set_Camera_Mode(unsigned cameramode);	// +0x00 0x75A530 (assert 'cameramode >=0 && cameramode < CameraModeCount', l.53)  // NAME 2: what it does
+	virtual unsigned Set_Camera_Mode(unsigned cameramode);	// +0x00 0x75A530 (returns the mode: 0x75A5D0 hands it on to SClient 0x7436A0; assert 'cameramode >=0 && cameramode < CameraModeCount', l.53)  // NAME 2: what it does
 
 	void Unknown_75A570();								// 0x75A570
 	void Unknown_75A5A0();								// 0x75A5A0
-	void Unknown_75A5D0();								// 0x75A5D0 (SClient::Init without 'Bridge_Mode')
+	unsigned Unknown_75A5D0();								// 0x75A5D0 (SClient::Init without 'Bridge_Mode'; 0x7436A0 prints its result as the 3rd-person mode)
 	void Load_Camera_Mode(INIClass &ini, const char *section);	// 0x75A5F0 (assert 'CameraModeCount <= (unsigned int)CameraModes.Length()', l.93)  // NAME 2: what it does  // NAME 1 [ini, section]: the arguments' order is unchecked
 
 	bool Unknown04;										// +0x04

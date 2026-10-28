@@ -24,10 +24,10 @@
 
 SOptionsClass::SOptionsClass() { Trace("stub SOptionsClass::SOptionsClass (0x75A280, registry: not run)"); }
 SOptionsClass::~SOptionsClass() { Trace("stub SOptionsClass::~SOptionsClass"); }
-void SOptionsClass::Set_Camera_Mode(unsigned cameramode) { Trace("stub SOptionsClass::Set_Camera_Mode %u", cameramode); }
+unsigned SOptionsClass::Set_Camera_Mode(unsigned cameramode) { Trace("stub SOptionsClass::Set_Camera_Mode %u", cameramode); return(cameramode); }
 void SOptionsClass::Unknown_75A570() { Trace("stub SOptionsClass::Unknown_75A570"); }
 void SOptionsClass::Unknown_75A5A0() { Trace("stub SOptionsClass::Unknown_75A5A0"); }
-void SOptionsClass::Unknown_75A5D0() { Trace("stub SOptionsClass::Unknown_75A5D0"); }
+unsigned SOptionsClass::Unknown_75A5D0() { Trace("stub SOptionsClass::Unknown_75A5D0"); return(0); }
 void SOptionsClass::Load_Camera_Mode(INIClass &, const char *section) { Trace("stub SOptionsClass::Load_Camera_Mode %s", section); }
 
 // ------------------------------------------------------------------------- the main view's radar (mainview.cpp's 0x512A00)
@@ -114,7 +114,6 @@ int Unknown_BE5F34 = 0;
 
 // Do_Frame's callees that take an input event by value (gen_stubs skips a class by value)
 #include "..\..\..\app\kernel\kernel.h"
-bool SClient::Unknown_7436A0(KernelEventClass event) { Trace("stub SClient::Unknown_7436A0 key 0x%X", event.Key); return(false); }
 void SClient::Unknown_744240(KernelEventClass event) { Trace("stub SClient::Unknown_744240 key 0x%X", event.Key); }
 KernelEventClass Unknown_65F780(void *) { Trace("stub Unknown_65F780"); return(KernelEventClass()); }
 void ScriptedMovieViewClass::Unknown_802960(KernelEventClass event) { Trace("stub ScriptedMovieViewClass::Unknown_802960 key 0x%X", event.Key); }
@@ -377,3 +376,10 @@ EffectObjectClass *Unknown_6E9490(int desc_id, unsigned effect_id, unsigned dura
 #include "..\..\..\app\audio\soundlib.h"
 AudibleSoundClass *SoundLibraryClass::Play_2D_Sound(const char *name, int mode) { Trace("stub SoundLibraryClass::Play_2D_Sound '%s' %d", name, mode); return(0); }
 Sound3DClass *SoundLibraryClass::Play_3D_Sound(const char *name, const Matrix3D &tm, int mode, float scale) { Trace("stub SoundLibraryClass::Play_3D_Sound '%s' at (%g, %g, %g) %d %g", name, tm[0][3], tm[1][3], tm[2][3], mode, scale); return(0); }	// co.cpp's engine sounds 0x6FDBD0
+
+// ------------------------------------------------------------------------- control_keys_manager.cpp's key reader
+
+// inpdsp.cpp's 0x42A1A0 (a key from an ini entry): control_keys_manager.obj links since SClient 0x7436A0 registers its keys;
+// gen_stubs.py cannot write a struct returned by value. clienttest never loads key maps: this only links.
+#include "..\..\..\app\client\control_keys_manager.h"
+ControlKeyComboStruct Unknown_42A1A0(INIClass &, const char *section, const char *entry) { Trace("stub Unknown_42A1A0 [%s] %s", section ? section : "(null)", entry ? entry : "(null)"); return(ControlKeyComboStruct(0, 0)); }

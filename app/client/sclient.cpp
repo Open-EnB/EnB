@@ -167,7 +167,7 @@ public:
 	UIChatPanelClass(SClient *client);					// 0x561DD0
 	bool Unknown_56BA80();								// 0x56BA80 (Do_Frame compares it with 'more than 15' from the connection's Get_Stats)
 	void Unknown_56BA40(bool on);						// 0x56BA40 (Do_Frame, when that changes)  // NAME 1 [on]: what Do_Frame passes
-
+	void Unknown_565F30(int arg);						// 0x565F30 (0x7436A0: Esc, 2)  // NAME 1 [arg]: what 0x7436A0 passes
 	char Unknown40[0xE0 - 0x40];
 	UIChatPanelUnknownE0Class *UnknownE0;				// +0xE0 (0x750210, 0x7517E0, 0x751850 test its +0x7C)
 	char UnknownE4[0x138 - 0xE4];
@@ -242,10 +242,10 @@ class CameraManagerClass
 public:
 	CameraManagerClass(SClient *client);				// 0x798D20
 	~CameraManagerClass();								// 0x799220
-	void Set_Heading(float heading);					// 0x79B370  // NAME 2: Init passes the camera mode's Heading
-	void Set_Distance(float distance);					// 0x79B3B0  // NAME 2: Init passes the camera mode's Distance
-	void Set_Tilt(float tilt);							// 0x79B3F0  // NAME 2: Init passes the camera mode's Tilt
-	void Set_Elevation_Offset(float offset);			// 0x79B470  // NAME 2: Init passes the camera mode's ElevationOffset
+	void Set_Heading(float heading); float Get_Heading();	// 0x79B370, 0x79B390 (0x7436A0's Save Camera)  // NAME 2: Init passes the camera mode's Heading
+	void Set_Distance(float distance); float Get_Distance();	// 0x79B3B0, 0x79B3D0  // NAME 2: Init passes the camera mode's Distance
+	void Set_Tilt(float tilt); float Get_Tilt();		// 0x79B3F0, 0x79B410  // NAME 2: Init passes the camera mode's Tilt
+	void Set_Elevation_Offset(float offset); float Get_Elevation_Offset();	// 0x79B470, 0x79B490  // NAME 2: Init passes the camera mode's ElevationOffset
 	void Unknown_79B4B0(bool first_mode);				// 0x79B4B0: Init passes CameraMode == 0  // NAME 1 [first_mode]: what it is
 	ChaseCameraModuleClass *Get_Player_Chase_Camera_Module() { return((ChaseCameraModuleClass *)Unknown04); }	void Unknown_799E40(); void Unknown_79B2B0(bool on);	// inline (0x744C10's FAIL_IF); 0x799E40 (Process_AI, unless the current view is +0x135C); 0x79B2B0 (0x745750 passes true)  // NAME 1 [on]: what 0x745750 passes
 
@@ -727,17 +727,17 @@ unsigned SClient::Set_Debug_Object(unsigned id)
 	return(ClientClass::Set_Debug_Object(id));
 }
 #include "..\packets\pkclientchat.h"
-
-
-
-
-
-
-
-
-
-
-
+// 0x744D80 (inline: Init's camera block, 0x7436A0's camera keys; 0x6B58A0 calls the out-of-line copy)
+inline void SClient::Unknown_744D80() {
+	Unknown12B0 = Unknown10BC; Unknown12B4 = 0;
+	CameraModeStruct &mode = CameraModes[CameraMode];
+	CameraManager->Set_Heading(mode.Heading);
+	CameraManager->Set_Distance(mode.Distance);
+	CameraManager->Set_Tilt(mode.Tilt);
+	CameraManager->Set_Elevation_Offset(mode.ElevationOffset);
+	CameraManager->Unknown_79B4B0(CameraMode == 0);
+	CameraManager->FOV = mode.FOV;
+	Unknown_744C10(); }
 // NOT EXACT: register (explain.py register-only, 2 rows): the client loads the dialog's table into eax for the button > 1 call, ours into edx; the packet is a temporary (a named local cost 6 rows)
 // 0x7429B0 (Do_Frame, after the lost-connection check: the reset-ship question; out of line as the client has it)
 #pragma auto_inline(off)
@@ -1040,6 +1040,261 @@ void SClient::Process_AI()
 		rnode = next;
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#include "option.h"
+#include "..\packets\pkmove.h"
+#include "control_keys_manager.h"
+// NOT EXACT: inline budget (explain.py: 731 instructions, the client's about twice as many): the client inlines more of std::string's construction (the last three key names copied in place) and its five camera blocks (0x744D80's body); first round
+// 0x7436A0 (Do_Frame: an event no dispatcher took; the module 'sclient' keys, registered on the first call)
+bool SClient::Unknown_7436A0(KernelEventClass event)
+{
+	if (!(event.Flags & 0x1000) && event.Key != 0) {
+		if (event.Key == 0x1B) {
+			ChatPanel->Unknown_565F30(2);
+			return(true);
+		}
+		static std::string module("sclient");
+		static bool first = true;
+		if (first) {
+			first = false;
+			ControlKeysManager::Register_Key(module, "Screenshot", 0);
+			ControlKeysManager::Register_Key(module, "Toggle Auto Level", 1);
+			ControlKeysManager::Register_Key(module, "Restore Camera", 2);
+			ControlKeysManager::Register_Key(module, "First Person", 3);
+			ControlKeysManager::Register_Key(module, "Save Camera", 4);
+			ControlKeysManager::Register_Key(module, "Next Camera", 5);
+			ControlKeysManager::Register_Key(module, "Prev Camera", 6);
+		}
+		int key = ControlKeysManager::Get_Key_Id((ControlKeysSClientClass *)this, module, *(ControlKeyValueStruct *)&event);
+		switch (key) {
+			case -1:
+				break;
+			case 0:
+				Unknown_74D990(0x17, "Taking Screenshot...", 0);
+				WW3D::Make_Screen_Shot("ScreenShot", 1.3f, 2);
+				Unknown_74D990(0x17, "*SNAP* Done!", 0);
+				return(true);
+			case 1:
+				Connection->Send_Packet(&MovePacketClass(AvatarID, 13));
+				return(true);
+			case 2:
+				Unknown_744D80();
+				return(true);
+			case 3:
+				if (!CurrentView || CurrentView != Unknown135C) {
+					BoolOptionStruct *option = Unknown_BE8B38->Find_Bool("Bridge_Mode");
+					if (CameraMode == 0) {
+						Print(0x17, "Camera set to 3rd person mode %i,", Unknown_75A5D0());
+						if (option) option->Value = false;
+					} else {
+						Set_Camera_Mode(0);
+						Unknown_74D990(0x17, "Camera set to 1st person mode.", 0);
+						if (option) option->Value = true;
+					}
+					Unknown_744D80();
+				}
+				return(true);
+			case 4:
+				if (CurrentView && CurrentView == Unknown135C) {
+					Unknown_74D990(0x17, "Cannot save camera in starbase.", 0);
+				} else if (CameraMode == 0) {
+					Unknown_74D990(0x17, "Cannot save camera in first person mode.", 0);
+				} else {
+					CameraModeStruct &mode = CameraModes[CameraMode];
+					mode.Tilt = CameraManager->Get_Tilt();
+					mode.Distance = CameraManager->Get_Distance();
+					mode.Heading = CameraManager->Get_Heading();
+					mode.ElevationOffset = CameraManager->Get_Elevation_Offset();
+					mode.FOV = CameraManager->FOV;
+					if (Unknown_745490()) {
+						Print(0x17, "Camera Slot %i Saved: H%.2f, T:%.2f, D:%.2f FOV:%.2f EO:%.2f", CameraMode, mode.Heading, mode.Tilt, mode.Distance, mode.FOV, mode.ElevationOffset);
+						return(true);
+					}
+					Print(0x17, "Failed to save Camera Slot %i!", CameraMode);
+					return(true);
+				}
+				break;
+			case 5:
+			case 6:
+				if (CurrentView && CurrentView == Unknown135C) break;
+				if (CameraMode == 0) {
+					Unknown28 = !Unknown28;
+					if (CameraMode == 0 && Unknown28) {
+						Unknown_74D990(0x17, "Camera set to 1st person mode with bridge.", 0);
+					} else {
+						Unknown_74D990(0x17, "Camera set to 1st person mode without bridge.", 0);
+					}
+					Unknown_744D80();
+					return(true);
+				}
+				switch (key) {
+					case 5: Unknown_75A570(); break;
+					case 6: Unknown_75A5A0(); break;
+				}
+				Unknown_744D80();
+				Print(0x17, "Camera set to 3rd person mode %i", CameraMode);
+				return(true);
+			default:
+				G_ASSERT(false);
+				break;
+		}
+	}
+	return(false);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 #include "dx8renderer.h"
@@ -1804,261 +2059,6 @@ void SClient::Unknown_745E40(int move_direction, bool fixed_speed)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // NOT EXACT: shape (explain.py): the client keeps the chase module in ecx for the +0x34 test and zeroes the argument before the FAIL_IFs (attempts.py show 0x744C10)
 // 0x744C10
 void SClient::Unknown_744C10()
@@ -2073,21 +2073,21 @@ void SClient::Unknown_744C10()
 	BridgeInterface->Unknown_53BBC0(Create_Peek((RefCountClass *)scene));
 }
 
-// NOT EXACT: shape (explain.py): the client stores Unknown12B0 before Unknown12B4 and pushes Heading before taking the mode's address (attempts.py show 0x744D80)
-// 0x744D80
-void SClient::Unknown_744D80()
-{
-	Unknown12B0 = Unknown10BC;
-	Unknown12B4 = 0;
-	CameraModeStruct &mode = CameraModes[CameraMode];
-	CameraManager->Set_Heading(mode.Heading);
-	CameraManager->Set_Distance(mode.Distance);
-	CameraManager->Set_Tilt(mode.Tilt);
-	CameraManager->Set_Elevation_Offset(mode.ElevationOffset);
-	CameraManager->Unknown_79B4B0(CameraMode == 0);
-	CameraManager->FOV = mode.FOV;
-	Unknown_744C10();
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

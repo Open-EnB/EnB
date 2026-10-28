@@ -47,7 +47,7 @@ SOptionsClass::~SOptionsClass()
 
 
 // 0x75A530
-void SOptionsClass::Set_Camera_Mode(unsigned cameramode)
+unsigned SOptionsClass::Set_Camera_Mode(unsigned cameramode)
 {
 	if (cameramode >= CameraModeCount) {
 		G_ASSERT(cameramode >=0 && cameramode < CameraModeCount);
@@ -56,7 +56,7 @@ void SOptionsClass::Set_Camera_Mode(unsigned cameramode)
 	CameraMode = cameramode;
 	if (cameramode != 0) {
 		LastCameraMode = cameramode;
-	}
+	} return(cameramode);
 }
 
 // 0x75A570
@@ -79,10 +79,10 @@ void SOptionsClass::Unknown_75A5A0()
 	}
 }
 
-// 0x75A5D0
-void SOptionsClass::Unknown_75A5D0()
+// 0x75A5D0 (SClient 0x7436A0 prints its result as the 3rd-person mode)
+unsigned SOptionsClass::Unknown_75A5D0()
 {
-	Set_Camera_Mode(LastCameraMode);
+	return(Set_Camera_Mode(LastCameraMode));
 }
 
 
