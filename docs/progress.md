@@ -1348,6 +1348,12 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 
 ## 3. Open decisions
 
+* **bada317's matching rule** (2026-10-28, PK1, landed without a decision; coordinator recommends keep): objmatch's
+  self-name round files every vtable slot 0 `??_E` name under `??_G` too (VC6 emits the scalar `??_G` for a class never
+  new[]'d; symbols.py names slot 0 `??_E`). +293 pairs (276 addresses: app 173, ww3d2 72, wwmath 26, wwlib 11, ...),
+  0 lost, whole tree verified, replay 0, udpreplay PASS. Keep it, or revert it and treat it like D94(b) / D95(b)
+  (a quiet-tree round)? M4's D118 measurement listed this alias as a separate next step.
+
 * **P-LD1-2** (2026-10-28, LD1; recommend accept, a D69 safety default): drawcheck, vidtest_sbs and run_vidtest
   default to `--art build/art` whenever that folder exists, since VIDTEST's LandClass can now write the .pld (Save_PLD)
   beside the art it reads; without `--art` drawcheck runs ours on the install folder.
