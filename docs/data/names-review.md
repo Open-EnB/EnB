@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 36 |
 | 3 | by convention from a client-named file or sibling | 891 |
 | 2 | describes what the code does | 2150 |
-| 1 | neutral placeholder | 4249 |
+| 1 | neutral placeholder | 4253 |
 
 ## For review (score 3 and below)
 
@@ -1047,6 +1047,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_6E87C0` | `app/client/eff_o.cpp:670` | untagged neutral name (D10) |
 | 1 | `Unknown_6FED80` | `app/client/eff_o.cpp:859` | untagged neutral name (D10) |
 | 1 | `Unknown_6E9190` | `app/client/eff_o.cpp:871` | untagged neutral name (D10) |
+| 1 | `UnknownB000F0EffectClass` | `app/client/eff_o.cpp:878` | untagged neutral name (D10) |
 | 1 | `UnknownAF0DD0Class` | `app/client/eff_o.h:42` | neutral (D10) |
 | 1 | `node, object` | `app/client/eff_o.h:46` | what the effects pass |
 | 1 | `Unknown_73FDB0` | `app/client/eff_o.h:46` | untagged neutral name (D10) |
@@ -1126,7 +1127,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_6E87C0` | `app/client/eff_o.h:172` | untagged neutral name (D10) |
 | 1 | `Unknown_6E8F80` | `app/client/eff_o.h:173` | untagged neutral name (D10) |
 | 1 | `Unknown_6E9190` | `app/client/eff_o.h:174` | untagged neutral name (D10) |
-| 1 | `Unknown_6E6A90` | `app/client/eff_o.h:186` | untagged neutral name (D10) |
+| 1 | `UnknownB000F0EffectClass` | `app/client/eff_o.h:188` | neutral (D10) |
+| 1 | `client .. cycle_time` | `app/client/eff_o.h:191` | the base's |
+| 1 | `position` | `app/client/eff_o.h:192` | the base's |
+| 1 | `Unknown_6E6A90` | `app/client/eff_o.h:195` | untagged neutral name (D10) |
 | 1 | `Unknown_7E7A40` | `app/client/emote_data.h:25` | untagged neutral name (D10) |
 | 1 | `Unknown_7E76E0` | `app/client/emote_data.h:26` | untagged neutral name (D10) |
 | 1 | `Unknown_7E6860` | `app/client/emote_data.h:27` | untagged neutral name (D10) |

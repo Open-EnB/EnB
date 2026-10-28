@@ -1,6 +1,6 @@
 {
  "app": {
-  "ambiguous_total": 123,
+  "ambiguous_total": 124,
   "base": "reconstructed",
   "compile_errors": [],
   "files": {
@@ -1764,7 +1764,8 @@
     "ambiguous": [
      "0x42A6C0",
      "0x42B2F0",
-     "0x457CA0"
+     "0x457CA0",
+     "0x6E4BA0"
     ],
     "copy": "reconstructed",
     "expected": {},
@@ -1809,7 +1810,8 @@
      "0x6E87C0",
      "0x6E8800",
      "0x6E8F80",
-     "0x6E9190"
+     "0x6E9190",
+     "0x6E9230"
     ],
     "merged": [],
     "name": "client/eff_o.cpp"
@@ -8645,7 +8647,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 4239,
+  "in_tree_total": 4240,
   "totals": {}
  },
  "binkmovie": {

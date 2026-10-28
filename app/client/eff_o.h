@@ -183,6 +183,15 @@ public:
 	LegoIdentifierClass SourceLego;						// +0xCC  // NAME 3: the effect packets' SourceLego
 };
 
+// A unary end that tracks its source from the start (vtable 0xB000F0, 0xD8 bytes, constructor 0x6E9230; a
+// factory helper 0x6EB850 makes one too): slot +0x08 gives its transform's translation
+class UnknownB000F0EffectClass : public UnknownB00060EffectClass	// NAME 1: neutral (D10)
+{
+public:
+	UnknownB000F0EffectClass(ClientClass *client, unsigned id, unsigned start_time, unsigned duration, unsigned cycle_time);	// 0x6E9230 (flag 0x80 set)  // NAME 1 [client .. cycle_time]: the base's
+	virtual Vector3 Unknown_08(const Vector3 &position);	// +0x08 0x6E9360  // NAME 1 [position]: the base's
+};
+
 void Unknown_6E6A90(EffectObjectClass *effect);		// 0x6E6A90: the effect ended if it runs, and deleted (SClient's Shutdown and Process_AI)
 
 #endif // EFF_O_H

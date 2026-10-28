@@ -874,6 +874,19 @@ void UnknownB0009CEffectClass::Unknown_6E9190()
 	TargetPosition = TargetObject->Unknown_24() + TargetOffset;
 }
 
+// 0x6E9230
+UnknownB000F0EffectClass::UnknownB000F0EffectClass(ClientClass *client, unsigned id, unsigned start_time, unsigned duration, unsigned cycle_time) :
+	UnknownB00060EffectClass(client, id, start_time, duration, cycle_time)
+{
+	Set_Flag(0x80, true);
+}
+
+// 0x6E9360
+Vector3 UnknownB000F0EffectClass::Unknown_08(const Vector3 &)
+{
+	return(Transform.Get_Translation());
+}
+
 /*
 **	Reconstruction notes (EF1, 2026-10-28)
 **
