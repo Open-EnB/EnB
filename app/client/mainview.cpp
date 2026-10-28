@@ -24,8 +24,8 @@ bool Unknown_C404F8;			// NAME 1: neutral (D10): the client's 0xC404F8, 0x514480
 class MainViewSceneClass : public SimpleSceneClass	// NAME 1: neutral (D10)
 {
 public:
-	MainViewSceneClass();							// 0x75ECF0
-	char Unknown98[0xF4 - 0x98];
+	MainViewSceneClass(); void Unknown_75F690(const Vector3 &sun, const Vector3 &camera); void Unknown_75F700(const Vector3 &color); virtual void Unknown_68(CameraClass *camera);	// 0x75ECF0; 0x75F690 / 0x75F700 / slot +0x68 (its own): Update  // NAME 1 [sun, camera, color]: what Update passes
+	MainViewSceneUnknown98Class *Unknown98; char Unknown9C[0xF4 - 0x9C];	// +0x98 (Update calls its 0x493D00)
 };
 
 // enbdazzle.cpp's visibility handler (0x75DD00, 8 bytes)
@@ -896,6 +896,109 @@ Vector3 Unknown_50EE60(const Vector3 &source)
 
 
 
+// NOT EXACT: functional (MV2, from the disassembly): the client's DurationClass operator+ is out of line (0x514B00) and duration.h can't take a declaration (aux_roots.cpp's pad, workflow.md §3.3)
+void MainViewClass::Update(CameraClass *camera, bool under)
+{
+	WWPROFILE("MainView::Update");
+	SClient *client = Get_Client();
+	FAIL_IF(!client) return;
+	DurationClass now((unsigned)client->Unknown10BC);
+	now.Time += client->Unknown10C0.Time;
+	float hours = now.As_Int() * 2.777778e-07f;
+	if (Client->DebugMode) {
+		hours += Client->Unknown1390;
+	}
+	if (!Unknown168) {
+		Orbitals->Update(camera, hours, Client->ViewMode == 1);
+	}
+	Vector3 sun = Orbitals->Unknown14;
+	Vector3 sky = Orbitals->Unknown34;
+	switch (Client->ViewMode) {
+	case 0:
+		{
+			WWPROFILE("AdjustDayNight");
+			((MainViewSceneClass *)Scene)->Unknown_75F690(Orbitals->Unknown20, camera->Get_Position());
+			Scene->Set_Ambient_Light(Orbitals->Unknown58);
+			Scene->Set_Fog_Enable(false);
+			if (Client->Unknown10F8) {
+				Unknown110->Set_Ambient_Light(Orbitals->Unknown58);
+			} else {
+				Unknown110->Set_Ambient_Light(Vector3(0.5f, 0.5f, 0.5f));
+			}
+			Unknown110->Set_Fog_Color(sky);
+			float fogfar = Client->Unknown10F0;
+			float fognear = Client->Unknown10EC;
+			if (fogfar - fognear > 10.0f) {
+				Scene->Set_Fog_Enable(true);
+				Scene->Set_Fog_Range(fognear, fogfar);
+				Scene->Set_Fog_Color(sky);
+			}
+		}
+		break;
+	case 1:
+		{
+			if (under) {
+				sun.X *= SeaColor.X;
+				sun.Y *= SeaColor.Y;
+				sun.Z *= SeaColor.Z;
+				sky.X *= SeaColor.X;
+				sky.Y *= SeaColor.Y;
+				sky.Z *= SeaColor.Z;
+			}
+			Vector3 ambient = sky + Orbitals->Unknown58;
+			if (ambient.X > 1.0f) ambient.X = 1.0f;
+			if (ambient.Y > 1.0f) ambient.Y = 1.0f;
+			if (ambient.Z > 1.0f) ambient.Z = 1.0f;
+			Unknown110->Set_Ambient_Light(ambient);
+			Scene->Set_Ambient_Light(ambient);
+			Land->Update_Patches(*camera, LandLOD);
+			Unknown16C = sky;
+			Unknown198 = ambient.X;
+			Unknown19C = ambient.Y;
+			Unknown1A0 = ambient.Z;
+			Unknown1A4 = Orbitals->Unknown4C;
+			Unknown190 = Orbitals->Unknown2C;
+			Unknown178 = sun;
+			Unknown184 = Orbitals->Unknown20;
+			Unknown194 = Orbitals->Unknown30;
+			((MainViewSceneClass *)Scene)->Unknown_75F700(sun * 0.5f);
+			// +0x178..+0x1A4 are the land's lighting (LandLightingStruct's layout and the constructor's defaults)
+			const LandLightingStruct &lighting = *(const LandLightingStruct *)&Unknown178;
+			static bool was_under;		// the client's 0xBE59E4
+			if (Land->Has_Sea()) {
+				if (was_under != under) {
+					Land->Update_Lightmap_Full(lighting);
+				} else {
+					Land->Update_Lightmap_ManualThreaded(lighting);
+				}
+				was_under = under;
+			} else {
+				Land->Update_Lightmap_ManualThreaded(lighting);
+			}
+			Scene->Set_Fog_Color(Unknown16C);
+			Unknown110->Set_Fog_Color(Unknown16C);
+			Scene->Set_Fog_Enable(true);
+			if (under) {
+				Scene->Set_Fog_Range(SeaFogNear, SeaFogFar);
+			} else {
+				Scene->Set_Fog_Range(Client->Unknown10EC, Client->Unknown10F0);
+			}
+		}
+		break;
+	case 5:
+		Unknown110->Set_Fog_Color(sky);
+		Scene->Set_Ambient_Light(Orbitals->Unknown58);
+		if (Client->Unknown10F8) {
+			Unknown110->Set_Ambient_Light(Orbitals->Unknown58);
+		} else {
+			Unknown110->Set_Ambient_Light(Vector3(0.5f, 0.5f, 0.5f));
+		}
+		Scene->Set_Fog_Color(sky);
+		Scene->Set_Fog_Enable(true);
+		Scene->Set_Fog_Range(Client->Unknown10EC, Client->Unknown10F0);
+		Unknown138->Unknown_53E470(hours * Wind);
+		break;
+	default:
 
 
 
@@ -928,179 +1031,76 @@ Vector3 Unknown_50EE60(const Vector3 &source)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+		G_ASSERT(0);
+		break;
+	}
+	Unknown110->Set_Fog_Enable(Client->Unknown10F9);
+	Unknown110->Set_Fog_Range(Client->Unknown10FC, Client->Unknown1100);
+	Unknown144[0]->Set_Diffuse(sun);
+	sun = Orbitals->Unknown20;
+	for (int i = 0; i < 4; i++) {
+		Scene->Remove_Render_Object(Unknown144[i].Peek());
+	}
+	Unknown110->Remove_Render_Object(Unknown164.Peek());
+	sun.Normalize();
+	if (Client->ViewMode == 0) {
+		Vector3 view = camera->Get_Transform().Get_Z_Vector();
+		const Vector4 &fill = Orbitals->Unknown_4F50D0(4);
+		if (fill.X * fill.X + fill.Y * fill.Y + fill.Z * fill.Z + fill.W * fill.W > 0.0001f) {
+			Scene->Set_Ambient_Light(Vector3(fill.X * fill.W, fill.Y * fill.W, fill.Z * fill.W));
+		}
+		for (int k = 0; k < 4; k++) {
+			Vector4 color = Orbitals->Unknown_4F50D0(k);
+			Vector3 offset = Orbitals->Unknown_4F5140(k);
+			Vector3 dir;
+			switch (k) {
+			case 0: dir = sun; break;
+			case 1: dir = -sun; break;
+			case 2: dir = view; break;
+			case 3: dir = -view; break;
+			}
+			bool add = false;
+			if (color.X * color.X + color.Y * color.Y + color.Z * color.Z + color.W * color.W > 0.0001f) {
+				Unknown144[k]->Set_Diffuse(Vector3(color.X, color.Y, color.Z));
+				Unknown144[k]->Set_Intensity(color.W);
+				add = (k != 0);
+			}
+			dir.Normalize();
+			if (offset.Length2() > 0.0001f) {
+				// the offset in the frame of dir and two perpendiculars
+				Vector3 side = Vector3::Cross_Product(Vector3(0.0f, 0.0f, 1.0f), dir);
+				if (side.Length2() < 0.0001f) {
+					side = Vector3::Cross_Product(Vector3(0.0f, 1.0f, 1.0f), dir);
+				}
+				side.Normalize();
+				Vector3 up = Vector3::Cross_Product(dir, side);
+				up.Normalize();
+				dir += dir * offset.X + side * offset.Y + up * offset.Z;
+				dir.Normalize();
+			}
+			Unknown144[k]->Set_Spot_Direction(-dir);
+			if (add) {
+				Scene->Add_Render_Object(Unknown144[k].Peek());
+			}
+		}
+	} else {
+		Unknown144[0]->Set_Spot_Direction(-sun);
+	}
+	if (Orbitals->Unknown4C) {
+		Scene->Add_Render_Object(Unknown144[0].Peek());
+		((MainViewSceneClass *)Scene)->Unknown98->Unknown_493D00(-Orbitals->Unknown20);
+		((MainViewSceneClass *)Scene)->Unknown_68(Camera);
+		if (Client->Unknown10F8) {
+			Vector3 dir;
+			Unknown144[0]->Get_Spot_Direction(dir);
+			Unknown164->Set_Spot_Direction(dir);
+			Vector3 diffuse;
+			Unknown144[0]->Get_Diffuse(&diffuse);
+			Unknown164->Set_Diffuse(diffuse);
+			Unknown110->Add_Render_Object(Unknown164.Peek());
+		}
+	}
+}
 
 
 

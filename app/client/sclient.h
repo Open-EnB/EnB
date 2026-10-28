@@ -50,6 +50,7 @@ class DazzleLayerClass;
 class LightClass;
 class StarFieldClass;
 class OrbitalManager;
+class Vector4;
 class MainViewOrbitalCallbackClass;
 class MainViewUnknown84Class;
 class MainViewDazzleHandlerClass;
@@ -289,10 +290,29 @@ public:
 	void Unknown_4F34C0(INIClass &ini);				// 0x4F34C0 (0x513700: orbital%04d.ini when it loaded)  // NAME 1 [ini]: what it gets
 	float Get_Unknown54() const { return(Unknown54); }	// (inline: the main view's 0x50CCF0 copies it through the FPU)  // NAME 1: neutral (D10): the member it returns
 
-	char Unknown00[0x50];								// +0x00
+	void Update(CameraClass *camera, float time, bool planet);	// 0x4F45A0 (the main view's Update unless its +0x168 is set: the hours, view mode 1)  // NAME 1 [camera, time, planet]: what Update passes
+	const Vector4 &Unknown_4F50D0(int index);			// 0x4F50D0 (Update, view mode 0: light index's colour and intensity, 4 the fill)  // NAME 1 [index]: neutral
+	const Vector3 &Unknown_4F5140(int index);			// 0x4F5140 (Update, view mode 0: light index's offset)  // NAME 1 [index]: neutral
+
+	char Unknown00[0x14];								// +0x00
+	Vector3 Unknown14;									// +0x14 (Update: the sun's colour, the land's LightColor)
+	Vector3 Unknown20;									// +0x20 (Update: the sun's direction, the land's SunDirection)
+	float Unknown2C;									// +0x2C (Update: the land's SunAngle)
+	float Unknown30;									// +0x30 (Update: the land's ShadowBias)
+	Vector3 Unknown34;									// +0x34 (Update: the fog colour)
+	char Unknown40[0x4C - 0x40];						// +0x40
+	bool Unknown4C;										// +0x4C (Update: the sun light is added; the land's Valid)
 	float Unknown50;									// +0x50 (the main view's 0x50CCF0: the near plane at a unit FOV)
 	float Unknown54;									// +0x54 (0x50CCF0: the far plane)
-	char Unknown58[0x1D4 - 0x58];						// +0x58
+	Vector3 Unknown58;									// +0x58 (Update: the ambient light)
+	char Unknown64[0x1D4 - 0x64];						// +0x64
+};
+
+// what the main view's scene (0x75ECF0) holds at +0x98, as far as Update calls it
+class MainViewSceneUnknown98Class	// NAME 1: neutral (D10)
+{
+public:
+	void Unknown_493D00(const Vector3 &dir);			// 0x493D00 (Update: minus the sun's direction)  // NAME 1 [dir]: what Update passes
 };
 
 // what the main view's +0x48 points to (0x28 bytes, constructor 0x6E2BD0; slot +0x14 calls its +0x34)
@@ -376,6 +396,7 @@ public:
 	MainViewUnknown138Class(MainViewClass *view, SimpleSceneClass *scene, INIClass &ini);	// 0x53D250 (0xA4 bytes; 0x50C690: the +0x10C scene, settings.ini)  // NAME 1 [view, scene, ini]: what 0x50C690 passes
 	void Unknown_53DFB0(int mode);						// 0x53DFB0  // NAME 1 [mode]: the main view's
 	void Unknown_53E030(float value);					// 0x53E030  // NAME 1 [value]: the main view's
+	void Unknown_53E470(const Vector3 &offset);			// 0x53E470 (the main view's Update, view mode 5: the hours times the wind)  // NAME 1 [offset]: neutral
 	void Unknown_53E0B0();								// 0x53E0B0
 	void Unknown_53E0E0();								// 0x53E0E0
 	void Unknown_53E110(int arg);						// 0x53E110  // NAME 1 [arg]: neutral
@@ -796,7 +817,7 @@ public:
 	ClientTaskClass *Task;								// +0x1384 the constructor's argument  // NAME 2: what it holds
 	bool Unknown1388;									// +0x1388
 	int Unknown138C;									// +0x138C (1 after '/camp')
-	int Unknown1390;									// +0x1390
+	float Unknown1390;									// +0x1390 (the main view's Update adds it to the hours in debug mode)
 	std::hash_map<unsigned, SClientUnknown1394Class *> Unknown1394;	// +0x1394 keyed by game id (0x756820: the debug object's)
 	int Unknown13AC;									// +0x13AC
 	int Unknown13B0;									// +0x13B0
