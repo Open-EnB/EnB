@@ -535,18 +535,18 @@ FontStyleClass *FontManagerClass::Get_Style(const char *name, unsigned int id)
 	}
 	return style;
 }
-// NOT EXACT: frame, 56 rows: ours keeps one more stack slot and releases style after the assert (attempts.csv)
+// The style test after the if (font) block (the font-less path skips it); the key copy keeps ecx = this for Find (H21)
 RefCountPtr<FontStyleClass> FontManagerClass::Unknown_6D2700(const char *name, const unsigned int &id)
 {
 	RefCountPtr<FontStyleClass> style;
-	ManagedFontClass *font = Find(id);
+	unsigned int key = id;
+	ManagedFontClass *font = Find(key);
 	if (font) {
 		style = Create_Peek(font->Unknown_6D1600(name));
-		if (style) {
-			return style;
-		}
 	}
-
+	if (style) {
+		return style;
+	}
 	G_ASSERT(0);
 	return DebugFont;
 }
@@ -578,7 +578,7 @@ ManagedFontClass *FontManagerClass::Find(unsigned int id)
 **	client.exe: the window 0x6D0F70-0x6D2A70 (asserts on lines 360, 524, 533 and 550), then the
 **	containers' instances. Not rebuilt yet: 0x6D0F70 (the out-of-line operator= of a {StringClass,
 **	int, int} member of FontStyleClass at +0x68 / +0x74 / +0x80; its callers 0x6D0A70, 0x6D47C0 and
-**	0x6D4C70 are in other files). 0x6D2700 is written (NOT EXACT, frame). 0x6D2400 / 0x6D2480 / 0x6D2500 differ only by their callee: one pattern, not counted.
+**	0x6D4C70 are in other files). 0x6D2700 exact (H21: a flat style test and a key copy). 0x6D2400 / 0x6D2480 / 0x6D2500 differ only by their callee: one pattern, not counted.
 **	The depth lever (workflow.md 3.1) made the destructor and 0x6D1C10 exact: the client calls the
 **	nested table helpers out of line when they sit one inline level deeper.
 **	Find 0x6D2A70 is never inlined (#pragma auto_inline(off)): the client calls it out of line in
