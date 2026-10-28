@@ -1700,9 +1700,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `UnknownAD` | `app/client/ui_line_display.cpp:165` | untagged neutral name (D10) |
 | 1 | `UnknownB8` | `app/client/ui_line_display.cpp:166` | untagged neutral name (D10) |
 | 1 | `UnknownFC` | `app/client/ui_line_display.cpp:168` | untagged neutral name (D10) |
-| 1 | `Unknown_54` | `app/client/ui_line_display.cpp:200` | untagged neutral name (D10) |
-| 1 | `Unknown_58` | `app/client/ui_line_display.cpp:235` | untagged neutral name (D10) |
-| 1 | `Unknown_5C` | `app/client/ui_line_display.cpp:242` | untagged neutral name (D10) |
+| 1 | `Unknown_54` | `app/client/ui_line_display.cpp:202` | untagged neutral name (D10) |
+| 1 | `Unknown_58` | `app/client/ui_line_display.cpp:237` | untagged neutral name (D10) |
+| 1 | `Unknown_5C` | `app/client/ui_line_display.cpp:244` | untagged neutral name (D10) |
 | 1 | `Unknown_70` | `app/client/ui_line_display.cpp:281` | untagged neutral name (D10) |
 | 1 | `Unknown4C` | `app/client/ui_line_display.cpp:284` | untagged neutral name (D10) |
 | 1 | `Unknown_74` | `app/client/ui_line_display.cpp:288` | untagged neutral name (D10) |

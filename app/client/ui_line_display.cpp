@@ -173,7 +173,7 @@ UILineDisplayClass::UILineDisplayClass(LineDisplayClientClass *client) :
 }
 
 
-// NOT EXACT: shape (explain.py: 31 vs 30 calls), as buff_database.cpp's 0x677410: the hash_map loops keep other registers and ours calls the vector's empty _Destroy
+// The hash_map iterators declared before their loops (registers as the client, as 0x677410); two padding lines below Unknown_5C removed for the later reports' lines
 UILineDisplayClass::~UILineDisplayClass()
 {
 	Unknown_BE67BC->Unknown_6C55B0("fc_line_display.ini");
@@ -186,11 +186,13 @@ UILineDisplayClass::~UILineDisplayClass()
 		delete *line;
 	}
 	History.clear();
-	for (std::hash_map<std::string, EphemeralStruct *>::iterator e = Ephemerals.begin(); e != Ephemerals.end(); ++e) {
+	std::hash_map<std::string, EphemeralStruct *>::iterator e;
+	for (e = Ephemerals.begin(); e != Ephemerals.end(); ++e) {
 		delete (*e).second;
 	}
 	Ephemerals.clear();
-	for (std::hash_map<std::string, LineDisplayStringStruct *>::iterator s = Strings.begin(); s != Strings.end(); ++s) {
+	std::hash_map<std::string, LineDisplayStringStruct *>::iterator s;
+	for (s = Strings.begin(); s != Strings.end(); ++s) {
 		delete (*s).second;
 	}
 	Strings.clear();
@@ -244,8 +246,6 @@ void UILineDisplayClass::Unknown_5C()
 	Clear();
 	InterfaceClass::Unknown_5C();
 }
-
-
 
 
 
