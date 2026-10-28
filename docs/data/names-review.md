@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 34 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 36 |
-| 3 | by convention from a client-named file or sibling | 828 |
-| 2 | describes what the code does | 1949 |
-| 1 | neutral placeholder | 3505 |
+| 3 | by convention from a client-named file or sibling | 834 |
+| 2 | describes what the code does | 1956 |
+| 1 | neutral placeholder | 3588 |
 
 ## For review (score 3 and below)
 
@@ -856,7 +856,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_74E710` | `app/client/cpacket.cpp:3179` | untagged neutral name (D10) |
 | 1 | `Unknown_74EB00` | `app/client/cpacket.cpp:3188` | untagged neutral name (D10) |
 | 1 | `Unknown_7517E0` | `app/client/cpacket.cpp:3333` | untagged neutral name (D10) |
-| 1 | `Unknown14` | `app/client/cpacket.cpp:3333` | untagged neutral name (D10) |
 | 1 | `Unknown_751850` | `app/client/cpacket.cpp:3345` | untagged neutral name (D10) |
 | 1 | `Unknown_751460` | `app/client/cpacket.cpp:3413` | untagged neutral name (D10) |
 | 1 | `Unknown08` | `app/client/emote_data.h:26` | untagged neutral name (D10) |
@@ -3402,8 +3401,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_Report_Message` | `stubs/app_stubs.cpp:41` | untagged neutral name (D10) |
 | 1 | `Unknown_Debug_Printf` | `stubs/app_stubs.cpp:55` | untagged neutral name (D10) |
 | 1 | `DeltaUnknownGlobal` | `stubs/app_stubs.cpp:69` | untagged neutral name (D10) |
-| 1 | `DeltaCompoundUnknownGlobal` | `stubs/app_stubs.cpp:70` | untagged neutral name (D10) |
-| 1 | `UnknownGlobal` | `stubs/app_stubs.cpp:71` | untagged neutral name (D10) |
+| 1 | `UnknownGlobal` | `stubs/app_stubs.cpp:70` | untagged neutral name (D10) |
 | 1 | `m_Unknown00` | `stubs/app_stubs.cpp:137` | untagged neutral name (D10) |
 | 1 | `Unknown_4F00C0` | `stubs/app_stubs.cpp:153` | untagged neutral name (D10) |
 | 1 | `Unknown_ChatStreamClass` | `stubs/app_stubs.cpp:160` | untagged neutral name (D10) |
