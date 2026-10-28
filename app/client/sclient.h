@@ -52,6 +52,7 @@ class SClientUnknown12C4Class;	// NAME 1: neutral (D10): the elements of SClient
 class SClientUnknown1334Class;	// NAME 1: neutral (D10): 0xB8 bytes, destructor 0x618A50; decal.cpp's 0x75BE00 loads the decal INIs into it
 class SClientUnknown1338Class;	// NAME 1: neutral (D10): 0x24 bytes, an INIClass at +0x14; env_map_manager.cpp's 0x760360 loads 'envmaps.ini' into it
 class SClientUnknown12BCClass;	// NAME 1: neutral (D10): what SClient +0x12BC points to (a virtual destructor)
+class Unknown6D47C0Class;		// NAME 1: neutral (D10): the 0x4E8-byte text object CLIENT_DAMAGE 100 makes (constructor 0x6D47C0; cpacket.cpp)
 class SClientUnknown1330Class;	// NAME 1: neutral (D10): what SClient +0x1330 points to (destructor 0x43C560, musicmanager.cpp's neighbourhood)
 class ProjDecalManagerClass;		// NAME 3: class-from-file (D24) for proj_decal_manager.cpp (0x763050 loads 'proj_dec.ini' into it; 0x10 bytes, one vector)
 class SClientUnknown1394Class;	// NAME 1: neutral (D10): the values of SClient +0x1394 (reference counted, slot +0x38)
@@ -107,6 +108,7 @@ public:
 	void Unknown_581F90(ClientObjectClass *hulk);		// 0x581F90 (cpacket.cpp: LOOT_HULK_PERMISSION 140)  // NAME 1 [hulk]: the packet's HulkGameID's object
 	void Unknown_5820C0(bool on);						// 0x5820C0 (cpacket.cpp: OPEN_INTERFACE 102 passes UIChange == 0)  // NAME 1 [on]: what the handler passes
 	void Unknown_584A60();								// 0x584A60 (SClient 0x745160)
+	void Unknown_583DC0(Unknown6D47C0Class *text, Unknown6D47C0Class *header, int inflicted, bool emp);	// 0x583DC0 (cpacket.cpp: CLIENT_DAMAGE 100 for the player's own damage)  // NAME 1 [text, header, inflicted, emp]: what the handler passes
 };
 
 // what the main view's slot +0x64 returns, as far as SClient 0x7456B0 calls it
@@ -167,7 +169,7 @@ public:
 	virtual void Unknown_3C();
 	virtual void Unknown_40();
 	virtual void Unknown_44();
-	virtual void Unknown_48();
+	virtual int Unknown_48();							// +0x48 (CLIENT_DAMAGE 100 hands its result to Add_Effect)
 	virtual void Unknown_4C();
 	virtual void Unknown_50();
 	virtual void Unknown_54();

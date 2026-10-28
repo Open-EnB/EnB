@@ -1634,11 +1634,165 @@ bool VerbUpdatePacketClass::Process_Packet(void *instance)
 	return(true);
 }
 
-// 0x739330
-bool ManufactureSetPacketClass::Process_Packet(void *instance)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#include "vector2.h"
+
+// The 0x4E8-byte text object (constructor 0x6D47C0, as ui_line_display.h's and fontmanager.h's), as CLIENT_DAMAGE
+// 100 makes it: a section name, 0 and the text
+class Unknown6D47C0Class : public RefCountClass	// NAME 1: neutral (D10)
 {
-	WWPROFILE("ManufactureSetPacketClass::Process_Packet(void * instance)");
-	((SClient *)((ClientClass *)instance)->Unknown_18())->Unknown1328 = ManufactureID;
+public:
+	Unknown6D47C0Class(const char *name, int unknown, const char *text);	// 0x6D47C0  // NAME 1 [name, unknown, text]: what the handler passes
+	void Unknown_6D8780(float x, float y);	// 0x6D8780 (CLIENT_DAMAGE 100 passes 320, 240)  // NAME 1 [x, y]: neutral
+
+	char Unknown08[0x4E8 - 0x08];
+};
+
+// eff_robj.cpp's 0xF0-byte effect around a text object, as far as CLIENT_DAMAGE 100 makes it
+class Unknown6EF4C0Class	// NAME 1: neutral (D10)
+{
+public:
+	Unknown6EF4C0Class(SClient *client, int id, int time, int duration, int unknown, Unknown6D47C0Class *text, const Vector2 &offset, const Vector3 &velocity);	// 0x6EF4C0  // NAME 1 [client, id, time, duration, unknown, text, offset, velocity]: what the handler passes
+
+	virtual ~Unknown6EF4C0Class();
+	virtual void Unknown_04();
+	virtual void Unknown_08();
+	virtual void Unknown_0C();
+	virtual void Unknown_10();
+	virtual void Unknown_14();
+	virtual void Unknown_18();
+	virtual void Unknown_1C();
+	virtual void Unknown_20();
+	virtual void Unknown_24();
+	virtual void Unknown_28(int id);	// +0x28 the object's id (as Unknown6E9490TargetClass's)  // NAME 1 [id]: the packet's Victim
+
+	char Unknown04[0xF0 - 0x04];
+};
+// NOT EXACT: frame (the same 487 instructions; the client gives the locals other stack slots: time, inflicted, mainview, avatar_id, type ascending; 5 forms; attempts.py show 0x738970)
+// 0x738970
+bool DamagePacketClass::Process_Packet(void *instance)
+{
+	WWPROFILE("DamagePacketClass::Process_Packet()");
+	SClient *sclient = (SClient *)instance;
+	ClientObjectClass *avatar = sclient->Get_Debug_Object();
+
+
+	FAIL_IF(!avatar) return(true);
+	unsigned avatar_id = avatar->GameID;
+	MainViewClass *mainview = sclient->MainView;
+	int time = sclient->Unknown10BC;
+
+
+
+
+
+
+
+	FAIL_IF(!mainview) return(true);
+	int type = Type;
+	int inflicted = Inflicted;
+	int damage = (int)(Damage + 0.5f);
+	int modifier = (int)Modifer;
+	char text[64];
+	if (modifier > 0) {
+		_snprintf(text, sizeof(text), "%d (+%d)", damage, modifier);
+	} else if (modifier < 0) {
+		_snprintf(text, sizeof(text), "%d (%d)", damage, modifier);
+	} else {
+		_snprintf(text, sizeof(text), "%d", damage);
+	}
+	std::string header("VictimDamageNormal");
+	switch (type) {
+		case 0:
+		case 1:
+		case 3:
+			if (inflicted == 3) {
+				header = "VictimDamageCritical";
+			}
+			break;
+		case 2:
+			header = "VictimDamagePlasma";
+			break;
+		case 4:
+			header = "VictimDamageEMP";
+			break;
+		case 5:
+			header = "VictimDamageChemical";
+			break;
+	}
+	Unknown6D47C0Class *damage_text = new Unknown6D47C0Class(header.c_str(), 0, text);
+	Unknown6D47C0Class *header_text = 0;
+	if (inflicted == 3) {
+		if (Victim == avatar_id) {
+			header_text = new Unknown6D47C0Class("PlayerCriticalDamageHeader", 0, "Critical!");
+		} else {
+			header_text = new Unknown6D47C0Class("VictimCriticalDamageHeader", 0, "Critical!");
+		}
+	} else if (type == 4) {
+		if (Victim == avatar_id) {
+			header_text = new Unknown6D47C0Class("PlayerEMPHeader", 0, "EMP");
+		} else {
+			header_text = new Unknown6D47C0Class("VictimEMPHeader", 0, "EMP");
+		}
+	}
+	if (Victim == avatar_id) {
+		if (sclient->MainView->Cpit) {
+			sclient->MainView->Cpit->Unknown_583DC0(damage_text, header_text, inflicted, type == 4);
+		}
+	} else if (Source == avatar_id) {
+		if (damage_text) {
+			damage_text->Unknown_6D8780(320.0f, 240.0f);
+			int id = -(--sclient->Unknown113C);
+			Unknown6EF4C0Class *effect = new Unknown6EF4C0Class(sclient, id, time, 2000, 0, damage_text, Vector2(0.0f, 0.1f), Vector3(0.0f, 0.0f, 0.0f));
+			effect->Unknown_28(Victim);
+			damage_text->Release_Ref();
+			sclient->Add_Effect((EffectObjectClass *)effect, mainview->Unknown_48(), mainview->Unknown_7C());
+		}
+		if (header_text) {
+			header_text->Unknown_6D8780(320.0f, 240.0f);
+			int id = -(--sclient->Unknown113C);
+			Unknown6EF4C0Class *effect = new Unknown6EF4C0Class(sclient, id, time, 2000, 0, header_text, Vector2(0.0f, 0.2f), Vector3(0.0f, 0.0f, 0.0f));
+			effect->Unknown_28(Victim);
+			header_text->Release_Ref();
+			sclient->Add_Effect((EffectObjectClass *)effect, mainview->Unknown_48(), mainview->Unknown_7C());
+		}
+	}
 	return(true);
 }
 
@@ -1730,167 +1884,13 @@ bool ManufactureSetPacketClass::Process_Packet(void *instance)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// 0x739330
+bool ManufactureSetPacketClass::Process_Packet(void *instance)
+{
+	WWPROFILE("ManufactureSetPacketClass::Process_Packet(void * instance)");
+	((SClient *)((ClientClass *)instance)->Unknown_18())->Unknown1328 = ManufactureID;
+	return(true);
+}
 
 // 0x7393D0
 bool ClickIndicatorPacketClass::Process_Packet(void *instance)

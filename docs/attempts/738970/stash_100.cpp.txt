@@ -1,0 +1,91 @@
+// NOT EXACT: frame (the same 487 instructions; the client gives the locals other stack slots: time, inflicted, mainview, avatar_id, type ascending; 5 forms; attempts.py show 0x738970)
+// 0x738970
+bool DamagePacketClass::Process_Packet(void *instance)
+{
+	WWPROFILE("DamagePacketClass::Process_Packet()");
+	SClient *sclient = (SClient *)instance;
+	ClientObjectClass *avatar = sclient->Get_Debug_Object();
+
+
+	FAIL_IF(!avatar) return(true);
+	unsigned avatar_id = avatar->GameID;
+	MainViewClass *mainview = sclient->MainView;
+	int time = sclient->Unknown10BC;
+
+
+
+
+
+
+
+	FAIL_IF(!mainview) return(true);
+	int type = Type;
+	int inflicted = Inflicted;
+	int damage = (int)(Damage + 0.5f);
+	int modifier = (int)Modifer;
+	char text[64];
+	if (modifier > 0) {
+		_snprintf(text, sizeof(text), "%d (+%d)", damage, modifier);
+	} else if (modifier < 0) {
+		_snprintf(text, sizeof(text), "%d (%d)", damage, modifier);
+	} else {
+		_snprintf(text, sizeof(text), "%d", damage);
+	}
+	std::string header("VictimDamageNormal");
+	switch (type) {
+		case 0:
+		case 1:
+		case 3:
+			if (inflicted == 3) {
+				header = "VictimDamageCritical";
+			}
+			break;
+		case 2:
+			header = "VictimDamagePlasma";
+			break;
+		case 4:
+			header = "VictimDamageEMP";
+			break;
+		case 5:
+			header = "VictimDamageChemical";
+			break;
+	}
+	Unknown6D47C0Class *damage_text = new Unknown6D47C0Class(header.c_str(), 0, text);
+	Unknown6D47C0Class *header_text = 0;
+	if (inflicted == 3) {
+		if (Victim == avatar_id) {
+			header_text = new Unknown6D47C0Class("PlayerCriticalDamageHeader", 0, "Critical!");
+		} else {
+			header_text = new Unknown6D47C0Class("VictimCriticalDamageHeader", 0, "Critical!");
+		}
+	} else if (type == 4) {
+		if (Victim == avatar_id) {
+			header_text = new Unknown6D47C0Class("PlayerEMPHeader", 0, "EMP");
+		} else {
+			header_text = new Unknown6D47C0Class("VictimEMPHeader", 0, "EMP");
+		}
+	}
+	if (Victim == avatar_id) {
+		if (sclient->MainView->Cpit) {
+			sclient->MainView->Cpit->Unknown_583DC0(damage_text, header_text, inflicted, type == 4);
+		}
+	} else if (Source == avatar_id) {
+		if (damage_text) {
+			damage_text->Unknown_6D8780(320.0f, 240.0f);
+			int id = -(--sclient->Unknown113C);
+			Unknown6EF4C0Class *effect = new Unknown6EF4C0Class(sclient, id, time, 2000, 0, damage_text, Vector2(0.0f, 0.1f), Vector3(0.0f, 0.0f, 0.0f));
+			effect->Unknown_28(Victim);
+			damage_text->Release_Ref();
+			sclient->Add_Effect((EffectObjectClass *)effect, mainview->Unknown_48(), mainview->Unknown_7C());
+		}
+		if (header_text) {
+			header_text->Unknown_6D8780(320.0f, 240.0f);
+			int id = -(--sclient->Unknown113C);
+			Unknown6EF4C0Class *effect = new Unknown6EF4C0Class(sclient, id, time, 2000, 0, header_text, Vector2(0.0f, 0.2f), Vector3(0.0f, 0.0f, 0.0f));
+			effect->Unknown_28(Victim);
+			header_text->Release_Ref();
+			sclient->Add_Effect((EffectObjectClass *)effect, mainview->Unknown_48(), mainview->Unknown_7C());
+		}
+	}
+	return(true);
+}
