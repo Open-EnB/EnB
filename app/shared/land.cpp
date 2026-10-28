@@ -1083,6 +1083,49 @@ void LandClass::Load_Decorations_Ini(std::vector<std::string> &names, std::vecto
 	}
 }
 
+// 0x4791D0: the prototypes and decorations as an ini (Load_Decorations_Ini's layout; M is the matrix column by column,
+// "%f" then ",%f"); nothing when either list is empty
+// NOT EXACT: frame (stack slots only: the client keeps the decorations' begin above the ini and the row counter below it;
+// 25 forms, declaration order changes nothing; attempts.csv 0x4791D0)
+void LandClass::Save_Decorations_Ini(std::vector<std::string> &names, std::vector<LandDecorationStruct> &decorations, const char *filename)
+{
+	INIClass ini;
+	unsigned int proto_count = names.size();
+	unsigned int count = decorations.size();
+	if (proto_count != 0 && count != 0) {
+		ini.Put_Int("Prototypes", "NUM_PROTOS", proto_count);
+		char section[256];
+		unsigned int i;
+		for (i = 0; i < proto_count; i++) {
+			sprintf(section, "PROTO%d", i);
+			ini.Put_String("Prototypes", section, names[i].c_str());
+		}
+		for (i = 0; i < count; i++) {
+			sprintf(section, "DECO%d", i);
+			LandDecorationStruct &decoration = decorations[i];
+			ini.Put_Int(section, "DecID", decoration.Proto);
+			const Matrix3D &tm = decoration.Transform;
+			std::string m;
+			bool first = true;
+			for (int column = 0; column < 4; column++) {
+				for (int row = 0; row < 3; row++) {
+					char buffer[512];
+					if (first) {
+						first = false;
+						sprintf(buffer, "%f", tm[row][column]);
+					} else {
+						sprintf(buffer, ",%f", tm[row][column]);
+					}
+					m += buffer;
+				}
+			}
+			ini.Put_String(section, "M", m.c_str());
+			ini.Put_Float(section, "Scale", decoration.Scale);
+		}
+		ini.Save(filename);
+	}
+}
+
 void LandClass::Load_Decorations(std::vector<std::string> &names, std::vector<LandDecorationStruct> &decorations, const char *filename)
 {
 	if (Field == NULL) {
@@ -2786,7 +2829,7 @@ void LandClass::Save_PLD(const char *filename)
 **	fill the patch records that Render draws (both functional; drawcheck frame 900 the original's draws).
 **	The zone loader (mainview 0x5137F0) reads land_%04d.dcb with Load_Decorations 0x4795D0 and builds
 **	from it, or makes the decorations from decoration.ini without one; Save_Decorations 0x479A50 writes
-**	it and Load_Prototype_Names 0x478970 reads an ini section's names (nothing calls either). Not yet
-**	rebuilt: 0x478B50 / 0x4791D0 (the prototypes and decorations as an ini: [Prototypes], [DECO%d] DecID,
-**	Scale and the matrix).
+**	it and Load_Prototype_Names 0x478970 reads an ini section's names (nothing calls either). The same
+**	as an ini ([Prototypes], [DECO%d] DecID, M, Scale): the reader 0x478B50 and the writer 0x4791D0
+**	(NOT EXACT, marked; nothing calls either).
 */
