@@ -94,6 +94,11 @@ void Unknown498C10Class::Unknown_498F00(float, float, float) {}
 void ClientObjectClass::Unknown_6FEF70(SubPartsPacket *) { Trace("stub ClientObjectClass::Unknown_6FEF70 %u", GameID); }
 void ClientObjectClass::Unknown_70E750(int id) { Trace("stub ClientObjectClass::Unknown_70E750 %u target %d", GameID, id); }
 
+// co.cpp's per-frame update 0x6F3C60 prints the player's position on wwlib's mono screen (the client's global at
+// 0xC1ECC0, constructed next to mono.cpp's code; no tree file defines it)
+#include "_mono.h"
+MonoClass Mono;
+
 // ------------------------------------------------------------------------- eff_o.cpp's effect, the third list's records
 
 EffectObjectClass::~EffectObjectClass() { Trace("stub EffectObjectClass::~EffectObjectClass %u", ID); }
