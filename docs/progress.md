@@ -1446,7 +1446,11 @@ client's own code: [kernel-map.md](kernel-map.md) §6 and, for step 9's dependen
    drawcheck f900 every group the original's, sbs mean 2.03-2.09 %); NOT EXACT Save_Decorations 0x479A50 frame,
    0x479D00 / 0x47C580 / 0x47C6A0 shape, 0x478B50 budget, Build 0x47A2F0 parked shape; the global byte 0xBFAE52 set
    during the prototype load is unknown. Next: D119's work item (Land_Set_Ref back to the client's `Create_*`), D120
-   (the `--art build/art` default), the mainview zone loader 0x5137F0, the ini writer 0x4791D0; Load_Assets 0x4691D0 (the pragma keeps the patch ctor / Init
+   (the `--art build/art` default), the mainview zone loader 0x5137F0, the ini writer 0x4791D0 (all done by LD3,
+   17a366f, 029e4f9, fa4255e NOT EXACT frame, 3551b97 mainview.cpp new with 0x5137F0 exact, 2530d1f wind 0x513B90
+   exact; the stars' 0x513700 is exact in `docs/attempts/513700/` and lands once clienttest's fake main view has
+   StarField / OrbitalManager stand-ins (P-LD3-1); Build's RefCountPtr form parked: the client calls
+   insert(it, n, x) 0x47D690 out of line); then the rest of mainview.cpp (97 functions); Load_Assets 0x4691D0 (the pragma keeps the patch ctor / Init
    out of line, frame left), Update_Patches 0x46B3C0 (frame, PatchSize's unsigned conversion), Get_Triangles
    0x465D30 (Fable-eligible); the
    parked rows (Compute_Lighting order-only, Update_Patches / Compute_Horizons shape, the scanners' frame,
@@ -1461,7 +1465,8 @@ client's own code: [kernel-map.md](kernel-map.md) §6 and, for step 9's dependen
    destructor's twin 0x4B6B60 if a lever appears, the distortion draw 0x9961E0 (LIMIT), the ShdMesh ctor 0xA08F80
    (LIMIT). Out for good (register/order): Make_Screen_Shot, Update_Movie_Capture's LockRect residue, Rate Count,
    Run/Start_Game/Go_*.
-8. Tools: done 2026-10-27 (commit_mine `--file`, attempts.py line endings, build.py's UNRES regex). Left: promote
+8. Tools: done 2026-10-27 (commit_mine `--file`, attempts.py line endings, build.py's UNRES regex). Left: P-LD3-2
+   (`wt.py bring-over` accepts named D119 ambiguous addresses, checked against the ambiguous column); promote
    P9's worktree scripts (item 3); the compare-and-swap commit rule (`update-ref master NEW OLD`) into commit_mine
    (H17's race); gen_stubs' by-value returns (P-T18-2); H16's `.work/h16/fm_gen.py` / `commit_h16.py` pattern for
    generated files.

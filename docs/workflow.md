@@ -702,6 +702,9 @@ unless `--lever` cites a new row of this table.
   asset manager, 7089f1d). co.cpp's loader 0x6F51D0 reads basset.ini, Set_Model's radius 0x6F39F0 and the mount
   points 0x7251C0 read cbasset.ini, both from the working directory (clienttest's copies in its data folder).
   ~ClientObjectClass deletes AuxData through slot +0x04: a fake root's table needs a `__stdcall(unsigned)` there.
+* **Rebuilding a callee clienttest drives: run clienttest before landing** (2026-10-28, LD3): a real body on its fake
+  objects stops the run (0x513700 on the fake main view, no StarField; expected.txt line 2289). `build.py build`
+  skips an untracked new app file: commit in the worktree before building for clienttest.
 * **`gen_stubs --link` skips data globals** (`MonoClass Mono`): write them by hand in client_stubs.cpp (2026-10-28, UP1).
 * **LandClass writes the .pld beside the art it reads (2026-10-28, LD1):** VIDTEST and drawcheck run on LandClass
   now; always pass `-art` / `--art` with a copy of EBCONFIG made with `cp -rp` (without -p the .pld's date changes
@@ -730,6 +733,11 @@ unless `--lever` cites a new row of this table.
 
 ### 3.8 Git, docs and scripting hygiene
 
+* **`wt.py bring-over` refuses a D119 ambiguity move** (2026-10-28, LD3): land it with commit_mine from the main
+  tree (`.work/ld3/land.sh`); master's `in_tree_total` is then one high until the next verify rewrites it.
+* **names.py files a NOT EXACT marker under the next function when a static helper's signature spans two lines**
+  (2026-10-28, LD3: 0x47C6A0's marker shows under Build_Decorations). `attempts.py record` takes an integer
+  `--forms` and only its fixed `--blocker` list.
 * **`wt.py bring-over` refusing on an imports.json conflict** (2026-10-28, LD2): `git rebase master` in the
   worktree, take master's imports.json, re-verify, union attempts.csv, run names.py, `git rebase --continue`.
 * **After a bring-over, `git rebase master` in the worktree can conflict on names-review.md:** `git rebase --skip`
