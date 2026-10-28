@@ -40,7 +40,7 @@ public:
 	VersionResponsePacketClass(int status);	// 0x8B1840
 	VersionResponsePacketClass(RawPacketClass *raw);	// 0x8B18D0
 	virtual RawPacketClass *Build();	// +0x04 0x8B1960
-	virtual bool Process_Packet(void *client);	// +0x08 0x76B8A0 (not rebuilt)
+	virtual bool Process_Packet(void *client);	// +0x08 0x76B8A0 (tsk_login.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x8B1A20
 	virtual int Print(char *buffer, int len);	// +0x10 0x8B1A40
 

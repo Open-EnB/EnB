@@ -51,7 +51,7 @@ class NameDecalPacketClass : public PacketClass
 public:
 	NameDecalPacketClass(RawPacketClass *raw);	// 0x880EE0
 	virtual RawPacketClass *Build();	// +0x04 0x880FA0
-	virtual bool Process_Packet(void *client);	// +0x08 0x735FC0 (not rebuilt)
+	virtual bool Process_Packet(void *client);	// +0x08 0x735FC0 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x881080
 	virtual int Print(char *buffer, int len);	// +0x10 0x8810A0
 	virtual int Get_Channel() { return(Unknown3C); }	// +0x18 0x880E70

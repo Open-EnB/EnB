@@ -26,7 +26,7 @@ public:
 	AuxDataPacketClass(RawPacketClass *raw);	// 0x876E90
 	virtual ~AuxDataPacketClass();	// +0x00 0x876F60 / 0x876E60
 	virtual RawPacketClass *Build();	// +0x04 0x876FA0
-	virtual bool Process_Packet(void *client);	// +0x08 0x7364C0 (not rebuilt)
+	virtual bool Process_Packet(void *client);	// +0x08 0x7364C0 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x877080
 	virtual int Print(char *buffer, int len);	// +0x10 0x8770A0
 	virtual int Get_Channel() { return(Channel); }	// +0x18 0x876E00
@@ -45,7 +45,7 @@ class AuxDataPlayerVarPacketClass : public AuxDataPacketClass
 public:
 	AuxDataPlayerVarPacketClass(int game_id, const void *data, int size);	// 0x8770E0
 	AuxDataPlayerVarPacketClass(RawPacketClass *raw);	// 0x877230
-	virtual bool Process_Packet(void *client);	// +0x08 0x736650 (not rebuilt)
+	virtual bool Process_Packet(void *client);	// +0x08 0x736650 (cpacket.cpp)
 	virtual int Get_Type() { return(28); }	// +0x28 0x8771C0
 	virtual const char *Get_Name() { return("PlayerVar_Aux_Data"); }	// +0x2C 0x8771E0
 };

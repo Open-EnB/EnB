@@ -44,7 +44,7 @@ public:
 	ItemBasePacketClass(RawPacketClass *raw);	// 0x8955C0
 	virtual ~ItemBasePacketClass();	// +0x00 0x895820 / 0x895590
 	virtual RawPacketClass *Build();	// +0x04 0x895960
-	virtual bool Process_Packet(void *client);	// +0x08 0x7371B0 (not rebuilt)
+	virtual bool Process_Packet(void *client);	// +0x08 0x7371B0 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x895AF0
 	virtual int Print(char *buffer, int len);	// +0x10 0x895B40
 	virtual int Get_Channel() { return(Channel); }	// +0x18 0x895570

@@ -26,7 +26,7 @@ class ConstantPositionalUpdatePacketClass : public PacketClass
 public:
 	ConstantPositionalUpdatePacketClass(RawPacketClass *raw);	// 0x8ABBF0
 	virtual RawPacketClass *Build();	// +0x04 0x8ABCB0
-	virtual bool Process_Packet(void *client);	// +0x08 0x733C80 (not rebuilt)
+	virtual bool Process_Packet(void *client);	// +0x08 0x733C80 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x8ABDB0
 	virtual int Print(char *buffer, int len);	// +0x10 0x8ABDD0
 	virtual int Get_Channel() { return(Unknown2C); }	// +0x18 0x8ABB60
@@ -48,7 +48,7 @@ public:
 	SimplePositionalUpdatePacketClass(int priority, int game_id, unsigned int time_stamp, const Vector3 &pos, const Quaternion &orient, const Vector3 &vel);	// 0x8ABF40 (its asserts' names)
 	SimplePositionalUpdatePacketClass(RawPacketClass *raw);	// 0x8AC1B0
 	virtual RawPacketClass *Build();	// +0x04 0x8AC3E0
-	virtual bool Process_Packet(void *client);	// +0x08 0x733DC0 (not rebuilt)
+	virtual bool Process_Packet(void *client);	// +0x08 0x733DC0 (cpacket.cpp, NOT EXACT)
 	virtual int Get_Data_Size();	// +0x0C 0x8AC510
 	virtual int Print(char *buffer, int len);	// +0x10 0x8AC530
 	virtual int Get_Channel() { return(Channel); }	// +0x18 0x8ABE90
@@ -72,7 +72,7 @@ public:
 	ComponentPositionalUpdatePacketClass(int priority, int game_id, unsigned int time_stamp, const Vector3 &pos, const Quaternion &orient, const Vector3 &vel, float imparted_decay, float tractor_speed, int tractor_id, int tractor_effect_id);	// 0x8AE130
 	ComponentPositionalUpdatePacketClass(RawPacketClass *raw);	// 0x8AE240
 	virtual RawPacketClass *Build();	// +0x04 0x8AE2E0
-	virtual bool Process_Packet(void *client);	// +0x08 0x734BF0 (not rebuilt)
+	virtual bool Process_Packet(void *client);	// +0x08 0x734BF0 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x8AE370
 	virtual int Print(char *buffer, int len);	// +0x10 0x8AE3D0
 	virtual int Get_Type();	// +0x28 0x8AE350
@@ -92,7 +92,7 @@ public:
 	FormationPositionalUpdatePacketClass(int game_id, int leader_id, const Vector3 &offset);	// 0x8AE4B0
 	FormationPositionalUpdatePacketClass(RawPacketClass *raw);	// 0x8AE5C0
 	virtual RawPacketClass *Build();	// +0x04 0x8AE690
-	virtual bool Process_Packet(void *client);	// +0x08 0x734740 (not rebuilt)
+	virtual bool Process_Packet(void *client);	// +0x08 0x734740 (cpacket.cpp, NOT EXACT)
 	virtual int Get_Data_Size();	// +0x0C 0x8AE770
 	virtual int Print(char *buffer, int len);	// +0x10 0x8AE790
 
@@ -110,7 +110,7 @@ public:
 	AdvancedPositionalUpdatePacketClass();	// 0x8ACA10
 	AdvancedPositionalUpdatePacketClass(RawPacketClass *raw);	// 0x8ACAB0
 	virtual RawPacketClass *Build();	// +0x04 0x8AD000
-	virtual bool Process_Packet(void *client);	// +0x08 0x734130 (not rebuilt)
+	virtual bool Process_Packet(void *client);	// +0x08 0x734130 (cpacket.cpp, NOT EXACT)
 	virtual int Get_Data_Size();	// +0x0C 0x8AD9A0
 	virtual int Print(char *buffer, int len);	// +0x10 0x8AD9F0
 	virtual int Get_Channel() { return(Channel); }	// +0x18 0x8AC960
@@ -159,7 +159,7 @@ class PlanetPositionalUpdatePacketClass : public PacketClass
 public:
 	PlanetPositionalUpdatePacketClass(RawPacketClass *raw);	// 0x8ADDF0
 	virtual RawPacketClass *Build();	// +0x04 0x8ADF10
-	virtual bool Process_Packet(void *client);	// +0x08 0x734A40 (not rebuilt)
+	virtual bool Process_Packet(void *client);	// +0x08 0x734A40 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x8AE090
 	virtual int Print(char *buffer, int len);	// +0x10 0x8AE0B0
 	virtual int Get_Channel() { return(-1); }	// +0x18 0x8ADD80

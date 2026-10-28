@@ -40,7 +40,7 @@ class Packet_0078Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x
 public:
 	Packet_0078Class(RawPacketClass *raw);	// 0x866DF0
 	virtual RawPacketClass *Build();	// +0x04 0x866ED0
-	virtual bool Process_Packet(void *client);	// +0x08 0x76BB70 (not rebuilt)
+	virtual bool Process_Packet(void *client);	// +0x08 0x76BB70 (tsk_login.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x866F90
 	virtual int Print(char *buffer, int len);	// +0x10 0x866FB0
 
