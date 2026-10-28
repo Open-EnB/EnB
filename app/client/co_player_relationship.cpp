@@ -147,7 +147,7 @@ GutterColorSetStruct Unknown_70ADF0(const std::string &name)	// NAME 1 [Unknown_
 
 
 // NOT EXACT: inline budget (the client calls the name string's assign and the copies out of line; attempts.py show 0x70B450)
-bool Unknown_70B450(ClientObjectClass *player, ClientObjectClass *object, GutterColorSetStruct &colors)	// NAME 1 [Unknown_70B450, player]: 'Neutral' unless the object's type is one of seven
+bool Unknown_70B450(SClient *client, ClientObjectClass *object, GutterColorSetStruct &colors)	// NAME 1 [Unknown_70B450]: 'Neutral' unless the object's type is one of seven
 {
 	switch (object->Type) {
 		case 0: case 1: case 2: case 11: case 12: case 28: case 33:
@@ -158,7 +158,7 @@ bool Unknown_70B450(ClientObjectClass *player, ClientObjectClass *object, Gutter
 	return(true);
 }
 
-bool Unknown_70B790(ClientObjectClass *player, ClientObjectClass *object, GutterColorSetStruct &colors)	// NAME 1 [Unknown_70B790, player]: 'Attacking' while the relationship says so
+bool Unknown_70B790(SClient *client, ClientObjectClass *object, GutterColorSetStruct &colors)	// NAME 1 [Unknown_70B790]: 'Attacking' while the relationship says so
 {
 	if (!((RelationshipClass *)object->Relationship)->IsAttacking) return(false);
 	static GutterColorSetStruct attacking = Unknown_70ADF0(std::string("Attacking"));	// NAME 2: what it holds
@@ -223,21 +223,21 @@ bool Unknown_70B790(ClientObjectClass *player, ClientObjectClass *object, Gutter
 
 
 
+bool Unknown_70BF60(SClient *client, ClientObjectClass *object)	// NAME 1 [Unknown_70BF60]: type 1 and SClient's PvP test 0x74D780 (no direct caller; inlined by 0x70BF90)
+{
+	if (object->Type != 1) return(false);
+	return(client->Unknown_74D780(object));
+}
+bool Unknown_70BF90(SClient *client, ClientObjectClass *object, GutterColorSetStruct &colors)	// NAME 1 [Unknown_70BF90]: 'PVPAttackable' when 0x70BF60 says so
+{
+	if (Unknown_70BF60(client, object)) {
+		static GutterColorSetStruct pvp_attackable = Unknown_70ADF0(std::string("PVPAttackable"));	// NAME 2: what it holds
+		colors = pvp_attackable;
+		return(true);
+	} return(false);
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-bool Unknown_70C2A0(ClientObjectClass *player, ClientObjectClass *object, GutterColorSetStruct &colors)	// NAME 1 [Unknown_70C2A0, player]: 'Player' for type 1
+bool Unknown_70C2A0(SClient *client, ClientObjectClass *object, GutterColorSetStruct &colors)	// NAME 1 [Unknown_70C2A0]: 'Player' for type 1
 {
 	if (object->Type != 1) return(false);
 	static GutterColorSetStruct player_colors = Unknown_70ADF0(std::string("Player"));	// NAME 2: what it holds

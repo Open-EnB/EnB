@@ -529,12 +529,12 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_70A540` | `app/client/co_player_relationship.cpp:78` | the default colours by value |
 | 1 | `Unknown_70AD70` | `app/client/co_player_relationship.cpp:109` | sclient.cpp's name (it empties the table) |
 | 1 | `Unknown_70ADF0` | `app/client/co_player_relationship.cpp:113` | the colours of an ini section (no direct caller; inlined by the relationship lookups) |
-| 1 | `Unknown_70B450, player` | `app/client/co_player_relationship.cpp:150` | 'Neutral' unless the object's type is one of seven |
-| 1 | `Unknown_70B450` | `app/client/co_player_relationship.cpp:150` | untagged neutral name (D10) |
-| 1 | `Unknown_70B790, player` | `app/client/co_player_relationship.cpp:161` | 'Attacking' while the relationship says so |
-| 1 | `Unknown_70B790` | `app/client/co_player_relationship.cpp:161` | untagged neutral name (D10) |
-| 1 | `Unknown_70C2A0, player` | `app/client/co_player_relationship.cpp:240` | 'Player' for type 1 |
-| 1 | `Unknown_70C2A0` | `app/client/co_player_relationship.cpp:240` | untagged neutral name (D10) |
+| 1 | `Unknown_70B450` | `app/client/co_player_relationship.cpp:150` | 'Neutral' unless the object's type is one of seven |
+| 1 | `Unknown_70B790` | `app/client/co_player_relationship.cpp:161` | 'Attacking' while the relationship says so |
+| 1 | `Unknown_70BF60` | `app/client/co_player_relationship.cpp:226` | type 1 and SClient's PvP test 0x74D780 (no direct caller; inlined by 0x70BF90) |
+| 1 | `Unknown_74D780` | `app/client/co_player_relationship.cpp:229` | untagged neutral name (D10) |
+| 1 | `Unknown_70BF90` | `app/client/co_player_relationship.cpp:231` | 'PVPAttackable' when 0x70BF60 says so |
+| 1 | `Unknown_70C2A0` | `app/client/co_player_relationship.cpp:240` | 'Player' for type 1 |
 | 1 | `Unknown_6FEEE0` | `app/client/co_player_relationship.cpp:311` | untagged neutral name (D10) |
 | 1 | `Unknown_8B44E0` | `app/client/control_keys_manager.cpp:10` | neutral placeholder (D10) |
 | 1 | `Unknown_42A1A0` | `app/client/control_keys_manager.cpp:11` | neutral (D10): 0x42A1A0 (app\input), a key read from an ini entry |
@@ -3683,6 +3683,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `defaults` | `app/client/co_player_relationship.cpp:80` | what it holds |
 | 2 | `neutral` | `app/client/co_player_relationship.cpp:156` | what it holds |
 | 2 | `attacking` | `app/client/co_player_relationship.cpp:164` | what it holds |
+| 2 | `pvp_attackable` | `app/client/co_player_relationship.cpp:234` | what it holds |
 | 2 | `player_colors` | `app/client/co_player_relationship.cpp:243` | what it holds |
 | 2 | `ContextEqualStruct` | `app/client/control_keys_manager.cpp:15` | describes what it does (the SGI documentation's eqstr; strcmp inlined in 0x71ECD0) |
 | 2 | `std:` | `app/client/control_keys_manager.cpp:20` | 0xBE7B80, what the accessors return without a definition |
