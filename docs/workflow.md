@@ -452,6 +452,12 @@ unless `--lever` cites a new row of this table.
   `for (it = begin(), end = end(); it != end; ...)` (0x44F2F0). Guarded `<string>` statics bound app\shared objects
   too (0x451BD0, 0x452750): a way to find a string-less object's range. To tell live code from dormant, look for
   call, jump and pointer references to the function and its incremental thunk (`.work/px2/thunkrefs.py`).
+* **sclient.cpp forms** (2026-10-28, SC1): `Create_Peek(X *)` needs `RefCountPtr<X>` instantiated earlier in the file
+  (VC6's injected friends exist only after instantiation; a `sizeof` typedef does it); a body the client repeats
+  inline (0x744D80) is an inline member defined before its callers; a packet class the client destroys out of line
+  needs a declared `virtual ~X();` defined empty; `Send_Packet(&TempPacket(...))` is a temporary (a named local costs
+  rows). Rebuilding a callee can pull a whole object into clienttest's link (control_keys_manager.obj needed a
+  0x42A1A0 stand-in).
 * **Asserts sit on the client's lines (D25).** To add code above a logged line, remove as many
   blank lines from the same function's stretch (cordmgr.cpp; `.work/milestones/a3/relines.py`);
   pad inside a function, not only before it (Get(char **); pk.cpp's helpers take single blanks).
