@@ -581,7 +581,7 @@ void UnknownB02C90Class::Unknown_08()
 
 void Unknown_831950(Matrix3D &transform, const char *text);	// 0x831950 (cdecl; a Matrix3D from a Mount line's text)  // NAME 1 [transform, text]: what 0x7251C0 passes
 
-// 0x7251C0  // NOT EXACT: shape (the client keeps the strtok_r text in esi with one call site; ours peels the first call; 2 forms)
+// 0x7251C0  // NOT EXACT: order-only (the fallback element: the client stores +0x3C, +0x40, Bone, the flag and +0x38 before the matrix; 5 forms)
 void UnknownB02C90Class::Unknown_04(int base_asset)
 {
 	static INIClass ini;
@@ -599,14 +599,14 @@ void UnknownB02C90Class::Unknown_04(int base_asset)
 		int mount = 0;
 		sprintf(entry, "Mount%d", mount);
 		while (ini.Get_String(section, entry, "", value, sizeof(value))) {
-			BufferStruct::ElementStruct element;
-			char *text = value;
 			int field = 0;
-			for (;;) {
-				char *token = strtok_r(text, " \t", &lasts);
+			char *text = value;
+			BufferStruct::ElementStruct element;
+			char *token;
+			do {
+				token = strtok_r(text, " \t", &lasts);
 				text = NULL;
-				if (token == NULL) break;
-				switch (field++) {
+				if (token != NULL) switch (field++) {
 					case 0:
 						element.Bone = atol(token);
 						break;
@@ -620,16 +620,16 @@ void UnknownB02C90Class::Unknown_04(int base_asset)
 						element.Unknown38 = atol(token);
 						break;
 				}
-			}
+			} while (token != NULL);
 			element.Transform = transform;
-			Buffer.Insert(element, Buffer.Count);
+			Buffer.Add(element);
 			mount++;
 			sprintf(entry, "Mount%d", mount);
 		}
 		if (Buffer.Count == 0) {
 			BufferStruct::ElementStruct element;
 			element.Unknown34 = false;
-			Buffer.Insert(element, Buffer.Count);
+			Buffer.Add(element);
 		}
 	}
 }

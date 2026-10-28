@@ -23,7 +23,7 @@ edit the comments in the code, not this file.
 | `app/client/client.cpp:225` | `ClientClass::Remove_Object` | marker | NOT EXACT: shape (the client puts the not-found return last; three forms; attempts.py show 0x727600) 0x727600 |
 | `app/client/client.cpp:307` | `ClientClass::Set_Debug_Object` | marker | NOT EXACT: register-only (the flag in dl, the id in eax; two forms; attempts.py show 0x728010) 0x728010 |
 | `app/client/client.cpp:374` | `ClientClass::Set_Debug_Mode` | marker | NOT EXACT: register-only (the id in eax, the flag in ecx; two forms; attempts.py show 0x728240) 0x728240 |
-| `app/client/client.cpp:584` | `UnknownB02C90Class::Unknown_04` | marker | NOT EXACT: shape (the client keeps the strtok_r text in esi with one call site; ours peels the first call; 2 forms) |
+| `app/client/client.cpp:584` | `UnknownB02C90Class::Unknown_04` | marker | NOT EXACT: order-only (the fallback element: the client stores +0x3C, +0x40, Bone, the flag and +0x38 before the matrix; 5 forms) |
 | `app/client/client_lego_impl.cpp:310` | `ClientLegoImplClass::Get_Lego_Transform` | marker | NOT EXACT: inline budget: the client builds one more Matrix3D result (6 ??_H against our 5), 0.88 (attempts.csv) |
 | `app/client/client_lego_impl.cpp:363` | `ClientLegoImplClass::Add` | marker | NOT EXACT: inline budget: the last branch's orphan data assignment and destructor, inlined by the client, called by ours; 0.75 (attempts.csv) |
 | `app/client/client_lego_impl.cpp:679` | `ClientLegoImplClass::Child_Moved` | marker | NOT EXACT: shape, 4 rows: the client forms &child (lea ebp) before loading it, ours after (attempts.csv) |

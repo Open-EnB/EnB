@@ -145,9 +145,10 @@ public:
 			int Unknown38;							// +0x38 (0x7251C0: a Mount line's fourth field)
 			UnknownB02C90Class *Unknown3C;				// +0x3C (0x725120 calls its slot +0x10 with -1, -1 when there is no child)
 			UnknownB02C90Class *Child;					// +0x40  // NAME 2: 0x725120 detaches and deletes it
-			ElementStruct() : Bone(0), Transform(true), Unknown34(true), Unknown38(0), Unknown3C(0), Child(0) {}
+			ElementStruct() : Bone(0), Transform(true), Unknown38(0), Unknown3C(0), Child(0) { Unknown34 = true; }
 		};
 		BufferStruct() : Count(0), Unknown04(0), Data(0), Radius(0) {}
+		void Add(const ElementStruct &element) { Insert(element, Count); }	// NAME 2: what it does
 		void Insert(const ElementStruct &element, int index);	// 0x725E70 (grows by twice the count, at least 10; not rebuilt)  // NAME 2 [element, index]: what it does
 		~BufferStruct() { Count = 0; delete Data; }
 		ElementStruct *Get(int index) { if (index < 0 || index >= Count) return(NULL); return(&Data[index]); }  // NAME 1: neutral
