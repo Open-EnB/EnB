@@ -637,7 +637,7 @@ static void Update_Lighting(Vector3 *out, bool full)
 	if (a > WWMATH_PI) a = 2 * WWMATH_PI - a;
 	Vector3 sun((float)cos(a), 0.0f, (float)sin(a));
 	sun.Normalize();
-	float e = (float)asin(sun.Z);
+	float e = (float)acos(sun.Z);						// the sun's angle from the zenith (0x5286A0 is the CRT's acos: atan(sqrt(1 - z*z) / z))
 	if (e < 0) {
 		sun = -sun;
 		e = -e;
