@@ -411,6 +411,12 @@ unless `--lever` cites a new row of this table.
   a stack slot, 0x6EB9B0); `if (x < 0.0f) x = 0.0f` compiles to `test ah,1`, `WWMath::Max(x, 0)` to `test ah,0x41`;
   which pointer is named decides the register (a named ClientObjectClass * gave `mov ecx,[eax+0xAC]`, 0x733590);
   element-wise copies give the client's integer moves where Get_Z_Vector() / Set() don't (0x6E82A0).
+* **`#pragma auto_inline(off)` / `(on)` around a same-file, non-inline definition keeps /Ob2 from inlining it into
+  later callers** (2026-10-28, CS1: co.cpp 0x6F3ED0, 0x6F3FA0 0.35 -> 0.62): put the pragmas on existing blank lines so
+  no assert moves; it does not reach in-class or inline functions (rtti.h's `Cast`).
+* **After an inlined float-returning call** (2026-10-28, CS1): `fld x; fsub st(1); ...; fstp st(0)` is a named float
+  local holding the result, `fsubr` the plain expression; a named pointer local (`HeightFieldClass *field = ...`)
+  decides which register holds the object and which `&pos`.
 * **Asserts sit on the client's lines (D25).** To add code above a logged line, remove as many
   blank lines from the same function's stretch (cordmgr.cpp; `.work/milestones/a3/relines.py`);
   pad inside a function, not only before it (Get(char **); pk.cpp's helpers take single blanks).
@@ -733,6 +739,8 @@ unless `--lever` cites a new row of this table.
 
 ### 3.8 Git, docs and scripting hygiene
 
+* **`appfile.py match` wants bare `// @0xADDR` marker lines** (2026-10-28, CS1): stripping a trailing comment can make a
+  declaration look like a definition (co.cpp's Unknown_7294D0); use `--allow-missing`.
 * **`wt.py bring-over` refuses a D119 ambiguity move** (2026-10-28, LD3): land it with commit_mine from the main
   tree (`.work/ld3/land.sh`); master's `in_tree_total` is then one high until the next verify rewrites it.
 * **names.py files a NOT EXACT marker under the next function when a static helper's signature spans two lines**
