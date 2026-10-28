@@ -381,4 +381,24 @@ public:
 	float Rate;						// +0x2C (1 / (EndTime - StartTime))  // NAME 2: what it holds
 };
 
+// A position moving at a constant velocity from Time, with an orientation (0x30 bytes; no constructor
+// and no caller found in the client: 0x714E10-0x7151D0 are its members, out of line in postate.cpp)
+struct Unknown714E10Struct	// NAME 1: neutral (D10)
+{
+	Matrix3D Unknown_714E10(int time);			// 0x714E10 (the orientation at the position at that time)  // NAME 2 [time]: as the states'
+	Vector3 Unknown_714F40(int time);			// 0x714F40 (the position at that time)  // NAME 2 [time]: as the states'
+	Vector3 Unknown_714FE0(int time);			// 0x714FE0 (Velocity)  // NAME 2 [time]: as the states'
+	void Unknown_715010(int time, const Matrix3D &transform);	// 0x715010  // NAME 2 [transform, time]: the members it sets
+	void Unknown_715090(int time, const Vector3 &position);	// 0x715090  // NAME 2 [time, position]: the members it sets
+	void Unknown_7150C0(int time, const Quaternion &orientation);	// 0x7150C0  // NAME 2 [time, orientation]: the members it sets
+	void Unknown_7150F0(int time, const Vector3 &velocity);	// 0x7150F0 (from the position at that time)  // NAME 2 [time, velocity]: the members it sets
+	Vector3 Unknown_7151D0(int time);			// 0x7151D0 (the same code as 0x714F40)  // NAME 2 [time]: as the states'
+
+	int Unknown00;					// +0x00
+	Quaternion Orientation;			// +0x04  // NAME 2: what it holds
+	Vector3 Position;				// +0x14  // NAME 2: what it holds
+	Vector3 Velocity;				// +0x20  // NAME 2: what it holds
+	int Time;						// +0x2C  // NAME 2: what it holds
+};
+
 #endif

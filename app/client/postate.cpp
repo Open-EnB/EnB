@@ -103,6 +103,62 @@ void Unknown714B50Class::Unknown_714D50(ConstantPositionalUpdatePacketClass *pac
 	Transform = Matrix3D(*(Quaternion *)packet->Unknown1C, *(Vector3 *)packet->Unknown10);
 }
 
+Matrix3D Unknown714E10Struct::Unknown_714E10(int time)
+{
+	Vector3 position = Unknown_714F40(time);
+	Matrix3D transform = Build_Matrix3D(Orientation);
+	transform.Set_Translation(position);
+	return(transform);
+}
+
+Vector3 Unknown714E10Struct::Unknown_714F40(int time)
+{
+	float elapsed = (float)(unsigned int)(time - Time);
+	if (elapsed < 1.0f) {
+		return(Position);
+	}
+	return(Position + Velocity * elapsed);
+}
+
+Vector3 Unknown714E10Struct::Unknown_714FE0(int time)
+{
+	return(Velocity);
+}
+
+void Unknown714E10Struct::Unknown_715010(int time, const Matrix3D &transform)
+{
+	Position = transform.Get_Translation();
+	Orientation = Build_Quaternion(transform);
+	Time = time;
+}
+
+void Unknown714E10Struct::Unknown_715090(int time, const Vector3 &position)
+{
+	Position = position;
+	Time = time;
+}
+
+void Unknown714E10Struct::Unknown_7150C0(int time, const Quaternion &orientation)
+{
+	Orientation = orientation;
+}
+
+void Unknown714E10Struct::Unknown_7150F0(int time, const Vector3 &velocity)
+{
+	Position = Unknown_714F40(time);
+	Velocity = velocity;
+	Time = time;
+}
+
+Vector3 Unknown714E10Struct::Unknown_7151D0(int time)
+{
+	float elapsed = (float)(unsigned int)(time - Time);
+	if (elapsed < 1.0f) {
+		return(Position);
+	}
+	return(Position + Velocity * elapsed);
+}
+
 Unknown715270Class::Unknown715270Class(ClientClass *client, int game_id, const Vector3 &offset, const Quaternion &orientation) :
 	Client(client),
 	GameID(game_id),
@@ -1357,62 +1413,6 @@ void Unknown718D70Class::Unknown_30(int time, const Matrix3D &transform)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 Unknown7192A0Class::Unknown7192A0Class(RenderObjClass *render_object, Unknown98Class *state, const char *bone_name) :
 	RenderObject(render_object),
 	BoneIndex(-1)
@@ -1479,9 +1479,8 @@ Vector3 Unknown7192A0Class::Unknown_14(int time)
 **	'PositionState' on 53-90, type 15's on 1422-1457. Built: the forwarding state (vtable 0xB026EC), type 1
 **	(0xB02728), the extrapolator base (0xB027A0) with types 3 (0xB027DC), 5 (0xB02818), 8 (0xB02854),
 **	4 (0xB028A4) and 11 (0xB028F0), type 9 (0xB02764), type 12 (0xB0292C), type 13 (0xB029C0, a HermiteSpline3DClass path; its transform
-**	0x718830 NOT EXACT), type 14 (0xB02A00) and type 15
-**	(0xB02A40). Not rebuilt yet, in the client's order: the helpers 0x714E10-0x7151D0 (a position /
-**	velocity / time record, no callers), type 4's
+**	0x718830 NOT EXACT), type 14 (0xB02A00), type 15
+**	(0xB02A40) and the record Unknown714E10Struct (0x714E10-0x7151D0, no callers). Not rebuilt yet, in the client's order: type 4's
 **	0x717430 ('*move_direction == 0' on line 977) and 0x7179A0, the statics 0x714820 and after 0x719620, 0x7196C0. extrap.cpp's classes
 **	are declared in postate.h only.
 */
