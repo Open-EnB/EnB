@@ -13,8 +13,12 @@
 #include "co.h"
 #include "rendobj.h"
 #include "camera.h"
+#include "random.h"
+#include "..\..\wwaudio\Sound3D.h"
 
 void Unknown_4BC260(const char *sender, const char *category, const char *file, int line, const char *format, ...);	// 0x4BC260 (unknown_debug.h's reporter)
+EffectObjectClass *Unknown_6E9490(int desc_id, int effect_id, int duration, int time, ClientClass *client, float scale, const Vector3 &hsv_shift, float speedup, int linked_desc_id, bool unknown);	// 0x6E9490 (the factory, not rebuilt yet)  // NAME 1 [desc_id .. unknown]: what the effect packets pass
+extern RandomClass Unknown_BDBB84;	// NAME 1 [Unknown_BDBB84]: neutral (D10), as ui_line_display.cpp's
 
 // 0x6E6710
 EffectObjectClass::EffectObjectClass(ClientClass *client, unsigned id, unsigned start_time, unsigned duration, unsigned cycle_time) :
@@ -143,15 +147,65 @@ EffectObjectClass::~EffectObjectClass()
 
 
 
-
-
-
-
-
-
-
-
-// 0x6E6AD0: not rebuilt yet (its FAIL_IF '!Camera' sits on the client's line 154, D25)
+// NOT EXACT: register-only (the NextLink factory call: the client loads the time into ecx first and the floats through edi; the NextLink delete in ecx; 9 forms)
+// 0x6E6AD0
+bool EffectObjectClass::Unknown_6E6AD0()
+{
+	FAIL_IF(!Camera) return(true);
+	bool done = false;
+	switch (Flag.State) {
+		case 0:
+			if (Client->Unknown10BC - StartTime >= 0x80000000) {
+				break;
+			}
+			StartTime = Client->Unknown10BC;
+			Flag.State = 1;
+			if (!(bool)Flag.Unknown3) {
+				Unknown_6E70F0();
+			}
+			Unknown_18();
+			Unknown_6E6FE0();
+		case 1:
+			if (Duration != (unsigned)-1 && (done = (Client->Unknown10BC - StartTime - Duration < 0x80000000)) != false) {
+				Flag.State = 2;
+				Unknown_20();
+				if (NextLinkID >= 0) {
+					NextLink = Unknown_6E9490(NextLinkID, 0, 0, Client->Unknown10BC, Client, Scale, HSVShift, Speedup, -1, false);
+					Unknown_24(1);
+				}
+				Unknown_6E7330();
+			} else {
+				Unknown_1C();
+				if ((bool)Flag.Unknown3) {
+					Vector3 camera = Camera->Get_Position();
+					if ((Unknown_08(camera) - camera).Length2() <= Unknown3C && Client->Unknown10BC - Unknown48 < 0x80000000) {
+						Unknown_6E70F0();
+						int delay = Unknown_BDBB84(Unknown40, Unknown44);
+						Unknown48 = Client->Unknown10BC + delay;
+					}
+				}
+				if (Unknown38) {
+					Sound3DClass *sound = Unknown38->As_Sound3DClass();
+					if (sound) {
+						sound->Set_Position(Unknown_08(Camera->Get_Position()));
+					}
+				}
+				break;
+			}
+		case 2:
+			done = true;
+			if (NextLink && !NextLink->Unknown_6E6AD0()) {
+				Unknown_6E6A90(NextLink);
+				NextLink = NULL;
+			}
+			break;
+	}
+	if (StartLink && !StartLink->Unknown_6E6AD0()) {
+		Unknown_6E6A90(StartLink);
+		StartLink = NULL;
+	}
+	return(!done || StartLink || NextLink);
+}
 
 // 0x6E6E30
 void EffectObjectClass::Unknown_6E6E30()
@@ -221,60 +275,6 @@ void UnknownB00060EffectClass::Unknown_04(int arg)
 		}
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

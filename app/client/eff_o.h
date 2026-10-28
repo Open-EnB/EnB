@@ -59,6 +59,7 @@ public:
 	virtual void Unknown_18();							// +0x18 0x6E68A0 (empty; called when the effect starts)
 	virtual void Unknown_1C();							// +0x1C 0x6E68C0 (empty; called every frame while it runs)
 	virtual void Unknown_20();							// +0x20 0x6E68E0 (empty; called when it ends)
+	virtual void Unknown_24(int arg) = 0;				// +0x24 (_purecall: the ends link a new effect to theirs; 0x6E6AD0 passes 1 for NextLink)  // NAME 1 [arg]: what it gets
 
 	void Unknown_6E74B0(int arg);						// 0x6E74B0 (Add_Effect's first: the render object at +0x4C)  // NAME 1 [arg]: what client.h declares
 	void Unknown_6E6ED0(int arg);						// 0x6E6ED0 (Add_Effect's second: the camera at +0x50)  // NAME 1 [arg]: what client.h declares
@@ -78,6 +79,8 @@ public:
 		}
 	}
 	void Set_Flag(unsigned flag, bool on) { if (on) Flags |= flag; else Flags &= ~flag; }	// 0x6E8090 (out of line in 0x6E7ED0)  // NAME 2: what it does
+	void Unknown_6E6FE0();								// 0x6E6FE0 (the start link from StartLinkID)
+	void Unknown_6E70F0();								// 0x6E70F0 (the SFX played)
 	void Unknown_6E7330();								// 0x6E7330 (the sound at +0x38 stopped and released)
 
 	HashNodeClass<EffectObjectClass *> Node;			// +0x04 ClientClass::EffectList's node  // NAME 2: what it is

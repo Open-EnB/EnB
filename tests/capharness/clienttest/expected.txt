@@ -114,7 +114,7 @@ gen ClientObjectClass::Unknown_6F4290
 gen Unknown498C10Class::Unknown_498CC0
 model Set_Transform (0, 0, 0)
 gen CameraManagerClass::Unknown_799E40
-gen EffectObjectClass::Unknown_6E6AD0
+stub EffectObjectClass::Unknown_6E6AD0 297
 stub Unknown_6E6A90 297
 gen MainViewClass::Unknown_513CD0
 gen MainViewClass::Unknown_513D20
