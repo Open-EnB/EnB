@@ -227,7 +227,8 @@ UnknownRootClass *UnknownCOClass::Unknown_Create_Aux_Root(int, int) { return(0);
 // ------------------------------------------------------------------------- extrap.cpp's extrapolators (postate.cpp's)
 
 // postate.cpp is in app.lib (its states and their Matrix3D); extrap.cpp is not rebuilt: its classes stand in
-// here as postate.h declares them, every extrapolator at rest at the origin
+// here as postate.h declares them, every extrapolator at rest at the origin (the blends keep their two
+// extrapolators alive: the states still point at them)
 #include "..\..\..\app\client\postate.h"
 ExtrapClass::~ExtrapClass() {}
 Vector3 ExtrapClass::Unknown_04(int) { return(Vector3(0, 0, 0)); }
@@ -244,17 +245,18 @@ void ExtrapClass::Unknown_1C(int, Vector3 *position, Quaternion *orientation, Ve
 	if (speed) *speed = 0;
 	if (c) *c = Vector3(0, 0, 0);
 }
-void ExtrapClass::Unknown_20() {}
-void ExtrapClass::Unknown_24() {}
+void ExtrapClass::Unknown_20(int, Vector3 *, Vector3 *, float *, Vector3 *) {}
+void ExtrapClass::Unknown_24(int, float) {}
 ExtrapClass *ExtrapClass::Unknown_28(int) { return(this); }
+ExtrapClass *ExtrapClass::Unknown_710260() { Trace("stub ExtrapClass::Unknown_710260"); return(new ExtrapClass); }
 Unknown70F250Class::Unknown70F250Class(SimplePositionalUpdatePacketClass *packet) { Trace("stub Unknown70F250Class::Unknown70F250Class %u stamp %d", packet->GameID, (int)packet->TimeStamp); }
-Unknown7125F0Class::Unknown7125F0Class(ExtrapClass *from, ExtrapClass *to, unsigned int start, unsigned int end) { Trace("stub Unknown7125F0Class::Unknown7125F0Class %u %u", start, end); delete from; delete to; }
+Unknown7125F0Class::Unknown7125F0Class(ExtrapClass *from, ExtrapClass *to, unsigned int start, unsigned int end) { Trace("stub Unknown7125F0Class::Unknown7125F0Class %u %u", start, end); }
 Unknown713520Class::Unknown713520Class(PlanetPositionalUpdatePacketClass *packet, ClientClass *) { Trace("stub Unknown713520Class::Unknown713520Class %u orbit %d dist %.2f angle %.2f", packet->GameID, packet->OrbitID, packet->OrbitDist, packet->OrbitAngle); }
 Unknown713C80Class::Unknown713C80Class(ComponentPositionalUpdatePacketClass *packet, ClientClass *) { Trace("stub Unknown713C80Class::Unknown713C80Class %u stamp %d", packet->GameID, (int)packet->TimeStamp); }
 Unknown710110Class::Unknown710110Class(AdvancedPositionalUpdatePacketClass *packet) { Trace("stub Unknown710110Class::Unknown710110Class %u stamp %d", packet->GameID, (int)packet->TimeStamp); }
 Unknown714340Class::Unknown714340Class(SClient *, FormationPositionalUpdatePacketClass *packet) { Trace("stub Unknown714340Class::Unknown714340Class %u leader %d", packet->GameID, packet->LeaderID); }
-Unknown7119B0Class::Unknown7119B0Class(ExtrapClass *from, ExtrapClass *to, unsigned int start, unsigned int end) { Trace("stub Unknown7119B0Class::Unknown7119B0Class %u %u", start, end); delete from; delete to; }
-Unknown712DB0Class::Unknown712DB0Class(ExtrapClass *from, ExtrapClass *to, unsigned int start, unsigned int end) { Trace("stub Unknown712DB0Class::Unknown712DB0Class %u %u", start, end); delete from; delete to; }
+Unknown7119B0Class::Unknown7119B0Class(ExtrapClass *from, ExtrapClass *to, unsigned int start, unsigned int end) { Trace("stub Unknown7119B0Class::Unknown7119B0Class %u %u", start, end); }
+Unknown712DB0Class::Unknown712DB0Class(ExtrapClass *from, ExtrapClass *to, unsigned int start, unsigned int end) { Trace("stub Unknown712DB0Class::Unknown712DB0Class %u %u", start, end); }
 // client.cpp's mount buffer insert 0x725E70 (not rebuilt; Add reaches it since f6b75ef, a nested struct gen_stubs.py cannot write)
 void UnknownB02C90Class::BufferStruct::Insert(const ElementStruct &, int index) { Trace("stub UnknownB02C90Class::BufferStruct::Insert %d", index); }
 // pkupdate.cpp's 0x8ADB20 (not rebuilt): types 4 and 8 ask it
