@@ -44,7 +44,9 @@ public:
 class GuildSimpleClientSectorPacketClass : public PacketClass  // NAME 3: the client's Print text 'GuildSimpleClientSectorPacket {' and the PacketClass convention
 {
 public:
+	GuildSimpleClientSectorPacketClass(int type, int player_id, const char *optional_param);	// 0x88C130 (SClient 0x74EDB0)  // NAME 1 [type, player_id, optional_param]: its fields
 	GuildSimpleClientSectorPacketClass(RawPacketClass *raw);	// 0x88C2D0
+	virtual ~GuildSimpleClientSectorPacketClass();	// +0x00 0x88C3A0 (out of line: SClient 0x74EDB0 calls it)
 	virtual RawPacketClass *Build();	// +0x04 0x88C410
 	virtual bool Process_Packet(void *client);	// +0x08 0x868F70 (clientstub.cpp l.347)
 	virtual int Get_Data_Size();	// +0x0C 0x88C4E0
@@ -92,6 +94,7 @@ class GuildRecruitAcceptClientPacketClass : public PacketClass  // NAME 3: the c
 public:
 	GuildRecruitAcceptClientPacketClass(int player_id, bool accept);	// 0x88CE30
 	GuildRecruitAcceptClientPacketClass(RawPacketClass *raw);	// 0x88CEB0
+	virtual ~GuildRecruitAcceptClientPacketClass();	// +0x00 0x88CF50 (out of line: SClient 0x74EDB0 calls it)
 	virtual RawPacketClass *Build();	// +0x04 0x88CF70
 	virtual bool Process_Packet(void *client);	// +0x08 0x8690C0 (clientstub.cpp l.368)
 	virtual int Get_Data_Size();	// +0x0C 0x88D040

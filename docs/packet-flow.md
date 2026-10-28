@@ -347,6 +347,14 @@ AvatarID), '/starbase reset' (the starbase view's interface 0x640150), '/deco' (
 '/texture_flush', else ClientClass's slot (false). Of the object model it reads only `Get_Ship()` and AvatarID.
 0x74C8D0 is 0x74C840 for a named object: `Find_Object(name)`, then the +0x1394 table's entry for its GameID.
 
+The confirmed actions and the guild answers (SC2): 0x74E710 (CONFIRMED_ACTION_OFFER 190) asks type 0 in the current
+view's +0x34 dialog ('CONFIRMED_ACTION_DIALOG') and type 1 in the chat panel (0x56BAA0), the offer's id joining that
+type's queue SClient +0x11AC[type]; 0x74EB00 (191) pushes the id onto +0x120C[type] and runs 0x750210 inline (the
+two queue dialogs 0x74FA30 / 0x74FEC0, then the chat panel's +0xE0 button when Get_Ship()'s 0x6FFE90 says so).
+0x74EDB0 (Do_Frame) reads the dialog's 13 GUILD_*_CONFIRM answers and sends GUILD_LEADER_ACCEPT_CLIENT 197,
+GUILD_RECRUIT_ACCEPT_CLIENT 201 or GUILD_SIMPLE_CLIENT_SECTOR 205 (types 2-21 with +0x1138 and the name kept in
++0x119C by 0x74E580); none touches an object of the model.
+
 ## 3. The object-affecting opcodes
 
 Handler = slot +0x08 (all in cpacket.cpp unless noted). "Object" = `Find_Object(GameID)` unless said.

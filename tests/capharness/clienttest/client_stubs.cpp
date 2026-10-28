@@ -70,7 +70,6 @@ void SClient::Unknown_74D990(int color, char *text, int a)
 	}
 	Trace("stub SClient::Unknown_74D990 0x%X '%s' %d", color, t.c_str(), a);
 }
-void SClient::Unknown_74E710(const std::string &message, int id, int type) { Trace("stub SClient::Unknown_74E710 '%s' %d %d", message.c_str(), id, type); }
 void SClient::Unknown_751460(int points_total, int points_spent) { Trace("stub SClient::Unknown_751460 %d %d", points_total, points_spent); }
 void SClient::Unknown_7517E0(int a, int b, int c, int d) { Trace("stub SClient::Unknown_7517E0 %d %d %d %d", a, b, c, d); }
 void SClient::Unknown_751850(std::vector<GuildRankNameStruct> &ranks) { Trace("stub SClient::Unknown_751850 %d ranks", (int)ranks.size()); }

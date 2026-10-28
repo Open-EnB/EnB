@@ -167,7 +167,7 @@ public:
 	UIChatPanelClass(SClient *client);					// 0x561DD0
 	bool Unknown_56BA80();								// 0x56BA80 (Do_Frame compares it with 'more than 15' from the connection's Get_Stats)
 	void Unknown_56BA40(bool on);						// 0x56BA40 (Do_Frame, when that changes)  // NAME 1 [on]: what Do_Frame passes
-	void Unknown_565F30(int arg);						// 0x565F30 (0x7436A0: Esc, 2)  // NAME 1 [arg]: what 0x7436A0 passes
+	void Unknown_565F30(int arg); void Unknown_56BAA0(int a, const char *text);	// 0x565F30 (0x7436A0: Esc, 2); 0x56BAA0 (0x74E710: 1 and the confirmed action's message)  // NAME 1 [arg]: what 0x7436A0 passes  // NAME 1 [a, text]: what 0x74E710 passes
 	char Unknown40[0xE0 - 0x40];
 	UIChatPanelUnknownE0Class *UnknownE0;				// +0xE0 (0x750210, 0x7517E0, 0x751850 test its +0x7C)
 	char UnknownE4[0x138 - 0xE4];
@@ -4716,18 +4716,18 @@ bool SClient::Unknown_74D8B0(ClientObjectClass *co)	// 0x74D8B0
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
+// 0x750210 (defined before 0x74EB00, which inlines it as the client does)
+void SClient::Unknown_750210()
+{
+	Unknown_74FA30();
+	Unknown_74FEC0();
+	if (ChatPanel) {
+		UIChatPanelUnknownE0Class *panel = ChatPanel->UnknownE0;
+		if (panel && panel->Unknown7C && Unknown_728300()) {
+			panel->Unknown_81BF40();
+		}
+	}
+}
 
 
 
@@ -4748,56 +4748,168 @@ void SClient::Unknown_74E580(const char *text, const char *type, const char *val
 	dialog->Unknown_588A70(type, 0, text, 0x140, 0, 0);
 	Unknown119C = value;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#include "..\packets\pkguildranknamesrequestclient.h"
 enum { ACTIONTYPE_MAX = 2 };							// NAME 3: the assert's (Unknown120C's two queues)
-// NOT EXACT: inline budget (explain.py: 69 instructions, the client 155): the client inlines deque<int>::push_back and ClientClass::Unknown_728300 (an inline member in its client.h, then), ours calls both
+// 0x74E710 (cpacket.cpp: CONFIRMED_ACTION_OFFER 190): type 0 asks in the current view's dialog, type 1 in the
+// chat panel; the id joins its type's offer queue
+void SClient::Unknown_74E710(const std::string &message, int id, int type)
+{
+
+	FAIL_IF(!CurrentView) return;
+	ViewClass *ui_view = CurrentView->Unknown_1C();
+
+	FAIL_IF(!ui_view) return;
+	switch (type) {
+		case 0:
+		{
+			ViewUnknown34Class *dialog = ui_view->Get_Unknown34();
+
+
+			FAIL_IF(!dialog) return;
+			Unknown11AC[0].push_back(id);
+			dialog->Unknown_588A70("CONFIRMED_ACTION_DIALOG", 0, message.c_str(), 0x140, 0, 0);
+			break;
+		}
+		case 1:
+			if (ChatPanel) {
+				ChatPanel->Unknown_56BAA0(1, message.c_str());
+				Unknown11AC[1].push_back(id);
+			}
+			break;
+		default:
+
+
+
+
+
+
+
+
+
+			G_ASSERT(false);
+	}
+}
 // 0x74EB00 (cpacket.cpp: the confirmed action's timeout 191): the id joins its type's queue, then 0x750210's work
 void SClient::Unknown_74EB00(int type, int id)
 {
 
 	G_ASSERT(type < ACTIONTYPE_MAX);
 	Unknown120C[type].push_back(id);
-	Unknown_74FA30();
-	Unknown_74FEC0();
-	if (ChatPanel) {
+	Unknown_750210();
+}
+// NOT EXACT: shape (explain.py: 503 instructions, the client 508; 131 masked rows, 25 with registers masked): the client saves ebp with ebx in the prologue and takes each c_str() before the player id; two forms (the flag declared first gains 5 rows)
+// 0x74EDB0 (Do_Frame, after 0x7429B0): the guild confirmations' answers to the server
+void SClient::Unknown_74EDB0()
+{	bool changed = false;
+	FAIL_IF(!CurrentView) return;
+	ViewClass *ui_view = CurrentView->Unknown_1C();
+
+	FAIL_IF(!ui_view) return;
+	ViewUnknown34Class *dialog = ui_view->Get_Unknown34();
+
+	FAIL_IF(!dialog) return;
+
+	int button;
+	button = dialog->Unknown_5890B0("GUILD_LEADER_CONFIRM");
+	if (button == 1) {
+		dialog->Unknown_5C();
+		Send_Packet(&GuildLeaderAcceptClientPacketClass(Unknown1138, Unknown119C.c_str(), true));
+		changed = true;
+	} else if (button > 1) {
+		dialog->Unknown_5C();
+		Send_Packet(&GuildLeaderAcceptClientPacketClass(Unknown1138, Unknown119C.c_str(), false));
+	}
+	button = dialog->Unknown_5890B0("GUILD_PROMOTE_CONFIRM");
+	if (button == 1) {
+		dialog->Unknown_5C();
+		Send_Packet(&GuildSimpleClientSectorPacketClass(2, Unknown1138, Unknown119C.c_str()));
+		changed = true;
+	} else if (button > 0) {
+		dialog->Unknown_5C();
+	}
+	button = dialog->Unknown_5890B0("GUILD_NEWLEADER_CONFIRM");
+	if (button == 1) {
+		dialog->Unknown_5C();
+		Send_Packet(&GuildSimpleClientSectorPacketClass(4, Unknown1138, Unknown119C.c_str()));
+		changed = true;
+	} else if (button > 0) {
+		dialog->Unknown_5C();
+	}
+	button = dialog->Unknown_5890B0("GUILD_DEMOTE_CONFIRM");
+	if (button == 1) {
+		dialog->Unknown_5C();
+		Send_Packet(&GuildSimpleClientSectorPacketClass(6, Unknown1138, Unknown119C.c_str()));
+		changed = true;
+	} else if (button > 0) {
+		dialog->Unknown_5C();
+	}
+	button = dialog->Unknown_5890B0("GUILD_REMOVE_CONFIRM");
+	if (button == 1) {
+		dialog->Unknown_5C();
+		Send_Packet(&GuildSimpleClientSectorPacketClass(8, Unknown1138, Unknown119C.c_str()));
+		changed = true;
+	} else if (button > 1) {
+		dialog->Unknown_5C();
+	}
+	button = dialog->Unknown_5890B0("GUILD_LEAVE_CONFIRM");
+	if (button == 1) {
+		dialog->Unknown_5C();
+		Send_Packet(&GuildSimpleClientSectorPacketClass(10, Unknown1138, Unknown119C.c_str()));
+	} else if (button > 1) {
+		dialog->Unknown_5C();
+	}
+	button = dialog->Unknown_5890B0("GUILD_DISBAND_CONFIRM");
+	if (button == 1) {
+		dialog->Unknown_5C();
+		Send_Packet(&GuildSimpleClientSectorPacketClass(12, Unknown1138, Unknown119C.c_str()));
+	} else if (button > 1) {
+		dialog->Unknown_5C();
+	}
+	button = dialog->Unknown_5890B0("GUILD_RECRUIT_CONFIRM");
+	if (button == 1) {
+		dialog->Unknown_5C();
+		Send_Packet(&GuildRecruitAcceptClientPacketClass(Unknown1138, true));
+		changed = true;
+	} else if (button > 1) {
+		dialog->Unknown_5C();
+		Send_Packet(&GuildRecruitAcceptClientPacketClass(Unknown1138, false));
+	}
+	button = dialog->Unknown_5890B0("GUILD_GM_DISBAND_CONFIRM");
+	if (button == 1) {
+		dialog->Unknown_5C();
+		Send_Packet(&GuildSimpleClientSectorPacketClass(14, Unknown1138, Unknown119C.c_str()));
+	} else if (button > 1) {
+		dialog->Unknown_5C();
+	}
+	button = dialog->Unknown_5890B0("GUILD_GM_REMOVE_CONFIRM");
+	if (button == 1) {
+		dialog->Unknown_5C();
+		Send_Packet(&GuildSimpleClientSectorPacketClass(17, Unknown1138, Unknown119C.c_str()));
+	} else if (button > 1) {
+		dialog->Unknown_5C();
+	}
+	button = dialog->Unknown_5890B0("GUILD_GM_PROMOTE_CONFIRM");
+	if (button == 1) {
+		dialog->Unknown_5C();
+		Send_Packet(&GuildSimpleClientSectorPacketClass(19, Unknown1138, Unknown119C.c_str()));
+	} else if (button > 1) {
+		dialog->Unknown_5C();
+	}
+	button = dialog->Unknown_5890B0("GUILD_GM_DEMOTE_CONFIRM");
+	if (button == 1) {
+		dialog->Unknown_5C();
+		Send_Packet(&GuildSimpleClientSectorPacketClass(21, Unknown1138, Unknown119C.c_str()));
+	} else if (button > 1) {
+		dialog->Unknown_5C();
+	}
+	button = dialog->Unknown_5890B0("GUILD_GM_RENAME_CONFIRM");
+	if (button == 1) {
+		dialog->Unknown_5C();
+		Send_Packet(&GuildSimpleClientSectorPacketClass(15, Unknown1138, ""));
+	} else if (button > 1) {
+		dialog->Unknown_5C();
+	}
+	if (changed && ChatPanel) {
 		UIChatPanelUnknownE0Class *panel = ChatPanel->UnknownE0;
 		if (panel && panel->Unknown7C && Unknown_728300()) {
 			panel->Unknown_81BF40();
@@ -4997,118 +5109,6 @@ void SClient::Unknown_74EB00(int type, int id)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// 0x750210
-void SClient::Unknown_750210()
-{
-	Unknown_74FA30();
-	Unknown_74FEC0();
-	if (ChatPanel) {
-		UIChatPanelUnknownE0Class *panel = ChatPanel->UnknownE0;
-		if (panel && panel->Unknown7C && Unknown_728300()) {
-			panel->Unknown_81BF40();
-		}
-	}
-}
 
 
 
@@ -5421,6 +5421,82 @@ void SClient::Unknown_751660()
 	}
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #include "..\packets\pkmessagestring.h"
 #include "..\packets\pkincapacitancerequest.h"
 // sbaseview.h's two classes as far as '/starbase reset' needs them (the header includes ui_line_display.h, whose
@@ -5591,24 +5667,6 @@ bool SClient::Unknown_34(const char *text)
 	Unknown_74D990(0, "TEXTURES FLUSHED", 0);
 	return(true);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 /*

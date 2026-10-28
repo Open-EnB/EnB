@@ -598,3 +598,7 @@ date,address,symbol,file,library,status,score,forms,blocker,evidence,stash,model
 2026-10-28 15:53,0x73E720,,app/client/cpacket.cpp,app,exact,,,,CP2 2026-10-28,,opus
 2026-10-28 15:53,0x73E9E0,,app/client/cpacket.cpp,app,exact,,,,CP2 2026-10-28,,opus
 2026-10-28 15:53,0x73EEF0,,app/client/cpacket.cpp,app,exact,,,,CP2 2026-10-28,,opus
+2026-10-28 15:50,0x74EB00,SClient::Unknown_74EB00,app/client/sclient.cpp,app,exact,,1,,SC2: exact as push_back then Unknown_750210() (0x750210 defined earlier in the file so it inlines): the client's source ends before 0x74EDB0's FAIL_IF on line 4804,,opus
+2026-10-28 15:50,0x74EDB0,SClient::Unknown_74EDB0,app/client/sclient.cpp,app,parked,0.57,2,shape,"SC2: 13 guild confirmations; 503 vs 508 instructions, 131 masked rows (25 with registers masked): the client pushes ebp with ebx in the prologue (the EH-state -1 register) and evaluates each Unknown119C.c_str() before Unknown1138; the flag declared on the first line gained 5 rows",,opus
+2026-10-28 15:50,0x88CF50,GuildRecruitAcceptClientPacketClass::~GuildRecruitAcceptClientPacketClass,app/packets/pkguildranknamesrequestclient.cpp,app,exact,,1,,"SC2: D99: the empty out-of-line destructor (7 bytes, the PacketClass vtable store) is byte-identical (objdiff: only the padding differs); too short for the matcher",,opus
+2026-10-28 15:50,0x74E710,SClient::Unknown_74E710,app/client/sclient.cpp,app,exact,,1,,"SC2: exact first form (switch on type, push_back on Unknown11AC[type])",,opus

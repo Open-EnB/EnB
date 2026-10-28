@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 36 |
 | 3 | by convention from a client-named file or sibling | 947 |
 | 2 | describes what the code does | 2316 |
-| 1 | neutral placeholder | 5269 |
+| 1 | neutral placeholder | 5272 |
 
 ## For review (score 3 and below)
 
@@ -2089,8 +2089,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_56BA80` | `app/client/sclient.cpp:168` | untagged neutral name (D10) |
 | 1 | `on` | `app/client/sclient.cpp:169` | what Do_Frame passes |
 | 1 | `Unknown_56BA40` | `app/client/sclient.cpp:169` | untagged neutral name (D10) |
-| 1 | `arg` | `app/client/sclient.cpp:170` | what 0x7436A0 passes |
+| 1 | `arg` | `app/client/sclient.cpp:170` | what 0x7436A0 passes  // NAME 1 [a, text]: what 0x74E710 passes |
 | 1 | `Unknown_565F30` | `app/client/sclient.cpp:170` | untagged neutral name (D10) |
+| 1 | `Unknown_56BAA0` | `app/client/sclient.cpp:170` | untagged neutral name (D10) |
 | 1 | `Unknown40` | `app/client/sclient.cpp:171` | untagged neutral name (D10) |
 | 1 | `UnknownE0` | `app/client/sclient.cpp:172` | untagged neutral name (D10) |
 | 1 | `UnknownE4` | `app/client/sclient.cpp:173` | untagged neutral name (D10) |
@@ -2314,31 +2315,33 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_6F5ED0` | `app/client/sclient.cpp:4531` | untagged neutral name (D10) |
 | 1 | `Unknown_74D8B0` | `app/client/sclient.cpp:4549` | untagged neutral name (D10) |
 | 1 | `Unknown_6F5F60` | `app/client/sclient.cpp:4554` | untagged neutral name (D10) |
+| 1 | `Unknown_750210` | `app/client/sclient.cpp:4720` | untagged neutral name (D10) |
+| 1 | `Unknown_74FA30` | `app/client/sclient.cpp:4722` | untagged neutral name (D10) |
+| 1 | `Unknown_74FEC0` | `app/client/sclient.cpp:4723` | untagged neutral name (D10) |
+| 1 | `Unknown_728300` | `app/client/sclient.cpp:4726` | untagged neutral name (D10) |
 | 1 | `Unknown_74E580` | `app/client/sclient.cpp:4738` | untagged neutral name (D10) |
+| 1 | `Unknown_74E710` | `app/client/sclient.cpp:4755` | untagged neutral name (D10) |
+| 1 | `Unknown11AC` | `app/client/sclient.cpp:4769` | untagged neutral name (D10) |
 | 1 | `Unknown_74EB00` | `app/client/sclient.cpp:4793` | untagged neutral name (D10) |
 | 1 | `Unknown120C` | `app/client/sclient.cpp:4797` | untagged neutral name (D10) |
-| 1 | `Unknown_74FA30` | `app/client/sclient.cpp:4798` | untagged neutral name (D10) |
-| 1 | `Unknown_74FEC0` | `app/client/sclient.cpp:4799` | untagged neutral name (D10) |
-| 1 | `Unknown_728300` | `app/client/sclient.cpp:4802` | untagged neutral name (D10) |
-| 1 | `Unknown_750210` | `app/client/sclient.cpp:5101` | untagged neutral name (D10) |
 | 1 | `Unknown_750A70` | `app/client/sclient.cpp:5227` | untagged neutral name (D10) |
 | 1 | `Unknown_750B30` | `app/client/sclient.cpp:5251` | untagged neutral name (D10) |
 | 1 | `Unknown_750B60` | `app/client/sclient.cpp:5259` | untagged neutral name (D10) |
-| 1 | `Unknown_640150` | `app/client/sclient.cpp:5428` | untagged neutral name (D10) |
-| 1 | `Unknown_BE5F20` | `app/client/sclient.cpp:5443` | neutral (D10) |
-| 1 | `Unknown_34` | `app/client/sclient.cpp:5447` | untagged neutral name (D10) |
-| 1 | `Unknown_747510` | `app/client/sclient.cpp:5450` | untagged neutral name (D10) |
-| 1 | `Unknown_745FF0` | `app/client/sclient.cpp:5453` | untagged neutral name (D10) |
-| 1 | `Unknown_747C70` | `app/client/sclient.cpp:5455` | untagged neutral name (D10) |
-| 1 | `Unknown_743290` | `app/client/sclient.cpp:5472` | untagged neutral name (D10) |
-| 1 | `Unknown05` | `app/client/sclient.cpp:5485` | untagged neutral name (D10) |
-| 1 | `Unknown_747FA0` | `app/client/sclient.cpp:5559` | untagged neutral name (D10) |
-| 1 | `Unknown_749020` | `app/client/sclient.cpp:5559` | untagged neutral name (D10) |
-| 1 | `Unknown_749590` | `app/client/sclient.cpp:5559` | untagged neutral name (D10) |
-| 1 | `Unknown_749A70` | `app/client/sclient.cpp:5559` | untagged neutral name (D10) |
-| 1 | `Unknown_749ED0` | `app/client/sclient.cpp:5559` | untagged neutral name (D10) |
-| 1 | `Unknown_6FF7A0` | `app/client/sclient.cpp:5573` | untagged neutral name (D10) |
-| 1 | `Unknown4D` | `app/client/sclient.cpp:5576` | untagged neutral name (D10) |
+| 1 | `Unknown_640150` | `app/client/sclient.cpp:5504` | untagged neutral name (D10) |
+| 1 | `Unknown_BE5F20` | `app/client/sclient.cpp:5519` | neutral (D10) |
+| 1 | `Unknown_34` | `app/client/sclient.cpp:5523` | untagged neutral name (D10) |
+| 1 | `Unknown_747510` | `app/client/sclient.cpp:5526` | untagged neutral name (D10) |
+| 1 | `Unknown_745FF0` | `app/client/sclient.cpp:5529` | untagged neutral name (D10) |
+| 1 | `Unknown_747C70` | `app/client/sclient.cpp:5531` | untagged neutral name (D10) |
+| 1 | `Unknown_743290` | `app/client/sclient.cpp:5548` | untagged neutral name (D10) |
+| 1 | `Unknown05` | `app/client/sclient.cpp:5561` | untagged neutral name (D10) |
+| 1 | `Unknown_747FA0` | `app/client/sclient.cpp:5635` | untagged neutral name (D10) |
+| 1 | `Unknown_749020` | `app/client/sclient.cpp:5635` | untagged neutral name (D10) |
+| 1 | `Unknown_749590` | `app/client/sclient.cpp:5635` | untagged neutral name (D10) |
+| 1 | `Unknown_749A70` | `app/client/sclient.cpp:5635` | untagged neutral name (D10) |
+| 1 | `Unknown_749ED0` | `app/client/sclient.cpp:5635` | untagged neutral name (D10) |
+| 1 | `Unknown_6FF7A0` | `app/client/sclient.cpp:5649` | untagged neutral name (D10) |
+| 1 | `Unknown4D` | `app/client/sclient.cpp:5652` | untagged neutral name (D10) |
 | 1 | `LoginUnknown0CClass` | `app/client/sclient.h:37` | untagged neutral name (D10) |
 | 1 | `LoginUnknown18Class` | `app/client/sclient.h:38` | untagged neutral name (D10) |
 | 1 | `PDAInterfaceUnknownA0Class` | `app/client/sclient.h:43` | neutral (D10): what the PDA's +0xA8 object's 0x7C8DB0 returns (its +0xA0) |
@@ -3893,17 +3896,18 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown24` | `app/packets/pkguildplayeronline.h:224` | untagged neutral name (D10) |
 | 1 | `Unknown68` | `app/packets/pkguildplayeronline.h:323` | untagged neutral name (D10) |
 | 1 | `Unknown6C` | `app/packets/pkguildplayeronline.h:324` | untagged neutral name (D10) |
-| 1 | `Unknown0C` | `app/packets/pkguildranknamesrequestclient.cpp:169` | untagged neutral name (D10) |
-| 1 | `Unknown10` | `app/packets/pkguildranknamesrequestclient.cpp:169` | untagged neutral name (D10) |
-| 1 | `Unknown14` | `app/packets/pkguildranknamesrequestclient.cpp:169` | untagged neutral name (D10) |
-| 1 | `Unknown18` | `app/packets/pkguildranknamesrequestclient.cpp:169` | untagged neutral name (D10) |
+| 1 | `Unknown0C` | `app/packets/pkguildranknamesrequestclient.cpp:181` | untagged neutral name (D10) |
+| 1 | `Unknown10` | `app/packets/pkguildranknamesrequestclient.cpp:181` | untagged neutral name (D10) |
+| 1 | `Unknown14` | `app/packets/pkguildranknamesrequestclient.cpp:181` | untagged neutral name (D10) |
+| 1 | `Unknown18` | `app/packets/pkguildranknamesrequestclient.cpp:181` | untagged neutral name (D10) |
 | 1 | `pkguildranknamesrequestclient` | `app/packets/pkguildranknamesrequestclient.h:16` | provisional, pk + its first named class's name |
 | 1 | `GuildPermissionEnum` | `app/packets/pkguildranknamesrequestclient.h:24` | neutral placeholder (D10) |
 | 1 | `GUILD_PERMISSION_NONE` | `app/packets/pkguildranknamesrequestclient.h:26` | neutral placeholder (D10) |
-| 1 | `Unknown0C` | `app/packets/pkguildranknamesrequestclient.h:130` | untagged neutral name (D10) |
-| 1 | `Unknown10` | `app/packets/pkguildranknamesrequestclient.h:131` | untagged neutral name (D10) |
-| 1 | `Unknown14` | `app/packets/pkguildranknamesrequestclient.h:132` | untagged neutral name (D10) |
-| 1 | `Unknown18` | `app/packets/pkguildranknamesrequestclient.h:133` | untagged neutral name (D10) |
+| 1 | `type, player_id, optional_param` | `app/packets/pkguildranknamesrequestclient.h:47` | its fields |
+| 1 | `Unknown0C` | `app/packets/pkguildranknamesrequestclient.h:133` | untagged neutral name (D10) |
+| 1 | `Unknown10` | `app/packets/pkguildranknamesrequestclient.h:134` | untagged neutral name (D10) |
+| 1 | `Unknown14` | `app/packets/pkguildranknamesrequestclient.h:135` | untagged neutral name (D10) |
+| 1 | `Unknown18` | `app/packets/pkguildranknamesrequestclient.h:136` | untagged neutral name (D10) |
 | 1 | `pkhullupgrade` | `app/packets/pkhullupgrade.h:16` | provisional, pk + its first named class's name |
 | 1 | `Unknown0C` | `app/packets/pkincapacitancerequest.cpp:92` | untagged neutral name (D10) |
 | 1 | `Unknown128` | `app/packets/pkincapacitancerequest.cpp:94` | untagged neutral name (D10) |
@@ -5045,83 +5049,82 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_74B680` | `tests/capharness/clienttest/client_stubs.cpp:56` | untagged neutral name (D10) |
 | 1 | `Unknown_74BA30` | `tests/capharness/clienttest/client_stubs.cpp:57` | untagged neutral name (D10) |
 | 1 | `Unknown_74D990` | `tests/capharness/clienttest/client_stubs.cpp:58` | untagged neutral name (D10) |
-| 1 | `Unknown_74E710` | `tests/capharness/clienttest/client_stubs.cpp:73` | untagged neutral name (D10) |
-| 1 | `Unknown_751460` | `tests/capharness/clienttest/client_stubs.cpp:74` | untagged neutral name (D10) |
-| 1 | `Unknown_7517E0` | `tests/capharness/clienttest/client_stubs.cpp:75` | untagged neutral name (D10) |
-| 1 | `Unknown_751850` | `tests/capharness/clienttest/client_stubs.cpp:76` | untagged neutral name (D10) |
-| 1 | `Unknown_64` | `tests/capharness/clienttest/client_stubs.cpp:79` | untagged neutral name (D10) |
-| 1 | `UnknownB4Class` | `tests/capharness/clienttest/client_stubs.cpp:97` | untagged neutral name (D10) |
-| 1 | `Unknown_731FA0` | `tests/capharness/clienttest/client_stubs.cpp:97` | untagged neutral name (D10) |
-| 1 | `Unknown498C10Class` | `tests/capharness/clienttest/client_stubs.cpp:98` | untagged neutral name (D10) |
-| 1 | `Unknown00` | `tests/capharness/clienttest/client_stubs.cpp:98` | untagged neutral name (D10) |
-| 1 | `Unknown_498F00` | `tests/capharness/clienttest/client_stubs.cpp:99` | untagged neutral name (D10) |
-| 1 | `Unknown_7294D0` | `tests/capharness/clienttest/client_stubs.cpp:103` | untagged neutral name (D10) |
-| 1 | `Unknown_BE350C` | `tests/capharness/clienttest/client_stubs.cpp:111` | untagged neutral name (D10) |
-| 1 | `Unknown_BE5F34` | `tests/capharness/clienttest/client_stubs.cpp:112` | untagged neutral name (D10) |
-| 1 | `Unknown_744240` | `tests/capharness/clienttest/client_stubs.cpp:116` | untagged neutral name (D10) |
-| 1 | `Unknown_65F780` | `tests/capharness/clienttest/client_stubs.cpp:117` | untagged neutral name (D10) |
-| 1 | `Unknown_802960` | `tests/capharness/clienttest/client_stubs.cpp:118` | untagged neutral name (D10) |
-| 1 | `Unknown_6E74B0` | `tests/capharness/clienttest/client_stubs.cpp:123` | untagged neutral name (D10) |
-| 1 | `Unknown_6E6ED0` | `tests/capharness/clienttest/client_stubs.cpp:124` | untagged neutral name (D10) |
-| 1 | `Unknown_6E6E30` | `tests/capharness/clienttest/client_stubs.cpp:125` | untagged neutral name (D10) |
-| 1 | `Unknown_6E6A90` | `tests/capharness/clienttest/client_stubs.cpp:127` | untagged neutral name (D10) |
-| 1 | `Unknown_6E6AD0` | `tests/capharness/clienttest/client_stubs.cpp:128` | untagged neutral name (D10) |
-| 1 | `Unknown86CRecordClass` | `tests/capharness/clienttest/client_stubs.cpp:129` | untagged neutral name (D10) |
-| 1 | `Unknown831340Class` | `tests/capharness/clienttest/client_stubs.cpp:134` | untagged neutral name (D10) |
-| 1 | `Unknown763E00Class` | `tests/capharness/clienttest/client_stubs.cpp:140` | untagged neutral name (D10) |
-| 1 | `Unknown_763E70` | `tests/capharness/clienttest/client_stubs.cpp:142` | untagged neutral name (D10) |
-| 1 | `Unknown_763FF0` | `tests/capharness/clienttest/client_stubs.cpp:143` | untagged neutral name (D10) |
-| 1 | `Unknown_4604D0` | `tests/capharness/clienttest/client_stubs.cpp:151` | untagged neutral name (D10) |
-| 1 | `Unknown_460780` | `tests/capharness/clienttest/client_stubs.cpp:152` | untagged neutral name (D10) |
-| 1 | `Unknown_460850` | `tests/capharness/clienttest/client_stubs.cpp:153` | untagged neutral name (D10) |
-| 1 | `Unknown_460880` | `tests/capharness/clienttest/client_stubs.cpp:154` | untagged neutral name (D10) |
-| 1 | `Unknown_75AE30` | `tests/capharness/clienttest/client_stubs.cpp:164` | untagged neutral name (D10) |
-| 1 | `Unknown_75B0D0` | `tests/capharness/clienttest/client_stubs.cpp:165` | untagged neutral name (D10) |
-| 1 | `Unknown_75B170` | `tests/capharness/clienttest/client_stubs.cpp:166` | untagged neutral name (D10) |
-| 1 | `Unknown_75B2B0` | `tests/capharness/clienttest/client_stubs.cpp:167` | untagged neutral name (D10) |
-| 1 | `SClientUnknown1334Class` | `tests/capharness/clienttest/client_stubs.cpp:195` | untagged neutral name (D10) |
-| 1 | `Unknown_80E8C0` | `tests/capharness/clienttest/client_stubs.cpp:196` | untagged neutral name (D10) |
-| 1 | `Unknown_81F810` | `tests/capharness/clienttest/client_stubs.cpp:199` | untagged neutral name (D10) |
-| 1 | `Unknown_Assert_Failed` | `tests/capharness/clienttest/client_stubs.cpp:203` | untagged neutral name (D10) |
-| 1 | `Unknown_Fail_If_Report` | `tests/capharness/clienttest/client_stubs.cpp:204` | untagged neutral name (D10) |
-| 1 | `Unknown_Debug_Begin_Step` | `tests/capharness/clienttest/client_stubs.cpp:205` | untagged neutral name (D10) |
-| 1 | `Unknown_Debug_End_Step` | `tests/capharness/clienttest/client_stubs.cpp:206` | untagged neutral name (D10) |
-| 1 | `Unknown_Debug_Print` | `tests/capharness/clienttest/client_stubs.cpp:207` | untagged neutral name (D10) |
-| 1 | `Unknown_C07550` | `tests/capharness/clienttest/client_stubs.cpp:212` | untagged neutral name (D10) |
-| 1 | `Unknown_C404D8Struct` | `tests/capharness/clienttest/client_stubs.cpp:222` | untagged neutral name (D10) |
-| 1 | `Unknown0000` | `tests/capharness/clienttest/client_stubs.cpp:224` | untagged neutral name (D10) |
-| 1 | `Unknown19A5` | `tests/capharness/clienttest/client_stubs.cpp:225` | untagged neutral name (D10) |
-| 1 | `Unknown_C404D8` | `tests/capharness/clienttest/client_stubs.cpp:228` | untagged neutral name (D10) |
-| 1 | `UnknownGlobal` | `tests/capharness/clienttest/client_stubs.cpp:247` | untagged neutral name (D10) |
-| 1 | `UnknownB02C90Class` | `tests/capharness/clienttest/client_stubs.cpp:255` | untagged neutral name (D10) |
-| 1 | `Unknown_8ADB20` | `tests/capharness/clienttest/client_stubs.cpp:257` | untagged neutral name (D10) |
-| 1 | `SClientUnknown1338Class` | `tests/capharness/clienttest/client_stubs.cpp:260` | untagged neutral name (D10) |
-| 1 | `Unknown_80EFF0` | `tests/capharness/clienttest/client_stubs.cpp:261` | untagged neutral name (D10) |
-| 1 | `Unknown_80F220` | `tests/capharness/clienttest/client_stubs.cpp:266` | untagged neutral name (D10) |
-| 1 | `Unknown6E9490TargetClass` | `tests/capharness/clienttest/client_stubs.cpp:284` | untagged neutral name (D10) |
-| 1 | `Unknown_00` | `tests/capharness/clienttest/client_stubs.cpp:287` | untagged neutral name (D10) |
-| 1 | `Unknown_04` | `tests/capharness/clienttest/client_stubs.cpp:288` | untagged neutral name (D10) |
-| 1 | `Unknown_08` | `tests/capharness/clienttest/client_stubs.cpp:289` | untagged neutral name (D10) |
-| 1 | `Unknown_0C` | `tests/capharness/clienttest/client_stubs.cpp:290` | untagged neutral name (D10) |
-| 1 | `Unknown_10` | `tests/capharness/clienttest/client_stubs.cpp:291` | untagged neutral name (D10) |
-| 1 | `Unknown_14` | `tests/capharness/clienttest/client_stubs.cpp:292` | untagged neutral name (D10) |
-| 1 | `Unknown_18` | `tests/capharness/clienttest/client_stubs.cpp:293` | untagged neutral name (D10) |
-| 1 | `Unknown_1C` | `tests/capharness/clienttest/client_stubs.cpp:294` | untagged neutral name (D10) |
-| 1 | `Unknown_20` | `tests/capharness/clienttest/client_stubs.cpp:295` | untagged neutral name (D10) |
-| 1 | `Unknown_24` | `tests/capharness/clienttest/client_stubs.cpp:296` | untagged neutral name (D10) |
-| 1 | `Unknown_28` | `tests/capharness/clienttest/client_stubs.cpp:297` | untagged neutral name (D10) |
-| 1 | `Unknown_2C` | `tests/capharness/clienttest/client_stubs.cpp:298` | untagged neutral name (D10) |
-| 1 | `UnknownB0009CEffectClass` | `tests/capharness/clienttest/client_stubs.cpp:315` | untagged neutral name (D10) |
-| 1 | `Unknown_30` | `tests/capharness/clienttest/client_stubs.cpp:322` | untagged neutral name (D10) |
-| 1 | `Unknown_34` | `tests/capharness/clienttest/client_stubs.cpp:323` | untagged neutral name (D10) |
-| 1 | `Unknown_38` | `tests/capharness/clienttest/client_stubs.cpp:324` | untagged neutral name (D10) |
-| 1 | `Unknown_6E82A0` | `tests/capharness/clienttest/client_stubs.cpp:325` | untagged neutral name (D10) |
-| 1 | `Unknown04` | `tests/capharness/clienttest/client_stubs.cpp:326` | untagged neutral name (D10) |
-| 1 | `Unknown80` | `tests/capharness/clienttest/client_stubs.cpp:328` | untagged neutral name (D10) |
-| 1 | `Unknown6E9490BinaryClass` | `tests/capharness/clienttest/client_stubs.cpp:342` | untagged neutral name (D10) |
-| 1 | `Unknown6E9490EffectClass` | `tests/capharness/clienttest/client_stubs.cpp:349` | untagged neutral name (D10) |
-| 1 | `Unknown_6E9490` | `tests/capharness/clienttest/client_stubs.cpp:364` | untagged neutral name (D10) |
-| 1 | `Unknown_42A1A0` | `tests/capharness/clienttest/client_stubs.cpp:384` | untagged neutral name (D10) |
+| 1 | `Unknown_751460` | `tests/capharness/clienttest/client_stubs.cpp:73` | untagged neutral name (D10) |
+| 1 | `Unknown_7517E0` | `tests/capharness/clienttest/client_stubs.cpp:74` | untagged neutral name (D10) |
+| 1 | `Unknown_751850` | `tests/capharness/clienttest/client_stubs.cpp:75` | untagged neutral name (D10) |
+| 1 | `Unknown_64` | `tests/capharness/clienttest/client_stubs.cpp:78` | untagged neutral name (D10) |
+| 1 | `UnknownB4Class` | `tests/capharness/clienttest/client_stubs.cpp:96` | untagged neutral name (D10) |
+| 1 | `Unknown_731FA0` | `tests/capharness/clienttest/client_stubs.cpp:96` | untagged neutral name (D10) |
+| 1 | `Unknown498C10Class` | `tests/capharness/clienttest/client_stubs.cpp:97` | untagged neutral name (D10) |
+| 1 | `Unknown00` | `tests/capharness/clienttest/client_stubs.cpp:97` | untagged neutral name (D10) |
+| 1 | `Unknown_498F00` | `tests/capharness/clienttest/client_stubs.cpp:98` | untagged neutral name (D10) |
+| 1 | `Unknown_7294D0` | `tests/capharness/clienttest/client_stubs.cpp:102` | untagged neutral name (D10) |
+| 1 | `Unknown_BE350C` | `tests/capharness/clienttest/client_stubs.cpp:110` | untagged neutral name (D10) |
+| 1 | `Unknown_BE5F34` | `tests/capharness/clienttest/client_stubs.cpp:111` | untagged neutral name (D10) |
+| 1 | `Unknown_744240` | `tests/capharness/clienttest/client_stubs.cpp:115` | untagged neutral name (D10) |
+| 1 | `Unknown_65F780` | `tests/capharness/clienttest/client_stubs.cpp:116` | untagged neutral name (D10) |
+| 1 | `Unknown_802960` | `tests/capharness/clienttest/client_stubs.cpp:117` | untagged neutral name (D10) |
+| 1 | `Unknown_6E74B0` | `tests/capharness/clienttest/client_stubs.cpp:122` | untagged neutral name (D10) |
+| 1 | `Unknown_6E6ED0` | `tests/capharness/clienttest/client_stubs.cpp:123` | untagged neutral name (D10) |
+| 1 | `Unknown_6E6E30` | `tests/capharness/clienttest/client_stubs.cpp:124` | untagged neutral name (D10) |
+| 1 | `Unknown_6E6A90` | `tests/capharness/clienttest/client_stubs.cpp:126` | untagged neutral name (D10) |
+| 1 | `Unknown_6E6AD0` | `tests/capharness/clienttest/client_stubs.cpp:127` | untagged neutral name (D10) |
+| 1 | `Unknown86CRecordClass` | `tests/capharness/clienttest/client_stubs.cpp:128` | untagged neutral name (D10) |
+| 1 | `Unknown831340Class` | `tests/capharness/clienttest/client_stubs.cpp:133` | untagged neutral name (D10) |
+| 1 | `Unknown763E00Class` | `tests/capharness/clienttest/client_stubs.cpp:139` | untagged neutral name (D10) |
+| 1 | `Unknown_763E70` | `tests/capharness/clienttest/client_stubs.cpp:141` | untagged neutral name (D10) |
+| 1 | `Unknown_763FF0` | `tests/capharness/clienttest/client_stubs.cpp:142` | untagged neutral name (D10) |
+| 1 | `Unknown_4604D0` | `tests/capharness/clienttest/client_stubs.cpp:150` | untagged neutral name (D10) |
+| 1 | `Unknown_460780` | `tests/capharness/clienttest/client_stubs.cpp:151` | untagged neutral name (D10) |
+| 1 | `Unknown_460850` | `tests/capharness/clienttest/client_stubs.cpp:152` | untagged neutral name (D10) |
+| 1 | `Unknown_460880` | `tests/capharness/clienttest/client_stubs.cpp:153` | untagged neutral name (D10) |
+| 1 | `Unknown_75AE30` | `tests/capharness/clienttest/client_stubs.cpp:163` | untagged neutral name (D10) |
+| 1 | `Unknown_75B0D0` | `tests/capharness/clienttest/client_stubs.cpp:164` | untagged neutral name (D10) |
+| 1 | `Unknown_75B170` | `tests/capharness/clienttest/client_stubs.cpp:165` | untagged neutral name (D10) |
+| 1 | `Unknown_75B2B0` | `tests/capharness/clienttest/client_stubs.cpp:166` | untagged neutral name (D10) |
+| 1 | `SClientUnknown1334Class` | `tests/capharness/clienttest/client_stubs.cpp:194` | untagged neutral name (D10) |
+| 1 | `Unknown_80E8C0` | `tests/capharness/clienttest/client_stubs.cpp:195` | untagged neutral name (D10) |
+| 1 | `Unknown_81F810` | `tests/capharness/clienttest/client_stubs.cpp:198` | untagged neutral name (D10) |
+| 1 | `Unknown_Assert_Failed` | `tests/capharness/clienttest/client_stubs.cpp:202` | untagged neutral name (D10) |
+| 1 | `Unknown_Fail_If_Report` | `tests/capharness/clienttest/client_stubs.cpp:203` | untagged neutral name (D10) |
+| 1 | `Unknown_Debug_Begin_Step` | `tests/capharness/clienttest/client_stubs.cpp:204` | untagged neutral name (D10) |
+| 1 | `Unknown_Debug_End_Step` | `tests/capharness/clienttest/client_stubs.cpp:205` | untagged neutral name (D10) |
+| 1 | `Unknown_Debug_Print` | `tests/capharness/clienttest/client_stubs.cpp:206` | untagged neutral name (D10) |
+| 1 | `Unknown_C07550` | `tests/capharness/clienttest/client_stubs.cpp:211` | untagged neutral name (D10) |
+| 1 | `Unknown_C404D8Struct` | `tests/capharness/clienttest/client_stubs.cpp:221` | untagged neutral name (D10) |
+| 1 | `Unknown0000` | `tests/capharness/clienttest/client_stubs.cpp:223` | untagged neutral name (D10) |
+| 1 | `Unknown19A5` | `tests/capharness/clienttest/client_stubs.cpp:224` | untagged neutral name (D10) |
+| 1 | `Unknown_C404D8` | `tests/capharness/clienttest/client_stubs.cpp:227` | untagged neutral name (D10) |
+| 1 | `UnknownGlobal` | `tests/capharness/clienttest/client_stubs.cpp:246` | untagged neutral name (D10) |
+| 1 | `UnknownB02C90Class` | `tests/capharness/clienttest/client_stubs.cpp:254` | untagged neutral name (D10) |
+| 1 | `Unknown_8ADB20` | `tests/capharness/clienttest/client_stubs.cpp:256` | untagged neutral name (D10) |
+| 1 | `SClientUnknown1338Class` | `tests/capharness/clienttest/client_stubs.cpp:259` | untagged neutral name (D10) |
+| 1 | `Unknown_80EFF0` | `tests/capharness/clienttest/client_stubs.cpp:260` | untagged neutral name (D10) |
+| 1 | `Unknown_80F220` | `tests/capharness/clienttest/client_stubs.cpp:265` | untagged neutral name (D10) |
+| 1 | `Unknown6E9490TargetClass` | `tests/capharness/clienttest/client_stubs.cpp:283` | untagged neutral name (D10) |
+| 1 | `Unknown_00` | `tests/capharness/clienttest/client_stubs.cpp:286` | untagged neutral name (D10) |
+| 1 | `Unknown_04` | `tests/capharness/clienttest/client_stubs.cpp:287` | untagged neutral name (D10) |
+| 1 | `Unknown_08` | `tests/capharness/clienttest/client_stubs.cpp:288` | untagged neutral name (D10) |
+| 1 | `Unknown_0C` | `tests/capharness/clienttest/client_stubs.cpp:289` | untagged neutral name (D10) |
+| 1 | `Unknown_10` | `tests/capharness/clienttest/client_stubs.cpp:290` | untagged neutral name (D10) |
+| 1 | `Unknown_14` | `tests/capharness/clienttest/client_stubs.cpp:291` | untagged neutral name (D10) |
+| 1 | `Unknown_18` | `tests/capharness/clienttest/client_stubs.cpp:292` | untagged neutral name (D10) |
+| 1 | `Unknown_1C` | `tests/capharness/clienttest/client_stubs.cpp:293` | untagged neutral name (D10) |
+| 1 | `Unknown_20` | `tests/capharness/clienttest/client_stubs.cpp:294` | untagged neutral name (D10) |
+| 1 | `Unknown_24` | `tests/capharness/clienttest/client_stubs.cpp:295` | untagged neutral name (D10) |
+| 1 | `Unknown_28` | `tests/capharness/clienttest/client_stubs.cpp:296` | untagged neutral name (D10) |
+| 1 | `Unknown_2C` | `tests/capharness/clienttest/client_stubs.cpp:297` | untagged neutral name (D10) |
+| 1 | `UnknownB0009CEffectClass` | `tests/capharness/clienttest/client_stubs.cpp:314` | untagged neutral name (D10) |
+| 1 | `Unknown_30` | `tests/capharness/clienttest/client_stubs.cpp:321` | untagged neutral name (D10) |
+| 1 | `Unknown_34` | `tests/capharness/clienttest/client_stubs.cpp:322` | untagged neutral name (D10) |
+| 1 | `Unknown_38` | `tests/capharness/clienttest/client_stubs.cpp:323` | untagged neutral name (D10) |
+| 1 | `Unknown_6E82A0` | `tests/capharness/clienttest/client_stubs.cpp:324` | untagged neutral name (D10) |
+| 1 | `Unknown04` | `tests/capharness/clienttest/client_stubs.cpp:325` | untagged neutral name (D10) |
+| 1 | `Unknown80` | `tests/capharness/clienttest/client_stubs.cpp:327` | untagged neutral name (D10) |
+| 1 | `Unknown6E9490BinaryClass` | `tests/capharness/clienttest/client_stubs.cpp:341` | untagged neutral name (D10) |
+| 1 | `Unknown6E9490EffectClass` | `tests/capharness/clienttest/client_stubs.cpp:348` | untagged neutral name (D10) |
+| 1 | `Unknown_6E9490` | `tests/capharness/clienttest/client_stubs.cpp:363` | untagged neutral name (D10) |
+| 1 | `Unknown_42A1A0` | `tests/capharness/clienttest/client_stubs.cpp:383` | untagged neutral name (D10) |
 | 1 | `Unknown_BE71D4` | `tests/capharness/clienttest/clienttest.cpp:107` | untagged neutral name (D10) |
 | 1 | `Unknown_Get_Ticks` | `tests/capharness/clienttest/clienttest.cpp:109` | untagged neutral name (D10) |
 | 1 | `Unknown_8B4510` | `tests/capharness/clienttest/clienttest.cpp:120` | untagged neutral name (D10) |
@@ -5950,10 +5953,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Remove` | `app/client/sclient.cpp:316` | what Shutdown does with it |
 | 2 | `INIUsers` | `app/client/sclient.cpp:335` | what it counts |
 | 2 | `SoundManager` | `app/client/sclient.cpp:779` | what it holds |
-| 2 | `ChatCommandHelp` | `app/client/sclient.cpp:5433` | 0x745FF0's '/chat' help lines |
-| 2 | `LogoffCommandStruct` | `app/client/sclient.cpp:5440` | what 0x74ABC0 does with an entry |
-| 2 | `LogoffCommands` | `app/client/sclient.cpp:5441` | what 0x74ABC0 sends for them |
-| 2 | `CampCommands` | `app/client/sclient.cpp:5442` | the command 0x74ABC0 refuses |
+| 2 | `ChatCommandHelp` | `app/client/sclient.cpp:5509` | 0x745FF0's '/chat' help lines |
+| 2 | `LogoffCommandStruct` | `app/client/sclient.cpp:5516` | what 0x74ABC0 does with an entry |
+| 2 | `LogoffCommands` | `app/client/sclient.cpp:5517` | what 0x74ABC0 sends for them |
+| 2 | `CampCommands` | `app/client/sclient.cpp:5518` | the command 0x74ABC0 refuses |
 | 2 | `button` | `app/client/sclient.h:141` | tsk_login.h's |
 | 2 | `ViewClass` | `app/client/sclient.h:153` | what the six objects share (kernel-map-step9.md 9f's view.cpp) |
 | 2 | `OrbitalManager` | `app/client/sclient.h:279` | the client's (OrbitalManager::Update) |
@@ -6475,11 +6478,11 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Owned` | `app/packets/pkgroup.h:38` | what it means |
 | 2 | `Add` | `app/packets/pkguildplayeronline.h:237` | what it does (as GuildRankNamesSectorPacket's) |
 | 2 | `std:` | `app/packets/pkguildplayeronline.h:240` | as GuildRankNamesSectorPacket's |
-| 2 | `GuildRankNameStruct` | `app/packets/pkguildranknamesrequestclient.h:151` | what it holds (GuildRankNamesSector's entries) |
-| 2 | `Rank` | `app/packets/pkguildranknamesrequestclient.h:155` | what it holds |
-| 2 | `std:` | `app/packets/pkguildranknamesrequestclient.h:156` | what it holds |
-| 2 | `Add` | `app/packets/pkguildranknamesrequestclient.h:169` | what it does |
-| 2 | `std:` | `app/packets/pkguildranknamesrequestclient.h:171` | what it holds |
+| 2 | `GuildRankNameStruct` | `app/packets/pkguildranknamesrequestclient.h:154` | what it holds (GuildRankNamesSector's entries) |
+| 2 | `Rank` | `app/packets/pkguildranknamesrequestclient.h:158` | what it holds |
+| 2 | `std:` | `app/packets/pkguildranknamesrequestclient.h:159` | what it holds |
+| 2 | `Add` | `app/packets/pkguildranknamesrequestclient.h:172` | what it does |
+| 2 | `std:` | `app/packets/pkguildranknamesrequestclient.h:174` | what it holds |
 | 2 | `x872E30` | `app/packets/pkincapacitancerequest.cpp:119` | what it does |
 | 2 | `IncapacitanceRequestPacketClass` | `app/packets/pkincapacitancerequest.h:23` | the reference decoder's opcode name INCAPACITANCE_REQUEST (the Net-7 opcode table; no structure check) |
 | 2 | `Desc` | `app/packets/pkincapacitancerequest.h:78` | what it holds |
@@ -7726,9 +7729,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `SBaseViewClass` | `app/client/sbaseview.h:63` | class-from-file (D24) for app\client\sbaseview.cpp |
 | 3 | `PTrade` | `app/client/sbaseview.h:71` | its class's file (ui_ptrade.cpp) |
 | 3 | `SoundManagerClass` | `app/client/sclient.cpp:774` | class-from-file (D24) for app\client\sound_manager.cpp |
-| 3 | `ACTIONTYPE_MAX` | `app/client/sclient.cpp:4790` | the assert's (Unknown120C's two queues) |
-| 3 | `UIStarbaseClass` | `app/client/sclient.cpp:5428` | sbaseview.h's (ui_starbase.cpp); 0x640150: '/starbase reset' |
-| 3 | `SBaseViewClass` | `app/client/sclient.cpp:5429` | sbaseview.h's; Get_Starbase 0x54EDA0 |
+| 3 | `ACTIONTYPE_MAX` | `app/client/sclient.cpp:4752` | the assert's (Unknown120C's two queues) |
+| 3 | `UIStarbaseClass` | `app/client/sclient.cpp:5504` | sbaseview.h's (ui_starbase.cpp); 0x640150: '/starbase reset' |
+| 3 | `SBaseViewClass` | `app/client/sclient.cpp:5505` | sbaseview.h's; Get_Starbase 0x54EDA0 |
 | 3 | `sclient.h` | `app/client/sclient.h:21` | header name assumed from the class |
 | 3 | `MusicManagerClass` | `app/client/sclient.h:59` | class-from-file (D24) for audio\musicmanager.cpp (constructor 0x439E40, 0x1FC bytes) |
 | 3 | `CameraManagerClass` | `app/client/sclient.h:60` | class-from-file (D24) for camera_manager.cpp (constructor 0x798D20, 0x4C bytes) |
@@ -8046,26 +8049,26 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `Type` | `app/packets/pkguildranknamesrequestclient.h:39` | the client's Print text 'Type=' |
 | 3 | `std:` | `app/packets/pkguildranknamesrequestclient.h:40` | the client's Print text 'OptionalParam=' |
 | 3 | `GuildSimpleClientSectorPacketClass` | `app/packets/pkguildranknamesrequestclient.h:44` | the client's Print text 'GuildSimpleClientSectorPacket {' and the PacketClass convention |
-| 3 | `Type` | `app/packets/pkguildranknamesrequestclient.h:53` | the client's Print text 'Type=' |
-| 3 | `PlayerID` | `app/packets/pkguildranknamesrequestclient.h:54` | the client's Print text 'PlayerID=' |
-| 3 | `std:` | `app/packets/pkguildranknamesrequestclient.h:55` | the client's Print text 'OptionalParam=' |
-| 3 | `GuildLeaderAcceptClientPacketClass` | `app/packets/pkguildranknamesrequestclient.h:59` | the client's Print text 'GuildLeaderAcceptClient {' and the PacketClass convention |
-| 3 | `PlayerID` | `app/packets/pkguildranknamesrequestclient.h:70` | the client's Print text 'PlayerID=' |
-| 3 | `std:` | `app/packets/pkguildranknamesrequestclient.h:71` | the client's Print text 'GuildName=' |
-| 3 | `Accept` | `app/packets/pkguildranknamesrequestclient.h:72` | the client's Print text 'Accept=' |
-| 3 | `std:` | `app/packets/pkguildranknamesrequestclient.h:85` | the client's Print text 'InviterName=' |
-| 3 | `std:` | `app/packets/pkguildranknamesrequestclient.h:86` | the client's Print text 'GuildName=' |
-| 3 | `GuildRecruitAcceptClientPacketClass` | `app/packets/pkguildranknamesrequestclient.h:90` | the client's Print text 'GuildRecruitAcceptClient {' and the PacketClass convention |
-| 3 | `PlayerID` | `app/packets/pkguildranknamesrequestclient.h:100` | the client's Print text 'PlayerID=' |
-| 3 | `Accept` | `app/packets/pkguildranknamesrequestclient.h:101` | the client's Print text 'Accept=' |
-| 3 | `MessageType` | `app/packets/pkguildranknamesrequestclient.h:114` | the client's Print text 'MessageType=' |
-| 3 | `std:` | `app/packets/pkguildranknamesrequestclient.h:115` | the client's Print text 'OtherName=' |
-| 3 | `std:` | `app/packets/pkguildranknamesrequestclient.h:116` | the client's Print text 'GuildName=' |
-| 3 | `GuildRankNamesRequestClientPacketClass` | `app/packets/pkguildranknamesrequestclient.h:137` | the client's Print text 'GuildRankNamesRequestClient {' and the PacketClass convention |
-| 3 | `PlayerID` | `app/packets/pkguildranknamesrequestclient.h:147` | the client's Print text 'PlayerID=' |
-| 3 | `GuildRankNamesSectorPacket` | `app/packets/pkguildranknamesrequestclient.h:160` | the client's Print text 'GuildRankNamesSector {}' |
-| 3 | `std:` | `app/packets/pkguildranknamesrequestclient.h:184` | the client's Print text 'OldGuildName=' |
-| 3 | `std:` | `app/packets/pkguildranknamesrequestclient.h:185` | the client's Print text 'NewGuildName=' |
+| 3 | `Type` | `app/packets/pkguildranknamesrequestclient.h:55` | the client's Print text 'Type=' |
+| 3 | `PlayerID` | `app/packets/pkguildranknamesrequestclient.h:56` | the client's Print text 'PlayerID=' |
+| 3 | `std:` | `app/packets/pkguildranknamesrequestclient.h:57` | the client's Print text 'OptionalParam=' |
+| 3 | `GuildLeaderAcceptClientPacketClass` | `app/packets/pkguildranknamesrequestclient.h:61` | the client's Print text 'GuildLeaderAcceptClient {' and the PacketClass convention |
+| 3 | `PlayerID` | `app/packets/pkguildranknamesrequestclient.h:72` | the client's Print text 'PlayerID=' |
+| 3 | `std:` | `app/packets/pkguildranknamesrequestclient.h:73` | the client's Print text 'GuildName=' |
+| 3 | `Accept` | `app/packets/pkguildranknamesrequestclient.h:74` | the client's Print text 'Accept=' |
+| 3 | `std:` | `app/packets/pkguildranknamesrequestclient.h:87` | the client's Print text 'InviterName=' |
+| 3 | `std:` | `app/packets/pkguildranknamesrequestclient.h:88` | the client's Print text 'GuildName=' |
+| 3 | `GuildRecruitAcceptClientPacketClass` | `app/packets/pkguildranknamesrequestclient.h:92` | the client's Print text 'GuildRecruitAcceptClient {' and the PacketClass convention |
+| 3 | `PlayerID` | `app/packets/pkguildranknamesrequestclient.h:103` | the client's Print text 'PlayerID=' |
+| 3 | `Accept` | `app/packets/pkguildranknamesrequestclient.h:104` | the client's Print text 'Accept=' |
+| 3 | `MessageType` | `app/packets/pkguildranknamesrequestclient.h:117` | the client's Print text 'MessageType=' |
+| 3 | `std:` | `app/packets/pkguildranknamesrequestclient.h:118` | the client's Print text 'OtherName=' |
+| 3 | `std:` | `app/packets/pkguildranknamesrequestclient.h:119` | the client's Print text 'GuildName=' |
+| 3 | `GuildRankNamesRequestClientPacketClass` | `app/packets/pkguildranknamesrequestclient.h:140` | the client's Print text 'GuildRankNamesRequestClient {' and the PacketClass convention |
+| 3 | `PlayerID` | `app/packets/pkguildranknamesrequestclient.h:150` | the client's Print text 'PlayerID=' |
+| 3 | `GuildRankNamesSectorPacket` | `app/packets/pkguildranknamesrequestclient.h:163` | the client's Print text 'GuildRankNamesSector {}' |
+| 3 | `std:` | `app/packets/pkguildranknamesrequestclient.h:187` | the client's Print text 'OldGuildName=' |
+| 3 | `std:` | `app/packets/pkguildranknamesrequestclient.h:188` | the client's Print text 'NewGuildName=' |
 | 3 | `ShipID` | `app/packets/pkhullupgrade.h:32` | the client's Print text 'ShipID=' |
 | 3 | `HullUpgradeLevel` | `app/packets/pkhullupgrade.h:33` | the client's Print text 'HullUpgradeLevel=' |
 | 3 | `GameID` | `app/packets/pkincapacitancerequest.h:33` | the client's Print text 'GameID=' |

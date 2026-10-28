@@ -27,11 +27,19 @@ int GuildSimpleSectorClientPacket::Print(char *buffer, int len)
 	return(_snprintf(buffer, len, "GuildSimpleSectorClientPacket {Type=%d OptionalParam=%s}", Type, OptionalParam.c_str()));
 }
 
+GuildSimpleClientSectorPacketClass::GuildSimpleClientSectorPacketClass(int type, int player_id, const char *optional_param) : Type(type), PlayerID(player_id), OptionalParam(optional_param)
+{
+}
+
 GuildSimpleClientSectorPacketClass::GuildSimpleClientSectorPacketClass(RawPacketClass *raw)
 {
 	raw->Get(&Type, sizeof(Type));
 	raw->Get(PlayerID);
 	raw->Get(&OptionalParam);
+}
+
+GuildSimpleClientSectorPacketClass::~GuildSimpleClientSectorPacketClass()
+{
 }
 
 RawPacketClass *GuildSimpleClientSectorPacketClass::Build()
@@ -120,6 +128,10 @@ GuildRecruitAcceptClientPacketClass::GuildRecruitAcceptClientPacketClass(RawPack
 {
 	raw->Get(PlayerID);
 	raw->Get(&Accept, sizeof(Accept));
+}
+
+GuildRecruitAcceptClientPacketClass::~GuildRecruitAcceptClientPacketClass()
+{
 }
 
 RawPacketClass *GuildRecruitAcceptClientPacketClass::Build()
