@@ -1915,23 +1915,23 @@ bool HullUpgradePacketClass::Process_Packet(void *instance)
 	return(true);
 }
 
-// NOT EXACT: shape (the client places the shared failure exit before the call; three forms; attempts.py show 0x7396F0)
+// (each failed test returns at once: the client's shared failure exit sits before the call)
 // 0x7396F0
 bool LootHulkPermissionPacketClass::Process_Packet(void *instance)
 {
 	WWPROFILE("LootHulkPermissionPacketClass::Process_Packet()");
 	SClient *sclient = (SClient *)((ClientClass *)instance)->Unknown_18();
-	if (sclient->MainView) {
-		UICpitClass *cpit = sclient->MainView->Cpit;
-		if (cpit) {
-			ClientObjectClass *hulk = sclient->Find_Object(HulkGameID);
-			if (hulk) {
-				cpit->Unknown_581F90(hulk);
-				return(true);
-			}
-		}
-	}
+	if (!sclient->MainView) return(true);
+	UICpitClass *cpit = sclient->MainView->Cpit;
+	if (!cpit) return(true);
+	ClientObjectClass *hulk = sclient->Find_Object(HulkGameID);
+	if (!hulk) return(true);
+	cpit->Unknown_581F90(hulk);
 	return(true);
+
+
+
+
 }
 
 
@@ -1982,20 +1982,20 @@ bool LootHulkPermissionPacketClass::Process_Packet(void *instance)
 
 
 
-// NOT EXACT: shape (the client places the shared failure exit before the UIType test; two forms; attempts.py show 0x7397D0)
+// (each failed test returns at once: the client's shared failure exit sits before the UIType test)
 // 0x7397D0
 bool OpenInterfacePacketClass::Process_Packet(void *instance)
 {
 	WWPROFILE("OpenInterfacePacketClass::Process_Packet(void * instance)");
 	SClient *sclient = (SClient *)((ClientClass *)instance)->Unknown_18();
-	UICpitClass *cpit;
-	if (sclient->MainView && (cpit = sclient->MainView->Cpit) != NULL) {
-		if (UIType) {
-			G_ASSERT(false);
-		} else cpit->Unknown_5820C0(UIChange == 0);
-		return(true);
-	}
+	if (!sclient->MainView) return(true);
+	UICpitClass *cpit = sclient->MainView->Cpit; if (!cpit) return(true);
+	if (UIType) {
+		G_ASSERT(false);
+	} else cpit->Unknown_5820C0(UIChange == 0);
 	return(true);
+
+
 }
 
 // 0x7398E0
