@@ -219,12 +219,12 @@ Handler = slot +0x08 (all in cpacket.cpp unless noted). "Object" = `Find_Object(
 | 5 | START / StartPacketClass | 0x733440 | SClient 0x745160, 0x692330; sends REQUEST_TIME and START_ACK (no object) | not rebuilt |
 | 7 | REMOVE / RemovePacketClass | 0x7362F0 | §2.3: Remove_Object, children detached and deleted, `delete` | exact |
 | 8 | SIMPLE_POSITIONAL_UDPATE | 0x733DC0 | +0x98 type 3; lag average | NOT EXACT inline-budget [partial] |
-| 9 | OBJECT_EFFECT | 0x734DF0 | eff_o.cpp's factory 0x6E9490, the target end's slot +0x28 = GameID, `Add_Effect` | NOT EXACT register-only [parked] |
-| 10 | POINT_EFFECT | 0x735000 | effect at a point (0x6E9490, Add_Effect) | not rebuilt |
-| 11 | OBJECT_TO_OBJECT_EFFECT | 0x735280 | effect between two objects (LegoIdentifierClass ends, 0x6E82A0) | not rebuilt |
-| 12 | ObjectToEffectEffectPacketClass | 0x735520 | effect from an object to an effect | not rebuilt |
-| 13 | ObjectToPointEffectPacketClass | 0x735B00 | effect from an object to a point | not rebuilt |
-| 14 | OBJECT_TO_OBJECT_LINKED_EFFECT (…DurationLinked…) | 0x735880 | linked effect, as 11 | not rebuilt |
+| 9 | OBJECT_EFFECT | 0x734DF0 | eff_o.cpp's factory 0x6E9490, the unary end (slot +0x10) takes GameID (its slot +0x28), `Add_Effect` | exact (EF1: +0x10C0 read as a DurationClass) |
+| 10 | POINT_EFFECT | 0x735000 | the factory, the unary end's slot +0x2C = Matrix3D(Location), `Add_Effect` | exact (EF1) |
+| 11 | OBJECT_TO_OBJECT_EFFECT | 0x735280 | the factory, the binary end (slot +0x14): source by id or id and lego (+0x28 / +0x2C), target id (+0x34), flag 0x2000 OutsideTargetRadius, offset 0x6E82A0 | exact (EF1) |
+| 12 | ObjectToEffectEffectPacketClass | 0x735520 | as 11 with target 0; the target point from the other effect's slot +0x08 (midpoint with its binary end when Unknown34) | exact (EF1) |
+| 13 | ObjectToPointEffectPacketClass | 0x735B00 | as 11's source; the binary end's slot +0x38 = TargetPoint | exact (EF1) |
+| 14 | OBJECT_TO_OBJECT_LINKED_EFFECT (…DurationLinked…) | 0x735880 | as 11, duration 0 and DurationLinkedEffectDescID to the factory | exact (EF1) |
 | 15 | REMOVE_EFFECT | 0x735D50 | `Get_Effect(id)->0x6E6E30` | exact |
 | 16 | DECAL | 0x735DF0 | shiputils 0x80E8C0 on the model (SClient +0x1334's INI) | exact |
 | 17 | COLORIZATION | 0x735ED0 | the regions at +0xC8, shiputils 0x80EFF0 on the model | exact |
@@ -343,7 +343,9 @@ the 2000-tick blend the model follows the second packet. Not exact yet: 0x6F4610
 4. **The per-frame update**: slot +0x20 0x6F3C60 (0x270) and slot +0x28 0x6F4610 (0x610) in co.cpp,
    with Process_AI 0x744260 (0x300, sclient.cpp): connects §2.4's marks and §2.5's states to the model.
    0x6F3C60's callees 0x6FD310 / 0x6FDBD0 / 0x6FE1E0 / 0x6FBEF0 can stay stand-ins at first.
-5. **eff_o.cpp's factory 0x6E9490** (0x10C0, 17 callers): with it the effect family 10-14 is OBJECT_EFFECT
-   9's pattern five times (0x735000, 0x735280, 0x735520, 0x735B00, 0x735880).
+5. **eff_o.cpp's factory 0x6E9490** (0x10C0, 17 callers): handlers 9-14 are exact (EF1, 2026-10-28) and
+   eff_o.cpp holds the effect classes (base, unary 0xB00060, binary 0xB0009C, tracking 0xB000F0), the per-frame
+   update 0x6E6AD0 and 12 of the factory's 13 helpers; left: the factory itself (lines 950-1210), the pass
+   helper 0x6EB9B0, and 0x6E7AA0 / 0x6E82A0 (they need co.h's 0x725AD0 declared).
 6. Then the small ones: START 5 0x733440 (0x110), CLIENT_SET_TIME 52 0x737960 (frame, partial row),
    SUBPARTS' 0x6FEF70, and the Fable queue's FORMATION 0x734740 / DAMAGE 0x738970 (Progress §4 item 7).
