@@ -392,6 +392,14 @@ unless `--lever` cites a new row of this table.
 * **Do_Frame's lost-connection dialog matches only as an if / else of two complete calls** (2026-10-28, DF1).
 * **udpreplay compiles its app files as one translation unit:** a header's macro gate is defined at the top of
   app_sources.cpp (udpreplay.py writes it, 2026-10-28, PK1).
+* **The client puts the non-null case first wherever it tests `x == NULL`** (2026-10-28, EF1: 0x6E78A0, 0x6E8B60,
+  0x6E8DD0): write `(n == 0) ? A : B` the client's way round, or `if (p) {...} else {null case}`.
+* **An inline accessor in a call's argument list is evaluated before the other arguments** (`Unknown_Time(Client)`;
+  fixed register residues in 0x6E6AD0 / 0x6E7080); an inline getter (`Get_Flag(bit)`) spends inline budget and can
+  push the client's other callees back out of line (0x6E7ED0) (2026-10-28, EF1).
+* **A member named `Node` hides wwlib's `Node<T>`: write `::Node<>`;** a watch node built as `DataNode<T*>(NULL)`
+  gives the client's store order where `Node<T>` plus an int member doesn't; a local stand-in class for another file's
+  effect overrides the base's pure virtual (C2259) and is padded to the client's `new` size (2026-10-28, EF1).
 * **Asserts sit on the client's lines (D25).** To add code above a logged line, remove as many
   blank lines from the same function's stretch (cordmgr.cpp; `.work/milestones/a3/relines.py`);
   pad inside a function, not only before it (Get(char **); pk.cpp's helpers take single blanks).
