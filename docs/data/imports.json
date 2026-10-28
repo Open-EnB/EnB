@@ -1769,6 +1769,9 @@
      "0x457FA0",
      "0x57DBC0",
      "0x6E48A0",
+     "0x6E5460",
+     "0x6E54A0",
+     "0x6E5510",
      "0x6E6710",
      "0x6E6870",
      "0x6E6900",
@@ -1778,10 +1781,16 @@
      "0x6E6ED0",
      "0x6E6F10",
      "0x6E74B0",
+     "0x6E7540",
      "0x6E7690",
      "0x6E7810",
      "0x6E7850",
-     "0x6E7870"
+     "0x6E7870",
+     "0x6E7D70",
+     "0x6E7EA0",
+     "0x6E8170",
+     "0x6E87C0",
+     "0x6E8800"
     ],
     "merged": [],
     "name": "client/eff_o.cpp"
@@ -8617,7 +8626,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 4215,
+  "in_tree_total": 4223,
   "totals": {}
  },
  "binkmovie": {

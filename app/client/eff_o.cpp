@@ -10,6 +10,7 @@
 
 #include "eff_o.h"
 #include "client.h"
+#include "co.h"
 #include "rendobj.h"
 #include "camera.h"
 
@@ -243,7 +244,7 @@ void EffectObjectClass::Unknown_6E6E30()
 	} else {
 		Unknown_6E6F90(0);
 	}
-	Flag.Unknown2 = 1;
+	Set_Flag(4, true);
 	if (StartLink) {
 		StartLink->Unknown_6E6E30();
 	}
@@ -283,12 +284,11 @@ void EffectObjectClass::Unknown_6E74B0(int arg)
 	}
 }
 
-// NOT EXACT: order-only (the client loads Transform's 1.0f after the +0x90 store; four forms: Matrix3D(true), (1), (Vector3(0, 0, 0)), Make_Identity in the body)
 // 0x6E7540
 UnknownB00060EffectClass::UnknownB00060EffectClass(ClientClass *client, unsigned id, unsigned start_time, unsigned duration, unsigned cycle_time) :
 	EffectObjectClass(client, id, start_time, duration, cycle_time),
 	SourceObject(NULL),
-	Unknown90(0),
+	SourceNode(NULL),
 	Transform(true)
 {
 }
@@ -296,7 +296,7 @@ UnknownB00060EffectClass::UnknownB00060EffectClass(ClientClass *client, unsigned
 // 0x6E7690
 void UnknownB00060EffectClass::Unknown_04(int arg)
 {
-	if ((::Node<UnknownB00060EffectClass *> *)arg == &SourceNode) {
+	if ((DataNode<UnknownB00060EffectClass *> *)arg == &SourceNode) {
 		SourceObject = NULL;
 		if ((bool)Flag.Unknown8) {
 			Unknown_6E6E30();
@@ -324,6 +324,60 @@ void UnknownB00060EffectClass::Unknown_1C()
 {
 	if (SourceObject && (bool)Flag.Unknown7) {
 		Unknown_6E7AA0();
+	}
+}
+
+// 0x6E7D70
+UnknownB0009CEffectClass::UnknownB0009CEffectClass(ClientClass *client, unsigned id, unsigned start_time, unsigned duration, unsigned cycle_time) :
+	EffectObjectClass(client, id, start_time, duration, cycle_time),
+	SourceObject(NULL),
+	TargetObject(NULL),
+	SourceNode(NULL),
+	TargetNode(NULL),
+	SourcePosition(0, 0, 0),
+	TargetPosition(0, 0, 0),
+	TargetOffset(0, 0, 0)
+{
+}
+
+// NOT EXACT: inline-budget (the client calls Set_Flag 0x6E8090 out of line in the source branch's inlined 0x6E6E30; ours inlines both)
+// 0x6E7ED0
+void UnknownB0009CEffectClass::Unknown_04(int arg)
+{
+	if ((DataNode<UnknownB0009CEffectClass *> *)arg == &SourceNode) {
+		SourceObject = NULL;
+		if ((bool)Flag.Unknown9) {
+			Unknown_6E6E30();
+		}
+	} else if ((DataNode<UnknownB0009CEffectClass *> *)arg == &TargetNode) {
+		TargetObject = NULL;
+		if ((bool)Flag.Unknown10) {
+			Unknown_6E6E30();
+		}
+	}
+}
+
+// 0x6E8170
+void UnknownB0009CEffectClass::Unknown_2C(int game_id, const LegoIdentifierClass &lego)
+{
+	SourceLego = lego;
+	Unknown_28(game_id);
+}
+
+// 0x6E87C0
+void UnknownB0009CEffectClass::Unknown_6E87C0(const Vector3 &offset)
+{
+	TargetOffset = offset;
+}
+
+// 0x6E8800
+void UnknownB0009CEffectClass::Unknown_18()
+{
+	if (SourceObject) {
+		Unknown_6E8F80();
+	}
+	if (TargetObject) {
+		TargetPosition = TargetObject->Unknown_24() + TargetOffset;
 	}
 }
 

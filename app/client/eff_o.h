@@ -76,6 +76,7 @@ public:
 			}
 		}
 	}
+	void Set_Flag(unsigned flag, bool on) { if (on) Flags |= flag; else Flags &= ~flag; }	// 0x6E8090 (out of line in 0x6E7ED0)  // NAME 2: what it does
 	void Unknown_6E7330();								// 0x6E7330 (the sound at +0x38 stopped and released)
 
 	HashNodeClass<EffectObjectClass *> Node;			// +0x04 ClientClass::EffectList's node  // NAME 2: what it is
@@ -110,7 +111,9 @@ public:
 			unsigned Unknown5 : 1;						// 0x20 (PassDurationToStartLink)
 			unsigned Unknown6 : 1;						// 0x40
 			unsigned Unknown7 : 1;						// 0x80 (the unary end: TrackSource)
-			unsigned Unknown8 : 1;						// 0x100 (the unary end: GoAwayWhenSourceDoes)
+			unsigned Unknown8 : 1;						// 0x100 (the unary end: GoAwayWhenSourceDoes; the binary end: TrackTarget)
+			unsigned Unknown9 : 1;						// 0x200 (the binary end: GoAwayWhenSourceDoes)
+			unsigned Unknown10 : 1;						// 0x400 (the binary end: GoAwayWhenTargetDoes)
 		} Flag;
 	};
 };
@@ -134,10 +137,43 @@ public:
 	void Unknown_6E7AA0();								// 0x6E7AA0 (the transform from the source's model: FAIL_IF '!SourceObject')
 
 	ClientObjectClass *SourceObject;					// +0x80  // NAME 3: 0x6E7AA0's FAIL_IF '!SourceObject'
-	::Node<UnknownB00060EffectClass *> SourceNode;		// +0x84 (vtable 0xAF0DDC)  // NAME 2: SourceObject's watch node
-	int Unknown90;										// +0x90
+	DataNode<UnknownB00060EffectClass *> SourceNode;	// +0x84 (vtable 0xAF0DDC; its value +0x90)  // NAME 2: SourceObject's watch node
 	Matrix3D Transform;									// +0x94  // NAME 2: what it holds
 	LegoIdentifierClass SourceLego;						// +0xC4  // NAME 2: what it holds
+};
+
+// The binary end (vtable 0xB0009C, 0xE0 bytes, constructor 0x6E7D70; its destructor is the implicit one,
+// first emitted in eff_line.cpp at 0x6E5510): an effect from SourceObject (or SourcePosition) to TargetObject
+// (TargetPosition, TargetOffset from the target's position). Slot +0x04 is an object's notice that it goes.
+class UnknownB0009CEffectClass : public EffectObjectClass	// NAME 1: neutral (D10)
+{
+public:
+	UnknownB0009CEffectClass(ClientClass *client, unsigned id, unsigned start_time, unsigned duration, unsigned cycle_time);	// 0x6E7D70  // NAME 1 [client .. cycle_time]: the base's
+	virtual void Unknown_04(int arg);					// +0x04 0x6E7ED0 (the source's or the target's node goes: flags 0x200 / 0x400 end it)  // NAME 1 [arg]: the base's
+	virtual UnknownB0009CEffectClass *Unknown_14() { return(this); }	// +0x14 0x6E5440
+	virtual void Unknown_18();							// +0x18 0x6E8800
+	virtual void Unknown_1C();							// +0x1C 0x6E8890
+	virtual void Unknown_24(int arg);					// +0x24 0x6E8B60  // NAME 1 [arg]: what it gets
+	virtual void Unknown_28(int game_id);				// +0x28 0x6E80D0 ("Set_Source_Object_ID couldn't find the object!")  // NAME 1 [game_id]: the packets' SourceGameID
+	virtual void Unknown_2C(int game_id, const LegoIdentifierClass &lego);	// +0x2C 0x6E8170  // NAME 1 [game_id, lego]: the packets' SourceGameID, SourceLego
+	virtual void Unknown_30(const Vector3 &position) { SourcePosition = position; }	// +0x30 0x6E5460  // NAME 1 [position]: what it sets
+	virtual void Unknown_34(int game_id);				// +0x34 0x6E81B0 ("Set_Target_Object_ID couldn't find the object!")  // NAME 1 [game_id]: the packets' TargetGameID
+	virtual void Unknown_38(const Vector3 &position) { TargetPosition = position; }	// +0x38 0x6E54A0  // NAME 1 [position]: what it sets
+	virtual void Unknown_3C();							// +0x3C 0x6E8DD0
+
+	void Unknown_6E82A0(short unknown36, short unknown34, Vector3 target_offset);	// 0x6E82A0 (the effect packets' offset)  // NAME 1 [unknown36 .. target_offset]: the packets' fields
+	void Unknown_6E87C0(const Vector3 &offset);			// 0x6E87C0 (no caller)  // NAME 1 [offset]: what it sets
+	void Unknown_6E8F80();								// 0x6E8F80 (SourcePosition from the source: FAIL_IF '!SourceObject')
+	void Unknown_6E9190();								// 0x6E9190 (FAIL_IF '!TargetObject')
+
+	ClientObjectClass *SourceObject;					// +0x80  // NAME 3: 0x6E8F80's FAIL_IF '!SourceObject'
+	ClientObjectClass *TargetObject;					// +0x84  // NAME 3: 0x6E9190's FAIL_IF '!TargetObject'
+	DataNode<UnknownB0009CEffectClass *> SourceNode;	// +0x88 (vtable 0xAF0DDC)  // NAME 2: SourceObject's watch node
+	DataNode<UnknownB0009CEffectClass *> TargetNode;	// +0x98 (vtable 0xAF0DDC)  // NAME 2: TargetObject's watch node
+	Vector3 SourcePosition;								// +0xA8  // NAME 2: what it holds
+	Vector3 TargetPosition;								// +0xB4  // NAME 2: what it holds
+	Vector3 TargetOffset;								// +0xC0  // NAME 3: the effect packets' TargetOffset
+	LegoIdentifierClass SourceLego;						// +0xCC  // NAME 3: the effect packets' SourceLego
 };
 
 void Unknown_6E6A90(EffectObjectClass *effect);		// 0x6E6A90: the effect ended if it runs, and deleted (SClient's Shutdown and Process_AI)
