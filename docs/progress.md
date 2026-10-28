@@ -1311,16 +1311,10 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 | D112 | 2026-10-27 | Tools from the traps audit: (1) the importer and tryv2 put scratch under .work/<agent>/tmp when an agent id is set, `--agent` defaults from the worktree name; (2) commit_mine commits a file's `headers` rows, splits attempts.csv and the generated .md files by row, gains `--refresh-totals`, and commits by compare-and-swap (`update-ref` with the old value); (4) tools that write the tree refuse when the working directory isn't their root; (5) `appfile.py match -I auto`, its own lease, objects outside the draft folder; (6) names.py scans untracked files and refreshes not-exact.md. Tool (3), a worktree helper: see the coordinator's comparison with worktrunk | user |
 | D113 | 2026-10-27 | Worktrees get a tool of our own, `tools/vc6/wt.py` (new / bring-over / remove: junctions, captures, libraries, app.lib; bring-over refuses unless master equals the base, merges the row files by row, re-verifies and lands through commit_mine's compare-and-swap), not worktrunk: its setup would still be our hook script, its copy-on-write sharing needs APFS / btrfs / XFS (this host is NTFS), and its squash merge with generated messages conflicts with the one-commit-per-verified-gain history (D112(3)) | user |
 | D114 | 2026-10-27 | (a) D95(b) is closed, superseded by D100 and its refinement (P-M1-1); (b) P-M1-2's wider range (the object's exact COMDATs only it is exact at, within 0x1000 of either end) and (c) P-M1-3's regeneration of symbols.json each get a full verify of every library on a quiet tree, like D88, and are kept only gains-only | user |
+| D115 | 2026-10-27 | objmatch credits a tied constructor / destructor of a file-static to the address its rebuilt static initialiser registers or calls (the `_$E` initialiser's own relocation names it: co_player_relationship's 0x709EF0 registers 0x709F40's atexit), as D88's self name does from a vtable slot; finds and other tied helpers stay tied. On a quiet tree after D114, with a full verify of every library, kept only gains-only (P-R2-1 narrowed) | user |
 
 ## 3. Open decisions
 
-* **P-R2-1:** extend D88's self-name proof to a static initialiser's constructor / destructor pair (0x709EF0 builds
-  GutterColors through 0x70CE50 and registers 0x709F40's atexit), so exact but tied hash_map<string, X> instances count
-  (co_player_relationship 0x709F40 / 0x70D030 / 0x70D150, the same pattern in every SGI file). Measured by M1 (D100 at 32da0be): none of the three is credited: 0x709F40 lies before
-  the object's range 0x70A010-0x70CD50, 0x70D030 / 0x70D150 after it and tie between two identical symbols.
-  Coordinator's recommendation: accept narrowed to a file-static's constructor / destructor pair proven by its
-  initialiser (0x709EF0 registers 0x709F40's atexit), with a full verify on a quiet tree like D88; the finds stay
-  tied. Likely also credits inpkeys' 0x42B420 / 0x42B540.
 ## 4. Next steps
 
 Milestones M1 and M2 are met (D42, D63; [milestones.md](milestones.md)). Order and detail of the
