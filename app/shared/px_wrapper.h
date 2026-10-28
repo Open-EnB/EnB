@@ -9,7 +9,7 @@
 **	loose box (the radius; it reports collisions to _Collision_Callback) and the callback box (in the list only
 **	while Unknown0D is set), plus the callbacks added through Unknown_456F60 / Unknown_457190 / Add_Callback.
 **
-**	PxObject and PxCollision are other px_*.cpp files' (not rebuilt), declared only as far as px_wrapper.cpp
+**	PxObject is another px_*.cpp file's (not rebuilt), declared only as far as px_wrapper.cpp
 **	uses them; their names are provisional.
 */
 #if defined(_MSC_VER)
@@ -23,6 +23,7 @@
 #include "px_box_list.h"
 #include "px_callback.h"
 #include "px_callback_poll.h"
+#include "px_collision.h"
 #include <vector>
 
 class DynObj;
@@ -45,30 +46,6 @@ public:
 
 PxCallback *Unknown_452140(int a, PxObject *object, int b, int c);	// 0x452140 (a factory switching on a's type bits)  // NAME 1 [a, b, c]: neutral
 PxCallback *Unknown_452460(int a, PxObject *object, int b, int c);	// 0x452460 (another factory)  // NAME 1 [a, b, c]: neutral
-
-/*
-** px_collision.cpp's PxCollision (the client's name, 'PxCollision::Process'): a pair of objects to test (their
-** slots +0x2C, +0x34, +0x84 and radius +0x04 are DynObj's).
-*/
-class PxCollision
-{
-public:
-	PxCollision(DynObj *a, DynObj *b) :						// NAME 2 [a, b]: _Collision_Callback's arguments
-		A(a), B(b), Unknown08(1.0f), Unknown0C(0.0f), Unknown10(0.0f), Unknown14(0.0f), Unknown18(0.0f), Unknown1C(0.0f),
-		Unknown20(false), Unknown24(0.0f) {}
-	void Process();											// 0x453A40 'PxCollision::Process'
-
-	DynObj *A;												// +0x00  // NAME 2: the constructor's argument
-	DynObj *B;												// +0x04  // NAME 2: as above
-	float Unknown08;										// +0x08 1.0
-	float Unknown0C;											// +0x0C 0
-	float Unknown10;											// +0x10 0
-	float Unknown14;											// +0x14 0
-	float Unknown18;											// +0x18 0
-	float Unknown1C;											// +0x1C 0
-	bool Unknown20;											// +0x20 false
-	float Unknown24;											// +0x24 0
-};
 
 class PxWrapper
 {
