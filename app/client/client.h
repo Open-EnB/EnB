@@ -87,15 +87,8 @@ public:
 // px.cpp's PxList (0x34 bytes, constructor 0x44BE90, destructor 0x44BF00; app\shared\px.h)
 class PxList;
 
-// px_process.cpp's object (0x0C bytes, constructor 0x455A90, destructor 0x455AB0; not rebuilt)
-class PxProcessClass		// NAME 3: class-from-file (D24) for px_process.cpp
-{
-public:
-	PxProcessClass();									// 0x455A90
-	~PxProcessClass();									// 0x455AB0
-
-	char Unknown00[0x0C];
-};
+// px_process.cpp's list (0x0C bytes, constructor 0x455A90, destructor 0x455AB0; app\shared\px_process.h)
+#include "..\shared\px_process.h"
 
 // The 0x10-byte object at ClientClass +0x18 (constructor 0x763E00, destructor 0x763E30: between
 // proj_decal_manager.cpp and tsk_game.cpp; file unknown)

@@ -10,8 +10,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 33 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 36 |
 | 3 | by convention from a client-named file or sibling | 922 |
-| 2 | describes what the code does | 2240 |
-| 1 | neutral placeholder | 4925 |
+| 2 | describes what the code does | 2251 |
+| 1 | neutral placeholder | 4928 |
 
 ## For review (score 3 and below)
 
@@ -163,60 +163,60 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown00` | `app/client/client.h:80` | untagged neutral name (D10) |
 | 1 | `Unknown10` | `app/client/client.h:82` | untagged neutral name (D10) |
 | 1 | `Unknown24` | `app/client/client.h:84` | untagged neutral name (D10) |
-| 1 | `Unknown763E00Class` | `app/client/client.h:102` | neutral (D10) |
-| 1 | `Unknown_763E70` | `app/client/client.h:106` | untagged neutral name (D10) |
-| 1 | `Unknown_764030` | `app/client/client.h:107` | untagged neutral name (D10) |
-| 1 | `Unknown_763FF0` | `app/client/client.h:108` | untagged neutral name (D10) |
-| 1 | `Unknown_10` | `app/client/client.h:126` | untagged neutral name (D10) |
-| 1 | `Unknown_18` | `app/client/client.h:129` | untagged neutral name (D10) |
-| 1 | `Unknown_1C` | `app/client/client.h:130` | untagged neutral name (D10) |
-| 1 | `Unknown_20` | `app/client/client.h:131` | untagged neutral name (D10) |
-| 1 | `Unknown_34` | `app/client/client.h:136` | untagged neutral name (D10) |
-| 1 | `Add_Unknown86C` | `app/client/client.h:144` | untagged neutral name (D10) |
-| 1 | `Remove_Unknown86C` | `app/client/client.h:145` | untagged neutral name (D10) |
-| 1 | `Find_Unknown86C` | `app/client/client.h:150` | untagged neutral name (D10) |
-| 1 | `Unknown_728180` | `app/client/client.h:155` | untagged neutral name (D10) |
-| 1 | `Unknown_728300` | `app/client/client.h:157` | untagged neutral name (D10) |
-| 1 | `Unknown_728330` | `app/client/client.h:158` | untagged neutral name (D10) |
-| 1 | `Unknown_728370` | `app/client/client.h:159` | untagged neutral name (D10) |
-| 1 | `Unknown_7283B0` | `app/client/client.h:160` | untagged neutral name (D10) |
-| 1 | `Unknown_7283F0` | `app/client/client.h:161` | untagged neutral name (D10) |
-| 1 | `Unknown04` | `app/client/client.h:164` | untagged neutral name (D10) |
-| 1 | `Unknown11` | `app/client/client.h:168` | untagged neutral name (D10) |
-| 1 | `Unknown18` | `app/client/client.h:170` | untagged neutral name (D10) |
-| 1 | `Unknown86CList` | `app/client/client.h:173` | untagged neutral name (D10) |
-| 1 | `Unknown831340List` | `app/client/client.h:174` | untagged neutral name (D10) |
-| 1 | `Unknown10BC` | `app/client/client.h:175` | untagged neutral name (D10) |
-| 1 | `Unknown10C0` | `app/client/client.h:176` | untagged neutral name (D10) |
-| 1 | `Unknown10C8` | `app/client/client.h:177` | untagged neutral name (D10) |
-| 1 | `Unknown10CC` | `app/client/client.h:178` | untagged neutral name (D10) |
-| 1 | `Unknown10D0` | `app/client/client.h:179` | untagged neutral name (D10) |
-| 1 | `Unknown10D4` | `app/client/client.h:180` | untagged neutral name (D10) |
-| 1 | `Unknown10D8` | `app/client/client.h:181` | untagged neutral name (D10) |
-| 1 | `Unknown10DC` | `app/client/client.h:182` | untagged neutral name (D10) |
-| 1 | `Unknown10E0` | `app/client/client.h:183` | untagged neutral name (D10) |
-| 1 | `Unknown10E4` | `app/client/client.h:184` | untagged neutral name (D10) |
-| 1 | `Unknown10E8` | `app/client/client.h:185` | untagged neutral name (D10) |
-| 1 | `Unknown10EC` | `app/client/client.h:186` | untagged neutral name (D10) |
-| 1 | `Unknown10F0` | `app/client/client.h:187` | untagged neutral name (D10) |
-| 1 | `Unknown10F4` | `app/client/client.h:188` | untagged neutral name (D10) |
-| 1 | `Unknown10F8` | `app/client/client.h:189` | untagged neutral name (D10) |
-| 1 | `Unknown10F9` | `app/client/client.h:190` | untagged neutral name (D10) |
-| 1 | `Unknown10FA` | `app/client/client.h:191` | untagged neutral name (D10) |
-| 1 | `Unknown10FC` | `app/client/client.h:192` | untagged neutral name (D10) |
-| 1 | `Unknown1100` | `app/client/client.h:193` | untagged neutral name (D10) |
-| 1 | `Unknown1104` | `app/client/client.h:194` | untagged neutral name (D10) |
-| 1 | `Unknown1108` | `app/client/client.h:195` | untagged neutral name (D10) |
-| 1 | `Unknown110C` | `app/client/client.h:196` | untagged neutral name (D10) |
-| 1 | `Unknown1110` | `app/client/client.h:197` | untagged neutral name (D10) |
-| 1 | `Unknown1114` | `app/client/client.h:198` | untagged neutral name (D10) |
-| 1 | `Unknown1118` | `app/client/client.h:199` | untagged neutral name (D10) |
-| 1 | `Unknown1128` | `app/client/client.h:201` | untagged neutral name (D10) |
-| 1 | `Unknown1134` | `app/client/client.h:204` | untagged neutral name (D10) |
-| 1 | `Unknown1138` | `app/client/client.h:205` | untagged neutral name (D10) |
-| 1 | `Unknown113C` | `app/client/client.h:206` | untagged neutral name (D10) |
-| 1 | `Unknown1144` | `app/client/client.h:208` | untagged neutral name (D10) |
-| 1 | `Unknown114C` | `app/client/client.h:210` | untagged neutral name (D10) |
+| 1 | `Unknown763E00Class` | `app/client/client.h:95` | neutral (D10) |
+| 1 | `Unknown_763E70` | `app/client/client.h:99` | untagged neutral name (D10) |
+| 1 | `Unknown_764030` | `app/client/client.h:100` | untagged neutral name (D10) |
+| 1 | `Unknown_763FF0` | `app/client/client.h:101` | untagged neutral name (D10) |
+| 1 | `Unknown_10` | `app/client/client.h:119` | untagged neutral name (D10) |
+| 1 | `Unknown_18` | `app/client/client.h:122` | untagged neutral name (D10) |
+| 1 | `Unknown_1C` | `app/client/client.h:123` | untagged neutral name (D10) |
+| 1 | `Unknown_20` | `app/client/client.h:124` | untagged neutral name (D10) |
+| 1 | `Unknown_34` | `app/client/client.h:129` | untagged neutral name (D10) |
+| 1 | `Add_Unknown86C` | `app/client/client.h:137` | untagged neutral name (D10) |
+| 1 | `Remove_Unknown86C` | `app/client/client.h:138` | untagged neutral name (D10) |
+| 1 | `Find_Unknown86C` | `app/client/client.h:143` | untagged neutral name (D10) |
+| 1 | `Unknown_728180` | `app/client/client.h:148` | untagged neutral name (D10) |
+| 1 | `Unknown_728300` | `app/client/client.h:150` | untagged neutral name (D10) |
+| 1 | `Unknown_728330` | `app/client/client.h:151` | untagged neutral name (D10) |
+| 1 | `Unknown_728370` | `app/client/client.h:152` | untagged neutral name (D10) |
+| 1 | `Unknown_7283B0` | `app/client/client.h:153` | untagged neutral name (D10) |
+| 1 | `Unknown_7283F0` | `app/client/client.h:154` | untagged neutral name (D10) |
+| 1 | `Unknown04` | `app/client/client.h:157` | untagged neutral name (D10) |
+| 1 | `Unknown11` | `app/client/client.h:161` | untagged neutral name (D10) |
+| 1 | `Unknown18` | `app/client/client.h:163` | untagged neutral name (D10) |
+| 1 | `Unknown86CList` | `app/client/client.h:166` | untagged neutral name (D10) |
+| 1 | `Unknown831340List` | `app/client/client.h:167` | untagged neutral name (D10) |
+| 1 | `Unknown10BC` | `app/client/client.h:168` | untagged neutral name (D10) |
+| 1 | `Unknown10C0` | `app/client/client.h:169` | untagged neutral name (D10) |
+| 1 | `Unknown10C8` | `app/client/client.h:170` | untagged neutral name (D10) |
+| 1 | `Unknown10CC` | `app/client/client.h:171` | untagged neutral name (D10) |
+| 1 | `Unknown10D0` | `app/client/client.h:172` | untagged neutral name (D10) |
+| 1 | `Unknown10D4` | `app/client/client.h:173` | untagged neutral name (D10) |
+| 1 | `Unknown10D8` | `app/client/client.h:174` | untagged neutral name (D10) |
+| 1 | `Unknown10DC` | `app/client/client.h:175` | untagged neutral name (D10) |
+| 1 | `Unknown10E0` | `app/client/client.h:176` | untagged neutral name (D10) |
+| 1 | `Unknown10E4` | `app/client/client.h:177` | untagged neutral name (D10) |
+| 1 | `Unknown10E8` | `app/client/client.h:178` | untagged neutral name (D10) |
+| 1 | `Unknown10EC` | `app/client/client.h:179` | untagged neutral name (D10) |
+| 1 | `Unknown10F0` | `app/client/client.h:180` | untagged neutral name (D10) |
+| 1 | `Unknown10F4` | `app/client/client.h:181` | untagged neutral name (D10) |
+| 1 | `Unknown10F8` | `app/client/client.h:182` | untagged neutral name (D10) |
+| 1 | `Unknown10F9` | `app/client/client.h:183` | untagged neutral name (D10) |
+| 1 | `Unknown10FA` | `app/client/client.h:184` | untagged neutral name (D10) |
+| 1 | `Unknown10FC` | `app/client/client.h:185` | untagged neutral name (D10) |
+| 1 | `Unknown1100` | `app/client/client.h:186` | untagged neutral name (D10) |
+| 1 | `Unknown1104` | `app/client/client.h:187` | untagged neutral name (D10) |
+| 1 | `Unknown1108` | `app/client/client.h:188` | untagged neutral name (D10) |
+| 1 | `Unknown110C` | `app/client/client.h:189` | untagged neutral name (D10) |
+| 1 | `Unknown1110` | `app/client/client.h:190` | untagged neutral name (D10) |
+| 1 | `Unknown1114` | `app/client/client.h:191` | untagged neutral name (D10) |
+| 1 | `Unknown1118` | `app/client/client.h:192` | untagged neutral name (D10) |
+| 1 | `Unknown1128` | `app/client/client.h:194` | untagged neutral name (D10) |
+| 1 | `Unknown1134` | `app/client/client.h:197` | untagged neutral name (D10) |
+| 1 | `Unknown1138` | `app/client/client.h:198` | untagged neutral name (D10) |
+| 1 | `Unknown113C` | `app/client/client.h:199` | untagged neutral name (D10) |
+| 1 | `Unknown1144` | `app/client/client.h:201` | untagged neutral name (D10) |
+| 1 | `Unknown114C` | `app/client/client.h:203` | untagged neutral name (D10) |
 | 1 | `_Attach_Bone` | `app/client/client_lego_impl.cpp:7` | neutral (D10), 0xB95070 |
 | 1 | `Unknown50` | `app/client/client_lego_impl.cpp:101` | untagged neutral name (D10) |
 | 1 | `Unknown64` | `app/client/client_lego_impl.cpp:105` | untagged neutral name (D10) |
@@ -4561,6 +4561,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown2C` | `app/shared/px.cpp:280` | untagged neutral name (D10) |
 | 1 | `Unknown2C` | `app/shared/px.h:94` | only the constructor sets it |
 | 1 | `px_box_list.h` | `app/shared/px_box_list.h:12` | provisional header name (px_box_list.cpp's) |
+| 1 | `Unknown_455D10` | `app/shared/px_process.cpp:113` | untagged neutral name (D10) |
+| 1 | `Unknown_455F60` | `app/shared/px_process.cpp:113` | untagged neutral name (D10) |
+| 1 | `px_process.h` | `app/shared/px_process.h:14` | provisional header name (px_process.cpp's) |
 | 1 | `Unknown0C` | `app/shared/px_wrapper.cpp:17` | untagged neutral name (D10) |
 | 1 | `Unknown0D` | `app/shared/px_wrapper.cpp:18` | untagged neutral name (D10) |
 | 1 | `Unknown0E` | `app/shared/px_wrapper.cpp:19` | untagged neutral name (D10) |
@@ -5021,36 +5024,36 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `ID` | `app/client/client.h:52` | what it is |
 | 2 | `Node` | `app/client/client.h:63` | what it is |
 | 2 | `ID` | `app/client/client.h:65` | what it is |
-| 2 | `rslid` | `app/client/client.h:107` | the INI key it is read from |
-| 2 | `Init` | `app/client/client.h:122` | what SClient's does |
-| 2 | `Shutdown` | `app/client/client.h:123` | what SClient's does |
-| 2 | `Do_Frame` | `app/client/client.h:127` | what SClient's does  // NAME 1 [focused]: Is_Focused() |
-| 2 | `Set_Debug_Object` | `app/client/client.h:132` | what it does (the DEBUG packet's game id) |
-| 2 | `Get_Avatar` | `app/client/client.h:133` | what it does |
-| 2 | `Set_Ship_ID` | `app/client/client.h:134` | what it does (Get_Ship's id) |
-| 2 | `Get_Ship` | `app/client/client.h:135` | client.cpp's FAIL_IF '!ship' on its result |
-| 2 | `Toggle_Debug_Mode` | `app/client/client.h:137` | what it does  // NAME 1 [unused]: never read |
-| 2 | `Set_Debug_Mode` | `app/client/client.h:138` | what it does |
-| 2 | `Add_Object` | `app/client/client.h:139` | what it does |
-| 2 | `Remove_Object` | `app/client/client.h:140` | what it does |
-| 2 | `Add_Effect` | `app/client/client.h:141` | what it does  // NAME 1 [a, b]: handed to the effect |
-| 2 | `Remove_Effects` | `app/client/client.h:142` | what it does |
-| 2 | `Get_Effect` | `app/client/client.h:143` | what it does |
-| 2 | `Find_Object` | `app/client/client.h:147` | what it does |
-| 2 | `Find_Object` | `app/client/client.h:148` | what it does |
-| 2 | `Find_Effect` | `app/client/client.h:149` | what it does |
-| 2 | `Open_Connection` | `app/client/client.h:151` | what it does |
-| 2 | `Open_Connection` | `app/client/client.h:152` | what it does |
-| 2 | `Get_Stats` | `app/client/client.h:153` | what it does |
-| 2 | `Send_Packet` | `app/client/client.h:154` | what it does |
-| 2 | `Get_Objects_Changed` | `app/client/client.h:162` | what it does |
-| 2 | `DebugMode` | `app/client/client.h:167` | what it holds |
-| 2 | `Kernel` | `app/client/client.h:169` | what it holds |
-| 2 | `EffectList` | `app/client/client.h:172` | what it holds |
-| 2 | `AvatarID` | `app/client/client.h:202` | what it holds |
-| 2 | `ShipID` | `app/client/client.h:203` | what it holds |
-| 2 | `ObjectsChanged` | `app/client/client.h:207` | what it holds |
-| 2 | `Splines` | `app/client/client.h:209` | what it holds |
+| 2 | `rslid` | `app/client/client.h:100` | the INI key it is read from |
+| 2 | `Init` | `app/client/client.h:115` | what SClient's does |
+| 2 | `Shutdown` | `app/client/client.h:116` | what SClient's does |
+| 2 | `Do_Frame` | `app/client/client.h:120` | what SClient's does  // NAME 1 [focused]: Is_Focused() |
+| 2 | `Set_Debug_Object` | `app/client/client.h:125` | what it does (the DEBUG packet's game id) |
+| 2 | `Get_Avatar` | `app/client/client.h:126` | what it does |
+| 2 | `Set_Ship_ID` | `app/client/client.h:127` | what it does (Get_Ship's id) |
+| 2 | `Get_Ship` | `app/client/client.h:128` | client.cpp's FAIL_IF '!ship' on its result |
+| 2 | `Toggle_Debug_Mode` | `app/client/client.h:130` | what it does  // NAME 1 [unused]: never read |
+| 2 | `Set_Debug_Mode` | `app/client/client.h:131` | what it does |
+| 2 | `Add_Object` | `app/client/client.h:132` | what it does |
+| 2 | `Remove_Object` | `app/client/client.h:133` | what it does |
+| 2 | `Add_Effect` | `app/client/client.h:134` | what it does  // NAME 1 [a, b]: handed to the effect |
+| 2 | `Remove_Effects` | `app/client/client.h:135` | what it does |
+| 2 | `Get_Effect` | `app/client/client.h:136` | what it does |
+| 2 | `Find_Object` | `app/client/client.h:140` | what it does |
+| 2 | `Find_Object` | `app/client/client.h:141` | what it does |
+| 2 | `Find_Effect` | `app/client/client.h:142` | what it does |
+| 2 | `Open_Connection` | `app/client/client.h:144` | what it does |
+| 2 | `Open_Connection` | `app/client/client.h:145` | what it does |
+| 2 | `Get_Stats` | `app/client/client.h:146` | what it does |
+| 2 | `Send_Packet` | `app/client/client.h:147` | what it does |
+| 2 | `Get_Objects_Changed` | `app/client/client.h:155` | what it does |
+| 2 | `DebugMode` | `app/client/client.h:160` | what it holds |
+| 2 | `Kernel` | `app/client/client.h:162` | what it holds |
+| 2 | `EffectList` | `app/client/client.h:165` | what it holds |
+| 2 | `AvatarID` | `app/client/client.h:195` | what it holds |
+| 2 | `ShipID` | `app/client/client.h:196` | what it holds |
+| 2 | `ObjectsChanged` | `app/client/client.h:200` | what it holds |
+| 2 | `Splines` | `app/client/client.h:202` | what it holds |
 | 2 | `std:` | `app/client/client_lego_impl.h:43` | what it holds |
 | 2 | `BoneIndex` | `app/client/client_lego_impl.h:44` | what it holds |
 | 2 | `Get_Knob` | `app/client/client_lego_impl.h:53` | what it returns |
@@ -6927,6 +6930,17 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `PxOwnerList` | `app/shared/px_box_list.h:41` | px_box_list.cpp's class with the 'Owners' asserts |
 | 2 | `owner` | `app/shared/px_box_list.h:44` | the PxBox owner |
 | 2 | `owner, src` | `app/shared/px_box_list.h:45` | as PxBox's |
+| 2 | `PxProcessNode` | `app/shared/px_process.h:23` | px_process.cpp's list entries (the asserts' 'node') |
+| 2 | `Process` | `app/shared/px_process.h:29` | what PxProcessClass::Process calls |
+| 2 | `Remove` | `app/shared/px_process.h:30` | what it does |
+| 2 | `Add` | `app/shared/px_process.h:45` | what it does |
+| 2 | `Remove` | `app/shared/px_process.h:46` | what it does |
+| 2 | `Remove_All` | `app/shared/px_process.h:47` | what it does |
+| 2 | `Process` | `app/shared/px_process.h:48` | what it does |
+| 2 | `Get_Current` | `app/shared/px_process.h:50` | what it returns |
+| 2 | `process` | `app/shared/px_process.h:51` | what it does |
+| 2 | `Pop` | `app/shared/px_process.h:52` | what it does |
+| 2 | `std:` | `app/shared/px_process.h:56` | Push / Pop's |
 | 2 | `Is_Close` | `app/shared/px_wrapper.cpp:208` | what it tests |
 | 2 | `Is_Close` | `app/shared/px_wrapper.cpp:213` | as above |
 | 2 | `PxObject` | `app/shared/px_wrapper.h:33` | the boxes' owner (PxBox::Owner) |
@@ -7208,11 +7222,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `std:` | `app/client/client.h:78` | the assert's |
 | 3 | `ItemType` | `app/client/client.h:81` | Get_Item_Type's |
 | 3 | `std:` | `app/client/client.h:83` | Get_Name's |
-| 3 | `PxProcessClass` | `app/client/client.h:91` | class-from-file (D24) for px_process.cpp |
-| 3 | `ClientClass` | `app/client/client.h:115` | class-from-file (D24) for client.cpp; the client names no class |
-| 3 | `Process_Packets` | `app/client/client.h:125` | SClient's string names its override |
-| 3 | `Px` | `app/client/client.h:165` | px.cpp's |
-| 3 | `PxProcess` | `app/client/client.h:166` | px_process.cpp's |
+| 3 | `ClientClass` | `app/client/client.h:108` | class-from-file (D24) for client.cpp; the client names no class |
+| 3 | `Process_Packets` | `app/client/client.h:118` | SClient's string names its override |
+| 3 | `Px` | `app/client/client.h:158` | px.cpp's |
+| 3 | `PxProcess` | `app/client/client.h:159` | px_process.cpp's |
 | 3 | `client_lego_impl.h` | `app/client/client_lego_impl.h:21` | header name assumed from the client's client_lego_impl.cpp |
 | 3 | `Is_Invalid` | `app/client/client_lego_impl.h:100` | the client's asserts 'split.Is_Invalid()' |
 | 3 | `ClientLegoImplClass` | `app/client/client_lego_impl.h:124` | by convention (D24) from the client's client_lego_impl.cpp |
@@ -8089,6 +8102,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `PxList` | `app/shared/px.h:81` | PxList is the client's (PxList::Insert) |
 | 3 | `Set_Self` | `app/shared/px.h:88` | PxBox::Set_Self's |
 | 3 | `Set_Test_Mask` | `app/shared/px.h:89` | as above |
+| 3 | `PxProcessClass` | `app/shared/px_process.h:39` | class-from-file (D24) for px_process.cpp |
 | 3 | `Update` | `app/shared/px_wrapper.h:54` | the profile string |
 | 3 | `TightBox` | `app/shared/px_wrapper.h:124` | 'PxWrapper::Update(TightBox)' |
 | 3 | `LooseBox` | `app/shared/px_wrapper.h:125` | 'PxWrapper::Update(LooseBox)' |

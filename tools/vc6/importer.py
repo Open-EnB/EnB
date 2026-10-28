@@ -4131,6 +4131,8 @@ RECONSTRUCTED = {
     ('app', 'shared/px.cpp'): "px.cpp, client 0x44B760-0x44D740 (its __FILE__; FAIL_IFs lines 180-564): PxEnd, PxBox (vtable 0xAE7A3C) and PxList: Insert 0x44BFC0, Remove 0x44C2E0, Set_Corners 0x44C900 (NOT EXACT), the filter setters, Dump 0x44D210",
     ('app', 'shared/px_box_list.h'): "PxBoxList / PxOwnerList, px_box_list.cpp's boxes keeping what overlaps them (the vectors Boxes / Owners are the asserts' names); provisional class and header names",
     ('app', 'shared/px_box_list.cpp'): "px_box_list.cpp, client 0x44D740-0x44E020 (its __FILE__; FAIL_IFs lines 41-111): PxBoxList (vtable 0xAE7A4C) and PxOwnerList (vtable 0xAE7A5C, PxWrapper's callback box): constructors, destructors, On_Enter / On_Exit (sorted insert / erase)",
+    ('app', 'shared/px_process.h'): "PxProcessNode / PxProcessClass (client.h's name, D24), px_process.cpp's list of nodes and its static stack of the current list; provisional header name",
+    ('app', 'shared/px_process.cpp'): "px_process.cpp, client 0x455880-0x4560B0 (its __FILE__; FAIL_IFs lines 16-62): PxProcessNode (vtable 0xAE7CE8), PxProcessClass's Add / Remove / Remove_All / Process, Get_Current / Push / Pop (Push 0x455D10, Pop 0x455F60 NOT EXACT)",
     ('app', 'client/extrap.h'): "extrap.cpp's state nodes: the client's StateNode (vtable 0xB02398; its asserts "
                                "'Bad function call! StateNode::Set_Motion()' / '... End_Tilt()'), the nodes 0xB02364-0xB02628 "
                                "and the motion objects 0xB02400 / 0xB02480 / 0xB025FC (layouts from the constructors "
