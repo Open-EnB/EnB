@@ -111,15 +111,15 @@ AttribDir::AttribDir()
 
 
 
-// NOT EXACT: frame (explain.py: 8 vs 0x10), the client inlines each AttributeInfo's destructor into the delete loop; ours calls it
+// The map's iterator declared before the loop and assigned from begin() (registers and frame as the client, as 0x677410)
 AttribDir::~AttribDir()
 {
-	for (AttributeMap::iterator it = Attributes.begin(); it != Attributes.end(); ++it) {
+	AttributeMap::iterator it;
+	for (it = Attributes.begin(); it != Attributes.end(); ++it) {
 		delete (*it).second;
 	}
 	Attributes.clear();
 }
-
 
 
 
