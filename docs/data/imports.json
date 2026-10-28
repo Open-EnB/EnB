@@ -1829,6 +1829,9 @@
      "0x6E9230",
      "0x6E9360",
      "0x6EA550",
+     "0x6EA5E0",
+     "0x6EA830",
+     "0x6EAA40",
      "0x6EAFA0",
      "0x6EB330",
      "0x6EB590",
@@ -8669,7 +8672,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 4261,
+  "in_tree_total": 4264,
   "totals": {}
  },
  "binkmovie": {

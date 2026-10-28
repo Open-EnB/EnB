@@ -38,6 +38,9 @@ class Unknown6F0B10EffectClass : public EffectObjectClass { public: Unknown6F0B1
 class Unknown6F0FD0EffectClass : public EffectObjectClass { public: Unknown6F0FD0EffectClass(ClientClass *client, unsigned id, unsigned start_time, unsigned duration, unsigned cycle_time, RenderObjClass *robj, int change_time, float distance); virtual void Unknown_24(int next); char Unknown80[0x12C - 0x80]; };	// NAME 1: neutral (D10); 0x6F0FD0  // NAME 1 [client .. distance]: effect.ini's ChangeTime (ms), Distance; [next]: the base's
 // eff_seek.cpp's timed changing effect that the helper 0x6EB590 makes (0x114 bytes; not rebuilt)
 class Unknown6F1760EffectClass : public EffectObjectClass { public: Unknown6F1760EffectClass(ClientClass *client, unsigned id, unsigned start_time, unsigned duration, unsigned cycle_time, RenderObjClass *robj, int change_time, int time_to_change, float distance); virtual void Unknown_24(int next); char Unknown80[0x114 - 0x80]; };	// NAME 1: neutral (D10); 0x6F1760  // NAME 1 [client .. distance]: effect.ini's ChangeTime, TimeToChange (ms), Distance; [next]: the base's
+class Unknown6EFC70EffectClass : public EffectObjectClass { public: Unknown6EFC70EffectClass(ClientClass *client, unsigned id, unsigned start_time, unsigned duration, unsigned cycle_time, RenderObjClass *robj); virtual void Unknown_24(int next); char Unknown80[0xE4 - 0x80]; };	// NAME 1: neutral (D10); 0x6EFC70, eff_robj.cpp's effect of 0x6EA5E0 (not rebuilt)  // NAME 1 [client .. robj, next]: what the helper passes
+class Unknown6EEEA0EffectClass : public EffectObjectClass { public: Unknown6EEEA0EffectClass(ClientClass *client, unsigned id, unsigned start_time, unsigned duration, unsigned cycle_time, RenderObjClass *robj); virtual void Unknown_24(int next); char Unknown80[0xDC - 0x80]; };	// NAME 1: neutral (D10); 0x6EEEA0, eff_robj.cpp's effect of 0x6EA830 (not rebuilt)  // NAME 1 [client .. robj, next]: what the helper passes
+class Unknown6F25A0EffectClass : public EffectObjectClass { public: Unknown6F25A0EffectClass(ClientClass *client, unsigned id, unsigned start_time, unsigned duration, unsigned cycle_time, RenderObjClass *robj); virtual void Unknown_24(int next); char Unknown80[0xE0 - 0x80]; };	// NAME 1: neutral (D10); 0x6F25A0, the effect of 0x6EAA40 (its file after eff_seek.cpp) (not rebuilt)  // NAME 1 [client .. robj, next]: what the helper passes
 void Unknown_496AE0(RenderObjClass *robj, int unknown);	// 0x496AE0 (ro_funcs.cpp, cdecl: effect.ini's ResetMappers)  // NAME 1 [robj, unknown]: what the helpers pass
 extern RandomClass Unknown_BDBB84;	// NAME 1 [Unknown_BDBB84]: neutral (D10), as ui_line_display.cpp's
 static inline int Unknown_Time(const ClientClass *client) { return(client->Unknown10BC); }	// NAME 1 [Unknown_Time]: neutral (D10): the client clock as the link calls read it (evaluated before the other arguments)
@@ -123,9 +126,6 @@ EffectObjectClass::~EffectObjectClass()
 		Unknown_6E6A90(NextLink);
 	}
 }
-
-
-
 
 
 
@@ -1227,85 +1227,85 @@ INIClass *Unknown_6EA550()
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// 0x6EA5E0
+EffectObjectClass *Unknown_6EA5E0(INIClass *ini, const char *section, unsigned id, unsigned start_time, unsigned duration, unsigned cycle_time, ClientClass *client, float scale, float *hsv)
+{
+	int base_asset = ini->Get_Int(section, "BaseAssetID", -1);
+	RenderObjClass *robj = ClientObjectClass::Unknown_6F5140(base_asset, client, scale, hsv);
+	FAIL_IF(!robj) return(NULL);
+	bool scale_to_radius = ini->Get_Bool(section, "ScaleToRadius", false);
+	bool source_based = ini->Get_Bool(section, "SourceBased", false);
+	bool target_center_to_point = ini->Get_Bool(section, "TargetCenterToPoint", false);
+	bool next_link_to_robj = ini->Get_Bool(section, "UnaryNextLinkToRObj", false);
+	bool reset_mappers = ini->Get_Bool(section, "ResetMappers", false);
+	if (reset_mappers) {
+		Unknown_496AE0(robj, 0);
+	}
+	Unknown6EFC70EffectClass *effect = new Unknown6EFC70EffectClass(client, id, start_time, duration, cycle_time, robj);
+	effect->Set_Flag(0x10000, scale_to_radius);
+	effect->Set_Flag(0x20000, source_based);
+	effect->Set_Flag(0x40000, target_center_to_point);
+	effect->Set_Flag(0x4000, next_link_to_robj);
+	effect->Set_Flag(0x8000, reset_mappers);
+	robj->Release_Ref();
+	return(effect);
+}
+
+
+
+
+
+
+
+// 0x6EA830
+EffectObjectClass *Unknown_6EA830(INIClass *ini, const char *section, unsigned id, unsigned start_time, unsigned duration, unsigned cycle_time, ClientClass *client, float scale, float *hsv)
+{
+	int base_asset = ini->Get_Int(section, "BaseAssetID", -1);
+	RenderObjClass *robj = ClientObjectClass::Unknown_6F5140(base_asset, client, scale, hsv);
+	FAIL_IF(!robj) return(NULL);
+	bool scale_to_radius = ini->Get_Bool(section, "ScaleToRadius", false);
+	bool in_front_of_object = ini->Get_Bool(section, "InFrontOfObject", false);
+	bool face_camera = ini->Get_Bool(section, "FaceCamera", false);
+	bool reset_mappers = ini->Get_Bool(section, "ResetMappers", false);
+	if (reset_mappers) {
+		Unknown_496AE0(robj, 0);
+	}
+	Unknown6EEEA0EffectClass *effect = new Unknown6EEEA0EffectClass(client, id, start_time, duration, cycle_time, robj);
+	effect->Set_Flag(0x200, scale_to_radius);
+	effect->Set_Flag(0x400, in_front_of_object);
+	effect->Set_Flag(0x800, face_camera);
+	effect->Set_Flag(0x1000, reset_mappers);
+	robj->Release_Ref();
+	return(effect);
+}
+
+
+
+
+
+
+
+// 0x6EAA40
+EffectObjectClass *Unknown_6EAA40(INIClass *ini, const char *section, unsigned id, unsigned start_time, unsigned duration, unsigned cycle_time, ClientClass *client, float scale, float *hsv)
+{
+	int base_asset = ini->Get_Int(section, "BaseAssetID", -1);
+	RenderObjClass *robj = ClientObjectClass::Unknown_6F5140(base_asset, client, scale, hsv);
+	FAIL_IF(!robj) return(NULL);
+	bool scale_to_radius = ini->Get_Bool(section, "ScaleToRadius", false);
+	bool in_front_of_object = ini->Get_Bool(section, "InFrontOfObject", false);
+	bool face_camera = ini->Get_Bool(section, "FaceCamera", false);
+	bool reset_mappers = ini->Get_Bool(section, "ResetMappers", false);
+	if (reset_mappers) {
+		Unknown_496AE0(robj, 0);
+	}
+	Unknown6F25A0EffectClass *effect = new Unknown6F25A0EffectClass(client, id, start_time, duration, cycle_time, robj);
+	effect->Set_Flag(0x200, scale_to_radius);
+	effect->Set_Flag(0x400, in_front_of_object);
+	effect->Set_Flag(0x800, face_camera);
+	effect->Set_Flag(0x1000, reset_mappers);
+	robj->Release_Ref();
+	return(effect);
+}
 
 
 
