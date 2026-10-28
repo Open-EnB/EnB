@@ -178,8 +178,9 @@ decoding itself does more than store.
 
 ### 2.5 The positional state (+0x98) and the per-frame update
 
-Every positional packet replaces or feeds the object's state object at +0x98 (postate.cpp, *not
-rebuilt*: 136 functions, 19.8 KB, 0 exact; extrap.cpp beside it, 59 functions, 15.2 KB, 0 exact). Slot
+Every positional packet replaces or feeds the object's state object at +0x98 (postate.cpp, rebuilt
+2026-10-28 by PS1: 13 states, 96 pairs; extrap.cpp beside it, every function 0x70F040-0x714810 written by EX1,
+63 pairs, 11 NOT EXACT; base class StateNode). Slot
 +0x04 returns the state's type; the handler updates the state in place when the type matches, else
 deletes it and news the right one:
 

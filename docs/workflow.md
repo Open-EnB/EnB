@@ -301,6 +301,11 @@ unless `--lever` cites a new row of this table.
 * **A destructor stores its own vtable first only when it is user-declared (2026-10-28, CR1, 0x6F3770):** if
   the client's destructor starts with the vtable store, write `virtual ~X() {}`.
 * **A client function called directly, not through a `j_` thunk, is `static`** (2026-10-28, CR1, 0x6F51D0).
+* **E&B's motion code (2026-10-28, EX1, extrap.cpp):** rotations are `In_Place_Pre_Rotate_Z` (rows 0 and 1,
+  +8 / +0x18; a plain `Rotate_Z` leaves a field-offset residue); `float t = a; t += b;` gives the client's load
+  order where `a + b` and `b + a` both don't; speed clamps are WWMath::Min / Max (by-value stack copy);
+  quaternion compares are quat.h's `Equal_Within_Epsilon`; a returned Vector3 the client copies through a
+  temporary wants an assignment, not an initialisation.
 * **A nested inline is a whole-function budget (2026-10-26, `Key_Exchange` 0x829180):** under `/Ob2` an
   inline helper's own callees (a `std::set` iterator's `_Inc`) are inlined only while the function as a
   whole is under budget; removing unrelated code elsewhere in the function flips one nested call, so a
@@ -665,6 +670,9 @@ unless `--lever` cites a new row of this table.
 
 ### 3.8 Git, docs and scripting hygiene
 
+* **The Bash tool starts a fresh shell per call** (2026-10-28, EX1): export `ENB_AGENT` and `ENB_VC6_HOSTS` in
+  every call, or appfile.py runs on whichever VM vc6_hosts.json lists. In Python edit scripts, write include
+  paths as raw strings (`"..\app"` once became a BEL).
 * **Moving a declaration block "up to the next blank line" cuts classes that contain one** (2026-10-28, CR1,
   SBaseViewClass): end the block at an explicit marker.
 * **commit_mine keys on a RECONSTRUCTED continuation line must be in the changed line itself** (2026-10-28,
