@@ -3265,6 +3265,22 @@ BINKMOVIE_PATCHES = {
 for _key, _edits in BINKMOVIE_PATCHES.items():
     PATCHES.setdefault(_key, []).extend(_edits)
 # end of BINKMOVIE_PATCHES
+# E&B's WW3D API beyond Renegade's ww3d.cpp / ww3d.h, in Zero Hour's form (P-MV1-2: Set_Gamma 0x919090)
+WW3D_API_PATCHES = {
+    ('ww3d2', 'ww3d.h'): [
+        ('\tstatic void\t\t\t\t\tReset_Current_Static_Sort_Lists_To_Default(void);\n',
+         '\tstatic void\t\t\t\t\tReset_Current_Static_Sort_Lists_To_Default(void);\n\n\t// Gamma control\n\tstatic void\t\t\t\t\tSet_Gamma(float gamma,float bright,float contrast,bool calibrate=true);\n',
+         "E&B's WW3D has Zero Hour's Set_Gamma(float gamma,float bright,float contrast,bool calibrate=true): 0x919090 (?Set_Gamma@WW3D@@SAXMMM_N@Z, after Render_And_Clear_Static_Sort_Lists 0x919020) pushes 1 for DX8Wrapper::Set_Gamma's uselimit and calls 0x926E80; Renegade's ww3d.cpp has no Set_Gamma (callers 0x5146D0, 0x442AC0)"),
+    ],
+    ('ww3d2', 'ww3d.cpp'): [
+        ('void WW3D::Reset_Current_Static_Sort_Lists_To_Default(void)\n{\n\tCurrentStaticSortLists = DefaultStaticSortLists;\n}',
+         'void WW3D::Reset_Current_Static_Sort_Lists_To_Default(void)\n{\n\tCurrentStaticSortLists = DefaultStaticSortLists;\n}\n\nvoid WW3D::Set_Gamma(float gamma,float bright,float contrast,bool calibrate)\n{\n\tDX8Wrapper::Set_Gamma(gamma,bright,contrast,calibrate);\n}',
+         "E&B's WW3D has Zero Hour's Set_Gamma(float gamma,float bright,float contrast,bool calibrate=true): 0x919090 (?Set_Gamma@WW3D@@SAXMMM_N@Z, after Render_And_Clear_Static_Sort_Lists 0x919020) pushes 1 for DX8Wrapper::Set_Gamma's uselimit and calls 0x926E80; Renegade's ww3d.cpp has no Set_Gamma (callers 0x5146D0, 0x442AC0)"),
+    ],
+}
+for _key, _edits in WW3D_API_PATCHES.items():
+    PATCHES.setdefault(_key, []).extend(_edits)
+# end of WW3D_API_PATCHES
 # Files reconstructed by us from the client (no EA copy matches): `assemble` keeps the repository's
 # version, and refine leaves them alone. Each entry: (library, file) -> what was done.
 RECONSTRUCTED = {

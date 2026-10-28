@@ -1907,3 +1907,8 @@ void WW3D::Reset_Current_Static_Sort_Lists_To_Default(void)
 {
 	CurrentStaticSortLists = DefaultStaticSortLists;
 }
+
+void WW3D::Set_Gamma(float gamma,float bright,float contrast,bool calibrate)
+{
+	DX8Wrapper::Set_Gamma(gamma,bright,contrast,calibrate);
+}

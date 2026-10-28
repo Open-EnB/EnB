@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-298 entries in 66 files.
+299 entries in 66 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -106,6 +106,7 @@ edit the comments in the code, not this file.
 | `app/client/mainview.cpp:614` | `MainViewClass::Render_Gas_Giant_Mode` | marker | NOT EXACT: similarity 0.84 (the inlined 0x50CCF0 stores zfar first in the client; scheduling); attempts.csv 0x50DB20 |
 | `app/client/mainview.cpp:647` | `MainViewClass::Render_Space_Mode` | marker | NOT EXACT: similarity 0.75 (as Render_Gas_Giant_Mode, and the inline choices of 0x50D1E0 / 0x50E6A0); attempts.csv 0x50E090 |
 | `app/client/mainview.cpp:687` | `MainViewClass::Render_Planet_Mode` | marker | NOT EXACT: similarity 0.67 (functional from the pseudocode; the inline choices differ); attempts.csv 0x50E6E0 |
+| `app/client/mainview.cpp:2319` | `MainViewClass::Unknown_5146D0` | marker | NOT EXACT: shape (the client multiplies by 0.01 and then by each scale; VC6 folds the two constants here); attempts.csv 0x5146D0 0x5146D0: with 'Graphics_Default' the client's own options and a gamma of 1.2, else the Graphics_* sliders (percent) scaled to the budgets; each clamped, then WW3D's gamma and texture reduction when either changed |
 | `app/client/option.cpp:810` | `OptionClass::Get_String` | marker | NOT EXACT: shape, block order: this order gives the client's inlining (the "" path calls _Grow) but places the "" path first; the client places the copy first |
 | `app/client/option.cpp:856` | `OptionClass::Get_Default_String` | marker | NOT EXACT: shape, as Get_String |
 | `app/client/postate.cpp:920` | `Unknown717010Class::Unknown_717430` | marker | NOT EXACT: inline-budget (the client calls the float field's Cast 0x546970 out of line in the first lookups, ours inlines all; 286 vs 314 instructions; one form; attempts.py show 0x717430) |

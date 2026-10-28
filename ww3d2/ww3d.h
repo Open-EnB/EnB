@@ -288,6 +288,9 @@ public:
 	static void					Override_Current_Static_Sort_Lists(StaticSortListClass * sort_list);
 	static void					Reset_Current_Static_Sort_Lists_To_Default(void);
 
+	// Gamma control
+	static void					Set_Gamma(float gamma,float bright,float contrast,bool calibrate=true);
+
 	static bool					Is_Snapshot_Activated()						{ return SnapshotActivated; }
 	static void					Activate_Snapshot(bool b)					{ SnapshotActivated=b; }
 

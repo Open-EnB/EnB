@@ -1700,7 +1700,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `MainViewUnknown64Class` | `app/client/mainview.cpp:2272` | untagged neutral name (D10) |
 | 1 | `Unknown_514450` | `app/client/mainview.cpp:2277` | untagged neutral name (D10) |
 | 1 | `Unknown_BE8B38` | `app/client/mainview.cpp:2284` | untagged neutral name (D10) |
-| 1 | `Unknown_7BCA40` | `app/client/mainview.cpp:2321` | untagged neutral name (D10) |
+| 1 | `Unknown_7BCA40` | `app/client/mainview.cpp:2356` | untagged neutral name (D10) |
 | 1 | `Unknown08` | `app/client/navigation_data.h:26` | untagged neutral name (D10) |
 | 1 | `Unknown_4BC000` | `app/client/option.cpp:11` | 0x4BC000, E&B's message reporter (tcpconn.cpp) |
 | 1 | `Unknown_Percent` | `app/client/option.cpp:174` | untagged neutral name (D10) |

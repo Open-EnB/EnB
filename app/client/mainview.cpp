@@ -2316,6 +2316,41 @@ void MainViewClass::Unknown_514480()
 	Unknown_C404F8 = Unknown_BE8B38->Get_Bool("Doppler_Enabled");
 }
 
+// NOT EXACT: shape (the client multiplies by 0.01 and then by each scale; VC6 folds the two constants here); attempts.csv 0x5146D0
+// 0x5146D0: with 'Graphics_Default' the client's own options and a gamma of 1.2, else the Graphics_* sliders (percent)
+// scaled to the budgets; each clamped, then WW3D's gamma and texture reduction when either changed
+void MainViewClass::Unknown_5146D0()
+{
+	bool defaults = false;
+	bool sliders = false;
+	if (DefaultChanged && GraphicsDefault) {
+		Gamma = 1.2f;
+		defaults = true;
+		LandPolyBudget = Client->LandPolyBudget;
+		LandLOD = Client->LandLOD;
+		PolyBudget = Client->PolyBudget;
+		TextureReduction = Client->TextureReduction;
+	} else if (!GraphicsDefault && (DefaultChanged || GraphicsChanged)) {
+		Gamma = GraphicsGamma * 0.01f * 2.0f + 1.0f;
+		sliders = true;
+		LandPolyBudget = (int)(GraphicsLandPoly * 0.01f * 32000.0f + 8000.0f);
+		LandLOD = (int)(GraphicsLandDetail * 0.01f * 8.0f);
+		PolyBudget = (int)(GraphicsSpacePoly * 0.01f * 32000.0f + 8000.0f);
+		TextureReduction = (int)((100.0f - GraphicsTextureSize) * 0.01f * 3.0f);
+	}
+	float gamma = WWMath::Clamp(Gamma, 1.0f, 3.0f);
+	Gamma = gamma;
+	LandPolyBudget = WWMath::Clamp_Int(LandPolyBudget, 8000, 40000);
+	LandLOD = WWMath::Clamp_Int(LandLOD, 0, 7);
+	PolyBudget = WWMath::Clamp_Int(PolyBudget, 8000, 40000);
+	TextureReduction = WWMath::Clamp_Int(TextureReduction, 0, 3);
+	if (defaults || sliders) {
+		WW3D::Set_Gamma(gamma, 0.0f, 1.0f, true);
+		if (Land) Land->Set_Dirty();
+		WW3D::Set_Texture_Reduction(TextureReduction);
+	}
+}
+
 void MainViewClass::Unknown_18(int arg)
 {
 	if (Radar) Radar->Unknown_7BCA40(arg);
