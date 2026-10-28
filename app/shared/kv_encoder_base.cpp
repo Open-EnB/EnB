@@ -8,11 +8,11 @@
 static void Unknown_Join(std::list<std::string> &list, std::string &out)
 {
 	out = "";
-	for (std::list<std::string>::iterator i = list.begin(); i != list.end(); ++i) {
+	std::list<std::string>::iterator i;	// declared before the loop: the constructor 0x4B3850 then keeps this in ebx as the client
+	for (i = list.begin(); i != list.end(); ++i) {
 		out += *i + ".";
 	}
 }
-
 
 
 
