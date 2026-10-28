@@ -387,8 +387,3 @@ EffectObjectClass *Unknown_6E9490(int desc_id, unsigned effect_id, unsigned dura
 #include "..\..\..\app\audio\soundlib.h"
 AudibleSoundClass *SoundLibraryClass::Play_2D_Sound(const char *name, int mode) { Trace("stub SoundLibraryClass::Play_2D_Sound '%s' %d", name, mode); return(0); }
 Sound3DClass *SoundLibraryClass::Play_3D_Sound(const char *name, const Matrix3D &tm, int mode, float scale) { Trace("stub SoundLibraryClass::Play_3D_Sound '%s' at (%g, %g, %g) %d %g", name, tm[0][3], tm[1][3], tm[2][3], mode, scale); return(0); }	// co.cpp's engine sounds 0x6FDBD0
-// px_wrapper.cpp's helpers in the other px_*.cpp files (not rebuilt; type 24's DynObj builds a PxWrapper): the box
-// classes construct their PxBox base so px.cpp's setters see an empty filter and no list; gen_stubs.py writes the rest
-#include "..\..\..\app\shared\px_wrapper.h"
-PxObject::PxObject(DynObj *owner) : Owner(owner), Pos(0.0f, 0.0f, 0.0f), Radius(0.0f) { Trace("stub PxObject::PxObject"); }
-PxObject::~PxObject() { Trace("stub PxObject::~PxObject"); }

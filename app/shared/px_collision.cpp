@@ -34,6 +34,27 @@ bool PxCollision::Unknown_453B10()
 	return(false);
 }
 
+// 0x4557F0
+PxObject::PxObject(DynObj *owner) :
+	Owner(owner),
+	Pos(0.0f, 0.0f, 0.0f),
+	Radius(0.0f)
+{
+}
+
+// 0x455820
+PxObject::PxObject(DynObj *owner, const PxObject &src) :
+	Owner(owner),
+	Pos(src.Pos),
+	Radius(src.Radius)
+{
+}
+
+// 0x455860
+PxObject::~PxObject()
+{
+}
+
 /*
 ** Notes
 **
@@ -42,7 +63,8 @@ bool PxCollision::Unknown_453B10()
 ** '!(aobj_coll_rep || bobj_coll_rep)' on line 234 (asserts.txt files it under px_callback_type.cpp). Only Process
 ** and its first test are rebuilt; the response 0x453C20, the OBBox tests 0x453F10 / 0x454730 (MeshGeometryClass's
 ** Cast_OBBox / Intersect_OBBox), the std::string members 0x454590 / 0x4552B0 and the inlined helpers
-** 0x455590-0x455760 are not.
+** 0x455590-0x455760 are not. PxObject's three functions 0x4557F0-0x455860 follow them in the client; no string says
+** whose file they are (px_collision.cpp's tail or an object of their own), so they sit here provisionally.
 **
 ** Live or dormant: Process is called only by px_wrapper.cpp's _Collision_Callback, which only the loose box's
 ** PxPollCallback::Process calls, which only PxProcessClass::Process (no reference in the client) would call: the

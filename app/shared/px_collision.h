@@ -12,7 +12,26 @@
 #ifndef PX_COLLISION_H  // NAME 1 [px_collision.h]: provisional header name (px_collision.cpp's)
 #define PX_COLLISION_H
 
+#include "vector3.h"
+
 class DynObj;
+
+/*
+** What a dynamic object's boxes belong to (0x14 bytes; 0x4557F0-0x455860, after px_collision.cpp's functions and
+** before px_process.cpp; no string places them, so px_collision.cpp keeps them provisionally): the owner and the
+** position and radius PxWrapper::Update last set.
+*/
+class PxObject  // NAME 2: the boxes' owner (PxBox::Owner)
+{
+public:
+	PxObject(DynObj *owner);			// 0x4557F0  // NAME 2 [owner]: stored at +0x00
+	PxObject(DynObj *owner, const PxObject &src);	// 0x455820 (no caller)  // NAME 2 [owner, src]: as PxBox's
+	~PxObject();						// 0x455860 (empty, not inline)
+
+	DynObj *Owner;						// +0x00  // NAME 2: the constructor's argument
+	Vector3 Pos;						// +0x04  // NAME 2: Update's pos
+	float Radius;						// +0x10  // NAME 2: Update's radius
+};
 
 class PxCollision
 {

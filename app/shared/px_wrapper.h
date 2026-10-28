@@ -9,8 +9,7 @@
 **	loose box (the radius; it reports collisions to _Collision_Callback) and the callback box (in the list only
 **	while Unknown0D is set), plus the callbacks added through Unknown_456F60 / Unknown_457190 / Add_Callback.
 **
-**	PxObject is another px_*.cpp file's (not rebuilt), declared only as far as px_wrapper.cpp
-**	uses them; their names are provisional.
+**	PxObject (px_collision.h) and the callback factories below are other files' classes and functions.
 */
 #if defined(_MSC_VER)
 #pragma once
@@ -28,21 +27,6 @@
 
 class DynObj;
 class PxList;
-
-/*
-** What a dynamic object's boxes belong to (0x14 bytes; constructor 0x4557F0, destructor 0x455860, the file after
-** px_collision.cpp): the owner and the position and radius PxWrapper::Update last set.
-*/
-class PxObject  // NAME 2: the boxes' owner (PxBox::Owner)
-{
-public:
-	PxObject(DynObj *owner);			// 0x4557F0  // NAME 2 [owner]: stored at +0x00
-	~PxObject();						// 0x455860 (empty, not inline)
-
-	DynObj *Owner;						// +0x00  // NAME 2: the constructor's argument
-	Vector3 Pos;						// +0x04  // NAME 2: Update's pos
-	float Radius;						// +0x10  // NAME 2: Update's radius
-};
 
 PxCallback *Unknown_452140(int a, PxObject *object, int b, int c);	// 0x452140 (a factory switching on a's type bits)  // NAME 1 [a, b, c]: neutral
 PxCallback *Unknown_452460(int a, PxObject *object, int b, int c);	// 0x452460 (another factory)  // NAME 1 [a, b, c]: neutral
