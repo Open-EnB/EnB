@@ -39,8 +39,9 @@
 #include <string.h>
 
 extern LandUnknown466BE0Class *Unknown_BDC0D8;	// NAME 1: unknown
-// NAME 2: the distance (in field cells) of level 1 per lod setting, doubled per level (0xB7188C)
-int LandLodDistances[6] = { 8, 16, 24, 32, 48, 64 };
+// NAME 2: the distance (in field cells) of level 1 per lod setting, doubled per level (0xB7188C: eight entries, VIDTEST's
+// Land LOD 0..7 indexes it directly)
+int LandLodDistances[8] = { 8, 16, 24, 32, 48, 64, 96, 128 };
 	// NAME 1: unknown; deletes a global object (0xBDC0D8) and clears it; called by the land's dtor only
 
 LandClass::LandClass(void) :
@@ -733,7 +734,7 @@ static inline void Add_Sea_Quad(DynamicVectorClass<Vector3> &quads, float x, flo
 	quads.Add(Vector3(x, y + dy, z));
 }
 
-// NOT EXACT: written from the pseudocode (0x474B30); not run yet (VIDTEST draws with vidland.cpp)
+// NOT EXACT: written from the pseudocode (0x474B30); VIDTEST's land scene runs it (D101)
 void LandClass::Render(RenderInfoClass &rinfo)
 {
 	DX8Wrapper::Set_Texture(0, LightmapTextures[FrontLightmap]);
@@ -2281,7 +2282,7 @@ void LandClass::Save_PLD(const char *filename)
 **	(functional: the height field, the colour map averaged down to the device's largest texture, the
 **	lightmap textures, the patches, the horizon tables from a .pld beside the .pgm when it is newer
 **	than the .pgm, the colour map and the ini (Load_PLD 0x46EB60 / Save_PLD 0x46ECF0), the sea swatch).
-**	The rest of the window (Compute_Horizons 0x46E670, Update_Patches, the tessellation, Render
-**	0x474B30, the decorations) is not rebuilt yet: VIDTEST draws with programs\vidtest\vidland.cpp,
-**	the functional land this file held until 2026-10-27 (M2.4).
+**	Compute_Horizons 0x46E670, Update_Patches, the tessellation and Render 0x474B30 are written too
+**	(some NOT EXACT, marked); VIDTEST draws its land with this class since 2026-10-28 (D101), its
+**	decorations with programs\vidtest\viddeco.cpp (the client's zone loader fills the patch records).
 */

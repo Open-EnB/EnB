@@ -26,7 +26,7 @@
 **	0x474990 / 0x4749D0, Render 0x474B30, the decorations 0x478B50-0x47A2F0. VIDTEST's 2002 copy:
 **	docs/vidtest.md 4.2, 4.3.
 **
-**	VIDTEST draws with programs\vidtest\vidland.cpp (a functional stand-in) until this class can draw.
+**	VIDTEST draws its land with this class and its decorations with programs\vidtest\viddeco.cpp (D101).
 */
 
 #if defined(_MSC_VER)
@@ -175,6 +175,13 @@ public:
 // NAME 1: the vector at +0x1218 (0x4786A0 push_back, 0x4788B0 clear; called by 0x75F8B0)
 	void							Add_Unknown1218(const RefCountPtr<TexProjectClass> &object);
 	void							Clear_Unknown1218(void);
+// NAME 2: VIDTEST's: it writes +0x136 (0x40AB10), its decorations read the field, the grid and the patch records
+// (0x410B90: the record's +0x24); none in the client (programs/vidtest/viddeco.cpp)
+	void							Set_Dirty(void)							{ Dirty = true; }
+	HeightFieldClass *		Peek_Height_Field(void) const		{ return Field; }
+	int							Get_Patch_Size(void) const			{ return PatchSize; }
+	int							Get_Grid_Width(void) const			{ return GridWidth; }
+	const LandPatchRecordClass &	Peek_Patch_Record(int i) const	{ return PatchRecords[i]; }
 
 protected:
 // NAME 2: after what they do (0x46C730, 0x46CAE0 (not rebuilt), 0x46D410, 0x46D6B0, 0x46D8B0, 0x46D880)

@@ -7,10 +7,10 @@ are listed here until better evidence raises their tag. Regenerate with
 
 | Score | Meaning | Names |
 |---|---|---|
-| 5 | the client names it | 34 |
+| 5 | the client names it | 33 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 36 |
 | 3 | by convention from a client-named file or sibling | 863 |
-| 2 | describes what the code does | 2133 |
+| 2 | describes what the code does | 2132 |
 | 1 | neutral placeholder | 3988 |
 
 ## For review (score 3 and below)
@@ -3572,51 +3572,51 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Get_Type` | `app/shared/kv_tripl.h:66` | neutral guess |
 | 1 | `Unknown_BDC0D8` | `app/shared/land.cpp:41` | unknown |
 | 1 | `LandUnknown466BE0Class` | `app/shared/land.cpp:41` | untagged neutral name (D10) |
-| 1 | `LandClass::LandClass` | `app/shared/land.cpp:44` | unknown; deletes a global object (0xBDC0D8) and clears it; called by the land's dtor only |
-| 1 | `m_Unknown120` | `app/shared/land.cpp:53` | untagged neutral name (D10) |
-| 1 | `m_Unknown17C` | `app/shared/land.cpp:63` | untagged neutral name (D10) |
-| 1 | `m_Unknown184` | `app/shared/land.cpp:64` | untagged neutral name (D10) |
-| 1 | `m_Unknown190` | `app/shared/land.cpp:66` | untagged neutral name (D10) |
-| 1 | `m_Unknown191` | `app/shared/land.cpp:67` | untagged neutral name (D10) |
-| 1 | `m_Unknown192` | `app/shared/land.cpp:68` | untagged neutral name (D10) |
-| 1 | `m_Unknown1E4` | `app/shared/land.cpp:75` | untagged neutral name (D10) |
-| 1 | `m_Unknown1E8` | `app/shared/land.cpp:76` | untagged neutral name (D10) |
-| 1 | `m_Unknown1EC` | `app/shared/land.cpp:77` | untagged neutral name (D10) |
-| 1 | `m_Unknown1F0` | `app/shared/land.cpp:78` | untagged neutral name (D10) |
-| 1 | `m_Unknown1F4` | `app/shared/land.cpp:79` | untagged neutral name (D10) |
-| 1 | `m_Unknown1F8` | `app/shared/land.cpp:80` | untagged neutral name (D10) |
-| 1 | `m_Unknown120C` | `app/shared/land.cpp:86` | untagged neutral name (D10) |
-| 1 | `m_Unknown1214` | `app/shared/land.cpp:88` | untagged neutral name (D10) |
-| 1 | `Unknown_466E70` | `app/shared/land.cpp:330` | untagged neutral name (D10) |
-| 1 | `m_Unknown178` | `app/shared/land.cpp:344` | untagged neutral name (D10) |
-| 1 | `m_Unknown180` | `app/shared/land.cpp:345` | untagged neutral name (D10) |
-| 1 | `m_Unknown188` | `app/shared/land.cpp:346` | untagged neutral name (D10) |
-| 1 | `Unknown_466F10` | `app/shared/land.cpp:386` | untagged neutral name (D10) |
-| 1 | `m_Unknown11` | `app/shared/land.cpp:717` | untagged neutral name (D10) |
-| 1 | `Unknown_466F40` | `app/shared/land.cpp:720` | untagged neutral name (D10) |
-| 1 | `Unknown_477E20` | `app/shared/land.cpp:724` | unknown; draws triangles of the land under a projector (0x477E20, its vector by value) |
-| 1 | `Unknown_466F60` | `app/shared/land.cpp:748` | untagged neutral name (D10) |
-| 1 | `m_Unknown1218` | `app/shared/land.cpp:846` | untagged neutral name (D10) |
-| 1 | `m_Unknown10` | `app/shared/land.cpp:863` | untagged neutral name (D10) |
-| 1 | `m_Unknown00` | `app/shared/land.cpp:864` | untagged neutral name (D10) |
-| 1 | `m_Unknown04` | `app/shared/land.cpp:865` | untagged neutral name (D10) |
-| 1 | `m_Unknown14` | `app/shared/land.cpp:866` | untagged neutral name (D10) |
-| 1 | `m_Unknown18` | `app/shared/land.cpp:878` | untagged neutral name (D10) |
-| 1 | `m_Unknown08` | `app/shared/land.cpp:879` | untagged neutral name (D10) |
-| 1 | `m_Unknown0C` | `app/shared/land.cpp:880` | untagged neutral name (D10) |
-| 1 | `m_Unknown1C` | `app/shared/land.cpp:881` | untagged neutral name (D10) |
-| 1 | `Add_Unknown1218` | `app/shared/land.cpp:996` | untagged neutral name (D10) |
-| 1 | `Clear_Unknown1218` | `app/shared/land.cpp:1001` | untagged neutral name (D10) |
-| 1 | `Unknown_46E120` | `app/shared/land.cpp:1374` | untagged neutral name (D10) |
-| 1 | `LandNormalTable` | `app/shared/land.cpp:1437` | unknown; the 256 unit normals Unknown_46F120 copies into Normals (0xAE8BBC .. 0xAE97BC, .rdata, 6-digit literals): |
-| 1 | `Land_Nearest_Normal` | `app/shared/land.cpp:1522` | unknown; the index of the table normal nearest a vertex normal (largest dot product, first wins ties). |
-| 1 | `Unknown_46F120` | `app/shared/land.cpp:1539` | untagged neutral name (D10) |
-| 1 | `Unknown_470F80` | `app/shared/land.cpp:1682` | untagged neutral name (D10) |
-| 1 | `Unknown_472F80` | `app/shared/land.cpp:1726` | untagged neutral name (D10) |
-| 1 | `Unknown_473290` | `app/shared/land.cpp:2032` | untagged neutral name (D10) |
-| 1 | `Unknown_4733C0` | `app/shared/land.cpp:2061` | untagged neutral name (D10) |
-| 1 | `Unknown_473780` | `app/shared/land.cpp:2063` | untagged neutral name (D10) |
-| 1 | `Unknown_473BC0` | `app/shared/land.cpp:2067` | untagged neutral name (D10) |
+| 1 | `LandClass::LandClass` | `app/shared/land.cpp:45` | unknown; deletes a global object (0xBDC0D8) and clears it; called by the land's dtor only |
+| 1 | `m_Unknown120` | `app/shared/land.cpp:54` | untagged neutral name (D10) |
+| 1 | `m_Unknown17C` | `app/shared/land.cpp:64` | untagged neutral name (D10) |
+| 1 | `m_Unknown184` | `app/shared/land.cpp:65` | untagged neutral name (D10) |
+| 1 | `m_Unknown190` | `app/shared/land.cpp:67` | untagged neutral name (D10) |
+| 1 | `m_Unknown191` | `app/shared/land.cpp:68` | untagged neutral name (D10) |
+| 1 | `m_Unknown192` | `app/shared/land.cpp:69` | untagged neutral name (D10) |
+| 1 | `m_Unknown1E4` | `app/shared/land.cpp:76` | untagged neutral name (D10) |
+| 1 | `m_Unknown1E8` | `app/shared/land.cpp:77` | untagged neutral name (D10) |
+| 1 | `m_Unknown1EC` | `app/shared/land.cpp:78` | untagged neutral name (D10) |
+| 1 | `m_Unknown1F0` | `app/shared/land.cpp:79` | untagged neutral name (D10) |
+| 1 | `m_Unknown1F4` | `app/shared/land.cpp:80` | untagged neutral name (D10) |
+| 1 | `m_Unknown1F8` | `app/shared/land.cpp:81` | untagged neutral name (D10) |
+| 1 | `m_Unknown120C` | `app/shared/land.cpp:87` | untagged neutral name (D10) |
+| 1 | `m_Unknown1214` | `app/shared/land.cpp:89` | untagged neutral name (D10) |
+| 1 | `Unknown_466E70` | `app/shared/land.cpp:331` | untagged neutral name (D10) |
+| 1 | `m_Unknown178` | `app/shared/land.cpp:345` | untagged neutral name (D10) |
+| 1 | `m_Unknown180` | `app/shared/land.cpp:346` | untagged neutral name (D10) |
+| 1 | `m_Unknown188` | `app/shared/land.cpp:347` | untagged neutral name (D10) |
+| 1 | `Unknown_466F10` | `app/shared/land.cpp:387` | untagged neutral name (D10) |
+| 1 | `m_Unknown11` | `app/shared/land.cpp:718` | untagged neutral name (D10) |
+| 1 | `Unknown_466F40` | `app/shared/land.cpp:721` | untagged neutral name (D10) |
+| 1 | `Unknown_477E20` | `app/shared/land.cpp:725` | unknown; draws triangles of the land under a projector (0x477E20, its vector by value) |
+| 1 | `Unknown_466F60` | `app/shared/land.cpp:749` | untagged neutral name (D10) |
+| 1 | `m_Unknown1218` | `app/shared/land.cpp:847` | untagged neutral name (D10) |
+| 1 | `m_Unknown10` | `app/shared/land.cpp:864` | untagged neutral name (D10) |
+| 1 | `m_Unknown00` | `app/shared/land.cpp:865` | untagged neutral name (D10) |
+| 1 | `m_Unknown04` | `app/shared/land.cpp:866` | untagged neutral name (D10) |
+| 1 | `m_Unknown14` | `app/shared/land.cpp:867` | untagged neutral name (D10) |
+| 1 | `m_Unknown18` | `app/shared/land.cpp:879` | untagged neutral name (D10) |
+| 1 | `m_Unknown08` | `app/shared/land.cpp:880` | untagged neutral name (D10) |
+| 1 | `m_Unknown0C` | `app/shared/land.cpp:881` | untagged neutral name (D10) |
+| 1 | `m_Unknown1C` | `app/shared/land.cpp:882` | untagged neutral name (D10) |
+| 1 | `Add_Unknown1218` | `app/shared/land.cpp:997` | untagged neutral name (D10) |
+| 1 | `Clear_Unknown1218` | `app/shared/land.cpp:1002` | untagged neutral name (D10) |
+| 1 | `Unknown_46E120` | `app/shared/land.cpp:1375` | untagged neutral name (D10) |
+| 1 | `LandNormalTable` | `app/shared/land.cpp:1438` | unknown; the 256 unit normals Unknown_46F120 copies into Normals (0xAE8BBC .. 0xAE97BC, .rdata, 6-digit literals): |
+| 1 | `Land_Nearest_Normal` | `app/shared/land.cpp:1523` | unknown; the index of the table normal nearest a vertex normal (largest dot product, first wins ties). |
+| 1 | `Unknown_46F120` | `app/shared/land.cpp:1540` | untagged neutral name (D10) |
+| 1 | `Unknown_470F80` | `app/shared/land.cpp:1683` | untagged neutral name (D10) |
+| 1 | `Unknown_472F80` | `app/shared/land.cpp:1727` | untagged neutral name (D10) |
+| 1 | `Unknown_473290` | `app/shared/land.cpp:2033` | untagged neutral name (D10) |
+| 1 | `Unknown_4733C0` | `app/shared/land.cpp:2062` | untagged neutral name (D10) |
+| 1 | `Unknown_473780` | `app/shared/land.cpp:2064` | untagged neutral name (D10) |
+| 1 | `Unknown_473BC0` | `app/shared/land.cpp:2068` | untagged neutral name (D10) |
 | 1 | `m_UnknownXX` | `app/shared/land.h:21` | untagged neutral name (D10) |
 | 1 | `LandPatchClass` | `app/shared/land.h:80` | the land's patch (0x30 bytes, new'd per grid cell by Load_Assets 0x4691D0; ctor 0x474530, dtor 0x474560) |
 | 1 | `VertexBuffer` | `app/shared/land.h:93` | members after their offsets (ctor 0x474530) |
@@ -3631,32 +3631,32 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `m_Unknown1C` | `app/shared/land.h:123` | untagged neutral name (D10) |
 | 1 | `Add_Unknown1218` | `app/shared/land.h:175` | the vector at +0x1218 (0x4786A0 push_back, 0x4788B0 clear; called by 0x75F8B0) |
 | 1 | `Clear_Unknown1218` | `app/shared/land.h:177` | untagged neutral name (D10) |
-| 1 | `Unknown_46E120` | `app/shared/land.h:195` | unknown; the steps of Compute_Horizons 0x46E670 (not rebuilt): the shadow casters into the height field (0x46E120), |
-| 1 | `Unknown_46F120` | `app/shared/land.h:198` | untagged neutral name (D10) |
-| 1 | `Unknown_473290` | `app/shared/land.h:199` | untagged neutral name (D10) |
-| 1 | `Unknown_470F80` | `app/shared/land.h:200` | untagged neutral name (D10) |
-| 1 | `Unknown_472F80` | `app/shared/land.h:201` | unknown; the sky's share per vertex in R, G, B from eight horizon codes, the normal's index and the colour (0x472F80, called by 0x470F80) |
-| 1 | `Unknown_4733C0` | `app/shared/land.h:203` | unknown; one height-field row each into Unknown_473290's buffers, with VScale / Spacing (0x4733C0: 4 bytes a vertex, 0x473780 and 0x473BC0: 3) |
-| 1 | `Unknown_473780` | `app/shared/land.h:205` | untagged neutral name (D10) |
-| 1 | `Unknown_473BC0` | `app/shared/land.h:206` | untagged neutral name (D10) |
-| 1 | `m_Unknown120` | `app/shared/land.h:237` | untagged neutral name (D10) |
-| 1 | `m_Unknown178` | `app/shared/land.h:254` | untagged neutral name (D10) |
-| 1 | `m_Unknown17C` | `app/shared/land.h:255` | untagged neutral name (D10) |
-| 1 | `m_Unknown180` | `app/shared/land.h:256` | untagged neutral name (D10) |
-| 1 | `m_Unknown184` | `app/shared/land.h:257` | untagged neutral name (D10) |
-| 1 | `m_Unknown188` | `app/shared/land.h:258` | untagged neutral name (D10) |
-| 1 | `m_Unknown190` | `app/shared/land.h:260` | untagged neutral name (D10) |
-| 1 | `m_Unknown191` | `app/shared/land.h:261` | untagged neutral name (D10) |
-| 1 | `m_Unknown192` | `app/shared/land.h:262` | untagged neutral name (D10) |
-| 1 | `m_Unknown1E4` | `app/shared/land.h:273` | untagged neutral name (D10) |
-| 1 | `m_Unknown1E8` | `app/shared/land.h:274` | untagged neutral name (D10) |
-| 1 | `m_Unknown1EC` | `app/shared/land.h:275` | untagged neutral name (D10) |
-| 1 | `m_Unknown1F0` | `app/shared/land.h:276` | untagged neutral name (D10) |
-| 1 | `m_Unknown1F4` | `app/shared/land.h:277` | untagged neutral name (D10) |
-| 1 | `m_Unknown1F8` | `app/shared/land.h:278` | untagged neutral name (D10) |
-| 1 | `m_Unknown120C` | `app/shared/land.h:287` | untagged neutral name (D10) |
-| 1 | `m_Unknown1214` | `app/shared/land.h:289` | untagged neutral name (D10) |
-| 1 | `m_Unknown1218` | `app/shared/land.h:290` | untagged neutral name (D10) |
+| 1 | `Unknown_46E120` | `app/shared/land.h:202` | unknown; the steps of Compute_Horizons 0x46E670 (not rebuilt): the shadow casters into the height field (0x46E120), |
+| 1 | `Unknown_46F120` | `app/shared/land.h:205` | untagged neutral name (D10) |
+| 1 | `Unknown_473290` | `app/shared/land.h:206` | untagged neutral name (D10) |
+| 1 | `Unknown_470F80` | `app/shared/land.h:207` | untagged neutral name (D10) |
+| 1 | `Unknown_472F80` | `app/shared/land.h:208` | unknown; the sky's share per vertex in R, G, B from eight horizon codes, the normal's index and the colour (0x472F80, called by 0x470F80) |
+| 1 | `Unknown_4733C0` | `app/shared/land.h:210` | unknown; one height-field row each into Unknown_473290's buffers, with VScale / Spacing (0x4733C0: 4 bytes a vertex, 0x473780 and 0x473BC0: 3) |
+| 1 | `Unknown_473780` | `app/shared/land.h:212` | untagged neutral name (D10) |
+| 1 | `Unknown_473BC0` | `app/shared/land.h:213` | untagged neutral name (D10) |
+| 1 | `m_Unknown120` | `app/shared/land.h:244` | untagged neutral name (D10) |
+| 1 | `m_Unknown178` | `app/shared/land.h:261` | untagged neutral name (D10) |
+| 1 | `m_Unknown17C` | `app/shared/land.h:262` | untagged neutral name (D10) |
+| 1 | `m_Unknown180` | `app/shared/land.h:263` | untagged neutral name (D10) |
+| 1 | `m_Unknown184` | `app/shared/land.h:264` | untagged neutral name (D10) |
+| 1 | `m_Unknown188` | `app/shared/land.h:265` | untagged neutral name (D10) |
+| 1 | `m_Unknown190` | `app/shared/land.h:267` | untagged neutral name (D10) |
+| 1 | `m_Unknown191` | `app/shared/land.h:268` | untagged neutral name (D10) |
+| 1 | `m_Unknown192` | `app/shared/land.h:269` | untagged neutral name (D10) |
+| 1 | `m_Unknown1E4` | `app/shared/land.h:280` | untagged neutral name (D10) |
+| 1 | `m_Unknown1E8` | `app/shared/land.h:281` | untagged neutral name (D10) |
+| 1 | `m_Unknown1EC` | `app/shared/land.h:282` | untagged neutral name (D10) |
+| 1 | `m_Unknown1F0` | `app/shared/land.h:283` | untagged neutral name (D10) |
+| 1 | `m_Unknown1F4` | `app/shared/land.h:284` | untagged neutral name (D10) |
+| 1 | `m_Unknown1F8` | `app/shared/land.h:285` | untagged neutral name (D10) |
+| 1 | `m_Unknown120C` | `app/shared/land.h:294` | untagged neutral name (D10) |
+| 1 | `m_Unknown1214` | `app/shared/land.h:296` | untagged neutral name (D10) |
+| 1 | `m_Unknown1218` | `app/shared/land.h:297` | untagged neutral name (D10) |
 | 1 | `Unknown_BDC0D8` | `app/shared/landdmap.cpp:11` | unknown |
 | 1 | `LandUnknown466BE0Class` | `app/shared/landdmap.cpp:11` | untagged neutral name (D10) |
 | 1 | `Unknown_B71650` | `app/shared/landdmap.cpp:19` | unknown; the displacement vertex shader (0xB71650) |
@@ -5805,12 +5805,12 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Get_Count` | `app/shared/kv_tripl.h:69` | describes what it does |
 | 2 | `Get` | `app/shared/kv_tripl.h:70` | describes what it does |
 | 2 | `Index` | `app/shared/kv_tripl.h:73` | describes what it does |
-| 2 | `LandLodDistances` | `app/shared/land.cpp:42` | the distance (in field cells) of level 1 per lod setting, doubled per level (0xB7188C) |
-| 2 | `Add_Sea_Quad` | `app/shared/land.cpp:727` | a quad's four corners at a height into the sea's vertex list (Render 0x474B30 inlines the four Adds) |
-| 2 | `LandVertexStruct` | `app/shared/land.cpp:1027` | the patch vertex, FVF 0x202 (0x4746C0) |
-| 2 | `LandDirectionX` | `app/shared/land.cpp:1348` | the eight compass directions' unit vectors x (1 - 1/sqrt 2) mixes, per direction (0xAE97BC, 0xAE97DC) |
-| 2 | `LandHorizonTable` | `app/shared/land.cpp:1351` | per direction and per horizon angle step (256), the sky area term and the sun term (0xBDC0E8) |
-| 2 | `Pack_Slope16` | `app/shared/land.cpp:2072` | a horizon slope as the high bits of its float, saturating (0x4733C0: 16 bits; 0x473780 / 0x473BC0: 8 bits) |
+| 2 | `LandLodDistances` | `app/shared/land.cpp:42` | the distance (in field cells) of level 1 per lod setting, doubled per level (0xB7188C: eight entries, VIDTEST's |
+| 2 | `Add_Sea_Quad` | `app/shared/land.cpp:728` | a quad's four corners at a height into the sea's vertex list (Render 0x474B30 inlines the four Adds) |
+| 2 | `LandVertexStruct` | `app/shared/land.cpp:1028` | the patch vertex, FVF 0x202 (0x4746C0) |
+| 2 | `LandDirectionX` | `app/shared/land.cpp:1349` | the eight compass directions' unit vectors x (1 - 1/sqrt 2) mixes, per direction (0xAE97BC, 0xAE97DC) |
+| 2 | `LandHorizonTable` | `app/shared/land.cpp:1352` | per direction and per horizon angle step (256), the sky area term and the sun term (0xBDC0E8) |
+| 2 | `Pack_Slope16` | `app/shared/land.cpp:2073` | a horizon slope as the high bits of its float, saturating (0x4733C0: 16 bits; 0x473780 / 0x473BC0: 8 bits) |
 | 2 | `land.h` | `app/shared/land.h:36` | after LandClass; no assert or __FILE__ names the file |
 | 2 | `LandLightingStruct` | `app/shared/land.h:60` | VIDTEST's name for the 0x30-byte lighting record its Update_Lighting 0x4250B0 hands the land (esp+0x74) |
 | 2 | `Init` | `app/shared/land.h:87` | after what they do (0x4746C0, called by Load_Assets per patch; 0x474790) |
@@ -5828,25 +5828,26 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Save_Sea_Mask` | `app/shared/land.h:168` | writes an 8-bit grey TGA, 255 where the height field is at or above the sea level (0x46BCC0; nothing calls it) |
 | 2 | `Update_Patches` | `app/shared/land.h:170` | each patch's position, level of detail (lod: an index into the distance table 0xB7188C), edge quarters and visibility (0x46B3C0, called by 0x50F1B0) |
 | 2 | `Set_Strip_Buffer` | `app/shared/land.h:172` | what they set (0x478640 / 0x478670) |
-| 2 | `Prepare_Lighting` | `app/shared/land.h:180` | after what they do (0x46C730, 0x46CAE0 (not rebuilt), 0x46D410, 0x46D6B0, 0x46D8B0, 0x46D880) |
-| 2 | `Build_Index_Buffers` | `app/shared/land.h:183` | the strip and edge index buffers of each level for patches of size vertices a side (0x478240) |
-| 2 | `Apply_Colors` | `app/shared/land.h:184` | the lit rectangle times the colour map, plus +0x1214 when there is one (0x46D410) |
-| 2 | `Limit_Levels` | `app/shared/land.h:187` | limits the patches' levels outwards from the camera's patch, one level per patch (0x46AA40, called by Update_Patches 0x46B3C0) |
-| 2 | `Load_PLD` | `app/shared/land.h:189` | the height map's horizon tables (+0x1E4..+0x1F8, the normals +0x1FC) in a .pld beside the .pgm (0x46EB60, 0x46ECF0), computed from the ini (0x46E670, not rebuilt) |
-| 2 | `Init_Horizon_Tables` | `app/shared/land.h:193` | the reciprocal table and the shared horizon table (0x46EF60, called by Compute_Horizons 0x46E670) |
-| 2 | `Set_Lighting` | `app/shared/land.h:208` | a one-line inline setter: its extra inline depth is what keeps the record's operator= out of line inside the inlined |
-| 2 | `LightmapSerial` | `app/shared/land.h:216` | members after what the ctor 0x468E90, the dtor 0x46A480 and Load_Assets 0x4691D0 do with them; m_UnknownXX: use not known |
-| 2 | `StripBuffers` | `app/shared/land.h:219` | a level's triangle strip over a patch (Build_Index_Buffers 0x478240) |
-| 2 | `StripCounts` | `app/shared/land.h:220` | its index count less 2 |
-| 2 | `EdgeBuffers` | `app/shared/land.h:221` | a level's edge fans, four sides (none at level 0) |
-| 2 | `EdgeCounts` | `app/shared/land.h:222` | their index count: LandPatchClass::Draw draws a quarter (one side) per bit |
-| 2 | `Reciprocals` | `app/shared/land.h:223` | +0xE4, 1 / n for n = 1 .. 2 Size - 1 (0x46EF60) |
-| 2 | `CameraCellZ` | `app/shared/land.h:235` | +0x114, the camera's cell (patch units) at the last Update_Patches 0x46B3C0 |
-| 2 | `SeaTextures` | `app/shared/land.h:248` | +0x140, the sea swatch's textures, pass x stage (Load_Assets 0x4691D0) |
-| 2 | `SeaMaterials` | `app/shared/land.h:250` | +0x158, the swatch's material per pass |
-| 2 | `Lighting` | `app/shared/land.h:264` | the 0x2D-byte lighting record (VIDTEST's LandLightingStruct, its names), one struct member: its generated operator= 0x4744C0 is what the |
-| 2 | `UpdateMin` | `app/shared/land.h:267` | the lightmap rectangle being updated and the time-sliced update's cursor (0x46D900 / 0x46DA70) |
-| 2 | `Normals` | `app/shared/land.h:279` | what Prepare_Lighting 0x46C730 makes of the lighting record |
+| 2 | `Set_Dirty` | `app/shared/land.h:178` | VIDTEST's: it writes +0x136 (0x40AB10), its decorations read the field, the grid and the patch records |
+| 2 | `Prepare_Lighting` | `app/shared/land.h:187` | after what they do (0x46C730, 0x46CAE0 (not rebuilt), 0x46D410, 0x46D6B0, 0x46D8B0, 0x46D880) |
+| 2 | `Build_Index_Buffers` | `app/shared/land.h:190` | the strip and edge index buffers of each level for patches of size vertices a side (0x478240) |
+| 2 | `Apply_Colors` | `app/shared/land.h:191` | the lit rectangle times the colour map, plus +0x1214 when there is one (0x46D410) |
+| 2 | `Limit_Levels` | `app/shared/land.h:194` | limits the patches' levels outwards from the camera's patch, one level per patch (0x46AA40, called by Update_Patches 0x46B3C0) |
+| 2 | `Load_PLD` | `app/shared/land.h:196` | the height map's horizon tables (+0x1E4..+0x1F8, the normals +0x1FC) in a .pld beside the .pgm (0x46EB60, 0x46ECF0), computed from the ini (0x46E670, not rebuilt) |
+| 2 | `Init_Horizon_Tables` | `app/shared/land.h:200` | the reciprocal table and the shared horizon table (0x46EF60, called by Compute_Horizons 0x46E670) |
+| 2 | `Set_Lighting` | `app/shared/land.h:215` | a one-line inline setter: its extra inline depth is what keeps the record's operator= out of line inside the inlined |
+| 2 | `LightmapSerial` | `app/shared/land.h:223` | members after what the ctor 0x468E90, the dtor 0x46A480 and Load_Assets 0x4691D0 do with them; m_UnknownXX: use not known |
+| 2 | `StripBuffers` | `app/shared/land.h:226` | a level's triangle strip over a patch (Build_Index_Buffers 0x478240) |
+| 2 | `StripCounts` | `app/shared/land.h:227` | its index count less 2 |
+| 2 | `EdgeBuffers` | `app/shared/land.h:228` | a level's edge fans, four sides (none at level 0) |
+| 2 | `EdgeCounts` | `app/shared/land.h:229` | their index count: LandPatchClass::Draw draws a quarter (one side) per bit |
+| 2 | `Reciprocals` | `app/shared/land.h:230` | +0xE4, 1 / n for n = 1 .. 2 Size - 1 (0x46EF60) |
+| 2 | `CameraCellZ` | `app/shared/land.h:242` | +0x114, the camera's cell (patch units) at the last Update_Patches 0x46B3C0 |
+| 2 | `SeaTextures` | `app/shared/land.h:255` | +0x140, the sea swatch's textures, pass x stage (Load_Assets 0x4691D0) |
+| 2 | `SeaMaterials` | `app/shared/land.h:257` | +0x158, the swatch's material per pass |
+| 2 | `Lighting` | `app/shared/land.h:271` | the 0x2D-byte lighting record (VIDTEST's LandLightingStruct, its names), one struct member: its generated operator= 0x4744C0 is what the |
+| 2 | `UpdateMin` | `app/shared/land.h:274` | the lightmap rectangle being updated and the time-sliced update's cursor (0x46D900 / 0x46DA70) |
+| 2 | `Normals` | `app/shared/land.h:286` | what Prepare_Lighting 0x46C730 makes of the lighting record |
 | 2 | `Read_Registry` | `app/shared/landdmap.h:33` | reads the DMap key's four values (0x468120) |
 | 2 | `Field` | `app/shared/landdmap.h:52` | +0x1C, the ctor's argument |
 | 2 | `VertexBuffer` | `app/shared/landdmap.h:54` | +0x24, CreateVertexBuffer (0x467A50) |
@@ -6126,18 +6127,16 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `RoundTripRound` | `app/wwudp/unknown_cordmsg.cpp:152` | 0xBB1DB8 |
 | 2 | `LossRound` | `app/wwudp/unknown_cordmsg.cpp:175` | 0xBB1DBC |
 | 2 | `LimitedAt` | `app/wwudp/unknown_cordmsg.cpp:202` | 0xBF4120 when the rate limit last held a send back |
-| 2 | `LandVertexStruct` | `programs/vidtest/vidland.cpp:32` | ours |
-| 2 | `Int_Min` | `programs/vidtest/vidland.cpp:41` | ours |
-| 2 | `DecoPartStruct` | `programs/vidtest/vidland.cpp:621` | ours (VIDTEST 0x416170 batches the prototypes) |
-| 2 | `DecoVertexStruct` | `programs/vidtest/vidland.cpp:634` | ours |
-| 2 | `DecoInstanceStruct` | `programs/vidtest/vidland.cpp:641` | ours |
-| 2 | `Find_Deco_Mesh` | `programs/vidtest/vidland.cpp:652` | ours |
-| 2 | `LandLightingStruct` | `programs/vidtest/vidland.h:62` | the record Update_Lighting hands the land (VIDTEST esp+0x74) |
-| 2 | `VidtestLandClass` | `programs/vidtest/vidland.h:73` | VIDTEST's stand-in for the client's VidtestLandClass (app\shared\land.h) |
-| 2 | `Create` | `programs/vidtest/vidland.h:84` | Create, Load_Assets, Create_Decorations, Update_Patches, Set_Dirty, Update_Lightmap_Full describe VIDTEST 0x4068F0, 0x405750, 0x415C40, 0x4078F0, +0x136, 0x40A9F0 |
-| 2 | `Field` | `programs/vidtest/vidland.h:112` | members describe what they hold (VIDTEST offsets in land.h's header) |
-| 2 | `Shadow` | `programs/vidtest/vidland.h:153` | ours |
-| 2 | `Patch` | `programs/vidtest/vidland.h:154` | ours |
+| 2 | `Int_Min` | `programs/vidtest/viddeco.cpp:25` | ours |
+| 2 | `DecoPartStruct` | `programs/vidtest/viddeco.cpp:76` | ours (VIDTEST 0x416170 batches the prototypes) |
+| 2 | `DecoVertexStruct` | `programs/vidtest/viddeco.cpp:89` | ours |
+| 2 | `DecoInstanceStruct` | `programs/vidtest/viddeco.cpp:96` | ours |
+| 2 | `Find_Deco_Mesh` | `programs/vidtest/viddeco.cpp:107` | ours |
+| 2 | `VidtestDecorationsClass` | `programs/vidtest/viddeco.h:27` | ours (VIDTEST's land draws its decorations itself; the client's land from its patch records) |
+| 2 | `Create_Decorations` | `programs/vidtest/viddeco.h:34` | VIDTEST 0x415C40 (decoration.ini [set]) |
+| 2 | `Land` | `programs/vidtest/viddeco.h:44` | ours |
+| 2 | `Shadow` | `programs/vidtest/viddeco.h:59` | ours |
+| 2 | `Patch` | `programs/vidtest/viddeco.h:60` | ours |
 | 3 | `soundlib.h` | `app/audio/soundlib.h:21` | header name assumed from the client's soundlib.cpp |
 | 3 | `SoundDefClass` | `app/audio/soundlib.h:35` | from the client's _NextDialogDef (0x68 bytes) |
 | 3 | `SoundLibraryClass` | `app/audio/soundlib.h:70` | from the client's soundlib.cpp ('sound library' in the start-up messages) |

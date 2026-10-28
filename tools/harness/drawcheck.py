@@ -136,12 +136,14 @@ def judge(orig_path, ours_path, frame, update=False):
     return ok
 
 
-def run_one(exe, out, frame, timeout):
+def run_one(exe, out, frame, timeout, art=None):
     cmd = [sys.executable, os.path.join(HERE, 'run_reference.py'), '--every', '0', '--frames', str(frame),
            '--dump', str(frame), '--out', out, '--timeout', str(timeout)]
     if exe:
         cmd += ['--exe', exe]
     cmd += ['run', '--'] + ARGS
+    if exe and art:
+        cmd += ['-art', os.path.abspath(art)]   # a copy of the art: LandClass rewrites a .pld it can't load (D69)
     if not exe:
         cmd.remove('-nomsgbox')      # the original has no such option; it shows no dialog on a clean run
     print(' '.join(cmd))
@@ -158,6 +160,7 @@ def main():
     ap.add_argument('--ours-dir', default=os.path.join(OUT, 'ours'))
     ap.add_argument('--redo-orig', action='store_true', help='dump the original again')
     ap.add_argument('--timeout', type=float, default=120)
+    ap.add_argument('--art', help='ours: read the art from this folder (a copy of EBCONFIG), never the install folder')
     ap.add_argument('--quiet', action='store_true')
     ap.add_argument('--update-baseline', action='store_true', help='run: accept this run as drawcheck_baseline.json')
     a = ap.parse_args()
@@ -168,7 +171,7 @@ def main():
     orig = os.path.join(a.orig_dir, f'draws_{a.frame:05d}.bin')
     if a.redo_orig or not os.path.exists(orig):
         orig = run_one(None, a.orig_dir, a.frame, a.timeout)
-    ours = run_one(OURS_EXE, a.ours_dir, a.frame, a.timeout)
+    ours = run_one(OURS_EXE, a.ours_dir, a.frame, a.timeout, a.art)
     sys.exit(0 if judge(orig, ours, a.frame, a.update_baseline) else 1)
 
 

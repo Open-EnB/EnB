@@ -418,6 +418,10 @@ python tools/harness/vidtest_sbs.py run; python tools/harness/vidtest_sbs.py sbs
   draws 1,502 tree-pass draws of the 256x256 format-26 map where the original draws 340, and the
   lightmap is X8R8G8B8 in ours (format 22) where the original's is A8R8G8B8 (21). PASS twice in a row; our own two runs
   differ in 17 draws' matrices / positions by the clock, so the check is on the tables.
+  2026-10-28 (LD1, D101: VIDTEST on LandClass, trees from programs/vidtest/viddeco.cpp): ours 2,191 draws / 83,028 prims /
+  173,408 verts, the prims and verts the original's; one group differs, the trees drawn per patch (1,344 draws of the
+  original's 23,695 prims where it draws 340). `--art DIR` runs ours on a copy of the art (`build/art`, EBCONFIG copied
+  with its dates, `cp -rp`): LandClass rewrites a .pld it can't load, so never the install folder (D69).
 * **symbolize.py** names the addresses of vidtest's crash report (`CRASH:` lines in its log: the
   exception address and the stack words that point into its code) with the linker map.
 
