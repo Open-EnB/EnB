@@ -42,6 +42,7 @@ class AudibleSoundClass;
 
 // co.cpp's +0xB4 object: a RefCountClass the constructor gets from 0x731FA0 (0xB8 bytes, constructor
 // 0x732030); 0x6FCB20 passes the visibility to its slot +0x18
+class LegoClass;
 class UnknownB4Class : public RefCountClass		// NAME 1: neutral (D10)
 {
 public:
@@ -55,6 +56,8 @@ public:
 	virtual void Unknown_24();
 	virtual void Unknown_28();
 	virtual Matrix3D Unknown_2C(const LegoIdentifierClass &lego);	// +0x2C (0x6FED80 returns it when the object is set)  // NAME 1 [lego]: eff_o.cpp's 0x6E8F80 passes the source's lego plus 'EMITTER'
+	virtual void Unknown_30(const RefCountPtr<LegoClass> &lego);	// +0x30 (SUBPARTS' 0x6FEF70: each new sub part's lego)  // NAME 1 [lego]: what 0x6FEF70 passes
+	virtual RefCountPtr<LegoClass> Unknown_34(const LegoIdentifierClass &id);	// +0x34 (0x6FEF70: each old sub part's id, last first; the result is dropped)  // NAME 1 [id]: what 0x6FEF70 passes
 	void Unknown_732690();							// 0x732690 (co.cpp's destructor calls it before the release)
 };
 
@@ -200,7 +203,7 @@ public:
 	RenderObjClass *Unknown_6F3BC0();					// 0x6F3BC0 (co.cpp; cpacket.cpp's DECAL 16 releases the model it returns)
 	bool Unknown_6F5DC0();								// 0x6F5DC0 (co.cpp; cpacket.cpp's SET_TARGET 25 tests it)
 	void Set_Decal_Name(std::string name) { DecalName = name; }	// 0x736140 (out of line in cpacket.cpp's object, after NAME_DECAL 178, its only caller)  // NAME 2: what it does
-	void Unknown_6FEF70(SubPartsPacket *packet);		// 0x6FEF70 (co.cpp; cpacket.cpp's SUBPARTS 180)  // NAME 1 [packet]: the handler's packet
+	void Unknown_6FEF70(SubPartsPacket *packet);		// 0x6FEF70 (cpacket.cpp's SUBPARTS 180): the sub parts' legos on the +0xB4 object  // NAME 1 [packet]: the handler's packet
 	void Unknown_70E750(int id);						// 0x70E750 (cpacket.cpp's SET_TARGET 25 passes its TargetID)  // NAME 1 [id]: the packet's TargetID
 	void Unknown_6F3810(RenderObjClass *model);			// 0x6F3810 the +0x158 models on the model's bones, then its sub-objects'  // NAME 2 [model]: what it is
 	float Unknown_6F3ED0();								// 0x6F3ED0 an angle from +0x98's slot +0x14, clamped to 36 degrees

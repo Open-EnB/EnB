@@ -2266,33 +2266,33 @@ void ClientObjectClass::Unknown_6FEEE0(const RelationshipClass &relationship)
 	Relationship = relationship;
 	Unknown_4F7EF0().emit(this, event);
 }
+#include "..\packets\pk_sub_parts.h"
+#include "client_lego_impl.h"	// the sub parts' legos (SUBPARTS 0x6FEF70)
+// 0x6FEF70 (cpacket.cpp's SUBPARTS 180): the +0xB4 object drops the old sub parts' legos (last first), the
+// list takes the packet's names, and each gets its lego from 0x7294D0; then 0x6FCB70
+RefCountPtr<LegoClass> Unknown_7294D0(const LegoIdentifierClass &id, int kind, int value, ClientClass *client, float scale);	// 0x7294D0 (cdecl, client.cpp's run; not rebuilt)  // NAME 1 [id, kind, value, client, scale]: what 0x6FEF70 passes
+void ClientObjectClass::Unknown_6FEF70(SubPartsPacket *packet)
+{	UnknownB8.size();	// a dead read (no code) spends the inline budget: the vector's _Destroy 0x700E60 then stays out of line as the client's (P-IB1-1)
+	if (UnknownB4) {
+		for (std::vector<LegoIdentifierClass>::reverse_iterator it = UnknownB8.rbegin(); it != UnknownB8.rend(); it++) {
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+			UnknownB4->Unknown_34(*it);
+		}
+	}
+	UnknownB8.clear();
+	ClientClass *client = Client;
+	G_ASSERT(client);
+	unsigned count = packet->Get_Count();
+	for (unsigned i = 0; i < count; i++) {
+		const SubPartStruct &part = packet->Get(i);
+		LegoIdentifierClass id(part.Name);
+		UnknownB8.push_back(id);
+		if (UnknownB4 && client) {
+			RefCountPtr<LegoClass> lego = Unknown_7294D0(id, 1, part.Value, client, 1.0f); UnknownB4->Unknown_30(lego);
+		}
+	}
+	Unknown_6FCB70();
+}
 
 
 

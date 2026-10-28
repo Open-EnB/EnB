@@ -90,7 +90,10 @@ bool TaskClass::Is_Focused()
 RefCountPtr<UnknownB4Class> Unknown_731FA0(ClientObjectClass *) { return(RefCountPtr<UnknownB4Class>(NULL)); }
 Unknown498C10Class::Unknown498C10Class() : Unknown00(false) {}		// (silent: every object constructs one)
 void Unknown498C10Class::Unknown_498F00(float, float, float) {}
-void ClientObjectClass::Unknown_6FEF70(SubPartsPacket *) { Trace("stub ClientObjectClass::Unknown_6FEF70 %u", GameID); }
+// co.cpp's SUBPARTS 0x6FEF70 asks client.cpp's 0x7294D0 (not rebuilt) for a sub part's lego: a by-value RefCountPtr
+// gen_stubs.py cannot write (reached only with a +0xB4 object, which Unknown_731FA0 above never gives)
+#include "..\..\..\app\client\client_lego_impl.h"
+RefCountPtr<LegoClass> Unknown_7294D0(const LegoIdentifierClass &, int, int value, ClientClass *, float) { Trace("stub Unknown_7294D0 %d", value); return(RefCountPtr<LegoClass>(NULL)); }
 void ClientObjectClass::Unknown_70E750(int id) { Trace("stub ClientObjectClass::Unknown_70E750 %u target %d", GameID, id); }
 
 // co.cpp's per-frame update 0x6F3C60 prints the player's position on wwlib's mono screen (the client's global at

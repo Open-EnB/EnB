@@ -721,7 +721,7 @@ msg 267 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 mainview add 48900994
 msg 269 SUBPARTS (180) size 58: cpacket.cpp's handler
-stub ClientObjectClass::Unknown_6FEF70 48900994
+gen ClientObjectClass::Unknown_6FCB70
 msg 270 CLIENT_AVATAR (55) size 8: cpacket.cpp's handler
 sent DEBUG (26) size 16: 822bea022100000000000000
 model Set_LOD_Bias 1e+009
@@ -912,7 +912,7 @@ msg 373 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 mainview add 48887635
 msg 375 SUBPARTS (180) size 58: cpacket.cpp's handler
-stub ClientObjectClass::Unknown_6FEF70 48887635
+gen ClientObjectClass::Unknown_6FCB70
 msg 376 COLORIZATION (17) size 138: cpacket.cpp's handler
 stub Unknown_80EFF0 4 regions
 msg 377 DECAL (16) size 58: cpacket.cpp's handler

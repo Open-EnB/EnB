@@ -980,6 +980,7 @@
      "0x6FED30",
      "0x6FED80",
      "0x6FEEE0",
+     "0x6FEF70",
      "0x6FF1D0",
      "0x6FF330",
      "0x6FFC80",
@@ -997,6 +998,9 @@
      "0x700A20",
      "0x700AA0",
      "0x700BF0",
+     "0x700E60",
+     "0x700EA0",
+     "0x705760",
      "0x7079B0"
     ],
     "merged": [],
@@ -8647,7 +8651,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 4240,
+  "in_tree_total": 4244,
   "totals": {}
  },
  "binkmovie": {
