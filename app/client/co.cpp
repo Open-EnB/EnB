@@ -363,7 +363,7 @@ void ClientObjectClass::Unknown_6F3BF0(bool hidden)
 		Model->Set_Hidden(hidden);
 	}
 }
-
+#pragma auto_inline(off)
 // 0x6F3ED0
 float ClientObjectClass::Unknown_6F3ED0()
 {
@@ -380,7 +380,7 @@ float ClientObjectClass::Unknown_6F3ED0()
 	}
 	return(WWMath::Clamp(k * x, -0.628318548f, 0.628318548f));
 }
-
+#pragma auto_inline(on)
 // 0x6F45E0
 float ClientObjectClass::Unknown_6F45E0()
 {
@@ -560,7 +560,7 @@ done:
 	}
 	return(tm);
 }
-// NOT EXACT: inline budget (the client calls 0x6F3ED0, 0x6F5A40, 0x6F45E0 and auxdata.h's find 0x7079B0 out of line, ours inlines them; 9 forms)
+// NOT EXACT: inline budget (0x6F3ED0 is out of line through auto_inline(off) at its definition, as the client; the client still calls 0x6F45E0 out of line in one branch of the inlined 0x6F4590 and auxdata.h's find 0x7079B0; attempts.py show 0x6F3FA0)
 // 0x6F3FA0 (slot +0x28's tilt: the turn +0x144 steered toward 0x6F3ED0's angle through +0x134, then the roll)
 void ClientObjectClass::Unknown_6F3FA0(Matrix3D &tm)
 {
