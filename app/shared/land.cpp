@@ -1034,6 +1034,55 @@ void LandClass::Load_Prototype_Names(std::vector<std::string> &names, INIClass &
 	}
 }
 
+// NOT EXACT: inline-budget (the client calls the string's assign and the names' insert out of line and inlines the decorations'
+// insert; 5 forms, attempts.csv 0x478B50)
+void LandClass::Load_Decorations_Ini(std::vector<std::string> &names, std::vector<LandDecorationStruct> &decorations, const char *filename)
+{
+	INIClass ini;
+	ini.Load(filename);
+	if (ini.Is_Loaded()) {
+		int count = ini.Get_Int("Prototypes", "NUM_PROTOS", 0);
+		for (int i = 0; i < count; i++) {
+			char entry[256];
+			char name[1024];
+			sprintf(entry, "PROTO%d", i);
+			ini.Get_String("Prototypes", entry, "TDTREE01A", name, sizeof(name));
+			std::string string(name);
+			names.push_back(string);
+		}
+		unsigned int proto_count;
+		if (names.begin() != NULL && (proto_count = names.size()) != 0) {
+			int n = 0;
+			char section[256];
+			sprintf(section, "DECO%d", n);
+			while (ini.Find_Section(section) != NULL) {
+				LandDecorationStruct decoration;
+				decoration.Proto = ini.Get_Int(section, "DecID", 0);
+				if ((unsigned int)decoration.Proto >= proto_count) {
+					decoration.Proto = 0;
+				}
+				Matrix3D tm(true);
+				char buffer[256];
+				ini.Get_String(section, "M", "", buffer, sizeof(buffer));
+				char *token = strtok(buffer, ",");
+				for (int column = 0; column < 4; column++) {
+					for (int row = 0; row < 3; row++) {
+						if (token != NULL) {
+							tm[row][column] = (float)atof(token);
+							token = strtok(NULL, ",");
+						}
+					}
+				}
+				decoration.Transform = tm;
+				decoration.Scale = ini.Get_Float(section, "Scale", 1.0f);
+				decorations.push_back(decoration);
+				n++;
+				sprintf(section, "DECO%d", n);
+			}
+		}
+	}
+}
+
 void LandClass::Load_Decorations(std::vector<std::string> &names, std::vector<LandDecorationStruct> &decorations, const char *filename)
 {
 	if (Field == NULL) {

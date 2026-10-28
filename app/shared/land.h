@@ -193,6 +193,9 @@ public:
 // calls it), the .dcb's reader 0x4795D0 and writer 0x479A50 (nothing calls it)
 	void							Load_Prototype_Names(std::vector<std::string> &names, INIClass &ini, const char *section);
 	void							Load_Decorations(std::vector<std::string> &names, std::vector<LandDecorationStruct> &decorations, const char *filename);
+// NAME 2: the same as an ini ([Prototypes] NUM_PROTOS, PROTO%d; [DECO%d] DecID, M (the matrix, column by column), Scale):
+// the reader 0x478B50 (nothing calls it)
+	void							Load_Decorations_Ini(std::vector<std::string> &names, std::vector<LandDecorationStruct> &decorations, const char *filename);
 	void							Save_Decorations(std::vector<std::string> &names, std::vector<LandDecorationStruct> &decorations, const char *filename);
 // NAME 2: VIDTEST's Land::Create_Decorations (0x415C40 ~ 0x479D00): decoration.ini [set]'s NUM_DECOS trees at random on the
 // land; the patch records' tree and shadow buffers from the decorations (0x47A2F0 = VIDTEST 0x416170)
