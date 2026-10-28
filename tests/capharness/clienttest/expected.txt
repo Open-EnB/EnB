@@ -3179,4 +3179,13 @@ check 129 and 131 without the view's +0x1A0 / +0x19C: the FAIL_IFs '!ship_ui', '
 msg 1 RECUSTOMIZE_AVATAR_UPDATE (133) size 249: cpacket.cpp's handler
 recustomize calls: 61F250(desc, cost, 2, 3, 4, 5) 551C40(cost) 6437A0(7, desc) 
 check 129: +0x1A0's 0x61F250 gets the description, the costs and +0x1A4..+0x1B0; 131: +0x19C's 0x551C40 the costs; 133: the interface's 0x6437A0 its int 7 and the description: ok
+== (4h) GM_EDIT_PLAYER_INVENTORY 234 and GM_VIEW_MISSION_LOG 235
+msg 1 ? (235) size 36: cpacket.cpp's handler
+gen InterfaceClass::InterfaceClass
+stub SClient::Unknown_744B60 -> 0
+msg 2 ? (234) size 36: cpacket.cpp's handler
+gen InterfaceClass::InterfaceClass
+stub SClient::Unknown_744B60 -> 1
+GM calls: new 6B2460 +54 +7C(main view, 1) 6B3340(5, 2 strings, 'mission one') new 6AF220 +54 +7C(starbase view, 1) 6B09D0(6, 2 strings, 'mission one') 
+check GM_VIEW_MISSION_LOG 235 makes 0x6B2460's interface, loads it and opens it over the main view (0x744B60 false), then 0x6B3340(5, the strings); GM_EDIT_PLAYER_INVENTORY 234 the same with 0x6AF220 over the starbase view (0x744B60 true) and 0x6B09D0: ok
 == done: 0 checks failed

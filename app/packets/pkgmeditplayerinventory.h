@@ -26,7 +26,7 @@ public:
 	GMEditPlayerInventoryPacketClass(RawPacketClass *raw);	// 0x86F630
 	virtual ~GMEditPlayerInventoryPacketClass();	// +0x00 0x86F840 / 0x86FAA0
 	virtual RawPacketClass *Build();	// +0x04 0x86FB30
-	virtual bool Process_Packet(void *client);	// +0x08 0x73F2E0 (not rebuilt)
+	virtual bool Process_Packet(void *client);	// +0x08 0x73F2E0 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C PKGMEDITPLAYERINVENTORY_HDS
 	virtual int Print(char *buffer, int len);	// +0x10 0x86FCA0
 

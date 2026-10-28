@@ -29,7 +29,8 @@
 //     synthetic FORMATION_POSITIONAL_UPDATE 65 (the follower's and the avatar's formation states, then an update);
 //     (4e): synthetic VERB_LIST 91 to the verb manager (+0x1294); (4f): synthetic STARBASE_AVATAR_UPDATE 158 and
 //     STARBASE_AVATAR_ROOM_UPDATE 160 to the starbase view's (+0x135C) interface; (4g): synthetic RECUSTOMIZE_SHIP_START
-//     129, RECUSTOMIZE_AVATAR_START 131 and RECUSTOMIZE_AVATAR_UPDATE 133 to the starbase view's +0x1A0 / +0x19C / +0x60.
+//     129, RECUSTOMIZE_AVATAR_START 131 and RECUSTOMIZE_AVATAR_UPDATE 133 to the starbase view's +0x1A0 / +0x19C / +0x60;
+//     (4h): synthetic GM_EDIT_PLAYER_INVENTORY 234 and GM_VIEW_MISSION_LOG 235 (each makes and opens its GM interface).
 //
 // Never: a modal dialog (asserts and FAIL_IF go to the trace), the registry (SOptionsClass's
 // constructor is a stand-in), the network (the memory connection), the game's install folder.
@@ -55,6 +56,9 @@
 #include "..\..\..\app\packets\pkverblist.h"
 #include "..\..\..\app\packets\pkstarbase_avatar_change.h"
 #include "..\..\..\app\packets\pkrecustomize.h"
+#include "..\..\..\app\packets\pkgmviewmissionlog.h"
+#include "..\..\..\app\packets\pkgmeditplayerinventory.h"
+#include "..\..\..\app\client\ui_line_display.h"
 #include "..\..\..\app\client\aux_roots.h"
 #include "..\..\..\app\client\co_subtypes.h"
 #include "..\..\..\app\client\postate.h"
@@ -1376,6 +1380,68 @@ static void Test_Recustomize(SClient *client)
 	Memory->Received = 0;
 }
 
+// (4h) GM_EDIT_PLAYER_INVENTORY 234 (0x73F2E0) and GM_VIEW_MISSION_LOG 235 (0x73F1F0) from synthetic packets: each
+// makes its GM interface (new, constructors 0x6AF220 / 0x6B2460: stand-ins here that give the object a table whose
+// slots +0x54 and +0x7C record), loads it (+0x54), opens it over the starbase view when SClient 0x744B60 says so, else
+// the main view (+0x7C(view, 1)), then hands it the packet's int and strings (0x6B09D0 / 0x6B3340).
+class Unknown6B2460Class : public InterfaceClass { public: Unknown6B2460Class(SClient *client); void Unknown_6B3340(int unknown, std::vector<std::string> *strings); char Unknown84[0x108 - 0x84]; };
+class Unknown6AF220Class : public InterfaceClass { public: Unknown6AF220Class(SClient *client); void Unknown_6B09D0(int unknown, std::vector<std::string> *strings); char Unknown84[0x118 - 0x84]; };
+static std::string GM_Log;
+static void *GM_Table[64];
+static void __stdcall GM_54_Slot() { GM_Log += "+54 "; }
+static void __stdcall GM_7C_Slot(int view, int arg)
+{
+	char t[48];
+	sprintf(t, "+7C(%s, %d) ", view == (int)The_Client->MainView ? "main view" : view == (int)The_Client->Unknown135C ? "starbase view" : "?", arg);
+	GM_Log += t;
+}
+Unknown6B2460Class::Unknown6B2460Class(SClient *) : InterfaceClass(0, 0) { GM_Log += "new 6B2460 "; *(void ***)this = GM_Table; }
+Unknown6AF220Class::Unknown6AF220Class(SClient *) : InterfaceClass(0, 0) { GM_Log += "new 6AF220 "; *(void ***)this = GM_Table; }
+void Unknown6B2460Class::Unknown_6B3340(int unknown, std::vector<std::string> *strings)
+{
+	char t[64];
+	sprintf(t, "6B3340(%d, %d strings, '%s') ", unknown, (int)strings->size(), strings->empty() ? "" : (*strings)[0].c_str());
+	GM_Log += t;
+}
+void Unknown6AF220Class::Unknown_6B09D0(int unknown, std::vector<std::string> *strings)
+{
+	char t[64];
+	sprintf(t, "6B09D0(%d, %d strings, '%s') ", unknown, (int)strings->size(), strings->empty() ? "" : (*strings)[0].c_str());
+	GM_Log += t;
+}
+static void Test_GM(SClient *client)
+{
+	Trace("== (4h) GM_EDIT_PLAYER_INVENTORY 234 and GM_VIEW_MISSION_LOG 235");
+	if (Memory == 0) {
+		Check(false, "the memory connection");
+		return;
+	}
+	for (int i = 0; i < 64; i++) {
+		GM_Table[i] = (void *)Zero_Slot;
+	}
+	GM_Table[0x54 / 4] = (void *)GM_54_Slot;
+	GM_Table[0x7C / 4] = (void *)GM_7C_Slot;
+	ViewClass *saved = client->Unknown135C;
+	static double fake_view[0x200 / 8];
+	client->Unknown135C = (ViewClass *)fake_view;
+	std::vector<std::string> strings;
+	strings.push_back("mission one");
+	strings.push_back("mission two");
+	GM_Log = "";
+	Stub_744B60 = false;
+	Memory->Incoming.push_back(Built_Message(&GMViewMissionLogPacketClass(5, strings)));
+	client->Process_Packets();
+	Stub_744B60 = true;
+	Memory->Incoming.push_back(Built_Message(&GMEditPlayerInventoryPacketClass(6, strings)));
+	client->Process_Packets();
+	Stub_744B60 = false;
+	Trace("GM calls: %s", GM_Log.c_str());
+	Check(GM_Log == "new 6B2460 +54 +7C(main view, 1) 6B3340(5, 2 strings, 'mission one') new 6AF220 +54 +7C(starbase view, 1) 6B09D0(6, 2 strings, 'mission one') ",
+		"GM_VIEW_MISSION_LOG 235 makes 0x6B2460's interface, loads it and opens it over the main view (0x744B60 false), then 0x6B3340(5, the strings); GM_EDIT_PLAYER_INVENTORY 234 the same with 0x6AF220 over the starbase view (0x744B60 true) and 0x6B09D0");
+	client->Unknown135C = saved;
+	Memory->Received = 0;
+}
+
 // ------------------------------------------------------------------------- main
 
 int main(int argc, char **argv)
@@ -1474,6 +1540,7 @@ int main(int argc, char **argv)
 	Test_Verbs(client);
 	Test_Starbase(client);
 	Test_Recustomize(client);
+	Test_GM(client);
 	// the client isn't deleted: its destructor reaches control_keys_manager.cpp and WWAudio
 	Trace("== done: %d checks failed", Failures);
 	fclose(Out);

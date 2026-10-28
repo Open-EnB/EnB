@@ -3346,6 +3346,11 @@ bool GuildRankNamesSectorPacket::Process_Packet(void *instance)
 	return(true);
 }
 
+#include "..\packets\pkgmviewmissionlog.h"
+#include "..\packets\pkgmeditplayerinventory.h"
+// the GM tools' interfaces the GM packets make (InterfaceClass objects; their files unknown), declared as far as the handlers call them
+class Unknown6B2460Class : public InterfaceClass { public: Unknown6B2460Class(SClient *client); void Unknown_6B3340(int unknown, std::vector<std::string> *strings); char Unknown84[0x108 - 0x84]; };	// NAME 1: neutral (D10): 0x108 bytes (GM_VIEW_MISSION_LOG 235)  // NAME 1 [client, unknown, strings]: what the handler passes
+class Unknown6AF220Class : public InterfaceClass { public: Unknown6AF220Class(SClient *client); void Unknown_6B09D0(int unknown, std::vector<std::string> *strings); char Unknown84[0x118 - 0x84]; };	// NAME 1: neutral (D10): 0x118 bytes (GM_EDIT_PLAYER_INVENTORY 234)  // NAME 1 [client, unknown, strings]: what the handler passes
 
 
 
@@ -3361,6 +3366,17 @@ bool GuildRankNamesSectorPacket::Process_Packet(void *instance)
 
 
 
+// 0x73F1F0
+bool GMViewMissionLogPacketClass::Process_Packet(void *instance)
+{
+	SClient *sclient = (SClient *)instance;
+	FAIL_IF(sclient == 0) return(true);
+	Unknown6B2460Class *ui = new Unknown6B2460Class(sclient);
+	ui->Unknown_54();
+	if (sclient->Unknown_744B60()) ui->Unknown_7C((int)sclient->Unknown135C, 1); else ui->Unknown_7C((int)sclient->MainView, 1);
+	ui->Unknown_6B3340(Unknown0C, &Strings);
+	return(true);
+}
 
 
 
@@ -3370,33 +3386,17 @@ bool GuildRankNamesSectorPacket::Process_Packet(void *instance)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// 0x73F2E0
+bool GMEditPlayerInventoryPacketClass::Process_Packet(void *instance)
+{
+	SClient *sclient = (SClient *)instance;
+	FAIL_IF(sclient == 0) return(true);
+	Unknown6AF220Class *ui = new Unknown6AF220Class(sclient);
+	ui->Unknown_54();
+	if (sclient->Unknown_744B60()) ui->Unknown_7C((int)sclient->Unknown135C, 1); else ui->Unknown_7C((int)sclient->MainView, 1);
+	ui->Unknown_6B09D0(Unknown0C, &Strings);
+	return(true);
+}
 
 
 

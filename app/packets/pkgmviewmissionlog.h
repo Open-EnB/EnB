@@ -26,7 +26,7 @@ public:
 	GMViewMissionLogPacketClass(RawPacketClass *raw);	// 0x86FD00
 	virtual ~GMViewMissionLogPacketClass();	// +0x00 0x86FF10 / 0x870170
 	virtual RawPacketClass *Build();	// +0x04 0x870200
-	virtual bool Process_Packet(void *client);	// +0x08 0x73F1F0 (not rebuilt)
+	virtual bool Process_Packet(void *client);	// +0x08 0x73F1F0 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C PKGMVIEWMISSIONLOG_HDS
 	virtual int Print(char *buffer, int len);	// +0x10 0x870370
 
