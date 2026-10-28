@@ -244,6 +244,11 @@ def self_names():
                     _self_names.setdefault(e['symbol'], set()).add(int(e['address'], 16))
         except (OSError, ValueError, KeyError):
             pass
+        # a vtable's slot 0 is the class's deleting destructor: symbols.py names it `??_E` (vector),
+        # VC6 emits `??_G` (scalar) for a class never new[]'d. Either name is the same slot's proof.
+        for k, v in list(_self_names.items()):
+            if k.startswith(('??_E', '??_G')):
+                _self_names.setdefault(('??_G' if k[3] == 'E' else '??_E') + k[4:], set()).update(v)
     return _self_names
 
 

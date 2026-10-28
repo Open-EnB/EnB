@@ -33,6 +33,9 @@ bool AuxDataPlayerVarPacketClass::Process_Packet(void *) { return(true); }	// 0x
 bool MessageStringPacketClass::Process_Packet(void *) { return(true); }	// 0x736760
 bool GroupPacketClass::Process_Packet(void *) { return(true); }	// 0x736930
 bool TradePacketClass::Process_Packet(void *) { return(true); }	// 0x739DE0
+bool PriorityMessageLinePacketClass::Process_Packet(void *) { return(true); }	// 0x736A20
+bool QueueMessageLinePacketClass::Process_Packet(void *) { return(true); }	// 0x736AE0
+bool PushMessageLinePacketClass::Process_Packet(void *) { return(true); }	// 0x736BA0
 bool SuperLinePacketClass::Process_Packet(void *) { return(true); }	// 0x736C60
 bool ClearMessageLinePacketClass::Process_Packet(void *) { return(true); }	// 0x736D00
 bool ItemBasePacketClass::Process_Packet(void *) { return(true); }	// 0x7371B0
@@ -119,6 +122,3 @@ bool RecustomizeAvatarStartPacketClass::Process_Packet(void *) { return(true); }
 bool RecustomizeAvatarUpdatePacketClass::Process_Packet(void *) { return(true); }	// 0x73F5F0
 
 // What OVERRIDES declares out of line (the classes' own files, not rebuilt)
-bool PriorityMessageLinePacketClass::Process_Packet(void *) { return(true); }
-bool QueueMessageLinePacketClass::Process_Packet(void *) { return(true); }
-bool PushMessageLinePacketClass::Process_Packet(void *) { return(true); }

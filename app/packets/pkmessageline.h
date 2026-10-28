@@ -6,7 +6,7 @@
 **	Original location: e:\build\beta\G\app\packets\pkmessageline.h (the name provisional: see the .cpp)
 **
 **	The packet classes of client 0x89D730-0x89E0F0 (opcodes 36 and 35) and their
-**	MessageLinePacketClass, the base of 32-34 (those three are declared in pk_classes.h).
+**	MessageLinePacketClass with its message lines 32-34.
 */
 
 #if defined(_MSC_VER)
@@ -20,7 +20,7 @@
 #include <limits.h>
 
 // the base of PriorityMessageLinePacketClass, QueueMessageLinePacketClass, PushMessageLinePacketClass
-// (opcodes 32-34, declared in pk_classes.h): vtable 0xB0B3A4, constructor 0x89D8A0, 0x1C bytes
+// (opcodes 32-34, below): vtable 0xB0B3A4, constructor 0x89D8A0, 0x1C bytes
 class MessageLinePacketClass : public PacketClass  // NAME 3: by convention from its derived classes PriorityMessageLinePacketClass, QueueMessageLinePacketClass, PushMessageLinePacketClass
 {
 public:
@@ -43,6 +43,38 @@ public:
 	char *Ephemeral_Type;	// +0x10 (new[]'d)  // NAME 3: the client's Print text 'Ephemeral_Type='
 	int TimeMS;	// +0x14  // NAME 3: the client's Print text 'TimeMS='
 	int Display_Priority;	// +0x18  // NAME 3: the client's Print text 'Display_Priority='
+};
+
+// The three message lines: their constructors are inlined over the base's where the packet switch
+// builds them, so their inline virtuals and deleting destructors are pk.cpp's (0x86E6C0-0x86E850).
+// opcode 32 (0x0020, PRIORITY_MESSAGE): vtable 0xB09760, constructor 0x89D8A0, 0x1C bytes
+class PriorityMessageLinePacketClass : public MessageLinePacketClass
+{
+public:
+	PriorityMessageLinePacketClass(RawPacketClass *raw) : MessageLinePacketClass(raw) {}	// inline (the case stores the vtable)
+	virtual bool Process_Packet(void *client);	// +0x08 0x736A20 (cpacket.cpp)
+	virtual int Get_Type() { return(0x20); }	// +0x28 0x86E6C0
+	virtual const char *Get_Name() { return("PriorityMessage"); }	// +0x2C 0x86E6E0
+};
+
+// opcode 33 (0x0021, ?): vtable 0xB09724, constructor 0x89D8A0, 0x1C bytes
+class QueueMessageLinePacketClass : public MessageLinePacketClass
+{
+public:
+	QueueMessageLinePacketClass(RawPacketClass *raw) : MessageLinePacketClass(raw) {}	// inline (the case stores the vtable)
+	virtual bool Process_Packet(void *client);	// +0x08 0x736AE0 (cpacket.cpp)
+	virtual int Get_Type() { return(0x21); }	// +0x28 0x86E750
+	virtual const char *Get_Name() { return("QueueMessage"); }	// +0x2C 0x86E770
+};
+
+// opcode 34 (0x0022, PUSH_MESSAGE): vtable 0xB096E8, constructor 0x89D8A0, 0x1C bytes
+class PushMessageLinePacketClass : public MessageLinePacketClass
+{
+public:
+	PushMessageLinePacketClass(RawPacketClass *raw) : MessageLinePacketClass(raw) {}	// inline (the case stores the vtable)
+	virtual bool Process_Packet(void *client);	// +0x08 0x736BA0 (cpacket.cpp)
+	virtual int Get_Type() { return(0x22); }	// +0x28 0x86E7E0
+	virtual const char *Get_Name() { return("PushMessage"); }	// +0x2C 0x86E800
 };
 
 

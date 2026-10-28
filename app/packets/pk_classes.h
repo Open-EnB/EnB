@@ -145,36 +145,6 @@
 #include "pkversionrequest.h"	// rebuilt
 #include "pkwarpindex.h"	// rebuilt
 
-// opcode 32 (0x0020, PRIORITY_MESSAGE): vtable 0xB09760, constructor 0x89D8A0, 0x1C bytes
-class PriorityMessageLinePacketClass : public MessageLinePacketClass
-{
-public:
-	PriorityMessageLinePacketClass(RawPacketClass *raw) : MessageLinePacketClass(raw) {}	// inline (the case stores the vtable)
-	virtual bool Process_Packet(void *client);	// +0x08 0x736A20 (cpacket.cpp)
-	virtual int Get_Type() { return(0x20); }	// +0x28 0x86E6C0
-	virtual const char *Get_Name() { return("PriorityMessage"); }	// +0x2C 0x86E6E0
-};
-
-// opcode 33 (0x0021, ?): vtable 0xB09724, constructor 0x89D8A0, 0x1C bytes
-class QueueMessageLinePacketClass : public MessageLinePacketClass
-{
-public:
-	QueueMessageLinePacketClass(RawPacketClass *raw) : MessageLinePacketClass(raw) {}	// inline (the case stores the vtable)
-	virtual bool Process_Packet(void *client);	// +0x08 0x736AE0 (cpacket.cpp)
-	virtual int Get_Type() { return(0x21); }	// +0x28 0x86E750
-	virtual const char *Get_Name() { return("QueueMessage"); }	// +0x2C 0x86E770
-};
-
-// opcode 34 (0x0022, PUSH_MESSAGE): vtable 0xB096E8, constructor 0x89D8A0, 0x1C bytes
-class PushMessageLinePacketClass : public MessageLinePacketClass
-{
-public:
-	PushMessageLinePacketClass(RawPacketClass *raw) : MessageLinePacketClass(raw) {}	// inline (the case stores the vtable)
-	virtual bool Process_Packet(void *client);	// +0x08 0x736BA0 (cpacket.cpp)
-	virtual int Get_Type() { return(0x22); }	// +0x28 0x86E7E0
-	virtual const char *Get_Name() { return("PushMessage"); }	// +0x2C 0x86E800
-};
-
 // opcode 91 (0x005B, ?): vtable 0xB0C268, constructor 0x8AF150, 0x20 bytes
 class VerbListPacketClass : public PacketClass
 {
