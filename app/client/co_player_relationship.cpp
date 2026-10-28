@@ -160,7 +160,7 @@ bool Unknown_70B450(SClient *client, ClientObjectClass *object, GutterColorSetSt
 
 bool Unknown_70B790(SClient *client, ClientObjectClass *object, GutterColorSetStruct &colors)	// NAME 1 [Unknown_70B790]: 'Attacking' while the relationship says so
 {
-	if (!((RelationshipClass *)object->Relationship)->IsAttacking) return(false);
+	if (!object->Relationship.IsAttacking) return(false);
 	static GutterColorSetStruct attacking = Unknown_70ADF0(std::string("Attacking"));	// NAME 2: what it holds
 	colors = attacking;
 	return(true);
@@ -287,7 +287,7 @@ void Unknown_70C5D0(SClient *client, ClientObjectClass *object, GutterColorSetSt
 	static GutterColorSetStruct shun = Unknown_70ADF0(std::string("Shun"));	// 0xBE6DD0  // NAME 2: what it holds
 	static GutterColorSetStruct friendly = Unknown_70ADF0(std::string("Friendly"));	// 0xBE6D70  // NAME 2: what it holds
 	static GutterColorSetStruct adore = Unknown_70ADF0(std::string("Adore"));	// 0xBE6E90  // NAME 2: what it holds
-	switch (((RelationshipClass *)object->Relationship)->Reaction) {
+	switch (object->Relationship.Reaction) {
 		case 0:
 			colors = kos;
 			break;
@@ -319,7 +319,7 @@ void Unknown_70CC90(SClient *sclient, PlayerObjectReactionUpdatePacket *packet)
 		it->Next();
 		ClientObjectClass *object = sclient->Find_Object(update.ObjectID);
 		if (object == NULL) return;
-		RelationshipClass relationship = *(RelationshipClass *)object->Relationship;
+		RelationshipClass relationship = object->Relationship;
 		relationship.Reaction = update.Reaction;
 		object->Unknown_6FEEE0(relationship);
 	}
@@ -334,7 +334,7 @@ void Unknown_70CD50(SClient *sclient, PlayerObjectIsAttackingUpdatePacket *packe
 		it->Next();
 		ClientObjectClass *object = sclient->Find_Object(id);
 		if (object == NULL) return;
-		RelationshipClass relationship = *(RelationshipClass *)object->Relationship;
+		RelationshipClass relationship = object->Relationship;
 		relationship.IsAttacking = packet->Attacking;
 		object->Unknown_6FEEE0(relationship);
 	}

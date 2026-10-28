@@ -86,13 +86,11 @@ bool TaskClass::Is_Focused()
 // (co.cpp's rebuilt members link from app.lib: the type tests, the model accessor 0x6F3BC0, the aux-data
 // accessors 0x6FFE90-0x6FFFA0; what remains here is not rebuilt yet)
 
-ClientObjectClass::~ClientObjectClass() { Trace("stub ClientObjectClass::~ClientObjectClass %u", GameID); }
-// (the slots +0x04-+0x18 are the base's, client.cpp's UnknownB02C90Class: +0x08 and +0x0C link from it)
-static const uint32 Stub_Pool_Sizes[3] = { 15, 10, 5 };
-ClientObjectClass::ClientObjectClass(ClientClass *client, int type, unsigned id) :
-	UnknownB02C90Class(this), MultiFixedPoolDecalSystemClass(3, Stub_Pool_Sizes), Client(client), AuxData(0), GameID(id), Type((char)type), Unknown98(0)
-{
-}
+// (the constructor 0x6F2820 and destructor 0x6F2FE0 link from app.lib: clienttest.cpp's TestObjectClass logs
+// the destruction and takes its fakes back first; the slots +0x04-+0x18 are the base's, client.cpp's)
+RefCountPtr<UnknownB4Class> Unknown_731FA0(ClientObjectClass *) { return(RefCountPtr<UnknownB4Class>(NULL)); }
+Unknown498C10Class::Unknown498C10Class() : Unknown00(false) {}		// (silent: every object constructs one)
+void Unknown498C10Class::Unknown_498F00(float, float, float) {}
 Matrix3D ClientObjectClass::Unknown_28(int unknown) { Trace("stub ClientObjectClass::Unknown_28 %u %d", GameID, unknown); Matrix3D m(true); return(m); }
 void ClientObjectClass::Unknown_6FEF70(SubPartsPacket *) { Trace("stub ClientObjectClass::Unknown_6FEF70 %u", GameID); }
 void ClientObjectClass::Unknown_70E750(int id) { Trace("stub ClientObjectClass::Unknown_70E750 %u target %d", GameID, id); }
@@ -222,6 +220,9 @@ DeltaClass *LookupClass::Find(const NameClass &) { return NULL; }
 // doesn't link)
 #include "..\..\..\app\client\aux_roots.h"
 template<> int DeltaTemplateClass<bool>::UnknownGlobal = 0;
+// co.cpp's constructor asks the factory 0x6F6000 for its aux root: none here (aux_roots.obj and the roots' code
+// stay out; New_Object hands the object the harness's zeros)
+UnknownRootClass *UnknownCOClass::Unknown_Create_Aux_Root(int, int) { return(0); }
 
 // ------------------------------------------------------------------------- co.h's +0x98 state (postate.cpp)
 

@@ -145,12 +145,21 @@ const char *Aux_Root_Name(const void *root)
 	return(root == Fake_Player_Root ? "player" : root == Fake_Player_Var_Root ? "player var 0" : root == Fake_Aux ? "object" : "unknown");
 }
 
+// co.cpp's object through its own constructor and destructor (app.lib); the harness's fakes (aux data, model)
+// go back before the destructor would release them
+class TestObjectClass : public ClientObjectClass
+{
+public:
+	TestObjectClass(unsigned id) : ClientObjectClass(0, 0, id) {}	// type 0: a player ship for co.cpp's type tests (0x6F5A10)
+	virtual ~TestObjectClass() { Trace("stub ClientObjectClass::~ClientObjectClass %u", GameID); AuxData = 0; Model = 0; }
+};
+
 static ClientObjectClass *New_Object(unsigned id)
 {
-	ClientObjectClass *object = new ClientObjectClass(0, 0, id);	// type 0: a player ship for co.cpp's type tests (0x6F5A10)
-	object->AuxData = Fake_Aux;
-	object->Unknown98 = 0;			// (co.cpp's constructor news a default state; CONSTANT_POSITIONAL_UPDATE replaces it)
-	object->Node.Set(object);		// co.cpp's constructor makes the node hold its object
+	ClientObjectClass *object = new TestObjectClass(id);
+	object->AuxData = Fake_Aux;		// (the constructor's own aux root, if any, is left alone)
+	delete object->Unknown98;		// the constructor's default state: CONSTANT_POSITIONAL_UPDATE news its own
+	object->Unknown98 = 0;
 	object->Model = (RenderObjClass *)((id & 1) ? &Track_Model : &Fake_Model);
 	return object;
 }

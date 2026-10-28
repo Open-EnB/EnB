@@ -3,6 +3,7 @@
 #include "client.h"
 #include "..\shared\auxdata\auxdata.h"
 #include "aux_roots.h"
+#include "co_data.h"
 #include "rendobj.h"
 #include "sphere.h"
 #include "vector3.h"
@@ -65,12 +66,12 @@ static inline void Attach_To_Bone(RenderObjClass *model, RenderObjClass *object,
 // 0x6F3810
 void ClientObjectClass::Unknown_6F3810(RenderObjClass *model)
 {
-	Attach_To_Bone(model, Unknown158[0], "~FL");
-	Attach_To_Bone(model, Unknown158[1], "~FR");
-	Attach_To_Bone(model, Unknown158[2], "~BL");
-	Attach_To_Bone(model, Unknown158[3], "~BR");
-	Attach_To_Bone(model, Unknown158[4], "~FL");
-	Attach_To_Bone(model, Unknown158[5], "~FR");
+	Attach_To_Bone(model, Unknown158[0].Peek(), "~FL");
+	Attach_To_Bone(model, Unknown158[1].Peek(), "~FR");
+	Attach_To_Bone(model, Unknown158[2].Peek(), "~BL");
+	Attach_To_Bone(model, Unknown158[3].Peek(), "~BR");
+	Attach_To_Bone(model, Unknown158[4].Peek(), "~FL");
+	Attach_To_Bone(model, Unknown158[5].Peek(), "~FR");
 	int count = model->Get_Num_Sub_Objects();
 	for (int i = 0; i < count; i++) {
 		RefCountPtr<RenderObjClass> sub = Create_Get(model->Get_Sub_Object(i));
@@ -78,101 +79,100 @@ void ClientObjectClass::Unknown_6F3810(RenderObjClass *model)
 	}
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// 0x6F2820  // NOT EXACT: relocation (symbols.json names the vtable 0xB006F4 ??_7MultiFixedPoolDecalSystemClass@@6B@, ours ClientObjectClass's), then two schedule residues: the 1.0f load and the five 1 stores (ecx in the client)
+ClientObjectClass::ClientObjectClass(ClientClass *client, int type, unsigned id) :
+	UnknownB02C90Class(this),
+	MultiFixedPoolDecalSystemClass(3, (const uint32 *)Unknown_B93ACC),
+	Client(client),
+	Unknown8C(0),
+	GameID(id),
+	Type(type),
+	Unknown98(0),
+	Radius(1.0f),
+	RadiusAdjust(0),
+	Scale(1.0f),
+	UnknownA8(-1),
+	Model(0),
+	UnknownB0(false),
+	UnknownB8(0),
+	Sphere(Vector3(0.0f, 0.0f, 0.0f), 0.0f),
+	UnknownF8(0),
+	UnknownFC(false),
+	Unknown100(-1),
+	Unknown118(0),
+	Unknown11C(0),
+	Unknown120(0),
+	Unknown124(0),
+	Unknown128(false),
+	Unknown144(0),
+	Unknown148(-1),
+	Unknown14C(0),
+	Unknown150(0),
+	Unknown154(0),
+	Unknown170(false),
+	Unknown174(0),
+	Unknown178(0.0f, 0.0f, 0.0f),
+	Unknown184(true)
+{
+	AuxData = (char *)((UnknownCOClass *)this)->Unknown_Create_Aux_Root(type, id);
+	Unknown98 = new UnknownB006B8Class;
+	Node.Set(this);
+	UnknownB4 = Unknown_731FA0(this);
+	Unknown134.Unknown_498F00(0, 0, Unknown_6F4590());
+	Unknown104[0] = 1;
+	Unknown104[1] = 1;
+	Unknown104[2] = 1;
+	Unknown104[3] = 1;
+	Unknown104[4] = 1;
+	for (int i = 0; i < 6; i++) {
+		Unknown158[i] = NULL;
+	}
+}
+
+static inline void Release_Sound(AudibleSoundClass *&sound)
+{
+	if (sound) {
+		sound->Stop(true);
+		sound->Remove_From_Scene();
+		sound->Release_Ref();
+		sound = NULL;
+	}
+}
+
+// 0x6F2FE0  // NOT EXACT: relocation (the vtable 0xB006F4, as the constructor), register choice (the client's zero in edi, then ebx) and inline-budget (the client inlines the std::string's _Tidy(true))
+ClientObjectClass::~ClientObjectClass()
+{
+	ClientObjectDataClass::Remove_All(this);
+	Release_Sound(Unknown118);
+	Release_Sound(Unknown11C);
+	Release_Sound(Unknown120);
+	Release_Sound(Unknown124);
+	if (Unknown8C) {
+		delete Unknown8C;
+		Unknown8C = NULL;
+	}
+	if (UnknownB4) {
+		UnknownB4->Unknown_732690();
+		UnknownB4 = NULL;
+	}
+	if (Model) {
+		Model->Remove();
+		Model->Release_Ref();
+		Model = NULL;
+	}
+	if (Unknown98) {
+		delete Unknown98;
+		Unknown98 = NULL;
+	}
+	if (AuxData) {
+		delete (UnknownRootClass *)AuxData;
+		AuxData = NULL;
+	}
+	GameID = (unsigned)-1;
+	for (int i = 0; i < 6; i++) {
+		Unknown158[i] = NULL;
+	}
+}
 
 
 
@@ -2230,16 +2230,16 @@ void ClientObjectClass::Unknown_6FEC40(SphereClass *sphere)
 {
 
 	FAIL_IF(!sphere) {return;}
-	sphere->Init(((SphereClass *)Sphere)->Center, ((SphereClass *)Sphere)->Radius);
+	sphere->Init(Sphere.Center, Sphere.Radius);
 	sphere->Transform(Unknown_28(0));
 }
 // 0x6FED30
 void ClientObjectClass::Unknown_6FED30()
 {
 	if (Model == 0) {
-		((SphereClass *)Sphere)->Init(Vector3(0.0f, 0.0f, 0.0f), Radius);
+		Sphere.Init(Vector3(0.0f, 0.0f, 0.0f), Radius);
 	} else {
-		Model->Get_Obj_Space_Bounding_Sphere(*(SphereClass *)Sphere);
+		Model->Get_Obj_Space_Bounding_Sphere(Sphere);
 	}
 }
 
@@ -2262,8 +2262,8 @@ Matrix3D ClientObjectClass::Unknown_6FED80(int unknown)
 // 0x6FEEE0
 void ClientObjectClass::Unknown_6FEEE0(const RelationshipClass &relationship)
 {
-	PlayerObjectRelationshipChangeEvent event(this, *(RelationshipClass *)Relationship, relationship);
-	*(RelationshipClass *)Relationship = relationship;
+	PlayerObjectRelationshipChangeEvent event(this, Relationship, relationship);
+	Relationship = relationship;
 	Unknown_4F7EF0().emit(this, event);
 }
 
@@ -2571,7 +2571,7 @@ bool ClientObjectClass::Unknown_700670(Vector3 &color)
 void ClientObjectClass::Unknown_700820(const Vector3 &position)
 {
 	Unknown174 = 2.0f;
-	*(Vector3 *)Unknown178 = position;
+	Unknown178 = position;
 }
 
 

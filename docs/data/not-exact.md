@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-268 entries in 65 files.
+270 entries in 65 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -30,6 +30,8 @@ edit the comments in the code, not this file.
 | `app/client/client_lego_impl.cpp:679` | `ClientLegoImplClass::Child_Moved` | marker | NOT EXACT: shape, 4 rows: the client forms &child (lea ebp) before loading it, ours after (attempts.csv) |
 | `app/client/client_lego_impl.cpp:710` | `ClientLegoImplClass::Attach` | marker | NOT EXACT: frame: the client keeps the child's render object in its own stack slot (sub esp 8), ours in a dead parameter's (attempts.csv) |
 | `app/client/client_lego_impl.cpp:742` | `ClientLegoImplClass::Detach` | marker | NOT EXACT: register-only, 4 rows: eax / edx swapped around the Get_Render_Object call (attempts.csv) |
+| `app/client/co.cpp:82` | `ClientObjectClass::ClientObjectClass` | marker | NOT EXACT: relocation (symbols.json names the vtable 0xB006F4 ??_7MultiFixedPoolDecalSystemClass@@6B@, ours ClientObjectClass's), then two schedule residues: the 1.0f load and the five 1 stores (ecx in the client) |
+| `app/client/co.cpp:142` | `ClientObjectClass::~ClientObjectClass` | marker | NOT EXACT: relocation (the vtable 0xB006F4, as the constructor), register choice (the client's zero in edi, then ebx) and inline-budget (the client inlines the std::string's _Tidy(true)) |
 | `app/client/co.cpp:1679` | `ClientObjectClass::Unknown_6FC9A0` | marker | NOT EXACT: shape (case 2's 'pop esi' scheduled between its two stores in ours, after them in the client; 3 forms) 0x6FC9A0 |
 | `app/client/co.cpp:1715` | `ClientObjectClass::Unknown_6FCB20` | marker | NOT EXACT: shape (the client keeps the argument in eax and masks a copy for the compare; 3 forms) 0x6FCB20 |
 | `app/client/co.cpp:2227` | `ClientObjectClass::Unknown_6FEC40` | marker | NOT EXACT: order (the client sums the transform's products in another order; explain.py says field-offset; 2 forms) 0x6FEC40 |

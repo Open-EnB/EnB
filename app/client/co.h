@@ -31,11 +31,13 @@
 #include "matrix3d.h"
 #include "decalsys.h"
 #include "..\packets\pkcolorization.h"
+#include "..\packets\pk_player_object_relationship.h"
+#include "..\common\lego_identifier.h"
+#include "ref_ptr.h"
+#include "sphere.h"
 #include "..\shared\unknown_debug.h"
 
 class RenderObjClass;
-class SphereClass;
-class RelationshipClass;
 class AudibleSoundClass;
 
 // co.cpp's +0xB4 object: a RefCountClass the constructor gets from 0x731FA0 (0xB8 bytes, constructor
@@ -53,6 +55,29 @@ public:
 	virtual void Unknown_24();
 	virtual void Unknown_28();
 	virtual Matrix3D Unknown_2C(int unknown);		// +0x2C (0x6FED80 returns it when the object is set)  // NAME 1 [unknown]: neutral
+	void Unknown_732690();							// 0x732690 (co.cpp's destructor calls it before the release)
+};
+
+// The +0xB4 object's source (cdecl; co.cpp's constructor assigns its result)
+class ClientObjectClass;
+RefCountPtr<UnknownB4Class> Unknown_731FA0(ClientObjectClass *object);	// 0x731FA0  // NAME 1 [object]: neutral
+
+// co.cpp's +0x134 object (16 bytes: a flag and three floats; constructor 0x498C10, its setter 0x498F00 sets
+// +0x0C, +0x04 and +0x08 and the flag when the first two differ)
+class Unknown498C10Class							// NAME 1: neutral (D10)
+{
+public:
+	Unknown498C10Class();							// 0x498C10
+	void Unknown_498F00(float a, float b, float c);	// 0x498F00  // NAME 1 [a, b, c]: neutral
+	bool Unknown00;									// +0x00
+	float Unknown04[3];								// +0x04
+};
+
+// co.cpp's +0x8C object (the destructor deletes it through its slot +0x00)
+class Unknown8CClass								// NAME 1: neutral (D10)
+{
+public:
+	virtual ~Unknown8CClass();
 };
 
 // co.cpp's +0x98 object, the object's positional state (postate.cpp's states derive from it): vtable
@@ -234,7 +259,7 @@ public:
 	ClientClass *Client;								// +0x7C the constructor's first argument (CREATE passes its SClient; co_data.cpp calls its slot +0x18)  // NAME 2: what it holds
 	char Unknown80[0x88 - 0x80];						// +0x80
 	char *AuxData;										// +0x88 (co.cpp's FAIL_IF '!aux_data', l.2461)  // NAME 3: the FAIL_IF's name
-	int Unknown8C;										// +0x8C
+	Unknown8CClass *Unknown8C;							// +0x8C (the destructor deletes it)
 	unsigned GameID;									// +0x90  // NAME 3: Get_Game_ID's
 	char Type;											// +0x94 the constructor's second argument, CREATE's object type (the factory 0x6F6000 switches on it)  // NAME 2: what it holds
 	char Unknown95[0x98 - 0x95];						// +0x95
@@ -246,28 +271,32 @@ public:
 	RenderObjClass *Model;								// +0xAC (cpacket.cpp's render-state handlers: Class_ID, then rs_track.cpp's methods; co.cpp's G_ASSERT 'RenderObject != 0', l.361, names it RenderObject)  // NAME 2: what it holds
 	bool UnknownB0;										// +0xB0 (0x6FCB20 toggles it)
 	char UnknownB1[0xB4 - 0xB1];						// +0xB1
-	UnknownB4Class *UnknownB4;							// +0xB4 a RefCountPtr in the client (0x731FA0's result)
-	char UnknownB8[0xC8 - 0xB8];						// +0xB8
+	RefCountPtr<UnknownB4Class> UnknownB4;				// +0xB4 (the constructor assigns 0x731FA0's result)
+	std::vector<LegoIdentifierClass> UnknownB8;			// +0xB8 (constructed with a count of 0)
 	std::vector<ColorizationRegionStruct> Colorization;	// +0xC8 the model's colorization regions (cpacket.cpp's COLORIZATION 17 assigns them, 0x73F770 their operator=)  // NAME 2: what it holds
 	std::string DecalName;								// +0xD8 (cpacket.cpp's NAME_DECAL 178 sets it through 0x736140)  // NAME 2: what NAME_DECAL stores in it
-	float Sphere[4];									// +0xE8 a SphereClass (center, radius): 0x6FED30 fills it from the model  // NAME 2: what it holds
+	SphereClass Sphere;									// +0xE8 (center, radius): 0x6FED30 fills it from the model  // NAME 2: what it holds
 	int UnknownF8;										// +0xF8
 	bool UnknownFC;										// +0xFC (0x7008B0 clears it after 0x810750 on the model)
-	char UnknownFD[0x118 - 0xFD];						// +0xFD
+	int Unknown100;										// +0x100 -1
+	int Unknown104[5];									// +0x104 1 each (the constructor's body)
 	AudibleSoundClass *Unknown118;						// +0x118 a sound 0x6FC880 stops (the destructor releases it)
 	AudibleSoundClass *Unknown11C;						// +0x11C a sound 0x6FC880 stops (the destructor releases it)
-	char Unknown120[0x128 - 0x120];						// +0x120
+	AudibleSoundClass *Unknown120;						// +0x120 a sound (the destructor releases it)
+	AudibleSoundClass *Unknown124;						// +0x124 a sound (the destructor releases it)
 	bool Unknown128;									// +0x128 (0x6FC950 sets it)
 	char Unknown129[0x12C - 0x129];						// +0x129
-	int Relationship[2];								// +0x12C a RelationshipClass (pk_player_object_relationship.h; the constructor's 0x848C80): 0x6FEEE0 sets it  // NAME 2: what it holds
-	char Unknown134[0x148 - 0x134];						// +0x134
+	RelationshipClass Relationship;						// +0x12C (pk_player_object_relationship.h; constructor 0x848C80): 0x6FEEE0 sets it  // NAME 2: what it holds
+	Unknown498C10Class Unknown134;						// +0x134 (the constructor's 0x498F00 with the size factors)
+	int Unknown144;										// +0x144
 	int Unknown148;										// +0x148 the render state 0x6FF1D0 last set (0 to 3 from PercentFull)
 	unsigned Unknown14C;								// +0x14C an effect's id (0x6FC880 removes the effect through the client's Get_Effect)
-	char Unknown150[0x158 - 0x150];						// +0x150
-	RenderObjClass *Unknown158[6];						// +0x158 the models 0x6F3810 hangs on the ~FL ~FR ~BL ~BR ~FL ~FR bones: RefCountPtr<RenderObjClass> in the client (the constructor's vector constructor 0x5464F0 / 0x4740B0), raw here until the constructor is rebuilt
-	char Unknown170[0x174 - 0x170];						// +0x170
+	int Unknown150;										// +0x150
+	int Unknown154;										// +0x154
+	RefCountPtr<RenderObjClass> Unknown158[6];			// +0x158 the models 0x6F3810 hangs on the ~FL ~FR ~BL ~BR ~FL ~FR bones (the constructor's vector constructor 0x5464F0 / 0x4740B0)
+	bool Unknown170;									// +0x170
 	float Unknown174;									// +0x174 (0x700820 sets 2.0f)
-	float Unknown178[3];								// +0x178 a Vector3 (0x700820)
+	Vector3 Unknown178;									// +0x178 (0x700820)
 	bool Unknown184;									// +0x184 (the constructor's 1; 0x7009A0's state)
 	char Unknown185[0x188 - 0x185];						// +0x185 (CREATE allocates 0x188 bytes)
 };

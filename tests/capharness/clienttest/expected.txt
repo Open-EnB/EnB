@@ -1819,6 +1819,7 @@ stub SClient::Unknown_744B60 -> 0
 stub SClient::Unknown_74C530 38957
 mainview remove 38957
 stub ClientObjectClass::~ClientObjectClass 38957
+stub Unknown714B50Class::~Unknown714B50Class 38957
 msg 841 ADVANCED_POSITIONAL_UPDATE (62) size 54: cpacket.cpp's handler
 stub Unknown717010Class::Unknown_717290 48900994 time 0 stamp 2142326500
 mainview add 38861
@@ -1942,6 +1943,7 @@ stub SClient::Unknown_744B60 -> 0
 stub SClient::Unknown_74C530 39074
 mainview remove 39074
 stub ClientObjectClass::~ClientObjectClass 39074
+stub Unknown715EF0Class::~Unknown715EF0Class 39074
 msg 901 ADVANCED_POSITIONAL_UPDATE (62) size 54: cpacket.cpp's handler
 stub Unknown717010Class::Unknown_717290 48900994 time 0 stamp 2142328500
 mainview add 38851
@@ -2053,6 +2055,7 @@ stub SClient::Unknown_744B60 -> 0
 stub SClient::Unknown_74C530 41213
 mainview remove 41213
 stub ClientObjectClass::~ClientObjectClass 41213
+stub Unknown715EF0Class::~Unknown715EF0Class 41213
 mainview add 38841
 msg 956 RELATIONSHIP (137) size 13: cpacket.cpp's handler
 gen Unknown_4F7EF0
@@ -2104,6 +2107,7 @@ stub SClient::Unknown_744B60 -> 0
 stub SClient::Unknown_74C530 43912
 mainview remove 43912
 stub ClientObjectClass::~ClientObjectClass 43912
+stub Unknown715EF0Class::~Unknown715EF0Class 43912
 mainview add 38826
 msg 980 RELATIONSHIP (137) size 13: cpacket.cpp's handler
 gen Unknown_4F7EF0
