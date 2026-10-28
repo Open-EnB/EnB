@@ -37,6 +37,8 @@ class Font3DInstanceClass;
 class FileClass;
 class RefCountClass;
 class CameraClass;
+class SceneClass;
+class LandClass;
 class Render2DTextClass;
 class MusicManagerClass;		// NAME 3: class-from-file (D24) for audio\musicmanager.cpp (constructor 0x439E40, 0x1FC bytes)
 class CameraManagerClass;		// NAME 3: class-from-file (D24) for camera_manager.cpp (constructor 0x798D20, 0x4C bytes)
@@ -159,7 +161,7 @@ public:
 	void Unknown_5141A0();								// 0x5141A0 (Init, Unknown137C clear)
 	void Unknown_514220();								// 0x514220 (Init, Unknown137C set)
 	void Unknown_512A00();								// 0x512A00 (SClient::Do_Frame, when the main view is the current view)
-	MainViewUnknown13CClass *Get_Unknown13C() { return(Unknown13C); }	// (inline: SERVER_PARAMETERS 66)  // NAME 1: neutral (D10): the member it returns
+	MainViewUnknown13CClass *Get_Unknown13C() { return((MainViewUnknown13CClass *)Land); }	// (inline: SERVER_PARAMETERS 66)  // NAME 1: neutral (D10): the member it returns
 	void Unknown_513FC0();								// 0x513FC0 (cpacket.cpp: SERVER_HANDOFF 58)
 	void Unknown_513700(unsigned sector);				// 0x513700 (cpacket.cpp: SERVER_PARAMETERS 66)  // NAME 1 [sector]: the packet's SectorNum
 	void Unknown_5137F0(unsigned sector);				// 0x5137F0 (cpacket.cpp: SERVER_PARAMETERS 66, view mode 1)  // NAME 1 [sector]: the packet's SectorNum
@@ -200,13 +202,21 @@ public:
 	virtual void Add_Object(ClientObjectClass *object);		// +0x80 SClient::Add_Object  // NAME 2: its caller's
 	virtual void Remove_Object(ClientObjectClass *object);	// +0x84 SClient::Remove_Object  // NAME 2: its caller's
 
-	char Unknown38[0x80 - 0x38];						// +0x38
+	char Unknown38[0x4C - 0x38];						// +0x38
+	SClient *Client;									// +0x4C view.cpp's 0x65B810 copies the task's Client (+0x78); 0x5137F0 asks its slot +0x18 for the SClient  // NAME 2: what it holds
+	char Unknown50[0x80 - 0x50];						// +0x50
 	RadarSystemClass *Radar;							// +0x80 (cpacket.cpp: WARP_INDEX 156's FAIL_IF '!radar')  // NAME 3: the FAIL_IF's name
-	char Unknown84[0x130 - 0x84];						// +0x84
+	char Unknown84[0x10C - 0x84];						// +0x84
+	SceneClass *Scene;									// +0x10C (0x5137F0 adds the land to it through slot +0x0C, Add_Render_Object)  // NAME 2: what it is
+	char Unknown110[0x130 - 0x110];						// +0x110
 	bool Unknown130;									// +0x130 (SClient 0x7456B0 sets it)
 	char Unknown131[0x13C - 0x131];						// +0x131
-	MainViewUnknown13CClass *Unknown13C;				// +0x13C (SERVER_PARAMETERS 66 copies its +0x90 to the client's +0x1144 in view mode 1)
-	char Unknown140[0x1D0 - 0x140];						// +0x140
+	LandClass *Land;									// +0x13C 0x5137F0's FAIL_IF 'Land!=NULL' / 'NULL==Land' (SERVER_PARAMETERS 66 copies its +0x90 to the client's +0x1144 in view mode 1)  // NAME 3: the FAIL_IF's name
+	char Unknown140[0x1A8 - 0x140];						// +0x140
+	float SeaFogNear;									// +0x1A8 0x5137F0: land%04d.ini [GENERAL] SEAFOGNEAR (100)  // NAME 2: its ini key
+	float SeaFogFar;									// +0x1AC SEAFOGFAR (3000)  // NAME 2: its ini key
+	Vector3 SeaColor;									// +0x1B0 SEACOLORR / G / B (1, 1, 1)  // NAME 2: its ini keys
+	char Unknown1BC[0x1D0 - 0x1BC];						// +0x1BC
 	UICpitClass *Cpit;									// +0x1D0 (cpacket.cpp: LOOT_HULK_PERMISSION 140, OPEN_INTERFACE 102)  // NAME 3: its file's (ui_cpit.cpp)
 	char Unknown1D4[0x1D8 - 0x1D4];						// +0x1D4
 	UIGroupClass *Group;								// +0x1D8 (cpacket.cpp: CLIENT_CHAT_EVENT 165's group messages)  // NAME 3: its file's (ui_group.cpp)

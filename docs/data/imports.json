@@ -2826,6 +2826,21 @@
     "merged": [],
     "name": "shared/lookup_table.cpp"
    },
+   "mainview": {
+    "ambiguous": [
+     "0x42A900",
+     "0x42B2F0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42F250",
+     "0x432B80",
+     "0x5137F0"
+    ],
+    "merged": [],
+    "name": "client/mainview.cpp"
+   },
    "memconn": {
     "ambiguous": [
      "0x42B2F0",
@@ -8724,7 +8739,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 4294,
+  "in_tree_total": 4295,
   "totals": {}
  },
  "binkmovie": {
