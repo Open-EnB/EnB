@@ -9,7 +9,7 @@
 **	loose box (the radius; it reports collisions to _Collision_Callback) and the callback box (in the list only
 **	while Unknown0D is set), plus the callbacks added through Unknown_456F60 / Unknown_457190 / Add_Callback.
 **
-**	The classes below PxWrapper are other px_*.cpp files' (not rebuilt), declared only as far as px_wrapper.cpp
+**	PxObject and PxCollision are other px_*.cpp files' (not rebuilt), declared only as far as px_wrapper.cpp
 **	uses them; their names are provisional.
 */
 #if defined(_MSC_VER)
@@ -21,6 +21,8 @@
 #include "vector3.h"
 #include "px.h"
 #include "px_box_list.h"
+#include "px_callback.h"
+#include "px_callback_poll.h"
 #include <vector>
 
 class DynObj;
@@ -41,48 +43,23 @@ public:
 	float Radius;						// +0x10  // NAME 2: Update's radius
 };
 
-/*
-** A proximity callback (another file's classes; vtable slots used here).
-*/
-class PxCallback  // NAME 2: PxWrapper's 'Update(Callbacks)' calls them
-{
-public:
-	virtual ~PxCallback();									// +0x00
-	virtual PxCallback *Clone(PxObject *object) = 0;		// +0x04 (PxWrapper's copy)  // NAME 2: what the copy uses it for
-	virtual void Attach(PxList *list) = 0;					// +0x08 (Unknown_456660)  // NAME 2: called on entering a list
-	virtual void Detach(PxList *list) = 0;					// +0x0C (Unknown_456730)  // NAME 2: called on leaving it
-	virtual void Update() = 0;								// +0x10 ('PxWrapper::Update(Callbacks)')  // NAME 3: the profile string
-};
-
 PxCallback *Unknown_452140(int a, PxObject *object, int b, int c);	// 0x452140 (a factory switching on a's type bits)  // NAME 1 [a, b, c]: neutral
 PxCallback *Unknown_452460(int a, PxObject *object, int b, int c);	// 0x452460 (another factory)  // NAME 1 [a, b, c]: neutral
 
-typedef void (*PxCollisionCallback)(PxBox *a, PxBox *b);  // NAME 2: _Collision_Callback's type
-
 /*
-** The loose box (0x50 bytes, constructor 0x452780 in px_callback_accurate.cpp's range: a PxBoxList with a collision
-** callback and an extent; the box is the extent around its object's position).
-*/
-class PxCollisionBox : public PxBoxList  // NAME 2: what it reports
-{
-public:
-	PxCollisionBox(PxObject *object, PxCollisionCallback callback, const Vector3 &extent);	// 0x452780  // NAME 2 [object, callback, extent]: what it stores
-	char Unknown30[0x50 - 0x30];							// +0x30  // NAME 1: not rebuilt
-};
-
-/*
-** px_collision.cpp's PxCollision (the client's name, 'PxCollision::Process'): a pair of boxes to test.
+** px_collision.cpp's PxCollision (the client's name, 'PxCollision::Process'): a pair of objects to test (their
+** slots +0x2C, +0x34, +0x84 and radius +0x04 are DynObj's).
 */
 class PxCollision
 {
 public:
-	PxCollision(PxBox *a, PxBox *b) :						// NAME 2 [a, b]: _Collision_Callback's arguments
+	PxCollision(DynObj *a, DynObj *b) :						// NAME 2 [a, b]: _Collision_Callback's arguments
 		A(a), B(b), Unknown08(1.0f), Unknown0C(0.0f), Unknown10(0.0f), Unknown14(0.0f), Unknown18(0.0f), Unknown1C(0.0f),
 		Unknown20(false), Unknown24(0.0f) {}
 	void Process();											// 0x453A40 'PxCollision::Process'
 
-	PxBox *A;												// +0x00  // NAME 2: the constructor's argument
-	PxBox *B;												// +0x04  // NAME 2: as above
+	DynObj *A;												// +0x00  // NAME 2: the constructor's argument
+	DynObj *B;												// +0x04  // NAME 2: as above
 	float Unknown08;										// +0x08 1.0
 	float Unknown0C;											// +0x0C 0
 	float Unknown10;											// +0x10 0
@@ -122,7 +99,7 @@ public:
 	bool Unknown0D;														// +0x0D false (0x456890: the callback box is in the list)
 	bool Unknown0E;														// +0x0E (the constructor sets it: bit 0x10 of the loose and tight boxes)
 	PxBox *TightBox;													// +0x10  // NAME 3: 'PxWrapper::Update(TightBox)'
-	PxCollisionBox *LooseBox;											// +0x14  // NAME 3: 'PxWrapper::Update(LooseBox)'
+	PxPollCallback *LooseBox;											// +0x14  // NAME 3: 'PxWrapper::Update(LooseBox)'
 	PxOwnerList *CallbackBox;												// +0x18  // NAME 2: in the list with Unknown0D
 	std::vector<PxCallback *> Callbacks;								// +0x1C  // NAME 3: 'PxWrapper::Update(Callbacks)'
 };

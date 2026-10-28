@@ -392,4 +392,3 @@ Sound3DClass *SoundLibraryClass::Play_3D_Sound(const char *name, const Matrix3D 
 #include "..\..\..\app\shared\px_wrapper.h"
 PxObject::PxObject(DynObj *owner) : Owner(owner), Pos(0.0f, 0.0f, 0.0f), Radius(0.0f) { Trace("stub PxObject::PxObject"); }
 PxObject::~PxObject() { Trace("stub PxObject::~PxObject"); }
-PxCollisionBox::PxCollisionBox(PxObject *object, PxCollisionCallback, const Vector3 &) : PxBoxList(object) { memset(Unknown30, 0, sizeof(Unknown30)); Trace("stub PxCollisionBox::PxCollisionBox"); }

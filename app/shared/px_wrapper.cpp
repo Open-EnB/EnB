@@ -7,7 +7,7 @@
 #include "wwmath.h"
 #include <algorithm>
 
-static void _Collision_Callback(PxBox *a, PxBox *b);
+static void _Collision_Callback(DynObj *a, DynObj *b, int event);
 
 // 0x4560B0
 PxWrapper::PxWrapper(DynObj *owner) :
@@ -55,7 +55,7 @@ void PxWrapper::Create_Boxes()
 	Object = new PxObject(Owner);
 	TightBox = new PxBox(Object);
 	TightBox->Set_Self(3);
-	LooseBox = new PxCollisionBox(Object, _Collision_Callback, Vector3(0.0f, 0.0f, 0.0f));
+	LooseBox = new PxPollCallback(Object, _Collision_Callback, Vector3(0.0f, 0.0f, 0.0f));
 	LooseBox->Set_Self(5);
 	LooseBox->Set_Test(0x1D);
 	LooseBox->Set_Mask(0x15);
@@ -334,7 +334,7 @@ bool PxWrapper::Unknown_4575E0(void *callback)
 }
 
 // 0x457670
-static void _Collision_Callback(PxBox *a, PxBox *b)
+static void _Collision_Callback(DynObj *a, DynObj *b, int event)
 {
 	WWPROFILE("_Collision_Callback");
 	if (a > b) return;
@@ -348,7 +348,7 @@ static void _Collision_Callback(PxBox *a, PxBox *b)
 ** px_wrapper.cpp is client 0x4560B0-0x457740 (its __FILE__; FAIL_IFs lines 108-273), after px_process.cpp. The class
 ** name PxWrapper and _Collision_Callback are the client's (their profile strings); the member and function names
 ** other than List, TightBox, LooseBox and Callbacks are provisional, as are the declarations of the other px_*.cpp
-** classes in px_wrapper.h (PxObject, PxCallback, PxCollisionBox, PxCollision; px_box_list.h has PxBoxList / PxOwnerList).
+** classes in px_wrapper.h (PxObject, PxCollision; px_box_list.h, px_callback.h and px_callback_poll.h have the boxes and callbacks).
 **
 ** The constructors build the boxes (Create_Boxes: the tight box Self 3, the loose box Self 5 / Test 0x1D / Mask 0x15
 ** reporting to _Collision_Callback, the callback box Test 5 / Mask 5); the copy clones the source's callbacks and

@@ -331,7 +331,6 @@ check REMOVE 7 deleted the object, its model and its part models: ok
 == (4b) CREATE 4's types 24 and 28 make co_subtypes.cpp's subclasses
 msg 1 CREATE (4) size 27: cpacket.cpp's handler
 stub PxObject::PxObject
-stub PxCollisionBox::PxCollisionBox
 asset manager +0x78 'ship_test' scale 0.5 hsv (0 0 0) -> model 15
 gen Unknown_831950
 stub UnknownB02C90Class::BufferStruct::Insert 0

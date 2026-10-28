@@ -4122,7 +4122,7 @@ RECONSTRUCTED = {
                                       "PxWrapper forwarders 0x44AF50-0x44B070, Update_Proximity 0x44B090, "
                                       "Update_Avoidance 0x44B150",
     ('app', 'shared/px_wrapper.h'): "PxWrapper (the client's name, 0x456B60's profile strings) and the other px_*.cpp "
-                                   "classes it uses (PxObject, PxCallback, PxCollisionBox, PxCollision; not "
+                                   "classes it uses (PxObject, PxCollision; not "
                                    "rebuilt, declared as far as px_wrapper.cpp uses them); provisional header name",
     ('app', 'shared/px_wrapper.cpp'): "PxWrapper, client 0x4560B0-0x457740 (its __FILE__; FAIL_IFs lines 108-273): the "
                                      "constructors, Create_Boxes 0x456350, the list and flag members, Update 0x456B60 "
@@ -4131,6 +4131,9 @@ RECONSTRUCTED = {
     ('app', 'shared/px.cpp'): "px.cpp, client 0x44B760-0x44D740 (its __FILE__; FAIL_IFs lines 180-564): PxEnd, PxBox (vtable 0xAE7A3C) and PxList: Insert 0x44BFC0, Remove 0x44C2E0, Set_Corners 0x44C900 (NOT EXACT), the filter setters, Dump 0x44D210",
     ('app', 'shared/px_box_list.h'): "PxBoxList / PxOwnerList, px_box_list.cpp's boxes keeping what overlaps them (the vectors Boxes / Owners are the asserts' names); provisional class and header names",
     ('app', 'shared/px_box_list.cpp'): "px_box_list.cpp, client 0x44D740-0x44E020 (its __FILE__; FAIL_IFs lines 41-111): PxBoxList (vtable 0xAE7A4C) and PxOwnerList (vtable 0xAE7A5C, PxWrapper's callback box): constructors, destructors, On_Enter / On_Exit (sorted insert / erase)",
+    ('app', 'shared/px_callback.h'): "PxCallback, the proximity callbacks' interface (vtable 0xAE7B28) and their function type; provisional header name (no string)",
+    ('app', 'shared/px_callback_poll.h'): "PxPollCallback / PxPollAccurateCallback (SPHERE / VOLUME, the FAIL_IFs' names), px_callback_poll.cpp's polling callbacks; provisional class and header names",
+    ('app', 'shared/px_callback_poll.cpp'): "px_callback_poll.cpp, client 0x452780-0x453740 (its __FILE__; FAIL_IFs lines 216 / 223): PxPollCallback (PxWrapper's loose box) and PxPollAccurateCallback: constructors, Process, On_Enter / On_Exit, Clone, Attach / Detach, Update, Add_Filter, Set_Radius / Set_Extent",
     ('app', 'shared/px_callback_type.h'): "PxCallbackType / PxCallbackEvent (the client's name strings) and their string conversions; provisional header and function names",
     ('app', 'shared/px_callback_type.cpp'): "px_callback_type.cpp, client 0x453740-0x453A40 (its __FILE__; asserts lines 47-112): the two enums' names and From_String / To_String (_EventStrings, the FAIL_IF's name); no caller in the client",
     ('app', 'shared/px_process.h'): "PxProcessNode / PxProcessClass (client.h's name, D24), px_process.cpp's list of nodes and its static stack of the current list; provisional header name",
