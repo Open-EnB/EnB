@@ -139,6 +139,7 @@ public:
 	virtual bool Unknown_10(UnknownB02C90Class *child, int slot, int child_slot);	// +0x10 0x7257F0 detaches child (a slot of -1: the one that holds it)  // NAME 1 [child, slot, child_slot]: what it does with them
 	virtual void Unknown_14(UnknownB02C90Class *parent, int slot, int child_slot) {}	// +0x14 0x6F2C50 (empty; 0x725610 calls the child's)  // NAME 1 [parent, slot, child_slot]: what 0x725610 passes
 	float Unknown_725C60(const Vector3 &center, float radius);	// 0x725C60 the radius around center that holds the attached objects of type 29, recursively  // NAME 1 [center, radius]: what it computes
+	Matrix3D Unknown_725AD0();							// 0x725AD0 the owner's slot +0x28 transform (thrust) times Unknown1C (eff_o.cpp's 0x6E7AA0 / 0x6E82A0 call it on their objects)
 	virtual void Unknown_18(UnknownB02C90Class *parent, int slot, int child_slot) {}	// +0x18 0x6F2C70 (empty; 0x7257F0 calls the child's)  // NAME 1 [parent, slot, child_slot]: what 0x7257F0 passes
 
 	void *Unknown04;									// +0x04 the constructor's argument

@@ -359,19 +359,15 @@ Vector3 Unknown6E9490EffectClass::Unknown_08(const Vector3 &) { return(Vector3(0
 void Unknown6E9490EffectClass::Unknown_0C() {}
 Unknown6E9490TargetClass *Unknown6E9490EffectClass::Unknown_10() { return(&The_Effect_Target); }
 UnknownB0009CEffectClass *Unknown6E9490EffectClass::Unknown_14() { return(&The_Effect_Binary); }
-Unknown6E9490EffectClass *Unknown_6E9490(int desc_id, int effect_id, int duration, int time, ClientClass *, float scale, const Vector3 &hsv_shift, float a, int b, int c)
+// eff_o.h's declaration (cpacket.cpp's handlers and co.cpp's warp state)
+EffectObjectClass *Unknown_6E9490(int desc_id, unsigned effect_id, unsigned duration, unsigned time, ClientClass *, float scale, const Vector3 &hsv_shift, float a, int b, bool c)
 {
-	Trace("stub Unknown_6E9490 desc %d effect %d duration %d time %d scale %.2f hsv (%.2f %.2f %.2f) %.2f %d %d", desc_id, effect_id,
-		duration, time, scale, hsv_shift.X, hsv_shift.Y, hsv_shift.Z, a, b, c);
+	Trace("stub Unknown_6E9490 desc %d effect %d duration %d time %d scale %.2f hsv (%.2f %.2f %.2f) %.2f %d %d", desc_id, (int)effect_id,
+		(int)duration, (int)time, scale, hsv_shift.X, hsv_shift.Y, hsv_shift.Z, a, b, (int)c);
 	Unknown6E9490EffectClass *effect = new Unknown6E9490EffectClass;
 	effect->ID = effect_id;
 	effect->Node.Set(effect);
 	return(effect);
-}
-// eff_o.h's declaration (cpacket.cpp's since EF2; co.cpp's warp state still calls the one above)
-EffectObjectClass *Unknown_6E9490(int desc_id, unsigned effect_id, unsigned duration, unsigned time, ClientClass *client, float scale, const Vector3 &hsv_shift, float speedup, int linked_desc_id, bool unknown)
-{
-	return(Unknown_6E9490(desc_id, (int)effect_id, (int)duration, (int)time, client, scale, hsv_shift, speedup, linked_desc_id, (int)unknown));
 }
 
 // CAMERA_CONTROL 146 (T19): its docking sound; app.lib's soundlib.obj would bring WWAudio's globals in

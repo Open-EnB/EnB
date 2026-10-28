@@ -556,6 +556,21 @@ void UnknownB00060EffectClass::Unknown_24(int next)
 	}
 }
 
+// 0x6E7AA0
+void UnknownB00060EffectClass::Unknown_6E7AA0()
+{
+
+
+	FAIL_IF(!SourceObject) return;
+	if (SourceLego.Is_Empty()) {
+		Transform = SourceObject->Unknown_725AD0();
+	} else {
+		LegoIdentifierClass lego(SourceLego);
+		lego.Add(std::string("EMITTER"));
+		Transform = SourceObject->Unknown_6FED80(lego);
+	}
+}
+
 // 0x6E7D70
 UnknownB0009CEffectClass::UnknownB0009CEffectClass(ClientClass *client, unsigned id, unsigned start_time, unsigned duration, unsigned cycle_time) :
 	EffectObjectClass(client, id, start_time, duration, cycle_time),
@@ -584,21 +599,6 @@ void UnknownB0009CEffectClass::Unknown_04(int arg)
 		}
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -666,6 +666,43 @@ void UnknownB0009CEffectClass::Unknown_34(int game_id)
 	Unknown_6E7330();
 }
 
+// 0x6E82A0
+void UnknownB0009CEffectClass::Unknown_6E82A0(short unknown36, short unknown34, Vector3 target_offset)
+{
+	if (TargetObject) {
+		if (unknown34 == 0) {
+			Matrix3D inverse;
+			TargetObject->Unknown_725AD0().Get_Inverse(inverse);
+			TargetOffset.X = Vector3::Dot_Product(inverse.Get_X_Vector(), target_offset);
+			TargetOffset.Y = Vector3::Dot_Product(inverse.Get_Y_Vector(), target_offset);
+			TargetOffset.Z = Vector3::Dot_Product(inverse.Get_Z_Vector(), target_offset);
+			return;
+		}
+		Vector3 delta;
+		if (SourceObject == NULL) {
+			delta = TargetObject->Unknown_24() - SourcePosition;
+		} else {
+			delta = TargetObject->Unknown_24() - SourceObject->Unknown_24();
+		}
+		float spread = WWMath::Sqrt(delta.Length2()) * 0.005f;
+		Vector3 dir = delta;
+		dir.Normalize();
+		Vector3 right = Vector3::Cross_Product(Vector3(0.0f, 0.0f, 1.0f), dir);
+		Vector3 up = Vector3::Cross_Product(dir, right);
+		Matrix3D tm(dir, right, up, TargetObject->Unknown_24());
+		tm.Rotate_X(DEG_TO_RAD(unknown36));
+		TargetOffset.X = tm[0][2]; TargetOffset.Y = tm[1][2]; TargetOffset.Z = tm[2][2];
+		float scale = (unknown34 < 0) ? -unknown34 : unknown34 * spread + TargetObject->Unknown_30() * 0.67f;
+		TargetOffset *= scale;
+		target_offset = (delta + TargetOffset) * 1.25f;
+		if (SourceObject == NULL) {
+			TargetOffset = (SourcePosition + target_offset) - TargetObject->Unknown_24();
+		} else {
+			TargetOffset = (SourceObject->Unknown_24() + target_offset) - TargetObject->Unknown_24();
+		}
+	}
+}
+
 // 0x6E87C0
 void UnknownB0009CEffectClass::Unknown_6E87C0(const Vector3 &offset)
 {
@@ -702,43 +739,6 @@ void UnknownB0009CEffectClass::Unknown_1C()
 		}
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

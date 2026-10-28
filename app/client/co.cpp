@@ -1,5 +1,6 @@
 // Earth & Beyond client (reconstruction): app\client\co.cpp. Notes at the end of the file.
 #include "co.h"
+#include "eff_o.h"
 #include "client.h"
 #include "..\shared\auxdata\auxdata.h"
 #include "aux_roots.h"
@@ -14,7 +15,6 @@
 #include "control_keys_manager.h"
 #include "..\packets\pk_player_object_relationship.h"
 #include "..\shared\unknown_debug.h"
-
 // The event 0x6FEEE0 emits (the client's RTTI .?AVPlayerObjectRelationshipChangeEvent@@, 0x14 bytes)
 class PlayerObjectRelationshipChangeEvent	// NAME 5: the client's RTTI name
 {
@@ -1209,23 +1209,23 @@ bool ClientObjectClass::Unknown_6F5F60()
 
 #include "..\audio\soundlib.h"		// the warp state 0x6FBEF0, the engine sounds 0x6FDBD0
 #include "..\..\wwaudio\Sound3D.h"
-// eff_o.cpp's effects as far as the warp state calls them (as cpacket.cpp's OBJECT_EFFECT 9): the factory (cdecl),
-// the effect's slot +0x10 (its target end) and the target's slot +0x28 (the object's id)
-class Unknown6E9490TargetClass	// NAME 1: neutral (D10)
-{
-public:
-	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
-	virtual void Unknown_10(); virtual void Unknown_14(); virtual void Unknown_18(); virtual void Unknown_1C();
-	virtual void Unknown_20(); virtual void Unknown_24();
-	virtual void Unknown_28(int game_id);	// NAME 1 [game_id]: what OBJECT_EFFECT 9 passes
-};
-class Unknown6E9490EffectClass : public EffectObjectClass	// NAME 1: neutral (D10)
-{
-public:
-	virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
-	virtual Unknown6E9490TargetClass *Unknown_10();
-};
-Unknown6E9490EffectClass *Unknown_6E9490(int desc_id, int effect_id, int duration, int time, ClientClass *client, float scale, const Vector3 &hsv_shift, float a, int b, int c);	// 0x6E9490  // NAME 1 [desc_id .. c]: what OBJECT_EFFECT 9 passes
+// eff_o.cpp's effects, their factory (cdecl) and the unary end the warp state fills: eff_o.h, included first
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1528,7 +1528,7 @@ void ClientObjectClass::Unknown_6FBEF0()
 	}
 	char loop[128];
 	char sound[128];
-	Unknown6E9490EffectClass *effect;
+	EffectObjectClass *effect;
 	switch (UnknownF8) {
 		case 1: {
 			NameClass trail_name("EngineTrailType");
@@ -1571,7 +1571,7 @@ void ClientObjectClass::Unknown_6FBEF0()
 			if (!effect) {
 				return;
 			}
-			Unknown6E9490TargetClass *target = effect->Unknown_10();
+			UnknownB00060EffectClass *target = effect->Unknown_10();
 			if (target) {
 				target->Unknown_28(GameID);
 			} else {
@@ -1613,7 +1613,7 @@ void ClientObjectClass::Unknown_6FBEF0()
 			if (!effect) {
 				return;
 			}
-			Unknown6E9490TargetClass *target = effect->Unknown_10();
+			UnknownB00060EffectClass *target = effect->Unknown_10();
 			if (target) {
 				target->Unknown_28(GameID);
 			} else {
