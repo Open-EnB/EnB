@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-293 entries in 67 files.
+290 entries in 67 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -57,9 +57,6 @@ edit the comments in the code, not this file.
 | `app/client/cpacket.cpp:175` | `ClientAvatarPacketClass::Process_Packet` | marker | NOT EXACT: shape (the client loads the model straight into ecx; two forms; attempts.py show 0x733590) 0x733590 |
 | `app/client/cpacket.cpp:373` | `SimplePositionalUpdatePacketClass::Process_Packet` | marker | NOT EXACT: inline-budget (the client calls WWMath::Is_Valid_Float out of line for Position's Z, Orientation's Z and W, Velocity's Z; attempts.py show 0x733DC0) 0x733DC0 |
 | `app/client/cpacket.cpp:403` | `AdvancedPositionalUpdatePacketClass::Process_Packet` | marker | NOT EXACT: inline-budget (the client calls WWMath::Is_Valid_Float out of line for Position's Z and Orientation's W; attempts.py show 0x734130) 0x734130 |
-| `app/client/cpacket.cpp:457` | `PlanetPositionalUpdatePacketClass::Process_Packet` | marker | NOT EXACT: register-only (the client loads the +0x10C0 duration's halves into ebp / edx, ours the reverse; 6 forms; attempts.py show 0x734A40) 0x734A40 |
-| `app/client/cpacket.cpp:578` | `ComponentPositionalUpdatePacketClass::Process_Packet` | marker | NOT EXACT: register-only (the +0x10C0 duration's halves in esi / edx, ours the reverse, as 0x734A40; the assert text needs co.h's Is_Component name) 0x734BF0 |
-| `app/client/cpacket.cpp:606` | `ObjectEffectPacketClass::Process_Packet` | marker | NOT EXACT: register-only (the client keeps the packet in esi and the client in edi; ours the reverse; 12 forms; attempts.py show 0x734DF0) 0x734DF0 |
 | `app/client/cpacket.cpp:895` | `AuxDataPacketClass::Process_Packet` | marker | NOT EXACT: register-only (the client loads Size and the duration before pushing 0x400; 16 forms; attempts.py show 0x7364C0) 0x7364C0 |
 | `app/client/cpacket.cpp:913` | `AuxDataPlayerVarPacketClass::Process_Packet` | marker | NOT EXACT: register-only (the client loads Size and the duration before pushing 0x400; 16 forms; attempts.py show 0x736650) 0x736650 |
 | `app/client/cpacket.cpp:1142` | `FormationPositionalUpdatePacketClass::Process_Packet` | marker | NOT EXACT: shape (the merged Unknown_24 tail sits in the type-4 branch, the client's in the type-8 one; 7 forms; attempts.py show 0x734740) 0x734740 (placed here, out of address order, so that no assert line moves): ADVANCED 62's state handling without its checks and clock drift |

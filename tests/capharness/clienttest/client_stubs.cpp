@@ -281,6 +281,7 @@ public:
 	virtual void Unknown_20();
 	virtual void Unknown_24();
 	virtual void Unknown_28(int game_id);
+	virtual void Unknown_2C(const Matrix3D &transform);
 };
 void Unknown6E9490TargetClass::Unknown_00() {}
 void Unknown6E9490TargetClass::Unknown_04() {}
@@ -293,19 +294,57 @@ void Unknown6E9490TargetClass::Unknown_1C() {}
 void Unknown6E9490TargetClass::Unknown_20() {}
 void Unknown6E9490TargetClass::Unknown_24() {}
 void Unknown6E9490TargetClass::Unknown_28(int game_id) { Trace("stub Unknown6E9490TargetClass::Unknown_28 %d", game_id); }
+void Unknown6E9490TargetClass::Unknown_2C(const Matrix3D &tm) { Trace("stub Unknown6E9490TargetClass::Unknown_2C at (%g, %g, %g)", tm[0][3], tm[1][3], tm[2][3]); }
 static Unknown6E9490TargetClass The_Effect_Target;
+// the binary end (OBJECT_TO_OBJECT_EFFECT 11 to the linked 14): logs the ids, the positions and the offset
+class Unknown6E9490BinaryClass
+{
+public:
+	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
+	virtual void Unknown_10(); virtual void Unknown_14(); virtual void Unknown_18(); virtual void Unknown_1C(); virtual void Unknown_20(); virtual void Unknown_24();
+	virtual void Unknown_28(int source_game_id);
+	virtual void Unknown_2C(int source_game_id, const LegoIdentifierClass &source_lego);
+	virtual void Unknown_30(const Vector3 &position);
+	virtual void Unknown_34(int target_game_id);
+	virtual void Unknown_38(const Vector3 &position);
+	void Unknown_6E82A0(short unknown36, short unknown34, Vector3 target_offset);
+	char Unknown04[0x7C - 0x04];
+	unsigned Unknown7C;
+	char Unknown80[0xA8 - 0x80];
+	Vector3 UnknownA8;
+	Vector3 UnknownB4;
+};
+void Unknown6E9490BinaryClass::Unknown_00() {}
+void Unknown6E9490BinaryClass::Unknown_04() {}
+void Unknown6E9490BinaryClass::Unknown_08() {}
+void Unknown6E9490BinaryClass::Unknown_0C() {}
+void Unknown6E9490BinaryClass::Unknown_10() {}
+void Unknown6E9490BinaryClass::Unknown_14() {}
+void Unknown6E9490BinaryClass::Unknown_18() {}
+void Unknown6E9490BinaryClass::Unknown_1C() {}
+void Unknown6E9490BinaryClass::Unknown_20() {}
+void Unknown6E9490BinaryClass::Unknown_24() {}
+void Unknown6E9490BinaryClass::Unknown_28(int id) { Trace("stub Unknown6E9490BinaryClass::Unknown_28 source %d", id); }
+void Unknown6E9490BinaryClass::Unknown_2C(int id, const LegoIdentifierClass &) { Trace("stub Unknown6E9490BinaryClass::Unknown_2C source %d with a lego", id); }
+void Unknown6E9490BinaryClass::Unknown_30(const Vector3 &p) { Trace("stub Unknown6E9490BinaryClass::Unknown_30 (%g, %g, %g)", p.X, p.Y, p.Z); UnknownA8 = p; }
+void Unknown6E9490BinaryClass::Unknown_34(int id) { Trace("stub Unknown6E9490BinaryClass::Unknown_34 target %d", id); }
+void Unknown6E9490BinaryClass::Unknown_38(const Vector3 &p) { Trace("stub Unknown6E9490BinaryClass::Unknown_38 (%g, %g, %g)", p.X, p.Y, p.Z); UnknownB4 = p; }
+void Unknown6E9490BinaryClass::Unknown_6E82A0(short a, short b, Vector3 o) { Trace("stub Unknown6E9490BinaryClass::Unknown_6E82A0 %d %d (%g, %g, %g) flags 0x%X", a, b, o.X, o.Y, o.Z, Unknown7C); }
+static Unknown6E9490BinaryClass The_Effect_Binary;
 class Unknown6E9490EffectClass : public EffectObjectClass
 {
 public:
 	virtual void Unknown_04();
-	virtual void Unknown_08();
+	virtual Vector3 Unknown_08(const Vector3 &position);
 	virtual void Unknown_0C();
 	virtual Unknown6E9490TargetClass *Unknown_10();
+	virtual Unknown6E9490BinaryClass *Unknown_14();
 };
 void Unknown6E9490EffectClass::Unknown_04() {}
-void Unknown6E9490EffectClass::Unknown_08() {}
+Vector3 Unknown6E9490EffectClass::Unknown_08(const Vector3 &) { return(Vector3(0, 0, 0)); }
 void Unknown6E9490EffectClass::Unknown_0C() {}
 Unknown6E9490TargetClass *Unknown6E9490EffectClass::Unknown_10() { return(&The_Effect_Target); }
+Unknown6E9490BinaryClass *Unknown6E9490EffectClass::Unknown_14() { return(&The_Effect_Binary); }
 Unknown6E9490EffectClass *Unknown_6E9490(int desc_id, int effect_id, int duration, int time, ClientClass *, float scale, const Vector3 &hsv_shift, float a, int b, int c)
 {
 	Trace("stub Unknown_6E9490 desc %d effect %d duration %d time %d scale %.2f hsv (%.2f %.2f %.2f) %.2f %d %d", desc_id, effect_id,

@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 36 |
 | 3 | by convention from a client-named file or sibling | 876 |
 | 2 | describes what the code does | 2134 |
-| 1 | neutral placeholder | 4069 |
+| 1 | neutral placeholder | 4086 |
 
 ## For review (score 3 and below)
 
@@ -721,26 +721,45 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `model, regions, unknown` | `app/client/cpacket.cpp:117` | what COLORIZATION 17 passes |
 | 1 | `Unknown_80EFF0` | `app/client/cpacket.cpp:117` | untagged neutral name (D10) |
 | 1 | `SClientUnknown1338Class` | `app/client/cpacket.cpp:117` | untagged neutral name (D10) |
-| 1 | `Unknown6E9490TargetClass` | `app/client/cpacket.cpp:125` | neutral (D10) |
-| 1 | `Unknown_00` | `app/client/cpacket.cpp:128` | untagged neutral name (D10) |
+| 1 | `Unknown6E9490TargetClass` | `app/client/cpacket.cpp:126` | neutral (D10) |
+| 1 | `Unknown_00` | `app/client/cpacket.cpp:129` | untagged neutral name (D10) |
 | 1 | `Unknown_04` | `app/client/cpacket.cpp:129` | untagged neutral name (D10) |
-| 1 | `Unknown_08` | `app/client/cpacket.cpp:130` | untagged neutral name (D10) |
-| 1 | `Unknown_0C` | `app/client/cpacket.cpp:131` | untagged neutral name (D10) |
-| 1 | `Unknown_10` | `app/client/cpacket.cpp:132` | untagged neutral name (D10) |
-| 1 | `Unknown_14` | `app/client/cpacket.cpp:133` | untagged neutral name (D10) |
-| 1 | `Unknown_18` | `app/client/cpacket.cpp:134` | untagged neutral name (D10) |
-| 1 | `Unknown_1C` | `app/client/cpacket.cpp:135` | untagged neutral name (D10) |
-| 1 | `Unknown_20` | `app/client/cpacket.cpp:136` | untagged neutral name (D10) |
-| 1 | `Unknown_24` | `app/client/cpacket.cpp:137` | untagged neutral name (D10) |
-| 1 | `game_id` | `app/client/cpacket.cpp:138` | what OBJECT_EFFECT 9 passes |
-| 1 | `Unknown_28` | `app/client/cpacket.cpp:138` | untagged neutral name (D10) |
-| 1 | `Unknown6E9490EffectClass` | `app/client/cpacket.cpp:141` | neutral (D10) |
-| 1 | `desc_id .. c` | `app/client/cpacket.cpp:150` | what OBJECT_EFFECT 9 passes |
-| 1 | `Unknown_6E9490` | `app/client/cpacket.cpp:150` | untagged neutral name (D10) |
-| 1 | `Unknown_4BC260` | `app/client/cpacket.cpp:151` | untagged neutral name (D10) |
-| 1 | `SClientUnknown12C4Class` | `app/client/cpacket.cpp:155` | untagged neutral name (D10) |
-| 1 | `UnknownSendRootClass` | `app/client/cpacket.cpp:155` | untagged neutral name (D10) |
-| 1 | `Unknown_Set_Colorization` | `app/client/cpacket.cpp:158` | untagged neutral name (D10) |
+| 1 | `Unknown_08` | `app/client/cpacket.cpp:129` | untagged neutral name (D10) |
+| 1 | `Unknown_0C` | `app/client/cpacket.cpp:129` | untagged neutral name (D10) |
+| 1 | `Unknown_10` | `app/client/cpacket.cpp:130` | untagged neutral name (D10) |
+| 1 | `Unknown_14` | `app/client/cpacket.cpp:130` | untagged neutral name (D10) |
+| 1 | `Unknown_18` | `app/client/cpacket.cpp:130` | untagged neutral name (D10) |
+| 1 | `Unknown_1C` | `app/client/cpacket.cpp:130` | untagged neutral name (D10) |
+| 1 | `Unknown_20` | `app/client/cpacket.cpp:130` | untagged neutral name (D10) |
+| 1 | `Unknown_24` | `app/client/cpacket.cpp:130` | untagged neutral name (D10) |
+| 1 | `game_id` | `app/client/cpacket.cpp:131` | what OBJECT_EFFECT 9 passes |
+| 1 | `Unknown_28` | `app/client/cpacket.cpp:131` | untagged neutral name (D10) |
+| 1 | `transform` | `app/client/cpacket.cpp:132` | POINT_EFFECT 10's location |
+| 1 | `Unknown_2C` | `app/client/cpacket.cpp:132` | untagged neutral name (D10) |
+| 1 | `Unknown6E9490BinaryClass` | `app/client/cpacket.cpp:134` | neutral (D10) |
+| 1 | `source_game_id` | `app/client/cpacket.cpp:139` | the packets' SourceGameID |
+| 1 | `source_game_id, source_lego` | `app/client/cpacket.cpp:140` | the packets' fields |
+| 1 | `position` | `app/client/cpacket.cpp:141` | what it is |
+| 1 | `Unknown_30` | `app/client/cpacket.cpp:141` | untagged neutral name (D10) |
+| 1 | `target_game_id` | `app/client/cpacket.cpp:142` | the packets' TargetGameID |
+| 1 | `Unknown_34` | `app/client/cpacket.cpp:142` | untagged neutral name (D10) |
+| 1 | `position` | `app/client/cpacket.cpp:143` | what it is |
+| 1 | `Unknown_38` | `app/client/cpacket.cpp:143` | untagged neutral name (D10) |
+| 1 | `unknown36 .. target_offset` | `app/client/cpacket.cpp:144` | the packets' fields |
+| 1 | `Unknown_6E82A0` | `app/client/cpacket.cpp:144` | untagged neutral name (D10) |
+| 1 | `Unknown04` | `app/client/cpacket.cpp:145` | untagged neutral name (D10) |
+| 1 | `Unknown7C` | `app/client/cpacket.cpp:146` | untagged neutral name (D10) |
+| 1 | `Unknown80` | `app/client/cpacket.cpp:147` | untagged neutral name (D10) |
+| 1 | `UnknownA8` | `app/client/cpacket.cpp:148` | untagged neutral name (D10) |
+| 1 | `UnknownB4` | `app/client/cpacket.cpp:149` | untagged neutral name (D10) |
+| 1 | `Unknown6E9490EffectClass` | `app/client/cpacket.cpp:151` | neutral (D10) |
+| 1 | `position` | `app/client/cpacket.cpp:154` | what ObjectToEffectEffect 12 passes |
+| 1 | `desc_id .. c` | `app/client/cpacket.cpp:157` | what OBJECT_EFFECT 9 passes |
+| 1 | `Unknown_6E9490` | `app/client/cpacket.cpp:157` | untagged neutral name (D10) |
+| 1 | `Unknown_4BC260` | `app/client/cpacket.cpp:158` | untagged neutral name (D10) |
+| 1 | `SClientUnknown12C4Class` | `app/client/cpacket.cpp:161` | untagged neutral name (D10) |
+| 1 | `UnknownSendRootClass` | `app/client/cpacket.cpp:161` | untagged neutral name (D10) |
+| 1 | `Unknown_Set_Colorization` | `app/client/cpacket.cpp:164` | untagged neutral name (D10) |
 | 1 | `Unknown_743290` | `app/client/cpacket.cpp:171` | untagged neutral name (D10) |
 | 1 | `Unknown70E2E0Class` | `app/client/cpacket.cpp:203` | untagged neutral name (D10) |
 | 1 | `Unknown70E5A0Class` | `app/client/cpacket.cpp:206` | untagged neutral name (D10) |
@@ -801,7 +820,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `requests` | `app/client/cpacket.cpp:419` | what it counts |
 | 1 | `Unknown717010Class` | `app/client/cpacket.cpp:425` | untagged neutral name (D10) |
 | 1 | `Unknown_717290` | `app/client/cpacket.cpp:425` | untagged neutral name (D10) |
-| 1 | `Unknown_2C` | `app/client/cpacket.cpp:426` | untagged neutral name (D10) |
 | 1 | `Unknown98Class` | `app/client/cpacket.cpp:427` | untagged neutral name (D10) |
 | 1 | `Unknown715EF0Class` | `app/client/cpacket.cpp:440` | untagged neutral name (D10) |
 | 1 | `Unknown_716140` | `app/client/cpacket.cpp:440` | untagged neutral name (D10) |
@@ -811,6 +829,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_718080` | `app/client/cpacket.cpp:590` | untagged neutral name (D10) |
 | 1 | `Unknown_64` | `app/client/cpacket.cpp:625` | untagged neutral name (D10) |
 | 1 | `Unknown_7C` | `app/client/cpacket.cpp:625` | untagged neutral name (D10) |
+| 1 | `Unknown36` | `app/client/cpacket.cpp:684` | untagged neutral name (D10) |
+| 1 | `Unknown34` | `app/client/cpacket.cpp:684` | untagged neutral name (D10) |
 | 1 | `Unknown_6E6E30` | `app/client/cpacket.cpp:827` | untagged neutral name (D10) |
 | 1 | `Unknown_6F3BC0` | `app/client/cpacket.cpp:839` | untagged neutral name (D10) |
 | 1 | `Unknown1334` | `app/client/cpacket.cpp:841` | untagged neutral name (D10) |
@@ -893,7 +913,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown6EF4C0Class` | `app/client/cpacket.cpp:1688` | neutral (D10) |
 | 1 | `client, id, time, duration, unknown, text, offset, velocity` | `app/client/cpacket.cpp:1691` | what the handler passes |
 | 1 | `id` | `app/client/cpacket.cpp:1703` | the packet's Victim |
-| 1 | `Unknown04` | `app/client/cpacket.cpp:1705` | untagged neutral name (D10) |
 | 1 | `Unknown_583DC0` | `app/client/cpacket.cpp:1776` | untagged neutral name (D10) |
 | 1 | `Unknown_48` | `app/client/cpacket.cpp:1785` | untagged neutral name (D10) |
 | 1 | `Unknown1328` | `app/client/cpacket.cpp:1891` | untagged neutral name (D10) |
@@ -924,7 +943,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_5E6030` | `app/client/cpacket.cpp:2443` | untagged neutral name (D10) |
 | 1 | `UIChatPanelUnknownE0Class` | `app/client/cpacket.cpp:2447` | neutral (D10) |
 | 1 | `Unknown_81BF40` | `app/client/cpacket.cpp:2450` | untagged neutral name (D10) |
-| 1 | `Unknown7C` | `app/client/cpacket.cpp:2453` | untagged neutral name (D10) |
 | 1 | `id, flag` | `app/client/cpacket.cpp:2460` | what it gets |
 | 1 | `Unknown_563910` | `app/client/cpacket.cpp:2460` | untagged neutral name (D10) |
 | 1 | `name` | `app/client/cpacket.cpp:2461` | the event's Unknown14 |
@@ -941,7 +959,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown54` | `app/client/cpacket.cpp:2496` | untagged neutral name (D10) |
 | 1 | `Unknown24` | `app/client/cpacket.cpp:2518` | untagged neutral name (D10) |
 | 1 | `Unknown14` | `app/client/cpacket.cpp:2519` | untagged neutral name (D10) |
-| 1 | `Unknown34` | `app/client/cpacket.cpp:2520` | untagged neutral name (D10) |
 | 1 | `Unknown_750F70` | `app/client/cpacket.cpp:2537` | untagged neutral name (D10) |
 | 1 | `Unknown77E3F0Class` | `app/client/cpacket.cpp:2568` | untagged neutral name (D10) |
 | 1 | `Unknown78` | `app/client/cpacket.cpp:2571` | untagged neutral name (D10) |

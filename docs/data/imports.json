@@ -1467,6 +1467,14 @@
      "0x733B10",
      "0x733BB0",
      "0x733C80",
+     "0x734A40",
+     "0x734BF0",
+     "0x734DF0",
+     "0x735000",
+     "0x735280",
+     "0x735520",
+     "0x735880",
+     "0x735B00",
      "0x735D50",
      "0x735DF0",
      "0x735ED0",
@@ -8578,7 +8586,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 4191,
+  "in_tree_total": 4199,
   "totals": {}
  },
  "binkmovie": {

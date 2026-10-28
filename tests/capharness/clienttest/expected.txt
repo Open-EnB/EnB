@@ -1623,6 +1623,15 @@ mainview 7C
 mainview 64
 stub EffectObjectClass::Unknown_6E74B0 48901062 100
 stub EffectObjectClass::Unknown_6E6ED0 48901062 124
+msg 763 OBJECT_TO_OBJECT_EFFECT (11) size 25: cpacket.cpp's handler
+stub Unknown_6E9490 desc 664 effect 48901063 duration 0 time 2142310900 scale 1.00 hsv (0.00 0.00 0.00) 1.00 -1 0
+stub Unknown6E9490BinaryClass::Unknown_28 source 48887635
+stub Unknown6E9490BinaryClass::Unknown_34 target 48900994
+stub Unknown6E9490BinaryClass::Unknown_6E82A0 0 0 (0, 0, 0) flags 0x0
+mainview 7C
+mainview 64
+stub EffectObjectClass::Unknown_6E74B0 48901063 100
+stub EffectObjectClass::Unknown_6E6ED0 48901063 124
 msg 764 AUX_DATA (27) size 100: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 90 bytes
 msg 765 OBJECT_EFFECT (9) size 19: cpacket.cpp's handler
@@ -2062,7 +2071,6 @@ stub DeltaCompoundClass::Decode object, 21 bytes
 check every message taken off the connection: ok
 recorded CREATE (4) x202
 recorded START (5) x1
-recorded OBJECT_TO_OBJECT_EFFECT (11) x1
 recorded CLIENT_SET_TIME (52) x3
-recorded 207, through cpacket.cpp's handlers 793
+recorded 206, through cpacket.cpp's handlers 794
 == done: 0 checks failed
