@@ -2319,7 +2319,7 @@ stub DeltaCompoundClass::Decode object, 21 bytes
 msg 752 SERVER_PARAMETERS (66) size 74: cpacket.cpp's handler
 gen MainViewClass::Unknown_513540
 gen SClientUnknown1338Class::Unknown_760770
-gen MainViewClass::Unknown_513700
+gen OrbitalManager::Unknown_4F3310
 gen SClientUnknown1330Class::SClientUnknown1330Class
 msg 754 MESSAGE_STRING (29) size 58: cpacket.cpp's handler
 stub SClient::Unknown_74D990 0x0 'We have entered Glory's Orbit (Beta Hydri System).' 0

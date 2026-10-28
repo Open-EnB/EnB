@@ -1952,19 +1952,19 @@ ClientObjectClass *MainViewClass::Unknown_5C()
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+// 0x513700: the sector's stars and orbital%04d.ini (cpacket.cpp: SERVER_PARAMETERS 66)
+void MainViewClass::Unknown_513700(unsigned sector)
+{
+	Unknown1C8 = sector;
+	StarField->Init(sector);
+	Orbitals->Unknown_4F3310();
+	char filename[100];
+	sprintf(filename, "orbital%04d.ini", sector);
+	INIClass ini(filename);
+	if (ini.Is_Loaded()) {
+		Orbitals->Unknown_4F34C0(ini);
+	}
+}
 
 // 0x5137F0: the land of sector `sector` (cpacket.cpp: SERVER_PARAMETERS 66 in view mode 1): land%04d.ini through
 // LandClass::Create into the scene, the sea fog and colour from its [GENERAL], and the decorations from land%04d.dcb, or
@@ -2327,8 +2327,8 @@ void MainViewClass::Unknown_18(int arg)
 **	mainview.cpp is the main view (MainViewClass, sclient.h; constructor 0x50B360, client 0x50B2C0-0x5146xx,
 **	97 functions, appfile.py show app\client\mainview.cpp). The zone loader 0x5137F0 sits on the
 **	client's FAIL_IF lines 1974 / 1981 / 1983 (the lines above are left empty for the functions not yet rebuilt), with its
-**	neighbour 0x513B90 (gas%04d.ini's wind) after it. 0x513700 (the stars, orbital%04d.ini) is exact in a trial but
-**	clienttest's SERVER_PARAMETERS 66 reaches it with a fake main view (no StarField): attempts.csv 0x513700.
+**	neighbour 0x513B90 (gas%04d.ini's wind) after it, and 0x513700 (the stars, orbital%04d.ini) before it (HN2:
+**	clienttest's fake main view carries a StarField and an OrbitalManager for it).
 **	Client->Unknown_18() is ClientClass's slot +0x18 (0 in the base, 0x7268E0); SClient's override returns the
 **	SClient ('!sclient'). Its +0x1320 byte is LandClass::Create's flag.
 **
@@ -2339,5 +2339,5 @@ void MainViewClass::Unknown_18(int arg)
 **	Set_User_Data, Add to the scene slot +0x64 returns (the +0x10C scene) unless the object's 0x6F5D90 says
 **	otherwise, an identity transform; Remove only in the same case. The constructor is not exact (scheduling)
 **	(attempts.csv 0x50B360). Not rebuilt yet because clienttest drives their stand-ins: 0x512A00, 0x513540,
-**	0x513600, 0x513700, 0x513CD0, 0x513D20, 0x514010 (expected.txt 'gen MainViewClass::').
+**	0x513600, 0x513CD0, 0x513D20, 0x514010 (expected.txt 'gen MainViewClass::').
 */

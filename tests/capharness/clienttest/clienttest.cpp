@@ -45,6 +45,7 @@
 #include "..\..\..\app\client\aux_roots.h"
 #include "..\..\..\app\client\co_subtypes.h"
 #include "rendobj.h"
+#include "..\..\..\app\shared\stars.h"
 
 static FILE *Out;
 static int Lines = 0;
@@ -998,6 +999,11 @@ int main(int argc, char **argv)
 	The_Client = client;
 	FakeMainViewClass main_view;
 	client->MainView = (MainViewClass *)&main_view;
+	// 0x513700 (SERVER_PARAMETERS 66) calls the main view's stars (+0x134: a real StarFieldClass; no stars.ini in the
+	// working directory, so its Init loads nothing) and orbitals (+0x140: zeroed, OrbitalManager's members are stand-ins)
+	static double fake_orbitals[(sizeof(OrbitalManager) + 7) / 8];
+	*(StarFieldClass **)&main_view.Unknown04[0x134 - 0x04] = new StarFieldClass(0);
+	*(OrbitalManager **)&main_view.Unknown04[0x140 - 0x04] = (OrbitalManager *)fake_orbitals;
 	static char fake_line_display[0x100];	// ui_line_display.cpp's object (0x100 bytes): client_stubs.cpp's members trace
 	client->LineDisplay = (UILineDisplayClass *)fake_line_display;
 	client->AuxData = (DeltaPlayerClass *)Fake_Player_Root;	// Init's roots (sclient.cpp 0x7518A0, not run)

@@ -216,12 +216,15 @@ public:
 };
 
 class MainViewClass;
+class INIClass;
 
 // orbitalmanager.cpp's manager (the main view's +0x140, 0x1D4 bytes), as far as the main view reads it
 class OrbitalManager		// NAME 2: the client's (OrbitalManager::Update)
 {
 public:
 	OrbitalManager(SClient *client, MainViewOrbitalCallbackClass *callback);	// 0x4F3250 (0x1D4 bytes; the main view's 0x50BA60)  // NAME 1 [client, callback]: what 0x50BA60 passes
+	void Unknown_4F3310();								// 0x4F3310 (the main view's 0x513700, before the sector's orbital%04d.ini is read)
+	void Unknown_4F34C0(INIClass &ini);				// 0x4F34C0 (0x513700: orbital%04d.ini when it loaded)  // NAME 1 [ini]: what it gets
 	float Get_Unknown54() const { return(Unknown54); }	// (inline: the main view's 0x50CCF0 copies it through the FPU)  // NAME 1: neutral (D10): the member it returns
 
 	char Unknown00[0x50];								// +0x00
