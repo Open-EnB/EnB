@@ -27,9 +27,12 @@ lost outright (one D66(v) move: dbgconn 0x821E40, still matched in connect). Pla
   still matched anywhere as a move (5b9d86f). About 30 trap bullets retired (42ff582).
 * **Decisions:** D96-D115 (§2); the audit's amendments are D110. Two audits (decisions; traps -> tools) and the Open-BFME
   comparison (they claim an address per ledger row and verify bytes there; ties never arise) are in the plan log.
-* **Open for the user (§3):** P-M3-1 (D115 credits by symbol across objects, beyond its wording); P-M3-2 (pairs_cmp's
-  address-level lost-outright list); evidence-backed pins, Open-BFME style (asked, not yet proposed as a row).
-
+* **Late (20:40-22:30), all decided:** D116 (D115 credits by symbol across objects), D117 (pairs_cmp prints
+  `lost outright` and `moves`: ed1945d), D118 (evidence-backed pins measured by M4 in a wt.py worktree, caller in
+  object +655 / 0 lost, placement 2.4 % wrong; kept in tools/re/experimental/pins/, not adopted, e4e5ae2). Project
+  settings committed (3bc25eb): claude.ai connectors and Claude in Chrome off, 120 non-PE REA tools denied. §3 is
+  empty. HEAD +811 pairs against a76b92e, the day's start, no address lost outright. The eval branches and
+  worktrees (`.work/eval/*`) go after 2026-11-03 (`wt.py remove` / `git worktree remove`).
 ### 2026-10-27 (17:30, evening): the D93 model evaluation, eight runs scored; A-opus and B-opus merged (+113 pairs, 0 lost); P-E1 proposes the D72 revision
 
 Coordinator Opus 5.5 (the user, 14:50: changes eval-d93.md's "the coordinator stays on Fable"; noted in D93's row).
