@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 33 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 36 |
-| 3 | by convention from a client-named file or sibling | 922 |
-| 2 | describes what the code does | 2251 |
-| 1 | neutral placeholder | 4926 |
+| 3 | by convention from a client-named file or sibling | 931 |
+| 2 | describes what the code does | 2257 |
+| 1 | neutral placeholder | 4930 |
 
 ## For review (score 3 and below)
 
@@ -4557,6 +4557,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown2C` | `app/shared/px.cpp:280` | untagged neutral name (D10) |
 | 1 | `Unknown2C` | `app/shared/px.h:94` | only the constructor sets it |
 | 1 | `px_box_list.h` | `app/shared/px_box_list.h:12` | provisional header name (px_box_list.cpp's) |
+| 1 | `Unknown_4A1590` | `app/shared/px_callback_type.cpp:6` | neutral placeholder (D10) |
+| 1 | `Unknown_453A10` | `app/shared/px_callback_type.cpp:110` | untagged neutral name (D10) |
+| 1 | `px_callback_type.h` | `app/shared/px_callback_type.h:13` | provisional header name (px_callback_type.cpp's) |
+| 1 | `Unknown_453A10` | `app/shared/px_callback_type.h:35` | untagged neutral name (D10) |
 | 1 | `Unknown_455D10` | `app/shared/px_process.cpp:113` | untagged neutral name (D10) |
 | 1 | `Unknown_455F60` | `app/shared/px_process.cpp:113` | untagged neutral name (D10) |
 | 1 | `px_process.h` | `app/shared/px_process.h:14` | provisional header name (px_process.cpp's) |
@@ -6928,6 +6932,12 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `PxOwnerList` | `app/shared/px_box_list.h:41` | px_box_list.cpp's class with the 'Owners' asserts |
 | 2 | `owner` | `app/shared/px_box_list.h:44` | the PxBox owner |
 | 2 | `owner, src` | `app/shared/px_box_list.h:45` | as PxBox's |
+| 2 | `PxCallbackType_Name` | `app/shared/px_callback_type.h:29` | what it returns |
+| 2 | `string, type` | `app/shared/px_callback_type.h:30` | what it does |
+| 2 | `size, type` | `app/shared/px_callback_type.h:31` | what it does |
+| 2 | `PxCallbackEvent_Name` | `app/shared/px_callback_type.h:32` | what it returns |
+| 2 | `string, event` | `app/shared/px_callback_type.h:33` | what it does |
+| 2 | `size` | `app/shared/px_callback_type.h:34` | what it does |
 | 2 | `PxProcessNode` | `app/shared/px_process.h:23` | px_process.cpp's list entries (the asserts' 'node') |
 | 2 | `Process` | `app/shared/px_process.h:29` | what PxProcessClass::Process calls |
 | 2 | `Remove` | `app/shared/px_process.h:30` | what it does |
@@ -8100,6 +8110,15 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `PxList` | `app/shared/px.h:81` | PxList is the client's (PxList::Insert) |
 | 3 | `Set_Self` | `app/shared/px.h:88` | PxBox::Set_Self's |
 | 3 | `Set_Test_Mask` | `app/shared/px.h:89` | as above |
+| 3 | `PxCallbackType` | `app/shared/px_callback_type.h:16` | the client's name string 'PxCallbackType' (0x453740) |
+| 3 | `PX_CALLBACK_ACCURATE` | `app/shared/px_callback_type.h:17` | the string 'Accurate' |
+| 3 | `PX_CALLBACK_LIBERAL` | `app/shared/px_callback_type.h:18` | the string 'Liberal' |
+| 3 | `PX_CALLBACK_CONSERVATIVE` | `app/shared/px_callback_type.h:19` | the string 'Conservative' |
+| 3 | `PX_CALLBACK_POLLING` | `app/shared/px_callback_type.h:20` | the string 'Polling' |
+| 3 | `PxCallbackEvent` | `app/shared/px_callback_type.h:23` | the client's name string 'PxCallbackEvent' (0x453900) |
+| 3 | `PX_EVENT_ENTER` | `app/shared/px_callback_type.h:24` | _EventStrings[0] 'Enter' |
+| 3 | `PX_EVENT_EXIT` | `app/shared/px_callback_type.h:25` | _EventStrings[1] 'Exit' |
+| 3 | `PX_EVENT_UPDATE` | `app/shared/px_callback_type.h:26` | _EventStrings[2] 'Update' (the loose box's process passes 2) |
 | 3 | `PxProcessClass` | `app/shared/px_process.h:39` | class-from-file (D24) for px_process.cpp |
 | 3 | `Update` | `app/shared/px_wrapper.h:54` | the profile string |
 | 3 | `TightBox` | `app/shared/px_wrapper.h:124` | 'PxWrapper::Update(TightBox)' |

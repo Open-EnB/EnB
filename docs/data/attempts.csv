@@ -537,3 +537,6 @@ date,address,symbol,file,library,status,score,forms,blocker,evidence,stash,model
 2026-10-28 12:08,0x455A30,PxProcessNode::Process,app/shared/px_process.cpp,app,exact,1.00,1,,D99: 1 byte (ret); identical,,Opus
 2026-10-28 12:08,0x455D10,PxProcessClass::Push,app/shared/px_process.cpp,app,partial,0.64,4,shape,"push_back / insert(end(), x) / insert(end(), 1, x) / named iterator: the client's inlined insert folds _Last - _P to 0 (xor dl, dl; cmp dl, 1) and takes max(size(), 1) with ja; ours reloads _Last and computes size twice",,Opus
 2026-10-28 12:08,0x455F60,PxProcessClass::Pop,app/shared/px_process.cpp,app,partial,0.52,4,register,"pop_back / erase(end() - 1) / erase(&back()) / erase(end() - 1, end()): the client keeps the old end in esi and copies through edx, ours pushes esi for the copy",,Opus
+2026-10-28 12:17,0x453740,PxCallbackType_Name,app/shared/px_callback_type.cpp,app,exact,1.00,1,,D99: 6 bytes; objdiff differs only by the string relocation,,Opus
+2026-10-28 12:17,0x453900,PxCallbackEvent_Name,app/shared/px_callback_type.cpp,app,exact,1.00,1,,D99: 6 bytes; objdiff differs only by the string relocation,,Opus
+2026-10-28 12:17,0x453A10,Unknown_453A10,app/shared/px_callback_type.cpp,app,exact,1.00,1,,D99: 21 bytes; objdiff differs only by the two string relocations (G_ASSERT(false) l.112),,Opus
