@@ -24,7 +24,7 @@ class ChangeBaseAssetPacketClass : public PacketClass
 public:
 	ChangeBaseAssetPacketClass(RawPacketClass *raw);	// 0x87E560
 	virtual RawPacketClass *Build();	// +0x04 0x87E620
-	virtual bool Process_Packet(void *client);	// +0x08 0x737400 (not rebuilt)
+	virtual bool Process_Packet(void *client);	// +0x08 0x737400 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x87E710
 	virtual int Print(char *buffer, int len);	// +0x10 0x87E730
 	virtual int Get_Channel() { return(Unknown24); }	// +0x18 0x87E4F0

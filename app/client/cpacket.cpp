@@ -1239,6 +1239,23 @@ bool ItemBasePacketClass::Process_Packet(void *instance)
 
 
 
+// 0x737400
+bool ChangeBaseAssetPacketClass::Process_Packet(void *instance)
+{
+	WWPROFILE("ChangeBaseAssetPacketClass::Process_Packet()");
+	SClient *sclient = (SClient *)instance;
+	ClientObjectClass *object = sclient->Find_Object(GameID);
+	if (object) {
+		RenderObjClass *robj = ClientObjectClass::Unknown_6F5140(BaseAsset, sclient, Scale, Unknown18);
+		object->Unknown_6F33F0(robj, BaseAsset, Scale);
+		robj->Release_Ref();
+		if (object->Unknown_6F5A40() && sclient->Unknown_744B60()) {
+			sclient->Unknown_74D950();
+		}
+	}
+	return(true);
+}
+
 // 0x737520
 bool SetZBandPacketClass::Process_Packet(void *instance)
 {
@@ -1319,23 +1336,6 @@ bool SplinePacketClass::Process_Packet(void *instance)
 	splines->Unpack(Block);
 	return(true);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
