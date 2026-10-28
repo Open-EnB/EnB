@@ -10,8 +10,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 34 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 36 |
 | 3 | by convention from a client-named file or sibling | 844 |
-| 2 | describes what the code does | 2027 |
-| 1 | neutral placeholder | 3789 |
+| 2 | describes what the code does | 2037 |
+| 1 | neutral placeholder | 3794 |
 
 ## For review (score 3 and below)
 
@@ -1024,46 +1024,49 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown1C` | `app/client/postate.cpp:95` | untagged neutral name (D10) |
 | 1 | `Unknown10` | `app/client/postate.cpp:95` | untagged neutral name (D10) |
 | 1 | `Unknown_714D50` | `app/client/postate.cpp:100` | untagged neutral name (D10) |
-| 1 | `UnknownB027A0Class` | `app/client/postate.cpp:106` | untagged neutral name (D10) |
-| 1 | `Unknown_28` | `app/client/postate.cpp:124` | untagged neutral name (D10) |
-| 1 | `Unknown_1C` | `app/client/postate.cpp:127` | untagged neutral name (D10) |
-| 1 | `Unknown_18` | `app/client/postate.cpp:158` | untagged neutral name (D10) |
-| 1 | `Unknown_20` | `app/client/postate.cpp:176` | untagged neutral name (D10) |
-| 1 | `Unknown715AB0Class` | `app/client/postate.cpp:187` | untagged neutral name (D10) |
-| 1 | `Unknown70F250Class` | `app/client/postate.cpp:189` | untagged neutral name (D10) |
-| 1 | `Unknown_715C20` | `app/client/postate.cpp:192` | untagged neutral name (D10) |
-| 1 | `Unknown7125F0Class` | `app/client/postate.cpp:196` | untagged neutral name (D10) |
-| 1 | `Unknown715CF0Class` | `app/client/postate.cpp:199` | untagged neutral name (D10) |
-| 1 | `Unknown713520Class` | `app/client/postate.cpp:202` | untagged neutral name (D10) |
-| 1 | `Unknown_715E60` | `app/client/postate.cpp:205` | untagged neutral name (D10) |
-| 1 | `Unknown715EF0Class` | `app/client/postate.cpp:211` | untagged neutral name (D10) |
-| 1 | `Unknown18` | `app/client/postate.cpp:213` | untagged neutral name (D10) |
-| 1 | `Unknown710110Class` | `app/client/postate.cpp:215` | untagged neutral name (D10) |
-| 1 | `Unknown714340Class` | `app/client/postate.cpp:222` | untagged neutral name (D10) |
-| 1 | `Unknown_716140` | `app/client/postate.cpp:225` | untagged neutral name (D10) |
-| 1 | `Unknown_30` | `app/client/postate.cpp:228` | untagged neutral name (D10) |
-| 1 | `UnknownLerpStruct` | `app/client/postate.cpp:232` | untagged neutral name (D10) |
-| 1 | `Unknown_716220` | `app/client/postate.cpp:237` | untagged neutral name (D10) |
-| 1 | `Unknown10BC` | `app/client/postate.cpp:240` | untagged neutral name (D10) |
-| 1 | `Unknown_716390` | `app/client/postate.cpp:249` | untagged neutral name (D10) |
-| 1 | `Unknown_716400` | `app/client/postate.cpp:254` | untagged neutral name (D10) |
-| 1 | `Unknown_7165D0` | `app/client/postate.cpp:286` | untagged neutral name (D10) |
-| 1 | `Unknown_7166A0` | `app/client/postate.cpp:291` | untagged neutral name (D10) |
-| 1 | `Unknown_8ADB20` | `app/client/postate.cpp:317` | untagged neutral name (D10) |
-| 1 | `Unknown_38` | `app/client/postate.cpp:323` | untagged neutral name (D10) |
-| 1 | `Unknown_34` | `app/client/postate.cpp:325` | untagged neutral name (D10) |
-| 1 | `Unknown7119B0Class` | `app/client/postate.cpp:341` | untagged neutral name (D10) |
-| 1 | `Unknown712DB0Class` | `app/client/postate.cpp:345` | untagged neutral name (D10) |
-| 1 | `Unknown717010Class` | `app/client/postate.cpp:423` | untagged neutral name (D10) |
-| 1 | `Unknown20` | `app/client/postate.cpp:426` | untagged neutral name (D10) |
-| 1 | `Unknown24` | `app/client/postate.cpp:427` | untagged neutral name (D10) |
-| 1 | `Unknown_717290` | `app/client/postate.cpp:441` | untagged neutral name (D10) |
-| 1 | `Unknown_717400` | `app/client/postate.cpp:470` | untagged neutral name (D10) |
-| 1 | `Unknown717EF0Class` | `app/client/postate.cpp:501` | untagged neutral name (D10) |
-| 1 | `Unknown713C80Class` | `app/client/postate.cpp:503` | untagged neutral name (D10) |
-| 1 | `Unknown_718080` | `app/client/postate.cpp:508` | untagged neutral name (D10) |
-| 1 | `Unknown718160Class` | `app/client/postate.cpp:517` | untagged neutral name (D10) |
-| 1 | `Unknown718D70Class` | `app/client/postate.cpp:555` | untagged neutral name (D10) |
+| 1 | `Unknown715270Class` | `app/client/postate.cpp:106` | untagged neutral name (D10) |
+| 1 | `Unknown_715360` | `app/client/postate.cpp:115` | untagged neutral name (D10) |
+| 1 | `Unknown98` | `app/client/postate.cpp:121` | untagged neutral name (D10) |
+| 1 | `Unknown_1C` | `app/client/postate.cpp:150` | untagged neutral name (D10) |
+| 1 | `UnknownB027A0Class` | `app/client/postate.cpp:159` | untagged neutral name (D10) |
+| 1 | `Unknown_28` | `app/client/postate.cpp:177` | untagged neutral name (D10) |
+| 1 | `Unknown_18` | `app/client/postate.cpp:211` | untagged neutral name (D10) |
+| 1 | `Unknown_20` | `app/client/postate.cpp:229` | untagged neutral name (D10) |
+| 1 | `Unknown715AB0Class` | `app/client/postate.cpp:240` | untagged neutral name (D10) |
+| 1 | `Unknown70F250Class` | `app/client/postate.cpp:242` | untagged neutral name (D10) |
+| 1 | `Unknown_715C20` | `app/client/postate.cpp:245` | untagged neutral name (D10) |
+| 1 | `Unknown7125F0Class` | `app/client/postate.cpp:249` | untagged neutral name (D10) |
+| 1 | `Unknown715CF0Class` | `app/client/postate.cpp:252` | untagged neutral name (D10) |
+| 1 | `Unknown713520Class` | `app/client/postate.cpp:255` | untagged neutral name (D10) |
+| 1 | `Unknown_715E60` | `app/client/postate.cpp:258` | untagged neutral name (D10) |
+| 1 | `Unknown715EF0Class` | `app/client/postate.cpp:264` | untagged neutral name (D10) |
+| 1 | `Unknown18` | `app/client/postate.cpp:266` | untagged neutral name (D10) |
+| 1 | `Unknown710110Class` | `app/client/postate.cpp:268` | untagged neutral name (D10) |
+| 1 | `Unknown714340Class` | `app/client/postate.cpp:275` | untagged neutral name (D10) |
+| 1 | `Unknown_716140` | `app/client/postate.cpp:278` | untagged neutral name (D10) |
+| 1 | `Unknown_30` | `app/client/postate.cpp:281` | untagged neutral name (D10) |
+| 1 | `UnknownLerpStruct` | `app/client/postate.cpp:285` | untagged neutral name (D10) |
+| 1 | `Unknown_716220` | `app/client/postate.cpp:290` | untagged neutral name (D10) |
+| 1 | `Unknown10BC` | `app/client/postate.cpp:293` | untagged neutral name (D10) |
+| 1 | `Unknown_716390` | `app/client/postate.cpp:302` | untagged neutral name (D10) |
+| 1 | `Unknown_716400` | `app/client/postate.cpp:307` | untagged neutral name (D10) |
+| 1 | `Unknown_7165D0` | `app/client/postate.cpp:339` | untagged neutral name (D10) |
+| 1 | `Unknown_7166A0` | `app/client/postate.cpp:344` | untagged neutral name (D10) |
+| 1 | `Unknown_8ADB20` | `app/client/postate.cpp:370` | untagged neutral name (D10) |
+| 1 | `Unknown_38` | `app/client/postate.cpp:376` | untagged neutral name (D10) |
+| 1 | `Unknown_34` | `app/client/postate.cpp:378` | untagged neutral name (D10) |
+| 1 | `Unknown7119B0Class` | `app/client/postate.cpp:394` | untagged neutral name (D10) |
+| 1 | `Unknown712DB0Class` | `app/client/postate.cpp:398` | untagged neutral name (D10) |
+| 1 | `Unknown717010Class` | `app/client/postate.cpp:476` | untagged neutral name (D10) |
+| 1 | `Unknown20` | `app/client/postate.cpp:479` | untagged neutral name (D10) |
+| 1 | `Unknown24` | `app/client/postate.cpp:480` | untagged neutral name (D10) |
+| 1 | `Unknown_717290` | `app/client/postate.cpp:494` | untagged neutral name (D10) |
+| 1 | `Unknown_717400` | `app/client/postate.cpp:523` | untagged neutral name (D10) |
+| 1 | `Unknown717EF0Class` | `app/client/postate.cpp:554` | untagged neutral name (D10) |
+| 1 | `Unknown713C80Class` | `app/client/postate.cpp:556` | untagged neutral name (D10) |
+| 1 | `Unknown_718080` | `app/client/postate.cpp:561` | untagged neutral name (D10) |
+| 1 | `Unknown718160Class` | `app/client/postate.cpp:570` | untagged neutral name (D10) |
+| 1 | `Unknown718D70Class` | `app/client/postate.cpp:608` | untagged neutral name (D10) |
 | 1 | `Unknown7192A0Class` | `app/client/postate.cpp:1416` | untagged neutral name (D10) |
 | 1 | `UnknownB026ECClass` | `app/client/postate.h:38` | neutral (D10), named by its vtable |
 | 1 | `Unknown98Class` | `app/client/postate.h:38` | untagged neutral name (D10) |
@@ -1156,6 +1159,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_2C` | `app/client/postate.h:277` | untagged neutral name (D10) |
 | 1 | `Unknown718D70Class` | `app/client/postate.h:294` | neutral (D10) |
 | 1 | `Unknown7192A0Class` | `app/client/postate.h:319` | neutral (D10) |
+| 1 | `Unknown715270Class` | `app/client/postate.h:337` | neutral (D10) |
+| 1 | `Unknown_715360` | `app/client/postate.h:341` | untagged neutral name (D10) |
 | 1 | `Unknown08` | `app/client/radar_data.h:26` | untagged neutral name (D10) |
 | 1 | `Unknown_719E10` | `app/client/sclient.cpp:28` | untagged neutral name (D10) |
 | 1 | `Unknown_7228C0` | `app/client/sclient.cpp:29` | neutral (D10), as tsk_login.cpp |
@@ -4320,6 +4325,16 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `time` | `app/client/postate.h:327` | as the others' |
 | 2 | `time` | `app/client/postate.h:328` | as the others' |
 | 2 | `time` | `app/client/postate.h:329` | as the others' |
+| 2 | `client, game_id, offset, orientation` | `app/client/postate.h:340` | the members they set |
+| 2 | `time` | `app/client/postate.h:344` | as the others' |
+| 2 | `time` | `app/client/postate.h:345` | as the others' |
+| 2 | `time` | `app/client/postate.h:346` | as the others' |
+| 2 | `time` | `app/client/postate.h:347` | as the others' |
+| 2 | `Client` | `app/client/postate.h:349` | what it holds |
+| 2 | `GameID` | `app/client/postate.h:350` | what Find_Object takes |
+| 2 | `Offset` | `app/client/postate.h:351` | what it holds |
+| 2 | `Orientation` | `app/client/postate.h:352` | what it holds |
+| 2 | `Position` | `app/client/postate.h:353` | what it holds |
 | 2 | `Unknown_Load_Assets` | `app/client/sclient.cpp:40` | 0x729BF0 (client_lego_impl.cpp), 'cbasset.ini' (as tsk_smovie.cpp) |
 | 2 | `Unknown_Free_Assets` | `app/client/sclient.cpp:41` | 0x729D60 (client_lego_impl.cpp) (as tsk_smovie.cpp) |
 | 2 | `Unknown_Main_Window` | `app/client/sclient.cpp:43` | what Pump_Messages redraws |

@@ -103,6 +103,59 @@ void Unknown714B50Class::Unknown_714D50(ConstantPositionalUpdatePacketClass *pac
 	Transform = Matrix3D(*(Quaternion *)packet->Unknown1C, *(Vector3 *)packet->Unknown10);
 }
 
+Unknown715270Class::Unknown715270Class(ClientClass *client, int game_id, const Vector3 &offset, const Quaternion &orientation) :
+	Client(client),
+	GameID(game_id),
+	Offset(offset),
+	Orientation(orientation),
+	Position(0.0f, 0.0f, 0.0f)
+{
+}
+
+Unknown98Class *Unknown715270Class::Unknown_715360()
+{
+	ClientObjectClass *object = Client->Find_Object(GameID);
+	if (!object) {
+		return(0);
+	}
+	return(object->Unknown98);
+}
+
+Vector3 Unknown715270Class::Unknown_0C(int time)
+{
+	Unknown98Class *state = Unknown_715360();
+	if (!state) {
+		return(Position + Offset);
+	}
+	Position = state->Unknown_0C(time);
+	return(Position + Offset);
+}
+
+Matrix3D Unknown715270Class::Unknown_08(int time)
+{
+	Matrix3D transform = Build_Matrix3D(Orientation);
+	transform.Set_Translation(Unknown_0C(time));
+	return(transform);
+}
+
+Vector3 Unknown715270Class::Unknown_10(int time)
+{
+	Unknown98Class *state = Unknown_715360();
+	if (!state) {
+		return(Vector3(0.0f, 0.0f, 0.0f));
+	}
+	return(state->Unknown_10(time));
+}
+
+Vector3 Unknown715270Class::Unknown_1C(int time)
+{
+	Unknown98Class *state = Unknown_715360();
+	if (!state) {
+		return(Position + Offset);
+	}
+	return(Offset + state->Unknown_1C(time));
+}
+
 UnknownB027A0Class::UnknownB027A0Class() :
 	Extrap(0)
 {
@@ -1360,59 +1413,6 @@ void Unknown718D70Class::Unknown_30(int time, const Matrix3D &transform)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 Unknown7192A0Class::Unknown7192A0Class(RenderObjClass *render_object, Unknown98Class *state, const char *bone_name) :
 	RenderObject(render_object),
 	BoneIndex(-1)
@@ -1478,9 +1478,9 @@ Vector3 Unknown7192A0Class::Unknown_14(int time)
 **	PermString) to 0x719700; its asserts sit on the client's lines (D25): the forwarding state's
 **	'PositionState' on 53-90, type 15's on 1422-1457. Built: the forwarding state (vtable 0xB026EC), type 1
 **	(0xB02728), the extrapolator base (0xB027A0) with types 3 (0xB027DC), 5 (0xB02818), 8 (0xB02854),
-**	4 (0xB028A4) and 11 (0xB028F0), type 12 (0xB0292C), type 14 (0xB02A00) and type 15 (0xB02A40).
-**	Not rebuilt yet, in the client's order: the helpers 0x714E10-0x7151D0 (a position / velocity / time
-**	record), type 9 (vtable 0xB02764, 0x715270-0x715580: a position relative to another object), type 4's
+**	4 (0xB028A4) and 11 (0xB028F0), type 9 (0xB02764), type 12 (0xB0292C), type 14 (0xB02A00) and type 15
+**	(0xB02A40). Not rebuilt yet, in the client's order: the helpers 0x714E10-0x7151D0 (a position /
+**	velocity / time record, no callers), type 4's
 **	0x717430 ('*move_direction == 0' on line 977) and 0x7179A0, type 13 (vtable 0xB029C0, 0x718510-0x718D40:
 **	a HermiteSpline3DClass path), the statics 0x714820 and after 0x719620, 0x7196C0. extrap.cpp's classes
 **	are declared in postate.h only.

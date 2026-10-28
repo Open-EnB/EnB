@@ -332,4 +332,25 @@ public:
 	int BoneIndex;					// +0x08 (-1 without a bone)  // NAME 3: the client's assert 'BoneIndex > 0'
 };
 
+// Type 9, a position and orientation relative to another object's state (vtable 0xB02764, 0x34 bytes;
+// its slot +0x14 stays pure, so only a derived class could be made: no constructor call found)
+class Unknown715270Class : public Unknown98Class	// NAME 1: neutral (D10)
+{
+public:
+	Unknown715270Class(ClientClass *client, int game_id, const Vector3 &offset, const Quaternion &orientation);	// 0x715270  // NAME 2 [client, game_id, offset, orientation]: the members they set
+	Unknown98Class *Unknown_715360();			// 0x715360 (the other object's state, or 0)
+
+	virtual int Unknown_04() { return(9); }		// +0x04 0x7152F0
+	virtual Vector3 Unknown_0C(int time);		// +0x0C 0x715390 (the other's position plus Offset)  // NAME 2 [time]: as the others'
+	virtual Matrix3D Unknown_08(int time);		// +0x08 0x715450  // NAME 2 [time]: as the others'
+	virtual Vector3 Unknown_10(int time);		// +0x10 0x715510 (the other's velocity)  // NAME 2 [time]: as the others'
+	virtual Vector3 Unknown_1C(int time);		// +0x1C 0x715580  // NAME 2 [time]: as the others'
+
+	ClientClass *Client;			// +0x04  // NAME 2: what it holds
+	int GameID;						// +0x08 (the other object's)  // NAME 2: what Find_Object takes
+	Vector3 Offset;					// +0x0C  // NAME 2: what it holds
+	Quaternion Orientation;			// +0x18  // NAME 2: what it holds
+	Vector3 Position;				// +0x28 (the other's last position)  // NAME 2: what it holds
+};
+
 #endif

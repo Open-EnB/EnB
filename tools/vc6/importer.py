@@ -4080,7 +4080,7 @@ RECONSTRUCTED = {
                                                "0x70CC90, 0x70CD50, the type test 0x70B3D0; NOT EXACT: Neutral 0x70B450",
     ('app', 'client/postate.h'): "postate.cpp's positional states (ClientObjectClass +0x98, co.h's Unknown98Class): "
                                 "the forwarding state 0xB026EC, type 1 0xB02728, the extrapolator base 0xB027A0 with "
-                                "types 3 0xB027DC, 5 0xB02818, 11 0xB028F0, 8 0xB02854, 4 0xB028A4, 12 0xB0292C, 14 0xB02A00 and 15 0xB02A40 (layouts from the constructors 0x714870-0x715CF0)",
+                                "types 3 0xB027DC, 5 0xB02818, 11 0xB028F0, 8 0xB02854, 4 0xB028A4, 12 0xB0292C, 14 0xB02A00, 15 0xB02A40 and 9 0xB02764 (layouts from the constructors 0x714870-0x715CF0)",
     ('app', 'client/postate.cpp'): "the positional states, client 0x714870-0x719700 (start): the forwarding state "
                                   "0x714870-0x714B00 ('PositionState' on the client's lines 53-90, D25), type 1 "
                                   "0x714B50 / 0x714D50, the extrapolator base 0x715620-0x7159C0, type 3 0x715AB0 / "
