@@ -221,6 +221,7 @@ public:
 	bool Unknown_6F5F60();								// 0x6F5F60 the aux data's IsInPVP field with +0x70 above 1
 	bool Unknown_7008B0();								// 0x7008B0 0x810750 on the model of an organic object that isn't IsOrganic								// 0x6F5ED0 the aux data's IsInPVP
 	bool Unknown_6F5850();								// 0x6F5850 the type tests on Type, 0x6F5850-0x6F5E20
+	bool Unknown_6F5880();								// 0x6F5880 0x6F5850's twin (0x6FCB70 calls it)
 	bool Unknown_6F5980();
 	bool Unknown_6F5A10();
 	bool Unknown_6F5A40();
@@ -266,6 +267,7 @@ public:
 	void Unknown_6FD7A0(RenderObjClass *model);			// 0x6FD7A0 (co.cpp, not rebuilt: the engine sounds call it for a type-1 object in view mode 1 when EngineTrailType changed)  // NAME 1 [model]: what 0x6FDBD0 passes
 	void Unknown_6FE1E0();								// 0x6FE1E0 the damage state: the damage sounds of a type-1 object, the shield or hull and the four quadrants' levels (+0x104) into the model
 	Unknown8CClass *Unknown_6F5090();					// 0x6F5090 the +0x8C object, made on first use (0x73FDB0 asks for it)
+	void Unknown_Damage_Reset();
 	void Unknown_6FEAC0();								// 0x6FEAC0 the damage state back to level 1 (unreferenced)
 	void Unknown_7009A0(bool on, bool force);			// 0x7009A0  // NAME 2 [on, force]: what it tests
 	void Unknown_6FEC40(SphereClass *sphere);			// 0x6FEC40 (FAIL_IF '!sphere', l.2232): the bounding sphere in slot +0x28's frame

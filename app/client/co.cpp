@@ -1005,7 +1005,7 @@ bool ClientObjectClass::Unknown_6F5850()
 	}
 	return(false);
 }
-
+bool ClientObjectClass::Unknown_6F5880() { if (Type >= 0 && (Type <= 1 || Type == 25)) return(true); return(false); }	// 0x6F5880 (0x6F5850's twin; 0x6FCB70 calls it out of line)
 // 0x6F5980
 bool ClientObjectClass::Unknown_6F5980()
 {
@@ -1725,43 +1725,6 @@ void ClientObjectClass::Unknown_6FCB20(bool visible)
 	}
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // delta_array.h's item accessor (its G_ASSERT on that header's line 93, inline in the damage decals 0x6FD310), written
 // here: declaring it in the header moves aux_roots.cpp's pairs (the 0x6FB1E0 canary, workflow.md 3.4; P-DF1-2)
 template<class T> static inline DeltaTemplateClass<T> *Unknown_Get_Item(DeltaArrayClass<T> *array, unsigned index) { std::vector<DeltaClass *> &Items = array->Children; if (!(index < Items.size())) Unknown_Assert_Failed("index < Items.size()", "..\\shared/auxdata/delta_array.h", 93); return((DeltaTemplateClass<T> *)Items[index]); }	// NAME 1: neutral
@@ -1772,6 +1735,43 @@ class ProjDecalManagerClass	// NAME 3: the FAIL_IF's 'proj_decal_manager' (sclie
 public:
 	void Unknown_7633E0(DecalGeneratorClass *generator, const UnknownB01A40Type &decal, RenderObjClass *model);	// 0x7633E0 (the damage decals 0x6FD310: an aux item's value onto the model)  // NAME 1 [generator, decal, model]: what 0x6FD310 passes
 };
+void Unknown_80F220(RenderObjClass *model, std::vector<ColorizationRegionStruct> &regions);	// 0x80F220 (cdecl, shiputils.cpp's run; not rebuilt): the colorization regions onto a new model  // NAME 1 [model, regions]: what 0x6FCB70 passes
+// a field that is set (+0x70 not 0), else NULL (auxdata.h's find; the bool copy 0x705450 is out of line in 0x6FCB70)
+template<class C> inline C *Unknown_Find_Valid(DeltaCompoundClass *root, const NameClass &name) { C *t = Unknown_Find_Field<C>(root, name); if (t && t->m_Unknown70) return(t); return(NULL); }	// NAME 1: neutral (D10)
+int Unknown_810CF0(RenderObjClass *model, int *levels, int hull_level, ClientClass *client, unsigned id, int unknown);
+inline void ClientObjectClass::Unknown_Damage_Reset() { if ((Unknown_6F58B0() || Unknown_6F5880()) && Model) { int levels[4]; for (int i = 0; i < 4; i++) levels[i] = 1; Unknown_810750(Model, 0); Unknown150 = Unknown_810CF0(Model, levels, 1, Client, GameID, Unknown150); UnknownFC = false; for (int j = 0; j < 4; j++) Unknown104[j] = 1; Unknown104[4] = 1; } }
+// NOT EXACT: inline budget (the client calls Colorization.size() 0x700E30, the IsOrganic find 0x705450, the fourth 0x6F5140 and the RefCountPtr assignments 0x4153B6 out of line, ours inlines them; the client holds the 1 in edi; attempts.py show 0x6FCB70)
+// 0x6FCB70 (Set_Model and SUBPARTS 0x6FEF70 call it last): the damage state reset, the sphere, the colorization,
+// then for an organic type 0 or 1 that isn't IsOrganic the six bone models (+0x158) from base assets 0x618 / 0x617 / 0x73F, hidden
+void ClientObjectClass::Unknown_6FCB70()
+{
+	Unknown_Damage_Reset();
+	Unknown_6FED30();
+	if (Colorization.size() && Model) Unknown_80F220(Model, Colorization);
+	SClient *sclient = (SClient *)Client->Unknown_18(); if (sclient && sclient->DebugObjectID == GameID) sclient->Unknown_74D950();
+	if (Unknown_6F5A10()) {
+		NameClass name("IsOrganic");
+		DeltaTemplateClass<bool> *t = Unknown_Find_Valid<DeltaTemplateClass<bool> >((DeltaCompoundClass *)AuxData, name);
+		if (!t || !t->Value) {
+			{ float hsv[3] = { 0.0f, 0.0f, 0.0f }; Unknown158[0] = Create_Get(Unknown_6F5140(0x618, Client, 1.0f, hsv)); }
+			{ float hsv[3] = { 0.0f, 0.0f, 0.0f }; Unknown158[2] = Create_Get(Unknown_6F5140(0x618, Client, 1.0f, hsv)); }
+			{ float hsv[3] = { 0.0f, 0.0f, 0.0f }; Unknown158[1] = Create_Get(Unknown_6F5140(0x617, Client, 1.0f, hsv)); }
+			{ float hsv[3] = { 0.0f, 0.0f, 0.0f }; Unknown158[3] = Create_Get(Unknown_6F5140(0x617, Client, 1.0f, hsv)); }
+			{ float hsv[3] = { 0.0f, 0.0f, 0.0f }; Unknown158[4] = Create_Get(Unknown_6F5140(0x73F, Client, 1.0f, hsv)); }
+			{ float hsv[3] = { 0.0f, 0.0f, 0.0f }; Unknown158[5] = Create_Get(Unknown_6F5140(0x73F, Client, 1.0f, hsv)); }
+			Unknown170 = true;
+			for (int i = 0; i < 6; i++) {
+				if (Unknown158[i]) {
+					Unknown158[i]->Set_Hidden(true);
+				} else {
+					G_ASSERT(0); Unknown170 = false;
+				}
+			}
+			if (Unknown170) Unknown_6F3810(Model);
+		}
+	}
+}
+
 
 // 0x6FD2C0
 void ClientObjectClass::Unknown_6FD2C0()
@@ -2209,14 +2209,14 @@ void ClientObjectClass::Unknown_6FE1E0()
 // 0x6FEAC0 (unreferenced in the client) the damage state back to level 1: the model's levels and +0x104
 void ClientObjectClass::Unknown_6FEAC0()
 {
-	if ((Unknown_6F58B0() || Unknown_6F5850()) && Model) {
-		int levels[4];
-		for (int i = 0; i < 4; i++) levels[i] = 1;
-		Unknown_810750(Model, 0);
-		Unknown150 = Unknown_810CF0(Model, levels, 1, Client, GameID, Unknown150);
-		UnknownFC = false;
-		for (int j = 0; j < 4; j++) Unknown104[j] = 1; Unknown104[4] = 1;
-	}
+	Unknown_Damage_Reset();
+
+
+
+
+
+
+
 }
 
 

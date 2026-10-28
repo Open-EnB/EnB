@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-293 entries in 68 files.
+294 entries in 68 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -34,6 +34,7 @@ edit the comments in the code, not this file.
 | `app/client/co.cpp:1472` | `ClientObjectClass::Unknown_6FBEF0` | marker | NOT EXACT: inline budget (the client calls the four finds' Casts 0x531590 / 0x7099F0 out of line, ours inlines them; 74 calls vs 70; 1 form, attempts.py show 0x6FBEF0) 0x6FBEF0 (the warp state: PrivateWarpState's messages, then GlobalWarpState's sounds, effects and camera modes) |
 | `app/client/co.cpp:1679` | `ClientObjectClass::Unknown_6FC9A0` | marker | NOT EXACT: shape (case 2's 'pop esi' scheduled between its two stores in ours, after them in the client; 3 forms) 0x6FC9A0 |
 | `app/client/co.cpp:1715` | `ClientObjectClass::Unknown_6FCB20` | marker | NOT EXACT: shape (the client keeps the argument in eax and masks a copy for the compare; 3 forms) 0x6FCB20 |
+| `app/client/co.cpp:1743` | `ClientObjectClass::Unknown_6FCB70` | marker | NOT EXACT: inline budget (the client calls Colorization.size() 0x700E30, the IsOrganic find 0x705450, the fourth 0x6F5140 and the RefCountPtr assignments 0x4153B6 out of line, ours inlines them; the client holds the 1 in edi; attempts.py show 0x6FCB70) 0x6FCB70 (Set_Model and SUBPARTS 0x6FEF70 call it last): the damage state reset, the sphere, the colorization, then for an organic type 0 or 1 that... |
 | `app/client/co.cpp:1784` | `ClientObjectClass::Unknown_6FD310` | marker | NOT EXACT: inline budget (the client calls the array Cast 0x709A40 out of line for DamageSpot and DamageLine and inlines it for DamageBlotch; ours inlines all three; 4 forms, attempts.py show 0x6FD310) 0x6FD310 (the damage decals: the DamageSpot / DamageLine / DamageBlotch items that changed, one decal pool each) |
 | `app/client/co.cpp:1940` | `ClientObjectClass::Unknown_6FDBD0` | marker | NOT EXACT: shape after the two Unknown_Find_Aux asserts (ours tests t again where the client jumps / returns); the calls out of line now match the client's (0x7079B0, 0x531590; IB1) 0x6FDBD0 (the engine sounds: the engine and thrust loops when EngineTrailType changed, then EngineThrustState) |
 | `app/client/co.cpp:2116` | `ClientObjectClass::Unknown_6FE1E0` | marker | NOT EXACT: inline budget (the client calls IsOrganic's find 0x7079B0 out of line inside the inlined 0x6F5E40, ours inlines it: six dead finds do it, 2-5 don't; registers follow; attempts.py show 0x6FE1E0) 0x6FE1E0 (the damage state: the damage sounds of a type-1 object, then the shield or hull and the four quadrants' levels into the model) |
@@ -43,7 +44,7 @@ edit the comments in the code, not this file.
 | `app/client/co.cpp:2608` | `ClientObjectClass::Unknown_6FF7A0` | marker | NOT EXACT: inline-budget (the client calls the string lookup 0x514BD0 at all six sites and inlines more of std::string; ours the reverse) |
 | `app/client/co.cpp:2654` | `ClientObjectClass::Unknown_6FF7A0` | mention | NOT EXACT), 0x6FEF70 (l.2284) and 0x6F5F60. The aux-data roots' constructors and the CREATE factory 0x6F6000-0x6FBEF0 are in aux_roots.cpp (generated). The asserts sit on the client's lines (D25): the blank stretches hold the members not yet written; members without asserts (0x6FF4B0-0x700400, 0x6FF7A0) sit where room was. The constructor (T17's reading of 0x6F2820, for whoever rebuilds it): Clien... |
 | `app/client/co.h:130` | `Unknown_810750` | mention | NOT EXACT), 0x725120, 0x725610, 0x7257F0. |
-| `app/client/co.h:264` | `Unknown_810750` | mention | NOT EXACT) |
+| `app/client/co.h:265` | `Unknown_810750` | mention | NOT EXACT) |
 | `app/client/co_data.h:55` | `?` | marker | NOT EXACT: frame (0x54 vs the client's 0x50: ours inlines the type map's default constructor, the client calls 0x79E6E0) |
 | `app/client/co_player_relationship.cpp:149` | `Unknown_70B450` | marker | NOT EXACT: inline budget (the client calls the name string's assign and the copies out of line; attempts.py show 0x70B450) |
 | `app/client/co_player_relationship.cpp:351` | `Unknown_70CD50` | mention | NOT EXACT), Attacking 0x70B790, Group 0x70BC30 (through 0x70BAC0, the GroupInfo aux-data test with asserts on lines 207 / 210 on SClient's AuxData +0x12C0; rtti.h's DeltaCompoundClass cast 0x598D80 out of line), PVPAttackable 0x70BF90 (through 0x70BF60), Player 0x70C2A0 and the reaction colours 0x70C5D0; the three packet handlers cpacket.cpp calls (0x70CC40, 0x70CC90, 0x70CD50) and the table's out... |

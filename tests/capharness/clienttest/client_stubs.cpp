@@ -263,6 +263,11 @@ void Unknown_80EFF0(RenderObjClass *, std::vector<ColorizationRegionStruct> &reg
 {
 	Trace("stub Unknown_80EFF0 %d regions", (int)regions.size());
 }
+// and its colorization of a new model (co.cpp's 0x6FCB70: a vector by reference gen_stubs.py cannot write)
+void Unknown_80F220(RenderObjClass *, std::vector<ColorizationRegionStruct> &regions)
+{
+	Trace("stub Unknown_80F220 %d regions", (int)regions.size());
+}
 
 // ------------------------------------------------------------------------- the aux-data roots' decode (AUX_DATA 27 / 28)
 

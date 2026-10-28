@@ -27,8 +27,9 @@ PK_CPP = os.path.join(REPO, 'app', 'packets', 'pk.cpp')
 FACTORY = os.path.join(REPO, 'docs', 'data', 'packet-factory.txt')
 # cpacket.cpp's handlers clienttest records instead of driving: CREATE 4's models come from co.cpp's loader
 # 0x6F5140, which needs the game's asset manager (*0xBDADC0, a stand-in here), so clienttest.cpp makes its own objects;
-# CHANGE_BASE_ASSET 38 loads a model the same way
-NOT_DRIVEN = {'CreatePacketClass', 'ChangeBaseAssetPacketClass'}
+# CHANGE_BASE_ASSET 38 loads a model the same way, and SUBPARTS 180 ends in co.cpp's 0x6FCB70, which loads six bone models
+# with it (and calls slot +0xF8 of the model, which the harness's fake models don't have)
+NOT_DRIVEN = {'CreatePacketClass', 'ChangeBaseAssetPacketClass', 'SubPartsPacket'}
 
 
 def read(p):

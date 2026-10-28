@@ -720,8 +720,6 @@ msg 266 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 267 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 mainview add 48900994
-msg 269 SUBPARTS (180) size 58: cpacket.cpp's handler
-gen ClientObjectClass::Unknown_6FCB70
 msg 270 CLIENT_AVATAR (55) size 8: cpacket.cpp's handler
 sent DEBUG (26) size 16: 822bea022100000000000000
 model Set_LOD_Bias 1e+009
@@ -911,8 +909,6 @@ msg 372 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 373 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 mainview add 48887635
-msg 375 SUBPARTS (180) size 58: cpacket.cpp's handler
-gen ClientObjectClass::Unknown_6FCB70
 msg 376 COLORIZATION (17) size 138: cpacket.cpp's handler
 stub Unknown_80EFF0 4 regions
 msg 377 DECAL (16) size 58: cpacket.cpp's handler
@@ -2060,5 +2056,6 @@ check every message taken off the connection: ok
 recorded CREATE (4) x202
 recorded START (5) x1
 recorded CLIENT_SET_TIME (52) x3
-recorded 206, through cpacket.cpp's handlers 794
+recorded SUBPARTS (180) x2
+recorded 208, through cpacket.cpp's handlers 792
 == done: 0 checks failed
