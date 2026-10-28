@@ -148,7 +148,7 @@ int ShipCustDescClass::Get_Short_Size()
 // 0x4F6750
 void ShipCustDescClass::Unknown_00(DeltaChildVisitorClass *object)
 {
-	LoginKVVisitorClass *visitor = (LoginKVVisitorClass *)object;
+	DeltaChildVisitorClass *visitor = object;
 	char name[64];
 
 	visitor->Add_Pointer(0x3FF, "Profession", &Profession);
@@ -168,7 +168,7 @@ void ShipCustDescClass::Unknown_00(DeltaChildVisitorClass *object)
 // 0x4F6890
 void ShipCustPartClass::Unknown_00(DeltaChildVisitorClass *object)
 {
-	LoginKVVisitorClass *visitor = (LoginKVVisitorClass *)object;
+	DeltaChildVisitorClass *visitor = object;
 	char name[64];
 
 	for (int i = 0; i < 2; i++) {
@@ -180,7 +180,7 @@ void ShipCustPartClass::Unknown_00(DeltaChildVisitorClass *object)
 // 0x4F6900
 void ShipCustSettingsClass::Unknown_00(DeltaChildVisitorClass *object)
 {
-	LoginKVVisitorClass *visitor = (LoginKVVisitorClass *)object;
+	DeltaChildVisitorClass *visitor = object;
 
 	visitor->Add_Color(0x3FF, "Color", &Color);
 	visitor->Add_Typed(0x3FF, "IsMatte", &Is_Matte);

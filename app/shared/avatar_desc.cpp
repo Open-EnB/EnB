@@ -5,6 +5,7 @@
 **	AvatarDescClass (avatar_desc.h), partly rebuilt: the constructors, the wire and key/value slots,
 **	Clear. The asserted loader 0x4C05D0 and the rest of the window are not yet (notes at the end).
 */
+#define UNKNOWN_PACKETDATA_BODIES	// kv_encoder_base.h's typed adds (D104)
 #include "avatar_desc.h"
 #include "auxdata\linearbu.h"
 #include "kv_encoder_base.h"
@@ -13,7 +14,6 @@
 #include "unknown_debug.h"
 #include "..\..\wwlib\ini.h"
 #include "..\..\wwlib\point.h"
-
 #include "kv_acc_array.h"
 
 // 0x4BEB50
@@ -300,7 +300,7 @@ int AvatarDescClass::Get_Short_Size()
 // 0x4BFED0
 void AvatarDescClass::Unknown_00(DeltaChildVisitorClass *object)
 {
-	LoginKVVisitorClass *visitor = (LoginKVVisitorClass *)object;
+	DeltaChildVisitorClass *visitor = object;
 
 	visitor->Add(0x3FF, "avatar_first_name", First_Name, sizeof(First_Name));
 	visitor->Add(0x3FF, "avatar_last_name", Last_Name, sizeof(Last_Name));

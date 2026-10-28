@@ -24,6 +24,21 @@
 #include "kv_pair.h"
 
 class StringValueClass;
+class Vector3;
+
+#ifdef UNKNOWN_PACKETDATA_BODIES	// (the login objects' files only: a new template here moves aux_roots.cpp's inlining)
+// A pair's accessor over a member (the character slot's: vtables 0xB0C594 quad, 0xB0C5CC long)
+template<class T> class KVPointerAccessorClass : public KVAccessorClass<T>	// NAME 2: what it does
+{
+public:
+	KVPointerAccessorClass(T *value) : Value(value) {}
+	virtual const T &Get() { return *Value; }
+	virtual void Set(const T &value) { *Value = value; }
+	virtual KVAccessorClass<T> *Clone() const { return new KVPointerAccessorClass<T>(Value); }
+
+	T *Value;
+};
+#endif
 
 // The encoder's state (0x3C bytes, the asserts' Data; its destructor 0x4B3C00 is the compiler's)
 class KVEncoderDataClass  // NAME 2: after the asserts' Data
@@ -67,6 +82,27 @@ public:
 		}
 		List->Add(new KVPairTemplateClass<T>(Make_Key(name), accessor, even, odd));
 	}
+#ifdef UNKNOWN_PACKETDATA_BODIES	// declared for the login objects' files only: any member declared here
+								// moves aux_roots.cpp's inlining (0x6FB1E0, 0x702240, 0x7045F0)
+	// The typed adds the login objects' visitors call (D104: they were unknown_packetdata.h's
+	// LoginKVVisitorClass): a pair over a pointer to the member, kept when the mask has either bit class
+	void Add(int mask, const char *name, int *value);					// 0x4C2EB0 (in avatar_desc.cpp's run)
+	void Add(int mask, const char *name, char *buffer, int size);		// 0x4B4A70 (kv_encoder_base.cpp)
+	void Add(int mask, const char *name, char *value);					// 0x4C2FE0 (in avatar_desc.cpp's run)
+	void Add(int mask, const char *name, Vector3 *value);				// 0x4B2BB0
+	template<class T> void Add_Typed(int mask, const char *name, T *value);	// the other typed adds (shipcust_desc.cpp's bool one)
+	// The adds over a pointer accessor (the character slot's 0x8C0C40 quad, 0x8C0D80 long; shipcust_desc.cpp's
+	// profession 0x4F6A80, race 0x4F6BB0, metal 0x4F6CE0)
+	template<class T> void Add_Pointer(int mask, const char *name, T *value)	// NAME 2: what it does
+	{
+		bool even;
+		bool odd;
+		Unknown_Test(mask, even, odd);
+		if (even || odd) {
+			List->Add(new KVPairTemplateClass<T>(Make_Key(name), new KVPointerAccessorClass<T>(value), even, odd));
+		}
+	}
+#endif
 
 	KVEncoderDataClass *Data;		// +0x04
 	KVListClass *List;				// +0x08 where the pairs go (kv_list.cpp's 0x4B6760 adds one)  // NAME 2: describes what it does

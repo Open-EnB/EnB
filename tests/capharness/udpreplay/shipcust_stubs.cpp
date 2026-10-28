@@ -7,20 +7,15 @@
 // classes (stand-ins only: never include shipcust_desc.h or unknown_packetdata.h here).
 #include <string.h>
 
-enum ShipCustRaceType {};
-enum ShipCustProfessionType {};
-
-class LoginKVVisitorClass
+// the encoder's bool add (kv_encoder_base.h's member template Add_Typed<bool>; the profession and race
+// adds are shipcust_desc.cpp's own since 2026-10-28, their converters prof.cpp's and race.cpp's)
+class KVEncoderBaseClass
 {
 public:
-	void Add_Typed(int mask, const char *name, ShipCustRaceType *value);
-	void Add_Typed(int mask, const char *name, ShipCustProfessionType *value);
 	void Add_Typed(int mask, const char *name, bool *value);
 };
 
-void LoginKVVisitorClass::Add_Typed(int, const char *, ShipCustRaceType *) {}
-void LoginKVVisitorClass::Add_Typed(int, const char *, ShipCustProfessionType *) {}
-void LoginKVVisitorClass::Add_Typed(int, const char *, bool *) {}
+void KVEncoderBaseClass::Add_Typed(int, const char *, bool *) {}
 
 class ShipCustSettingsClass
 {

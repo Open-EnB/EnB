@@ -6,7 +6,7 @@
 **	objects implement (docs/kernel-map-step9.md 5), moved here from tsk_login.h (D90 9b):
 **	the wire interface 0xAEB9EC (now pk.h's Unknown_PacketDataClass itself, included) and
 **	the key/value visitor interface 0xAEADC8 (delta.h's DeltaInterfaceClass has the same table),
-**	and the KV encoder's typed adds their visitors call, declared only.
+**	the KV encoder's typed adds are kv_encoder_base.h's (D104).
 */
 
 #if defined(_MSC_VER)
@@ -30,17 +30,6 @@ bool String_To_Value(const char *text, __int64 *value);					// 0x4A3AB0
 inline const char *Type_Name(long *) { return "long"; }					// 0x8C1190
 inline const char *Type_Name(__int64 *) { return "quad"; }				// 0x8C0F70
 
-// A pair's accessor over a member (the character slot's: vtables 0xB0C594 quad, 0xB0C5CC long)
-template<class T> class KVPointerAccessorClass : public KVAccessorClass<T>	// NAME 2: what it does
-{
-public:
-	KVPointerAccessorClass(T *value) : Value(value) {}
-	virtual const T &Get() { return *Value; }
-	virtual void Set(const T &value) { *Value = value; }
-	virtual KVAccessorClass<T> *Clone() const { return new KVPointerAccessorClass<T>(Value); }
-
-	T *Value;
-};
 #endif
 
 // The wire interface 0xAEB9EC (three pure slots) is pk.h's Unknown_PacketDataClass (P-T5-2)
@@ -48,39 +37,8 @@ public:
 
 class Vector3;
 
-// The KV encoder's typed adds as the visitors call them (ecx the encoder; KVEncoderBaseClass's
-// out-of-line members, not rebuilt): a pair over a pointer to the member, kept when the mask
-// has either bit class (kv_encoder_base.h's Add_Value).
-class LoginKVVisitorClass	// NAME 1: neutral (D10): the visitor argument, a KVEncoderBaseClass
-{
-public:
-	void Add(int mask, const char *name, int *value);					// 0x4C2EB0 (in avatar_desc.cpp's run)
-	void Add(int mask, const char *name, char *buffer, int size);		// 0x4B4A70 (kv_encoder_base.cpp)
-	void Add(int mask, const char *name, char *value);					// 0x4C2FE0 (in avatar_desc.cpp's run)
-	void Add(int mask, const char *name, Vector3 *value);				// 0x4B2BB0
-	template<class T> void Add_Typed(int mask, const char *name, T *value);	// the other typed adds (shipcust_desc.cpp: 0x4F6A80, 0x4F6BB0, 0x4F6CE0, the bool one)
-	// The adds the character slot's module instantiates (0x8C0C40 quad, 0x8C0D80 long): a pair over a
-	// pointer accessor, kept when the mask has either bit class
-#ifdef UNKNOWN_PACKETDATA_BODIES
-	template<class T> void Add_Pointer(int mask, const char *name, T *value)	// NAME 2: what it does
-	{
-		KVEncoderBaseClass *encoder = (KVEncoderBaseClass *)this;
-		bool even;
-		bool odd;
-		encoder->Unknown_Test(mask, even, odd);
-		if (even || odd) {
-			encoder->List->Add(new KVPairTemplateClass<T>(encoder->Make_Key(name), new KVPointerAccessorClass<T>(value), even, odd));
-		}
-	}
-#else
-	template<class T> void Add_Pointer(int mask, const char *name, T *value);
-#endif
-	virtual ~LoginKVVisitorClass();									// +0x00 (the encoder's virtuals: delta.h's DeltaChildVisitorClass)
-	virtual void Add_Child(int mask, const char *name, void *child);	// +0x04 a key/value object under the name  // NAME 2: what it does
-	virtual void Unknown_08();
-	virtual void Unknown_0C();
-	virtual void Add_Color(int mask, const char *name, Vector3 *value);	// +0x10 (shipcust_desc.cpp's colours)  // NAME 1: its users' keys
-};
+// The KV encoder's typed adds and the visitor's slots are kv_encoder_base.h's KVEncoderBaseClass and
+// delta.h's DeltaChildVisitorClass (D104; LoginKVVisitorClass until 2026-10-28)
 
 // The one-slot interface vtable 0xAEADC8 is delta.h's DeltaInterfaceClass (P-T5-2)
 #include "auxdata\delta.h"

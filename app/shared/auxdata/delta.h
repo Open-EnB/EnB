@@ -27,6 +27,8 @@ class LinearBufferClass;
 class DurationClass;
 
 class DeltaClass;
+class DeltaInterfaceClass;
+class Vector3;
 class DeltaCompoundClass;
 class LookupClass;
 
@@ -48,10 +50,17 @@ public:
 // it). DeltaCompoundClass::Unknown_00 (0x4A55D0) calls its slot 1 once per child: a slot the
 // encoder base's vtable (0xAEB62C, the destructor only) doesn't have, so the encoders the fields
 // are given derive from it.
+// The login objects hand it their own children and colours too (D104: slots +0x04-+0x10).
 class DeltaChildVisitorClass : public KVEncoderBaseClass  // NAME 2: describes what it does
 {
 public:
-	virtual void Unknown_04(int mask, const char *name, DeltaClass *child) = 0;
+	virtual void Add_Child(int mask, const char *name, DeltaInterfaceClass *child) = 0;	// +0x04 a key/value object under the name  // NAME 2: what it does
+#ifdef UNKNOWN_PACKETDATA_BODIES	// declared for the login objects' files only (a virtual more here moves
+								// aux_roots.cpp's inlining: 0x702240, 0x7045F0)
+	virtual void Unknown_08() = 0;
+	virtual void Unknown_0C() = 0;
+	virtual void Add_Color(int mask, const char *name, Vector3 *value) = 0;	// +0x10 (shipcust_desc.cpp's colours)  // NAME 1: its users' keys
+#endif
 };
 
 // The base DeltaClass's constructor stores first (vtable 0xAEADC8: one slot, _purecall).

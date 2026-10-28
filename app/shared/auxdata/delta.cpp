@@ -234,7 +234,7 @@ void DeltaCompoundClass::Unknown_00(DeltaChildVisitorClass *visitor)
 {
 	int count = Children.size();
 	for (int i = 0; i < count; i++) {
-		visitor->Unknown_04(m_Unknown80, Name.Get_String(), Children[i]);
+		visitor->Add_Child(m_Unknown80, Name.Get_String(), Children[i]);
 	}
 }
 
