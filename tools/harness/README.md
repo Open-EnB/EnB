@@ -498,6 +498,10 @@ game's folder (D69). The aux root factory 0x6F6000's stand-in gives the types th
 (its slot +0x04, the deleting destructor, logs). 57 checks (12 new: (4)'s object in the table with the packet's
 game id / type / base asset / scale, its model loaded, the radius, the six part models, the swap, the deletes;
 (3)'s 202 CREATEs and 4 REMOVEs), 2,960 trace lines.
+**CREATE 4's subclasses (2026-10-28, CS1):** (4b) sends synthetic CREATEs of types 24 and 28 (no alex3 message has
+them): co_subtypes.cpp's constructors, type 24's proximity-object slots (+0x188), SET_TARGET 25 on type 28 (0x70E750) and
+REMOVE through both destructors; dynamic_obj.cpp's slots with a class by value are stand-ins in client_stubs.cpp. 66 checks,
+2,993 trace lines.
 
 ## Other harness programs (index)
 

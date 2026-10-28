@@ -314,6 +314,39 @@ model 13 'part_73f' deleted
 model 14 'part_73f' deleted
 check REMOVE 7: the object is out of the client's table: ok
 check REMOVE 7 deleted the object, its model and its part models: ok
+== (4b) CREATE 4's types 24 and 28 make co_subtypes.cpp's subclasses
+msg 1 CREATE (4) size 27: cpacket.cpp's handler
+gen Unknown44AC70Class::Unknown44AC70Class
+asset manager +0x78 'ship_test' scale 0.5 hsv (0 0 0) -> model 15
+gen Unknown_831950
+stub UnknownB02C90Class::BufferStruct::Insert 0
+stub UnknownB02C90Class::BufferStruct::Insert 0
+mainview add 4100
+msg 2 CREATE (4) size 27: cpacket.cpp's handler
+asset manager +0x78 'ship_test2' scale 1 hsv (0 0 0) -> model 16
+stub UnknownB02C90Class::BufferStruct::Insert 0
+mainview add 4200
+check CREATE 4 type 24 (game id 4100): in the table with its type, base asset and Set_Model's radius 12.5: ok
+check type 24's proximity object sits at +0x188 and its slot +0x04 (0x70DC90) returns itself: ok
+check type 24's slot +0x34 (0x70DCF0) put the radius into the proximity object's +0x04 as well; +0x220 is false: ok
+check through the proximity object: slot +0x20 (0x70E220) gives the type 24, slot +0x30 (0x70DD20) the name 'Unnamed ClientProximityObject': ok
+check type 24's slots +0x40 (0x70DCB0) and +0x44 (0x70E330) return the object: ok
+check CREATE 4 type 28 (game id 4200): in the table, and 0x6F5DC0 (SET_TARGET's test) says type 28: ok
+check type 28's constructor (0x70E5A0): no target, no parent, no bone, +0x1D0 1.0: ok
+msg 3 SET_TARGET (25) size 12: cpacket.cpp's handler
+check SET_TARGET 25 (target 4100 for object 4200): type 28's 0x70E750 stores the target and clears +0x1D0: ok
+msg 4 REMOVE (7) size 8: cpacket.cpp's handler
+stub SClient::Unknown_744B60 -> 0
+stub SClient::Unknown_74C530 4100
+mainview remove 4100
+gen Unknown44AC70Class::~Unknown44AC70Class
+model 15 'ship_test' deleted
+msg 5 REMOVE (7) size 8: cpacket.cpp's handler
+stub SClient::Unknown_744B60 -> 0
+stub SClient::Unknown_74C530 4200
+mainview remove 4200
+model 16 'ship_test2' deleted
+check REMOVE 7 deleted both through their destructors (0x70E380 / 0x70E0C0, 0x70E6B0) with their models: ok
 == (3) Process_Packets
 messages 1000
 stub TaskClass::Is_Focused -> 1
@@ -511,7 +544,7 @@ stub DeltaCompoundClass::Decode player, 6867 bytes
 msg 96 CREATE (4) size 27: cpacket.cpp's handler
 asset manager +0x78 'deco_1441': not loaded
 asset manager Load_3D_Assets 'deco_1441.w3d'
-asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 15
+asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 17
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38884
 msg 97 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -521,7 +554,7 @@ msg 98 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 99 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 100 CREATE (4) size 27: cpacket.cpp's handler
-asset manager Create_Render_Obj 'missing' -> model 16
+asset manager Create_Render_Obj 'missing' -> model 18
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38687
 msg 101 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -531,7 +564,7 @@ msg 102 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 103 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 104 CREATE (4) size 27: cpacket.cpp's handler
-asset manager Create_Render_Obj 'missing' -> model 17
+asset manager Create_Render_Obj 'missing' -> model 19
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38946
 msg 105 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -541,7 +574,7 @@ msg 106 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 107 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 108 CREATE (4) size 27: cpacket.cpp's handler
-asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 18
+asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 20
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38705
 msg 109 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -553,27 +586,27 @@ stub DeltaCompoundClass::Decode object, 21 bytes
 msg 112 CREATE (4) size 27: cpacket.cpp's handler
 asset manager +0x78 'ship_14': not loaded
 asset manager Load_3D_Assets 'ship_14.w3d'
-asset manager +0x78 'ship_14' scale 1 hsv (0 0 0) -> model 19
+asset manager +0x78 'ship_14' scale 1 hsv (0 0 0) -> model 21
 gen Unknown_810750
 gen Unknown_810CF0
-asset manager +0x78 'part_618' scale 1 hsv (0 0 0) -> model 20
-asset manager +0x78 'part_618' scale 1 hsv (0 0 0) -> model 21
-asset manager +0x78 'part_617' scale 1 hsv (0 0 0) -> model 22
-asset manager +0x78 'part_617' scale 1 hsv (0 0 0) -> model 23
-asset manager +0x78 'part_73f' scale 1 hsv (0 0 0) -> model 24
-asset manager +0x78 'part_73f' scale 1 hsv (0 0 0) -> model 25
-model 20 Set_Hidden 1
+asset manager +0x78 'part_618' scale 1 hsv (0 0 0) -> model 22
+asset manager +0x78 'part_618' scale 1 hsv (0 0 0) -> model 23
+asset manager +0x78 'part_617' scale 1 hsv (0 0 0) -> model 24
+asset manager +0x78 'part_617' scale 1 hsv (0 0 0) -> model 25
+asset manager +0x78 'part_73f' scale 1 hsv (0 0 0) -> model 26
+asset manager +0x78 'part_73f' scale 1 hsv (0 0 0) -> model 27
 model 22 Set_Hidden 1
-model 21 Set_Hidden 1
-model 23 Set_Hidden 1
 model 24 Set_Hidden 1
+model 23 Set_Hidden 1
 model 25 Set_Hidden 1
-model 19 Add_Sub_Object_To_Bone 'part_618' bone 1
-model 19 Add_Sub_Object_To_Bone 'part_617' bone 2
-model 19 Add_Sub_Object_To_Bone 'part_618' bone 3
-model 19 Add_Sub_Object_To_Bone 'part_617' bone 4
-model 19 Add_Sub_Object_To_Bone 'part_73f' bone 1
-model 19 Add_Sub_Object_To_Bone 'part_73f' bone 2
+model 26 Set_Hidden 1
+model 27 Set_Hidden 1
+model 21 Add_Sub_Object_To_Bone 'part_618' bone 1
+model 21 Add_Sub_Object_To_Bone 'part_617' bone 2
+model 21 Add_Sub_Object_To_Bone 'part_618' bone 3
+model 21 Add_Sub_Object_To_Bone 'part_617' bone 4
+model 21 Add_Sub_Object_To_Bone 'part_73f' bone 1
+model 21 Add_Sub_Object_To_Bone 'part_73f' bone 2
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 39074
 msg 113 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -583,7 +616,7 @@ msg 114 ADVANCED_POSITIONAL_UPDATE (62) size 50: cpacket.cpp's handler
 msg 115 AUX_DATA (27) size 73: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 63 bytes
 msg 116 CREATE (4) size 27: cpacket.cpp's handler
-asset manager Create_Render_Obj 'missing' -> model 26
+asset manager Create_Render_Obj 'missing' -> model 28
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38899
 msg 117 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -593,7 +626,7 @@ msg 118 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 119 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 120 CREATE (4) size 27: cpacket.cpp's handler
-asset manager Create_Render_Obj 'missing' -> model 27
+asset manager Create_Render_Obj 'missing' -> model 29
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38921
 msg 121 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -603,7 +636,7 @@ msg 122 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 123 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 124 CREATE (4) size 27: cpacket.cpp's handler
-asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 28
+asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 30
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38881
 msg 125 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -613,7 +646,7 @@ msg 126 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 127 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 128 CREATE (4) size 27: cpacket.cpp's handler
-asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 29
+asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 31
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38943
 msg 129 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -623,7 +656,7 @@ msg 130 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 131 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 132 CREATE (4) size 27: cpacket.cpp's handler
-asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 30
+asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 32
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38702
 msg 133 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -633,7 +666,7 @@ msg 134 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 135 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 136 CREATE (4) size 27: cpacket.cpp's handler
-asset manager Create_Render_Obj 'missing' -> model 31
+asset manager Create_Render_Obj 'missing' -> model 33
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38963
 msg 137 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -646,7 +679,7 @@ msg 140 NAVIGATION (153) size 18: cpacket.cpp's handler
 gen NavigationDataClass::NavigationDataClass
 gen NavigationDataClass::Unknown_7BA940
 msg 141 CREATE (4) size 27: cpacket.cpp's handler
-asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 32
+asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 34
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38914
 msg 142 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -656,7 +689,7 @@ msg 143 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 144 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 145 CREATE (4) size 27: cpacket.cpp's handler
-asset manager Create_Render_Obj 'missing' -> model 33
+asset manager Create_Render_Obj 'missing' -> model 35
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38918
 msg 146 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -666,7 +699,7 @@ msg 147 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 148 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 149 CREATE (4) size 27: cpacket.cpp's handler
-asset manager Create_Render_Obj 'missing' -> model 34
+asset manager Create_Render_Obj 'missing' -> model 36
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38896
 msg 150 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -676,7 +709,7 @@ msg 151 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 152 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 153 CREATE (4) size 27: cpacket.cpp's handler
-asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 35
+asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 37
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38940
 msg 154 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -686,7 +719,7 @@ msg 155 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 156 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 157 CREATE (4) size 27: cpacket.cpp's handler
-asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 36
+asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 38
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38699
 msg 158 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -696,7 +729,7 @@ msg 159 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 160 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 161 CREATE (4) size 27: cpacket.cpp's handler
-asset manager Create_Render_Obj 'missing' -> model 37
+asset manager Create_Render_Obj 'missing' -> model 39
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38684
 msg 162 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -706,7 +739,7 @@ msg 163 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 164 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 165 CREATE (4) size 27: cpacket.cpp's handler
-asset manager Create_Render_Obj 'missing' -> model 38
+asset manager Create_Render_Obj 'missing' -> model 40
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38722
 msg 166 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -716,7 +749,7 @@ msg 167 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 168 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 169 CREATE (4) size 27: cpacket.cpp's handler
-asset manager Create_Render_Obj 'missing' -> model 39
+asset manager Create_Render_Obj 'missing' -> model 41
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38958
 msg 170 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -726,7 +759,7 @@ msg 171 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 172 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 173 CREATE (4) size 27: cpacket.cpp's handler
-asset manager Create_Render_Obj 'missing' -> model 40
+asset manager Create_Render_Obj 'missing' -> model 42
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38640
 msg 174 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -739,7 +772,7 @@ msg 177 NAVIGATION (153) size 18: cpacket.cpp's handler
 gen NavigationDataClass::NavigationDataClass
 gen NavigationDataClass::Unknown_7BA940
 msg 178 CREATE (4) size 27: cpacket.cpp's handler
-asset manager Create_Render_Obj 'missing' -> model 41
+asset manager Create_Render_Obj 'missing' -> model 43
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38911
 msg 179 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -749,7 +782,7 @@ msg 180 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 181 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 182 CREATE (4) size 27: cpacket.cpp's handler
-asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 42
+asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 44
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38915
 msg 183 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -759,7 +792,7 @@ msg 184 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 185 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 186 CREATE (4) size 27: cpacket.cpp's handler
-asset manager Create_Render_Obj 'missing' -> model 43
+asset manager Create_Render_Obj 'missing' -> model 45
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38893
 msg 187 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -769,7 +802,7 @@ msg 188 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 189 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 190 CREATE (4) size 27: cpacket.cpp's handler
-asset manager Create_Render_Obj 'missing' -> model 44
+asset manager Create_Render_Obj 'missing' -> model 46
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38938
 msg 191 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -779,7 +812,7 @@ msg 192 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 193 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 194 CREATE (4) size 27: cpacket.cpp's handler
-asset manager Create_Render_Obj 'missing' -> model 45
+asset manager Create_Render_Obj 'missing' -> model 47
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38697
 msg 195 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -789,7 +822,7 @@ msg 196 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 197 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 198 CREATE (4) size 27: cpacket.cpp's handler
-asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 46
+asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 48
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38681
 msg 199 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -799,7 +832,7 @@ msg 200 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 201 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 202 CREATE (4) size 27: cpacket.cpp's handler
-asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 47
+asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 49
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38719
 msg 203 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -809,7 +842,7 @@ msg 204 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 205 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 206 CREATE (4) size 27: cpacket.cpp's handler
-asset manager Create_Render_Obj 'missing' -> model 48
+asset manager Create_Render_Obj 'missing' -> model 50
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38955
 msg 207 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -819,7 +852,7 @@ msg 208 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 209 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 210 CREATE (4) size 27: cpacket.cpp's handler
-asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 49
+asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 51
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38873
 msg 211 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -829,7 +862,7 @@ msg 212 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 213 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 214 CREATE (4) size 27: cpacket.cpp's handler
-asset manager Create_Render_Obj 'missing' -> model 50
+asset manager Create_Render_Obj 'missing' -> model 52
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38908
 msg 215 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -839,7 +872,7 @@ msg 216 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 217 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 218 CREATE (4) size 27: cpacket.cpp's handler
-asset manager Create_Render_Obj 'missing' -> model 51
+asset manager Create_Render_Obj 'missing' -> model 53
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38935
 msg 219 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -849,7 +882,7 @@ msg 220 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 221 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 222 CREATE (4) size 27: cpacket.cpp's handler
-asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 52
+asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 54
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38673
 msg 223 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -859,7 +892,7 @@ msg 224 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 225 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 226 CREATE (4) size 27: cpacket.cpp's handler
-asset manager Create_Render_Obj 'missing' -> model 53
+asset manager Create_Render_Obj 'missing' -> model 55
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38694
 msg 227 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -869,7 +902,7 @@ msg 228 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 229 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 230 CREATE (4) size 27: cpacket.cpp's handler
-asset manager Create_Render_Obj 'missing' -> model 54
+asset manager Create_Render_Obj 'missing' -> model 56
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38650
 msg 231 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -882,7 +915,7 @@ msg 234 NAVIGATION (153) size 18: cpacket.cpp's handler
 gen NavigationDataClass::NavigationDataClass
 gen NavigationDataClass::Unknown_7BA940
 msg 235 CREATE (4) size 27: cpacket.cpp's handler
-asset manager Create_Render_Obj 'missing' -> model 55
+asset manager Create_Render_Obj 'missing' -> model 57
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38962
 msg 236 ACTIVATE_RENDER_STATE (48) size 12: cpacket.cpp's handler
@@ -911,7 +944,7 @@ msg 243 NAVIGATION (153) size 18: cpacket.cpp's handler
 gen NavigationDataClass::NavigationDataClass
 gen NavigationDataClass::Unknown_7BA940
 msg 244 CREATE (4) size 27: cpacket.cpp's handler
-asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 56
+asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 58
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38678
 msg 245 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -921,7 +954,7 @@ msg 246 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 247 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 248 CREATE (4) size 27: cpacket.cpp's handler
-asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 57
+asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 59
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38716
 msg 249 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -931,7 +964,7 @@ msg 250 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 251 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 252 CREATE (4) size 27: cpacket.cpp's handler
-asset manager Create_Render_Obj 'missing' -> model 58
+asset manager Create_Render_Obj 'missing' -> model 60
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38952
 msg 253 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -941,7 +974,7 @@ msg 254 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 255 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 256 CREATE (4) size 27: cpacket.cpp's handler
-asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 59
+asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 61
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38870
 msg 257 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -951,7 +984,7 @@ msg 258 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 259 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 260 CREATE (4) size 27: cpacket.cpp's handler
-asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 60
+asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 62
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38905
 msg 261 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -961,7 +994,7 @@ msg 262 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 263 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 264 CREATE (4) size 27: cpacket.cpp's handler
-asset manager Create_Render_Obj 'missing' -> model 61
+asset manager Create_Render_Obj 'missing' -> model 63
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38932
 msg 265 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -973,59 +1006,59 @@ stub DeltaCompoundClass::Decode object, 21 bytes
 msg 268 CREATE (4) size 27: cpacket.cpp's handler
 asset manager +0x78 'ship_1605': not loaded
 asset manager Load_3D_Assets 'ship_1605.w3d'
-asset manager +0x78 'ship_1605' scale 1 hsv (0 0 0) -> model 62
+asset manager +0x78 'ship_1605' scale 1 hsv (0 0 0) -> model 64
 gen Unknown_810750
 gen Unknown_810CF0
-asset manager +0x78 'part_618' scale 1 hsv (0 0 0) -> model 63
-asset manager +0x78 'part_618' scale 1 hsv (0 0 0) -> model 64
-asset manager +0x78 'part_617' scale 1 hsv (0 0 0) -> model 65
-asset manager +0x78 'part_617' scale 1 hsv (0 0 0) -> model 66
-asset manager +0x78 'part_73f' scale 1 hsv (0 0 0) -> model 67
-asset manager +0x78 'part_73f' scale 1 hsv (0 0 0) -> model 68
-model 63 Set_Hidden 1
+asset manager +0x78 'part_618' scale 1 hsv (0 0 0) -> model 65
+asset manager +0x78 'part_618' scale 1 hsv (0 0 0) -> model 66
+asset manager +0x78 'part_617' scale 1 hsv (0 0 0) -> model 67
+asset manager +0x78 'part_617' scale 1 hsv (0 0 0) -> model 68
+asset manager +0x78 'part_73f' scale 1 hsv (0 0 0) -> model 69
+asset manager +0x78 'part_73f' scale 1 hsv (0 0 0) -> model 70
 model 65 Set_Hidden 1
-model 64 Set_Hidden 1
-model 66 Set_Hidden 1
 model 67 Set_Hidden 1
+model 66 Set_Hidden 1
 model 68 Set_Hidden 1
-model 62 Add_Sub_Object_To_Bone 'part_618' bone 1
-model 62 Add_Sub_Object_To_Bone 'part_617' bone 2
-model 62 Add_Sub_Object_To_Bone 'part_618' bone 3
-model 62 Add_Sub_Object_To_Bone 'part_617' bone 4
-model 62 Add_Sub_Object_To_Bone 'part_73f' bone 1
-model 62 Add_Sub_Object_To_Bone 'part_73f' bone 2
+model 69 Set_Hidden 1
+model 70 Set_Hidden 1
+model 64 Add_Sub_Object_To_Bone 'part_618' bone 1
+model 64 Add_Sub_Object_To_Bone 'part_617' bone 2
+model 64 Add_Sub_Object_To_Bone 'part_618' bone 3
+model 64 Add_Sub_Object_To_Bone 'part_617' bone 4
+model 64 Add_Sub_Object_To_Bone 'part_73f' bone 1
+model 64 Add_Sub_Object_To_Bone 'part_73f' bone 2
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 48900994
 msg 269 SUBPARTS (180) size 58: cpacket.cpp's handler
 gen Unknown_810750
 gen Unknown_810CF0
-asset manager +0x78 'part_618' scale 1 hsv (0 0 0) -> model 69
-model 63 'part_618' deleted
-asset manager +0x78 'part_618' scale 1 hsv (0 0 0) -> model 70
-model 64 'part_618' deleted
-asset manager +0x78 'part_617' scale 1 hsv (0 0 0) -> model 71
-model 65 'part_617' deleted
-asset manager +0x78 'part_617' scale 1 hsv (0 0 0) -> model 72
-model 66 'part_617' deleted
-asset manager +0x78 'part_73f' scale 1 hsv (0 0 0) -> model 73
-model 67 'part_73f' deleted
-asset manager +0x78 'part_73f' scale 1 hsv (0 0 0) -> model 74
-model 68 'part_73f' deleted
-model 69 Set_Hidden 1
+asset manager +0x78 'part_618' scale 1 hsv (0 0 0) -> model 71
+model 65 'part_618' deleted
+asset manager +0x78 'part_618' scale 1 hsv (0 0 0) -> model 72
+model 66 'part_618' deleted
+asset manager +0x78 'part_617' scale 1 hsv (0 0 0) -> model 73
+model 67 'part_617' deleted
+asset manager +0x78 'part_617' scale 1 hsv (0 0 0) -> model 74
+model 68 'part_617' deleted
+asset manager +0x78 'part_73f' scale 1 hsv (0 0 0) -> model 75
+model 69 'part_73f' deleted
+asset manager +0x78 'part_73f' scale 1 hsv (0 0 0) -> model 76
+model 70 'part_73f' deleted
 model 71 Set_Hidden 1
-model 70 Set_Hidden 1
-model 72 Set_Hidden 1
 model 73 Set_Hidden 1
+model 72 Set_Hidden 1
 model 74 Set_Hidden 1
-model 62 Add_Sub_Object_To_Bone 'part_618' bone 1
-model 62 Add_Sub_Object_To_Bone 'part_617' bone 2
-model 62 Add_Sub_Object_To_Bone 'part_618' bone 3
-model 62 Add_Sub_Object_To_Bone 'part_617' bone 4
-model 62 Add_Sub_Object_To_Bone 'part_73f' bone 1
-model 62 Add_Sub_Object_To_Bone 'part_73f' bone 2
+model 75 Set_Hidden 1
+model 76 Set_Hidden 1
+model 64 Add_Sub_Object_To_Bone 'part_618' bone 1
+model 64 Add_Sub_Object_To_Bone 'part_617' bone 2
+model 64 Add_Sub_Object_To_Bone 'part_618' bone 3
+model 64 Add_Sub_Object_To_Bone 'part_617' bone 4
+model 64 Add_Sub_Object_To_Bone 'part_73f' bone 1
+model 64 Add_Sub_Object_To_Bone 'part_73f' bone 2
 msg 270 CLIENT_AVATAR (55) size 8: cpacket.cpp's handler
 sent DEBUG (26) size 16: 822bea022100000000000000
-model 62 Set_LOD_Bias 1e+009
+model 64 Set_LOD_Bias 1e+009
 msg 271 CLIENT_SHIP (71) size 8: cpacket.cpp's handler
 state ship id 48900994
 msg 272 AVATAR_DESCRIPTION (97) size 264: cpacket.cpp's handler
@@ -1043,7 +1076,7 @@ msg 277 ADVANCED_POSITIONAL_UPDATE (62) size 46: cpacket.cpp's handler
 msg 278 AUX_DATA (27) size 2261: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 2251 bytes
 msg 279 CREATE (4) size 27: cpacket.cpp's handler
-asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 75
+asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 77
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38888
 msg 280 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -1053,7 +1086,7 @@ msg 281 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 282 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 283 CREATE (4) size 27: cpacket.cpp's handler
-asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 76
+asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 78
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38691
 msg 284 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -1063,7 +1096,7 @@ msg 285 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 286 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 287 CREATE (4) size 27: cpacket.cpp's handler
-asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 77
+asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 79
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38950
 msg 288 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -1073,7 +1106,7 @@ msg 289 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 290 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 291 CREATE (4) size 27: cpacket.cpp's handler
-asset manager Create_Render_Obj 'missing' -> model 78
+asset manager Create_Render_Obj 'missing' -> model 80
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38675
 msg 292 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -1083,7 +1116,7 @@ msg 293 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 294 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 295 CREATE (4) size 27: cpacket.cpp's handler
-asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 79
+asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 81
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38709
 msg 296 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -1093,7 +1126,7 @@ msg 297 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 298 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 299 CREATE (4) size 27: cpacket.cpp's handler
-asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 80
+asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 82
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38929
 msg 300 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -1103,7 +1136,7 @@ msg 301 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 302 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 303 CREATE (4) size 27: cpacket.cpp's handler
-asset manager Create_Render_Obj 'missing' -> model 81
+asset manager Create_Render_Obj 'missing' -> model 83
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38925
 msg 304 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -1113,7 +1146,7 @@ msg 305 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 306 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 307 CREATE (4) size 27: cpacket.cpp's handler
-asset manager Create_Render_Obj 'missing' -> model 82
+asset manager Create_Render_Obj 'missing' -> model 84
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38885
 msg 308 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -1123,7 +1156,7 @@ msg 309 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 310 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 311 CREATE (4) size 27: cpacket.cpp's handler
-asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 83
+asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 85
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38688
 msg 312 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -1133,7 +1166,7 @@ msg 313 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 314 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 315 CREATE (4) size 27: cpacket.cpp's handler
-asset manager Create_Render_Obj 'missing' -> model 84
+asset manager Create_Render_Obj 'missing' -> model 86
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38947
 msg 316 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -1143,7 +1176,7 @@ msg 317 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 318 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 319 CREATE (4) size 27: cpacket.cpp's handler
-asset manager Create_Render_Obj 'missing' -> model 85
+asset manager Create_Render_Obj 'missing' -> model 87
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38865
 msg 320 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -1153,7 +1186,7 @@ msg 321 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 322 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 323 CREATE (4) size 27: cpacket.cpp's handler
-asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 86
+asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 88
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38706
 msg 324 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -1163,7 +1196,7 @@ msg 325 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 326 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 327 CREATE (4) size 27: cpacket.cpp's handler
-asset manager Create_Render_Obj 'missing' -> model 87
+asset manager Create_Render_Obj 'missing' -> model 89
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38922
 msg 328 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -1173,7 +1206,7 @@ msg 329 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 330 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 331 CREATE (4) size 27: cpacket.cpp's handler
-asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 88
+asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 90
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38900
 msg 332 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -1183,7 +1216,7 @@ msg 333 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 334 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 335 CREATE (4) size 27: cpacket.cpp's handler
-asset manager Create_Render_Obj 'missing' -> model 89
+asset manager Create_Render_Obj 'missing' -> model 91
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38882
 msg 336 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -1193,7 +1226,7 @@ msg 337 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 338 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 339 CREATE (4) size 27: cpacket.cpp's handler
-asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 90
+asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 92
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38944
 msg 340 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -1205,7 +1238,7 @@ stub DeltaCompoundClass::Decode object, 21 bytes
 msg 343 CREATE (4) size 27: cpacket.cpp's handler
 asset manager +0x78 'rs_stargate': not loaded
 asset manager Load_3D_Assets 'rs_stargate.w3d'
-asset manager +0x78 'rs_stargate' scale 1 hsv (0 0 0) -> model 91
+asset manager +0x78 'rs_stargate' scale 1 hsv (0 0 0) -> model 93
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38961
 msg 344 ACTIVATE_RENDER_STATE (48) size 12: cpacket.cpp's handler
@@ -1220,7 +1253,7 @@ msg 348 NAVIGATION (153) size 18: cpacket.cpp's handler
 gen NavigationDataClass::NavigationDataClass
 gen NavigationDataClass::Unknown_7BA940
 msg 349 CREATE (4) size 27: cpacket.cpp's handler
-asset manager Create_Render_Obj 'missing' -> model 92
+asset manager Create_Render_Obj 'missing' -> model 94
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38703
 msg 350 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -1230,7 +1263,7 @@ msg 351 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 352 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 353 CREATE (4) size 27: cpacket.cpp's handler
-asset manager Create_Render_Obj 'missing' -> model 93
+asset manager Create_Render_Obj 'missing' -> model 95
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38964
 msg 354 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -1243,7 +1276,7 @@ msg 357 NAVIGATION (153) size 18: cpacket.cpp's handler
 gen NavigationDataClass::NavigationDataClass
 gen NavigationDataClass::Unknown_7BA940
 msg 358 CREATE (4) size 27: cpacket.cpp's handler
-asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 94
+asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 96
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38919
 msg 359 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -1253,7 +1286,7 @@ msg 360 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 361 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 362 CREATE (4) size 27: cpacket.cpp's handler
-asset manager Create_Render_Obj 'missing' -> model 95
+asset manager Create_Render_Obj 'missing' -> model 97
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38897
 msg 363 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -1263,7 +1296,7 @@ msg 364 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 365 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 366 CREATE (4) size 27: cpacket.cpp's handler
-asset manager Create_Render_Obj 'missing' -> model 96
+asset manager Create_Render_Obj 'missing' -> model 98
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38879
 msg 367 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -1273,7 +1306,7 @@ msg 368 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 369 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 370 CREATE (4) size 27: cpacket.cpp's handler
-asset manager Create_Render_Obj 'missing' -> model 97
+asset manager Create_Render_Obj 'missing' -> model 99
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38941
 msg 371 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -1285,56 +1318,56 @@ stub DeltaCompoundClass::Decode object, 21 bytes
 msg 374 CREATE (4) size 27: cpacket.cpp's handler
 asset manager +0x78 'ship_1616': not loaded
 asset manager Load_3D_Assets 'ship_1616.w3d'
-asset manager +0x78 'ship_1616' scale 1 hsv (0 0 0) -> model 98
+asset manager +0x78 'ship_1616' scale 1 hsv (0 0 0) -> model 100
 gen Unknown_810750
 gen Unknown_810CF0
-asset manager +0x78 'part_618' scale 1 hsv (0 0 0) -> model 99
-asset manager +0x78 'part_618' scale 1 hsv (0 0 0) -> model 100
-asset manager +0x78 'part_617' scale 1 hsv (0 0 0) -> model 101
-asset manager +0x78 'part_617' scale 1 hsv (0 0 0) -> model 102
-asset manager +0x78 'part_73f' scale 1 hsv (0 0 0) -> model 103
-asset manager +0x78 'part_73f' scale 1 hsv (0 0 0) -> model 104
-model 99 Set_Hidden 1
+asset manager +0x78 'part_618' scale 1 hsv (0 0 0) -> model 101
+asset manager +0x78 'part_618' scale 1 hsv (0 0 0) -> model 102
+asset manager +0x78 'part_617' scale 1 hsv (0 0 0) -> model 103
+asset manager +0x78 'part_617' scale 1 hsv (0 0 0) -> model 104
+asset manager +0x78 'part_73f' scale 1 hsv (0 0 0) -> model 105
+asset manager +0x78 'part_73f' scale 1 hsv (0 0 0) -> model 106
 model 101 Set_Hidden 1
-model 100 Set_Hidden 1
-model 102 Set_Hidden 1
 model 103 Set_Hidden 1
+model 102 Set_Hidden 1
 model 104 Set_Hidden 1
-model 98 Add_Sub_Object_To_Bone 'part_618' bone 1
-model 98 Add_Sub_Object_To_Bone 'part_617' bone 2
-model 98 Add_Sub_Object_To_Bone 'part_618' bone 3
-model 98 Add_Sub_Object_To_Bone 'part_617' bone 4
-model 98 Add_Sub_Object_To_Bone 'part_73f' bone 1
-model 98 Add_Sub_Object_To_Bone 'part_73f' bone 2
+model 105 Set_Hidden 1
+model 106 Set_Hidden 1
+model 100 Add_Sub_Object_To_Bone 'part_618' bone 1
+model 100 Add_Sub_Object_To_Bone 'part_617' bone 2
+model 100 Add_Sub_Object_To_Bone 'part_618' bone 3
+model 100 Add_Sub_Object_To_Bone 'part_617' bone 4
+model 100 Add_Sub_Object_To_Bone 'part_73f' bone 1
+model 100 Add_Sub_Object_To_Bone 'part_73f' bone 2
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 48887635
 msg 375 SUBPARTS (180) size 58: cpacket.cpp's handler
 gen Unknown_810750
 gen Unknown_810CF0
-asset manager +0x78 'part_618' scale 1 hsv (0 0 0) -> model 105
-model 99 'part_618' deleted
-asset manager +0x78 'part_618' scale 1 hsv (0 0 0) -> model 106
-model 100 'part_618' deleted
-asset manager +0x78 'part_617' scale 1 hsv (0 0 0) -> model 107
-model 101 'part_617' deleted
-asset manager +0x78 'part_617' scale 1 hsv (0 0 0) -> model 108
-model 102 'part_617' deleted
-asset manager +0x78 'part_73f' scale 1 hsv (0 0 0) -> model 109
-model 103 'part_73f' deleted
-asset manager +0x78 'part_73f' scale 1 hsv (0 0 0) -> model 110
-model 104 'part_73f' deleted
-model 105 Set_Hidden 1
+asset manager +0x78 'part_618' scale 1 hsv (0 0 0) -> model 107
+model 101 'part_618' deleted
+asset manager +0x78 'part_618' scale 1 hsv (0 0 0) -> model 108
+model 102 'part_618' deleted
+asset manager +0x78 'part_617' scale 1 hsv (0 0 0) -> model 109
+model 103 'part_617' deleted
+asset manager +0x78 'part_617' scale 1 hsv (0 0 0) -> model 110
+model 104 'part_617' deleted
+asset manager +0x78 'part_73f' scale 1 hsv (0 0 0) -> model 111
+model 105 'part_73f' deleted
+asset manager +0x78 'part_73f' scale 1 hsv (0 0 0) -> model 112
+model 106 'part_73f' deleted
 model 107 Set_Hidden 1
-model 106 Set_Hidden 1
-model 108 Set_Hidden 1
 model 109 Set_Hidden 1
+model 108 Set_Hidden 1
 model 110 Set_Hidden 1
-model 98 Add_Sub_Object_To_Bone 'part_618' bone 1
-model 98 Add_Sub_Object_To_Bone 'part_617' bone 2
-model 98 Add_Sub_Object_To_Bone 'part_618' bone 3
-model 98 Add_Sub_Object_To_Bone 'part_617' bone 4
-model 98 Add_Sub_Object_To_Bone 'part_73f' bone 1
-model 98 Add_Sub_Object_To_Bone 'part_73f' bone 2
+model 111 Set_Hidden 1
+model 112 Set_Hidden 1
+model 100 Add_Sub_Object_To_Bone 'part_618' bone 1
+model 100 Add_Sub_Object_To_Bone 'part_617' bone 2
+model 100 Add_Sub_Object_To_Bone 'part_618' bone 3
+model 100 Add_Sub_Object_To_Bone 'part_617' bone 4
+model 100 Add_Sub_Object_To_Bone 'part_73f' bone 1
+model 100 Add_Sub_Object_To_Bone 'part_73f' bone 2
 msg 376 COLORIZATION (17) size 138: cpacket.cpp's handler
 stub Unknown_80EFF0 4 regions
 msg 377 DECAL (16) size 58: cpacket.cpp's handler
@@ -1348,7 +1381,7 @@ msg 380 ADVANCED_POSITIONAL_UPDATE (62) size 50: cpacket.cpp's handler
 msg 381 AUX_DATA (27) size 181: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 171 bytes
 msg 382 CREATE (4) size 27: cpacket.cpp's handler
-asset manager Create_Render_Obj 'missing' -> model 111
+asset manager Create_Render_Obj 'missing' -> model 113
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38700
 msg 383 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -1358,7 +1391,7 @@ msg 384 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 385 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 386 CREATE (4) size 27: cpacket.cpp's handler
-asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 112
+asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 114
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38685
 msg 387 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -1368,7 +1401,7 @@ msg 388 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 389 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 390 CREATE (4) size 27: cpacket.cpp's handler
-asset manager Create_Render_Obj 'missing' -> model 113
+asset manager Create_Render_Obj 'missing' -> model 115
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38959
 msg 391 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -1378,7 +1411,7 @@ msg 392 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 393 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 394 CREATE (4) size 27: cpacket.cpp's handler
-asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 114
+asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 116
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38877
 msg 395 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -1388,7 +1421,7 @@ msg 396 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 397 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 398 CREATE (4) size 27: cpacket.cpp's handler
-asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 115
+asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 117
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38916
 msg 399 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -1398,7 +1431,7 @@ msg 400 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 401 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 402 CREATE (4) size 27: cpacket.cpp's handler
-asset manager Create_Render_Obj 'missing' -> model 116
+asset manager Create_Render_Obj 'missing' -> model 118
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38894
 msg 403 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -1408,7 +1441,7 @@ msg 404 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 405 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 406 CREATE (4) size 27: cpacket.cpp's handler
-asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 117
+asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 119
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38912
 msg 407 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -1418,7 +1451,7 @@ msg 408 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 409 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 410 CREATE (4) size 27: cpacket.cpp's handler
-asset manager Create_Render_Obj 'missing' -> model 118
+asset manager Create_Render_Obj 'missing' -> model 120
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38698
 msg 411 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -1428,7 +1461,7 @@ msg 412 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 413 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 414 CREATE (4) size 27: cpacket.cpp's handler
-asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 119
+asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 121
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38856
 msg 415 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -1438,7 +1471,7 @@ msg 416 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 417 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 418 CREATE (4) size 27: cpacket.cpp's handler
-asset manager Create_Render_Obj 'missing' -> model 120
+asset manager Create_Render_Obj 'missing' -> model 122
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38682
 msg 419 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -1448,7 +1481,7 @@ msg 420 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 421 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 422 CREATE (4) size 27: cpacket.cpp's handler
-asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 121
+asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 123
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38720
 msg 423 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -1458,7 +1491,7 @@ msg 424 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 425 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 426 CREATE (4) size 27: cpacket.cpp's handler
-asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 122
+asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 124
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38956
 msg 427 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -1468,7 +1501,7 @@ msg 428 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 429 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 430 CREATE (4) size 27: cpacket.cpp's handler
-asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 123
+asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 125
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38909
 msg 431 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -1478,7 +1511,7 @@ msg 432 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 433 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 434 CREATE (4) size 27: cpacket.cpp's handler
-asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 124
+asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 126
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38891
 msg 435 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -1488,7 +1521,7 @@ msg 436 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 437 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 438 CREATE (4) size 27: cpacket.cpp's handler
-asset manager Create_Render_Obj 'missing' -> model 125
+asset manager Create_Render_Obj 'missing' -> model 127
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38936
 msg 439 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -1498,7 +1531,7 @@ msg 440 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 441 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 442 CREATE (4) size 27: cpacket.cpp's handler
-asset manager Create_Render_Obj 'missing' -> model 126
+asset manager Create_Render_Obj 'missing' -> model 128
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38674
 msg 443 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -1508,7 +1541,7 @@ msg 444 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 445 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 446 CREATE (4) size 27: cpacket.cpp's handler
-asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 127
+asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 129
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38695
 msg 447 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -1526,7 +1559,7 @@ msg 452 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 453 AUX_DATA (27) size 70: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 60 bytes
 msg 454 CREATE (4) size 27: cpacket.cpp's handler
-asset manager Create_Render_Obj 'missing' -> model 128
+asset manager Create_Render_Obj 'missing' -> model 130
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38651
 msg 455 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -1539,7 +1572,7 @@ msg 458 NAVIGATION (153) size 18: cpacket.cpp's handler
 gen NavigationDataClass::NavigationDataClass
 gen NavigationDataClass::Unknown_7BA940
 msg 459 CREATE (4) size 27: cpacket.cpp's handler
-asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 129
+asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 131
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38679
 msg 460 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -1549,7 +1582,7 @@ msg 461 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 462 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 463 CREATE (4) size 27: cpacket.cpp's handler
-asset manager Create_Render_Obj 'missing' -> model 130
+asset manager Create_Render_Obj 'missing' -> model 132
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38717
 msg 464 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -1559,7 +1592,7 @@ msg 465 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 466 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 467 CREATE (4) size 27: cpacket.cpp's handler
-asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 131
+asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 133
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38953
 msg 468 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -1569,7 +1602,7 @@ msg 469 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 470 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 471 CREATE (4) size 27: cpacket.cpp's handler
-asset manager Create_Render_Obj 'missing' -> model 132
+asset manager Create_Render_Obj 'missing' -> model 134
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38871
 msg 472 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -1579,7 +1612,7 @@ msg 473 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 474 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 475 CREATE (4) size 27: cpacket.cpp's handler
-asset manager Create_Render_Obj 'missing' -> model 133
+asset manager Create_Render_Obj 'missing' -> model 135
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38906
 msg 476 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -1589,7 +1622,7 @@ msg 477 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 478 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 479 CREATE (4) size 27: cpacket.cpp's handler
-asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 134
+asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 136
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38933
 msg 480 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -1599,7 +1632,7 @@ msg 481 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 482 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 483 CREATE (4) size 27: cpacket.cpp's handler
-asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 135
+asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 137
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38889
 msg 484 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -1609,7 +1642,7 @@ msg 485 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 486 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 487 CREATE (4) size 27: cpacket.cpp's handler
-asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 136
+asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 138
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38692
 msg 488 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -1619,7 +1652,7 @@ msg 489 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 490 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 491 CREATE (4) size 27: cpacket.cpp's handler
-asset manager Create_Render_Obj 'missing' -> model 137
+asset manager Create_Render_Obj 'missing' -> model 139
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38676
 msg 492 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -1629,7 +1662,7 @@ msg 493 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 494 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 495 CREATE (4) size 27: cpacket.cpp's handler
-asset manager Create_Render_Obj 'missing' -> model 138
+asset manager Create_Render_Obj 'missing' -> model 140
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38714
 msg 496 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -1641,7 +1674,7 @@ stub DeltaCompoundClass::Decode object, 21 bytes
 msg 499 CREATE (4) size 27: cpacket.cpp's handler
 asset manager +0x78 'planet_466': not loaded
 asset manager Load_3D_Assets 'planet_466.w3d'
-asset manager +0x78 'planet_466' scale 0.1 hsv (0 0 0) -> model 139
+asset manager +0x78 'planet_466' scale 0.1 hsv (0 0 0) -> model 141
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38970
 msg 500 OBJECT_EFFECT (9) size 19: cpacket.cpp's handler
@@ -1661,7 +1694,7 @@ msg 504 NAVIGATION (153) size 18: cpacket.cpp's handler
 gen NavigationDataClass::NavigationDataClass
 gen NavigationDataClass::Unknown_7BA940
 msg 505 CREATE (4) size 27: cpacket.cpp's handler
-asset manager Create_Render_Obj 'missing' -> model 140
+asset manager Create_Render_Obj 'missing' -> model 142
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38710
 msg 506 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -1671,7 +1704,7 @@ msg 507 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 508 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 509 CREATE (4) size 27: cpacket.cpp's handler
-asset manager Create_Render_Obj 'missing' -> model 141
+asset manager Create_Render_Obj 'missing' -> model 143
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38868
 msg 510 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -1681,7 +1714,7 @@ msg 511 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 512 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 513 CREATE (4) size 27: cpacket.cpp's handler
-asset manager Create_Render_Obj 'missing' -> model 142
+asset manager Create_Render_Obj 'missing' -> model 144
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38969
 msg 514 OBJECT_EFFECT (9) size 19: cpacket.cpp's handler
@@ -1698,7 +1731,7 @@ msg 516 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 517 AUX_DATA (27) size 22: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 12 bytes
 msg 518 CREATE (4) size 27: cpacket.cpp's handler
-asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 143
+asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 145
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38903
 msg 519 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -1708,7 +1741,7 @@ msg 520 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 521 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 522 CREATE (4) size 27: cpacket.cpp's handler
-asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 144
+asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 146
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38930
 msg 523 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -1718,7 +1751,7 @@ msg 524 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 525 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 526 CREATE (4) size 27: cpacket.cpp's handler
-asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 145
+asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 147
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38926
 msg 527 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -1728,7 +1761,7 @@ msg 528 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 529 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 530 CREATE (4) size 27: cpacket.cpp's handler
-asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 146
+asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 148
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38886
 msg 531 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -1738,7 +1771,7 @@ msg 532 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 533 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 534 CREATE (4) size 27: cpacket.cpp's handler
-asset manager Create_Render_Obj 'missing' -> model 147
+asset manager Create_Render_Obj 'missing' -> model 149
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38689
 msg 535 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -1748,7 +1781,7 @@ msg 536 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 537 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 538 CREATE (4) size 27: cpacket.cpp's handler
-asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 148
+asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 150
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38948
 msg 539 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -1758,7 +1791,7 @@ msg 540 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 541 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 542 CREATE (4) size 27: cpacket.cpp's handler
-asset manager Create_Render_Obj 'missing' -> model 149
+asset manager Create_Render_Obj 'missing' -> model 151
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38866
 msg 543 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -1768,7 +1801,7 @@ msg 544 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 545 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 546 CREATE (4) size 27: cpacket.cpp's handler
-asset manager Create_Render_Obj 'missing' -> model 150
+asset manager Create_Render_Obj 'missing' -> model 152
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38711
 msg 547 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -1778,7 +1811,7 @@ msg 548 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 549 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 550 CREATE (4) size 27: cpacket.cpp's handler
-asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 151
+asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 153
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38707
 msg 551 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -1788,7 +1821,7 @@ msg 552 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 553 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 554 CREATE (4) size 27: cpacket.cpp's handler
-asset manager Create_Render_Obj 'missing' -> model 152
+asset manager Create_Render_Obj 'missing' -> model 154
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38965
 msg 555 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -1801,7 +1834,7 @@ msg 558 NAVIGATION (153) size 18: cpacket.cpp's handler
 gen NavigationDataClass::NavigationDataClass
 gen NavigationDataClass::Unknown_7BA940
 msg 559 CREATE (4) size 27: cpacket.cpp's handler
-asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 153
+asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 155
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38923
 msg 560 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -1811,7 +1844,7 @@ msg 561 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 562 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 563 CREATE (4) size 27: cpacket.cpp's handler
-asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 154
+asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 156
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38901
 msg 564 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -1821,7 +1854,7 @@ msg 565 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 566 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 567 CREATE (4) size 27: cpacket.cpp's handler
-asset manager Create_Render_Obj 'missing' -> model 155
+asset manager Create_Render_Obj 'missing' -> model 157
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38927
 msg 568 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -1831,7 +1864,7 @@ msg 569 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 570 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 571 CREATE (4) size 27: cpacket.cpp's handler
-asset manager Create_Render_Obj 'missing' -> model 156
+asset manager Create_Render_Obj 'missing' -> model 158
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38883
 msg 572 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -1841,7 +1874,7 @@ msg 573 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 574 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 575 CREATE (4) size 27: cpacket.cpp's handler
-asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 157
+asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 159
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38945
 msg 576 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -1851,7 +1884,7 @@ msg 577 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 578 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 579 CREATE (4) size 27: cpacket.cpp's handler
-asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 158
+asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 160
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38704
 msg 580 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -1861,7 +1894,7 @@ msg 581 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 582 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 583 CREATE (4) size 27: cpacket.cpp's handler
-asset manager Create_Render_Obj 'missing' -> model 159
+asset manager Create_Render_Obj 'missing' -> model 161
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38920
 msg 584 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -1871,7 +1904,7 @@ msg 585 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 586 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 587 CREATE (4) size 27: cpacket.cpp's handler
-asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 160
+asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 162
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38898
 msg 588 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -1881,7 +1914,7 @@ msg 589 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 590 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 591 CREATE (4) size 27: cpacket.cpp's handler
-asset manager Create_Render_Obj 'missing' -> model 161
+asset manager Create_Render_Obj 'missing' -> model 163
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38880
 msg 592 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -1891,7 +1924,7 @@ msg 593 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 594 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 595 CREATE (4) size 27: cpacket.cpp's handler
-asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 162
+asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 164
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38942
 msg 596 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -1901,7 +1934,7 @@ msg 597 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 598 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 599 CREATE (4) size 27: cpacket.cpp's handler
-asset manager Create_Render_Obj 'missing' -> model 163
+asset manager Create_Render_Obj 'missing' -> model 165
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38701
 msg 600 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -1911,7 +1944,7 @@ msg 601 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 602 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 603 CREATE (4) size 27: cpacket.cpp's handler
-asset manager Create_Render_Obj 'missing' -> model 164
+asset manager Create_Render_Obj 'missing' -> model 166
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38686
 msg 604 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -1921,7 +1954,7 @@ msg 605 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 606 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 607 CREATE (4) size 27: cpacket.cpp's handler
-asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 165
+asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 167
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38960
 msg 608 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -1931,7 +1964,7 @@ msg 609 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 610 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 611 CREATE (4) size 27: cpacket.cpp's handler
-asset manager Create_Render_Obj 'missing' -> model 166
+asset manager Create_Render_Obj 'missing' -> model 168
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38878
 msg 612 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -1941,7 +1974,7 @@ msg 613 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 614 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 615 CREATE (4) size 27: cpacket.cpp's handler
-asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 167
+asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 169
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38917
 msg 616 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -1951,7 +1984,7 @@ msg 617 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 618 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 619 CREATE (4) size 27: cpacket.cpp's handler
-asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 168
+asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 170
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38895
 msg 620 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -1961,7 +1994,7 @@ msg 621 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 622 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 623 CREATE (4) size 27: cpacket.cpp's handler
-asset manager Create_Render_Obj 'missing' -> model 169
+asset manager Create_Render_Obj 'missing' -> model 171
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38913
 msg 624 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -1971,7 +2004,7 @@ msg 625 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 626 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 627 CREATE (4) size 27: cpacket.cpp's handler
-asset manager Create_Render_Obj 'missing' -> model 170
+asset manager Create_Render_Obj 'missing' -> model 172
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38939
 msg 628 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -1981,7 +2014,7 @@ msg 629 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 630 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 631 CREATE (4) size 27: cpacket.cpp's handler
-asset manager Create_Render_Obj 'missing' -> model 171
+asset manager Create_Render_Obj 'missing' -> model 173
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38683
 msg 632 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -1991,7 +2024,7 @@ msg 633 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 634 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 635 CREATE (4) size 27: cpacket.cpp's handler
-asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 172
+asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 174
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38721
 msg 636 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -2001,7 +2034,7 @@ msg 637 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 638 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 639 CREATE (4) size 27: cpacket.cpp's handler
-asset manager Create_Render_Obj 'missing' -> model 173
+asset manager Create_Render_Obj 'missing' -> model 175
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38957
 msg 640 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -2011,7 +2044,7 @@ msg 641 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 642 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 643 CREATE (4) size 27: cpacket.cpp's handler
-asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 174
+asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 176
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38875
 msg 644 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -2021,7 +2054,7 @@ msg 645 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 646 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 647 CREATE (4) size 27: cpacket.cpp's handler
-asset manager Create_Render_Obj 'missing' -> model 175
+asset manager Create_Render_Obj 'missing' -> model 177
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38910
 msg 648 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -2031,7 +2064,7 @@ msg 649 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 650 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 651 CREATE (4) size 27: cpacket.cpp's handler
-asset manager Create_Render_Obj 'missing' -> model 176
+asset manager Create_Render_Obj 'missing' -> model 178
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38892
 msg 652 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -2041,7 +2074,7 @@ msg 653 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 654 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 655 CREATE (4) size 27: cpacket.cpp's handler
-asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 177
+asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 179
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38937
 msg 656 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -2051,7 +2084,7 @@ msg 657 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 658 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 659 CREATE (4) size 27: cpacket.cpp's handler
-asset manager Create_Render_Obj 'missing' -> model 178
+asset manager Create_Render_Obj 'missing' -> model 180
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38696
 msg 660 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -2061,7 +2094,7 @@ msg 661 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 662 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 663 CREATE (4) size 27: cpacket.cpp's handler
-asset manager Create_Render_Obj 'missing' -> model 179
+asset manager Create_Render_Obj 'missing' -> model 181
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38680
 msg 664 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -2071,7 +2104,7 @@ msg 665 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 666 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 667 CREATE (4) size 27: cpacket.cpp's handler
-asset manager Create_Render_Obj 'missing' -> model 180
+asset manager Create_Render_Obj 'missing' -> model 182
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38954
 msg 668 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -2081,7 +2114,7 @@ msg 669 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 670 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 671 CREATE (4) size 27: cpacket.cpp's handler
-asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 181
+asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 183
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38718
 msg 672 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -2091,7 +2124,7 @@ msg 673 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 674 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 675 CREATE (4) size 27: cpacket.cpp's handler
-asset manager Create_Render_Obj 'missing' -> model 182
+asset manager Create_Render_Obj 'missing' -> model 184
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38907
 msg 676 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -2101,7 +2134,7 @@ msg 677 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 678 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 679 CREATE (4) size 27: cpacket.cpp's handler
-asset manager Create_Render_Obj 'missing' -> model 183
+asset manager Create_Render_Obj 'missing' -> model 185
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38934
 msg 680 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -2111,7 +2144,7 @@ msg 681 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 682 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 683 CREATE (4) size 27: cpacket.cpp's handler
-asset manager Create_Render_Obj 'missing' -> model 184
+asset manager Create_Render_Obj 'missing' -> model 186
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38890
 msg 684 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -2121,7 +2154,7 @@ msg 685 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 686 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 687 CREATE (4) size 27: cpacket.cpp's handler
-asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 185
+asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 187
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38693
 msg 688 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -2131,7 +2164,7 @@ msg 689 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 690 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 691 CREATE (4) size 27: cpacket.cpp's handler
-asset manager Create_Render_Obj 'missing' -> model 186
+asset manager Create_Render_Obj 'missing' -> model 188
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38649
 msg 692 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -2144,7 +2177,7 @@ msg 695 NAVIGATION (153) size 18: cpacket.cpp's handler
 gen NavigationDataClass::NavigationDataClass
 gen NavigationDataClass::Unknown_7BA940
 msg 696 CREATE (4) size 27: cpacket.cpp's handler
-asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 187
+asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 189
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38677
 msg 697 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -2154,7 +2187,7 @@ msg 698 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 699 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 700 CREATE (4) size 27: cpacket.cpp's handler
-asset manager Create_Render_Obj 'missing' -> model 188
+asset manager Create_Render_Obj 'missing' -> model 190
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38715
 msg 701 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -2164,7 +2197,7 @@ msg 702 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 703 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 704 CREATE (4) size 27: cpacket.cpp's handler
-asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 189
+asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 191
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38951
 msg 705 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -2174,7 +2207,7 @@ msg 706 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 707 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 708 CREATE (4) size 27: cpacket.cpp's handler
-asset manager Create_Render_Obj 'missing' -> model 190
+asset manager Create_Render_Obj 'missing' -> model 192
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38869
 msg 709 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -2184,7 +2217,7 @@ msg 710 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 711 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 712 CREATE (4) size 27: cpacket.cpp's handler
-asset manager Create_Render_Obj 'missing' -> model 191
+asset manager Create_Render_Obj 'missing' -> model 193
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38904
 msg 713 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -2194,7 +2227,7 @@ msg 714 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 715 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 716 CREATE (4) size 27: cpacket.cpp's handler
-asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 192
+asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 194
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38931
 msg 717 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -2204,7 +2237,7 @@ msg 718 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 719 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 720 CREATE (4) size 27: cpacket.cpp's handler
-asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 193
+asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 195
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38887
 msg 721 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -2214,7 +2247,7 @@ msg 722 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 723 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 724 CREATE (4) size 27: cpacket.cpp's handler
-asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 194
+asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 196
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38690
 msg 725 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -2224,7 +2257,7 @@ msg 726 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 727 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 728 CREATE (4) size 27: cpacket.cpp's handler
-asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 195
+asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 197
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38949
 msg 729 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -2234,7 +2267,7 @@ msg 730 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 731 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 732 CREATE (4) size 27: cpacket.cpp's handler
-asset manager Create_Render_Obj 'missing' -> model 196
+asset manager Create_Render_Obj 'missing' -> model 198
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38708
 msg 733 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -2244,7 +2277,7 @@ msg 734 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 735 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 736 CREATE (4) size 27: cpacket.cpp's handler
-asset manager Create_Render_Obj 'missing' -> model 197
+asset manager Create_Render_Obj 'missing' -> model 199
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38712
 msg 737 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -2254,7 +2287,7 @@ msg 738 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 739 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 740 CREATE (4) size 27: cpacket.cpp's handler
-asset manager Create_Render_Obj 'missing' -> model 198
+asset manager Create_Render_Obj 'missing' -> model 200
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38924
 msg 741 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -2264,7 +2297,7 @@ msg 742 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 743 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 744 CREATE (4) size 27: cpacket.cpp's handler
-asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 199
+asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 201
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38902
 msg 745 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -2274,7 +2307,7 @@ msg 746 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 747 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 748 CREATE (4) size 27: cpacket.cpp's handler
-asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 200
+asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 202
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38928
 msg 749 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -2394,7 +2427,7 @@ stub DeltaCompoundClass::Decode object, 21 bytes
 msg 795 ADVANCED_POSITIONAL_UPDATE (62) size 50: cpacket.cpp's handler
 msg 796 ADVANCED_POSITIONAL_UPDATE (62) size 54: cpacket.cpp's handler
 msg 797 CREATE (4) size 27: cpacket.cpp's handler
-asset manager Create_Render_Obj 'missing' -> model 201
+asset manager Create_Render_Obj 'missing' -> model 203
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38852
 msg 798 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -2404,7 +2437,7 @@ msg 799 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 800 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 801 CREATE (4) size 27: cpacket.cpp's handler
-asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 202
+asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 204
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38874
 msg 802 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -2415,7 +2448,7 @@ msg 804 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 805 ADVANCED_POSITIONAL_UPDATE (62) size 54: cpacket.cpp's handler
 msg 806 CREATE (4) size 27: cpacket.cpp's handler
-asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 203
+asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 205
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38863
 msg 807 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -2426,7 +2459,7 @@ msg 809 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 810 CLIENT_CHAT_EVENT (165) size 61: cpacket.cpp's handler
 msg 811 CREATE (4) size 27: cpacket.cpp's handler
-asset manager Create_Render_Obj 'missing' -> model 204
+asset manager Create_Render_Obj 'missing' -> model 206
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38855
 msg 812 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -2437,7 +2470,7 @@ msg 814 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 815 ADVANCED_POSITIONAL_UPDATE (62) size 54: cpacket.cpp's handler
 msg 816 CREATE (4) size 27: cpacket.cpp's handler
-asset manager Create_Render_Obj 'missing' -> model 205
+asset manager Create_Render_Obj 'missing' -> model 207
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38839
 msg 817 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -2447,7 +2480,7 @@ msg 818 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 819 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 820 CREATE (4) size 27: cpacket.cpp's handler
-asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 206
+asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 208
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38867
 msg 821 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -2459,27 +2492,27 @@ stub DeltaCompoundClass::Decode object, 21 bytes
 msg 824 CREATE (4) size 27: cpacket.cpp's handler
 asset manager +0x78 'ship_1028': not loaded
 asset manager Load_3D_Assets 'ship_1028.w3d'
-asset manager +0x78 'ship_1028' scale 0.2 hsv (0 0 0) -> model 207
+asset manager +0x78 'ship_1028' scale 0.2 hsv (0 0 0) -> model 209
 gen Unknown_810750
 gen Unknown_810CF0
-asset manager +0x78 'part_618' scale 1 hsv (0 0 0) -> model 208
-asset manager +0x78 'part_618' scale 1 hsv (0 0 0) -> model 209
-asset manager +0x78 'part_617' scale 1 hsv (0 0 0) -> model 210
-asset manager +0x78 'part_617' scale 1 hsv (0 0 0) -> model 211
-asset manager +0x78 'part_73f' scale 1 hsv (0 0 0) -> model 212
-asset manager +0x78 'part_73f' scale 1 hsv (0 0 0) -> model 213
-model 208 Set_Hidden 1
+asset manager +0x78 'part_618' scale 1 hsv (0 0 0) -> model 210
+asset manager +0x78 'part_618' scale 1 hsv (0 0 0) -> model 211
+asset manager +0x78 'part_617' scale 1 hsv (0 0 0) -> model 212
+asset manager +0x78 'part_617' scale 1 hsv (0 0 0) -> model 213
+asset manager +0x78 'part_73f' scale 1 hsv (0 0 0) -> model 214
+asset manager +0x78 'part_73f' scale 1 hsv (0 0 0) -> model 215
 model 210 Set_Hidden 1
-model 209 Set_Hidden 1
-model 211 Set_Hidden 1
 model 212 Set_Hidden 1
+model 211 Set_Hidden 1
 model 213 Set_Hidden 1
-model 207 Add_Sub_Object_To_Bone 'part_618' bone 1
-model 207 Add_Sub_Object_To_Bone 'part_617' bone 2
-model 207 Add_Sub_Object_To_Bone 'part_618' bone 3
-model 207 Add_Sub_Object_To_Bone 'part_617' bone 4
-model 207 Add_Sub_Object_To_Bone 'part_73f' bone 1
-model 207 Add_Sub_Object_To_Bone 'part_73f' bone 2
+model 214 Set_Hidden 1
+model 215 Set_Hidden 1
+model 209 Add_Sub_Object_To_Bone 'part_618' bone 1
+model 209 Add_Sub_Object_To_Bone 'part_617' bone 2
+model 209 Add_Sub_Object_To_Bone 'part_618' bone 3
+model 209 Add_Sub_Object_To_Bone 'part_617' bone 4
+model 209 Add_Sub_Object_To_Bone 'part_73f' bone 1
+model 209 Add_Sub_Object_To_Bone 'part_73f' bone 2
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 41213
 msg 825 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -2489,7 +2522,7 @@ msg 826 AUX_DATA (27) size 62: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 52 bytes
 msg 827 ADVANCED_POSITIONAL_UPDATE (62) size 62: cpacket.cpp's handler
 msg 828 CREATE (4) size 27: cpacket.cpp's handler
-asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 214
+asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 216
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38859
 msg 829 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -2499,7 +2532,7 @@ msg 830 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 831 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 832 CREATE (4) size 27: cpacket.cpp's handler
-asset manager Create_Render_Obj 'missing' -> model 215
+asset manager Create_Render_Obj 'missing' -> model 217
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38864
 msg 833 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -2509,7 +2542,7 @@ msg 834 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 835 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 836 CREATE (4) size 27: cpacket.cpp's handler
-asset manager Create_Render_Obj 'missing' -> model 216
+asset manager Create_Render_Obj 'missing' -> model 218
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38857
 msg 837 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -2522,11 +2555,11 @@ msg 840 REMOVE (7) size 8: cpacket.cpp's handler
 stub SClient::Unknown_744B60 -> 0
 stub SClient::Unknown_74C530 38957
 mainview remove 38957
-model 173 'missing' deleted
+model 175 'missing' deleted
 aux data deleted (slot +0x04)
 msg 841 ADVANCED_POSITIONAL_UPDATE (62) size 54: cpacket.cpp's handler
 msg 842 CREATE (4) size 27: cpacket.cpp's handler
-asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 217
+asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 219
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38861
 msg 843 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -2536,7 +2569,7 @@ msg 844 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 845 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 846 CREATE (4) size 27: cpacket.cpp's handler
-asset manager Create_Render_Obj 'missing' -> model 218
+asset manager Create_Render_Obj 'missing' -> model 220
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38876
 msg 847 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -2549,27 +2582,27 @@ msg 850 ADVANCED_POSITIONAL_UPDATE (62) size 54: cpacket.cpp's handler
 msg 851 NAVIGATION (153) size 18: cpacket.cpp's handler
 gen NavigationDataClass::Unknown_7BA940
 msg 852 CREATE (4) size 27: cpacket.cpp's handler
-asset manager +0x78 'ship_1028' scale 0.2 hsv (0 0 0) -> model 219
+asset manager +0x78 'ship_1028' scale 0.2 hsv (0 0 0) -> model 221
 gen Unknown_810750
 gen Unknown_810CF0
-asset manager +0x78 'part_618' scale 1 hsv (0 0 0) -> model 220
-asset manager +0x78 'part_618' scale 1 hsv (0 0 0) -> model 221
-asset manager +0x78 'part_617' scale 1 hsv (0 0 0) -> model 222
-asset manager +0x78 'part_617' scale 1 hsv (0 0 0) -> model 223
-asset manager +0x78 'part_73f' scale 1 hsv (0 0 0) -> model 224
-asset manager +0x78 'part_73f' scale 1 hsv (0 0 0) -> model 225
-model 220 Set_Hidden 1
+asset manager +0x78 'part_618' scale 1 hsv (0 0 0) -> model 222
+asset manager +0x78 'part_618' scale 1 hsv (0 0 0) -> model 223
+asset manager +0x78 'part_617' scale 1 hsv (0 0 0) -> model 224
+asset manager +0x78 'part_617' scale 1 hsv (0 0 0) -> model 225
+asset manager +0x78 'part_73f' scale 1 hsv (0 0 0) -> model 226
+asset manager +0x78 'part_73f' scale 1 hsv (0 0 0) -> model 227
 model 222 Set_Hidden 1
-model 221 Set_Hidden 1
-model 223 Set_Hidden 1
 model 224 Set_Hidden 1
+model 223 Set_Hidden 1
 model 225 Set_Hidden 1
-model 219 Add_Sub_Object_To_Bone 'part_618' bone 1
-model 219 Add_Sub_Object_To_Bone 'part_617' bone 2
-model 219 Add_Sub_Object_To_Bone 'part_618' bone 3
-model 219 Add_Sub_Object_To_Bone 'part_617' bone 4
-model 219 Add_Sub_Object_To_Bone 'part_73f' bone 1
-model 219 Add_Sub_Object_To_Bone 'part_73f' bone 2
+model 226 Set_Hidden 1
+model 227 Set_Hidden 1
+model 221 Add_Sub_Object_To_Bone 'part_618' bone 1
+model 221 Add_Sub_Object_To_Bone 'part_617' bone 2
+model 221 Add_Sub_Object_To_Bone 'part_618' bone 3
+model 221 Add_Sub_Object_To_Bone 'part_617' bone 4
+model 221 Add_Sub_Object_To_Bone 'part_73f' bone 1
+model 221 Add_Sub_Object_To_Bone 'part_73f' bone 2
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 43912
 msg 853 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -2581,7 +2614,7 @@ msg 855 ADVANCED_POSITIONAL_UPDATE (62) size 62: cpacket.cpp's handler
 msg 856 WARP_INDEX (156) size 8: cpacket.cpp's handler
 fail_if !radar (line 2292)
 msg 857 CREATE (4) size 27: cpacket.cpp's handler
-asset manager Create_Render_Obj 'missing' -> model 226
+asset manager Create_Render_Obj 'missing' -> model 228
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38844
 msg 858 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -2591,7 +2624,7 @@ msg 859 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 860 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 861 CREATE (4) size 27: cpacket.cpp's handler
-asset manager Create_Render_Obj 'missing' -> model 227
+asset manager Create_Render_Obj 'missing' -> model 229
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38854
 msg 862 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -2603,7 +2636,7 @@ stub DeltaCompoundClass::Decode object, 21 bytes
 msg 865 AUX_DATA (27) size 23: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 13 bytes
 msg 866 CREATE (4) size 27: cpacket.cpp's handler
-asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 228
+asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 230
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38872
 msg 867 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -2613,7 +2646,7 @@ msg 868 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 869 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 870 CREATE (4) size 27: cpacket.cpp's handler
-asset manager Create_Render_Obj 'missing' -> model 229
+asset manager Create_Render_Obj 'missing' -> model 231
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38853
 msg 871 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -2624,7 +2657,7 @@ msg 873 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 874 ADVANCED_POSITIONAL_UPDATE (62) size 54: cpacket.cpp's handler
 msg 875 CREATE (4) size 27: cpacket.cpp's handler
-asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 230
+asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 232
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38860
 msg 876 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -2634,7 +2667,7 @@ msg 877 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 878 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 879 CREATE (4) size 27: cpacket.cpp's handler
-asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 231
+asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 233
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38858
 msg 880 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -2644,7 +2677,7 @@ msg 881 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 882 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 883 CREATE (4) size 27: cpacket.cpp's handler
-asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 232
+asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 234
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38850
 msg 884 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -2654,7 +2687,7 @@ msg 885 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 886 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 887 CREATE (4) size 27: cpacket.cpp's handler
-asset manager Create_Render_Obj 'missing' -> model 233
+asset manager Create_Render_Obj 'missing' -> model 235
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38840
 msg 888 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -2665,7 +2698,7 @@ msg 890 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 891 ADVANCED_POSITIONAL_UPDATE (62) size 54: cpacket.cpp's handler
 msg 892 CREATE (4) size 27: cpacket.cpp's handler
-asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 234
+asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 236
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38848
 msg 893 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -2675,7 +2708,7 @@ msg 894 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 895 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 896 CREATE (4) size 27: cpacket.cpp's handler
-asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 235
+asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 237
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38831
 msg 897 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -2688,17 +2721,17 @@ msg 900 REMOVE (7) size 8: cpacket.cpp's handler
 stub SClient::Unknown_744B60 -> 0
 stub SClient::Unknown_74C530 39074
 mainview remove 39074
-model 19 'ship_14' deleted
+model 21 'ship_14' deleted
 aux data deleted (slot +0x04)
-model 20 'part_618' deleted
-model 22 'part_617' deleted
-model 21 'part_618' deleted
-model 23 'part_617' deleted
-model 24 'part_73f' deleted
-model 25 'part_73f' deleted
+model 22 'part_618' deleted
+model 24 'part_617' deleted
+model 23 'part_618' deleted
+model 25 'part_617' deleted
+model 26 'part_73f' deleted
+model 27 'part_73f' deleted
 msg 901 ADVANCED_POSITIONAL_UPDATE (62) size 54: cpacket.cpp's handler
 msg 902 CREATE (4) size 27: cpacket.cpp's handler
-asset manager Create_Render_Obj 'missing' -> model 236
+asset manager Create_Render_Obj 'missing' -> model 238
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38851
 msg 903 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -2708,7 +2741,7 @@ msg 904 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 905 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 906 CREATE (4) size 27: cpacket.cpp's handler
-asset manager Create_Render_Obj 'missing' -> model 237
+asset manager Create_Render_Obj 'missing' -> model 239
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38862
 msg 907 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -2718,7 +2751,7 @@ msg 908 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 909 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 910 CREATE (4) size 27: cpacket.cpp's handler
-asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 238
+asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 240
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38846
 msg 911 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -2728,7 +2761,7 @@ msg 912 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 913 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 914 CREATE (4) size 27: cpacket.cpp's handler
-asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 239
+asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 241
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38845
 msg 915 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -2740,7 +2773,7 @@ stub DeltaCompoundClass::Decode object, 21 bytes
 msg 918 ADVANCED_POSITIONAL_UPDATE (62) size 54: cpacket.cpp's handler
 msg 919 ADVANCED_POSITIONAL_UPDATE (62) size 50: cpacket.cpp's handler
 msg 920 CREATE (4) size 27: cpacket.cpp's handler
-asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 240
+asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 242
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38847
 msg 921 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -2750,7 +2783,7 @@ msg 922 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 923 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 924 CREATE (4) size 27: cpacket.cpp's handler
-asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 241
+asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 243
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38835
 msg 925 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -2760,7 +2793,7 @@ msg 926 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 927 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 928 CREATE (4) size 27: cpacket.cpp's handler
-asset manager Create_Render_Obj 'missing' -> model 242
+asset manager Create_Render_Obj 'missing' -> model 244
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38830
 msg 929 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -2771,7 +2804,7 @@ msg 931 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 932 ADVANCED_POSITIONAL_UPDATE (62) size 54: cpacket.cpp's handler
 msg 933 CREATE (4) size 27: cpacket.cpp's handler
-asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 243
+asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 245
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38843
 msg 934 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -2781,7 +2814,7 @@ msg 935 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 936 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 937 CREATE (4) size 27: cpacket.cpp's handler
-asset manager Create_Render_Obj 'missing' -> model 244
+asset manager Create_Render_Obj 'missing' -> model 246
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38829
 msg 938 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -2791,7 +2824,7 @@ msg 939 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 940 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 941 CREATE (4) size 27: cpacket.cpp's handler
-asset manager Create_Render_Obj 'missing' -> model 245
+asset manager Create_Render_Obj 'missing' -> model 247
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38957
 msg 942 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -2801,7 +2834,7 @@ msg 943 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 944 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 945 CREATE (4) size 27: cpacket.cpp's handler
-asset manager Create_Render_Obj 'missing' -> model 246
+asset manager Create_Render_Obj 'missing' -> model 248
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38838
 msg 946 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -2811,7 +2844,7 @@ msg 947 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 948 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 949 CREATE (4) size 27: cpacket.cpp's handler
-asset manager Create_Render_Obj 'missing' -> model 247
+asset manager Create_Render_Obj 'missing' -> model 249
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38827
 msg 950 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -2825,16 +2858,16 @@ msg 954 REMOVE (7) size 8: cpacket.cpp's handler
 stub SClient::Unknown_744B60 -> 0
 stub SClient::Unknown_74C530 41213
 mainview remove 41213
-model 207 'ship_1028' deleted
+model 209 'ship_1028' deleted
 aux data deleted (slot +0x04)
-model 208 'part_618' deleted
-model 210 'part_617' deleted
-model 209 'part_618' deleted
-model 211 'part_617' deleted
-model 212 'part_73f' deleted
-model 213 'part_73f' deleted
+model 210 'part_618' deleted
+model 212 'part_617' deleted
+model 211 'part_618' deleted
+model 213 'part_617' deleted
+model 214 'part_73f' deleted
+model 215 'part_73f' deleted
 msg 955 CREATE (4) size 27: cpacket.cpp's handler
-asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 248
+asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 250
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38841
 msg 956 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -2845,7 +2878,7 @@ msg 958 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 959 ADVANCED_POSITIONAL_UPDATE (62) size 54: cpacket.cpp's handler
 msg 960 CREATE (4) size 27: cpacket.cpp's handler
-asset manager Create_Render_Obj 'missing' -> model 249
+asset manager Create_Render_Obj 'missing' -> model 251
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38849
 msg 961 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -2856,7 +2889,7 @@ msg 963 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 964 ADVANCED_POSITIONAL_UPDATE (62) size 50: cpacket.cpp's handler
 msg 965 CREATE (4) size 27: cpacket.cpp's handler
-asset manager Create_Render_Obj 'missing' -> model 250
+asset manager Create_Render_Obj 'missing' -> model 252
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38832
 msg 966 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -2867,7 +2900,7 @@ msg 968 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 969 ADVANCED_POSITIONAL_UPDATE (62) size 50: cpacket.cpp's handler
 msg 970 CREATE (4) size 27: cpacket.cpp's handler
-asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 251
+asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 253
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38836
 msg 971 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -2877,7 +2910,7 @@ msg 972 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 973 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 974 CREATE (4) size 27: cpacket.cpp's handler
-asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 252
+asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 254
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38824
 msg 975 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -2890,16 +2923,16 @@ msg 978 REMOVE (7) size 8: cpacket.cpp's handler
 stub SClient::Unknown_744B60 -> 0
 stub SClient::Unknown_74C530 43912
 mainview remove 43912
-model 219 'ship_1028' deleted
+model 221 'ship_1028' deleted
 aux data deleted (slot +0x04)
-model 220 'part_618' deleted
-model 222 'part_617' deleted
-model 221 'part_618' deleted
-model 223 'part_617' deleted
-model 224 'part_73f' deleted
-model 225 'part_73f' deleted
+model 222 'part_618' deleted
+model 224 'part_617' deleted
+model 223 'part_618' deleted
+model 225 'part_617' deleted
+model 226 'part_73f' deleted
+model 227 'part_73f' deleted
 msg 979 CREATE (4) size 27: cpacket.cpp's handler
-asset manager Create_Render_Obj 'missing' -> model 253
+asset manager Create_Render_Obj 'missing' -> model 255
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38826
 msg 980 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -2910,7 +2943,7 @@ msg 982 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 983 ADVANCED_POSITIONAL_UPDATE (62) size 50: cpacket.cpp's handler
 msg 984 CREATE (4) size 27: cpacket.cpp's handler
-asset manager Create_Render_Obj 'missing' -> model 254
+asset manager Create_Render_Obj 'missing' -> model 256
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38842
 msg 985 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -2920,7 +2953,7 @@ msg 986 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 987 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 988 CREATE (4) size 27: cpacket.cpp's handler
-asset manager Create_Render_Obj 'missing' -> model 255
+asset manager Create_Render_Obj 'missing' -> model 257
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38825
 msg 989 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -2930,7 +2963,7 @@ msg 990 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 991 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 992 CREATE (4) size 27: cpacket.cpp's handler
-asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 256
+asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 258
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38834
 msg 993 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -2941,7 +2974,7 @@ msg 995 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
 msg 996 ADVANCED_POSITIONAL_UPDATE (62) size 50: cpacket.cpp's handler
 msg 997 CREATE (4) size 27: cpacket.cpp's handler
-asset manager Create_Render_Obj 'missing' -> model 257
+asset manager Create_Render_Obj 'missing' -> model 259
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38816
 msg 998 RELATIONSHIP (137) size 13: cpacket.cpp's handler

@@ -21,7 +21,8 @@
 //     server's packets build and move an object (P-UP1-1): CREATE 4, SIMPLE_POSITIONAL_UPDATE 8 through the
 //     real handler and postate / extrap's state, then SClient::Process_AI and co.cpp's per-frame update,
 //     which hand the state's matrix at the client clock to the model's slot +0x50 (Set_Transform);
-//     CHANGE_BASE_ASSET 38 swaps the model, REMOVE 7 deletes the object.
+//     CHANGE_BASE_ASSET 38 swaps the model, REMOVE 7 deletes the object. (4b): synthetic CREATEs of types 24
+//     and 28 make co_subtypes.cpp's subclasses (no alex3 message has them); SET_TARGET 25 aims type 28.
 //
 // Never: a modal dialog (asserts and FAIL_IF go to the trace), the registry (SOptionsClass's
 // constructor is a stand-in), the network (the memory connection), the game's install folder.
@@ -42,6 +43,7 @@
 #include "..\..\..\app\packets\pkcreate.h"
 #include "..\..\..\app\packets\pkupdate.h"
 #include "..\..\..\app\client\aux_roots.h"
+#include "..\..\..\app\client\co_subtypes.h"
 #include "rendobj.h"
 
 static FILE *Out;
@@ -893,6 +895,68 @@ static void Test_Path(SClient *client, FakeMainViewClass *main_view)
 	Memory->Received = 0;
 }
 
+// (4b) CREATE 4's subclasses (cpacket.cpp's switch, co_subtypes.cpp): type 24 (0x70E2E0 over 0x70DBC0, which is also
+// dynamic_obj.cpp's proximity object at +0x188) and type 28 (0x70E5A0), from synthetic packets: no alex3 message
+// creates either. Set_Model's slot +0x34 reaches type 24's override (0x70DCF0: the radius also into the proximity
+// object's +0x04); SET_TARGET 25 (0x7363E0) calls type 28's 0x70E750; REMOVE 7 deletes both through their destructors.
+static std::vector<unsigned char> Set_Target_Message(int target_id, int object_id)
+{
+	std::vector<unsigned char> p(8, 0);	// TargetID, the object's id (pkrequesttarget.cpp's raw constructor)
+	memcpy(&p[0], &target_id, 4);
+	memcpy(&p[4], &object_id, 4);
+	return(Message_Bytes(25, p));
+}
+
+static void Test_Subtypes(SClient *client)
+{
+	Trace("== (4b) CREATE 4's types 24 and 28 make co_subtypes.cpp's subclasses");
+	if (Memory == 0) {
+		Check(false, "the memory connection");
+		return;
+	}
+	int alive = Models_Alive;
+	const unsigned id24 = 4100, id28 = 4200;
+	Memory->Incoming.push_back(Create_Message(id24, 0.5f, 900, 24));
+	Memory->Incoming.push_back(Create_Message(id28, 1.0f, 901, 28));
+	client->Process_Packets();
+
+	ClientObjectClass *object24 = client->Find_Object(id24);
+	Check(object24 != 0 && object24->Type == 24 && object24->BaseAsset == 900 && object24->Radius == 12.5f,
+		"CREATE 4 type 24 (game id 4100): in the table with its type, base asset and Set_Model's radius 12.5");
+	if (object24 != 0) {
+		Unknown70E2E0Class *type24 = (Unknown70E2E0Class *)object24;
+		Unknown44AC70Class *proximity = type24;
+		Check((char *)proximity - (char *)type24 == 0x188 && proximity->Unknown_Dyn04() == proximity,
+			"type 24's proximity object sits at +0x188 and its slot +0x04 (0x70DC90) returns itself");
+		Check(proximity->Unknown04 == 12.5f && type24->Unknown220 == false,
+			"type 24's slot +0x34 (0x70DCF0) put the radius into the proximity object's +0x04 as well; +0x220 is false");
+		Check(proximity->Unknown_Dyn20() == 24 && strcmp(proximity->Unknown_Dyn30(), "Unnamed ClientProximityObject") == 0,
+			"through the proximity object: slot +0x20 (0x70E220) gives the type 24, slot +0x30 (0x70DD20) the name 'Unnamed ClientProximityObject'");
+		Check(object24->Unknown_40() == (int)object24 && object24->Unknown_44() == (int)object24,
+			"type 24's slots +0x40 (0x70DCB0) and +0x44 (0x70E330) return the object");
+	}
+
+	ClientObjectClass *object28 = client->Find_Object(id28);
+	Check(object28 != 0 && object28->Type == 28 && object28->Unknown_6F5DC0(),
+		"CREATE 4 type 28 (game id 4200): in the table, and 0x6F5DC0 (SET_TARGET's test) says type 28");
+	if (object28 != 0) {
+		Unknown70E5A0Class *type28 = (Unknown70E5A0Class *)object28;
+		Check(type28->TargetID == -1 && type28->ParentID == -1 && type28->Bone == -1 && type28->Unknown1D0 == 1.0f,
+			"type 28's constructor (0x70E5A0): no target, no parent, no bone, +0x1D0 1.0");
+		Memory->Incoming.push_back(Set_Target_Message(id24, id28));
+		client->Process_Packets();
+		Check(type28->TargetID == (int)id24 && type28->Unknown1D0 == 0.0f,
+			"SET_TARGET 25 (target 4100 for object 4200): type 28's 0x70E750 stores the target and clears +0x1D0");
+	}
+
+	Memory->Incoming.push_back(Remove_Message(id24));
+	Memory->Incoming.push_back(Remove_Message(id28));
+	client->Process_Packets();
+	Check(client->Find_Object(id24) == 0 && client->Find_Object(id28) == 0 && Models_Alive == alive,
+		"REMOVE 7 deleted both through their destructors (0x70E380 / 0x70E0C0, 0x70E6B0) with their models");
+	Memory->Received = 0;
+}
+
 // ------------------------------------------------------------------------- main
 
 int main(int argc, char **argv)
@@ -948,6 +1012,7 @@ int main(int argc, char **argv)
 	Test_Debug(client);
 	Test_Refuse(client);
 	Test_Path(client, &main_view);
+	Test_Subtypes(client);
 	if (argc > 2) {
 		Test_Packets(client, argv[2]);
 	}
