@@ -1348,6 +1348,12 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 
 ## 3. Open decisions
 
+* **P-LD1-2** (2026-10-28, LD1; recommend accept, a D69 safety default): drawcheck, vidtest_sbs and run_vidtest
+  default to `--art build/art` whenever that folder exists, since VIDTEST's LandClass can now write the .pld (Save_PLD)
+  beside the art it reads; without `--art` drawcheck runs ours on the install folder.
+* **D101's sbs criterion** (2026-10-28, LD1; recommend accept as met): the means moved 0.4-0.7 points (2.6-2.8 %
+  against vidland's 1.9-2.4 %), within ±1.5 points; frames 600-900 are 2.8-3.0 % against 1.5-2.4 %. LD1 reads
+  "within ±1.5 %" as points of difference; the user confirms or asks for the lighting fix first.
 * **P-CR1-1** (2026-10-28, CR1; recommend accept): rename co.h's `UnknownA8` (+0xA8) to `BaseAsset` (NAME 2): CREATE 4
   and CHANGE_BASE_ASSET 38 store the packet's BaseAsset there and 0x6F39F0 reads it as BASE-n.
 * **P-CR1-3** (2026-10-28, CR1; recommend a provisional name like pkcreate.h's): the object subclasses' run
@@ -1415,8 +1421,13 @@ client's own code: [kernel-map.md](kernel-map.md) §6 and, for step 9's dependen
    kv_list's 0x4B6B60 (why 0x4B7030 is a one-caller find instance), co_player_relationship and option.cpp after the
    eval. P-H17-1: note in libs/sgistl's README that `insert_unique_noresize` fails in VC6 (C2899); the client inserts
    through `operator[]`.
-5. Land (M2.4, D46): P-L6-2 (the four undefined land symbols' placement) then P-L6-1 (viddeco.* from vidland's
-   decorations, the switch diff in `.work/l6/`, delete vidland.*; land test, drawcheck, sbs within ±1.5%); the
+5. Land (M2.4, D46): P-L6-2 and P-L6-1 done 2026-10-28 (LD1: 30431ad, 84a3871, 614854d; VIDTEST on LandClass,
+   vidland.* deleted, viddeco.* draws the trees; drawcheck PASS at frame 900, sbs mean 2.6-2.8 % against vidland's
+   1.9-2.4 %, frames 600-900 2.8-3.0 %; LandLodDistances has 8 entries, not 6). Next: the land's lighting difference
+   (Compute_Lighting / Update_Lightmap against vidland), then the zone loader 0x478970-0x479D00 that fills the patch
+   records +0x18C (P-LD1-1: it retires viddeco.*); Load_Assets 0x4691D0 (the pragma keeps the patch ctor / Init
+   out of line, frame left), Update_Patches 0x46B3C0 (frame, PatchSize's unsigned conversion), Get_Triangles
+   0x465D30 (Fable-eligible); the
    parked rows (Compute_Lighting order-only, Update_Patches / Compute_Horizons shape, the scanners' frame,
    Cast_OBBox / Cast_Ray frame, Get_Triangles budget, Render shape, Load_Assets budget); the stars' Load / Init.
 6. Step 8's tail: Key_Exchange (LIMIT), the UDP constructor over a CordCon 0x82CBF0 (register), Open_Fixed_Channel

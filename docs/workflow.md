@@ -321,7 +321,9 @@ unless `--lever` cites a new row of this table.
   inlines neither, `erase(F, L)` alone inlines both (FIND_MEMBER 0x886890).
 * **`#pragma auto_inline(off)` around a helper keeps it out of line where the empty-`for` lever does not (2026-10-27,
   B-sonnet-1, Set_Defaults 0x7F1AD0).** In a long function, extra inline calls or dead code anywhere move the
-  inliner's switch to out-of-line calls earlier, never later.
+  inliner's switch to out-of-line calls earlier, never later. It also keeps a same-file destructor out of
+  line when called from `delete` and from `delete []`'s __ehvec_dtor (2026-10-28, LD1, ~LandPatchClass 0x474560;
+  an inline candidate there added 3 EH states to the caller).
 * **Register levers from the packet rows (2026-10-27, D93 task A):** an entry pointer cached in a named local
   (`entry = *it`) before several `raw->Add` calls made Build 0x8869F0 exact (three builders independently); the
   client's `Add(..., char, char)` takes `movsx` arguments: declare them `char`, not `bool`; a `Vector3` member
@@ -662,6 +664,11 @@ unless `--lever` cites a new row of this table.
 * **A rebuilt handler whose callees are generated NULL-returning stand-ins can crash a test program**
   (2026-10-28, CR1): list it in `gen_stubs.py`'s `NOT_DRIVEN` until its callees exist (CREATE, CHANGE_BASE_ASSET).
 * **`gen_stubs --link` skips data globals** (`MonoClass Mono`): write them by hand in client_stubs.cpp (2026-10-28, UP1).
+* **LandClass writes the .pld beside the art it reads (2026-10-28, LD1):** VIDTEST and drawcheck run on LandClass
+  now; always pass `-art` / `--art` with a copy of EBCONFIG made with `cp -rp` (without -p the .pld's date changes
+  and Save_PLD rewrites it). drawcheck without `--art` runs ours on the install folder (P-LD1-2).
+* **SimpleSceneClass adds at the head and renders from the head:** an object meant to draw after another is
+  added before it (2026-10-28, LD1: the trees' shadows were overdrawn by the land).
 * **clienttest (T9, 2026-10-27; `python tools/harness/clienttest.py build|run`):** hand-written stand-ins must cover
   every member of an app.lib object the program reaches, or the linker pulls the whole object and reports LNK2005 on
   the rest (app.lib changes under you when other builders verify: soptions.obj did). A stand-in object whose real
@@ -676,6 +683,8 @@ unless `--lever` cites a new row of this table.
 
 ### 3.8 Git, docs and scripting hygiene
 
+* **A wt.py worktree checks out CRLF (autocrlf) where the main tree's programs/ files are LF** (2026-10-28,
+  LD1): scripts that edit them handle both.
 * **`wt.py bring-over` refuses while the main tree has another builder's uncommitted generated file**
   (docs/imports.md): never commit imports.md from a worktree; the next `report` run regenerates it (2026-10-28, UP1).
 * **The Bash tool starts a fresh shell per call** (2026-10-28, EX1): export `ENB_AGENT` and `ENB_VC6_HOSTS` in
