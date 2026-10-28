@@ -426,7 +426,7 @@ void ClientObjectClass::Unknown_20()
 {
 	EmoteDataClass *emote = Get_Emote_Data(this, false);
 	if (emote) {
-		if (GameID == Client->DebugObjectID && emote->Unknown_7E7A40()) {
+		if (GameID == Client->AvatarID && emote->Unknown_7E7A40()) {
 			if (((SClient *)Client->Unknown_18())->CameraManager->Unknown_79B670()) {
 				((SClient *)Client->Unknown_18())->CameraManager->Unknown_79B2B0(0x14);
 				emote->Unknown_7E76E0();
@@ -438,7 +438,7 @@ void ClientObjectClass::Unknown_20()
 		UnknownB4->Unknown_1C();
 	}
 	Matrix3D tm = Unknown_28(true);
-	if (Client->DebugObjectID == GameID) {
+	if (Client->AvatarID == GameID) {
 		Mono.Set_Cursor(0, 1);
 		Vector3 pos = tm.Get_Translation(); Mono.Printf("Player Pos(%6.1f,%6.1f,%3.1f) ", pos.X, pos.Y, pos.Z);
 	}
@@ -1473,7 +1473,7 @@ bool ClientObjectClass::Unknown_6F5F60()
 // 0x6FBEF0 (the warp state: PrivateWarpState's messages, then GlobalWarpState's sounds, effects and camera modes)
 void ClientObjectClass::Unknown_6FBEF0()
 {
-	bool player = (Unknown_6F5A40() && GameID == Client->DebugObjectID);
+	bool player = (Unknown_6F5A40() && GameID == Client->AvatarID);
 	{
 		NameClass name("PrivateWarpState");
 		DeltaTemplateClass<int> *t = Unknown_Find_Field<DeltaTemplateClass<int> >((DeltaCompoundClass *)AuxData, name);
@@ -1748,7 +1748,7 @@ void ClientObjectClass::Unknown_6FCB70()
 	Unknown_Damage_Reset();
 	Unknown_6FED30();
 	if (Colorization.size() && Model) Unknown_80F220(Model, Colorization);
-	SClient *sclient = (SClient *)Client->Unknown_18(); if (sclient && sclient->DebugObjectID == GameID) sclient->Unknown_74D950();
+	SClient *sclient = (SClient *)Client->Unknown_18(); if (sclient && sclient->AvatarID == GameID) sclient->Unknown_74D950();
 	if (Unknown_6F5A10()) {
 		NameClass name("IsOrganic");
 		DeltaTemplateClass<bool> *t = Unknown_Find_Valid<DeltaTemplateClass<bool> >((DeltaCompoundClass *)AuxData, name);
@@ -2002,7 +2002,7 @@ void ClientObjectClass::Unknown_6FDBD0()
 	if (data) {
 		emote = data->Unknown_7E7A70();
 	}
-	bool camera = (GameID == Client->DebugObjectID && ((SClient *)Client->Unknown_18())->CameraManager->Unknown_79B690());
+	bool camera = (GameID == Client->AvatarID && ((SClient *)Client->Unknown_18())->CameraManager->Unknown_79B690());
 	bool forced = (emote || camera);
 	bool on = (state == 1 || Unknown_6FC970() || forced);
 	if (UnknownFC != on) {

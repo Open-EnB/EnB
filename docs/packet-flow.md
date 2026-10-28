@@ -82,7 +82,7 @@ SERVER_HANDOFF 58 and CLIENT_SET_TIME 52 set it), +0x10C8 / +0x10CC (32) / +0x10
 the positional packets' lag over 32 samples and their count (0x728180 resynchronises when |average| >
 50 after 64 samples), +0x10D4..+0x10E8 the sector's z band and box (SET_ZBAND 42, SET_BBOX 43),
 +0x10EC..+0x110C SERVER_PARAMETERS 66, **+0x112C the player's own object id** (tree name
-`DebugObjectID`; CLIENT_AVATAR 55 sets it from the packet's AvatarID; §5 proposes a rename),
+`AvatarID`, D123; CLIENT_AVATAR 55 sets it from the packet's AvatarID),
 +0x1130 `ShipID` (CLIENT_SHIP 71), +0x113C a counter CREATE's type 10 decrements for its record id.
 SClient adds +0x12C0 the player's aux root (DeltaPlayerClass, 0x752510), +0x12C4 the player-variable
 roots (PLAYER_VAR_AUX_DATA 28), +0x1334 / +0x1338 the decal and colorization INIs, the views (MainView,
@@ -104,7 +104,7 @@ constructor (co.cpp's notes, T17's reading, confirmed here):
 Members (constructor and users; co.h has the full list): +0x7C `Client` (ctor arg 1), +0x88 **`AuxData`**
 (the Delta root, §2.4), +0x90 **`GameID`** (ctor arg 3), +0x94 **`Type`** (ctor arg 2, a byte: CREATE's
 object type), +0x98 **`Unknown98`** the positional state (§2.5; the ctor news a 4-byte default, vtable
-0xB006B8), +0x9C `Radius` 1.0, +0xA0 `RadiusAdjust`, +0xA4 `Scale`, +0xA8 the base asset (-1),
+0xB006B8), +0x9C `Radius` 1.0, +0xA0 `RadiusAdjust`, +0xA4 `Scale`, +0xA8 `BaseAsset` (-1; D121),
 **+0xAC `Model`** (the RenderObjClass; the asserts call it RenderObject), +0xB0 hidden, +0xB4 the lego
 object (`RefCountPtr`, 0x731FA0 in client_lego_impl.cpp, 0xB8 bytes), +0xB8 / +0xC8 two objects
 (0x843910 / 0x843DB0; +0xC8 holds the colorization regions), +0xD8 `DecalName` (NAME_DECAL 178), +0xE8
@@ -136,7 +136,7 @@ is open (*guess*: player avatars / NPCs, the classes that carry more state).
   +0x86C table and swaps the model for a `Null3DObjClass("NULL")`. CHANGE_BASE_ASSET 38 (0x737400)
   reuses 0x6F5140 + 0x6F33F0 on an existing object.
 * **Found** by `Find_Object(GameID)` in nearly every handler; `Get_Ship()` (slot +0x30, `ShipID`) and
-  `Get_Debug_Object()` (slot +0x28, +0x112C) are Find_Object on the two remembered ids.
+  `Get_Avatar()` (slot +0x28, `AvatarID` +0x112C) are Find_Object on the two remembered ids.
 * **Updated** in three ways: the AUX tree (§2.4), the positional state at +0x98 (§2.5), and direct
   calls on the object or its model (decals, colorization, render states, name decal, attachments,
   targets, relationship: the table in §3).
@@ -247,7 +247,7 @@ Handler = slot +0x08 (all in cpacket.cpp unless noted). "Object" = `Find_Object(
 | 71 | CLIENT_SHIP | 0x733660 | `Set_Ship_ID` (+0x1130) | exact |
 | 74 | CREATE_ATTACHMENT | 0x733BB0 | `parent->Unknown_0C(child, slot, 0)` (0x725610: the child hung on a bone) | exact |
 | 97 | AVATAR_DESCRIPTION | 0x733B10 | SClient 0x74C3B0(GameID, Desc) | exact |
-| 100 | CLIENT_DAMAGE / DamagePacketClass | 0x738970 | floating damage text over the player's avatar (Get_Debug_Object) | NOT EXACT frame [partial] |
+| 100 | CLIENT_DAMAGE / DamagePacketClass | 0x738970 | floating damage text over the player's avatar (Get_Avatar) | NOT EXACT frame [partial] |
 | 103 | GadgetPacketClass | 0x739180 | 0x661940 / 0x6603A0 / 0x6607D0 (*guess*: the cockpit's gadget slots) | not rebuilt |
 | 137-139 | RELATIONSHIP / reaction / ATTACKER_UPDATES | 0x7398E0, 0x7399D0, 0x739AC0 | co_player_relationship.cpp 0x70CC40 / 0x70CC90 / 0x70CD50: +0x12C, PlayerObjectRelationshipChangeEvent | exact |
 | 140 | LOOT_HULK_PERMISSION | 0x7396F0 | the hulk's loot flag | NOT EXACT shape [parked] |
@@ -327,7 +327,8 @@ the 2000-tick blend the model follows the second packet. Not exact yet: 0x6F4610
   (REMOVE's test).
 * Whether any client handler returns false: the rebuilt ones never do, and a scan of the returns of all
   110 attributed handlers (cpacket.cpp, the tasks) found no `xor al, al` before a `ret` (a heuristic, not a proof).
-* **Proposal P-PF1-1**: rename `ClientClass::DebugObjectID` (+0x112C) to the player's avatar id
+* **P-PF1-1, accepted as D123** (applied 2026-10-28, CS1: `AvatarID`, `Get_Avatar`; the setter keeps
+  `Set_Debug_Object`, it sends the DEBUG packet): rename `ClientClass::DebugObjectID` (+0x112C) to the player's avatar id
   (e.g. `AvatarID`, with `Set_Debug_Object` / `Get_Debug_Object` -> `Set_Avatar_ID` / `Get_Avatar`):
   CLIENT_AVATAR 55 sets it from the packet's `AvatarID`, ADVANCED 62 / FORMATION 65 / 0x6F3C60 treat it
   as the player's own object, DAMAGE 100 as the player's avatar; only the DEBUG packet's send suggests

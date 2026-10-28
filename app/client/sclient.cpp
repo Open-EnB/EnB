@@ -2114,7 +2114,7 @@ void SClient::Unknown_744E70(bool arg)
 		}
 		return;
 	}
-	ActionPacketClass packet(DebugObjectID, 2, target->Get_Game_ID(), 0);
+	ActionPacketClass packet(AvatarID, 2, target->Get_Game_ID(), 0);
 	Send_Packet(&packet);
 }
 
@@ -4520,7 +4520,7 @@ bool SClient::Unknown_74D780(ClientObjectClass *co)
 
 	FAIL_IF(!co) return(false);
 
-	ClientObjectClass *avatar = Get_Debug_Object();
+	ClientObjectClass *avatar = Get_Avatar();
 	FAIL_IF(!avatar) return(false);
 	if (co == avatar) {
 		return(false);
@@ -4541,14 +4541,14 @@ bool SClient::Unknown_74D780(ClientObjectClass *co)
 // 0x74D870
 bool SClient::Unknown_74D870()
 {
-	ClientObjectClass *co = Get_Debug_Object();
+	ClientObjectClass *co = Get_Avatar();
 	FAIL_IF(!co) return(false);
 	return(co->Unknown_6F5ED0());
 }
 
 bool SClient::Unknown_74D8B0(ClientObjectClass *co)	// 0x74D8B0
 {
-	ClientObjectClass *player_co = Get_Debug_Object();
+	ClientObjectClass *player_co = Get_Avatar();
 	FAIL_IF(!player_co) return(false);
 	FAIL_IF(!co) return(false);
 	return(player_co->Unknown_6F5F60() || co->Unknown_6F5F60());

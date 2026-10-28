@@ -49,7 +49,7 @@ ClientClass::ClientClass() :
 	Unknown1110(1.0f),
 	Unknown1114(1.0f),
 	Unknown1128(0),
-	DebugObjectID(0),
+	AvatarID(0),
 	ShipID(0),
 	Unknown1134(0),
 	Unknown1138(0),
@@ -308,8 +308,8 @@ void ClientClass::Open_Connection(unsigned long ip, unsigned short port)
 // 0x728010
 unsigned ClientClass::Set_Debug_Object(unsigned id)
 {
-	unsigned old = DebugObjectID;
-	DebugObjectID = id;
+	unsigned old = AvatarID;
+	AvatarID = id;
 
 
 
@@ -328,7 +328,7 @@ unsigned ClientClass::Set_Debug_Object(unsigned id)
 
 
 	G_ASSERT(Connection);
-	Connection->Send_Packet(&DebugPacketClass(DebugObjectID, 0x21, Unknown11 ? 1 : 0));
+	Connection->Send_Packet(&DebugPacketClass(AvatarID, 0x21, Unknown11 ? 1 : 0));
 	return(old);
 }
 
@@ -400,7 +400,7 @@ void ClientClass::Set_Debug_Mode(bool on)
 
 
 		G_ASSERT(Connection);
-		Connection->Send_Packet(&DebugPacketClass(DebugObjectID, 0x1E, DebugMode));
+		Connection->Send_Packet(&DebugPacketClass(AvatarID, 0x1E, DebugMode));
 	}
 }
 // 0x728300

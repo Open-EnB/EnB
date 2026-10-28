@@ -137,7 +137,7 @@ public:
 	virtual int Unknown_1C() { return(0); }				// +0x1C 0x726900
 	virtual int Unknown_20() { return(0); }				// +0x20 0x726920
 	virtual unsigned Set_Debug_Object(unsigned id);		// +0x24 0x728010: returns the previous id  // NAME 2: what it does (the DEBUG packet's game id)
-	virtual ClientObjectClass *Get_Debug_Object() { return(Find_Object(DebugObjectID)); }	// +0x28 0x726940  // NAME 2: what it does
+	virtual ClientObjectClass *Get_Avatar() { return(Find_Object(AvatarID)); }	// +0x28 0x726940 (D123)  // NAME 2: what it does
 	virtual unsigned Set_Ship_ID(unsigned id) { unsigned old = ShipID; ShipID = id; return(old); }	// +0x2C 0x726A00  // NAME 2: what it does (Get_Ship's id)
 	virtual ClientObjectClass *Get_Ship() { return(Find_Object(ShipID)); }	// +0x30 0x726A30  // NAME 2: client.cpp's FAIL_IF '!ship' on its result
 	virtual bool Unknown_34(int arg);					// +0x34 0x7281F0: false
@@ -206,7 +206,7 @@ public:
 	int Unknown1118[3];									// +0x1118 (the constructor leaves them)
 	ConnectionClass *Connection;						// +0x1124 (the asserts 'Connection')
 	int Unknown1128;									// +0x1128
-	unsigned DebugObjectID;								// +0x112C slots +0x24 / +0x28  // NAME 2: what it holds
+	unsigned AvatarID;									// +0x112C slots +0x24 / +0x28 (D123: CLIENT_AVATAR 55 sets it from the packet's AvatarID)  // NAME 2: what it holds
 	unsigned ShipID;									// +0x1130 slots +0x2C / +0x30  // NAME 2: what it holds
 	int Unknown1134;									// +0x1134
 	int Unknown1138;									// +0x1138 rand() after srand(timeGetTime())

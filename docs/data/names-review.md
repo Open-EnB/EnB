@@ -4429,7 +4429,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Shutdown` | `app/client/client.h:130` | what SClient's does |
 | 2 | `Do_Frame` | `app/client/client.h:134` | what SClient's does  // NAME 1 [focused]: Is_Focused() |
 | 2 | `Set_Debug_Object` | `app/client/client.h:139` | what it does (the DEBUG packet's game id) |
-| 2 | `Get_Debug_Object` | `app/client/client.h:140` | what it does |
+| 2 | `Get_Avatar` | `app/client/client.h:140` | what it does |
 | 2 | `Set_Ship_ID` | `app/client/client.h:141` | what it does (Get_Ship's id) |
 | 2 | `Get_Ship` | `app/client/client.h:142` | client.cpp's FAIL_IF '!ship' on its result |
 | 2 | `Toggle_Debug_Mode` | `app/client/client.h:144` | what it does  // NAME 1 [unused]: never read |
@@ -4450,7 +4450,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `DebugMode` | `app/client/client.h:174` | what it holds |
 | 2 | `Kernel` | `app/client/client.h:176` | what it holds |
 | 2 | `EffectList` | `app/client/client.h:179` | what it holds |
-| 2 | `DebugObjectID` | `app/client/client.h:209` | what it holds |
+| 2 | `AvatarID` | `app/client/client.h:209` | what it holds |
 | 2 | `ShipID` | `app/client/client.h:210` | what it holds |
 | 2 | `ObjectsChanged` | `app/client/client.h:214` | what it holds |
 | 2 | `Splines` | `app/client/client.h:216` | what it holds |

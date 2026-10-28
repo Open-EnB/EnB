@@ -179,7 +179,7 @@ bool ClientAvatarPacketClass::Process_Packet(void *instance)
 	WWPROFILE("ClientAvatarPacketClass::Process_Packet()");
 	ClientClass *client = (ClientClass *)instance;
 	client->Set_Debug_Object(AvatarID);
-	ClientObjectClass *object = client->Get_Debug_Object(); object->Model->Set_LOD_Bias(1000000000.0f);
+	ClientObjectClass *object = client->Get_Avatar(); object->Model->Set_LOD_Bias(1000000000.0f);
 	return(true);
 }
 
@@ -415,7 +415,7 @@ bool AdvancedPositionalUpdatePacketClass::Process_Packet(void *instance)
 	}
 	ClientObjectClass *object = sclient->Find_Object(GameID);
 	if (object) {
-		if (GameID == sclient->DebugObjectID) {
+		if (GameID == sclient->AvatarID) {
 			static int requests;	// 0xBE7D6C  // NAME 1: what it counts
 			if (++requests > 32) {
 				sclient->Send_Packet(&RequestTimePacketClass());
@@ -1146,7 +1146,7 @@ bool FormationPositionalUpdatePacketClass::Process_Packet(void *instance)
 	SClient *sclient = (SClient *)instance;
 	ClientObjectClass *object = sclient->Find_Object(GameID);
 	if (object) {
-		unsigned id = sclient->DebugObjectID;
+		unsigned id = sclient->AvatarID;
 		if (GameID == id) {
 			static int requests;	// 0xBE7D70  // NAME 1: what it counts
 			if (++requests > 32) {
@@ -1710,7 +1710,7 @@ bool DamagePacketClass::Process_Packet(void *instance)
 {
 	WWPROFILE("DamagePacketClass::Process_Packet()");
 	SClient *sclient = (SClient *)instance;
-	ClientObjectClass *avatar = sclient->Get_Debug_Object();
+	ClientObjectClass *avatar = sclient->Get_Avatar();
 
 
 	FAIL_IF(!avatar) return(true);
@@ -2570,11 +2570,11 @@ bool ClientChatEventPacketClass::Process_Packet(void *instance)
 				unsigned id;
 				if (Unknown78 && (object = sclient->Find_Object(name)) != NULL && (avatar = sclient->Unknown_74C840(id = object->GameID)) != NULL) {
 					avatar->Unknown_784B80(Unknown74, Unknown78, true);
-					if (sclient->DebugObjectID == id) return(true);
+					if (sclient->AvatarID == id) return(true);
 					if (sclient->ChatPanel) {
 						sclient->ChatPanel->Unknown_563910(id, false);
 					}
-					if (sclient->DebugObjectID == id) return(true);
+					if (sclient->AvatarID == id) return(true);
 					if (!avatar->Unknown_7817E0()->Unknown_0C()) return(true);
 					_snprintf(buffer, sizeof(buffer), "%s (private): %s", from, text);
 				} else {

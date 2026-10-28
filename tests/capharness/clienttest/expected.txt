@@ -61,7 +61,7 @@ sent DEBUG (26) size 16: e80300002100000000000000
 check Set_Debug_Object 1000 returns the old id 0: ok
   parsed back: Debug {GameID=1000 Command=Snoop UserData=0}
 check Set_Debug_Object sends DEBUG {1000, 0x21, 0}: ok
-check Get_Debug_Object is object 1000: ok
+check Get_Avatar is object 1000: ok
 sent DEBUG (26) size 16: e80300001e00000000000000
 stub SClient::Print 0x17 'Debug mode turned OFF.'
   parsed back: Debug {GameID=1000 Command=Toggle_invulnerability,Buff_skills UserData=0}

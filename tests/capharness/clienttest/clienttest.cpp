@@ -558,7 +558,7 @@ static void Test_Debug(SClient *client)
 	size_t before = Memory->Sent.size();
 	Check(client->Set_Debug_Object(1000) == 0, "Set_Debug_Object 1000 returns the old id 0");
 	Check_Debug("Set_Debug_Object sends DEBUG {1000, 0x21, 0}", 1000, 0x21, 0);
-	Check(client->Get_Debug_Object() == client->Find_Object(1000), "Get_Debug_Object is object 1000");
+	Check(client->Get_Avatar() == client->Find_Object(1000), "Get_Avatar is object 1000");
 	client->Set_Debug_Mode(false);
 	Check_Debug("Set_Debug_Mode false sends DEBUG {1000, 0x1E, 0}", 1000, 0x1E, 0);
 	size_t n = Memory->Sent.size();
