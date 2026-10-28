@@ -63,8 +63,8 @@ or `git clean` on anything you didn't create. `git add` only your files, by name
 whole working-tree copy of a shared file, other builders' uncommitted hunks included. So: files
 only you touch, `git add <files> && git commit -- <the same files>`; any commit that includes a
 shared file (`tools/vc6/importer.py`, app headers, `stubs/*`, `docs/data/*`, `docs/library-matching.md`)
-goes through `python tools/vc6/commit_mine.py MSGFILE SPEC.json` (your whole files plus only your
-hunks of the shared ones, by keyword; it builds the commit in a private index). Never `git reset`,
+goes through `python tools/vc6/commit_mine.py MSGFILE SPEC.json` (your whole files, your imports.json entries (`--file`, headers rows
+included) and your rows of attempts.csv / not-exact.md / names-review.md; it lands by compare-and-swap). Never `git reset`,
 `commit --amend` or `commit-tree` to repair a sweep: report it.
 Commit each finished, working piece right away: one imperative subject stating the evidence or
 gain (see `git log`), counts before -> after; end the message with the `Co-Authored-By` line your

@@ -363,8 +363,6 @@ unless `--lever` cites a new row of this table.
 * **A class holding an `__int64` needs `#pragma pack(push, 4)`** or VC6 pads the vtable pointer (ClientClass 0x1150
   bytes, tsk_game.h; T6, 2026-10-27). An inlined FAIL_IF can carry another file's `__FILE__` (co.cpp's line 2461 inside
   client.cpp's 0x7283B0): explain.py classes it as relocation; a source of that file cannot produce it.
-* **`appfile.py match` on the draft VM resolves `..\common\x.h` from stale copies** unless every app directory is
-  passed with `-I` (app/common, app/packets, app/shared) plus radtools' include_enb and the directx8 SDK.
 
 * **A static member `hash_map<K, OwnClass>` declared inside its own class fails with VC6 C2079** (H11): define it at
   file scope. Byte-identical twins that differ only by a relocation (0x71ADF0 / 0x71AE20) count only once their caller
@@ -378,7 +376,6 @@ unless `--lever` cites a new row of this table.
   relocation before the real class.
 * **A `VectorClass<T>` member needs `operator==` / `operator!=` declared on T** even when no constructor is emitted
   (VC6 compiles VectorClass's virtuals; declaration-only operators on CameraModeStruct; T7, 2026-10-27).
-  `appfile.py match` also needs `-I app/client/tasks` and `app/kernel` for sclient.h, else the VM uses stale copies.
   Any program that constructs an SClient needs a stub for the registry read 0x75A280 (D69).
 
 ### 3.4 Importer, verify and pairs
@@ -419,39 +416,25 @@ unless `--lever` cites a new row of this table.
   `git checkout`, `addpatch.py`, `cmp` against a backup); cut mechanical edits with difflib,
   widening context until unique (`.work/night/item6f/spec.py`, untracked, historical).
 
-* **`%TEMP%\enb_import\verify-app` is shared:** the next waiting verify clears it as soon as yours
-  ends. Copy the objects you need right after your verify, and expect a missing file even then.
-
-* **`appfile.py match` on a draft:** the build VM gets the `-I` directories but not their subfolders:
-  pass `-I libs/wwonline/wlib` explicitly or the VM keeps a stale wlib. A draft placed next to its
+* **`appfile.py match` on a draft:** A draft placed next to its
   original (so relative includes resolve) leaves a `<dir>/obj/` folder: delete it before replay.
   `tools/vc6/mkspec.py` splits paths as `lib/file` and fails on `libs/wwonline/...`.
 
 * **Compare against HEAD's imports.json, not a saved working copy:** another builder's verify rewrites the
   working copy with your uncommitted tree already in it (`git show HEAD:docs/data/imports.json` is the before-copy;
   2026-10-26, L4, F3). Compare over the whole app: a template header visible to other files moves their pairs.
-* **Adjacent new imports.json entries land in one insertion hunk** (soptions and soundlib; H9): a commit_mine key
-  then carries the other builder's entry. `.work/h9/commit_split.py` keeps only your block through a private index.
-  `appfile.py match` on app files that use wwaudio needs `-I` for libs/sgistl, wwlib, wwdebug, wwmath, wwaudio,
-  ww3d2 and wwsaveload (`.work/h9/match.sh`).
-* **commit_mine keys must cover every in_tree hunk of a file block:** a key such as "attrib_dir" matches only the
-  block header's hunk; d8e3f1e had to record 19 pairs df8b6f3 missed (H7). Key by every address too.
 * **commit_mine.py hunks (2026-10-26/27):** keys must cover every `-U0` hunk of yours, and a key matches an
   identical hunk anywhere in the file (c9d9e0c missed two; P4 found another builder's identical line taken):
-  after the commit `git diff docs/data/imports.json` must no longer show your addresses. Contiguous appended rows
-  (attempts.csv, not-exact.md, names-review.md) are one hunk, so a path commit or a regeneration sweeps the
-  neighbours' rows (`git log -S` before assuming a row is lost); copy a regenerated file in and commit it in one
-  step. The -U0 placement bug itself is fixed (af0a8a5).
+  after the commit `git diff docs/data/imports.json` must no longer show your addresses.
 * **VC6 hits C1001 on out-of-class specialisations of member templates and mangles member-template functions
   without their template arguments** (P7): a stand-in defines them as plain overloads in its own minimal class
-  declaration (tests/capharness/udpreplay/shipcust_stubs.cpp). `appfile.py match` needs `-I wwmath -I wwlib
-  -I wwdebug` (top-level folders) for headers like avatar_desc.h; `--diff` works only on a marked function.
+  declaration (tests/capharness/udpreplay/shipcust_stubs.cpp). `appfile.py match --diff` works only on a marked function.
 * **Including a packet header mid-file in tsk_login.cpp turns a handler order-only** (P9: 0x76B520 with 114's header):
   keep the one-line views with the real signatures (P-P9-3). A flag parameter the client stores with `movzx` is
   `bool`; a cast temporary for a count leaves the frame 4 bytes short: name the local (118, 112). P6's commit_json
   method appends new entries at the end of imports.json's sorted maps (a duplicate key after another repair,
-  9593edb): `.work/p9/commit_wt.py` re-sorts and refuses until HEAD parses; `.work/p9/wt.py` + `checks.sh` set up and
-  check a verify worktree (to promote). pkclasses.py can write a handler stand-in twice into pk_ctor_stubs.cpp
+  9593edb): `.work/p9/commit_wt.py` re-sorts and refuses until HEAD parses; checks.sh is still to promote (wt.py covers
+  the setup). pkclasses.py can write a handler stand-in twice into pk_ctor_stubs.cpp
   (the OVERRIDES section; fixed 95c07a1). Same-shape template instances stay `multiple` until their relocation
   targets have names in symbols.json.
 * **A pack(4) member changes a packet class's sizeof (0x5C for 0x60) and the factory switch 0x869790 in pk.cpp stops
@@ -462,8 +445,7 @@ unless `--lever` cites a new row of this table.
   above pk.h's PacketClass shifts its assert lines and loses ~400 pairs. Game-editor packets whose Process_Packet
   returns true are not in the switch, so pk_classes.h does not list them: find them by unmatched objects.
 * **Between a worktree merge and commit_mine another builder's verify can rewrite imports.json** (1e35db6, 4fd16e4):
-  check HEAD's in_tree for your files after every commit. A bring-over script that only checks "main == HEAD" can
-  overwrite another builder's commit when HEAD moved past the worktree's base: check against the base too.
+  check HEAD's in_tree for your files after every commit.
 * **A command chain that commits after `replay` must stop on "N files differ"** (L3 committed through it; the
   difference was another builder's untracked files). Draft `obj/` folders left under app/ are reported by replay.
 * **D66(i) in practice:** a rewrite that stops emitting an inline COMDAT copy drops that (file, address) pair while
@@ -471,15 +453,12 @@ unless `--lever` cites a new row of this table.
 
 * **A new overload in strconv_lib.h moves aux_roots.cpp's inlining** (T5: the canary 0x6FB1E0 traded against
   0x7014B0); template bodies in a header that tsk_login.h includes broke kerneltest (gated behind
-  UNKNOWN_PACKETDATA_BODIES). commit_mine cannot tell identical one-line imports.json hunks of two files apart.
+  UNKNOWN_PACKETDATA_BODIES).
 * **Header changes reach aux_roots through delta.h (H6, 2026-10-27):** adding or removing an inline member of a
   class template that delta.h reaches (hashtable through kv_list.h) swaps two stack slots in
   DeltaPrimaryCategoryClass's constructor 0x6FB1E0; which member count keeps it exact moved after other
   builders' commits. Treat 0x6FB1E0 as the canary for any header change and re-verify after every rebase.
-* **Worktree verifies:** junction `.work/pool` as well as `.work/locks` into the worktree (else its leases are
-  invisible to the shared pool) and copy `.work/vc6_hosts.json`. `git merge --ff-only` into the shared tree aborts
-  on another builder's uncommitted imports.json: wait for the importer lock, save their diff, `git checkout` the
-  file, merge, `git apply --3way` their diff, `git reset` the file (the only conflict is `in_tree_total`).
+* **Worktree verifies:** `wt.py new` / `wt.py bring-over` (67c2b7d).
 
 * **clienttest builds only committed files** (T11): in a worktree, `git add` a new file before `build.py`. A
   `RefCountPtr<T>` member in a header breaks every file that builds the class without T complete (clienttest):
@@ -491,53 +470,35 @@ unless `--lever` cites a new row of this table.
   (`..\shared/auxdata/auxdata.h`) defeated D80's tie-break until f308ceb read the client's string to its NUL.
 * **A zero-context imports.json patch applied after master moved lands lines in another block** (H18's 2af9be0,
   repaired in 89315ee): a commit script must refuse unless HEAD equals the verify base; `commit_mine.py --file NAME`
-  (3772169) selects by block span instead. `appfile.py match` can compile a stale draft: check the object holds the
-  new symbols. In Git Bash prefix a command taking `// 0x...` arguments with `MSYS_NO_PATHCONV=1`; in VC6 `#line N`
+  (3772169) selects by block span instead. In Git Bash prefix a command taking `// 0x...` arguments with `MSYS_NO_PATHCONV=1`; in VC6 `#line N`
   alone switches `__FILE__` to the full path and `#line N "..\\shared/..."` needs escaped backslashes (T15).
-* **A verify worktree has no `.work/harness/*.dgram` and no built libraries** (P8): copy alex3 / alex7 in for
-  `udpreplay conn`, copy the non-app `build/*/*.lib` across and run `build.py build --lib app --allow-dirty` there
-  (the worktree is yours alone) before `udpreplay build`. commit_mine's hunk keys select whole hunks: another
-  builder's rows appended next to yours in attempts.csv go into your commit (P8 took T12's 0x6F5F60).
-* **The private-index commit flow races with other builders' commits** (H17's 5918bbe reverted T18's 02a95cd: the
-  index was read, T18 committed, then `git commit` took 02a95cd as parent with a stale tree; restored in a6e1eb1):
-  commit with `commit-tree` plus `update-ref refs/heads/master NEW OLD` (a compare-and-swap, `.work/h17/repair.py`),
-  and guard an empty patch when only attempts.csv changed. sgistl's `insert_unique_noresize` fails in VC6 (C2899):
+* **A verify worktree has no built app.lib** (P8): run `build.py build --lib app --allow-dirty` there (the worktree is yours alone) before `udpreplay build`.
+* sgistl's `insert_unique_noresize` fails in VC6 (C2899):
   `hash_map::insert` is unusable, the client's inserts go through `operator[]` (P-H17-1). A file's canary function
   (client_lego_impl: the bone map constructor 0x72D5F0) flips with the file's contents: check it each verify.
-* **commit_mine keys by address take identical lines from other files' imports.json blocks** (H14: 0x42D050 sits in
-  control_keys_manager's and pkunknown_87acd0's blocks): for docs/data/imports.json give the file name as the key
-  (or `--file NAME`, repeatable) and commit_mine selects the hunks inside that `"NAME": {` block's line span
-  (P-H14-1, done; tested on a worktree with two blocks sharing an identical added line); `in_tree_total` hunks are
-  dropped. A tryv2 PermissionError (a concurrent replay) leaves a variant in the tree
+* A tryv2 PermissionError (a concurrent replay) leaves a variant in the tree
   file: regenerate it. Verifies made while other builders' files fail to compile add COMDAT instances to your
   file's ambiguous list.
 * **A generated docs/data file committed whole by another builder brings back rows you removed** (T10's b0104e7 to
   not-exact.md; H15): after the others commit, check HEAD's generated files still hold your change. Record the second
   of two `attempts.py record` rows only after the first commit, or name the carrying commit.
-* **attempts.csv rows written minutes apart by two builders share a diff hunk** (F4, 2026-10-27): commit_mine keyed by
-  one address commits the neighbour's row too (harmless; the neighbour's own commit then finds nothing). A multi-line
+* A multi-line
   `// NOT EXACT:` comment above asserts shifts `__LINE__` (10 tsk_login pairs lost): keep it to one line.
-* **Shared scratch:** `tryv2-base` objects and `%TEMP%\enb_import\verify-app` are overwritten by other builders:
-  objdiff a variant tag, never the base. tryv2.py writes the tree file back with `open(..., 'w')` and can fail with
+* Each builder passes `--agent NAME` (or works in a wt.py worktree): scratch is private (999f780).
+* **`attempts.py record` has no `--lever` (2026-10-27, F7):** put the lever in the evidence text; `attempts.py check --lever` takes it.
+* **tryv2.py** writes the tree file back with `open(..., 'w')` and can fail with
   OSError 22 when another process holds the file: the tree stays intact but later variants are skipped silently, so
   check the log's variant lines. importer.py is CRLF: a patch-insertion script must convert its anchor newlines.
-* **commit_mine keyed by a file name selects only that file's block (2026-10-27, A-opus):** the `headers` map rows
-  (`"packets/x.h": "reconstructed"`) need their own keys (`packets/pkfindmember.h`); A-sonnet-1 left them out.
-  Commit before restoring imports.json: `git checkout docs/data/imports.json` after a verify discards the gains
-  commit_mine still needs. `names.py` / `notexact.py` scan tracked files only: `git add` a new file first.
+* Commit before restoring imports.json: `git checkout docs/data/imports.json` after a verify discards the gains
+  commit_mine still needs.
   `build.py build --lib app` refuses a dirty library; `--allow-dirty` tests uncommitted files.
-* **Concurrent verifies queue on the importer lock, but `%TEMP%\enb_import\verify-app` and `tryv2-<tag>` are shared
-  (2026-10-27, A-sonnet-2, B-sonnet-1):** another builder's verify deletes your objs before explain.py reads them.
-  Set TEMP and TMP to a private folder (`.work/tmp`) for verify and explain.py; give tryv2 a unique tag.
 * **A template copy an eval or trial pairs to file X may come from X's own non-exact code (2026-10-27, O1):** 0x603D70
   (`std::string::assign(const char *)`, 17 callers all in 0x5FBD30) paired to option.cpp on two Sonnet branches only
   because their non-exact Set_Defaults called it out of line. Before crediting or porting one: `client.py callers ADDR`
   and the obj's relocations (`.work/o1/who.py OBJ SYMBOL`). A COMDAT placed after file F's last function puts every
   lower caller in F's object (H21); one placed inside a window can belong to code the linker dropped (H19, 0x42C330).
 * **Shared-tree verifies show other builders' uncommitted work (2026-10-27, R1 / H21 / H22):** their compile errors appear
-  as losses and their gains as yours; commit only your blocks. Rows in one csv hunk travel together (F4's trap: H21's and
-  H22's attempts rows were committed by H22 and R2); a `commit_mine --dry` taken during another commit can show the csv
-  as a whole-file delete: rerun it. `notexact.py`, not names.py, refreshes a changed `// NOT EXACT:` text. `attempts.py
+  as losses and their gains as yours; commit only your blocks. `attempts.py
   record` takes `--score` float, `--forms` int, and a function-only `--stash`. A file-static reached by displacement
   (`[GutterColors+8]`) is unrelocated in objdiff: make it a global (R1).
 
@@ -576,8 +537,7 @@ unless `--lever` cites a new row of this table.
   `symbols.py`.
 * **Pseudocode can be wrong** (check `client.py dis`); REA can't decompile vtable-only functions
   (0x9961E0, from `.rdata` 0xB13984): `pseudocode.py --show`.
-* **appfile.py:** a draft-folder copy shadows `"x.h"` but not `"..\x.h"`; WW3D2 users need `-I`
-  per library; in-class inline markers are ignored; a following static can enlarge the client
+* **appfile.py:** a draft-folder copy shadows `"x.h"` but not `"..\x.h"`; in-class inline markers are ignored; a following static can enlarge the client
   size (PREFIX); same-named overloads get mixed up: rename while drafting.
 * **Names lag.** `symbols.json`/bytematch miss recent matches (read the verify objects); asserts.txt
   and funcmatch take the nearest path, not `__FILE__` (0x829C80 is tcpconn.cpp's ctor). names.py
@@ -602,16 +562,12 @@ unless `--lever` cites a new row of this table.
 * **Ghidra can attribute an argument pushed for a later call to the call before it** (H10, 2026-10-27): a pushed `1`
   belonged to a sort object's constructor (`ret 8`), not to 0x541800 (no arguments). Check each callee's `ret N`.
   Including ref_ptr.h needs unknown_debug.h first (G_ASSERT).
-* **Drafts for `appfile.py match` belong in a private subfolder (app/t8draft/)**: app/client/obj/ is shared and match
-  clears its .obj files (T8, 2026-10-27). In Git Bash `cmd //c mklink //J` makes broken links: use PowerShell
+* In Git Bash `cmd //c mklink //J` makes broken links: use PowerShell
   `New-Item -ItemType Junction`. A `__FILE__` that differs only in case (`app\Client\`) differs in the string, not the bytes.
-* **`client.py dis` crashes on a cp1252 console:** set `PYTHONIOENCODING=utf-8`. `appfile.py match` on files
-  that include dx8wrapper.h needs `-I C:/EnBDevelopment/SDK/directx8/include`. `attempts.py check` reports pk.h's
+* **`client.py dis` crashes on a cp1252 console:** set `PYTHONIOENCODING=utf-8`. `attempts.py check` reports pk.h's
   parked 0x8770A0 for every packet file: `--ack 0x8770A0`. Constructors fall outside `appfile.py`'s `__FILE__`
   windows; `client.py refs` misses vtable references that point at thunks (mapper, 2026-10-27).
-* **`appfile.py match` include paths (2026-10-27, D93 eval):** besides the brief's list it needs `-I app/shared/auxdata`
-  (pk.h's `..\shared\auxdata\linearbu.h`), `app/packets/gameedit`, `libs/sgistl`, `wwlib`, `wwmath` for a hash_map
-  file; pass them absolute. It runs on `ENB_VC6_HOSTS` (no `--pool`): lease and export it. A gameedit draft's
+* **`appfile.py match` drafts (2026-10-27, D93 eval):** A gameedit draft's
   relative include is one level deeper (`..\..\..\wwlib\nstrdup.h`). `explain.py --window 200` shows a whole
   function; `--n` is the candidate index, not a row count.
 * **Pseudocode `__thiscall` can be a cdecl free function (2026-10-27, B-haiku):** check the `ret N` and the caller's pushes
@@ -654,8 +610,7 @@ unless `--lever` cites a new row of this table.
   before `checkout --detach`, or it aborts and the next verify runs on a stale tree. Pure-virtual placeholders for
   not-yet-rebuilt slots of a base no program instantiates are an accepted interim (T17's 0x7251C0): they must
   become real before a program instantiates a derived class.
-* **tryv2 tags are global under `%TEMP%\enb_import\tryv2-<name>`** (T16): prefix variant names with your builder id.
-  explain.py reports a false relocation on PacketClass's vtable 0xAEDE88 (a COMDAT name shared with
+* explain.py reports a false relocation on PacketClass's vtable 0xAEDE88 (a COMDAT name shared with
   PushMessageLinePacketClass): the masked residue is what counts (P7, P8, T16). Handlers without asserts can be
   moved so the asserted ones sit on the client's lines (T16: cpacket blocks 0x737520-0x737C10 and 0x735D50-0x736DA0).
 * **clienttest (T9, 2026-10-27; `python tools/harness/clienttest.py build|run`):** hand-written stand-ins must cover
@@ -667,10 +622,8 @@ unless `--lever` cites a new row of this table.
 * **udpreplay's gate is `conn`, not `run` (2026-10-27):** A-haiku compared `udpreplay.py run alex7` (fails at HEAD,
   one rejected datagram) and reported a pre-existing failure; `conn alex3` / `conn alex7` pass at every eval branch.
   In a worktree, `udpreplay.py build` needs build/app/app.lib (`build.py build --lib app --allow-dirty` first) and a
-  baseline worktree needs the libraries and `.work/harness/*.dgram` copied in (`.work/eval/setup.py` does both).
-* **Run tools by absolute path from a worktree (2026-10-27, A-haiku):** a `cd` that fails leaves the shell in the
-  main tree; A-haiku's `udpreplay.py build` then overwrote the main tree's build/programs/udpreplay with a failed
-  link and re-staged `.work/harness/udpreplay_src` (untracked; rebuild there before the next udpreplay check).
+  baseline worktree needs the libraries and `.work/harness/*.dgram` copied in (`wt.py new` does the copies).
+* **Run tools by absolute path from a worktree (2026-10-27, A-haiku):** tools that write the tree refuse a cwd in another tree (420f76e); run them by absolute path so the guard can see it.
 
 ### 3.8 Git, docs and scripting hygiene
 
@@ -704,8 +657,7 @@ unless `--lever` cites a new row of this table.
 * **Shared builds (2026-10-26/27):** `udpreplay.py build` writes the shared `build/` and `conn` runs whatever exe
   is there, so another builder's half-done file can break or taint your run: build before `conn`, or build in a
   clean worktree of HEAD plus your files. Two `static` tables with the same name break udpreplay's single-TU
-  build. Removing a worktree that holds a `.work/locks` junction: `cmd /c rmdir` the junction, then
-  `git worktree remove`.
+  build.
 * **git worktrees check files out as CRLF while the shared tree's land.cpp / land.h are LF** (L6): convert the
   anchors of an edit script to the file's own newline (`newline=''`, detect `\r\n`).
 * **Python text-mode `open(p, 'w')` writes CRLF into LF tree files; `grep -c $'\r$'` miscounts in Git Bash** (H13):
@@ -713,7 +665,7 @@ unless `--lever` cites a new row of this table.
   files into the shared build/ and overwrites `.work/milestones/l1/unresolved.txt`.
 * **`open(p, 'w').write(open(p).read()...)` truncates p to empty** (the write handle opens first): read, then
   write. A draft regenerated from a template overwrites an applied fix: check the tree file before verifying.
-  Regenerate names-review.md and not-exact.md in a clean worktree, never in the shared tree.
+  `names.py --tree DIR` regenerates both from another worktree (cdf3e23). In a shared tree names.py now also sees other builders' untracked drafts: commit through commit_mine (row selection) and restore the working copies after (F7).
 
 * **Run `python tools/vc6/build.py link` for the programs after adding a function to a library file or touching
   stubs/ or pk.h** (L5, 2026-10-27: a missing Resize, then ee8fa6f's stub change pulled pk.obj and 280 externals
