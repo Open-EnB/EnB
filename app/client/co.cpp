@@ -831,7 +831,7 @@ Unknown8CClass *ClientObjectClass::Unknown_6F5090()
 
 
 
-
+template<class C> inline C *Unknown_Find_Valid(DeltaCompoundClass *root, const NameClass &name) { C *t = Unknown_Find_Field<C>(root, name); if (t && t->m_Unknown70) return(t); return(NULL); }	// NAME 1: neutral (D10)
 #include "sclient.h"
 #define RSTRACK_CLASSID	0x10001	// NAME 2: the class id the handlers test
 #include "assetmgr.h"
@@ -1174,8 +1174,8 @@ int ClientObjectClass::Unknown_6F5E20() { return(Type == 38); }
 bool ClientObjectClass::Unknown_6F5E40()
 {
 	NameClass name("IsOrganic");
-	DeltaTemplateClass<bool> *t = Unknown_Find_Field<DeltaTemplateClass<bool> >((DeltaCompoundClass *)AuxData, name);
-	if (t && t->m_Unknown70) return(t->Value);
+	DeltaTemplateClass<bool> *t = Unknown_Find_Valid<DeltaTemplateClass<bool> >((DeltaCompoundClass *)AuxData, name);
+	if (t) return(t->Value);
 	return(false);
 }
 
@@ -1737,7 +1737,7 @@ public:
 };
 void Unknown_80F220(RenderObjClass *model, std::vector<ColorizationRegionStruct> &regions);	// 0x80F220 (cdecl, shiputils.cpp's run; not rebuilt): the colorization regions onto a new model  // NAME 1 [model, regions]: what 0x6FCB70 passes
 // a field that is set (+0x70 not 0), else NULL (auxdata.h's find; the bool copy 0x705450 is out of line in 0x6FCB70)
-template<class C> inline C *Unknown_Find_Valid(DeltaCompoundClass *root, const NameClass &name) { C *t = Unknown_Find_Field<C>(root, name); if (t && t->m_Unknown70) return(t); return(NULL); }	// NAME 1: neutral (D10)
+
 int Unknown_810CF0(RenderObjClass *model, int *levels, int hull_level, ClientClass *client, unsigned id, int unknown);
 inline void ClientObjectClass::Unknown_Damage_Reset() { if ((Unknown_6F58B0() || Unknown_6F5880()) && Model) { int levels[4]; for (int i = 0; i < 4; i++) levels[i] = 1; Unknown_810750(Model, 0); Unknown150 = Unknown_810CF0(Model, levels, 1, Client, GameID, Unknown150); UnknownFC = false; for (int j = 0; j < 4; j++) Unknown104[j] = 1; Unknown104[4] = 1; } }
 // NOT EXACT: inline budget (the client calls Colorization.size() 0x700E30, the IsOrganic find 0x705450, the fourth 0x6F5140 and the RefCountPtr assignments 0x4153B6 out of line, ours inlines them; the client holds the 1 in edi; attempts.py show 0x6FCB70)
@@ -1941,7 +1941,7 @@ void ClientObjectClass::Unknown_6FD7A0(RenderObjClass *robj)
 // 0x6FDBD0 (the engine sounds: the engine and thrust loops when EngineTrailType changed, then EngineThrustState)
 void ClientObjectClass::Unknown_6FDBD0()
 {
-	Unknown_Find_Field<DeltaTemplateClass<int> >(NULL, *(NameClass *)this); Unknown_Find_Field<DeltaTemplateClass<int> >(NULL, *(NameClass *)this); Unknown_Find_Field<DeltaTemplateClass<int> >(NULL, *(NameClass *)this); Unknown_Find_Field<DeltaTemplateClass<int> >(NULL, *(NameClass *)this);	// dead finds (root NULL: no code) spend the inline budget: rtti.h's cast then stays out of line for EngineTrailType only, as the client's
+	Unknown_6F5A40(); Unknown_Find_Field<DeltaTemplateClass<int> >(NULL, *(NameClass *)this); Unknown_Find_Field<DeltaTemplateClass<int> >(NULL, *(NameClass *)this); Unknown_Find_Field<DeltaTemplateClass<int> >(NULL, *(NameClass *)this); Unknown_Find_Field<DeltaTemplateClass<int> >(NULL, *(NameClass *)this);	// a dead type test and dead finds (root NULL: no code) spend the inline budget (P-IB1-1): rtti.h's cast then stays out of line for EngineTrailType only, as the client's
 	if (!Unknown_6F58B0()) {
 		return;
 	}
@@ -2113,7 +2113,7 @@ int Unknown_8117D0(RenderObjClass *model, int hull_level, int number, unsigned i
 // a damage fraction's level: 4 from one half, 3 from a quarter, 2 above 0, else 1 (inline in 0x6FE1E0)
 static inline int Unknown_Damage_Level(float damage) { if (damage >= 0.5f) return(4); if (damage >= 0.25f) return(3); if (damage > 0.0f) return(2); return(1); }	// NAME 1 [damage]: what it is
 
-// NOT EXACT: inline budget (the client calls IsOrganic's find 0x7079B0 out of line inside the inlined 0x6F5E40, ours inlines it; registers follow; attempts.py show 0x6FE1E0)
+// NOT EXACT: inline budget (the client calls IsOrganic's find 0x7079B0 out of line inside the inlined 0x6F5E40, ours its find-if-set 0x705450; 40 register-masked rows; attempts.py show 0x6FE1E0)
 // 0x6FE1E0 (the damage state: the damage sounds of a type-1 object, then the shield or hull and the four quadrants' levels into the model)
 void ClientObjectClass::Unknown_6FE1E0()
 {	Unknown_Find_Field<DeltaTemplateClass<int> >(NULL, *(NameClass *)this); Unknown_Find_Field<DeltaTemplateClass<int> >(NULL, *(NameClass *)this); Unknown_Find_Field<DeltaTemplateClass<int> >(NULL, *(NameClass *)this); Unknown_Find_Field<DeltaTemplateClass<int> >(NULL, *(NameClass *)this); 	// dead finds (root NULL: no code) spend the inline budget (P-IB1-1): the float field's Cast 0x546970 then goes out of line as the client's; with Unknown_Find_Valid on ShieldPercent and the quadrants 96 -> 73 rows
@@ -2205,10 +2205,10 @@ void ClientObjectClass::Unknown_6FE1E0()
 	if (hull_level) Unknown104[4] = hull_level;
 }
 
-// NOT EXACT: inline budget (the client calls the bool field's Cast 0x584FF0 out of line in the inlined 0x6F58B0, ours inlines it; ebx holds the 1 in the client; 16 forms, attempts.py show 0x6FEAC0)
+// NOT EXACT: register (the client holds the 1 in ebx: levels, hull level, +0x104 stores and the Type <= 1 compare; 10 register-masked rows; attempts.py show 0x6FEAC0)
 // 0x6FEAC0 (unreferenced in the client) the damage state back to level 1: the model's levels and +0x104
 void ClientObjectClass::Unknown_6FEAC0()
-{
+{	Unknown_Find_Field<DeltaTemplateClass<int> >(NULL, *(NameClass *)this); 	// a dead find (root NULL: no code, P-IB1-1): the bool Cast 0x584FF0 then stays out of line, as the client's
 	Unknown_Damage_Reset();
 
 

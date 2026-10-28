@@ -338,6 +338,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_6F4F30` | `app/client/co.cpp:776` | untagged neutral name (D10) |
 | 1 | `Unknown8CClass` | `app/client/co.cpp:788` | untagged neutral name (D10) |
 | 1 | `Unknown_6F5090` | `app/client/co.cpp:788` | untagged neutral name (D10) |
+| 1 | `Unknown_Find_Valid` | `app/client/co.cpp:834` | neutral (D10) |
 | 1 | `UnknownBDADC0Class` | `app/client/co.cpp:842` | neutral (D10) |
 | 1 | `name, scale, hsv` | `app/client/co.cpp:845` | what 0x6F51D0 passes |
 | 1 | `Unknown_78` | `app/client/co.cpp:845` | untagged neutral name (D10) |
@@ -412,7 +413,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `UnknownB01A40Type` | `app/client/co.cpp:1736` | untagged neutral name (D10) |
 | 1 | `model, regions` | `app/client/co.cpp:1738` | what 0x6FCB70 passes |
 | 1 | `Unknown_80F220` | `app/client/co.cpp:1738` | untagged neutral name (D10) |
-| 1 | `Unknown_Find_Valid` | `app/client/co.cpp:1740` | neutral (D10) |
 | 1 | `Unknown_810CF0` | `app/client/co.cpp:1741` | untagged neutral name (D10) |
 | 1 | `Unknown_Damage_Reset` | `app/client/co.cpp:1742` | untagged neutral name (D10) |
 | 1 | `Unknown_810750` | `app/client/co.cpp:1742` | untagged neutral name (D10) |
