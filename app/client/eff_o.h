@@ -78,6 +78,7 @@ public:
 			}
 		}
 	}
+	bool Get_Flag(int bit) const { return(((Flags >> bit) & 1) != 0); }	// (0x6E7ED0 reads flags 9 / 10 through it: the extra expansions put its first inlined 0x6E6E30's callees out of line, as the client's)  // NAME 2: what it does
 	void Set_Flag(unsigned flag, bool on) { if (on) Flags |= flag; else Flags &= ~flag; }	// 0x6E8090 (out of line in 0x6E7ED0)  // NAME 2: what it does
 	void Unknown_6E6FE0();								// 0x6E6FE0 (the start link from StartLinkID)
 	void Unknown_6E7080();								// 0x6E7080 (the next link from NextLinkID; no caller, 0x6E6AD0 writes it out)

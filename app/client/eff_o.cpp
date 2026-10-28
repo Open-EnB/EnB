@@ -569,22 +569,22 @@ UnknownB0009CEffectClass::UnknownB0009CEffectClass(ClientClass *client, unsigned
 {
 }
 
-// NOT EXACT: inline-budget (the client calls Set_Flag 0x6E8090 out of line in the source branch's inlined 0x6E6E30; ours inlines both)
 // 0x6E7ED0
 void UnknownB0009CEffectClass::Unknown_04(int arg)
 {
 	if ((DataNode<UnknownAF0DD0Class *> *)arg == &SourceNode) {
 		SourceObject = NULL;
-		if ((bool)Flag.Unknown9) {
+		if (Get_Flag(9)) {
 			Unknown_6E6E30();
 		}
 	} else if ((DataNode<UnknownAF0DD0Class *> *)arg == &TargetNode) {
 		TargetObject = NULL;
-		if ((bool)Flag.Unknown10) {
+		if (Get_Flag(10)) {
 			Unknown_6E6E30();
 		}
 	}
 }
+
 
 
 
