@@ -240,81 +240,81 @@ ClientObjectClass::~ClientObjectClass()
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#include <list>
+#include "scene.h"
+
+// The render hook Set_Model 0x6F33F0 gives every model (vtable 0xB007A4, 0x10 bytes, over RenderHookClass's
+// 0xB007B4): a list of (material pass, flag) pairs its Pre_Render 0x6BB7E0 pushes around the model's render.
+// Its two render functions lie after debris.cpp (file unknown, not rebuilt); the constructor is inline here
+struct UnknownB007A4PassStruct	// NAME 1: neutral (D10)
+{
+	MaterialPassClass *Pass;	// +0x00 (0x6BB7E0 pushes it)  // NAME 2: what it holds
+	bool Unknown04;				// +0x04 (0x6BB7E0: an override flag 4 when set)
+};
+class UnknownB007A4Class : public RenderHookClass	// NAME 1: neutral (D10), named by its vtable
+{
+public:
+	virtual bool Pre_Render(RenderObjClass *robj, RenderInfoClass &rinfo);	// 0x6BB7E0
+	virtual void Post_Render(RenderObjClass *robj, RenderInfoClass &rinfo);	// 0x6BB8B0
+
+	std::list<UnknownB007A4PassStruct> Passes;	// +0x04  // NAME 2: what it holds
+};
+
+// 0x6F33F0
+void ClientObjectClass::Unknown_6F33F0(RenderObjClass *model, int base_asset, float scale)
+{
+	SceneClass *scene = NULL;
+	if (Model) {
+		scene = Model->Get_Scene();
+		Model->Remove();
+		Model->Release_Ref();
+		Model = NULL;
+		if (Unknown118) {
+			Unknown118->Attach_To_Object(NULL, -1);
+		}
+		if (Unknown11C) {
+			Unknown11C->Attach_To_Object(NULL, -1);
+		}
+		if (Unknown120) {
+			Unknown120->Attach_To_Object(NULL, -1);
+		}
+		if (Unknown124) {
+			Unknown124->Attach_To_Object(NULL, -1);
+		}
+	}
+	Model = model;
+	UnknownA8 = base_asset;
+	Scale = scale;
+	if (UnknownB4) {
+		UnknownB4->Unknown_20(base_asset, Create_Peek(Model));
+	}
+	if (Model) {
+		Model->Add_Ref();
+		if (scene) {
+			Model->Add(scene);
+		}
+		Model->Set_Render_Hook(new UnknownB007A4Class);
+		Unknown_38();
+		if (Unknown118) {
+			Unknown118->Attach_To_Object(Model, -1);
+		}
+		if (Unknown11C) {
+			Unknown11C->Attach_To_Object(Model, -1);
+		}
+		if (Unknown120) {
+			Unknown120->Attach_To_Object(Model, -1);
+		}
+		if (Unknown124) {
+			Unknown124->Attach_To_Object(Model, -1);
+		}
+	} else {
+		Unknown_34(0);
+	}
+	if (scene) {
+		scene->Release_Ref();
+	}
+	Unknown_6FCB70();
+}
 
 // 0x6F39F0
 void ClientObjectClass::Unknown_38()
@@ -832,70 +832,124 @@ Vector3 ClientObjectClass::Unknown_24()
 
 
 
+#include "sclient.h"
+#define RSTRACK_CLASSID	0x10001	// NAME 2: the class id the handlers test
+#include "assetmgr.h"
+#include "ww3d.h"
+#include "nullrobj.h"
+// The model loader's helpers, declared as far as 0x6F51D0 calls them (none rebuilt):
+// E&B's asset manager (the object at *0xBDADC0, a WW3DAssetManager): its first own slot makes a model at a scale and HSV shift
+class UnknownBDADC0Class : public WW3DAssetManager	// NAME 1: neutral (D10)
+{
+public:
+	virtual RenderObjClass *Unknown_78(const char *name, float scale, float *hsv);	// +0x78  // NAME 1 [name, scale, hsv]: what 0x6F51D0 passes
+};
+extern UnknownBDADC0Class *Unknown_BDADC0;	// NAME 1 [Unknown_BDADC0]: 0xBDADC0
+// rs_track.cpp's render object (0x100 bytes; ACTIVATE_RENDER_STATE 48 and INIT_RENDER_STATE 47 call the same two)
+class RsTrackClass	// NAME 3: class-from-file (D24) for app\shared\rs_track.cpp
+{
+public:
+	RsTrackClass(void *list, float scale, float *hsv);	// 0x45FFB0 (list: ClientClass +0x18's 0x764030)  // NAME 1 [list, scale, hsv]: what 0x6F51D0 passes
+	void Unknown_4604D0(int render_state_id);			// 0x4604D0
+	void Unknown_460880(int render_state_id, int link_id);	// 0x460880
+	char Unknown00[0x100];
+};
+// a holder of a segmented line (0x4981E0 makes one when asked; 0x4983A0 reads it from an INI section)
+class Unknown4981E0Class	// NAME 1: neutral (D10)
+{
+public:
+	Unknown4981E0Class(bool create);			// 0x4981E0  // NAME 1 [create]: neutral
+	~Unknown4981E0Class();						// 0x498320
+	void Unknown_4983A0(INIClass *ini, const char *section, float scale, float *hsv);	// 0x4983A0  // NAME 1 [ini .. hsv]: what 0x6F51D0 passes
+	bool operator!() const { return(Line == NULL); }
+	RenderObjClass *Line;						// +0x00  // NAME 2: what it holds
+};
+void Unknown_4BC260(const char *sender, const char *category, const char *file, int line, const char *format, ...);	// 0x4BC260 (unknown_debug.h's reporter)
+static RenderObjClass *Unknown_6F51D0(int base_asset, ClientClass *client, float scale, float *hsv);
+
+// 0x6F5140
+RenderObjClass *ClientObjectClass::Unknown_6F5140(int base_asset, ClientClass *client, float scale, float *hsv)
+{
+	SClient *sclient = client ? (SClient *)client->Unknown_18() : NULL;
+	WW3DAssetManager::Get_Instance()->Set_Activate_Fog_On_Load(true);
+	if (sclient && sclient->Unknown1320) {
+		WW3D::Enable_Overbright_Modify_On_Load(true);
+	}
+	RenderObjClass *robj = Unknown_6F51D0(base_asset, client, scale, hsv);
+	WW3D::Enable_Overbright_Modify_On_Load(false);
+	WW3DAssetManager::Get_Instance()->Set_Activate_Fog_On_Load(true);
+	return(robj);
+}
+static inline INIClass &Unknown_Basset_INI() { static INIClass ini; if (!ini.Is_Loaded()) { ini.Load("basset.ini"); } return(ini); }	// (the function's guarded static, as 0x6F51D0 reaches it)  // NAME 1 [Unknown_Basset_INI]: what it holds
+// 0x6F51D0
+static RenderObjClass *Unknown_6F51D0(int base_asset, ClientClass *client, float scale, float *hsv)
+{
+	INIClass &ini = Unknown_Basset_INI();
+	
+	
+	
+	char section[256];
+	sprintf(section, "BASE-%d", base_asset);
+	if (base_asset == -1) {
+		return(new Null3DObjClass("NULL"));
+	}
+	if (!ini.Find_Section(section)) {
+		return(Unknown_BDADC0->Create_Render_Obj("missing"));
+	}
+	if (ini.Get_Bool(section, "OverbrightOff", false)) {
+		WW3D::Enable_Overbright_Modify_On_Load(false);
+	}
+	if (ini.Is_Present(section, "NULLOBJECT")) {
+		return(new Null3DObjClass("NULL"));
+	}
+	if (ini.Is_Present(section, "RSLID")) {
+		int rslid = ini.Get_Int(section, "RSLID", -1);
+		if (rslid == -1 || client == NULL) {
+			return(Unknown_BDADC0->Create_Render_Obj("missing"));
+		}
+		void *list = client->Unknown18->Unknown_764030(rslid);	RsTrackClass *track = new RsTrackClass(list, scale, hsv);
+		int link_id = ini.Get_Int(section, "LINKID", -1);
+		int rs_id = ini.Get_Int(section, "RSID", -1);
+		if (link_id == -1) {
+			track->Unknown_4604D0(rs_id);
+			return((RenderObjClass *)track);
+		}
+		track->Unknown_460880(link_id, rs_id);
+		track->Unknown_4604D0(link_id);
+		return((RenderObjClass *)track);
+	}
+	if (ini.Is_Present(section, "FILE")) {
+		char name[256];
+		char file[256];
+		ini.Get_String(section, "FILE", "", file, 255);
+		ini.Get_String(section, "NAME", "", name, 255);
+		RenderObjClass *robj = Unknown_BDADC0->Unknown_78(name, scale, hsv);
+		if (robj) {
+			return(robj);
+		}
+		Unknown_BDADC0->Load_3D_Assets(file);
+		robj = Unknown_BDADC0->Unknown_78(name, scale, hsv);
+		if (robj) {
+			return(robj);
+		}
+		Unknown_4BC260("Base Asset", "", __FILE__, __LINE__, "Could not create render object %s from file %s", name, file);
+		return(Unknown_BDADC0->Create_Render_Obj("missing"));
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	}
+	if (ini.Is_Present(section, "Width")) {
+		Unknown4981E0Class segline(true);
+		segline.Unknown_4983A0(&ini, section, scale, hsv);
+		RenderObjClass *line = segline.Line;
+		FAIL_IF(!segline) return(NULL);
+		line->Add_Ref();
+		return(line);
+	}
+	return(NULL);
+}
 
 // 0x6F5050
 Vector3 ClientObjectClass::Unknown_2C()
@@ -910,60 +964,6 @@ void ClientObjectClass::Unknown_1C()
 		((DeltaClass *)AuxData)->Unknown_20();
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -2383,13 +2383,13 @@ bool ClientObjectClass::Unknown_700400()
 
 
 
-// rs_track.cpp's render object (Class_ID 0x10001), declared as far as 0x6FF1D0 calls it (as cpacket.cpp)
-#define RSTRACK_CLASSID	0x10001	// NAME 2: the class id the handlers test
-class RsTrackClass	// NAME 3: class-from-file (D24) for app\shared\rs_track.cpp
-{
-public:
-	void Unknown_4604D0(int render_state_id);	// 0x4604D0 (ACTIVATE_RENDER_STATE 48)
-};
+
+
+
+
+
+
+
 
 // 0x6FF1D0
 void ClientObjectClass::Unknown_6FF1D0()

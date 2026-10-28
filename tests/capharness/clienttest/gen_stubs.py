@@ -25,8 +25,8 @@ PK_CTOR_STUBS = os.path.join(REPO, 'tests', 'capharness', 'udpreplay', 'pk_ctor_
 CPACKET = os.path.join(REPO, 'app', 'client', 'cpacket.cpp')
 PK_CPP = os.path.join(REPO, 'app', 'packets', 'pk.cpp')
 FACTORY = os.path.join(REPO, 'docs', 'data', 'packet-factory.txt')
-# cpacket.cpp's handlers clienttest records instead of driving: CREATE 4 needs co.cpp's model loader 0x6F5140
-# (not rebuilt; its stand-in returns no model), so clienttest.cpp makes its own objects for it
+# cpacket.cpp's handlers clienttest records instead of driving: CREATE 4's models come from co.cpp's loader
+# 0x6F5140, which needs the game's asset manager (*0xBDADC0, a stand-in here), so clienttest.cpp makes its own objects
 NOT_DRIVEN = {'CreatePacketClass'}
 
 

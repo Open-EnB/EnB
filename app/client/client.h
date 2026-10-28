@@ -107,6 +107,7 @@ class Unknown763E00Class	// NAME 1: neutral (D10)
 public:
 	Unknown763E00Class();								// 0x763E00
 	void Unknown_763E70(const char *ini);				// 0x763E70: SClient::Init passes 'rs.ini'
+	void *Unknown_764030(int rslid);					// 0x764030 (co.cpp's model loader: the render state list of a base asset's RSLID)  // NAME 2 [rslid]: the INI key it is read from
 	void Unknown_763FF0();								// 0x763FF0 (SClient::Shutdown, before the delete)
 	~Unknown763E00Class();								// 0x763E30
 

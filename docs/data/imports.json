@@ -887,6 +887,8 @@
      "0x42B2F0",
      "0x46BE90",
      "0x474080",
+     "0x497300",
+     "0x49CB70",
      "0x6E6870",
      "0x6F5850"
     ],
@@ -913,6 +915,8 @@
      "0x6F2F30",
      "0x6F2FB0",
      "0x6F2FE0",
+     "0x6F33F0",
+     "0x6F3710",
      "0x6F3810",
      "0x6F39F0",
      "0x6F3BA0",
@@ -924,6 +928,8 @@
      "0x6F4C20",
      "0x6F5050",
      "0x6F5120",
+     "0x6F5140",
+     "0x6F51D0",
      "0x6F58B0",
      "0x6F5980",
      "0x6F5A10",
@@ -8243,7 +8249,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 3872,
+  "in_tree_total": 3882,
   "totals": {}
  },
  "binkmovie": {
