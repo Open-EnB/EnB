@@ -337,6 +337,16 @@ AvatarID, so the server levels the ship), the camera modes (SOptions' +0x2C into
 gives the bridge interface the main view's slot +0x78 scene (`Create_Peek`) in bridge mode with the chase camera
 module's +0x34 set, else NULL. None of them reads or writes an object beyond `Get_Avatar()` / `AvatarID`.
 
+SClient's chat commands and lookups (SC2): 0x74ABC0 (slot +0x34, the chat line; true when it was a command)
+tries '/group' (0x747510), '/chat' (0x745FF0), 0x747C70, then the logoff table ('/logoff', '/log', '/quit': +0x138C = 1,
+LOGOFF_REQUEST with +0x1138, '/quit' also 0x743290), '/camp' (a MESSAGE_STRING processed locally), '/fps' (+0x14EC and
+SOptions' +0x05), '/resetship' (the 0x7429B0 question), '/beacon' / '/beacon off' / '/rescue' (opcodes 142 / 143 for
+AvatarID), '/starbase reset' (the starbase view's interface 0x640150), '/deco' (the main view's land +0x192),
+'/self tag on|off' (the Show_Self_Name option), four more command groups (0x747FA0-0x749ED0), '/g ' and '/gu '
+(CLIENT_CHAT types 1 and 2), '/art name' (a [DEV] ship's name toggles the radar's +0x4D and the global 0xBE5F20) and
+'/texture_flush', else ClientClass's slot (false). Of the object model it reads only `Get_Ship()` and AvatarID.
+0x74C8D0 is 0x74C840 for a named object: `Find_Object(name)`, then the +0x1394 table's entry for its GameID.
+
 ## 3. The object-affecting opcodes
 
 Handler = slot +0x08 (all in cpacket.cpp unless noted). "Object" = `Find_Object(GameID)` unless said.

@@ -4280,13 +4280,6 @@ void SClient::Unknown_74C690()
 	}
 	Unknown1394.clear();
 }
-
-
-
-
-
-
-
 // 0x74C7B0
 Unknown77E3F0Class *SClient::Unknown_74C7B0(unsigned id)
 {
@@ -4310,6 +4303,13 @@ Unknown77E3F0Class *SClient::Unknown_74C840(unsigned id)
 	}
 	return(NULL);
 }
+
+// NOT EXACT: inline budget (explain.py frame, 31 masked rows): the client calls hash_map::find out of line (0x756820, the key in the argument slot) where ours inlines it, as itself or through 0x74C840; two forms
+// 0x74C8D0 (0x74C840 for the named object's GameID)
+Unknown77E3F0Class *SClient::Unknown_74C8D0(const char *name) {
+	ClientObjectClass *object = Find_Object(name);
+	if (object) return(Unknown_74C840(object->GameID));
+	return(NULL); }
 
 // 0x74C960
 int *SClient::Unknown_74C960(unsigned id)
@@ -5421,177 +5421,176 @@ void SClient::Unknown_751660()
 	}
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#include "..\packets\pkmessagestring.h"
+#include "..\packets\pkincapacitancerequest.h"
+// sbaseview.h's two classes as far as '/starbase reset' needs them (the header includes ui_line_display.h, whose
+// UILineDisplayClass clashes with this file's own, C2011)
+class UIStarbaseClass : public UIUnknownBaseClass, public RefCountClass { public: void Unknown_640150(); };	// NAME 3: sbaseview.h's (ui_starbase.cpp); 0x640150: '/starbase reset'
+class SBaseViewClass : public ViewClass { public: RefCountPtr<UIStarbaseClass> Get_Starbase() { return(Starbase); } char Unknown38[0x60 - 0x38]; RefCountPtr<UIStarbaseClass> Starbase; };	// NAME 3: sbaseview.h's; Get_Starbase 0x54EDA0
+
+// The chat commands' tables (0xB98088, 0xB980F8, 0xB98138) and the client that shows the names under the mouse
+// (0xBE5F20, '/art name')
+static const char *ChatCommandHelp[] = {	// NAME 2: 0x745FF0's '/chat' help lines
+	"/chat", "/chat tell PERSON TEXT...", "/chat all TEXT", "/chat ignore PERSON", "/chat unignore PERSON", "/chat friend PERSON", "/chat unfriend PERSON",
+	"/chat list channels", "/chat list all_channels", "/chat list ignores", "/chat list friends", "/chat channel CHANNEL create ", "/chat channel CHANNEL remove ",
+	"/chat channel CHANNEL enter [PASSWORD]", "/chat channel CHANNEL exit ", "/chat channel CHANNEL say TEXT", "/chat channel CHANNEL invite PERSON",
+	"/chat channel CHANNEL uninvite PERSON", "/chat channel CHANNEL ban\tPERSON", "/chat channel CHANNEL unban PERSON", "/chat channel CHANNEL gag PERSON",
+	"/chat channel CHANNEL ungag PERSON", "/chat channel CHANNEL owner PERSON", "/chat channel CHANNEL unowner PERSON", "/chat channel CHANNEL access TYPE",
+	"/chat channel CHANNEL password PASSWORD", "/chat channel CHANNEL members", NULL };
+struct LogoffCommandStruct { const char *Name; bool Quit; };	// NAME 2: what 0x74ABC0 does with an entry
+static const LogoffCommandStruct LogoffCommands[] = { { "/logoff", false }, { "/log", false }, { "/quit", true }, { "", false } };	// NAME 2: what 0x74ABC0 sends for them
+static const char *CampCommands[] = { "/camp", NULL };	// NAME 2: the command 0x74ABC0 refuses
+SClient *Unknown_BE5F20;	// NAME 1: neutral (D10)
+
+// NOT EXACT: shape (explain.py: 606 instructions, the client 640, 127 masked rows; 69 calls, the client 70): VC6 merges the two beacon sends' tails here, the client keeps both; the logoff packet a named local, '/fps' enable first and the dialog read once moved nothing; two rounds
+// 0x74ABC0 (slot +0x34: the chat line's '/' commands; true when the line was a command)
+bool SClient::Unknown_34(const char *text)
+{
+	if (strncmp(text, "/group", strlen("/group")) == 0) {
+		return(Unknown_747510(text));
+	}
+	if (strncmp(text, ChatCommandHelp[0], strlen(ChatCommandHelp[0])) == 0) {
+		return(Unknown_745FF0(text));
+	}
+	if (Unknown_747C70(text)) {
+		return(true);
+	}
+	std::string reason;
+	int len;
+	for (const LogoffCommandStruct *command = LogoffCommands; (len = strlen(command->Name)) != 0; command++) {
+		if (strnicmp(command->Name, text, len) == 0) {
+			const char *p = text + len;
+			while (*p == ' ') {
+				p++;
+			}
+			reason = p;
+			bool quit = command->Quit;
+			Unknown138C = 1;
+			LogoffRequestPacketClass packet(Unknown1138);
+			Send_Packet(&packet);
+			if (quit) {
+				Unknown_743290();
+			}
+			return(true);
+		}
+	}
+	if (strnicmp(text, CampCommands[0], 4) == 0) {
+		MessageStringPacketClass message(0x11, "Unable to camp - insufficient marshmallows.");
+		message.Process_Packet(this);
+		return(true);
+	}
+	if (strncmp(text, "/fps", 4) == 0) {
+		if (Unknown14EC != 1) {
+			Unknown14EC = 1;
+			Unknown05 = true;
+			Unknown_74D990(0x17, "FPS reporting enabled.", 0);
+		} else {
+			Unknown14EC = 0;
+			Unknown05 = false;
+			Unknown_74D990(0x17, "FPS reporting disabled.", 0);
+		}
+		return(true);
+	}
+	if (Unknown14EC == 3) {
+		if (!WWProfileManager::Is_Profile_Enabled()) {
+			WWProfileManager::Enable_Profile(true);
+			WWProfileManager::Reset();
+		}
+	} else if (WWProfileManager::Is_Profile_Enabled()) {
+		WWProfileManager::Enable_Profile(false);
+	}
+	if (stricmp(text, "/resetship") == 0) {
+		if (CurrentView && Unknown1378 == 0) {
+			ViewClass *ui_view = CurrentView->Unknown_1C();
+			ViewUnknown34Class *dialog;
+			if (ui_view && (dialog = ui_view->Get_Unknown34()) != NULL) {
+				Unknown1378 = 1;
+				dialog->Unknown_588A70("YES_NO", 0, "This will reset all ship systems, leaving you vulnerable to attack for a short time. Continue?", 0x140, 0, 0);
+			}
+		}
+		return(true);
+	}
+	if (stricmp(text, "/beacon") == 0) {
+		Connection->Send_Packet(&IncapacitanceDistressBeaconPacketClass(AvatarID, true));
+		return(true);
+	}
+	if (stricmp(text, "/beacon off") == 0) {
+		Connection->Send_Packet(&IncapacitanceDistressBeaconPacketClass(AvatarID, false));
+		return(true);
+	}
+	if (stricmp(text, "/rescue") == 0) {
+		Connection->Send_Packet(&Packet_008FClass(AvatarID));
+		return(true);
+	}
+	if (stricmp(text, "/starbase reset") == 0 && CurrentView && CurrentView == Unknown135C) {
+		UIStarbaseClass *starbase = ((SBaseViewClass *)Unknown135C)->Get_Starbase().Peek();
+		starbase->Unknown_640150();
+		return(true);
+	}
+	if (stricmp(text, "/deco") == 0) {
+		LandClass *land = MainView->Land;
+		if (land) {
+			bool &decorations = ((bool *)land)[0x192];	// LandClass's m_Unknown192 (protected)
+			decorations = !decorations;
+			if (decorations) {
+				Unknown_74D990(0x17, "Decoration rendering is on.", 0);
+			} else {
+				Unknown_74D990(0x17, "Decoration rendering is off.", 0);
+			}
+		}
+		return(true);
+	}
+	if (stricmp(text, "/self tag on") == 0) {
+		BoolOptionStruct *option = Unknown_BE8B38->Find_Bool("Show_Self_Name");
+		if (option) {
+			option->Value = true;
+			Unknown_74D990(0x17, "Your own avatar name tag will now be displayed.", 0);
+		}
+		return(true);
+	}
+	if (stricmp(text, "/self tag off") == 0) {
+		BoolOptionStruct *option = Unknown_BE8B38->Find_Bool("Show_Self_Name");
+		if (option) {
+			option->Value = false;
+			Unknown_74D990(0x17, "Your own avatar name tag will now be hidden.", 0);
+		}
+		return(true);
+	}
+	if (Unknown_747FA0(text) || Unknown_749020(text) || Unknown_749590(text) || Unknown_749A70(text) || Unknown_749ED0(text)) {
+		return(true);
+	}
+	if (text[0] == '/' && text[1] == 'g' && text[2] == ' ') {
+		Connection->Send_Packet(&ClientChatPacketClass(AvatarID, (char *)text + 3, 1, NULL));
+		return(true);
+	}
+	if (strnicmp(text, "/gu ", 4) == 0) {
+		Connection->Send_Packet(&ClientChatPacketClass(AvatarID, (char *)text + 4, 2, NULL));
+		return(true);
+	}
+	ClientObjectClass *ship;
+	if (stricmp(text, "/art name") == 0 && (ship = Get_Ship()) != NULL) {
+		std::string name;
+		ship->Unknown_6FF7A0(name);
+		RadarSystemClass *radar;
+		if (strstr(name.c_str(), "[DEV]") && MainView && (radar = MainView->Radar) != NULL) {
+			radar->Unknown4D = !radar->Unknown4D;
+			if (radar->Unknown4D) {
+				Unknown_BE5F20 = this;
+				Unknown_74D990(0x17, "Showing of objects under mouse.", 0);
+			} else {
+				Unknown_BE5F20 = NULL;
+				Unknown_74D990(0x17, "No longer showing name of objects under mouse.", 0);
+			}
+			return(true);
+		}
+	}
+	if (strcmp(text, "/texture_flush") != 0) {
+		return(ClientClass::Unknown_34(text));
+	}
+	WW3D::_Invalidate_Textures();
+	Unknown_74D990(0, "TEXTURES FLUSHED", 0);
+	return(true);
+}
 
 
 
@@ -5617,8 +5616,8 @@ void SClient::Unknown_751660()
 **
 **	The skeleton (D90 9d): the layout (sclient.h) and the functions in the window before the first
 **	assert (0x7429B0, l.749), plus the base slots' overrides the brief names. Init 0x741180 and Shutdown
-**	0x741BB0 are functional rewrites (marked); Render 0x744690 and the chat commands 0x74ABC0 are declared only
-**	(clienttest stands in for them).
+**	0x741BB0 are functional rewrites (marked); Render 0x744690 is declared only (clienttest stands in for
+**	it); the chat commands 0x74ABC0 (SC2) sit after the last assert, with the tables they read.
 **	The frame Do_Frame 0x742B60 (DF1, byte-exact) sits in the blank run after Process_AI; it inlines the movie
 **	views' ends 0x74BD10 / 0x74BF00 (their G_ASSERTs on ll.4104 / 4127) and writes the 'current view is +0x135C'
 **	test (0x744B60, not rebuilt) out: once as an if / else of two whole calls (the lost-connection box), once as

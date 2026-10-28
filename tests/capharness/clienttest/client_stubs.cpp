@@ -73,7 +73,6 @@ void SClient::Unknown_7517E0(int a, int b, int c, int d) { Trace("stub SClient::
 void SClient::Unknown_751850(std::vector<GuildRankNameStruct> &ranks) { Trace("stub SClient::Unknown_751850 %d ranks", (int)ranks.size()); }
 
 // SClient's slots declared only (sclient.h): never called by the tests
-bool SClient::Unknown_34(int arg) { Trace("stub SClient::Unknown_34 %d", arg); return(false); }
 void SClient::Unknown_64() { Trace("stub SClient::Unknown_64"); }
 
 // ------------------------------------------------------------------------- the kernel (kernel.cpp not compiled in)

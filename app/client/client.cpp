@@ -359,7 +359,7 @@ void ClientClass::Debug_Dump_Texture_Data()
 }
 
 // 0x7281F0
-bool ClientClass::Unknown_34(int arg)
+bool ClientClass::Unknown_34(const char *text)
 {
 	return(false);
 }

@@ -127,7 +127,7 @@ public:
 	virtual ClientObjectClass *Get_Avatar() { return(Find_Object(AvatarID)); }	// +0x28 0x726940 (D123)  // NAME 2: what it does
 	virtual unsigned Set_Ship_ID(unsigned id) { unsigned old = ShipID; ShipID = id; return(old); }	// +0x2C 0x726A00  // NAME 2: what it does (Get_Ship's id)
 	virtual ClientObjectClass *Get_Ship() { return(Find_Object(ShipID)); }	// +0x30 0x726A30  // NAME 2: client.cpp's FAIL_IF '!ship' on its result
-	virtual bool Unknown_34(int arg);					// +0x34 0x7281F0: false
+	virtual bool Unknown_34(const char *text);			// +0x34 0x7281F0: false (SClient 0x74ABC0: the chat line's commands)  // NAME 1 [text]: SClient's
 	virtual bool Toggle_Debug_Mode(int unused);			// +0x38 0x728210 (ret 4: an argument it ignores)  // NAME 2: what it does  // NAME 1 [unused]: never read
 	virtual void Set_Debug_Mode(bool on);				// +0x3C 0x728240 (SClient's override logs 'Debug mode turned %s.')  // NAME 2: what it does
 	virtual void Add_Object(ClientObjectClass *object);	// +0x40 0x7274D0 (the assert names 'object')  // NAME 2: what it does

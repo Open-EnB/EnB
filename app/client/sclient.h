@@ -203,7 +203,7 @@ public:
 	void Unknown_7BCA40(int arg);						// 0x7BCA40 (the main view's slot +0x18)  // NAME 1 [arg]: neutral
 	void Unknown_7BCA70(MainViewUnknown84Class *object, PDAInterfaceUnknownA0Class *arg, const RefCountPtr<RefCountClass> &scene);	// 0x7BCA70 (the main view's 0x512A00, every frame; the scene's RefCountPtr: VC6 binds Create_Peek(SceneClass *) to 0x50BA60's RefCountPtr<RefCountClass>, and a named RefCountPtr<SceneClass> adds a frame slot the client lacks)  // NAME 1 [object, arg, scene]: what 0x512A00 passes
 
-	char Unknown00[0x50];
+	char Unknown00[0x4D]; bool Unknown4D; char Unknown4E[0x50 - 0x4E];	// +0x4D: names of the objects under the mouse ('/art name', 0x74ABC0)
 };
 
 // what the PDA's +0xA8 points to, as far as the main view's 0x512A00 calls it
@@ -692,7 +692,15 @@ public:
 	virtual int Do_Frame(bool focused);					// +0x14 0x742B60: ClientTaskClass::Sector, 0 .. 5
 	virtual int Unknown_18() { return((int)this); }		// +0x18 0x740AC0 (the base's returns 0)
 	virtual unsigned Set_Debug_Object(unsigned id);		// +0x24 0x745730: the base's
-	virtual bool Unknown_34(int arg);					// +0x34 0x74ABC0: the chat line's '/' commands ('/group', 'Unable to camp - insufficient marshmallows.')
+	virtual bool Unknown_34(const char *text);			// +0x34 0x74ABC0: the chat line's '/' commands ('/group', 'Unable to camp - insufficient marshmallows.'); true when it was one  // NAME 1 [text]: the chat line
+	bool Unknown_747510(const char *text);				// 0x747510 (0x74ABC0: '/group ...')  // NAME 1 [text]: the chat line
+	bool Unknown_745FF0(const char *text);				// 0x745FF0 (0x74ABC0: '/chat ...')  // NAME 1 [text]: the chat line
+	bool Unknown_747C70(const char *text);				// 0x747C70 (0x74ABC0: before the logoff commands)  // NAME 1 [text]: the chat line
+	bool Unknown_747FA0(const char *text);				// 0x747FA0 (0x74ABC0: the first of five command groups after '/self tag')  // NAME 1 [text]: the chat line
+	bool Unknown_749020(const char *text);				// 0x749020 (0x74ABC0)  // NAME 1 [text]: the chat line
+	bool Unknown_749590(const char *text);				// 0x749590 (0x74ABC0)  // NAME 1 [text]: the chat line
+	bool Unknown_749A70(const char *text);				// 0x749A70 (0x74ABC0)  // NAME 1 [text]: the chat line
+	bool Unknown_749ED0(const char *text);				// 0x749ED0 (0x74ABC0)  // NAME 1 [text]: the chat line
 	virtual void Set_Debug_Mode(bool on);				// +0x3C 0x743330: the base's, then 'Debug mode turned %s.'
 	virtual void Add_Object(ClientObjectClass *object);	// +0x40 0x744B90: the base's, then the main view's
 	virtual ClientObjectClass *Remove_Object(unsigned id);	// +0x44 0x744BD0: the base's, then the main view's
@@ -753,6 +761,7 @@ public:
 	void Unknown_744E70(bool arg);						// 0x744E70: the main view's target (FAIL_IF '!target', l.2110) as an ACTION 44 packet, else the chat panel's +0x138  // NAME 1 [arg]: neutral
 	Unknown77E3F0Class *Unknown_74C7B0(unsigned id);	// 0x74C7B0: Unknown1394's value of id, its 0x77E3F0 given Unknown1338  // NAME 1 [id]: the table's key
 	Unknown77E3F0Class *Unknown_74C840(unsigned id);	// 0x74C840: as 0x74C7B0 through 0x77E610  // NAME 1 [id]: the table's key
+	Unknown77E3F0Class *Unknown_74C8D0(const char *name);	// 0x74C8D0: as 0x74C840 for the named object's GameID  // NAME 1 [name]: Find_Object's
 	int *Unknown_74C960(unsigned id);					// 0x74C960: Unknown1394's value's +0xF8  // NAME 1 [id]: the table's key
 	void Unknown_74C9D0(const RefCountPtr<UITalkTreeSpaceClass> &tree);	// 0x74C9D0: Unknown1298 set, or reset to Unknown129C  // NAME 1 [tree]: what it holds
 	void Unknown_745F30(int type);						// 0x745F30 (cpacket.cpp: CLIENT_TYPE 60 passes 0, 1 or 5 for the packet's Type 0, 1 or 2)  // NAME 1 [type]: what the handler passes

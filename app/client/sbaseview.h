@@ -32,6 +32,7 @@ public:
 	void Unknown_63E5C0(int avatar_id, float orient, Vector3 *position, int action);	// 0x63E5C0 (STARBASE_AVATAR_UPDATE 158)  // NAME 1 [avatar_id, orient, position, action]: the packet's fields
 	char Unknown40[0x7C - 0x40]; bool Unknown7C; char Unknown7D[0xAC - 0x7D];	// +0x40; +0x7C both handlers test it
 	int Room;	// +0xAC (158 moves an avatar only in this room)  // NAME 2: what the handler compares with the packet's Room
+	void Unknown_640150();	// 0x640150 (SClient 0x74ABC0: '/starbase reset')
 	void Unknown_6437A0(int unknown, AvatarDescClass *desc);	// 0x6437A0 (RECUSTOMIZE_AVATAR_UPDATE 133)  // NAME 1 [unknown, desc]: the packet's fields
 };
 
