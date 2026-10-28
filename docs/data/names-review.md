@@ -532,6 +532,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_70BC30` | `app/client/co_player_relationship.cpp:125` | neutral |
 | 1 | `Unknown_70C5D0` | `app/client/co_player_relationship.cpp:128` | neutral |
 | 1 | `Unknown_70B0A0` | `app/client/co_player_relationship.cpp:130` | the gutter colours of an object (radar_data.cpp's callers) |
+| 1 | `Unknown_70B3D0` | `app/client/co_player_relationship.cpp:142` | false for the seven object types Neutral skips (0x7C4940's caller) |
 | 1 | `Unknown_70B450` | `app/client/co_player_relationship.cpp:150` | 'Neutral' unless the object's type is one of seven |
 | 1 | `Unknown_70B790` | `app/client/co_player_relationship.cpp:161` | 'Attacking' while the relationship says so |
 | 1 | `Unknown_Find_Set_Field` | `app/client/co_player_relationship.cpp:198` | neutral (D10) |

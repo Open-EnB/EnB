@@ -4032,7 +4032,7 @@ RECONSTRUCTED = {
                                                "Attacking / Group (0x70BAC0's GroupInfo test, lines 207 / 210) / "
                                                "PVPAttackable / Player, the dispatcher 0x70B0A0, the "
                                                "reaction colours 0x70C5D0 (line 301), the packet handlers 0x70CC40 (line 310), "
-                                               "0x70CC90, 0x70CD50; NOT EXACT: Neutral 0x70B450",
+                                               "0x70CC90, 0x70CD50, the type test 0x70B3D0; NOT EXACT: Neutral 0x70B450",
 }
 
 # Text appended to imported files (after everything, so no existing line moves).

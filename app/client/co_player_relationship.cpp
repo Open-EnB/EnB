@@ -139,11 +139,11 @@ GutterColorSetStruct Unknown_70B0A0(SClient *client, ClientObjectClass *object)	
 	return(colors);
 }
 
-
-
-
-
-
+bool Unknown_70B3D0(ClientObjectClass *object)	// NAME 1 [Unknown_70B3D0]: false for the seven object types Neutral skips (0x7C4940's caller)
+{
+	switch (object->Type) { case 0: case 1: case 2: case 11: case 12: case 28: case 33: return(false); }
+	return(true);
+}
 
 
 // NOT EXACT: inline budget (the client calls the name string's assign and the copies out of line; attempts.py show 0x70B450)
@@ -353,9 +353,9 @@ void Unknown_70CD50(SClient *sclient, PlayerObjectIsAttackingUpdatePacket *packe
 **	+0x12C0; rtti.h's DeltaCompoundClass cast 0x598D80 out of line), PVPAttackable 0x70BF90 (through 0x70BF60),
 **	Player 0x70C2A0 and the reaction colours 0x70C5D0;
 **	the three packet handlers cpacket.cpp calls (0x70CC40, 0x70CC90, 0x70CD50) and the table's out-of-line
-**	helpers (0x70CDF0-0x70DBC0). Not counted: GutterColorSetStruct's operator= 0x70CAF0 (the client's window
+**	helpers (0x70CDF0-0x70DBC0); Neutral's type test 0x70B3D0 out of line (0x7C4940 calls it). Not counted: GutterColorSetStruct's operator= 0x70CAF0 (the client's window
 **	runs on over the four statics' empty atexit destructors 0x70CBC0-0x70CC20), the copies 0x70AC60 / 0x70ACA0
-**	(ambiguous), 0x70B390 / 0x70B3D0 (not emitted yet); the static initialisers (`_$E`, D94); GutterColors' destructor
+**	and 0x70B390 (ambiguous: GutterColorStruct's copy, identical to 0x70AC60); the static initialisers (`_$E`, D94); GutterColors' destructor
 **	0x709F40 and the finds 0x70D030 / 0x70D150 (exact, but 25 / 36 copies D80 can't tell apart); its constructor
 **	0x70CE50 (the client inlines vector::size() in the buckets' reserve: inline budget, attempts.py show 0x70CE50).
 **	Forms that mattered: GutterColors is a global (a file static's [8] reference was not matched); the set has
