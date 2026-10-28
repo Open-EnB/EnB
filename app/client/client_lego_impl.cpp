@@ -248,7 +248,7 @@ RefCountPtr<RenderObjClass> ClientLegoImplClass::Get_Render_Object(void) const
 
 
 
-// NOT EXACT: inline budget: the client inlines the split's string destructor at the orphan returns, ours calls _Tidy (attempts.csv)
+
 RefCountPtr<LegoClass> ClientLegoImplClass::Find(const LegoIdentifierClass &id) const
 {
 	if (id.Is_Empty()) {
@@ -360,7 +360,7 @@ Matrix3D ClientLegoImplClass::Get_Lego_Transform(const LegoIdentifierClass &id) 
 
 
 
-// NOT EXACT: inline budget: the last branch's orphan data assignment and destructor, inlined by the client, called by ours (attempts.csv)
+// NOT EXACT: inline budget: the last branch's orphan data assignment and destructor, inlined by the client, called by ours; 0.75 (attempts.csv)
 void ClientLegoImplClass::Add(const RefCountPtr<LegoClass> &lego)
 {
 	LegoSplitStruct split(Identifier, lego->Get_Identifier());
@@ -474,7 +474,7 @@ void ClientLegoImplClass::Add(const RefCountPtr<LegoClass> &lego)
 
 
 
-// NOT EXACT: inline budget: at the last return the client inlines the data's and the split's destructors, ours calls them (attempts.csv)
+// NOT EXACT: register-only: the loop's Get_Identifier() called after the id push, eax/edx in the inlined Release calls, 0.85 (attempts.csv)
 RefCountPtr<LegoClass> ClientLegoImplClass::Remove(const LegoIdentifierClass &id)
 {
 	LegoSplitStruct split(Identifier, id);
@@ -484,11 +484,13 @@ RefCountPtr<LegoClass> ClientLegoImplClass::Remove(const LegoIdentifierClass &id
 		if (child_find == Children.end()) {
 			return NULL;
 		}
-		RefCountPtr<LegoClass> child = (*child_find).second.Child;
-		RefCountPtr<LegoKnobClass> knob = (*child_find).second.Knob;
+		LegoChildStruct &record = (*child_find).second;
+		RefCountPtr<LegoClass> child = record.Child;
+		RefCountPtr<LegoKnobClass> knob = record.Knob;
 		RefCountPtr<LegoOrphanDataClass> orphan_data = Create_NEW(new LegoOrphanDataClass);
-		child->Detach_All(orphan_data->Legos);
-		if (!orphan_data->Legos.empty()) {
+		std::vector<RefCountPtr<LegoClass> > &legos = orphan_data->Legos;
+		child->Detach_All(legos);
+		if (!legos.empty()) {
 			Orphans[split.Name] = orphan_data;
 		}
 		if (knob) {
@@ -497,28 +499,26 @@ RefCountPtr<LegoClass> ClientLegoImplClass::Remove(const LegoIdentifierClass &id
 		}
 		Children.erase(child_find);
 		return child;
-	} else if (child_find != Children.end()) {
+	}
+	if (child_find != Children.end()) {
 		return (*child_find).second.Child->Remove(id);
-	} else {
-		std::hash_map<std::string, RefCountPtr<LegoOrphanDataClass> >::iterator orphan_find = Orphans.find(split.Name);
-		if (orphan_find == Orphans.end()) {
-			return NULL;
-		}
-		RefCountPtr<LegoOrphanDataClass> data = (*orphan_find).second;
-		std::vector<RefCountPtr<LegoClass> > &legos = data->Legos;
-		for (std::vector<RefCountPtr<LegoClass> >::iterator it = legos.begin(); it != legos.end(); ++it) {
-			RefCountPtr<LegoClass> lego = *it;
-			if (lego->Get_Identifier() == id) {
-				legos.erase(it);
-				if (legos.size() == 0) Orphans.erase(orphan_find);
-				return lego;
-			}
-		}
+	}
+	std::hash_map<std::string, RefCountPtr<LegoOrphanDataClass> >::iterator orphan_find = Orphans.find(split.Name);
+	if (orphan_find == Orphans.end()) {
 		return NULL;
 	}
-
+	RefCountPtr<LegoOrphanDataClass> data = (*orphan_find).second;
+	std::vector<RefCountPtr<LegoClass> > &legos = data->Legos;
+	for (std::vector<RefCountPtr<LegoClass> >::iterator it = legos.begin(); it != legos.end(); ++it) {
+		RefCountPtr<LegoClass> lego = *it;
+		if (lego->Get_Identifier() == id) {
+			legos.erase(it);
+			if (legos.size() == 0) Orphans.erase(orphan_find);
+			return lego;
+		}
+	}
+	return NULL;
 }
-
 void ClientLegoImplClass::Detach_All(std::vector<RefCountPtr<LegoClass> > &legos)
 {
 	for (std::hash_map<std::string, LegoChildStruct>::iterator it = Children.begin(); it != Children.end(); ++it) {
@@ -856,4 +856,10 @@ LegoKnobClass::LegoKnobClass(std::string bone_name, int bone_index) :
 **	* Update_Radius: the bone's matrix is copied into a Matrix3D local (the client's frame 0x60 and
 **	  its int-move copies of the translation), the result a min_radius > radius ternary (FPU copy).
 **	* Written by builder H17 (2026-10-27).
+**	* F6 (2026-10-27): E&B's ref_ptr.h has no G_ASSERT in RefCountPtr(DummyPtrType *) (importer.py's
+**	  PATCHES, wwlib/ref_ptr.h): with it every `return NULL` spent the caller's inline budget on an
+**	  expansion that folds away, and Find 0x72ABB0 called the split's string destructor at its last
+**	  returns. Remove is Add's flat shape (the State==0 block returns, then a plain if, the orphan code
+**	  at function scope: the client's frame 0x84 and slots), with the orphan data's vector through a
+**	  reference in the State==0 branch and the LegoChildStruct through a reference (lea esi/add eax,0x14).
 */

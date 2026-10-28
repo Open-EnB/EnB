@@ -254,7 +254,7 @@ class RefCountPtr
 		RefCountPtr(DummyPtrType * dummy)
 			: Referent(0)
 		{
-			G_ASSERT(dummy == 0);
+			// E&B: no G_ASSERT(dummy == 0) here (see the patch note)
 		}
 #endif
 

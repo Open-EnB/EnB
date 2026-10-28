@@ -645,6 +645,11 @@ class RenderObjClass : public RefCountClass , public PersistClass, public MultiL
         ('	User_Data(NULL),', """	User_Data(NULL),
 	RenderHook(NULL),""", 'both constructors clear the render hook'),
     ],
+    ('wwlib', 'ref_ptr.h'): [
+        ('\t\tRefCountPtr(DummyPtrType * dummy)\n\t\t\t: Referent(0)\n\t\t{\n\t\t\tG_ASSERT(dummy == 0);\n\t\t}\n',
+         '\t\tRefCountPtr(DummyPtrType * dummy)\n\t\t\t: Referent(0)\n\t\t{\n\t\t\t// E&B: no G_ASSERT(dummy == 0) here (see the patch note)\n\t\t}\n',
+         "E&B's ref_ptr.h differs from Renegade's revision 3: the client has no 'dummy == 0' string at all, and its only ref_ptr.h assert ('0 != Referent', operator*, 0x532726) is on line 356 where Renegade's is 371. With the assert, every RefCountPtr(NULL) spends the caller's inline budget on an expansion that folds away: client_lego_impl's Find 0x72ABB0 exact only without it (the client inlines the split's string destructor at its last two returns, F6 2026-10-27)"),
+    ],
 }
 # D9 (docs/progress.md): E&B's texture classes and DX8Wrapper are Zero Hour's. Files that stay
 # Renegade's are written against its texture API; these edits give them Zero Hour's, as
