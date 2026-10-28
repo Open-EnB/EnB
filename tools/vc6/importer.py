@@ -4102,6 +4102,8 @@ RECONSTRUCTED = {
                                  "postate.cpp follows at 0x714820): StateNode's slots 0x70F040-0x70F210 (lines 238, "
                                  "246, D25), every node, blend and motion object of the window (NOT EXACT ones marked); the "
                                  "asserts on the client's lines 349-433, 757, 1198-1214, 1279-1416, 1432-1590, 1799",
+    ('app', 'client/eff_o.h'): "eff_o.cpp's effect object: the base EffectObjectClass (vtable 0xB0002C, 0x80 bytes, layout from the constructor 0x6E6710), its base UnknownAF0DD0Class (0xAF0DD0); client.h's partial declaration steps aside when EFF_O_H is defined",
+    ('app', 'client/eff_o.cpp'): "the effect object, client 0x6E6710-0x6ECBA0 (eff_line.cpp's guarded static at 0x6E66E0 before it): so far the base's constructor, slots, destructor 0x6E6930, Unknown_6E6A90 and 0x6E6E30 / 0x6E6ED0 / 0x6E6F10 / 0x6E74B0",
 }
 
 # Text appended to imported files (after everything, so no existing line moves).

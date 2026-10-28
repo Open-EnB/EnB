@@ -119,7 +119,7 @@ model Set_Transform (0, 0, 0)
 gen ClientObjectClass::Unknown_6FE1E0
 gen CameraManagerClass::Unknown_799E40
 gen EffectObjectClass::Unknown_6E6AD0
-gen Unknown_6E6A90
+stub Unknown_6E6A90 297
 gen MainViewClass::Unknown_513CD0
 gen MainViewClass::Unknown_513D20
 gen MainViewClass::Unknown_513600

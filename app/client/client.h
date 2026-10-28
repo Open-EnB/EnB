@@ -36,7 +36,7 @@ class ClientClass;
 
 #include "co.h"
 
-// eff_o.cpp's effect object (not rebuilt): ClientClass's second list
+#ifndef EFF_O_H	// eff_o.cpp's effect object as far as the lists need it (eff_o.h, included first, declares it all)
 class EffectObjectClass		// NAME 3: class-from-file (D24) for eff_o.cpp
 {
 public:
@@ -50,7 +50,7 @@ public:
 	char Unknown20[0x30 - 0x20];						// +0x20
 	unsigned ID;										// +0x30 the list's key  // NAME 2: what it is
 };
-
+#endif
 // The objects of ClientClass's third list (class and file unknown)
 class Unknown86CRecordClass	// NAME 1: neutral (D10)
 {

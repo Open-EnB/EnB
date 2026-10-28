@@ -115,6 +115,8 @@ EffectObjectClass::~EffectObjectClass() { Trace("stub EffectObjectClass::~Effect
 void EffectObjectClass::Unknown_6E74B0(int arg) { Trace("stub EffectObjectClass::Unknown_6E74B0 %u %d", ID, arg); }
 void EffectObjectClass::Unknown_6E6ED0(int arg) { Trace("stub EffectObjectClass::Unknown_6E6ED0 %u %d", ID, arg); }
 void EffectObjectClass::Unknown_6E6E30() { Trace("stub EffectObjectClass::Unknown_6E6E30 %u", ID); }
+// eff_o.cpp (app.lib) defines it since EF1; standing in here keeps eff_o.obj, and its real slots, out
+void Unknown_6E6A90(EffectObjectClass *effect) { Trace("stub Unknown_6E6A90 %u", effect->ID); }
 Unknown86CRecordClass::~Unknown86CRecordClass() { Trace("stub Unknown86CRecordClass::~Unknown86CRecordClass %u", ID); }
 
 // ------------------------------------------------------------------------- ClientClass's members (client.h)

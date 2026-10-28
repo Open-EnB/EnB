@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 33 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 36 |
-| 3 | by convention from a client-named file or sibling | 876 |
-| 2 | describes what the code does | 2134 |
-| 1 | neutral placeholder | 4086 |
+| 3 | by convention from a client-named file or sibling | 886 |
+| 2 | describes what the code does | 2142 |
+| 1 | neutral placeholder | 4156 |
 
 ## For review (score 3 and below)
 
@@ -976,6 +976,66 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_7517E0` | `app/client/cpacket.cpp:3333` | untagged neutral name (D10) |
 | 1 | `Unknown_751850` | `app/client/cpacket.cpp:3345` | untagged neutral name (D10) |
 | 1 | `Unknown_751460` | `app/client/cpacket.cpp:3413` | untagged neutral name (D10) |
+| 1 | `Unknown34` | `app/client/eff_o.cpp:22` | untagged neutral name (D10) |
+| 1 | `Unknown38` | `app/client/eff_o.cpp:23` | untagged neutral name (D10) |
+| 1 | `Unknown3C` | `app/client/eff_o.cpp:24` | untagged neutral name (D10) |
+| 1 | `Unknown40` | `app/client/eff_o.cpp:25` | untagged neutral name (D10) |
+| 1 | `Unknown44` | `app/client/eff_o.cpp:26` | untagged neutral name (D10) |
+| 1 | `Unknown48` | `app/client/eff_o.cpp:27` | untagged neutral name (D10) |
+| 1 | `Unknown4C` | `app/client/eff_o.cpp:28` | untagged neutral name (D10) |
+| 1 | `Unknown64` | `app/client/eff_o.cpp:34` | untagged neutral name (D10) |
+| 1 | `Unknown_6E6F90` | `app/client/eff_o.cpp:40` | untagged neutral name (D10) |
+| 1 | `Unknown_04` | `app/client/eff_o.cpp:46` | untagged neutral name (D10) |
+| 1 | `Unknown_08` | `app/client/eff_o.cpp:51` | untagged neutral name (D10) |
+| 1 | `Unknown_18` | `app/client/eff_o.cpp:57` | untagged neutral name (D10) |
+| 1 | `Unknown_1C` | `app/client/eff_o.cpp:62` | untagged neutral name (D10) |
+| 1 | `Unknown_20` | `app/client/eff_o.cpp:67` | untagged neutral name (D10) |
+| 1 | `Unknown_6E6A90` | `app/client/eff_o.cpp:72` | untagged neutral name (D10) |
+| 1 | `Unknown_6E7330` | `app/client/eff_o.cpp:75` | untagged neutral name (D10) |
+| 1 | `Unknown_6E6E30` | `app/client/eff_o.cpp:238` | untagged neutral name (D10) |
+| 1 | `Unknown10BC` | `app/client/eff_o.cpp:240` | untagged neutral name (D10) |
+| 1 | `Unknown2` | `app/client/eff_o.cpp:246` | untagged neutral name (D10) |
+| 1 | `Unknown_6E6ED0` | `app/client/eff_o.cpp:256` | untagged neutral name (D10) |
+| 1 | `Unknown_0C` | `app/client/eff_o.cpp:263` | untagged neutral name (D10) |
+| 1 | `Unknown5` | `app/client/eff_o.cpp:266` | untagged neutral name (D10) |
+| 1 | `Unknown_6E74B0` | `app/client/eff_o.cpp:272` | untagged neutral name (D10) |
+| 1 | `UnknownB00060EffectClass` | `app/client/eff_o.h:34` | untagged neutral name (D10) |
+| 1 | `UnknownB0009CEffectClass` | `app/client/eff_o.h:35` | untagged neutral name (D10) |
+| 1 | `UnknownAF0DD0Class` | `app/client/eff_o.h:39` | neutral (D10) |
+| 1 | `client .. cycle_time` | `app/client/eff_o.h:48` | the members they set |
+| 1 | `arg` | `app/client/eff_o.h:50` | unused |
+| 1 | `Unknown_04` | `app/client/eff_o.h:50` | untagged neutral name (D10) |
+| 1 | `position` | `app/client/eff_o.h:51` | what 0x6E6AD0 passes |
+| 1 | `Unknown_08` | `app/client/eff_o.h:51` | untagged neutral name (D10) |
+| 1 | `duration` | `app/client/eff_o.h:52` | what it sets |
+| 1 | `Unknown_0C` | `app/client/eff_o.h:52` | untagged neutral name (D10) |
+| 1 | `Unknown_10` | `app/client/eff_o.h:53` | untagged neutral name (D10) |
+| 1 | `Unknown_14` | `app/client/eff_o.h:54` | untagged neutral name (D10) |
+| 1 | `Unknown_18` | `app/client/eff_o.h:55` | untagged neutral name (D10) |
+| 1 | `Unknown_1C` | `app/client/eff_o.h:56` | untagged neutral name (D10) |
+| 1 | `Unknown_20` | `app/client/eff_o.h:57` | untagged neutral name (D10) |
+| 1 | `arg` | `app/client/eff_o.h:59` | what client.h declares |
+| 1 | `Unknown_6E74B0` | `app/client/eff_o.h:59` | untagged neutral name (D10) |
+| 1 | `arg` | `app/client/eff_o.h:60` | what client.h declares |
+| 1 | `Unknown_6E6ED0` | `app/client/eff_o.h:60` | untagged neutral name (D10) |
+| 1 | `Unknown_6E6E30` | `app/client/eff_o.h:61` | untagged neutral name (D10) |
+| 1 | `Unknown_6E6AD0` | `app/client/eff_o.h:62` | untagged neutral name (D10) |
+| 1 | `duration` | `app/client/eff_o.h:63` | what it sets |
+| 1 | `Unknown_6E6F90` | `app/client/eff_o.h:63` | untagged neutral name (D10) |
+| 1 | `Unknown_6E7330` | `app/client/eff_o.h:76` | untagged neutral name (D10) |
+| 1 | `Unknown34` | `app/client/eff_o.h:84` | untagged neutral name (D10) |
+| 1 | `Unknown38` | `app/client/eff_o.h:85` | untagged neutral name (D10) |
+| 1 | `Unknown3C` | `app/client/eff_o.h:86` | untagged neutral name (D10) |
+| 1 | `Unknown40` | `app/client/eff_o.h:87` | untagged neutral name (D10) |
+| 1 | `Unknown44` | `app/client/eff_o.h:88` | untagged neutral name (D10) |
+| 1 | `Unknown48` | `app/client/eff_o.h:89` | untagged neutral name (D10) |
+| 1 | `Unknown4C` | `app/client/eff_o.h:90` | untagged neutral name (D10) |
+| 1 | `Unknown64` | `app/client/eff_o.h:96` | untagged neutral name (D10) |
+| 1 | `Unknown2` | `app/client/eff_o.h:104` | untagged neutral name (D10) |
+| 1 | `Unknown3` | `app/client/eff_o.h:105` | untagged neutral name (D10) |
+| 1 | `Unknown4` | `app/client/eff_o.h:106` | untagged neutral name (D10) |
+| 1 | `Unknown5` | `app/client/eff_o.h:107` | untagged neutral name (D10) |
+| 1 | `Unknown_6E6A90` | `app/client/eff_o.h:112` | untagged neutral name (D10) |
 | 1 | `Unknown_7E7A40` | `app/client/emote_data.h:25` | untagged neutral name (D10) |
 | 1 | `Unknown_7E76E0` | `app/client/emote_data.h:26` | untagged neutral name (D10) |
 | 1 | `Unknown_7E6860` | `app/client/emote_data.h:27` | untagged neutral name (D10) |
@@ -3997,8 +4057,18 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_20` | `tests/capharness/clienttest/client_stubs.cpp:281` | untagged neutral name (D10) |
 | 1 | `Unknown_24` | `tests/capharness/clienttest/client_stubs.cpp:282` | untagged neutral name (D10) |
 | 1 | `Unknown_28` | `tests/capharness/clienttest/client_stubs.cpp:283` | untagged neutral name (D10) |
-| 1 | `Unknown6E9490EffectClass` | `tests/capharness/clienttest/client_stubs.cpp:297` | untagged neutral name (D10) |
-| 1 | `Unknown_6E9490` | `tests/capharness/clienttest/client_stubs.cpp:309` | untagged neutral name (D10) |
+| 1 | `Unknown_2C` | `tests/capharness/clienttest/client_stubs.cpp:284` | untagged neutral name (D10) |
+| 1 | `Unknown6E9490BinaryClass` | `tests/capharness/clienttest/client_stubs.cpp:300` | untagged neutral name (D10) |
+| 1 | `Unknown_30` | `tests/capharness/clienttest/client_stubs.cpp:307` | untagged neutral name (D10) |
+| 1 | `Unknown_38` | `tests/capharness/clienttest/client_stubs.cpp:309` | untagged neutral name (D10) |
+| 1 | `Unknown_6E82A0` | `tests/capharness/clienttest/client_stubs.cpp:310` | untagged neutral name (D10) |
+| 1 | `Unknown04` | `tests/capharness/clienttest/client_stubs.cpp:311` | untagged neutral name (D10) |
+| 1 | `Unknown7C` | `tests/capharness/clienttest/client_stubs.cpp:312` | untagged neutral name (D10) |
+| 1 | `Unknown80` | `tests/capharness/clienttest/client_stubs.cpp:313` | untagged neutral name (D10) |
+| 1 | `UnknownA8` | `tests/capharness/clienttest/client_stubs.cpp:314` | untagged neutral name (D10) |
+| 1 | `UnknownB4` | `tests/capharness/clienttest/client_stubs.cpp:315` | untagged neutral name (D10) |
+| 1 | `Unknown6E9490EffectClass` | `tests/capharness/clienttest/client_stubs.cpp:334` | untagged neutral name (D10) |
+| 1 | `Unknown_6E9490` | `tests/capharness/clienttest/client_stubs.cpp:348` | untagged neutral name (D10) |
 | 1 | `Unknown_Get_Ticks` | `tests/capharness/clienttest/clienttest.cpp:72` | untagged neutral name (D10) |
 | 1 | `Unknown_8B4510` | `tests/capharness/clienttest/clienttest.cpp:83` | untagged neutral name (D10) |
 | 1 | `Unknown_8B4560` | `tests/capharness/clienttest/clienttest.cpp:84` | untagged neutral name (D10) |
@@ -4367,6 +4437,14 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `EmoteDataClass` | `app/client/cpacket.cpp:107` | co_data.h's name for what Get_Emote_Data returns |
 | 2 | `Get_Jobs` | `app/client/cpacket.cpp:258` | what it returns |
 | 2 | `Jobs` | `app/client/cpacket.cpp:261` | what it holds |
+| 2 | `Node` | `app/client/eff_o.h:78` | what it is |
+| 2 | `Client` | `app/client/eff_o.h:79` | what it holds |
+| 2 | `StartTime` | `app/client/eff_o.h:80` | what it holds |
+| 2 | `ID` | `app/client/eff_o.h:83` | what it is |
+| 2 | `StartLink` | `app/client/eff_o.h:94` | the effect StartLinkID makes |
+| 2 | `NextLink` | `app/client/eff_o.h:95` | the effect NextLinkID makes |
+| 2 | `Flags` | `app/client/eff_o.h:101` | what it holds |
+| 2 | `State` | `app/client/eff_o.h:103` | what it holds |
 | 2 | `time` | `app/client/extrap.h:39` | what Unknown_1C takes |
 | 2 | `time` | `app/client/extrap.h:40` | as Unknown_04's |
 | 2 | `time` | `app/client/extrap.h:41` | as Unknown_04's |
@@ -6300,6 +6378,16 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `UIChatPanelClass` | `app/client/cpacket.cpp:2457` | class-from-file (D24) for app\client\ui_chat_panel.cpp |
 | 3 | `Friends` | `app/client/cpacket.cpp:2466` | its methods' file |
 | 3 | `UIGroupClass` | `app/client/cpacket.cpp:2472` | class-from-file (D24) for app\client\ui_group.cpp |
+| 3 | `eff_o.h` | `app/client/eff_o.h:23` | header name assumed from the client's eff_o.cpp |
+| 3 | `EffectObjectClass` | `app/client/eff_o.h:45` | class-from-file (D24) for eff_o.cpp |
+| 3 | `Duration` | `app/client/eff_o.h:81` | effect.ini's 'Duration' |
+| 3 | `CycleTime` | `app/client/eff_o.h:82` | effect.ini's 'CycleTime' |
+| 3 | `Camera` | `app/client/eff_o.h:91` | 0x6E6AD0's FAIL_IF '!Camera' |
+| 3 | `StartLinkID` | `app/client/eff_o.h:92` | effect.ini's 'StartLinkID' |
+| 3 | `NextLinkID` | `app/client/eff_o.h:93` | effect.ini's 'NextLinkID' |
+| 3 | `Scale` | `app/client/eff_o.h:97` | the effect packets' Scale |
+| 3 | `HSVShift` | `app/client/eff_o.h:98` | the effect packets' HSVShift |
+| 3 | `Speedup` | `app/client/eff_o.h:99` | the effect packets' Speedup |
 | 3 | `emote_data.h` | `app/client/emote_data.h:16` | header name assumed from the client's emote_data.cpp |
 | 3 | `extrap.h` | `app/client/extrap.h:19` | header name assumed from the client's extrap.cpp |
 | 3 | `StateNode` | `app/client/extrap.h:35` | the client's assert 'Bad function call! StateNode::Set_Motion()' |
