@@ -242,6 +242,7 @@ public:
 	void Set_Tilt(float tilt);							// 0x79B3F0  // NAME 2: Init passes the camera mode's Tilt
 	void Set_Elevation_Offset(float offset);			// 0x79B470  // NAME 2: Init passes the camera mode's ElevationOffset
 	void Unknown_79B4B0(bool first_mode);				// 0x79B4B0: Init passes CameraMode == 0  // NAME 1 [first_mode]: what it is
+	void Unknown_799E40();								// 0x799E40 (Process_AI, unless the current view is +0x135C)
 
 	int Unknown00;										// +0x00
 	int Unknown04;										// +0x04 (Init and Shutdown hand it to the notifier)
@@ -719,50 +720,49 @@ unsigned SClient::Set_Debug_Object(unsigned id)
 {
 	return(ClientClass::Set_Debug_Object(id));
 }
+// NOT EXACT: shape, 10 masked rows (the effect loop: ours reads the record before the next-node test and loops with a jmp, the client tests the next node again; the dead First_Valid spends the inline budget so that the third list's Remove 0x7572E0 is called out of line, as the client's; 30 forms)
+// 0x744260 (placed in the blank run before 0x744E70's FAIL_IF: no assert line moves)
+void SClient::Process_AI()
+{
+	WWPROFILE("SClient::Process_AI"); Unknown86CList.First_Valid();
 
+	// every object's per-frame update (co.cpp's slot +0x20 0x6F3C60)
+	HashNodeClass<ClientObjectClass *> *node = ObjectList.First_Valid();
+	while (node && node->Next()) {
+		node->Get_Record()->Unknown_20();
+		node = node->Next();
+	}
+	if (!CurrentView || CurrentView != Unknown135C) {
+		CameraManager->Unknown_799E40();
+	}
 
+	// the effects that are done: out of the list, then eff_o.cpp's 0x6E6A90
+	HashNodeClass<EffectObjectClass *> *enode = EffectList.First_Valid();
+	while (enode) {
+		EffectObjectClass *effect = enode->Get_Record(); HashNodeClass<EffectObjectClass *> *next = enode->Next(); if (!next) break;
 
+		if (!effect->Unknown_6E6AD0()) {
+			EffectList.Remove(enode);
+			Unknown_6E6A90(effect);
+		}
+		enode = next;
+	}
 
+	Unknown_7456B0();
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	// the third list's records against the main view's camera position: those that refuse go
+	Vector3 position = ((RenderObjClass *)MainView->Unknown_7C())->Get_Position();
+	HashNodeClass<Unknown86CRecordClass *> *rnode = Unknown86CList.First_Valid();
+	while (rnode && rnode->Next()) {
+		HashNodeClass<Unknown86CRecordClass *> *next = rnode->Next();
+		Unknown86CRecordClass *record = rnode->Get_Record();
+		if (!record->Unknown_08(position)) {
+			Unknown86CList.Remove(rnode);
+			delete record;
+		}
+		rnode = next;
+	}
+}
 
 
 

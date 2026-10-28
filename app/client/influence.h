@@ -27,7 +27,7 @@ public:
 	InfluenceClass(ClientClass *client, unsigned id, RenderObjClass *model);	// 0x7E87C0 (CREATE 4: its client, the client's +0x113C decremented, the new model)  // NAME 1 [client, id, model]: what CREATE passes
 
 	virtual void Unknown_04();						// +0x04
-	virtual void Unknown_08();						// +0x08
+	virtual bool Unknown_08(const Vector3 &position);	// +0x08 (the base's: SClient::Process_AI passes the camera's position)  // NAME 1 [position]: what it gets
 	virtual void Unknown_0C();						// +0x0C
 	virtual void Unknown_10(int game_id);			// +0x10 (CREATE passes the packet's GameID)  // NAME 1 [game_id]: what CREATE passes
 

@@ -44,6 +44,7 @@ public:
 	void Unknown_6E74B0(int arg);						// 0x6E74B0 (eff_o.cpp)
 	void Unknown_6E6ED0(int arg);						// 0x6E6ED0 (eff_o.cpp)
 	void Unknown_6E6E30();								// 0x6E6E30 (eff_o.cpp; cpacket.cpp's REMOVE_EFFECT 15)
+	bool Unknown_6E6AD0();								// 0x6E6AD0 (eff_o.cpp; SClient::Process_AI removes the effect when it is false)
 
 	HashNodeClass<EffectObjectClass *> Node;			// +0x04 ClientClass::EffectList's node  // NAME 2: what it is
 	char Unknown20[0x30 - 0x20];						// +0x20
@@ -55,6 +56,8 @@ class Unknown86CRecordClass	// NAME 1: neutral (D10)
 {
 public:
 	virtual ~Unknown86CRecordClass();					// +0x00 (ClientClass's destructor deletes through it)
+	virtual void Unknown_04();							// +0x04
+	virtual bool Unknown_08(const Vector3 &position);	// +0x08 (SClient::Process_AI passes the main view camera's position; false: the record goes)  // NAME 1 [position]: what it gets
 
 	HashNodeClass<Unknown86CRecordClass *> Node;		// +0x04 the list's node  // NAME 2: what it is
 	char Unknown20[0x24 - 0x20];						// +0x20
