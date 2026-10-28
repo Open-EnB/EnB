@@ -4080,11 +4080,11 @@ RECONSTRUCTED = {
                                                "0x70CC90, 0x70CD50, the type test 0x70B3D0; NOT EXACT: Neutral 0x70B450",
     ('app', 'client/postate.h'): "postate.cpp's positional states (ClientObjectClass +0x98, co.h's Unknown98Class): "
                                 "the forwarding state 0xB026EC, type 1 0xB02728, the extrapolator base 0xB027A0 with "
-                                "types 3 0xB027DC and 5 0xB02818 (layouts from the constructors 0x714870-0x715CF0)",
+                                "types 3 0xB027DC, 5 0xB02818, 11 0xB028F0, 8 0xB02854 and 4 0xB028A4 (layouts from the constructors 0x714870-0x715CF0)",
     ('app', 'client/postate.cpp'): "the positional states, client 0x714870-0x719700 (start): the forwarding state "
                                   "0x714870-0x714B00 ('PositionState' on the client's lines 53-90, D25), type 1 "
                                   "0x714B50 / 0x714D50, the extrapolator base 0x715620-0x7159C0, type 3 0x715AB0 / "
-                                  "0x715C20, type 5 0x715CF0 / 0x715E60; extrap.cpp's classes declared only",
+                                  "0x715C20, type 5 0x715CF0 / 0x715E60, type 11 0x717EF0 / 0x718080, types 8 0x715EF0-0x716F70 and 4 0x717010-0x717ED0 (NOT EXACT: 0x716140, 0x716220, 0x716760, 0x7168A0, 0x717CC0); extrap.cpp's classes declared only",
 }
 
 # Text appended to imported files (after everything, so no existing line moves).

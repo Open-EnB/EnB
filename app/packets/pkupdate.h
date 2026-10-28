@@ -130,6 +130,7 @@ public:
 	bool Has_DesiredZ();	// 0x8AD810 (flag 6: not the default, +-1000 by RotZ's sign)  // NAME 2: what it tests
 	bool Has_Imparted();	// 0x8AD890 (flag 7: ImpartedVelocity, -Spin, -Roll, -Pitch)  // NAME 2: what it tests
 	bool Has_Update_Period();	// 0x8AD980 (flag 8: not 500)  // NAME 2: what it tests
+	bool Unknown_8ADB20();	// 0x8ADB20 (not rebuilt: CurrentSpeed or SetSpeed above a limit, or ImpartedVelocity not zero; postate.cpp's types 4 and 8 ask it)  // NAME 1: neutral (D10)
 
 	int GameID;	// +0x0C  // NAME 3: the client's Print text 'GameID='
 	unsigned int TimeStamp;	// +0x10  // NAME 3: the client's Print text 'TimeStamp='

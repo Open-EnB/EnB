@@ -2,47 +2,47 @@
 #include "postate.h"
 #include "..\packets\pkupdate.h"
 #include "..\shared\unknown_debug.h"
+#include "sclient.h"
+#include <math.h>
+#include <stdlib.h>
 
-// extrap.cpp's extrapolators, declared as far as the states call them (extrap.cpp is not rebuilt)
-class ExtrapClass	// NAME 3: class-from-file (D24) for app\client\extrap.cpp
-{
-public:
-	virtual ~ExtrapClass();
-	virtual Vector3 Unknown_04(int time);	// NAME 2 [time]: the state's time
-	virtual void Unknown_08();
-	virtual Vector3 Unknown_0C(int time);	// NAME 2 [time]: the state's time
-	virtual void Unknown_10();
-	virtual Vector3 Unknown_14(int time);	// NAME 2 [time]: the state's time
-	virtual Vector3 Unknown_18(int time);	// NAME 2 [time]: the state's time
-	virtual void Unknown_1C(int time, Vector3 *position, Quaternion *orientation, Vector3 *a, Vector3 *b, Vector3 *c, bool unknown);	// NAME 2 [time, position, orientation]: what the states do with them  // NAME 1 [a, b, c, unknown]: neutral
-	virtual void Unknown_20();
-	virtual void Unknown_24();
-	virtual ExtrapClass *Unknown_28(int time);	// +0x28 (the extrapolator to use from now on: the state keeps it)  // NAME 2 [time]: the state's time
-};
-class Unknown70F250Class : public ExtrapClass	// NAME 1: neutral (D10)
-{
-public:
-	Unknown70F250Class(SimplePositionalUpdatePacketClass *packet);	// 0x70F250  // NAME 1 [packet]: what the state passes
-	char Unknown04[0x30 - 0x04];
-};
-class Unknown7125F0Class : public ExtrapClass	// NAME 1: neutral (D10)
-{
-public:
-	Unknown7125F0Class(ExtrapClass *from, ExtrapClass *to, unsigned int start, unsigned int end);	// 0x7125F0 (type 3's update: the old and the new, from the packet's time for 2 s)  // NAME 1 [from, to, start, end]: what the state passes
-	char Unknown04[0x14 - 0x04];
-};
-class Unknown713520Class : public ExtrapClass	// NAME 1: neutral (D10)
-{
-public:
-	Unknown713520Class(PlanetPositionalUpdatePacketClass *packet, ClientClass *client);	// 0x713520  // NAME 1 [packet, client]: what the state passes
-	char Unknown04[0x34 - 0x04];
-};
-class Unknown713C80Class : public ExtrapClass	// NAME 1: neutral (D10)
-{
-public:
-	Unknown713C80Class(ComponentPositionalUpdatePacketClass *packet, ClientClass *client);	// 0x713C80  // NAME 1 [packet, client]: what the state passes
-	char Unknown04[0x14 - 0x04];
-};
+bool Unknown_B9489C = true;		// (0x716400 tests it)  // NAME 1: neutral (D10)
+bool Unknown_B9489D = true;		// NAME 1: neutral (D10)
+bool Unknown_B9489E = true;		// (the type 4 and 8 updates test it)  // NAME 1: neutral (D10)
+bool Unknown_B9489F = true;		// (the update period's lag: 0x716F70)  // NAME 1: neutral (D10)
+const float Unknown_B026D0 = 150.0f;	// (0x716400 squares it)  // NAME 1: neutral (D10)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -207,6 +207,299 @@ void Unknown715CF0Class::Unknown_715E60(PlanetPositionalUpdatePacketClass *packe
 	delete Extrap;
 	Extrap = new Unknown713520Class(packet, Client);
 }
+
+Unknown715EF0Class::Unknown715EF0Class(int time, AdvancedPositionalUpdatePacketClass *packet) :
+	Period(time, 0, time + packet->UpdatePeriod * 2, packet->UpdatePeriod),
+	Unknown18(false)
+{
+	Extrap = new Unknown710110Class(packet);
+}
+
+Unknown715EF0Class::Unknown715EF0Class(SClient *client, FormationPositionalUpdatePacketClass *packet) :
+	Period(0, 0, 0, 0),
+	Unknown18(false)
+{
+	Extrap = new Unknown714340Class(client, packet);
+}
+
+// NOT EXACT: field-offset (the client calls Period's update through a pointer to it, esi = this + 8, ours addresses it from this; two forms; attempts.py show 0x716140)
+void Unknown715EF0Class::Unknown_716140(int time, AdvancedPositionalUpdatePacketClass *packet)
+{
+	if (Unknown_B9489E) {
+		Unknown_30(time, packet);
+		unsigned int period = packet->UpdatePeriod;
+		if (period != Period.EndValue) {
+			Period.Change(time, period);
+		}
+	}
+}
+
+// NOT EXACT: field-offset (as 0x716140: the client works on Period through a pointer to it; one form; attempts.py show 0x716220)
+void Unknown715EF0Class::Unknown_716220(SClient *client, FormationPositionalUpdatePacketClass *packet)
+{
+	if (Unknown_B9489E) {
+		unsigned int time = client->Unknown10BC;
+		ExtrapClass *next = new Unknown714340Class(client, packet);
+		Extrap = new Unknown7125F0Class(Extrap, next, time, time + 5000);
+		unsigned int value = Period.Get(time);
+		Period.StartTime = time;
+		Period.StartValue = value;
+		Period.EndTime = time + value;
+		Period.EndValue = 0;
+	}
+}
+
+bool Unknown715EF0Class::Unknown_716390(AdvancedPositionalUpdatePacketClass *packet, ExtrapClass *extrap, int time, int other_time)
+{
+	if (packet->ImpartedVelocity.Length2() > 0.000001f) {
+		return(false);
+	}
+	return(Unknown_716400(extrap, time, other_time));
+}
+
+bool Unknown715EF0Class::Unknown_716400(ExtrapClass *extrap, int time, int other_time)
+{
+	if (!Unknown_B9489C) {
+		return(false);
+	}
+	Vector3 position(0.0f, 0.0f, 0.0f);
+	float speed = 0.0f;
+	Extrap->Unknown_1C(time, &position, 0, 0, &speed, 0, true);
+	Vector3 other_position(0.0f, 0.0f, 0.0f);
+	float other_speed = 0.0f;
+	extrap->Unknown_1C(other_time, &other_position, 0, 0, &other_speed, 0, true);
+	float distance2 = (position - other_position).Length2();
+	if (distance2 < Unknown_B026D0 * Unknown_B026D0) {
+		return(false);
+	}
+	if (other_speed * speed < 0.0f) {
+		return(false);
+	}
+	bool moving = speed > 0.000001f;
+	bool other_moving = other_speed > 0.000001f;
+	if (moving != other_moving) {
+		return(false);
+	}
+	if (!Unknown18 && distance2 < 1000000.0f) {
+		return(false);
+	}
+	return(true);
+}
+
+bool Unknown715EF0Class::Unknown_7165D0(AdvancedPositionalUpdatePacketClass *packet, ExtrapClass *extrap, unsigned int time, unsigned int other_time)
+{
+	if (time < packet->TimeStamp) {
+		return(false);
+	}
+	return(Unknown_7166A0(extrap, time, other_time));
+}
+
+bool Unknown715EF0Class::Unknown_7166A0(ExtrapClass *extrap, int time, int other_time)
+{
+	float speed = 0.0f;
+	Extrap->Unknown_1C(time, 0, 0, 0, &speed, 0, true);
+	float other_speed = 0.0f;
+	extrap->Unknown_1C(other_time, 0, 0, 0, &other_speed, 0, true);
+	bool moving = speed > 0.000001f;
+	bool other_moving = other_speed > 0.000001f;
+	return(moving == other_moving ? true : false);
+}
+
+// NOT EXACT: shape (the client's distance test and the three Unknown_34 calls are laid out differently, 103 vs 109 instructions; one form; attempts.py show 0x716760)
+void Unknown715EF0Class::Unknown_30(int time, AdvancedPositionalUpdatePacketClass *packet)
+{
+	Vector3 position;
+	float speed;
+	Extrap->Unknown_1C(packet->TimeStamp, &position, 0, 0, &speed, 0, true);
+	if ((position - packet->Position).Length2() > 6250000.0f) {
+		Unknown_34(time, packet, 0);
+		return;
+	}
+	if (Unknown_B9489F) {
+		Unknown_34(time, packet, Unknown_38(time));
+		return;
+	}
+	if (!packet->Unknown_8ADB20() && fabs(speed) <= 0.0f) {
+		Unknown_34(time, packet, 500);
+		return;
+	}
+	Unknown_34(time, packet, 5000);
+}
+
+// NOT EXACT: shape (3 rows in the inlined same-direction test, 190 vs 188 instructions; two forms; attempts.py show 0x7168A0)
+void Unknown715EF0Class::Unknown_34(int time, AdvancedPositionalUpdatePacketClass *packet, unsigned int duration)
+{
+	if (duration == 0) {
+		delete Extrap;
+		Extrap = new Unknown710110Class(packet);
+		return;
+	}
+	ExtrapClass *next = new Unknown710110Class(packet);
+	unsigned int lag = Unknown_B9489F ? Unknown_38(time) : 0;
+	unsigned int start = ((unsigned int)time > packet->TimeStamp) ? time : packet->TimeStamp;
+	start -= lag;
+	unsigned int end = start + duration;
+	if (Unknown_716390(packet, next, start, end)) {
+		Extrap = new Unknown7119B0Class(Extrap, next, start, end);
+	} else if (Unknown_7165D0(packet, next, start, end)) {
+		Extrap = new Unknown7125F0Class(Extrap, next, start, end);
+	} else {
+		Extrap = new Unknown712DB0Class(Extrap, next, start, end);
+	}
+}
+
+Vector3 Unknown715EF0Class::Unknown_0C(int time)
+{
+	time -= Unknown_38(time);
+	if (!Extrap) {
+		return(Vector3(0.0f, 0.0f, 0.0f));
+	}
+	Extrap = Extrap->Unknown_28(time);
+	return(Extrap->Unknown_04(time));
+}
+
+Vector3 Unknown715EF0Class::Unknown_10(int time)
+{
+	time -= Unknown_38(time);
+	if (!Extrap) {
+		return(Vector3(0.0f, 0.0f, 0.0f));
+	}
+	Extrap = Extrap->Unknown_28(time);
+	return(Extrap->Unknown_0C(time));
+}
+
+Vector3 Unknown715EF0Class::Unknown_14(int time)
+{
+	time -= Unknown_38(time);
+	if (!Extrap) {
+		return(Vector3(0.0f, 0.0f, 0.0f));
+	}
+	Extrap = Extrap->Unknown_28(time);
+	return(Extrap->Unknown_14(time));
+}
+
+Matrix3D Unknown715EF0Class::Unknown_08(int time)
+{
+	time -= Unknown_38(time);
+	if (!Extrap) {
+		return(Matrix3D::Identity);
+	}
+	Extrap = Extrap->Unknown_28(time);
+	Vector3 position;
+	Quaternion orientation;
+	Extrap->Unknown_1C(time, &position, &orientation, 0, 0, 0, false);
+	return(Matrix3D(orientation, position));
+}
+
+Vector3 Unknown715EF0Class::Unknown_1C(int time)
+{
+	time -= Unknown_38(time);
+	Vector3 position(0.0f, 0.0f, 0.0f);
+	if (!Extrap) {
+		return(Vector3(0.0f, 0.0f, 0.0f));
+	}
+	Extrap->Unknown_1C(time, &position, 0, 0, 0, 0, true);
+	return(position);
+}
+
+Matrix3D Unknown715EF0Class::Unknown_20(int time)
+{
+	time -= Unknown_38(time);
+	if (!Extrap) {
+		return(Matrix3D::Identity);
+	}
+	Vector3 position;
+	Quaternion orientation;
+	Extrap->Unknown_1C(time, &position, &orientation, 0, 0, 0, true);
+	return(Matrix3D(orientation, position));
+}
+
+unsigned int Unknown715EF0Class::Unknown_38(int time)
+{
+	if (Unknown_B9489F) {
+		return(Period.Get(time));
+	}
+	return(0);
+}
+
+Unknown717010Class::Unknown717010Class(int time, AdvancedPositionalUpdatePacketClass *packet) :
+	Unknown715EF0Class(time, packet),
+	MovementID(packet->MovementID),
+	Unknown20(false),
+	Unknown24(Extrap)
+{
+	Unknown18 = true;
+}
+
+Unknown717010Class::Unknown717010Class(SClient *client, FormationPositionalUpdatePacketClass *packet) :
+	Unknown715EF0Class(client, packet),
+	MovementID(0),
+	Unknown20(false),
+	Unknown24(0)
+{
+	Unknown18 = true;
+}
+
+void Unknown717010Class::Unknown_717290(AdvancedPositionalUpdatePacketClass *packet, int time)
+{
+	if (Unknown_B9489E) {
+		bool moving = packet->Unknown_8ADB20();
+		Vector3 position;
+		float speed;
+		Extrap->Unknown_1C(packet->TimeStamp, &position, 0, 0, &speed, 0, true);
+		float distance2 = (position - packet->Position).Length2();
+		if (distance2 > 6250000.0f) {
+			MovementID = packet->MovementID;
+			Unknown20 = false;
+			Unknown_34(time, packet, 0);
+			return;
+		}
+		bool settled = speed < 0.0001f && !moving && distance2 < 10.0f;
+		if (Unknown20) {
+			if (packet->MovementID < MovementID) {
+				return;
+			}
+			if (packet->MovementID == MovementID && settled) {
+				return;
+			}
+		}
+		MovementID = packet->MovementID;
+		Unknown20 = false;
+		Unknown_34(time, packet, moving ? 2000 : 500);
+	}
+}
+
+void Unknown717010Class::Unknown_717400(FormationPositionalUpdatePacketClass *packet, SClient *client)
+{
+	Unknown_716220(client, packet);
+	Unknown24 = 0;
+}
+
+// NOT EXACT: shape (3 rows in the inlined same-direction test, 144 vs 142 instructions; two forms; attempts.py show 0x717CC0)
+void Unknown717010Class::Unknown_34(int time, AdvancedPositionalUpdatePacketClass *packet, unsigned int duration)
+{
+	if (duration == 0) {
+		delete Extrap;
+		Unknown24 = new Unknown710110Class(packet);
+		Extrap = Unknown24;
+		return;
+	}
+	unsigned int start = ((unsigned int)time > packet->TimeStamp) ? time : packet->TimeStamp;
+	unsigned int end = start + duration;
+	ExtrapClass *next = new Unknown710110Class(packet);
+	Unknown24 = next;
+	if (Unknown_7165D0(packet, next, start, end)) {
+		Extrap = new Unknown7125F0Class(Extrap, next, start, end);
+	} else {
+		Extrap = new Unknown712DB0Class(Extrap, next, start, end);
+	}
+}
+
+unsigned int Unknown717010Class::Unknown_38(int time)
+{
+	return(0);
+}
+
 
 Unknown717EF0Class::Unknown717EF0Class(ComponentPositionalUpdatePacketClass *packet, ClientClass *client)
 {

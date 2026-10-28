@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-269 entries in 66 files.
+274 entries in 67 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -88,6 +88,11 @@ edit the comments in the code, not this file.
 | `app/client/fontmanager.cpp:554` | `FontManagerClass::Unknown_6D28C0` | marker | NOT EXACT: inline budget, 75 rows: the client calls the styles table's begin and bucket helpers out of line, ours inlines them (attempts.csv) |
 | `app/client/option.cpp:810` | `OptionClass::Get_String` | marker | NOT EXACT: shape, block order: this order gives the client's inlining (the "" path calls _Grow) but places the "" path first; the client places the copy first |
 | `app/client/option.cpp:856` | `OptionClass::Get_Default_String` | marker | NOT EXACT: shape, as Get_String |
+| `app/client/postate.cpp:225` | `Unknown715EF0Class::Unknown_716140` | marker | NOT EXACT: field-offset (the client calls Period's update through a pointer to it, esi = this + 8, ours addresses it from this; two forms; attempts.py show 0x716140) |
+| `app/client/postate.cpp:237` | `Unknown715EF0Class::Unknown_716220` | marker | NOT EXACT: field-offset (as 0x716140: the client works on Period through a pointer to it; one form; attempts.py show 0x716220) |
+| `app/client/postate.cpp:308` | `Unknown715EF0Class::Unknown_30` | marker | NOT EXACT: shape (the client's distance test and the three Unknown_34 calls are laid out differently, 103 vs 109 instructions; one form; attempts.py show 0x716760) |
+| `app/client/postate.cpp:329` | `Unknown715EF0Class::Unknown_34` | marker | NOT EXACT: shape (3 rows in the inlined same-direction test, 190 vs 188 instructions; two forms; attempts.py show 0x7168A0) |
+| `app/client/postate.cpp:478` | `Unknown717010Class::Unknown_34` | marker | NOT EXACT: shape (3 rows in the inlined same-direction test, 144 vs 142 instructions; two forms; attempts.py show 0x717CC0) |
 | `app/client/sclient.cpp:398` | `SClient::~SClient` | marker | NOT EXACT: inline budget (the client inlines the 0x24-byte object's destructor at the second delete, ours calls it: then every EH state after it is one lower; five forms, attempts.py show 0x740BB0) 0x740BB0 |
 | `app/client/sclient.cpp:435` | `SClient::Init` | marker | NOT EXACT: field offset (explain.py; 103 masked rows): the client keeps the options base (+0x1150) in a register from the Bridge_Mode branch and reads the camera mode through it, and its frame is 4 bytes larger; one form (attempts.py show 0x741180) 0x741180 |
 | `app/client/sclient.cpp:541` | `SClient::Shutdown` | marker | NOT EXACT: shape (explain.py: field offset first; 470 masked rows): the talk tree's reset goes through a null RefCountPtr temporary with its own EH state and the out-of-line assignment 0x758970, and the effect list's removal is inlined differently; one form (attempts.py show 0x741BB0) 0x741BB0 |
