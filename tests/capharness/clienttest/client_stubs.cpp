@@ -40,16 +40,6 @@ void RadarSystemClass::Unknown_7BCA70(MainViewUnknown84Class *, PDAInterfaceUnkn
 
 // ------------------------------------------------------------------------- SClient's methods the handlers call (sclient.cpp, not rebuilt)
 
-void SClient::Print(int channel, const char *format, ...)
-{
-	char buffer[512];
-	va_list va;
-	va_start(va, format);
-	_vsnprintf(buffer, sizeof(buffer) - 1, format, va);
-	va_end(va);
-	buffer[sizeof(buffer) - 1] = 0;
-	Trace("stub SClient::Print 0x%X '%s'", channel, buffer);
-}
 void SClient::Unknown_743290() { Trace("stub SClient::Unknown_743290"); }
 bool SClient::Unknown_744B60() { Trace("stub SClient::Unknown_744B60 -> %d", Stub_744B60); return(Stub_744B60); }
 void SClient::Unknown_74C530(unsigned id) { Trace("stub SClient::Unknown_74C530 %u", id); }

@@ -5502,7 +5502,8 @@ void SClient::Unknown_751660()
 // sbaseview.h's two classes as far as '/starbase reset' needs them (the header includes ui_line_display.h, whose
 // UILineDisplayClass clashes with this file's own, C2011)
 class UIStarbaseClass : public UIUnknownBaseClass, public RefCountClass { public: void Unknown_640150(); };	// NAME 3: sbaseview.h's (ui_starbase.cpp); 0x640150: '/starbase reset'
-class SBaseViewClass : public ViewClass { public: RefCountPtr<UIStarbaseClass> Get_Starbase() { return(Starbase); } char Unknown38[0x60 - 0x38]; RefCountPtr<UIStarbaseClass> Starbase; };	// NAME 3: sbaseview.h's; Get_Starbase 0x54EDA0
+class SBaseViewUnknown174Class { public: char Unknown00[0x18C]; bool Unknown18C; };	// NAME 1: neutral (D10): the starbase view's +0x174 (0x74D950 sets its +0x18C)
+class SBaseViewClass : public ViewClass { public: RefCountPtr<UIStarbaseClass> Get_Starbase() { return(Starbase); } char Unknown38[0x60 - 0x38]; RefCountPtr<UIStarbaseClass> Starbase; char Unknown64[0x174 - 0x64]; SBaseViewUnknown174Class *Unknown174; };	// NAME 3: sbaseview.h's; Get_Starbase 0x54EDA0
 
 // The chat commands' tables (0xB98088, 0xB980F8, 0xB98138) and the client that shows the names under the mouse
 // (0xBE5F20, '/art name')
@@ -5668,6 +5669,26 @@ bool SClient::Unknown_34(const char *text)
 	return(true);
 }
 
+// 0x74D950 (cpacket.cpp: CHANGE_BASE_ASSET 38, after 0x744B60, for the objects 0x6F5A40 picks): in the starbase view,
+// its +0x174 object's +0x18C is set
+void SClient::Unknown_74D950()
+{
+	if (CurrentView && CurrentView == Unknown135C && ((SBaseViewClass *)Unknown135C)->Unknown174) {
+		((SBaseViewClass *)Unknown135C)->Unknown174->Unknown18C = true;
+	}
+}
+
+// 0x74DF70 (cdecl): printf into a line of the chat panel (0x74D990)
+void SClient::Print(int channel, const char *format, ...)
+{
+	char buffer[512];
+	va_list va;
+	va_start(va, format);
+	_vsnprintf(buffer, sizeof(buffer), format, va);
+	va_end(va);
+	buffer[sizeof(buffer) - 1] = 0;
+	Unknown_74D990(channel, buffer, 0);
+}
 
 /*
 **	Reconstruction notes

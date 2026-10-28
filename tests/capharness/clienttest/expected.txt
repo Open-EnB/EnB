@@ -48,7 +48,7 @@ check Remove_Effects 41: NULL: ok
 stub EffectObjectClass::~EffectObjectClass 40
 stub EffectObjectClass::~EffectObjectClass 40
 == (2) DEBUG and the redirect
-stub SClient::Print 0x17 'Debug mode turned ON.'
+stub SClient::Unknown_74D990 0x17 'Debug mode turned ON.' 0
 check Set_Debug_Mode true before the redirect (the do-nothing connection): ok
 step: connecting to 127.0.0.1 on port 7000
 memconn is_listening 7000
@@ -61,13 +61,13 @@ check Set_Debug_Object 1000 returns the old id 0: ok
 check Set_Debug_Object sends DEBUG {1000, 0x21, 0}: ok
 check Get_Avatar is object 1000: ok
 sent DEBUG (26) size 16: e80300001e00000000000000
-stub SClient::Print 0x17 'Debug mode turned OFF.'
+stub SClient::Unknown_74D990 0x17 'Debug mode turned OFF.' 0
   parsed back: Debug {GameID=1000 Command=Toggle_invulnerability,Buff_skills UserData=0}
 check Set_Debug_Mode false sends DEBUG {1000, 0x1E, 0}: ok
-stub SClient::Print 0x17 'Debug mode turned OFF.'
+stub SClient::Unknown_74D990 0x17 'Debug mode turned OFF.' 0
 check Set_Debug_Mode false again sends nothing: ok
 sent DEBUG (26) size 16: e80300001e00000001000000
-stub SClient::Print 0x17 'Debug mode turned ON.'
+stub SClient::Unknown_74D990 0x17 'Debug mode turned ON.' 0
 check Toggle_Debug_Mode returns true: ok
   parsed back: Debug {GameID=1000 Command=Toggle_invulnerability,Buff_skills UserData=1}
 check Toggle_Debug_Mode sends DEBUG {1000, 0x1E, 1}: ok
@@ -3285,7 +3285,7 @@ msg 11 TRADE (31) size 9: cpacket.cpp's handler
 stub SClient::Unknown_744B60 -> 1
 trade calls (starbase): +58 640110(8) 5E3130 640110(0) 
 check TRADE 31 docked: the starbase view's +0x1A4 and the starbase interface's 0x640110(8) / (0); its count back to 5: ok
-stub SClient::Print 0x6 'From: alex'
+stub SClient::Unknown_74D990 0x6 'From: alex' 0
 stub SClient::Unknown_74D990 0x6 'Sent: (the date)' 0
 stub SClient::Unknown_74D990 0x6 'first line' 0
 stub SClient::Unknown_74D990 0x6 'second line' 0
@@ -3317,7 +3317,7 @@ stub SClient::Unknown_74D990 0x17 'Bea' 0
 stub SClient::Unknown_74D990 0x17 'Ignored:' 0
 stub SClient::Unknown_74D990 0x17 'Alex' 0
 stub SClient::Unknown_74D990 0x17 'Bea' 0
-stub SClient::Print 0x17 'Members of channel Sector 1:'
+stub SClient::Unknown_74D990 0x17 'Members of channel Sector 1:' 0
 stub SClient::Unknown_74D990 0x17 'Alex' 0
 stub SClient::Unknown_74D990 0x17 'Bea' 0
 stub SClient::Unknown_74D990 0x17 'Active channels:' 0

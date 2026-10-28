@@ -7704,6 +7704,8 @@
      "0x74D780",
      "0x74D870",
      "0x74D8B0",
+     "0x74D950",
+     "0x74DF70",
      "0x74E580",
      "0x74E710",
      "0x74EB00",
@@ -9187,7 +9189,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 4546,
+  "in_tree_total": 4548,
   "totals": {}
  },
  "binkmovie": {

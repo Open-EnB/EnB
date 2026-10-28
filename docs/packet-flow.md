@@ -364,6 +364,9 @@ drops the oldest type 0 offer from both queues and closes the dialog, once per o
 offers queue empty clears the timeouts); 0x74FEC0 does the same for type 1 while the chat panel's message button (+0x264)
 shows, and hides the button (0x56BAA0(0, NULL)) with the last one.
 
+Print 0x74DF70 (cdecl) formats into 512 bytes and hands the line to 0x74D990; CHANGE_BASE_ASSET's 0x74D950 sets
++0x18C of the starbase view's +0x174 object when the current view is the starbase view (+0x135C).
+
 ## 3. The object-affecting opcodes
 
 Handler = slot +0x08 (all in cpacket.cpp unless noted). "Object" = `Find_Object(GameID)` unless said.
