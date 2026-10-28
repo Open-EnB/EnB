@@ -243,9 +243,6 @@ static void Stand_In_State(Vector3 *position, Quaternion *orientation, Vector3 *
 }
 void Unknown70F4F0Class::Unknown_1C(int, Vector3 *p, Quaternion *o, Vector3 *v, float *s, Vector3 *r, bool) { Stand_In_State(p, o, v, s, r); }
 void Unknown713520Class::Unknown_1C(int, Vector3 *p, Quaternion *o, Vector3 *v, float *s, Vector3 *r, bool) { Stand_In_State(p, o, v, s, r); }
-// the advanced motion object's steps: its clock only, 100 ms at a time
-void Unknown710530Class::Unknown_711050() { Time -= 100; }
-void Unknown710530Class::Unknown_08() { Time += 100; }
 // client.cpp's mount buffer insert 0x725E70 (not rebuilt; Add reaches it since f6b75ef, a nested struct gen_stubs.py cannot write)
 void UnknownB02C90Class::BufferStruct::Insert(const ElementStruct &, int index) { Trace("stub UnknownB02C90Class::BufferStruct::Insert %d", index); }
 // pkupdate.cpp's 0x8ADB20 (not rebuilt): types 4 and 8 ask it

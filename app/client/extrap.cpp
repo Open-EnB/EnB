@@ -894,6 +894,119 @@ Unknown710530Class::Unknown710530Class(AdvancedPositionalUpdatePacketClass *pack
 }
 
 
+// NOT EXACT: 0x710A20 order: the turn's spill to the stack and the operand order of three products differ (the client stores the turn once and reloads it)
+void Unknown710530Class::Unknown_08()
+{
+	Transform.Translate_X(Speed);
+	if (Unknown40) {
+		Speed += Unknown44;
+		if (Unknown44 > 0.0f) {
+			Speed = WWMath::Min(Speed, Unknown3C);
+		} else {
+			Speed = WWMath::Max(Speed, Unknown3C);
+		}
+	}
+	if (Unknown68) {
+		Unknown6C *= Unknown78;
+		if (WWMath::Fabs(Unknown6C.X) >= 0.000001f || WWMath::Fabs(Unknown6C.Y) >= 0.000001f || WWMath::Fabs(Unknown6C.Z) >= 0.000001f) {
+			Transform.Adjust_Translation(Unknown6C);
+		} else {
+			Unknown68 = false;
+		}
+	}
+	if (Unknown48) {
+		float diff = Unknown54 - Unknown4C;
+		if (fabs(diff) < fabs(Unknown50)) {
+			Unknown50 = diff;
+		}
+		if (fabs(Unknown50) < 0.000001f) {
+			Unknown48 = false;
+		}
+	}
+	if (Unknown7C) {
+		Unknown80 *= Unknown84;
+		if (fabs(Unknown80) < 0.000001f) {
+			Unknown7C = false;
+		}
+	}
+	if (Unknown48 || Unknown7C) {
+		Transform.In_Place_Pre_Rotate_Z(Unknown80 + Unknown50);
+		Unknown4C += Unknown80 + Unknown50;
+	}
+	if (Unknown88) {
+		Unknown8C = Unknown90 * Unknown8C - Transform[2][1] / 2048.0f;
+		Transform.Rotate_X(Unknown8C);
+		if (fabs(Unknown8C) < 0.000001f) {
+			Unknown88 = false;
+		}
+	}
+	if (Unknown94) {
+		Unknown98 *= Unknown9C;
+		Transform.Rotate_Y(Unknown98);
+		if (fabs(Unknown98) < 0.000001f) {
+			Unknown94 = false;
+		}
+	}
+	if (Unknown58) {
+		float diff = Unknown64 - Unknown5C;
+		if (diff * Unknown60 < 0.0f || fabs(diff) < 0.000001f) {
+			Unknown60 = 0.0f;
+		} else if (fabs(diff) < fabs(Unknown60)) {
+			Unknown60 = diff;
+		}
+		if (fabs(Unknown5C) > 1.2217305f) {
+			if (Unknown5C * Unknown60 > 0.0f) {
+				Unknown60 = 0.0f;
+			}
+		} else {
+			Unknown60 = WWMath::Clamp(Unknown60, -1.2217305f - Unknown5C, 1.2217305f - Unknown5C);
+		}
+		if (fabs(Unknown60) > 0.000001f) {
+			Transform.Rotate_Y(Unknown60);
+			Unknown5C += Unknown60;
+		} else {
+			Unknown58 = false;
+		}
+	}
+	Time += 100;
+}
+
+
+void Unknown710530Class::Unknown_711050()
+{
+	Time -= 100;
+	if (Unknown58) {
+		Transform.Rotate_Y(-Unknown60);
+		Unknown5C -= Unknown60;
+	}
+	if (Unknown8C != 0.0f) {
+		Transform.Rotate_X(-Unknown8C);
+		Unknown8C = (Transform[2][1] * (1.0f / 2048.0f) + Unknown8C) / Unknown90;
+	}
+	if (Unknown98 != 0.0f) {
+		Transform.Rotate_Y(-Unknown98);
+		Unknown98 = (Unknown98 - Transform[2][0] * (1.0f / 2048.0f)) / Unknown9C;
+	}
+	if (Unknown48 || Unknown7C) {
+		float turn = Unknown80;
+		turn += Unknown50;
+		Transform.In_Place_Pre_Rotate_Z(-turn);
+		Unknown4C -= turn;
+		if (Unknown7C) {
+			Unknown80 /= Unknown84;
+		}
+	}
+	if (Unknown68) {
+		Transform.Adjust_Translation(-Unknown6C);
+		Unknown6C /= Unknown78;
+	}
+	if (Unknown40) {
+		Speed -= Unknown44;
+	}
+	Transform.Translate_X(-Speed);
+}
+
+
 bool Unknown710530Class::Unknown_711490()
 {
 	if (Unknown6C.Length2() <= 0.000001f && fabs(Unknown44) <= 0.000001f && fabs(Speed) >= 0.000001f && fabs(Unknown3C) >= 0.000001f) {
@@ -956,119 +1069,6 @@ Vector3 Unknown710530Class::Unknown_20()
 {
 	return(Vector3(0.0f, Unknown64, Unknown54));
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
