@@ -199,6 +199,7 @@ public:
 
 void Unknown_6E6A90(EffectObjectClass *effect);
 INIClass *Unknown_6EA550();						// 0x6EA550: effect.ini, loaded on first use (sclient.cpp 0x74CA90; the factory inlines it)		// 0x6E6A90: the effect ended if it runs, and deleted (SClient's Shutdown and Process_AI)
+EffectObjectClass *Unknown_6EAFA0(INIClass *ini, const char *section, unsigned id, unsigned start_time, unsigned duration, unsigned cycle_time, ClientClass *client, float scale, float *hsv);	// 0x6EAFA0: the factory's helper for eff_seek.cpp's effect on a BaseAssetID model (FAIL_IF '!robj' l.1362)  // NAME 1 [ini .. hsv]: what the factory passes
 EffectObjectClass *Unknown_6EB850(INIClass *ini, const char *section, unsigned id, unsigned start_time, unsigned duration, unsigned cycle_time, ClientClass *client);	// 0x6EB850: the factory's helper for a tracking unary end (effect.ini and the section unused)  // NAME 1 [ini .. client]: what the factory passes
 EffectObjectClass *Unknown_6EC7D0(INIClass *ini, const char *section, unsigned id, unsigned start_time, unsigned duration, unsigned cycle_time, ClientClass *client);	// 0x6EC7D0: the factory's helper for a render-state effect (0x6F0200's class)  // NAME 1 [ini .. client]: what the factory passes
 
