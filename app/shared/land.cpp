@@ -1231,7 +1231,7 @@ static RenderObjClass *Land_Find_Decoration_Mesh(RenderObjClass *robj, bool tree
 
 // 0x47C6A0: a mesh's vertices (scaled, then through tm; normals rotated, not normalised; no normals or uvs give zeros) and its
 // triangles' indices plus base, appended; returns the largest index the triangles use
-// NOT EXACT: functional, from the disassembly
+// NOT EXACT: shape (frame 0x5C, the client 0x6C; the vertex vector's insert and the register use differ; 3 forms, attempts.csv 0x47C6A0)
 static unsigned short Land_Append_Decoration_Mesh(MeshClass *mesh, std::vector<LandDecorationVertexStruct> &vertices,
 	std::vector<unsigned short> &indices, unsigned short base, const Matrix3D &tm, float scale)	// NAME 2: after what it does
 {
@@ -1241,33 +1241,33 @@ static unsigned short Land_Append_Decoration_Mesh(MeshClass *mesh, std::vector<L
 	const TriIndex *polys = model->Get_Polygon_Array();
 	const Vector3 *normals = model->Get_Vertex_Normal_Array();
 	unsigned short largest = 0;
-	if (points == NULL || polys == NULL) {
-		return largest;
-	}
-	int i;
-	int vertex_count = model->Get_Vertex_Count();
-	for (i = 0; i < vertex_count; i++) {
-		LandDecorationVertexStruct vertex;
-		Vector3 p = points[i] * scale;
-		Matrix3D::Transform_Vector(tm, p, &vertex.Position);
-		vertex.Normal.Set(0.0f, 0.0f, 0.0f);
-		if (normals != NULL) {
-			vertex.Normal = tm.Rotate_Vector(normals[i]);
-		}
-		vertex.UV.Set(0.0f, 0.0f);
-		if (uv != NULL) {
-			vertex.UV = uv[i];
-		}
-		vertices.push_back(vertex);
-	}
-	int poly_count = model->Get_Polygon_Count();
-	for (i = 0; i < poly_count; i++) {
-		for (int k = 0; k < 3; k++) {
-			unsigned short index = (unsigned short)polys[i][k];
-			if (index > largest) {
-				largest = index;
+	if (points != NULL && polys != NULL) {
+		int i;
+		int vertex_count = model->Get_Vertex_Count();
+		for (i = 0; i < vertex_count; i++) {
+			Vector3 pos = tm * (scale * points[i]);
+			Vector3 normal(0.0f, 0.0f, 0.0f);
+			if (normals != NULL) {
+				normal = tm.Rotate_Vector(normals[i]);
 			}
-			indices.push_back((unsigned short)(base + index));
+			Vector2 tex(0.0f, 0.0f);
+			if (uv != NULL) {
+				tex = uv[i];
+			}
+			LandDecorationVertexStruct vertex;
+			vertex.Position = pos;
+			vertex.Normal = normal;
+			vertex.UV = tex;
+			vertices.push_back(vertex);
+		}
+		int poly_count = model->Get_Polygon_Count();
+		for (i = 0; i < poly_count; i++) {
+			largest = (unsigned short)WWMath::Max((float)largest, (float)polys[i].I);
+			indices.push_back((unsigned short)(base + polys[i].I));
+			largest = (unsigned short)WWMath::Max((float)largest, (float)polys[i].J);
+			indices.push_back((unsigned short)(base + polys[i].J));
+			largest = (unsigned short)WWMath::Max((float)largest, (float)polys[i].K);
+			indices.push_back((unsigned short)(base + polys[i].K));
 		}
 	}
 	return largest;
