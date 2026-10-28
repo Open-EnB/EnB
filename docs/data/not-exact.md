@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-294 entries in 68 files.
+293 entries in 68 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -68,7 +68,6 @@ edit the comments in the code, not this file.
 | `app/client/cpacket.cpp:1918` | `LootHulkPermissionPacketClass::Process_Packet` | marker | NOT EXACT: shape (the client places the shared failure exit before the call; three forms; attempts.py show 0x7396F0) 0x7396F0 |
 | `app/client/cpacket.cpp:1985` | `OpenInterfacePacketClass::Process_Packet` | marker | NOT EXACT: shape (the client places the shared failure exit before the UIType test; two forms; attempts.py show 0x7397D0) 0x7397D0 |
 | `app/client/cpacket.cpp:2488` | `ClientChatEventPacketClass::Process_Packet` | marker | NOT EXACT: inline-budget (1,638 instructions vs the client's 1,615: the client calls std::string's range constructor 0x73F680 out of line and inlines other std::string members elsewhere; frame 0x568 vs 0x558; attempts.py show 0x73B150) 0x73B150 |
-| `app/client/eff_o.cpp:150` | `EffectObjectClass::Unknown_6E6AD0` | marker | NOT EXACT: register-only (the NextLink factory call: the client loads the time into ecx first and the floats through edi; the NextLink delete in ecx; 9 forms) 0x6E6AD0 |
 | `app/client/eff_o.cpp:528` | `UnknownB0009CEffectClass::Unknown_04` | marker | NOT EXACT: inline-budget (the client calls Set_Flag 0x6E8090 out of line in the source branch's inlined 0x6E6E30; ours inlines both) 0x6E7ED0 |
 | `app/client/extrap.cpp:310` | `Unknown70F4F0Class::Unknown_1C` | marker | NOT EXACT: 0x70F630 frame: the client's frame is 0x20 (its temporaries share slots), ours 0x38; the cached copy's test is laid out the other way |
 | `app/client/extrap.cpp:774` | `Unknown710110Class::Set_Motion` | marker | NOT EXACT: 0x7102B0 shape: the client keeps Unknown3C on the stack past the flag store (fst) and negates the acceleration before the multiply (fchs, both branches' fmul merged); here the flag store comes first and -a * 10000 folds |

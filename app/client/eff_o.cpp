@@ -14,11 +14,13 @@
 #include "rendobj.h"
 #include "camera.h"
 #include "random.h"
+#include "nstrdup.h"
 #include "..\..\wwaudio\Sound3D.h"
 
 void Unknown_4BC260(const char *sender, const char *category, const char *file, int line, const char *format, ...);	// 0x4BC260 (unknown_debug.h's reporter)
 EffectObjectClass *Unknown_6E9490(int desc_id, int effect_id, int duration, int time, ClientClass *client, float scale, const Vector3 &hsv_shift, float speedup, int linked_desc_id, bool unknown);	// 0x6E9490 (the factory, not rebuilt yet)  // NAME 1 [desc_id .. unknown]: what the effect packets pass
 extern RandomClass Unknown_BDBB84;	// NAME 1 [Unknown_BDBB84]: neutral (D10), as ui_line_display.cpp's
+static inline int Unknown_Time(const ClientClass *client) { return(client->Unknown10BC); }	// NAME 1 [Unknown_Time]: neutral (D10): the client clock as the link calls read it (evaluated before the other arguments)
 
 // 0x6E6710
 EffectObjectClass::EffectObjectClass(ClientClass *client, unsigned id, unsigned start_time, unsigned duration, unsigned cycle_time) :
@@ -146,8 +148,6 @@ EffectObjectClass::~EffectObjectClass()
 
 
 
-
-// NOT EXACT: register-only (the NextLink factory call: the client loads the time into ecx first and the floats through edi; the NextLink delete in ecx; 9 forms)
 // 0x6E6AD0
 bool EffectObjectClass::Unknown_6E6AD0()
 {
@@ -170,7 +170,7 @@ bool EffectObjectClass::Unknown_6E6AD0()
 				Flag.State = 2;
 				Unknown_20();
 				if (NextLinkID >= 0) {
-					NextLink = Unknown_6E9490(NextLinkID, 0, 0, Client->Unknown10BC, Client, Scale, HSVShift, Speedup, -1, false);
+					NextLink = Unknown_6E9490(NextLinkID, 0, 0, Unknown_Time(Client), Client, Scale, HSVShift, Speedup, -1, false);
 					Unknown_24(1);
 				}
 				Unknown_6E7330();
@@ -241,6 +241,76 @@ void EffectObjectClass::Unknown_0C(unsigned duration)
 	}
 }
 
+// 0x6E6FE0
+void EffectObjectClass::Unknown_6E6FE0()
+{
+	if (StartLinkID >= 0) {
+		int start = Unknown_Time(Client) + Unknown64;
+		unsigned duration = 0;
+		if ((bool)Flag.Unknown5) {
+			duration = Duration;
+			if (!(bool)Flag.Unknown6) {
+				if (duration > (unsigned)Unknown64) {
+					duration -= Unknown64;
+				} else {
+					duration = 0;
+				}
+			}
+		}
+		StartLink = Unknown_6E9490(StartLinkID, 0, duration, start, Client, Scale, HSVShift, Speedup, -1, false);
+		Unknown_24(0);
+	}
+}
+
+// 0x6E7080
+void EffectObjectClass::Unknown_6E7080()
+{
+	if (NextLinkID >= 0) {
+		NextLink = Unknown_6E9490(NextLinkID, 0, 0, Unknown_Time(Client), Client, Scale, HSVShift, Speedup, -1, false);
+		Unknown_24(1);
+	}
+}
+
+// 0x6E7330
+void EffectObjectClass::Unknown_6E7330()
+{
+	if (Unknown38) {
+		if (Unknown38->Get_Loop_Count() == 0) {
+			Sound3DClass *sound = Unknown38->As_Sound3DClass();
+			if (sound) {
+				if (Camera) {
+					sound->Set_Position(Unknown_08(Camera->Get_Position()));
+				}
+				sound->Remove_From_Scene();
+			} else {
+				Unknown38->Stop(true);
+			}
+		}
+		Unknown38->Release_Ref();
+		Unknown38 = NULL;
+	}
+}
+
+// 0x6E73F0
+void EffectObjectClass::Unknown_6E73F0(const char *name, bool sfx_2d, float radius, int min_time, int max_time)
+{
+	Unknown_6E7330();
+	if (Unknown34) {
+		delete [] Unknown34;
+	}
+	Unknown34 = nstrdup(name);
+	if (radius >= 0.0f) {
+		Set_Flag(8, true);
+		Unknown3C = radius * radius;
+		Unknown40 = min_time;
+		Unknown44 = max_time;
+		Unknown48 = Client->Unknown10BC;
+	} else {
+		Set_Flag(8, false);
+	}
+	Set_Flag(0x10, sfx_2d);
+}
+
 // 0x6E74B0
 void EffectObjectClass::Unknown_6E74B0(int arg)
 {
@@ -275,76 +345,6 @@ void UnknownB00060EffectClass::Unknown_04(int arg)
 		}
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

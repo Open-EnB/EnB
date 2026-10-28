@@ -80,7 +80,9 @@ public:
 	}
 	void Set_Flag(unsigned flag, bool on) { if (on) Flags |= flag; else Flags &= ~flag; }	// 0x6E8090 (out of line in 0x6E7ED0)  // NAME 2: what it does
 	void Unknown_6E6FE0();								// 0x6E6FE0 (the start link from StartLinkID)
+	void Unknown_6E7080();								// 0x6E7080 (the next link from NextLinkID; no caller, 0x6E6AD0 writes it out)
 	void Unknown_6E70F0();								// 0x6E70F0 (the SFX played)
+	void Unknown_6E73F0(const char *name, bool sfx_2d, float radius, int min_time, int max_time);	// 0x6E73F0 (the SFX: shiputils 0x812210 calls it)  // NAME 1 [name .. max_time]: effect.ini's SFX, SFX2D, TriggerSFXRadius, TriggerSFXMin/MaxElapsedTime
 	void Unknown_6E7330();								// 0x6E7330 (the sound at +0x38 stopped and released)
 
 	HashNodeClass<EffectObjectClass *> Node;			// +0x04 ClientClass::EffectList's node  // NAME 2: what it is
