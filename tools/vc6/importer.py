@@ -4131,6 +4131,8 @@ RECONSTRUCTED = {
     ('app', 'shared/px.cpp'): "px.cpp, client 0x44B760-0x44D740 (its __FILE__; FAIL_IFs lines 180-564): PxEnd, PxBox (vtable 0xAE7A3C) and PxList: Insert 0x44BFC0, Remove 0x44C2E0, Set_Corners 0x44C900 (NOT EXACT), the filter setters, Dump 0x44D210",
     ('app', 'shared/px_box_list.h'): "PxBoxList / PxOwnerList, px_box_list.cpp's boxes keeping what overlaps them (the vectors Boxes / Owners are the asserts' names); provisional class and header names",
     ('app', 'shared/px_box_list.cpp'): "px_box_list.cpp, client 0x44D740-0x44E020 (its __FILE__; FAIL_IFs lines 41-111): PxBoxList (vtable 0xAE7A4C) and PxOwnerList (vtable 0xAE7A5C, PxWrapper's callback box): constructors, destructors, On_Enter / On_Exit (sorted insert / erase)",
+    ('app', 'shared/unknown_px_callbacks.h'): "PxBoxCallback, the enter / exit box callback of the object 0x451C00-0x452770 (no __FILE__); neutral header name (D10)",
+    ('app', 'shared/unknown_px_callbacks.cpp'): "the object 0x451C00-0x452770 between px_callback_accurate.cpp and px_callback_poll.cpp (guarded <string> statics 0x451BD0 / 0x452750; no __FILE__, neutral name D10): PxBoxCallback 0x451C30-0x452130; the factories 0x452140 / 0x452460 not rebuilt",
     ('app', 'shared/px_collision.h'): "PxCollision (the client's name, 'PxCollision::Process'): two overlapping DynObjs; provisional header name",
     ('app', 'shared/px_collision.cpp'): "px_collision.cpp, client 0x453A40-0x4557F0 (its __FILE__ in 0x454730's FAIL_IF l.234): Process 0x453A40 and its distance test 0x453B10 (NOT EXACT) only; the response and OBBox tests not rebuilt",
     ('app', 'shared/px_callback.h'): "PxCallback, the proximity callbacks' interface (vtable 0xAE7B28) and their function type; provisional header name (no string)",

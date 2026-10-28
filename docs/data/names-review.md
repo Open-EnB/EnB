@@ -10,8 +10,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 33 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 36 |
 | 3 | by convention from a client-named file or sibling | 936 |
-| 2 | describes what the code does | 2268 |
-| 1 | neutral placeholder | 4999 |
+| 2 | describes what the code does | 2273 |
+| 1 | neutral placeholder | 5000 |
 
 ## For review (score 3 and below)
 
@@ -4743,6 +4743,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_00` | `app/shared/unknown_login_data.h:73` | untagged neutral name (D10) |
 | 1 | `Unknown_PacketDataClass` | `app/shared/unknown_packetdata.h:7` | untagged neutral name (D10) |
 | 1 | `unknown_packetdata.h` | `app/shared/unknown_packetdata.h:16` | neutral file name (D10) |
+| 1 | `unknown_px_callbacks.h` | `app/shared/unknown_px_callbacks.h:13` | neutral header name (D10) |
 | 1 | `Unknown_4BC460` | `app/wwudp/bandwidthaccounting.cpp:29` | the debug window print |
 | 1 | `Unknown_Get_Ticks` | `app/wwudp/bandwidthaccounting.cpp:31` | untagged neutral name (D10) |
 | 1 | `ExtraIn` | `app/wwudp/bandwidthaccounting.cpp:43` | +0x10 Record_In's third argument (0 from the callback) |
@@ -7134,6 +7135,11 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `INVALID_ID` | `app/shared/unique_design_id_lookup.h:36` | describes what it is |
 | 2 | `std:` | `app/shared/unique_design_id_lookup.h:39` | describes what it holds |
 | 2 | `std:` | `app/shared/unique_design_id_lookup.h:41` | describes what it holds |
+| 2 | `PxBoxCallback` | `app/shared/unknown_px_callbacks.h:24` | what it does |
+| 2 | `object, callback, extent` | `app/shared/unknown_px_callbacks.h:27` | what it stores |
+| 2 | `object, src` | `app/shared/unknown_px_callbacks.h:28` | as PxBox's |
+| 2 | `Callback` | `app/shared/unknown_px_callbacks.h:38` | as PxPollCallback's |
+| 2 | `Extent` | `app/shared/unknown_px_callbacks.h:39` | as above |
 | 2 | `BandwidthEntryClass` | `app/wwudp/bandwidthaccounting.cpp:34` | describes what it holds |
 | 2 | `Ip` | `app/wwudp/bandwidthaccounting.cpp:39` | +0x00 (host order) |
 | 2 | `Port` | `app/wwudp/bandwidthaccounting.cpp:40` | +0x04 |
