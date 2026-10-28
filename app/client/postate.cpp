@@ -582,6 +582,433 @@ void Unknown717010Class::Unknown_717400(FormationPositionalUpdatePacketClass *pa
 	Unknown24 = 0;
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// NOT EXACT: inline-budget (the client calls the float field's Cast 0x546970 out of line in the first lookups, ours inlines all; 286 vs 314 instructions; one form; attempts.py show 0x717430)
+void Unknown717010Class::Unknown_717430(int unknown, DeltaCompoundClass *aux_data, int time, float *turn, float *tilt, int *move_direction, bool fixed_speed)
+{
+	int count = 0;
+	float turn_rate_value = 0.0f;
+	float *turn_rate = 0;
+	float tilt_rate_value = 0.0f;
+	float *tilt_rate = 0;
+	float speed_value = 0.0f;
+	float *speed = 0;
+	float acceleration_value = 0.0f;
+	float *acceleration = 0;
+	if (turn) {
+		NameClass name("MaxTurnRate");
+		DeltaTemplateClass<float> *t = Unknown_Find_Field<DeltaTemplateClass<float> >(aux_data, name);
+		if (t && t->m_Unknown70) {
+			turn_rate_value = -(t->Value * *turn) * 0.001f;
+			turn_rate = &turn_rate_value;
+			count = 1;
+		}
+	}
+	if (tilt) {
+		NameClass name("MaxTiltRate");
+		DeltaTemplateClass<float> *t = Unknown_Find_Field<DeltaTemplateClass<float> >(aux_data, name);
+		if (t && t->m_Unknown70) {
+			tilt_rate_value = -(t->Value * *tilt) * 0.001f;
+			tilt_rate = &tilt_rate_value;
+			count++;
+		}
+	}
+	if (move_direction) {
+		bool known = true;
+		if (*move_direction == 1) {
+			if (!fixed_speed) {
+				NameClass name("MaxSpeed");
+				DeltaTemplateClass<float> *t = Unknown_Find_Field<DeltaTemplateClass<float> >(aux_data, name);
+				if (t && t->m_Unknown70) {
+					speed_value = t->Value * 0.001f;
+				} else {
+					known = false;
+				}
+			} else {
+				speed_value = 10.0f;
+			}
+		} else if (*move_direction == -1) {
+			if (!fixed_speed) {
+				NameClass name("MinSpeed");
+				DeltaTemplateClass<float> *t = Unknown_Find_Field<DeltaTemplateClass<float> >(aux_data, name);
+				if (t && t->m_Unknown70) {
+					speed_value = t->Value * 0.001f;
+				} else {
+					known = false;
+				}
+			} else {
+				speed_value = -10.0f;
+			}
+		} else {
+			G_ASSERT(*move_direction == 0);
+			speed_value = 0.0f;
+		}
+		if (known) {
+			speed = &speed_value;
+			NameClass name("Acceleration");
+			DeltaTemplateClass<float> *t = Unknown_Find_Field<DeltaTemplateClass<float> >(aux_data, name);
+			if (t && t->m_Unknown70) {
+				acceleration_value = t->Value * 0.000001f;
+				acceleration = &acceleration_value;
+			}
+			if (acceleration) {
+				count++;
+			}
+		}
+	}
+	if (count == 0) {
+		return;
+	}
+	if (Unknown_B948A0 && Unknown24) {
+		ExtrapClass *next = Unknown24->Unknown_710260();
+		next->Unknown_20(time + (Unknown_BE71D4 >> 1), speed, acceleration, turn_rate, tilt_rate);
+		if (Unknown_B948A1) {
+			Extrap = new Unknown712DB0Class(Extrap, next, time, time + Unknown_BE71D4);
+		} else {
+			Extrap = new Unknown7125F0Class(Extrap, next, time, time + Unknown_BE71D4);
+		}
+		Unknown24 = next;
+	} else {
+		Extrap->Unknown_20(time, speed, acceleration, turn_rate, tilt_rate);
+	}
+	Unknown20 = true;
+	MovementID += count;
+}
+
 // NOT EXACT: inline-budget (the client calls the bool field's Cast 0x584FF0 out of line for 'AutoLevel', ours inlines it; register-only after; one form; attempts.py show 0x7179A0)
 void Unknown717010Class::Unknown_7179A0(int unknown, DeltaCompoundClass *aux_data, int time, bool level, bool auto_level)
 {
@@ -986,433 +1413,6 @@ void Unknown718D70Class::Unknown_30(int time, const Matrix3D &transform)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 Unknown7192A0Class::Unknown7192A0Class(RenderObjClass *render_object, Unknown98Class *state, const char *bone_name) :
 	RenderObject(render_object),
 	BoneIndex(-1)
@@ -1476,11 +1476,11 @@ Vector3 Unknown7192A0Class::Unknown_14(int time)
 **
 **	The client's window (tools/re/appfile.py show app\client\postate.cpp): 0x714820 (the file's static
 **	PermString) to 0x719700; its asserts sit on the client's lines (D25): the forwarding state's
-**	'PositionState' on 53-90, type 15's on 1422-1457. Built: the forwarding state (vtable 0xB026EC), type 1
-**	(0xB02728), the extrapolator base (0xB027A0) with types 3 (0xB027DC), 5 (0xB02818), 8 (0xB02854),
-**	4 (0xB028A4) and 11 (0xB028F0), type 9 (0xB02764), type 12 (0xB0292C), type 13 (0xB029C0, a HermiteSpline3DClass path; its transform
-**	0x718830 NOT EXACT), type 14 (0xB02A00), type 15
-**	(0xB02A40) and the record Unknown714E10Struct (0x714E10-0x7151D0, no callers). Not rebuilt yet, in the client's order: type 4's
-**	0x717430 ('*move_direction == 0' on line 977; 0x7179A0 beside it is NOT EXACT), the statics 0x714820 and after 0x719620, 0x7196C0. extrap.cpp's classes
-**	are declared in postate.h only.
+**	'PositionState' on 53-90, type 4's '*move_direction == 0' on 977, type 15's on 1422-1457.
+**	Built: the forwarding state (vtable 0xB026EC), type 1 (0xB02728), the record Unknown714E10Struct
+**	(0x714E10-0x7151D0, no callers), type 9 (0xB02764), the extrapolator base (0xB027A0) with types 3
+**	(0xB027DC), 5 (0xB02818), 8 (0xB02854), 4 (0xB028A4; its input steps 0x717430 and 0x7179A0 NOT EXACT)
+**	and 11 (0xB028F0), type 12 (0xB0292C), type 13 (0xB029C0, a HermiteSpline3DClass path; its transform
+**	0x718830 NOT EXACT), type 14 (0xB02A00), type 15 (0xB02A40). Not rebuilt: the statics 0x714820 and
+**	after 0x719620, 0x7196C0. extrap.cpp's classes are declared in postate.h only.
 */

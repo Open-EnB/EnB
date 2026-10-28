@@ -245,7 +245,7 @@ void ExtrapClass::Unknown_1C(int, Vector3 *position, Quaternion *orientation, Ve
 	if (speed) *speed = 0;
 	if (c) *c = Vector3(0, 0, 0);
 }
-void ExtrapClass::Unknown_20(int, Vector3 *, Vector3 *, float *, Vector3 *) {}
+void ExtrapClass::Unknown_20(int, float *, float *, float *, float *) {}
 void ExtrapClass::Unknown_24(int, float) {}
 ExtrapClass *ExtrapClass::Unknown_28(int) { return(this); }
 ExtrapClass *ExtrapClass::Unknown_710260() { Trace("stub ExtrapClass::Unknown_710260"); return(new ExtrapClass); }

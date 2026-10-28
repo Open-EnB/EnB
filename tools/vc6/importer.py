@@ -4085,7 +4085,7 @@ RECONSTRUCTED = {
     ('app', 'client/postate.cpp'): "the positional states, client 0x714870-0x719700 (start): the forwarding state "
                                   "0x714870-0x714B00 ('PositionState' on the client's lines 53-90, D25), type 1 "
                                   "0x714B50 / 0x714D50, the record 0x714E10-0x7151D0, type 9 0x715270-0x715580, the extrapolator base 0x715620-0x7159C0, type 3 0x715AB0 / "
-                                  "0x715C20, type 5 0x715CF0 / 0x715E60, type 11 0x717EF0 / 0x718080, types 8 0x715EF0-0x716F70 and 4 0x717010-0x717ED0 (NOT EXACT: 0x7179A0; 0x717430 not rebuilt), type 12 0x718160-0x7184E0, type 13 0x718510-0x718D40 (NOT EXACT: 0x718830), type 14 0x718D70-0x7191C0, type 15 0x7192A0-0x719610 (lines 1422-1457); extrap.cpp's classes declared only",
+                                  "0x715C20, type 5 0x715CF0 / 0x715E60, type 11 0x717EF0 / 0x718080, types 8 0x715EF0-0x716F70 and 4 0x717010-0x717ED0 (NOT EXACT: 0x717430, line 977, and 0x7179A0), type 12 0x718160-0x7184E0, type 13 0x718510-0x718D40 (NOT EXACT: 0x718830), type 14 0x718D70-0x7191C0, type 15 0x7192A0-0x719610 (lines 1422-1457); extrap.cpp's classes declared only",
 }
 
 # Text appended to imported files (after everything, so no existing line moves).

@@ -79,7 +79,7 @@ public:
 	virtual Vector3 Unknown_14(int time);	// NAME 2 [time]: the state's time
 	virtual Vector3 Unknown_18(int time);	// NAME 2 [time]: the state's time
 	virtual void Unknown_1C(int time, Vector3 *position, Quaternion *orientation, Vector3 *a, float *speed, Vector3 *c, bool unknown);	// NAME 2 [time, position, orientation, speed]: what the states do with them  // NAME 1 [a, c, unknown]: neutral
-	virtual void Unknown_20(int time, Vector3 *a, Vector3 *b, float *c, Vector3 *d);	// +0x20 (type 4's 0x7179A0)  // NAME 2 [time]: the state's time  // NAME 1 [a, b, c, d]: neutral
+	virtual void Unknown_20(int time, float *speed, float *acceleration, float *turn_rate, float *tilt_rate);	// +0x20 (type 4's 0x717430 / 0x7179A0: the control changes, 0 for none)  // NAME 2 [time, speed, acceleration, turn_rate, tilt_rate]: the aux fields 0x717430 reads for them
 	virtual void Unknown_24(int time, float rate);	// +0x24 (type 4's 0x7179A0 passes MaxTiltRate)  // NAME 2 [time, rate]: what 0x7179A0 passes
 	virtual ExtrapClass *Unknown_28(int time);	// +0x28 (the extrapolator to use from now on: the state keeps it)  // NAME 2 [time]: the state's time
 	ExtrapClass *Unknown_710260();	// 0x710260 (not virtual; type 4's 0x7179A0: the extrapolator to continue from)
@@ -257,6 +257,7 @@ public:
 	Unknown717010Class(SClient *client, FormationPositionalUpdatePacketClass *packet);	// 0x7171C0  // NAME 1 [client, packet]: what the handler passes
 	void Unknown_717290(AdvancedPositionalUpdatePacketClass *packet, int time);	// 0x717290  // NAME 1 [packet, time]: what the handler passes
 	void Unknown_717400(FormationPositionalUpdatePacketClass *packet, SClient *client);	// 0x717400  // NAME 1 [packet, client]: what the handler passes
+	void Unknown_717430(int unknown, DeltaCompoundClass *aux_data, int time, float *turn, float *tilt, int *move_direction, bool fixed_speed);	// 0x717430 (sclient.cpp's input; '*move_direction == 0' on line 977)  // NAME 3 [move_direction]: the client's assert  // NAME 1 [unknown, aux_data, time, turn, tilt, fixed_speed]: what it does with them
 	void Unknown_7179A0(int unknown, DeltaCompoundClass *aux_data, int time, bool level, bool auto_level);	// 0x7179A0 (sclient.cpp's input: 0x745B20 ...)  // NAME 1 [unknown, aux_data, time, level, auto_level]: what it does with them
 
 	virtual int Unknown_04() { return(4); }		// +0x04 0x7170F0

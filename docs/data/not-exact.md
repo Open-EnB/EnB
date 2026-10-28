@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-272 entries in 67 files.
+273 entries in 67 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -87,10 +87,11 @@ edit the comments in the code, not this file.
 | `app/client/fontmanager.cpp:554` | `FontManagerClass::Unknown_6D28C0` | marker | NOT EXACT: inline budget, 75 rows: the client calls the styles table's begin and bucket helpers out of line, ours inlines them (attempts.csv) |
 | `app/client/option.cpp:810` | `OptionClass::Get_String` | marker | NOT EXACT: shape, block order: this order gives the client's inlining (the "" path calls _Grow) but places the "" path first; the client places the copy first |
 | `app/client/option.cpp:856` | `OptionClass::Get_Default_String` | marker | NOT EXACT: shape, as Get_String |
-| `app/client/postate.cpp:585` | `Unknown717010Class::Unknown_7179A0` | marker | NOT EXACT: inline-budget (the client calls the bool field's Cast 0x584FF0 out of line for 'AutoLevel', ours inlines it; register-only after; one form; attempts.py show 0x7179A0) |
-| `app/client/postate.cpp:736` | `Unknown718510Class::Unknown_08` | marker | NOT EXACT: shape (17 rows: the client's first Normalize and the up-vector cross product load their operands in another order; five forms; attempts.py show 0x718830) |
-| `app/client/postate.cpp:1482` | `Unknown7192A0Class::Unknown_14` | mention | NOT EXACT), type 14 (0xB02A00), type 15 (0xB02A40) and the record Unknown714E10Struct (0x714E10-0x7151D0, no callers). Not rebuilt yet, in the client's order: type 4's |
-| `app/client/postate.cpp:1484` | `Unknown7192A0Class::Unknown_14` | mention | NOT EXACT), the statics 0x714820 and after 0x719620, 0x7196C0. extrap.cpp's classes are declared in postate.h only. |
+| `app/client/postate.cpp:920` | `Unknown717010Class::Unknown_717430` | marker | NOT EXACT: inline-budget (the client calls the float field's Cast 0x546970 out of line in the first lookups, ours inlines all; 286 vs 314 instructions; one form; attempts.py show 0x717430) |
+| `app/client/postate.cpp:1012` | `Unknown717010Class::Unknown_7179A0` | marker | NOT EXACT: inline-budget (the client calls the bool field's Cast 0x584FF0 out of line for 'AutoLevel', ours inlines it; register-only after; one form; attempts.py show 0x7179A0) |
+| `app/client/postate.cpp:1163` | `Unknown718510Class::Unknown_08` | marker | NOT EXACT: shape (17 rows: the client's first Normalize and the up-vector cross product load their operands in another order; five forms; attempts.py show 0x718830) |
+| `app/client/postate.cpp:1482` | `Unknown7192A0Class::Unknown_14` | mention | NOT EXACT) and 11 (0xB028F0), type 12 (0xB0292C), type 13 (0xB029C0, a HermiteSpline3DClass path; its transform |
+| `app/client/postate.cpp:1484` | `Unknown7192A0Class::Unknown_14` | mention | NOT EXACT), type 14 (0xB02A00), type 15 (0xB02A40). Not rebuilt: the statics 0x714820 and after 0x719620, 0x7196C0. extrap.cpp's classes are declared in postate.h only. |
 | `app/client/sclient.cpp:398` | `SClient::~SClient` | marker | NOT EXACT: inline budget (the client inlines the 0x24-byte object's destructor at the second delete, ours calls it: then every EH state after it is one lower; five forms, attempts.py show 0x740BB0) 0x740BB0 |
 | `app/client/sclient.cpp:435` | `SClient::Init` | marker | NOT EXACT: field offset (explain.py; 103 masked rows): the client keeps the options base (+0x1150) in a register from the Bridge_Mode branch and reads the camera mode through it, and its frame is 4 bytes larger; one form (attempts.py show 0x741180) 0x741180 |
 | `app/client/sclient.cpp:541` | `SClient::Shutdown` | marker | NOT EXACT: shape (explain.py: field offset first; 470 masked rows): the talk tree's reset goes through a null RefCountPtr temporary with its own EH state and the out-of-line assignment 0x758970, and the effect list's removal is inlined differently; one form (attempts.py show 0x741BB0) 0x741BB0 |

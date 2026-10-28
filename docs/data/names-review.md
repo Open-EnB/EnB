@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 34 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 36 |
-| 3 | by convention from a client-named file or sibling | 846 |
+| 3 | by convention from a client-named file or sibling | 847 |
 | 2 | describes what the code does | 2064 |
-| 1 | neutral placeholder | 3820 |
+| 1 | neutral placeholder | 3822 |
 
 ## For review (score 3 and below)
 
@@ -1072,17 +1072,18 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown24` | `app/client/postate.cpp:536` | untagged neutral name (D10) |
 | 1 | `Unknown_717290` | `app/client/postate.cpp:550` | untagged neutral name (D10) |
 | 1 | `Unknown_717400` | `app/client/postate.cpp:579` | untagged neutral name (D10) |
-| 1 | `Unknown_7179A0` | `app/client/postate.cpp:586` | untagged neutral name (D10) |
-| 1 | `Unknown_Find_Field` | `app/client/postate.cpp:592` | untagged neutral name (D10) |
-| 1 | `m_Unknown70` | `app/client/postate.cpp:593` | untagged neutral name (D10) |
-| 1 | `Unknown_710260` | `app/client/postate.cpp:602` | untagged neutral name (D10) |
-| 1 | `Unknown_24` | `app/client/postate.cpp:607` | untagged neutral name (D10) |
-| 1 | `Unknown717EF0Class` | `app/client/postate.cpp:657` | untagged neutral name (D10) |
-| 1 | `Unknown713C80Class` | `app/client/postate.cpp:659` | untagged neutral name (D10) |
-| 1 | `Unknown_718080` | `app/client/postate.cpp:664` | untagged neutral name (D10) |
-| 1 | `Unknown718160Class` | `app/client/postate.cpp:673` | untagged neutral name (D10) |
-| 1 | `Unknown718510Class` | `app/client/postate.cpp:711` | untagged neutral name (D10) |
-| 1 | `Unknown718D70Class` | `app/client/postate.cpp:777` | untagged neutral name (D10) |
+| 1 | `Unknown_717430` | `app/client/postate.cpp:921` | untagged neutral name (D10) |
+| 1 | `Unknown_Find_Field` | `app/client/postate.cpp:934` | untagged neutral name (D10) |
+| 1 | `m_Unknown70` | `app/client/postate.cpp:935` | untagged neutral name (D10) |
+| 1 | `Unknown_710260` | `app/client/postate.cpp:997` | untagged neutral name (D10) |
+| 1 | `Unknown_7179A0` | `app/client/postate.cpp:1013` | untagged neutral name (D10) |
+| 1 | `Unknown_24` | `app/client/postate.cpp:1034` | untagged neutral name (D10) |
+| 1 | `Unknown717EF0Class` | `app/client/postate.cpp:1084` | untagged neutral name (D10) |
+| 1 | `Unknown713C80Class` | `app/client/postate.cpp:1086` | untagged neutral name (D10) |
+| 1 | `Unknown_718080` | `app/client/postate.cpp:1091` | untagged neutral name (D10) |
+| 1 | `Unknown718160Class` | `app/client/postate.cpp:1100` | untagged neutral name (D10) |
+| 1 | `Unknown718510Class` | `app/client/postate.cpp:1138` | untagged neutral name (D10) |
+| 1 | `Unknown718D70Class` | `app/client/postate.cpp:1204` | untagged neutral name (D10) |
 | 1 | `Unknown7192A0Class` | `app/client/postate.cpp:1416` | untagged neutral name (D10) |
 | 1 | `UnknownB026ECClass` | `app/client/postate.h:39` | neutral (D10), named by its vtable |
 | 1 | `Unknown98Class` | `app/client/postate.h:39` | untagged neutral name (D10) |
@@ -1169,28 +1170,29 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_717290` | `app/client/postate.h:258` | untagged neutral name (D10) |
 | 1 | `packet, client` | `app/client/postate.h:259` | what the handler passes |
 | 1 | `Unknown_717400` | `app/client/postate.h:259` | untagged neutral name (D10) |
-| 1 | `unknown, aux_data, time, level, auto_level` | `app/client/postate.h:260` | what it does with them |
-| 1 | `Unknown_7179A0` | `app/client/postate.h:260` | untagged neutral name (D10) |
-| 1 | `time, packet, duration` | `app/client/postate.h:263` | as the base's |
-| 1 | `Unknown20` | `app/client/postate.h:267` | untagged neutral name (D10) |
-| 1 | `Unknown24` | `app/client/postate.h:268` | untagged neutral name (D10) |
-| 1 | `Unknown718160Class` | `app/client/postate.h:273` | neutral (D10) |
-| 1 | `Unknown_2C` | `app/client/postate.h:280` | untagged neutral name (D10) |
-| 1 | `Unknown718D70Class` | `app/client/postate.h:297` | neutral (D10) |
-| 1 | `Unknown7192A0Class` | `app/client/postate.h:322` | neutral (D10) |
-| 1 | `Unknown715270Class` | `app/client/postate.h:340` | neutral (D10) |
-| 1 | `Unknown_715360` | `app/client/postate.h:344` | untagged neutral name (D10) |
-| 1 | `Unknown718510Class` | `app/client/postate.h:362` | neutral (D10) |
-| 1 | `Unknown714E10Struct` | `app/client/postate.h:389` | neutral (D10) |
-| 1 | `Unknown_714E10` | `app/client/postate.h:391` | untagged neutral name (D10) |
-| 1 | `Unknown_714F40` | `app/client/postate.h:392` | untagged neutral name (D10) |
-| 1 | `Unknown_714FE0` | `app/client/postate.h:393` | untagged neutral name (D10) |
-| 1 | `Unknown_715010` | `app/client/postate.h:394` | untagged neutral name (D10) |
-| 1 | `Unknown_715090` | `app/client/postate.h:395` | untagged neutral name (D10) |
-| 1 | `Unknown_7150C0` | `app/client/postate.h:396` | untagged neutral name (D10) |
-| 1 | `Unknown_7150F0` | `app/client/postate.h:397` | untagged neutral name (D10) |
-| 1 | `Unknown_7151D0` | `app/client/postate.h:398` | untagged neutral name (D10) |
-| 1 | `Unknown00` | `app/client/postate.h:400` | untagged neutral name (D10) |
+| 1 | `Unknown_717430` | `app/client/postate.h:260` | untagged neutral name (D10) |
+| 1 | `unknown, aux_data, time, level, auto_level` | `app/client/postate.h:261` | what it does with them |
+| 1 | `Unknown_7179A0` | `app/client/postate.h:261` | untagged neutral name (D10) |
+| 1 | `time, packet, duration` | `app/client/postate.h:264` | as the base's |
+| 1 | `Unknown20` | `app/client/postate.h:268` | untagged neutral name (D10) |
+| 1 | `Unknown24` | `app/client/postate.h:269` | untagged neutral name (D10) |
+| 1 | `Unknown718160Class` | `app/client/postate.h:274` | neutral (D10) |
+| 1 | `Unknown_2C` | `app/client/postate.h:281` | untagged neutral name (D10) |
+| 1 | `Unknown718D70Class` | `app/client/postate.h:298` | neutral (D10) |
+| 1 | `Unknown7192A0Class` | `app/client/postate.h:323` | neutral (D10) |
+| 1 | `Unknown715270Class` | `app/client/postate.h:341` | neutral (D10) |
+| 1 | `Unknown_715360` | `app/client/postate.h:345` | untagged neutral name (D10) |
+| 1 | `Unknown718510Class` | `app/client/postate.h:363` | neutral (D10) |
+| 1 | `Unknown714E10Struct` | `app/client/postate.h:390` | neutral (D10) |
+| 1 | `Unknown_714E10` | `app/client/postate.h:392` | untagged neutral name (D10) |
+| 1 | `Unknown_714F40` | `app/client/postate.h:393` | untagged neutral name (D10) |
+| 1 | `Unknown_714FE0` | `app/client/postate.h:394` | untagged neutral name (D10) |
+| 1 | `Unknown_715010` | `app/client/postate.h:395` | untagged neutral name (D10) |
+| 1 | `Unknown_715090` | `app/client/postate.h:396` | untagged neutral name (D10) |
+| 1 | `Unknown_7150C0` | `app/client/postate.h:397` | untagged neutral name (D10) |
+| 1 | `Unknown_7150F0` | `app/client/postate.h:398` | untagged neutral name (D10) |
+| 1 | `Unknown_7151D0` | `app/client/postate.h:399` | untagged neutral name (D10) |
+| 1 | `Unknown00` | `app/client/postate.h:401` | untagged neutral name (D10) |
 | 1 | `Unknown08` | `app/client/radar_data.h:26` | untagged neutral name (D10) |
 | 1 | `Unknown_719E10` | `app/client/sclient.cpp:28` | untagged neutral name (D10) |
 | 1 | `Unknown_7228C0` | `app/client/sclient.cpp:29` | neutral (D10), as tsk_login.cpp |
@@ -4293,7 +4295,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `time` | `app/client/postate.h:79` | the state's time |
 | 2 | `time` | `app/client/postate.h:80` | the state's time |
 | 2 | `time, position, orientation, speed` | `app/client/postate.h:81` | what the states do with them  // NAME 1 [a, c, unknown]: neutral |
-| 2 | `time` | `app/client/postate.h:82` | the state's time  // NAME 1 [a, b, c, d]: neutral |
+| 2 | `time, speed, acceleration, turn_rate, tilt_rate` | `app/client/postate.h:82` | the aux fields 0x717430 reads for them |
 | 2 | `time, rate` | `app/client/postate.h:83` | what 0x7179A0 passes |
 | 2 | `time` | `app/client/postate.h:84` | the state's time |
 | 2 | `time` | `app/client/postate.h:143` | the client's +0x10BC |
@@ -4322,72 +4324,72 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `time` | `app/client/postate.h:243` | as UnknownB027A0Class's |
 | 2 | `time` | `app/client/postate.h:246` | as Unknown_08's |
 | 2 | `Period` | `app/client/postate.h:248` | what it holds |
-| 2 | `time` | `app/client/postate.h:264` | as the base's |
-| 2 | `MovementID` | `app/client/postate.h:266` | the packet's MovementID |
-| 2 | `start, end, speed, time, state` | `app/client/postate.h:276` | the members they set |
-| 2 | `state` | `app/client/postate.h:279` | what it sets |
-| 2 | `time` | `app/client/postate.h:282` | as the others' |
+| 2 | `time` | `app/client/postate.h:265` | as the base's |
+| 2 | `MovementID` | `app/client/postate.h:267` | the packet's MovementID |
+| 2 | `start, end, speed, time, state` | `app/client/postate.h:277` | the members they set |
+| 2 | `state` | `app/client/postate.h:280` | what it sets |
 | 2 | `time` | `app/client/postate.h:283` | as the others' |
 | 2 | `time` | `app/client/postate.h:284` | as the others' |
 | 2 | `time` | `app/client/postate.h:285` | as the others' |
-| 2 | `Start` | `app/client/postate.h:287` | what it holds |
-| 2 | `End` | `app/client/postate.h:288` | what it holds |
-| 2 | `Speed` | `app/client/postate.h:289` | what it holds |
-| 2 | `StartTime` | `app/client/postate.h:290` | what it holds |
-| 2 | `State` | `app/client/postate.h:291` | what it holds |
-| 2 | `Direction` | `app/client/postate.h:292` | what it holds |
-| 2 | `time, transform, state` | `app/client/postate.h:300` | the members they set |
-| 2 | `state` | `app/client/postate.h:303` | what it sets |
-| 2 | `time` | `app/client/postate.h:306` | as the others' |
+| 2 | `time` | `app/client/postate.h:286` | as the others' |
+| 2 | `Start` | `app/client/postate.h:288` | what it holds |
+| 2 | `End` | `app/client/postate.h:289` | what it holds |
+| 2 | `Speed` | `app/client/postate.h:290` | what it holds |
+| 2 | `StartTime` | `app/client/postate.h:291` | what it holds |
+| 2 | `State` | `app/client/postate.h:292` | what it holds |
+| 2 | `Direction` | `app/client/postate.h:293` | what it holds |
+| 2 | `time, transform, state` | `app/client/postate.h:301` | the members they set |
+| 2 | `state` | `app/client/postate.h:304` | what it sets |
 | 2 | `time` | `app/client/postate.h:307` | as the others' |
 | 2 | `time` | `app/client/postate.h:308` | as the others' |
 | 2 | `time` | `app/client/postate.h:309` | as the others' |
-| 2 | `time, transform` | `app/client/postate.h:310` | the members it sets |
-| 2 | `State` | `app/client/postate.h:312` | what it holds |
-| 2 | `Time` | `app/client/postate.h:313` | what it holds |
-| 2 | `LastTime` | `app/client/postate.h:314` | what it holds |
-| 2 | `Transform` | `app/client/postate.h:315` | what it holds |
-| 2 | `LastTransform` | `app/client/postate.h:316` | what it holds |
-| 2 | `render_object, state, bone_name` | `app/client/postate.h:325` | what it does with them |
-| 2 | `time` | `app/client/postate.h:329` | as the others' |
+| 2 | `time` | `app/client/postate.h:310` | as the others' |
+| 2 | `time, transform` | `app/client/postate.h:311` | the members it sets |
+| 2 | `State` | `app/client/postate.h:313` | what it holds |
+| 2 | `Time` | `app/client/postate.h:314` | what it holds |
+| 2 | `LastTime` | `app/client/postate.h:315` | what it holds |
+| 2 | `Transform` | `app/client/postate.h:316` | what it holds |
+| 2 | `LastTransform` | `app/client/postate.h:317` | what it holds |
+| 2 | `render_object, state, bone_name` | `app/client/postate.h:326` | what it does with them |
 | 2 | `time` | `app/client/postate.h:330` | as the others' |
 | 2 | `time` | `app/client/postate.h:331` | as the others' |
 | 2 | `time` | `app/client/postate.h:332` | as the others' |
-| 2 | `client, game_id, offset, orientation` | `app/client/postate.h:343` | the members they set |
-| 2 | `time` | `app/client/postate.h:347` | as the others' |
+| 2 | `time` | `app/client/postate.h:333` | as the others' |
+| 2 | `client, game_id, offset, orientation` | `app/client/postate.h:344` | the members they set |
 | 2 | `time` | `app/client/postate.h:348` | as the others' |
 | 2 | `time` | `app/client/postate.h:349` | as the others' |
 | 2 | `time` | `app/client/postate.h:350` | as the others' |
-| 2 | `Client` | `app/client/postate.h:352` | what it holds |
-| 2 | `GameID` | `app/client/postate.h:353` | what Find_Object takes |
-| 2 | `Offset` | `app/client/postate.h:354` | what it holds |
-| 2 | `Orientation` | `app/client/postate.h:355` | what it holds |
-| 2 | `Position` | `app/client/postate.h:356` | what it holds |
-| 2 | `start_time, end_time, start_up, end_up, state` | `app/client/postate.h:365` | the members they set |
-| 2 | `state` | `app/client/postate.h:369` | what it sets |
-| 2 | `time` | `app/client/postate.h:373` | as the others' |
+| 2 | `time` | `app/client/postate.h:351` | as the others' |
+| 2 | `Client` | `app/client/postate.h:353` | what it holds |
+| 2 | `GameID` | `app/client/postate.h:354` | what Find_Object takes |
+| 2 | `Offset` | `app/client/postate.h:355` | what it holds |
+| 2 | `Orientation` | `app/client/postate.h:356` | what it holds |
+| 2 | `Position` | `app/client/postate.h:357` | what it holds |
+| 2 | `start_time, end_time, start_up, end_up, state` | `app/client/postate.h:366` | the members they set |
+| 2 | `state` | `app/client/postate.h:370` | what it sets |
 | 2 | `time` | `app/client/postate.h:374` | as the others' |
 | 2 | `time` | `app/client/postate.h:375` | as the others' |
 | 2 | `time` | `app/client/postate.h:376` | as the others' |
-| 2 | `Spline` | `app/client/postate.h:378` | what it holds |
-| 2 | `StartTime` | `app/client/postate.h:379` | what it holds |
-| 2 | `EndTime` | `app/client/postate.h:380` | what it holds |
-| 2 | `StartUp` | `app/client/postate.h:381` | what 0x718830 does with it |
-| 2 | `EndUp` | `app/client/postate.h:382` | what 0x718830 does with it |
-| 2 | `State` | `app/client/postate.h:383` | what it holds |
-| 2 | `Rate` | `app/client/postate.h:384` | what it holds |
-| 2 | `time` | `app/client/postate.h:391` | as the states' |
+| 2 | `time` | `app/client/postate.h:377` | as the others' |
+| 2 | `Spline` | `app/client/postate.h:379` | what it holds |
+| 2 | `StartTime` | `app/client/postate.h:380` | what it holds |
+| 2 | `EndTime` | `app/client/postate.h:381` | what it holds |
+| 2 | `StartUp` | `app/client/postate.h:382` | what 0x718830 does with it |
+| 2 | `EndUp` | `app/client/postate.h:383` | what 0x718830 does with it |
+| 2 | `State` | `app/client/postate.h:384` | what it holds |
+| 2 | `Rate` | `app/client/postate.h:385` | what it holds |
 | 2 | `time` | `app/client/postate.h:392` | as the states' |
 | 2 | `time` | `app/client/postate.h:393` | as the states' |
-| 2 | `transform, time` | `app/client/postate.h:394` | the members it sets |
-| 2 | `time, position` | `app/client/postate.h:395` | the members it sets |
-| 2 | `time, orientation` | `app/client/postate.h:396` | the members it sets |
-| 2 | `time, velocity` | `app/client/postate.h:397` | the members it sets |
-| 2 | `time` | `app/client/postate.h:398` | as the states' |
-| 2 | `Orientation` | `app/client/postate.h:401` | what it holds |
-| 2 | `Position` | `app/client/postate.h:402` | what it holds |
-| 2 | `Velocity` | `app/client/postate.h:403` | what it holds |
-| 2 | `Time` | `app/client/postate.h:404` | what it holds |
+| 2 | `time` | `app/client/postate.h:394` | as the states' |
+| 2 | `transform, time` | `app/client/postate.h:395` | the members it sets |
+| 2 | `time, position` | `app/client/postate.h:396` | the members it sets |
+| 2 | `time, orientation` | `app/client/postate.h:397` | the members it sets |
+| 2 | `time, velocity` | `app/client/postate.h:398` | the members it sets |
+| 2 | `time` | `app/client/postate.h:399` | as the states' |
+| 2 | `Orientation` | `app/client/postate.h:402` | what it holds |
+| 2 | `Position` | `app/client/postate.h:403` | what it holds |
+| 2 | `Velocity` | `app/client/postate.h:404` | what it holds |
+| 2 | `Time` | `app/client/postate.h:405` | what it holds |
 | 2 | `Unknown_Load_Assets` | `app/client/sclient.cpp:40` | 0x729BF0 (client_lego_impl.cpp), 'cbasset.ini' (as tsk_smovie.cpp) |
 | 2 | `Unknown_Free_Assets` | `app/client/sclient.cpp:41` | 0x729D60 (client_lego_impl.cpp) (as tsk_smovie.cpp) |
 | 2 | `Unknown_Main_Window` | `app/client/sclient.cpp:43` | what Pump_Messages redraws |
@@ -5976,8 +5978,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `postate.h` | `app/client/postate.h:18` | header name assumed from the client's postate.cpp |
 | 3 | `PositionState` | `app/client/postate.h:50` | the client's assert 'PositionState' |
 | 3 | `ExtrapClass` | `app/client/postate.h:71` | class-from-file (D24) for app\client\extrap.cpp |
-| 3 | `RenderObject` | `app/client/postate.h:334` | the client's assert 'RenderObject' |
-| 3 | `BoneIndex` | `app/client/postate.h:335` | the client's assert 'BoneIndex > 0' |
+| 3 | `move_direction` | `app/client/postate.h:260` | the client's assert  // NAME 1 [unknown, aux_data, time, turn, tilt, fixed_speed]: what it does with them |
+| 3 | `RenderObject` | `app/client/postate.h:335` | the client's assert 'RenderObject' |
+| 3 | `BoneIndex` | `app/client/postate.h:336` | the client's assert 'BoneIndex > 0' |
 | 3 | `radar_data.h` | `app/client/radar_data.h:16` | header name assumed from the client's radar_data.cpp |
 | 3 | `radar_icon_data.h` | `app/client/radar_icon_data.h:16` | header name assumed from the client's radar_icon_data.cpp |
 | 3 | `RadarIconDataClass` | `app/client/radar_icon_data.h:21` | by convention (D24) from the client's radar_icon_data.cpp |
