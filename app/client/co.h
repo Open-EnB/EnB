@@ -201,6 +201,8 @@ public:
 	void Unknown_70E750(int id);						// 0x70E750 (cpacket.cpp's SET_TARGET 25 passes its TargetID)  // NAME 1 [id]: the packet's TargetID
 	void Unknown_6F3810(RenderObjClass *model);			// 0x6F3810 the +0x158 models on the model's bones, then its sub-objects'  // NAME 2 [model]: what it is
 	float Unknown_6F3ED0();								// 0x6F3ED0 an angle from +0x98's slot +0x14, clamped to 36 degrees
+	bool Unknown_6F4E70(Vector3 &pos);					// 0x6F4E70 the height into the client's bounds (+0x10D4 / +0x10D8) unless the state is 12-14 (unreferenced)  // NAME 1 [pos]: a Vector3
+	bool Unknown_6F4F30(Vector3 &pos);					// 0x6F4F30 X and Y into the client's bounds unless the state is 12-14 (unreferenced)  // NAME 1 [pos]: a Vector3
 	float Unknown_6F4290();								// 0x6F4290 (not rebuilt)
 	void Unknown_6F3FA0(Matrix3D &tm);					// 0x6F3FA0 slot +0x28's roll: the turn +0x144 steered toward 0x6F3ED0's angle (types 0 and 1 that aren't IsOrganic)  // NAME 1 [tm]: a Matrix3D
 	void Unknown_6FBEF0();								// 0x6FBEF0 the warp state: PrivateWarpState's messages, GlobalWarpState's sounds, effects and camera modes (the per-frame update calls it for types 0 and 1)

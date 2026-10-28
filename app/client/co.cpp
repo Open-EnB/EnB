@@ -398,13 +398,13 @@ float ClientObjectClass::Unknown_6F4590()
 	}
 	return(Unknown_6F45E0() * Unknown_B93ADC);
 }
-static inline void Clamp_In_Place(float &value, float min, float max)
+static inline bool Clamp_In_Place(float &value, float min, float max)
 {
 	if (value < min) {
-		value = min;
+		value = min; return(true);
 	} else if (value > max) {
-		value = max;
-	}
+		value = max; return(true);
+	} return(false);
 }
 
 #include "_mono.h"
@@ -763,25 +763,25 @@ Vector3 ClientObjectClass::Unknown_24()
 	return(pos);
 }
 
+// 0x6F4E70 (unreferenced in the client: Unknown_24 clamps on its own) the height into the client's bounds unless the state is 12, 13 or 14
+bool ClientObjectClass::Unknown_6F4E70(Vector3 &pos)
+{
+	if (Unknown98->Unknown_04() != 12 && Unknown98->Unknown_04() != 13 && Unknown98->Unknown_04() != 14) {
+		return(Clamp_In_Place(pos.Z, Client->Unknown10D4, Client->Unknown10D8));
+	}
+	return(false);
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// 0x6F4F30 (unreferenced in the client) X and Y into the client's bounds unless the state is 12, 13 or 14
+bool ClientObjectClass::Unknown_6F4F30(Vector3 &pos)
+{
+	if (Unknown98->Unknown_04() != 12 && Unknown98->Unknown_04() != 13 && Unknown98->Unknown_04() != 14) {
+		bool clamped = Clamp_In_Place(pos.X, Client->Unknown10DC, Client->Unknown10E4);
+		clamped |= Clamp_In_Place(pos.Y, Client->Unknown10E0, Client->Unknown10E8);
+		return(clamped);
+	}
+	return(false);
+}
 
 
 
