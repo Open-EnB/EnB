@@ -1584,6 +1584,8 @@
      "0x739180",
      "0x739330",
      "0x7393D0",
+     "0x739500",
+     "0x739690",
      "0x7396C0",
      "0x7396F0",
      "0x7397D0",
@@ -1592,6 +1594,7 @@
      "0x739AC0",
      "0x739BB0",
      "0x739CD0",
+     "0x739DE0",
      "0x739FF0",
      "0x73A210",
      "0x73A300",
@@ -1605,6 +1608,7 @@
      "0x73AB50",
      "0x73AC60",
      "0x73AE40",
+     "0x73AF80",
      "0x73DAA0",
      "0x73DC60",
      "0x73DCB0",
@@ -9157,7 +9161,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 4525,
+  "in_tree_total": 4529,
   "totals": {}
  },
  "binkmovie": {

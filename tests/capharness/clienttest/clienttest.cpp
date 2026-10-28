@@ -31,7 +31,9 @@
 //     STARBASE_AVATAR_ROOM_UPDATE 160 to the starbase view's (+0x135C) interface; (4g): synthetic RECUSTOMIZE_SHIP_START
 //     129, RECUSTOMIZE_AVATAR_START 131 and RECUSTOMIZE_AVATAR_UPDATE 133 to the starbase view's +0x1A0 / +0x19C / +0x60;
 //     (4h): synthetic GM_EDIT_PLAYER_INVENTORY 234 and GM_VIEW_MISSION_LOG 235 (each makes and opens its GM interface);
-//     (4i): synthetic CTA_RESPONSE 189 to the main view's group interface (+0x1D8) and +0x13C0.
+//     (4i): synthetic CTA_RESPONSE 189 to the main view's group interface (+0x1D8) and +0x13C0; (4j): synthetic TRADE
+//     31 (the trade interface of the main view +0x1E4 or the starbase view +0x1A4), NOTE_CONTENT 184 (the note's lines),
+//     MESSAGE_CHATSTREAM 95 (no avatar for the ship) and FIND_MEMBER 83 (the chat panel's group-find interface).
 //
 // Never: a modal dialog (asserts and FAIL_IF go to the trace), the registry (SOptionsClass's
 // constructor is a stand-in), the network (the memory connection), the game's install folder.
@@ -62,6 +64,10 @@
 #include "..\..\..\app\client\ui_line_display.h"
 #include "..\..\..\app\client\ui_group.h"
 #include "..\..\..\app\packets\pkcta_request.h"
+#include "..\..\..\app\packets\pktrade.h"
+#include "..\..\..\app\packets\pknotelist.h"
+#include "..\..\..\app\packets\pkmessagechatstream.h"
+#include "..\..\..\app\packets\pkfindmember.h"
 #include "..\..\..\app\client\aux_roots.h"
 #include "..\..\..\app\client\co_subtypes.h"
 #include "..\..\..\app\client\postate.h"
@@ -1244,6 +1250,7 @@ public:
 	void Unknown_63CF30(int avatar_id, int new_room);
 	void Unknown_63E5C0(int avatar_id, float orient, Vector3 *position, int action);
 	void Unknown_6437A0(int unknown, AvatarDescClass *desc);
+	void Unknown_640110(int state);
 };
 static std::string Starbase_Log;
 void UIStarbaseClass::Unknown_63CF30(int avatar_id, int new_room)
@@ -1490,6 +1497,174 @@ static void Test_CTA(SClient *client)
 	Memory->Received = 0;
 }
 
+// (4j) TRADE 31 (0x739DE0), NOTE_CONTENT 184 (0x73AF80), MESSAGE_CHATSTREAM 95 (0x736F10) and FIND_MEMBER 83 (0x739500)
+// from synthetic packets. TRADE: the trade interface (ui_ptrade.cpp) is the starbase view's +0x1A4 when 0x744B60 says
+// the player is docked, else the main view's +0x1E4; Type 0 opens a trade with PartnerID (ClientClass +0x1134, the
+// interface's slot +0x58, the starbase interface's 0x640110(8)), 1 / 2 end it (slot +0x5C / 0x5E3130, +0x1134 = 0,
+// 0x640110(0)), 3-6 call 0x5E2F70 / 0x5E3050 with true / false. NOTE_CONTENT prints 'From: ', 'Sent: ' (ctime) and
+// each line of the text split at CR / LF (the 8-byte string class 0x8B5D90, written here as a plain tokenizer).
+// MESSAGE_CHATSTREAM: no avatar for ShipID, nothing happens (0x74C840 finds none). FIND_MEMBER: the chat panel's
+// +0xF8 interface's slot +0x90 result's +0xA8 (ui_groupfind.cpp) gets the packet (0x59A400) when its +0x7C is set.
+class UIPTradeClass
+{
+public:
+	void Unknown_5E2F70(bool on);
+	void Unknown_5E3050(bool on);
+	void Unknown_5E3130();
+};
+static std::string Trade_Log;
+void UIPTradeClass::Unknown_5E2F70(bool on) { Trade_Log += on ? "5E2F70(1) " : "5E2F70(0) "; }
+void UIPTradeClass::Unknown_5E3050(bool on) { Trade_Log += on ? "5E3050(1) " : "5E3050(0) "; }
+void UIPTradeClass::Unknown_5E3130() { Trade_Log += "5E3130 "; }
+void UIStarbaseClass::Unknown_640110(int state) { char b[32]; sprintf(b, "640110(%d) ", state); Trade_Log += b; }
+static void *Trade_Table[64];
+static void Trade_58_Slot() { Trade_Log += "+58 "; }
+static void Trade_5C_Slot() { Trade_Log += "+5C "; }
+static std::vector<unsigned char> Trade_Message(int partner, unsigned char type)
+{
+	std::vector<unsigned char> p(5, 0);	// PartnerID, Type (pktrade.cpp)
+	memcpy(&p[0], &partner, 4);
+	p[4] = type;
+	return(Message_Bytes(31, p));
+}
+
+// cpacket.cpp's string class (0x8B5D90..: its file is not rebuilt), as a plain tokenizer
+class Unknown8B5D90Class
+{
+public:
+	Unknown8B5D90Class();
+	Unknown8B5D90Class(const char *text);
+	~Unknown8B5D90Class();
+	int Unknown_8B7C60(int pos, const char *delimiters, Unknown8B5D90Class &token);
+	const char *Unknown_8B6FC0() const;
+	char *Unknown00; int Unknown04;
+};
+Unknown8B5D90Class::Unknown8B5D90Class() : Unknown00(0), Unknown04(0) {}
+Unknown8B5D90Class::Unknown8B5D90Class(const char *text) : Unknown00(0), Unknown04(0) { if (text) { Unknown00 = strdup(text); Unknown04 = strlen(text); } }
+Unknown8B5D90Class::~Unknown8B5D90Class() { free(Unknown00); }
+int Unknown8B5D90Class::Unknown_8B7C60(int pos, const char *delimiters, Unknown8B5D90Class &token)
+{
+	int len = Unknown00 ? (int)strlen(Unknown00) : 0;
+	while (pos < len && strchr(delimiters, Unknown00[pos])) pos++;
+	if (pos >= len) return(-1);
+	int end = pos;
+	while (end < len && !strchr(delimiters, Unknown00[end])) end++;
+	free(token.Unknown00);
+	token.Unknown00 = (char *)malloc(end - pos + 1);
+	memcpy(token.Unknown00, Unknown00 + pos, end - pos);
+	token.Unknown00[end - pos] = 0;
+	token.Unknown04 = end - pos;
+	return(end);
+}
+const char *Unknown8B5D90Class::Unknown_8B6FC0() const { return(Unknown00 ? Unknown00 : ""); }
+
+class FindMemberPacketClass;
+class UIGroupFindClass { public: void Unknown_59A400(FindMemberPacketClass *packet); };
+static std::string Find_Log;
+void UIGroupFindClass::Unknown_59A400(FindMemberPacketClass *packet) { char b[48]; sprintf(b, "59A400(%d players) ", packet->NumPlayers); Find_Log += b; }
+static void *Find_Iface_Table[64];
+static double Find_90[0x100 / 8];
+static void *Find_Iface_90_Slot() { return(Find_90); }
+
+static void Test_Chat(SClient *client)
+{
+	Trace("== (4j) TRADE 31, NOTE_CONTENT 184, MESSAGE_CHATSTREAM 95, FIND_MEMBER 83");
+	if (Memory == 0 || client->MainView == 0) {
+		Check(false, "the memory connection and the main view");
+		return;
+	}
+	// TRADE 31
+	for (int i = 0; i < 64; i++) {
+		Trade_Table[i] = (void *)Zero_Slot;
+	}
+	Trade_Table[0x58 / 4] = (void *)Trade_58_Slot;
+	Trade_Table[0x5C / 4] = (void *)Trade_5C_Slot;
+	static double fake_trade[0x100 / 8];
+	static double fake_sbview[0x200 / 8];
+	static double fake_starbase[0x100 / 8];
+	*(void ***)fake_trade = Trade_Table;
+	*(int *)((char *)fake_starbase + 0x3C) = 5;	// the reference count: never reaches 0 here
+	*(char **)((char *)fake_sbview + 0x60) = (char *)fake_starbase;
+	*(char **)((char *)fake_sbview + 0x1A4) = (char *)fake_trade;
+	char *main = (char *)client->MainView;
+	void *saved_trade = *(void **)(main + 0x1E4);
+	ViewClass *saved_view = client->Unknown135C;
+	*(void **)(main + 0x1E4) = 0;
+	Trade_Log = "";
+	Memory->Incoming.push_back(Trade_Message(44, 0));
+	client->Process_Packets();
+	Check(Trade_Log == "" && client->Unknown1134 != 44, "TRADE 31 without a trade interface: nothing called");
+	*(void **)(main + 0x1E4) = fake_trade;
+	for (int type = 0; type <= 7; type++) {
+		Memory->Incoming.push_back(Trade_Message(44, (unsigned char)type));
+		client->Process_Packets();
+		if (type == 0) {
+			Check(client->Unknown1134 == 44, "TRADE 31 type 0: +0x1134 = PartnerID 44");
+		}
+	}
+	Trace("trade calls (main view): %s", Trade_Log.c_str());
+	Check(Trade_Log == "+58 +5C 5E3130 5E2F70(1) 5E2F70(0) 5E3050(1) 5E3050(0) " && client->Unknown1134 == 0,
+		"TRADE 31 in space: types 0-6 to the main view's trade interface (slots +0x58 / +0x5C, 0x5E3130, 0x5E2F70, 0x5E3050), 7 ignored, +0x1134 cleared");
+	Trade_Log = "";
+	Stub_744B60 = true;
+	client->Unknown135C = (ViewClass *)fake_sbview;
+	Memory->Incoming.push_back(Trade_Message(45, 0));
+	Memory->Incoming.push_back(Trade_Message(45, 2));
+	client->Process_Packets();
+	client->Process_Packets();
+	Trace("trade calls (starbase): %s", Trade_Log.c_str());
+	Check(Trade_Log == "+58 640110(8) 5E3130 640110(0) " && *(int *)((char *)fake_starbase + 0x3C) == 5,
+		"TRADE 31 docked: the starbase view's +0x1A4 and the starbase interface's 0x640110(8) / (0); its count back to 5");
+	Stub_744B60 = false;
+	client->Unknown135C = saved_view;
+	*(void **)(main + 0x1E4) = saved_trade;
+
+	// NOTE_CONTENT 184 (its handler prints through SClient::Print and 0x74D990: the stubs trace them)
+	int before = Lines;
+	NoteContentPacketClass note(0, "alex", "first line\r\nsecond line\r\n\r\nthird");
+	note.Process_Packet(client);
+	Check(Lines - before == 5, "NOTE_CONTENT 184: 'From:', 'Sent:' and the note's three lines");
+
+	// MESSAGE_CHATSTREAM 95: no avatar for ship 12345
+	before = Lines;
+	char chat[] = "hello";
+	MessageChatstreamPacketClass stream(3, chat, 5, 12345);
+	stream.Process_Packet(client);
+	Check(Lines == before, "MESSAGE_CHATSTREAM 95 with no avatar for its ShipID: nothing happens");
+
+	// FIND_MEMBER 83
+	FindMemberPacketClass find;
+	find.Add_Player(1, 2, 3, 4);
+	Find_Log = "";
+	find.Process_Packet(client);	// no chat panel
+	Check(Find_Log == "", "FIND_MEMBER 83 without a chat panel: nothing called");
+	for (int f = 0; f < 64; f++) {
+		Find_Iface_Table[f] = (void *)Zero_Slot;
+	}
+	Find_Iface_Table[0x90 / 4] = (void *)Find_Iface_90_Slot;
+	static double fake_panel[0x280 / 8];
+	static double fake_iface[0x100 / 8];
+	static double fake_find[0x100 / 8];
+	*(void ***)fake_iface = Find_Iface_Table;
+	*(int *)((char *)fake_iface + 0x3C) = 5;
+	*(char **)((char *)fake_panel + 0xF8) = 0;
+	void **panel = (void **)&client->ChatPanel;	// a RefCountPtr: written raw, restored below
+	void *saved_panel = *panel;
+	*panel = fake_panel;
+	find.Process_Packet(client);	// no +0xF8 interface
+	*(char **)((char *)fake_panel + 0xF8) = (char *)fake_iface;
+	*(char **)((char *)Find_90 + 0xA8) = (char *)fake_find;
+	*(bool *)((char *)fake_find + 0x7C) = false;
+	find.Process_Packet(client);	// +0x7C not set
+	*(bool *)((char *)fake_find + 0x7C) = true;
+	find.Process_Packet(client);
+	Trace("find calls: %s", Find_Log.c_str());
+	Check(Find_Log == "59A400(1 players) " && *(int *)((char *)fake_iface + 0x3C) == 5,
+		"FIND_MEMBER 83: the group-find interface gets the packet only with the +0xF8 interface and +0x7C set; the count back to 5");
+	*panel = saved_panel;
+	Memory->Received = 0;
+}
+
 // ------------------------------------------------------------------------- main
 
 int main(int argc, char **argv)
@@ -1590,6 +1765,7 @@ int main(int argc, char **argv)
 	Test_Recustomize(client);
 	Test_GM(client);
 	Test_CTA(client);
+	Test_Chat(client);
 	// the client isn't deleted: its destructor reaches control_keys_manager.cpp and WWAudio
 	Trace("== done: %d checks failed", Failures);
 	fclose(Out);

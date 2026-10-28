@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-335 entries in 71 files.
+336 entries in 71 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -66,6 +66,7 @@ edit the comments in the code, not this file.
 | `app/client/cpacket.cpp:1707` | `DamagePacketClass::Process_Packet` | marker | NOT EXACT: frame (the same 487 instructions; the client gives the locals other stack slots: time, inflicted, mainview, avatar_id, type ascending; 24 forms; attempts.py show 0x738970) 0x738970 |
 | `app/client/cpacket.cpp:2314` | `StarbaseAvatarUpdatePacketClass::Process_Packet` | marker | NOT EXACT: register-only (this in edi, the interface in esi: the client has them the other way round; attempts.py show 0x73A9F0) 0x73A9F0 |
 | `app/client/cpacket.cpp:2488` | `ClientChatEventPacketClass::Process_Packet` | marker | NOT EXACT: inline-budget (1,638 instructions vs the client's 1,615: the client calls std::string's range constructor 0x73F680 out of line and inlines other std::string members elsewhere; frame 0x568 vs 0x558; attempts.py show 0x73B150) 0x73B150 |
+| `app/client/cpacket.cpp:2777` | `MessageChatstreamPacketClass::Process_Packet` | marker | NOT EXACT: register-only (the two AvatarID / ShipID tests load the ids into other registers: the client has ecx / eax, then edi / eax; attempts.py show 0x736F10) 0x736F10 (placed here, out of address order: it has no assert) |
 | `app/client/eff_o.cpp:723` | `UnknownB0009CEffectClass::Unknown_1C` | marker | NOT EXACT: frame (0x8C bytes of locals, the client's 0x80: one Vector3 temporary more; the target's position plus TargetOffset also loads in the other order; 4 forms) 0x6E8890 |
 | `app/client/extrap.cpp:310` | `Unknown70F4F0Class::Unknown_1C` | marker | NOT EXACT: 0x70F630 frame: the client's frame is 0x20 (its temporaries share slots), ours 0x38; the cached copy's test is laid out the other way |
 | `app/client/extrap.cpp:774` | `Unknown710110Class::Set_Motion` | marker | NOT EXACT: 0x7102B0 shape: the client keeps Unknown3C on the stack past the flag store (fst) and negates the acceleration before the multiply (fchs, both branches' fmul merged); here the flag store comes first and -a * 10000 folds |

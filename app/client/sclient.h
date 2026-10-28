@@ -621,7 +621,7 @@ class Unknown77E3F0E8Class	// NAME 1: neutral (D10)
 public:
 	virtual void Unknown_00();
 	virtual void Unknown_04();
-	virtual void Unknown_08();
+	virtual void Unknown_08(char *text);					// +0x08 (MESSAGE_CHATSTREAM 95: the line it shows)  // NAME 1 [text]: what the handler passes
 	virtual bool Unknown_0C();							// +0x0C (CLIENT_CHAT_EVENT 165 shows a private message only when true)
 };
 

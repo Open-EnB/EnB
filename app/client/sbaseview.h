@@ -34,6 +34,17 @@ public:
 	int Room;	// +0xAC (158 moves an avatar only in this room)  // NAME 2: what the handler compares with the packet's Room
 	void Unknown_640150();	// 0x640150 (SClient 0x74ABC0: '/starbase reset')
 	void Unknown_6437A0(int unknown, AvatarDescClass *desc);	// 0x6437A0 (RECUSTOMIZE_AVATAR_UPDATE 133)  // NAME 1 [unknown, desc]: the packet's fields
+	void Unknown_640110(int state);	// 0x640110 (TRADE 31: 8 when a trade opens, 0 when it ends)  // NAME 1 [state]: neutral
+};
+
+// ui_ptrade.cpp's player trade interface: the main view's +0x1E4 (sclient.h's MainViewUnknown1E4Class) and the
+// starbase view's +0x1A4, declared as far as TRADE 31 calls it (it adds no members)
+class UIPTradeClass : public MainViewUnknown1E4Class	// NAME 3: class-from-file (D24) for app\client\ui_ptrade.cpp
+{
+public:
+	void Unknown_5E2F70(bool on);	// 0x5E2F70 (TRADE 31 types 3 / 4)  // NAME 1 [on]: what the handler passes
+	void Unknown_5E3050(bool on);	// 0x5E3050 (TRADE 31 types 5 / 6)  // NAME 1 [on]: what the handler passes
+	void Unknown_5E3130();	// 0x5E3130 (TRADE 31 type 2)
 };
 
 class SBaseViewUnknown1A0Class { public: void Unknown_61F250(ShipCustDescClass *desc, ShipRecustomizationCostClass *cost, int a, int b, int c, int d); };	// NAME 1: neutral (D10): the starbase view's +0x1A0 (RECUSTOMIZE_SHIP_START 129: 0x61F250)  // NAME 1 [desc, cost, a, b, c, d]: the packet's fields
@@ -57,6 +68,7 @@ public:
 	RefCountPtr<UIStarbaseClass> Get_Starbase() { return(Starbase); }	// 0x54EDA0 (out of line in another object)  // NAME 2: what it returns
 	char Unknown38[0x60 - 0x38]; RefCountPtr<UIStarbaseClass> Starbase; char Unknown64[0x194 - 0x64];	// +0x38; +0x60 ui_starbase.cpp's interface  // NAME 2 [Starbase]: what it holds
 	RefCountPtr<UIJobsClass> Jobs; int Unknown198; SBaseViewUnknown19CClass *AvatarUI; SBaseViewUnknown1A0Class *ShipUI;	// +0x194  // NAME 2 [Jobs]: what it holds; +0x19C / +0x1A0  // NAME 3 [AvatarUI, ShipUI]: the recustomize handlers' '!avatar_ui' / '!ship_ui' tests
+	UIPTradeClass *PTrade;	// +0x1A4 (TRADE 31 in a starbase)  // NAME 3: its class's file (ui_ptrade.cpp)
 };
 
 /*

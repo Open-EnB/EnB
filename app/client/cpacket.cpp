@@ -2126,65 +2126,65 @@ bool JobAcceptReplyPacketClass::Process_Packet(void *instance)
 	return(true);
 }
 
+// The 8-byte string class NoteContent 184 splits the note's text with (its file unknown; not rebuilt)
+class Unknown8B5D90Class	// NAME 1: neutral (D10)
+{
+public:
+	Unknown8B5D90Class();	// 0x8B5D90 (both members 0)
+	Unknown8B5D90Class(const char *text);	// 0x8B5DB0  // NAME 1 [text]: neutral
+	~Unknown8B5D90Class();	// 0x8B5EC0
+	int Unknown_8B7C60(int pos, const char *delimiters, Unknown8B5D90Class &token);	// 0x8B7C60 (the next token from pos into token; -1 at the end)  // NAME 1 [pos, delimiters, token]: what the body does with them
+	const char *Unknown_8B6FC0() const;	// 0x8B6FC0 (the text, or the pooled empty string 0xBDA908)
+	char *Unknown00; int Unknown04;	// +0x00, +0x04
+};
 
+// 0x73AF80 (placed here, out of address order: it has no assert)
+bool NoteContentPacketClass::Process_Packet(void *instance)
+{
+	WWPROFILE("NoteContentPacketClass::Process_Packet()");
+	SClient *sclient = (SClient *)instance;
+	char sent[128];
+	sclient->Print(6, "From: %s", Unknown10);
+	_snprintf(sent, sizeof(sent), "Sent: %s", ctime((time_t *)&Unknown0C));
+	sent[strlen(sent) - 1] = 0;
+	sclient->Unknown_74D990(6, sent, 0);
+	Unknown8B5D90Class line;
+	Unknown8B5D90Class text(Unknown54);
+	int pos = text.Unknown_8B7C60(0, "\r\n", line);
+	while (pos != -1) {
+		sclient->Unknown_74D990(6, (char *)line.Unknown_8B6FC0(), 0);
+		pos = text.Unknown_8B7C60(pos, "\r\n", line);
+	}
+	return(true);
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// 0x739DE0 (placed here, out of address order: it has no assert)
+bool TradePacketClass::Process_Packet(void *instance)
+{
+	WWPROFILE("TradePacketClass::Process_Packet(void * instance)");
+	ClientClass *client = (ClientClass *)instance;
+	SClient *sclient = (SClient *)client->Unknown_18();
+	UIStarbaseClass *starbase = NULL;
+	UIPTradeClass *trade = NULL;
+	if (sclient->Unknown_744B60() && sclient->Unknown135C) {
+		trade = ((SBaseViewClass *)sclient->Unknown135C)->PTrade;
+		starbase = ((SBaseViewClass *)sclient->Unknown135C)->Get_Starbase().Peek();
+	} else if (!sclient->Unknown_744B60() && sclient->MainView) {
+		trade = (UIPTradeClass *)sclient->MainView->Unknown1E4;
+	}
+	if (!trade) return(true); {
+		switch ((unsigned char)Type) {
+			case 0: { int partner = PartnerID; client->Unknown1134 = partner; } trade->Unknown_58(); if (starbase) starbase->Unknown_640110(8); break;
+			case 1: trade->Unknown_5C(); client->Unknown1134 = 0; if (starbase) starbase->Unknown_640110(0); break;
+			case 2: trade->Unknown_5E3130(); client->Unknown1134 = 0; if (starbase) starbase->Unknown_640110(0); break;
+			case 3: trade->Unknown_5E2F70(true); break;
+			case 4: trade->Unknown_5E2F70(false); break;
+			case 5: trade->Unknown_5E3050(true); break;
+			case 6: trade->Unknown_5E3050(false); break;
+		}
+	}
+	return(true);
+}
 
 
 
@@ -2444,6 +2444,7 @@ public:
 };
 
 // What the chat panel's +0xE0 points to (as sclient.cpp's view)
+class UIChatPanelUnknownF890Class; class UIChatPanelUnknownF8Class : public InterfaceClass { public: virtual void Unknown_88(); virtual void Unknown_8C(); virtual UIChatPanelUnknownF890Class *Unknown_90(); };	// NAME 1: neutral (D10): the chat panel's +0xF8 (an InterfaceClass: the count at +0x3C; slot +0x90 FIND_MEMBER 83)
 class UIChatPanelUnknownE0Class	// NAME 1: neutral (D10)
 {
 public:
@@ -2467,19 +2468,18 @@ public:
 	UIChatPanelUnknownE0Class *UnknownE0;				// +0xE0
 	UIChatPanelUnknownE4Class *UnknownE4;				// +0xE4
 	UIChatPanelUnknownE8Class *UnknownE8;				// +0xE8
+	char UnknownEC[0xF8 - 0xEC]; RefCountPtr<UIChatPanelUnknownF8Class> UnknownF8;	// +0xEC; +0xF8 (FIND_MEMBER 83)
+	RefCountPtr<UIChatPanelUnknownF8Class> Get_UnknownF8() { return(UnknownF8); }	// 0x739690 (out of line after FIND_MEMBER 83, the first caller)  // NAME 1: neutral (D10): the member it returns
 };
 
 #include "ui_group.h"		// UIGroupClass (CLIENT_CHAT_EVENT 165)
 
-
-
-
-
-
-
-
-
-
+#include "..\packets\pkfindmember.h"
+#include "..\packets\pkmessagechatstream.h"
+#include "..\packets\pktrade.h"
+// ui_groupfind.cpp's interface (what +0xA8 of the chat panel's +0xF8 interface's slot +0x90 result points to), as far as FIND_MEMBER 83 calls it
+class UIGroupFindClass { public: void Unknown_59A400(FindMemberPacketClass *packet); char Unknown00[0x7C]; bool Unknown7C; };	// NAME 3: class-from-file (D24) for app\client\ui_groupfind.cpp  // NAME 1 [packet]: the handler's packet
+class UIChatPanelUnknownF890Class { public: char Unknown00[0xA8]; UIGroupFindClass *UnknownA8; };	// NAME 1: neutral (D10): the chat panel's +0xF8 interface's slot +0x90 result
 
 
 
@@ -2772,58 +2772,58 @@ const std::string &ClientChatEventPacketClass::Get_Unknown64()
 	return(Unknown64);
 }
 
+// The avatar description at +0xF8 of an avatar (MESSAGE_CHATSTREAM 95 reads its full name)
+static inline AvatarDescClass &Unknown_Avatar_Desc(Unknown77E3F0Class *avatar) { return(*(AvatarDescClass *)((char *)avatar + 0xF8)); }	// NAME 1: neutral (D10): what it returns
+// NOT EXACT: register-only (the two AvatarID / ShipID tests load the ids into other registers: the client has ecx / eax, then edi / eax; attempts.py show 0x736F10)
+// 0x736F10 (placed here, out of address order: it has no assert)
+bool MessageChatstreamPacketClass::Process_Packet(void *instance)
+{
+	WWPROFILE("MessageChatstreamPacketClass::Process_Packet()");
+	SClient *sclient = (SClient *)instance;
+	Unknown77E3F0Class *avatar = sclient->Unknown_74C840(ShipID);
+	if (avatar) {
+		avatar->Unknown_784B80(ChatString, Chatsize, true);
+		if (Color == 3 || Color == 4) {
+			if (sclient->AvatarID != ShipID && sclient->ChatPanel) {
+				sclient->ChatPanel->Unknown_563910(ShipID, false);
+			}
+			if (sclient->AvatarID != ShipID && avatar->Unknown_7817E0()->Unknown_0C()) {
+				AvatarDescClass &desc = Unknown_Avatar_Desc(avatar); std::string name;
+				desc.Get_Full_Name(name);
+				int len = Chatsize + name.size() + 16;
+				char *text = new char[len];
+				if (Color == 3) {
+					_snprintf(text, len, "%s (private): ", name.c_str());
+					if (sclient->ChatPanel) {
+						sclient->ChatPanel->Unknown_565D80(name.c_str());
+					}
+				} else if (Color == 4) {
+					_snprintf(text, len, "%s (group): ", name.c_str());
+				}
+				avatar->Unknown_7817E0()->Unknown_08(text);
+				sclient->Unknown_74D990(Color, text, 0);
+				delete [] text;
+				SoundLibraryClass::Play_2D_Sound("private_message_beep", 2);
+			}
+		}
+	}
+	return(true);
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// 0x739500 (placed here, out of address order: it has no assert)
+bool FindMemberPacketClass::Process_Packet(void *instance)
+{
+	WWPROFILE("FindMemberPacketClass::Process_Packet(void * instance)");
+	SClient *sclient = (SClient *)((ClientClass *)instance)->Unknown_18();
+	UIChatPanelClass *panel = sclient->ChatPanel.Peek();
+	if (panel == NULL || panel->Get_UnknownF8() == NULL) return(true);
+	UIChatPanelUnknownF890Class *find = panel->Get_UnknownF8()->Unknown_90();
+	if (!find) return(true);
+	if (find->UnknownA8 && find->UnknownA8->Unknown7C) {
+		find->UnknownA8->Unknown_59A400(this);
+	}
+	return(true);
+}
 
 
 

@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 33 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 36 |
-| 3 | by convention from a client-named file or sibling | 944 |
+| 3 | by convention from a client-named file or sibling | 947 |
 | 2 | describes what the code does | 2316 |
-| 1 | neutral placeholder | 5217 |
+| 1 | neutral placeholder | 5258 |
 
 ## For review (score 3 and below)
 
@@ -1032,13 +1032,27 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_5A3F10` | `app/client/cpacket.cpp:2095` | untagged neutral name (D10) |
 | 1 | `Unknown_5A4430` | `app/client/cpacket.cpp:2109` | untagged neutral name (D10) |
 | 1 | `Unknown_5A3FB0` | `app/client/cpacket.cpp:2123` | untagged neutral name (D10) |
+| 1 | `Unknown8B5D90Class` | `app/client/cpacket.cpp:2130` | neutral (D10) |
+| 1 | `text` | `app/client/cpacket.cpp:2134` | neutral |
+| 1 | `pos, delimiters, token` | `app/client/cpacket.cpp:2136` | what the body does with them |
+| 1 | `Unknown_8B7C60` | `app/client/cpacket.cpp:2136` | untagged neutral name (D10) |
+| 1 | `Unknown_8B6FC0` | `app/client/cpacket.cpp:2137` | untagged neutral name (D10) |
+| 1 | `Unknown00` | `app/client/cpacket.cpp:2138` | untagged neutral name (D10) |
+| 1 | `Unknown54` | `app/client/cpacket.cpp:2152` | untagged neutral name (D10) |
+| 1 | `Unknown1E4` | `app/client/cpacket.cpp:2173` | untagged neutral name (D10) |
+| 1 | `Unknown1134` | `app/client/cpacket.cpp:2177` | untagged neutral name (D10) |
+| 1 | `Unknown_58` | `app/client/cpacket.cpp:2177` | untagged neutral name (D10) |
+| 1 | `Unknown_640110` | `app/client/cpacket.cpp:2177` | untagged neutral name (D10) |
+| 1 | `Unknown_5C` | `app/client/cpacket.cpp:2178` | untagged neutral name (D10) |
+| 1 | `Unknown_5E3130` | `app/client/cpacket.cpp:2179` | untagged neutral name (D10) |
+| 1 | `Unknown_5E2F70` | `app/client/cpacket.cpp:2180` | untagged neutral name (D10) |
+| 1 | `Unknown_5E3050` | `app/client/cpacket.cpp:2182` | untagged neutral name (D10) |
 | 1 | `Unknown_7BD920` | `app/client/cpacket.cpp:2293` | untagged neutral name (D10) |
 | 1 | `Unknown7C` | `app/client/cpacket.cpp:2322` | untagged neutral name (D10) |
 | 1 | `Unknown_63E5C0` | `app/client/cpacket.cpp:2323` | untagged neutral name (D10) |
 | 1 | `Unknown14` | `app/client/cpacket.cpp:2323` | untagged neutral name (D10) |
 | 1 | `Unknown1C` | `app/client/cpacket.cpp:2323` | untagged neutral name (D10) |
 | 1 | `Unknown_63CF30` | `app/client/cpacket.cpp:2338` | untagged neutral name (D10) |
-| 1 | `Unknown00` | `app/client/cpacket.cpp:2404` | untagged neutral name (D10) |
 | 1 | `UIChatPanelUnknownD8Class` | `app/client/cpacket.cpp:2413` | neutral (D10) |
 | 1 | `name` | `app/client/cpacket.cpp:2416` | the event's Unknown54 |
 | 1 | `Unknown_5DA780` | `app/client/cpacket.cpp:2416` | untagged neutral name (D10) |
@@ -1059,20 +1073,27 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_5E5EF0` | `app/client/cpacket.cpp:2442` | untagged neutral name (D10) |
 | 1 | `name` | `app/client/cpacket.cpp:2443` | neutral |
 | 1 | `Unknown_5E6030` | `app/client/cpacket.cpp:2443` | untagged neutral name (D10) |
-| 1 | `UIChatPanelUnknownE0Class` | `app/client/cpacket.cpp:2447` | neutral (D10) |
-| 1 | `Unknown_81BF40` | `app/client/cpacket.cpp:2450` | untagged neutral name (D10) |
-| 1 | `id, flag` | `app/client/cpacket.cpp:2460` | what it gets |
-| 1 | `Unknown_563910` | `app/client/cpacket.cpp:2460` | untagged neutral name (D10) |
-| 1 | `name` | `app/client/cpacket.cpp:2461` | the event's Unknown14 |
-| 1 | `Unknown_565D80` | `app/client/cpacket.cpp:2461` | untagged neutral name (D10) |
-| 1 | `event, channel, name, flag` | `app/client/cpacket.cpp:2462` | what the handler passes |
-| 1 | `Unknown_5679A0` | `app/client/cpacket.cpp:2462` | untagged neutral name (D10) |
-| 1 | `UnknownD8` | `app/client/cpacket.cpp:2465` | untagged neutral name (D10) |
-| 1 | `UnknownE0` | `app/client/cpacket.cpp:2467` | untagged neutral name (D10) |
-| 1 | `UnknownE4` | `app/client/cpacket.cpp:2468` | untagged neutral name (D10) |
-| 1 | `UnknownE8` | `app/client/cpacket.cpp:2469` | untagged neutral name (D10) |
+| 1 | `UIChatPanelUnknownF890Class` | `app/client/cpacket.cpp:2447` | neutral (D10): the chat panel's +0xF8 (an InterfaceClass: the count at +0x3C; slot +0x90 FIND_MEMBER 83) |
+| 1 | `UIChatPanelUnknownF8Class` | `app/client/cpacket.cpp:2447` | untagged neutral name (D10) |
+| 1 | `UIChatPanelUnknownE0Class` | `app/client/cpacket.cpp:2448` | neutral (D10) |
+| 1 | `Unknown_81BF40` | `app/client/cpacket.cpp:2451` | untagged neutral name (D10) |
+| 1 | `id, flag` | `app/client/cpacket.cpp:2461` | what it gets |
+| 1 | `Unknown_563910` | `app/client/cpacket.cpp:2461` | untagged neutral name (D10) |
+| 1 | `name` | `app/client/cpacket.cpp:2462` | the event's Unknown14 |
+| 1 | `Unknown_565D80` | `app/client/cpacket.cpp:2462` | untagged neutral name (D10) |
+| 1 | `event, channel, name, flag` | `app/client/cpacket.cpp:2463` | what the handler passes |
+| 1 | `Unknown_5679A0` | `app/client/cpacket.cpp:2463` | untagged neutral name (D10) |
+| 1 | `UnknownD8` | `app/client/cpacket.cpp:2466` | untagged neutral name (D10) |
+| 1 | `UnknownE0` | `app/client/cpacket.cpp:2468` | untagged neutral name (D10) |
+| 1 | `UnknownE4` | `app/client/cpacket.cpp:2469` | untagged neutral name (D10) |
+| 1 | `UnknownE8` | `app/client/cpacket.cpp:2470` | untagged neutral name (D10) |
+| 1 | `UnknownEC` | `app/client/cpacket.cpp:2471` | untagged neutral name (D10) |
+| 1 | `UnknownF8` | `app/client/cpacket.cpp:2471` | untagged neutral name (D10) |
+| 1 | `Get_UnknownF8` | `app/client/cpacket.cpp:2472` | neutral (D10): the member it returns |
+| 1 | `Unknown_59A400` | `app/client/cpacket.cpp:2481` | untagged neutral name (D10) |
+| 1 | `UIChatPanelUnknownF890Class` | `app/client/cpacket.cpp:2482` | neutral (D10): the chat panel's +0xF8 interface's slot +0x90 result |
+| 1 | `UnknownA8` | `app/client/cpacket.cpp:2482` | untagged neutral name (D10) |
 | 1 | `Unknown44` | `app/client/cpacket.cpp:2495` | untagged neutral name (D10) |
-| 1 | `Unknown54` | `app/client/cpacket.cpp:2496` | untagged neutral name (D10) |
 | 1 | `Unknown_597080` | `app/client/cpacket.cpp:2503` | untagged neutral name (D10) |
 | 1 | `Unknown24` | `app/client/cpacket.cpp:2518` | untagged neutral name (D10) |
 | 1 | `Unknown_750F70` | `app/client/cpacket.cpp:2537` | untagged neutral name (D10) |
@@ -1087,6 +1108,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Get_Unknown54` | `app/client/cpacket.cpp:2655` | untagged neutral name (D10) |
 | 1 | `Get_Unknown64` | `app/client/cpacket.cpp:2690` | untagged neutral name (D10) |
 | 1 | `Unknown64` | `app/client/cpacket.cpp:2772` | untagged neutral name (D10) |
+| 1 | `Unknown_Avatar_Desc` | `app/client/cpacket.cpp:2776` | neutral (D10): what it returns |
 | 1 | `Unknown13C0` | `app/client/cpacket.cpp:3141` | untagged neutral name (D10) |
 | 1 | `Unknown_74D690` | `app/client/cpacket.cpp:3142` | untagged neutral name (D10) |
 | 1 | `Unknown_5981B0` | `app/client/cpacket.cpp:3143` | untagged neutral name (D10) |
@@ -2000,23 +2022,31 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_640150` | `app/client/sbaseview.h:35` | untagged neutral name (D10) |
 | 1 | `unknown, desc` | `app/client/sbaseview.h:36` | the packet's fields |
 | 1 | `Unknown_6437A0` | `app/client/sbaseview.h:36` | untagged neutral name (D10) |
-| 1 | `SBaseViewUnknown1A0Class` | `app/client/sbaseview.h:39` | neutral (D10): the starbase view's +0x1A0 (RECUSTOMIZE_SHIP_START 129: 0x61F250)  // NAME 1 [desc, cost, a, b, c, d]: the packet's fields |
-| 1 | `Unknown_61F250` | `app/client/sbaseview.h:39` | untagged neutral name (D10) |
-| 1 | `SBaseViewUnknown19CClass` | `app/client/sbaseview.h:40` | neutral (D10): the starbase view's +0x19C (RECUSTOMIZE_AVATAR_START 131: 0x551C40)  // NAME 1 [cost]: the packet's field |
-| 1 | `Unknown_551C40` | `app/client/sbaseview.h:40` | untagged neutral name (D10) |
-| 1 | `packet` | `app/client/sbaseview.h:47` | the handler's packet |
-| 1 | `Unknown_5A3BC0` | `app/client/sbaseview.h:47` | untagged neutral name (D10) |
-| 1 | `packet` | `app/client/sbaseview.h:48` | the handler's packet |
-| 1 | `Unknown_5A3F10` | `app/client/sbaseview.h:48` | untagged neutral name (D10) |
-| 1 | `packet` | `app/client/sbaseview.h:49` | the handler's packet |
-| 1 | `Unknown_5A3FB0` | `app/client/sbaseview.h:49` | untagged neutral name (D10) |
-| 1 | `job_id` | `app/client/sbaseview.h:50` | the packet's JobID |
-| 1 | `Unknown_5A4430` | `app/client/sbaseview.h:50` | untagged neutral name (D10) |
-| 1 | `packet` | `app/client/sbaseview.h:55` | the handler's packet |
-| 1 | `Unknown_6A0FD0` | `app/client/sbaseview.h:55` | untagged neutral name (D10) |
-| 1 | `Unknown38` | `app/client/sbaseview.h:58` | untagged neutral name (D10) |
-| 1 | `Unknown64` | `app/client/sbaseview.h:58` | untagged neutral name (D10) |
-| 1 | `Unknown198` | `app/client/sbaseview.h:59` | untagged neutral name (D10) |
+| 1 | `state` | `app/client/sbaseview.h:37` | neutral |
+| 1 | `Unknown_640110` | `app/client/sbaseview.h:37` | untagged neutral name (D10) |
+| 1 | `MainViewUnknown1E4Class` | `app/client/sbaseview.h:42` | untagged neutral name (D10) |
+| 1 | `on` | `app/client/sbaseview.h:45` | what the handler passes |
+| 1 | `Unknown_5E2F70` | `app/client/sbaseview.h:45` | untagged neutral name (D10) |
+| 1 | `on` | `app/client/sbaseview.h:46` | what the handler passes |
+| 1 | `Unknown_5E3050` | `app/client/sbaseview.h:46` | untagged neutral name (D10) |
+| 1 | `Unknown_5E3130` | `app/client/sbaseview.h:47` | untagged neutral name (D10) |
+| 1 | `SBaseViewUnknown1A0Class` | `app/client/sbaseview.h:50` | neutral (D10): the starbase view's +0x1A0 (RECUSTOMIZE_SHIP_START 129: 0x61F250)  // NAME 1 [desc, cost, a, b, c, d]: the packet's fields |
+| 1 | `Unknown_61F250` | `app/client/sbaseview.h:50` | untagged neutral name (D10) |
+| 1 | `SBaseViewUnknown19CClass` | `app/client/sbaseview.h:51` | neutral (D10): the starbase view's +0x19C (RECUSTOMIZE_AVATAR_START 131: 0x551C40)  // NAME 1 [cost]: the packet's field |
+| 1 | `Unknown_551C40` | `app/client/sbaseview.h:51` | untagged neutral name (D10) |
+| 1 | `packet` | `app/client/sbaseview.h:58` | the handler's packet |
+| 1 | `Unknown_5A3BC0` | `app/client/sbaseview.h:58` | untagged neutral name (D10) |
+| 1 | `packet` | `app/client/sbaseview.h:59` | the handler's packet |
+| 1 | `Unknown_5A3F10` | `app/client/sbaseview.h:59` | untagged neutral name (D10) |
+| 1 | `packet` | `app/client/sbaseview.h:60` | the handler's packet |
+| 1 | `Unknown_5A3FB0` | `app/client/sbaseview.h:60` | untagged neutral name (D10) |
+| 1 | `job_id` | `app/client/sbaseview.h:61` | the packet's JobID |
+| 1 | `Unknown_5A4430` | `app/client/sbaseview.h:61` | untagged neutral name (D10) |
+| 1 | `packet` | `app/client/sbaseview.h:66` | the handler's packet |
+| 1 | `Unknown_6A0FD0` | `app/client/sbaseview.h:66` | untagged neutral name (D10) |
+| 1 | `Unknown38` | `app/client/sbaseview.h:69` | untagged neutral name (D10) |
+| 1 | `Unknown64` | `app/client/sbaseview.h:69` | untagged neutral name (D10) |
+| 1 | `Unknown198` | `app/client/sbaseview.h:70` | untagged neutral name (D10) |
 | 1 | `Unknown_719E10` | `app/client/sclient.cpp:28` | untagged neutral name (D10) |
 | 1 | `Unknown_7228C0` | `app/client/sclient.cpp:29` | neutral (D10), as tsk_login.cpp |
 | 1 | `Unknown_723150` | `app/client/sclient.cpp:30` | neutral (D10), as tsk_login.cpp |
@@ -2593,6 +2623,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_765010` | `app/client/sclient.h:613` | untagged neutral name (D10) |
 | 1 | `Unknown77E3F0E8Class` | `app/client/sclient.h:619` | neutral (D10) |
 | 1 | `Unknown_00` | `app/client/sclient.h:622` | untagged neutral name (D10) |
+| 1 | `text` | `app/client/sclient.h:624` | what the handler passes |
 | 1 | `Unknown77E3F0Class` | `app/client/sclient.h:629` | neutral (D10) |
 | 1 | `data, size, flag` | `app/client/sclient.h:632` | what the handler passes |
 | 1 | `Unknown_784B80` | `app/client/sclient.h:632` | untagged neutral name (D10) |
@@ -5007,152 +5038,162 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_74B680` | `tests/capharness/clienttest/client_stubs.cpp:56` | untagged neutral name (D10) |
 | 1 | `Unknown_74BA30` | `tests/capharness/clienttest/client_stubs.cpp:57` | untagged neutral name (D10) |
 | 1 | `Unknown_74D990` | `tests/capharness/clienttest/client_stubs.cpp:58` | untagged neutral name (D10) |
-| 1 | `Unknown_74E710` | `tests/capharness/clienttest/client_stubs.cpp:70` | untagged neutral name (D10) |
-| 1 | `Unknown_751460` | `tests/capharness/clienttest/client_stubs.cpp:71` | untagged neutral name (D10) |
-| 1 | `Unknown_7517E0` | `tests/capharness/clienttest/client_stubs.cpp:72` | untagged neutral name (D10) |
-| 1 | `Unknown_751850` | `tests/capharness/clienttest/client_stubs.cpp:73` | untagged neutral name (D10) |
-| 1 | `Unknown_64` | `tests/capharness/clienttest/client_stubs.cpp:76` | untagged neutral name (D10) |
-| 1 | `UnknownB4Class` | `tests/capharness/clienttest/client_stubs.cpp:94` | untagged neutral name (D10) |
-| 1 | `Unknown_731FA0` | `tests/capharness/clienttest/client_stubs.cpp:94` | untagged neutral name (D10) |
-| 1 | `Unknown498C10Class` | `tests/capharness/clienttest/client_stubs.cpp:95` | untagged neutral name (D10) |
-| 1 | `Unknown00` | `tests/capharness/clienttest/client_stubs.cpp:95` | untagged neutral name (D10) |
-| 1 | `Unknown_498F00` | `tests/capharness/clienttest/client_stubs.cpp:96` | untagged neutral name (D10) |
-| 1 | `Unknown_7294D0` | `tests/capharness/clienttest/client_stubs.cpp:100` | untagged neutral name (D10) |
-| 1 | `Unknown_BE350C` | `tests/capharness/clienttest/client_stubs.cpp:108` | untagged neutral name (D10) |
-| 1 | `Unknown_BE5F34` | `tests/capharness/clienttest/client_stubs.cpp:109` | untagged neutral name (D10) |
-| 1 | `Unknown_744240` | `tests/capharness/clienttest/client_stubs.cpp:113` | untagged neutral name (D10) |
-| 1 | `Unknown_65F780` | `tests/capharness/clienttest/client_stubs.cpp:114` | untagged neutral name (D10) |
-| 1 | `Unknown_802960` | `tests/capharness/clienttest/client_stubs.cpp:115` | untagged neutral name (D10) |
-| 1 | `Unknown_6E74B0` | `tests/capharness/clienttest/client_stubs.cpp:120` | untagged neutral name (D10) |
-| 1 | `Unknown_6E6ED0` | `tests/capharness/clienttest/client_stubs.cpp:121` | untagged neutral name (D10) |
-| 1 | `Unknown_6E6E30` | `tests/capharness/clienttest/client_stubs.cpp:122` | untagged neutral name (D10) |
-| 1 | `Unknown_6E6A90` | `tests/capharness/clienttest/client_stubs.cpp:124` | untagged neutral name (D10) |
-| 1 | `Unknown_6E6AD0` | `tests/capharness/clienttest/client_stubs.cpp:125` | untagged neutral name (D10) |
-| 1 | `Unknown86CRecordClass` | `tests/capharness/clienttest/client_stubs.cpp:126` | untagged neutral name (D10) |
-| 1 | `Unknown831340Class` | `tests/capharness/clienttest/client_stubs.cpp:131` | untagged neutral name (D10) |
-| 1 | `Unknown763E00Class` | `tests/capharness/clienttest/client_stubs.cpp:137` | untagged neutral name (D10) |
-| 1 | `Unknown_763E70` | `tests/capharness/clienttest/client_stubs.cpp:139` | untagged neutral name (D10) |
-| 1 | `Unknown_763FF0` | `tests/capharness/clienttest/client_stubs.cpp:140` | untagged neutral name (D10) |
-| 1 | `Unknown_4604D0` | `tests/capharness/clienttest/client_stubs.cpp:148` | untagged neutral name (D10) |
-| 1 | `Unknown_460780` | `tests/capharness/clienttest/client_stubs.cpp:149` | untagged neutral name (D10) |
-| 1 | `Unknown_460850` | `tests/capharness/clienttest/client_stubs.cpp:150` | untagged neutral name (D10) |
-| 1 | `Unknown_460880` | `tests/capharness/clienttest/client_stubs.cpp:151` | untagged neutral name (D10) |
-| 1 | `Unknown_75AE30` | `tests/capharness/clienttest/client_stubs.cpp:161` | untagged neutral name (D10) |
-| 1 | `Unknown_75B0D0` | `tests/capharness/clienttest/client_stubs.cpp:162` | untagged neutral name (D10) |
-| 1 | `Unknown_75B170` | `tests/capharness/clienttest/client_stubs.cpp:163` | untagged neutral name (D10) |
-| 1 | `Unknown_75B2B0` | `tests/capharness/clienttest/client_stubs.cpp:164` | untagged neutral name (D10) |
-| 1 | `SClientUnknown1334Class` | `tests/capharness/clienttest/client_stubs.cpp:192` | untagged neutral name (D10) |
-| 1 | `Unknown_80E8C0` | `tests/capharness/clienttest/client_stubs.cpp:193` | untagged neutral name (D10) |
-| 1 | `Unknown_81F810` | `tests/capharness/clienttest/client_stubs.cpp:196` | untagged neutral name (D10) |
-| 1 | `Unknown_Assert_Failed` | `tests/capharness/clienttest/client_stubs.cpp:200` | untagged neutral name (D10) |
-| 1 | `Unknown_Fail_If_Report` | `tests/capharness/clienttest/client_stubs.cpp:201` | untagged neutral name (D10) |
-| 1 | `Unknown_Debug_Begin_Step` | `tests/capharness/clienttest/client_stubs.cpp:202` | untagged neutral name (D10) |
-| 1 | `Unknown_Debug_End_Step` | `tests/capharness/clienttest/client_stubs.cpp:203` | untagged neutral name (D10) |
-| 1 | `Unknown_Debug_Print` | `tests/capharness/clienttest/client_stubs.cpp:204` | untagged neutral name (D10) |
-| 1 | `Unknown_C07550` | `tests/capharness/clienttest/client_stubs.cpp:209` | untagged neutral name (D10) |
-| 1 | `Unknown_C404D8Struct` | `tests/capharness/clienttest/client_stubs.cpp:219` | untagged neutral name (D10) |
-| 1 | `Unknown0000` | `tests/capharness/clienttest/client_stubs.cpp:221` | untagged neutral name (D10) |
-| 1 | `Unknown19A5` | `tests/capharness/clienttest/client_stubs.cpp:222` | untagged neutral name (D10) |
-| 1 | `Unknown_C404D8` | `tests/capharness/clienttest/client_stubs.cpp:225` | untagged neutral name (D10) |
-| 1 | `UnknownGlobal` | `tests/capharness/clienttest/client_stubs.cpp:244` | untagged neutral name (D10) |
-| 1 | `UnknownB02C90Class` | `tests/capharness/clienttest/client_stubs.cpp:252` | untagged neutral name (D10) |
-| 1 | `Unknown_8ADB20` | `tests/capharness/clienttest/client_stubs.cpp:254` | untagged neutral name (D10) |
-| 1 | `SClientUnknown1338Class` | `tests/capharness/clienttest/client_stubs.cpp:257` | untagged neutral name (D10) |
-| 1 | `Unknown_80EFF0` | `tests/capharness/clienttest/client_stubs.cpp:258` | untagged neutral name (D10) |
-| 1 | `Unknown_80F220` | `tests/capharness/clienttest/client_stubs.cpp:263` | untagged neutral name (D10) |
-| 1 | `Unknown6E9490TargetClass` | `tests/capharness/clienttest/client_stubs.cpp:281` | untagged neutral name (D10) |
-| 1 | `Unknown_00` | `tests/capharness/clienttest/client_stubs.cpp:284` | untagged neutral name (D10) |
-| 1 | `Unknown_04` | `tests/capharness/clienttest/client_stubs.cpp:285` | untagged neutral name (D10) |
-| 1 | `Unknown_08` | `tests/capharness/clienttest/client_stubs.cpp:286` | untagged neutral name (D10) |
-| 1 | `Unknown_0C` | `tests/capharness/clienttest/client_stubs.cpp:287` | untagged neutral name (D10) |
-| 1 | `Unknown_10` | `tests/capharness/clienttest/client_stubs.cpp:288` | untagged neutral name (D10) |
-| 1 | `Unknown_14` | `tests/capharness/clienttest/client_stubs.cpp:289` | untagged neutral name (D10) |
-| 1 | `Unknown_18` | `tests/capharness/clienttest/client_stubs.cpp:290` | untagged neutral name (D10) |
-| 1 | `Unknown_1C` | `tests/capharness/clienttest/client_stubs.cpp:291` | untagged neutral name (D10) |
-| 1 | `Unknown_20` | `tests/capharness/clienttest/client_stubs.cpp:292` | untagged neutral name (D10) |
-| 1 | `Unknown_24` | `tests/capharness/clienttest/client_stubs.cpp:293` | untagged neutral name (D10) |
-| 1 | `Unknown_28` | `tests/capharness/clienttest/client_stubs.cpp:294` | untagged neutral name (D10) |
-| 1 | `Unknown_2C` | `tests/capharness/clienttest/client_stubs.cpp:295` | untagged neutral name (D10) |
-| 1 | `UnknownB0009CEffectClass` | `tests/capharness/clienttest/client_stubs.cpp:312` | untagged neutral name (D10) |
-| 1 | `Unknown_30` | `tests/capharness/clienttest/client_stubs.cpp:319` | untagged neutral name (D10) |
-| 1 | `Unknown_34` | `tests/capharness/clienttest/client_stubs.cpp:320` | untagged neutral name (D10) |
-| 1 | `Unknown_38` | `tests/capharness/clienttest/client_stubs.cpp:321` | untagged neutral name (D10) |
-| 1 | `Unknown_6E82A0` | `tests/capharness/clienttest/client_stubs.cpp:322` | untagged neutral name (D10) |
-| 1 | `Unknown04` | `tests/capharness/clienttest/client_stubs.cpp:323` | untagged neutral name (D10) |
-| 1 | `Unknown80` | `tests/capharness/clienttest/client_stubs.cpp:325` | untagged neutral name (D10) |
-| 1 | `Unknown6E9490BinaryClass` | `tests/capharness/clienttest/client_stubs.cpp:339` | untagged neutral name (D10) |
-| 1 | `Unknown6E9490EffectClass` | `tests/capharness/clienttest/client_stubs.cpp:346` | untagged neutral name (D10) |
-| 1 | `Unknown_6E9490` | `tests/capharness/clienttest/client_stubs.cpp:361` | untagged neutral name (D10) |
-| 1 | `Unknown_42A1A0` | `tests/capharness/clienttest/client_stubs.cpp:381` | untagged neutral name (D10) |
-| 1 | `Unknown_BE71D4` | `tests/capharness/clienttest/clienttest.cpp:100` | untagged neutral name (D10) |
-| 1 | `Unknown_Get_Ticks` | `tests/capharness/clienttest/clienttest.cpp:102` | untagged neutral name (D10) |
-| 1 | `Unknown_8B4510` | `tests/capharness/clienttest/clienttest.cpp:113` | untagged neutral name (D10) |
-| 1 | `Unknown_8B4560` | `tests/capharness/clienttest/clienttest.cpp:114` | untagged neutral name (D10) |
-| 1 | `Unknown04` | `tests/capharness/clienttest/clienttest.cpp:163` | untagged neutral name (D10) |
-| 1 | `Unknown_0C` | `tests/capharness/clienttest/clienttest.cpp:183` | untagged neutral name (D10) |
-| 1 | `Unknown68` | `tests/capharness/clienttest/clienttest.cpp:186` | untagged neutral name (D10) |
-| 1 | `UnknownRootClass` | `tests/capharness/clienttest/clienttest.cpp:222` | untagged neutral name (D10) |
-| 1 | `UnknownCOClass` | `tests/capharness/clienttest/clienttest.cpp:222` | untagged neutral name (D10) |
-| 1 | `Unknown_Create_Aux_Root` | `tests/capharness/clienttest/clienttest.cpp:222` | untagged neutral name (D10) |
-| 1 | `UnknownBDADC0Class` | `tests/capharness/clienttest/clienttest.cpp:244` | untagged neutral name (D10) |
-| 1 | `Unknown_78` | `tests/capharness/clienttest/clienttest.cpp:247` | untagged neutral name (D10) |
-| 1 | `Unknown_BDADC0` | `tests/capharness/clienttest/clienttest.cpp:250` | untagged neutral name (D10) |
-| 1 | `Unknown_Create_Packet` | `tests/capharness/clienttest/clienttest.cpp:478` | untagged neutral name (D10) |
-| 1 | `Unknown` | `tests/capharness/clienttest/clienttest.cpp:537` | untagged neutral name (D10) |
-| 1 | `Unknown_728370` | `tests/capharness/clienttest/clienttest.cpp:554` | untagged neutral name (D10) |
-| 1 | `Unknown11` | `tests/capharness/clienttest/clienttest.cpp:614` | untagged neutral name (D10) |
-| 1 | `Unknown10D4` | `tests/capharness/clienttest/clienttest.cpp:698` | untagged neutral name (D10) |
-| 1 | `Unknown10D8` | `tests/capharness/clienttest/clienttest.cpp:698` | untagged neutral name (D10) |
-| 1 | `Unknown1138` | `tests/capharness/clienttest/clienttest.cpp:716` | untagged neutral name (D10) |
-| 1 | `Unknown10C0` | `tests/capharness/clienttest/clienttest.cpp:727` | untagged neutral name (D10) |
-| 1 | `Unknown10C8` | `tests/capharness/clienttest/clienttest.cpp:727` | untagged neutral name (D10) |
-| 1 | `Unknown10D0` | `tests/capharness/clienttest/clienttest.cpp:727` | untagged neutral name (D10) |
-| 1 | `Unknown10BC` | `tests/capharness/clienttest/clienttest.cpp:874` | untagged neutral name (D10) |
-| 1 | `Unknown1128` | `tests/capharness/clienttest/clienttest.cpp:877` | untagged neutral name (D10) |
-| 1 | `Unknown1198` | `tests/capharness/clienttest/clienttest.cpp:879` | untagged neutral name (D10) |
-| 1 | `Unknown158` | `tests/capharness/clienttest/clienttest.cpp:909` | untagged neutral name (D10) |
-| 1 | `Unknown98` | `tests/capharness/clienttest/clienttest.cpp:912` | untagged neutral name (D10) |
-| 1 | `Unknown_04` | `tests/capharness/clienttest/clienttest.cpp:912` | untagged neutral name (D10) |
-| 1 | `Unknown98Class` | `tests/capharness/clienttest/clienttest.cpp:933` | untagged neutral name (D10) |
-| 1 | `Unknown70E2E0Class` | `tests/capharness/clienttest/clienttest.cpp:1004` | untagged neutral name (D10) |
-| 1 | `Unknown_Dyn04` | `tests/capharness/clienttest/clienttest.cpp:1006` | untagged neutral name (D10) |
-| 1 | `Unknown220` | `tests/capharness/clienttest/clienttest.cpp:1010` | untagged neutral name (D10) |
-| 1 | `Unknown_Dyn20` | `tests/capharness/clienttest/clienttest.cpp:1012` | untagged neutral name (D10) |
-| 1 | `Unknown_Dyn30` | `tests/capharness/clienttest/clienttest.cpp:1012` | untagged neutral name (D10) |
-| 1 | `Unknown_40` | `tests/capharness/clienttest/clienttest.cpp:1014` | untagged neutral name (D10) |
-| 1 | `Unknown_44` | `tests/capharness/clienttest/clienttest.cpp:1014` | untagged neutral name (D10) |
-| 1 | `Unknown_6F5DC0` | `tests/capharness/clienttest/clienttest.cpp:1019` | untagged neutral name (D10) |
-| 1 | `Unknown70E5A0Class` | `tests/capharness/clienttest/clienttest.cpp:1022` | untagged neutral name (D10) |
-| 1 | `Unknown1D0` | `tests/capharness/clienttest/clienttest.cpp:1023` | untagged neutral name (D10) |
-| 1 | `Unknown_6603A0` | `tests/capharness/clienttest/clienttest.cpp:1049` | untagged neutral name (D10) |
-| 1 | `Unknown_6607D0` | `tests/capharness/clienttest/clienttest.cpp:1050` | untagged neutral name (D10) |
-| 1 | `Unknown_661940` | `tests/capharness/clienttest/clienttest.cpp:1055` | untagged neutral name (D10) |
-| 1 | `Unknown_584690` | `tests/capharness/clienttest/clienttest.cpp:1074` | untagged neutral name (D10) |
-| 1 | `Unknown0C` | `tests/capharness/clienttest/clienttest.cpp:1076` | untagged neutral name (D10) |
-| 1 | `Unknown1278` | `tests/capharness/clienttest/clienttest.cpp:1097` | untagged neutral name (D10) |
-| 1 | `Unknown714340Class` | `tests/capharness/clienttest/clienttest.cpp:1145` | untagged neutral name (D10) |
-| 1 | `UnknownB027A0Class` | `tests/capharness/clienttest/clienttest.cpp:1150` | untagged neutral name (D10) |
-| 1 | `Unknown_81F780` | `tests/capharness/clienttest/clienttest.cpp:1201` | untagged neutral name (D10) |
-| 1 | `Unknown_63CF30` | `tests/capharness/clienttest/clienttest.cpp:1244` | untagged neutral name (D10) |
-| 1 | `Unknown_63E5C0` | `tests/capharness/clienttest/clienttest.cpp:1245` | untagged neutral name (D10) |
-| 1 | `Unknown_6437A0` | `tests/capharness/clienttest/clienttest.cpp:1246` | untagged neutral name (D10) |
-| 1 | `Unknown135C` | `tests/capharness/clienttest/clienttest.cpp:1289` | untagged neutral name (D10) |
-| 1 | `SBaseViewUnknown1A0Class` | `tests/capharness/clienttest/clienttest.cpp:1329` | untagged neutral name (D10) |
-| 1 | `Unknown_61F250` | `tests/capharness/clienttest/clienttest.cpp:1329` | untagged neutral name (D10) |
-| 1 | `SBaseViewUnknown19CClass` | `tests/capharness/clienttest/clienttest.cpp:1330` | untagged neutral name (D10) |
-| 1 | `Unknown_551C40` | `tests/capharness/clienttest/clienttest.cpp:1330` | untagged neutral name (D10) |
-| 1 | `Unknown6B2460Class` | `tests/capharness/clienttest/clienttest.cpp:1390` | untagged neutral name (D10) |
-| 1 | `Unknown_6B3340` | `tests/capharness/clienttest/clienttest.cpp:1390` | untagged neutral name (D10) |
-| 1 | `Unknown84` | `tests/capharness/clienttest/clienttest.cpp:1390` | untagged neutral name (D10) |
-| 1 | `Unknown6AF220Class` | `tests/capharness/clienttest/clienttest.cpp:1391` | untagged neutral name (D10) |
-| 1 | `Unknown_6B09D0` | `tests/capharness/clienttest/clienttest.cpp:1391` | untagged neutral name (D10) |
-| 1 | `Unknown_5981B0` | `tests/capharness/clienttest/clienttest.cpp:1453` | untagged neutral name (D10) |
-| 1 | `Unknown_598200` | `tests/capharness/clienttest/clienttest.cpp:1454` | untagged neutral name (D10) |
-| 1 | `Unknown_5982A0` | `tests/capharness/clienttest/clienttest.cpp:1455` | untagged neutral name (D10) |
-| 1 | `Unknown13C0` | `tests/capharness/clienttest/clienttest.cpp:1474` | untagged neutral name (D10) |
-| 1 | `Unknown12C4` | `tests/capharness/clienttest/clienttest.cpp:1571` | untagged neutral name (D10) |
-| 1 | `SClientUnknown12C4Class` | `tests/capharness/clienttest/clienttest.cpp:1571` | untagged neutral name (D10) |
-| 1 | `Unknown_18` | `tests/capharness/clienttest/clienttest.cpp:1572` | untagged neutral name (D10) |
+| 1 | `Unknown_74E710` | `tests/capharness/clienttest/client_stubs.cpp:73` | untagged neutral name (D10) |
+| 1 | `Unknown_751460` | `tests/capharness/clienttest/client_stubs.cpp:74` | untagged neutral name (D10) |
+| 1 | `Unknown_7517E0` | `tests/capharness/clienttest/client_stubs.cpp:75` | untagged neutral name (D10) |
+| 1 | `Unknown_751850` | `tests/capharness/clienttest/client_stubs.cpp:76` | untagged neutral name (D10) |
+| 1 | `Unknown_64` | `tests/capharness/clienttest/client_stubs.cpp:79` | untagged neutral name (D10) |
+| 1 | `UnknownB4Class` | `tests/capharness/clienttest/client_stubs.cpp:97` | untagged neutral name (D10) |
+| 1 | `Unknown_731FA0` | `tests/capharness/clienttest/client_stubs.cpp:97` | untagged neutral name (D10) |
+| 1 | `Unknown498C10Class` | `tests/capharness/clienttest/client_stubs.cpp:98` | untagged neutral name (D10) |
+| 1 | `Unknown00` | `tests/capharness/clienttest/client_stubs.cpp:98` | untagged neutral name (D10) |
+| 1 | `Unknown_498F00` | `tests/capharness/clienttest/client_stubs.cpp:99` | untagged neutral name (D10) |
+| 1 | `Unknown_7294D0` | `tests/capharness/clienttest/client_stubs.cpp:103` | untagged neutral name (D10) |
+| 1 | `Unknown_BE350C` | `tests/capharness/clienttest/client_stubs.cpp:111` | untagged neutral name (D10) |
+| 1 | `Unknown_BE5F34` | `tests/capharness/clienttest/client_stubs.cpp:112` | untagged neutral name (D10) |
+| 1 | `Unknown_744240` | `tests/capharness/clienttest/client_stubs.cpp:116` | untagged neutral name (D10) |
+| 1 | `Unknown_65F780` | `tests/capharness/clienttest/client_stubs.cpp:117` | untagged neutral name (D10) |
+| 1 | `Unknown_802960` | `tests/capharness/clienttest/client_stubs.cpp:118` | untagged neutral name (D10) |
+| 1 | `Unknown_6E74B0` | `tests/capharness/clienttest/client_stubs.cpp:123` | untagged neutral name (D10) |
+| 1 | `Unknown_6E6ED0` | `tests/capharness/clienttest/client_stubs.cpp:124` | untagged neutral name (D10) |
+| 1 | `Unknown_6E6E30` | `tests/capharness/clienttest/client_stubs.cpp:125` | untagged neutral name (D10) |
+| 1 | `Unknown_6E6A90` | `tests/capharness/clienttest/client_stubs.cpp:127` | untagged neutral name (D10) |
+| 1 | `Unknown_6E6AD0` | `tests/capharness/clienttest/client_stubs.cpp:128` | untagged neutral name (D10) |
+| 1 | `Unknown86CRecordClass` | `tests/capharness/clienttest/client_stubs.cpp:129` | untagged neutral name (D10) |
+| 1 | `Unknown831340Class` | `tests/capharness/clienttest/client_stubs.cpp:134` | untagged neutral name (D10) |
+| 1 | `Unknown763E00Class` | `tests/capharness/clienttest/client_stubs.cpp:140` | untagged neutral name (D10) |
+| 1 | `Unknown_763E70` | `tests/capharness/clienttest/client_stubs.cpp:142` | untagged neutral name (D10) |
+| 1 | `Unknown_763FF0` | `tests/capharness/clienttest/client_stubs.cpp:143` | untagged neutral name (D10) |
+| 1 | `Unknown_4604D0` | `tests/capharness/clienttest/client_stubs.cpp:151` | untagged neutral name (D10) |
+| 1 | `Unknown_460780` | `tests/capharness/clienttest/client_stubs.cpp:152` | untagged neutral name (D10) |
+| 1 | `Unknown_460850` | `tests/capharness/clienttest/client_stubs.cpp:153` | untagged neutral name (D10) |
+| 1 | `Unknown_460880` | `tests/capharness/clienttest/client_stubs.cpp:154` | untagged neutral name (D10) |
+| 1 | `Unknown_75AE30` | `tests/capharness/clienttest/client_stubs.cpp:164` | untagged neutral name (D10) |
+| 1 | `Unknown_75B0D0` | `tests/capharness/clienttest/client_stubs.cpp:165` | untagged neutral name (D10) |
+| 1 | `Unknown_75B170` | `tests/capharness/clienttest/client_stubs.cpp:166` | untagged neutral name (D10) |
+| 1 | `Unknown_75B2B0` | `tests/capharness/clienttest/client_stubs.cpp:167` | untagged neutral name (D10) |
+| 1 | `SClientUnknown1334Class` | `tests/capharness/clienttest/client_stubs.cpp:195` | untagged neutral name (D10) |
+| 1 | `Unknown_80E8C0` | `tests/capharness/clienttest/client_stubs.cpp:196` | untagged neutral name (D10) |
+| 1 | `Unknown_81F810` | `tests/capharness/clienttest/client_stubs.cpp:199` | untagged neutral name (D10) |
+| 1 | `Unknown_Assert_Failed` | `tests/capharness/clienttest/client_stubs.cpp:203` | untagged neutral name (D10) |
+| 1 | `Unknown_Fail_If_Report` | `tests/capharness/clienttest/client_stubs.cpp:204` | untagged neutral name (D10) |
+| 1 | `Unknown_Debug_Begin_Step` | `tests/capharness/clienttest/client_stubs.cpp:205` | untagged neutral name (D10) |
+| 1 | `Unknown_Debug_End_Step` | `tests/capharness/clienttest/client_stubs.cpp:206` | untagged neutral name (D10) |
+| 1 | `Unknown_Debug_Print` | `tests/capharness/clienttest/client_stubs.cpp:207` | untagged neutral name (D10) |
+| 1 | `Unknown_C07550` | `tests/capharness/clienttest/client_stubs.cpp:212` | untagged neutral name (D10) |
+| 1 | `Unknown_C404D8Struct` | `tests/capharness/clienttest/client_stubs.cpp:222` | untagged neutral name (D10) |
+| 1 | `Unknown0000` | `tests/capharness/clienttest/client_stubs.cpp:224` | untagged neutral name (D10) |
+| 1 | `Unknown19A5` | `tests/capharness/clienttest/client_stubs.cpp:225` | untagged neutral name (D10) |
+| 1 | `Unknown_C404D8` | `tests/capharness/clienttest/client_stubs.cpp:228` | untagged neutral name (D10) |
+| 1 | `UnknownGlobal` | `tests/capharness/clienttest/client_stubs.cpp:247` | untagged neutral name (D10) |
+| 1 | `UnknownB02C90Class` | `tests/capharness/clienttest/client_stubs.cpp:255` | untagged neutral name (D10) |
+| 1 | `Unknown_8ADB20` | `tests/capharness/clienttest/client_stubs.cpp:257` | untagged neutral name (D10) |
+| 1 | `SClientUnknown1338Class` | `tests/capharness/clienttest/client_stubs.cpp:260` | untagged neutral name (D10) |
+| 1 | `Unknown_80EFF0` | `tests/capharness/clienttest/client_stubs.cpp:261` | untagged neutral name (D10) |
+| 1 | `Unknown_80F220` | `tests/capharness/clienttest/client_stubs.cpp:266` | untagged neutral name (D10) |
+| 1 | `Unknown6E9490TargetClass` | `tests/capharness/clienttest/client_stubs.cpp:284` | untagged neutral name (D10) |
+| 1 | `Unknown_00` | `tests/capharness/clienttest/client_stubs.cpp:287` | untagged neutral name (D10) |
+| 1 | `Unknown_04` | `tests/capharness/clienttest/client_stubs.cpp:288` | untagged neutral name (D10) |
+| 1 | `Unknown_08` | `tests/capharness/clienttest/client_stubs.cpp:289` | untagged neutral name (D10) |
+| 1 | `Unknown_0C` | `tests/capharness/clienttest/client_stubs.cpp:290` | untagged neutral name (D10) |
+| 1 | `Unknown_10` | `tests/capharness/clienttest/client_stubs.cpp:291` | untagged neutral name (D10) |
+| 1 | `Unknown_14` | `tests/capharness/clienttest/client_stubs.cpp:292` | untagged neutral name (D10) |
+| 1 | `Unknown_18` | `tests/capharness/clienttest/client_stubs.cpp:293` | untagged neutral name (D10) |
+| 1 | `Unknown_1C` | `tests/capharness/clienttest/client_stubs.cpp:294` | untagged neutral name (D10) |
+| 1 | `Unknown_20` | `tests/capharness/clienttest/client_stubs.cpp:295` | untagged neutral name (D10) |
+| 1 | `Unknown_24` | `tests/capharness/clienttest/client_stubs.cpp:296` | untagged neutral name (D10) |
+| 1 | `Unknown_28` | `tests/capharness/clienttest/client_stubs.cpp:297` | untagged neutral name (D10) |
+| 1 | `Unknown_2C` | `tests/capharness/clienttest/client_stubs.cpp:298` | untagged neutral name (D10) |
+| 1 | `UnknownB0009CEffectClass` | `tests/capharness/clienttest/client_stubs.cpp:315` | untagged neutral name (D10) |
+| 1 | `Unknown_30` | `tests/capharness/clienttest/client_stubs.cpp:322` | untagged neutral name (D10) |
+| 1 | `Unknown_34` | `tests/capharness/clienttest/client_stubs.cpp:323` | untagged neutral name (D10) |
+| 1 | `Unknown_38` | `tests/capharness/clienttest/client_stubs.cpp:324` | untagged neutral name (D10) |
+| 1 | `Unknown_6E82A0` | `tests/capharness/clienttest/client_stubs.cpp:325` | untagged neutral name (D10) |
+| 1 | `Unknown04` | `tests/capharness/clienttest/client_stubs.cpp:326` | untagged neutral name (D10) |
+| 1 | `Unknown80` | `tests/capharness/clienttest/client_stubs.cpp:328` | untagged neutral name (D10) |
+| 1 | `Unknown6E9490BinaryClass` | `tests/capharness/clienttest/client_stubs.cpp:342` | untagged neutral name (D10) |
+| 1 | `Unknown6E9490EffectClass` | `tests/capharness/clienttest/client_stubs.cpp:349` | untagged neutral name (D10) |
+| 1 | `Unknown_6E9490` | `tests/capharness/clienttest/client_stubs.cpp:364` | untagged neutral name (D10) |
+| 1 | `Unknown_42A1A0` | `tests/capharness/clienttest/client_stubs.cpp:384` | untagged neutral name (D10) |
+| 1 | `Unknown_BE71D4` | `tests/capharness/clienttest/clienttest.cpp:106` | untagged neutral name (D10) |
+| 1 | `Unknown_Get_Ticks` | `tests/capharness/clienttest/clienttest.cpp:108` | untagged neutral name (D10) |
+| 1 | `Unknown_8B4510` | `tests/capharness/clienttest/clienttest.cpp:119` | untagged neutral name (D10) |
+| 1 | `Unknown_8B4560` | `tests/capharness/clienttest/clienttest.cpp:120` | untagged neutral name (D10) |
+| 1 | `Unknown04` | `tests/capharness/clienttest/clienttest.cpp:169` | untagged neutral name (D10) |
+| 1 | `Unknown_0C` | `tests/capharness/clienttest/clienttest.cpp:189` | untagged neutral name (D10) |
+| 1 | `Unknown68` | `tests/capharness/clienttest/clienttest.cpp:192` | untagged neutral name (D10) |
+| 1 | `UnknownRootClass` | `tests/capharness/clienttest/clienttest.cpp:228` | untagged neutral name (D10) |
+| 1 | `UnknownCOClass` | `tests/capharness/clienttest/clienttest.cpp:228` | untagged neutral name (D10) |
+| 1 | `Unknown_Create_Aux_Root` | `tests/capharness/clienttest/clienttest.cpp:228` | untagged neutral name (D10) |
+| 1 | `UnknownBDADC0Class` | `tests/capharness/clienttest/clienttest.cpp:250` | untagged neutral name (D10) |
+| 1 | `Unknown_78` | `tests/capharness/clienttest/clienttest.cpp:253` | untagged neutral name (D10) |
+| 1 | `Unknown_BDADC0` | `tests/capharness/clienttest/clienttest.cpp:256` | untagged neutral name (D10) |
+| 1 | `Unknown_Create_Packet` | `tests/capharness/clienttest/clienttest.cpp:484` | untagged neutral name (D10) |
+| 1 | `Unknown` | `tests/capharness/clienttest/clienttest.cpp:543` | untagged neutral name (D10) |
+| 1 | `Unknown_728370` | `tests/capharness/clienttest/clienttest.cpp:560` | untagged neutral name (D10) |
+| 1 | `Unknown11` | `tests/capharness/clienttest/clienttest.cpp:620` | untagged neutral name (D10) |
+| 1 | `Unknown10D4` | `tests/capharness/clienttest/clienttest.cpp:704` | untagged neutral name (D10) |
+| 1 | `Unknown10D8` | `tests/capharness/clienttest/clienttest.cpp:704` | untagged neutral name (D10) |
+| 1 | `Unknown1138` | `tests/capharness/clienttest/clienttest.cpp:722` | untagged neutral name (D10) |
+| 1 | `Unknown10C0` | `tests/capharness/clienttest/clienttest.cpp:733` | untagged neutral name (D10) |
+| 1 | `Unknown10C8` | `tests/capharness/clienttest/clienttest.cpp:733` | untagged neutral name (D10) |
+| 1 | `Unknown10D0` | `tests/capharness/clienttest/clienttest.cpp:733` | untagged neutral name (D10) |
+| 1 | `Unknown10BC` | `tests/capharness/clienttest/clienttest.cpp:880` | untagged neutral name (D10) |
+| 1 | `Unknown1128` | `tests/capharness/clienttest/clienttest.cpp:883` | untagged neutral name (D10) |
+| 1 | `Unknown1198` | `tests/capharness/clienttest/clienttest.cpp:885` | untagged neutral name (D10) |
+| 1 | `Unknown158` | `tests/capharness/clienttest/clienttest.cpp:915` | untagged neutral name (D10) |
+| 1 | `Unknown98` | `tests/capharness/clienttest/clienttest.cpp:918` | untagged neutral name (D10) |
+| 1 | `Unknown_04` | `tests/capharness/clienttest/clienttest.cpp:918` | untagged neutral name (D10) |
+| 1 | `Unknown98Class` | `tests/capharness/clienttest/clienttest.cpp:939` | untagged neutral name (D10) |
+| 1 | `Unknown70E2E0Class` | `tests/capharness/clienttest/clienttest.cpp:1010` | untagged neutral name (D10) |
+| 1 | `Unknown_Dyn04` | `tests/capharness/clienttest/clienttest.cpp:1012` | untagged neutral name (D10) |
+| 1 | `Unknown220` | `tests/capharness/clienttest/clienttest.cpp:1016` | untagged neutral name (D10) |
+| 1 | `Unknown_Dyn20` | `tests/capharness/clienttest/clienttest.cpp:1018` | untagged neutral name (D10) |
+| 1 | `Unknown_Dyn30` | `tests/capharness/clienttest/clienttest.cpp:1018` | untagged neutral name (D10) |
+| 1 | `Unknown_40` | `tests/capharness/clienttest/clienttest.cpp:1020` | untagged neutral name (D10) |
+| 1 | `Unknown_44` | `tests/capharness/clienttest/clienttest.cpp:1020` | untagged neutral name (D10) |
+| 1 | `Unknown_6F5DC0` | `tests/capharness/clienttest/clienttest.cpp:1025` | untagged neutral name (D10) |
+| 1 | `Unknown70E5A0Class` | `tests/capharness/clienttest/clienttest.cpp:1028` | untagged neutral name (D10) |
+| 1 | `Unknown1D0` | `tests/capharness/clienttest/clienttest.cpp:1029` | untagged neutral name (D10) |
+| 1 | `Unknown_6603A0` | `tests/capharness/clienttest/clienttest.cpp:1055` | untagged neutral name (D10) |
+| 1 | `Unknown_6607D0` | `tests/capharness/clienttest/clienttest.cpp:1056` | untagged neutral name (D10) |
+| 1 | `Unknown_661940` | `tests/capharness/clienttest/clienttest.cpp:1061` | untagged neutral name (D10) |
+| 1 | `Unknown_584690` | `tests/capharness/clienttest/clienttest.cpp:1080` | untagged neutral name (D10) |
+| 1 | `Unknown0C` | `tests/capharness/clienttest/clienttest.cpp:1082` | untagged neutral name (D10) |
+| 1 | `Unknown1278` | `tests/capharness/clienttest/clienttest.cpp:1103` | untagged neutral name (D10) |
+| 1 | `Unknown714340Class` | `tests/capharness/clienttest/clienttest.cpp:1151` | untagged neutral name (D10) |
+| 1 | `UnknownB027A0Class` | `tests/capharness/clienttest/clienttest.cpp:1156` | untagged neutral name (D10) |
+| 1 | `Unknown_81F780` | `tests/capharness/clienttest/clienttest.cpp:1207` | untagged neutral name (D10) |
+| 1 | `Unknown_63CF30` | `tests/capharness/clienttest/clienttest.cpp:1250` | untagged neutral name (D10) |
+| 1 | `Unknown_63E5C0` | `tests/capharness/clienttest/clienttest.cpp:1251` | untagged neutral name (D10) |
+| 1 | `Unknown_6437A0` | `tests/capharness/clienttest/clienttest.cpp:1252` | untagged neutral name (D10) |
+| 1 | `Unknown_640110` | `tests/capharness/clienttest/clienttest.cpp:1253` | untagged neutral name (D10) |
+| 1 | `Unknown135C` | `tests/capharness/clienttest/clienttest.cpp:1296` | untagged neutral name (D10) |
+| 1 | `SBaseViewUnknown1A0Class` | `tests/capharness/clienttest/clienttest.cpp:1336` | untagged neutral name (D10) |
+| 1 | `Unknown_61F250` | `tests/capharness/clienttest/clienttest.cpp:1336` | untagged neutral name (D10) |
+| 1 | `SBaseViewUnknown19CClass` | `tests/capharness/clienttest/clienttest.cpp:1337` | untagged neutral name (D10) |
+| 1 | `Unknown_551C40` | `tests/capharness/clienttest/clienttest.cpp:1337` | untagged neutral name (D10) |
+| 1 | `Unknown6B2460Class` | `tests/capharness/clienttest/clienttest.cpp:1397` | untagged neutral name (D10) |
+| 1 | `Unknown_6B3340` | `tests/capharness/clienttest/clienttest.cpp:1397` | untagged neutral name (D10) |
+| 1 | `Unknown84` | `tests/capharness/clienttest/clienttest.cpp:1397` | untagged neutral name (D10) |
+| 1 | `Unknown6AF220Class` | `tests/capharness/clienttest/clienttest.cpp:1398` | untagged neutral name (D10) |
+| 1 | `Unknown_6B09D0` | `tests/capharness/clienttest/clienttest.cpp:1398` | untagged neutral name (D10) |
+| 1 | `Unknown_5981B0` | `tests/capharness/clienttest/clienttest.cpp:1460` | untagged neutral name (D10) |
+| 1 | `Unknown_598200` | `tests/capharness/clienttest/clienttest.cpp:1461` | untagged neutral name (D10) |
+| 1 | `Unknown_5982A0` | `tests/capharness/clienttest/clienttest.cpp:1462` | untagged neutral name (D10) |
+| 1 | `Unknown13C0` | `tests/capharness/clienttest/clienttest.cpp:1481` | untagged neutral name (D10) |
+| 1 | `Unknown_5E2F70` | `tests/capharness/clienttest/clienttest.cpp:1511` | untagged neutral name (D10) |
+| 1 | `Unknown_5E3050` | `tests/capharness/clienttest/clienttest.cpp:1512` | untagged neutral name (D10) |
+| 1 | `Unknown_5E3130` | `tests/capharness/clienttest/clienttest.cpp:1513` | untagged neutral name (D10) |
+| 1 | `Unknown8B5D90Class` | `tests/capharness/clienttest/clienttest.cpp:1532` | untagged neutral name (D10) |
+| 1 | `Unknown_8B7C60` | `tests/capharness/clienttest/clienttest.cpp:1538` | untagged neutral name (D10) |
+| 1 | `Unknown_8B6FC0` | `tests/capharness/clienttest/clienttest.cpp:1539` | untagged neutral name (D10) |
+| 1 | `Unknown00` | `tests/capharness/clienttest/clienttest.cpp:1540` | untagged neutral name (D10) |
+| 1 | `Unknown_59A400` | `tests/capharness/clienttest/clienttest.cpp:1562` | untagged neutral name (D10) |
+| 1 | `Unknown1134` | `tests/capharness/clienttest/clienttest.cpp:1596` | untagged neutral name (D10) |
+| 1 | `Unknown12C4` | `tests/capharness/clienttest/clienttest.cpp:1746` | untagged neutral name (D10) |
+| 1 | `SClientUnknown12C4Class` | `tests/capharness/clienttest/clienttest.cpp:1746` | untagged neutral name (D10) |
+| 1 | `Unknown_18` | `tests/capharness/clienttest/clienttest.cpp:1747` | untagged neutral name (D10) |
 | 1 | `Unknown_Get_Ticks` | `tests/capharness/kerneltest/kerneltest.cpp:21` | untagged neutral name (D10) |
 | 1 | `Unknown_9179D0` | `tests/capharness/kerneltest/kerneltest.cpp:22` | untagged neutral name (D10) |
 | 1 | `Unknown_42EA80` | `tests/capharness/kerneltest/kerneltest.cpp:25` | untagged neutral name (D10) |
@@ -5877,10 +5918,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Velocity` | `app/client/postate.h:338` | what it holds |
 | 2 | `Time` | `app/client/postate.h:339` | what it holds |
 | 2 | `Room` | `app/client/sbaseview.h:34` | what the handler compares with the packet's Room |
-| 2 | `Get_Jobs` | `app/client/sbaseview.h:56` | what it returns |
-| 2 | `Get_Starbase` | `app/client/sbaseview.h:57` | what it returns |
-| 2 | `Starbase` | `app/client/sbaseview.h:58` | what it holds |
-| 2 | `Jobs` | `app/client/sbaseview.h:59` | what it holds; +0x19C / +0x1A0  // NAME 3 [AvatarUI, ShipUI]: the recustomize handlers' '!avatar_ui' / '!ship_ui' tests |
+| 2 | `Get_Jobs` | `app/client/sbaseview.h:67` | what it returns |
+| 2 | `Get_Starbase` | `app/client/sbaseview.h:68` | what it returns |
+| 2 | `Starbase` | `app/client/sbaseview.h:69` | what it holds |
+| 2 | `Jobs` | `app/client/sbaseview.h:70` | what it holds; +0x19C / +0x1A0  // NAME 3 [AvatarUI, ShipUI]: the recustomize handlers' '!avatar_ui' / '!ship_ui' tests |
 | 2 | `Unknown_Load_Assets` | `app/client/sclient.cpp:40` | 0x729BF0 (client_lego_impl.cpp), 'cbasset.ini' (as tsk_smovie.cpp) |
 | 2 | `Unknown_Free_Assets` | `app/client/sclient.cpp:41` | 0x729D60 (client_lego_impl.cpp) (as tsk_smovie.cpp) |
 | 2 | `Unknown_Main_Window` | `app/client/sclient.cpp:43` | what Pump_Messages redraws |
@@ -7609,8 +7650,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `GadgetListManagerClass` | `app/client/cpacket.cpp:1831` | class-from-file (D24) for app\client\gadget_list_manager.cpp (its FAIL_IF '!Manager' on this) |
 | 3 | `name` | `app/client/cpacket.cpp:1834` | its FAIL_IF's |
 | 3 | `UIFriendsClass` | `app/client/cpacket.cpp:2420` | class-from-file (D24) for app\client\ui_friends.cpp |
-| 3 | `UIChatPanelClass` | `app/client/cpacket.cpp:2457` | class-from-file (D24) for app\client\ui_chat_panel.cpp |
-| 3 | `Friends` | `app/client/cpacket.cpp:2466` | its methods' file |
+| 3 | `UIChatPanelClass` | `app/client/cpacket.cpp:2458` | class-from-file (D24) for app\client\ui_chat_panel.cpp |
+| 3 | `Friends` | `app/client/cpacket.cpp:2467` | its methods' file |
+| 3 | `UIGroupFindClass` | `app/client/cpacket.cpp:2481` | class-from-file (D24) for app\client\ui_groupfind.cpp  // NAME 1 [packet]: the handler's packet |
 | 3 | `eff_o.h` | `app/client/eff_o.h:23` | header name assumed from the client's eff_o.cpp |
 | 3 | `EffectObjectClass` | `app/client/eff_o.h:50` | class-from-file (D24) for eff_o.cpp |
 | 3 | `Duration` | `app/client/eff_o.h:94` | effect.ini's 'Duration' |
@@ -7668,8 +7710,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `radar_icon_data.h` | `app/client/radar_icon_data.h:16` | header name assumed from the client's radar_icon_data.cpp |
 | 3 | `RadarIconDataClass` | `app/client/radar_icon_data.h:21` | by convention (D24) from the client's radar_icon_data.cpp |
 | 3 | `UIStarbaseClass` | `app/client/sbaseview.h:28` | class-from-file (D24) for app\client\ui_starbase.cpp |
-| 3 | `UIJobsClass` | `app/client/sbaseview.h:44` | class-from-file (D24) for app\client\ui_jobs.cpp |
-| 3 | `SBaseViewClass` | `app/client/sbaseview.h:52` | class-from-file (D24) for app\client\sbaseview.cpp |
+| 3 | `UIPTradeClass` | `app/client/sbaseview.h:42` | class-from-file (D24) for app\client\ui_ptrade.cpp |
+| 3 | `UIJobsClass` | `app/client/sbaseview.h:55` | class-from-file (D24) for app\client\ui_jobs.cpp |
+| 3 | `SBaseViewClass` | `app/client/sbaseview.h:63` | class-from-file (D24) for app\client\sbaseview.cpp |
+| 3 | `PTrade` | `app/client/sbaseview.h:71` | its class's file (ui_ptrade.cpp) |
 | 3 | `SoundManagerClass` | `app/client/sclient.cpp:774` | class-from-file (D24) for app\client\sound_manager.cpp |
 | 3 | `ACTIONTYPE_MAX` | `app/client/sclient.cpp:4790` | the assert's (Unknown120C's two queues) |
 | 3 | `UIStarbaseClass` | `app/client/sclient.cpp:5428` | sbaseview.h's (ui_starbase.cpp); 0x640150: '/starbase reset' |

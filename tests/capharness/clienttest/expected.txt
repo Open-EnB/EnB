@@ -3203,4 +3203,52 @@ msg 5 CTA_RESPONSE (189) size 13: cpacket.cpp's handler
 stub SClient::Unknown_744B60 -> 0
 group calls: 5981B0 598200(1) 5982A0(9) 
 check CTA_RESPONSE 189: type 14 clears +0x13C0 and calls 0x5981B0, 15 sets it and calls 0x598200(true), 17 passes AvatarID 9 to 0x5982A0, 13 nothing (the player leads no group: 0x74D690 false): ok
+== (4j) TRADE 31, NOTE_CONTENT 184, MESSAGE_CHATSTREAM 95, FIND_MEMBER 83
+msg 1 TRADE (31) size 9: cpacket.cpp's handler
+stub SClient::Unknown_744B60 -> 0
+stub SClient::Unknown_744B60 -> 0
+check TRADE 31 without a trade interface: nothing called: ok
+msg 2 TRADE (31) size 9: cpacket.cpp's handler
+stub SClient::Unknown_744B60 -> 0
+stub SClient::Unknown_744B60 -> 0
+check TRADE 31 type 0: +0x1134 = PartnerID 44: ok
+msg 3 TRADE (31) size 9: cpacket.cpp's handler
+stub SClient::Unknown_744B60 -> 0
+stub SClient::Unknown_744B60 -> 0
+msg 4 TRADE (31) size 9: cpacket.cpp's handler
+stub SClient::Unknown_744B60 -> 0
+stub SClient::Unknown_744B60 -> 0
+msg 5 TRADE (31) size 9: cpacket.cpp's handler
+stub SClient::Unknown_744B60 -> 0
+stub SClient::Unknown_744B60 -> 0
+msg 6 TRADE (31) size 9: cpacket.cpp's handler
+stub SClient::Unknown_744B60 -> 0
+stub SClient::Unknown_744B60 -> 0
+msg 7 TRADE (31) size 9: cpacket.cpp's handler
+stub SClient::Unknown_744B60 -> 0
+stub SClient::Unknown_744B60 -> 0
+msg 8 TRADE (31) size 9: cpacket.cpp's handler
+stub SClient::Unknown_744B60 -> 0
+stub SClient::Unknown_744B60 -> 0
+msg 9 TRADE (31) size 9: cpacket.cpp's handler
+stub SClient::Unknown_744B60 -> 0
+stub SClient::Unknown_744B60 -> 0
+trade calls (main view): +58 +5C 5E3130 5E2F70(1) 5E2F70(0) 5E3050(1) 5E3050(0) 
+check TRADE 31 in space: types 0-6 to the main view's trade interface (slots +0x58 / +0x5C, 0x5E3130, 0x5E2F70, 0x5E3050), 7 ignored, +0x1134 cleared: ok
+msg 10 TRADE (31) size 9: cpacket.cpp's handler
+stub SClient::Unknown_744B60 -> 1
+msg 11 TRADE (31) size 9: cpacket.cpp's handler
+stub SClient::Unknown_744B60 -> 1
+trade calls (starbase): +58 640110(8) 5E3130 640110(0) 
+check TRADE 31 docked: the starbase view's +0x1A4 and the starbase interface's 0x640110(8) / (0); its count back to 5: ok
+stub SClient::Print 0x6 'From: alex'
+stub SClient::Unknown_74D990 0x6 'Sent: (the date)' 0
+stub SClient::Unknown_74D990 0x6 'first line' 0
+stub SClient::Unknown_74D990 0x6 'second line' 0
+stub SClient::Unknown_74D990 0x6 'third' 0
+check NOTE_CONTENT 184: 'From:', 'Sent:' and the note's three lines: ok
+check MESSAGE_CHATSTREAM 95 with no avatar for its ShipID: nothing happens: ok
+check FIND_MEMBER 83 without a chat panel: nothing called: ok
+find calls: 59A400(1 players) 
+check FIND_MEMBER 83: the group-find interface gets the packet only with the +0xF8 interface and +0x7C set; the count back to 5: ok
 == done: 0 checks failed

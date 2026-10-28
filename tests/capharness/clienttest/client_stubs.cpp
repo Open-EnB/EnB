@@ -62,6 +62,9 @@ void SClient::Unknown_74D990(int color, char *text, int a)
 	if (t.find("Local Time: ") == 0) {
 		t = "Local Time: (now)";
 	}
+	if (t.find("Sent: ") == 0) {
+		t = "Sent: (the date)";	// NOTE_CONTENT 184: ctime of the note's time, in the local time zone
+	}
 	while (!t.empty() && (t[t.size() - 1] == '\n' || t[t.size() - 1] == '\r')) {
 		t.erase(t.size() - 1);
 	}

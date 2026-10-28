@@ -369,6 +369,7 @@ Handler = slot +0x08 (all in cpacket.cpp unless noted). "Object" = `Find_Object(
 | 25 | SET_TARGET | 0x7363E0 | `object(Unknown10)->0x70E750(TargetID)` when 0x6F5DC0 | exact |
 | 27 | AUX_DATA | 0x7364C0 | §2.4: the object's (or the player's +0x12C0) Delta tree | exact (81eba3a: +0x10C0 a DurationClass) |
 | 28 | PLAYER_VAR_AUX_DATA | 0x736650 | SClient +0x12C4[GameID]'s tree | exact (81eba3a) |
+| 31 | TRADE / TradePacketClass | 0x739DE0 | ui_ptrade.cpp's trade interface (the starbase view's +0x1A4 when docked, else the main view's +0x1E4): Type 0 opens (+0x1134 = PartnerID, slot +0x58, the starbase interface's 0x640110(8)), 1 / 2 end (slot +0x5C / 0x5E3130, +0x1134 = 0, 0x640110(0)), 3-6 0x5E2F70 / 0x5E3050 (no object) | exact (CP2) |
 | 37 | ITEM_BASE | 0x7371B0 | an item template into the +0xC94 table | exact |
 | 38 | CHANGE_BASE_ASSET | 0x737400 | a new model (0x6F5140 + Set_Model 0x6F33F0); SClient 0x74D950 | exact (CR1) |
 | 42 / 43 | SET_ZBAND / SET_BBOX | 0x737520 / 0x737590 | the client's +0x10D4..+0x10E8 bounds (slot +0x24 clamps positions to them) | exact |
@@ -384,7 +385,9 @@ Handler = slot +0x08 (all in cpacket.cpp unless noted). "Object" = `Find_Object(
 | 70 | COMPONENT_POSITIONAL_UPDATE | 0x734BF0 | +0x98 type 11 (asserts `obj->Is_Component()`) | exact (bfa8b4f) |
 | 71 | CLIENT_SHIP | 0x733660 | `Set_Ship_ID` (+0x1130) | exact |
 | 74 | CREATE_ATTACHMENT | 0x733BB0 | `parent->Unknown_0C(child, slot, 0)` (0x725610: the child hung on a bone) | exact |
+| 83 | FIND_MEMBER / FindMemberPacketClass | 0x739500 | the chat panel's +0xF8 interface (getter 0x739690), its slot +0x90 result's +0xA8 (ui_groupfind.cpp) gets the packet (0x59A400) when its +0x7C is set (no object) | exact (CP2) |
 | 91 | VERB_LIST / VerbListPacketClass | 0x7387F0 | the object's verbs: SClient +0x1294's verb manager 0x81F780(GameID, &Verbs) (VERB_UPDATE 92 0x81F810 changes them) | exact (CP1) |
+| 95 | AVATAR_EMOTE_RESPONSE / MessageChatstreamPacketClass | 0x736F10 | the avatar of ShipID (SClient 0x74C840) plays the chat stream (0x784B80); for Color 3 (private) / 4 (group) from another player: the chat panel's 0x563910 / 0x565D80, a "%s (private): " / "%s (group): " line with the avatar description's full name (+0xF8) to the avatar's +0xE8 slot +0x08 and 0x74D990, the beep | NOT EXACT register-only [partial] |
 | 97 | AVATAR_DESCRIPTION | 0x733B10 | SClient 0x74C3B0(GameID, Desc): a +0x1394 value for the id (§2.3) | exact |
 | 100 | CLIENT_DAMAGE / DamagePacketClass | 0x738970 | floating damage text over the player's avatar (Get_Avatar) | NOT EXACT frame [partial] |
 | 103 | GadgetPacketClass | 0x739180 | the gadget named Name in SClient +0x1278's list (gadget_list_manager.cpp 0x661940); Function's bits switch its interface and slots (below) | exact (CP1) |
@@ -396,10 +399,12 @@ Handler = slot +0x08 (all in cpacket.cpp unless noted). "Object" = `Find_Object(
 | 158 | STARBASE_AVATAR_CHANGE / StarbaseAvatarUpdatePacketClass | 0x73A9F0 | a starbase avatar's move: the starbase view's (+0x135C) interface (+0x60, 0x54EDA0) 0x63E5C0(AvatarID, Orient, position, ActionFlag) when its room (+0xAC) is the packet's Room | NOT EXACT register-only [partial] |
 | 160 | STARBASE_ROOM_CHANGE / StarbaseAvatarRoomUpdatePacketClass | 0x73AB50 | the same interface's 0x63CF30(AvatarID, NewRoom) | exact (CP1) |
 | 165 | CLIENT_CHAT_EVENT | 0x73B150 | the chat panel / group (no object) | NOT EXACT inline-budget [partial] |
+| 184 | NoteContentPacketClass | 0x73AF80 | the chat lines (channel 6): 'From: ' + Unknown10, 'Sent: ' + ctime(Unknown0C) without its newline, then the text (Unknown54) a line per CR / LF token (the 8-byte string class 0x8B5D90's tokenizer 0x8B7C60) (no object) | exact (CP2) |
 | 178 | NAME_DECAL | 0x735FC0 | `DecalName` (+0xD8) and shiputils 0x80FF20 on the model | exact |
 | 180 | SUBPARTS | 0x733A50 | `object->0x6FEF70(packet)` (co.cpp, not rebuilt) | exact |
 
-Of the 107 opcodes handled in cpacket.cpp (2026-10-28, CP1): 89 exact, 8 NOT EXACT (8, 62 and 52
+Of the 107 opcodes handled in cpacket.cpp (2026-10-28, CP2: 92 exact, 9 NOT EXACT with 95 register-only, 6 not rebuilt:
+CLIENT_CHAT_LIST / ERROR 164 / 166 and the guild 200 / 204 / 208 / 216; before, CP1): 89 exact, 8 NOT EXACT (8, 62 and 52
 shape, 100 frame, 165 inline-budget, 5 and 158 register-only, STARBASE_SET 79 shape; [partial] / [parked] are their
 `attempts.csv` rows), 10 not rebuilt (the counts before CP1's recount were 62 / 15 / 30; the object-free ones not
 listed above, as they were then, VerbList 91, STARBASE_AVATAR / ROOM_CHANGE 158 / 160 the recustomize 129 / 131 / 133, the GM 234 / 235 and CTA_RESPONSE 189 since rebuilt: TRADE 31 0x739DE0, VerbList 91 0x7387F0, MessageChatstream 95
@@ -446,6 +451,28 @@ eff_o.cpp, shiputils.cpp, co.cpp's members): exact handlers do not yet make a wo
   FAIL_IFs '!client' / '!sclient' (lines 2048 / 2051, as 145's); the camera manager (+0x12A8) goes to mode 0x19
   (one of CAMERA_CONTROL 146's modes too) and the cockpit (main view +0x1D0) takes the whole packet with
   ui_cpit.cpp's 0x584690 (not rebuilt); nothing in the object model changes. clienttest (4c).
+
+**Field to member, the handlers rebuilt by CP2 (2026-10-28; clienttest (4j) drives each one; none changes the object
+model):**
+
+* TRADE 31 (pktrade.cpp: PartnerID +0x0C, Type +0x10, a byte the handler switches on 0..6): the trade interface is
+  ui_ptrade.cpp's (`UIPTradeClass`, sbaseview.h: the same object type as the main view's +0x1E4), the starbase view's
+  +0x1A4 when SClient 0x744B60 says the player is docked, else the main view's; with none the handler returns. Type 0
+  stores PartnerID in ClientClass +0x1134 (the trade partner), calls the interface's slot +0x58 and, docked, the
+  starbase interface's (+0x60) 0x640110(8); types 1 / 2 call slot +0x5C / 0x5E3130, clear +0x1134 and call 0x640110(0);
+  3 / 4 call 0x5E2F70(true / false), 5 / 6 0x5E3050(true / false).
+* FIND_MEMBER 83 (pkfindmember.cpp: NumPlayers +0x0C, PlayerList +0x10): the chat panel's (SClient +0x127C) +0xF8 is a
+  RefCountPtr to an interface (handed out by the out-of-line getter 0x739690); its slot +0x90 returns an object whose
+  +0xA8 is ui_groupfind.cpp's interface: with its +0x7C set it takes the whole packet (0x59A400, not rebuilt).
+* MESSAGE_CHATSTREAM 95 (pkmessagechatstream.cpp: ChatString +0x0C, Chatsize +0x10, ShipID +0x14, Color +0x18): the
+  avatar of ShipID (SClient 0x74C840) gets the stream (avatar.cpp 0x784B80(ChatString, Chatsize, true)); for Color 3 /
+  4 the chat panel's 0x563910(ShipID, false) unless it is the player's own avatar (+0x112C), then, when the avatar's
+  +0xE8 slot +0x0C allows, a line '<full name> (private): ' or '(group): ' (the avatar description at +0xF8,
+  Get_Full_Name) goes to that +0xE8 object's slot +0x08 and to 0x74D990 in Color, a private sender's name to the chat
+  panel's 0x565D80, and the 'private_message_beep' sound plays.
+* NOTE_CONTENT 184 (pknotelist.cpp: Unknown0C a time_t, Unknown10 the sender (65 bytes), Unknown54 the text): channel 6
+  gets 'From: <sender>' (SClient::Print), 'Sent: <ctime>' without ctime's newline, and the text's lines, split at CR /
+  LF by an 8-byte string class (0x8B5D90..0x8B7C60, its file unknown: the next token from a position, -1 at the end).
 
 ## 4. Worked example: a ship appears, gets its aux data, and moves
 
