@@ -83,6 +83,96 @@ recording packet 0: refused (0 more)
 check refused twice: read from the connection once: ok
 recording packet 0: taken
 check taken on the third call; nothing more to read: ok
+== (4) a positional packet to the model's transform
+mainview add 4000
+check the new object holds the constructor's default state (type 0): ok
+assert 0 (line 1344)
+msg 1 SIMPLE_POSITIONAL_UDPATE (8) size 52: cpacket.cpp's handler
+check SIMPLE_POSITIONAL_UPDATE 8 replaced it with the simple state (type 3): ok
+gen ClientObjectClass::Unknown_6F4290
+gen Unknown498C10Class::Unknown_498CC0
+path model Set_Transform (105, 210, 28)
+gen ClientObjectClass::Unknown_6FD310
+gen ClientObjectClass::Unknown_6FDBD0
+gen ClientObjectClass::Unknown_6FE1E0
+gen ClientObjectClass::Unknown_6FBEF0
+gen ClientObjectClass::Unknown_6F4290
+gen Unknown498C10Class::Unknown_498CC0
+model Set_Transform (0, 0, 0)
+gen ClientObjectClass::Unknown_6FD310
+gen ClientObjectClass::Unknown_6FDBD0
+gen ClientObjectClass::Unknown_6FE1E0
+gen ClientObjectClass::Unknown_6FBEF0
+gen ClientObjectClass::Unknown_6F4290
+gen Unknown498C10Class::Unknown_498CC0
+model Set_Transform (0, 0, 0)
+gen ClientObjectClass::Unknown_6FD310
+gen ClientObjectClass::Unknown_6FDBD0
+gen ClientObjectClass::Unknown_6FE1E0
+gen ClientObjectClass::Unknown_6FBEF0
+gen ClientObjectClass::Unknown_6F4290
+gen Unknown498C10Class::Unknown_498CC0
+model Set_Transform (0, 0, 0)
+gen ClientObjectClass::Unknown_6FD310
+gen ClientObjectClass::Unknown_6FDBD0
+gen ClientObjectClass::Unknown_6FE1E0
+gen ClientObjectClass::Unknown_6FBEF0
+gen CameraManagerClass::Unknown_799E40
+gen EffectObjectClass::Unknown_6E6AD0
+gen Unknown_6E6A90
+gen MainViewClass::Unknown_513CD0
+gen MainViewClass::Unknown_513D20
+gen MainViewClass::Unknown_513600
+mainview 64
+mainview 64's +0x24 0
+mainview 7C
+  model row 0: 0.0000 -1.0000 0.0000 105.0000
+  model row 1: 1.0000 0.0000 0.0000 210.0000
+  model row 2: 0.0000 0.0000 1.0000 28.0000
+check Process_AI: the object's model got one Set_Transform: ok
+check at clock 1500 the model is at the packet's position + velocity * 500, turned 90 degrees about Z: ok
+assert 0 (line 1344)
+msg 2 SIMPLE_POSITIONAL_UDPATE (8) size 52: cpacket.cpp's handler
+check a second SIMPLE packet updates the simple state in place: ok
+gen ClientObjectClass::Unknown_6F4290
+gen Unknown498C10Class::Unknown_498CC0
+path model Set_Transform (-50, -15, 5)
+gen ClientObjectClass::Unknown_6FD310
+gen ClientObjectClass::Unknown_6FDBD0
+gen ClientObjectClass::Unknown_6FE1E0
+gen ClientObjectClass::Unknown_6FBEF0
+gen ClientObjectClass::Unknown_6F4290
+gen Unknown498C10Class::Unknown_498CC0
+model Set_Transform (0, 0, 0)
+gen ClientObjectClass::Unknown_6FD310
+gen ClientObjectClass::Unknown_6FDBD0
+gen ClientObjectClass::Unknown_6FE1E0
+gen ClientObjectClass::Unknown_6FBEF0
+gen ClientObjectClass::Unknown_6F4290
+gen Unknown498C10Class::Unknown_498CC0
+model Set_Transform (0, 0, 0)
+gen ClientObjectClass::Unknown_6FD310
+gen ClientObjectClass::Unknown_6FDBD0
+gen ClientObjectClass::Unknown_6FE1E0
+gen ClientObjectClass::Unknown_6FBEF0
+gen ClientObjectClass::Unknown_6F4290
+gen Unknown498C10Class::Unknown_498CC0
+model Set_Transform (0, 0, 0)
+gen ClientObjectClass::Unknown_6FD310
+gen ClientObjectClass::Unknown_6FDBD0
+gen ClientObjectClass::Unknown_6FE1E0
+gen ClientObjectClass::Unknown_6FBEF0
+gen CameraManagerClass::Unknown_799E40
+gen MainViewClass::Unknown_513CD0
+gen MainViewClass::Unknown_513D20
+gen MainViewClass::Unknown_513600
+mainview 64
+mainview 64's +0x24 0
+mainview 7C
+  model row 0: 1.0000 0.0000 0.0000 -50.0000
+  model row 1: 0.0000 1.0000 0.0000 -15.0000
+  model row 2: 0.0000 0.0000 1.0000 5.0000
+check at clock 4500 (past the 2000-tick blend) the model follows the second packet: ok
 == (3) Process_Packets
 messages 1000
 stub TaskClass::Is_Focused -> 1

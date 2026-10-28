@@ -17,7 +17,10 @@
 //     handler, the rest become one recording test packet (counted per opcode); CREATE also adds a
 //     client object with its game id (the trace shows the main view's 'add'), so REMOVE and the object
 //     handlers find it; an odd game id gets a fake rs_track model. Before that, (3a): a packet whose
-//     handler returns false stays on the peek connection and comes back on the next call.
+//     handler returns false stays on the peek connection and comes back on the next call, and (4): a
+//     positional packet to the model's transform (P-UP1-1): SIMPLE_POSITIONAL_UPDATE 8 through the real
+//     handler and postate / extrap's state, then SClient::Process_AI and co.cpp's per-frame update, which
+//     hand the state's matrix at the client clock to the model's slot +0x50 (Set_Transform).
 //
 // Never: a modal dialog (asserts and FAIL_IF go to the trace), the registry (SOptionsClass's
 // constructor is a stand-in), the network (the memory connection), the game's install folder.
@@ -36,6 +39,7 @@
 #include "..\..\..\app\packets\pk.h"
 #include "..\..\..\app\packets\pkdebug.h"
 #include "..\..\..\app\packets\pkcreate.h"
+#include "..\..\..\app\packets\pkupdate.h"
 
 static FILE *Out;
 static int Lines = 0;
@@ -91,6 +95,19 @@ void Conn_Record(PacketClass *packet, RawPacketClass *)
 // The main view (mainview.cpp, MainViewClass: 0x1EC bytes, slots +0x80 / +0x84 SClient's Add_Object /
 // Remove_Object call) and the loading view (+0x0C, the flag at +0x68): the views' constructors are not
 // rebuilt, so the harness gives SClient objects with the same slot layout (32 slots before +0x80).
+// In (4), +0x64 hands SClient 0x7456B0 an object whose slot +0x24 takes an int, and +0x7C Process_AI a
+// camera (a zeroed render object with the zero table: Get_Position calls its virtual Validate_Transform
+// and reads its Transform).
+struct FakeTableStruct
+{
+	void **Table;
+};
+static bool Path_Views = false;
+static void *View64_Table[16];
+static FakeTableStruct Fake_View64 = { View64_Table };
+static double Fake_Camera_Storage[0x400 / sizeof(double)];
+static char *Fake_Camera = (char *)Fake_Camera_Storage;
+static void __stdcall View64_24_Slot(int arg) { Trace("mainview 64's +0x24 %d", arg); }	// MainViewUnknown64Class +0x24: one argument, popped
 class FakeMainViewClass
 {
 public:
@@ -102,8 +119,8 @@ public:
 	virtual void S34() {} virtual void S38() {} virtual void S3C() {} virtual void S40() {}
 	virtual void S44() {} virtual void S48() {} virtual void S4C() {} virtual void S50() {}
 	virtual void S54() {} virtual void S58() {} virtual void S5C() {} virtual void S60() {}
-	virtual int S64() { Trace("mainview 64"); return(0x64); } virtual void S68() {} virtual void S6C() {} virtual void S70() {}
-	virtual void S74() {} virtual void S78() {} virtual int S7C() { Trace("mainview 7C"); return(0x7C); }	// +0x64 / +0x7C: OBJECT_EFFECT 9's Add_Effect arguments
+	virtual int S64() { Trace("mainview 64"); return(Path_Views ? (int)&Fake_View64 : 0x64); } virtual void S68() {} virtual void S6C() {} virtual void S70() {}
+	virtual void S74() {} virtual void S78() {} virtual int S7C() { Trace("mainview 7C"); return(Path_Views ? (int)Fake_Camera : 0x7C); }	// +0x64 / +0x7C: OBJECT_EFFECT 9's Add_Effect arguments; in (4) Process_AI's objects (Path_Views)
 	virtual void Add_Object(ClientObjectClass *object) { Trace("mainview add %u", object->Get_Game_ID()); }			// +0x80
 	virtual void Remove_Object(ClientObjectClass *object) { Trace("mainview remove %u", object->Get_Game_ID()); }	// +0x84
 	char Unknown04[0x1EC - 0x04];
@@ -120,8 +137,8 @@ public:
 	bool Unknown68;		// +0x68
 };
 
-// A client object's model (co.cpp +0xAC): the render-state handlers ask its Class_ID (no other slot, and
-// none with an argument, is called). Every slot of a fake's table returns the same value: an object with
+// A client object's model (co.cpp +0xAC): the render-state handlers ask its Class_ID; the slots that take
+// an argument get __stdcall stand-ins (Set_Transform +0x50, Set_LOD_Bias +0x12C). Every other slot of a fake's table returns the same value: an object with
 // an odd game id gets an rs_track model (0x10001, the handlers call RsTrackClass), an even one a model
 // that isn't (0).
 static int Zero_Slot() { return 0; }
@@ -132,10 +149,23 @@ struct FakeModelStruct
 	void **Table;
 	char Unknown04[0x100];
 };
+// slot +0x50 (20), co.cpp's per-frame update 0x6F3C60: Set_Transform (one argument, popped); the path
+// model (4) keeps the matrix it was given
+static void __stdcall Set_Transform_Slot(const Matrix3D &tm) { Trace("model Set_Transform (%g, %g, %g)", tm[0][3], tm[1][3], tm[2][3]); }
+static Matrix3D Path_Transform(true);
+static int Path_Transforms = 0;
+static void __stdcall Path_Set_Transform_Slot(const Matrix3D &tm)
+{
+	Path_Transform = tm;
+	Path_Transforms++;
+	Trace("path model Set_Transform (%g, %g, %g)", tm[0][3], tm[1][3], tm[2][3]);
+}
 static void *Zero_Table[256];
 static void *Track_Table[256];
+static void *Path_Table[256];
 static FakeModelStruct Fake_Model;
 static FakeModelStruct Track_Model;
+static FakeModelStruct Path_Model;
 
 static char Fake_Aux[0x4000];		// the player aux data co.cpp's accessors read (zeros)
 static char Fake_Player_Root[0x10];	// SClient +0x12C0 (Init's DeltaPlayerClass: AUX_DATA 27 with game id 0)
@@ -150,16 +180,18 @@ const char *Aux_Root_Name(const void *root)
 class TestObjectClass : public ClientObjectClass
 {
 public:
-	TestObjectClass(unsigned id) : ClientObjectClass(0, 0, id) {}	// type 0: a player ship for co.cpp's type tests (0x6F5A10)
+	TestObjectClass(ClientClass *client, unsigned id) : ClientObjectClass(client, 0, id) {}	// type 0: a player ship for co.cpp's type tests (0x6F5A10); the client: the per-frame update reads its clock
 	virtual ~TestObjectClass() { Trace("stub ClientObjectClass::~ClientObjectClass %u", GameID); AuxData = 0; Model = 0; }
 };
 
+static SClient *The_Client = 0;
+
 static ClientObjectClass *New_Object(unsigned id)
 {
-	ClientObjectClass *object = new TestObjectClass(id);
+	ClientObjectClass *object = new TestObjectClass(The_Client, id);
 	object->AuxData = Fake_Aux;		// (the constructor's own aux root, if any, is left alone)
-	delete object->Unknown98;		// the constructor's default state: CONSTANT_POSITIONAL_UPDATE news its own
-	object->Unknown98 = 0;
+	// the constructor's default state (type 0, identity) stays: the positional handlers replace it, and
+	// Process_AI's per-frame update (4) asks every object's state for its matrix
 	object->Model = (RenderObjClass *)((id & 1) ? &Track_Model : &Fake_Model);
 	return object;
 }
@@ -300,7 +332,6 @@ public:
 };
 
 static MemoryConnectionClass *Memory = 0;
-static SClient *The_Client = 0;
 
 // memconn.cpp's factory (not rebuilt): one server listening, on the redirect's port
 class MemoryConnectionFactoryClass
@@ -532,6 +563,108 @@ static void Test_Packets(SClient *client, const char *path)
 	client->LoadingView = 0;
 }
 
+// ------------------------------------------------------------------------- (4) a positional packet to the model
+
+// The message a packet's Build gives (what the server would send)
+static std::vector<unsigned char> Built_Message(PacketClass *packet)
+{
+	RawPacketClass *raw = packet->Build();
+	std::vector<unsigned char> m;
+	if (raw == 0) {
+		return m;
+	}
+	m.resize(raw->Header.Size < 4 ? 4 : raw->Header.Size);
+	memcpy(&m[0], &raw->Header, 4);
+	if (m.size() > 4) {
+		memcpy(&m[4], raw->Data.Buffer, m.size() - 4);
+	}
+	delete raw;
+	return m;
+}
+
+static bool Near(const Matrix3D &a, const Matrix3D &b)
+{
+	for (int r = 0; r < 3; r++) {
+		for (int c = 0; c < 4; c++) {
+			float d = a[r][c] - b[r][c];
+			if (d > 0.001f || d < -0.001f) {
+				return false;
+			}
+		}
+	}
+	return true;
+}
+
+static void Trace_Matrix(const char *what, const Matrix3D &tm)
+{
+	for (int r = 0; r < 3; r++) {
+		Trace("  %s row %d: %.4f %.4f %.4f %.4f", what, r, tm[r][0], tm[r][1], tm[r][2], tm[r][3]);
+	}
+}
+
+// One object (the harness's, as for CREATE) gets SIMPLE_POSITIONAL_UPDATE 8 through Process_Packets and the
+// real handler (cpacket.cpp 0x733DC0: the simple state, postate.cpp 0x715AB0, over extrap.cpp's linear node
+// 0x70F250); SClient::Process_AI 0x744260 then runs every object's per-frame update (co.cpp 0x6F3C60:
+// slot +0x28 0x6F4610 asks the state for its matrix at the client clock +0x10BC, re-orthogonalises it and
+// hands it to the model's slot +0x50). A second packet updates the state in place (0x715C20: a 2000-tick
+// blend 0x7125F0 to the new linear node); past the blend's end the model follows the second packet.
+static void Test_Path(SClient *client)
+{
+	Trace("== (4) a positional packet to the model's transform");
+	if (Memory == 0) {
+		Check(false, "the memory connection");
+		return;
+	}
+	int clock = client->Unknown10BC;		// what the lag average reads: put back for (3)
+	float lag = client->Unknown10C8;
+	int lags = client->Unknown10D0;
+	const unsigned id = 4000;
+	ClientObjectClass *object = New_Object(id);
+	object->Model = (RenderObjClass *)&Path_Model;
+	client->Add_Object(object);
+	Check(object->Unknown98 != 0 && object->Unknown98->Unknown_04() == 0, "the new object holds the constructor's default state (type 0)");
+
+	const Vector3 pos(100.0f, 200.0f, 30.0f);
+	const Quaternion orient(0.0f, 0.0f, 0.70710677f, 0.70710677f);	// 90 degrees about Z
+	const Vector3 vel(0.01f, 0.02f, -0.004f);						// per tick
+	SimplePositionalUpdatePacketClass first(0, id, 1000, pos, orient, vel);
+	client->Unknown10BC = 1000;
+	Memory->Incoming.push_back(Built_Message(&first));
+	client->Process_Packets();
+	Check(object->Unknown98 != 0 && object->Unknown98->Unknown_04() == 3, "SIMPLE_POSITIONAL_UPDATE 8 replaced it with the simple state (type 3)");
+
+	Path_Views = true;
+	client->Unknown10BC = 1500;
+	Path_Transforms = 0;
+	client->Process_AI();
+	Matrix3D want(orient, pos + vel * 500.0f);
+	Trace_Matrix("model", Path_Transform);
+	Check(Path_Transforms == 1, "Process_AI: the object's model got one Set_Transform");
+	Check(Near(Path_Transform, want), "at clock 1500 the model is at the packet's position + velocity * 500, turned 90 degrees about Z");
+
+	const Vector3 pos2(-50.0f, 10.0f, 5.0f);
+	const Quaternion orient2(0.0f, 0.0f, 0.0f, 1.0f);
+	const Vector3 vel2(0.0f, -0.01f, 0.0f);
+	SimplePositionalUpdatePacketClass second(0, id, 2000, pos2, orient2, vel2);
+	client->Unknown10BC = 2000;
+	Memory->Incoming.push_back(Built_Message(&second));
+	Unknown98Class *state = object->Unknown98;
+	client->Process_Packets();
+	Check(object->Unknown98 == state && state->Unknown_04() == 3, "a second SIMPLE packet updates the simple state in place");
+	client->Unknown10BC = 4500;
+	Path_Transforms = 0;
+	client->Process_AI();
+	Matrix3D want2(orient2, pos2 + vel2 * 2500.0f);
+	Trace_Matrix("model", Path_Transform);
+	Check(Path_Transforms == 1 && Near(Path_Transform, want2), "at clock 4500 (past the 2000-tick blend) the model follows the second packet");
+	Path_Views = false;
+
+	client->Unknown10BC = clock;
+	client->Unknown10C8 = lag;
+	client->Unknown10D0 = lags;
+	Memory->Received = 0;
+}
+
 // ------------------------------------------------------------------------- main
 
 int main(int argc, char **argv)
@@ -551,8 +684,18 @@ int main(int argc, char **argv)
 	}
 	Zero_Table[75] = (void *)Lod_Bias_Slot;
 	Track_Table[75] = (void *)Lod_Bias_Slot;
+	Zero_Table[20] = (void *)Set_Transform_Slot;
+	Track_Table[20] = (void *)Set_Transform_Slot;
+	memcpy(Path_Table, Zero_Table, sizeof(Path_Table));
+	Path_Table[20] = (void *)Path_Set_Transform_Slot;
+	for (int k = 0; k < 16; k++) {
+		View64_Table[k] = (void *)Zero_Slot;
+	}
+	View64_Table[9] = (void *)View64_24_Slot;
 	Fake_Model.Table = Zero_Table;
 	Track_Model.Table = Track_Table;
+	Path_Model.Table = Path_Table;
+	*(void ***)Fake_Camera = Zero_Table;	// its Validate_Transform (virtual) does nothing; the Transform stays zero
 
 	Trace("== SClient (its constructor, the base's)");
 	SClient *client = new SClient(0);
@@ -568,6 +711,7 @@ int main(int argc, char **argv)
 	Test_Lists(client);
 	Test_Debug(client);
 	Test_Refuse(client);
+	Test_Path(client);
 	if (argc > 2) {
 		Test_Packets(client, argv[2]);
 	}
