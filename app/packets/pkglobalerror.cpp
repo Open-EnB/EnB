@@ -24,12 +24,12 @@ char *GlobalErrorStrings[] = {
 	"Sorry, that ship name is not allowed. Please try again",
 };
 
-// NOT EXACT: 0x864A10, shape (explain.py: 31 masked rows; the client stores the vtable after the members, 159 against 164 instructions)
+// Message is assigned in the body: the client stores the vtable before the string's _Grow
 GlobalErrorPacketClass::GlobalErrorPacketClass(int unknown0c, int error, const char *message) :
 	Unknown0C(unknown0c),
-	Error(error),
-	Message("")
+	Error(error)
 {
+	Message = "";
 	if (message == NULL) {
 		if (error < 18) {
 			char *text = GlobalErrorStrings[error];

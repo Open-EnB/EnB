@@ -8,7 +8,7 @@ VerbListPacketClass::VerbListPacketClass(int game_id, const std::set<VerbEnum> &
 {
 }
 
-// NOT EXACT: 0x8AF150, the client inlines the set's insert (shape: ours calls it; attempts.py show 0x8AF150)
+// NOT EXACT: 0x8AF150, insert inlined as the client's but its _Multi branch's pair constructor too (inline-budget; attempts.py show 0x8AF150)
 VerbListPacketClass::VerbListPacketClass(RawPacketClass *raw) :
 	GameID(0)
 {

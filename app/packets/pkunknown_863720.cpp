@@ -72,10 +72,10 @@ int Packet_00E6Class::Get_Type()
 	return(230);
 }
 
-// NOT EXACT: shape (the client adds the string's size and 0x18 first, then DataSize; attempts.csv)
 int Packet_00E6Class::Get_Data_Size()
 {
-	return(DataSize + RawPacketClass::Get_Size(String) + sizeof(Unknown18) + sizeof(Unknown28) + sizeof(Unknown30) + sizeof(DataSize));
+	unsigned int size = RawPacketClass::Get_Size(String) + sizeof(Unknown18) + sizeof(Unknown28) + sizeof(Unknown30) + sizeof(DataSize);
+	return(size + DataSize);
 }
 
 int Packet_00E6Class::Print(char *buffer, int)
@@ -145,10 +145,10 @@ int Packet_00E7Class::Get_Type()
 	return(231);
 }
 
-// NOT EXACT: shape (as opcode 230's; attempts.csv)
 int Packet_00E7Class::Get_Data_Size()
 {
-	return(DataSize + RawPacketClass::Get_Size(String) + sizeof(Unknown18) + sizeof(Unknown28) + sizeof(Unknown30) + sizeof(DataSize));
+	unsigned int size = RawPacketClass::Get_Size(String) + sizeof(Unknown18) + sizeof(Unknown28) + sizeof(Unknown30) + sizeof(DataSize);
+	return(size + DataSize);
 }
 
 int Packet_00E7Class::Print(char *buffer, int)
