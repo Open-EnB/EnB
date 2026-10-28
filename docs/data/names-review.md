@@ -527,6 +527,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_70A7E0` | `app/client/co_player_relationship.cpp:14` | sclient.cpp's name ('gutter_color.ini') |
 | 1 | `Unknown_4BC260` | `app/client/co_player_relationship.cpp:15` | 0x4BC260, E&B's message reporter (buff_database.cpp) |
 | 1 | `Unknown_70A540` | `app/client/co_player_relationship.cpp:78` | the default colours by value |
+| 1 | `Unknown_70AD70` | `app/client/co_player_relationship.cpp:109` | sclient.cpp's name (it empties the table) |
+| 1 | `Unknown_70ADF0` | `app/client/co_player_relationship.cpp:113` | the colours of an ini section (no direct caller; inlined by the relationship lookups) |
 | 1 | `Unknown_6FEEE0` | `app/client/co_player_relationship.cpp:311` | untagged neutral name (D10) |
 | 1 | `Unknown_8B44E0` | `app/client/control_keys_manager.cpp:10` | neutral placeholder (D10) |
 | 1 | `Unknown_42A1A0` | `app/client/control_keys_manager.cpp:11` | neutral (D10): 0x42A1A0 (app\input), a key read from an ini entry |

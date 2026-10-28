@@ -40,7 +40,7 @@ struct GutterColorSetStruct	// NAME 2: what it holds
 	GutterColorStruct JumpStart;	// +0x48  // NAME 3: the ini name 'JumpStart'
 };
 
-static std::hash_map<std::string, GutterColorSetStruct> GutterColors;	// 0xBE70E8 (constructor 0x70CE50, destructor 0x709F40) by ini section  // NAME 2: what it holds
+std::hash_map<std::string, GutterColorSetStruct> GutterColors;	// 0xBE70E8 (constructor 0x70CE50, destructor 0x709F40) by ini section  // NAME 2: what it holds
 
 GutterColorSetStruct::GutterColorSetStruct(INISection *section)
 {
@@ -106,18 +106,18 @@ void Unknown_70A7E0(const std::string &filename)
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
+void Unknown_70AD70()	// NAME 1 [Unknown_70AD70]: sclient.cpp's name (it empties the table)
+{
+	GutterColors.clear();
+}
+GutterColorSetStruct Unknown_70ADF0(const std::string &name)	// NAME 1 [Unknown_70ADF0]: the colours of an ini section (no direct caller; inlined by the relationship lookups)
+{
+	std::hash_map<std::string, GutterColorSetStruct>::iterator it = GutterColors.find(name);
+	if (it == GutterColors.end()) {
+		Unknown_4BC260("", "Relationship", __FILE__, __LINE__, "Failed to lookup gutter color %s", name.c_str());
+		return(Unknown_70A540());
+	} return((*it).second);
+}
 
 
 
