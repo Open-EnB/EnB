@@ -282,9 +282,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown104` | `app/client/co.cpp:124` | untagged neutral name (D10) |
 | 1 | `Unknown_732690` | `app/client/co.cpp:165` | untagged neutral name (D10) |
 | 1 | `UnknownRootClass` | `app/client/co.cpp:178` | untagged neutral name (D10) |
-| 1 | `UnknownB007A4PassStruct` | `app/client/co.cpp:249` | neutral (D10) |
-| 1 | `Unknown04` | `app/client/co.cpp:252` | untagged neutral name (D10) |
-| 1 | `UnknownB007A4Class` | `app/client/co.cpp:254` | neutral (D10), named by its vtable |
+| 1 | `UnknownB007A4PassStruct` | `app/client/co.cpp:248` | neutral (D10) |
+| 1 | `Unknown04` | `app/client/co.cpp:251` | untagged neutral name (D10) |
+| 1 | `UnknownB007A4Class` | `app/client/co.cpp:253` | neutral (D10), named by its vtable |
 | 1 | `Unknown_6F33F0` | `app/client/co.cpp:264` | untagged neutral name (D10) |
 | 1 | `Unknown_20` | `app/client/co.cpp:289` | untagged neutral name (D10) |
 | 1 | `Unknown_38` | `app/client/co.cpp:297` | untagged neutral name (D10) |
@@ -4018,7 +4018,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Object` | `app/client/co.cpp:25` | what it holds |
 | 2 | `Old` | `app/client/co.cpp:26` | what it holds |
 | 2 | `New` | `app/client/co.cpp:27` | what it holds |
-| 2 | `Pass` | `app/client/co.cpp:251` | what it holds |
+| 2 | `Pass` | `app/client/co.cpp:250` | what it holds |
 | 2 | `std:` | `app/client/co.cpp:260` | what it holds |
 | 2 | `co.cpp` | `app/client/co.cpp:836` | the class id the handlers test |
 | 2 | `Line` | `app/client/co.cpp:865` | what it holds |
