@@ -40,7 +40,7 @@ public:
 	CTAResponsePacketClass(int avatar_id, int request_type, bool success);	// 0x86F320
 	CTAResponsePacketClass(RawPacketClass *raw);	// 0x86F3C0
 	virtual RawPacketClass *Build();	// +0x04 0x86F4B0
-	virtual bool Process_Packet(void *client);	// +0x08 0x73DAA0 (not rebuilt)
+	virtual bool Process_Packet(void *client);	// +0x08 0x73DAA0 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x86F590
 	virtual int Print(char *buffer, int len);	// +0x10 0x86F5B0
 	virtual int Get_Channel() { return(AvatarID); }	// +0x18 0x86F370

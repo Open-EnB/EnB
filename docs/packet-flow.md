@@ -389,10 +389,10 @@ Handler = slot +0x08 (all in cpacket.cpp unless noted). "Object" = `Find_Object(
 | 178 | NAME_DECAL | 0x735FC0 | `DecalName` (+0xD8) and shiputils 0x80FF20 on the model | exact |
 | 180 | SUBPARTS | 0x733A50 | `object->0x6FEF70(packet)` (co.cpp, not rebuilt) | exact |
 
-Of the 107 opcodes handled in cpacket.cpp (2026-10-28, CP1): 88 exact, 8 NOT EXACT (8, 62 and 52
+Of the 107 opcodes handled in cpacket.cpp (2026-10-28, CP1): 89 exact, 8 NOT EXACT (8, 62 and 52
 shape, 100 frame, 165 inline-budget, 5 and 158 register-only, STARBASE_SET 79 shape; [partial] / [parked] are their
-`attempts.csv` rows), 11 not rebuilt (the counts before CP1's recount were 62 / 15 / 30; the object-free ones not
-listed above, as they were then, VerbList 91, STARBASE_AVATAR / ROOM_CHANGE 158 / 160 the recustomize 129 / 131 / 133 and the GM 234 / 235 since rebuilt: TRADE 31 0x739DE0, VerbList 91 0x7387F0, MessageChatstream 95
+`attempts.csv` rows), 10 not rebuilt (the counts before CP1's recount were 62 / 15 / 30; the object-free ones not
+listed above, as they were then, VerbList 91, STARBASE_AVATAR / ROOM_CHANGE 158 / 160 the recustomize 129 / 131 / 133, the GM 234 / 235 and CTA_RESPONSE 189 since rebuilt: TRADE 31 0x739DE0, VerbList 91 0x7387F0, MessageChatstream 95
 0x736F10, FIND_MEMBER 83, STARBASE_AVATAR / ROOM_CHANGE 158 / 160, CLIENT_CHAT_LIST / ERROR 164 / 166,
 NoteContent 184, CTA_RESPONSE 189, the guild 200 / 204 / 208 / 216, the GM 234 / 235, the recustomize
 129 / 131 / 133). Note that most rebuilt handlers call into code that is not rebuilt (postate.cpp,

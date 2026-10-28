@@ -3120,6 +3120,39 @@ const std::string &ClientChatEventPacketClass::Get_Unknown64()
 
 
 
+// 0x73DAA0
+bool CTAResponsePacketClass::Process_Packet(void *instance)
+{
+	WWPROFILE("CTAResponsePacketClass::Process_Packet");
+	SClient *sclient = (SClient *)instance;
+	FAIL_IF(!sclient) return(true);
+	if (sclient->Unknown_744B60()) {
+		return(true);
+	}
+
+	FAIL_IF(!sclient->MainView) return(true);
+	UIGroupClass *group_interface = sclient->MainView->Group;
+
+	FAIL_IF(!group_interface) return(true);
+	switch (RequestType) {
+		case 13:
+			break;
+		case 14:
+			sclient->Unknown13C0 = false;
+			if (!sclient->Unknown_74D690()) {
+				group_interface->Unknown_5981B0();
+			}
+			break;
+		case 15:
+			sclient->Unknown13C0 = true;
+			if (!sclient->Unknown_74D690()) {
+				group_interface->Unknown_598200(true);
+			}
+			break;
+		case 17:
+			group_interface->Unknown_5982A0(AvatarID);
+			break;
+		default:
 
 
 
@@ -3133,44 +3166,11 @@ const std::string &ClientChatEventPacketClass::Get_Unknown64()
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+			G_ASSERT(false);
+			break;
+	}
+	return(true);
+}
 // 0x73DC60
 bool ConfirmedActionOfferPacketClass::Process_Packet(void *instance)
 {

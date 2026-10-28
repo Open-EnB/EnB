@@ -3188,4 +3188,19 @@ gen InterfaceClass::InterfaceClass
 stub SClient::Unknown_744B60 -> 1
 GM calls: new 6B2460 +54 +7C(main view, 1) 6B3340(5, 2 strings, 'mission one') new 6AF220 +54 +7C(starbase view, 1) 6B09D0(6, 2 strings, 'mission one') 
 check GM_VIEW_MISSION_LOG 235 makes 0x6B2460's interface, loads it and opens it over the main view (0x744B60 false), then 0x6B3340(5, the strings); GM_EDIT_PLAYER_INVENTORY 234 the same with 0x6AF220 over the starbase view (0x744B60 true) and 0x6B09D0: ok
+== (4i) CTA_RESPONSE 189
+msg 1 CTA_RESPONSE (189) size 13: cpacket.cpp's handler
+stub SClient::Unknown_744B60 -> 0
+fail_if !group_interface (line 3136)
+check CTA_RESPONSE 189 without a group interface: the FAIL_IF '!group_interface', nothing called: ok
+msg 2 CTA_RESPONSE (189) size 13: cpacket.cpp's handler
+stub SClient::Unknown_744B60 -> 0
+msg 3 CTA_RESPONSE (189) size 13: cpacket.cpp's handler
+stub SClient::Unknown_744B60 -> 0
+msg 4 CTA_RESPONSE (189) size 13: cpacket.cpp's handler
+stub SClient::Unknown_744B60 -> 0
+msg 5 CTA_RESPONSE (189) size 13: cpacket.cpp's handler
+stub SClient::Unknown_744B60 -> 0
+group calls: 5981B0 598200(1) 5982A0(9) 
+check CTA_RESPONSE 189: type 14 clears +0x13C0 and calls 0x5981B0, 15 sets it and calls 0x598200(true), 17 passes AvatarID 9 to 0x5982A0, 13 nothing (the player leads no group: 0x74D690 false): ok
 == done: 0 checks failed

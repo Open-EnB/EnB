@@ -22,6 +22,9 @@ public:
 	virtual void Unknown_78();
 	virtual void Unknown_7C(ViewClass *view, int arg);	// +0x7C (0x50C690: the view, 0)  // NAME 1 [view, arg]: what 0x50C690 passes
 	void Unknown_597080(const char *text, const char *name, int index);	// 0x597080 (CLIENT_CHAT_EVENT 165: a 'group' message '<S>n name`text')  // NAME 1 [text, name, index]: the message's parts
+	void Unknown_5981B0();								// 0x5981B0 (cpacket.cpp: CTA_RESPONSE 189's request type 14, when the player doesn't lead the group)
+	void Unknown_598200(bool on);						// 0x598200 (CTA_RESPONSE 189's type 15 passes true)  // NAME 1 [on]: what the handler passes
+	void Unknown_5982A0(int avatar_id);					// 0x5982A0 (CTA_RESPONSE 189's type 17)  // NAME 1 [avatar_id]: the packet's AvatarID
 	char Unknown40[0xF4 - 0x40];						// +0x40
 };
 

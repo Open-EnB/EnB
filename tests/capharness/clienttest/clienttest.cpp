@@ -30,7 +30,8 @@
 //     (4e): synthetic VERB_LIST 91 to the verb manager (+0x1294); (4f): synthetic STARBASE_AVATAR_UPDATE 158 and
 //     STARBASE_AVATAR_ROOM_UPDATE 160 to the starbase view's (+0x135C) interface; (4g): synthetic RECUSTOMIZE_SHIP_START
 //     129, RECUSTOMIZE_AVATAR_START 131 and RECUSTOMIZE_AVATAR_UPDATE 133 to the starbase view's +0x1A0 / +0x19C / +0x60;
-//     (4h): synthetic GM_EDIT_PLAYER_INVENTORY 234 and GM_VIEW_MISSION_LOG 235 (each makes and opens its GM interface).
+//     (4h): synthetic GM_EDIT_PLAYER_INVENTORY 234 and GM_VIEW_MISSION_LOG 235 (each makes and opens its GM interface);
+//     (4i): synthetic CTA_RESPONSE 189 to the main view's group interface (+0x1D8) and +0x13C0.
 //
 // Never: a modal dialog (asserts and FAIL_IF go to the trace), the registry (SOptionsClass's
 // constructor is a stand-in), the network (the memory connection), the game's install folder.
@@ -59,6 +60,8 @@
 #include "..\..\..\app\packets\pkgmviewmissionlog.h"
 #include "..\..\..\app\packets\pkgmeditplayerinventory.h"
 #include "..\..\..\app\client\ui_line_display.h"
+#include "..\..\..\app\client\ui_group.h"
+#include "..\..\..\app\packets\pkcta_request.h"
 #include "..\..\..\app\client\aux_roots.h"
 #include "..\..\..\app\client\co_subtypes.h"
 #include "..\..\..\app\client\postate.h"
@@ -1442,6 +1445,51 @@ static void Test_GM(SClient *client)
 	Memory->Received = 0;
 }
 
+// (4i) CTA_RESPONSE 189 (0x73DAA0) from synthetic packets: with the main view's group interface (+0x1D8) the request
+// type picks the call: 14 clears SClient +0x13C0 and (when the player doesn't lead the group, 0x74D690) calls 0x5981B0,
+// 15 sets +0x13C0 and calls 0x598200(true), 17 passes AvatarID to 0x5982A0, 13 does nothing, anything else asserts.
+// Without a group interface the FAIL_IF '!group_interface' (line 3136) returns.
+static std::string Group_Log;
+void UIGroupClass::Unknown_5981B0() { Group_Log += "5981B0 "; }
+void UIGroupClass::Unknown_598200(bool on) { Group_Log += on ? "598200(1) " : "598200(0) "; }
+void UIGroupClass::Unknown_5982A0(int avatar_id) { char t[32]; sprintf(t, "5982A0(%d) ", avatar_id); Group_Log += t; }
+
+static void Test_CTA(SClient *client)
+{
+	Trace("== (4i) CTA_RESPONSE 189");
+	if (Memory == 0 || client->MainView == 0) {
+		Check(false, "the memory connection and the main view");
+		return;
+	}
+	char *view = (char *)client->MainView;
+	UIGroupClass **group = (UIGroupClass **)(view + 0x1D8);
+	UIGroupClass *saved = *group;
+	static double fake_group[0x100 / 8];
+	*group = 0;
+	Group_Log = "";
+	Memory->Incoming.push_back(Built_Message(&CTAResponsePacketClass(9, 17, true)));
+	client->Process_Packets();
+	Check(Group_Log == "", "CTA_RESPONSE 189 without a group interface: the FAIL_IF '!group_interface', nothing called");
+	*group = (UIGroupClass *)fake_group;
+	client->Unknown13C0 = true;
+	Memory->Incoming.push_back(Built_Message(&CTAResponsePacketClass(9, 14, true)));
+	client->Process_Packets();
+	bool cleared = (client->Unknown13C0 == false);
+	Memory->Incoming.push_back(Built_Message(&CTAResponsePacketClass(9, 15, true)));
+	client->Process_Packets();
+	bool set = (client->Unknown13C0 == true);
+	Memory->Incoming.push_back(Built_Message(&CTAResponsePacketClass(9, 17, true)));
+	Memory->Incoming.push_back(Built_Message(&CTAResponsePacketClass(9, 13, true)));
+	client->Process_Packets();
+	client->Process_Packets();
+	Trace("group calls: %s", Group_Log.c_str());
+	Check(cleared && set && Group_Log == "5981B0 598200(1) 5982A0(9) ",
+		"CTA_RESPONSE 189: type 14 clears +0x13C0 and calls 0x5981B0, 15 sets it and calls 0x598200(true), 17 passes AvatarID 9 to 0x5982A0, 13 nothing (the player leads no group: 0x74D690 false)");
+	*group = saved;
+	client->Unknown13C0 = false;
+	Memory->Received = 0;
+}
+
 // ------------------------------------------------------------------------- main
 
 int main(int argc, char **argv)
@@ -1541,6 +1589,7 @@ int main(int argc, char **argv)
 	Test_Starbase(client);
 	Test_Recustomize(client);
 	Test_GM(client);
+	Test_CTA(client);
 	// the client isn't deleted: its destructor reaches control_keys_manager.cpp and WWAudio
 	Trace("== done: %d checks failed", Failures);
 	fclose(Out);
