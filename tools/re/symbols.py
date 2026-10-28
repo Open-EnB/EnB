@@ -12,7 +12,8 @@ Sources, best first (a name from a better source wins):
   thunk     incremental-link thunks named after their target (j_<name>)
 
 Writes:
-  symbols.json        [{address, name, symbol, kind, source}]
+  symbols.json        [{address, name, symbol, kind, source[, proof][, length]}]; `proof` (D114(c)) is the
+                      non-exact evidence (vtable, strings) an exact name also has
   ghidra_symbols.py   a Ghidra script that labels the program with these names
   coverage.md         how much of .text is identified, by region and source
 """
@@ -50,9 +51,17 @@ def main():
             return      # D94(b): compiler-generated, numbered per translation unit (P-H7-2)
         e = syms.get(addr)
         if e and RANK[e['source']] <= RANK[source]:
+            # D114(c): an exact name keeps the best non-exact proof of the same symbol (a vtable slot, a
+            # string) in `proof`, so objmatch's self-name round (D88) still sees that evidence
+            if e['source'] == 'exact' and source in ('vtable', 'strings') and e['symbol'] == symbol \
+                    and RANK[source] < RANK[e.get('proof', 'thunk')]:
+                e['proof'] = source
             return
-        syms[addr] = {'address': f'0x{addr:06X}', 'symbol': symbol, 'name': demangle(symbol) if symbol.startswith(('?', '_')) else symbol,
-                      'kind': kind, 'source': source}
+        new = {'address': f'0x{addr:06X}', 'symbol': symbol, 'name': demangle(symbol) if symbol.startswith(('?', '_')) else symbol,
+               'kind': kind, 'source': source}
+        if e and source == 'exact' and e['symbol'] == symbol and e['source'] in ('vtable', 'strings'):
+            new['proof'] = e['source']
+        syms[addr] = new
         if length:
             syms[addr]['length'] = length
 

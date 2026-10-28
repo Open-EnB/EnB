@@ -18,7 +18,8 @@ and at least one target confirmed it, the function is `exact` there (`tiebreak` 
 
 What D80 leaves `multiple` gets a second tie-break (D88, the "self name"): of the candidates no
 target contradicts, the one address symbols.json names with the function's own mangled symbol
-from a proof other than an exact match (a vtable slot, a string) is credited, `exact` with
+from a proof other than an exact match (a vtable slot, a string; an exact entry counts by the
+proof it keeps, `proof`, D114(c)) is credited, `exact` with
 `tiebreak` and `selfname` set. It runs only once D80 resolves nothing more, so D80 always decides
 first, and its credits feed D80's next round like any exact function.
 
@@ -224,14 +225,16 @@ def symbol_addresses():
 
 def self_names():
     """D88: {mangled name: {addresses}} of the functions symbols.json names from a proof other than
-    an exact match (a vtable slot, a string): the self names that break a `multiple`."""
+    an exact match (a vtable slot, a string): the self names that break a `multiple`. An exact entry
+    counts when it keeps such a proof (`proof`, D114(c))."""
     global _self_names
     if _self_names is None:
         _self_names = {}
         path = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', 'docs', 'data', 'symbols.json')
         try:
             for e in json.load(open(path)):
-                if e.get('kind') == 'function' and e.get('source') != 'exact' and not generated(e['symbol']):
+                if e.get('kind') == 'function' and (e.get('source') != 'exact' or e.get('proof')) \
+                        and not generated(e['symbol']):
                     _self_names.setdefault(e['symbol'], set()).add(int(e['address'], 16))
         except (OSError, ValueError, KeyError):
             pass
