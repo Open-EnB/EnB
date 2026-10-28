@@ -1350,6 +1350,8 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 | D121 | 2026-10-28 | P-CR1-1 accepted: co.h's `UnknownA8` (+0xA8) is `BaseAsset` (CREATE 4 and CHANGE_BASE_ASSET 38 store the packet's BaseAsset there; 0x6F39F0 reads it as BASE-n) | user (CR1's proposal) |
 | D122 | 2026-10-28 | P-CR1-3 accepted: the object subclasses' run 0x70DC00-0x70F1D0 (constructors 0x70DBC0 / 0x70E2E0 type 24, 0x70E5A0 type 28; no `__FILE__`) gets the provisional file `app/client/co_subtypes.cpp` (NAME 1), renamed if an assert or string names it | user (CR1's proposal) |
 | D123 | 2026-10-28 | P-PF1-1 accepted: `ClientClass::DebugObjectID` (+0x112C) is the player's avatar id, `AvatarID` / `Get_Avatar` (CLIENT_AVATAR 55 sets it; ADVANCED 62, FORMATION 65, 0x6F3C60, DAMAGE 100 use it) | user (PF1's proposal) |
+| D124 | 2026-10-28 | P-PX2-1 accepted: the string-less object 0x451C00-0x452770 (`PxBoxCallback`) keeps the neutral file name `app/shared/unknown_px_callbacks.cpp` (D10) until a string names it | user (PX2's proposal) |
+| D125 | 2026-10-28 | P-PX2-2 accepted: PxObject's functions 0x4557F0-0x455860 stay in px_collision.cpp until evidence places them | user (PX2's proposal) |
 
 ## 3. Open decisions
 
@@ -1366,11 +1368,6 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
   (a quiet-tree round)? PK1 (P-PK1-1, recommends keep): slot 0 holds the class's only deleting destructor, so both
   names are one proof; bytes still match with relocations masked. M4's D118 numbers do not include it (its README
   lists it unmeasured: "an alias would credit 14 functions from vtable proof alone").
-* **P-PX2-1** (2026-10-28, PX2; recommend keep neutral): the string-less object 0x451C00-0x452770 (`PxBoxCallback`)
-  sorts between px_callback_accurate and px_callback_poll in link order but nothing names it: keep the neutral file
-  name `unknown_px_callbacks.cpp` (D10), or pick a px_callback_* name now?
-* **P-PX2-2** (2026-10-28, PX2; recommend accept): PxObject's functions 0x4557F0-0x455860 stay in px_collision.cpp
-  until evidence places them.
 * **P-CS1-1** (2026-10-28, CS1; recommend accept): D123 renamed the getter; rename the setter at slot +0x24,
   `Set_Debug_Object`, to `Set_Avatar_ID` too (it sends the DEBUG packet; expected 0/0 pairs).
 * **P-CS1-3** (2026-10-28, CS1; recommend one file for now): the client never inlines type 24's base constructor,
