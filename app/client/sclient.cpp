@@ -4437,28 +4437,28 @@ void SClient::Unknown_74C9D0(const RefCountPtr<UITalkTreeSpaceClass> &tree)
 
 
 
+#include "..\shared\auxdata\auxdata.h"
+#include "aux_roots.h"				// (after auxdata.h: its Type_Name(int *) for kv_pair.h, C2665 without)
 
+// 0x74D570 (the player is in a group: one of GroupInfo.Members' first five has a name)
+bool SClient::Unknown_74D570()
+{
+	NameClass name("GroupInfo"); DeltaGroupInfoClass *group = (DeltaGroupInfoClass *)Unknown_Find_Field<DeltaCompoundClass>(AuxData, name);
+	if (group && group->m_Unknown70) {
+		for (int i = 0; i < 5; i++) {
+			const char *name = ((DeltaGroupMemberClass *)group->Members.Children[i])->Name.String;
+			if (name && strcmp(name, "") != 0) return(true);
+		}
+	}
+	return(false);
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// 0x74D690 (the player leads its group: GroupInfo.IsGroupLeader)
+bool SClient::Unknown_74D690()
+{
+	NameClass name("GroupInfo"); DeltaGroupInfoClass *group = (DeltaGroupInfoClass *)Unknown_Find_Field<DeltaCompoundClass>(AuxData, name);
+	return(group && group->m_Unknown70 && group->IsGroupLeader.Value);
+}
 
 
 
