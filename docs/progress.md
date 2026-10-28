@@ -1478,10 +1478,14 @@ client's own code: [kernel-map.md](kernel-map.md) §6 and, for step 9's dependen
    0x513CD0 / 0x513D20 ambiguous twins; NOT EXACT Init 0x50BA60 / slot +0x08 0x50C690 register, 0x5146D0 shape (the
    client keeps * 0.01 and * scale apart; same at 0x5C25C0), 0x514010 shape; UIGroupClass in ui_group.h; the
    interface objects share a 0x38-byte UIUnknownBaseClass plus a RefCountClass at +0x38; clienttest's fake main view
-   carries StarField, OrbitalManager and traced fakes. Left: 0x512A00 (draft `.work/hn2/p6_512a00.py`; needs
-   sclient.cpp's local PDAInterfaceClass in a header and slot +0x64 retyped: P-HN2-1, MainViewUnknown64Class is the
-   +0x10C SceneClass, re-verify sclient 0x7456B0); P-HN2-2: symbols.json's 0x57D830 is `UICpitClass::UICpitClass`,
-   not "Init_2D_Scene" (symbols.py); the Doppler flag 0xC404F8 lives in mainview.cpp until its file is known
+   carries StarField, OrbitalManager and traced fakes. MV2 (9ecbfee..207c00c: +13): P-HN2-1 / P-HN2-2 done
+   (symbols.py's hand-named source `tools/re/symbols_named.json`, `--apply-named`), 0x512A00 and the profile text
+   0x510440 exact; NOT EXACT Update 0x50F1B0 frame (DurationClass::operator+ out of line costs aux_roots' pad),
+   targeting 0x512400 budget (the client calls its find copies 0x514B60 / 0x514BD0), picking 0x512BB0 shape,
+   overlays 0x50D520 budget, sea 0x510D40 shape; every mainview function has been tried. Left: P-MV2-1 (+0x178..
+   +0x1A4 is a LandLightingStruct: a real member once its own header reaches sclient.h, with the ctor 0x50B360),
+   P-MV2-2 (SClientUnknownWindowClass and UIUnknownBaseClass are one 0x38-byte base: merge), P-MV2-3 (anything
+   added to duration.h re-sweeps auxpad.py); 0x50B930 untouched; the Doppler flag 0xC404F8 lives in mainview.cpp until its file is known
    (P-MV1-3)); Load_Assets 0x4691D0 (the pragma keeps the patch ctor / Init
    out of line, frame left), Update_Patches 0x46B3C0 (frame, PatchSize's unsigned conversion), Get_Triangles
    0x465D30 (Fable-eligible); the

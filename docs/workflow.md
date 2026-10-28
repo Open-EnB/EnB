@@ -442,6 +442,10 @@ unless `--lever` cites a new row of this table.
   .cpp files for a local definition (sclient.cpp defines PDAInterfaceClass itself). To keep a file's line count,
   declare a destructor on its constructor's line. tryv2 variants that add or remove a line show false losses
   (0x514270 / 0x514390): keep variants line-neutral.
+* **Check Renegade's Commando / wwphys for E&B debug code before rebuilding it by hand** (2026-10-28, MV2): a local
+  `static StringClass` pair and the WWProfileIterator calls matched console.cpp's profile display byte for byte
+  (0x510440); the sea tint is phys.cpp's `#if 0` quad (0x510D40). co.cpp's `Unknown_Find_Valid` is local to co.cpp;
+  `DeltaTemplateClass<int>` needs aux_roots.h for `Type_Name(int *)` (else C2665 in kv_pair.h).
 * **Asserts sit on the client's lines (D25).** To add code above a logged line, remove as many
   blank lines from the same function's stretch (cordmgr.cpp; `.work/milestones/a3/relines.py`);
   pad inside a function, not only before it (Get(char **); pk.cpp's helpers take single blanks).
@@ -766,6 +770,9 @@ unless `--lever` cites a new row of this table.
 
 ### 3.8 Git, docs and scripting hygiene
 
+* **`wt.py remove` deletes the worktree's `.work/` scratch** (2026-10-28, MV2): keep scripts you want in the main
+  tree's `.work/`. Export `ENB_VC6_HOSTS` in the same Bash call as every `build.py build`, or it compiles on
+  whichever VM vc6_hosts.json names (possibly another builder's lease).
 * **`build.py` lists files with `git ls-files`** (2026-10-28, DO1): in a worktree a new file needs only `git add`
   before `build.py build --allow-dirty` (LD3's "commit first" is the stricter form).
 * **In a rebase or bring-over conflict, `git show HEAD:file` gives LF endings** (2026-10-28, PK2): read a saved
