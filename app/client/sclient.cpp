@@ -327,8 +327,8 @@ extern SClientFontDatabaseClass *Unknown_BE67BC;		// NAME 1: neutral (D10)
 
 extern bool Unknown_BBB084;								// NAME 1: neutral (D10): Init clears it
 extern RectClass Unknown_C07550;						// NAME 1: neutral (D10): the text's coordinate range
-void Unknown_455D10(PxProcessClass *process);			// 0x455D10 (px_process.cpp's neighbourhood)
-void Unknown_455F60();									// 0x455F60 (px_process.cpp's neighbourhood)
+// (Init, Shutdown and Do_Frame push PxProcess on px_process.h's PxProcessClass::Push 0x455D10 and pop it with
+// PxProcessClass::Pop 0x455F60)
 void Unknown_6E6A90(EffectObjectClass *effect);			// 0x6E6A90 (eff_o.cpp): Shutdown, per effect left
 void Unknown_719D50(SClient *client);					// 0x719D50 (control_keys_manager.cpp): Init's
 
@@ -445,7 +445,7 @@ void SClient::Init()
 {
 	Unknown_BE67BC->Unknown_6C52B0(0);
 	VerbManager = new VerbManagerClass(this);
-	Unknown_455D10(PxProcess);
+	PxProcessClass::Push(PxProcess);
 	Unknown_BBB084 = false;
 	Unknown_745350();
 	Unknown13CC.Unknown_765010();
@@ -516,7 +516,7 @@ void SClient::Init()
 
 	MusicManager = new MusicManagerClass;
 	Unknown_7518A0();
-	Unknown_455F60();
+	PxProcessClass::Pop();
 	Unknown1380 = 0;
 	if (Unknown137C) {
 		MainView->Unknown_514220();
@@ -554,7 +554,7 @@ void SClient::Shutdown()
 		Unknown1298 = Unknown129C;
 	}
 	Unknown_742530(0);
-	Unknown_455D10(PxProcess);
+	PxProcessClass::Push(PxProcess);
 
 	// two empty frames
 	SimpleSceneClass *scene = new SimpleSceneClass;
@@ -657,7 +657,7 @@ void SClient::Shutdown()
 	Font = NULL;
 	delete Text;
 	Text = NULL;
-	Unknown_455F60();
+	PxProcessClass::Pop();
 }
 
 // 0x7427A0
@@ -825,7 +825,7 @@ int SClient::Do_Frame(bool focused)
 			node = node->Next();
 		}
 	}
-	Unknown_455D10(PxProcess);
+	PxProcessClass::Push(PxProcess);
 	int saved = Unknown_BE350C;
 	Unknown_BE350C = Unknown1128 ^ 1; Unknown1128 = Unknown_BE350C;
 	Unknown12D4 = 0;
@@ -897,7 +897,7 @@ int SClient::Do_Frame(bool focused)
 		}
 	}
 	Unknown_BE350C = saved;
-	Unknown_455F60();
+	PxProcessClass::Pop();
 	return(Unknown12D4);
 }
 

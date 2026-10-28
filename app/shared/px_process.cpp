@@ -110,7 +110,7 @@ void PxProcessClass::Pop()
 **
 ** Use in the retail client: ClientClass's constructor 0x726100 makes the list and its destructor deletes it;
 ** SClient::Init 0x741180, Shutdown 0x741BB0 and Do_Frame 0x742B60 push it at their start and pop it at their end
-** (sclient.cpp still calls them as Unknown_455D10 / Unknown_455F60). px_callback_accurate.cpp's callbacks
+** (sclient.cpp calls them as PxProcessClass::Push / Pop). px_callback_accurate.cpp's callbacks
 ** (0x44E470-0x44F6E0, 0x452AF0, 0x452B40) add and remove themselves on Get_Current(). Process 0x455CC0 and
 ** Remove_All 0x455C80 have no call, jump or pointer reference (their thunks 0x40B52D / 0x410EF1 included): the nodes
 ** are kept but never processed.

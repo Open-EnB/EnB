@@ -130,7 +130,6 @@ aux data +0x20 (the age step)
 aux data +0x20 (the age step)
 aux data +0x20 (the age step)
 aux data +0x20 (the age step)
-gen Unknown_455D10
 gen Unknown_918200
 gen Unknown_42EDB0
 gen Unknown_42EA80
@@ -163,7 +162,6 @@ gen SClient::Unknown_7429B0
 gen SClient::Unknown_74EDB0
 gen SClient::Unknown_751660
 gen SClient::Unknown_74F5C0
-gen Unknown_455F60
 check Do_Frame returns 0 and sets the clock from Unknown_Get_Ticks: ok
 check SIMPLE_POSITIONAL_UPDATE 8 (time 1000) replaced it with the simple state (type 3): ok
   model row 0: 0.0000 -1.0000 0.0000 105.0000
@@ -179,7 +177,6 @@ aux data +0x20 (the age step)
 aux data +0x20 (the age step)
 aux data +0x20 (the age step)
 aux data +0x20 (the age step)
-gen Unknown_455D10
 msg 3 SIMPLE_POSITIONAL_UDPATE (8) size 52: cpacket.cpp's handler
 gen SoundManagerClass::Unknown_75B320
 gen Unknown498C10Class::Unknown_498CC0
@@ -206,7 +203,6 @@ gen SClient::Unknown_7429B0
 gen SClient::Unknown_74EDB0
 gen SClient::Unknown_751660
 gen SClient::Unknown_74F5C0
-gen Unknown_455F60
 check a second SIMPLE packet (time 2000) updates the simple state in place: ok
 frame at 4500
 gen UIChatPanelClass::Unknown_56BA80
@@ -215,7 +211,6 @@ aux data +0x20 (the age step)
 aux data +0x20 (the age step)
 aux data +0x20 (the age step)
 aux data +0x20 (the age step)
-gen Unknown_455D10
 gen SoundManagerClass::Unknown_75B320
 gen Unknown498C10Class::Unknown_498CC0
 model 1 Set_Transform (-50, -15, 5)
@@ -241,7 +236,6 @@ gen SClient::Unknown_7429B0
 gen SClient::Unknown_74EDB0
 gen SClient::Unknown_751660
 gen SClient::Unknown_74F5C0
-gen Unknown_455F60
   model row 0: 1.0000 0.0000 0.0000 -50.0000
   model row 1: 0.0000 1.0000 0.0000 -15.0000
   model row 2: 0.0000 0.0000 1.0000 5.0000
@@ -253,7 +247,6 @@ aux data +0x20 (the age step)
 aux data +0x20 (the age step)
 aux data +0x20 (the age step)
 aux data +0x20 (the age step)
-gen Unknown_455D10
 msg 4 CHANGE_BASE_ASSET (38) size 28: cpacket.cpp's handler
 asset manager +0x78 'ship_test2': not loaded
 asset manager Load_3D_Assets 'ship_test2.w3d'
@@ -310,7 +303,6 @@ gen SClient::Unknown_7429B0
 gen SClient::Unknown_74EDB0
 gen SClient::Unknown_751660
 gen SClient::Unknown_74F5C0
-gen Unknown_455F60
 check CHANGE_BASE_ASSET 38 (base asset 901, scale 1): the same object holds base asset 901's model (NAME ship_test2): ok
 check the old model was released and deleted: ok
 check at clock 5000 the new model follows the second packet: ok
