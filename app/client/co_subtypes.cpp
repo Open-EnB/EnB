@@ -14,7 +14,7 @@ Unknown70DBC0Class::Unknown70DBC0Class(ClientClass *client, int type, unsigned i
 }
 
 // 0x70DC90
-Unknown44AC70Class *Unknown70DBC0Class::Unknown_Dyn04()
+DynObj *Unknown70DBC0Class::Unknown_Dyn04()
 {
 	return(this);
 }
@@ -34,7 +34,7 @@ float Unknown70DBC0Class::Unknown_30()
 // 0x70DCF0
 void Unknown70DBC0Class::Unknown_34(float value)
 {
-	Unknown44AC70Class::Unknown04 = value;
+	DynObj::Unknown04 = value;
 	ClientObjectClass::Unknown_34(value);
 }
 
@@ -111,7 +111,7 @@ Vector3 Unknown70DBC0Class::Unknown_Dyn70()
 }
 
 // 0x70E070
-void Unknown70DBC0Class::Unknown_Dyn74()
+void Unknown70DBC0Class::Unknown_Dyn74(int a, int b, int c, int d)
 {
 }
 
@@ -176,14 +176,14 @@ void Unknown70E2E0Class::Unknown_70E3B0(const Vector3 &pos)
 // 0x70E3F0
 void Unknown70E2E0Class::Unknown_Dyn68(Vector3 pos)
 {
-	Unknown44AC70Class::Unknown_Dyn68(pos);
+	DynObj::Unknown_Dyn68(pos);
 	Unknown_70E3B0(pos);
 }
 
 // 0x70E460
 void Unknown70E2E0Class::Unknown_Dyn6C(const Matrix3D &tm)
 {
-	Unknown44AC70Class::Unknown_Dyn6C(tm);
+	DynObj::Unknown_Dyn6C(tm);
 	Unknown_70E3B0(tm.Get_Translation());
 }
 
@@ -300,7 +300,7 @@ void Unknown70E5A0Class::Unknown_20()
 ** destructors 0x70E090 / 0x70E350 / 0x70E680 and the this-adjusting thunks 0x70E2A0-0x70E2D0, 0x70E580, 0x70E590,
 ** 0x70F030) come from the declarations.
 **
-** Type 24's base is also dynamic_obj.cpp's proximity object (Unknown44AC70Class at +0x188, vtable 0xB020E4 in the base,
+** Type 24's base is also dynamic_obj.cpp's DynObj (at +0x188, vtable 0xB020E4 in the base,
 ** 0xB021B0 in type 24): its slots return the object's position, velocity, radius, type and the client's time, and the
 ** transform of the other frame (0xBE350C toggles every frame; slot +0x20 0x70E150 writes this frame's copy). Two of its
 ** slots share ClientObjectClass's names because one function overrides both (0x70DD40 / 0x70DDE0 with the thunks

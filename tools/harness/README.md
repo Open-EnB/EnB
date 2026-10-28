@@ -500,8 +500,10 @@ game id / type / base asset / scale, its model loaded, the radius, the six part 
 (3)'s 202 CREATEs and 4 REMOVEs), 2,960 trace lines.
 **CREATE 4's subclasses (2026-10-28, CS1):** (4b) sends synthetic CREATEs of types 24 and 28 (no alex3 message has
 them): co_subtypes.cpp's constructors, type 24's proximity-object slots (+0x188), SET_TARGET 25 on type 28 (0x70E750) and
-REMOVE through both destructors; dynamic_obj.cpp's slots with a class by value are stand-ins in client_stubs.cpp. 66 checks,
-2,993 trace lines.
+REMOVE through both destructors. 66 checks, 2,993 trace lines.
+**dynamic_obj.cpp (2026-10-28, DO1):** type 24's DynObj is rebuilt (its slots no longer stand-ins); its PxWrapper
+(px_wrapper.cpp, not rebuilt) has stand-ins in client_stubs.cpp: the constructors record the owner and clear the list,
+so the destructor's FAIL_IF (line 70) stays quiet. 67 checks (the PxWrapper's owner), 2,994 trace lines.
 
 ## Other harness programs (index)
 

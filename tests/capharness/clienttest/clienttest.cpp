@@ -44,6 +44,7 @@
 #include "..\..\..\app\packets\pkupdate.h"
 #include "..\..\..\app\client\aux_roots.h"
 #include "..\..\..\app\client\co_subtypes.h"
+#include "..\..\..\app\shared\px_wrapper.h"
 #include "rendobj.h"
 #include "..\..\..\app\shared\stars.h"
 
@@ -897,7 +898,7 @@ static void Test_Path(SClient *client, FakeMainViewClass *main_view)
 }
 
 // (4b) CREATE 4's subclasses (cpacket.cpp's switch, co_subtypes.cpp): type 24 (0x70E2E0 over 0x70DBC0, which is also
-// dynamic_obj.cpp's proximity object at +0x188) and type 28 (0x70E5A0), from synthetic packets: no alex3 message
+// dynamic_obj.cpp's DynObj at +0x188) and type 28 (0x70E5A0), from synthetic packets: no alex3 message
 // creates either. Set_Model's slot +0x34 reaches type 24's override (0x70DCF0: the radius also into the proximity
 // object's +0x04); SET_TARGET 25 (0x7363E0) calls type 28's 0x70E750; REMOVE 7 deletes both through their destructors.
 static std::vector<unsigned char> Set_Target_Message(int target_id, int object_id)
@@ -926,9 +927,11 @@ static void Test_Subtypes(SClient *client)
 		"CREATE 4 type 24 (game id 4100): in the table with its type, base asset and Set_Model's radius 12.5");
 	if (object24 != 0) {
 		Unknown70E2E0Class *type24 = (Unknown70E2E0Class *)object24;
-		Unknown44AC70Class *proximity = type24;
+		DynObj *proximity = type24;
 		Check((char *)proximity - (char *)type24 == 0x188 && proximity->Unknown_Dyn04() == proximity,
 			"type 24's proximity object sits at +0x188 and its slot +0x04 (0x70DC90) returns itself");
+		Check(proximity->ProximityObject != 0 && proximity->ProximityObject->Owner == proximity,
+			"DynObj's constructor (0x44AC70) gave it a PxWrapper (a stand-in) that records its owner");
 		Check(proximity->Unknown04 == 12.5f && type24->Unknown220 == false,
 			"type 24's slot +0x34 (0x70DCF0) put the radius into the proximity object's +0x04 as well; +0x220 is false");
 		Check(proximity->Unknown_Dyn20() == 24 && strcmp(proximity->Unknown_Dyn30(), "Unnamed ClientProximityObject") == 0,

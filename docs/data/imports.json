@@ -1,6 +1,6 @@
 {
  "app": {
-  "ambiguous_total": 124,
+  "ambiguous_total": 126,
   "base": "reconstructed",
   "compile_errors": [],
   "files": {
@@ -1133,6 +1133,7 @@
    "co_subtypes": {
     "ambiguous": [
      "0x42B2F0",
+     "0x44B330",
      "0x70DEC0"
     ],
     "copy": "reconstructed",
@@ -1140,6 +1141,8 @@
     "in_tree": [
      "0x42F250",
      "0x447C40",
+     "0x44B360",
+     "0x44B5E0",
      "0x6F2C90",
      "0x70DBC0",
      "0x70DC90",
@@ -1821,6 +1824,28 @@
     ],
     "merged": [],
     "name": "shared/auxdata/delta_time.cpp"
+   },
+   "dynamic_obj": {
+    "ambiguous": [
+     "0x44B330",
+     "0x44B3E0",
+     "0x44B570"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42F250",
+     "0x444160",
+     "0x44AD10",
+     "0x44AE70",
+     "0x44B090",
+     "0x44B150",
+     "0x44B360",
+     "0x44B460",
+     "0x44B5E0"
+    ],
+    "merged": [],
+    "name": "shared/dynamic_obj.cpp"
    },
    "eff_o": {
     "ambiguous": [
@@ -8803,6 +8828,7 @@
    "shared/definition_auto_ptr.h": "reconstructed",
    "shared/definition_manager.h": "reconstructed",
    "shared/duration.h": "reconstructed",
+   "shared/dynamic_obj.h": "reconstructed",
    "shared/graphics_settings.h": "reconstructed",
    "shared/heightfield.h": "reconstructed",
    "shared/ini_manager.h": "reconstructed",
@@ -8816,6 +8842,7 @@
    "shared/landdmap.h": "reconstructed",
    "shared/lookup_table.h": "reconstructed",
    "shared/money.h": "reconstructed",
+   "shared/px_wrapper.h": "reconstructed",
    "shared/shipcust_desc.h": "reconstructed",
    "shared/spline.h": "reconstructed",
    "shared/spln_db.h": "reconstructed",
@@ -8830,7 +8857,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 4367,
+  "in_tree_total": 4374,
   "totals": {}
  },
  "binkmovie": {

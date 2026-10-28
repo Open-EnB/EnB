@@ -385,9 +385,10 @@ EffectObjectClass *Unknown_6E9490(int desc_id, unsigned effect_id, unsigned dura
 #include "..\..\..\app\audio\soundlib.h"
 AudibleSoundClass *SoundLibraryClass::Play_2D_Sound(const char *name, int mode) { Trace("stub SoundLibraryClass::Play_2D_Sound '%s' %d", name, mode); return(0); }
 Sound3DClass *SoundLibraryClass::Play_3D_Sound(const char *name, const Matrix3D &tm, int mode, float scale) { Trace("stub SoundLibraryClass::Play_3D_Sound '%s' at (%g, %g, %g) %d %g", name, tm[0][3], tm[1][3], tm[2][3], mode, scale); return(0); }	// co.cpp's engine sounds 0x6FDBD0
-// co_subtypes.cpp's type 24 is also dynamic_obj.cpp's proximity object (not rebuilt): its slots that take or return a
-// class by value, which gen_stubs.py cannot write (the others are its stand-ins)
-#include "..\..\..\app\client\co_subtypes.h"
-Vector3 Unknown44AC70Class::Unknown_Dyn38() { return(Vector3(1.0f, 0.0f, 0.0f)); }
-Matrix3D Unknown44AC70Class::Unknown_Dyn3C() { return(Matrix3D(Unknown_24())); }
-void Unknown44AC70Class::Unknown_Dyn68(Vector3 pos) { Trace("stub Unknown44AC70Class::Unknown_Dyn68 (%g, %g, %g)", pos.X, pos.Y, pos.Z); }
+// dynamic_obj.cpp's PxWrapper (px_wrapper.cpp, not rebuilt; type 24's DynObj allocates one): the constructors record
+// the owner and start off any list, so the destructor's FAIL_IF stays quiet; gen_stubs.py writes the other members
+#include "..\..\..\app\shared\px_wrapper.h"
+PxWrapper::PxWrapper(DynObj *owner) { memset(this, 0, sizeof(*this)); Owner = owner; Trace("stub PxWrapper::PxWrapper"); }
+PxWrapper::PxWrapper(DynObj *owner, const PxWrapper &) { memset(this, 0, sizeof(*this)); Owner = owner; Trace("stub PxWrapper::PxWrapper (copy)"); }
+PxWrapper::~PxWrapper() { Trace("stub PxWrapper::~PxWrapper"); }
+void PxWrapper::Unknown_456730() { List = NULL; Trace("stub PxWrapper::Unknown_456730"); }

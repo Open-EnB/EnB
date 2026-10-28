@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-296 entries in 65 files.
+298 entries in 66 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -210,6 +210,8 @@ edit the comments in the code, not this file.
 | `app/shared/data_binder.h:116` | `?` | marker | NOT EXACT: frame (0x28 vs the client's 0x2c: the client keeps value_map in esi and a stack slot, zero in ebx, and clears the erased name), 0x79F980 and the next four |
 | `app/shared/definition_auto_ptr.h:110` | `?` | marker | NOT EXACT: register-only (explain.py), the inlined erase's terminator store addresses [edi+eax] in the client, [eax+edi] in ours (0x4EB1B0) |
 | `app/shared/definition_manager.h:115` | `?` | marker | NOT EXACT: shape (explain.py), two registers swapped in the inlined hashtable destructor and one EH state store more in ours (0x4EAFB0) |
+| `app/shared/dynamic_obj.cpp:9` | `DynObj::DynObj` | marker | NOT EXACT: shape (the client duplicates the epilogue into the allocation-failed path; attempts.py show 0x44AC70) |
+| `app/shared/dynamic_obj.cpp:18` | `DynObj::DynObj` | marker | NOT EXACT: register (the source's PxWrapper in edi, ours in ecx; attempts.py show 0x44ADA0) |
 | `app/shared/heightfield.cpp:34` | `HeightFieldClass::Load` | marker | NOT EXACT: order-only (the client loads Size before Count - 1 and copies it for HalfSize), parked |
 | `app/shared/heightfield.cpp:71` | `HeightFieldClass::Load_PGM` | marker | NOT EXACT: written from the pseudocode (the PGM reader 0x4637C0, the same as VIDTEST's 0x4026B0) |
 | `app/shared/heightfield.cpp:186` | `HeightFieldClass::World_To_Grid` | marker | NOT EXACT: order-only (the client loads HalfSize before the position) |

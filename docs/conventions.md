@@ -277,3 +277,5 @@ note any change made to match the client.
 * **ClientObjectClass's render object (2026-10-27, T11):** co.h names the member `Model`; co.cpp's assert texts say `RenderObject`, the client's name. Rename at cpacket.cpp's next edit (it and clienttest use it; P-T11-1). The aux_roots.h UnknownCOClass merge waits for the CREATE factory to move into co.cpp (aux_roots.cpp is generated; P-T11-2).
 
 * **The input dispatcher (2026-10-27, H18):** the client's path is `app\input\inpdsp.cpp` (client wins: app/input/, not app/client/). `LoginUnknown0CClass` is defined in app/input/inpdsp.h; tsk_login.h still carries its opaque `char[0x18]` twin with the same layout and mangled names: replace it with the include at tsk_login.h's next edit and verify tsk_login, sclient and kerneltest (P-H18-1).
+
+* **DynObj and PxWrapper (2026-10-28, DO1):** the client's profile strings name them (`DynObj::Update_Proximity`, `PxWrapper::Update(LooseBox)`), without a `Class` suffix: app/shared/dynamic_obj.h and px_wrapper.h keep them. CS1's `Unknown44AC70Class` (co_subtypes.h) and its forward-declared `ProximityObjectClass` (the FAIL_IF's member name, not a type) are gone.

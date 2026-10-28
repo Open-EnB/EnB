@@ -4095,11 +4095,18 @@ RECONSTRUCTED = {
                                   "0x714B50 / 0x714D50, the record 0x714E10-0x7151D0, type 9 0x715270-0x715580, the extrapolator base 0x715620-0x7159C0, type 3 0x715AB0 / "
                                   "0x715C20, type 5 0x715CF0 / 0x715E60, type 11 0x717EF0 / 0x718080, types 8 0x715EF0-0x716F70 and 4 0x717010-0x717ED0 (NOT EXACT: 0x717430, line 977, and 0x7179A0), type 12 0x718160-0x7184E0, type 13 0x718510-0x718D40 (NOT EXACT: 0x718830), type 14 0x718D70-0x7191C0, type 15 0x7192A0-0x719610 (lines 1422-1457); extrap.cpp's classes in extrap.h (StateNode)",
     ('app', 'client/co_subtypes.h'): "CREATE 4's object subclasses (D122, provisional name): type 24's base 0x70DBC0 "
-                                    "(ClientObjectClass plus dynamic_obj.cpp's proximity object, declared from its vtable "
-                                    "0xAE796C), type 24 0x70E2E0 (0x224 bytes) and type 28 0x70E5A0 (0x1D4 bytes); moved out of co.h",
+                                    "(ClientObjectClass plus dynamic_obj.h's DynObj), type 24 0x70E2E0 (0x224 bytes) and type 28 0x70E5A0 (0x1D4 bytes); moved out of co.h",
     ('app', 'client/co_subtypes.cpp'): "the object subclasses' run 0x70DBC0-0x70F030 (D122: no assert or __FILE__, "
                                       "between co_player_relationship.cpp and extrap.cpp): constructors, destructors "
                                       "and every vtable slot of the run; NOT EXACT: type 28's aim 0x70E850",
+    ('app', 'shared/dynamic_obj.h'): "DynObj (the client's name, its profile strings; vtable 0xAE796C, 42 slots, the inline "
+                                    "ones 0x44B1F0-0x44B740); provisional header name; moved out of co_subtypes.h",
+    ('app', 'shared/dynamic_obj.cpp'): "DynObj, client 0x44AC70-0x44B740 (FAIL_IF line 70, G_ASSERTs 84 / 93): the "
+                                      "constructors 0x44AC70 / 0x44ADA0 (NOT EXACT), the destructor 0x44AE70, the "
+                                      "PxWrapper forwarders 0x44AF50-0x44B070, Update_Proximity 0x44B090, "
+                                      "Update_Avoidance 0x44B150",
+    ('app', 'shared/px_wrapper.h'): "PxWrapper (the client's name, 0x456B60's profile strings; px_wrapper.cpp not "
+                                   "rebuilt), declared as far as dynamic_obj.cpp calls it; provisional header name",
     ('app', 'client/extrap.h'): "extrap.cpp's state nodes: the client's StateNode (vtable 0xB02398; its asserts "
                                "'Bad function call! StateNode::Set_Motion()' / '... End_Tilt()'), the nodes 0xB02364-0xB02628 "
                                "and the motion objects 0xB02400 / 0xB02480 / 0xB025FC (layouts from the constructors "
