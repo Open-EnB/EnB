@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 33 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 36 |
-| 3 | by convention from a client-named file or sibling | 864 |
+| 3 | by convention from a client-named file or sibling | 866 |
 | 2 | describes what the code does | 2134 |
-| 1 | neutral placeholder | 4051 |
+| 1 | neutral placeholder | 4056 |
 
 ## For review (score 3 and below)
 
@@ -387,6 +387,11 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_810540` | `app/client/co.cpp:1659` | untagged neutral name (D10) |
 | 1 | `Unknown_6FC950` | `app/client/co.cpp:1664` | untagged neutral name (D10) |
 | 1 | `Unknown_6FCB20` | `app/client/co.cpp:1717` | untagged neutral name (D10) |
+| 1 | `Unknown_Get_Item` | `app/client/co.cpp:1767` | neutral |
+| 1 | `Unknown_Assert_Failed` | `app/client/co.cpp:1767` | untagged neutral name (D10) |
+| 1 | `generator, decal, model` | `app/client/co.cpp:1773` | what 0x6FD310 passes |
+| 1 | `Unknown_7633E0` | `app/client/co.cpp:1773` | untagged neutral name (D10) |
+| 1 | `UnknownB01A40Type` | `app/client/co.cpp:1773` | untagged neutral name (D10) |
 | 1 | `Unknown_6FD310` | `app/client/co.cpp:1780` | untagged neutral name (D10) |
 | 1 | `Unknown_6FDBD0` | `app/client/co.cpp:1781` | untagged neutral name (D10) |
 | 1 | `Unknown_6FE1E0` | `app/client/co.cpp:1782` | untagged neutral name (D10) |
@@ -6238,6 +6243,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `Is_Invalid` | `app/client/client_lego_impl.h:100` | the client's asserts 'split.Is_Invalid()' |
 | 3 | `ClientLegoImplClass` | `app/client/client_lego_impl.h:124` | by convention (D24) from the client's client_lego_impl.cpp |
 | 3 | `RsTrackClass` | `app/client/co.cpp:849` | class-from-file (D24) for app\shared\rs_track.cpp |
+| 3 | `co.cpp` | `app/client/co.cpp:1769` | the FAIL_IF's name |
+| 3 | `ProjDecalManagerClass` | `app/client/co.cpp:1770` | the FAIL_IF's 'proj_decal_manager' (sclient.cpp declares its other members) |
 | 3 | `co.h` | `app/client/co.h:23` | header name assumed from the client's co.cpp |
 | 3 | `ClientObjectClass` | `app/client/co.h:169` | the RTTI's .?AVClientObjectClass@@ for co.cpp's class, not tied to this layout by a vtable |
 | 3 | `AuxData` | `app/client/co.h:270` | the FAIL_IF's name |

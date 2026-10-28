@@ -253,7 +253,7 @@ public:
 	void Unknown_6FC9A0();								// 0x6FC9A0 the aux data's changed values into the model
 	void Unknown_6FCB20(bool visible);					// 0x6FCB20  // NAME 2 [visible]: what it toggles
 	void Unknown_6FD2C0();								// 0x6FD2C0 (FAIL_IF '!RenderObject', l.1779)
-	void Unknown_6FD310();								// 0x6FD310 (co.cpp, not rebuilt: the damage decals)
+	void Unknown_6FD310();								// 0x6FD310 the damage decals: the aux data's DamageSpot / DamageLine / DamageBlotch items that changed into the three decal pools (NOT EXACT)
 	void Unknown_6FDBD0();								// 0x6FDBD0 (co.cpp, not rebuilt: the engine sounds)
 	void Unknown_6FE1E0();								// 0x6FE1E0 (co.cpp, not rebuilt: the damage state)
 	void Unknown_7009A0(bool on, bool force);			// 0x7009A0  // NAME 2 [on, force]: what it tests

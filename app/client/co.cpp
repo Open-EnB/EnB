@@ -1762,16 +1762,16 @@ void ClientObjectClass::Unknown_6FCB20(bool visible)
 
 
 
-
-
-
-
-
-
-
-
-
-
+// delta_array.h's item accessor (its G_ASSERT on that header's line 93, inline in the damage decals 0x6FD310), written
+// here: declaring it in the header moves aux_roots.cpp's pairs (the 0x6FB1E0 canary, workflow.md 3.4; P-DF1-2)
+template<class T> static inline DeltaTemplateClass<T> *Unknown_Get_Item(DeltaArrayClass<T> *array, unsigned index) { std::vector<DeltaClass *> &Items = array->Children; if (!(index < Items.size())) Unknown_Assert_Failed("index < Items.size()", "..\\shared/auxdata/delta_array.h", 93); return((DeltaTemplateClass<T> *)Items[index]); }	// NAME 1: neutral
+// the decal pools of co.cpp's decal system (the constructor's MultiFixedPoolDecalSystemClass(3, ...))
+#define NUM_DAMAGE_POOLS 3	// NAME 3: the FAIL_IF's name
+class ProjDecalManagerClass	// NAME 3: the FAIL_IF's 'proj_decal_manager' (sclient.cpp declares its other members)
+{
+public:
+	void Unknown_7633E0(DecalGeneratorClass *generator, const UnknownB01A40Type &decal, RenderObjClass *model);	// 0x7633E0 (the damage decals 0x6FD310: an aux item's value onto the model)  // NAME 1 [generator, decal, model]: what 0x6FD310 passes
+};
 
 // 0x6FD2C0
 void ClientObjectClass::Unknown_6FD2C0()
@@ -1781,96 +1781,96 @@ void ClientObjectClass::Unknown_6FD2C0()
 	Unknown_6FDBD0();
 	Unknown_6FE1E0();
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// NOT EXACT: inline budget (the client calls the array Cast 0x709A40 out of line for DamageSpot and DamageLine and inlines it for DamageBlotch; ours inlines all three; 4 forms, attempts.py show 0x6FD310)
+// 0x6FD310 (the damage decals: the DamageSpot / DamageLine / DamageBlotch items that changed, one decal pool each)
+void ClientObjectClass::Unknown_6FD310()
+{
+	if (!Unknown_6F5850()) {
+		return;
+	}
+	ProjDecalManagerClass *proj_decal_manager = ((SClient *)Client)->ProjDecalManager;
+
+
+
+
+	FAIL_IF(!proj_decal_manager) {return;}
+	bool spot_changed[15];
+	bool line_changed[10];
+	bool blotch_changed[5];
+	DeltaArrayClass<UnknownB01A40Type> *arrays[NUM_DAMAGE_POOLS];
+	{
+		NameClass name("DamageSpot");
+		DeltaArrayClass<UnknownB01A40Type> *t = Unknown_Find_Field<DeltaArrayClass<UnknownB01A40Type> >((DeltaCompoundClass *)AuxData, name);
+		if (t && t->m_Unknown70 <= 1) t = NULL;
+		arrays[0] = t;
+		if (t) {
+			for (int i = 0; i < 15; i++) spot_changed[i] = t->Children[i]->m_Unknown70 > 1;
+		} else {
+			memset(spot_changed, 0, sizeof(spot_changed));
+		}
+	}
+	{
+		NameClass name("DamageLine");
+		DeltaArrayClass<UnknownB01A40Type> *t = Unknown_Find_Field<DeltaArrayClass<UnknownB01A40Type> >((DeltaCompoundClass *)AuxData, name);
+		if (t && t->m_Unknown70 <= 1) t = NULL;
+		arrays[1] = t;
+		if (t) {
+			for (int i = 0; i < 10; i++) line_changed[i] = t->Children[i]->m_Unknown70 > 1;
+		} else {
+			memset(line_changed, 0, sizeof(line_changed));
+		}
+	}
+	{
+		NameClass name("DamageBlotch");
+		DeltaArrayClass<UnknownB01A40Type> *t = Unknown_Find_Field<DeltaArrayClass<UnknownB01A40Type> >((DeltaCompoundClass *)AuxData, name);
+		if (t && t->m_Unknown70 <= 1) t = NULL;
+		arrays[2] = t;
+		if (t) {
+			for (int i = 0; i < 5; i++) blotch_changed[i] = t->Children[i]->m_Unknown70 > 1;
+		} else {
+			memset(blotch_changed, 0, sizeof(blotch_changed));
+		}
+	}
+	if (arrays[0] || arrays[1] || arrays[2]) {
+		bool *changed[NUM_DAMAGE_POOLS] = { spot_changed, line_changed, blotch_changed };
+		int num_pools = PoolCount;
+
+
+
+
+
+
+
+		FAIL_IF(num_pools != NUM_DAMAGE_POOLS) {
+			if (num_pools >= NUM_DAMAGE_POOLS) num_pools = NUM_DAMAGE_POOLS;
+		}
+		for (int pool = 0; pool < num_pools; pool++) {
+			DeltaArrayClass<UnknownB01A40Type> *array = arrays[pool];
+			bool *pool_changed = changed[pool];
+			if (array) {
+				int size = Pools[pool].Size;
+				for (int slot = 0; slot < size; slot++) {
+					if (pool_changed[slot]) {
+						const UnknownB01A40Type &decal = Unknown_Get_Item(array, slot)->Value;
+						if (decal.I0C < 0) {
+							Clear_Decal_Slot(pool, slot);
+						} else {
+							Generator_PoolID = pool;
+							Generator_SlotID = slot;
+							DecalGeneratorClass *generator = Lock_Decal_Generator();
+							proj_decal_manager->Unknown_7633E0(generator, decal, Model);
+							Model->Create_Decal(generator);
+							Unlock_Decal_Generator(generator);
+						}
+						pool_changed[slot] = false;
+					}
+				}
+			} else {
+				Clear_Pool(pool);
+			}
+		}
+	}
+}
 
 
 
@@ -2651,7 +2651,7 @@ void ClientObjectClass::Unknown_6FF7A0(std::string &text)
 **
 **	co.cpp in the client: 0x6F2820-0x700A50 (__FILE__ e:\build\beta\G\app\Client\co.cpp). Not rebuilt
 **	yet: the constructor 0x6F2820, the destructor 0x6F2FE0, the slots +0x20 0x6F3C60 and +0x28 0x6F4610,
-**	the damage / engine / warp members (0x6FBEF0, 0x6FCB70, 0x6FD310-0x6FE1E0), 0x6FEF70 (l.2284) and
+**	the damage / engine / warp members (0x6FBEF0, 0x6FCB70, 0x6FDBD0, 0x6FE1E0; the damage decals 0x6FD310 written by DF1, NOT EXACT), 0x6FEF70 (l.2284) and
 **	0x6F5F60. The aux-data roots' constructors and the CREATE factory 0x6F6000-0x6FBEF0 are in
 **	aux_roots.cpp (generated). The asserts sit on the client's lines (D25): the blank stretches hold the
 **	members not yet written; members without asserts (0x6FF4B0-0x700400, 0x6FF7A0) sit where room was.
