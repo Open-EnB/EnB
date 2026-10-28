@@ -1872,6 +1872,71 @@ void ClientObjectClass::Unknown_6FD310()
 	}
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 0x6FD7A0 (the engine sounds 0x6FDBD0 call it for a type-1 object in view mode 1): the engine models
+// plnt_eng_p1 / p2 and ste01p1 / p2, hidden, on every 'exhaust' bone of robj and its sub-objects
+void ClientObjectClass::Unknown_6FD7A0(RenderObjClass *robj)
+{
+	FAIL_IF(!robj) {return;}
+	int count = robj->Get_Num_Bones();
+	for (int i = 0; i < count; i++) {
+		const char *bone = robj->Get_Bone_Name(i); if (strnicmp(bone, "exhaust", 7) == 0) {
+			robj->Remove_Sub_Objects_From_Bone(i);
+			RefCountPtr<RenderObjClass> obj = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj("plnt_eng_p1"));
+			if (obj) {
+				robj->Add_Sub_Object_To_Bone(obj.Peek(), i);
+				obj->Set_Hidden(true);
+			}
+			obj = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj("plnt_eng_p2"));
+			if (obj) {
+				robj->Add_Sub_Object_To_Bone(obj.Peek(), i);
+				obj->Set_Hidden(true);
+			}
+			obj = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj("ste01p1"));
+			if (obj) {
+				robj->Add_Sub_Object_To_Bone(obj.Peek(), i);
+				obj->Set_Hidden(true);
+			}
+			obj = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj("ste01p2"));
+			if (obj) {
+				robj->Add_Sub_Object_To_Bone(obj.Peek(), i);
+				obj->Set_Hidden(true);
+			}
+		}
+	}
+	int sub_count = robj->Get_Num_Sub_Objects();
+	for (int j = 0; j < sub_count; j++) {
+		RefCountPtr<RenderObjClass> sub = Create_Get(robj->Get_Sub_Object(j));
+		Unknown_6FD7A0(sub.Peek());
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // NOT EXACT: shape after the two Unknown_Find_Aux asserts (ours tests t again where the client jumps / returns); the calls out of line now match the client's (0x7079B0, 0x531590; IB1)
 // 0x6FDBD0 (the engine sounds: the engine and thrust loops when EngineTrailType changed, then EngineThrustState)
 void ClientObjectClass::Unknown_6FDBD0()
@@ -1970,71 +2035,6 @@ void ClientObjectClass::Unknown_6FDBD0()
 		}
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

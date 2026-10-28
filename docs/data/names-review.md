@@ -412,9 +412,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_6FD310` | `app/client/co.cpp:1780` | untagged neutral name (D10) |
 | 1 | `Unknown_6FDBD0` | `app/client/co.cpp:1781` | untagged neutral name (D10) |
 | 1 | `Unknown_6FE1E0` | `app/client/co.cpp:1782` | untagged neutral name (D10) |
-| 1 | `Unknown_6FD7A0` | `app/client/co.cpp:1887` | untagged neutral name (D10) |
-| 1 | `Unknown_7E7A70` | `app/client/co.cpp:1938` | untagged neutral name (D10) |
-| 1 | `Unknown_810750` | `app/client/co.cpp:1958` | untagged neutral name (D10) |
+| 1 | `Unknown_6FD7A0` | `app/client/co.cpp:1891` | untagged neutral name (D10) |
+| 1 | `Unknown_7E7A70` | `app/client/co.cpp:2003` | untagged neutral name (D10) |
+| 1 | `Unknown_810750` | `app/client/co.cpp:2023` | untagged neutral name (D10) |
 | 1 | `model, levels, hull_level, client, id, unknown` | `app/client/co.cpp:2111` | what 0x6FE1E0 passes |
 | 1 | `Unknown_810CF0` | `app/client/co.cpp:2111` | untagged neutral name (D10) |
 | 1 | `model, hull_level, number, id, organic, view, client, unknown` | `app/client/co.cpp:2112` | what 0x6FE1E0 passes |
