@@ -269,6 +269,15 @@ eff_o.cpp, shiputils.cpp, co.cpp's members): exact handlers do not yet make a wo
 
 One frame of `SClient::Do_Frame` 0x742B60 with three packets queued (CREATE, AUX_DATA, SIMPLE_POSITIONAL):
 
+**State 2026-10-28 (overnight run):** this path now runs as real code in clienttest's section (4)
+(`build.py build --lib app`; `python tools/harness/clienttest.py build`, then `run`; 45 checks). Do_Frame 0x742B60
+(exact), Process_Packets with the real SIMPLE 8 handler, postate / extrap's state (PS1, EX1), Process_AI 0x744260,
+0x6F3C60 (exact) and 0x6F4610 drive the model's Set_Transform. The test creates its object directly, since CREATE 4
+(exact, CR1) needs the game's asset manager and stays in gen_stubs' NOT_DRIVEN. Its checks: the model is at the
+packet's position + velocity x 500 ticks, turned 90 degrees about Z; a second packet updates the state in place; past
+the 2000-tick blend the model follows the second packet. Not exact yet: 0x6F4610, the roll 0x6F3FA0, Process_AI,
+0x6FD310, 0x6FDBD0, 0x6FBEF0, all inline budget except Process_AI (shape); 0x6FE1E0 (damage state) not written.
+
 1. Age step: `[+0x12C0]->Unknown_20()`; each existing object's slot +0x1C 0x6F5120 -> `AuxData->Unknown_20()`.
 2. `+0x10BC = Unknown_Get_Ticks()`; input.
 3. `Process_Packets` 0x7427C0 peeks the CREATE packet (GameID +0x0C, Scale +0x10, BaseAsset +0x14 s16,

@@ -371,6 +371,12 @@ unless `--lever` cites a new row of this table.
   `InfluenceClass::Unknown_08()` lost CREATE 0x733700). Grep the subclasses before declaring one.
 * **The client's HashList loops test only `Next()`** (`while (node && node->Next()) ... node = node->Next()`);
   `HashNodeClass::Next_Valid` adds a Prev test (`[eax+8]`) the client never has (2026-10-28, UP1).
+* **Any declaration added to DeltaArrayClass moves aux_roots pairs, even one never instantiated** (2026-10-28, DF1:
+  `index < Items.size()` as a member +3 / -2, as a free template -0x6FB1E0); keep such helpers local to the file.
+* **co.cpp's lookups: the client cuts the earlier finds deeper than the later ones** (2026-10-28, UP1 / DF1:
+  0x6F4610, 0x6F3FA0, 0x6FD310, 0x6FDBD0, 0x6FBEF0 all call a Cast / find out of line that ours inlines); one
+  cause suspected (P-DF1-1: is auxdata.h's `Unknown_Find_Field` body larger in the client?).
+* **Do_Frame's lost-connection dialog matches only as an if / else of two complete calls** (2026-10-28, DF1).
 * **Asserts sit on the client's lines (D25).** To add code above a logged line, remove as many
   blank lines from the same function's stretch (cordmgr.cpp; `.work/milestones/a3/relines.py`);
   pad inside a function, not only before it (Get(char **); pk.cpp's helpers take single blanks).
@@ -669,6 +675,8 @@ unless `--lever` cites a new row of this table.
   and Save_PLD rewrites it). drawcheck without `--art` runs ours on the install folder (P-LD1-2).
 * **SimpleSceneClass adds at the head and renders from the head:** an object meant to draw after another is
   added before it (2026-10-28, LD1: the trees' shadows were overdrawn by the land).
+* **clienttest stand-ins (2026-10-28, DF1):** Play_3D_Sound beside Play_2D_Sound (else all of soundlib.obj links,
+  LNK2005); a by-value KernelEventClass parameter or return needs a hand-written stand-in (gen_stubs now skips them).
 * **clienttest (T9, 2026-10-27; `python tools/harness/clienttest.py build|run`):** hand-written stand-ins must cover
   every member of an app.lib object the program reaches, or the linker pulls the whole object and reports LNK2005 on
   the rest (app.lib changes under you when other builders verify: soptions.obj did). A stand-in object whose real
