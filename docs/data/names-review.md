@@ -518,14 +518,14 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_18` | `app/client/co_data.cpp:60` | untagged neutral name (D10) |
 | 1 | `Unknown_18` | `app/client/co_data.h:42` | the client's slot |
 | 1 | `ClientObjectDataAccessClass` | `app/client/co_data.h:52` | neutral (D10), the per-type access |
-| 1 | `Unknown_70CC40, sclient, packet` | `app/client/co_player_relationship.cpp:11` | cpacket.cpp's RELATIONSHIP 137 handler |
-| 1 | `Unknown_70CC40` | `app/client/co_player_relationship.cpp:11` | untagged neutral name (D10) |
-| 1 | `Unknown_70CC90, sclient, packet` | `app/client/co_player_relationship.cpp:12` | cpacket.cpp's 138 handler |
-| 1 | `Unknown_70CC90` | `app/client/co_player_relationship.cpp:12` | untagged neutral name (D10) |
-| 1 | `Unknown_70CD50, sclient, packet` | `app/client/co_player_relationship.cpp:13` | cpacket.cpp's ATTACKER_UPDATES 139 handler |
-| 1 | `Unknown_70CD50` | `app/client/co_player_relationship.cpp:13` | untagged neutral name (D10) |
-| 1 | `Unknown_70A7E0` | `app/client/co_player_relationship.cpp:14` | sclient.cpp's name ('gutter_color.ini') |
-| 1 | `Unknown_4BC260` | `app/client/co_player_relationship.cpp:15` | 0x4BC260, E&B's message reporter (buff_database.cpp) |
+| 1 | `Unknown_70CC40, sclient, packet` | `app/client/co_player_relationship.cpp:12` | cpacket.cpp's RELATIONSHIP 137 handler |
+| 1 | `Unknown_70CC40` | `app/client/co_player_relationship.cpp:12` | untagged neutral name (D10) |
+| 1 | `Unknown_70CC90, sclient, packet` | `app/client/co_player_relationship.cpp:13` | cpacket.cpp's 138 handler |
+| 1 | `Unknown_70CC90` | `app/client/co_player_relationship.cpp:13` | untagged neutral name (D10) |
+| 1 | `Unknown_70CD50, sclient, packet` | `app/client/co_player_relationship.cpp:14` | cpacket.cpp's ATTACKER_UPDATES 139 handler |
+| 1 | `Unknown_70CD50` | `app/client/co_player_relationship.cpp:14` | untagged neutral name (D10) |
+| 1 | `Unknown_70A7E0` | `app/client/co_player_relationship.cpp:15` | sclient.cpp's name ('gutter_color.ini') |
+| 1 | `Unknown_4BC260` | `app/client/co_player_relationship.cpp:16` | 0x4BC260, E&B's message reporter (buff_database.cpp) |
 | 1 | `Unknown_70A540` | `app/client/co_player_relationship.cpp:78` | the default colours by value |
 | 1 | `Unknown_70AD70` | `app/client/co_player_relationship.cpp:109` | sclient.cpp's name (it empties the table) |
 | 1 | `Unknown_70ADF0` | `app/client/co_player_relationship.cpp:113` | the colours of an ini section (no direct caller; inlined by the relationship lookups) |
@@ -534,6 +534,11 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_70B0A0` | `app/client/co_player_relationship.cpp:130` | the gutter colours of an object (radar_data.cpp's callers) |
 | 1 | `Unknown_70B450` | `app/client/co_player_relationship.cpp:150` | 'Neutral' unless the object's type is one of seven |
 | 1 | `Unknown_70B790` | `app/client/co_player_relationship.cpp:161` | 'Attacking' while the relationship says so |
+| 1 | `Unknown_Find_Set_Field` | `app/client/co_player_relationship.cpp:198` | neutral (D10) |
+| 1 | `Unknown_Find_Field` | `app/client/co_player_relationship.cpp:200` | untagged neutral name (D10) |
+| 1 | `m_Unknown70` | `app/client/co_player_relationship.cpp:201` | untagged neutral name (D10) |
+| 1 | `Unknown_70BAC0` | `app/client/co_player_relationship.cpp:203` | the object is a player in the client's group (GroupInfo.Members' game ids) |
+| 1 | `Unknown_70BC30` | `app/client/co_player_relationship.cpp:218` | 'Group' for a member of the client's group |
 | 1 | `Unknown_70BF60` | `app/client/co_player_relationship.cpp:226` | type 1 and SClient's PvP test 0x74D780 (no direct caller; inlined by 0x70BF90) |
 | 1 | `Unknown_74D780` | `app/client/co_player_relationship.cpp:229` | untagged neutral name (D10) |
 | 1 | `Unknown_70BF90` | `app/client/co_player_relationship.cpp:231` | 'PVPAttackable' when 0x70BF60 says so |
@@ -2936,23 +2941,23 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_04` | `app/shared/auxdata/delta.h:54` | untagged neutral name (D10) |
 | 1 | `Unknown_00` | `app/shared/auxdata/delta.h:61` | untagged neutral name (D10) |
 | 1 | `DeltaUnknownGlobal` | `app/shared/auxdata/delta.h:66` | neutral (D10) |
-| 1 | `DeltaCompoundUnknownGlobal` | `app/shared/auxdata/delta.h:67` | neutral (D10) |
-| 1 | `Unknown_0C` | `app/shared/auxdata/delta.h:77` | untagged neutral name (D10) |
-| 1 | `Unknown_10` | `app/shared/auxdata/delta.h:78` | untagged neutral name (D10) |
-| 1 | `Unknown_18` | `app/shared/auxdata/delta.h:80` | untagged neutral name (D10) |
-| 1 | `Unknown_1C` | `app/shared/auxdata/delta.h:81` | untagged neutral name (D10) |
-| 1 | `Unknown_20` | `app/shared/auxdata/delta.h:82` | untagged neutral name (D10) |
-| 1 | `Unknown_34` | `app/shared/auxdata/delta.h:88` | untagged neutral name (D10) |
-| 1 | `Unknown_38` | `app/shared/auxdata/delta.h:89` | untagged neutral name (D10) |
-| 1 | `Unknown_3C` | `app/shared/auxdata/delta.h:90` | untagged neutral name (D10) |
-| 1 | `Unknown_40` | `app/shared/auxdata/delta.h:91` | untagged neutral name (D10) |
-| 1 | `Unknown_44` | `app/shared/auxdata/delta.h:92` | untagged neutral name (D10) |
-| 1 | `m_Unknown04` | `app/shared/auxdata/delta.h:94` | untagged neutral name (D10) |
-| 1 | `m_Unknown70` | `app/shared/auxdata/delta.h:97` | untagged neutral name (D10) |
-| 1 | `m_Unknown78` | `app/shared/auxdata/delta.h:99` | untagged neutral name (D10) |
-| 1 | `m_Unknown7C` | `app/shared/auxdata/delta.h:100` | untagged neutral name (D10) |
-| 1 | `m_Unknown80` | `app/shared/auxdata/delta.h:101` | untagged neutral name (D10) |
-| 1 | `m_Unknown98` | `app/shared/auxdata/delta.h:108` | untagged neutral name (D10) |
+| 1 | `Unknown_0C` | `app/shared/auxdata/delta.h:76` | untagged neutral name (D10) |
+| 1 | `Unknown_10` | `app/shared/auxdata/delta.h:77` | untagged neutral name (D10) |
+| 1 | `Unknown_18` | `app/shared/auxdata/delta.h:79` | untagged neutral name (D10) |
+| 1 | `Unknown_1C` | `app/shared/auxdata/delta.h:80` | untagged neutral name (D10) |
+| 1 | `Unknown_20` | `app/shared/auxdata/delta.h:81` | untagged neutral name (D10) |
+| 1 | `Unknown_34` | `app/shared/auxdata/delta.h:87` | untagged neutral name (D10) |
+| 1 | `Unknown_38` | `app/shared/auxdata/delta.h:88` | untagged neutral name (D10) |
+| 1 | `Unknown_3C` | `app/shared/auxdata/delta.h:89` | untagged neutral name (D10) |
+| 1 | `Unknown_40` | `app/shared/auxdata/delta.h:90` | untagged neutral name (D10) |
+| 1 | `Unknown_44` | `app/shared/auxdata/delta.h:91` | untagged neutral name (D10) |
+| 1 | `m_Unknown04` | `app/shared/auxdata/delta.h:93` | untagged neutral name (D10) |
+| 1 | `m_Unknown70` | `app/shared/auxdata/delta.h:96` | untagged neutral name (D10) |
+| 1 | `m_Unknown78` | `app/shared/auxdata/delta.h:98` | untagged neutral name (D10) |
+| 1 | `m_Unknown7C` | `app/shared/auxdata/delta.h:99` | untagged neutral name (D10) |
+| 1 | `m_Unknown80` | `app/shared/auxdata/delta.h:100` | untagged neutral name (D10) |
+| 1 | `m_Unknown98` | `app/shared/auxdata/delta.h:107` | untagged neutral name (D10) |
+| 1 | `UnknownGlobal` | `app/shared/auxdata/delta.h:109` | untagged neutral name (D10) |
 | 1 | `Unknown_48` | `app/shared/auxdata/delta.h:122` | untagged neutral name (D10) |
 | 1 | `UnknownGlobal` | `app/shared/auxdata/delta_array.h:30` | untagged neutral name (D10) |
 | 1 | `m_Unknown04` | `app/shared/auxdata/delta_array.h:63` | untagged neutral name (D10) |
@@ -3733,6 +3738,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `defaults` | `app/client/co_player_relationship.cpp:80` | what it holds |
 | 2 | `neutral` | `app/client/co_player_relationship.cpp:156` | what it holds |
 | 2 | `attacking` | `app/client/co_player_relationship.cpp:164` | what it holds |
+| 2 | `group` | `app/client/co_player_relationship.cpp:221` | what it holds |
 | 2 | `pvp_attackable` | `app/client/co_player_relationship.cpp:234` | what it holds |
 | 2 | `player_colors` | `app/client/co_player_relationship.cpp:243` | what it holds |
 | 2 | `kos` | `app/client/co_player_relationship.cpp:286` | what it holds |
@@ -4773,14 +4779,14 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Visit_Children` | `app/shared/auxdata/delta.h:44` | describes what it does |
 | 2 | `DeltaChildVisitorClass` | `app/shared/auxdata/delta.h:51` | describes what it does |
 | 2 | `DeltaInterfaceClass` | `app/shared/auxdata/delta.h:58` | describes what it does |
-| 2 | `Accept` | `app/shared/auxdata/delta.h:76` | describes what it does |
-| 2 | `Set_Parent` | `app/shared/auxdata/delta.h:79` | describes what it does |
-| 2 | `As_Delta` | `app/shared/auxdata/delta.h:83` | describes what it does |
-| 2 | `As_Compound` | `app/shared/auxdata/delta.h:84` | describes what it does |
-| 2 | `Write` | `app/shared/auxdata/delta.h:87` | describes what it does |
-| 2 | `Name` | `app/shared/auxdata/delta.h:95` | describes what it does |
-| 2 | `FullName` | `app/shared/auxdata/delta.h:96` | describes what it does |
-| 2 | `Parent` | `app/shared/auxdata/delta.h:98` | describes what it does |
+| 2 | `Accept` | `app/shared/auxdata/delta.h:75` | describes what it does |
+| 2 | `Set_Parent` | `app/shared/auxdata/delta.h:78` | describes what it does |
+| 2 | `As_Delta` | `app/shared/auxdata/delta.h:82` | describes what it does |
+| 2 | `As_Compound` | `app/shared/auxdata/delta.h:83` | describes what it does |
+| 2 | `Write` | `app/shared/auxdata/delta.h:86` | describes what it does |
+| 2 | `Name` | `app/shared/auxdata/delta.h:94` | describes what it does |
+| 2 | `FullName` | `app/shared/auxdata/delta.h:95` | describes what it does |
+| 2 | `Parent` | `app/shared/auxdata/delta.h:97` | describes what it does |
 | 2 | `Add` | `app/shared/auxdata/delta.h:124` | describes what it does |
 | 2 | `Get_Lookup` | `app/shared/auxdata/delta.h:125` | after the asserts' Lookup |
 | 2 | `Decode` | `app/shared/auxdata/delta.h:129` | describes what it does |
@@ -6250,8 +6256,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `bitset.h` | `app/shared/auxdata/bitset.h:16` | header name assumed from the client's bitset.cpp |
 | 3 | `BitSetClass` | `app/shared/auxdata/bitset.h:19` | by convention (D24) from the client's file bitset.cpp |
 | 3 | `delta.h` | `app/shared/auxdata/delta.h:19` | header name assumed from the client's delta.cpp |
-| 3 | `DeltaClass` | `app/shared/auxdata/delta.h:70` | by convention (D24) from the client's file delta.cpp (D37; the reference decoder notes: DeltaBase) |
-| 3 | `DeltaCompoundClass` | `app/shared/auxdata/delta.h:105` | by convention (D24) from the client's file delta.cpp (D37; the reference decoder notes: DeltaCompound) |
+| 3 | `DeltaClass` | `app/shared/auxdata/delta.h:69` | by convention (D24) from the client's file delta.cpp (D37; the reference decoder notes: DeltaBase) |
+| 3 | `DeltaCompoundClass` | `app/shared/auxdata/delta.h:104` | by convention (D24) from the client's file delta.cpp (D37; the reference decoder notes: DeltaCompound) |
 | 3 | `DeltaArrayClass` | `app/shared/auxdata/delta_array.h:25` | by convention (D24) from the client's file delta_array.h |
 | 3 | `DeltaInterpolatorClass` | `app/shared/auxdata/delta_interpolator.h:25` | by convention (D24) from the client's file delta_interpolator.cpp (D59) |
 | 3 | `DeltaItemArrayClass` | `app/shared/auxdata/delta_item_array.h:25` | by convention (D24) from the client's file delta_item_array.h |

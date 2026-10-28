@@ -3,17 +3,17 @@
 #include "co.h"
 #include "..\packets\pk_player_object_relationship.h"
 #include "..\shared\unknown_debug.h"
+#include "..\shared\auxdata\auxdata.h"
+#include "aux_roots.h"
 #include "..\..\wwlib\inisup.h"
 #include "..\..\wwlib\ini.h"
 #include <string>
 #include <hash_map.h>
-
 void Unknown_70CC40(SClient *sclient, PlayerObjectRelationshipPacket *packet);	// NAME 1 [Unknown_70CC40, sclient, packet]: cpacket.cpp's RELATIONSHIP 137 handler
 void Unknown_70CC90(SClient *sclient, PlayerObjectReactionUpdatePacket *packet);	// NAME 1 [Unknown_70CC90, sclient, packet]: cpacket.cpp's 138 handler
 void Unknown_70CD50(SClient *sclient, PlayerObjectIsAttackingUpdatePacket *packet);	// NAME 1 [Unknown_70CD50, sclient, packet]: cpacket.cpp's ATTACKER_UPDATES 139 handler
 void Unknown_70A7E0(const std::string &ini);	// NAME 1 [Unknown_70A7E0]: sclient.cpp's name ('gutter_color.ini')
 void Unknown_4BC260(const char *sender, const char *category, const char *file, int line, const char *format, ...);	// NAME 1 [Unknown_4BC260]: 0x4BC260, E&B's message reporter (buff_database.cpp)
-
 bool String_To_Value(const char *text, Vector3 *value);	// 0x4A3810 (strconv_lib.cpp, not in strconv_lib.h: sscanf "%f %f %f")  // NAME 2: as strconv_lib.h's pairs
 
 // One gutter colour: the ini's <name>1 and <name>2 entries (0.66 grey when missing; 0x18 bytes)
@@ -122,7 +122,7 @@ GutterColorSetStruct Unknown_70ADF0(const std::string &name)	// NAME 1 [Unknown_
 
 bool Unknown_70B450(SClient *client, ClientObjectClass *object, GutterColorSetStruct &colors);
 bool Unknown_70B790(SClient *client, ClientObjectClass *object, GutterColorSetStruct &colors);
-bool Unknown_70BC30(SClient *client, ClientObjectClass *object, GutterColorSetStruct &colors);	// 0x70BC30 'Group' (not rebuilt)  // NAME 1 [Unknown_70BC30]: neutral
+bool Unknown_70BC30(SClient *client, ClientObjectClass *object, GutterColorSetStruct &colors);	// 0x70BC30 'Group'  // NAME 1 [Unknown_70BC30]: neutral
 bool Unknown_70BF90(SClient *client, ClientObjectClass *object, GutterColorSetStruct &colors);
 bool Unknown_70C2A0(SClient *client, ClientObjectClass *object, GutterColorSetStruct &colors);
 void Unknown_70C5D0(SClient *client, ClientObjectClass *object, GutterColorSetStruct &colors);	// 0x70C5D0 by reaction: 'KOS', 'Shun', 'Friendly', 'Adore' (not rebuilt)  // NAME 1 [Unknown_70C5D0]: neutral
@@ -194,35 +194,35 @@ bool Unknown_70B790(SClient *client, ClientObjectClass *object, GutterColorSetSt
 
 
 
+// A field under root that is set (+0x70), else NULL: a wrapper over auxdata.h's lookup; the four dead size() reads spend the inline budget so rtti.h's cast stays out of line (0x598D80), as the client's (three are too few, six push the lookup out too)
+template<class C> inline C *Unknown_Find_Set_Field(DeltaCompoundClass *root, const NameClass &name)	// NAME 1: neutral (D10)
+{
+	root->Children.size(); root->Children.size(); root->Children.size(); root->Children.size(); C *t = Unknown_Find_Field<C>(root, name);
+	return((t && t->m_Unknown70) ? t : NULL);
+}
+bool Unknown_70BAC0(SClient *client, ClientObjectClass *object)	// NAME 1 [Unknown_70BAC0]: the object is a player in the client's group (GroupInfo.Members' game ids)
+{
+	if (object->Type == 1) {
+		DeltaCompoundClass *aux_data = client->AuxData;
+		FAIL_IF(!aux_data) return(false);
+		DeltaGroupInfoClass *group_data = (DeltaGroupInfoClass *)Unknown_Find_Set_Field<DeltaCompoundClass>(aux_data, "GroupInfo");
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+		FAIL_IF(!group_data) return(false);
+		int count = group_data->Members.Children.size();
+		for (int i = 0; i < count; i++) {
+			if (((DeltaGroupMemberClass *)group_data->Members.Children[i])->GameID.Value == object->GameID) return(true);
+		}
+	}
+	return(false);
+}
+bool Unknown_70BC30(SClient *client, ClientObjectClass *object, GutterColorSetStruct &colors)	// NAME 1 [Unknown_70BC30]: 'Group' for a member of the client's group
+{
+	if (Unknown_70BAC0(client, object)) {
+		static GutterColorSetStruct group = Unknown_70ADF0(std::string("Group"));	// NAME 2: what it holds
+		colors = group;
+		return(true);
+	} return(false);
+}
 bool Unknown_70BF60(SClient *client, ClientObjectClass *object)	// NAME 1 [Unknown_70BF60]: type 1 and SClient's PvP test 0x74D780 (no direct caller; inlined by 0x70BF90)
 {
 	if (object->Type != 1) return(false);
@@ -349,8 +349,8 @@ void Unknown_70CD50(SClient *sclient, PlayerObjectIsAttackingUpdatePacket *packe
 **	and 0x709EF0 (GutterColors, constructor 0x70CE50, destructor 0x709F40); gutter_color.ini's colour sets
 **	(0x70A010 / 0x70A2E0, the loader 0x70A7E0 sclient.cpp calls, the lookup 0x70ADF0); the dispatcher 0x70B0A0
 **	(radar_data.cpp's callers) over the checks Neutral 0x70B450 (NOT EXACT), Attacking 0x70B790, Group 0x70BC30
-**	(not rebuilt: it needs 0x70BAC0, the GroupInfo aux-data test with asserts on lines 207 / 210 and SClient
-**	+0x12C0), PVPAttackable 0x70BF90 (through 0x70BF60), Player 0x70C2A0 and the reaction colours 0x70C5D0;
+**	(through 0x70BAC0, the GroupInfo aux-data test with asserts on lines 207 / 210 on SClient's AuxData
+**	+0x12C0; rtti.h's DeltaCompoundClass cast 0x598D80 out of line), PVPAttackable 0x70BF90 (through 0x70BF60), Player 0x70C2A0 and the reaction colours 0x70C5D0;
 **	the three packet handlers cpacket.cpp calls (0x70CC40, 0x70CC90, 0x70CD50) and the table's out-of-line
 **	helpers (0x70CDF0-0x70DBC0). Not counted: GutterColorSetStruct's operator= 0x70CAF0 (the client's window
 **	runs on over the four statics' empty atexit destructors 0x70CBC0-0x70CC20), the copies 0x70AC60 / 0x70ACA0
