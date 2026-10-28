@@ -120,24 +120,24 @@ GutterColorSetStruct Unknown_70ADF0(const std::string &name)	// NAME 1 [Unknown_
 }
 
 
+bool Unknown_70B450(SClient *client, ClientObjectClass *object, GutterColorSetStruct &colors);
+bool Unknown_70B790(SClient *client, ClientObjectClass *object, GutterColorSetStruct &colors);
+bool Unknown_70BC30(SClient *client, ClientObjectClass *object, GutterColorSetStruct &colors);	// 0x70BC30 'Group' (not rebuilt)  // NAME 1 [Unknown_70BC30]: neutral
+bool Unknown_70BF90(SClient *client, ClientObjectClass *object, GutterColorSetStruct &colors);
+bool Unknown_70C2A0(SClient *client, ClientObjectClass *object, GutterColorSetStruct &colors);
+void Unknown_70C5D0(SClient *client, ClientObjectClass *object, GutterColorSetStruct &colors);	// 0x70C5D0 by reaction: 'KOS', 'Shun', 'Friendly', 'Adore' (not rebuilt)  // NAME 1 [Unknown_70C5D0]: neutral
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+GutterColorSetStruct Unknown_70B0A0(SClient *client, ClientObjectClass *object)	// NAME 1 [Unknown_70B0A0]: the gutter colours of an object (radar_data.cpp's callers)
+{
+	GutterColorSetStruct colors;
+	if (Unknown_70B450(client, object, colors)) return(colors);
+	if (Unknown_70B790(client, object, colors)) return(colors);
+	if (Unknown_70BC30(client, object, colors)) return(colors);
+	if (Unknown_70BF90(client, object, colors)) return(colors);
+	if (Unknown_70C2A0(client, object, colors)) return(colors);
+	Unknown_70C5D0(client, object, colors);
+	return(colors);
+}
 
 
 

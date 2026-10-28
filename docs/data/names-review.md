@@ -529,6 +529,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_70A540` | `app/client/co_player_relationship.cpp:78` | the default colours by value |
 | 1 | `Unknown_70AD70` | `app/client/co_player_relationship.cpp:109` | sclient.cpp's name (it empties the table) |
 | 1 | `Unknown_70ADF0` | `app/client/co_player_relationship.cpp:113` | the colours of an ini section (no direct caller; inlined by the relationship lookups) |
+| 1 | `Unknown_70BC30` | `app/client/co_player_relationship.cpp:125` | neutral |
+| 1 | `Unknown_70C5D0` | `app/client/co_player_relationship.cpp:128` | neutral |
+| 1 | `Unknown_70B0A0` | `app/client/co_player_relationship.cpp:130` | the gutter colours of an object (radar_data.cpp's callers) |
 | 1 | `Unknown_70B450` | `app/client/co_player_relationship.cpp:150` | 'Neutral' unless the object's type is one of seven |
 | 1 | `Unknown_70B790` | `app/client/co_player_relationship.cpp:161` | 'Attacking' while the relationship says so |
 | 1 | `Unknown_70BF60` | `app/client/co_player_relationship.cpp:226` | type 1 and SClient's PvP test 0x74D780 (no direct caller; inlined by 0x70BF90) |
