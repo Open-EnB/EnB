@@ -3167,4 +3167,16 @@ msg 5 STARBASE_ROOM_CHANGE (160) size 16: cpacket.cpp's handler
 msg 6 STARBASE_AVATAR_CHANGE (158) size 32: cpacket.cpp's handler
 starbase calls: 63CF30(77, 4) 
 check STARBASE_AVATAR_ROOM_UPDATE 160: avatar 77's new room 4 (0x63CF30); with +0x7C clear neither handler calls: ok
+== (4g) RECUSTOMIZE_SHIP_START 129, RECUSTOMIZE_AVATAR_START 131, RECUSTOMIZE_AVATAR_UPDATE 133
+gen ShipRecustomizationCostClass::ShipRecustomizationCostClass
+gen RecustomizationCostClass::RecustomizationCostClass
+gen ShipRecustomizationCostClass::ShipRecustomizationCostClass
+gen RecustomizationCostClass::RecustomizationCostClass
+packets made
+fail_if !ship_ui (line 3425)
+fail_if !avatar_ui (line 3438)
+check 129 and 131 without the view's +0x1A0 / +0x19C: the FAIL_IFs '!ship_ui', '!avatar_ui', nothing called: ok
+msg 1 RECUSTOMIZE_AVATAR_UPDATE (133) size 249: cpacket.cpp's handler
+recustomize calls: 61F250(desc, cost, 2, 3, 4, 5) 551C40(cost) 6437A0(7, desc) 
+check 129: +0x1A0's 0x61F250 gets the description, the costs and +0x1A4..+0x1B0; 131: +0x19C's 0x551C40 the costs; 133: the interface's 0x6437A0 its int 7 and the description: ok
 == done: 0 checks failed

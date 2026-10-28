@@ -140,6 +140,7 @@ bool StartPacketClass::Process_Packet(void *instance)
 }
 
 #include "..\packets\pkstarbase_avatar_change.h"
+#include "..\packets\pkrecustomize.h"
 // ui_starbase.cpp's starbase interface (the starbase view's +0x60), declared as far as the starbase avatar packets call it
 class UIStarbaseClass : public UIUnknownBaseClass, public RefCountClass	// NAME 3: class-from-file (D24) for app\client\ui_starbase.cpp
 {
@@ -148,12 +149,11 @@ public:
 	void Unknown_63E5C0(int avatar_id, float orient, Vector3 *position, int action);	// 0x63E5C0 (STARBASE_AVATAR_UPDATE 158)  // NAME 1 [avatar_id, orient, position, action]: the packet's fields
 	char Unknown40[0x7C - 0x40]; bool Unknown7C; char Unknown7D[0xAC - 0x7D];	// +0x40; +0x7C both handlers test it
 	int Room;	// +0xAC (158 moves an avatar only in this room)  // NAME 2: what the handler compares with the packet's Room
+	void Unknown_6437A0(int unknown, AvatarDescClass *desc);	// 0x6437A0 (RECUSTOMIZE_AVATAR_UPDATE 133)  // NAME 1 [unknown, desc]: the packet's fields
 };
 
-
-
-
-
+class SBaseViewUnknown1A0Class { public: void Unknown_61F250(ShipCustDescClass *desc, ShipRecustomizationCostClass *cost, int a, int b, int c, int d); };	// NAME 1: neutral (D10): the starbase view's +0x1A0 (RECUSTOMIZE_SHIP_START 129: 0x61F250)  // NAME 1 [desc, cost, a, b, c, d]: the packet's fields
+class SBaseViewUnknown19CClass { public: void Unknown_551C40(RecustomizationCostClass *cost); };	// NAME 1: neutral (D10): the starbase view's +0x19C (RECUSTOMIZE_AVATAR_START 131: 0x551C40)  // NAME 1 [cost]: the packet's field
 
 void Unknown_4BC260(const char *sender, const char *category, const char *file, int line, const char *format, ...);	// 0x4BC260 (unknown_debug.h's reporter)
 // SClient +0x12C4's elements: the player-variable aux data roots (an UnknownSendRootClass, 0xADC bytes, made
@@ -258,7 +258,7 @@ public:
 	RefCountPtr<UIJobsClass> Get_Jobs() { return(Jobs); }	// 0x73A300 (out of line after JOB_LIST 147, the first caller)  // NAME 2: what it returns
 	RefCountPtr<UIStarbaseClass> Get_Starbase() { return(Starbase); }	// 0x54EDA0 (out of line in another object)  // NAME 2: what it returns
 	char Unknown38[0x60 - 0x38]; RefCountPtr<UIStarbaseClass> Starbase; char Unknown64[0x194 - 0x64];	// +0x38; +0x60 ui_starbase.cpp's interface  // NAME 2 [Starbase]: what it holds
-	RefCountPtr<UIJobsClass> Jobs;	// +0x194  // NAME 2: what it holds
+	RefCountPtr<UIJobsClass> Jobs; int Unknown198; SBaseViewUnknown19CClass *AvatarUI; SBaseViewUnknown1A0Class *ShipUI;	// +0x194  // NAME 2 [Jobs]: what it holds; +0x19C / +0x1A0  // NAME 3 [AvatarUI, ShipUI]: the recustomize handlers' '!avatar_ui' / '!ship_ui' tests
 };
 
 // ui_talkt.cpp's talk tree interface and ui_talkt_space.cpp's (SClient +0x1298), declared as far as the
@@ -3411,6 +3411,42 @@ bool ReferralPointsAvailablePacketClass::Process_Packet(void *instance)
 	SClient *sclient = (SClient *)instance;
 	FAIL_IF(!sclient) return(true);
 	sclient->Unknown_751460(PointsTotal, PointsSpent);
+	return(true);
+}
+
+// 0x73F4B0
+bool RecustomizeShipStartPacketClass::Process_Packet(void *instance)
+{
+	SClient *sclient = (SClient *)instance;
+
+	FAIL_IF(!sclient) return(true);
+	SBaseViewUnknown1A0Class *ship_ui = ((SBaseViewClass *)sclient->Unknown135C)->ShipUI;
+
+	FAIL_IF(!ship_ui) return(true);
+	ship_ui->Unknown_61F250(&Desc, &Cost, Unknown1A4, Unknown1A8, Unknown1AC, Unknown1B0);
+	return(true);
+}
+
+// 0x73F570
+bool RecustomizeAvatarStartPacketClass::Process_Packet(void *instance)
+{
+	SClient *sclient = (SClient *)instance;
+
+	FAIL_IF(!sclient) return(true);
+	SBaseViewUnknown19CClass *avatar_ui = ((SBaseViewClass *)sclient->Unknown135C)->AvatarUI;
+
+	FAIL_IF(!avatar_ui) return(true);
+	avatar_ui->Unknown_551C40(&Cost);
+	return(true);
+}
+
+// 0x73F5F0
+bool RecustomizeAvatarUpdatePacketClass::Process_Packet(void *instance)
+{
+	SClient *sclient = (SClient *)instance;
+	FAIL_IF(!sclient) return(true);
+	UIStarbaseClass *starbase = ((SBaseViewClass *)sclient->Unknown135C)->Get_Starbase().Peek();
+	starbase->Unknown_6437A0(Unknown118, &Desc);
 	return(true);
 }
 

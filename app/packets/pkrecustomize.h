@@ -66,7 +66,7 @@ public:
 	RecustomizeShipStartPacketClass(int unknown1A0, const ShipCustDescClass &desc, const ShipRecustomizationCostClass &cost, int unknown1A4, int unknown1A8, int unknown1AC, int unknown1B0);	// 0x89FD80
 	// the destructor is the implicit one: +0x00 0x89FD30 / 0x89FD60
 	virtual RawPacketClass *Build();	// +0x04 0x8A0040
-	virtual bool Process_Packet(void *client);	// +0x08 0x73F4B0 (cpacket.cpp, not rebuilt)
+	virtual bool Process_Packet(void *client);	// +0x08 0x73F4B0 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x8A0160
 	virtual int Print(char *buffer, int len);	// +0x10 0x8A01A0
 
@@ -103,7 +103,7 @@ public:
 	RecustomizeAvatarStartPacketClass(int unknown48, const RecustomizationCostClass &cost);	// 0x8A0820
 	virtual ~RecustomizeAvatarStartPacketClass();	// +0x00 0x8A07D0 / 0x8A0800
 	virtual RawPacketClass *Build();	// +0x04 0x8A08C0
-	virtual bool Process_Packet(void *client);	// +0x08 0x73F570 (cpacket.cpp, not rebuilt)
+	virtual bool Process_Packet(void *client);	// +0x08 0x73F570 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x8A0990
 	virtual int Print(char *buffer, int len);	// +0x10 0x8A09B0
 
@@ -135,7 +135,7 @@ public:
 	RecustomizeAvatarUpdatePacketClass(int unknown118, const AvatarDescClass &desc);	// 0x8A1090
 	// the destructor is the implicit one: +0x00 0x8A0FF0 / 0x8A1020 (a declared one stores the class's own vtable first; the client's doesn't)
 	virtual RawPacketClass *Build();	// +0x04 0x8A13B0
-	virtual bool Process_Packet(void *client);	// +0x08 0x73F5F0 (cpacket.cpp, not rebuilt)
+	virtual bool Process_Packet(void *client);	// +0x08 0x73F5F0 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x8A1480
 	virtual int Print(char *buffer, int len);	// +0x10 0x8A14A0
 

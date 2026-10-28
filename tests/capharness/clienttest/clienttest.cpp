@@ -28,7 +28,8 @@
 //     (the gadget list +0x1278, the gadget's and its interface's slots) and INCAPACITANCE_DETAILS 144; (4d):
 //     synthetic FORMATION_POSITIONAL_UPDATE 65 (the follower's and the avatar's formation states, then an update);
 //     (4e): synthetic VERB_LIST 91 to the verb manager (+0x1294); (4f): synthetic STARBASE_AVATAR_UPDATE 158 and
-//     STARBASE_AVATAR_ROOM_UPDATE 160 to the starbase view's (+0x135C) interface.
+//     STARBASE_AVATAR_ROOM_UPDATE 160 to the starbase view's (+0x135C) interface; (4g): synthetic RECUSTOMIZE_SHIP_START
+//     129, RECUSTOMIZE_AVATAR_START 131 and RECUSTOMIZE_AVATAR_UPDATE 133 to the starbase view's +0x1A0 / +0x19C / +0x60.
 //
 // Never: a modal dialog (asserts and FAIL_IF go to the trace), the registry (SOptionsClass's
 // constructor is a stand-in), the network (the memory connection), the game's install folder.
@@ -53,6 +54,7 @@
 #include "..\..\..\app\packets\pkincapacitancerequest.h"
 #include "..\..\..\app\packets\pkverblist.h"
 #include "..\..\..\app\packets\pkstarbase_avatar_change.h"
+#include "..\..\..\app\packets\pkrecustomize.h"
 #include "..\..\..\app\client\aux_roots.h"
 #include "..\..\..\app\client\co_subtypes.h"
 #include "..\..\..\app\client\postate.h"
@@ -1234,6 +1236,7 @@ class UIStarbaseClass
 public:
 	void Unknown_63CF30(int avatar_id, int new_room);
 	void Unknown_63E5C0(int avatar_id, float orient, Vector3 *position, int action);
+	void Unknown_6437A0(int unknown, AvatarDescClass *desc);
 };
 static std::string Starbase_Log;
 void UIStarbaseClass::Unknown_63CF30(int avatar_id, int new_room)
@@ -1308,6 +1311,67 @@ static void Test_Starbase(SClient *client)
 	client->Process_Packets();
 	Trace("starbase calls: %s", Starbase_Log.c_str());
 	Check(Starbase_Log == "63CF30(77, 4) ", "STARBASE_AVATAR_ROOM_UPDATE 160: avatar 77's new room 4 (0x63CF30); with +0x7C clear neither handler calls");
+	client->Unknown135C = saved;
+	Memory->Received = 0;
+}
+
+// (4g) the recustomize handlers from synthetic packets: RECUSTOMIZE_SHIP_START 129 (0x73F4B0) hands the ship's
+// description, the costs and four ints to the starbase view's +0x1A0 (0x61F250; FAIL_IF '!ship_ui' without one),
+// RECUSTOMIZE_AVATAR_START 131 (0x73F570) the costs to +0x19C (0x551C40; '!avatar_ui'), RECUSTOMIZE_AVATAR_UPDATE 133
+// (0x73F5F0) its int and the avatar description to the +0x60 interface (0x6437A0). Stand-ins record the calls.
+class SBaseViewUnknown1A0Class { public: void Unknown_61F250(ShipCustDescClass *desc, ShipRecustomizationCostClass *cost, int a, int b, int c, int d); };
+class SBaseViewUnknown19CClass { public: void Unknown_551C40(RecustomizationCostClass *cost); };
+static std::string Recustomize_Log;
+void SBaseViewUnknown1A0Class::Unknown_61F250(ShipCustDescClass *desc, ShipRecustomizationCostClass *cost, int a, int b, int c, int d)
+{
+	char t[96];
+	sprintf(t, "61F250(%s, %s, %d, %d, %d, %d) ", desc ? "desc" : "NULL", cost ? "cost" : "NULL", a, b, c, d);
+	Recustomize_Log += t;
+}
+void SBaseViewUnknown19CClass::Unknown_551C40(RecustomizationCostClass *cost) { Recustomize_Log += cost ? "551C40(cost) " : "551C40(NULL) "; }
+void UIStarbaseClass::Unknown_6437A0(int unknown, AvatarDescClass *desc)
+{
+	char t[64];
+	sprintf(t, "6437A0(%d, %s) ", unknown, desc ? "desc" : "NULL");
+	Recustomize_Log += t;
+}
+
+static void Test_Recustomize(SClient *client)
+{
+	Trace("== (4g) RECUSTOMIZE_SHIP_START 129, RECUSTOMIZE_AVATAR_START 131, RECUSTOMIZE_AVATAR_UPDATE 133");
+	if (Memory == 0) {
+		Check(false, "the memory connection");
+		return;
+	}
+	ViewClass *saved = client->Unknown135C;
+	static double fake_view[0x200 / 8];
+	static double fake_starbase[0x100 / 8];
+	static char fake_ship_ui[4], fake_avatar_ui[4];
+	char *view = (char *)fake_view;
+	*(int *)((char *)fake_starbase + 0x3C) = 5;
+	*(double **)(view + 0x60) = fake_starbase;
+	client->Unknown135C = (ViewClass *)view;
+	// 129 and 131 are called directly: their cost classes (shipcust / recustomization costs) are stand-ins here, so
+	// the packets can't go through Build and the factory; 133 goes through the connection
+	ShipCustDescClass desc;
+	ShipRecustomizationCostClass ship_cost;
+	RecustomizationCostClass avatar_cost;
+	RecustomizeShipStartPacketClass ship_start(1, desc, ship_cost, 2, 3, 4, 5);
+	RecustomizeAvatarStartPacketClass avatar_start(6, avatar_cost);
+	Trace("packets made");
+	Recustomize_Log = "";
+	ship_start.Process_Packet(client);
+	avatar_start.Process_Packet(client);
+	Check(Recustomize_Log == "", "129 and 131 without the view's +0x1A0 / +0x19C: the FAIL_IFs '!ship_ui', '!avatar_ui', nothing called");
+	*(char **)(view + 0x1A0) = fake_ship_ui;
+	*(char **)(view + 0x19C) = fake_avatar_ui;
+	ship_start.Process_Packet(client);
+	avatar_start.Process_Packet(client);
+	Memory->Incoming.push_back(Built_Message(&RecustomizeAvatarUpdatePacketClass(7, AvatarDescClass())));
+	client->Process_Packets();
+	Trace("recustomize calls: %s", Recustomize_Log.c_str());
+	Check(Recustomize_Log == "61F250(desc, cost, 2, 3, 4, 5) 551C40(cost) 6437A0(7, desc) ",
+		"129: +0x1A0's 0x61F250 gets the description, the costs and +0x1A4..+0x1B0; 131: +0x19C's 0x551C40 the costs; 133: the interface's 0x6437A0 its int 7 and the description");
 	client->Unknown135C = saved;
 	Memory->Received = 0;
 }
@@ -1409,6 +1473,7 @@ int main(int argc, char **argv)
 	Test_Formation(client);
 	Test_Verbs(client);
 	Test_Starbase(client);
+	Test_Recustomize(client);
 	// the client isn't deleted: its destructor reaches control_keys_manager.cpp and WWAudio
 	Trace("== done: %d checks failed", Failures);
 	fclose(Out);

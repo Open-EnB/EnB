@@ -378,6 +378,7 @@ Handler = slot +0x08 (all in cpacket.cpp unless noted). "Object" = `Find_Object(
 | 97 | AVATAR_DESCRIPTION | 0x733B10 | SClient 0x74C3B0(GameID, Desc): a +0x1394 value for the id (§2.3) | exact |
 | 100 | CLIENT_DAMAGE / DamagePacketClass | 0x738970 | floating damage text over the player's avatar (Get_Avatar) | NOT EXACT frame [partial] |
 | 103 | GadgetPacketClass | 0x739180 | the gadget named Name in SClient +0x1278's list (gadget_list_manager.cpp 0x661940); Function's bits switch its interface and slots (below) | exact (CP1) |
+| 129 / 131 / 133 | RECUSTOMIZE_SHIP_START / AVATAR_START / AVATAR_UPDATE | 0x73F4B0, 0x73F570, 0x73F5F0 | the starbase view's +0x1A0 (0x61F250: ship description, costs, four ints), +0x19C (0x551C40: the costs), +0x60 interface (0x6437A0: an int and the avatar description); FAIL_IFs '!sclient', '!ship_ui', '!avatar_ui' (no object) | exact (CP1) |
 | 137-139 | RELATIONSHIP / reaction / ATTACKER_UPDATES | 0x7398E0, 0x7399D0, 0x739AC0 | co_player_relationship.cpp 0x70CC40 / 0x70CC90 / 0x70CD50: +0x12C, PlayerObjectRelationshipChangeEvent | exact |
 | 140 | LOOT_HULK_PERMISSION | 0x7396F0 | the hulk's loot flag | exact (8a65b8f) |
 | 144 | IncapacitanceDetailsPacket | 0x739BB0 | the camera's mode 0x19 (0x79B2B0); the cockpit (main view +0x1D0) 0x584690 gets the packet (no object) | exact (CP1) |
@@ -388,10 +389,10 @@ Handler = slot +0x08 (all in cpacket.cpp unless noted). "Object" = `Find_Object(
 | 178 | NAME_DECAL | 0x735FC0 | `DecalName` (+0xD8) and shiputils 0x80FF20 on the model | exact |
 | 180 | SUBPARTS | 0x733A50 | `object->0x6FEF70(packet)` (co.cpp, not rebuilt) | exact |
 
-Of the 107 opcodes handled in cpacket.cpp (2026-10-28, CP1): 83 exact, 8 NOT EXACT (8, 62 and 52
+Of the 107 opcodes handled in cpacket.cpp (2026-10-28, CP1): 86 exact, 8 NOT EXACT (8, 62 and 52
 shape, 100 frame, 165 inline-budget, 5 and 158 register-only, STARBASE_SET 79 shape; [partial] / [parked] are their
-`attempts.csv` rows), 16 not rebuilt (the counts before CP1's recount were 62 / 15 / 30; the object-free ones not
-listed above, as they were then, VerbList 91 and STARBASE_AVATAR / ROOM_CHANGE 158 / 160 since rebuilt: TRADE 31 0x739DE0, VerbList 91 0x7387F0, MessageChatstream 95
+`attempts.csv` rows), 13 not rebuilt (the counts before CP1's recount were 62 / 15 / 30; the object-free ones not
+listed above, as they were then, VerbList 91, STARBASE_AVATAR / ROOM_CHANGE 158 / 160 and the recustomize 129 / 131 / 133 since rebuilt: TRADE 31 0x739DE0, VerbList 91 0x7387F0, MessageChatstream 95
 0x736F10, FIND_MEMBER 83, STARBASE_AVATAR / ROOM_CHANGE 158 / 160, CLIENT_CHAT_LIST / ERROR 164 / 166,
 NoteContent 184, CTA_RESPONSE 189, the guild 200 / 204 / 208 / 216, the GM 234 / 235, the recustomize
 129 / 131 / 133). Note that most rebuilt handlers call into code that is not rebuilt (postate.cpp,
