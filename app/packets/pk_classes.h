@@ -47,6 +47,7 @@
 #include "pkequipuse.h"	// rebuilt
 #include "pkfindmember.h"	// rebuilt
 #include "pkfindplayerrequest.h"	// rebuilt
+#include "pkfire.h"	// rebuilt
 #include "pkgadget.h"	// rebuilt
 #include "pkgalaxymap.h"	// rebuilt
 #include "pkglobalavatarlist.h"	// rebuilt
@@ -142,30 +143,6 @@
 #include "pkverbrequest.h"	// rebuilt
 #include "pkversionrequest.h"	// rebuilt
 #include "pkwarpindex.h"	// rebuilt
-
-// opcode 21 (0x0015, ?): vtable 0xB0A61C, constructor 0x887370, 0x14 bytes
-class Packet_0015Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x0015
-{
-public:
-	Packet_0015Class(RawPacketClass *raw);	// 0x887370
-	virtual bool Process_Packet(void *client);	// +0x08 0x867C50 (clientstub.cpp l.41)
-	virtual int Get_Priority() { return(0x7F); }	// +0x1C 0x86E5B0
-	virtual int Get_Type();	// +0x28 0x8872E0  // NAME 2: what the derived classes' return (their opcode)
-	virtual bool Unknown_2C();	// +0x2C 0x887300
-	virtual const char *Get_Name();	// +0x30 0x887320  // NAME 2: what the derived classes' return (a name)
-	char Unknown0C[0x8];	// +0x0C
-};
-
-// opcode 22 (0x0016, ?): vtable 0xB0979C, constructor 0x887370, 0x1C bytes
-class Packet_0016Class : public Packet_0015Class  // NAME 1: neutral (D10): opcode 0x0016
-{
-public:
-	Packet_0016Class(RawPacketClass *raw) : Packet_0015Class(raw) {}	// inline (the case stores the vtable)
-	virtual int Get_Type() { return(0x16); }	// +0x28 0x86E5D0
-	virtual bool Unknown_2C() { return(false); }	// +0x2C 0x86E5F0
-	virtual const char *Get_Name() { return("FireEquipped"); }	// +0x30 0x86E610
-	char Unknown14[0x8];	// +0x14
-};
 
 // opcode 32 (0x0020, PRIORITY_MESSAGE): vtable 0xB09760, constructor 0x89D8A0, 0x1C bytes
 class PriorityMessageLinePacketClass : public MessageLinePacketClass

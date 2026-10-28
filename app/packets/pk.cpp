@@ -110,10 +110,10 @@ PacketClass *Unknown_869790(RawPacketClass *raw)
 			packet = new MovePacketClass(raw);
 			break;
 		case 21:
-			packet = new Packet_0015Class(raw);
+			packet = new FirePacketClass(raw);
 			break;
 		case 22:
-			packet = new Packet_0016Class(raw);
+			packet = new FireEquippedPacketClass(raw);
 			break;
 		case 23:
 			packet = new RequestTargetPacketClass(raw);

@@ -37,7 +37,7 @@ bool TiltPacketClass::Process_Packet(void *)	// 0x867BF0
 bool MovePacketClass::Process_Packet(void *)	// 0x867C20
 {	G_ASSERT(0); return(true); }
 
-bool Packet_0015Class::Process_Packet(void *)	// 0x867C50
+bool FirePacketClass::Process_Packet(void *)	// 0x867C50
 {	G_ASSERT(0); return(true); }
 
 bool EquipUsePacketClass::Process_Packet(void *)	// 0x867C80

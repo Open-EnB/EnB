@@ -47,11 +47,7 @@ OVERRIDES = {
         'virtual int Get_Type();\t// +0x28 0x8872E0  // NAME 2: what the derived classes\' return (their opcode)',
         'virtual bool Unknown_2C();\t// +0x2C 0x887300',
         'virtual const char *Get_Name();\t// +0x30 0x887320  // NAME 2: what the derived classes\' return (a name)',
-    ], [
-        'int {C}::Get_Type() { return(0x15); }',
-        'bool {C}::Unknown_2C() { return(false); }',
-        'const char *{C}::Get_Name() { return("{C}"); }',
-    ]),
+    ], []),	# rebuilt in pkfire.h (builder P10, 2026-10-27): its Get_Type / Unknown_2C / Get_Name are inline there
     22: ([
         'virtual int Get_Type() { return(0x16); }\t// +0x28 0x86E5D0',
         'virtual bool Unknown_2C() { return(false); }\t// +0x2C 0x86E5F0',

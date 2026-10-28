@@ -4,7 +4,6 @@
 
 void Conn_Record(PacketClass *packet, RawPacketClass *raw);
 
-Packet_0015Class::Packet_0015Class(RawPacketClass *raw) { Conn_Record(this, raw); }
 Action2PacketClass::Action2PacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 GlobalErrorPacketClass::GlobalErrorPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 VerbListPacketClass::VerbListPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
@@ -122,9 +121,6 @@ bool RecustomizeAvatarUpdatePacketClass::Process_Packet(void *) { return(true); 
 
 // What OVERRIDES declares out of line (the classes' own files, not rebuilt)
 bool GlobalErrorPacketClass::Process_Packet(void *) { return(true); }
-int Packet_0015Class::Get_Type() { return(0x15); }
-bool Packet_0015Class::Unknown_2C() { return(false); }
-const char *Packet_0015Class::Get_Name() { return("Packet_0015Class"); }
 bool PriorityMessageLinePacketClass::Process_Packet(void *) { return(true); }
 bool QueueMessageLinePacketClass::Process_Packet(void *) { return(true); }
 bool PushMessageLinePacketClass::Process_Packet(void *) { return(true); }

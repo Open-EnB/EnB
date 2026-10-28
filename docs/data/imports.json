@@ -3290,6 +3290,26 @@
     "merged": [],
     "name": "packets/pkfindplayerrequest.cpp"
    },
+   "pkfire": {
+    "ambiguous": [
+     "0x42B2F0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350",
+     "0x887290",
+     "0x887370",
+     "0x887410",
+     "0x887500"
+    ],
+    "merged": [],
+    "name": "packets/pkfire.cpp"
+   },
    "pkflag": {
     "ambiguous": [
      "0x42B2F0"
@@ -7719,6 +7739,7 @@
    "packets/pkequipuse.h": "reconstructed",
    "packets/pkfindmember.h": "reconstructed",
    "packets/pkfindplayerrequest.h": "reconstructed",
+   "packets/pkfire.h": "reconstructed",
    "packets/pkflag.h": "reconstructed",
    "packets/pkgadget.h": "reconstructed",
    "packets/pkgalaxymap.h": "reconstructed",
