@@ -68,7 +68,8 @@ static void Check(bool ok, const char *what)
 
 // ------------------------------------------------------------------------- what the app files call, functional
 
-unsigned int Unknown_Get_Ticks() { return 0; }		// the aux-data clock (dbgconn.cpp's rate wrapper)
+static unsigned int Test_Ticks = 0;
+unsigned int Unknown_Get_Ticks() { return Test_Ticks; }		// the aux-data clock (dbgconn.cpp's rate wrapper; SClient::Do_Frame's clock): 0 but in (4)
 
 // wwonline's 64-bit byte order pair (pk.cpp's Add / Get of an __int64), as udpreplay's conn_replay.cpp
 static unsigned __int64 Swap64(unsigned __int64 v)
@@ -167,9 +168,12 @@ static FakeModelStruct Fake_Model;
 static FakeModelStruct Track_Model;
 static FakeModelStruct Path_Model;
 
-static char Fake_Aux[0x4000];		// the player aux data co.cpp's accessors read (zeros)
+static char Fake_Aux[0x4000];		// the player aux data co.cpp's accessors read (zeros but the table, below)
 static char Fake_Player_Root[0x10];	// SClient +0x12C0 (Init's DeltaPlayerClass: AUX_DATA 27 with game id 0)
 static char Fake_Player_Var_Root[0x10];	// SClient +0x12C4's entry 0 (Init's player-variable root: PLAYER_VAR_AUX_DATA 28)
+// the fake aux data's table: slot +0x20 (8, no argument) is the age step
+static void *Aux_Table[256];
+static void Aux_Age_Slot() { Trace("aux data +0x20 (the age step)"); }
 const char *Aux_Root_Name(const void *root)
 {
 	return(root == Fake_Player_Root ? "player" : root == Fake_Player_Var_Root ? "player var 0" : root == Fake_Aux ? "object" : "unknown");
@@ -602,13 +606,24 @@ static void Trace_Matrix(const char *what, const Matrix3D &tm)
 	}
 }
 
-// One object (the harness's, as for CREATE) gets SIMPLE_POSITIONAL_UPDATE 8 through Process_Packets and the
-// real handler (cpacket.cpp 0x733DC0: the simple state, postate.cpp 0x715AB0, over extrap.cpp's linear node
-// 0x70F250); SClient::Process_AI 0x744260 then runs every object's per-frame update (co.cpp 0x6F3C60:
-// slot +0x28 0x6F4610 asks the state for its matrix at the client clock +0x10BC, re-orthogonalises it and
-// hands it to the model's slot +0x50). A second packet updates the state in place (0x715C20: a 2000-tick
-// blend 0x7125F0 to the new linear node); past the blend's end the model follows the second packet.
-static void Test_Path(SClient *client)
+// One object (the harness's, as for CREATE) gets SIMPLE_POSITIONAL_UPDATE 8; each frame is SClient::Do_Frame
+// 0x742B60: the age step (the player's and every object's aux data, slot +0x20), the clock +0x10BC from
+// Unknown_Get_Ticks (Test_Ticks), input when focused, Process_Packets (the real handler, cpacket.cpp 0x733DC0:
+// the simple state, postate.cpp 0x715AB0, over extrap.cpp's linear node 0x70F250), then Process_AI 0x744260:
+// every object's per-frame update (co.cpp 0x6F3C60: slot +0x28 0x6F4610 asks the state for its matrix at
+// the clock, re-orthogonalises it and hands it to the model's slot +0x50). A second packet updates the
+// state in place (0x715C20: a 2000-tick blend 0x7125F0 to the new linear node); past the blend's end the
+// model follows the second packet. Do_Frame runs with what Init would have set (+0x1198 clear, the main
+// view current, a bridge interface whose +0x14 is 0) and puts it back afterwards.
+static int Frame(SClient *client, unsigned ticks, bool focused)
+{
+	Test_Ticks = ticks;
+	Path_Transforms = 0;
+	Trace("frame at %u%s", ticks, focused ? ", focused" : "");
+	return(client->Do_Frame(focused));
+}
+
+static void Test_Path(SClient *client, FakeMainViewClass *main_view)
 {
 	Trace("== (4) a positional packet to the model's transform");
 	if (Memory == 0) {
@@ -618,6 +633,12 @@ static void Test_Path(SClient *client)
 	int clock = client->Unknown10BC;		// what the lag average reads: put back for (3)
 	float lag = client->Unknown10C8;
 	int lags = client->Unknown10D0;
+	int toggle = client->Unknown1128;
+	static char fake_bridge[0xC4];			// bridge_int.cpp's object: +0x14 0, so Do_Frame doesn't call it
+	client->Unknown1198 = false;
+	client->CurrentView = (ViewClass *)main_view;
+	client->BridgeInterface = (BridgeInterfaceClass *)fake_bridge;
+	Path_Views = true;
 	const unsigned id = 4000;
 	ClientObjectClass *object = New_Object(id);
 	object->Model = (RenderObjClass *)&Path_Model;
@@ -628,15 +649,10 @@ static void Test_Path(SClient *client)
 	const Quaternion orient(0.0f, 0.0f, 0.70710677f, 0.70710677f);	// 90 degrees about Z
 	const Vector3 vel(0.01f, 0.02f, -0.004f);						// per tick
 	SimplePositionalUpdatePacketClass first(0, id, 1000, pos, orient, vel);
-	client->Unknown10BC = 1000;
 	Memory->Incoming.push_back(Built_Message(&first));
-	client->Process_Packets();
-	Check(object->Unknown98 != 0 && object->Unknown98->Unknown_04() == 3, "SIMPLE_POSITIONAL_UPDATE 8 replaced it with the simple state (type 3)");
-
-	Path_Views = true;
-	client->Unknown10BC = 1500;
-	Path_Transforms = 0;
-	client->Process_AI();
+	int result = Frame(client, 1500, true);
+	Check(result == 0 && client->Unknown10BC == 1500, "Do_Frame returns 0 and sets the clock from Unknown_Get_Ticks");
+	Check(object->Unknown98 != 0 && object->Unknown98->Unknown_04() == 3, "SIMPLE_POSITIONAL_UPDATE 8 (time 1000) replaced it with the simple state (type 3)");
 	Matrix3D want(orient, pos + vel * 500.0f);
 	Trace_Matrix("model", Path_Transform);
 	Check(Path_Transforms == 1, "Process_AI: the object's model got one Set_Transform");
@@ -646,19 +662,21 @@ static void Test_Path(SClient *client)
 	const Quaternion orient2(0.0f, 0.0f, 0.0f, 1.0f);
 	const Vector3 vel2(0.0f, -0.01f, 0.0f);
 	SimplePositionalUpdatePacketClass second(0, id, 2000, pos2, orient2, vel2);
-	client->Unknown10BC = 2000;
 	Memory->Incoming.push_back(Built_Message(&second));
 	Unknown98Class *state = object->Unknown98;
-	client->Process_Packets();
-	Check(object->Unknown98 == state && state->Unknown_04() == 3, "a second SIMPLE packet updates the simple state in place");
-	client->Unknown10BC = 4500;
-	Path_Transforms = 0;
-	client->Process_AI();
+	Frame(client, 2000, false);
+	Check(object->Unknown98 == state && state->Unknown_04() == 3, "a second SIMPLE packet (time 2000) updates the simple state in place");
+	Frame(client, 4500, false);
 	Matrix3D want2(orient2, pos2 + vel2 * 2500.0f);
 	Trace_Matrix("model", Path_Transform);
 	Check(Path_Transforms == 1 && Near(Path_Transform, want2), "at clock 4500 (past the 2000-tick blend) the model follows the second packet");
-	Path_Views = false;
 
+	Path_Views = false;
+	Test_Ticks = 0;
+	client->Unknown1198 = true;
+	client->CurrentView = 0;
+	client->BridgeInterface = 0;
+	client->Unknown1128 = toggle;
 	client->Unknown10BC = clock;
 	client->Unknown10C8 = lag;
 	client->Unknown10D0 = lags;
@@ -695,6 +713,12 @@ int main(int argc, char **argv)
 	Fake_Model.Table = Zero_Table;
 	Track_Model.Table = Track_Table;
 	Path_Model.Table = Path_Table;
+	for (int a = 0; a < 256; a++) {
+		Aux_Table[a] = (void *)Zero_Slot;
+	}
+	Aux_Table[8] = (void *)Aux_Age_Slot;
+	*(void ***)Fake_Aux = Aux_Table;			// the aux data's slot +0x20, Do_Frame's age step (0x6F5120 for the objects)
+	*(void ***)Fake_Player_Root = Aux_Table;
 	*(void ***)Fake_Camera = Zero_Table;	// its Validate_Transform (virtual) does nothing; the Transform stays zero
 
 	Trace("== SClient (its constructor, the base's)");
@@ -711,7 +735,7 @@ int main(int argc, char **argv)
 	Test_Lists(client);
 	Test_Debug(client);
 	Test_Refuse(client);
-	Test_Path(client);
+	Test_Path(client, &main_view);
 	if (argc > 2) {
 		Test_Packets(client, argv[2]);
 	}

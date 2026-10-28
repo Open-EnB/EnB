@@ -145,7 +145,9 @@ def link_stubs(log, out):
             access, storage, ret, conv, qual, args, const = m.groups()
             ret, args = tidy(ret), tidy(args)
             body = returnable(ret)
-            if body is None or not types(ret + ' ' + args) or '<' in qual:
+            # a class or struct by value (SClient::Do_Frame's KernelEventClass): needs its definition
+            by_value = re.search(r'\b(?:class|struct|union) [\w:]+\s*(?:,|$)', args)
+            if body is None or not types(ret + ' ' + args) or '<' in qual or by_value:
                 skipped.append(dem)
                 continue
             cls, _, name = qual.rpartition('::')

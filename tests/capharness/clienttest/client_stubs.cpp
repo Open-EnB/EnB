@@ -68,7 +68,6 @@ void SClient::Unknown_7517E0(int a, int b, int c, int d) { Trace("stub SClient::
 void SClient::Unknown_751850(std::vector<GuildRankNameStruct> &ranks) { Trace("stub SClient::Unknown_751850 %d ranks", (int)ranks.size()); }
 
 // SClient's slots declared only (sclient.h): never called by the tests
-int SClient::Do_Frame(bool focused) { Trace("stub SClient::Do_Frame %d", focused); return(0); }
 bool SClient::Unknown_34(int arg) { Trace("stub SClient::Unknown_34 %d", arg); return(false); }
 void SClient::Unknown_64() { Trace("stub SClient::Unknown_64"); }
 
@@ -98,6 +97,17 @@ void ClientObjectClass::Unknown_70E750(int id) { Trace("stub ClientObjectClass::
 // 0xC1ECC0, constructed next to mono.cpp's code; no tree file defines it)
 #include "_mono.h"
 MonoClass Mono;
+
+// SClient::Do_Frame's data globals (gen_stubs --link skips data): the frame's toggle and the input flags
+int Unknown_BE350C = 0;
+int Unknown_BE5F34 = 0;
+
+// Do_Frame's callees that take an input event by value (gen_stubs skips a class by value)
+#include "..\..\..\app\kernel\kernel.h"
+bool SClient::Unknown_7436A0(KernelEventClass event) { Trace("stub SClient::Unknown_7436A0 key 0x%X", event.Key); return(false); }
+void SClient::Unknown_744240(KernelEventClass event) { Trace("stub SClient::Unknown_744240 key 0x%X", event.Key); }
+KernelEventClass Unknown_65F780(void *) { Trace("stub Unknown_65F780"); return(KernelEventClass()); }
+void ScriptedMovieViewClass::Unknown_802960(KernelEventClass event) { Trace("stub ScriptedMovieViewClass::Unknown_802960 key 0x%X", event.Key); }
 
 // ------------------------------------------------------------------------- eff_o.cpp's effect, the third list's records
 

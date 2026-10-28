@@ -30,6 +30,7 @@
 #include <vector>
 #include <hash_map.h>
 
+struct KernelEventClass;			// kernel.h: an input event (16 bytes)
 class LoginUnknown0CClass;		// tsk_login.h: inpdsp.cpp's input dispatcher (0x18 bytes)
 class LoginUnknown18Class;		// tsk_login.h: the software mouse (0x30 bytes, 0x514FE0)
 class Font3DInstanceClass;
@@ -76,6 +77,14 @@ class ViewUnknown34Class	// NAME 1: neutral (D10)
 {
 public:
 	void Unknown_588A70(const char *type, int unknown1, const char *text, int flags, int unknown2, int unknown3);	// 0x588A70 (102 callers; GROUP 30, DIALOG 98: "GROUP_INVITE", "OK", "YES_NO", "OK_CANCEL", "server_message")  // NAME 1 [type, unknown1, text, flags, unknown2, unknown3]: neutral, the handlers' arguments
+	int Unknown_5890B0(const char *button);				// 0x5890B0 (SClient::Do_Frame passes NULL after 'Lost connection to server.'; tsk_login.h: the button pressed)  // NAME 2 [button]: tsk_login.h's
+	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
+	virtual void Unknown_10(); virtual void Unknown_14(); virtual void Unknown_18(); virtual void Unknown_1C();
+	virtual void Unknown_20(); virtual void Unknown_24(); virtual void Unknown_28(); virtual void Unknown_2C();
+	virtual void Unknown_30(); virtual void Unknown_34(); virtual void Unknown_38(); virtual void Unknown_3C();
+	virtual void Unknown_40(); virtual void Unknown_44(); virtual void Unknown_48(); virtual void Unknown_4C();
+	virtual void Unknown_50(); virtual void Unknown_54(); virtual void Unknown_58();
+	virtual void Unknown_5C();							// +0x5C (SClient::Do_Frame: the main view's, once the lost-connection box is answered)
 };
 
 // view.cpp's view: the base of the six views at SClient +0x1354..+0x1368 (the slots every one of them
@@ -88,10 +97,13 @@ public:
 	virtual void Unknown_08();							// +0x08 Init (the main view, +0x1358)
 	virtual void Unknown_0C(bool on);					// +0x0C Process_Packets passes true to the loading view
 	virtual void Unknown_10();							// +0x10 Shutdown
+	virtual void Unknown_14();							// +0x14 SClient::Do_Frame: the current view's, after Process_AI
 
+	LoginUnknown0CClass *Get_Unknown04() { return(Unknown04); }	// inline (Do_Frame reads it into eax first)  // NAME 1: neutral (D10): the member it returns
 	ViewUnknown34Class *Get_Unknown34() { return(Unknown34); }	// inline (GROUP 30 and DIALOG 98 read it into eax first)  // NAME 1: neutral (D10): the member it returns
 
-	char Unknown04[0x34 - 0x04];						// +0x04
+	LoginUnknown0CClass *Unknown04;						// +0x04 (SClient::Do_Frame: the current view's input dispatcher gets the event the client's +0x1270 didn't take, 0x429A20)
+	char Unknown08[0x34 - 0x08];						// +0x08
 	ViewUnknown34Class *Unknown34;						// +0x34 (view.cpp's constructors 0x65A6C0 / 0x65B810 set it; cpacket.cpp's GROUP 30 and DIALOG 98 call it)
 };
 
@@ -146,6 +158,7 @@ public:
 	void Set_Camera(CameraClass *camera);				// 0x5123C0: Init's camera  // NAME 2: what Init hands it
 	void Unknown_5141A0();								// 0x5141A0 (Init, Unknown137C clear)
 	void Unknown_514220();								// 0x514220 (Init, Unknown137C set)
+	void Unknown_512A00();								// 0x512A00 (SClient::Do_Frame, when the main view is the current view)
 	MainViewUnknown13CClass *Get_Unknown13C() { return(Unknown13C); }	// (inline: SERVER_PARAMETERS 66)  // NAME 1: neutral (D10): the member it returns
 	void Unknown_513FC0();								// 0x513FC0 (cpacket.cpp: SERVER_HANDOFF 58)
 	void Unknown_513700(unsigned sector);				// 0x513700 (cpacket.cpp: SERVER_PARAMETERS 66)  // NAME 1 [sector]: the packet's SectorNum
@@ -216,6 +229,7 @@ class Movie3DViewClass : public ViewClass	// NAME 2: SClient's member 'Movie3DVi
 {
 public:
 	Movie3DViewClass(ClientTaskClass *task, int arg);	// 0x7EEF90  // NAME 1 [task, arg]: what 0x74BC20 passes
+	bool Unknown_7EFCC0();								// 0x7EFCC0 (SClient::Do_Frame in view mode 3: true ends the movie, 0x74BD10)
 
 	char Unknown38[0x2A8 - 0x38];						// +0x38
 };
@@ -227,6 +241,8 @@ class ScriptedMovieViewClass : public ViewClass	// NAME 2: SClient's member 'Scr
 {
 public:
 	ScriptedMovieViewClass(ClientTaskClass *task, int arg, SClientMovieCallbackClass *callback);	// 0x8000C0  // NAME 1 [task, arg, callback]: what 0x74BD90 passes
+	bool Unknown_802930();								// 0x802930 (SClient::Do_Frame in view mode 6: true ends the movie, 0x74BF00)
+	void Unknown_802960(KernelEventClass event);		// 0x802960 (SClient::Do_Frame: the input events while the scripted movie view is up)  // NAME 1 [event]: what it gets
 
 	char Unknown38[0x178 - 0x38];						// +0x38
 };
@@ -327,6 +343,13 @@ public:
 
 	void Print(int channel, const char *format, ...);	// 0x74DF70 (cdecl): a line in the chat panel  // NAME 2: what it does
 	void Unknown_742530(ViewClass *view);				// 0x742530 (Shutdown passes 0; 0x745F30 the view of the new view mode)  // NAME 1 [view]: what it gets
+	void Unknown_7429B0();								// 0x7429B0 (Do_Frame, after the lost-dialog check; FAIL_IF '!CurrentView', l.749)
+	void Unknown_743380(KernelEventClass *event);		// 0x743380 (Do_Frame: the input queue's event without the +0x1278 source)  // NAME 1 [event]: what it gets
+	bool Unknown_7436A0(KernelEventClass event);		// 0x7436A0 (Do_Frame: an event no dispatcher took; false: 0x744240)  // NAME 1 [event]: what it gets
+	void Unknown_744240(KernelEventClass event);		// 0x744240 (Do_Frame: an event 0x7436A0 refused)  // NAME 1 [event]: what it gets
+	void Unknown_74EDB0();								// 0x74EDB0 (Do_Frame, after 0x7429B0)
+	void Unknown_751660();								// 0x751660 (Do_Frame, after 0x74EDB0)
+	void Unknown_74F5C0();								// 0x74F5C0 (Do_Frame, after 0x751660)
 	void Unknown_7451D0();								// 0x7451D0 (Init)
 	void Unknown_745350();								// 0x745350 (Init)
 	void Unknown_744C10();								// 0x744C10 (Init, after the camera mode)

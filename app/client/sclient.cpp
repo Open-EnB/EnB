@@ -165,6 +165,8 @@ class UIChatPanelClass : public SClientUnknownWindowClass, public RefCountClass
 {
 public:
 	UIChatPanelClass(SClient *client);					// 0x561DD0
+	bool Unknown_56BA80();								// 0x56BA80 (Do_Frame compares it with 'more than 15' from the connection's Get_Stats)
+	void Unknown_56BA40(bool on);						// 0x56BA40 (Do_Frame, when that changes)  // NAME 1 [on]: what Do_Frame passes
 
 	char Unknown40[0xE0 - 0x40];
 	UIChatPanelUnknownE0Class *UnknownE0;				// +0xE0 (0x750210, 0x7517E0, 0x751850 test its +0x7C)
@@ -210,8 +212,11 @@ class BridgeInterfaceClass
 public:
 	BridgeInterfaceClass(SClient *client);				// 0x53B040
 	~BridgeInterfaceClass();							// 0x53B380
+	void Unknown_53BD40(int camera);					// 0x53BD40 (Do_Frame passes the main view's +0x7C when +0x14 is set)  // NAME 1 [camera]: Process_AI reads that result as a render object's position
 
-	char Unknown00[0xC4];
+	char Unknown00[0x14];
+	int Unknown14;										// +0x14 (Do_Frame tests it)
+	char Unknown18[0xC4 - 0x18];
 };
 
 class GalaxyMapClientClass
@@ -274,6 +279,7 @@ class SClientUnknown12BCClass
 {
 public:
 	virtual ~SClientUnknown12BCClass();
+	virtual bool Unknown_04();							// +0x04 (Do_Frame deletes the object when it is true)
 };
 
 // The 0x50-byte view at SClient +0x1358 (constructor 0x514CC0, between mainview.cpp and smouse.cpp)
@@ -764,142 +770,136 @@ void SClient::Process_AI()
 	}
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// sound_manager.cpp's sound manager (the global 0xBE82A4), as far as Do_Frame calls it (cpacket.cpp declares its other members)
+class SoundManagerClass	// NAME 3: class-from-file (D24) for app\client\sound_manager.cpp
+{
+public:
+	void Unknown_75B320();								// 0x75B320 (Do_Frame, after Process_Packets)
+};
+extern SoundManagerClass *SoundManager;					// 0xBE82A4  // NAME 2: what it holds
+extern int Unknown_BE350C;								// NAME 1: neutral (D10): Do_Frame sets it to the base's toggled +0x1128 for the frame
+extern int Unknown_BE5F34;								// NAME 1: neutral (D10): Do_Frame takes up to 20 more events while it has 0x1100
+unsigned int Unknown_Get_Ticks();						// 0x4A3B40, the aux-data clock (unknown_root.h)
+void Unknown_918200(int ticks);							// 0x918200 (Do_Frame passes the new +0x10BC when focused)  // NAME 1 [ticks]: what it gets
+void Unknown_42EDB0();									// NAME 1 [Unknown_42EDB0]: neutral (D10) (input.cpp's neighbourhood), as tsk_login.cpp
+bool Unknown_42EA80(KernelEventClass *event);			// NAME 1 [Unknown_42EA80]: the input queue's next event (input.cpp), as tsk_login.cpp
+void Unknown_42E8A0(KernelEventClass *event);			// NAME 1 [Unknown_42E8A0]: hands the event on (input.cpp), as tsk_login.cpp
+KernelEventClass Unknown_65F780(void *unknown);			// NAME 1 [Unknown_65F780]: neutral (D10) (gadget.cpp), as tsk_login.cpp
+
+#include "..\audio\soundlib.h"
+#include "..\shared\auxdata\delta.h"
+
+// 0x742B60 (placed in the blank run after Process_AI: no assert line moves)
+int SClient::Do_Frame(bool focused)
+{
+	if (Connection->Is_Dead()) {
+		if (Unknown1198) {
+			return(1);
+		}
+		SoundLibraryClass::Play_2D_Sound("Lost_Connection", 2);
+		if (CurrentView && CurrentView == Unknown135C) {
+			Unknown135C->Get_Unknown34()->Unknown_588A70("OK", 0, "Lost connection to server.", 0x140, 0, 0);
+		} else {
+			MainView->Get_Unknown34()->Unknown_588A70("OK", 0, "Lost connection to server.", 0x140, 0, 0);
+		}
+		Unknown1388 = true;
+		Unknown_74D990(0x13, "Lost connection to server.", 0);
+		delete Connection;
+		Connection = new PeekConnectionClass(new NullConnectionClass);
+	} else {
+		float a, b, c, d, e, f;
+		int g = 0;
+		Connection->Get_Stats(&a, &b, &c, &d, &e, &f, &g);
+		bool lagging = false; if (g > 15) lagging = true;
+		if (lagging != ChatPanel->Unknown_56BA80()) {
+			ChatPanel->Unknown_56BA40(lagging);
+		}
+	}
+
+	// the age step: the player's aux data, then every object's (co.cpp's slot +0x1C 0x6F5120)
+	if (!Unknown1198) {
+		((DeltaClass *)AuxData)->Unknown_20();
+		HashNodeClass<ClientObjectClass *> *node = ObjectList.First_Valid();
+		while (node && node->Next()) {
+			node->Get_Record()->Unknown_1C();
+			node = node->Next();
+		}
+	}
+	Unknown_455D10(PxProcess);
+	int saved = Unknown_BE350C;
+	Unknown_BE350C = Unknown1128 ^ 1; Unknown1128 = Unknown_BE350C;
+	Unknown12D4 = 0;
+	Unknown10BC = Unknown_Get_Ticks();
+
+	// input
+	if (focused) {
+		Unknown_918200(Unknown10BC);
+		if (!LoadingView || !LoadingView->Unknown68) {
+			KernelEventClass event;
+			Unknown_42EDB0();
+			if (Unknown1278) {
+				int i = 0;
+				do {
+					event = Unknown_65F780((void *)Unknown1278);
+					if (!Unknown1270->Unknown_429A20(&event) && (!CurrentView || !CurrentView->Get_Unknown04()->Unknown_429A20(&event))) {
+						if (ScriptedMovieView) {
+							ScriptedMovieView->Unknown_802960(event);
+						} else if (!Unknown_7436A0(event)) {
+							Unknown_744240(event);
+						}
+					}
+				} while ((Unknown_BE5F34 & 0x1100) && i++ < 20);
+			} else {
+				if (Unknown_42EA80(&event)) {
+					Unknown_42E8A0(&event);
+				}
+				Unknown_743380(&event);
+			}
+		}
+	}
+
+	Process_Packets();
+	SoundManager->Unknown_75B320();
+	if (!Unknown1198) {
+		Process_AI();
+		CurrentView->Unknown_14();
+		if (BridgeInterface->Unknown14) {
+			BridgeInterface->Unknown_53BD40(MainView->Unknown_7C());
+		}
+		if (CurrentView == MainView) {
+			MainView->Unknown_512A00();
+		}
+		if (Unknown12BC && Unknown12BC->Unknown_04()) {
+			delete Unknown12BC;
+			Unknown12BC = NULL;
+		}
+		Unknown_7429B0();
+		Unknown_74EDB0();
+		Unknown_751660();
+		Unknown_74F5C0();
+	}
+
+	// the movie views that are done (0x74BD10 and 0x74BF00 inline)
+	if (ViewMode == 3 && Movie3DView->Unknown_7EFCC0()) {
+		Unknown_74BD10();
+	}
+	if (ViewMode == 6 && ScriptedMovieView->Unknown_802930()) {
+		Unknown_74BF00(Unknown1370);
+	}
+
+	// the lost-connection box answered
+	if (Unknown1388) {
+		ViewClass *view = (CurrentView && CurrentView == Unknown135C) ? Unknown135C : MainView;
+		if (view->Get_Unknown34()->Unknown_5890B0(NULL) > 0) {
+			Unknown12D4 = 1;
+			MainView->Get_Unknown34()->Unknown_5C();
+			Unknown1388 = false;
+		}
+	}
+	Unknown_BE350C = saved;
+	Unknown_455F60();
+	return(Unknown12D4);
+}
 
 
 
@@ -5617,8 +5617,12 @@ void SClient::Unknown_750B30(int arg)
 **
 **	The skeleton (D90 9d): the layout (sclient.h) and the functions in the window before the first
 **	assert (0x7429B0, l.749), plus the base slots' overrides the brief names. Init 0x741180 and Shutdown
-**	0x741BB0 are functional rewrites (marked); the frame 0x742B60, Render 0x744690 and the chat commands 0x74ABC0
-**	are declared only (clienttest stands in for them).
+**	0x741BB0 are functional rewrites (marked); Render 0x744690 and the chat commands 0x74ABC0 are declared only
+**	(clienttest stands in for them).
+**	The frame Do_Frame 0x742B60 (DF1, byte-exact) sits in the blank run after Process_AI; it inlines the movie
+**	views' ends 0x74BD10 / 0x74BF00 (their G_ASSERTs on ll.4104 / 4127) and writes the 'current view is +0x135C'
+**	test (0x744B60, not rebuilt) out: once as an if / else of two whole calls (the lost-connection box), once as
+**	a choice of view (its answer). The frame toggle is two statements (+0x1128 ^ 1 into the global, then back).
 **	The body (T18): the small helpers at their place between the client's assert lines (the file keeps the
 **	client's __LINE__s through blank padding, as cpacket.cpp: 0x745160's FAIL_IFs on lines 2158 / 2160).
 **	0x745F30's empty loop compiles to nothing; it spends the inline budget so that VC6 calls the view-mode
