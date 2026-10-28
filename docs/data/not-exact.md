@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-292 entries in 64 files.
+291 entries in 63 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -159,7 +159,6 @@ edit the comments in the code, not this file.
 | `app/input/inpdsp.cpp:226` | `Unknown_42A410` | mention | NOT EXACT (register-only, parked after three forms of the search loop). After 0x429F60: the event key 0x42A170 (a member defined after its users: /Ob2 inlines it everywhere and still emits it), the ini reader 0x42A1A0 and writer 0x42A410 (the key names themselves are the next file's, 0x42B610 / 0x42B7E0). The writer tests the flags through bool accessors on bit fields (the client's word load, shr ... |
 | `app/kernel/kernel.cpp:208` | `KernelClass::Remove_Task` | marker | NOT EXACT: the client calls the iterator's operator++(int) 0x444190 out of line |
 | `app/kernel/kernel.cpp:350` | `KernelClass::Is_Running` | marker | NOT EXACT: the client's has no xor before the setne |
-| `app/packets/pkauxdata.cpp:43` | `AuxDataPacketClass::Print` | marker | NOT EXACT: the client reads Size before the first dword of Data (register order; 2 forms, workflow.md 3.1) |
 | `app/packets/pkcolorization.cpp:5` | `ColorizationPacketClass::ColorizationPacketClass` | marker | NOT EXACT: 0x87F320, the inline vector copy's loop addresses each region from its last dword in the client (shape; attempts.py show 0x87F320) |
 | `app/packets/pkcolorization.cpp:62` | `ColorizationPacketClass::Print` | mention | NOT EXACT (parked, attempts.csv). * The file name is provisional (no assert names it). |
 | `app/packets/pknamedecal.cpp:5` | `DecalPacketClass::DecalPacketClass` | marker | NOT EXACT: 0x8805C0, the inline vector copy's loop addresses each decal from +0x10 in the client (shape, as COLORIZATION's 0x87F320; attempts.py show 0x8805C0) |

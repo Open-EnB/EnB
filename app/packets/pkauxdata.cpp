@@ -40,11 +40,11 @@ int AuxDataPacketClass::Get_Data_Size()
 	return(sizeof(GameID) + sizeof(Size) + Size);
 }
 
-// NOT EXACT: the client reads Size before the first dword of Data (register order; 2 forms, workflow.md 3.1)
 int AuxDataPacketClass::Print(char *buffer, int)
 {
 	const char *name = Get_Name();
-	return(sprintf(buffer, "%s {GameID=%d Size=%d Flags=%x}", name, GameID, Size, *(int *)Data));
+	int flags = *(int *)Data;
+	return(sprintf(buffer, "%s {GameID=%d Size=%d Flags=%x}", name, GameID, Size, flags));
 }
 
 AuxDataPlayerVarPacketClass::AuxDataPlayerVarPacketClass(int game_id, const void *data, int size) : AuxDataPacketClass(game_id, data, size)
