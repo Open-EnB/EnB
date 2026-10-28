@@ -251,7 +251,7 @@ some of them):
 | Client range | File | What | State |
 |---|---|---|---|
 | 0x44D740-0x44E020 | px_box_list.cpp | `PxBoxList` (keeps the overlapping boxes, `Boxes`) and `PxOwnerList` (their DynObjs, `Owners`), both sorted by address | exact |
-| 0x44E020-0x451BF0 | px_callback_accurate.cpp | `PxAccurateCallback` (a PxProcessNode and a PxCallback; `Overlaps` hash_map, `Active` vector) and two derived classes (a box one, vtables 0xAE7B44 / 0xAE7B54 / 0xAE7B70, and 0xAE7B8C / 0xAE7BA8) | base only: destructor, Process, Enter / Exit exact; constructors NOT EXACT (inline budget) |
+| 0x44E020-0x451BF0 | px_callback_accurate.cpp | `PxAccurateCallback` (a PxProcessNode and a PxCallback; `Overlaps` hash_map, `Active` vector) and its two subclasses (vtables 0xAE7B54 / 0xAE7B70 and 0xAE7B8C / 0xAE7BA8; their boxes `PxAccurateBox`, 0xAE7B44) | the base, `PxAccurateBoxCallback` (a box, Test 1 / Mask 1) and `PxAccurateSphereCallback` (an inner and an outer box, as the wrapper's tight and loose ones) exact but their constructors (inline budget) and the sphere's Test (order); the boxes' On_Enter / On_Exit and the overlap handling 0x44E470-0x44F200 not rebuilt |
 | 0x451C00-0x452770 | (no `__FILE__`; unknown_px_callbacks.cpp, D10) | `PxBoxCallback` (enter / exit reports) and the factories 0x452140 / 0x452460 | PxBoxCallback exact; factories not rebuilt |
 | 0x452780-0x453740 | px_callback_poll.cpp | `PxPollCallback` (the loose box) and `PxPollAccurateCallback` (SPHERE / VOLUME) | exact |
 | 0x453740-0x453A40 | px_callback_type.cpp | `PxCallbackType` (Accurate 1, Liberal 2, Conservative 4, Polling 8) and `PxCallbackEvent` (Enter, Exit, Update) names and string conversions | exact; no caller |

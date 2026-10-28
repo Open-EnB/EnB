@@ -10,7 +10,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 33 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 36 |
 | 3 | by convention from a client-named file or sibling | 937 |
-| 2 | describes what the code does | 2293 |
+| 2 | describes what the code does | 2301 |
 | 1 | neutral placeholder | 5021 |
 
 ## For review (score 3 and below)
@@ -7040,15 +7040,23 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Exit` | `app/shared/px_callback_accurate.h:57` | as above |
 | 2 | `Object` | `app/shared/px_callback_accurate.h:59` | the constructor's argument |
 | 2 | `Callback` | `app/shared/px_callback_accurate.h:60` | as PxPollCallback's |
-| 2 | `PxAccurateBox` | `app/shared/px_callback_accurate.h:71` | what it is |
-| 2 | `object, callback` | `app/shared/px_callback_accurate.h:74` | what it stores |
-| 2 | `src` | `app/shared/px_callback_accurate.h:75` | the copy's |
-| 2 | `Callback` | `app/shared/px_callback_accurate.h:80` | its owner |
-| 2 | `PxAccurateBoxCallback` | `app/shared/px_callback_accurate.h:87` | the accurate callback with a box |
-| 2 | `object, callback, extent` | `app/shared/px_callback_accurate.h:90` | what it stores |
-| 2 | `object, src` | `app/shared/px_callback_accurate.h:91` | as the boxes' |
-| 2 | `Box` | `app/shared/px_callback_accurate.h:101` | what it holds |
-| 2 | `Extent` | `app/shared/px_callback_accurate.h:102` | as PxPollCallback's |
+| 2 | `PxAccurateBox` | `app/shared/px_callback_accurate.h:70` | what it is |
+| 2 | `object, callback` | `app/shared/px_callback_accurate.h:73` | what it stores |
+| 2 | `src` | `app/shared/px_callback_accurate.h:74` | the copy's |
+| 2 | `Callback` | `app/shared/px_callback_accurate.h:79` | its owner |
+| 2 | `PxAccurateBoxCallback` | `app/shared/px_callback_accurate.h:86` | the accurate callback with a box |
+| 2 | `object, callback, extent` | `app/shared/px_callback_accurate.h:89` | what it stores |
+| 2 | `object, src` | `app/shared/px_callback_accurate.h:90` | as the boxes' |
+| 2 | `Box` | `app/shared/px_callback_accurate.h:100` | what it holds |
+| 2 | `Extent` | `app/shared/px_callback_accurate.h:101` | as PxPollCallback's |
+| 2 | `PxAccurateSphereCallback` | `app/shared/px_callback_accurate.h:109` | the accurate callback with a sphere |
+| 2 | `object, callback, radius` | `app/shared/px_callback_accurate.h:112` | what it stores |
+| 2 | `object, src` | `app/shared/px_callback_accurate.h:113` | as the boxes' |
+| 2 | `mask, test` | `app/shared/px_callback_accurate.h:121` | what it does |
+| 2 | `self` | `app/shared/px_callback_accurate.h:122` | as PxBox's |
+| 2 | `InnerBox` | `app/shared/px_callback_accurate.h:125` | the radius / sqrt(3) cube |
+| 2 | `OuterBox` | `app/shared/px_callback_accurate.h:126` | the radius cube |
+| 2 | `Radius` | `app/shared/px_callback_accurate.h:127` | what it holds |
 | 2 | `PxPollCallback` | `app/shared/px_callback_poll.h:25` | px_callback_poll.cpp's base class |
 | 2 | `object, callback, extent` | `app/shared/px_callback_poll.h:28` | what it stores |
 | 2 | `object, src` | `app/shared/px_callback_poll.h:29` | as PxBoxList's |

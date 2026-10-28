@@ -62,22 +62,21 @@ public:
 	std::vector<PxAccurateActiveStruct> Active;									// +0x30 (the client's name, the FAIL_IF 'it == Active.end()')
 };
 
-class PxAccurateBoxCallback;
 
 /*
-** The box of a PxAccurateBoxCallback (0x24 bytes, vtable 0xAE7B44: the deleting destructor 0x44F870, On_Enter
+** The box of an accurate callback (0x24 bytes, vtable 0xAE7B44: the deleting destructor 0x44F870, On_Enter
 ** 0x44F5D0, On_Exit 0x44F6E0, not rebuilt): it hands its overlaps to its callback's Overlaps / Active.
 */
 class PxAccurateBox : public PxBox  // NAME 2: what it is
 {
 public:
-	PxAccurateBox(PxObject *object, PxAccurateBoxCallback *callback) : PxBox(object), Callback(callback) {}	// NAME 2 [object, callback]: what it stores
-	PxAccurateBox(PxObject *object, const PxBox &src, PxAccurateBoxCallback *callback) : PxBox(object, src), Callback(callback) {}	// NAME 2 [src]: the copy's
+	PxAccurateBox(PxObject *object, PxAccurateCallback *callback) : PxBox(object), Callback(callback) {}	// NAME 2 [object, callback]: what it stores
+	PxAccurateBox(PxObject *object, const PxBox &src, PxAccurateCallback *callback) : PxBox(object, src), Callback(callback) {}	// NAME 2 [src]: the copy's
 
 	virtual void On_Enter(PxBox *box);					// 0x44F5D0 (not rebuilt)
 	virtual void On_Exit(PxBox *box);					// 0x44F6E0 (not rebuilt)
 
-	PxAccurateBoxCallback *Callback;					// +0x20  // NAME 2: its owner
+	PxAccurateCallback *Callback;						// +0x20 (both accurate classes' boxes)  // NAME 2: its owner
 };
 
 /*
@@ -100,6 +99,32 @@ public:
 
 	PxAccurateBox *Box;									// +0x40  // NAME 2: what it holds
 	Vector3 Extent;										// +0x44  // NAME 2: as PxPollCallback's
+};
+
+/*
+** The accurate sphere callback (0x4C bytes; vtables 0xAE7BA8 (node), 0xAE7B8C (callback, +0x0C)): the factory 0x452140
+** makes it for Accurate without Polling. Its inner box (Test / Mask 3, as PxWrapper's tight box) is the radius / sqrt(3)
+** cube, its outer box (Test / Mask 5, as the loose box) the radius cube; Test asks whether an object's sphere touches its sphere.
+*/
+class PxAccurateSphereCallback : public PxAccurateCallback  // NAME 2: the accurate callback with a sphere
+{
+public:
+	PxAccurateSphereCallback(PxObject *object, PxCallbackFunction callback, float radius);		// 0x450030  // NAME 2 [object, callback, radius]: what it stores
+	PxAccurateSphereCallback(PxObject *object, const PxAccurateSphereCallback &src);			// 0x450350  // NAME 2 [object, src]: as the boxes'
+	virtual ~PxAccurateSphereCallback();								// 0x4506B0 (deleting 0x450320)
+
+	virtual PxCallback *Clone(PxObject *object);		// 0x450620
+	virtual void Attach(PxList *list);					// 0x450820
+	virtual void Detach(PxList *list);					// 0x450860
+	virtual void Update();								// 0x4508A0
+	virtual void Add_Filter(int mask, int test);		// 0x4509E0
+	void Set_Filter(int mask, int test);				// 0x450A30 (bit 2 into the inner box's, bit 4 into the outer's; no caller)  // NAME 2 [mask, test]: what it does
+	void Set_Self(int self);							// 0x450A80 (as above for Self; no caller)  // NAME 2 [self]: as PxBox's
+	virtual bool Test(PxObject *object);				// 0x450AC0 (the spheres touch)
+
+	PxAccurateBox *InnerBox;							// +0x40 (Test / Mask 3)  // NAME 2: the radius / sqrt(3) cube
+	PxAccurateBox *OuterBox;							// +0x44 (Test / Mask 5)  // NAME 2: the radius cube
+	float Radius;										// +0x48  // NAME 2: what it holds
 };
 
 #endif
