@@ -474,7 +474,7 @@ void ClientLegoImplClass::Add(const RefCountPtr<LegoClass> &lego)
 
 
 
-// NOT EXACT: register-only: the loop's Get_Identifier() called after the id push, eax/edx in the inlined Release calls, 0.85 (attempts.csv)
+
 RefCountPtr<LegoClass> ClientLegoImplClass::Remove(const LegoIdentifierClass &id)
 {
 	LegoSplitStruct split(Identifier, id);
@@ -510,8 +510,8 @@ RefCountPtr<LegoClass> ClientLegoImplClass::Remove(const LegoIdentifierClass &id
 	RefCountPtr<LegoOrphanDataClass> data = (*orphan_find).second;
 	std::vector<RefCountPtr<LegoClass> > &legos = data->Legos;
 	for (std::vector<RefCountPtr<LegoClass> >::iterator it = legos.begin(); it != legos.end(); ++it) {
-		RefCountPtr<LegoClass> lego = *it;
-		if (lego->Get_Identifier() == id) {
+		RefCountPtr<LegoClass> lego = *it; const LegoIdentifierClass &lego_id = lego->Get_Identifier();
+		if (lego_id == id) {
 			legos.erase(it);
 			if (legos.size() == 0) Orphans.erase(orphan_find);
 			return lego;

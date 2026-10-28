@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-269 entries in 65 files.
+268 entries in 65 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -27,7 +27,6 @@ edit the comments in the code, not this file.
 | `app/client/client.cpp:497` | `UnknownB02C90Class::Unknown_10` | marker | NOT EXACT: shape (the client stores each radius before it loads the object for Unknown_34; 3 forms) |
 | `app/client/client_lego_impl.cpp:310` | `ClientLegoImplClass::Get_Lego_Transform` | marker | NOT EXACT: inline budget: the client builds one more Matrix3D result (6 ??_H against our 5), 0.88 (attempts.csv) |
 | `app/client/client_lego_impl.cpp:363` | `ClientLegoImplClass::Add` | marker | NOT EXACT: inline budget: the last branch's orphan data assignment and destructor, inlined by the client, called by ours; 0.75 (attempts.csv) |
-| `app/client/client_lego_impl.cpp:477` | `ClientLegoImplClass::Remove` | marker | NOT EXACT: register-only: the loop's Get_Identifier() called after the id push, eax/edx in the inlined Release calls, 0.85 (attempts.csv) |
 | `app/client/client_lego_impl.cpp:679` | `ClientLegoImplClass::Child_Moved` | marker | NOT EXACT: shape, 4 rows: the client forms &child (lea ebp) before loading it, ours after (attempts.csv) |
 | `app/client/client_lego_impl.cpp:710` | `ClientLegoImplClass::Attach` | marker | NOT EXACT: frame: the client keeps the child's render object in its own stack slot (sub esp 8), ours in a dead parameter's (attempts.csv) |
 | `app/client/client_lego_impl.cpp:742` | `ClientLegoImplClass::Detach` | marker | NOT EXACT: register-only, 4 rows: eax / edx swapped around the Get_Render_Object call (attempts.csv) |
