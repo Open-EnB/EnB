@@ -8,6 +8,7 @@
 #include "sclient.h"
 #include "ui_line_display.h"
 #include "co_data.h"
+#include "co_subtypes.h"
 #include "..\packets\pk_player_object_relationship.h"
 #include "..\packets\pk_sub_parts.h"
 #include "..\packets\pkclickindicator.h"
@@ -69,7 +70,6 @@
 #include <time.h>
 #include <string>
 #include <vector>
-
 // rs_track.cpp's render object (Class_ID 0x10001): the render states the packets switch, declared as far as
 // the handlers call it
 #define RSTRACK_CLASSID	0x10001	// NAME 2: the class id the handlers test
@@ -887,7 +887,7 @@ bool SetTargetPacketClass::Process_Packet(void *instance)
 	ClientObjectClass *target = sclient->Find_Object(TargetID);
 	ClientObjectClass *object = sclient->Find_Object(Unknown10);
 	if (Unknown10 != -1 && object && object->Unknown_6F5DC0()) {
-		object->Unknown_70E750(TargetID);
+		((Unknown70E5A0Class *)object)->Unknown_70E750(TargetID);
 	}
 	return(true);
 }

@@ -140,6 +140,7 @@ public:
 	virtual void Unknown_14(UnknownB02C90Class *parent, int slot, int child_slot) {}	// +0x14 0x6F2C50 (empty; 0x725610 calls the child's)  // NAME 1 [parent, slot, child_slot]: what 0x725610 passes
 	float Unknown_725C60(const Vector3 &center, float radius);	// 0x725C60 the radius around center that holds the attached objects of type 29, recursively  // NAME 1 [center, radius]: what it computes
 	Matrix3D Unknown_725AD0();							// 0x725AD0 the owner's slot +0x28 transform (thrust) times Unknown1C (eff_o.cpp's 0x6E7AA0 / 0x6E82A0 call it on their objects)
+	int Unknown_725A90(int slot);						// 0x725A90 the bone of element slot of Buffer (-1 when there is none; co_subtypes.cpp's type 28 captures it; not rebuilt)  // NAME 1 [slot]: what type 28 passes
 	virtual void Unknown_18(UnknownB02C90Class *parent, int slot, int child_slot) {}	// +0x18 0x6F2C70 (empty; 0x7257F0 calls the child's)  // NAME 1 [parent, slot, child_slot]: what 0x7257F0 passes
 
 	void *Unknown04;									// +0x04 the constructor's argument
@@ -205,7 +206,6 @@ public:
 	bool Unknown_6F5DC0();								// 0x6F5DC0 (co.cpp; cpacket.cpp's SET_TARGET 25 tests it)
 	void Set_Decal_Name(std::string name) { DecalName = name; }	// 0x736140 (out of line in cpacket.cpp's object, after NAME_DECAL 178, its only caller)  // NAME 2: what it does
 	void Unknown_6FEF70(SubPartsPacket *packet);		// 0x6FEF70 (cpacket.cpp's SUBPARTS 180): the sub parts' legos on the +0xB4 object  // NAME 1 [packet]: the handler's packet
-	void Unknown_70E750(int id);						// 0x70E750 (cpacket.cpp's SET_TARGET 25 passes its TargetID)  // NAME 1 [id]: the packet's TargetID
 	void Unknown_6F3810(RenderObjClass *model);			// 0x6F3810 the +0x158 models on the model's bones, then its sub-objects'  // NAME 2 [model]: what it is
 	float Unknown_6F3ED0();								// 0x6F3ED0 an angle from +0x98's slot +0x14, clamped to 36 degrees
 	bool Unknown_6F4E70(Vector3 &pos);					// 0x6F4E70 the height into the client's bounds (+0x10D4 / +0x10D8) unless the state is 12-14 (unreferenced)  // NAME 1 [pos]: a Vector3
@@ -322,31 +322,6 @@ public:
 	Vector3 Unknown178;									// +0x178 (0x700820)
 	bool Unknown184;									// +0x184 (the constructor's 1; 0x7009A0's state)
 	char Unknown185[0x188 - 0x185];						// +0x185 (CREATE allocates 0x188 bytes)
-};
-
-// CREATE 4's two subclasses, declared as far as CREATE calls them. Their constructors lie in the unattributed run
-// 0x70CC90-0x70F1D0 (after co_player_relationship.cpp, before extrap.cpp; no file known), so they are declared here
-// type 24's base (constructor 0x70DBC0, vtable 0xB02084, over 0x6F2820)
-class Unknown70DBC0Class : public ClientObjectClass	// NAME 1: neutral (D10)
-{
-public:
-	Unknown70DBC0Class(ClientClass *client, int type, unsigned id);	// 0x70DBC0  // NAME 1 [client, type, id]: as the base's
-};
-// type 24 (constructor 0x70E2E0, vtable 0xB02294, 0x224 bytes)
-class Unknown70E2E0Class : public Unknown70DBC0Class	// NAME 1: neutral (D10)
-{
-public:
-	Unknown70E2E0Class(ClientClass *client, int type, unsigned id);	// 0x70E2E0 (CREATE 4 passes its SClient, the packet's Type and GameID)  // NAME 1 [client, type, id]: as the base's
-
-	char Unknown188[0x224 - 0x188];						// +0x188 (CREATE allocates 0x224 bytes; the split with 0x70DBC0's part is unknown)
-};
-// type 28 (constructor 0x70E5A0, vtable 0xB0230C, 0x1D4 bytes, over 0x6F2820)
-class Unknown70E5A0Class : public ClientObjectClass	// NAME 1: neutral (D10)
-{
-public:
-	Unknown70E5A0Class(ClientClass *client, unsigned id);	// 0x70E5A0 (CREATE 4 passes its SClient and the packet's GameID)  // NAME 1 [client, id]: as the base's
-
-	char Unknown188[0x1D4 - 0x188];						// +0x188 (CREATE allocates 0x1D4 bytes)
 };
 
 #endif //__CO_H

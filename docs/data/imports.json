@@ -1,6 +1,6 @@
 {
  "app": {
-  "ambiguous_total": 123,
+  "ambiguous_total": 124,
   "base": "reconstructed",
   "compile_errors": [],
   "files": {
@@ -1130,6 +1130,51 @@
     ],
     "merged": [],
     "name": "client/co_player_relationship.cpp"
+   },
+   "co_subtypes": {
+    "ambiguous": [
+     "0x42B2F0",
+     "0x70DEC0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42F250",
+     "0x447C40",
+     "0x6F2C90",
+     "0x70DBC0",
+     "0x70DC90",
+     "0x70DCF0",
+     "0x70DD40",
+     "0x70DD70",
+     "0x70DDB0",
+     "0x70DDE0",
+     "0x70DE10",
+     "0x70DE80",
+     "0x70DF00",
+     "0x70DFD0",
+     "0x70E040",
+     "0x70E090",
+     "0x70E0C0",
+     "0x70E150",
+     "0x70E1F0",
+     "0x70E240",
+     "0x70E2E0",
+     "0x70E350",
+     "0x70E380",
+     "0x70E3B0",
+     "0x70E3F0",
+     "0x70E460",
+     "0x70E4E0",
+     "0x70E5A0",
+     "0x70E680",
+     "0x70E6B0",
+     "0x70E750",
+     "0x70E780",
+     "0x70E7D0"
+    ],
+    "merged": [],
+    "name": "client/co_subtypes.cpp"
    },
    "combo_ffactory": {
     "ambiguous": [
@@ -8511,6 +8556,7 @@
    "client/client_lego_impl.h": "reconstructed",
    "client/co.h": "reconstructed",
    "client/co_data.h": "reconstructed",
+   "client/co_subtypes.h": "reconstructed",
    "client/control_keys_manager.h": "reconstructed",
    "client/eff_o.h": "reconstructed",
    "client/emote_data.h": "reconstructed",
@@ -8740,7 +8786,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 4296,
+  "in_tree_total": 4326,
   "totals": {}
  },
  "binkmovie": {

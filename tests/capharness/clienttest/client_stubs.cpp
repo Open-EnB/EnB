@@ -94,7 +94,6 @@ void Unknown498C10Class::Unknown_498F00(float, float, float) {}
 // gen_stubs.py cannot write (reached only with a +0xB4 object, which Unknown_731FA0 above never gives)
 #include "..\..\..\app\client\client_lego_impl.h"
 RefCountPtr<LegoClass> Unknown_7294D0(const LegoIdentifierClass &, int, int value, ClientClass *, float) { Trace("stub Unknown_7294D0 %d", value); return(RefCountPtr<LegoClass>(NULL)); }
-void ClientObjectClass::Unknown_70E750(int id) { Trace("stub ClientObjectClass::Unknown_70E750 %u target %d", GameID, id); }
 
 // co.cpp's per-frame update 0x6F3C60 prints the player's position on wwlib's mono screen (the client's global at
 // 0xC1ECC0, constructed next to mono.cpp's code; no tree file defines it)
@@ -374,3 +373,9 @@ EffectObjectClass *Unknown_6E9490(int desc_id, unsigned effect_id, unsigned dura
 #include "..\..\..\app\audio\soundlib.h"
 AudibleSoundClass *SoundLibraryClass::Play_2D_Sound(const char *name, int mode) { Trace("stub SoundLibraryClass::Play_2D_Sound '%s' %d", name, mode); return(0); }
 Sound3DClass *SoundLibraryClass::Play_3D_Sound(const char *name, const Matrix3D &tm, int mode, float scale) { Trace("stub SoundLibraryClass::Play_3D_Sound '%s' at (%g, %g, %g) %d %g", name, tm[0][3], tm[1][3], tm[2][3], mode, scale); return(0); }	// co.cpp's engine sounds 0x6FDBD0
+// co_subtypes.cpp's type 24 is also dynamic_obj.cpp's proximity object (not rebuilt): its slots that take or return a
+// class by value, which gen_stubs.py cannot write (the others are its stand-ins)
+#include "..\..\..\app\client\co_subtypes.h"
+Vector3 Unknown44AC70Class::Unknown_Dyn38() { return(Vector3(1.0f, 0.0f, 0.0f)); }
+Matrix3D Unknown44AC70Class::Unknown_Dyn3C() { return(Matrix3D(Unknown_24())); }
+void Unknown44AC70Class::Unknown_Dyn68(Vector3 pos) { Trace("stub Unknown44AC70Class::Unknown_Dyn68 (%g, %g, %g)", pos.X, pos.Y, pos.Z); }
