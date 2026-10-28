@@ -12,6 +12,11 @@ evidence. Names tagged 4 or 5 are settled and only counted.
 
     python tools/re/names.py            # rewrite docs/data/names-review.md
     python tools/re/names.py --print    # print the list instead
+    python tools/re/names.py --tree DIR # scan another worktree (output still goes to this tree)
+
+It scans tracked and untracked-not-ignored files (git ls-files -co --exclude-standard), so a new
+file needs no `git add` first, and it also regenerates docs/data/not-exact.md (notexact.py's
+generator), so one command refreshes both. `--print` prints the names list only.
 """
 import argparse
 import collections
@@ -32,9 +37,10 @@ KEYWORDS = {'const', 'virtual', 'static', 'inline', 'unsigned', 'signed', 'int',
             'public', 'private', 'protected', 'operator', 'template', 'typename', 'extern', 'explicit'}
 
 
-def tracked_files():
-    out = subprocess.run(['git', 'ls-files'] + list(DIRS), cwd=ROOT, capture_output=True, text=True,
-                         check=True).stdout
+def tracked_files(tree=None):
+    """Tracked plus untracked-not-ignored source files under DIRS in `tree` (default: this tree)."""
+    out = subprocess.run(['git', 'ls-files', '-co', '--exclude-standard'] + list(DIRS), cwd=tree or ROOT,
+                         capture_output=True, text=True, check=True).stdout
     return [p for p in out.splitlines() if p.lower().endswith(EXTS)]
 
 
@@ -55,8 +61,8 @@ def subject_of(code, path):
     return words[-1] if words else None
 
 
-def scan(path):
-    text = open(os.path.join(ROOT, path), 'rb').read().decode('utf-8', errors='replace')
+def scan(path, tree=None):
+    text = open(os.path.join(tree or ROOT, path), 'rb').read().decode('utf-8', errors='replace')
     lines = text.splitlines()
     tags, tagged_names = [], set()
     for i, line in enumerate(lines):
@@ -89,11 +95,13 @@ def scan(path):
 def main():
     ap = argparse.ArgumentParser(description=__doc__.split('\n')[0])
     ap.add_argument('--print', action='store_true', help='print instead of writing the file')
+    ap.add_argument('--tree', help='scan this worktree instead of this one')
     args = ap.parse_args()
+    tree = os.path.abspath(args.tree) if args.tree else None
 
     entries = []
-    for path in tracked_files():
-        entries += scan(path)
+    for path in tracked_files(tree):
+        entries += scan(path, tree)
     # scan() lists an untagged Unknown name once per file (the same placeholder in two classes is
     # two names to settle).
     rows = sorted(entries, key=lambda e: (e[0], e[2], e[3]))
@@ -123,6 +131,8 @@ def main():
     else:
         open(OUT, 'w', encoding='utf-8', newline='\n').write(text)
         print('%s: %d names, %d for review' % (os.path.relpath(OUT, ROOT), len(rows), len(review)))
+        import notexact
+        notexact.write(tree)
 
 
 if __name__ == '__main__':
