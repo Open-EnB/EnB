@@ -4,6 +4,48 @@ Newest first within each section. Dates are when the entry was written.
 
 ## 1. Log
 
+### 2026-10-27 (17:30, evening): the D93 model evaluation, eight runs scored; A-opus and B-opus merged (+113 pairs, 0 lost); P-E1 proposes the D72 revision
+
+Coordinator Opus 5.5 (the user, 14:50: changes eval-d93.md's "the coordinator stays on Fable"; noted in D93's row).
+Base a76b92e; eight runs in worktrees `.work/eval/<run>` on branches `eval/<run>` (`.work/eval/setup.py`: junctions
+for locks / pool / pseudo, dgrams, libraries). Every branch rescored by the coordinator (`.work/eval/score.sh`: verify
+`--lib app --pool 1` in the worktree, pairs_cmp against the base and against the branch's own imports.json, replay,
+udpreplay `conn alex3/alex7` for task A). Logs: `.work/eval/log.md`, `.work/run-2026-10-27/plan.md`. Memory, not
+usage, limited the run (VS Code's cpptools held ~4 GB indexing the worktrees): wave A started together; wave B
+started in three steps (B-opus + B-sonnet-1 15:55, B-sonnet-2 16:10, B-haiku 16:30) with the same brief and base.
+Usage at 17:29: session 27 %, week 8 % (HEAD +185 pairs against a76b92e, 0 lost).
+
+| Run | Exact / built | Pairs vs base (net, addresses) | NOT EXACT | Tokens (notification) | Min | Claims re-verified | Report issues |
+|---|---|---|---|---|---|---|---|
+| A-opus | 23 of 23 claimed (21 proven) | +36 / -9 rename moves (+27, 26) | 0 | 248,707 | 19 | exact (0/0) | tokens said ~160k; "23 of 23" in the subject, corrected in the report |
+| A-sonnet-1 | all | +36 / -9 (+27, 26) | 0 | 215,777 | 29 | exact | tokens said ~400K; headers rows not committed; counts not in subjects |
+| A-sonnet-2 | 5 of 6 for 83 | +33 / -9 (+24, 23) | 1 (0x886890) | 213,638 | 29 | exact | tokens said ~450k; tsk_game.cpp view replaced by an include (unasked) |
+| A-haiku | 2 parked | +29 / 0 (no rename: object split in two files, 19) | 2 (0x886710, 0x862300 prefix) | 344,774 | 34 | exact | alex7 "fails at HEAD" wrong (used `run`, baseline its own commit); built udpreplay in the main tree |
+| B-opus | all but the String getters | +86 / 0 (86) | 2 (0x7F9700, 0x7F9970) | 384,644 | 44 | exact | tokens said ~260k |
+| B-sonnet-1 | 7 not exact | +36 / 0 (36; holds 0x603D70, which B-opus lacks) | 7 (Set_Defaults, dtor, Clear, Load, Save, 2 getters) | 502,880 | 59 | exact | extent 0x7FF010 vs B-opus 0x7FEBE0 |
+| B-sonnet-2 | 8 NOT EXACT (Load, Save, Set_Defaults, dtor, 0x7F81A0, 2 getters; Set_Defaults literal) | +33 / 0 (33; holds 0x603D70) | 7 | 487,646 | 71 | exact | tokens said 600-700K; extent to ~0x7FFFxx (scriptedmovie at 0x8000C0) |
+| B-haiku | readers and finds only | +21 / 0 (21, all within B-opus) | 1 parked (0x7F9700) | 241,902 | 16 | exact | stopped by choice at 16 min of 150; kept Unknown_BE8B38Class; first write landed in the main tree (removed) |
+
+* **Every claim held:** each branch's committed imports.json equals the coordinator's re-verify (0 gained, 0 lost),
+  replay 0 differences everywhere, udpreplay conn alex3 / alex7 PASS on all four A branches. The dishonesty is in
+  the self-reported token counts (off by -35 % to +110 %, both directions) and one wrong harness claim (A-haiku).
+* **Task A:** Opus and one Sonnet run reached the same 26 addresses; Opus in two thirds of the time with a little
+  more tokens; the second Sonnet run missed one destructor; Haiku 19 addresses, two parked and an object split.
+  **Merged: master fast-forwarded to eval/A-opus (ae9a0a2);** the other branches gain nothing A-opus lacks.
+* **Task B:** B-opus +86 (Load, Save, the 20 KB Set_Defaults exact; extent 0x7F0F60-0x7FEBE0); B-sonnet-1 +36 for 1.3x
+  the tokens. **Merged: B-opus cherry-picked onto master (85400d9, 62e999e, 57f25cc)**; master verify after both merges: app 3,388
+  functions, +122 / -9 rename moves against a76b92e (112 addresses = 26 + 86), 0/0 against the committed imports.json,
+  replay 0. Left: 0x603D70, which both Sonnet B runs made exact and B-opus did not (one address, a work item).
+* **After the eval (17:00-):** memory freed, four Opus builders on master, disjoint files, stop 18:20-18:50: R1
+  co_player_relationship.cpp (3 commits by 17:09), P10 packets 181/182 (and udpreplay's main-tree rebuild), T19 cpacket's
+  65/178/146/100/165, H19 the key-name object 0x42B610. Their results: the addendum below this entry.
+* **Traps:** ten bullets filed in workflow.md §3.1, 3.2, 3.4, 3.6, 3.7, 3.9 (dead reads as expansions; auto_inline(off);
+  the list destructor's forms; C1001 on hash_map deduction; commit_mine's headers keys; private TEMP; appfile -I;
+  udpreplay's `conn` gate; absolute paths in worktrees; pkemit / pkclasses keys).
+* **Incident:** A-haiku's failed `cd` ran `udpreplay.py build` in the main tree (build/programs/udpreplay overwritten
+  with a failed link, `.work/harness/udpreplay_src` re-staged; untracked only): rebuild before the next udpreplay check.
+* **Open for the user (§3):** P-E1 (the D72 revision), P-A1, P-Bopus-1, P-Bopus-2.
+
 ### 2026-10-27 (14:05, day): the session cap and the reset; seven builders at a time; 352 commits, app +2,175 pairs, 0 lost; D90-D95; the eval D93 is next
 
 Coordinator (Fable), 04:30 to 12:30, the user online 04:35-09:30 and then away. The API session cap stopped
@@ -1193,7 +1235,7 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 | D53 | 2026-10-24 | VIDTEST O7: our vidtest fixes the signed `FreeTextureRam` comparison (GPUs reporting 2 GB or more), rather than copying the original's `TextureReduction=2` | user |
 | D54 | 2026-10-24 | A function whose compiled bytes occur at several places in client.exe, all identical copies (objmatch `multiple`, e.g. template leaf Reads), counts as "exact, ambiguous address" in a separate column beside each library's pair count; the `(file, address)` pair counts and the before/after pair rule are unchanged | user |
 | D55 | 2026-10-24 | `ww3d2/pot.cpp` is NOT_LINKED; wwmath's identical `pot.cpp` supplies `Find_POT` / `Find_POT_Log2` (both copies matched the same two client functions, and a program linking both fails on the duplicate). Its 2 ww3d2 pairs are dropped as D20 duplicates | user |
-| D56 | 2026-10-24 | Name certainty: every name chosen without the client's own evidence carries a tag comment where it is declared, `// NAME n: evidence`, scored 5 = the client names it (RTTI, assert, `__FILE__`, `Class::Method` string), 4 = EA's Westwood source names it, or a Net-7 / the reference decoder name confirmed by matching structure, 3 = built by convention from a client-named file or sibling (D24 class-from-file, a `.h` paired with a known `.cpp`), 2 = describes what the code does, 1 = neutral placeholder (`Unknown_xx`, D10). 4-5 are settled; 3 and below are listed for review by `tools/re/names.py` in the generated `docs/data/names-review.md` (untagged `Unknown*` names count as 1). When better evidence appears the tag is raised and the name leaves the list ([conventions.md](conventions.md) §1) | user |
+| D56 | 2026-10-24 | Name certainty: every name chosen without the client's own evidence carries a tag comment where it is declared, `// NAME n: evidence`, scored 5 = the client names it (RTTI, assert, `__FILE__`, `Class::Method` string), 4 = EA's Westwood source names it, or a Net-7 / the reference decoder name confirmed by matching structure, 3 = built by convention from a client-named file or sibling (D24 class-from-file, a `.h` paired with a known `.cpp`), 2 = describes what the code does, 1 = neutral placeholder (`Unknown_xx`, D10). 4-5 are settled; 3 and below are listed for review by `tools/re/names.py` in the generated `docs/data/names-review.md` (untagged `Unknown*` names count as 1). When better evidence appears the tag is raised and the name leaves the list ([conventions.md](conventions.md) §1) | user |
 | D57 | 2026-10-24 | M1.2's names: `encode.h` (NAME 2) and `strconv_lib.h` (NAME 3) stay, tracked under D56; `KVPairClass`'s virtuals keep descriptive names (`Clone`, `Get_Type_Name`, `Get_Value_String`, ...; NAME 2) rather than offset names. The file for the compound/root functions 0x4A3990-0x4A4780 and 0x4B0860 waits for M1.3, using Net-7's `AuxClasses` and the reference decoder's `the reference game model` names as structure-matched hints | user |
 | D58 | 2026-10-24 | Provisional file names stay, tracked under D56: `app/shared/auxdata/unknown_root.*` (the compound/root object, no `__FILE__`), `app/client/aux_roots.*` (the generated roots; the client's code is in co.cpp and an unattributed object at 0x751BE0: the generator writes into co.cpp once that is rebuilt), `app/shared/heightfield.*`, `app/shared/land.*` | user |
 | D59 | 2026-10-24 | AuxData class names: nested compounds `Delta<Net-7 name without Aux>Class` (NAME 4, matched child by child against Net-7's `AuxClasses` and `the reference game model`, `tools/re/auxroots_names.json`), roots `Delta<client string>Class` (NAME 3); `DeltaInterpolatorClass` keeps its name (Net-7's AuxPercent / C# Ramp; the client interpolates) | user |
@@ -1230,12 +1272,31 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 | D90 | 2026-10-27 | Kernel-map step 9 continues in the order of `kernel-map-step9.md`: 9a kcom auth (an import library from authlogin.dll's .def; AuthLoginResponseClass), 9b the login data objects (the 0x90-byte character slot and TicketClass, avatar_desc.cpp's 0x10C-byte objects, shipcust_desc.cpp's 0x160-byte objects, the galaxy entry), 9c client.cpp's client base class, 9d SClient's skeleton (constructor, Init, Shutdown, Process_Packets: what cpacket.cpp's handlers need, tested with udpreplay); the UI front end (the login and character-select screens, intrface.cpp's 25 screens) is deferred | user |
 | D91 | 2026-10-27 | udpreplay's `same()` skips a message's 2-byte size field only when the recorded message's size field disagrees with its length (alex7 session 625d message #89, a cut dump message with size 0x1E0A; the rebuilt Build writes the true size), so 59 Server_Ready (5 of 5 exact) can be committed (P-P4-1). Declined the same day: moving `Clamp_Int` into duration.h, +3/-2 at aux_roots through a D80 tie-break swap (P-P4-3): a swap is not a D66 non-loss. Accepted for after Load_Assets: one D89 Fable round on land's lighting-record struct form, the constructor with the lightmap threads 0x46DA70 / 0x46DDD0 together (P-L4-2). D88's `tiebreak`/`selfname` markers stay out of imports.json until something needs them | user |
 | D92 | 2026-10-27 | One D89 Fable round for ClientClass's constructor 0x726100 (inline budget) and Find_Object 0x727070 / Remove_Object 0x727600 (shape; the untried `goto` to the found return), after the land lighting round F5 (P-T6-1). The clienttest program (P-T6-2) is deferred to step 9d and subsumed by P-T7-1 | user |
-| D93 | 2026-10-27 | A model evaluation on two fixed reconstruction tasks (A: three small packet classes; B: option.cpp's SGI hash_map file), the same brief for Opus 5.5, Sonnet 5.5 (twice) and Haiku 5.5, each in its own worktree and branch at one base commit, scored by the coordinator's re-verify (exact functions, pairs gained with nothing lost, tokens and relative dollars per pair, process compliance, report honesty, levers found); the best branch merges afterwards; D72 revised from the scores. Fable is not a candidate; the Opus-coordinator trial is a later session. Design and the brief: [eval-d93.md](eval-d93.md). The next coordinator session runs it first, after the weekly reset of 12:59 (coordinator's P-C1) | user |
+| D93 | 2026-10-27 | A model evaluation on two fixed reconstruction tasks (A: three small packet classes; B: option.cpp's SGI hash_map file), the same brief for Opus 5.5, Sonnet 5.5 (twice) and Haiku 5.5, each in its own worktree and branch at one base commit, scored by the coordinator's re-verify (exact functions, pairs gained with nothing lost, tokens and relative dollars per pair, process compliance, report honesty, levers found); the best branch merges afterwards; D72 revised from the scores. Fable is not a candidate; the Opus-coordinator trial is a later session. Design and the brief: [eval-d93.md](eval-d93.md). The next coordinator session runs it first, after the weekly reset of 12:59 (coordinator's P-C1) The coordinator was Opus 5.5, not Fable (user, 2026-10-27 14:50); results: the 2026-10-27 evening entry. | user |
 | D94 | 2026-10-27 | (a) T5's drop of (tsk_login, 0x85CB00), the avatar's implicit assignment, when account_id became `__int64` is a D66(iii) non-loss (c0091e0); the address returns with the packet file that carries the client's copy. (b) symbols.py and objmatch skip compiler-generated `_$E<n>` names (P-H7-2), carried out like D88 on a quiet tree with a full verify of every library, pairs_cmp gains-only. (c) The clienttest program (P-T7-1) is built once the first cpacket.cpp handlers exist, about one builder session | user |
 | D95 | 2026-10-27 | (a) udpreplay sends the recorded bytes for a rebuilt class whose client Build writes a size field larger than its payload, as an explicit opcode list (97 AVATAR_DESCRIPTION, 183), so 97 can be committed from `.work/p5/park97` (P-P5-1). (b) objmatch's D80 tie-break does not credit an implicit destructor to an identical twin when the function's own address is free (P-P5-2; unparks 117 GLOBAL_ERROR from `.work/p5/park117`), carried out with D94(b) on the quiet tree with a full verify. (c) D66 gains kind (iv): a file rename whose pairs reappear under the new name, named in the commit, is not a loss (P-P5-3: pkunknown_85e640 / 85f870 / 860d30 to gameedit/pkgekv, pkgeobj, pkgeplan) | user |
 
 ## 3. Open decisions
 
+* **P-E1 (D72 revision from D93, 2026-10-27):** the scores (coordinator re-verify; relative dollars Opus 1.0, Sonnet 0.2, Haiku 0.05 per token; per address gained):
+  task A Opus 26 addresses, 19 min, 9.6k Opus-token-equivalents per address; Sonnet 26 / 23 addresses, 29 min, 1.7k / 1.9k; Haiku 19, 34 min, 0.9k;
+  task B Opus 86, 44 min, 4.5k; Sonnet 36 / 33, 59 / 71 min, 2.8k / 3.0k; Haiku 21 (quit at 16 min), 0.6k. Every claim of pairs
+  held under re-verify; self-reported tokens did not (all models). Proposal, row by row: (a) **pattern items** (packet classes,
+  small classes with an emitter or a template sibling, records-heavy batches): Sonnet, with the coordinator's re-verify and
+  a records check (headers rows, subjects) per report; (b) **puzzle files** (SGI tables, inline-budget, big unique functions,
+  anything §3.1's levers decide): Opus, unchanged (Sonnet reached 40 % of Opus's addresses on task B for ~1.3x the tokens,
+  and its NOT EXACT functions need another round anyway); (c) **Haiku**: searches and audits only, never a builder (it wrote
+  into the main tree twice, split a client object, reported a harness failure that wasn't, and quit task B early); (d) Fable's
+  puzzle role (D89) unchanged; (e) token figures for D72/D89 from task notifications only, never a report. Recommendation: accept.
+* **P-A1:** tsk_game.cpp's one-line view of ServerRedirectPacketClass still derives from PacketClass ("pk_classes.h
+  declares no fields"); the layout is the same and every harness passes. Recommendation: leave the view (P9's trap:
+  the real header mid-file moved a handler's scheduling); refresh the comment at tsk_game.cpp's next edit.
+* **P-Bopus-1:** replace the four `Unknown_BE8B38Class` views (tsk_game.h, sclient.cpp, fontdatabase.cpp, soundlib.cpp)
+  with option.h's OptionClass (Unknown_7F84F0 = Load, Unknown_7F8EF0 = Save, Unknown_7F95E0 = Find_String) once
+  option.cpp is merged. Recommendation: its own item with its own verify (header visibility can move budgets).
+* **P-Bopus-2:** option.cpp's Get_String 0x7F9700 / Get_Default_String 0x7F9970 (shape / inline-budget, 16 forms) and,
+  on B-sonnet-1's branch, Set_Defaults' near miss: a Fable round under D89 for Get_String. Recommendation: low
+  priority (2 pairs); add it to the D89 queue after the six there.
 * **P-T7-2:** SClient's Init 0x741180 (field offset, 103 rows) and Shutdown 0x741BB0 (shape, 470 rows) get a
   second Opus round only after the UI base classes they call exist. Recommendation: hold.
 * **P-T5-2:** merge LoginPacketDataClass / LoginInterfaceAEADC8Class / LoginKVVisitorClass into pk.h / delta.h
@@ -1285,9 +1346,9 @@ Milestones M1 and M2 are met (D42, D63; [milestones.md](milestones.md)). Order a
 client's own code: [kernel-map.md](kernel-map.md) §6 and, for step 9's dependencies,
 [kernel-map-step9.md](kernel-map-step9.md). Adding a file: [workflow.md](workflow.md) §2.1.
 
-1. **The model evaluation D93 first** ([eval-d93.md](eval-d93.md)): a quiet tree, the base commit recorded, eight
-   runs (task A: 83, 30028, 54; task B: option.cpp, fallback co_player_relationship.cpp) in worktrees, scored by
-   re-verify, the best branches merged, a D72 revision proposed. The same quiet tree carries the matching-rule
+1. **The quiet tree's items** (the D93 evaluation is done, 2026-10-27 evening: P-E1 for the user; the eval branches
+   `eval/*` stay a week, then `git branch -D` and `git worktree remove` under `.work/eval/`). Left from it: 0x603D70
+   (option.cpp, exact on both Sonnet B branches: port their form), P-Bopus-1 if accepted. The quiet tree carries the matching-rule
    changes D94(b) (skip `_$E` names), D95(b) (no implicit-destructor credit to a twin when the own address is
    free) and P-P6-1 if accepted (a tie goes to the object whose client range holds the address), each with a
    full verify of every library and pairs_cmp gains-only, like D88; then 117 from `.work/p5/park117` and 45 from
