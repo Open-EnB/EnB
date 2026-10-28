@@ -33,6 +33,7 @@
 #include "dx8fvf.h"
 #include "vector.h"
 #include "landdmap.h"
+#include "texproject.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -842,10 +843,10 @@ void LandClass::Render(RenderInfoClass &rinfo)
 	// the projectors on the land (+0x1218): their boxes' triangles drawn with their material passes
 	static std::vector<Vector3> projected;
 	DX8Wrapper::Set_World_Identity();
-	for (std::vector< RefCountPtr<LandUnknownClass> >::iterator it = m_Unknown1218.begin(); it != m_Unknown1218.end(); it++) {
-		LandUnknownClass *projector = (*it).Peek();
+	for (std::vector< RefCountPtr<TexProjectClass> >::iterator it = m_Unknown1218.begin(); it != m_Unknown1218.end(); it++) {
+		TexProjectClass *projector = (*it).Peek();
 		projected.erase(projected.begin(), projected.end());
-		Field->Get_Triangles(projector->Get_Box(), projected);
+		Field->Get_Triangles(projector->Get_Bounding_Volume(), projected);
 		projector->Peek_Material_Pass()->Install_Materials();
 		Unknown_477E20(projected);
 	}
@@ -885,6 +886,43 @@ void LandClass::Render(RenderInfoClass &rinfo)
 	}
 }
 
+// 0x477E20: the projected triangles as a dynamic FVF 0x252 list (at most 30000 vertices), raised 3 units where the device
+// has no z bias, drawn with z bias 1
+void Unknown_477E20(std::vector<Vector3> verts)
+{
+	int vertex_count = (int)WWMath::Min((float)verts.size(), 30000.0f);
+	int polygon_count = vertex_count / 3;
+	float z_offset = 0.0f;
+	if (!DX8Wrapper::Get_Current_Caps()->Support_ZBias()) {
+		z_offset = 3.0f;
+	}
+	DynamicIBAccessClass ib(BUFFER_TYPE_DYNAMIC_DX8, vertex_count);
+	{
+		DynamicIBAccessClass::WriteLockClass lock(&ib);
+		unsigned short *indices = lock.Get_Index_Array();
+		for (int i = 0; i < vertex_count; i++) {
+			*indices++ = (unsigned short)i;
+		}
+	}
+	DynamicVBAccessClass vb(BUFFER_TYPE_DYNAMIC_DX8, 0x252, vertex_count);
+	{
+		DynamicVBAccessClass::WriteLockClass lock(&vb);
+		unsigned char *vertices = (unsigned char *)lock.Get_Formatted_Vertex_Array();
+		const FVFInfoClass &fi = vb.FVF_Info();
+		int n = 0;
+		for (std::vector<Vector3>::iterator it = verts.begin(); it != verts.end(); it++) {
+			*(Vector3 *)(vertices + fi.Get_Location_Offset()) = Vector3((*it).X, (*it).Y, (*it).Z + z_offset);
+			vertices += fi.Get_FVF_Size();
+			if (++n >= vertex_count) break;
+		}
+	}
+	DX8Wrapper::Set_Index_Buffer(ib, 0);
+	DX8Wrapper::Set_Vertex_Buffer(vb);
+	DX8Wrapper::Set_DX8_Render_State(D3DRS_ZBIAS, 1);
+	DX8Wrapper::Draw_Triangles(0, (unsigned short)polygon_count, 0, (unsigned short)vertex_count);
+	DX8Wrapper::Set_DX8_Render_State(D3DRS_ZBIAS, 0);
+}
+
 Vector3 LandClass::Get_Color(const Vector2 &pos)
 {
 	float i, j;
@@ -914,6 +952,15 @@ LandPatchClass::LandPatchClass(LandClass *land) :
 {
 }
 
+// The client calls it out of line from the land's destructor (0x46A656); defined here it inlines there (the empty-loop
+// lever doesn't stop it): auto_inline(off) keeps it out of line
+#pragma auto_inline(off)
+LandPatchClass::~LandPatchClass(void)
+{
+	REF_PTR_RELEASE(VertexBuffer);
+}
+#pragma auto_inline(on)
+
 LandPatchRecordClass::LandPatchRecordClass(void) :
 	m_Unknown10(0),
 	m_Unknown14(0),
@@ -923,6 +970,18 @@ LandPatchRecordClass::LandPatchRecordClass(void) :
 	Level(0)
 {
 }
+
+// The client releases the four pointers in the body, then again as members (0x4749D0); with an inline candidate here the
+// land's destructor gains three EH states (its delete [] through __ehvec_dtor): auto_inline(off) as the patch's
+#pragma auto_inline(off)
+LandPatchRecordClass::~LandPatchRecordClass(void)
+{
+	m_Unknown00 = NULL;
+	m_Unknown04 = NULL;
+	m_Unknown08 = NULL;
+	m_Unknown0C = NULL;
+}
+#pragma auto_inline(on)
 
 void LandClass::Set_Strip_Buffer(int level)
 {
@@ -934,7 +993,7 @@ void LandClass::Set_Edge_Buffer(int level)
 	DX8Wrapper::Set_Index_Buffer(EdgeBuffers[level], 0);
 }
 
-void LandClass::Add_Unknown1218(const RefCountPtr<LandUnknownClass> &object)
+void LandClass::Add_Unknown1218(const RefCountPtr<TexProjectClass> &object)
 {
 	m_Unknown1218.push_back(object);
 }

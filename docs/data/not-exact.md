@@ -228,24 +228,24 @@ edit the comments in the code, not this file.
 | `app/shared/kv_tripl.cpp:56` | `KVTripleListClass::KVTripleListClass` | marker | NOT EXACT: inline budget, the client inlines the triple's copy constructor here (Copy_Member out of line); ours calls 0x4B85F0 |
 | `app/shared/kv_tripl.cpp:61` | `KVTripleListClass::KVTripleListClass` | marker | NOT EXACT: frame (0x38 vs 0x3C) and inline budget, the client calls the bucket vector's constructor 0x4BA530 out of line and keeps match in ebx |
 | `app/shared/kv_tripl.cpp:77` | `KVTripleListClass::~KVTripleListClass` | marker | NOT EXACT: inline budget, the client calls the vector's erase pieces (0x4BAC30, 0x4B9D60), bucket size() and _M_delete_node out of line |
-| `app/shared/land.cpp:104` | `LandClass::Load_Assets` | marker | NOT EXACT: inline-budget (ours inlines LandPatchClass's ctor and Init, the client calls 0x474530 / 0x4746C0; without them the frame slots differ); 7 forms (attempts.csv 0x4691D0) |
-| `app/shared/land.cpp:388` | `LandClass::Save_Sea_Mask` | marker | NOT EXACT: shape (2 rows: the client returns false through al = HasSea, ours xor al, al; 7 forms, attempts.csv 0x46BCC0) |
-| `app/shared/land.cpp:425` | `LandClass::Limit_Levels` | marker | NOT EXACT: inline-budget (the client calls the first push_back out of line (0x46BF70) and inlines _Freefront in pop_front and the destructor; ours the reverse) |
-| `app/shared/land.cpp:631` | `LandClass::Update_Patches` | marker | NOT EXACT: shape (written from the disassembly: the client's frame is 0x18 larger, it copies the camera position and ors the change tests; 5 forms, attempts.csv 0x46B3C0) |
-| `app/shared/land.cpp:735` | `LandClass::Render` | marker | NOT EXACT: written from the pseudocode (0x474B30); not run yet (VIDTEST draws with vidland.cpp) |
-| `app/shared/land.cpp:947` | `LandClass::Upload_Lightmap` | marker | NOT EXACT: frame (0x14, the client 0x20: it keeps this, the size and the buffer in frame slots); 2 forms tried |
-| `app/shared/land.cpp:988` | `LandPatchClass::Build_Vertices` | marker | NOT EXACT: frame (0x3C, the client 0x38); 3 forms tried (attempts.csv 0x474790) |
-| `app/shared/land.cpp:1054` | `LandClass::Compute_Lighting` | marker | NOT EXACT: order-only (the shadowed vertex: the client loads +0x1F0's factor first; 64 rows masked; attempts.csv 0x46CAE0). The lit vertices: the sun's normal colour plus the sky's; the shadowed: the sky's; between the horizons a blend |
-| `app/shared/land.cpp:1174` | `LandClass::Apply_Colors` | marker | NOT EXACT: shape (the client steps a colour pointer by 3 and tests extra before its loads; the loop bodies match); 3 forms tried |
-| `app/shared/land.cpp:1218` | `LandClass::Build_Index_Buffers` | marker | NOT EXACT: field-offset / order (the store order of the strip's index pairs; 2 forms, attempts.csv 0x478240) |
-| `app/shared/land.cpp:1314` | `LandClass::Unknown_46E120` | marker | NOT EXACT: functional, from the disassembly of 0x46E120 |
-| `app/shared/land.cpp:1479` | `LandClass::Unknown_46F120` | marker | NOT EXACT: functional, from the disassembly and pseudocode of 0x46F120 |
-| `app/shared/land.cpp:1622` | `LandClass::Unknown_470F80` | marker | NOT EXACT: functional, from the disassembly and pseudocode of 0x470F80 |
-| `app/shared/land.cpp:1863` | `LandClass::Compute_Horizons` | marker | NOT EXACT: functional, from the disassembly and pseudocode of 0x472F80 |
-| `app/shared/land.cpp:1930` | `LandClass::Compute_Horizons` | marker | NOT EXACT: shape (21 masked rows: the mask test's operand order and the heights' restore; 5 forms, attempts.csv 0x46E670) |
-| `app/shared/land.cpp:1989` | `LandClass::Unknown_473290` | marker | NOT EXACT: order-only (3 masked rows: the client loads Spacing before VScale for VScale / Spacing; 6 forms, attempts.csv 0x473290) |
-| `app/shared/land.cpp:2075` | `LandClass::Unknown_473780` | marker | NOT EXACT: frame (the client's frame 0x14 bigger, 147 masked rows; 2 forms, attempts.csv 0x473780) |
-| `app/shared/land.cpp:2126` | `LandClass::Unknown_473BC0` | marker | NOT EXACT: frame (the client's frame 0x14 bigger; 2 forms, attempts.csv 0x473BC0) |
+| `app/shared/land.cpp:105` | `LandClass::Load_Assets` | marker | NOT EXACT: inline-budget (ours inlines LandPatchClass's ctor and Init, the client calls 0x474530 / 0x4746C0; without them the frame slots differ); 7 forms (attempts.csv 0x4691D0) |
+| `app/shared/land.cpp:389` | `LandClass::Save_Sea_Mask` | marker | NOT EXACT: shape (2 rows: the client returns false through al = HasSea, ours xor al, al; 7 forms, attempts.csv 0x46BCC0) |
+| `app/shared/land.cpp:426` | `LandClass::Limit_Levels` | marker | NOT EXACT: inline-budget (the client calls the first push_back out of line (0x46BF70) and inlines _Freefront in pop_front and the destructor; ours the reverse) |
+| `app/shared/land.cpp:632` | `LandClass::Update_Patches` | marker | NOT EXACT: shape (written from the disassembly: the client's frame is 0x18 larger, it copies the camera position and ors the change tests; 5 forms, attempts.csv 0x46B3C0) |
+| `app/shared/land.cpp:736` | `LandClass::Render` | marker | NOT EXACT: written from the pseudocode (0x474B30); not run yet (VIDTEST draws with vidland.cpp) |
+| `app/shared/land.cpp:1006` | `LandClass::Upload_Lightmap` | marker | NOT EXACT: frame (0x14, the client 0x20: it keeps this, the size and the buffer in frame slots); 2 forms tried |
+| `app/shared/land.cpp:1047` | `LandPatchClass::Build_Vertices` | marker | NOT EXACT: frame (0x3C, the client 0x38); 3 forms tried (attempts.csv 0x474790) |
+| `app/shared/land.cpp:1113` | `LandClass::Compute_Lighting` | marker | NOT EXACT: order-only (the shadowed vertex: the client loads +0x1F0's factor first; 64 rows masked; attempts.csv 0x46CAE0). The lit vertices: the sun's normal colour plus the sky's; the shadowed: the sky's; between the horizons a blend |
+| `app/shared/land.cpp:1233` | `LandClass::Apply_Colors` | marker | NOT EXACT: shape (the client steps a colour pointer by 3 and tests extra before its loads; the loop bodies match); 3 forms tried |
+| `app/shared/land.cpp:1277` | `LandClass::Build_Index_Buffers` | marker | NOT EXACT: field-offset / order (the store order of the strip's index pairs; 2 forms, attempts.csv 0x478240) |
+| `app/shared/land.cpp:1373` | `LandClass::Unknown_46E120` | marker | NOT EXACT: functional, from the disassembly of 0x46E120 |
+| `app/shared/land.cpp:1538` | `LandClass::Unknown_46F120` | marker | NOT EXACT: functional, from the disassembly and pseudocode of 0x46F120 |
+| `app/shared/land.cpp:1681` | `LandClass::Unknown_470F80` | marker | NOT EXACT: functional, from the disassembly and pseudocode of 0x470F80 |
+| `app/shared/land.cpp:1922` | `LandClass::Compute_Horizons` | marker | NOT EXACT: functional, from the disassembly and pseudocode of 0x472F80 |
+| `app/shared/land.cpp:1989` | `LandClass::Compute_Horizons` | marker | NOT EXACT: shape (21 masked rows: the mask test's operand order and the heights' restore; 5 forms, attempts.csv 0x46E670) |
+| `app/shared/land.cpp:2048` | `LandClass::Unknown_473290` | marker | NOT EXACT: order-only (3 masked rows: the client loads Spacing before VScale for VScale / Spacing; 6 forms, attempts.csv 0x473290) |
+| `app/shared/land.cpp:2134` | `LandClass::Unknown_473780` | marker | NOT EXACT: frame (the client's frame 0x14 bigger, 147 masked rows; 2 forms, attempts.csv 0x473780) |
+| `app/shared/land.cpp:2185` | `LandClass::Unknown_473BC0` | marker | NOT EXACT: frame (the client's frame 0x14 bigger; 2 forms, attempts.csv 0x473BC0) |
 | `app/shared/landdmap.cpp:13` | `Height_Low_Byte` | marker | NOT EXACT: functional, from the disassembly of 0x466140 (a height-field function in the client) |
 | `app/shared/landdmap.cpp:162` | `LandUnknown466BE0Class::Unknown_466F60` | marker | NOT EXACT: functional, from the disassembly and pseudocode of 0x466F60 |
 | `app/shared/landdmap.cpp:254` | `LandUnknown466BE0Class::Unknown_4677B0` | marker | NOT EXACT: functional, from the disassembly and pseudocode of 0x4677B0 |

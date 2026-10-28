@@ -125,21 +125,11 @@ public:
 	int							Level;					// NAME 2: +0x24, the patch's Level (Update_Patches)
 };
 
-// NAME 1: unknown; what the land's vector at +0x1218 holds: RefCountClass at +0xCC (dtor 0x46A7F1), added by 0x75F8B0 through 0x4786A0
-class LandUnknownBaseClass
-{
-public:
-	virtual ~LandUnknownBaseClass(void);
-	char							m_Unknown04[0xC8];
-};
-class LandUnknownClass : public LandUnknownBaseClass, public RefCountClass	// NAME 1: as above
-{
-public:
-// NAME 1: what Render 0x474B30 reads: a box at +0x8C (the shape it projects onto the land) and a material pass at +0x10C (the
-// accessor 0x93D6C0 sits in WW3D2's range: likely TexProjectClass's Peek_Material_Pass, the class not confirmed)
-	const OBBoxClass &			Get_Box(void) const					{ return *(const OBBoxClass *)((const char *)this + 0x8C); }
-	MaterialPassClass *			Peek_Material_Pass(void);
-};
+// What the land's vector at +0x1218 holds (added by 0x75F8B0 through 0x4786A0): WW3D2's TexProjectClass. Render 0x474B30
+// calls 0x93D6C0, TexProjectClass::Peek_Material_Pass inside texproject.cpp's client range (0x93D670 .. 0x93D6D0
+// Set_Perspective_Projection), and reads ProjectorClass's WorldBoundingVolume at +0x8C; the RefCountClass the vector's
+// RefCountPtr releases sits at +0xCC, TexProjectClass's CullableClass base (dtor 0x46A7F1). ww3d2/texproject.h
+class TexProjectClass;
 
 // NAME 5: "Land.Peek() == (LandClass*)obj" (client assert)
 class LandClass : public RenderObjClass
@@ -183,7 +173,7 @@ public:
 	void							Set_Strip_Buffer(int level);
 	void							Set_Edge_Buffer(int level);
 // NAME 1: the vector at +0x1218 (0x4786A0 push_back, 0x4788B0 clear; called by 0x75F8B0)
-	void							Add_Unknown1218(const RefCountPtr<LandUnknownClass> &object);
+	void							Add_Unknown1218(const RefCountPtr<TexProjectClass> &object);
 	void							Clear_Unknown1218(void);
 
 protected:
@@ -297,7 +287,7 @@ protected:
 	unsigned int *				m_Unknown120C;							// Field Count dwords
 	unsigned char *			Colors;									// +0x1210, [LAND] COLOR_MAP, RGB per vertex
 	unsigned char *			m_Unknown1214;							// one byte per vertex from the colour map
-	std::vector< RefCountPtr<LandUnknownClass> >	m_Unknown1218;
+	std::vector< RefCountPtr<TexProjectClass> >	m_Unknown1218;
 };
 
 #endif //__LAND_H
