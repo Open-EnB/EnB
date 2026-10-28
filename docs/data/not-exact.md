@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-316 entries in 70 files.
+318 entries in 71 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -285,6 +285,8 @@ edit the comments in the code, not this file.
 | `app/shared/px.cpp:487` | `PxList::Set_Self` | marker | NOT EXACT: register (as 0x44C2E0; attempts.py show 0x44C520) |
 | `app/shared/px.cpp:561` | `PxList::Set_Test_Mask` | marker | NOT EXACT: register (as 0x44C2E0; attempts.py show 0x44C690) |
 | `app/shared/px.cpp:600` | `PxList::Set_Corners` | marker | NOT EXACT: inline budget (the client calls vector::insert(it, x) out of line; attempts.py show 0x44C900) |
+| `app/shared/px_callback_accurate.cpp:8` | `PxAccurateCallback::PxAccurateCallback` | marker | NOT EXACT: inline budget (the client calls __stl_next_prime, the buckets' reserve 0x451420 and insert 0x451520 out of line; ours inlines them; attempts.py show 0x44E020) |
+| `app/shared/px_callback_accurate.cpp:18` | `PxAccurateCallback::PxAccurateCallback` | marker | NOT EXACT: inline budget (as 0x44E020; attempts.py show 0x44E260) |
 | `app/shared/px_collision.cpp:20` | `PxCollision::Unknown_453B10` | marker | NOT EXACT: shape (the client spills the summed radius and dz to the stack and sums dy*dy + dz*dz + dx*dx; attempts.py show 0x453B10) |
 | `app/shared/px_process.cpp:89` | `PxProcessClass::Push` | marker | NOT EXACT: shape (the client's inlined insert knows _Last - _P is 0 (xor dl, dl) and computes max(size(), 1) with ja; ours reloads; attempts.py show 0x455D10) |
 | `app/shared/px_process.cpp:96` | `PxProcessClass::Pop` | marker | NOT EXACT: shape (register: the client keeps the old end in esi and copies through edx; attempts.py show 0x455F60) |

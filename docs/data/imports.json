@@ -7409,6 +7409,30 @@
     "merged": [],
     "name": "shared/px_box_list.cpp"
    },
+   "px_callback_accurate": {
+    "ambiguous": [
+     "0x42A900",
+     "0x42AAE0",
+     "0x42AC90",
+     "0x42B250",
+     "0x42B2F0",
+     "0x4333A0",
+     "0x4333D0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x44E170",
+     "0x44E1A0",
+     "0x44E1D0",
+     "0x44E390",
+     "0x44F2F0",
+     "0x44F370",
+     "0x44F3A0"
+    ],
+    "merged": [],
+    "name": "shared/px_callback_accurate.cpp"
+   },
    "px_callback_poll": {
     "ambiguous": [],
     "copy": "reconstructed",
@@ -9053,6 +9077,7 @@
    "shared/px.h": "reconstructed",
    "shared/px_box_list.h": "reconstructed",
    "shared/px_callback.h": "reconstructed",
+   "shared/px_callback_accurate.h": "reconstructed",
    "shared/px_callback_poll.h": "reconstructed",
    "shared/px_callback_type.h": "reconstructed",
    "shared/px_collision.h": "reconstructed",
@@ -9073,7 +9098,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 4470,
+  "in_tree_total": 4476,
   "totals": {}
  },
  "binkmovie": {
