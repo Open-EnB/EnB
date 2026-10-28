@@ -552,6 +552,65 @@ Vector3 Unknown718160Class::Unknown_14(int time)
 	return(Vector3(0.0f, 0.0f, 0.0f));
 }
 
+Unknown718D70Class::Unknown718D70Class(int time, const Matrix3D &transform, Unknown98Class *state) :
+	State(state),
+	Time(time),
+	LastTime(time),
+	Transform(transform),
+	LastTransform(transform)
+{
+}
+
+int Unknown718D70Class::Unknown_04()
+{
+	return(14);
+}
+
+Matrix3D Unknown718D70Class::Unknown_08(int time)
+{
+	return(Transform);
+}
+
+Vector3 Unknown718D70Class::Unknown_0C(int time)
+{
+	return(Transform.Get_Translation());
+}
+
+Vector3 Unknown718D70Class::Unknown_10(int time)
+{
+	Vector3 position = Transform.Get_Translation();
+	Vector3 last_position = LastTransform.Get_Translation();
+	Vector3 velocity(0.0f, 0.0f, 0.0f);
+	unsigned int elapsed = Time - LastTime;
+	if (elapsed) {
+		float scale = 1.0f / (float)elapsed;
+		velocity = (position - last_position) * scale;
+	}
+	return(velocity);
+}
+
+Vector3 Unknown718D70Class::Unknown_14(int time)
+{
+	Vector3 spin;
+	spin.X = Transform.Get_X_Rotation() - LastTransform.Get_X_Rotation();
+	spin.Y = Transform.Get_Y_Rotation() - LastTransform.Get_Y_Rotation();
+	spin.Z = Transform.Get_Z_Rotation() - LastTransform.Get_Z_Rotation();
+	unsigned int elapsed = Time - LastTime;
+	if (elapsed) {
+		float scale = 1.0f / (float)elapsed;
+		spin *= scale;
+	}
+	return(spin);
+}
+
+void Unknown718D70Class::Unknown_30(int time, const Matrix3D &transform)
+{
+	LastTime = Time;
+	LastTransform = Transform;
+	Time = time;
+	Transform = transform;
+}
+
 /*
 **	Reconstruction notes
 **

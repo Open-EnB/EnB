@@ -289,4 +289,28 @@ public:
 	Vector3 Direction;				// +0x28 (End - Start, normalised)  // NAME 2: what it holds
 };
 
+// Type 14, a transform set from outside (vtable 0xB02A00, 0x70 bytes): the last two transforms and their
+// times give the velocity and the spin; it holds a second state (+0x04)
+class Unknown718D70Class : public Unknown98Class	// NAME 1: neutral (D10)
+{
+public:
+	Unknown718D70Class(int time, const Matrix3D &transform, Unknown98Class *state);	// 0x718D70  // NAME 2 [time, transform, state]: the members they set
+
+	virtual Unknown98Class *Unknown_28() { return(State); }			// +0x28 0x718E60
+	virtual void Unknown_24(Unknown98Class *state) { State = state; }	// +0x24 0x718E80  // NAME 2 [state]: what it sets
+	virtual bool Unknown_2C() { return(true); }						// +0x2C 0x718EA0
+	virtual int Unknown_04();					// +0x04 0x718F10 (14)
+	virtual Matrix3D Unknown_08(int time);		// +0x08 0x718F30 (Transform)  // NAME 2 [time]: as the others'
+	virtual Vector3 Unknown_0C(int time);		// +0x0C 0x718FA0 (Transform's translation)  // NAME 2 [time]: as the others'
+	virtual Vector3 Unknown_10(int time);		// +0x10 0x718FD0 (the velocity)  // NAME 2 [time]: as the others'
+	virtual Vector3 Unknown_14(int time);		// +0x14 0x7190E0 (the spin)  // NAME 2 [time]: as the others'
+	virtual void Unknown_30(int time, const Matrix3D &transform);	// +0x30 0x7191C0 (the new transform)  // NAME 2 [time, transform]: the members it sets
+
+	Unknown98Class *State;			// +0x04  // NAME 2: what it holds
+	int Time;						// +0x08  // NAME 2: what it holds
+	int LastTime;					// +0x0C  // NAME 2: what it holds
+	Matrix3D Transform;				// +0x10  // NAME 2: what it holds
+	Matrix3D LastTransform;			// +0x40  // NAME 2: what it holds
+};
+
 #endif
