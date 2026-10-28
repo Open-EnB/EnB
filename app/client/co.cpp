@@ -1712,13 +1712,13 @@ void ClientObjectClass::Unknown_6FC9A0()
 	}
 }
 
-// NOT EXACT: shape (the client keeps the argument in eax and masks a copy for the compare; 3 forms)
+// (the new flag is !visible, not !UnknownB0: the client keeps the argument in eax for it and the call)
 // 0x6FCB20
 void ClientObjectClass::Unknown_6FCB20(bool visible)
 {
-	bool hidden = UnknownB0;
-	if (visible != !hidden) {
-		UnknownB0 = !hidden;
+
+	if (visible != !UnknownB0) {
+		UnknownB0 = !visible;
 		if (UnknownB4) {
 			UnknownB4->Unknown_18(visible);
 		}
