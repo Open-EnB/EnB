@@ -34,7 +34,9 @@
 //     (4i): synthetic CTA_RESPONSE 189 to the main view's group interface (+0x1D8) and +0x13C0; (4j): synthetic TRADE
 //     31 (the trade interface of the main view +0x1E4 or the starbase view +0x1A4), NOTE_CONTENT 184 (the note's lines),
 //     MESSAGE_CHATSTREAM 95 (no avatar for the ship) and FIND_MEMBER 83 (the chat panel's group-find interface); (4k):
-//     synthetic GUILD_RECRUIT_CONFIRM_SECTOR 200, GUILD_MESSAGE_SECTOR 208 and 216 (the guild confirmations and messages).
+//     synthetic GUILD_RECRUIT_CONFIRM_SECTOR 200, GUILD_MESSAGE_SECTOR 208 and 216 (the guild confirmations and messages);
+//     (4l): synthetic CLIENT_CHAT_LIST 164 (the chat panel's lists, or the printed list), CLIENT_CHAT_ERROR 166 (the error
+//     and success lines) and GUILD_SIMPLE_SECTOR_CLIENT 204 (the guild questions).
 //
 // Never: a modal dialog (asserts and FAIL_IF go to the trace), the registry (SOptionsClass's
 // constructor is a stand-in), the network (the memory connection), the game's install folder.
@@ -69,6 +71,8 @@
 #include "..\..\..\app\packets\pknotelist.h"
 #include "..\..\..\app\packets\pkmessagechatstream.h"
 #include "..\..\..\app\packets\pkfindmember.h"
+#include "..\..\..\app\packets\pkclientchat.h"
+#include "..\..\..\app\packets\pkguildranknamesrequestclient.h"
 #include "..\..\..\app\client\aux_roots.h"
 #include "..\..\..\app\client\co_subtypes.h"
 #include "..\..\..\app\client\postate.h"
@@ -1734,6 +1738,104 @@ static void Test_Guild(SClient *client, FakeMainViewClass *main_view)
 	Memory->Received = 0;
 }
 
+// (4l) CLIENT_CHAT_LIST 164 (0x73CC90), CLIENT_CHAT_ERROR 166 (0x73D170), GUILD_SIMPLE_SECTOR_CLIENT 204 (0x73DD00).
+// 164: with no chat panel nothing; the list type picks the panel member that takes the names (0 the friends +0xDC
+// with both lists, 1 the ignore list +0xD8, 3 / 2 the +0xE4 channel list when its +0xA0 is 0 / 1, else 2 the +0xE8);
+// without that member the list is printed in colour 0x17 under its heading ('<none>' when empty). 166: an error code
+// (Unknown0C) gets chat_defs.cpp's text (0x830AA0, written here) and a line per request type (Unknown10), the success
+// case (code 0) a line for types 3 / 5 / 20 / 21 / 22, both in colour 0x13. 204: a question per Type to 0x74E580.
+static FakeMainViewClass *Test_Main_View = 0;
+class UIFriendsClass { public: void Unknown_5913E0(std::vector<std::string> names, std::vector<std::string> others); };
+class UIChatPanelUnknownD8Class { public: void Unknown_5DA600(std::vector<std::string> names); };
+class UIChatPanelUnknownE4Class { public: void Unknown_5E8E30(std::vector<std::string> names, bool flag); };
+class UIChatPanelUnknownE8Class { public: void Unknown_5E5D70(std::vector<std::string> names); };
+static std::string List_Log;
+static void List_Add(const char *who, const std::vector<std::string> &names) { char b[64]; sprintf(b, "%s(%d) ", who, (int)names.size()); List_Log += b; }
+void UIFriendsClass::Unknown_5913E0(std::vector<std::string> names, std::vector<std::string> others) { List_Add("5913E0", names); }
+void UIChatPanelUnknownD8Class::Unknown_5DA600(std::vector<std::string> names) { List_Add("5DA600", names); }
+void UIChatPanelUnknownE4Class::Unknown_5E8E30(std::vector<std::string> names, bool flag) { List_Add(flag ? "5E8E30-1" : "5E8E30-0", names); }
+void UIChatPanelUnknownE8Class::Unknown_5E5D70(std::vector<std::string> names) { List_Add("5E5D70", names); }
+void Unknown_830AA0(char *buffer, int size, int code) { _snprintf(buffer, size, code == 99 ? "is_gagged" : "error %d", code); }
+
+static void Test_Chat_Lists(SClient *client)
+{
+	Trace("== (4l) CLIENT_CHAT_LIST 164, CLIENT_CHAT_ERROR 166, GUILD_SIMPLE_SECTOR_CLIENT 204");
+	void **panel = (void **)&client->ChatPanel;	// a RefCountPtr: written raw, restored below
+	void *saved_panel = *panel;
+	static double fake_panel[0x280 / 8];
+	static double fake_e4[0x100 / 8];
+	static double fake_other[4];
+	*panel = 0;
+	ClientChatListPacketClass list(0, "Sector 1");
+	list.Unknown20.push_back("Alex");
+	list.Unknown20.push_back("Bea");
+	List_Log = "";
+	int before = Lines;
+	list.Process_Packet(client);
+	Check(Lines == before && List_Log == "", "CLIENT_CHAT_LIST 164 without a chat panel: nothing");
+	*panel = fake_panel;
+	char *fp = (char *)fake_panel;
+	for (int type = 0; type <= 4; type++) {	// no members: the printed lists
+		list.Unknown0C = type;
+		list.Process_Packet(client);
+	}
+	ClientChatListPacketClass empty(1, "");
+	empty.Process_Packet(client);	// '<none>'
+	*(char **)(fp + 0xDC) = (char *)fake_other;
+	*(char **)(fp + 0xD8) = (char *)fake_other;
+	*(char **)(fp + 0xE4) = (char *)fake_e4;
+	*(char **)(fp + 0xE8) = (char *)fake_other;
+	int modes[6][2] = { { 0, 0 }, { 1, 0 }, { 3, 0 }, { 2, 1 }, { 2, 0 }, { 3, 1 } };	// type, the +0xE4's +0xA0
+	for (int m = 0; m < 6; m++) {
+		list.Unknown0C = modes[m][0];
+		*(int *)((char *)fake_e4 + 0xA0) = modes[m][1];
+		list.Process_Packet(client);
+	}
+	Trace("list calls: %s", List_Log.c_str());
+	Check(List_Log == "5913E0(2) 5DA600(2) 5E8E30-0(2) 5E8E30-1(2) 5E5D70(2) ",
+		"CLIENT_CHAT_LIST 164: friends, ignore, channel lists to the panel's members (type 3 with +0xA0 1 printed instead)");
+
+	ClientChatErrorPacketClass error(5);
+	error.Unknown14 = "Alex";
+	error.Unknown24 = "Sector 1";
+	error.Unknown34 = "Bea";
+	int requests[] = { 0, 1, 2, 3, 6, 8, 12, 14, 16, 21, 31, 25 };
+	for (int r = 0; r < (int)(sizeof(requests) / sizeof(requests[0])); r++) {
+		error.Unknown10 = requests[r];
+		error.Process_Packet(client);
+	}
+	error.Unknown0C = 99;	// 'is_gagged'
+	error.Unknown10 = 0;
+	error.Process_Packet(client);
+	error.Unknown0C = 0;	// the success lines
+	int successes[] = { 3, 5, 20, 21, 22, 4 };
+	before = Lines;
+	for (int s = 0; s < (int)(sizeof(successes) / sizeof(successes[0])); s++) {
+		error.Unknown10 = successes[s];
+		error.Process_Packet(client);
+	}
+	Check(Lines - before == 6, "CLIENT_CHAT_ERROR 166 success: five lines (and the sound for 22), type 4 none");
+	*panel = saved_panel;
+
+	ViewClass *view = client->CurrentView;
+	client->CurrentView = (ViewClass *)Test_Main_View;
+	int types[] = { 0, 1, 3, 5, 7, 9, 11, 13, 16, 18, 20 };
+	int asked = 0;
+	for (int t = 0; t < (int)(sizeof(types) / sizeof(types[0])); t++) {
+		std::string name("Alex");
+		RawPacketClass *raw = new RawPacketClass(204, 4 + 2 + name.size());
+		raw->Add(&types[t], 4);
+		raw->Add(name);
+		client->Unknown119C = "";
+		Memory->Incoming.push_back(Raw_Bytes(raw));
+		client->Process_Packets();
+		asked += (client->Unknown119C == "Alex");
+	}
+	Check(asked == 11, "GUILD_SIMPLE_SECTOR_CLIENT 204: each of the eleven types asks its question (+0x119C = the name)");
+	client->CurrentView = view;
+	Memory->Received = 0;
+}
+
 // ------------------------------------------------------------------------- main
 
 int main(int argc, char **argv)
@@ -1836,6 +1938,8 @@ int main(int argc, char **argv)
 	Test_CTA(client);
 	Test_Chat(client);
 	Test_Guild(client, &main_view);
+	Test_Main_View = &main_view;
+	Test_Chat_Lists(client);
 	// the client isn't deleted: its destructor reaches control_keys_manager.cpp and WWAudio
 	Trace("== done: %d checks failed", Failures);
 	fclose(Out);

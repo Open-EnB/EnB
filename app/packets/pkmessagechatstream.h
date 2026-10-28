@@ -40,7 +40,7 @@ public:
 	MessageChatstreamPacketClass(RawPacketClass *raw);	// 0x89D3F0
 	virtual ~MessageChatstreamPacketClass();	// +0x00 0x89D4D0 / 0x89D3C0
 	virtual RawPacketClass *Build();	// +0x04 0x89D510
-	virtual bool Process_Packet(void *client);	// +0x08 (not rebuilt)
+	virtual bool Process_Packet(void *client);	// +0x08 0x736F10 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x89D600
 	virtual int Print(char *buffer, int len);	// +0x10 0x89D620
 	virtual int Get_Channel() { return(-2); }	// +0x18 0x89D3A0

@@ -32,7 +32,7 @@ class GuildSimpleSectorClientPacket : public PacketClass
 public:
 	GuildSimpleSectorClientPacket(RawPacketClass *raw);	// 0x88BED0
 	virtual RawPacketClass *Build();	// +0x04 0x88C000
-	virtual bool Process_Packet(void *client);	// +0x08 0x73DD00 (not rebuilt)
+	virtual bool Process_Packet(void *client);	// +0x08 0x73DD00 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x88C0D0
 	virtual int Print(char *buffer, int len);	// +0x10 0x88C0F0
 
@@ -80,7 +80,7 @@ class GuildRecruitConfirmSectorPacket : public PacketClass
 public:
 	GuildRecruitConfirmSectorPacket(RawPacketClass *raw);	// 0x88CB70
 	virtual RawPacketClass *Build();	// +0x04 0x88CCE0
-	virtual bool Process_Packet(void *client);	// +0x08 0x73E720 (not rebuilt)
+	virtual bool Process_Packet(void *client);	// +0x08 0x73E720 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x88CDB0
 	virtual int Print(char *buffer, int len);	// +0x10 0x88CDE0
 
@@ -110,7 +110,7 @@ class GuildMessageSectorPacket : public PacketClass
 public:
 	GuildMessageSectorPacket(RawPacketClass *raw);	// 0x88D2B0
 	virtual RawPacketClass *Build();	// +0x04 0x88D430
-	virtual bool Process_Packet(void *client);	// +0x08 0x73E9E0 (not rebuilt)
+	virtual bool Process_Packet(void *client);	// +0x08 0x73E9E0 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x88D500
 	virtual int Print(char *buffer, int len);	// +0x10 0x88D540
 
@@ -180,7 +180,7 @@ class GuildGMRenameConfirmSectorPacket : public PacketClass
 public:
 	GuildGMRenameConfirmSectorPacket(RawPacketClass *raw);	// 0x88E580
 	virtual RawPacketClass *Build();	// +0x04 0x88E6F0
-	virtual bool Process_Packet(void *client);	// +0x08 0x73EEF0 (not rebuilt)
+	virtual bool Process_Packet(void *client);	// +0x08 0x73EEF0 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x88E7C0
 	virtual int Print(char *buffer, int len);	// +0x10 0x88E7F0
 

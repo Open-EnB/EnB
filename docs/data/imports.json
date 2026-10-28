@@ -1511,9 +1511,13 @@
      "0x42CF30",
      "0x42D050",
      "0x42F250",
+     "0x432B80",
+     "0x433700",
+     "0x4407B0",
      "0x444160",
      "0x44C2B0",
      "0x457FA0",
+     "0x47E480",
      "0x4B5740",
      "0x4E2C00",
      "0x4E2CC0",
@@ -1610,9 +1614,11 @@
      "0x73AC60",
      "0x73AE40",
      "0x73AF80",
+     "0x73D170",
      "0x73DAA0",
      "0x73DC60",
      "0x73DCB0",
+     "0x73DD00",
      "0x73E720",
      "0x73E9E0",
      "0x73ED40",
@@ -1625,6 +1631,7 @@
      "0x73F570",
      "0x73F5F0",
      "0x73F770",
+     "0x73F950",
      "0x73F9E0"
     ],
     "merged": [],
@@ -9178,7 +9185,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 4541,
+  "in_tree_total": 4544,
   "totals": {}
  },
  "binkmovie": {

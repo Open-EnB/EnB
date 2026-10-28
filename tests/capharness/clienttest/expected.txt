@@ -3309,4 +3309,67 @@ msg 4 GUILD_MESSAGE_SECTOR (208) size 26: cpacket.cpp's handler
 SClient::Unknown_74DFF0 0x8 'guild message' 4 0
 check GUILD_MESSAGE_SECTOR 208: the type's text with OtherName and GuildName substituted, to 0x74DFF0: ok
 check GUILD_MESSAGE_SECTOR 208: the sound asked for each type, played (asked again) for type 3 only: ok
+== (4l) CLIENT_CHAT_LIST 164, CLIENT_CHAT_ERROR 166, GUILD_SIMPLE_SECTOR_CLIENT 204
+check CLIENT_CHAT_LIST 164 without a chat panel: nothing: ok
+stub SClient::Unknown_74D990 0x17 'Friends:' 0
+stub SClient::Unknown_74D990 0x17 'Alex' 0
+stub SClient::Unknown_74D990 0x17 'Bea' 0
+stub SClient::Unknown_74D990 0x17 'Ignored:' 0
+stub SClient::Unknown_74D990 0x17 'Alex' 0
+stub SClient::Unknown_74D990 0x17 'Bea' 0
+stub SClient::Print 0x17 'Members of channel Sector 1:'
+stub SClient::Unknown_74D990 0x17 'Alex' 0
+stub SClient::Unknown_74D990 0x17 'Bea' 0
+stub SClient::Unknown_74D990 0x17 'Active channels:' 0
+stub SClient::Unknown_74D990 0x17 'Alex' 0
+stub SClient::Unknown_74D990 0x17 'Bea' 0
+stub SClient::Unknown_74D990 0x17 'Ignored:' 0
+stub SClient::Unknown_74D990 0x17 '<none>' 0
+stub SClient::Unknown_74D990 0x17 'Active channels:' 0
+stub SClient::Unknown_74D990 0x17 'Alex' 0
+stub SClient::Unknown_74D990 0x17 'Bea' 0
+list calls: 5913E0(2) 5DA600(2) 5E8E30-0(2) 5E8E30-1(2) 5E5D70(2) 
+check CLIENT_CHAT_LIST 164: friends, ignore, channel lists to the panel's members (type 3 with +0xA0 1 printed instead): ok
+stub SClient::Unknown_74D990 0x13 'Could not speak on Sector 1. (error 5)' 0
+stub SClient::Unknown_74D990 0x13 'Could not broadcast to Alex. (error 5)' 0
+stub SClient::Unknown_74D990 0x13 'Could not speak locally. (error 5)' 0
+stub SClient::Unknown_74D990 0x13 'Could not broadcast to all. (error 5)' 0
+stub SClient::Unknown_74D990 0x13 'Could not add Alex to your friend list. (error 5)' 0
+stub SClient::Unknown_74D990 0x13 'Could not invite Alex to Sector 1. (error 5)' 0
+stub SClient::Unknown_74D990 0x13 'Could not ban Bea from Sector 1. (error 5)' 0
+stub SClient::Unknown_74D990 0x13 'Could not gag Alex on Sector 1. (error 5)' 0
+stub SClient::Unknown_74D990 0x13 'Could not set access on channel Sector 1. (error 5)' 0
+stub SClient::Unknown_74D990 0x13 'You do not have permission to GM Gag' 0
+stub SClient::Unknown_74D990 0x13 'ERROR: error handling unknown request 25 (error 5)' 0
+stub SClient::Unknown_74D990 0x13 'Chat disabled. You have been gagged by a GM' 0
+stub SClient::Unknown_74D990 0x13 'Message sent to all users.' 0
+stub SClient::Unknown_74D990 0x13 'Removed channel Sector 1.' 0
+stub SClient::Unknown_74D990 0x13 'Kicked Alex from channel Sector 1.' 0
+stub SClient::Unknown_74D990 0x13 'Set channel Sector 1 access to Bea.' 0
+stub SoundLibraryClass::Play_2D_Sound 'success_1.wav' 2
+stub SClient::Unknown_74D990 0x13 'A password has been set for channel Sector 1.' 0
+check CLIENT_CHAT_ERROR 166 success: five lines (and the sound for 22), type 4 none: ok
+msg 1 GUILD_SIMPLE_SECTOR_CLIENT (204) size 14: cpacket.cpp's handler
+gen ViewUnknown34Class::Unknown_588A70
+msg 2 GUILD_SIMPLE_SECTOR_CLIENT (204) size 14: cpacket.cpp's handler
+gen ViewUnknown34Class::Unknown_588A70
+msg 3 GUILD_SIMPLE_SECTOR_CLIENT (204) size 14: cpacket.cpp's handler
+gen ViewUnknown34Class::Unknown_588A70
+msg 4 GUILD_SIMPLE_SECTOR_CLIENT (204) size 14: cpacket.cpp's handler
+gen ViewUnknown34Class::Unknown_588A70
+msg 5 GUILD_SIMPLE_SECTOR_CLIENT (204) size 14: cpacket.cpp's handler
+gen ViewUnknown34Class::Unknown_588A70
+msg 6 GUILD_SIMPLE_SECTOR_CLIENT (204) size 14: cpacket.cpp's handler
+gen ViewUnknown34Class::Unknown_588A70
+msg 7 GUILD_SIMPLE_SECTOR_CLIENT (204) size 14: cpacket.cpp's handler
+gen ViewUnknown34Class::Unknown_588A70
+msg 8 GUILD_SIMPLE_SECTOR_CLIENT (204) size 14: cpacket.cpp's handler
+gen ViewUnknown34Class::Unknown_588A70
+msg 9 GUILD_SIMPLE_SECTOR_CLIENT (204) size 14: cpacket.cpp's handler
+gen ViewUnknown34Class::Unknown_588A70
+msg 10 GUILD_SIMPLE_SECTOR_CLIENT (204) size 14: cpacket.cpp's handler
+gen ViewUnknown34Class::Unknown_588A70
+msg 11 GUILD_SIMPLE_SECTOR_CLIENT (204) size 14: cpacket.cpp's handler
+gen ViewUnknown34Class::Unknown_588A70
+check GUILD_SIMPLE_SECTOR_CLIENT 204: each of the eleven types asks its question (+0x119C = the name): ok
 == done: 0 checks failed

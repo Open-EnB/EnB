@@ -100,7 +100,7 @@ public:
 	ClientChatListPacketClass(int unknown0c, const std::string &unknown10);	// 0x879620
 	ClientChatListPacketClass(RawPacketClass *raw);	// 0x879850
 	virtual RawPacketClass *Build();	// +0x04 0x879BF0
-	virtual bool Process_Packet(void *client);	// +0x08 0x73CC90 (not rebuilt)
+	virtual bool Process_Packet(void *client);	// +0x08 0x73CC90 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x879D60
 	virtual int Print(char *buffer, int len);	// +0x10 0x87A220 (the class name: 'ClientChatListPacketClass')
 
@@ -117,7 +117,7 @@ public:
 	ClientChatErrorPacketClass(int unknown0c);	// 0x87A250
 	ClientChatErrorPacketClass(RawPacketClass *raw);	// 0x87A560
 	virtual RawPacketClass *Build();	// +0x04 0x87A7B0
-	virtual bool Process_Packet(void *client);	// +0x08 0x73D170 (not rebuilt)
+	virtual bool Process_Packet(void *client);	// +0x08 0x73D170 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x87A8A0
 	virtual int Print(char *buffer, int len);	// +0x10 0x87A8E0 (the class name: 'ClientChatErrorPacketClass')
 

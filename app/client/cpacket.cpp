@@ -2414,14 +2414,14 @@ class UIChatPanelUnknownD8Class	// NAME 1: neutral (D10)
 {
 public:
 	void Unknown_5DA780(std::string name);				// 0x5DA780 (CLIENT_CHAT_EVENT 165, event 19 'is now ignoring')  // NAME 1 [name]: the event's Unknown54
-	void Unknown_5DA8C0(std::string name);				// 0x5DA8C0 (CLIENT_CHAT_EVENT 165, event 20 'is no longer ignoring')  // NAME 1 [name]: the event's Unknown54
+	void Unknown_5DA600(std::vector<std::string> names); void Unknown_5DA8C0(std::string name);				// 0x5DA8C0 (CLIENT_CHAT_EVENT 165, event 20 'is no longer ignoring')  // NAME 1 [name]: the event's Unknown54; 0x5DA600 (CLIENT_CHAT_LIST 164 type 1: the ignore list)  // NAME 1 [names]: the packet's Unknown20
 };
 
 class UIFriendsClass	// NAME 3: class-from-file (D24) for app\client\ui_friends.cpp
 {
 public:
 	void Unknown_5916B0(std::string name, std::string other);	// 0x5916B0 (CLIENT_CHAT_EVENT 165, event 21 'is now friends with')  // NAME 1 [name, other]: the event's Unknown54, Unknown64
-	void Unknown_591880(std::string name);				// 0x591880 (CLIENT_CHAT_EVENT 165, event 22 'is no longer friends with')  // NAME 1 [name]: the event's Unknown54
+	void Unknown_5913E0(std::vector<std::string> names, std::vector<std::string> others); void Unknown_591880(std::string name);				// 0x591880 (CLIENT_CHAT_EVENT 165, event 22 'is no longer friends with')  // NAME 1 [name]: the event's Unknown54; 0x5913E0 (CLIENT_CHAT_LIST 164 type 0: the friends list)  // NAME 1 [names, others]: the packet's Unknown20, Unknown30
 };
 
 // What the chat panel's +0xE4 points to, as far as CLIENT_CHAT_EVENT 165 calls it
@@ -2429,7 +2429,7 @@ class UIChatPanelUnknownE4Class	// NAME 1: neutral (D10)
 {
 public:
 	void Unknown_5E8FF0(std::string name, bool flag);	// 0x5E8FF0 (CLIENT_CHAT_EVENT 165, event 7, 1 last)  // NAME 1 [name, flag]: neutral
-	void Unknown_5E9160(std::string name, bool flag);	// 0x5E9160 (CLIENT_CHAT_EVENT 165, events 8, 16, 18, 1 last)  // NAME 1 [name, flag]: neutral
+	void Unknown_5E8E30(std::vector<std::string> names, bool flag); void Unknown_5E9160(std::string name, bool flag);	// 0x5E9160 (CLIENT_CHAT_EVENT 165, events 8, 16, 18, 1 last)  // NAME 1 [name, flag]: neutral; 0x5E8E30 (CLIENT_CHAT_LIST 164 types 2 / 3 with +0xA0 1 / 0)  // NAME 1 [names, flag]: what the handler passes
 
 	char Unknown00[0xA0];
 	int UnknownA0;										// +0xA0 (events 16 and 18 test it for 1)
@@ -2440,7 +2440,7 @@ class UIChatPanelUnknownE8Class	// NAME 1: neutral (D10)
 {
 public:
 	void Unknown_5E5EF0(std::string name);				// 0x5E5EF0 (CLIENT_CHAT_EVENT 165, event 7)  // NAME 1 [name]: neutral
-	void Unknown_5E6030(std::string name);				// 0x5E6030 (CLIENT_CHAT_EVENT 165, events 8, 16, 18)  // NAME 1 [name]: neutral
+	void Unknown_5E5D70(std::vector<std::string> names); void Unknown_5E6030(std::string name);				// 0x5E6030 (CLIENT_CHAT_EVENT 165, events 8, 16, 18)  // NAME 1 [name]: neutral; 0x5E5D70 (CLIENT_CHAT_LIST 164 type 2 otherwise)  // NAME 1 [names]: the packet's Unknown20
 };
 
 // What the chat panel's +0xE0 points to (as sclient.cpp's view)
@@ -2459,7 +2459,7 @@ class UIChatPanelClass	// NAME 3: class-from-file (D24) for app\client\ui_chat_p
 {
 public:
 	void Unknown_563910(unsigned id, bool flag);		// 0x563910 (CLIENT_CHAT_EVENT 165: the sender's game id, 0)  // NAME 1 [id, flag]: what it gets
-	void Unknown_565D80(const char *name);				// 0x565D80 (CLIENT_CHAT_EVENT 165: the private sender)  // NAME 1 [name]: the event's Unknown14
+	void Unknown_567DF0(int code); void Unknown_565D80(const char *name);				// 0x565D80 (CLIENT_CHAT_EVENT 165: the private sender)  // NAME 1 [name]: the event's Unknown14; 0x567DF0 (CLIENT_CHAT_ERROR 166 on entering a channel: the error code, or 2)
 	void Unknown_5679A0(int event, const std::string &channel, const std::string &name, bool flag);	// 0x5679A0 (CLIENT_CHAT_EVENT 165, events 7, 8, 9, 23, 24)  // NAME 1 [event, channel, name, flag]: what the handler passes
 
 	char Unknown00[0xD8];
@@ -2842,6 +2842,48 @@ bool FindMemberPacketClass::Process_Packet(void *instance)
 
 
 
+// NOT EXACT: shape (the cases' early returns: the client jumps from each to the one exit, ours repeats the profile tail per case; the profile flag in al, sclient in ebx; attempts.py show 0x73CC90)
+// 0x73CC90
+bool ClientChatListPacketClass::Process_Packet(void *instance)
+{
+	WWPROFILE("ClientChatListPacketClass::Process_Packet()");
+	SClient *sclient = (SClient *)instance;
+	FAIL_IF(!sclient) return(true);
+	UIChatPanelClass *panel = sclient->ChatPanel.Peek();
+	if (!panel) return(true);
+	switch (Unknown0C) {
+		case 0: {
+			UIFriendsClass *friends = panel->Friends; if (friends) { friends->Unknown_5913E0(Unknown20, Unknown30); return(true); } }
+			break;
+		case 1: {
+			UIChatPanelUnknownD8Class *d8 = panel->UnknownD8; if (d8) { d8->Unknown_5DA600(Unknown20); return(true); } }
+			break;
+		case 3: {
+			UIChatPanelUnknownE4Class *e4 = panel->UnknownE4; if (e4 && e4->UnknownA0 == 0) { e4->Unknown_5E8E30(Unknown20, false); return(true); } }
+			break;
+		case 2: {
+			UIChatPanelUnknownE4Class *e4 = panel->UnknownE4; UIChatPanelUnknownE8Class *e8 = panel->UnknownE8; if (e4 && e4->UnknownA0 == 1) { e4->Unknown_5E8E30(Unknown20, true); return(true); }
+			if (e8) { e8->Unknown_5E5D70(Unknown20); return(true); } }
+			break;
+		default:
+			return(true);
+	}
+	switch (Unknown0C) {
+		case 0: sclient->Unknown_74D990(0x17, "Friends:", 0); break;
+		case 1: sclient->Unknown_74D990(0x17, "Ignored:", 0); break;
+		case 2: sclient->Print(0x17, "Members of channel %s:", Unknown10.c_str()); break;
+		case 3: sclient->Unknown_74D990(0x17, "Active channels:", 0); break;
+		case 4: sclient->Unknown_74D990(0x17, "Current channels:", 0); break;
+	}
+	if (Unknown20.size() == 0) {
+		sclient->Unknown_74D990(0x17, "<none>", 0);
+	} else {
+		for (std::vector<std::string>::iterator it = Unknown20.begin(); it != Unknown20.end(); it++) {
+			sclient->Unknown_74D990(0x17, (char *)it->c_str(), 0);
+		}
+	}
+	return(true);
+}
 
 
 
@@ -2889,168 +2931,126 @@ bool FindMemberPacketClass::Process_Packet(void *instance)
 
 
 
+// chat_defs.cpp (app\common): the text of a chat error code into a buffer
+void Unknown_830AA0(char *buffer, int size, int code);	// NAME 1 [buffer, size, code]: what CLIENT_CHAT_ERROR 166 passes
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// 0x73D170
+bool ClientChatErrorPacketClass::Process_Packet(void *instance)
+{
+	WWPROFILE("ClientChatErrorPacketClass::Process_Packet()");
+	SClient *sclient = (SClient *)instance;
+	FAIL_IF(!sclient) return(true);
+	UIChatPanelClass *panel = sclient->ChatPanel.Peek();
+	if (!panel) return(true);
+	const char *name = Unknown14.c_str();
+	const char *channel = Unknown24.c_str();
+	const char *other = Unknown34.c_str();
+	char buffer[256];
+	char error[256];
+	buffer[0] = 0;
+	_snprintf(buffer, sizeof(buffer), "");
+	if (Unknown0C) {
+		Unknown_830AA0(error, sizeof(error), Unknown0C);
+		switch (Unknown10) {
+			case 2:
+				if (!stricmp(error, "is_gagged")) {
+					_snprintf(buffer, sizeof(buffer), "Chat disabled. You have been gagged by a GM");
+				} else {
+					_snprintf(buffer, sizeof(buffer), "Could not speak locally. (%s)", error);
+				}
+				break;
+			case 0:
+				if (!stricmp(error, "is_gagged")) {
+					_snprintf(buffer, sizeof(buffer), "Chat disabled. You have been gagged by a GM");
+				} else {
+					_snprintf(buffer, sizeof(buffer), "Could not speak on %s. (%s)", channel, error);
+				}
+				break;
+			case 1:
+				if (Unknown0C == 4) {
+					_snprintf(buffer, sizeof(buffer), "%s is not online at this time.", name);
+				} else {
+					_snprintf(buffer, sizeof(buffer), "Could not broadcast to %s. (%s)", name, error);
+				}
+				break;
+			case 3: _snprintf(buffer, sizeof(buffer), "Could not broadcast to all. (%s)", error); break;
+			case 4: _snprintf(buffer, sizeof(buffer), "Could not insert channel %s. (%s)", channel, error); break;
+			case 5: _snprintf(buffer, sizeof(buffer), "Could not remove channel %s. (%s)", channel, error); break;
+			case 6:
+				if (Unknown0C == 12) {
+					panel->Unknown_567DF0(Unknown0C);
+				} else if (Unknown0C == 13) {
+					panel->Unknown_567DF0(Unknown0C);
+				} else if (Unknown0C == 10) {
+					panel->Unknown_567DF0(Unknown0C);
+					_snprintf(buffer, sizeof(buffer), "You have been banned from entering channel: %s", channel);
+				} else if (strnicmp(channel, "Sector", 6)) {
+					panel->Unknown_567DF0(2);
+					_snprintf(buffer, sizeof(buffer), "Could not enter channel %s. (%s)", channel, error);
+				}
+				break;
+			case 7: _snprintf(buffer, sizeof(buffer), "Could not exit channel %s. (%s)", channel, error); break;
+			case 10:
+				if (Unknown0C == 7) {
+					_snprintf(buffer, sizeof(buffer), "%s is already on your ignore list.", name);
+				} else if (Unknown0C == 17) {
+					_snprintf(buffer, sizeof(buffer), "You cannot ignore yourself.", name);
+				} else {
+					_snprintf(buffer, sizeof(buffer), "Could not add %s to your ignore list. (%s)", name, error);
+				}
+				break;
+			case 11: _snprintf(buffer, sizeof(buffer), "Could not remove %s from your ignore list. (%s)", name, error); break;
+			case 8:
+				if (Unknown0C == 7) {
+					_snprintf(buffer, sizeof(buffer), "%s is already on your friend list.", name);
+				} else if (Unknown0C == 17) {
+					_snprintf(buffer, sizeof(buffer), "You cannot add yourself to the friend list.", name);
+				} else {
+					_snprintf(buffer, sizeof(buffer), "Could not add %s to your friend list. (%s)", name, error);
+				}
+				break;
+			case 9: _snprintf(buffer, sizeof(buffer), "Could not remove %s from your friend list. (%s)", name, error); break;
+			case 12: _snprintf(buffer, sizeof(buffer), "Could not invite %s to %s. (%s)", name, channel, error); break;
+			case 13: _snprintf(buffer, sizeof(buffer), "Could not invite %s to %s. (%s)", name, channel, error); break;
+			case 14: _snprintf(buffer, sizeof(buffer), "Could not ban %s from %s. (%s)", other, channel, error); break;
+			case 15: _snprintf(buffer, sizeof(buffer), "Could not unban %s from %s. (%s)", other, channel, error); break;
+			case 16:
+				if (!stricmp(error, "already")) {
+					_snprintf(buffer, sizeof(buffer), "That person is already gagged on %s.", channel);
+				} else {
+					_snprintf(buffer, sizeof(buffer), "Could not gag %s on %s. (%s)", name, channel, error);
+				}
+				break;
+			case 17: _snprintf(buffer, sizeof(buffer), "That person is not gagged on %s", channel); break;
+			case 31: _snprintf(buffer, sizeof(buffer), "You do not have permission to GM Gag"); break;
+			case 32: _snprintf(buffer, sizeof(buffer), "You do not have permission to GM Ungag"); break;
+			case 20: _snprintf(buffer, sizeof(buffer), "Could not kick %s from %s. (%s)", name, channel, error); break;
+			case 18: _snprintf(buffer, sizeof(buffer), "Could not add %s as owner of channel %s. (%s)", name, channel, error); break;
+			case 19: _snprintf(buffer, sizeof(buffer), "Could not remove %s as owner of channel %s. (%s)", name, channel, error); break;
+			case 21: _snprintf(buffer, sizeof(buffer), "Could not set access on channel %s. (%s)", channel, error); break;
+			case 22: _snprintf(buffer, sizeof(buffer), "Could not set password on channel %s. (%s)", channel, error); break;
+			default: _snprintf(buffer, sizeof(buffer), "ERROR: error handling unknown request %d (%s)", Unknown10, error); break;
+		}
+		if (buffer[0]) {
+			sclient->Unknown_74D990(0x13, buffer, 0);
+		}
+	} else {
+		switch (Unknown10) {
+			case 3: _snprintf(buffer, sizeof(buffer), "Message sent to all users."); break;
+			case 5: _snprintf(buffer, sizeof(buffer), "Removed channel %s.", channel); break;
+			case 21: _snprintf(buffer, sizeof(buffer), "Set channel %s access to %s.", channel, other); break;
+			case 22:
+				_snprintf(buffer, sizeof(buffer), "A password has been set for channel %s.", channel);
+				SoundLibraryClass::Play_2D_Sound("success_1.wav", 2);
+				break;
+			case 20: _snprintf(buffer, sizeof(buffer), "Kicked %s from channel %s.", name, channel); break;
+		}
+		if (buffer[0]) {
+			sclient->Unknown_74D990(0x13, buffer, 0);
+		}
+	}
+	return(true);
+}
 
 
 
@@ -3190,96 +3190,96 @@ bool ConfirmedActionTimeoutPacketClass::Process_Packet(void *instance)
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// 0x73DD00
+bool GuildSimpleSectorClientPacket::Process_Packet(void *instance)
+{
+	WWPROFILE("GuildSimpleSectorClientPacket::Process_Packet");
+	SClient *sclient = (SClient *)instance;
+	FAIL_IF(!sclient) return(true);
+	std::string text;
+	switch (Type) {
+		case 0:
+			text = "Are you sure you want to create a guild named '";
+			text += OptionalParam;
+			text += "'?";
+			sclient->Unknown_74E580(text.c_str(), "GUILD_LEADER_CONFIRM", OptionalParam.c_str());
+			break;
+		case 1:
+			text = "Are you sure you want to promote ";
+			text += OptionalParam;
+			text += "?";
+			sclient->Unknown_74E580(text.c_str(), "GUILD_PROMOTE_CONFIRM", OptionalParam.c_str());
+			break;
+		case 3:
+			text = "Are you sure you want ";
+			text += OptionalParam;
+			text += " to become the guild leader?";
+			sclient->Unknown_74E580(text.c_str(), "GUILD_NEWLEADER_CONFIRM", OptionalParam.c_str());
+			break;
+		case 5:
+			text = "Are you sure you want to demote ";
+			text += OptionalParam;
+			text += "?";
+			sclient->Unknown_74E580(text.c_str(), "GUILD_DEMOTE_CONFIRM", OptionalParam.c_str());
+			break;
+		case 7:
+			text = "Are you sure you want to remove ";
+			text += OptionalParam;
+			text += " from the guild?";
+			sclient->Unknown_74E580(text.c_str(), "GUILD_REMOVE_CONFIRM", OptionalParam.c_str());
+			break;
+		case 9:
+			text = "Are you sure you want to leave the guild?";
+			sclient->Unknown_74E580(text.c_str(), "GUILD_LEAVE_CONFIRM", OptionalParam.c_str());
+			break;
+		case 11:
+			text = "Are you sure you want to disband your whole guild?";
+			sclient->Unknown_74E580(text.c_str(), "GUILD_DISBAND_CONFIRM", OptionalParam.c_str());
+			break;
+		case 13:
+			text = "Are you sure you want to disband '";
+			text += OptionalParam;
+			text += "'?";
+			sclient->Unknown_74E580(text.c_str(), "GUILD_GM_DISBAND_CONFIRM", OptionalParam.c_str());
+			break;
+		case 16:
+			text = "Are you sure you want to remove '";
+			text += OptionalParam;
+			text += "' from their guild?";
+			sclient->Unknown_74E580(text.c_str(), "GUILD_GM_REMOVE_CONFIRM", OptionalParam.c_str());
+			break;
+		case 18:
+			text = "Are you sure you want to promote '";
+			text += OptionalParam;
+			text += "' within their guild?";
+			sclient->Unknown_74E580(text.c_str(), "GUILD_GM_PROMOTE_CONFIRM", OptionalParam.c_str());
+			break;
+		case 20:
+			text = "Are you sure you want to demote '";
+			text += OptionalParam;
+			text += "' within their guild?";
+			sclient->Unknown_74E580(text.c_str(), "GUILD_GM_DEMOTE_CONFIRM", OptionalParam.c_str());
+			break;
+		default:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+			G_ASSERT(0);
+			break;
+	}
+	return(true);
+}
 
 
 

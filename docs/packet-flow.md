@@ -410,16 +410,19 @@ Handler = slot +0x08 (all in cpacket.cpp unless noted). "Object" = `Find_Object(
 | 146 | CAMERA_CONTROL | 0x739FF0 | camera mode; the SClient's watched ids +0x13AC..+0x13BC; the ship's 0x6FC950 / 0x6FC880 when docking | exact |
 | 158 | STARBASE_AVATAR_CHANGE / StarbaseAvatarUpdatePacketClass | 0x73A9F0 | a starbase avatar's move: the starbase view's (+0x135C) interface (+0x60, 0x54EDA0) 0x63E5C0(AvatarID, Orient, position, ActionFlag) when its room (+0xAC) is the packet's Room | NOT EXACT register-only [partial] |
 | 160 | STARBASE_ROOM_CHANGE / StarbaseAvatarRoomUpdatePacketClass | 0x73AB50 | the same interface's 0x63CF30(AvatarID, NewRoom) | exact (CP1) |
+| 164 | CLIENT_CHAT_LIST / ClientChatListPacketClass | 0x73CC90 | the chat panel's list for the type (Unknown0C): 0 the friends (+0xDC, 0x5913E0 with Unknown20 and Unknown30), 1 the ignore list (+0xD8, 0x5DA600), 3 / 2 the +0xE4 channel list (0x5E8E30 with false / true when its +0xA0 is 0 / 1), else 2 the +0xE8 (0x5E5D70); without it the names are printed in colour 0x17 under 'Friends:' / 'Ignored:' / 'Members of channel %s:' / 'Active channels:' / 'Current channels:' ('<none>' when empty) (no object) | NOT EXACT shape [partial] |
 | 165 | CLIENT_CHAT_EVENT | 0x73B150 | the chat panel / group (no object) | NOT EXACT inline-budget [partial] |
 | 184 | NoteContentPacketClass | 0x73AF80 | the chat lines (channel 6): 'From: ' + Unknown10, 'Sent: ' + ctime(Unknown0C) without its newline, then the text (Unknown54) a line per CR / LF token (the 8-byte string class 0x8B5D90's tokenizer 0x8B7C60) (no object) | exact (CP2) |
+| 204 | GUILD_SIMPLE_SECTOR_CLIENT / GuildSimpleSectorClientPacket | 0x73DD00 | a question per Type (0 create, 1 promote, 3 new leader, 5 demote, 7 remove, 9 leave, 11 disband, 13 / 16 / 18 / 20 the GM's disband / remove / promote / demote) built with OptionalParam to SClient 0x74E580 (types GUILD_LEADER_CONFIRM ... GUILD_GM_DEMOTE_CONFIRM; +0x119C = OptionalParam); any other Type G_ASSERT(0) line 3278 (no object) | exact (CP2) |
 | 200 | GUILD_RECRUIT_CONFIRM_SECTOR / GuildRecruitConfirmSectorPacket | 0x73E720 | '<InviterName> is inviting you to join <GuildName>. Do you accept?' to SClient 0x74E580 (the current view's dialog, type GUILD_RECRUIT_CONFIRM; +0x119C = InviterName); FAIL_IF '!sclient' line 3291 (no object) | exact (CP2) |
 | 208 | GUILD_MESSAGE_SECTOR / GuildMessageSectorPacket | 0x73E9E0 | guild_strings.cpp's text for MessageType (0x83D900) with $OtherName$ / $GuildName$ substituted (symbol_substitution.cpp) to SClient 0x74DFF0 (8, text, MessageType, 0); the type's sound (0x83D970) when it has one; FAIL_IF line 3307 (no object) | exact (CP2) |
 | 216 | GuildGMRenameConfirmSectorPacket | 0x73EEF0 | "Are you sure you want to rename '<Old>' to '<New>'?" to 0x74E580 (type GUILD_GM_RENAME_CONFIRM, +0x119C = ""); FAIL_IF line 3357 (no object) | exact (CP2) |
+| 166 | CLIENT_CHAT_ERROR / ClientChatErrorPacketClass | 0x73D170 | a line in colour 0x13: for an error code (Unknown0C) chat_defs.cpp's text (0x830AA0) in the request type's (Unknown10, 0-22, 31, 32) message with the name / channel / other (+0x14 / +0x24 / +0x34); entering a channel also tells the chat panel (0x567DF0 with the code, or 2); for success the types 3 / 5 / 20 / 21 / 22 (22 plays success_1.wav) (no object) | exact (CP2) |
 | 178 | NAME_DECAL | 0x735FC0 | `DecalName` (+0xD8) and shiputils 0x80FF20 on the model | exact |
 | 180 | SUBPARTS | 0x733A50 | `object->0x6FEF70(packet)` (co.cpp, not rebuilt) | exact |
 
-Of the 107 opcodes handled in cpacket.cpp (2026-10-28, CP2: 95 exact, 9 NOT EXACT with 95 register-only, 3 not rebuilt:
-CLIENT_CHAT_LIST / ERROR 164 / 166 and GUILD_SIMPLE_SECTOR_CLIENT 204; before, CP1): 89 exact, 8 NOT EXACT (8, 62 and 52
+Of the 107 opcodes handled in cpacket.cpp (2026-10-28, CP2: 97 exact, 10 NOT EXACT with 95 register-only and 164 shape,
+all rebuilt; before, CP1): 89 exact, 8 NOT EXACT (8, 62 and 52
 shape, 100 frame, 165 inline-budget, 5 and 158 register-only, STARBASE_SET 79 shape; [partial] / [parked] are their
 `attempts.csv` rows), 10 not rebuilt (the counts before CP1's recount were 62 / 15 / 30; the object-free ones not
 listed above, as they were then, VerbList 91, STARBASE_AVATAR / ROOM_CHANGE 158 / 160 the recustomize 129 / 131 / 133, the GM 234 / 235 and CTA_RESPONSE 189 since rebuilt: TRADE 31 0x739DE0, VerbList 91 0x7387F0, MessageChatstream 95
@@ -495,6 +498,14 @@ model):**
   the pooled "" for 216. GUILD_MESSAGE_SECTOR 208 (MessageType +0x0C, OtherName +0x10, GuildName +0x20): the text
   is guild_strings.cpp's for the type with the two names substituted, printed by 0x74DFF0 in colour 8; no SClient
   member changes. clienttest (4k).
+
+* CLIENT_CHAT_LIST 164 (Unknown0C the list type, Unknown10 a channel name, Unknown20 / Unknown30 two string vectors):
+  the chat panel's member for the type takes copies of the vectors (by value); only when that member is missing does
+  the handler print the list itself. CLIENT_CHAT_ERROR 166 (Unknown0C the error code, 0 for success; Unknown10 the
+  request type; Unknown14 a player name, Unknown24 a channel, Unknown34 a second name) only prints; entering a channel
+  (type 6) with codes 10 / 12 / 13 or another error (not for 'Sector' channels) calls the chat panel's 0x567DF0.
+  GUILD_SIMPLE_SECTOR_CLIENT 204 (Type, OptionalParam): as 200, a question to 0x74E580 that keeps OptionalParam in
+  +0x119C. clienttest (4l).
 
 ## 4. Worked example: a ship appears, gets its aux data, and moves
 

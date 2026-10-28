@@ -24,7 +24,7 @@ class TradePacketClass : public PacketClass
 public:
 	TradePacketClass(RawPacketClass *raw);	// 0x8AB370
 	virtual RawPacketClass *Build();	// +0x04 0x8AB410
-	virtual bool Process_Packet(void *client);	// +0x08 0x739DE0 (not rebuilt)
+	virtual bool Process_Packet(void *client);	// +0x08 0x739DE0 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x8AB4E0
 	virtual int Print(char *buffer, int len);	// +0x10 0x8AB500
 	virtual int Get_Channel() { return(-2); }	// +0x18 0x8AB300
