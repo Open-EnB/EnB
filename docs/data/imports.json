@@ -1825,7 +1825,9 @@
      "0x6E9190",
      "0x6E9230",
      "0x6E9360",
-     "0x6EA550"
+     "0x6EA550",
+     "0x6EB850",
+     "0x6EC7D0"
     ],
     "merged": [],
     "name": "client/eff_o.cpp"
@@ -8661,7 +8663,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 4254,
+  "in_tree_total": 4256,
   "totals": {}
  },
  "binkmovie": {

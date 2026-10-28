@@ -26,6 +26,15 @@
 void Unknown_4BC260(const char *sender, const char *category, const char *file, int line, const char *format, ...);	// 0x4BC260 (unknown_debug.h's reporter)
 EffectObjectClass *Unknown_6E9490(int desc_id, int effect_id, int duration, int time, ClientClass *client, float scale, const Vector3 &hsv_shift, float speedup, int linked_desc_id, bool unknown);	// 0x6E9490 (the factory, not rebuilt yet)  // NAME 1 [desc_id .. unknown]: what the effect packets pass
 Matrix3D Unknown_82ECB0(const Vector3 &direction, const Vector3 &position);	// 0x82ECB0 (cdecl; a transform at the position facing along the direction)  // NAME 1 [direction, position]: what 0x6E8DD0 passes
+// The render-state effect the factory's helper 0x6EC7D0 makes (0xE4 bytes; its file, between eff_robj.cpp and
+// eff_seek.cpp, is not rebuilt): declared as far as the helper calls it
+class Unknown6F0200EffectClass : public EffectObjectClass	// NAME 1: neutral (D10)
+{
+public:
+	Unknown6F0200EffectClass(ClientClass *client, unsigned id, unsigned start_time, unsigned duration, unsigned cycle_time, int render_state, int action, int action_time);	// 0x6F0200  // NAME 1 [client .. action_time]: effect.ini's RenderStateID, ActionType, ActionTime (ms)
+	virtual void Unknown_24(int next);	// +0x24 (its own, in its file)  // NAME 1 [next]: the base's
+	char Unknown80[0xE4 - 0x80];
+};
 extern RandomClass Unknown_BDBB84;	// NAME 1 [Unknown_BDBB84]: neutral (D10), as ui_line_display.cpp's
 static inline int Unknown_Time(const ClientClass *client) { return(client->Unknown10BC); }	// NAME 1 [Unknown_Time]: neutral (D10): the client clock as the link calls read it (evaluated before the other arguments)
 
@@ -110,15 +119,6 @@ EffectObjectClass::~EffectObjectClass()
 		Unknown_6E6A90(NextLink);
 	}
 }
-
-
-
-
-
-
-
-
-
 
 
 
@@ -895,6 +895,25 @@ INIClass *Unknown_6EA550()
 		ini.Load("effect.ini");
 	}
 	return(&ini);
+}
+
+// 0x6EB850
+EffectObjectClass *Unknown_6EB850(INIClass *ini, const char *section, unsigned id, unsigned start_time, unsigned duration, unsigned cycle_time, ClientClass *client)
+{
+	return(new UnknownB000F0EffectClass(client, id, start_time, duration, cycle_time));
+}
+
+// 0x6EC7D0
+EffectObjectClass *Unknown_6EC7D0(INIClass *ini, const char *section, unsigned id, unsigned start_time, unsigned duration, unsigned cycle_time, ClientClass *client)
+{
+	int render_state = ini->Get_Int(section, "RenderStateID", -1);
+	char *actions[] = { "Activate", "Deactivate", "Linger", "Ramp", "ActivateNextStateOnce", NULL };
+	int action = ini->Get_List_Index(section, "ActionType", -1, actions);
+	int action_time = ini->Get_Float(section, "ActionTime", 1.0f) * 1000.0f;
+	bool force = ini->Get_Bool(section, "ForceReactivate", false);
+	Unknown6F0200EffectClass *effect = new Unknown6F0200EffectClass(client, id, start_time, duration, cycle_time, render_state, action, action_time);
+	effect->Set_Flag(0x200, force);
+	return(effect);
 }
 
 /*
