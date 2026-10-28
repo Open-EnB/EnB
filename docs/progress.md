@@ -33,6 +33,7 @@ lost outright (one D66(v) move: dbgconn 0x821E40, still matched in connect). Pla
   settings committed (3bc25eb): claude.ai connectors and Claude in Chrome off, 120 non-PE REA tools denied. §3 is
   empty. HEAD +811 pairs against a76b92e, the day's start, no address lost outright. The eval branches and
   worktrees (`.work/eval/*`) go after 2026-11-03 (`wt.py remove` / `git worktree remove`).
+
 ### 2026-10-27 (17:30, evening): the D93 model evaluation, eight runs scored; A-opus and B-opus merged (+113 pairs, 0 lost); P-E1 proposes the D72 revision
 
 Coordinator Opus 5.5 (the user, 14:50: changes eval-d93.md's "the coordinator stays on Fable"; noted in D93's row).
