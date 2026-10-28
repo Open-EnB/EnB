@@ -14,6 +14,7 @@
 #include "rendobj.h"
 #include "camera.h"
 #include "random.h"
+#include "wwmath.h"
 #include "ini.h"
 #include "colmath.h"
 #include "lineseg.h"
@@ -42,6 +43,14 @@ public:
 	Unknown6F07F0EffectClass(ClientClass *client, unsigned id, unsigned start_time, unsigned duration, unsigned cycle_time, RenderObjClass *robj);	// 0x6F07F0  // NAME 1 [client .. robj]: what the helper passes
 	virtual void Unknown_24(int next);	// +0x24 (its own, in its file)  // NAME 1 [next]: the base's
 	char Unknown80[0xE8 - 0x80];
+};
+// eff_seek.cpp's spiral effect that the helper 0x6EB150 makes (0xF0 bytes; not rebuilt)
+class Unknown6F0B10EffectClass : public EffectObjectClass	// NAME 1: neutral (D10)
+{
+public:
+	Unknown6F0B10EffectClass(ClientClass *client, unsigned id, unsigned start_time, unsigned duration, unsigned cycle_time, RenderObjClass *robj, float radius, float spin_rate);	// 0x6F0B10  // NAME 1 [client .. spin_rate]: effect.ini's SpiralRadius, SpiralSpinRate (radians per ms)
+	virtual void Unknown_24(int next);	// +0x24 (its own, in its file)  // NAME 1 [next]: the base's
+	char Unknown80[0xF0 - 0x80];
 };
 void Unknown_496AE0(RenderObjClass *robj, int unknown);	// 0x496AE0 (ro_funcs.cpp, cdecl: effect.ini's ResetMappers)  // NAME 1 [robj, unknown]: what the helpers pass
 extern RandomClass Unknown_BDBB84;	// NAME 1 [Unknown_BDBB84]: neutral (D10), as ui_line_display.cpp's
@@ -128,15 +137,6 @@ EffectObjectClass::~EffectObjectClass()
 		Unknown_6E6A90(NextLink);
 	}
 }
-
-
-
-
-
-
-
-
-
 
 
 
@@ -1366,6 +1366,32 @@ EffectObjectClass *Unknown_6EAFA0(INIClass *ini, const char *section, unsigned i
 		Unknown_496AE0(robj, 0);
 	}
 	Unknown6F07F0EffectClass *effect = new Unknown6F07F0EffectClass(client, id, start_time, duration, cycle_time, robj);
+	effect->Set_Flag(0x4000, next_link_to_robj);
+	effect->Set_Flag(0x8000, reset_mappers);
+	robj->Release_Ref();
+	return(effect);
+}
+
+
+
+
+
+
+// NOT EXACT: order-only (the client reloads the ResetMappers bool before the spin rate's fmul; 4 forms)
+// 0x6EB150
+EffectObjectClass *Unknown_6EB150(INIClass *ini, const char *section, unsigned id, unsigned start_time, unsigned duration, unsigned cycle_time, ClientClass *client, float scale, float *hsv)
+{
+	int base_asset = ini->Get_Int(section, "BaseAssetID", -1);
+	RenderObjClass *robj = ClientObjectClass::Unknown_6F5140(base_asset, client, scale, hsv);
+	FAIL_IF(!robj) return(NULL);
+	bool next_link_to_robj = ini->Get_Bool(section, "UnaryNextLinkToRObj", false);
+	bool reset_mappers = ini->Get_Bool(section, "ResetMappers", false);
+	float radius = ini->Get_Float(section, "SpiralRadius", 0.0f);
+	float spin_rate = ini->Get_Float(section, "SpiralSpinRate", 0.0f) * (WWMATH_PI * 2.0f / 1000.0f);
+	if (reset_mappers) {
+		Unknown_496AE0(robj, 0);
+	}
+	Unknown6F0B10EffectClass *effect = new Unknown6F0B10EffectClass(client, id, start_time, duration, cycle_time, robj, radius, spin_rate);
 	effect->Set_Flag(0x4000, next_link_to_robj);
 	effect->Set_Flag(0x8000, reset_mappers);
 	robj->Release_Ref();
