@@ -17,6 +17,7 @@
 #define PKACTION_H
 
 #include "pk.h"
+#include <string>
 
 // opcode 44 (0x002C, ACTION): vtable 0xB09C14, constructor 0x876400, 0x1C bytes
 class ActionPacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name ACTION (the Net-7 opcode table; no structure check)
@@ -33,6 +34,23 @@ public:
 	int Action;	// +0x10  // NAME 3: the client's Print text 'Action='
 	int Unknown14;	// +0x14
 	int Unknown18;	// +0x18
+};
+
+// opcode 45 (0x002D, ACTION2): vtable 0xB09C44, constructor 0x8767B0, 0x28 bytes
+class Action2PacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name ACTION2 (the Net-7 opcode table; no structure check)
+{
+public:
+	Action2PacketClass(int game_id, char action, const char *target, int optional_var);	// 0x876610
+	Action2PacketClass(RawPacketClass *raw);	// 0x8767B0
+	virtual RawPacketClass *Build();	// +0x04 0x876880
+	virtual bool Process_Packet(void *client);	// +0x08 0x867E00 (clientstub.cpp l.68)
+	virtual int Get_Data_Size();	// +0x0C 0x876960
+	virtual int Print(char *buffer, int len);	// +0x10 0x876980
+
+	int GameID;	// +0x0C (network order)  // NAME 3: the client's Print text 'GameID='
+	int Action;	// +0x10 (network order)  // NAME 3: the client's Print text 'Action='
+	std::string Target;	// +0x14 (a 2-byte length, then the bytes)  // NAME 3: the client's Print text 'Target'
+	int OptionalVar;	// +0x24 (network order)  // NAME 3: the client's Print text 'OptionalVar'
 };
 
 #endif

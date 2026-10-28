@@ -38,6 +38,42 @@ int ActionPacketClass::Print(char *buffer, int)
 	return(sprintf(buffer, "%s {GameID=%d Action=%d Target %d OptionalVar %d}", "Action", GameID, Action, Unknown14, Unknown18));
 }
 
+Action2PacketClass::Action2PacketClass(int game_id, char action, const char *target, int optional_var) :
+	GameID(game_id),
+	Action(action),
+	Target(target),
+	OptionalVar(optional_var)
+{
+}
+
+Action2PacketClass::Action2PacketClass(RawPacketClass *raw)
+{
+	raw->Get(GameID);
+	raw->Get(Action);
+	raw->Get(&Target);
+	raw->Get(OptionalVar);
+}
+
+RawPacketClass *Action2PacketClass::Build()
+{
+	RawPacketClass *raw = new RawPacketClass(45, Get_Data_Size());
+	raw->Add(GameID);
+	raw->Add(Action);
+	raw->Add(Target);
+	raw->Add(OptionalVar);
+	return(raw);
+}
+
+int Action2PacketClass::Get_Data_Size()
+{
+	return(RawPacketClass::Get_Size(Target) + sizeof(GameID) + sizeof(Action) + sizeof(OptionalVar));
+}
+
+int Action2PacketClass::Print(char *buffer, int)
+{
+	return(sprintf(buffer, "%s {GameID=%d Action=%d Target %s OptionalVar %d}", "Action", GameID, Action, Target, OptionalVar));
+}
+
 
 /*
 **	Reconstruction notes (pkaction.cpp)

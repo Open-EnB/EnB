@@ -9,7 +9,7 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 34 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 36 |
-| 3 | by convention from a client-named file or sibling | 834 |
+| 3 | by convention from a client-named file or sibling | 838 |
 | 2 | describes what the code does | 1956 |
 | 1 | neutral placeholder | 3588 |
 
@@ -2188,9 +2188,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_Create_Packet` | `app/packets/pk.h:127` | what it does |
 | 1 | `Unknown_869790` | `app/packets/pk.h:130` | neutral (D10) |
 | 1 | `pk_classes.h` | `app/packets/pk_classes.h:17` | provisional file name (D37) |
-| 1 | `Unknown0C` | `app/packets/pk_classes.h:183` | untagged neutral name (D10) |
-| 1 | `Error` | `app/packets/pk_classes.h:194` | the log 'GlobalErrorPacketClass recv: %d : %d : %s' (tsk_login.cpp) |
-| 1 | `std:` | `app/packets/pk_classes.h:195` | the same log |
+| 1 | `Unknown0C` | `app/packets/pk_classes.h:184` | untagged neutral name (D10) |
+| 1 | `Error` | `app/packets/pk_classes.h:185` | the log 'GlobalErrorPacketClass recv: %d : %d : %s' (tsk_login.cpp) |
+| 1 | `std:` | `app/packets/pk_classes.h:186` | the same log |
 | 1 | `Unknown_14` | `app/packets/pk_player_object_relationship.cpp:12` | untagged neutral name (D10) |
 | 1 | `std:` | `app/packets/pk_player_object_relationship.cpp:85` | neutral (D10) |
 | 1 | `Unknown_8743C0` | `app/packets/pk_player_object_relationship.cpp:85` | untagged neutral name (D10) |
@@ -2203,8 +2203,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown14` | `app/packets/pkaction.cpp:8` | untagged neutral name (D10) |
 | 1 | `Unknown18` | `app/packets/pkaction.cpp:9` | untagged neutral name (D10) |
 | 1 | `pkaction` | `app/packets/pkaction.h:16` | provisional, pk + its first named class's name |
-| 1 | `Unknown14` | `app/packets/pkaction.h:34` | untagged neutral name (D10) |
-| 1 | `Unknown18` | `app/packets/pkaction.h:35` | untagged neutral name (D10) |
+| 1 | `Unknown14` | `app/packets/pkaction.h:35` | untagged neutral name (D10) |
+| 1 | `Unknown18` | `app/packets/pkaction.h:36` | untagged neutral name (D10) |
 | 1 | `Unknown_14` | `app/packets/pkauxdata.cpp:11` | untagged neutral name (D10) |
 | 1 | `pkauxdata` | `app/packets/pkauxdata.h:16` | provisional, pk + its first named class's name |
 | 1 | `Unknown14` | `app/packets/pkcameracontrol.cpp:6` | untagged neutral name (D10) |
@@ -4449,8 +4449,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Connection` | `app/packets/pk.h:120` | what it holds |
 | 2 | `Serial` | `app/packets/pk.h:121` | what it holds |
 | 2 | `Next_Serial` | `app/packets/pk.h:122` | what it holds |
-| 2 | `Action2PacketClass` | `app/packets/pk_classes.h:178` | the reference decoder's opcode name ACTION2 (the Net-7 opcode table; no structure check) |
-| 2 | `GlobalErrorPacketClass` | `app/packets/pk_classes.h:187` | the reference decoder's opcode name GLOBAL_ERROR (the Net-7 opcode table; no structure check) |
+| 2 | `GlobalErrorPacketClass` | `app/packets/pk_classes.h:178` | the reference decoder's opcode name GLOBAL_ERROR (the Net-7 opcode table; no structure check) |
 | 2 | `std:` | `app/packets/pk_player_object_relationship.cpp:166` | what it holds |
 | 2 | `std:` | `app/packets/pk_player_object_relationship.cpp:167` | what it holds |
 | 2 | `std:` | `app/packets/pk_player_object_relationship.cpp:258` | what it holds |
@@ -4482,7 +4481,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Get_Count` | `app/packets/pk_sub_parts.h:45` | what it returns |
 | 2 | `Get` | `app/packets/pk_sub_parts.h:46` | what it returns |
 | 2 | `Channel` | `app/packets/pk_sub_parts.h:49` | Get_Channel returns it |
-| 2 | `ActionPacketClass` | `app/packets/pkaction.h:22` | the reference decoder's opcode name ACTION (the Net-7 opcode table; no structure check) |
+| 2 | `ActionPacketClass` | `app/packets/pkaction.h:23` | the reference decoder's opcode name ACTION (the Net-7 opcode table; no structure check) |
+| 2 | `Action2PacketClass` | `app/packets/pkaction.h:40` | the reference decoder's opcode name ACTION2 (the Net-7 opcode table; no structure check) |
 | 2 | `Get_Type` | `app/packets/pkauxdata.h:33` | what it returns (the opcode), as MessageLinePacketClass's |
 | 2 | `Get_Name` | `app/packets/pkauxdata.h:34` | what it returns (Print's '%s {') |
 | 2 | `Data` | `app/packets/pkauxdata.h:38` | what it holds |
@@ -5754,8 +5754,12 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `Attacking` | `app/packets/pk_player_object_relationship.h:124` | the client's Print text 'Attacking=' |
 | 3 | `pk_sub_parts.h` | `app/packets/pk_sub_parts.h:16` | by convention from the client's pk_sub_parts.cpp (D24) |
 | 3 | `GameID` | `app/packets/pk_sub_parts.h:48` | the client's Print text 'GameID=' |
-| 3 | `GameID` | `app/packets/pkaction.h:32` | the client's Print text 'GameID=' |
-| 3 | `Action` | `app/packets/pkaction.h:33` | the client's Print text 'Action=' |
+| 3 | `GameID` | `app/packets/pkaction.h:33` | the client's Print text 'GameID=' |
+| 3 | `Action` | `app/packets/pkaction.h:34` | the client's Print text 'Action=' |
+| 3 | `GameID` | `app/packets/pkaction.h:50` | the client's Print text 'GameID=' |
+| 3 | `Action` | `app/packets/pkaction.h:51` | the client's Print text 'Action=' |
+| 3 | `std:` | `app/packets/pkaction.h:52` | the client's Print text 'Target' |
+| 3 | `OptionalVar` | `app/packets/pkaction.h:53` | the client's Print text 'OptionalVar' |
 | 3 | `GameID` | `app/packets/pkauxdata.h:36` | the client's Print text 'GameID=' |
 | 3 | `Size` | `app/packets/pkauxdata.h:37` | the client's Print text 'Size=' |
 | 3 | `Message` | `app/packets/pkcameracontrol.h:33` | the client's Print text 'Message=' |

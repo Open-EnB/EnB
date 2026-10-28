@@ -2830,21 +2830,31 @@
    },
    "pkaction": {
     "ambiguous": [
+     "0x42A6C0",
      "0x42B2F0"
     ],
     "copy": "reconstructed",
     "expected": {},
     "in_tree": [
+     "0x42A820",
+     "0x42AB30",
      "0x52B210",
      "0x52B240",
      "0x52B270",
      "0x52B2A0",
      "0x52B350",
+     "0x595410",
      "0x876360",
      "0x8763D0",
      "0x876400",
      "0x8764C0",
-     "0x8765D0"
+     "0x8765D0",
+     "0x876610",
+     "0x876780",
+     "0x8767B0",
+     "0x876880",
+     "0x876960",
+     "0x876980"
     ],
     "merged": [],
     "name": "packets/pkaction.cpp"
@@ -4223,7 +4233,6 @@
      "0x52B2A0",
      "0x52B350",
      "0x595410",
-     "0x876780",
      "0x88BED0",
      "0x88C000",
      "0x88C0D0",
@@ -8030,7 +8039,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 3616,
+  "in_tree_total": 3621,
   "totals": {}
  },
  "binkmovie": {

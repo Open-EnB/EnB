@@ -174,15 +174,6 @@ public:
 	virtual const char *Get_Name() { return("PushMessage"); }	// +0x2C 0x86E800
 };
 
-// opcode 45 (0x002D, ACTION2): vtable 0xB09C44, constructor 0x8767B0, 0x28 bytes
-class Action2PacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name ACTION2 (the Net-7 opcode table; no structure check)
-{
-public:
-	Action2PacketClass(RawPacketClass *raw);	// 0x8767B0
-	virtual bool Process_Packet(void *client);	// +0x08 0x867E00 (clientstub.cpp l.68)
-	char Unknown0C[0x1C];	// +0x0C
-};
-
 // opcode 117 (0x0075, GLOBAL_ERROR): vtable 0xB09490, constructor 0x864C90, 0x24 bytes
 class GlobalErrorPacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name GLOBAL_ERROR (the Net-7 opcode table; no structure check)
 {
