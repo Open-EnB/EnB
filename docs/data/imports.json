@@ -1762,12 +1762,16 @@
    },
    "eff_o": {
     "ambiguous": [
+     "0x42A6C0",
      "0x42B2F0",
      "0x457CA0"
     ],
     "copy": "reconstructed",
     "expected": {},
     "in_tree": [
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30",
      "0x42F250",
      "0x457FA0",
      "0x57DBC0",
@@ -1804,6 +1808,7 @@
      "0x6E81B0",
      "0x6E87C0",
      "0x6E8800",
+     "0x6E8F80",
      "0x6E9190"
     ],
     "merged": [],
@@ -8640,7 +8645,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 4238,
+  "in_tree_total": 4239,
   "totals": {}
  },
  "binkmovie": {

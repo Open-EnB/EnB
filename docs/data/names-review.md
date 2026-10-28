@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 36 |
 | 3 | by convention from a client-named file or sibling | 891 |
 | 2 | describes what the code does | 2150 |
-| 1 | neutral placeholder | 4248 |
+| 1 | neutral placeholder | 4249 |
 
 ## For review (score 3 and below)
 
@@ -458,7 +458,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_20` | `app/client/co.h:54` | untagged neutral name (D10) |
 | 1 | `Unknown_24` | `app/client/co.h:55` | untagged neutral name (D10) |
 | 1 | `Unknown_28` | `app/client/co.h:56` | untagged neutral name (D10) |
-| 1 | `unknown` | `app/client/co.h:57` | neutral |
+| 1 | `lego` | `app/client/co.h:57` | eff_o.cpp's 0x6E8F80 passes the source's lego plus 'EMITTER' |
 | 1 | `Unknown_2C` | `app/client/co.h:57` | untagged neutral name (D10) |
 | 1 | `Unknown_732690` | `app/client/co.h:58` | untagged neutral name (D10) |
 | 1 | `object` | `app/client/co.h:63` | neutral |
@@ -607,7 +607,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_6F33F0` | `app/client/co.h:270` | untagged neutral name (D10) |
 | 1 | `Unknown_6FCB70` | `app/client/co.h:271` | untagged neutral name (D10) |
 | 1 | `Unknown_6F5140` | `app/client/co.h:272` | untagged neutral name (D10) |
-| 1 | `unknown` | `app/client/co.h:273` | neutral |
+| 1 | `lego` | `app/client/co.h:273` | what eff_o.cpp's 0x6E8F80 passes |
 | 1 | `Unknown_6FED80` | `app/client/co.h:273` | untagged neutral name (D10) |
 | 1 | `Unknown80` | `app/client/co.h:277` | untagged neutral name (D10) |
 | 1 | `Unknown8C` | `app/client/co.h:279` | untagged neutral name (D10) |
@@ -1045,6 +1045,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_2C` | `app/client/eff_o.cpp:643` | untagged neutral name (D10) |
 | 1 | `Unknown_34` | `app/client/eff_o.cpp:655` | untagged neutral name (D10) |
 | 1 | `Unknown_6E87C0` | `app/client/eff_o.cpp:670` | untagged neutral name (D10) |
+| 1 | `Unknown_6FED80` | `app/client/eff_o.cpp:859` | untagged neutral name (D10) |
 | 1 | `Unknown_6E9190` | `app/client/eff_o.cpp:871` | untagged neutral name (D10) |
 | 1 | `UnknownAF0DD0Class` | `app/client/eff_o.h:42` | neutral (D10) |
 | 1 | `node, object` | `app/client/eff_o.h:46` | what the effects pass |

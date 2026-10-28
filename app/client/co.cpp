@@ -2248,10 +2248,10 @@ void ClientObjectClass::Unknown_6FED30()
 
 
 // 0x6FED80
-Matrix3D ClientObjectClass::Unknown_6FED80(int unknown)
+Matrix3D ClientObjectClass::Unknown_6FED80(const LegoIdentifierClass &lego)
 {
 	if (UnknownB4) {
-		return(UnknownB4->Unknown_2C(unknown));
+		return(UnknownB4->Unknown_2C(lego));
 	}
 	if (Model) {
 		return(Model->Get_Transform());

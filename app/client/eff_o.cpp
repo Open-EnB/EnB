@@ -846,18 +846,18 @@ void UnknownB0009CEffectClass::Unknown_18()
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
+// 0x6E8F80
+void UnknownB0009CEffectClass::Unknown_6E8F80()
+{
+	FAIL_IF(!SourceObject) return;
+	if (SourceLego.Is_Empty()) {
+		SourcePosition = SourceObject->Unknown_24();
+		return;
+	}
+	LegoIdentifierClass lego(SourceLego);
+	lego.Add(std::string("EMITTER"));
+	SourcePosition = SourceObject->Unknown_6FED80(lego).Get_Translation();
+}
 
 
 

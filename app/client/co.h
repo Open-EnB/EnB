@@ -54,7 +54,7 @@ public:
 	virtual void Unknown_20(int base_asset, const RefCountPtr<RenderObjClass> &model);	// +0x20 (Set_Model 0x6F33F0: the new BaseAsset and model)  // NAME 2 [base_asset, model]: what Set_Model passes
 	virtual void Unknown_24();
 	virtual void Unknown_28();
-	virtual Matrix3D Unknown_2C(int unknown);		// +0x2C (0x6FED80 returns it when the object is set)  // NAME 1 [unknown]: neutral
+	virtual Matrix3D Unknown_2C(const LegoIdentifierClass &lego);	// +0x2C (0x6FED80 returns it when the object is set)  // NAME 1 [lego]: eff_o.cpp's 0x6E8F80 passes the source's lego plus 'EMITTER'
 	void Unknown_732690();							// 0x732690 (co.cpp's destructor calls it before the release)
 };
 
@@ -270,7 +270,7 @@ public:
 	void Unknown_6F33F0(RenderObjClass *model, int base_asset, float scale);	// 0x6F33F0 (CREATE 4: the new model, the packet's BaseAsset and Scale; a NULL Null3DObjClass, -1 and 1.0f for type 10)  // NAME 2 [model, base_asset, scale]: what CREATE passes
 	void Unknown_6FCB70();								// 0x6FCB70 (Set_Model calls it last)
 	static RenderObjClass *Unknown_6F5140(int base_asset, ClientClass *client, float scale, float *hsv);	// 0x6F5140 (cdecl; CREATE 4 and 19 other callers: the model for a BaseAsset)  // NAME 2 [base_asset, client, scale, hsv]: what CREATE passes
-	Matrix3D Unknown_6FED80(int unknown);				// 0x6FED80 (G_ASSERT 'RenderObject', l.2259): +0xB4's or the model's transform  // NAME 1 [unknown]: neutral
+	Matrix3D Unknown_6FED80(const LegoIdentifierClass &lego);	// 0x6FED80 (G_ASSERT 'RenderObject', l.2259): +0xB4's transform of the lego or the model's  // NAME 1 [lego]: what eff_o.cpp's 0x6E8F80 passes
 
 	HashNodeClass<ClientObjectClass *> Node;			// +0x60 ClientClass::ObjectList's node  // NAME 2: what it is
 	ClientClass *Client;								// +0x7C the constructor's first argument (CREATE passes its SClient; co_data.cpp calls its slot +0x18)  // NAME 2: what it holds
