@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 36 |
 | 3 | by convention from a client-named file or sibling | 891 |
 | 2 | describes what the code does | 2151 |
-| 1 | neutral placeholder | 4328 |
+| 1 | neutral placeholder | 4332 |
 
 ## For review (score 3 and below)
 
@@ -1007,44 +1007,45 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_7517E0` | `app/client/cpacket.cpp:3333` | untagged neutral name (D10) |
 | 1 | `Unknown_751850` | `app/client/cpacket.cpp:3345` | untagged neutral name (D10) |
 | 1 | `Unknown_751460` | `app/client/cpacket.cpp:3413` | untagged neutral name (D10) |
-| 1 | `Unknown_4BC260` | `app/client/eff_o.cpp:28` | untagged neutral name (D10) |
-| 1 | `desc_id .. unknown` | `app/client/eff_o.cpp:29` | what the effect packets pass |
-| 1 | `Unknown_6E9490` | `app/client/eff_o.cpp:29` | untagged neutral name (D10) |
-| 1 | `direction, position` | `app/client/eff_o.cpp:30` | what 0x6E8DD0 passes |
-| 1 | `Unknown_82ECB0` | `app/client/eff_o.cpp:30` | untagged neutral name (D10) |
-| 1 | `Unknown6F0200EffectClass` | `app/client/eff_o.cpp:33` | neutral (D10); 0x6F0200  // NAME 1 [client .. action_time]: effect.ini's RenderStateID, ActionType, ActionTime (ms); [next]: the base's |
-| 1 | `Unknown_24` | `app/client/eff_o.cpp:33` | untagged neutral name (D10) |
-| 1 | `Unknown80` | `app/client/eff_o.cpp:33` | untagged neutral name (D10) |
-| 1 | `Unknown6F07F0EffectClass` | `app/client/eff_o.cpp:35` | neutral (D10); 0x6F07F0  // NAME 1 [client .. robj]: what the helper passes; [next]: the base's |
-| 1 | `Unknown6F0B10EffectClass` | `app/client/eff_o.cpp:37` | neutral (D10); 0x6F0B10  // NAME 1 [client .. spin_rate]: effect.ini's SpiralRadius, SpiralSpinRate (radians per ms); [next]: the base's |
-| 1 | `Unknown6F0FD0EffectClass` | `app/client/eff_o.cpp:39` | neutral (D10); 0x6F0FD0  // NAME 1 [client .. distance]: effect.ini's ChangeTime (ms), Distance; [next]: the base's |
-| 1 | `Unknown6F1760EffectClass` | `app/client/eff_o.cpp:41` | neutral (D10); 0x6F1760  // NAME 1 [client .. distance]: effect.ini's ChangeTime, TimeToChange (ms), Distance; [next]: the base's |
-| 1 | `Unknown6EFC70EffectClass` | `app/client/eff_o.cpp:42` | neutral (D10); 0x6EFC70, eff_robj.cpp's effect of 0x6EA5E0 (not rebuilt)  // NAME 1 [client .. robj, next]: what the helper passes |
-| 1 | `Unknown6EEEA0EffectClass` | `app/client/eff_o.cpp:43` | neutral (D10); 0x6EEEA0, eff_robj.cpp's effect of 0x6EA830 (not rebuilt)  // NAME 1 [client .. robj, next]: what the helper passes |
-| 1 | `Unknown6F25A0EffectClass` | `app/client/eff_o.cpp:44` | neutral (D10); 0x6F25A0, the effect of 0x6EAA40 (its file after eff_seek.cpp) (not rebuilt)  // NAME 1 [client .. robj, next]: what the helper passes |
-| 1 | `Unknown6E4750EffectClass` | `app/client/eff_o.cpp:45` | neutral (D10); 0x6E4750, eff_attach.cpp's effect of 0x6EC570 (not rebuilt)  // NAME 1 [client .. bone_prefix, next]: what the helper passes |
-| 1 | `Unknown6ECC50EffectClass` | `app/client/eff_o.cpp:46` | neutral (D10); 0x6ECC50, eff_particlejet.cpp's effect of 0x6EC950 (not rebuilt)  // NAME 1 [client .. min_lifetime, next]: what the helper passes |
-| 1 | `robj, unknown` | `app/client/eff_o.cpp:47` | what the helpers pass |
-| 1 | `Unknown_496AE0` | `app/client/eff_o.cpp:47` | untagged neutral name (D10) |
-| 1 | `Unknown_BDBB84` | `app/client/eff_o.cpp:48` | neutral (D10), as ui_line_display.cpp's |
-| 1 | `Unknown_Time` | `app/client/eff_o.cpp:49` | neutral (D10): the client clock as the link calls read it (evaluated before the other arguments) |
-| 1 | `Unknown10BC` | `app/client/eff_o.cpp:49` | untagged neutral name (D10) |
-| 1 | `Unknown34` | `app/client/eff_o.cpp:57` | untagged neutral name (D10) |
-| 1 | `Unknown38` | `app/client/eff_o.cpp:58` | untagged neutral name (D10) |
-| 1 | `Unknown3C` | `app/client/eff_o.cpp:59` | untagged neutral name (D10) |
-| 1 | `Unknown40` | `app/client/eff_o.cpp:60` | untagged neutral name (D10) |
-| 1 | `Unknown44` | `app/client/eff_o.cpp:61` | untagged neutral name (D10) |
-| 1 | `Unknown48` | `app/client/eff_o.cpp:62` | untagged neutral name (D10) |
-| 1 | `Unknown4C` | `app/client/eff_o.cpp:63` | untagged neutral name (D10) |
-| 1 | `Unknown64` | `app/client/eff_o.cpp:69` | untagged neutral name (D10) |
-| 1 | `Unknown_6E6F90` | `app/client/eff_o.cpp:75` | untagged neutral name (D10) |
-| 1 | `Unknown_04` | `app/client/eff_o.cpp:81` | untagged neutral name (D10) |
-| 1 | `Unknown_08` | `app/client/eff_o.cpp:86` | untagged neutral name (D10) |
-| 1 | `Unknown_18` | `app/client/eff_o.cpp:92` | untagged neutral name (D10) |
-| 1 | `Unknown_1C` | `app/client/eff_o.cpp:97` | untagged neutral name (D10) |
-| 1 | `Unknown_20` | `app/client/eff_o.cpp:102` | untagged neutral name (D10) |
-| 1 | `Unknown_6E6A90` | `app/client/eff_o.cpp:107` | untagged neutral name (D10) |
-| 1 | `Unknown_6E7330` | `app/client/eff_o.cpp:110` | untagged neutral name (D10) |
+| 1 | `Unknown_4BC260` | `app/client/eff_o.cpp:29` | untagged neutral name (D10) |
+| 1 | `desc_id .. unknown` | `app/client/eff_o.cpp:30` | what the effect packets pass |
+| 1 | `Unknown_6E9490` | `app/client/eff_o.cpp:30` | untagged neutral name (D10) |
+| 1 | `direction, position` | `app/client/eff_o.cpp:31` | what 0x6E8DD0 passes |
+| 1 | `Unknown_82ECB0` | `app/client/eff_o.cpp:31` | untagged neutral name (D10) |
+| 1 | `Unknown6F0200EffectClass` | `app/client/eff_o.cpp:34` | neutral (D10); 0x6F0200  // NAME 1 [client .. action_time]: effect.ini's RenderStateID, ActionType, ActionTime (ms); [next]: the base's |
+| 1 | `Unknown_24` | `app/client/eff_o.cpp:34` | untagged neutral name (D10) |
+| 1 | `Unknown80` | `app/client/eff_o.cpp:34` | untagged neutral name (D10) |
+| 1 | `Unknown6F07F0EffectClass` | `app/client/eff_o.cpp:36` | neutral (D10); 0x6F07F0  // NAME 1 [client .. robj]: what the helper passes; [next]: the base's |
+| 1 | `Unknown6F0B10EffectClass` | `app/client/eff_o.cpp:38` | neutral (D10); 0x6F0B10  // NAME 1 [client .. spin_rate]: effect.ini's SpiralRadius, SpiralSpinRate (radians per ms); [next]: the base's |
+| 1 | `Unknown6F0FD0EffectClass` | `app/client/eff_o.cpp:40` | neutral (D10); 0x6F0FD0  // NAME 1 [client .. distance]: effect.ini's ChangeTime (ms), Distance; [next]: the base's |
+| 1 | `Unknown6F1760EffectClass` | `app/client/eff_o.cpp:42` | neutral (D10); 0x6F1760  // NAME 1 [client .. distance]: effect.ini's ChangeTime, TimeToChange (ms), Distance; [next]: the base's |
+| 1 | `Unknown6EFC70EffectClass` | `app/client/eff_o.cpp:43` | neutral (D10); 0x6EFC70, eff_robj.cpp's effect of 0x6EA5E0 (not rebuilt)  // NAME 1 [client .. robj, next]: what the helper passes |
+| 1 | `Unknown6EEEA0EffectClass` | `app/client/eff_o.cpp:44` | neutral (D10); 0x6EEEA0, eff_robj.cpp's effect of 0x6EA830 (not rebuilt)  // NAME 1 [client .. robj, next]: what the helper passes |
+| 1 | `Unknown6F25A0EffectClass` | `app/client/eff_o.cpp:45` | neutral (D10); 0x6F25A0, the effect of 0x6EAA40 (its file after eff_seek.cpp) (not rebuilt)  // NAME 1 [client .. robj, next]: what the helper passes |
+| 1 | `Unknown6E4750EffectClass` | `app/client/eff_o.cpp:46` | neutral (D10); 0x6E4750, eff_attach.cpp's effect of 0x6EC570 (not rebuilt)  // NAME 1 [client .. bone_prefix, next]: what the helper passes |
+| 1 | `Unknown6ECC50EffectClass` | `app/client/eff_o.cpp:47` | neutral (D10); 0x6ECC50, eff_particlejet.cpp's effect of 0x6EC950 (not rebuilt)  // NAME 1 [client .. min_lifetime, next]: what the helper passes |
+| 1 | `Unknown6E5040EffectClass` | `app/client/eff_o.cpp:48` | neutral (D10); 0x6E5040, eff_line.cpp's line effect of 0x6EAC50 (not rebuilt)  // NAME 1 [client .. tiling_min_length, next]: effect.ini's keys |
+| 1 | `robj, unknown` | `app/client/eff_o.cpp:49` | what the helpers pass |
+| 1 | `Unknown_496AE0` | `app/client/eff_o.cpp:49` | untagged neutral name (D10) |
+| 1 | `Unknown_BDBB84` | `app/client/eff_o.cpp:50` | neutral (D10), as ui_line_display.cpp's |
+| 1 | `Unknown_Time` | `app/client/eff_o.cpp:51` | neutral (D10): the client clock as the link calls read it (evaluated before the other arguments) |
+| 1 | `Unknown10BC` | `app/client/eff_o.cpp:51` | untagged neutral name (D10) |
+| 1 | `Unknown34` | `app/client/eff_o.cpp:59` | untagged neutral name (D10) |
+| 1 | `Unknown38` | `app/client/eff_o.cpp:60` | untagged neutral name (D10) |
+| 1 | `Unknown3C` | `app/client/eff_o.cpp:61` | untagged neutral name (D10) |
+| 1 | `Unknown40` | `app/client/eff_o.cpp:62` | untagged neutral name (D10) |
+| 1 | `Unknown44` | `app/client/eff_o.cpp:63` | untagged neutral name (D10) |
+| 1 | `Unknown48` | `app/client/eff_o.cpp:64` | untagged neutral name (D10) |
+| 1 | `Unknown4C` | `app/client/eff_o.cpp:65` | untagged neutral name (D10) |
+| 1 | `Unknown64` | `app/client/eff_o.cpp:71` | untagged neutral name (D10) |
+| 1 | `Unknown_6E6F90` | `app/client/eff_o.cpp:77` | untagged neutral name (D10) |
+| 1 | `Unknown_04` | `app/client/eff_o.cpp:83` | untagged neutral name (D10) |
+| 1 | `Unknown_08` | `app/client/eff_o.cpp:88` | untagged neutral name (D10) |
+| 1 | `Unknown_18` | `app/client/eff_o.cpp:94` | untagged neutral name (D10) |
+| 1 | `Unknown_1C` | `app/client/eff_o.cpp:99` | untagged neutral name (D10) |
+| 1 | `Unknown_20` | `app/client/eff_o.cpp:104` | untagged neutral name (D10) |
+| 1 | `Unknown_6E6A90` | `app/client/eff_o.cpp:109` | untagged neutral name (D10) |
+| 1 | `Unknown_6E7330` | `app/client/eff_o.cpp:112` | untagged neutral name (D10) |
 | 1 | `Unknown_6E6AD0` | `app/client/eff_o.cpp:152` | untagged neutral name (D10) |
 | 1 | `Unknown3` | `app/client/eff_o.cpp:163` | untagged neutral name (D10) |
 | 1 | `Unknown_6E70F0` | `app/client/eff_o.cpp:164` | untagged neutral name (D10) |
@@ -1087,6 +1088,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_6F5140` | `app/client/eff_o.cpp:1234` | untagged neutral name (D10) |
 | 1 | `Unknown_6EA830` | `app/client/eff_o.cpp:1261` | untagged neutral name (D10) |
 | 1 | `Unknown_6EAA40` | `app/client/eff_o.cpp:1289` | untagged neutral name (D10) |
+| 1 | `Unknown_6EAC50` | `app/client/eff_o.cpp:1317` | untagged neutral name (D10) |
 | 1 | `Unknown_6EAFA0` | `app/client/eff_o.cpp:1358` | untagged neutral name (D10) |
 | 1 | `Unknown_6EB150` | `app/client/eff_o.cpp:1382` | untagged neutral name (D10) |
 | 1 | `Unknown_6EB330` | `app/client/eff_o.cpp:1413` | untagged neutral name (D10) |
@@ -1191,20 +1193,22 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_6EA830` | `app/client/eff_o.h:204` | untagged neutral name (D10) |
 | 1 | `ini .. hsv` | `app/client/eff_o.h:205` | what the factory passes |
 | 1 | `Unknown_6EAA40` | `app/client/eff_o.h:205` | untagged neutral name (D10) |
-| 1 | `ini .. hsv` | `app/client/eff_o.h:206` | what the factory passes |
-| 1 | `Unknown_6EAFA0` | `app/client/eff_o.h:206` | untagged neutral name (D10) |
+| 1 | `ini .. speedup` | `app/client/eff_o.h:206` | what the factory passes |
+| 1 | `Unknown_6EAC50` | `app/client/eff_o.h:206` | untagged neutral name (D10) |
 | 1 | `ini .. hsv` | `app/client/eff_o.h:207` | what the factory passes |
-| 1 | `Unknown_6EB150` | `app/client/eff_o.h:207` | untagged neutral name (D10) |
+| 1 | `Unknown_6EAFA0` | `app/client/eff_o.h:207` | untagged neutral name (D10) |
 | 1 | `ini .. hsv` | `app/client/eff_o.h:208` | what the factory passes |
-| 1 | `Unknown_6EB330` | `app/client/eff_o.h:208` | untagged neutral name (D10) |
+| 1 | `Unknown_6EB150` | `app/client/eff_o.h:208` | untagged neutral name (D10) |
 | 1 | `ini .. hsv` | `app/client/eff_o.h:209` | what the factory passes |
-| 1 | `Unknown_6EB590` | `app/client/eff_o.h:209` | untagged neutral name (D10) |
-| 1 | `ini .. client` | `app/client/eff_o.h:210` | what the factory passes |
-| 1 | `Unknown_6EB850` | `app/client/eff_o.h:210` | untagged neutral name (D10) |
-| 1 | `ini .. hsv` | `app/client/eff_o.h:211` | what the factory passes |
-| 1 | `Unknown_6EC570` | `app/client/eff_o.h:211` | untagged neutral name (D10) |
-| 1 | `ini .. client` | `app/client/eff_o.h:212` | what the factory passes |
-| 1 | `Unknown_6EC7D0` | `app/client/eff_o.h:212` | untagged neutral name (D10) |
+| 1 | `Unknown_6EB330` | `app/client/eff_o.h:209` | untagged neutral name (D10) |
+| 1 | `ini .. hsv` | `app/client/eff_o.h:210` | what the factory passes |
+| 1 | `Unknown_6EB590` | `app/client/eff_o.h:210` | untagged neutral name (D10) |
+| 1 | `ini .. client` | `app/client/eff_o.h:211` | what the factory passes |
+| 1 | `Unknown_6EB850` | `app/client/eff_o.h:211` | untagged neutral name (D10) |
+| 1 | `ini .. hsv` | `app/client/eff_o.h:212` | what the factory passes |
+| 1 | `Unknown_6EC570` | `app/client/eff_o.h:212` | untagged neutral name (D10) |
+| 1 | `ini .. client` | `app/client/eff_o.h:213` | what the factory passes |
+| 1 | `Unknown_6EC7D0` | `app/client/eff_o.h:213` | untagged neutral name (D10) |
 | 1 | `Unknown_7E7A40` | `app/client/emote_data.h:25` | untagged neutral name (D10) |
 | 1 | `Unknown_7E76E0` | `app/client/emote_data.h:26` | untagged neutral name (D10) |
 | 1 | `Unknown_7E6860` | `app/client/emote_data.h:27` | untagged neutral name (D10) |
