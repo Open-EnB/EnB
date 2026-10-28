@@ -30,6 +30,18 @@ void SOptionsClass::Unknown_75A5A0() { Trace("stub SOptionsClass::Unknown_75A5A0
 void SOptionsClass::Unknown_75A5D0() { Trace("stub SOptionsClass::Unknown_75A5D0"); }
 void SOptionsClass::Load_Camera_Mode(INIClass &, const char *section) { Trace("stub SOptionsClass::Load_Camera_Mode %s", section); }
 
+// ------------------------------------------------------------------------- the main view's +0x84 (mainview.cpp's Init 0x50BA60)
+
+// mainview.cpp declares the class (0x24 bytes); gen_stubs.py cannot write its constructor's const RefCountPtr<T> &
+// parameter (P-T18-2). clienttest never runs Init (its main view is a fake): this only links.
+class MainViewUnknown84Class
+{
+public:
+	MainViewUnknown84Class(SClient *client, const RefCountPtr<RefCountClass> &scene);
+	char Unknown00[0x24];
+};
+MainViewUnknown84Class::MainViewUnknown84Class(SClient *, const RefCountPtr<RefCountClass> &) { Trace("stub MainViewUnknown84Class::MainViewUnknown84Class (0x7B6BD0)"); }
+
 // ------------------------------------------------------------------------- SClient's methods the handlers call (sclient.cpp, not rebuilt)
 
 void SClient::Print(int channel, const char *format, ...)
