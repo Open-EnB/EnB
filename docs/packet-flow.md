@@ -355,6 +355,10 @@ two queue dialogs 0x74FA30 / 0x74FEC0, then the chat panel's +0xE0 button when G
 GUILD_RECRUIT_ACCEPT_CLIENT 201 or GUILD_SIMPLE_CLIENT_SECTOR 205 (types 2-21 with +0x1138 and the name kept in
 +0x119C by 0x74E580); none touches an object of the model.
 
+0x74F5C0 (Do_Frame) answers the dialog when its type (+0x18C) is CONFIRMED_ACTION_DIALOG: the oldest offer leaves
++0x11AC[0] and, if there, +0x120C[0]; CONFIRMED_ACTION_RESPONSE goes with AvatarID, the offer's id and yes / no; then
+0x750210's work. No object of the model is touched.
+
 ## 3. The object-affecting opcodes
 
 Handler = slot +0x08 (all in cpacket.cpp unless noted). "Object" = `Find_Object(GameID)` unless said.

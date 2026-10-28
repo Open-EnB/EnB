@@ -1,6 +1,6 @@
 {
  "app": {
-  "ambiguous_total": 130,
+  "ambiguous_total": 131,
   "base": "reconstructed",
   "compile_errors": [],
   "files": {
@@ -7604,8 +7604,10 @@
      "0x4333D0",
      "0x436730",
      "0x438BA0",
+     "0x438D60",
      "0x439020",
      "0x439050",
+     "0x439480",
      "0x439540",
      "0x440560",
      "0x45CB40",
@@ -7704,9 +7706,13 @@
      "0x750B60",
      "0x751660",
      "0x755CE0",
+     "0x756140",
      "0x7569D0",
+     "0x757100",
      "0x757410",
-     "0x758D60"
+     "0x758D60",
+     "0x758F90",
+     "0x758FE0"
     ],
     "merged": [],
     "name": "client/sclient.cpp"
@@ -9172,7 +9178,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 4537,
+  "in_tree_total": 4541,
   "totals": {}
  },
  "binkmovie": {
