@@ -4787,23 +4787,23 @@ void SClient::Unknown_74E580(const char *text, const char *type, const char *val
 
 
 
+enum { ACTIONTYPE_MAX = 2 };							// NAME 3: the assert's (Unknown120C's two queues)
+// NOT EXACT: inline budget (explain.py: 69 instructions, the client 155): the client inlines deque<int>::push_back and ClientClass::Unknown_728300 (an inline member in its client.h, then), ours calls both
+// 0x74EB00 (cpacket.cpp: the confirmed action's timeout 191): the id joins its type's queue, then 0x750210's work
+void SClient::Unknown_74EB00(int type, int id)
+{
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	G_ASSERT(type < ACTIONTYPE_MAX);
+	Unknown120C[type].push_back(id);
+	Unknown_74FA30();
+	Unknown_74FEC0();
+	if (ChatPanel) {
+		UIChatPanelUnknownE0Class *panel = ChatPanel->UnknownE0;
+		if (panel && panel->Unknown7C && Unknown_728300()) {
+			panel->Unknown_81BF40();
+		}
+	}
+}
 
 
 
