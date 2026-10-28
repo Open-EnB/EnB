@@ -404,6 +404,13 @@ unless `--lever` cites a new row of this table.
 * **A member named `Node` hides wwlib's `Node<T>`: write `::Node<>`;** a watch node built as `DataNode<T*>(NULL)`
   gives the client's store order where `Node<T>` plus an int member doesn't; a local stand-in class for another file's
   effect overrides the base's pure virtual (C2259) and is padded to the client's `new` size (2026-10-28, EF1).
+* **objdiff and explain.py mask jump targets** (2026-10-28, EF2): "identical" there while objmatch says `none` means
+  compare the raw bytes; in 0x7396F0 two je displacements to a shared failure exit were the whole difference:
+  `if (!x) return(true);` per test gives the client's exits.
+* **Small forms that moved registers (2026-10-28, EF2):** a Get_String size of 251 means `char[252]` (char[256] added
+  a stack slot, 0x6EB9B0); `if (x < 0.0f) x = 0.0f` compiles to `test ah,1`, `WWMath::Max(x, 0)` to `test ah,0x41`;
+  which pointer is named decides the register (a named ClientObjectClass * gave `mov ecx,[eax+0xAC]`, 0x733590);
+  element-wise copies give the client's integer moves where Get_Z_Vector() / Set() don't (0x6E82A0).
 * **Asserts sit on the client's lines (D25).** To add code above a logged line, remove as many
   blank lines from the same function's stretch (cordmgr.cpp; `.work/milestones/a3/relines.py`);
   pad inside a function, not only before it (Get(char **); pk.cpp's helpers take single blanks).
@@ -715,6 +722,8 @@ unless `--lever` cites a new row of this table.
 
 ### 3.8 Git, docs and scripting hygiene
 
+* **After a bring-over, `git rebase master` in the worktree can conflict on names-review.md:** `git rebase --skip`
+  drops the commit that already landed; "master moved while landing": rerun (2026-10-28, EF2).
 * **When master moves every few minutes, `wt.py bring-over` keeps conflicting on imports.json** (2026-10-28, DM1):
   verify in the worktree, then commit_mine from the main tree with the whole file and its imports entry copied
   over (`commit_rows.set_entries`; `.work/dm1/land.sh`).
