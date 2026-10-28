@@ -606,6 +606,8 @@ msg 273 COLORIZATION (17) size 138: cpacket.cpp's handler
 stub Unknown_80EFF0 4 regions
 msg 274 DECAL (16) size 58: cpacket.cpp's handler
 stub Unknown_80E8C0 2 decals
+msg 275 NAME_DECAL (178) size 52: cpacket.cpp's handler
+gen Unknown_80FF20
 msg 276 RELATIONSHIP (137) size 13: cpacket.cpp's handler
 gen Unknown_70CC40
 msg 277 ADVANCED_POSITIONAL_UPDATE (62) size 46: cpacket.cpp's handler
@@ -788,6 +790,8 @@ msg 376 COLORIZATION (17) size 138: cpacket.cpp's handler
 stub Unknown_80EFF0 4 regions
 msg 377 DECAL (16) size 58: cpacket.cpp's handler
 stub Unknown_80E8C0 2 decals
+msg 378 NAME_DECAL (178) size 52: cpacket.cpp's handler
+gen Unknown_80FF20
 msg 379 RELATIONSHIP (137) size 13: cpacket.cpp's handler
 gen Unknown_70CC40
 msg 380 ADVANCED_POSITIONAL_UPDATE (62) size 50: cpacket.cpp's handler
@@ -1947,6 +1951,5 @@ recorded OBJECT_TO_OBJECT_EFFECT (11) x1
 recorded CLIENT_SET_TIME (52) x3
 recorded CAMERA_CONTROL (146) x1
 recorded CLIENT_CHAT_EVENT (165) x4
-recorded NAME_DECAL (178) x2
-recorded 214, through cpacket.cpp's handlers 786
+recorded 212, through cpacket.cpp's handlers 788
 == done: 0 checks failed

@@ -104,6 +104,7 @@ public:
 	void Unknown_6FF7A0(std::string &text);				// 0x6FF7A0 (co.cpp, not rebuilt)  // NAME 1 [text]: neutral
 	RenderObjClass *Unknown_6F3BC0();					// 0x6F3BC0 (co.cpp; cpacket.cpp's DECAL 16 releases the model it returns)
 	bool Unknown_6F5DC0();								// 0x6F5DC0 (co.cpp; cpacket.cpp's SET_TARGET 25 tests it)
+	void Set_Decal_Name(std::string name) { DecalName = name; }	// 0x736140 (out of line in cpacket.cpp's object, after NAME_DECAL 178, its only caller)  // NAME 2: what it does
 	void Unknown_6FEF70(SubPartsPacket *packet);		// 0x6FEF70 (co.cpp; cpacket.cpp's SUBPARTS 180)  // NAME 1 [packet]: the handler's packet
 	void Unknown_70E750(int id);						// 0x70E750 (cpacket.cpp's SET_TARGET 25 passes its TargetID)  // NAME 1 [id]: the packet's TargetID
 	void Unknown_6F3810(RenderObjClass *model);			// 0x6F3810 the +0x158 models on the model's bones, then its sub-objects'  // NAME 2 [model]: what it is
@@ -184,7 +185,8 @@ public:
 	bool UnknownB0;										// +0xB0 (0x6FCB20 toggles it)
 	char UnknownB1[0xB4 - 0xB1];						// +0xB1
 	UnknownB4Class *UnknownB4;							// +0xB4 a RefCountPtr in the client (0x731FA0's result)
-	char UnknownB8[0xE8 - 0xB8];						// +0xB8
+	char UnknownB8[0xD8 - 0xB8];						// +0xB8
+	std::string DecalName;								// +0xD8 (cpacket.cpp's NAME_DECAL 178 sets it through 0x736140)  // NAME 2: what NAME_DECAL stores in it
 	float Sphere[4];									// +0xE8 a SphereClass (center, radius): 0x6FED30 fills it from the model  // NAME 2: what it holds
 	int UnknownF8;										// +0xF8
 	bool UnknownFC;										// +0xFC (0x7008B0 clears it after 0x810750 on the model)

@@ -1052,25 +1052,25 @@ bool DialogPacketClass::Process_Packet(void *instance)
 	return(true);
 }
 
+// shiputils.cpp's name decal helper (cdecl): the packet's name and colour on the object's model
+void Unknown_80FF20(RenderObjClass *model, const char *name, float *rgb);	// 0x80FF20  // NAME 1 [model, name, rgb]: what NAME_DECAL 178 passes
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// 0x735FC0 (placed here, out of address order, so that no assert line moves)
+bool NameDecalPacketClass::Process_Packet(void *instance)
+{
+	WWPROFILE("NameDecalPacketClass::Process_Packet()");
+	SClient *sclient = (SClient *)instance;
+	ClientObjectClass *object = sclient->Find_Object(GameID);
+	if (object) {
+		object->Set_Decal_Name(Name);
+		RenderObjClass *model = object->Unknown_6F3BC0();
+		if (model) {
+			Unknown_80FF20(model, Name, RGB);
+			model->Release_Ref();
+		}
+	}
+	return(true);
+}
 
 
 
