@@ -86,6 +86,7 @@ public:
 	VerbManagerClass(SClient *client);					// 0x81F100
 	~VerbManagerClass();								// 0x81F1E0
 	void Unknown_81F810(int game_id, void *drops, void *adds);	// 0x81F810 (cpacket.cpp: VERB_UPDATE 92 passes its GameID, &Drops, &Adds)  // NAME 1 [game_id, drops, adds]: the packet's fields
+	void Unknown_81F780(int game_id, void *verbs);	// 0x81F780 (cpacket.cpp: VERB_LIST 91 passes its GameID, &Verbs)  // NAME 1 [game_id, verbs]: the packet's fields
 
 	char Unknown00[0x14];
 };

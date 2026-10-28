@@ -26,7 +26,8 @@
 //     (3) also checks START 5 (+0x1138, REQUEST_TIME and START_ACK sent) and CLIENT_SET_TIME 52 (the clock
 //     offset +0x10C0, the lag average cleared, the round trip time 0xBE71D4); (4c): synthetic GADGET 103
 //     (the gadget list +0x1278, the gadget's and its interface's slots) and INCAPACITANCE_DETAILS 144; (4d):
-//     synthetic FORMATION_POSITIONAL_UPDATE 65 (the follower's and the avatar's formation states, then an update).
+//     synthetic FORMATION_POSITIONAL_UPDATE 65 (the follower's and the avatar's formation states, then an update);
+//     (4e): synthetic VERB_LIST 91 to the verb manager (+0x1294).
 //
 // Never: a modal dialog (asserts and FAIL_IF go to the trace), the registry (SOptionsClass's
 // constructor is a stand-in), the network (the memory connection), the game's install folder.
@@ -39,6 +40,7 @@
 #include <vector>
 #include <deque>
 #include <map>
+#include <set>
 #include "clienttest.h"
 #include "..\..\..\app\client\sclient.h"
 #include "..\..\..\app\common\connect.h"
@@ -48,6 +50,7 @@
 #include "..\..\..\app\packets\pkupdate.h"
 #include "..\..\..\app\packets\pkgadget.h"
 #include "..\..\..\app\packets\pkincapacitancerequest.h"
+#include "..\..\..\app\packets\pkverblist.h"
 #include "..\..\..\app\client\aux_roots.h"
 #include "..\..\..\app\client\co_subtypes.h"
 #include "..\..\..\app\client\postate.h"
@@ -1178,6 +1181,48 @@ static void Test_Formation(SClient *client)
 	Memory->Received = 0;
 }
 
+// (4e) VERB_LIST 91 (0x7387F0) from a synthetic packet: an object's verbs (pkverblist.cpp: GameID, then the set) go to
+// SClient +0x1294's verb manager (verbmanager.cpp 0x81F780, a stand-in here that records them); without a manager
+// the handler does nothing.
+static int Verb_Calls = 0;
+static int Verb_Game_ID = 0;
+static std::set<VerbEnum> Verb_Set;
+void VerbManagerClass::Unknown_81F780(int game_id, void *verbs)
+{
+	Verb_Calls++;
+	Verb_Game_ID = game_id;
+	Verb_Set = *(std::set<VerbEnum> *)verbs;
+	Trace("stub VerbManagerClass::Unknown_81F780 %d, %d verbs", game_id, (int)Verb_Set.size());
+}
+
+static void Test_Verbs(SClient *client)
+{
+	Trace("== (4e) VERB_LIST 91");
+	if (Memory == 0) {
+		Check(false, "the memory connection");
+		return;
+	}
+	std::set<VerbEnum> verbs;
+	verbs.insert((VerbEnum)1);
+	verbs.insert((VerbEnum)3);
+	verbs.insert((VerbEnum)7);
+	VerbManagerClass *manager = client->VerbManager;
+	client->VerbManager = 0;
+	Verb_Calls = 0;
+	Memory->Incoming.push_back(Built_Message(&VerbListPacketClass(4400, verbs)));
+	client->Process_Packets();
+	Check(Verb_Calls == 0, "VERB_LIST 91 without a verb manager: nothing called");
+	static char fake_manager[0x14];
+	client->VerbManager = (VerbManagerClass *)fake_manager;
+	Memory->Incoming.push_back(Built_Message(&VerbListPacketClass(4400, verbs)));
+	client->Process_Packets();
+	Check(Verb_Calls == 1 && Verb_Set == verbs,
+		"VERB_LIST 91 for object 4400: the verb manager's 0x81F780 gets the packet's GameID and its three verbs (1, 3, 7)");
+	Trace("verb manager got game id %d", Verb_Game_ID);
+	client->VerbManager = manager;
+	Memory->Received = 0;
+}
+
 // ------------------------------------------------------------------------- main
 
 int main(int argc, char **argv)
@@ -1273,6 +1318,7 @@ int main(int argc, char **argv)
 	}
 	Test_Gadget(client, &main_view);	// (4c) and (4d) after (3): their models would renumber (3)'s
 	Test_Formation(client);
+	Test_Verbs(client);
 	// the client isn't deleted: its destructor reaches control_keys_manager.cpp and WWAudio
 	Trace("== done: %d checks failed", Failures);
 	fclose(Out);

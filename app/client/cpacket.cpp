@@ -1634,16 +1634,16 @@ bool VerbUpdatePacketClass::Process_Packet(void *instance)
 	return(true);
 }
 
-
-
-
-
-
-
-
-
-
-
+// 0x7387F0
+bool VerbListPacketClass::Process_Packet(void *instance)
+{
+	WWPROFILE("VerbListPacketClass::Process_Packet(void * instance)");
+	SClient *sclient = (SClient *)instance;
+	if (sclient->VerbManager) {
+		sclient->VerbManager->Unknown_81F780(GameID, &Verbs);
+	}
+	return(true);
+}
 
 
 

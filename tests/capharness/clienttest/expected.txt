@@ -3148,4 +3148,11 @@ model 279 'part_617' deleted
 model 280 'part_73f' deleted
 model 281 'part_73f' deleted
 check REMOVE 7 took the three out: ok
+== (4e) VERB_LIST 91
+msg 1 ? (91) size 24: cpacket.cpp's handler
+check VERB_LIST 91 without a verb manager: nothing called: ok
+msg 2 ? (91) size 24: cpacket.cpp's handler
+stub VerbManagerClass::Unknown_81F780 4400, 3 verbs
+check VERB_LIST 91 for object 4400: the verb manager's 0x81F780 gets the packet's GameID and its three verbs (1, 3, 7): ok
+verb manager got game id 4400
 == done: 0 checks failed

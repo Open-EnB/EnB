@@ -342,6 +342,7 @@ Handler = slot +0x08 (all in cpacket.cpp unless noted). "Object" = `Find_Object(
 | 70 | COMPONENT_POSITIONAL_UPDATE | 0x734BF0 | +0x98 type 11 (asserts `obj->Is_Component()`) | exact (bfa8b4f) |
 | 71 | CLIENT_SHIP | 0x733660 | `Set_Ship_ID` (+0x1130) | exact |
 | 74 | CREATE_ATTACHMENT | 0x733BB0 | `parent->Unknown_0C(child, slot, 0)` (0x725610: the child hung on a bone) | exact |
+| 91 | VERB_LIST / VerbListPacketClass | 0x7387F0 | the object's verbs: SClient +0x1294's verb manager 0x81F780(GameID, &Verbs) (VERB_UPDATE 92 0x81F810 changes them) | exact (CP1) |
 | 97 | AVATAR_DESCRIPTION | 0x733B10 | SClient 0x74C3B0(GameID, Desc) | exact |
 | 100 | CLIENT_DAMAGE / DamagePacketClass | 0x738970 | floating damage text over the player's avatar (Get_Avatar) | NOT EXACT frame [partial] |
 | 103 | GadgetPacketClass | 0x739180 | the gadget named Name in SClient +0x1278's list (gadget_list_manager.cpp 0x661940); Function's bits switch its interface and slots (below) | exact (CP1) |
@@ -353,10 +354,10 @@ Handler = slot +0x08 (all in cpacket.cpp unless noted). "Object" = `Find_Object(
 | 178 | NAME_DECAL | 0x735FC0 | `DecalName` (+0xD8) and shiputils 0x80FF20 on the model | exact |
 | 180 | SUBPARTS | 0x733A50 | `object->0x6FEF70(packet)` (co.cpp, not rebuilt) | exact |
 
-Of the 107 opcodes handled in cpacket.cpp (2026-10-28, CP1): 81 exact, 7 NOT EXACT (8, 62 and 52
+Of the 107 opcodes handled in cpacket.cpp (2026-10-28, CP1): 82 exact, 7 NOT EXACT (8, 62 and 52
 shape, 100 frame, 165 inline-budget, 5 register-only, STARBASE_SET 79 shape; [partial] / [parked] are their
-`attempts.csv` rows), 19 not rebuilt (the counts before CP1's recount were 62 / 15 / 30; the object-free ones not
-listed above, as they were then: TRADE 31 0x739DE0, VerbList 91 0x7387F0, MessageChatstream 95
+`attempts.csv` rows), 18 not rebuilt (the counts before CP1's recount were 62 / 15 / 30; the object-free ones not
+listed above, as they were then, VerbList 91 since rebuilt: TRADE 31 0x739DE0, VerbList 91 0x7387F0, MessageChatstream 95
 0x736F10, FIND_MEMBER 83, STARBASE_AVATAR / ROOM_CHANGE 158 / 160, CLIENT_CHAT_LIST / ERROR 164 / 166,
 NoteContent 184, CTA_RESPONSE 189, the guild 200 / 204 / 208 / 216, the GM 234 / 235, the recustomize
 129 / 131 / 133). Note that most rebuilt handlers call into code that is not rebuilt (postate.cpp,
@@ -387,6 +388,9 @@ eff_o.cpp, shiputils.cpp, co.cpp's members): exact handlers do not yet make a wo
   REQUEST_TIME) and type 8 for any other object (0x716080 / 0x716220); its extrapolator (+0x04) is extrap.cpp's
   formation node 0x714340 holding the client, LeaderID and Offset (its 0x714410: the leader's state matrix at
   the time, its translation plus Offset rotated by it, and the leader's orientation; with no leader, its own last matrix); an update blends (0x7125F0, 5000 ticks) from the old node to a new one. clienttest (4d).
+* VERB_LIST 91 (pkverblist.cpp: GameID +0x0C, a `std::set<VerbEnum>` Verbs +0x10): with a verb manager (+0x1294,
+  made by Init) the object's verb set goes to verbmanager.cpp's 0x81F780(GameID, &Verbs) (not rebuilt); no object
+  member changes in cpacket.cpp itself. clienttest (4e): without a manager, then with a stand-in.
 * INCAPACITANCE_DETAILS 144 (pkincapacitancerequest.cpp: Unknown0C, an AvatarDescClass at +0x1C, seven strings):
   FAIL_IFs '!client' / '!sclient' (lines 2048 / 2051, as 145's); the camera manager (+0x12A8) goes to mode 0x19
   (one of CAMERA_CONTROL 146's modes too) and the cockpit (main view +0x1D0) takes the whole packet with
