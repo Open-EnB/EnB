@@ -1,5 +1,7 @@
 // Earth & Beyond client (reconstruction): app\Client\postate.cpp. Notes at the end of the file.
 #include "postate.h"
+#include "..\shared\auxdata\auxdata.h"
+#include "aux_roots.h"
 #include "..\packets\pkupdate.h"
 #include "..\shared\unknown_debug.h"
 #include "sclient.h"
@@ -12,12 +14,10 @@ bool Unknown_B9489C = true;		// (0x716400 tests it)  // NAME 1: neutral (D10)
 bool Unknown_B9489D = true;		// NAME 1: neutral (D10)
 bool Unknown_B9489E = true;		// (the type 4 and 8 updates test it)  // NAME 1: neutral (D10)
 bool Unknown_B9489F = true;		// (the update period's lag: 0x716F70)  // NAME 1: neutral (D10)
+bool Unknown_B948A0 = true;		// (0x7179A0: continue from Unknown24)  // NAME 1: neutral (D10)
+bool Unknown_B948A1 = true;		// (0x7179A0: 0x712DB0 rather than 0x7125F0)  // NAME 1: neutral (D10)
+unsigned int Unknown_BE71D4;	// (0x7179A0's blend time; .bss, set elsewhere?)  // NAME 1: neutral (D10)
 const float Unknown_B026D0 = 150.0f;	// (0x716400 squares it)  // NAME 1: neutral (D10)
-
-
-
-
-
 
 
 
@@ -580,6 +580,53 @@ void Unknown717010Class::Unknown_717400(FormationPositionalUpdatePacketClass *pa
 {
 	Unknown_716220(client, packet);
 	Unknown24 = 0;
+}
+
+// NOT EXACT: inline-budget (the client calls the bool field's Cast 0x584FF0 out of line for 'AutoLevel', ours inlines it; register-only after; one form; attempts.py show 0x7179A0)
+void Unknown717010Class::Unknown_7179A0(int unknown, DeltaCompoundClass *aux_data, int time, bool level, bool auto_level)
+{
+	float zero = 0.0f;
+	float tilt_rate = 0.0f;
+	if (auto_level) {
+		NameClass name("AutoLevel");
+		DeltaTemplateClass<bool> *t = Unknown_Find_Field<DeltaTemplateClass<bool> >(aux_data, name);
+		if (t && t->m_Unknown70 && t->Value) {
+			NameClass rate_name("MaxTiltRate");
+			DeltaTemplateClass<float> *r = Unknown_Find_Field<DeltaTemplateClass<float> >(aux_data, rate_name);
+			if (r && r->m_Unknown70) {
+				tilt_rate = r->Value * 0.001f;
+			}
+		}
+	}
+	if (Unknown_B948A0 && Unknown24) {
+		ExtrapClass *next = Unknown24->Unknown_710260();
+		if (level) {
+			next->Unknown_20(time + (Unknown_BE71D4 >> 1), 0, 0, &zero, 0);
+		}
+		if (auto_level) {
+			next->Unknown_24(time + (Unknown_BE71D4 >> 1), tilt_rate);
+		}
+		if (Unknown_B948A1) {
+			Extrap = new Unknown712DB0Class(Extrap, next, time, time + Unknown_BE71D4);
+		} else {
+			Extrap = new Unknown7125F0Class(Extrap, next, time, time + Unknown_BE71D4);
+		}
+		Unknown24 = next;
+	} else {
+		if (level) {
+			Extrap->Unknown_20(time, 0, 0, &zero, 0);
+		}
+		if (auto_level) {
+			Extrap->Unknown_24(time, tilt_rate);
+		}
+	}
+	if (level) {
+		MovementID++;
+	}
+	if (auto_level) {
+		MovementID++;
+	}
+	Unknown20 = true;
 }
 
 void Unknown717010Class::Unknown_34(int time, AdvancedPositionalUpdatePacketClass *packet, unsigned int duration)
@@ -1366,53 +1413,6 @@ void Unknown718D70Class::Unknown_30(int time, const Matrix3D &transform)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 Unknown7192A0Class::Unknown7192A0Class(RenderObjClass *render_object, Unknown98Class *state, const char *bone_name) :
 	RenderObject(render_object),
 	BoneIndex(-1)
@@ -1481,6 +1481,6 @@ Vector3 Unknown7192A0Class::Unknown_14(int time)
 **	4 (0xB028A4) and 11 (0xB028F0), type 9 (0xB02764), type 12 (0xB0292C), type 13 (0xB029C0, a HermiteSpline3DClass path; its transform
 **	0x718830 NOT EXACT), type 14 (0xB02A00), type 15
 **	(0xB02A40) and the record Unknown714E10Struct (0x714E10-0x7151D0, no callers). Not rebuilt yet, in the client's order: type 4's
-**	0x717430 ('*move_direction == 0' on line 977) and 0x7179A0, the statics 0x714820 and after 0x719620, 0x7196C0. extrap.cpp's classes
+**	0x717430 ('*move_direction == 0' on line 977; 0x7179A0 beside it is NOT EXACT), the statics 0x714820 and after 0x719620, 0x7196C0. extrap.cpp's classes
 **	are declared in postate.h only.
 */
