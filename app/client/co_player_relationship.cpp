@@ -146,7 +146,25 @@ GutterColorSetStruct Unknown_70ADF0(const std::string &name)	// NAME 1 [Unknown_
 
 
 
+// NOT EXACT: inline budget (the client calls the name string's assign and the copies out of line; attempts.py show 0x70B450)
+bool Unknown_70B450(ClientObjectClass *player, ClientObjectClass *object, GutterColorSetStruct &colors)	// NAME 1 [Unknown_70B450, player]: 'Neutral' unless the object's type is one of seven
+{
+	switch (object->Type) {
+		case 0: case 1: case 2: case 11: case 12: case 28: case 33:
+			return(false);
+	}
+	static GutterColorSetStruct neutral = Unknown_70ADF0(std::string("Neutral"));	// 0xBE6E30 (guard 0xBE7101)  // NAME 2: what it holds
+	colors = neutral;
+	return(true);
+}
 
+bool Unknown_70B790(ClientObjectClass *player, ClientObjectClass *object, GutterColorSetStruct &colors)	// NAME 1 [Unknown_70B790, player]: 'Attacking' while the relationship says so
+{
+	if (!((RelationshipClass *)object->Relationship)->IsAttacking) return(false);
+	static GutterColorSetStruct attacking = Unknown_70ADF0(std::string("Attacking"));	// NAME 2: what it holds
+	colors = attacking;
+	return(true);
+}
 
 
 
@@ -219,31 +237,13 @@ GutterColorSetStruct Unknown_70ADF0(const std::string &name)	// NAME 1 [Unknown_
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+bool Unknown_70C2A0(ClientObjectClass *player, ClientObjectClass *object, GutterColorSetStruct &colors)	// NAME 1 [Unknown_70C2A0, player]: 'Player' for type 1
+{
+	if (object->Type != 1) return(false);
+	static GutterColorSetStruct player_colors = Unknown_70ADF0(std::string("Player"));	// NAME 2: what it holds
+	colors = player_colors;
+	return(true);
+}
 
 
 

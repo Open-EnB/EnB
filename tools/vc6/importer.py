@@ -4025,9 +4025,10 @@ RECONSTRUCTED = {
                                    "defaults 0x7F1AD0, Load 0x7F84F0 (reports on the client's lines 571-669, D25), the "
                                    "Save 0x7F8EF0, the accessors; NOT EXACT: Get_String 0x7F9700, Get_Default_String 0x7F9970",
     ('app', 'client/co_player_relationship.cpp'): "the player-object relationship file, the object "
-                                               "0x709EA0-0x70DC00: the packet handlers 0x70CC40 (FAIL_IF on the "
-                                               "client's line 310, D25), 0x70CC90, 0x70CD50; the gutter colours "
-                                               "not rebuilt yet",
+                                               "0x709EA0-0x70DC00: the gutter colours (gutter_color.ini's sets in "
+                                               "an SGI hash_map, lines 63-117, D25), the relationship checks "
+                                               "Attacking / Player, the packet handlers 0x70CC40 (line 310), "
+                                               "0x70CC90, 0x70CD50; NOT EXACT: Neutral 0x70B450",
 }
 
 # Text appended to imported files (after everything, so no existing line moves).

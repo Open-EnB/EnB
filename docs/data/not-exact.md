@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-274 entries in 65 files.
+275 entries in 66 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -39,6 +39,7 @@ edit the comments in the code, not this file.
 | `app/client/co.cpp:2326` | `ClientObjectClass::Get_Name` | marker | NOT EXACT: inline-budget (the client calls rtti.h's cast 0x5469C0 at all four lookups and the string assign's helpers; ours inlines them) |
 | `app/client/co.cpp:2608` | `ClientObjectClass::Unknown_6FF7A0` | marker | NOT EXACT: inline-budget (the client calls the string lookup 0x514BD0 at all six sites and inlines more of std::string; ours the reverse) |
 | `app/client/co_data.h:55` | `?` | marker | NOT EXACT: frame (0x54 vs the client's 0x50: ours inlines the type map's default constructor, the client calls 0x79E6E0) |
+| `app/client/co_player_relationship.cpp:149` | `Unknown_70B450` | marker | NOT EXACT: inline budget (the client calls the name string's assign and the copies out of line; attempts.py show 0x70B450) |
 | `app/client/control_keys_manager.cpp:115` | `ControlKeysManager::Get_Key_Id` | marker | NOT EXACT: inline budget (ours inlines Get_Key_Id 0x71A190, which the client calls) |
 | `app/client/control_keys_manager.cpp:121` | `ControlKeysManager::Get_Key_Id` | marker | NOT EXACT: inline budget (ours inlines _KeyIds.find, the client calls 0x71EBC0; ~56 rows) |
 | `app/client/control_keys_manager.cpp:236` | `ControlKeysManager::Add_Keys` | marker | NOT EXACT: frame 0x2C vs the client 0x28, ~60 rows; the client keeps count in the dead name argument slot and builds the converted key once per set (attempts.csv) |
