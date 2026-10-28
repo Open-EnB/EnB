@@ -5,6 +5,7 @@
 #include "sclient.h"
 #include "wwmath.h"
 #include "rendobj.h"
+#include "hermitespline.h"
 #include <stdlib.h>
 
 bool Unknown_B9489C = true;		// (0x716400 tests it)  // NAME 1: neutral (D10)
@@ -12,7 +13,6 @@ bool Unknown_B9489D = true;		// NAME 1: neutral (D10)
 bool Unknown_B9489E = true;		// (the type 4 and 8 updates test it)  // NAME 1: neutral (D10)
 bool Unknown_B9489F = true;		// (the update period's lag: 0x716F70)  // NAME 1: neutral (D10)
 const float Unknown_B026D0 = 150.0f;	// (0x716400 squares it)  // NAME 1: neutral (D10)
-
 
 
 
@@ -601,6 +601,72 @@ Vector3 Unknown718160Class::Unknown_10(int time)
 }
 
 Vector3 Unknown718160Class::Unknown_14(int time)
+{
+	return(Vector3(0.0f, 0.0f, 0.0f));
+}
+
+Unknown718510Class::Unknown718510Class(int start_time, int end_time, Vector3 start_up, Vector3 end_up, Unknown98Class *state) :
+	StartTime(start_time),
+	EndTime(end_time),
+	StartUp(start_up),
+	EndUp(end_up),
+	State(state)
+{
+	Spline = new HermiteSpline3DClass;
+	unsigned int duration = EndTime - StartTime;
+	if (!duration) {
+		duration = 1;
+	}
+	Rate = 1.0f / (float)duration;
+}
+
+Unknown718510Class::~Unknown718510Class()
+{
+	delete Spline;
+}
+
+int Unknown718510Class::Unknown_04()
+{
+	return(13);
+}
+
+// NOT EXACT: shape (17 rows: the client's first Normalize and the up-vector cross product load their operands in another order; five forms; attempts.py show 0x718830)
+Matrix3D Unknown718510Class::Unknown_08(int time)
+{
+	Vector3 position = Unknown_0C(time);
+	Vector3 x = Unknown_10(time);
+	x.Normalize();
+	float t = (float)(unsigned int)(time - StartTime) * Rate;
+	if (t > 1.0f) {
+		t = 1.0f;
+	}
+	Quaternion up(StartUp.X, StartUp.Y, StartUp.Z, 1.0f);
+	Quaternion end_up(EndUp.X, EndUp.Y, EndUp.Z, 1.0f);
+	Slerp(up, up, end_up, t);
+	Vector3 y = Vector3::Cross_Product((const Vector3 &)up, x);
+	y.Normalize();
+	Vector3 z = Vector3::Cross_Product(x, y);
+	z.Normalize();
+	Matrix3D transform;
+	transform.Set(x, y, z, position);
+	return(transform);
+}
+
+Vector3 Unknown718510Class::Unknown_0C(int time)
+{
+	Vector3 position;
+	Spline->Evaluate((float)(unsigned int)(time - StartTime) * Rate, &position);
+	return(position);
+}
+
+Vector3 Unknown718510Class::Unknown_10(int time)
+{
+	Vector3 velocity;
+	Spline->Evaluate_Derivative((float)(unsigned int)(time - StartTime) * Rate, &velocity);
+	return(velocity);
+}
+
+Vector3 Unknown718510Class::Unknown_14(int time)
 {
 	return(Vector3(0.0f, 0.0f, 0.0f));
 }
@@ -1347,72 +1413,6 @@ void Unknown718D70Class::Unknown_30(int time, const Matrix3D &transform)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 Unknown7192A0Class::Unknown7192A0Class(RenderObjClass *render_object, Unknown98Class *state, const char *bone_name) :
 	RenderObject(render_object),
 	BoneIndex(-1)
@@ -1478,10 +1478,10 @@ Vector3 Unknown7192A0Class::Unknown_14(int time)
 **	PermString) to 0x719700; its asserts sit on the client's lines (D25): the forwarding state's
 **	'PositionState' on 53-90, type 15's on 1422-1457. Built: the forwarding state (vtable 0xB026EC), type 1
 **	(0xB02728), the extrapolator base (0xB027A0) with types 3 (0xB027DC), 5 (0xB02818), 8 (0xB02854),
-**	4 (0xB028A4) and 11 (0xB028F0), type 9 (0xB02764), type 12 (0xB0292C), type 14 (0xB02A00) and type 15
+**	4 (0xB028A4) and 11 (0xB028F0), type 9 (0xB02764), type 12 (0xB0292C), type 13 (0xB029C0, a HermiteSpline3DClass path; its transform
+**	0x718830 NOT EXACT), type 14 (0xB02A00) and type 15
 **	(0xB02A40). Not rebuilt yet, in the client's order: the helpers 0x714E10-0x7151D0 (a position /
 **	velocity / time record, no callers), type 4's
-**	0x717430 ('*move_direction == 0' on line 977) and 0x7179A0, type 13 (vtable 0xB029C0, 0x718510-0x718D40:
-**	a HermiteSpline3DClass path), the statics 0x714820 and after 0x719620, 0x7196C0. extrap.cpp's classes
+**	0x717430 ('*move_direction == 0' on line 977) and 0x7179A0, the statics 0x714820 and after 0x719620, 0x7196C0. extrap.cpp's classes
 **	are declared in postate.h only.
 */

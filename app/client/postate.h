@@ -353,4 +353,32 @@ public:
 	Vector3 Position;				// +0x28 (the other's last position)  // NAME 2: what it holds
 };
 
+// Type 13, a move along a Hermite spline from StartTime to EndTime, its up vector turning from StartUp
+// to EndUp (vtable 0xB029C0, 0x30 bytes); it holds a second state (+0x28)
+class HermiteSpline3DClass;
+class Unknown718510Class : public Unknown98Class	// NAME 1: neutral (D10)
+{
+public:
+	Unknown718510Class(int start_time, int end_time, Vector3 start_up, Vector3 end_up, Unknown98Class *state);	// 0x718510  // NAME 2 [start_time, end_time, start_up, end_up, state]: the members they set
+	virtual ~Unknown718510Class();				// 0x7187A0 (deletes the spline)
+
+	virtual Unknown98Class *Unknown_28() { return(State); }			// +0x28 0x718650
+	virtual void Unknown_24(Unknown98Class *state) { State = state; }	// +0x24 0x718670  // NAME 2 [state]: what it sets
+	virtual bool Unknown_2C() { return(true); }						// +0x2C 0x718690
+	virtual HermiteSpline3DClass *Unknown_30() { return(Spline); }	// +0x30 0x7186B0 (the caller adds the keys)
+	virtual int Unknown_04();					// +0x04 0x718810 (13)
+	virtual Matrix3D Unknown_08(int time);		// +0x08 0x718830 (along the velocity, the up vector slerped)  // NAME 2 [time]: as the others'
+	virtual Vector3 Unknown_0C(int time);		// +0x0C 0x718C40 (the spline at that time)  // NAME 2 [time]: as the others'
+	virtual Vector3 Unknown_10(int time);		// +0x10 0x718CC0 (its derivative)  // NAME 2 [time]: as the others'
+	virtual Vector3 Unknown_14(int time);		// +0x14 0x718D40 (zero)  // NAME 2 [time]: as the others'
+
+	HermiteSpline3DClass *Spline;	// +0x04  // NAME 2: what it holds
+	int StartTime;					// +0x08  // NAME 2: what it holds
+	int EndTime;					// +0x0C  // NAME 2: what it holds
+	Vector3 StartUp;				// +0x10  // NAME 2: what 0x718830 does with it
+	Vector3 EndUp;					// +0x1C  // NAME 2: what 0x718830 does with it
+	Unknown98Class *State;			// +0x28  // NAME 2: what it holds
+	float Rate;						// +0x2C (1 / (EndTime - StartTime))  // NAME 2: what it holds
+};
+
 #endif

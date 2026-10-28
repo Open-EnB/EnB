@@ -10,8 +10,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 34 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 36 |
 | 3 | by convention from a client-named file or sibling | 846 |
-| 2 | describes what the code does | 2037 |
-| 1 | neutral placeholder | 3787 |
+| 2 | describes what the code does | 2050 |
+| 1 | neutral placeholder | 3789 |
 
 ## For review (score 3 and below)
 
@@ -1006,11 +1006,11 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_4BC000` | `app/client/option.cpp:11` | 0x4BC000, E&B's message reporter (tcpconn.cpp) |
 | 1 | `Unknown_Percent` | `app/client/option.cpp:174` | untagged neutral name (D10) |
 | 1 | `Unknown_BE8B38Class` | `app/client/option.h:15` | untagged neutral name (D10) |
-| 1 | `Unknown_B9489C` | `app/client/postate.cpp:10` | neutral (D10) |
-| 1 | `Unknown_B9489D` | `app/client/postate.cpp:11` | neutral (D10) |
-| 1 | `Unknown_B9489E` | `app/client/postate.cpp:12` | neutral (D10) |
-| 1 | `Unknown_B9489F` | `app/client/postate.cpp:13` | neutral (D10) |
-| 1 | `Unknown_B026D0` | `app/client/postate.cpp:14` | neutral (D10) |
+| 1 | `Unknown_B9489C` | `app/client/postate.cpp:11` | neutral (D10) |
+| 1 | `Unknown_B9489D` | `app/client/postate.cpp:12` | neutral (D10) |
+| 1 | `Unknown_B9489E` | `app/client/postate.cpp:13` | neutral (D10) |
+| 1 | `Unknown_B9489F` | `app/client/postate.cpp:14` | neutral (D10) |
+| 1 | `Unknown_B026D0` | `app/client/postate.cpp:15` | neutral (D10) |
 | 1 | `UnknownB026ECClass` | `app/client/postate.cpp:50` | untagged neutral name (D10) |
 | 1 | `Unknown98Class` | `app/client/postate.cpp:50` | untagged neutral name (D10) |
 | 1 | `Unknown_04` | `app/client/postate.cpp:64` | untagged neutral name (D10) |
@@ -1064,7 +1064,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown713C80Class` | `app/client/postate.cpp:556` | untagged neutral name (D10) |
 | 1 | `Unknown_718080` | `app/client/postate.cpp:561` | untagged neutral name (D10) |
 | 1 | `Unknown718160Class` | `app/client/postate.cpp:570` | untagged neutral name (D10) |
-| 1 | `Unknown718D70Class` | `app/client/postate.cpp:608` | untagged neutral name (D10) |
+| 1 | `Unknown718510Class` | `app/client/postate.cpp:608` | untagged neutral name (D10) |
+| 1 | `Unknown718D70Class` | `app/client/postate.cpp:674` | untagged neutral name (D10) |
 | 1 | `Unknown7192A0Class` | `app/client/postate.cpp:1416` | untagged neutral name (D10) |
 | 1 | `UnknownB026ECClass` | `app/client/postate.h:38` | neutral (D10), named by its vtable |
 | 1 | `Unknown98Class` | `app/client/postate.h:38` | untagged neutral name (D10) |
@@ -1159,6 +1160,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown7192A0Class` | `app/client/postate.h:319` | neutral (D10) |
 | 1 | `Unknown715270Class` | `app/client/postate.h:337` | neutral (D10) |
 | 1 | `Unknown_715360` | `app/client/postate.h:341` | untagged neutral name (D10) |
+| 1 | `Unknown718510Class` | `app/client/postate.h:359` | neutral (D10) |
 | 1 | `Unknown08` | `app/client/radar_data.h:26` | untagged neutral name (D10) |
 | 1 | `Unknown_719E10` | `app/client/sclient.cpp:28` | untagged neutral name (D10) |
 | 1 | `Unknown_7228C0` | `app/client/sclient.cpp:29` | neutral (D10), as tsk_login.cpp |
@@ -4328,6 +4330,19 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Offset` | `app/client/postate.h:351` | what it holds |
 | 2 | `Orientation` | `app/client/postate.h:352` | what it holds |
 | 2 | `Position` | `app/client/postate.h:353` | what it holds |
+| 2 | `start_time, end_time, start_up, end_up, state` | `app/client/postate.h:362` | the members they set |
+| 2 | `state` | `app/client/postate.h:366` | what it sets |
+| 2 | `time` | `app/client/postate.h:370` | as the others' |
+| 2 | `time` | `app/client/postate.h:371` | as the others' |
+| 2 | `time` | `app/client/postate.h:372` | as the others' |
+| 2 | `time` | `app/client/postate.h:373` | as the others' |
+| 2 | `Spline` | `app/client/postate.h:375` | what it holds |
+| 2 | `StartTime` | `app/client/postate.h:376` | what it holds |
+| 2 | `EndTime` | `app/client/postate.h:377` | what it holds |
+| 2 | `StartUp` | `app/client/postate.h:378` | what 0x718830 does with it |
+| 2 | `EndUp` | `app/client/postate.h:379` | what 0x718830 does with it |
+| 2 | `State` | `app/client/postate.h:380` | what it holds |
+| 2 | `Rate` | `app/client/postate.h:381` | what it holds |
 | 2 | `Unknown_Load_Assets` | `app/client/sclient.cpp:40` | 0x729BF0 (client_lego_impl.cpp), 'cbasset.ini' (as tsk_smovie.cpp) |
 | 2 | `Unknown_Free_Assets` | `app/client/sclient.cpp:41` | 0x729D60 (client_lego_impl.cpp) (as tsk_smovie.cpp) |
 | 2 | `Unknown_Main_Window` | `app/client/sclient.cpp:43` | what Pump_Messages redraws |
