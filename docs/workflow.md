@@ -373,9 +373,14 @@ unless `--lever` cites a new row of this table.
   `HashNodeClass::Next_Valid` adds a Prev test (`[eax+8]`) the client never has (2026-10-28, UP1).
 * **Any declaration added to DeltaArrayClass moves aux_roots pairs, even one never instantiated** (2026-10-28, DF1:
   `index < Items.size()` as a member +3 / -2, as a free template -0x6FB1E0); keep such helpers local to the file.
-* **co.cpp's lookups: the client cuts the earlier finds deeper than the later ones** (2026-10-28, UP1 / DF1:
-  0x6F4610, 0x6F3FA0, 0x6FD310, 0x6FDBD0, 0x6FBEF0 all call a Cast / find out of line that ours inlines); one
-  cause suspected (P-DF1-1: is auxdata.h's `Unknown_Find_Field` body larger in the client?).
+* **co.cpp's lookups and the inline budget (2026-10-28, UP1 / DF1 / IB1):** the budget cuts the bigger callee
+  first and same-size callees in source order, so earlier finds go out of line first. auxdata.h's find is the
+  client's early-return form (rtti.h's test inverted: `!= global -> NULL`; fc348e7). The lever for co.cpp's
+  finds is a helper `Unknown_Find_Aux((C *)NULL, this, "Name")` that builds the NameClass before reading AuxData
+  (one shared stack slot): 0x6F4610 112 -> 4 rows, 0x6FDBD0 34 -> 10; used everywhere it loses 20 exact
+  functions, so the small finds keep their explicit NameClass. `#pragma auto_inline(off)` and `/Ob1` do not stop
+  Unknown_Find_Field's inlining; for an out-of-line copy to compare, write a dummy with 40+ calls. A helper put on
+  a new line moves every later `__LINE__` (~13 pairs): use an existing blank line.
 * **Do_Frame's lost-connection dialog matches only as an if / else of two complete calls** (2026-10-28, DF1).
 * **H3's aux_roots swap flips on any extra member declaration in a header aux_roots.cpp includes** (2026-10-28,
   PK1, DF1): 0x6FB1E0 / 0x702240 / 0x7045F0 trade for 0x7014B0 / 0x701D70 / 0x758210 whatever the names, order or
@@ -696,6 +701,8 @@ unless `--lever` cites a new row of this table.
 
 ### 3.8 Git, docs and scripting hygiene
 
+* **tryv2 refuses an anchor that occurs twice** (co.cpp's two IsInPVP finds); a long experiment script that holds
+  the importer lock for 10+ minutes blocks others' report and replay: release it between variants (2026-10-28, IB1).
 * **tryvariants.py only sees a library folder's top level** (`app/packets/x.cpp` can't be tried; `.work/pk1/tv.py`
   and `hv.py` can); **build.py compiles tracked files only** (a new app file is harness-tested after its commit, or
   with `--allow-dirty` and a private `--out`) (2026-10-28, PK1).

@@ -1348,6 +1348,10 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 
 ## 3. Open decisions
 
+* **P-IB1-1** (2026-10-28, IB1; recommend accept for up to 4 per function): dead root-NULL finds
+  (`Unknown_Find_Field<DeltaTemplateClass<int> >(NULL, *(NameClass *)this)`, no code emitted) as an inline-budget
+  spender, like 0x6FFC80's dead 0x6F5A40 calls. IB1 used 4 in 0x6FDBD0 (fc348e7); 0x6FBEF0 would need 20 (not
+  committed).
 * **bada317's matching rule** (2026-10-28, PK1, landed without a decision; coordinator recommends keep): objmatch's
   self-name round files every vtable slot 0 `??_E` name under `??_G` too (VC6 emits the scalar `??_G` for a class never
   new[]'d; symbols.py names slot 0 `??_E`). +293 pairs (276 addresses: app 173, ww3d2 72, wwmath 26, wwlib 11, ...),
@@ -1448,7 +1452,7 @@ client's own code: [kernel-map.md](kernel-map.md) §6 and, for step 9's dependen
 6. Step 8's tail: Key_Exchange (LIMIT), the UDP constructor over a CordCon 0x82CBF0 (register), Open_Fixed_Channel
    0x82D8C0 (field offset), `Send_Data` (wlib's Dictionary layout), 0x82E1D0 (needs CordMgr 0x8598F0), the
    TimedLog ctor, the memconn option slot, Rate Count (LIMIT), Listen.
-7. The Fable queue under D89 / D97 (six at most, by unlock value): co.cpp's 0x6F4610 with the roll 0x6F3FA0 as one round (P-UP1-2, 2026-10-28: one cause suspected, the lookup budget; 22 and 9 Opus forms), client_lego_impl's Find 0x72ABB0 + Add 0x72B7F0 +
+7. The Fable queue under D89 / D97 (six at most, by unlock value): co.cpp's 0x6FD310, 0x6FBEF0 and the roll 0x6F3FA0 as one round (2026-10-28, IB1: two Opus rounds each, inline budget; the question: what in the client's source spends more budget per find; 0x6F4610 / 0x6FDBD0 left the queue, now register / shape), client_lego_impl's Find 0x72ABB0 + Add 0x72B7F0 +
    Remove 0x72C1D0 as one round (P-H20-1), CLIENT_DAMAGE 0x738970 then FORMATION 0x734740 (P-T19-3), D92's three
    (item 2), Get_Lego_Transform then Child_Moved / Attach (P-H17-2), cpacket 62 after its Opus round (P-T16-3),
    Load_Definitions 0x71B1F0; low priority: TimedLog 0x824540 (P-S1-1), option.cpp Get_String 0x7F9700 (D108), CLIENT_CHAT_EVENT 0x73B150 (P-T20-1), the kv_list
