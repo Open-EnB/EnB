@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 34 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 36 |
-| 3 | by convention from a client-named file or sibling | 822 |
-| 2 | describes what the code does | 1937 |
-| 1 | neutral placeholder | 3458 |
+| 3 | by convention from a client-named file or sibling | 828 |
+| 2 | describes what the code does | 1949 |
+| 1 | neutral placeholder | 3505 |
 
 ## For review (score 3 and below)
 
@@ -894,6 +894,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_6D2580` | `app/client/fontmanager.h:114` | neutral (D10) |
 | 1 | `Unknown_6D2700` | `app/client/fontmanager.h:116` | neutral (D10) |
 | 1 | `Unknown_6D28C0` | `app/client/fontmanager.h:117` | neutral (D10) |
+| 1 | `Peek_Font` | `app/client/fontmanager.h:119` | neutral (D10) |
 | 1 | `Unknown08` | `app/client/gutter_data.h:26` | untagged neutral name (D10) |
 | 1 | `Unknown08` | `app/client/navigation_data.h:26` | untagged neutral name (D10) |
 | 1 | `Unknown_4BC000` | `app/client/option.cpp:11` | 0x4BC000, E&B's message reporter (tcpconn.cpp) |
@@ -2025,6 +2026,16 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_42B7E0` | `app/input/inpdsp.h:83` | neutral (D10) |
 | 1 | `Unknown_42A410` | `app/input/inpdsp.h:84` | neutral (D10) |
 | 1 | `Unknown_429D00` | `app/input/inpdsp.h:85` | neutral (D10) |
+| 1 | `Unknown_42B610` | `app/input/inpkeys.cpp:9` | untagged neutral name (D10) |
+| 1 | `Unknown_42BC90` | `app/input/inpkeys.cpp:12` | untagged neutral name (D10) |
+| 1 | `Unknown_42B6A0` | `app/input/inpkeys.cpp:21` | untagged neutral name (D10) |
+| 1 | `Unknown_42B7E0` | `app/input/inpkeys.cpp:34` | untagged neutral name (D10) |
+| 1 | `Unknown_42BAE0` | `app/input/inpkeys.cpp:50` | untagged neutral name (D10) |
+| 1 | `Unknown_42B610` | `app/input/inpkeys.h:25` | neutral (D10) |
+| 1 | `Unknown_42B6A0` | `app/input/inpkeys.h:26` | neutral (D10) |
+| 1 | `Unknown_42B7E0` | `app/input/inpkeys.h:27` | neutral (D10) |
+| 1 | `Unknown_42BAE0` | `app/input/inpkeys.h:28` | neutral (D10) |
+| 1 | `Unknown_42BC90` | `app/input/inpkeys.h:29` | neutral (D10) |
 | 1 | `Unknown_Get_Ticks` | `app/kernel/kernel.cpp:19` | untagged neutral name (D10) |
 | 1 | `Unknown_9179D0` | `app/kernel/kernel.cpp:20` | WW3D's device check (0 when DX8Wrapper's restore succeeds) |
 | 1 | `Unknown_42EA80` | `app/kernel/kernel.cpp:21` | the input queue's next event (input.cpp) |
@@ -2099,15 +2110,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_Create_Packet` | `app/packets/pk.h:127` | what it does |
 | 1 | `Unknown_869790` | `app/packets/pk.h:130` | neutral (D10) |
 | 1 | `pk_classes.h` | `app/packets/pk_classes.h:17` | provisional file name (D37) |
-| 1 | `Packet_0015Class` | `app/packets/pk_classes.h:146` | neutral (D10): opcode 0x0015 |
-| 1 | `Unknown_2C` | `app/packets/pk_classes.h:153` | untagged neutral name (D10) |
-| 1 | `Unknown0C` | `app/packets/pk_classes.h:155` | untagged neutral name (D10) |
-| 1 | `Packet_0016Class` | `app/packets/pk_classes.h:159` | neutral (D10): opcode 0x0016 |
-| 1 | `Unknown14` | `app/packets/pk_classes.h:166` | untagged neutral name (D10) |
-| 1 | `Error` | `app/packets/pk_classes.h:216` | the log 'GlobalErrorPacketClass recv: %d : %d : %s' (tsk_login.cpp) |
-| 1 | `std:` | `app/packets/pk_classes.h:217` | the same log |
-| 1 | `Packet_00B5Class` | `app/packets/pk_classes.h:229` | neutral (D10): opcode 0x00B5 |
-| 1 | `Packet_00B6Class` | `app/packets/pk_classes.h:238` | neutral (D10): opcode 0x00B6 |
+| 1 | `Unknown0C` | `app/packets/pk_classes.h:183` | untagged neutral name (D10) |
+| 1 | `Error` | `app/packets/pk_classes.h:194` | the log 'GlobalErrorPacketClass recv: %d : %d : %s' (tsk_login.cpp) |
+| 1 | `std:` | `app/packets/pk_classes.h:195` | the same log |
 | 1 | `Unknown_14` | `app/packets/pk_player_object_relationship.cpp:12` | untagged neutral name (D10) |
 | 1 | `std:` | `app/packets/pk_player_object_relationship.cpp:85` | neutral (D10) |
 | 1 | `Unknown_8743C0` | `app/packets/pk_player_object_relationship.cpp:85` | untagged neutral name (D10) |
@@ -2243,6 +2248,20 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown04` | `app/packets/pkfindmember.h:25` | neutral (D10) |
 | 1 | `Unknown08` | `app/packets/pkfindmember.h:26` | neutral (D10) |
 | 1 | `Unknown0C` | `app/packets/pkfindmember.h:27` | neutral (D10) |
+| 1 | `Unknown0C` | `app/packets/pkfindplayerrequest.cpp:6` | untagged neutral name (D10) |
+| 1 | `Unknown51` | `app/packets/pkfindplayerrequest.cpp:7` | untagged neutral name (D10) |
+| 1 | `Unknown_4A1590` | `app/packets/pkfindplayerrequest.cpp:9` | untagged neutral name (D10) |
+| 1 | `Unknown54` | `app/packets/pkfindplayerrequest.cpp:45` | untagged neutral name (D10) |
+| 1 | `pkfindplayerrequest` | `app/packets/pkfindplayerrequest.h:15` | provisional, pk + its first class's name |
+| 1 | `Unknown_4A1590` | `app/packets/pkfindplayerrequest.h:20` | neutral placeholder (D10) |
+| 1 | `Unknown0C` | `app/packets/pkfindplayerrequest.h:33` | neutral (D10) |
+| 1 | `Unknown51` | `app/packets/pkfindplayerrequest.h:35` | neutral (D10) |
+| 1 | `Unknown0C` | `app/packets/pkfindplayerrequest.h:49` | neutral (D10) |
+| 1 | `Unknown51` | `app/packets/pkfindplayerrequest.h:51` | neutral (D10) |
+| 1 | `Unknown54` | `app/packets/pkfindplayerrequest.h:52` | neutral (D10) |
+| 1 | `pkfire` | `app/packets/pkfire.h:16` | provisional, pk + its first class's name |
+| 1 | `Unknown_2C` | `app/packets/pkfire.h:33` | neutral (D10) |
+| 1 | `Unknown14` | `app/packets/pkfire.h:48` | neutral (D10) |
 | 1 | `Unknown18` | `app/packets/pkgadget.cpp:57` | untagged neutral name (D10) |
 | 1 | `pkgadget` | `app/packets/pkgadget.h:15` | provisional, pk + its class's name |
 | 1 | `Packet_0068Class` | `app/packets/pkgadget.h:43` | neutral (D10): opcode 0x0068 (Get_Name 'Request Gadget Control') |
@@ -3499,7 +3518,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_Debug_Begin_Step` | `tests/capharness/udpreplay/connect_stubs.cpp:35` | untagged neutral name (D10) |
 | 1 | `Unknown_Debug_End_Step` | `tests/capharness/udpreplay/connect_stubs.cpp:36` | untagged neutral name (D10) |
 | 1 | `Unknown_Debug_Print` | `tests/capharness/udpreplay/connect_stubs.cpp:37` | untagged neutral name (D10) |
-| 1 | `Unknown_2C` | `tests/capharness/udpreplay/pk_ctor_stubs.cpp:128` | untagged neutral name (D10) |
 | 1 | `Unknown08` | `tests/capharness/udpreplay/pkitemba_stubs.cpp:13` | untagged neutral name (D10) |
 | 1 | `Unknown00` | `tests/capharness/udpreplay/recust_stubs.cpp:7` | untagged neutral name (D10) |
 | 1 | `Unknown_BE56D8` | `tests/capharness/udpreplay/shipcust_stubs.cpp:31` | untagged neutral name (D10) |
@@ -3875,9 +3893,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Remove` | `app/client/fontmanager.h:109` | describes what it does |
 | 2 | `Get_Style` | `app/client/fontmanager.h:115` | describes what it does |
 | 2 | `Add` | `app/client/fontmanager.h:118` | describes what it does |
-| 2 | `Find` | `app/client/fontmanager.h:119` | describes what it does |
-| 2 | `std:` | `app/client/fontmanager.h:121` | what it holds |
-| 2 | `DebugFont` | `app/client/fontmanager.h:122` | what it holds |
+| 2 | `Find` | `app/client/fontmanager.h:120` | describes what it does |
+| 2 | `std:` | `app/client/fontmanager.h:122` | what it holds |
+| 2 | `DebugFont` | `app/client/fontmanager.h:123` | what it holds |
 | 2 | `Find_Option` | `app/client/option.cpp:15` | what it does |
 | 2 | `Free_Option_Map` | `app/client/option.cpp:22` | what it does |
 | 2 | `BoolOptionStruct` | `app/client/option.h:31` | what it holds (0x14 bytes) |
@@ -4271,6 +4289,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Next` | `app/input/inpdsp.h:45` | what it holds |
 | 2 | `Set_Stack` | `app/input/inpdsp.h:61` | describes what it does |
 | 2 | `std:` | `app/input/inpdsp.h:63` | what it holds |
+| 2 | `std:` | `app/input/inpkeys.cpp:5` | what it holds |
+| 2 | `std:` | `app/input/inpkeys.cpp:6` | what it holds |
+| 2 | `KeyNamesReady` | `app/input/inpkeys.cpp:7` | what it holds |
+| 2 | `inpkeys.h` | `app/input/inpkeys.h:19` | provisional: the object has no __FILE__ (it sits between inpdsp.cpp and input.cpp) |
 | 2 | `Key` | `app/kernel/kernel.h:30` | +0x00 Handle_Key: 0x1B Esc, 0x6A |
 | 2 | `Accept_Focus` | `app/kernel/kernel.h:53` | 'LoginTask: accepting focus.' |
 | 2 | `Yield_Focus` | `app/kernel/kernel.h:54` | 'LoginTask: yielding focus.' |
@@ -4339,10 +4361,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Connection` | `app/packets/pk.h:120` | what it holds |
 | 2 | `Serial` | `app/packets/pk.h:121` | what it holds |
 | 2 | `Next_Serial` | `app/packets/pk.h:122` | what it holds |
-| 2 | `Get_Type` | `app/packets/pk_classes.h:152` | what the derived classes' return (their opcode) |
-| 2 | `Get_Name` | `app/packets/pk_classes.h:154` | what the derived classes' return (a name) |
-| 2 | `Action2PacketClass` | `app/packets/pk_classes.h:200` | the reference decoder's opcode name ACTION2 (the Net-7 opcode table; no structure check) |
-| 2 | `GlobalErrorPacketClass` | `app/packets/pk_classes.h:209` | the reference decoder's opcode name GLOBAL_ERROR (the Net-7 opcode table; no structure check) |
+| 2 | `Action2PacketClass` | `app/packets/pk_classes.h:178` | the reference decoder's opcode name ACTION2 (the Net-7 opcode table; no structure check) |
+| 2 | `GlobalErrorPacketClass` | `app/packets/pk_classes.h:187` | the reference decoder's opcode name GLOBAL_ERROR (the Net-7 opcode table; no structure check) |
 | 2 | `std:` | `app/packets/pk_player_object_relationship.cpp:166` | what it holds |
 | 2 | `std:` | `app/packets/pk_player_object_relationship.cpp:167` | what it holds |
 | 2 | `std:` | `app/packets/pk_player_object_relationship.cpp:258` | what it holds |
@@ -4395,6 +4415,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `DebugPacketClass` | `app/packets/pkdebug.h:22` | the reference decoder's opcode name DEBUG (the Net-7 opcode table; no structure check) |
 | 2 | `EquipUsePacketClass` | `app/packets/pkequipuse.h:22` | the reference decoder's opcode name EQUIP_USE (the Net-7 opcode table; no structure check) |
 | 2 | `Add_Player` | `app/packets/pkfindmember.h:42` | what it does |
+| 2 | `Name` | `app/packets/pkfindplayerrequest.h:34` | a player name copied with the bounded strcpy |
+| 2 | `Name` | `app/packets/pkfindplayerrequest.h:50` | a player name copied with the bounded strcpy |
+| 2 | `Get_Type` | `app/packets/pkfire.h:32` | what the derived classes' return (their opcode) |
+| 2 | `Get_Name` | `app/packets/pkfire.h:34` | what the derived classes' return (a name) |
 | 2 | `Get_Flag_Count` | `app/packets/pkflag.h:27` | what pkflag.cpp's asserts call it (flag_max) |
 | 2 | `Write_Flags` | `app/packets/pkflag.h:29` | what it does |
 | 2 | `Read_Flags` | `app/packets/pkflag.h:30` | what it does |
@@ -5699,6 +5723,12 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `Slot` | `app/packets/pkequipuse.h:34` | the client's Print text 'Slot=' |
 | 3 | `pkfindmember.h` | `app/packets/pkfindmember.h:15` | the header of the client's pkfindmember.cpp |
 | 3 | `FindMemberPacketClass` | `app/packets/pkfindmember.h:31` | the client's file pkfindmember.cpp and the reference decoder's opcode name FIND_MEMBER |
+| 3 | `FindPlayerRequestPacketClass` | `app/packets/pkfindplayerrequest.h:23` | the client's Print label 'FindPlayerRequest' |
+| 3 | `FindPlayerResponsePacketClass` | `app/packets/pkfindplayerrequest.h:39` | the client's Print label 'FindPlayerResponse' |
+| 3 | `FirePacketClass` | `app/packets/pkfire.h:22` | the client's Get_Name 'Fire' |
+| 3 | `GameID` | `app/packets/pkfire.h:36` | the client's Print text 'GameID=' |
+| 3 | `Slot` | `app/packets/pkfire.h:37` | the client's Print text 'Slot=' |
+| 3 | `FireEquippedPacketClass` | `app/packets/pkfire.h:41` | the client's Get_Name 'FireEquipped' |
 | 3 | `pkflag.h` | `app/packets/pkflag.h:17` | after the client's pkflag.cpp (D57) |
 | 3 | `FlagPacketClass` | `app/packets/pkflag.h:24` | after the client's file pkflag.cpp (D24) |
 | 3 | `GadgetPacketClass` | `app/packets/pkgadget.h:21` | the client's Print text 'Gadget Control' |
