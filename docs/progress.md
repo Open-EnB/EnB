@@ -1268,7 +1268,7 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 | D69 | 2026-10-25 | Safety rules for every run of our programs and every session (amends D48): never a modal dialog (`-nomsgbox` or its equivalent in every program); full screen allowed; no screen grabs, images only from the program's own back buffer; never the game's install folder as working directory; no registry changes (the original E&BConfig only in a supervised run with a registry backup); never push; never `importer.py assemble` on a tree with work; `git add` by name, `.claude/settings.json` stays out | user (each given on 2026-10-24; numbered 2026-10-25) |
 | D70 | 2026-10-25 | Inline assembly stays wherever the client has it, with a C-equivalent comment | user (2026-10-23; backfilled) |
 | D71 | 2026-10-25 | A commit's `Co-Authored-By` line names the model that wrote the commit (the line that session's harness gives); the docs carry no literal model name | user |
-| D72 | 2026-10-25 | Subagent models: the coordinator runs Fable; builders (verify loops, byte matching, RE, programs) run Opus by default; Fable for a subagent only when the expected total cost is lower: a small-input reasoning puzzle (inline budget, codegen form) after two failed Opus attempts, or a one-shot analysis whose wrong answer would cost a builder run; Sonnet for read-only audits, cross-referencing, doc moves, log digging and generator reruns (anything a tool checks afterwards; Explore agents too); Haiku for grep-level searches and log triage, never tree code. Plan logs record model and tokens per builder ([builders.md](builders.md) §4) | user |
+| D72 | 2026-10-25 | Subagent models: the coordinator runs Fable (Opus since D96); builders (verify loops, byte matching, RE, programs) run Opus by default; Fable for a subagent only when the expected total cost is lower: a small-input reasoning puzzle (inline budget, codegen form) after two failed Opus attempts, or a one-shot analysis whose wrong answer would cost a builder run; Sonnet for read-only audits, cross-referencing, doc moves, log digging and generator reruns (anything a tool checks afterwards; Explore agents too); Haiku for grep-level searches and log triage, never tree code. Plan logs record model and tokens per builder ([builders.md](builders.md) §4) | user |
 | D73 | 2026-10-25 | Import WWOnline's wlib and wnet (Zero Hour's matchbot), Renegade's `Code\Tools\RenegadeGR` tcpmgr/tcpcon and Renegade's BinkMovie, under D4 (file by file, each verified). `CordArrayClass`'s remove is rebuilt on the imported wlib and its stand-in deleted (D67). Unblocks kernel-map steps 8-9 | user |
 | D74 | 2026-10-25 | `ENABLE_WWPROFILE` goes into the app library's defines, kept if a verify changes no pair (D14/D26 footing; evidence since D14: WWAudio +32, WWMath +1, WW3D2 +20 pairs) | user |
 | D75 | 2026-10-25 | The assert functions' reporter 0x4BC130 (the logger) is a reconstructed stand-in with D10 names and D56 tags. **Premise corrected by D81** (0xBDA908 is a pooled empty string, not a log object) | user |
@@ -1292,33 +1292,18 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 | D93 | 2026-10-27 | A model evaluation on two fixed reconstruction tasks (A: three small packet classes; B: option.cpp's SGI hash_map file), the same brief for Opus 5.5, Sonnet 5.5 (twice) and Haiku 5.5, each in its own worktree and branch at one base commit, scored by the coordinator's re-verify (exact functions, pairs gained with nothing lost, tokens and relative dollars per pair, process compliance, report honesty, levers found); the best branch merges afterwards; D72 revised from the scores. Fable is not a candidate; the Opus-coordinator trial is a later session. Design and the brief: [eval-d93.md](eval-d93.md). The next coordinator session runs it first, after the weekly reset of 12:59 (coordinator's P-C1) The coordinator was Opus 5.5, not Fable (user, 2026-10-27 14:50); results: the 2026-10-27 evening entry. | user |
 | D94 | 2026-10-27 | (a) T5's drop of (tsk_login, 0x85CB00), the avatar's implicit assignment, when account_id became `__int64` is a D66(iii) non-loss (c0091e0); the address returns with the packet file that carries the client's copy. (b) symbols.py and objmatch skip compiler-generated `_$E<n>` names (P-H7-2), carried out like D88 on a quiet tree with a full verify of every library, pairs_cmp gains-only. (c) The clienttest program (P-T7-1) is built once the first cpacket.cpp handlers exist, about one builder session | user |
 | D95 | 2026-10-27 | (a) udpreplay sends the recorded bytes for a rebuilt class whose client Build writes a size field larger than its payload, as an explicit opcode list (97 AVATAR_DESCRIPTION, 183), so 97 can be committed from `.work/p5/park97` (P-P5-1). (b) objmatch's D80 tie-break does not credit an implicit destructor to an identical twin when the function's own address is free (P-P5-2; unparks 117 GLOBAL_ERROR from `.work/p5/park117`), carried out with D94(b) on the quiet tree with a full verify. (c) D66 gains kind (iv): a file rename whose pairs reappear under the new name, named in the commit, is not a loss (P-P5-3: pkunknown_85e640 / 85f870 / 860d30 to gameedit/pkgekv, pkgeobj, pkgeplan) | user |
+| D96 | 2026-10-27 | D72 revised from D93's scores (P-E1): coordinators run Opus 5.5 instead of Fable; every other D72 row stands (builders Opus by default, Fable under D89, Sonnet for audits and tool-checked work, Haiku for searches, never tree code) | user |
+| D97 | 2026-10-27 | The D89 Fable queue takes the evening's four requests: client_lego_impl's Find 0x72ABB0 + Add 0x72B7F0 + Remove 0x72C1D0 as one round on their common end-of-function inlining (P-H20-1) first, then CLIENT_DAMAGE 0x738970 (P-T19-3; FORMATION 0x734740 after it), then TimedLog 0x824540 (P-S1-1) and CLIENT_CHAT_EVENT 0x73B150 (P-T20-1) at low priority; D89's limits unchanged (one Fable builder at a time, 4 functions per session) | user |
+| D98 | 2026-10-27 | Before a function is marked LIMIT REACHED on a register residue, a tryv2 sweep of loop forms in the inlined helpers it calls is part of its second round (P-H22-2; how 0x4B3850 fell after F3's rounds) | user |
+| D99 | 2026-10-27 | Functions too short for the matcher but byte-identical to the client (objdiff 0 rows) are recorded as exact rows in attempts.csv (P-S1-2; 0x82E1D0); no matcher change | user |
+| D100 | 2026-10-27 | objmatch: a tie goes to the object whose client range contains the address (P-P6-1), carried out with D94(b) and D95(b) on a quiet tree with a full verify of every library and pairs_cmp gains-only, like D88; then 45 from `.work/p6/park45` and 117 from `.work/p5/park117`. P-R2-1 is re-evaluated on the result | user |
 
 ## 3. Open decisions
 
-* **The Fable queue, four new requests (2026-10-27, D89):** CLIENT_DAMAGE 0x738970 (frame, 5 forms; T19 recommends it
-  before FORMATION 0x734740, shape, 7 forms: P-T19-3); client_lego_impl's Find 0x72ABB0 + Add 0x72B7F0 + Remove 0x72C1D0 as
-  one round on their common end-of-function inlining (P-H20-1); TimedLog 0x824540 (inline-budget, two Opus rounds, unlocks
-  nothing: P-S1-1); CLIENT_CHAT_EVENT 0x73B150 (inline-budget, the out-of-line range constructor 0x73F680: P-T20-1).
-  Recommendation: P-H20-1 then P-T19-3's DAMAGE, after D92's three and Get_Lego_Transform already queued; the other two
-  at low priority.
-* **P-H22-2:** before marking a function LIMIT REACHED on a register residue, sweep loop forms in the inlined helpers it
-  calls with tryv2 (how 0x4B3850 fell after F3's rounds). Recommendation: accept, as a builders.md rule.
-* **P-S1-2:** functions too short for the matcher (0x82E1D0, byte-identical) appear in no count; record them as exact rows
-  in attempts.csv. Recommendation: accept (attempts.csv only; no matcher change).
 * **P-R2-1:** extend D88's self-name proof to a static initialiser's constructor / destructor pair (0x709EF0 builds
   GutterColors through 0x70CE50 and registers 0x709F40's atexit), so exact but tied hash_map<string, X> instances count
-  (co_player_relationship 0x709F40 / 0x70D030 / 0x70D150, the same pattern in every SGI file). Recommendation: decide with
-  P-P6-1 (H19 also asks for P-P6-1's tie rule for inpkeys' instances).
-* **P-E1 (D72 revision from D93, 2026-10-27):** the scores (coordinator re-verify; relative dollars Opus 1.0, Sonnet 0.2, Haiku 0.05 per token; per address gained):
-  task A Opus 26 addresses, 19 min, 9.6k Opus-token-equivalents per address; Sonnet 26 / 23 addresses, 29 min, 1.7k / 1.9k; Haiku 19, 34 min, 0.9k;
-  task B Opus 86, 44 min, 4.5k; Sonnet 35 / 32 (corrected, O1), 59 / 71 min, 2.9k / 3.0k; Haiku 21 (quit at 16 min), 0.6k. Every claim of pairs
-  held under re-verify; self-reported tokens did not (all models). Proposal, row by row: (a) **pattern items** (packet classes,
-  small classes with an emitter or a template sibling, records-heavy batches): Sonnet, with the coordinator's re-verify and
-  a records check (headers rows, subjects) per report; (b) **puzzle files** (SGI tables, inline-budget, big unique functions,
-  anything §3.1's levers decide): Opus, unchanged (Sonnet reached 40 % of Opus's addresses on task B for ~1.3x the tokens,
-  and its NOT EXACT functions need another round anyway); (c) **Haiku**: searches and audits only, never a builder (it wrote
-  into the main tree twice, split a client object, reported a harness failure that wasn't, and quit task B early); (d) Fable's
-  puzzle role (D89) unchanged; (e) token figures for D72/D89 from task notifications only, never a report. Recommendation: accept.
+  (co_player_relationship 0x709F40 / 0x70D030 / 0x70D150, the same pattern in every SGI file). Open until D100's
+  measurement shows which of them the range rule already credits; the coordinator then makes a new recommendation.
 * **P-A1:** tsk_game.cpp's one-line view of ServerRedirectPacketClass still derives from PacketClass ("pk_classes.h
   declares no fields"); the layout is the same and every harness passes. Recommendation: leave the view (P9's trap:
   the real header mid-file moved a handler's scheduling); refresh the comment at tsk_game.cpp's next edit.
@@ -1344,11 +1329,6 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
   0x474560 (in land.cpp it inlines into the land's destructor and loses 0x46A480 / 0x4691A0), ~LandPatchRecordClass,
   Unknown_477E20, LandUnknownClass::Peek_Material_Pass 0x93D6C0. One probe of their file placement before the switch.
   Recommendation: accept, as the first step of P-L6-1's builder.
-* **P-P6-1 (objmatch ties, 2026-10-27):** 45 ACTION2 is 7 of 7 exact, parked in `.work/p6/park45` (+8): its scalar
-  deleting destructor 0x876780, inside pkaction's own client range, is credited to pkguildranknamesrequestclient
-  through a byte-identical twin, and once pkaction emits it too the tie credits neither. Proposal: extend D95(b)'s
-  quiet-tree objmatch change so a tie goes to the object whose client range contains the address (settles 0x87CD10
-  the same way). Recommendation: accept, carried out with D94(b) / D95(b).
 * **P-T12-2 (aux_roots.h's bool conversions, 2026-10-27):** the bool `Type_Name` / `String_To_Value` overloads live
   only in the generated aux_roots.h, so co.cpp includes it to use auxdata.h's lookup helper. Proposal: move them to
   strconv_lib.h through the aux_roots generator. Recommendation: accept when the generator is next touched.
@@ -1434,11 +1414,13 @@ client's own code: [kernel-map.md](kernel-map.md) §6 and, for step 9's dependen
 6. Step 8's tail: Key_Exchange (LIMIT), the UDP constructor over a CordCon 0x82CBF0 (register), Open_Fixed_Channel
    0x82D8C0 (field offset), `Send_Data` (wlib's Dictionary layout), 0x82E1D0 (needs CordMgr 0x8598F0), the
    TimedLog ctor, the memconn option slot, Rate Count (LIMIT), Listen.
-7. The Fable queue under D89 (six at most, by unlock value): D92's three (item 2), client_lego_impl's
-   Get_Lego_Transform first then Child_Moved / Attach (P-H17-2), cpacket 62 after its Opus round (P-T16-3),
-   Load_Definitions 0x71B1F0, the kv_list destructor's twin 0x4B6B60 if a lever appears, the distortion draw
-   0x9961E0 (LIMIT), the ShdMesh ctor 0xA08F80 (LIMIT). Out for good (register/order): Make_Screen_Shot,
-   Update_Movie_Capture's LockRect residue, Rate Count, Run/Start_Game/Go_*.
+7. The Fable queue under D89 / D97 (six at most, by unlock value): client_lego_impl's Find 0x72ABB0 + Add 0x72B7F0 +
+   Remove 0x72C1D0 as one round (P-H20-1), CLIENT_DAMAGE 0x738970 then FORMATION 0x734740 (P-T19-3), D92's three
+   (item 2), Get_Lego_Transform then Child_Moved / Attach (P-H17-2), cpacket 62 after its Opus round (P-T16-3),
+   Load_Definitions 0x71B1F0; low priority: TimedLog 0x824540 (P-S1-1), CLIENT_CHAT_EVENT 0x73B150 (P-T20-1), the kv_list
+   destructor's twin 0x4B6B60 if a lever appears, the distortion draw 0x9961E0 (LIMIT), the ShdMesh ctor 0xA08F80
+   (LIMIT). Out for good (register/order): Make_Screen_Shot, Update_Movie_Capture's LockRect residue, Rate Count,
+   Run/Start_Game/Go_*.
 8. Tools: done 2026-10-27 (commit_mine `--file`, attempts.py line endings, build.py's UNRES regex). Left: promote
    P9's worktree scripts (item 3); the compare-and-swap commit rule (`update-ref master NEW OLD`) into commit_mine
    (H17's race); gen_stubs' by-value returns (P-T18-2); H16's `.work/h16/fm_gen.py` / `commit_h16.py` pattern for

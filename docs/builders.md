@@ -48,7 +48,9 @@ Running the tree's own programs unattended is allowed (D48).
 **Attempts.** Read `python tools/re/attempts.py show ADDR` before retrying any function (rows and
 stashed forms in `docs/data/attempts.csv`, `docs/attempts/<ADDR>/`; `attempts.py check FILES` before
 committing a retry); record every near miss you abandon (`attempts.py record ADDR ... --status
-partial|parked|blocked`, with the forms tried and `explain.py`'s class as `--blocker`).
+partial|parked|blocked`, with the forms tried and `explain.py`'s class as `--blocker`). A function too short for the matcher
+but byte-identical to the client (objdiff 0 rows) gets an exact row (D99). Before a register residue is marked
+LIMIT REACHED, its second round includes a tryv2 sweep of loop forms in the inlined helpers it calls (D98).
 
 **Build VMs (D30, D31).** Lease from the pool (`python tools/vc6/pool.py lease ...`, or
 `importer.py verify --pool K`); release everything you leased before you finish. Never use the
@@ -97,7 +99,7 @@ ADDR`, REA last (5 minutes of start-up).
 
 | Role | Model | Why |
 |---|---|---|
-| Coordinator | Fable | the user's choice |
+| Coordinator | Opus | the user's choice (D96, after D93's evaluation) |
 | Builders: verify loops, byte matching, RE, programs | **Opus** (default) | their tokens are mostly tool output; a stronger model doesn't cut the iteration count |
 | A reasoning puzzle with small input (an inline-budget, frame or shape near-miss) **after two failed Opus attempts**, under D89's limits (never a register-only or order-only residue; one Fable round per function, 8 forms, 4 functions per session, 6 in the queue, one Fable builder at a time; `attempts.py show` says LIMIT REACHED); or a one-shot analysis whose wrong answer would cost a builder run | Fable | the only cases where the expected total is lower |
 | Read-only audits, cross-referencing, doc moves, log digging, generator reruns: anything a tool checks afterwards (verify, names.py, a diff); Explore agents | Sonnet | cheap, and the check catches mistakes |
