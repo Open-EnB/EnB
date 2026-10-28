@@ -25,8 +25,10 @@ first, and its credits feed D80's next round like any exact function.
 What neither resolves gets the object's client range (D100, P-P6-1): of the survivors, the one
 address inside the object's own range (first..last address of its exact functions that are its
 alone: not COMDAT copies of inline, template or compiler-generated functions, which the linker
-may place with another object) is credited, `exact` with `tiebreak` and `range` set. It runs only
-when D80 and the self name resolve nothing more; its credits feed D80's next round.
+may place with another object) is credited, `exact` with `tiebreak` and `range` set. The range
+also covers the object's exact COMDATs that no other object is exact at, within 0x1000 bytes of
+either end of that own range (D114(b), P-M1-2). It runs only when D80 and the self name resolve
+nothing more; its credits feed D80's next round.
 
     python objmatch.py [--client PATH] [--json OUT] file.obj...
 """
@@ -464,6 +466,21 @@ def match_objects(img, paths, region=None):
                     a = int(r['addresses'][0], 16)
                     lo, hi = ranges.get(id(obj), (a, a))
                     ranges[id(obj)] = (min(lo, a), max(hi, a))
+            # D114(b): an exact COMDAT that only this object is exact at, within RANGE_GAP of either
+            # end of the object's own range, widens it (the linker placed that copy with this object)
+            holders = collections.defaultdict(set)
+            for r, obj, sec, s, length in results:
+                if r['status'] == 'exact':
+                    holders[int(r['addresses'][0], 16)].add(id(obj))
+            wide = dict(ranges)
+            for r, obj, sec, s, length in results:
+                if r['status'] == 'exact' and not obj.own(sec) and id(obj) in ranges:
+                    a = int(r['addresses'][0], 16)
+                    lo, hi = ranges[id(obj)]
+                    if holders[a] == {id(obj)} and lo - RANGE_GAP <= a <= hi + RANGE_GAP:
+                        wlo, whi = wide[id(obj)]
+                        wide[id(obj)] = (min(wlo, a), max(whi, a))
+            ranges = wide
         for item in pending:
             r, obj, sec, s, length, hits = item
             if id(r) in done:
@@ -510,6 +527,9 @@ def match_objects(img, paths, region=None):
         elif phase == 'selfname':
             phase, changed = 'range', True          # neither D80 nor the self name: one range round
     return [x[0] for x in results]
+
+
+RANGE_GAP = 0x1000   # D114(b): how far beyond its own range an object's lone exact COMDAT may lie
 
 
 def main():
