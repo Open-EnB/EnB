@@ -1627,10 +1627,13 @@ msg 754 MESSAGE_STRING (29) size 58: cpacket.cpp's handler
 stub SClient::Unknown_74D990 0x0 'We have entered Glory's Orbit (Beta Hydri System).' 0
 msg 755 CAMERA_CONTROL (146) size 12: cpacket.cpp's handler
 gen CameraManagerClass::Unknown_79B2B0
+msg 756 CLIENT_CHAT_EVENT (165) size 49: cpacket.cpp's handler
 msg 757 AUX_DATA (27) size 81: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 71 bytes
+msg 759 CLIENT_CHAT_EVENT (165) size 76: cpacket.cpp's handler
 msg 760 CLIENT_SOUND (106) size 30: cpacket.cpp's handler
 stub SoundManagerClass::Unknown_75B0D0 'Device_Installed' 0
+msg 761 CLIENT_CHAT_EVENT (165) size 99: cpacket.cpp's handler
 msg 762 OBJECT_EFFECT (9) size 23: cpacket.cpp's handler
 stub Unknown_6E9490 desc 214 effect 48901062 duration 0 time 2142310900 scale 1.00 hsv (60.00 0.00 0.00) 1.00 -1 0
 stub Unknown6E9490TargetClass::Unknown_28 48900994
@@ -1752,6 +1755,7 @@ msg 808 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 stub Unknown714B50Class::Unknown714B50Class 38863 (95843.24 -41856.45 377.65)
 msg 809 AUX_DATA (27) size 31: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 21 bytes
+msg 810 CLIENT_CHAT_EVENT (165) size 61: cpacket.cpp's handler
 mainview add 38855
 msg 812 RELATIONSHIP (137) size 13: cpacket.cpp's handler
 gen Unknown_4F7EF0
@@ -2153,6 +2157,5 @@ recorded CREATE (4) x202
 recorded START (5) x1
 recorded OBJECT_TO_OBJECT_EFFECT (11) x1
 recorded CLIENT_SET_TIME (52) x3
-recorded CLIENT_CHAT_EVENT (165) x4
-recorded 211, through cpacket.cpp's handlers 789
+recorded 207, through cpacket.cpp's handlers 793
 == done: 0 checks failed

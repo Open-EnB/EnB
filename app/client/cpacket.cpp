@@ -2409,368 +2409,368 @@ bool NoteListPacketClass::Process_Packet(void *instance)
 	return(true);
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// What the chat panel's +0xD8 points to, as far as CLIENT_CHAT_EVENT 165 calls it
+class UIChatPanelUnknownD8Class	// NAME 1: neutral (D10)
+{
+public:
+	void Unknown_5DA780(std::string name);				// 0x5DA780 (CLIENT_CHAT_EVENT 165, event 19 'is now ignoring')  // NAME 1 [name]: the event's Unknown54
+	void Unknown_5DA8C0(std::string name);				// 0x5DA8C0 (CLIENT_CHAT_EVENT 165, event 20 'is no longer ignoring')  // NAME 1 [name]: the event's Unknown54
+};
+
+class UIFriendsClass	// NAME 3: class-from-file (D24) for app\client\ui_friends.cpp
+{
+public:
+	void Unknown_5916B0(std::string name, std::string other);	// 0x5916B0 (CLIENT_CHAT_EVENT 165, event 21 'is now friends with')  // NAME 1 [name, other]: the event's Unknown54, Unknown64
+	void Unknown_591880(std::string name);				// 0x591880 (CLIENT_CHAT_EVENT 165, event 22 'is no longer friends with')  // NAME 1 [name]: the event's Unknown54
+};
+
+// What the chat panel's +0xE4 points to, as far as CLIENT_CHAT_EVENT 165 calls it
+class UIChatPanelUnknownE4Class	// NAME 1: neutral (D10)
+{
+public:
+	void Unknown_5E8FF0(std::string name, bool flag);	// 0x5E8FF0 (CLIENT_CHAT_EVENT 165, event 7, 1 last)  // NAME 1 [name, flag]: neutral
+	void Unknown_5E9160(std::string name, bool flag);	// 0x5E9160 (CLIENT_CHAT_EVENT 165, events 8, 16, 18, 1 last)  // NAME 1 [name, flag]: neutral
+
+	char Unknown00[0xA0];
+	int UnknownA0;										// +0xA0 (events 16 and 18 test it for 1)
+};
+
+// What the chat panel's +0xE8 points to, as far as CLIENT_CHAT_EVENT 165 calls it
+class UIChatPanelUnknownE8Class	// NAME 1: neutral (D10)
+{
+public:
+	void Unknown_5E5EF0(std::string name);				// 0x5E5EF0 (CLIENT_CHAT_EVENT 165, event 7)  // NAME 1 [name]: neutral
+	void Unknown_5E6030(std::string name);				// 0x5E6030 (CLIENT_CHAT_EVENT 165, events 8, 16, 18)  // NAME 1 [name]: neutral
+};
+
+// What the chat panel's +0xE0 points to (as sclient.cpp's view)
+class UIChatPanelUnknownE0Class	// NAME 1: neutral (D10)
+{
+public:
+	void Unknown_81BF40();								// 0x81BF40 (0x750210; CLIENT_CHAT_EVENT 165 on 'guild')
+
+	char Unknown00[0x7C];
+	bool Unknown7C;										// +0x7C (tested before every call)
+};
+
+// The chat panel (ui_chat_panel.cpp; constructor 0x561DD0, 0x268 bytes), as far as CLIENT_CHAT_EVENT 165 uses it
+class UIChatPanelClass	// NAME 3: class-from-file (D24) for app\client\ui_chat_panel.cpp
+{
+public:
+	void Unknown_563910(unsigned id, bool flag);		// 0x563910 (CLIENT_CHAT_EVENT 165: the sender's game id, 0)  // NAME 1 [id, flag]: what it gets
+	void Unknown_565D80(const char *name);				// 0x565D80 (CLIENT_CHAT_EVENT 165: the private sender)  // NAME 1 [name]: the event's Unknown14
+	void Unknown_5679A0(int event, const std::string &channel, const std::string &name, bool flag);	// 0x5679A0 (CLIENT_CHAT_EVENT 165, events 7, 8, 9, 23, 24)  // NAME 1 [event, channel, name, flag]: what the handler passes
+
+	char Unknown00[0xD8];
+	UIChatPanelUnknownD8Class *UnknownD8;				// +0xD8
+	UIFriendsClass *Friends;							// +0xDC (ui_friends.cpp's 0x5916B0 / 0x591880)  // NAME 3: its methods' file
+	UIChatPanelUnknownE0Class *UnknownE0;				// +0xE0
+	UIChatPanelUnknownE4Class *UnknownE4;				// +0xE4
+	UIChatPanelUnknownE8Class *UnknownE8;				// +0xE8
+};
+
+class UIGroupClass	// NAME 3: class-from-file (D24) for app\client\ui_group.cpp
+{
+public:
+	void Unknown_597080(const char *text, const char *name, int index);	// 0x597080 (CLIENT_CHAT_EVENT 165: a 'group' message '<S>n name`text')  // NAME 1 [text, name, index]: the message's parts
+};
+
+
+
+
+
+
+
+
+
+
+
+// NOT EXACT: inline-budget (1,638 instructions vs the client's 1,615: the client calls std::string's range constructor 0x73F680 out of line and inlines other std::string members elsewhere; frame 0x568 vs 0x558; attempts.py show 0x73B150)
+// 0x73B150
+bool ClientChatEventPacketClass::Process_Packet(void *instance)
+{
+	WWPROFILE("ClientChatEventPacketClass::Process_Packet()");
+	SClient *sclient = (SClient *)instance;
+	FAIL_IF(!sclient) return(true);
+	if (Unknown0C == 3 && !strnicmp(Unknown44.c_str(), "group", 5)) {
+		const char *message = Unknown54.c_str();
+		int index;
+		if (message[0] == '<' && message[1] == 'S' && message[2] == '>' && message[3] && (index = message[3] - '0') >= 0 && index <= 1) {
+			const char *end = strchr(message + 4, '`');
+			if (end) {
+				std::string name(message + 4, end);
+				if (sclient->MainView->Group) {
+					sclient->MainView->Group->Unknown_597080(end + 1, name.c_str(), index);
+				}
+				return(true);
+			}
+		}
+	}
+	UIChatPanelClass *panel = sclient->ChatPanel.Peek();
+	if (!panel) return(true);
+	UIChatPanelUnknownD8Class *d8 = panel->UnknownD8;
+	UIFriendsClass *friends = panel->Friends;
+	UIChatPanelUnknownE4Class *e4 = panel->UnknownE4;
+	UIChatPanelUnknownE8Class *e8 = panel->UnknownE8;
+	std::string channel(Unknown44);
+	unsigned pos = channel.find('`');
+	if (pos != std::string::npos) channel.resize(pos);
+	const char *from = Unknown24.c_str();
+	const char *name = Unknown14.c_str();
+	const char *target = Unknown34.c_str();
+	const char *chan = channel.c_str();
+	const char *text = Unknown54.c_str();
+	char buffer[1024];
+	buffer[0] = 0;
+	switch (Unknown0C) {
+		case 1:
+			_snprintf(buffer, sizeof(buffer), "%s logged in.", from);
+			sclient->Unknown_74D990(0, buffer, 0);
+			return(true);
+		case 2:
+			_snprintf(buffer, sizeof(buffer), "%s logged out.", from);
+			sclient->Unknown_74D990(0, buffer, 0);
+			return(true);
+		case 3:
+			if (!strnicmp(chan, "Sector", 6)) {
+				sclient->Unknown_74D990(2, (char *)text, 0);
+				sclient->Unknown_750F70(name, 2);
+			} else if (!strnicmp(chan, "Group", 5)) {
+				_snprintf(buffer, sizeof(buffer), "[%s] %s: %s", chan, from, text);
+				sclient->Unknown_74D990(4, buffer, 0);
+				sclient->Unknown_750F70(name, 4);
+			} else if (!strnicmp(chan, "Guild", 5)) {
+				_snprintf(buffer, sizeof(buffer), "[%s] %s: %s", chan, from, text);
+				sclient->Unknown_74D990(8, buffer, 0);
+				sclient->Unknown_750F70(name, 8);
+			} else {
+				_snprintf(buffer, sizeof(buffer), "[%s] %s: %s", chan, from, text);
+				if (!stricmp(chan, "General")) {
+					sclient->Unknown_750F70(name, 9);
+				} else if (!stricmp(chan, "Out of Context")) {
+					sclient->Unknown_750F70(name, 10);
+				} else if (!stricmp(chan, "Market")) {
+					sclient->Unknown_750F70(name, 12);
+				} else if (!stricmp(chan, "New Players")) {
+					sclient->Unknown_750F70(name, 11);
+				} else if (atoi(chan) > 0) {
+					sclient->Unknown_750F70(name, 13);
+				} else if (!stricmp(chan, "Terran") || !stricmp(chan, "Jenquai") || !stricmp(chan, "Progen")) {
+					sclient->Unknown_750F70(name, 14);
+				} else {
+					sclient->Unknown_750F70(name, 15);
+				}
+				break;
+			}
+			return(true);
+		case 4:
+			if (name) {
+				Unknown77E3F0Class *avatar;
+				ClientObjectClass *object;
+				unsigned id;
+				if (Unknown78 && (object = sclient->Find_Object(name)) != NULL && (avatar = sclient->Unknown_74C840(id = object->GameID)) != NULL) {
+					avatar->Unknown_784B80(Unknown74, Unknown78, true);
+					if (sclient->DebugObjectID == id) return(true);
+					if (sclient->ChatPanel) {
+						sclient->ChatPanel->Unknown_563910(id, false);
+					}
+					if (sclient->DebugObjectID == id) return(true);
+					if (!avatar->Unknown_7817E0()->Unknown_0C()) return(true);
+					_snprintf(buffer, sizeof(buffer), "%s (private): %s", from, text);
+				} else {
+					panel->Unknown_565D80(Unknown14.c_str());
+					_snprintf(buffer, sizeof(buffer), "%s (private): %s", from, text);
+				}
+				sclient->Unknown_74D990(3, buffer, 0);
+				sclient->Unknown_750F70(name, 3);
+				SoundLibraryClass::Play_2D_Sound("private_message_beep", 2);
+				if (sclient->ChatPanel) {
+					sclient->ChatPanel->Unknown_565D80(name);
+				}
+			}
+			return(true);
+		case 5:
+			sclient->Unknown_74D990(7, (char *)text, 0);
+			sclient->Unknown_750F70(name, 7);
+			return(true);
+		case 6:
+			_snprintf(buffer, sizeof(buffer), "[system] %s: %s", from, text);
+			break;
+		case 7:
+			if (strnicmp(chan, "Sector", 6)) {
+				panel->Unknown_5679A0(7, std::string(chan), std::string(name), Unknown10 != 0);
+				if (e8) {
+					e8->Unknown_5E5EF0(Get_Unknown14());
+				} else if (e4) {
+					e4->Unknown_5E8FF0(Get_Unknown14(), true);
+				}
+				if (!stricmp(chan, "guild")) {
+					if (sclient->Unknown_728300() && sclient->ChatPanel && sclient->ChatPanel->UnknownE0 && sclient->ChatPanel->UnknownE0->Unknown7C) {
+						sclient->ChatPanel->UnknownE0->Unknown_81BF40();
+					}
+				}
+			}
+			return(true);
+		case 8:
+			if (strnicmp(chan, "Sector", 6)) {
+				panel->Unknown_5679A0(8, std::string(chan), std::string(name), Unknown10 != 0);
+				if (e8) {
+					e8->Unknown_5E6030(Get_Unknown14());
+				} else if (e4) {
+					e4->Unknown_5E9160(Get_Unknown14(), true);
+				}
+				if (!stricmp(chan, "guild")) {
+					if (sclient->Unknown_728300() && sclient->ChatPanel && sclient->ChatPanel->UnknownE0 && sclient->ChatPanel->UnknownE0->Unknown7C) {
+						sclient->ChatPanel->UnknownE0->Unknown_81BF40();
+					}
+				}
+			}
+			return(true);
+		case 9:
+			panel->Unknown_5679A0(9, std::string(chan), std::string(""), Unknown10 != 0);
+			_snprintf(buffer, sizeof(buffer), "[%s] New Channel Created.", chan);
+			if (sclient->LineDisplay) {
+				char line[128];
+				_snprintf(line, sizeof(line), "You have joined channel %s", chan);
+				sclient->LineDisplay->Add_Line_7(line, 3000, "MessageLine");
+			}
+			break;
+		case 11:
+			_snprintf(buffer, sizeof(buffer), "%s removed channel %s.", from, chan);
+			break;
+		case 12:
+			_snprintf(buffer, sizeof(buffer), "[%s] %s invited %s.", chan, from, text);
+			break;
+		case 13:
+			_snprintf(buffer, sizeof(buffer), "[%s] %s uninvited %s.", chan, from, text);
+			break;
+		case 14:
+			_snprintf(buffer, sizeof(buffer), "[%s] %s gagged %s.", chan, from, text);
+			break;
+		case 15:
+			_snprintf(buffer, sizeof(buffer), "[%s] %s ungagged %s.", chan, from, text);
+			break;
+		case 16:
+			if (e4 && e4->UnknownA0 == 1) {
+				e4->Unknown_5E9160(Get_Unknown54(), true);
+			}
+			if (e8) {
+				e8->Unknown_5E6030(Get_Unknown54());
+			}
+			_snprintf(buffer, sizeof(buffer), "[%s] %s banned %s.", chan, from, text);
+			break;
+		case 17:
+			_snprintf(buffer, sizeof(buffer), "[%s] %s unbanned %s.", chan, from, text);
+			break;
+		case 18:
+			if (e4 && e4->UnknownA0 == 1) {
+				e4->Unknown_5E9160(Get_Unknown54(), true);
+			}
+			if (e8) {
+				e8->Unknown_5E6030(Get_Unknown54());
+			}
+			_snprintf(buffer, sizeof(buffer), "[%s] %s kicked %s.", chan, from, target);
+			break;
+		case 19:
+			if (d8) {
+				d8->Unknown_5DA780(Get_Unknown54());
+			}
+			_snprintf(buffer, sizeof(buffer), "%s is now ignoring %s.", from, text);
+			sclient->Unknown_74D990(0, buffer, 0);
+			return(true);
+		case 20:
+			if (d8) {
+				d8->Unknown_5DA8C0(Get_Unknown54());
+			}
+			_snprintf(buffer, sizeof(buffer), "%s is no longer ignoring %s.", from, text);
+			sclient->Unknown_74D990(0, buffer, 0);
+			return(true);
+		case 21:
+			if (friends) {
+				friends->Unknown_5916B0(Get_Unknown54(), Get_Unknown64());
+			}
+			_snprintf(buffer, sizeof(buffer), "%s is now friends with %s.", from, text);
+			sclient->Unknown_74D990(0, buffer, 0);
+			return(true);
+		case 22:
+			if (friends) {
+				friends->Unknown_591880(Get_Unknown54());
+			}
+			_snprintf(buffer, sizeof(buffer), "%s is no longer friends with %s.", from, text);
+			sclient->Unknown_74D990(0, buffer, 0);
+			return(true);
+		case 23:
+			panel->Unknown_5679A0(23, std::string(chan), std::string(target), Unknown10 != 0);
+			if (*from) {
+				_snprintf(buffer, sizeof(buffer), "[%s] %s added %s to the channel owner list.", chan, from, target);
+			} else {
+				_snprintf(buffer, sizeof(buffer), "[%s] The system has added %s to the channel owner list.", chan, target);
+			}
+			break;
+		case 24:
+			panel->Unknown_5679A0(24, std::string(chan), std::string(target), Unknown10 != 0);
+			if (*from) {
+				_snprintf(buffer, sizeof(buffer), "[%s] %s removed %s from the channel owner list.", chan, from, target);
+			} else {
+				_snprintf(buffer, sizeof(buffer), "[%s] The system has removed %s from the channel owner list.", chan, target);
+			}
+			break;
+		case 25:
+			_snprintf(buffer, sizeof(buffer), "Only members of your Friends List may see if you are online.");
+			sclient->Unknown_74D990(19, buffer, 0);
+			return(true);
+		case 26:
+			_snprintf(buffer, sizeof(buffer), "All players may see you on their Friends List.");
+			sclient->Unknown_74D990(19, buffer, 0);
+			return(true);
+		case 27:
+			_snprintf(buffer, sizeof(buffer), "%s has been gagged by GM %s.", text, name);
+			sclient->Unknown_74D990(0, buffer, 0);
+			return(true);
+		case 28:
+			_snprintf(buffer, sizeof(buffer), "GM %s has removed the gag on %s.", name, text);
+			sclient->Unknown_74D990(0, buffer, 0);
+			return(true);
+		default:
+			return(true);
+	}
+	if (buffer[0]) {
+		if (!stricmp(chan, "General")) {
+			sclient->Unknown_74D990(9, buffer, 0);
+		} else if (!stricmp(chan, "Out of Context")) {
+			sclient->Unknown_74D990(10, buffer, 0);
+		} else if (!stricmp(chan, "Market")) {
+			sclient->Unknown_74D990(12, buffer, 0);
+		} else if (!stricmp(chan, "New Players")) {
+			sclient->Unknown_74D990(11, buffer, 0);
+		} else if (atoi(chan) > 0) {
+			sclient->Unknown_74D990(13, buffer, 0);
+		} else if (!stricmp(chan, "Terran") || !stricmp(chan, "Jenquai") || !stricmp(chan, "Progen")) {
+			sclient->Unknown_74D990(14, buffer, 0);
+		} else {
+			sclient->Unknown_74D990(15, buffer, 0);
+		}
+	}
+	return(true);
+}
+
+// 0x73CC30 (out of line: defined after their caller)
+const std::string &ClientChatEventPacketClass::Get_Unknown14()
+{
+	return(Unknown14);
+}
+
+// 0x73CC50
+const std::string &ClientChatEventPacketClass::Get_Unknown54()
+{
+	return(Unknown54);
+}
+
+// 0x73CC70
+const std::string &ClientChatEventPacketClass::Get_Unknown64()
+{
+	return(Unknown64);
+}
 
 
 

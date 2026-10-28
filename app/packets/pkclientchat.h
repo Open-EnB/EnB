@@ -72,7 +72,7 @@ public:
 	ClientChatEventPacketClass(RawPacketClass *raw);	// 0x8790B0
 	virtual ~ClientChatEventPacketClass();	// +0x00 0x879080 / 0x879280
 	virtual RawPacketClass *Build();	// +0x04 0x879430
-	virtual bool Process_Packet(void *client);	// +0x08 0x73B150 (not rebuilt)
+	virtual bool Process_Packet(void *client);	// +0x08 0x73B150 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x879570
 	virtual int Print(char *buffer, int len);	// +0x10 0x8795F0 (the class name: 'ClientChatEventPacketClass')
 
@@ -87,6 +87,10 @@ public:
 	char *Unknown74;	// +0x74 (new[] Unknown78 bytes when Unknown78 isn't 0)
 	int Unknown78;	// +0x78 (the bytes at Unknown74)
 	bool Unknown7C;	// +0x7C (Unknown74 is the packet's: the destructor deletes it)
+
+	const std::string &Get_Unknown14();	// 0x73CC30 (cpacket.cpp, out of line)  // NAME 1: neutral (D10): the member it returns
+	const std::string &Get_Unknown54();	// 0x73CC50 (cpacket.cpp, out of line)  // NAME 1: neutral (D10): the member it returns
+	const std::string &Get_Unknown64();	// 0x73CC70 (cpacket.cpp, out of line)  // NAME 1: neutral (D10): the member it returns
 };
 
 // opcode 164 (0x00A4, CLIENT_CHAT_LIST): vtable 0xB09EA0, constructor 0x879850, 0x40 bytes

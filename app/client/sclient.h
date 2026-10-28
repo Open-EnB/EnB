@@ -40,6 +40,7 @@ class Render2DTextClass;
 class MusicManagerClass;		// NAME 3: class-from-file (D24) for audio\musicmanager.cpp (constructor 0x439E40, 0x1FC bytes)
 class CameraManagerClass;		// NAME 3: class-from-file (D24) for camera_manager.cpp (constructor 0x798D20, 0x4C bytes)
 class UIChatPanelClass;			// NAME 3: class-from-file (D24) for ui_chat_panel.cpp (constructor 0x561DD0, 0x268 bytes)
+class UIGroupClass;			// NAME 3: class-from-file (D24) for ui_group.cpp (the main view's +0x1D8; cpacket.cpp: CLIENT_CHAT_EVENT 165)
 class UILineDisplayClass;		// NAME 3: class-from-file (D24) for ui_line_display.cpp (constructor 0x5A5410, 0x100 bytes)
 class PDAInterfaceClass;		// NAME 3: class-from-file (D24) for pdaint.cpp (constructor 0x693140, 0xC0 bytes)
 class BridgeInterfaceClass;		// NAME 3: class-from-file (D24) for bridge_int.cpp (constructor 0x53B040, 0xC4 bytes)
@@ -194,7 +195,9 @@ public:
 	MainViewUnknown13CClass *Unknown13C;				// +0x13C (SERVER_PARAMETERS 66 copies its +0x90 to the client's +0x1144 in view mode 1)
 	char Unknown140[0x1D0 - 0x140];						// +0x140
 	UICpitClass *Cpit;									// +0x1D0 (cpacket.cpp: LOOT_HULK_PERMISSION 140, OPEN_INTERFACE 102)  // NAME 3: its file's (ui_cpit.cpp)
-	char Unknown1D4[0x1EC - 0x1D4];						// +0x1D4
+	char Unknown1D4[0x1D8 - 0x1D4];						// +0x1D4
+	UIGroupClass *Group;								// +0x1D8 (cpacket.cpp: CLIENT_CHAT_EVENT 165's group messages)  // NAME 3: its file's (ui_group.cpp)
+	char Unknown1DC[0x1EC - 0x1DC];						// +0x1DC
 };
 
 // loadingview.cpp's view (constructor 0x691570, 0x6C bytes)
@@ -239,10 +242,22 @@ public:
 	Vector3 Unknown00[24];								// +0x00  // NAME 2: what the constructor writes
 };
 
+// The +0xE8 member of what 0x77E610 returns (0x7817E0), as far as cpacket.cpp calls it
+class Unknown77E3F0E8Class	// NAME 1: neutral (D10)
+{
+public:
+	virtual void Unknown_00();
+	virtual void Unknown_04();
+	virtual void Unknown_08();
+	virtual bool Unknown_0C();							// +0x0C (CLIENT_CHAT_EVENT 165 shows a private message only when true)
+};
+
 // What the +0x1394 values' 0x77E3F0 / 0x77E610 return, as far as SClient calls it
 class Unknown77E3F0Class	// NAME 1: neutral (D10)
 {
 public:
+	void Unknown_784B80(char *data, int size, bool flag);	// 0x784B80 (avatar.cpp; cpacket.cpp: CLIENT_CHAT_EVENT 165 passes Unknown74, Unknown78, 1)  // NAME 1 [data, size, flag]: what the handler passes
+	Unknown77E3F0E8Class *Unknown_7817E0();			// 0x7817E0 (avatar.cpp: returns this + 0xE8)
 	void Unknown_780810(SClientUnknown1338Class *unknown);	// 0x780810 (SClient 0x74C7B0 / 0x74C840 / 0x74C8D0 pass Unknown1338)  // NAME 1 [unknown]: neutral
 };
 
@@ -345,6 +360,7 @@ public:
 	void Unknown_745F30(int type);						// 0x745F30 (cpacket.cpp: CLIENT_TYPE 60 passes 0, 1 or 5 for the packet's Type 0, 1 or 2)  // NAME 1 [type]: what the handler passes
 	void Unknown_74B680(int a, int starbase_id);		// 0x74B680 (cpacket.cpp: starbase tow 80 passes 0 and StarbaseID1)  // NAME 1 [a, starbase_id]: what the handler passes
 	void Unknown_74BA30(int a, int starbase_id, int mode);	// 0x74BA30 (cpacket.cpp: STARBASE_SET 79 passes 0, StarbaseID and 0 / 1 / 5 by its exit mode)  // NAME 1 [a, starbase_id, mode]: what the handler passes
+	void Unknown_750F70(const char *name, int channel);	// 0x750F70 (cpacket.cpp: CLIENT_CHAT_EVENT 165, the sender and 2..15 by the channel)  // NAME 1 [name, channel]: what the handler passes
 	void Unknown_74D990(int color, char *text, int a);	// 0x74D990 (cpacket.cpp: MESSAGE_STRING 29 passes 0 last)  // NAME 1 [color, text, a]: what the handler passes
 	void Unknown_74E710(const std::string &message, int id, int type);	// 0x74E710 (cpacket.cpp: CONFIRMED_ACTION_OFFER 190)  // NAME 1 [message, id, type]: the packet's fields
 	void Unknown_74EB00(int type, int id);				// 0x74EB00 (cpacket.cpp: the confirmed action's timeout 191)  // NAME 1 [type, id]: the packet's fields
