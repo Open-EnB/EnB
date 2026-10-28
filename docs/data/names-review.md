@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 34 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 36 |
-| 3 | by convention from a client-named file or sibling | 838 |
-| 2 | describes what the code does | 1956 |
-| 1 | neutral placeholder | 3588 |
+| 3 | by convention from a client-named file or sibling | 839 |
+| 2 | describes what the code does | 1955 |
+| 1 | neutral placeholder | 3592 |
 
 ## For review (score 3 and below)
 
@@ -1524,7 +1524,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown00` | `app/client/tasks/tsk_login.cpp:40` | untagged neutral name (D10) |
 | 1 | `Unknown_723150` | `app/client/tasks/tsk_login.cpp:41` | neutral (D10); the destructor calls it |
 | 1 | `Unknown_BB9654` | `app/client/tasks/tsk_login.cpp:42` | neutral (D10); Accept_Focus clears it |
-| 1 | `Error, Message` | `app/client/tasks/tsk_login.cpp:43` | the log 'GlobalErrorPacketClass recv: %d : %d : %s' |
 | 1 | `Galaxies` | `app/client/tasks/tsk_login.cpp:47` | copied to the task's |
 | 1 | `Unknown_7E5F70` | `app/client/tasks/tsk_login.cpp:48` | neutral (D10); once, by the first LoginTaskClass(mode) |
 | 1 | `Unknown_7228C0` | `app/client/tasks/tsk_login.cpp:49` | neutral (D10) |
@@ -2188,9 +2187,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_Create_Packet` | `app/packets/pk.h:127` | what it does |
 | 1 | `Unknown_869790` | `app/packets/pk.h:130` | neutral (D10) |
 | 1 | `pk_classes.h` | `app/packets/pk_classes.h:17` | provisional file name (D37) |
-| 1 | `Unknown0C` | `app/packets/pk_classes.h:184` | untagged neutral name (D10) |
-| 1 | `Error` | `app/packets/pk_classes.h:185` | the log 'GlobalErrorPacketClass recv: %d : %d : %s' (tsk_login.cpp) |
-| 1 | `std:` | `app/packets/pk_classes.h:186` | the same log |
+| 1 | `Unknown0C` | `app/packets/pk_classes.h:183` | untagged neutral name (D10) |
 | 1 | `Unknown_14` | `app/packets/pk_player_object_relationship.cpp:12` | untagged neutral name (D10) |
 | 1 | `std:` | `app/packets/pk_player_object_relationship.cpp:85` | neutral (D10) |
 | 1 | `Unknown_8743C0` | `app/packets/pk_player_object_relationship.cpp:85` | untagged neutral name (D10) |
@@ -2374,6 +2371,13 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `slot` | `app/packets/pkglobaldeletecharacter.h:24` | the login task's selected slot |
 | 1 | `Unknown0C` | `app/packets/pkglobaldeletecharacter.h:31` | untagged neutral name (D10) |
 | 1 | `Unknown10` | `app/packets/pkglobaldeletecharacter.h:32` | neutral (D10) |
+| 1 | `xBB25F0` | `app/packets/pkglobalerror.cpp:5` | what it holds |
+| 1 | `Unknown` | `app/packets/pkglobalerror.cpp:23` | untagged neutral name (D10) |
+| 1 | `Unknown0C` | `app/packets/pkglobalerror.cpp:29` | untagged neutral name (D10) |
+| 1 | `pkglobalerror` | `app/packets/pkglobalerror.h:15` | provisional, pk + its class's name |
+| 1 | `Unknown0C` | `app/packets/pkglobalerror.h:32` | untagged neutral name (D10) |
+| 1 | `Error` | `app/packets/pkglobalerror.h:33` | the log 'GlobalErrorPacketClass recv: %d : %d : %s' (tsk_login.cpp) |
+| 1 | `std:` | `app/packets/pkglobalerror.h:34` | the same log |
 | 1 | `Unknown10` | `app/packets/pkgloballock.cpp:5` | untagged neutral name (D10) |
 | 1 | `Unknown18` | `app/packets/pkgloballock.cpp:5` | untagged neutral name (D10) |
 | 1 | `Unknown_28` | `app/packets/pkgloballock.cpp:15` | untagged neutral name (D10) |
@@ -4449,7 +4453,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Connection` | `app/packets/pk.h:120` | what it holds |
 | 2 | `Serial` | `app/packets/pk.h:121` | what it holds |
 | 2 | `Next_Serial` | `app/packets/pk.h:122` | what it holds |
-| 2 | `GlobalErrorPacketClass` | `app/packets/pk_classes.h:178` | the reference decoder's opcode name GLOBAL_ERROR (the Net-7 opcode table; no structure check) |
 | 2 | `std:` | `app/packets/pk_player_object_relationship.cpp:166` | what it holds |
 | 2 | `std:` | `app/packets/pk_player_object_relationship.cpp:167` | what it holds |
 | 2 | `std:` | `app/packets/pk_player_object_relationship.cpp:258` | what it holds |
@@ -5839,6 +5842,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `Data` | `app/packets/pkgalaxymap.h:36` | the client's Print text 'Data=' |
 | 3 | `Size` | `app/packets/pkgalaxymap.h:37` | the client's Print text 'Size=' |
 | 3 | `Channel` | `app/packets/pkgalaxymap.h:38` | the client's Print text 'Channel(PlayerID)=' |
+| 3 | `GlobalErrorPacketClass` | `app/packets/pkglobalerror.h:22` | the client's log 'GlobalErrorPacketClass recv: %d : %d : %s' (tsk_login.cpp) |
 | 3 | `GlobalLockPacketClass` | `app/packets/pkgloballock.h:23` | by convention from its derived classes' Print texts 'GlobalLock...' |
 | 3 | `GlobalLockRequestPacketClass` | `app/packets/pkgloballock.h:39` | the client's Print text 'GlobalLockRequest' |
 | 3 | `GlobalLockResponsePacketClass` | `app/packets/pkgloballock.h:53` | the client's Print text 'GlobalLockResponse' |

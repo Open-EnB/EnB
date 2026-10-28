@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-269 entries in 64 files.
+270 entries in 65 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -140,6 +140,7 @@ edit the comments in the code, not this file.
 | `app/packets/pkcolorization.cpp:62` | `ColorizationPacketClass::Print` | mention | NOT EXACT (parked, attempts.csv). * The file name is provisional (no assert names it). |
 | `app/packets/pkcreatecharacter.cpp:20` | `Packet_0048Class::Packet_0048Class` | marker | NOT EXACT: shape: the client calls AvatarDescClass's assignment out of line (0x85CB00, emitted in this object) and inlines ShipCustDescClass's (shipcust_desc.h declares it out of line, 0x55D8A0) |
 | `app/packets/pkglobalcreatecharacter.cpp:7` | `GlobalCreateCharacterPacketClass::GlobalCreateCharacterPacketClass` | marker | NOT EXACT: shape: the client copies ShipCustDescClass's 0x1A bytes at +0x14 in one loop; ours copies the bool / char union's first byte apart (shipcust_desc.h's layout: P-P8-1, as 0x85C800 and 0x8A0380 / 0x89FD80) |
+| `app/packets/pkglobalerror.cpp:27` | `GlobalErrorPacketClass::GlobalErrorPacketClass` | marker | NOT EXACT: 0x864A10, shape (explain.py: 31 masked rows; the client stores the vtable after the members, 159 against 164 instructions) |
 | `app/packets/pkloungenpc.cpp:10` | `LoungeNPCPacketClass::LoungeNPCPacketClass` | marker | NOT EXACT: inline budget (frame 0x170 against 0x168, one string destructor inlined that the client calls; attempts.csv) |
 | `app/packets/pkloungenpc.cpp:56` | `LoungeNPCPacketClass::Build` | marker | NOT EXACT: shape (the client keeps each list's byte offset in a stack slot; attempts.csv) |
 | `app/packets/pkloungenpc.cpp:151` | `LoungeNPCPacketClass::Add_Unknown30` | mention | NOT EXACT: the raw constructor (inline budget: frame and one string destructor) and Build (shape: the client's per-list offset slot), two rounds each (.work/p6/v82.py; attempts.csv). * The file name is provisional (no assert names it). |

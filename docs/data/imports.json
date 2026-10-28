@@ -3795,6 +3795,30 @@
     "merged": [],
     "name": "packets/pkglobaldeletecharacter.cpp"
    },
+   "pkglobalerror": {
+    "ambiguous": [
+     "0x42A6C0",
+     "0x42B2F0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42A820",
+     "0x42A970",
+     "0x42AB30",
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350",
+     "0x595410",
+     "0x864C90",
+     "0x864EB0",
+     "0x864FC0"
+    ],
+    "merged": [],
+    "name": "packets/pkglobalerror.cpp"
+   },
    "pkgloballock": {
     "ambiguous": [
      "0x42B2F0"
@@ -7893,6 +7917,7 @@
    "packets/pkglobalconnect.h": "reconstructed",
    "packets/pkglobalcreatecharacter.h": "reconstructed",
    "packets/pkglobaldeletecharacter.h": "reconstructed",
+   "packets/pkglobalerror.h": "reconstructed",
    "packets/pkgloballock.h": "reconstructed",
    "packets/pkgloballogin.h": "reconstructed",
    "packets/pkglobalticket.h": "reconstructed",
@@ -8039,7 +8064,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 3621,
+  "in_tree_total": 3624,
   "totals": {}
  },
  "binkmovie": {

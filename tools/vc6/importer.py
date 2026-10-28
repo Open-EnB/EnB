@@ -3740,6 +3740,8 @@ RECONSTRUCTED = {
     ('app', 'packets/gameedit/pkgeobj.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
     ('app', 'packets/gameedit/pkgeplan.cpp'): "packet classes (opcode 30025) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the client's file (its asserts' __FILE__; renamed from pkunknown_* under D95(c))",
     ('app', 'packets/gameedit/pkgeplan.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
+    ('app', 'packets/pkglobalerror.cpp'): "opcode 117's object, 0x864A10-0x864FF0 (no assert: the file name provisional, NAME 1): written by hand (builder P5)",
+    ('app', 'packets/pkglobalerror.h'): "its class (pk_classes.h and tsk_login.cpp include it)",
     ('app', 'packets/pkglobaldeletecharacter.cpp'): "packet classes (opcode 113) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
     ('app', 'packets/pkglobaldeletecharacter.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
     ('app', 'packets/pkunknown_866ac0.cpp'): "packet classes (opcode 120) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",

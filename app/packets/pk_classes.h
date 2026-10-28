@@ -54,6 +54,7 @@
 #include "pkglobalconnect.h"	// rebuilt
 #include "pkglobalcreatecharacter.h"	// rebuilt
 #include "pkglobaldeletecharacter.h"	// rebuilt
+#include "pkglobalerror.h"	// rebuilt
 #include "pkgloballock.h"	// rebuilt
 #include "pkgloballogin.h"	// rebuilt
 #include "pkglobalticket.h"	// rebuilt
@@ -172,18 +173,6 @@ public:
 	virtual bool Process_Packet(void *client);	// +0x08 0x736BA0 (cpacket.cpp)
 	virtual int Get_Type() { return(0x22); }	// +0x28 0x86E7E0
 	virtual const char *Get_Name() { return("PushMessage"); }	// +0x2C 0x86E800
-};
-
-// opcode 117 (0x0075, GLOBAL_ERROR): vtable 0xB09490, constructor 0x864C90, 0x24 bytes
-class GlobalErrorPacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name GLOBAL_ERROR (the Net-7 opcode table; no structure check)
-{
-public:
-	GlobalErrorPacketClass(RawPacketClass *raw);	// 0x864C90
-	virtual bool Process_Packet(void *client);	// +0x08 0x76B4A0 (tsk_login.cpp)
-
-	int Unknown0C;	// +0x0C
-	int Error;	// +0x10  // NAME 1: the log 'GlobalErrorPacketClass recv: %d : %d : %s' (tsk_login.cpp)
-	std::string Message;	// +0x14  // NAME 1: the same log
 };
 
 // opcode 91 (0x005B, ?): vtable 0xB0C268, constructor 0x8AF150, 0x20 bytes

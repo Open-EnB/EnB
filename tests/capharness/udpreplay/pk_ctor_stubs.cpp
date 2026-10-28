@@ -4,7 +4,6 @@
 
 void Conn_Record(PacketClass *packet, RawPacketClass *raw);
 
-GlobalErrorPacketClass::GlobalErrorPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 VerbListPacketClass::VerbListPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 
 // The rebuilt classes' Process_Packet defined in a file not rebuilt (cpacket.cpp, ...)
@@ -55,6 +54,7 @@ bool ClientShipPacketClass::Process_Packet(void *) { return(true); }	// 0x733660
 bool DialogPacketClass::Process_Packet(void *) { return(true); }	// 0x736DA0
 bool GlobalTicketPacketClass::Process_Packet(void *) { return(true); }	// 0x76B730
 bool GlobalAvatarListPacketClass::Process_Packet(void *) { return(true); }	// 0x76B520
+bool GlobalErrorPacketClass::Process_Packet(void *) { return(true); }	// 0x76B4A0
 bool GlobalLoginPacketClass::Process_Packet(void *) { return(true); }	// 0x76B9C0
 bool CreateAttachmentPacketClass::Process_Packet(void *) { return(true); }	// 0x733BB0
 bool ModeChangePacketClass::Process_Packet(void *) { return(true); }	// 0x738100
@@ -119,7 +119,6 @@ bool RecustomizeAvatarStartPacketClass::Process_Packet(void *) { return(true); }
 bool RecustomizeAvatarUpdatePacketClass::Process_Packet(void *) { return(true); }	// 0x73F5F0
 
 // What OVERRIDES declares out of line (the classes' own files, not rebuilt)
-bool GlobalErrorPacketClass::Process_Packet(void *) { return(true); }
 bool PriorityMessageLinePacketClass::Process_Packet(void *) { return(true); }
 bool QueueMessageLinePacketClass::Process_Packet(void *) { return(true); }
 bool PushMessageLinePacketClass::Process_Packet(void *) { return(true); }

@@ -40,7 +40,7 @@ Unknown_8190D0Class *Unknown_8190D0(int unknown);		// NAME 1 [Unknown_8190D0]: n
 class Unknown_6A9B60Class { public: Unknown_6A9B60Class(int unknown); ~Unknown_6A9B60Class(); void Unknown_6A9E40(); char Unknown00[0x10]; };	// NAME 1 [Unknown_6A9B60Class]: 0x10 bytes, constructor 0x6A9B60, destructor 0x6A9DB0
 void Unknown_723150();								// NAME 1 [Unknown_723150]: neutral (D10); the destructor calls it
 extern bool Unknown_BB9654;							// NAME 1 [Unknown_BB9654]: neutral (D10); Accept_Focus clears it
-class GlobalErrorPacketClass : public PacketClass { public: GlobalErrorPacketClass(RawPacketClass *raw); virtual bool Process_Packet(void *client); int Unknown0C; int Error; std::string Message; };	// opcode 117: 0x864C90, 0x24 bytes (pk_classes.h declares no fields)  // NAME 1 [Error, Message]: the log 'GlobalErrorPacketClass recv: %d : %d : %s'
+#include "..\..\packets\pkglobalerror.h"	// opcode 117 (GlobalErrorPacketClass, rebuilt there; this file's view before)
 #include "..\..\packets\pkglobalticket.h"	// opcode 111 (GLOBAL_TICKET)
 // opcode 118 (GlobalLoginPacketClass): pkgloballogin.h, included by tsk_login.h
 // opcode 119 (Packet_0077Class): pkunknown_866ac0.h, included above
