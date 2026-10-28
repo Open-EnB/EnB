@@ -439,3 +439,5 @@ date,address,symbol,file,library,status,score,forms,blocker,evidence,stash,model
 2026-10-28 05:09,0x6E5420,EffectObjectClass::Unknown_10,app/client/eff_o.cpp,app,exact,,1,,"D99: too short for the matcher, objdiff 0 rows (EF1; +0x10 / +0x14 inline in eff_o.h)",,opus
 2026-10-28 05:09,0x6E4860,EffectObjectClass::Unknown_14,app/client/eff_o.cpp,app,exact,,1,,"D99: too short for the matcher, objdiff 0 rows (EF1; +0x10 / +0x14 inline in eff_o.h)",,opus
 2026-10-28 05:09,0x6E6F10,EffectObjectClass::Unknown_0C,app/client/eff_o.cpp,app,exact,,5,,"EF1: flag 0x20 tested as (bool)Flag.Unknown5 (shr 5 / test 1); the plain bitfield, == 1, != 0 and (Flags >> 5) & 1 give test byte",,opus
+2026-10-28 05:23,0x6E7540,UnknownB00060EffectClass::UnknownB00060EffectClass,app/client/eff_o.cpp,app,parked,,6,order,"EF1: only the 1.0f load for Transform is scheduled before the +0x90 store; tried Matrix3D(true), (1), (Vector3(0,0,0)), Make_Identity in the body, SourceLego() named, Unknown90 first",,opus
+2026-10-28 05:23,0x6E4880,UnknownB00060EffectClass::Unknown_10,app/client/eff_o.cpp,app,exact,,1,,"D99: too short for the matcher, objdiff 0 rows (EF1; inline in eff_o.h)",,opus

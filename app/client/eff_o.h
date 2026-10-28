@@ -26,8 +26,11 @@
 #include "hashlist.h"
 #include "refcount.h"
 #include "vector3.h"
+#include "matrix3d.h"
+#include "..\common\lego_identifier.h"
 
 class ClientClass;
+class ClientObjectClass;
 class RenderObjClass;
 class CameraClass;
 class AudibleSoundClass;
@@ -105,8 +108,36 @@ public:
 			unsigned Unknown3 : 1;						// 0x08 (an SFX that triggers)
 			unsigned Unknown4 : 1;						// 0x10
 			unsigned Unknown5 : 1;						// 0x20 (PassDurationToStartLink)
+			unsigned Unknown6 : 1;						// 0x40
+			unsigned Unknown7 : 1;						// 0x80 (the unary end: TrackSource)
+			unsigned Unknown8 : 1;						// 0x100 (the unary end: GoAwayWhenSourceDoes)
 		} Flag;
 	};
+};
+
+// The unary end (vtable 0xB00060, 0xD8 bytes, constructor 0x6E7540; its destructor is the implicit one,
+// first emitted in eff_attach.cpp at 0x6E4970): an effect on one object or point. The object is SourceObject,
+// watched through SourceNode (slot +0x04 is the object's notice that it goes); Transform is where it plays.
+class UnknownB00060EffectClass : public EffectObjectClass	// NAME 1: neutral (D10)
+{
+public:
+	UnknownB00060EffectClass(ClientClass *client, unsigned id, unsigned start_time, unsigned duration, unsigned cycle_time);	// 0x6E7540  // NAME 1 [client .. cycle_time]: the base's
+	virtual void Unknown_04(int arg);					// +0x04 0x6E7690 (arg the node that goes: the source's, then flag 0x100 ends it)  // NAME 1 [arg]: the base's
+	virtual UnknownB00060EffectClass *Unknown_10() { return(this); }	// +0x10 0x6E4880
+	virtual void Unknown_18();							// +0x18 0x6E7850
+	virtual void Unknown_1C();							// +0x1C 0x6E7870 (with flag 0x80)
+	virtual void Unknown_24(int arg);					// +0x24 0x6E78A0  // NAME 1 [arg]: what it gets
+	virtual void Unknown_28(int game_id);				// +0x28 0x6E7770 ("Set_Source_Object_ID couldn't find the object!")  // NAME 1 [game_id]: OBJECT_EFFECT 9's GameID
+	virtual void Unknown_2C(const Matrix3D &transform) { Transform = transform; }	// +0x2C 0x6E48A0  // NAME 1 [transform]: POINT_EFFECT 10's location
+
+	void Unknown_6E7810(int game_id, const LegoIdentifierClass &lego);	// 0x6E7810 (no caller)  // NAME 1 [game_id, lego]: what it sets
+	void Unknown_6E7AA0();								// 0x6E7AA0 (the transform from the source's model: FAIL_IF '!SourceObject')
+
+	ClientObjectClass *SourceObject;					// +0x80  // NAME 3: 0x6E7AA0's FAIL_IF '!SourceObject'
+	::Node<UnknownB00060EffectClass *> SourceNode;		// +0x84 (vtable 0xAF0DDC)  // NAME 2: SourceObject's watch node
+	int Unknown90;										// +0x90
+	Matrix3D Transform;									// +0x94  // NAME 2: what it holds
+	LegoIdentifierClass SourceLego;						// +0xC4  // NAME 2: what it holds
 };
 
 void Unknown_6E6A90(EffectObjectClass *effect);		// 0x6E6A90: the effect ended if it runs, and deleted (SClient's Shutdown and Process_AI)

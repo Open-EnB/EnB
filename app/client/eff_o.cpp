@@ -283,6 +283,50 @@ void EffectObjectClass::Unknown_6E74B0(int arg)
 	}
 }
 
+// NOT EXACT: order-only (the client loads Transform's 1.0f after the +0x90 store; four forms: Matrix3D(true), (1), (Vector3(0, 0, 0)), Make_Identity in the body)
+// 0x6E7540
+UnknownB00060EffectClass::UnknownB00060EffectClass(ClientClass *client, unsigned id, unsigned start_time, unsigned duration, unsigned cycle_time) :
+	EffectObjectClass(client, id, start_time, duration, cycle_time),
+	SourceObject(NULL),
+	Unknown90(0),
+	Transform(true)
+{
+}
+
+// 0x6E7690
+void UnknownB00060EffectClass::Unknown_04(int arg)
+{
+	if ((::Node<UnknownB00060EffectClass *> *)arg == &SourceNode) {
+		SourceObject = NULL;
+		if ((bool)Flag.Unknown8) {
+			Unknown_6E6E30();
+		}
+	}
+}
+
+// 0x6E7810
+void UnknownB00060EffectClass::Unknown_6E7810(int game_id, const LegoIdentifierClass &lego)
+{
+	SourceLego = lego;
+	Unknown_28(game_id);
+}
+
+// 0x6E7850
+void UnknownB00060EffectClass::Unknown_18()
+{
+	if (SourceObject) {
+		Unknown_6E7AA0();
+	}
+}
+
+// 0x6E7870
+void UnknownB00060EffectClass::Unknown_1C()
+{
+	if (SourceObject && (bool)Flag.Unknown7) {
+		Unknown_6E7AA0();
+	}
+}
+
 /*
 **	Reconstruction notes (EF1, 2026-10-28)
 **
