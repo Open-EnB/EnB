@@ -458,6 +458,12 @@ unless `--lever` cites a new row of this table.
   needs a declared `virtual ~X();` defined empty; `Send_Packet(&TempPacket(...))` is a temporary (a named local costs
   rows). Rebuilding a callee can pull a whole object into clienttest's link (control_keys_manager.obj needed a
   0x42A1A0 stand-in).
+* **cpacket.cpp handler forms** (2026-10-28, CP1): an early `return(true)` at a branch's end keeps per-branch tails
+  VC6 would merge (65 exact, most of 62); two exits testing the profile flag in bl are early returns (160); a ternary
+  argument `f(c ? a : b, 1)` puts the result in a saved register where the client has if / else of two whole calls
+  (234 / 235); a FAIL_IF's text is `#expr`, so a helper that matches the bytes but changes the condition's tokens
+  changes the client's string: don't keep it. Which Is_Valid_Float calls go out of line follows the inline budget
+  (62: Orientation.W, Position.Z, Orientation.Z, ImpartedVelocity.Z in that order).
 * **Asserts sit on the client's lines (D25).** To add code above a logged line, remove as many
   blank lines from the same function's stretch (cordmgr.cpp; `.work/milestones/a3/relines.py`);
   pad inside a function, not only before it (Get(char **); pk.cpp's helpers take single blanks).
@@ -749,6 +755,9 @@ unless `--lever` cites a new row of this table.
   asset manager, 7089f1d). co.cpp's loader 0x6F51D0 reads basset.ini, Set_Model's radius 0x6F39F0 and the mount
   points 0x7251C0 read cbasset.ini, both from the working directory (clienttest's copies in its data folder).
   ~ClientObjectClass deletes AuxData through slot +0x04: a fake root's table needs a `__stdcall(unsigned)` there.
+* **clienttest synthetic sections that create models run after section (3)**, or they renumber its models; a packet
+  whose member classes are gen_stubs (no vtable) can't go through Build: call Process_Packet on a value-built
+  packet (2026-10-28, CP1).
 * **clienttest's fake views need every pointer the real body dereferences** (2026-10-28, HN2): set a fake only for
   the section that needs it, so other handlers' FAIL_IF paths stay covered (the radar stays NULL for WARP_INDEX 156).
 * **Rebuilding a callee clienttest drives: run clienttest before landing** (2026-10-28, LD3): a real body on its fake
