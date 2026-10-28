@@ -1665,6 +1665,57 @@ Unknown713520Class::Unknown713520Class(PlanetPositionalUpdatePacketClass *packet
 }
 
 
+// NOT EXACT: 0x713670 inline budget: the client calls Rotate_Z(-angle) out of line (0x577940), this file inlines it
+void Unknown713520Class::Unknown_1C(int time, Vector3 *position, Quaternion *orientation, Vector3 *velocity, float *speed, Vector3 *rotrate, bool unknown)
+{
+	float dt = (float)(time - Time);
+	Matrix3D transform = Matrix3D::Identity;
+	Vector3 center(0.0f, 0.0f, 0.0f);
+	Vector3 point(0.0f, 0.0f, 0.0f);
+	if (position || velocity) {
+		ClientObjectClass *object;
+		if (OrbitID == 0 || (object = Client->Find_Object(OrbitID)) == 0) {
+			point = Unknown0C;
+		} else {
+			center = object->Unknown98->Unknown_1C(time);
+			float angle = dt * OrbitRate + OrbitAngle;
+			transform.Translate(center);
+			transform.Rotate_Z(angle);
+			transform.Translate_X(OrbitDist);
+			transform.Rotate_Z(-angle);
+			point = transform.Get_Translation();
+		}
+		if (!unknown) {
+			Unknown0C = point;
+		}
+		if (position) {
+			*position = point;
+		}
+	}
+	if (orientation) {
+		transform.Rotate_X(TiltAngle);
+		transform.Rotate_Z(dt * RotateRate + RotateAngle);
+		*orientation = Build_Quaternion(transform);
+	}
+	if (velocity) {
+		float x = center.X - point.X;
+		float y = center.Y - point.Y;
+		if (OrbitRate > 0.0f) {
+			y = -y;
+		} else {
+			x = -x;
+		}
+		*velocity = Vector3(y, x, 0.0f) * OrbitRate;
+	}
+	if (speed) {
+		*speed = OrbitRate * OrbitDist;
+	}
+	if (rotrate) {
+		rotrate->Set(0.0f, 0.0f, 0.0f);
+	}
+}
+
+
 bool Unknown713520Class::Unknown_7135F0(int time, int unknown, Vector3 *result)
 {
 	if (OrbitID == 0) {
@@ -1677,57 +1728,6 @@ bool Unknown713520Class::Unknown_7135F0(int time, int unknown, Vector3 *result)
 	*result = object->Unknown98->Unknown_1C(time);
 	return(true);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

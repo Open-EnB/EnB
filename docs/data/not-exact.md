@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-284 entries in 68 files.
+285 entries in 68 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -69,6 +69,7 @@ edit the comments in the code, not this file.
 | `app/client/extrap.cpp:1019` | `Unknown710530Class::Unknown_04` | marker | NOT EXACT: 0x711520 shape: the client keeps Time in ecx and tests it again before stepping back (a top-tested loop); here the else branch knows Time > time |
 | `app/client/extrap.cpp:1361` | `Unknown7119B0Class::Unknown_712170` | marker | NOT EXACT: 0x712170 order: the tangent's three products come in the client's order but its sums pair (V0 + D) first and use other slots |
 | `app/client/extrap.cpp:1457` | `Unknown7125F0Class::Unknown_1C` | marker | NOT EXACT: 0x712780 shape: the client's speed is (s - s) * t + s of EndState's speed alone (its other slot reused for t), a form that folds here |
+| `app/client/extrap.cpp:1668` | `Unknown713520Class::Unknown_1C` | marker | NOT EXACT: 0x713670 inline budget: the client calls Rotate_Z(-angle) out of line (0x577940), this file inlines it |
 | `app/client/extrap.cpp:1821` | `Unknown713D70Class::Unknown713D70Class` | marker | NOT EXACT: 0x713D70 scheduling: the epilogue's load of the saved EH link comes after `pop edi` in the client, before the last stores here |
 | `app/client/extrap.cpp:1859` | `Unknown713D70Class::Unknown_7140E0` | marker | NOT EXACT: 0x7140E0 order: the translation's stores, the roll's push and the state's vtable load are scheduled differently |
 | `app/client/extrap.cpp:1917` | `Unknown714340Class::Unknown_1C` | marker | NOT EXACT: 0x714410 order: Matrix3D::Rotate_Vector's rows sum their products in another order in the client (x z y, z y x, z y x) |
