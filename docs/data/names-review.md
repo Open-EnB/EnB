@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 36 |
 | 3 | by convention from a client-named file or sibling | 891 |
 | 2 | describes what the code does | 2150 |
-| 1 | neutral placeholder | 4259 |
+| 1 | neutral placeholder | 4266 |
 
 ## For review (score 3 and below)
 
@@ -1044,13 +1044,19 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_6E7AA0` | `app/client/eff_o.cpp:483` | untagged neutral name (D10) |
 | 1 | `Unknown_6E7810` | `app/client/eff_o.cpp:493` | untagged neutral name (D10) |
 | 1 | `Unknown7` | `app/client/eff_o.cpp:510` | untagged neutral name (D10) |
-| 1 | `UnknownB0009CEffectClass` | `app/client/eff_o.cpp:516` | untagged neutral name (D10) |
-| 1 | `Unknown9` | `app/client/eff_o.cpp:534` | untagged neutral name (D10) |
-| 1 | `Unknown10` | `app/client/eff_o.cpp:539` | untagged neutral name (D10) |
+| 1 | `Unknown2` | `app/client/eff_o.cpp:537` | untagged neutral name (D10) |
+| 1 | `Unknown_10` | `app/client/eff_o.cpp:540` | untagged neutral name (D10) |
+| 1 | `Unknown_2C` | `app/client/eff_o.cpp:549` | untagged neutral name (D10) |
+| 1 | `UnknownB0009CEffectClass` | `app/client/eff_o.cpp:560` | untagged neutral name (D10) |
+| 1 | `Unknown9` | `app/client/eff_o.cpp:578` | untagged neutral name (D10) |
+| 1 | `Unknown10` | `app/client/eff_o.cpp:583` | untagged neutral name (D10) |
 | 1 | `Unknown_6E8F80` | `app/client/eff_o.cpp:633` | untagged neutral name (D10) |
-| 1 | `Unknown_2C` | `app/client/eff_o.cpp:643` | untagged neutral name (D10) |
 | 1 | `Unknown_34` | `app/client/eff_o.cpp:655` | untagged neutral name (D10) |
 | 1 | `Unknown_6E87C0` | `app/client/eff_o.cpp:670` | untagged neutral name (D10) |
+| 1 | `Unknown_14` | `app/client/eff_o.cpp:791` | untagged neutral name (D10) |
+| 1 | `Unknown_30` | `app/client/eff_o.cpp:800` | untagged neutral name (D10) |
+| 1 | `Unknown_38` | `app/client/eff_o.cpp:805` | untagged neutral name (D10) |
+| 1 | `Unknown_3C` | `app/client/eff_o.cpp:812` | untagged neutral name (D10) |
 | 1 | `Unknown_6FED80` | `app/client/eff_o.cpp:859` | untagged neutral name (D10) |
 | 1 | `Unknown_6E9190` | `app/client/eff_o.cpp:871` | untagged neutral name (D10) |
 | 1 | `UnknownB000F0EffectClass` | `app/client/eff_o.cpp:878` | untagged neutral name (D10) |
@@ -1106,7 +1112,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `UnknownB00060EffectClass` | `app/client/eff_o.h:131` | neutral (D10) |
 | 1 | `client .. cycle_time` | `app/client/eff_o.h:134` | the base's |
 | 1 | `arg` | `app/client/eff_o.h:135` | the base's |
-| 1 | `arg` | `app/client/eff_o.h:139` | what it gets |
+| 1 | `next` | `app/client/eff_o.h:139` | 0x6E6AD0 passes 1 for NextLink |
 | 1 | `game_id` | `app/client/eff_o.h:140` | OBJECT_EFFECT 9's GameID |
 | 1 | `Unknown_28` | `app/client/eff_o.h:140` | untagged neutral name (D10) |
 | 1 | `transform` | `app/client/eff_o.h:141` | POINT_EFFECT 10's location |
@@ -1117,7 +1123,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `UnknownB0009CEffectClass` | `app/client/eff_o.h:155` | neutral (D10) |
 | 1 | `client .. cycle_time` | `app/client/eff_o.h:158` | the base's |
 | 1 | `arg` | `app/client/eff_o.h:159` | the base's |
-| 1 | `arg` | `app/client/eff_o.h:163` | what it gets |
+| 1 | `next` | `app/client/eff_o.h:163` | 0x6E6AD0 passes 1 for NextLink |
 | 1 | `game_id` | `app/client/eff_o.h:164` | the packets' SourceGameID |
 | 1 | `game_id, lego` | `app/client/eff_o.h:165` | the packets' SourceGameID, SourceLego |
 | 1 | `position` | `app/client/eff_o.h:166` | what it sets |
@@ -1126,6 +1132,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_34` | `app/client/eff_o.h:167` | untagged neutral name (D10) |
 | 1 | `position` | `app/client/eff_o.h:168` | what it sets |
 | 1 | `Unknown_38` | `app/client/eff_o.h:168` | untagged neutral name (D10) |
+| 1 | `unary, next` | `app/client/eff_o.h:169` | what slot +0x24 passes |
 | 1 | `Unknown_3C` | `app/client/eff_o.h:169` | untagged neutral name (D10) |
 | 1 | `unknown36 .. target_offset` | `app/client/eff_o.h:171` | the packets' fields |
 | 1 | `Unknown_6E82A0` | `app/client/eff_o.h:171` | untagged neutral name (D10) |

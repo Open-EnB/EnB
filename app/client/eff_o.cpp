@@ -512,6 +512,50 @@ void UnknownB00060EffectClass::Unknown_1C()
 	}
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 0x6E78A0
+void UnknownB00060EffectClass::Unknown_24(int next)
+{
+	EffectObjectClass *link = (next == 0) ? StartLink : NextLink;
+	if (link) {
+		link->Unknown_6E74B0((int)Unknown4C);
+		link->Unknown_6E6ED0((int)Camera);
+		if ((bool)Flag.Unknown2) {
+			link->Unknown_6E6E30();
+		}
+		UnknownB00060EffectClass *unary = link->Unknown_10();
+		if (unary) {
+			if (SourceObject) {
+				if (!SourceLego.Is_Empty()) {
+					unary->Unknown_6E7810(SourceObject->Get_Game_ID(), SourceLego);
+				} else {
+					unary->Unknown_28(SourceObject->Get_Game_ID());
+				}
+			} else {
+				unary->Unknown_2C(Transform);
+			}
+			return;
+		}
+		G_ASSERT(0);
+
+		Unknown_4BC260("A/V Effects", "", __FILE__, __LINE__, "Unary effect linked to non-unary effect %d", (next == 0) ? StartLinkID : NextLinkID);
+	}
+}
+
 // 0x6E7D70
 UnknownB0009CEffectClass::UnknownB0009CEffectClass(ClientClass *client, unsigned id, unsigned start_time, unsigned duration, unsigned cycle_time) :
 	EffectObjectClass(client, id, start_time, duration, cycle_time),
@@ -541,50 +585,6 @@ void UnknownB0009CEffectClass::Unknown_04(int arg)
 		}
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -778,45 +778,45 @@ void UnknownB0009CEffectClass::Unknown_18()
 
 
 
+// 0x6E8B60
+void UnknownB0009CEffectClass::Unknown_24(int next)
+{
+	EffectObjectClass *link = (next == 0) ? StartLink : NextLink;
+	if (link) {
+		link->Unknown_6E74B0((int)Unknown4C);
+		link->Unknown_6E6ED0((int)Camera);
+		if ((bool)Flag.Unknown2) {
+			link->Unknown_6E6E30();
+		}
+		UnknownB0009CEffectClass *binary = link->Unknown_14();
+		if (binary) {
+			if (SourceObject) {
+				if (!SourceLego.Is_Empty()) {
+					binary->Unknown_2C(SourceObject->Get_Game_ID(), SourceLego);
+				} else {
+					binary->Unknown_28(SourceObject->Get_Game_ID());
+				}
+			} else {
+				binary->Unknown_30(SourcePosition);
+			}
+			if (TargetObject) {
+				binary->Unknown_34(TargetObject->Get_Game_ID());
+			} else {
+				binary->Unknown_38(TargetPosition);
+			}
+			binary->TargetOffset = TargetOffset;
+			return;
+		}
+		UnknownB00060EffectClass *unary = link->Unknown_10();
+		if (unary) {
+			Unknown_3C(unary, next);
+			return;
+		}
+		G_ASSERT(0);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+		Unknown_4BC260("A/V Effects", "", __FILE__, __LINE__, "Invalid effect %d (neither unary nor binary!)", (next == 0) ? StartLinkID : NextLinkID);
+	}
+}
 
 
 

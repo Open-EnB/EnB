@@ -136,7 +136,7 @@ public:
 	virtual UnknownB00060EffectClass *Unknown_10() { return(this); }	// +0x10 0x6E4880
 	virtual void Unknown_18();							// +0x18 0x6E7850
 	virtual void Unknown_1C();							// +0x1C 0x6E7870 (with flag 0x80)
-	virtual void Unknown_24(int arg);					// +0x24 0x6E78A0  // NAME 1 [arg]: what it gets
+	virtual void Unknown_24(int next);					// +0x24 0x6E78A0 (StartLink or NextLink takes this effect's render object, camera, end and source; G_ASSERT l.553)  // NAME 1 [next]: 0x6E6AD0 passes 1 for NextLink
 	virtual void Unknown_28(int game_id);				// +0x28 0x6E7770 ("Set_Source_Object_ID couldn't find the object!")  // NAME 1 [game_id]: OBJECT_EFFECT 9's GameID
 	virtual void Unknown_2C(const Matrix3D &transform) { Transform = transform; }	// +0x2C 0x6E48A0  // NAME 1 [transform]: POINT_EFFECT 10's location
 
@@ -160,13 +160,13 @@ public:
 	virtual UnknownB0009CEffectClass *Unknown_14() { return(this); }	// +0x14 0x6E5440
 	virtual void Unknown_18();							// +0x18 0x6E8800
 	virtual void Unknown_1C();							// +0x1C 0x6E8890
-	virtual void Unknown_24(int arg);					// +0x24 0x6E8B60  // NAME 1 [arg]: what it gets
+	virtual void Unknown_24(int next);					// +0x24 0x6E8B60 (as the unary end's, both ends; a unary link through slot +0x3C; G_ASSERT l.815)  // NAME 1 [next]: 0x6E6AD0 passes 1 for NextLink
 	virtual void Unknown_28(int game_id);				// +0x28 0x6E80D0 ("Set_Source_Object_ID couldn't find the object!")  // NAME 1 [game_id]: the packets' SourceGameID
 	virtual void Unknown_2C(int game_id, const LegoIdentifierClass &lego);	// +0x2C 0x6E8170  // NAME 1 [game_id, lego]: the packets' SourceGameID, SourceLego
 	virtual void Unknown_30(const Vector3 &position) { SourcePosition = position; }	// +0x30 0x6E5460  // NAME 1 [position]: what it sets
 	virtual void Unknown_34(int game_id);				// +0x34 0x6E81B0 ("Set_Target_Object_ID couldn't find the object!")  // NAME 1 [game_id]: the packets' TargetGameID
 	virtual void Unknown_38(const Vector3 &position) { TargetPosition = position; }	// +0x38 0x6E54A0  // NAME 1 [position]: what it sets
-	virtual void Unknown_3C();							// +0x3C 0x6E8DD0
+	virtual void Unknown_3C(UnknownB00060EffectClass *unary, int next);	// +0x3C 0x6E8DD0 (slot +0x24's link to a unary effect)  // NAME 1 [unary, next]: what slot +0x24 passes
 
 	void Unknown_6E82A0(short unknown36, short unknown34, Vector3 target_offset);	// 0x6E82A0 (the effect packets' offset)  // NAME 1 [unknown36 .. target_offset]: the packets' fields
 	void Unknown_6E87C0(const Vector3 &offset);			// 0x6E87C0 (no caller)  // NAME 1 [offset]: what it sets
