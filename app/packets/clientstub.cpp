@@ -100,10 +100,10 @@ bool SkillStringRqPacketClass::Process_Packet(void *)	// 0x867FE0
 bool VerbRequestPacketClass::Process_Packet(void *)	// 0x868010
 {	G_ASSERT(0); return(true); }
 
-bool Packet_0048Class::Process_Packet(void *)	// 0x868040
+bool CreateCharacterPacketClass::Process_Packet(void *)	// 0x868040
 {	G_ASSERT(0); return(true); }
 
-bool Packet_0048Class::Unknown_28(void *)	// 0x868070
+bool CreateCharacterPacketClass::Unknown_28(void *)	// 0x868070
 {	G_ASSERT(0); return(true); }
 
 bool Packet_0049Class::Process_Packet(void *)	// 0x8680A0

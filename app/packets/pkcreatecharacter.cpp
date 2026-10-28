@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <string.h>
 
-Packet_0048Class::Packet_0048Class(RawPacketClass *raw) :
+CreateCharacterPacketClass::CreateCharacterPacketClass(RawPacketClass *raw) :
 	Unknown2D4(0),
 	Unknown2D8(0),
 	Unknown2DC(0)
@@ -19,7 +19,7 @@ Packet_0048Class::Packet_0048Class(RawPacketClass *raw) :
 
 // NOT EXACT: shape: the client calls AvatarDescClass's assignment out of line (0x85CB00, emitted in this
 // object) and inlines ShipCustDescClass's (shipcust_desc.h declares it out of line, 0x55D8A0)
-Packet_0048Class::Packet_0048Class(int unknown0C, int unknown10, const char *name, __int64 unknown60, const AvatarDescClass *desc, const ShipCustDescClass &ship, bool unknown14) :
+CreateCharacterPacketClass::CreateCharacterPacketClass(int unknown0C, int unknown10, const char *name, __int64 unknown60, const AvatarDescClass *desc, const ShipCustDescClass &ship, bool unknown14) :
 	Unknown0C(unknown0C),
 	Unknown10(unknown10),
 	Unknown14(unknown14),
@@ -35,11 +35,11 @@ Packet_0048Class::Packet_0048Class(int unknown0C, int unknown10, const char *nam
 	Ship = ship;
 }
 
-Packet_0048Class::~Packet_0048Class()
+CreateCharacterPacketClass::~CreateCharacterPacketClass()
 {
 }
 
-RawPacketClass *Packet_0048Class::Build()
+RawPacketClass *CreateCharacterPacketClass::Build()
 {
 	RawPacketClass *raw = new RawPacketClass(72, Get_Data_Size());
 	raw->Add(Unknown0C);
@@ -52,12 +52,12 @@ RawPacketClass *Packet_0048Class::Build()
 	return(raw);
 }
 
-int Packet_0048Class::Get_Data_Size()
+int CreateCharacterPacketClass::Get_Data_Size()
 {
 	return(((Unknown_PacketDataClass &)Ship).Get_Size() + 0x161);
 }
 
-int Packet_0048Class::Print(char *buffer, int)
+int CreateCharacterPacketClass::Print(char *buffer, int)
 {
 	return(sprintf(buffer, "%s", "Create Character"));
 }

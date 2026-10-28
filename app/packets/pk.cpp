@@ -332,7 +332,7 @@ PacketClass *Unknown_869790(RawPacketClass *raw)
 			packet = new Packet_7545Class(raw);
 			break;
 		case 72:
-			packet = new Packet_0048Class(raw);
+			packet = new CreateCharacterPacketClass(raw);
 			break;
 		case 73:
 			packet = new Packet_0049Class(raw);

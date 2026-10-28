@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 33 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 36 |
-| 3 | by convention from a client-named file or sibling | 872 |
+| 3 | by convention from a client-named file or sibling | 873 |
 | 2 | describes what the code does | 2134 |
-| 1 | neutral placeholder | 4067 |
+| 1 | neutral placeholder | 4066 |
 
 ## For review (score 3 and below)
 
@@ -2762,7 +2762,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown14` | `app/packets/pkcreatecharacter.cpp:13` | untagged neutral name (D10) |
 | 1 | `Unknown60` | `app/packets/pkcreatecharacter.cpp:15` | untagged neutral name (D10) |
 | 1 | `Unknown_PacketDataClass` | `app/packets/pkcreatecharacter.cpp:16` | untagged neutral name (D10) |
-| 1 | `Packet_0048Class` | `app/packets/pkcreatecharacter.h:23` | neutral (D10): opcode 0x0048 (its Print text is 'Create Character': P-P7-2) |
 | 1 | `Unknown_28` | `app/packets/pkcreatecharacter.h:33` | neutral (D10) |
 | 1 | `Unknown0C` | `app/packets/pkcreatecharacter.h:35` | neutral (D10) |
 | 1 | `Unknown10` | `app/packets/pkcreatecharacter.h:36` | neutral (D10) |
@@ -6484,6 +6483,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `HSV` | `app/packets/pkcreate.h:37` | the client's Print text 'HSV=' |
 | 3 | `Parent_ID` | `app/packets/pkcreateattachment.h:33` | the client's Print text 'Parent_ID=' |
 | 3 | `Child_ID` | `app/packets/pkcreateattachment.h:34` | the client's Print text 'Child_ID=' |
+| 3 | `CreateCharacterPacketClass` | `app/packets/pkcreatecharacter.h:23` | the client's Print text 'Create Character' (opcode 0x0048) |
 | 3 | `CTA_Request_PacketClass` | `app/packets/pkcta_request.h:21` | the client's Print text 'CTA_Request_Packet {' and the PacketClass convention |
 | 3 | `AvatarID` | `app/packets/pkcta_request.h:31` | the client's Print text 'AvatarID=' |
 | 3 | `TargetID` | `app/packets/pkcta_request.h:32` | the client's Print text 'TargetID=' |
