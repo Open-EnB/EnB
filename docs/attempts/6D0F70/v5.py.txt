@@ -1,0 +1,50 @@
+FH = 'app/client/fontdatabase.h'
+FC = 'app/client/fontdatabase.cpp'
+FM = 'app/client/fontmanager.cpp'
+
+STRUCT = ('struct FontSoundStruct  // NAME 2: a sound of a string template: the ini keys Sound*ID / Sound*Vol / Sound*Dur\n'
+          '{\n'
+          '\tStringClass ID;\t\t// +0x00\n'
+          '\tfloat Vol;\t\t\t// +0x04\n'
+          '\tfloat Dur;\t\t\t// +0x08\n'
+          '};\n\n')
+
+HDR = [
+    (FH, 'struct FontStringStruct  // NAME 2:', STRUCT + 'struct FontStringStruct  // NAME 2:'),
+]
+for which, off in (('On', 0x68), ('Over', 0x74), ('Click', 0x80)):
+    pass
+
+HDR += [
+    (FH, '\tStringClass SoundOnID;', '\tFontSoundStruct SoundOn;'),
+    (FH, '\tfloat SoundOnVol;', '//\tfloat SoundOnVol;'),
+    (FH, '\tfloat SoundOnDur;', '//\tfloat SoundOnDur;'),
+    (FH, '\tStringClass SoundOverID;', '\tFontSoundStruct SoundOver;'),
+    (FH, '\tfloat SoundOverVol;', '//\tfloat SoundOverVol;'),
+    (FH, '\tfloat SoundOverDur;', '//\tfloat SoundOverDur;'),
+    (FH, '\tStringClass SoundClickID;', '\tFontSoundStruct SoundClick;'),
+    (FH, '\tfloat SoundClickVol;', '//\tfloat SoundClickVol;'),
+    (FH, '\tfloat SoundClickDur;', '//\tfloat SoundClickDur;'),
+]
+CPP = []
+for w in ('On', 'Over', 'Click'):
+    CPP += [
+        (FC, '\tSound%sVol = 1.0f;' % w, '\tSound%s.Vol = 1.0f;' % w),
+        (FC, '\tSound%sDur = -1.0f;' % w, '\tSound%s.Dur = -1.0f;' % w),
+        (FC, 'ini.Get_String(str->Sound%sID,' % w, 'ini.Get_String(str->Sound%s.ID,' % w),
+        (FC, 'str->Sound%sVol = ' % w, 'str->Sound%s.Vol = ' % w),
+        (FC, 'str->Sound%sDur = ' % w, 'str->Sound%s.Dur = ' % w),
+    ]
+
+# an explicit out-of-line operator= in fontmanager.cpp's reserved blank lines before 0x6D1010 (line-neutral)
+BLANK5 = '\n\n\n\n\n\n// NOT EXACT: inline budget: the client calls the std::string(const char *, allocator)'
+OPEQ = ('\nFontSoundStruct &FontSoundStruct::operator=(const FontSoundStruct &that)\n'
+        '{\n\tID = that.ID; Vol = that.Vol; Dur = that.Dur;\n\treturn *this;\n}\n'
+        '// NOT EXACT: inline budget: the client calls the std::string(const char *, allocator)')
+
+V = {
+    'implicit': HDR + CPP,
+    'explicit': HDR + [(FH, '\tfloat Dur;\t\t\t// +0x08\n};', '\tfloat Dur;\t\t\t// +0x08\n\tFontSoundStruct &operator=(const FontSoundStruct &that);\n};')] + CPP + [(FM, BLANK5, OPEQ)],
+}
+COMPILE = [FC, FM]
+WATCH = ['0x6D0F70']
