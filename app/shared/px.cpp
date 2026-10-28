@@ -812,6 +812,10 @@ bool PxList::Is_Sorted()
 ** filter result changes. A box reports b only when (b->Self & Mask) == Test.
 **
 ** The vector<PxBox *> members 0x44D370-0x44D6D0 (insert, lower_bound, clear and their helpers) are this file's
-** instances. 0x44D040 (a copy constructor of a structure of three std::strings, called from 0x4708F0) sits between
-** Set_Corners and Dump; nothing here explains it (px.cpp uses no std::string).
+** instances. 0x44D040, between Set_Corners and Dump, is not px.cpp's (PX2): it is the implicit copy constructor of
+** a 0x5C-byte structure (std::strings at +0x00, +0x10, +0x24, +0x34, ints at +0x20, +0x44, +0x48, a bool at +0x4C,
+** a vector of 4-byte elements at +0x50), called only from 0x4708F0 (a template instance in the no-file stretch
+** after rs_track.cpp), whose callers 0x5FA0B0, 0x5FA5F0 and 0x600000 are ui_registration.cpp's. Both carry an
+** unusual tail of padding (0x94 bytes after 0x44D040, 0x25C after 0x4708F0, against px.cpp's usual 0x0E): the
+** incremental linker (the client's thunks show /INCREMENTAL) put them in free space left by a relink.
 */
