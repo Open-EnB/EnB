@@ -97,7 +97,14 @@ def health(baseline):
         if g:
             gained = ast.literal_eval('[' + g.group(1) + ']')
             lost = ast.literal_eval('[' + g.group(2) + ']')
+            # an address still matched under any file at HEAD is a move (D66(i)/(v)), not a loss
             ga = {x[2] for x in gained}
+            data = json.loads(head)
+            for lib in data.values():
+                if isinstance(lib, dict):
+                    for f in (lib.get('files') or {}).values():
+                        if isinstance(f, dict):
+                            ga.update(a for a in f.get('in_tree') or [] if isinstance(a, str))
             lost_outright = sorted({x[2] for x in lost} - ga)
             gained_n = len(gained)
     return parses, gained_n, lost_outright
