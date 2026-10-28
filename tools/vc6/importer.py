@@ -3945,6 +3945,8 @@ RECONSTRUCTED = {
     ('app', 'packets/gameedit/pkgesave.h'): "its classes (pk_classes.h includes it: tools/re/pkclasses.py)",
     ('app', 'packets/pkfindmember.cpp'): "FIND_MEMBER 83's object, 0x886580-0x886C40, the client's file (its assert's __FILE__): written by hand (builder A-opus)",
     ('app', 'packets/pkfindmember.h'): "its class (pk_classes.h includes it: tools/re/pkclasses.py)",
+    ('app', 'packets/pkfindplayerrequest.cpp'): "FindPlayerRequest 181 and FindPlayerResponse 182, the object 0x886C70-0x887280 after pkfindmember.cpp (no assert: the name provisional, pk + the first class's Print label): written by hand (builder P10)",
+    ('app', 'packets/pkfindplayerrequest.h'): "its classes (pk_classes.h includes it: tools/re/pkclasses.py)",
     ('app', 'packets/pkserverredirect.cpp'): "SERVER_REDIRECT 54's object, 0x8A1500-0x8A1630 (no assert: the file name provisional, NAME 1): written by hand (builder A-opus)",
     ('app', 'packets/pkserverredirect.h'): "its class (pk_classes.h includes it: tools/re/pkclasses.py)",
     ('app', 'packets/pkunknown_863720.cpp'): "opcodes 230 and 231's object, 0x863720-0x864090 (no assert: the file name provisional, NAME 1): written by hand (builder P5)",

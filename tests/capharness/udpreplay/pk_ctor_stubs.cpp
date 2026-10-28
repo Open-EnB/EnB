@@ -8,8 +8,6 @@ Packet_0015Class::Packet_0015Class(RawPacketClass *raw) { Conn_Record(this, raw)
 Action2PacketClass::Action2PacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 GlobalErrorPacketClass::GlobalErrorPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 VerbListPacketClass::VerbListPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
-Packet_00B5Class::Packet_00B5Class(RawPacketClass *raw) { Conn_Record(this, raw); }
-Packet_00B6Class::Packet_00B6Class(RawPacketClass *raw) { Conn_Record(this, raw); }
 
 // The rebuilt classes' Process_Packet defined in a file not rebuilt (cpacket.cpp, ...)
 bool VersionResponsePacketClass::Process_Packet(void *) { return(true); }	// 0x76B8A0

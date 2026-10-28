@@ -286,10 +286,10 @@ bool Starbase_Room_ChangePacketClass::Process_Packet(void *)	// 0x868B80
 bool Packet_00B3Class::Process_Packet(void *)	// 0x868BB0
 {	G_ASSERT(0); return(true); }
 
-bool Packet_00B5Class::Process_Packet(void *)	// 0x868BE0
+bool FindPlayerRequestPacketClass::Process_Packet(void *)	// 0x868BE0
 {	G_ASSERT(0); return(true); }
 
-bool Packet_00B6Class::Process_Packet(void *)	// 0x868C10
+bool FindPlayerResponsePacketClass::Process_Packet(void *)	// 0x868C10
 {	G_ASSERT(0); return(true); }
 
 bool TriggerEmotePacketClass::Process_Packet(void *)	// 0x868C40

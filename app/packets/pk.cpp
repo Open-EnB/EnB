@@ -584,10 +584,10 @@ PacketClass *Unknown_869790(RawPacketClass *raw)
 			packet = new SubPartsPacket(raw);
 			break;
 		case 181:
-			packet = new Packet_00B5Class(raw);
+			packet = new FindPlayerRequestPacketClass(raw);
 			break;
 		case 182:
-			packet = new Packet_00B6Class(raw);
+			packet = new FindPlayerResponsePacketClass(raw);
 			break;
 		case 183:
 			packet = new NoteListPacketClass(raw);

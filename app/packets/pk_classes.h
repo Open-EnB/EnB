@@ -46,6 +46,7 @@
 #include "pkdirlock.h"	// rebuilt
 #include "pkequipuse.h"	// rebuilt
 #include "pkfindmember.h"	// rebuilt
+#include "pkfindplayerrequest.h"	// rebuilt
 #include "pkgadget.h"	// rebuilt
 #include "pkgalaxymap.h"	// rebuilt
 #include "pkglobalavatarlist.h"	// rebuilt
@@ -223,24 +224,6 @@ class VerbListPacketClass : public PacketClass
 public:
 	VerbListPacketClass(RawPacketClass *raw);	// 0x8AF150
 	char Unknown0C[0x14];	// +0x0C
-};
-
-// opcode 181 (0x00B5, ?): vtable 0xB0A5BC, constructor 0x886D40, 0x54 bytes
-class Packet_00B5Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x00B5
-{
-public:
-	Packet_00B5Class(RawPacketClass *raw);	// 0x886D40
-	virtual bool Process_Packet(void *client);	// +0x08 0x868BE0 (clientstub.cpp l.290)
-	char Unknown0C[0x48];	// +0x0C
-};
-
-// opcode 182 (0x00B6, ?): vtable 0xB0A5EC, constructor 0x887030, 0x58 bytes
-class Packet_00B6Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x00B6
-{
-public:
-	Packet_00B6Class(RawPacketClass *raw);	// 0x887030
-	virtual bool Process_Packet(void *client);	// +0x08 0x868C10 (clientstub.cpp l.293)
-	char Unknown0C[0x4C];	// +0x0C
 };
 
 #endif
