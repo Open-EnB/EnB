@@ -146,17 +146,14 @@
 // NULL when there is no root, no such field, or (asserting) a field of another type (rtti.h's test).
 template<class C> C *Unknown_Find_Field(DeltaCompoundClass *root, const NameClass &name)  // NAME 1: neutral (D10)
 {
-	if (root) {
-		LookupClass *lookup = root->Get_Lookup();
-		DeltaClass *d = lookup->Find(name);
-		if (d) {
-
-			C *t = UnknownRTTIClass<C>::Cast(d);
-			G_ASSERT(t);
-			return(t);
-		}
-	}
-	return(NULL);
+	if (!root) return(NULL);
+	LookupClass *lookup = root->Get_Lookup();
+	DeltaClass *d = lookup->Find(name);
+	if (!d) return(NULL);
+	// early returns: the client's out-of-line copies 0x514B60 / 0x7079B0 (IB1)
+	C *t = UnknownRTTIClass<C>::Cast(d);
+	G_ASSERT(t);
+	return(t);
 }
 
 #endif //__AUXDATA_H

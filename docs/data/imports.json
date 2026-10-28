@@ -913,6 +913,7 @@
      "0x4407B0",
      "0x457FA0",
      "0x48A060",
+     "0x514B60",
      "0x531590",
      "0x5469C0",
      "0x584FF0",
@@ -983,7 +984,8 @@
      "0x7009A0",
      "0x700A20",
      "0x700AA0",
-     "0x700BF0"
+     "0x700BF0",
+     "0x7079B0"
     ],
     "merged": [],
     "name": "client/co.cpp"
@@ -8560,7 +8562,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 4174,
+  "in_tree_total": 4176,
   "totals": {}
  },
  "binkmovie": {

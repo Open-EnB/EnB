@@ -31,8 +31,8 @@ template<class T> class UnknownRTTIClass { public: static T *Cast(DeltaClass *b)
 {
 	G_ASSERT(b);
 	if (!b) return(NULL);
-	if (b->m_Unknown04 == T::UnknownGlobal) return((T *)b);
-	return(NULL);
+	if (b->m_Unknown04 != T::UnknownGlobal) return(NULL);
+	return((T *)b);
 } };
 
 #endif //__RTTI_H

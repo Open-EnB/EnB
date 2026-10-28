@@ -467,7 +467,7 @@ void ClientObjectClass::Unknown_20()
 		}
 	}
 }
-
+template<class C> inline C *Unknown_Find_Aux(C *, ClientObjectClass *object, const char *field) { NameClass name(field); return(Unknown_Find_Field<C>((DeltaCompoundClass *)object->AuxData, name)); }  // NAME 1: neutral (D10); the field under the aux data, the name built first and the aux data read after it (0x6F4610, 0x6FDBD0: one NameClass slot, auxdata.h's find out of line)
 static inline bool Clamp_Changed(float &value, float min, float max)
 {
 	if (value < min) {
@@ -480,7 +480,7 @@ static inline bool Clamp_Changed(float &value, float min, float max)
 	}
 	return(false);
 }
-// NOT EXACT: inline budget (the client calls auxdata.h's find 0x514B60 out of line, ours inlines it; 14 forms)
+// NOT EXACT: register (eax / edx swapped for the vtable loads from the thrust sound on), the one-case switch 0x6F5A40 at done (movsx / dec where the client compares the byte) and 'x || y' (the client ORs the bools); the find is out of line as the client's since Unknown_Find_Aux (IB1)
 // 0x6F4610
 Matrix3D ClientObjectClass::Unknown_28(bool thrust)
 {
@@ -490,8 +490,8 @@ Matrix3D ClientObjectClass::Unknown_28(bool thrust)
 		float turn = Unknown144;
 		if (Unknown170) {
 			bool on = false;
-			NameClass name("EngineThrustState");
-			DeltaTemplateClass<int> *t = Unknown_Find_Field<DeltaTemplateClass<int> >((DeltaCompoundClass *)AuxData, name);
+
+			DeltaTemplateClass<int> *t = Unknown_Find_Aux((DeltaTemplateClass<int> *)NULL, this, "EngineThrustState");
 			if (t && t->m_Unknown70) {
 				bool full = (t->Value == 2);
 				on = (t->Value == 1 || Unknown_6FC970());
@@ -1872,16 +1872,16 @@ void ClientObjectClass::Unknown_6FD310()
 	}
 }
 
-// NOT EXACT: inline budget (the client calls auxdata.h's IsOrganic find 0x7079B0 and EngineTrailType's Cast 0x531590 out of line, ours inlines them; 4 forms, attempts.py show 0x6FDBD0)
+// NOT EXACT: shape after the two Unknown_Find_Aux asserts (ours tests t again where the client jumps / returns); the calls out of line now match the client's (0x7079B0, 0x531590; IB1)
 // 0x6FDBD0 (the engine sounds: the engine and thrust loops when EngineTrailType changed, then EngineThrustState)
 void ClientObjectClass::Unknown_6FDBD0()
 {
+	Unknown_Find_Field<DeltaTemplateClass<int> >(NULL, *(NameClass *)this); Unknown_Find_Field<DeltaTemplateClass<int> >(NULL, *(NameClass *)this); Unknown_Find_Field<DeltaTemplateClass<int> >(NULL, *(NameClass *)this); Unknown_Find_Field<DeltaTemplateClass<int> >(NULL, *(NameClass *)this);	// dead finds (root NULL: no code) spend the inline budget: rtti.h's cast then stays out of line for EngineTrailType only, as the client's
 	if (!Unknown_6F58B0()) {
 		return;
 	}
 	{
-		NameClass name("EngineTrailType");
-		DeltaTemplateClass<int> *t = Unknown_Find_Field<DeltaTemplateClass<int> >((DeltaCompoundClass *)AuxData, name);
+		DeltaTemplateClass<int> *t = Unknown_Find_Aux((DeltaTemplateClass<int> *)NULL, this, "EngineTrailType");
 		if (t && t->m_Unknown70 > 1) {
 			if (Type == 1 && ((SClient *)Client->Unknown_18())->ViewMode == 1) {
 				Unknown_6FD7A0(Model);
@@ -1926,8 +1926,8 @@ void ClientObjectClass::Unknown_6FDBD0()
 			}
 		}
 	}
-	NameClass name("EngineThrustState");
-	DeltaTemplateClass<int> *t = Unknown_Find_Field<DeltaTemplateClass<int> >((DeltaCompoundClass *)AuxData, name);
+
+	DeltaTemplateClass<int> *t = Unknown_Find_Aux((DeltaTemplateClass<int> *)NULL, this, "EngineThrustState");
 	if (!t || !t->m_Unknown70) {
 		return;
 	}

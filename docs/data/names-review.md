@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 36 |
 | 3 | by convention from a client-named file or sibling | 876 |
 | 2 | describes what the code does | 2134 |
-| 1 | neutral placeholder | 4065 |
+| 1 | neutral placeholder | 4066 |
 
 ## For review (score 3 and below)
 
@@ -313,9 +313,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_6FD2C0` | `app/client/co.cpp:455` | untagged neutral name (D10) |
 | 1 | `Unknown_6FBEF0` | `app/client/co.cpp:458` | untagged neutral name (D10) |
 | 1 | `Unknown_6FF1D0` | `app/client/co.cpp:461` | untagged neutral name (D10) |
+| 1 | `Unknown_Find_Aux` | `app/client/co.cpp:470` | neutral (D10); the field under the aux data, the name built first and the aux data read after it (0x6F4610, 0x6FDBD0: one NameClass slot, auxdata.h's find out of line) |
+| 1 | `Unknown_Find_Field` | `app/client/co.cpp:470` | untagged neutral name (D10) |
 | 1 | `Unknown_08` | `app/client/co.cpp:487` | untagged neutral name (D10) |
 | 1 | `Unknown_6F3FA0` | `app/client/co.cpp:489` | untagged neutral name (D10) |
-| 1 | `Unknown_Find_Field` | `app/client/co.cpp:494` | untagged neutral name (D10) |
 | 1 | `m_Unknown70` | `app/client/co.cpp:495` | untagged neutral name (D10) |
 | 1 | `Unknown_6FC970` | `app/client/co.cpp:497` | untagged neutral name (D10) |
 | 1 | `Unknown_04` | `app/client/co.cpp:548` | untagged neutral name (D10) |
