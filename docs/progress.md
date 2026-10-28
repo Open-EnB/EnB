@@ -1297,6 +1297,15 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 | D98 | 2026-10-27 | Before a function is marked LIMIT REACHED on a register residue, a tryv2 sweep of loop forms in the inlined helpers it calls is part of its second round (P-H22-2; how 0x4B3850 fell after F3's rounds) | user |
 | D99 | 2026-10-27 | Functions too short for the matcher but byte-identical to the client (objdiff 0 rows) are recorded as exact rows in attempts.csv (P-S1-2; 0x82E1D0); no matcher change | user |
 | D100 | 2026-10-27 | objmatch: a tie goes to the object whose client range contains the address (P-P6-1), carried out with D94(b) and D95(b) on a quiet tree with a full verify of every library and pairs_cmp gains-only, like D88; then 45 from `.work/p6/park45` and 117 from `.work/p5/park117`. P-R2-1 is re-evaluated on the result | user |
+| D101 | 2026-10-27 | VIDTEST on LandClass (P-L6-1 with P-L6-2 as its first step): one probe places the four undefined land symbols (~LandPatchClass 0x474560, ~LandPatchRecordClass, Unknown_477E20, LandUnknownClass::Peek_Material_Pass 0x93D6C0); then vidland's Create_Decorations / Render_Decorations move to programs/vidtest/viddeco.* (VIDTEST's own 2002 code, D46) as a render object after the land, the rest of vidland.* is deleted and `.work/l6/`'s switch diff applied; land test, drawcheck and sbs within +-1.5% | user |
+| D102 | 2026-10-27 | One whole-app trial of SOptionsClass +0x1C as a float (`[Lights] GlobalZ` through INIClass::Put_Float, P-T18-3); kept only if soptions.cpp's 7 of 7 hold and pairs_cmp is gains-only | user |
+| D103 | 2026-10-27 | udpreplay compares LOGIN 2's clock field (byte 0x44) zeroed, as for 52 and 68 (P-P9-1, D91's family; f41cef7) | user |
+| D104 | 2026-10-27 | LoginKVVisitorClass merges into DeltaChildVisitorClass / KVEncoderBaseClass (kv_encoder_base.h, delta.h; the canary 0x6FB1E0) together with prof.cpp / race.cpp (~30 functions 0x4F6A80-0x4F7820), as one item (P-P9-2, the rest of P-T5-2) | user |
+| D105 | 2026-10-27 | ADVANCED 62 (0x734130) gets one more Opus round; then, if still not exact, a D89 Fable round (P-T16-3; SIMPLE 8 shares its residue) | user |
+| D106 | 2026-10-27 | tsk_game.cpp keeps its one-line view of ServerRedirectPacketClass; its comment is refreshed at the file's next edit (P-A1) | user |
+| D107 | 2026-10-27 | The four `Unknown_BE8B38Class` views (tsk_game.h, sclient.cpp, fontdatabase.cpp, soundlib.cpp) become option.h's OptionClass as an item of its own with its own verify (P-Bopus-1) | user |
+| D108 | 2026-10-27 | option.cpp's Get_String 0x7F9700 joins the D89 Fable queue at low priority (P-Bopus-2) | user |
+| D109 | 2026-10-27 | SClient's Init 0x741180 and Shutdown 0x741BB0 are held until the UI base classes they call exist (P-T7-2) | user |
 
 ## 3. Open decisions
 
@@ -1304,52 +1313,6 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
   GutterColors through 0x70CE50 and registers 0x709F40's atexit), so exact but tied hash_map<string, X> instances count
   (co_player_relationship 0x709F40 / 0x70D030 / 0x70D150, the same pattern in every SGI file). Open until D100's
   measurement shows which of them the range rule already credits; the coordinator then makes a new recommendation.
-* **P-A1:** tsk_game.cpp's one-line view of ServerRedirectPacketClass still derives from PacketClass ("pk_classes.h
-  declares no fields"); the layout is the same and every harness passes. Recommendation: leave the view (P9's trap:
-  the real header mid-file moved a handler's scheduling); refresh the comment at tsk_game.cpp's next edit.
-* **P-Bopus-1:** replace the four `Unknown_BE8B38Class` views (tsk_game.h, sclient.cpp, fontdatabase.cpp, soundlib.cpp)
-  with option.h's OptionClass (Unknown_7F84F0 = Load, Unknown_7F8EF0 = Save, Unknown_7F95E0 = Find_String) once
-  option.cpp is merged. Recommendation: its own item with its own verify (header visibility can move budgets).
-* **P-Bopus-2:** option.cpp's Get_String 0x7F9700 / Get_Default_String 0x7F9970 (shape / inline-budget, 16 forms) and,
-  on B-sonnet-1's branch, Set_Defaults' near miss: a Fable round under D89 for Get_String. Recommendation: low
-  priority (2 pairs); add it to the D89 queue after the six there.
-* **P-T7-2:** SClient's Init 0x741180 (field offset, 103 rows) and Shutdown 0x741BB0 (shape, 470 rows) get a
-  second Opus round only after the UI base classes they call exist. Recommendation: hold.
-* **P-T5-2:** merge LoginPacketDataClass / LoginInterfaceAEADC8Class / LoginKVVisitorClass into pk.h / delta.h
-  (DeltaChildVisitorClass) and drop tsk_login.h's typedefs at tsk_login.cpp's next edit; the race and profession
-  key/value instances need a kv_pair.h `Type_Name` form (the client passes the value to an external Type_Name,
-  which the `Type_Name((T*)0)` template can't produce). Recommendation: a tasks builder item, no decision.
-* **P-L6-1 (VIDTEST on LandClass, 2026-10-27):** a worktree trial links VIDTEST on LandClass and Render 0x474B30 draws
-  the land (the original's A8R8G8B8 lightmap key; frames 1-550 within 0.9-4.0%), but the decorations are missing (frames
-  600-900 differ 11.6-15.3%, drawcheck FAIL): LandClass has none, the client draws trees from the zone loader
-  0x478970-0x479D00. Proposal: move vidland's Create_Decorations / Render_Decorations into programs/vidtest/viddeco.*
-  (VIDTEST's own 2002 code, D46) as a render object after the land, delete the rest of vidland.*, apply the switch
-  diff saved in `.work/l6/`. Recommendation: accept.
-* **P-L6-2:** four land symbols are declared but never defined and the switch's link needs them: ~LandPatchClass
-  0x474560 (in land.cpp it inlines into the land's destructor and loses 0x46A480 / 0x4691A0), ~LandPatchRecordClass,
-  Unknown_477E20, LandUnknownClass::Peek_Material_Pass 0x93D6C0. One probe of their file placement before the switch.
-  Recommendation: accept, as the first step of P-L6-1's builder.
-* **P-T12-2 (aux_roots.h's bool conversions, 2026-10-27):** the bool `Type_Name` / `String_To_Value` overloads live
-  only in the generated aux_roots.h, so co.cpp includes it to use auxdata.h's lookup helper. Proposal: move them to
-  strconv_lib.h through the aux_roots generator. Recommendation: accept when the generator is next touched.
-* **P-P9-1 (udpreplay's clock field, 2026-10-27):** LOGIN 2 carries a clock at byte 0x44; udpreplay compares it
-  zeroed, as it already does for 52 and 68 (f41cef7, README). Recommendation: ratify as the same rule (D91's family).
-* **P-P9-2 (P-T5-2's last part):** merge LoginKVVisitorClass into DeltaChildVisitorClass / KVEncoderBaseClass
-  (kv_encoder_base.h and delta.h, where the canary 0x6FB1E0 lives), together with prof.cpp / race.cpp (about 30
-  functions, 0x4F6A80-0x4F7820) so the race / profession `Type_Name` form (byte-identical twins, `.work/p9/typename.diff`)
-  gains when their converters have names. Recommendation: accept as one item.
-* **P-T16-3 (62 / 8's Is_Valid_Float residue, 2026-10-27):** ADVANCED 62 (0x734130, alex3's most frequent message) and
-  SIMPLE 8 (0x733DC0) share one inline-budget residue: the client calls Is_Valid_Float out of line for Position's Z
-  and Orientation's W. Proposal: one more Opus round on 62 only, then a Fable round under D89 if still not exact.
-  Recommendation: accept (the Fable queue, §4 item 7).
-* **P-T18-3 (SOptionsClass +0x1C, 2026-10-27):** 0x745080 passes +0x1C (named TextureFilter, an int zeroed by the
-  constructor) straight to INIClass::Put_Float as `[Lights] GlobalZ`, so the member's type and name are in doubt.
-  Proposal: one whole-app trial with a float (soptions.cpp 7 of 7 must hold). Recommendation: accept.
-* **P-S3-2 / F3's leads for Key_Exchange 0x829180** are LIMIT REACHED (three Opus rounds, inline budget): it
-  waits for a new §3.1 lever; F3's two untested leads are in its attempts.csv row.
-* D7 is to be revisited with the user if byte-exactness of E&B's code becomes too costly; D64's
-  `docs/data/not-exact.md` shows how much functional code is waiting.
-* Which bool-return form gives a bare `setcc al` without the `xor` (moved from workflow.md §3).
 
 ## 4. Next steps
 
@@ -1417,7 +1380,7 @@ client's own code: [kernel-map.md](kernel-map.md) §6 and, for step 9's dependen
 7. The Fable queue under D89 / D97 (six at most, by unlock value): client_lego_impl's Find 0x72ABB0 + Add 0x72B7F0 +
    Remove 0x72C1D0 as one round (P-H20-1), CLIENT_DAMAGE 0x738970 then FORMATION 0x734740 (P-T19-3), D92's three
    (item 2), Get_Lego_Transform then Child_Moved / Attach (P-H17-2), cpacket 62 after its Opus round (P-T16-3),
-   Load_Definitions 0x71B1F0; low priority: TimedLog 0x824540 (P-S1-1), CLIENT_CHAT_EVENT 0x73B150 (P-T20-1), the kv_list
+   Load_Definitions 0x71B1F0; low priority: TimedLog 0x824540 (P-S1-1), option.cpp Get_String 0x7F9700 (D108), CLIENT_CHAT_EVENT 0x73B150 (P-T20-1), the kv_list
    destructor's twin 0x4B6B60 if a lever appears, the distortion draw 0x9961E0 (LIMIT), the ShdMesh ctor 0xA08F80
    (LIMIT). Out for good (register/order): Make_Screen_Shot, Update_Movie_Capture's LockRect residue, Rate Count,
    Run/Start_Game/Go_*.
@@ -1430,3 +1393,10 @@ client's own code: [kernel-map.md](kernel-map.md) §6 and, for step 9's dependen
    (the _Instances destructor frees nodes without element destructors: leave unbuilt until another SGI user
    shows it); `tiebreak` / `selfname` into imports.json only when something needs it (D88 row); same-shape template
    instances stay `multiple` until their relocation targets have names in symbols.json (P9).
+10. Moved from §3 on 2026-10-27 (work items and reminders, not decisions): P-T5-2 (LoginPacketDataClass /
+   LoginInterfaceAEADC8Class into pk.h / delta.h, tsk_login.h's typedefs dropped at tsk_login.cpp's next edit; its
+   visitor part is D104); P-T12-2 (aux_roots.h's bool `Type_Name` / `String_To_Value` overloads to strconv_lib.h through
+   the aux_roots generator, when it is next touched); Key_Exchange 0x829180 (LIMIT REACHED, three Opus rounds; waits
+   for a new §3.1 lever; F3's two untested leads are in its attempts.csv row, P-S3-2); D7's reminder (revisit
+   byte-exactness of E&B's code with the user if it becomes too costly; `docs/data/not-exact.md` shows how much
+   functional code waits); which bool-return form gives a bare `setcc al` without the `xor`.
