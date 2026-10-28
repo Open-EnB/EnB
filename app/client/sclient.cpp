@@ -4733,21 +4733,21 @@ bool SClient::Unknown_74D8B0(ClientObjectClass *co)	// 0x74D8B0
 
 
 
+// 0x74E580 (GuildRecruitConfirmSectorPacket 0x73E720, GuildGMRenameConfirmSectorPacket 0x73EEF0): the current view's
+// dialog asks text with the type's buttons; value is kept in +0x119C for the answer
+void SClient::Unknown_74E580(const char *text, const char *type, const char *value)
+{
 
+	FAIL_IF(!CurrentView) return;
+	ViewClass *ui_view = CurrentView->Unknown_1C();
 
+	FAIL_IF(!ui_view) return;
+	ViewUnknown34Class *dialog = ui_view->Get_Unknown34();
 
-
-
-
-
-
-
-
-
-
-
-
-
+	FAIL_IF(!dialog) return;
+	dialog->Unknown_588A70(type, 0, text, 0x140, 0, 0);
+	Unknown119C = value;
+}
 
 
 
@@ -5255,16 +5255,16 @@ void SClient::Unknown_750B30(int arg)
 	}
 }
 
-
-
-
-
-
-
-
-
-
-
+// 0x750B60 (camera_manager.cpp 0x7992F0 / 0x7993E0: the avatar's aux data IsIncapacitated)
+bool SClient::Unknown_750B60()
+{
+	ClientObjectClass *avatar = Get_Avatar();
+	if (avatar && avatar->AuxData) {
+		NameClass name("IsIncapacitated"); DeltaTemplateClass<bool> *t = Unknown_Find_Field<DeltaTemplateClass<bool> >((DeltaCompoundClass *)avatar->AuxData, name);
+		if (t && t->m_Unknown70) return(t->Value);
+	}
+	return(false);
+}
 
 
 

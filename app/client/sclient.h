@@ -777,6 +777,8 @@ public:
 	void Unknown_750210();								// 0x750210: 0x74FA30, 0x74FEC0, then the chat panel's +0xE0
 	void Unknown_750260(int arg);						// 0x750260 (the main view's 0x50D520 passes 0 with the options' +0x05)  // NAME 1 [arg]: neutral
 	void Unknown_750B30(int arg);						// 0x750B30: Unknown1330's 0x43C660  // NAME 1 [arg]: neutral
+	void Unknown_74E580(const char *text, const char *type, const char *value);	// 0x74E580 (the guild confirmations 0x73E720 / 0x73EEF0)  // NAME 1 [text, type, value]: what it does with them
+	bool Unknown_750B60();								// 0x750B60 (camera_manager.cpp 0x7992F0 / 0x7993E0): the avatar is incapacitated (its aux data IsIncapacitated)
 
 	bool Unknown1198;									// +0x1198 (true)
 	std::string Unknown119C;							// +0x119C
