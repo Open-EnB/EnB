@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-290 entries in 68 files.
+293 entries in 68 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -29,15 +29,18 @@ edit the comments in the code, not this file.
 | `app/client/client_lego_impl.cpp:679` | `ClientLegoImplClass::Child_Moved` | marker | NOT EXACT: shape, 4 rows: the client forms &child (lea ebp) before loading it, ours after (attempts.csv) |
 | `app/client/client_lego_impl.cpp:710` | `ClientLegoImplClass::Attach` | marker | NOT EXACT: frame: the client keeps the child's render object in its own stack slot (sub esp 8), ours in a dead parameter's (attempts.csv) |
 | `app/client/client_lego_impl.cpp:742` | `ClientLegoImplClass::Detach` | marker | NOT EXACT: register-only, 4 rows: eax / edx swapped around the Get_Render_Object call (attempts.csv) |
-| `app/client/co.cpp:482` | `ClientObjectClass::Unknown_28` | marker | NOT EXACT: inline budget (the client calls auxdata.h's find 0x514B60 out of line, ours inlines it; 14 forms) 0x6F4610 |
-| `app/client/co.cpp:562` | `ClientObjectClass::Unknown_6F3FA0` | marker | NOT EXACT: inline budget (the client calls 0x6F3ED0, 0x6F5A40, 0x6F45E0 and auxdata.h's find 0x7079B0 out of line, ours inlines them; 9 forms) 0x6F3FA0 (slot +0x28's tilt: the turn +0x144 steered toward 0x6F3ED0's angle through +0x134, then the roll) |
+| `app/client/co.cpp:483` | `ClientObjectClass::Unknown_28` | marker | NOT EXACT: inline budget (the client calls auxdata.h's find 0x514B60 out of line, ours inlines it; 14 forms) 0x6F4610 |
+| `app/client/co.cpp:563` | `ClientObjectClass::Unknown_6F3FA0` | marker | NOT EXACT: inline budget (the client calls 0x6F3ED0, 0x6F5A40, 0x6F45E0 and auxdata.h's find 0x7079B0 out of line, ours inlines them; 9 forms) 0x6F3FA0 (slot +0x28's tilt: the turn +0x144 steered toward 0x6F3ED0's angle through +0x134, then the roll) |
 | `app/client/co.cpp:1679` | `ClientObjectClass::Unknown_6FC9A0` | marker | NOT EXACT: shape (case 2's 'pop esi' scheduled between its two stores in ours, after them in the client; 3 forms) 0x6FC9A0 |
 | `app/client/co.cpp:1715` | `ClientObjectClass::Unknown_6FCB20` | marker | NOT EXACT: shape (the client keeps the argument in eax and masks a copy for the compare; 3 forms) 0x6FCB20 |
 | `app/client/co.cpp:1784` | `ClientObjectClass::Unknown_6FD310` | marker | NOT EXACT: inline budget (the client calls the array Cast 0x709A40 out of line for DamageSpot and DamageLine and inlines it for DamageBlotch; ours inlines all three; 4 forms, attempts.py show 0x6FD310) 0x6FD310 (the damage decals: the DamageSpot / DamageLine / DamageBlotch items that changed, one decal pool each) |
+| `app/client/co.cpp:1875` | `ClientObjectClass::Unknown_6FDBD0` | marker | NOT EXACT: inline budget (the client calls auxdata.h's IsOrganic find 0x7079B0 and EngineTrailType's Cast 0x531590 out of line, ours inlines them; 4 forms, attempts.py show 0x6FDBD0) 0x6FDBD0 (the engine sounds: the engine and thrust loops when EngineTrailType changed, then EngineThrustState) |
 | `app/client/co.cpp:2227` | `ClientObjectClass::Unknown_6FEC40` | marker | NOT EXACT: order (the client sums the transform's products in another order; explain.py says field-offset; 2 forms) 0x6FEC40 |
 | `app/client/co.cpp:2326` | `ClientObjectClass::Get_Name` | marker | NOT EXACT: inline-budget (the client calls rtti.h's cast 0x5469C0 at all four lookups and the string assign's helpers; ours inlines them) |
 | `app/client/co.cpp:2608` | `ClientObjectClass::Unknown_6FF7A0` | marker | NOT EXACT: inline-budget (the client calls the string lookup 0x514BD0 at all six sites and inlines more of std::string; ours the reverse) |
+| `app/client/co.cpp:2654` | `ClientObjectClass::Unknown_6FF7A0` | mention | NOT EXACT), 0x6FEF70 (l.2284) and 0x6F5F60. The aux-data roots' constructors and the CREATE factory 0x6F6000-0x6FBEF0 are in aux_roots.cpp (generated). The asserts sit on the client's lines (D25): the blank stretches hold the members not yet written; members without asserts (0x6FF4B0-0x700400, 0x6FF7A0) sit where room was. The constructor (T17's reading of 0x6F2820, for whoever rebuilds it): Clien... |
 | `app/client/co.h:124` | `Unknown_810750` | mention | NOT EXACT), 0x725120, 0x725610, 0x7257F0. |
+| `app/client/co.h:256` | `Unknown_810750` | mention | NOT EXACT) |
 | `app/client/co_data.h:55` | `?` | marker | NOT EXACT: frame (0x54 vs the client's 0x50: ours inlines the type map's default constructor, the client calls 0x79E6E0) |
 | `app/client/co_player_relationship.cpp:149` | `Unknown_70B450` | marker | NOT EXACT: inline budget (the client calls the name string's assign and the copies out of line; attempts.py show 0x70B450) |
 | `app/client/co_player_relationship.cpp:351` | `Unknown_70CD50` | mention | NOT EXACT), Attacking 0x70B790, Group 0x70BC30 (through 0x70BAC0, the GroupInfo aux-data test with asserts on lines 207 / 210 on SClient's AuxData +0x12C0; rtti.h's DeltaCompoundClass cast 0x598D80 out of line), PVPAttackable 0x70BF90 (through 0x70BF60), Player 0x70C2A0 and the reaction colours 0x70C5D0; the three packet handlers cpacket.cpp calls (0x70CC40, 0x70CC90, 0x70CD50) and the table's out... |

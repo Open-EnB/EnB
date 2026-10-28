@@ -25,6 +25,7 @@ public:
 	bool Unknown_7E7A40();							// 0x7E7A40 (co.cpp's per-frame update tests it for the player's object)
 	void Unknown_7E76E0();							// 0x7E76E0 (after the camera call 0x79B2B0(0x14))
 	void Unknown_7E6860();							// 0x7E6860 (every frame, for every object with emote data)
+	bool Unknown_7E7A70();							// 0x7E7A70 (co.cpp's engine sounds 0x6FDBD0: true turns the thrust on)
 
 	char Unknown08[0x48 - 0x08];		// +0x08: not rebuilt (0x48 bytes: co_data.cpp's new)
 };

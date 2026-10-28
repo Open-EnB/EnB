@@ -417,6 +417,7 @@ class CameraManagerClass
 {
 public:
 	bool Unknown_79B670();			// 0x79B670 (the per-frame update tests it for the player's object)
+	bool Unknown_79B690();			// 0x79B690 (the engine sounds 0x6FDBD0 test it for the player's object: thrust on)
 	void Unknown_79B2B0(int mode);	// 0x79B2B0  // NAME 1 [mode]: CAMERA_CONTROL 146 passes 0x0C, 0x0D, 0, 0x0F, 6, 0x0A, 0x17, 0x10 or 0x19
 };
 
@@ -593,7 +594,6 @@ void ClientObjectClass::Unknown_6F3FA0(Matrix3D &tm)
 	Unknown144 = Unknown134.Unknown04[2] + Unknown144;
 	tm.Rotate_X(Unknown144);
 }
-
 
 
 
@@ -1760,8 +1760,8 @@ void ClientObjectClass::Unknown_6FCB20(bool visible)
 
 
 
-
-
+#include "..\audio\soundlib.h"		// the engine sounds 0x6FDBD0
+#include "..\..\wwaudio\Sound3D.h"
 // delta_array.h's item accessor (its G_ASSERT on that header's line 93, inline in the damage decals 0x6FD310), written
 // here: declaring it in the header moves aux_roots.cpp's pairs (the 0x6FB1E0 canary, workflow.md 3.4; P-DF1-2)
 template<class T> static inline DeltaTemplateClass<T> *Unknown_Get_Item(DeltaArrayClass<T> *array, unsigned index) { std::vector<DeltaClass *> &Items = array->Children; if (!(index < Items.size())) Unknown_Assert_Failed("index < Items.size()", "..\\shared/auxdata/delta_array.h", 93); return((DeltaTemplateClass<T> *)Items[index]); }	// NAME 1: neutral
@@ -1872,104 +1872,104 @@ void ClientObjectClass::Unknown_6FD310()
 	}
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// NOT EXACT: inline budget (the client calls auxdata.h's IsOrganic find 0x7079B0 and EngineTrailType's Cast 0x531590 out of line, ours inlines them; 4 forms, attempts.py show 0x6FDBD0)
+// 0x6FDBD0 (the engine sounds: the engine and thrust loops when EngineTrailType changed, then EngineThrustState)
+void ClientObjectClass::Unknown_6FDBD0()
+{
+	if (!Unknown_6F58B0()) {
+		return;
+	}
+	{
+		NameClass name("EngineTrailType");
+		DeltaTemplateClass<int> *t = Unknown_Find_Field<DeltaTemplateClass<int> >((DeltaCompoundClass *)AuxData, name);
+		if (t && t->m_Unknown70 > 1) {
+			if (Type == 1 && ((SClient *)Client->Unknown_18())->ViewMode == 1) {
+				Unknown_6FD7A0(Model);
+			}
+			if (Unknown120) {
+				Unknown120->Stop(true);
+				Unknown120->Remove_From_Scene();
+				Unknown120->Release_Ref();
+				Unknown120 = NULL;
+			}
+			int trail = t->Value;
+			char sound[128];
+			if (Unknown_6F5A40()) {
+				_snprintf(sound, sizeof(sound), "engine_loop_%d", trail + 1);
+			} else {
+				_snprintf(sound, sizeof(sound), "npc_engine_loop_%d", UnknownA8 % 6);
+			}
+			Unknown120 = SoundLibraryClass::Play_3D_Sound(sound, Unknown_28(false), 0, 1.0f);
+			if (!Unknown120) {
+				Unknown120 = SoundLibraryClass::Play_3D_Sound("engine_loop_1", Unknown_28(false), 0, 1.0f);
+			}
+			if (Unknown120) {
+				Unknown120->Attach_To_Object(Model, -1);
+			}
+			if (Unknown124) {
+				Unknown124->Stop(true);
+				Unknown124->Remove_From_Scene();
+				Unknown124->Release_Ref();
+				Unknown124 = NULL;
+			}
+			if (Unknown_6F5A40()) {
+				_snprintf(sound, sizeof(sound), "thrust_loop_%d", trail + 1);
+			} else {
+				_snprintf(sound, sizeof(sound), "npc_thrust_loop_%d", UnknownA8 % 6);
+			}
+			Unknown124 = SoundLibraryClass::Play_3D_Sound(sound, Unknown_28(false), 0, 1.0f);
+			if (!Unknown124) {
+				Unknown124 = SoundLibraryClass::Play_3D_Sound("imploop1.wav", Unknown_28(false), 0, 1.0f);
+			}
+			if (Unknown124) {
+				Unknown124->Attach_To_Object(Model, -1);
+			}
+		}
+	}
+	NameClass name("EngineThrustState");
+	DeltaTemplateClass<int> *t = Unknown_Find_Field<DeltaTemplateClass<int> >((DeltaCompoundClass *)AuxData, name);
+	if (!t || !t->m_Unknown70) {
+		return;
+	}
+	int state = t->Value;
+	bool emote = false;
+	EmoteDataClass *data = Get_Emote_Data(this, false);
+	if (data) {
+		emote = data->Unknown_7E7A70();
+	}
+	bool camera = (GameID == Client->DebugObjectID && ((SClient *)Client->Unknown_18())->CameraManager->Unknown_79B690());
+	bool forced = (emote || camera);
+	bool on = (state == 1 || Unknown_6FC970() || forced);
+	if (UnknownFC != on) {
+		if (Unknown120) {
+			if (on && UnknownF8 != 1) {
+				if (!Unknown_6FC970()) {
+					Unknown120->Add_To_Scene(true);
+				}
+				if (Unknown124) {
+					Unknown124->Stop(true);
+					Unknown124->Remove_From_Scene();
+				}
+			} else {
+				Unknown120->Stop(true);
+				Unknown120->Remove_From_Scene();
+			}
+		}
+		Unknown_810750(Model, on);
+		UnknownFC = on;
+	}
+	if (UnknownFC) {
+		if (Unknown100 > 0) {
+			Unknown100--;
+			Unknown_810750(Model, false);
+			return;
+		}
+		if (Unknown100 == 0) {
+			Unknown100 = -1;
+			Unknown_810750(Model, true);
+		}
+	}
+}
 
 
 
@@ -2651,7 +2651,7 @@ void ClientObjectClass::Unknown_6FF7A0(std::string &text)
 **
 **	co.cpp in the client: 0x6F2820-0x700A50 (__FILE__ e:\build\beta\G\app\Client\co.cpp). Not rebuilt
 **	yet: the constructor 0x6F2820, the destructor 0x6F2FE0, the slots +0x20 0x6F3C60 and +0x28 0x6F4610,
-**	the damage / engine / warp members (0x6FBEF0, 0x6FCB70, 0x6FDBD0, 0x6FE1E0; the damage decals 0x6FD310 written by DF1, NOT EXACT), 0x6FEF70 (l.2284) and
+**	the damage / engine / warp members (0x6FBEF0, 0x6FCB70, 0x6FE1E0; the damage decals 0x6FD310 and the engine sounds 0x6FDBD0 written by DF1, NOT EXACT), 0x6FEF70 (l.2284) and
 **	0x6F5F60. The aux-data roots' constructors and the CREATE factory 0x6F6000-0x6FBEF0 are in
 **	aux_roots.cpp (generated). The asserts sit on the client's lines (D25): the blank stretches hold the
 **	members not yet written; members without asserts (0x6FF4B0-0x700400, 0x6FF7A0) sit where room was.
