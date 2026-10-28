@@ -1367,7 +1367,8 @@ client's own code: [kernel-map.md](kernel-map.md) §6 and, for step 9's dependen
    `.work/p6/park45`. Also on that quiet tree: P-H7-1 (sgistl_adapt.py drops `typename` from out-of-class return
    types; remove ini_manager's and attrib_dir's explicit specializations), P-F5-1 / the regenerated names-review.md,
    and a full verify to refresh imports.json's `in_tree_total` lines (commit_mine never commits them).
-   Small follow-ups from the 2026-10-27 evening (work items, no decision): symbols.json's 0xAEDE88 is PacketClass's
+   Small follow-ups from the 2026-10-27 evening (work items, no decision): symbols.json's 0xB006F4 is `??_7ClientObjectClass@@6BMultiFixedPoolDecalSystemClass@@@` (slot 0 is the thunk
+   0x709E90 to ClientObjectClass's destructor; CO1, 2026-10-28), and 0xAEDE88 is PacketClass's
    vtable (`??_7PacketClass@@6B@`, through symbols.py; then rebuild `.work/pseudo/`); app/packets' "(not rebuilt)" comments
    for 0x735FC0 / 0x739FF0 / 0x734740 / 0x738970; control_keys_manager.cpp to include inpkeys.h at its next edit (0x42B7E0's
    mangled name); fontmanager 0x6D0A70 with 0x6D0F70 and ManagedFontClass's block 0x6CE990-0x6D0A20; CLIENT_CHAT_LIST

@@ -284,6 +284,15 @@ unless `--lever` cites a new row of this table.
 | A small callee the client keeps out of line in several callers | `for (int i = 0; i < 0; i++) {}` inside the callee: compiles to nothing, stops auto-inlining | sclient 0x745F30's four callers (T18) |
 | Small residues in SClient's members | `++it` for `it++` (confirms ba71802); `&Packet(args)` passed directly instead of a named local; `while (true)` for `for (;;)`; a callback's vtable stored first: assign in the constructor body, not the initialiser; `snprintf` is VC6's `_snprintf` | sclient 0x74C690, 0x74BB50, 0x745350, 0x74BEC0 (T18) |
 
+* **Small constant-fill loops and their written-out form differ (2026-10-28, CO1, 0x6F2820):** VC6 unrolls
+  `for (i = 0; i < 5; i++) a[i] = 1;` into five stores with the 1 in a register, interleaved with the neighbours;
+  five written-out assignments use another register and keep the stores together. Try the loop first.
+* **A static inline helper called four times can use the inline budget up (2026-10-28, CO1, 0x6F2FE0):** a
+  std::string's `_Tidy(true)` then stays out of line; writing the four blocks out fixed it.
+* **Loops with the test at the top rotate and peel the first call (2026-10-28, CO1, 0x7251C0):** `while` /
+  `for(;;)` over `strtok_r` peels the first `strtok_r(text)`; `do { tok = strtok_r(text, ...); text = NULL;
+  if (tok) ... } while (tok);` keeps one call site.
+* **`b ? x : -1` emits the x branch first;** `(b == NULL) ? -1 : x` gives the other order (2026-10-28, CO1, 0x725610).
 * **A nested inline is a whole-function budget (2026-10-26, `Key_Exchange` 0x829180):** under `/Ob2` an
   inline helper's own callees (a `std::set` iterator's `_Inc`) are inlined only while the function as a
   whole is under budget; removing unrelated code elsewhere in the function flips one nested call, so a
@@ -346,6 +355,10 @@ unless `--lever` cites a new row of this table.
   blank lines from the same function's stretch (cordmgr.cpp; `.work/milestones/a3/relines.py`);
   pad inside a function, not only before it (Get(char **); pk.cpp's helpers take single blanks).
   `appfile.py match` markers replace lines, never add them.
+* **co.cpp's constructor calls the aux-root factory 0x6F6000** (2026-10-28, CO1): a test program linking co.obj
+  then drags in aux_roots.obj (LNK2005 on delta, name, lookup) unless it has a stand-in, as clienttest does.
+  A newly built app file can clash with a test program's hand-written stand-ins in the same way: the rebuilding commit
+  deletes them (postate.obj vs client_stubs.cpp, 24 LNK2005).
 * **`__FILE__`: §2.1;** header strings stay as they are (D41).
 * **Client-style virtual calls on members:** a call through the object's own class (reference
   included) is devirtualised; cast to the BASE class reference (`((DeltaClass &)EndTime)`,
