@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 33 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 36 |
-| 3 | by convention from a client-named file or sibling | 899 |
-| 2 | describes what the code does | 2192 |
-| 1 | neutral placeholder | 4833 |
+| 3 | by convention from a client-named file or sibling | 916 |
+| 2 | describes what the code does | 2212 |
+| 1 | neutral placeholder | 4835 |
 
 ## For review (score 3 and below)
 
@@ -4491,6 +4491,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `m_Unknown00` | `app/shared/money.h:29` | untagged neutral name (D10) |
 | 1 | `std:` | `app/shared/money.h:36` | neutral placeholder (D10) |
 | 1 | `Unknown_4F00C0` | `app/shared/money.h:36` | untagged neutral name (D10) |
+| 1 | `Unknown2C` | `app/shared/px.cpp:280` | untagged neutral name (D10) |
+| 1 | `Unknown2C` | `app/shared/px.h:94` | only the constructor sets it |
 | 1 | `px_wrapper.h` | `app/shared/px_wrapper.h:13` | provisional header name (px_wrapper.cpp's) |
 | 1 | `owner` | `app/shared/px_wrapper.h:23` | it stores it at +0x00 |
 | 1 | `owner, src` | `app/shared/px_wrapper.h:24` | as above |
@@ -6809,6 +6811,26 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Shutdown` | `app/shared/lookup_table.h:136` | what it does |
 | 2 | `Lookup` | `app/shared/lookup_table.h:137` | what it does |
 | 2 | `Get_Table` | `app/shared/lookup_table.h:138` | what it does |
+| 2 | `Overlap` | `app/shared/px.cpp:267` | what it tests |
+| 2 | `std:` | `app/shared/px.cpp:597` | the boxes a corner change has already reported |
+| 2 | `px.h` | `app/shared/px.h:14` | provisional header name (px.cpp's) |
+| 2 | `PxEnd` | `app/shared/px.h:25` | a box's low or high end in the sorted lists |
+| 2 | `box, type` | `app/shared/px.h:33` | what it stores |
+| 2 | `Next` | `app/shared/px.h:37` | the following end in the axis's list |
+| 2 | `Prev` | `app/shared/px.h:38` | the preceding end |
+| 2 | `owner` | `app/shared/px.h:49` | stored at +0x08 |
+| 2 | `owner, src` | `app/shared/px.h:50` | as above |
+| 2 | `Get_Corners` | `app/shared/px.h:56` | what it does |
+| 2 | `Remove` | `app/shared/px.h:57` | what it does |
+| 2 | `Wants` | `app/shared/px.h:64` | the filter every notification tests |
+| 2 | `Owner` | `app/shared/px.h:67` | the constructor's argument |
+| 2 | `High` | `app/shared/px.h:68` | 'new_high' |
+| 2 | `Low` | `app/shared/px.h:69` | 'new_low' |
+| 2 | `Remove` | `app/shared/px.h:86` | Insert's opposite |
+| 2 | `Remove_All` | `app/shared/px.h:87` | what it does |
+| 2 | `Dump` | `app/shared/px.h:91` | what it does |
+| 2 | `Is_Sorted` | `app/shared/px.h:92` | what it tests |
+| 2 | `Updating` | `app/shared/px.h:95` | what it marks |
 | 2 | `ShipCustSettingsClass` | `app/shared/shipcust_desc.h:44` | the parts' key 'Settings%d' |
 | 2 | `ShipCustPartClass` | `app/shared/shipcust_desc.h:61` | the description's key 'PartAttributes%d' |
 | 2 | `Write_Short` | `app/shared/shipcust_desc.h:87` | what it does |
@@ -7930,6 +7952,23 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `LookupTableClass` | `app/shared/lookup_table.h:35` | by convention (D24) from the client's file lookup_table.cpp |
 | 3 | `money.h` | `app/shared/money.h:17` | header name assumed from the client's money.cpp |
 | 3 | `MoneyClass` | `app/shared/money.h:22` | by convention (D24) from the client's file money.cpp (D37) |
+| 3 | `EndType` | `app/shared/px.h:28` | PxList's dump prints "LOW" / "HIGH" for it |
+| 3 | `LOW` | `app/shared/px.h:29` | as above |
+| 3 | `HIGH` | `app/shared/px.h:30` | as above |
+| 3 | `Box` | `app/shared/px.h:36` | the dump's "Box = %p" |
+| 3 | `Pos` | `app/shared/px.h:39` | the dump's "Pos = %f" |
+| 3 | `Type` | `app/shared/px.h:40` | the dump's "Type = %s" |
+| 3 | `Set_Self` | `app/shared/px.h:58` | the dump's "Self" |
+| 3 | `Set_Test` | `app/shared/px.h:59` | the dump's "Test" |
+| 3 | `Set_Mask` | `app/shared/px.h:60` | the dump's "Mask" |
+| 3 | `Set_Test_Mask` | `app/shared/px.h:61` | as above |
+| 3 | `Set_Corners` | `app/shared/px.h:62` | PxList::Set_Corners |
+| 3 | `Self` | `app/shared/px.h:70` | the dump's "Self" |
+| 3 | `Test` | `app/shared/px.h:71` | the dump's "Test" |
+| 3 | `Mask` | `app/shared/px.h:72` | the dump's "Mask" |
+| 3 | `PxList` | `app/shared/px.h:81` | PxList is the client's (PxList::Insert) |
+| 3 | `Set_Self` | `app/shared/px.h:88` | PxBox::Set_Self's |
+| 3 | `Set_Test_Mask` | `app/shared/px.h:89` | as above |
 | 3 | `shipcust_desc.h` | `app/shared/shipcust_desc.h:20` | header name assumed from the client's shipcust_desc.cpp |
 | 3 | `ShipCustDescClass` | `app/shared/shipcust_desc.h:72` | by convention (D24) from the client's shipcust_desc.cpp |
 | 3 | `spln_db.h` | `app/shared/spln_db.h:34` | header of the client's app\shared\spln_db.cpp (assert __FILE__) |

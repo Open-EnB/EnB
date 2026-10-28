@@ -4123,6 +4123,8 @@ RECONSTRUCTED = {
                                       "Update_Avoidance 0x44B150",
     ('app', 'shared/px_wrapper.h'): "PxWrapper (the client's name, 0x456B60's profile strings; px_wrapper.cpp not "
                                    "rebuilt), declared as far as dynamic_obj.cpp calls it; provisional header name",
+    ('app', 'shared/px.h'): "PxEnd / PxBox / PxList, the proximity system's sweep and prune (PxBox and PxList the client's names, their profile and debug strings); provisional header name",
+    ('app', 'shared/px.cpp'): "px.cpp, client 0x44B760-0x44D740 (its __FILE__; FAIL_IFs lines 180-564): PxEnd, PxBox (vtable 0xAE7A3C) and PxList: Insert 0x44BFC0, Remove 0x44C2E0, Set_Corners 0x44C900 (NOT EXACT), the filter setters, Dump 0x44D210",
     ('app', 'client/extrap.h'): "extrap.cpp's state nodes: the client's StateNode (vtable 0xB02398; its asserts "
                                "'Bad function call! StateNode::Set_Motion()' / '... End_Tilt()'), the nodes 0xB02364-0xB02628 "
                                "and the motion objects 0xB02400 / 0xB02480 / 0xB025FC (layouts from the constructors "
