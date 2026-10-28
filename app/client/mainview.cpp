@@ -298,39 +298,39 @@ void MainViewClass::Unknown_10()
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// 0x50C690: slot +0x08: settings.ini and the interface objects (made, on through +0x54 / +0x58, given to 0x6B4940)
+// NOT EXACT: register (the layers' Vector3 stores); attempts.csv 0x50C690
+void MainViewClass::Unknown_08()
+{
+	INIClass settings_ini;
+	settings_ini.Load("settings.ini");
+	G_ASSERT(settings_ini.Is_Loaded());
+	MainViewUnknown53E970Class *object = new MainViewUnknown53E970Class(this, Unknown24);
+	object->Unknown_54();
+	object->Unknown_58();
+	Unknown_6B4940(object);
+	REF_PTR_RELEASE(object);
+	Cpit = new UICpitClass(this, LayerClass(Unknown1C, Unknown20));
+	Cpit->Unknown_54();
+	Unknown_6B4940(Cpit);
+	Unknown1D4 = new MainViewUnknown1D4Class(this, LayerClass(Unknown1C, Unknown20));
+	Unknown1D4->Unknown_54();
+	Unknown_6B4940(Unknown1D4);
+	Group = new UIGroupClass(Client);
+	Group->Unknown_54();
+	Group->Unknown_7C(this, 0);
+	Unknown1E4 = new MainViewUnknown1E4Class(Client);
+	Unknown1E4->Unknown_54();
+	Unknown1E4->Unknown_7C(this, 0);
+	Unknown1DC = new MainViewUnknown1DCClass(this, Unknown110);
+	Unknown1DC->Unknown_54();
+	Unknown1DC->Unknown_58();
+	Unknown_6B4940(Unknown1DC);
+	Unknown138 = new MainViewUnknown138Class(this, Scene, settings_ini);
+	Unknown138->Unknown_54();
+	Unknown138->Unknown_58();
+	Unknown_6B4940(Unknown138);
+}
 
 
 

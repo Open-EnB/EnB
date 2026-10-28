@@ -39,6 +39,8 @@ class LoginUnknown18Class;		// tsk_login.h: the software mouse (0x30 bytes, 0x51
 class Font3DInstanceClass;
 class FileClass;
 class RefCountClass;
+class LayerClass;
+class MainViewClass;
 class CameraClass;
 class SceneClass;
 class LandClass;
@@ -119,6 +121,7 @@ public:
 	virtual ~ViewClass();								// +0x00 (Shutdown deletes through it; the main view's destructor calls 0x65A760)
 	virtual void Unknown_04();							// +0x04 Init calls it after construction
 	virtual void Unknown_08();							// +0x08 Init (the main view, +0x1358)
+	void Unknown_6B4940(UIUnknownBaseClass *object);	// 0x6B4940 (the main view's 0x50C690 hands it its interface objects)  // NAME 1 [object]: neutral
 	virtual int Unknown_0C(bool on);					// +0x0C Process_Packets passes true to the loading view (the main view's renders and returns a WW3DErrorType)
 	virtual void Unknown_10();							// +0x10 Shutdown
 	virtual void Unknown_14();							// +0x14 SClient::Do_Frame: the current view's, after Process_AI
@@ -180,6 +183,7 @@ public:
 class UICpitClass : public UIUnknownBaseClass, public RefCountClass	// NAME 3: class-from-file (D24) for ui_cpit.cpp
 {
 public:
+	UICpitClass(MainViewClass *view, const LayerClass &layer);	// 0x57D830 (0x178 bytes; the main view's 0x50C690)  // NAME 1 [view, layer]: what 0x50C690 passes
 	void Unknown_581F90(ClientObjectClass *hulk);		// 0x581F90 (cpacket.cpp: LOOT_HULK_PERMISSION 140)  // NAME 1 [hulk]: the packet's HulkGameID's object
 	void Unknown_5820C0(bool on);						// 0x5820C0 (cpacket.cpp: OPEN_INTERFACE 102 passes UIChange == 0)  // NAME 1 [on]: what the handler passes
 	void Unknown_584A60();								// 0x584A60 (SClient 0x745160)
@@ -198,6 +202,7 @@ public:
 	UIScanClass *Scan;									// +0xD4 (the main view's 0x5136A0 returns it, 0x513630 calls 0x60E540 on it)  // NAME 3: its file's (ui_scan.cpp)
 	char UnknownD8[0xDC - 0xD8];						// +0xD8
 	int UnknownDC;										// +0xDC (the main view's 0x514400 returns it)
+	char UnknownE0[0x178 - 0xE0];						// +0xE0
 };
 
 // what the main view's slot +0x64 returns, as far as SClient 0x7456B0 calls it
@@ -260,6 +265,41 @@ public:
 	char Unknown04[0x28 - 0x04];
 };
 
+// what the main view's +0x1D4 points to (0x50C690 makes it with a layer of the base's +0x1C scene and +0x20 camera)
+class MainViewUnknown1D4Class : public ViewUnknown34Class	// NAME 1: neutral (D10)
+{
+public:
+	MainViewUnknown1D4Class(MainViewClass *view, const LayerClass &layer);	// 0x5608D0 (0xEC bytes)  // NAME 1 [view, layer]: what 0x50C690 passes
+	char Unknown40[0xEC - 0x40];						// +0x40
+};
+
+// what the main view's +0x1E4 points to (0x50C690 makes it for the client, then its slot +0x7C with the view)
+class MainViewUnknown1E4Class : public ViewUnknown34Class	// NAME 1: neutral (D10)
+{
+public:
+	MainViewUnknown1E4Class(SClient *client);			// 0x5E1BE0 (0xE8 bytes)  // NAME 1 [client]: what 0x50C690 passes
+	virtual void Unknown_60(); virtual void Unknown_64(); virtual void Unknown_68(); virtual void Unknown_6C();
+	virtual void Unknown_70(); virtual void Unknown_74(); virtual void Unknown_78();
+	virtual void Unknown_7C(MainViewClass *view, int arg);	// +0x7C (0x50C690: the view, 0)  // NAME 1 [view, arg]: what 0x50C690 passes
+	char Unknown40[0xE8 - 0x40];						// +0x40
+};
+
+// the object 0x50C690 makes, registers and releases at once (0x90 bytes, with the base's +0x24 scene)
+class MainViewUnknown53E970Class : public UIUnknownBaseClass, public RefCountClass	// NAME 1: neutral (D10)
+{
+public:
+	MainViewUnknown53E970Class(MainViewClass *view, SimpleSceneClass *scene);	// 0x53E970  // NAME 1 [view, scene]: what 0x50C690 passes
+	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
+	virtual void Unknown_10(); virtual void Unknown_14(); virtual void Unknown_18(); virtual void Unknown_1C();
+	virtual void Unknown_20(); virtual void Unknown_24(); virtual void Unknown_28(); virtual void Unknown_2C();
+	virtual void Unknown_30(); virtual void Unknown_34(); virtual void Unknown_38(); virtual void Unknown_3C();
+	virtual void Unknown_40(); virtual void Unknown_44(); virtual void Unknown_48(); virtual void Unknown_4C();
+	virtual void Unknown_50();
+	virtual void Unknown_54();
+	virtual void Unknown_58();
+	char Unknown40[0x90 - 0x40];						// +0x40
+};
+
 // what the main view's +0x1E0 points to (Shutdown 0x50C2F0 releases it)
 class MainViewUnknown1E0Class : public UIUnknownBaseClass, public RefCountClass	// NAME 1: neutral (D10)
 {
@@ -280,12 +320,15 @@ public:
 	virtual void Unknown_80(); virtual void Unknown_84();
 	virtual void Unknown_88(RenderObjClass *model);	// +0x88 (0x513540: the backdrop model)  // NAME 2 [model]: what 0x513540 passes
 	virtual void Unknown_8C(int arg);					// +0x8C (0x513600)  // NAME 1 [arg]: neutral
+	MainViewUnknown1DCClass(MainViewClass *view, SimpleSceneClass *scene);	// 0x53AA30 (0x8C bytes; 0x50C690 passes the +0x110 scene)  // NAME 1 [view, scene]: what 0x50C690 passes
+	char Unknown40[0x8C - 0x40];						// +0x40
 };
 
 // what the main view's +0x138 points to (0x53DFB0-0x53E3F0: the main view forwards to it)
 class MainViewUnknown138Class : public UIUnknownBaseClass, public RefCountClass	// NAME 1: neutral (D10)
 {
 public:
+	MainViewUnknown138Class(MainViewClass *view, SimpleSceneClass *scene, INIClass &ini);	// 0x53D250 (0xA4 bytes; 0x50C690: the +0x10C scene, settings.ini)  // NAME 1 [view, scene, ini]: what 0x50C690 passes
 	void Unknown_53DFB0(int mode);						// 0x53DFB0  // NAME 1 [mode]: the main view's
 	void Unknown_53E030(float value);					// 0x53E030  // NAME 1 [value]: the main view's
 	void Unknown_53E0B0();								// 0x53E0B0
@@ -315,6 +358,7 @@ public:
 	bool Unknown7C;										// +0x7C (0x514010: set while it runs)
 	char Unknown7D[0x9C - 0x7D];						// +0x7D
 	int Unknown9C;										// +0x9C (the main view's 0x513D00 returns it)
+	char UnknownA0[0xA4 - 0xA0];						// +0xA0
 };
 
 // mainview.cpp's view (constructor 0x50B360, 0x1EC bytes): SClient's Add_Object / Remove_Object tell it
@@ -453,11 +497,11 @@ public:
 	unsigned Unknown1C8;								// +0x1C8 (0x513700 keeps its sector here; 0x50C2D0 returns it)
 	bool Unknown1CC;									// +0x1CC
 	UICpitClass *Cpit;									// +0x1D0 (cpacket.cpp: LOOT_HULK_PERMISSION 140, OPEN_INTERFACE 102)  // NAME 3: its file's (ui_cpit.cpp)
-	ViewUnknown34Class *Unknown1D4;						// +0x1D4 (slots +0x58 / +0x5C with the cockpit's)
+	MainViewUnknown1D4Class *Unknown1D4;				// +0x1D4 (slots +0x58 / +0x5C with the cockpit's; 0x50C690 makes it)
 	UIGroupClass *Group;								// +0x1D8 (cpacket.cpp: CLIENT_CHAT_EVENT 165's group messages)  // NAME 3: its file's (ui_group.cpp)
 	MainViewUnknown1DCClass *Unknown1DC;						// +0x1DC (0x513600 calls its +0x8C)
 	MainViewUnknown1E0Class *Unknown1E0;				// +0x1E0 (Shutdown 0x50C2F0 releases it first)
-	ViewUnknown34Class *Unknown1E4;						// +0x1E4 (0x514220 calls its +0x5C)
+	MainViewUnknown1E4Class *Unknown1E4;				// +0x1E4 (0x514220 calls its +0x5C; 0x50C690 makes it)
 	WWProfileIterator *ProfileIterator;					// +0x1E8 (0x50BA60: WWProfileManager::Get_Iterator)  // NAME 2: what it holds
 };
 
