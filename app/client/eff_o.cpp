@@ -14,6 +14,8 @@
 #include "rendobj.h"
 #include "camera.h"
 
+void Unknown_4BC260(const char *sender, const char *category, const char *file, int line, const char *format, ...);	// 0x4BC260 (unknown_debug.h's reporter)
+
 // 0x6E6710
 EffectObjectClass::EffectObjectClass(ClientClass *client, unsigned id, unsigned start_time, unsigned duration, unsigned cycle_time) :
 	Client(client),
@@ -148,92 +150,8 @@ EffectObjectClass::~EffectObjectClass()
 
 
 
+
 // 0x6E6AD0: not rebuilt yet (its FAIL_IF '!Camera' sits on the client's line 154, D25)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // 0x6E6E30
 void EffectObjectClass::Unknown_6E6E30()
@@ -296,12 +214,279 @@ UnknownB00060EffectClass::UnknownB00060EffectClass(ClientClass *client, unsigned
 // 0x6E7690
 void UnknownB00060EffectClass::Unknown_04(int arg)
 {
-	if ((DataNode<UnknownB00060EffectClass *> *)arg == &SourceNode) {
+	if ((DataNode<UnknownAF0DD0Class *> *)arg == &SourceNode) {
 		SourceObject = NULL;
 		if ((bool)Flag.Unknown8) {
 			Unknown_6E6E30();
 		}
 	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 0x6E7770
+void UnknownB00060EffectClass::Unknown_28(int game_id)
+{
+	SourceObject = Client->Find_Object(game_id);
+	if (SourceObject) {
+		Unknown_73FDB0(&SourceNode, SourceObject);
+		Unknown_6E7AA0();
+		return;
+	}
+	Unknown_4BC260("A/V Effects", "", __FILE__, __LINE__, "Set_Source_Object_ID couldn't find the object!");
+	Flag.State = 2;
+	Unknown_20();
+	Unknown_6E7330();
 }
 
 // 0x6E7810
@@ -344,12 +529,12 @@ UnknownB0009CEffectClass::UnknownB0009CEffectClass(ClientClass *client, unsigned
 // 0x6E7ED0
 void UnknownB0009CEffectClass::Unknown_04(int arg)
 {
-	if ((DataNode<UnknownB0009CEffectClass *> *)arg == &SourceNode) {
+	if ((DataNode<UnknownAF0DD0Class *> *)arg == &SourceNode) {
 		SourceObject = NULL;
 		if ((bool)Flag.Unknown9) {
 			Unknown_6E6E30();
 		}
-	} else if ((DataNode<UnknownB0009CEffectClass *> *)arg == &TargetNode) {
+	} else if ((DataNode<UnknownAF0DD0Class *> *)arg == &TargetNode) {
 		TargetObject = NULL;
 		if ((bool)Flag.Unknown10) {
 			Unknown_6E6E30();
@@ -357,11 +542,128 @@ void UnknownB0009CEffectClass::Unknown_04(int arg)
 	}
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 0x6E80D0
+void UnknownB0009CEffectClass::Unknown_28(int game_id)
+{
+	SourceObject = Client->Find_Object(game_id);
+	if (SourceObject) {
+		Unknown_73FDB0(&SourceNode, SourceObject);
+		Unknown_6E8F80();
+		return;
+	}
+	Unknown_4BC260("A/V Effects", "", __FILE__, __LINE__, "Set_Source_Object_ID couldn't find the object!");
+	Flag.State = 2;
+	Unknown_20();
+	Unknown_6E7330();
+}
+
 // 0x6E8170
 void UnknownB0009CEffectClass::Unknown_2C(int game_id, const LegoIdentifierClass &lego)
 {
 	SourceLego = lego;
 	Unknown_28(game_id);
+}
+
+
+
+
+
+
+// 0x6E81B0
+void UnknownB0009CEffectClass::Unknown_34(int game_id)
+{
+	TargetObject = Client->Find_Object(game_id);
+	Unknown_73FDB0(&TargetNode, TargetObject);
+	if (TargetObject) {
+		TargetPosition = TargetObject->Unknown_24() + TargetOffset;
+		return;
+	}
+	Unknown_4BC260("A/V Effects", "", __FILE__, __LINE__, "Set_Target_Object_ID couldn't find the object!");
+	Flag.State = 2;
+	Unknown_20();
+	Unknown_6E7330();
 }
 
 // 0x6E87C0
@@ -379,6 +681,197 @@ void UnknownB0009CEffectClass::Unknown_18()
 	if (TargetObject) {
 		TargetPosition = TargetObject->Unknown_24() + TargetOffset;
 	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 0x6E9190
+void UnknownB0009CEffectClass::Unknown_6E9190()
+{
+	FAIL_IF(!TargetObject) return;
+	TargetPosition = TargetObject->Unknown_24() + TargetOffset;
 }
 
 /*

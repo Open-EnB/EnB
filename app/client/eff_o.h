@@ -37,12 +37,13 @@ class AudibleSoundClass;
 class UnknownB00060EffectClass;
 class UnknownB0009CEffectClass;
 
-// The base with only a virtual destructor (vtable 0xAF0DD0, its deleting destructor 0x57DBC0 first emitted
+// An object watcher: the base with only a virtual destructor (vtable 0xAF0DD0, its deleting destructor 0x57DBC0 first emitted
 // in ui_cpit.cpp; influence.h's record has the same base)
 class UnknownAF0DD0Class	// NAME 1: neutral (D10)
 {
 public:
 	virtual ~UnknownAF0DD0Class() {}
+	void Unknown_73FDB0(DataNode<UnknownAF0DD0Class *> *node, ClientObjectClass *object);	// 0x73FDB0 (the node out of its list, then into the object's (0x6F5090) with this as its value)  // NAME 1 [node, object]: what the effects pass
 };
 
 class EffectObjectClass : public UnknownAF0DD0Class	// NAME 3: class-from-file (D24) for eff_o.cpp
@@ -137,7 +138,7 @@ public:
 	void Unknown_6E7AA0();								// 0x6E7AA0 (the transform from the source's model: FAIL_IF '!SourceObject')
 
 	ClientObjectClass *SourceObject;					// +0x80  // NAME 3: 0x6E7AA0's FAIL_IF '!SourceObject'
-	DataNode<UnknownB00060EffectClass *> SourceNode;	// +0x84 (vtable 0xAF0DDC; its value +0x90)  // NAME 2: SourceObject's watch node
+	DataNode<UnknownAF0DD0Class *> SourceNode;	// +0x84 (vtable 0xAF0DDC; its value +0x90)  // NAME 2: SourceObject's watch node
 	Matrix3D Transform;									// +0x94  // NAME 2: what it holds
 	LegoIdentifierClass SourceLego;						// +0xC4  // NAME 2: what it holds
 };
@@ -168,8 +169,8 @@ public:
 
 	ClientObjectClass *SourceObject;					// +0x80  // NAME 3: 0x6E8F80's FAIL_IF '!SourceObject'
 	ClientObjectClass *TargetObject;					// +0x84  // NAME 3: 0x6E9190's FAIL_IF '!TargetObject'
-	DataNode<UnknownB0009CEffectClass *> SourceNode;	// +0x88 (vtable 0xAF0DDC)  // NAME 2: SourceObject's watch node
-	DataNode<UnknownB0009CEffectClass *> TargetNode;	// +0x98 (vtable 0xAF0DDC)  // NAME 2: TargetObject's watch node
+	DataNode<UnknownAF0DD0Class *> SourceNode;	// +0x88 (vtable 0xAF0DDC)  // NAME 2: SourceObject's watch node
+	DataNode<UnknownAF0DD0Class *> TargetNode;	// +0x98 (vtable 0xAF0DDC)  // NAME 2: TargetObject's watch node
 	Vector3 SourcePosition;								// +0xA8  // NAME 2: what it holds
 	Vector3 TargetPosition;								// +0xB4  // NAME 2: what it holds
 	Vector3 TargetOffset;								// +0xC0  // NAME 3: the effect packets' TargetOffset
