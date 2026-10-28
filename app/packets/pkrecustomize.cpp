@@ -14,7 +14,7 @@ RecustomizeShipStartPacketClass::RecustomizeShipStartPacketClass(RawPacketClass 
 	raw->Get(Unknown1B0);
 }
 
-// NOT EXACT: shape: ShipCustDescClass's assignment, as 130's 0x8A0380 (attempts.csv)
+// ShipCustDescClass's assignment inlined, as 130's 0x8A0380
 RecustomizeShipStartPacketClass::RecustomizeShipStartPacketClass(int unknown1A0, const ShipCustDescClass &desc, const ShipRecustomizationCostClass &cost, int unknown1A4, int unknown1A8, int unknown1AC, int unknown1B0) :
 	Unknown1A0(unknown1A0),
 	Unknown1A4(unknown1A4),
@@ -59,8 +59,8 @@ RecustomizeShipDonePacketClass::RecustomizeShipDonePacketClass(RawPacketClass *r
 	raw->Get(Unknown16C);
 }
 
-// NOT EXACT: shape: the client inlines ShipCustDescClass's assignment (shipcust_desc.h declares it out of line,
-// 0x55D8A0); with it implicit 0.82, the ship name union copied with its first byte peeled (attempts.csv)
+// ShipCustDescClass's assignment inlined (its out-of-line copy is 0x55D8A0); with it implicit the ship name
+// union was copied with its first byte apart (shipcust_desc.h)
 RecustomizeShipDonePacketClass::RecustomizeShipDonePacketClass(int unknown16C, const ShipCustDescClass &desc) :
 	Unknown16C(unknown16C)
 {

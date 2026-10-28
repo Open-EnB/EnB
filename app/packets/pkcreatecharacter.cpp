@@ -17,16 +17,16 @@ CreateCharacterPacketClass::CreateCharacterPacketClass(RawPacketClass *raw) :
 	raw->Get((Unknown_PacketDataClass *)&Ship);
 }
 
-// NOT EXACT: shape: the client calls AvatarDescClass's assignment out of line (0x85CB00, emitted in this
-// object) and inlines ShipCustDescClass's (shipcust_desc.h declares it out of line, 0x55D8A0)
+// The client calls AvatarDescClass's assignment out of line (0x85CB00, emitted in this object), inlines
+// ShipCustDescClass's and stores the three ints after the members' constructors (assigned in the body)
 CreateCharacterPacketClass::CreateCharacterPacketClass(int unknown0C, int unknown10, const char *name, __int64 unknown60, const AvatarDescClass *desc, const ShipCustDescClass &ship, bool unknown14) :
-	Unknown0C(unknown0C),
-	Unknown10(unknown10),
-	Unknown14(unknown14),
 	Unknown2D4(0),
 	Unknown2D8(0),
 	Unknown2DC(0)
 {
+	Unknown0C = unknown0C;
+	Unknown10 = unknown10;
+	Unknown14 = unknown14;
 	strcpy(Name, name);
 	Unknown60 = unknown60;
 	if (desc != NULL) {

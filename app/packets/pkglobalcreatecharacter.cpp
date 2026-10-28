@@ -4,8 +4,8 @@
 #include <string.h>
 #include <ctype.h>
 
-// NOT EXACT: shape: the client copies ShipCustDescClass's 0x1A bytes at +0x14 in one loop; ours copies the
-// bool / char union's first byte apart (shipcust_desc.h's layout: P-P8-1, as 0x85C800 and 0x8A0380 / 0x89FD80)
+// ShipCustDescClass's assignment inlined: the 0x1A name bytes at +0x14 in one loop (shipcust_desc.h's
+// written-out operator=, as 0x8A0380 / 0x89FD80)
 GlobalCreateCharacterPacketClass::GlobalCreateCharacterPacketClass(int galaxy, int slot, const char *name, const AvatarDescClass *desc, const ShipCustDescClass *ship, unsigned char unknown) :
 	Galaxy(galaxy),
 	Slot(slot),

@@ -4373,7 +4373,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown14` | `app/shared/shipcust_desc.h:53` | untagged neutral name (D10) |
 | 1 | `Unknown_PacketDataClass` | `app/shared/shipcust_desc.h:72` | untagged neutral name (D10) |
 | 1 | `Unknown3C` | `app/shared/shipcust_desc.h:77` | untagged neutral name (D10) |
-| 1 | `Ship_Name_Empty` | `app/shared/shipcust_desc.h:101` | what the constructor stores |
+| 1 | `Ship_Name_Empty` | `app/shared/shipcust_desc.h:119` | what the constructor stores |
 | 1 | `SplineFloatArrayClass` | `app/shared/spline.h:26` | a float array of a set size (0x10 bytes: +0x04 the values, +0x08 their count, +0x0C the last index) |
 | 1 | `m_Unknown00` | `app/shared/spline.h:52` | members after their offsets (Resize 0x483820); +0x00 unknown |
 | 1 | `SplineColorArrayClass` | `app/shared/spline.h:170` | three float arrays (red, green, blue) and a count (0x38 bytes: +0x04, +0x14, +0x24, +0x34) |
@@ -6632,10 +6632,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Write_Short` | `app/shared/shipcust_desc.h:87` | what it does |
 | 2 | `Read_Short` | `app/shared/shipcust_desc.h:88` | what it does |
 | 2 | `Get_Short_Size` | `app/shared/shipcust_desc.h:89` | what it does |
-| 2 | `Set_Race` | `app/shared/shipcust_desc.h:93` | what it does |
-| 2 | `Reset_Parts` | `app/shared/shipcust_desc.h:94` | what it does |
-| 2 | `Set_Profession` | `app/shared/shipcust_desc.h:95` | what it does |
-| 2 | `Ship_Name` | `app/shared/shipcust_desc.h:102` | its key 'ShipName' |
+| 2 | `Set_Race` | `app/shared/shipcust_desc.h:111` | what it does |
+| 2 | `Reset_Parts` | `app/shared/shipcust_desc.h:112` | what it does |
+| 2 | `Set_Profession` | `app/shared/shipcust_desc.h:113` | what it does |
+| 2 | `Ship_Name` | `app/shared/shipcust_desc.h:120` | its key 'ShipName' |
 | 2 | `spline.h` | `app/shared/spline.h:19` | the client's __FILE__ |
 | 2 | `Resize` | `app/shared/spline.h:30` | after what it does (0x483820: deletes the values, news size of them set to value) |
 | 2 | `Set` | `app/shared/spline.h:174` | after what it does (inlined in 0x485790) |

@@ -88,8 +88,26 @@ public:
 	virtual bool Read_Short(LinearBufferClass *buffer);	// +0x10 0x4F6620  // NAME 2: what it does
 	virtual int Get_Short_Size();						// +0x14 0x4F6730  // NAME 2: what it does
 	virtual void Unknown_00(DeltaChildVisitorClass *visitor);				// second table +0x00 0x4F6750 (thunk 0x40AEE8)
-	// operator= is implicit (P-P7-1): 130's 0x8A0380 inlines it; its out-of-line copy 0x55D8A0 (in ui_avsel.cpp's
-	// window) and 129/130's constructors match only with Ship_Name a plain char[0x1A], which loses 0x767240
+	// operator= written out, memberwise as the implicit one (P-P7-1; out of line at 0x55D8A0, ui_avsel.cpp's window): the
+	// implicit copy of the union below copies its bool apart before the name; the client copies the name as one byte loop
+	ShipCustDescClass &operator=(const ShipCustDescClass &that)
+	{
+		Tech_Level = that.Tech_Level;
+		Hull_Style = that.Hull_Style;
+		Wing_Style = that.Wing_Style;
+		for (unsigned int i = 0; i < 0x1A; i++) {	// the client's jb: an unsigned index, as the implicit copy's
+			Ship_Name[i] = that.Ship_Name[i];
+		}
+		Ship_Name_Color = that.Ship_Name_Color;
+		Unknown3C = that.Unknown3C;
+		Selected_Decal = that.Selected_Decal;
+		for (int j = 0; j < 4; j++) {
+			Parts[j] = that.Parts[j];
+		}
+		Race = that.Race;
+		Profession = that.Profession;
+		return(*this);
+	}
 	void Set_Race(int race);							// 0x4F6210  // NAME 2: what it does
 	void Reset_Parts();									// 0x4F6230: the race's default settings  // NAME 2: what it does
 	void Set_Profession(int profession);				// 0x4F62F0: with the race's hull and wing  // NAME 2: what it does
