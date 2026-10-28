@@ -347,7 +347,7 @@ bool ClientClass::Send_Packet(PacketClass *packet)
 // 0x728180
 void ClientClass::Unknown_728180()
 {
-	Unknown10C0 -= (__int64)(Unknown10C8 / Unknown10CC);
+	Unknown10C0.Time -= (__int64)(Unknown10C8 / Unknown10CC);
 	Unknown10D0 = 0;
 	Unknown10C8 = 0;
 }

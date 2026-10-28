@@ -26,6 +26,7 @@
 #include <string>
 #include "..\shared\unknown_debug.h"
 #include "matrix3d.h"
+#include "..\shared\duration.h"
 class KernelClass;
 class RenderObjClass;
 class SubPartsPacket;
@@ -179,7 +180,7 @@ public:
 	HashListClass<Unknown86CRecordClass *> Unknown86CList;	// +0x86C
 	HashListClass<Unknown831340Class *> Unknown831340List;	// +0xC94 (the constructor adds the 'Null Item')
 	int Unknown10BC;									// +0x10BC
-	__int64 Unknown10C0;								// +0x10C0 (0x728180 takes Unknown10C8 / Unknown10CC from it)
+	DurationClass Unknown10C0;							// +0x10C0 the server clock's offset (the packets' TimeStamp minus it; 0x728180 takes Unknown10C8 / Unknown10CC from it)
 	float Unknown10C8;									// +0x10C8
 	int Unknown10CC;									// +0x10CC (32)
 	int Unknown10D0;									// +0x10D0

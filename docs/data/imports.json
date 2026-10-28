@@ -1498,6 +1498,8 @@
      "0x736140",
      "0x7362F0",
      "0x7363E0",
+     "0x7364C0",
+     "0x736650",
      "0x736760",
      "0x736800",
      "0x736930",
@@ -1516,6 +1518,7 @@
      "0x7377C0",
      "0x737890",
      "0x737C10",
+     "0x737CB0",
      "0x737E10",
      "0x737F00",
      "0x738100",
@@ -8685,7 +8688,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 4274,
+  "in_tree_total": 4277,
   "totals": {}
  },
  "binkmovie": {

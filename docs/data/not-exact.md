@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-294 entries in 68 files.
+291 entries in 68 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -59,10 +59,7 @@ edit the comments in the code, not this file.
 | `app/client/cpacket.cpp:175` | `ClientAvatarPacketClass::Process_Packet` | marker | NOT EXACT: shape (the client loads the model straight into ecx; two forms; attempts.py show 0x733590) 0x733590 |
 | `app/client/cpacket.cpp:373` | `SimplePositionalUpdatePacketClass::Process_Packet` | marker | NOT EXACT: inline-budget (the client calls WWMath::Is_Valid_Float out of line for Position's Z, Orientation's Z and W, Velocity's Z; attempts.py show 0x733DC0) 0x733DC0 |
 | `app/client/cpacket.cpp:403` | `AdvancedPositionalUpdatePacketClass::Process_Packet` | marker | NOT EXACT: inline-budget (the client calls WWMath::Is_Valid_Float out of line for Position's Z and Orientation's W; attempts.py show 0x734130) 0x734130 |
-| `app/client/cpacket.cpp:895` | `AuxDataPacketClass::Process_Packet` | marker | NOT EXACT: register-only (the client loads Size and the duration before pushing 0x400; 16 forms; attempts.py show 0x7364C0) 0x7364C0 |
-| `app/client/cpacket.cpp:913` | `AuxDataPlayerVarPacketClass::Process_Packet` | marker | NOT EXACT: register-only (the client loads Size and the duration before pushing 0x400; 16 forms; attempts.py show 0x736650) 0x736650 |
 | `app/client/cpacket.cpp:1142` | `FormationPositionalUpdatePacketClass::Process_Packet` | marker | NOT EXACT: shape (the merged Unknown_24 tail sits in the type-4 branch, the client's in the type-8 one; 7 forms; attempts.py show 0x734740) 0x734740 (placed here, out of address order, so that no assert line moves): ADVANCED 62's state handling without its checks and clock drift |
-| `app/client/cpacket.cpp:1392` | `ServerHandoffPacketClass::Process_Packet` | marker | NOT EXACT: order-only (the __int64 Unknown10C0 store scheduled first; two forms; attempts.py show 0x737CB0) 0x737CB0 |
 | `app/client/cpacket.cpp:1513` | `StarbaseSetPacketClass::Process_Packet` | marker | NOT EXACT: shape (the client keeps four calls of 0x74BA30, ours merges them; attempts.py show 0x7381C0) 0x7381C0 |
 | `app/client/cpacket.cpp:1707` | `DamagePacketClass::Process_Packet` | marker | NOT EXACT: frame (the same 487 instructions; the client gives the locals other stack slots: time, inflicted, mainview, avatar_id, type ascending; 5 forms; attempts.py show 0x738970) 0x738970 |
 | `app/client/cpacket.cpp:1918` | `LootHulkPermissionPacketClass::Process_Packet` | marker | NOT EXACT: shape (the client places the shared failure exit before the call; three forms; attempts.py show 0x7396F0) 0x7396F0 |
