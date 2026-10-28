@@ -26,7 +26,7 @@
 **	0x474990 / 0x4749D0, Render 0x474B30, the decorations 0x478B50-0x47A2F0. VIDTEST's 2002 copy:
 **	docs/vidtest.md 4.2, 4.3.
 **
-**	VIDTEST draws its land with this class and its decorations with programs\vidtest\viddeco.cpp (D101).
+**	VIDTEST draws its land with this class (D101), its trees too since 2026-10-28 (Create_Decorations, the patch records).
 */
 
 #if defined(_MSC_VER)
@@ -38,12 +38,14 @@
 #define __LAND_H
 
 #include <vector>
+#include <string>
 #include <deque>
 #include "rendobj.h"
 #include "ref_ptr.h"
 #include "vector3.h"
 #include "vector2i.h"
 #include "shader.h"
+#include "matrix3d.h"
 
 class HeightFieldClass;
 class TextureClass;
@@ -57,12 +59,21 @@ class OBBoxClass;
 class MaterialPassClass;
 class CameraClass;
 
+// NAME 2: one decoration, 0x38 bytes (Create_Decorations 0x479D00's local, the .dcb reader 0x4795D0); a tree's
+// prototype, its rotation about z and place on the ground, and its scale
+struct LandDecorationStruct
+{
+	int							Proto;			// +0x00, an index into the prototype names (a byte in the .dcb)
+	Matrix3D						Transform;		// +0x04
+	float							Scale;			// +0x34
+};
+
 // NAME 2: VIDTEST's name for the 0x30-byte lighting record its Update_Lighting 0x4250B0 hands the land (esp+0x74)
 struct LandLightingStruct
 {
 	Vector3		LightColor;		// clamped LightColor x LightIntensity
 	Vector3		SunDirection;	// towards the sun
-	float		SunAngle;		// pi/2 - elevation
+	float		SunAngle;		// the sun's elevation (VIDTEST: pi/2 - acos(sun.z)); Prepare_Lighting compares the horizons with it
 	float		ShadowBias;
 	Vector3		SkyColor;		// clamped SkyColor x SkyIntensity
 	bool		Valid;
@@ -175,13 +186,18 @@ public:
 // NAME 1: the vector at +0x1218 (0x4786A0 push_back, 0x4788B0 clear; called by 0x75F8B0)
 	void							Add_Unknown1218(const RefCountPtr<TexProjectClass> &object);
 	void							Clear_Unknown1218(void);
-// NAME 2: VIDTEST's: it writes +0x136 (0x40AB10), its decorations read the field, the grid and the patch records
-// (0x410B90: the record's +0x24); none in the client (programs/vidtest/viddeco.cpp)
+// NAME 2: VIDTEST's: it writes +0x136 (0x40AB10); none in the client
 	void							Set_Dirty(void)							{ Dirty = true; }
-	HeightFieldClass *		Peek_Height_Field(void) const		{ return Field; }
-	int							Get_Patch_Size(void) const			{ return PatchSize; }
-	int							Get_Grid_Width(void) const			{ return GridWidth; }
-	const LandPatchRecordClass &	Peek_Patch_Record(int i) const	{ return PatchRecords[i]; }
+// NAME 2: the decorations (decoration.ini, the zone's land_%04d.dcb; mainview's loader 0x5137F0 reads the .dcb and builds
+// them, or makes them from decoration.ini when there is none): the prototype names of an ini section (0x478970, nothing
+// calls it), the .dcb's reader 0x4795D0 and writer 0x479A50 (nothing calls it)
+	void							Load_Prototype_Names(std::vector<std::string> &names, INIClass &ini, const char *section);
+	void							Load_Decorations(std::vector<std::string> &names, std::vector<LandDecorationStruct> &decorations, const char *filename);
+	void							Save_Decorations(std::vector<std::string> &names, std::vector<LandDecorationStruct> &decorations, const char *filename);
+// NAME 2: VIDTEST's Land::Create_Decorations (0x415C40 ~ 0x479D00): decoration.ini [set]'s NUM_DECOS trees at random on the
+// land; the patch records' tree and shadow buffers from the decorations (0x47A2F0 = VIDTEST 0x416170)
+	void							Create_Decorations(int set);
+	void							Build_Decorations(std::vector<std::string> &names, std::vector<LandDecorationStruct> &decorations);
 
 protected:
 // NAME 2: after what they do (0x46C730, 0x46CAE0 (not rebuilt), 0x46D410, 0x46D6B0, 0x46D8B0, 0x46D880)

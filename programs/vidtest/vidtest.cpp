@@ -83,7 +83,7 @@
 #include "spln_db.h"						// app\shared (M2.4)
 #include "curve.h"
 #include "land.h"							// app\shared (M2.4)
-#include "viddeco.h"						// the land's decorations, VIDTEST's own (D101)
+//#include "viddeco.h"						// the land's decorations, VIDTEST's own (D101)
 #include "registry.h"
 
 static FILE *		LogFile = NULL;
@@ -409,7 +409,6 @@ static RenderObjClass *		Back01 = NULL;				// 0x5EF164
 static RenderObjClass *		Mu02 = NULL;				// 0x5EF160
 static StarFieldClass *		StarField = NULL;			// 0x5EF16C
 static LandClass *			Land = NULL;				// 0x5EF168
-static VidtestDecorationsClass *	Decorations = NULL;		// ours: VIDTEST's land drew them (D101)
 
 static int					TestState = 0;				// 0x5EF15C: 0 fill, 1 polygon, 2 land, 3 done
 static unsigned char		SpaceBudget = 9;			// 0x5C5508 byte 0 (x1000 polygons)
@@ -1084,12 +1083,7 @@ static bool Build_Scenes(void)
 	Land = LandClass::Create("land.ini", true);				// 0x4068F0
 	Log("LandClass::Create(\"land.ini\") = %p\n", Land);
 	if (Land) {
-		Decorations = new VidtestDecorationsClass(Land);
-		bool decos = Decorations->Create_Decorations(0);		// 0x415C40
-		Log("Create_Decorations(0) = %d\n", (int)decos);
-		// drawn after the land, as VIDTEST's land draws them (0x410B90): SimpleSceneClass adds at the head of its
-		// list and renders from the head, so the decorations go in first (their shadows blend onto the land)
-		LandScene->Add_Render_Object(Decorations);
+		Land->Create_Decorations(0);							// 0x415C40: the trees into the land's patch records, drawn by its Render
 		LandScene->Add_Render_Object(Land);
 	}
 	LandScene->Add_Render_Object(Mu02);
@@ -1113,7 +1107,6 @@ static void Release_Scenes(void)
 	REF_PTR_RELEASE(Mu01a);
 	REF_PTR_RELEASE(Mu02);
 	REF_PTR_RELEASE(StarField);
-	REF_PTR_RELEASE(Decorations);
 	REF_PTR_RELEASE(Land);
 }
 

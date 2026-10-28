@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-287 entries in 68 files.
+289 entries in 67 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -208,15 +208,14 @@ edit the comments in the code, not this file.
 | `app/shared/definition_manager.h:115` | `?` | marker | NOT EXACT: shape (explain.py), two registers swapped in the inlined hashtable destructor and one EH state store more in ours (0x4EAFB0) |
 | `app/shared/heightfield.cpp:34` | `HeightFieldClass::Load` | marker | NOT EXACT: order-only (the client loads Size before Count - 1 and copies it for HalfSize), parked |
 | `app/shared/heightfield.cpp:71` | `HeightFieldClass::Load_PGM` | marker | NOT EXACT: written from the pseudocode (the PGM reader 0x4637C0, the same as VIDTEST's 0x4026B0) |
-| `app/shared/heightfield.cpp:149` | `HeightFieldClass::Sample` | marker | NOT EXACT: frame (0xC in the client: one more local) and the y copy through a register |
-| `app/shared/heightfield.cpp:184` | `HeightFieldClass::World_To_Grid` | marker | NOT EXACT: order-only (the client loads HalfSize before the position) |
-| `app/shared/heightfield.cpp:198` | `HeightFieldClass::Get_Downhill` | marker | NOT EXACT: written from the pseudocode (0x463F00: frame 0x1C in the client, the corner tests' scheduling) |
-| `app/shared/heightfield.cpp:257` | `HeightFieldClass::Get_Normal` | marker | NOT EXACT: written from the pseudocode (0x464290: the cross products and Normalize as Vector3's) |
-| `app/shared/heightfield.cpp:281` | `HeightFieldClass::Get_Height` | marker | NOT EXACT: written from the pseudocode (0x464600: the cell's two triangles) |
-| `app/shared/heightfield.cpp:382` | `HeightFieldClass::Cast_Ray` | marker | NOT EXACT: frame (0xAC, the client 0xB0: it keeps tmax and the second slab's values on the FPU and swaps through a register; 90 masked rows; attempts.csv 0x4647C0) |
-| `app/shared/heightfield.cpp:529` | `HeightFieldClass::Cast_OBBox` | marker | NOT EXACT: frame (0x168, the client 0x164: a 4-byte local too many; 22 masked rows; 10 forms, attempts.csv 0x4654E0) |
-| `app/shared/heightfield.cpp:597` | `HeightFieldClass::Get_Triangles` | marker | NOT EXACT: inline-budget (the client calls the first push_back's insert out of line, 0x466180; 28 masked rows; attempts.csv 0x465D30) |
-| `app/shared/heightfield.cpp:678` | `HeightFieldClass::Sample` | mention | NOT EXACT: frame): two triangles per cell over the sweep's bounds (LandClass's Cast_* forward to them through 0x46C680-0x46C6E0). Get_Triangles 0x465D30 (NOT EXACT, for the land's render) with vector<Vector3>::insert 0x4663E0. Cast_Ray clips the ray to the grid unless it wraps, then walks the cells it crosses (a 2D DDA) until a triangle is hit. The functions after the notes' "Ours" are VIDTEST's l... |
+| `app/shared/heightfield.cpp:186` | `HeightFieldClass::World_To_Grid` | marker | NOT EXACT: order-only (the client loads HalfSize before the position) |
+| `app/shared/heightfield.cpp:200` | `HeightFieldClass::Get_Downhill` | marker | NOT EXACT: written from the pseudocode (0x463F00: frame 0x1C in the client, the corner tests' scheduling) |
+| `app/shared/heightfield.cpp:259` | `HeightFieldClass::Get_Normal` | marker | NOT EXACT: written from the pseudocode (0x464290: the cross products and Normalize as Vector3's) |
+| `app/shared/heightfield.cpp:283` | `HeightFieldClass::Get_Height` | marker | NOT EXACT: written from the pseudocode (0x464600: the cell's two triangles) |
+| `app/shared/heightfield.cpp:384` | `HeightFieldClass::Cast_Ray` | marker | NOT EXACT: frame (0xAC, the client 0xB0: it keeps tmax and the second slab's values on the FPU and swaps through a register; 90 masked rows; attempts.csv 0x4647C0) |
+| `app/shared/heightfield.cpp:531` | `HeightFieldClass::Cast_OBBox` | marker | NOT EXACT: frame (0x168, the client 0x164: a 4-byte local too many; 22 masked rows; 10 forms, attempts.csv 0x4654E0) |
+| `app/shared/heightfield.cpp:599` | `HeightFieldClass::Get_Triangles` | marker | NOT EXACT: inline-budget (the client calls the first push_back's insert out of line, 0x466180; 28 masked rows; attempts.csv 0x465D30) |
+| `app/shared/heightfield.cpp:680` | `HeightFieldClass::Sample` | mention | NOT EXACT: frame): two triangles per cell over the sweep's bounds (LandClass's Cast_* forward to them through 0x46C680-0x46C6E0). Get_Triangles 0x465D30 (NOT EXACT, for the land's render) with vector<Vector3>::insert 0x4663E0. Cast_Ray clips the ray to the grid unless it wraps, then walks the cells it crosses (a 2D DDA) until a triangle is hit. The functions after the notes' "Ours" are VIDTEST's l... |
 | `app/shared/ini_manager.cpp:49` | `INIManagerClass::Get_INI` | marker | NOT EXACT: shape (explain.py: 53 masked rows), the holder's new and the Create_Peek temporary take other registers and frame slots; objmatch would also reject the atexit handler's name $E18 (symbols.json gives it to other objects) |
 | `app/shared/ini_manager.h:29` | `?` | marker | NOT EXACT: register-only (explain.py), eax / ecx / edx rotated in the inlined Free_Unused (0x4EA2B0) |
 | `app/shared/kv_acc_array.h:54` | `Set` | marker | NOT EXACT: literal (the client compares the result of find with std::string::npos loaded from memory, ours folds it to -1; float: 0x4C34D0) |
@@ -226,25 +225,30 @@ edit the comments in the code, not this file.
 | `app/shared/kv_tripl.cpp:56` | `KVTripleListClass::KVTripleListClass` | marker | NOT EXACT: inline budget, the client inlines the triple's copy constructor here (Copy_Member out of line); ours calls 0x4B85F0 |
 | `app/shared/kv_tripl.cpp:61` | `KVTripleListClass::KVTripleListClass` | marker | NOT EXACT: frame (0x38 vs 0x3C) and inline budget, the client calls the bucket vector's constructor 0x4BA530 out of line and keeps match in ebx |
 | `app/shared/kv_tripl.cpp:77` | `KVTripleListClass::~KVTripleListClass` | marker | NOT EXACT: inline budget, the client calls the vector's erase pieces (0x4BAC30, 0x4B9D60), bucket size() and _M_delete_node out of line |
-| `app/shared/land.cpp:106` | `LandClass::Load_Assets` | marker | NOT EXACT: inline-budget (ours inlines LandPatchClass's ctor and Init, the client calls 0x474530 / 0x4746C0; without them the frame slots differ); 7 forms (attempts.csv 0x4691D0) |
-| `app/shared/land.cpp:390` | `LandClass::Save_Sea_Mask` | marker | NOT EXACT: shape (2 rows: the client returns false through al = HasSea, ours xor al, al; 7 forms, attempts.csv 0x46BCC0) |
-| `app/shared/land.cpp:427` | `LandClass::Limit_Levels` | marker | NOT EXACT: inline-budget (the client calls the first push_back out of line (0x46BF70) and inlines _Freefront in pop_front and the destructor; ours the reverse) |
-| `app/shared/land.cpp:633` | `LandClass::Update_Patches` | marker | NOT EXACT: shape (written from the disassembly: the client's frame is 0x18 larger, it copies the camera position and ors the change tests; 5 forms, attempts.csv 0x46B3C0) |
-| `app/shared/land.cpp:737` | `LandClass::Render` | marker | NOT EXACT: written from the pseudocode (0x474B30); VIDTEST's land scene runs it (D101) |
-| `app/shared/land.cpp:1007` | `LandClass::Upload_Lightmap` | marker | NOT EXACT: frame (0x14, the client 0x20: it keeps this, the size and the buffer in frame slots); 2 forms tried |
-| `app/shared/land.cpp:1048` | `LandPatchClass::Build_Vertices` | marker | NOT EXACT: frame (0x3C, the client 0x38); 3 forms tried (attempts.csv 0x474790) |
-| `app/shared/land.cpp:1114` | `LandClass::Compute_Lighting` | marker | NOT EXACT: order-only (the shadowed vertex: the client loads +0x1F0's factor first; 64 rows masked; attempts.csv 0x46CAE0). The lit vertices: the sun's normal colour plus the sky's; the shadowed: the sky's; between the horizons a blend |
-| `app/shared/land.cpp:1234` | `LandClass::Apply_Colors` | marker | NOT EXACT: shape (the client steps a colour pointer by 3 and tests extra before its loads; the loop bodies match); 3 forms tried |
-| `app/shared/land.cpp:1278` | `LandClass::Build_Index_Buffers` | marker | NOT EXACT: field-offset / order (the store order of the strip's index pairs; 2 forms, attempts.csv 0x478240) |
-| `app/shared/land.cpp:1374` | `LandClass::Unknown_46E120` | marker | NOT EXACT: functional, from the disassembly of 0x46E120 |
-| `app/shared/land.cpp:1539` | `LandClass::Unknown_46F120` | marker | NOT EXACT: functional, from the disassembly and pseudocode of 0x46F120 |
-| `app/shared/land.cpp:1682` | `LandClass::Unknown_470F80` | marker | NOT EXACT: functional, from the disassembly and pseudocode of 0x470F80 |
-| `app/shared/land.cpp:1923` | `LandClass::Compute_Horizons` | marker | NOT EXACT: functional, from the disassembly and pseudocode of 0x472F80 |
-| `app/shared/land.cpp:1990` | `LandClass::Compute_Horizons` | marker | NOT EXACT: shape (21 masked rows: the mask test's operand order and the heights' restore; 5 forms, attempts.csv 0x46E670) |
-| `app/shared/land.cpp:2049` | `LandClass::Unknown_473290` | marker | NOT EXACT: order-only (3 masked rows: the client loads Spacing before VScale for VScale / Spacing; 6 forms, attempts.csv 0x473290) |
-| `app/shared/land.cpp:2135` | `LandClass::Unknown_473780` | marker | NOT EXACT: frame (the client's frame 0x14 bigger, 147 masked rows; 2 forms, attempts.csv 0x473780) |
-| `app/shared/land.cpp:2186` | `LandClass::Unknown_473BC0` | marker | NOT EXACT: frame (the client's frame 0x14 bigger; 2 forms, attempts.csv 0x473BC0) |
-| `app/shared/land.cpp:2286` | `LandClass::Save_PLD` | mention | NOT EXACT, marked); VIDTEST draws its land with this class since 2026-10-28 (D101), its decorations with programs\vidtest\viddeco.cpp (the client's zone loader fills the patch records). |
+| `app/shared/land.cpp:109` | `LandClass::Load_Assets` | marker | NOT EXACT: inline-budget (ours inlines LandPatchClass's ctor and Init, the client calls 0x474530 / 0x4746C0; without them the frame slots differ); 7 forms (attempts.csv 0x4691D0) |
+| `app/shared/land.cpp:393` | `LandClass::Save_Sea_Mask` | marker | NOT EXACT: shape (2 rows: the client returns false through al = HasSea, ours xor al, al; 7 forms, attempts.csv 0x46BCC0) |
+| `app/shared/land.cpp:430` | `LandClass::Limit_Levels` | marker | NOT EXACT: inline-budget (the client calls the first push_back out of line (0x46BF70) and inlines _Freefront in pop_front and the destructor; ours the reverse) |
+| `app/shared/land.cpp:636` | `LandClass::Update_Patches` | marker | NOT EXACT: shape (written from the disassembly: the client's frame is 0x18 larger, it copies the camera position and ors the change tests; 5 forms, attempts.csv 0x46B3C0) |
+| `app/shared/land.cpp:740` | `LandClass::Render` | marker | NOT EXACT: written from the pseudocode (0x474B30); VIDTEST's land scene runs it (D101) |
+| `app/shared/land.cpp:1101` | `LandClass::Create_Decorations` | marker | NOT EXACT: shape (written from the disassembly: the client keeps this in a frame slot, calls the string constructor and the vector insert out of line, builds the rotation from a zero local; 1 form, attempts.csv 0x479D00) |
+| `app/shared/land.cpp:1149` | `Land_Find_Decoration_Mesh` | marker | NOT EXACT: functional, from the disassembly |
+| `app/shared/land.cpp:1185` | `Land_Set_Ref` | marker | NOT EXACT: functional, from the disassembly |
+| `app/shared/land.cpp:1235` | `LandClass::Build_Decorations` | marker | NOT EXACT: functional, from the disassembly and the pseudocode (0x47A2F0 = VIDTEST 0x416170, 7 KB). The prototypes' tree and shadow meshes; the first tree's texture, shader and vertex material (+0x178 / +0x17C / +0x180) and the first shadow's shader and material (+0x184 / +0x188), every other prototype's must be the same (else no decorations); each decoration appended to its patch's lists (the pat... |
+| `app/shared/land.cpp:1430` | `LandClass::Save_Decorations` | marker | NOT EXACT: frame (0x3C, the client 0x48: a 12-byte local holding the y, the x and y through the FPU; 7 forms, attempts.csv 0x479A50) |
+| `app/shared/land.cpp:1464` | `LandClass::Upload_Lightmap` | marker | NOT EXACT: frame (0x14, the client 0x20: it keeps this, the size and the buffer in frame slots); 2 forms tried |
+| `app/shared/land.cpp:1505` | `LandPatchClass::Build_Vertices` | marker | NOT EXACT: frame (0x3C, the client 0x38); 3 forms tried (attempts.csv 0x474790) |
+| `app/shared/land.cpp:1571` | `LandClass::Compute_Lighting` | marker | NOT EXACT: order-only (the shadowed vertex: the client loads +0x1F0's factor first; 64 rows masked; attempts.csv 0x46CAE0). The lit vertices: the sun's normal colour plus the sky's; the shadowed: the sky's; between the horizons a blend |
+| `app/shared/land.cpp:1691` | `LandClass::Apply_Colors` | marker | NOT EXACT: shape (the client steps a colour pointer by 3 and tests extra before its loads; the loop bodies match); 3 forms tried |
+| `app/shared/land.cpp:1735` | `LandClass::Build_Index_Buffers` | marker | NOT EXACT: field-offset / order (the store order of the strip's index pairs; 2 forms, attempts.csv 0x478240) |
+| `app/shared/land.cpp:1831` | `LandClass::Unknown_46E120` | marker | NOT EXACT: functional, from the disassembly of 0x46E120 |
+| `app/shared/land.cpp:1996` | `LandClass::Unknown_46F120` | marker | NOT EXACT: functional, from the disassembly and pseudocode of 0x46F120 |
+| `app/shared/land.cpp:2139` | `LandClass::Unknown_470F80` | marker | NOT EXACT: functional, from the disassembly and pseudocode of 0x470F80 |
+| `app/shared/land.cpp:2380` | `LandClass::Compute_Horizons` | marker | NOT EXACT: functional, from the disassembly and pseudocode of 0x472F80 |
+| `app/shared/land.cpp:2447` | `LandClass::Compute_Horizons` | marker | NOT EXACT: shape (21 masked rows: the mask test's operand order and the heights' restore; 5 forms, attempts.csv 0x46E670) |
+| `app/shared/land.cpp:2506` | `LandClass::Unknown_473290` | marker | NOT EXACT: order-only (3 masked rows: the client loads Spacing before VScale for VScale / Spacing; 6 forms, attempts.csv 0x473290) |
+| `app/shared/land.cpp:2592` | `LandClass::Unknown_473780` | marker | NOT EXACT: frame (the client's frame 0x14 bigger, 147 masked rows; 2 forms, attempts.csv 0x473780) |
+| `app/shared/land.cpp:2643` | `LandClass::Unknown_473BC0` | marker | NOT EXACT: frame (the client's frame 0x14 bigger; 2 forms, attempts.csv 0x473BC0) |
+| `app/shared/land.cpp:2743` | `LandClass::Save_PLD` | mention | NOT EXACT, marked); VIDTEST draws its land with this class since 2026-10-28 (D101), and its trees: Create_Decorations 0x479D00 (VIDTEST 0x415C40) and Build_Decorations 0x47A2F0 (= VIDTEST 0x416170) fill the patch records that Render draws (both functional; drawcheck frame 900 the original's draws). The zone loader (mainview 0x5137F0) reads land_%04d.dcb with Load_Decorations 0x4795D0 and builds fr... |
 | `app/shared/landdmap.cpp:13` | `Height_Low_Byte` | marker | NOT EXACT: functional, from the disassembly of 0x466140 (a height-field function in the client) |
 | `app/shared/landdmap.cpp:162` | `LandUnknown466BE0Class::Unknown_466F60` | marker | NOT EXACT: functional, from the disassembly and pseudocode of 0x466F60 |
 | `app/shared/landdmap.cpp:254` | `LandUnknown466BE0Class::Unknown_4677B0` | marker | NOT EXACT: functional, from the disassembly and pseudocode of 0x4677B0 |
@@ -296,5 +300,3 @@ edit the comments in the code, not this file.
 | `app/wwudp/cordmgr.cpp:1403` | `CordMgr::Wait` | mention | NOT EXACT (registers): the set of every data and listening socket, then wnet's UDP::Wait on the last one. |
 | `app/wwudp/cordmgr.cpp:1430` | `CordMgr::Find_Connection` | mention | NOT EXACT: wlib ArrayList's remove inlined once, as the client's; only the not-found return's place differs. |
 | `app/wwudp/cordmgr.cpp:1449` | `CordMgr::Cancel_Connect` | mention | NOT EXACT: as 0x859440 (the shrink out of line, 0x85B8B0). A handshake record is deleted but left in Pending_, as the client leaves it. |
-| `programs/vidtest/viddeco.cpp:2` | `(whole file)` | marker | NOT EXACT, the whole file: functional, after VIDTEST's 2002 copy (0x414B50, 0x415C40, 0x416170, 0x410B90). |
-| `programs/vidtest/viddeco.cpp:407` | `VidtestDecorationsClass::Render` | mention | NOT EXACT: written functionally (D42). Kept from VIDTEST: the ini keys and defaults, Random4Class(0x1105) and the order of its draws (prototype, scale, v, u, angle), the trees alpha tested with depth writes, the shadows on the ground's normal, lifted 3 units, drawn with D3DRS_ZBIAS 1. |

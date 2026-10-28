@@ -34,6 +34,9 @@
 #include "vector.h"
 #include "landdmap.h"
 #include "texproject.h"
+#include "quat.h"
+#include "random.h"
+#include "matinfo.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -1002,6 +1005,460 @@ void LandClass::Add_Unknown1218(const RefCountPtr<TexProjectClass> &object)
 void LandClass::Clear_Unknown1218(void)
 {
 	m_Unknown1218.clear();
+}
+
+char *Unknown_4A1590(char *buffer, int size, const char *string);	// 0x4A1590: a bounded strcpy  // NAME 1: neutral placeholder (D10)
+
+// NAME 2: the .dcb's first word (0x4795D0, 0x479A50)
+#define LAND_DECORATION_ID			0xDEC0DEC0
+
+// NAME 2: a decoration as the .dcb keeps it, 0x20 bytes (0x479A50): no height, the reader puts it on the ground
+struct LandDecorationRecordStruct
+{
+	unsigned char				Proto;
+	Quaternion					Rotation;
+	float							X;
+	float							Y;
+	float							Scale;
+};
+
+void LandClass::Load_Prototype_Names(std::vector<std::string> &names, INIClass &ini, const char *section)
+{
+	int count = ini.Get_Int(section, "NUM_PROTOS", 0);
+	for (int i = 0; i < count; i++) {
+		char entry[256];
+		char name[1024];
+		sprintf(entry, "PROTO%d", i);
+		ini.Get_String(section, entry, "TDTREE01A", name, sizeof(name));
+		names.push_back(std::string(name));
+	}
+}
+
+void LandClass::Load_Decorations(std::vector<std::string> &names, std::vector<LandDecorationStruct> &decorations, const char *filename)
+{
+	if (Field == NULL) {
+		return;
+	}
+	file_auto_ptr file(_TheFileFactory, filename);
+	if (!file->Is_Available()) {
+		return;
+	}
+	file->Open(FileClass::READ);
+	unsigned int id;
+	if (file->Read(&id, 4) != 4 || id != LAND_DECORATION_ID) {
+		return;
+	}
+	unsigned int count;
+	if (file->Read(&count, 4) != 4) {
+		return;
+	}
+	for (id = 0; id < count; id++) {
+		char name[32];
+		memset(name, 0, sizeof(name));
+		std::string string;
+		if (file->Read(name, sizeof(name)) != sizeof(name)) {
+			return;
+		}
+		string = name;
+		names.push_back(string);
+	}
+	unsigned int decoration_count;
+	if (file->Read(&decoration_count, 4) != 4) {
+		return;
+	}
+	for (id = 0; id < decoration_count; id++) {
+		LandDecorationRecordStruct record;
+		if (file->Read(&record, sizeof(record)) != sizeof(record)) {
+			return;
+		}
+		Quaternion rotation(record.Rotation.X, record.Rotation.Y, record.Rotation.Z, record.Rotation.W);
+		Matrix3D tm = Build_Matrix3D(rotation);
+		Vector3 pos;
+		pos.X = record.X;
+		pos.Y = record.Y;
+		pos.Z = Field->Get_Height(pos);
+		tm.Set_Translation(pos);
+		LandDecorationStruct decoration;
+		decoration.Proto = record.Proto;
+		if ((unsigned int)decoration.Proto > count) {
+			decoration.Proto = 0;
+		}
+		decoration.Transform = tm;
+		decoration.Scale = record.Scale;
+		decorations.push_back(decoration);
+	}
+	file->Close();
+}
+
+// NAME 2: a decoration vertex, FVF 0x112 (0x47C6A0; the patch records' buffers, 0x47A2F0)
+struct LandDecorationVertexStruct
+{
+	Vector3						Position;
+	Vector3						Normal;
+	Vector2						UV;
+};
+
+// NOT EXACT: shape (written from the disassembly: the client keeps this in a frame slot, calls the string constructor and the
+// vector insert out of line, builds the rotation from a zero local; 1 form, attempts.csv 0x479D00)
+void LandClass::Create_Decorations(int set)
+{
+	INIClass ini;
+	ini.Load("decoration.ini");
+	char section[256];
+	sprintf(section, "%d", set);
+	int count = ini.Get_Int(section, "NUM_DECOS", 0);
+	if (count <= 0) {
+		return;
+	}
+	float min_scale = ini.Get_Float(section, "MIN_SCALE", 1.0f);
+	float max_scale = ini.Get_Float(section, "MAX_SCALE", 2.0f);
+	std::vector<std::string> names;
+	int proto_count = ini.Get_Int(section, "NUM_PROTOS", 0);
+	for (int i = 0; i < proto_count; i++) {
+		char entry[256];
+		char name[1024];
+		sprintf(entry, "PROTO%d", i);
+		ini.Get_String(section, entry, "TDTREE01A", name, sizeof(name));
+		names.push_back(std::string(name));
+	}
+	if (names.size() <= 0) {
+		return;
+	}
+	std::vector<LandDecorationStruct> decorations;
+	Random4Class random(0x1105);
+	while (count--) {
+		LandDecorationStruct decoration;
+		decoration.Proto = Pick_Random_Number(random, 0, names.size() - 1);
+		decoration.Scale = random.Get_Float() * (max_scale - min_scale) + min_scale;
+		Vector3 pos;
+		do {
+			Vector2 uv(random.Get_Float(), random.Get_Float());
+			pos = Field->Sample(uv);
+		} while (HasSea && pos.Z <= SeaLevel);
+		float angle = random.Get_Float() * (2.0f * WWMATH_PI);
+		float c = (float)cos(angle);
+		float s = (float)sin(angle);
+		decoration.Transform.Set(c, -s, 0.0f, pos.X, s, c, 0.0f, pos.Y, 0.0f, 0.0f, 1.0f, pos.Z);
+		decorations.push_back(decoration);
+	}
+	Build_Decorations(names, decorations);
+}
+
+// 0x47C580 (VIDTEST 0x418400): the first mesh under robj, depth first, whose name holds ".d" or ".D" (a tree) or ".s" or
+// ".S" (its shadow); add-reffed
+// NOT EXACT: functional, from the disassembly
+static RenderObjClass *Land_Find_Decoration_Mesh(RenderObjClass *robj, bool tree)	// NAME 2: after what it does
+{
+	if (robj->Class_ID() == RenderObjClass::CLASSID_MESH) {
+		const char *name = robj->Get_Name();
+		if (name == NULL) {
+			return NULL;
+		}
+		if (tree) {
+			if (strstr(name, ".d") == NULL && strstr(name, ".D") == NULL) {
+				return NULL;
+			}
+		} else {
+			if (strstr(name, ".s") == NULL && strstr(name, ".S") == NULL) {
+				return NULL;
+			}
+		}
+		robj->Add_Ref();
+		return robj;
+	}
+	int count = robj->Get_Num_Sub_Objects();
+	for (int i = 0; i < count; i++) {
+		RenderObjClass *sub = robj->Get_Sub_Object(i);
+		if (sub != NULL) {
+			RenderObjClass *found = Land_Find_Decoration_Mesh(sub, tree);
+			sub->Release_Ref();
+			if (found != NULL) {
+				return found;
+			}
+		}
+	}
+	return NULL;
+}
+
+// 0x47C6A0: a mesh's vertices (scaled, then through tm; normals rotated, not normalised; no normals or uvs give zeros) and its
+// triangles' indices plus base, appended; returns the largest index the triangles use
+// NOT EXACT: functional, from the disassembly
+static unsigned short Land_Append_Decoration_Mesh(MeshClass *mesh, std::vector<LandDecorationVertexStruct> &vertices,
+	std::vector<unsigned short> &indices, unsigned short base, const Matrix3D &tm, float scale)	// NAME 2: after what it does
+{
+	MeshModelClass *model = mesh->Peek_Model();
+	const Vector2 *uv = model->Get_UV_Array(0, 0);
+	const Vector3 *points = model->Get_Vertex_Array();
+	const TriIndex *polys = model->Get_Polygon_Array();
+	const Vector3 *normals = model->Get_Vertex_Normal_Array();
+	unsigned short largest = 0;
+	if (points == NULL || polys == NULL) {
+		return largest;
+	}
+	int i;
+	int vertex_count = model->Get_Vertex_Count();
+	for (i = 0; i < vertex_count; i++) {
+		LandDecorationVertexStruct vertex;
+		Vector3 p = points[i] * scale;
+		Matrix3D::Transform_Vector(tm, p, &vertex.Position);
+		vertex.Normal.Set(0.0f, 0.0f, 0.0f);
+		if (normals != NULL) {
+			vertex.Normal = tm.Rotate_Vector(normals[i]);
+		}
+		vertex.UV.Set(0.0f, 0.0f);
+		if (uv != NULL) {
+			vertex.UV = uv[i];
+		}
+		vertices.push_back(vertex);
+	}
+	int poly_count = model->Get_Polygon_Count();
+	for (i = 0; i < poly_count; i++) {
+		for (int k = 0; k < 3; k++) {
+			unsigned short index = (unsigned short)polys[i][k];
+			if (index > largest) {
+				largest = index;
+			}
+			indices.push_back((unsigned short)(base + index));
+		}
+	}
+	return largest;
+}
+
+// The client fills its RefCountPtrs through Create_NEW / Create_Get / Create_Peek instances (0x47CF50 .. 0x47D370); written
+// here without them (Land_Set_Ref), since more byte-identical instances in land.obj make 0x474080 ambiguous (a pair lost).
+static void Land_Set_Ref(RefCountPtr<RefCountClass> &ptr, RefCountClass *object)	// NAME 2: ours; takes over a reference
+{
+	ptr = NULL;
+	*(RefCountClass **)&ptr = object;
+}
+
+// NOT EXACT: functional, from the disassembly and the pseudocode (0x47A2F0 = VIDTEST 0x416170, 7 KB). The prototypes' tree
+// and shadow meshes; the first tree's texture, shader and vertex material (+0x178 / +0x17C / +0x180) and the first shadow's
+// shader and material (+0x184 / +0x188), every other prototype's must be the same (else no decorations); each decoration
+// appended to its patch's lists (the patch from World_To_Grid over the grid width), the shadow turned onto the ground's
+// normal (the quaternion from z to the normal, its half angle not normalised) and lifted 3 units along it; then the patch
+// records' vertex and index buffers. Nothing when the height field wraps. The client sets a global byte 0xBFAE52 while it
+// loads the prototypes when the land's +0x135 is set (not rebuilt).
+void LandClass::Build_Decorations(std::vector<std::string> &names, std::vector<LandDecorationStruct> &decorations)
+{
+	int count = decorations.size();
+	if (count < 1) {
+		return;
+	}
+	int proto_count = names.size();
+	m_Unknown190 = false;
+	m_Unknown191 = false;
+	if (Field->Is_Wrapping()) {
+		return;
+	}
+	std::vector<MeshClass *> trees;
+	std::vector<MeshClass *> shadows;
+	int i;
+	for (i = 0; i < proto_count; i++) {
+		RenderObjClass *robj = WW3DAssetManager::Get_Instance()->Create_Render_Obj(names[i].c_str());
+		if (robj == NULL) {
+			for (int k = 0; k < (int)trees.size(); k++) {
+				if (trees[k] != NULL) trees[k]->Release_Ref();
+				if (shadows[k] != NULL) shadows[k]->Release_Ref();
+			}
+			return;
+		}
+		trees.push_back((MeshClass *)Land_Find_Decoration_Mesh(robj, true));
+		shadows.push_back((MeshClass *)Land_Find_Decoration_Mesh(robj, false));
+		robj->Release_Ref();
+	}
+	bool has_trees = false;
+	bool has_shadows = false;
+	for (i = 0; i < proto_count; i++) {
+		if (trees[i] != NULL) {
+			MaterialInfoClass *info = trees[i]->Get_Material_Info();
+			TextureClass *texture = info->Get_Texture(0);
+			Land_Set_Ref(m_Unknown178, texture);
+			m_Unknown17C = trees[i]->Peek_Model()->Get_Shader(0, 0);
+			Land_Set_Ref(m_Unknown180, info->Get_Vertex_Material(0));
+			has_trees = true;
+			info->Release_Ref();
+			break;
+		}
+	}
+	for (i = 0; i < proto_count; i++) {
+		if (shadows[i] != NULL) {
+			MaterialInfoClass *info = shadows[i]->Get_Material_Info();
+			m_Unknown184 = shadows[i]->Peek_Model()->Get_Shader(0, 0);
+			Land_Set_Ref(m_Unknown188, info->Get_Vertex_Material(0));
+			has_shadows = true;
+			info->Release_Ref();
+			break;
+		}
+	}
+	bool same = true;
+	for (i = 0; i < proto_count && same; i++) {
+		if (has_trees && trees[i] != NULL) {
+			MaterialInfoClass *info = trees[i]->Get_Material_Info();
+			TextureClass *texture = info->Get_Texture(0);
+			ShaderClass shader = trees[i]->Peek_Model()->Get_Shader(0, 0);
+			VertexMaterialClass *material = info->Peek_Vertex_Material(0);
+			if ((RefCountClass *)texture != m_Unknown178.Peek() || !(shader == m_Unknown17C)
+				|| material->Get_CRC() != ((VertexMaterialClass *)m_Unknown180.Peek())->Get_CRC()) {
+				same = false;
+			}
+			REF_PTR_RELEASE(texture);
+			info->Release_Ref();
+		}
+		if (same && has_shadows && shadows[i] != NULL) {
+			MaterialInfoClass *info = shadows[i]->Get_Material_Info();
+			TextureClass *texture = info->Get_Texture(0);
+			ShaderClass shader = shadows[i]->Peek_Model()->Get_Shader(0, 0);
+			VertexMaterialClass *material = info->Peek_Vertex_Material(0);
+			if ((RefCountClass *)texture != m_Unknown178.Peek() || !(shader == m_Unknown184)
+				|| material->Get_CRC() != ((VertexMaterialClass *)m_Unknown188.Peek())->Get_CRC()) {
+				same = false;
+			}
+			REF_PTR_RELEASE(texture);
+			info->Release_Ref();
+		}
+	}
+	if (same && (has_trees || has_shadows)) {
+		m_Unknown190 = has_trees;
+		m_Unknown191 = has_shadows;
+		std::vector<LandDecorationVertexStruct> *tree_vertices = new std::vector<LandDecorationVertexStruct>[PatchCount];
+		std::vector<unsigned short> *tree_indices = new std::vector<unsigned short>[PatchCount];
+		std::vector<LandDecorationVertexStruct> *shadow_vertices = new std::vector<LandDecorationVertexStruct>[PatchCount];
+		std::vector<unsigned short> *shadow_indices = new std::vector<unsigned short>[PatchCount];
+		unsigned short *tree_counts = new unsigned short[PatchCount];
+		unsigned short *shadow_counts = new unsigned short[PatchCount];
+		memset(tree_counts, 0, PatchCount * sizeof(unsigned short));
+		memset(shadow_counts, 0, PatchCount * sizeof(unsigned short));
+		for (int d = 0; d < count; d++) {
+			const LandDecorationStruct &decoration = decorations[d];
+			Matrix3D tm = decoration.Transform;
+			Vector3 pos = tm.Get_Translation();
+			float gi, gj;
+			Field->World_To_Grid(Vector2(pos.X, pos.Y), &gi, &gj);
+			int patch = GridWidth * ((int)floor(gj / (float)(unsigned int)GridWidth) & GridMask)
+				+ ((int)floor(gi / (float)(unsigned int)GridWidth) & GridMask);
+			if (m_Unknown190 && trees[decoration.Proto] != NULL) {
+				unsigned short largest = Land_Append_Decoration_Mesh(trees[decoration.Proto], tree_vertices[patch], tree_indices[patch],
+					tree_counts[patch], tm, decoration.Scale);
+				tree_counts[patch] += largest + 1;
+			}
+			if (m_Unknown191 && shadows[decoration.Proto] != NULL) {
+				Matrix3D shadow = tm;
+				Vector3 normal;
+				Field->Get_Normal(&normal, Vector2(pos.X, pos.Y));
+				Vector3 translation = pos + normal * 3.0f;
+				Vector3 z(tm[0][2], tm[1][2], tm[2][2]);
+				Vector3 axis;
+				Vector3::Cross_Product(z, normal, &axis);
+				if (axis.Length2() > 0.0001f) {
+					float half = (float)acos(Vector3::Dot_Product(z, normal)) * 0.5f;
+					float w = (float)cos(half);
+					Vector3 q = axis * (float)sin(half);
+					for (int c = 0; c < 3; c++) {
+						Vector3 col(tm[0][c], tm[1][c], tm[2][c]);
+						Vector3 t;
+						Vector3::Cross_Product(q, col, &t);
+						t += col * w;
+						float tw = -Vector3::Dot_Product(q, col);
+						Vector3 x;
+						Vector3::Cross_Product(t, -q, &x);
+						Vector3 r = (-q) * tw + t * w + x;
+						shadow[0][c] = r.X;
+						shadow[1][c] = r.Y;
+						shadow[2][c] = r.Z;
+					}
+				}
+				shadow.Set_Translation(translation);
+				unsigned short largest = Land_Append_Decoration_Mesh(shadows[decoration.Proto], shadow_vertices[patch], shadow_indices[patch],
+					shadow_counts[patch], shadow, decoration.Scale);
+				shadow_counts[patch] += largest + 1;
+			}
+		}
+		for (int p = 0; p < PatchCount; p++) {
+			LandPatchRecordClass &record = PatchRecords[p];
+			for (int pass = 0; pass < 2; pass++) {
+				std::vector<LandDecorationVertexStruct> &verts = pass ? shadow_vertices[p] : tree_vertices[p];
+				std::vector<unsigned short> &idx = pass ? shadow_indices[p] : tree_indices[p];
+				RefCountPtr<RefCountClass> &vb = pass ? record.m_Unknown08 : record.m_Unknown00;
+				RefCountPtr<RefCountClass> &ib = pass ? record.m_Unknown0C : record.m_Unknown04;
+				int &vertex_count = pass ? record.m_Unknown18 : record.m_Unknown10;
+				int &index_count = pass ? record.m_Unknown1C : record.m_Unknown14;
+				int nv = verts.size();
+				int ni = idx.size();
+				if (nv < 1) {
+					vertex_count = 0;
+					index_count = 0;
+					vb = NULL;
+					ib = NULL;
+					continue;
+				}
+				vertex_count = nv;
+				index_count = ni;
+				DX8VertexBufferClass *vertex_buffer = new DX8VertexBufferClass(0x112, (unsigned short)nv);
+				Land_Set_Ref(vb, vertex_buffer);
+				DX8IndexBufferClass *index_buffer = new DX8IndexBufferClass((unsigned short)ni);
+				Land_Set_Ref(ib, index_buffer);
+				{
+					VertexBufferClass::WriteLockClass lock(vertex_buffer);
+					LandDecorationVertexStruct *out = (LandDecorationVertexStruct *)lock.Get_Vertex_Array();
+					for (int v = 0; v < nv; v++) {
+						out[v] = verts[v];
+					}
+				}
+				{
+					IndexBufferClass::WriteLockClass lock(index_buffer);
+					unsigned short *out = lock.Get_Index_Array();
+					for (int n = 0; n < ni; n++) {
+						out[n] = idx[n];
+					}
+				}
+			}
+		}
+		delete [] tree_vertices;
+		delete [] tree_indices;
+		delete [] shadow_vertices;
+		delete [] shadow_indices;
+		delete [] tree_counts;
+		delete [] shadow_counts;
+	}
+	for (i = 0; i < (int)trees.size(); i++) {
+		if (trees[i] != NULL) trees[i]->Release_Ref();
+		if (shadows[i] != NULL) shadows[i]->Release_Ref();
+	}
+}
+
+// NOT EXACT: frame (0x3C, the client 0x48: a 12-byte local holding the y, the x and y through the FPU; 7 forms, attempts.csv 0x479A50)
+void LandClass::Save_Decorations(std::vector<std::string> &names, std::vector<LandDecorationStruct> &decorations, const char *filename)
+{
+	unsigned int count = names.size();
+	unsigned int decoration_count = decorations.size();
+	if (count == 0 || decoration_count == 0 || count > 255) {
+		return;
+	}
+	file_auto_ptr file(_TheWritingFileFactory, filename);
+	file->Open(FileClass::WRITE);
+	unsigned int id = LAND_DECORATION_ID;
+	file->Write(&id, 4);
+	file->Write(&count, 4);
+	for (id = 0; id < count; id++) {
+		char name[32];
+		memset(name, 0, sizeof(name));
+		Unknown_4A1590(name, sizeof(name), names[id].c_str());
+		file->Write(name, sizeof(name));
+	}
+	file->Write(&decoration_count, 4);
+	for (id = 0; id < decoration_count; id++) {
+		LandDecorationRecordStruct record;
+		record.Proto = (unsigned char)decorations[id].Proto;
+		Quaternion rotation = Build_Quaternion(decorations[id].Transform);
+		Vector3 pos = decorations[id].Transform.Get_Translation();
+		record.Rotation = rotation;
+		record.X = pos.X;
+		record.Y = pos.Y;
+		record.Scale = decorations[id].Scale;
+		file->Write(&record, sizeof(record));
+	}
+	file->Close();
 }
 
 // NOT EXACT: frame (0x14, the client 0x20: it keeps this, the size and the buffer in frame slots); 2 forms tried
@@ -2283,6 +2740,12 @@ void LandClass::Save_PLD(const char *filename)
 **	lightmap textures, the patches, the horizon tables from a .pld beside the .pgm when it is newer
 **	than the .pgm, the colour map and the ini (Load_PLD 0x46EB60 / Save_PLD 0x46ECF0), the sea swatch).
 **	Compute_Horizons 0x46E670, Update_Patches, the tessellation and Render 0x474B30 are written too
-**	(some NOT EXACT, marked); VIDTEST draws its land with this class since 2026-10-28 (D101), its
-**	decorations with programs\vidtest\viddeco.cpp (the client's zone loader fills the patch records).
+**	(some NOT EXACT, marked); VIDTEST draws its land with this class since 2026-10-28 (D101), and its
+**	trees: Create_Decorations 0x479D00 (VIDTEST 0x415C40) and Build_Decorations 0x47A2F0 (= VIDTEST 0x416170)
+**	fill the patch records that Render draws (both functional; drawcheck frame 900 the original's draws).
+**	The zone loader (mainview 0x5137F0) reads land_%04d.dcb with Load_Decorations 0x4795D0 and builds
+**	from it, or makes the decorations from decoration.ini without one; Save_Decorations 0x479A50 writes
+**	it and Load_Prototype_Names 0x478970 reads an ini section's names (nothing calls either). Not yet
+**	rebuilt: 0x478B50 / 0x4791D0 (the prototypes and decorations as an ini: [Prototypes], [DECO%d] DecID,
+**	Scale and the matrix).
 */

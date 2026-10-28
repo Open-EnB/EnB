@@ -47,7 +47,7 @@ public:
 // NAME 2: methods after what they do (the client's 0x4634F0, 0x4637C0, 0x463BF0, 0x463C80-0x463E70, 0x464600)
 	static HeightFieldClass *	Load(const char *ini_name, unsigned int max_size);
 	bool						Load_PGM(const char *filename, bool flip, unsigned int max_size);
-	void						Sample(Vector3 *out, const Vector2 &uv);
+	Vector3					Sample(const Vector2 &uv);
 	float						Get_Height(unsigned int i, unsigned int j);
 	float						Get_Height_2(unsigned int i, unsigned int j);	// NAME 1: the same code at a second address (0x463CD0)
 	void						Set_Height(float height, unsigned int i, unsigned int j);
@@ -56,7 +56,7 @@ public:
 	void						Get_Vertex(unsigned int i, unsigned int j, Vector3 *out);
 	void						Get_Downhill(Vector3 *direction, const Vector2 &pos);	// NAME 2: towards the cell's lowest corner below the point (0x463F00)
 	void						Get_Normal(Vector3 *normal, const Vector2 &pos);	// NAME 2: the triangle's normal (0x464290)
-	float						Get_Height(const Vector2 &pos);
+	float						Get_Height(const Vector3 &pos);	// NAME 2: x and y of a position (0x464600; its callers pass a Vector3, 0x70E3B0 reads its z after)
 // NAME 2: after LandClass's Cast_Ray / Cast_AABox / Cast_OBBox (0x46C680-0x46C6E0), which forward to them (0x4647C0, 0x465030, 0x4654E0; not rebuilt)
 	bool						Cast_Ray(RayCollisionTestClass &raytest);
 	bool						Cast_AABox(AABoxCollisionTestClass &boxtest);

@@ -146,11 +146,13 @@ bool HeightFieldClass::Load_PGM(const char *filename, bool flip, unsigned int ma
 	return true;
 }
 
-// NOT EXACT: frame (0xC in the client: one more local) and the y copy through a register
-void HeightFieldClass::Sample(Vector3 *out, const Vector2 &uv)
+Vector3 HeightFieldClass::Sample(const Vector2 &uv)
 {
-	Vector2 pos((float)((uv.X - 0.5) * XSpacing * Size), (float)((uv.Y - 0.5) * YSpacing * Size));
-	*out = Vector3(pos.X, pos.Y, Get_Height(pos));
+	Vector3 pos;
+	pos.X = (float)((uv.X - 0.5) * XSpacing * Size);
+	pos.Y = (float)((uv.Y - 0.5) * YSpacing * Size);
+	pos.Z = Get_Height(pos);
+	return pos;
 }
 
 float HeightFieldClass::Get_Height(unsigned int i, unsigned int j)
@@ -279,7 +281,7 @@ void HeightFieldClass::Get_Normal(Vector3 *normal, const Vector2 &pos)
 }
 
 // NOT EXACT: written from the pseudocode (0x464600: the cell's two triangles)
-float HeightFieldClass::Get_Height(const Vector2 &pos)
+float HeightFieldClass::Get_Height(const Vector3 &pos)
 {
 	float fx = pos.X / XSpacing + HalfSize;
 	float fy = pos.Y / YSpacing + HalfSize;
@@ -385,7 +387,7 @@ bool HeightFieldClass::Cast_Ray(RayCollisionTestClass &raytest)
 	bool hit = false;
 	Vector3 start = raytest.Ray.Get_P0();
 	Vector3 end = raytest.Ray.Get_P1();
-	if (start.Z < Get_Height((const Vector2 &)start)) {
+	if (start.Z < Get_Height(start)) {
 		raytest.Result->StartBad = true;
 		return hit;
 	}
