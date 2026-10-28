@@ -73,6 +73,10 @@ to measure the template code in E&B's app region (docs/app-plan.md).
 the reference decoder's `research/tools/auxschema/clientre.py` (`dis`, `vtable`, `calls`, `str`,
 `movimm`) works on the same client and is handy alongside these.
 
+`experimental/pins/`: evidence-backed pins, Open-BFME style (an extra objmatch round crediting a tied
+function by a caller in its object, by placement, or by a hand-written ledger row), measured 2026-10-27 and
+kept but not adopted (D118); its README has the numbers. Not part of the workflow.
+
 ## Quirks
 
 Traps found while using these tools (each also has a one-line pointer in docs/workflow.md §3).

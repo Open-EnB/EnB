@@ -1340,14 +1340,10 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 | D115 | 2026-10-27 | objmatch credits a tied constructor / destructor of a file-static to the address its rebuilt static initialiser registers or calls (the `_$E` initialiser's own relocation names it: co_player_relationship's 0x709EF0 registers 0x709F40's atexit), as D88's self name does from a vtable slot; finds and other tied helpers stay tied. On a quiet tree after D114, with a full verify of every library, kept only gains-only (P-R2-1 narrowed) | user |
 | D116 | 2026-10-27 | D115's initialiser round credits by symbol across objects (one mangled symbol is one address in the linked image), as builder M3 built it (092776b: permstr 0x4AE2D0, definitionfactory 0xA06000 / 0xA06020); D115 reads accordingly (P-M3-1) | user |
 | D117 | 2026-10-27 | pairs_cmp prints the addresses lost outright (lost pairs whose address no file holds afterwards) and the moves, the list D66(v) depends on (P-M3-2) | user |
+| D118 | 2026-10-27 | Evidence-backed pins (Open-BFME's ledger) are measured and not adopted: the matching stays objmatch's rounds in D80's order. Builder M4's measurement (wt/pins 8db8c42): a caller in the same object +655 pairs, 0 lost; a caller in the library +812; placement +321 / +336 with about 2.4 % wrong where checkable; six hand pins +8; 82-88 % of every kind's credits land on byte-identical twins. The prototype and its numbers are kept in tools/re/experimental/pins/ (README) for a later decision | user |
 
 ## 3. Open decisions
 
-* **Evidence-backed pins (Open-BFME's ledger, 2026-10-27):** being measured (user, 2026-10-27: test, then decide) in a
-  wt.py worktree, not landed; the decision follows the measurement. Earlier text: let a reconstructed file pin a still-tied function to one client
-  address with an evidence note (initialiser, caller in the object, placement), accepted when the bytes match there and no
-  other file claims the address; changes D54's "ties never pair". Recommendation: a builder designs and measures it on a
-  quiet tree before a decision row.
 ## 4. Next steps
 
 Milestones M1 and M2 are met (D42, D63; [milestones.md](milestones.md)). Order and detail of the

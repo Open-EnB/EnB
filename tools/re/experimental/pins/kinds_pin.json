@@ -1,0 +1,127 @@
+{
+ "pin": {
+  "gained": [
+   [
+    "app",
+    "dbgconn",
+    "0x824180"
+   ],
+   [
+    "app",
+    "dbgconn",
+    "0x8241B0"
+   ],
+   [
+    "app",
+    "dbgconn",
+    "0x824770"
+   ],
+   [
+    "app",
+    "dbgconn",
+    "0x8247A0"
+   ],
+   [
+    "binkmovie",
+    "binkmovie",
+    "0xA16220"
+   ],
+   [
+    "binkmovie",
+    "binkmovie",
+    "0xA162A0"
+   ],
+   [
+    "ww3d2",
+    "collect",
+    "0x992C20"
+   ],
+   [
+    "ww3d2",
+    "collect",
+    "0x992CA0"
+   ]
+  ],
+  "lost": [],
+  "credits": [
+   {
+    "lib": "app",
+    "object": "dbgconn.obj",
+    "symbol": "??1LogConnectionClass@@UAE@XZ",
+    "name": "LogConnectionClass::~LogConnectionClass",
+    "address": "0x8241B0",
+    "count": 2,
+    "twin_identical": false,
+    "cands": [
+     "0x8241B0",
+     "0x8247A0"
+    ]
+   },
+   {
+    "lib": "app",
+    "object": "dbgconn.obj",
+    "symbol": "??1TimedLogConnectionClass@@UAE@XZ",
+    "name": "TimedLogConnectionClass::~TimedLogConnectionClass",
+    "address": "0x8247A0",
+    "count": 2,
+    "twin_identical": false,
+    "cands": [
+     "0x8241B0",
+     "0x8247A0"
+    ]
+   },
+   {
+    "lib": "binkmovie",
+    "object": "BINKMovie.obj",
+    "symbol": "?Stop@BINKMovie@@SAXXZ",
+    "name": "BINKMovie::Stop",
+    "address": "0xA16220",
+    "count": 2,
+    "twin_identical": true,
+    "cands": [
+     "0xA16220",
+     "0xA162A0"
+    ]
+   },
+   {
+    "lib": "binkmovie",
+    "object": "BINKMovie.obj",
+    "symbol": "?Shutdown@BINKMovie@@SAXXZ",
+    "name": "BINKMovie::Shutdown",
+    "address": "0xA162A0",
+    "count": 2,
+    "twin_identical": true,
+    "cands": [
+     "0xA16220",
+     "0xA162A0"
+    ]
+   },
+   {
+    "lib": "ww3d2",
+    "object": "collect.obj",
+    "symbol": "??_G?$VectorClass@VProxyClass@@@@UAEPAXI@Z",
+    "name": "??_G?$VectorClass@VProxyClass@@@@UAEPAXI@Z",
+    "address": "0x992C20",
+    "count": 2,
+    "twin_identical": true,
+    "cands": [
+     "0x992C20",
+     "0x992CA0"
+    ]
+   },
+   {
+    "lib": "ww3d2",
+    "object": "collect.obj",
+    "symbol": "??_G?$DynamicVectorClass@VProxyClass@@@@UAEPAXI@Z",
+    "name": "??_G?$DynamicVectorClass@VProxyClass@@@@UAEPAXI@Z",
+    "address": "0x992CA0",
+    "count": 2,
+    "twin_identical": true,
+    "cands": [
+     "0x992C20",
+     "0x992CA0"
+    ]
+   }
+  ]
+ }
+}
