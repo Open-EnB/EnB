@@ -465,7 +465,7 @@ UnknownB02C90Class::~UnknownB02C90Class()
 
 #include "rendobj.h"
 
-// 0x725610  // NOT EXACT: shape (the client loads both models first and keeps the element in the child argument's stack slot; 2 forms)
+// 0x725610
 bool UnknownB02C90Class::Unknown_0C(UnknownB02C90Class *child, int slot, int child_slot)
 {
 	if (child) {
@@ -476,17 +476,20 @@ bool UnknownB02C90Class::Unknown_0C(UnknownB02C90Class *child, int slot, int chi
 			ce->Unknown3C = this;
 			child->Unknown08 = Unknown08;
 			RenderObjClass *model = ((ClientObjectClass *)Unknown04)->Model;
-			if (model && ((ClientObjectClass *)child->Unknown04)->Model) {
+			RenderObjClass *child_model = ((ClientObjectClass *)child->Unknown04)->Model;
+			if (model && child_model) {
 				BufferStruct::ElementStruct *b = Buffer.Get(slot);
-				model->Add_Sub_Object_To_Bone(((ClientObjectClass *)child->Unknown04)->Model, b ? b->Bone : -1);
+				model->Add_Sub_Object_To_Bone(child_model, (b == NULL) ? -1 : b->Bone);
 			}
 			Matrix3D::Multiply(e->Transform, Unknown1C, &child->Unknown1C);
 			child->Unknown_14(this, slot, child_slot);
 			if (((ClientObjectClass *)child->Unknown04)->Type != 29) {
-				((ClientObjectClass *)child->Unknown04)->Unknown_34(child->Unknown_725C60(Vector3(0, 0, 0), child->Buffer.Radius));
+				float radius = child->Unknown_725C60(Vector3(0, 0, 0), child->Buffer.Radius);
+				((ClientObjectClass *)child->Unknown04)->Unknown_34(radius);
 			}
 			if (((ClientObjectClass *)Unknown04)->Type != 29) {
-				((ClientObjectClass *)Unknown04)->Unknown_34(Unknown_725C60(Vector3(0, 0, 0), Buffer.Radius));
+				float radius = Unknown_725C60(Vector3(0, 0, 0), Buffer.Radius);
+				((ClientObjectClass *)Unknown04)->Unknown_34(radius);
 			}
 			return(true);
 		}
@@ -494,7 +497,7 @@ bool UnknownB02C90Class::Unknown_0C(UnknownB02C90Class *child, int slot, int chi
 	return(false);
 }
 
-// 0x7257F0  // NOT EXACT: shape (the client stores each radius before it loads the object for Unknown_34; 3 forms)
+// 0x7257F0
 bool UnknownB02C90Class::Unknown_10(UnknownB02C90Class *child, int slot, int child_slot)
 {
 	if (child) {
@@ -522,10 +525,12 @@ bool UnknownB02C90Class::Unknown_10(UnknownB02C90Class *child, int slot, int chi
 			child->Unknown1C.Make_Identity();
 			child->Unknown_18(this, slot, child_slot);
 			if (((ClientObjectClass *)child->Unknown04)->Type != 29) {
-				((ClientObjectClass *)child->Unknown04)->Unknown_34(child->Unknown_725C60(Vector3(0, 0, 0), child->Buffer.Radius));
+				float radius = child->Unknown_725C60(Vector3(0, 0, 0), child->Buffer.Radius);
+				((ClientObjectClass *)child->Unknown04)->Unknown_34(radius);
 			}
 			if (((ClientObjectClass *)Unknown04)->Type != 29) {
-				((ClientObjectClass *)Unknown04)->Unknown_34(Unknown_725C60(Vector3(0, 0, 0), Buffer.Radius));
+				float radius = Unknown_725C60(Vector3(0, 0, 0), Buffer.Radius);
+				((ClientObjectClass *)Unknown04)->Unknown_34(radius);
 			}
 			return(true);
 		}
@@ -566,6 +571,65 @@ void UnknownB02C90Class::Unknown_08()
 			delete child;
 		} else if (e->Unknown3C) {
 			e->Unknown3C->Unknown_10(this, -1, -1);
+		}
+	}
+}
+
+#include "ini.h"
+#include "strtok_r.h"
+#include <stdio.h>
+
+void Unknown_831950(Matrix3D &transform, const char *text);	// 0x831950 (cdecl; a Matrix3D from a Mount line's text)  // NAME 1 [transform, text]: what 0x7251C0 passes
+
+// 0x7251C0  // NOT EXACT: shape (the client keeps the strtok_r text in esi with one call site; ours peels the first call; 2 forms)
+void UnknownB02C90Class::Unknown_04(int base_asset)
+{
+	static INIClass ini;
+	if (!ini.Is_Loaded()) {
+		ini.Load("cbasset.ini");
+	}
+	char *lasts = NULL;
+	Matrix3D transform(true);
+	if (base_asset != -1) {
+		Buffer.Radius = ((ClientObjectClass *)Unknown04)->Unknown_30();
+		char section[256];
+		char entry[256];
+		char value[256];
+		sprintf(section, "BASE-%d", base_asset);
+		int mount = 0;
+		sprintf(entry, "Mount%d", mount);
+		while (ini.Get_String(section, entry, "", value, sizeof(value))) {
+			BufferStruct::ElementStruct element;
+			char *text = value;
+			int field = 0;
+			for (;;) {
+				char *token = strtok_r(text, " \t", &lasts);
+				text = NULL;
+				if (token == NULL) break;
+				switch (field++) {
+					case 0:
+						element.Bone = atol(token);
+						break;
+					case 1:
+						Unknown_831950(transform, token);
+						break;
+					case 2:
+						element.Unknown34 = (atol(token) != 0);
+						break;
+					case 3:
+						element.Unknown38 = atol(token);
+						break;
+				}
+			}
+			element.Transform = transform;
+			Buffer.Insert(element, Buffer.Count);
+			mount++;
+			sprintf(entry, "Mount%d", mount);
+		}
+		if (Buffer.Count == 0) {
+			BufferStruct::ElementStruct element;
+			element.Unknown34 = false;
+			Buffer.Insert(element, Buffer.Count);
 		}
 	}
 }

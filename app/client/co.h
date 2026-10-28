@@ -119,7 +119,7 @@ class ClientClass;
 
 // The base of co.cpp's object (0x4C bytes, vtable 0xB02C90; co.cpp's constructor 0x6F2820 calls its constructor
 // with the object itself): the client's code for it sits before ClientClass's in client.cpp's region
-// (0x725050-0x7260FF). The slots +0x04 .. +0x10 (0x7251C0, 0x725120, 0x725610, 0x7257F0) are not rebuilt.
+// (0x725050-0x7260FF): the slots +0x04 .. +0x10 0x7251C0 (NOT EXACT), 0x725120, 0x725610, 0x7257F0.
 class UnknownB02C90Class							// NAME 1: neutral (D10), named by its vtable
 {
 public:
@@ -141,11 +141,14 @@ public:
 		struct ElementStruct {							// 0x44 bytes  // NAME 1: neutral (D10)
 			int Bone;									// +0x00 (0x725610 hangs the child's model on this bone)  // NAME 2: what it holds
 			Matrix3D Transform;							// +0x04 (0x725610: the child's +0x1C is it times this one's)  // NAME 2: what it holds
-			char Unknown34[0x3C - 0x34];				// +0x34
+			bool Unknown34;							// +0x34 (0x7251C0: a Mount line's third field, true by default)
+			int Unknown38;							// +0x38 (0x7251C0: a Mount line's fourth field)
 			UnknownB02C90Class *Unknown3C;				// +0x3C (0x725120 calls its slot +0x10 with -1, -1 when there is no child)
 			UnknownB02C90Class *Child;					// +0x40  // NAME 2: 0x725120 detaches and deletes it
+			ElementStruct() : Bone(0), Transform(true), Unknown34(true), Unknown38(0), Unknown3C(0), Child(0) {}
 		};
 		BufferStruct() : Count(0), Unknown04(0), Data(0), Radius(0) {}
+		void Insert(const ElementStruct &element, int index);	// 0x725E70 (grows by twice the count, at least 10; not rebuilt)  // NAME 2 [element, index]: what it does
 		~BufferStruct() { Count = 0; delete Data; }
 		ElementStruct *Get(int index) { if (index < 0 || index >= Count) return(NULL); return(&Data[index]); }  // NAME 1: neutral
 		int Count;										// +0x0C (+0x00) cleared by the destructor  // NAME 1: neutral

@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-270 entries in 65 files.
+270 entries in 66 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -23,8 +23,7 @@ edit the comments in the code, not this file.
 | `app/client/client.cpp:225` | `ClientClass::Remove_Object` | marker | NOT EXACT: shape (the client puts the not-found return last; three forms; attempts.py show 0x727600) 0x727600 |
 | `app/client/client.cpp:307` | `ClientClass::Set_Debug_Object` | marker | NOT EXACT: register-only (the flag in dl, the id in eax; two forms; attempts.py show 0x728010) 0x728010 |
 | `app/client/client.cpp:374` | `ClientClass::Set_Debug_Mode` | marker | NOT EXACT: register-only (the id in eax, the flag in ecx; two forms; attempts.py show 0x728240) 0x728240 |
-| `app/client/client.cpp:468` | `UnknownB02C90Class::Unknown_0C` | marker | NOT EXACT: shape (the client loads both models first and keeps the element in the child argument's stack slot; 2 forms) |
-| `app/client/client.cpp:497` | `UnknownB02C90Class::Unknown_10` | marker | NOT EXACT: shape (the client stores each radius before it loads the object for Unknown_34; 3 forms) |
+| `app/client/client.cpp:584` | `UnknownB02C90Class::Unknown_04` | marker | NOT EXACT: shape (the client keeps the strtok_r text in esi with one call site; ours peels the first call; 2 forms) |
 | `app/client/client_lego_impl.cpp:310` | `ClientLegoImplClass::Get_Lego_Transform` | marker | NOT EXACT: inline budget: the client builds one more Matrix3D result (6 ??_H against our 5), 0.88 (attempts.csv) |
 | `app/client/client_lego_impl.cpp:363` | `ClientLegoImplClass::Add` | marker | NOT EXACT: inline budget: the last branch's orphan data assignment and destructor, inlined by the client, called by ours; 0.75 (attempts.csv) |
 | `app/client/client_lego_impl.cpp:679` | `ClientLegoImplClass::Child_Moved` | marker | NOT EXACT: shape, 4 rows: the client forms &child (lea ebp) before loading it, ours after (attempts.csv) |
@@ -37,6 +36,7 @@ edit the comments in the code, not this file.
 | `app/client/co.cpp:2227` | `ClientObjectClass::Unknown_6FEC40` | marker | NOT EXACT: order (the client sums the transform's products in another order; explain.py says field-offset; 2 forms) 0x6FEC40 |
 | `app/client/co.cpp:2326` | `ClientObjectClass::Get_Name` | marker | NOT EXACT: inline-budget (the client calls rtti.h's cast 0x5469C0 at all four lookups and the string assign's helpers; ours inlines them) |
 | `app/client/co.cpp:2608` | `ClientObjectClass::Unknown_6FF7A0` | marker | NOT EXACT: inline-budget (the client calls the string lookup 0x514BD0 at all six sites and inlines more of std::string; ours the reverse) |
+| `app/client/co.h:122` | `Unknown_810750` | mention | NOT EXACT), 0x725120, 0x725610, 0x7257F0. |
 | `app/client/co_data.h:55` | `?` | marker | NOT EXACT: frame (0x54 vs the client's 0x50: ours inlines the type map's default constructor, the client calls 0x79E6E0) |
 | `app/client/co_player_relationship.cpp:149` | `Unknown_70B450` | marker | NOT EXACT: inline budget (the client calls the name string's assign and the copies out of line; attempts.py show 0x70B450) |
 | `app/client/co_player_relationship.cpp:351` | `Unknown_70CD50` | mention | NOT EXACT), Attacking 0x70B790, Group 0x70BC30 (through 0x70BAC0, the GroupInfo aux-data test with asserts on lines 207 / 210 on SClient's AuxData +0x12C0; rtti.h's DeltaCompoundClass cast 0x598D80 out of line), PVPAttackable 0x70BF90 (through 0x70BF60), Player 0x70C2A0 and the reaction colours 0x70C5D0; the three packet handlers cpacket.cpp calls (0x70CC40, 0x70CC90, 0x70CD50) and the table's out... |
