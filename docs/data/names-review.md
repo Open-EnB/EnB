@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 33 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 36 |
-| 3 | by convention from a client-named file or sibling | 931 |
+| 3 | by convention from a client-named file or sibling | 933 |
 | 2 | describes what the code does | 2267 |
-| 1 | neutral placeholder | 4971 |
+| 1 | neutral placeholder | 4979 |
 
 ## For review (score 3 and below)
 
@@ -1677,8 +1677,20 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_4F50D0` | `app/client/mainview.cpp:1048` | untagged neutral name (D10) |
 | 1 | `Unknown_4F5140` | `app/client/mainview.cpp:1054` | untagged neutral name (D10) |
 | 1 | `Unknown_493D00` | `app/client/mainview.cpp:1091` | untagged neutral name (D10) |
+| 1 | `id, flag` | `app/client/mainview.cpp:1114` | what it gets |
+| 1 | `Unknown_563910` | `app/client/mainview.cpp:1114` | untagged neutral name (D10) |
+| 1 | `Unknown04` | `app/client/mainview.cpp:1126` | untagged neutral name (D10) |
+| 1 | `Unknown10` | `app/client/mainview.cpp:1127` | untagged neutral name (D10) |
+| 1 | `Unknown11` | `app/client/mainview.cpp:1128` | untagged neutral name (D10) |
+| 1 | `Unknown_512400` | `app/client/mainview.cpp:1409` | untagged neutral name (D10) |
+| 1 | `Unknown88` | `app/client/mainview.cpp:1412` | untagged neutral name (D10) |
+| 1 | `Unknown_Find_Field` | `app/client/mainview.cpp:1419` | untagged neutral name (D10) |
+| 1 | `m_Unknown70` | `app/client/mainview.cpp:1420` | untagged neutral name (D10) |
+| 1 | `Unknown_7BD6E0` | `app/client/mainview.cpp:1456` | untagged neutral name (D10) |
+| 1 | `Unknown_60E540` | `app/client/mainview.cpp:1457` | untagged neutral name (D10) |
+| 1 | `Unknown_5C` | `app/client/mainview.cpp:1460` | untagged neutral name (D10) |
+| 1 | `Unknown_6F5A40` | `app/client/mainview.cpp:1461` | untagged neutral name (D10) |
 | 1 | `Unknown_14` | `app/client/mainview.cpp:1600` | untagged neutral name (D10) |
-| 1 | `Unknown_512400` | `app/client/mainview.cpp:1602` | untagged neutral name (D10) |
 | 1 | `Unknown_34` | `app/client/mainview.cpp:1604` | untagged neutral name (D10) |
 | 1 | `Unknown_512A00` | `app/client/mainview.cpp:1609` | untagged neutral name (D10) |
 | 1 | `Unknown_7BCA70` | `app/client/mainview.cpp:1614` | untagged neutral name (D10) |
@@ -1692,11 +1704,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_513600` | `app/client/mainview.cpp:1920` | untagged neutral name (D10) |
 | 1 | `Unknown_8C` | `app/client/mainview.cpp:1920` | untagged neutral name (D10) |
 | 1 | `Unknown_513630` | `app/client/mainview.cpp:1922` | untagged neutral name (D10) |
-| 1 | `Unknown_7BD6E0` | `app/client/mainview.cpp:1924` | untagged neutral name (D10) |
-| 1 | `Unknown_60E540` | `app/client/mainview.cpp:1925` | untagged neutral name (D10) |
 | 1 | `Unknown_5136A0` | `app/client/mainview.cpp:1928` | untagged neutral name (D10) |
-| 1 | `Unknown_5C` | `app/client/mainview.cpp:1933` | untagged neutral name (D10) |
-| 1 | `Unknown88` | `app/client/mainview.cpp:1935` | untagged neutral name (D10) |
 | 1 | `Unknown_513700` | `app/client/mainview.cpp:1956` | untagged neutral name (D10) |
 | 1 | `Unknown_4F3310` | `app/client/mainview.cpp:1960` | untagged neutral name (D10) |
 | 1 | `Unknown_4F34C0` | `app/client/mainview.cpp:1965` | untagged neutral name (D10) |
@@ -2212,7 +2220,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `client` | `app/client/sclient.h:165` | what 0x50BA60 passes |
 | 1 | `index` | `app/client/sclient.h:167` | the packet's Index |
 | 1 | `Unknown_7BD920` | `app/client/sclient.h:167` | untagged neutral name (D10) |
-| 1 | `arg` | `app/client/sclient.h:168` | neutral |
+| 1 | `target` | `app/client/sclient.h:168` | what 0x512400 passes |
 | 1 | `Unknown_7BD6E0` | `app/client/sclient.h:168` | untagged neutral name (D10) |
 | 1 | `arg` | `app/client/sclient.h:169` | neutral |
 | 1 | `Unknown_7BCA40` | `app/client/sclient.h:169` | untagged neutral name (D10) |
@@ -2233,7 +2241,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown40` | `app/client/sclient.h:229` | untagged neutral name (D10) |
 | 1 | `UnknownA8` | `app/client/sclient.h:230` | untagged neutral name (D10) |
 | 1 | `UnknownAC` | `app/client/sclient.h:231` | untagged neutral name (D10) |
-| 1 | `arg1, arg2, arg3, arg4` | `app/client/sclient.h:238` | neutral |
+| 1 | `target, assessment, sound, level` | `app/client/sclient.h:238` | what the main view's 0x512400 passes (TargetThreat, TargetThreatSound, TargetThreatLevel) |
 | 1 | `Unknown_60E540` | `app/client/sclient.h:238` | untagged neutral name (D10) |
 | 1 | `Unknown88` | `app/client/sclient.h:241` | untagged neutral name (D10) |
 | 1 | `view, layer` | `app/client/sclient.h:248` | what 0x50C690 passes |
@@ -2347,7 +2355,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_513540` | `app/client/sclient.h:478` | untagged neutral name (D10) |
 | 1 | `arg` | `app/client/sclient.h:479` | neutral |
 | 1 | `Unknown_513600` | `app/client/sclient.h:479` | untagged neutral name (D10) |
-| 1 | `arg1, arg2, arg3, arg4` | `app/client/sclient.h:480` | neutral |
+| 1 | `target, assessment, sound, level` | `app/client/sclient.h:480` | the scanner's |
 | 1 | `Unknown_513630` | `app/client/sclient.h:480` | untagged neutral name (D10) |
 | 1 | `Unknown_5136A0` | `app/client/sclient.h:481` | untagged neutral name (D10) |
 | 1 | `sector` | `app/client/sclient.h:482` | the packet's SectorNum |
@@ -7355,6 +7363,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `gutter_data.h` | `app/client/gutter_data.h:16` | header name assumed from the client's gutter_data.cpp |
 | 3 | `influence.h` | `app/client/influence.h:17` | header name assumed from the client's influence.cpp |
 | 3 | `InfluenceClass` | `app/client/influence.h:24` | class-from-file (D24) for app\client\influence.cpp |
+| 3 | `UIChatPanelClass` | `app/client/mainview.cpp:1111` | class-from-file (D24) for app\client\ui_chat_panel.cpp |
+| 3 | `UIStarmapClass` | `app/client/mainview.cpp:1121` | class-from-file (D24) for ui_starmap.cpp |
 | 3 | `navigation_data.h` | `app/client/navigation_data.h:16` | header name assumed from the client's navigation_data.cpp |
 | 3 | `option.h` | `app/client/option.h:22` | header name assumed from the client's option.cpp |
 | 3 | `OptionClass` | `app/client/option.h:90` | by convention (D24) from the client's file option.cpp (WinMain's 'options manager') |

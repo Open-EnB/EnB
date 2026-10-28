@@ -245,6 +245,28 @@ the list. So in the retail client the wrappers and boxes are built and kept, but
 show) never inserted into ClientClass's PxList nor updated: *guess*: the proximity / avoidance code is dormant,
 or reached through a path not yet found (a vtable of an unrebuilt class would show as a pointer reference).
 
+### 2.7 What the main view reads of the object model (app\client\mainview.cpp)
+
+The main view (SClient +0x1358, MainViewClass) never owns objects: `SClient::Add_Object` / `Remove_Object` tell it
+(0x514270 / 0x514390: the object's model into its +0x10C scene unless 0x6F5D90 says no), and every frame it reads
+(MV2, 2026-10-28):
+
+* **The target, from the avatar's aux data** (`Unknown_512400`, slot +0x14 0x5129D0 every frame): the avatar is
+  `Get_Avatar()` (ClientClass slot +0x28, `Find_Object(AvatarID)`); its aux data's `TargetGameID` (an int delta,
+  read only when its +0x70 is set) is the server's target. When it differs from the scanner's (`Cpit->Scan`'s
+  +0x88, an object pointer) the main view looks it up with `Find_Object` and hands the object (or NULL) with the
+  `TargetThreat` / `TargetThreatSound` strings and `TargetThreatLevel` to the chat panel (0x563910: its game id
+  when 0x6F5A40 says so), the radar (0x7BD6E0) and the scanner (0x60E540). A `TargetGameID` set twice (+0x70
+  above 1) clears the star map's +0x10. So the target travels as aux data (AUX_DATA 27 into the avatar's
+  DeltaPlayerClass), not as a pointer, and the scanner's +0x88 is the view's copy (slot +0x5C 0x5136D0 returns
+  it; SClient 0x744E70 sends it as ACTION 44).
+* **The camera and the orbitals, not objects** (`Update` 0x50F1B0): the sun, fog and ambient colours of
+  OrbitalManager (+0x140, updated from the client clock +0x10BC / +0x10C0 in hours) go to the three scenes and
+  the land's lighting; view mode 0 (space) places the four lights around the sun and the camera's Z axis. Only
+  the land reads the camera (Update_Patches).
+* **Picking** (slot +0x60 0x512BB0, not rebuilt): the screen point through the view's IntersectionClass
+  (+0x88) against render objects; how the hit maps back to a ClientObjectClass is still to be read.
+
 ## 3. The object-affecting opcodes
 
 Handler = slot +0x08 (all in cpacket.cpp unless noted). "Object" = `Find_Object(GameID)` unless said.

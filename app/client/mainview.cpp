@@ -1103,30 +1103,30 @@ void MainViewClass::Update(CameraClass *camera, bool under)
 }
 
 
+#include "..\shared\auxdata\auxdata.h"
+#include "..\shared\auxdata\delta_string.h"
+#include "aux_roots.h"			// (Type_Name(int *) for DeltaTemplateClass<int>)
+// ui_chat_panel.cpp's chat panel (SClient +0x127C), as far as the main view's 0x512400 uses it (sclient.cpp and
+// cpacket.cpp declare their own parts)
+class UIChatPanelClass	// NAME 3: class-from-file (D24) for app\client\ui_chat_panel.cpp
+{
+public:
+	void Unknown_563910(unsigned id, bool flag);		// 0x563910 (0x512400: the target's game id and true when 0x6F5A40 says so, else 0, false)  // NAME 1 [id, flag]: what it gets
 
+	char Unknown00[0x118];
+	unsigned Unknown118;								// +0x118 (0x512400 skips 0x563910 when the target's game id equals it)
+};
 
+// ui_starmap.cpp's star map (SClient +0x12A4), as far as the main view's 0x512400 uses it (its G_ASSERT calls it 'targeting')
+class UIStarmapClass	// NAME 3: class-from-file (D24) for ui_starmap.cpp
+{
+public:
+	virtual ~UIStarmapClass();
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	char Unknown04[0x10 - 0x04];
+	bool Unknown10;										// +0x10 (0x512400 clears it when TargetGameID's +0x70 is above 1)
+	char Unknown11[0x14 - 0x11];
+};
 
 
 
@@ -1405,68 +1405,68 @@ void MainViewClass::Set_Camera(CameraClass *camera)
 }
 
 
+// NOT EXACT: functional (MV2, from the disassembly)
+void MainViewClass::Unknown_512400()
+{
+	if (!Cpit || !Cpit->Scan) return;
+	ClientObjectClass *current = Cpit->Scan->Unknown88;
+	unsigned current_id = current ? current->GameID : 0;
+	SClient *client = Client;
+	if (!client) return;
+	ClientObjectClass *avatar = client->Get_Avatar();
+	if (!avatar || !avatar->AuxData) return;
+	NameClass target_name("TargetGameID");
+	DeltaTemplateClass<int> *target = Unknown_Find_Field<DeltaTemplateClass<int> >((DeltaCompoundClass *)avatar->AuxData, target_name);
+	if (!target || !target->m_Unknown70) return;
+	NameClass set_name("TargetGameID");
+	DeltaTemplateClass<int> *set = Unknown_Find_Field<DeltaTemplateClass<int> >((DeltaCompoundClass *)avatar->AuxData, set_name);
+	if (set && set->m_Unknown70 > 1 && Client) {
+		UIStarmapClass *targeting = Client->Starmap;
+		if (targeting) {
+			targeting->Unknown10 = false;
+		} else {
+			G_ASSERT(targeting);
+		}
+	}
+	if (current_id == (unsigned)target->Value) return;
+	NameClass threat_name("TargetThreat");
+	DeltaStringClass *threat_data_assessment = Unknown_Find_Field<DeltaStringClass>((DeltaCompoundClass *)avatar->AuxData, threat_name); if (!threat_data_assessment || !threat_data_assessment->m_Unknown70) threat_data_assessment = NULL;
+	NameClass sound_name("TargetThreatSound");
+	DeltaStringClass *threat_data_sound = Unknown_Find_Field<DeltaStringClass>((DeltaCompoundClass *)avatar->AuxData, sound_name); if (!threat_data_sound || !threat_data_sound->m_Unknown70) threat_data_sound = NULL;
+	NameClass level_name("TargetThreatLevel");
+	DeltaTemplateClass<int> *threat_mob_level = Unknown_Find_Field<DeltaTemplateClass<int> >((DeltaCompoundClass *)avatar->AuxData, level_name); if (!threat_mob_level || !threat_mob_level->m_Unknown70) threat_mob_level = NULL;
 
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	G_ASSERT(threat_data_assessment);
+	G_ASSERT(threat_data_sound);
+	G_ASSERT(threat_mob_level);
+	std::string assessment("");
+	std::string sound("");
+	int level = -1;
+	if (threat_data_assessment) assessment = threat_data_assessment->String;
+	if (threat_data_sound) sound = threat_data_sound->String;
+	if (threat_mob_level) level = threat_mob_level->Value;
+	ClientObjectClass *co = Client->Find_Object(target->Value);
+	if (!co) {
+		client->ChatPanel->Unknown_563910(0, false);
+		if (Radar) Radar->Unknown_7BD6E0(NULL);
+		if (Cpit) Cpit->Scan->Unknown_60E540(NULL, assessment, sound, -1);
+		return;
+	}
+	if (co != Unknown_5C() && client->ChatPanel.Peek()) {
+		if (co->Unknown_6F5A40()) {
+			if (co->GameID != client->ChatPanel->Unknown118) client->ChatPanel->Unknown_563910(co->GameID, true);
+		} else {
+			client->ChatPanel->Unknown_563910(0, false);
+		}
+	}
+	if (Radar) Radar->Unknown_7BD6E0(co);
+	if (Cpit) Cpit->Scan->Unknown_60E540(co, assessment, sound, level);
+}
 
 
 
@@ -1919,10 +1919,10 @@ void MainViewClass::Unknown_513540(int base_asset)
 
 void MainViewClass::Unknown_513600(int arg) { Unknown1DC->Unknown_8C(arg); }
 
-void MainViewClass::Unknown_513630(int arg1, int arg2, int arg3, int arg4)
+void MainViewClass::Unknown_513630(ClientObjectClass *target, const std::string &assessment, const std::string &sound, int level)
 {
-	if (Radar) Radar->Unknown_7BD6E0(arg1);
-	if (Cpit) Cpit->Scan->Unknown_60E540(arg1, arg2, arg3, arg4);
+	if (Radar) Radar->Unknown_7BD6E0(target);
+	if (Cpit) Cpit->Scan->Unknown_60E540(target, assessment, sound, level);
 }
 
 UIScanClass *MainViewClass::Unknown_5136A0()

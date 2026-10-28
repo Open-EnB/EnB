@@ -165,7 +165,7 @@ public:
 	RadarSystemClass(SClient *client);					// 0x7BC770 (0x50 bytes; the main view's 0x50BA60)  // NAME 1 [client]: what 0x50BA60 passes
 	~RadarSystemClass();								// 0x7BC930 (the main view's Shutdown 0x50C2F0)
 	void Unknown_7BD920(int index);						// 0x7BD920 (cpacket.cpp: WARP_INDEX 156)  // NAME 1 [index]: the packet's Index
-	void Unknown_7BD6E0(int arg);						// 0x7BD6E0 (the main view's 0x513630)  // NAME 1 [arg]: neutral
+	void Unknown_7BD6E0(ClientObjectClass *target);	// 0x7BD6E0 (the main view's 0x513630 / 0x512400: the target)  // NAME 1 [target]: what 0x512400 passes
 	void Unknown_7BCA40(int arg);						// 0x7BCA40 (the main view's slot +0x18)  // NAME 1 [arg]: neutral
 	void Unknown_7BCA70(MainViewUnknown84Class *object, PDAInterfaceUnknownA0Class *arg, const RefCountPtr<RefCountClass> &scene);	// 0x7BCA70 (the main view's 0x512A00, every frame; the scene's RefCountPtr: VC6 binds Create_Peek(SceneClass *) to 0x50BA60's RefCountPtr<RefCountClass>, and a named RefCountPtr<SceneClass> adds a frame slot the client lacks)  // NAME 1 [object, arg, scene]: what 0x512A00 passes
 
@@ -235,7 +235,7 @@ public:
 class UIScanClass		// NAME 3: class-from-file (D24) for ui_scan.cpp
 {
 public:
-	void Unknown_60E540(int arg1, int arg2, int arg3, int arg4);	// 0x60E540 (the main view's 0x513630)  // NAME 1 [arg1, arg2, arg3, arg4]: neutral
+	void Unknown_60E540(ClientObjectClass *target, const std::string &assessment, const std::string &sound, int level);	// 0x60E540 (the main view's 0x513630)  // NAME 1 [target, assessment, sound, level]: what the main view's 0x512400 passes (TargetThreat, TargetThreatSound, TargetThreatLevel)
 
 	char Unknown00[0x88];								// +0x00
 	ClientObjectClass *Unknown88;						// +0x88 (the main view's slot +0x5C returns it)
@@ -477,7 +477,7 @@ public:
 	MainViewUnknown13CClass *Get_Unknown13C() { return((MainViewUnknown13CClass *)Land); }	// (inline: SERVER_PARAMETERS 66)  // NAME 1: neutral (D10): the member it returns
 	void Unknown_513540(int base_asset);				// 0x513540 (SClient 0x745000)  // NAME 1 [base_asset]: SERVER_PARAMETERS 66's BackdropBaseAsset
 	void Unknown_513600(int arg);						// 0x513600 (SClient 0x7456B0 passes 0)  // NAME 1 [arg]: neutral
-	void Unknown_513630(int arg1, int arg2, int arg3, int arg4);	// 0x513630 (the radar's 0x7BD6E0, the scanner's 0x60E540)  // NAME 1 [arg1, arg2, arg3, arg4]: neutral
+	void Unknown_513630(ClientObjectClass *target, const std::string &assessment, const std::string &sound, int level);	// 0x513630 (the radar's 0x7BD6E0, the scanner's 0x60E540)  // NAME 1 [target, assessment, sound, level]: the scanner's
 	UIScanClass *Unknown_5136A0();						// 0x5136A0 (the cockpit's scanner)
 	void Unknown_513700(unsigned sector);				// 0x513700 (cpacket.cpp: SERVER_PARAMETERS 66)  // NAME 1 [sector]: the packet's SectorNum
 	void Unknown_5137F0(unsigned sector);				// 0x5137F0 (cpacket.cpp: SERVER_PARAMETERS 66, view mode 1)  // NAME 1 [sector]: the packet's SectorNum
