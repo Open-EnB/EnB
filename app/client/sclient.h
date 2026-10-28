@@ -26,6 +26,7 @@
 #include "tasks\tsk_game.h"
 #include "vector.h"
 #include "vector3.h"
+#include "intersec.h"
 #include <deque>
 #include <vector>
 #include <hash_map.h>
@@ -39,6 +40,12 @@ class RefCountClass;
 class CameraClass;
 class SceneClass;
 class LandClass;
+class SimpleSceneClass;
+class DazzleLayerClass;
+class LightClass;
+class StarFieldClass;
+class OrbitalManager;
+class WWProfileIterator;
 class Render2DTextClass;
 class MusicManagerClass;		// NAME 3: class-from-file (D24) for audio\musicmanager.cpp (constructor 0x439E40, 0x1FC bytes)
 class CameraManagerClass;		// NAME 3: class-from-file (D24) for camera_manager.cpp (constructor 0x798D20, 0x4C bytes)
@@ -94,18 +101,41 @@ public:
 class ViewClass			// NAME 2: what the six objects share (kernel-map-step9.md 9f's view.cpp)
 {
 public:
-	virtual ~ViewClass();								// +0x00 (Shutdown deletes through it)
+	ViewClass(ClientTaskClass *task, int arg);			// 0x65B810 (the main, loading and 3-D movie views' base; it copies the task's Client to +0x4C)  // NAME 1 [task, arg]: what the main view passes
+	virtual ~ViewClass();								// +0x00 (Shutdown deletes through it; the main view's destructor calls 0x65A760)
 	virtual void Unknown_04();							// +0x04 Init calls it after construction
 	virtual void Unknown_08();							// +0x08 Init (the main view, +0x1358)
 	virtual void Unknown_0C(bool on);					// +0x0C Process_Packets passes true to the loading view
 	virtual void Unknown_10();							// +0x10 Shutdown
 	virtual void Unknown_14();							// +0x14 SClient::Do_Frame: the current view's, after Process_AI
+	virtual void Unknown_18(int arg);					// +0x18 (0x514CF0)  // NAME 1 [arg]: neutral
+	virtual ViewClass *Unknown_1C() { return(this); }	// +0x1C 0x50B720
+	virtual ViewClass *Unknown_20() { return(this); }	// +0x20 0x50B7E0 (0x65B810's table; 0x65A6C0's has 0x514D10)
+	virtual ViewClass *Unknown_24();					// +0x24 0x514D30
+	virtual int Unknown_28() { return(0); }				// +0x28 0x50B680
+	virtual int Unknown_2C() { return(0); }				// +0x2C 0x50B6A0
+	virtual int Unknown_30() { return(0); }				// +0x30 0x50B6C0
+	virtual int Unknown_34() { return(0); }				// +0x34 0x50B6E0
+	virtual int Unknown_38() { return(0); }				// +0x38 0x50B700
+	virtual int Unknown_3C() { return(Unknown24); }		// +0x3C 0x50B7C0
+	virtual void Unknown_40();							// +0x40 0x65AB10
+	virtual void Unknown_44();							// +0x44 0x65B8D0
+	virtual int Unknown_48() { return(Unknown24); }		// +0x48 0x50B740 (CLIENT_DAMAGE 100 hands its result to Add_Effect)
+	virtual int Unknown_4C() { return(Unknown28); }		// +0x4C 0x50B760
+	virtual int Unknown_50() { return(Unknown1C); }		// +0x50 0x50B780 (the main view's 0x50BA60 holds its result in a RefCountPtr)
+	virtual int Unknown_54() { return(Unknown20); }		// +0x54 0x50B7A0
+	virtual CameraClass *Unknown_58();					// +0x58 0x514D70
 
 	LoginUnknown0CClass *Get_Unknown04() { return(Unknown04); }	// inline (Do_Frame reads it into eax first)  // NAME 1: neutral (D10): the member it returns
 	ViewUnknown34Class *Get_Unknown34() { return(Unknown34); }	// inline (GROUP 30 and DIALOG 98 read it into eax first)  // NAME 1: neutral (D10): the member it returns
 
 	LoginUnknown0CClass *Unknown04;						// +0x04 (SClient::Do_Frame: the current view's input dispatcher gets the event the client's +0x1270 didn't take, 0x429A20)
-	char Unknown08[0x34 - 0x08];						// +0x08
+	char Unknown08[0x1C - 0x08];						// +0x08
+	int Unknown1C;										// +0x1C (slot +0x50)
+	int Unknown20;										// +0x20 (slot +0x54)
+	int Unknown24;										// +0x24 (slots +0x3C, +0x48)
+	int Unknown28;										// +0x28 (slot +0x4C)
+	char Unknown2C[0x34 - 0x2C];						// +0x2C
 	ViewUnknown34Class *Unknown34;						// +0x34 (view.cpp's constructors 0x65A6C0 / 0x65B810 set it; cpacket.cpp's GROUP 30 and DIALOG 98 call it)
 };
 
@@ -114,6 +144,18 @@ class RadarSystemClass	// NAME 3: class-from-file (D24) for radar_system.cpp
 {
 public:
 	void Unknown_7BD920(int index);						// 0x7BD920 (cpacket.cpp: WARP_INDEX 156)  // NAME 1 [index]: the packet's Index
+	void Unknown_7BD6E0(int arg);						// 0x7BD6E0 (the main view's 0x513630)  // NAME 1 [arg]: neutral
+	void Unknown_7BCA40(int arg);						// 0x7BCA40 (the main view's slot +0x18)  // NAME 1 [arg]: neutral
+};
+
+// ui_scan.cpp's scanner (the cockpit's +0xD4), as far as the main view calls it
+class UIScanClass		// NAME 3: class-from-file (D24) for ui_scan.cpp
+{
+public:
+	void Unknown_60E540(int arg1, int arg2, int arg3, int arg4);	// 0x60E540 (the main view's 0x513630)  // NAME 1 [arg1, arg2, arg3, arg4]: neutral
+
+	char Unknown00[0x88];								// +0x00
+	ClientObjectClass *Unknown88;						// +0x88 (the main view's slot +0x5C returns it)
 };
 
 // ui_cpit.cpp's cockpit interface (the main view's +0x1D0), declared as far as cpacket.cpp calls it
@@ -124,6 +166,20 @@ public:
 	void Unknown_5820C0(bool on);						// 0x5820C0 (cpacket.cpp: OPEN_INTERFACE 102 passes UIChange == 0)  // NAME 1 [on]: what the handler passes
 	void Unknown_584A60();								// 0x584A60 (SClient 0x745160)
 	void Unknown_583DC0(Unknown6D47C0Class *text, Unknown6D47C0Class *header, int inflicted, bool emp);	// 0x583DC0 (cpacket.cpp: CLIENT_DAMAGE 100 for the player's own damage)  // NAME 1 [text, header, inflicted, emp]: what the handler passes
+
+	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
+	virtual void Unknown_10(); virtual void Unknown_14(); virtual void Unknown_18(); virtual void Unknown_1C();
+	virtual void Unknown_20(); virtual void Unknown_24(); virtual void Unknown_28(); virtual void Unknown_2C();
+	virtual void Unknown_30(); virtual void Unknown_34(); virtual void Unknown_38(); virtual void Unknown_3C();
+	virtual void Unknown_40(); virtual void Unknown_44(); virtual void Unknown_48(); virtual void Unknown_4C();
+	virtual void Unknown_50(); virtual void Unknown_54();
+	virtual void Unknown_58();							// +0x58 (the main view's 0x5141A0)
+	virtual void Unknown_5C();							// +0x5C (the main view's 0x5141E0 / 0x514220)
+
+	char Unknown04[0xD4 - 0x04];						// +0x04
+	UIScanClass *Scan;									// +0xD4 (the main view's 0x5136A0 returns it, 0x513630 calls 0x60E540 on it)  // NAME 3: its file's (ui_scan.cpp)
+	char UnknownD8[0xDC - 0xD8];						// +0xD8
+	int UnknownDC;										// +0xDC (the main view's 0x514400 returns it)
 };
 
 // what the main view's slot +0x64 returns, as far as SClient 0x7456B0 calls it
@@ -152,76 +208,187 @@ public:
 	int Unknown90;										// +0x90
 };
 
+class MainViewClass;
+
+// what the main view's +0x48 points to (0x28 bytes, constructor 0x6E2BD0; slot +0x14 calls its +0x34)
+class MainViewUnknown48Class	// NAME 1: neutral (D10)
+{
+public:
+	MainViewUnknown48Class(MainViewClass *view, SClient *client);	// 0x6E2BD0  // NAME 1 [view, client]: what the main view passes
+	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
+	virtual void Unknown_10(); virtual void Unknown_14(); virtual void Unknown_18(); virtual void Unknown_1C();
+	virtual void Unknown_20(); virtual void Unknown_24(); virtual void Unknown_28(); virtual void Unknown_2C();
+	virtual void Unknown_30();
+	virtual void Unknown_34();							// +0x34 (the main view's slot +0x14)
+
+	char Unknown04[0x28 - 0x04];
+};
+
+// what the main view's +0x1DC points to, as far as 0x513600 calls it
+class MainViewUnknown1DCClass	// NAME 1: neutral (D10)
+{
+public:
+	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
+	virtual void Unknown_10(); virtual void Unknown_14(); virtual void Unknown_18(); virtual void Unknown_1C();
+	virtual void Unknown_20(); virtual void Unknown_24(); virtual void Unknown_28(); virtual void Unknown_2C();
+	virtual void Unknown_30(); virtual void Unknown_34(); virtual void Unknown_38(); virtual void Unknown_3C();
+	virtual void Unknown_40(); virtual void Unknown_44(); virtual void Unknown_48(); virtual void Unknown_4C();
+	virtual void Unknown_50(); virtual void Unknown_54(); virtual void Unknown_58(); virtual void Unknown_5C();
+	virtual void Unknown_60(); virtual void Unknown_64(); virtual void Unknown_68(); virtual void Unknown_6C();
+	virtual void Unknown_70(); virtual void Unknown_74(); virtual void Unknown_78(); virtual void Unknown_7C();
+	virtual void Unknown_80(); virtual void Unknown_84(); virtual void Unknown_88();
+	virtual void Unknown_8C(int arg);					// +0x8C (0x513600)  // NAME 1 [arg]: neutral
+};
+
+// what the main view's +0x138 points to (0x53DFB0-0x53E3F0: the main view forwards to it)
+class MainViewUnknown138Class	// NAME 1: neutral (D10)
+{
+public:
+	void Unknown_53DFB0(int mode);						// 0x53DFB0  // NAME 1 [mode]: the main view's
+	void Unknown_53E030(float value);					// 0x53E030  // NAME 1 [value]: the main view's
+	void Unknown_53E0B0();								// 0x53E0B0
+	void Unknown_53E0E0();								// 0x53E0E0
+	void Unknown_53E110(int arg);						// 0x53E110  // NAME 1 [arg]: neutral
+	void Unknown_53E160();								// 0x53E160
+	void Unknown_53E190(int arg);						// 0x53E190  // NAME 1 [arg]: neutral
+	void Unknown_53E1E0(int arg);						// 0x53E1E0  // NAME 1 [arg]: neutral
+	void Unknown_53E220(int arg);						// 0x53E220  // NAME 1 [arg]: neutral
+	void Unknown_53E260();								// 0x53E260
+	void Unknown_53E290(int arg);						// 0x53E290  // NAME 1 [arg]: neutral
+	void Unknown_53E2C0();								// 0x53E2C0
+	void Unknown_53E2F0(int arg);						// 0x53E2F0  // NAME 1 [arg]: neutral
+	void Unknown_53E3C0();								// 0x53E3C0
+	void Unknown_53E3F0(int arg);						// 0x53E3F0  // NAME 1 [arg]: neutral
+
+	char Unknown00[0x9C];								// +0x00
+	int Unknown9C;										// +0x9C (the main view's 0x513D00 returns it)
+};
+
 // mainview.cpp's view (constructor 0x50B360, 0x1EC bytes): SClient's Add_Object / Remove_Object tell it
 class MainViewClass : public ViewClass	// NAME 3: class-from-file (D24) for mainview.cpp
 {
 public:
-	MainViewClass(ClientTaskClass *task);				// 0x50B360  // NAME 1 [task]: SClient::Init passes its task
+	MainViewClass(ClientTaskClass *ctask);				// 0x50B360 (G_ASSERT 'ctask', l.176)  // NAME 2 [ctask]: the assert's
+	virtual ~MainViewClass();							// +0x00 0x50B950 (deleting 0x50B900)
+	virtual void Unknown_04();							// +0x04 0x50BA60 (the scenes, the dazzle layers, the radar, the orbitals, the lights, the stars)
+	virtual void Unknown_08();							// +0x08 0x50C690 (settings.ini, the interface)
+	virtual void Unknown_0C(bool on);					// +0x0C 0x50CAE0 (the per-frame render: Render_Initializing / Gas_Giant / Planet / Space_Mode)
+	virtual void Unknown_10();							// +0x10 0x50C2F0 (Shutdown: the counterpart of +0x04)
+	virtual void Unknown_14();							// +0x14 0x5129D0 (0x512400, then the base's 0x65B470)
+	virtual void Unknown_18(int arg);					// +0x18 0x514930 (hands it to the radar)  // NAME 1 [arg]: neutral
+	virtual ViewClass *Unknown_24() { return(this); }	// +0x24 0x50B800
+	virtual CameraClass *Unknown_58() { return(Camera); }	// +0x58 0x50B8C0
+	virtual ClientObjectClass *Unknown_5C();			// +0x5C 0x5136D0 (the scanner's +0x88; SClient 0x744E70's FAIL_IF '!target' on its result)
+	virtual void Unknown_60(int arg1, int arg2, int arg3, int arg4);	// +0x60 0x512BB0 (asserts 'cam_dist_idx < InfoCount', 'cos_occluder_size > 0.0f')  // NAME 1 [arg1, arg2, arg3, arg4]: neutral
+	virtual MainViewUnknown64Class *Unknown_64();		// +0x64 0x514430 (Scene; SClient 0x7456B0)
+	virtual SimpleSceneClass *Unknown_68() { return(Unknown110); }	// +0x68 0x50B820
+	virtual SimpleSceneClass *Unknown_6C() { return(Unknown114); }	// +0x6C 0x50B840
+	virtual SimpleSceneClass *Unknown_70() { return(Unknown118); }	// +0x70 0x50B860
+	virtual SimpleSceneClass *Unknown_74() { return(Unknown11C); }	// +0x74 0x50B880
+	virtual SimpleSceneClass *Unknown_78() { return(Unknown120); }	// +0x78 0x50B8A0
+	virtual int Unknown_7C() { return((int)Camera); }	// +0x7C 0x50B8E0 (OBJECT_EFFECT 9 hands its result to Add_Effect)
+	virtual void Add_Object(ClientObjectClass *object);		// +0x80 0x514270 SClient::Add_Object  // NAME 2: its caller's
+	virtual void Remove_Object(ClientObjectClass *object);	// +0x84 0x514390 SClient::Remove_Object  // NAME 2: its caller's
+
 	void Set_Camera(CameraClass *camera);				// 0x5123C0: Init's camera  // NAME 2: what Init hands it
 	void Unknown_5141A0();								// 0x5141A0 (Init, Unknown137C clear)
+	void Unknown_5141E0();								// 0x5141E0
 	void Unknown_514220();								// 0x514220 (Init, Unknown137C set)
+	void Unknown_512400();								// 0x512400 (slot +0x14: TargetGameID / TargetThreat...)
 	void Unknown_512A00();								// 0x512A00 (SClient::Do_Frame, when the main view is the current view)
 	MainViewUnknown13CClass *Get_Unknown13C() { return((MainViewUnknown13CClass *)Land); }	// (inline: SERVER_PARAMETERS 66)  // NAME 1: neutral (D10): the member it returns
-	void Unknown_513FC0();								// 0x513FC0 (cpacket.cpp: SERVER_HANDOFF 58)
+	void Unknown_513540(int base_asset);				// 0x513540 (SClient 0x745000)  // NAME 1 [base_asset]: SERVER_PARAMETERS 66's BackdropBaseAsset
+	void Unknown_513600(int arg);						// 0x513600 (SClient 0x7456B0 passes 0)  // NAME 1 [arg]: neutral
+	void Unknown_513630(int arg1, int arg2, int arg3, int arg4);	// 0x513630 (the radar's 0x7BD6E0, the scanner's 0x60E540)  // NAME 1 [arg1, arg2, arg3, arg4]: neutral
+	UIScanClass *Unknown_5136A0();						// 0x5136A0 (the cockpit's scanner)
 	void Unknown_513700(unsigned sector);				// 0x513700 (cpacket.cpp: SERVER_PARAMETERS 66)  // NAME 1 [sector]: the packet's SectorNum
 	void Unknown_5137F0(unsigned sector);				// 0x5137F0 (cpacket.cpp: SERVER_PARAMETERS 66, view mode 1)  // NAME 1 [sector]: the packet's SectorNum
 	void Unknown_513B90(unsigned sector);				// 0x513B90 (cpacket.cpp: SERVER_PARAMETERS 66, view mode 5)  // NAME 1 [sector]: the packet's SectorNum
-	void Unknown_513540(int base_asset);				// 0x513540 (SClient 0x745000)  // NAME 1 [base_asset]: SERVER_PARAMETERS 66's BackdropBaseAsset
-	void Unknown_513600(int arg);						// 0x513600 (SClient 0x7456B0 passes 0)  // NAME 1 [arg]: neutral
 	void Unknown_513CD0(int mode);						// 0x513CD0 (SClient 0x7456B0 passes the base's Unknown10F4, DebrisMode)  // NAME 1 [mode]: what it gets
+	int Unknown_513D00();								// 0x513D00 (+0x138's +0x9C)
 	void Unknown_513D20(float value);					// 0x513D20 (SClient 0x7456B0 passes 1.0)  // NAME 1 [value]: neutral
-	void Unknown_513F60(FileClass *file, int indent);	// 0x513F60 (SClient 0x745EC0's dump, two deeper)  // NAME 1 [file, indent]: Printf_Indented's
+	void Unknown_513D50();								// 0x513D50
+	void Unknown_513D70();								// 0x513D70
+	void Unknown_513D90(int arg);						// 0x513D90  // NAME 1 [arg]: neutral
+	void Unknown_513DC0();								// 0x513DC0
+	void Unknown_513DE0(int arg);						// 0x513DE0  // NAME 1 [arg]: neutral
+	void Unknown_513E10(int arg);						// 0x513E10  // NAME 1 [arg]: neutral
+	void Unknown_513E40(int arg);						// 0x513E40  // NAME 1 [arg]: neutral
+	void Unknown_513E70();								// 0x513E70
+	void Unknown_513E90(int arg);						// 0x513E90  // NAME 1 [arg]: neutral
+	void Unknown_513EC0();								// 0x513EC0
+	void Unknown_513EE0(int arg);						// 0x513EE0  // NAME 1 [arg]: neutral
+	void Unknown_513F10();								// 0x513F10
+	void Unknown_513F30(int arg);						// 0x513F30  // NAME 1 [arg]: neutral
+	void Unknown_513F60(FileClass *file, int indent);	// 0x513F60 (SClient 0x745EC0's dump, two deeper; empty)  // NAME 1 [file, indent]: Printf_Indented's
+	void Unknown_513F80(int arg);						// 0x513F80 (empty)  // NAME 1 [arg]: neutral
+	void Unknown_513FA0();								// 0x513FA0 (empty)
+	void Unknown_513FC0();								// 0x513FC0 (cpacket.cpp: SERVER_HANDOFF 58: the land out of the scene)
 	void Unknown_514010(int old_mode, int mode);		// 0x514010 (SClient 0x745F30: the view mode before and after)  // NAME 1 [old_mode, mode]: what it gets
-	virtual void Unknown_14();
-	virtual void Unknown_18();
-	virtual void Unknown_1C();
-	virtual void Unknown_20();
-	virtual void Unknown_24();
-	virtual void Unknown_28();
-	virtual void Unknown_2C();
-	virtual void Unknown_30();
-	virtual void Unknown_34();
-	virtual void Unknown_38();
-	virtual void Unknown_3C();
-	virtual void Unknown_40();
-	virtual void Unknown_44();
-	virtual int Unknown_48();							// +0x48 (CLIENT_DAMAGE 100 hands its result to Add_Effect)
-	virtual void Unknown_4C();
-	virtual void Unknown_50();
-	virtual void Unknown_54();
-	virtual void Unknown_58();
-	virtual ClientObjectClass *Unknown_5C();			// +0x5C (SClient 0x744E70's FAIL_IF '!target' on its result)
-	virtual void Unknown_60();
-	virtual MainViewUnknown64Class *Unknown_64();		// +0x64 (SClient 0x7456B0)
-	virtual void Unknown_68();
-	virtual void Unknown_6C();
-	virtual void Unknown_70();
-	virtual void Unknown_74();
-	virtual void Unknown_78();
-	virtual int Unknown_7C();							// +0x7C (OBJECT_EFFECT 9 hands its result to Add_Effect)
-	virtual void Add_Object(ClientObjectClass *object);		// +0x80 SClient::Add_Object  // NAME 2: its caller's
-	virtual void Remove_Object(ClientObjectClass *object);	// +0x84 SClient::Remove_Object  // NAME 2: its caller's
+	int Unknown_514400();								// 0x514400 (the cockpit's +0xDC)
+	void Unknown_514450();								// 0x514450 (sets the land's +0x136)
 
-	char Unknown38[0x4C - 0x38];						// +0x38
+	char Unknown38[0x48 - 0x38];						// +0x38
+	MainViewUnknown48Class *Unknown48;					// +0x48 (the base clears it; the constructor makes it)
 	SClient *Client;									// +0x4C view.cpp's 0x65B810 copies the task's Client (+0x78); 0x5137F0 asks its slot +0x18 for the SClient  // NAME 2: what it holds
-	char Unknown50[0x80 - 0x50];						// +0x50
-	RadarSystemClass *Radar;							// +0x80 (cpacket.cpp: WARP_INDEX 156's FAIL_IF '!radar')  // NAME 3: the FAIL_IF's name
-	char Unknown84[0x10C - 0x84];						// +0x84
-	SceneClass *Scene;									// +0x10C (0x5137F0 adds the land to it through slot +0x0C, Add_Render_Object)  // NAME 2: what it is
-	char Unknown110[0x130 - 0x110];						// +0x110
-	bool Unknown130;									// +0x130 (SClient 0x7456B0 sets it)
-	char Unknown131[0x13C - 0x131];						// +0x131
+	bool Unknown50;										// +0x50
+	int Unknown54;										// +0x54
+	int Unknown58;										// +0x58
+	int Unknown5C;										// +0x5C
+	int Unknown60;										// +0x60
+	int Unknown64;										// +0x64
+	bool Unknown68;										// +0x68 (0x50BA60 sets it)
+	bool Unknown69;										// +0x69 (0x50BA60 sets it; 0x5146D0 tests it)
+	float Unknown6C;									// +0x6C (0x5146D0: 1.2)
+	float Unknown70;									// +0x70 (0x5146D0: the client's +0x1160)
+	float Unknown74;									// +0x74 (0x5146D0: the client's +0x1164)
+	float Unknown78;									// +0x78 (0x5146D0: the client's +0x1158)
+	float Unknown7C;									// +0x7C (0x5146D0: the client's +0x1168)
+	RadarSystemClass *Radar;							// +0x80 (cpacket.cpp: WARP_INDEX 156's FAIL_IF '!radar'; 0x50BA60 makes it, 0x7BC770)  // NAME 3: the FAIL_IF's name
+	int Unknown84;										// +0x84 (0x50BA60 makes it: 0x24 bytes, 0x7B6BD0)
+	IntersectionClass Intersection;						// +0x88 (vtable 0xAEA8A0 and its statics in the constructor)  // NAME 2: what it is
+	SceneClass *Scene;									// +0x10C (0x5137F0 adds the land to it through slot +0x0C, Add_Render_Object; 0x50BA60 makes it, 0xF4 bytes, 0x75ECF0)  // NAME 2: what it is
+	SimpleSceneClass *Unknown110;						// +0x110 (slot +0x68)
+	SimpleSceneClass *Unknown114;						// +0x114 (slot +0x6C; the stars are added to it)
+	SimpleSceneClass *Unknown118;						// +0x118 (slot +0x70)
+	SimpleSceneClass *Unknown11C;						// +0x11C (slot +0x74)
+	SimpleSceneClass *Unknown120;						// +0x120 (slot +0x78; the lights are added to it)
+	DazzleLayerClass *DazzleLayer;						// +0x124  // NAME 2: what it is
+	int Unknown128;										// +0x128 (enbdazzle.cpp's 0x75DD00, 8 bytes: the dazzle visibility handler)
+	CameraClass *Camera;								// +0x12C (Set_Camera; slots +0x58 / +0x7C)  // NAME 2: what Set_Camera stores
+	bool Unknown130;									// +0x130 (SClient 0x7456B0 sets it; the constructor: true)
+	RefCountPtr<StarFieldClass> StarField;				// +0x134 (0x50BA60: a StarFieldClass)  // NAME 2: what it holds
+	MainViewUnknown138Class *Unknown138;				// +0x138
 	LandClass *Land;									// +0x13C 0x5137F0's FAIL_IF 'Land!=NULL' / 'NULL==Land' (SERVER_PARAMETERS 66 copies its +0x90 to the client's +0x1144 in view mode 1)  // NAME 3: the FAIL_IF's name
-	char Unknown140[0x1A8 - 0x140];						// +0x140
+	OrbitalManager *Orbitals;							// +0x140 (0x50BA60 makes it, 0x1D4 bytes, 0x4F3250)  // NAME 2: its class's (OrbitalManager::Update)
+	RefCountPtr<LightClass> Unknown144[4];				// +0x144 (0x50BA60: four lights)
+	RefCountPtr<LightClass> Unknown154[4];				// +0x154 (0x50BA60: four lights, added to +0x120)
+	RefCountPtr<LightClass> Unknown164;					// +0x164 (0x50BA60: one light)
+	bool Unknown168;									// +0x168
+	float Unknown16C;									// +0x16C
+	float Unknown170;									// +0x170
+	float Unknown174;									// +0x174
+	Vector3 Unknown178;									// +0x178 (0.5, 0.5, 0.5)
+	Vector3 Unknown184;									// +0x184 (0, 0, 1)
+	float Unknown190;									// +0x190
+	float Unknown194;									// +0x194 (0.05)
+	float Unknown198;									// +0x198 (0.1)
+	float Unknown19C;									// +0x19C (0.1)
+	float Unknown1A0;									// +0x1A0 (0.5)
+	bool Unknown1A4;									// +0x1A4 (true)
 	float SeaFogNear;									// +0x1A8 0x5137F0: land%04d.ini [GENERAL] SEAFOGNEAR (100)  // NAME 2: its ini key
 	float SeaFogFar;									// +0x1AC SEAFOGFAR (3000)  // NAME 2: its ini key
 	Vector3 SeaColor;									// +0x1B0 SEACOLORR / G / B (1, 1, 1)  // NAME 2: its ini keys
 	Vector3 Wind;										// +0x1BC 0x513B90: gas%04d.ini [GENERAL] WINDX / Y / Z (0) times 3600  // NAME 2: its ini keys
-	char Unknown1C8[0x1D0 - 0x1C8];						// +0x1C8 (0x513700 keeps its sector at +0x1C8)
+	unsigned Unknown1C8;								// +0x1C8 (0x513700 keeps its sector here; 0x50C2D0 returns it)
+	bool Unknown1CC;									// +0x1CC
 	UICpitClass *Cpit;									// +0x1D0 (cpacket.cpp: LOOT_HULK_PERMISSION 140, OPEN_INTERFACE 102)  // NAME 3: its file's (ui_cpit.cpp)
-	char Unknown1D4[0x1D8 - 0x1D4];						// +0x1D4
+	ViewUnknown34Class *Unknown1D4;						// +0x1D4 (slots +0x58 / +0x5C with the cockpit's)
 	UIGroupClass *Group;								// +0x1D8 (cpacket.cpp: CLIENT_CHAT_EVENT 165's group messages)  // NAME 3: its file's (ui_group.cpp)
-	char Unknown1DC[0x1EC - 0x1DC];						// +0x1DC
+	MainViewUnknown1DCClass *Unknown1DC;						// +0x1DC (0x513600 calls its +0x8C)
+	int Unknown1E0;										// +0x1E0
+	ViewUnknown34Class *Unknown1E4;						// +0x1E4 (0x514220 calls its +0x5C)
+	WWProfileIterator *ProfileIterator;					// +0x1E8 (0x50BA60: WWProfileManager::Get_Iterator)  // NAME 2: what it holds
 };
 
 // loadingview.cpp's view (constructor 0x691570, 0x6C bytes)

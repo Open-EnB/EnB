@@ -7,6 +7,9 @@
 #include "..\shared\land.h"
 #include "..\..\wwlib\ini.h"
 #include "..\..\ww3d2\scene.h"
+#include "..\shared\stars.h"
+#include "..\..\ww3d2\light.h"
+#include "..\..\ww3d2\camera.h"
 
 
 
@@ -151,7 +154,32 @@
 
 
 
+// NOT EXACT: scheduling only (the array-ctor pushes, two float constants, one register); attempts.csv 0x50B360
+MainViewClass::MainViewClass(ClientTaskClass *ctask) :
+	ViewClass(ctask, 0),
+	Unknown50(false), Unknown54(0), Unknown58(0), Unknown5C(0), Unknown60(0), Unknown64(0), Unknown68(false), Unknown69(false),
+	Unknown6C(0), Unknown70(0), Unknown74(0), Unknown78(0), Unknown7C(0), Radar(NULL), Unknown84(0),
+	Scene(NULL), Unknown110(NULL), Unknown114(NULL), Unknown118(NULL), Unknown11C(NULL), Unknown120(NULL),
+	DazzleLayer(NULL), Unknown128(0), Camera(NULL), Unknown130(true),
+	Unknown138(NULL), Land(NULL), Orbitals(NULL),
+	Unknown168(false), Unknown16C(0), Unknown170(0), Unknown174(0),
+	Unknown178(0.5f, 0.5f, 0.5f), Unknown184(0.0f, 0.0f, 1.0f), Unknown190(0),
+	Unknown194(0.05f), Unknown198(0.1f), Unknown19C(0.1f), Unknown1A0(0.5f), Unknown1A4(true),
+	SeaFogNear(0), SeaFogFar(0), SeaColor(1.0f, 1.0f, 1.0f), Wind(0.0f, 0.0f, 0.0f), Unknown1C8(0), Unknown1CC(false),
+	Cpit(NULL), Unknown1D4(NULL), Group(NULL), Unknown1DC(NULL), Unknown1E0(0), Unknown1E4(NULL), ProfileIterator(NULL)
+{
+	// (the members above are the client's order: 0x50B360 stores them before the table)
+	// (the base 0x65B810 clears +0x48; the view's helper is made last)
+	// (the assert names the parameter)
+	// (0x50B360 sets the table after the members)
+	// (line 176 next)
+	G_ASSERT(ctask);
+	Unknown48 = new MainViewUnknown48Class(this, ctask->Client);
+}
 
+MainViewClass::~MainViewClass()
+{
+}
 
 
 
@@ -1369,6 +1397,12 @@
 
 
 
+void MainViewClass::Set_Camera(CameraClass *camera)
+{
+	if (Camera) Camera->Release_Ref();
+	Camera = camera;
+	if (Camera) Camera->Add_Ref();
+}
 
 
 
@@ -1563,6 +1597,12 @@
 
 
 
+void MainViewClass::Unknown_14()
+{
+	Unknown_512400();
+	ViewClass::Unknown_14();
+	Unknown48->Unknown_34();
+}
 
 
 
@@ -1879,61 +1919,21 @@
 
 
 
+void MainViewClass::Unknown_513630(int arg1, int arg2, int arg3, int arg4)
+{
+	if (Radar) Radar->Unknown_7BD6E0(arg1);
+	if (Cpit) Cpit->Scan->Unknown_60E540(arg1, arg2, arg3, arg4);
+}
 
+UIScanClass *MainViewClass::Unknown_5136A0()
+{
+	return(Cpit ? Cpit->Scan : NULL);
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+ClientObjectClass *MainViewClass::Unknown_5C()
+{
+	return((Cpit && Cpit->Scan) ? Cpit->Scan->Unknown88 : NULL);
+}
 
 
 
@@ -2011,6 +2011,279 @@ void MainViewClass::Unknown_513B90(unsigned sector)
 	Wind *= 3600.0f;
 }
 
+int MainViewClass::Unknown_513D00() { return(Unknown138->Unknown9C); }
+
+
+void MainViewClass::Unknown_513D50() { Unknown138->Unknown_53E0B0(); }
+void MainViewClass::Unknown_513D70() { Unknown138->Unknown_53E0E0(); }
+void MainViewClass::Unknown_513D90(int arg) { Unknown138->Unknown_53E110(arg); }
+void MainViewClass::Unknown_513DC0() { Unknown138->Unknown_53E160(); }
+void MainViewClass::Unknown_513DE0(int arg) { Unknown138->Unknown_53E190(arg); }
+void MainViewClass::Unknown_513E10(int arg) { Unknown138->Unknown_53E1E0(arg); }
+void MainViewClass::Unknown_513E40(int arg) { Unknown138->Unknown_53E220(arg); }
+void MainViewClass::Unknown_513E70() { Unknown138->Unknown_53E260(); }
+void MainViewClass::Unknown_513E90(int arg) { Unknown138->Unknown_53E290(arg); }
+void MainViewClass::Unknown_513EC0() { Unknown138->Unknown_53E2C0(); }
+void MainViewClass::Unknown_513EE0(int arg) { Unknown138->Unknown_53E2F0(arg); }
+void MainViewClass::Unknown_513F10() { Unknown138->Unknown_53E3C0(); }
+void MainViewClass::Unknown_513F30(int arg) { Unknown138->Unknown_53E3F0(arg); }
+void MainViewClass::Unknown_513F60(FileClass *file, int indent) {}
+void MainViewClass::Unknown_513F80(int arg) {}
+void MainViewClass::Unknown_513FA0() {}
+
+void MainViewClass::Unknown_513FC0()
+{
+	if (Land) {
+		Scene->Remove_Render_Object(Land);
+		REF_PTR_RELEASE(Land);
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+void MainViewClass::Unknown_5141A0()
+{
+	Cpit->Unknown_58();
+	((ViewUnknown34Class *)Unknown1D4)->Unknown_58();
+	((ViewUnknown34Class *)Group)->Unknown_58();
+}
+
+void MainViewClass::Unknown_5141E0()
+{
+	Cpit->Unknown_5C();
+	((ViewUnknown34Class *)Unknown1D4)->Unknown_5C();
+	((ViewUnknown34Class *)Group)->Unknown_5C();
+}
+
+void MainViewClass::Unknown_514220()
+{
+	Cpit->Unknown_5C();
+	((ViewUnknown34Class *)Unknown1D4)->Unknown_5C();
+	((ViewUnknown34Class *)Group)->Unknown_5C();
+	Unknown1E4->Unknown_5C();
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+void MainViewClass::Add_Object(ClientObjectClass *object)
+{
+	if (object == NULL) {
+
+
+		G_ASSERT(object);
+		return;
+	}
+	RenderObjClass *model = object->Model;
+	if (model) {
+		model->Set_User_Data(object);
+		if (!object->Unknown_6F5D90()) model->Add((SceneClass *)Unknown_64());
+		model->Set_Transform(Matrix3D(true));
+	}
+}
+
+void MainViewClass::Remove_Object(ClientObjectClass *object)
+{
+	if (object == NULL) {
+
+
+
+
+
+
+		G_ASSERT(object);
+		return;
+	}
+	if (object->Model && !object->Unknown_6F5D90()) object->Model->Remove();
+}
+
+int MainViewClass::Unknown_514400()
+{
+	return(Cpit ? Cpit->UnknownDC : 0);
+}
+
+MainViewUnknown64Class *MainViewClass::Unknown_64()
+{
+	return((MainViewUnknown64Class *)Scene);
+}
+
+void MainViewClass::Unknown_514450()
+{
+	if (Land) Land->Set_Dirty();
+}
+
+void MainViewClass::Unknown_18(int arg)
+{
+	if (Radar) Radar->Unknown_7BCA40(arg);
+}
+
 /*
 **	Notes (LD3, 2026-10-28)
 **
@@ -2021,4 +2294,13 @@ void MainViewClass::Unknown_513B90(unsigned sector)
 **	clienttest's SERVER_PARAMETERS 66 reaches it with a fake main view (no StarField): attempts.csv 0x513700.
 **	Client->Unknown_18() is ClientClass's slot +0x18 (0 in the base, 0x7268E0); SClient's override returns the
 **	SClient ('!sclient'). Its +0x1320 byte is LandClass::Create's flag.
+**
+**	MV1 (2026-10-28): the class's layout from the constructor 0x50B360 (its stores in member order before the
+**	table, sclient.h), the destructor 0x50B950, the table 0xAECF78 (34 slots: +0x5C..+0x84 are the main view's own;
+**	+0x1C..+0x54 are the base's inline slots, whose copies the linker took from this object: 0x50B680-0x50B7E0;
+**	the base's own table is 0xAF9854, 0x65B810's). Add_Object 0x514270 / Remove_Object 0x514390: the model's
+**	Set_User_Data, Add to the scene slot +0x64 returns (the +0x10C scene) unless the object's 0x6F5D90 says
+**	otherwise, an identity transform; Remove only in the same case. The constructor is not exact (scheduling)
+**	(attempts.csv 0x50B360). Not rebuilt yet because clienttest drives their stand-ins: 0x512A00, 0x513540,
+**	0x513600, 0x513700, 0x513CD0, 0x513D20, 0x514010 (expected.txt 'gen MainViewClass::').
 */
