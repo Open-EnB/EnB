@@ -1443,11 +1443,15 @@ client's own code: [kernel-map.md](kernel-map.md) §6 and, for step 9's dependen
    `break` into one exit); cpacket.cpp now 97 exact / 10 NOT EXACT / 0 not rebuilt; clienttest 103 checks) (2026-10-28, SC1: 00de1a9..cf59a64, +18: P-MV2-2, P-T18-2 (gen_stubs writes `const
    RefCountPtr<T> &` / by-value RefCountPtr stand-ins), PxProcessClass::Push / Pop, the steering inputs
    0x745AA0-0x745E40, the GroupInfo tests, 0x74B600 / 0x74B640 / 0x74D730, 0x751660, 0x74E580, 0x750B60 exact;
-   NOT EXACT 0x744C10 shape, 0x7429B0 register, 0x74C3B0 / 0x745750 / 0x7436A0 / 0x74EB00 budget (0x728300 was an
-   inline member of client.h); left in sclient.cpp: 0x74C8D0, the chat commands 0x74ABC0, the dialogs 0x74E710,
-   0x74EDB0, 0x74F5C0, 0x74FA30, 0x74FEC0, 0x750260, 0x750800, 0x750C20-0x751460, Print 0x74DF70 (its hand stub feeds
-   clienttest's trace), CHANGE_BASE_ASSET's 0x74D950 after P-SC1-1 (move cpacket.cpp's SBaseViewClass into its own
-   header, line-neutral); Init could call the inline Unknown_744D80) P-T16-2 (Unknown831340Class's 4th constructor parameter is `const RefCountPtr<ItemBaseInfoClass> &`,
+   NOT EXACT 0x744C10 shape, 0x7429B0 register, 0x74C3B0 / 0x745750 / 0x7436A0 budget (0x728300 was an inline member
+   of client.h); SC2 20ae000..a58224e, +15: 0x74E710, 0x74EB00, 0x74FA30, 0x74FEC0, Print 0x74DF70, 0x74D950,
+   0x751460 exact; NOT EXACT 0x74C8D0 budget, 0x74ABC0 / 0x74EDB0 / 0x74F5C0 / 0x750F70 shape, 0x750800 frame; Init's
+   inline 0x744D80 form changes nothing; left in sclient.cpp: 0x750260 (audio debug display: check Commando first),
+   0x750C20 (testeffects.ini records through the 0x6E9490 factory), 0x7511A0 (AvatarDesc); P-SC2-1: sclient.cpp
+   declares UIStarbaseClass / SBaseViewClass locally because ui_line_display.h clashes with its own UILineDisplayClass
+   (C2011): replace that with ui_line_display.h (Init's `new` changes: verify Init), then include sbaseview.h;
+   P-SC2-2: clienttest's FakeMainViewClass slot +0x1C returns void but Do_Frame's helpers use eax as the view: return
+   a fake view whose +0x34 dialog has a zeroed +0x18C) P-T16-2 (Unknown831340Class's 4th constructor parameter is `const RefCountPtr<ItemBaseInfoClass> &`,
    with client.cpp's "Null Item" call); P-T16-3 (one Opus round on 62, then Fable). sclient.cpp: P-T18-1 (the
    rebuilding commit deletes the member's hand-written clienttest stub: Do_Frame 0x742B60, Render 0x744690, the chat
    commands 0x74ABC0, Print, Unknown_34 / _64, ...), P-T18-2 (gen_stubs: class-by-value returns and template

@@ -468,6 +468,10 @@ unless `--lever` cites a new row of this table.
   and write the cases in the client's code order (0x73D170 exact in one step, 33 cases). An early return on a
   RefCountPtr temporary matched as `if (a == NULL || a->Get() == NULL) return(true);` (a nested `!= NULL` gives setne
   for sete); a field copied through a named block local fixed a store-order residue (TRADE 31).
+* **A neighbour's FAIL_IF / G_ASSERT line shows where a function's source ends** (2026-10-28, SC2): 0x74EB00 had to
+  end before 0x74EDB0's line 4804, which pointed at the inline 0x750210; the blank run before a file's notes can
+  hold a later function's asserts (`appfile.py show`: 0x7518A0 owns lines 5459-5470). `int id = list.front();` before
+  `std::find` and a named local for a singleton gave the client's forms (0x74FA30 / 0x74FEC0, 0x751460).
 * **Asserts sit on the client's lines (D25).** To add code above a logged line, remove as many
   blank lines from the same function's stretch (cordmgr.cpp; `.work/milestones/a3/relines.py`);
   pad inside a function, not only before it (Get(char **); pk.cpp's helpers take single blanks).
@@ -797,6 +801,8 @@ unless `--lever` cites a new row of this table.
 
 ### 3.8 Git, docs and scripting hygiene
 
+* **While other builders land on imports.json, automate the bring-over rebase** (2026-10-28, SC2):
+  `.work/sc2/rebase.sh` runs rebase, verify, clienttest, udpreplay and replay in one cycle.
 * **A Python edit that appends a declaration to a line ending in a `//` comment swallows it** (C2039): prepend
   instead (2026-10-28, CP2).
 * **Git Bash turns a `'// 0x...'` argument into a path** (2026-10-28, PX2): prefix the command with
