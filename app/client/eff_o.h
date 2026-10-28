@@ -83,6 +83,7 @@ public:
 	void Unknown_6E7080();								// 0x6E7080 (the next link from NextLinkID; no caller, 0x6E6AD0 writes it out)
 	void Unknown_6E70F0();								// 0x6E70F0 (the SFX played)
 	void Unknown_6E73F0(const char *name, bool sfx_2d, float radius, int min_time, int max_time);	// 0x6E73F0 (the SFX: shiputils 0x812210 calls it)  // NAME 1 [name .. max_time]: effect.ini's SFX, SFX2D, TriggerSFXRadius, TriggerSFXMin/MaxElapsedTime
+	void Unknown_6E7260();								// 0x6E7260 (the SFX trigger within its radius of the camera; no caller, 0x6E6AD0 writes it out)
 	void Unknown_6E7330();								// 0x6E7330 (the sound at +0x38 stopped and released)
 
 	HashNodeClass<EffectObjectClass *> Node;			// +0x04 ClientClass::EffectList's node  // NAME 2: what it is

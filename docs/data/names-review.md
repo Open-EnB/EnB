@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 36 |
 | 3 | by convention from a client-named file or sibling | 891 |
 | 2 | describes what the code does | 2150 |
-| 1 | neutral placeholder | 4245 |
+| 1 | neutral placeholder | 4248 |
 
 ## For review (score 3 and below)
 
@@ -993,28 +993,28 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_7517E0` | `app/client/cpacket.cpp:3333` | untagged neutral name (D10) |
 | 1 | `Unknown_751850` | `app/client/cpacket.cpp:3345` | untagged neutral name (D10) |
 | 1 | `Unknown_751460` | `app/client/cpacket.cpp:3413` | untagged neutral name (D10) |
-| 1 | `Unknown_4BC260` | `app/client/eff_o.cpp:20` | untagged neutral name (D10) |
-| 1 | `desc_id .. unknown` | `app/client/eff_o.cpp:21` | what the effect packets pass |
-| 1 | `Unknown_6E9490` | `app/client/eff_o.cpp:21` | untagged neutral name (D10) |
-| 1 | `Unknown_BDBB84` | `app/client/eff_o.cpp:22` | neutral (D10), as ui_line_display.cpp's |
-| 1 | `Unknown_Time` | `app/client/eff_o.cpp:23` | neutral (D10): the client clock as the link calls read it (evaluated before the other arguments) |
-| 1 | `Unknown10BC` | `app/client/eff_o.cpp:23` | untagged neutral name (D10) |
-| 1 | `Unknown34` | `app/client/eff_o.cpp:31` | untagged neutral name (D10) |
-| 1 | `Unknown38` | `app/client/eff_o.cpp:32` | untagged neutral name (D10) |
-| 1 | `Unknown3C` | `app/client/eff_o.cpp:33` | untagged neutral name (D10) |
-| 1 | `Unknown40` | `app/client/eff_o.cpp:34` | untagged neutral name (D10) |
-| 1 | `Unknown44` | `app/client/eff_o.cpp:35` | untagged neutral name (D10) |
-| 1 | `Unknown48` | `app/client/eff_o.cpp:36` | untagged neutral name (D10) |
-| 1 | `Unknown4C` | `app/client/eff_o.cpp:37` | untagged neutral name (D10) |
-| 1 | `Unknown64` | `app/client/eff_o.cpp:43` | untagged neutral name (D10) |
-| 1 | `Unknown_6E6F90` | `app/client/eff_o.cpp:49` | untagged neutral name (D10) |
-| 1 | `Unknown_04` | `app/client/eff_o.cpp:55` | untagged neutral name (D10) |
-| 1 | `Unknown_08` | `app/client/eff_o.cpp:60` | untagged neutral name (D10) |
-| 1 | `Unknown_18` | `app/client/eff_o.cpp:66` | untagged neutral name (D10) |
-| 1 | `Unknown_1C` | `app/client/eff_o.cpp:71` | untagged neutral name (D10) |
-| 1 | `Unknown_20` | `app/client/eff_o.cpp:76` | untagged neutral name (D10) |
-| 1 | `Unknown_6E6A90` | `app/client/eff_o.cpp:81` | untagged neutral name (D10) |
-| 1 | `Unknown_6E7330` | `app/client/eff_o.cpp:84` | untagged neutral name (D10) |
+| 1 | `Unknown_4BC260` | `app/client/eff_o.cpp:21` | untagged neutral name (D10) |
+| 1 | `desc_id .. unknown` | `app/client/eff_o.cpp:22` | what the effect packets pass |
+| 1 | `Unknown_6E9490` | `app/client/eff_o.cpp:22` | untagged neutral name (D10) |
+| 1 | `Unknown_BDBB84` | `app/client/eff_o.cpp:23` | neutral (D10), as ui_line_display.cpp's |
+| 1 | `Unknown_Time` | `app/client/eff_o.cpp:24` | neutral (D10): the client clock as the link calls read it (evaluated before the other arguments) |
+| 1 | `Unknown10BC` | `app/client/eff_o.cpp:24` | untagged neutral name (D10) |
+| 1 | `Unknown34` | `app/client/eff_o.cpp:32` | untagged neutral name (D10) |
+| 1 | `Unknown38` | `app/client/eff_o.cpp:33` | untagged neutral name (D10) |
+| 1 | `Unknown3C` | `app/client/eff_o.cpp:34` | untagged neutral name (D10) |
+| 1 | `Unknown40` | `app/client/eff_o.cpp:35` | untagged neutral name (D10) |
+| 1 | `Unknown44` | `app/client/eff_o.cpp:36` | untagged neutral name (D10) |
+| 1 | `Unknown48` | `app/client/eff_o.cpp:37` | untagged neutral name (D10) |
+| 1 | `Unknown4C` | `app/client/eff_o.cpp:38` | untagged neutral name (D10) |
+| 1 | `Unknown64` | `app/client/eff_o.cpp:44` | untagged neutral name (D10) |
+| 1 | `Unknown_6E6F90` | `app/client/eff_o.cpp:50` | untagged neutral name (D10) |
+| 1 | `Unknown_04` | `app/client/eff_o.cpp:56` | untagged neutral name (D10) |
+| 1 | `Unknown_08` | `app/client/eff_o.cpp:61` | untagged neutral name (D10) |
+| 1 | `Unknown_18` | `app/client/eff_o.cpp:67` | untagged neutral name (D10) |
+| 1 | `Unknown_1C` | `app/client/eff_o.cpp:72` | untagged neutral name (D10) |
+| 1 | `Unknown_20` | `app/client/eff_o.cpp:77` | untagged neutral name (D10) |
+| 1 | `Unknown_6E6A90` | `app/client/eff_o.cpp:82` | untagged neutral name (D10) |
+| 1 | `Unknown_6E7330` | `app/client/eff_o.cpp:85` | untagged neutral name (D10) |
 | 1 | `Unknown_6E6AD0` | `app/client/eff_o.cpp:152` | untagged neutral name (D10) |
 | 1 | `Unknown3` | `app/client/eff_o.cpp:163` | untagged neutral name (D10) |
 | 1 | `Unknown_6E70F0` | `app/client/eff_o.cpp:164` | untagged neutral name (D10) |
@@ -1026,11 +1026,13 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown5` | `app/client/eff_o.cpp:239` | untagged neutral name (D10) |
 | 1 | `Unknown6` | `app/client/eff_o.cpp:252` | untagged neutral name (D10) |
 | 1 | `Unknown_6E7080` | `app/client/eff_o.cpp:266` | untagged neutral name (D10) |
-| 1 | `Unknown_6E73F0` | `app/client/eff_o.cpp:295` | untagged neutral name (D10) |
-| 1 | `Unknown_6E74B0` | `app/client/eff_o.cpp:315` | untagged neutral name (D10) |
-| 1 | `UnknownB00060EffectClass` | `app/client/eff_o.cpp:330` | untagged neutral name (D10) |
-| 1 | `UnknownAF0DD0Class` | `app/client/eff_o.cpp:341` | untagged neutral name (D10) |
-| 1 | `Unknown8` | `app/client/eff_o.cpp:343` | untagged neutral name (D10) |
+| 1 | `Unknown4` | `app/client/eff_o.cpp:282` | untagged neutral name (D10) |
+| 1 | `Unknown_6E7260` | `app/client/eff_o.cpp:300` | untagged neutral name (D10) |
+| 1 | `Unknown_6E73F0` | `app/client/eff_o.cpp:331` | untagged neutral name (D10) |
+| 1 | `Unknown_6E74B0` | `app/client/eff_o.cpp:351` | untagged neutral name (D10) |
+| 1 | `UnknownB00060EffectClass` | `app/client/eff_o.cpp:366` | untagged neutral name (D10) |
+| 1 | `UnknownAF0DD0Class` | `app/client/eff_o.cpp:377` | untagged neutral name (D10) |
+| 1 | `Unknown8` | `app/client/eff_o.cpp:379` | untagged neutral name (D10) |
 | 1 | `Unknown_28` | `app/client/eff_o.cpp:478` | untagged neutral name (D10) |
 | 1 | `Unknown_73FDB0` | `app/client/eff_o.cpp:482` | untagged neutral name (D10) |
 | 1 | `Unknown_6E7AA0` | `app/client/eff_o.cpp:483` | untagged neutral name (D10) |
@@ -1074,55 +1076,56 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_6E70F0` | `app/client/eff_o.h:84` | untagged neutral name (D10) |
 | 1 | `name .. max_time` | `app/client/eff_o.h:85` | effect.ini's SFX, SFX2D, TriggerSFXRadius, TriggerSFXMin/MaxElapsedTime |
 | 1 | `Unknown_6E73F0` | `app/client/eff_o.h:85` | untagged neutral name (D10) |
-| 1 | `Unknown_6E7330` | `app/client/eff_o.h:86` | untagged neutral name (D10) |
-| 1 | `Unknown34` | `app/client/eff_o.h:94` | untagged neutral name (D10) |
-| 1 | `Unknown38` | `app/client/eff_o.h:95` | untagged neutral name (D10) |
-| 1 | `Unknown3C` | `app/client/eff_o.h:96` | untagged neutral name (D10) |
-| 1 | `Unknown40` | `app/client/eff_o.h:97` | untagged neutral name (D10) |
-| 1 | `Unknown44` | `app/client/eff_o.h:98` | untagged neutral name (D10) |
-| 1 | `Unknown48` | `app/client/eff_o.h:99` | untagged neutral name (D10) |
-| 1 | `Unknown4C` | `app/client/eff_o.h:100` | untagged neutral name (D10) |
-| 1 | `Unknown64` | `app/client/eff_o.h:106` | untagged neutral name (D10) |
-| 1 | `Unknown2` | `app/client/eff_o.h:114` | untagged neutral name (D10) |
-| 1 | `Unknown3` | `app/client/eff_o.h:115` | untagged neutral name (D10) |
-| 1 | `Unknown4` | `app/client/eff_o.h:116` | untagged neutral name (D10) |
-| 1 | `Unknown5` | `app/client/eff_o.h:117` | untagged neutral name (D10) |
-| 1 | `Unknown6` | `app/client/eff_o.h:118` | untagged neutral name (D10) |
-| 1 | `Unknown7` | `app/client/eff_o.h:119` | untagged neutral name (D10) |
-| 1 | `Unknown8` | `app/client/eff_o.h:120` | untagged neutral name (D10) |
-| 1 | `Unknown9` | `app/client/eff_o.h:121` | untagged neutral name (D10) |
-| 1 | `Unknown10` | `app/client/eff_o.h:122` | untagged neutral name (D10) |
-| 1 | `UnknownB00060EffectClass` | `app/client/eff_o.h:130` | neutral (D10) |
-| 1 | `client .. cycle_time` | `app/client/eff_o.h:133` | the base's |
-| 1 | `arg` | `app/client/eff_o.h:134` | the base's |
-| 1 | `arg` | `app/client/eff_o.h:138` | what it gets |
-| 1 | `game_id` | `app/client/eff_o.h:139` | OBJECT_EFFECT 9's GameID |
-| 1 | `Unknown_28` | `app/client/eff_o.h:139` | untagged neutral name (D10) |
-| 1 | `transform` | `app/client/eff_o.h:140` | POINT_EFFECT 10's location |
-| 1 | `Unknown_2C` | `app/client/eff_o.h:140` | untagged neutral name (D10) |
-| 1 | `game_id, lego` | `app/client/eff_o.h:142` | what it sets |
-| 1 | `Unknown_6E7810` | `app/client/eff_o.h:142` | untagged neutral name (D10) |
-| 1 | `Unknown_6E7AA0` | `app/client/eff_o.h:143` | untagged neutral name (D10) |
-| 1 | `UnknownB0009CEffectClass` | `app/client/eff_o.h:154` | neutral (D10) |
-| 1 | `client .. cycle_time` | `app/client/eff_o.h:157` | the base's |
-| 1 | `arg` | `app/client/eff_o.h:158` | the base's |
-| 1 | `arg` | `app/client/eff_o.h:162` | what it gets |
-| 1 | `game_id` | `app/client/eff_o.h:163` | the packets' SourceGameID |
-| 1 | `game_id, lego` | `app/client/eff_o.h:164` | the packets' SourceGameID, SourceLego |
-| 1 | `position` | `app/client/eff_o.h:165` | what it sets |
-| 1 | `Unknown_30` | `app/client/eff_o.h:165` | untagged neutral name (D10) |
-| 1 | `game_id` | `app/client/eff_o.h:166` | the packets' TargetGameID |
-| 1 | `Unknown_34` | `app/client/eff_o.h:166` | untagged neutral name (D10) |
-| 1 | `position` | `app/client/eff_o.h:167` | what it sets |
-| 1 | `Unknown_38` | `app/client/eff_o.h:167` | untagged neutral name (D10) |
-| 1 | `Unknown_3C` | `app/client/eff_o.h:168` | untagged neutral name (D10) |
-| 1 | `unknown36 .. target_offset` | `app/client/eff_o.h:170` | the packets' fields |
-| 1 | `Unknown_6E82A0` | `app/client/eff_o.h:170` | untagged neutral name (D10) |
-| 1 | `offset` | `app/client/eff_o.h:171` | what it sets |
-| 1 | `Unknown_6E87C0` | `app/client/eff_o.h:171` | untagged neutral name (D10) |
-| 1 | `Unknown_6E8F80` | `app/client/eff_o.h:172` | untagged neutral name (D10) |
-| 1 | `Unknown_6E9190` | `app/client/eff_o.h:173` | untagged neutral name (D10) |
-| 1 | `Unknown_6E6A90` | `app/client/eff_o.h:185` | untagged neutral name (D10) |
+| 1 | `Unknown_6E7260` | `app/client/eff_o.h:86` | untagged neutral name (D10) |
+| 1 | `Unknown_6E7330` | `app/client/eff_o.h:87` | untagged neutral name (D10) |
+| 1 | `Unknown34` | `app/client/eff_o.h:95` | untagged neutral name (D10) |
+| 1 | `Unknown38` | `app/client/eff_o.h:96` | untagged neutral name (D10) |
+| 1 | `Unknown3C` | `app/client/eff_o.h:97` | untagged neutral name (D10) |
+| 1 | `Unknown40` | `app/client/eff_o.h:98` | untagged neutral name (D10) |
+| 1 | `Unknown44` | `app/client/eff_o.h:99` | untagged neutral name (D10) |
+| 1 | `Unknown48` | `app/client/eff_o.h:100` | untagged neutral name (D10) |
+| 1 | `Unknown4C` | `app/client/eff_o.h:101` | untagged neutral name (D10) |
+| 1 | `Unknown64` | `app/client/eff_o.h:107` | untagged neutral name (D10) |
+| 1 | `Unknown2` | `app/client/eff_o.h:115` | untagged neutral name (D10) |
+| 1 | `Unknown3` | `app/client/eff_o.h:116` | untagged neutral name (D10) |
+| 1 | `Unknown4` | `app/client/eff_o.h:117` | untagged neutral name (D10) |
+| 1 | `Unknown5` | `app/client/eff_o.h:118` | untagged neutral name (D10) |
+| 1 | `Unknown6` | `app/client/eff_o.h:119` | untagged neutral name (D10) |
+| 1 | `Unknown7` | `app/client/eff_o.h:120` | untagged neutral name (D10) |
+| 1 | `Unknown8` | `app/client/eff_o.h:121` | untagged neutral name (D10) |
+| 1 | `Unknown9` | `app/client/eff_o.h:122` | untagged neutral name (D10) |
+| 1 | `Unknown10` | `app/client/eff_o.h:123` | untagged neutral name (D10) |
+| 1 | `UnknownB00060EffectClass` | `app/client/eff_o.h:131` | neutral (D10) |
+| 1 | `client .. cycle_time` | `app/client/eff_o.h:134` | the base's |
+| 1 | `arg` | `app/client/eff_o.h:135` | the base's |
+| 1 | `arg` | `app/client/eff_o.h:139` | what it gets |
+| 1 | `game_id` | `app/client/eff_o.h:140` | OBJECT_EFFECT 9's GameID |
+| 1 | `Unknown_28` | `app/client/eff_o.h:140` | untagged neutral name (D10) |
+| 1 | `transform` | `app/client/eff_o.h:141` | POINT_EFFECT 10's location |
+| 1 | `Unknown_2C` | `app/client/eff_o.h:141` | untagged neutral name (D10) |
+| 1 | `game_id, lego` | `app/client/eff_o.h:143` | what it sets |
+| 1 | `Unknown_6E7810` | `app/client/eff_o.h:143` | untagged neutral name (D10) |
+| 1 | `Unknown_6E7AA0` | `app/client/eff_o.h:144` | untagged neutral name (D10) |
+| 1 | `UnknownB0009CEffectClass` | `app/client/eff_o.h:155` | neutral (D10) |
+| 1 | `client .. cycle_time` | `app/client/eff_o.h:158` | the base's |
+| 1 | `arg` | `app/client/eff_o.h:159` | the base's |
+| 1 | `arg` | `app/client/eff_o.h:163` | what it gets |
+| 1 | `game_id` | `app/client/eff_o.h:164` | the packets' SourceGameID |
+| 1 | `game_id, lego` | `app/client/eff_o.h:165` | the packets' SourceGameID, SourceLego |
+| 1 | `position` | `app/client/eff_o.h:166` | what it sets |
+| 1 | `Unknown_30` | `app/client/eff_o.h:166` | untagged neutral name (D10) |
+| 1 | `game_id` | `app/client/eff_o.h:167` | the packets' TargetGameID |
+| 1 | `Unknown_34` | `app/client/eff_o.h:167` | untagged neutral name (D10) |
+| 1 | `position` | `app/client/eff_o.h:168` | what it sets |
+| 1 | `Unknown_38` | `app/client/eff_o.h:168` | untagged neutral name (D10) |
+| 1 | `Unknown_3C` | `app/client/eff_o.h:169` | untagged neutral name (D10) |
+| 1 | `unknown36 .. target_offset` | `app/client/eff_o.h:171` | the packets' fields |
+| 1 | `Unknown_6E82A0` | `app/client/eff_o.h:171` | untagged neutral name (D10) |
+| 1 | `offset` | `app/client/eff_o.h:172` | what it sets |
+| 1 | `Unknown_6E87C0` | `app/client/eff_o.h:172` | untagged neutral name (D10) |
+| 1 | `Unknown_6E8F80` | `app/client/eff_o.h:173` | untagged neutral name (D10) |
+| 1 | `Unknown_6E9190` | `app/client/eff_o.h:174` | untagged neutral name (D10) |
+| 1 | `Unknown_6E6A90` | `app/client/eff_o.h:186` | untagged neutral name (D10) |
 | 1 | `Unknown_7E7A40` | `app/client/emote_data.h:25` | untagged neutral name (D10) |
 | 1 | `Unknown_7E76E0` | `app/client/emote_data.h:26` | untagged neutral name (D10) |
 | 1 | `Unknown_7E6860` | `app/client/emote_data.h:27` | untagged neutral name (D10) |
@@ -4527,21 +4530,21 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Get_Jobs` | `app/client/cpacket.cpp:258` | what it returns |
 | 2 | `Jobs` | `app/client/cpacket.cpp:261` | what it holds |
 | 2 | `Set_Flag` | `app/client/eff_o.h:81` | what it does |
-| 2 | `Node` | `app/client/eff_o.h:88` | what it is |
-| 2 | `Client` | `app/client/eff_o.h:89` | what it holds |
-| 2 | `StartTime` | `app/client/eff_o.h:90` | what it holds |
-| 2 | `ID` | `app/client/eff_o.h:93` | what it is |
-| 2 | `StartLink` | `app/client/eff_o.h:104` | the effect StartLinkID makes |
-| 2 | `NextLink` | `app/client/eff_o.h:105` | the effect NextLinkID makes |
-| 2 | `Flags` | `app/client/eff_o.h:111` | what it holds |
-| 2 | `State` | `app/client/eff_o.h:113` | what it holds |
-| 2 | `SourceNode` | `app/client/eff_o.h:146` | SourceObject's watch node |
-| 2 | `Transform` | `app/client/eff_o.h:147` | what it holds |
-| 2 | `SourceLego` | `app/client/eff_o.h:148` | what it holds |
-| 2 | `SourceNode` | `app/client/eff_o.h:177` | SourceObject's watch node |
-| 2 | `TargetNode` | `app/client/eff_o.h:178` | TargetObject's watch node |
-| 2 | `SourcePosition` | `app/client/eff_o.h:179` | what it holds |
-| 2 | `TargetPosition` | `app/client/eff_o.h:180` | what it holds |
+| 2 | `Node` | `app/client/eff_o.h:89` | what it is |
+| 2 | `Client` | `app/client/eff_o.h:90` | what it holds |
+| 2 | `StartTime` | `app/client/eff_o.h:91` | what it holds |
+| 2 | `ID` | `app/client/eff_o.h:94` | what it is |
+| 2 | `StartLink` | `app/client/eff_o.h:105` | the effect StartLinkID makes |
+| 2 | `NextLink` | `app/client/eff_o.h:106` | the effect NextLinkID makes |
+| 2 | `Flags` | `app/client/eff_o.h:112` | what it holds |
+| 2 | `State` | `app/client/eff_o.h:114` | what it holds |
+| 2 | `SourceNode` | `app/client/eff_o.h:147` | SourceObject's watch node |
+| 2 | `Transform` | `app/client/eff_o.h:148` | what it holds |
+| 2 | `SourceLego` | `app/client/eff_o.h:149` | what it holds |
+| 2 | `SourceNode` | `app/client/eff_o.h:178` | SourceObject's watch node |
+| 2 | `TargetNode` | `app/client/eff_o.h:179` | TargetObject's watch node |
+| 2 | `SourcePosition` | `app/client/eff_o.h:180` | what it holds |
+| 2 | `TargetPosition` | `app/client/eff_o.h:181` | what it holds |
 | 2 | `time` | `app/client/extrap.h:39` | what Unknown_1C takes |
 | 2 | `time` | `app/client/extrap.h:40` | as Unknown_04's |
 | 2 | `time` | `app/client/extrap.h:41` | as Unknown_04's |
@@ -6477,19 +6480,19 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `UIGroupClass` | `app/client/cpacket.cpp:2472` | class-from-file (D24) for app\client\ui_group.cpp |
 | 3 | `eff_o.h` | `app/client/eff_o.h:23` | header name assumed from the client's eff_o.cpp |
 | 3 | `EffectObjectClass` | `app/client/eff_o.h:49` | class-from-file (D24) for eff_o.cpp |
-| 3 | `Duration` | `app/client/eff_o.h:91` | effect.ini's 'Duration' |
-| 3 | `CycleTime` | `app/client/eff_o.h:92` | effect.ini's 'CycleTime' |
-| 3 | `Camera` | `app/client/eff_o.h:101` | 0x6E6AD0's FAIL_IF '!Camera' |
-| 3 | `StartLinkID` | `app/client/eff_o.h:102` | effect.ini's 'StartLinkID' |
-| 3 | `NextLinkID` | `app/client/eff_o.h:103` | effect.ini's 'NextLinkID' |
-| 3 | `Scale` | `app/client/eff_o.h:107` | the effect packets' Scale |
-| 3 | `HSVShift` | `app/client/eff_o.h:108` | the effect packets' HSVShift |
-| 3 | `Speedup` | `app/client/eff_o.h:109` | the effect packets' Speedup |
-| 3 | `SourceObject` | `app/client/eff_o.h:145` | 0x6E7AA0's FAIL_IF '!SourceObject' |
-| 3 | `SourceObject` | `app/client/eff_o.h:175` | 0x6E8F80's FAIL_IF '!SourceObject' |
-| 3 | `TargetObject` | `app/client/eff_o.h:176` | 0x6E9190's FAIL_IF '!TargetObject' |
-| 3 | `TargetOffset` | `app/client/eff_o.h:181` | the effect packets' TargetOffset |
-| 3 | `SourceLego` | `app/client/eff_o.h:182` | the effect packets' SourceLego |
+| 3 | `Duration` | `app/client/eff_o.h:92` | effect.ini's 'Duration' |
+| 3 | `CycleTime` | `app/client/eff_o.h:93` | effect.ini's 'CycleTime' |
+| 3 | `Camera` | `app/client/eff_o.h:102` | 0x6E6AD0's FAIL_IF '!Camera' |
+| 3 | `StartLinkID` | `app/client/eff_o.h:103` | effect.ini's 'StartLinkID' |
+| 3 | `NextLinkID` | `app/client/eff_o.h:104` | effect.ini's 'NextLinkID' |
+| 3 | `Scale` | `app/client/eff_o.h:108` | the effect packets' Scale |
+| 3 | `HSVShift` | `app/client/eff_o.h:109` | the effect packets' HSVShift |
+| 3 | `Speedup` | `app/client/eff_o.h:110` | the effect packets' Speedup |
+| 3 | `SourceObject` | `app/client/eff_o.h:146` | 0x6E7AA0's FAIL_IF '!SourceObject' |
+| 3 | `SourceObject` | `app/client/eff_o.h:176` | 0x6E8F80's FAIL_IF '!SourceObject' |
+| 3 | `TargetObject` | `app/client/eff_o.h:177` | 0x6E9190's FAIL_IF '!TargetObject' |
+| 3 | `TargetOffset` | `app/client/eff_o.h:182` | the effect packets' TargetOffset |
+| 3 | `SourceLego` | `app/client/eff_o.h:183` | the effect packets' SourceLego |
 | 3 | `emote_data.h` | `app/client/emote_data.h:16` | header name assumed from the client's emote_data.cpp |
 | 3 | `extrap.h` | `app/client/extrap.h:19` | header name assumed from the client's extrap.cpp |
 | 3 | `StateNode` | `app/client/extrap.h:35` | the client's assert 'Bad function call! StateNode::Set_Motion()' |

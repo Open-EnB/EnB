@@ -15,6 +15,7 @@
 #include "camera.h"
 #include "random.h"
 #include "nstrdup.h"
+#include "..\audio\soundlib.h"
 #include "..\..\wwaudio\Sound3D.h"
 
 void Unknown_4BC260(const char *sender, const char *category, const char *file, int line, const char *format, ...);	// 0x4BC260 (unknown_debug.h's reporter)
@@ -103,7 +104,6 @@ EffectObjectClass::~EffectObjectClass()
 		Unknown_6E6A90(NextLink);
 	}
 }
-
 
 
 
@@ -271,6 +271,42 @@ void EffectObjectClass::Unknown_6E7080()
 	}
 }
 
+// 0x6E70F0
+void EffectObjectClass::Unknown_6E70F0()
+{
+	if (Client->Unknown_1C()) {
+		return;
+	}
+	Unknown_6E7330();
+	if (Unknown34 && *Unknown34) {
+		if (!(bool)Flag.Unknown4) {
+			Unknown38 = SoundLibraryClass::Play_3D_Sound(Unknown34, Matrix3D(true), 0, 1.0f);
+		} else {
+			Unknown38 = SoundLibraryClass::Play_2D_Sound(Unknown34, 0);
+		}
+	}
+	if (Unknown38) {
+		Sound3DClass *sound = Unknown38->As_Sound3DClass();
+		if (sound) {
+			sound->Set_Position(Unknown_08(Camera->Get_Position()));
+			sound->Add_To_Scene(true);
+		} else {
+			Unknown38->Play(true);
+		}
+	}
+}
+
+// 0x6E7260
+void EffectObjectClass::Unknown_6E7260()
+{
+	Vector3 camera = Camera->Get_Position();
+	if ((Unknown_08(camera) - camera).Length2() <= Unknown3C && Client->Unknown10BC - Unknown48 < 0x80000000) {
+		Unknown_6E70F0();
+		int delay = Unknown_BDBB84(Unknown40, Unknown44);
+		Unknown48 = Client->Unknown10BC + delay;
+	}
+}
+
 // 0x6E7330
 void EffectObjectClass::Unknown_6E7330()
 {
@@ -345,42 +381,6 @@ void UnknownB00060EffectClass::Unknown_04(int arg)
 		}
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
