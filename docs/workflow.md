@@ -364,6 +364,11 @@ unless `--lever` cites a new row of this table.
 
 ### 3.3 E&B app code
 
+* **A base virtual whose signature differs from a subclass's same-named virtual adds a slot** (2026-10-28, UP1):
+  it shifts the subclass's later slots (`Unknown86CRecordClass::Unknown_08(const Vector3 &)` against
+  `InfluenceClass::Unknown_08()` lost CREATE 0x733700). Grep the subclasses before declaring one.
+* **The client's HashList loops test only `Next()`** (`while (node && node->Next()) ... node = node->Next()`);
+  `HashNodeClass::Next_Valid` adds a Prev test (`[eax+8]`) the client never has (2026-10-28, UP1).
 * **Asserts sit on the client's lines (D25).** To add code above a logged line, remove as many
   blank lines from the same function's stretch (cordmgr.cpp; `.work/milestones/a3/relines.py`);
   pad inside a function, not only before it (Get(char **); pk.cpp's helpers take single blanks).
@@ -656,6 +661,7 @@ unless `--lever` cites a new row of this table.
   file, not the first few: a moved line broke postate's type 15 constructor silently.
 * **A rebuilt handler whose callees are generated NULL-returning stand-ins can crash a test program**
   (2026-10-28, CR1): list it in `gen_stubs.py`'s `NOT_DRIVEN` until its callees exist (CREATE, CHANGE_BASE_ASSET).
+* **`gen_stubs --link` skips data globals** (`MonoClass Mono`): write them by hand in client_stubs.cpp (2026-10-28, UP1).
 * **clienttest (T9, 2026-10-27; `python tools/harness/clienttest.py build|run`):** hand-written stand-ins must cover
   every member of an app.lib object the program reaches, or the linker pulls the whole object and reports LNK2005 on
   the rest (app.lib changes under you when other builders verify: soptions.obj did). A stand-in object whose real
@@ -670,6 +676,8 @@ unless `--lever` cites a new row of this table.
 
 ### 3.8 Git, docs and scripting hygiene
 
+* **`wt.py bring-over` refuses while the main tree has another builder's uncommitted generated file**
+  (docs/imports.md): never commit imports.md from a worktree; the next `report` run regenerates it (2026-10-28, UP1).
 * **The Bash tool starts a fresh shell per call** (2026-10-28, EX1): export `ENB_AGENT` and `ENB_VC6_HOSTS` in
   every call, or appfile.py runs on whichever VM vc6_hosts.json lists. In Python edit scripts, write include
   paths as raw strings (`"..\app"` once became a BEL).
