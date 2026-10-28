@@ -96,7 +96,7 @@ INTERPOLATOR = 0xAEAE54
 BLOB_FORMS = {
     0xB00A00: ('three floats (a colour), constructor empty',
                'float R; float G; float B; NAME() {} NAME(const NAME &v) { R = v.R; G = v.G; B = v.B; }'),
-    0xB01A40: ('20 bytes, constructed {1.0f, 0.0f, 0.0f, -1, 0.0f} (0x705640; the zeros are floats: Ship 0x6F70BE stores them as immediates)',
+    0xB01A40: ('20 bytes, constructed {1.0f, 0.0f, 0.0f, -1, 0.0f} (0x705640; Ship 0x6F70BE stores the zeros as immediates among register zeros: floats, workflow.md 3.1)',
                'float F00; float F04; float F08; int I0C; float F10; NAME() : F00(1.0f), F04(0.0f), F08(0.0f), I0C(-1), F10(0.0f) {} '
                'NAME(const NAME &v) { F00 = v.F00; F04 = v.F04; F08 = v.F08; I0C = v.I0C; F10 = v.F10; }'),
     0xB016DC: ('12 bytes, constructed {-1, -1, -1} (the Mounts elements\' default, Ship 0x6F6E29)',
