@@ -4276,8 +4276,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown10` | `app/packets/pkunknown_8a5510.cpp:6` | untagged neutral name (D10) |
 | 1 | `pkunknown_8a5510` | `app/packets/pkunknown_8a5510.h:16` | provisional, neutral (D10): the object's first address |
 | 1 | `Packet_00E8Class` | `app/packets/pkunknown_8a5510.h:22` | neutral (D10): opcode 0x00E8 |
-| 1 | `Unknown0C` | `app/packets/pkunknown_8a5510.h:33` | untagged neutral name (D10) |
-| 1 | `Unknown10` | `app/packets/pkunknown_8a5510.h:34` | untagged neutral name (D10) |
+| 1 | `Unknown0C` | `app/packets/pkunknown_8a5510.h:34` | untagged neutral name (D10) |
+| 1 | `Unknown10` | `app/packets/pkunknown_8a5510.h:35` | untagged neutral name (D10) |
 | 1 | `pkunknown_8a6430` | `app/packets/pkunknown_8a6430.h:16` | provisional, neutral (D10): the object's first address |
 | 1 | `Packet_003DClass` | `app/packets/pkunknown_8a6430.h:22` | neutral (D10): opcode 0x003D |
 | 1 | `Unknown10` | `app/packets/pkupdate.cpp:13` | untagged neutral name (D10) |
@@ -6471,7 +6471,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Get_Size` | `app/packets/pkunknown_888b60.h:44` | what it returns |
 | 2 | `Write` | `app/packets/pkunknown_888b60.h:45` | what it does |
 | 2 | `Read` | `app/packets/pkunknown_888b60.h:46` | what it does |
-| 2 | `Get_Type` | `app/packets/pkunknown_8a5510.h:31` | what it returns (the opcode Build sends), as MessageLinePacketClass's |
+| 2 | `Get_Type` | `app/packets/pkunknown_8a5510.h:32` | what it returns (the opcode Build sends), as MessageLinePacketClass's |
 | 2 | `DEFAULT_UPDATE_PERIOD` | `app/packets/pkupdate.cpp:6` | what it holds |
 | 2 | `FLAG_EPSILON` | `app/packets/pkupdate.cpp:7` | what it is |
 | 2 | `Get_Type` | `app/packets/pkupdate.h:34` | what it returns (the opcode Build sends), as MessageLinePacketClass's |

@@ -24,6 +24,7 @@ class Packet_00E8Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x
 public:
 	Packet_00E8Class(int unknown0_c);	// 0x8A5510
 	Packet_00E8Class(RawPacketClass *raw);	// 0x8A55A0
+	virtual ~Packet_00E8Class();	// +0x00 0x8A5580 / 0x8A5550 (out of line: SClient 0x751660 calls it after Send_Packet)
 	virtual RawPacketClass *Build();	// +0x04 0x8A5630
 	virtual bool Process_Packet(void *client);	// +0x08 0x869600 (clientstub.cpp l.452)
 	virtual int Get_Data_Size();	// +0x0C 0x8A5720

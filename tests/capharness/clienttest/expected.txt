@@ -159,7 +159,7 @@ gen PDAInterfaceUnknownA8Class::Unknown_7C8DB0
 stub RadarSystemClass::Unknown_7BCA70 NULL, scene set
 gen LineDisplaySortClass::~LineDisplaySortClass
 gen SClient::Unknown_74EDB0
-gen SClient::Unknown_751660
+gen ViewUnknown34Class::Unknown_5890B0
 gen SClient::Unknown_74F5C0
 check Do_Frame returns 0 and sets the clock from Unknown_Get_Ticks: ok
 check SIMPLE_POSITIONAL_UPDATE 8 (time 1000) replaced it with the simple state (type 3): ok
@@ -199,7 +199,7 @@ gen PDAInterfaceUnknownA8Class::Unknown_7C8DB0
 stub RadarSystemClass::Unknown_7BCA70 NULL, scene set
 gen LineDisplaySortClass::~LineDisplaySortClass
 gen SClient::Unknown_74EDB0
-gen SClient::Unknown_751660
+gen ViewUnknown34Class::Unknown_5890B0
 gen SClient::Unknown_74F5C0
 check a second SIMPLE packet (time 2000) updates the simple state in place: ok
 frame at 4500
@@ -231,7 +231,7 @@ gen PDAInterfaceUnknownA8Class::Unknown_7C8DB0
 stub RadarSystemClass::Unknown_7BCA70 NULL, scene set
 gen LineDisplaySortClass::~LineDisplaySortClass
 gen SClient::Unknown_74EDB0
-gen SClient::Unknown_751660
+gen ViewUnknown34Class::Unknown_5890B0
 gen SClient::Unknown_74F5C0
   model row 0: 1.0000 0.0000 0.0000 -50.0000
   model row 1: 0.0000 1.0000 0.0000 -15.0000
@@ -297,7 +297,7 @@ gen PDAInterfaceUnknownA8Class::Unknown_7C8DB0
 stub RadarSystemClass::Unknown_7BCA70 NULL, scene set
 gen LineDisplaySortClass::~LineDisplaySortClass
 gen SClient::Unknown_74EDB0
-gen SClient::Unknown_751660
+gen ViewUnknown34Class::Unknown_5890B0
 gen SClient::Unknown_74F5C0
 check CHANGE_BASE_ASSET 38 (base asset 901, scale 1): the same object holds base asset 901's model (NAME ship_test2): ok
 check the old model was released and deleted: ok

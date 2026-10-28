@@ -7,6 +7,10 @@ Packet_00E8Class::Packet_00E8Class(int unknown0_c) : Unknown0C(unknown0_c), Unkn
 {
 }
 
+Packet_00E8Class::~Packet_00E8Class()
+{
+}
+
 Packet_00E8Class::Packet_00E8Class(RawPacketClass *raw) : Unknown0C(0), Unknown10(0)
 {
 	raw->Get(Unknown0C);

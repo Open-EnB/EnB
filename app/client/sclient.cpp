@@ -5396,30 +5396,30 @@ void SClient::Unknown_750B30(int arg)
 
 
 
+#include "..\packets\pkunknown_8a5510.h"
+
+// 0x751660 (Do_Frame, every frame: the SPEND_BUDDY_POINTS question; yes sends opcode 0xE8 with +0x14F4)
+void SClient::Unknown_751660()
+{
 
 
 
+	FAIL_IF(!CurrentView) return;
+	ViewClass *ui_view = CurrentView->Unknown_1C();
 
+	FAIL_IF(!ui_view) return;
+	ViewUnknown34Class *dialog = ui_view->Get_Unknown34();
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	FAIL_IF(!dialog) return;
+	int button = dialog->Unknown_5890B0("SPEND_BUDDY_POINTS");
+	if (button == 1) {
+		dialog->Unknown_5C();
+		Send_Packet(&Packet_00E8Class(Unknown14F4));
+		Unknown14F4 = 0;
+	} else if (button > 1) {
+		dialog->Unknown_5C();
+	}
+}
 
 
 
