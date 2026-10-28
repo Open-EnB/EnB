@@ -46,6 +46,9 @@ class DazzleLayerClass;
 class LightClass;
 class StarFieldClass;
 class OrbitalManager;
+class MainViewOrbitalCallbackClass;
+class MainViewUnknown84Class;
+class MainViewDazzleHandlerClass;
 class WWProfileIterator;
 class Render2DTextClass;
 class MusicManagerClass;		// NAME 3: class-from-file (D24) for audio\musicmanager.cpp (constructor 0x439E40, 0x1FC bytes)
@@ -144,9 +147,12 @@ public:
 class RadarSystemClass	// NAME 3: class-from-file (D24) for radar_system.cpp
 {
 public:
+	RadarSystemClass(SClient *client);					// 0x7BC770 (0x50 bytes; the main view's 0x50BA60)  // NAME 1 [client]: what 0x50BA60 passes
 	void Unknown_7BD920(int index);						// 0x7BD920 (cpacket.cpp: WARP_INDEX 156)  // NAME 1 [index]: the packet's Index
 	void Unknown_7BD6E0(int arg);						// 0x7BD6E0 (the main view's 0x513630)  // NAME 1 [arg]: neutral
 	void Unknown_7BCA40(int arg);						// 0x7BCA40 (the main view's slot +0x18)  // NAME 1 [arg]: neutral
+
+	char Unknown00[0x50];
 };
 
 // ui_scan.cpp's scanner (the cockpit's +0xD4), as far as the main view calls it
@@ -215,11 +221,13 @@ class MainViewClass;
 class OrbitalManager		// NAME 2: the client's (OrbitalManager::Update)
 {
 public:
+	OrbitalManager(SClient *client, MainViewOrbitalCallbackClass *callback);	// 0x4F3250 (0x1D4 bytes; the main view's 0x50BA60)  // NAME 1 [client, callback]: what 0x50BA60 passes
 	float Get_Unknown54() const { return(Unknown54); }	// (inline: the main view's 0x50CCF0 copies it through the FPU)  // NAME 1: neutral (D10): the member it returns
 
 	char Unknown00[0x50];								// +0x00
 	float Unknown50;									// +0x50 (the main view's 0x50CCF0: the near plane at a unit FOV)
 	float Unknown54;									// +0x54 (0x50CCF0: the far plane)
+	char Unknown58[0x1D4 - 0x58];						// +0x58
 };
 
 // what the main view's +0x48 points to (0x28 bytes, constructor 0x6E2BD0; slot +0x14 calls its +0x34)
@@ -354,6 +362,7 @@ public:
 	void Unknown_514010(int old_mode, int mode);		// 0x514010 (SClient 0x745F30: the view mode before and after)  // NAME 1 [old_mode, mode]: what it gets
 	void Unknown_512B10(int x, int y, float *fx, float *fy);	// 0x512B10 (a screen point clamped to the device and divided by its size; inlined in 0x512BB0)  // NAME 1 [x, y, fx, fy]: neutral
 	void Unknown_514480();								// 0x514480 (the Graphics_* options into +0x50..+0x64, the flags +0x68 / +0x69; Doppler_Enabled)
+	void Unknown_5146D0();								// 0x5146D0 (Gamma and the budgets from the options or the defaults; WW3D::Set_Gamma, Set_Texture_Reduction)
 	int Unknown_514400();								// 0x514400 (the cockpit's +0xDC)
 	void Unknown_514450();								// 0x514450 (sets the land's +0x136)
 
@@ -374,7 +383,7 @@ public:
 	int PolyBudget;									// +0x78 (the options' PolyBudget, 8000..40000; Render_Space_Mode's / Gas_Giant's budget)  // NAME 3: the registry value's (soptions.h)
 	int TextureReduction;							// +0x7C (the options' TextureReduction, 0..3; WW3D::Set_Texture_Reduction)  // NAME 3: the registry value's (soptions.h)
 	RadarSystemClass *Radar;							// +0x80 (cpacket.cpp: WARP_INDEX 156's FAIL_IF '!radar'; 0x50BA60 makes it, 0x7BC770)  // NAME 3: the FAIL_IF's name
-	int Unknown84;										// +0x84 (0x50BA60 makes it: 0x24 bytes, 0x7B6BD0)
+	MainViewUnknown84Class *Unknown84;					// +0x84 (0x50BA60 makes it: 0x24 bytes, 0x7B6BD0, with the base's +0x1C scene)
 	IntersectionClass Intersection;						// +0x88 (vtable 0xAEA8A0 and its statics in the constructor)  // NAME 2: what it is
 	SimpleSceneClass *Scene;							// +0x10C (0x5137F0 adds the land to it through slot +0x0C, Add_Render_Object; 0x50BA60 makes it, 0xF4 bytes, 0x75ECF0)  // NAME 2: what it is
 	SimpleSceneClass *Unknown110;						// +0x110 (slot +0x68)
@@ -383,7 +392,7 @@ public:
 	SimpleSceneClass *Unknown11C;						// +0x11C (slot +0x74)
 	SimpleSceneClass *Unknown120;						// +0x120 (slot +0x78; the lights are added to it)
 	DazzleLayerClass *DazzleLayer;						// +0x124  // NAME 2: what it is
-	int Unknown128;										// +0x128 (enbdazzle.cpp's 0x75DD00, 8 bytes: the dazzle visibility handler)
+	MainViewDazzleHandlerClass *Unknown128;				// +0x128 (enbdazzle.cpp's 0x75DD00, 8 bytes: the dazzle visibility handler)
 	CameraClass *Camera;								// +0x12C (Set_Camera; slots +0x58 / +0x7C)  // NAME 2: what Set_Camera stores
 	bool Unknown130;									// +0x130 (SClient 0x7456B0 sets it; the constructor: true)
 	RefCountPtr<StarFieldClass> StarField;				// +0x134 (0x50BA60: a StarFieldClass)  // NAME 2: what it holds

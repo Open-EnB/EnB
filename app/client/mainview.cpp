@@ -19,39 +19,39 @@
 
 bool Unknown_C404F8;			// NAME 1: neutral (D10): the client's 0xC404F8, 0x514480 copies 'Doppler_Enabled' to it (its home file is unknown)
 
+// the +0x10C scene (0x75ECF0, 0xF4 bytes)
+class MainViewSceneClass : public SimpleSceneClass	// NAME 1: neutral (D10)
+{
+public:
+	MainViewSceneClass();							// 0x75ECF0
+	char Unknown98[0xF4 - 0x98];
+};
 
+// enbdazzle.cpp's visibility handler (0x75DD00, 8 bytes)
+class MainViewDazzleHandlerClass : public DazzleVisibilityClass	// NAME 1: neutral (D10)
+{
+public:
+	MainViewDazzleHandlerClass(SClient *client);	// 0x75DD00  // NAME 1 [client]: what 0x50BA60 passes
+	SClient *Client;								// +0x04  // NAME 2: what it holds
+};
 
+// the +0x84 object (0x7B6BD0, 0x24 bytes; gutter_data.cpp's neighbourhood)
+class MainViewUnknown84Class	// NAME 1: neutral (D10)
+{
+public:
+	MainViewUnknown84Class(SClient *client, const RefCountPtr<RefCountClass> &scene);	// 0x7B6BD0  // NAME 1 [client, scene]: what 0x50BA60 passes
+	char Unknown00[0x24];
+};
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// the orbitals' callback (table 0xAED01C: 0x50C2B0 / 0x50C2D0)
+class MainViewOrbitalCallbackClass	// NAME 1: neutral (D10)
+{
+public:
+	MainViewOrbitalCallbackClass(MainViewClass *view) : View(view) {}	// NAME 1 [view]: neutral
+	virtual SimpleSceneClass *Unknown_00() { return(View->Unknown_74()); }	// 0x50C2B0
+	virtual unsigned Unknown_04() { return(View->Unknown1C8); }			// 0x50C2D0 (the sector)
+	MainViewClass *View;							// +0x04  // NAME 2: what it holds
+};
 
 
 
