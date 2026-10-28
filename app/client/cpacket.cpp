@@ -3283,39 +3283,39 @@ bool ConfirmedActionTimeoutPacketClass::Process_Packet(void *instance)
 
 
 
+// 0x73E720
+bool GuildRecruitConfirmSectorPacket::Process_Packet(void *instance)
+{
+	WWPROFILE("GuildRecruitConfirmSectorPacket::Process_Packet");
+	SClient *sclient = (SClient *)instance;
+	FAIL_IF(!sclient) return(true);
+	std::string text = InviterName;
+	text += " is inviting you to join ";
+	text += GuildName;
+	text += ". Do you accept?";
+	sclient->Unknown_74E580(text.c_str(), "GUILD_RECRUIT_CONFIRM", InviterName.c_str());
+	return(true);
+}
+#include "..\shared\symbol_substitution.h"
+const char *Unknown_83D900(int message_type); const char *Unknown_83D970(int message_type);	// guild_strings.cpp (app\common): a guild message's text (with $OtherName$ / $GuildName$ symbols) and its sound, by type  // NAME 1 [message_type]: guild_strings.cpp's FAIL_IF 'message_type < GMSG_INVALID'
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// 0x73E9E0
+bool GuildMessageSectorPacket::Process_Packet(void *instance)
+{
+	WWPROFILE("GuildMessageSectorPacket::Process_Packet");
+	SClient *sclient = (SClient *)instance;
+	FAIL_IF(!sclient) return(true);
+	SymbolSubstitutionClass symbols;
+	symbols.Add_Symbol("OtherName", OtherName);
+	symbols.Add_Symbol("GuildName", GuildName);
+	std::string text(Unknown_83D900(MessageType));
+	Substitute_Symbols(text, symbols);
+	sclient->Unknown_74DFF0(8, text.c_str(), MessageType, 0);
+	if (Unknown_83D970(MessageType)) {
+		SoundLibraryClass::Play_2D_Sound(Unknown_83D970(MessageType), 2);
+	}
+	return(true);
+}
 
 
 
@@ -3351,18 +3351,18 @@ bool GuildRankNamesSectorPacket::Process_Packet(void *instance)
 // the GM tools' interfaces the GM packets make (InterfaceClass objects; their files unknown), declared as far as the handlers call them
 class Unknown6B2460Class : public InterfaceClass { public: Unknown6B2460Class(SClient *client); void Unknown_6B3340(int unknown, std::vector<std::string> *strings); char Unknown84[0x108 - 0x84]; };	// NAME 1: neutral (D10): 0x108 bytes (GM_VIEW_MISSION_LOG 235)  // NAME 1 [client, unknown, strings]: what the handler passes
 class Unknown6AF220Class : public InterfaceClass { public: Unknown6AF220Class(SClient *client); void Unknown_6B09D0(int unknown, std::vector<std::string> *strings); char Unknown84[0x118 - 0x84]; };	// NAME 1: neutral (D10): 0x118 bytes (GM_EDIT_PLAYER_INVENTORY 234)  // NAME 1 [client, unknown, strings]: what the handler passes
-
-
-
-
-
-
-
-
-
-
-
-
+// 0x73EEF0
+bool GuildGMRenameConfirmSectorPacket::Process_Packet(void *instance)
+{	WWPROFILE("GuildGMRenameConfirmSectorPacket::Process_Packet"); SClient *sclient = (SClient *)instance;	// (one line: the FAIL_IF sits on the client's line 3357)
+	FAIL_IF(!sclient) return(true);
+	std::string text("Are you sure you want to rename '");
+	text += OldGuildName;
+	text += "' to '";
+	text += NewGuildName;
+	text += "'?";
+	sclient->Unknown_74E580(text.c_str(), "GUILD_GM_RENAME_CONFIRM", "");
+	return(true);
+}
 
 
 

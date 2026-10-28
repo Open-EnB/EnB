@@ -3251,4 +3251,18 @@ check MESSAGE_CHATSTREAM 95 with no avatar for its ShipID: nothing happens: ok
 check FIND_MEMBER 83 without a chat panel: nothing called: ok
 find calls: 59A400(1 players) 
 check FIND_MEMBER 83: the group-find interface gets the packet only with the +0xF8 interface and +0x7C set; the count back to 5: ok
+== (4k) GUILD_RECRUIT_CONFIRM_SECTOR 200, GUILD_MESSAGE_SECTOR 208, 216
+msg 1 GUILD_RECRUIT_CONFIRM_SECTOR (200) size 22: cpacket.cpp's handler
+gen ViewUnknown34Class::Unknown_588A70
+check GUILD_RECRUIT_CONFIRM_SECTOR 200: the question to the current view's dialog, +0x119C = the inviter: ok
+msg 2 ? (216) size 26: cpacket.cpp's handler
+gen ViewUnknown34Class::Unknown_588A70
+check 216: the rename question to the dialog, +0x119C = "": ok
+msg 3 GUILD_MESSAGE_SECTOR (208) size 26: cpacket.cpp's handler
+SClient::Unknown_74DFF0 0x8 'Alex has joined Earthlings.' 3 0
+stub SoundLibraryClass::Play_2D_Sound 'guild_join' 2
+msg 4 GUILD_MESSAGE_SECTOR (208) size 26: cpacket.cpp's handler
+SClient::Unknown_74DFF0 0x8 'guild message' 4 0
+check GUILD_MESSAGE_SECTOR 208: the type's text with OtherName and GuildName substituted, to 0x74DFF0: ok
+check GUILD_MESSAGE_SECTOR 208: the sound asked for each type, played (asked again) for type 3 only: ok
 == done: 0 checks failed

@@ -33,7 +33,8 @@
 //     (4h): synthetic GM_EDIT_PLAYER_INVENTORY 234 and GM_VIEW_MISSION_LOG 235 (each makes and opens its GM interface);
 //     (4i): synthetic CTA_RESPONSE 189 to the main view's group interface (+0x1D8) and +0x13C0; (4j): synthetic TRADE
 //     31 (the trade interface of the main view +0x1E4 or the starbase view +0x1A4), NOTE_CONTENT 184 (the note's lines),
-//     MESSAGE_CHATSTREAM 95 (no avatar for the ship) and FIND_MEMBER 83 (the chat panel's group-find interface).
+//     MESSAGE_CHATSTREAM 95 (no avatar for the ship) and FIND_MEMBER 83 (the chat panel's group-find interface); (4k):
+//     synthetic GUILD_RECRUIT_CONFIRM_SECTOR 200, GUILD_MESSAGE_SECTOR 208 and 216 (the guild confirmations and messages).
 //
 // Never: a modal dialog (asserts and FAIL_IF go to the trace), the registry (SOptionsClass's
 // constructor is a stand-in), the network (the memory connection), the game's install folder.
@@ -1665,6 +1666,74 @@ static void Test_Chat(SClient *client)
 	Memory->Received = 0;
 }
 
+// (4k) GUILD_RECRUIT_CONFIRM_SECTOR 200 (0x73E720), GUILD_MESSAGE_SECTOR 208 (0x73E9E0) and 216 (0x73EEF0) from
+// synthetic packets: 200 and 216 build a question and hand it to SClient 0x74E580 (the current view's dialog, type
+// GUILD_RECRUIT_CONFIRM / GUILD_GM_RENAME_CONFIRM; +0x119C keeps the inviter, or "" for 216); 208 takes the message
+// type's text from guild_strings.cpp (0x83D900, written here for two types), substitutes $OtherName$ / $GuildName$
+// (symbol_substitution.cpp, rebuilt) and prints it (0x74DFF0, traced here), then plays the type's sound when it has
+// one (0x83D970).
+static std::string Guild_Text;
+void SClient::Unknown_74DFF0(int color, const char *text, int message_type, int arg)
+{
+	Trace("SClient::Unknown_74DFF0 0x%X '%s' %d %d", color, text, message_type, arg);
+	Guild_Text += text;
+	Guild_Text += "|";
+}
+const char *Unknown_83D900(int message_type) { return(message_type == 3 ? "$OtherName$ has joined $GuildName$." : "guild message"); }
+static int Guild_Sound_Calls = 0;
+const char *Unknown_83D970(int message_type) { Guild_Sound_Calls++; return(message_type == 3 ? "guild_join" : 0); }
+static std::vector<unsigned char> Raw_Bytes(RawPacketClass *raw)
+{
+	std::vector<unsigned char> m(raw->Header.Size);
+	memcpy(&m[0], &raw->Header, 4);
+	if (m.size() > 4) {
+		memcpy(&m[4], raw->Data.Buffer, m.size() - 4);
+	}
+	delete raw;
+	return m;
+}
+static std::vector<unsigned char> Two_Strings(int opcode, const char *a, const char *b)
+{
+	std::string sa(a), sb(b);
+	RawPacketClass *raw = new RawPacketClass(opcode, 4 + sa.size() + sb.size());
+	raw->Add(sa);
+	raw->Add(sb);
+	return(Raw_Bytes(raw));
+}
+
+static void Test_Guild(SClient *client, FakeMainViewClass *main_view)
+{
+	Trace("== (4k) GUILD_RECRUIT_CONFIRM_SECTOR 200, GUILD_MESSAGE_SECTOR 208, 216");
+	if (Memory == 0) {
+		Check(false, "the memory connection");
+		return;
+	}
+	ViewClass *view = client->CurrentView;
+	client->CurrentView = (ViewClass *)main_view;
+	client->Unknown119C = "";
+	Memory->Incoming.push_back(Two_Strings(200, "Alex", "Earthlings"));
+	client->Process_Packets();
+	Check(client->Unknown119C == "Alex", "GUILD_RECRUIT_CONFIRM_SECTOR 200: the question to the current view's dialog, +0x119C = the inviter");
+	Memory->Incoming.push_back(Two_Strings(216, "Old Guild", "New Guild"));
+	client->Process_Packets();
+	Check(client->Unknown119C == "", "216: the rename question to the dialog, +0x119C = \"\"");
+	client->CurrentView = view;
+
+	std::string other("Alex"), guild("Earthlings");
+	int types[2] = { 3, 4 };
+	for (int t = 0; t < 2; t++) {
+		RawPacketClass *raw = new RawPacketClass(208, 4 + 4 + other.size() + guild.size());
+		raw->Add(&types[t], 4);
+		raw->Add(other);
+		raw->Add(guild);
+		Memory->Incoming.push_back(Raw_Bytes(raw));
+		client->Process_Packets();
+	}
+	Check(Guild_Text == "Alex has joined Earthlings.|guild message|", "GUILD_MESSAGE_SECTOR 208: the type's text with OtherName and GuildName substituted, to 0x74DFF0");
+	Check(Guild_Sound_Calls == 3, "GUILD_MESSAGE_SECTOR 208: the sound asked for each type, played (asked again) for type 3 only");
+	Memory->Received = 0;
+}
+
 // ------------------------------------------------------------------------- main
 
 int main(int argc, char **argv)
@@ -1766,6 +1835,7 @@ int main(int argc, char **argv)
 	Test_GM(client);
 	Test_CTA(client);
 	Test_Chat(client);
+	Test_Guild(client, &main_view);
 	// the client isn't deleted: its destructor reaches control_keys_manager.cpp and WWAudio
 	Trace("== done: %d checks failed", Failures);
 	fclose(Out);

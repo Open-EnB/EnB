@@ -595,3 +595,6 @@ date,address,symbol,file,library,status,score,forms,blocker,evidence,stash,model
 2026-10-28 15:41,0x73AF80,,app/client/cpacket.cpp,app,exact,,,,CP2 2026-10-28,,opus
 2026-10-28 15:41,0x739690,,app/client/cpacket.cpp,app,exact,,,,CP2 2026-10-28,,opus
 2026-10-28 15:41,0x736F10,MessageChatstreamPacketClass::Process_Packet,app/client/cpacket.cpp,app,partial,0.82,9,register,"CP2 2026-10-28: tried AvatarID/ShipID operand order, nested ifs, early returns (worse), an (unsigned) cast, the instance cast; the desc reference before the name fixed the lea; left: the two id tests' registers (ecx/eax then edi/eax in the client)",,opus
+2026-10-28 15:53,0x73E720,,app/client/cpacket.cpp,app,exact,,,,CP2 2026-10-28,,opus
+2026-10-28 15:53,0x73E9E0,,app/client/cpacket.cpp,app,exact,,,,CP2 2026-10-28,,opus
+2026-10-28 15:53,0x73EEF0,,app/client/cpacket.cpp,app,exact,,,,CP2 2026-10-28,,opus

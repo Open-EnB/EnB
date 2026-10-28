@@ -400,11 +400,14 @@ Handler = slot +0x08 (all in cpacket.cpp unless noted). "Object" = `Find_Object(
 | 160 | STARBASE_ROOM_CHANGE / StarbaseAvatarRoomUpdatePacketClass | 0x73AB50 | the same interface's 0x63CF30(AvatarID, NewRoom) | exact (CP1) |
 | 165 | CLIENT_CHAT_EVENT | 0x73B150 | the chat panel / group (no object) | NOT EXACT inline-budget [partial] |
 | 184 | NoteContentPacketClass | 0x73AF80 | the chat lines (channel 6): 'From: ' + Unknown10, 'Sent: ' + ctime(Unknown0C) without its newline, then the text (Unknown54) a line per CR / LF token (the 8-byte string class 0x8B5D90's tokenizer 0x8B7C60) (no object) | exact (CP2) |
+| 200 | GUILD_RECRUIT_CONFIRM_SECTOR / GuildRecruitConfirmSectorPacket | 0x73E720 | '<InviterName> is inviting you to join <GuildName>. Do you accept?' to SClient 0x74E580 (the current view's dialog, type GUILD_RECRUIT_CONFIRM; +0x119C = InviterName); FAIL_IF '!sclient' line 3291 (no object) | exact (CP2) |
+| 208 | GUILD_MESSAGE_SECTOR / GuildMessageSectorPacket | 0x73E9E0 | guild_strings.cpp's text for MessageType (0x83D900) with $OtherName$ / $GuildName$ substituted (symbol_substitution.cpp) to SClient 0x74DFF0 (8, text, MessageType, 0); the type's sound (0x83D970) when it has one; FAIL_IF line 3307 (no object) | exact (CP2) |
+| 216 | GuildGMRenameConfirmSectorPacket | 0x73EEF0 | "Are you sure you want to rename '<Old>' to '<New>'?" to 0x74E580 (type GUILD_GM_RENAME_CONFIRM, +0x119C = ""); FAIL_IF line 3357 (no object) | exact (CP2) |
 | 178 | NAME_DECAL | 0x735FC0 | `DecalName` (+0xD8) and shiputils 0x80FF20 on the model | exact |
 | 180 | SUBPARTS | 0x733A50 | `object->0x6FEF70(packet)` (co.cpp, not rebuilt) | exact |
 
-Of the 107 opcodes handled in cpacket.cpp (2026-10-28, CP2: 92 exact, 9 NOT EXACT with 95 register-only, 6 not rebuilt:
-CLIENT_CHAT_LIST / ERROR 164 / 166 and the guild 200 / 204 / 208 / 216; before, CP1): 89 exact, 8 NOT EXACT (8, 62 and 52
+Of the 107 opcodes handled in cpacket.cpp (2026-10-28, CP2: 95 exact, 9 NOT EXACT with 95 register-only, 3 not rebuilt:
+CLIENT_CHAT_LIST / ERROR 164 / 166 and GUILD_SIMPLE_SECTOR_CLIENT 204; before, CP1): 89 exact, 8 NOT EXACT (8, 62 and 52
 shape, 100 frame, 165 inline-budget, 5 and 158 register-only, STARBASE_SET 79 shape; [partial] / [parked] are their
 `attempts.csv` rows), 10 not rebuilt (the counts before CP1's recount were 62 / 15 / 30; the object-free ones not
 listed above, as they were then, VerbList 91, STARBASE_AVATAR / ROOM_CHANGE 158 / 160 the recustomize 129 / 131 / 133, the GM 234 / 235 and CTA_RESPONSE 189 since rebuilt: TRADE 31 0x739DE0, VerbList 91 0x7387F0, MessageChatstream 95
@@ -473,6 +476,13 @@ model):**
 * NOTE_CONTENT 184 (pknotelist.cpp: Unknown0C a time_t, Unknown10 the sender (65 bytes), Unknown54 the text): channel 6
   gets 'From: <sender>' (SClient::Print), 'Sent: <ctime>' without ctime's newline, and the text's lines, split at CR /
   LF by an 8-byte string class (0x8B5D90..0x8B7C60, its file unknown: the next token from a position, -1 at the end).
+
+* GUILD_RECRUIT_CONFIRM_SECTOR 200 (InviterName +0x0C, GuildName +0x1C) and 216 (OldGuildName, NewGuildName): the
+  question goes to SClient 0x74E580 (sclient.cpp: the current view's +0x1C view's dialog +0x34, 0x588A70(type, 0,
+  text, 0x140, 0, 0)), which keeps its third argument in +0x119C: the inviter for 200 (what an accept sends back),
+  the pooled "" for 216. GUILD_MESSAGE_SECTOR 208 (MessageType +0x0C, OtherName +0x10, GuildName +0x20): the text
+  is guild_strings.cpp's for the type with the two names substituted, printed by 0x74DFF0 in colour 8; no SClient
+  member changes. clienttest (4k).
 
 ## 4. Worked example: a ship appears, gets its aux data, and moves
 
