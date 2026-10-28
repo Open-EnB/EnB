@@ -471,12 +471,24 @@ lookup, the ship); (2) the DEBUG setters before and after the redirect (Open_Con
 connect.cpp's factory, MEMORY protocol, to the harness's memory connection), each DEBUG message parsed back by
 the factory and printed with the class's Print; (3) SClient::Process_Packets over that connection: an opcode
 cpacket.cpp handles goes through the factory and the real handler, the rest become one recording test packet
-(counted per opcode); a CREATE also adds a client object with its game id (an odd id gets a fake rs_track model,
-Class_ID 0x10001, so the render-state handlers reach RsTrackClass); before that (3a) a packet whose handler refuses
-twice stays on the peek connection and is handed over again. 2026-10-27, alex3 ffff9b25's first 1,000 messages:
-38 of 38 checks, 21 messages through 9 handlers (ACTIVATE_RENDER_STATE, SUBPARTS, CLIENT_SHIP, DECAL,
-MESSAGE_STRING, CLIENT_SOUND, REMOVE_EFFECT, SET_TARGET, REMOVE), 979 recorded, 373 trace lines. A handler added
-to cpacket.cpp changes the trace: check the difference, then `run --update`.
+(counted per opcode); before that (3a) a packet whose handler refuses twice stays on the peek connection and is
+handed over again, and (4) a server's packets build an object and move it: CREATE 4, SIMPLE_POSITIONAL_UPDATE 8
+through Do_Frame / Process_AI to the model's Set_Transform, CHANGE_BASE_ASSET 38, REMOVE 7. 2026-10-27, alex3
+ffff9b25's first 1,000 messages: 38 of 38 checks, 21 messages through 9 handlers, 979 recorded, 373 trace lines.
+A handler added to cpacket.cpp changes the trace: check the difference, then `run --update`.
+
+**Objects through the real CREATE (2026-10-28, HN1):** CREATE 4, CHANGE_BASE_ASSET 38 and SUBPARTS 180 are driven
+(gen_stubs.py's `NOT_DRIVEN` is empty). clienttest.cpp puts a fake asset manager (a `WW3DAssetManager` subclass:
+`WW3DAssetManager::Get_Instance()` and co.cpp's `*0xBDADC0`) behind co.cpp's loader 0x6F5140 / 0x6F51D0: its slot
++0x78 gives a model for a loaded file's NAME (FILE is NAME.w3d), `Create_Render_Obj` the "missing" model. The models
+are `FakeModelClass`, a real RenderObjClass that logs Set_Transform, Set_LOD_Bias, Set_Hidden, Add_Sub_Object_To_Bone
+and its deletion (`model N ...`); NAME ship... has the bones ~FL ~FR ~BL ~BR, NAME rs_... is an rs_track model
+(Class_ID 0x10001). The INIs are clienttest's own, `tests/capharness/clienttest/data/basset.ini` (the loader) and
+`cbasset.ini` (Set_Model's radius, the mount points): `run` copies them into `.work/harness/clienttest/`, never the
+game's folder (D69). The aux root factory 0x6F6000's stand-in gives the types that have a root the harness's
+(its slot +0x04, the deleting destructor, logs). 57 checks (12 new: (4)'s object in the table with the packet's
+game id / type / base asset / scale, its model loaded, the radius, the six part models, the swap, the deletes;
+(3)'s 202 CREATEs and 4 REMOVEs), 2,960 trace lines.
 
 ## Other harness programs (index)
 

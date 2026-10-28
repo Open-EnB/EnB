@@ -11,7 +11,8 @@ DIR/programs/clienttest/.
 
 run: writes .work/harness/clienttest/NAME.messages.txt, the first COUNT server-to-client messages of SESSION in
 the reference decoder's NAME.trace.jsonl (udpreplay.py's reference: roots.N7_CAPTURES/ea), runs the program there (never in
-the game's folder; no registry, no network, asserts to the trace) and compares its trace with
+the game's folder; no registry, no network, asserts to the trace; the base-asset INIs from
+tests/capharness/clienttest/data copied in) and compares its trace with
 tests/capharness/clienttest/expected.txt: the first run (or --update) writes that file, later runs must equal
 it line for line, and every check in the trace must pass (exit code 0).
 """
@@ -29,6 +30,7 @@ REPO = os.path.dirname(os.path.dirname(HERE))
 SRC = os.path.join(REPO, 'tests', 'capharness', 'clienttest')
 WORK = os.path.join(REPO, '.work', 'harness', 'clienttest')
 EXPECTED = os.path.join(SRC, 'expected.txt')
+DATA = os.path.join(SRC, 'data')
 sys.path.insert(0, os.path.join(REPO, 'tools', 're'))
 import roots  # noqa: E402
 sys.path.insert(0, os.path.join(REPO, 'tools', 'vc6'))
@@ -112,6 +114,10 @@ def run(exe, name, session, count, update):
     os.makedirs(WORK, exist_ok=True)
     msgs = os.path.join(WORK, '%s.messages.txt' % name)
     n = messages(name, session, count, msgs)
+    # clienttest's own basset.ini / cbasset.ini (co.cpp's model loader, Set_Model's radius, the mount points read
+    # them from the working directory): tests/capharness/clienttest/data, never the game's (D69)
+    for fn in os.listdir(DATA):
+        shutil.copy(os.path.join(DATA, fn), WORK)
     res = os.path.join(WORK, 'clienttest.out.txt')
     p = subprocess.run([os.path.abspath(exe), res, msgs], capture_output=True, text=True, cwd=WORK, timeout=300)
     print(p.stdout.strip()[-1000:])

@@ -25,11 +25,10 @@ PK_CTOR_STUBS = os.path.join(REPO, 'tests', 'capharness', 'udpreplay', 'pk_ctor_
 CPACKET = os.path.join(REPO, 'app', 'client', 'cpacket.cpp')
 PK_CPP = os.path.join(REPO, 'app', 'packets', 'pk.cpp')
 FACTORY = os.path.join(REPO, 'docs', 'data', 'packet-factory.txt')
-# cpacket.cpp's handlers clienttest records instead of driving: CREATE 4's models come from co.cpp's loader
-# 0x6F5140, which needs the game's asset manager (*0xBDADC0, a stand-in here), so clienttest.cpp makes its own objects;
-# CHANGE_BASE_ASSET 38 loads a model the same way, and SUBPARTS 180 ends in co.cpp's 0x6FCB70, which loads six bone models
-# with it (and calls slot +0xF8 of the model, which the harness's fake models don't have)
-NOT_DRIVEN = {'CreatePacketClass', 'ChangeBaseAssetPacketClass', 'SubPartsPacket'}
+# cpacket.cpp's handlers clienttest records instead of driving (none since 2026-10-28, HN1: CREATE 4, CHANGE_BASE_ASSET 38
+# and SUBPARTS 180 load their models through co.cpp's loader 0x6F5140 from clienttest.cpp's fake asset manager and
+# its own basset.ini / cbasset.ini in data/). A handler whose callees can't run yet goes here (workflow.md 3.7).
+NOT_DRIVEN = set()
 
 
 def read(p):

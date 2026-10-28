@@ -244,9 +244,7 @@ float DeltaInterpolatorClass::Update(const DurationClass &) { return(0.0f); }
 // doesn't link)
 #include "..\..\..\app\client\aux_roots.h"
 template<> int DeltaTemplateClass<bool>::UnknownGlobal = 0;
-// co.cpp's constructor asks the factory 0x6F6000 for its aux root: none here (aux_roots.obj and the roots' code
-// stay out; New_Object hands the object the harness's zeros)
-UnknownRootClass *UnknownCOClass::Unknown_Create_Aux_Root(int, int) { return(0); }
+// (co.cpp's constructor asks the factory 0x6F6000 for its aux root: clienttest.cpp's stand-in hands out the harness's)
 
 // ------------------------------------------------------------------------- extrap.cpp's state nodes (postate.cpp's)
 

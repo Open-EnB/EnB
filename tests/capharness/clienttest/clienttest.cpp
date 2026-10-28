@@ -14,13 +14,14 @@
 // (3) SClient::Process_Packets over the redirected connection loaded with MESSAGES (a capture's
 //     messages, one per line: opcode and payload hex; clienttest.py writes them from the reference decoder's
 //     alex3.trace.jsonl): opcodes whose handler cpacket.cpp defines go through the factory and the real
-//     handler, the rest become one recording test packet (counted per opcode); CREATE also adds a
-//     client object with its game id (the trace shows the main view's 'add'), so REMOVE and the object
-//     handlers find it; an odd game id gets a fake rs_track model. Before that, (3a): a packet whose
+//     handler, the rest become one recording test packet (counted per opcode); CREATE 4's real handler
+//     makes the objects (co.cpp's constructor, the base asset's model from the fake asset manager below,
+//     Set_Model, Add_Object), so REMOVE and the object handlers find them. Before that, (3a): a packet whose
 //     handler returns false stays on the peek connection and comes back on the next call, and (4): a
-//     positional packet to the model's transform (P-UP1-1): SIMPLE_POSITIONAL_UPDATE 8 through the real
-//     handler and postate / extrap's state, then SClient::Process_AI and co.cpp's per-frame update, which
-//     hand the state's matrix at the client clock to the model's slot +0x50 (Set_Transform).
+//     server's packets build and move an object (P-UP1-1): CREATE 4, SIMPLE_POSITIONAL_UPDATE 8 through the
+//     real handler and postate / extrap's state, then SClient::Process_AI and co.cpp's per-frame update,
+//     which hand the state's matrix at the client clock to the model's slot +0x50 (Set_Transform);
+//     CHANGE_BASE_ASSET 38 swaps the model, REMOVE 7 deletes the object.
 //
 // Never: a modal dialog (asserts and FAIL_IF go to the trace), the registry (SOptionsClass's
 // constructor is a stand-in), the network (the memory connection), the game's install folder.
@@ -40,6 +41,8 @@
 #include "..\..\..\app\packets\pkdebug.h"
 #include "..\..\..\app\packets\pkcreate.h"
 #include "..\..\..\app\packets\pkupdate.h"
+#include "..\..\..\app\client\aux_roots.h"
+#include "rendobj.h"
 
 static FILE *Out;
 static int Lines = 0;
@@ -138,10 +141,10 @@ public:
 	bool Unknown68;		// +0x68
 };
 
-// A client object's model (co.cpp +0xAC): the render-state handlers ask its Class_ID; the slots that take
-// an argument get __stdcall stand-ins (Set_Transform +0x50, Set_LOD_Bias +0x12C). Every other slot of a fake's table returns the same value: an object with
-// an odd game id gets an rs_track model (0x10001, the handlers call RsTrackClass), an even one a model
-// that isn't (0).
+// The models of (1)'s objects (co.cpp +0xAC; New_Object): a table whose slots that take an argument get __stdcall
+// stand-ins (Set_Transform +0x50, Set_LOD_Bias +0x12C); every other slot returns the same value: an odd game id gets
+// an rs_track model (0x10001), an even one a model that isn't (0). The objects CREATE makes get FakeModelClass's
+// models from the fake asset manager (below).
 static int Zero_Slot() { return 0; }
 static int Track_Slot() { return 0x10001; }
 static void __stdcall Lod_Bias_Slot(float bias) { Trace("model Set_LOD_Bias %g", bias); }	// slot +0x12C (75), CLIENT_AVATAR 55: one argument, popped
@@ -150,34 +153,151 @@ struct FakeModelStruct
 	void **Table;
 	char Unknown04[0x100];
 };
-// slot +0x50 (20), co.cpp's per-frame update 0x6F3C60: Set_Transform (one argument, popped); the path
-// model (4) keeps the matrix it was given
+// slot +0x50 (20), co.cpp's per-frame update 0x6F3C60: Set_Transform (one argument, popped)
 static void __stdcall Set_Transform_Slot(const Matrix3D &tm) { Trace("model Set_Transform (%g, %g, %g)", tm[0][3], tm[1][3], tm[2][3]); }
-static Matrix3D Path_Transform(true);
-static int Path_Transforms = 0;
-static void __stdcall Path_Set_Transform_Slot(const Matrix3D &tm)
-{
-	Path_Transform = tm;
-	Path_Transforms++;
-	Trace("path model Set_Transform (%g, %g, %g)", tm[0][3], tm[1][3], tm[2][3]);
-}
 static void *Zero_Table[256];
 static void *Track_Table[256];
-static void *Path_Table[256];
 static FakeModelStruct Fake_Model;
 static FakeModelStruct Track_Model;
-static FakeModelStruct Path_Model;
 
-static char Fake_Aux[0x4000];		// the player aux data co.cpp's accessors read (zeros but the table, below)
+static char Fake_Aux[0x4000];		// the aux data co.cpp's accessors read (zeros but the table, below): every object's root
 static char Fake_Player_Root[0x10];	// SClient +0x12C0 (Init's DeltaPlayerClass: AUX_DATA 27 with game id 0)
 static char Fake_Player_Var_Root[0x10];	// SClient +0x12C4's entry 0 (Init's player-variable root: PLAYER_VAR_AUX_DATA 28)
-// the fake aux data's table: slot +0x20 (8, no argument) is the age step
+// the fake aux data's table: slot +0x20 (8, no argument) is the age step, +0x04 (1) the deleting destructor
+// (~ClientObjectClass deletes its root: one argument, popped; the root is shared, so nothing is freed)
 static void *Aux_Table[256];
 static void Aux_Age_Slot() { Trace("aux data +0x20 (the age step)"); }
+static void __stdcall Aux_Delete_Slot(unsigned) { Trace("aux data deleted (slot +0x04)"); }
 const char *Aux_Root_Name(const void *root)
 {
 	return(root == Fake_Player_Root ? "player" : root == Fake_Player_Var_Root ? "player var 0" : root == Fake_Aux ? "object" : "unknown");
 }
+// co.cpp's constructor asks aux_roots.cpp's factory 0x6F6000 for the object's root (aux_roots.obj and the roots'
+// code stay out): the types the factory gives a root (packet-flow.md 2.4) get the harness's, the others none
+UnknownRootClass *UnknownCOClass::Unknown_Create_Aux_Root(int type, int)
+{
+	switch (type) {
+		case 0: case 1: case 3: case 4: case 8: case 11: case 12: case 25: case 34: case 37: case 38: case 39: case 41:
+			return((UnknownRootClass *)Fake_Aux);
+	}
+	return(0);
+}
+
+// ------------------------------------------------------------------------- the fake asset manager and its models
+
+// The models CREATE 4, CHANGE_BASE_ASSET 38 and SUBPARTS 180 load: co.cpp's loader 0x6F5140 / 0x6F51D0 reads
+// basset.ini's BASE-n section (clienttest's own, tests/capharness/clienttest/data: clienttest.py copies it into
+// the run's folder, never the game's, D69) and asks E&B's asset manager (*0xBDADC0) for the NAME at the scale and
+// HSV shift (its slot +0x78), loading FILE (Load_3D_Assets) when it has no such model yet; a section that
+// isn't there gives Create_Render_Obj("missing"). WW3DAssetManager::Get_Instance() (0xBFAEE0) is the same object.
+// Each model is a real RenderObjClass (ww3d2's slots; the ones co.cpp and the handlers call log): numbered in
+// the order made, deleted when its last reference goes. Ship models (NAME ship...) have the bones ~FL ~FR ~BL ~BR
+// that 0x6F3810 hangs the six part models on; a NAME rs_... is an rs_track model (Class_ID 0x10001: the render-
+// state handlers call RsTrackClass; the client's rs_track models come from an RSLID section, whose RsTrackClass
+// constructor 0x45FFB0 isn't rebuilt).
+#include "assetmgr.h"
+class UnknownBDADC0Class : public WW3DAssetManager	// as co.cpp declares it
+{
+public:
+	virtual RenderObjClass *Unknown_78(const char *name, float scale, float *hsv);	// +0x78
+};
+RenderObjClass *UnknownBDADC0Class::Unknown_78(const char *, float, float *) { return(0); }	// (the fake's overrides it)
+UnknownBDADC0Class *Unknown_BDADC0 = 0;	// 0xBDADC0 (main sets it)
+
+static int Models_Made = 0;
+static int Models_Alive = 0;
+static std::vector<int> Deleted_Models;	// the numbers of the models deleted
+class FakeModelClass : public RenderObjClass
+{
+public:
+	FakeModelClass(const char *name) : Number(++Models_Made), Transforms(0), Bones(0), LastTransform(true)
+	{
+		strncpy(Name, name, sizeof(Name) - 1);
+		Name[sizeof(Name) - 1] = 0;
+		Models_Alive++;
+	}
+	virtual ~FakeModelClass() { Trace("model %d '%s' deleted", Number, Name); Models_Alive--; Deleted_Models.push_back(Number); }
+	virtual RenderObjClass *Clone() const { return(0); }
+	virtual int Class_ID() const { return(strncmp(Name, "rs_", 3) == 0 ? 0x10001 : CLASSID_UNKNOWN); }
+	virtual const char *Get_Name() const { return(Name); }
+	virtual void Render(RenderInfoClass &) {}
+	virtual void Set_Transform(const Matrix3D &tm)	// +0x50
+	{
+		RenderObjClass::Set_Transform(tm);
+		LastTransform = tm;
+		Transforms++;
+		Trace("model %d Set_Transform (%g, %g, %g)", Number, tm[0][3], tm[1][3], tm[2][3]);
+	}
+	virtual void Set_LOD_Bias(float bias) { Trace("model %d Set_LOD_Bias %g", Number, bias); }	// +0x12C
+	virtual void Set_Hidden(int onoff)	// (traced when it changes: the per-frame update hides the part models again each frame)
+	{
+		if ((Is_Hidden() != 0) != (onoff != 0)) {
+			Trace("model %d Set_Hidden %d", Number, onoff);
+		}
+		RenderObjClass::Set_Hidden(onoff);
+	}
+	virtual int Get_Bone_Index(const char *bone)
+	{
+		static const char *bones[] = { "~FL", "~FR", "~BL", "~BR" };
+		for (int i = 0; i < 4 && strncmp(Name, "ship", 4) == 0; i++) {
+			if (strcmp(bone, bones[i]) == 0) {
+				return(i + 1);
+			}
+		}
+		return(0);
+	}
+	virtual int Add_Sub_Object_To_Bone(RenderObjClass *sub, int bone)
+	{
+		Bones++;
+		Trace("model %d Add_Sub_Object_To_Bone '%s' bone %d", Number, sub ? sub->Get_Name() : "(null)", bone);
+		return(0);
+	}
+	int Number;
+	int Transforms;		// Set_Transform calls
+	int Bones;			// Add_Sub_Object_To_Bone calls
+	Matrix3D LastTransform;
+	char Name[64];
+};
+static FakeModelClass *Fake_Model_Of(ClientObjectClass *object)	// (only CREATE's objects hold one)
+{
+	return(object ? (FakeModelClass *)object->Model : 0);
+}
+
+class FakeAssetManagerClass : public UnknownBDADC0Class
+{
+public:
+	FakeAssetManagerClass() : Loads(0) {}
+	virtual bool Load_3D_Assets(const char *filename)
+	{
+		Trace("asset manager Load_3D_Assets '%s'", filename);
+		Files.push_back(filename);
+		Loads++;
+		return(true);
+	}
+	virtual RenderObjClass *Create_Render_Obj(const char *name)
+	{
+		FakeModelClass *model = new FakeModelClass(name);
+		Trace("asset manager Create_Render_Obj '%s' -> model %d", name, model->Number);
+		return(model);
+	}
+	// +0x78: a model of a loaded file's (FILE is NAME.w3d in clienttest's basset.ini)
+	virtual RenderObjClass *Unknown_78(const char *name, float scale, float *hsv)
+	{
+		std::string file = std::string(name) + ".w3d";
+		for (size_t i = 0; i < Files.size(); i++) {
+			if (stricmp(Files[i].c_str(), file.c_str()) == 0) {
+				FakeModelClass *model = new FakeModelClass(name);
+				Trace("asset manager +0x78 '%s' scale %g hsv (%g %g %g) -> model %d", name, scale, hsv[0], hsv[1], hsv[2], model->Number);
+				return(model);
+			}
+		}
+		Trace("asset manager +0x78 '%s': not loaded", name);
+		return(0);
+	}
+	std::vector<std::string> Files;
+	int Loads;
+};
+static FakeAssetManagerClass *Fake_Assets = 0;
 
 // co.cpp's object through its own constructor and destructor (app.lib); the harness's fakes (aux data, model)
 // go back before the destructor would release them
@@ -190,12 +310,13 @@ public:
 
 static SClient *The_Client = 0;
 
+// (1)'s objects (the packet sections' come from CREATE 4's real handler)
 static ClientObjectClass *New_Object(unsigned id)
 {
 	ClientObjectClass *object = new TestObjectClass(The_Client, id);
-	object->AuxData = Fake_Aux;		// (the constructor's own aux root, if any, is left alone)
-	// the constructor's default state (type 0, identity) stays: the positional handlers replace it, and
-	// Process_AI's per-frame update (4) asks every object's state for its matrix
+	object->AuxData = Fake_Aux;		// (the constructor's own aux root is the same)
+	// the constructor's default state (type 0, identity) stays: Process_AI's per-frame update (4) asks every
+	// object's state for its matrix
 	object->Model = (RenderObjClass *)((id & 1) ? &Track_Model : &Fake_Model);
 	return object;
 }
@@ -316,14 +437,6 @@ public:
 				packet = new RecordingPacketClass(opcode, (int)m.size() - 4);
 			}
 		} else {
-			if (opcode == 4) {
-				// CREATE: the object the client would make (co.cpp isn't rebuilt), with the message's game id
-				CreatePacketClass *create = (CreatePacketClass *)Unknown_Create_Packet(&m[0]);
-				if (create) {
-					Client->Add_Object(New_Object((unsigned)create->GameID));
-					delete create;
-				}
-			}
 			packet = new RecordingPacketClass(opcode, (int)m.size() - 4);
 		}
 		packet->Connection = this;
@@ -538,6 +651,7 @@ static void Test_Packets(SClient *client, const char *path)
 	Stub_Focused = false;
 	unsigned ship = client->ShipID;
 	float zmin = client->Unknown10D4, zmax = client->Unknown10D8;
+	int creates = 0, created = 0, removes = 0, removed = 0;
 	while (!Memory->Incoming.empty()) {
 		// one message per call, so that the state after each is traced
 		std::vector<unsigned char> next = Memory->Incoming.front();
@@ -547,6 +661,21 @@ static void Test_Packets(SClient *client, const char *path)
 		Memory->Incoming.push_back(next);
 		client->Process_Packets();
 		Memory->Incoming.swap(rest);
+		int opcode = *(unsigned short *)&next[2];
+		if (opcode == 4 && next.size() >= 4 + 11) {
+			// CREATE's GameID, Scale, BaseAsset, Type (pkcreate.cpp's order): the object is in the table with them
+			unsigned id = *(unsigned *)&next[4];
+			ClientObjectClass *object = client->Find_Object(id);
+			creates++;
+			if (object && object->Get_Game_ID() == id && object->Type == (char)next[14] && object->UnknownA8 == *(short *)&next[12] && object->Model) {
+				created++;
+			}
+		} else if (opcode == 7 && next.size() >= 4 + 4) {
+			removes++;
+			if (client->Find_Object(*(unsigned *)&next[4]) == 0) {
+				removed++;
+			}
+		}
 		if (client->ShipID != ship) {
 			ship = client->ShipID;
 			Trace("state ship id %u", ship);
@@ -558,6 +687,10 @@ static void Test_Packets(SClient *client, const char *path)
 		}
 	}
 	Check(Memory->Received == total, "every message taken off the connection");
+	Trace("CREATE x%d: %d objects in the table with the packet's game id, type, base asset and a model; REMOVE x%d: %d gone",
+		creates, created, removes, removed);
+	Check(creates > 0 && created == creates, "every CREATE 4 put a new object with its game id, type, base asset and model in the table");
+	Check(removes > 0 && removed == removes, "every REMOVE 7 took its object out of the table");
 	int recorded = 0;
 	for (std::map<int, int>::iterator it = Recorded.begin(); it != Recorded.end(); it++) {
 		Trace("recorded %s (%d) x%d", Opcode_Name(it->first, 0), it->first, it->second);
@@ -606,26 +739,65 @@ static void Trace_Matrix(const char *what, const Matrix3D &tm)
 	}
 }
 
-// One object (the harness's, as for CREATE) gets SIMPLE_POSITIONAL_UPDATE 8; each frame is SClient::Do_Frame
-// 0x742B60: the age step (the player's and every object's aux data, slot +0x20), the clock +0x10BC from
-// Unknown_Get_Ticks (Test_Ticks), input when focused, Process_Packets (the real handler, cpacket.cpp 0x733DC0:
-// the simple state, postate.cpp 0x715AB0, over extrap.cpp's linear node 0x70F250), then Process_AI 0x744260:
-// every object's per-frame update (co.cpp 0x6F3C60: slot +0x28 0x6F4610 asks the state for its matrix at
-// the clock, re-orthogonalises it and hands it to the model's slot +0x50). A second packet updates the
-// state in place (0x715C20: a 2000-tick blend 0x7125F0 to the new linear node); past the blend's end the
-// model follows the second packet. Do_Frame runs with what Init would have set (+0x1198 clear, the main
-// view current, a bridge interface whose +0x14 is 0) and puts it back afterwards.
+// A server's packets build the object and move it (packet-flow.md 4): CREATE 4 through its real handler
+// (cpacket.cpp 0x733700: co.cpp's constructor 0x6F2820, the model from base asset 900 through the loader
+// 0x6F5140 and the fake asset manager, Set_Model 0x6F33F0 with cbasset.ini's radius and, for a type 0 ship,
+// the six part models on its bones (0x6FCB70), the mount points 0x7251C0, Add_Object), then
+// SIMPLE_POSITIONAL_UPDATE 8; each frame is SClient::Do_Frame 0x742B60: the age step (the player's and every
+// object's aux data, slot +0x20), the clock +0x10BC from Unknown_Get_Ticks (Test_Ticks), input when focused,
+// Process_Packets (the real handler, cpacket.cpp 0x733DC0: the simple state, postate.cpp 0x715AB0, over
+// extrap.cpp's linear node 0x70F250), then Process_AI 0x744260: every object's per-frame update (co.cpp
+// 0x6F3C60: slot +0x28 0x6F4610 asks the state for its matrix at the clock, re-orthogonalises it and hands it
+// to the model's slot +0x50). A second packet updates the state in place (0x715C20: a 2000-tick blend 0x7125F0
+// to the new linear node); past the blend's end the model follows the second packet. CHANGE_BASE_ASSET 38
+// (0x737400) then gives the object base asset 901's model, which the next frame moves; REMOVE 7 (0x7362F0)
+// deletes the object and its models. Do_Frame runs with what Init would have set (+0x1198 clear, the main view
+// current, a bridge interface whose +0x14 is 0) and puts it back afterwards.
 static int Frame(SClient *client, unsigned ticks, bool focused)
 {
 	Test_Ticks = ticks;
-	Path_Transforms = 0;
 	Trace("frame at %u%s", ticks, focused ? ", focused" : "");
 	return(client->Do_Frame(focused));
 }
 
+// The server's messages (pkcreate.cpp, pkchangebaseasset.cpp, pkremove.cpp: the raw constructors' order)
+static std::vector<unsigned char> Create_Message(unsigned id, float scale, short base_asset, char type)
+{
+	std::vector<unsigned char> p(4 + 4 + 2 + 1 + 12, 0);	// GameID, Scale, BaseAsset, Type, HSV (0, 0, 0)
+	memcpy(&p[0], &id, 4);
+	memcpy(&p[4], &scale, 4);
+	memcpy(&p[8], &base_asset, 2);
+	p[10] = (unsigned char)type;
+	return(Message_Bytes(4, p));
+}
+static std::vector<unsigned char> Change_Base_Asset_Message(unsigned id, int base_asset, float scale)
+{
+	std::vector<unsigned char> p(4 + 4 + 4 + 12, 0);	// GameID, BaseAsset, Scale, HSV (0, 0, 0)
+	memcpy(&p[0], &id, 4);
+	memcpy(&p[4], &base_asset, 4);
+	memcpy(&p[8], &scale, 4);
+	return(Message_Bytes(38, p));
+}
+static std::vector<unsigned char> Remove_Message(unsigned id)
+{
+	std::vector<unsigned char> p(4, 0);
+	memcpy(&p[0], &id, 4);
+	return(Message_Bytes(7, p));
+}
+
+static bool Model_Deleted(int number)
+{
+	for (size_t i = 0; i < Deleted_Models.size(); i++) {
+		if (Deleted_Models[i] == number) {
+			return(true);
+		}
+	}
+	return(false);
+}
+
 static void Test_Path(SClient *client, FakeMainViewClass *main_view)
 {
-	Trace("== (4) a positional packet to the model's transform");
+	Trace("== (4) a server's packets create the object, move its model, change and remove it");
 	if (Memory == 0) {
 		Check(false, "the memory connection");
 		return;
@@ -640,9 +812,26 @@ static void Test_Path(SClient *client, FakeMainViewClass *main_view)
 	client->BridgeInterface = (BridgeInterfaceClass *)fake_bridge;
 	Path_Views = true;
 	const unsigned id = 4000;
-	ClientObjectClass *object = New_Object(id);
-	object->Model = (RenderObjClass *)&Path_Model;
-	client->Add_Object(object);
+
+	// CREATE 4: a ship (type 0) of base asset 900 at scale 0.5
+	int alive = Models_Alive;
+	Memory->Incoming.push_back(Create_Message(id, 0.5f, 900, 0));
+	client->Process_Packets();
+	ClientObjectClass *object = client->Find_Object(id);
+	Check(object != 0 && object->Get_Game_ID() == id && object->Type == 0 && object->UnknownA8 == 900 && object->Scale == 0.5f,
+		"CREATE 4 (game id 4000, type 0, base asset 900, scale 0.5): Find_Object finds the new object with the packet's game id, type, base asset and scale");
+	if (object == 0) {
+		return;
+	}
+	FakeModelClass *model = Fake_Model_Of(object);
+	Check(model != 0 && strcmp(model->Name, "ship_test") == 0 && Fake_Assets->Loads >= 1 && Fake_Assets->Files[0] == "ship_test.w3d",
+		"the model was loaded for base asset 900 (basset.ini's BASE-900: FILE ship_test.w3d loaded, then NAME ship_test)");
+	Check(object->Radius == 12.5f, "Set_Model's radius from cbasset.ini (BASE-900: (Radius 20 + RadiusAdjust 5) x scale 0.5 = 12.5)");
+	bool parts = model != 0 && model->Bones == 6;
+	for (int i = 0; i < 6; i++) {
+		parts = parts && object->Unknown158[i].Peek() != 0 && object->Unknown158[i].Peek()->Is_Hidden();
+	}
+	Check(parts, "the ship's six part models (base assets 0x618, 0x617, 0x73F), hidden, hung on its ~FL ~FR ~BL ~BR bones");
 	Check(object->Unknown98 != 0 && object->Unknown98->Unknown_04() == 0, "the new object holds the constructor's default state (type 0)");
 
 	const Vector3 pos(100.0f, 200.0f, 30.0f);
@@ -650,13 +839,14 @@ static void Test_Path(SClient *client, FakeMainViewClass *main_view)
 	const Vector3 vel(0.01f, 0.02f, -0.004f);						// per tick
 	SimplePositionalUpdatePacketClass first(0, id, 1000, pos, orient, vel);
 	Memory->Incoming.push_back(Built_Message(&first));
+	int transforms = model->Transforms;
 	int result = Frame(client, 1500, true);
 	Check(result == 0 && client->Unknown10BC == 1500, "Do_Frame returns 0 and sets the clock from Unknown_Get_Ticks");
 	Check(object->Unknown98 != 0 && object->Unknown98->Unknown_04() == 3, "SIMPLE_POSITIONAL_UPDATE 8 (time 1000) replaced it with the simple state (type 3)");
 	Matrix3D want(orient, pos + vel * 500.0f);
-	Trace_Matrix("model", Path_Transform);
-	Check(Path_Transforms == 1, "Process_AI: the object's model got one Set_Transform");
-	Check(Near(Path_Transform, want), "at clock 1500 the model is at the packet's position + velocity * 500, turned 90 degrees about Z");
+	Trace_Matrix("model", model->LastTransform);
+	Check(model->Transforms == transforms + 1, "Process_AI: the object's model got one Set_Transform");
+	Check(Near(model->LastTransform, want), "at clock 1500 the model is at the packet's position + velocity * 500, turned 90 degrees about Z");
 
 	const Vector3 pos2(-50.0f, 10.0f, 5.0f);
 	const Quaternion orient2(0.0f, 0.0f, 0.0f, 1.0f);
@@ -666,10 +856,30 @@ static void Test_Path(SClient *client, FakeMainViewClass *main_view)
 	Unknown98Class *state = object->Unknown98;
 	Frame(client, 2000, false);
 	Check(object->Unknown98 == state && state->Unknown_04() == 3, "a second SIMPLE packet (time 2000) updates the simple state in place");
+	transforms = model->Transforms;
 	Frame(client, 4500, false);
 	Matrix3D want2(orient2, pos2 + vel2 * 2500.0f);
-	Trace_Matrix("model", Path_Transform);
-	Check(Path_Transforms == 1 && Near(Path_Transform, want2), "at clock 4500 (past the 2000-tick blend) the model follows the second packet");
+	Trace_Matrix("model", model->LastTransform);
+	Check(model->Transforms == transforms + 1 && Near(model->LastTransform, want2), "at clock 4500 (past the 2000-tick blend) the model follows the second packet");
+
+	// CHANGE_BASE_ASSET 38: base asset 901 at scale 1; the next frame moves the new model
+	int old_number = model->Number;
+	Memory->Incoming.push_back(Change_Base_Asset_Message(id, 901, 1.0f));
+	Frame(client, 5000, false);
+	FakeModelClass *model2 = Fake_Model_Of(object);
+	Check(client->Find_Object(id) == object && model2 != 0 && model2->Number != old_number && strcmp(model2->Name, "ship_test2") == 0
+		&& object->UnknownA8 == 901 && object->Scale == 1.0f,
+		"CHANGE_BASE_ASSET 38 (base asset 901, scale 1): the same object holds base asset 901's model (NAME ship_test2)");
+	Check(Model_Deleted(old_number), "the old model was released and deleted");
+	Matrix3D want3(orient2, pos2 + vel2 * 3000.0f);
+	Check(model2 != 0 && model2->Transforms == 1 && Near(model2->LastTransform, want3), "at clock 5000 the new model follows the second packet");
+
+	// REMOVE 7
+	int number2 = model2 ? model2->Number : -1;
+	Memory->Incoming.push_back(Remove_Message(id));
+	client->Process_Packets();
+	Check(client->Find_Object(id) == 0, "REMOVE 7: the object is out of the client's table");
+	Check(Model_Deleted(number2) && Models_Alive == alive, "REMOVE 7 deleted the object, its model and its part models");
 
 	Path_Views = false;
 	Test_Ticks = 0;
@@ -704,18 +914,16 @@ int main(int argc, char **argv)
 	Track_Table[75] = (void *)Lod_Bias_Slot;
 	Zero_Table[20] = (void *)Set_Transform_Slot;
 	Track_Table[20] = (void *)Set_Transform_Slot;
-	memcpy(Path_Table, Zero_Table, sizeof(Path_Table));
-	Path_Table[20] = (void *)Path_Set_Transform_Slot;
 	for (int k = 0; k < 16; k++) {
 		View64_Table[k] = (void *)Zero_Slot;
 	}
 	View64_Table[9] = (void *)View64_24_Slot;
 	Fake_Model.Table = Zero_Table;
 	Track_Model.Table = Track_Table;
-	Path_Model.Table = Path_Table;
 	for (int a = 0; a < 256; a++) {
 		Aux_Table[a] = (void *)Zero_Slot;
 	}
+	Aux_Table[1] = (void *)Aux_Delete_Slot;
 	Aux_Table[8] = (void *)Aux_Age_Slot;
 	*(void ***)Fake_Aux = Aux_Table;			// the aux data's slot +0x20, Do_Frame's age step (0x6F5120 for the objects)
 	*(void ***)Fake_Player_Root = Aux_Table;
@@ -731,6 +939,10 @@ int main(int argc, char **argv)
 	client->AuxData = (DeltaPlayerClass *)Fake_Player_Root;	// Init's roots (sclient.cpp 0x7518A0, not run)
 	client->Unknown12C4[0] = (SClientUnknown12C4Class *)Fake_Player_Var_Root;
 	Check(client->Unknown_18() == (int)client, "SClient's slot +0x18 returns the client");
+	// the asset manager (after the SClient, whose constructor runs as before without one)
+	Fake_Assets = new FakeAssetManagerClass;
+	Unknown_BDADC0 = Fake_Assets;
+	Check(WW3DAssetManager::Get_Instance() == Fake_Assets, "the fake asset manager is *0xBDADC0 and WW3DAssetManager::Get_Instance()");
 
 	Test_Lists(client);
 	Test_Debug(client);
