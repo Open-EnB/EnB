@@ -446,6 +446,12 @@ unless `--lever` cites a new row of this table.
   `static StringClass` pair and the WWProfileIterator calls matched console.cpp's profile display byte for byte
   (0x510440); the sea tint is phys.cpp's `#if 0` quad (0x510D40). co.cpp's `Unknown_Find_Valid` is local to co.cpp;
   `DeltaTemplateClass<int>` needs aux_roots.h for `Type_Name(int *)` (else C2665 in kv_pair.h).
+* **More px forms** (2026-10-28, PX2): `float d = other->Radius; d += r;` gives `fld other; fadd r` (0x4534A0); a
+  one-case `switch (Type)` in an inline helper gives the client's adjusted `this`; `PxObject *o = ...; Vector3 pos =
+  o->Pos;` against a `const Vector3 &` decides the client's `add eax,4` (0x452D50 / 0x452020); a cached loop end is
+  `for (it = begin(), end = end(); it != end; ...)` (0x44F2F0). Guarded `<string>` statics bound app\shared objects
+  too (0x451BD0, 0x452750): a way to find a string-less object's range. To tell live code from dormant, look for
+  call, jump and pointer references to the function and its incremental thunk (`.work/px2/thunkrefs.py`).
 * **Asserts sit on the client's lines (D25).** To add code above a logged line, remove as many
   blank lines from the same function's stretch (cordmgr.cpp; `.work/milestones/a3/relines.py`);
   pad inside a function, not only before it (Get(char **); pk.cpp's helpers take single blanks).
@@ -770,6 +776,8 @@ unless `--lever` cites a new row of this table.
 
 ### 3.8 Git, docs and scripting hygiene
 
+* **Git Bash turns a `'// 0x...'` argument into a path** (2026-10-28, PX2): prefix the command with
+  `MSYS_NO_PATHCONV=1`. `sed -i` on a CRLF file silently misses a pattern ending at the line end (the `\r`).
 * **`wt.py remove` deletes the worktree's `.work/` scratch** (2026-10-28, MV2): keep scripts you want in the main
   tree's `.work/`. Export `ENB_VC6_HOSTS` in the same Bash call as every `build.py build`, or it compiles on
   whichever VM vc6_hosts.json names (possibly another builder's lease).
