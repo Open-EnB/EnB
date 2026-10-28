@@ -5175,25 +5175,25 @@ void SClient::Unknown_74FEC0()
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// NOT EXACT: frame (explain.py: 145 instructions, the client 146; its frame 4 bytes larger): the client keeps the chat panel in a named local ([esp+0x18]) and tests it before taking the queues; as a local (ChatPanel.Peek()) VC6 inlines pop_front / erase (169 instructions); three forms
+// 0x750800 (the chat panel's 0x563280, its message button): yes to the oldest type 1 offer, then the button goes
+void SClient::Unknown_750800()
+{
+	std::deque<int> &confirmedlist = Unknown11AC[1]; std::deque<int> &timedlist = Unknown120C[1];	// NAME 3 [confirmedlist]: the G_ASSERT's  // NAME 1 [timedlist]: 0x74EB00's queue
+	if (ChatPanel && ChatPanel->Is_Message_Button_Showing()) {
+		G_ASSERT(!confirmedlist.empty());
+		if (!confirmedlist.empty()) {
+			int id = confirmedlist.front();
+			confirmedlist.pop_front();
+			std::deque<int>::iterator it = std::find(timedlist.begin(), timedlist.end(), id);
+			if (it != timedlist.end()) {
+				timedlist.erase(it);
+			}
+			Send_Packet(&ConfirmedActionResponsePacketClass(AvatarID, id, true));
+		}
+		ChatPanel->Unknown_56BAA0(0, NULL);
+	}
+}
 
 
 
@@ -5354,32 +5354,32 @@ bool SClient::Unknown_750B60()
 
 
 
+// 0x751460 (cpacket.cpp: the referral points 233): the points left to spend (+0x14F4) and what they earn, asked in
+// the current view's dialog (0x751660 sends the answer)
+void SClient::Unknown_751460(int points_total, int points_spent)
+{
 
 
+	FAIL_IF(!CurrentView) return;
+	ViewClass *ui_view = CurrentView->Unknown_1C();
 
+	FAIL_IF(!ui_view) return;
+	ViewUnknown34Class *dialog = ui_view->Get_Unknown34();
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	FAIL_IF(!dialog) return;
+	Unknown14F4 = points_total - points_spent;
+	Unknown49F200Class *table = Unknown_49F200(); std::vector<BuddyRewardStruct> rewards = table->Unknown_49F300(points_spent, Unknown14F4);	// NAME 1 [table]: neutral
+	int skill_points = 0;
+	int credits = 0;
+	for (std::vector<BuddyRewardStruct>::iterator it = rewards.begin(); it != rewards.end(); it++) {
+		skill_points += (*it).SkillPoints;
+		credits += (*it).Credits;
+	}
+	char text[1024];
+	_snprintf(text, sizeof(text), "You have %d Bonus %s to spend!\nSpending %s now will earn you:\n\n+%d Skill Points & +%d Credits\n\nDo you wish to spend %s now?",
+		Unknown14F4, (Unknown14F4 > 1) ? "Points" : "Point", (Unknown14F4 > 1) ? "them" : "it", skill_points, credits, (Unknown14F4 > 1) ? "them" : "it");
+	dialog->Unknown_588A70("SPEND_BUDDY_POINTS", 0, text, 0x140, 0, 0);
+}
 
 
 

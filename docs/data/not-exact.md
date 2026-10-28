@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-338 entries in 71 files.
+339 entries in 71 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -140,6 +140,7 @@ edit the comments in the code, not this file.
 | `app/client/sclient.cpp:4307` | `SClient::Unknown_74C8D0` | marker | NOT EXACT: inline budget (explain.py frame, 31 masked rows): the client calls hash_map::find out of line (0x756820, the key in the argument slot) where ours inlines it, as itself or through 0x74C840; two forms 0x74C8D0 (0x74C840 for the named object's GameID) |
 | `app/client/sclient.cpp:4800` | `SClient::Unknown_74EDB0` | marker | NOT EXACT: shape (explain.py: 503 instructions, the client 508; 131 masked rows, 25 with registers masked): the client saves ebp with ebx in the prologue and takes each c_str() before the player id; two forms (the flag declared first gains 5 rows) 0x74EDB0 (Do_Frame, after 0x7429B0): the guild confirmations' answers to the server |
 | `app/client/sclient.cpp:4973` | `SClient::Unknown_74F5C0` | marker | NOT EXACT: shape (explain.py: 272 instructions, the client 270, 10 masked rows): the client loads AvatarID before testing button == 1 and keeps this in esi; three forms (one 0x750210 per branch and the named queues gained the rest) 0x74F5C0 (Do_Frame, after 0x751660): the answer to the confirmed-action dialog (0x74E710's type 0) goes to the server and the offer leaves both queues |
+| `app/client/sclient.cpp:5178` | `SClient::Unknown_750800` | marker | NOT EXACT: frame (explain.py: 145 instructions, the client 146; its frame 4 bytes larger): the client keeps the chat panel in a named local ([esp+0x18]) and tests it before taking the queues; as a local (ChatPanel.Peek()) VC6 inlines pop_front / erase (169 instructions); three forms 0x750800 (the chat panel's 0x563280, its message button): yes to the oldest type 1 offer, then the button goes |
 | `app/client/sclient.cpp:5522` | `SClient::Unknown_34` | marker | NOT EXACT: shape (explain.py: 606 instructions, the client 640, 127 masked rows; 69 calls, the client 70): VC6 merges the two beacon sends' tails here, the client keeps both; the logoff packet a named local, '/fps' enable first and the dialog read once moved nothing; two rounds 0x74ABC0 (slot +0x34: the chat line's '/' commands; true when the line was a command) |
 | `app/client/tasks/tsk_login.cpp:219` | `LoginTaskClass::Pre_Run` | marker | NOT EXACT: shape (the event's bit 12 test and the dispatchers' argument order; attempts.py show 0x767DA0) 0x767DA0 |
 | `app/client/tasks/tsk_login.cpp:271` | `LoginTaskClass::Run` | marker | NOT EXACT: register-only (the final Process_Packets call loads the vtable in edx, the client eax; attempts.py show 0x767F50) |

@@ -367,6 +367,11 @@ shows, and hides the button (0x56BAA0(0, NULL)) with the last one.
 Print 0x74DF70 (cdecl) formats into 512 bytes and hands the line to 0x74D990; CHANGE_BASE_ASSET's 0x74D950 sets
 +0x18C of the starbase view's +0x174 object when the current view is the starbase view (+0x135C).
 
+0x750800 (the chat panel's message button, 0x563280) says yes to the oldest type 1 offer (CONFIRMED_ACTION_RESPONSE)
+and hides the button; 0x751460 (the referral points 233) keeps total - spent in +0x14F4, sums the rewards 0x49F200's
+0x49F300 lists for them (12-byte entries: skill points at +4, credits at +8) and asks SPEND_BUDDY_POINTS in the
+current view's dialog (0x751660 sends the answer). Neither touches the object model.
+
 ## 3. The object-affecting opcodes
 
 Handler = slot +0x08 (all in cpacket.cpp unless noted). "Object" = `Find_Object(GameID)` unless said.

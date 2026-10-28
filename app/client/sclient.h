@@ -41,6 +41,21 @@ class FileClass;
 class RefCountClass;
 class LayerClass;
 class PDAInterfaceUnknownA0Class;	// NAME 1: neutral (D10): what the PDA's +0xA8 object's 0x7C8DB0 returns (its +0xA0)
+// what 0x49F200 returns (the referral rewards), as far as SClient 0x751460 calls it: 0x49F300 gives one entry per
+// point to spend, 12 bytes each
+struct BuddyRewardStruct	// NAME 2: what 0x751460 sums from it
+{
+	int Unknown00;										// +0x00
+	int SkillPoints;									// +0x04 (0x751460's '+%d Skill Points')  // NAME 2: the text it fills
+	int Credits;										// +0x08 (0x751460's '+%d Credits')  // NAME 2: the text it fills
+};
+class Unknown49F200Class	// NAME 1: neutral (D10)
+{
+public:
+	std::vector<BuddyRewardStruct> Unknown_49F300(int points_spent, int points);	// 0x49F300 (SClient 0x751460)  // NAME 1 [points_spent, points]: what 0x751460 passes
+};
+Unknown49F200Class *Unknown_49F200();					// 0x49F200 (no this: the rewards' instance)
+
 class MainViewClass;
 class CameraClass;
 class SceneClass;
@@ -775,6 +790,7 @@ public:
 	void Unknown_74E710(const std::string &message, int id, int type);	// 0x74E710 (cpacket.cpp: CONFIRMED_ACTION_OFFER 190)  // NAME 1 [message, id, type]: the packet's fields
 	void Unknown_74EB00(int type, int id);				// 0x74EB00 (cpacket.cpp: the confirmed action's timeout 191)  // NAME 1 [type, id]: the packet's fields
 	void Unknown_751460(int points_total, int points_spent);	// 0x751460 (cpacket.cpp: the referral points 233)  // NAME 1 [points_total, points_spent]: the packet's fields
+	void Unknown_750800();								// 0x750800 (the chat panel's 0x563280, its message button): yes to the oldest type 1 offer
 	void Unknown_7517E0(int a, int b, int c, int d);		// 0x7517E0 (cpacket.cpp: GUILD_PLAYER_PERMISSIONS 210 passes its four fields)  // NAME 1 [a, b, c, d]: neutral
 	void Unknown_751850(std::vector<GuildRankNameStruct> &ranks);	// 0x751850 (cpacket.cpp: GUILD_RANK_NAMES_SECTOR 211)  // NAME 1 [ranks]: the packet's field
 	void Unknown_745160();								// 0x745160: the cockpit's 0x584A60 after clearing Unknown1198

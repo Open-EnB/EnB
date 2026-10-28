@@ -60,7 +60,8 @@ void SClient::Unknown_74D990(int color, char *text, int a)
 	}
 	Trace("stub SClient::Unknown_74D990 0x%X '%s' %d", color, t.c_str(), a);
 }
-void SClient::Unknown_751460(int points_total, int points_spent) { Trace("stub SClient::Unknown_751460 %d %d", points_total, points_spent); }
+// gen_stubs cannot return a class by value (P-T18-2): the referral rewards SClient 0x751460 sums
+std::vector<BuddyRewardStruct> Unknown49F200Class::Unknown_49F300(int points_spent, int points) { Trace("stub Unknown49F200Class::Unknown_49F300 %d %d", points_spent, points); return(std::vector<BuddyRewardStruct>()); }
 void SClient::Unknown_7517E0(int a, int b, int c, int d) { Trace("stub SClient::Unknown_7517E0 %d %d %d %d", a, b, c, d); }
 void SClient::Unknown_751850(std::vector<GuildRankNameStruct> &ranks) { Trace("stub SClient::Unknown_751850 %d ranks", (int)ranks.size()); }
 
