@@ -34,6 +34,7 @@ class ClientObjectClass;
 class RenderObjClass;
 class CameraClass;
 class AudibleSoundClass;
+class INIClass;
 class UnknownB00060EffectClass;
 class UnknownB0009CEffectClass;
 
@@ -196,6 +197,7 @@ public:
 	virtual Vector3 Unknown_08(const Vector3 &position);	// +0x08 0x6E9360  // NAME 1 [position]: the base's
 };
 
-void Unknown_6E6A90(EffectObjectClass *effect);		// 0x6E6A90: the effect ended if it runs, and deleted (SClient's Shutdown and Process_AI)
+void Unknown_6E6A90(EffectObjectClass *effect);
+INIClass *Unknown_6EA550();						// 0x6EA550: effect.ini, loaded on first use (sclient.cpp 0x74CA90; the factory inlines it)		// 0x6E6A90: the effect ended if it runs, and deleted (SClient's Shutdown and Process_AI)
 
 #endif // EFF_O_H

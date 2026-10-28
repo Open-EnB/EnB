@@ -14,6 +14,7 @@
 #include "rendobj.h"
 #include "camera.h"
 #include "random.h"
+#include "ini.h"
 #include "colmath.h"
 #include "lineseg.h"
 #include "sphere.h"
@@ -109,7 +110,6 @@ EffectObjectClass::~EffectObjectClass()
 		Unknown_6E6A90(NextLink);
 	}
 }
-
 
 
 
@@ -885,6 +885,16 @@ UnknownB000F0EffectClass::UnknownB000F0EffectClass(ClientClass *client, unsigned
 Vector3 UnknownB000F0EffectClass::Unknown_08(const Vector3 &)
 {
 	return(Transform.Get_Translation());
+}
+
+// 0x6EA550
+INIClass *Unknown_6EA550()
+{
+	static INIClass ini;
+	if (!ini.Is_Loaded()) {
+		ini.Load("effect.ini");
+	}
+	return(&ini);
 }
 
 /*
