@@ -1473,11 +1473,16 @@ client's own code: [kernel-map.md](kernel-map.md) §6 and, for step 9's dependen
    +32, MainViewClass typed +0x48..+0x1E8, Add_Object / Remove_Object, the render path; NOT EXACT ctor 0x50B360 order,
    0x50D060 register, the three Render_*_Mode; left ~55: Update 0x50F1B0, targeting 0x512400, picking +0x60 0x512BB0,
    overlays 0x50D520, profile text 0x510440, sea 0x510D40; Init 0x50BA60 is exact-but-registers in
-   `docs/attempts/50BA60` and needs a hand stand-in for MainViewUnknown84Class's ctor in client_stubs.cpp (P-MV1-1,
-   with P-LD3-1's StarField / OrbitalManager); 0x5146D0 needs E&B's WW3D::Set_Gamma 0x919090 declared in ww3d.h as an
-   importer patch (P-MV1-2); Shutdown 0x50C2F0 / slot +0x08 need UIGroupClass moved from cpacket.cpp to a header;
-   the Doppler flag 0xC404F8 lives in mainview.cpp until its file is known (P-MV1-3); clienttest-driven
-   0x512A00, 0x513540, 0x513600, 0x513CD0, 0x513D20, 0x514010 wait for clienttest's main view stand-ins); Load_Assets 0x4691D0 (the pragma keeps the patch ctor / Init
+   `docs/attempts/50BA60`; HN2 (5756e57, 3485e3c, b5f4b4c, 5e05b58, 8a15feb, 91c6ad9, 33d0524: app +4, ww3d2 +1):
+   stars 0x513700, 0x513540, 0x513600, Shutdown 0x50C2F0, WW3D::Set_Gamma 0x919090 (WW3D_API_PATCHES) exact,
+   0x513CD0 / 0x513D20 ambiguous twins; NOT EXACT Init 0x50BA60 / slot +0x08 0x50C690 register, 0x5146D0 shape (the
+   client keeps * 0.01 and * scale apart; same at 0x5C25C0), 0x514010 shape; UIGroupClass in ui_group.h; the
+   interface objects share a 0x38-byte UIUnknownBaseClass plus a RefCountClass at +0x38; clienttest's fake main view
+   carries StarField, OrbitalManager and traced fakes. Left: 0x512A00 (draft `.work/hn2/p6_512a00.py`; needs
+   sclient.cpp's local PDAInterfaceClass in a header and slot +0x64 retyped: P-HN2-1, MainViewUnknown64Class is the
+   +0x10C SceneClass, re-verify sclient 0x7456B0); P-HN2-2: symbols.json's 0x57D830 is `UICpitClass::UICpitClass`,
+   not "Init_2D_Scene" (symbols.py); the Doppler flag 0xC404F8 lives in mainview.cpp until its file is known
+   (P-MV1-3)); Load_Assets 0x4691D0 (the pragma keeps the patch ctor / Init
    out of line, frame left), Update_Patches 0x46B3C0 (frame, PatchSize's unsigned conversion), Get_Triangles
    0x465D30 (Fable-eligible); the
    parked rows (Compute_Lighting order-only, Update_Patches / Compute_Horizons shape, the scanners' frame,

@@ -437,6 +437,11 @@ unless `--lever` cites a new row of this table.
   `std::find(begin, end, x)` (arguments right to left), with the not-found return first; whether VC6 inlines
   Is_Valid / Fabs depends on the wrapping comparison: a static `Is_Close(const Vector3 &, const Vector3 &)` made
   0x456900 exact.
+* **A VC6 friend like `Create_Peek(T *)` binds to whichever RefCountPtr<X> is already instantiated** (2026-10-28, HN2):
+  a cast argument can pick the wrong one (C2440 in ref_ptr.h:249). Before adding a class to sclient.h, grep the app
+  .cpp files for a local definition (sclient.cpp defines PDAInterfaceClass itself). To keep a file's line count,
+  declare a destructor on its constructor's line. tryv2 variants that add or remove a line show false losses
+  (0x514270 / 0x514390): keep variants line-neutral.
 * **Asserts sit on the client's lines (D25).** To add code above a logged line, remove as many
   blank lines from the same function's stretch (cordmgr.cpp; `.work/milestones/a3/relines.py`);
   pad inside a function, not only before it (Get(char **); pk.cpp's helpers take single blanks).
@@ -728,6 +733,8 @@ unless `--lever` cites a new row of this table.
   asset manager, 7089f1d). co.cpp's loader 0x6F51D0 reads basset.ini, Set_Model's radius 0x6F39F0 and the mount
   points 0x7251C0 read cbasset.ini, both from the working directory (clienttest's copies in its data folder).
   ~ClientObjectClass deletes AuxData through slot +0x04: a fake root's table needs a `__stdcall(unsigned)` there.
+* **clienttest's fake views need every pointer the real body dereferences** (2026-10-28, HN2): set a fake only for
+  the section that needs it, so other handlers' FAIL_IF paths stay covered (the radar stays NULL for WARP_INDEX 156).
 * **Rebuilding a callee clienttest drives: run clienttest before landing** (2026-10-28, LD3): a real body on its fake
   objects stops the run (0x513700 on the fake main view, no StarField; expected.txt line 2289). `build.py build`
   skips an untracked new app file: commit in the worktree before building for clienttest.
