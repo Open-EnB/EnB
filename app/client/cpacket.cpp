@@ -139,16 +139,16 @@ bool StartPacketClass::Process_Packet(void *instance)
 	return(true);
 }
 
-
-
-
-
-
-
-
-
-
-
+#include "..\packets\pkstarbase_avatar_change.h"
+// ui_starbase.cpp's starbase interface (the starbase view's +0x60), declared as far as the starbase avatar packets call it
+class UIStarbaseClass : public UIUnknownBaseClass, public RefCountClass	// NAME 3: class-from-file (D24) for app\client\ui_starbase.cpp
+{
+public:
+	void Unknown_63CF30(int avatar_id, int new_room);	// 0x63CF30 (STARBASE_AVATAR_ROOM_UPDATE 160)  // NAME 1 [avatar_id, new_room]: the packet's fields
+	void Unknown_63E5C0(int avatar_id, float orient, Vector3 *position, int action);	// 0x63E5C0 (STARBASE_AVATAR_UPDATE 158)  // NAME 1 [avatar_id, orient, position, action]: the packet's fields
+	char Unknown40[0x7C - 0x40]; bool Unknown7C; char Unknown7D[0xAC - 0x7D];	// +0x40; +0x7C both handlers test it
+	int Room;	// +0xAC (158 moves an avatar only in this room)  // NAME 2: what the handler compares with the packet's Room
+};
 
 
 
@@ -256,8 +256,8 @@ class SBaseViewClass : public ViewClass	// NAME 3: class-from-file (D24) for app
 public:
 	void Unknown_6A0FD0(LoungeNPCPacketClass *packet);	// 0x6A0FD0 (LOUNGE_NPC 82)  // NAME 1 [packet]: the handler's packet
 	RefCountPtr<UIJobsClass> Get_Jobs() { return(Jobs); }	// 0x73A300 (out of line after JOB_LIST 147, the first caller)  // NAME 2: what it returns
-
-	char Unknown38[0x194 - 0x38];	// +0x38
+	RefCountPtr<UIStarbaseClass> Get_Starbase() { return(Starbase); }	// 0x54EDA0 (out of line in another object)  // NAME 2: what it returns
+	char Unknown38[0x60 - 0x38]; RefCountPtr<UIStarbaseClass> Starbase; char Unknown64[0x194 - 0x64];	// +0x38; +0x60 ui_starbase.cpp's interface  // NAME 2 [Starbase]: what it holds
 	RefCountPtr<UIJobsClass> Jobs;	// +0x194  // NAME 2: what it holds
 };
 
@@ -2311,33 +2311,33 @@ bool NotifyEmotePacketClass::Process_Packet(void *instance)
 	emote->Unknown_7E6650(Emote);
 	return(true);
 }
+// NOT EXACT: register-only (this in edi, the interface in esi: the client has them the other way round; attempts.py show 0x73A9F0)
+// 0x73A9F0
+bool StarbaseAvatarUpdatePacketClass::Process_Packet(void *instance)
+{
+	WWPROFILE("StarbaseAvatarUpdatePacketClass::Process_Packet ()");
+	SClient *sclient = (SClient *)instance;
+	if (!sclient->Unknown135C) return(true);
+	UIStarbaseClass *starbase = ((SBaseViewClass *)sclient->Unknown135C)->Get_Starbase().Peek();
+	if (!starbase || starbase->Room != Room || !starbase->Unknown7C) return(true);
+	starbase->Unknown_63E5C0(AvatarID, Orient, &Vector3(Unknown14, Unknown18, Unknown1C), ActionFlag);
+	return(true);
+}
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// 0x73AB50
+bool StarbaseAvatarRoomUpdatePacketClass::Process_Packet(void *instance)
+{
+	WWPROFILE("StarbaseAvatarRoomUpdatePacketClass::Process_Packet ()");
+	SClient *sclient = (SClient *)instance;
+	if (!sclient->Unknown135C) return(true);
+	UIStarbaseClass *starbase = ((SBaseViewClass *)sclient->Unknown135C)->Get_Starbase().Peek();
+	if (!starbase || !starbase->Unknown7C) return(true);
+	starbase->Unknown_63CF30(AvatarID, NewRoom);
+	return(true);
+}
 
 
 

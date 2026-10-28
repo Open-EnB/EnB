@@ -382,14 +382,16 @@ Handler = slot +0x08 (all in cpacket.cpp unless noted). "Object" = `Find_Object(
 | 140 | LOOT_HULK_PERMISSION | 0x7396F0 | the hulk's loot flag | exact (8a65b8f) |
 | 144 | IncapacitanceDetailsPacket | 0x739BB0 | the camera's mode 0x19 (0x79B2B0); the cockpit (main view +0x1D0) 0x584690 gets the packet (no object) | exact (CP1) |
 | 146 | CAMERA_CONTROL | 0x739FF0 | camera mode; the SClient's watched ids +0x13AC..+0x13BC; the ship's 0x6FC950 / 0x6FC880 when docking | exact |
+| 158 | STARBASE_AVATAR_CHANGE / StarbaseAvatarUpdatePacketClass | 0x73A9F0 | a starbase avatar's move: the starbase view's (+0x135C) interface (+0x60, 0x54EDA0) 0x63E5C0(AvatarID, Orient, position, ActionFlag) when its room (+0xAC) is the packet's Room | NOT EXACT register-only [partial] |
+| 160 | STARBASE_ROOM_CHANGE / StarbaseAvatarRoomUpdatePacketClass | 0x73AB50 | the same interface's 0x63CF30(AvatarID, NewRoom) | exact (CP1) |
 | 165 | CLIENT_CHAT_EVENT | 0x73B150 | the chat panel / group (no object) | NOT EXACT inline-budget [partial] |
 | 178 | NAME_DECAL | 0x735FC0 | `DecalName` (+0xD8) and shiputils 0x80FF20 on the model | exact |
 | 180 | SUBPARTS | 0x733A50 | `object->0x6FEF70(packet)` (co.cpp, not rebuilt) | exact |
 
-Of the 107 opcodes handled in cpacket.cpp (2026-10-28, CP1): 82 exact, 7 NOT EXACT (8, 62 and 52
-shape, 100 frame, 165 inline-budget, 5 register-only, STARBASE_SET 79 shape; [partial] / [parked] are their
-`attempts.csv` rows), 18 not rebuilt (the counts before CP1's recount were 62 / 15 / 30; the object-free ones not
-listed above, as they were then, VerbList 91 since rebuilt: TRADE 31 0x739DE0, VerbList 91 0x7387F0, MessageChatstream 95
+Of the 107 opcodes handled in cpacket.cpp (2026-10-28, CP1): 83 exact, 8 NOT EXACT (8, 62 and 52
+shape, 100 frame, 165 inline-budget, 5 and 158 register-only, STARBASE_SET 79 shape; [partial] / [parked] are their
+`attempts.csv` rows), 16 not rebuilt (the counts before CP1's recount were 62 / 15 / 30; the object-free ones not
+listed above, as they were then, VerbList 91 and STARBASE_AVATAR / ROOM_CHANGE 158 / 160 since rebuilt: TRADE 31 0x739DE0, VerbList 91 0x7387F0, MessageChatstream 95
 0x736F10, FIND_MEMBER 83, STARBASE_AVATAR / ROOM_CHANGE 158 / 160, CLIENT_CHAT_LIST / ERROR 164 / 166,
 NoteContent 184, CTA_RESPONSE 189, the guild 200 / 204 / 208 / 216, the GM 234 / 235, the recustomize
 129 / 131 / 133). Note that most rebuilt handlers call into code that is not rebuilt (postate.cpp,
@@ -423,6 +425,12 @@ eff_o.cpp, shiputils.cpp, co.cpp's members): exact handlers do not yet make a wo
 * VERB_LIST 91 (pkverblist.cpp: GameID +0x0C, a `std::set<VerbEnum>` Verbs +0x10): with a verb manager (+0x1294,
   made by Init) the object's verb set goes to verbmanager.cpp's 0x81F780(GameID, &Verbs) (not rebuilt); no object
   member changes in cpacket.cpp itself. clienttest (4e): without a manager, then with a stand-in.
+* STARBASE_AVATAR_CHANGE 158 (AvatarID +0x0C, Orient +0x10, three floats +0x14..+0x1C, ActionFlag +0x20, Room +0x24)
+  and STARBASE_ROOM_CHANGE 160 (AvatarID, NewRoom, OldRoom): with a starbase view (+0x135C) its +0x60 interface
+  (ui_starbase.cpp, handed out by 0x54EDA0 as a RefCountPtr, released at once) is asked; with its +0x7C set, 160
+  passes AvatarID and NewRoom to 0x63CF30, 158 (only for the room the interface shows, +0xAC) AvatarID, Orient, the
+  three floats as a Vector3 and ActionFlag to 0x63E5C0: starbase avatars are the interface's, not ClientObjectClass
+  objects. clienttest (4f).
 * INCAPACITANCE_DETAILS 144 (pkincapacitancerequest.cpp: Unknown0C, an AvatarDescClass at +0x1C, seven strings):
   FAIL_IFs '!client' / '!sclient' (lines 2048 / 2051, as 145's); the camera manager (+0x12A8) goes to mode 0x19
   (one of CAMERA_CONTROL 146's modes too) and the cockpit (main view +0x1D0) takes the whole packet with

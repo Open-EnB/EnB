@@ -27,7 +27,8 @@
 //     offset +0x10C0, the lag average cleared, the round trip time 0xBE71D4); (4c): synthetic GADGET 103
 //     (the gadget list +0x1278, the gadget's and its interface's slots) and INCAPACITANCE_DETAILS 144; (4d):
 //     synthetic FORMATION_POSITIONAL_UPDATE 65 (the follower's and the avatar's formation states, then an update);
-//     (4e): synthetic VERB_LIST 91 to the verb manager (+0x1294).
+//     (4e): synthetic VERB_LIST 91 to the verb manager (+0x1294); (4f): synthetic STARBASE_AVATAR_UPDATE 158 and
+//     STARBASE_AVATAR_ROOM_UPDATE 160 to the starbase view's (+0x135C) interface.
 //
 // Never: a modal dialog (asserts and FAIL_IF go to the trace), the registry (SOptionsClass's
 // constructor is a stand-in), the network (the memory connection), the game's install folder.
@@ -51,6 +52,7 @@
 #include "..\..\..\app\packets\pkgadget.h"
 #include "..\..\..\app\packets\pkincapacitancerequest.h"
 #include "..\..\..\app\packets\pkverblist.h"
+#include "..\..\..\app\packets\pkstarbase_avatar_change.h"
 #include "..\..\..\app\client\aux_roots.h"
 #include "..\..\..\app\client\co_subtypes.h"
 #include "..\..\..\app\client\postate.h"
@@ -1223,6 +1225,93 @@ static void Test_Verbs(SClient *client)
 	Memory->Received = 0;
 }
 
+// (4f) STARBASE_AVATAR_UPDATE 158 (0x73A9F0) and STARBASE_AVATAR_ROOM_UPDATE 160 (0x73AB50) from synthetic packets: the
+// starbase view (+0x135C) hands out its +0x60 interface (0x54EDA0, a RefCountPtr: the count at +0x3C goes up and back
+// down); 158 moves an avatar (0x63E5C0: AvatarID, Orient, the position, ActionFlag) only when the interface's room
+// (+0xAC) is the packet's Room and its +0x7C is set; 160 tells it an avatar's new room (0x63CF30) when +0x7C is set.
+class UIStarbaseClass
+{
+public:
+	void Unknown_63CF30(int avatar_id, int new_room);
+	void Unknown_63E5C0(int avatar_id, float orient, Vector3 *position, int action);
+};
+static std::string Starbase_Log;
+void UIStarbaseClass::Unknown_63CF30(int avatar_id, int new_room)
+{
+	char b[64];
+	sprintf(b, "63CF30(%d, %d) ", avatar_id, new_room);
+	Starbase_Log += b;
+}
+void UIStarbaseClass::Unknown_63E5C0(int avatar_id, float orient, Vector3 *position, int action)
+{
+	char b[96];
+	sprintf(b, "63E5C0(%d, %g, (%g %g %g), %d) ", avatar_id, orient, position->X, position->Y, position->Z, action);
+	Starbase_Log += b;
+}
+static std::vector<unsigned char> Starbase_Avatar_Message(int avatar, float orient, float x, float y, float z, int action, int room)
+{
+	std::vector<unsigned char> p(4 * 7, 0);	// AvatarID, Orient, the three floats, ActionFlag, Room (pkstarbase_avatar_change.cpp)
+	memcpy(&p[0], &avatar, 4);
+	memcpy(&p[4], &orient, 4);
+	memcpy(&p[8], &x, 4);
+	memcpy(&p[12], &y, 4);
+	memcpy(&p[16], &z, 4);
+	memcpy(&p[20], &action, 4);
+	memcpy(&p[24], &room, 4);
+	return(Message_Bytes(158, p));
+}
+static std::vector<unsigned char> Starbase_Room_Message(int avatar, int new_room, int old_room)
+{
+	std::vector<unsigned char> p(12, 0);	// AvatarID, NewRoom, OldRoom
+	memcpy(&p[0], &avatar, 4);
+	memcpy(&p[4], &new_room, 4);
+	memcpy(&p[8], &old_room, 4);
+	return(Message_Bytes(160, p));
+}
+
+static void Test_Starbase(SClient *client)
+{
+	Trace("== (4f) STARBASE_AVATAR_UPDATE 158 and STARBASE_AVATAR_ROOM_UPDATE 160");
+	if (Memory == 0) {
+		Check(false, "the memory connection");
+		return;
+	}
+	ViewClass *saved = client->Unknown135C;
+	static double fake_view[0x200 / 8];
+	static double fake_starbase[0x100 / 8];
+	char *view = (char *)fake_view;
+	char *starbase = (char *)fake_starbase;
+	*(int *)(starbase + 0x3C) = 5;		// the reference count (+0x38's RefCountClass): never reaches 0 here
+	*(int *)(starbase + 0xAC) = 3;		// its room
+	*(bool *)(starbase + 0x7C) = true;
+	*(char **)(view + 0x60) = starbase;
+	client->Unknown135C = 0;
+	Starbase_Log = "";
+	Memory->Incoming.push_back(Starbase_Avatar_Message(77, 1.5f, 10.0f, 20.0f, 30.0f, 2, 3));
+	client->Process_Packets();
+	Check(Starbase_Log == "", "STARBASE_AVATAR_UPDATE 158 without a starbase view: nothing called");
+	client->Unknown135C = (ViewClass *)view;
+	Memory->Incoming.push_back(Starbase_Avatar_Message(77, 1.5f, 10.0f, 20.0f, 30.0f, 2, 3));
+	Memory->Incoming.push_back(Starbase_Avatar_Message(78, 0.5f, 1.0f, 2.0f, 3.0f, 1, 4));
+	client->Process_Packets();
+	client->Process_Packets();
+	Trace("starbase calls: %s", Starbase_Log.c_str());
+	Check(Starbase_Log == "63E5C0(77, 1.5, (10 20 30), 2) " && *(int *)(starbase + 0x3C) == 5,
+		"STARBASE_AVATAR_UPDATE 158: avatar 77 in room 3 moved (0x63E5C0 with Orient, the position and ActionFlag); room 4's ignored; the interface's count back to 5");
+	Starbase_Log = "";
+	Memory->Incoming.push_back(Starbase_Room_Message(77, 4, 3));
+	client->Process_Packets();
+	*(bool *)(starbase + 0x7C) = false;
+	Memory->Incoming.push_back(Starbase_Room_Message(78, 5, 4));
+	Memory->Incoming.push_back(Starbase_Avatar_Message(79, 0.0f, 0.0f, 0.0f, 0.0f, 0, 3));
+	client->Process_Packets();
+	client->Process_Packets();
+	Trace("starbase calls: %s", Starbase_Log.c_str());
+	Check(Starbase_Log == "63CF30(77, 4) ", "STARBASE_AVATAR_ROOM_UPDATE 160: avatar 77's new room 4 (0x63CF30); with +0x7C clear neither handler calls");
+	client->Unknown135C = saved;
+	Memory->Received = 0;
+}
+
 // ------------------------------------------------------------------------- main
 
 int main(int argc, char **argv)
@@ -1319,6 +1408,7 @@ int main(int argc, char **argv)
 	Test_Gadget(client, &main_view);	// (4c) and (4d) after (3): their models would renumber (3)'s
 	Test_Formation(client);
 	Test_Verbs(client);
+	Test_Starbase(client);
 	// the client isn't deleted: its destructor reaches control_keys_manager.cpp and WWAudio
 	Trace("== done: %d checks failed", Failures);
 	fclose(Out);

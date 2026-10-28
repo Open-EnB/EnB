@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-331 entries in 71 files.
+332 entries in 71 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -64,6 +64,7 @@ edit the comments in the code, not this file.
 | `app/client/cpacket.cpp:1341` | `SetClientTimePacketClass::Process_Packet` | marker | NOT EXACT: shape (the __int64 sums and differences in other registers and order; frame and size as the client's; attempts.py show 0x737960) 0x737960 (placed after SPLINE 0x737C10 so that no assert line moves) |
 | `app/client/cpacket.cpp:1513` | `StarbaseSetPacketClass::Process_Packet` | marker | NOT EXACT: shape (the client keeps four calls of 0x74BA30, ours merges them; attempts.py show 0x7381C0) 0x7381C0 |
 | `app/client/cpacket.cpp:1707` | `DamagePacketClass::Process_Packet` | marker | NOT EXACT: frame (the same 487 instructions; the client gives the locals other stack slots: time, inflicted, mainview, avatar_id, type ascending; 24 forms; attempts.py show 0x738970) 0x738970 |
+| `app/client/cpacket.cpp:2314` | `StarbaseAvatarUpdatePacketClass::Process_Packet` | marker | NOT EXACT: register-only (this in edi, the interface in esi: the client has them the other way round; attempts.py show 0x73A9F0) 0x73A9F0 |
 | `app/client/cpacket.cpp:2488` | `ClientChatEventPacketClass::Process_Packet` | marker | NOT EXACT: inline-budget (1,638 instructions vs the client's 1,615: the client calls std::string's range constructor 0x73F680 out of line and inlines other std::string members elsewhere; frame 0x568 vs 0x558; attempts.py show 0x73B150) 0x73B150 |
 | `app/client/eff_o.cpp:723` | `UnknownB0009CEffectClass::Unknown_1C` | marker | NOT EXACT: frame (0x8C bytes of locals, the client's 0x80: one Vector3 temporary more; the target's position plus TargetOffset also loads in the other order; 4 forms) 0x6E8890 |
 | `app/client/extrap.cpp:310` | `Unknown70F4F0Class::Unknown_1C` | marker | NOT EXACT: 0x70F630 frame: the client's frame is 0x20 (its temporaries share slots), ours 0x38; the cached copy's test is laid out the other way |
