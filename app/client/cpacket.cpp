@@ -229,19 +229,19 @@ class Unknown717010Class : public Unknown98StateClass	// NAME 1: neutral (D10)
 public:
 	Unknown717010Class(int time, AdvancedPositionalUpdatePacketClass *packet);	// 0x717010  // NAME 1 [time, packet]: what the handler passes
 	void Unknown_717290(AdvancedPositionalUpdatePacketClass *packet, int time);	// 0x717290  // NAME 1 [packet, time]: what the handler passes
-
+	Unknown717010Class(SClient *client, FormationPositionalUpdatePacketClass *packet);	// 0x7171C0 (FORMATION_POSITIONAL_UPDATE 65)  // NAME 1 [client, packet]: what the handler passes
+	void Unknown_717400(FormationPositionalUpdatePacketClass *packet, SClient *client);	// 0x717400 (FORMATION_POSITIONAL_UPDATE 65)  // NAME 1 [packet, client]: what the handler passes
 	char Unknown04[0x28 - 0x04];
 };
-
 class Unknown715EF0Class : public Unknown98StateClass	// NAME 1: neutral (D10)
 {
 public:
 	Unknown715EF0Class(int time, AdvancedPositionalUpdatePacketClass *packet);	// 0x715EF0  // NAME 1 [time, packet]: what the handler passes
 	void Unknown_716140(int time, AdvancedPositionalUpdatePacketClass *packet);	// 0x716140  // NAME 1 [time, packet]: what the handler passes
-
+	Unknown715EF0Class(SClient *client, FormationPositionalUpdatePacketClass *packet);	// 0x716080 (FORMATION_POSITIONAL_UPDATE 65)  // NAME 1 [client, packet]: what the handler passes
+	void Unknown_716220(SClient *client, FormationPositionalUpdatePacketClass *packet);	// 0x716220 (FORMATION_POSITIONAL_UPDATE 65)  // NAME 1 [client, packet]: what the handler passes
 	char Unknown04[0x1C - 0x04];
 };
-
 // eff_o.cpp's effects as far as the effect packets call them: the factory (cdecl) and two slots past
 // EffectObjectClass's destructor: +0x10 the effect's target end, whose slot +0x28 takes the object's id
 class Unknown6E9490TargetClass	// NAME 1: neutral (D10)
@@ -1072,120 +1072,120 @@ bool NameDecalPacketClass::Process_Packet(void *instance)
 	return(true);
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#include "..\audio\soundlib.h"
+
+// camera_manager.cpp's class (sclient.cpp declares its other members): CAMERA_CONTROL 146's call
+class CameraManagerClass
+{
+public:
+	void Unknown_79B2B0(int mode);	// 0x79B2B0  // NAME 1 [mode]: CAMERA_CONTROL 146 passes 0x0C, 0x0D, 0, 0x0F, 6, 0x0A, 0x17, 0x10 or 0x19
+};
+
+// audio\musicmanager.cpp's class (sclient.cpp declares its other members)
+class MusicManagerClass
+{
+public:
+	void Unknown_43ADF0();	// 0x43ADF0 (CAMERA_CONTROL 146's case 5, after the 'Docking_Init' sound)
+};
+
+// 0x739FF0 (placed here, out of address order, so that no assert line moves; the GameID locals put the id in the dead 'this' register as the client does)
+bool CameraControlPacketClass::Process_Packet(void *instance)
+{
+	WWPROFILE("CameraControlPacketClass::Process_Packet(void * instance)");
+	SClient *sclient = (SClient *)((ClientClass *)instance)->Unknown_18();
+	switch (Message) {
+		case 0:
+			sclient->CameraManager->Unknown_79B2B0(0x0C);
+			{ int id = GameID; sclient->Unknown13AC = id; }
+			break;
+		case 1:
+			sclient->CameraManager->Unknown_79B2B0(0x0D);
+			{ int id = GameID; sclient->Unknown13B0 = id; }
+			break;
+		case 2:
+			sclient->CameraManager->Unknown_79B2B0(0);
+			break;
+		case 3:
+			sclient->CameraManager->Unknown_79B2B0(0x0F);
+			{ int id = GameID; sclient->Unknown13B4 = id; }
+			break;
+		case 4:
+			sclient->CameraManager->Unknown_79B2B0(6);
+			{ int id = GameID; sclient->Unknown13BC = id; }
+			sclient->Get_Ship()->Unknown_6FC950(true);
+			sclient->Get_Ship()->Unknown_6FC880();
+			break;
+		case 5:
+			sclient->CameraManager->Unknown_79B2B0(0x0A);
+			{ int id = GameID; sclient->Unknown13AC = id; }
+			sclient->Get_Ship()->Unknown_6FC950(true);
+			sclient->Get_Ship()->Unknown_6FC880();
+			SoundLibraryClass::Play_2D_Sound("Docking_Init", 2);
+			if (sclient->MusicManager) {
+				sclient->MusicManager->Unknown_43ADF0();
+			}
+			break;
+		case 6:
+			sclient->CameraManager->Unknown_79B2B0(0x17);
+			break;
+		case 7:
+			sclient->Unknown13B4 = 0;
+			sclient->CameraManager->Unknown_79B2B0(0x10);
+			break;
+		case 8:
+			sclient->CameraManager->Unknown_79B2B0(0x19);
+			break;
+	}
+	return(true);
+}
+
+// NOT EXACT: shape (the merged Unknown_24 tail sits in the type-4 branch, the client's in the type-8 one; 7 forms; attempts.py show 0x734740)
+// 0x734740 (placed here, out of address order, so that no assert line moves): ADVANCED 62's state handling without its checks and clock drift
+bool FormationPositionalUpdatePacketClass::Process_Packet(void *instance)
+{
+	SClient *sclient = (SClient *)instance;
+	ClientObjectClass *object = sclient->Find_Object(GameID);
+	if (object) {
+		unsigned id = sclient->DebugObjectID;
+		if (GameID == id) {
+			static int requests;	// 0xBE7D70  // NAME 1: what it counts
+			if (++requests > 32) {
+				sclient->Send_Packet(&RequestTimePacketClass());
+				requests = 0;
+			}
+			if (object->Unknown98 && object->Unknown98->Unknown_04() == 4) {
+				((Unknown717010Class *)object->Unknown98)->Unknown_717400(this, sclient);
+			} else if (object->Unknown98 && ((Unknown98StateClass *)object->Unknown98)->Unknown_2C()) {
+				Unknown98Class *state = ((Unknown98StateClass *)object->Unknown98)->Unknown_28();
+				if (state && state->Unknown_04() == 4) {
+					((Unknown717010Class *)state)->Unknown_717400(this, sclient);
+				} else {
+					delete state;
+					((Unknown98StateClass *)object->Unknown98)->Unknown_24(new Unknown717010Class(sclient, this));
+				}
+			} else {
+				delete object->Unknown98;
+				object->Unknown98 = new Unknown717010Class(sclient, this);
+			}
+		} else {
+			if (object->Unknown98 && object->Unknown98->Unknown_04() == 8) {
+				((Unknown715EF0Class *)object->Unknown98)->Unknown_716220(sclient, this);
+			} else if (object->Unknown98 && ((Unknown98StateClass *)object->Unknown98)->Unknown_2C()) {
+				Unknown98Class *state = ((Unknown98StateClass *)object->Unknown98)->Unknown_28();
+				if (state && state->Unknown_04() == 8) {
+					((Unknown715EF0Class *)state)->Unknown_716220(sclient, this);
+				} else {
+					delete state;
+					((Unknown98StateClass *)object->Unknown98)->Unknown_24(new Unknown715EF0Class(sclient, this));
+				}
+			} else {
+				delete object->Unknown98;
+				object->Unknown98 = new Unknown715EF0Class(sclient, this);
+			}
+		}
+	}
+	return(true);
+}
 
 
 

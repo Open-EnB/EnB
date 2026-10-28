@@ -437,3 +437,7 @@ void Unknown717EF0Class::Unknown_718080(ComponentPositionalUpdatePacketClass *pa
 {
 	Trace("stub Unknown717EF0Class::Unknown_718080 %u stamp %d", packet->GameID, (int)packet->TimeStamp);
 }
+
+// CAMERA_CONTROL 146 (T19): its docking sound; app.lib's soundlib.obj would bring WWAudio's globals in
+#include "..\..\..\app\audio\soundlib.h"
+AudibleSoundClass *SoundLibraryClass::Play_2D_Sound(const char *name, int mode) { Trace("stub SoundLibraryClass::Play_2D_Sound '%s' %d", name, mode); return(0); }

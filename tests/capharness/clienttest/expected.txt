@@ -1468,6 +1468,8 @@ gen MainViewClass::Unknown_513700
 gen SClientUnknown1330Class::SClientUnknown1330Class
 msg 754 MESSAGE_STRING (29) size 58: cpacket.cpp's handler
 stub SClient::Unknown_74D990 0x0 'We have entered Glory's Orbit (Beta Hydri System).' 0
+msg 755 CAMERA_CONTROL (146) size 12: cpacket.cpp's handler
+gen CameraManagerClass::Unknown_79B2B0
 msg 757 AUX_DATA (27) size 81: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 71 bytes
 msg 760 CLIENT_SOUND (106) size 30: cpacket.cpp's handler
@@ -1949,7 +1951,6 @@ recorded CREATE (4) x202
 recorded START (5) x1
 recorded OBJECT_TO_OBJECT_EFFECT (11) x1
 recorded CLIENT_SET_TIME (52) x3
-recorded CAMERA_CONTROL (146) x1
 recorded CLIENT_CHAT_EVENT (165) x4
-recorded 212, through cpacket.cpp's handlers 788
+recorded 211, through cpacket.cpp's handlers 789
 == done: 0 checks failed

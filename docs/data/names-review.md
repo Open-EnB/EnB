@@ -669,10 +669,16 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `time, packet` | `app/client/cpacket.cpp:230` | what the handler passes |
 | 1 | `packet, time` | `app/client/cpacket.cpp:231` | what the handler passes |
 | 1 | `Unknown_717290` | `app/client/cpacket.cpp:231` | untagged neutral name (D10) |
+| 1 | `client, packet` | `app/client/cpacket.cpp:232` | what the handler passes |
+| 1 | `packet, client` | `app/client/cpacket.cpp:233` | what the handler passes |
+| 1 | `Unknown_717400` | `app/client/cpacket.cpp:233` | untagged neutral name (D10) |
 | 1 | `Unknown715EF0Class` | `app/client/cpacket.cpp:236` | neutral (D10) |
 | 1 | `time, packet` | `app/client/cpacket.cpp:239` | what the handler passes |
 | 1 | `time, packet` | `app/client/cpacket.cpp:240` | what the handler passes |
 | 1 | `Unknown_716140` | `app/client/cpacket.cpp:240` | untagged neutral name (D10) |
+| 1 | `client, packet` | `app/client/cpacket.cpp:241` | what the handler passes |
+| 1 | `client, packet` | `app/client/cpacket.cpp:242` | what the handler passes |
+| 1 | `Unknown_716220` | `app/client/cpacket.cpp:242` | untagged neutral name (D10) |
 | 1 | `Unknown6E9490TargetClass` | `app/client/cpacket.cpp:247` | neutral (D10) |
 | 1 | `Unknown_00` | `app/client/cpacket.cpp:250` | untagged neutral name (D10) |
 | 1 | `Unknown_04` | `app/client/cpacket.cpp:251` | untagged neutral name (D10) |
@@ -719,6 +725,16 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_588A70` | `app/client/cpacket.cpp:963` | untagged neutral name (D10) |
 | 1 | `model, name, rgb` | `app/client/cpacket.cpp:1056` | what NAME_DECAL 178 passes |
 | 1 | `Unknown_80FF20` | `app/client/cpacket.cpp:1056` | untagged neutral name (D10) |
+| 1 | `mode` | `app/client/cpacket.cpp:1081` | CAMERA_CONTROL 146 passes 0x0C, 0x0D, 0, 0x0F, 6, 0x0A, 0x17, 0x10 or 0x19 |
+| 1 | `Unknown_79B2B0` | `app/client/cpacket.cpp:1081` | untagged neutral name (D10) |
+| 1 | `Unknown_43ADF0` | `app/client/cpacket.cpp:1088` | untagged neutral name (D10) |
+| 1 | `Unknown13AC` | `app/client/cpacket.cpp:1099` | untagged neutral name (D10) |
+| 1 | `Unknown13B0` | `app/client/cpacket.cpp:1103` | untagged neutral name (D10) |
+| 1 | `Unknown13B4` | `app/client/cpacket.cpp:1110` | untagged neutral name (D10) |
+| 1 | `Unknown13BC` | `app/client/cpacket.cpp:1114` | untagged neutral name (D10) |
+| 1 | `Unknown_6FC950` | `app/client/cpacket.cpp:1115` | untagged neutral name (D10) |
+| 1 | `Unknown_6FC880` | `app/client/cpacket.cpp:1116` | untagged neutral name (D10) |
+| 1 | `requests` | `app/client/cpacket.cpp:1151` | what it counts |
 | 1 | `Unknown831340Class` | `app/client/cpacket.cpp:1232` | untagged neutral name (D10) |
 | 1 | `Unknown831340List` | `app/client/cpacket.cpp:1232` | untagged neutral name (D10) |
 | 1 | `Unknown30` | `app/client/cpacket.cpp:1233` | untagged neutral name (D10) |

@@ -1,0 +1,47 @@
+// NOT EXACT: shape (the merged Unknown_24 tail sits in the type-4 branch, the client's in the type-8 one; 7 forms; attempts.py show 0x734740)
+// 0x734740 (placed here, out of address order, so that no assert line moves): ADVANCED 62's state handling without its checks and clock drift
+bool FormationPositionalUpdatePacketClass::Process_Packet(void *instance)
+{
+	SClient *sclient = (SClient *)instance;
+	ClientObjectClass *object = sclient->Find_Object(GameID);
+	if (object) {
+		unsigned id = sclient->DebugObjectID;
+		if (GameID == id) {
+			static int requests;	// 0xBE7D70  // NAME 1: what it counts
+			if (++requests > 32) {
+				sclient->Send_Packet(&RequestTimePacketClass());
+				requests = 0;
+			}
+			if (object->Unknown98 && object->Unknown98->Unknown_04() == 4) {
+				((Unknown717010Class *)object->Unknown98)->Unknown_717400(this, sclient);
+			} else if (object->Unknown98 && ((Unknown98StateClass *)object->Unknown98)->Unknown_2C()) {
+				Unknown98Class *state = ((Unknown98StateClass *)object->Unknown98)->Unknown_28();
+				if (state && state->Unknown_04() == 4) {
+					((Unknown717010Class *)state)->Unknown_717400(this, sclient);
+				} else {
+					delete state;
+					((Unknown98StateClass *)object->Unknown98)->Unknown_24(new Unknown717010Class(sclient, this));
+				}
+			} else {
+				delete object->Unknown98;
+				object->Unknown98 = new Unknown717010Class(sclient, this);
+			}
+		} else {
+			if (object->Unknown98 && object->Unknown98->Unknown_04() == 8) {
+				((Unknown715EF0Class *)object->Unknown98)->Unknown_716220(sclient, this);
+			} else if (object->Unknown98 && ((Unknown98StateClass *)object->Unknown98)->Unknown_2C()) {
+				Unknown98Class *state = ((Unknown98StateClass *)object->Unknown98)->Unknown_28();
+				if (state && state->Unknown_04() == 8) {
+					((Unknown715EF0Class *)state)->Unknown_716220(sclient, this);
+				} else {
+					delete state;
+					((Unknown98StateClass *)object->Unknown98)->Unknown_24(new Unknown715EF0Class(sclient, this));
+				}
+			} else {
+				delete object->Unknown98;
+				object->Unknown98 = new Unknown715EF0Class(sclient, this);
+			}
+		}
+	}
+	return(true);
+}
