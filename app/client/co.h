@@ -290,7 +290,7 @@ public:
 	float Radius;										// +0x9C 1.0f (slot +0x34 0x6F3BA0 sets it from 0x6F39F0's radius; 0x6FED30's sphere radius without a model)  // NAME 2: what it holds
 	float RadiusAdjust;									// +0xA0 (0x6F39F0: cbasset.ini's RadiusAdjust)  // NAME 3: the INI key
 	float Scale;										// +0xA4 1.0f (co.cpp's FAIL_IF 'Scale <= 0.0f', l.331)
-	int UnknownA8;										// +0xA8 -1 (0x6F39F0's 'BASE-%d' number)
+	int BaseAsset;										// +0xA8 -1 (CREATE 4 and CHANGE_BASE_ASSET 38 store the packet's BaseAsset; 0x6F39F0's 'BASE-%d' number; D121)
 	RenderObjClass *Model;								// +0xAC (cpacket.cpp's render-state handlers: Class_ID, then rs_track.cpp's methods; co.cpp's G_ASSERT 'RenderObject != 0', l.361, names it RenderObject)  // NAME 2: what it holds
 	bool UnknownB0;										// +0xB0 (0x6FCB20 toggles it)
 	char UnknownB1[0xB4 - 0xB1];						// +0xB1

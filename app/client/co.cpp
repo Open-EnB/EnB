@@ -91,7 +91,7 @@ ClientObjectClass::ClientObjectClass(ClientClass *client, int type, unsigned id)
 	Radius(1.0f),
 	RadiusAdjust(0),
 	Scale(1.0f),
-	UnknownA8(-1),
+	BaseAsset(-1),
 	Model(0),
 	UnknownB0(false),
 	UnknownB8(0),
@@ -283,7 +283,7 @@ void ClientObjectClass::Unknown_6F33F0(RenderObjClass *model, int base_asset, fl
 		}
 	}
 	Model = model;
-	UnknownA8 = base_asset;
+	BaseAsset = base_asset;
 	Scale = scale;
 	if (UnknownB4) {
 		UnknownB4->Unknown_20(base_asset, Create_Peek(Model));
@@ -325,7 +325,7 @@ void ClientObjectClass::Unknown_38()
 			ini.Load("cbasset.ini");
 		}
 		char section[64];
-		_snprintf(section, sizeof(section), "BASE-%d", UnknownA8);
+		_snprintf(section, sizeof(section), "BASE-%d", BaseAsset);
 		float radius = ini.Get_Float(section, "Radius");
 		RadiusAdjust = ini.Get_Float(section, "RadiusAdjust");
 		FAIL_IF(Scale <= 0.0f) {
@@ -1962,7 +1962,7 @@ void ClientObjectClass::Unknown_6FDBD0()
 			if (Unknown_6F5A40()) {
 				_snprintf(sound, sizeof(sound), "engine_loop_%d", trail + 1);
 			} else {
-				_snprintf(sound, sizeof(sound), "npc_engine_loop_%d", UnknownA8 % 6);
+				_snprintf(sound, sizeof(sound), "npc_engine_loop_%d", BaseAsset % 6);
 			}
 			Unknown120 = SoundLibraryClass::Play_3D_Sound(sound, Unknown_28(false), 0, 1.0f);
 			if (!Unknown120) {
@@ -1980,7 +1980,7 @@ void ClientObjectClass::Unknown_6FDBD0()
 			if (Unknown_6F5A40()) {
 				_snprintf(sound, sizeof(sound), "thrust_loop_%d", trail + 1);
 			} else {
-				_snprintf(sound, sizeof(sound), "npc_thrust_loop_%d", UnknownA8 % 6);
+				_snprintf(sound, sizeof(sound), "npc_thrust_loop_%d", BaseAsset % 6);
 			}
 			Unknown124 = SoundLibraryClass::Play_3D_Sound(sound, Unknown_28(false), 0, 1.0f);
 			if (!Unknown124) {
@@ -2197,7 +2197,7 @@ void ClientObjectClass::Unknown_6FE1E0()
 				break;
 		}
 		bool is_organic = Unknown_6F5E40();
-		Unknown150 = Unknown_8117D0(Model, hull_level, UnknownA8, GameID, is_organic, view, Client, Unknown150);
+		Unknown150 = Unknown_8117D0(Model, hull_level, BaseAsset, GameID, is_organic, view, Client, Unknown150);
 	}
 	for (int j = 0; j < 4; j++) {
 		if (level[j]) Unknown104[j] = level[j];

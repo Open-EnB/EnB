@@ -667,7 +667,7 @@ static void Test_Packets(SClient *client, const char *path)
 			unsigned id = *(unsigned *)&next[4];
 			ClientObjectClass *object = client->Find_Object(id);
 			creates++;
-			if (object && object->Get_Game_ID() == id && object->Type == (char)next[14] && object->UnknownA8 == *(short *)&next[12] && object->Model) {
+			if (object && object->Get_Game_ID() == id && object->Type == (char)next[14] && object->BaseAsset == *(short *)&next[12] && object->Model) {
 				created++;
 			}
 		} else if (opcode == 7 && next.size() >= 4 + 4) {
@@ -818,7 +818,7 @@ static void Test_Path(SClient *client, FakeMainViewClass *main_view)
 	Memory->Incoming.push_back(Create_Message(id, 0.5f, 900, 0));
 	client->Process_Packets();
 	ClientObjectClass *object = client->Find_Object(id);
-	Check(object != 0 && object->Get_Game_ID() == id && object->Type == 0 && object->UnknownA8 == 900 && object->Scale == 0.5f,
+	Check(object != 0 && object->Get_Game_ID() == id && object->Type == 0 && object->BaseAsset == 900 && object->Scale == 0.5f,
 		"CREATE 4 (game id 4000, type 0, base asset 900, scale 0.5): Find_Object finds the new object with the packet's game id, type, base asset and scale");
 	if (object == 0) {
 		return;
@@ -868,7 +868,7 @@ static void Test_Path(SClient *client, FakeMainViewClass *main_view)
 	Frame(client, 5000, false);
 	FakeModelClass *model2 = Fake_Model_Of(object);
 	Check(client->Find_Object(id) == object && model2 != 0 && model2->Number != old_number && strcmp(model2->Name, "ship_test2") == 0
-		&& object->UnknownA8 == 901 && object->Scale == 1.0f,
+		&& object->BaseAsset == 901 && object->Scale == 1.0f,
 		"CHANGE_BASE_ASSET 38 (base asset 901, scale 1): the same object holds base asset 901's model (NAME ship_test2)");
 	Check(Model_Deleted(old_number), "the old model was released and deleted");
 	Matrix3D want3(orient2, pos2 + vel2 * 3000.0f);

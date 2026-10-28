@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 36 |
 | 3 | by convention from a client-named file or sibling | 891 |
 | 2 | describes what the code does | 2153 |
-| 1 | neutral placeholder | 4331 |
+| 1 | neutral placeholder | 4328 |
 
 ## For review (score 3 and below)
 
@@ -255,7 +255,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `UnknownB02C90Class` | `app/client/co.cpp:84` | untagged neutral name (D10) |
 | 1 | `Unknown8C` | `app/client/co.cpp:87` | untagged neutral name (D10) |
 | 1 | `Unknown98` | `app/client/co.cpp:90` | untagged neutral name (D10) |
-| 1 | `UnknownA8` | `app/client/co.cpp:94` | untagged neutral name (D10) |
 | 1 | `UnknownB0` | `app/client/co.cpp:96` | untagged neutral name (D10) |
 | 1 | `UnknownB8` | `app/client/co.cpp:97` | untagged neutral name (D10) |
 | 1 | `UnknownF8` | `app/client/co.cpp:99` | untagged neutral name (D10) |
@@ -624,7 +623,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown8C` | `app/client/co.h:285` | untagged neutral name (D10) |
 | 1 | `Unknown95` | `app/client/co.h:288` | untagged neutral name (D10) |
 | 1 | `Unknown98` | `app/client/co.h:289` | untagged neutral name (D10) |
-| 1 | `UnknownA8` | `app/client/co.h:293` | untagged neutral name (D10) |
 | 1 | `UnknownB0` | `app/client/co.h:295` | untagged neutral name (D10) |
 | 1 | `UnknownB1` | `app/client/co.h:296` | untagged neutral name (D10) |
 | 1 | `UnknownB4` | `app/client/co.h:297` | untagged neutral name (D10) |
@@ -4254,7 +4252,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown11` | `tests/capharness/clienttest/clienttest.cpp:569` | untagged neutral name (D10) |
 | 1 | `Unknown10D4` | `tests/capharness/clienttest/clienttest.cpp:653` | untagged neutral name (D10) |
 | 1 | `Unknown10D8` | `tests/capharness/clienttest/clienttest.cpp:653` | untagged neutral name (D10) |
-| 1 | `UnknownA8` | `tests/capharness/clienttest/clienttest.cpp:670` | untagged neutral name (D10) |
 | 1 | `Unknown10BC` | `tests/capharness/clienttest/clienttest.cpp:805` | untagged neutral name (D10) |
 | 1 | `Unknown10C8` | `tests/capharness/clienttest/clienttest.cpp:806` | untagged neutral name (D10) |
 | 1 | `Unknown10D0` | `tests/capharness/clienttest/clienttest.cpp:807` | untagged neutral name (D10) |
