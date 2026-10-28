@@ -2648,7 +2648,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_Create_Packet` | `app/packets/pk.h:127` | what it does |
 | 1 | `Unknown_869790` | `app/packets/pk.h:130` | neutral (D10) |
 | 1 | `pk_classes.h` | `app/packets/pk_classes.h:17` | provisional file name (D37) |
-| 1 | `Unknown0C` | `app/packets/pk_classes.h:183` | untagged neutral name (D10) |
+| 1 | `Unknown0C` | `app/packets/pk_classes.h:153` | untagged neutral name (D10) |
 | 1 | `Unknown_14` | `app/packets/pk_player_object_relationship.cpp:12` | untagged neutral name (D10) |
 | 1 | `std:` | `app/packets/pk_player_object_relationship.cpp:85` | neutral (D10) |
 | 1 | `Unknown_8743C0` | `app/packets/pk_player_object_relationship.cpp:85` | untagged neutral name (D10) |
@@ -5232,8 +5232,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Get_Time_MS` | `app/packets/pkmessageline.h:38` | what it returns |
 | 2 | `Get_Ephemeral_Type` | `app/packets/pkmessageline.h:39` | what it returns |
 | 2 | `Get_Display_Priority` | `app/packets/pkmessageline.h:40` | what it returns |
-| 2 | `Get_Type` | `app/packets/pkmessageline.h:76` | what it returns (the opcode Build sends), as MessageLinePacketClass's |
-| 2 | `Get_String` | `app/packets/pkmessageline.h:77` | what it returns |
+| 2 | `Get_Type` | `app/packets/pkmessageline.h:108` | what it returns (the opcode Build sends), as MessageLinePacketClass's |
+| 2 | `Get_String` | `app/packets/pkmessageline.h:109` | what it returns |
 | 2 | `Owned` | `app/packets/pkmessagestring.h:38` | what it means |
 | 2 | `MissionForfeitPacketClass` | `app/packets/pkmissionforfeit.h:22` | the reference decoder's opcode name MISSION_FORFEIT (the Net-7 opcode table; no structure check) |
 | 2 | `MissionDismissalPacketClass` | `app/packets/pkmissionforfeit.h:37` | the reference decoder's opcode name MISSION_DISMISSAL (the Net-7 opcode table; no structure check) |
@@ -6717,7 +6717,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `Ephemeral_Type` | `app/packets/pkmessageline.h:43` | the client's Print text 'Ephemeral_Type=' |
 | 3 | `TimeMS` | `app/packets/pkmessageline.h:44` | the client's Print text 'TimeMS=' |
 | 3 | `Display_Priority` | `app/packets/pkmessageline.h:45` | the client's Print text 'Display_Priority=' |
-| 3 | `String` | `app/packets/pkmessageline.h:79` | the client's Print text 'String=' |
+| 3 | `String` | `app/packets/pkmessageline.h:111` | the client's Print text 'String=' |
 | 3 | `String` | `app/packets/pkmessagestring.h:35` | the client's Print text 'String=' |
 | 3 | `Size` | `app/packets/pkmessagestring.h:36` | the client's Print text 'Size=' |
 | 3 | `Color` | `app/packets/pkmessagestring.h:37` | the client's Print text 'Color=' |
