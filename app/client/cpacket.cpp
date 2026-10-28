@@ -4,6 +4,7 @@
 **	The packets' handlers on the client side: PacketClass slot +0x08, Process_Packet(SClient *). Notes at the end.
 */
 #include <windows.h>
+#include "eff_o.h"
 #include "sclient.h"
 #include "ui_line_display.h"
 #include "co_data.h"
@@ -120,41 +121,40 @@ void Unknown_80EFF0(RenderObjClass *model, std::vector<ColorizationRegionStruct>
 // (0x73F770, their vector's operator=)
 
 
-// eff_o.cpp's effects as far as the effect packets call them: the factory (cdecl) and the slots past
-// EffectObjectClass's destructor: +0x08 a position for another effect's end (the base's is zero), +0x10 the
-// effect's unary end (0x6E4880 returns the effect; NULL for any other), +0x14 its binary end (0x6E5440)
-class Unknown6E9490TargetClass	// NAME 1: neutral (D10)
-{
-public:
-	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
-	virtual void Unknown_10(); virtual void Unknown_14(); virtual void Unknown_18(); virtual void Unknown_1C(); virtual void Unknown_20(); virtual void Unknown_24();
-	virtual void Unknown_28(int game_id);	// NAME 1 [game_id]: what OBJECT_EFFECT 9 passes
-	virtual void Unknown_2C(const Matrix3D &transform);	// 0x6E48A0 (copied to +0x94)  // NAME 1 [transform]: POINT_EFFECT 10's location
-};
-class Unknown6E9490BinaryClass	// NAME 1: neutral (D10)
-{
-public:
-	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
-	virtual void Unknown_10(); virtual void Unknown_14(); virtual void Unknown_18(); virtual void Unknown_1C(); virtual void Unknown_20(); virtual void Unknown_24();
-	virtual void Unknown_28(int source_game_id);	// 0x6E80D0 ("Set_Source_Object_ID couldn't find the object!")  // NAME 1 [source_game_id]: the packets' SourceGameID
-	virtual void Unknown_2C(int source_game_id, const LegoIdentifierClass &source_lego);	// 0x6E8170  // NAME 1 [source_game_id, source_lego]: the packets' fields
-	virtual void Unknown_30(const Vector3 &position);	// 0x6E5460 (copied to +0xA8)  // NAME 1 [position]: what it is
-	virtual void Unknown_34(int target_game_id);	// 0x6E81B0 ("Set_Target_Object_ID couldn't find the object!")  // NAME 1 [target_game_id]: the packets' TargetGameID
-	virtual void Unknown_38(const Vector3 &position);	// 0x6E54A0 (copied to +0xB4)  // NAME 1 [position]: what it is
-	void Unknown_6E82A0(short unknown36, short unknown34, Vector3 target_offset);	// 0x6E82A0 (eff_o.cpp)  // NAME 1 [unknown36 .. target_offset]: the packets' fields
-	char Unknown04[0x7C - 0x04];
-	unsigned Unknown7C;		// +0x7C (0x2000: the packets' OutsideTargetRadius)
-	char Unknown80[0xA8 - 0x80];
-	Vector3 UnknownA8;		// +0xA8 (slot +0x30's)
-	Vector3 UnknownB4;		// +0xB4 (slot +0x38's)
-};
-class Unknown6E9490EffectClass : public EffectObjectClass	// NAME 1: neutral (D10)
-{
-public:
-	virtual void Unknown_04(); virtual Vector3 Unknown_08(const Vector3 &position); virtual void Unknown_0C();	// NAME 1 [position]: what ObjectToEffectEffect 12 passes
-	virtual Unknown6E9490TargetClass *Unknown_10(); virtual Unknown6E9490BinaryClass *Unknown_14();
-};
-Unknown6E9490EffectClass *Unknown_6E9490(int desc_id, int effect_id, int duration, int time, ClientClass *client, float scale, const Vector3 &hsv_shift, float a, int b, int c);	// 0x6E9490  // NAME 1 [desc_id .. c]: what OBJECT_EFFECT 9 passes
+// eff_o.cpp's effects, their factory (cdecl) and the ends the packets fill: eff_o.h, included first
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 void Unknown_4BC260(const char *sender, const char *category, const char *file, int line, const char *format, ...);	// 0x4BC260 (unknown_debug.h's reporter)
 // SClient +0x12C4's elements: the player-variable aux data roots (an UnknownSendRootClass, 0xADC bytes, made
 // in 0x7518A0), declared as far as PLAYER_VAR_AUX_DATA 28 calls them
@@ -611,9 +611,9 @@ bool ObjectEffectPacketClass::Process_Packet(void *instance)
 	SClient *sclient = (SClient *)instance;
 	int time = (DurationClass(TimeStamp) - *(const DurationClass *)&sclient->Unknown10C0).As_Int();
 	int duration = Duration >= 0 ? Duration : -1;
-	Unknown6E9490EffectClass *effect = Unknown_6E9490(EffectDescID, EffectID, duration, time, sclient, Scale, HSVShift, 1.0f, -1, 0);
+	EffectObjectClass *effect = Unknown_6E9490(EffectDescID, EffectID, duration, time, sclient, Scale, HSVShift, 1.0f, -1, 0);
 	FAIL_IF(!effect) return(true);
-	Unknown6E9490TargetClass *target = effect->Unknown_10();
+	UnknownB00060EffectClass *target = effect->Unknown_10();
 	if (target) {
 		target->Unknown_28(GameID);
 	} else {
@@ -639,9 +639,9 @@ bool PointEffectPacketClass::Process_Packet(void *instance)
 	SClient *sclient = (SClient *)instance;
 	int time = (DurationClass((unsigned)TimeStamp) - *(const DurationClass *)&sclient->Unknown10C0).As_Int();
 	int duration = Duration >= 0 ? Duration : -1;
-	Unknown6E9490EffectClass *effect = Unknown_6E9490(EffectDescID, EffectID, duration, time, sclient, Scale, HSVShift, 1.0f, -1, 0);
+	EffectObjectClass *effect = Unknown_6E9490(EffectDescID, EffectID, duration, time, sclient, Scale, HSVShift, 1.0f, -1, 0);
 	FAIL_IF(!effect) return(true);
-	Unknown6E9490TargetClass *target = effect->Unknown_10();
+	UnknownB00060EffectClass *target = effect->Unknown_10();
 	if (target) {
 		target->Unknown_2C(Matrix3D(Location));
 	} else {
@@ -666,9 +666,9 @@ bool ObjectToObjectEffectPacketClass::Process_Packet(void *instance)
 	SClient *sclient = (SClient *)instance;
 	int time = (DurationClass(TimeStamp) - *(const DurationClass *)&sclient->Unknown10C0).As_Int();
 	int duration = Duration >= 0 ? Duration : -1;
-	Unknown6E9490EffectClass *effect = Unknown_6E9490(EffectDescID, EffectID, duration, time, sclient, Scale, HSVShift, Speedup, -1, 0);
+	EffectObjectClass *effect = Unknown_6E9490(EffectDescID, EffectID, duration, time, sclient, Scale, HSVShift, Speedup, -1, 0);
 	FAIL_IF(!effect) return(true);
-	Unknown6E9490BinaryClass *binary = effect->Unknown_14();
+	UnknownB0009CEffectClass *binary = effect->Unknown_14();
 	if (binary) {
 		if (!SourceLego.Is_Empty()) {
 			binary->Unknown_2C(SourceGameID, SourceLego);
@@ -677,9 +677,9 @@ bool ObjectToObjectEffectPacketClass::Process_Packet(void *instance)
 		}
 		binary->Unknown_34(TargetGameID);
 		if (OutsideTargetRadius) {
-			binary->Unknown7C |= 0x2000;
+			binary->Flags |= 0x2000;
 		} else {
-			binary->Unknown7C &= ~0x2000;
+			binary->Flags &= ~0x2000;
 		}
 		binary->Unknown_6E82A0(Unknown36, Unknown34, TargetOffset);
 	} else {
@@ -704,9 +704,9 @@ bool ObjectToEffectEffectPacketClass::Process_Packet(void *instance)
 	SClient *sclient = (SClient *)instance;
 	int time = (DurationClass(TimeStamp) - *(const DurationClass *)&sclient->Unknown10C0).As_Int();
 	int duration = Duration >= 0 ? Duration : -1;
-	Unknown6E9490EffectClass *effect = Unknown_6E9490(EffectDescID, EffectID, duration, time, sclient, Scale, HSVShift, Speedup, -1, 0);
+	EffectObjectClass *effect = Unknown_6E9490(EffectDescID, EffectID, duration, time, sclient, Scale, HSVShift, Speedup, -1, 0);
 	FAIL_IF(!effect) return(true);
-	Unknown6E9490BinaryClass *binary = effect->Unknown_14();
+	UnknownB0009CEffectClass *binary = effect->Unknown_14();
 	if (binary) {
 		if (!SourceLego.Is_Empty()) {
 			binary->Unknown_2C(SourceGameID, SourceLego);
@@ -714,11 +714,11 @@ bool ObjectToEffectEffectPacketClass::Process_Packet(void *instance)
 			binary->Unknown_28(SourceGameID);
 		}
 		binary->Unknown_34(0);
-		Unknown6E9490EffectClass *target = (Unknown6E9490EffectClass *)sclient->Get_Effect(TargetGameID);
-		Vector3 position = target->Unknown_08(Vector3(binary->UnknownA8));
-		Unknown6E9490BinaryClass *target_binary = target->Unknown_14();
+		EffectObjectClass *target = sclient->Get_Effect(TargetGameID);
+		Vector3 position = target->Unknown_08(Vector3(binary->SourcePosition));
+		UnknownB0009CEffectClass *target_binary = target->Unknown_14();
 		if (Unknown34 != 0 && target_binary) {
-			Vector3 other = target_binary->UnknownB4; position = position * 0.5f + other * 0.5f;
+			Vector3 other = target_binary->TargetPosition; position = position * 0.5f + other * 0.5f;
 		}
 		binary->Unknown_38(position);
 	} else {
@@ -755,9 +755,9 @@ bool ObjectToObjectDurationLinkedEffectPacketClass::Process_Packet(void *instanc
 	SClient *sclient = (SClient *)instance;
 	int time = (DurationClass(TimeStamp) - *(const DurationClass *)&sclient->Unknown10C0).As_Int();
 
-	Unknown6E9490EffectClass *effect = Unknown_6E9490(EffectDescID, EffectID, 0, time, sclient, Scale, HSVShift, Speedup, DurationLinkedEffectDescID, 0);
+	EffectObjectClass *effect = Unknown_6E9490(EffectDescID, EffectID, 0, time, sclient, Scale, HSVShift, Speedup, DurationLinkedEffectDescID, 0);
 	FAIL_IF(!effect) return(true);
-	Unknown6E9490BinaryClass *binary = effect->Unknown_14();
+	UnknownB0009CEffectClass *binary = effect->Unknown_14();
 	if (binary) {
 		if (!SourceLego.Is_Empty()) {
 			binary->Unknown_2C(SourceGameID, SourceLego);
@@ -766,9 +766,9 @@ bool ObjectToObjectDurationLinkedEffectPacketClass::Process_Packet(void *instanc
 		}
 		binary->Unknown_34(TargetGameID);
 		if (OutsideTargetRadius) {
-			binary->Unknown7C |= 0x2000;
+			binary->Flags |= 0x2000;
 		} else {
-			binary->Unknown7C &= ~0x2000;
+			binary->Flags &= ~0x2000;
 		}
 		binary->Unknown_6E82A0(Unknown36, Unknown34, TargetOffset);
 	} else {
@@ -794,9 +794,9 @@ bool ObjectToPointEffectPacketClass::Process_Packet(void *instance)
 	SClient *sclient = (SClient *)instance;
 	int time = (DurationClass(TimeStamp) - *(const DurationClass *)&sclient->Unknown10C0).As_Int();
 	int duration = Duration >= 0 ? Duration : -1;
-	Unknown6E9490EffectClass *effect = Unknown_6E9490(EffectDescID, EffectID, duration, time, sclient, Scale, HSVShift, Speedup, -1, 0);
+	EffectObjectClass *effect = Unknown_6E9490(EffectDescID, EffectID, duration, time, sclient, Scale, HSVShift, Speedup, -1, 0);
 	FAIL_IF(!effect) return(true);
-	Unknown6E9490BinaryClass *binary = effect->Unknown_14();
+	UnknownB0009CEffectClass *binary = effect->Unknown_14();
 	if (binary) {
 		if (!SourceLego.Is_Empty()) {
 			binary->Unknown_2C(SourceGameID, SourceLego);
@@ -1700,7 +1700,7 @@ public:
 	virtual void Unknown_1C();
 	virtual void Unknown_20();
 	virtual void Unknown_24();
-	virtual void Unknown_28(int id);	// +0x28 the object's id (as Unknown6E9490TargetClass's)  // NAME 1 [id]: the packet's Victim
+	virtual void Unknown_28(int id);	// +0x28 the object's id (as UnknownB00060EffectClass's)  // NAME 1 [id]: the packet's Victim
 
 	char Unknown04[0xF0 - 0x04];
 };

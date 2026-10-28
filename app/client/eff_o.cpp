@@ -25,9 +25,9 @@
 #include "nstrdup.h"
 #include "..\audio\soundlib.h"
 #include "..\..\wwaudio\Sound3D.h"
-
+bool String_To_Value(const char *text, Vector3 *value);	// 0x4A3810 (strconv_lib.cpp, not in strconv_lib.h: sscanf "%f,%f,%f")  // NAME 2: as strconv_lib.h's pairs
 void Unknown_4BC260(const char *sender, const char *category, const char *file, int line, const char *format, ...);	// 0x4BC260 (unknown_debug.h's reporter)
-EffectObjectClass *Unknown_6E9490(int desc_id, int effect_id, int duration, int time, ClientClass *client, float scale, const Vector3 &hsv_shift, float speedup, int linked_desc_id, bool unknown);	// 0x6E9490 (the factory, not rebuilt yet)  // NAME 1 [desc_id .. unknown]: what the effect packets pass
+static char *Unknown_B92E30[] = {"RObjLookAtEffect", "RObjEffect", "WarpEffect", "LineEffect", "StraightSeekEffect", "SpiralSeekEffect", "SplineRandomSeekEffect", "LinearRandomSeekEffect", "SoundEffect", "PassEffect", "AttachEffect", "RenderStateEffect", "ParticleJetEffect", NULL};	// 0xB92E30: effect.ini's EffectClass values, the factory's switch  // NAME 1: neutral (D10)
 Matrix3D Unknown_82ECB0(const Vector3 &direction, const Vector3 &position);	// 0x82ECB0 (cdecl; a transform at the position facing along the direction)  // NAME 1 [direction, position]: what 0x6E8DD0 passes
 // The render-state effect the factory's helper 0x6EC7D0 makes (0xE4 bytes; its file, between eff_robj.cpp and
 // eff_seek.cpp, is not rebuilt): declared as far as the helper calls it
@@ -887,6 +887,331 @@ Vector3 UnknownB000F0EffectClass::Unknown_08(const Vector3 &)
 	return(Transform.Get_Translation());
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 0x6E9490
+EffectObjectClass *Unknown_6E9490(int desc_id, unsigned id, unsigned duration, unsigned start_time, ClientClass *client, float scale, const Vector3 &hsv_shift, float speedup, int linked_desc_id, bool unknown)
+{
+	FAIL_IF(speedup <= 0.0f) speedup = 1.0f;
+	float inv_speedup = 1.0f / speedup;
+	INIClass *ini = Unknown_6EA550();
+	char section[256];
+	sprintf(section, "EFFECT-%d", desc_id);
+	if (!ini->Find_Section(section) || !ini->Is_Present(section, "EffectClass")) {
+
+
+
+
+		Unknown_4BC260("A/V Effects", "", __FILE__, __LINE__, "Missing or invalid effect entry %d", desc_id);
+		return(NULL);
+	}
+	float robj_scale = ini->Get_Float(section, "RObjScale", 1.0f);
+	Vector3 robj_hsv(0.0f, 0.0f, 0.0f);
+	char hsv_text[256];
+	ini->Get_String(section, "RObjHSV", "", hsv_text, 255);
+	if (strlen(hsv_text) != 0) {
+		String_To_Value(hsv_text, &robj_hsv);
+	}
+	float effect_scale = robj_scale * scale;
+	Vector3 hsv = robj_hsv + hsv_shift;
+	float start_delay = ini->Get_Float(section, "StartDelay", 0.0f);
+	if (start_delay < 0.0f) {
+		start_delay = 0.0f;
+	}
+	start_time += (int)(start_delay * 1000.0f);
+	int effect_class = ini->Get_List_Index(section, "EffectClass", -1, Unknown_B92E30);
+	char string[256];
+	if ((duration == 0 || unknown) && (ini->Get_String(section, "Duration", "", string, 254), strcmp(string, "INFINITE") == 0)) {
+		duration = (unsigned)-1;
+	} else if (duration == 0) {
+		if (linked_desc_id < 0) {
+			float f_client_duration = ini->Get_Float(section, "Duration", 0.0f);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+			FAIL_IF(f_client_duration <= 0.0f) { Unknown_4BC260("A/V Effects", "", __FILE__, __LINE__, "Client & server duration are 0 for effect %d", desc_id); f_client_duration = 1.0f; }
+			duration = f_client_duration * 1000.0f;
+			if (effect_class == 3) {
+				duration = duration * inv_speedup;
+			}
+		} else {
+			float delay = 0.0f;
+			int linked_class;
+			for (;;) {
+				sprintf(string, "EFFECT-%d", linked_desc_id);
+				linked_class = ini->Get_List_Index(string, "EffectClass", -1, Unknown_B92E30);
+				delay += ini->Get_Float(string, "StartDelay", 0.0f);
+				bool use_start_link = ini->Get_Bool(string, "DurationLinkedEffectUseStartLink", false);
+				bool use_next_link = ini->Get_Bool(string, "DurationLinkedEffectUseNextLink", false);
+				int start_link = ini->Get_Int(string, "StartLinkID", -1);
+				int next_link = ini->Get_Int(string, "NextLinkID", -1);
+				if (use_start_link && start_link >= 0) {
+					delay += ini->Get_Float(string, "StartLinkDelay", 0.0f);
+					linked_desc_id = start_link;
+				} else if (use_next_link && next_link >= 0) {
+					float link_duration = ini->Get_Float(string, "Duration", 0.0f);
+					if (linked_class == 3) {
+						link_duration *= inv_speedup;
+					}
+					delay += link_duration;
+					linked_desc_id = next_link;
+				} else {
+					break;
+				}
+			}
+			float f_client_duration = ini->Get_Float(string, "Duration", 0.0f);
+
+
+
+
+
+
+
+			FAIL_IF(f_client_duration <= 0.0f) { Unknown_4BC260("A/V Effects", "", __FILE__, __LINE__, "Both server duration for effect %d and client duration of it's linked effect %d are 0", desc_id, linked_desc_id); f_client_duration = 1.0f; }
+			duration = f_client_duration * 1000.0f;
+			if (linked_class == 3) {
+				duration = duration * inv_speedup;
+			}
+			start_time += (int)(delay * 1000.0f);
+		}
+	}
+	float cycle = ini->Get_Float(section, "CycleTime", 0.0f);
+	if (effect_class == 3) {
+		cycle *= inv_speedup;
+	}
+	unsigned cycle_time = cycle * 1000.0f;
+	EffectObjectClass *effect;
+	switch (effect_class) {
+		case 0:
+			effect = Unknown_6EA5E0(ini, section, id, start_time, duration, cycle_time, client, effect_scale, &hsv.X);
+			break;
+		case 1:
+			effect = Unknown_6EA830(ini, section, id, start_time, duration, cycle_time, client, effect_scale, &hsv.X);
+			break;
+		case 2:
+			effect = Unknown_6EAA40(ini, section, id, start_time, duration, cycle_time, client, effect_scale, &hsv.X);
+			break;
+		case 3:
+			effect = Unknown_6EAC50(ini, section, id, start_time, duration, cycle_time, client, effect_scale, &hsv.X, speedup);
+			break;
+		case 4:
+			effect = Unknown_6EAFA0(ini, section, id, start_time, duration, cycle_time, client, effect_scale, &hsv.X);
+			break;
+		case 5:
+			effect = Unknown_6EB150(ini, section, id, start_time, duration, cycle_time, client, effect_scale, &hsv.X);
+			break;
+		case 6:
+			effect = Unknown_6EB330(ini, section, id, start_time, duration, cycle_time, client, effect_scale, &hsv.X);
+			break;
+		case 7:
+			effect = Unknown_6EB590(ini, section, id, start_time, duration, cycle_time, client, effect_scale, &hsv.X);
+			break;
+		case 8:
+			effect = Unknown_6EB850(ini, section, id, start_time, duration, cycle_time, client, effect_scale, &hsv.X);
+			break;
+		case 9:
+			effect = Unknown_6EB9B0(ini, section, id, start_time, duration, cycle_time, client, effect_scale, &hsv.X);
+			break;
+		case 10:
+			effect = Unknown_6EC570(ini, section, id, start_time, duration, cycle_time, client, effect_scale, &hsv.X);
+			break;
+		case 11:
+			effect = Unknown_6EC7D0(ini, section, id, start_time, duration, cycle_time, client, effect_scale, &hsv.X);
+			break;
+		case 12:
+			effect = Unknown_6EC950(ini, section, id, start_time, duration, cycle_time, client, effect_scale, &hsv.X);
+			break;
+		default:
+			effect = NULL;
+			break;
+	}
+	if (effect) {
+		effect->Scale = scale;
+		effect->HSVShift = hsv_shift;
+		effect->Speedup = speedup;
+		bool pass_duration = ini->Get_Bool(section, "PassDurationToStartLink", false);
+		bool offset_duration = ini->Get_Bool(section, "OffsetDurationPassedToStartLink", false);
+		effect->Set_Flag(0x20, pass_duration);
+		effect->Set_Flag(0x40, offset_duration);
+		effect->StartLinkID = ini->Get_Int(section, "StartLinkID", -1);
+		effect->NextLinkID = ini->Get_Int(section, "NextLinkID", -1);
+		unsigned start_link_delay = ini->Get_Float(section, "StartLinkDelay", 0.0f) * 1000.0f;
+		if (effect_class == 3) {
+			start_link_delay = start_link_delay * inv_speedup;
+		}
+		effect->Unknown64 = start_link_delay;
+		ini->Get_String(section, "SFX", "", string, 256);
+		if (string[0] != '\0') {
+			float min_time = ini->Get_Float(section, "TriggerSFXMinElapsedTime", 1.0f);
+			float max_time = ini->Get_Float(section, "TriggerSFXMaxElapsedTime", 1.0f);
+			float radius = ini->Get_Float(section, "TriggerSFXRadius", -1.0f);
+			int min_ms = min_time * 1000.0f;
+			int max_ms = max_time * 1000.0f;
+			bool sfx_2d = ini->Get_Bool(section, "SFX2D", false);
+			effect->Unknown_6E73F0(string, sfx_2d, radius, min_ms, max_ms);
+		}
+		if (effect->Unknown_10()) {
+			if (ini->Is_Present(section, "TrackSource")) {
+				effect->Set_Flag(0x80, ini->Get_Bool(section, "TrackSource", false));
+			}
+			effect->Set_Flag(0x100, duration == (unsigned)-1 || ini->Get_Bool(section, "GoAwayWhenSourceDoes", false));
+		} else if (effect->Unknown_14()) {
+			if (ini->Is_Present(section, "TrackSource")) {
+				effect->Set_Flag(0x80, ini->Get_Bool(section, "TrackSource", false));
+			}
+			if (ini->Is_Present(section, "TrackTarget")) {
+				effect->Set_Flag(0x100, ini->Get_Bool(section, "TrackTarget", false));
+			}
+			effect->Set_Flag(0x200, duration == (unsigned)-1 || ini->Get_Bool(section, "GoAwayWhenSourceDoes", false));
+			effect->Set_Flag(0x400, duration == (unsigned)-1 || ini->Get_Bool(section, "GoAwayWhenTargetDoes", false));
+			effect->Set_Flag(0x800, ini->Get_Bool(section, "UnaryStartLinkToTarget", false));
+			effect->Set_Flag(0x1000, ini->Get_Bool(section, "UnaryNextLinkToTarget", false));
+		}
+	} else {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		G_ASSERT(0);
+		Unknown_4BC260("A/V Effects", "", __FILE__, __LINE__, "Failed to create effect %d", desc_id);
+	}
+	return(effect);
+}
+
 // 0x6EA550
 INIClass *Unknown_6EA550()
 {
@@ -896,331 +1221,6 @@ INIClass *Unknown_6EA550()
 	}
 	return(&ini);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -1467,7 +1467,7 @@ EffectObjectClass *Unknown_6EB590(INIClass *ini, const char *section, unsigned i
 }
 
 // 0x6EB850
-EffectObjectClass *Unknown_6EB850(INIClass *ini, const char *section, unsigned id, unsigned start_time, unsigned duration, unsigned cycle_time, ClientClass *client)
+EffectObjectClass *Unknown_6EB850(INIClass *ini, const char *section, unsigned id, unsigned start_time, unsigned duration, unsigned cycle_time, ClientClass *client, float scale, float *hsv)
 {
 	return(new UnknownB000F0EffectClass(client, id, start_time, duration, cycle_time));
 }
@@ -1652,7 +1652,7 @@ EffectObjectClass *Unknown_6EC570(INIClass *ini, const char *section, unsigned i
 }
 
 // 0x6EC7D0
-EffectObjectClass *Unknown_6EC7D0(INIClass *ini, const char *section, unsigned id, unsigned start_time, unsigned duration, unsigned cycle_time, ClientClass *client)
+EffectObjectClass *Unknown_6EC7D0(INIClass *ini, const char *section, unsigned id, unsigned start_time, unsigned duration, unsigned cycle_time, ClientClass *client, float scale, float *hsv)
 {
 	int render_state = ini->Get_Int(section, "RenderStateID", -1);
 	char *actions[] = { "Activate", "Deactivate", "Linger", "Ramp", "ActivateNextStateOnce", NULL };

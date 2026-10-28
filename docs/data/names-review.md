@@ -10,8 +10,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 33 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 36 |
 | 3 | by convention from a client-named file or sibling | 891 |
-| 2 | describes what the code does | 2151 |
-| 1 | neutral placeholder | 4332 |
+| 2 | describes what the code does | 2152 |
+| 1 | neutral placeholder | 4319 |
 
 ## For review (score 3 and below)
 
@@ -728,65 +728,30 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `ControlKeyListClass` | `app/client/control_keys_manager.h:106` | neutral (D10): the screen's key list Add_Keys / Remove_Keys fill ('keylist') |
 | 1 | `Unknown00` | `app/client/control_keys_manager.h:121` | neutral (D10) |
 | 1 | `std:` | `app/client/control_keys_manager.h:161` | neutral (D10) |
-| 1 | `Unknown_4604D0` | `app/client/cpacket.cpp:78` | untagged neutral name (D10) |
-| 1 | `Unknown_460780` | `app/client/cpacket.cpp:79` | untagged neutral name (D10) |
-| 1 | `Unknown_460850` | `app/client/cpacket.cpp:80` | untagged neutral name (D10) |
-| 1 | `Unknown_460880` | `app/client/cpacket.cpp:81` | untagged neutral name (D10) |
-| 1 | `name, channel` | `app/client/cpacket.cpp:88` | the packet's fields |
-| 1 | `Unknown_75AE30` | `app/client/cpacket.cpp:88` | untagged neutral name (D10) |
+| 1 | `Unknown_4604D0` | `app/client/cpacket.cpp:79` | untagged neutral name (D10) |
+| 1 | `Unknown_460780` | `app/client/cpacket.cpp:80` | untagged neutral name (D10) |
+| 1 | `Unknown_460850` | `app/client/cpacket.cpp:81` | untagged neutral name (D10) |
+| 1 | `Unknown_460880` | `app/client/cpacket.cpp:82` | untagged neutral name (D10) |
 | 1 | `name, channel` | `app/client/cpacket.cpp:89` | the packet's fields |
-| 1 | `Unknown_75B0D0` | `app/client/cpacket.cpp:89` | untagged neutral name (D10) |
-| 1 | `channel` | `app/client/cpacket.cpp:90` | the packet's field |
-| 1 | `Unknown_75B170` | `app/client/cpacket.cpp:90` | untagged neutral name (D10) |
+| 1 | `Unknown_75AE30` | `app/client/cpacket.cpp:89` | untagged neutral name (D10) |
+| 1 | `name, channel` | `app/client/cpacket.cpp:90` | the packet's fields |
+| 1 | `Unknown_75B0D0` | `app/client/cpacket.cpp:90` | untagged neutral name (D10) |
 | 1 | `channel` | `app/client/cpacket.cpp:91` | the packet's field |
-| 1 | `Unknown_75B2B0` | `app/client/cpacket.cpp:91` | untagged neutral name (D10) |
-| 1 | `packet` | `app/client/cpacket.cpp:100` | the handler's packet |
-| 1 | `Unknown_7BA940` | `app/client/cpacket.cpp:100` | untagged neutral name (D10) |
-| 1 | `turn_on, mainview` | `app/client/cpacket.cpp:105` | the packet's TurnOn, SClient's main view |
-| 1 | `Unknown_7B6040` | `app/client/cpacket.cpp:105` | untagged neutral name (D10) |
-| 1 | `emote` | `app/client/cpacket.cpp:110` | the packet's Emote |
-| 1 | `Unknown_7E6650` | `app/client/cpacket.cpp:110` | untagged neutral name (D10) |
-| 1 | `model, decals, decal_ini` | `app/client/cpacket.cpp:114` | what DECAL 16 passes |
-| 1 | `Unknown_80E8C0` | `app/client/cpacket.cpp:114` | untagged neutral name (D10) |
-| 1 | `SClientUnknown1334Class` | `app/client/cpacket.cpp:114` | untagged neutral name (D10) |
-| 1 | `model, regions, unknown` | `app/client/cpacket.cpp:117` | what COLORIZATION 17 passes |
-| 1 | `Unknown_80EFF0` | `app/client/cpacket.cpp:117` | untagged neutral name (D10) |
-| 1 | `SClientUnknown1338Class` | `app/client/cpacket.cpp:117` | untagged neutral name (D10) |
-| 1 | `Unknown6E9490TargetClass` | `app/client/cpacket.cpp:126` | neutral (D10) |
-| 1 | `Unknown_00` | `app/client/cpacket.cpp:129` | untagged neutral name (D10) |
-| 1 | `Unknown_04` | `app/client/cpacket.cpp:129` | untagged neutral name (D10) |
-| 1 | `Unknown_08` | `app/client/cpacket.cpp:129` | untagged neutral name (D10) |
-| 1 | `Unknown_0C` | `app/client/cpacket.cpp:129` | untagged neutral name (D10) |
-| 1 | `Unknown_10` | `app/client/cpacket.cpp:130` | untagged neutral name (D10) |
-| 1 | `Unknown_14` | `app/client/cpacket.cpp:130` | untagged neutral name (D10) |
-| 1 | `Unknown_18` | `app/client/cpacket.cpp:130` | untagged neutral name (D10) |
-| 1 | `Unknown_1C` | `app/client/cpacket.cpp:130` | untagged neutral name (D10) |
-| 1 | `Unknown_20` | `app/client/cpacket.cpp:130` | untagged neutral name (D10) |
-| 1 | `Unknown_24` | `app/client/cpacket.cpp:130` | untagged neutral name (D10) |
-| 1 | `game_id` | `app/client/cpacket.cpp:131` | what OBJECT_EFFECT 9 passes |
-| 1 | `Unknown_28` | `app/client/cpacket.cpp:131` | untagged neutral name (D10) |
-| 1 | `transform` | `app/client/cpacket.cpp:132` | POINT_EFFECT 10's location |
-| 1 | `Unknown_2C` | `app/client/cpacket.cpp:132` | untagged neutral name (D10) |
-| 1 | `Unknown6E9490BinaryClass` | `app/client/cpacket.cpp:134` | neutral (D10) |
-| 1 | `source_game_id` | `app/client/cpacket.cpp:139` | the packets' SourceGameID |
-| 1 | `source_game_id, source_lego` | `app/client/cpacket.cpp:140` | the packets' fields |
-| 1 | `position` | `app/client/cpacket.cpp:141` | what it is |
-| 1 | `Unknown_30` | `app/client/cpacket.cpp:141` | untagged neutral name (D10) |
-| 1 | `target_game_id` | `app/client/cpacket.cpp:142` | the packets' TargetGameID |
-| 1 | `Unknown_34` | `app/client/cpacket.cpp:142` | untagged neutral name (D10) |
-| 1 | `position` | `app/client/cpacket.cpp:143` | what it is |
-| 1 | `Unknown_38` | `app/client/cpacket.cpp:143` | untagged neutral name (D10) |
-| 1 | `unknown36 .. target_offset` | `app/client/cpacket.cpp:144` | the packets' fields |
-| 1 | `Unknown_6E82A0` | `app/client/cpacket.cpp:144` | untagged neutral name (D10) |
-| 1 | `Unknown04` | `app/client/cpacket.cpp:145` | untagged neutral name (D10) |
-| 1 | `Unknown7C` | `app/client/cpacket.cpp:146` | untagged neutral name (D10) |
-| 1 | `Unknown80` | `app/client/cpacket.cpp:147` | untagged neutral name (D10) |
-| 1 | `UnknownA8` | `app/client/cpacket.cpp:148` | untagged neutral name (D10) |
-| 1 | `UnknownB4` | `app/client/cpacket.cpp:149` | untagged neutral name (D10) |
-| 1 | `Unknown6E9490EffectClass` | `app/client/cpacket.cpp:151` | neutral (D10) |
-| 1 | `position` | `app/client/cpacket.cpp:154` | what ObjectToEffectEffect 12 passes |
-| 1 | `desc_id .. c` | `app/client/cpacket.cpp:157` | what OBJECT_EFFECT 9 passes |
-| 1 | `Unknown_6E9490` | `app/client/cpacket.cpp:157` | untagged neutral name (D10) |
+| 1 | `Unknown_75B170` | `app/client/cpacket.cpp:91` | untagged neutral name (D10) |
+| 1 | `channel` | `app/client/cpacket.cpp:92` | the packet's field |
+| 1 | `Unknown_75B2B0` | `app/client/cpacket.cpp:92` | untagged neutral name (D10) |
+| 1 | `packet` | `app/client/cpacket.cpp:101` | the handler's packet |
+| 1 | `Unknown_7BA940` | `app/client/cpacket.cpp:101` | untagged neutral name (D10) |
+| 1 | `turn_on, mainview` | `app/client/cpacket.cpp:106` | the packet's TurnOn, SClient's main view |
+| 1 | `Unknown_7B6040` | `app/client/cpacket.cpp:106` | untagged neutral name (D10) |
+| 1 | `emote` | `app/client/cpacket.cpp:111` | the packet's Emote |
+| 1 | `Unknown_7E6650` | `app/client/cpacket.cpp:111` | untagged neutral name (D10) |
+| 1 | `model, decals, decal_ini` | `app/client/cpacket.cpp:115` | what DECAL 16 passes |
+| 1 | `Unknown_80E8C0` | `app/client/cpacket.cpp:115` | untagged neutral name (D10) |
+| 1 | `SClientUnknown1334Class` | `app/client/cpacket.cpp:115` | untagged neutral name (D10) |
+| 1 | `model, regions, unknown` | `app/client/cpacket.cpp:118` | what COLORIZATION 17 passes |
+| 1 | `Unknown_80EFF0` | `app/client/cpacket.cpp:118` | untagged neutral name (D10) |
+| 1 | `SClientUnknown1338Class` | `app/client/cpacket.cpp:118` | untagged neutral name (D10) |
 | 1 | `Unknown_4BC260` | `app/client/cpacket.cpp:158` | untagged neutral name (D10) |
 | 1 | `SClientUnknown12C4Class` | `app/client/cpacket.cpp:161` | untagged neutral name (D10) |
 | 1 | `UnknownSendRootClass` | `app/client/cpacket.cpp:161` | untagged neutral name (D10) |
@@ -796,7 +761,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown70E5A0Class` | `app/client/cpacket.cpp:206` | untagged neutral name (D10) |
 | 1 | `Unknown_6F5140` | `app/client/cpacket.cpp:221` | untagged neutral name (D10) |
 | 1 | `Unknown_6F33F0` | `app/client/cpacket.cpp:229` | untagged neutral name (D10) |
+| 1 | `Unknown_04` | `app/client/cpacket.cpp:230` | untagged neutral name (D10) |
 | 1 | `Unknown113C` | `app/client/cpacket.cpp:233` | untagged neutral name (D10) |
+| 1 | `Unknown_10` | `app/client/cpacket.cpp:234` | untagged neutral name (D10) |
 | 1 | `Add_Unknown86C` | `app/client/cpacket.cpp:235` | untagged neutral name (D10) |
 | 1 | `packet` | `app/client/cpacket.cpp:249` | the handler's packet |
 | 1 | `Unknown_5A3BC0` | `app/client/cpacket.cpp:249` | untagged neutral name (D10) |
@@ -834,7 +801,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `sclient, packet` | `app/client/cpacket.cpp:294` | what the handler passes |
 | 1 | `Unknown_70CD50` | `app/client/cpacket.cpp:294` | untagged neutral name (D10) |
 | 1 | `Unknown_6FEF70` | `app/client/cpacket.cpp:303` | untagged neutral name (D10) |
+| 1 | `Unknown_18` | `app/client/cpacket.cpp:312` | untagged neutral name (D10) |
 | 1 | `Unknown_74C3B0` | `app/client/cpacket.cpp:312` | untagged neutral name (D10) |
+| 1 | `Unknown_0C` | `app/client/cpacket.cpp:324` | untagged neutral name (D10) |
 | 1 | `Unknown18` | `app/client/cpacket.cpp:324` | untagged neutral name (D10) |
 | 1 | `Unknown98` | `app/client/cpacket.cpp:336` | untagged neutral name (D10) |
 | 1 | `Unknown714B50Class` | `app/client/cpacket.cpp:337` | untagged neutral name (D10) |
@@ -851,17 +820,28 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `requests` | `app/client/cpacket.cpp:419` | what it counts |
 | 1 | `Unknown717010Class` | `app/client/cpacket.cpp:425` | untagged neutral name (D10) |
 | 1 | `Unknown_717290` | `app/client/cpacket.cpp:425` | untagged neutral name (D10) |
+| 1 | `Unknown_2C` | `app/client/cpacket.cpp:426` | untagged neutral name (D10) |
 | 1 | `Unknown98Class` | `app/client/cpacket.cpp:427` | untagged neutral name (D10) |
+| 1 | `Unknown_28` | `app/client/cpacket.cpp:427` | untagged neutral name (D10) |
+| 1 | `Unknown_24` | `app/client/cpacket.cpp:432` | untagged neutral name (D10) |
 | 1 | `Unknown715EF0Class` | `app/client/cpacket.cpp:440` | untagged neutral name (D10) |
 | 1 | `Unknown_716140` | `app/client/cpacket.cpp:440` | untagged neutral name (D10) |
 | 1 | `Unknown715CF0Class` | `app/client/cpacket.cpp:467` | untagged neutral name (D10) |
 | 1 | `Unknown_715E60` | `app/client/cpacket.cpp:473` | untagged neutral name (D10) |
 | 1 | `Unknown717EF0Class` | `app/client/cpacket.cpp:590` | untagged neutral name (D10) |
 | 1 | `Unknown_718080` | `app/client/cpacket.cpp:590` | untagged neutral name (D10) |
+| 1 | `Unknown_6E9490` | `app/client/cpacket.cpp:614` | untagged neutral name (D10) |
+| 1 | `UnknownB00060EffectClass` | `app/client/cpacket.cpp:616` | untagged neutral name (D10) |
 | 1 | `Unknown_64` | `app/client/cpacket.cpp:625` | untagged neutral name (D10) |
 | 1 | `Unknown_7C` | `app/client/cpacket.cpp:625` | untagged neutral name (D10) |
+| 1 | `UnknownB0009CEffectClass` | `app/client/cpacket.cpp:671` | untagged neutral name (D10) |
+| 1 | `Unknown_14` | `app/client/cpacket.cpp:671` | untagged neutral name (D10) |
+| 1 | `Unknown_34` | `app/client/cpacket.cpp:678` | untagged neutral name (D10) |
+| 1 | `Unknown_6E82A0` | `app/client/cpacket.cpp:684` | untagged neutral name (D10) |
 | 1 | `Unknown36` | `app/client/cpacket.cpp:684` | untagged neutral name (D10) |
 | 1 | `Unknown34` | `app/client/cpacket.cpp:684` | untagged neutral name (D10) |
+| 1 | `Unknown_08` | `app/client/cpacket.cpp:718` | untagged neutral name (D10) |
+| 1 | `Unknown_38` | `app/client/cpacket.cpp:723` | untagged neutral name (D10) |
 | 1 | `Unknown_6E6E30` | `app/client/cpacket.cpp:827` | untagged neutral name (D10) |
 | 1 | `Unknown_6F3BC0` | `app/client/cpacket.cpp:839` | untagged neutral name (D10) |
 | 1 | `Unknown1334` | `app/client/cpacket.cpp:841` | untagged neutral name (D10) |
@@ -943,7 +923,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown08` | `app/client/cpacket.cpp:1684` | untagged neutral name (D10) |
 | 1 | `Unknown6EF4C0Class` | `app/client/cpacket.cpp:1688` | neutral (D10) |
 | 1 | `client, id, time, duration, unknown, text, offset, velocity` | `app/client/cpacket.cpp:1691` | what the handler passes |
+| 1 | `Unknown_1C` | `app/client/cpacket.cpp:1700` | untagged neutral name (D10) |
+| 1 | `Unknown_20` | `app/client/cpacket.cpp:1701` | untagged neutral name (D10) |
 | 1 | `id` | `app/client/cpacket.cpp:1703` | the packet's Victim |
+| 1 | `Unknown04` | `app/client/cpacket.cpp:1705` | untagged neutral name (D10) |
 | 1 | `Unknown_583DC0` | `app/client/cpacket.cpp:1776` | untagged neutral name (D10) |
 | 1 | `Unknown_48` | `app/client/cpacket.cpp:1785` | untagged neutral name (D10) |
 | 1 | `Unknown1328` | `app/client/cpacket.cpp:1891` | untagged neutral name (D10) |
@@ -974,6 +957,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_5E6030` | `app/client/cpacket.cpp:2443` | untagged neutral name (D10) |
 | 1 | `UIChatPanelUnknownE0Class` | `app/client/cpacket.cpp:2447` | neutral (D10) |
 | 1 | `Unknown_81BF40` | `app/client/cpacket.cpp:2450` | untagged neutral name (D10) |
+| 1 | `Unknown7C` | `app/client/cpacket.cpp:2453` | untagged neutral name (D10) |
 | 1 | `id, flag` | `app/client/cpacket.cpp:2460` | what it gets |
 | 1 | `Unknown_563910` | `app/client/cpacket.cpp:2460` | untagged neutral name (D10) |
 | 1 | `name` | `app/client/cpacket.cpp:2461` | the event's Unknown14 |
@@ -1008,8 +992,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_751850` | `app/client/cpacket.cpp:3345` | untagged neutral name (D10) |
 | 1 | `Unknown_751460` | `app/client/cpacket.cpp:3413` | untagged neutral name (D10) |
 | 1 | `Unknown_4BC260` | `app/client/eff_o.cpp:29` | untagged neutral name (D10) |
-| 1 | `desc_id .. unknown` | `app/client/eff_o.cpp:30` | what the effect packets pass |
-| 1 | `Unknown_6E9490` | `app/client/eff_o.cpp:30` | untagged neutral name (D10) |
+| 1 | `Unknown_B92E30` | `app/client/eff_o.cpp:30` | neutral (D10) |
 | 1 | `direction, position` | `app/client/eff_o.cpp:31` | what 0x6E8DD0 passes |
 | 1 | `Unknown_82ECB0` | `app/client/eff_o.cpp:31` | untagged neutral name (D10) |
 | 1 | `Unknown6F0200EffectClass` | `app/client/eff_o.cpp:34` | neutral (D10); 0x6F0200  // NAME 1 [client .. action_time]: effect.ini's RenderStateID, ActionType, ActionTime (ms); [next]: the base's |
@@ -1050,6 +1033,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown3` | `app/client/eff_o.cpp:163` | untagged neutral name (D10) |
 | 1 | `Unknown_6E70F0` | `app/client/eff_o.cpp:164` | untagged neutral name (D10) |
 | 1 | `Unknown_6E6FE0` | `app/client/eff_o.cpp:167` | untagged neutral name (D10) |
+| 1 | `Unknown_6E9490` | `app/client/eff_o.cpp:173` | untagged neutral name (D10) |
 | 1 | `Unknown_6E6E30` | `app/client/eff_o.cpp:211` | untagged neutral name (D10) |
 | 1 | `Unknown_6E6ED0` | `app/client/eff_o.cpp:229` | untagged neutral name (D10) |
 | 1 | `Unknown_0C` | `app/client/eff_o.cpp:236` | untagged neutral name (D10) |
@@ -1083,20 +1067,21 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_6FED80` | `app/client/eff_o.cpp:859` | untagged neutral name (D10) |
 | 1 | `Unknown_6E9190` | `app/client/eff_o.cpp:871` | untagged neutral name (D10) |
 | 1 | `UnknownB000F0EffectClass` | `app/client/eff_o.cpp:878` | untagged neutral name (D10) |
-| 1 | `Unknown_6EA550` | `app/client/eff_o.cpp:891` | untagged neutral name (D10) |
-| 1 | `Unknown_6EA5E0` | `app/client/eff_o.cpp:1231` | untagged neutral name (D10) |
+| 1 | `Unknown_6EA550` | `app/client/eff_o.cpp:952` | untagged neutral name (D10) |
+| 1 | `Unknown_6EA5E0` | `app/client/eff_o.cpp:1067` | untagged neutral name (D10) |
+| 1 | `Unknown_6EA830` | `app/client/eff_o.cpp:1070` | untagged neutral name (D10) |
+| 1 | `Unknown_6EAA40` | `app/client/eff_o.cpp:1073` | untagged neutral name (D10) |
+| 1 | `Unknown_6EAC50` | `app/client/eff_o.cpp:1076` | untagged neutral name (D10) |
+| 1 | `Unknown_6EAFA0` | `app/client/eff_o.cpp:1079` | untagged neutral name (D10) |
+| 1 | `Unknown_6EB150` | `app/client/eff_o.cpp:1082` | untagged neutral name (D10) |
+| 1 | `Unknown_6EB330` | `app/client/eff_o.cpp:1085` | untagged neutral name (D10) |
+| 1 | `Unknown_6EB590` | `app/client/eff_o.cpp:1088` | untagged neutral name (D10) |
+| 1 | `Unknown_6EB850` | `app/client/eff_o.cpp:1091` | untagged neutral name (D10) |
+| 1 | `Unknown_6EB9B0` | `app/client/eff_o.cpp:1094` | untagged neutral name (D10) |
+| 1 | `Unknown_6EC570` | `app/client/eff_o.cpp:1097` | untagged neutral name (D10) |
+| 1 | `Unknown_6EC7D0` | `app/client/eff_o.cpp:1100` | untagged neutral name (D10) |
+| 1 | `Unknown_6EC950` | `app/client/eff_o.cpp:1103` | untagged neutral name (D10) |
 | 1 | `Unknown_6F5140` | `app/client/eff_o.cpp:1234` | untagged neutral name (D10) |
-| 1 | `Unknown_6EA830` | `app/client/eff_o.cpp:1261` | untagged neutral name (D10) |
-| 1 | `Unknown_6EAA40` | `app/client/eff_o.cpp:1289` | untagged neutral name (D10) |
-| 1 | `Unknown_6EAC50` | `app/client/eff_o.cpp:1317` | untagged neutral name (D10) |
-| 1 | `Unknown_6EAFA0` | `app/client/eff_o.cpp:1358` | untagged neutral name (D10) |
-| 1 | `Unknown_6EB150` | `app/client/eff_o.cpp:1382` | untagged neutral name (D10) |
-| 1 | `Unknown_6EB330` | `app/client/eff_o.cpp:1413` | untagged neutral name (D10) |
-| 1 | `Unknown_6EB590` | `app/client/eff_o.cpp:1447` | untagged neutral name (D10) |
-| 1 | `Unknown_6EB850` | `app/client/eff_o.cpp:1470` | untagged neutral name (D10) |
-| 1 | `Unknown_6EC570` | `app/client/eff_o.cpp:1636` | untagged neutral name (D10) |
-| 1 | `Unknown_6EC7D0` | `app/client/eff_o.cpp:1655` | untagged neutral name (D10) |
-| 1 | `Unknown_6EC950` | `app/client/eff_o.cpp:1691` | untagged neutral name (D10) |
 | 1 | `UnknownAF0DD0Class` | `app/client/eff_o.h:43` | neutral (D10) |
 | 1 | `node, object` | `app/client/eff_o.h:47` | what the effects pass |
 | 1 | `Unknown_73FDB0` | `app/client/eff_o.h:47` | untagged neutral name (D10) |
@@ -1203,12 +1188,16 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_6EB330` | `app/client/eff_o.h:209` | untagged neutral name (D10) |
 | 1 | `ini .. hsv` | `app/client/eff_o.h:210` | what the factory passes |
 | 1 | `Unknown_6EB590` | `app/client/eff_o.h:210` | untagged neutral name (D10) |
-| 1 | `ini .. client` | `app/client/eff_o.h:211` | what the factory passes |
+| 1 | `ini .. hsv` | `app/client/eff_o.h:211` | what the factory passes |
 | 1 | `Unknown_6EB850` | `app/client/eff_o.h:211` | untagged neutral name (D10) |
 | 1 | `ini .. hsv` | `app/client/eff_o.h:212` | what the factory passes |
 | 1 | `Unknown_6EC570` | `app/client/eff_o.h:212` | untagged neutral name (D10) |
-| 1 | `ini .. client` | `app/client/eff_o.h:213` | what the factory passes |
+| 1 | `ini .. hsv` | `app/client/eff_o.h:213` | what the factory passes |
 | 1 | `Unknown_6EC7D0` | `app/client/eff_o.h:213` | untagged neutral name (D10) |
+| 1 | `ini .. hsv` | `app/client/eff_o.h:214` | what the factory passes |
+| 1 | `Unknown_6EB9B0` | `app/client/eff_o.h:214` | untagged neutral name (D10) |
+| 1 | `desc_id .. unknown` | `app/client/eff_o.h:217` | what the effect packets pass; linked_desc_id: their DurationLinkedEffectDescID |
+| 1 | `Unknown_6E9490` | `app/client/eff_o.h:217` | untagged neutral name (D10) |
 | 1 | `Unknown_7E7A40` | `app/client/emote_data.h:25` | untagged neutral name (D10) |
 | 1 | `Unknown_7E76E0` | `app/client/emote_data.h:26` | untagged neutral name (D10) |
 | 1 | `Unknown_7E6860` | `app/client/emote_data.h:27` | untagged neutral name (D10) |
@@ -4234,17 +4223,15 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_24` | `tests/capharness/clienttest/client_stubs.cpp:297` | untagged neutral name (D10) |
 | 1 | `Unknown_28` | `tests/capharness/clienttest/client_stubs.cpp:298` | untagged neutral name (D10) |
 | 1 | `Unknown_2C` | `tests/capharness/clienttest/client_stubs.cpp:299` | untagged neutral name (D10) |
-| 1 | `Unknown6E9490BinaryClass` | `tests/capharness/clienttest/client_stubs.cpp:315` | untagged neutral name (D10) |
-| 1 | `Unknown_30` | `tests/capharness/clienttest/client_stubs.cpp:322` | untagged neutral name (D10) |
-| 1 | `Unknown_38` | `tests/capharness/clienttest/client_stubs.cpp:324` | untagged neutral name (D10) |
-| 1 | `Unknown_6E82A0` | `tests/capharness/clienttest/client_stubs.cpp:325` | untagged neutral name (D10) |
-| 1 | `Unknown04` | `tests/capharness/clienttest/client_stubs.cpp:326` | untagged neutral name (D10) |
-| 1 | `Unknown7C` | `tests/capharness/clienttest/client_stubs.cpp:327` | untagged neutral name (D10) |
-| 1 | `Unknown80` | `tests/capharness/clienttest/client_stubs.cpp:328` | untagged neutral name (D10) |
-| 1 | `UnknownA8` | `tests/capharness/clienttest/client_stubs.cpp:329` | untagged neutral name (D10) |
-| 1 | `UnknownB4` | `tests/capharness/clienttest/client_stubs.cpp:330` | untagged neutral name (D10) |
-| 1 | `Unknown6E9490EffectClass` | `tests/capharness/clienttest/client_stubs.cpp:349` | untagged neutral name (D10) |
-| 1 | `Unknown_6E9490` | `tests/capharness/clienttest/client_stubs.cpp:363` | untagged neutral name (D10) |
+| 1 | `UnknownB0009CEffectClass` | `tests/capharness/clienttest/client_stubs.cpp:316` | untagged neutral name (D10) |
+| 1 | `Unknown_30` | `tests/capharness/clienttest/client_stubs.cpp:323` | untagged neutral name (D10) |
+| 1 | `Unknown_38` | `tests/capharness/clienttest/client_stubs.cpp:325` | untagged neutral name (D10) |
+| 1 | `Unknown_6E82A0` | `tests/capharness/clienttest/client_stubs.cpp:326` | untagged neutral name (D10) |
+| 1 | `Unknown04` | `tests/capharness/clienttest/client_stubs.cpp:327` | untagged neutral name (D10) |
+| 1 | `Unknown80` | `tests/capharness/clienttest/client_stubs.cpp:329` | untagged neutral name (D10) |
+| 1 | `Unknown6E9490BinaryClass` | `tests/capharness/clienttest/client_stubs.cpp:343` | untagged neutral name (D10) |
+| 1 | `Unknown6E9490EffectClass` | `tests/capharness/clienttest/client_stubs.cpp:350` | untagged neutral name (D10) |
+| 1 | `Unknown_6E9490` | `tests/capharness/clienttest/client_stubs.cpp:364` | untagged neutral name (D10) |
 | 1 | `Unknown_Get_Ticks` | `tests/capharness/clienttest/clienttest.cpp:72` | untagged neutral name (D10) |
 | 1 | `Unknown_8B4510` | `tests/capharness/clienttest/clienttest.cpp:83` | untagged neutral name (D10) |
 | 1 | `Unknown_8B4560` | `tests/capharness/clienttest/clienttest.cpp:84` | untagged neutral name (D10) |
@@ -4608,11 +4595,12 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Client` | `app/client/control_keys_manager.h:158` | what it holds |
 | 2 | `std:` | `app/client/control_keys_manager.h:164` | what it holds |
 | 2 | `PlayerID` | `app/client/control_keys_manager.h:169` | what it holds |
-| 2 | `cpacket.cpp` | `app/client/cpacket.cpp:74` | the class id the handlers test |
-| 2 | `SoundManager` | `app/client/cpacket.cpp:93` | what it holds |
-| 2 | `EmoteDataClass` | `app/client/cpacket.cpp:107` | co_data.h's name for what Get_Emote_Data returns |
+| 2 | `cpacket.cpp` | `app/client/cpacket.cpp:75` | the class id the handlers test |
+| 2 | `SoundManager` | `app/client/cpacket.cpp:94` | what it holds |
+| 2 | `EmoteDataClass` | `app/client/cpacket.cpp:108` | co_data.h's name for what Get_Emote_Data returns |
 | 2 | `Get_Jobs` | `app/client/cpacket.cpp:258` | what it returns |
 | 2 | `Jobs` | `app/client/cpacket.cpp:261` | what it holds |
+| 2 | `String_To_Value` | `app/client/eff_o.cpp:28` | as strconv_lib.h's pairs |
 | 2 | `Get_Flag` | `app/client/eff_o.h:82` | what it does |
 | 2 | `Set_Flag` | `app/client/eff_o.h:83` | what it does |
 | 2 | `Node` | `app/client/eff_o.h:91` | what it is |
@@ -6550,10 +6538,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `NotTarget` | `app/client/co_player_relationship.cpp:39` | the ini name 'NotTarget' |
 | 3 | `JumpStart` | `app/client/co_player_relationship.cpp:40` | the ini name 'JumpStart' |
 | 3 | `control_keys_manager.h` | `app/client/control_keys_manager.h:18` | header name assumed from the client's control_keys_manager.cpp |
-| 3 | `RsTrackClass` | `app/client/cpacket.cpp:75` | class-from-file (D24) for app\shared\rs_track.cpp |
-| 3 | `SoundManagerClass` | `app/client/cpacket.cpp:85` | class-from-file (D24) for app\client\sound_manager.cpp |
-| 3 | `NavigationDataClass` | `app/client/cpacket.cpp:97` | class-from-file (D24) for app\client\navigation_data.cpp |
-| 3 | `GutterDataClass` | `app/client/cpacket.cpp:102` | class-from-file (D24) for app\client\gutter_data.cpp |
+| 3 | `RsTrackClass` | `app/client/cpacket.cpp:76` | class-from-file (D24) for app\shared\rs_track.cpp |
+| 3 | `SoundManagerClass` | `app/client/cpacket.cpp:86` | class-from-file (D24) for app\client\sound_manager.cpp |
+| 3 | `NavigationDataClass` | `app/client/cpacket.cpp:98` | class-from-file (D24) for app\client\navigation_data.cpp |
+| 3 | `GutterDataClass` | `app/client/cpacket.cpp:103` | class-from-file (D24) for app\client\gutter_data.cpp |
 | 3 | `UIJobsClass` | `app/client/cpacket.cpp:246` | class-from-file (D24) for app\client\ui_jobs.cpp |
 | 3 | `SBaseViewClass` | `app/client/cpacket.cpp:254` | class-from-file (D24) for app\client\sbaseview.cpp |
 | 3 | `UITalkTreeClass` | `app/client/cpacket.cpp:266` | class-from-file (D24) for app\client\ui_talkt.cpp |
