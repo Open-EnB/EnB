@@ -7416,10 +7416,12 @@
      "0x42A900",
      "0x42AAE0",
      "0x42AC90",
+     "0x42AFF0",
      "0x42B250",
      "0x42B2F0",
      "0x4333A0",
-     "0x4333D0"
+     "0x4333D0",
+     "0x451370"
     ],
     "copy": "reconstructed",
     "expected": {},
@@ -7430,7 +7432,15 @@
      "0x44E390",
      "0x44F2F0",
      "0x44F370",
-     "0x44F3A0"
+     "0x44F3A0",
+     "0x44F870",
+     "0x44F8C0",
+     "0x44FCF0",
+     "0x44FE50",
+     "0x44FE70",
+     "0x44FE90",
+     "0x44FF10",
+     "0x44FF40"
     ],
     "merged": [],
     "name": "shared/px_callback_accurate.cpp"
@@ -9100,7 +9110,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 4480,
+  "in_tree_total": 4488,
   "totals": {}
  },
  "binkmovie": {

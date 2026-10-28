@@ -58,6 +58,82 @@ void PxAccurateCallback::Exit(PxObject *object)
 	Callback(Object->Owner, object->Owner, PX_EVENT_EXIT);
 }
 
+// 0x44F3D0
+// NOT EXACT: inline budget (the base's hash_map constructor is called out of line, 0x450DB0)
+PxAccurateBoxCallback::PxAccurateBoxCallback(PxObject *object, PxCallbackFunction callback, const Vector3 &extent) :
+	PxAccurateCallback(object, callback),
+	Box(NULL),
+	Extent(extent)
+{
+	Box = new PxAccurateBox(object, this);
+	Box->Set_Test(1);
+	Box->Set_Mask(1);
+	Update();
+}
+
+// 0x44F8F0
+// NOT EXACT: inline budget (as 0x44F3D0)
+PxAccurateBoxCallback::PxAccurateBoxCallback(PxObject *object, const PxAccurateBoxCallback &src) :
+	PxAccurateCallback(object, src),
+	Box(NULL),
+	Extent(src.Extent)
+{
+	Box = new PxAccurateBox(object, *src.Box, this);
+	Update();
+}
+
+// 0x44FAD0
+// NOT EXACT: inline budget (it inlines the copy constructor 0x44F8F0)
+PxCallback *PxAccurateBoxCallback::Clone(PxObject *object)
+{
+	return(new PxAccurateBoxCallback(object, *this));
+}
+
+// 0x44FCF0
+PxAccurateBoxCallback::~PxAccurateBoxCallback()
+{
+	delete Box;
+	Box = NULL;
+}
+
+// 0x44FE50
+void PxAccurateBoxCallback::Attach(PxList *list)
+{
+	list->Insert(Box);
+}
+
+// 0x44FE70
+void PxAccurateBoxCallback::Detach(PxList *list)
+{
+	list->Remove(Box);
+}
+
+// 0x44FE90
+void PxAccurateBoxCallback::Update()
+{
+	const Vector3 &pos = Object->Pos;
+	Box->Set_Corners(pos - Extent, Extent + pos);
+}
+
+// 0x44FF10
+void PxAccurateBoxCallback::Add_Filter(int mask, int test)
+{
+	Box->Set_Test_Mask(Box->Test | test, Box->Mask | mask);
+}
+
+// 0x44FF40
+bool PxAccurateBoxCallback::Test(PxObject *object)
+{
+	float x = object->Pos.X;
+	float y = object->Pos.Y;
+	float z = object->Pos.Z;
+	float r = object->Radius;
+	Vector3 low;
+	Vector3 high;
+	Box->Get_Corners(&low, &high);
+	return(x < high.X + r && low.X - r < x && y < high.Y + r && low.Y - r < y && z < high.Z + r && low.Z - r < z);
+}
+
 /*
 ** Notes
 **

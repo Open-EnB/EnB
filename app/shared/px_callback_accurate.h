@@ -15,6 +15,8 @@
 
 #include "px_process.h"
 #include "px_callback.h"
+#include "px.h"
+#include "vector3.h"
 #include <vector>
 #include <hash_map.h>
 
@@ -58,6 +60,46 @@ public:
 	PxCallbackFunction Callback;												// +0x14  // NAME 2: as PxPollCallback's
 	std::hash_map<PxObject *, PxAccurateOverlapStruct> Overlaps;				// +0x18 (the client's name, the FAIL_IF 'it == Overlaps.end()'; 100 buckets)
 	std::vector<PxAccurateActiveStruct> Active;									// +0x30 (the client's name, the FAIL_IF 'it == Active.end()')
+};
+
+class PxAccurateBoxCallback;
+
+/*
+** The box of a PxAccurateBoxCallback (0x24 bytes, vtable 0xAE7B44: the deleting destructor 0x44F870, On_Enter
+** 0x44F5D0, On_Exit 0x44F6E0, not rebuilt): it hands its overlaps to its callback's Overlaps / Active.
+*/
+class PxAccurateBox : public PxBox  // NAME 2: what it is
+{
+public:
+	PxAccurateBox(PxObject *object, PxAccurateBoxCallback *callback) : PxBox(object), Callback(callback) {}	// NAME 2 [object, callback]: what it stores
+	PxAccurateBox(PxObject *object, const PxBox &src, PxAccurateBoxCallback *callback) : PxBox(object, src), Callback(callback) {}	// NAME 2 [src]: the copy's
+
+	virtual void On_Enter(PxBox *box);					// 0x44F5D0 (not rebuilt)
+	virtual void On_Exit(PxBox *box);					// 0x44F6E0 (not rebuilt)
+
+	PxAccurateBoxCallback *Callback;					// +0x20  // NAME 2: its owner
+};
+
+/*
+** The accurate box callback (0x50 bytes; vtables 0xAE7B70 (node), 0xAE7B54 (callback, +0x0C)): its own box (Test 1,
+** Mask 1) is the extent around its object; Test asks whether an object's sphere touches that box.
+*/
+class PxAccurateBoxCallback : public PxAccurateCallback  // NAME 2: the accurate callback with a box
+{
+public:
+	PxAccurateBoxCallback(PxObject *object, PxCallbackFunction callback, const Vector3 &extent);	// 0x44F3D0  // NAME 2 [object, callback, extent]: what it stores
+	PxAccurateBoxCallback(PxObject *object, const PxAccurateBoxCallback &src);					// 0x44F8F0  // NAME 2 [object, src]: as the boxes'
+	virtual ~PxAccurateBoxCallback();									// 0x44FCF0 (deleting 0x44F8C0)
+
+	virtual PxCallback *Clone(PxObject *object);		// 0x44FAD0
+	virtual void Attach(PxList *list);					// 0x44FE50
+	virtual void Detach(PxList *list);					// 0x44FE70
+	virtual void Update();								// 0x44FE90
+	virtual void Add_Filter(int mask, int test);		// 0x44FF10
+	virtual bool Test(PxObject *object);				// 0x44FF40 (the object's sphere against the box)
+
+	PxAccurateBox *Box;									// +0x40  // NAME 2: what it holds
+	Vector3 Extent;										// +0x44  // NAME 2: as PxPollCallback's
 };
 
 #endif
