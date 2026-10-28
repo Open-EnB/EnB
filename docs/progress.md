@@ -1437,9 +1437,10 @@ client's own code: [kernel-map.md](kernel-map.md) §6 and, for step 9's dependen
    CLIENT_CHAT_EVENT 165; (2026-10-28, CP1: 6f52820..4cb9352, +12: every object-model handler in source, GADGET 103,
    INCAPACITANCE_DETAILS 144, FORMATION 65, VERB_LIST 91, STARBASE_ROOM_CHANGE 160, recustomize 129 / 131 / 133, GM
    234 / 235, CTA_RESPONSE 189 exact; NOT EXACT START 5 / STARBASE_AVATAR_CHANGE 158 register, CLIENT_SET_TIME 52
-   shape, ADVANCED 62 / SIMPLE 8 drift, DAMAGE 100 frame; P-T16-2 and P-SC1-1 (sbaseview.h) done; cpacket.cpp 89
-   exact / 8 NOT EXACT / 10 not rebuilt: TRADE 31, MessageChatstream 95, FIND_MEMBER 83, NoteContent 184,
-   CLIENT_CHAT_LIST / ERROR 164 / 166, guild 200 / 204 / 208 / 216; clienttest 87 checks) (2026-10-28, SC1: 00de1a9..cf59a64, +18: P-MV2-2, P-T18-2 (gen_stubs writes `const
+   shape, ADVANCED 62 / SIMPLE 8 drift, DAMAGE 100 frame; P-T16-2 and P-SC1-1 (sbaseview.h) done; CP2 bf8b544..
+   5785ee3, +15: TRADE 31, FIND_MEMBER 83, NoteContent 184, guild 200 / 204 / 208 / 216, CLIENT_CHAT_ERROR 166 exact,
+   MESSAGE_CHATSTREAM 95 register, CLIENT_CHAT_LIST 164 shape (each case's return repeats the profile tail; lead: a
+   `break` into one exit); cpacket.cpp now 97 exact / 10 NOT EXACT / 0 not rebuilt; clienttest 103 checks) (2026-10-28, SC1: 00de1a9..cf59a64, +18: P-MV2-2, P-T18-2 (gen_stubs writes `const
    RefCountPtr<T> &` / by-value RefCountPtr stand-ins), PxProcessClass::Push / Pop, the steering inputs
    0x745AA0-0x745E40, the GroupInfo tests, 0x74B600 / 0x74B640 / 0x74D730, 0x751660, 0x74E580, 0x750B60 exact;
    NOT EXACT 0x744C10 shape, 0x7429B0 register, 0x74C3B0 / 0x745750 / 0x7436A0 / 0x74EB00 budget (0x728300 was an

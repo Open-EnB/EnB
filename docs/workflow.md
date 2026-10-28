@@ -464,6 +464,10 @@ unless `--lever` cites a new row of this table.
   (234 / 235); a FAIL_IF's text is `#expr`, so a helper that matches the bytes but changes the condition's tokens
   changes the client's string: don't keep it. Which Is_Valid_Float calls go out of line follows the inline budget
   (62: Orientation.W, Position.Z, Orientation.Z, ImpartedVelocity.Z in that order).
+* **VC6 lays out switch cases in source order** (2026-10-28, CP2): read the jump table's targets against code addresses
+  and write the cases in the client's code order (0x73D170 exact in one step, 33 cases). An early return on a
+  RefCountPtr temporary matched as `if (a == NULL || a->Get() == NULL) return(true);` (a nested `!= NULL` gives setne
+  for sete); a field copied through a named block local fixed a store-order residue (TRADE 31).
 * **Asserts sit on the client's lines (D25).** To add code above a logged line, remove as many
   blank lines from the same function's stretch (cordmgr.cpp; `.work/milestones/a3/relines.py`);
   pad inside a function, not only before it (Get(char **); pk.cpp's helpers take single blanks).
@@ -755,6 +759,8 @@ unless `--lever` cites a new row of this table.
   asset manager, 7089f1d). co.cpp's loader 0x6F51D0 reads basset.ini, Set_Model's radius 0x6F39F0 and the mount
   points 0x7251C0 read cbasset.ini, both from the working directory (clienttest's copies in its data folder).
   ~ClientObjectClass deletes AuxData through slot +0x04: a fake root's table needs a `__stdcall(unsigned)` there.
+* **A RawPacketClass just written with Add can't be read back by a raw constructor** (its cursor is at the end): push
+  it through `Memory->Incoming` (2026-10-28, CP2). symbol_substitution.cpp's symbols are `$Name$`, not `%Name%`.
 * **clienttest synthetic sections that create models run after section (3)**, or they renumber its models; a packet
   whose member classes are gen_stubs (no vtable) can't go through Build: call Process_Packet on a value-built
   packet (2026-10-28, CP1).
@@ -791,6 +797,8 @@ unless `--lever` cites a new row of this table.
 
 ### 3.8 Git, docs and scripting hygiene
 
+* **A Python edit that appends a declaration to a line ending in a `//` comment swallows it** (C2039): prepend
+  instead (2026-10-28, CP2).
 * **Git Bash turns a `'// 0x...'` argument into a path** (2026-10-28, PX2): prefix the command with
   `MSYS_NO_PATHCONV=1`. `sed -i` on a CRLF file silently misses a pattern ending at the line end (the `\r`).
 * **`wt.py remove` deletes the worktree's `.work/` scratch** (2026-10-28, MV2): keep scripts you want in the main
