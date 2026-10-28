@@ -281,29 +281,29 @@ bool Unknown_70C2A0(SClient *client, ClientObjectClass *object, GutterColorSetSt
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+void Unknown_70C5D0(SClient *client, ClientObjectClass *object, GutterColorSetStruct &colors)
+{
+	static GutterColorSetStruct kos = Unknown_70ADF0(std::string("KOS"));	// 0xBE7018  // NAME 2: what it holds
+	static GutterColorSetStruct shun = Unknown_70ADF0(std::string("Shun"));	// 0xBE6DD0  // NAME 2: what it holds
+	static GutterColorSetStruct friendly = Unknown_70ADF0(std::string("Friendly"));	// 0xBE6D70  // NAME 2: what it holds
+	static GutterColorSetStruct adore = Unknown_70ADF0(std::string("Adore"));	// 0xBE6E90  // NAME 2: what it holds
+	switch (((RelationshipClass *)object->Relationship)->Reaction) {
+		case 0:
+			colors = kos;
+			break;
+		case 2:
+			colors = friendly;
+			break;
+		case 3:
+			colors = adore;
+			break;
+		default:
+			G_ASSERT(0);
+		case 1:
+			colors = shun;
+			break;
+	}
+}
 void Unknown_70CC40(SClient *sclient, PlayerObjectRelationshipPacket *packet)
 {
 	ClientObjectClass *object = sclient->Find_Object(packet->ObjectID);

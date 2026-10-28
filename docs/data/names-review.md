@@ -3722,6 +3722,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `attacking` | `app/client/co_player_relationship.cpp:164` | what it holds |
 | 2 | `pvp_attackable` | `app/client/co_player_relationship.cpp:234` | what it holds |
 | 2 | `player_colors` | `app/client/co_player_relationship.cpp:243` | what it holds |
+| 2 | `kos` | `app/client/co_player_relationship.cpp:286` | what it holds |
+| 2 | `shun` | `app/client/co_player_relationship.cpp:287` | what it holds |
+| 2 | `friendly` | `app/client/co_player_relationship.cpp:288` | what it holds |
+| 2 | `adore` | `app/client/co_player_relationship.cpp:289` | what it holds |
 | 2 | `ContextEqualStruct` | `app/client/control_keys_manager.cpp:15` | describes what it does (the SGI documentation's eqstr; strcmp inlined in 0x71ECD0) |
 | 2 | `std:` | `app/client/control_keys_manager.cpp:20` | 0xBE7B80, what the accessors return without a definition |
 | 2 | `std:` | `app/client/control_keys_manager.h:31` | 0x71CC60 returns it; the table's key |
