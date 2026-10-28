@@ -422,6 +422,11 @@ python tools/harness/vidtest_sbs.py run; python tools/harness/vidtest_sbs.py sbs
   173,408 verts, the prims and verts the original's; one group differs, the trees drawn per patch (1,344 draws of the
   original's 23,695 prims where it draws 340). `--art DIR` runs ours on a copy of the art (`build/art`, EBCONFIG copied
   with its dates, `cp -rp`): LandClass rewrites a .pld it can't load, so never the install folder (D69).
+  Since D120 (2026-10-28) drawcheck, vidtest_sbs and run_vidtest pass `-art build/art` by themselves whenever that folder
+  exists and no art folder was given (`--art DIR` for drawcheck, `-- -art DIR` for the other two); without it they keep
+  vidtest's own default (its working directory when it holds `mu01a.w3d`, else the install's EBCONFIG) and print a
+  warning. Make the copy once per clone or worktree, with the dates (`artdir.py`):
+  `cp -rp "/c/Program Files (x86)/EA GAMES/Earth & Beyond/EBCONFIG" build/art`.
   2026-10-28 (LD2): the trees from LandClass's own Create_Decorations / Build_Decorations (0x479D00 / 0x47A2F0) into its
   patch records: ours 1,187 / 83,028 / 173,408 in 50 groups, every group the original's (0 known differences; the
   strict compare: 17 of 1,187 draws differ, the clock-driven matrices). The lightmap equals the original's since
@@ -512,6 +517,7 @@ Each script has its usage in its docstring; `python tools/harness/X.py --help` w
 | `clienttest.py` | `tests/capharness/clienttest` (ClientClass's lists, the DEBUG setters and the redirect, SClient::Process_Packets through cpacket.cpp's handlers on a capture's messages; trace against `expected.txt`); `build` then `run` | pool VM, the reference decoder's trace.jsonl |
 | `movietest.py` | `tests/capharness/movietest`: the movie task plays a Bink movie (kernel-map step 7); `build` stages Renegade's BinkMovie source from `roots.EA_ROOT`, `run` copies `binkw32.dll` and the movie from the retail install (read only) and runs in `.work/harness/movietest` | retail install, pool VM |
 | `run_vidtest.py`, `vidtest_sbs.py`, `run_reference.py`, `drawdump.py`, `symbolize.py`, `bmp2png.py`, `d3d8shot.c` | vidtest (above) | |
+| `artdir.py` | the art folder default of drawcheck, vidtest_sbs and run_vidtest (D120): `build/art` when it exists, else a warning | `build/art` (`cp -rp` of EBCONFIG) |
 | `vidtest_e2e.py` | starts vidtest as E&BConfig does (its command line, `CreateProcessA` with a relative name, E&BConfig's working directory = a copy of EBCONFIG at `build/programs/vidtest/e2e_ebconfig`, never the install) and reads `results.ini` as E&BConfig does; `--original` runs the retail VIDTEST (which has no `-nomsgbox`; ours gets it appended) | built vidtest, retail EBCONFIG folder to copy |
 | `vidtest_exitcodes.py` | the exit-code matrix (cases `finish close key mode res scenes`, `--case NAME`, repeatable) with `-nomsgbox` always; window and any stray message box are found by process id; results.ini compared with `--ref` | built vidtest |
 

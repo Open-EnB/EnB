@@ -2,7 +2,10 @@
 
     python tools/harness/drawcheck.py compare ORIG.bin OURS.bin [--quiet]   # two draws_NNNNN.bin
     python tools/harness/drawcheck.py run [--frame 900] [--orig-dir DIR] [--ours-dir DIR]
-                                          [--redo-orig] [--timeout 120]
+                                          [--redo-orig] [--timeout 120] [--art DIR]
+
+`--art DIR`: ours reads the art from DIR, a copy of EBCONFIG; default build/art whenever it exists
+(D120; artdir.py says how to make it), else vidtest's own default after a warning.
 
 `compare` reads two dumps (tools/harness/drawdump.py) and checks, draw by draw in order, everything
 but the lighting: the draw's type, counts, stride, FVF, the sizes and formats of its textures
@@ -37,6 +40,7 @@ import sys
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.dirname(os.path.dirname(HERE))
 sys.path.insert(0, HERE)
+import artdir  # noqa: E402
 import drawdump  # noqa: E402
 
 OUT = os.path.join(REPO, 'build', 'programs', 'vidtest', 'drawcheck')
@@ -160,7 +164,8 @@ def main():
     ap.add_argument('--ours-dir', default=os.path.join(OUT, 'ours'))
     ap.add_argument('--redo-orig', action='store_true', help='dump the original again')
     ap.add_argument('--timeout', type=float, default=120)
-    ap.add_argument('--art', help='ours: read the art from this folder (a copy of EBCONFIG), never the install folder')
+    ap.add_argument('--art', help='ours: read the art from this folder (a copy of EBCONFIG), never the install folder; '
+                    'default build/art when that folder exists (D120, artdir.py), else a warning')
     ap.add_argument('--quiet', action='store_true')
     ap.add_argument('--update-baseline', action='store_true', help='run: accept this run as drawcheck_baseline.json')
     a = ap.parse_args()
@@ -171,7 +176,7 @@ def main():
     orig = os.path.join(a.orig_dir, f'draws_{a.frame:05d}.bin')
     if a.redo_orig or not os.path.exists(orig):
         orig = run_one(None, a.orig_dir, a.frame, a.timeout)
-    ours = run_one(OURS_EXE, a.ours_dir, a.frame, a.timeout, a.art)
+    ours = run_one(OURS_EXE, a.ours_dir, a.frame, a.timeout, artdir.default_art(a.art))
     sys.exit(0 if judge(orig, ours, a.frame, a.update_baseline) else 1)
 
 

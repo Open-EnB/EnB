@@ -705,7 +705,8 @@ unless `--lever` cites a new row of this table.
 * **`gen_stubs --link` skips data globals** (`MonoClass Mono`): write them by hand in client_stubs.cpp (2026-10-28, UP1).
 * **LandClass writes the .pld beside the art it reads (2026-10-28, LD1):** VIDTEST and drawcheck run on LandClass
   now; always pass `-art` / `--art` with a copy of EBCONFIG made with `cp -rp` (without -p the .pld's date changes
-  and Save_PLD rewrites it). drawcheck without `--art` runs ours on the install folder (P-LD1-2).
+  and Save_PLD rewrites it). drawcheck, vidtest_sbs and run_vidtest default to `build/art` when it exists (D120, `tools/harness/artdir.py`)
+  and warn when it doesn't; a fresh clone or worktree has none: make it first.
 * **Before tuning land lighting, diff the lightmap dumps texel by texel** (2026-10-28, LD2): `run_reference --dump`'s
   `tex_00900_*.bmp` against ours, read with the .pld's horizons; every shadowed texel lit in the original pointed at
   the sun input (0x5286A0 is the CRT's acos: SunAngle is the elevation), not at the land code.
