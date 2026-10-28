@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-318 entries in 71 files.
+319 entries in 71 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -109,6 +109,7 @@ edit the comments in the code, not this file.
 | `app/client/mainview.cpp:647` | `MainViewClass::Render_Space_Mode` | marker | NOT EXACT: similarity 0.75 (as Render_Gas_Giant_Mode, and the inline choices of 0x50D1E0 / 0x50E6A0); attempts.csv 0x50E090 |
 | `app/client/mainview.cpp:687` | `MainViewClass::Render_Planet_Mode` | marker | NOT EXACT: similarity 0.67 (functional from the pseudocode; the inline choices differ); attempts.csv 0x50E6E0 |
 | `app/client/mainview.cpp:899` | `MainViewClass::Update` | marker | NOT EXACT: functional (MV2, from the disassembly): the client's DurationClass operator+ is out of line (0x514B00) and duration.h can't take a declaration (aux_roots.cpp's pad, workflow.md §3.3) |
+| `app/client/mainview.cpp:1227` | `MainViewClass::Unknown_510D40` | marker | NOT EXACT: functional (MV2): Renegade's phys.cpp projection-preview quad (wwphys, disabled there) as the client has it: 0x510D40, the sea's tint over the whole screen in the colour arg (0x50CF70 passes +0x16C), no texture |
 | `app/client/mainview.cpp:1408` | `MainViewClass::Unknown_512400` | marker | NOT EXACT: functional (MV2, from the disassembly) |
 | `app/client/mainview.cpp:1786` | `MainViewClass::Unknown_60` | marker | NOT EXACT: functional (MV2, from the disassembly) slot +0x60: the object under the screen point (x, y in 0..1): the avatar's model first unless skip_avatar, then the objects within the camera's far distance and 5 degrees of the ray (the planets and stations, types 2 / 3 / 10, within their apparent size), the one nearest the ray that no nearer occluder covers |
 | `app/client/mainview.cpp:2148` | `MainViewClass::Unknown_514010` | marker | NOT EXACT: shape (the second switch's case 0 / 5 block sits after the dispatch in the client); attempts.csv 0x514010 |

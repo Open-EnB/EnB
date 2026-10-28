@@ -463,6 +463,8 @@ public:
 	void Unknown_50D430(float znear, float zfar);		// 0x50D430 (renders the dazzle layer)  // NAME 2 [znear, zfar]: Set_Clip_Planes's
 	void Unknown_50D520();								// 0x50D520 (the 2-D overlays, 'PB=%d SB=%d LB=%d LOD=%d')
 	void Unknown_510440();								// 0x510440 (0x50D520 with the options' +0x05: the profile text)
+	void Unknown_5103F0(int index);						// 0x5103F0 (the profile iterator into child index unless it is -1; no caller found)  // NAME 1 [index]: Enter_Child's
+	void Unknown_510420();								// 0x510420 (the profile iterator to its parent; no caller found)
 	WW3DErrorType Render_Initializing();				// 0x50DA00  // NAME 2: its profile label 'MainView::Render_Initializing'
 	WW3DErrorType Render_Gas_Giant_Mode(float znear, float zfar);	// 0x50DB20  // NAME 2: its profile label
 	WW3DErrorType Render_Space_Mode(float znear, float zfar);	// 0x50E090  // NAME 2: its profile label

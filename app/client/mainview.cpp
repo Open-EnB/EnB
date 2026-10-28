@@ -1206,77 +1206,77 @@ void MainViewClass::Unknown_510440()
 	}
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// 0x5103F0 / 0x510420: the profile display's child and parent commands (out of address order, after 0x510440)
+void MainViewClass::Unknown_5103F0(int index)
+{
+	if (index > -1) ProfileIterator->Enter_Child(index);
+}
+
+void MainViewClass::Unknown_510420()
+{
+	ProfileIterator->Enter_Parent();
+}
+
+
+#include "..\..\ww3d2\dx8wrapper.h"
+#include "..\..\ww3d2\dx8vertexbuffer.h"
+#include "..\..\ww3d2\dx8indexbuffer.h"
+#include "..\..\ww3d2\dx8fvf.h"
+#include "..\..\ww3d2\vertmaterial.h"
+#include "..\..\ww3d2\shader.h"
+// NOT EXACT: functional (MV2): Renegade's phys.cpp projection-preview quad (wwphys, disabled there) as the client has it:
+// 0x510D40, the sea's tint over the whole screen in the colour arg (0x50CF70 passes +0x16C), no texture
+void MainViewClass::Unknown_510D40(Vector3 &arg)
+{
+	Matrix4 view, proj;
+	Matrix4 identity(true);
+	DX8Wrapper::Get_Transform(D3DTS_VIEW, view);
+	DX8Wrapper::Get_Transform(D3DTS_PROJECTION, proj);
+	ShaderClass shader = ShaderClass::_PresetOpaqueShader;
+	shader.Set_Depth_Compare(ShaderClass::PASS_ALWAYS);
+	DX8Wrapper::Set_Shader(shader);
+	VertexMaterialClass *vmtl = VertexMaterialClass::Get_Preset(VertexMaterialClass::PRELIT_DIFFUSE);
+	DX8Wrapper::Set_Material(vmtl);
+	REF_PTR_RELEASE(vmtl);
+	DX8Wrapper::Set_Transform(D3DTS_WORLD, identity);
+	DX8Wrapper::Set_Transform(D3DTS_VIEW, identity);
+	DX8Wrapper::Set_Transform(D3DTS_PROJECTION, identity);
+	float scale = 255.0f;
+	unsigned color = WWMath::Float_To_Long(arg.Z * scale) | (WWMath::Float_To_Long(arg.X * scale) << 16) | (WWMath::Float_To_Long(arg.Y * scale) << 8);
+	DynamicVBAccessClass vbaccess(BUFFER_TYPE_DYNAMIC_DX8, dynamic_fvf_type, 4);
+	{
+		DynamicVBAccessClass::WriteLockClass lock(&vbaccess);
+		unsigned char *vb = (unsigned char *)lock.Get_Formatted_Vertex_Array();
+		const FVFInfoClass &fvf = vbaccess.FVF_Info();
+		*(Vector3 *)(vb + fvf.Get_Location_Offset()) = Vector3(1.0f, 1.0f, 1.0f);
+		*(unsigned *)(vb + fvf.Get_Diffuse_Offset()) = color;
+		vb += fvf.Get_FVF_Size();
+		*(Vector3 *)(vb + fvf.Get_Location_Offset()) = Vector3(1.0f, -1.0f, 1.0f);
+		*(unsigned *)(vb + fvf.Get_Diffuse_Offset()) = color;
+		vb += fvf.Get_FVF_Size();
+		*(Vector3 *)(vb + fvf.Get_Location_Offset()) = Vector3(-1.0f, -1.0f, 1.0f);
+		*(unsigned *)(vb + fvf.Get_Diffuse_Offset()) = color;
+		vb += fvf.Get_FVF_Size();
+		*(Vector3 *)(vb + fvf.Get_Location_Offset()) = Vector3(-1.0f, 1.0f, 1.0f);
+		*(unsigned *)(vb + fvf.Get_Diffuse_Offset()) = color;
+	}
+	DynamicIBAccessClass ibaccess(BUFFER_TYPE_DYNAMIC_DX8, 2 * 3);
+	{
+		DynamicIBAccessClass::WriteLockClass lock(&ibaccess);
+		unsigned short *indices = lock.Get_Index_Array();
+		indices[0] = 0;
+		indices[1] = 2;
+		indices[2] = 1;
+		indices[3] = 0;
+		indices[4] = 3;
+		indices[5] = 2;
+	}
+	DX8Wrapper::Set_Vertex_Buffer(vbaccess);
+	DX8Wrapper::Set_Index_Buffer(ibaccess, 0);
+	DX8Wrapper::Draw_Triangles(0, 2, 0, 4);
+	DX8Wrapper::Set_Transform(D3DTS_VIEW, view);
+	DX8Wrapper::Set_Transform(D3DTS_PROJECTION, proj);
+}
 
 
 
