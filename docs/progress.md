@@ -1346,6 +1346,10 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 | D117 | 2026-10-27 | pairs_cmp prints the addresses lost outright (lost pairs whose address no file holds afterwards) and the moves, the list D66(v) depends on (P-M3-2) | user |
 | D118 | 2026-10-27 | Evidence-backed pins (Open-BFME's ledger) are measured and not adopted: the matching stays objmatch's rounds in D80's order. Builder M4's measurement (wt/pins 8db8c42): a caller in the same object +655 pairs, 0 lost; a caller in the library +812; placement +321 / +336 with about 2.4 % wrong where checkable; six hand pins +8; 82-88 % of every kind's credits land on byte-identical twins. The prototype and its numbers are kept in tools/re/experimental/pins/ (README) for a later decision | user |
 | D119 | 2026-10-28 | P-LD2-1 accepted: a pair that moves to D54's ambiguous column because the change writes the client's own form, which has several byte-identical instances (land.obj's `Create_*` RefCountPtr setters; 0x474080 when Build_Decorations 0x47A2F0 uses them), is not a loss under D66 (vi). Named in the commit with the address and the identical instances; an address lost outright still waits for the user. Work item: land.cpp's Land_Set_Ref helper goes back to the client's `Create_*` calls | user (LD2's proposal) |
+| D120 | 2026-10-28 | P-LD1-2 accepted (a D69 safety default): drawcheck, vidtest_sbs and run_vidtest default to `--art build/art` whenever that folder exists, so VIDTEST's Save_PLD never writes into the install folder | user (LD1's proposal) |
+| D121 | 2026-10-28 | P-CR1-1 accepted: co.h's `UnknownA8` (+0xA8) is `BaseAsset` (CREATE 4 and CHANGE_BASE_ASSET 38 store the packet's BaseAsset there; 0x6F39F0 reads it as BASE-n) | user (CR1's proposal) |
+| D122 | 2026-10-28 | P-CR1-3 accepted: the object subclasses' run 0x70DC00-0x70F1D0 (constructors 0x70DBC0 / 0x70E2E0 type 24, 0x70E5A0 type 28; no `__FILE__`) gets the provisional file `app/client/co_subtypes.cpp` (NAME 1), renamed if an assert or string names it | user (CR1's proposal) |
+| D123 | 2026-10-28 | P-PF1-1 accepted: `ClientClass::DebugObjectID` (+0x112C) is the player's avatar id, `AvatarID` / `Get_Avatar` (CLIENT_AVATAR 55 sets it; ADVANCED 62, FORMATION 65, 0x6F3C60, DAMAGE 100 use it) | user (PF1's proposal) |
 
 ## 3. Open decisions
 
@@ -1368,21 +1372,10 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
   ungated, P-PK1-2) and 45bf5c0 (P-PK1-3's Clone form, now gains-only), +16 pairs, 0 lost; reverting both loses
   the 16. (P-PK1-3's D66 trade is no longer needed.)
 
-* **P-LD1-2** (2026-10-28, LD1; recommend accept, a D69 safety default): drawcheck, vidtest_sbs and run_vidtest
-  default to `--art build/art` whenever that folder exists, since VIDTEST's LandClass can now write the .pld (Save_PLD)
-  beside the art it reads; without `--art` drawcheck runs ours on the install folder.
 * **D101's sbs criterion** (2026-10-28, LD1; recommend accept as met): the means moved 0.4-0.7 points (2.6-2.8 %
   against vidland's 1.9-2.4 %), within ±1.5 points; frames 600-900 are 2.8-3.0 % against 1.5-2.4 %. LD1 reads
   "within ±1.5 %" as points of difference; the user confirms or asks for the lighting fix first.
-* **P-CR1-1** (2026-10-28, CR1; recommend accept): rename co.h's `UnknownA8` (+0xA8) to `BaseAsset` (NAME 2): CREATE 4
-  and CHANGE_BASE_ASSET 38 store the packet's BaseAsset there and 0x6F39F0 reads it as BASE-n.
-* **P-CR1-3** (2026-10-28, CR1; recommend a provisional name like pkcreate.h's): the object subclasses' run
-  0x70CC90-0x70F1D0 (constructors 0x70E5A0 type 28, 0x70DBC0 / 0x70E2E0 type 24) has no `__FILE__`; pick a
-  provisional file before anyone rebuilds them.
 
-* **P-PF1-1** (2026-10-28, PF1; recommend accept): rename `ClientClass::DebugObjectID` (+0x112C) to the player's
-  avatar id (`AvatarID` / `Get_Avatar`): CLIENT_AVATAR 55 sets it from the packet's AvatarID; ADVANCED 62, FORMATION 65
-  and 0x6F3C60 use it as the player's own object, DAMAGE 100 as the avatar; only the DEBUG packet's send says "debug".
 
 ## 4. Next steps
 
