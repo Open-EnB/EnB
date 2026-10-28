@@ -65,7 +65,7 @@ uncommitted work: the git tree is authoritative.
 
 | Script | Does |
 |---|---|
-| `pairs_cmp.py A.json B.json` | Compare the sets of `(lib, file, address)` pairs of two saved `imports.json` copies and print `gained` and `lost`: the fix loop keeps a change only if nothing is lost |
+| `pairs_cmp.py A.json B.json` | Compare the sets of `(lib, file, address)` pairs of two saved `imports.json` copies and print `gained`, `lost`, `lost outright` (addresses no file holds afterwards; D66(v) needs it empty) and `moves` (lost pairs whose address another file holds): the fix loop keeps a change only if nothing is lost |
 | `refresh_expected.py EVDIR LIB...` | Refresh a library's plan-time totals and expected counts from new evidence, keeping the tree decisions |
 | `annotations.py` | C-equivalent comments for inline assembly, inserted by the importer (module) |
 | `trial.py COPY LIB/FILE... [--keep-if-better] [--max-loss N] [--errors FILE]` | Swap files to another EA copy, verify, keep only if better |
