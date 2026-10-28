@@ -559,40 +559,40 @@ done:
 	}
 	return(tm);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// NOT EXACT: inline budget (the client calls 0x6F3ED0, 0x6F5A40, 0x6F45E0 and auxdata.h's find 0x7079B0 out of line, ours inlines them; 9 forms)
+// 0x6F3FA0 (slot +0x28's tilt: the turn +0x144 steered toward 0x6F3ED0's angle through +0x134, then the roll)
+void ClientObjectClass::Unknown_6F3FA0(Matrix3D &tm)
+{
+	if (!Unknown_6F5A10()) {
+		return;
+	}
+	if (Unknown_6F5E40()) {
+		return;
+	}
+	double target = Unknown_6F3ED0();
+	double current = Unknown144;
+	double rate = Unknown134.Unknown04[2];
+	double stop = (rate * rate) / (Unknown_6F4590() * 2.0f);
+	double diff = fabs(target - current);
+	double limit = Unknown_6F45E0();
+	if (stop > limit) {
+		limit = stop;
+	}
+	float accel = 0.0f;
+	if (diff > limit) {
+		if (target > current) {
+			accel = Unknown_6F45E0();
+		} else if (target < current) {
+			accel = -Unknown_6F45E0();
+		}
+	}
+	Unknown134.Unknown_498CC0(accel);
+	if (Unknown134.Unknown00) {
+		Unknown134.Unknown_498E00((float)WW3D::Get_Frame_Time());
+	}
+	Unknown144 = Unknown134.Unknown04[2] + Unknown144;
+	tm.Rotate_X(Unknown144);
+}
 
 
 

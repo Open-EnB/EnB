@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-286 entries in 68 files.
+288 entries in 68 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -30,12 +30,13 @@ edit the comments in the code, not this file.
 | `app/client/client_lego_impl.cpp:710` | `ClientLegoImplClass::Attach` | marker | NOT EXACT: frame: the client keeps the child's render object in its own stack slot (sub esp 8), ours in a dead parameter's (attempts.csv) |
 | `app/client/client_lego_impl.cpp:742` | `ClientLegoImplClass::Detach` | marker | NOT EXACT: register-only, 4 rows: eax / edx swapped around the Get_Render_Object call (attempts.csv) |
 | `app/client/co.cpp:482` | `ClientObjectClass::Unknown_28` | marker | NOT EXACT: inline budget (the client calls auxdata.h's find 0x514B60 out of line, ours inlines it; 14 forms) 0x6F4610 |
+| `app/client/co.cpp:562` | `ClientObjectClass::Unknown_6F3FA0` | marker | NOT EXACT: inline budget (the client calls 0x6F3ED0, 0x6F5A40, 0x6F45E0 and auxdata.h's find 0x7079B0 out of line, ours inlines them; 9 forms) 0x6F3FA0 (slot +0x28's tilt: the turn +0x144 steered toward 0x6F3ED0's angle through +0x134, then the roll) |
 | `app/client/co.cpp:1679` | `ClientObjectClass::Unknown_6FC9A0` | marker | NOT EXACT: shape (case 2's 'pop esi' scheduled between its two stores in ours, after them in the client; 3 forms) 0x6FC9A0 |
 | `app/client/co.cpp:1715` | `ClientObjectClass::Unknown_6FCB20` | marker | NOT EXACT: shape (the client keeps the argument in eax and masks a copy for the compare; 3 forms) 0x6FCB20 |
 | `app/client/co.cpp:2227` | `ClientObjectClass::Unknown_6FEC40` | marker | NOT EXACT: order (the client sums the transform's products in another order; explain.py says field-offset; 2 forms) 0x6FEC40 |
 | `app/client/co.cpp:2326` | `ClientObjectClass::Get_Name` | marker | NOT EXACT: inline-budget (the client calls rtti.h's cast 0x5469C0 at all four lookups and the string assign's helpers; ours inlines them) |
 | `app/client/co.cpp:2608` | `ClientObjectClass::Unknown_6FF7A0` | marker | NOT EXACT: inline-budget (the client calls the string lookup 0x514BD0 at all six sites and inlines more of std::string; ours the reverse) |
-| `app/client/co.h:122` | `Unknown_810750` | mention | NOT EXACT), 0x725120, 0x725610, 0x7257F0. |
+| `app/client/co.h:124` | `Unknown_810750` | mention | NOT EXACT), 0x725120, 0x725610, 0x7257F0. |
 | `app/client/co_data.h:55` | `?` | marker | NOT EXACT: frame (0x54 vs the client's 0x50: ours inlines the type map's default constructor, the client calls 0x79E6E0) |
 | `app/client/co_player_relationship.cpp:149` | `Unknown_70B450` | marker | NOT EXACT: inline budget (the client calls the name string's assign and the copies out of line; attempts.py show 0x70B450) |
 | `app/client/co_player_relationship.cpp:351` | `Unknown_70CD50` | mention | NOT EXACT), Attacking 0x70B790, Group 0x70BC30 (through 0x70BAC0, the GroupInfo aux-data test with asserts on lines 207 / 210 on SClient's AuxData +0x12C0; rtti.h's DeltaCompoundClass cast 0x598D80 out of line), PVPAttackable 0x70BF90 (through 0x70BF60), Player 0x70C2A0 and the reaction colours 0x70C5D0; the three packet handlers cpacket.cpp calls (0x70CC40, 0x70CC90, 0x70CD50) and the table's out... |
@@ -74,6 +75,7 @@ edit the comments in the code, not this file.
 | `app/client/extrap.cpp:1821` | `Unknown713D70Class::Unknown713D70Class` | marker | NOT EXACT: 0x713D70 scheduling: the epilogue's load of the saved EH link comes after `pop edi` in the client, before the last stores here |
 | `app/client/extrap.cpp:1859` | `Unknown713D70Class::Unknown_7140E0` | marker | NOT EXACT: 0x7140E0 order: the translation's stores, the roll's push and the state's vtable load are scheduled differently |
 | `app/client/extrap.cpp:1917` | `Unknown714340Class::Unknown_1C` | marker | NOT EXACT: 0x714410 order: Matrix3D::Rotate_Vector's rows sum their products in another order in the client (x z y, z y x, z y x) |
+| `app/client/extrap.cpp:1973` | `Unknown714340Class::Unknown_1C` | mention | NOT EXACT ones say why above them (docs/data/not-exact.md). Forms that mattered: WW's Equal_Within_Epsilon before Slerp, In_Place_Pre_Rotate_Z for the turn, `float turn = Unknown80; turn += Unknown50;`, WWMath::Min / Max for the speed, assignment (not initialisation) of returned Vector3s where the client copies them, end_time (the parameter) in 0x7119B0. |
 | `app/client/fontdatabase.cpp:59` | `FontStringStruct::Reset` | marker | NOT EXACT: inline-budget: the client inlines the first nine string assignments with Store_Length called and calls operator= in the loop; ours inlines all |
 | `app/client/fontdatabase.cpp:340` | `FontDatabaseClass::Load_String` | marker | NOT EXACT: inline-budget: ours inlines Parse_Directions / Split_Four / Get_Blend_Type and calls Get_Length; the client the reverse |
 | `app/client/fontdatabase.cpp:508` | `FontDatabaseClass::Unknown_6C1500` | marker | NOT EXACT: frame: the inlined Add_String's key and iterator temporaries sit in other stack slots (0.76) |

@@ -69,6 +69,8 @@ class Unknown498C10Class							// NAME 1: neutral (D10)
 public:
 	Unknown498C10Class();							// 0x498C10
 	void Unknown_498F00(float a, float b, float c);	// 0x498F00  // NAME 1 [a, b, c]: neutral
+	void Unknown_498CC0(float value);				// 0x498CC0 (co.cpp's tilt 0x6F3FA0 passes the turn's acceleration)  // NAME 1 [value]: neutral
+	float Unknown_498E00(float time);				// 0x498E00 (0x6F3FA0 passes WW3D's frame time when the flag is set)  // NAME 1 [time]: what it gets
 	bool Unknown00;									// +0x00
 	float Unknown04[3];								// +0x04
 };
@@ -200,7 +202,7 @@ public:
 	void Unknown_6F3810(RenderObjClass *model);			// 0x6F3810 the +0x158 models on the model's bones, then its sub-objects'  // NAME 2 [model]: what it is
 	float Unknown_6F3ED0();								// 0x6F3ED0 an angle from +0x98's slot +0x14, clamped to 36 degrees
 	float Unknown_6F4290();								// 0x6F4290 (not rebuilt)
-	void Unknown_6F3FA0(Matrix3D &tm);					// 0x6F3FA0 (not rebuilt; slot +0x28 hands it the transform: the IsOrganic tilt)  // NAME 1 [tm]: a Matrix3D
+	void Unknown_6F3FA0(Matrix3D &tm);					// 0x6F3FA0 slot +0x28's roll: the turn +0x144 steered toward 0x6F3ED0's angle (types 0 and 1 that aren't IsOrganic)  // NAME 1 [tm]: a Matrix3D
 	void Unknown_6FBEF0();								// 0x6FBEF0 (not rebuilt; the per-frame update calls it for types 0 and 1)
 	void Unknown_6F3BF0(bool hidden);					// 0x6F3BF0 (the model's Set_Hidden)  // NAME 2 [hidden]: Set_Hidden's argument
 	float Unknown_6F45E0();								// 0x6F45E0
