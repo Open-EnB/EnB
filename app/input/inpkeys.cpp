@@ -3,10 +3,10 @@
 #include <hash_map.h>
 
 static std::hash_map<std::string, unsigned int> NameToKey;		// 0xBDA940  // NAME 2: what it holds
-static std::hash_map<unsigned int, std::string> KeyToName;		// 0xBDA928  // NAME 2: what it holds
+static std::hash_map<int, std::string> KeyToName;		// 0xBDA928  // NAME 2: what it holds
 static bool KeyNamesReady;											// 0xBDA958  // NAME 2: what it holds
 
-unsigned short Unknown_42B610(const std::string &name)
+unsigned int Unknown_42B610(const std::string &name)
 {
 	if (!KeyNamesReady) {
 		Unknown_42BC90();
@@ -23,7 +23,7 @@ const std::string &Unknown_42B6A0(unsigned int key)
 	if (!KeyNamesReady) {
 		Unknown_42BC90();
 	}
-	std::hash_map<unsigned int, std::string>::iterator it = KeyToName.find(key);
+	std::hash_map<int, std::string>::iterator it = KeyToName.find(key);
 	if (it != KeyToName.end()) {
 		return (*it).second;
 	}
@@ -190,4 +190,10 @@ void Unknown_42BC90()
 **	The key codes are Windows virtual keys plus E&B's own (0x60-0x69: the numeric keypad and the
 **	extended keys share codes, so the later entry wins in the code -> name table); 'Keypad +' is
 **	entered twice in the client.
+**	Forms that matched (builder H19): the code -> name table keyed by int while the lookup takes an
+**	unsigned int (0x42B7E0 calls the find 0x42CE80 out of line with a converted temporary of the
+**	key, stored after the Init test); 0x42B610 returns the table's 32-bit value (an unsigned short
+**	return loads a word). 0x42C330, between Init and the tables' instances, is the destructor of a
+**	struct of std::strings at +0x00..+0x58 (0x7D3CC0 calls it): nothing in this file uses one, so it is not
+**	reconstructed (a function the linker dropped may have; COMDAT placement).
 */

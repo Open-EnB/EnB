@@ -22,7 +22,7 @@
 #include <string>
 #include "..\kernel\kernel.h"
 
-unsigned short Unknown_42B610(const std::string &name);							// 0x42B610: a key's code from its name (0: none)  // NAME 1 [Unknown_42B610]: neutral (D10)
+unsigned int Unknown_42B610(const std::string &name);							// 0x42B610: a key's code from its name (0: none)  // NAME 1 [Unknown_42B610]: neutral (D10)
 const std::string &Unknown_42B6A0(unsigned int key);								// 0x42B6A0: a key's name from its code ("": none)  // NAME 1 [Unknown_42B6A0]: neutral (D10)
 std::string &Unknown_42B7E0(const KernelEventClass &event, std::string &name);	// 0x42B7E0: an event's text, "Ctrl-", "Alt-", "Shift-" and the key's name  // NAME 1 [Unknown_42B7E0]: neutral (D10)
 void Unknown_42BAE0(unsigned int key, const char *name);							// 0x42BAE0: enters a key in both tables  // NAME 1 [Unknown_42BAE0]: neutral (D10)

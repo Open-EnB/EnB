@@ -64,7 +64,7 @@ public:
 };
 
 class INIClass;
-unsigned short Unknown_42B610(const std::string &name);	// 0x42B610 (the next file): a key's code from its name  // NAME 1 [Unknown_42B610]: neutral (D10)
+unsigned int Unknown_42B610(const std::string &name);	// 0x42B610 (inpkeys.cpp): a key's code from its name  // NAME 1 [Unknown_42B610]: neutral (D10)
 KernelEventClass Unknown_42A1A0(INIClass &ini, const char *section, const char *entry);	// 0x42A1A0: a key event from an ini entry ('^', '$', '@' prefixes)  // NAME 1 [Unknown_42A1A0]: neutral (D10)
 // KernelEventClass's Flags as the ini writer 0x42A410 reads them (bit fields: shr / test 1)
 struct InputFlagsStruct		// NAME 1 [InputFlagsStruct]: neutral (D10)
@@ -80,7 +80,7 @@ struct InputFlagsStruct		// NAME 1 [InputFlagsStruct]: neutral (D10)
 	bool Is_0A() const { return Unknown0A; }	// NAME 1 [Is_0A]: neutral (D10)
 };
 
-std::string &Unknown_42B7E0(const KernelEventClass &event, std::string &name);	// 0x42B7E0 (the next file): a key's name  // NAME 1 [Unknown_42B7E0]: neutral (D10)
+std::string &Unknown_42B7E0(const KernelEventClass &event, std::string &name);	// 0x42B7E0 (inpkeys.cpp): a key's name  // NAME 1 [Unknown_42B7E0]: neutral (D10)
 bool Unknown_42A410(INIClass &ini, const char *section, const char *entry, const KernelEventClass &event);	// 0x42A410: writes a key event to an ini entry (INIClass::Put_String; no registry)  // NAME 1 [Unknown_42A410]: neutral (D10)
 bool Unknown_429D00();				// 0x429D00: false when HKLM\...\Earth and Beyond's DisableExceptions is a non-zero DWORD  // NAME 1 [Unknown_429D00]: neutral (D10)
 
