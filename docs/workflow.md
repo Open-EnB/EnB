@@ -371,8 +371,16 @@ unless `--lever` cites a new row of this table.
   `InfluenceClass::Unknown_08()` lost CREATE 0x733700). Grep the subclasses before declaring one.
 * **The client's HashList loops test only `Next()`** (`while (node && node->Next()) ... node = node->Next()`);
   `HashNodeClass::Next_Valid` adds a Prev test (`[eax+8]`) the client never has (2026-10-28, UP1).
-* **Any declaration added to DeltaArrayClass moves aux_roots pairs, even one never instantiated** (2026-10-28, DF1:
-  `index < Items.size()` as a member +3 / -2, as a free template -0x6FB1E0); keep such helpers local to the file.
+* **aux_roots.cpp's constructors move with the translation unit's declaration count mod 64 (2026-10-28, HX1;
+  replaces H3 / H6 / T5's swap and the 0x6FB1E0 canary):** every declaration (a header member, an enumerator, an
+  `extern`) shifts the six constructors at the file's end (0x6FB1E0, 0x702240, 0x7045F0, 0x7014B0, 0x701D70,
+  0x758210) along a cycle of 64 of VC6 tie-breaks (scheduling, stack-slot order); each is exact only in a window.
+  The lever is `tools/re/auxroots.py`'s `SYMBOL_PAD` (an enum of N enumerators at the end of aux_roots.cpp,
+  marked as not the client's; 16 since 45bf5c0, window 15..17). After any change to a header aux_roots.cpp
+  includes, re-sweep the pad (`.work/hx1/exp.py`, aux_roots.cpp alone, ~5 s a variant) and keep a value exact for
+  all six. Windows are not pure shifts: a template declaration can move them apart so no pad exists (DeltaArrayClass's
+  bounds accessor, P-DF1-2: keep such helpers local to the file). Explicit `template class` instantiations and
+  padding between definitions move all six alike; VC6 rejects explicit instantiation of a constructor (C2909).
 * **co.cpp's lookups and the inline budget (2026-10-28, UP1 / DF1 / IB1):** the budget cuts the bigger callee
   first and same-size callees in source order, so earlier finds go out of line first. auxdata.h's find is the
   client's early-return form (rtti.h's test inverted: `!= global -> NULL`; fc348e7). The lever for co.cpp's
@@ -382,9 +390,6 @@ unless `--lever` cites a new row of this table.
   Unknown_Find_Field's inlining; for an out-of-line copy to compare, write a dummy with 40+ calls. A helper put on
   a new line moves every later `__LINE__` (~13 pairs): use an existing blank line.
 * **Do_Frame's lost-connection dialog matches only as an if / else of two complete calls** (2026-10-28, DF1).
-* **H3's aux_roots swap flips on any extra member declaration in a header aux_roots.cpp includes** (2026-10-28,
-  PK1, DF1): 0x6FB1E0 / 0x702240 / 0x7045F0 trade for 0x7014B0 / 0x701D70 / 0x758210 whatever the names, order or
-  types; compiling aux_roots.cpp alone is enough to test it.
 * **udpreplay compiles its app files as one translation unit:** a header's macro gate is defined at the top of
   app_sources.cpp (udpreplay.py writes it, 2026-10-28, PK1).
 * **Asserts sit on the client's lines (D25).** To add code above a logged line, remove as many
@@ -500,13 +505,7 @@ unless `--lever` cites a new row of this table.
 * **D66(i) in practice:** a rewrite that stops emitting an inline COMDAT copy drops that (file, address) pair while
   the address stays matched elsewhere (land's 0x447C40 / 0x47F300 / 0x7F0EC0, c0f8569): name them in the commit.
 
-* **A new overload in strconv_lib.h moves aux_roots.cpp's inlining** (T5: the canary 0x6FB1E0 traded against
-  0x7014B0); template bodies in a header that tsk_login.h includes broke kerneltest (gated behind
-  UNKNOWN_PACKETDATA_BODIES).
-* **Header changes reach aux_roots through delta.h (H6, 2026-10-27):** adding or removing an inline member of a
-  class template that delta.h reaches (hashtable through kv_list.h) swaps two stack slots in
-  DeltaPrimaryCategoryClass's constructor 0x6FB1E0; which member count keeps it exact moved after other
-  builders' commits. Treat 0x6FB1E0 as the canary for any header change and re-verify after every rebase.
+* **Template bodies in a header that tsk_login.h includes broke kerneltest** (T5).
 * **Worktree verifies:** `wt.py new` / `wt.py bring-over` (67c2b7d).
 
 * **clienttest builds only committed files** (T11): in a worktree, `git add` a new file before `build.py`. A
@@ -701,6 +700,8 @@ unless `--lever` cites a new row of this table.
 
 ### 3.8 Git, docs and scripting hygiene
 
+* **`wt.py bring-over` refuses an imports.json cherry-pick conflict when master has moved** (2026-10-28, HX1):
+  recreate the commit in a fresh worktree from master (`cherry-pick -n`, take HEAD's imports.json, re-verify).
 * **tryv2 refuses an anchor that occurs twice** (co.cpp's two IsInPVP finds); a long experiment script that holds
   the importer lock for 10+ minutes blocks others' report and replay: release it between variants (2026-10-28, IB1).
 * **tryvariants.py only sees a library folder's top level** (`app/packets/x.cpp` can't be tried; `.work/pk1/tv.py`

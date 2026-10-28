@@ -1359,10 +1359,11 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
   (a quiet-tree round)? PK1 (P-PK1-1, recommends keep): slot 0 holds the class's only deleting destructor, so both
   names are one proof; bytes still match with relocations masked. M4's D118 numbers do not include it (its README
   lists it unmeasured: "an alias would credit 14 functions from vtable proof alone").
-* **P-PK1-3** (2026-10-28, PK1; a D66 trade): reading KVPairTemplateClass's two bools through inline accessors in
-  its copy constructor makes every Clone exact (+16, and resolves the prof / race twins) but loses 0x702240 and
-  0x7045F0 outright through H3's aux_roots swap; net +14. Stashed in docs/attempts/4F71F0. Accept the trade, or wait
-  for an H3 lever (a builder is on it, 2026-10-28)?
+* **P-HX1-1** (2026-10-28, HX1; recommend keep): a build aid that is not the client's code in tree code:
+  `tools/re/auxroots.py`'s `SYMBOL_PAD` emits an enum of 16 enumerators at the end of the generated aux_roots.cpp,
+  the only lever found for VC6's declaration-count tie-breaks (workflow.md §3.3). It carries e062fb2 (D104's members
+  ungated, P-PK1-2) and 45bf5c0 (P-PK1-3's Clone form, now gains-only), +16 pairs, 0 lost; reverting both loses
+  the 16. (P-PK1-3's D66 trade is no longer needed.)
 
 * **P-LD1-2** (2026-10-28, LD1; recommend accept, a D69 safety default): drawcheck, vidtest_sbs and run_vidtest
   default to `--art build/art` whenever that folder exists, since VIDTEST's LandClass can now write the .pld (Save_PLD)
@@ -1420,8 +1421,8 @@ client's own code: [kernel-map.md](kernel-map.md) §6 and, for step 9's dependen
    for ClientClass's constructor and Find_Object / Remove_Object. Parked after two rounds: Unknown_50, the fast start
    0x76A370, Pre_Run, Run, Start_Game, Go_Next/Back_Step, SClient's destructor / Init / Shutdown.
 3. The packet classes: ~260 of 260 declared, ~252 rebuilt. (2026-10-28, PK1: pk_classes.h declares no classes any more; VERB_LIST 91 in pkverblist.cpp, 82's raw
-   ctor / Build exact, P-P7-2 and P-P9-2 done (D104's members gated under UNKNOWN_PACKETDATA_BODIES until an H3 lever:
-   any member added to KVEncoderBaseClass / DeltaChildVisitorClass flips H3's aux_roots swap, P-PK1-2); prof.cpp /
+   ctor / Build exact, P-P7-2 and P-P9-2 done (D104's members ungated by HX1, e062fb2, with aux_roots.cpp's
+   symbol pad, P-HX1-1; promote `.work/hx1/exp.py` to `tools/vc6/auxpad.py`, P-HX1-2); prof.cpp /
    race.cpp new; NOT EXACT VerbList ctor 0x8AF150 shape, Print 0x8AF6D0 frame; promote `.work/pk1/tv.py` / `hv.py`.) Left: 181/182 (FIND_MEMBER's object; after the eval's task
    A), 45 and 117 (item 1), 21 / 22 / 32-34 still declared in pk_classes.h, the value constructors 0x8A0380 / 0x89FD80
    / 0x85C800 / 0x864090 (one cause: the ship-name union is copied with its first byte peeled; P-P8-1's char[] layout
