@@ -654,6 +654,7 @@
      "0x45CC10",
      "0x45CC30",
      "0x4B5740",
+     "0x729B00",
      "0x729BF0",
      "0x729D60",
      "0x729E00",
@@ -1035,6 +1036,7 @@
      "0x42F250",
      "0x441480",
      "0x4B58D0",
+     "0x709F40",
      "0x70A010",
      "0x70A2E0",
      "0x70A540",
@@ -2028,6 +2030,8 @@
      "0x42A940",
      "0x42A970",
      "0x42AB30",
+     "0x42B420",
+     "0x42B540",
      "0x42B610",
      "0x42B6A0",
      "0x42B770",
@@ -2713,7 +2717,8 @@
      "0x4AE070",
      "0x4AE140",
      "0x4AE1B0",
-     "0x4AE1E0"
+     "0x4AE1E0",
+     "0x4AE2D0"
     ],
     "merged": [],
     "name": "shared/auxdata/permstr.cpp"
@@ -8108,7 +8113,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 3792,
+  "in_tree_total": 3797,
   "totals": {}
  },
  "binkmovie": {
@@ -18771,7 +18776,10 @@
      "Z": 0
     },
     "headers_from": null,
-    "in_tree": [],
+    "in_tree": [
+     "0xA06000",
+     "0xA06020"
+    ],
     "merged": [],
     "name": "definitionfactory.cpp"
    },
@@ -19105,7 +19113,7 @@
    "twiddler.h": "Z",
    "wwsaveload.h": "Z"
   },
-  "in_tree_total": 111,
+  "in_tree_total": 113,
   "totals": {
    "G": 41,
    "R": 49,

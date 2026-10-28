@@ -31,6 +31,12 @@ also covers the object's exact COMDATs that no other object is exact at, within 
 either end of that own range (D114(b), P-M1-2). It runs only when D80 and the self name resolve
 nothing more; its credits feed D80's next round.
 
+What the range leaves gets the static initialiser (D115, P-R2-1 narrowed): a tied constructor or
+destructor (`??0` / `??1`) is credited to the one survivor that the object's rebuilt `_$E` static
+initialiser calls, or registers through its atexit function (`initialiser_targets`), `exact` with
+`tiebreak` and `initialiser` set. Finds and other helpers stay tied. It runs only when the range
+resolves nothing more; its credits feed D80's next round.
+
     python objmatch.py [--client PATH] [--json OUT] file.obj...
 """
 import argparse
@@ -463,7 +469,7 @@ def match_objects(img, paths, region=None):
         proposals = []
         selfname = phase == 'selfname'
         ranges = {}
-        if phase == 'range':
+        if phase in ('range', 'init'):
             for r, obj, sec, s, length in results:
                 if r['status'] == 'exact' and obj.own(sec):
                     a = int(r['addresses'][0], 16)
@@ -484,6 +490,7 @@ def match_objects(img, paths, region=None):
                         wlo, whi = wide[id(obj)]
                         wide[id(obj)] = (min(wlo, a), max(whi, a))
             ranges = wide
+        registered = initialiser_targets(results, pending, ranges, text, start, known, thunk) if phase == 'init' else {}
         for item in pending:
             r, obj, sec, s, length, hits = item
             if id(r) in done:
@@ -496,6 +503,13 @@ def match_objects(img, paths, region=None):
                 own = [h for h in survivors if h in self_names().get(r['symbol'], ())]
                 if len(own) == 1:
                     proposals.append((item, own[0]))
+            elif phase == 'init':
+                # D115: a tied constructor / destructor is the one the object's static initialiser
+                # calls or registers; finds and other helpers stay tied
+                if r['symbol'].startswith(('??0', '??1')):
+                    own = [h for h in survivors if h in registered.get(r['symbol'], ())]
+                    if len(own) == 1:
+                        proposals.append((item, own[0]))
             elif id(obj) in ranges:
                 lo, hi = ranges[id(obj)]
                 # an address another function is already exact at is not this one's (one client function
@@ -517,6 +531,8 @@ def match_objects(img, paths, region=None):
                 r['selfname'] = True
             if phase == 'range':
                 r['range'] = True
+            if phase == 'init':
+                r['initialiser'] = True
             r.pop('count'), r.pop('identical')
             claimed[a].add(r['symbol'])
             learn(r, obj, sec, s, length, a)
@@ -529,7 +545,106 @@ def match_objects(img, paths, region=None):
             phase = 'd80'                           # back to D80 after a round that credited
         elif phase == 'selfname':
             phase, changed = 'range', True          # neither D80 nor the self name: one range round
+        elif phase == 'range':
+            phase, changed = 'init', True           # nor the range: one static initialiser round (D115)
     return [x[0] for x in results]
+
+
+def initialiser_targets(results, pending, ranges, text, base, known, thunk):
+    """D115: {symbol: {addresses}} of the functions the objects' rebuilt static initialisers call or
+    register. A `_$E` initialiser is usually too short to match (`short`), so it is located by its
+    links instead: a pattern hit inside the object's range (widened by RANGE_GAP) where every relocated
+    field to a symbol already known points at that symbol's address (atexit, a global), no field points
+    at an address known under another name, at least one field is confirmed that way, and the `_$E`
+    atexit destructor it pushes matches its own pattern at the pushed address under the same rules (the
+    static's address equal in both). An initialiser with exactly one such hit (or an exact one) gives
+    its and its destructor's other code targets: the constructor it calls, the destructor the atexit
+    function jumps to. A target that is a copy of another of the object's functions and not of the
+    symbol's own pattern contradicts the hit (two statics' initialisers of the same shape, inpkeys')."""
+    owners = collections.defaultdict(set)
+    for name, addrs in known.items():
+        for a in addrs:
+            owners[a].add(name)
+    by_obj = collections.defaultdict(list)
+    for item in results:
+        if generated(item[0]['symbol']):
+            by_obj[id(item[1])].append(item)
+    at = collections.defaultdict(lambda: collections.defaultdict(set))   # obj -> address -> its copies' symbols
+    for r, obj, sec, s, length in results:
+        if r['status'] == 'exact':
+            at[id(obj)][int(r['addresses'][0], 16)].add(r['symbol'])
+    for r, obj, sec, s, length, hits in pending:
+        for h in hits:
+            at[id(obj)][h].add(r['symbol'])
+    out = collections.defaultdict(set)
+    for key, items in by_obj.items():
+        if key not in ranges:
+            continue
+        defs = {r['symbol']: (r, obj, sec, s, length) for r, obj, sec, s, length in items}
+
+        def check(fn, h):
+            """None if the function can't be at h, else (confirmations, links, [(symbol, target)])."""
+            r, obj, sec, s, length = fn
+            o = h - base
+            pat = obj.pattern(sec, s, s + length)[0]
+            if o < 0 or not re.fullmatch(pat, text[o:o + length], re.S):
+                return None
+            conf, links, opens = 0, {}, []
+            for k, n, typ, sym, addend in obj.reloc_targets(sec, s, length):
+                if n != 4 or sym is None or typ not in (0x06, 0x14):
+                    continue
+                v = struct.unpack('<I', text[o + k:o + k + 4])[0]
+                v = (v - struct.unpack('<I', addend)[0]) & 0xFFFFFFFF if typ == 0x06 \
+                    else (h + k + 4 + struct.unpack('<i', text[o + k:o + k + 4])[0]) & 0xFFFFFFFF
+                t = thunk.get(v, v)
+                name = sym['name']
+                if generated(name):
+                    if name in defs and name != r['symbol']:
+                        links[name] = t
+                    continue
+                if name in known:
+                    if t not in known[name]:
+                        return None
+                    conf += 1
+                elif owners.get(t) or (at[key].get(t) and name not in at[key][t]):
+                    return None
+                else:
+                    opens.append((name, t))
+            return conf, links, opens
+
+        for name, fn in defs.items():
+            r, obj, sec, s, length = fn
+            if r['status'] == 'exact':
+                hits = [int(r['addresses'][0], 16)]
+            else:
+                lo, hi = ranges[key]
+                a0 = max(lo - RANGE_GAP - base, 0)
+                a1 = min(hi + RANGE_GAP - base + length, len(text))
+                pat = obj.pattern(sec, s, s + length)[0]
+                hits = [base + a0 + m.start() for m in re.finditer(b'(?=' + pat + b')', text[a0:a1], re.S)]
+            good = []
+            for h in hits:
+                c = check(fn, h)
+                if c is None or not (c[0] or r['status'] == 'exact'):
+                    continue
+                conf, links, opens = c
+                ok = True
+                for ln, la in links.items():
+                    lc = check(defs[ln], la)
+                    if lc is None:
+                        ok = False
+                        break
+                    mine = dict(opens)
+                    if any(mine.get(sym, t) != t for sym, t in lc[2]):
+                        ok = False      # the static's address differs between the two
+                        break
+                    opens = opens + lc[2]
+                if ok:
+                    good.append(opens)
+            if len(good) == 1:
+                for sym, t in good[0]:
+                    out[sym].add(t)
+    return out
 
 
 RANGE_GAP = 0x1000   # D114(b): how far beyond its own range an object's lone exact COMDAT may lie
