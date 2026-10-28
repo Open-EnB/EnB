@@ -32,7 +32,7 @@ ShipCustSettingsClass::ShipCustSettingsClass(float red, float green, float blue,
 // 0x4F6210
 void ShipCustDescClass::Set_Race(int race)
 {
-	Race = (ShipCustRaceType)race;
+	Race = (RaceType)race;
 }
 
 // 0x4F6230
@@ -49,7 +49,7 @@ void ShipCustDescClass::Set_Profession(int profession)
 {
 	Hull_Style = Unknown_B75D28[Race][profession];
 	Wing_Style = Unknown_B75D4C[Race][profession];
-	Profession = (ShipCustProfessionType)profession;
+	Profession = (ProfessionType)profession;
 }
 
 // 0x4F6330
@@ -151,8 +151,8 @@ void ShipCustDescClass::Unknown_00(DeltaChildVisitorClass *object)
 	LoginKVVisitorClass *visitor = (LoginKVVisitorClass *)object;
 	char name[64];
 
-	visitor->Add_Typed(0x3FF, "Profession", &Profession);
-	visitor->Add_Typed(0x3FF, "Race", &Race);
+	visitor->Add_Pointer(0x3FF, "Profession", &Profession);
+	visitor->Add_Pointer(0x3FF, "Race", &Race);
 	visitor->Add(0x3FF, "TechLevel", &Tech_Level);
 	visitor->Add(0x3FF, "HullStyle", &Hull_Style);
 	visitor->Add(0x3FF, "WingStyle", &Wing_Style);

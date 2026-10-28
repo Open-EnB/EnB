@@ -3704,6 +3704,14 @@ RECONSTRUCTED = {
                                           "(vtable 0xB0844C), client 0x820B30-0x820EE5",
     ('app', 'common/unknown_rate.cpp'): "PROVISIONAL file name (D10): the bytes-per-second average "
                                       "(Unknown_RateClass), client 0x820830-0x820AF7",
+    ('app', 'common/prof.cpp'): "prof.cpp (the client's __FILE__, assert l.96): the profession's and its bit "
+                              "field's Type_Name / String_To_Value / Value_To_String, client 0x848CA0-0x848FA0",
+    ('app', 'common/prof.h'): "ProfessionType / ProfessionBitFieldType (the client's Type_Name strings) and the "
+                            "converters of prof.cpp (header name assumed)",
+    ('app', 'common/race.cpp'): "race.cpp (the client's __FILE__, assert l.124) PARTIAL: the race's and its bit "
+                              "field's converters, client 0x848FF0-0x8492A6 (the race costs after them not rebuilt)",
+    ('app', 'common/race.h'): "RaceType / RaceBitFieldType (the client's Type_Name strings) and the converters "
+                            "of race.cpp (header name assumed)",
     ('app', 'common/unknown_rate.h'): "PROVISIONAL file name: the bytes-per-second average 0x820830-0x820A20 "
                                       "(Unknown_RateClass, D10); rebuilt in unknown_rate.cpp",
     ('app', 'common/lego_identifier.cpp'): "lego_identifier.cpp (the client's __FILE__): the lego types' lookups and "

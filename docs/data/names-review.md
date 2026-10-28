@@ -9,7 +9,7 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 33 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 36 |
-| 3 | by convention from a client-named file or sibling | 866 |
+| 3 | by convention from a client-named file or sibling | 872 |
 | 2 | describes what the code does | 2134 |
 | 1 | neutral placeholder | 4062 |
 
@@ -2495,6 +2495,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `MemoryServerClass` | `app/common/memconn.h:71` | describes what it is |
 | 1 | `MemoryListenerClass` | `app/common/memconn.h:78` | describes what it is |
 | 1 | `MemoryConnectionFactoryClass` | `app/common/memconn.h:97` | describes what it is |
+| 1 | `ProfessionNames` | `app/common/prof.cpp:10` | what it holds |
+| 1 | `RaceNames` | `app/common/race.cpp:10` | what it holds |
 | 1 | `Unknown_4BC000` | `app/common/tcpconn.cpp:16` | 0x4BC000 |
 | 1 | `TCPConnection` | `app/common/tcpconn.h:33` | after the file tcpconn.cpp (no RTTI or string) |
 | 1 | `Close` | `app/common/tcpconn.h:49` | describes what it does |
@@ -3777,14 +3779,12 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `LoginUnknown88CClass` | `app/shared/shipcust_desc.h:12` | untagged neutral name (D10) |
 | 1 | `LoginUnknown44Class` | `app/shared/shipcust_desc.h:12` | untagged neutral name (D10) |
 | 1 | `LoginUnknown20Class` | `app/shared/shipcust_desc.h:12` | untagged neutral name (D10) |
-| 1 | `ShipCustRaceType` | `app/shared/shipcust_desc.h:29` | neutral (D10) |
-| 1 | `ShipCustProfessionType` | `app/shared/shipcust_desc.h:30` | neutral (D10) |
-| 1 | `Unknown_00` | `app/shared/shipcust_desc.h:46` | untagged neutral name (D10) |
-| 1 | `Unknown10` | `app/shared/shipcust_desc.h:49` | untagged neutral name (D10) |
-| 1 | `Unknown14` | `app/shared/shipcust_desc.h:50` | untagged neutral name (D10) |
-| 1 | `Unknown_PacketDataClass` | `app/shared/shipcust_desc.h:69` | untagged neutral name (D10) |
-| 1 | `Unknown3C` | `app/shared/shipcust_desc.h:74` | untagged neutral name (D10) |
-| 1 | `Ship_Name_Empty` | `app/shared/shipcust_desc.h:98` | what the constructor stores |
+| 1 | `Unknown_00` | `app/shared/shipcust_desc.h:49` | untagged neutral name (D10) |
+| 1 | `Unknown10` | `app/shared/shipcust_desc.h:52` | untagged neutral name (D10) |
+| 1 | `Unknown14` | `app/shared/shipcust_desc.h:53` | untagged neutral name (D10) |
+| 1 | `Unknown_PacketDataClass` | `app/shared/shipcust_desc.h:72` | untagged neutral name (D10) |
+| 1 | `Unknown3C` | `app/shared/shipcust_desc.h:77` | untagged neutral name (D10) |
+| 1 | `Ship_Name_Empty` | `app/shared/shipcust_desc.h:101` | what the constructor stores |
 | 1 | `SplineFloatArrayClass` | `app/shared/spline.h:26` | a float array of a set size (0x10 bytes: +0x04 the values, +0x08 their count, +0x0C the last index) |
 | 1 | `m_Unknown00` | `app/shared/spline.h:52` | members after their offsets (Resize 0x483820); +0x00 unknown |
 | 1 | `SplineColorArrayClass` | `app/shared/spline.h:170` | three float arrays (red, green, blue) and a count (0x38 bytes: +0x04, +0x14, +0x24, +0x34) |
@@ -5967,15 +5967,15 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Shutdown` | `app/shared/lookup_table.h:136` | what it does |
 | 2 | `Lookup` | `app/shared/lookup_table.h:137` | what it does |
 | 2 | `Get_Table` | `app/shared/lookup_table.h:138` | what it does |
-| 2 | `ShipCustSettingsClass` | `app/shared/shipcust_desc.h:41` | the parts' key 'Settings%d' |
-| 2 | `ShipCustPartClass` | `app/shared/shipcust_desc.h:58` | the description's key 'PartAttributes%d' |
-| 2 | `Write_Short` | `app/shared/shipcust_desc.h:84` | what it does |
-| 2 | `Read_Short` | `app/shared/shipcust_desc.h:85` | what it does |
-| 2 | `Get_Short_Size` | `app/shared/shipcust_desc.h:86` | what it does |
-| 2 | `Set_Race` | `app/shared/shipcust_desc.h:90` | what it does |
-| 2 | `Reset_Parts` | `app/shared/shipcust_desc.h:91` | what it does |
-| 2 | `Set_Profession` | `app/shared/shipcust_desc.h:92` | what it does |
-| 2 | `Ship_Name` | `app/shared/shipcust_desc.h:99` | its key 'ShipName' |
+| 2 | `ShipCustSettingsClass` | `app/shared/shipcust_desc.h:44` | the parts' key 'Settings%d' |
+| 2 | `ShipCustPartClass` | `app/shared/shipcust_desc.h:61` | the description's key 'PartAttributes%d' |
+| 2 | `Write_Short` | `app/shared/shipcust_desc.h:87` | what it does |
+| 2 | `Read_Short` | `app/shared/shipcust_desc.h:88` | what it does |
+| 2 | `Get_Short_Size` | `app/shared/shipcust_desc.h:89` | what it does |
+| 2 | `Set_Race` | `app/shared/shipcust_desc.h:93` | what it does |
+| 2 | `Reset_Parts` | `app/shared/shipcust_desc.h:94` | what it does |
+| 2 | `Set_Profession` | `app/shared/shipcust_desc.h:95` | what it does |
+| 2 | `Ship_Name` | `app/shared/shipcust_desc.h:102` | its key 'ShipName' |
 | 2 | `spline.h` | `app/shared/spline.h:19` | the client's __FILE__ |
 | 2 | `Resize` | `app/shared/spline.h:30` | after what it does (0x483820: deletes the values, news size of them set to value) |
 | 2 | `Set` | `app/shared/spline.h:174` | after what it does (inlined in 0x485790) |
@@ -6379,6 +6379,12 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `lego_identifier.h` | `app/common/lego_identifier.h:18` | by convention from the client's lego_identifier.cpp (D24) |
 | 3 | `LegoIdentifierClass` | `app/common/lego_identifier.h:28` | by convention from the client's lego_identifier.cpp (D24) |
 | 3 | `memconn.h` | `app/common/memconn.h:20` | a .h paired with the client's memconn.cpp (D24) |
+| 3 | `prof.h` | `app/common/prof.h:17` | header name assumed from the client's prof.cpp |
+| 3 | `ProfessionType` | `app/common/prof.h:20` | the client's Type_Name 'ProfessionType' |
+| 3 | `ProfessionBitFieldType` | `app/common/prof.h:21` | the client's Type_Name 'ProfessionBitFieldType' |
+| 3 | `race.h` | `app/common/race.h:17` | header name assumed from the client's race.cpp |
+| 3 | `RaceType` | `app/common/race.h:20` | the client's Type_Name 'RaceType' |
+| 3 | `RaceBitFieldType` | `app/common/race.h:21` | the client's Type_Name 'RaceBitFieldType' |
 | 3 | `tcpconn.h` | `app/common/tcpconn.h:18` | header name assumed from the client's tcpconn.cpp |
 | 3 | `udpconn.h` | `app/common/udpconn.h:19` | header name assumed from the client's udpconn.cpp |
 | 3 | `NavigationListClass` | `app/common/unknown_navlist.h:28` | WARP's Print text 'NavigationListSize=' |
@@ -7069,7 +7075,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `money.h` | `app/shared/money.h:17` | header name assumed from the client's money.cpp |
 | 3 | `MoneyClass` | `app/shared/money.h:22` | by convention (D24) from the client's file money.cpp (D37) |
 | 3 | `shipcust_desc.h` | `app/shared/shipcust_desc.h:20` | header name assumed from the client's shipcust_desc.cpp |
-| 3 | `ShipCustDescClass` | `app/shared/shipcust_desc.h:69` | by convention (D24) from the client's shipcust_desc.cpp |
+| 3 | `ShipCustDescClass` | `app/shared/shipcust_desc.h:72` | by convention (D24) from the client's shipcust_desc.cpp |
 | 3 | `spln_db.h` | `app/shared/spln_db.h:34` | header of the client's app\shared\spln_db.cpp (assert __FILE__) |
 | 3 | `stars.h` | `app/shared/stars.h:28` | header of the client's app\shared\stars.cpp (assert __FILE__) |
 | 3 | `strconv_lib.h` | `app/shared/strconv_lib.h:20` | header name assumed from the client's strconv_lib.cpp (D57) |

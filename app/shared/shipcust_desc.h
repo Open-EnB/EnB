@@ -25,15 +25,18 @@
 #include "vector2.h"
 
 // The value types the visitors hand to their own key/value adds (0x4F6BB0 race, 0x4F6A80 profession,
-// 0x4F6CE0 metal: three instantiations besides the int one)
-enum ShipCustRaceType {};								// NAME 1: neutral (D10)
-enum ShipCustProfessionType {};							// NAME 1: neutral (D10)
+// 0x4F6CE0 metal: three instantiations besides the int one); race and profession are race.h's / prof.h's
+#include "..\common\race.h"
+#include "..\common\prof.h"
 enum ShipCustomizationMetal { METAL_NONE = -1, METAL_CHROME, METAL_BRONZE, METAL_COPPER };	// NAME 5: its pairs' type name; NAME 2 [METAL_*]: the converters' names
 #ifdef UNKNOWN_PACKETDATA_BODIES	// the converters the key/value pair template calls (shipcust_desc.cpp only)
 class LinearBufferClass;
 char *Value_To_String(char *buf, int size, const ShipCustomizationMetal &value);	// 0x4F6970 (line 384)
 bool String_To_Value(const char *text, ShipCustomizationMetal *value);			// 0x4F6A00 (line 401)
 inline const char *Type_Name(ShipCustomizationMetal *) { return "ShipCustomizationMetal"; }	// 0x4F72B0
+// the profession's and race's pairs name their type from the saved value (prof.cpp 0x848CA0, race.cpp 0x848FF0)
+template<> inline const char *KVPairTemplateClass<ProfessionType>::Get_Type_Name() const { return Type_Name(Value); }	// 0x4F6ED0
+template<> inline const char *KVPairTemplateClass<RaceType>::Get_Type_Name() const { return Type_Name(Value); }	// 0x4F70C0
 #endif
 
 // A colour setting (0x20 bytes, vtable 0xAEC91C over 0xAEADC8; constructor 0x618500 out of line), two in
@@ -102,8 +105,8 @@ public:
 	Vector2 Unknown3C;									// +0x3C (neither written nor a key)
 	int Selected_Decal;									// +0x44 NAME 2: its key 'SelectedDecal'
 	ShipCustPartClass Parts[4];							// +0x48 NAME 2: its keys 'PartAttributes%d'
-	ShipCustRaceType Race;								// +0x158 NAME 2: its key 'Race'
-	ShipCustProfessionType Profession;					// +0x15C NAME 2: its key 'Profession'
+	RaceType Race;								// +0x158 NAME 2: its key 'Race'
+	ProfessionType Profession;					// +0x15C NAME 2: its key 'Profession'
 };
 
 #endif

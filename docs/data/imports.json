@@ -7023,6 +7023,30 @@
     "merged": [],
     "name": "client/postate.cpp"
    },
+   "prof": {
+    "ambiguous": [],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x848CC0",
+     "0x848D40",
+     "0x848DA0",
+     "0x848EB0"
+    ],
+    "merged": [],
+    "name": "common/prof.cpp"
+   },
+   "race": {
+    "ambiguous": [],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x8490C0",
+     "0x8491B0"
+    ],
+    "merged": [],
+    "name": "common/race.cpp"
+   },
    "sclient": {
     "ambiguous": [
      "0x42A6C0",
@@ -7113,7 +7137,9 @@
    "shipcust_desc": {
     "ambiguous": [
      "0x42B2F0",
-     "0x448660"
+     "0x448610",
+     "0x448660",
+     "0x4A8880"
     ],
     "copy": "reconstructed",
     "expected": {},
@@ -7132,13 +7158,25 @@
      "0x4F6900",
      "0x4F6970",
      "0x4F6A00",
+     "0x4F6A80",
+     "0x4F6BB0",
      "0x4F6CE0",
+     "0x4F6EF0",
+     "0x4F6FC0",
+     "0x4F70E0",
+     "0x4F71B0",
      "0x4F72D0",
      "0x4F7360",
      "0x4F7390",
      "0x4F7400",
+     "0x4F7440",
+     "0x4F7470",
+     "0x4F7520",
+     "0x4F7550",
      "0x4F7600",
      "0x4F7630",
+     "0x4F77D0",
+     "0x4F7820",
      "0x4F7870",
      "0x618500"
     ],
@@ -8317,6 +8355,8 @@
    "common/dbgconn.h": "reconstructed",
    "common/lego_identifier.h": "reconstructed",
    "common/memconn.h": "reconstructed",
+   "common/prof.h": "reconstructed",
+   "common/race.h": "reconstructed",
    "common/tcpconn.h": "reconstructed",
    "common/udpconn.h": "reconstructed",
    "common/unknown_galaxy.h": "reconstructed",
@@ -8513,7 +8553,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 4148,
+  "in_tree_total": 4166,
   "totals": {}
  },
  "binkmovie": {
