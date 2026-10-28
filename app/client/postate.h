@@ -202,20 +202,21 @@ struct UnknownLerpStruct	// NAME 1: neutral (D10)
 		return(StartValue + (int)((float)(time - StartTime) / (float)(EndTime - StartTime) * (int)(EndValue - StartValue)));
 	}
 
-	void Change(unsigned int time, unsigned int value)	// (inline in 0x716140: from the value at that time, 2 ms a unit)  // NAME 2 [Change, time, value]: what it does
-	{
-		unsigned int current = Get(time);
-		StartTime = time;
-		StartValue = current;
-		EndTime = time + abs((int)(value - current)) * 2;
-		EndValue = value;
-	}
+	void Change(unsigned int time, unsigned int value);	// (inline in 0x716140: from the value at that time, 2 ms a unit)  // NAME 2 [Change, time, value]: what it does
 
 	unsigned int StartTime;		// +0x00  // NAME 2: what it holds
 	unsigned int StartValue;	// +0x04  // NAME 2: what it holds
 	unsigned int EndTime;		// +0x08  // NAME 2: what it holds
 	unsigned int EndValue;		// +0x0C  // NAME 2: what it holds
 };
+inline void UnknownLerpStruct::Change(unsigned int time, unsigned int value)
+{
+	unsigned int current = Get(time);
+	StartTime = time;
+	StartValue = current;
+	EndTime = time + abs((int)(value - current)) * 2;
+	EndValue = value;
+}
 
 // Type 8, ADVANCED_POSITIONAL_UPDATE 62's state for the other objects (vtable 0xB02854, 0x1C bytes);
 // FORMATION_POSITIONAL_UPDATE 65 makes it too

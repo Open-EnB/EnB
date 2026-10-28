@@ -3,7 +3,7 @@
 #include "..\packets\pkupdate.h"
 #include "..\shared\unknown_debug.h"
 #include "sclient.h"
-#include <math.h>
+#include "wwmath.h"
 #include <stdlib.h>
 
 bool Unknown_B9489C = true;		// (0x716400 tests it)  // NAME 1: neutral (D10)
@@ -222,30 +222,27 @@ Unknown715EF0Class::Unknown715EF0Class(SClient *client, FormationPositionalUpdat
 	Extrap = new Unknown714340Class(client, packet);
 }
 
-// NOT EXACT: field-offset (the client calls Period's update through a pointer to it, esi = this + 8, ours addresses it from this; two forms; attempts.py show 0x716140)
 void Unknown715EF0Class::Unknown_716140(int time, AdvancedPositionalUpdatePacketClass *packet)
 {
 	if (Unknown_B9489E) {
 		Unknown_30(time, packet);
 		unsigned int period = packet->UpdatePeriod;
 		if (period != Period.EndValue) {
-			Period.Change(time, period);
+			unsigned int value = Period.Get(time);
+			Period = UnknownLerpStruct(time, value, time + abs((int)(period - value)) * 2, period);
 		}
 	}
 }
 
-// NOT EXACT: field-offset (as 0x716140: the client works on Period through a pointer to it; one form; attempts.py show 0x716220)
 void Unknown715EF0Class::Unknown_716220(SClient *client, FormationPositionalUpdatePacketClass *packet)
 {
 	if (Unknown_B9489E) {
 		unsigned int time = client->Unknown10BC;
 		ExtrapClass *next = new Unknown714340Class(client, packet);
-		Extrap = new Unknown7125F0Class(Extrap, next, time, time + 5000);
+		unsigned int end = time + 5000;
+		Extrap = new Unknown7125F0Class(Extrap, next, time, end);
 		unsigned int value = Period.Get(time);
-		Period.StartTime = time;
-		Period.StartValue = value;
-		Period.EndTime = time + value;
-		Period.EndValue = 0;
+		Period = UnknownLerpStruct(time, value, time + value, 0);
 	}
 }
 
@@ -302,31 +299,32 @@ bool Unknown715EF0Class::Unknown_7166A0(ExtrapClass *extrap, int time, int other
 	extrap->Unknown_1C(other_time, 0, 0, 0, &other_speed, 0, true);
 	bool moving = speed > 0.000001f;
 	bool other_moving = other_speed > 0.000001f;
-	return(moving == other_moving ? true : false);
+	if (moving == other_moving) {
+		return(true);
+	}
+	return(false);
 }
 
-// NOT EXACT: shape (the client's distance test and the three Unknown_34 calls are laid out differently, 103 vs 109 instructions; one form; attempts.py show 0x716760)
 void Unknown715EF0Class::Unknown_30(int time, AdvancedPositionalUpdatePacketClass *packet)
 {
 	Vector3 position;
 	float speed;
 	Extrap->Unknown_1C(packet->TimeStamp, &position, 0, 0, &speed, 0, true);
+	unsigned int duration;
 	if ((position - packet->Position).Length2() > 6250000.0f) {
-		Unknown_34(time, packet, 0);
-		return;
+		duration = 0;
+	} else if (!Unknown_B9489F) {
+		if (!packet->Unknown_8ADB20() && WWMath::Fabs(speed) <= 0.0f) {
+			duration = 500;
+		} else {
+			duration = 5000;
+		}
+	} else {
+		duration = Unknown_38(time);
 	}
-	if (Unknown_B9489F) {
-		Unknown_34(time, packet, Unknown_38(time));
-		return;
-	}
-	if (!packet->Unknown_8ADB20() && fabs(speed) <= 0.0f) {
-		Unknown_34(time, packet, 500);
-		return;
-	}
-	Unknown_34(time, packet, 5000);
+	Unknown_34(time, packet, duration);
 }
 
-// NOT EXACT: shape (3 rows in the inlined same-direction test, 190 vs 188 instructions; two forms; attempts.py show 0x7168A0)
 void Unknown715EF0Class::Unknown_34(int time, AdvancedPositionalUpdatePacketClass *packet, unsigned int duration)
 {
 	if (duration == 0) {
@@ -475,7 +473,6 @@ void Unknown717010Class::Unknown_717400(FormationPositionalUpdatePacketClass *pa
 	Unknown24 = 0;
 }
 
-// NOT EXACT: shape (3 rows in the inlined same-direction test, 144 vs 142 instructions; two forms; attempts.py show 0x717CC0)
 void Unknown717010Class::Unknown_34(int time, AdvancedPositionalUpdatePacketClass *packet, unsigned int duration)
 {
 	if (duration == 0) {
