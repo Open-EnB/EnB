@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-291 entries in 67 files.
+293 entries in 67 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -171,9 +171,11 @@ edit the comments in the code, not this file.
 | `app/packets/pkunknown_863720.cpp:75` | `Packet_00E6Class::Get_Data_Size` | marker | NOT EXACT: shape (the client adds the string's size and 0x18 first, then DataSize; attempts.csv) |
 | `app/packets/pkunknown_863720.cpp:148` | `Packet_00E7Class::Get_Data_Size` | marker | NOT EXACT: shape (as opcode 230's; attempts.csv) |
 | `app/packets/pkunknown_867010.cpp:6` | `Packet_00B3Class::Packet_00B3Class` | marker | NOT EXACT: the inline std::string assign's terminating store indexes [ebx + ecx], the client's [ecx + ebx] (otherwise the same bytes) |
-| `app/packets/pkverblist.cpp:5` | `VerbUpdatePacketClass::VerbUpdatePacketClass` | marker | NOT EXACT: 0x8AFD10, the client calls the first set's _Init and inlines the second's (inline-budget; attempts.py show 0x8AFD10) |
-| `app/packets/pkverblist.cpp:26` | `VerbUpdatePacketClass::Build` | marker | NOT EXACT: 0x8AFF40, the client inlines both loops' iterator steps (inline-budget; attempts.py show 0x8AFF40) |
-| `app/packets/pkverblist.cpp:51` | `VerbUpdatePacketClass::Print` | marker | NOT EXACT: 0x8B0150, the client inlines the first loop's iterator step only (inline-budget; attempts.py show 0x8B0150) |
+| `app/packets/pkverblist.cpp:11` | `VerbListPacketClass::VerbListPacketClass` | marker | NOT EXACT: 0x8AF150, the client inlines the set's insert (shape: ours calls it; attempts.py show 0x8AF150) |
+| `app/packets/pkverblist.cpp:43` | `VerbListPacketClass::Print` | marker | NOT EXACT: 0x8AF6D0, the client inlines the string's _Tidy and calls begin() (frame 0x11C; attempts.py show 0x8AF6D0) |
+| `app/packets/pkverblist.cpp:56` | `VerbUpdatePacketClass::VerbUpdatePacketClass` | marker | NOT EXACT: 0x8AFD10, the client calls the first set's _Init and inlines the second's (inline-budget; attempts.py show 0x8AFD10) |
+| `app/packets/pkverblist.cpp:77` | `VerbUpdatePacketClass::Build` | marker | NOT EXACT: 0x8AFF40, the client inlines both loops' iterator steps (inline-budget; attempts.py show 0x8AFF40) |
+| `app/packets/pkverblist.cpp:102` | `VerbUpdatePacketClass::Print` | marker | NOT EXACT: 0x8B0150, the client inlines the first loop's iterator step only (inline-budget; attempts.py show 0x8B0150) |
 | `app/shared/attrib_dir.cpp:196` | `AttribDir::Attach_Mod` | marker | NOT EXACT: shape (explain.py: 9 vs 8 calls), as AttributeInfo::Attach_Mod: the client calls the list's insert 0x4D8F00 out of line and the value's construction |
 | `app/shared/attrib_dir.cpp:227` | `AttribDir::Detach_Mod` | marker | NOT EXACT: shape (explain.py: 24 vs 25 calls), the client inlines the handle's Is_Done / Get_Name and Find_Info with Make_Key called (frame 0x28; ours 0x3C) |
 | `app/shared/attrib_dir.cpp:273` | `AttribDir::Detach_Callback` | marker | NOT EXACT: inline budget (explain.py: shape, 10 vs 9 calls), the client inlines the iterator list's Advance, ours calls it |

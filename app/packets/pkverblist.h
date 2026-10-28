@@ -5,7 +5,7 @@
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
 **	Original location: e:\build\beta\G\app\packets\pkverblist.h (the name provisional: see the .cpp)
 **
-**	The packet classes of client 0x8AEAD0-0x8B15C0 rebuilt so far (opcode 92); the file's other classes
+**	The packet classes of client 0x8AEAD0-0x8B15C0 rebuilt so far (opcodes 91, 92); the file's other classes
 **	are still declared in pk_classes.h.
 */
 
@@ -28,6 +28,22 @@ enum VerbEnum  // NAME 4: the client's own label 'VerbEnum' (0x84C470's table na
 };
 
 char *Value_To_String(char *buf, int size, VerbEnum verb);	// 0x84C470 (not rebuilt)
+
+// opcode 91 (0x005B, ?): vtable 0xB0C268, constructor 0x8AF150, 0x20 bytes
+class VerbListPacketClass : public PacketClass  // NAME 3: the client's Print text 'VerbList'
+{
+public:
+	VerbListPacketClass(int game_id, const std::set<VerbEnum> &verbs);	// 0x8AED60
+	VerbListPacketClass(RawPacketClass *raw);	// 0x8AF150
+	virtual RawPacketClass *Build();	// +0x04 0x8AF550
+	virtual bool Process_Packet(void *client);	// +0x08 0x7387F0 (cpacket.cpp)
+	virtual int Get_Data_Size();	// +0x0C 0x8AF6B0
+	virtual int Print(char *buffer, int len);	// +0x10 0x8AF6D0
+	virtual int Get_Type() { return(91); }	// +0x28 0x8AF690
+
+	int GameID;	// +0x0C (network order)  // NAME 3: the client's Print text 'GameID='
+	std::set<VerbEnum> Verbs;	// +0x10  // NAME 3: the client's Print text 'Verbs='
+};
 
 // opcode 92 (0x005C, VERB_UPDATE): vtable 0xB0C29C, constructor 0x8AFD10, 0x30 bytes
 class VerbUpdatePacketClass : public PacketClass

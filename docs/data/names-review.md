@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 33 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 36 |
-| 3 | by convention from a client-named file or sibling | 873 |
+| 3 | by convention from a client-named file or sibling | 876 |
 | 2 | describes what the code does | 2134 |
-| 1 | neutral placeholder | 4066 |
+| 1 | neutral placeholder | 4065 |
 
 ## For review (score 3 and below)
 
@@ -2666,7 +2666,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_Create_Packet` | `app/packets/pk.h:127` | what it does |
 | 1 | `Unknown_869790` | `app/packets/pk.h:130` | neutral (D10) |
 | 1 | `pk_classes.h` | `app/packets/pk_classes.h:17` | provisional file name (D37) |
-| 1 | `Unknown0C` | `app/packets/pk_classes.h:153` | untagged neutral name (D10) |
 | 1 | `Unknown_14` | `app/packets/pk_player_object_relationship.cpp:12` | untagged neutral name (D10) |
 | 1 | `std:` | `app/packets/pk_player_object_relationship.cpp:85` | neutral (D10) |
 | 1 | `Unknown_8743C0` | `app/packets/pk_player_object_relationship.cpp:85` | untagged neutral name (D10) |
@@ -7004,9 +7003,12 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `RotateAngle` | `app/packets/pkupdate.h:175` | the client's Print text 'RotateAngle=' |
 | 3 | `RotateRate` | `app/packets/pkupdate.h:176` | the client's Print text 'RotateRate=' |
 | 3 | `TiltAngle` | `app/packets/pkupdate.h:177` | the client's Print text 'TiltAngle=' |
-| 3 | `GameID` | `app/packets/pkverblist.h:43` | the client's Print text 'GameID=' |
-| 3 | `std:` | `app/packets/pkverblist.h:44` | the client's Print text 'Adds=' |
-| 3 | `std:` | `app/packets/pkverblist.h:45` | the client's Print text 'Drops=' |
+| 3 | `VerbListPacketClass` | `app/packets/pkverblist.h:33` | the client's Print text 'VerbList' |
+| 3 | `GameID` | `app/packets/pkverblist.h:44` | the client's Print text 'GameID=' |
+| 3 | `std:` | `app/packets/pkverblist.h:45` | the client's Print text 'Verbs=' |
+| 3 | `GameID` | `app/packets/pkverblist.h:59` | the client's Print text 'GameID=' |
+| 3 | `std:` | `app/packets/pkverblist.h:60` | the client's Print text 'Adds=' |
+| 3 | `std:` | `app/packets/pkverblist.h:61` | the client's Print text 'Drops=' |
 | 3 | `SubjectID` | `app/packets/pkverbrequest.h:33` | the client's Print text 'SubjectID=' |
 | 3 | `ObjectID` | `app/packets/pkverbrequest.h:34` | the client's Print text 'ObjectID=' |
 | 3 | `Action` | `app/packets/pkverbrequest.h:35` | the client's Print text 'Action=' |

@@ -6783,7 +6783,11 @@
      "0x52B2A0",
      "0x52B350",
      "0x659C40",
+     "0x8AED60",
+     "0x8AEFB0",
+     "0x8AEFE0",
      "0x8AF420",
+     "0x8AF550",
      "0x8AFB80",
      "0x8AFBB0",
      "0x8B0130",
@@ -6792,8 +6796,10 @@
      "0x8B0940",
      "0x8B0A10",
      "0x8B0A40",
+     "0x8B0F10",
      "0x8B0FD0",
      "0x8B1020",
+     "0x8B1390",
      "0x8B1410",
      "0x8B1490",
      "0x8B1510"
@@ -8554,7 +8560,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 4168,
+  "in_tree_total": 4174,
   "totals": {}
  },
  "binkmovie": {

@@ -145,12 +145,4 @@
 #include "pkversionrequest.h"	// rebuilt
 #include "pkwarpindex.h"	// rebuilt
 
-// opcode 91 (0x005B, ?): vtable 0xB0C268, constructor 0x8AF150, 0x20 bytes
-class VerbListPacketClass : public PacketClass
-{
-public:
-	VerbListPacketClass(RawPacketClass *raw);	// 0x8AF150
-	char Unknown0C[0x14];	// +0x0C
-};
-
 #endif

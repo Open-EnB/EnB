@@ -4,7 +4,6 @@
 
 void Conn_Record(PacketClass *packet, RawPacketClass *raw);
 
-VerbListPacketClass::VerbListPacketClass(RawPacketClass *raw) { Conn_Record(this, raw); }
 
 // The rebuilt classes' Process_Packet defined in a file not rebuilt (cpacket.cpp, ...)
 bool VersionResponsePacketClass::Process_Packet(void *) { return(true); }	// 0x76B8A0
@@ -67,6 +66,7 @@ bool LoungeNPCPacketClass::Process_Packet(void *) { return(true); }	// 0x7385B0
 bool FindMemberPacketClass::Process_Packet(void *) { return(true); }	// 0x739500
 bool TalkTreePacketClass::Process_Packet(void *) { return(true); }	// 0x738670
 bool TalkTreeActionPacketClass::Process_Packet(void *) { return(true); }	// 0x738730
+bool VerbListPacketClass::Process_Packet(void *) { return(true); }	// 0x7387F0
 bool VerbUpdatePacketClass::Process_Packet(void *) { return(true); }	// 0x7388B0
 bool MessageChatstreamPacketClass::Process_Packet(void *) { return(true); }	// 0x736F10
 bool MessageTimePacketClass::Process_Packet(void *) { return(true); }	// 0x736800
