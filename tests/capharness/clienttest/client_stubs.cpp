@@ -143,8 +143,6 @@ Unknown831340Class::Unknown831340Class(int a, int, int, const RefCountPtr<RefCou
 	Trace("stub Unknown831340Class::Unknown831340Class %d '%s' type %d", a, name.c_str(), g);
 }
 Unknown831340Class::~Unknown831340Class() { Trace("stub Unknown831340Class::~Unknown831340Class"); }
-PxProcessClass::PxProcessClass() { Trace("stub PxProcessClass::PxProcessClass"); }
-PxProcessClass::~PxProcessClass() { Trace("stub PxProcessClass::~PxProcessClass"); }
 Unknown763E00Class::Unknown763E00Class() { Trace("stub Unknown763E00Class::Unknown763E00Class"); }
 Unknown763E00Class::~Unknown763E00Class() { Trace("stub Unknown763E00Class::~Unknown763E00Class"); }
 void Unknown763E00Class::Unknown_763E70(const char *ini) { Trace("stub Unknown763E00Class::Unknown_763E70 %s", ini); }
@@ -388,5 +386,4 @@ Sound3DClass *SoundLibraryClass::Play_3D_Sound(const char *name, const Matrix3D 
 #include "..\..\..\app\shared\px_wrapper.h"
 PxObject::PxObject(DynObj *owner) : Owner(owner), Pos(0.0f, 0.0f, 0.0f), Radius(0.0f) { Trace("stub PxObject::PxObject"); }
 PxObject::~PxObject() { Trace("stub PxObject::~PxObject"); }
-PxBoxList::PxBoxList(PxObject *object) : PxBox(object) { Trace("stub PxBoxList::PxBoxList"); }
-PxCollisionBox::PxCollisionBox(PxObject *object, PxCollisionCallback, const Vector3 &) : PxBox(object) { memset(Unknown20, 0, sizeof(Unknown20)); Trace("stub PxCollisionBox::PxCollisionBox"); }
+PxCollisionBox::PxCollisionBox(PxObject *object, PxCollisionCallback, const Vector3 &) : PxBoxList(object) { memset(Unknown30, 0, sizeof(Unknown30)); Trace("stub PxCollisionBox::PxCollisionBox"); }

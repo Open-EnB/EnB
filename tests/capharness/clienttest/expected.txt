@@ -1,6 +1,5 @@
 == SClient (its constructor, the base's)
 stub Unknown763E00Class::Unknown763E00Class
-stub PxProcessClass::PxProcessClass
 stub Unknown831340Class::Unknown831340Class -1 'Null Item' type -1
 stub SOptionsClass::SOptionsClass (0x75A280, registry: not run)
 gen Unknown764FD0Class::Unknown764FD0Class
@@ -317,7 +316,6 @@ check REMOVE 7 deleted the object, its model and its part models: ok
 msg 1 CREATE (4) size 27: cpacket.cpp's handler
 stub PxObject::PxObject
 stub PxCollisionBox::PxCollisionBox
-stub PxBoxList::PxBoxList
 asset manager +0x78 'ship_test' scale 0.5 hsv (0 0 0) -> model 15
 gen Unknown_831950
 stub UnknownB02C90Class::BufferStruct::Insert 0
