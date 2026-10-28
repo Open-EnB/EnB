@@ -10291,8 +10291,8 @@
 },
 {
 "address": "0x407DBA",
-"symbol": "j_Init_2D_Scene",
-"name": "j_Init_2D_Scene",
+"symbol": "j_??0UICpitClass@@QAE@PAVMainViewClass@@ABVLayerClass@@@Z",
+"name": "j_??0UICpitClass@@QAE@PAVMainViewClass@@ABVLayerClass@@@Z",
 "kind": "thunk",
 "source": "thunk"
 },
@@ -46632,10 +46632,10 @@
 },
 {
 "address": "0x57D830",
-"symbol": "Init_2D_Scene",
-"name": "Init_2D_Scene",
+"symbol": "??0UICpitClass@@QAE@PAVMainViewClass@@ABVLayerClass@@@Z",
+"name": "UICpitClass::UICpitClass",
 "kind": "function",
-"source": "strings"
+"source": "named"
 },
 {
 "address": "0x58A640",
