@@ -14,6 +14,7 @@
 #include "rendobj.h"
 #include "camera.h"
 #include "random.h"
+#include "ref_ptr.h"
 #include "wwmath.h"
 #include "ini.h"
 #include "colmath.h"
@@ -41,6 +42,7 @@ class Unknown6F1760EffectClass : public EffectObjectClass { public: Unknown6F176
 class Unknown6EFC70EffectClass : public EffectObjectClass { public: Unknown6EFC70EffectClass(ClientClass *client, unsigned id, unsigned start_time, unsigned duration, unsigned cycle_time, RenderObjClass *robj); virtual void Unknown_24(int next); char Unknown80[0xE4 - 0x80]; };	// NAME 1: neutral (D10); 0x6EFC70, eff_robj.cpp's effect of 0x6EA5E0 (not rebuilt)  // NAME 1 [client .. robj, next]: what the helper passes
 class Unknown6EEEA0EffectClass : public EffectObjectClass { public: Unknown6EEEA0EffectClass(ClientClass *client, unsigned id, unsigned start_time, unsigned duration, unsigned cycle_time, RenderObjClass *robj); virtual void Unknown_24(int next); char Unknown80[0xDC - 0x80]; };	// NAME 1: neutral (D10); 0x6EEEA0, eff_robj.cpp's effect of 0x6EA830 (not rebuilt)  // NAME 1 [client .. robj, next]: what the helper passes
 class Unknown6F25A0EffectClass : public EffectObjectClass { public: Unknown6F25A0EffectClass(ClientClass *client, unsigned id, unsigned start_time, unsigned duration, unsigned cycle_time, RenderObjClass *robj); virtual void Unknown_24(int next); char Unknown80[0xE0 - 0x80]; };	// NAME 1: neutral (D10); 0x6F25A0, the effect of 0x6EAA40 (its file after eff_seek.cpp) (not rebuilt)  // NAME 1 [client .. robj, next]: what the helper passes
+class Unknown6E4750EffectClass : public EffectObjectClass { public: Unknown6E4750EffectClass(ClientClass *client, unsigned id, unsigned start_time, unsigned duration, unsigned cycle_time, const RefCountPtr<RenderObjClass> &robj, const char *bone_prefix); virtual void Unknown_24(int next); char Unknown80[0xF4 - 0x80]; };	// NAME 1: neutral (D10); 0x6E4750, eff_attach.cpp's effect of 0x6EC570 (not rebuilt)  // NAME 1 [client .. bone_prefix, next]: what the helper passes
 void Unknown_496AE0(RenderObjClass *robj, int unknown);	// 0x496AE0 (ro_funcs.cpp, cdecl: effect.ini's ResetMappers)  // NAME 1 [robj, unknown]: what the helpers pass
 extern RandomClass Unknown_BDBB84;	// NAME 1 [Unknown_BDBB84]: neutral (D10), as ui_line_display.cpp's
 static inline int Unknown_Time(const ClientClass *client) { return(client->Unknown10BC); }	// NAME 1 [Unknown_Time]: neutral (D10): the client clock as the link calls read it (evaluated before the other arguments)
@@ -126,8 +128,6 @@ EffectObjectClass::~EffectObjectClass()
 		Unknown_6E6A90(NextLink);
 	}
 }
-
-
 
 
 
@@ -1470,6 +1470,185 @@ EffectObjectClass *Unknown_6EB590(INIClass *ini, const char *section, unsigned i
 EffectObjectClass *Unknown_6EB850(INIClass *ini, const char *section, unsigned id, unsigned start_time, unsigned duration, unsigned cycle_time, ClientClass *client)
 {
 	return(new UnknownB000F0EffectClass(client, id, start_time, duration, cycle_time));
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 0x6EC570
+EffectObjectClass *Unknown_6EC570(INIClass *ini, const char *section, unsigned id, unsigned start_time, unsigned duration, unsigned cycle_time, ClientClass *client, float scale, float *hsv)
+{
+	int base_asset = ini->Get_Int(section, "BaseAssetID", -1);
+	RefCountPtr<RenderObjClass> robj = Create_Get(ClientObjectClass::Unknown_6F5140(base_asset, client, scale, hsv));
+	FAIL_IF(!robj) return(NULL);
+	char bone_prefix[256];
+	ini->Get_String(section, "BoneNamePrefix", "", bone_prefix, 254);
+	bool hide_as_other_objects = ini->Get_Bool(section, "HideAsOtherObjects", false);
+	bool reset_mappers = ini->Get_Bool(section, "ResetMappers", false);
+	if (reset_mappers) {
+		Unknown_496AE0(robj.Peek(), 0);
+	}
+	Unknown6E4750EffectClass *effect = new Unknown6E4750EffectClass(client, id, start_time, duration, cycle_time, robj, bone_prefix);
+	effect->Set_Flag(0x200, hide_as_other_objects);
+	effect->Set_Flag(0x400, reset_mappers);
+	return(effect);
 }
 
 // 0x6EC7D0
