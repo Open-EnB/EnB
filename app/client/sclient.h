@@ -247,7 +247,7 @@ public:
 	char Unknown04[0x28 - 0x04];
 };
 
-// what the main view's +0x1DC points to, as far as 0x513600 calls it
+// what the main view's +0x1DC points to, as far as 0x513540 / 0x513600 call it
 class MainViewUnknown1DCClass	// NAME 1: neutral (D10)
 {
 public:
@@ -259,7 +259,8 @@ public:
 	virtual void Unknown_50(); virtual void Unknown_54(); virtual void Unknown_58(); virtual void Unknown_5C();
 	virtual void Unknown_60(); virtual void Unknown_64(); virtual void Unknown_68(); virtual void Unknown_6C();
 	virtual void Unknown_70(); virtual void Unknown_74(); virtual void Unknown_78(); virtual void Unknown_7C();
-	virtual void Unknown_80(); virtual void Unknown_84(); virtual void Unknown_88();
+	virtual void Unknown_80(); virtual void Unknown_84();
+	virtual void Unknown_88(RenderObjClass *model);	// +0x88 (0x513540: the backdrop model)  // NAME 2 [model]: what 0x513540 passes
 	virtual void Unknown_8C(int arg);					// +0x8C (0x513600)  // NAME 1 [arg]: neutral
 };
 

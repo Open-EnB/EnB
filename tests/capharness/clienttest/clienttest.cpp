@@ -116,6 +116,10 @@ static FakeTableStruct Fake_View64 = { View64_Table };
 static double Fake_Camera_Storage[0x400 / sizeof(double)];
 static char *Fake_Camera = (char *)Fake_Camera_Storage;
 static void __stdcall View64_24_Slot(int arg) { Trace("mainview 64's +0x24 %d", arg); }	// MainViewUnknown64Class +0x24: one argument, popped
+static void *View1DC_Table[64];
+static FakeTableStruct Fake_View1DC = { View1DC_Table };
+static void __stdcall View1DC_88_Slot(RenderObjClass *model) { Trace("mainview 1DC's +0x88 %s", model ? "a model" : "NULL"); }	// 0x513540: the backdrop model
+static void __stdcall View1DC_8C_Slot(int arg) { Trace("mainview 1DC's +0x8C %d", arg); }	// 0x513600
 class FakeMainViewClass
 {
 public:
@@ -986,6 +990,11 @@ int main(int argc, char **argv)
 		View64_Table[k] = (void *)Zero_Slot;
 	}
 	View64_Table[9] = (void *)View64_24_Slot;
+	for (int s = 0; s < 64; s++) {
+		View1DC_Table[s] = (void *)Zero_Slot;
+	}
+	View1DC_Table[0x88 / 4] = (void *)View1DC_88_Slot;
+	View1DC_Table[0x8C / 4] = (void *)View1DC_8C_Slot;
 	Fake_Model.Table = Zero_Table;
 	Track_Model.Table = Track_Table;
 	for (int a = 0; a < 256; a++) {
@@ -1007,6 +1016,8 @@ int main(int argc, char **argv)
 	static double fake_orbitals[(sizeof(OrbitalManager) + 7) / 8];
 	*(StarFieldClass **)&main_view.Unknown04[0x134 - 0x04] = new StarFieldClass(0);
 	*(OrbitalManager **)&main_view.Unknown04[0x140 - 0x04] = (OrbitalManager *)fake_orbitals;
+	// 0x513540 / 0x513600 (SClient 0x745000, 0x7456B0) call the +0x1DC object's slots +0x88 / +0x8C
+	*(FakeTableStruct **)&main_view.Unknown04[0x1DC - 0x04] = &Fake_View1DC;
 	static char fake_line_display[0x100];	// ui_line_display.cpp's object (0x100 bytes): client_stubs.cpp's members trace
 	client->LineDisplay = (UILineDisplayClass *)fake_line_display;
 	client->AuxData = (DeltaPlayerClass *)Fake_Player_Root;	// Init's roots (sclient.cpp 0x7518A0, not run)

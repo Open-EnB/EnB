@@ -1898,26 +1898,26 @@ void MainViewClass::Unknown_512B10(int x, int y, float *fx, float *fy)
 
 
 
+// 0x513540: the backdrop model (SERVER_PARAMETERS 66's BackdropBaseAsset; below 0 the view mode's own) to +0x1DC
+void MainViewClass::Unknown_513540(int base_asset)
+{
+	if (base_asset < 0) {
+		int mode = Client->ViewMode;
+		if (mode == 1) {
+			base_asset = 1020;
+		} else if (mode == 0) {
+			base_asset = 309;
+		} else if (mode == 5) {
+			base_asset = 1141;
+		}
+	}
+	float hsv[3] = { 0.0f, 0.0f, 0.0f };
+	RenderObjClass *model = ClientObjectClass::Unknown_6F5140(base_asset, Client, 1.0f, hsv);
+	Unknown1DC->Unknown_88(model);
+	model->Release_Ref();
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+void MainViewClass::Unknown_513600(int arg) { Unknown1DC->Unknown_8C(arg); }
 
 void MainViewClass::Unknown_513630(int arg1, int arg2, int arg3, int arg4)
 {
@@ -2010,9 +2010,9 @@ void MainViewClass::Unknown_513B90(unsigned sector)
 	Wind.Z = ini.Get_Float("GENERAL", "WINDZ", 0.0f);
 	Wind *= 3600.0f;
 }
-
+void MainViewClass::Unknown_513CD0(int mode) { Unknown138->Unknown_53DFB0(mode); }
 int MainViewClass::Unknown_513D00() { return(Unknown138->Unknown9C); }
-
+void MainViewClass::Unknown_513D20(float value) { Unknown138->Unknown_53E030(value); }
 
 void MainViewClass::Unknown_513D50() { Unknown138->Unknown_53E0B0(); }
 void MainViewClass::Unknown_513D70() { Unknown138->Unknown_53E0E0(); }
@@ -2373,6 +2373,6 @@ void MainViewClass::Unknown_18(int arg)
 **	the base's own table is 0xAF9854, 0x65B810's). Add_Object 0x514270 / Remove_Object 0x514390: the model's
 **	Set_User_Data, Add to the scene slot +0x64 returns (the +0x10C scene) unless the object's 0x6F5D90 says
 **	otherwise, an identity transform; Remove only in the same case. The constructor is not exact (scheduling)
-**	(attempts.csv 0x50B360). Not rebuilt yet because clienttest drives their stand-ins: 0x512A00, 0x513540,
-**	0x513600, 0x513CD0, 0x513D20, 0x514010 (expected.txt 'gen MainViewClass::').
+**	(attempts.csv 0x50B360). Not rebuilt yet because clienttest drives their stand-ins: 0x512A00,
+**	0x514010 (expected.txt 'gen MainViewClass::').
 */
