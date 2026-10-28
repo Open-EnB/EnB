@@ -9,7 +9,12 @@ library file reproduces byte for byte (the file's `in_tree` list in imports.json
     python tools/vc6/pairs_cmp.py .work/imports.before.json docs/data/imports.json
 
 Prints `gained [...]` (in B, not in A) and `lost [...]` (in A, not in B). Each entry is
-(lib, file, address). Exit status is 0 either way; read the `lost` list.
+(lib, file, address). Then, for D66(v) / D117:
+`lost outright [...]` : addresses of lost pairs that no file holds in B (sorted hex strings);
+                        D66(v) needs this list empty.
+`moves [...]`         : lost pairs whose address another file holds in B, as
+                        (lib, from_file, [(lib, to_file), ...], addr).
+Exit status is 0 either way; read the `lost` and `lost outright` lists.
 """
 import json
 import sys
@@ -31,7 +36,14 @@ def main(argv):
         sys.exit(__doc__)
     a, b = pairs(argv[1]), pairs(argv[2])
     print('gained', sorted(b - a))
-    print('lost', sorted(a - b))
+    lost = a - b
+    print('lost', sorted(lost))
+    holders = {}
+    for lib, f, addr in b:
+        holders.setdefault(addr, set()).add((lib, f))
+    print('lost outright', sorted({x[2] for x in lost if x[2] not in holders}))
+    print('moves', sorted((lib, f, sorted(holders[addr]), addr)
+                          for lib, f, addr in lost if addr in holders))
 
 
 if __name__ == '__main__':
