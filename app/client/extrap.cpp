@@ -833,6 +833,27 @@ bool Unknown710530Class::Unknown_711490()
 }
 
 
+// NOT EXACT: 0x711520 shape: the client keeps Time in ecx and tests it again before stepping back (a top-tested loop); here the else branch knows Time > time
+void Unknown710530Class::Unknown_04(unsigned int time)
+{
+	if (Time <= time) {
+		while (Time < time) {
+			Unknown_08();
+		}
+	} else if (Unknown_711490()) {
+		while (Time > time) {
+			Unknown_711050();
+		}
+	}
+}
+
+
+Unknown710030Class *Unknown710530Class::Unknown_0C()
+{
+	return(new Unknown710530Class(*this));
+}
+
+
 Matrix3D *Unknown710530Class::Unknown_10()
 {
 	if (!Transform.Is_Orthogonal()) {
@@ -909,27 +930,6 @@ void Unknown7119B0Class::Set_Motion(int time, float *speed, float *acceleration,
 	}
 	Unknown_712480(time);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -1835,6 +1835,43 @@ Unknown713D70Class::Unknown713D70Class(ComponentPositionalUpdatePacketClass *pac
 Vector3 Unknown713D70Class::Unknown_1C()
 {
 	return(Vector3(0.0f, 0.0f, 0.0f));
+}
+
+
+Unknown713D70Class::Unknown713D70Class(const Unknown713D70Class &other) :
+	Unknown710030Class(other)
+{
+	Transform = other.Transform;
+	Velocity = other.Velocity;
+	ImpartedDecay = other.ImpartedDecay;
+	TractorSpeed = other.TractorSpeed;
+	TractorID = other.TractorID;
+	Client = other.Client;
+}
+
+
+Unknown710030Class *Unknown713D70Class::Unknown_0C()
+{
+	return(new Unknown713D70Class(*this));
+}
+
+
+// NOT EXACT: 0x7140E0 order: the translation's stores, the roll's push and the state's vtable load are scheduled differently
+bool Unknown713D70Class::Unknown_7140E0(Vector3 *result)
+{
+	if (TractorID) {
+		ClientObjectClass *object = Client->Find_Object(TractorID);
+		if (object) {
+			Unknown98Class *state = object->Unknown98;
+			if (state) {
+				Matrix3D look;
+				look.Look_At(Transform.Get_Translation(), state->Unknown_1C(Time), 0.0f);
+				*result = look.Rotate_Vector(Vector3(0.0f, 0.0f, -TractorSpeed));
+				return(true);
+			}
+		}
+	}
+	return(false);
 }
 
 

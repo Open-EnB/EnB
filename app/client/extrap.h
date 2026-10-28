@@ -95,6 +95,7 @@ public:
 	virtual Vector3 Unknown_1C();	// +0x1C 0x711950
 	virtual Vector3 Unknown_20();	// +0x20 0x711980
 	bool Unknown_711490();	// 0x711490 (inlined in 0x7104A0 and 0x711520)
+	void Unknown_711050();	// 0x711050 (one step back: 0x711520 when Time is past the time asked)
 
 	Matrix3D Transform;		// +0x08 (Build_Matrix3D of the packet's Orientation, at its Position)  // NAME 2: what it holds
 	float Speed;			// +0x38 (the packet's CurrentSpeed * 100)  // NAME 2: what Unknown_18 returns
@@ -111,7 +112,16 @@ public:
 	float Unknown64;		// +0x64 (-70 or 70 degrees by Unknown60's sign)
 	bool Unknown68;			// +0x68
 	Vector3 Unknown6C;		// +0x6C (the packet's ImpartedVelocity * 100)
-	char Unknown78[0xA0 - 0x78];
+	float Unknown78;		// +0x78
+	bool Unknown7C;			// +0x7C
+	float Unknown80;		// +0x80
+	float Unknown84;		// +0x84
+	bool Unknown88;			// +0x88
+	float Unknown8C;		// +0x8C
+	float Unknown90;		// +0x90
+	bool Unknown94;			// +0x94
+	float Unknown98;		// +0x98
+	float Unknown9C;		// +0x9C
 };
 
 // The component node's motion object (vtable 0xB025FC, 0x54 bytes)
@@ -119,6 +129,7 @@ class Unknown713D70Class : public Unknown710030Class	// NAME 1: neutral (D10)
 {
 public:
 	Unknown713D70Class(ComponentPositionalUpdatePacketClass *packet, ClientClass *client);	// 0x713D70  // NAME 1 [packet, client]: what 0x713C80 passes
+	Unknown713D70Class(const Unknown713D70Class &other);	// 0x713F30 (inlined in Unknown_0C)  // NAME 2 [other]: a copy
 	virtual void Unknown_08();	// +0x08 0x7141D0
 	virtual Unknown710030Class *Unknown_0C();	// +0x0C 0x714010
 	virtual Matrix3D *Unknown_10();	// +0x10 0x714250

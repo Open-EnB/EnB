@@ -245,14 +245,11 @@ void Unknown713520Class::Unknown_1C(int, Vector3 *p, Quaternion *o, Vector3 *v, 
 void Unknown714340Class::Unknown_1C(int, Vector3 *p, Quaternion *o, Vector3 *v, float *s, Vector3 *r, bool) { Stand_In_State(p, o, v, s, r); }
 Unknown7119B0Class::Unknown7119B0Class(StateNode *start, StateNode *end, unsigned int start_time, unsigned int end_time) : StartState(start), StartTime(start_time), EndState(end), EndTime(end_time) { Trace("stub Unknown7119B0Class::Unknown7119B0Class %u %u", start_time, end_time); }
 void Unknown7119B0Class::Unknown_712480(int) {}
-// the motion objects: at rest at the origin, their clock set by the base's Unknown_04
+// the advanced motion object: at rest at the origin, stepped 100 ms at a time
 Unknown710530Class::Unknown710530Class(AdvancedPositionalUpdatePacketClass *packet) { Trace("stub Unknown710530Class::Unknown710530Class %u stamp %d", packet->GameID, (int)packet->TimeStamp); Time = packet->TimeStamp; Transform.Make_Identity(); Speed = Unknown3C = Unknown44 = Unknown50 = Unknown54 = Unknown5C = Unknown60 = Unknown64 = 0; Unknown40 = Unknown48 = Unknown58 = false; Unknown6C = Vector3(0, 0, 0); }
-void Unknown710530Class::Unknown_04(unsigned int time) { Time = time; }
+void Unknown710530Class::Unknown_711050() { Time -= 100; }
 void Unknown710530Class::Unknown_08() { Time += 100; }
-Unknown710030Class *Unknown710530Class::Unknown_0C() { Trace("stub Unknown710530Class::Unknown_0C"); return(new Unknown710530Class(*this)); }
 Vector3 Unknown710530Class::Unknown_14() { return(Vector3(0, 0, 0)); }
-Unknown710030Class *Unknown713D70Class::Unknown_0C() { Trace("stub Unknown713D70Class::Unknown_0C"); return(new Unknown713D70Class(*this)); }
-bool Unknown713D70Class::Unknown_7140E0(Vector3 *) { return(false); }
 // client.cpp's mount buffer insert 0x725E70 (not rebuilt; Add reaches it since f6b75ef, a nested struct gen_stubs.py cannot write)
 void UnknownB02C90Class::BufferStruct::Insert(const ElementStruct &, int index) { Trace("stub UnknownB02C90Class::BufferStruct::Insert %d", index); }
 // pkupdate.cpp's 0x8ADB20 (not rebuilt): types 4 and 8 ask it
