@@ -150,6 +150,15 @@ proximity / avoidance tests, such as moving NPC ships).
   co_data.cpp's `Remove_All` 0x79D390 for the per-object records, the sounds, the lego object, the
   model). REMOVE leaves the +0x86C record alone: Process_AI deletes it once its slot +0x08 says so. The
   client's destructor 0x726C60 deletes whatever is left in all four tables.
+* **Removed all at once** on a sector change by SClient 0x745750 (SERVER_HANDOFF 58's; SC1, NOT EXACT inline
+  budget): the mesh renderer's caches invalidated (`TheDX8MeshRenderer.Invalidate()`), the camera manager's
+  0x79B2B0(true), then every object out of ObjectList and deleted (slot 0, the whole destructor above), every
+  effect out of EffectList and handed to eff_o.cpp's 0x6E6A90, every +0x86C record out and deleted, SClient
+  0x755600, and every +0x1394 value (below) told slot +0x38 and released, the table cleared (0x74C690's loop).
+* **The per-avatar values at SClient +0x1394** (`hash_map<unsigned, SClientUnknown1394Class *>`, keyed by game
+  id; not objects): AVATAR_DESCRIPTION 97 calls 0x74C3B0(GameID, Desc), which makes one (0x77B870, 0x384 bytes,
+  from the description) unless the id has one, and for the player's own id (+0x112C) hands its +0xF8 to the
+  bridge interface (0x53B7A0). 0x74C7B0 / 0x74C840 / 0x74C960 look them up (callers in the interface code: 0x63CA50, 0x6435E0, 0x7E3A20 among others).
 
 ### 2.4 Where the aux data attaches, and how a delta reaches the object
 
@@ -179,6 +188,12 @@ reads the leaves it cares about and tests their marks**. Two forms:
 
 The interpolated leaves (delta_interpolator.cpp, slot +0x3C override 0x4A68E0) are the one case where
 decoding itself does more than store.
+
+SClient's own reads of the player's root +0x12C0 follow the by-name form with auxdata.h's find (a named
+`NameClass`, the DeltaCompoundClass type test, NULL unless +0x70 is set; SC1, exact): 0x74D570 'in a group'
+(one of `GroupInfo.Members`' first five has a non-empty `Name`; ui code 0x65CCD0, 0x7C44B0, 0x7C4940) and 0x74D690
+'leads the group' (`GroupInfo.IsGroupLeader`; CTA_RESPONSE 189's handler 0x73DAA0, 0x645510). The group's
+membership therefore lives only in the aux tree, as the target does (§2.7).
 
 ### 2.5 The positional state (+0x98) and the per-frame update
 
@@ -212,6 +227,14 @@ engine-thrust adjustments; the result re-orthogonalised and given to the model's
 `Set_Transform`); then the damage decals 0x6FD310, engine sounds 0x6FDBD0 and damage state 0x6FE1E0;
 type 8 -> 0x6FC9A0 (aux -> light), types 0/1 -> 0x6FBEF0, type 38 -> 0x6FF1D0 (render state from
 PercentFull). The 'Player Pos' mono print names the player's object by +0x112C.
+
+**The player's own steering** goes into the same state, not into a packet: SClient 0x745AA0-0x745E40 (SC1,
+exact; ui_cpit.cpp's key handler 0x5806E0 and 0x6B58A0 call them) take `Get_Avatar()` and, when its +0x98 state
+is type 4 (Unknown717010Class), call postate.cpp's 0x717430 (turn, tilt, move direction, fixed speed: each a
+pointer, NULL for unchanged) or 0x7179A0 (level, auto-level) with `&ClientClass +0x10D4` (the six limits there:
+-2500, 2500, -1e6, -1e6, 1e6, 1e6; 0x717430 ignores the argument), the avatar's aux data (its MaxTurnRate and
+the other limits are read from it) and the clock +0x10BC. A turn or tilt below 0.0001 levels out instead. The
+state then extrapolates the player's own motion locally until the next ADVANCED_POSITIONAL_UPDATE 62.
 
 ### 2.6 The proximity system (app\shared\px*.cpp)
 
@@ -273,7 +296,7 @@ pointer references to a function and its incremental thunk):**
 
 * *Live:* ClientClass's constructor 0x726100 makes the PxList and the PxProcessClass, its destructor deletes them;
   SClient::Init 0x741180, Shutdown 0x741BB0 and Do_Frame 0x742B60 push the client's PxProcessClass on the static
-  stack around their work and pop it (sclient.cpp still calls them as `Unknown_455D10` / `Unknown_455F60`);
+  stack around their work and pop it (`PxProcessClass::Push` / `Pop`, SC1);
   DynObj's constructor builds each PxWrapper with its PxObject and three boxes (type 24, co_subtypes.cpp).
 * *Dormant:* nothing inserts a box into the PxList (`PxWrapper::Add_To_List` 0x456660 has no reference) and nothing
   updates one (`DynObj::Update_Proximity` / `Update_Avoidance`, PX1); `PxProcessClass::Process` 0x455CC0 and
@@ -305,6 +328,15 @@ The main view (SClient +0x1358, MainViewClass) never owns objects: `SClient::Add
 * **Picking** (slot +0x60 0x512BB0, not rebuilt): the screen point through the view's IntersectionClass
   (+0x88) against render objects; how the hit maps back to a ClientObjectClass is still to be read.
 
+SClient's other per-frame helpers around the model (SC1): Do_Frame's 0x7429B0 answers the reset-ship question
+(+0x1378 == 1: the current view's slot +0x1C view, its +0x34 dialog's 'YES_NO' button; yes sends CLIENT_CHAT
+'/resetship' type 4 for AvatarID, any answer closes it through the dialog's slot +0x5C; NOT EXACT register);
+0x7436A0 (an event no dispatcher took) handles the 'sclient' control keys: screenshot, auto level (MOVE 13 for
+AvatarID, so the server levels the ship), the camera modes (SOptions' +0x2C into the camera manager through
+0x744D80, inline: `Unknown12B0 = Unknown10BC`, the mode's five values, then 0x744C10) and saving one; 0x744C10
+gives the bridge interface the main view's slot +0x78 scene (`Create_Peek`) in bridge mode with the chase camera
+module's +0x34 set, else NULL. None of them reads or writes an object beyond `Get_Avatar()` / `AvatarID`.
+
 ## 3. The object-affecting opcodes
 
 Handler = slot +0x08 (all in cpacket.cpp unless noted). "Object" = `Find_Object(GameID)` unless said.
@@ -333,7 +365,7 @@ Handler = slot +0x08 (all in cpacket.cpp unless noted). "Object" = `Find_Object(
 | 47-50 | INIT / ACTIVATE / ACTIVATE_NEXT / DEACTIVATE_RENDER_STATE | 0x737610, 0x7376F0, 0x7377C0, 0x737890 | the model's rs_track render states (Class_ID 0x10001) | exact |
 | 52 | CLIENT_SET_TIME | 0x737960 | the time base +0x10C0 = the server clock's offset, +0x10C8 / +0x10D0 (the lag average) cleared, 0xBE71D4 = the round trip time (postate.cpp's blend time); 'rtt = %u  correction = %d' in debug mode | NOT EXACT shape [parked] |
 | 55 | CLIENT_AVATAR | 0x733590 | +0x112C = AvatarID; the avatar's model LOD bias | exact (b7375ed) |
-| 58 | SERVER_HANDOFF | 0x737CB0 | +0x10C0 and the handoff state | exact (81eba3a) |
+| 58 | SERVER_HANDOFF | 0x737CB0 | +0x10C0 and the handoff state; SClient 0x745750 empties the tables (§2.3) | exact (81eba3a) |
 | 62 | ADVANCED_POSITIONAL_UPDATE | 0x734130 | +0x98 type 4 (own) / 8 (others) | NOT EXACT shape [parked] |
 | 63 | PLANET_POSITIONAL_UPDATE | 0x734A40 | +0x98 type 5 | exact (bfa8b4f) |
 | 64 | CONSTANT_POSITIONAL_UPDATE | 0x733C80 | +0x98 type 1, slot +0x3C | exact |
@@ -343,7 +375,7 @@ Handler = slot +0x08 (all in cpacket.cpp unless noted). "Object" = `Find_Object(
 | 71 | CLIENT_SHIP | 0x733660 | `Set_Ship_ID` (+0x1130) | exact |
 | 74 | CREATE_ATTACHMENT | 0x733BB0 | `parent->Unknown_0C(child, slot, 0)` (0x725610: the child hung on a bone) | exact |
 | 91 | VERB_LIST / VerbListPacketClass | 0x7387F0 | the object's verbs: SClient +0x1294's verb manager 0x81F780(GameID, &Verbs) (VERB_UPDATE 92 0x81F810 changes them) | exact (CP1) |
-| 97 | AVATAR_DESCRIPTION | 0x733B10 | SClient 0x74C3B0(GameID, Desc) | exact |
+| 97 | AVATAR_DESCRIPTION | 0x733B10 | SClient 0x74C3B0(GameID, Desc): a +0x1394 value for the id (§2.3) | exact |
 | 100 | CLIENT_DAMAGE / DamagePacketClass | 0x738970 | floating damage text over the player's avatar (Get_Avatar) | NOT EXACT frame [partial] |
 | 103 | GadgetPacketClass | 0x739180 | the gadget named Name in SClient +0x1278's list (gadget_list_manager.cpp 0x661940); Function's bits switch its interface and slots (below) | exact (CP1) |
 | 137-139 | RELATIONSHIP / reaction / ATTACKER_UPDATES | 0x7398E0, 0x7399D0, 0x739AC0 | co_player_relationship.cpp 0x70CC40 / 0x70CC90 / 0x70CD50: +0x12C, PlayerObjectRelationshipChangeEvent | exact |
