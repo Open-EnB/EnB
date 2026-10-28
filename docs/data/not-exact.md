@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-293 entries in 68 files.
+294 entries in 68 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -31,6 +31,7 @@ edit the comments in the code, not this file.
 | `app/client/client_lego_impl.cpp:742` | `ClientLegoImplClass::Detach` | marker | NOT EXACT: register-only, 4 rows: eax / edx swapped around the Get_Render_Object call (attempts.csv) |
 | `app/client/co.cpp:483` | `ClientObjectClass::Unknown_28` | marker | NOT EXACT: inline budget (the client calls auxdata.h's find 0x514B60 out of line, ours inlines it; 14 forms) 0x6F4610 |
 | `app/client/co.cpp:563` | `ClientObjectClass::Unknown_6F3FA0` | marker | NOT EXACT: inline budget (the client calls 0x6F3ED0, 0x6F5A40, 0x6F45E0 and auxdata.h's find 0x7079B0 out of line, ours inlines them; 9 forms) 0x6F3FA0 (slot +0x28's tilt: the turn +0x144 steered toward 0x6F3ED0's angle through +0x134, then the roll) |
+| `app/client/co.cpp:1472` | `ClientObjectClass::Unknown_6FBEF0` | marker | NOT EXACT: inline budget (the client calls the four finds' Casts 0x531590 / 0x7099F0 out of line, ours inlines them; 74 calls vs 70; 1 form, attempts.py show 0x6FBEF0) 0x6FBEF0 (the warp state: PrivateWarpState's messages, then GlobalWarpState's sounds, effects and camera modes) |
 | `app/client/co.cpp:1679` | `ClientObjectClass::Unknown_6FC9A0` | marker | NOT EXACT: shape (case 2's 'pop esi' scheduled between its two stores in ours, after them in the client; 3 forms) 0x6FC9A0 |
 | `app/client/co.cpp:1715` | `ClientObjectClass::Unknown_6FCB20` | marker | NOT EXACT: shape (the client keeps the argument in eax and masks a copy for the compare; 3 forms) 0x6FCB20 |
 | `app/client/co.cpp:1784` | `ClientObjectClass::Unknown_6FD310` | marker | NOT EXACT: inline budget (the client calls the array Cast 0x709A40 out of line for DamageSpot and DamageLine and inlines it for DamageBlotch; ours inlines all three; 4 forms, attempts.py show 0x6FD310) 0x6FD310 (the damage decals: the DamageSpot / DamageLine / DamageBlotch items that changed, one decal pool each) |

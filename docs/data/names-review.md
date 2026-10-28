@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 36 |
 | 3 | by convention from a client-named file or sibling | 872 |
 | 2 | describes what the code does | 2134 |
-| 1 | neutral placeholder | 4062 |
+| 1 | neutral placeholder | 4072 |
 
 ## For review (score 3 and below)
 
@@ -383,9 +383,19 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_6F5ED0` | `app/client/co.cpp:1183` | untagged neutral name (D10) |
 | 1 | `Unknown_6F58B0` | `app/client/co.cpp:1192` | untagged neutral name (D10) |
 | 1 | `Unknown_6F5F60` | `app/client/co.cpp:1201` | untagged neutral name (D10) |
-| 1 | `Unknown_6FC880` | `app/client/co.cpp:1641` | untagged neutral name (D10) |
-| 1 | `Unknown_6E6E30` | `app/client/co.cpp:1654` | untagged neutral name (D10) |
-| 1 | `Unknown_810540` | `app/client/co.cpp:1659` | untagged neutral name (D10) |
+| 1 | `Unknown6E9490TargetClass` | `app/client/co.cpp:1214` | neutral (D10) |
+| 1 | `Unknown_00` | `app/client/co.cpp:1217` | untagged neutral name (D10) |
+| 1 | `game_id` | `app/client/co.cpp:1220` | what OBJECT_EFFECT 9 passes |
+| 1 | `Unknown6E9490EffectClass` | `app/client/co.cpp:1222` | neutral (D10) |
+| 1 | `desc_id .. c` | `app/client/co.cpp:1228` | what OBJECT_EFFECT 9 passes |
+| 1 | `Unknown_6E9490` | `app/client/co.cpp:1228` | untagged neutral name (D10) |
+| 1 | `Unknown_74D990` | `app/client/co.cpp:1484` | untagged neutral name (D10) |
+| 1 | `Unknown_810540` | `app/client/co.cpp:1566` | untagged neutral name (D10) |
+| 1 | `Unknown113C` | `app/client/co.cpp:1569` | untagged neutral name (D10) |
+| 1 | `Unknown_64` | `app/client/co.cpp:1581` | untagged neutral name (D10) |
+| 1 | `Unknown_7C` | `app/client/co.cpp:1581` | untagged neutral name (D10) |
+| 1 | `Unknown_6E6E30` | `app/client/co.cpp:1609` | untagged neutral name (D10) |
+| 1 | `Unknown_6FC880` | `app/client/co.cpp:1636` | untagged neutral name (D10) |
 | 1 | `Unknown_6FC950` | `app/client/co.cpp:1664` | untagged neutral name (D10) |
 | 1 | `Unknown_6FCB20` | `app/client/co.cpp:1717` | untagged neutral name (D10) |
 | 1 | `Unknown_Get_Item` | `app/client/co.cpp:1767` | neutral |

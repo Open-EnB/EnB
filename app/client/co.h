@@ -203,7 +203,7 @@ public:
 	float Unknown_6F3ED0();								// 0x6F3ED0 an angle from +0x98's slot +0x14, clamped to 36 degrees
 	float Unknown_6F4290();								// 0x6F4290 (not rebuilt)
 	void Unknown_6F3FA0(Matrix3D &tm);					// 0x6F3FA0 slot +0x28's roll: the turn +0x144 steered toward 0x6F3ED0's angle (types 0 and 1 that aren't IsOrganic)  // NAME 1 [tm]: a Matrix3D
-	void Unknown_6FBEF0();								// 0x6FBEF0 (not rebuilt; the per-frame update calls it for types 0 and 1)
+	void Unknown_6FBEF0();								// 0x6FBEF0 the warp state: PrivateWarpState's messages, GlobalWarpState's sounds, effects and camera modes (the per-frame update calls it for types 0 and 1)
 	void Unknown_6F3BF0(bool hidden);					// 0x6F3BF0 (the model's Set_Hidden)  // NAME 2 [hidden]: Set_Hidden's argument
 	float Unknown_6F45E0();								// 0x6F45E0
 	float Unknown_6F4590();								// 0x6F4590

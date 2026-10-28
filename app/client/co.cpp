@@ -1207,6 +1207,25 @@ bool ClientObjectClass::Unknown_6F5F60()
 }
 
 
+#include "..\audio\soundlib.h"		// the warp state 0x6FBEF0, the engine sounds 0x6FDBD0
+#include "..\..\wwaudio\Sound3D.h"
+// eff_o.cpp's effects as far as the warp state calls them (as cpacket.cpp's OBJECT_EFFECT 9): the factory (cdecl),
+// the effect's slot +0x10 (its target end) and the target's slot +0x28 (the object's id)
+class Unknown6E9490TargetClass	// NAME 1: neutral (D10)
+{
+public:
+	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
+	virtual void Unknown_10(); virtual void Unknown_14(); virtual void Unknown_18(); virtual void Unknown_1C();
+	virtual void Unknown_20(); virtual void Unknown_24();
+	virtual void Unknown_28(int game_id);	// NAME 1 [game_id]: what OBJECT_EFFECT 9 passes
+};
+class Unknown6E9490EffectClass : public EffectObjectClass	// NAME 1: neutral (D10)
+{
+public:
+	virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
+	virtual Unknown6E9490TargetClass *Unknown_10();
+};
+Unknown6E9490EffectClass *Unknown_6E9490(int desc_id, int effect_id, int duration, int time, ClientClass *client, float scale, const Vector3 &hsv_shift, float a, int b, int c);	// 0x6E9490  // NAME 1 [desc_id .. c]: what OBJECT_EFFECT 9 passes
 
 
 
@@ -1450,192 +1469,173 @@ bool ClientObjectClass::Unknown_6F5F60()
 
 
 
+// NOT EXACT: inline budget (the client calls the four finds' Casts 0x531590 / 0x7099F0 out of line, ours inlines them; 74 calls vs 70; 1 form, attempts.py show 0x6FBEF0)
+// 0x6FBEF0 (the warp state: PrivateWarpState's messages, then GlobalWarpState's sounds, effects and camera modes)
+void ClientObjectClass::Unknown_6FBEF0()
+{
+	bool player = (Unknown_6F5A40() && GameID == Client->DebugObjectID);
+	{
+		NameClass name("PrivateWarpState");
+		DeltaTemplateClass<int> *t = Unknown_Find_Field<DeltaTemplateClass<int> >((DeltaCompoundClass *)AuxData, name);
+		if (t && t->m_Unknown70 > 1) {
+			UnknownF8 = t->Value;
+			switch (UnknownF8) {
+				case 5:
+					((SClient *)Client->Unknown_18())->Unknown_74D990(0x11, "Engine unavailable. Please wait.", 0);
+					SoundLibraryClass::Play_2D_Sound("On_Fail", 2);
+					break;
+				case 6:
+					if (Type == 1) {
+						SoundLibraryClass::Play_2D_Sound("On_Fail", 2);
+						((SClient *)Client->Unknown_18())->Unknown_74D990(0x11, "Warp failed - local gravity interference.", 0);
+					}
+					break;
+				case 7:
+					((SClient *)Client->Unknown_18())->Unknown_74D990(0x11, "Warp target lost.", 0);
+					break;
+				case 8:
+					((SClient *)Client->Unknown_18())->Unknown_74D990(0, "Warp target reached.", 0);
+					break;
+				case 9:
+					((SClient *)Client->Unknown_18())->Unknown_74D990(0x11, "Warp followers disrupted.", 0);
+					break;
+				case 11:
+					((SClient *)Client->Unknown_18())->Unknown_74D990(0x11, "Warp interrupted - out of energy.", 0);
+					break;
+			}
+		}
+	}
+	NameClass name("GlobalWarpState");
+	DeltaTemplateClass<int> *t = Unknown_Find_Field<DeltaTemplateClass<int> >((DeltaCompoundClass *)AuxData, name);
+	if (!t || t->m_Unknown70 <= 1) {
+		return;
+	}
+	if (Unknown128) {
+		return;
+	}
+	UnknownF8 = t->Value;
+	NameClass stats_name("CurrentStats");
+	DeltaStatsClass *stats = Unknown_Find_Field<DeltaStatsClass>((DeltaCompoundClass *)AuxData, stats_name);
+	if (stats && !stats->m_Unknown70) stats = NULL;
+	int level = 1;
+	if (stats) {
+		level = stats->WarpPowerLevel.Value;
+		if (level < 1) {
+			level = 1;
+		} else if (level > 6) {
+			level = 6;
+		}
+	}
+	char loop[128];
+	char sound[128];
+	Unknown6E9490EffectClass *effect;
+	switch (UnknownF8) {
+		case 1: {
+			NameClass trail_name("EngineTrailType");
+			DeltaTemplateClass<int> *trail = Unknown_Find_Field<DeltaTemplateClass<int> >((DeltaCompoundClass *)AuxData, trail_name);
+			if (trail && !trail->m_Unknown70) trail = NULL;
+			_snprintf(loop, sizeof(loop), "engine_loop_%d", trail ? trail->Value + 22 : 22);
+			_snprintf(sound, sizeof(sound), "warp_start_%d", level);
+			if (player) {
+				SoundLibraryClass::Play_2D_Sound(sound, 2);
+			} else {
+				SoundLibraryClass::Play_3D_Sound(sound, Unknown_28(true), 2, 1.0f);
+			}
+			if (Unknown118) {
+				Unknown118->Stop(true);
+				Unknown118->Remove_From_Scene();
+				Unknown118->Release_Ref();
+			}
+			if (Unknown11C) {
+				Unknown11C->Stop(true);
+				Unknown11C->Remove_From_Scene();
+				Unknown11C->Release_Ref();
+			}
+			Unknown118 = SoundLibraryClass::Play_3D_Sound(loop, Unknown_28(true), 0, player ? 2.5f : 1.0f);
+			Unknown11C = SoundLibraryClass::Play_3D_Sound("Warp_Secondary", Unknown_28(true), 0, 1.0f);
+			if (Unknown118) {
+				Unknown118->Attach_To_Object(Model, -1);
+			}
+			if (Unknown11C) {
+				Unknown11C->Attach_To_Object(Model, -1);
+			}
+			if (player) {
+				((SClient *)Client)->CameraManager->Unknown_79B2B0(2);
+			}
+			if (Unknown_6F5A40() && Unknown184) {
+				Unknown_810540(Model, 1, 0);
+				Unknown184 = false;
+			}
+			Unknown14C = --Client->Unknown113C;
+			effect = Unknown_6E9490(0x1BB, Unknown14C, -1, Client->Unknown10BC, Client, 1.0f, Vector3(0.0f, 0.0f, 0.0f), 1.0f, -1, 0);
+			if (!effect) {
+				return;
+			}
+			Unknown6E9490TargetClass *target = effect->Unknown_10();
+			if (target) {
+				target->Unknown_28(GameID);
+			} else {
+				G_ASSERT(0);
+			}
+			MainViewClass *view = ((SClient *)Client->Unknown_18())->MainView;
+			Client->Add_Effect(effect, (int)view->Unknown_64(), view->Unknown_7C());
+			break;
+		}
 
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+		case 2: {
+			_snprintf(sound, sizeof(sound), "warp_enter_%d", level);
+			if (player) {
+				((SClient *)Client)->CameraManager->Unknown_79B2B0(3);
+				SoundLibraryClass::Play_2D_Sound(sound, 2);
+			} else {
+				SoundLibraryClass::Play_3D_Sound(sound, Unknown_28(true), 2, 1.0f);
+			}
+			if (Unknown118) {
+				Unknown118->Add_To_Scene(true);
+			}
+			if (Unknown11C) {
+				Unknown11C->Add_To_Scene(true);
+			}
+			if (!Unknown14C) {
+				return;
+			}
+			EffectObjectClass *old = Client->Get_Effect(Unknown14C);
+			if (old) {
+				old->Unknown_6E6E30();
+			}
+			Unknown14C = --Client->Unknown113C;
+			effect = Unknown_6E9490(0x2C6, Unknown14C, -1, Client->Unknown10BC, Client, 1.0f, Vector3(0.0f, 0.0f, 0.0f), 1.0f, -1, 0);
+			if (!effect) {
+				return;
+			}
+			Unknown6E9490TargetClass *target = effect->Unknown_10();
+			if (target) {
+				target->Unknown_28(GameID);
+			} else {
+				G_ASSERT(0);
+			}
+			MainViewClass *view = ((SClient *)Client->Unknown_18())->MainView;
+			Client->Add_Effect(effect, (int)view->Unknown_64(), view->Unknown_7C());
+			break;
+		}
+		case 3: case 7: case 8: case 9: case 11:	// (the lines after l.1620 are short: 0x6FC880 follows)
+			_snprintf(sound, sizeof(sound), "warp_exit_%d", level);
+			if (player) {
+				((SClient *)Client)->CameraManager->Unknown_79B2B0(4); SoundLibraryClass::Play_2D_Sound(sound, 2);
+			} else {
+				SoundLibraryClass::Play_3D_Sound(sound, Unknown_28(true), 2, 1.0f);
+			}
+			if (Unknown_6F5A40() && Unknown184 != true) {
+				Unknown_810540(Model, 2, 0); Unknown184 = true;
+			}
+			Unknown_6FC880(); break;
+	}
+}
 
 // 0x6FC880
 void ClientObjectClass::Unknown_6FC880()
@@ -1760,8 +1760,8 @@ void ClientObjectClass::Unknown_6FCB20(bool visible)
 
 
 
-#include "..\audio\soundlib.h"		// the engine sounds 0x6FDBD0
-#include "..\..\wwaudio\Sound3D.h"
+
+
 // delta_array.h's item accessor (its G_ASSERT on that header's line 93, inline in the damage decals 0x6FD310), written
 // here: declaring it in the header moves aux_roots.cpp's pairs (the 0x6FB1E0 canary, workflow.md 3.4; P-DF1-2)
 template<class T> static inline DeltaTemplateClass<T> *Unknown_Get_Item(DeltaArrayClass<T> *array, unsigned index) { std::vector<DeltaClass *> &Items = array->Children; if (!(index < Items.size())) Unknown_Assert_Failed("index < Items.size()", "..\\shared/auxdata/delta_array.h", 93); return((DeltaTemplateClass<T> *)Items[index]); }	// NAME 1: neutral
@@ -2651,7 +2651,7 @@ void ClientObjectClass::Unknown_6FF7A0(std::string &text)
 **
 **	co.cpp in the client: 0x6F2820-0x700A50 (__FILE__ e:\build\beta\G\app\Client\co.cpp). Not rebuilt
 **	yet: the constructor 0x6F2820, the destructor 0x6F2FE0, the slots +0x20 0x6F3C60 and +0x28 0x6F4610,
-**	the damage / engine / warp members (0x6FBEF0, 0x6FCB70, 0x6FE1E0; the damage decals 0x6FD310 and the engine sounds 0x6FDBD0 written by DF1, NOT EXACT), 0x6FEF70 (l.2284) and
+**	the damage / engine / warp members (0x6FCB70, 0x6FE1E0; the warp state 0x6FBEF0, the damage decals 0x6FD310 and the engine sounds 0x6FDBD0 written by DF1, NOT EXACT), 0x6FEF70 (l.2284) and
 **	0x6F5F60. The aux-data roots' constructors and the CREATE factory 0x6F6000-0x6FBEF0 are in
 **	aux_roots.cpp (generated). The asserts sit on the client's lines (D25): the blank stretches hold the
 **	members not yet written; members without asserts (0x6FF4B0-0x700400, 0x6FF7A0) sit where room was.
