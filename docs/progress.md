@@ -1428,18 +1428,17 @@ client's own code: [kernel-map.md](kernel-map.md) §6 and, for step 9's dependen
    headers at the files' next edit; Model -> RenderObject; LoginUnknown0CClass from inpdsp.h); the Fable round D92
    for ClientClass's constructor and Find_Object / Remove_Object. Parked after two rounds: Unknown_50, the fast start
    0x76A370, Pre_Run, Run, Start_Game, Go_Next/Back_Step, SClient's destructor / Init / Shutdown.
-3. The packet classes: ~260 of 260 declared, ~252 rebuilt. (2026-10-28, PK1: pk_classes.h declares no classes any more; VERB_LIST 91 in pkverblist.cpp, 82's raw
-   ctor / Build exact, P-P7-2 and P-P9-2 done (D104's members ungated by HX1, e062fb2, with aux_roots.cpp's
-   symbol pad, P-HX1-1; promote `.work/hx1/exp.py` to `tools/vc6/auxpad.py`, P-HX1-2); prof.cpp /
-   race.cpp new; NOT EXACT VerbList ctor 0x8AF150 shape, Print 0x8AF6D0 frame; promote `.work/pk1/tv.py` / `hv.py`.) Left: 181/182 (FIND_MEMBER's object; after the eval's task
-   A), 45 and 117 (item 1), 21 / 22 / 32-34 still declared in pk_classes.h, the value constructors 0x8A0380 / 0x89FD80
-   / 0x85C800 / 0x864090 (one cause: the ship-name union is copied with its first byte peeled; P-P8-1's char[] layout
-   trades them for tsk_login's constructor, T14: needs a lever that keeps the union), 82's raw constructor and Build,
-   P-P9-2 (LoginKVVisitorClass into DeltaChildVisitorClass / KVEncoderBaseClass with prof.cpp / race.cpp, about 30
-   functions 0x4F6A80-0x4F7820, so the race / profession `Type_Name` twins gain), P-P7-2 (Packet_0048Class ->
-   CreateCharacterPacketClass through pkclasses.py), the decoder's destructor failures. Tools to promote:
-   `.work/p9/wt.py`, `checks.sh`, `commit_wt.py` (a verify worktree with junctions, dgrams and libs; re-sorted maps);
-   commit_json.py must keep imports.json's maps sorted.
+3. The packet classes: 260 of 260 declared, ~255 rebuilt (2026-10-28: PK1 emptied pk_classes.h, VERB_LIST 91, 82's raw
+   ctor / Build, P-P7-2, P-P9-2, prof.cpp / race.cpp; PK2: the value constructors 0x8A0380 / 0x89FD80 / 0x85C800 /
+   0x864090 exact with the union kept (ShipCustDescClass's `operator=` written out inline, ccd455d), GLOBAL_ERROR
+   0x864A10, 230 / 231's sizes, AuxData Print 0x8770A0: +9; 181 / 182 were already exact (P10, 9e54d08); the
+   decoder's destructor failures are all hand-rebuilt; `.work/pk1/tv.py` / `hv.py` duplicate tryv2.py and are not
+   promoted). Left: 45 and 117 (item 1); the inline-budget group where the client inlines a large callee but calls
+   its deepest small callees out of line (VerbList ctor 0x8AF150 0.82 and Print 0x8AF6D0, VerbUpdate 0x8AFD10, DECAL's
+   raw ctor 0x8807B0; neither `inline_depth` nor the declaration count explains it: a Fable candidate); COLORIZATION
+   0x87F320 / DECAL 0x8805C0 shape, 0x867250 register (SIB order of `_Eos`); P-PK2-2: pkverbrequest.cpp and
+   pkverblist.cpp are one client object 0x8AEAE0-0x8B15C0, merge them with a D66 (v) move. Tools to promote:
+   `.work/p9/wt.py`'s leftovers, `checks.sh`, `commit_wt.py`; commit_json.py must keep imports.json's maps sorted.
 4. The SGI hash_map's users (D87): left are the key-name object after inpdsp (0x42B610 / 0x42B7E0, init 0x42BC90),
    client_lego_impl's seven NOT EXACT (Get_Lego_Transform 0x72B000, Child_Moved 0x72CE40, Attach 0x72D0E0
    Fable-eligible, P-H17-2; Add / Remove one or two EH states off), fontmanager's 0x6D2700 (a block ending before the

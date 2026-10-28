@@ -417,6 +417,12 @@ unless `--lever` cites a new row of this table.
 * **After an inlined float-returning call** (2026-10-28, CS1): `fld x; fsub st(1); ...; fstp st(0)` is a named float
   local holding the result, `fsubr` the plain expression; a named pointer local (`HeightFieldClass *field = ...`)
   decides which register holds the object and which `&pos`.
+* **An implicit copy of an anonymous union `{bool; char[]}` copies every member** (bool first, then the array loop)
+  (2026-10-28, PK2): write `operator=` out inline instead of changing the layout; an `int` index gives `jl` where
+  the client has `jb`: use `unsigned`. objdiff masks jump targets, so compare masked bytes when objmatch says `none`
+  (`.work/pk2/patcmp.py OBJ SYM ADDR`).
+* **A `std::string` member set in the initialiser list (`Message("")`) puts the vtable store after the string's
+  `_Grow`**; assigning it in the body gives the client's order (2026-10-28, PK2: 0x864A10).
 * **Asserts sit on the client's lines (D25).** To add code above a logged line, remove as many
   blank lines from the same function's stretch (cordmgr.cpp; `.work/milestones/a3/relines.py`);
   pad inside a function, not only before it (Get(char **); pk.cpp's helpers take single blanks).
@@ -739,6 +745,9 @@ unless `--lever` cites a new row of this table.
 
 ### 3.8 Git, docs and scripting hygiene
 
+* **In a rebase or bring-over conflict, `git show HEAD:file` gives LF endings** (2026-10-28, PK2): read a saved
+  working copy instead; `checkout --ours` takes master's generated files, then verify again and re-record your
+  attempts rows before `rebase --continue`.
 * **`appfile.py match` wants bare `// @0xADDR` marker lines** (2026-10-28, CS1): stripping a trailing comment can make a
   declaration look like a definition (co.cpp's Unknown_7294D0); use `--allow-missing`.
 * **`wt.py bring-over` refuses a D119 ambiguity move** (2026-10-28, LD3): land it with commit_mine from the main
