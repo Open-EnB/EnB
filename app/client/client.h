@@ -34,6 +34,7 @@ class PacketClass;
 class ConnectionClass;
 class SplineDatabaseClass;
 class ClientClass;
+class ItemBaseInfoClass;
 
 #include "co.h"
 
@@ -70,7 +71,7 @@ public:
 class Unknown831340Class	// NAME 1: neutral (D10)
 {
 public:
-	Unknown831340Class(int a, int b, int c, const RefCountPtr<RefCountClass> &d, int e, int f, int g, int h, int i, int j, int k, int l,
+	Unknown831340Class(int a, int b, int c, const RefCountPtr<ItemBaseInfoClass> &d, int e, int f, int g, int h, int i, int j, int k, int l,
 		const std::string &name, const std::string &m, const std::string &n);	// 0x831340  // NAME 1 [a..n]: the arguments are unknown  // NAME 2 [name]: 'Null Item'
 	~Unknown831340Class();								// 0x8316D0 (not virtual: delete calls it directly)
 

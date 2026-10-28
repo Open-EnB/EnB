@@ -1230,7 +1230,7 @@ bool ItemBasePacketClass::Process_Packet(void *instance)
 	WWPROFILE("ItemBasePacketClass::Process_Packet()");
 	SClient *sclient = (SClient *)instance;
 	HashNodeClass<Unknown831340Class *> *inode = sclient->Unknown831340List.Find(ItemTemplateID);
-	if (!inode) { sclient->Unknown831340List.Add(new Unknown831340Class(ItemTemplateID, Category, Subcategory, *(const RefCountPtr<RefCountClass> *)&Info, GameBasset, IconBaseAsset, ItemType, TechLevel, Cost, MaxStack, EffectUsage, Flags, Name, Unknown30, Unknown40), ItemTemplateID); } else {
+	if (!inode) { sclient->Unknown831340List.Add(new Unknown831340Class(ItemTemplateID, Category, Subcategory, Info, GameBasset, IconBaseAsset, ItemType, TechLevel, Cost, MaxStack, EffectUsage, Flags, Name, Unknown30, Unknown40), ItemTemplateID); } else {
 		G_ASSERT(ItemType == inode->Get()->Get_Item_Type());
 		G_ASSERT(Name == inode->Get()->Get_Name());
 	}
@@ -1704,7 +1704,7 @@ public:
 
 	char Unknown04[0xF0 - 0x04];
 };
-// NOT EXACT: frame (the same 487 instructions; the client gives the locals other stack slots: time, inflicted, mainview, avatar_id, type ascending; 5 forms; attempts.py show 0x738970)
+// NOT EXACT: frame (the same 487 instructions; the client gives the locals other stack slots: time, inflicted, mainview, avatar_id, type ascending; 24 forms; attempts.py show 0x738970)
 // 0x738970
 bool DamagePacketClass::Process_Packet(void *instance)
 {
@@ -1715,8 +1715,8 @@ bool DamagePacketClass::Process_Packet(void *instance)
 
 	FAIL_IF(!avatar) return(true);
 	unsigned avatar_id = avatar->GameID;
-	MainViewClass *mainview = sclient->MainView;
 	int time = sclient->Unknown10BC;
+	MainViewClass *mainview = sclient->MainView;
 
 
 

@@ -15,7 +15,7 @@
 #include <stdlib.h>
 #include "..\shared\px.h"
 void Unknown_Debug_Printf(const char *format, ...);	// 0x509DC0 (dbgmgr.cpp, D38)
-
+#include "..\packets\pkitemba.h"
 // NOT EXACT: inline budget (the client calls the 'Null Item' string's assign out of line, ours inlines all three strings and swaps two temporaries' slots; the member stores and the prologue scheduled differently; five forms; attempts.py show 0x726100)
 // 0x726100
 ClientClass::ClientClass() :
@@ -66,7 +66,7 @@ ClientClass::ClientClass() :
 	PxProcess = new PxProcessClass;
 	Splines = new SplineDatabaseClass(NULL);
 	Splines->Load("splines.wsd");
-	Unknown831340List.Add(new Unknown831340Class(-1, -1, -1, RefCountPtr<RefCountClass>(), -1, -1, -1, 0, 0, 1, 0, 0, std::string("Null Item"), std::string(""), std::string("")), -1);
+	Unknown831340List.Add(new Unknown831340Class(-1, -1, -1, RefCountPtr<ItemBaseInfoClass>(), -1, -1, -1, 0, 0, 1, 0, 0, std::string("Null Item"), std::string(""), std::string("")), -1);
 }
 
 // 0x726C60

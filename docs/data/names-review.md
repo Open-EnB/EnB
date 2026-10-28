@@ -149,74 +149,74 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_30` | `app/client/client.cpp:594` | untagged neutral name (D10) |
 | 1 | `Unknown34` | `app/client/client.cpp:617` | untagged neutral name (D10) |
 | 1 | `Unknown38` | `app/client/client.cpp:620` | untagged neutral name (D10) |
-| 1 | `Unknown_6E74B0` | `app/client/client.h:45` | untagged neutral name (D10) |
-| 1 | `Unknown_6E6ED0` | `app/client/client.h:46` | untagged neutral name (D10) |
-| 1 | `Unknown_6E6E30` | `app/client/client.h:47` | untagged neutral name (D10) |
-| 1 | `Unknown_6E6AD0` | `app/client/client.h:48` | untagged neutral name (D10) |
-| 1 | `Unknown20` | `app/client/client.h:51` | untagged neutral name (D10) |
-| 1 | `Unknown86CRecordClass` | `app/client/client.h:56` | neutral (D10) |
-| 1 | `Unknown_04` | `app/client/client.h:60` | untagged neutral name (D10) |
-| 1 | `position` | `app/client/client.h:61` | what it gets |
-| 1 | `Unknown_08` | `app/client/client.h:61` | untagged neutral name (D10) |
-| 1 | `Unknown831340Class` | `app/client/client.h:70` | neutral (D10) |
-| 1 | `a..n` | `app/client/client.h:74` | the arguments are unknown  // NAME 2 [name]: 'Null Item' |
-| 1 | `Unknown00` | `app/client/client.h:80` | untagged neutral name (D10) |
-| 1 | `Unknown10` | `app/client/client.h:82` | untagged neutral name (D10) |
-| 1 | `Unknown24` | `app/client/client.h:84` | untagged neutral name (D10) |
-| 1 | `Unknown763E00Class` | `app/client/client.h:95` | neutral (D10) |
-| 1 | `Unknown_763E70` | `app/client/client.h:99` | untagged neutral name (D10) |
-| 1 | `Unknown_764030` | `app/client/client.h:100` | untagged neutral name (D10) |
-| 1 | `Unknown_763FF0` | `app/client/client.h:101` | untagged neutral name (D10) |
-| 1 | `Unknown_10` | `app/client/client.h:119` | untagged neutral name (D10) |
-| 1 | `Unknown_18` | `app/client/client.h:122` | untagged neutral name (D10) |
-| 1 | `Unknown_1C` | `app/client/client.h:123` | untagged neutral name (D10) |
-| 1 | `Unknown_20` | `app/client/client.h:124` | untagged neutral name (D10) |
-| 1 | `Unknown_34` | `app/client/client.h:129` | untagged neutral name (D10) |
-| 1 | `Add_Unknown86C` | `app/client/client.h:137` | untagged neutral name (D10) |
-| 1 | `Remove_Unknown86C` | `app/client/client.h:138` | untagged neutral name (D10) |
-| 1 | `Find_Unknown86C` | `app/client/client.h:143` | untagged neutral name (D10) |
-| 1 | `Unknown_728180` | `app/client/client.h:148` | untagged neutral name (D10) |
-| 1 | `Unknown_728300` | `app/client/client.h:150` | untagged neutral name (D10) |
-| 1 | `Unknown_728330` | `app/client/client.h:151` | untagged neutral name (D10) |
-| 1 | `Unknown_728370` | `app/client/client.h:152` | untagged neutral name (D10) |
-| 1 | `Unknown_7283B0` | `app/client/client.h:153` | untagged neutral name (D10) |
-| 1 | `Unknown_7283F0` | `app/client/client.h:154` | untagged neutral name (D10) |
-| 1 | `Unknown04` | `app/client/client.h:157` | untagged neutral name (D10) |
-| 1 | `Unknown11` | `app/client/client.h:161` | untagged neutral name (D10) |
-| 1 | `Unknown18` | `app/client/client.h:163` | untagged neutral name (D10) |
-| 1 | `Unknown86CList` | `app/client/client.h:166` | untagged neutral name (D10) |
-| 1 | `Unknown831340List` | `app/client/client.h:167` | untagged neutral name (D10) |
-| 1 | `Unknown10BC` | `app/client/client.h:168` | untagged neutral name (D10) |
-| 1 | `Unknown10C0` | `app/client/client.h:169` | untagged neutral name (D10) |
-| 1 | `Unknown10C8` | `app/client/client.h:170` | untagged neutral name (D10) |
-| 1 | `Unknown10CC` | `app/client/client.h:171` | untagged neutral name (D10) |
-| 1 | `Unknown10D0` | `app/client/client.h:172` | untagged neutral name (D10) |
-| 1 | `Unknown10D4` | `app/client/client.h:173` | untagged neutral name (D10) |
-| 1 | `Unknown10D8` | `app/client/client.h:174` | untagged neutral name (D10) |
-| 1 | `Unknown10DC` | `app/client/client.h:175` | untagged neutral name (D10) |
-| 1 | `Unknown10E0` | `app/client/client.h:176` | untagged neutral name (D10) |
-| 1 | `Unknown10E4` | `app/client/client.h:177` | untagged neutral name (D10) |
-| 1 | `Unknown10E8` | `app/client/client.h:178` | untagged neutral name (D10) |
-| 1 | `Unknown10EC` | `app/client/client.h:179` | untagged neutral name (D10) |
-| 1 | `Unknown10F0` | `app/client/client.h:180` | untagged neutral name (D10) |
-| 1 | `Unknown10F4` | `app/client/client.h:181` | untagged neutral name (D10) |
-| 1 | `Unknown10F8` | `app/client/client.h:182` | untagged neutral name (D10) |
-| 1 | `Unknown10F9` | `app/client/client.h:183` | untagged neutral name (D10) |
-| 1 | `Unknown10FA` | `app/client/client.h:184` | untagged neutral name (D10) |
-| 1 | `Unknown10FC` | `app/client/client.h:185` | untagged neutral name (D10) |
-| 1 | `Unknown1100` | `app/client/client.h:186` | untagged neutral name (D10) |
-| 1 | `Unknown1104` | `app/client/client.h:187` | untagged neutral name (D10) |
-| 1 | `Unknown1108` | `app/client/client.h:188` | untagged neutral name (D10) |
-| 1 | `Unknown110C` | `app/client/client.h:189` | untagged neutral name (D10) |
-| 1 | `Unknown1110` | `app/client/client.h:190` | untagged neutral name (D10) |
-| 1 | `Unknown1114` | `app/client/client.h:191` | untagged neutral name (D10) |
-| 1 | `Unknown1118` | `app/client/client.h:192` | untagged neutral name (D10) |
-| 1 | `Unknown1128` | `app/client/client.h:194` | untagged neutral name (D10) |
-| 1 | `Unknown1134` | `app/client/client.h:197` | untagged neutral name (D10) |
-| 1 | `Unknown1138` | `app/client/client.h:198` | untagged neutral name (D10) |
-| 1 | `Unknown113C` | `app/client/client.h:199` | untagged neutral name (D10) |
-| 1 | `Unknown1144` | `app/client/client.h:201` | untagged neutral name (D10) |
-| 1 | `Unknown114C` | `app/client/client.h:203` | untagged neutral name (D10) |
+| 1 | `Unknown_6E74B0` | `app/client/client.h:46` | untagged neutral name (D10) |
+| 1 | `Unknown_6E6ED0` | `app/client/client.h:47` | untagged neutral name (D10) |
+| 1 | `Unknown_6E6E30` | `app/client/client.h:48` | untagged neutral name (D10) |
+| 1 | `Unknown_6E6AD0` | `app/client/client.h:49` | untagged neutral name (D10) |
+| 1 | `Unknown20` | `app/client/client.h:52` | untagged neutral name (D10) |
+| 1 | `Unknown86CRecordClass` | `app/client/client.h:57` | neutral (D10) |
+| 1 | `Unknown_04` | `app/client/client.h:61` | untagged neutral name (D10) |
+| 1 | `position` | `app/client/client.h:62` | what it gets |
+| 1 | `Unknown_08` | `app/client/client.h:62` | untagged neutral name (D10) |
+| 1 | `Unknown831340Class` | `app/client/client.h:71` | neutral (D10) |
+| 1 | `a..n` | `app/client/client.h:75` | the arguments are unknown  // NAME 2 [name]: 'Null Item' |
+| 1 | `Unknown00` | `app/client/client.h:81` | untagged neutral name (D10) |
+| 1 | `Unknown10` | `app/client/client.h:83` | untagged neutral name (D10) |
+| 1 | `Unknown24` | `app/client/client.h:85` | untagged neutral name (D10) |
+| 1 | `Unknown763E00Class` | `app/client/client.h:96` | neutral (D10) |
+| 1 | `Unknown_763E70` | `app/client/client.h:100` | untagged neutral name (D10) |
+| 1 | `Unknown_764030` | `app/client/client.h:101` | untagged neutral name (D10) |
+| 1 | `Unknown_763FF0` | `app/client/client.h:102` | untagged neutral name (D10) |
+| 1 | `Unknown_10` | `app/client/client.h:120` | untagged neutral name (D10) |
+| 1 | `Unknown_18` | `app/client/client.h:123` | untagged neutral name (D10) |
+| 1 | `Unknown_1C` | `app/client/client.h:124` | untagged neutral name (D10) |
+| 1 | `Unknown_20` | `app/client/client.h:125` | untagged neutral name (D10) |
+| 1 | `Unknown_34` | `app/client/client.h:130` | untagged neutral name (D10) |
+| 1 | `Add_Unknown86C` | `app/client/client.h:138` | untagged neutral name (D10) |
+| 1 | `Remove_Unknown86C` | `app/client/client.h:139` | untagged neutral name (D10) |
+| 1 | `Find_Unknown86C` | `app/client/client.h:144` | untagged neutral name (D10) |
+| 1 | `Unknown_728180` | `app/client/client.h:149` | untagged neutral name (D10) |
+| 1 | `Unknown_728300` | `app/client/client.h:151` | untagged neutral name (D10) |
+| 1 | `Unknown_728330` | `app/client/client.h:152` | untagged neutral name (D10) |
+| 1 | `Unknown_728370` | `app/client/client.h:153` | untagged neutral name (D10) |
+| 1 | `Unknown_7283B0` | `app/client/client.h:154` | untagged neutral name (D10) |
+| 1 | `Unknown_7283F0` | `app/client/client.h:155` | untagged neutral name (D10) |
+| 1 | `Unknown04` | `app/client/client.h:158` | untagged neutral name (D10) |
+| 1 | `Unknown11` | `app/client/client.h:162` | untagged neutral name (D10) |
+| 1 | `Unknown18` | `app/client/client.h:164` | untagged neutral name (D10) |
+| 1 | `Unknown86CList` | `app/client/client.h:167` | untagged neutral name (D10) |
+| 1 | `Unknown831340List` | `app/client/client.h:168` | untagged neutral name (D10) |
+| 1 | `Unknown10BC` | `app/client/client.h:169` | untagged neutral name (D10) |
+| 1 | `Unknown10C0` | `app/client/client.h:170` | untagged neutral name (D10) |
+| 1 | `Unknown10C8` | `app/client/client.h:171` | untagged neutral name (D10) |
+| 1 | `Unknown10CC` | `app/client/client.h:172` | untagged neutral name (D10) |
+| 1 | `Unknown10D0` | `app/client/client.h:173` | untagged neutral name (D10) |
+| 1 | `Unknown10D4` | `app/client/client.h:174` | untagged neutral name (D10) |
+| 1 | `Unknown10D8` | `app/client/client.h:175` | untagged neutral name (D10) |
+| 1 | `Unknown10DC` | `app/client/client.h:176` | untagged neutral name (D10) |
+| 1 | `Unknown10E0` | `app/client/client.h:177` | untagged neutral name (D10) |
+| 1 | `Unknown10E4` | `app/client/client.h:178` | untagged neutral name (D10) |
+| 1 | `Unknown10E8` | `app/client/client.h:179` | untagged neutral name (D10) |
+| 1 | `Unknown10EC` | `app/client/client.h:180` | untagged neutral name (D10) |
+| 1 | `Unknown10F0` | `app/client/client.h:181` | untagged neutral name (D10) |
+| 1 | `Unknown10F4` | `app/client/client.h:182` | untagged neutral name (D10) |
+| 1 | `Unknown10F8` | `app/client/client.h:183` | untagged neutral name (D10) |
+| 1 | `Unknown10F9` | `app/client/client.h:184` | untagged neutral name (D10) |
+| 1 | `Unknown10FA` | `app/client/client.h:185` | untagged neutral name (D10) |
+| 1 | `Unknown10FC` | `app/client/client.h:186` | untagged neutral name (D10) |
+| 1 | `Unknown1100` | `app/client/client.h:187` | untagged neutral name (D10) |
+| 1 | `Unknown1104` | `app/client/client.h:188` | untagged neutral name (D10) |
+| 1 | `Unknown1108` | `app/client/client.h:189` | untagged neutral name (D10) |
+| 1 | `Unknown110C` | `app/client/client.h:190` | untagged neutral name (D10) |
+| 1 | `Unknown1110` | `app/client/client.h:191` | untagged neutral name (D10) |
+| 1 | `Unknown1114` | `app/client/client.h:192` | untagged neutral name (D10) |
+| 1 | `Unknown1118` | `app/client/client.h:193` | untagged neutral name (D10) |
+| 1 | `Unknown1128` | `app/client/client.h:195` | untagged neutral name (D10) |
+| 1 | `Unknown1134` | `app/client/client.h:198` | untagged neutral name (D10) |
+| 1 | `Unknown1138` | `app/client/client.h:199` | untagged neutral name (D10) |
+| 1 | `Unknown113C` | `app/client/client.h:200` | untagged neutral name (D10) |
+| 1 | `Unknown1144` | `app/client/client.h:202` | untagged neutral name (D10) |
+| 1 | `Unknown114C` | `app/client/client.h:204` | untagged neutral name (D10) |
 | 1 | `_Attach_Bone` | `app/client/client_lego_impl.cpp:7` | neutral (D10), 0xB95070 |
 | 1 | `Unknown50` | `app/client/client_lego_impl.cpp:101` | untagged neutral name (D10) |
 | 1 | `Unknown64` | `app/client/client_lego_impl.cpp:105` | untagged neutral name (D10) |
@@ -5181,40 +5181,40 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `std:` | `app/client/cfaction_database.h:34` | the ini key |
 | 2 | `std:` | `app/client/cfaction_database.h:35` | the ini key |
 | 2 | `UseCount` | `app/client/cfaction_database.h:40` | describes what it does |
-| 2 | `Node` | `app/client/client.h:50` | what it is |
-| 2 | `ID` | `app/client/client.h:52` | what it is |
-| 2 | `Node` | `app/client/client.h:63` | what it is |
-| 2 | `ID` | `app/client/client.h:65` | what it is |
-| 2 | `rslid` | `app/client/client.h:100` | the INI key it is read from |
-| 2 | `Init` | `app/client/client.h:115` | what SClient's does |
-| 2 | `Shutdown` | `app/client/client.h:116` | what SClient's does |
-| 2 | `Do_Frame` | `app/client/client.h:120` | what SClient's does  // NAME 1 [focused]: Is_Focused() |
-| 2 | `Set_Debug_Object` | `app/client/client.h:125` | what it does (the DEBUG packet's game id) |
-| 2 | `Get_Avatar` | `app/client/client.h:126` | what it does |
-| 2 | `Set_Ship_ID` | `app/client/client.h:127` | what it does (Get_Ship's id) |
-| 2 | `Get_Ship` | `app/client/client.h:128` | client.cpp's FAIL_IF '!ship' on its result |
-| 2 | `Toggle_Debug_Mode` | `app/client/client.h:130` | what it does  // NAME 1 [unused]: never read |
-| 2 | `Set_Debug_Mode` | `app/client/client.h:131` | what it does |
-| 2 | `Add_Object` | `app/client/client.h:132` | what it does |
-| 2 | `Remove_Object` | `app/client/client.h:133` | what it does |
-| 2 | `Add_Effect` | `app/client/client.h:134` | what it does  // NAME 1 [a, b]: handed to the effect |
-| 2 | `Remove_Effects` | `app/client/client.h:135` | what it does |
-| 2 | `Get_Effect` | `app/client/client.h:136` | what it does |
-| 2 | `Find_Object` | `app/client/client.h:140` | what it does |
+| 2 | `Node` | `app/client/client.h:51` | what it is |
+| 2 | `ID` | `app/client/client.h:53` | what it is |
+| 2 | `Node` | `app/client/client.h:64` | what it is |
+| 2 | `ID` | `app/client/client.h:66` | what it is |
+| 2 | `rslid` | `app/client/client.h:101` | the INI key it is read from |
+| 2 | `Init` | `app/client/client.h:116` | what SClient's does |
+| 2 | `Shutdown` | `app/client/client.h:117` | what SClient's does |
+| 2 | `Do_Frame` | `app/client/client.h:121` | what SClient's does  // NAME 1 [focused]: Is_Focused() |
+| 2 | `Set_Debug_Object` | `app/client/client.h:126` | what it does (the DEBUG packet's game id) |
+| 2 | `Get_Avatar` | `app/client/client.h:127` | what it does |
+| 2 | `Set_Ship_ID` | `app/client/client.h:128` | what it does (Get_Ship's id) |
+| 2 | `Get_Ship` | `app/client/client.h:129` | client.cpp's FAIL_IF '!ship' on its result |
+| 2 | `Toggle_Debug_Mode` | `app/client/client.h:131` | what it does  // NAME 1 [unused]: never read |
+| 2 | `Set_Debug_Mode` | `app/client/client.h:132` | what it does |
+| 2 | `Add_Object` | `app/client/client.h:133` | what it does |
+| 2 | `Remove_Object` | `app/client/client.h:134` | what it does |
+| 2 | `Add_Effect` | `app/client/client.h:135` | what it does  // NAME 1 [a, b]: handed to the effect |
+| 2 | `Remove_Effects` | `app/client/client.h:136` | what it does |
+| 2 | `Get_Effect` | `app/client/client.h:137` | what it does |
 | 2 | `Find_Object` | `app/client/client.h:141` | what it does |
-| 2 | `Find_Effect` | `app/client/client.h:142` | what it does |
-| 2 | `Open_Connection` | `app/client/client.h:144` | what it does |
+| 2 | `Find_Object` | `app/client/client.h:142` | what it does |
+| 2 | `Find_Effect` | `app/client/client.h:143` | what it does |
 | 2 | `Open_Connection` | `app/client/client.h:145` | what it does |
-| 2 | `Get_Stats` | `app/client/client.h:146` | what it does |
-| 2 | `Send_Packet` | `app/client/client.h:147` | what it does |
-| 2 | `Get_Objects_Changed` | `app/client/client.h:155` | what it does |
-| 2 | `DebugMode` | `app/client/client.h:160` | what it holds |
-| 2 | `Kernel` | `app/client/client.h:162` | what it holds |
-| 2 | `EffectList` | `app/client/client.h:165` | what it holds |
-| 2 | `AvatarID` | `app/client/client.h:195` | what it holds |
-| 2 | `ShipID` | `app/client/client.h:196` | what it holds |
-| 2 | `ObjectsChanged` | `app/client/client.h:200` | what it holds |
-| 2 | `Splines` | `app/client/client.h:202` | what it holds |
+| 2 | `Open_Connection` | `app/client/client.h:146` | what it does |
+| 2 | `Get_Stats` | `app/client/client.h:147` | what it does |
+| 2 | `Send_Packet` | `app/client/client.h:148` | what it does |
+| 2 | `Get_Objects_Changed` | `app/client/client.h:156` | what it does |
+| 2 | `DebugMode` | `app/client/client.h:161` | what it holds |
+| 2 | `Kernel` | `app/client/client.h:163` | what it holds |
+| 2 | `EffectList` | `app/client/client.h:166` | what it holds |
+| 2 | `AvatarID` | `app/client/client.h:196` | what it holds |
+| 2 | `ShipID` | `app/client/client.h:197` | what it holds |
+| 2 | `ObjectsChanged` | `app/client/client.h:201` | what it holds |
+| 2 | `Splines` | `app/client/client.h:203` | what it holds |
 | 2 | `std:` | `app/client/client_lego_impl.h:43` | what it holds |
 | 2 | `BoneIndex` | `app/client/client_lego_impl.h:44` | what it holds |
 | 2 | `Get_Knob` | `app/client/client_lego_impl.h:53` | what it returns |
@@ -7435,15 +7435,15 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `cfaction_database.h` | `app/client/cfaction_database.h:18` | header name assumed from the client's cfaction_database.cpp |
 | 3 | `CFactionDatabaseClass` | `app/client/cfaction_database.h:24` | by convention (D24) from the client's file cfaction_database.cpp |
 | 3 | `client.h` | `app/client/client.h:20` | header name assumed from the client's client.cpp |
-| 3 | `EffectObjectClass` | `app/client/client.h:41` | class-from-file (D24) for eff_o.cpp |
-| 3 | `Get_Item_Type` | `app/client/client.h:77` | the assert's |
-| 3 | `std:` | `app/client/client.h:78` | the assert's |
-| 3 | `ItemType` | `app/client/client.h:81` | Get_Item_Type's |
-| 3 | `std:` | `app/client/client.h:83` | Get_Name's |
-| 3 | `ClientClass` | `app/client/client.h:108` | class-from-file (D24) for client.cpp; the client names no class |
-| 3 | `Process_Packets` | `app/client/client.h:118` | SClient's string names its override |
-| 3 | `Px` | `app/client/client.h:158` | px.cpp's |
-| 3 | `PxProcess` | `app/client/client.h:159` | px_process.cpp's |
+| 3 | `EffectObjectClass` | `app/client/client.h:42` | class-from-file (D24) for eff_o.cpp |
+| 3 | `Get_Item_Type` | `app/client/client.h:78` | the assert's |
+| 3 | `std:` | `app/client/client.h:79` | the assert's |
+| 3 | `ItemType` | `app/client/client.h:82` | Get_Item_Type's |
+| 3 | `std:` | `app/client/client.h:84` | Get_Name's |
+| 3 | `ClientClass` | `app/client/client.h:109` | class-from-file (D24) for client.cpp; the client names no class |
+| 3 | `Process_Packets` | `app/client/client.h:119` | SClient's string names its override |
+| 3 | `Px` | `app/client/client.h:159` | px.cpp's |
+| 3 | `PxProcess` | `app/client/client.h:160` | px_process.cpp's |
 | 3 | `client_lego_impl.h` | `app/client/client_lego_impl.h:21` | header name assumed from the client's client_lego_impl.cpp |
 | 3 | `Is_Invalid` | `app/client/client_lego_impl.h:100` | the client's asserts 'split.Is_Invalid()' |
 | 3 | `ClientLegoImplClass` | `app/client/client_lego_impl.h:124` | by convention (D24) from the client's client_lego_impl.cpp |
