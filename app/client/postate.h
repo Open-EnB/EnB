@@ -22,6 +22,7 @@
 #include "matrix3d.h"
 #include "quat.h"
 #include "co.h"
+#include "extrap.h"
 
 class ClientClass;
 class ConstantPositionalUpdatePacketClass;
@@ -32,7 +33,6 @@ class AdvancedPositionalUpdatePacketClass;
 class FormationPositionalUpdatePacketClass;
 class SClient;
 class DeltaCompoundClass;
-class ExtrapClass;
 
 
 // A state that forwards every slot to a second one (vtable 0xB026EC; no constructor call found in the client)
@@ -67,72 +67,6 @@ public:
 	Vector3 Position;		// +0x34 (the packet's position)  // NAME 2: what it holds
 };
 
-// extrap.cpp's extrapolators, declared as far as the states call them (extrap.cpp is not rebuilt)
-class ExtrapClass	// NAME 3: class-from-file (D24) for app\client\extrap.cpp
-{
-public:
-	virtual ~ExtrapClass();
-	virtual Vector3 Unknown_04(int time);	// NAME 2 [time]: the state's time
-	virtual void Unknown_08();
-	virtual Vector3 Unknown_0C(int time);	// NAME 2 [time]: the state's time
-	virtual void Unknown_10();
-	virtual Vector3 Unknown_14(int time);	// NAME 2 [time]: the state's time
-	virtual Vector3 Unknown_18(int time);	// NAME 2 [time]: the state's time
-	virtual void Unknown_1C(int time, Vector3 *position, Quaternion *orientation, Vector3 *a, float *speed, Vector3 *c, bool unknown);	// NAME 2 [time, position, orientation, speed]: what the states do with them  // NAME 1 [a, c, unknown]: neutral
-	virtual void Unknown_20(int time, float *speed, float *acceleration, float *turn_rate, float *tilt_rate);	// +0x20 (type 4's 0x717430 / 0x7179A0: the control changes, 0 for none)  // NAME 2 [time, speed, acceleration, turn_rate, tilt_rate]: the aux fields 0x717430 reads for them
-	virtual void Unknown_24(int time, float rate);	// +0x24 (type 4's 0x7179A0 passes MaxTiltRate)  // NAME 2 [time, rate]: what 0x7179A0 passes
-	virtual ExtrapClass *Unknown_28(int time);	// +0x28 (the extrapolator to use from now on: the state keeps it)  // NAME 2 [time]: the state's time
-	ExtrapClass *Unknown_710260();	// 0x710260 (not virtual; type 4's 0x7179A0: the extrapolator to continue from)
-};
-class Unknown70F250Class : public ExtrapClass	// NAME 1: neutral (D10)
-{
-public:
-	Unknown70F250Class(SimplePositionalUpdatePacketClass *packet);	// 0x70F250  // NAME 1 [packet]: what the state passes
-	char Unknown04[0x30 - 0x04];
-};
-class Unknown7125F0Class : public ExtrapClass	// NAME 1: neutral (D10)
-{
-public:
-	Unknown7125F0Class(ExtrapClass *from, ExtrapClass *to, unsigned int start, unsigned int end);	// 0x7125F0 (type 3's update: the old and the new, from the packet's time for 2 s)  // NAME 1 [from, to, start, end]: what the state passes
-	char Unknown04[0x14 - 0x04];
-};
-class Unknown713520Class : public ExtrapClass	// NAME 1: neutral (D10)
-{
-public:
-	Unknown713520Class(PlanetPositionalUpdatePacketClass *packet, ClientClass *client);	// 0x713520  // NAME 1 [packet, client]: what the state passes
-	char Unknown04[0x34 - 0x04];
-};
-class Unknown713C80Class : public ExtrapClass	// NAME 1: neutral (D10)
-{
-public:
-	Unknown713C80Class(ComponentPositionalUpdatePacketClass *packet, ClientClass *client);	// 0x713C80  // NAME 1 [packet, client]: what the state passes
-	char Unknown04[0x14 - 0x04];
-};
-class Unknown710110Class : public ExtrapClass	// NAME 1: neutral (D10)
-{
-public:
-	Unknown710110Class(AdvancedPositionalUpdatePacketClass *packet);	// 0x710110  // NAME 1 [packet]: what the state passes
-	char Unknown04[0x14 - 0x04];
-};
-class Unknown714340Class : public ExtrapClass	// NAME 1: neutral (D10)
-{
-public:
-	Unknown714340Class(SClient *client, FormationPositionalUpdatePacketClass *packet);	// 0x714340  // NAME 1 [client, packet]: what the state passes
-	char Unknown04[0x48 - 0x04];
-};
-class Unknown7119B0Class : public ExtrapClass	// NAME 1: neutral (D10)
-{
-public:
-	Unknown7119B0Class(ExtrapClass *from, ExtrapClass *to, unsigned int start, unsigned int end);	// 0x7119B0 (type 8's change of course)  // NAME 1 [from, to, start, end]: as 0x7125F0's
-	char Unknown04[0x78 - 0x04];
-};
-class Unknown712DB0Class : public ExtrapClass	// NAME 1: neutral (D10)
-{
-public:
-	Unknown712DB0Class(ExtrapClass *from, ExtrapClass *to, unsigned int start, unsigned int end);	// 0x712DB0  // NAME 1 [from, to, start, end]: as 0x7125F0's
-	char Unknown04[0x84 - 0x04];
-};
-
 // The base of the states that keep an extrap.cpp object (vtable 0xB027A0, 8 bytes): every slot asks it
 class UnknownB027A0Class : public Unknown98Class	// NAME 1: neutral (D10), named by its vtable
 {
@@ -148,7 +82,7 @@ public:
 	virtual Vector3 Unknown_1C(int time);		// +0x1C 0x715930  // NAME 2 [time]: as Unknown_08's
 	virtual Matrix3D Unknown_20(int time);		// +0x20 0x7159C0  // NAME 2 [time]: as Unknown_08's
 
-	ExtrapClass *Extrap;						// +0x04  // NAME 2: an extrap.cpp object
+	StateNode *Extrap;						// +0x04  // NAME 2: an extrap.cpp object
 };
 
 // Type 3, SIMPLE_POSITIONAL_UPDATE 8's state (vtable 0xB027DC, 8 bytes)
@@ -229,10 +163,10 @@ public:
 	Unknown715EF0Class(SClient *client, FormationPositionalUpdatePacketClass *packet);	// 0x716080  // NAME 1 [client, packet]: what the handler passes
 	void Unknown_716140(int time, AdvancedPositionalUpdatePacketClass *packet);	// 0x716140  // NAME 1 [time, packet]: what the handler passes
 	void Unknown_716220(SClient *client, FormationPositionalUpdatePacketClass *packet);	// 0x716220  // NAME 1 [client, packet]: what the handler passes
-	bool Unknown_716390(AdvancedPositionalUpdatePacketClass *packet, ExtrapClass *extrap, int time, int other_time);	// 0x716390  // NAME 1 [packet, extrap, time, other_time]: neutral
-	bool Unknown_716400(ExtrapClass *extrap, int time, int other_time);	// 0x716400  // NAME 1 [extrap, time, other_time]: neutral
-	bool Unknown_7165D0(AdvancedPositionalUpdatePacketClass *packet, ExtrapClass *extrap, unsigned int time, unsigned int other_time);	// 0x7165D0  // NAME 1 [packet, extrap, time, other_time]: neutral
-	bool Unknown_7166A0(ExtrapClass *extrap, int time, int other_time);	// 0x7166A0  // NAME 1 [extrap, time, other_time]: neutral
+	bool Unknown_716390(AdvancedPositionalUpdatePacketClass *packet, StateNode *extrap, int time, int other_time);	// 0x716390  // NAME 1 [packet, extrap, time, other_time]: neutral
+	bool Unknown_716400(StateNode *extrap, int time, int other_time);	// 0x716400  // NAME 1 [extrap, time, other_time]: neutral
+	bool Unknown_7165D0(AdvancedPositionalUpdatePacketClass *packet, StateNode *extrap, unsigned int time, unsigned int other_time);	// 0x7165D0  // NAME 1 [packet, extrap, time, other_time]: neutral
+	bool Unknown_7166A0(StateNode *extrap, int time, int other_time);	// 0x7166A0  // NAME 1 [extrap, time, other_time]: neutral
 
 	virtual int Unknown_04() { return(8); }		// +0x04 0x715FB0
 	virtual Matrix3D Unknown_08(int time);		// +0x08 0x716CA0  // NAME 2 [time]: as UnknownB027A0Class's
@@ -266,7 +200,7 @@ public:
 
 	unsigned int MovementID;					// +0x1C (the packet's)  // NAME 2: the packet's MovementID
 	bool Unknown20;								// +0x20
-	ExtrapClass *Unknown24;						// +0x24 (the last packet's extrapolator)
+	StateNode *Unknown24;						// +0x24 (the last packet's extrapolator)
 };
 
 // Type 12, a straight move from Start to End at Speed from StartTime (vtable 0xB0292C, 0x34 bytes); it holds

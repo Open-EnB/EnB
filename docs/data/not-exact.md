@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-273 entries in 67 files.
+275 entries in 68 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -62,6 +62,8 @@ edit the comments in the code, not this file.
 | `app/client/cpacket.cpp:1918` | `LootHulkPermissionPacketClass::Process_Packet` | marker | NOT EXACT: shape (the client places the shared failure exit before the call; three forms; attempts.py show 0x7396F0) 0x7396F0 |
 | `app/client/cpacket.cpp:1985` | `OpenInterfacePacketClass::Process_Packet` | marker | NOT EXACT: shape (the client places the shared failure exit before the UIType test; two forms; attempts.py show 0x7397D0) 0x7397D0 |
 | `app/client/cpacket.cpp:2488` | `ClientChatEventPacketClass::Process_Packet` | marker | NOT EXACT: inline-budget (1,638 instructions vs the client's 1,615: the client calls std::string's range constructor 0x73F680 out of line and inlines other std::string members elsewhere; frame 0x568 vs 0x558; attempts.py show 0x73B150) 0x73B150 |
+| `app/client/extrap.cpp:774` | `Unknown710110Class::Set_Motion` | marker | NOT EXACT: 0x7102B0 shape: the client keeps Unknown3C on the stack past the flag store (fst) and negates the acceleration before the multiply (fchs, both branches' fmul merged); here the flag store comes first and -a * 10000 folds |
+| `app/client/extrap.cpp:1821` | `Unknown713D70Class::Unknown713D70Class` | marker | NOT EXACT: 0x713D70 scheduling: the epilogue's load of the saved EH link comes after `pop edi` in the client, before the last stores here |
 | `app/client/fontdatabase.cpp:59` | `FontStringStruct::Reset` | marker | NOT EXACT: inline-budget: the client inlines the first nine string assignments with Store_Length called and calls operator= in the loop; ours inlines all |
 | `app/client/fontdatabase.cpp:340` | `FontDatabaseClass::Load_String` | marker | NOT EXACT: inline-budget: ours inlines Parse_Directions / Split_Four / Get_Blend_Type and calls Get_Length; the client the reverse |
 | `app/client/fontdatabase.cpp:508` | `FontDatabaseClass::Unknown_6C1500` | marker | NOT EXACT: frame: the inlined Add_String's key and iterator temporaries sit in other stack slots (0.76) |

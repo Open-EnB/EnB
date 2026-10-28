@@ -224,39 +224,35 @@ template<> int DeltaTemplateClass<bool>::UnknownGlobal = 0;
 // stay out; New_Object hands the object the harness's zeros)
 UnknownRootClass *UnknownCOClass::Unknown_Create_Aux_Root(int, int) { return(0); }
 
-// ------------------------------------------------------------------------- extrap.cpp's extrapolators (postate.cpp's)
+// ------------------------------------------------------------------------- extrap.cpp's state nodes (postate.cpp's)
 
-// postate.cpp is in app.lib (its states and their Matrix3D); extrap.cpp is not rebuilt: its classes stand in
-// here as postate.h declares them, every extrapolator at rest at the origin (the blends keep their two
-// extrapolators alive: the states still point at them)
+// postate.cpp and extrap.cpp are in app.lib; what extrap.cpp does not define yet stands in here, every node at
+// rest at the origin (the blends keep their two nodes alive: the states still point at them)
 #include "..\..\..\app\client\postate.h"
-ExtrapClass::~ExtrapClass() {}
-Vector3 ExtrapClass::Unknown_04(int) { return(Vector3(0, 0, 0)); }
-void ExtrapClass::Unknown_08() {}
-Vector3 ExtrapClass::Unknown_0C(int) { return(Vector3(0, 0, 0)); }
-void ExtrapClass::Unknown_10() {}
-Vector3 ExtrapClass::Unknown_14(int) { return(Vector3(0, 0, 0)); }
-Vector3 ExtrapClass::Unknown_18(int) { return(Vector3(0, 0, 0)); }
-void ExtrapClass::Unknown_1C(int, Vector3 *position, Quaternion *orientation, Vector3 *a, float *speed, Vector3 *c, bool)
+static void Stand_In_State(Vector3 *position, Quaternion *orientation, Vector3 *velocity, float *speed, Vector3 *rotrate)
 {
 	if (position) *position = Vector3(0, 0, 0);
 	if (orientation) *orientation = Quaternion(true);
-	if (a) *a = Vector3(0, 0, 0);
+	if (velocity) *velocity = Vector3(0, 0, 0);
 	if (speed) *speed = 0;
-	if (c) *c = Vector3(0, 0, 0);
+	if (rotrate) *rotrate = Vector3(0, 0, 0);
 }
-void ExtrapClass::Unknown_20(int, float *, float *, float *, float *) {}
-void ExtrapClass::Unknown_24(int, float) {}
-ExtrapClass *ExtrapClass::Unknown_28(int) { return(this); }
-ExtrapClass *ExtrapClass::Unknown_710260() { Trace("stub ExtrapClass::Unknown_710260"); return(new ExtrapClass); }
-Unknown70F250Class::Unknown70F250Class(SimplePositionalUpdatePacketClass *packet) { Trace("stub Unknown70F250Class::Unknown70F250Class %u stamp %d", packet->GameID, (int)packet->TimeStamp); }
-Unknown7125F0Class::Unknown7125F0Class(ExtrapClass *from, ExtrapClass *to, unsigned int start, unsigned int end) { Trace("stub Unknown7125F0Class::Unknown7125F0Class %u %u", start, end); }
-Unknown713520Class::Unknown713520Class(PlanetPositionalUpdatePacketClass *packet, ClientClass *) { Trace("stub Unknown713520Class::Unknown713520Class %u orbit %d dist %.2f angle %.2f", packet->GameID, packet->OrbitID, packet->OrbitDist, packet->OrbitAngle); }
-Unknown713C80Class::Unknown713C80Class(ComponentPositionalUpdatePacketClass *packet, ClientClass *) { Trace("stub Unknown713C80Class::Unknown713C80Class %u stamp %d", packet->GameID, (int)packet->TimeStamp); }
-Unknown710110Class::Unknown710110Class(AdvancedPositionalUpdatePacketClass *packet) { Trace("stub Unknown710110Class::Unknown710110Class %u stamp %d", packet->GameID, (int)packet->TimeStamp); }
-Unknown714340Class::Unknown714340Class(SClient *, FormationPositionalUpdatePacketClass *packet) { Trace("stub Unknown714340Class::Unknown714340Class %u leader %d", packet->GameID, packet->LeaderID); }
-Unknown7119B0Class::Unknown7119B0Class(ExtrapClass *from, ExtrapClass *to, unsigned int start, unsigned int end) { Trace("stub Unknown7119B0Class::Unknown7119B0Class %u %u", start, end); }
-Unknown712DB0Class::Unknown712DB0Class(ExtrapClass *from, ExtrapClass *to, unsigned int start, unsigned int end) { Trace("stub Unknown712DB0Class::Unknown712DB0Class %u %u", start, end); }
+void Unknown70F4F0Class::Unknown_1C(int, Vector3 *p, Quaternion *o, Vector3 *v, float *s, Vector3 *r, bool) { Stand_In_State(p, o, v, s, r); }
+void Unknown7119B0Class::Unknown_1C(int, Vector3 *p, Quaternion *o, Vector3 *v, float *s, Vector3 *r, bool) { Stand_In_State(p, o, v, s, r); }
+void Unknown7125F0Class::Unknown_1C(int, Vector3 *p, Quaternion *o, Vector3 *v, float *s, Vector3 *r, bool) { Stand_In_State(p, o, v, s, r); }
+void Unknown712DB0Class::Unknown_1C(int, Vector3 *p, Quaternion *o, Vector3 *v, float *s, Vector3 *r, bool) { Stand_In_State(p, o, v, s, r); }
+void Unknown713520Class::Unknown_1C(int, Vector3 *p, Quaternion *o, Vector3 *v, float *s, Vector3 *r, bool) { Stand_In_State(p, o, v, s, r); }
+void Unknown714340Class::Unknown_1C(int, Vector3 *p, Quaternion *o, Vector3 *v, float *s, Vector3 *r, bool) { Stand_In_State(p, o, v, s, r); }
+Unknown7119B0Class::Unknown7119B0Class(StateNode *start, StateNode *end, unsigned int start_time, unsigned int end_time) : StartState(start), StartTime(start_time), EndState(end), EndTime(end_time) { Trace("stub Unknown7119B0Class::Unknown7119B0Class %u %u", start_time, end_time); }
+void Unknown7119B0Class::Unknown_712480(int) {}
+// the motion objects: at rest at the origin, their clock set by the base's Unknown_04
+Unknown710530Class::Unknown710530Class(AdvancedPositionalUpdatePacketClass *packet) { Trace("stub Unknown710530Class::Unknown710530Class %u stamp %d", packet->GameID, (int)packet->TimeStamp); Time = packet->TimeStamp; Transform.Make_Identity(); Speed = Unknown3C = Unknown44 = Unknown50 = Unknown54 = Unknown5C = Unknown60 = Unknown64 = 0; Unknown40 = Unknown48 = Unknown58 = false; Unknown6C = Vector3(0, 0, 0); }
+void Unknown710530Class::Unknown_04(unsigned int time) { Time = time; }
+void Unknown710530Class::Unknown_08() { Time += 100; }
+Unknown710030Class *Unknown710530Class::Unknown_0C() { Trace("stub Unknown710530Class::Unknown_0C"); return(new Unknown710530Class(*this)); }
+Vector3 Unknown710530Class::Unknown_14() { return(Vector3(0, 0, 0)); }
+Unknown710030Class *Unknown713D70Class::Unknown_0C() { Trace("stub Unknown713D70Class::Unknown_0C"); return(new Unknown713D70Class(*this)); }
+bool Unknown713D70Class::Unknown_7140E0(Vector3 *) { return(false); }
 // client.cpp's mount buffer insert 0x725E70 (not rebuilt; Add reaches it since f6b75ef, a nested struct gen_stubs.py cannot write)
 void UnknownB02C90Class::BufferStruct::Insert(const ElementStruct &, int index) { Trace("stub UnknownB02C90Class::BufferStruct::Insert %d", index); }
 // pkupdate.cpp's 0x8ADB20 (not rebuilt): types 4 and 8 ask it

@@ -347,7 +347,7 @@ void Unknown715EF0Class::Unknown_716220(SClient *client, FormationPositionalUpda
 {
 	if (Unknown_B9489E) {
 		unsigned int time = client->Unknown10BC;
-		ExtrapClass *next = new Unknown714340Class(client, packet);
+		StateNode *next = new Unknown714340Class(client, packet);
 		unsigned int end = time + 5000;
 		Extrap = new Unknown7125F0Class(Extrap, next, time, end);
 		unsigned int value = Period.Get(time);
@@ -355,7 +355,7 @@ void Unknown715EF0Class::Unknown_716220(SClient *client, FormationPositionalUpda
 	}
 }
 
-bool Unknown715EF0Class::Unknown_716390(AdvancedPositionalUpdatePacketClass *packet, ExtrapClass *extrap, int time, int other_time)
+bool Unknown715EF0Class::Unknown_716390(AdvancedPositionalUpdatePacketClass *packet, StateNode *extrap, int time, int other_time)
 {
 	if (packet->ImpartedVelocity.Length2() > 0.000001f) {
 		return(false);
@@ -363,7 +363,7 @@ bool Unknown715EF0Class::Unknown_716390(AdvancedPositionalUpdatePacketClass *pac
 	return(Unknown_716400(extrap, time, other_time));
 }
 
-bool Unknown715EF0Class::Unknown_716400(ExtrapClass *extrap, int time, int other_time)
+bool Unknown715EF0Class::Unknown_716400(StateNode *extrap, int time, int other_time)
 {
 	if (!Unknown_B9489C) {
 		return(false);
@@ -392,7 +392,7 @@ bool Unknown715EF0Class::Unknown_716400(ExtrapClass *extrap, int time, int other
 	return(true);
 }
 
-bool Unknown715EF0Class::Unknown_7165D0(AdvancedPositionalUpdatePacketClass *packet, ExtrapClass *extrap, unsigned int time, unsigned int other_time)
+bool Unknown715EF0Class::Unknown_7165D0(AdvancedPositionalUpdatePacketClass *packet, StateNode *extrap, unsigned int time, unsigned int other_time)
 {
 	if (time < packet->TimeStamp) {
 		return(false);
@@ -400,7 +400,7 @@ bool Unknown715EF0Class::Unknown_7165D0(AdvancedPositionalUpdatePacketClass *pac
 	return(Unknown_7166A0(extrap, time, other_time));
 }
 
-bool Unknown715EF0Class::Unknown_7166A0(ExtrapClass *extrap, int time, int other_time)
+bool Unknown715EF0Class::Unknown_7166A0(StateNode *extrap, int time, int other_time)
 {
 	float speed = 0.0f;
 	Extrap->Unknown_1C(time, 0, 0, 0, &speed, 0, true);
@@ -441,7 +441,7 @@ void Unknown715EF0Class::Unknown_34(int time, AdvancedPositionalUpdatePacketClas
 		Extrap = new Unknown710110Class(packet);
 		return;
 	}
-	ExtrapClass *next = new Unknown710110Class(packet);
+	StateNode *next = new Unknown710110Class(packet);
 	unsigned int lag = Unknown_B9489F ? Unknown_38(time) : 0;
 	unsigned int start = ((unsigned int)time > packet->TimeStamp) ? time : packet->TimeStamp;
 	start -= lag;
@@ -994,8 +994,8 @@ void Unknown717010Class::Unknown_717430(int unknown, DeltaCompoundClass *aux_dat
 		return;
 	}
 	if (Unknown_B948A0 && Unknown24) {
-		ExtrapClass *next = Unknown24->Unknown_710260();
-		next->Unknown_20(time + (Unknown_BE71D4 >> 1), speed, acceleration, turn_rate, tilt_rate);
+		StateNode *next = ((Unknown710110Class *)Unknown24)->Unknown_710260();
+		next->Set_Motion(time + (Unknown_BE71D4 >> 1), speed, acceleration, turn_rate, tilt_rate);
 		if (Unknown_B948A1) {
 			Extrap = new Unknown712DB0Class(Extrap, next, time, time + Unknown_BE71D4);
 		} else {
@@ -1003,7 +1003,7 @@ void Unknown717010Class::Unknown_717430(int unknown, DeltaCompoundClass *aux_dat
 		}
 		Unknown24 = next;
 	} else {
-		Extrap->Unknown_20(time, speed, acceleration, turn_rate, tilt_rate);
+		Extrap->Set_Motion(time, speed, acceleration, turn_rate, tilt_rate);
 	}
 	Unknown20 = true;
 	MovementID += count;
@@ -1026,12 +1026,12 @@ void Unknown717010Class::Unknown_7179A0(int unknown, DeltaCompoundClass *aux_dat
 		}
 	}
 	if (Unknown_B948A0 && Unknown24) {
-		ExtrapClass *next = Unknown24->Unknown_710260();
+		StateNode *next = ((Unknown710110Class *)Unknown24)->Unknown_710260();
 		if (level) {
-			next->Unknown_20(time + (Unknown_BE71D4 >> 1), 0, 0, &zero, 0);
+			next->Set_Motion(time + (Unknown_BE71D4 >> 1), 0, 0, &zero, 0);
 		}
 		if (auto_level) {
-			next->Unknown_24(time + (Unknown_BE71D4 >> 1), tilt_rate);
+			next->End_Tilt(time + (Unknown_BE71D4 >> 1), tilt_rate);
 		}
 		if (Unknown_B948A1) {
 			Extrap = new Unknown712DB0Class(Extrap, next, time, time + Unknown_BE71D4);
@@ -1041,10 +1041,10 @@ void Unknown717010Class::Unknown_7179A0(int unknown, DeltaCompoundClass *aux_dat
 		Unknown24 = next;
 	} else {
 		if (level) {
-			Extrap->Unknown_20(time, 0, 0, &zero, 0);
+			Extrap->Set_Motion(time, 0, 0, &zero, 0);
 		}
 		if (auto_level) {
-			Extrap->Unknown_24(time, tilt_rate);
+			Extrap->End_Tilt(time, tilt_rate);
 		}
 	}
 	if (level) {
@@ -1066,7 +1066,7 @@ void Unknown717010Class::Unknown_34(int time, AdvancedPositionalUpdatePacketClas
 	}
 	unsigned int start = ((unsigned int)time > packet->TimeStamp) ? time : packet->TimeStamp;
 	unsigned int end = start + duration;
-	ExtrapClass *next = new Unknown710110Class(packet);
+	StateNode *next = new Unknown710110Class(packet);
 	Unknown24 = next;
 	if (Unknown_7165D0(packet, next, start, end)) {
 		Extrap = new Unknown7125F0Class(Extrap, next, start, end);

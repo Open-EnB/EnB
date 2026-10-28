@@ -4085,7 +4085,15 @@ RECONSTRUCTED = {
     ('app', 'client/postate.cpp'): "the positional states, client 0x714870-0x719700 (start): the forwarding state "
                                   "0x714870-0x714B00 ('PositionState' on the client's lines 53-90, D25), type 1 "
                                   "0x714B50 / 0x714D50, the record 0x714E10-0x7151D0, type 9 0x715270-0x715580, the extrapolator base 0x715620-0x7159C0, type 3 0x715AB0 / "
-                                  "0x715C20, type 5 0x715CF0 / 0x715E60, type 11 0x717EF0 / 0x718080, types 8 0x715EF0-0x716F70 and 4 0x717010-0x717ED0 (NOT EXACT: 0x717430, line 977, and 0x7179A0), type 12 0x718160-0x7184E0, type 13 0x718510-0x718D40 (NOT EXACT: 0x718830), type 14 0x718D70-0x7191C0, type 15 0x7192A0-0x719610 (lines 1422-1457); extrap.cpp's classes declared only",
+                                  "0x715C20, type 5 0x715CF0 / 0x715E60, type 11 0x717EF0 / 0x718080, types 8 0x715EF0-0x716F70 and 4 0x717010-0x717ED0 (NOT EXACT: 0x717430, line 977, and 0x7179A0), type 12 0x718160-0x7184E0, type 13 0x718510-0x718D40 (NOT EXACT: 0x718830), type 14 0x718D70-0x7191C0, type 15 0x7192A0-0x719610 (lines 1422-1457); extrap.cpp's classes in extrap.h (StateNode)",
+    ('app', 'client/extrap.h'): "extrap.cpp's state nodes: the client's StateNode (vtable 0xB02398; its asserts "
+                               "'Bad function call! StateNode::Set_Motion()' / '... End_Tilt()'), the nodes 0xB02364-0xB02628 "
+                               "and the motion objects 0xB02400 / 0xB02480 / 0xB025FC (layouts from the constructors "
+                               "0x70F250-0x714340); moved out of postate.h",
+    ('app', 'client/extrap.cpp'): "the state nodes, client 0x70F040-0x714810 (<string>'s guarded static last; "
+                                 "postate.cpp follows at 0x714820): StateNode's slots 0x70F040-0x70F210 (lines 238, "
+                                 "246, D25), the nodes' constructors, destructors and small slots; the asserts on the "
+                                 "client's lines 757, 1432-1433, 1525, 1534, 1799",
 }
 
 # Text appended to imported files (after everything, so no existing line moves).
