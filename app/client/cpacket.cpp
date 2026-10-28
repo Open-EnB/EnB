@@ -2469,11 +2469,11 @@ public:
 	UIChatPanelUnknownE8Class *UnknownE8;				// +0xE8
 };
 
-class UIGroupClass	// NAME 3: class-from-file (D24) for app\client\ui_group.cpp
-{
-public:
-	void Unknown_597080(const char *text, const char *name, int index);	// 0x597080 (CLIENT_CHAT_EVENT 165: a 'group' message '<S>n name`text')  // NAME 1 [text, name, index]: the message's parts
-};
+#include "ui_group.h"		// UIGroupClass (CLIENT_CHAT_EVENT 165)
+
+
+
+
 
 
 

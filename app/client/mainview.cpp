@@ -16,6 +16,7 @@
 #include "..\..\ww3d2\dazzle.h"
 #include "..\..\wwdebug\wwprofile.h"
 #include "..\..\ww3d2\colorspace.h"
+#include "ui_group.h"
 
 bool Unknown_C404F8;			// NAME 1: neutral (D10): the client's 0xC404F8, 0x514480 copies 'Doppler_Enabled' to it (its home file is unknown)
 
@@ -31,7 +32,7 @@ public:
 class MainViewDazzleHandlerClass : public DazzleVisibilityClass	// NAME 1: neutral (D10)
 {
 public:
-	MainViewDazzleHandlerClass(SClient *client);	// 0x75DD00  // NAME 1 [client]: what 0x50BA60 passes
+	MainViewDazzleHandlerClass(SClient *client); ~MainViewDazzleHandlerClass();	// 0x75DD00 / 0x75DE70 (Shutdown 0x50C2F0)  // NAME 1 [client]: what 0x50BA60 passes
 	SClient *Client;								// +0x04  // NAME 2: what it holds
 };
 
@@ -39,7 +40,7 @@ public:
 class MainViewUnknown84Class	// NAME 1: neutral (D10)
 {
 public:
-	MainViewUnknown84Class(SClient *client, const RefCountPtr<RefCountClass> &scene);	// 0x7B6BD0  // NAME 1 [client, scene]: what 0x50BA60 passes
+	MainViewUnknown84Class(SClient *client, const RefCountPtr<RefCountClass> &scene); ~MainViewUnknown84Class();	// 0x7B6BD0 / 0x7B6D80 (Shutdown 0x50C2F0)  // NAME 1 [client, scene]: what 0x50BA60 passes
 	char Unknown00[0x24];
 };
 
@@ -153,7 +154,6 @@ public:
 
 
 
-
 // NOT EXACT: scheduling only (the array-ctor pushes, two float constants, one register); attempts.csv 0x50B360
 MainViewClass::MainViewClass(ClientTaskClass *ctask) :
 	ViewClass(ctask, 0),
@@ -166,7 +166,7 @@ MainViewClass::MainViewClass(ClientTaskClass *ctask) :
 	Unknown178(0.5f, 0.5f, 0.5f), Unknown184(0.0f, 0.0f, 1.0f), Unknown190(0),
 	Unknown194(0.05f), Unknown198(0.1f), Unknown19C(0.1f), Unknown1A0(0.5f), Unknown1A4(true),
 	SeaFogNear(0), SeaFogFar(0), SeaColor(1.0f, 1.0f, 1.0f), Wind(0.0f, 0.0f, 0.0f), Unknown1C8(0), Unknown1CC(false),
-	Cpit(NULL), Unknown1D4(NULL), Group(NULL), Unknown1DC(NULL), Unknown1E0(0), Unknown1E4(NULL), ProfileIterator(NULL)
+	Cpit(NULL), Unknown1D4(NULL), Group(NULL), Unknown1DC(NULL), Unknown1E0(NULL), Unknown1E4(NULL), ProfileIterator(NULL)
 {
 	// (the members above are the client's order: 0x50B360 stores them before the table)
 	// (the base 0x65B810 clears +0x48; the view's helper is made last)
@@ -227,46 +227,46 @@ void MainViewClass::Unknown_04()
 	Unknown_5146D0();
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// 0x50C2F0: Shutdown (slot +0x10), Init's counterpart: the lights off the +0x120 scene, the dazzle handler and layer, the
+// interface objects, the radar, the scenes, the land, the orbitals and the profile iterator
+void MainViewClass::Unknown_10()
+{
+	ViewClass::Unknown_10();
+	for (int i = 0; i < 4; i++) {
+		Unknown120->Remove_Render_Object(Unknown154[i].Peek());
+		Unknown154[i] = NULL;
+	}
+	DazzleRenderObjClass::Install_Dazzle_Visibility_Handler(NULL);
+	DazzleRenderObjClass::Set_Current_Dazzle_Layer(NULL);
+	REF_PTR_RELEASE(Unknown1E0);
+	REF_PTR_RELEASE(Cpit);
+	REF_PTR_RELEASE(Unknown1D4);
+	REF_PTR_RELEASE(Group);
+	REF_PTR_RELEASE(Unknown1E4);
+	REF_PTR_RELEASE(Unknown1DC);
+	REF_PTR_RELEASE(Unknown138);
+	delete DazzleLayer;
+	DazzleLayer = NULL;
+	delete Unknown48;
+	Unknown48 = NULL;
+	delete Radar;
+	Radar = NULL;
+	delete Unknown84;
+	Unknown84 = NULL;
+	REF_PTR_RELEASE(Camera);
+	REF_PTR_RELEASE(Unknown110);
+	REF_PTR_RELEASE(Unknown114);
+	REF_PTR_RELEASE(Scene);
+	REF_PTR_RELEASE(Unknown118);
+	REF_PTR_RELEASE(Unknown11C);
+	REF_PTR_RELEASE(Unknown120);
+	REF_PTR_RELEASE(Land);
+	delete Orbitals;
+	Orbitals = NULL;
+	delete Unknown128;
+	Unknown128 = NULL;
+	WWProfileManager::Release_Iterator(ProfileIterator);
+}
 
 
 

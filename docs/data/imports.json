@@ -2912,6 +2912,7 @@
      "0x4973B0",
      "0x50B900",
      "0x50B950",
+     "0x50C2F0",
      "0x50CAE0",
      "0x50CC10",
      "0x50CCF0",
@@ -8684,6 +8685,7 @@
    "client/tasks/tsk_movie.h": "reconstructed",
    "client/tasks/tsk_smovie.h": "reconstructed",
    "client/tutorial_manager.h": "reconstructed",
+   "client/ui_group.h": "reconstructed",
    "client/ui_line_display.h": "reconstructed",
    "client/unknown_authlogin.h": "reconstructed",
    "client/unknown_creator.h": "reconstructed",
@@ -8894,7 +8896,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 4393,
+  "in_tree_total": 4394,
   "totals": {}
  },
  "binkmovie": {

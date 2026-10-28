@@ -31,6 +31,7 @@
 #include <deque>
 #include <vector>
 #include <hash_map.h>
+#include "refcount.h"
 
 struct KernelEventClass;			// kernel.h: an input event (16 bytes)
 class LoginUnknown0CClass;		// tsk_login.h: inpdsp.cpp's input dispatcher (0x18 bytes)
@@ -85,8 +86,17 @@ public:
 	char Unknown00[0x14];
 };
 
+// the interface objects' first base (0x38 bytes, its table at +0x00); a RefCountClass follows it at +0x38 in each
+// (the main view's Shutdown 0x50C2F0 releases them through it: dec [p+0x3C], then [[p+0x38]]'s slot 0)
+class UIUnknownBaseClass	// NAME 1: neutral (D10)
+{
+public:
+	virtual void Unknown_00();
+	char Unknown04[0x38 - 0x04];						// +0x04
+};
+
 // what every view holds at +0x34 (a 0x6B4480 result), as far as cpacket.cpp calls it
-class ViewUnknown34Class	// NAME 1: neutral (D10)
+class ViewUnknown34Class : public UIUnknownBaseClass, public RefCountClass	// NAME 1: neutral (D10)
 {
 public:
 	void Unknown_588A70(const char *type, int unknown1, const char *text, int flags, int unknown2, int unknown3);	// 0x588A70 (102 callers; GROUP 30, DIALOG 98: "GROUP_INVITE", "OK", "YES_NO", "OK_CANCEL", "server_message")  // NAME 1 [type, unknown1, text, flags, unknown2, unknown3]: neutral, the handlers' arguments
@@ -148,6 +158,7 @@ class RadarSystemClass	// NAME 3: class-from-file (D24) for radar_system.cpp
 {
 public:
 	RadarSystemClass(SClient *client);					// 0x7BC770 (0x50 bytes; the main view's 0x50BA60)  // NAME 1 [client]: what 0x50BA60 passes
+	~RadarSystemClass();								// 0x7BC930 (the main view's Shutdown 0x50C2F0)
 	void Unknown_7BD920(int index);						// 0x7BD920 (cpacket.cpp: WARP_INDEX 156)  // NAME 1 [index]: the packet's Index
 	void Unknown_7BD6E0(int arg);						// 0x7BD6E0 (the main view's 0x513630)  // NAME 1 [arg]: neutral
 	void Unknown_7BCA40(int arg);						// 0x7BCA40 (the main view's slot +0x18)  // NAME 1 [arg]: neutral
@@ -166,7 +177,7 @@ public:
 };
 
 // ui_cpit.cpp's cockpit interface (the main view's +0x1D0), declared as far as cpacket.cpp calls it
-class UICpitClass	// NAME 3: class-from-file (D24) for ui_cpit.cpp
+class UICpitClass : public UIUnknownBaseClass, public RefCountClass	// NAME 3: class-from-file (D24) for ui_cpit.cpp
 {
 public:
 	void Unknown_581F90(ClientObjectClass *hulk);		// 0x581F90 (cpacket.cpp: LOOT_HULK_PERMISSION 140)  // NAME 1 [hulk]: the packet's HulkGameID's object
@@ -183,7 +194,7 @@ public:
 	virtual void Unknown_58();							// +0x58 (the main view's 0x5141A0)
 	virtual void Unknown_5C();							// +0x5C (the main view's 0x5141E0 / 0x514220)
 
-	char Unknown04[0xD4 - 0x04];						// +0x04
+	char Unknown40[0xD4 - 0x40];						// +0x40
 	UIScanClass *Scan;									// +0xD4 (the main view's 0x5136A0 returns it, 0x513630 calls 0x60E540 on it)  // NAME 3: its file's (ui_scan.cpp)
 	char UnknownD8[0xDC - 0xD8];						// +0xD8
 	int UnknownDC;										// +0xDC (the main view's 0x514400 returns it)
@@ -222,6 +233,7 @@ class INIClass;
 class OrbitalManager		// NAME 2: the client's (OrbitalManager::Update)
 {
 public:
+	~OrbitalManager();									// 0x4F4FD0 (the main view's Shutdown 0x50C2F0)
 	OrbitalManager(SClient *client, MainViewOrbitalCallbackClass *callback);	// 0x4F3250 (0x1D4 bytes; the main view's 0x50BA60)  // NAME 1 [client, callback]: what 0x50BA60 passes
 	void Unknown_4F3310();								// 0x4F3310 (the main view's 0x513700, before the sector's orbital%04d.ini is read)
 	void Unknown_4F34C0(INIClass &ini);				// 0x4F34C0 (0x513700: orbital%04d.ini when it loaded)  // NAME 1 [ini]: what it gets
@@ -238,7 +250,8 @@ class MainViewUnknown48Class	// NAME 1: neutral (D10)
 {
 public:
 	MainViewUnknown48Class(MainViewClass *view, SClient *client);	// 0x6E2BD0  // NAME 1 [view, client]: what the main view passes
-	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
+	virtual ~MainViewUnknown48Class();					// +0x00 (deleting; the main view's Shutdown 0x50C2F0)
+	virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
 	virtual void Unknown_10(); virtual void Unknown_14(); virtual void Unknown_18(); virtual void Unknown_1C();
 	virtual void Unknown_20(); virtual void Unknown_24(); virtual void Unknown_28(); virtual void Unknown_2C();
 	virtual void Unknown_30();
@@ -247,8 +260,13 @@ public:
 	char Unknown04[0x28 - 0x04];
 };
 
+// what the main view's +0x1E0 points to (Shutdown 0x50C2F0 releases it)
+class MainViewUnknown1E0Class : public UIUnknownBaseClass, public RefCountClass	// NAME 1: neutral (D10)
+{
+};
+
 // what the main view's +0x1DC points to, as far as 0x513540 / 0x513600 call it
-class MainViewUnknown1DCClass	// NAME 1: neutral (D10)
+class MainViewUnknown1DCClass : public UIUnknownBaseClass, public RefCountClass	// NAME 1: neutral (D10)
 {
 public:
 	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
@@ -265,7 +283,7 @@ public:
 };
 
 // what the main view's +0x138 points to (0x53DFB0-0x53E3F0: the main view forwards to it)
-class MainViewUnknown138Class	// NAME 1: neutral (D10)
+class MainViewUnknown138Class : public UIUnknownBaseClass, public RefCountClass	// NAME 1: neutral (D10)
 {
 public:
 	void Unknown_53DFB0(int mode);						// 0x53DFB0  // NAME 1 [mode]: the main view's
@@ -293,7 +311,7 @@ public:
 	virtual void Unknown_58();							// +0x58 (the main view's 0x514010: on)
 	virtual void Unknown_5C();							// +0x5C (0x514010: off)
 
-	char Unknown04[0x7C - 0x04];						// +0x04
+	char Unknown40[0x7C - 0x40];						// +0x40
 	bool Unknown7C;										// +0x7C (0x514010: set while it runs)
 	char Unknown7D[0x9C - 0x7D];						// +0x7D
 	int Unknown9C;										// +0x9C (the main view's 0x513D00 returns it)
@@ -438,7 +456,7 @@ public:
 	ViewUnknown34Class *Unknown1D4;						// +0x1D4 (slots +0x58 / +0x5C with the cockpit's)
 	UIGroupClass *Group;								// +0x1D8 (cpacket.cpp: CLIENT_CHAT_EVENT 165's group messages)  // NAME 3: its file's (ui_group.cpp)
 	MainViewUnknown1DCClass *Unknown1DC;						// +0x1DC (0x513600 calls its +0x8C)
-	int Unknown1E0;										// +0x1E0
+	MainViewUnknown1E0Class *Unknown1E0;				// +0x1E0 (Shutdown 0x50C2F0 releases it first)
 	ViewUnknown34Class *Unknown1E4;						// +0x1E4 (0x514220 calls its +0x5C)
 	WWProfileIterator *ProfileIterator;					// +0x1E8 (0x50BA60: WWProfileManager::Get_Iterator)  // NAME 2: what it holds
 };
