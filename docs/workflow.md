@@ -539,6 +539,9 @@ unless `--lever` cites a new row of this table.
   template dtors): check `ret N`, confirm with `objdiff.py` and `vtables.py`.
 * **`objdiff.py`'s `*` lines include relocations** (`0` vs `REL`) and `__imp__` calls as `call
   REL` (`objrel.py`); pass mangled names.
+* **The packet factory's vtable slots point at incremental-link thunks** (0x40xxxx, e.g. slot +0x08
+  `Process_Packet`): resolve them with `ClientImage.incremental_thunks()` before looking the target up in
+  imports.json (PF1, 2026-10-28; `.work/pf1/handlers.py`).
 * **`vtables.py --seed Class=ADDR`** for classes whose code doesn't match yet; rerun after
   `symbols.py`.
 * **Pseudocode can be wrong** (check `client.py dis`); REA can't decompile vtable-only functions

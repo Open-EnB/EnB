@@ -263,7 +263,8 @@ pk*.cpp, gameedit\pkge*.cpp; mostly unattributed). Process_Packet by file: app\c
 99 (+4 unattributed neighbours; 97 with a profile label 'X::Process_Packet()'),
 app\packets\clientstub.cpp 149 (0x19-byte `assert; return true` for server-only packets, one per
 line 14, 17, 20 ...), tsk_login.cpp 6 (opcodes 1, 111, 112, 117, 118, 120), tsk_game.cpp 1 (54),
-the base 3 (32-34).
+and 32-34's vtables hold cpacket.cpp's message-line handlers 0x736A20 / 0x736AE0 / 0x736BA0, not the base's
+(correction from PF1, 2026-10-28: 107 + 149 + 6 + 1 = 263; [packet-flow.md](packet-flow.md)).
 
 Not traced yet: who calls SClient::Process_Packets (a vtable or pointer), the login and game
 tasks' own read loops, the exact roles of the connection slots +0x10 / +0x2C / +0x30 and the

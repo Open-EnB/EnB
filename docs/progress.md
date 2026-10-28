@@ -1348,6 +1348,10 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 
 ## 3. Open decisions
 
+* **P-PF1-1** (2026-10-28, PF1; recommend accept): rename `ClientClass::DebugObjectID` (+0x112C) to the player's
+  avatar id (`AvatarID` / `Get_Avatar`): CLIENT_AVATAR 55 sets it from the packet's AvatarID; ADVANCED 62, FORMATION 65
+  and 0x6F3C60 use it as the player's own object, DAMAGE 100 as the avatar; only the DEBUG packet's send says "debug".
+
 ## 4. Next steps
 
 Milestones M1 and M2 are met (D42, D63; [milestones.md](milestones.md)). Order and detail of the
