@@ -123,21 +123,21 @@ void Unknown_80EFF0(RenderObjClass *model, std::vector<ColorizationRegionStruct>
 
 // eff_o.cpp's effects, their factory (cdecl) and the ends the packets fill: eff_o.h, included first
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#include "..\packets\pkstart.h"
+#include "..\packets\pkgadget.h"
+// NOT EXACT: register-only (the client loads PlayerID for START_ACK into eax before the temporary's lea and stores the EH state after the push; attempts.py show 0x733440)
+// 0x733440 (placed here, out of address order, so that no assert line moves)
+bool StartPacketClass::Process_Packet(void *instance)
+{
+	WWPROFILE("StartPacketClass::Process_Packet()");
+	SClient *sclient = (SClient *)instance;
+	sclient->Unknown1138 = PlayerID;
+	sclient->Unknown_745160();
+	sclient->LoadingView->Unknown_692330();
+	sclient->Send_Packet(&RequestTimePacketClass());
+	sclient->Send_Packet(&StartAckPacketClass(PlayerID));
+	return(true);
+}
 
 
 
@@ -1338,30 +1338,30 @@ bool SplinePacketClass::Process_Packet(void *instance)
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// NOT EXACT: shape (the __int64 sums and differences in other registers and order; frame and size as the client's; attempts.py show 0x737960)
+// 0x737960 (placed after SPLINE 0x737C10 so that no assert line moves)
+extern unsigned int Unknown_BE71D4;	// 0xBE71D4 (postate.cpp: the state blend time; CLIENT_SET_TIME 52 stores the round trip time in it)
+bool SetClientTimePacketClass::Process_Packet(void *instance)
+{
+	WWPROFILE("SetClientTimePacketClass::Process_Packet()");
+	SClient *sclient = (SClient *)instance;
+	__int64 client_sent = ClientSent;
+	__int64 server_received = ServerReceived;
+	__int64 server_sent = ServerSent;
+	__int64 client_received = ClientReceived;
+	__int64 client_total = client_received + client_sent; __int64 server_total = server_sent + server_received;
+	__int64 client_time = client_received - client_sent; __int64 server_time = server_sent - server_received; DurationClass rtt(client_time - server_time); __int64 correction = (server_total - client_total) / 2;
+	Unknown_BE71D4 = rtt.As_Int();
+	sclient->Unknown10C0 = correction;
+	sclient->Unknown10D0 = 0;
+	sclient->Unknown10C8 = 0;
+	if (sclient->DebugMode) {
+		char buffer[256];
+		sprintf(buffer, "rtt = %u  correction = %d", rtt.As_Int(), sclient->Unknown10C0.As_Int());
+		sclient->Unknown_74D990(0x17, buffer, 0);
+	}
+	return(true);
+}
 
 
 
@@ -1807,6 +1807,32 @@ bool DamagePacketClass::Process_Packet(void *instance)
 
 
 
+// gadget.cpp's gadget, its slot +0x08's interface and gadget_list_manager.cpp's list (SClient +0x1278),
+// declared as far as GADGET 103 calls them
+class UIGadgetInterfaceClass : public InterfaceClass	// NAME 1: neutral (D10): what a gadget's slot +0x08 returns
+{
+public:
+	virtual void Unknown_88();
+	virtual void Unknown_8C(bool on);	// +0x8C (GADGET 103: Function bits 1 / 2)  // NAME 1 [on]: what the handler passes
+};
+class GadgetClass	// NAME 3: class-from-file (D24) for app\client\gadget.cpp
+{
+public:
+	virtual void Unknown_00(); virtual void Unknown_04();
+	virtual UIGadgetInterfaceClass *Unknown_08();	// +0x08 (GADGET 103)
+	virtual void Unknown_0C(); virtual void Unknown_10(); virtual void Unknown_14(); virtual void Unknown_18();
+	virtual void Unknown_1C(); virtual void Unknown_20(); virtual void Unknown_24(); virtual void Unknown_28();
+	virtual void Unknown_2C(); virtual void Unknown_30(); virtual void Unknown_34(); virtual void Unknown_38();
+	virtual void Unknown_3C();
+	virtual void Unknown_40(bool on);	// +0x40 (GADGET 103: Function bits 4 / 8)  // NAME 1 [on]: what the handler passes
+	void Unknown_6603A0(int arg, ViewClass *view);	// 0x6603A0 (GADGET 103: bit 0x10, the current view's slot +0x1C)  // NAME 1 [arg, view]: what the handler passes
+	void Unknown_6607D0();	// 0x6607D0 (GADGET 103: bit 0x20)
+};
+class GadgetListManagerClass	// NAME 3: class-from-file (D24) for app\client\gadget_list_manager.cpp (its FAIL_IF '!Manager' on this)
+{
+public:
+	GadgetClass *Unknown_661940(const char *name);	// 0x661940 (FAIL_IF '!name')  // NAME 3 [name]: its FAIL_IF's
+};
 
 
 
@@ -1816,48 +1842,22 @@ bool DamagePacketClass::Process_Packet(void *instance)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// 0x739180
+bool GadgetPacketClass::Process_Packet(void *instance)
+{
+	WWPROFILE("GadgetPacketClass::Process_Packet()");
+	SClient *sclient = (SClient *)((ClientClass *)instance)->Unknown_18();
+	GadgetClass *gadget = ((GadgetListManagerClass *)sclient->Unknown1278)->Unknown_661940(Name);
+	FAIL_IF(!gadget) return(true);
+	UIGadgetInterfaceClass *iface = gadget->Unknown_08();
+	if ((Function & 1) && iface) iface->Unknown_8C(true);
+	if ((Function & 2) && iface) iface->Unknown_8C(false);
+	if (Function & 4) gadget->Unknown_40(true);
+	if (Function & 8) gadget->Unknown_40(false);
+	if ((Function & 0x10) && sclient->CurrentView) gadget->Unknown_6603A0(1, sclient->CurrentView->Unknown_1C());
+	if ((Function & 0x20) && sclient->CurrentView) gadget->Unknown_6607D0();
+	return(true);
+}
 
 
 
@@ -2040,19 +2040,19 @@ bool PlayerObjectIsAttackingUpdatePacket::Process_Packet(void *instance)
 }
 
 
+// 0x739BB0
+bool IncapacitanceDetailsPacket::Process_Packet(void *instance)
+{
+	WWPROFILE("IncapacitanceDetailsPacket::Process_Packet(void * instance)");
+	ClientClass *client = (ClientClass *)instance;
+	FAIL_IF(!client) return(true);
+	SClient *sclient = (SClient *)client->Unknown_18();
 
-
-
-
-
-
-
-
-
-
-
-
-
+	FAIL_IF(!sclient) return(true);
+	sclient->CameraManager->Unknown_79B2B0(0x19);
+	sclient->MainView->Cpit->Unknown_584690(this);
+	return(true);
+}
 
 
 

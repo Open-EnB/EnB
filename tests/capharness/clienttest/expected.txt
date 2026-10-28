@@ -352,10 +352,28 @@ stub SClient::Unknown_74C530 4200
 mainview remove 4200
 model 16 'ship_test2' deleted
 check REMOVE 7 deleted both through their destructors (0x70E380 / 0x70E0C0, 0x70E6B0) with their models: ok
+== (4c) GADGET 103 and INCAPACITANCE_DETAILS 144
+msg 1 ? (103) size 22: cpacket.cpp's handler
+stub GadgetListManagerClass::Unknown_661940 'gadget_test'
+gadget calls: +08 iface+8C(1) iface+8C(0) +40(1) +40(0) 6603A0(1, view) 6607D0 
+check GADGET 103 Function 0x3F on 'gadget_test': the interface's +0x8C on and off, the gadget's +0x40 on and off, 0x6603A0(1, view), 0x6607D0: ok
+msg 2 ? (103) size 22: cpacket.cpp's handler
+stub GadgetListManagerClass::Unknown_661940 'gadget_test'
+check GADGET 103 Function 0x14 without a current view: only the gadget's +0x40 on: ok
+msg 3 ? (103) size 22: cpacket.cpp's handler
+stub GadgetListManagerClass::Unknown_661940 'gadget_none'
+fail_if !gadget (line 1851)
+check GADGET 103 for a gadget the list doesn't know: the FAIL_IF '!gadget', nothing called: ok
+msg 4 ? (144) size 267: cpacket.cpp's handler
+gen CameraManagerClass::Unknown_79B2B0
+stub UICpitClass::Unknown_584690 'rescuer'
+check INCAPACITANCE_DETAILS 144: the camera's mode 0x19 (0x79B2B0), then the cockpit's 0x584690 gets the packet (Unknown0C 'rescuer'): ok
 == (3) Process_Packets
 messages 1000
+msg 1 CLIENT_SET_TIME (52) size 16: cpacket.cpp's handler
 stub TaskClass::Is_Focused -> 1
 loadingview 0C 1
+stub SClient::Unknown_74D990 0x17 'rtt = 4291038945  correction = 2140340121' 0
 msg 2 ITEM_BASE (37) size 126: cpacket.cpp's handler
 stub Unknown831340Class::Unknown831340Class 7745 'Aquitaine Dark Matter' type 13
 msg 3 ITEM_BASE (37) size 178: cpacket.cpp's handler
@@ -928,14 +946,14 @@ mainview add 38962
 msg 236 ACTIVATE_RENDER_STATE (48) size 12: cpacket.cpp's handler
 msg 237 ACTIVATE_RENDER_STATE (48) size 12: cpacket.cpp's handler
 msg 238 OBJECT_EFFECT (9) size 19: cpacket.cpp's handler
-stub Unknown_6E9490 desc 20313 effect 39020 duration 0 time 2142295100 scale 1.00 hsv (0.00 0.00 0.00) 1.00 -1 0
+stub Unknown_6E9490 desc 20313 effect 39020 duration 0 time 1954979 scale 1.00 hsv (0.00 0.00 0.00) 1.00 -1 0
 stub Unknown6E9490TargetClass::Unknown_28 38962
 mainview 7C
 mainview 64
 stub EffectObjectClass::Unknown_6E74B0 39020 100
 stub EffectObjectClass::Unknown_6E6ED0 39020 124
 msg 239 OBJECT_EFFECT (9) size 19: cpacket.cpp's handler
-stub Unknown_6E9490 desc 20362 effect 39021 duration 0 time 2142295100 scale 1.00 hsv (0.00 0.00 0.00) 1.00 -1 0
+stub Unknown_6E9490 desc 20362 effect 39021 duration 0 time 1954979 scale 1.00 hsv (0.00 0.00 0.00) 1.00 -1 0
 stub Unknown6E9490TargetClass::Unknown_28 38962
 mainview 7C
 mainview 64
@@ -1685,7 +1703,7 @@ asset manager +0x78 'planet_466' scale 0.1 hsv (0 0 0) -> model 141
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38970
 msg 500 OBJECT_EFFECT (9) size 19: cpacket.cpp's handler
-stub Unknown_6E9490 desc 20282 effect 39023 duration 0 time 2142295100 scale 1.00 hsv (0.00 0.00 0.00) 1.00 -1 0
+stub Unknown_6E9490 desc 20282 effect 39023 duration 0 time 1954979 scale 1.00 hsv (0.00 0.00 0.00) 1.00 -1 0
 stub Unknown6E9490TargetClass::Unknown_28 38970
 mainview 7C
 mainview 64
@@ -1725,7 +1743,7 @@ asset manager Create_Render_Obj 'missing' -> model 144
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38969
 msg 514 OBJECT_EFFECT (9) size 19: cpacket.cpp's handler
-stub Unknown_6E9490 desc 20407 effect 39022 duration 0 time 2142295100 scale 1.00 hsv (0.00 0.00 0.00) 1.00 -1 0
+stub Unknown_6E9490 desc 20407 effect 39022 duration 0 time 1954979 scale 1.00 hsv (0.00 0.00 0.00) 1.00 -1 0
 stub Unknown6E9490TargetClass::Unknown_28 38969
 mainview 7C
 mainview 64
@@ -2330,6 +2348,11 @@ model 203 'missing' deleted
 gen SClientUnknown1338Class::Unknown_760770
 gen OrbitalManager::Unknown_4F3310
 gen SClientUnknown1330Class::SClientUnknown1330Class
+msg 753 START (5) size 8: cpacket.cpp's handler
+gen UICpitClass::Unknown_584A60
+gen LoadingViewClass::Unknown_692330
+sent REQUEST_TIME (68) size 8: 00000000
+sent START_ACK (6) size 8: 8a460000
 msg 754 MESSAGE_STRING (29) size 58: cpacket.cpp's handler
 stub SClient::Unknown_74D990 0x0 'We have entered Glory's Orbit (Beta Hydri System).' 0
 msg 755 CAMERA_CONTROL (146) size 12: cpacket.cpp's handler
@@ -2337,19 +2360,22 @@ gen CameraManagerClass::Unknown_79B2B0
 msg 756 CLIENT_CHAT_EVENT (165) size 49: cpacket.cpp's handler
 msg 757 AUX_DATA (27) size 81: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 71 bytes
+msg 758 CLIENT_SET_TIME (52) size 16: cpacket.cpp's handler
+stub SClient::Unknown_74D990 0x17 'rtt = 4291033018  correction = 2140343229' 0
+state CLIENT_SET_TIME correction 2140343229 rtt -3934278
 msg 759 CLIENT_CHAT_EVENT (165) size 76: cpacket.cpp's handler
 msg 760 CLIENT_SOUND (106) size 30: cpacket.cpp's handler
 stub SoundManagerClass::Unknown_75B0D0 'Device_Installed' 0
 msg 761 CLIENT_CHAT_EVENT (165) size 99: cpacket.cpp's handler
 msg 762 OBJECT_EFFECT (9) size 23: cpacket.cpp's handler
-stub Unknown_6E9490 desc 214 effect 48901062 duration 0 time 2142310900 scale 1.00 hsv (60.00 0.00 0.00) 1.00 -1 0
+stub Unknown_6E9490 desc 214 effect 48901062 duration 0 time 1967671 scale 1.00 hsv (60.00 0.00 0.00) 1.00 -1 0
 stub Unknown6E9490TargetClass::Unknown_28 48900994
 mainview 7C
 mainview 64
 stub EffectObjectClass::Unknown_6E74B0 48901062 100
 stub EffectObjectClass::Unknown_6E6ED0 48901062 124
 msg 763 OBJECT_TO_OBJECT_EFFECT (11) size 25: cpacket.cpp's handler
-stub Unknown_6E9490 desc 664 effect 48901063 duration 0 time 2142310900 scale 1.00 hsv (0.00 0.00 0.00) 1.00 -1 0
+stub Unknown_6E9490 desc 664 effect 48901063 duration 0 time 1967671 scale 1.00 hsv (0.00 0.00 0.00) 1.00 -1 0
 stub Unknown6E9490BinaryClass::Unknown_28 source 48887635
 stub Unknown6E9490BinaryClass::Unknown_34 target 48900994
 stub Unknown6E9490BinaryClass::Unknown_6E82A0 0 0 (0, 0, 0) flags 0x0
@@ -2360,21 +2386,21 @@ stub EffectObjectClass::Unknown_6E6ED0 48901063 124
 msg 764 AUX_DATA (27) size 100: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 90 bytes
 msg 765 OBJECT_EFFECT (9) size 19: cpacket.cpp's handler
-stub Unknown_6E9490 desc 530 effect 48901075 duration 0 time 2142315900 scale 1.00 hsv (0.00 0.00 0.00) 1.00 -1 0
+stub Unknown_6E9490 desc 530 effect 48901075 duration 0 time 1972671 scale 1.00 hsv (0.00 0.00 0.00) 1.00 -1 0
 stub Unknown6E9490TargetClass::Unknown_28 48900994
 mainview 7C
 mainview 64
 stub EffectObjectClass::Unknown_6E74B0 48901075 100
 stub EffectObjectClass::Unknown_6E6ED0 48901075 124
 msg 766 OBJECT_EFFECT (9) size 19: cpacket.cpp's handler
-stub Unknown_6E9490 desc 564 effect 48901076 duration 0 time 2142315900 scale 1.00 hsv (0.00 0.00 0.00) 1.00 -1 0
+stub Unknown_6E9490 desc 564 effect 48901076 duration 0 time 1972671 scale 1.00 hsv (0.00 0.00 0.00) 1.00 -1 0
 stub Unknown6E9490TargetClass::Unknown_28 48900994
 mainview 7C
 mainview 64
 stub EffectObjectClass::Unknown_6E74B0 48901076 100
 stub EffectObjectClass::Unknown_6E6ED0 48901076 124
 msg 767 OBJECT_EFFECT (9) size 19: cpacket.cpp's handler
-stub Unknown_6E9490 desc 553 effect 48901077 duration 0 time 2142315900 scale 1.00 hsv (0.00 0.00 0.00) 1.00 -1 0
+stub Unknown_6E9490 desc 553 effect 48901077 duration 0 time 1972671 scale 1.00 hsv (0.00 0.00 0.00) 1.00 -1 0
 stub Unknown6E9490TargetClass::Unknown_28 48900994
 mainview 7C
 mainview 64
@@ -2385,7 +2411,7 @@ stub DeltaCompoundClass::Decode object, 25 bytes
 msg 769 AVATAR_DESCRIPTION (97) size 264: cpacket.cpp's handler
 gen SClient::Unknown_74C3B0
 msg 770 OBJECT_EFFECT (9) size 19: cpacket.cpp's handler
-stub Unknown_6E9490 desc 727 effect 48901060 duration 0 time 2142308900 scale 1.00 hsv (0.00 0.00 0.00) 1.00 -1 0
+stub Unknown_6E9490 desc 727 effect 48901060 duration 0 time 1965671 scale 1.00 hsv (0.00 0.00 0.00) 1.00 -1 0
 stub Unknown6E9490TargetClass::Unknown_28 48887635
 mainview 7C
 mainview 64
@@ -2405,6 +2431,9 @@ msg 776 MESSAGE_STRING (29) size 46: cpacket.cpp's handler
 stub SClient::Unknown_74D990 0x0 'Your shield begins to recharge faster.' 0
 msg 777 MESSAGE_STRING (29) size 34: cpacket.cpp's handler
 stub SClient::Unknown_74D990 0x0 'Sai'li's Circle installed.' 0
+msg 778 CLIENT_SET_TIME (52) size 16: cpacket.cpp's handler
+stub SClient::Unknown_74D990 0x17 'rtt = 4291026440  correction = 2140347096' 0
+state CLIENT_SET_TIME correction 2140347096 rtt -3940856
 msg 779 AUX_DATA (27) size 38: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode player, 28 bytes
 msg 780 AUX_DATA (27) size 43: cpacket.cpp's handler
@@ -2425,7 +2454,7 @@ msg 790 ADVANCED_POSITIONAL_UPDATE (62) size 50: cpacket.cpp's handler
 msg 791 ADVANCED_POSITIONAL_UPDATE (62) size 50: cpacket.cpp's handler
 msg 792 ADVANCED_POSITIONAL_UPDATE (62) size 54: cpacket.cpp's handler
 msg 793 OBJECT_EFFECT (9) size 19: cpacket.cpp's handler
-stub Unknown_6E9490 desc 23 effect 48901090 duration 0 time 2142324500 scale 1.00 hsv (0.00 0.00 0.00) 1.00 -1 0
+stub Unknown_6E9490 desc 23 effect 48901090 duration 0 time 1977404 scale 1.00 hsv (0.00 0.00 0.00) 1.00 -1 0
 stub Unknown6E9490TargetClass::Unknown_28 48900994
 mainview 7C
 mainview 64
@@ -2996,7 +3025,8 @@ check every message taken off the connection: ok
 CREATE x202: 202 objects in the table with the packet's game id, type, base asset and a model; REMOVE x4: 4 gone
 check every CREATE 4 put a new object with its game id, type, base asset and model in the table: ok
 check every REMOVE 7 took its object out of the table: ok
-recorded START (5) x1
-recorded CLIENT_SET_TIME (52) x3
-recorded 4, through cpacket.cpp's handlers 996
+START x1, CLIENT_SET_TIME x2
+check every START 5 set +0x1138 to its PlayerID and sent REQUEST_TIME 68 and START_ACK 6 with it: ok
+check every CLIENT_SET_TIME 52 set the clock offset +0x10C0, cleared +0x10C8 / +0x10D0 and stored the round trip time in 0xBE71D4: ok
+recorded 0, through cpacket.cpp's handlers 1000
 == done: 0 checks failed

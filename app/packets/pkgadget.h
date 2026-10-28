@@ -25,7 +25,7 @@ public:
 	GadgetPacketClass(RawPacketClass *raw);	// 0x887A20
 	virtual ~GadgetPacketClass();	// +0x00 0x8879F0 / 0x887AF0
 	virtual RawPacketClass *Build();	// +0x04 0x887B30
-	virtual bool Process_Packet(void *client);	// +0x08 0x739180 (not rebuilt)
+	virtual bool Process_Packet(void *client);	// +0x08 0x739180 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x887C10
 	virtual int Print(char *buffer, int len);	// +0x10 0x887C30
 	virtual int Get_Channel() { return(-2); }	// +0x18 0x887990

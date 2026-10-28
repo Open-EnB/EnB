@@ -311,8 +311,8 @@ Handler = slot +0x08 (all in cpacket.cpp unless noted). "Object" = `Find_Object(
 
 | Op | Name (the Net-7 opcode table / class) | Handler | What it changes | State |
 |---|---|---|---|---|
-| 4 | CREATE / CreatePacketClass | 0x733700 | a new ClientObjectClass (or 24 / 28 subclass), its model, aux root, attachment points; `Add_Object`; type 10 also an influence record (+0x86C) | not rebuilt |
-| 5 | START / StartPacketClass | 0x733440 | SClient 0x745160, 0x692330; sends REQUEST_TIME and START_ACK (no object) | not rebuilt |
+| 4 | CREATE / CreatePacketClass | 0x733700 | a new ClientObjectClass (or 24 / 28 subclass), its model, aux root, attachment points; `Add_Object`; type 10 also an influence record (+0x86C) | exact (CR1) |
+| 5 | START / StartPacketClass | 0x733440 | +0x1138 = PlayerID; SClient 0x745160 (+0x1198 cleared, the cockpit's 0x584A60), the loading view's 0x692330; sends REQUEST_TIME 68 and START_ACK 6 (PlayerID) (no object) | NOT EXACT register-only [partial] |
 | 7 | REMOVE / RemovePacketClass | 0x7362F0 | §2.3: Remove_Object, children detached and deleted, `delete` | exact |
 | 8 | SIMPLE_POSITIONAL_UDPATE | 0x733DC0 | +0x98 type 3; lag average | NOT EXACT inline-budget [partial] |
 | 9 | OBJECT_EFFECT | 0x734DF0 | eff_o.cpp's factory 0x6E9490, the unary end (slot +0x10) takes GameID (its slot +0x28), `Add_Effect` | exact (EF1: +0x10C0 read as a DurationClass) |
@@ -325,41 +325,67 @@ Handler = slot +0x08 (all in cpacket.cpp unless noted). "Object" = `Find_Object(
 | 16 | DECAL | 0x735DF0 | shiputils 0x80E8C0 on the model (SClient +0x1334's INI) | exact |
 | 17 | COLORIZATION | 0x735ED0 | the regions at +0xC8, shiputils 0x80EFF0 on the model | exact |
 | 25 | SET_TARGET | 0x7363E0 | `object(Unknown10)->0x70E750(TargetID)` when 0x6F5DC0 | exact |
-| 27 | AUX_DATA | 0x7364C0 | §2.4: the object's (or the player's +0x12C0) Delta tree | NOT EXACT register-only [parked] |
-| 28 | PLAYER_VAR_AUX_DATA | 0x736650 | SClient +0x12C4[GameID]'s tree | NOT EXACT register-only [parked] |
+| 27 | AUX_DATA | 0x7364C0 | §2.4: the object's (or the player's +0x12C0) Delta tree | exact (81eba3a: +0x10C0 a DurationClass) |
+| 28 | PLAYER_VAR_AUX_DATA | 0x736650 | SClient +0x12C4[GameID]'s tree | exact (81eba3a) |
 | 37 | ITEM_BASE | 0x7371B0 | an item template into the +0xC94 table | exact |
-| 38 | CHANGE_BASE_ASSET | 0x737400 | a new model (0x6F5140 + Set_Model 0x6F33F0); SClient 0x74D950 | not rebuilt |
+| 38 | CHANGE_BASE_ASSET | 0x737400 | a new model (0x6F5140 + Set_Model 0x6F33F0); SClient 0x74D950 | exact (CR1) |
 | 42 / 43 | SET_ZBAND / SET_BBOX | 0x737520 / 0x737590 | the client's +0x10D4..+0x10E8 bounds (slot +0x24 clamps positions to them) | exact |
 | 47-50 | INIT / ACTIVATE / ACTIVATE_NEXT / DEACTIVATE_RENDER_STATE | 0x737610, 0x7376F0, 0x7377C0, 0x737890 | the model's rs_track render states (Class_ID 0x10001) | exact |
-| 52 | CLIENT_SET_TIME | 0x737960 | the time base +0x10C0 ('rtt = %u  correction = %d') | not rebuilt [partial] |
-| 55 | CLIENT_AVATAR | 0x733590 | +0x112C = AvatarID; the avatar's model LOD bias | NOT EXACT shape [parked] |
-| 58 | SERVER_HANDOFF | 0x737CB0 | +0x10C0 and the handoff state | NOT EXACT order-only [parked] |
+| 52 | CLIENT_SET_TIME | 0x737960 | the time base +0x10C0 = the server clock's offset, +0x10C8 / +0x10D0 (the lag average) cleared, 0xBE71D4 = the round trip time (postate.cpp's blend time); 'rtt = %u  correction = %d' in debug mode | NOT EXACT shape [parked] |
+| 55 | CLIENT_AVATAR | 0x733590 | +0x112C = AvatarID; the avatar's model LOD bias | exact (b7375ed) |
+| 58 | SERVER_HANDOFF | 0x737CB0 | +0x10C0 and the handoff state | exact (81eba3a) |
 | 62 | ADVANCED_POSITIONAL_UPDATE | 0x734130 | +0x98 type 4 (own) / 8 (others) | NOT EXACT inline-budget [partial] |
-| 63 | PLANET_POSITIONAL_UPDATE | 0x734A40 | +0x98 type 5 | NOT EXACT register-only [parked] |
+| 63 | PLANET_POSITIONAL_UPDATE | 0x734A40 | +0x98 type 5 | exact (bfa8b4f) |
 | 64 | CONSTANT_POSITIONAL_UPDATE | 0x733C80 | +0x98 type 1, slot +0x3C | exact |
 | 65 | FORMATION_POSITIONAL_UPDATE | 0x734740 | +0x98 type 4 / 8 from the formation | NOT EXACT shape [partial] |
 | 66 | SERVER_PARAMETERS | 0x737F00 | fog, debris mode, impulse rate (+0x10EC..+0x110C) | exact |
-| 70 | COMPONENT_POSITIONAL_UPDATE | 0x734BF0 | +0x98 type 11 (asserts `obj->Is_Component()`) | NOT EXACT register-only [parked] |
+| 70 | COMPONENT_POSITIONAL_UPDATE | 0x734BF0 | +0x98 type 11 (asserts `obj->Is_Component()`) | exact (bfa8b4f) |
 | 71 | CLIENT_SHIP | 0x733660 | `Set_Ship_ID` (+0x1130) | exact |
 | 74 | CREATE_ATTACHMENT | 0x733BB0 | `parent->Unknown_0C(child, slot, 0)` (0x725610: the child hung on a bone) | exact |
 | 97 | AVATAR_DESCRIPTION | 0x733B10 | SClient 0x74C3B0(GameID, Desc) | exact |
 | 100 | CLIENT_DAMAGE / DamagePacketClass | 0x738970 | floating damage text over the player's avatar (Get_Avatar) | NOT EXACT frame [partial] |
-| 103 | GadgetPacketClass | 0x739180 | 0x661940 / 0x6603A0 / 0x6607D0 (*guess*: the cockpit's gadget slots) | not rebuilt |
+| 103 | GadgetPacketClass | 0x739180 | the gadget named Name in SClient +0x1278's list (gadget_list_manager.cpp 0x661940); Function's bits switch its interface and slots (below) | exact (CP1) |
 | 137-139 | RELATIONSHIP / reaction / ATTACKER_UPDATES | 0x7398E0, 0x7399D0, 0x739AC0 | co_player_relationship.cpp 0x70CC40 / 0x70CC90 / 0x70CD50: +0x12C, PlayerObjectRelationshipChangeEvent | exact |
-| 140 | LOOT_HULK_PERMISSION | 0x7396F0 | the hulk's loot flag | NOT EXACT shape [parked] |
-| 144 | IncapacitanceDetailsPacket | 0x739BB0 | camera mode (0x79B2B0) and 0x584690 | not rebuilt |
+| 140 | LOOT_HULK_PERMISSION | 0x7396F0 | the hulk's loot flag | exact (8a65b8f) |
+| 144 | IncapacitanceDetailsPacket | 0x739BB0 | the camera's mode 0x19 (0x79B2B0); the cockpit (main view +0x1D0) 0x584690 gets the packet (no object) | exact (CP1) |
 | 146 | CAMERA_CONTROL | 0x739FF0 | camera mode; the SClient's watched ids +0x13AC..+0x13BC; the ship's 0x6FC950 / 0x6FC880 when docking | exact |
 | 165 | CLIENT_CHAT_EVENT | 0x73B150 | the chat panel / group (no object) | NOT EXACT inline-budget [partial] |
 | 178 | NAME_DECAL | 0x735FC0 | `DecalName` (+0xD8) and shiputils 0x80FF20 on the model | exact |
 | 180 | SUBPARTS | 0x733A50 | `object->0x6FEF70(packet)` (co.cpp, not rebuilt) | exact |
 
-Of the 107 opcodes handled in cpacket.cpp: 62 exact, 15 NOT EXACT (5 register-only, 5 shape, 3
-inline-budget, 1 frame, 1 order-only; [partial] / [parked] are their `attempts.csv` rows), 30 not
-rebuilt (the object-free ones not listed above: TRADE 31 0x739DE0, VerbList 91 0x7387F0, MessageChatstream 95
+Of the 107 opcodes handled in cpacket.cpp (2026-10-28, CP1): 80 exact, 8 NOT EXACT (8 and 62 inline-budget, 65 and
+52 shape, 100 frame, 165 inline-budget, 5 register-only, STARBASE_SET 79 shape; [partial] / [parked] are their
+`attempts.csv` rows), 19 not rebuilt (the counts before CP1's recount were 62 / 15 / 30; the object-free ones not
+listed above, as they were then: TRADE 31 0x739DE0, VerbList 91 0x7387F0, MessageChatstream 95
 0x736F10, FIND_MEMBER 83, STARBASE_AVATAR / ROOM_CHANGE 158 / 160, CLIENT_CHAT_LIST / ERROR 164 / 166,
 NoteContent 184, CTA_RESPONSE 189, the guild 200 / 204 / 208 / 216, the GM 234 / 235, the recustomize
 129 / 131 / 133). Note that most rebuilt handlers call into code that is not rebuilt (postate.cpp,
 eff_o.cpp, shiputils.cpp, co.cpp's members): exact handlers do not yet make a working client.
+
+**Field to member, the handlers rebuilt on 2026-10-28 (CP1; clienttest drives each one):**
+
+* START 5 (pkstart.cpp: `PlayerID` +0x0C): the client's +0x1138 (`Unknown1138`, the constructor's `rand()`, which
+  LOGOFF_REQUEST later sends back) takes PlayerID; SClient 0x745160 clears +0x1198 and calls the cockpit's
+  0x584A60; the loading view (+0x1368) gets 0x692330; then the client sends REQUEST_TIME 68 (TimeSent stamped by
+  Build) and START_ACK 6 with the same PlayerID, both as stack temporaries. clienttest (3): alex3's one START.
+* CLIENT_SET_TIME 52 (pkrequesttime.cpp: ClientSent +0x0C, ServerReceived +0x10, ServerSent +0x14, ClientReceived
+  +0x18 stamped by the raw constructor): each widened to `__int64`; the client's +0x10C0 (the server clock's
+  offset, a DurationClass) = ((ServerReceived + ServerSent) - (ClientSent + ClientReceived)) / 2; +0x10D0 and
+  +0x10C8 (the lag average's count and sum) = 0; the global 0xBE71D4 (postate.cpp's state blend time: the next
+  motion starts half of it ahead) = the round trip (ClientReceived - ClientSent) - (ServerSent - ServerReceived)
+  through DurationClass::As_Int (clamped, duration.h's FAIL_IF 'Time > INT_MAX'); with +0x10 (DebugMode) set, the
+  line 'rtt = %u  correction = %d' goes to SClient 0x74D990 in colour 0x17. clienttest (3): alex3's three, each
+  checked against the packet's fields and the clock.
+* GADGET 103 (pkgadget.cpp: Function +0x0C, Name +0x10): `Name` finds the gadget in SClient +0x1278 (a
+  GadgetListManagerClass, not an int) with 0x661940 (FAIL_IF '!gadget', line 1851); `Function` is a bit set:
+  1 / 2 call the gadget's interface (its slot +0x08, an InterfaceClass with slot +0x8C(bool)) on / off, 4 / 8 the
+  gadget's slot +0x40(bool) on / off, 0x10 gadget.cpp's 0x6603A0(1, the current view's slot +0x1C), 0x20
+  0x6607D0; both of those only with a current view (+0x1350). clienttest (4c): Function 0x3F, 0x14 with no
+  current view, and an unknown name.
+* INCAPACITANCE_DETAILS 144 (pkincapacitancerequest.cpp: Unknown0C, an AvatarDescClass at +0x1C, seven strings):
+  FAIL_IFs '!client' / '!sclient' (lines 2048 / 2051, as 145's); the camera manager (+0x12A8) goes to mode 0x19
+  (one of CAMERA_CONTROL 146's modes too) and the cockpit (main view +0x1D0) takes the whole packet with
+  ui_cpit.cpp's 0x584690 (not rebuilt); nothing in the object model changes. clienttest (4c).
 
 ## 4. Worked example: a ship appears, gets its aux data, and moves
 

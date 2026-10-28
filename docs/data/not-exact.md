@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-328 entries in 71 files.
+330 entries in 71 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -58,9 +58,11 @@ edit the comments in the code, not this file.
 | `app/client/control_keys_manager.cpp:524` | `ControlKeysManager::Save_Keys` | marker | NOT EXACT: shape, 12 rows: the client keeps the 1-based set count in a register (inc at the loop top), ours in a frame slot (attempts.csv) |
 | `app/client/control_keys_manager.cpp:570` | `ControlKeysManager::Reset_Keys` | marker | NOT EXACT: shape, ~56 rows: the client calls 0x71E850 on the whole vector where our erase inlines a copy loop (attempts.csv) |
 | `app/client/control_keys_manager.cpp:639` | `KeyMappingStruct::Get_Key_String` | marker | NOT EXACT: register-only in the failure path (out in ebp, npos in ebx; the client swaps them); erase(0, npos) and resize(0) the same |
+| `app/client/cpacket.cpp:128` | `StartPacketClass::Process_Packet` | marker | NOT EXACT: register-only (the client loads PlayerID for START_ACK into eax before the temporary's lea and stores the EH state after the push; attempts.py show 0x733440) 0x733440 (placed here, out of address order, so that no assert line moves) |
 | `app/client/cpacket.cpp:373` | `SimplePositionalUpdatePacketClass::Process_Packet` | marker | NOT EXACT: inline-budget (the client calls WWMath::Is_Valid_Float out of line for Position's Z, Orientation's Z and W, Velocity's Z; attempts.py show 0x733DC0) 0x733DC0 |
 | `app/client/cpacket.cpp:403` | `AdvancedPositionalUpdatePacketClass::Process_Packet` | marker | NOT EXACT: inline-budget (the client calls WWMath::Is_Valid_Float out of line for Position's Z and Orientation's W; attempts.py show 0x734130) 0x734130 |
 | `app/client/cpacket.cpp:1142` | `FormationPositionalUpdatePacketClass::Process_Packet` | marker | NOT EXACT: shape (the merged Unknown_24 tail sits in the type-4 branch, the client's in the type-8 one; 7 forms; attempts.py show 0x734740) 0x734740 (placed here, out of address order, so that no assert line moves): ADVANCED 62's state handling without its checks and clock drift |
+| `app/client/cpacket.cpp:1341` | `SetClientTimePacketClass::Process_Packet` | marker | NOT EXACT: shape (the __int64 sums and differences in other registers and order; frame and size as the client's; attempts.py show 0x737960) 0x737960 (placed after SPLINE 0x737C10 so that no assert line moves) |
 | `app/client/cpacket.cpp:1513` | `StarbaseSetPacketClass::Process_Packet` | marker | NOT EXACT: shape (the client keeps four calls of 0x74BA30, ours merges them; attempts.py show 0x7381C0) 0x7381C0 |
 | `app/client/cpacket.cpp:1707` | `DamagePacketClass::Process_Packet` | marker | NOT EXACT: frame (the same 487 instructions; the client gives the locals other stack slots: time, inflicted, mainview, avatar_id, type ascending; 5 forms; attempts.py show 0x738970) 0x738970 |
 | `app/client/cpacket.cpp:2488` | `ClientChatEventPacketClass::Process_Packet` | marker | NOT EXACT: inline-budget (1,638 instructions vs the client's 1,615: the client calls std::string's range constructor 0x73F680 out of line and inlines other std::string members elsewhere; frame 0x568 vs 0x558; attempts.py show 0x73B150) 0x73B150 |

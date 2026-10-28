@@ -233,6 +233,7 @@ public:
 	ClientObjectClass *Unknown88;						// +0x88 (the main view's slot +0x5C returns it)
 };
 
+class IncapacitanceDetailsPacket;
 // ui_cpit.cpp's cockpit interface (the main view's +0x1D0), declared as far as cpacket.cpp calls it
 class UICpitClass : public UIUnknownBaseClass, public RefCountClass	// NAME 3: class-from-file (D24) for ui_cpit.cpp
 {
@@ -241,6 +242,7 @@ public:
 	void Unknown_581F90(ClientObjectClass *hulk);		// 0x581F90 (cpacket.cpp: LOOT_HULK_PERMISSION 140)  // NAME 1 [hulk]: the packet's HulkGameID's object
 	void Unknown_5820C0(bool on);						// 0x5820C0 (cpacket.cpp: OPEN_INTERFACE 102 passes UIChange == 0)  // NAME 1 [on]: what the handler passes
 	void Unknown_584A60();								// 0x584A60 (SClient 0x745160)
+	void Unknown_584690(IncapacitanceDetailsPacket *packet);	// 0x584690 (cpacket.cpp: INCAPACITANCE_DETAILS 144)  // NAME 1 [packet]: the handler's packet
 	void Unknown_583DC0(Unknown6D47C0Class *text, Unknown6D47C0Class *header, int inflicted, bool emp);	// 0x583DC0 (cpacket.cpp: CLIENT_DAMAGE 100 for the player's own damage)  // NAME 1 [text, header, inflicted, emp]: what the handler passes
 
 	virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
@@ -572,6 +574,7 @@ class LoadingViewClass : public ViewClass	// NAME 3: class-from-file (D24) for l
 public:
 	LoadingViewClass(ClientTaskClass *task);			// 0x691570  // NAME 1 [task]: SClient::Init passes its task
 	void Unknown_691830(const std::string &source_sector, const std::string &source_system, const std::string &name, const std::string &system);	// 0x691830 (cpacket.cpp: SERVER_HANDOFF 58)  // NAME 1 [source_sector, source_system, name, system]: the packet's fields
+	void Unknown_692330();								// 0x692330 (cpacket.cpp: START 5)
 
 	char Unknown38[0x68 - 0x38];						// +0x38
 	bool Unknown68;										// +0x68 ClientTaskClass::Render renders when it is set

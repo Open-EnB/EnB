@@ -23,6 +23,9 @@
 //     which hand the state's matrix at the client clock to the model's slot +0x50 (Set_Transform);
 //     CHANGE_BASE_ASSET 38 swaps the model, REMOVE 7 deletes the object. (4b): synthetic CREATEs of types 24
 //     and 28 make co_subtypes.cpp's subclasses (no alex3 message has them); SET_TARGET 25 aims type 28.
+//     (3) also checks START 5 (+0x1138, REQUEST_TIME and START_ACK sent) and CLIENT_SET_TIME 52 (the clock
+//     offset +0x10C0, the lag average cleared, the round trip time 0xBE71D4); (4c): synthetic GADGET 103
+//     (the gadget list +0x1278, the gadget's and its interface's slots) and INCAPACITANCE_DETAILS 144.
 //
 // Never: a modal dialog (asserts and FAIL_IF go to the trace), the registry (SOptionsClass's
 // constructor is a stand-in), the network (the memory connection), the game's install folder.
@@ -42,6 +45,8 @@
 #include "..\..\..\app\packets\pkdebug.h"
 #include "..\..\..\app\packets\pkcreate.h"
 #include "..\..\..\app\packets\pkupdate.h"
+#include "..\..\..\app\packets\pkgadget.h"
+#include "..\..\..\app\packets\pkincapacitancerequest.h"
 #include "..\..\..\app\client\aux_roots.h"
 #include "..\..\..\app\client\co_subtypes.h"
 #include "..\..\..\app\shared\px_wrapper.h"
@@ -75,6 +80,7 @@ static void Check(bool ok, const char *what)
 
 // ------------------------------------------------------------------------- what the app files call, functional
 
+extern unsigned int Unknown_BE71D4;	// postate.cpp (CLIENT_SET_TIME 52 stores the round trip time)
 static unsigned int Test_Ticks = 0;
 unsigned int Unknown_Get_Ticks() { return Test_Ticks; }		// the aux-data clock (dbgconn.cpp's rate wrapper; SClient::Do_Frame's clock): 0 but in (4)
 
@@ -674,6 +680,7 @@ static void Test_Packets(SClient *client, const char *path)
 	unsigned ship = client->ShipID;
 	float zmin = client->Unknown10D4, zmax = client->Unknown10D8;
 	int creates = 0, created = 0, removes = 0, removed = 0;
+	int starts = 0, started = 0, set_times = 0, set_timed = 0;
 	while (!Memory->Incoming.empty()) {
 		// one message per call, so that the state after each is traced
 		std::vector<unsigned char> next = Memory->Incoming.front();
@@ -681,9 +688,29 @@ static void Test_Packets(SClient *client, const char *path)
 		std::deque<std::vector<unsigned char> > rest;
 		rest.swap(Memory->Incoming);
 		Memory->Incoming.push_back(next);
+		size_t sent = Memory->Sent.size();
 		client->Process_Packets();
 		Memory->Incoming.swap(rest);
 		int opcode = *(unsigned short *)&next[2];
+		if (opcode == 5 && next.size() >= 4 + 4) {
+			// START (pkstart.cpp: PlayerID): +0x1138 = PlayerID, then REQUEST_TIME 68 and START_ACK 6 (PlayerID) sent
+			int player_id = *(int *)&next[4];
+			starts++;
+			if (client->Unknown1138 == player_id && Memory->Sent.size() == sent + 2 && *(unsigned short *)&Memory->Sent[sent][2] == 68
+				&& *(unsigned short *)&Memory->Sent[sent + 1][2] == 6 && Memory->Sent[sent + 1].size() >= 8 && *(int *)&Memory->Sent[sent + 1][4] == player_id) {
+				started++;
+			}
+		} else if (opcode == 52 && next.size() >= 4 + 12) {
+			// CLIENT_SET_TIME (pkrequesttime.cpp: ClientSent, ServerReceived, ServerSent; ClientReceived the clock):
+			// +0x10C0 = ((SR + SS) - (CS + CR)) / 2, +0x10C8 / +0x10D0 cleared, 0xBE71D4 = (CR - CS) - (SS - SR)
+			__int64 cs = *(unsigned *)&next[4], sr = *(unsigned *)&next[8], ss = *(unsigned *)&next[12], cr = Unknown_Get_Ticks();
+			__int64 correction = ((sr + ss) - (cs + cr)) / 2, rtt = (cr - cs) - (ss - sr);
+			set_times++;
+			Trace("state CLIENT_SET_TIME correction %d rtt %d", (int)correction, (int)rtt);
+			if (client->Unknown10C0.Time == correction && client->Unknown10C8 == 0 && client->Unknown10D0 == 0 && Unknown_BE71D4 == DurationClass(rtt).As_Int()) {
+				set_timed++;
+			}
+		}
 		if (opcode == 4 && next.size() >= 4 + 11) {
 			// CREATE's GameID, Scale, BaseAsset, Type (pkcreate.cpp's order): the object is in the table with them
 			unsigned id = *(unsigned *)&next[4];
@@ -713,6 +740,9 @@ static void Test_Packets(SClient *client, const char *path)
 		creates, created, removes, removed);
 	Check(creates > 0 && created == creates, "every CREATE 4 put a new object with its game id, type, base asset and model in the table");
 	Check(removes > 0 && removed == removes, "every REMOVE 7 took its object out of the table");
+	Trace("START x%d, CLIENT_SET_TIME x%d", starts, set_times);
+	Check(starts > 0 && started == starts, "every START 5 set +0x1138 to its PlayerID and sent REQUEST_TIME 68 and START_ACK 6 with it");
+	Check(set_times > 0 && set_timed == set_times, "every CLIENT_SET_TIME 52 set the clock offset +0x10C0, cleared +0x10C8 / +0x10D0 and stored the round trip time in 0xBE71D4");
 	int recorded = 0;
 	for (std::map<int, int>::iterator it = Recorded.begin(); it != Recorded.end(); it++) {
 		Trace("recorded %s (%d) x%d", Opcode_Name(it->first, 0), it->first, it->second);
@@ -989,6 +1019,97 @@ static void Test_Subtypes(SClient *client)
 	Memory->Received = 0;
 }
 
+// (4c) GADGET 103 (0x739180) and INCAPACITANCE_DETAILS 144 (0x739BB0) from synthetic packets: no alex3 message has
+// them. GADGET finds the gadget by the packet's Name in SClient +0x1278's list (gadget_list_manager.cpp 0x661940,
+// a stand-in here that knows one gadget) and applies Function's bits: 1 / 2 the gadget's interface (slot +0x08)
+// slot +0x8C on / off, 4 / 8 the gadget's slot +0x40 on / off, 0x10 0x6603A0(1, the current view's slot +0x1C),
+// 0x20 0x6607D0 (both only with a current view +0x1350); a Name the list doesn't know takes the FAIL_IF '!gadget'.
+// INCAPACITANCE_DETAILS puts the camera in mode 0x19 and hands the packet to the cockpit (main view +0x1D0, 0x584690).
+class UIGadgetInterfaceClass;
+class GadgetClass
+{
+public:
+	void Unknown_6603A0(int arg, ViewClass *view);
+	void Unknown_6607D0();
+};
+class GadgetListManagerClass
+{
+public:
+	GadgetClass *Unknown_661940(const char *name);
+};
+static std::string Gadget_Log;
+static void *Gadget_Table[32];
+static void *Gadget_Iface_Table[64];
+static FakeTableStruct Fake_Gadget_Iface = { Gadget_Iface_Table };
+static FakeTableStruct Fake_Gadget = { Gadget_Table };
+static FakeTableStruct *__stdcall Gadget_08_Slot() { Gadget_Log += "+08 "; return(&Fake_Gadget_Iface); }
+static void __stdcall Gadget_40_Slot(bool on) { Gadget_Log += on ? "+40(1) " : "+40(0) "; }
+static void __stdcall Gadget_Iface_8C_Slot(bool on) { Gadget_Log += on ? "iface+8C(1) " : "iface+8C(0) "; }
+GadgetClass *GadgetListManagerClass::Unknown_661940(const char *name)
+{
+	Trace("stub GadgetListManagerClass::Unknown_661940 '%s'", name ? name : "(null)");
+	return((name && strcmp(name, "gadget_test") == 0) ? (GadgetClass *)&Fake_Gadget : 0);
+}
+void GadgetClass::Unknown_6603A0(int arg, ViewClass *view) { Gadget_Log += arg == 1 && view ? "6603A0(1, view) " : "6603A0(?) "; }
+void GadgetClass::Unknown_6607D0() { Gadget_Log += "6607D0 "; }
+static void *Incap_Packet = 0;
+static std::string Incap_Name;
+void UICpitClass::Unknown_584690(IncapacitanceDetailsPacket *packet)
+{
+	Trace("stub UICpitClass::Unknown_584690 '%s'", packet ? packet->Unknown0C.c_str() : "(null)");
+	Incap_Packet = packet;
+	Incap_Name = packet ? packet->Unknown0C : "";
+}
+
+static void Test_Gadget(SClient *client, FakeMainViewClass *main_view)
+{
+	Trace("== (4c) GADGET 103 and INCAPACITANCE_DETAILS 144");
+	if (Memory == 0) {
+		Check(false, "the memory connection");
+		return;
+	}
+	for (int g = 0; g < 32; g++) {
+		Gadget_Table[g] = (void *)Zero_Slot;
+	}
+	for (int i = 0; i < 64; i++) {
+		Gadget_Iface_Table[i] = (void *)Zero_Slot;
+	}
+	Gadget_Table[0x08 / 4] = (void *)Gadget_08_Slot;
+	Gadget_Table[0x40 / 4] = (void *)Gadget_40_Slot;
+	Gadget_Iface_Table[0x8C / 4] = (void *)Gadget_Iface_8C_Slot;
+	int list = client->Unknown1278;
+	ViewClass *view = client->CurrentView;
+	static char fake_list[0x40];
+	client->Unknown1278 = (int)fake_list;
+	client->CurrentView = (ViewClass *)main_view;
+
+	Gadget_Log = "";
+	Memory->Incoming.push_back(Built_Message(&GadgetPacketClass(0x3F, "gadget_test")));
+	client->Process_Packets();
+	Trace("gadget calls: %s", Gadget_Log.c_str());
+	Check(Gadget_Log == "+08 iface+8C(1) iface+8C(0) +40(1) +40(0) 6603A0(1, view) 6607D0 ",
+		"GADGET 103 Function 0x3F on 'gadget_test': the interface's +0x8C on and off, the gadget's +0x40 on and off, 0x6603A0(1, view), 0x6607D0");
+	Gadget_Log = "";
+	client->CurrentView = 0;
+	Memory->Incoming.push_back(Built_Message(&GadgetPacketClass(0x14, "gadget_test")));
+	client->Process_Packets();
+	Check(Gadget_Log == "+08 +40(1) ", "GADGET 103 Function 0x14 without a current view: only the gadget's +0x40 on");
+	Gadget_Log = "";
+	Memory->Incoming.push_back(Built_Message(&GadgetPacketClass(0x3F, "gadget_none")));
+	client->Process_Packets();
+	Check(Gadget_Log == "", "GADGET 103 for a gadget the list doesn't know: the FAIL_IF '!gadget', nothing called");
+	client->Unknown1278 = list;
+	client->CurrentView = view;
+
+	Incap_Packet = 0;
+	Incap_Name = "";
+	Memory->Incoming.push_back(Built_Message(&IncapacitanceDetailsPacket("rescuer", AvatarDescClass(), "a", "b", "c", "d", "e", "f", "g")));
+	client->Process_Packets();
+	Check(Incap_Packet != 0 && Incap_Name == "rescuer",
+		"INCAPACITANCE_DETAILS 144: the camera's mode 0x19 (0x79B2B0), then the cockpit's 0x584690 gets the packet (Unknown0C 'rescuer')");
+	Memory->Received = 0;
+}
+
 // ------------------------------------------------------------------------- main
 
 int main(int argc, char **argv)
@@ -1079,6 +1200,7 @@ int main(int argc, char **argv)
 	Test_Refuse(client);
 	Test_Path(client, &main_view);
 	Test_Subtypes(client);
+	Test_Gadget(client, &main_view);
 	if (argc > 2) {
 		Test_Packets(client, argv[2]);
 	}

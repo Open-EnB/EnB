@@ -40,7 +40,7 @@ public:
 	SetClientTimePacketClass(unsigned int client_sent, unsigned int server_received);	// 0x8AAFA0
 	SetClientTimePacketClass(RawPacketClass *raw);	// 0x8AB060
 	virtual RawPacketClass *Build();	// +0x04 0x8AB120
-	virtual bool Process_Packet(void *client);	// +0x08 0x737960 (not rebuilt)
+	virtual bool Process_Packet(void *client);	// +0x08 0x737960 (cpacket.cpp, shape residue)
 	virtual int Get_Data_Size();	// +0x0C 0x8AB200
 	virtual int Print(char *buffer, int len);	// +0x10 0x8AB220
 	virtual int Get_Priority() { return(63); }	// +0x1C 0x8AAFF0

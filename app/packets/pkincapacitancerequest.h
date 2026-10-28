@@ -70,7 +70,7 @@ public:
 	// the destructor is the implicit one: +0x00 0x872840 / 0x872870
 	IncapacitanceDetailsPacket(RawPacketClass *raw);	// 0x872A80
 	virtual RawPacketClass *Build();	// +0x04 0x872F70
-	virtual bool Process_Packet(void *client);	// +0x08 0x739BB0 (cpacket.cpp, not rebuilt)
+	virtual bool Process_Packet(void *client);	// +0x08 0x739BB0 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x873100
 	virtual int Print(char *buffer, int len);	// +0x10 0x873230
 
