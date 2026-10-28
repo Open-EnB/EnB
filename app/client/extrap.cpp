@@ -1966,9 +1966,12 @@ void Unknown714340Class::Unknown_1C(int time, Vector3 *position, Quaternion *ori
 **
 **	client.exe 0x70F040-0x714810: the state nodes postate.cpp's positional states keep. The object ends with
 **	<string>'s guarded static (0x7147F0, std::ctype<unsigned short>::id); postate.cpp starts at 0x714820.
-**	The asserts sit on the client's lines (D25): 238 and 246 (the base's Set_Motion / End_Tilt), 757
-**	(0x710110), 1432-1433 (0x7125F0, inlined in 0x712DB0), 1525 / 1534 (0x712C60 / 0x712CF0, inlined in
-**	0x713370 / 0x713450), 1799 (0x713B00). Not written yet: the motion objects' steps and copies (0x710530,
-**	0x710A20, 0x711050, 0x7115F0, 0x7117D0, 0x713F30, 0x714010, 0x7140E0), the composite's 0x70F630, the blends'
-**	0x7119B0, 0x711D60, 0x712170, 0x712480, 0x712780, 0x712FA0, the orbit 0x713670 and the formation's 0x714410.
+**	The asserts sit on the client's lines (D25): 238 / 246 (the base's Set_Motion / End_Tilt), 349-372 and
+**	399-433 (0x70F630), 757 (0x710110), 1198-1214 (0x7119B0), 1279 / 1286 (0x711D60), 1364 (0x712170),
+**	1416 (0x712480), 1432-1433 (0x7125F0, inlined in 0x712DB0), 1461-1480 (0x712780), 1525 / 1534
+**	(0x712C60 / 0x712CF0, inlined in 0x713370 / 0x713450), 1583 / 1590 (0x712FA0), 1799 (0x713B00).
+**	Every function of the window is written; the NOT EXACT ones say why above them (docs/data/not-exact.md).
+**	Forms that mattered: WW's Equal_Within_Epsilon before Slerp, In_Place_Pre_Rotate_Z for the turn,
+**	`float turn = Unknown80; turn += Unknown50;`, WWMath::Min / Max for the speed, assignment (not
+**	initialisation) of returned Vector3s where the client copies them, end_time (the parameter) in 0x7119B0.
 */
