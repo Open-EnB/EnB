@@ -719,9 +719,12 @@ public:
 	void Unknown_7555B0();								// 0x7555B0 (Shutdown)
 	void Unknown_755600();								// 0x755600 (0x745750, before the +0x1394 values go)
 	void Unknown_743290();								// 0x743290 (cpacket.cpp: LOGOFF_CONFIRMATION 186)
+	void Unknown_74CA70();								// 0x74CA70 (0x69F8F0): +0x1374 = 3
+	bool Unknown_74D730();								// 0x74D730 (camera_manager.cpp 0x799E40): an object's Relationship.IsAttacking is set
 	void Unknown_74D950();								// 0x74D950 (CHANGE_BASE_ASSET 38, after 0x744B60, for the objects 0x6F5A40 picks)
 	bool Unknown_744B60();								// 0x744B60 (cpacket.cpp: REMOVE 7, GROUP 30)
 	void Unknown_74C530(unsigned id);					// 0x74C530 (cpacket.cpp: REMOVE 7 passes its GameID)  // NAME 1 [id]: the packet's GameID
+	bool Unknown_74B5E0();								// 0x74B5E0 (0x639630, 0x63A100): the task's Is_Focused
 	void Unknown_74B600();								// 0x74B600 (cpacket.cpp: mode change 76, mode 0)
 	void Unknown_74B640();								// 0x74B640 (cpacket.cpp: mode change 76, mode 1)
 	void Unknown_74C3B0(int game_id, AvatarDescClass &desc);	// 0x74C3B0 (cpacket.cpp: AVATAR_DESCRIPTION 97 passes its GameID and Desc)  // NAME 1 [game_id, desc]: the packet's fields

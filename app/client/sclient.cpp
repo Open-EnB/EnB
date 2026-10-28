@@ -1437,48 +1437,48 @@ void SClient::Unknown_745E40(int move_direction, bool fixed_speed)
 
 
 
+// 0x74B5E0 (0x639630, 0x63A100)
+bool SClient::Unknown_74B5E0()
+{
+	return(Task->Is_Focused());
+}
 
+// 0x74B600 (cpacket.cpp: mode change 76, mode 0)
+void SClient::Unknown_74B600()
+{
+	Unknown1380 = 0;
+	if (Unknown137C) {
+		MainView->Unknown_514220();
+	} else {
+		MainView->Unknown_5141A0();
+	}
+}
 
+// 0x74B640 (cpacket.cpp: mode change 76, mode 1)
+void SClient::Unknown_74B640()
+{
+	Unknown1380 = 1;
+	if (Unknown137C) {
+		MainView->Unknown_514220();
+	} else {
+		MainView->Unknown_5141E0();
+	}
+}
 
+// 0x74CA70 (0x69F8F0)
+void SClient::Unknown_74CA70()
+{
+	Unknown1374 = 3;
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// 0x74D730 (camera_manager.cpp 0x799E40: some object is attacking, from RELATIONSHIP 137's IsAttacking)
+bool SClient::Unknown_74D730()
+{
+	for (HashNodeClass<ClientObjectClass *> *node = ObjectList.First_Valid(); node; node = node->Next_Valid()) {
+		if (node->Get_Record()->Relationship.IsAttacking) return(true);
+	}
+	return(false);
+}
 
 
 

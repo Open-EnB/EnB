@@ -53,8 +53,6 @@ void SClient::Print(int channel, const char *format, ...)
 void SClient::Unknown_743290() { Trace("stub SClient::Unknown_743290"); }
 bool SClient::Unknown_744B60() { Trace("stub SClient::Unknown_744B60 -> %d", Stub_744B60); return(Stub_744B60); }
 void SClient::Unknown_74C530(unsigned id) { Trace("stub SClient::Unknown_74C530 %u", id); }
-void SClient::Unknown_74B600() { Trace("stub SClient::Unknown_74B600"); }
-void SClient::Unknown_74B640() { Trace("stub SClient::Unknown_74B640"); }
 void SClient::Unknown_74B680(int a, int starbase_id) { Trace("stub SClient::Unknown_74B680 %d %d", a, starbase_id); }
 void SClient::Unknown_74BA30(int a, int starbase_id, int mode) { Trace("stub SClient::Unknown_74BA30 %d %d %d", a, starbase_id, mode); }
 void SClient::Unknown_74D990(int color, char *text, int a)
