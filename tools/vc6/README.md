@@ -55,6 +55,8 @@ python tools/vc6/importer.py add                                                
 python tools/vc6/importer.py assemble --evidence DIR                             DANGER, see below
 ```
 
+**Per-agent scratch (D112).** `importer.py --agent NAME` (or `ENB_AGENT=NAME`; `tryv2.py --agent NAME VARIANTS.py` the same) puts the compile output under `.work/NAME/tmp/enb_import/` instead of the shared `%TEMP%\enb_import`, names the importer lock's owner, and prefixes tryv2's tags (`tryv2-NAME-base`), so concurrent builders stop overwriting each other's objects. With no agent, a run from inside a git worktree other than the main tree takes the worktree's directory name; otherwise the scratch is `%TEMP%\enb_import` and the lock owner USERNAME@host, as before. vc6.py's per-host sync cache stays shared (keyed by host IP).
+
 **`assemble` restarts every library from its base copy.** Never run it on a tree with
 uncommitted work: the git tree is authoritative.
 

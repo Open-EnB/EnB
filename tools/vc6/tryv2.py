@@ -66,6 +66,9 @@ def compile_and_match(paths, tag, extra_inc):
 
 
 def main():
+    if len(sys.argv) == 4 and sys.argv[1] == '--agent':
+        importer.set_agent(sys.argv[2])
+        del sys.argv[1:3]
     if len(sys.argv) != 2:
         raise SystemExit(__doc__)
     spec = runpy.run_path(sys.argv[1])
@@ -84,7 +87,8 @@ def main():
     origs = {f: open(os.path.join(REPO, f), encoding='latin1', newline='').read() for f in touched}
 
     def run(tag):
-        found, text = compile_and_match(paths, 'tryv2-' + tag, extra_inc)
+        ag = os.environ.get('ENB_AGENT')
+        found, text = compile_and_match(paths, 'tryv2-' + (ag + '-' if ag else '') + tag, extra_inc)
         errors = [line for line in text.splitlines() if ' error ' in line]
         return found, errors
 

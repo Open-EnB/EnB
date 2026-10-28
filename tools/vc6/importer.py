@@ -31,6 +31,7 @@ import argparse
 import collections
 import json
 import os
+import re
 import shutil
 import sys
 import threading
@@ -49,7 +50,41 @@ from objmatch import match_objects  # noqa: E402
 EA = r'C:\EnBDevelopment\EA'
 SDK_INCLUDES = [r'C:\EnBDevelopment\SDK\directx8\include', r'C:\EnBDevelopment\SDK\radtools\include_enb']
 STATE = os.path.join(REPO, 'docs', 'data', 'imports.json')
-WORK = os.path.join(os.environ.get('TEMP', '.'), 'enb_import')
+def _worktree_agent():
+    """The git worktree's directory name when cwd is inside a worktree other than the main tree."""
+    import subprocess
+    try:
+        top, common = [subprocess.run(['git', 'rev-parse', a], capture_output=True, text=True, timeout=20).stdout.strip()
+                       for a in ('--show-toplevel', '--git-common-dir')]
+        if top and common:
+            main_top = os.path.dirname(os.path.abspath(common))
+            if os.path.normcase(os.path.abspath(top)) != os.path.normcase(main_top):
+                return os.path.basename(os.path.abspath(top))
+    except Exception:
+        pass
+    return None
+
+
+def _scratch(agent):
+    """Per-agent scratch <repo>/.work/<agent>/tmp/enb_import; without an agent, %TEMP%/enb_import."""
+    if not agent:
+        return os.path.join(os.environ.get('TEMP', '.'), 'enb_import')
+    return os.path.join(REPO, '.work', re.sub(r'[^A-Za-z0-9._-]', '_', agent), 'tmp', 'enb_import')
+
+
+def set_agent(name):
+    """--agent NAME: the lock owner and scratch folder; children inherit ENB_AGENT."""
+    global WORK
+    os.environ['ENB_AGENT'] = name
+    WORK = _scratch(name)
+    os.makedirs(WORK, exist_ok=True)
+
+
+_AGENT = os.environ.get('ENB_AGENT') or _worktree_agent()
+if _AGENT:
+    os.environ['ENB_AGENT'] = _AGENT
+WORK = _scratch(_AGENT)
+os.makedirs(WORK, exist_ok=True)
 
 # One importer at a time: every run that writes WORK or imports.json (main's commands, and the
 # trial/tryvariants/trydiff scripts through compile_and_match and save_state) holds
@@ -4786,7 +4821,12 @@ def main():
                     help='verify/refine: lease K VMs from pool.py for this run (sets ENB_VC6_HOSTS), release after (also on failure)')
     ap.add_argument('--holder-pid', type=int,
                     help="--pool: the lease's long-lived holder pid (default pool.py's: $ENB_HOLDER_PID, $CLAUDE_PID)")
+    ap.add_argument('--agent', metavar='NAME',
+                    help='agent name: lock owner, ENB_AGENT for children, scratch under .work/NAME/tmp '
+                         '(default: the git worktree name, else USERNAME@host)')
     a = ap.parse_args()
+    if a.agent:
+        set_agent(a.agent)
     if a.command in ('plan', 'assemble', 'refine', 'all') and not a.evidence:
         raise SystemExit('--evidence is required')
     hold_lock(a.lock_wait)
