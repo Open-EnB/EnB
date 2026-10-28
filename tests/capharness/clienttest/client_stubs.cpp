@@ -232,6 +232,10 @@ Unknown_C404D8Struct *Unknown_C404D8 = &The_C404D8;
 NameClass::NameClass(const char *) {}
 LookupClass *DeltaCompoundClass::Get_Lookup() { return NULL; }
 DeltaClass *LookupClass::Find(const NameClass &) { return NULL; }
+// the damage state 0x6FE1E0 reads ShieldPercent through the interpolator's Get_Value: Update keeps
+// delta_interpolator.obj (and with it delta.obj) out; no field, never called
+#include "..\..\..\app\shared\auxdata\delta_interpolator.h"
+float DeltaInterpolatorClass::Update(const DurationClass &) { return(0.0f); }
 // the bool field's type global (client 0xC416AC; app.lib has it in aux_roots.obj, which the harness
 // doesn't link)
 #include "..\..\..\app\client\aux_roots.h"

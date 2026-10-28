@@ -256,7 +256,7 @@ public:
 	void Unknown_6FD310();								// 0x6FD310 the damage decals: the aux data's DamageSpot / DamageLine / DamageBlotch items that changed into the three decal pools (NOT EXACT)
 	void Unknown_6FDBD0();								// 0x6FDBD0 the engine sounds: the engine and thrust loops from EngineTrailType, the thrust state from EngineThrustState
 	void Unknown_6FD7A0(RenderObjClass *model);			// 0x6FD7A0 (co.cpp, not rebuilt: the engine sounds call it for a type-1 object in view mode 1 when EngineTrailType changed)  // NAME 1 [model]: what 0x6FDBD0 passes
-	void Unknown_6FE1E0();								// 0x6FE1E0 (co.cpp, not rebuilt: the damage state)
+	void Unknown_6FE1E0();								// 0x6FE1E0 the damage state: the damage sounds of a type-1 object, the shield or hull and the four quadrants' levels (+0x104) into the model
 	void Unknown_7009A0(bool on, bool force);			// 0x7009A0  // NAME 2 [on, force]: what it tests
 	void Unknown_6FEC40(SphereClass *sphere);			// 0x6FEC40 (FAIL_IF '!sphere', l.2232): the bounding sphere in slot +0x28's frame
 	void Unknown_6FEEE0(const RelationshipClass &relationship);	// 0x6FEEE0: sets +0x12C and emits PlayerObjectRelationshipChangeEvent

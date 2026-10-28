@@ -104,19 +104,15 @@ gen SoundManagerClass::Unknown_75B320
 gen ClientObjectClass::Unknown_6F4290
 gen Unknown498C10Class::Unknown_498CC0
 path model Set_Transform (105, 210, 28)
-gen ClientObjectClass::Unknown_6FE1E0
 gen ClientObjectClass::Unknown_6F4290
 gen Unknown498C10Class::Unknown_498CC0
 model Set_Transform (0, 0, 0)
-gen ClientObjectClass::Unknown_6FE1E0
 gen ClientObjectClass::Unknown_6F4290
 gen Unknown498C10Class::Unknown_498CC0
 model Set_Transform (0, 0, 0)
-gen ClientObjectClass::Unknown_6FE1E0
 gen ClientObjectClass::Unknown_6F4290
 gen Unknown498C10Class::Unknown_498CC0
 model Set_Transform (0, 0, 0)
-gen ClientObjectClass::Unknown_6FE1E0
 gen CameraManagerClass::Unknown_799E40
 gen EffectObjectClass::Unknown_6E6AD0
 stub Unknown_6E6A90 297
@@ -153,19 +149,15 @@ gen SoundManagerClass::Unknown_75B320
 gen ClientObjectClass::Unknown_6F4290
 gen Unknown498C10Class::Unknown_498CC0
 path model Set_Transform (110, 220, 26)
-gen ClientObjectClass::Unknown_6FE1E0
 gen ClientObjectClass::Unknown_6F4290
 gen Unknown498C10Class::Unknown_498CC0
 model Set_Transform (0, 0, 0)
-gen ClientObjectClass::Unknown_6FE1E0
 gen ClientObjectClass::Unknown_6F4290
 gen Unknown498C10Class::Unknown_498CC0
 model Set_Transform (0, 0, 0)
-gen ClientObjectClass::Unknown_6FE1E0
 gen ClientObjectClass::Unknown_6F4290
 gen Unknown498C10Class::Unknown_498CC0
 model Set_Transform (0, 0, 0)
-gen ClientObjectClass::Unknown_6FE1E0
 gen CameraManagerClass::Unknown_799E40
 gen MainViewClass::Unknown_513CD0
 gen MainViewClass::Unknown_513D20
@@ -192,19 +184,15 @@ gen SoundManagerClass::Unknown_75B320
 gen ClientObjectClass::Unknown_6F4290
 gen Unknown498C10Class::Unknown_498CC0
 path model Set_Transform (-50, -15, 5)
-gen ClientObjectClass::Unknown_6FE1E0
 gen ClientObjectClass::Unknown_6F4290
 gen Unknown498C10Class::Unknown_498CC0
 model Set_Transform (0, 0, 0)
-gen ClientObjectClass::Unknown_6FE1E0
 gen ClientObjectClass::Unknown_6F4290
 gen Unknown498C10Class::Unknown_498CC0
 model Set_Transform (0, 0, 0)
-gen ClientObjectClass::Unknown_6FE1E0
 gen ClientObjectClass::Unknown_6F4290
 gen Unknown498C10Class::Unknown_498CC0
 model Set_Transform (0, 0, 0)
-gen ClientObjectClass::Unknown_6FE1E0
 gen CameraManagerClass::Unknown_799E40
 gen MainViewClass::Unknown_513CD0
 gen MainViewClass::Unknown_513D20

@@ -2106,104 +2106,104 @@ void ClientObjectClass::Unknown_6FDBD0()
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// shiputils.cpp's damage-state calls, as far as the damage state 0x6FE1E0 makes them (cdecl, not rebuilt): the ship's
+// four quadrant levels and its hull level (type 1), or the hull level with the view (the other types); both return +0x150
+int Unknown_810CF0(RenderObjClass *model, int *levels, int hull_level, ClientClass *client, unsigned id, int unknown);	// 0x810CF0  // NAME 1 [model, levels, hull_level, client, id, unknown]: what 0x6FE1E0 passes
+int Unknown_8117D0(RenderObjClass *model, int hull_level, int number, unsigned id, bool organic, bool view, ClientClass *client, int unknown);	// 0x8117D0  // NAME 1 [model, hull_level, number, id, organic, view, client, unknown]: what 0x6FE1E0 passes
+// a damage fraction's level: 4 from one half, 3 from a quarter, 2 above 0, else 1 (inline in 0x6FE1E0)
+static inline int Unknown_Damage_Level(float damage) { if (damage >= 0.5f) return(4); if (damage >= 0.25f) return(3); if (damage > 0.0f) return(2); return(1); }	// NAME 1 [damage]: what it is
+
+// NOT EXACT: inline budget (the client calls IsOrganic's find 0x7079B0 out of line inside the inlined 0x6F5E40, ours inlines it: six dead finds do it, 2-5 don't; registers follow; attempts.py show 0x6FE1E0)
+// 0x6FE1E0 (the damage state: the damage sounds of a type-1 object, then the shield or hull and the four quadrants' levels into the model)
+void ClientObjectClass::Unknown_6FE1E0()
+{	Unknown_Find_Field<DeltaTemplateClass<int> >(NULL, *(NameClass *)this); Unknown_Find_Field<DeltaTemplateClass<int> >(NULL, *(NameClass *)this); 	// dead finds (root NULL: no code) spend the inline budget (P-IB1-1): the float field's Cast 0x546970 then goes out of line as the client's
+	if (!Unknown_6F5850()) {
+		return;
+	}
+	if (Client && Unknown_6F5A40()) {
+		unsigned now = Client->Unknown10BC;
+		if ((unsigned)Unknown154 < now) {
+			if (Unknown104[0] == 4 || Unknown104[1] == 4 || Unknown104[2] == 4 || Unknown104[3] == 4 || Unknown104[4] == 4) {
+				SoundLibraryClass::Play_3D_Sound("Level_3_Ship_Damage", Unknown_28(true), 2, 1.0f);
+				Unknown154 = now + 4000;
+			} else if (Unknown104[0] == 3 || Unknown104[1] == 3 || Unknown104[2] == 3 || Unknown104[3] == 3 || Unknown104[4] == 3) {
+				SoundLibraryClass::Play_3D_Sound("Level_2_Ship_Damage", Unknown_28(true), 2, 1.0f);
+				Unknown154 = now + 5000;
+			} else if (Unknown104[0] == 2 || Unknown104[1] == 2 || Unknown104[2] == 2 || Unknown104[3] == 2 || Unknown104[4] == 2) {
+				SoundLibraryClass::Play_3D_Sound("Level_1_Ship_Damage", Unknown_28(true), 2, 1.0f);
+				Unknown154 = now + 6000;
+			}
+		}
+	}
+	float hull = 0.0f;
+	if (Unknown_6F5E40()) {
+
+		DeltaInterpolatorClass *t = Unknown_Find_Aux((DeltaInterpolatorClass *)NULL, this, "ShieldPercent");
+		float shield;
+		if (t && t->m_Unknown70) shield = t->Get_Value(DurationClass((unsigned)Client->Unknown10BC));
+		else shield = 1.0f;
+		hull = WWMath::Clamp(1.0f - shield, 0.0f, 1.0f);
+	} else {
+
+		DeltaTemplateClass<float> *points = Unknown_Find_Aux((DeltaTemplateClass<float> *)NULL, this, "HullPoints");
+		if (points && !points->m_Unknown70) points = NULL;
+
+		DeltaTemplateClass<float> *max = Unknown_Find_Aux((DeltaTemplateClass<float> *)NULL, this, "MaxHullPoints");
+		if (max && !max->m_Unknown70) max = NULL;
+		if (points && max && max->Value != 0.0f) {
+			hull = 1.0f - WWMath::Clamp(points->Value / max->Value, 0.0f, 1.0f);
+		}
+	}
+	float quadrant[4];
+	{
+		NameClass name("VisibleQuadrantDamagePercent");
+		DeltaArrayClass<float> *t = Unknown_Find_Field<DeltaArrayClass<float> >((DeltaCompoundClass *)AuxData, name);
+		if (t && !t->m_Unknown70) t = NULL;
+		if (t) {
+			for (int i = 0; i < 4; i++) {
+				quadrant[i] = 1.0f - WWMath::Clamp(Unknown_Get_Item(t, i)->Value, 0.0f, 1.0f);
+			}
+		} else {
+			quadrant[0] = 0.0f;
+			quadrant[1] = 0.0f;
+			quadrant[2] = 0.0f;
+			quadrant[3] = 0.0f;
+		}
+	}
+	int level[4];
+	for (int i = 0; i < 4; i++) {
+		level[i] = Unknown_Damage_Level(quadrant[i]);
+		if (level[i] == Unknown104[i]) level[i] = 0;
+	}
+	int hull_level = Unknown_Damage_Level(hull);
+	if (hull_level == Unknown104[4]) hull_level = 0;
+	if (level[0] == 0 && level[1] == 0 && level[2] == 0 && level[3] == 0 && hull_level == 0) {
+		return;
+	}
+	if (Unknown_6F5A40()) {
+		Unknown150 = Unknown_810CF0(Model, level, hull_level, Client, GameID, Unknown150);
+	} else {
+		bool view = false;
+		switch (((SClient *)Client->Unknown_18())->ViewMode) {
+			case 0:
+				view = false;
+				break;
+			case 1:
+			case 5:
+				view = true;
+				break;
+			default:
+				G_ASSERT(0);
+				break;
+		}
+		bool is_organic = Unknown_6F5E40();
+		Unknown150 = Unknown_8117D0(Model, hull_level, UnknownA8, GameID, is_organic, view, Client, Unknown150);
+	}
+	for (int j = 0; j < 4; j++) {
+		if (level[j]) Unknown104[j] = level[j];
+	}
+	if (hull_level) Unknown104[4] = hull_level;
+}
 
 
 
