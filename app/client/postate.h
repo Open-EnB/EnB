@@ -265,4 +265,28 @@ public:
 	ExtrapClass *Unknown24;						// +0x24 (the last packet's extrapolator)
 };
 
+// Type 12, a straight move from Start to End at Speed from StartTime (vtable 0xB0292C, 0x34 bytes); it holds
+// a second state (+0x24). co.cpp's 0x6F4C20 treats types 12-14 alike
+class Unknown718160Class : public Unknown98Class	// NAME 1: neutral (D10)
+{
+public:
+	Unknown718160Class(Vector3 start, Vector3 end, float speed, int time, Unknown98Class *state);	// 0x718160  // NAME 2 [start, end, speed, time, state]: the members they set
+
+	virtual Unknown98Class *Unknown_28() { return(State); }			// +0x28 0x7182A0
+	virtual void Unknown_24(Unknown98Class *state) { State = state; }	// +0x24 0x7182C0  // NAME 2 [state]: what it sets
+	virtual bool Unknown_2C() { return(true); }						// +0x2C 0x7182E0
+	virtual int Unknown_04();					// +0x04 0x718350 (12)
+	virtual Matrix3D Unknown_08(int time);		// +0x08 0x718370 (looking at End)  // NAME 2 [time]: as the others'
+	virtual Vector3 Unknown_0C(int time);		// +0x0C 0x718410 (the position at that time)  // NAME 2 [time]: as the others'
+	virtual Vector3 Unknown_10(int time);		// +0x10 0x7184A0 (the velocity)  // NAME 2 [time]: as the others'
+	virtual Vector3 Unknown_14(int time);		// +0x14 0x7184E0 (zero)  // NAME 2 [time]: as the others'
+
+	Vector3 Start;					// +0x04  // NAME 2: what it holds
+	Vector3 End;					// +0x10  // NAME 2: what it holds
+	float Speed;					// +0x1C  // NAME 2: what it holds
+	int StartTime;					// +0x20  // NAME 2: what it holds
+	Unknown98Class *State;			// +0x24  // NAME 2: what it holds
+	Vector3 Direction;				// +0x28 (End - Start, normalised)  // NAME 2: what it holds
+};
+
 #endif

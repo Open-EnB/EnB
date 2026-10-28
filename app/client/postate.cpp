@@ -514,6 +514,44 @@ void Unknown717EF0Class::Unknown_718080(ComponentPositionalUpdatePacketClass *pa
 	TractorEffectID = packet->TractorEffectID;
 }
 
+Unknown718160Class::Unknown718160Class(Vector3 start, Vector3 end, float speed, int time, Unknown98Class *state) :
+	Start(start),
+	End(end),
+	Speed(speed),
+	StartTime(time),
+	State(state)
+{
+	Direction = End - Start;
+	Direction.Normalize();
+}
+
+int Unknown718160Class::Unknown_04()
+{
+	return(12);
+}
+
+Matrix3D Unknown718160Class::Unknown_08(int time)
+{
+	Matrix3D transform;
+	transform.Obj_Look_At(Unknown_0C(time), End, 0.0f);
+	return(transform);
+}
+
+Vector3 Unknown718160Class::Unknown_0C(int time)
+{
+	return(Start + (float)(unsigned int)(time - StartTime) * Unknown_10(time));
+}
+
+Vector3 Unknown718160Class::Unknown_10(int time)
+{
+	return(Speed * Direction);
+}
+
+Vector3 Unknown718160Class::Unknown_14(int time)
+{
+	return(Vector3(0.0f, 0.0f, 0.0f));
+}
+
 /*
 **	Reconstruction notes
 **

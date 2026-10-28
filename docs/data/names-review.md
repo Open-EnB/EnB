@@ -10,8 +10,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 34 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 36 |
 | 3 | by convention from a client-named file or sibling | 842 |
-| 2 | describes what the code does | 1998 |
-| 1 | neutral placeholder | 3782 |
+| 2 | describes what the code does | 2010 |
+| 1 | neutral placeholder | 3785 |
 
 ## For review (score 3 and below)
 
@@ -1062,6 +1062,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown717EF0Class` | `app/client/postate.cpp:501` | untagged neutral name (D10) |
 | 1 | `Unknown713C80Class` | `app/client/postate.cpp:503` | untagged neutral name (D10) |
 | 1 | `Unknown_718080` | `app/client/postate.cpp:508` | untagged neutral name (D10) |
+| 1 | `Unknown718160Class` | `app/client/postate.cpp:517` | untagged neutral name (D10) |
 | 1 | `UnknownB026ECClass` | `app/client/postate.h:38` | neutral (D10), named by its vtable |
 | 1 | `Unknown98Class` | `app/client/postate.h:38` | untagged neutral name (D10) |
 | 1 | `state` | `app/client/postate.h:41` | neutral |
@@ -1149,6 +1150,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `time, packet, duration` | `app/client/postate.h:260` | as the base's |
 | 1 | `Unknown20` | `app/client/postate.h:264` | untagged neutral name (D10) |
 | 1 | `Unknown24` | `app/client/postate.h:265` | untagged neutral name (D10) |
+| 1 | `Unknown718160Class` | `app/client/postate.h:270` | neutral (D10) |
+| 1 | `Unknown_2C` | `app/client/postate.h:277` | untagged neutral name (D10) |
 | 1 | `Unknown08` | `app/client/radar_data.h:26` | untagged neutral name (D10) |
 | 1 | `Unknown_719E10` | `app/client/sclient.cpp:28` | untagged neutral name (D10) |
 | 1 | `Unknown_7228C0` | `app/client/sclient.cpp:29` | neutral (D10), as tsk_login.cpp |
@@ -4284,6 +4287,18 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Period` | `app/client/postate.h:246` | what it holds |
 | 2 | `time` | `app/client/postate.h:261` | as the base's |
 | 2 | `MovementID` | `app/client/postate.h:263` | the packet's MovementID |
+| 2 | `start, end, speed, time, state` | `app/client/postate.h:273` | the members they set |
+| 2 | `state` | `app/client/postate.h:276` | what it sets |
+| 2 | `time` | `app/client/postate.h:279` | as the others' |
+| 2 | `time` | `app/client/postate.h:280` | as the others' |
+| 2 | `time` | `app/client/postate.h:281` | as the others' |
+| 2 | `time` | `app/client/postate.h:282` | as the others' |
+| 2 | `Start` | `app/client/postate.h:284` | what it holds |
+| 2 | `End` | `app/client/postate.h:285` | what it holds |
+| 2 | `Speed` | `app/client/postate.h:286` | what it holds |
+| 2 | `StartTime` | `app/client/postate.h:287` | what it holds |
+| 2 | `State` | `app/client/postate.h:288` | what it holds |
+| 2 | `Direction` | `app/client/postate.h:289` | what it holds |
 | 2 | `Unknown_Load_Assets` | `app/client/sclient.cpp:40` | 0x729BF0 (client_lego_impl.cpp), 'cbasset.ini' (as tsk_smovie.cpp) |
 | 2 | `Unknown_Free_Assets` | `app/client/sclient.cpp:41` | 0x729D60 (client_lego_impl.cpp) (as tsk_smovie.cpp) |
 | 2 | `Unknown_Main_Window` | `app/client/sclient.cpp:43` | what Pump_Messages redraws |
