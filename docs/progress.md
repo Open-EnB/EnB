@@ -1348,6 +1348,12 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 
 ## 3. Open decisions
 
+* **P-CR1-1** (2026-10-28, CR1; recommend accept): rename co.h's `UnknownA8` (+0xA8) to `BaseAsset` (NAME 2): CREATE 4
+  and CHANGE_BASE_ASSET 38 store the packet's BaseAsset there and 0x6F39F0 reads it as BASE-n.
+* **P-CR1-3** (2026-10-28, CR1; recommend a provisional name like pkcreate.h's): the object subclasses' run
+  0x70CC90-0x70F1D0 (constructors 0x70E5A0 type 28, 0x70DBC0 / 0x70E2E0 type 24) has no `__FILE__`; pick a
+  provisional file before anyone rebuilds them.
+
 * **P-PF1-1** (2026-10-28, PF1; recommend accept): rename `ClientClass::DebugObjectID` (+0x112C) to the player's
   avatar id (`AvatarID` / `Get_Avatar`): CLIENT_AVATAR 55 sets it from the packet's AvatarID; ADVANCED 62, FORMATION 65
   and 0x6F3C60 use it as the player's own object, DAMAGE 100 as the avatar; only the DEBUG packet's send says "debug".
@@ -1377,7 +1383,7 @@ client's own code: [kernel-map.md](kernel-map.md) §6 and, for step 9's dependen
    MultiFixedPoolDecalSystemClass (layout and vtable 0xB006F4 in co.cpp's notes), then the constructor 0x6F2820 and
    destructor 0x6F2FE0, with T16's co.h list in the same step (Unknown98Class's slots +0x18..+0x2C replacing
    cpacket's Unknown98StateClass, a `std::vector<ColorizationRegionStruct>` at +0xC8, declarations for 0x6F2820 /
-   0x6F5140 / 0x6F33F0; clienttest's `new ClientObjectClass` stand-in changes with them), which unblocks CREATE 4; (2026-10-28: co bases, ctor / dtor exact (CO1); postate.cpp 0 -> 96 pairs, 13 states (PS1); work items: cpacket.cpp to include postate.h and drop its own copies of the state classes, with a verify for line shifts; the .bss int Unknown_BE71D4 now defined in postate.cpp moves to its owner, CLIENT_SET_TIME 0x737960's file or sclient 0x7472A0's, when 0x737960 is rebuilt; postate's NOT EXACT 0x718830 shape, 0x7179A0 / 0x717430 inline budget: tryv2 sweep; extrap.cpp 59 functions replaces clienttest's stand-ins)
+   0x6F5140 / 0x6F33F0; clienttest's `new ClientObjectClass` stand-in changes with them), which unblocks CREATE 4; (2026-10-28: CREATE 4 0x733700, CHANGE_BASE_ASSET 38, Set_Model 0x6F33F0, the loader 0x6F5140 / 0x6F51D0 exact (CR1); work item: RsTrackClass is declared in both cpacket.cpp and co.cpp, move it to app/shared/rs_track.h line-neutral; RenderHookClass's 7-byte destructor 0x6F36F0 wants a D99 exact row; co bases, ctor / dtor exact (CO1); postate.cpp 0 -> 96 pairs, 13 states (PS1); work items: cpacket.cpp to include postate.h and drop its own copies of the state classes, with a verify for line shifts; the .bss int Unknown_BE71D4 now defined in postate.cpp moves to its owner, CLIENT_SET_TIME 0x737960's file or sclient 0x7472A0's, when 0x737960 is rebuilt; postate's NOT EXACT 0x718830 shape, 0x7179A0 / 0x717430 inline budget: tryv2 sweep; extrap.cpp 59 functions replaces clienttest's stand-ins)
    the base's slot +0x04 0x7251C0 (pure placeholder) and its attach / detach rows. cpacket.cpp: CREATE 4, the effect
    family 10/11/... (9's pattern), FORMATION 65, NAME_DECAL 178, CAMERA_CONTROL 146, CLIENT_DAMAGE 100,
    CLIENT_CHAT_EVENT 165; P-T16-2 (Unknown831340Class's 4th constructor parameter is `const RefCountPtr<ItemBaseInfoClass> &`,

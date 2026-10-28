@@ -298,6 +298,9 @@ unless `--lever` cites a new row of this table.
   as four tail-duplicated pushes; an inline helper whose inlined and out-of-line copies must both match took
   `if (a == b) return(true); return(false);`; `Get_Position()` is out of line, the client inlines
   `Get_Transform().Get_Translation()`.
+* **A destructor stores its own vtable first only when it is user-declared (2026-10-28, CR1, 0x6F3770):** if
+  the client's destructor starts with the vtable store, write `virtual ~X() {}`.
+* **A client function called directly, not through a `j_` thunk, is `static`** (2026-10-28, CR1, 0x6F51D0).
 * **A nested inline is a whole-function budget (2026-10-26, `Key_Exchange` 0x829180):** under `/Ob2` an
   inline helper's own callees (a `std::set` iterator's `_Inc`) are inlined only while the function as a
   whole is under budget; removing unrelated code elsewhere in the function flips one nested call, so a
@@ -646,6 +649,8 @@ unless `--lever` cites a new row of this table.
 * **clienttest links build/app/app.lib as it is (2026-10-28, PS1):** run `build.py build --lib app` first; a stale
   lib hid 24 LNK2005 and new unresolved symbols. After a fixpad / assert-line script, check every assert of the
   file, not the first few: a moved line broke postate's type 15 constructor silently.
+* **A rebuilt handler whose callees are generated NULL-returning stand-ins can crash a test program**
+  (2026-10-28, CR1): list it in `gen_stubs.py`'s `NOT_DRIVEN` until its callees exist (CREATE, CHANGE_BASE_ASSET).
 * **clienttest (T9, 2026-10-27; `python tools/harness/clienttest.py build|run`):** hand-written stand-ins must cover
   every member of an app.lib object the program reaches, or the linker pulls the whole object and reports LNK2005 on
   the rest (app.lib changes under you when other builders verify: soptions.obj did). A stand-in object whose real
@@ -660,6 +665,8 @@ unless `--lever` cites a new row of this table.
 
 ### 3.8 Git, docs and scripting hygiene
 
+* **Moving a declaration block "up to the next blank line" cuts classes that contain one** (2026-10-28, CR1,
+  SBaseViewClass): end the block at an explicit marker.
 * **commit_mine keys on a RECONSTRUCTED continuation line must be in the changed line itself** (2026-10-28,
   PS1): a key on the entry's first line misses an edit to its continuation; the hunk lands in the next commit.
 * **The Write tool writes LF:** after writing a tracked doc or source, restore CRLF if the file had
