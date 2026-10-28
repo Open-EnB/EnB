@@ -345,16 +345,19 @@ void Unknown_70CD50(SClient *sclient, PlayerObjectIsAttackingUpdatePacket *packe
 **	Reconstruction notes
 **
 **	The object 0x709EA0-0x70DC00 (asserts' __FILE__ 'e:\build\beta\G\app\Client\co_player_relationship.cpp'):
-**	the static initialisers 0x709EA0 (a PermStringInitClass at 0xBE7078, from a permstr.h include not made yet)
+**	the static initialisers 0x709EA0 (permstr.h's PermStringInitClass at 0xBE7078, through auxdata.h's name.h)
 **	and 0x709EF0 (GutterColors, constructor 0x70CE50, destructor 0x709F40); gutter_color.ini's colour sets
 **	(0x70A010 / 0x70A2E0, the loader 0x70A7E0 sclient.cpp calls, the lookup 0x70ADF0); the dispatcher 0x70B0A0
 **	(radar_data.cpp's callers) over the checks Neutral 0x70B450 (NOT EXACT), Attacking 0x70B790, Group 0x70BC30
 **	(through 0x70BAC0, the GroupInfo aux-data test with asserts on lines 207 / 210 on SClient's AuxData
-**	+0x12C0; rtti.h's DeltaCompoundClass cast 0x598D80 out of line), PVPAttackable 0x70BF90 (through 0x70BF60), Player 0x70C2A0 and the reaction colours 0x70C5D0;
+**	+0x12C0; rtti.h's DeltaCompoundClass cast 0x598D80 out of line), PVPAttackable 0x70BF90 (through 0x70BF60),
+**	Player 0x70C2A0 and the reaction colours 0x70C5D0;
 **	the three packet handlers cpacket.cpp calls (0x70CC40, 0x70CC90, 0x70CD50) and the table's out-of-line
 **	helpers (0x70CDF0-0x70DBC0). Not counted: GutterColorSetStruct's operator= 0x70CAF0 (the client's window
 **	runs on over the four statics' empty atexit destructors 0x70CBC0-0x70CC20), the copies 0x70AC60 / 0x70ACA0
-**	(ambiguous), 0x70B390 / 0x70B3D0 (not emitted yet).
+**	(ambiguous), 0x70B390 / 0x70B3D0 (not emitted yet); the static initialisers (`_$E`, D94); GutterColors' destructor
+**	0x709F40 and the finds 0x70D030 / 0x70D150 (exact, but 25 / 36 copies D80 can't tell apart); its constructor
+**	0x70CE50 (the client inlines vector::size() in the buckets' reserve: inline budget, attempts.py show 0x70CE50).
 **	Forms that mattered: GutterColors is a global (a file static's [8] reference was not matched); the set has
 **	no destructor (a declared one gave the loader's local an EH state); the lookup tests the miss first with a
 **	plain iterator and no dead read; PVPAttackable shares its `return false` tail. The handlers and checks read
