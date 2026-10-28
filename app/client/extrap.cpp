@@ -824,6 +824,76 @@ bool Unknown710110Class::Unknown_7104A0()
 }
 
 
+// NOT EXACT: 0x710530 shape: the speed block as Set_Motion 0x7102B0's (the flag store before the fst, the negation folded)
+Unknown710530Class::Unknown710530Class(AdvancedPositionalUpdatePacketClass *packet)
+{
+	Time = packet->TimeStamp;
+	Transform = Build_Matrix3D(packet->Orientation);
+	Transform.Set_Translation(packet->Position);
+	Speed = packet->CurrentSpeed * 100.0f;
+	Unknown3C = packet->SetSpeed * 100.0f;
+	float diff = Unknown3C - Speed;
+	Unknown40 = true;
+	if (fabs(diff) < 0.0001f) {
+		Unknown44 = 0.0f;
+		Unknown40 = false;
+	} else if (diff > 0.0f) {
+		Unknown44 = packet->Acceleration * 10000.0f;
+	} else if (diff < 0.0f) {
+		Unknown44 = -packet->Acceleration * 10000.0f;
+	}
+	Unknown6C = packet->ImpartedVelocity * 100.0f;
+	if (WWMath::Fabs(Unknown6C.X) >= 0.000001f || WWMath::Fabs(Unknown6C.Y) >= 0.000001f || WWMath::Fabs(Unknown6C.Z) >= 0.000001f) {
+		Unknown78 = (float)pow(0.5, 0.1);
+		Unknown68 = true;
+	} else {
+		Unknown78 = 0.0f;
+		Unknown68 = false;
+	}
+	Unknown80 = packet->ImpartedSpin * 100.0f;
+	if (fabs(Unknown80) > 0.000001f) {
+		Unknown7C = true;
+		Unknown84 = Unknown78;
+	} else {
+		Unknown84 = 0.0f;
+		Unknown7C = false;
+	}
+	Unknown8C = packet->ImpartedRoll * 100.0f;
+	if (fabs(Unknown8C) > 0.000001f) {
+		Unknown88 = true;
+		Unknown90 = Unknown78 * Unknown78;
+	} else {
+		Unknown90 = 0.0f;
+		Unknown88 = false;
+	}
+	Unknown98 = packet->ImpartedPitch * 100.0f;
+	if (fabs(Unknown98) > 0.000001f) {
+		Unknown94 = true;
+		Unknown9C = Unknown78 * Unknown78;
+	} else {
+		Unknown9C = 0.0f;
+		Unknown94 = false;
+	}
+	Unknown5C = (float)acos(Transform[2][2]);
+	if (Transform[2][0] > 0.0f) {
+		Unknown5C *= -1.0f;
+	}
+	Unknown60 = packet->RotY * 100.0f;
+	Unknown58 = (fabs(Unknown60) > 0.000001f);
+	Unknown64 = packet->DesiredY;
+	if (fabs(Unknown64) > WWMATH_PI) {
+		Unknown64 = (Unknown60 >= 0.0f) ? WWMATH_PI : -WWMATH_PI;
+	}
+	Unknown50 = packet->RotZ * 100.0f;
+	Unknown4C = Transform.Get_Z_Rotation();
+	Unknown48 = (fabs(Unknown50) > 0.000001f);
+	Unknown54 = packet->DesiredZ;
+	if (fabs(Unknown54) > 3.0f * WWMATH_PI && Unknown50 < 0.0f) {
+		Unknown54 = -fabs(Unknown54);
+	}
+}
+
+
 bool Unknown710530Class::Unknown_711490()
 {
 	if (Unknown6C.Length2() <= 0.000001f && fabs(Unknown44) <= 0.000001f && fabs(Speed) >= 0.000001f && fabs(Unknown3C) >= 0.000001f) {
@@ -886,76 +956,6 @@ Vector3 Unknown710530Class::Unknown_20()
 {
 	return(Vector3(0.0f, Unknown64, Unknown54));
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

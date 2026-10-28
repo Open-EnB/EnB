@@ -243,8 +243,7 @@ static void Stand_In_State(Vector3 *position, Quaternion *orientation, Vector3 *
 }
 void Unknown70F4F0Class::Unknown_1C(int, Vector3 *p, Quaternion *o, Vector3 *v, float *s, Vector3 *r, bool) { Stand_In_State(p, o, v, s, r); }
 void Unknown713520Class::Unknown_1C(int, Vector3 *p, Quaternion *o, Vector3 *v, float *s, Vector3 *r, bool) { Stand_In_State(p, o, v, s, r); }
-// the advanced motion object: at rest at the origin, stepped 100 ms at a time
-Unknown710530Class::Unknown710530Class(AdvancedPositionalUpdatePacketClass *packet) { Trace("stub Unknown710530Class::Unknown710530Class %u stamp %d", packet->GameID, (int)packet->TimeStamp); Time = packet->TimeStamp; Transform.Make_Identity(); Speed = Unknown3C = Unknown44 = Unknown50 = Unknown54 = Unknown5C = Unknown60 = Unknown64 = 0; Unknown40 = Unknown48 = Unknown58 = false; Unknown6C = Vector3(0, 0, 0); }
+// the advanced motion object's steps: its clock only, 100 ms at a time
 void Unknown710530Class::Unknown_711050() { Time -= 100; }
 void Unknown710530Class::Unknown_08() { Time += 100; }
 // client.cpp's mount buffer insert 0x725E70 (not rebuilt; Add reaches it since f6b75ef, a nested struct gen_stubs.py cannot write)
