@@ -27,6 +27,7 @@
 #include "vector.h"
 #include "vector3.h"
 #include "intersec.h"
+#include "w3derr.h"
 #include <deque>
 #include <vector>
 #include <hash_map.h>
@@ -105,7 +106,7 @@ public:
 	virtual ~ViewClass();								// +0x00 (Shutdown deletes through it; the main view's destructor calls 0x65A760)
 	virtual void Unknown_04();							// +0x04 Init calls it after construction
 	virtual void Unknown_08();							// +0x08 Init (the main view, +0x1358)
-	virtual void Unknown_0C(bool on);					// +0x0C Process_Packets passes true to the loading view
+	virtual int Unknown_0C(bool on);					// +0x0C Process_Packets passes true to the loading view (the main view's renders and returns a WW3DErrorType)
 	virtual void Unknown_10();							// +0x10 Shutdown
 	virtual void Unknown_14();							// +0x14 SClient::Do_Frame: the current view's, after Process_AI
 	virtual void Unknown_18(int arg);					// +0x18 (0x514CF0)  // NAME 1 [arg]: neutral
@@ -117,13 +118,13 @@ public:
 	virtual int Unknown_30() { return(0); }				// +0x30 0x50B6C0
 	virtual int Unknown_34() { return(0); }				// +0x34 0x50B6E0
 	virtual int Unknown_38() { return(0); }				// +0x38 0x50B700
-	virtual int Unknown_3C() { return(Unknown24); }		// +0x3C 0x50B7C0
+	virtual int Unknown_3C() { return((int)Unknown24); }	// +0x3C 0x50B7C0
 	virtual void Unknown_40();							// +0x40 0x65AB10
 	virtual void Unknown_44();							// +0x44 0x65B8D0
-	virtual int Unknown_48() { return(Unknown24); }		// +0x48 0x50B740 (CLIENT_DAMAGE 100 hands its result to Add_Effect)
-	virtual int Unknown_4C() { return(Unknown28); }		// +0x4C 0x50B760
-	virtual int Unknown_50() { return(Unknown1C); }		// +0x50 0x50B780 (the main view's 0x50BA60 holds its result in a RefCountPtr)
-	virtual int Unknown_54() { return(Unknown20); }		// +0x54 0x50B7A0
+	virtual int Unknown_48() { return((int)Unknown24); }	// +0x48 0x50B740 (CLIENT_DAMAGE 100 hands its result to Add_Effect)
+	virtual int Unknown_4C() { return((int)Unknown28); }	// +0x4C 0x50B760
+	virtual int Unknown_50() { return((int)Unknown1C); }	// +0x50 0x50B780 (the main view's 0x50BA60 holds its result in a RefCountPtr)
+	virtual int Unknown_54() { return((int)Unknown20); }	// +0x54 0x50B7A0
 	virtual CameraClass *Unknown_58();					// +0x58 0x514D70
 
 	LoginUnknown0CClass *Get_Unknown04() { return(Unknown04); }	// inline (Do_Frame reads it into eax first)  // NAME 1: neutral (D10): the member it returns
@@ -131,10 +132,10 @@ public:
 
 	LoginUnknown0CClass *Unknown04;						// +0x04 (SClient::Do_Frame: the current view's input dispatcher gets the event the client's +0x1270 didn't take, 0x429A20)
 	char Unknown08[0x1C - 0x08];						// +0x08
-	int Unknown1C;										// +0x1C (slot +0x50)
-	int Unknown20;										// +0x20 (slot +0x54)
-	int Unknown24;										// +0x24 (slots +0x3C, +0x48)
-	int Unknown28;										// +0x28 (slot +0x4C)
+	SimpleSceneClass *Unknown1C;						// +0x1C (slot +0x50; the main view's 0x50CC10 checks its visibility with +0x20)
+	CameraClass *Unknown20;								// +0x20 (slot +0x54)
+	SimpleSceneClass *Unknown24;						// +0x24 (slots +0x3C, +0x48; checked with +0x28)
+	CameraClass *Unknown28;								// +0x28 (slot +0x4C)
 	char Unknown2C[0x34 - 0x2C];						// +0x2C
 	ViewUnknown34Class *Unknown34;						// +0x34 (view.cpp's constructors 0x65A6C0 / 0x65B810 set it; cpacket.cpp's GROUP 30 and DIALOG 98 call it)
 };
@@ -210,6 +211,17 @@ public:
 
 class MainViewClass;
 
+// orbitalmanager.cpp's manager (the main view's +0x140, 0x1D4 bytes), as far as the main view reads it
+class OrbitalManager		// NAME 2: the client's (OrbitalManager::Update)
+{
+public:
+	float Get_Unknown54() const { return(Unknown54); }	// (inline: the main view's 0x50CCF0 copies it through the FPU)  // NAME 1: neutral (D10): the member it returns
+
+	char Unknown00[0x50];								// +0x00
+	float Unknown50;									// +0x50 (the main view's 0x50CCF0: the near plane at a unit FOV)
+	float Unknown54;									// +0x54 (0x50CCF0: the far plane)
+};
+
 // what the main view's +0x48 points to (0x28 bytes, constructor 0x6E2BD0; slot +0x14 calls its +0x34)
 class MainViewUnknown48Class	// NAME 1: neutral (D10)
 {
@@ -272,7 +284,7 @@ public:
 	virtual ~MainViewClass();							// +0x00 0x50B950 (deleting 0x50B900)
 	virtual void Unknown_04();							// +0x04 0x50BA60 (the scenes, the dazzle layers, the radar, the orbitals, the lights, the stars)
 	virtual void Unknown_08();							// +0x08 0x50C690 (settings.ini, the interface)
-	virtual void Unknown_0C(bool on);					// +0x0C 0x50CAE0 (the per-frame render: Render_Initializing / Gas_Giant / Planet / Space_Mode)
+	virtual int Unknown_0C(bool on);					// +0x0C 0x50CAE0 (the per-frame render: Render_Initializing / Gas_Giant / Planet / Space_Mode)
 	virtual void Unknown_10();							// +0x10 0x50C2F0 (Shutdown: the counterpart of +0x04)
 	virtual void Unknown_14();							// +0x14 0x5129D0 (0x512400, then the base's 0x65B470)
 	virtual void Unknown_18(int arg);					// +0x18 0x514930 (hands it to the radar)  // NAME 1 [arg]: neutral
@@ -290,6 +302,21 @@ public:
 	virtual void Add_Object(ClientObjectClass *object);		// +0x80 0x514270 SClient::Add_Object  // NAME 2: its caller's
 	virtual void Remove_Object(ClientObjectClass *object);	// +0x84 0x514390 SClient::Remove_Object  // NAME 2: its caller's
 
+	float Unknown_50CC10();								// 0x50CC10 (the visibility checks; returns PredictiveLODOptimizerClass's total cost)
+	void Unknown_50CCF0(float *znear, float *zfar);	// 0x50CCF0 (FAIL_IF '!znear' l.447, '!zfar' l.448: the clip planes from the FOV and the orbitals)  // NAME 2 [znear, zfar]: the FAIL_IFs'
+	void Unknown_50CE00(float znear, float zfar);		// 0x50CE00 (renders +0x11C)  // NAME 2 [znear, zfar]: Set_Clip_Planes's
+	void Unknown_50CF70();								// 0x50CF70 (0x510D40 with +0x16C)
+	void Unknown_50D060();								// 0x50D060 (renders +0x110)
+	void Unknown_50D1E0();								// 0x50D1E0 (renders +0x114 when +0x130 is set)
+	void Unknown_50D310(float znear, float zfar);		// 0x50D310 (renders the +0x10C scene)  // NAME 2 [znear, zfar]: Set_Clip_Planes's
+	void Unknown_50D430(float znear, float zfar);		// 0x50D430 (renders the dazzle layer)  // NAME 2 [znear, zfar]: Set_Clip_Planes's
+	void Unknown_50D520();								// 0x50D520 (the 2-D overlays, 'PB=%d SB=%d LB=%d LOD=%d')
+	WW3DErrorType Render_Initializing();				// 0x50DA00  // NAME 2: its profile label 'MainView::Render_Initializing'
+	WW3DErrorType Render_Gas_Giant_Mode(float znear, float zfar);	// 0x50DB20  // NAME 2: its profile label
+	WW3DErrorType Render_Space_Mode(float znear, float zfar);	// 0x50E090  // NAME 2: its profile label
+	WW3DErrorType Render_Planet_Mode(float znear, float zfar);	// 0x50E6E0  // NAME 2: its profile label
+	void Update(CameraClass *camera, bool under);		// 0x50F1B0 (the render modes: Render_Planet_Mode passes the camera under the sea level)  // NAME 2: its profile label 'MainView::Update'; NAME 1 [camera, under]: what the callers pass
+	void Unknown_510D40(Vector3 &arg);					// 0x510D40 (0x50CF70 passes +0x16C; dynamic vertex and index buffers)  // NAME 1 [arg]: neutral
 	void Set_Camera(CameraClass *camera);				// 0x5123C0: Init's camera  // NAME 2: what Init hands it
 	void Unknown_5141A0();								// 0x5141A0 (Init, Unknown137C clear)
 	void Unknown_5141E0();								// 0x5141E0
@@ -340,14 +367,14 @@ public:
 	bool Unknown68;										// +0x68 (0x50BA60 sets it)
 	bool Unknown69;										// +0x69 (0x50BA60 sets it; 0x5146D0 tests it)
 	float Unknown6C;									// +0x6C (0x5146D0: 1.2)
-	float Unknown70;									// +0x70 (0x5146D0: the client's +0x1160)
+	int Unknown70;										// +0x70 (0x5146D0: the client's +0x1160; Render_Planet_Mode's polygon budget)
 	float Unknown74;									// +0x74 (0x5146D0: the client's +0x1164)
-	float Unknown78;									// +0x78 (0x5146D0: the client's +0x1158)
+	int Unknown78;										// +0x78 (0x5146D0: the client's +0x1158; Render_Space_Mode's / Gas_Giant's polygon budget)
 	float Unknown7C;									// +0x7C (0x5146D0: the client's +0x1168)
 	RadarSystemClass *Radar;							// +0x80 (cpacket.cpp: WARP_INDEX 156's FAIL_IF '!radar'; 0x50BA60 makes it, 0x7BC770)  // NAME 3: the FAIL_IF's name
 	int Unknown84;										// +0x84 (0x50BA60 makes it: 0x24 bytes, 0x7B6BD0)
 	IntersectionClass Intersection;						// +0x88 (vtable 0xAEA8A0 and its statics in the constructor)  // NAME 2: what it is
-	SceneClass *Scene;									// +0x10C (0x5137F0 adds the land to it through slot +0x0C, Add_Render_Object; 0x50BA60 makes it, 0xF4 bytes, 0x75ECF0)  // NAME 2: what it is
+	SimpleSceneClass *Scene;							// +0x10C (0x5137F0 adds the land to it through slot +0x0C, Add_Render_Object; 0x50BA60 makes it, 0xF4 bytes, 0x75ECF0)  // NAME 2: what it is
 	SimpleSceneClass *Unknown110;						// +0x110 (slot +0x68)
 	SimpleSceneClass *Unknown114;						// +0x114 (slot +0x6C; the stars are added to it)
 	SimpleSceneClass *Unknown118;						// +0x118 (slot +0x70)
@@ -365,9 +392,7 @@ public:
 	RefCountPtr<LightClass> Unknown154[4];				// +0x154 (0x50BA60: four lights, added to +0x120)
 	RefCountPtr<LightClass> Unknown164;					// +0x164 (0x50BA60: one light)
 	bool Unknown168;									// +0x168
-	float Unknown16C;									// +0x16C
-	float Unknown170;									// +0x170
-	float Unknown174;									// +0x174
+	Vector3 Unknown16C;									// +0x16C (0x50CF70 hands it to 0x510D40)
 	Vector3 Unknown178;									// +0x178 (0.5, 0.5, 0.5)
 	Vector3 Unknown184;									// +0x184 (0, 0, 1)
 	float Unknown190;									// +0x190

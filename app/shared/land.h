@@ -202,6 +202,9 @@ public:
 // land; the patch records' tree and shadow buffers from the decorations (0x47A2F0 = VIDTEST 0x416170)
 	void							Create_Decorations(int set);
 	void							Build_Decorations(std::vector<std::string> &names, std::vector<LandDecorationStruct> &decorations);
+// NAME 2: the sea's (mainview's Render_Planet_Mode 0x50E6E0 reads +0xE8 and +0x160: the camera under the sea level)
+	bool							Has_Sea(void) const					{ return HasSea; }
+	float							Get_Sea_Level(void) const				{ return SeaLevel; }
 
 protected:
 // NAME 2: after what they do (0x46C730, 0x46CAE0 (not rebuilt), 0x46D410, 0x46D6B0, 0x46D8B0, 0x46D880)

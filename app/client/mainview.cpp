@@ -10,11 +10,11 @@
 #include "..\shared\stars.h"
 #include "..\..\ww3d2\light.h"
 #include "..\..\ww3d2\camera.h"
-
-
-
-
-
+#include <math.h>
+#include "..\..\ww3d2\ww3d.h"
+#include "..\..\ww3d2\predlod.h"
+#include "..\..\ww3d2\dazzle.h"
+#include "..\..\wwdebug\wwprofile.h"
 
 
 
@@ -162,7 +162,7 @@ MainViewClass::MainViewClass(ClientTaskClass *ctask) :
 	Scene(NULL), Unknown110(NULL), Unknown114(NULL), Unknown118(NULL), Unknown11C(NULL), Unknown120(NULL),
 	DazzleLayer(NULL), Unknown128(0), Camera(NULL), Unknown130(true),
 	Unknown138(NULL), Land(NULL), Orbitals(NULL),
-	Unknown168(false), Unknown16C(0), Unknown170(0), Unknown174(0),
+	Unknown168(false), Unknown16C(0.0f, 0.0f, 0.0f),
 	Unknown178(0.5f, 0.5f, 0.5f), Unknown184(0.0f, 0.0f, 1.0f), Unknown190(0),
 	Unknown194(0.05f), Unknown198(0.1f), Unknown19C(0.1f), Unknown1A0(0.5f), Unknown1A4(true),
 	SeaFogNear(0), SeaFogFar(0), SeaColor(1.0f, 1.0f, 1.0f), Wind(0.0f, 0.0f, 0.0f), Unknown1C8(0), Unknown1CC(false),
@@ -386,11 +386,164 @@ MainViewClass::~MainViewClass()
 
 
 
+int MainViewClass::Unknown_0C(bool on)
+{
+	float znear, zfar;
+	Camera->Get_Clip_Planes(znear, zfar);
+	if (Client->Unknown1198) {
+		return(Render_Initializing());
+	}
+	switch (Client->ViewMode) {
+		case 0:
+			return(Render_Space_Mode(znear, zfar));
+		case 1:
+			return(Render_Planet_Mode(znear, zfar));
+		case 5:
+			return(Render_Gas_Giant_Mode(znear, zfar));
+	}
+	G_ASSERT(0);
+	Camera->Set_Clip_Planes(znear, zfar);
+	Camera->Set_Depth_Range(0.0f, 1.0f);
+	return(WW3D_ERROR_GENERIC);
+}
+
+static const float Unknown110Near = 20.0f;		// NAME 1: neutral (D10): the +0x110 scene's clip planes (client 0xAECF38 / 0xAECF34)
+static const float Unknown110Far = 100000.0f;	// NAME 1: neutral (D10)
+static const float Unknown114Near = 50.0f;		// NAME 1: neutral (D10): the +0x114 scene's (0xAECF40 / 0xAECF3C)
+static const float Unknown114Far = 150.0f;		// NAME 1: neutral (D10)
+static const float Unknown_AECEE8 = 1.0f, Unknown_AECEEC = 1.0f, Unknown_AECEF0 = 1.0f, Unknown_AECEF4 = 0.96f, Unknown_AECEF8 = 0.96f, Unknown_AECEFC = 0.96f, Unknown_AECF00 = 0.95f, Unknown_AECF04 = 1.0f, Unknown_AECF08 = 1.0f, Unknown_AECF0C = 1.0f, Unknown_AECF10 = 0.95f, Unknown_AECF14 = 1.0f, Unknown_AECF18 = 0.975f, Unknown_AECF1C = 0.975f, Unknown_AECF20 = 0.95f, Unknown_AECF24 = 0.95f, Unknown_AECF28 = 0.0f;	// NAME 1: neutral (D10): the depth ranges, by client address
+
+float MainViewClass::Unknown_50CC10()
+{
+	PredictiveLODOptimizerClass::Clear();
+	float znear, zfar;
+	Camera->Get_Clip_Planes(znear, zfar);
+	Camera->Set_Clip_Planes(Unknown110Near, Unknown110Far);
+	Unknown110->Visibility_Check(Camera);
+	Camera->Set_Clip_Planes(Unknown114Near, Unknown114Far);
+	Unknown114->Visibility_Check(Camera);
+	Camera->Set_Clip_Planes(znear, zfar);
+	Unknown1C->Visibility_Check(Unknown20);
+	Unknown24->Visibility_Check(Unknown28);
+	return(PredictiveLODOptimizerClass::Get_Total_Cost());
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+void MainViewClass::Unknown_50CCF0(float *znear, float *zfar)
+{
+	FAIL_IF(!znear) {return;}
+	FAIL_IF(!zfar) {return;}
+	float v = tan(Camera->Get_Vertical_FOV() * 0.5f);
+	float h = tan(Camera->Get_Horizontal_FOV() * 0.5f);
+	*znear = (1.0f / WWMath::Sqrt(h * h + v * v + 1.0f)) * Orbitals->Unknown50;
+	*zfar = Orbitals->Get_Unknown54();
+}
+
+void MainViewClass::Unknown_50CE00(float znear, float zfar)
+{
+	float old_near, old_far;
+	Camera->Get_Clip_Planes(old_near, old_far);
+	float zmin, zmax;
+	Camera->Get_Depth_Range(&zmin, &zmax);
+	if (Client->ViewMode == 0) {
+		Camera->Set_Depth_Range(Unknown_AECF10, Unknown_AECF0C);
+	} else if (Client->ViewMode == 1) {
+		Camera->Set_Depth_Range(Unknown_AECEF4, Unknown_AECEF0);
+	} else if (Client->ViewMode == 5) {
+		Camera->Set_Depth_Range(Unknown_AECF18, Unknown_AECF14);
+	}
+	Camera->Set_Clip_Planes(znear, zfar);
+	WW3D::Render(Unknown11C, Camera);
+	Camera->Set_Clip_Planes(old_near, old_far);
+	Camera->Set_Depth_Range(zmin, zmax);
+}
 
+void MainViewClass::Unknown_50CF70()
+{
+	float old_near, old_far;
+	Camera->Get_Clip_Planes(old_near, old_far);
+	float zmin, zmax;
+	Camera->Get_Depth_Range(&zmin, &zmax);
+	Camera->Set_Depth_Range(Unknown_AECEF8, Unknown_AECEF8);
+	Camera->Set_Clip_Planes(0.0f, 1.0f);
+	Unknown_510D40(Unknown16C);
+	Camera->Set_Clip_Planes(old_near, old_far);
+	Camera->Set_Depth_Range(zmin, zmax);
+}
 
+// NOT EXACT: register / order only (the client reloads ViewMode after the +0x10FA test; ours keeps it in eax); attempts.csv 0x50D060
+void MainViewClass::Unknown_50D060()
+{
+	float old_near, old_far;
+	Camera->Get_Clip_Planes(old_near, old_far);
+	float zmin, zmax;
+	Camera->Get_Depth_Range(&zmin, &zmax);
+	if (Client->ViewMode == 0 || (Client->ViewMode == 1 && Client->Unknown10FA)) {
+		Camera->Set_Depth_Range(Unknown_AECF08, Unknown_AECF04);
+	} else if (Client->ViewMode == 1) {
+		Camera->Set_Depth_Range(Unknown_AECF00, Unknown_AECEFC);
+	} else if (Client->ViewMode == 5) {
+		Camera->Set_Depth_Range(Unknown_AECF20, Unknown_AECF1C);
+	}
+	Camera->Set_Clip_Planes(Unknown110Near, Unknown110Far);
+	WW3D::Render(Unknown110, Camera);
+	Camera->Set_Clip_Planes(old_near, old_far);
+	Camera->Set_Depth_Range(zmin, zmax);
+}
 
+void MainViewClass::Unknown_50D1E0()
+{
+	if (Unknown130) {
+		float old_near, old_far;
+		Camera->Get_Clip_Planes(old_near, old_far);
+		float zmin, zmax;
+		Camera->Get_Depth_Range(&zmin, &zmax);
+		Camera->Set_Depth_Range(Unknown_AECEE8, Unknown_AECEE8);
+		Camera->Set_Clip_Planes(Unknown114Near, Unknown114Far);
+		WW3D::Render(Unknown114, Camera);
+		Camera->Set_Clip_Planes(old_near, old_far);
+		Camera->Set_Depth_Range(zmin, zmax);
+	}
+}
 
+void MainViewClass::Unknown_50D310(float znear, float zfar)
+{
+	float old_near, old_far;
+	Camera->Get_Clip_Planes(old_near, old_far);
+	float zmin, zmax;
+	Camera->Get_Depth_Range(&zmin, &zmax);
+	Camera->Set_Depth_Range(Unknown_AECF28, Unknown_AECF24);
+	Camera->Set_Clip_Planes(znear, zfar);
+	WW3D::Render(Scene, Camera);
+	Camera->Set_Clip_Planes(old_near, old_far);
+	Camera->Set_Depth_Range(zmin, zmax);
+}
 
+void MainViewClass::Unknown_50D430(float znear, float zfar)
+{
+	float old_near, old_far;
+	Camera->Get_Clip_Planes(old_near, old_far);
+	float zmin, zmax;
+	Camera->Get_Depth_Range(&zmin, &zmax);
+	Camera->Set_Depth_Range(Unknown_AECEEC, Unknown_AECEEC);
+	Camera->Set_Clip_Planes(znear, zfar);
+	DazzleLayer->Render(Camera);
+	Camera->Set_Clip_Planes(old_near, old_far);
+	Camera->Set_Depth_Range(zmin, zmax);
+}
 
 
 
@@ -444,295 +597,142 @@ MainViewClass::~MainViewClass()
 
 
 
+WW3DErrorType MainViewClass::Render_Initializing()
+{
+	WWPROFILE("MainView::Render_Initializing");
+	WW3DErrorType error = WW3D::Begin_Render(false, true);
+	if (error != WW3D_ERROR_OK) {
+		return(error);
+	}
+	Unknown_50D520();
+	WW3D::End_Render(true);
+	return(WW3D_ERROR_OK);
+}
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// NOT EXACT: similarity 0.84 (the inlined 0x50CCF0 stores zfar first in the client; scheduling); attempts.csv 0x50DB20
+WW3DErrorType MainViewClass::Render_Gas_Giant_Mode(float znear, float zfar)
+{
+	WWPROFILE("MainView::Render_Gas_Giant_Mode");
+	Update(Camera, false);
+	WW3DErrorType error = WW3D::Begin_Render(false, true);
+	if (error != WW3D_ERROR_OK) {
+		return(error);
+	}
+	DazzleRenderObjClass::Set_Current_Dazzle_Layer(DazzleLayer);
+	Unknown_50CC10(); float cost = PredictiveLODOptimizerClass::Get_Total_Cost();
+	PredictiveLODOptimizerClass::Clear();
+	float old_near, old_far;
+	Camera->Get_Clip_Planes(old_near, old_far);
+	float near2, far2;
+	Unknown_50CCF0(&near2, &far2);
+	Camera->Set_Clip_Planes(near2, far2);
+	Unknown11C->Visibility_Check(Camera);
+	Camera->Set_Clip_Planes(znear, zfar);
+	Scene->Visibility_Check(Camera);
+	Camera->Set_Clip_Planes(old_near, old_far);
+	float budget = (float)Unknown78 - cost;
+	if (budget <= 0.0f) budget = 0.0f;
+	PredictiveLODOptimizerClass::Optimize_LODs(budget);
+	Unknown_50CE00(near2, far2);
+	Unknown_50D060();
+	Unknown_50D310(znear, zfar);
+	Unknown_50D430(near2, far2);
+	Unknown_50D520();
+	WW3D::End_Render(true);
+	return(WW3D_ERROR_OK);
+}
+
+// NOT EXACT: similarity 0.75 (as Render_Gas_Giant_Mode, and the inline choices of 0x50D1E0 / 0x50E6A0); attempts.csv 0x50E090
+WW3DErrorType MainViewClass::Render_Space_Mode(float znear, float zfar)
+{
+	WWPROFILE("MainView::Render_Space_Mode");
+	Update(Camera, false);
+	WW3DErrorType error = WW3D::Begin_Render(Client->Unknown10FA, true);
+	if (error != WW3D_ERROR_OK) {
+		return(error);
+	}
+	DazzleRenderObjClass::Set_Current_Dazzle_Layer(DazzleLayer);
+	Unknown_50CC10(); float cost = PredictiveLODOptimizerClass::Get_Total_Cost();
+	PredictiveLODOptimizerClass::Clear();
+	float old_near, old_far;
+	Camera->Get_Clip_Planes(old_near, old_far);
+	float near2, far2;
+	Unknown_50CCF0(&near2, &far2);
+	Camera->Set_Clip_Planes(near2, far2);
+	Unknown11C->Visibility_Check(Camera);
+	Camera->Set_Clip_Planes(znear, zfar);
+	Scene->Visibility_Check(Camera);
+	Camera->Set_Clip_Planes(old_near, old_far);
+	float budget = (float)Unknown78 - cost;
+	if (budget <= 0.0f) budget = 0.0f;
+	PredictiveLODOptimizerClass::Optimize_LODs(budget);
+	if (!Client->Unknown10FA) {
+		Unknown_50D060();
+		Unknown_50D1E0();
+		Unknown_50CE00(near2, far2);
+	} else {
+		Unknown_50D1E0();
+		Unknown_50CE00(near2, far2);
+		Unknown_50D060();
+	}
+	Unknown_50D310(znear, zfar);
+	Unknown_50D430(near2, far2);
+	Unknown_50D520();
+	WW3D::End_Render(true);
+	return(WW3D_ERROR_OK);
+}
+
+// NOT EXACT: similarity 0.67 (functional from the pseudocode; the inline choices differ); attempts.csv 0x50E6E0
+WW3DErrorType MainViewClass::Render_Planet_Mode(float znear, float zfar)
+{
+	WWPROFILE("MainView::Render_Planet_Mode");
+	Vector3 position = Camera->Get_Position();
+	bool under = false;
+	if (Land) {
+		under = Land->Has_Sea() && Land->Get_Sea_Level() > position.Z;
+		Update(Camera, under);
+	}
+	WW3DErrorType error = WW3D::Begin_Render(!Client->Unknown10FA, true);
+	if (error != WW3D_ERROR_OK) {
+		return(error);
+	}
+	DazzleRenderObjClass::Set_Current_Dazzle_Layer(DazzleLayer);
+	Unknown_50CC10(); float cost = PredictiveLODOptimizerClass::Get_Total_Cost();
+	PredictiveLODOptimizerClass::Clear();
+	float old_near, old_far;
+	Camera->Get_Clip_Planes(old_near, old_far);
+	float near2, far2;
+	Unknown_50CCF0(&near2, &far2);
+	Camera->Set_Clip_Planes(near2, far2);
+	Unknown11C->Visibility_Check(Camera);
+	Camera->Set_Clip_Planes(znear, zfar);
+	Scene->Visibility_Check(Camera);
+	Camera->Set_Clip_Planes(old_near, old_far);
+	float budget = (float)Unknown70 - cost;
+	if (budget <= 0.0f) budget = 0.0f;
+	PredictiveLODOptimizerClass::Optimize_LODs(budget);
+	if (!Client->Unknown10FA) {
+		if (Unknown16C.Length2() < 0.3f && !under) {
+			Unknown_50D1E0();
+		}
+		Unknown_50CE00(near2, far2);
+		if (!under) {
+			Unknown_50CF70();
+			Unknown_50D060();
+		}
+	} else if (!under) {
+		Unknown_50D060();
+		Unknown_50D1E0();
+		Unknown_50CE00(near2, far2);
+	}
+	Unknown_50D310(znear, zfar);
+	Unknown_50D430(near2, far2);
+	Unknown_50D520();
+	WW3D::End_Render(true);
+	return(WW3D_ERROR_OK);
+}
 
 
 
