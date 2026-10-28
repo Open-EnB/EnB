@@ -307,6 +307,134 @@ Unknown70F4F0Class::~Unknown70F4F0Class()
 }
 
 
+// NOT EXACT: 0x70F630 frame: the client's frame is 0x20 (its temporaries share slots), ours 0x38; the cached copy's test is laid out the other way
+void Unknown70F4F0Class::Unknown_1C(int time, Vector3 *position, Quaternion *orientation, Vector3 *velocity, float *speed, Vector3 *rotrate, bool unknown)
+{
+	Unknown710030Class *motion;
+	if (unknown) {
+		motion = Unknown0C;
+		if (motion == 0 || motion->Time > (unsigned int)time) {
+			delete motion;
+			motion = Current->Unknown_0C();
+			Unknown0C = motion;
+		}
+	} else {
+		motion = Current;
+	}
+	unsigned int remainder = (time - motion->Time) % 100;
+	if (remainder == 0) {
+		motion->Unknown_04(time);
+		if (position) {
+			*position = motion->Unknown_10()->Get_Translation();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+			G_ASSERT(position->Is_Valid());
+		}
+		if (orientation) {
+			*orientation = Build_Quaternion(*motion->Unknown_10());
+
+
+			G_ASSERT(orientation->Is_Valid());
+		}
+		if (velocity) {
+			*velocity = motion->Unknown_14() * 0.01f;
+
+
+			G_ASSERT(velocity->Is_Valid());
+		}
+		if (speed) {
+			*speed = motion->Unknown_18() * 0.01f;
+
+
+			G_ASSERT(WWMath::Is_Valid_Float(*speed));
+		}
+		if (rotrate) {
+			*rotrate = motion->Unknown_1C() * 0.01f;
+
+			G_ASSERT(rotrate->Is_Valid());
+		}
+		return;
+	}
+	unsigned int before = time - remainder;
+	motion->Unknown_04(before);
+	Unknown710030Class **next = unknown ? &Unknown10 : &Unknown08;
+	if (*next == 0 || (*next)->Time != before + 100) {
+		if (*next) {
+			delete *next;
+		}
+		*next = motion->Unknown_0C();
+		(*next)->Unknown_04(before + 100);
+	}
+	float t = remainder * 0.01f;
+	if (position) {
+		Vector3 start_vector = motion->Unknown_10()->Get_Translation();
+		Vector3 end_vector = (*next)->Unknown_10()->Get_Translation();
+		Vector3::Lerp(start_vector, end_vector, t, position);
+
+
+
+
+
+
+
+
+		G_ASSERT(position->Is_Valid());
+	}
+	if (orientation) {
+		Quaternion start = Build_Quaternion(*motion->Unknown_10());
+		Quaternion end = Build_Quaternion(*(*next)->Unknown_10());
+		if (Equal_Within_Epsilon(start, end, 0.0001f)) *orientation = start;
+		else Slerp(*orientation, start, end, t);
+
+		G_ASSERT(orientation->Is_Valid());
+	}
+	if (velocity) {
+		Vector3 start_vector = motion->Unknown_14();
+		Vector3 end_vector = (*next)->Unknown_14();
+		*velocity = Lerp(start_vector, end_vector, t) * 0.01f;
+
+
+
+		G_ASSERT(velocity->Is_Valid());
+	}
+	if (speed) {
+		float start = motion->Unknown_18();
+		float end = (*next)->Unknown_18();
+		*speed = WWMath::Lerp(start, end, t) * 0.01f;
+
+
+
+		G_ASSERT(WWMath::Is_Valid_Float(*speed));
+	}
+	if (rotrate) {
+		Vector3 start_vector = motion->Unknown_1C();
+		Vector3 end_vector = (*next)->Unknown_1C();
+		*rotrate = Lerp(start_vector, end_vector, t) * 0.01f;
+
+
+		G_ASSERT(rotrate->Is_Valid());
+	}
+}
+
+
 Vector3 Unknown70F4F0Class::Unknown_18(int time)
 {
 	Unknown710030Class *motion = Unknown08;
@@ -337,134 +465,6 @@ void Unknown710030Class::Unknown_04(unsigned int time)
 		Unknown_08();
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

@@ -230,18 +230,8 @@ UnknownRootClass *UnknownCOClass::Unknown_Create_Aux_Root(int, int) { return(0);
 
 // ------------------------------------------------------------------------- extrap.cpp's state nodes (postate.cpp's)
 
-// postate.cpp and extrap.cpp are in app.lib; what extrap.cpp does not define yet stands in here, every node at
-// rest at the origin (the blends keep their two nodes alive: the states still point at them)
+// postate.cpp and extrap.cpp are in app.lib and define every state node: nothing stands in here
 #include "..\..\..\app\client\postate.h"
-static void Stand_In_State(Vector3 *position, Quaternion *orientation, Vector3 *velocity, float *speed, Vector3 *rotrate)
-{
-	if (position) *position = Vector3(0, 0, 0);
-	if (orientation) *orientation = Quaternion(true);
-	if (velocity) *velocity = Vector3(0, 0, 0);
-	if (speed) *speed = 0;
-	if (rotrate) *rotrate = Vector3(0, 0, 0);
-}
-void Unknown70F4F0Class::Unknown_1C(int, Vector3 *p, Quaternion *o, Vector3 *v, float *s, Vector3 *r, bool) { Stand_In_State(p, o, v, s, r); }
 // client.cpp's mount buffer insert 0x725E70 (not rebuilt; Add reaches it since f6b75ef, a nested struct gen_stubs.py cannot write)
 void UnknownB02C90Class::BufferStruct::Insert(const ElementStruct &, int index) { Trace("stub UnknownB02C90Class::BufferStruct::Insert %d", index); }
 // pkupdate.cpp's 0x8ADB20 (not rebuilt): types 4 and 8 ask it
