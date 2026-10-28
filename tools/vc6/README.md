@@ -31,6 +31,7 @@ A job takes its VMs from `ENB_VC6_HOSTS=Daniel@<ip>[,...]` (printed by `pool.py 
 
 | Script | Does |
 |---|---|
+| `auxpad.py sweep [--from 0 --to 63] [--agent NAME] [--host IP]` / `set N` | `sweep`: compile aux_roots.cpp alone (~5 s a variant, one pool VM leased and released, or `--host`) with each SYMBOL_PAD value and print pad -> which of the six end-of-file constructors are exact, and the all-six windows; the importer lock is taken per variant, not for the sweep (workflow.md 3.3). `set N`: write `SYMBOL_PAD` in `tools/re/auxroots.py` and regenerate aux_roots.h/.cpp |
 | `build.py [--pool K] [--lib X]... [--out DIR] [--allow-dirty] [--root DIR]` | Build each library of the tree into DIR/<lib>/<lib>.lib (L1); refuses a dirty library unless `--allow-dirty`; never assembles. Every build.py command refuses a cwd outside the script's own tree (rootguard.py) |
 | `build.py unresolved [--out DIR] [--report FILE]` | External symbols no library defines, by library and cause |
 | `build.py link [--program vidtest] [--pool K] [--out DIR]` | Compile `programs/<name>` and `stubs/` and link against the libraries (L2); the test programs of `tools/harness` use this step |

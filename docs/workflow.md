@@ -377,7 +377,7 @@ unless `--lever` cites a new row of this table.
   0x758210) along a cycle of 64 of VC6 tie-breaks (scheduling, stack-slot order); each is exact only in a window.
   The lever is `tools/re/auxroots.py`'s `SYMBOL_PAD` (an enum of N enumerators at the end of aux_roots.cpp,
   marked as not the client's; 16 since 45bf5c0, window 15..17). After any change to a header aux_roots.cpp
-  includes, re-sweep the pad (`.work/hx1/exp.py`, aux_roots.cpp alone, ~5 s a variant) and keep a value exact for
+  includes, re-sweep the pad (`tools/vc6/auxpad.py sweep`, aux_roots.cpp alone, ~5 s a variant) and keep a value exact for
   all six. Windows are not pure shifts: a template declaration can move them apart so no pad exists (DeltaArrayClass's
   bounds accessor, P-DF1-2: keep such helpers local to the file). Explicit `template class` instantiations and
   padding between definitions move all six alike; VC6 rejects explicit instantiation of a constructor (C2909).
