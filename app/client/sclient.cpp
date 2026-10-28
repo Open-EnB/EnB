@@ -213,7 +213,7 @@ public:
 	BridgeInterfaceClass(SClient *client);				// 0x53B040
 	~BridgeInterfaceClass();							// 0x53B380
 	void Unknown_53BD40(int camera);					// 0x53BD40 (Do_Frame passes the main view's +0x7C when +0x14 is set)  // NAME 1 [camera]: Process_AI reads that result as a render object's position
-	void Unknown_53BBC0(const RefCountPtr<RefCountClass> &scene);	// 0x53BBC0 (0x744C10: Create_Peek 0x514960 of the main view's slot +0x78 scene, or NULL)  // NAME 1 [scene]: what 0x744C10 passes
+	void Unknown_53BBC0(const RefCountPtr<RefCountClass> &scene); void Unknown_53B7A0(int *value);	// 0x53BBC0 (0x744C10: Create_Peek 0x514960 of the main view's slot +0x78 scene, or NULL); 0x53B7A0 (0x74C3B0: the player's new +0x1394 value's +0xF8)  // NAME 1 [scene, value]: what 0x744C10 / 0x74C3B0 pass
 	char Unknown00[0x14];
 	int Unknown14;										// +0x14 (Do_Frame tests it)
 	char Unknown18[0xC4 - 0x18];
@@ -726,49 +726,49 @@ unsigned SClient::Set_Debug_Object(unsigned id)
 {
 	return(ClientClass::Set_Debug_Object(id));
 }
-// NOT EXACT: shape, 10 masked rows (the effect loop: ours reads the record before the next-node test and loops with a jmp, the client tests the next node again; the dead First_Valid spends the inline budget so that the third list's Remove 0x7572E0 is called out of line, as the client's; 30 forms)
-// 0x744260 (placed in the blank run before 0x744E70's FAIL_IF: no assert line moves)
-void SClient::Process_AI()
+#include "..\packets\pkclientchat.h"
+
+
+
+
+
+
+
+
+
+
+
+// NOT EXACT: register (explain.py register-only, 2 rows): the client loads the dialog's table into eax for the button > 1 call, ours into edx; the packet is a temporary (a named local cost 6 rows)
+// 0x7429B0 (Do_Frame, after the lost-connection check: the reset-ship question; out of line as the client has it)
+#pragma auto_inline(off)
+void SClient::Unknown_7429B0()
 {
-	WWPROFILE("SClient::Process_AI"); Unknown86CList.First_Valid();
+	if (Unknown1378 == 1) {
 
-	// every object's per-frame update (co.cpp's slot +0x20 0x6F3C60)
-	HashNodeClass<ClientObjectClass *> *node = ObjectList.First_Valid();
-	while (node && node->Next()) {
-		node->Get_Record()->Unknown_20();
-		node = node->Next();
-	}
-	if (!CurrentView || CurrentView != Unknown135C) {
-		CameraManager->Unknown_799E40();
-	}
 
-	// the effects that are done: out of the list, then eff_o.cpp's 0x6E6A90
-	HashNodeClass<EffectObjectClass *> *enode = EffectList.First_Valid();
-	while (enode) {
-		EffectObjectClass *effect = enode->Get_Record(); HashNodeClass<EffectObjectClass *> *next = enode->Next(); if (!next) break;
+		FAIL_IF(!CurrentView) return;
+		ViewClass *ui_view = CurrentView->Unknown_1C();
 
-		if (!effect->Unknown_6E6AD0()) {
-			EffectList.Remove(enode);
-			Unknown_6E6A90(effect);
+		FAIL_IF(!ui_view) return;
+		ViewUnknown34Class *dialog = ui_view->Get_Unknown34();
+
+		FAIL_IF(!dialog) return;
+		int button = dialog->Unknown_5890B0("YES_NO");
+		if (button == 1) {
+			dialog->Unknown_5C();
+			Unknown1378 = 0;
+			Send_Packet(&ClientChatPacketClass(AvatarID, "/resetship", 4, NULL));
+
+			return;
+		} else if (button > 1) {
+
+			dialog->Unknown_5C();
+			Unknown1378 = 0;
 		}
-		enode = next;
-	}
-
-	Unknown_7456B0();
-
-	// the third list's records against the main view's camera position: those that refuse go
-	Vector3 position = ((RenderObjClass *)MainView->Unknown_7C())->Get_Position();
-	HashNodeClass<Unknown86CRecordClass *> *rnode = Unknown86CList.First_Valid();
-	while (rnode && rnode->Next()) {
-		HashNodeClass<Unknown86CRecordClass *> *next = rnode->Next();
-		Unknown86CRecordClass *record = rnode->Get_Record();
-		if (!record->Unknown_08(position)) {
-			Unknown86CList.Remove(rnode);
-			delete record;
-		}
-		rnode = next;
 	}
 }
+#pragma auto_inline(on)
+
 
 // sound_manager.cpp's sound manager (the global 0xBE82A4), as far as Do_Frame calls it (cpacket.cpp declares its other members)
 class SoundManagerClass	// NAME 3: class-from-file (D24) for app\client\sound_manager.cpp
@@ -997,49 +997,49 @@ int SClient::Do_Frame(bool focused)
 
 
 
+// NOT EXACT: shape, 10 masked rows (the effect loop: ours reads the record before the next-node test and loops with a jmp, the client tests the next node again; the dead First_Valid spends the inline budget so that the third list's Remove 0x7572E0 is called out of line, as the client's; 30 forms)
+// 0x744260 (placed in the blank run after Do_Frame, before 0x744C10: no assert line moves; no asserts of its own)
+void SClient::Process_AI()
+{
+	WWPROFILE("SClient::Process_AI"); Unknown86CList.First_Valid();
 
+	// every object's per-frame update (co.cpp's slot +0x20 0x6F3C60)
+	HashNodeClass<ClientObjectClass *> *node = ObjectList.First_Valid();
+	while (node && node->Next()) {
+		node->Get_Record()->Unknown_20();
+		node = node->Next();
+	}
+	if (!CurrentView || CurrentView != Unknown135C) {
+		CameraManager->Unknown_799E40();
+	}
 
+	// the effects that are done: out of the list, then eff_o.cpp's 0x6E6A90
+	HashNodeClass<EffectObjectClass *> *enode = EffectList.First_Valid();
+	while (enode) {
+		EffectObjectClass *effect = enode->Get_Record(); HashNodeClass<EffectObjectClass *> *next = enode->Next(); if (!next) break;
 
+		if (!effect->Unknown_6E6AD0()) {
+			EffectList.Remove(enode);
+			Unknown_6E6A90(effect);
+		}
+		enode = next;
+	}
 
+	Unknown_7456B0();
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	// the third list's records against the main view's camera position: those that refuse go
+	Vector3 position = ((RenderObjClass *)MainView->Unknown_7C())->Get_Position();
+	HashNodeClass<Unknown86CRecordClass *> *rnode = Unknown86CList.First_Valid();
+	while (rnode && rnode->Next()) {
+		HashNodeClass<Unknown86CRecordClass *> *next = rnode->Next();
+		Unknown86CRecordClass *record = rnode->Get_Record();
+		if (!record->Unknown_08(position)) {
+			Unknown86CList.Remove(rnode);
+			delete record;
+		}
+		rnode = next;
+	}
+}
 
 
 
@@ -4258,15 +4258,15 @@ void SClient::Unknown_74C370(RefCountClass *object)
 		object->Add_Ref();
 	}
 }
-
-
-
-
-
-
-
-
-
+// NOT EXACT: inline budget (explain.py: 11 calls, the client 7): ours inlines the hash table's resize 0x759660 into operator[] (and so std::__stl_next_prime), the client calls it and its bucket helper 0x756D10
+// 0x74C3B0
+void SClient::Unknown_74C3B0(int game_id, AvatarDescClass &desc)
+{
+	if (Unknown1394.find(game_id) != Unknown1394.end()) return;
+	SClientUnknown1394Class *object = new SClientUnknown1394Class(desc, 0, 0, 0);
+	Unknown1394[game_id] = object;
+	if (AvatarID == (unsigned)game_id) BridgeInterface->Unknown_53B7A0(&object->UnknownF8);
+}
 // 0x74C690
 void SClient::Unknown_74C690()
 {

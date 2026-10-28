@@ -158,7 +158,6 @@ mainview 64
 gen PDAInterfaceUnknownA8Class::Unknown_7C8DB0
 stub RadarSystemClass::Unknown_7BCA70 NULL, scene set
 gen LineDisplaySortClass::~LineDisplaySortClass
-gen SClient::Unknown_7429B0
 gen SClient::Unknown_74EDB0
 gen SClient::Unknown_751660
 gen SClient::Unknown_74F5C0
@@ -199,7 +198,6 @@ mainview 64
 gen PDAInterfaceUnknownA8Class::Unknown_7C8DB0
 stub RadarSystemClass::Unknown_7BCA70 NULL, scene set
 gen LineDisplaySortClass::~LineDisplaySortClass
-gen SClient::Unknown_7429B0
 gen SClient::Unknown_74EDB0
 gen SClient::Unknown_751660
 gen SClient::Unknown_74F5C0
@@ -232,7 +230,6 @@ mainview 64
 gen PDAInterfaceUnknownA8Class::Unknown_7C8DB0
 stub RadarSystemClass::Unknown_7BCA70 NULL, scene set
 gen LineDisplaySortClass::~LineDisplaySortClass
-gen SClient::Unknown_7429B0
 gen SClient::Unknown_74EDB0
 gen SClient::Unknown_751660
 gen SClient::Unknown_74F5C0
@@ -299,7 +296,6 @@ mainview 64
 gen PDAInterfaceUnknownA8Class::Unknown_7C8DB0
 stub RadarSystemClass::Unknown_7BCA70 NULL, scene set
 gen LineDisplaySortClass::~LineDisplaySortClass
-gen SClient::Unknown_7429B0
 gen SClient::Unknown_74EDB0
 gen SClient::Unknown_751660
 gen SClient::Unknown_74F5C0
@@ -1087,7 +1083,8 @@ model 64 Set_LOD_Bias 1e+009
 msg 271 CLIENT_SHIP (71) size 8: cpacket.cpp's handler
 state ship id 48900994
 msg 272 AVATAR_DESCRIPTION (97) size 264: cpacket.cpp's handler
-gen SClient::Unknown_74C3B0
+gen SClientUnknown1394Class::SClientUnknown1394Class
+gen BridgeInterfaceClass::Unknown_53B7A0
 msg 273 COLORIZATION (17) size 138: cpacket.cpp's handler
 stub Unknown_80EFF0 4 regions
 msg 274 DECAL (16) size 58: cpacket.cpp's handler
@@ -2409,7 +2406,7 @@ stub EffectObjectClass::Unknown_6E6ED0 48901077 124
 msg 768 AUX_DATA (27) size 35: cpacket.cpp's handler
 stub DeltaCompoundClass::Decode object, 25 bytes
 msg 769 AVATAR_DESCRIPTION (97) size 264: cpacket.cpp's handler
-gen SClient::Unknown_74C3B0
+gen SClientUnknown1394Class::SClientUnknown1394Class
 msg 770 OBJECT_EFFECT (9) size 19: cpacket.cpp's handler
 stub Unknown_6E9490 desc 727 effect 48901060 duration 0 time 1965671 scale 1.00 hsv (0.00 0.00 0.00) 1.00 -1 0
 stub Unknown6E9490TargetClass::Unknown_28 48887635

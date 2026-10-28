@@ -650,11 +650,13 @@ public:
 	virtual void Unknown_30();
 	virtual void Unknown_34();
 	virtual void Unknown_38();							// +0x38 the destructor calls it before the release
+	SClientUnknown1394Class(AvatarDescClass &desc, int unknown1, int unknown2, int unknown3);	// 0x77B870 (0x384 bytes; SClient 0x74C3B0 passes the AVATAR_DESCRIPTION and three 0)  // NAME 1 [desc, unknown1, unknown2, unknown3]: what 0x74C3B0 passes
 	Unknown77E3F0Class *Unknown_77E3F0();				// 0x77E3F0 (SClient 0x74C7B0)
 	Unknown77E3F0Class *Unknown_77E610();				// 0x77E610 (SClient 0x74C840)
 
 	char Unknown08[0xF8 - 0x08];						// +0x08
-	int UnknownF8;										// +0xF8 (SClient 0x74C960 returns its address)
+	int UnknownF8;										// +0xF8 (SClient 0x74C960 returns its address; 0x74C3B0 hands it to the bridge interface)
+	char UnknownFC[0x384 - 0xFC];						// +0xFC
 };
 
 // What the chat panel's +0x138 points to, as far as SClient 0x744E70 calls it
