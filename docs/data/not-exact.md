@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-326 entries in 71 files.
+328 entries in 71 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -125,6 +125,8 @@ edit the comments in the code, not this file.
 | `app/client/sclient.cpp:442` | `SClient::Init` | marker | NOT EXACT: field offset (explain.py; 103 masked rows): the client keeps the options base (+0x1150) in a register from the Bridge_Mode branch and reads the camera mode through it, and its frame is 4 bytes larger; one form (attempts.py show 0x741180) 0x741180 |
 | `app/client/sclient.cpp:548` | `SClient::Shutdown` | marker | NOT EXACT: shape (explain.py: field offset first; 470 masked rows): the talk tree's reset goes through a null RefCountPtr temporary with its own EH state and the out-of-line assignment 0x758970, and the effect list's removal is inlined differently; one form (attempts.py show 0x741BB0) 0x741BB0 |
 | `app/client/sclient.cpp:729` | `SClient::Process_AI` | marker | NOT EXACT: shape, 10 masked rows (the effect loop: ours reads the record before the next-node test and loops with a jmp, the client tests the next node again; the dead First_Valid spends the inline budget so that the third list's Remove 0x7572E0 is called out of line, as the client's; 30 forms) 0x744260 (placed in the blank run before 0x744E70's FAIL_IF: no assert line moves) |
+| `app/client/sclient.cpp:2062` | `SClient::Unknown_744C10` | marker | NOT EXACT: shape (explain.py): the client keeps the chase module in ecx for the +0x34 test and zeroes the argument before the FAIL_IFs (attempts.py show 0x744C10) 0x744C10 |
+| `app/client/sclient.cpp:2076` | `SClient::Unknown_744D80` | marker | NOT EXACT: shape (explain.py): the client stores Unknown12B0 before Unknown12B4 and pushes Heading before taking the mode's address (attempts.py show 0x744D80) 0x744D80 |
 | `app/client/sclient.cpp:2095` | `SClient::Unknown_744E70` | marker | NOT EXACT: shape (explain.py; 35 masked rows): the client lays the chat panel's false call last and jumps to it from both tests; four forms (attempts.py show 0x744E70) 0x744E70 |
 | `app/client/sclient.cpp:2194` | `SClient::Unknown_7451D0` | marker | NOT EXACT: shape (explain.py; 15 masked rows): the client copies Get_Point's returned point through eax into a local before the fld/fstp into the element; four forms (attempts.py show 0x7451D0) 0x7451D0 |
 | `app/client/sclient.cpp:2273` | `SClient::Unknown_745490` | marker | NOT EXACT: field offset (explain.py; first: the FOV load): sprintf's CameraMode load is scheduled into another register and the Put_Float loads shift; four forms (attempts.py show 0x745490) 0x745490 |

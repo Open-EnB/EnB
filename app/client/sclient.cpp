@@ -114,15 +114,15 @@ public:
 // (RefCountPtr's release reads +0x3C and calls +0x38's slot 0; Shutdown releases the raw pointers so)
 // (UIUnknownBaseClass, their first base, is in sclient.h with pdaint.cpp's PDAInterfaceClass: the main view reads the PDA)
 
+// The camera manager's +0x04, as far as SClient 0x744C10 reads it
+class ChaseCameraModuleClass	// NAME 2: the FAIL_IF '!CameraManager->Get_Player_Chase_Camera_Module()' (0x744C10)
+{
+public:
+	char Unknown00[0x34];
+	bool Unknown34;										// +0x34 (0x744C10 asks the main view's slot +0x78 only when set)
+};
 
-
-
-
-
-
-
-
-
+typedef char Unknown_RefCountPtr_Size[sizeof(RefCountPtr<RefCountClass>)];	// NAME 1: not the client's: instantiates RefCountPtr<RefCountClass>, so 0x744C10's Create_Peek(RefCountClass *) 0x514960 is visible (VC6 injects a template's friends only once it is instantiated)
 
 
 
@@ -213,7 +213,7 @@ public:
 	BridgeInterfaceClass(SClient *client);				// 0x53B040
 	~BridgeInterfaceClass();							// 0x53B380
 	void Unknown_53BD40(int camera);					// 0x53BD40 (Do_Frame passes the main view's +0x7C when +0x14 is set)  // NAME 1 [camera]: Process_AI reads that result as a render object's position
-
+	void Unknown_53BBC0(const RefCountPtr<RefCountClass> &scene);	// 0x53BBC0 (0x744C10: Create_Peek 0x514960 of the main view's slot +0x78 scene, or NULL)  // NAME 1 [scene]: what 0x744C10 passes
 	char Unknown00[0x14];
 	int Unknown14;										// +0x14 (Do_Frame tests it)
 	char Unknown18[0xC4 - 0x18];
@@ -247,7 +247,7 @@ public:
 	void Set_Tilt(float tilt);							// 0x79B3F0  // NAME 2: Init passes the camera mode's Tilt
 	void Set_Elevation_Offset(float offset);			// 0x79B470  // NAME 2: Init passes the camera mode's ElevationOffset
 	void Unknown_79B4B0(bool first_mode);				// 0x79B4B0: Init passes CameraMode == 0  // NAME 1 [first_mode]: what it is
-	void Unknown_799E40();								// 0x799E40 (Process_AI, unless the current view is +0x135C)
+	ChaseCameraModuleClass *Get_Player_Chase_Camera_Module() { return((ChaseCameraModuleClass *)Unknown04); }	void Unknown_799E40();	// inline (0x744C10's FAIL_IF); 0x799E40 (Process_AI, unless the current view is +0x135C)
 
 	int Unknown00;										// +0x00
 	int Unknown04;										// +0x04 (Init and Shutdown hand it to the notifier)
@@ -2059,35 +2059,35 @@ int SClient::Do_Frame(bool focused)
 
 
 
+// NOT EXACT: shape (explain.py): the client keeps the chase module in ecx for the +0x34 test and zeroes the argument before the FAIL_IFs (attempts.py show 0x744C10)
+// 0x744C10
+void SClient::Unknown_744C10()
+{
+	if (!BridgeInterface) return;
+	SimpleSceneClass *scene = NULL;
+	FAIL_IF(!CameraManager) return;
+	FAIL_IF(!CameraManager->Get_Player_Chase_Camera_Module()) return;
+	if (CurrentView == MainView && CameraMode == 0 && Unknown28 && CameraManager->Get_Player_Chase_Camera_Module()->Unknown34) {
+		scene = MainView->Unknown_78();
+	}
+	BridgeInterface->Unknown_53BBC0(Create_Peek((RefCountClass *)scene));
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// NOT EXACT: shape (explain.py): the client stores Unknown12B0 before Unknown12B4 and pushes Heading before taking the mode's address (attempts.py show 0x744D80)
+// 0x744D80
+void SClient::Unknown_744D80()
+{
+	Unknown12B0 = Unknown10BC;
+	Unknown12B4 = 0;
+	CameraModeStruct &mode = CameraModes[CameraMode];
+	CameraManager->Set_Heading(mode.Heading);
+	CameraManager->Set_Distance(mode.Distance);
+	CameraManager->Set_Tilt(mode.Tilt);
+	CameraManager->Set_Elevation_Offset(mode.ElevationOffset);
+	CameraManager->Unknown_79B4B0(CameraMode == 0);
+	CameraManager->FOV = mode.FOV;
+	Unknown_744C10();
+}
 
 
 

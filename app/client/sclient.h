@@ -706,6 +706,7 @@ public:
 	void Unknown_7451D0();								// 0x7451D0 (Init)
 	void Unknown_745350();								// 0x745350 (Init)
 	void Unknown_744C10();								// 0x744C10 (Init, after the camera mode)
+	void Unknown_744D80();								// 0x744D80 (Init's camera block as a function; 0x6B58A0 calls it)
 	void Unknown_744E50();								// 0x744E50: the camera manager's callback (Init registers it, Shutdown removes it)
 	void Unknown_7518A0();								// 0x7518A0 (Init)
 	void Unknown_7511A0();								// 0x7511A0 (the main view's 0x514010, on every view-mode change)
