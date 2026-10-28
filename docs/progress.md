@@ -1309,6 +1309,8 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 | D110 | 2026-10-27 | The decisions audit's changes: D89(4), D105, D72 amended (conflicts); D66 (v), D30, D62, D42, D18, D28, D7 amended (holding back); D67, D75, D79, D32 and the D14 / D29 / D56 / D80 families merged (housekeeping) | user |
 | D111 | 2026-10-27 | E&B's ref_ptr.h: the three EA copies are compared for the lines E&B's version lacks (P-F6-2, after F6 found G_ASSERT(dummy == 0) absent: 964f95e); then client_lego_impl's Remove 0x72C1D0 gets 1-2 more forms (the named lego_id reference, Find's exact form) as a D89(2) retry citing that lever (P-F6-1); Add 0x72B7F0 waits for P-F6-2 | user |
 | D112 | 2026-10-27 | Tools from the traps audit: (1) the importer and tryv2 put scratch under .work/<agent>/tmp when an agent id is set, `--agent` defaults from the worktree name; (2) commit_mine commits a file's `headers` rows, splits attempts.csv and the generated .md files by row, gains `--refresh-totals`, and commits by compare-and-swap (`update-ref` with the old value); (4) tools that write the tree refuse when the working directory isn't their root; (5) `appfile.py match -I auto`, its own lease, objects outside the draft folder; (6) names.py scans untracked files and refreshes not-exact.md. Tool (3), a worktree helper: see the coordinator's comparison with worktrunk | user |
+| D113 | 2026-10-27 | Worktrees get a tool of our own, `tools/vc6/wt.py` (new / bring-over / remove: junctions, captures, libraries, app.lib; bring-over refuses unless master equals the base, merges the row files by row, re-verifies and lands through commit_mine's compare-and-swap), not worktrunk: its setup would still be our hook script, its copy-on-write sharing needs APFS / btrfs / XFS (this host is NTFS), and its squash merge with generated messages conflicts with the one-commit-per-verified-gain history (D112(3)) | user |
+| D114 | 2026-10-27 | (a) D95(b) is closed, superseded by D100 and its refinement (P-M1-1); (b) P-M1-2's wider range (the object's exact COMDATs only it is exact at, within 0x1000 of either end) and (c) P-M1-3's regeneration of symbols.json each get a full verify of every library on a quiet tree, like D88, and are kept only gains-only | user |
 
 ## 3. Open decisions
 
@@ -1319,10 +1321,6 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
   Coordinator's recommendation: accept narrowed to a file-static's constructor / destructor pair proven by its
   initialiser (0x709EF0 registers 0x709F40's atexit), with a full verify on a quiet tree like D88; the finds stay
   tied. Likely also credits inpkeys' 0x42B420 / 0x42B540.
-* **P-M1-1:** close D95(b) as superseded by D100 and its refinement: its case no longer occurs (pkglobalerror's implicit destructor is a plain exact match at 0x595410) and the rule as written loses 5 aux_roots KVPairTemplateClass destructor credits. Recommendation: accept.
-* **P-M1-2:** widen D100's range to the object's exact COMDATs that only that object is exact at, within 0x1000 bytes of either end (+321 at objmatch level, before 9339007; no pairs verify yet; credits none of P-R2-1's or H19's addresses). Recommendation: measure with a full verify on the next quiet tree, then decide.
-* **P-M1-3:** regenerate symbols.json (drops its 132 `_$E` rows; also adds every name found since 72149ba, a matching change in its own right). Recommendation: on a quiet tree with a full verify, like D88.
-
 ## 4. Next steps
 
 Milestones M1 and M2 are met (D42, D63; [milestones.md](milestones.md)). Order and detail of the
