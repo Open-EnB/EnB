@@ -54,16 +54,16 @@ public:
 	MainViewClass *View;							// +0x04  // NAME 2: what it holds
 };
 
+// local_interface_sort.cpp's sort object (8 bytes; ui_line_display.cpp declares it too, with its constructor 0x6E1090)
+class LineDisplaySortClass  // NAME 1: neutral (D10)
+{
+public:
+	LineDisplaySortClass(MainViewClass *view, int arg);	// 0x6E1560 (FAIL_IF '!uiview'; the main view's 0x512A00 passes 0)  // NAME 1 [view, arg]: what 0x512A00 passes
+	~LineDisplaySortClass();							// 0x6E18B0
 
-
-
-
-
-
-
-
-
-
+private:
+	char Unknown00[8];
+};
 
 
 
@@ -1604,15 +1604,15 @@ void MainViewClass::Unknown_14()
 	Unknown48->Unknown_34();
 }
 
-
-
-
-
-
-
-
-
-
+// 0x512A00: every frame while the main view is current (SClient::Do_Frame): inside local_interface_sort.cpp's sort,
+// the radar from the +0x84 object, the PDA's +0xA8 object and the scene
+void MainViewClass::Unknown_512A00()
+{
+	SClient *sclient = (SClient *)Client->Unknown_18();
+	PDAInterfaceClass *pda = sclient->PDAInterface;
+	LineDisplaySortClass sort(this, 0);
+	Radar->Unknown_7BCA70(Unknown84, pda->UnknownA8->Unknown_7C8DB0(true), Create_Peek((SceneClass *)Unknown_64()));
+}
 
 
 
@@ -2373,6 +2373,6 @@ void MainViewClass::Unknown_18(int arg)
 **	the base's own table is 0xAF9854, 0x65B810's). Add_Object 0x514270 / Remove_Object 0x514390: the model's
 **	Set_User_Data, Add to the scene slot +0x64 returns (the +0x10C scene) unless the object's 0x6F5D90 says
 **	otherwise, an identity transform; Remove only in the same case. The constructor is not exact (scheduling)
-**	(attempts.csv 0x50B360). Not rebuilt yet because clienttest drives its stand-in: 0x512A00
-**	(expected.txt 'gen MainViewClass::').
+**	(attempts.csv 0x50B360). All the functions clienttest drives are rebuilt (HN2, MV2).
+**	
 */

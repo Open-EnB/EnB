@@ -42,6 +42,12 @@ public:
 };
 MainViewUnknown84Class::MainViewUnknown84Class(SClient *, const RefCountPtr<RefCountClass> &) { Trace("stub MainViewUnknown84Class::MainViewUnknown84Class (0x7B6BD0)"); }
 
+// the radar's 0x7BCA70 (mainview.cpp's 0x512A00): its const RefCountPtr<T> & parameter is beyond gen_stubs.py (P-T18-2)
+void RadarSystemClass::Unknown_7BCA70(MainViewUnknown84Class *, PDAInterfaceUnknownA0Class *arg, const RefCountPtr<RefCountClass> &scene)
+{
+	Trace("stub RadarSystemClass::Unknown_7BCA70 %s, scene %s", arg ? "an object" : "NULL", scene.Peek() ? "set" : "NULL");
+}
+
 // ------------------------------------------------------------------------- SClient's methods the handlers call (sclient.cpp, not rebuilt)
 
 void SClient::Print(int channel, const char *format, ...)

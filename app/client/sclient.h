@@ -40,6 +40,7 @@ class Font3DInstanceClass;
 class FileClass;
 class RefCountClass;
 class LayerClass;
+class PDAInterfaceUnknownA0Class;	// NAME 1: neutral (D10): what the PDA's +0xA8 object's 0x7C8DB0 returns (its +0xA0)
 class MainViewClass;
 class CameraClass;
 class SceneClass;
@@ -165,8 +166,68 @@ public:
 	void Unknown_7BD920(int index);						// 0x7BD920 (cpacket.cpp: WARP_INDEX 156)  // NAME 1 [index]: the packet's Index
 	void Unknown_7BD6E0(int arg);						// 0x7BD6E0 (the main view's 0x513630)  // NAME 1 [arg]: neutral
 	void Unknown_7BCA40(int arg);						// 0x7BCA40 (the main view's slot +0x18)  // NAME 1 [arg]: neutral
+	void Unknown_7BCA70(MainViewUnknown84Class *object, PDAInterfaceUnknownA0Class *arg, const RefCountPtr<RefCountClass> &scene);	// 0x7BCA70 (the main view's 0x512A00, every frame; the scene's RefCountPtr: VC6 binds Create_Peek(SceneClass *) to 0x50BA60's RefCountPtr<RefCountClass>, and a named RefCountPtr<SceneClass> adds a frame slot the client lacks)  // NAME 1 [object, arg, scene]: what 0x512A00 passes
 
 	char Unknown00[0x50];
+};
+
+// The interface objects' first base (0x38 bytes; sclient.cpp's interface objects, the PDA; the same shape as
+// UIUnknownBaseClass above, not yet merged)
+class SClientUnknownWindowClass	// NAME 1: neutral (D10): their first base (0x38 bytes, the interface base of kernel-map-step9.md 9f)
+{
+public:
+	virtual ~SClientUnknownWindowClass();
+	virtual void Unknown_04();
+	virtual void Unknown_08();
+	virtual void Unknown_0C();
+	virtual void Unknown_10();
+	virtual void Unknown_14();
+	virtual void Unknown_18();
+	virtual void Unknown_1C();
+	virtual void Unknown_20();
+	virtual void Unknown_24();
+	virtual void Unknown_28();
+	virtual void Unknown_2C();
+	virtual void Unknown_30();
+	virtual void Unknown_34();
+	virtual void Unknown_38();
+	virtual void Unknown_3C();
+	virtual void Unknown_40();
+	virtual void Unknown_44();
+	virtual void Unknown_48();
+	virtual void Unknown_4C();
+	virtual void Unknown_50();
+	virtual void Unknown_54();							// +0x54 Init calls it after construction
+	virtual void Unknown_58();
+	virtual void Unknown_5C();
+	virtual void Unknown_60();
+	virtual void Unknown_64();
+	virtual void Unknown_68();
+	virtual void Unknown_6C();
+	virtual void Unknown_70();
+	virtual void Unknown_74();
+	virtual void Unknown_78();
+	virtual void Unknown_7C(ViewClass *view, int arg);	// +0x7C Init: the talk tree gets the main view and 0
+
+	char Unknown04[0x38 - 0x04];
+};
+
+// what the PDA's +0xA8 points to, as far as the main view's 0x512A00 calls it
+class PDAInterfaceUnknownA8Class	// NAME 1: neutral (D10)
+{
+public:
+	PDAInterfaceUnknownA0Class *Unknown_7C8DB0(bool on);	// 0x7C8DB0 (its +0xA0, or NULL when its +0x7C is set and +0xA0's 0x693040 says no)  // NAME 1 [on]: what 0x512A00 passes
+};
+
+// pdaint.cpp's PDA (SClient +0x1284; Init news it, 0xC0 bytes), as far as SClient and the main view's 0x512A00 use it
+class PDAInterfaceClass : public SClientUnknownWindowClass, public RefCountClass
+{
+public:
+	PDAInterfaceClass(SClient *client);					// 0x693140
+
+	char Unknown40[0xA8 - 0x40];
+	PDAInterfaceUnknownA8Class *UnknownA8;				// +0xA8 (0x512A00 calls its 0x7C8DB0)
+	char UnknownAC[0xC0 - 0xAC];
 };
 
 // ui_scan.cpp's scanner (the cockpit's +0xD4), as far as the main view calls it

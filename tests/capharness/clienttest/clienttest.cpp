@@ -112,7 +112,12 @@ struct FakeTableStruct
 };
 static bool Path_Views = false;
 static void *View64_Table[16];
-static FakeTableStruct Fake_View64 = { View64_Table };
+struct FakeRefTableStruct
+{
+	void **Table;
+	int NumRefs;		// 0x512A00 peeks a RefCountPtr of the +0x64 object
+};
+static FakeRefTableStruct Fake_View64 = { View64_Table, 1 };
 static double Fake_Camera_Storage[0x400 / sizeof(double)];
 static char *Fake_Camera = (char *)Fake_Camera_Storage;
 static void __stdcall View64_24_Slot(int arg) { Trace("mainview 64's +0x24 %d", arg); }	// slot +0x64's scene, +0x24 SceneClass::Set_Fog_Enable: one argument, popped
@@ -828,6 +833,14 @@ static void Test_Path(SClient *client, FakeMainViewClass *main_view)
 	client->CurrentView = (ViewClass *)main_view;
 	client->BridgeInterface = (BridgeInterfaceClass *)fake_bridge;
 	Path_Views = true;
+	// 0x512A00 (Do_Frame, the main view current): a radar (its 0x7BCA70 is client_stubs.cpp's) and a PDA whose +0xA8
+	// object's 0x7C8DB0 is a stand-in
+	static char fake_radar[0x50];
+	static char fake_pda_a8[0x100];
+	static char fake_pda[0xC0];
+	*(void **)&fake_pda[0xA8] = fake_pda_a8;
+	*(void **)&main_view->Unknown04[0x80 - 0x04] = fake_radar;
+	client->PDAInterface = (PDAInterfaceClass *)fake_pda;
 	const unsigned id = 4000;
 
 	// CREATE 4: a ship (type 0) of base asset 900 at scale 0.5
@@ -899,6 +912,8 @@ static void Test_Path(SClient *client, FakeMainViewClass *main_view)
 	Check(Model_Deleted(number2) && Models_Alive == alive, "REMOVE 7 deleted the object, its model and its part models");
 
 	Path_Views = false;
+	*(void **)&main_view->Unknown04[0x80 - 0x04] = 0;	// the radar back to NULL (WARP_INDEX 156's FAIL_IF in (3))
+	client->PDAInterface = 0;
 	Test_Ticks = 0;
 	client->Unknown1198 = true;
 	client->CurrentView = 0;
