@@ -978,7 +978,15 @@
    "co_player_relationship": {
     "ambiguous": [
      "0x42A6C0",
-     "0x42B2F0"
+     "0x42A900",
+     "0x42AAE0",
+     "0x42AC90",
+     "0x42AFF0",
+     "0x42B250",
+     "0x42B2F0",
+     "0x42D180",
+     "0x70AC60",
+     "0x70ACA0"
     ],
     "copy": "reconstructed",
     "expected": {},
@@ -987,16 +995,23 @@
      "0x42A940",
      "0x42A970",
      "0x42AB30",
+     "0x42C4E0",
      "0x42CAB0",
      "0x42CD30",
      "0x42D050",
+     "0x42DB00",
      "0x42F250",
      "0x4B58D0",
      "0x70A010",
      "0x70A2E0",
+     "0x70A540",
+     "0x70A7E0",
      "0x70CC40",
      "0x70CC90",
-     "0x70CD50"
+     "0x70CD50",
+     "0x70CE10",
+     "0x70D6D0",
+     "0x70DA40"
     ],
     "merged": [],
     "name": "client/co_player_relationship.cpp"

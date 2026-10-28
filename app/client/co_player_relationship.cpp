@@ -4,11 +4,15 @@
 #include "..\packets\pk_player_object_relationship.h"
 #include "..\shared\unknown_debug.h"
 #include "..\..\wwlib\inisup.h"
+#include "..\..\wwlib\ini.h"
 #include <string>
+#include <hash_map.h>
 
 void Unknown_70CC40(SClient *sclient, PlayerObjectRelationshipPacket *packet);	// NAME 1 [Unknown_70CC40, sclient, packet]: cpacket.cpp's RELATIONSHIP 137 handler
 void Unknown_70CC90(SClient *sclient, PlayerObjectReactionUpdatePacket *packet);	// NAME 1 [Unknown_70CC90, sclient, packet]: cpacket.cpp's 138 handler
 void Unknown_70CD50(SClient *sclient, PlayerObjectIsAttackingUpdatePacket *packet);	// NAME 1 [Unknown_70CD50, sclient, packet]: cpacket.cpp's ATTACKER_UPDATES 139 handler
+void Unknown_70A7E0(const std::string &ini);	// NAME 1 [Unknown_70A7E0]: sclient.cpp's name ('gutter_color.ini')
+void Unknown_4BC260(const char *sender, const char *category, const char *file, int line, const char *format, ...);	// NAME 1 [Unknown_4BC260]: 0x4BC260, E&B's message reporter (buff_database.cpp)
 
 bool String_To_Value(const char *text, Vector3 *value);	// 0x4A3810 (strconv_lib.cpp, not in strconv_lib.h: sscanf "%f %f %f")  // NAME 2: as strconv_lib.h's pairs
 
@@ -25,6 +29,8 @@ struct GutterColorStruct	// NAME 2: what it holds ('Failed to lookup gutter colo
 // The colours of one gutter ini section (0x60 bytes; copied whole by 0x70ACA0)
 struct GutterColorSetStruct	// NAME 2: what it holds
 {
+	GutterColorSetStruct() : Target(Vector3(0.66f, 0.66f, 0.66f), Vector3(0.66f, 0.66f, 0.66f)), Mouse(Vector3(0.66f, 0.66f, 0.66f), Vector3(0.66f, 0.66f, 0.66f)),
+		NotTarget(Vector3(0.66f, 0.66f, 0.66f), Vector3(0.66f, 0.66f, 0.66f)) {}	// 0x70A790 (JumpStart left as it is)
 	GutterColorSetStruct(INISection *section);	// 0x70A010
 	void Read_Color(INISection *section, const std::string &name, GutterColorStruct &color);	// 0x70A2E0 (ecx unused)  // NAME 2: what it does
 
@@ -34,13 +40,7 @@ struct GutterColorSetStruct	// NAME 2: what it holds
 	GutterColorStruct JumpStart;	// +0x48  // NAME 3: the ini name 'JumpStart'
 };
 
-
-
-
-
-
-
-
+static std::hash_map<std::string, GutterColorSetStruct> GutterColors;	// 0xBE70E8 (constructor 0x70CE50, destructor 0x709F40) by ini section  // NAME 2: what it holds
 
 GutterColorSetStruct::GutterColorSetStruct(INISection *section)
 {
@@ -75,6 +75,11 @@ void GutterColorSetStruct::Read_Color(INISection *section, const std::string &na
 	color = GutterColorStruct(color_1, color_2);
 }
 
+GutterColorSetStruct Unknown_70A540()	// NAME 1 [Unknown_70A540]: the default colours by value
+{
+	static GutterColorSetStruct defaults;	// 0xBE6D10 (guard 0xBE7100)  // NAME 2: what it holds
+	return(defaults);
+}
 
 
 
@@ -84,26 +89,21 @@ void GutterColorSetStruct::Read_Color(INISection *section, const std::string &na
 
 
 
+void Unknown_70A7E0(const std::string &filename)
+{
+	INIClass ini;
 
+	FAIL_IF(!ini.Load(filename.c_str())) {
+		Unknown_4BC260("", "Relationship", __FILE__, __LINE__, "Failed to load gutter color ini (%s)", filename.c_str());
+		return;
+	}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	for (INISection *section = ini.Get_Section_List().First_Valid(); section != 0; section = section->Next_Valid()) {
+		GutterColorSetStruct colors(section);
+		std::string name = section->Section;
+		GutterColors[name] = colors;
+	}
+}
 
 
 
