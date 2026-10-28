@@ -6646,6 +6646,46 @@
     "merged": [],
     "name": "shared/auxdata/policy.cpp"
    },
+   "postate": {
+    "ambiguous": [
+     "0x42B2F0",
+     "0x6E6870"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42F250",
+     "0x6F2D70",
+     "0x6F2DA0",
+     "0x6F2FB0",
+     "0x714870",
+     "0x714910",
+     "0x714940",
+     "0x7149D0",
+     "0x714A10",
+     "0x714A60",
+     "0x714AB0",
+     "0x714B00",
+     "0x714B50",
+     "0x714C00",
+     "0x714C70",
+     "0x714D50",
+     "0x715620",
+     "0x7156F0",
+     "0x715800",
+     "0x715850",
+     "0x7158A0",
+     "0x7158F0",
+     "0x715930",
+     "0x7159C0",
+     "0x715AB0",
+     "0x715C20",
+     "0x715CF0",
+     "0x715E60"
+    ],
+    "merged": [],
+    "name": "client/postate.cpp"
+   },
    "sclient": {
     "ambiguous": [
      "0x42A6C0",
@@ -7909,6 +7949,7 @@
    "client/gutter_data.h": "reconstructed",
    "client/navigation_data.h": "reconstructed",
    "client/option.h": "reconstructed",
+   "client/postate.h": "reconstructed",
    "client/radar_data.h": "reconstructed",
    "client/radar_icon_data.h": "reconstructed",
    "client/sclient.h": "reconstructed",
