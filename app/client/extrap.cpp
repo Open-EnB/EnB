@@ -863,6 +863,13 @@ Matrix3D *Unknown710530Class::Unknown_10()
 }
 
 
+Vector3 Unknown710530Class::Unknown_14()
+{
+	Vector3 forward(Speed, 0.0f, 0.0f);
+	return(Build_Quaternion(Transform).Rotate_Vector(forward) + Unknown6C);
+}
+
+
 float Unknown710530Class::Unknown_18()
 {
 	return(Speed);
@@ -879,13 +886,6 @@ Vector3 Unknown710530Class::Unknown_20()
 {
 	return(Vector3(0.0f, Unknown64, Unknown54));
 }
-
-
-
-
-
-
-
 
 
 
@@ -1911,6 +1911,54 @@ Unknown714340Class::Unknown714340Class(SClient *client, FormationPositionalUpdat
 	Offset(packet->Offset),
 	Unknown18(true)
 {
+}
+
+
+// NOT EXACT: 0x714410 order: Matrix3D::Rotate_Vector's rows sum their products in another order in the client (x z y, z y x, z y x)
+void Unknown714340Class::Unknown_1C(int time, Vector3 *position, Quaternion *orientation, Vector3 *velocity, float *speed, Vector3 *rotrate, bool unknown)
+{
+	ClientObjectClass *leader = Client->Find_Object(LeaderID);
+	if (leader == 0) {
+		if (position) {
+			*position = Unknown18.Get_Translation();
+		}
+		if (orientation) {
+			*orientation = Build_Quaternion(Unknown18);
+		}
+		if (velocity) {
+			velocity->Set(0.0f, 0.0f, 0.0f);
+		}
+		if (speed) {
+			*speed = 0.0f;
+		}
+		if (rotrate) {
+			rotrate->Set(0.0f, 0.0f, 0.0f);
+		}
+		return;
+	}
+	Unknown98Class *state = leader->Unknown98;
+	if (position || orientation) {
+		Matrix3D transform = unknown ? state->Unknown_20(time) : state->Unknown_08(time);
+		if (position) {
+			Matrix3D::Rotate_Vector(transform, Offset, position);
+			*position += transform.Get_Translation();
+		}
+		if (orientation) {
+			*orientation = Build_Quaternion(transform);
+		}
+	}
+	if (velocity || speed) {
+		Vector3 move = state->Unknown_10(Client->Unknown10BC);
+		if (velocity) {
+			*velocity = move;
+		}
+		if (speed) {
+			*speed = move.Length2();
+		}
+	}
+	if (rotrate) {
+		*rotrate = state->Unknown_14(Client->Unknown10BC);
+	}
 }
 
 /*

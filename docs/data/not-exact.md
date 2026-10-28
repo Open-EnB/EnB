@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-280 entries in 68 files.
+281 entries in 68 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -69,6 +69,7 @@ edit the comments in the code, not this file.
 | `app/client/extrap.cpp:1457` | `Unknown7125F0Class::Unknown_1C` | marker | NOT EXACT: 0x712780 shape: the client's speed is (s - s) * t + s of EndState's speed alone (its other slot reused for t), a form that folds here |
 | `app/client/extrap.cpp:1821` | `Unknown713D70Class::Unknown713D70Class` | marker | NOT EXACT: 0x713D70 scheduling: the epilogue's load of the saved EH link comes after `pop edi` in the client, before the last stores here |
 | `app/client/extrap.cpp:1859` | `Unknown713D70Class::Unknown_7140E0` | marker | NOT EXACT: 0x7140E0 order: the translation's stores, the roll's push and the state's vtable load are scheduled differently |
+| `app/client/extrap.cpp:1917` | `Unknown714340Class::Unknown_1C` | marker | NOT EXACT: 0x714410 order: Matrix3D::Rotate_Vector's rows sum their products in another order in the client (x z y, z y x, z y x) |
 | `app/client/fontdatabase.cpp:59` | `FontStringStruct::Reset` | marker | NOT EXACT: inline-budget: the client inlines the first nine string assignments with Store_Length called and calls operator= in the loop; ours inlines all |
 | `app/client/fontdatabase.cpp:340` | `FontDatabaseClass::Load_String` | marker | NOT EXACT: inline-budget: ours inlines Parse_Directions / Split_Four / Get_Blend_Type and calls Get_Length; the client the reverse |
 | `app/client/fontdatabase.cpp:508` | `FontDatabaseClass::Unknown_6C1500` | marker | NOT EXACT: frame: the inlined Add_String's key and iterator temporaries sit in other stack slots (0.76) |
