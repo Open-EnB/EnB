@@ -115,7 +115,7 @@ public:
 
 struct LegoChildStruct  // NAME 1 [LegoChildStruct]: neutral (D10): a child lego and the knob it hangs on
 {
-	LegoChildStruct(void) : Child(0), Knob(0) {}					// 0x72C040
+	LegoChildStruct(void) {}					// 0x72C040
 
 	RefCountPtr<LegoClass> Child;									// +0x00: the client's asserts '!child'  // NAME 2: what it holds
 	RefCountPtr<LegoKnobClass> Knob;								// +0x04: the client's asserts '!knob'  // NAME 2: what it holds

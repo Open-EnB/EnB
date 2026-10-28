@@ -27,8 +27,8 @@ edit the comments in the code, not this file.
 | `app/client/client.cpp:497` | `UnknownB02C90Class::Unknown_10` | marker | NOT EXACT: shape (the client stores each radius before it loads the object for Unknown_34; 3 forms) |
 | `app/client/client_lego_impl.cpp:251` | `ClientLegoImplClass::Find` | marker | NOT EXACT: inline budget: the client inlines the split's string destructor at the orphan returns, ours calls _Tidy (attempts.csv) |
 | `app/client/client_lego_impl.cpp:310` | `ClientLegoImplClass::Get_Lego_Transform` | marker | NOT EXACT: inline budget: the client builds one more Matrix3D result (6 ??_H against our 5), 0.88 (attempts.csv) |
-| `app/client/client_lego_impl.cpp:363` | `ClientLegoImplClass::Add` | marker | NOT EXACT: literal (EH states one lower than the client's from the new-child branch on), frame 0x9C vs 0xA8 (attempts.csv) |
-| `app/client/client_lego_impl.cpp:477` | `ClientLegoImplClass::Remove` | marker | NOT EXACT: literal: 389 instructions on both sides, our EH states two lower in the orphans' loop, frame 0x88 vs 0x84 (attempts.csv) |
+| `app/client/client_lego_impl.cpp:363` | `ClientLegoImplClass::Add` | marker | NOT EXACT: inline budget: the last branch's orphan data assignment and destructor, inlined by the client, called by ours (attempts.csv) |
+| `app/client/client_lego_impl.cpp:477` | `ClientLegoImplClass::Remove` | marker | NOT EXACT: inline budget: at the last return the client inlines the data's and the split's destructors, ours calls them (attempts.csv) |
 | `app/client/client_lego_impl.cpp:679` | `ClientLegoImplClass::Child_Moved` | marker | NOT EXACT: shape, 4 rows: the client forms &child (lea ebp) before loading it, ours after (attempts.csv) |
 | `app/client/client_lego_impl.cpp:710` | `ClientLegoImplClass::Attach` | marker | NOT EXACT: frame: the client keeps the child's render object in its own stack slot (sub esp 8), ours in a dead parameter's (attempts.csv) |
 | `app/client/client_lego_impl.cpp:742` | `ClientLegoImplClass::Detach` | marker | NOT EXACT: register-only, 4 rows: eax / edx swapped around the Get_Render_Object call (attempts.csv) |
