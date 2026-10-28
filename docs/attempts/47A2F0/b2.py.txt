@@ -1,0 +1,98 @@
+"""LD3: Build_Decorations 0x47A2F0 in the client's RefCountPtr form (trees / shadows as vector<RefCountPtr<MeshClass>>,
+the render object, the material infos and the compared textures through Create_Get)."""
+L = 'app/shared/land.cpp'
+
+
+def crlf(s):
+    return s.replace('\n', '\r\n')
+
+
+OLD_PROTO = crlf('''	std::vector<MeshClass *> trees;
+	std::vector<MeshClass *> shadows;
+	int i;
+	for (i = 0; i < proto_count; i++) {
+		RenderObjClass *robj = WW3DAssetManager::Get_Instance()->Create_Render_Obj(names[i].c_str());
+		if (robj == NULL) {
+			for (int k = 0; k < (int)trees.size(); k++) {
+				if (trees[k] != NULL) trees[k]->Release_Ref();
+				if (shadows[k] != NULL) shadows[k]->Release_Ref();
+			}
+			return;
+		}
+		trees.push_back((MeshClass *)Land_Find_Decoration_Mesh(robj, true));
+		shadows.push_back((MeshClass *)Land_Find_Decoration_Mesh(robj, false));
+		robj->Release_Ref();
+	}
+''')
+NEW_PROTO = crlf('''	std::vector< RefCountPtr<MeshClass> > trees;
+	std::vector< RefCountPtr<MeshClass> > shadows;
+	int i;
+	for (i = 0; i < proto_count; i++) {
+		RefCountPtr<RenderObjClass> robj = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj(names[i].c_str()));
+		if (robj == NULL) {
+			return;
+		}
+		RefCountPtr<MeshClass> tree;
+		RefCountPtr<MeshClass> shadow;
+		MeshClass *mesh = (MeshClass *)Land_Find_Decoration_Mesh(robj.Peek(), true);
+		if (mesh != NULL) {
+			tree = Create_Get(mesh);
+		}
+		trees.push_back(tree);
+		mesh = (MeshClass *)Land_Find_Decoration_Mesh(robj.Peek(), false);
+		if (mesh != NULL) {
+			shadow = Create_Get(mesh);
+		}
+		shadows.push_back(shadow);
+	}
+''')
+INFO_T = crlf('''			MaterialInfoClass *info = trees[i]->Get_Material_Info();
+''')
+INFO_S = crlf('''			MaterialInfoClass *info = shadows[i]->Get_Material_Info();
+''')
+REL = crlf('''			info->Release_Ref();
+''')
+TEX = crlf('''			TextureClass *texture = info->Get_Texture(0);
+			ShaderClass shader''')
+TEX_NEW = crlf('''			RefCountPtr<TextureClass> texture = Create_Get(info->Get_Texture(0));
+			ShaderClass shader''')
+CMP = '(RefCountClass *)texture != m_Unknown178.Peek()'
+CMP_NEW = '(RefCountClass *)texture.Peek() != m_Unknown178.Peek()'
+TREL = crlf('''			REF_PTR_RELEASE(texture);
+''')
+END = crlf('''	for (i = 0; i < (int)trees.size(); i++) {
+		if (trees[i] != NULL) trees[i]->Release_Ref();
+		if (shadows[i] != NULL) shadows[i]->Release_Ref();
+	}
+}
+''')
+APP_T = 'Land_Append_Decoration_Mesh(trees[decoration.Proto], '
+APP_S = 'Land_Append_Decoration_Mesh(shadows[decoration.Proto], '
+
+
+def body(path):
+    """The edits as one whole-function replacement computed on the file's text (repeated anchors)."""
+    s = open(path, newline='', encoding='utf-8').read()
+    a = s.index(OLD_PROTO)
+    b = s.index(END, a) + len(END)
+    old = s[a:b]
+    new = old.replace(OLD_PROTO, NEW_PROTO)
+    new = new.replace(INFO_T, INFO_T.replace('MaterialInfoClass *info = trees[i]->Get_Material_Info();',
+                                             'RefCountPtr<MaterialInfoClass> info = Create_Get(trees[i]->Get_Material_Info());'))
+    new = new.replace(INFO_S, INFO_S.replace('MaterialInfoClass *info = shadows[i]->Get_Material_Info();',
+                                             'RefCountPtr<MaterialInfoClass> info = Create_Get(shadows[i]->Get_Material_Info());'))
+    new = new.replace(REL, '').replace(TEX, TEX_NEW).replace(CMP, CMP_NEW).replace(TREL, '')
+    new = new.replace(APP_T, 'Land_Append_Decoration_Mesh(trees[decoration.Proto].Peek(), ')
+    new = new.replace(APP_S, 'Land_Append_Decoration_Mesh(shadows[decoration.Proto].Peek(), ')
+    new = new.replace(END, crlf('}\n'))
+    return old, new
+
+
+import os
+_old, _new = body(os.path.join(r'C:\EnBDevelopment\EnB\.work\wt\ld3', L))
+COMPILE = [L]
+WATCH = ['0x47A2F0', '0x47D690', '0x47E620', '0x47E650', '0x47E6A0', '0x47F190', '0x47F070', '0x47DE10']
+_new2 = _new.replace('trees.push_back(tree);', 'trees.insert(trees.end(), 1, tree);').replace('shadows.push_back(shadow);', 'shadows.insert(shadows.end(), 1, shadow);')
+V = {
+    'refptr_insert_n': [(L, _old, _new2)],
+}
