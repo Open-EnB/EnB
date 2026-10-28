@@ -1,0 +1,24 @@
+diff --git a/app/shared/kv_pair.h b/app/shared/kv_pair.h
+index b7e0f16..cc8e756 100644
+--- a/app/shared/kv_pair.h
++++ b/app/shared/kv_pair.h
+@@ -39,6 +39,10 @@ public:
+ 	PermString Key;					// +0x04  // NAME 3: after the assert's parameter key (kv_pair.cpp)
+ 	bool m_Unknown08;					// +0x08 the encoder's even bits (KVEncoderBaseClass::Unknown_Test)
+ 	bool m_Unknown09;					// +0x09 the odd bits
++
++	// what Clone's copy reads them through (inline: the client passes each through a temporary, 0x4F71F0)
++	bool Get_Unknown08() const { return m_Unknown08; }	// NAME 1: neutral (D10)
++	bool Get_Unknown09() const { return m_Unknown09; }	// NAME 1: neutral (D10)
+ };
+ 
+ // A typed value reached through the pair (the float field's interface: vtable 0xAE78D0, the destructor
+@@ -65,7 +69,7 @@ public:
+ 	}
+ 	// Clone's copy: the accessor cloned, the saved value kept (the time pair's 0x4A8770)
+ 	KVPairTemplateClass(const KVPairTemplateClass<T> &that) :
+-		KVPairClass(that.Key.Get_String(), that.m_Unknown08, that.m_Unknown09),
++		KVPairClass(that.Key.Get_String(), that.Get_Unknown08(), that.Get_Unknown09()),
+ 		Accessor(that.Accessor->Clone()),
+ 		Value(that.Value)
+ 	{
