@@ -314,7 +314,7 @@ Handler = slot +0x08 (all in cpacket.cpp unless noted). "Object" = `Find_Object(
 | 4 | CREATE / CreatePacketClass | 0x733700 | a new ClientObjectClass (or 24 / 28 subclass), its model, aux root, attachment points; `Add_Object`; type 10 also an influence record (+0x86C) | exact (CR1) |
 | 5 | START / StartPacketClass | 0x733440 | +0x1138 = PlayerID; SClient 0x745160 (+0x1198 cleared, the cockpit's 0x584A60), the loading view's 0x692330; sends REQUEST_TIME 68 and START_ACK 6 (PlayerID) (no object) | NOT EXACT register-only [partial] |
 | 7 | REMOVE / RemovePacketClass | 0x7362F0 | §2.3: Remove_Object, children detached and deleted, `delete` | exact |
-| 8 | SIMPLE_POSITIONAL_UDPATE | 0x733DC0 | +0x98 type 3; lag average | NOT EXACT inline-budget [partial] |
+| 8 | SIMPLE_POSITIONAL_UDPATE | 0x733DC0 | +0x98 type 3; lag average | NOT EXACT shape (the lag average only) [partial] |
 | 9 | OBJECT_EFFECT | 0x734DF0 | eff_o.cpp's factory 0x6E9490, the unary end (slot +0x10) takes GameID (its slot +0x28), `Add_Effect` | exact (EF1: +0x10C0 read as a DurationClass) |
 | 10 | POINT_EFFECT | 0x735000 | the factory, the unary end's slot +0x2C = Matrix3D(Location), `Add_Effect` | exact (EF1) |
 | 11 | OBJECT_TO_OBJECT_EFFECT | 0x735280 | the factory, the binary end (slot +0x14): source by id or id and lego (+0x28 / +0x2C), target id (+0x34), flag 0x2000 OutsideTargetRadius, offset 0x6E82A0 | exact (EF1) |
@@ -334,10 +334,10 @@ Handler = slot +0x08 (all in cpacket.cpp unless noted). "Object" = `Find_Object(
 | 52 | CLIENT_SET_TIME | 0x737960 | the time base +0x10C0 = the server clock's offset, +0x10C8 / +0x10D0 (the lag average) cleared, 0xBE71D4 = the round trip time (postate.cpp's blend time); 'rtt = %u  correction = %d' in debug mode | NOT EXACT shape [parked] |
 | 55 | CLIENT_AVATAR | 0x733590 | +0x112C = AvatarID; the avatar's model LOD bias | exact (b7375ed) |
 | 58 | SERVER_HANDOFF | 0x737CB0 | +0x10C0 and the handoff state | exact (81eba3a) |
-| 62 | ADVANCED_POSITIONAL_UPDATE | 0x734130 | +0x98 type 4 (own) / 8 (others) | NOT EXACT inline-budget [partial] |
+| 62 | ADVANCED_POSITIONAL_UPDATE | 0x734130 | +0x98 type 4 (own) / 8 (others) | NOT EXACT shape [parked] |
 | 63 | PLANET_POSITIONAL_UPDATE | 0x734A40 | +0x98 type 5 | exact (bfa8b4f) |
 | 64 | CONSTANT_POSITIONAL_UPDATE | 0x733C80 | +0x98 type 1, slot +0x3C | exact |
-| 65 | FORMATION_POSITIONAL_UPDATE | 0x734740 | +0x98 type 4 / 8 from the formation | NOT EXACT shape [partial] |
+| 65 | FORMATION_POSITIONAL_UPDATE | 0x734740 | +0x98 type 4 (the avatar) / 8 from the formation: the state's extrapolator is extrap.cpp's formation node 0x714340 (LeaderID, Offset) | exact (CP1) |
 | 66 | SERVER_PARAMETERS | 0x737F00 | fog, debris mode, impulse rate (+0x10EC..+0x110C) | exact |
 | 70 | COMPONENT_POSITIONAL_UPDATE | 0x734BF0 | +0x98 type 11 (asserts `obj->Is_Component()`) | exact (bfa8b4f) |
 | 71 | CLIENT_SHIP | 0x733660 | `Set_Ship_ID` (+0x1130) | exact |
@@ -353,8 +353,8 @@ Handler = slot +0x08 (all in cpacket.cpp unless noted). "Object" = `Find_Object(
 | 178 | NAME_DECAL | 0x735FC0 | `DecalName` (+0xD8) and shiputils 0x80FF20 on the model | exact |
 | 180 | SUBPARTS | 0x733A50 | `object->0x6FEF70(packet)` (co.cpp, not rebuilt) | exact |
 
-Of the 107 opcodes handled in cpacket.cpp (2026-10-28, CP1): 80 exact, 8 NOT EXACT (8 and 62 inline-budget, 65 and
-52 shape, 100 frame, 165 inline-budget, 5 register-only, STARBASE_SET 79 shape; [partial] / [parked] are their
+Of the 107 opcodes handled in cpacket.cpp (2026-10-28, CP1): 81 exact, 7 NOT EXACT (8, 62 and 52
+shape, 100 frame, 165 inline-budget, 5 register-only, STARBASE_SET 79 shape; [partial] / [parked] are their
 `attempts.csv` rows), 19 not rebuilt (the counts before CP1's recount were 62 / 15 / 30; the object-free ones not
 listed above, as they were then: TRADE 31 0x739DE0, VerbList 91 0x7387F0, MessageChatstream 95
 0x736F10, FIND_MEMBER 83, STARBASE_AVATAR / ROOM_CHANGE 158 / 160, CLIENT_CHAT_LIST / ERROR 164 / 166,
@@ -382,6 +382,11 @@ eff_o.cpp, shiputils.cpp, co.cpp's members): exact handlers do not yet make a wo
   gadget's slot +0x40(bool) on / off, 0x10 gadget.cpp's 0x6603A0(1, the current view's slot +0x1C), 0x20
   0x6607D0; both of those only with a current view (+0x1350). clienttest (4c): Function 0x3F, 0x14 with no
   current view, and an unknown name.
+* FORMATION_POSITIONAL_UPDATE 65 (pkupdate.cpp: GameID +0x0C, LeaderID +0x10, Offset +0x14): the object's state
+  (+0x98) becomes, or is updated as, type 4 for the avatar (+0x112C; 0x7171C0 / 0x717400, every 33rd packet also a
+  REQUEST_TIME) and type 8 for any other object (0x716080 / 0x716220); its extrapolator (+0x04) is extrap.cpp's
+  formation node 0x714340 holding the client, LeaderID and Offset (its 0x714410: the leader's state matrix at
+  the time, its translation plus Offset rotated by it, and the leader's orientation; with no leader, its own last matrix); an update blends (0x7125F0, 5000 ticks) from the old node to a new one. clienttest (4d).
 * INCAPACITANCE_DETAILS 144 (pkincapacitancerequest.cpp: Unknown0C, an AvatarDescClass at +0x1C, seven strings):
   FAIL_IFs '!client' / '!sclient' (lines 2048 / 2051, as 145's); the camera manager (+0x12A8) goes to mode 0x19
   (one of CAMERA_CONTROL 146's modes too) and the cockpit (main view +0x1D0) takes the whole packet with

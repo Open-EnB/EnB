@@ -370,7 +370,7 @@ bool ConstantPositionalUpdatePacketClass::Process_Packet(void *instance)
 
 
 
-// NOT EXACT: inline-budget (the client calls WWMath::Is_Valid_Float out of line for Position's Z, Orientation's Z and W, Velocity's Z; attempts.py show 0x733DC0)
+// NOT EXACT: shape (the Is_Valid chain is the client's now; left: the clock drift's divisor converted once and the count kept in ecx, where the client converts +0x10CC again and rereads +0x10D0; attempts.py show 0x733DC0)
 // 0x733DC0
 bool SimplePositionalUpdatePacketClass::Process_Packet(void *instance)
 {
@@ -397,10 +397,10 @@ bool SimplePositionalUpdatePacketClass::Process_Packet(void *instance)
 	}
 	return(true);
 }
+// the lag average (+0x10C8 over +0x10CC): ADVANCED 62 recomputes it after the update, as the client does
+static inline float Unknown_Lag_Average(SClient *sclient) { return(sclient->Unknown10C8 / sclient->Unknown10CC); }	// NAME 1: neutral (D10)
 
-
-
-// NOT EXACT: inline-budget (the client calls WWMath::Is_Valid_Float out of line for Position's Z and Orientation's W; attempts.py show 0x734130)
+// NOT EXACT: shape (the lag average's divisor converted once, the state pointer not in ebp; the Is_Valid chain and size are the client's; attempts.py show 0x734130)
 // 0x734130
 bool AdvancedPositionalUpdatePacketClass::Process_Packet(void *instance)
 {
@@ -410,30 +410,30 @@ bool AdvancedPositionalUpdatePacketClass::Process_Packet(void *instance)
 	TimeStamp = (DurationClass(TimeStamp) - sclient->Unknown10C0).As_Int();
 	float delta = (float)(sclient->Unknown10BC - (int)TimeStamp); sclient->Unknown10D0++;
 	sclient->Unknown10C8 = sclient->Unknown10C8 - sclient->Unknown10C8 / sclient->Unknown10CC + delta;
-	if (fabs(sclient->Unknown10C8 / sclient->Unknown10CC) > 50.0 && sclient->Unknown10D0 > 64) {
+	if (fabs(Unknown_Lag_Average(sclient)) > 50.0 && sclient->Unknown10D0 > 64) {
 		sclient->Unknown_728180();
 	}
 	ClientObjectClass *object = sclient->Find_Object(GameID);
-	if (object) {
-		if (GameID == sclient->AvatarID) {
+	if (object) { unsigned id = sclient->AvatarID;
+		if (GameID == id) {
 			static int requests;	// 0xBE7D6C  // NAME 1: what it counts
 			if (++requests > 32) {
 				sclient->Send_Packet(&RequestTimePacketClass());
 				requests = 0;
 			}
 			if (object->Unknown98 && object->Unknown98->Unknown_04() == 4) {
-				((Unknown717010Class *)object->Unknown98)->Unknown_717290(this, sclient->Unknown10BC);
+				((Unknown717010Class *)object->Unknown98)->Unknown_717290(this, sclient->Unknown10BC); return(true);
 			} else if (object->Unknown98 && object->Unknown98->Unknown_2C()) {
 				Unknown98Class *state = object->Unknown98->Unknown_28();
 				if (state && state->Unknown_04() == 4) {
-					((Unknown717010Class *)state)->Unknown_717290(this, sclient->Unknown10BC);
+					((Unknown717010Class *)state)->Unknown_717290(this, sclient->Unknown10BC); return(true);
 				} else {
 					delete state;
-					object->Unknown98->Unknown_24(new Unknown717010Class(sclient->Unknown10BC, this));
+					object->Unknown98->Unknown_24(new Unknown717010Class(sclient->Unknown10BC, this)); return(true);
 				}
 			} else {
 				delete object->Unknown98;
-				object->Unknown98 = new Unknown717010Class(sclient->Unknown10BC, this);
+				object->Unknown98 = new Unknown717010Class(sclient->Unknown10BC, this); return(true);
 			}
 		} else {
 			if (object->Unknown98 && object->Unknown98->Unknown_04() == 8) {
@@ -1139,7 +1139,7 @@ bool CameraControlPacketClass::Process_Packet(void *instance)
 	return(true);
 }
 
-// NOT EXACT: shape (the merged Unknown_24 tail sits in the type-4 branch, the client's in the type-8 one; 7 forms; attempts.py show 0x734740)
+// (the avatar branch returns at its end: the type-8 branch keeps its own Unknown_24 tail, as the client's)
 // 0x734740 (placed here, out of address order, so that no assert line moves): ADVANCED 62's state handling without its checks and clock drift
 bool FormationPositionalUpdatePacketClass::Process_Packet(void *instance)
 {
@@ -1166,7 +1166,7 @@ bool FormationPositionalUpdatePacketClass::Process_Packet(void *instance)
 			} else {
 				delete object->Unknown98;
 				object->Unknown98 = new Unknown717010Class(sclient, this);
-			}
+			} return(true);
 		} else {
 			if (object->Unknown98 && object->Unknown98->Unknown_04() == 8) {
 				((Unknown715EF0Class *)object->Unknown98)->Unknown_716220(sclient, this);

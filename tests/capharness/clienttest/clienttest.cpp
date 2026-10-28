@@ -25,7 +25,8 @@
 //     and 28 make co_subtypes.cpp's subclasses (no alex3 message has them); SET_TARGET 25 aims type 28.
 //     (3) also checks START 5 (+0x1138, REQUEST_TIME and START_ACK sent) and CLIENT_SET_TIME 52 (the clock
 //     offset +0x10C0, the lag average cleared, the round trip time 0xBE71D4); (4c): synthetic GADGET 103
-//     (the gadget list +0x1278, the gadget's and its interface's slots) and INCAPACITANCE_DETAILS 144.
+//     (the gadget list +0x1278, the gadget's and its interface's slots) and INCAPACITANCE_DETAILS 144; (4d):
+//     synthetic FORMATION_POSITIONAL_UPDATE 65 (the follower's and the avatar's formation states, then an update).
 //
 // Never: a modal dialog (asserts and FAIL_IF go to the trace), the registry (SOptionsClass's
 // constructor is a stand-in), the network (the memory connection), the game's install folder.
@@ -49,6 +50,8 @@
 #include "..\..\..\app\packets\pkincapacitancerequest.h"
 #include "..\..\..\app\client\aux_roots.h"
 #include "..\..\..\app\client\co_subtypes.h"
+#include "..\..\..\app\client\postate.h"
+#include "..\..\..\app\client\extrap.h"
 #include "..\..\..\app\shared\px_wrapper.h"
 #include "rendobj.h"
 #include "..\..\..\app\shared\stars.h"
@@ -1110,6 +1113,71 @@ static void Test_Gadget(SClient *client, FakeMainViewClass *main_view)
 	Memory->Received = 0;
 }
 
+// (4d) FORMATION_POSITIONAL_UPDATE 65 (0x734740) from synthetic packets: no alex3 message has it. For an object other
+// than the avatar (+0x112C) the handler puts in the type-8 state (postate.cpp 0x716080) whose extrapolator is
+// extrap.cpp's formation node 0x714340 (the packet's LeaderID and Offset); for the avatar the type-4 state (0x7171C0);
+// a second packet updates the state in place (0x716220: a blend from the old node to a new formation node).
+static std::vector<unsigned char> Formation_Message(unsigned id, unsigned leader, float x, float y, float z)
+{
+	std::vector<unsigned char> p(4 + 4 + 12, 0);	// GameID, LeaderID, Offset (pkupdate.cpp's raw constructor)
+	memcpy(&p[0], &id, 4);
+	memcpy(&p[4], &leader, 4);
+	memcpy(&p[8], &x, 4);
+	memcpy(&p[12], &y, 4);
+	memcpy(&p[16], &z, 4);
+	return(Message_Bytes(65, p));
+}
+
+static Unknown714340Class *Formation_Node(ClientObjectClass *object)
+{
+	if (object == 0 || object->Unknown98 == 0 || (object->Unknown98->Unknown_04() != 8 && object->Unknown98->Unknown_04() != 4)) {
+		return(0);
+	}
+	return((Unknown714340Class *)((UnknownB027A0Class *)object->Unknown98)->Extrap);
+}
+
+static void Test_Formation(SClient *client)
+{
+	Trace("== (4d) FORMATION_POSITIONAL_UPDATE 65");
+	if (Memory == 0) {
+		Check(false, "the memory connection");
+		return;
+	}
+	const unsigned leader = 4300, follower = 4301, avatar = 4302;
+	Memory->Incoming.push_back(Create_Message(leader, 1.0f, 900, 0));
+	Memory->Incoming.push_back(Create_Message(follower, 1.0f, 900, 0));
+	Memory->Incoming.push_back(Create_Message(avatar, 1.0f, 900, 0));
+	client->Process_Packets();
+	unsigned saved = client->AvatarID;
+	client->AvatarID = avatar;
+	Memory->Incoming.push_back(Formation_Message(follower, leader, 10.0f, 0.0f, 0.0f));
+	Memory->Incoming.push_back(Formation_Message(avatar, leader, 0.0f, 5.0f, 0.0f));
+	client->Process_Packets();
+	ClientObjectClass *f = client->Find_Object(follower);
+	ClientObjectClass *a = client->Find_Object(avatar);
+	Unknown714340Class *fn = Formation_Node(f);
+	Unknown714340Class *an = Formation_Node(a);
+	Check(f != 0 && f->Unknown98 != 0 && f->Unknown98->Unknown_04() == 8 && fn != 0 && fn->LeaderID == (int)leader
+		&& fn->Offset.X == 10.0f && fn->Offset.Y == 0.0f && fn->Client == client,
+		"FORMATION 65 for object 4301: the type-8 state (0x716080) with a formation node (0x714340) holding leader 4300 and offset (10, 0, 0)");
+	Check(a != 0 && a->Unknown98 != 0 && a->Unknown98->Unknown_04() == 4 && an != 0 && an->LeaderID == (int)leader && an->Offset.Y == 5.0f,
+		"FORMATION 65 for the avatar 4302: the type-4 state (0x7171C0) with leader 4300 and offset (0, 5, 0)");
+	if (f != 0 && fn != 0) {
+		Unknown98Class *state = f->Unknown98;
+		Memory->Incoming.push_back(Formation_Message(follower, leader, 20.0f, 0.0f, 0.0f));
+		client->Process_Packets();
+		Check(f->Unknown98 == state && ((UnknownB027A0Class *)state)->Extrap != (StateNode *)fn,
+			"a second FORMATION 65 for 4301 updates its state in place (0x716220: a new extrapolator, the blend to the new node)");
+	}
+	client->AvatarID = saved;
+	Memory->Incoming.push_back(Remove_Message(leader));
+	Memory->Incoming.push_back(Remove_Message(follower));
+	Memory->Incoming.push_back(Remove_Message(avatar));
+	client->Process_Packets();
+	Check(client->Find_Object(leader) == 0 && client->Find_Object(follower) == 0 && client->Find_Object(avatar) == 0, "REMOVE 7 took the three out");
+	Memory->Received = 0;
+}
+
 // ------------------------------------------------------------------------- main
 
 int main(int argc, char **argv)
@@ -1200,10 +1268,11 @@ int main(int argc, char **argv)
 	Test_Refuse(client);
 	Test_Path(client, &main_view);
 	Test_Subtypes(client);
-	Test_Gadget(client, &main_view);
 	if (argc > 2) {
 		Test_Packets(client, argv[2]);
 	}
+	Test_Gadget(client, &main_view);	// (4c) and (4d) after (3): their models would renumber (3)'s
+	Test_Formation(client);
 	// the client isn't deleted: its destructor reaches control_keys_manager.cpp and WWAudio
 	Trace("== done: %d checks failed", Failures);
 	fclose(Out);

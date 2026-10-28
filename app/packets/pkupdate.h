@@ -92,7 +92,7 @@ public:
 	FormationPositionalUpdatePacketClass(int game_id, int leader_id, const Vector3 &offset);	// 0x8AE4B0
 	FormationPositionalUpdatePacketClass(RawPacketClass *raw);	// 0x8AE5C0
 	virtual RawPacketClass *Build();	// +0x04 0x8AE690
-	virtual bool Process_Packet(void *client);	// +0x08 0x734740 (cpacket.cpp, NOT EXACT)
+	virtual bool Process_Packet(void *client);	// +0x08 0x734740 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x8AE770
 	virtual int Print(char *buffer, int len);	// +0x10 0x8AE790
 

@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-333 entries in 71 files.
+331 entries in 71 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -59,9 +59,8 @@ edit the comments in the code, not this file.
 | `app/client/control_keys_manager.cpp:570` | `ControlKeysManager::Reset_Keys` | marker | NOT EXACT: shape, ~56 rows: the client calls 0x71E850 on the whole vector where our erase inlines a copy loop (attempts.csv) |
 | `app/client/control_keys_manager.cpp:639` | `KeyMappingStruct::Get_Key_String` | marker | NOT EXACT: register-only in the failure path (out in ebp, npos in ebx; the client swaps them); erase(0, npos) and resize(0) the same |
 | `app/client/cpacket.cpp:128` | `StartPacketClass::Process_Packet` | marker | NOT EXACT: register-only (the client loads PlayerID for START_ACK into eax before the temporary's lea and stores the EH state after the push; attempts.py show 0x733440) 0x733440 (placed here, out of address order, so that no assert line moves) |
-| `app/client/cpacket.cpp:373` | `SimplePositionalUpdatePacketClass::Process_Packet` | marker | NOT EXACT: inline-budget (the client calls WWMath::Is_Valid_Float out of line for Position's Z, Orientation's Z and W, Velocity's Z; attempts.py show 0x733DC0) 0x733DC0 |
-| `app/client/cpacket.cpp:403` | `AdvancedPositionalUpdatePacketClass::Process_Packet` | marker | NOT EXACT: inline-budget (the client calls WWMath::Is_Valid_Float out of line for Position's Z and Orientation's W; attempts.py show 0x734130) 0x734130 |
-| `app/client/cpacket.cpp:1142` | `FormationPositionalUpdatePacketClass::Process_Packet` | marker | NOT EXACT: shape (the merged Unknown_24 tail sits in the type-4 branch, the client's in the type-8 one; 7 forms; attempts.py show 0x734740) 0x734740 (placed here, out of address order, so that no assert line moves): ADVANCED 62's state handling without its checks and clock drift |
+| `app/client/cpacket.cpp:373` | `SimplePositionalUpdatePacketClass::Process_Packet` | marker | NOT EXACT: shape (the Is_Valid chain is the client's now; left: the clock drift's divisor converted once and the count kept in ecx, where the client converts +0x10CC again and rereads +0x10D0; attempts.py show 0x733DC0) 0x733DC0 |
+| `app/client/cpacket.cpp:403` | `AdvancedPositionalUpdatePacketClass::Process_Packet` | marker | NOT EXACT: shape (the lag average's divisor converted once, the state pointer not in ebp; the Is_Valid chain and size are the client's; attempts.py show 0x734130) 0x734130 |
 | `app/client/cpacket.cpp:1341` | `SetClientTimePacketClass::Process_Packet` | marker | NOT EXACT: shape (the __int64 sums and differences in other registers and order; frame and size as the client's; attempts.py show 0x737960) 0x737960 (placed after SPLINE 0x737C10 so that no assert line moves) |
 | `app/client/cpacket.cpp:1513` | `StarbaseSetPacketClass::Process_Packet` | marker | NOT EXACT: shape (the client keeps four calls of 0x74BA30, ours merges them; attempts.py show 0x7381C0) 0x7381C0 |
 | `app/client/cpacket.cpp:1707` | `DamagePacketClass::Process_Packet` | marker | NOT EXACT: frame (the same 487 instructions; the client gives the locals other stack slots: time, inflicted, mainview, avatar_id, type ascending; 5 forms; attempts.py show 0x738970) 0x738970 |
@@ -182,7 +181,6 @@ edit the comments in the code, not this file.
 | `app/packets/pknamedecal.cpp:14` | `DecalPacketClass::DecalPacketClass` | marker | NOT EXACT: 0x8807B0, the client inlines push_back's insert (over this object's helpers 0x8810F0- 0x881250), ours calls it (inline-budget; attempts.py show 0x8807B0) |
 | `app/packets/pkunknown_867010.cpp:6` | `Packet_00B3Class::Packet_00B3Class` | marker | NOT EXACT: the inline std::string assign's terminating store indexes [ebx + ecx], the client's [ecx + ebx] (otherwise the same bytes) |
 | `app/packets/pkupdate.h:51` | `?` | mention | NOT EXACT) |
-| `app/packets/pkupdate.h:95` | `?` | mention | NOT EXACT) |
 | `app/packets/pkupdate.h:113` | `?` | mention | NOT EXACT) |
 | `app/packets/pkverblist.cpp:11` | `VerbListPacketClass::VerbListPacketClass` | marker | NOT EXACT: 0x8AF150, insert inlined as the client's but its _Multi branch's pair constructor too (inline-budget; attempts.py show 0x8AF150) |
 | `app/packets/pkverblist.cpp:43` | `VerbListPacketClass::Print` | marker | NOT EXACT: 0x8AF6D0, the client inlines the string's _Tidy and calls begin() (frame 0x11C; attempts.py show 0x8AF6D0) |

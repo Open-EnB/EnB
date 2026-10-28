@@ -348,22 +348,6 @@ stub SClient::Unknown_74C530 4200
 mainview remove 4200
 model 16 'ship_test2' deleted
 check REMOVE 7 deleted both through their destructors (0x70E380 / 0x70E0C0, 0x70E6B0) with their models: ok
-== (4c) GADGET 103 and INCAPACITANCE_DETAILS 144
-msg 1 ? (103) size 22: cpacket.cpp's handler
-stub GadgetListManagerClass::Unknown_661940 'gadget_test'
-gadget calls: +08 iface+8C(1) iface+8C(0) +40(1) +40(0) 6603A0(1, view) 6607D0 
-check GADGET 103 Function 0x3F on 'gadget_test': the interface's +0x8C on and off, the gadget's +0x40 on and off, 0x6603A0(1, view), 0x6607D0: ok
-msg 2 ? (103) size 22: cpacket.cpp's handler
-stub GadgetListManagerClass::Unknown_661940 'gadget_test'
-check GADGET 103 Function 0x14 without a current view: only the gadget's +0x40 on: ok
-msg 3 ? (103) size 22: cpacket.cpp's handler
-stub GadgetListManagerClass::Unknown_661940 'gadget_none'
-fail_if !gadget (line 1851)
-check GADGET 103 for a gadget the list doesn't know: the FAIL_IF '!gadget', nothing called: ok
-msg 4 ? (144) size 267: cpacket.cpp's handler
-gen CameraManagerClass::Unknown_79B2B0
-stub UICpitClass::Unknown_584690 'rescuer'
-check INCAPACITANCE_DETAILS 144: the camera's mode 0x19 (0x79B2B0), then the cockpit's 0x584690 gets the packet (Unknown0C 'rescuer'): ok
 == (3) Process_Packets
 messages 1000
 msg 1 CLIENT_SET_TIME (52) size 16: cpacket.cpp's handler
@@ -3026,4 +3010,142 @@ START x1, CLIENT_SET_TIME x2
 check every START 5 set +0x1138 to its PlayerID and sent REQUEST_TIME 68 and START_ACK 6 with it: ok
 check every CLIENT_SET_TIME 52 set the clock offset +0x10C0, cleared +0x10C8 / +0x10D0 and stored the round trip time in 0xBE71D4: ok
 recorded 0, through cpacket.cpp's handlers 1000
+== (4c) GADGET 103 and INCAPACITANCE_DETAILS 144
+msg 1001 ? (103) size 22: cpacket.cpp's handler
+stub GadgetListManagerClass::Unknown_661940 'gadget_test'
+gadget calls: +08 iface+8C(1) iface+8C(0) +40(1) +40(0) 6603A0(1, view) 6607D0 
+check GADGET 103 Function 0x3F on 'gadget_test': the interface's +0x8C on and off, the gadget's +0x40 on and off, 0x6603A0(1, view), 0x6607D0: ok
+msg 1002 ? (103) size 22: cpacket.cpp's handler
+stub GadgetListManagerClass::Unknown_661940 'gadget_test'
+check GADGET 103 Function 0x14 without a current view: only the gadget's +0x40 on: ok
+msg 1003 ? (103) size 22: cpacket.cpp's handler
+stub GadgetListManagerClass::Unknown_661940 'gadget_none'
+fail_if !gadget (line 1851)
+check GADGET 103 for a gadget the list doesn't know: the FAIL_IF '!gadget', nothing called: ok
+msg 1004 ? (144) size 267: cpacket.cpp's handler
+gen CameraManagerClass::Unknown_79B2B0
+stub UICpitClass::Unknown_584690 'rescuer'
+check INCAPACITANCE_DETAILS 144: the camera's mode 0x19 (0x79B2B0), then the cockpit's 0x584690 gets the packet (Unknown0C 'rescuer'): ok
+== (4d) FORMATION_POSITIONAL_UPDATE 65
+msg 1 CREATE (4) size 27: cpacket.cpp's handler
+asset manager +0x78 'ship_test' scale 1 hsv (0 0 0) -> model 261
+gen Unknown_810750
+gen Unknown_810CF0
+asset manager +0x78 'part_618' scale 1 hsv (0 0 0) -> model 262
+asset manager +0x78 'part_618' scale 1 hsv (0 0 0) -> model 263
+asset manager +0x78 'part_617' scale 1 hsv (0 0 0) -> model 264
+asset manager +0x78 'part_617' scale 1 hsv (0 0 0) -> model 265
+asset manager +0x78 'part_73f' scale 1 hsv (0 0 0) -> model 266
+asset manager +0x78 'part_73f' scale 1 hsv (0 0 0) -> model 267
+model 262 Set_Hidden 1
+model 264 Set_Hidden 1
+model 263 Set_Hidden 1
+model 265 Set_Hidden 1
+model 266 Set_Hidden 1
+model 267 Set_Hidden 1
+model 261 Add_Sub_Object_To_Bone 'part_618' bone 1
+model 261 Add_Sub_Object_To_Bone 'part_617' bone 2
+model 261 Add_Sub_Object_To_Bone 'part_618' bone 3
+model 261 Add_Sub_Object_To_Bone 'part_617' bone 4
+model 261 Add_Sub_Object_To_Bone 'part_73f' bone 1
+model 261 Add_Sub_Object_To_Bone 'part_73f' bone 2
+gen Unknown_831950
+stub UnknownB02C90Class::BufferStruct::Insert 0
+stub UnknownB02C90Class::BufferStruct::Insert 0
+mainview add 4300
+msg 2 CREATE (4) size 27: cpacket.cpp's handler
+asset manager +0x78 'ship_test' scale 1 hsv (0 0 0) -> model 268
+gen Unknown_810750
+gen Unknown_810CF0
+asset manager +0x78 'part_618' scale 1 hsv (0 0 0) -> model 269
+asset manager +0x78 'part_618' scale 1 hsv (0 0 0) -> model 270
+asset manager +0x78 'part_617' scale 1 hsv (0 0 0) -> model 271
+asset manager +0x78 'part_617' scale 1 hsv (0 0 0) -> model 272
+asset manager +0x78 'part_73f' scale 1 hsv (0 0 0) -> model 273
+asset manager +0x78 'part_73f' scale 1 hsv (0 0 0) -> model 274
+model 269 Set_Hidden 1
+model 271 Set_Hidden 1
+model 270 Set_Hidden 1
+model 272 Set_Hidden 1
+model 273 Set_Hidden 1
+model 274 Set_Hidden 1
+model 268 Add_Sub_Object_To_Bone 'part_618' bone 1
+model 268 Add_Sub_Object_To_Bone 'part_617' bone 2
+model 268 Add_Sub_Object_To_Bone 'part_618' bone 3
+model 268 Add_Sub_Object_To_Bone 'part_617' bone 4
+model 268 Add_Sub_Object_To_Bone 'part_73f' bone 1
+model 268 Add_Sub_Object_To_Bone 'part_73f' bone 2
+gen Unknown_831950
+stub UnknownB02C90Class::BufferStruct::Insert 0
+stub UnknownB02C90Class::BufferStruct::Insert 0
+mainview add 4301
+msg 3 CREATE (4) size 27: cpacket.cpp's handler
+asset manager +0x78 'ship_test' scale 1 hsv (0 0 0) -> model 275
+gen Unknown_810750
+gen Unknown_810CF0
+asset manager +0x78 'part_618' scale 1 hsv (0 0 0) -> model 276
+asset manager +0x78 'part_618' scale 1 hsv (0 0 0) -> model 277
+asset manager +0x78 'part_617' scale 1 hsv (0 0 0) -> model 278
+asset manager +0x78 'part_617' scale 1 hsv (0 0 0) -> model 279
+asset manager +0x78 'part_73f' scale 1 hsv (0 0 0) -> model 280
+asset manager +0x78 'part_73f' scale 1 hsv (0 0 0) -> model 281
+model 276 Set_Hidden 1
+model 278 Set_Hidden 1
+model 277 Set_Hidden 1
+model 279 Set_Hidden 1
+model 280 Set_Hidden 1
+model 281 Set_Hidden 1
+model 275 Add_Sub_Object_To_Bone 'part_618' bone 1
+model 275 Add_Sub_Object_To_Bone 'part_617' bone 2
+model 275 Add_Sub_Object_To_Bone 'part_618' bone 3
+model 275 Add_Sub_Object_To_Bone 'part_617' bone 4
+model 275 Add_Sub_Object_To_Bone 'part_73f' bone 1
+model 275 Add_Sub_Object_To_Bone 'part_73f' bone 2
+gen Unknown_831950
+stub UnknownB02C90Class::BufferStruct::Insert 0
+stub UnknownB02C90Class::BufferStruct::Insert 0
+mainview add 4302
+msg 4 FORMATION_POSITIONAL_UPDATE (65) size 24: cpacket.cpp's handler
+msg 5 FORMATION_POSITIONAL_UPDATE (65) size 24: cpacket.cpp's handler
+check FORMATION 65 for object 4301: the type-8 state (0x716080) with a formation node (0x714340) holding leader 4300 and offset (10, 0, 0): ok
+check FORMATION 65 for the avatar 4302: the type-4 state (0x7171C0) with leader 4300 and offset (0, 5, 0): ok
+msg 6 FORMATION_POSITIONAL_UPDATE (65) size 24: cpacket.cpp's handler
+check a second FORMATION 65 for 4301 updates its state in place (0x716220: a new extrapolator, the blend to the new node): ok
+msg 7 REMOVE (7) size 8: cpacket.cpp's handler
+stub SClient::Unknown_744B60 -> 0
+stub SClient::Unknown_74C530 4300
+mainview remove 4300
+model 261 'ship_test' deleted
+aux data deleted (slot +0x04)
+model 262 'part_618' deleted
+model 264 'part_617' deleted
+model 263 'part_618' deleted
+model 265 'part_617' deleted
+model 266 'part_73f' deleted
+model 267 'part_73f' deleted
+msg 8 REMOVE (7) size 8: cpacket.cpp's handler
+stub SClient::Unknown_744B60 -> 0
+stub SClient::Unknown_74C530 4301
+mainview remove 4301
+model 268 'ship_test' deleted
+aux data deleted (slot +0x04)
+model 269 'part_618' deleted
+model 271 'part_617' deleted
+model 270 'part_618' deleted
+model 272 'part_617' deleted
+model 273 'part_73f' deleted
+model 274 'part_73f' deleted
+msg 9 REMOVE (7) size 8: cpacket.cpp's handler
+stub SClient::Unknown_744B60 -> 0
+stub SClient::Unknown_74C530 4302
+mainview remove 4302
+model 275 'ship_test' deleted
+aux data deleted (slot +0x04)
+model 276 'part_618' deleted
+model 278 'part_617' deleted
+model 277 'part_618' deleted
+model 279 'part_617' deleted
+model 280 'part_73f' deleted
+model 281 'part_73f' deleted
+check REMOVE 7 took the three out: ok
 == done: 0 checks failed
