@@ -352,25 +352,27 @@ public:
 	void Unknown_513FA0();								// 0x513FA0 (empty)
 	void Unknown_513FC0();								// 0x513FC0 (cpacket.cpp: SERVER_HANDOFF 58: the land out of the scene)
 	void Unknown_514010(int old_mode, int mode);		// 0x514010 (SClient 0x745F30: the view mode before and after)  // NAME 1 [old_mode, mode]: what it gets
+	void Unknown_512B10(int x, int y, float *fx, float *fy);	// 0x512B10 (a screen point clamped to the device and divided by its size; inlined in 0x512BB0)  // NAME 1 [x, y, fx, fy]: neutral
+	void Unknown_514480();								// 0x514480 (the Graphics_* options into +0x50..+0x64, the flags +0x68 / +0x69; Doppler_Enabled)
 	int Unknown_514400();								// 0x514400 (the cockpit's +0xDC)
 	void Unknown_514450();								// 0x514450 (sets the land's +0x136)
 
 	char Unknown38[0x48 - 0x38];						// +0x38
 	MainViewUnknown48Class *Unknown48;					// +0x48 (the base clears it; the constructor makes it)
 	SClient *Client;									// +0x4C view.cpp's 0x65B810 copies the task's Client (+0x78); 0x5137F0 asks its slot +0x18 for the SClient  // NAME 2: what it holds
-	bool Unknown50;										// +0x50
-	int Unknown54;										// +0x54
-	int Unknown58;										// +0x58
-	int Unknown5C;										// +0x5C
-	int Unknown60;										// +0x60
-	int Unknown64;										// +0x64
-	bool Unknown68;										// +0x68 (0x50BA60 sets it)
-	bool Unknown69;										// +0x69 (0x50BA60 sets it; 0x5146D0 tests it)
-	float Unknown6C;									// +0x6C (0x5146D0: 1.2)
-	int Unknown70;										// +0x70 (0x5146D0: the client's +0x1160; Render_Planet_Mode's polygon budget)
-	float Unknown74;									// +0x74 (0x5146D0: the client's +0x1164)
-	int Unknown78;										// +0x78 (0x5146D0: the client's +0x1158; Render_Space_Mode's / Gas_Giant's polygon budget)
-	float Unknown7C;									// +0x7C (0x5146D0: the client's +0x1168)
+	bool GraphicsDefault;							// +0x50 (0x514480: the option 'Graphics_Default')  // NAME 2: its option's
+	float GraphicsGamma;								// +0x54 ('Graphics_Gamma', percent)  // NAME 2: its option's
+	float GraphicsLandPoly;							// +0x58 ('Graphics_Land_Poly')  // NAME 2: its option's
+	float GraphicsLandDetail;						// +0x5C ('Graphics_Land_Detail')  // NAME 2: its option's
+	float GraphicsSpacePoly;							// +0x60 ('Graphics_Space_Poly')  // NAME 2: its option's
+	float GraphicsTextureSize;						// +0x64 ('Graphics_Texture_Size')  // NAME 2: its option's
+	bool GraphicsChanged;							// +0x68 (0x514480: an option moved by more than 1; 0x50BA60 sets it)  // NAME 2: what 0x514480 records
+	bool DefaultChanged;								// +0x69 (0x514480: 'Graphics_Default' changed; 0x5146D0 tests it)  // NAME 2: what 0x514480 records
+	float Gamma;										// +0x6C (0x5146D0: 1.2 with the defaults, else from the option; 1..3, WW3D::Set_Gamma)  // NAME 2: what it is set to
+	int LandPolyBudget;								// +0x70 (0x5146D0: the options' LandPolyBudget, 8000..40000; Render_Planet_Mode's budget)  // NAME 3: the registry value's (soptions.h)
+	int LandLOD;										// +0x74 (the options' LandLOD, 0..7)  // NAME 3: the registry value's (soptions.h)
+	int PolyBudget;									// +0x78 (the options' PolyBudget, 8000..40000; Render_Space_Mode's / Gas_Giant's budget)  // NAME 3: the registry value's (soptions.h)
+	int TextureReduction;							// +0x7C (the options' TextureReduction, 0..3; WW3D::Set_Texture_Reduction)  // NAME 3: the registry value's (soptions.h)
 	RadarSystemClass *Radar;							// +0x80 (cpacket.cpp: WARP_INDEX 156's FAIL_IF '!radar'; 0x50BA60 makes it, 0x7BC770)  // NAME 3: the FAIL_IF's name
 	int Unknown84;										// +0x84 (0x50BA60 makes it: 0x24 bytes, 0x7B6BD0)
 	IntersectionClass Intersection;						// +0x88 (vtable 0xAEA8A0 and its statics in the constructor)  // NAME 2: what it is

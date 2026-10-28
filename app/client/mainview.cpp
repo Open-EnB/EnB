@@ -15,9 +15,9 @@
 #include "..\..\ww3d2\predlod.h"
 #include "..\..\ww3d2\dazzle.h"
 #include "..\..\wwdebug\wwprofile.h"
+#include "..\..\ww3d2\colorspace.h"
 
-
-
+bool Unknown_C404F8;			// NAME 1: neutral (D10): the client's 0xC404F8, 0x514480 copies 'Doppler_Enabled' to it (its home file is unknown)
 
 
 
@@ -157,8 +157,8 @@
 // NOT EXACT: scheduling only (the array-ctor pushes, two float constants, one register); attempts.csv 0x50B360
 MainViewClass::MainViewClass(ClientTaskClass *ctask) :
 	ViewClass(ctask, 0),
-	Unknown50(false), Unknown54(0), Unknown58(0), Unknown5C(0), Unknown60(0), Unknown64(0), Unknown68(false), Unknown69(false),
-	Unknown6C(0), Unknown70(0), Unknown74(0), Unknown78(0), Unknown7C(0), Radar(NULL), Unknown84(0),
+	GraphicsDefault(false), GraphicsGamma(0), GraphicsLandPoly(0), GraphicsLandDetail(0), GraphicsSpacePoly(0), GraphicsTextureSize(0), GraphicsChanged(false), DefaultChanged(false),
+	Gamma(0), LandPolyBudget(0), LandLOD(0), PolyBudget(0), TextureReduction(0), Radar(NULL), Unknown84(0),
 	Scene(NULL), Unknown110(NULL), Unknown114(NULL), Unknown118(NULL), Unknown11C(NULL), Unknown120(NULL),
 	DazzleLayer(NULL), Unknown128(0), Camera(NULL), Unknown130(true),
 	Unknown138(NULL), Land(NULL), Orbitals(NULL),
@@ -632,7 +632,7 @@ WW3DErrorType MainViewClass::Render_Gas_Giant_Mode(float znear, float zfar)
 	Camera->Set_Clip_Planes(znear, zfar);
 	Scene->Visibility_Check(Camera);
 	Camera->Set_Clip_Planes(old_near, old_far);
-	float budget = (float)Unknown78 - cost;
+	float budget = (float)PolyBudget - cost;
 	if (budget <= 0.0f) budget = 0.0f;
 	PredictiveLODOptimizerClass::Optimize_LODs(budget);
 	Unknown_50CE00(near2, far2);
@@ -665,7 +665,7 @@ WW3DErrorType MainViewClass::Render_Space_Mode(float znear, float zfar)
 	Camera->Set_Clip_Planes(znear, zfar);
 	Scene->Visibility_Check(Camera);
 	Camera->Set_Clip_Planes(old_near, old_far);
-	float budget = (float)Unknown78 - cost;
+	float budget = (float)PolyBudget - cost;
 	if (budget <= 0.0f) budget = 0.0f;
 	PredictiveLODOptimizerClass::Optimize_LODs(budget);
 	if (!Client->Unknown10FA) {
@@ -710,7 +710,7 @@ WW3DErrorType MainViewClass::Render_Planet_Mode(float znear, float zfar)
 	Camera->Set_Clip_Planes(znear, zfar);
 	Scene->Visibility_Check(Camera);
 	Camera->Set_Clip_Planes(old_near, old_far);
-	float budget = (float)Unknown70 - cost;
+	float budget = (float)LandPolyBudget - cost;
 	if (budget <= 0.0f) budget = 0.0f;
 	PredictiveLODOptimizerClass::Optimize_LODs(budget);
 	if (!Client->Unknown10FA) {
@@ -797,16 +797,16 @@ WW3DErrorType MainViewClass::Render_Planet_Mode(float znear, float zfar)
 
 
 
-
-
-
-
-
-
-
-
-
-
+// the day / night colour: the value a quarter of the source's, plus a half (0x50EE60, out of line; Update inlines it)
+Vector3 Unknown_50EE60(const Vector3 &source)
+{
+	Vector3 hsv;
+	RGB_To_HSV(hsv, source);
+	hsv.Z = hsv.Z * 0.25f + 0.5f;
+	Vector3 rgb;
+	HSV_To_RGB(rgb, hsv);
+	return(rgb);
+}
 
 
 
@@ -1697,16 +1697,16 @@ void MainViewClass::Unknown_14()
 
 
 
-
-
-
-
-
-
-
-
-
-
+void MainViewClass::Unknown_512B10(int x, int y, float *fx, float *fy)
+{
+	int width, height, bits;
+	bool windowed;
+	WW3D::Get_Device_Resolution(width, height, bits, windowed);
+	if (x < 0) x = 0; else if (x > width) x = width;
+	if (y < 0) y = 0; else if (y > height) y = height;
+	*fx = (float)x / width;
+	*fy = (float)y / height;
+}
 
 
 
@@ -2277,6 +2277,43 @@ MainViewUnknown64Class *MainViewClass::Unknown_64()
 void MainViewClass::Unknown_514450()
 {
 	if (Land) Land->Set_Dirty();
+}
+
+void MainViewClass::Unknown_514480()
+{
+	bool graphics_default = Unknown_BE8B38->Get_Bool("Graphics_Default");
+	float gamma = Unknown_BE8B38->Get_Float("Graphics_Gamma");
+	float land_poly = Unknown_BE8B38->Get_Float("Graphics_Land_Poly");
+	float land_detail = Unknown_BE8B38->Get_Float("Graphics_Land_Detail");
+	float space_poly = Unknown_BE8B38->Get_Float("Graphics_Space_Poly");
+	float texture_size = Unknown_BE8B38->Get_Float("Graphics_Texture_Size");
+	DefaultChanged = false;
+	GraphicsChanged = false;
+	if (graphics_default != GraphicsDefault) {
+		GraphicsDefault = graphics_default;
+		DefaultChanged = true;
+	}
+	if (WWMath::Fabs(gamma - GraphicsGamma) > 1.0f) {
+		GraphicsChanged = true;
+		GraphicsGamma = gamma;
+	}
+	if (WWMath::Fabs(land_poly - GraphicsLandPoly) > 1.0f) {
+		GraphicsChanged = true;
+		GraphicsLandPoly = land_poly;
+	}
+	if (WWMath::Fabs(land_detail - GraphicsLandDetail) > 1.0f) {
+		GraphicsChanged = true;
+		GraphicsLandDetail = land_detail;
+	}
+	if (WWMath::Fabs(space_poly - GraphicsSpacePoly) > 1.0f) {
+		GraphicsChanged = true;
+		GraphicsSpacePoly = space_poly;
+	}
+	if (WWMath::Fabs(texture_size - GraphicsTextureSize) > 1.0f) {
+		GraphicsTextureSize = texture_size;
+		GraphicsChanged = true;
+	}
+	Unknown_C404F8 = Unknown_BE8B38->Get_Bool("Doppler_Enabled");
 }
 
 void MainViewClass::Unknown_18(int arg)
