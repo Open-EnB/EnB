@@ -725,6 +725,13 @@ public:
 	void Unknown_74B640();								// 0x74B640 (cpacket.cpp: mode change 76, mode 1)
 	void Unknown_74C3B0(int game_id, AvatarDescClass &desc);	// 0x74C3B0 (cpacket.cpp: AVATAR_DESCRIPTION 97 passes its GameID and Desc)  // NAME 1 [game_id, desc]: the packet's fields
 	void Unknown_745750();								// 0x745750 (cpacket.cpp: SERVER_HANDOFF 58)
+	void Unknown_745AA0(float *turn, float *tilt, int *move_direction, bool fixed_speed);	// 0x745AA0 (no caller): postate's 0x717430 on the avatar's type-4 state  // NAME 2 [turn, tilt, move_direction, fixed_speed]: 0x717430's
+	void Unknown_745B20(bool level, bool auto_level);	// 0x745B20: postate's 0x7179A0  // NAME 2 [level, auto_level]: 0x7179A0's
+	void Unknown_745B90(float turn);					// 0x745B90 (ui_cpit.cpp 0x5806E0): turn, or level out below 0.0001  // NAME 2 [turn]: 0x717430's
+	void Unknown_745C70(float tilt);					// 0x745C70 (0x5806E0): tilt, or auto-level below 0.0001  // NAME 2 [tilt]: 0x717430's
+	void Unknown_745D50(float turn, float tilt);		// 0x745D50 (0x6B58A0)  // NAME 2 [turn, tilt]: 0x717430's
+	void Unknown_745DD0();								// 0x745DD0 (no caller): level and auto-level
+	void Unknown_745E40(int move_direction, bool fixed_speed);	// 0x745E40 (0x5806E0, 19 calls)  // NAME 2 [move_direction, fixed_speed]: 0x717430's
 	void Unknown_745000(int base_asset);				// 0x745000 (cpacket.cpp: SERVER_PARAMETERS 66 passes its BackdropBaseAsset)  // NAME 1 [base_asset]: the packet's field
 	void Unknown_750A70(unsigned sector);				// 0x750A70 (cpacket.cpp: SERVER_PARAMETERS 66 passes its SectorNum)  // NAME 1 [sector]: the packet's field
 	void Unknown_74BB50(int type);						// 0x74BB50: 'Logging off to desktop.' (1), '... login screen.' (2), '... character selection.' (3) when Unknown138C is set, then LOGOFF_REQUEST on the connection  // NAME 1 [type]: what it selects

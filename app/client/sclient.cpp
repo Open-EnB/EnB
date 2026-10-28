@@ -1089,86 +1089,86 @@ void SClient::Unknown_745750()
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#include "postate.h"
+
+// The player's steering (ui_cpit.cpp 0x5806E0, 0x6B58A0): each hands the avatar's type-4 state (postate.cpp) the client's
+// +0x10D4 limits, the avatar's aux data and the clock +0x10BC
+// 0x745AA0
+void SClient::Unknown_745AA0(float *turn, float *tilt, int *move_direction, bool fixed_speed)
+{
+	ClientObjectClass *avatar = Get_Avatar();
+	if (avatar && avatar->Unknown98->Unknown_04() == 4) {
+		((Unknown717010Class *)avatar->Unknown98)->Unknown_717430((int)&Unknown10D4, (DeltaCompoundClass *)avatar->AuxData, Unknown10BC, turn, tilt, move_direction, fixed_speed);
+	}
+}
+
+// 0x745B20
+void SClient::Unknown_745B20(bool level, bool auto_level)
+{
+	ClientObjectClass *avatar = Get_Avatar();
+	if (avatar && avatar->Unknown98->Unknown_04() == 4) {
+		((Unknown717010Class *)avatar->Unknown98)->Unknown_7179A0((int)&Unknown10D4, (DeltaCompoundClass *)avatar->AuxData, Unknown10BC, level, auto_level);
+	}
+}
+
+// 0x745B90
+void SClient::Unknown_745B90(float turn)
+{
+	if (fabs(turn) < 0.0001) {
+		ClientObjectClass *avatar = Get_Avatar();
+		if (avatar && avatar->Unknown98->Unknown_04() == 4) {
+			((Unknown717010Class *)avatar->Unknown98)->Unknown_7179A0((int)&Unknown10D4, (DeltaCompoundClass *)avatar->AuxData, Unknown10BC, true, false);
+		}
+	} else {
+		ClientObjectClass *avatar = Get_Avatar();
+		if (avatar && avatar->Unknown98->Unknown_04() == 4) {
+			((Unknown717010Class *)avatar->Unknown98)->Unknown_717430((int)&Unknown10D4, (DeltaCompoundClass *)avatar->AuxData, Unknown10BC, &turn, NULL, NULL, false);
+		}
+	}
+}
+
+// 0x745C70
+void SClient::Unknown_745C70(float tilt)
+{
+	if (fabs(tilt) < 0.0001) {
+		ClientObjectClass *avatar = Get_Avatar();
+		if (avatar && avatar->Unknown98->Unknown_04() == 4) {
+			((Unknown717010Class *)avatar->Unknown98)->Unknown_7179A0((int)&Unknown10D4, (DeltaCompoundClass *)avatar->AuxData, Unknown10BC, false, true);
+		}
+	} else {
+		ClientObjectClass *avatar = Get_Avatar();
+		if (avatar && avatar->Unknown98->Unknown_04() == 4) {
+			((Unknown717010Class *)avatar->Unknown98)->Unknown_717430((int)&Unknown10D4, (DeltaCompoundClass *)avatar->AuxData, Unknown10BC, NULL, &tilt, NULL, false);
+		}
+	}
+}
+
+// 0x745D50
+void SClient::Unknown_745D50(float turn, float tilt)
+{
+	ClientObjectClass *avatar = Get_Avatar();
+	if (avatar && avatar->Unknown98->Unknown_04() == 4) {
+		((Unknown717010Class *)avatar->Unknown98)->Unknown_717430((int)&Unknown10D4, (DeltaCompoundClass *)avatar->AuxData, Unknown10BC, &turn, &tilt, NULL, false);
+	}
+}
+
+// 0x745DD0
+void SClient::Unknown_745DD0()
+{
+	ClientObjectClass *avatar = Get_Avatar();
+	if (avatar && avatar->Unknown98->Unknown_04() == 4) {
+		((Unknown717010Class *)avatar->Unknown98)->Unknown_7179A0((int)&Unknown10D4, (DeltaCompoundClass *)avatar->AuxData, Unknown10BC, true, true);
+	}
+}
+
+// 0x745E40
+void SClient::Unknown_745E40(int move_direction, bool fixed_speed)
+{
+	ClientObjectClass *avatar = Get_Avatar();
+	if (avatar && avatar->Unknown98->Unknown_04() == 4) {
+		((Unknown717010Class *)avatar->Unknown98)->Unknown_717430((int)&Unknown10D4, (DeltaCompoundClass *)avatar->AuxData, Unknown10BC, NULL, NULL, &move_direction, fixed_speed);
+	}
+}
 
 
 
