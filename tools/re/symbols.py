@@ -46,6 +46,8 @@ def main():
     syms = {}   # address -> entry
 
     def put(addr, symbol, kind, source, length=None):
+        if symbol.startswith(('_$E', 'j__$E')):
+            return      # D94(b): compiler-generated, numbered per translation unit (P-H7-2)
         e = syms.get(addr)
         if e and RANK[e['source']] <= RANK[source]:
             return

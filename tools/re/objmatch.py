@@ -43,6 +43,13 @@ from clientimage import ClientImage, DEFAULT_CLIENT  # noqa: E402
 
 MIN_FIXED = 12   # a pattern needs at least this many non-wildcard bytes to be searched
 
+
+def generated(name):
+    """D94(b): a compiler-generated `_$E<n>` name (a dynamic initialiser or atexit destructor) is
+    numbered per translation unit, so the same name is a different function in each object: never
+    evidence across objects."""
+    return name.startswith('_$E')
+
 RELOC_SIZE = {0x06: 4, 0x07: 4, 0x14: 4, 0x0B: 4, 0x0A: 2, 0x01: 2, 0x02: 2}
 
 
@@ -206,7 +213,8 @@ def symbol_addresses():
         path = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', 'docs', 'data', 'symbols.json')
         try:
             for e in json.load(open(path)):
-                _symbol_addresses.setdefault(e['symbol'], set()).add(int(e['address'], 16))
+                if not generated(e['symbol']):
+                    _symbol_addresses.setdefault(e['symbol'], set()).add(int(e['address'], 16))
         except (OSError, ValueError, KeyError):
             pass
     return _symbol_addresses
@@ -221,7 +229,7 @@ def self_names():
         path = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', 'docs', 'data', 'symbols.json')
         try:
             for e in json.load(open(path)):
-                if e.get('kind') == 'function' and e.get('source') != 'exact':
+                if e.get('kind') == 'function' and e.get('source') != 'exact' and not generated(e['symbol']):
                     _self_names.setdefault(e['symbol'], set()).add(int(e['address'], 16))
         except (OSError, ValueError, KeyError):
             pass
@@ -420,11 +428,12 @@ def match_objects(img, paths, region=None):
         # P1): when the symbol also matches an address of its own elsewhere, the shared one is the
         # other function's and must not become a "known" target that confirms the wrong twin.
         shared = claimed[addr] - {r['symbol']}
-        if r['symbol'] and obj.symbol_class(r['symbol']) == 2 and not (shared and sole[r['symbol']] - {addr}):
+        if r['symbol'] and not generated(r['symbol']) and obj.symbol_class(r['symbol']) == 2 \
+                and not (shared and sole[r['symbol']] - {addr}):
             known.setdefault(r['symbol'], set()).add(addr)
         o = addr - start
         for k, n, typ, sym, addend in obj.reloc_targets(sec, s, length):
-            if n != 4 or sym is None or sym['class'] != 2 or obj.literal(sym) is not None:
+            if n != 4 or sym is None or sym['class'] != 2 or obj.literal(sym) is not None or generated(sym['name']):
                 continue
             if typ == 0x06:
                 v = struct.unpack('<I', text[o + k:o + k + 4])[0] - struct.unpack('<I', addend)[0]
