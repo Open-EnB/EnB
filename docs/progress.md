@@ -1338,17 +1338,13 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 | D113 | 2026-10-27 | Worktrees get a tool of our own, `tools/vc6/wt.py` (new / bring-over / remove: junctions, captures, libraries, app.lib; bring-over refuses unless master equals the base, merges the row files by row, re-verifies and lands through commit_mine's compare-and-swap), not worktrunk: its setup would still be our hook script, its copy-on-write sharing needs APFS / btrfs / XFS (this host is NTFS), and its squash merge with generated messages conflicts with the one-commit-per-verified-gain history (D112(3)) | user |
 | D114 | 2026-10-27 | (a) D95(b) is closed, superseded by D100 and its refinement (P-M1-1); (b) P-M1-2's wider range (the object's exact COMDATs only it is exact at, within 0x1000 of either end) and (c) P-M1-3's regeneration of symbols.json each get a full verify of every library on a quiet tree, like D88, and are kept only gains-only | user |
 | D115 | 2026-10-27 | objmatch credits a tied constructor / destructor of a file-static to the address its rebuilt static initialiser registers or calls (the `_$E` initialiser's own relocation names it: co_player_relationship's 0x709EF0 registers 0x709F40's atexit), as D88's self name does from a vtable slot; finds and other tied helpers stay tied. On a quiet tree after D114, with a full verify of every library, kept only gains-only (P-R2-1 narrowed) | user |
+| D116 | 2026-10-27 | D115's initialiser round credits by symbol across objects (one mangled symbol is one address in the linked image), as builder M3 built it (092776b: permstr 0x4AE2D0, definitionfactory 0xA06000 / 0xA06020); D115 reads accordingly (P-M3-1) | user |
+| D117 | 2026-10-27 | pairs_cmp prints the addresses lost outright (lost pairs whose address no file holds afterwards) and the moves, the list D66(v) depends on (P-M3-2) | user |
 
 ## 3. Open decisions
 
-* **P-M3-1 (D115's scope, 2026-10-27):** builder M3 credits an initialiser-proven constructor / destructor by symbol
-  across objects (one mangled symbol is one address in the linked image), not only within the initialiser's own object as
-  D115 reads; that is how permstr 0x4AE2D0 and definitionfactory 0xA06000 / 0xA06020 gained (092776b, +7 in all, 0 lost).
-  Recommendation: accept the wider reading and amend D115.
-* **P-M3-2 (pairs_cmp, 2026-10-27):** pairs_cmp lists lost pairs but not the addresses lost outright, which D66(v) now
-  depends on (pacing.py and `.work/m3/cmp.py` each compute it). Proposal: pairs_cmp prints the lost-outright list and the
-  moves. Recommendation: accept (S, a Sonnet tools item).
-* **Evidence-backed pins (Open-BFME's ledger, 2026-10-27):** let a reconstructed file pin a still-tied function to one client
+* **Evidence-backed pins (Open-BFME's ledger, 2026-10-27):** being measured (user, 2026-10-27: test, then decide) in a
+  wt.py worktree, not landed; the decision follows the measurement. Earlier text: let a reconstructed file pin a still-tied function to one client
   address with an evidence note (initialiser, caller in the object, placement), accepted when the bytes match there and no
   other file claims the address; changes D54's "ties never pair". Recommendation: a builder designs and measures it on a
   quiet tree before a decision row.
