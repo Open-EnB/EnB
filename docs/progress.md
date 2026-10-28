@@ -4,6 +4,34 @@ Newest first within each section. Dates are when the entry was written.
 
 ## 1. Log
 
+### 2026-10-28 (17:00, day): the 24-hour run; packets -> object model; app 3,797 -> 4,549 pairs, 0 lost; D119-D125
+
+Coordinator Opus 5.5, 2026-10-27 21:55 to 2026-10-28 17:00 (the user closed launches at 15:50; the hold 07:20-08:45).
+Base 2205fd2; HEAD +940 pairs against it (app 3,797 -> 4,549; all libraries 8,914 -> 9,773), no address lost outright
+(D119's 0x474080 moved to ambiguous; D66 (i) / (v) moves only). 29 Opus builders, two at a time; weekly usage 15 % ->
+37 %. Plan log: `.work/run-2026-10-28/plan.md` (every launch, report and heartbeat).
+
+* **Packets -> object model (the user's interest; docs/packet-flow.md is the reference):** PF1 wrote packet-flow.md;
+  co.cpp's bases / ctor / dtor (CO1), CREATE 4 / CHANGE_BASE_ASSET 38 / Set_Model (CR1), postate.cpp 13 states (PS1),
+  extrap.cpp (EX1), the per-frame update and Do_Frame (UP1, DF1), the effects factory eff_o.cpp (EF1, EF2), co.cpp's
+  rest (IB1, DM1), co_subtypes.cpp for CREATE's types 24 / 28 (CS1, D122), dynamic_obj.cpp's DynObj (DO1) and the whole
+  proximity system px_* (PX1, PX2: built but never run in retail, §2.6), cpacket.cpp's every handler in source (CP1, CP2:
+  97 exact / 10 NOT EXACT / 0 not rebuilt), sclient.cpp's object-facing members (SC1, SC2). clienttest drives the real
+  CREATE / REMOVE / SUBPARTS through a fake asset manager (HN1) and grew 38 -> 103 checks.
+* **Land and the main view (Next Step 5):** the lighting difference was VIDTEST's sun input (LD2: acos), the client's
+  decorations replace viddeco (P-LD1-1), D119's Create_* form, D120's `--art build/art` default (LD3), mainview.cpp new
+  (LD3, MV1, HN2, MV2: zone / wind / stars loaders, Add_Object / Remove_Object, the render path, Shutdown; every
+  function tried), WW3D::Set_Gamma through WW3D_API_PATCHES (HN2).
+* **Packet classes (Next Step 3):** PK1's self-name round (bada317, +293, for the user's decision in §3), PK2's value
+  constructors with the union kept (T14 solved).
+* **Tools:** gen_stubs writes `const RefCountPtr<T> &` / by-value RefCountPtr stand-ins (SC1, P-T18-2);
+  `tools/re/symbols_named.json` with `symbols.py --apply-named` (MV2); `tools/harness/artdir.py` (LD3);
+  `tools/vc6/auxpad.py` (HX1); wt.py bring-over landed every builder (refuses D66 / D119 moves: P-LD3-2 / P-CS1-2).
+* **Decisions:** D119-D125 (§2). Open for the user (§3): bada317's rule, P-HX1-1, P-IB1-1 with P-DM1-1, D101's sbs
+  criterion (now met: 2.03-2.09 %), P-CS1-1, P-CS1-3. Traps from every report are in workflow.md §3.
+* **Next:** §4 items 2, 3, 5 carry each builder's leftovers; the Fable queue (item 7) gained cpacket 62 / 8 as one round.
+  Pool VM enb-vc6-06 has 6.2 GB of disk left. docs/imports.md in the main tree is stale: `importer.py report`.
+
 ### 2026-10-27 (20:30, night): decisions D96-D115, the audit, six tools, objmatch's range / initialiser rounds; +568 pairs, 0 lost
 
 Coordinator Opus 5.5 (D96). Base 6bcc001; HEAD +568 pairs against it (+811 against a76b92e, the day's start), no address
