@@ -172,7 +172,7 @@ public:
 	UIChatPanelUnknownE0Class *UnknownE0;				// +0xE0 (0x750210, 0x7517E0, 0x751850 test its +0x7C)
 	char UnknownE4[0x138 - 0xE4];
 	UIChatPanelUnknown138Class *Unknown138;				// +0x138 (0x744E70 calls its slot +0xAC)
-	char Unknown13C[0x268 - 0x13C];
+	char Unknown13C[0x264 - 0x13C]; bool MessageButtonShowing; char Unknown265[3]; bool Is_Message_Button_Showing() { return(MessageButtonShowing); }	// +0x264 (0x74FEC0's FAIL_IF names the getter)  // NAME 2 [MessageButtonShowing]: its getter's
 };
 
 class UILineDisplayClass : public UIUnknownBaseClass, public RefCountClass
@@ -5020,9 +5020,21 @@ void SClient::Unknown_74F5C0()
 
 
 
+// 0x74FA30 (0x750210): while the dialog shows a confirmed action, the oldest offer leaves both type 0 queues once
+// its timeout has come (it is in +0x120C[0]) and the dialog closes
+void SClient::Unknown_74FA30()
+{
 
+	FAIL_IF(!CurrentView) return;
+	ViewClass *ui_view = CurrentView->Unknown_1C();
 
+	FAIL_IF(!ui_view) return;
+	ViewUnknown34Class *dialog = ui_view->Get_Unknown34();
 
+	FAIL_IF(!dialog) return;
+	std::deque<int> &confirmedlist = Unknown11AC[0]; std::deque<int> &timedlist = Unknown120C[0];	// NAME 3 [confirmedlist]: the FAIL_IF's  // NAME 1 [timedlist]: 0x74EB00's queue
+	if (!timedlist.empty()) {
+		while (strcmp(dialog->Type, "CONFIRMED_ACTION_DIALOG") == 0) {
 
 
 
@@ -5031,60 +5043,48 @@ void SClient::Unknown_74F5C0()
 
 
 
+			FAIL_IF(confirmedlist.empty()) {
+				timedlist.clear();
+				return;
+			}
+			int id = confirmedlist.front(); std::deque<int>::iterator it = std::find(timedlist.begin(), timedlist.end(), id);
+			if (it == timedlist.end()) {
+				return;
+			}
+			timedlist.erase(it);
+			confirmedlist.pop_front();
+			dialog->Unknown_5C();
+		}
+	}
+}
 
 
 
 
 
 
+// 0x74FEC0 (0x750210): the chat panel's offers (type 1) as 0x74FA30, while its message button shows; the button goes
+// with the last one
+void SClient::Unknown_74FEC0()
+{
+	std::deque<int> &timedlist = Unknown120C[1]; std::deque<int> &confirmedlist = Unknown11AC[1]; UIChatPanelClass *chat_panel = ChatPanel.Peek();	// NAME 3 [confirmedlist, chat_panel]: the FAIL_IFs'  // NAME 1 [timedlist]: 0x74EB00's queue
+	FAIL_IF(!chat_panel) return;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	FAIL_IF(chat_panel->Is_Message_Button_Showing() && confirmedlist.empty()) {
+		timedlist.clear();
+		return;
+	}
+	if (chat_panel->Is_Message_Button_Showing()) {
+		int id = confirmedlist.front(); std::deque<int>::iterator it = std::find(timedlist.begin(), timedlist.end(), id);
+		if (it != timedlist.end()) {
+			timedlist.erase(it);
+			confirmedlist.pop_front();
+			if (confirmedlist.empty()) {
+				chat_panel->Unknown_56BAA0(0, NULL);
+			}
+		}
+	}
+}
 
 
 

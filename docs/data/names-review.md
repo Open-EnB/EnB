@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 33 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 36 |
-| 3 | by convention from a client-named file or sibling | 947 |
-| 2 | describes what the code does | 2317 |
-| 1 | neutral placeholder | 5294 |
+| 3 | by convention from a client-named file or sibling | 949 |
+| 2 | describes what the code does | 2318 |
+| 1 | neutral placeholder | 5295 |
 
 ## For review (score 3 and below)
 
@@ -2106,6 +2106,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `UIChatPanelUnknown138Class` | `app/client/sclient.cpp:174` | untagged neutral name (D10) |
 | 1 | `Unknown138` | `app/client/sclient.cpp:174` | untagged neutral name (D10) |
 | 1 | `Unknown13C` | `app/client/sclient.cpp:175` | untagged neutral name (D10) |
+| 1 | `Unknown265` | `app/client/sclient.cpp:175` | untagged neutral name (D10) |
 | 1 | `camera` | `app/client/sclient.cpp:215` | Process_AI reads that result as a render object's position |
 | 1 | `Unknown_53BD40` | `app/client/sclient.cpp:215` | untagged neutral name (D10) |
 | 1 | `scene, value` | `app/client/sclient.cpp:216` | what 0x744C10 / 0x74C3B0 pass |
@@ -5966,6 +5967,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `INI` | `app/client/sclient.cpp:93` | what it is |
 | 2 | `Load` | `app/client/sclient.cpp:107` | what it does |
 | 2 | `ChaseCameraModuleClass` | `app/client/sclient.cpp:118` | the FAIL_IF '!CameraManager->Get_Player_Chase_Camera_Module()' (0x744C10) |
+| 2 | `MessageButtonShowing` | `app/client/sclient.cpp:175` | its getter's |
 | 2 | `Set_Heading` | `app/client/sclient.cpp:245` | Init passes the camera mode's Heading |
 | 2 | `Set_Distance` | `app/client/sclient.cpp:246` | Init passes the camera mode's Distance |
 | 2 | `Set_Tilt` | `app/client/sclient.cpp:247` | Init passes the camera mode's Tilt |
@@ -7753,6 +7755,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `PTrade` | `app/client/sbaseview.h:71` | its class's file (ui_ptrade.cpp) |
 | 3 | `SoundManagerClass` | `app/client/sclient.cpp:774` | class-from-file (D24) for app\client\sound_manager.cpp |
 | 3 | `ACTIONTYPE_MAX` | `app/client/sclient.cpp:4752` | the assert's (Unknown120C's two queues) |
+| 3 | `confirmedlist` | `app/client/sclient.cpp:5035` | the FAIL_IF's  // NAME 1 [timedlist]: 0x74EB00's queue |
+| 3 | `confirmedlist, chat_panel` | `app/client/sclient.cpp:5070` | the FAIL_IFs'  // NAME 1 [timedlist]: 0x74EB00's queue |
 | 3 | `UIStarbaseClass` | `app/client/sclient.cpp:5504` | sbaseview.h's (ui_starbase.cpp); 0x640150: '/starbase reset' |
 | 3 | `SBaseViewClass` | `app/client/sclient.cpp:5505` | sbaseview.h's; Get_Starbase 0x54EDA0 |
 | 3 | `sclient.h` | `app/client/sclient.h:21` | header name assumed from the class |

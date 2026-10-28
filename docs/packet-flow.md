@@ -359,6 +359,11 @@ GUILD_RECRUIT_ACCEPT_CLIENT 201 or GUILD_SIMPLE_CLIENT_SECTOR 205 (types 2-21 wi
 +0x11AC[0] and, if there, +0x120C[0]; CONFIRMED_ACTION_RESPONSE goes with AvatarID, the offer's id and yes / no; then
 0x750210's work. No object of the model is touched.
 
+0x750210's two cleanups (SC2): 0x74FA30, while the dialog shows CONFIRMED_ACTION_DIALOG and +0x120C[0] is not empty,
+drops the oldest type 0 offer from both queues and closes the dialog, once per offer whose timeout came (FAIL_IF: the
+offers queue empty clears the timeouts); 0x74FEC0 does the same for type 1 while the chat panel's message button (+0x264)
+shows, and hides the button (0x56BAA0(0, NULL)) with the last one.
+
 ## 3. The object-affecting opcodes
 
 Handler = slot +0x08 (all in cpacket.cpp unless noted). "Object" = `Find_Object(GameID)` unless said.
