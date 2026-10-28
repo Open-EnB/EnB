@@ -224,39 +224,41 @@ template<> int DeltaTemplateClass<bool>::UnknownGlobal = 0;
 // stay out; New_Object hands the object the harness's zeros)
 UnknownRootClass *UnknownCOClass::Unknown_Create_Aux_Root(int, int) { return(0); }
 
-// ------------------------------------------------------------------------- co.h's +0x98 state (postate.cpp)
+// ------------------------------------------------------------------------- extrap.cpp's extrapolators (postate.cpp's)
 
-// postate.cpp's states (not rebuilt) stand in on one shim with Unknown98Class's pure slots (co.h; its +0x18-+0x2C
-// are inline there). CONSTANT_POSITIONAL_UPDATE 64 news postate.cpp's constant state (declared as cpacket.cpp
-// declares it, plus the two slots the handler calls: its type, 1, and the deleting destructor) and updates it
-class Unknown98StateClass : public Unknown98Class
+// postate.cpp is in app.lib (its states and their Matrix3D); extrap.cpp is not rebuilt: its classes stand in
+// here as postate.h declares them, every extrapolator at rest at the origin
+#include "..\..\..\app\client\postate.h"
+ExtrapClass::~ExtrapClass() {}
+Vector3 ExtrapClass::Unknown_04(int) { return(Vector3(0, 0, 0)); }
+void ExtrapClass::Unknown_08() {}
+Vector3 ExtrapClass::Unknown_0C(int) { return(Vector3(0, 0, 0)); }
+void ExtrapClass::Unknown_10() {}
+Vector3 ExtrapClass::Unknown_14(int) { return(Vector3(0, 0, 0)); }
+Vector3 ExtrapClass::Unknown_18(int) { return(Vector3(0, 0, 0)); }
+void ExtrapClass::Unknown_1C(int, Vector3 *position, Quaternion *orientation, Vector3 *a, float *speed, Vector3 *c, bool)
 {
-public:
-	virtual int Unknown_04() { Trace("stub Unknown98Class::Unknown_04 -> 0"); return(0); }
-	virtual Matrix3D Unknown_08(int) { Matrix3D m(true); return(m); }
-	virtual Vector3 Unknown_0C(int) { return(Vector3(0, 0, 0)); }
-	virtual Vector3 Unknown_10(int) { return(Vector3(0, 0, 0)); }
-	virtual Vector3 Unknown_14(int) { return(Vector3(0, 0, 0)); }
-};
-class Unknown714B50Class : public Unknown98StateClass
-{
-public:
-	Unknown714B50Class(ConstantPositionalUpdatePacketClass *packet);
-	virtual ~Unknown714B50Class();
-	virtual int Unknown_04();
-	void Unknown_714D50(ConstantPositionalUpdatePacketClass *packet);
-	int GameID;
-};
-Unknown714B50Class::Unknown714B50Class(ConstantPositionalUpdatePacketClass *packet) : GameID(packet->GameID)
-{
-	Trace("stub Unknown714B50Class::Unknown714B50Class %u (%.2f %.2f %.2f)", GameID, packet->Unknown10[0], packet->Unknown10[1], packet->Unknown10[2]);
+	if (position) *position = Vector3(0, 0, 0);
+	if (orientation) *orientation = Quaternion(true);
+	if (a) *a = Vector3(0, 0, 0);
+	if (speed) *speed = 0;
+	if (c) *c = Vector3(0, 0, 0);
 }
-Unknown714B50Class::~Unknown714B50Class() { Trace("stub Unknown714B50Class::~Unknown714B50Class %u", GameID); }
-int Unknown714B50Class::Unknown_04() { return(1); }
-void Unknown714B50Class::Unknown_714D50(ConstantPositionalUpdatePacketClass *packet)
-{
-	Trace("stub Unknown714B50Class::Unknown_714D50 %u (%.2f %.2f %.2f)", packet->GameID, packet->Unknown10[0], packet->Unknown10[1], packet->Unknown10[2]);
-}
+void ExtrapClass::Unknown_20() {}
+void ExtrapClass::Unknown_24() {}
+ExtrapClass *ExtrapClass::Unknown_28(int) { return(this); }
+Unknown70F250Class::Unknown70F250Class(SimplePositionalUpdatePacketClass *packet) { Trace("stub Unknown70F250Class::Unknown70F250Class %u stamp %d", packet->GameID, (int)packet->TimeStamp); }
+Unknown7125F0Class::Unknown7125F0Class(ExtrapClass *from, ExtrapClass *to, unsigned int start, unsigned int end) { Trace("stub Unknown7125F0Class::Unknown7125F0Class %u %u", start, end); delete from; delete to; }
+Unknown713520Class::Unknown713520Class(PlanetPositionalUpdatePacketClass *packet, ClientClass *) { Trace("stub Unknown713520Class::Unknown713520Class %u orbit %d dist %.2f angle %.2f", packet->GameID, packet->OrbitID, packet->OrbitDist, packet->OrbitAngle); }
+Unknown713C80Class::Unknown713C80Class(ComponentPositionalUpdatePacketClass *packet, ClientClass *) { Trace("stub Unknown713C80Class::Unknown713C80Class %u stamp %d", packet->GameID, (int)packet->TimeStamp); }
+Unknown710110Class::Unknown710110Class(AdvancedPositionalUpdatePacketClass *packet) { Trace("stub Unknown710110Class::Unknown710110Class %u stamp %d", packet->GameID, (int)packet->TimeStamp); }
+Unknown714340Class::Unknown714340Class(SClient *, FormationPositionalUpdatePacketClass *packet) { Trace("stub Unknown714340Class::Unknown714340Class %u leader %d", packet->GameID, packet->LeaderID); }
+Unknown7119B0Class::Unknown7119B0Class(ExtrapClass *from, ExtrapClass *to, unsigned int start, unsigned int end) { Trace("stub Unknown7119B0Class::Unknown7119B0Class %u %u", start, end); delete from; delete to; }
+Unknown712DB0Class::Unknown712DB0Class(ExtrapClass *from, ExtrapClass *to, unsigned int start, unsigned int end) { Trace("stub Unknown712DB0Class::Unknown712DB0Class %u %u", start, end); delete from; delete to; }
+// client.cpp's mount buffer insert 0x725E70 (not rebuilt; Add reaches it since f6b75ef, a nested struct gen_stubs.py cannot write)
+void UnknownB02C90Class::BufferStruct::Insert(const ElementStruct &, int index) { Trace("stub UnknownB02C90Class::BufferStruct::Insert %d", index); }
+// pkupdate.cpp's 0x8ADB20 (not rebuilt): types 4 and 8 ask it
+bool AdvancedPositionalUpdatePacketClass::Unknown_8ADB20() { return(false); }
 
 // shiputils.cpp's colorization helper (COLORIZATION 17)
 class SClientUnknown1338Class;
@@ -274,47 +276,6 @@ bool DeltaCompoundClass::Decode(LinearBufferClass &buf, const DurationClass &)
 {
 	Trace("stub DeltaCompoundClass::Decode %s, %d bytes", Aux_Root_Name(this), buf.Size);
 	return(true);
-}
-// ------------------------------------------------------------------------- ADVANCED_POSITIONAL_UPDATE 62's states (postate.cpp)
-
-class Unknown717010Class : public Unknown98StateClass
-{
-public:
-	Unknown717010Class(int time, AdvancedPositionalUpdatePacketClass *packet);
-	virtual ~Unknown717010Class();
-	virtual int Unknown_04();
-	void Unknown_717290(AdvancedPositionalUpdatePacketClass *packet, int time);
-	int GameID;
-};
-Unknown717010Class::Unknown717010Class(int time, AdvancedPositionalUpdatePacketClass *packet) : GameID(packet->GameID)
-{
-	Trace("stub Unknown717010Class::Unknown717010Class %u (the player's) time %d stamp %d", GameID, time, (int)packet->TimeStamp);
-}
-Unknown717010Class::~Unknown717010Class() { Trace("stub Unknown717010Class::~Unknown717010Class %u", GameID); }
-int Unknown717010Class::Unknown_04() { return(4); }
-void Unknown717010Class::Unknown_717290(AdvancedPositionalUpdatePacketClass *packet, int time)
-{
-	Trace("stub Unknown717010Class::Unknown_717290 %u time %d stamp %d", packet->GameID, time, (int)packet->TimeStamp);
-}
-
-class Unknown715EF0Class : public Unknown98StateClass
-{
-public:
-	Unknown715EF0Class(int time, AdvancedPositionalUpdatePacketClass *packet);
-	virtual ~Unknown715EF0Class();
-	virtual int Unknown_04();
-	void Unknown_716140(int time, AdvancedPositionalUpdatePacketClass *packet);
-	int GameID;
-};
-Unknown715EF0Class::Unknown715EF0Class(int time, AdvancedPositionalUpdatePacketClass *packet) : GameID(packet->GameID)
-{
-	Trace("stub Unknown715EF0Class::Unknown715EF0Class %u time %d stamp %d", GameID, time, (int)packet->TimeStamp);
-}
-Unknown715EF0Class::~Unknown715EF0Class() { Trace("stub Unknown715EF0Class::~Unknown715EF0Class %u", GameID); }
-int Unknown715EF0Class::Unknown_04() { return(8); }
-void Unknown715EF0Class::Unknown_716140(int time, AdvancedPositionalUpdatePacketClass *packet)
-{
-	Trace("stub Unknown715EF0Class::Unknown_716140 %u time %d stamp %d", packet->GameID, time, (int)packet->TimeStamp);
 }
 // ------------------------------------------------------------------------- eff_o.cpp's effect factory (OBJECT_EFFECT 9)
 
@@ -366,66 +327,6 @@ Unknown6E9490EffectClass *Unknown_6E9490(int desc_id, int effect_id, int duratio
 	effect->ID = effect_id;
 	effect->Node.Set(effect);
 	return(effect);
-}
-// SIMPLE_POSITIONAL_UPDATE 8's state (postate.cpp)
-class Unknown715AB0Class : public Unknown98StateClass
-{
-public:
-	Unknown715AB0Class(SimplePositionalUpdatePacketClass *packet);
-	virtual ~Unknown715AB0Class();
-	virtual int Unknown_04();
-	void Unknown_715C20(SimplePositionalUpdatePacketClass *packet);
-	int GameID;
-};
-Unknown715AB0Class::Unknown715AB0Class(SimplePositionalUpdatePacketClass *packet) : GameID(packet->GameID)
-{
-	Trace("stub Unknown715AB0Class::Unknown715AB0Class %u stamp %d", GameID, (int)packet->TimeStamp);
-}
-Unknown715AB0Class::~Unknown715AB0Class() { Trace("stub Unknown715AB0Class::~Unknown715AB0Class %u", GameID); }
-int Unknown715AB0Class::Unknown_04() { return(3); }
-void Unknown715AB0Class::Unknown_715C20(SimplePositionalUpdatePacketClass *packet)
-{
-	Trace("stub Unknown715AB0Class::Unknown_715C20 %u stamp %d", packet->GameID, (int)packet->TimeStamp);
-}
-// PLANET_POSITIONAL_UPDATE 63's state (postate.cpp)
-class Unknown715CF0Class : public Unknown98StateClass
-{
-public:
-	Unknown715CF0Class(PlanetPositionalUpdatePacketClass *packet, ClientClass *client);
-	virtual ~Unknown715CF0Class();
-	virtual int Unknown_04();
-	void Unknown_715E60(PlanetPositionalUpdatePacketClass *packet);
-	int GameID;
-};
-Unknown715CF0Class::Unknown715CF0Class(PlanetPositionalUpdatePacketClass *packet, ClientClass *) : GameID(packet->GameID)
-{
-	Trace("stub Unknown715CF0Class::Unknown715CF0Class %u orbit %d dist %.2f angle %.2f", GameID, packet->OrbitID, packet->OrbitDist, packet->OrbitAngle);
-}
-Unknown715CF0Class::~Unknown715CF0Class() { Trace("stub Unknown715CF0Class::~Unknown715CF0Class %u", GameID); }
-int Unknown715CF0Class::Unknown_04() { return(5); }
-void Unknown715CF0Class::Unknown_715E60(PlanetPositionalUpdatePacketClass *packet)
-{
-	Trace("stub Unknown715CF0Class::Unknown_715E60 %u orbit %d", packet->GameID, packet->OrbitID);
-}
-// COMPONENT_POSITIONAL_UPDATE 70's state (postate.cpp)
-class Unknown717EF0Class : public Unknown98StateClass
-{
-public:
-	Unknown717EF0Class(ComponentPositionalUpdatePacketClass *packet, ClientClass *client);
-	virtual ~Unknown717EF0Class();
-	virtual int Unknown_04();
-	void Unknown_718080(ComponentPositionalUpdatePacketClass *packet, ClientClass *client);
-	int GameID;
-};
-Unknown717EF0Class::Unknown717EF0Class(ComponentPositionalUpdatePacketClass *packet, ClientClass *) : GameID(packet->GameID)
-{
-	Trace("stub Unknown717EF0Class::Unknown717EF0Class %u stamp %d", GameID, (int)packet->TimeStamp);
-}
-Unknown717EF0Class::~Unknown717EF0Class() { Trace("stub Unknown717EF0Class::~Unknown717EF0Class %u", GameID); }
-int Unknown717EF0Class::Unknown_04() { return(11); }
-void Unknown717EF0Class::Unknown_718080(ComponentPositionalUpdatePacketClass *packet, ClientClass *)
-{
-	Trace("stub Unknown717EF0Class::Unknown_718080 %u stamp %d", packet->GameID, (int)packet->TimeStamp);
 }
 
 // CAMERA_CONTROL 146 (T19): its docking sound; app.lib's soundlib.obj would bring WWAudio's globals in
