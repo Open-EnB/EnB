@@ -213,7 +213,7 @@ engine-thrust adjustments; the result re-orthogonalised and given to the model's
 type 8 -> 0x6FC9A0 (aux -> light), types 0/1 -> 0x6FBEF0, type 38 -> 0x6FF1D0 (render state from
 PercentFull). The 'Player Pos' mono print names the player's object by +0x112C.
 
-### 2.6 The proximity system (app\shared\px.cpp, px_wrapper.cpp)
+### 2.6 The proximity system (app\shared\px*.cpp)
 
 A sweep and prune over axis-aligned boxes (PX1, 2026-10-28; px.cpp 0x44B760-0x44D740 and px_wrapper.cpp
 0x4560B0-0x457740 are rebuilt). **PxList** (`ClientClass::Px` at +0x08, made in the constructor 0x726100 beside
@@ -228,10 +228,10 @@ result flips.
 **PxWrapper** (a `DynObj`'s ProximityObject, type 24's base at +0x188) keeps: the `PxObject` (its owner, the
 last position and radius), three boxes, its `PxList` (`List`, NULL while not inserted), three flags and a vector
 of `PxCallback`s. The **tight box** (Self 3) is the radius / sqrt(3) cube around the position (the cube inside the
-sphere), the **loose box** (Self 5, Test 0x1D, Mask 0x15; a `PxCollisionBox` whose overlaps go to
+sphere), the **loose box** (Self 5, Test 0x1D, Mask 0x15; a `PxPollCallback` whose overlaps go to
 `_Collision_Callback`, which hands each pair once, lower address first, to px_collision.cpp's
 `PxCollision::Process`) the radius cube (the cube around the sphere), the **callback box** (Test 5, Mask 5; in
-the list only while flag +0x0D is set) takes the corners `DynObj::Update_Avoidance(low, high)` gives it. Flag
+the list only while flag +0x0D is set; a `PxOwnerList` collecting the overlapping boxes' DynObjs) takes the corners `DynObj::Update_Avoidance(low, high)` gives it. Flag
 +0x0C flips bit 8 of the loose box's Self and Mask, flag +0x0E (set by the constructor) bit 0x10 of the loose and
 tight boxes' filters.
 
@@ -244,6 +244,44 @@ known**: client.py finds no call or pointer reference to Update_Proximity, Updat
 the list. So in the retail client the wrappers and boxes are built and kept, but (as far as the references
 show) never inserted into ClientClass's PxList nor updated: *guess*: the proximity / avoidance code is dormant,
 or reached through a path not yet found (a vtable of an unrebuilt class would show as a pointer reference).
+
+**The files** (PX2, 2026-10-28; E&B's app\shared objects link alphabetically, and a guarded `<string>` static ends
+some of them):
+
+| Client range | File | What | State |
+|---|---|---|---|
+| 0x44D740-0x44E020 | px_box_list.cpp | `PxBoxList` (keeps the overlapping boxes, `Boxes`) and `PxOwnerList` (their DynObjs, `Owners`), both sorted by address | exact |
+| 0x44E020-0x451BF0 | px_callback_accurate.cpp | `PxAccurateCallback` (a PxProcessNode and a PxCallback; `Overlaps` hash_map, `Active` vector) and two derived classes (a box one, vtables 0xAE7B44 / 0xAE7B54 / 0xAE7B70, and 0xAE7B8C / 0xAE7BA8) | base only: destructor, Process, Enter / Exit exact; constructors NOT EXACT (inline budget) |
+| 0x451C00-0x452770 | (no `__FILE__`; unknown_px_callbacks.cpp, D10) | `PxBoxCallback` (enter / exit reports) and the factories 0x452140 / 0x452460 | PxBoxCallback exact; factories not rebuilt |
+| 0x452780-0x453740 | px_callback_poll.cpp | `PxPollCallback` (the loose box) and `PxPollAccurateCallback` (SPHERE / VOLUME) | exact |
+| 0x453740-0x453A40 | px_callback_type.cpp | `PxCallbackType` (Accurate 1, Liberal 2, Conservative 4, Polling 8) and `PxCallbackEvent` (Enter, Exit, Update) names and string conversions | exact; no caller |
+| 0x453A40-0x4557F0 | px_collision.cpp | `PxCollision` (two DynObjs): Process, the distance test 0x453B10, the response 0x453C20, the OBBox tests 0x453F10 / 0x454730 | Process exact, 0x453B10 NOT EXACT (frame), the rest not rebuilt |
+| 0x4557F0-0x455860 | (no string; kept in px_collision.cpp) | `PxObject` constructors and destructor | exact |
+| 0x455880-0x4560B0 | px_process.cpp | `PxProcessNode`, `PxProcessClass` (ClientClass +0x0C) and its static stack | exact but Push / Pop (NOT EXACT) |
+
+**Callbacks.** `PxWrapper::Unknown_456F60` / `Unknown_457190` take a factory's `PxCallback` (vtable 0xAE7B28:
+Clone, Attach, Detach, Update, Add_Filter). The type bits pick the class: Accurate (1) a `PxAccurateCallback`
+subclass, Liberal (2) / Conservative (4) a `PxBoxCallback` with the radius (or radius / sqrt(3)) as its extent; with
+Polling (8) the polling classes instead (`PxPollAccurateCallback`'s sphere for Accurate, `PxPollCallback`
+otherwise). Every callback reports `function(own DynObj, other DynObj, PxCallbackEvent)`: `PxBoxCallback` from
+its box's On_Enter / On_Exit (Enter / Exit), the polling and accurate ones from their `PxProcessNode::Process`
+(Update for polling; Enter / Exit on a change of the accurate test). A polling or accurate callback with something
+in it sits in `PxProcessClass::Get_Current()`.
+
+**What runs in retail (evidence: `client.py callers`, and `.work/px2/thunkrefs.py`, a search for call, jump and
+pointer references to a function and its incremental thunk):**
+
+* *Live:* ClientClass's constructor 0x726100 makes the PxList and the PxProcessClass, its destructor deletes them;
+  SClient::Init 0x741180, Shutdown 0x741BB0 and Do_Frame 0x742B60 push the client's PxProcessClass on the static
+  stack around their work and pop it (sclient.cpp still calls them as `Unknown_455D10` / `Unknown_455F60`);
+  DynObj's constructor builds each PxWrapper with its PxObject and three boxes (type 24, co_subtypes.cpp).
+* *Dormant:* nothing inserts a box into the PxList (`PxWrapper::Add_To_List` 0x456660 has no reference) and nothing
+  updates one (`DynObj::Update_Proximity` / `Update_Avoidance`, PX1); `PxProcessClass::Process` 0x455CC0 and
+  `Remove_All` 0x455C80 have no call, jump or pointer reference (thunks 0x40B52D / 0x410EF1 included), so no
+  `PxProcessNode::Process` ever runs: not the polling boxes', not the accurate callbacks', and so neither
+  `_Collision_Callback` nor `PxCollision::Process` (whose only caller it is). px_callback_type.cpp's seven
+  functions have no reference either. The proximity, avoidance and collision code is compiled in and its objects
+  are built, but in the retail client it never moves a box nor reports anything.
 
 ### 2.7 What the main view reads of the object model (app\client\mainview.cpp)
 
