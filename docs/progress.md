@@ -1396,6 +1396,12 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 
 ## 3. Open decisions
 
+* **P-F9-2** (2026-10-29, F9; recommend yes, they count): F9 exceeded D89's 8 forms per function by probing
+  variants on an untracked scratch copy of the .cpp (app/packets/pkverbprobe.cpp, deleted) compiled by tryv2: 7 + 9
+  + 4 probes, the attempts rows give the true counts (7 / 18 / 9 / 23 / 16 forms). It ended with all five exact.
+  Record in D89 that scratch-copy probes count as forms (so the cap means what it says), and either accept this
+  round's overrun after the fact or raise the cap for a whole-object round like D134's?
+
 * **P-IB2-1** (2026-10-29, IB2; recommend yes): one more short round on 0x6FD310 past LIMIT REACHED (3 Opus rounds,
   F8's Fable round, IB2's lever round): at most 2 forms, IB2's form (1) plus a find-if-changed helper with the mark
   test inside (`G_ASSERT(t); if (!t) return NULL; if (t->m_Unknown70 <= 1) return NULL; return t;`), for all three
@@ -1491,9 +1497,12 @@ client's own code: [kernel-map.md](kernel-map.md) §6 and, for step 9's dependen
    promoted; 2026-10-29, PK3 7fd99e8..f131376, +10: P-PK2-2 done (pkverblist merged into pkverbrequest, a D66 (v)
    move), DECAL 0x8805C0 / 0x8807B0 exact (DecalStruct's 16-byte field is a Vector4), COLORIZATION 0x87F320 exact
    (a region is two {int, Vector3} halves), 0x62A520 / 0x62A0A0 / 0x8810F0-0x881250 with them). Left: 45 and 117
-   (item 1); the inline-budget trio VerbList ctor 0x8AF150 0.82, Print 0x8AF6D0, VerbUpdate 0x8AFD10 (two Opus rounds:
-   VerbEnum as a struct, Adds / Drops as set<int> / set<unsigned> all fail; P-PK3-1); 0x867250 register (LIMIT
-   REACHED); P-PK3-2's sweep done (PK4, 2026-10-29, `.work/pk4/scan_*.py`, 0 pairs): the only strong candidate is
+   (item 1); the verb object's five inline-budget functions exact (F9's Fable round, D134 / D135, 4e6f9d4, +6: the
+   client's source had three static set helpers Read_Verbs / Write_Verbs / Append_Verbs that VC6 inlines;
+   pkverbrequest.cpp has nothing NOT EXACT left; 92's sets named Drops (+0x10) / Adds (+0x20) from the client's Print,
+   to confirm when the handler 0x81F810 is read: its second set argument should be the one it removes); next lead
+   (F9): the same shared-helper reading for other app/packets files parked at inline budget whose ctors / Builds /
+   Prints loop over containers; 0x867250 register (LIMIT REACHED); P-PK3-2's sweep done (PK4, 2026-10-29, `.work/pk4/scan_*.py`, 0 pairs): the only strong candidate is
    land.cpp's LandDecorationVertexStruct (P-PK4-1, item 5); Reset_Keys 0x71C710 parked (inline budget, 4 element
    forms all fail). Tools to promote:
    `.work/p9/wt.py`'s leftovers, `checks.sh`, `commit_wt.py`; commit_json.py must keep imports.json's maps sorted.
@@ -1566,12 +1575,12 @@ client's own code: [kernel-map.md](kernel-map.md) §6 and, for step 9's dependen
    0x826D00 were exact since S1 (3a943f1), 0x82E1D0 is exact (D99, 18 bytes, with CordMgr 0x8598F0, f4f538b). Left:
    `Send_Data` 0x82D420 (wlib's Dictionary layout); everything else is at LIMIT (Key_Exchange, Rate Count, the UDP
    constructor 0x82CBF0 register, Listen 0x82A470 register) or in the Fable queue (TimedLog 0x824540).
-7. The Fable queue under D89 / D97 (by unlock value; D136: not pruned, rounds scheduled more often): (done 2026-10-29: F8's round on co.cpp's per-find budget, 4dd8a97 / 6fac2a6, 0 pairs: 0x6FBEF0 got the client's
+7. The Fable queue under D89 / D97 (by unlock value; D136: not pruned, rounds scheduled more often): (done 2026-10-29: F9's verb round, all five exact, +6, ~154k tokens; F8's round on co.cpp's per-find budget, 4dd8a97 / 6fac2a6, 0 pairs: 0x6FBEF0 got the client's
    frame 0x270, residue 106 -> 93; the per-find spender is not found but narrowed (workflow.md §3.1, 'What sends a
    Cast out of line'); 0x6FD310 and 0x6FBEF0 partial with 8 forms each, 0x6F3FA0 parked register; P-F8-2, a second
    D89 round on 0x6FD310 citing that lever, done by IB2 (372d87d, 0 pairs: the helper for Spot / Line with Blotch
    explicit gives the client's 23 calls, residue 50 -> 44, not exact; P-IB2-1);
-   P-F8-3, 0x6FBEF0 with a per-field inline helper, low priority) the verb object's five inline-budget functions 0x8AF150 / 0x8AF6D0 / 0x8AFD10 / 0x8AFF40 / 0x8B0150 as one round (D134; PK3's and PK2's attempts rows); client_lego_impl's Find 0x72ABB0 + Add 0x72B7F0 +
+   P-F8-3, 0x6FBEF0 with a per-field inline helper, low priority) client_lego_impl's Find 0x72ABB0 + Add 0x72B7F0 +
    Remove 0x72C1D0 as one round (P-H20-1), CLIENT_DAMAGE 0x738970 then FORMATION 0x734740 (P-T19-3), D92's three
    (item 2), Get_Lego_Transform then Child_Moved / Attach (P-H17-2), cpacket 62 with SIMPLE 8 as one round (both
    rounds done, CP1 2026-10-28: the Is_Valid_Float cut follows the inline budget; left the drift divisor's CSE and the

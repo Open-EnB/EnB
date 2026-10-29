@@ -139,6 +139,13 @@ tools/re/README.md, tools/vc6 and tools/harness/README.md.
 
 ### 3.1 VC6 code generation
 
+* **When one function family inlines both less and more than the client, look for shared static helpers**
+  (2026-10-29, F9's Fable round: the verb object's five, +6): stop spending budget forms, the client's candidate set
+  differs. Traces: distinct stack slots per copy (two count slots in one ctor), a `set::begin() const` copy called
+  while `_Tree::begin()` is inlined elsewhere, int3 padding where out-of-line helper copies would sit. Inside an
+  inlined static helper a set-walking `for` leaves `_Inc` out of line; `it = begin(); while (it != end()) { ...;
+  ++it; }` inlines it. In a non-inlined body VC6 gives identical bytes for it++ / ++it, iterator / const_iterator,
+  += / append(ptr) and for / while: those are not levers there.
 * **What sends a Cast out of line: a non-tail nested multi-return expansion before a conditional call** (2026-10-29,
   F8's Fable round, calibrated on 0x6FEAC0 / 0x6FDBD0): the budget unit that pushes a find's `C *t = Cast(d);
   G_ASSERT(t);` out of line is a nested inline expansion with several returns in non-tail position followed by a
@@ -775,6 +782,9 @@ unless `--lever` cites a new row of this table.
 
 ### 3.7 Harnesses, programs, unattended runs
 
+* **`wt.py new` copies no build/art** (2026-10-29, F9): a worktree clienttest run exits 3221225781
+  (STATUS_DLL_NOT_FOUND, MSS32.DLL) until build/art/MSS32.DLL is copied in. A clienttest exe built before other
+  builders' commits differs from expected.txt: rebuild before comparing.
 * **clienttest stand-ins** (2026-10-29, SC3): `#define protected public` in a test file changes a member's mangled
   name (`1` becomes `2`) and gen_stubs quietly writes a second one (DX8Wrapper::D3DDevice): reach the member through
   a derived class. DX8Wrapper::Init clears D3DDevice after the static initialisers, so install a fake device from
