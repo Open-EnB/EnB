@@ -1380,6 +1380,9 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 | D123 | 2026-10-28 | P-PF1-1 accepted: `ClientClass::DebugObjectID` (+0x112C) is the player's avatar id, `AvatarID` / `Get_Avatar` (CLIENT_AVATAR 55 sets it; ADVANCED 62, FORMATION 65, 0x6F3C60, DAMAGE 100 use it) | user (PF1's proposal) |
 | D124 | 2026-10-28 | P-PX2-1 accepted: the string-less object 0x451C00-0x452770 (`PxBoxCallback`) keeps the neutral file name `app/shared/unknown_px_callbacks.cpp` (D10) until a string names it | user (PX2's proposal) |
 | D125 | 2026-10-28 | P-PX2-2 accepted: PxObject's functions 0x4557F0-0x455860 stay in px_collision.cpp until evidence places them | user (PX2's proposal) |
+| D126 | 2026-10-29 | The history rewrite (every commit re-authored, hashes changed; old master aeeb5bc -> 97a1df5): tracked files' old commit hashes are rewritten through the old -> new map, same length so no line moves (`.work/coord/rehash.py`; generated files regenerated, not edited), and the map is kept as `docs/commit-map.txt` for the old hashes in commit messages; done at the 2026-10-29 handoff with a full verify, pairs 0 / 0 | user |
+| D127 | 2026-10-29 | D101's sbs criterion is met: since LD2's sun fix the means are 2.03-2.09 % against vidland's 1.9-2.4 %, frames 600-900 1.4-2.0 % ("within ±1.5 %" read as points of difference) | user (LD1's proposal) |
+| D128 | 2026-10-29 | P-SC3-1: 0x750C20 (testeffects.ini's player, 0.54, register / stack slots, no caller) stays parked; no exception to D89's rule for register-only residues | user (SC3's proposal) |
 
 ## 3. Open decisions
 
@@ -1408,19 +1411,9 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
   ungated, P-PK1-2) and 45bf5c0 (P-PK1-3's Clone form, now gains-only), +16 pairs, 0 lost; reverting both loses
   the 16. (P-PK1-3's D66 trade is no longer needed.)
 
-* **P-SC3-1** (2026-10-29, SC3; recommend leave parked): 0x750C20 (testeffects.ini's player, 0.54) differs only in
-  registers and stack slots, and nothing calls it or its thunk 0x40C8A1. D89 keeps register-only residues out of
-  the Fable queue: leave it parked, or make an exception for it?
-
 * **P-PK3-1** (2026-10-29, PK3; recommend yes): add the verb packets' inline-budget trio (VerbList ctor 0x8AF150,
   Print 0x8AF6D0, VerbUpdate 0x8AFD10) to the Fable queue (§4 item 7) as one round: two Opus rounds are spent and no
   lever is left.
-
-* **D101's sbs criterion** (2026-10-28, LD1; recommend accept as met; since LD2's sun fix the means are 2.03-2.09 %,
-  inside vidland's 1.9-2.4 %, frames 600-900 1.4-2.0 %): the means moved 0.4-0.7 points (2.6-2.8 %
-  against vidland's 1.9-2.4 %), within ±1.5 points; frames 600-900 are 2.8-3.0 % against 1.5-2.4 %. LD1 reads
-  "within ±1.5 %" as points of difference; the user confirms or asks for the lighting fix first.
-
 
 ## 4. Next steps
 
