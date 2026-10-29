@@ -18,14 +18,16 @@
 
 #include "pk.h"
 #include <vector>
+#include "vector4.h"
 
 // One decal of a DECAL packet: 24 bytes, read and written as 4 + 4 + 16 bytes (its vector's insert
-// helpers are this object's, 0x8810F0-0x881250)
+// helpers are this object's, 0x8810F0-0x881250). The 16 bytes are a Vector4: the client copies a
+// decal member by member (Vector4's copy constructor), not as a block (rep movsd)
 struct DecalStruct  // NAME 1: neutral (D10), the packet's 'NumDecals'
 {
 	int Unknown00;	// +0x00
 	int Unknown04;	// +0x04
-	float Unknown08[4];	// +0x08 (one 16-byte field)
+	Vector4 Unknown08;	// +0x08 (the inline copies in 0x8805C0 / 0x8807B0 copy it as Vector4's copy constructor does)
 };
 
 // opcode 16 (0x0010, DECAL): vtable 0xB0A200, constructor 0x8807B0, 0x24 bytes

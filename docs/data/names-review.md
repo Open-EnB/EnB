@@ -4101,16 +4101,16 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Packet_004BClass` | `app/packets/pkmoderequest.h:21` | neutral (D10): opcode 0x004B |
 | 1 | `Unknown0C` | `app/packets/pkmoderequest.h:31` | untagged neutral name (D10) |
 | 1 | `pkmove` | `app/packets/pkmove.h:15` | provisional, pk + its class's name |
-| 1 | `Unknown_14` | `app/packets/pknamedecal.cpp:11` | untagged neutral name (D10) |
-| 1 | `Unknown00` | `app/packets/pknamedecal.cpp:24` | untagged neutral name (D10) |
-| 1 | `Unknown04` | `app/packets/pknamedecal.cpp:25` | untagged neutral name (D10) |
-| 1 | `Unknown08` | `app/packets/pknamedecal.cpp:26` | untagged neutral name (D10) |
+| 1 | `Unknown_14` | `app/packets/pknamedecal.cpp:9` | untagged neutral name (D10) |
+| 1 | `Unknown00` | `app/packets/pknamedecal.cpp:20` | untagged neutral name (D10) |
+| 1 | `Unknown04` | `app/packets/pknamedecal.cpp:21` | untagged neutral name (D10) |
+| 1 | `Unknown08` | `app/packets/pknamedecal.cpp:22` | untagged neutral name (D10) |
 | 1 | `pknamedecal` | `app/packets/pknamedecal.h:16` | provisional, pk + its first named class's name |
-| 1 | `DecalStruct` | `app/packets/pknamedecal.h:24` | neutral (D10), the packet's 'NumDecals' |
-| 1 | `Unknown00` | `app/packets/pknamedecal.h:26` | untagged neutral name (D10) |
-| 1 | `Unknown04` | `app/packets/pknamedecal.h:27` | untagged neutral name (D10) |
-| 1 | `Unknown08` | `app/packets/pknamedecal.h:28` | untagged neutral name (D10) |
-| 1 | `Unknown3C` | `app/packets/pknamedecal.h:57` | untagged neutral name (D10) |
+| 1 | `DecalStruct` | `app/packets/pknamedecal.h:26` | neutral (D10), the packet's 'NumDecals' |
+| 1 | `Unknown00` | `app/packets/pknamedecal.h:28` | untagged neutral name (D10) |
+| 1 | `Unknown04` | `app/packets/pknamedecal.h:29` | untagged neutral name (D10) |
+| 1 | `Unknown08` | `app/packets/pknamedecal.h:30` | untagged neutral name (D10) |
+| 1 | `Unknown3C` | `app/packets/pknamedecal.h:59` | untagged neutral name (D10) |
 | 1 | `Unknown_14` | `app/packets/pknavdelete.cpp:14` | untagged neutral name (D10) |
 | 1 | `Unknown10` | `app/packets/pknavdelete.cpp:53` | untagged neutral name (D10) |
 | 1 | `pknavdelete` | `app/packets/pknavdelete.h:16` | provisional, pk + its first named class's name |
@@ -6610,7 +6610,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `ModeRequestNames` | `app/packets/pkmoderequest.cpp:5` | what it holds |
 | 2 | `MoveTypeNames` | `app/packets/pkmove.cpp:5` | what it holds |
 | 2 | `MovePacketClass` | `app/packets/pkmove.h:21` | the reference decoder's opcode name MOVE (the Net-7 opcode table; no structure check) |
-| 2 | `Channel` | `app/packets/pknamedecal.h:45` | Get_Channel returns it |
+| 2 | `Channel` | `app/packets/pknamedecal.h:47` | Get_Channel returns it |
 | 2 | `Channel` | `app/packets/pknavdelete.h:38` | Get_Channel returns it |
 | 2 | `Add_Note` | `app/packets/pknotelist.h:44` | what it does |
 | 2 | `std:` | `app/packets/pknotelist.h:46` | what it holds |
@@ -8255,11 +8255,11 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `Mode` | `app/packets/pkmoderequest.h:32` | the client's Print text 'Mode=' |
 | 3 | `GameID` | `app/packets/pkmove.h:32` | the client's Print text 'GameID=' |
 | 3 | `MoveType` | `app/packets/pkmove.h:33` | the client's Print text 'MoveType=' |
-| 3 | `GameID` | `app/packets/pknamedecal.h:43` | the client's Print text 'GameID=' |
-| 3 | `std:` | `app/packets/pknamedecal.h:44` | the client's Print text 'NumDecals=' |
-| 3 | `GameID` | `app/packets/pknamedecal.h:59` | the client's Print text 'GameID=' |
-| 3 | `Name` | `app/packets/pknamedecal.h:60` | the client's Print text 'Name=' |
-| 3 | `RGB` | `app/packets/pknamedecal.h:61` | the client's Print text 'RGB=' |
+| 3 | `GameID` | `app/packets/pknamedecal.h:45` | the client's Print text 'GameID=' |
+| 3 | `std:` | `app/packets/pknamedecal.h:46` | the client's Print text 'NumDecals=' |
+| 3 | `GameID` | `app/packets/pknamedecal.h:61` | the client's Print text 'GameID=' |
+| 3 | `Name` | `app/packets/pknamedecal.h:62` | the client's Print text 'Name=' |
+| 3 | `RGB` | `app/packets/pknamedecal.h:63` | the client's Print text 'RGB=' |
 | 3 | `GameID` | `app/packets/pknavdelete.h:33` | the client's Print text 'GameID=' |
 | 3 | `Signature` | `app/packets/pknavdelete.h:34` | the client's Print text 'Signature=' |
 | 3 | `PlayerHasVisited` | `app/packets/pknavdelete.h:35` | the client's Print text 'PlayerHasVisited=' |

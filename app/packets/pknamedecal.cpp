@@ -2,8 +2,6 @@
 #include "pknamedecal.h"
 #include <stdio.h>
 
-// NOT EXACT: 0x8805C0, the inline vector copy's loop addresses each decal from +0x10 in the client
-// (shape, as COLORIZATION's 0x87F320; attempts.py show 0x8805C0)
 DecalPacketClass::DecalPacketClass(int game_id, const std::vector<DecalStruct> &decals) :
 	GameID(game_id),
 	Decals(decals)
@@ -11,8 +9,6 @@ DecalPacketClass::DecalPacketClass(int game_id, const std::vector<DecalStruct> &
 	Channel = Unknown_14(GameID, -1);
 }
 
-// NOT EXACT: 0x8807B0, the client inlines push_back's insert (over this object's helpers 0x8810F0-
-// 0x881250), ours calls it (inline-budget; attempts.py show 0x8807B0)
 DecalPacketClass::DecalPacketClass(RawPacketClass *raw)
 {
 	raw->Get(&GameID, sizeof(GameID));
@@ -87,5 +83,8 @@ int NameDecalPacketClass::Print(char *buffer, int)
 **	  pkemit.py): members from the raw message's Get / Build's Add (sizes) and Print (types,
 **	  names: 'Name=%d'), the constructors' stores in the initialiser list.
 **	* The file name is provisional (provisional, pk + its first named class's name).
-**	* Not rebuilt yet: opcode 16 (declared in pk_classes.h).
+**	* DECAL 16's constructors 0x8805C0 / 0x8807B0 exact once DecalStruct's 16-byte field is a Vector4
+**	  (builder PK3, 2026-10-29): with float[4] the struct is trivially copied (rep movsd) and push_back's
+**	  insert stays out of line; with Vector4's copy constructor the client's member-by-member copy
+**	  (one pointer at +0x10) and the inlined insert both follow.
 */
