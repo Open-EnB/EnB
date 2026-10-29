@@ -964,16 +964,26 @@ void ScriptedMovieViewClass::Unknown_8023A0(bool on)
 
 
 
-
-
-
-
-
-
-
-
-
-
+// 0x8027C0: the camera onto the next of CameraList (its view plane too, when it has one)
+void ScriptedMovieViewClass::Unknown_8027C0()
+{
+	int size = CameraList.size();
+	if (size != 0) {
+		G_ASSERT(CurrentCameraIndex < size);
+		G_ASSERT(CameraList[CurrentCameraIndex].RenderObject);
+		if (ScriptedCamera->Get_Container()) {
+			ScriptedCamera->Remove();
+		}
+		if (CameraList[CurrentCameraIndex].HFov != 0.0f) {
+			ScriptedCamera->Set_View_Plane(CameraList[CurrentCameraIndex].HFov, CameraList[CurrentCameraIndex].VFov);
+		}
+		CameraList[CurrentCameraIndex].RenderObject->Add_Sub_Object_To_Bone(ScriptedCamera, CameraList[CurrentCameraIndex].Bone);
+		CurrentCameraIndex++;
+		if (CurrentCameraIndex >= size) {
+			CurrentCameraIndex = 0;
+		}
+	}
+}
 
 
 
@@ -1024,16 +1034,6 @@ void ScriptedMovieViewClass::Unknown_802960(KernelEventClass event)
 		}
 	}
 }
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -2927,37 +2927,37 @@ bool ScriptedMovieViewClass::Shake_Camera(ScriptedMovieParamsClass *params)
 
 
 
+// 0x808330: the scene's ambient light, at once or (with a time) faded from the current one
+// NOT EXACT: frame 0x18 against the client's 0x24 (the client keeps more Vector3 temporaries: the by-value
+// arguments of 0x80A730 built through Vector3's out-of-line copy constructor 0x499720); forms: a named colour, temporaries
+bool ScriptedMovieViewClass::Set_Ambient_Light(ScriptedMovieParamsClass *params)
+{
+	FAIL_IF(ScriptedScene == NULL) {return(false);}
+	const char *param = params->Unknown_7FFDC0();
 
+	FAIL_IF((param == NULL) && "User error: Set_Ambient_Light: Need red") {return(false);}
+	float red = atof(param);
+	param = params->Unknown_7FFDC0();
 
+	FAIL_IF((param == NULL) && "User error: Set_Ambient_Light: Need green") {return(false);}
+	float green = atof(param);
+	param = params->Unknown_7FFDC0();
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	FAIL_IF((param == NULL) && "User error: Set_Ambient_Light: Need blue") {return(false);}
+	float blue = atof(param);
+	param = params->Unknown_7FFDC0();
+	if (param == NULL) {
+		ScriptedScene->Set_Ambient_Light(Vector3(red, green, blue));
+		return(true);
+	}
+	float time = atof(param);
+	if (time < 0.0001f) {
+		ScriptedScene->Set_Ambient_Light(Vector3(red, green, blue));
+		return(true);
+	}
+	Unknown88.Unknown_80A730(time, ScriptedScene->Get_Ambient_Light(), Vector3(red, green, blue));
+	return(true);
+}
 
 
 

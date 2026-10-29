@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-338 entries in 71 files.
+339 entries in 71 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -145,9 +145,10 @@ edit the comments in the code, not this file.
 | `app/client/sclient.cpp:5327` | `SClient::Unknown_7511A0` | marker | NOT EXACT: shape (explain.py: 1 masked row; 177 instructions, the client 176): the client calls ids' insert(end, x) 0x755E60 out of line (insert(P, 1, X) inlined into it), ours inlines it and calls insert(P, 1, X); two forms (push_back, insert) 0x7511A0 (the main view's 0x514010, on every view-mode change): each +0x1394 value is made again from a copy of its avatar description (+0xF8) through 0x74... |
 | `app/client/sclient.cpp:5522` | `SClient::Unknown_34` | marker | NOT EXACT: shape (explain.py: 606 instructions, the client 640, 127 masked rows; 69 calls, the client 70): VC6 merges the two beacon sends' tails here, the client keeps both; the logoff packet a named local, '/fps' enable first and the dialog read once moved nothing; two rounds 0x74ABC0 (slot +0x34: the chat line's '/' commands; true when the line was a command) |
 | `app/client/sclient.cpp:5693` | `SClient::Unknown_750F70` | marker | NOT EXACT: shape (explain.py: 144 instructions, the client 159; 36 masked rows, 35 of them registers; 10 calls, the client 11): the client sends the empty sender, a NULL starbase view and a NULL interface to one _Tidy(true) exit and destroys the string inline elsewhere (ebx holds this); two forms (early return on empty: 58 rows) 0x750F70 (cpacket.cpp: CLIENT_CHAT_EVENT 165, the sender and 2..15 by... |
-| `app/client/scriptedmovie.cpp:994` | `ScriptedMovieViewClass::Unknown_802930` | marker | NOT EXACT: the client normalizes the last test (setne) and returns the early true through mov al, 1; ours jumps to one mov eax, 1 (forms: the && chain, an if with != false, this \|\| chain) |
+| `app/client/scriptedmovie.cpp:1004` | `ScriptedMovieViewClass::Unknown_802930` | marker | NOT EXACT: the client normalizes the last test (setne) and returns the early true through mov al, 1; ours jumps to one mov eax, 1 (forms: the && chain, an if with != false, this \|\| chain) |
 | `app/client/scriptedmovie.cpp:1918` | `ScriptedMovieViewClass::Attach_Light_To_Bone` | marker | NOT EXACT: after the loop the client knows parent is NULL (no second test before the G_ASSERT); forms: the slot and the mesh tested together, the mesh tested after the assignment (this one) |
 | `app/client/scriptedmovie.cpp:2313` | `ScriptedMovieViewClass::Set_Camera_View_Plane` | marker | NOT EXACT: the client multiplies by a float in memory (fmul dword, 0xAFDF14: pi / 180); every constant form here folds to a double (fmul qword): a const float variable, probably |
+| `app/client/scriptedmovie.cpp:2931` | `ScriptedMovieViewClass::Set_Ambient_Light` | marker | NOT EXACT: frame 0x18 against the client's 0x24 (the client keeps more Vector3 temporaries: the by-value arguments of 0x80A730 built through Vector3's out-of-line copy constructor 0x499720); forms: a named colour, temporaries |
 | `app/client/tasks/tsk_login.cpp:219` | `LoginTaskClass::Pre_Run` | marker | NOT EXACT: shape (the event's bit 12 test and the dispatchers' argument order; attempts.py show 0x767DA0) 0x767DA0 |
 | `app/client/tasks/tsk_login.cpp:271` | `LoginTaskClass::Run` | marker | NOT EXACT: register-only (the final Process_Packets call loads the vtable in edx, the client eax; attempts.py show 0x767F50) |
 | `app/client/tasks/tsk_login.cpp:456` | `LoginTaskClass::Unknown_50` | marker | NOT EXACT: inline budget (the client inlines AvatarDescClass's implicit assignment and calls the 0x160 object's constructor 0x7688F0; ours the reverse; the two trade against one budget: a cheaper assignment (POD/grouped Vector3s) inlines it and puts the constructor out of line, exact at 0x7688F0, but changes the copy's bytes; attempts.py show 0x7683F0) 0x7683F0 |

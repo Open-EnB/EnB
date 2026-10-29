@@ -717,6 +717,14 @@ struct ScriptedMovieObjectStruct	// NAME 1: neutral (D10)
 	int Slot;											// +0x04: the script's slot number  // NAME 2: the user errors' 'Need slot number'
 	int Unknown08;										// +0x08
 };
+// one of the scripted movie's cameras (0x10 bytes, in a vector at +0x110)
+struct ScriptedMovieCameraStruct	// NAME 1: neutral (D10)
+{
+	RenderObjClass *RenderObject;						// +0x00: the model whose bone carries the camera  // NAME 3: the assert's 'CameraList[CurrentCameraIndex].RenderObject'
+	int Bone;											// +0x04  // NAME 2: Add_Sub_Object_To_Bone's argument
+	float HFov;											// +0x08 (0: the camera's own)  // NAME 2: Set_View_Plane's argument
+	float VFov;											// +0x0C  // NAME 2: Set_View_Plane's argument
+};
 class ScriptedMovieSoundClass { public: void Unknown_7ED6C0(int a, int b); bool Unknown_7EDA60(const char *name); void Unknown_7ED630(int arg); };	// NAME 1: neutral (D10): mv3dsnd.cpp's object (0x7ED6C0)  // NAME 1 [a, b]: what 0x802AD0 passes
 class ScriptedMovieViewClass : public UIViewClass	// NAME 2: SClient's member 'ScriptedMovieView' (G_ASSERT l.4127)
 {
@@ -724,7 +732,7 @@ public:
 	ScriptedMovieViewClass(ClientTaskClass *task, int arg, SClientMovieCallbackClass *callback);	// 0x8000C0  // NAME 1 [task, arg, callback]: what 0x74BD90 passes
 	bool Unknown_802930();								// 0x802930 (SClient::Do_Frame in view mode 6: true ends the movie, 0x74BF00)
 	void Unknown_802960(KernelEventClass event);		// 0x802960 (SClient::Do_Frame: the input events while the scripted movie view is up)  // NAME 1 [event]: what it gets
-	void Unknown_8027C0();								// 0x8027C0 (G_ASSERT 'CurrentCameraIndex < size', l.972; 0x802960's key 0x22)
+	void Unknown_8027C0();								// 0x8027C0 (G_ASSERTs 'CurrentCameraIndex < size' l.972, 973; 0x802960's key 0x22): the camera onto the next one of CameraList
 	void Unknown_8022C0(float time);					// 0x8022C0 (FAIL_IF 'ScriptedScene == NULL', l.832): the ambient light's fade one step on  // NAME 1 [time]: what the fade gets
 	void Unknown_802330(float time);					// 0x802330 (FAIL_IF 'ScriptedScene == NULL', l.855): the fog colour's fade one step on  // NAME 1 [time]: what the fade gets
 	void Unknown_8023A0(bool on);						// 0x8023A0 (G_ASSERT 'ClientInterface', l.877)  // NAME 1 [on]: neutral
@@ -744,6 +752,7 @@ public:
 	bool Set_Light_Diffuse_Color(ScriptedMovieParamsClass *params);	// 0x8068A0 (FAIL_IF lines 2254-2270)  // NAME 2: the user error's 'Set_Light_Diffuse_Color'; NAME 1 [params]: neutral
 	bool Set_Camera_View_Plane(ScriptedMovieParamsClass *params);	// 0x806AF0 (FAIL_IF lines 2318 / 2323): the camera's view plane, in degrees  // NAME 2: the user error's 'Set_Camera_View_Plane'; NAME 1 [params]: neutral
 	bool Shake_Camera(ScriptedMovieParamsClass *params);		// 0x808220 (FAIL_IF lines 2905 / 2909, G_ASSERT 'CameraEffects' 2912)  // NAME 2: the user error's 'Shake_Camera'; NAME 1 [params]: neutral
+	bool Set_Ambient_Light(ScriptedMovieParamsClass *params);	// 0x808330 (FAIL_IF lines 2935-2946): the scene's ambient light, at once or faded over a time  // NAME 2: the user error's 'Set_Ambient_Light'; NAME 1 [params]: neutral
 	bool Unknown_808840();								// 0x808840 (FAIL_IF 'ScriptedScene == NULL', l.3045): the scene's fog off
 	bool Set_Screen_Fade_Color(ScriptedMovieParamsClass *params);	// 0x808880 (FAIL_IF lines 3069-3081): the screen fade's colour over a time (0x7FFA30)  // NAME 2: the user error's 'Set_Screen_Fade_Color'; NAME 1 [params]: neutral
 	bool Set_Screen_Fade_Opacity(ScriptedMovieParamsClass *params);	// 0x808A00 (FAIL_IF lines 3107 / 3111): its opacity over a time (0x7FFBE0)  // NAME 2: the user error's 'Set_Screen_Fade_Opacity'; NAME 1 [params]: neutral
@@ -767,14 +776,17 @@ public:
 	bool Unknown6E;										// +0x6E (0x802930: the movie ends once +0x6C..+0x6E are set)
 	char Unknown6F[0x7C - 0x6F];						// +0x6F
 	bool Unknown7C;										// +0x7C
-	char Unknown7D[0x88 - 0x7D];						// +0x7D
+	char Unknown7D[0x84 - 0x7D];						// +0x7D
+	int CurrentCameraIndex;								// +0x84: CameraList's next  // NAME 3: the asserts'
 	ScriptedMovieFadeClass Unknown88;					// +0x88: the ambient light (0x8022C0)
 	ScriptedMovieFadeClass UnknownAC;					// +0xAC: the fog colour (0x802330)
 	enum { MAX_LIGHTS_PER_SCENE = 4 };					// NAME 3: the FAIL_IFs' 'lightslot >= MAX_LIGHTS_PER_SCENE' ('Exceeding 4 lights per scene')
 	LightClass *Lights[MAX_LIGHTS_PER_SCENE];			// +0xD0: the script's lights by slot  // NAME 3: the FAIL_IFs' 'Lights[lightslot]'
 	char UnknownE0[0xF0 - 0xE0];						// +0xE0
 	std::vector<ScriptedMovieSoundClass *> UnknownF0;	// +0xF0: mv3dsnd.cpp's objects (0x802AD0)
-	char Unknown100[0x164 - 0x100];						// +0x100
+	char Unknown100[0x110 - 0x100];						// +0x100
+	std::vector<ScriptedMovieCameraStruct> CameraList;	// +0x110  // NAME 3: the asserts' 'CameraList[CurrentCameraIndex]'
+	char Unknown120[0x164 - 0x120];						// +0x120
 	int Unknown164;										// +0x164 (Skip_Frames adds to it)
 	bool Unknown168;									// +0x168 (0x802960: the space key toggles it)
 	char Unknown169[0x171 - 0x169];						// +0x169
