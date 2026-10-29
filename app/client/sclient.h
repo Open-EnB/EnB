@@ -804,7 +804,7 @@ public:
 	void Unknown_74FA30();								// 0x74FA30 (0x750210)
 	void Unknown_74FEC0();								// 0x74FEC0 (0x750210)
 	void Unknown_750210();								// 0x750210: 0x74FA30, 0x74FEC0, then the chat panel's +0xE0
-	void Unknown_750260(int arg);						// 0x750260 (the main view's 0x50D520 passes 0 with the options' +0x05)  // NAME 1 [arg]: neutral
+	void Unknown_750260(bool reset);					// 0x750260 (the main view's 0x50D520 passes 0 with the options' +0x05): the audio debug page  // NAME 2 [reset]: true sets every sample name to NONE
 	void Unknown_750B30(int arg);						// 0x750B30: Unknown1330's 0x43C660  // NAME 1 [arg]: neutral
 	void Unknown_74E580(const char *text, const char *type, const char *value);	// 0x74E580 (the guild confirmations 0x73E720 / 0x73EEF0)  // NAME 1 [text, type, value]: what it does with them
 	void Unknown_74DFF0(int color, const char *text, int message_type, int arg);	// 0x74DFF0 (cpacket.cpp: GUILD_MESSAGE 208 passes 8, the substituted text, MessageType, 0)  // NAME 1 [color, text, message_type, arg]: what the handler passes

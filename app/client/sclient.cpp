@@ -5108,58 +5108,58 @@ void SClient::Unknown_74FEC0()
 
 
 
+#include "..\..\wwaudio\WWAudio.h"
+#include "..\..\wwaudio\AudibleSound.h"
+
+// 0x750260 (the main view's 0x50D520 and 0x6A1180 pass false while the debug display is on): the audio page (+0x14EC 2):
+// each 2D and 3D sample's file, a '*' before the last name seen in a slot that is free now; true resets the names
+static char Sample2DNames[16][32];	// 0xBE7D94  // NAME 2: what it holds
+static char Sample3DNames[16][32];	// 0xBE7F94  // NAME 2: what it holds
+void SClient::Unknown_750260(bool reset)
+{
+	if (reset) {
+		for (int i = 0; i < 16; i++) {
+			strcpy(Sample2DNames[i], "NONE");
+			strcpy(Sample3DNames[i], "NONE");
+		}
+	}
+	if (Unknown14EC == 2 && Text && WWAudioClass::Get_Instance()) {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+		FAIL_IF(WWAudioClass::Get_Instance()->Get_2D_Sample_Count() != WWAudioClass::Get_Instance()->Get_3D_Sample_Count()) return;
+		FAIL_IF(WWAudioClass::Get_Instance()->Get_2D_Sample_Count() != 16) return;
+		StringClass line(255, true);
+		StringClass text(2048, true);
+		line.Format("\n\n\n\n\n\n\n\n\n\n\n\n------------------------------------------------------\n");
+		text += line;
+		for (int i = 0; i < 16; i++) {
+			AudibleSoundClass *sample = WWAudioClass::Get_Instance()->Peek_2D_Sample(i);
+			if (sample) {
+				strncpy(Sample2DNames[i], sample->Get_Filename(), 31);
+				line.Format("2D Sample %d: %s\n", i, Sample2DNames[i]);
+			} else {
+				line.Format("2D Sample %d: *%s\n", i, Sample2DNames[i]);
+			}
+			text += line;
+		}
+		line.Format("--------------------------------------------------------\n");
+		text += line;
+		for (i = 0; i < 16; i++) {
+			AudibleSoundClass *sample = WWAudioClass::Get_Instance()->Peek_3D_Sample(i);
+			if (sample) {
+				strncpy(Sample3DNames[i], sample->Get_Filename(), 31);
+				line.Format("3D Sample %d: %s\n", i, Sample3DNames[i]);
+			} else {
+				line.Format("3D Sample %d: *%s\n", i, Sample3DNames[i]);
+			}
+			text += line;
+		}
+		line.Format("--------------------------------------------------------\n");
+		text += line;
+		Text->Draw_Text(text);
+	}
+}
 
 
 

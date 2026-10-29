@@ -10,7 +10,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 33 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 36 |
 | 3 | by convention from a client-named file or sibling | 948 |
-| 2 | describes what the code does | 2324 |
+| 2 | describes what the code does | 2327 |
 | 1 | neutral placeholder | 5342 |
 
 ## For review (score 3 and below)
@@ -2341,6 +2341,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_74EB00` | `app/client/sclient.cpp:4793` | untagged neutral name (D10) |
 | 1 | `Unknown120C` | `app/client/sclient.cpp:4797` | untagged neutral name (D10) |
 | 1 | `timedlist` | `app/client/sclient.cpp:4991` | 0x74EB00's queue |
+| 1 | `Unknown_750260` | `app/client/sclient.cpp:5118` | untagged neutral name (D10) |
 | 1 | `Unknown_750800` | `app/client/sclient.cpp:5180` | untagged neutral name (D10) |
 | 1 | `Unknown_750A70` | `app/client/sclient.cpp:5227` | untagged neutral name (D10) |
 | 1 | `Unknown_750B30` | `app/client/sclient.cpp:5251` | untagged neutral name (D10) |
@@ -2831,7 +2832,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_74FA30` | `app/client/sclient.h:805` | untagged neutral name (D10) |
 | 1 | `Unknown_74FEC0` | `app/client/sclient.h:806` | untagged neutral name (D10) |
 | 1 | `Unknown_750210` | `app/client/sclient.h:807` | untagged neutral name (D10) |
-| 1 | `arg` | `app/client/sclient.h:808` | neutral |
 | 1 | `Unknown_750260` | `app/client/sclient.h:808` | untagged neutral name (D10) |
 | 1 | `arg` | `app/client/sclient.h:809` | neutral |
 | 1 | `Unknown_750B30` | `app/client/sclient.h:809` | untagged neutral name (D10) |
@@ -6024,6 +6024,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Remove` | `app/client/sclient.cpp:316` | what Shutdown does with it |
 | 2 | `INIUsers` | `app/client/sclient.cpp:335` | what it counts |
 | 2 | `SoundManager` | `app/client/sclient.cpp:779` | what it holds |
+| 2 | `Sample2DNames` | `app/client/sclient.cpp:5116` | what it holds |
+| 2 | `Sample3DNames` | `app/client/sclient.cpp:5117` | what it holds |
 | 2 | `TestEffectStruct` | `app/client/sclient.cpp:5272` | testeffects.ini's record |
 | 2 | `std:` | `app/client/sclient.cpp:5333` | what it holds |
 | 2 | `std:` | `app/client/sclient.cpp:5334` | what it holds |
@@ -6086,6 +6088,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `tilt` | `app/client/sclient.h:763` | 0x717430's |
 | 2 | `turn, tilt` | `app/client/sclient.h:764` | 0x717430's |
 | 2 | `move_direction, fixed_speed` | `app/client/sclient.h:766` | 0x717430's |
+| 2 | `reset` | `app/client/sclient.h:808` | true sets every sample name to NONE |
 | 2 | `ViewMode` | `app/client/sclient.h:860` | what Do_Frame's asserts show |
 | 2 | `Task` | `app/client/sclient.h:866` | what it holds |
 | 2 | `Text` | `app/client/sclient.h:878` | what it holds |

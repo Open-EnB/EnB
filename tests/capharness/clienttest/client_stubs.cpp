@@ -215,6 +215,8 @@ std::vector<TestEffectStruct> Unknown_BE7D80;	// 0xBE7D80 (sclient.cpp's 0x750C2
 WWAudioClass *WWAudioClass::_theInstance = 0;
 void WWAudioClass::Free_Completed_Sounds(void) { Trace("stub WWAudioClass::Free_Completed_Sounds"); }
 void WWAudioClass::Flush_Cache(void) { Trace("stub WWAudioClass::Flush_Cache"); }	// sclient.cpp 0x7511A0
+AudibleSoundClass *WWAudioClass::Peek_2D_Sample(int index) { Trace("stub WWAudioClass::Peek_2D_Sample %d", index); return(0); }	// sclient.cpp 0x750260 (the audio debug page)
+AudibleSoundClass *WWAudioClass::Peek_3D_Sample(int index) { Trace("stub WWAudioClass::Peek_3D_Sample %d", index); return(0); }
 
 // The object at 0xC404D8 (soundlib.cpp's neighbourhood): SClient's constructor sets its byte +0x19A5, so the
 // pointer must point somewhere (declared as sclient.cpp declares it)
