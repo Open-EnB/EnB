@@ -212,6 +212,7 @@ RectClass Unknown_C07550;	// 0xC07550 (sclient.cpp's Init)
 #include "wwaudio.h"
 WWAudioClass *WWAudioClass::_theInstance = 0;
 void WWAudioClass::Free_Completed_Sounds(void) { Trace("stub WWAudioClass::Free_Completed_Sounds"); }
+void WWAudioClass::Flush_Cache(void) { Trace("stub WWAudioClass::Flush_Cache"); }	// sclient.cpp 0x7511A0
 
 // The object at 0xC404D8 (soundlib.cpp's neighbourhood): SClient's constructor sets its byte +0x19A5, so the
 // pointer must point somewhere (declared as sclient.cpp declares it)

@@ -4259,7 +4259,7 @@ void SClient::Unknown_74C370(RefCountClass *object)
 	}
 }
 // NOT EXACT: inline budget (explain.py: 11 calls, the client 7): ours inlines the hash table's resize 0x759660 into operator[] (and so std::__stl_next_prime), the client calls it and its bucket helper 0x756D10
-// 0x74C3B0
+#pragma auto_inline(off)	// 0x74C3B0 (out of line in 0x7511A0, as the client has it)
 void SClient::Unknown_74C3B0(int game_id, AvatarDescClass &desc)
 {
 	if (Unknown1394.find(game_id) != Unknown1394.end()) return;
@@ -4267,7 +4267,7 @@ void SClient::Unknown_74C3B0(int game_id, AvatarDescClass &desc)
 	Unknown1394[game_id] = object;
 	if (AvatarID == (unsigned)game_id) BridgeInterface->Unknown_53B7A0(&object->UnknownF8);
 }
-// 0x74C690
+#pragma auto_inline(on)	// 0x74C690
 void SClient::Unknown_74C690()
 {
 	std::hash_map<unsigned, SClientUnknown1394Class *>::iterator it;
@@ -5321,38 +5321,38 @@ bool SClient::Unknown_750B60()
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#include "..\shared\avatar_desc.h"
+#include "assetmgr.h"
+#include "..\..\wwaudio\WWAudio.h"
+// NOT EXACT: shape (explain.py: 1 masked row; 177 instructions, the client 176): the client calls ids' insert(end, x) 0x755E60 out of line (insert(P, 1, X) inlined into it), ours inlines it and calls insert(P, 1, X); two forms (push_back, insert)
+// 0x7511A0 (the main view's 0x514010, on every view-mode change): each +0x1394 value is made again from a copy of its avatar description (+0xF8)
+// through 0x74C3B0 once the table is cleared (0x74C690 inline), then the mesh renderer, the DX8 resources, the unused assets and the audio cache are flushed
+void SClient::Unknown_7511A0()
+{
+	int count = 0;
+	std::vector<unsigned> ids;	// NAME 2: what it holds
+	std::vector<AvatarDescClass *> descs;	// NAME 2: what it holds
+	std::hash_map<unsigned, SClientUnknown1394Class *>::iterator it;
+	for (it = Unknown1394.begin(); it != Unknown1394.end(); ++it) {
+		SClientUnknown1394Class *object = (*it).second;
+		if (object) {
+			ids.push_back((*it).first);
+			descs.push_back(new AvatarDescClass((AvatarDescClass &)object->UnknownF8));
+			count++;
+		}
+	}
+	Unknown_74C690();
+	for (int i = 0; i < count; i++) {
+		AvatarDescClass *desc = descs[i];
+		Unknown_74C3B0(ids[i], *desc);
+		delete desc;
+		descs[i] = NULL;
+	}
+	TheDX8MeshRenderer.Invalidate();
+	DX8Wrapper::Flush_DX8_Resource_Manager();
+	WW3DAssetManager::Get_Instance()->Release_Unused_Assets();
+	WWAudioClass::Get_Instance()->Flush_Cache();
+}
 
 // 0x751460 (cpacket.cpp: the referral points 233): the points left to spend (+0x14F4) and what they earn, asked in
 // the current view's dialog (0x751660 sends the answer)

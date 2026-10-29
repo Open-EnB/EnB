@@ -1924,6 +1924,7 @@ int main(int argc, char **argv)
 	Fake_Assets = new FakeAssetManagerClass;
 	Unknown_BDADC0 = Fake_Assets;
 	Check(WW3DAssetManager::Get_Instance() == Fake_Assets, "the fake asset manager is *0xBDADC0 and WW3DAssetManager::Get_Instance()");
+	Install_Fake_D3D_Device();	// 0x7511A0 (CLIENT_TYPE 60) flushes DX8Wrapper's resource manager
 
 	Test_Lists(client);
 	Test_Debug(client);

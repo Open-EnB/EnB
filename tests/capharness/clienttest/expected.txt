@@ -529,7 +529,8 @@ stub Unknown831340Class::Unknown831340Class 1708 'Athanor Hyperion Mounts' type 
 msg 66 CLIENT_TYPE (60) size 8: cpacket.cpp's handler
 gen Unknown_Log
 gen SClient::Unknown_742530
-gen SClient::Unknown_7511A0
+d3d ResourceManagerDiscardBytes 0
+stub WWAudioClass::Flush_Cache
 cockpit +0x58 (on)
 mainview 138's +0x58 (on)
 msg 67 ITEM_BASE (37) size 234: cpacket.cpp's handler
