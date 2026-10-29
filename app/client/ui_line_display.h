@@ -6,8 +6,7 @@
 **	Original location: e:\build\beta\G\app\Client\ui_line_display.h (name assumed from
 **	ui_line_display.cpp, whose __FILE__ is 'e:\build\beta\G\app\Client\ui_line_display.cpp')
 **
-**	The line display: a screen of the UI kit (intrface.cpp's class, declared here only as far as this
-**	file needs it, D10) that shows one message line at a time from a queue, keeps a history of the shown
+**	The line display: a screen of the UI kit (intrface.cpp's class, intrface.h) that shows one message line at a time from a queue, keeps a history of the shown
 **	lines (Prev / Next Ephemeral History), picks random texts and fonts from ephemeral.ini and keeps one
 **	text object per STR-n section of fc_line_display.ini, both in SGI hash_maps keyed by name
 **	(libs/sgistl, D87). The client names neither the classes nor the members (D10, D24); the ini keys
@@ -27,6 +26,7 @@
 #include "..\shared\unknown_debug.h"
 #include "..\..\wwlib\refcount.h"
 #include "..\..\wwlib\ref_ptr.h"
+#include "intrface.h"
 
 class INIClass;
 class Vector3;
@@ -189,76 +189,7 @@ struct LineDisplayLineStruct  // NAME 2: what it holds
 	unsigned int Priority;																			// +0x24  // NAME 2: describes what it holds
 };
 
-class ControlKeysManagerClass;  // control_keys_manager.cpp's (0x71A960 / 0x71AB40)
-class LineDisplayClientClass;  // what +0x40 points to (slot +0x18 gives the sclient)
-
-// The UI kit's base classes as far as this file needs them (kernel-map-step9.md section 3.2): an inline base
-// with tables at +0x00 and +0x04, gclass.cpp's class, intrface.cpp's class with RefCountClass at +0x38
-class UnknownGadgetBase00Class  // NAME 1: neutral (D10): the inline base's first table (0xAEAB48)
-{
-public:
-	virtual ~UnknownGadgetBase00Class();
-	virtual void Unknown_04();
-	virtual void Unknown_08();
-	virtual void Unknown_0C();
-	virtual void Unknown_10();
-	virtual void Unknown_14();
-	virtual void Unknown_18();
-	virtual void Unknown_1C();
-	virtual void Unknown_20();
-	virtual void Unknown_24();
-	virtual void Unknown_28();
-	virtual void Unknown_2C();
-	virtual void Unknown_30();
-	virtual void Unknown_34();
-	virtual void Unknown_38();
-	virtual void Unknown_3C();
-	virtual void Unknown_40();
-	virtual void Unknown_44();
-	virtual void Unknown_48();
-	virtual void Unknown_4C();
-	virtual void Unknown_50();
-};
-
-class UnknownGadgetBase04Class  // NAME 1: neutral (D10): the inline base's second table (0xAEAB3C)
-{
-public:
-	virtual ~UnknownGadgetBase04Class();
-	virtual void Unknown_04();																// 0x4A1930
-};
-
-class GClassUnknownClass : public UnknownGadgetBase00Class, public UnknownGadgetBase04Class  // NAME 1: neutral (D10): gclass.cpp's class (constructor 0x4A1880)
-{
-protected:
-	char Unknown08[0x38 - 0x08];															// +0x08
-};
-
-class InterfaceClass : public GClassUnknownClass, public RefCountClass  // NAME 3: by convention (D24) from the client's intrface.cpp (constructors 0x540A90 / 0x540D30, table 0xAEEF98)
-{
-public:
-	InterfaceClass(int unknown1, int unknown2);												// 0x540A90
-	virtual ~InterfaceClass();																// 0x540E90 (slot 0x540D00)
-	virtual void Unknown_54();																// 0x515690
-	virtual void Unknown_58();																// 0x541010
-	virtual void Unknown_5C();																// 0x541210
-	virtual void Unknown_60();																// 0x540C70
-	virtual void Unknown_64();																// 0x5156B0
-	virtual bool Unknown_68(int key);														// 0x5156D0
-	virtual void Unknown_6C();																// 0x5156F0
-	virtual void Unknown_70(ControlKeysManagerClass *manager);								// 0x515710
-	virtual void Unknown_74(ControlKeysManagerClass *manager);								// 0x515730
-	virtual void Unknown_78();																// 0x515750
-	virtual void Unknown_7C(int unknown1, int unknown2);									// 0x5412F0
-	virtual void Unknown_80();																// 0x541550
-	virtual void Unknown_84();																// 0x541690
-	void *Unknown_541800();													// 0x541800
-
-protected:
-	LineDisplayClientClass *Client;															// +0x40 (the assert's name)
-	int Unknown44;																			// +0x44: nothing is shown while it is 0
-	int Unknown48;																			// +0x48
-	char Unknown4C[0x84 - 0x4C];															// +0x4C: what the control keys are registered with
-};
+// the UI kit's base classes: intrface.h
 
 class UILineDisplayClass : public InterfaceClass  // NAME 3: by convention (D24) from the client's ui_line_display.cpp (table 0xAF2930)
 {
@@ -272,7 +203,7 @@ public:
 	virtual bool Unknown_68(int key);														// 0x5A70B0: 1 = previous, 2 = next history line
 	virtual void Unknown_70(ControlKeysManagerClass *manager);								// 0x5A6550: registers the history keys
 	virtual void Unknown_74(ControlKeysManagerClass *manager);								// 0x5A6780: removes them
-	virtual void Unknown_7C(int unknown1, int unknown2);									// 0x5A7E80
+	virtual void Unknown_7C(UIViewClass *view, int arg);									// 0x5A7E80
 
 	std::string Format_Line(const char *text, int count, int index);				// 0x5A72B0: one of count lines, '...' where it was split  // NAME 2: describes what it does
 	void Add_Line(const char *text, int display_time, const char *font, int priority);	// 0x5A7690  // NAME 2: describes what it does

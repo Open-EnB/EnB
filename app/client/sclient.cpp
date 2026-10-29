@@ -112,7 +112,7 @@ public:
 // The interface objects Init creates (each file's constructor before its first assert; kernel-map-step9.md
 // 9f's interface base not rebuilt). The reference-counted ones keep their count in a second base at +0x38
 // (RefCountPtr's release reads +0x3C and calls +0x38's slot 0; Shutdown releases the raw pointers so)
-// (UIUnknownBaseClass, their first base, is in sclient.h with pdaint.cpp's PDAInterfaceClass: the main view reads the PDA)
+// (InterfaceClass, their base, is in intrface.h; pdaint.cpp's PDAInterfaceClass in sclient.h: the main view reads the PDA)
 
 // The camera manager's +0x04, as far as SClient 0x744C10 reads it
 class ChaseCameraModuleClass	// NAME 2: the FAIL_IF '!CameraManager->Get_Player_Chase_Camera_Module()' (0x744C10)
@@ -161,14 +161,14 @@ public:
 	bool Unknown7C;										// +0x7C (tested before every call)
 };
 
-class UIChatPanelClass : public UIInterfaceBaseClass
+class UIChatPanelClass : public InterfaceClass
 {
 public:
 	UIChatPanelClass(SClient *client);					// 0x561DD0
 	bool Unknown_56BA80();								// 0x56BA80 (Do_Frame compares it with 'more than 15' from the connection's Get_Stats)
 	void Unknown_56BA40(bool on);						// 0x56BA40 (Do_Frame, when that changes)  // NAME 1 [on]: what Do_Frame passes
 	void Unknown_565F30(int arg); void Unknown_56BAA0(int a, const char *text);	// 0x565F30 (0x7436A0: Esc, 2); 0x56BAA0 (0x74E710: 1 and the confirmed action's message)  // NAME 1 [arg]: what 0x7436A0 passes  // NAME 1 [a, text]: what 0x74E710 passes
-	char Unknown40[0xE0 - 0x40];
+	char Unknown84[0xE0 - 0x84];
 	UIChatPanelUnknownE0Class *UnknownE0;				// +0xE0 (0x750210, 0x7517E0, 0x751850 test its +0x7C)
 	char UnknownE4[0x138 - 0xE4];
 	UIChatPanelUnknown138Class *Unknown138;				// +0x138 (0x744E70 calls its slot +0xAC)
@@ -191,20 +191,20 @@ public:
 
 
 
-class UIHotKeysClass : public UIInterfaceBaseClass
+class UIHotKeysClass : public InterfaceClass
 {
 public:
 	UIHotKeysClass(SClient *client);					// 0x59C6F0
 
-	char Unknown40[0x84 - 0x40];
+	// 0x84 bytes: no members of its own here
 };
 
-class UITalkTreeSpaceClass : public UIInterfaceBaseClass
+class UITalkTreeSpaceClass : public InterfaceClass
 {
 public:
 	UITalkTreeSpaceClass(SClient *client);				// 0x64F310
 
-	char Unknown40[0x184 - 0x40];
+	char Unknown84[0x184 - 0x84];
 };
 
 class BridgeInterfaceClass

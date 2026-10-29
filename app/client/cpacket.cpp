@@ -2319,7 +2319,7 @@ bool StarbaseAvatarUpdatePacketClass::Process_Packet(void *instance)
 	SClient *sclient = (SClient *)instance;
 	if (!sclient->Unknown135C) return(true);
 	UIStarbaseClass *starbase = ((SBaseViewClass *)sclient->Unknown135C)->Get_Starbase().Peek();
-	if (!starbase || starbase->Room != Room || !starbase->Unknown7C) return(true);
+	if (!starbase || starbase->Room != Room || !starbase->Active) return(true);
 	starbase->Unknown_63E5C0(AvatarID, Orient, &Vector3(Unknown14, Unknown18, Unknown1C), ActionFlag);
 	return(true);
 }
@@ -2334,7 +2334,7 @@ bool StarbaseAvatarRoomUpdatePacketClass::Process_Packet(void *instance)
 	SClient *sclient = (SClient *)instance;
 	if (!sclient->Unknown135C) return(true);
 	UIStarbaseClass *starbase = ((SBaseViewClass *)sclient->Unknown135C)->Get_Starbase().Peek();
-	if (!starbase || !starbase->Unknown7C) return(true);
+	if (!starbase || !starbase->Active) return(true);
 	starbase->Unknown_63CF30(AvatarID, NewRoom);
 	return(true);
 }
@@ -3373,7 +3373,7 @@ bool GMViewMissionLogPacketClass::Process_Packet(void *instance)
 	FAIL_IF(sclient == 0) return(true);
 	Unknown6B2460Class *ui = new Unknown6B2460Class(sclient);
 	ui->Unknown_54();
-	if (sclient->Unknown_744B60()) ui->Unknown_7C((int)sclient->Unknown135C, 1); else ui->Unknown_7C((int)sclient->MainView, 1);
+	if (sclient->Unknown_744B60()) ui->Unknown_7C(sclient->Unknown135C, 1); else ui->Unknown_7C(sclient->MainView, 1);
 	ui->Unknown_6B3340(Unknown0C, &Strings);
 	return(true);
 }
@@ -3393,7 +3393,7 @@ bool GMEditPlayerInventoryPacketClass::Process_Packet(void *instance)
 	FAIL_IF(sclient == 0) return(true);
 	Unknown6AF220Class *ui = new Unknown6AF220Class(sclient);
 	ui->Unknown_54();
-	if (sclient->Unknown_744B60()) ui->Unknown_7C((int)sclient->Unknown135C, 1); else ui->Unknown_7C((int)sclient->MainView, 1);
+	if (sclient->Unknown_744B60()) ui->Unknown_7C(sclient->Unknown135C, 1); else ui->Unknown_7C(sclient->MainView, 1);
 	ui->Unknown_6B09D0(Unknown0C, &Strings);
 	return(true);
 }

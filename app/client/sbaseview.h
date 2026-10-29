@@ -25,12 +25,12 @@ class ShipRecustomizationCostClass;
 class RecustomizationCostClass;
 
 // ui_starbase.cpp's starbase interface (the starbase view's +0x60), declared as far as the starbase avatar packets call it
-class UIStarbaseClass : public UIInterfaceBaseClass	// NAME 3: class-from-file (D24) for app\client\ui_starbase.cpp
+class UIStarbaseClass : public InterfaceClass	// NAME 3: class-from-file (D24) for app\client\ui_starbase.cpp
 {
 public:
 	void Unknown_63CF30(int avatar_id, int new_room);	// 0x63CF30 (STARBASE_AVATAR_ROOM_UPDATE 160)  // NAME 1 [avatar_id, new_room]: the packet's fields
 	void Unknown_63E5C0(int avatar_id, float orient, Vector3 *position, int action);	// 0x63E5C0 (STARBASE_AVATAR_UPDATE 158)  // NAME 1 [avatar_id, orient, position, action]: the packet's fields
-	char Unknown40[0x7C - 0x40]; bool Unknown7C; char Unknown7D[0xAC - 0x7D];	// +0x40; +0x7C both handlers test it
+	char Unknown84[0xAC - 0x84];	// +0x84 (+0x7C Active: both handlers test it)
 	int Room;	// +0xAC (158 moves an avatar only in this room)  // NAME 2: what the handler compares with the packet's Room
 	void Unknown_640150(); void Unknown_6425D0(const char *name, const Vector3 &color);	// 0x640150 (SClient 0x74ABC0: '/starbase reset'); 0x6425D0 (SClient 0x750F70: the chat-event colour)  // NAME 1 [name, color]: what 0x750F70 passes
 	void Unknown_6437A0(int unknown, AvatarDescClass *desc);	// 0x6437A0 (RECUSTOMIZE_AVATAR_UPDATE 133)  // NAME 1 [unknown, desc]: the packet's fields

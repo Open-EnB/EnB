@@ -9025,6 +9025,7 @@
      "0x6B45D0",
      "0x6B46F0",
      "0x6B4860",
+     "0x6B4900",
      "0x6B4940",
      "0x6B4990",
      "0x6B4A00",
@@ -9066,6 +9067,7 @@
    "client/fontmanager.h": "reconstructed",
    "client/gutter_data.h": "reconstructed",
    "client/influence.h": "reconstructed",
+   "client/intrface.h": "reconstructed",
    "client/navigation_data.h": "reconstructed",
    "client/option.h": "reconstructed",
    "client/postate.h": "reconstructed",
@@ -9301,7 +9303,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 4610,
+  "in_tree_total": 4611,
   "totals": {}
  },
  "binkmovie": {

@@ -2149,7 +2149,7 @@ void MainViewClass::Unknown_513FC0()
 void MainViewClass::Unknown_514010(int oldmode, int newmode)
 {
 	if ((oldmode == 5 || oldmode == 0 || oldmode == 1) && (newmode == 5 || newmode == 0 || newmode == 1)) {
-		bool on = Unknown138->Unknown7C;
+		bool on = Unknown138->Active;
 		if (on) Unknown138->Unknown_5C();
 		Scene->Remove_All_Render_Objects();
 		if (on) Unknown138->Unknown_58();

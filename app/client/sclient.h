@@ -28,6 +28,7 @@
 #include "vector2.h"
 #include "vector3.h"
 #include "intersec.h"
+#include "intrface.h"
 #include "w3derr.h"
 #include <deque>
 #include <vector>
@@ -109,56 +110,11 @@ public:
 	char Unknown00[0x14];
 };
 
-// the interface objects' first base (0x38 bytes, its table at +0x00); a RefCountClass follows it at +0x38 in each
-// (the main view's Shutdown 0x50C2F0 releases them through it: dec [p+0x3C], then [[p+0x38]]'s slot 0)
+// the interface objects: intrface.h's InterfaceClass (P-LD4-1); view.cpp's list holds them
 class UIViewClass;
-class UIUnknownBaseClass	// NAME 1: neutral (D10): the interface base of kernel-map-step9.md 9f (sclient.cpp's interface objects, the PDA, the main view's)
-{
-public:
-	virtual ~UIUnknownBaseClass();
-	virtual void Unknown_04();
-	virtual void Unknown_08();
-	virtual void Unknown_0C();
-	virtual void Unknown_10();
-	virtual void Unknown_14();
-	virtual void Unknown_18();
-	virtual void Unknown_1C();
-	virtual void Unknown_20();
-	virtual void Unknown_24();
-	virtual void Unknown_28();
-	virtual void Unknown_2C();
-	virtual void Unknown_30();
-	virtual void Unknown_34();
-	virtual void Unknown_38();
-	virtual void Unknown_3C();
-	virtual void Unknown_40();
-	virtual void Unknown_44();
-	virtual void Unknown_48();
-	virtual void Unknown_4C();
-	virtual void Unknown_50();
-	virtual void Unknown_54();							// +0x54 Init calls it after construction
-	virtual void Unknown_58();
-	virtual void Unknown_5C();
-	virtual void Unknown_60();
-	virtual void Unknown_64();
-	virtual void Unknown_68();
-	virtual void Unknown_6C();
-	virtual void Unknown_70();
-	virtual void Unknown_74();
-	virtual void Unknown_78();
-	virtual void Unknown_7C(UIViewClass *view, int arg);	// +0x7C Init: the talk tree gets the main view and 0
-
-	char Unknown04[0x38 - 0x04];						// +0x04
-};
-
-// the interface objects: UIUnknownBaseClass with a RefCountClass at +0x38 (intrface.cpp's InterfaceClass, which
-// ui_line_display.h declares in its own way); view.cpp's list holds them
-class UIInterfaceBaseClass : public UIUnknownBaseClass, public RefCountClass	// NAME 1: neutral (D10)
-{
-};
 
 // what every view holds at +0x34 (0x1F8 bytes, constructor 0x5875C0), as far as cpacket.cpp and uiview.cpp call it
-class ViewUnknown34Class : public UIInterfaceBaseClass	// NAME 1: neutral (D10)
+class ViewUnknown34Class : public InterfaceClass	// NAME 1: neutral (D10)
 {
 public:
 	ViewUnknown34Class(UIViewClass *view, const LayerClass &layer);	// 0x5875C0 (0x1F8 bytes; UIViewClass's Init 0x65A820 makes it over a layer of its +0x1C scene and +0x20 camera)  // NAME 1 [view, layer]: what 0x65A820 passes
@@ -173,7 +129,7 @@ public:
 	virtual void Unknown_50(); virtual void Unknown_54(); virtual void Unknown_58();
 	virtual void Unknown_5C();							// +0x5C (SClient::Do_Frame: the main view's, once the lost-connection box is answered)
 
-	char Unknown40[0x18C - 0x40];						// +0x40
+	char Unknown84[0x18C - 0x84];						// +0x84
 	char Type[4];										// +0x18C the dialog's type, a string (0x74F5C0 compares it; its length not known)  // NAME 2: what 0x74F5C0 compares
 	char Unknown190[0x1F8 - 0x190];						// +0x190
 };
@@ -201,14 +157,14 @@ public:
 	virtual int Unknown_34() { return(0); }				// +0x34 0x50B6E0
 	virtual int Unknown_38() { return(0); }				// +0x38 0x50B700
 	virtual int Unknown_3C() { return(0); }				// +0x3C 0x6B4580 (UIViewClass's 0x50B7C0)
-	void Unknown_6B4900(int arg);						// 0x6B4900 (every interface object's +0x6C; SClient 0x745080)  // NAME 1 [arg]: neutral
-	void Unknown_6B4940(UIInterfaceBaseClass *inter);	// 0x6B4940 (FAIL_IF '!inter': onto InterfaceObjects, referenced)  // NAME 2 [inter]: the FAIL_IF's
-	bool Unknown_6B4990(UIInterfaceBaseClass *inter);	// 0x6B4990 (FAIL_IF '!inter': off InterfaceObjects, released)  // NAME 2 [inter]: the FAIL_IF's
+	void Unknown_6B4900(INIClass &ini);					// 0x6B4900 (every interface object's +0x6C; SClient 0x745080 passes settings.ini)  // NAME 1 [ini]: what 0x745080 passes
+	void Unknown_6B4940(InterfaceClass *inter);	// 0x6B4940 (FAIL_IF '!inter': onto InterfaceObjects, referenced)  // NAME 2 [inter]: the FAIL_IF's
+	bool Unknown_6B4990(InterfaceClass *inter);	// 0x6B4990 (FAIL_IF '!inter': off InterfaceObjects, released)  // NAME 2 [inter]: the FAIL_IF's
 
 	LoginUnknown0CClass *Get_Unknown04() { return(Unknown04); }	// inline (Do_Frame reads it into eax first)  // NAME 1: neutral (D10): the member it returns
 
 	LoginUnknown0CClass *Unknown04;						// +0x04 (SClient::Do_Frame: the current view's input dispatcher gets the event the client's +0x1270 didn't take, 0x429A20)
-	SList<UIInterfaceBaseClass> InterfaceObjects;		// +0x08 (the destructor's G_ASSERT '!InterfaceObjects.Head()')  // NAME 3: the assert's
+	SList<InterfaceClass> InterfaceObjects;		// +0x08 (the destructor's G_ASSERT '!InterfaceObjects.Head()')  // NAME 3: the assert's
 };
 
 class GadgetListManagerClass;
@@ -276,12 +232,12 @@ public:
 };
 
 // the interface object of the view at SClient +0x1358 (0xAC bytes, constructor 0x5B7AB0; file unknown)
-class Unknown5B7AB0Class : public UIInterfaceBaseClass	// NAME 1: neutral (D10)
+class Unknown5B7AB0Class : public InterfaceClass	// NAME 1: neutral (D10)
 {
 public:
 	Unknown5B7AB0Class(UIViewClass *view, const LayerClass &layer);	// 0x5B7AB0 (0x514E70 passes its view and a layer of the base's +0x1C / +0x20)  // NAME 1 [view, layer]: what 0x514E70 passes
 
-	char Unknown40[0xAC - 0x40];						// +0x40
+	char Unknown84[0xAC - 0x84];						// +0x84
 };
 
 // The 0x50-byte view at SClient +0x1358 (SClient::Init; constructor 0x514CC0, table 0xAED114): its functions follow
@@ -319,12 +275,12 @@ public:
 };
 
 // pdaint.cpp's PDA (SClient +0x1284; Init news it, 0xC0 bytes), as far as SClient and the main view's 0x512A00 use it
-class PDAInterfaceClass : public UIInterfaceBaseClass
+class PDAInterfaceClass : public InterfaceClass
 {
 public:
 	PDAInterfaceClass(SClient *client);					// 0x693140
 
-	char Unknown40[0xA8 - 0x40];
+	char Unknown84[0xA8 - 0x84];
 	PDAInterfaceUnknownA8Class *UnknownA8;				// +0xA8 (0x512A00 calls its 0x7C8DB0)
 	char UnknownAC[0xC0 - 0xAC];
 };
@@ -341,7 +297,7 @@ public:
 
 class IncapacitanceDetailsPacket;
 // ui_cpit.cpp's cockpit interface (the main view's +0x1D0), declared as far as cpacket.cpp calls it
-class UICpitClass : public UIInterfaceBaseClass	// NAME 3: class-from-file (D24) for ui_cpit.cpp
+class UICpitClass : public InterfaceClass	// NAME 3: class-from-file (D24) for ui_cpit.cpp
 {
 public:
 	UICpitClass(MainViewClass *view, const LayerClass &layer);	// 0x57D830 (0x178 bytes; the main view's 0x50C690)  // NAME 1 [view, layer]: what 0x50C690 passes
@@ -360,7 +316,7 @@ public:
 	virtual void Unknown_58();							// +0x58 (the main view's 0x5141A0)
 	virtual void Unknown_5C();							// +0x5C (the main view's 0x5141E0 / 0x514220)
 
-	char Unknown40[0xD4 - 0x40];						// +0x40
+	char Unknown84[0xD4 - 0x84];						// +0x84
 	UIScanClass *Scan;									// +0xD4 (the main view's 0x5136A0 returns it, 0x513630 calls 0x60E540 on it)  // NAME 3: its file's (ui_scan.cpp)
 	char UnknownD8[0xDC - 0xD8];						// +0xD8
 	int UnknownDC;										// +0xDC (the main view's 0x514400 returns it)
@@ -431,26 +387,26 @@ public:
 };
 
 // what the main view's +0x1D4 points to (0x50C690 makes it with a layer of the base's +0x1C scene and +0x20 camera)
-class MainViewUnknown1D4Class : public UIInterfaceBaseClass	// NAME 1: neutral (D10)
+class MainViewUnknown1D4Class : public InterfaceClass	// NAME 1: neutral (D10)
 {
 public:
 	MainViewUnknown1D4Class(MainViewClass *view, const LayerClass &layer);	// 0x5608D0 (0xEC bytes)  // NAME 1 [view, layer]: what 0x50C690 passes
-	char Unknown40[0xEC - 0x40];						// +0x40
+	char Unknown84[0xEC - 0x84];						// +0x84
 };
 
 // what the main view's +0x1E4 points to (0x50C690 makes it for the client, then its slot +0x7C with the view)
-class MainViewUnknown1E4Class : public UIInterfaceBaseClass	// NAME 1: neutral (D10)
+class MainViewUnknown1E4Class : public InterfaceClass	// NAME 1: neutral (D10)
 {
 public:
 	MainViewUnknown1E4Class(SClient *client);			// 0x5E1BE0 (0xE8 bytes)  // NAME 1 [client]: what 0x50C690 passes
-	virtual void Unknown_60(); virtual void Unknown_64(); virtual void Unknown_68(); virtual void Unknown_6C();
-	virtual void Unknown_70(); virtual void Unknown_74(); virtual void Unknown_78();
+	virtual void Unknown_60(); virtual void Unknown_64(); virtual bool Unknown_68(int key); virtual void Unknown_6C(INIClass &ini);
+	virtual void Unknown_70(ControlKeysManagerClass *manager); virtual void Unknown_74(ControlKeysManagerClass *manager); virtual bool Unknown_78(void *arg);
 	virtual void Unknown_7C(UIViewClass *view, int arg);	// +0x7C (0x50C690: the view, 0)  // NAME 1 [view, arg]: what 0x50C690 passes
-	char Unknown40[0xE8 - 0x40];						// +0x40
+	char Unknown84[0xE8 - 0x84];						// +0x84
 };
 
 // the object 0x50C690 makes, registers and releases at once (0x90 bytes, with the base's +0x24 scene)
-class MainViewUnknown53E970Class : public UIInterfaceBaseClass	// NAME 1: neutral (D10)
+class MainViewUnknown53E970Class : public InterfaceClass	// NAME 1: neutral (D10)
 {
 public:
 	MainViewUnknown53E970Class(MainViewClass *view, SimpleSceneClass *scene);	// 0x53E970  // NAME 1 [view, scene]: what 0x50C690 passes
@@ -462,16 +418,16 @@ public:
 	virtual void Unknown_50();
 	virtual void Unknown_54();
 	virtual void Unknown_58();
-	char Unknown40[0x90 - 0x40];						// +0x40
+	char Unknown84[0x90 - 0x84];						// +0x84
 };
 
 // what the main view's +0x1E0 points to (Shutdown 0x50C2F0 releases it)
-class MainViewUnknown1E0Class : public UIInterfaceBaseClass	// NAME 1: neutral (D10)
+class MainViewUnknown1E0Class : public InterfaceClass	// NAME 1: neutral (D10)
 {
 };
 
 // what the main view's +0x1DC points to, as far as 0x513540 / 0x513600 call it
-class MainViewUnknown1DCClass : public UIInterfaceBaseClass	// NAME 1: neutral (D10)
+class MainViewUnknown1DCClass : public InterfaceClass	// NAME 1: neutral (D10)
 {
 public:
 	virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
@@ -480,17 +436,17 @@ public:
 	virtual void Unknown_30(); virtual void Unknown_34(); virtual void Unknown_38(); virtual void Unknown_3C();
 	virtual void Unknown_40(); virtual void Unknown_44(); virtual void Unknown_48(); virtual void Unknown_4C();
 	virtual void Unknown_50(); virtual void Unknown_54(); virtual void Unknown_58(); virtual void Unknown_5C();
-	virtual void Unknown_60(); virtual void Unknown_64(); virtual void Unknown_68(); virtual void Unknown_6C();
-	virtual void Unknown_70(); virtual void Unknown_74(); virtual void Unknown_78();
+	virtual void Unknown_60(); virtual void Unknown_64(); virtual bool Unknown_68(int key); virtual void Unknown_6C(INIClass &ini);
+	virtual void Unknown_70(ControlKeysManagerClass *manager); virtual void Unknown_74(ControlKeysManagerClass *manager); virtual bool Unknown_78(void *arg);
 	virtual void Unknown_80(); virtual void Unknown_84();
 	virtual void Unknown_88(RenderObjClass *model);	// +0x88 (0x513540: the backdrop model)  // NAME 2 [model]: what 0x513540 passes
 	virtual void Unknown_8C(int arg);					// +0x8C (0x513600)  // NAME 1 [arg]: neutral
 	MainViewUnknown1DCClass(MainViewClass *view, SimpleSceneClass *scene);	// 0x53AA30 (0x8C bytes; 0x50C690 passes the +0x110 scene)  // NAME 1 [view, scene]: what 0x50C690 passes
-	char Unknown40[0x8C - 0x40];						// +0x40
+	char Unknown84[0x8C - 0x84];						// +0x84
 };
 
 // what the main view's +0x138 points to (0x53DFB0-0x53E3F0: the main view forwards to it)
-class MainViewUnknown138Class : public UIInterfaceBaseClass	// NAME 1: neutral (D10)
+class MainViewUnknown138Class : public InterfaceClass	// NAME 1: neutral (D10)
 {
 public:
 	MainViewUnknown138Class(MainViewClass *view, SimpleSceneClass *scene, INIClass &ini);	// 0x53D250 (0xA4 bytes; 0x50C690: the +0x10C scene, settings.ini)  // NAME 1 [view, scene, ini]: what 0x50C690 passes
@@ -520,9 +476,7 @@ public:
 	virtual void Unknown_58();							// +0x58 (the main view's 0x514010: on)
 	virtual void Unknown_5C();							// +0x5C (0x514010: off)
 
-	char Unknown40[0x7C - 0x40];						// +0x40
-	bool Unknown7C;										// +0x7C (0x514010: set while it runs)
-	char Unknown7D[0x9C - 0x7D];						// +0x7D
+	char Unknown84[0x9C - 0x84];						// +0x84 (+0x7C Active: 0x514010 tests it)
 	int Unknown9C;										// +0x9C (the main view's 0x513D00 returns it)
 	char UnknownA0[0xA4 - 0xA0];						// +0xA0
 };
