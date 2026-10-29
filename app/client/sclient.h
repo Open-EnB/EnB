@@ -675,6 +675,7 @@ public:
 	virtual LoadingViewClass *Unknown_5C() { return(this); }	// +0x5C 0x691630
 	void Unknown_691830(const std::string &source_sector, const std::string &source_system, const std::string &name, const std::string &system);	// 0x691830 (cpacket.cpp: SERVER_HANDOFF 58)  // NAME 1 [source_sector, source_system, name, system]: the packet's fields
 	void Unknown_692330();								// 0x692330 (cpacket.cpp: START 5)
+	void Unknown_692160();								// 0x692160 (SClient 0x74BA30, 0x7992F0: 0x691830 with four empty strings)
 
 	int Unknown50;										// +0x50
 	int Unknown54;										// +0x54

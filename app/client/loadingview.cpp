@@ -74,13 +74,20 @@ void LoadingViewClass::Unknown_10()
 	Unknown64 = NULL;
 }
 
+// 0x692160: SERVER_HANDOFF's screen with no names (SClient 0x74BA30, 0x7992F0)
+void LoadingViewClass::Unknown_692160()
+{
+	std::string a, b, c, d;
+	Unknown_691830(a, b, c, d);
+}
+
 /*
 **	Notes (LD4, 2026-10-29)
 **
 **	loadingview.cpp is the loading view (LoadingViewClass, sclient.h: 0x6C bytes over uiview.cpp's second view,
 **	table 0xAFCF7C), client 0x6912A0-0x6927C0 (appfile.py show app\client\loadingview.cpp; the constructor's
 **	G_ASSERT 'ctask' on the client's line 52, __FILE__ e:\build\beta\G\app\Client\loadingview.cpp).
-**	Not rebuilt: 0x6912A0 / 0x691320 before the constructor, SERVER_HANDOFF's 0x691830 and its string wrapper
-**	0x692160, START 0x692330 and the loading screen 0x692420 (slot +0x0C): +0x58..+0x64 are RefCountPtrs of a
+**	Not rebuilt: 0x6912A0 / 0x691320 before the constructor, SERVER_HANDOFF's 0x691830,
+**	START 0x692330 and the loading screen 0x692420 (slot +0x0C): +0x58..+0x64 are RefCountPtrs of a
 **	class with a slot +0x38 that FontManagerClass::Unknown_6D2310 takes by reference, not yet declared.
 */

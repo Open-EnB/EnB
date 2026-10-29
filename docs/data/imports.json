@@ -2822,18 +2822,21 @@
    },
    "loadingview": {
     "ambiguous": [
+     "0x42A6C0",
      "0x42B2F0",
      "0x46BE90"
     ],
     "copy": "reconstructed",
     "expected": {},
     "in_tree": [
+     "0x42A820",
      "0x42F250",
      "0x691570",
      "0x691650",
      "0x691680",
      "0x691770",
-     "0x6917A0"
+     "0x6917A0",
+     "0x692160"
     ],
     "merged": [],
     "name": "client/loadingview.cpp"
@@ -9282,7 +9285,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 4608,
+  "in_tree_total": 4609,
   "totals": {}
  },
  "binkmovie": {
