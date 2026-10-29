@@ -206,6 +206,8 @@ void Unknown_Debug_Print(const char *text) { Trace("log: %s", text); }
 // ------------------------------------------------------------------------- data gen_stubs.py --link can't write
 
 RectClass Unknown_C07550;	// 0xC07550 (sclient.cpp's Init)
+struct TestEffectStruct { char Unknown00[0x64]; };	// sclient.cpp's testeffects.ini record (0x64 bytes): only the name and size matter here
+std::vector<TestEffectStruct> Unknown_BE7D80;	// 0xBE7D80 (sclient.cpp's 0x750C20, which nothing calls; 0x74CA90 fills it)
 
 // wwaudio's instance (ClientClass's destructor: Free_Completed_Sounds): here, so that wwaudio.obj and Miles
 // (mss32.dll) stay out of the program; the tests never delete the client

@@ -1,9 +1,9 @@
 /*
 **	Earth & Beyond client (reconstruction)
-**	Original location: e:\build\beta\G\app\Client\sclient.cpp (client 0x7405E0-0x7429B0, the skeleton)
-**	SClient (sclient.h): D90 9d's skeleton, the functions before the file's first assert. Notes at the end.
+**	Original location: e:\build\beta\G\app\Client\sclient.cpp (client 0x7405E0-0x7429B0, the skeleton); SClient (sclient.h). Notes at the end.
 */
 #include <windows.h>
+#include "eff_o.h"							// before client.h, which declares EffectObjectClass only as far as the lists need it
 #include "sclient.h"
 #include "..\common\connect.h"
 #include "..\packets\pk.h"
@@ -5267,59 +5267,59 @@ bool SClient::Unknown_750B60()
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#include "..\common\lego_identifier.h"
+// One record of testeffects.ini (0x64 bytes; 0x74CA90 loads them, the destructor 0x74D550 is the implicit one)
+struct TestEffectStruct	// NAME 2: testeffects.ini's record
+{
+	int Duration; int DescID; float Distance;	// +0x00 the factory's duration, +0x04 its descriptor, +0x08 how far ahead of the avatar  // NAME 1 [Duration, DescID, Distance]: what 0x750C20 does with them
+	LegoIdentifierClass Lego;	// +0x0C the source's lego (0x6E8170)  // NAME 1: what it is
+	unsigned Count; int Interval; bool Target; float Scale; Vector3 HSVShift; float Speedup; int Delay;	// +0x20 the volley, +0x24 its spacing, +0x28 the avatar is the target, +0x2C .. +0x3C the factory's, +0x40 subtracted from the start  // NAME 1 [Count, Interval, Target, Scale, HSVShift, Speedup, Delay]: what 0x750C20 does with them
+	char Name[0x20];	// +0x44 the message's %s  // NAME 1: what 0x750C20 prints
+};
+extern std::vector<TestEffectStruct> Unknown_BE7D80;	// 0xBE7D80: testeffects.ini's records (0x74CA90)  // NAME 1: neutral (D10)
+// NOT EXACT: field offset (explain.py; really stack slots and registers, 137 masked rows of 209): the client keeps the effect in ebp and the binary end in esi (ours the other way), hoists AvatarID before the lego test and gives the record's copies other slots; two forms (an int time accumulator, then i * interval: the start's order and the guarded induction variable matched)
+// 0x750C20 (no caller references it; debug): testeffects.ini's record INDEX played Count times, Interval apart, from or to the avatar and the point Distance ahead of it, and said in the chat panel
+void SClient::Unknown_750C20(int index)
+{
+	int duration = Unknown_BE7D80[index].Duration; int desc_id = Unknown_BE7D80[index].DescID; float distance = Unknown_BE7D80[index].Distance;
+	LegoIdentifierClass lego(Unknown_BE7D80[index].Lego);
+	unsigned count = Unknown_BE7D80[index].Count; int interval = Unknown_BE7D80[index].Interval; bool target = Unknown_BE7D80[index].Target;
+	float scale = Unknown_BE7D80[index].Scale; Vector3 hsv_shift = Unknown_BE7D80[index].HSVShift; float speedup = Unknown_BE7D80[index].Speedup;
+	int delay = Unknown_BE7D80[index].Delay; const char *name = Unknown_BE7D80[index].Name;
+	Matrix3D tm = Get_Avatar()->Unknown_28(true);
+	Vector3 position = tm.Get_Translation() + tm.Get_X_Vector() * distance;
+	for (unsigned i = 0; i < count; i++) {
+		EffectObjectClass *effect = Unknown_6E9490(desc_id, 0, duration, i * interval - delay + Unknown10BC, this, scale, hsv_shift, speedup, -1, 0);
+		if (effect) {
+			UnknownB00060EffectClass *unary = effect->Unknown_10();
+			if (unary) {
+				unary->Unknown_28(AvatarID);
+			} else {
+				UnknownB0009CEffectClass *binary = effect->Unknown_14();
+				if (binary) {
+					if (target) {
+						binary->Unknown_34(AvatarID);
+						binary->Unknown_30(position);
+					} else {
+						if (!lego.Is_Empty()) {
+							binary->Unknown_2C(AvatarID, lego);
+						} else {
+							binary->Unknown_28(AvatarID);
+						}
+						binary->Unknown_38(position);
+					}
+				}
+			}
+			MainViewClass *view = MainView;
+			Add_Effect(effect, (int)view->Unknown_64(), view->Unknown_7C());
+		}
+	}
+	if (count > 1) {
+		Print(0x17, "Playing effect #%i: %s (volley of %i).", desc_id, name, count);
+	} else {
+		Print(0x17, "Playing effect #%i: %s.", desc_id, name);
+	}
+}
 
 #include "..\shared\avatar_desc.h"
 #include "assetmgr.h"

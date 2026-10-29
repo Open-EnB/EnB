@@ -742,7 +742,7 @@ public:
 	void Unknown_744D80();								// 0x744D80 (Init's camera block as a function; 0x6B58A0 calls it)
 	void Unknown_744E50();								// 0x744E50: the camera manager's callback (Init registers it, Shutdown removes it)
 	void Unknown_7518A0();								// 0x7518A0 (Init)
-	void Unknown_7511A0();								// 0x7511A0 (the main view's 0x514010, on every view-mode change)
+	void Unknown_7511A0(); void Unknown_750C20(int index);	// 0x7511A0 (the main view's 0x514010, on every view-mode change); 0x750C20 (no caller: plays testeffects.ini's record)  // NAME 1 [index]: the record's
 	void Unknown_7555B0();								// 0x7555B0 (Shutdown)
 	void Unknown_755600();								// 0x755600 (0x745750, before the +0x1394 values go)
 	void Unknown_743290();								// 0x743290 (cpacket.cpp: LOGOFF_CONFIRMATION 186)
