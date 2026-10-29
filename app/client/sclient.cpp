@@ -175,13 +175,13 @@ public:
 	char Unknown13C[0x264 - 0x13C]; bool MessageButtonShowing; char Unknown265[3]; bool Is_Message_Button_Showing() { return(MessageButtonShowing); }	// +0x264 (0x74FEC0's FAIL_IF names the getter)  // NAME 2 [MessageButtonShowing]: its getter's
 };
 
-class UILineDisplayClass : public UIUnknownBaseClass, public RefCountClass
-{
-public:
-	UILineDisplayClass(SClient *client);				// 0x5A5410
+#include "ui_line_display.h"						// UILineDisplayClass (0x5A5410, 0x100 bytes; Init passes the SClient as its client)
 
-	char Unknown40[0x100 - 0x40];
-};
+
+
+
+
+
 
 
 
@@ -462,7 +462,7 @@ void SClient::Init()
 	Unknown1274->Unknown_515120(2);
 	ChatPanel = Create_NEW(new UIChatPanelClass(this));
 	ChatPanel->Unknown_54();
-	LineDisplay = new UILineDisplayClass(this);
+	LineDisplay = new UILineDisplayClass((LineDisplayClientClass *)this);
 	LineDisplay->Unknown_54();
 	GalaxyMap = new GalaxyMapClientClass;
 	Starmap = new UIStarmapClass(this);
@@ -5499,11 +5499,11 @@ void SClient::Unknown_751660()
 
 #include "..\packets\pkmessagestring.h"
 #include "..\packets\pkincapacitancerequest.h"
-// sbaseview.h's two classes as far as '/starbase reset' needs them (the header includes ui_line_display.h, whose
-// UILineDisplayClass clashes with this file's own, C2011)
-class UIStarbaseClass : public UIUnknownBaseClass, public RefCountClass { public: void Unknown_640150(); void Unknown_6425D0(const char *name, const Vector3 &color); };	// NAME 3: sbaseview.h's (ui_starbase.cpp); 0x640150: '/starbase reset'
-class SBaseViewUnknown174Class { public: char Unknown00[0x18C]; bool Unknown18C; };	// NAME 1: neutral (D10): the starbase view's +0x174 (0x74D950 sets its +0x18C)
-class SBaseViewClass : public ViewClass { public: RefCountPtr<UIStarbaseClass> Get_Starbase() { return(Starbase); } char Unknown38[0x60 - 0x38]; RefCountPtr<UIStarbaseClass> Starbase; char Unknown64[0x174 - 0x64]; SBaseViewUnknown174Class *Unknown174; };	// NAME 3: sbaseview.h's; Get_Starbase 0x54EDA0
+#include "sbaseview.h"	// UIStarbaseClass, SBaseViewClass ('/starbase reset', 0x74D950, the chat-event colour)
+
+
+
+
 
 // The chat commands' tables (0xB98088, 0xB980F8, 0xB98138) and the client that shows the names under the mouse
 // (0xBE5F20, '/art name')

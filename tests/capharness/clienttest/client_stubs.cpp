@@ -167,16 +167,20 @@ static SoundManagerClass The_Sound_Manager;
 SoundManagerClass *SoundManager = &The_Sound_Manager;
 
 // ui_line_display.cpp (the handlers 32-36 through SClient +0x1280): the members cpacket.cpp calls, as
-// ui_line_display.h declares them (non-virtual: same mangling); clienttest.cpp points LineDisplay at a fake
+// ui_line_display.h declares them (non-virtual: same mangling); clienttest.cpp points LineDisplay at a fake. The
+// constructor Init calls stands in here too: from app.lib it would pull ui_line_display.obj (LNK2005 on these)
+class LineDisplayClientClass;
 class UILineDisplayClass
 {
 public:
+	UILineDisplayClass(LineDisplayClientClass *client);
 	void Add_Line(const char *text, int display_time, const char *font, int priority);
 	void Add_Line_7(const char *text, int display_time, const char *font);
 	void Add_Line_3(const char *text, int display_time, const char *font);
 	void Show_Ephemeral(const char *type);
 	void Flush_Lines();
 };
+UILineDisplayClass::UILineDisplayClass(LineDisplayClientClass *) { Trace("stub UILineDisplayClass::UILineDisplayClass"); }
 void UILineDisplayClass::Add_Line(const char *text, int display_time, const char *font, int priority) { Trace("stub UILineDisplayClass::Add_Line '%s' %d '%s' %d", text ? text : "(null)", display_time, font ? font : "(null)", priority); }
 void UILineDisplayClass::Add_Line_7(const char *text, int display_time, const char *font) { Trace("stub UILineDisplayClass::Add_Line_7 '%s' %d '%s'", text ? text : "(null)", display_time, font ? font : "(null)"); }
 void UILineDisplayClass::Add_Line_3(const char *text, int display_time, const char *font) { Trace("stub UILineDisplayClass::Add_Line_3 '%s' %d '%s'", text ? text : "(null)", display_time, font ? font : "(null)"); }
