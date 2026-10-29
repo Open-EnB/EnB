@@ -1386,26 +1386,15 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 | D129 | 2026-10-29 | bada317's matching rule (now 32fd4b3) is kept as an extension of D88's self-name round: a vtable slot 0's `??_E` name in symbols.json counts for the object's `??_G` and the reverse (symbols.py names slot 0 `??_E`; VC6 emits `??_G` for a class never new[]'d); bytes still match with relocations masked, so a vector deleting destructor or a slot-0 thunk cannot be credited. +293 pairs (276 addresses), 0 lost. D118's numbers predate it (M4's README notes the alias unmeasured) | user (PK1's P-PK1-1, coordinator) |
 | D130 | 2026-10-29 | P-IB1-1 accepted: dead root-NULL finds (`Unknown_Find_Field<...>(NULL, ...)`, no code emitted) may stand as an inline-budget spender, up to 4 per function, each marked (IB1's 4 in 0x6FDBD0, fc348e7; 0x6FBEF0's 20 stays out). P-DM1-1 (what else counts toward the 4) stays open | user (IB1's proposal) |
 | D131 | 2026-10-29 | P-CS1-1 accepted: the setter at slot +0x24, `Set_Debug_Object`, becomes `Set_Avatar_ID` like D123's getter (it sends the DEBUG packet; expected 0 / 0 pairs); a work item in §4 item 2 | user (CS1's proposal) |
+| D132 | 2026-10-29 | P-CS1-3: split co_subtypes.cpp now: type 24's base (0x70DBC0-0x70E2D0: constructor, destructor, update, thunks) goes to a file of its own with a neutral name (D10), types 24 / 28 (0x70E2E0-0x70F030) stay; the `#pragma auto_inline(off)` around the base, which stood in for the file boundary, goes; a D66 (v) move, 0 lost; a work item in §4 item 2 | user (CS1's evidence: the client never inlines the base into type 24) |
+| D133 | 2026-10-29 | P-HX1-1: auxroots.py's `SYMBOL_PAD` enum stays in the generated aux_roots.cpp for now (marked as not the client's; it carries e062fb2 and 45bf5c0, +16 pairs); revisit when client code (a real declaration the file sees) can take its place | user (HX1's proposal) |
+| D134 | 2026-10-29 | P-PK3-1, widened: the verb object's five inline-budget functions (VerbList ctor 0x8AF150, Print 0x8AF6D0, VerbUpdate ctor 0x8AFD10, Build 0x8AFF40, Print 0x8B0150; one cause on the same two sets) go to the Fable queue (§4 item 7) as one round; the object's other functions are exact or are the five's out-of-line helpers | user |
 
 ## 3. Open decisions
 
 * **P-DM1-1** (2026-10-28, DM1; recommend; D130 accepted P-IB1-1's 4 dead finds per function): count only dead
   finds toward D130's 4; DM1 also used 1 dead type test in 0x6FDBD0 (without it acd5e81 loses 0x531590 outright)
   and a dead `UnknownB8.size()` in 0x6FEF70, all marked.
-* **P-CS1-3** (2026-10-28, CS1; recommend one file for now): the client never inlines type 24's base constructor,
-  destructor or update into type 24 though they come first in the run, which suggests two objects (the base
-  0x70DBC0-0x70E2D0, types 24 / 28 0x70E2E0-0x70F030). Keep D122's one provisional file until a string names them,
-  or split now.
-* **P-HX1-1** (2026-10-28, HX1; recommend keep): a build aid that is not the client's code in tree code:
-  `tools/re/auxroots.py`'s `SYMBOL_PAD` emits an enum of 16 enumerators at the end of the generated aux_roots.cpp,
-  the only lever found for VC6's declaration-count tie-breaks (workflow.md §3.3). It carries e062fb2 (D104's members
-  ungated, P-PK1-2) and 45bf5c0 (P-PK1-3's Clone form, now gains-only), +16 pairs, 0 lost; reverting both loses
-  the 16. (P-PK1-3's D66 trade is no longer needed.)
-
-* **P-PK3-1** (2026-10-29, PK3; recommend yes): add the verb packets' inline-budget trio (VerbList ctor 0x8AF150,
-  Print 0x8AF6D0, VerbUpdate 0x8AFD10) to the Fable queue (§4 item 7) as one round: two Opus rounds are spent and no
-  lever is left.
-
 ## 4. Next steps
 
 Milestones M1 and M2 are met (D42, D63; [milestones.md](milestones.md)). Order and detail of the
@@ -1433,7 +1422,8 @@ client's own code: [kernel-map.md](kernel-map.md) §6 and, for step 9's dependen
    cpacket's Unknown98StateClass, a `std::vector<ColorizationRegionStruct>` at +0xC8, declarations for 0x6F2820 /
    0x6F5140 / 0x6F33F0; clienttest's `new ClientObjectClass` stand-in changes with them), which unblocks CREATE 4; (2026-10-28, CS1: D121 / D123 renames done, co_subtypes.cpp new (D122, +33: types 24 / 28
    and type 24's base with dynamic_obj.cpp's proximity object `Unknown44AC70Class` at +0x188), clienttest 66 checks;
-   0x6F3FA0 0.62 with `auto_inline(off)` around 0x6F3ED0; left: D131's rename (`Set_Debug_Object` at slot +0x24
+   0x6F3FA0 0.62 with `auto_inline(off)` around 0x6F3ED0; left: D132's split of co_subtypes.cpp (the base
+   0x70DBC0-0x70E2D0 to its own file, the pragma goes), D131's rename (`Set_Debug_Object` at slot +0x24
    -> `Set_Avatar_ID`), type 28's aim 0x70E850 frame / shape, retype
    `ClientClass::Unknown1144` as `HeightFieldClass *`; dynamic_obj.cpp done by DO1 (f413f9f, +11: the client's
    `DynObj`, 0x44AC70-0x44B740; NOT EXACT ctor 0x44AC70 shape, copy 0x44ADA0 register; its `ProximityObject` is a
@@ -1542,7 +1532,7 @@ client's own code: [kernel-map.md](kernel-map.md) §6 and, for step 9's dependen
 6. Step 8's tail: Key_Exchange (LIMIT), the UDP constructor over a CordCon 0x82CBF0 (register), Open_Fixed_Channel
    0x82D8C0 (field offset), `Send_Data` (wlib's Dictionary layout), 0x82E1D0 (needs CordMgr 0x8598F0), the
    TimedLog ctor, the memconn option slot, Rate Count (LIMIT), Listen.
-7. The Fable queue under D89 / D97 (six at most, by unlock value): co.cpp's 0x6FD310, 0x6FBEF0 and the roll 0x6F3FA0 as one round (2026-10-28, IB1: two Opus rounds each, inline budget; the question: what in the client's source spends more budget per find; 0x6F4610 / 0x6FDBD0 left the queue, now register / shape), client_lego_impl's Find 0x72ABB0 + Add 0x72B7F0 +
+7. The Fable queue under D89 / D97 (six at most, by unlock value): the verb object's five inline-budget functions 0x8AF150 / 0x8AF6D0 / 0x8AFD10 / 0x8AFF40 / 0x8B0150 as one round (D134; PK3's and PK2's attempts rows); co.cpp's 0x6FD310, 0x6FBEF0 and the roll 0x6F3FA0 as one round (2026-10-28, IB1: two Opus rounds each, inline budget; the question: what in the client's source spends more budget per find; 0x6F4610 / 0x6FDBD0 left the queue, now register / shape), client_lego_impl's Find 0x72ABB0 + Add 0x72B7F0 +
    Remove 0x72C1D0 as one round (P-H20-1), CLIENT_DAMAGE 0x738970 then FORMATION 0x734740 (P-T19-3), D92's three
    (item 2), Get_Lego_Transform then Child_Moved / Attach (P-H17-2), cpacket 62 with SIMPLE 8 as one round (both
    rounds done, CP1 2026-10-28: the Is_Valid_Float cut follows the inline budget; left the drift divisor's CSE and the
