@@ -588,6 +588,8 @@ ManagedFontClass *FontManagerClass::Find(unsigned int id)
 **	The font is keyed by its render object's address: the constructor 0x6CE990 takes the object (its Get_Name
 **	is the font's name, its address the id) and loads the database's templates whose RenderObj is that name;
 **	FontStringStruct's implicit copy constructor 0x6CECC0 and the styles table's destructor 0x6CEBF0 follow it.
+**	Not rebuilt: 0x6CF930 (a 'W' template's lines as styles through a line splitter 0x4FA8F0..0x4FA9F0;
+**	attempts.csv has its outline).
 **	The depth lever (workflow.md 3.1) made the destructor and 0x6D1C10 exact: the client calls the
 **	nested table helpers out of line when they sit one inline level deeper.
 **	Find 0x6D2A70 is never inlined (#pragma auto_inline(off)): the client calls it out of line in
