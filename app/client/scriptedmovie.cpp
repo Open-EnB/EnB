@@ -18,6 +18,11 @@ class UnknownBDADC0Class : public WW3DAssetManager	// NAME 1: neutral (D10)
 extern UnknownBDADC0Class *Unknown_BDADC0;	// NAME 1 [Unknown_BDADC0]: 0xBDADC0
 #define AssetManager Unknown_BDADC0	// NAME 3 [AssetManager]: the asserts' text 'AssetManager' (0x802D30, the destructor)
 
+// the screen fade and the letterbox (0x7FF830-0x7FFC70, the file before this one: its globals at 0xBE8B60..)
+void Unknown_7FF830(bool on, float time);							// 0x7FF830: the letterbox  // NAME 1 [on, time]: what Enable_Letterbox passes
+void Unknown_7FFA30(float red, float green, float blue, float time);	// 0x7FFA30: the fade's colour  // NAME 1 [red, green, blue, time]: what Set_Screen_Fade_Color passes
+void Unknown_7FFBE0(float opacity, float time);						// 0x7FFBE0: the fade's opacity  // NAME 1 [opacity, time]: what Set_Screen_Fade_Opacity passes
+
 // 0x7FFD30: the line starts with name (any case): the cursor past it and its comma
 bool ScriptedMovieParamsClass::Unknown_7FFD30(const char *name)
 {
@@ -68,11 +73,6 @@ char *ScriptedMovieParamsClass::Unknown_7FFDC0()
 	}
 	return(param);
 }
-
-
-
-
-
 
 
 
@@ -3062,6 +3062,27 @@ bool ScriptedMovieViewClass::Stop_Audio(ScriptedMovieParamsClass *params)
 
 
 
+// 0x808880: the screen fade's colour over a time
+bool ScriptedMovieViewClass::Set_Screen_Fade_Color(ScriptedMovieParamsClass *params)
+{
+	const char *param = params->Unknown_7FFDC0();
+	FAIL_IF((param == NULL) && "User error: Set_Screen_Fade_Color: Need red") {return(false);}
+	float red = atof(param);
+	param = params->Unknown_7FFDC0();
+
+	FAIL_IF((param == NULL) && "User error: Set_Screen_Fade_Color: Need green") {return(false);}
+	float green = atof(param);
+	param = params->Unknown_7FFDC0();
+
+	FAIL_IF((param == NULL) && "User error: Set_Screen_Fade_Color: Need blue") {return(false);}
+	float blue = atof(param);
+	param = params->Unknown_7FFDC0();
+
+	FAIL_IF((param == NULL) && "User error: Set_Screen_Fade_Color: Need time") {return(false);}
+	float time = atof(param);
+	Unknown_7FFA30(red, green, blue, time);
+	return(true);
+}
 
 
 
@@ -3079,40 +3100,19 @@ bool ScriptedMovieViewClass::Stop_Audio(ScriptedMovieParamsClass *params)
 
 
 
+// 0x808A00: the screen fade's opacity over a time
+bool ScriptedMovieViewClass::Set_Screen_Fade_Opacity(ScriptedMovieParamsClass *params)
+{
+	const char *param = params->Unknown_7FFDC0();
+	FAIL_IF((param == NULL) && "User error: Set_Screen_Fade_Opacity: Need opacity") {return(false);}
+	float opacity = atof(param);
+	param = params->Unknown_7FFDC0();
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	FAIL_IF((param == NULL) && "User error: Set_Screen_Fade_Opacity: Need time") {return(false);}
+	float time = atof(param);
+	Unknown_7FFBE0(opacity, time);
+	return(true);
+}
 
 
 
@@ -3160,15 +3160,15 @@ bool ScriptedMovieViewClass::Set_Clip_Plane(ScriptedMovieParamsClass *params)
 
 
 
-
-
-
-
-
-
-
-
-
+// 0x808BB0: the letterbox in or out over a time
+bool ScriptedMovieViewClass::Enable_Letterbox(ScriptedMovieParamsClass *params, bool on)
+{
+	const char *param = params->Unknown_7FFDC0();
+	FAIL_IF((param == NULL) && "User error: Enable_Letterbox: Need time") {return(false);}
+	float time = atof(param);
+	Unknown_7FF830(on, time);
+	return(true);
+}
 
 
 

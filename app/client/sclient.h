@@ -712,6 +712,9 @@ public:
 	bool Set_Light_Specular_Color(ScriptedMovieParamsClass *params);	// 0x806670 (FAIL_IF lines 2212-2228)  // NAME 2: the user error's 'Set_Light_Specular_Color'; NAME 1 [params]: neutral
 	bool Set_Light_Diffuse_Color(ScriptedMovieParamsClass *params);	// 0x8068A0 (FAIL_IF lines 2254-2270)  // NAME 2: the user error's 'Set_Light_Diffuse_Color'; NAME 1 [params]: neutral
 	bool Set_Camera_View_Plane(ScriptedMovieParamsClass *params);	// 0x806AF0 (FAIL_IF lines 2318 / 2323): the camera's view plane, in degrees  // NAME 2: the user error's 'Set_Camera_View_Plane'; NAME 1 [params]: neutral
+	bool Set_Screen_Fade_Color(ScriptedMovieParamsClass *params);	// 0x808880 (FAIL_IF lines 3069-3081): the screen fade's colour over a time (0x7FFA30)  // NAME 2: the user error's 'Set_Screen_Fade_Color'; NAME 1 [params]: neutral
+	bool Set_Screen_Fade_Opacity(ScriptedMovieParamsClass *params);	// 0x808A00 (FAIL_IF lines 3107 / 3111): its opacity over a time (0x7FFBE0)  // NAME 2: the user error's 'Set_Screen_Fade_Opacity'; NAME 1 [params]: neutral
+	bool Enable_Letterbox(ScriptedMovieParamsClass *params, bool on);	// 0x808BB0 (FAIL_IF line 3167): the letterbox in or out over a time (0x7FF830)  // NAME 2: the user error's 'Enable_Letterbox'; NAME 1 [params, on]: neutral
 	bool Set_Clip_Plane(ScriptedMovieParamsClass *params);		// 0x808AD0 (FAIL_IF lines 3137 / 3141): the camera's clip planes  // NAME 2: the user error's 'Set_Clip_Plane'; NAME 1 [params]: neutral
 	bool Stop_Audio(ScriptedMovieParamsClass *params);			// 0x807020 (FAIL_IF line 2435): the sound of that name stopped  // NAME 2: the user error's 'Stop_Audio'; NAME 1 [params]: neutral
 	bool Skip_Frames(ScriptedMovieParamsClass *params);			// 0x8097D0 (FAIL_IF line 3567): +0x164 on by the frames at 30 a second  // NAME 2: the user error's 'Skip_Frames'; NAME 1 [params]: neutral
