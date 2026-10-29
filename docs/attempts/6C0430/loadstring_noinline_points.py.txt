@@ -1,0 +1,27 @@
+# HL2: Load_String 0x6C0430. The client never inlines the word parsers (Get_Blend_Type / Get_Direction /
+# Get_Effect_Type 0x6C2340-0x6C25A0, Parse_Directions 0x6C2890, Split_Four 0x6C2A10: every call out of
+# line, in Load_String and 0x6BFD00); ours inlines three of them in Load_String. Hypothesis: they are not
+# auto-inline candidates in the client's source (the candidate set differs, 3.1 2026-10-29).
+C = 'app/client/fontdatabase.cpp'
+A_OLD = "}\n\n\nint FontDatabaseClass::Get_Blend_Type(StringClass &name)"
+A_NEW = "}\n\n#pragma auto_inline(off)\nint FontDatabaseClass::Get_Blend_Type(StringClass &name)"
+B_OLD = "\t\tvalues[i] = parts[i];\n\t}\n}\n\n\nFontStruct *FontDatabaseClass::Find_Font"
+B_NEW = "\t\tvalues[i] = parts[i];\n\t}\n}\n#pragma auto_inline(on)\n\nFontStruct *FontDatabaseClass::Find_Font"
+G_OLD = "\treturn 0;\n}\n\n\nint FontDatabaseClass::Get_Direction(StringClass &name)"
+G_NEW = "\treturn 0;\n}\n#pragma auto_inline(on)\n\nint FontDatabaseClass::Get_Direction(StringClass &name)"
+V = {
+    'noinline_parsers': [(C, A_OLD, A_NEW), (C, B_OLD, B_NEW)],
+    'noinline_blend': [(C, A_OLD, A_NEW), (C, G_OLD, G_NEW)],
+}
+COMPILE = [C]
+WATCH = ['0x6C0430', '0x6BFD00', '0x6C2340', '0x6C2460', '0x6C25A0', '0x6C2890', '0x6C2A10']
+
+# form 3: the parsers out of line plus each point stored as a struct copy from the returned temporary
+# (the client reads it through eax: mov ecx, [eax] / mov edx, [eax + 4])
+P = []
+for key, mem, var in (('Offset', 'Offset', 'offset'), ('Target', 'Target', 'target'), ('BoxOffset', 'BoxOffset', 'box')):
+    old = (f"\t\tconst TPoint2D<float> &{var} = ini.Get_Point(section, \"{key}\", origin);\n"
+           f"\t\tstr->{mem}[0] = {var}.X;\n\t\tstr->{mem}[1] = {var}.Y;\n")
+    new = f"\t\t*(TPoint2D<float> *)str->{mem} = ini.Get_Point(section, \"{key}\", origin);\n\n\n"
+    P.append((C, old, new))
+V = {'noinline_points': [(C, A_OLD, A_NEW), (C, B_OLD, B_NEW)] + P}

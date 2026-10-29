@@ -1,0 +1,39 @@
+# HL2 round on fontdatabase.cpp (workflow.md 3.1, shared helpers, 2026-10-29).
+C = 'app/client/fontdatabase.cpp'
+H = 'app/client/fontdatabase.h'
+# Reset 0x6BE0E0: the sounds' ID = "" through an inline FontSoundStruct helper, line count kept.
+OLD = ("\tSoundOn.Vol = 1.0f;\n\tSoundOn.Dur = -1.0f;\n\tSoundOver.Vol = 1.0f;\n\tSoundOver.Dur = -1.0f;\n"
+       "\tSoundClick.Vol = 1.0f;\n\tSoundClick.Dur = -1.0f;\n")
+CALLS = ("\t// Each sound back to its defaults through FontSoundStruct's inline Reset: its ID = \"\" is the\n"
+         "\t// client's out-of-line operator= at 0x6BE39B / 0x6BE3B5 / 0x6BE3CD (VC6's budget is spent by\n"
+         "\t// then); the loop's 24 assignments are called too, from EffectConst's address (+0x9C).\n"
+         "\tSoundOn.Reset();\n\tSoundOver.Reset();\n\tSoundClick.Reset();\n")
+HOLD = "\tfloat Dur;\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t// +0x08  // NAME 2: the ini key\n};"
+HNEW = ("\tfloat Dur;\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t// +0x08  // NAME 2: the ini key\n"
+        "\tvoid Reset() { ID = \"\"; Vol = 1.0f; Dur = -1.0f; }\t\t// inlined in FontStringStruct::Reset 0x6BE0E0  // NAME 2: what it does\n};")
+RESET = [(H, HOLD, HNEW), (C, OLD, CALLS)]
+
+# Set_Font 0x6C38F0: Get_Info() written as the resolution query plus Get_Info(width, height), so the
+# width / height lookup is a second-level expansion in Set_Font (the client calls 0x6C2CB0 there).
+SF_OLD = ("\tint width = 0; int height = 0; int bits = 0; bool windowed = false;\n"
+          "\tWW3D::Get_Device_Resolution(width, height, bits, windowed);\n"
+          "\tFontInitStruct *info = Get_Info(width, height);\n\tFAIL_IF(!info) return;\n\tunsigned int chat_index;\n"
+          "\tfor (chat_index = 0; (int)chat_index < MAXFONTS; chat_index++) if (strcmp(info->FontID[chat_index], chat_name) == 0) break;\n"
+          "\tFAIL_IF(chat_index >= MAXFONTS) return;\n\n\tFAIL_IF(!Font[chat_index].font32Ptr) return;\n\tbool changed = force;")
+SF_NEW = ("\t// the INIT section for the current resolution\n\n"
+          "\tFontInitStruct *info = Get_Info();\n\tFAIL_IF(!info) return;\n\tunsigned int chat_index;\n"
+          "\tfor (chat_index = 0; (int)chat_index < MAXFONTS; chat_index++) if (strcmp(info->FontID[chat_index], chat_name) == 0) break;\n"
+          "\tFAIL_IF(chat_index >= MAXFONTS) return;\n\n\tFAIL_IF(!Font[chat_index].font32Ptr) return;\n\tbool changed = force;")
+GI_OLD = ("\tWW3D::Get_Device_Resolution(width, height, bits, windowed);\n\tFontInitStruct *info = NULL;\n"
+          "\tfor (std::vector<FontInitStruct *>::iterator it = Infos.begin(); it != Infos.end(); it++) {\n"
+          "\t\tif (width < (*it)->ResWidth || height < (*it)->ResHeight) break;\n\t\tinfo = *it;\n\t}\n\treturn info;\n}\n\n\n\n")
+GI_NEW = ("\tWW3D::Get_Device_Resolution(width, height, bits, windowed);\n\treturn Get_Info(width, height);\n}\n\n\n\n\n\n\n\n\n")
+SETFONT = [(C, SF_OLD, SF_NEW), (C, GI_OLD, GI_NEW)]
+# the same with Set_Font's chat-index loop through FontInitStruct::Find_Chat_Index is not tried: its FAIL_IF tests >=.
+V = {
+    'reset': RESET,
+    'setfont': SETFONT,
+    'both': RESET + SETFONT,
+}
+COMPILE = [C]
+WATCH = ['0x6BE0E0', '0x6C38F0', '0x6C2CB0', '0x6C4720', '0x6C3C60']
