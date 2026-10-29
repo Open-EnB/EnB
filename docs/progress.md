@@ -1383,6 +1383,7 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 | D126 | 2026-10-29 | The history rewrite (every commit re-authored, hashes changed; old master aeeb5bc -> 97a1df5): tracked files' old commit hashes are rewritten through the old -> new map, same length so no line moves (`.work/coord/rehash.py`; generated files regenerated, not edited), and the map is kept as `docs/commit-map.txt` for the old hashes in commit messages; done at the 2026-10-29 handoff with a full verify, pairs 0 / 0 | user |
 | D127 | 2026-10-29 | D101's sbs criterion is met: since LD2's sun fix the means are 2.03-2.09 % against vidland's 1.9-2.4 %, frames 600-900 1.4-2.0 % ("within ±1.5 %" read as points of difference) | user (LD1's proposal) |
 | D128 | 2026-10-29 | P-SC3-1: 0x750C20 (testeffects.ini's player, 0.54, register / stack slots, no caller) stays parked; no exception to D89's rule for register-only residues | user (SC3's proposal) |
+| D129 | 2026-10-29 | bada317's matching rule (now 32fd4b3) is kept as an extension of D88's self-name round: a vtable slot 0's `??_E` name in symbols.json counts for the object's `??_G` and the reverse (symbols.py names slot 0 `??_E`; VC6 emits `??_G` for a class never new[]'d); bytes still match with relocations masked, so a vector deleting destructor or a slot-0 thunk cannot be credited. +293 pairs (276 addresses), 0 lost. D118's numbers predate it (M4's README notes the alias unmeasured) | user (PK1's P-PK1-1, coordinator) |
 
 ## 3. Open decisions
 
@@ -1392,13 +1393,6 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
   committed).
   P-DM1-1 (DM1; recommend): count only dead finds toward the 4; DM1 also used 1 dead type test in 0x6FDBD0 (without
   it acd5e81 loses 0x531590 outright) and a dead `UnknownB8.size()` in 0x6FEF70, all marked.
-* **bada317's matching rule** (2026-10-28, PK1, landed without a decision; coordinator recommends keep): objmatch's
-  self-name round files every vtable slot 0 `??_E` name under `??_G` too (VC6 emits the scalar `??_G` for a class never
-  new[]'d; symbols.py names slot 0 `??_E`). +293 pairs (276 addresses: app 173, ww3d2 72, wwmath 26, wwlib 11, ...),
-  0 lost, whole tree verified, replay 0, udpreplay PASS. Keep it, or revert it and treat it like D94(b) / D95(b)
-  (a quiet-tree round)? PK1 (P-PK1-1, recommends keep): slot 0 holds the class's only deleting destructor, so both
-  names are one proof; bytes still match with relocations masked. M4's D118 numbers do not include it (its README
-  lists it unmeasured: "an alias would credit 14 functions from vtable proof alone").
 * **P-CS1-1** (2026-10-28, CS1; recommend accept): D123 renamed the getter; rename the setter at slot +0x24,
   `Set_Debug_Object`, to `Set_Avatar_ID` too (it sends the DEBUG packet; expected 0/0 pairs).
 * **P-CS1-3** (2026-10-28, CS1; recommend one file for now): the client never inlines type 24's base constructor,

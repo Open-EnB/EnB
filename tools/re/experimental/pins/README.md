@@ -25,7 +25,8 @@ Findings worth keeping: (a) is a link proof (the client's own call instruction),
 is measurably wrong at about 2.4 % and should never be automatic; most credits of every kind land on a
 candidate whose bytes equal another's, so the pair is right by bytes but the identity can be a twin;
 symbols.json names a vtable slot `??_E` where our builds produce the equivalent `??_G` (an alias would credit
-14 functions from vtable proof alone).
+14 functions from vtable proof alone). That alias is now objmatch's rule (bada317 / 32fd4b3, D129, +293
+pairs): the table above predates it.
 
 ## Files
 
