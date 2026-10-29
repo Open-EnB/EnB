@@ -697,6 +697,7 @@ class UIMeshClass	// NAME 3: class-from-file (D24) for ui_mesh.cpp
 public:
 	~UIMeshClass();										// 0x5B8640 (Destroy_Object deletes it)
 	void Unknown_5B92B0();								// 0x5B92B0 (Destroy_Object, before the delete)
+	void Unknown_5B9100(const char *bone_name, RenderObjClass *object);	// 0x5B9100: object onto the mesh's bone  // NAME 2 [bone_name]: the FAIL_IF's 'Need bone name'; NAME 1 [object]: neutral
 	void Unknown_5B9550(int arg);						// 0x5B9550 (the Play_Animation commands pass 0)  // NAME 1 [arg]: neutral
 	void Unknown_5B8DF0(int a, const char *anim_name, bool loop, int b, int c, int d, int e);	// 0x5B8DF0: an animation onto the mesh  // NAME 1 [a, loop, b, c, d, e]: neutral; NAME 2 [anim_name]: the FAIL_IF's
 	RenderObjClass *Peek_Object();						// 0x5B8B00 (its +0x1C; the asserts' '(*itor).Mesh->Peek_Object()')  // NAME 3: the assert's
@@ -729,6 +730,7 @@ public:
 	bool Unknown_806AD0();								// 0x806AD0: +0x6E set
 	bool Unknown_809710();								// 0x809710: +0x7C cleared
 	bool Unknown_809730();								// 0x809730: +0x7C set
+	bool Attach_Camera(ScriptedMovieParamsClass *params);		// 0x8052E0 (FAIL_IF lines 1780 / 1789, G_ASSERTs 1787 / 1791): the camera onto a bone of the slot's mesh  // NAME 2: the user error's 'Attach_Camera'; NAME 1 [params]: neutral
 	bool Set_Light_Intensity(ScriptedMovieParamsClass *params);	// 0x806100 (FAIL_IF lines 2096-2104): Lights[slot]'s intensity  // NAME 2: the user error's 'Set_Light_Intensity'; NAME 1 [params]: neutral
 	bool Set_Light_Far_Attenuation(ScriptedMovieParamsClass *params);	// 0x806280 (FAIL_IF lines 2130-2138)  // NAME 2: the user error's 'Set_Light_Far_Attenuation'; NAME 1 [params]: neutral
 	bool Set_Light_Ambient_Color(ScriptedMovieParamsClass *params);	// 0x806440 (FAIL_IF lines 2170-2186)  // NAME 2: the user error's 'Set_Light_Ambient_Color'; NAME 1 [params]: neutral
@@ -749,7 +751,7 @@ public:
 	bool Skip_Frames(ScriptedMovieParamsClass *params);			// 0x8097D0 (FAIL_IF line 3567): +0x164 on by the frames at 30 a second  // NAME 2: the user error's 'Skip_Frames'; NAME 1 [params]: neutral
 
 	ScriptedMovieInterfaceClass *ClientInterface;		// +0x4C (0x8023A0's G_ASSERT)  // NAME 3: the assert's
-	CameraClass *Unknown50;								// +0x50: the camera (Set_Camera_View_Plane, Set_Clip_Plane; 0x8023A0 hands it to ClientInterface's +0x04)
+	CameraClass *ScriptedCamera;						// +0x50: the camera (Set_Camera_View_Plane, Set_Clip_Plane; 0x8023A0 hands it to ClientInterface's +0x04)  // NAME 3: the asserts' 'ScriptedCamera' (0x802420, Attach_Camera)
 	SimpleSceneClass *ScriptedScene;					// +0x54 (its ambient light +0x1C, its fog colour +0x2C)  // NAME 3: the FAIL_IF's
 	std::vector<ScriptedMovieObjectStruct> Objects;		// +0x58: the script's objects by slot  // NAME 2: what it holds
 	char Unknown68[0x6C - 0x68];						// +0x68

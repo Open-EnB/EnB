@@ -876,7 +876,7 @@ void ScriptedMovieViewClass::Unknown_8023A0(bool on)
 {
 	G_ASSERT(ClientInterface);
 	if (on) {
-		ClientInterface->Unknown_04(Unknown50);
+		ClientInterface->Unknown_04(ScriptedCamera);
 		if (Unknown6C && !Unknown6D) {
 			Unknown6D = true;
 		}
@@ -1773,31 +1773,31 @@ bool ScriptedMovieViewClass::Unknown_8051B0(ScriptedMovieParamsClass *params)
 
 
 
+// 0x8052E0: the camera onto a bone of the slot's mesh (out of its container first)
+bool ScriptedMovieViewClass::Attach_Camera(ScriptedMovieParamsClass *params)
+{
+	const char *param = params->Unknown_7FFDC0();
+	FAIL_IF((param == NULL) && "User error: Attach_Camera: Need slot number") {return(false);}
+	int slot = atoi(param);
+	for (std::vector<ScriptedMovieObjectStruct>::iterator itor = Objects.begin(); itor != Objects.end(); itor++) {
+		if ((*itor).Slot == slot) {
 
 
 
+			G_ASSERT((*itor).Mesh);
+			param = params->Unknown_7FFDC0();
+			FAIL_IF((param == NULL) && "User error: Attach_Camera: Need bone name") {return(false);}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+			G_ASSERT(ScriptedCamera);
+			if (ScriptedCamera->Get_Container()) {
+				ScriptedCamera->Remove();
+			}
+			(*itor).Mesh->Unknown_5B9100(param, ScriptedCamera);
+			return(true);
+		}
+	}
+	return(false);
+}
 
 
 
@@ -2322,7 +2322,7 @@ bool ScriptedMovieViewClass::Set_Camera_View_Plane(ScriptedMovieParamsClass *par
 
 	FAIL_IF((param == NULL) && "User error: Set_Camera_View_Plane: Need y view plane value") {return(false);}
 	float y = atof(param) * (float)(WWMATH_PI / 180.0f);
-	Unknown50->Set_View_Plane(x, y);
+	ScriptedCamera->Set_View_Plane(x, y);
 	return(true);
 }
 
@@ -3140,7 +3140,7 @@ bool ScriptedMovieViewClass::Set_Clip_Plane(ScriptedMovieParamsClass *params)
 
 	FAIL_IF((param == NULL) && "User error: Set_Clip_Plane: Need far plane") {return(false);}
 	float zfar = atof(param);
-	Unknown50->Set_Clip_Planes(znear, zfar);
+	ScriptedCamera->Set_Clip_Planes(znear, zfar);
 	return(true);
 }
 
