@@ -21,6 +21,7 @@ extern UnknownBDADC0Class *Unknown_BDADC0;	// NAME 1 [Unknown_BDADC0]: 0xBDADC0
 // the screen fade and the letterbox (0x7FF830-0x7FFC70, the file before this one: its globals at 0xBE8B60..)
 void Unknown_7FF830(bool on, float time);							// 0x7FF830: the letterbox  // NAME 1 [on, time]: what Enable_Letterbox passes
 void Unknown_7FFA30(float red, float green, float blue, float time);	// 0x7FFA30: the fade's colour  // NAME 1 [red, green, blue, time]: what Set_Screen_Fade_Color passes
+void Unknown_810750(RenderObjClass *model, bool on);					// 0x810750 (shiputils.cpp; co.h declares it so): a ship model's engine trails  // NAME 1 [model, on]: what co.cpp passes
 void Unknown_7FFBE0(float opacity, float time);						// 0x7FFBE0: the fade's opacity  // NAME 1 [opacity, time]: what Set_Screen_Fade_Opacity passes
 
 // one line of the script (std::sort orders them, 0x8099B0)
@@ -115,7 +116,6 @@ char *ScriptedMovieParamsClass::Unknown_7FFDC0()
 	}
 	return(param);
 }
-
 
 
 
@@ -3245,23 +3245,23 @@ bool ScriptedMovieViewClass::Enable_Letterbox(ScriptedMovieParamsClass *params, 
 
 
 
+// 0x808F00: the slot's engine trails on or off
+bool ScriptedMovieViewClass::Toggle_Engine_Trails(ScriptedMovieParamsClass *params, bool on)
+{
+	const char *param = params->Unknown_7FFDC0();
+	FAIL_IF((param == NULL) && "User error: Toggle_Engine_Trails: Need slot number") {return(false);}
+	int slot = atoi(param);
+	for (std::vector<ScriptedMovieObjectStruct>::iterator itor = Objects.begin(); itor != Objects.end(); itor++) {
+		if ((*itor).Slot == slot) {
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+			G_ASSERT((*itor).Mesh);
+			Unknown_810750((*itor).Mesh->Unknown1C, on);
+			return(true);
+		}
+	}
+	return(false);
+}
 
 
 
@@ -3568,6 +3568,44 @@ bool ScriptedMovieViewClass::Skip_Frames(ScriptedMovieParamsClass *params)
 		Unknown164 += (atoi(param) * 1000) / 30;
 	}
 	return(true);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 0x809890: the slot's model hidden or shown, its engine trails the other way
+bool ScriptedMovieViewClass::Hide_Object(ScriptedMovieParamsClass *params, bool hide)
+{
+	const char *param = params->Unknown_7FFDC0();
+	FAIL_IF((param == NULL) && "User error: Hide_Object: Need slot number") {return(false);}
+	int slot = atoi(param);
+	for (std::vector<ScriptedMovieObjectStruct>::iterator itor = Objects.begin(); itor != Objects.end(); itor++) {
+		if ((*itor).Slot == slot) {
+
+
+			G_ASSERT((*itor).Mesh);
+			G_ASSERT((*itor).Mesh->Peek_Object());
+			(*itor).Mesh->Peek_Object()->Set_Hidden(hide);
+			Unknown_810750((*itor).Mesh->Unknown1C, !hide);
+			return(true);
+		}
+	}
+	return(false);
 }
 
 /*
