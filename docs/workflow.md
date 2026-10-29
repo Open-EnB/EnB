@@ -103,6 +103,9 @@ tools/re/README.md, tools/vc6 and tools/harness/README.md.
 
 ### 3.0 Everyone
 
+* **Before changing a member's type, grep the other builders' working copies, not only HEAD** (2026-10-29, HL3):
+  "nothing outside fontdatabase.* reads BoxOffset" was true at HEAD but not in the shared tree (LS1's uncommitted
+  fontmanager.cpp read `def->BoxOffset[0]`).
 * **`assemble` is not a rebuild; `replay` is.** `assemble` restarts every library from its base
   copy, dropping every later decision: never on a tree with work in it (`git checkout -- <lib>`
   restores it). `replay` rebuilds `.work/replay` from the EA copies plus `imports.json` and compares

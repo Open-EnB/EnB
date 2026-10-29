@@ -1625,9 +1625,10 @@ client's own code: [kernel-map.md](kernel-map.md) §6 and, for step 9's dependen
 10. Leftovers: fontdatabase.cpp / tutorial_manager.cpp / soundlib.cpp after HL2's round (2026-10-29, 6b74446 / d843c83 / 3194f25,
    +5: FontStringStruct::Reset 0x6BE0E0 and Play_2D_Sound 0x43ED30 exact, Load 0x6C52B0's Files-table helpers 0x6C8DF0 /
    0x6C8F20 / 0x6C9740; NOT EXACT Load_String 0x6C0430 register at 4 rows with auto_inline(off) around the word
-   parsers (P-HL2-1: one form, `misses` before `text` or Offset / Target / BoxOffset as TPoint2D<float>; the three
-   StringClass copies 0x48C500 / 0x510CC0 / 0x78D810 it moves out are D66 (i) moves), Read_Completed_File 0x6AD4B0
-   order (P-HL2-2: one order round), Set_Font 0x6C38F0 register, Load 0x6C52B0 frame, the tutorial ctor 0x6AC600 /
+   parsers; HL3 3fe06b6, 0 gained, three D66 (i) moves 0x48C500 / 0x510CC0 / 0x78D810: the client's form with `misses`
+   before `text`, 2 rows left, base and index swapped in the inlined StringClass::operator+=(TCHAR): lead, how the
+   client's wwstring.h writes `m_Buffer[cur_len] = ch`; LIMIT REACHED), Read_Completed_File 0x6AD4B0 order (HL3: both
+   forms byte-identical to HL2's, the first `this+0x18` scheduled across nstrdup; LIMIT REACHED), Set_Font 0x6C38F0 register, Load 0x6C52B0 frame, the tutorial ctor 0x6AC600 /
    Reload 0x6AD7B0, SoundDefClass 0x43D3E0 and Load 0x43FE30 parked); attrib_dir.cpp / spln_db.cpp after HL1's round (2026-10-29, 5b6efec +3: Detach_Callback 0x4D5000, ~AttributeInfo
    0x4D6620, Advance's copy 0x4D9C50 exact through while loops in attrib_dir.h; no shared static helper in either
    file; parked Notify 0x4D71D0, Unlock 0x4D8690, Attach_Mod 0x4D6820 / 0x4D4810, Create_Hermite / Create_Color
