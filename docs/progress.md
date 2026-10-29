@@ -1574,12 +1574,12 @@ client's own code: [kernel-map.md](kernel-map.md) §6 and, for step 9's dependen
    P9's worktree scripts (item 3); the compare-and-swap commit rule (`update-ref master NEW OLD`) into commit_mine
    (H17's race); gen_stubs' by-value returns (P-T18-2); H16's `.work/h16/fm_gen.py` / `commit_h16.py` pattern for
    generated files.
-9. Leftovers: the shaders' `multiple` functions (D88 credits what it can), Compute_Caps 0x9B0160 (parked), the
+10. Leftovers: the shaders' `multiple` functions (D88 credits what it can), Compute_Caps 0x9B0160 (parked), the
    meshmatdesc noise (D18/D28), `CreateBrowser`'s app callers 0x7CA5C0 / 0x7CAD00 (E&B's `querydata`); P-H11-2
    (the _Instances destructor frees nodes without element destructors: leave unbuilt until another SGI user
    shows it); `tiebreak` / `selfname` into imports.json only when something needs it (D88 row); same-shape template
    instances stay `multiple` until their relocation targets have names in symbols.json (P9).
-10. Moved from §3 on 2026-10-27 (work items and reminders, not decisions): P-T5-2 (LoginPacketDataClass /
+11. Moved from §3 on 2026-10-27 (work items and reminders, not decisions): P-T5-2 (LoginPacketDataClass /
    LoginInterfaceAEADC8Class into pk.h / delta.h, tsk_login.h's typedefs dropped at tsk_login.cpp's next edit; its
    visitor part is D104); P-T12-2 (aux_roots.h's bool `Type_Name` / `String_To_Value` overloads to strconv_lib.h through
    the aux_roots generator, when it is next touched); Key_Exchange 0x829180 (LIMIT REACHED, three Opus rounds; waits
