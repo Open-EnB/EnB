@@ -8486,6 +8486,36 @@
     "merged": [],
     "name": "client/ui_line_display.cpp"
    },
+   "uiview": {
+    "ambiguous": [
+     "0x42B2F0",
+     "0x46BE90",
+     "0x474080"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42F250",
+     "0x444160",
+     "0x65A6C0",
+     "0x65A760",
+     "0x65A820",
+     "0x65AB10",
+     "0x65B330",
+     "0x65B470",
+     "0x65B4A0",
+     "0x65B570",
+     "0x65B610",
+     "0x65B650",
+     "0x65B6C0",
+     "0x65B7A0",
+     "0x65B7E0",
+     "0x65B810",
+     "0x65B8D0"
+    ],
+    "merged": [],
+    "name": "client/uiview.cpp"
+   },
    "unique_design_id_lookup": {
     "ambiguous": [
      "0x42A6C0",
@@ -8977,6 +9007,7 @@
    "client/tutorial_manager.h": "reconstructed",
    "client/ui_group.h": "reconstructed",
    "client/ui_line_display.h": "reconstructed",
+   "client/uiview.h": "reconstructed",
    "client/unknown_authlogin.h": "reconstructed",
    "client/unknown_creator.h": "reconstructed",
    "common/average.h": "reconstructed",
@@ -9194,7 +9225,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 4565,
+  "in_tree_total": 4580,
   "totals": {}
  },
  "binkmovie": {

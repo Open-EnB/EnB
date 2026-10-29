@@ -74,8 +74,8 @@ public:
 	char Unknown00[0x14]; int Unknown14; char Unknown18[0x28 - 0x18];	// +0x14 (0x50D520: the bridge is drawn when it is set)
 	Matrix3D Unknown28;								// +0x28 (0x50D520: the camera's transform for the bridge scene)
 };
-// what the base view's +0x1C points to, as far as 0x50D520 calls it (0x6DA760, with the base's +0x20 camera)
-class ViewUnknown1CClass { public: void Unknown_6DA760(RefCountPtr<CameraClass> &camera); };	// NAME 1: neutral (D10)  // NAME 1 [camera]: what 0x50D520 passes
+// what the base view's +0x1C points to (ViewUnknown1CClass: 0x50D520 calls its 0x6DA760 with the base's +0x20 camera)
+#include "uiview.h"
 static const float BridgeNear = 1.0f, BridgeFar = 150.0f;	// NAME 1: neutral (D10): the bridge scene's clip planes (0xAECF48 / 0xAECF44)
 
 
