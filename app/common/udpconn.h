@@ -9,7 +9,7 @@
 **	0xD0 bytes) sends packets on a CordCon's channels and receives whole messages from it, each
 **	{s16 size, s16 opcode, payload} as CordCon::read delivers it; the one CordMgr of the process
 **	is pumped by a kernel task every 100 ms ('CordMgr::Run'). PARTIAL: UDPConnectionManager
-**	(0xB08934) and the UDP listener (0xB08958) are the server's side; 0x82E1D0 is not rebuilt.
+**	(0xB08934) and the UDP listener (0xB08958) are the server's side; 0x82E1D0 sits at udpconn.cpp's end.
 */
 
 #if defined(_MSC_VER)
