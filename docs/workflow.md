@@ -557,6 +557,10 @@ unless `--lever` cites a new row of this table.
 
 ### 3.4 Importer, verify and pairs
 
+* **commit_mine `--file X` takes the working copy's imports.json entry as it is when the commit runs**
+  (2026-10-29, PX3): another builder's verify can rewrite it between your verify and your commit (a29a884 lost its
+  entry; 2d156e0 restored it). After every commit check `git show HEAD:docs/data/imports.json` for your addresses.
+  `build.py` skips untracked files: `git add` a new app file before `build.py build --allow-dirty`.
 * **A struct change can move an unrelated struct's identical COMDAT** (2026-10-29, LD5): a 32-byte element's
   _Construct matched ColorizationRegionStruct's identical copy (0x62A560); changing the element moved the pair:
   a D66 (i) move, not a loss. `wt.py bring-over` refuses it (P-CS1-2): land such a commit through commit_mine from
@@ -877,6 +881,8 @@ unless `--lever` cites a new row of this table.
 
 ### 3.8 Git, docs and scripting hygiene
 
+* **Git Bash `sed` writes LF even when the pattern keeps `\r`** (2026-10-29, PX3): make drafts of CRLF files
+  with Python (`newline=''`).
 * **The Edit tool turns a stray `\r\r\n` into `\r\n`** (2026-10-29, LD4: sclient.h), so git shows a whole-file diff:
   restore the byte before committing.
 * **Deleting a tracked app file breaks build.py's definitions scan (FileNotFoundError)** (2026-10-29, PK3) until

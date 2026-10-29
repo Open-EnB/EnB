@@ -1393,6 +1393,7 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 | D136 | 2026-10-29 | The Fable queue (§4 item 7) is not pruned or merged to fit D89's six: Fable rounds are scheduled more often instead, so the queue stays short (the coordinator plans at least one round per run while the queue holds eligible items) | user |
 | D137 | 2026-10-29 | Interim placement is the coordinator's to decide: where a function, class or global sits (which file, which header) while the evidence for its real home is missing. Each such placement is marked where it sits (`// PLACEMENT: provisional (D137): <the evidence that would place it>`) and listed in §4's provisional placements item; it is corrected when new evidence (a __FILE__, a string, an assert's line, an inlining or static-initialiser boundary) allows a better one. Placements with evidence on both sides still go to the user | user |
 | D138 | 2026-10-29 | P-LD4-2 (under D137): the view at SClient +0x1358 (0x514CC0's class) stays at mainview.cpp's end, provisional, until a __FILE__ or a static initialiser places it | coordinator (D137) |
+| D139 | 2026-10-29 | P-PX3-1 (under D137): the factories 0x452140-0x452770 are an object of their own, `app/shared/unknown_px_factories.cpp` (provisional, neutral name, D10), split from D124's unknown_px_callbacks.cpp: compiled together the factories inline PxBoxCallback's constructor 0x451C30, which the client calls; apart both are exact | coordinator (D137) |
 
 ## 3. Open decisions
 
@@ -1460,7 +1461,14 @@ client's own code: [kernel-map.md](kernel-map.md) §6 and, for step 9's dependen
    PxProcessClass::Process 0x455CC0 has no reference and nothing inserts a box: the proximity / collision system never
    runs in retail; NOT EXACT Push 0x455D10 shape, Pop 0x455F60 register, 0x453B10 frame, the accurate callbacks'
    constructors / Clone budget (`__stl_next_prime` and the hash_map setup out of line), 0x450AC0 order). Left:
-   px_callback_accurate's overlap handling 0x44E470-0x44F200, On_Enter / On_Exit 0x44F5D0 / 0x44F6E0, its hash_map /
+   (2026-10-29, PX3 112f7c5..bc0c4ca, +30: the overlap handling 0x44E780-0x44F200 and the 17 hash_map / vector
+   instances 0x450B40-0x451B60 exact, the factories 0x452140 / 0x452460 exact in unknown_px_factories.cpp (D139) with
+   PxWrapper 0x456F60 / 0x457190 and DynObj 0x44AF50 / 0x44AF80, the collision response 0x453C20 exact (DynObj slot
+   +0xA0 retyped, PxCollision's +0x08 / +0x14 two Vector3s); parked Overlap 0x44E470 0.64 (the client inlines in
+   reverse source order; lead: a nested helper for the enter half), On_Enter 0x44F5D0 0.35, On_Exit 0x44F6E0 0.91
+   (a kept `&it->second`); untried 0x453F10 (OBBox separating axes, no caller) and 0x454730 (3 KB, three cases;
+   lead: the one-rep cases from ww3d2's coltest.h / obbox.h); 0x454590 is a {int, string, string} _Construct with
+   callers in three other files, not a px function). Earlier list: px_callback_accurate's overlap handling 0x44E470-0x44F200, On_Enter / On_Exit 0x44F5D0 / 0x44F6E0, its hash_map /
    vector instances 0x450B40-0x451B60 (FAIL_IF line 170 inlined into five: definition order); the factories
    0x452140 / 0x452460; px_collision's 0x453C20, 0x453F10, 0x454730 (OBBox separating axes); sclient.cpp's
    Unknown_455D10 / _455F60 calls become PxProcessClass::Push / Pop (sent to SC1); 0x44D040 is ui_registration.cpp's
@@ -1600,7 +1608,7 @@ client's own code: [kernel-map.md](kernel-map.md) §6 and, for step 9's dependen
    Run/Start_Game/Go_*.
 8. Provisional placements (D137; revisit when evidence appears; new ones are added here and marked `// PLACEMENT:
    provisional (D137)` in the source): co_subtypes.cpp / co_subtype_base.cpp (D122, D132: no __FILE__); 
-   unknown_px_callbacks.cpp (D124); PxObject 0x4557F0-0x455860 in px_collision.cpp (D125); px_wrapper.h (PX1); the
+   unknown_px_callbacks.cpp (D124) and unknown_px_factories.cpp (D139); PxObject 0x4557F0-0x455860 in px_collision.cpp (D125); px_wrapper.h (PX1); the
    view at SClient +0x1358 at mainview.cpp's end (D138); the Doppler flag 0xC404F8 in mainview.cpp (P-MV1-3); the
    0x514CC0-class and Unknown65B810ViewClass files (LD4); step 8's unknown_memregistry.cpp / unknown_listener.cpp /
    unknown_rate.cpp (D86); inpkeys.cpp (H19). Markers in the source are added at each file's next edit.
