@@ -712,6 +712,10 @@ unless `--lever` cites a new row of this table.
   junction again on every compile since ab8355a; results from enb-vc6-02 between 04:36 and 05:25 were suspect.
 ### 3.6 RE tools, Ghidra and REA
 
+* **`appfile.py match`: leave `-I` out** (2026-10-29, S8): `-I app/common` fails on wwudp's mempool.h; the default
+  `-I auto` finds the headers. `commit_mine.py --path` only selects rows; a whole file needs SPEC `"whole"`.
+  Coordinators: check a §4 item's addresses against imports.json and attempts.py before briefing it (S8's five
+  items were all done or at LIMIT).
 * **Sweeps: take addresses from attempts.csv or the NOT EXACT markers, not gaps.py** (2026-10-29, PK4): gaps.py's
   app pairings are often wrong (a 2-3 instruction client window, or a neighbour's address: 0x4EDAD0 for
   0x4EDBE0). Counting `rep movsd`: a struct copy has `mov ecx, imm` before it; an inlined string memcpy has

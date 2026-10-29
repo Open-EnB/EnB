@@ -1562,9 +1562,10 @@ client's own code: [kernel-map.md](kernel-map.md) §6 and, for step 9's dependen
    first _Ucopy; 13 forms: Fable-eligible); Build_Decorations 0x47A2F0 and Create_Decorations 0x479D00 unmoved
    (0x479D00 never uses the struct); 0x4667D0 / 0x466820 are vector<Vector3>::_Ucopy / _Ufill, blocked behind the
    inline budget of their only callers insert 0x466180 (Get_Triangles 0x465D30) and Render 0x474B30.
-6. Step 8's tail: Key_Exchange (LIMIT), the UDP constructor over a CordCon 0x82CBF0 (register), Open_Fixed_Channel
-   0x82D8C0 (field offset), `Send_Data` (wlib's Dictionary layout), 0x82E1D0 (needs CordMgr 0x8598F0), the
-   TimedLog ctor, the memconn option slot, Rate Count (LIMIT), Listen.
+6. Step 8's tail (checked by S8, 2026-10-29, e82d930): Open_Fixed_Channel 0x82D8C0 and the memconn option slot
+   0x826D00 were exact since S1 (3a943f1), 0x82E1D0 is exact (D99, 18 bytes, with CordMgr 0x8598F0, f4f538b). Left:
+   `Send_Data` 0x82D420 (wlib's Dictionary layout); everything else is at LIMIT (Key_Exchange, Rate Count, the UDP
+   constructor 0x82CBF0 register, Listen 0x82A470 register) or in the Fable queue (TimedLog 0x824540).
 7. The Fable queue under D89 / D97 (by unlock value; D136: not pruned, rounds scheduled more often): (done 2026-10-29: F8's round on co.cpp's per-find budget, 4dd8a97 / 6fac2a6, 0 pairs: 0x6FBEF0 got the client's
    frame 0x270, residue 106 -> 93; the per-find spender is not found but narrowed (workflow.md §3.1, 'What sends a
    Cast out of line'); 0x6FD310 and 0x6FBEF0 partial with 8 forms each, 0x6F3FA0 parked register; P-F8-2, a second
