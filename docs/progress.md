@@ -1391,12 +1391,12 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 | D134 | 2026-10-29 | P-PK3-1, widened: the verb object's five inline-budget functions (VerbList ctor 0x8AF150, Print 0x8AF6D0, VerbUpdate ctor 0x8AFD10, Build 0x8AFF40, Print 0x8B0150; one cause on the same two sets) go to the Fable queue (§4 item 7) as one round; the object's other functions are exact or are the five's out-of-line helpers | user |
 | D135 | 2026-10-29 | Two D89 Fable rounds run at once on 2026-10-29, outside the day's usage budget: co.cpp's per-find budget round (0x6FD310, 0x6FBEF0, the roll 0x6F3FA0) and D134's verb round with all five functions in one session (an exception to D89's 4 functions per session and D97's one Fable builder at a time); their measured cost then raises the rest of the day's plan | user |
 | D136 | 2026-10-29 | The Fable queue (§4 item 7) is not pruned or merged to fit D89's six: Fable rounds are scheduled more often instead, so the queue stays short (the coordinator plans at least one round per run while the queue holds eligible items) | user |
+| D137 | 2026-10-29 | Interim placement is the coordinator's to decide: where a function, class or global sits (which file, which header) while the evidence for its real home is missing. Each such placement is marked where it sits (`// PLACEMENT: provisional (D137): <the evidence that would place it>`) and listed in §4's provisional placements item; it is corrected when new evidence (a __FILE__, a string, an assert's line, an inlining or static-initialiser boundary) allows a better one. Placements with evidence on both sides still go to the user | user |
+| D138 | 2026-10-29 | P-LD4-2 (under D137): the view at SClient +0x1358 (0x514CC0's class) stays at mainview.cpp's end, provisional, until a __FILE__ or a static initialiser places it | coordinator (D137) |
 
 ## 3. Open decisions
 
-* **P-LD4-2** (2026-10-29, LD4; recommend leave it): the view at SClient +0x1358 (0x514CC0's class) sits at
-  mainview.cpp's end because no static initialiser of its own precedes it (the client's next file would start with
-  one). Keep it in mainview.cpp until a __FILE__ names its file, or give it a neutral file of its own now?
+(none)
 
 ## 4. Next steps
 
@@ -1562,7 +1562,13 @@ client's own code: [kernel-map.md](kernel-map.md) §6 and, for step 9's dependen
    destructor's twin 0x4B6B60 if a lever appears, the distortion draw 0x9961E0 (LIMIT), the ShdMesh ctor 0xA08F80
    (LIMIT). Out for good (register/order): Make_Screen_Shot, Update_Movie_Capture's LockRect residue, Rate Count,
    Run/Start_Game/Go_*.
-8. Tools: done 2026-10-27 (commit_mine `--file`, attempts.py line endings, build.py's UNRES regex). Left: P-LD3-2
+8. Provisional placements (D137; revisit when evidence appears; new ones are added here and marked `// PLACEMENT:
+   provisional (D137)` in the source): co_subtypes.cpp / co_subtype_base.cpp (D122, D132: no __FILE__); 
+   unknown_px_callbacks.cpp (D124); PxObject 0x4557F0-0x455860 in px_collision.cpp (D125); px_wrapper.h (PX1); the
+   view at SClient +0x1358 at mainview.cpp's end (D138); the Doppler flag 0xC404F8 in mainview.cpp (P-MV1-3); the
+   0x514CC0-class and Unknown65B810ViewClass files (LD4); step 8's unknown_memregistry.cpp / unknown_listener.cpp /
+   unknown_rate.cpp (D86); inpkeys.cpp (H19). Markers in the source are added at each file's next edit.
+9. Tools: done 2026-10-27 (commit_mine `--file`, attempts.py line endings, build.py's UNRES regex). Left: P-LD3-2
    (`wt.py bring-over` accepts named D119 ambiguous addresses, checked against the ambiguous column) with P-CS1-2
    (the same flag for D66 (i) / (v) moves when pairs_cmp's lost-outright list is empty); promote
    P9's worktree scripts (item 3); the compare-and-swap commit rule (`update-ref master NEW OLD`) into commit_mine
