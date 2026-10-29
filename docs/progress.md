@@ -1593,7 +1593,8 @@ client's own code: [kernel-map.md](kernel-map.md) §6 and, for step 9's dependen
    frame 0x270, residue 106 -> 93; the per-find spender is not found but narrowed (workflow.md §3.1, 'What sends a
    Cast out of line'); 0x6FD310 and 0x6FBEF0 partial with 8 forms each, 0x6F3FA0 parked register; P-F8-2, a second
    D89 round on 0x6FD310 citing that lever, done by IB2 (372d87d, 0 pairs: the helper for Spot / Line with Blotch
-   explicit gives the client's 23 calls, residue 50 -> 44, not exact; P-IB2-1);
+   explicit gives the client's 23 calls, residue 50 -> 44, not exact; D140's last round, IB3 6e46964: a find-if-changed
+   wrapper sends Unknown_Find_Field itself out of line (44 -> 95 / 159): 0x6FD310 parked for good);
    P-F8-3, 0x6FBEF0 with a per-field inline helper, low priority) client_lego_impl's Find 0x72ABB0 + Add 0x72B7F0 +
    Remove 0x72C1D0 as one round (P-H20-1), CLIENT_DAMAGE 0x738970 then FORMATION 0x734740 (P-T19-3), D92's three
    (item 2), Get_Lego_Transform then Child_Moved / Attach (P-H17-2), cpacket 62 with SIMPLE 8 as one round (both
