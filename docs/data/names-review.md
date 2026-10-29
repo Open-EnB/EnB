@@ -10,7 +10,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 34 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 36 |
 | 3 | by convention from a client-named file or sibling | 970 |
-| 2 | describes what the code does | 2359 |
+| 2 | describes what the code does | 2360 |
 | 1 | neutral placeholder | 5695 |
 
 ## For review (score 3 and below)
@@ -5722,52 +5722,53 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Create_3D_Sound` | `app/audio/soundlib.h:44` | what it does |
 | 2 | `Set_Volume` | `app/audio/soundlib.h:45` | what it does |
 | 2 | `Set_Type` | `app/audio/soundlib.h:46` | what it does |
-| 2 | `std:` | `app/audio/soundlib.h:48` | what it holds |
+| 2 | `Get_Type` | `app/audio/soundlib.h:47` | what it does |
 | 2 | `std:` | `app/audio/soundlib.h:49` | what it holds |
-| 2 | `TotalWeight` | `app/audio/soundlib.h:50` | what it holds |
-| 2 | `LoopCount` | `app/audio/soundlib.h:51` | the ini key |
-| 2 | `DropOffRadius` | `app/audio/soundlib.h:52` | the ini key |
-| 2 | `MaxVolRadius` | `app/audio/soundlib.h:53` | the ini key |
-| 2 | `Priority` | `app/audio/soundlib.h:54` | the ini key |
-| 2 | `Volume` | `app/audio/soundlib.h:55` | the ini key |
-| 2 | `MinVolumeShift` | `app/audio/soundlib.h:56` | the ini key |
-| 2 | `MaxVolumeShift` | `app/audio/soundlib.h:57` | the ini key |
-| 2 | `MinPitchShift` | `app/audio/soundlib.h:58` | the ini key |
-| 2 | `MaxPitchShift` | `app/audio/soundlib.h:59` | the ini key |
-| 2 | `MinDopplerShift` | `app/audio/soundlib.h:60` | the ini key |
-| 2 | `MaxDopplerShift` | `app/audio/soundlib.h:61` | the ini key |
-| 2 | `DopplerTweak` | `app/audio/soundlib.h:62` | the ini key |
-| 2 | `Type` | `app/audio/soundlib.h:63` | the ini key |
-| 2 | `MaxInstances` | `app/audio/soundlib.h:64` | the ini key |
-| 2 | `Pitch` | `app/audio/soundlib.h:65` | the ini key |
-| 2 | `SecsBetweenCalls` | `app/audio/soundlib.h:66` | the ini key |
-| 2 | `NextCallTime` | `app/audio/soundlib.h:67` | what it holds |
-| 2 | `Init` | `app/audio/soundlib.h:73` | what it does |
-| 2 | `Init_Definitions` | `app/audio/soundlib.h:74` | what it does |
-| 2 | `Shutdown` | `app/audio/soundlib.h:75` | what it does |
-| 2 | `Free_Definitions` | `app/audio/soundlib.h:76` | what it does |
-| 2 | `Reload` | `app/audio/soundlib.h:77` | what it does |
-| 2 | `Find` | `app/audio/soundlib.h:78` | what it does |
-| 2 | `Play_2D_Sound` | `app/audio/soundlib.h:79` | what it does |
-| 2 | `Play_3D_Sound` | `app/audio/soundlib.h:80` | what it does |
-| 2 | `Play_Dialog` | `app/audio/soundlib.h:81` | what it does |
+| 2 | `std:` | `app/audio/soundlib.h:50` | what it holds |
+| 2 | `TotalWeight` | `app/audio/soundlib.h:51` | what it holds |
+| 2 | `LoopCount` | `app/audio/soundlib.h:52` | the ini key |
+| 2 | `DropOffRadius` | `app/audio/soundlib.h:53` | the ini key |
+| 2 | `MaxVolRadius` | `app/audio/soundlib.h:54` | the ini key |
+| 2 | `Priority` | `app/audio/soundlib.h:55` | the ini key |
+| 2 | `Volume` | `app/audio/soundlib.h:56` | the ini key |
+| 2 | `MinVolumeShift` | `app/audio/soundlib.h:57` | the ini key |
+| 2 | `MaxVolumeShift` | `app/audio/soundlib.h:58` | the ini key |
+| 2 | `MinPitchShift` | `app/audio/soundlib.h:59` | the ini key |
+| 2 | `MaxPitchShift` | `app/audio/soundlib.h:60` | the ini key |
+| 2 | `MinDopplerShift` | `app/audio/soundlib.h:61` | the ini key |
+| 2 | `MaxDopplerShift` | `app/audio/soundlib.h:62` | the ini key |
+| 2 | `DopplerTweak` | `app/audio/soundlib.h:63` | the ini key |
+| 2 | `Type` | `app/audio/soundlib.h:64` | the ini key |
+| 2 | `MaxInstances` | `app/audio/soundlib.h:65` | the ini key |
+| 2 | `Pitch` | `app/audio/soundlib.h:66` | the ini key |
+| 2 | `SecsBetweenCalls` | `app/audio/soundlib.h:67` | the ini key |
+| 2 | `NextCallTime` | `app/audio/soundlib.h:68` | what it holds |
+| 2 | `Init` | `app/audio/soundlib.h:74` | what it does |
+| 2 | `Init_Definitions` | `app/audio/soundlib.h:75` | what it does |
+| 2 | `Shutdown` | `app/audio/soundlib.h:76` | what it does |
+| 2 | `Free_Definitions` | `app/audio/soundlib.h:77` | what it does |
+| 2 | `Reload` | `app/audio/soundlib.h:78` | what it does |
+| 2 | `Find` | `app/audio/soundlib.h:79` | what it does |
+| 2 | `Play_2D_Sound` | `app/audio/soundlib.h:80` | what it does |
+| 2 | `Play_3D_Sound` | `app/audio/soundlib.h:81` | what it does |
 | 2 | `Play_Dialog` | `app/audio/soundlib.h:82` | what it does |
-| 2 | `Update_Dialog` | `app/audio/soundlib.h:83` | what it does |
-| 2 | `Stop_Dialog` | `app/audio/soundlib.h:84` | what it does |
-| 2 | `Is_Dialog_Playing` | `app/audio/soundlib.h:85` | what it does |
-| 2 | `Update` | `app/audio/soundlib.h:91` | what it does |
-| 2 | `Apply_Volumes` | `app/audio/soundlib.h:92` | what it does |
-| 2 | `Load` | `app/audio/soundlib.h:93` | what it does |
-| 2 | `_DefaultDropOffRadius` | `app/audio/soundlib.h:95` | the ini key |
-| 2 | `_DefaultMaxVolRadius` | `app/audio/soundlib.h:96` | the ini key |
-| 2 | `_DefaultPriority` | `app/audio/soundlib.h:97` | the ini key |
-| 2 | `_DefaultVolume` | `app/audio/soundlib.h:98` | the ini key |
-| 2 | `_DefaultDialogVolume` | `app/audio/soundlib.h:99` | the ini key |
-| 2 | `_DefaultMaxInstances` | `app/audio/soundlib.h:100` | the ini key |
-| 2 | `std:` | `app/audio/soundlib.h:102` | what it holds |
-| 2 | `_Audio` | `app/audio/soundlib.h:103` | what it holds |
-| 2 | `_CurrentDialog` | `app/audio/soundlib.h:104` | what it holds |
-| 2 | `_PlayUndefined` | `app/audio/soundlib.h:107` | what it does |
+| 2 | `Play_Dialog` | `app/audio/soundlib.h:83` | what it does |
+| 2 | `Update_Dialog` | `app/audio/soundlib.h:84` | what it does |
+| 2 | `Stop_Dialog` | `app/audio/soundlib.h:85` | what it does |
+| 2 | `Is_Dialog_Playing` | `app/audio/soundlib.h:86` | what it does |
+| 2 | `Update` | `app/audio/soundlib.h:92` | what it does |
+| 2 | `Apply_Volumes` | `app/audio/soundlib.h:93` | what it does |
+| 2 | `Load` | `app/audio/soundlib.h:94` | what it does |
+| 2 | `_DefaultDropOffRadius` | `app/audio/soundlib.h:96` | the ini key |
+| 2 | `_DefaultMaxVolRadius` | `app/audio/soundlib.h:97` | the ini key |
+| 2 | `_DefaultPriority` | `app/audio/soundlib.h:98` | the ini key |
+| 2 | `_DefaultVolume` | `app/audio/soundlib.h:99` | the ini key |
+| 2 | `_DefaultDialogVolume` | `app/audio/soundlib.h:100` | the ini key |
+| 2 | `_DefaultMaxInstances` | `app/audio/soundlib.h:101` | the ini key |
+| 2 | `std:` | `app/audio/soundlib.h:103` | what it holds |
+| 2 | `_Audio` | `app/audio/soundlib.h:104` | what it holds |
+| 2 | `_CurrentDialog` | `app/audio/soundlib.h:105` | what it holds |
+| 2 | `_PlayUndefined` | `app/audio/soundlib.h:108` | what it does |
 | 2 | `BuffDefStruct` | `app/client/buff_database.h:24` | what it holds (one BUFF-n section, 0x14 bytes) |
 | 2 | `Type` | `app/client/buff_database.h:29` | the ini key |
 | 2 | `Asset` | `app/client/buff_database.h:30` | the ini key |
@@ -8073,7 +8074,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `LimitedAt` | `app/wwudp/unknown_cordmsg.cpp:202` | 0xBF4120 when the rate limit last held a send back |
 | 3 | `soundlib.h` | `app/audio/soundlib.h:21` | header name assumed from the client's soundlib.cpp |
 | 3 | `SoundDefClass` | `app/audio/soundlib.h:35` | from the client's _NextDialogDef (0x68 bytes) |
-| 3 | `SoundLibraryClass` | `app/audio/soundlib.h:70` | from the client's soundlib.cpp ('sound library' in the start-up messages) |
+| 3 | `SoundLibraryClass` | `app/audio/soundlib.h:71` | from the client's soundlib.cpp ('sound library' in the start-up messages) |
 | 3 | `DeltaElementsClass` | `app/client/aux_roots.h:378` | Net-7 AuxElements at the same place in the tree, its child count differs (Net-7 Construct 4 children != ours 5) |
 | 3 | `DeltaBuffsClass` | `app/client/aux_roots.h:418` | Net-7 AuxBuffs at the same place in the tree, its child count differs (Net-7 Construct 16 children != ours 15) |
 | 3 | `DeltaShipClass` | `app/client/aux_roots.h:488` | the client's root string "Ship", Westwood XxxClass (D24); structure = Net-7 AuxShipIndex / C# ShipObject (C# fields = ours (same names, same order); Net-7 Construct 58 children = ours) |

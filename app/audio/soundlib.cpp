@@ -478,11 +478,11 @@ SoundDefClass *SoundLibraryClass::Find(const std::string &name)
 }
 
 
-// NOT EXACT: inline budget (explain.py: 16 calls vs 15), the key string built inline through _Grow / _Eos where the client calls assign; the client inlines the temporary's string destructor
+// The dialog test reads Type through the inline Get_Type: its budget leaves the name's assign out of line as the client's (HL2, 2026-10-29)
 AudibleSoundClass *SoundLibraryClass::Play_2D_Sound(const char *name, int mode)
 {
 	SoundDefClass *def = Find(std::string(name));
-	if (def != NULL && def->Type == AudibleSoundClass::TYPE_DIALOG) {
+	if (def != NULL && def->Get_Type() == AudibleSoundClass::TYPE_DIALOG) {
 		return Play_Dialog(def, mode, name);
 	}
 	if (def == NULL) {

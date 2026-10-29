@@ -7,12 +7,11 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-335 entries in 70 files.
+334 entries in 70 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
 | `app/audio/soundlib.cpp:157` | `SoundDefClass::SoundDefClass` | marker | NOT EXACT: inline budget (explain.py: 66 calls vs 67), reserve inlines size() and calls _Destroy where the client calls size() and inlines _Destroy; one more string destructor called |
-| `app/audio/soundlib.cpp:481` | `SoundLibraryClass::Play_2D_Sound` | marker | NOT EXACT: inline budget (explain.py: 16 calls vs 15), the key string built inline through _Grow / _Eos where the client calls assign; the client inlines the temporary's string destructor |
 | `app/audio/soundlib.cpp:519` | `SoundLibraryClass::Play_Dialog` | marker | NOT EXACT: shape (explain.py: 22 calls vs 23), ours merges the two releases of _CurrentDialog the client keeps apart; name in ebp, not ebx |
 | `app/audio/soundlib.cpp:820` | `SoundLibraryClass::Load` | marker | NOT EXACT: inline budget (explain.py: 29 calls vs 28, frame 0x84 vs 0x80), ours inlines the key's copy constructor in operator[] where the client calls it |
 | `app/client/aux_roots.cpp:2` | `UnknownCOClass::Unknown_Create_Aux_Root` | mention | NOT EXACT (D42): functional. NAME 1 [aux_roots.cpp]: provisional file name (the client's constructors are in co.cpp 0x6F6000-0x6FBEF0 and the Player object 0x751BE0) |

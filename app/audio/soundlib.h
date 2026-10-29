@@ -44,6 +44,7 @@ public:
 	Sound3DClass *Create_3D_Sound(const Matrix3D &tm, int mode, float scale);	// 0x43E530  // NAME 2: what it does
 	void Set_Volume(float volume) { Volume = volume; }							// NAME 2: what it does
 	void Set_Type(int type) { Type = type; }										// NAME 2: what it does
+	int Get_Type() { return Type; }											// read in Play_2D_Sound 0x43ED30  // NAME 2: what it does
 
 	std::string Name;																// +0x00: the section name, upper case  // NAME 2: what it holds
 	std::vector<std::pair<std::string, int> > Files;					// +0x10: file and weight ("NULL" is "")  // NAME 2: what it holds
