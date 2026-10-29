@@ -42,6 +42,7 @@ public:
 	bool Process();											// 0x453A40 'PxCollision::Process'
 	bool Unknown_453B10();									// 0x453B10 (the spheres' test, then 0x454730 on the collision representations)
 	void Unknown_453C20();									// 0x453C20 (the response: an impulse along Unknown08 to each object with slot +0x88 set, through slot +0xA0)
+	bool Unknown_453F10(const Vector3 &apos, const Vector3 &bpos);	// 0x453F10 (no caller: the two boxes' separating-axis test; sets Unknown08 / Unknown14 / Unknown24 from the axis of least overlap)  // NAME 3 [apos, bpos]: the box centres the test uses
 	bool Unknown_454730(MeshGeometryClass *aobj_coll_rep, MeshGeometryClass *bobj_coll_rep);	// 0x454730 (FAIL_IF '!(aobj_coll_rep || bobj_coll_rep)' l.234; the meshes' OBBox tests, NOT EXACT; the client calls MeshGeometryClass::Cast_OBBox / Intersect_OBBox on them)  // NAME 3 [aobj_coll_rep, bobj_coll_rep]: the FAIL_IF's
 
 	DynObj *A;												// +0x00  // NAME 2: the constructor's argument

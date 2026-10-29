@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-342 entries in 72 files.
+344 entries in 72 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -308,9 +308,11 @@ edit the comments in the code, not this file.
 | `app/shared/px_callback_accurate.cpp:328` | `PxAccurateSphereCallback::Clone` | marker | NOT EXACT: inline budget (it inlines the copy constructor 0x450350) |
 | `app/shared/px_callback_accurate.cpp:389` | `PxAccurateSphereCallback::Test` | marker | NOT EXACT: order (the client sums the two radii and squares dz between the other products; attempts.py show 0x450AC0) |
 | `app/shared/px_collision.cpp:28` | `PxCollision::Unknown_453B10` | marker | NOT EXACT: shape (the client spills the summed radius and dz to the stack and sums dy*dy + dz*dz + dx*dx; attempts.py show 0x453B10) |
+| `app/shared/px_collision.cpp:95` | `PxCollision::Unknown_453F10` | marker | NOT EXACT: register (the setup copies through eax alone where ours uses ecx / edx too: the client keeps self / other in ecx / edi from the start; moving their initialisation to the top made it worse, 151 -> 198 rows; attempts.py show 0x453F10) |
 | `app/shared/px_collision.cpp:231` | `PxCollision::Unknown_454730` | marker | NOT EXACT: order (the first inlined OBBoxClass::Transform, A's box with both reps, multiplies centre by matrix where ours loads the matrix first: 18 rows; frame and every other instruction match; attempts.py show 0x454730) |
 | `app/shared/px_collision.cpp:331` | `PxObject::~PxObject` | mention | NOT EXACT) tests the objects' world OBBoxes (each DynObj's slot +0x7C box turned by its slot +0x3C transform) against the meshes: with both meshes an OBBoxIntersectionTestClass each way (Unknown08 set to (1, 0, 0)); with one, the other object's box swept by its slot +0x40 velocity (OBBoxCollisionTestClass) cast in the mesh's space, the hit normal turned back into Unknown08 (negated when the mesh i... |
-| `app/shared/px_collision.h:45` | `?` | mention | NOT EXACT; the client calls MeshGeometryClass::Cast_OBBox / Intersect_OBBox on them) // NAME 3 [aobj_coll_rep, bobj_coll_rep]: the FAIL_IF's |
+| `app/shared/px_collision.cpp:338` | `PxObject::~PxObject` | mention | NOT EXACT; no caller) is the two boxes' separating-axis test on the six face axes: per axis the overlap is the own extent minus the centres' distance plus the other box's projected half-edges; a negative one separates (false); the least one sets Unknown08 (pointing from A to B), Unknown14 (the other box's deepest corner), Unknown24 (the depth) and clears Unknown20. Not rebuilt: the std::string mem... |
+| `app/shared/px_collision.h:46` | `?` | mention | NOT EXACT; the client calls MeshGeometryClass::Cast_OBBox / Intersect_OBBox on them) // NAME 3 [aobj_coll_rep, bobj_coll_rep]: the FAIL_IF's |
 | `app/shared/px_process.cpp:89` | `PxProcessClass::Push` | marker | NOT EXACT: shape (the client's inlined insert knows _Last - _P is 0 (xor dl, dl) and computes max(size(), 1) with ja; ours reloads; attempts.py show 0x455D10) |
 | `app/shared/px_process.cpp:96` | `PxProcessClass::Pop` | marker | NOT EXACT: shape (register: the client keeps the old end in esi and copies through edx; attempts.py show 0x455F60) |
 | `app/shared/px_wrapper.cpp:269` | `PxWrapper::Update` | marker | NOT EXACT: shape (the client loads Object->Radius before radius: fld; fsub st(1); attempts.py show 0x456B60) |

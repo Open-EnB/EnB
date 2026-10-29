@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 34 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 36 |
-| 3 | by convention from a client-named file or sibling | 980 |
+| 3 | by convention from a client-named file or sibling | 981 |
 | 2 | describes what the code does | 2400 |
-| 1 | neutral placeholder | 5771 |
+| 1 | neutral placeholder | 5773 |
 
 ## For review (score 3 and below)
 
@@ -5337,8 +5337,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown14` | `app/shared/px_collision.cpp:82` | untagged neutral name (D10) |
 | 1 | `Unknown20` | `app/shared/px_collision.cpp:82` | untagged neutral name (D10) |
 | 1 | `Unknown_Dyn64` | `app/shared/px_collision.cpp:83` | untagged neutral name (D10) |
-| 1 | `Unknown_Dyn3C` | `app/shared/px_collision.cpp:236` | untagged neutral name (D10) |
-| 1 | `Unknown_Dyn7C` | `app/shared/px_collision.cpp:237` | untagged neutral name (D10) |
+| 1 | `Unknown_453F10` | `app/shared/px_collision.cpp:96` | untagged neutral name (D10) |
+| 1 | `Unknown_Dyn3C` | `app/shared/px_collision.cpp:98` | untagged neutral name (D10) |
+| 1 | `Unknown_Dyn7C` | `app/shared/px_collision.cpp:100` | untagged neutral name (D10) |
 | 1 | `px_collision.h` | `app/shared/px_collision.h:12` | provisional header name (px_collision.cpp's) |
 | 1 | `Unknown08` | `app/shared/px_collision.h:41` | untagged neutral name (D10) |
 | 1 | `Unknown14` | `app/shared/px_collision.h:41` | untagged neutral name (D10) |
@@ -5346,7 +5347,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown24` | `app/shared/px_collision.h:41` | untagged neutral name (D10) |
 | 1 | `Unknown_453B10` | `app/shared/px_collision.h:43` | untagged neutral name (D10) |
 | 1 | `Unknown_453C20` | `app/shared/px_collision.h:44` | untagged neutral name (D10) |
-| 1 | `Unknown_454730` | `app/shared/px_collision.h:45` | untagged neutral name (D10) |
+| 1 | `Unknown_453F10` | `app/shared/px_collision.h:45` | untagged neutral name (D10) |
+| 1 | `Unknown_454730` | `app/shared/px_collision.h:46` | untagged neutral name (D10) |
 | 1 | `px_process.h` | `app/shared/px_process.h:14` | provisional header name (px_process.cpp's) |
 | 1 | `Unknown0C` | `app/shared/px_wrapper.cpp:17` | untagged neutral name (D10) |
 | 1 | `Unknown0D` | `app/shared/px_wrapper.cpp:18` | untagged neutral name (D10) |
@@ -7914,8 +7916,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Pos` | `app/shared/px_collision.h:33` | Update's pos |
 | 2 | `Radius` | `app/shared/px_collision.h:34` | Update's radius |
 | 2 | `a, b` | `app/shared/px_collision.h:40` | _Collision_Callback's arguments |
-| 2 | `A` | `app/shared/px_collision.h:47` | the constructor's argument |
-| 2 | `B` | `app/shared/px_collision.h:48` | as above |
+| 2 | `A` | `app/shared/px_collision.h:48` | the constructor's argument |
+| 2 | `B` | `app/shared/px_collision.h:49` | as above |
 | 2 | `PxProcessNode` | `app/shared/px_process.h:23` | px_process.cpp's list entries (the asserts' 'node') |
 | 2 | `Process` | `app/shared/px_process.h:29` | what PxProcessClass::Process calls |
 | 2 | `Remove` | `app/shared/px_process.h:30` | what it does |
@@ -9150,7 +9152,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `PX_EVENT_ENTER` | `app/shared/px_callback_type.h:24` | _EventStrings[0] 'Enter' |
 | 3 | `PX_EVENT_EXIT` | `app/shared/px_callback_type.h:25` | _EventStrings[1] 'Exit' |
 | 3 | `PX_EVENT_UPDATE` | `app/shared/px_callback_type.h:26` | _EventStrings[2] 'Update' (the loose box's process passes 2) |
-| 3 | `aobj_coll_rep, bobj_coll_rep` | `app/shared/px_collision.h:45` | the FAIL_IF's |
+| 3 | `apos, bpos` | `app/shared/px_collision.h:45` | the box centres the test uses |
+| 3 | `aobj_coll_rep, bobj_coll_rep` | `app/shared/px_collision.h:46` | the FAIL_IF's |
 | 3 | `PxProcessClass` | `app/shared/px_process.h:39` | class-from-file (D24) for px_process.cpp |
 | 3 | `TightBox` | `app/shared/px_wrapper.h:62` | 'PxWrapper::Update(TightBox)' |
 | 3 | `LooseBox` | `app/shared/px_wrapper.h:63` | 'PxWrapper::Update(LooseBox)' |
