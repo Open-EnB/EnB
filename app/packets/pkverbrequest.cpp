@@ -37,36 +37,64 @@ int VerbRequestPacketClass::Print(char *buffer, int)
 	return(sprintf(buffer, "%s { SubjectID=%d ObjectID=%d Action=%d}", "VerbRequest", SubjectID, ObjectID, Action));
 }
 
+// The serialisation 91 and 92 share: three static helpers VC6 inlines into their callers (F9, 2026-10-29):
+// written out in the callers, the compiler's inline budget never spends as the client's does (the two
+// distinct count slots of 0x8AFD10, the per-copy verb slots of 0x8AFF40 and the set::begin() const copy
+// 0x8B0440 the Prints call are the helpers' traces); the two loops that walk a set are while loops with
+// the step last (a for loop leaves the client's _Inc out of line).
+static void Read_Verbs(RawPacketClass *raw, std::set<VerbEnum> &verbs)
+{
+	int count;
+	raw->Get(count);
+	for (int i = 0; i < count; i++) {
+		VerbEnum verb;
+		raw->Get(&verb, sizeof(verb));
+		verbs.insert(verb);
+	}
+}
+
+static void Write_Verbs(RawPacketClass *raw, const std::set<VerbEnum> &verbs)
+{
+	int count = verbs.size();
+	raw->Add(count);
+	std::set<VerbEnum>::const_iterator it = verbs.begin();
+	while (it != verbs.end()) {
+		VerbEnum verb = *it;
+		raw->Add(&verb, sizeof(verb));
+		++it;
+	}
+}
+
+static void Append_Verbs(std::string &out, const std::set<VerbEnum> &verbs)
+{
+	char name[256];
+	std::set<VerbEnum>::const_iterator it = verbs.begin();
+	while (it != verbs.end()) {
+		Value_To_String(name, sizeof(name), *it);
+		out += name;
+		out += " ";
+		++it;
+	}
+}
+
 VerbListPacketClass::VerbListPacketClass(int game_id, const std::set<VerbEnum> &verbs) :
 	GameID(game_id),
 	Verbs(verbs)
 {
 }
 
-// NOT EXACT: 0x8AF150, insert inlined as the client's but its _Multi branch's pair constructor too (inline-budget; attempts.py show 0x8AF150)
 VerbListPacketClass::VerbListPacketClass(RawPacketClass *raw) :
 	GameID(0)
 {
 	raw->Get(GameID);
-	int count;
-	raw->Get(count);
-	for (int i = 0; i < count; i++) {
-		VerbEnum verb;
-		raw->Get(&verb, sizeof(verb));
-		Verbs.insert(verb);
-	}
+	Read_Verbs(raw, Verbs);
 }
 
 RawPacketClass *VerbListPacketClass::Build()
 {
 	RawPacketClass *raw = new RawPacketClass(Get_Type(), Get_Data_Size());
 	raw->Add(GameID);
-	int count = Verbs.size();
-	raw->Add(count);
-	for (std::set<VerbEnum>::iterator it = Verbs.begin(); it != Verbs.end(); ++it) {
-		VerbEnum verb = *it;
-		raw->Add(&verb, sizeof(verb));
-	}
+	Write_Verbs(raw, Verbs);
 	return(raw);
 }
 
@@ -75,85 +103,43 @@ int VerbListPacketClass::Get_Data_Size()
 	return(Verbs.size() * sizeof(VerbEnum) + sizeof(GameID) + sizeof(int));
 }
 
-// NOT EXACT: 0x8AF6D0, the client inlines the string's _Tidy and calls begin() (frame 0x11C; attempts.py show 0x8AF6D0)
 int VerbListPacketClass::Print(char *buffer, int)
 {
 	std::string verbs;
-	char name[256];
-	for (std::set<VerbEnum>::iterator it = Verbs.begin(); it != Verbs.end(); ++it) {
-		Value_To_String(name, sizeof(name), *it);
-		verbs += name;
-		verbs += " ";
-	}
+	Append_Verbs(verbs, Verbs);
 	return(sprintf(buffer, "%s { GameID=%d Verbs=%s }", "VerbList", GameID, verbs.c_str()));
 }
 
-// NOT EXACT: 0x8AFD10, the client calls the first set's _Init and inlines the second's (inline-budget;
-// attempts.py show 0x8AFD10)
 VerbUpdatePacketClass::VerbUpdatePacketClass(RawPacketClass *raw) :
 	GameID(0)
 {
 	raw->Get(GameID);
-	int count;
-	raw->Get(count);
-	for (int i = 0; i < count; i++) {
-		VerbEnum verb;
-		raw->Get(&verb, sizeof(verb));
-		Adds.insert(verb);
-	}
-	raw->Get(count);
-	for (int j = 0; j < count; j++) {
-		VerbEnum verb;
-		raw->Get(&verb, sizeof(verb));
-		Drops.insert(verb);
-	}
+	Read_Verbs(raw, Drops);
+	Read_Verbs(raw, Adds);
 }
 
-// NOT EXACT: 0x8AFF40, the client inlines both loops' iterator steps (inline-budget; attempts.py show 0x8AFF40)
 RawPacketClass *VerbUpdatePacketClass::Build()
 {
 	RawPacketClass *raw = new RawPacketClass(Get_Type(), Get_Data_Size());
 	raw->Add(GameID);
-	int adds = Adds.size();
-	raw->Add(adds);
-	for (std::set<VerbEnum>::iterator it = Adds.begin(); it != Adds.end(); ++it) {
-		VerbEnum verb = *it;
-		raw->Add(&verb, sizeof(verb));
-	}
-	int drops = Drops.size();
-	raw->Add(drops);
-	for (std::set<VerbEnum>::iterator jt = Drops.begin(); jt != Drops.end(); ++jt) {
-		VerbEnum verb = *jt;
-		raw->Add(&verb, sizeof(verb));
-	}
+	Write_Verbs(raw, Drops);
+	Write_Verbs(raw, Adds);
 	return(raw);
 }
 
 int VerbUpdatePacketClass::Get_Data_Size()
 {
-	return((Drops.size() + Adds.size()) * sizeof(VerbEnum) + sizeof(GameID) + sizeof(int) + sizeof(int));
+	return((Adds.size() + Drops.size()) * sizeof(VerbEnum) + sizeof(GameID) + sizeof(int) + sizeof(int));
 }
 
-// NOT EXACT: 0x8B0150, the client inlines the first loop's iterator step only (inline-budget;
-// attempts.py show 0x8B0150)
 int VerbUpdatePacketClass::Print(char *buffer, int)
 {
-	std::string adds;
 	std::string drops;
-	char name[256];
-	for (std::set<VerbEnum>::iterator it = Adds.begin(); it != Adds.end(); ++it) {
-		Value_To_String(name, sizeof(name), *it);
-		adds += name;
-		adds += " ";
-	}
-	for (std::set<VerbEnum>::iterator jt = Drops.begin(); jt != Drops.end(); ++jt) {
-		Value_To_String(name, sizeof(name), *jt);
-		drops += name;
-		drops += " ";
-	}
-	return(sprintf(buffer, "%s {GameID=%d Drops=%s Adds=%s}", "VerbUpdate", GameID, drops.c_str(), adds.c_str()));
+	std::string adds;
+	Append_Verbs(drops, Drops);
+	Append_Verbs(adds, Adds);
+	return(sprintf(buffer, "%s { GameID=%d Drops=%s Adds=%s }", "VerbUpdate", GameID, drops.c_str(), adds.c_str()));
 }
-
 
 /*
 **	Reconstruction notes (pkverbrequest.cpp)
@@ -168,5 +154,9 @@ int VerbUpdatePacketClass::Print(char *buffer, int)
 **	* VERB_UPDATE 92 written by hand (builder P4, 2026-10-26); its destructor is the implicit one (0x8AFBB0).
 **	* VERB_LIST 91 (builder PK1, 2026-10-28) written after 92's form: one set; its destructor is the
 **	  implicit one (0x8AEFE0).
+**	* The five functions that read, write or print a set (0x8AF150, 0x8AF6D0, 0x8AFD10, 0x8AFF40, 0x8B0150)
+**	  are exact only through the static helpers at the top (F9, 2026-10-29; attempts.py show 0x8AFD10).
+**	* 92's members are named from its Print: the set at +0x10 is printed under 'Drops=', +0x20 under
+**	  'Adds=' (the arguments sprintf receives, 0x8B0150; the names were the other way round until F9).
 **	* The file name is provisional (no assert names it: pk + its first named class's name).
 */

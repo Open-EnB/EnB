@@ -74,8 +74,8 @@ public:
 	virtual int Get_Type() { return(92); }	// +0x28 0x8B0110
 
 	int GameID;	// +0x0C (network order)  // NAME 3: the client's Print text 'GameID='
-	std::set<VerbEnum> Adds;	// +0x10  // NAME 3: the client's Print text 'Adds='
-	std::set<VerbEnum> Drops;	// +0x20  // NAME 3: the client's Print text 'Drops='
+	std::set<VerbEnum> Drops;	// +0x10  // NAME 3: the client's Print text 'Drops=' (the first string it prints)
+	std::set<VerbEnum> Adds;	// +0x20  // NAME 3: the client's Print text 'Adds='
 };
 
 #endif

@@ -1629,7 +1629,7 @@ bool VerbUpdatePacketClass::Process_Packet(void *instance)
 	WWPROFILE("VerbUpdatePacketClass::Process_Packet(void * instance)");
 	SClient *sclient = (SClient *)instance;
 	if (sclient->VerbManager) {
-		sclient->VerbManager->Unknown_81F810(GameID, &Drops, &Adds);
+		sclient->VerbManager->Unknown_81F810(GameID, &Adds, &Drops);
 	}
 	return(true);
 }

@@ -114,7 +114,7 @@ class VerbManagerClass		// NAME 3: class-from-file (D24) for verbmanager.cpp (co
 public:
 	VerbManagerClass(SClient *client);					// 0x81F100
 	~VerbManagerClass();								// 0x81F1E0
-	void Unknown_81F810(int game_id, void *drops, void *adds);	// 0x81F810 (cpacket.cpp: VERB_UPDATE 92 passes its GameID, &Drops, &Adds)  // NAME 1 [game_id, drops, adds]: the packet's fields
+	void Unknown_81F810(int game_id, void *adds, void *drops);	// 0x81F810 (cpacket.cpp: VERB_UPDATE 92 passes its GameID, &Adds, &Drops: +0x20 then +0x10)  // NAME 1 [game_id, adds, drops]: the packet's fields
 	void Unknown_81F780(int game_id, void *verbs);	// 0x81F780 (cpacket.cpp: VERB_LIST 91 passes its GameID, &Verbs)  // NAME 1 [game_id, verbs]: the packet's fields
 
 	char Unknown00[0x14];

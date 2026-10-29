@@ -3992,7 +3992,7 @@ RECONSTRUCTED = {
     ('app', 'packets/pkflag.h'): "FlagPacketClass (vtable 0xB0A3D4, +0x28 pure) and the helpers' declarations",
     ('app', 'packets/pkgalaxymap.cpp'): "the galaxy map packets (opcodes 151 and 152 derived from it), client 0x870E90-0x8714C0: written by hand (builder P), 10 functions exact in appfile.py match; the file name provisional (NAME 1)",
     ('app', 'packets/pkgalaxymap.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
-    ('app', 'packets/pkverbrequest.cpp'): "client 0x8AEAE0-0x8B15C0, one object (P-PK2-2: pkverblist.cpp merged in, builder PK3): opcode 90 (VERB_REQUEST) drafted by tools/re/pkdecode.py / pkemit.py; 92 (VERB_UPDATE, builder P4) and 91 (VERB_LIST, builder PK1) written by hand with std::set<VerbEnum>'s members; the file name provisional (NAME 1)",
+    ('app', 'packets/pkverbrequest.cpp'): "client 0x8AEAE0-0x8B15C0, one object (P-PK2-2: pkverblist.cpp merged in, builder PK3): opcode 90 (VERB_REQUEST) drafted by tools/re/pkdecode.py / pkemit.py; 92 (VERB_UPDATE, builder P4) and 91 (VERB_LIST, builder PK1) written by hand with std::set<VerbEnum>'s members, their serialisation in three static helpers (Read_Verbs / Write_Verbs / Append_Verbs) VC6 inlines (F9: the five inline-budget functions exact only so); the file name provisional (NAME 1)",
     ('app', 'packets/pkverbrequest.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
     ('app', 'packets/pkmessagechatstream.cpp'): "opcode 95's object, 0x89D310-0x89D740 (no assert: the file name provisional, NAME 1): written by hand (builder P5)",
     ('app', 'packets/pkmessagechatstream.h'): "its class (pk_classes.h includes it: tools/re/pkclasses.py)",

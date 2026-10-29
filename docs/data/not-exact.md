@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-337 entries in 69 files.
+332 entries in 68 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -188,11 +188,6 @@ edit the comments in the code, not this file.
 | `app/packets/pkunknown_867010.cpp:6` | `Packet_00B3Class::Packet_00B3Class` | marker | NOT EXACT: the inline std::string assign's terminating store indexes [ebx + ecx], the client's [ecx + ebx] (otherwise the same bytes) |
 | `app/packets/pkupdate.h:51` | `?` | mention | NOT EXACT) |
 | `app/packets/pkupdate.h:113` | `?` | mention | NOT EXACT) |
-| `app/packets/pkverbrequest.cpp:46` | `VerbListPacketClass::VerbListPacketClass` | marker | NOT EXACT: 0x8AF150, insert inlined as the client's but its _Multi branch's pair constructor too (inline-budget; attempts.py show 0x8AF150) |
-| `app/packets/pkverbrequest.cpp:78` | `VerbListPacketClass::Print` | marker | NOT EXACT: 0x8AF6D0, the client inlines the string's _Tidy and calls begin() (frame 0x11C; attempts.py show 0x8AF6D0) |
-| `app/packets/pkverbrequest.cpp:91` | `VerbUpdatePacketClass::VerbUpdatePacketClass` | marker | NOT EXACT: 0x8AFD10, the client calls the first set's _Init and inlines the second's (inline-budget; attempts.py show 0x8AFD10) |
-| `app/packets/pkverbrequest.cpp:112` | `VerbUpdatePacketClass::Build` | marker | NOT EXACT: 0x8AFF40, the client inlines both loops' iterator steps (inline-budget; attempts.py show 0x8AFF40) |
-| `app/packets/pkverbrequest.cpp:137` | `VerbUpdatePacketClass::Print` | marker | NOT EXACT: 0x8B0150, the client inlines the first loop's iterator step only (inline-budget; attempts.py show 0x8B0150) |
 | `app/shared/attrib_dir.cpp:196` | `AttribDir::Attach_Mod` | marker | NOT EXACT: shape (explain.py: 9 vs 8 calls), as AttributeInfo::Attach_Mod: the client calls the list's insert 0x4D8F00 out of line and the value's construction |
 | `app/shared/attrib_dir.cpp:227` | `AttribDir::Detach_Mod` | marker | NOT EXACT: shape (explain.py: 24 vs 25 calls), the client inlines the handle's Is_Done / Get_Name and Find_Info with Make_Key called (frame 0x28; ours 0x3C) |
 | `app/shared/attrib_dir.cpp:273` | `AttribDir::Detach_Callback` | marker | NOT EXACT: inline budget (explain.py: shape, 10 vs 9 calls), the client inlines the iterator list's Advance, ours calls it |
