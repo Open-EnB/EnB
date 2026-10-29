@@ -1,47 +1,50 @@
 // Earth & Beyond client (reconstruction): app\Client\fontmanager.cpp. Notes at the end of the file.
 #include "fontmanager.h"
 #include "..\..\wwlib\wwstring.h"
+void ManagedFontClass::Unknown_6D01C0(int level, const char *name)
+{
+	if (name == NULL) {
+		for (std::hash_map<std::string, FontStyleClass *>::iterator style = Styles.begin(); style != Styles.end(); ++style) {
+			style->second->Set_Sort_Level(level);
+		}
+	} else {
+		for (std::hash_map<std::string, FontStyleClass *>::iterator style = Styles.begin(); style != Styles.end(); ++style) {
+			if (strcmp(name, style->second->Info.StringID) == 0) {
+				style->second->Set_Sort_Level(level);
+			}
+		}
+	}
+}
 
+void ManagedFontClass::Unknown_6D0390(const char *name)
+{
+	if (name == NULL) {
+		for (std::hash_map<std::string, FontStyleClass *>::iterator style = Styles.begin(); style != Styles.end(); ++style) {
+			style->second->Set_Hidden(false);
+		}
+	} else {
+		for (std::hash_map<std::string, FontStyleClass *>::iterator style = Styles.begin(); style != Styles.end(); ++style) {
+			if (strcmp(name, style->second->Info.StringID) == 0) {
+				style->second->Set_Hidden(false);
+			}
+		}
+	}
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+void ManagedFontClass::Unknown_6D0550(const char *name)
+{
+	if (name == NULL) {
+		for (std::hash_map<std::string, FontStyleClass *>::iterator style = Styles.begin(); style != Styles.end(); ++style) {
+			style->second->Set_Hidden(true);
+		}
+	} else {
+		for (std::hash_map<std::string, FontStyleClass *>::iterator style = Styles.begin(); style != Styles.end(); ++style) {
+			if (strcmp(name, style->second->Info.StringID) == 0) {
+				style->second->Set_Hidden(true);
+			}
+		}
+	}
+}
 
 void ManagedFontClass::Unknown_Set_Styles(int value)
 {
@@ -115,9 +118,6 @@ void ManagedFontClass::Unknown_6D10B0(const char *name, TPoint3D<int> color)
 		}
 	}
 }
-
-
-
 
 
 
@@ -582,7 +582,9 @@ ManagedFontClass *FontManagerClass::Find(unsigned int id)
 **	0x6D3350). 0x6D0F70 is FontSoundStruct's implicit operator=, emitted after its first caller
 **	0x6D0A70 (FU1): 0x6D0A70 inlines FontStringStruct's copy only through the explicit inline operator=
 **	in fontdatabase.h; with the implicit one it is called out of line and fontdatabase.cpp's Load_Init
-**	0x6BF330 moves one load (H21's order-only knock-on; attempts.csv, docs/attempts/6D0F70). 0x6D2700 exact (H21: a flat style test and a key copy). 0x6D2400 / 0x6D2480 / 0x6D2500 differ only by their callee: one pattern, not counted.
+**	0x6BF330 moves one load (H21's order-only knock-on; attempts.csv, docs/attempts/6D0F70). 0x6D2700 exact (H21: a flat style test and a key copy). 0x6D2400 / 0x6D2480 / 0x6D2500 exact once their callees 0x6D0390 / 0x6D0550 / 0x6D0A20 are
+**	defined (FU1). FontStyleClass is a DynamicMeshClass (0x6D47C0 builds the base, vtable 0xAFECB4): its
+**	+0x16C is Set_Sort_Level (0x6D01C0), its +0x184 Set_Hidden (0x6D0390 / 0x6D0550; its override 0x67EF40).
 **	The depth lever (workflow.md 3.1) made the destructor and 0x6D1C10 exact: the client calls the
 **	nested table helpers out of line when they sit one inline level deeper.
 **	Find 0x6D2A70 is never inlined (#pragma auto_inline(off)): the client calls it out of line in

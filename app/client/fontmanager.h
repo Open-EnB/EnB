@@ -26,6 +26,7 @@
 #include "fontdatabase.h"
 #include <string.h>
 #include "..\..\wwlib\point.h"
+#include "..\..\ww3d2\dynamesh.h"
 
 struct FontStringStruct;
 class FontDatabaseClass;
@@ -36,7 +37,7 @@ struct FontStyleColorStruct  // NAME 1 [FontStyleColorStruct]: neutral (D10): 16
 	int Unknown0C;														// +0x0C  // NAME 1: neutral (D10)
 };
 
-class FontStyleClass : public RefCountClass  // NAME 1 [FontStyleClass]: neutral (D10): the debug font's class (0x4E8 bytes, reference counted)
+class FontStyleClass : public DynamicMeshClass  // NAME 1 [FontStyleClass]: neutral (D10): the debug font's class (0x4E8 bytes; 0x6D47C0 builds the DynamicMeshClass(2, 4) base, vtable 0xAFECB4)
 {
 public:
 	FontStyleClass(const char *name, int unknown1, int unknown2);		// 0x6D47C0  // NAME 1 [unknown1]: neutral (D10)
@@ -48,7 +49,6 @@ public:
 	void Unknown_6D5D40();													// 0x6D5D40  // NAME 1 [Unknown_6D5D40]: neutral (D10)
 	void Unknown_6CD950(int unknown1, int unknown2);						// 0x6CD950  // NAME 1 [Unknown_6CD950]: neutral (D10)
 
-	char Unknown08[0xEC];												// +0x08  // NAME 1: neutral (D10)
 	FontStringStruct Info;	// +0xF4: its string template (0x6D0A70 copies it; +0xF4 its name, what 0x6D10B0 compares)  // NAME 2 [Info]: what it holds
 	char Unknown1E0[0x70];	// +0x1E0  // NAME 1: neutral (D10)
 	int Unknown250;														// +0x250: 0x6D28C0 sets it in every style of a font  // NAME 1: neutral (D10)
@@ -81,8 +81,9 @@ public:
 	FontStyleClass *Unknown_6D1480(std::string name);					// 0x6D1480: the style named name + "_0"  // NAME 1 [Unknown_6D1480]: neutral (D10)
 	FontStyleClass *Unknown_6D1600(std::string name);					// 0x6D1600: the named style, else 0x6D1480's  // NAME 1 [Unknown_6D1600]: neutral (D10)
 	void Unknown_6D1010(const char *name, TPoint3D<int> color);			// 0x6D1010: the named style's color (+0x494, +0x4A4)  // NAME 1 [Unknown_6D1010]: neutral (D10)
-	void Unknown_6D0390(void *unknown);									// 0x6D0390  // NAME 1 [Unknown_6D0390]: neutral (D10)
-	void Unknown_6D0550(void *unknown);									// 0x6D0550  // NAME 1 [Unknown_6D0550]: neutral (D10)
+	void Unknown_6D01C0(int level, const char *name);					// 0x6D01C0: Set_Sort_Level of every style (name NULL) or the styles named name  // NAME 1 [Unknown_6D01C0]: neutral (D10)
+	void Unknown_6D0390(const char *name);								// 0x6D0390: shows every style (name NULL) or the styles named name (Set_Hidden(false))  // NAME 1 [Unknown_6D0390]: neutral (D10)
+	void Unknown_6D0550(const char *name);								// 0x6D0550: hides them (Set_Hidden(true))  // NAME 1 [Unknown_6D0550]: neutral (D10)
 	void Unknown_6D0A70(const char *name, const char *text);	// 0x6D0A70: reloads the styles named name with the text  // NAME 1 [Unknown_6D0A70]: neutral (D10)
 	void Unknown_6D0A20(const char *name, const char *text, int unknown);	// 0x6D0A20: the named style's Change_Text  // NAME 1 [Unknown_6D0A20]: neutral (D10)
 
