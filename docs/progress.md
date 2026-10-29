@@ -1399,7 +1399,9 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 
 ## 3. Open decisions
 
-(none)
+* **P-UI1-1** (2026-10-29, UI1; recommend yes): clienttest now needs build/art/MSS32.DLL (the Miles imports of the
+  rebuilt loading view): a copy of the game's DLL in the project's art folder (D120), never run from the install
+  folder (D69). Accept that dependency for the harness?
 
 ## 4. Next steps
 
@@ -1577,6 +1579,16 @@ client's own code: [kernel-map.md](kernel-map.md) §6 and, for step 9's dependen
    unblocks 0x6B4900 (interface slot +0x6C's argument) and the +0x7C flag view.cpp reads through a local struct), the
    loading view's 0x691830 / 0x692330 / 0x692420 / 0x6912A0 / 0x691320 (the +0x58..+0x64 class, the font globals),
    the other views' constructors / destructors (mv3dview.cpp / mv3dsnd.cpp, scriptedmovie.cpp 85, sbaseview.cpp 46).
+   UI1 (2026-10-29, 82500ca..cee5163, +62): P-LD4-1 done (app/client/intrface.h holds InterfaceClass, named after
+   intrface.cpp's __FILE__; 0x6B4900 exact), the loading view's START 0x692330 / 0x692420, sbaseview.cpp started (+18),
+   scriptedmovie.cpp started (+40, its 254 asserts placed by line; names from the asserts: CameraEffects,
+   ScriptedCamera, ScriptedScene, OrbitalScene, StarsScene, ...; each script command named by its 'User error: X'
+   string); NOT EXACT 0x69F710 order, 0x802930 / 0x8059A0 shape, 0x806AF0 literal (pi/180 as a double), 0x808330
+   frame, 0x802B20 register. Work items: the global Unknown_BDADC0 is the client's AssetManager (its assert; client
+   wins; scriptedmovie.cpp uses a #define until the rename); tsk_login.h's CharacterViewUnknown1B4Class is
+   InterfaceClass (merge into intrface.h); leads sbaseview 0x6A0590, 0x69CDE0 (+0x184..+0x1A0 as interface
+   RefCountPtrs), scriptedmovie 0x804800 (SClientUnknown1338Class into sclient.h), 0x809600, 0x808FD0, the effects
+   0x807600..0x808090, its ctor / dtor; the loading view's 0x691830 (frame 0x548); mv3dview's ctor (2.7 KB).
    P-PK4-1 (PK4, 2026-10-29): LandDecorationVertexStruct (land.cpp:1186) as plain floats (float[3] / float[3] / float[2])
    instead of Vector3 / Vector3 / Vector2: the client's insert 0x47DE10 copies the element as one block (`mov ecx,8;
    rep movsd`, four sites; Build_Decorations 0x47A2F0 twice), ours member by member; likely 0x47DE10, 0x47A2F0,

@@ -425,6 +425,9 @@ unless `--lever` cites a new row of this table.
 
 ### 3.3 E&B app code
 
+* **fontmanager.h / fontdatabase.h cannot be included next to sclient.h** (2026-10-29, UI1): tsk_game.h declares
+  Unknown_BE67B8 with another type; SClientFontDatabaseClass is declared in sclient.h for now. VC6 inlines a
+  same-file function defined later in the file too (0x802B20 inlines 0x807520).
 * **Object boundaries and vtables** (2026-10-29, LS1): a guarded `atexit` static initialiser in the middle of a range
   ends an object: use it as the file boundary when there is no __FILE__; the link order (name-sorted .obj files)
   then bounds the real name. Name overloaded virtuals differently (Get_Text_Width / Get_Char_Width) to keep MSVC
@@ -820,6 +823,12 @@ unless `--lever` cites a new row of this table.
 
 ### 3.7 Harnesses, programs, unattended runs
 
+* **clienttest after a rebuild** (2026-10-29, UI1): a rebuilt function in an object the link already pulls runs its
+  real code on the fakes (START crashed until the fake view held render objects); hand stand-ins in client_stubs.cpp
+  give LNK2005 once the function is rebuilt (delete them in the same commit); gen_stubs writes pointer parameter
+  types as `class`, so a `struct` parameter never resolves; clienttest.py now deletes the previous trace first (it
+  used to compare a stale one when the exe could not start). Harness builds compile other builders' untracked
+  app/packets/*.cpp: build from a worktree.
 * **clienttest links build/app.lib** (2026-10-29, FU1, F9): rebuild it with `tools/vc6/build.py build --lib app
   --allow-dirty` before comparing with expected.txt, or other builders' committed work shows as differences.
 * **`wt.py new` copies no build/art** (2026-10-29, F9): a worktree clienttest run exits 3221225781
