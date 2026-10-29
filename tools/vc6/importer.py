@@ -4161,6 +4161,7 @@ RECONSTRUCTED = {
     ('app', 'client/uiview.cpp'): "UIViewClass (the client's 'UIViewClass::Render', __FILE__ e:\\build\\beta\\G\\app\\Client\\uiview.cpp; client 0x65A6C0-0x65B8E0): the views' base over view.cpp's ViewClass, and the second view Unknown65B810ViewClass (0x65B810), the FAIL_IFs on the client's lines 234 / 257 / 268 / 271 / 274 (LD4)",
     ('app', 'client/mainview.cpp'): "the main view (MainViewClass, sclient.h; client 0x50B2C0-0x5146xx, 97 functions): so far the zone loader 0x5137F0 on the client's FAIL_IF lines 1974 / 1981 / 1983 (LD3)",
     ('app', 'client/sbaseview.h'): "SBaseViewClass, sbaseview.cpp's starbase view (SClient +0x135C), with the interfaces it holds (UIJobsClass, UIStarbaseClass, the +0x19C / +0x1A0 classes), declared as far as cpacket.cpp calls them; moved out of cpacket.cpp (CP1, P-SC1-1), the header's name provisional",
+    ('app', 'client/sbaseview.cpp'): "SBaseViewClass (sbaseview.cpp's __FILE__; client 0x69CDE0-0x6A2530): the short members 0x69D930-0x6A2430 without asserts (UI1); the asserting functions (lines 738, 1261 / 1262, 1667, D25) and the large ones not yet",
     ('app', 'client/ui_group.h'): "UIGroupClass, ui_group.cpp's group window (the main view's +0x1D8; the client's file per its asserts, this header's name provisional), declared as far as cpacket.cpp and the main view call it; moved out of cpacket.cpp (HN2)",
 }
 

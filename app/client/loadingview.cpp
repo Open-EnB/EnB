@@ -9,7 +9,7 @@
 #include <string.h>
 
 // fontsys.cpp's text object, as far as the loading text calls it
-class FontSys { public: void Change_Text(const char *text, int unknown); };	// NAME 3: the client's profile label 'FontSys::Change_Text' (0x6CDBC0)  // NAME 1 [text, unknown]: what 0x692420 passes
+class FontSys : public RenderObjClass { public: void Change_Text(const char *text, int unknown); };	// NAME 3: the client's profile label 'FontSys::Change_Text' (0x6CDBC0)  // NAME 1 [text, unknown]: what 0x692420 passes
 // fontmanager.h's FontManagerClass at 0xBE67C4 (its header includes fontdatabase.h, whose 0xBE67B8 clashes with tsk_game.h's): 0x6D2310 removes the fonts kept for a render object, 0x6D25D0 finds a named one
 class LoadingViewFontManagerClass { public: void Unknown_6D2310(const RefCountPtr<RenderObjClass> &object); FontSys *Unknown_6D25D0(const char *name, RenderObjClass *object); }; extern LoadingViewFontManagerClass *Unknown_BE67C4;	// NAME 1: neutral (D10)  // NAME 1 [object, name]: what this file passes
 // (fontdatabase.h's FontStringFilesClass at 0xBE67BC: sclient.h's SClientFontDatabaseClass)

@@ -61,15 +61,59 @@ public:
 	void Unknown_5A3FB0(JobAcceptReplyPacketClass *packet);	// 0x5A3FB0 (JOB_ACCEPT_REPLY 150)  // NAME 1 [packet]: the handler's packet
 	void Unknown_5A4430(int job_id);	// 0x5A4430 (JOB_DELETE 149)  // NAME 1 [job_id]: the packet's JobID
 };
+class FontSys;	// fontsys.cpp's text object, a render object (sbaseview.cpp declares it)
+class SBaseViewUnknown68Class { public: RenderObjClass *Unknown00; };	// NAME 1: neutral (D10): what the starbase view's +0x68 points to (0x6A0540)
+class SBaseViewUnknown1B4Class;	// NAME 1: neutral (D10): what sbase_info.cpp's 0x6987A0 returns (the starbase view's +0x1B4)
 class SBaseViewClass : public UIViewClass	// NAME 3: class-from-file (D24) for app\client\sbaseview.cpp
 {
 public:
 	void Unknown_6A0FD0(LoungeNPCPacketClass *packet);	// 0x6A0FD0 (LOUNGE_NPC 82)  // NAME 1 [packet]: the handler's packet
 	RefCountPtr<UIJobsClass> Get_Jobs() { return(Jobs); }	// 0x73A300 (out of line after JOB_LIST 147, the first caller)  // NAME 2: what it returns
 	RefCountPtr<UIStarbaseClass> Get_Starbase() { return(Starbase); }	// 0x54EDA0 (out of line in another object)  // NAME 2: what it returns
-	char Unknown4C[0x60 - 0x4C]; RefCountPtr<UIStarbaseClass> Starbase; char Unknown64[0x174 - 0x64]; SBaseViewUnknown174Class *Unknown174; char Unknown178[0x194 - 0x178];	// +0x4C; +0x60 ui_starbase.cpp's interface  // NAME 2 [Starbase]: what it holds
+	void Unknown_69D930(int type);	// 0x69D930: ViewRObjs[type] out of its scene and released  // NAME 1 [type]: the assert's index
+	void Unknown_69D9D0(int type, const char *name);	// 0x69D9D0 (G_ASSERT 'ViewRObjs[type]', l.738): the asset manager's name into ViewRObjs[type]  // NAME 1 [name]: what 0x69DC40 passes
+	void Unknown_69DB50(int type);	// 0x69DB50: ViewRObjs[type] released
+	void Unknown_69DC40();	// 0x69DC40: 'FE_COMP1' as ViewRObjs[2]
+	void Unknown_69DC60();	// 0x69DC60: ViewRObjs[2] away
+	void Unknown_69F440();	// 0x69F440: +0x1B0 set
+	void Unknown_69F460(int arg);	// 0x69F460  // NAME 1 [arg]: neutral
+	void Unknown_6A0540();	// 0x6A0540: +0x68's object, +0x1CC and +0x1D0 out of their scenes
+	void Unknown_6A0E00();	// 0x6A0E00: the text object +0x1B8 away
+	void Unknown_6A0E50();	// 0x6A0E50: the text object hidden
+	void Unknown_6A0E80(const char *text);	// 0x6A0E80: the text object's text, shown  // NAME 1 [text]: what FontSys::Change_Text gets
+	void Unknown_6A20C0(const Vector3 &color, float start, float end);	// 0x6A20C0: the +0x70 scene's fog on  // NAME 2 [color, start, end]: SceneClass's Set_Fog_Color / Set_Fog_Range
+	void Unknown_6A2100();	// 0x6A2100: the +0x70 scene's fog off
+	void Unknown_6A23E0(bool a, bool b, bool c, bool d, bool e);	// 0x6A23E0: +0x1EC..+0x1F0  // NAME 1 [a, b, c, d, e]: neutral
+	void Unknown_6A2430(bool *a, bool *b, bool *c, bool *d, bool *e);	// 0x6A2430: +0x1EC..+0x1F0 back  // NAME 1 [a, b, c, d, e]: neutral
+
+	int Unknown4C;	// +0x4C
+	int Unknown50;	// +0x50 (0x69F460 copies it to +0x58)
+	int Unknown54;	// +0x54 (0x69F460's argument)
+	int Unknown58;	// +0x58
+	int Unknown5C;	// +0x5C
+	RefCountPtr<UIStarbaseClass> Starbase;	// +0x60 ui_starbase.cpp's interface  // NAME 2 [Starbase]: what it holds
+	int Unknown64;	// +0x64
+	SBaseViewUnknown68Class *Unknown68;	// +0x68 (0x6A0540 removes its +0x00's render object)
+	int Unknown6C;	// +0x6C
+	SimpleSceneClass *Unknown70;	// +0x70 (ViewRObjs[1]'s scene; 0x6A20C0 / 0x6A2100: its fog)
+	int Unknown74;	// +0x74
+	SimpleSceneClass *Unknown78;	// +0x78 (ViewRObjs[2]'s scene)
+	char Unknown7C[0xEC - 0x7C];	// +0x7C
+	RefCountPtr<RenderObjClass> ViewRObjs[3];	// +0xEC: by type, in the scenes +0x1C / +0x70 / +0x78 (0x69D930)  // NAME 3: the assert's 'ViewRObjs[type]'
+	char UnknownF8[0x174 - 0xF8];	// +0xF8
+	SBaseViewUnknown174Class *Unknown174;	// +0x174
+	char Unknown178[0x194 - 0x178];	// +0x178
 	RefCountPtr<UIJobsClass> Jobs; int Unknown198; SBaseViewUnknown19CClass *AvatarUI; SBaseViewUnknown1A0Class *ShipUI;	// +0x194  // NAME 2 [Jobs]: what it holds; +0x19C / +0x1A0  // NAME 3 [AvatarUI, ShipUI]: the recustomize handlers' '!avatar_ui' / '!ship_ui' tests
 	UIPTradeClass *PTrade;	// +0x1A4 (TRADE 31 in a starbase)  // NAME 3: its class's file (ui_ptrade.cpp)
+	char Unknown1A8[0x1B0 - 0x1A8];	// +0x1A8
+	bool Unknown1B0;	// +0x1B0 (0x69F440 sets it, 0x69CDE0 clears it)
+	SBaseViewUnknown1B4Class *Unknown1B4;	// +0x1B4 (LOUNGE_NPC 82: sbase_info.cpp's 0x6987A0 of the packet)
+	RefCountPtr<FontSys> Unknown1B8;	// +0x1B8: a text object (0x6A0E80 changes its text)
+	char Unknown1BC[0x1CC - 0x1BC];	// +0x1BC
+	RenderObjClass *Unknown1CC;	// +0x1CC (0x6A0540 removes it)
+	RenderObjClass *Unknown1D0;	// +0x1D0 (0x6A0540 removes it)
+	char Unknown1D4[0x1EC - 0x1D4];	// +0x1D4
+	bool Unknown1EC; bool Unknown1ED; bool Unknown1EE; bool Unknown1EF; bool Unknown1F0;	// +0x1EC..+0x1F0 (0x6A23E0 / 0x6A2430)
 };
 
 /*
