@@ -737,6 +737,7 @@ public:
 	void Unknown_8019A0();								// 0x8019A0 (G_ASSERT 'ScriptedCamera', l.589): the +0x128 scene's pass
 	void Unknown_801AE0(float znear, float zfar);		// 0x801AE0 (G_ASSERTs 'OrbitalScene' / 'ScriptedCamera', l.624 / 625; the render 0x8012C0): the orbital scene's pass  // NAME 2 [znear, zfar]: Set_Clip_Planes'
 	void Unknown_801C40(float znear, float zfar);		// 0x801C40 (G_ASSERTs 'ScriptedCamera' / 'BackgroundDazzleLayer', l.661 / 662): the background dazzle's pass  // NAME 2 [znear, zfar]: Set_Clip_Planes'
+	void Unknown_801D70(float *znear, float *zfar);		// 0x801D70 (G_ASSERTs 'ScriptedCamera' / 'OrbitalManager', l.702 / 703): the orbitals' clip planes for the camera's FOV (as the main view's 0x50CCF0)  // NAME 2 [znear, zfar]: the main view's
 	void Unknown_8022C0(float time);					// 0x8022C0 (FAIL_IF 'ScriptedScene == NULL', l.832): the ambient light's fade one step on  // NAME 1 [time]: what the fade gets
 	void Unknown_802330(float time);					// 0x802330 (FAIL_IF 'ScriptedScene == NULL', l.855): the fog colour's fade one step on  // NAME 1 [time]: what the fade gets
 	void Unknown_8023A0(bool on);						// 0x8023A0 (G_ASSERT 'ClientInterface', l.877)  // NAME 1 [on]: neutral
@@ -793,7 +794,8 @@ public:
 	SimpleSceneClass *Unknown120;						// +0x120: a scene rendered at depth 1 between clip planes 20 and 100000 (0x801860)
 	char Unknown124[0x128 - 0x124];						// +0x124
 	SimpleSceneClass *Unknown128;						// +0x128: one between 50 and 150 (0x8019A0)
-	char Unknown12C[0x134 - 0x12C];						// +0x12C
+	char Unknown12C[0x130 - 0x12C];						// +0x12C
+	class OrbitalManager *OrbitalManager;				// +0x130: its near / far planes (0x801D70)  // NAME 3: the assert's
 	SimpleSceneClass *OrbitalScene;						// +0x134 (0x801AE0 renders it at depth 0.95..1)  // NAME 3: the assert's
 	char Unknown138[0x13C - 0x138];						// +0x138
 	DazzleLayerClass *BackgroundDazzleLayer;			// +0x13C (0x801C40 renders it at depth 1)  // NAME 3: the assert's

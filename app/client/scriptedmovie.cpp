@@ -696,16 +696,16 @@ void ScriptedMovieViewClass::Unknown_801C40(float znear, float zfar)
 
 
 
-
-
-
-
-
-
-
-
-
-
+// 0x801D70: the orbitals' near plane scaled for the camera's FOV, and their far plane (the main view's 0x50CCF0)
+void ScriptedMovieViewClass::Unknown_801D70(float *znear, float *zfar)
+{
+	G_ASSERT(ScriptedCamera);
+	G_ASSERT(OrbitalManager);
+	float v = tan(ScriptedCamera->Get_Vertical_FOV() * 0.5f);
+	float h = tan(ScriptedCamera->Get_Horizontal_FOV() * 0.5f);
+	*znear = (1.0f / WWMath::Sqrt(h * h + v * v + 1.0f)) * OrbitalManager->Unknown50;
+	*zfar = OrbitalManager->Get_Unknown54();
+}
 
 
 
