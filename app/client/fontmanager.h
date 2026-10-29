@@ -53,7 +53,18 @@ public:
 	FontStringStruct Info;	// +0xF4: its string template (0x6D0A70 copies it; +0xF4 its name, what 0x6D10B0 compares)  // NAME 2 [Info]: what it holds
 	char Unknown1E0[0x70];	// +0x1E0  // NAME 1: neutral (D10)
 	int Unknown250;														// +0x250: 0x6D28C0 sets it in every style of a font  // NAME 1: neutral (D10)
-	char Unknown254[0x240];											// +0x254  // NAME 1: neutral (D10)
+	char Unknown254[0x18];												// +0x254  // NAME 1: neutral (D10)
+	int Unknown26C;														// +0x26C: 0x6CF930 sets it per line (ftol)  // NAME 1: neutral (D10)
+	char Unknown270[0x454 - 0x270];									// +0x270  // NAME 1: neutral (D10)
+	float Unknown454;													// +0x454: 0x6CF930's per-line value, at least +0x480 (0x6D5170 zeroes it)  // NAME 1: neutral (D10)
+	int Unknown458;														// +0x458: zeroed by 0x6D5170 and Change_Text  // NAME 1: neutral (D10)
+	int LineCount;														// +0x45C: the number of lines 0x6CF930 split the text into  // NAME 2: what 0x6CF930 stores
+	int LineNumber;														// +0x460: this style's line, from 1 (0x6CF930)  // NAME 2: what 0x6CF930 stores
+	float Unknown464[2];												// +0x464: 0x6CD180's x / y with +0x302 set, added to +0x47C / +0x480  // NAME 1: neutral (D10)
+	int Unknown46C;														// +0x46C  // NAME 1: neutral (D10)
+	Vector3 Unknown470;													// +0x470: a copy of +0x47C (0x6D5170, 0x6CF930); Change_Text puts its x back  // NAME 1: neutral (D10)
+	Vector3 Unknown47C;													// +0x47C: Info's +0x34 / +0x38 times 640 / 480 (0x6D5170, 0x6CDAB0), y moved per line by 0x6CF930  // NAME 1: neutral (D10)
+	char Unknown488[0x494 - 0x488];									// +0x488  // NAME 1: neutral (D10)
 	FontStyleColorStruct Unknown494;									// +0x494: 0x6D1010's color  // NAME 1: neutral (D10)
 	FontStyleColorStruct Unknown4A4;									// +0x4A4: a copy of +0x494 (0x6D1010)  // NAME 1: neutral (D10)
 	char Unknown4B4[0x34];												// +0x4B4  // NAME 1: neutral (D10)
@@ -64,7 +75,7 @@ class ManagedFontClass  // NAME 2 [ManagedFontClass]: what the manager holds per
 public:
 	ManagedFontClass(RenderObjClass *object);							// 0x6CE990: the render object's styles from the font database
 	ManagedFontClass(const char *name, int unknown);						// 0x6CF520 (no caller), inlined in 0x6D1FD0  // NAME 1 [unknown]: neutral (D10)
-	void Unknown_6CF930(FontStringStruct *def, int unknown);				// 0x6CF930: loads the font from its database entry  // NAME 1 [Unknown_6CF930]: neutral (D10)
+	void Unknown_6CF930(FontStringStruct *def, int unknown);				// 0x6CF930: a 'W' template's lines as styles (unknown is the render object)  // NAME 1 [Unknown_6CF930]: neutral (D10)
 	~ManagedFontClass();												// 0x6CF730
 	void Unknown_All_Styles(int unknown1, int unknown2);					// 0x6D0950, inlined in 0x6D1C10 (its own begin / ++ called out of line there)  // NAME 1 [Unknown_All_Styles]: neutral (D10)
 	void Unknown_Set_Styles(int value);									// 0x6D0710, inlined in 0x6D28C0 (its own begin / ++ called out of line there)  // NAME 1 [Unknown_Set_Styles]: neutral (D10)

@@ -1,6 +1,9 @@
 // Earth & Beyond client (reconstruction): app\Client\fontmanager.cpp. Notes at the end of the file.
 #include "fontmanager.h"
 #include "..\..\wwlib\wwstring.h"
+#include "..\shared\unknown_font_split_string.h"
+#include <stdio.h>
+#include <math.h>
 ManagedFontClass::ManagedFontClass(RenderObjClass *object)
 {
 	Styles.clear();
@@ -35,6 +38,57 @@ ManagedFontClass::~ManagedFontClass()
 	}
 	Styles.clear();
 	Id = 0;
+}
+
+
+void ManagedFontClass::Unknown_6CF930(FontStringStruct *def, int unknown)
+{
+	RenderObjClass *object = (RenderObjClass *)unknown;
+	float width = 640.0f;
+	int box_height = 0;
+	if (def->Text.Is_Empty()) {
+		def->Text = " ";
+	}
+	float scale;
+	FontStruct *font = Unknown_BE67B8->Find_Font(def->FontType[0], scale);
+	Name = object->Get_Name();
+	Id = (unsigned int)object;
+	Unknown08 = 1;
+	float font_height = font->font32Ptr->Get_Height(480.0f);
+	if (def->Width > 0.0f) {
+		width = def->Width;
+	} else {
+		RenderObjClass *box = object->Get_Sub_Object_By_Name(def->Attach);
+		if (box) {
+			int left = (int)(box->Get_Bounding_Box().Center.X - box->Get_Bounding_Box().Extent.X);
+			int right = (int)(box->Get_Bounding_Box().Extent.X + box->Get_Bounding_Box().Center.X);
+			width = (float)(right - left) - def->BoxOffset[0] * 2;
+			box->Release_Ref();
+			box_height = (int)(box->Get_Bounding_Box().Extent.Y * 2 - def->BoxOffset[1] * 2);
+		}
+	}
+	width -= font->font32Ptr->Get_Text_Width("...", 640.0f);
+
+	FontSplitStringClass split(font->font32Ptr, def->Text, width, 0);
+	int count = split.Count();
+	float lines_height = (float)fabs(font_height * def->Spacing) * count;
+	for (int i = 0; i < count; i++) {
+		StringClass id(def->StringID);
+		char suffix[8];
+		sprintf(suffix, "_%d", i);
+		id += suffix;
+		FontStringStruct copy(*def);
+		copy.Unknown04 = id;
+		copy.Text = split.Get(i);
+		FontStyleClass *style = new FontStyleClass(copy, Id, 0);
+		style->Unknown26C = (int)((i * def->TimeSpacing + def->Wait) * 1000.0f);
+		style->Unknown47C.Y += i * def->Spacing * font_height;
+		style->Unknown470 = style->Unknown47C;
+		style->Unknown454 = WWMath::Max(style->Unknown47C.Y, lines_height - box_height + style->Unknown47C.Y);
+		style->LineCount = count;
+		style->LineNumber = i + 1;
+		Unknown_6D1220(style);
+	}
 }
 
 void ManagedFontClass::Unknown_6D01C0(int level, const char *name)
@@ -154,60 +208,6 @@ void ManagedFontClass::Unknown_6D10B0(const char *name, TPoint3D<int> color)
 		}
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -588,8 +588,10 @@ ManagedFontClass *FontManagerClass::Find(unsigned int id)
 **	The font is keyed by its render object's address: the constructor 0x6CE990 takes the object (its Get_Name
 **	is the font's name, its address the id) and loads the database's templates whose RenderObj is that name;
 **	FontStringStruct's implicit copy constructor 0x6CECC0 and the styles table's destructor 0x6CEBF0 follow it.
-**	Not rebuilt: 0x6CF930 (a 'W' template's lines as styles through a line splitter 0x4FA8F0..0x4FA9F0;
-**	attempts.csv has its outline).
+**	0x6CF930 (LS1): a 'W' template's lines as styles, one each, through FontSplitStringClass
+**	(unknown_font_split_string.cpp) at the template's width less "..."'s; exact once the lines' bottom
+**	is WWMath::Max(y, height - box + y) with height kept apart from the box (VC6 hoists only the
+**	difference into the loop's preheader; a precomputed total or a ternary leave fisub / fcom forms).
 **	The depth lever (workflow.md 3.1) made the destructor and 0x6D1C10 exact: the client calls the
 **	nested table helpers out of line when they sit one inline level deeper.
 **	Find 0x6D2A70 is never inlined (#pragma auto_inline(off)): the client calls it out of line in
