@@ -10,7 +10,7 @@
 char *Unknown_8B44E0(__int64 value, char *buffer);	// 0x8B44E0: _i64toa(value, buffer, 10), as pkguildplayeronline.h  // NAME 1: neutral placeholder (D10)
 ControlKeyComboStruct Unknown_42A1A0(INIClass &ini, const char *section, const char *entry);	// NAME 1 [Unknown_42A1A0]: neutral (D10): 0x42A1A0 (app\input), a key read from an ini entry
 void Unknown_42A410(INIClass &ini, const char *section, const char *entry, const ControlKeyComboStruct &key);	// NAME 1 [Unknown_42A410]: neutral (D10): 0x42A410 (app\input), a key written to an ini entry
-std::string &Unknown_42B7E0(const ControlKeyComboStruct &key, std::string &out);	// NAME 1 [Unknown_42B7E0]: neutral (D10): 0x42B7E0, the key's text
+#include "..\input\inpkeys.h"	// 0x42B7E0, the key's text: it takes the kernel's event (its mangled name)
 
 struct ContextEqualStruct  // NAME 2: describes what it does (the SGI documentation's eqstr; strcmp inlined in 0x71ECD0)
 {
@@ -636,14 +636,14 @@ ControlKeyValueStruct::ControlKeyValueStruct(unsigned int value)
 
 
 
-// NOT EXACT: register-only in the failure path (out in ebp, npos in ebx; the client swaps them); erase(0, npos) and resize(0) the same
+// 0x71CAB0: exact once 0x42B7E0 takes inpkeys.h's KernelEventClass (FU1)
 std::string &KeyMappingStruct::Get_Key_String(int set, std::string &out)
 {
 	FAIL_IF((unsigned int)set > NUM_MAPPING_SETS) {
 		out.erase();
 		return out;
 	}
-	return Unknown_42B7E0(ControlKeyComboStruct(Keys[set].Key, Keys[set].Modifiers), out);
+	return Unknown_42B7E0(KernelEventClass(Keys[set].Key, Keys[set].Modifiers), out);
 }
 
 const std::string &ControlKeyDefClass::Get_Unknown10() const
