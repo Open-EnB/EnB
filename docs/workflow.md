@@ -139,6 +139,19 @@ tools/re/README.md, tools/vc6 and tools/harness/README.md.
 
 ### 3.1 VC6 code generation
 
+* **What sends a Cast out of line: a non-tail nested multi-return expansion before a conditional call** (2026-10-29,
+  F8's Fable round, calibrated on 0x6FEAC0 / 0x6FDBD0): the budget unit that pushes a find's `C *t = Cast(d);
+  G_ASSERT(t);` out of line is a nested inline expansion with several returns in non-tail position followed by a
+  conditional call. The same body flat, `return Cast(d)` in tail position (why IB1's Unknown_Find_Aux never moved a
+  Cast), 1-3 dead calls, a loop in an inlined helper, asserts or accessors alone (10 nested, 35 in the caller): no
+  effect. A dead spender starves only the expansions after it in source order: the same dead find at the top of
+  0x6F3FA0 sends Rotate_X out, as the last statement it gives the client's calls. Refuted as the per-find spender:
+  the accessors (mark / Value / AuxData / Client / Model / GameID), NameClass temporaries, G_ASSERT as an inline
+  function (no effect anywhere in co.cpp), an empty ~PermString, Get_Lookup / Find wrappers, Is_Null / Type_Of in
+  Find_Field or Cast, a checked-cast wrapper (moves 0x6FFC80 / 0x700400 / 0x6F3FA0's Casts, not these), NameClass's
+  constructor and LookupClass::Find made inline-visible, /Zi and /Z7. Lead: in 0x6FD310 one static inline helper
+  around the three finds (name built inside, mark test, array store, changed loop) sends all three Casts out with
+  no dead code. `attempts.py --stash` writes an untracked docs/attempts/<ADDR>/NAME.txt: add it to the commit.
 * **A switch's case order** (2026-10-29, LD4): 0x65AB10 became exact only with the cases written in the jump table's
   target-address order; in 0x514010 reordering the labels gave byte-identical code (VC6 normalises there). Try the
   table's order once; if the bytes don't move, the residue is elsewhere.

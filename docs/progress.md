@@ -1560,7 +1560,11 @@ client's own code: [kernel-map.md](kernel-map.md) §6 and, for step 9's dependen
 6. Step 8's tail: Key_Exchange (LIMIT), the UDP constructor over a CordCon 0x82CBF0 (register), Open_Fixed_Channel
    0x82D8C0 (field offset), `Send_Data` (wlib's Dictionary layout), 0x82E1D0 (needs CordMgr 0x8598F0), the
    TimedLog ctor, the memconn option slot, Rate Count (LIMIT), Listen.
-7. The Fable queue under D89 / D97 (six at most, by unlock value): the verb object's five inline-budget functions 0x8AF150 / 0x8AF6D0 / 0x8AFD10 / 0x8AFF40 / 0x8B0150 as one round (D134; PK3's and PK2's attempts rows); co.cpp's 0x6FD310, 0x6FBEF0 and the roll 0x6F3FA0 as one round (2026-10-28, IB1: two Opus rounds each, inline budget; the question: what in the client's source spends more budget per find; 0x6F4610 / 0x6FDBD0 left the queue, now register / shape), client_lego_impl's Find 0x72ABB0 + Add 0x72B7F0 +
+7. The Fable queue under D89 / D97 (by unlock value; D136: not pruned, rounds scheduled more often): (done 2026-10-29: F8's round on co.cpp's per-find budget, 4dd8a97 / 6fac2a6, 0 pairs: 0x6FBEF0 got the client's
+   frame 0x270, residue 106 -> 93; the per-find spender is not found but narrowed (workflow.md §3.1, 'What sends a
+   Cast out of line'); 0x6FD310 and 0x6FBEF0 partial with 8 forms each, 0x6F3FA0 parked register; P-F8-2, a second
+   D89 round on 0x6FD310 citing that lever, 3 forms written in docs/attempts/6FD310/v11.py.txt, is an Opus item;
+   P-F8-3, 0x6FBEF0 with a per-field inline helper, low priority) the verb object's five inline-budget functions 0x8AF150 / 0x8AF6D0 / 0x8AFD10 / 0x8AFF40 / 0x8B0150 as one round (D134; PK3's and PK2's attempts rows); client_lego_impl's Find 0x72ABB0 + Add 0x72B7F0 +
    Remove 0x72C1D0 as one round (P-H20-1), CLIENT_DAMAGE 0x738970 then FORMATION 0x734740 (P-T19-3), D92's three
    (item 2), Get_Lego_Transform then Child_Moved / Attach (P-H17-2), cpacket 62 with SIMPLE 8 as one round (both
    rounds done, CP1 2026-10-28: the Is_Valid_Float cut follows the inline budget; left the drift divisor's CSE and the
