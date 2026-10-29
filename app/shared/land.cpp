@@ -1182,12 +1182,12 @@ void LandClass::Load_Decorations(std::vector<std::string> &names, std::vector<La
 	file->Close();
 }
 
-// NAME 2: a decoration vertex, FVF 0x112 (0x47C6A0; the patch records' buffers, 0x47A2F0)
+// NAME 2: a decoration vertex, FVF 0x112 (0x47C6A0; the patch records' buffers, 0x47A2F0); plain floats: 0x47DE10 copies it as one block
 struct LandDecorationVertexStruct
 {
-	Vector3						Position;
-	Vector3						Normal;
-	Vector2						UV;
+	float						Position[3];
+	float						Normal[3];
+	float						UV[2];
 };
 
 // NOT EXACT: shape (written from the disassembly: the client keeps this in a frame slot, calls the string constructor and the
@@ -1274,42 +1274,47 @@ static RenderObjClass *Land_Find_Decoration_Mesh(RenderObjClass *robj, bool tree
 
 // 0x47C6A0: a mesh's vertices (scaled, then through tm; normals rotated, not normalised; no normals or uvs give zeros) and its
 // triangles' indices plus base, appended; returns the largest index the triangles use
-// NOT EXACT: shape (frame 0x5C, the client 0x6C; the vertex vector's insert and the register use differ; 3 forms, attempts.csv 0x47C6A0)
+// NOT EXACT: inline budget (the third index push_back's reallocation inlines the first _Ucopy, the client calls it; index-loop registers; attempts.csv 0x47C6A0)
 static unsigned short Land_Append_Decoration_Mesh(MeshClass *mesh, std::vector<LandDecorationVertexStruct> &vertices,
 	std::vector<unsigned short> &indices, unsigned short base, const Matrix3D &tm, float scale)	// NAME 2: after what it does
 {
+	unsigned short largest = 0;
 	MeshModelClass *model = mesh->Peek_Model();
 	const Vector2 *uv = model->Get_UV_Array(0, 0);
-	const Vector3 *points = model->Get_Vertex_Array();
 	const TriIndex *polys = model->Get_Polygon_Array();
+	const Vector3 *points = model->Get_Vertex_Array();
 	const Vector3 *normals = model->Get_Vertex_Normal_Array();
-	unsigned short largest = 0;
-	if (points != NULL && polys != NULL) {
+	if (polys != NULL && points != NULL) {
 		int i;
 		int vertex_count = model->Get_Vertex_Count();
+		int poly_count = model->Get_Polygon_Count();
 		for (i = 0; i < vertex_count; i++) {
 			Vector3 pos = tm * (scale * points[i]);
+			LandDecorationVertexStruct vertex;
+			vertex.Position[0] = pos.X;
+			vertex.Position[1] = pos.Y;
+			vertex.Position[2] = pos.Z;
 			Vector3 normal(0.0f, 0.0f, 0.0f);
 			if (normals != NULL) {
 				normal = tm.Rotate_Vector(normals[i]);
 			}
+			vertex.Normal[0] = normal.X;
+			vertex.Normal[1] = normal.Y;
+			vertex.Normal[2] = normal.Z;
 			Vector2 tex(0.0f, 0.0f);
 			if (uv != NULL) {
 				tex = uv[i];
 			}
-			LandDecorationVertexStruct vertex;
-			vertex.Position = pos;
-			vertex.Normal = normal;
-			vertex.UV = tex;
+			vertex.UV[0] = tex.X;
+			vertex.UV[1] = tex.Y;
 			vertices.push_back(vertex);
 		}
-		int poly_count = model->Get_Polygon_Count();
 		for (i = 0; i < poly_count; i++) {
-			largest = (unsigned short)WWMath::Max((float)largest, (float)polys[i].I);
+			largest = (unsigned short)WWMath::Max((float)polys[i].I, (float)largest);
 			indices.push_back((unsigned short)(base + polys[i].I));
-			largest = (unsigned short)WWMath::Max((float)largest, (float)polys[i].J);
+			largest = (unsigned short)WWMath::Max((float)polys[i].J, (float)largest);
 			indices.push_back((unsigned short)(base + polys[i].J));
-			largest = (unsigned short)WWMath::Max((float)largest, (float)polys[i].K);
+			largest = (unsigned short)WWMath::Max((float)polys[i].K, (float)largest);
 			indices.push_back((unsigned short)(base + polys[i].K));
 		}
 	}
