@@ -107,7 +107,7 @@ int Unknown_BE5F34 = 0;
 #include "..\..\..\app\kernel\kernel.h"
 void SClient::Unknown_744240(KernelEventClass event) { Trace("stub SClient::Unknown_744240 key 0x%X", event.Key); }
 KernelEventClass Unknown_65F780(void *) { Trace("stub Unknown_65F780"); return(KernelEventClass()); }
-void ScriptedMovieViewClass::Unknown_802960(KernelEventClass event) { Trace("stub ScriptedMovieViewClass::Unknown_802960 key 0x%X", event.Key); }
+// (ScriptedMovieViewClass::Unknown_802960 is rebuilt in scriptedmovie.cpp, UI1; the trace never reaches it)
 
 // ------------------------------------------------------------------------- eff_o.cpp's effect, the third list's records
 

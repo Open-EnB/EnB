@@ -23,6 +23,48 @@ void Unknown_7FF830(bool on, float time);							// 0x7FF830: the letterbox  // N
 void Unknown_7FFA30(float red, float green, float blue, float time);	// 0x7FFA30: the fade's colour  // NAME 1 [red, green, blue, time]: what Set_Screen_Fade_Color passes
 void Unknown_7FFBE0(float opacity, float time);						// 0x7FFBE0: the fade's opacity  // NAME 1 [opacity, time]: what Set_Screen_Fade_Opacity passes
 
+// one line of the script (std::sort orders them, 0x8099B0)
+struct ScriptedMovieLineStruct	// NAME 1: neutral (D10)
+{
+	unsigned int Frame;	// +0x00  // NAME 2: what the order compares
+	char *Text;			// +0x04: the command line  // NAME 2: what it holds
+};
+
+// 0x7FFEA0: by frame; within a frame the objects and lights are made first
+bool operator < (const ScriptedMovieLineStruct &a, const ScriptedMovieLineStruct &b)
+{
+	if (a.Frame < b.Frame) {
+		return(true);
+	}
+	if (a.Frame == b.Frame) {
+		if (strncmp(a.Text, "CREATE_OBJECT", 13) == 0 && strncmp(b.Text, "CREATE_OBJECT", 13) != 0) {
+			return(true);
+		}
+		if (strncmp(a.Text, "CREATE_OBJECT", 13) != 0 && strncmp(b.Text, "CREATE_OBJECT", 13) == 0) {
+			return(false);
+		}
+		if (strncmp(a.Text, "CREATE_SHIP_OBJECT", 18) == 0 && strncmp(b.Text, "CREATE_SHIP_OBJECT", 18) != 0) {
+			return(true);
+		}
+		if (strncmp(a.Text, "CREATE_SHIP_OBJECT", 18) != 0 && strncmp(b.Text, "CREATE_SHIP_OBJECT", 18) == 0) {
+			return(false);
+		}
+		if (strncmp(a.Text, "CREATE_POINT_LIGHT", 18) == 0 && strncmp(b.Text, "CREATE_POINT_LIGHT", 18) != 0) {
+			return(true);
+		}
+		if (strncmp(a.Text, "CREATE_POINT_LIGHT", 18) != 0 && strncmp(b.Text, "CREATE_POINT_LIGHT", 18) == 0) {
+			return(false);
+		}
+		if (strncmp(a.Text, "CREATE_DIRECTIONAL_LIGHT", 24) == 0 && strncmp(b.Text, "CREATE_DIRECTIONAL_LIGHT", 24) != 0) {
+			return(true);
+		}
+		if (strncmp(a.Text, "CREATE_DIRECTIONAL_LIGHT", 24) != 0 && strncmp(b.Text, "CREATE_DIRECTIONAL_LIGHT", 24) == 0) {
+			return(false);
+		}
+	}
+	return(false);
+}
+
 // 0x7FFD30: the line starts with name (any case): the cursor past it and its comma
 bool ScriptedMovieParamsClass::Unknown_7FFD30(const char *name)
 {
@@ -73,48 +115,6 @@ char *ScriptedMovieParamsClass::Unknown_7FFDC0()
 	}
 	return(param);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -998,32 +998,32 @@ bool ScriptedMovieViewClass::Unknown_802930()
 	return(!Unknown6C || !Unknown6D || Unknown6E);
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// 0x802960: the keys while the movie plays (SClient::Do_Frame): Esc ends it, 0x22 the next camera, space
+// pauses, 0x6B five seconds on
+void ScriptedMovieViewClass::Unknown_802960(KernelEventClass event)
+{
+	if (!(event.Flags & 0x1000)) {
+		switch (event.Key) {
+			case 0x1B:
+				Unknown6E = true;
+				return;
+			case 0x22:
+				Unknown_8027C0();
+				return;
+			case 0x20:
+				if (Unknown171 && ClientInterface->Unknown_00() && ClientInterface->Unknown_00()->Unknown_1C()) {
+					Unknown168 = !Unknown168;
+					return;
+				}
+				break;
+			case 0x6B:
+				if (Unknown171 && ClientInterface->Unknown_00() && ClientInterface->Unknown_00()->Unknown_1C()) {
+					Unknown164 += 5000;
+				}
+				break;
+		}
+	}
+}
 
 
 

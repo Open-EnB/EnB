@@ -698,6 +698,7 @@ public:
 	ScriptedMovieViewClass(ClientTaskClass *task, int arg, SClientMovieCallbackClass *callback);	// 0x8000C0  // NAME 1 [task, arg, callback]: what 0x74BD90 passes
 	bool Unknown_802930();								// 0x802930 (SClient::Do_Frame in view mode 6: true ends the movie, 0x74BF00)
 	void Unknown_802960(KernelEventClass event);		// 0x802960 (SClient::Do_Frame: the input events while the scripted movie view is up)  // NAME 1 [event]: what it gets
+	void Unknown_8027C0();								// 0x8027C0 (G_ASSERT 'CurrentCameraIndex < size', l.972; 0x802960's key 0x22)
 	void Unknown_8022C0(float time);					// 0x8022C0 (FAIL_IF 'ScriptedScene == NULL', l.832): the ambient light's fade one step on  // NAME 1 [time]: what the fade gets
 	void Unknown_802330(float time);					// 0x802330 (FAIL_IF 'ScriptedScene == NULL', l.855): the fog colour's fade one step on  // NAME 1 [time]: what the fade gets
 	void Unknown_8023A0(bool on);						// 0x8023A0 (G_ASSERT 'ClientInterface', l.877)  // NAME 1 [on]: neutral
@@ -739,7 +740,8 @@ public:
 	std::vector<ScriptedMovieSoundClass *> UnknownF0;	// +0xF0: mv3dsnd.cpp's objects (0x802AD0)
 	char Unknown100[0x164 - 0x100];						// +0x100
 	int Unknown164;										// +0x164 (Skip_Frames adds to it)
-	char Unknown168[0x171 - 0x168];						// +0x168
+	bool Unknown168;									// +0x168 (0x802960: the space key toggles it)
+	char Unknown169[0x171 - 0x169];						// +0x169
 	bool Unknown171;									// +0x171 (Skip_Frames only while it is set)
 	char Unknown172[0x178 - 0x172];						// +0x172
 };
