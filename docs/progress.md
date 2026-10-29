@@ -1395,16 +1395,11 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 | D138 | 2026-10-29 | P-LD4-2 (under D137): the view at SClient +0x1358 (0x514CC0's class) stays at mainview.cpp's end, provisional, until a __FILE__ or a static initialiser places it | coordinator (D137) |
 | D139 | 2026-10-29 | P-PX3-1 (under D137): the factories 0x452140-0x452770 are an object of their own, `app/shared/unknown_px_factories.cpp` (provisional, neutral name, D10), split from D124's unknown_px_callbacks.cpp: compiled together the factories inline PxBoxCallback's constructor 0x451C30, which the client calls; apart both are exact | coordinator (D137) |
 | D140 | 2026-10-29 | P-IB2-1 accepted: one more short round on 0x6FD310 past LIMIT REACHED, at most 2 forms (IB2's form (1) plus a find-if-changed helper with the mark test inside, for all three finds and for Spot / Line only); neither exact: parked for good | user (IB2's proposal) |
+| D141 | 2026-10-29 | P-F9-2: every compile of a variant counts as a form toward a round's cap, scratch-copy probes included, for Fable (D89) and Opus rounds alike; today's overruns (F9's verb round, HL1's Resolve 0x487660, HL2's two 4-form functions) are accepted after the fact | user (F9's proposal) |
 
 ## 3. Open decisions
 
-* **P-F9-2** (2026-10-29, F9; recommend yes, they count): F9 exceeded D89's 8 forms per function by probing
-  variants on an untracked scratch copy of the .cpp (app/packets/pkverbprobe.cpp, deleted) compiled by tryv2: 7 + 9
-  + 4 probes, the attempts rows give the true counts (7 / 18 / 9 / 23 / 16 forms). It ended with all five exact.
-  Record in D89 that scratch-copy probes count as forms (so the cap means what it says), and either accept this
-  round's overrun after the fact or raise the cap for a whole-object round like D134's?
-  The same happened in HL1's round (2026-10-29): Resolve 0x487660 took 9 forms against its brief's 3, so the
-  rule needs stating for Opus rounds as well as Fable ones (HL2 the same day: 4 forms on two functions against 3).
+(none)
 
 ## 4. Next steps
 
