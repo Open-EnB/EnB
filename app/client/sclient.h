@@ -698,6 +698,7 @@ public:
 	~UIMeshClass();										// 0x5B8640 (Destroy_Object deletes it)
 	void Unknown_5B92B0();								// 0x5B92B0 (Destroy_Object, before the delete)
 	void Unknown_5B9100(const char *bone_name, RenderObjClass *object);	// 0x5B9100: object onto the mesh's bone  // NAME 2 [bone_name]: the FAIL_IF's 'Need bone name'; NAME 1 [object]: neutral
+	void Unknown_5B9130(const char *bone_name, UIMeshClass *child);	// 0x5B9130: child onto the mesh's bone (Attach_To_Bone)  // NAME 2 [bone_name, child]: the asserts' / FAIL_IF's
 	void Unknown_5B9550(int arg);						// 0x5B9550 (the Play_Animation commands pass 0)  // NAME 1 [arg]: neutral
 	void Unknown_5B8DF0(int a, const char *anim_name, bool loop, int b, int c, int d, int e);	// 0x5B8DF0: an animation onto the mesh  // NAME 1 [a, loop, b, c, d, e]: neutral; NAME 2 [anim_name]: the FAIL_IF's
 	RenderObjClass *Peek_Object();						// 0x5B8B00 (its +0x1C; the asserts' '(*itor).Mesh->Peek_Object()')  // NAME 3: the assert's
@@ -731,6 +732,8 @@ public:
 	bool Unknown_809710();								// 0x809710: +0x7C cleared
 	bool Unknown_809730();								// 0x809730: +0x7C set
 	bool Attach_Camera(ScriptedMovieParamsClass *params);		// 0x8052E0 (FAIL_IF lines 1780 / 1789, G_ASSERTs 1787 / 1791): the camera onto a bone of the slot's mesh  // NAME 2: the user error's 'Attach_Camera'; NAME 1 [params]: neutral
+	bool Attach_To_Bone(ScriptedMovieParamsClass *params);		// 0x805810 (FAIL_IF lines 1881 / 1885 / 1913, G_ASSERTs 1905 / 1906): an object onto a bone of the host's mesh  // NAME 2: the user error's 'Attach_To_Bone'; NAME 1 [params]: neutral
+	bool Attach_Light_To_Bone(ScriptedMovieParamsClass *params);	// 0x8059A0 (FAIL_IF lines 1923 / 1930 / 1954, G_ASSERTs 1926 / 1927 / 1947): a light onto a bone of the host's mesh  // NAME 2: the user error's 'Attach_Light_To_Bone'; NAME 1 [params]: neutral
 	bool Set_Light_Intensity(ScriptedMovieParamsClass *params);	// 0x806100 (FAIL_IF lines 2096-2104): Lights[slot]'s intensity  // NAME 2: the user error's 'Set_Light_Intensity'; NAME 1 [params]: neutral
 	bool Set_Light_Far_Attenuation(ScriptedMovieParamsClass *params);	// 0x806280 (FAIL_IF lines 2130-2138)  // NAME 2: the user error's 'Set_Light_Far_Attenuation'; NAME 1 [params]: neutral
 	bool Set_Light_Ambient_Color(ScriptedMovieParamsClass *params);	// 0x806440 (FAIL_IF lines 2170-2186)  // NAME 2: the user error's 'Set_Light_Ambient_Color'; NAME 1 [params]: neutral

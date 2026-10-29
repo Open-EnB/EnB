@@ -1874,87 +1874,87 @@ bool ScriptedMovieViewClass::Attach_Camera(ScriptedMovieParamsClass *params)
 
 
 
+// 0x805810: the object slot's mesh onto a bone of the host slot's
+bool ScriptedMovieViewClass::Attach_To_Bone(ScriptedMovieParamsClass *params)
+{
+	const char *param = params->Unknown_7FFDC0();
+	FAIL_IF((param == NULL) && "User error: Attach_To_Bone: Need object slot") {return(false);}
+	int object_slot = atoi(param);
+	param = params->Unknown_7FFDC0();
 
+	FAIL_IF((param == NULL) && "User error: Attach_To_Bone: Need host slot") {return(false);}
+	int host_slot = atoi(param);
+	UIMeshClass *parent = NULL;
+	UIMeshClass *child = NULL;
+	for (std::vector<ScriptedMovieObjectStruct>::iterator itor = Objects.begin(); itor != Objects.end(); itor++) {
+		if ((*itor).Slot == host_slot) {
+			parent = (*itor).Mesh;
+		} else if ((*itor).Slot == object_slot) {
+			child = (*itor).Mesh;
+		}
+		if (child && parent) {
+			break;
+		}
+	}
 
 
 
 
 
 
+	G_ASSERT(child);
+	G_ASSERT(parent);
+	child->Unknown_5B92B0();
+	param = params->Unknown_7FFDC0();
 
 
 
 
+	FAIL_IF((param == NULL) && "User error: Attach_To_Bone: Need bone name") {return(false);}
+	parent->Unknown_5B9130(param, child);
+	return(true);
+}
+// 0x8059A0: the light slot's light onto a bone of the host slot's mesh
+// NOT EXACT: after the loop the client knows parent is NULL (no second test before the G_ASSERT); forms: the
+// slot and the mesh tested together, the mesh tested after the assignment (this one)
+bool ScriptedMovieViewClass::Attach_Light_To_Bone(ScriptedMovieParamsClass *params)
+{
+	const char *param = params->Unknown_7FFDC0();
+	FAIL_IF((param == NULL) && "User error: Attach_Light_To_Bone: Need light slot") {return(false);}
+	int objectslot = atoi(param);
 
+	G_ASSERT(objectslot < MAX_LIGHTS_PER_SCENE);
+	G_ASSERT(Lights[objectslot]);
+	param = params->Unknown_7FFDC0();
 
+	FAIL_IF((param == NULL) && "User error: Attach_Light_To_Bone: Need host slot") {return(false);}
+	int host_slot = atoi(param);
+	UIMeshClass *parent = NULL;
+	for (std::vector<ScriptedMovieObjectStruct>::iterator itor = Objects.begin(); itor != Objects.end(); itor++) {
+		if ((*itor).Slot == host_slot) {
+			parent = (*itor).Mesh;
+			if (parent) {
+				break;
+			}
+		}
+	}
 
 
 
 
 
 
+	G_ASSERT(parent);
+	Lights[objectslot]->Remove();
+	param = params->Unknown_7FFDC0();
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	FAIL_IF((param == NULL) && "User error: Attach_Light_To_Bone: Need bone name") {return(false);}
+	parent->Unknown_5B9100(param, Lights[objectslot]);
+	return(true);
+}
 
 
 
