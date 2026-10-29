@@ -1402,6 +1402,8 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
   + 4 probes, the attempts rows give the true counts (7 / 18 / 9 / 23 / 16 forms). It ended with all five exact.
   Record in D89 that scratch-copy probes count as forms (so the cap means what it says), and either accept this
   round's overrun after the fact or raise the cap for a whole-object round like D134's?
+  The same happened in HL1's round (2026-10-29): Resolve 0x487660 took 9 forms against its brief's 3, so the
+  rule needs stating for Opus rounds as well as Fable ones.
 
 * **P-IB2-1** (2026-10-29, IB2; recommend yes): one more short round on 0x6FD310 past LIMIT REACHED (3 Opus rounds,
   F8's Fable round, IB2's lever round): at most 2 forms, IB2's form (1) plus a find-if-changed helper with the mark
@@ -1619,7 +1621,13 @@ client's own code: [kernel-map.md](kernel-map.md) §6 and, for step 9's dependen
    P9's worktree scripts (item 3); the compare-and-swap commit rule (`update-ref master NEW OLD`) into commit_mine
    (H17's race); gen_stubs' by-value returns (P-T18-2); H16's `.work/h16/fm_gen.py` / `commit_h16.py` pattern for
    generated files.
-10. Leftovers: the shaders' `multiple` functions (D88 credits what it can), Compute_Caps 0x9B0160 (parked), the
+10. Leftovers: attrib_dir.cpp / spln_db.cpp after HL1's round (2026-10-29, 5b6efec +3: Detach_Callback 0x4D5000, ~AttributeInfo
+   0x4D6620, Advance's copy 0x4D9C50 exact through while loops in attrib_dir.h; no shared static helper in either
+   file; parked Notify 0x4D71D0, Unlock 0x4D8690, Attach_Mod 0x4D6820 / 0x4D4810, Create_Hermite / Create_Color
+   0x485C10 / 0x487400 (only the `new HashNodeClass`'s EH state differs: when VC6 compiles GenericNode's
+   out-of-line ctor, a reasoning lead), Get_Color_Curves 0x485440, Create_Blend 0x486200, ~SplineDatabaseClass
+   0x484810; Resolve 0x487660 at 24 masked rows, stashed in docs/attempts/487660/: only the alpha lookup's
+   HashListClass::Find is still inlined); the shaders' `multiple` functions (D88 credits what it can), Compute_Caps 0x9B0160 (parked), the
    meshmatdesc noise (D18/D28), `CreateBrowser`'s app callers 0x7CA5C0 / 0x7CAD00 (E&B's `querydata`); P-H11-2
    (the _Instances destructor frees nodes without element destructors: leave unbuilt until another SGI user
    shows it); `tiebreak` / `selfname` into imports.json only when something needs it (D88 row); same-shape template

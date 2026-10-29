@@ -150,6 +150,11 @@ tools/re/README.md, tools/vc6 and tools/harness/README.md.
   inlined static helper a set-walking `for` leaves `_Inc` out of line; `it = begin(); while (it != end()) { ...;
   ++it; }` inlines it. In a non-inlined body VC6 gives identical bytes for it++ / ++it, iterator / const_iterator,
   += / append(ptr) and for / while: those are not levers there.
+  HL1 (2026-10-29): the while form also works on a template helper's vector walk in a header: attrib_dir.h's
+  AttribIteratorListClass::Advance / Invalidate as `i = begin(); while (i != end()) { ...; ++i; }` made two
+  functions exact (one inlining more, one more in a destructor). Try the while form on every inlined helper loop
+  before looking for static helpers; keep line numbers (put statements on shared lines), or every later function
+  with asserts is lost. The int3 padding trace is useless under the incremental link (every function is padded).
 * **What sends a Cast out of line: a non-tail nested multi-return expansion before a conditional call** (2026-10-29,
   F8's Fable round, calibrated on 0x6FEAC0 / 0x6FDBD0): the budget unit that pushes a find's `C *t = Cast(d);
   G_ASSERT(t);` out of line is a nested inline expansion with several returns in non-tail position followed by a
