@@ -180,12 +180,12 @@ public:
 	virtual int Unknown_0C(bool on);					// +0x0C Process_Packets passes true to the loading view (the main view's renders and returns a WW3DErrorType)
 	virtual void Unknown_10();							// +0x10 0x65B4A0 Shutdown (the main view's 0x50C2F0 calls this one, past 0x65B810's 0x65B8B0)
 	virtual void Unknown_14();							// +0x14 SClient::Do_Frame: the current view's, after Process_AI
-	virtual void Unknown_18(int arg);					// +0x18 (0x514CF0)  // NAME 1 [arg]: neutral
+	virtual void Unknown_18(int arg) {}					// +0x18 0x514CF0  // NAME 1 [arg]: neutral
 	virtual ViewClass *Unknown_1C() { return(this); }	// +0x1C 0x50B720
 	virtual ViewClass *Unknown_20() { return(NULL); }	// +0x20 0x514D10 (Unknown65B810ViewClass's 0x50B7E0 returns the view)
-	virtual ViewClass *Unknown_24();					// +0x24 0x514D30
+	virtual ViewClass *Unknown_24() { return(NULL); }	// +0x24 0x514D30 (the main view's 0x50B800 returns the view)
 	virtual int Unknown_28() { return(0); }				// +0x28 0x50B680
-	virtual int Unknown_2C() { return(0); }				// +0x2C 0x50B6A0
+	virtual ViewClass *Unknown_2C() { return(NULL); }	// +0x2C 0x50B6A0 (Unknown514CC0ViewClass's 0x514D90 returns the view)
 	virtual int Unknown_30() { return(0); }				// +0x30 0x50B6C0
 	virtual int Unknown_34() { return(0); }				// +0x34 0x50B6E0
 	virtual int Unknown_38() { return(0); }				// +0x38 0x50B700
@@ -196,7 +196,7 @@ public:
 	virtual int Unknown_4C() { return((int)Unknown28); }	// +0x4C 0x50B760
 	virtual int Unknown_50() { return((int)Unknown1C); }	// +0x50 0x50B780 (the main view's 0x50BA60 holds its result in a RefCountPtr)
 	virtual int Unknown_54() { return((int)Unknown20); }	// +0x54 0x50B7A0
-	virtual CameraClass *Unknown_58();					// +0x58 0x514D70
+	virtual CameraClass *Unknown_58() { return(NULL); }	// +0x58 0x514D70
 
 	LoginUnknown0CClass *Get_Unknown04() { return(Unknown04); }	// inline (Do_Frame reads it into eax first)  // NAME 1: neutral (D10): the member it returns
 	ViewUnknown34Class *Get_Unknown34() { return(Unknown34); }	// inline (GROUP 30 and DIALOG 98 read it into eax first)  // NAME 1: neutral (D10): the member it returns
@@ -222,6 +222,29 @@ public:
 	virtual void Unknown_10();							// +0x10 0x65B8B0 (+0x4C cleared, then the base's 0x65B4A0)
 	virtual ViewClass *Unknown_20() { return(this); }	// +0x20 0x50B7E0
 	virtual int Unknown_44();							// +0x44 0x65B8D0 (+0x4C's +0x1274, 0 without one)
+};
+
+// the interface object of the view at SClient +0x1358 (0xAC bytes, constructor 0x5B7AB0; file unknown)
+class Unknown5B7AB0Class : public UIUnknownBaseClass, public RefCountClass	// NAME 1: neutral (D10)
+{
+public:
+	Unknown5B7AB0Class(ViewClass *view, const LayerClass &layer);	// 0x5B7AB0 (0x514E70 passes its view and a layer of the base's +0x1C / +0x20)  // NAME 1 [view, layer]: what 0x514E70 passes
+
+	char Unknown40[0xAC - 0x40];						// +0x40
+};
+
+// The 0x50-byte view at SClient +0x1358 (SClient::Init; constructor 0x514CC0, table 0xAED114): its functions follow
+// mainview.cpp's, with no static initializer of their own before them, so they are kept at mainview.cpp's end
+class Unknown514CC0ViewClass : public ViewClass	// NAME 1: neutral (D10)
+{
+public:
+	Unknown514CC0ViewClass(ClientTaskClass *task);		// 0x514CC0 (the base with 1)  // NAME 1 [task]: what SClient::Init passes
+	virtual ~Unknown514CC0ViewClass();					// +0x00 0x514DE0 (deleting 0x514DB0)
+	virtual void Unknown_08();							// +0x08 0x514E70 (its interface object, on through +0x54, to 0x6B4940)
+	virtual ViewClass *Unknown_2C() { return(this); }	// +0x2C 0x514D90
+
+	char Unknown38[0x4C - 0x38];						// +0x38
+	Unknown5B7AB0Class *Unknown4C;						// +0x4C (0x514E70 makes it; the destructor releases it)
 };
 
 // radar_system.cpp's radar (the main view's +0x80), declared as far as cpacket.cpp calls it

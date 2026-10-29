@@ -2356,6 +2356,27 @@ void MainViewClass::Unknown_18(int arg)
 	if (Radar) Radar->Unknown_7BCA40(arg);
 }
 
+// 0x514CC0: the view at SClient +0x1358 (sclient.h): the base with 1
+Unknown514CC0ViewClass::Unknown514CC0ViewClass(ClientTaskClass *task) :
+	ViewClass(task, 1)
+{
+}
+
+// 0x514DE0
+Unknown514CC0ViewClass::~Unknown514CC0ViewClass()
+{
+	REF_PTR_RELEASE(Unknown4C);
+}
+
+// 0x514E70: slot +0x08: its interface object over a layer of the base's scene and camera
+// NOT EXACT: register only (the layer's camera load and the Vector3's address swap eax / ecx, as the first layer of 0x50C690); attempts.csv 0x514E70
+void Unknown514CC0ViewClass::Unknown_08()
+{
+	Unknown4C = new Unknown5B7AB0Class(this, LayerClass(Unknown1C, Unknown20));
+	Unknown4C->Unknown_54();
+	Unknown_6B4940(Unknown4C);
+}
+
 /*
 **	Notes (LD3, 2026-10-28)
 **

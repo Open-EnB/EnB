@@ -2991,7 +2991,10 @@
      "0x514400",
      "0x514450",
      "0x514480",
-     "0x514930"
+     "0x514930",
+     "0x514CC0",
+     "0x514DB0",
+     "0x514DE0"
     ],
     "merged": [],
     "name": "client/mainview.cpp"
@@ -9189,7 +9192,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 4560,
+  "in_tree_total": 4563,
   "totals": {}
  },
  "binkmovie": {

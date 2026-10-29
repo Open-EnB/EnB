@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-338 entries in 69 files.
+339 entries in 69 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -118,6 +118,7 @@ edit the comments in the code, not this file.
 | `app/client/mainview.cpp:1786` | `MainViewClass::Unknown_60` | marker | NOT EXACT: functional (MV2, from the disassembly) slot +0x60: the object under the screen point (x, y in 0..1): the avatar's model first unless skip_avatar, then the objects within the camera's far distance and 5 degrees of the ray (the planets and stations, types 2 / 3 / 10, within their apparent size), the one nearest the ray that no nearer occluder covers |
 | `app/client/mainview.cpp:2148` | `MainViewClass::Unknown_514010` | marker | NOT EXACT: shape (the second switch's case 0 / 5 block sits after the dispatch in the client); attempts.csv 0x514010 |
 | `app/client/mainview.cpp:2319` | `MainViewClass::Unknown_5146D0` | marker | NOT EXACT: shape (the client multiplies by 0.01 and then by each scale; VC6 folds the two constants here); attempts.csv 0x5146D0 0x5146D0: with 'Graphics_Default' the client's own options and a gamma of 1.2, else the Graphics_* sliders (percent) scaled to the budgets; each clamped, then WW3D's gamma and texture reduction when either changed |
+| `app/client/mainview.cpp:2372` | `Unknown514CC0ViewClass::Unknown_08` | marker | NOT EXACT: register only (the layer's camera load and the Vector3's address swap eax / ecx, as the first layer of 0x50C690); attempts.csv 0x514E70 |
 | `app/client/option.cpp:810` | `OptionClass::Get_String` | marker | NOT EXACT: shape, block order: this order gives the client's inlining (the "" path calls _Grow) but places the "" path first; the client places the copy first |
 | `app/client/option.cpp:856` | `OptionClass::Get_Default_String` | marker | NOT EXACT: shape, as Get_String |
 | `app/client/postate.cpp:920` | `Unknown717010Class::Unknown_717430` | marker | NOT EXACT: inline-budget (the client calls the float field's Cast 0x546970 out of line in the first lookups, ours inlines all; 286 vs 314 instructions; one form; attempts.py show 0x717430) |

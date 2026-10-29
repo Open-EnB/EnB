@@ -282,14 +282,14 @@ public:
 	virtual bool Unknown_04();							// +0x04 (Do_Frame deletes the object when it is true)
 };
 
-// The 0x50-byte view at SClient +0x1358 (constructor 0x514CC0, between mainview.cpp and smouse.cpp)
-class Unknown514CC0ViewClass : public ViewClass	// NAME 1: neutral (D10)
-{
-public:
-	Unknown514CC0ViewClass(ClientTaskClass *task);		// 0x514CC0
+// The 0x50-byte view at SClient +0x1358 (constructor 0x514CC0): sclient.h
 
-	char Unknown38[0x50 - 0x38];
-};
+
+
+
+
+
+
 
 // The camera manager's callback (vtable 0xB032D8 over the base's 0xAEDB58): an object and a member function
 class SClientCallbackBaseClass	// NAME 1: neutral (D10): vtable 0xAEDB58 (slot 0 0x51E220)
