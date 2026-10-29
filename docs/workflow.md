@@ -152,6 +152,9 @@ tools/re/README.md, tools/vc6 and tools/harness/README.md.
   constructor and LookupClass::Find made inline-visible, /Zi and /Z7. Lead: in 0x6FD310 one static inline helper
   around the three finds (name built inside, mark test, array store, changed loop) sends all three Casts out with
   no dead code. `attempts.py --stash` writes an untracked docs/attempts/<ADDR>/NAME.txt: add it to the commit.
+  IB2 (2026-10-29): a helper made only of the find and the mark test, returning t in tail position, compiles
+  byte-identical to the flat code; the spender needs work after the find's expansion inside the helper (the
+  loop / memset). Two helpers (Spot, Line) with Blotch's find explicit gave the client's calls exactly.
 * **A switch's case order** (2026-10-29, LD4): 0x65AB10 became exact only with the cases written in the jump table's
   target-address order; in 0x514010 reordering the labels gave byte-identical code (VC6 normalises there). Try the
   table's order once; if the bytes don't move, the residue is elsewhere.

@@ -1396,7 +1396,12 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 
 ## 3. Open decisions
 
-(none)
+* **P-IB2-1** (2026-10-29, IB2; recommend yes): one more short round on 0x6FD310 past LIMIT REACHED (3 Opus rounds,
+  F8's Fable round, IB2's lever round): at most 2 forms, IB2's form (1) plus a find-if-changed helper with the mark
+  test inside (`G_ASSERT(t); if (!t) return NULL; if (t->m_Unknown70 <= 1) return NULL; return t;`), for all three
+  finds and for Spot / Line only. It would merge the find's NULL exits and the failed mark test into one exit, as
+  the client's `xor ebp, ebp` does at 0x6FD39B-0x6FD3F1, and applies the same lever (no new one). Neither exact:
+  park for good. About 30 minutes of Opus.
 
 ## 4. Next steps
 
@@ -1563,7 +1568,8 @@ client's own code: [kernel-map.md](kernel-map.md) §6 and, for step 9's dependen
 7. The Fable queue under D89 / D97 (by unlock value; D136: not pruned, rounds scheduled more often): (done 2026-10-29: F8's round on co.cpp's per-find budget, 4dd8a97 / 6fac2a6, 0 pairs: 0x6FBEF0 got the client's
    frame 0x270, residue 106 -> 93; the per-find spender is not found but narrowed (workflow.md §3.1, 'What sends a
    Cast out of line'); 0x6FD310 and 0x6FBEF0 partial with 8 forms each, 0x6F3FA0 parked register; P-F8-2, a second
-   D89 round on 0x6FD310 citing that lever, 3 forms written in docs/attempts/6FD310/v11.py.txt, is an Opus item;
+   D89 round on 0x6FD310 citing that lever, done by IB2 (372d87d, 0 pairs: the helper for Spot / Line with Blotch
+   explicit gives the client's 23 calls, residue 50 -> 44, not exact; P-IB2-1);
    P-F8-3, 0x6FBEF0 with a per-field inline helper, low priority) the verb object's five inline-budget functions 0x8AF150 / 0x8AF6D0 / 0x8AFD10 / 0x8AFF40 / 0x8B0150 as one round (D134; PK3's and PK2's attempts rows); client_lego_impl's Find 0x72ABB0 + Add 0x72B7F0 +
    Remove 0x72C1D0 as one round (P-H20-1), CLIENT_DAMAGE 0x738970 then FORMATION 0x734740 (P-T19-3), D92's three
    (item 2), Get_Lego_Transform then Child_Moved / Attach (P-H17-2), cpacket 62 with SIMPLE 8 as one round (both
