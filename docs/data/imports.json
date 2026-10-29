@@ -1,6 +1,6 @@
 {
  "app": {
-  "ambiguous_total": 132,
+  "ambiguous_total": 133,
   "base": "reconstructed",
   "compile_errors": [],
   "files": {
@@ -8970,6 +8970,45 @@
     ],
     "merged": [],
     "name": "shared/auxdata/unknown_root.cpp"
+   },
+   "view": {
+    "ambiguous": [
+     "0x42B2F0",
+     "0x430450",
+     "0x474080",
+     "0x541A10",
+     "0x6B55D0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42F250",
+     "0x430370",
+     "0x6B45A0",
+     "0x6B45D0",
+     "0x6B46F0",
+     "0x6B4860",
+     "0x6B4940",
+     "0x6B4990",
+     "0x6B4A00",
+     "0x6B4A50",
+     "0x6B4AD0",
+     "0x6B4B40",
+     "0x6B4EB0",
+     "0x6B4F40",
+     "0x6B50C0",
+     "0x6B5100",
+     "0x6B5280",
+     "0x6B52C0",
+     "0x6B52F0",
+     "0x6B5380",
+     "0x6B53D0",
+     "0x6B5490",
+     "0x6B5570",
+     "0x6B55A0"
+    ],
+    "merged": [],
+    "name": "client/view.cpp"
    }
   },
   "headers": {
@@ -9225,7 +9264,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 4580,
+  "in_tree_total": 4603,
   "totals": {}
  },
  "binkmovie": {

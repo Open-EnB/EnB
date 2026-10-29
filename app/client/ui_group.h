@@ -6,7 +6,7 @@
 #include "sclient.h"
 
 // ui_group.cpp's group window (the main view's +0x1D8), as far as cpacket.cpp and the main view call it
-class UIGroupClass : public UIUnknownBaseClass, public RefCountClass	// NAME 3: class-from-file (D24) for app\client\ui_group.cpp
+class UIGroupClass : public UIInterfaceBaseClass	// NAME 3: class-from-file (D24) for app\client\ui_group.cpp
 {
 public:
 	UIGroupClass(SClient *client);						// 0x593BD0 (0xF4 bytes; the main view's 0x50C690)  // NAME 1 [client]: what 0x50C690 passes

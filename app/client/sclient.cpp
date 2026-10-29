@@ -161,7 +161,7 @@ public:
 	bool Unknown7C;										// +0x7C (tested before every call)
 };
 
-class UIChatPanelClass : public UIUnknownBaseClass, public RefCountClass
+class UIChatPanelClass : public UIInterfaceBaseClass
 {
 public:
 	UIChatPanelClass(SClient *client);					// 0x561DD0
@@ -191,7 +191,7 @@ public:
 
 
 
-class UIHotKeysClass : public UIUnknownBaseClass, public RefCountClass
+class UIHotKeysClass : public UIInterfaceBaseClass
 {
 public:
 	UIHotKeysClass(SClient *client);					// 0x59C6F0
@@ -199,7 +199,7 @@ public:
 	char Unknown40[0x84 - 0x40];
 };
 
-class UITalkTreeSpaceClass : public UIUnknownBaseClass, public RefCountClass
+class UITalkTreeSpaceClass : public UIInterfaceBaseClass
 {
 public:
 	UITalkTreeSpaceClass(SClient *client);				// 0x64F310

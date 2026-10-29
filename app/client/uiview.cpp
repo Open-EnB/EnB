@@ -121,13 +121,13 @@ void UIViewClass::Unknown_14()
 {
 	Unknown34->Unknown_588870();
 	Unknown30->Unknown_6AB5B0();
-	ViewClass::Unknown_6B4860();
+	ViewClass::Unknown_14();
 }
 
 // 0x65B4A0: slot +0x10: Shutdown, Init's counterpart
 void UIViewClass::Unknown_10()
 {
-	ViewClass::Unknown_6B46F0();
+	ViewClass::Unknown_10();
 	Unknown34->Unknown_5C();
 	REF_PTR_RELEASE(Unknown34);
 	delete Unknown30;

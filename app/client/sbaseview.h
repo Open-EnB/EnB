@@ -25,7 +25,7 @@ class ShipRecustomizationCostClass;
 class RecustomizationCostClass;
 
 // ui_starbase.cpp's starbase interface (the starbase view's +0x60), declared as far as the starbase avatar packets call it
-class UIStarbaseClass : public UIUnknownBaseClass, public RefCountClass	// NAME 3: class-from-file (D24) for app\client\ui_starbase.cpp
+class UIStarbaseClass : public UIInterfaceBaseClass	// NAME 3: class-from-file (D24) for app\client\ui_starbase.cpp
 {
 public:
 	void Unknown_63CF30(int avatar_id, int new_room);	// 0x63CF30 (STARBASE_AVATAR_ROOM_UPDATE 160)  // NAME 1 [avatar_id, new_room]: the packet's fields
