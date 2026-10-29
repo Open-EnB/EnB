@@ -109,6 +109,7 @@ struct FontSoundStruct  // NAME 2 [FontSoundStruct]: a string template's sound: 
 	StringClass ID;														// +0x00  // NAME 2: the ini key
 	float Vol;															// +0x04  // NAME 2: the ini key
 	float Dur;															// +0x08  // NAME 2: the ini key
+	void Reset() { ID = ""; Vol = 1.0f; Dur = -1.0f; }		// inlined in FontStringStruct::Reset 0x6BE0E0  // NAME 2: what it does
 };
 
 struct FontStringStruct  // NAME 2: one string template of a string file (Template%d / String%d keys; 0xEC bytes; "NewStringInfo" by default)

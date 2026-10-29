@@ -56,7 +56,7 @@ FontStringStruct::FontStringStruct(const char *string_id, const char *text)
 }
 
 
-// NOT EXACT: inline-budget: the client inlines the first nine string assignments with Store_Length called and calls operator= in the loop; ours inlines all
+// The first nine assignments inline (Store_Length called), the sounds' and the loop's call operator= (HL2, 2026-10-29)
 void FontStringStruct::Reset()
 {
 	StringID = "NewStringInfo";
@@ -86,12 +86,12 @@ void FontStringStruct::Reset()
 	TriggerTime = 1.0f;
 	Rotate90 = false;
 	Underline = false;
-	SoundOn.Vol = 1.0f;
-	SoundOn.Dur = -1.0f;
-	SoundOver.Vol = 1.0f;
-	SoundOver.Dur = -1.0f;
-	SoundClick.Vol = 1.0f;
-	SoundClick.Dur = -1.0f;
+	// Each sound back to its defaults through FontSoundStruct's inline Reset: its ID = "" is the
+	// client's out-of-line operator= at 0x6BE39B / 0x6BE3B5 / 0x6BE3CD (VC6's budget is spent by
+	// then); the loop's 24 assignments are called too, from EffectConst's address (+0x9C).
+	SoundOn.Reset();
+	SoundOver.Reset();
+	SoundClick.Reset();
 	for (int i = 0; i < 4; i++) {
 		EffectOn[i] = "";
 		EffectConst[i] = "";
