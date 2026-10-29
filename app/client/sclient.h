@@ -667,12 +667,23 @@ public:
 class LoadingViewClass : public Unknown65B810ViewClass	// NAME 3: class-from-file (D24) for loadingview.cpp
 {
 public:
-	LoadingViewClass(ClientTaskClass *task);			// 0x691570  // NAME 1 [task]: SClient::Init passes its task
+	LoadingViewClass(ClientTaskClass *ctask);			// 0x691570 (G_ASSERT 'ctask', l.52; table 0xAFCF7C)  // NAME 2 [ctask]: the assert's
+	virtual ~LoadingViewClass();						// +0x00 0x691680 (deleting 0x691650)
+	virtual void Unknown_04();							// +0x04 0x691770 (the base's, then both scenes' fog off)
+	virtual int Unknown_0C(bool on);					// +0x0C 0x692420 (the loading screen, 'Loading_Text_map_load00')
+	virtual void Unknown_10();							// +0x10 0x6917A0 (UIViewClass's 0x65B4A0, then +0x58..+0x64 released)
+	virtual LoadingViewClass *Unknown_5C() { return(this); }	// +0x5C 0x691630
 	void Unknown_691830(const std::string &source_sector, const std::string &source_system, const std::string &name, const std::string &system);	// 0x691830 (cpacket.cpp: SERVER_HANDOFF 58)  // NAME 1 [source_sector, source_system, name, system]: the packet's fields
 	void Unknown_692330();								// 0x692330 (cpacket.cpp: START 5)
 
-	char Unknown50[0x68 - 0x50];						// +0x50
+	int Unknown50;										// +0x50
+	int Unknown54;										// +0x54
+	RefCountPtr<RefCountClass> Unknown58;				// +0x58 (START 0x692330 calls its +0x38 and hands it to FontManagerClass::Unknown_6D2310; its class not known)
+	RefCountPtr<RefCountClass> Unknown5C;				// +0x5C
+	RefCountPtr<RefCountClass> Unknown60;				// +0x60
+	RefCountPtr<RefCountClass> Unknown64;				// +0x64 (START calls its +0x38 when set)
 	bool Unknown68;										// +0x68 ClientTaskClass::Render renders when it is set
+	bool Unknown69;										// +0x69
 };
 
 // The 3-D movie view (constructor 0x7EEF90, 0x2A8 bytes; SClient 0x74BC20 makes it, 0x74BD10 deletes it)
