@@ -103,6 +103,10 @@ tools/re/README.md, tools/vc6 and tools/harness/README.md.
 
 ### 3.0 Everyone
 
+* **An uncommitted app header edit reaches other builders' verifies half done** (2026-10-29, PX4): UI1's verify
+  compiled PX4's new px_collision.cpp against HEAD's px_collision.h and wrote C2511 plus an empty px_collision entry
+  into the working imports.json. Draft in a scratch copy (`appfile.py match` on `.work/<id>/m/`), touch the tree
+  only to verify and commit at once, and re-verify before `commit_mine --file` (it takes the working copy's entry).
 * **Before changing a member's type, grep the other builders' working copies, not only HEAD** (2026-10-29, HL3):
   "nothing outside fontdatabase.* reads BoxOffset" was true at HEAD but not in the shared tree (LS1's uncommitted
   fontmanager.cpp read `def->BoxOffset[0]`).
@@ -142,6 +146,9 @@ tools/re/README.md, tools/vc6 and tools/harness/README.md.
 
 ### 3.1 VC6 code generation
 
+* **Sibling blocks share stack slots** (2026-10-29, PX4): a client frame equal to the sum of its cases' locals
+  means one case's locals sit at function scope (0x454730: frame 0x368 -> the client's 0x588). `if (g()) return(true);
+  return(false);` gives the client's test / setne.
 * **Small budget levers from HL2's round** (2026-10-29): an extra inline accessor in a test (`def->Get_Type()`)
   can push an earlier string assign out of line and pull a later destructor inline: try it when a sibling without
   the test is already exact (Play_2D_Sound 0x43ED30 against Play_3D_Sound). When the client calls a file's own

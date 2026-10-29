@@ -1463,8 +1463,11 @@ client's own code: [kernel-map.md](kernel-map.md) §6 and, for step 9's dependen
    PxWrapper 0x456F60 / 0x457190 and DynObj 0x44AF50 / 0x44AF80, the collision response 0x453C20 exact (DynObj slot
    +0xA0 retyped, PxCollision's +0x08 / +0x14 two Vector3s); parked Overlap 0x44E470 0.64 (the client inlines in
    reverse source order; lead: a nested helper for the enter half), On_Enter 0x44F5D0 0.35, On_Exit 0x44F6E0 0.91
-   (a kept `&it->second`); untried 0x453F10 (OBBox separating axes, no caller) and 0x454730 (3 KB, three cases;
-   lead: the one-rep cases from ww3d2's coltest.h / obbox.h); 0x454590 is a {int, string, string} _Construct with
+   (a kept `&it->second`); PX4 (95fd59a, 46eeeca, +4): 0x454730 rebuilt from ww3d2's OBBoxIntersectionTestClass /
+   OBBoxCollisionTestClass, its out-of-line helpers 0x4555B0 / 0x4555F0 / 0x455680 / 0x455760 exact; 0x454730 NOT
+   EXACT order (18 rows: only the first inlined OBBoxClass::Transform's fld / fmul order; leads: an explicit
+   Matrix3D::Transform_Vector + Matrix3::Multiply, or A's box built after B's), 0x453F10 NOT EXACT (the client keeps
+   self / other in ecx / edi from the start; lead: a per-box struct or named Get_*_Vector locals); 0x454590 is a {int, string, string} _Construct with
    callers in three other files, not a px function). Earlier list: px_callback_accurate's overlap handling 0x44E470-0x44F200, On_Enter / On_Exit 0x44F5D0 / 0x44F6E0, its hash_map /
    vector instances 0x450B40-0x451B60 (FAIL_IF line 170 inlined into five: definition order); the factories
    0x452140 / 0x452460; px_collision's 0x453C20, 0x453F10, 0x454730 (OBBox separating axes); sclient.cpp's
