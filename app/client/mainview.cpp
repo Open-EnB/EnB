@@ -154,7 +154,7 @@ static const float BridgeNear = 1.0f, BridgeFar = 150.0f;	// NAME 1: neutral (D1
 
 
 
-// NOT EXACT: scheduling only (the array-ctor pushes, two float constants, one register); attempts.csv 0x50B360
+// NOT EXACT: scheduling only (the array-ctor pushes, the 0.5 / 1.0 constants, one register); attempts.csv 0x50B360
 MainViewClass::MainViewClass(ClientTaskClass *ctask) :
 	Unknown65B810ViewClass(ctask, 0),
 	GraphicsDefault(false), GraphicsGamma(0), GraphicsLandPoly(0), GraphicsLandDetail(0), GraphicsSpacePoly(0), GraphicsTextureSize(0), GraphicsChanged(false), DefaultChanged(false),
@@ -163,8 +163,8 @@ MainViewClass::MainViewClass(ClientTaskClass *ctask) :
 	DazzleLayer(NULL), Unknown128(0), Camera(NULL), Unknown130(true),
 	Unknown138(NULL), Land(NULL), Orbitals(NULL),
 	Unknown168(false), Unknown16C(0.0f, 0.0f, 0.0f),
-	Unknown178(0.5f, 0.5f, 0.5f), Unknown184(0.0f, 0.0f, 1.0f), Unknown190(0),
-	Unknown194(0.05f), Unknown198(0.1f), Unknown19C(0.1f), Unknown1A0(0.5f), Unknown1A4(true),
+	Lighting(),
+
 	SeaFogNear(0), SeaFogFar(0), SeaColor(1.0f, 1.0f, 1.0f), Wind(0.0f, 0.0f, 0.0f), Unknown1C8(0), Unknown1CC(false),
 	Cpit(NULL), Unknown1D4(NULL), Group(NULL), Unknown1DC(NULL), Unknown1E0(NULL), Unknown1E4(NULL), ProfileIterator(NULL)
 {
@@ -953,17 +953,17 @@ void MainViewClass::Update(CameraClass *camera, bool under)
 			Scene->Set_Ambient_Light(ambient);
 			Land->Update_Patches(*camera, LandLOD);
 			Unknown16C = sky;
-			Unknown198 = ambient.X;
-			Unknown19C = ambient.Y;
-			Unknown1A0 = ambient.Z;
-			Unknown1A4 = Orbitals->Unknown4C;
-			Unknown190 = Orbitals->Unknown2C;
-			Unknown178 = sun;
-			Unknown184 = Orbitals->Unknown20;
-			Unknown194 = Orbitals->Unknown30;
+			Lighting.SkyColor.X = ambient.X;
+			Lighting.SkyColor.Y = ambient.Y;
+			Lighting.SkyColor.Z = ambient.Z;
+			Lighting.Valid = Orbitals->Unknown4C;
+			Lighting.SunAngle = Orbitals->Unknown2C;
+			Lighting.LightColor = sun;
+			Lighting.SunDirection = Orbitals->Unknown20;
+			Lighting.ShadowBias = Orbitals->Unknown30;
 			((MainViewSceneClass *)Scene)->Unknown_75F700(sun * 0.5f);
-			// +0x178..+0x1A4 are the land's lighting (LandLightingStruct's layout and the constructor's defaults)
-			const LandLightingStruct &lighting = *(const LandLightingStruct *)&Unknown178;
+			const LandLightingStruct &lighting = Lighting;
+
 			static bool was_under;		// the client's 0xBE59E4
 			if (Land->Has_Sea()) {
 				if (was_under != under) {

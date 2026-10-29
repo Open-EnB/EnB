@@ -9161,6 +9161,7 @@
    "shared/kv_pair_string.h": "reconstructed",
    "shared/kv_tripl.h": "reconstructed",
    "shared/land.h": "reconstructed",
+   "shared/land_lighting.h": "reconstructed",
    "shared/landdmap.h": "reconstructed",
    "shared/lookup_table.h": "reconstructed",
    "shared/money.h": "reconstructed",

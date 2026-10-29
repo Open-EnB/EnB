@@ -46,6 +46,7 @@
 #include "vector2i.h"
 #include "shader.h"
 #include "matrix3d.h"
+#include "land_lighting.h"
 
 class HeightFieldClass;
 class TextureClass;
@@ -68,25 +69,7 @@ struct LandDecorationStruct
 	float							Scale;			// +0x34
 };
 
-// NAME 2: VIDTEST's name for the 0x30-byte lighting record its Update_Lighting 0x4250B0 hands the land (esp+0x74)
-struct LandLightingStruct
-{
-	Vector3		LightColor;		// clamped LightColor x LightIntensity
-	Vector3		SunDirection;	// towards the sun
-	float		SunAngle;		// the sun's elevation (VIDTEST: pi/2 - acos(sun.z)); Prepare_Lighting compares the horizons with it
-	float		ShadowBias;
-	Vector3		SkyColor;		// clamped SkyColor x SkyIntensity
-	bool		Valid;
-	LandLightingStruct(void) :
-		LightColor(0.5f, 0.5f, 0.5f),
-		SunDirection(0.0f, 0.0f, 1.0f),
-		SunAngle(0.0f),
-		ShadowBias(0.05f),
-		SkyColor(0.1f, 0.1f, 0.5f),
-		Valid(true)
-	{
-	}
-};
+// LandLightingStruct: land_lighting.h
 
 // NAME 1: the land's patch (0x30 bytes, new'd per grid cell by Load_Assets 0x4691D0; ctor 0x474530, dtor 0x474560)
 class LandPatchClass

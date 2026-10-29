@@ -32,6 +32,7 @@
 #include <vector>
 #include <hash_map.h>
 #include "refcount.h"
+#include "..\shared\land_lighting.h"
 
 struct KernelEventClass;			// kernel.h: an input event (16 bytes)
 class LoginUnknown0CClass;		// tsk_login.h: inpdsp.cpp's input dispatcher (0x18 bytes)
@@ -577,14 +578,7 @@ public:
 	RefCountPtr<LightClass> Unknown164;					// +0x164 (0x50BA60: one light)
 	bool Unknown168;									// +0x168
 	Vector3 Unknown16C;									// +0x16C (0x50CF70 hands it to 0x510D40)
-	Vector3 Unknown178;									// +0x178 (0.5, 0.5, 0.5)
-	Vector3 Unknown184;									// +0x184 (0, 0, 1)
-	float Unknown190;									// +0x190
-	float Unknown194;									// +0x194 (0.05)
-	float Unknown198;									// +0x198 (0.1)
-	float Unknown19C;									// +0x19C (0.1)
-	float Unknown1A0;									// +0x1A0 (0.5)
-	bool Unknown1A4;									// +0x1A4 (true)
+	LandLightingStruct Lighting;						// +0x178..+0x1A4 (the constructor 0x50B360 stores its defaults; Update 0x50F1B0 fills it for LandClass::Update_Lightmap_*)  // NAME 2: what it holds
 	float SeaFogNear;									// +0x1A8 0x5137F0: land%04d.ini [GENERAL] SEAFOGNEAR (100)  // NAME 2: its ini key
 	float SeaFogFar;									// +0x1AC SEAFOGFAR (3000)  // NAME 2: its ini key
 	Vector3 SeaColor;									// +0x1B0 SEACOLORR / G / B (1, 1, 1)  // NAME 2: its ini keys
