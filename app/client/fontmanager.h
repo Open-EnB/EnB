@@ -41,6 +41,7 @@ class FontStyleClass : public DynamicMeshClass  // NAME 1 [FontStyleClass]: neut
 {
 public:
 	FontStyleClass(const char *name, int unknown1, int unknown2);		// 0x6D47C0  // NAME 1 [unknown1]: neutral (D10)
+	FontStyleClass(FontStringStruct def, unsigned int object, int unknown);	// 0x6D4C70: from a string template (0x6CE990)  // NAME 1 [def, object, unknown]: neutral (D10)
 	void Set_Color(const TPoint3D<int> &color) { Unknown494.Color = color; Unknown4A4 = Unknown494; }	// inlined in 0x6D10B0  // NAME 2: describes what it does
 
 	void Unknown_6D5140();	// 0x6D5140: its +0x38 virtual, then Release_Ref  // NAME 1 [Unknown_6D5140]: neutral (D10)
@@ -61,7 +62,7 @@ public:
 class ManagedFontClass  // NAME 2 [ManagedFontClass]: what the manager holds per id (0x24 bytes; its +4 is the id)
 {
 public:
-	ManagedFontClass(const char *name);									// 0x6CE990
+	ManagedFontClass(RenderObjClass *object);							// 0x6CE990: the render object's styles from the font database
 	ManagedFontClass(const char *name, int unknown)						// inlined in 0x6D1FD0  // NAME 1 [unknown]: neutral (D10)
 	{
 		FontStringStruct *def = Unknown_BE67B8->Find_String(name);
@@ -100,8 +101,8 @@ public:
 	~FontManagerClass();												// 0x6D1920
 	void Remove_All();													// 0x6D1AE0  // NAME 2: describes what it does
 	void Unknown_6D1C10(int unknown1, int unknown2);					// 0x6D1C10: each font's 0x6CD950  // NAME 1 [Unknown_6D1C10]: neutral (D10)
-	void Add(const char *name);											// 0x6D1D80: a new font by name, under its id  // NAME 2: describes what it does
-	void Add(const StringClass &name);									// 0x6D1FB0  // NAME 2: describes what it does
+	void Add(RenderObjClass *object);										// 0x6D1D80: a new font for the render object, under its address  // NAME 2: describes what it does
+	void Add(const RefCountPtr<RenderObjClass> &object);					// 0x6D1FB0  // NAME 2: describes what it does
 	ManagedFontClass *Create(const char *name, int unknown);			// 0x6D1FD0: a font from the font database, added under its id  // NAME 2: describes what it does
 	void Remove(unsigned int id);										// 0x6D2220  // NAME 2: describes what it does
 	void Unknown_6D2310(const unsigned int &id);						// 0x6D2310: Remove through a reference (a screen's member)  // NAME 1 [Unknown_6D2310]: neutral (D10)

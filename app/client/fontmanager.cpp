@@ -1,6 +1,33 @@
 // Earth & Beyond client (reconstruction): app\Client\fontmanager.cpp. Notes at the end of the file.
 #include "fontmanager.h"
 #include "..\..\wwlib\wwstring.h"
+ManagedFontClass::ManagedFontClass(RenderObjClass *object)
+{
+	Styles.clear();
+	Name = object->Get_Name();
+	Id = (unsigned int)object;
+	Unknown08 = 0;
+	for (std::hash_map<std::string, FontStringStruct *>::iterator it = Unknown_BE67B8->Strings.begin(); it != Unknown_BE67B8->Strings.end(); ++it) {
+		FontStringStruct *def = it->second;
+		if (stricmp(def->RenderObj, Name) == 0) {
+			if (def->StringID[0] == 'W') {
+				Unknown_6CF930(def, (int)object);
+			} else {
+				Unknown_6D1220(new FontStyleClass(*def, Id, 0));
+			}
+		}
+	}
+}
+
+ManagedFontClass::~ManagedFontClass()
+{
+	for (std::hash_map<std::string, FontStyleClass *>::iterator style = Styles.begin(); style != Styles.end(); ++style) {
+		style->second->Unknown_6D5140();
+	}
+	Styles.clear();
+	Id = 0;
+}
+
 void ManagedFontClass::Unknown_6D01C0(int level, const char *name)
 {
 	if (name == NULL) {
@@ -315,33 +342,6 @@ void ManagedFontClass::Unknown_6D10B0(const char *name, TPoint3D<int> color)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 void ManagedFontClass::Unknown_6D1220(FontStyleClass *style)
 {
 	if (style && style->Info.StringID) {
@@ -425,18 +425,18 @@ void FontManagerClass::Unknown_6D1C10(int unknown1, int unknown2)
 }
 
 // NOT EXACT: register-only, 3 rows: the client loads the id into ecx and keeps the font in eax (attempts.csv)
-void FontManagerClass::Add(const char *name)
+void FontManagerClass::Add(RenderObjClass *object)
 {
-	ManagedFontClass *font = new ManagedFontClass(name);
+	ManagedFontClass *font = new ManagedFontClass(object);
 	if (font && font->Id) {
 		Fonts[font->Id] = font;
 	}
 }
 
 // NOT EXACT: register-only, 2 rows: the client reloads the buffer into eax, ours into edx (attempts.csv)
-void FontManagerClass::Add(const StringClass &name)
+void FontManagerClass::Add(const RefCountPtr<RenderObjClass> &object)
 {
-	Add((const char *)name);
+	Add(object.Peek());
 }
 
 ManagedFontClass *FontManagerClass::Create(const char *name, int unknown)
@@ -585,6 +585,9 @@ ManagedFontClass *FontManagerClass::Find(unsigned int id)
 **	0x6BF330 moves one load (H21's order-only knock-on; attempts.csv, docs/attempts/6D0F70). 0x6D2700 exact (H21: a flat style test and a key copy). 0x6D2400 / 0x6D2480 / 0x6D2500 exact once their callees 0x6D0390 / 0x6D0550 / 0x6D0A20 are
 **	defined (FU1). FontStyleClass is a DynamicMeshClass (0x6D47C0 builds the base, vtable 0xAFECB4): its
 **	+0x16C is Set_Sort_Level (0x6D01C0), its +0x184 Set_Hidden (0x6D0390 / 0x6D0550; its override 0x67EF40).
+**	The font is keyed by its render object's address: the constructor 0x6CE990 takes the object (its Get_Name
+**	is the font's name, its address the id) and loads the database's templates whose RenderObj is that name;
+**	FontStringStruct's implicit copy constructor 0x6CECC0 and the styles table's destructor 0x6CEBF0 follow it.
 **	The depth lever (workflow.md 3.1) made the destructor and 0x6D1C10 exact: the client calls the
 **	nested table helpers out of line when they sit one inline level deeper.
 **	Find 0x6D2A70 is never inlined (#pragma auto_inline(off)): the client calls it out of line in
