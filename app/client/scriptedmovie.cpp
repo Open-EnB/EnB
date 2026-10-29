@@ -7,6 +7,7 @@
 #include "..\..\ww3d2\dx8wrapper.h"
 #include "..\..\ww3d2\camera.h"
 #include "..\..\ww3d2\light.h"
+#include "..\..\ww3d2\dazzle.h"
 #include "wwmath.h"
 #include <stdlib.h>
 #include <string.h>
@@ -116,6 +117,17 @@ char *ScriptedMovieParamsClass::Unknown_7FFDC0()
 	}
 	return(param);
 }
+// the render passes' depth ranges and clip planes (0xB07C3C-0xB07C54)
+static float Unknown_B07C3C = 1.0f;	// NAME 1: neutral (D10)
+static float Unknown_B07C40 = 1.0f;	// NAME 1: neutral (D10)
+static float Unknown_B07C44 = 1.0f;	// NAME 1: neutral (D10)
+static float Unknown_B07C48 = 100000.0f;	// NAME 1: neutral (D10)
+static float Unknown_B07C4C = 20.0f;	// NAME 1: neutral (D10)
+static float Unknown_B07C50 = 150.0f;	// NAME 1: neutral (D10)
+static float Unknown_B07C54 = 50.0f;	// NAME 1: neutral (D10)
+static float Unknown_B07C58 = 1.0f;	// NAME 1: neutral (D10)
+static float Unknown_B07C5C = 0.95f;	// NAME 1: neutral (D10)
+static float Unknown_B07C60 = 1.0f;	// NAME 1: neutral (D10)
 
 
 
@@ -529,6 +541,24 @@ char *ScriptedMovieParamsClass::Unknown_7FFDC0()
 
 
 
+// 0x801860: the Unknown120 scene through the scripted camera at its own depth range and clip planes, then the camera's back
+void ScriptedMovieViewClass::Unknown_801860()
+{
+	if (Unknown120) {
+		G_ASSERT(ScriptedCamera);
+		float znear;
+		float zfar;
+		ScriptedCamera->Get_Clip_Planes(znear, zfar);
+		float zmin;
+		float zmax;
+		ScriptedCamera->Get_Depth_Range(&zmin, &zmax);
+		ScriptedCamera->Set_Depth_Range(Unknown_B07C44, Unknown_B07C40);
+		ScriptedCamera->Set_Clip_Planes(Unknown_B07C4C, Unknown_B07C48);
+		WW3D::Render(Unknown120, ScriptedCamera);
+		ScriptedCamera->Set_Clip_Planes(znear, zfar);
+		ScriptedCamera->Set_Depth_Range(zmin, zmax);
+	}
+}
 
 
 
@@ -552,6 +582,24 @@ char *ScriptedMovieParamsClass::Unknown_7FFDC0()
 
 
 
+// 0x8019A0: the Unknown128 scene through the scripted camera at its own depth range and clip planes, then the camera's back
+void ScriptedMovieViewClass::Unknown_8019A0()
+{
+	if (Unknown128) {
+		G_ASSERT(ScriptedCamera);
+		float znear;
+		float zfar;
+		ScriptedCamera->Get_Clip_Planes(znear, zfar);
+		float zmin;
+		float zmax;
+		ScriptedCamera->Get_Depth_Range(&zmin, &zmax);
+		ScriptedCamera->Set_Depth_Range(Unknown_B07C3C, Unknown_B07C3C);
+		ScriptedCamera->Set_Clip_Planes(Unknown_B07C54, Unknown_B07C50);
+		WW3D::Render(Unknown128, ScriptedCamera);
+		ScriptedCamera->Set_Clip_Planes(znear, zfar);
+		ScriptedCamera->Set_Depth_Range(zmin, zmax);
+	}
+}
 
 
 
@@ -570,6 +618,23 @@ char *ScriptedMovieParamsClass::Unknown_7FFDC0()
 
 
 
+// 0x801AE0: the orbital scene at depth 0.95..1 between the given clip planes, then the camera's back
+void ScriptedMovieViewClass::Unknown_801AE0(float znear, float zfar)
+{
+	G_ASSERT(OrbitalScene);
+	G_ASSERT(ScriptedCamera);
+	float zmin;
+	float zmax;
+	ScriptedCamera->Get_Depth_Range(&zmin, &zmax);
+	float old_znear;
+	float old_zfar;
+	ScriptedCamera->Get_Clip_Planes(old_znear, old_zfar);
+	ScriptedCamera->Set_Depth_Range(Unknown_B07C5C, Unknown_B07C58);
+	ScriptedCamera->Set_Clip_Planes(znear, zfar);
+	WW3D::Render(OrbitalScene, ScriptedCamera);
+	ScriptedCamera->Set_Depth_Range(zmin, zmax);
+	ScriptedCamera->Set_Clip_Planes(old_znear, old_zfar);
+}
 
 
 
@@ -590,88 +655,23 @@ char *ScriptedMovieParamsClass::Unknown_7FFDC0()
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// 0x801C40: the background dazzle layer at depth 1 between the given clip planes, then the camera's back
+void ScriptedMovieViewClass::Unknown_801C40(float znear, float zfar)
+{
+	G_ASSERT(ScriptedCamera);
+	G_ASSERT(BackgroundDazzleLayer);
+	float old_znear;
+	float old_zfar;
+	ScriptedCamera->Get_Clip_Planes(old_znear, old_zfar);
+	float zmin;
+	float zmax;
+	ScriptedCamera->Get_Depth_Range(&zmin, &zmax);
+	ScriptedCamera->Set_Depth_Range(Unknown_B07C60, Unknown_B07C60);
+	ScriptedCamera->Set_Clip_Planes(znear, zfar);
+	BackgroundDazzleLayer->Render(ScriptedCamera);
+	ScriptedCamera->Set_Clip_Planes(old_znear, old_zfar);
+	ScriptedCamera->Set_Depth_Range(zmin, zmax);
+}
 
 
 

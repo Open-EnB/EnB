@@ -733,6 +733,10 @@ public:
 	bool Unknown_802930();								// 0x802930 (SClient::Do_Frame in view mode 6: true ends the movie, 0x74BF00)
 	void Unknown_802960(KernelEventClass event);		// 0x802960 (SClient::Do_Frame: the input events while the scripted movie view is up)  // NAME 1 [event]: what it gets
 	void Unknown_8027C0();								// 0x8027C0 (G_ASSERTs 'CurrentCameraIndex < size' l.972, 973; 0x802960's key 0x22): the camera onto the next one of CameraList
+	void Unknown_801860();								// 0x801860 (G_ASSERT 'ScriptedCamera', l.548): the +0x120 scene's pass
+	void Unknown_8019A0();								// 0x8019A0 (G_ASSERT 'ScriptedCamera', l.589): the +0x128 scene's pass
+	void Unknown_801AE0(float znear, float zfar);		// 0x801AE0 (G_ASSERTs 'OrbitalScene' / 'ScriptedCamera', l.624 / 625; the render 0x8012C0): the orbital scene's pass  // NAME 2 [znear, zfar]: Set_Clip_Planes'
+	void Unknown_801C40(float znear, float zfar);		// 0x801C40 (G_ASSERTs 'ScriptedCamera' / 'BackgroundDazzleLayer', l.661 / 662): the background dazzle's pass  // NAME 2 [znear, zfar]: Set_Clip_Planes'
 	void Unknown_8022C0(float time);					// 0x8022C0 (FAIL_IF 'ScriptedScene == NULL', l.832): the ambient light's fade one step on  // NAME 1 [time]: what the fade gets
 	void Unknown_802330(float time);					// 0x802330 (FAIL_IF 'ScriptedScene == NULL', l.855): the fog colour's fade one step on  // NAME 1 [time]: what the fade gets
 	void Unknown_8023A0(bool on);						// 0x8023A0 (G_ASSERT 'ClientInterface', l.877)  // NAME 1 [on]: neutral
@@ -786,7 +790,14 @@ public:
 	std::vector<ScriptedMovieSoundClass *> UnknownF0;	// +0xF0: mv3dsnd.cpp's objects (0x802AD0)
 	char Unknown100[0x110 - 0x100];						// +0x100
 	std::vector<ScriptedMovieCameraStruct> CameraList;	// +0x110  // NAME 3: the asserts' 'CameraList[CurrentCameraIndex]'
-	char Unknown120[0x164 - 0x120];						// +0x120
+	SimpleSceneClass *Unknown120;						// +0x120: a scene rendered at depth 1 between clip planes 20 and 100000 (0x801860)
+	char Unknown124[0x128 - 0x124];						// +0x124
+	SimpleSceneClass *Unknown128;						// +0x128: one between 50 and 150 (0x8019A0)
+	char Unknown12C[0x134 - 0x12C];						// +0x12C
+	SimpleSceneClass *OrbitalScene;						// +0x134 (0x801AE0 renders it at depth 0.95..1)  // NAME 3: the assert's
+	char Unknown138[0x13C - 0x138];						// +0x138
+	DazzleLayerClass *BackgroundDazzleLayer;			// +0x13C (0x801C40 renders it at depth 1)  // NAME 3: the assert's
+	char Unknown140[0x164 - 0x140];						// +0x140
 	int Unknown164;										// +0x164 (Skip_Frames adds to it)
 	bool Unknown168;									// +0x168 (0x802960: the space key toggles it)
 	char Unknown169[0x171 - 0x169];						// +0x169
