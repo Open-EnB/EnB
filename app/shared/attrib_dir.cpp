@@ -270,7 +270,7 @@ bool AttribDir::Attach_Callback(const char *name, AttribCallbackClass *cb)
 
 
 
-// NOT EXACT: inline budget (explain.py: shape, 10 vs 9 calls), the client inlines the iterator list's Advance, ours calls it
+// The inlined Advance is the client's with its loop written as a while (attrib_dir.h; HL1, 2026-10-29)
 bool AttribDir::Detach_Callback(const char *name, AttribCallbackClass *cb)
 {
 	WWPROFILE("AttribDir::Detach_Callback");
@@ -507,7 +507,7 @@ AttributeInfo::AttributeInfo(const char *name) : Name(name), Updates(100), Value
 {
 }
 
-// NOT EXACT: inline budget (explain.py), the client inlines the update table's bucket vector destructor and keeps &ModIterators in edi (frame 0x14 vs 0x10)
+// Exact with Invalidate's loop written as a while (attrib_dir.h; HL1, 2026-10-29)
 AttributeInfo::~AttributeInfo()
 {
 	ModIterators.Invalidate();

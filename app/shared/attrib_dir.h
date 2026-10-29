@@ -77,25 +77,31 @@ struct AttribModValuesStruct  // NAME 2: what it holds
 	float Max;																			// +0x14 type 5: the smallest  // NAME 2: what it holds
 };
 
-// The iterators walking one of an attribute's lists, moved on when their element is removed
+// The iterators walking one of an attribute's lists, moved on when their element is removed. Advance and Invalidate
+// walk with while loops: as for loops VC6 inlines Advance less in AttribDir::Detach_Callback 0x4D5000 and Invalidate
+// less in ~AttributeInfo 0x4D6620 than the client (HL1, 2026-10-29)
 template <class IT>
 class AttribIteratorListClass : public std::vector<IT *>  // NAME 2: what it holds
 {
 public:
 	void Advance(const IT &it)														// NAME 2: what it does
 	{
-		for (std::vector<IT *>::iterator i = begin(); i != end(); ++i) {
+		std::vector<IT *>::iterator i = begin();
+		while (i != end()) {
 			if (*i != 0 && **i == it) {
 				++(**i);
 			}
+			++i;
 		}
 	}
 	void Invalidate()																	// NAME 2: what it does
 	{
-		for (std::vector<IT *>::iterator i = begin(); i != end(); ++i) {
+		std::vector<IT *>::iterator i = begin();
+		while (i != end()) {
 			if (*i != 0) {
 				*i = 0;
 			}
+			++i;
 		}
 	}
 	bool Pop_Back()																	// NAME 2: what it does
