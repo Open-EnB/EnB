@@ -1488,8 +1488,9 @@ client's own code: [kernel-map.md](kernel-map.md) §6 and, for step 9's dependen
    (a region is two {int, Vector3} halves), 0x62A520 / 0x62A0A0 / 0x8810F0-0x881250 with them). Left: 45 and 117
    (item 1); the inline-budget trio VerbList ctor 0x8AF150 0.82, Print 0x8AF6D0, VerbUpdate 0x8AFD10 (two Opus rounds:
    VerbEnum as a struct, Adds / Drops as set<int> / set<unsigned> all fail; P-PK3-1); 0x867250 register (LIMIT
-   REACHED); P-PK3-2 (work item): one sweep over other near misses of the inline vector / struct copy kind with
-   PK3's two levers (workflow.md §3.1, 2026-10-29). Tools to promote:
+   REACHED); P-PK3-2's sweep done (PK4, 2026-10-29, `.work/pk4/scan_*.py`, 0 pairs): the only strong candidate is
+   land.cpp's LandDecorationVertexStruct (P-PK4-1, item 5); Reset_Keys 0x71C710 parked (inline budget, 4 element
+   forms all fail). Tools to promote:
    `.work/p9/wt.py`'s leftovers, `checks.sh`, `commit_wt.py`; commit_json.py must keep imports.json's maps sorted.
 4. The SGI hash_map's users (D87): left are the key-name object after inpdsp (0x42B610 / 0x42B7E0, init 0x42BC90),
    client_lego_impl's seven NOT EXACT (Get_Lego_Transform 0x72B000, Child_Moved 0x72CE40, Attach 0x72D0E0
@@ -1545,6 +1546,10 @@ client's own code: [kernel-map.md](kernel-map.md) §6 and, for step 9's dependen
    unblocks 0x6B4900 (interface slot +0x6C's argument) and the +0x7C flag view.cpp reads through a local struct), the
    loading view's 0x691830 / 0x692330 / 0x692420 / 0x6912A0 / 0x691320 (the +0x58..+0x64 class, the font globals),
    the other views' constructors / destructors (mv3dview.cpp / mv3dsnd.cpp, scriptedmovie.cpp 85, sbaseview.cpp 46).
+   P-PK4-1 (PK4, 2026-10-29): LandDecorationVertexStruct (land.cpp:1186) as plain floats (float[3] / float[3] / float[2])
+   instead of Vector3 / Vector3 / Vector2: the client's insert 0x47DE10 copies the element as one block (`mov ecx,8;
+   rep movsd`, four sites; Build_Decorations 0x47A2F0 twice), ours member by member; likely 0x47DE10, 0x47A2F0,
+   0x47C6A0, 0x479D00. Lead: 0x4667D0 / 0x466820 are probably vector<Vector3> helpers in heightfield's range.
 6. Step 8's tail: Key_Exchange (LIMIT), the UDP constructor over a CordCon 0x82CBF0 (register), Open_Fixed_Channel
    0x82D8C0 (field offset), `Send_Data` (wlib's Dictionary layout), 0x82E1D0 (needs CordMgr 0x8598F0), the
    TimedLog ctor, the memconn option slot, Rate Count (LIMIT), Listen.

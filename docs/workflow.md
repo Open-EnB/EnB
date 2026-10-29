@@ -530,6 +530,9 @@ unless `--lever` cites a new row of this table.
 
 ### 3.4 Importer, verify and pairs
 
+* **A tryv2 variant's gains can be another type's identical code** (2026-10-29, PK4): KeyMappingStruct with a
+  user operator= "gained" vector<Vector3>::erase 0x47D3D0, with a copy constructor 0x4667D0 / 0x466820: folding
+  onto a twin, not progress. Check that a gained address belongs to the function you changed.
 * **names.py rewrites rows outside your own files** (2026-10-29, CS2): clienttest's client_stubs.cpp rows (line
   numbers shifted) and the score-5 count. commit_mine takes only your rows; restore the leftover diff afterwards.
   docs/imports.md on HEAD can be stale (`importer.py report` regenerates ~100 unrelated lines): don't sweep that
@@ -689,6 +692,10 @@ unless `--lever` cites a new row of this table.
   junction again on every compile since ab8355a; results from enb-vc6-02 between 04:36 and 05:25 were suspect.
 ### 3.6 RE tools, Ghidra and REA
 
+* **Sweeps: take addresses from attempts.csv or the NOT EXACT markers, not gaps.py** (2026-10-29, PK4): gaps.py's
+  app pairings are often wrong (a 2-3 instruction client window, or a neighbour's address: 0x4EDAD0 for
+  0x4EDBE0). Counting `rep movsd`: a struct copy has `mov ecx, imm` before it; an inlined string memcpy has
+  `shr ecx,2` before and `rep movsb` after.
 * **`gaps.py` pairings can be wrong** (whole objects via shared helpers, overloads, neighbours,
   template dtors): check `ret N`, confirm with `objdiff.py` and `vtables.py`.
 * **`objdiff.py`'s `*` lines include relocations** (`0` vs `REL`) and `__imp__` calls as `call
