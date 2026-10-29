@@ -139,6 +139,9 @@ tools/re/README.md, tools/vc6 and tools/harness/README.md.
 
 ### 3.1 VC6 code generation
 
+* **A switch's case order** (2026-10-29, LD4): 0x65AB10 became exact only with the cases written in the jump table's
+  target-address order; in 0x514010 reordering the labels gave byte-identical code (VC6 normalises there). Try the
+  table's order once; if the bytes don't move, the residue is elsewhere.
 * **An inline element copy's form names the element's members** (2026-10-29, PK3): a `rep movsd` where the client
   copies member by member means the element has a member with a user copy constructor (Vector4 / Vector3; the
   same change flipped an out-of-line insert to inline, 0x8807B0). VC6 puts the loop pointer on the third dword of
@@ -371,6 +374,10 @@ unless `--lever` cites a new row of this table.
 
 ### 3.3 E&B app code
 
+* **Layout clues from a NOT EXACT function** (2026-10-29, LD4): a wrong `push <size>` before the call to 0x4E9CB0
+  (`new`) means the class's layout is wrong; a member declared as a raw pointer where the client's is a RefCountPtr
+  (read through Peek) costs registers. A friend Create_Get / Create_NEW is found only once RefCountPtr<T> is
+  instantiated: `enum { X = sizeof(RefCountPtr<T>) };` instantiates it without emitting code.
 * **client.h's partial EffectObjectClass clashes with eff_o.h (C2011)** (2026-10-29, SC3): include eff_o.h before
   client.h / sclient.h; to add the include at the top without moving asserts, shorten the file's opening comment by
   a line. `#pragma auto_inline(off)` / `(on)` around a same-file callee the client calls out of line took 0x7511A0
@@ -523,6 +530,8 @@ unless `--lever` cites a new row of this table.
 
 ### 3.4 Importer, verify and pairs
 
+* **objdiff shows the client's float immediates as REL** (2026-10-29, LD4), so its row counts overstate a
+  difference: judge by pairs_cmp.
 * **`commit_mine.py --file` leaves out imports.json's `in_tree_total` line** (2026-10-29, SC3): add
   `--refresh-totals`, or the count needs a follow-up commit (a45ccfb).
 * **Header origins live in `imports.json`'s `headers` map** (`headers_from`: swapped with the
@@ -817,6 +826,8 @@ unless `--lever` cites a new row of this table.
 
 ### 3.8 Git, docs and scripting hygiene
 
+* **The Edit tool turns a stray `\r\r\n` into `\r\n`** (2026-10-29, LD4: sclient.h), so git shows a whole-file diff:
+  restore the byte before committing.
 * **Deleting a tracked app file breaks build.py's definitions scan (FileNotFoundError)** (2026-10-29, PK3) until
   the deletion is staged: `git rm --cached` your own file (names.py had the same crash; fixed in 7fd99e8).
 * **`\a` in a non-raw Python string becomes BEL** (2026-10-29, SC3): an `#include` written as

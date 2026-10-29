@@ -1392,7 +1392,9 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 
 ## 3. Open decisions
 
-(none)
+* **P-LD4-2** (2026-10-29, LD4; recommend leave it): the view at SClient +0x1358 (0x514CC0's class) sits at
+  mainview.cpp's end because no static initialiser of its own precedes it (the client's next file would start with
+  one). Keep it in mainview.cpp until a __FILE__ names its file, or give it a neutral file of its own now?
 
 ## 4. Next steps
 
@@ -1528,6 +1530,17 @@ client's own code: [kernel-map.md](kernel-map.md) §6 and, for step 9's dependen
    0x465D30 (Fable-eligible); the
    parked rows (Compute_Lighting order-only, Update_Patches / Compute_Horizons shape, the scanners' frame,
    Cast_OBBox / Cast_Ray frame, Get_Triangles budget, Render shape, Load_Assets budget); the stars' Load / Init.
+   2026-10-29, LD4 266857d..8d3a866, +54: 0x50B930 exact (the second view 0x65B810's implicit dtor, Unknown65B810ViewClass),
+   P-MV2-1 done (LandLightingStruct in app/shared/land_lighting.h; ctor 0x50B360 still NOT EXACT), SClient +0x1358's view
+   at mainview.cpp's end (0x514CC0 / 0x514DE0 / 0x514DB0), ViewClass renamed UIViewClass (the client's profile label),
+   +0x20 a RefCountPtr<CameraClass> (0x50C690, 0x514E70 exact), new uiview.cpp (+17), view.cpp (ViewClass, the real
+   base, +24) and loadingview.cpp (+8). P-LD3-1 and P-MV2-2 were already done (HN2, SC1). Parked: Update_Patches
+   0x46B3C0 shape, Load_Assets 0x4691D0 frame, 0x50D060 / 0x514010 / 0x6B4480 shape, the stars' Init 0x4829E0
+   register, Load 0x481DB0 order. Left: P-LD4-1 (work item: sclient.h's UIUnknownBaseClass + UIInterfaceBaseClass and
+   ui_line_display.h's GClassUnknownClass + InterfaceClass are one UI-kit class: merge into intrface.h, line-neutral;
+   unblocks 0x6B4900 (interface slot +0x6C's argument) and the +0x7C flag view.cpp reads through a local struct), the
+   loading view's 0x691830 / 0x692330 / 0x692420 / 0x6912A0 / 0x691320 (the +0x58..+0x64 class, the font globals),
+   the other views' constructors / destructors (mv3dview.cpp / mv3dsnd.cpp, scriptedmovie.cpp 85, sbaseview.cpp 46).
 6. Step 8's tail: Key_Exchange (LIMIT), the UDP constructor over a CordCon 0x82CBF0 (register), Open_Fixed_Channel
    0x82D8C0 (field offset), `Send_Data` (wlib's Dictionary layout), 0x82E1D0 (needs CordMgr 0x8598F0), the
    TimedLog ctor, the memconn option slot, Rate Count (LIMIT), Listen.
