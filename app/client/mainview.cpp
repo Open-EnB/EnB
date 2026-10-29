@@ -75,7 +75,7 @@ public:
 	Matrix3D Unknown28;								// +0x28 (0x50D520: the camera's transform for the bridge scene)
 };
 // what the base view's +0x1C points to, as far as 0x50D520 calls it (0x6DA760, with the base's +0x20 camera)
-class ViewUnknown1CClass { public: void Unknown_6DA760(CameraClass *&camera); };	// NAME 1: neutral (D10)  // NAME 1 [camera]: what 0x50D520 passes
+class ViewUnknown1CClass { public: void Unknown_6DA760(RefCountPtr<CameraClass> &camera); };	// NAME 1: neutral (D10)  // NAME 1 [camera]: what 0x50D520 passes
 static const float BridgeNear = 1.0f, BridgeFar = 150.0f;	// NAME 1: neutral (D10): the bridge scene's clip planes (0xAECF48 / 0xAECF44)
 
 
@@ -299,7 +299,7 @@ void MainViewClass::Unknown_10()
 
 
 // 0x50C690: slot +0x08: settings.ini and the interface objects (made, on through +0x54 / +0x58, given to 0x6B4940)
-// NOT EXACT: register (the layers' Vector3 stores); attempts.csv 0x50C690
+// (the layers take the base's +0x20 through RefCountPtr::Peek: LD4)
 void MainViewClass::Unknown_08()
 {
 	INIClass settings_ini;
@@ -310,10 +310,10 @@ void MainViewClass::Unknown_08()
 	object->Unknown_58();
 	Unknown_6B4940(object);
 	REF_PTR_RELEASE(object);
-	Cpit = new UICpitClass(this, LayerClass(Unknown1C, Unknown20));
+	Cpit = new UICpitClass(this, LayerClass(Unknown1C, Unknown20.Peek()));
 	Cpit->Unknown_54();
 	Unknown_6B4940(Cpit);
-	Unknown1D4 = new MainViewUnknown1D4Class(this, LayerClass(Unknown1C, Unknown20));
+	Unknown1D4 = new MainViewUnknown1D4Class(this, LayerClass(Unknown1C, Unknown20.Peek()));
 	Unknown1D4->Unknown_54();
 	Unknown_6B4940(Unknown1D4);
 	Group = new UIGroupClass(Client);
@@ -423,7 +423,7 @@ float MainViewClass::Unknown_50CC10()
 	Camera->Set_Clip_Planes(Unknown114Near, Unknown114Far);
 	Unknown114->Visibility_Check(Camera);
 	Camera->Set_Clip_Planes(znear, zfar);
-	Unknown1C->Visibility_Check(Unknown20);
+	Unknown1C->Visibility_Check(Unknown20.Peek());
 	Unknown24->Visibility_Check(Unknown28);
 	return(PredictiveLODOptimizerClass::Get_Total_Cost());
 }
@@ -2369,10 +2369,9 @@ Unknown514CC0ViewClass::~Unknown514CC0ViewClass()
 }
 
 // 0x514E70: slot +0x08: its interface object over a layer of the base's scene and camera
-// NOT EXACT: register only (the layer's camera load and the Vector3's address swap eax / ecx, as the first layer of 0x50C690); attempts.csv 0x514E70
 void Unknown514CC0ViewClass::Unknown_08()
 {
-	Unknown4C = new Unknown5B7AB0Class(this, LayerClass(Unknown1C, Unknown20));
+	Unknown4C = new Unknown5B7AB0Class(this, LayerClass(Unknown1C, Unknown20.Peek()));
 	Unknown4C->Unknown_54();
 	Unknown_6B4940(Unknown4C);
 }

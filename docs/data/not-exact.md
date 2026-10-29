@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-339 entries in 69 files.
+337 entries in 69 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -106,7 +106,6 @@ edit the comments in the code, not this file.
 | `app/client/fontmanager.cpp:554` | `FontManagerClass::Unknown_6D28C0` | marker | NOT EXACT: inline budget, 75 rows: the client calls the styles table's begin and bucket helpers out of line, ours inlines them (attempts.csv) |
 | `app/client/mainview.cpp:157` | `MainViewClass::MainViewClass` | marker | NOT EXACT: scheduling only (the array-ctor pushes, the 0.5 / 1.0 constants, one register); attempts.csv 0x50B360 |
 | `app/client/mainview.cpp:184` | `MainViewClass::Unknown_04` | marker | NOT EXACT: similarity 0.84, registers only (the first light's and the stars' RefCountPtr assignments); attempts.csv 0x50BA60 |
-| `app/client/mainview.cpp:302` | `MainViewClass::Unknown_08` | marker | NOT EXACT: register (the layers' Vector3 stores); attempts.csv 0x50C690 |
 | `app/client/mainview.cpp:487` | `MainViewClass::Unknown_50D060` | marker | NOT EXACT: register / order only (the client reloads ViewMode after the +0x10FA test; ours keeps it in eax); attempts.csv 0x50D060 |
 | `app/client/mainview.cpp:548` | `MainViewClass::Unknown_50D520` | marker | NOT EXACT: functional (MV2, from the disassembly) 0x50D520: the bridge (+0x120, in the bridge's camera space), the base view's 2-D scene, the debug texts |
 | `app/client/mainview.cpp:614` | `MainViewClass::Render_Gas_Giant_Mode` | marker | NOT EXACT: similarity 0.84 (the inlined 0x50CCF0 stores zfar first in the client; scheduling); attempts.csv 0x50DB20 |
@@ -118,7 +117,6 @@ edit the comments in the code, not this file.
 | `app/client/mainview.cpp:1786` | `MainViewClass::Unknown_60` | marker | NOT EXACT: functional (MV2, from the disassembly) slot +0x60: the object under the screen point (x, y in 0..1): the avatar's model first unless skip_avatar, then the objects within the camera's far distance and 5 degrees of the ray (the planets and stations, types 2 / 3 / 10, within their apparent size), the one nearest the ray that no nearer occluder covers |
 | `app/client/mainview.cpp:2148` | `MainViewClass::Unknown_514010` | marker | NOT EXACT: shape (the second switch's case 0 / 5 block sits after the dispatch in the client); attempts.csv 0x514010 |
 | `app/client/mainview.cpp:2319` | `MainViewClass::Unknown_5146D0` | marker | NOT EXACT: shape (the client multiplies by 0.01 and then by each scale; VC6 folds the two constants here); attempts.csv 0x5146D0 0x5146D0: with 'Graphics_Default' the client's own options and a gamma of 1.2, else the Graphics_* sliders (percent) scaled to the budgets; each clamped, then WW3D's gamma and texture reduction when either changed |
-| `app/client/mainview.cpp:2372` | `Unknown514CC0ViewClass::Unknown_08` | marker | NOT EXACT: register only (the layer's camera load and the Vector3's address swap eax / ecx, as the first layer of 0x50C690); attempts.csv 0x514E70 |
 | `app/client/option.cpp:810` | `OptionClass::Get_String` | marker | NOT EXACT: shape, block order: this order gives the client's inlining (the "" path calls _Grow) but places the "" path first; the client places the copy first |
 | `app/client/option.cpp:856` | `OptionClass::Get_Default_String` | marker | NOT EXACT: shape, as Get_String |
 | `app/client/postate.cpp:920` | `Unknown717010Class::Unknown_717430` | marker | NOT EXACT: inline-budget (the client calls the float field's Cast 0x546970 out of line in the first lookups, ours inlines all; 286 vs 314 instructions; one form; attempts.py show 0x717430) |

@@ -195,7 +195,7 @@ public:
 	virtual int Unknown_48() { return((int)Unknown24); }	// +0x48 0x50B740 (CLIENT_DAMAGE 100 hands its result to Add_Effect)
 	virtual int Unknown_4C() { return((int)Unknown28); }	// +0x4C 0x50B760
 	virtual int Unknown_50() { return((int)Unknown1C); }	// +0x50 0x50B780 (the main view's 0x50BA60 holds its result in a RefCountPtr)
-	virtual int Unknown_54() { return((int)Unknown20); }	// +0x54 0x50B7A0
+	virtual int Unknown_54() { return((int)Unknown20.Peek()); }	// +0x54 0x50B7A0
 	virtual CameraClass *Unknown_58() { return(NULL); }	// +0x58 0x514D70
 
 	LoginUnknown0CClass *Get_Unknown04() { return(Unknown04); }	// inline (Do_Frame reads it into eax first)  // NAME 1: neutral (D10): the member it returns
@@ -204,7 +204,7 @@ public:
 	LoginUnknown0CClass *Unknown04;						// +0x04 (SClient::Do_Frame: the current view's input dispatcher gets the event the client's +0x1270 didn't take, 0x429A20)
 	char Unknown08[0x1C - 0x08];						// +0x08
 	SimpleSceneClass *Unknown1C;						// +0x1C (slot +0x50; the main view's 0x50CC10 checks its visibility with +0x20)
-	CameraClass *Unknown20;								// +0x20 (slot +0x54)
+	RefCountPtr<CameraClass> Unknown20;					// +0x20 (slot +0x54; 0x65A820 assigns it through RefCountPtr, 0x65A760 releases it as a member: a RefCountPtr, as 0x514E70's Peek shows)
 	SimpleSceneClass *Unknown24;						// +0x24 (slots +0x3C, +0x48; checked with +0x28)
 	CameraClass *Unknown28;								// +0x28 (slot +0x4C)
 	char Unknown2C[0x34 - 0x2C];						// +0x2C
@@ -381,7 +381,7 @@ public:
 };
 
 // what the main view's +0x1D4 points to (0x50C690 makes it with a layer of the base's +0x1C scene and +0x20 camera)
-class MainViewUnknown1D4Class : public ViewUnknown34Class	// NAME 1: neutral (D10)
+class MainViewUnknown1D4Class : public UIUnknownBaseClass, public RefCountClass	// NAME 1: neutral (D10)
 {
 public:
 	MainViewUnknown1D4Class(MainViewClass *view, const LayerClass &layer);	// 0x5608D0 (0xEC bytes)  // NAME 1 [view, layer]: what 0x50C690 passes
@@ -389,7 +389,7 @@ public:
 };
 
 // what the main view's +0x1E4 points to (0x50C690 makes it for the client, then its slot +0x7C with the view)
-class MainViewUnknown1E4Class : public ViewUnknown34Class	// NAME 1: neutral (D10)
+class MainViewUnknown1E4Class : public UIUnknownBaseClass, public RefCountClass	// NAME 1: neutral (D10)
 {
 public:
 	MainViewUnknown1E4Class(SClient *client);			// 0x5E1BE0 (0xE8 bytes)  // NAME 1 [client]: what 0x50C690 passes
