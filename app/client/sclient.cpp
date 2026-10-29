@@ -317,13 +317,13 @@ public:
 };
 SClientNotifierClass *Unknown_79B9E0();					// NAME 1 [Unknown_79B9E0]: neutral (D10)
 
-// The font database Init asks (fontdatabase.cpp's at 0xBE67BC; the options at 0xBE8B38 are tsk_game.h's)
-class SClientFontDatabaseClass	// NAME 1: neutral (D10): fontdatabase.cpp's class
-{
-public:
-	void Unknown_6C52B0(int arg);						// 0x6C52B0 (Init passes 0)
-};
-extern SClientFontDatabaseClass *Unknown_BE67BC;		// NAME 1: neutral (D10)
+// The font database Init asks: sclient.h's SClientFontDatabaseClass (fontdatabase.cpp's at 0xBE67BC; the options
+// at 0xBE8B38 are tsk_game.h's)
+
+
+
+
+
 
 extern bool Unknown_BBB084;								// NAME 1: neutral (D10): Init clears it
 extern RectClass Unknown_C07550;						// NAME 1: neutral (D10): the text's coordinate range

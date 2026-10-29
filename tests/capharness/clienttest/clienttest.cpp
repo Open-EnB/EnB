@@ -197,9 +197,20 @@ public:
 	virtual void S04() {} virtual void S08() {}
 	virtual void Unknown_0C(bool on) { Trace("loadingview 0C %d", on); }	// +0x0C
 	virtual void S10() {}
-	char Unknown04[0x68 - 0x04];
+	char Unknown04[0x58 - 0x04];
+	FakeRefTableStruct *Unknown58;	// +0x58..+0x64: the loading screen's render objects (START 0x692330, rebuilt, removes and releases them)
+	FakeRefTableStruct *Unknown5C;
+	FakeRefTableStruct *Unknown60;
+	FakeRefTableStruct *Unknown64;
 	bool Unknown68;		// +0x68
 };
+
+// The loading view's three render objects (+0x58..+0x64; +0x64 stays NULL): slot 0 is RefCountClass::Delete_This,
+// +0x38 RenderObjClass::Remove
+static void *Loading_Table[16];
+static FakeRefTableStruct Loading_Objects[3] = { { Loading_Table, 1 }, { Loading_Table, 1 }, { Loading_Table, 1 } };
+static void Loading_Delete_Slot() { Trace("loadingview render object released"); }
+static void Loading_Remove_Slot() { Trace("loadingview render object Remove"); }
 
 // The models of (1)'s objects (co.cpp +0xAC; New_Object): a table whose slots that take an argument get __stdcall
 // stand-ins (Set_Transform +0x50, Set_LOD_Bias +0x12C); every other slot returns the same value: an odd game id gets
@@ -695,6 +706,12 @@ static void Test_Packets(SClient *client, const char *path)
 	int total = (int)Memory->Incoming.size();
 	Trace("messages %d", total);
 	FakeLoadingViewClass loading;
+	Loading_Table[0] = (void *)Loading_Delete_Slot;
+	Loading_Table[0x38 / 4] = (void *)Loading_Remove_Slot;
+	loading.Unknown58 = &Loading_Objects[0];
+	loading.Unknown5C = &Loading_Objects[1];
+	loading.Unknown60 = &Loading_Objects[2];
+	loading.Unknown64 = 0;
 	loading.Unknown68 = true;
 	client->LoadingView = (LoadingViewClass *)&loading;
 	// the first message with the task focused and the loading view up (Process_Packets tells it), then not

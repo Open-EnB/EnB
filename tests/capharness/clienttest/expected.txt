@@ -2376,7 +2376,12 @@ gen OrbitalManager::Unknown_4F3310
 gen SClientUnknown1330Class::SClientUnknown1330Class
 msg 753 START (5) size 8: cpacket.cpp's handler
 gen UICpitClass::Unknown_584A60
-gen LoadingViewClass::Unknown_692330
+loadingview render object Remove
+gen LoadingViewFontManagerClass::Unknown_6D2310
+gen SClientFontDatabaseClass::Unknown_6C55B0
+loadingview render object released
+loadingview render object released
+loadingview render object released
 sent REQUEST_TIME (68) size 8: 00000000
 sent START_ACK (6) size 8: 8a460000
 msg 754 MESSAGE_STRING (29) size 58: cpacket.cpp's handler

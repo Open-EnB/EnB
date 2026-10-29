@@ -118,7 +118,14 @@ def run(exe, name, session, count, update):
     # them from the working directory): tests/capharness/clienttest/data, never the game's (D69)
     for fn in os.listdir(DATA):
         shutil.copy(os.path.join(DATA, fn), WORK)
+    # Miles: loadingview.cpp (linked for SClient's calls) imports AIL_set_preference / AIL_serve, so the exe needs
+    # Mss32.dll: the copy in build/art (artdir.py's), into the working directory (the DLL search finds it there)
+    dll = os.path.join(REPO, 'build', 'art', 'MSS32.DLL')
+    if os.path.exists(dll) and not os.path.exists(os.path.join(WORK, 'MSS32.DLL')):
+        shutil.copy(dll, WORK)
     res = os.path.join(WORK, 'clienttest.out.txt')
+    if os.path.exists(res):
+        os.remove(res)		# a run that never starts (a missing DLL) must not compare the last run's trace
     p = subprocess.run([os.path.abspath(exe), res, msgs], capture_output=True, text=True, cwd=WORK, timeout=300)
     print(p.stdout.strip()[-1000:])
     if not os.path.exists(res):

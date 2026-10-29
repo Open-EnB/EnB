@@ -2861,7 +2861,9 @@
      "0x691680",
      "0x691770",
      "0x6917A0",
-     "0x692160"
+     "0x692160",
+     "0x692330",
+     "0x692420"
     ],
     "merged": [],
     "name": "client/loadingview.cpp"
@@ -9312,7 +9314,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 4611,
+  "in_tree_total": 4617,
   "totals": {}
  },
  "binkmovie": {

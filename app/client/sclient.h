@@ -95,6 +95,16 @@ class Unknown6D47C0Class;		// NAME 1: neutral (D10): the 0x4E8-byte text object 
 class SClientUnknown1330Class;	// NAME 1: neutral (D10): what SClient +0x1330 points to (destructor 0x43C560, musicmanager.cpp's neighbourhood)
 class ProjDecalManagerClass;		// NAME 3: class-from-file (D24) for proj_decal_manager.cpp (0x763050 loads 'proj_dec.ini' into it; 0x10 bytes, one vector)
 class SClientUnknown1394Class;	// NAME 1: neutral (D10): the values of SClient +0x1394 (reference counted, slot +0x38)
+
+// fontdatabase.h's FontStringFilesClass at 0xBE67BC, as far as sclient.cpp and loadingview.cpp call it (fontdatabase.h's
+// own 0xBE67B8 clashes with tsk_game.h's, so they can't include it; one declaration, so the harness stand-ins agree)
+class SClientFontDatabaseClass	// NAME 1: neutral (D10): fontdatabase.cpp's class
+{
+public:
+	void Unknown_6C52B0(int arg);						// 0x6C52B0 (SClient::Init passes 0)
+	void Unknown_6C55B0(const char *name);				// 0x6C55B0 (Unload: the loading view's 'fc_map_load00.ini')  // NAME 1 [name]: what it gets
+};
+extern SClientFontDatabaseClass *Unknown_BE67BC;		// NAME 1: neutral (D10)
 class AvatarDescClass;				// avatar_desc.h
 struct GuildRankNameStruct;			// pkguildranknamesrequestclient.h
 
@@ -618,6 +628,7 @@ public:
 };
 
 // loadingview.cpp's view (constructor 0x691570, 0x6C bytes)
+class Unknown7B3E30Class;	// NAME 1: neutral (D10): the 0xFC-byte render object of the loading view's +0x64 (constructor 0x7B3E30; loadingview.cpp)
 class LoadingViewClass : public Unknown65B810ViewClass	// NAME 3: class-from-file (D24) for loadingview.cpp
 {
 public:
@@ -633,10 +644,10 @@ public:
 
 	int Unknown50;										// +0x50
 	int Unknown54;										// +0x54
-	RefCountPtr<RefCountClass> Unknown58;				// +0x58 (START 0x692330 calls its +0x38 and hands it to FontManagerClass::Unknown_6D2310; its class not known)
-	RefCountPtr<RefCountClass> Unknown5C;				// +0x5C
-	RefCountPtr<RefCountClass> Unknown60;				// +0x60
-	RefCountPtr<RefCountClass> Unknown64;				// +0x64 (START calls its +0x38 when set)
+	RefCountPtr<RenderObjClass> Unknown58;				// +0x58 (0x691830: the asset manager's 'map_load00'; START 0x692330 removes it and its fonts, FontManagerClass::Unknown_6D2310)
+	RefCountPtr<RenderObjClass> Unknown5C;				// +0x5C (0x691830: 'map_select')
+	RefCountPtr<RenderObjClass> Unknown60;				// +0x60 (0x691830: 'map_from')
+	RefCountPtr<Unknown7B3E30Class> Unknown64;			// +0x64 (0x691830 news it, 0xFC bytes; START removes it when set)
 	bool Unknown68;										// +0x68 ClientTaskClass::Render renders when it is set
 	bool Unknown69;										// +0x69
 };
