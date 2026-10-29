@@ -2538,22 +2538,22 @@ bool ScriptedMovieViewClass::Stop_Audio(ScriptedMovieParamsClass *params)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// 0x807520: the effects whose end time has come ended and taken off the list
+void ScriptedMovieViewClass::Unknown_807520(unsigned int time)
+{
+	for (std::vector<ScriptedMovieEffectStruct>::iterator itor = Effects.begin(); itor != Effects.end(); ) {
+		if ((*itor).EndTime <= time) {
+			G_ASSERT(Get_Client());
+			ScriptedMovieEffectClass *effect = Get_Client()->Unknown_50((*itor).ID);
+			if (effect) {
+				effect->Unknown_6E6E30();
+			}
+			itor = Effects.erase(itor);
+		} else {
+			itor++;
+		}
+	}
+}
 
 
 

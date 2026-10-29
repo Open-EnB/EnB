@@ -66,6 +66,13 @@ class SceneClass;
 class LandClass;
 class SimpleSceneClass;
 class DazzleLayerClass;
+class ScriptedMovieEffectClass { public: void Unknown_6E6E30(); };	// NAME 1: neutral (D10): eff_o.cpp's effect, as far as 0x807520 ends it (0x6E6E30)
+// a timed effect of the scripted movie (8 bytes, in a vector at +0x148)
+struct ScriptedMovieEffectStruct	// NAME 1: neutral (D10)
+{
+	int ID;												// +0x00: the effect's id  // NAME 2: what Unknown_50 gets
+	unsigned int EndTime;								// +0x04  // NAME 2: what 0x807520 compares
+};
 class LightClass;
 class StarFieldClass;
 class OrbitalManager;
@@ -667,7 +674,11 @@ class SClientMovieCallbackClass;
 
 // The scripted movie view (constructor 0x8000C0, 0x178 bytes; SClient 0x74BD90 makes it, 0x74BF00 deletes it)
 // what the scripted movie view's +0x4C points to, as far as scriptedmovie.cpp calls it
-class ScriptedMovieInterfaceUnknown00Class { public: virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C(); virtual void Unknown_10(); virtual void Unknown_14(); virtual void Unknown_18(); virtual int Unknown_1C(); };	// NAME 1: neutral (D10)
+class ScriptedMovieInterfaceUnknown00Class { public: virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C(); virtual void Unknown_10(); virtual void Unknown_14(); virtual void Unknown_18(); virtual int Unknown_1C();
+	virtual void Unknown_20(); virtual void Unknown_24(); virtual void Unknown_28(); virtual void Unknown_2C(); virtual void Unknown_30(); virtual void Unknown_34(); virtual void Unknown_38(); virtual void Unknown_3C();
+	virtual void Unknown_40(); virtual void Unknown_44(); virtual void Unknown_48(); virtual void Unknown_4C();
+	virtual ScriptedMovieEffectClass *Unknown_50(int id);	// +0x50: the effect by id (0x807520)  // NAME 1 [id]: neutral
+};	// NAME 1: neutral (D10): what the scripted movie's Get_Client() returns
 // the script line's parameters (0x7FFDC0 returns the next one, NULL at the end; its cursor at +0x08)
 class ScriptedMovieParamsClass	// NAME 1: neutral (D10)
 {
@@ -738,6 +749,8 @@ public:
 	void Unknown_801AE0(float znear, float zfar);		// 0x801AE0 (G_ASSERTs 'OrbitalScene' / 'ScriptedCamera', l.624 / 625; the render 0x8012C0): the orbital scene's pass  // NAME 2 [znear, zfar]: Set_Clip_Planes'
 	void Unknown_801C40(float znear, float zfar);		// 0x801C40 (G_ASSERTs 'ScriptedCamera' / 'BackgroundDazzleLayer', l.661 / 662): the background dazzle's pass  // NAME 2 [znear, zfar]: Set_Clip_Planes'
 	void Unknown_801D70(float *znear, float *zfar);		// 0x801D70 (G_ASSERTs 'ScriptedCamera' / 'OrbitalManager', l.702 / 703): the orbitals' clip planes for the camera's FOV (as the main view's 0x50CCF0)  // NAME 2 [znear, zfar]: the main view's
+	ScriptedMovieInterfaceUnknown00Class *Get_Client() { return(ClientInterface->Unknown_00()); }	// (inline: 0x807520's G_ASSERT 'Get_Client()')  // NAME 3: the assert's
+	void Unknown_807520(unsigned int time);				// 0x807520 (G_ASSERT 'Get_Client()', l.2546): the effects whose time is up ended  // NAME 1 [time]: neutral
 	void Unknown_8022C0(float time);					// 0x8022C0 (FAIL_IF 'ScriptedScene == NULL', l.832): the ambient light's fade one step on  // NAME 1 [time]: what the fade gets
 	void Unknown_802330(float time);					// 0x802330 (FAIL_IF 'ScriptedScene == NULL', l.855): the fog colour's fade one step on  // NAME 1 [time]: what the fade gets
 	void Unknown_8023A0(bool on);						// 0x8023A0 (G_ASSERT 'ClientInterface', l.877)  // NAME 1 [on]: neutral
@@ -799,7 +812,9 @@ public:
 	SimpleSceneClass *OrbitalScene;						// +0x134 (0x801AE0 renders it at depth 0.95..1)  // NAME 3: the assert's
 	char Unknown138[0x13C - 0x138];						// +0x138
 	DazzleLayerClass *BackgroundDazzleLayer;			// +0x13C (0x801C40 renders it at depth 1)  // NAME 3: the assert's
-	char Unknown140[0x164 - 0x140];						// +0x140
+	char Unknown140[0x148 - 0x140];						// +0x140
+	std::vector<ScriptedMovieEffectStruct> Effects;		// +0x148: the timed effects  // NAME 2: what it holds
+	char Unknown158[0x164 - 0x158];						// +0x158
 	int Unknown164;										// +0x164 (Skip_Frames adds to it)
 	bool Unknown168;									// +0x168 (0x802960: the space key toggles it)
 	char Unknown169[0x171 - 0x169];						// +0x169
