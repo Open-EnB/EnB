@@ -444,7 +444,7 @@ RefCountPtr<LookupTableClass> LookupTableClass::Create(const std::string &type, 
 **	client's), Init 0x4EC260 with its self-test (the four Test* tables of the ini against the arrays
 **	0xB75240-0xB752F0), Shutdown 0x4EC6B0, the two lookups 0x4EC710 / 0x4EC760, Load 0x4EC7D0, the set's
 **	constructor 0x4ECC10 (inlined into Load, which calls the table's constructor 0x4EE810 out of line),
-**	destructor 0x4ECE50 (exact since de316de's member destroy in libs/sgistl), Lookup 0x4ED0B0 (find inlined) and Get 0x4ED220 (find 0x4EEC20 called), the
+**	destructor 0x4ECE50 (exact since 71e3816's member destroy in libs/sgistl), Lookup 0x4ED0B0 (find inlined) and Get 0x4ED220 (find 0x4EEC20 called), the
 **	factory 0x4ED390 (line 412), the continuous table 0x4ED660-0x4EDAD0, the sampled tables
 **	0x4EDB00-0x4EE7D0 (the sort's comparison 0x4EDE30 sits inside the base constructor's window), then
 **	the instances: RefCountPtr (Create_NEW 0x4EE9F0 / 0x4EEA50 / 0x4EEAE0, the destructors), vector<float>,

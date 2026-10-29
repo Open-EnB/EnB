@@ -40,7 +40,7 @@ FindMemberPacketClass::~FindMemberPacketClass()
 	for (std::list<FindMemberStruct *>::iterator it = PlayerList.begin(); it != PlayerList.end(); it++) {
 		delete *it;
 	}
-	PlayerList.erase(PlayerList.begin(), PlayerList.end()); PlayerList.size();	// the dead size() keeps erase's inner it++ out of line, as the client (workflow.md 3.1, bb5578b)
+	PlayerList.erase(PlayerList.begin(), PlayerList.end()); PlayerList.size();	// the dead size() keeps erase's inner it++ out of line, as the client (workflow.md 3.1, 4a828dd)
 }
 
 RawPacketClass *FindMemberPacketClass::Build()

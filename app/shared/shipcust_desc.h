@@ -10,7 +10,7 @@
 **	the character creation (114), kept five times by LoginTaskClass (+0x88C) and once by
 **	CharacterViewClass. Members named by the visitors' keys (0x4F6750, 0x4F6890, 0x4F6900). Moved
 **	here from tsk_login.h's LoginUnknown88CClass / LoginUnknown44Class / LoginUnknown20Class (D90 9b;
-**	the constructors as e76cfe6 modelled them).
+**	the constructors as 3666cf5 modelled them).
 */
 
 #if defined(_MSC_VER)

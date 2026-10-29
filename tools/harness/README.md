@@ -430,7 +430,7 @@ python tools/harness/vidtest_sbs.py run; python tools/harness/vidtest_sbs.py sbs
   2026-10-28 (LD2): the trees from LandClass's own Create_Decorations / Build_Decorations (0x479D00 / 0x47A2F0) into its
   patch records: ours 1,187 / 83,028 / 173,408 in 50 groups, every group the original's (0 known differences; the
   strict compare: 17 of 1,187 draws differ, the clock-driven matrices). The lightmap equals the original's since
-  VIDTEST's sun angle is computed with acos (7a79042).
+  VIDTEST's sun angle is computed with acos (dea5245).
 * **symbolize.py** names the addresses of vidtest's crash report (`CRASH:` lines in its log: the
   exception address and the stack words that point into its code) with the linker map.
 

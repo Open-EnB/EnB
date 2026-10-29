@@ -252,7 +252,7 @@ template<> int DeltaTemplateClass<bool>::UnknownGlobal = 0;
 
 // postate.cpp and extrap.cpp are in app.lib and define every state node: nothing stands in here
 #include "..\..\..\app\client\postate.h"
-// client.cpp's mount buffer insert 0x725E70 (not rebuilt; Add reaches it since f6b75ef, a nested struct gen_stubs.py cannot write)
+// client.cpp's mount buffer insert 0x725E70 (not rebuilt; Add reaches it since a9c27b8, a nested struct gen_stubs.py cannot write)
 void UnknownB02C90Class::BufferStruct::Insert(const ElementStruct &, int index) { Trace("stub UnknownB02C90Class::BufferStruct::Insert %d", index); }
 // pkupdate.cpp's 0x8ADB20 (not rebuilt): types 4 and 8 ask it
 bool AdvancedPositionalUpdatePacketClass::Unknown_8ADB20() { return(false); }

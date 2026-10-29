@@ -23,6 +23,7 @@
 | [decode-path.md](decode-path.md) | The client's AUX_DATA decode path, function by function (M1.1) |
 | [packet-flow.md](packet-flow.md) | From a received packet to the object model (2026-10-28): the Process_Packet dispatch and the frame it runs in, the client base's object tables, ClientObjectClass (bases, layout, vtable), create / find / update / remove, how AUX_DATA deltas and positional states reach an object, the object-affecting opcodes with handler addresses and rebuild states, a worked example, an unblock order |
 | [archive/](archive/) | Dated one-off reports (overnight runs), superseded by progress.md's log |
+| [commit-map.txt](commit-map.txt) | Old -> new commit hash per line (2026-10-29 history rewrite, D126): the tracked files cite new hashes; commit messages before 97a1df5 still cite the old ones (`grep ^<old> docs/commit-map.txt`) |
 
 Generated data ([data/](data/); regenerate with the tools in `tools/re`):
 

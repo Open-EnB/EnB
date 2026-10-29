@@ -39,7 +39,7 @@ remove: removes every junction inside the worktree first (rmdir, never a recursi
 list: every worktree but the main one: name, recorded base, commits ahead of it, dirty or clean.
 
 Promoted from .work/eval/setup.py and .work/p9/wt.py (setup), the coordinator's hand bring-over of
-F6's branch (964f95e) and commit_mine.py's compare-and-swap; K5, 2026-10-27.
+F6's branch (2905770) and commit_mine.py's compare-and-swap; K5, 2026-10-27.
 """
 import argparse
 import json

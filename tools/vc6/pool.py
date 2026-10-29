@@ -148,7 +148,7 @@ def get_vm(name):
 # ---------------------------------------------------------------- state and lock
 
 def _pid_alive(pid):
-    """importer.py's test (8c0516a): os.kill(pid, 0) would terminate the process on Windows."""
+    """importer.py's test (d3d2036): os.kill(pid, 0) would terminate the process on Windows."""
     k = ctypes.windll.kernel32
     h = k.OpenProcess(0x1000, False, int(pid))   # PROCESS_QUERY_LIMITED_INFORMATION
     if not h:
