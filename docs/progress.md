@@ -1428,8 +1428,17 @@ client's own code: [kernel-map.md](kernel-map.md) §6 and, for step 9's dependen
    0x709E90 to ClientObjectClass's destructor; CO1, 2026-10-28), and 0xAEDE88 is PacketClass's
    vtable (`??_7PacketClass@@6B@`, through symbols.py; then rebuild `.work/pseudo/`); app/packets' "(not rebuilt)" comments
    for 0x735FC0 / 0x739FF0 / 0x734740 / 0x738970; control_keys_manager.cpp to include inpkeys.h at its next edit (0x42B7E0's
-   mangled name); fontmanager 0x6D0A70 with 0x6D0F70 and ManagedFontClass's block 0x6CE990-0x6D0A20; CLIENT_CHAT_LIST
-   0x73CC90; Send_Data 0x82D420 after wlib's Dictionary layout; 0x42C330 with 0x7D3CC0's file.
+   mangled name; done 2026-10-29, FU1 c00d1e6: Get_Key_String 0x71CAB0 exact); fontmanager done by FU1 (01b694d..fddaf42,
+   +35: 0x6D0F70, the style loops 0x6D0710-0x6D0950 / 0x6D0A20, FontStyleClass derived from DynamicMeshClass (0x6D01C0,
+   0x6D0390, 0x6D0550, 0x6D2400, 0x6D2480), ManagedFontClass's ctor 0x6CE990 / dtor 0x6CF730 / 0x6CF520; NOT EXACT
+   0x6D0A70 inline budget; 0x6CF930 needs the line-splitter class 0x4FA8F0-0x4FA9F0 and FontStyleClass +0x454..+0x484);
+   work items: FontStyleClass is the client's `FontSys` (0x6D0A20 calls 'FontSys::Change_Text' 0x6CDBC0: client wins,
+   rename when UI1's loadingview.cpp stand-in `class FontSys` merges into fontmanager.h, P-FU1-1) and
+   ManagedFontClass::Id / FontManagerClass's keys as RenderObjClass * instead of unsigned (P-FU1-2, full app verify);
+   CLIENT_CHAT_LIST 0x73CC90 parked (2 forms: a one-exit helper and break + goto both inline _Ucopy); Send_Data
+   0x82D420 (the client tests channel >= 0 first, and wlib's dictionary.h needs a wlib + app verify); 0x42C330
+   blocked: 0x7D3CC0's file (the account / subscription XML reader 0x7C9000-0x7E3000, between ui_starmap.cpp and
+   avatar_pip.cpp, no __FILE__) needs a provisional file (D137) when someone builds it.
 2. Step 9 (D90) continues. co.cpp: derive ClientObjectClass from UnknownB02C90Class (client.cpp) and
    MultiFixedPoolDecalSystemClass (layout and vtable 0xB006F4 in co.cpp's notes), then the constructor 0x6F2820 and
    destructor 0x6F2FE0, with T16's co.h list in the same step (Unknown98Class's slots +0x18..+0x2C replacing

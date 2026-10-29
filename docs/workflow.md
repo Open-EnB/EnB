@@ -139,6 +139,10 @@ tools/re/README.md, tools/vc6 and tools/harness/README.md.
 
 ### 3.1 VC6 code generation
 
+* **A large struct copy inlines only through an explicit inline operator=** (2026-10-29, FU1): the implicit one is
+  called out of line, and can move a load in an unrelated function that includes the header (H21's Load_Init
+  knock-on). A member whose inline twin is 'own begin / ++ called out of line' is a .cpp function the caller
+  auto-inlines one level deeper: define it out of line to gain its uncalled copy and keep the caller exact.
 * **When one function family inlines both less and more than the client, look for shared static helpers**
   (2026-10-29, F9's Fable round: the verb object's five, +6): stop spending budget forms, the client's candidate set
   differs. Traces: distinct stack slots per copy (two count slots in one ctor), a `set::begin() const` copy called
@@ -782,6 +786,8 @@ unless `--lever` cites a new row of this table.
 
 ### 3.7 Harnesses, programs, unattended runs
 
+* **clienttest links build/app.lib** (2026-10-29, FU1, F9): rebuild it with `tools/vc6/build.py build --lib app
+  --allow-dirty` before comparing with expected.txt, or other builders' committed work shows as differences.
 * **`wt.py new` copies no build/art** (2026-10-29, F9): a worktree clienttest run exits 3221225781
   (STATUS_DLL_NOT_FOUND, MSS32.DLL) until build/art/MSS32.DLL is copied in. A clienttest exe built before other
   builders' commits differs from expected.txt: rebuild before comparing.
