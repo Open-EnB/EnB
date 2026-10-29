@@ -1143,6 +1143,23 @@ FontStringFileStruct *FontStringFilesClass::Find(const char *name)
 	return it == Files.end() ? NULL : (*it).second;
 }
 
+// NOT EXACT: frame: 0x50 vs 0x40, the inlined Find's key temporary has its own slot (the client's shares the operator[] pair's); 199 = 199 instructions
+void FontStringFilesClass::Load(const char *name)
+{
+	if (name == NULL || *name == 0) return;
+	std::string key = Lower(name);
+	FontStringFileStruct *file = Find(key.c_str());
+	if (file == NULL) {
+		file = new FontStringFileStruct;
+		file->Name = key;
+		file->Count = 1;
+		Files[file->Name.c_str()] = file;
+		Unknown_BE67B8->Unknown_6C1500(file->Name.c_str());
+	} else {
+		file->Count++;
+	}
+}
+
 
 void FontStringFilesClass::Unload(const char *name)
 {
@@ -1166,23 +1183,6 @@ int FontInitStruct::Find_Chat_Index(const char *chat_name)
 	}
 	return -1;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -1348,8 +1348,8 @@ bool FontInitStruct::Load_Font(unsigned int idx, FontDatabaseClass *fdb)
 **	0x6C5730, Save_Fonts 0x6C57B0 (lines 1235 / 1261: the chat fonts' lines into their options' text, then
 **	option.cpp's 0x7F8EF0; two dead text.size() place the budget as the client's) and Load_Font 0x6C5C60 (lines 1278-1308: the chat font's saved file through option.cpp's
 **	0x7F95E0 and the text file reader 0x4F9BF0; NOT EXACT); FontStringFilesClass (0xBE67BC: the string files in use, counted): Lower 0x6C4A80, the constructor
-**	0x6C4C80, Find 0x6C51A0 and Unload 0x6C55B0 (its destructor 0x6C4F50 and Load 0x6C52B0 declared only: written
-**	from the pseudocode they missed and moved vector<std::string>::insert 0x432D50). Every other function of the
+**	0x6C4C80, Find 0x6C51A0, Load 0x6C52B0 (HL2: Find inlined, its find 0x6C62A0 and conversion 0x6C6370 called a level
+**	deeper; NOT EXACT: frame) and Unload 0x6C55B0 (the destructor 0x6C4F50 declared only). Every other function of the
 **	file is not written yet.
 **
 **	Tables (the Add functions' offsets and instances): +0x10 Colors (find 0x6C65A0, find_or_insert 0x6C87A0),

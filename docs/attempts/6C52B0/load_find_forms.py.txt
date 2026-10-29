@@ -1,0 +1,48 @@
+# HL2: FontStringFilesClass::Load 0x6C52B0 (declared only so far). The client's Load inlines Find(key.c_str())
+# (the const_iterator find: hash_map::find 0x6C62A0 and the iterator conversion 0x6C6370 called, a level
+# deeper; Find 0x6C51A0 itself inlines them): 3.1's 'a callee inlined in some functions and called in others'.
+# Form 1 (Find inlined): 199 = 199 instructions, frame 0x50 vs 0x40: Find's key temporary has its own slot,
+# the client's shares the operator[] pair's.
+import os
+C = 'app/client/fontdatabase.cpp'
+REPO = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..')
+SRC = open(os.path.join(REPO, C), encoding='latin1', newline='').read().replace('\r\n', '\n')
+ANCHOR = "\treturn it == Files.end() ? NULL : (*it).second;\n}\n\n\nvoid FontStringFilesClass::Unload(const char *name)"
+assert SRC.count(ANCHOR) == 1
+
+FIND = "\tFontStringFileStruct *file = Find(key.c_str());\n"
+FIND_BLOCK = ("\tFontStringFileStruct *file;\n\t{\n"
+              "\t\tstd::hash_map<std::string, FontStringFileStruct *>::const_iterator it = Files.find(std::string(key.c_str()));\n"
+              "\t\tfile = it == Files.end() ? NULL : (*it).second;\n\t}\n")
+STORE = "\t\tFiles[file->Name.c_str()] = file;\n"
+STORE_BLOCK = "\t\t{\n\t\t\tstd::string name(file->Name.c_str());\n\t\t\tFiles[name] = file;\n\t\t}\n"
+
+
+def load(find, store):
+    return ("\n\n// The key's file: a new entry (its templates loaded through 0x6C1500) or one more reference\n"
+            "void FontStringFilesClass::Load(const char *name)\n{\n"
+            "\tif (name == NULL || *name == 0) return;\n"
+            "\tstd::string key = Lower(name);\n" + find +
+            "\tif (file == NULL) {\n\t\tfile = new FontStringFileStruct;\n\t\tfile->Name = key;\n\t\tfile->Count = 1;\n" + store +
+            "\t\tUnknown_BE67B8->Unknown_6C1500(file->Name.c_str());\n"
+            "\t} else {\n\t\tfile->Count++;\n\t}\n}\n")
+
+
+def variant(find, store):
+    body = load(find, store)
+    new = ANCHOR.replace("}\n\n\nvoid FontStringFilesClass::Unload", "}" + body + "\n\nvoid FontStringFilesClass::Unload")
+    added = new.count('\n') - ANCHOR.count('\n')
+    # take the same number of lines out of the blank block after Find_Chat_Index (Save_Fonts' FAIL_IF lines)
+    blank_old = "\treturn -1;\n}\n" + "\n" * 64
+    assert SRC.count(blank_old) == 1
+    blank_new = "\treturn -1;\n}\n" + "\n" * (64 - added)
+    return [(C, ANCHOR, new), (C, blank_old, blank_new)]
+
+
+V = {
+    'load_find': variant(FIND, STORE),
+    'load_find_block': variant(FIND_BLOCK, STORE),
+    'load_store_block': variant(FIND, STORE_BLOCK),
+}
+COMPILE = [C]
+WATCH = ['0x6C52B0', '0x6C4C80', '0x6C51A0', '0x6C55B0', '0x6C57B0', '0x432D50']
