@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 36 |
 | 3 | by convention from a client-named file or sibling | 948 |
 | 2 | describes what the code does | 2327 |
-| 1 | neutral placeholder | 5342 |
+| 1 | neutral placeholder | 5341 |
 
 ## For review (score 3 and below)
 
@@ -4475,9 +4475,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown1C` | `app/packets/pkupdate.h:38` | untagged neutral name (D10) |
 | 1 | `Unknown_8ADB20` | `app/packets/pkupdate.h:133` | neutral (D10) |
 | 1 | `Unknown14` | `app/packets/pkupdate.h:170` | untagged neutral name (D10) |
-| 1 | `pkverblist` | `app/packets/pkverblist.h:16` | provisional, pk + its first named class's name |
-| 1 | `VERB_NONE` | `app/packets/pkverblist.h:27` | neutral placeholder (D10) |
 | 1 | `pkverbrequest` | `app/packets/pkverbrequest.h:16` | provisional, pk + its first named class's name |
+| 1 | `VERB_NONE` | `app/packets/pkverbrequest.h:44` | neutral placeholder (D10) |
 | 1 | `pkversionrequest` | `app/packets/pkversionrequest.h:16` | provisional, pk + its first named class's name |
 | 1 | `pkwarpindex` | `app/packets/pkwarpindex.h:15` | provisional, pk + its first named class's name |
 | 1 | `Unknown1C` | `app/shared/attrib_dir_collective.cpp:33` | untagged neutral name (D10) |
@@ -6738,8 +6737,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Channel` | `app/packets/pkupdate.h:152` | Get_Channel returns it |
 | 2 | `Priority` | `app/packets/pkupdate.h:153` | Get_Priority returns it |
 | 2 | `Get_Type` | `app/packets/pkupdate.h:166` | what it returns (the opcode Build sends), as MessageLinePacketClass's |
-| 2 | `VerbRequestPacketClass` | `app/packets/pkverbrequest.h:22` | the reference decoder's opcode name VERB_REQUEST (the Net-7 opcode table; no structure check) |
-| 2 | `Get_Type` | `app/packets/pkverbrequest.h:31` | what it returns (the opcode Build sends), as MessageLinePacketClass's |
+| 2 | `VerbRequestPacketClass` | `app/packets/pkverbrequest.h:24` | the reference decoder's opcode name VERB_REQUEST (the Net-7 opcode table; no structure check) |
+| 2 | `Get_Type` | `app/packets/pkverbrequest.h:33` | what it returns (the opcode Build sends), as MessageLinePacketClass's |
 | 2 | `WarpPacketClass` | `app/packets/pkwarpindex.h:23` | the reference decoder's opcode name WARP (the Net-7 opcode table; no structure check) |
 | 2 | `AttribModClass` | `app/shared/attrib_dir.h:34` | what it is |
 | 2 | `Get_Type` | `app/shared/attrib_dir.h:38` | what it returns |
@@ -8512,15 +8511,15 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `RotateAngle` | `app/packets/pkupdate.h:175` | the client's Print text 'RotateAngle=' |
 | 3 | `RotateRate` | `app/packets/pkupdate.h:176` | the client's Print text 'RotateRate=' |
 | 3 | `TiltAngle` | `app/packets/pkupdate.h:177` | the client's Print text 'TiltAngle=' |
-| 3 | `VerbListPacketClass` | `app/packets/pkverblist.h:33` | the client's Print text 'VerbList' |
-| 3 | `GameID` | `app/packets/pkverblist.h:44` | the client's Print text 'GameID=' |
-| 3 | `std:` | `app/packets/pkverblist.h:45` | the client's Print text 'Verbs=' |
-| 3 | `GameID` | `app/packets/pkverblist.h:59` | the client's Print text 'GameID=' |
-| 3 | `std:` | `app/packets/pkverblist.h:60` | the client's Print text 'Adds=' |
-| 3 | `std:` | `app/packets/pkverblist.h:61` | the client's Print text 'Drops=' |
-| 3 | `SubjectID` | `app/packets/pkverbrequest.h:33` | the client's Print text 'SubjectID=' |
-| 3 | `ObjectID` | `app/packets/pkverbrequest.h:34` | the client's Print text 'ObjectID=' |
-| 3 | `Action` | `app/packets/pkverbrequest.h:35` | the client's Print text 'Action=' |
+| 3 | `SubjectID` | `app/packets/pkverbrequest.h:35` | the client's Print text 'SubjectID=' |
+| 3 | `ObjectID` | `app/packets/pkverbrequest.h:36` | the client's Print text 'ObjectID=' |
+| 3 | `Action` | `app/packets/pkverbrequest.h:37` | the client's Print text 'Action=' |
+| 3 | `VerbListPacketClass` | `app/packets/pkverbrequest.h:50` | the client's Print text 'VerbList' |
+| 3 | `GameID` | `app/packets/pkverbrequest.h:61` | the client's Print text 'GameID=' |
+| 3 | `std:` | `app/packets/pkverbrequest.h:62` | the client's Print text 'Verbs=' |
+| 3 | `GameID` | `app/packets/pkverbrequest.h:76` | the client's Print text 'GameID=' |
+| 3 | `std:` | `app/packets/pkverbrequest.h:77` | the client's Print text 'Adds=' |
+| 3 | `std:` | `app/packets/pkverbrequest.h:78` | the client's Print text 'Drops=' |
 | 3 | `VersionRequestPacketClass` | `app/packets/pkversionrequest.h:22` | the client's Print text 'VersionRequest {' and the PacketClass convention |
 | 3 | `Major` | `app/packets/pkversionrequest.h:32` | the client's Print text 'Major=' |
 | 3 | `Minor` | `app/packets/pkversionrequest.h:33` | the client's Print text 'Minor=' |

@@ -59,7 +59,7 @@
 #include "..\..\..\app\packets\pkupdate.h"
 #include "..\..\..\app\packets\pkgadget.h"
 #include "..\..\..\app\packets\pkincapacitancerequest.h"
-#include "..\..\..\app\packets\pkverblist.h"
+#include "..\..\..\app\packets\pkverbrequest.h"
 #include "..\..\..\app\packets\pkstarbase_avatar_change.h"
 #include "..\..\..\app\packets\pkrecustomize.h"
 #include "..\..\..\app\packets\pkgmviewmissionlog.h"
@@ -1207,7 +1207,7 @@ static void Test_Formation(SClient *client)
 	Memory->Received = 0;
 }
 
-// (4e) VERB_LIST 91 (0x7387F0) from a synthetic packet: an object's verbs (pkverblist.cpp: GameID, then the set) go to
+// (4e) VERB_LIST 91 (0x7387F0) from a synthetic packet: an object's verbs (pkverbrequest.cpp: GameID, then the set) go to
 // SClient +0x1294's verb manager (verbmanager.cpp 0x81F780, a stand-in here that records them); without a manager
 // the handler does nothing.
 static int Verb_Calls = 0;

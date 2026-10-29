@@ -41,7 +41,9 @@ def tracked_files(tree=None):
     """Tracked plus untracked-not-ignored source files under DIRS in `tree` (default: this tree)."""
     out = subprocess.run(['git', 'ls-files', '-co', '--exclude-standard'] + list(DIRS), cwd=tree or ROOT,
                          capture_output=True, text=True, check=True).stdout
-    return [p for p in out.splitlines() if p.lower().endswith(EXTS)]
+    # a tracked file deleted in the working tree (not yet committed) is left out
+    return [p for p in out.splitlines() if p.lower().endswith(EXTS)
+            and os.path.exists(os.path.join(tree or ROOT, p))]
 
 
 def subject_of(code, path):

@@ -51,7 +51,7 @@
 #include "..\packets\pkstarbasetow.h"
 #include "..\packets\pktalktreeaction.h"
 #include "..\packets\pktriggeremote.h"
-#include "..\packets\pkverblist.h"
+#include "..\packets\pkverbrequest.h"
 #include "..\packets\pkwarpindex.h"
 #include "..\packets\pkrequesttime.h"
 #include "wwmath.h"

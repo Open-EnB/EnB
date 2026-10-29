@@ -28,7 +28,7 @@
 #include "money.h"
 #include "delta_template.h"
 #include "pk_player_object_relationship.h"
-#include "pkverblist.h"
+#include "pkverbrequest.h"
 #include "pkstarbasetow.h"
 #include "pkmanufactureitemcatagorypacket.h"
 #include "pkguildplayeronline.h"
@@ -200,7 +200,7 @@ void Unknown_4FC2F0(std::vector<std::string> &list, const std::string &string, c
 	}
 }
 
-// ------------------------------------------------------------------------- VERB_UPDATE's Print (pkverblist.cpp)
+// ------------------------------------------------------------------------- VERB_UPDATE's Print (pkverbrequest.cpp)
 
 // 0x84C470: a verb's name from the client's table 0xBB1218 (not known yet: its number)
 char *Value_To_String(char *buf, int size, VerbEnum verb)
