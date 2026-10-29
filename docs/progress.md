@@ -1434,7 +1434,13 @@ client's own code: [kernel-map.md](kernel-map.md) §6 and, for step 9's dependen
    mangled name; done 2026-10-29, FU1 c00d1e6: Get_Key_String 0x71CAB0 exact); fontmanager done by FU1 (01b694d..fddaf42,
    +35: 0x6D0F70, the style loops 0x6D0710-0x6D0950 / 0x6D0A20, FontStyleClass derived from DynamicMeshClass (0x6D01C0,
    0x6D0390, 0x6D0550, 0x6D2400, 0x6D2480), ManagedFontClass's ctor 0x6CE990 / dtor 0x6CF730 / 0x6CF520; NOT EXACT
-   0x6D0A70 inline budget; 0x6CF930 needs the line-splitter class 0x4FA8F0-0x4FA9F0 and FontStyleClass +0x454..+0x484);
+   0x6D0A70 inline budget; 0x6CF930 exact since LS1, efb3a50, on FontStyleClass's typed +0x26C / +0x454..+0x487);
+   LS1 (4f70fd9, +27): app/shared/split_string.cpp (the client's __FILE__ in 0x4FA790's FAIL_IF l.279; SplitStringClass,
+   vtable 0xAECB9C; Split 0x4F9D90 NOT EXACT inline budget, 2 forms) and its subclass FontSplitStringClass (vtable
+   0xAECBAC, 0x4FA8F0-0x4FAC0F) in unknown_font_split_string.cpp (D137; it links between split_string.obj and
+   symbol_substitution.obj); work items: fontdatabase.cpp's stand-in FontTextFileClass is SplitStringClass and
+   ui_line_display.cpp's LineDisplayWrapClass is FontSplitStringClass (switch at the files' next edit); 0x4FA8F0's
+   9 other callers and Set_Font 0x4FAAC0's 2 can include unknown_font_split_string.h;
    work items: FontStyleClass is the client's `FontSys` (0x6D0A20 calls 'FontSys::Change_Text' 0x6CDBC0: client wins,
    rename when UI1's loadingview.cpp stand-in `class FontSys` merges into fontmanager.h, P-FU1-1) and
    ManagedFontClass::Id / FontManagerClass's keys as RenderObjClass * instead of unsigned (P-FU1-2, full app verify);
@@ -1613,7 +1619,8 @@ client's own code: [kernel-map.md](kernel-map.md) §6 and, for step 9's dependen
    unknown_px_callbacks.cpp (D124) and unknown_px_factories.cpp (D139); PxObject 0x4557F0-0x455860 in px_collision.cpp (D125); px_wrapper.h (PX1); the
    view at SClient +0x1358 at mainview.cpp's end (D138); the Doppler flag 0xC404F8 in mainview.cpp (P-MV1-3); the
    0x514CC0-class and Unknown65B810ViewClass files (LD4); step 8's unknown_memregistry.cpp / unknown_listener.cpp /
-   unknown_rate.cpp (D86); inpkeys.cpp (H19). Markers in the source are added at each file's next edit.
+   unknown_rate.cpp (D86); inpkeys.cpp (H19); unknown_font_split_string.cpp (LS1: between split_string.obj and
+   symbol_substitution.obj in link order, so its real name sorts between those). Markers in the source are added at each file's next edit.
 9. Tools: done 2026-10-27 (commit_mine `--file`, attempts.py line endings, build.py's UNRES regex). Left: P-LD3-2
    (`wt.py bring-over` accepts named D119 ambiguous addresses, checked against the ambiguous column) with P-CS1-2
    (the same flag for D66 (i) / (v) moves when pairs_cmp's lost-outright list is empty; LD5 hit it again on

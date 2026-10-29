@@ -412,6 +412,10 @@ unless `--lever` cites a new row of this table.
 
 ### 3.3 E&B app code
 
+* **Object boundaries and vtables** (2026-10-29, LS1): a guarded `atexit` static initialiser in the middle of a range
+  ends an object: use it as the file boundary when there is no __FILE__; the link order (name-sorted .obj files)
+  then bounds the real name. Name overloaded virtuals differently (Get_Text_Width / Get_Char_Width) to keep MSVC
+  from grouping the overloads in the vtable.
 * **Layout clues from a NOT EXACT function** (2026-10-29, LD4): a wrong `push <size>` before the call to 0x4E9CB0
   (`new`) means the class's layout is wrong; a member declared as a raw pointer where the client's is a RefCountPtr
   (read through Peek) costs registers. A friend Create_Get / Create_NEW is found only once RefCountPtr<T> is
@@ -738,6 +742,8 @@ unless `--lever` cites a new row of this table.
   junction again on every compile since ab8355a; results from enb-vc6-02 between 04:36 and 05:25 were suspect.
 ### 3.6 RE tools, Ghidra and REA
 
+* **`appfile.py match` on a client/ file** (2026-10-29, LS1): put the draft in `.work/<id>/client/` so the
+  `..\shared\` relative includes resolve, and use `-I auto` (it finds wwdebug / sgistl; a hand-written list misses them).
 * **`appfile.py match`: leave `-I` out** (2026-10-29, S8): `-I app/common` fails on wwudp's mempool.h; the default
   `-I auto` finds the headers. `commit_mine.py --path` only selects rows; a whole file needs SPEC `"whole"`.
   Coordinators: check a §4 item's addresses against imports.json and attempts.py before briefing it (S8's five
