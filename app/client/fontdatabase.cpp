@@ -337,15 +337,15 @@ void FontDatabaseClass::Unknown_6BFD00(const char *ini_name)
 }
 
 
-// NOT EXACT: inline-budget: ours inlines Parse_Directions / Split_Four / Get_Blend_Type and calls Get_Length; the client the reverse
+// NOT EXACT: register, 2 rows: the inlined Text += ' ' addresses [buffer + length] where the client has [length + buffer]
 void FontDatabaseClass::Load_String(INIClass &ini, char *section, FontStringStruct *str)
 {
+	int misses = 10;
 	StringClass text;
 	TPoint2D<float> origin(0, 0);
 	char entry[64];
 
 	int index = 0;
-	int misses = 10;
 	for (; misses > 0; index++) {
 		sprintf(entry, "Template%d", index);
 		if (ini.Find_Entry(section, entry)->Is_Valid()) {
@@ -401,19 +401,19 @@ void FontDatabaseClass::Load_String(INIClass &ini, char *section, FontStringStru
 		str->TriggerTime = ini.Get_Float(section, "TriggerTime", 1.0f);
 	}
 	if (ini.Find_Entry(section, "Offset")->Is_Valid()) {
-		const TPoint2D<float> &offset = ini.Get_Point(section, "Offset", origin);
-		str->Offset[0] = offset.X;
-		str->Offset[1] = offset.Y;
+		*(TPoint2D<float> *)str->Offset = ini.Get_Point(section, "Offset", origin);	// a struct copy: the client reads the point through eax
+
+
 	}
 	if (ini.Find_Entry(section, "Target")->Is_Valid()) {
-		const TPoint2D<float> &target = ini.Get_Point(section, "Target", origin);
-		str->Target[0] = target.X;
-		str->Target[1] = target.Y;
+		*(TPoint2D<float> *)str->Target = ini.Get_Point(section, "Target", origin);
+
+
 	}
 	if (ini.Find_Entry(section, "BoxOffset")->Is_Valid()) {
-		const TPoint2D<float> &box = ini.Get_Point(section, "BoxOffset", origin);
-		str->BoxOffset[0] = box.X;
-		str->BoxOffset[1] = box.Y;
+		*(TPoint2D<float> *)str->BoxOffset = ini.Get_Point(section, "BoxOffset", origin);
+
+
 	}
 	if (ini.Find_Entry(section, "Rotate90")->Is_Valid()) {
 		str->Rotate90 = ini.Get_Bool(section, "Rotate90", false);
@@ -612,7 +612,7 @@ void FontDatabaseClass::Unknown_6C2080()
 	}
 }
 
-
+#pragma auto_inline(off)	// the client calls the word parsers out of line everywhere (Load_String 0x6C0430, 0x6BFD00): 0x6C2340-0x6C2A10
 int FontDatabaseClass::Get_Blend_Type(StringClass &name)
 {
 	char *text = name.Get_Buffer(name.Get_Length());
@@ -701,7 +701,7 @@ void FontDatabaseClass::Split_Four(const char *text, StringClass *values)
 		values[i] = parts[i];
 	}
 }
-
+#pragma auto_inline(on)
 
 FontStruct *FontDatabaseClass::Find_Font(const StringClass &name, float &scale)
 {
