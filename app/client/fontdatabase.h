@@ -81,6 +81,9 @@ public:
 	virtual void Unknown_14();												// slot +0x14  // NAME 1 [Unknown_14]: neutral (D10)
 	virtual void Set_Spacing(int spacing);									// slot +0x18: Spacing%d is passed  // NAME 2: what it is given
 	virtual int Unknown_1C(int value);										// slot +0x1C: given and returns the +0x98 value  // NAME 1 [Unknown_1C]: neutral (D10)
+	virtual void Unknown_20();												// slot +0x20, 0x6BBC60  // NAME 1 [Unknown_20]: neutral (D10)
+	virtual float Get_Text_Width(const char *text, float screen_width);		// slot +0x24, 0x6BCCE0: slot +0x08's width scaled to the screen width  // NAME 2: what FontSplitStringClass measures with
+	virtual float Get_Char_Width(char c, float screen_width);				// slot +0x28, 0x6BCD20: slot +0x04's, scaled  // NAME 2: what FontSplitStringClass measures with
 };
 
 class Font32Class : public Font32BaseClass, public RefCountClass  // NAME 2: what font32Ptr points at (0xD30 bytes)

@@ -8059,6 +8059,38 @@
     "merged": [],
     "name": "shared/spline.cpp"
    },
+   "split_string": {
+    "ambiguous": [
+     "0x42A6C0",
+     "0x42B2F0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42A820",
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30",
+     "0x42CAB0",
+     "0x42CD30",
+     "0x432B80",
+     "0x432C30",
+     "0x432D50",
+     "0x433540",
+     "0x433700",
+     "0x4C39B0",
+     "0x4F9BF0",
+     "0x4F9C90",
+     "0x4F9CC0",
+     "0x4FA710",
+     "0x4FA740",
+     "0x4FA790",
+     "0x4FA800",
+     "0x4FA830"
+    ],
+    "merged": [],
+    "name": "shared/split_string.cpp"
+   },
    "spln_db": {
     "ambiguous": [
      "0x457CA0",
@@ -8945,6 +8977,24 @@
     "merged": [],
     "name": "shared/unknown_debug.cpp"
    },
+   "unknown_font_split_string": {
+    "ambiguous": [
+     "0x42B2F0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x4FA8F0",
+     "0x4FA9C0",
+     "0x4FA9F0",
+     "0x4FAAC0",
+     "0x4FAB30",
+     "0x4FAB70",
+     "0x4FABB0"
+    ],
+    "merged": [],
+    "name": "shared/unknown_font_split_string.cpp"
+   },
    "unknown_galaxy": {
     "ambiguous": [
      "0x42B2F0"
@@ -9445,12 +9495,14 @@
    "shared/px_wrapper.h": "reconstructed",
    "shared/shipcust_desc.h": "reconstructed",
    "shared/spline.h": "reconstructed",
+   "shared/split_string.h": "reconstructed",
    "shared/spln_db.h": "reconstructed",
    "shared/stars.h": "reconstructed",
    "shared/strconv_lib.h": "reconstructed",
    "shared/symbol_substitution.h": "reconstructed",
    "shared/unique_design_id_lookup.h": "reconstructed",
    "shared/unknown_debug.h": "reconstructed",
+   "shared/unknown_font_split_string.h": "reconstructed",
    "shared/unknown_login_data.h": "reconstructed",
    "shared/unknown_packetdata.h": "reconstructed",
    "shared/unknown_px_callbacks.h": "reconstructed",

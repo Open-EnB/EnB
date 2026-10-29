@@ -3606,6 +3606,12 @@ RECONSTRUCTED = {
     ('app', 'shared/boolpars.cpp'): "The boolean expression parser, client 0x499750-0x49B5E0 with the node classes' virtuals and "
                                    "the table's instances after it: the asserts on the client's lines 222 / 303 / 492 / 578 / 630 "
                                    "(D25); NOT EXACT: Parse 0x49A430, Parse_Params 0x49AE30",
+    ('app', 'shared/split_string.h'): "SplitStringClass (D24, 0x28 bytes, vtable 0xAECB9C): a text split into lines no wider than a width",
+    ('app', 'shared/split_string.cpp'): "split_string.cpp, client 0x4F9BF0-0x4FA8DF (its __FILE__ in 0x4FA790's FAIL_IF l.279, D25): "
+                                       "constructor, destructor, Count, Get, the two width virtuals and find_last_not_of 0x4FA830 exact; "
+                                       "NOT EXACT: Split 0x4F9D90 (LS1)",
+    ('app', 'shared/unknown_font_split_string.h'): "FontSplitStringClass, a SplitStringClass measured with a Font32Class (0x2C bytes, vtable 0xAECBAC); neutral header name (D10)",
+    ('app', 'shared/unknown_font_split_string.cpp'): "the object 0x4FA8F0-0x4FAC0F after split_string.cpp (its guarded static 0x4FABF0; no __FILE__, neutral name D10, placement provisional D137): FontSplitStringClass, all exact (LS1)",
     ('app', 'shared/unique_design_id_lookup.h'): "UniqueDesignIDLookupClass (D24), ids of named designs from an ini section in an SGI "
                                                 "hash_map<std::string, int> (libs/sgistl, D87)",
     ('app', 'shared/unique_design_id_lookup.cpp'): "UniqueDesignIDLookupClass, client 0x4FFC70-0x500760 with the iostream, string and "
