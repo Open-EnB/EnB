@@ -665,14 +665,53 @@ public:
 class SClientMovieCallbackClass;
 
 // The scripted movie view (constructor 0x8000C0, 0x178 bytes; SClient 0x74BD90 makes it, 0x74BF00 deletes it)
+// what the scripted movie view's +0x4C points to, as far as scriptedmovie.cpp calls it
+class ScriptedMovieInterfaceClass	// NAME 1: neutral (D10)
+{
+public:
+	virtual ~ScriptedMovieInterfaceClass();
+	virtual void Unknown_04(int arg);					// +0x04 (0x8023A0)  // NAME 1 [arg]: neutral
+};
+// a Vector3 that fades to a target (0x24 bytes; the scripted movie view's +0x88 and +0xAC): 0x80A5A0 steps it
+class ScriptedMovieFadeClass	// NAME 1: neutral (D10)
+{
+public:
+	void Unknown_80A5A0(float time);					// 0x80A5A0  // NAME 1 [time]: neutral
+	Vector3 Current;									// +0x00 (what the scene gets)  // NAME 2: what it holds
+	char Unknown0C[0x24 - 0x0C];						// +0x0C (+0x0C the target, +0x18 the rate)
+};
+class ScriptedMovieSoundClass { public: void Unknown_7ED6C0(int a, int b); };	// NAME 1: neutral (D10): mv3dsnd.cpp's object (0x7ED6C0)  // NAME 1 [a, b]: what 0x802AD0 passes
 class ScriptedMovieViewClass : public UIViewClass	// NAME 2: SClient's member 'ScriptedMovieView' (G_ASSERT l.4127)
 {
 public:
 	ScriptedMovieViewClass(ClientTaskClass *task, int arg, SClientMovieCallbackClass *callback);	// 0x8000C0  // NAME 1 [task, arg, callback]: what 0x74BD90 passes
 	bool Unknown_802930();								// 0x802930 (SClient::Do_Frame in view mode 6: true ends the movie, 0x74BF00)
 	void Unknown_802960(KernelEventClass event);		// 0x802960 (SClient::Do_Frame: the input events while the scripted movie view is up)  // NAME 1 [event]: what it gets
+	void Unknown_8022C0(float time);					// 0x8022C0 (FAIL_IF 'ScriptedScene == NULL', l.832): the ambient light's fade one step on  // NAME 1 [time]: what the fade gets
+	void Unknown_802330(float time);					// 0x802330 (FAIL_IF 'ScriptedScene == NULL', l.855): the fog colour's fade one step on  // NAME 1 [time]: what the fade gets
+	void Unknown_8023A0(bool on);						// 0x8023A0 (G_ASSERT 'ClientInterface', l.877)  // NAME 1 [on]: neutral
+	void Unknown_802900();								// 0x802900: +0x6D set once +0x6C is
+	void Unknown_802AD0(int arg);						// 0x802AD0: every sound of +0xF0 gets arg twice (0x7ED6C0)  // NAME 1 [arg]: neutral
+	static void Unknown_802D30();						// 0x802D30 (G_ASSERT 'AssetManager', l.1178; the destructor inlines it): the unused assets released, the mesh renderer invalidated
+	bool Unknown_806AD0();								// 0x806AD0: +0x6E set
+	bool Unknown_809710();								// 0x809710: +0x7C cleared
+	bool Unknown_809730();								// 0x809730: +0x7C set
 
-	char Unknown4C[0x178 - 0x4C];						// +0x4C
+	ScriptedMovieInterfaceClass *ClientInterface;		// +0x4C (0x8023A0's G_ASSERT)  // NAME 3: the assert's
+	int Unknown50;										// +0x50 (0x8023A0 hands it to ClientInterface's +0x04)
+	SimpleSceneClass *ScriptedScene;					// +0x54 (its ambient light +0x1C, its fog colour +0x2C)  // NAME 3: the FAIL_IF's
+	char Unknown58[0x6C - 0x58];						// +0x58
+	bool Unknown6C;										// +0x6C
+	bool Unknown6D;										// +0x6D
+	bool Unknown6E;										// +0x6E (0x802930: the movie ends once +0x6C..+0x6E are set)
+	char Unknown6F[0x7C - 0x6F];						// +0x6F
+	bool Unknown7C;										// +0x7C
+	char Unknown7D[0x88 - 0x7D];						// +0x7D
+	ScriptedMovieFadeClass Unknown88;					// +0x88: the ambient light (0x8022C0)
+	ScriptedMovieFadeClass UnknownAC;					// +0xAC: the fog colour (0x802330)
+	char UnknownD0[0xF0 - 0xD0];						// +0xD0
+	std::vector<ScriptedMovieSoundClass *> UnknownF0;	// +0xF0: mv3dsnd.cpp's objects (0x802AD0)
+	char Unknown100[0x178 - 0x100];						// +0x100
 };
 
 // The 0x120 bytes at SClient +0x13CC: 24 colours set to (1, 1, 1) by the out-of-line constructor 0x764FD0
