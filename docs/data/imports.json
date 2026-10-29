@@ -1131,7 +1131,7 @@
     "merged": [],
     "name": "client/co_player_relationship.cpp"
    },
-   "co_subtypes": {
+   "co_subtype_base": {
     "ambiguous": [
      "0x42B2F0",
      "0x44B330",
@@ -1141,7 +1141,6 @@
     "expected": {},
     "in_tree": [
      "0x42F250",
-     "0x447C40",
      "0x44B360",
      "0x44B5E0",
      "0x6F2C90",
@@ -1161,7 +1160,23 @@
      "0x70E0C0",
      "0x70E150",
      "0x70E1F0",
-     "0x70E240",
+     "0x70E240"
+    ],
+    "merged": [],
+    "name": "client/co_subtype_base.cpp"
+   },
+   "co_subtypes": {
+    "ambiguous": [
+     "0x44B330"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42F250",
+     "0x447C40",
+     "0x44B360",
+     "0x44B5E0",
+     "0x6F2C90",
      "0x70E2E0",
      "0x70E350",
      "0x70E380",
@@ -1169,6 +1184,7 @@
      "0x70E3F0",
      "0x70E460",
      "0x70E4E0",
+     "0x70E550",
      "0x70E5A0",
      "0x70E680",
      "0x70E6B0",
@@ -9285,7 +9301,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 4609,
+  "in_tree_total": 4610,
   "totals": {}
  },
  "binkmovie": {

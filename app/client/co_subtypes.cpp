@@ -4,149 +4,6 @@
 #include "rendobj.h"
 #include "..\shared\heightfield.h"
 
-extern int Unknown_BE350C;	// NAME 1: neutral (D10): SClient::Do_Frame's frame toggle (sclient.cpp)
-
-#pragma auto_inline(off)	// type 24's base (to 0x70E240)
-// 0x70DBC0
-Unknown70DBC0Class::Unknown70DBC0Class(ClientClass *client, int type, unsigned id) :
-	ClientObjectClass(client, type, id)
-{
-}
-
-// 0x70DC90
-DynObj *Unknown70DBC0Class::Unknown_Dyn04()
-{
-	return(this);
-}
-
-// 0x70DCB0
-int Unknown70DBC0Class::Unknown_40()
-{
-	return((int)this);
-}
-
-// 0x70DCD0
-float Unknown70DBC0Class::Unknown_30()
-{
-	return(Radius);
-}
-
-// 0x70DCF0
-void Unknown70DBC0Class::Unknown_34(float value)
-{
-	DynObj::Unknown04 = value;
-	ClientObjectClass::Unknown_34(value);
-}
-
-// 0x70DD20
-const char *Unknown70DBC0Class::Unknown_Dyn30()
-{
-	return("Unnamed ClientProximityObject");
-}
-
-// 0x70DD40
-Vector3 Unknown70DBC0Class::Unknown_24()
-{
-	return(ClientObjectClass::Unknown_24());
-}
-
-// 0x70DD70
-Vector3 Unknown70DBC0Class::Unknown_48()
-{
-	return(Unknown_4C().Get_X_Vector());
-}
-
-// 0x70DDB0
-Matrix3D Unknown70DBC0Class::Unknown_4C()
-{
-	return(ClientObjectClass::Unknown_28(true));
-}
-
-// 0x70DDE0
-Vector3 Unknown70DBC0Class::Unknown_2C()
-{
-	return(ClientObjectClass::Unknown_2C());
-}
-
-// 0x70DE10
-float Unknown70DBC0Class::Unknown_Dyn44()
-{
-	return(Unknown_2C().Length());
-}
-
-// 0x70DE80
-Vector3 Unknown70DBC0Class::Unknown_Dyn48()
-{
-	return(Unknown1AC[Unknown_BE350C ^ 1].Get_Translation());
-}
-
-// 0x70DEC0
-Vector3 Unknown70DBC0Class::Unknown_Dyn4C()
-{
-	return(Unknown1AC[Unknown_BE350C ^ 1].Get_X_Vector());
-}
-
-// 0x70DF00
-Matrix3D Unknown70DBC0Class::Unknown_Dyn50()
-{
-	return(Unknown1AC[Unknown_BE350C ^ 1]);
-}
-
-// 0x70DF90
-Vector3 Unknown70DBC0Class::Unknown_Dyn54()
-{
-	return(Unknown1AC[Unknown_BE350C ^ 1].Get_X_Vector());
-}
-
-// 0x70DFD0
-float Unknown70DBC0Class::Unknown_Dyn58()
-{
-	return(Unknown1AC[Unknown_BE350C ^ 1].Get_X_Vector().Length());
-}
-
-// 0x70E040
-Vector3 Unknown70DBC0Class::Unknown_Dyn70()
-{
-	return(Unknown_Dyn4C());
-}
-
-// 0x70E070
-void Unknown70DBC0Class::Unknown_Dyn74(int a, int b, int c, int d)
-{
-}
-
-// 0x70E0C0 (scalar deleting 0x70E090)
-Unknown70DBC0Class::~Unknown70DBC0Class()
-{
-}
-
-// 0x70E150
-void Unknown70DBC0Class::Unknown_20()
-{
-	Matrix3D &tm = Unknown1AC[Unknown_BE350C];
-	tm = Unknown_4C();
-	ClientObjectClass::Unknown_20();
-}
-
-// 0x70E1F0
-unsigned Unknown70DBC0Class::Unknown_Dyn1C()
-{
-	return((unsigned)Client->Unknown10BC / 100);
-}
-
-// 0x70E220
-int Unknown70DBC0Class::Unknown_Dyn20()
-{
-	return(Type);
-}
-
-// 0x70E240
-void Unknown70DBC0Class::Unknown_Dyn64()
-{
-	Unknown_Dyn68(Unknown_Dyn48());
-}
-#pragma auto_inline(on)	// type 24 calls its base out of line (0x70E2E0, 0x70E380, 0x70E4E0)
-
 // 0x70E2E0
 Unknown70E2E0Class::Unknown70E2E0Class(ClientClass *client, int type, unsigned id) :
 	Unknown70DBC0Class(client, type, id),
@@ -293,18 +150,14 @@ void Unknown70E5A0Class::Unknown_20()
 /*
 ** Notes
 **
-** The run 0x70DBC0-0x70F030 lies between co_player_relationship.cpp (to 0x70DA40) and extrap.cpp (from 0x70F040)
-** and has no assert or string naming its file: D122 names it co_subtypes.cpp until one does. It holds CREATE 4's
-** two subclasses of ClientObjectClass (cpacket.cpp's switch: type 24 -> 0x70E2E0, type 28 -> 0x70E5A0; every other
-** type is a plain ClientObjectClass) and type 24's base 0x70DBC0. The compiler-generated pieces (the scalar deleting
-** destructors 0x70E090 / 0x70E350 / 0x70E680 and the this-adjusting thunks 0x70E2A0-0x70E2D0, 0x70E580, 0x70E590,
-** 0x70F030) come from the declarations.
+** The run 0x70E2E0-0x70F030 lies between co_subtype_base.cpp (type 24's base, 0x70DBC0-0x70E2D0, D132) and
+** extrap.cpp (from 0x70F040) and has no assert or string naming its file: D122 names it co_subtypes.cpp until one
+** does. It holds CREATE 4's two subclasses of ClientObjectClass (cpacket.cpp's switch: type 24 -> 0x70E2E0, type 28
+** -> 0x70E5A0; every other type is a plain ClientObjectClass). The compiler-generated pieces (the scalar deleting
+** destructors 0x70E350 / 0x70E680 and the this-adjusting thunks 0x70E580, 0x70E590, 0x70F030) come from the
+** declarations.
 **
-** Type 24's base is also dynamic_obj.cpp's DynObj (at +0x188, vtable 0xB020E4 in the base,
-** 0xB021B0 in type 24): its slots return the object's position, velocity, radius, type and the client's time, and the
-** transform of the other frame (0xBE350C toggles every frame; slot +0x20 0x70E150 writes this frame's copy). Two of its
-** slots share ClientObjectClass's names because one function overrides both (0x70DD40 / 0x70DDE0 with the thunks
-** 0x70E2C0 / 0x70E2D0). Type 24 adds the height above the land's height field (+0x20C), kept by its position and
+** Type 24 adds the height above the land's height field (+0x20C), kept by its position and
 ** transform setters and its per-frame update through 0x70E3B0, which VC6 inlines into all three (0x70E3B0 itself has
 ** no caller). The height field is the client's +0x1144 (an int in client.h, cast here).
 **

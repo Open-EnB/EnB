@@ -122,8 +122,9 @@ exact), **+0x28 0x6F4610** (not rebuilt: the transform at the client clock), +0x
 
 **Subclasses** by type (CREATE's switch): type 24 -> 0x70E2E0 (0x224 bytes, vtable 0xB02294, over a
 base 0x70DBC0, vtable 0xB02084, itself over 0x6F2820), type 28 -> 0x70E5A0 (0x1D4 bytes, vtable
-0xB0230C, over 0x6F2820); all others are plain `ClientObjectClass`. The three are app/client/co_subtypes.cpp
-(a provisional name, D122: the run 0x70DBC0-0x70F030 after co_player_relationship.cpp, before extrap.cpp).
+0xB0230C, over 0x6F2820); all others are plain `ClientObjectClass`. The three are app/client/co_subtype_base.cpp
+(type 24's base 0x70DBC0-0x70E2D0, D132) and co_subtypes.cpp (types 24 / 28 0x70E2E0-0x70F030; provisional
+names, D122: the run lies after co_player_relationship.cpp, before extrap.cpp).
 Type 24's base is also a `DynObj` at +0x188 (app/shared/dynamic_obj.cpp, client 0x44AC70-0x44B740, the
 client's class name): an object the proximity system tracks (§2.6); its constructor allocates a `PxWrapper`
 (px_wrapper.cpp) and its slots give the proximity code the object's position, transform,

@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 36 |
 | 3 | by convention from a client-named file or sibling | 952 |
 | 2 | describes what the code does | 2332 |
-| 1 | neutral placeholder | 5432 |
+| 1 | neutral placeholder | 5437 |
 
 ## For review (score 3 and below)
 
@@ -680,51 +680,56 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_70BF90` | `app/client/co_player_relationship.cpp:231` | 'PVPAttackable' when 0x70BF60 says so |
 | 1 | `Unknown_70C2A0` | `app/client/co_player_relationship.cpp:240` | 'Player' for type 1 |
 | 1 | `Unknown_6FEEE0` | `app/client/co_player_relationship.cpp:311` | untagged neutral name (D10) |
-| 1 | `Unknown_BE350C` | `app/client/co_subtypes.cpp:7` | neutral (D10): SClient::Do_Frame's frame toggle (sclient.cpp) |
-| 1 | `Unknown70DBC0Class` | `app/client/co_subtypes.cpp:11` | untagged neutral name (D10) |
-| 1 | `Unknown_Dyn04` | `app/client/co_subtypes.cpp:17` | untagged neutral name (D10) |
-| 1 | `Unknown_40` | `app/client/co_subtypes.cpp:23` | untagged neutral name (D10) |
-| 1 | `Unknown_30` | `app/client/co_subtypes.cpp:29` | untagged neutral name (D10) |
-| 1 | `Unknown_34` | `app/client/co_subtypes.cpp:35` | untagged neutral name (D10) |
-| 1 | `Unknown04` | `app/client/co_subtypes.cpp:37` | untagged neutral name (D10) |
-| 1 | `Unknown_Dyn30` | `app/client/co_subtypes.cpp:42` | untagged neutral name (D10) |
-| 1 | `Unknown_24` | `app/client/co_subtypes.cpp:48` | untagged neutral name (D10) |
-| 1 | `Unknown_48` | `app/client/co_subtypes.cpp:54` | untagged neutral name (D10) |
-| 1 | `Unknown_4C` | `app/client/co_subtypes.cpp:56` | untagged neutral name (D10) |
-| 1 | `Unknown_28` | `app/client/co_subtypes.cpp:62` | untagged neutral name (D10) |
-| 1 | `Unknown_2C` | `app/client/co_subtypes.cpp:66` | untagged neutral name (D10) |
-| 1 | `Unknown_Dyn44` | `app/client/co_subtypes.cpp:72` | untagged neutral name (D10) |
-| 1 | `Unknown_Dyn48` | `app/client/co_subtypes.cpp:78` | untagged neutral name (D10) |
-| 1 | `Unknown1AC` | `app/client/co_subtypes.cpp:80` | untagged neutral name (D10) |
-| 1 | `Unknown_Dyn4C` | `app/client/co_subtypes.cpp:84` | untagged neutral name (D10) |
-| 1 | `Unknown_Dyn50` | `app/client/co_subtypes.cpp:90` | untagged neutral name (D10) |
-| 1 | `Unknown_Dyn54` | `app/client/co_subtypes.cpp:96` | untagged neutral name (D10) |
-| 1 | `Unknown_Dyn58` | `app/client/co_subtypes.cpp:102` | untagged neutral name (D10) |
-| 1 | `Unknown_Dyn70` | `app/client/co_subtypes.cpp:108` | untagged neutral name (D10) |
-| 1 | `Unknown_Dyn74` | `app/client/co_subtypes.cpp:114` | untagged neutral name (D10) |
-| 1 | `Unknown_20` | `app/client/co_subtypes.cpp:124` | untagged neutral name (D10) |
-| 1 | `Unknown_Dyn1C` | `app/client/co_subtypes.cpp:132` | untagged neutral name (D10) |
-| 1 | `Unknown10BC` | `app/client/co_subtypes.cpp:134` | untagged neutral name (D10) |
-| 1 | `Unknown_Dyn20` | `app/client/co_subtypes.cpp:138` | untagged neutral name (D10) |
-| 1 | `Unknown_Dyn64` | `app/client/co_subtypes.cpp:144` | untagged neutral name (D10) |
-| 1 | `Unknown_Dyn68` | `app/client/co_subtypes.cpp:146` | untagged neutral name (D10) |
-| 1 | `Unknown70E2E0Class` | `app/client/co_subtypes.cpp:151` | untagged neutral name (D10) |
-| 1 | `Unknown220` | `app/client/co_subtypes.cpp:153` | untagged neutral name (D10) |
-| 1 | `Unknown_44` | `app/client/co_subtypes.cpp:158` | untagged neutral name (D10) |
-| 1 | `Unknown_70E3B0` | `app/client/co_subtypes.cpp:169` | untagged neutral name (D10) |
-| 1 | `Unknown1144` | `app/client/co_subtypes.cpp:171` | untagged neutral name (D10) |
-| 1 | `Unknown20C` | `app/client/co_subtypes.cpp:173` | untagged neutral name (D10) |
-| 1 | `Unknown_Dyn6C` | `app/client/co_subtypes.cpp:184` | untagged neutral name (D10) |
-| 1 | `Unknown_3C` | `app/client/co_subtypes.cpp:198` | untagged neutral name (D10) |
-| 1 | `Unknown70E5A0Class` | `app/client/co_subtypes.cpp:203` | untagged neutral name (D10) |
-| 1 | `Unknown190` | `app/client/co_subtypes.cpp:207` | untagged neutral name (D10) |
-| 1 | `Unknown1C4` | `app/client/co_subtypes.cpp:209` | untagged neutral name (D10) |
-| 1 | `Unknown1D0` | `app/client/co_subtypes.cpp:210` | untagged neutral name (D10) |
-| 1 | `Unknown_70E750` | `app/client/co_subtypes.cpp:226` | untagged neutral name (D10) |
-| 1 | `Unknown_14` | `app/client/co_subtypes.cpp:233` | untagged neutral name (D10) |
-| 1 | `UnknownB02C90Class` | `app/client/co_subtypes.cpp:233` | untagged neutral name (D10) |
-| 1 | `Unknown_725A90` | `app/client/co_subtypes.cpp:237` | untagged neutral name (D10) |
-| 1 | `Unknown_18` | `app/client/co_subtypes.cpp:242` | untagged neutral name (D10) |
+| 1 | `Unknown_BE350C` | `app/client/co_subtype_base.cpp:5` | neutral (D10): SClient::Do_Frame's frame toggle (sclient.cpp) |
+| 1 | `Unknown70DBC0Class` | `app/client/co_subtype_base.cpp:8` | untagged neutral name (D10) |
+| 1 | `Unknown_Dyn04` | `app/client/co_subtype_base.cpp:14` | untagged neutral name (D10) |
+| 1 | `Unknown_40` | `app/client/co_subtype_base.cpp:20` | untagged neutral name (D10) |
+| 1 | `Unknown_30` | `app/client/co_subtype_base.cpp:26` | untagged neutral name (D10) |
+| 1 | `Unknown_34` | `app/client/co_subtype_base.cpp:32` | untagged neutral name (D10) |
+| 1 | `Unknown04` | `app/client/co_subtype_base.cpp:34` | untagged neutral name (D10) |
+| 1 | `Unknown_Dyn30` | `app/client/co_subtype_base.cpp:39` | untagged neutral name (D10) |
+| 1 | `Unknown_24` | `app/client/co_subtype_base.cpp:45` | untagged neutral name (D10) |
+| 1 | `Unknown_48` | `app/client/co_subtype_base.cpp:51` | untagged neutral name (D10) |
+| 1 | `Unknown_4C` | `app/client/co_subtype_base.cpp:53` | untagged neutral name (D10) |
+| 1 | `Unknown_28` | `app/client/co_subtype_base.cpp:59` | untagged neutral name (D10) |
+| 1 | `Unknown_2C` | `app/client/co_subtype_base.cpp:63` | untagged neutral name (D10) |
+| 1 | `Unknown_Dyn44` | `app/client/co_subtype_base.cpp:69` | untagged neutral name (D10) |
+| 1 | `Unknown_Dyn48` | `app/client/co_subtype_base.cpp:75` | untagged neutral name (D10) |
+| 1 | `Unknown1AC` | `app/client/co_subtype_base.cpp:77` | untagged neutral name (D10) |
+| 1 | `Unknown_Dyn4C` | `app/client/co_subtype_base.cpp:81` | untagged neutral name (D10) |
+| 1 | `Unknown_Dyn50` | `app/client/co_subtype_base.cpp:87` | untagged neutral name (D10) |
+| 1 | `Unknown_Dyn54` | `app/client/co_subtype_base.cpp:93` | untagged neutral name (D10) |
+| 1 | `Unknown_Dyn58` | `app/client/co_subtype_base.cpp:99` | untagged neutral name (D10) |
+| 1 | `Unknown_Dyn70` | `app/client/co_subtype_base.cpp:105` | untagged neutral name (D10) |
+| 1 | `Unknown_Dyn74` | `app/client/co_subtype_base.cpp:111` | untagged neutral name (D10) |
+| 1 | `Unknown_20` | `app/client/co_subtype_base.cpp:121` | untagged neutral name (D10) |
+| 1 | `Unknown_Dyn1C` | `app/client/co_subtype_base.cpp:129` | untagged neutral name (D10) |
+| 1 | `Unknown10BC` | `app/client/co_subtype_base.cpp:131` | untagged neutral name (D10) |
+| 1 | `Unknown_Dyn20` | `app/client/co_subtype_base.cpp:135` | untagged neutral name (D10) |
+| 1 | `Unknown_Dyn64` | `app/client/co_subtype_base.cpp:141` | untagged neutral name (D10) |
+| 1 | `Unknown_Dyn68` | `app/client/co_subtype_base.cpp:143` | untagged neutral name (D10) |
+| 1 | `Unknown70E2E0Class` | `app/client/co_subtypes.cpp:8` | untagged neutral name (D10) |
+| 1 | `Unknown70DBC0Class` | `app/client/co_subtypes.cpp:9` | untagged neutral name (D10) |
+| 1 | `Unknown220` | `app/client/co_subtypes.cpp:10` | untagged neutral name (D10) |
+| 1 | `Unknown_44` | `app/client/co_subtypes.cpp:15` | untagged neutral name (D10) |
+| 1 | `Unknown_70E3B0` | `app/client/co_subtypes.cpp:26` | untagged neutral name (D10) |
+| 1 | `Unknown1144` | `app/client/co_subtypes.cpp:28` | untagged neutral name (D10) |
+| 1 | `Unknown20C` | `app/client/co_subtypes.cpp:30` | untagged neutral name (D10) |
+| 1 | `Unknown_Dyn68` | `app/client/co_subtypes.cpp:34` | untagged neutral name (D10) |
+| 1 | `Unknown_Dyn6C` | `app/client/co_subtypes.cpp:41` | untagged neutral name (D10) |
+| 1 | `Unknown_20` | `app/client/co_subtypes.cpp:48` | untagged neutral name (D10) |
+| 1 | `Unknown_24` | `app/client/co_subtypes.cpp:51` | untagged neutral name (D10) |
+| 1 | `Unknown_3C` | `app/client/co_subtypes.cpp:55` | untagged neutral name (D10) |
+| 1 | `Unknown70E5A0Class` | `app/client/co_subtypes.cpp:60` | untagged neutral name (D10) |
+| 1 | `Unknown190` | `app/client/co_subtypes.cpp:64` | untagged neutral name (D10) |
+| 1 | `Unknown1C4` | `app/client/co_subtypes.cpp:66` | untagged neutral name (D10) |
+| 1 | `Unknown1D0` | `app/client/co_subtypes.cpp:67` | untagged neutral name (D10) |
+| 1 | `Unknown_70E750` | `app/client/co_subtypes.cpp:83` | untagged neutral name (D10) |
+| 1 | `Unknown_14` | `app/client/co_subtypes.cpp:90` | untagged neutral name (D10) |
+| 1 | `UnknownB02C90Class` | `app/client/co_subtypes.cpp:90` | untagged neutral name (D10) |
+| 1 | `Unknown04` | `app/client/co_subtypes.cpp:92` | untagged neutral name (D10) |
+| 1 | `Unknown_725A90` | `app/client/co_subtypes.cpp:94` | untagged neutral name (D10) |
+| 1 | `Unknown_18` | `app/client/co_subtypes.cpp:99` | untagged neutral name (D10) |
 | 1 | `co_subtypes.h` | `app/client/co_subtypes.h:11` | provisional file name (D122) |
 | 1 | `Unknown70DBC0Class` | `app/client/co_subtypes.h:19` | neutral (D10); its Get_Name text is 'Unnamed ClientProximityObject' (0x70DD20) |
 | 1 | `client, type, id` | `app/client/co_subtypes.h:22` | as the base's |

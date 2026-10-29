@@ -4109,8 +4109,11 @@ RECONSTRUCTED = {
                                   "0x715C20, type 5 0x715CF0 / 0x715E60, type 11 0x717EF0 / 0x718080, types 8 0x715EF0-0x716F70 and 4 0x717010-0x717ED0 (NOT EXACT: 0x717430, line 977, and 0x7179A0), type 12 0x718160-0x7184E0, type 13 0x718510-0x718D40 (NOT EXACT: 0x718830), type 14 0x718D70-0x7191C0, type 15 0x7192A0-0x719610 (lines 1422-1457); extrap.cpp's classes in extrap.h (StateNode)",
     ('app', 'client/co_subtypes.h'): "CREATE 4's object subclasses (D122, provisional name): type 24's base 0x70DBC0 "
                                     "(ClientObjectClass plus dynamic_obj.h's DynObj), type 24 0x70E2E0 (0x224 bytes) and type 28 0x70E5A0 (0x1D4 bytes); moved out of co.h",
-    ('app', 'client/co_subtypes.cpp'): "the object subclasses' run 0x70DBC0-0x70F030 (D122: no assert or __FILE__, "
-                                      "between co_player_relationship.cpp and extrap.cpp): constructors, destructors "
+    ('app', 'client/co_subtype_base.cpp'): "type 24's base 0x70DBC0-0x70E2D0 (D132, provisional name after D122's "
+                                          "co_subtypes.cpp; no assert or __FILE__, after co_player_relationship.cpp): "
+                                          "constructor, DynObj / ClientObjectClass slots, destructor, update 0x70E150, thunks",
+    ('app', 'client/co_subtypes.cpp'): "the object subclasses' run 0x70E2E0-0x70F030 (D122: no assert or __FILE__, "
+                                      "between co_subtype_base.cpp and extrap.cpp): types 24 and 28's constructors, destructors "
                                       "and every vtable slot of the run; NOT EXACT: type 28's aim 0x70E850",
     ('app', 'shared/dynamic_obj.h'): "DynObj (the client's name, its profile strings; vtable 0xAE796C, 42 slots, the inline "
                                     "ones 0x44B1F0-0x44B740); provisional header name; moved out of co_subtypes.h",
