@@ -5,7 +5,7 @@
 **	sorts between px_callback_accurate.cpp and px_callback_poll.cpp.
 **
 **	PxBoxCallback: a box that reports each box entering or leaving it to its function (Enter / Exit), and the
-**	callback factories 0x452140 / 0x452460 (not rebuilt; px_wrapper.h declares them).
+**	callback factories 0x452140 / 0x452460 (px_wrapper.h declares them).
 */
 #if defined(_MSC_VER)
 #pragma once

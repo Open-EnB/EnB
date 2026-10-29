@@ -16,6 +16,7 @@
 #include "vector3.h"
 #include "matrix3d.h"
 #include "aabox.h"
+#include "px_callback.h"
 
 class PxWrapper;
 
@@ -70,8 +71,8 @@ public:
 	virtual bool Unknown_DynA0(int a, int b, int c, int d) { return(false); }	// +0xA0 0x44B720  // NAME 1 [a, b, c, d]: neutral
 	virtual bool Unknown_DynA4(int a) { return(true); }	// +0xA4 0x44B740  // NAME 1 [a]: neutral
 
-	void *Unknown_44AF50(int a, int b, int c);			// 0x44AF50 (PxWrapper 0x456F60)  // NAME 1 [a, b, c]: neutral
-	void *Unknown_44AF80(int a, int b, int c);			// 0x44AF80 (PxWrapper 0x457190)  // NAME 1 [a, b, c]: neutral
+	void *Unknown_44AF50(int type, PxCallbackFunction callback, float radius);			// 0x44AF50 (PxWrapper 0x456F60)  // NAME 1 [type, callback, radius]: the factory 0x452140's
+	void *Unknown_44AF80(int type, PxCallbackFunction callback, const Vector3 &extent);	// 0x44AF80 (PxWrapper 0x457190)  // NAME 1 [type, callback, extent]: the factory 0x452460's
 	bool Unknown_44AFB0(void *callback);				// 0x44AFB0 (PxWrapper 0x4575E0)  // NAME 1 [callback]: as PxWrapper's
 	bool Unknown_44AFD0();								// 0x44AFD0 (PxWrapper +0x0D; fp_tt.cpp's 0x449EA0 calls it)
 	bool Unknown_44AFF0();								// 0x44AFF0 (PxWrapper +0x0C)

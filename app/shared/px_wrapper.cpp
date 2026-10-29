@@ -295,17 +295,17 @@ void PxWrapper::Update(const Vector3 &pos, float radius)
 }
 
 // 0x456F60
-PxCallback *PxWrapper::Unknown_456F60(int a, int b, int c)
+PxCallback *PxWrapper::Unknown_456F60(int type, PxCallbackFunction function, float radius)
 {
-	PxCallback *callback = Unknown_452140(a, Object, b, c);
+	PxCallback *callback = Unknown_452140(type, Object, function, radius);
 	Add_Callback(callback);
 	return(callback);
 }
 
 // 0x457190
-PxCallback *PxWrapper::Unknown_457190(int a, int b, int c)
+PxCallback *PxWrapper::Unknown_457190(int type, PxCallbackFunction function, const Vector3 &extent)
 {
-	PxCallback *callback = Unknown_452460(a, Object, b, c);
+	PxCallback *callback = Unknown_452460(type, Object, function, extent);
 	Add_Callback(callback);
 	return(callback);
 }

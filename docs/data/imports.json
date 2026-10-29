@@ -1883,6 +1883,8 @@
      "0x444160",
      "0x44AD10",
      "0x44AE70",
+     "0x44AF50",
+     "0x44AF80",
      "0x44AFB0",
      "0x44B030",
      "0x44B050",
@@ -7681,6 +7683,8 @@
      "0x456840",
      "0x456890",
      "0x456900",
+     "0x456F60",
+     "0x457190",
      "0x4573C0",
      "0x4575E0",
      "0x457670"
@@ -9079,6 +9083,19 @@
     ],
     "merged": [],
     "name": "shared/unknown_px_callbacks.cpp"
+   },
+   "unknown_px_factories": {
+    "ambiguous": [
+     "0x42B2F0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x452140",
+     "0x452460"
+    ],
+    "merged": [],
+    "name": "shared/unknown_px_factories.cpp"
    },
    "unknown_rate": {
     "ambiguous": [],

@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 36 |
 | 3 | by convention from a client-named file or sibling | 963 |
 | 2 | describes what the code does | 2339 |
-| 1 | neutral placeholder | 5652 |
+| 1 | neutral placeholder | 5656 |
 
 ## For review (score 3 and below)
 
@@ -4963,74 +4963,74 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_24` | `app/shared/dynamic_obj.cpp:155` | untagged neutral name (D10) |
 | 1 | `Unknown_456900` | `app/shared/dynamic_obj.cpp:162` | untagged neutral name (D10) |
 | 1 | `dynamic_obj.h` | `app/shared/dynamic_obj.h:13` | provisional header name (dynamic_obj.cpp's) |
-| 1 | `Unknown_Dyn04` | `app/shared/dynamic_obj.h:31` | untagged neutral name (D10) |
-| 1 | `Unknown_Dyn08` | `app/shared/dynamic_obj.h:32` | untagged neutral name (D10) |
-| 1 | `Unknown_Dyn0C` | `app/shared/dynamic_obj.h:33` | untagged neutral name (D10) |
-| 1 | `Unknown_Dyn10` | `app/shared/dynamic_obj.h:34` | untagged neutral name (D10) |
-| 1 | `Unknown_Dyn14` | `app/shared/dynamic_obj.h:35` | untagged neutral name (D10) |
-| 1 | `Unknown_Dyn18` | `app/shared/dynamic_obj.h:36` | untagged neutral name (D10) |
-| 1 | `Unknown_Dyn1C` | `app/shared/dynamic_obj.h:37` | untagged neutral name (D10) |
-| 1 | `Unknown_Dyn20` | `app/shared/dynamic_obj.h:38` | untagged neutral name (D10) |
-| 1 | `a` | `app/shared/dynamic_obj.h:39` | neutral |
-| 1 | `Unknown_Dyn24` | `app/shared/dynamic_obj.h:39` | untagged neutral name (D10) |
-| 1 | `a, b` | `app/shared/dynamic_obj.h:40` | neutral |
-| 1 | `Unknown_Dyn28` | `app/shared/dynamic_obj.h:40` | untagged neutral name (D10) |
-| 1 | `Unknown_Dyn2C` | `app/shared/dynamic_obj.h:41` | untagged neutral name (D10) |
-| 1 | `Unknown_Dyn30` | `app/shared/dynamic_obj.h:42` | untagged neutral name (D10) |
-| 1 | `Unknown_24` | `app/shared/dynamic_obj.h:43` | untagged neutral name (D10) |
-| 1 | `Unknown_Dyn38` | `app/shared/dynamic_obj.h:44` | untagged neutral name (D10) |
-| 1 | `Unknown_Dyn3C` | `app/shared/dynamic_obj.h:45` | untagged neutral name (D10) |
-| 1 | `Unknown_2C` | `app/shared/dynamic_obj.h:46` | untagged neutral name (D10) |
-| 1 | `Unknown_Dyn44` | `app/shared/dynamic_obj.h:47` | untagged neutral name (D10) |
-| 1 | `Unknown_Dyn48` | `app/shared/dynamic_obj.h:48` | untagged neutral name (D10) |
-| 1 | `Unknown_Dyn4C` | `app/shared/dynamic_obj.h:49` | untagged neutral name (D10) |
-| 1 | `Unknown_Dyn50` | `app/shared/dynamic_obj.h:50` | untagged neutral name (D10) |
-| 1 | `Unknown_Dyn54` | `app/shared/dynamic_obj.h:51` | untagged neutral name (D10) |
-| 1 | `Unknown_Dyn58` | `app/shared/dynamic_obj.h:52` | untagged neutral name (D10) |
-| 1 | `Unknown_Dyn5C` | `app/shared/dynamic_obj.h:53` | untagged neutral name (D10) |
-| 1 | `Unknown_Dyn60` | `app/shared/dynamic_obj.h:54` | untagged neutral name (D10) |
-| 1 | `Unknown_Dyn64` | `app/shared/dynamic_obj.h:55` | untagged neutral name (D10) |
-| 1 | `pos` | `app/shared/dynamic_obj.h:56` | type 24's override reads its z |
-| 1 | `Unknown_Dyn68` | `app/shared/dynamic_obj.h:56` | untagged neutral name (D10) |
-| 1 | `tm` | `app/shared/dynamic_obj.h:57` | type 24's override reads its translation |
-| 1 | `Unknown_Dyn6C` | `app/shared/dynamic_obj.h:57` | untagged neutral name (D10) |
-| 1 | `Unknown_Dyn70` | `app/shared/dynamic_obj.h:58` | untagged neutral name (D10) |
-| 1 | `a, b, c, d` | `app/shared/dynamic_obj.h:59` | neutral |
-| 1 | `Unknown_Dyn74` | `app/shared/dynamic_obj.h:59` | untagged neutral name (D10) |
-| 1 | `a, b, c` | `app/shared/dynamic_obj.h:60` | neutral |
-| 1 | `Unknown_Dyn78` | `app/shared/dynamic_obj.h:60` | untagged neutral name (D10) |
-| 1 | `Unknown_Dyn7C` | `app/shared/dynamic_obj.h:61` | untagged neutral name (D10) |
-| 1 | `Unknown08` | `app/shared/dynamic_obj.h:61` | untagged neutral name (D10) |
-| 1 | `Unknown_Dyn80` | `app/shared/dynamic_obj.h:62` | untagged neutral name (D10) |
-| 1 | `Unknown_Dyn84` | `app/shared/dynamic_obj.h:63` | untagged neutral name (D10) |
-| 1 | `Unknown_Dyn88` | `app/shared/dynamic_obj.h:64` | untagged neutral name (D10) |
-| 1 | `Unknown_Dyn8C` | `app/shared/dynamic_obj.h:65` | untagged neutral name (D10) |
-| 1 | `value` | `app/shared/dynamic_obj.h:66` | what it returns |
-| 1 | `Unknown_Dyn90` | `app/shared/dynamic_obj.h:66` | untagged neutral name (D10) |
-| 1 | `Unknown_Dyn94` | `app/shared/dynamic_obj.h:67` | untagged neutral name (D10) |
-| 1 | `Unknown_Dyn98` | `app/shared/dynamic_obj.h:68` | untagged neutral name (D10) |
-| 1 | `Unknown_Dyn9C` | `app/shared/dynamic_obj.h:69` | untagged neutral name (D10) |
-| 1 | `a, b, c, d` | `app/shared/dynamic_obj.h:70` | neutral |
-| 1 | `Unknown_DynA0` | `app/shared/dynamic_obj.h:70` | untagged neutral name (D10) |
-| 1 | `a` | `app/shared/dynamic_obj.h:71` | neutral |
-| 1 | `Unknown_DynA4` | `app/shared/dynamic_obj.h:71` | untagged neutral name (D10) |
-| 1 | `a, b, c` | `app/shared/dynamic_obj.h:73` | neutral |
-| 1 | `Unknown_44AF50` | `app/shared/dynamic_obj.h:73` | untagged neutral name (D10) |
-| 1 | `a, b, c` | `app/shared/dynamic_obj.h:74` | neutral |
-| 1 | `Unknown_44AF80` | `app/shared/dynamic_obj.h:74` | untagged neutral name (D10) |
-| 1 | `callback` | `app/shared/dynamic_obj.h:75` | as PxWrapper's |
-| 1 | `Unknown_44AFB0` | `app/shared/dynamic_obj.h:75` | untagged neutral name (D10) |
-| 1 | `Unknown_44AFD0` | `app/shared/dynamic_obj.h:76` | untagged neutral name (D10) |
-| 1 | `Unknown_44AFF0` | `app/shared/dynamic_obj.h:77` | untagged neutral name (D10) |
-| 1 | `Unknown_44B010` | `app/shared/dynamic_obj.h:78` | untagged neutral name (D10) |
-| 1 | `value` | `app/shared/dynamic_obj.h:79` | as PxWrapper's |
-| 1 | `Unknown_44B030` | `app/shared/dynamic_obj.h:79` | untagged neutral name (D10) |
+| 1 | `Unknown_Dyn04` | `app/shared/dynamic_obj.h:32` | untagged neutral name (D10) |
+| 1 | `Unknown_Dyn08` | `app/shared/dynamic_obj.h:33` | untagged neutral name (D10) |
+| 1 | `Unknown_Dyn0C` | `app/shared/dynamic_obj.h:34` | untagged neutral name (D10) |
+| 1 | `Unknown_Dyn10` | `app/shared/dynamic_obj.h:35` | untagged neutral name (D10) |
+| 1 | `Unknown_Dyn14` | `app/shared/dynamic_obj.h:36` | untagged neutral name (D10) |
+| 1 | `Unknown_Dyn18` | `app/shared/dynamic_obj.h:37` | untagged neutral name (D10) |
+| 1 | `Unknown_Dyn1C` | `app/shared/dynamic_obj.h:38` | untagged neutral name (D10) |
+| 1 | `Unknown_Dyn20` | `app/shared/dynamic_obj.h:39` | untagged neutral name (D10) |
+| 1 | `a` | `app/shared/dynamic_obj.h:40` | neutral |
+| 1 | `Unknown_Dyn24` | `app/shared/dynamic_obj.h:40` | untagged neutral name (D10) |
+| 1 | `a, b` | `app/shared/dynamic_obj.h:41` | neutral |
+| 1 | `Unknown_Dyn28` | `app/shared/dynamic_obj.h:41` | untagged neutral name (D10) |
+| 1 | `Unknown_Dyn2C` | `app/shared/dynamic_obj.h:42` | untagged neutral name (D10) |
+| 1 | `Unknown_Dyn30` | `app/shared/dynamic_obj.h:43` | untagged neutral name (D10) |
+| 1 | `Unknown_24` | `app/shared/dynamic_obj.h:44` | untagged neutral name (D10) |
+| 1 | `Unknown_Dyn38` | `app/shared/dynamic_obj.h:45` | untagged neutral name (D10) |
+| 1 | `Unknown_Dyn3C` | `app/shared/dynamic_obj.h:46` | untagged neutral name (D10) |
+| 1 | `Unknown_2C` | `app/shared/dynamic_obj.h:47` | untagged neutral name (D10) |
+| 1 | `Unknown_Dyn44` | `app/shared/dynamic_obj.h:48` | untagged neutral name (D10) |
+| 1 | `Unknown_Dyn48` | `app/shared/dynamic_obj.h:49` | untagged neutral name (D10) |
+| 1 | `Unknown_Dyn4C` | `app/shared/dynamic_obj.h:50` | untagged neutral name (D10) |
+| 1 | `Unknown_Dyn50` | `app/shared/dynamic_obj.h:51` | untagged neutral name (D10) |
+| 1 | `Unknown_Dyn54` | `app/shared/dynamic_obj.h:52` | untagged neutral name (D10) |
+| 1 | `Unknown_Dyn58` | `app/shared/dynamic_obj.h:53` | untagged neutral name (D10) |
+| 1 | `Unknown_Dyn5C` | `app/shared/dynamic_obj.h:54` | untagged neutral name (D10) |
+| 1 | `Unknown_Dyn60` | `app/shared/dynamic_obj.h:55` | untagged neutral name (D10) |
+| 1 | `Unknown_Dyn64` | `app/shared/dynamic_obj.h:56` | untagged neutral name (D10) |
+| 1 | `pos` | `app/shared/dynamic_obj.h:57` | type 24's override reads its z |
+| 1 | `Unknown_Dyn68` | `app/shared/dynamic_obj.h:57` | untagged neutral name (D10) |
+| 1 | `tm` | `app/shared/dynamic_obj.h:58` | type 24's override reads its translation |
+| 1 | `Unknown_Dyn6C` | `app/shared/dynamic_obj.h:58` | untagged neutral name (D10) |
+| 1 | `Unknown_Dyn70` | `app/shared/dynamic_obj.h:59` | untagged neutral name (D10) |
+| 1 | `a, b, c, d` | `app/shared/dynamic_obj.h:60` | neutral |
+| 1 | `Unknown_Dyn74` | `app/shared/dynamic_obj.h:60` | untagged neutral name (D10) |
+| 1 | `a, b, c` | `app/shared/dynamic_obj.h:61` | neutral |
+| 1 | `Unknown_Dyn78` | `app/shared/dynamic_obj.h:61` | untagged neutral name (D10) |
+| 1 | `Unknown_Dyn7C` | `app/shared/dynamic_obj.h:62` | untagged neutral name (D10) |
+| 1 | `Unknown08` | `app/shared/dynamic_obj.h:62` | untagged neutral name (D10) |
+| 1 | `Unknown_Dyn80` | `app/shared/dynamic_obj.h:63` | untagged neutral name (D10) |
+| 1 | `Unknown_Dyn84` | `app/shared/dynamic_obj.h:64` | untagged neutral name (D10) |
+| 1 | `Unknown_Dyn88` | `app/shared/dynamic_obj.h:65` | untagged neutral name (D10) |
+| 1 | `Unknown_Dyn8C` | `app/shared/dynamic_obj.h:66` | untagged neutral name (D10) |
+| 1 | `value` | `app/shared/dynamic_obj.h:67` | what it returns |
+| 1 | `Unknown_Dyn90` | `app/shared/dynamic_obj.h:67` | untagged neutral name (D10) |
+| 1 | `Unknown_Dyn94` | `app/shared/dynamic_obj.h:68` | untagged neutral name (D10) |
+| 1 | `Unknown_Dyn98` | `app/shared/dynamic_obj.h:69` | untagged neutral name (D10) |
+| 1 | `Unknown_Dyn9C` | `app/shared/dynamic_obj.h:70` | untagged neutral name (D10) |
+| 1 | `a, b, c, d` | `app/shared/dynamic_obj.h:71` | neutral |
+| 1 | `Unknown_DynA0` | `app/shared/dynamic_obj.h:71` | untagged neutral name (D10) |
+| 1 | `a` | `app/shared/dynamic_obj.h:72` | neutral |
+| 1 | `Unknown_DynA4` | `app/shared/dynamic_obj.h:72` | untagged neutral name (D10) |
+| 1 | `type, callback, radius` | `app/shared/dynamic_obj.h:74` | the factory 0x452140's |
+| 1 | `Unknown_44AF50` | `app/shared/dynamic_obj.h:74` | untagged neutral name (D10) |
+| 1 | `type, callback, extent` | `app/shared/dynamic_obj.h:75` | the factory 0x452460's |
+| 1 | `Unknown_44AF80` | `app/shared/dynamic_obj.h:75` | untagged neutral name (D10) |
+| 1 | `callback` | `app/shared/dynamic_obj.h:76` | as PxWrapper's |
+| 1 | `Unknown_44AFB0` | `app/shared/dynamic_obj.h:76` | untagged neutral name (D10) |
+| 1 | `Unknown_44AFD0` | `app/shared/dynamic_obj.h:77` | untagged neutral name (D10) |
+| 1 | `Unknown_44AFF0` | `app/shared/dynamic_obj.h:78` | untagged neutral name (D10) |
+| 1 | `Unknown_44B010` | `app/shared/dynamic_obj.h:79` | untagged neutral name (D10) |
 | 1 | `value` | `app/shared/dynamic_obj.h:80` | as PxWrapper's |
-| 1 | `Unknown_44B050` | `app/shared/dynamic_obj.h:80` | untagged neutral name (D10) |
+| 1 | `Unknown_44B030` | `app/shared/dynamic_obj.h:80` | untagged neutral name (D10) |
 | 1 | `value` | `app/shared/dynamic_obj.h:81` | as PxWrapper's |
-| 1 | `Unknown_44B070` | `app/shared/dynamic_obj.h:81` | untagged neutral name (D10) |
-| 1 | `low, high` | `app/shared/dynamic_obj.h:83` | PxWrapper 0x456900's FAIL_IFs |
-| 1 | `Unknown04` | `app/shared/dynamic_obj.h:85` | untagged neutral name (D10) |
+| 1 | `Unknown_44B050` | `app/shared/dynamic_obj.h:81` | untagged neutral name (D10) |
+| 1 | `value` | `app/shared/dynamic_obj.h:82` | as PxWrapper's |
+| 1 | `Unknown_44B070` | `app/shared/dynamic_obj.h:82` | untagged neutral name (D10) |
+| 1 | `low, high` | `app/shared/dynamic_obj.h:84` | PxWrapper 0x456900's FAIL_IFs |
+| 1 | `Unknown04` | `app/shared/dynamic_obj.h:86` | untagged neutral name (D10) |
 | 1 | `Unknown_Percent` | `app/shared/graphics_settings.h:84` | neutral (D10): value's place in [min, max] as a percentage |
 | 1 | `Unknown_Percent` | `app/shared/graphics_settings.h:91` | neutral (D10) |
 | 1 | `Get_Height_2` | `app/shared/heightfield.h:52` | the same code at a second address (0x463CD0) |
@@ -5252,9 +5252,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_456F60` | `app/shared/px_wrapper.h:10` | untagged neutral name (D10) |
 | 1 | `Unknown_457190` | `app/shared/px_wrapper.h:10` | untagged neutral name (D10) |
 | 1 | `px_wrapper.h` | `app/shared/px_wrapper.h:17` | provisional header name (px_wrapper.cpp's) |
-| 1 | `a, b, c` | `app/shared/px_wrapper.h:31` | neutral |
+| 1 | `type, callback, radius` | `app/shared/px_wrapper.h:31` | what the constructors take |
 | 1 | `Unknown_452140` | `app/shared/px_wrapper.h:31` | untagged neutral name (D10) |
-| 1 | `a, b, c` | `app/shared/px_wrapper.h:32` | neutral |
+| 1 | `type, callback, extent` | `app/shared/px_wrapper.h:32` | as above |
 | 1 | `Unknown_452460` | `app/shared/px_wrapper.h:32` | untagged neutral name (D10) |
 | 1 | `owner` | `app/shared/px_wrapper.h:37` | it stores it at +0x00 |
 | 1 | `owner, src` | `app/shared/px_wrapper.h:38` | as above |
@@ -5267,8 +5267,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_456890` | `app/shared/px_wrapper.h:47` | untagged neutral name (D10) |
 | 1 | `Unknown_4568E0` | `app/shared/px_wrapper.h:48` | untagged neutral name (D10) |
 | 1 | `Unknown_456900` | `app/shared/px_wrapper.h:49` | untagged neutral name (D10) |
-| 1 | `a, b, c` | `app/shared/px_wrapper.h:51` | neutral |
-| 1 | `a, b, c` | `app/shared/px_wrapper.h:52` | neutral |
+| 1 | `type, callback, radius` | `app/shared/px_wrapper.h:51` | the factory's |
+| 1 | `type, callback, extent` | `app/shared/px_wrapper.h:52` | the factory's |
 | 1 | `callback` | `app/shared/px_wrapper.h:54` | what it searches for |
 | 1 | `Unknown_4575E0` | `app/shared/px_wrapper.h:54` | untagged neutral name (D10) |
 | 1 | `Owner` | `app/shared/px_wrapper.h:56` | the constructor's argument |
@@ -5336,6 +5336,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_PacketDataClass` | `app/shared/unknown_packetdata.h:7` | untagged neutral name (D10) |
 | 1 | `unknown_packetdata.h` | `app/shared/unknown_packetdata.h:16` | neutral file name (D10) |
 | 1 | `unknown_px_callbacks.h` | `app/shared/unknown_px_callbacks.h:13` | neutral header name (D10) |
+| 1 | `Unknown_452140` | `app/shared/unknown_px_factories.cpp:11` | untagged neutral name (D10) |
+| 1 | `Unknown_452460` | `app/shared/unknown_px_factories.cpp:61` | untagged neutral name (D10) |
+| 1 | `Unknown_456F60` | `app/shared/unknown_px_factories.cpp:114` | untagged neutral name (D10) |
+| 1 | `Unknown_457190` | `app/shared/unknown_px_factories.cpp:115` | untagged neutral name (D10) |
 | 1 | `Unknown_4BC460` | `app/wwudp/bandwidthaccounting.cpp:29` | the debug window print |
 | 1 | `Unknown_Get_Ticks` | `app/wwudp/bandwidthaccounting.cpp:31` | untagged neutral name (D10) |
 | 1 | `ExtraIn` | `app/wwudp/bandwidthaccounting.cpp:43` | +0x10 Record_In's third argument (0 from the callback) |
@@ -8906,7 +8910,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `DefinitionRefCount` | `app/shared/definition_manager.h:31` | from the client's 'drc->RefCount' |
 | 3 | `DefinitionManagerClass` | `app/shared/definition_manager.h:42` | by convention (D24) from the client's definition_manager.h |
 | 3 | `DurationClass` | `app/shared/duration.h:25` | by convention (D24) from the client's file duration.h (D37) |
-| 3 | `AABoxClass` | `app/shared/dynamic_obj.h:86` | 6 dwords returned by value; type a guess |
+| 3 | `AABoxClass` | `app/shared/dynamic_obj.h:87` | 6 dwords returned by value; type a guess |
 | 3 | `graphics_settings.h` | `app/shared/graphics_settings.h:18` | the client's header path |
 | 3 | `ini_manager.h` | `app/shared/ini_manager.h:17` | header name assumed from the client's ini_manager.cpp |
 | 3 | `INIManagerClass` | `app/shared/ini_manager.h:25` | by convention (D24) from the client's file ini_manager.cpp |

@@ -28,8 +28,8 @@
 class DynObj;
 class PxList;
 
-PxCallback *Unknown_452140(int a, PxObject *object, int b, int c);	// 0x452140 (a factory switching on a's type bits)  // NAME 1 [a, b, c]: neutral
-PxCallback *Unknown_452460(int a, PxObject *object, int b, int c);	// 0x452460 (another factory)  // NAME 1 [a, b, c]: neutral
+PxCallback *Unknown_452140(int type, PxObject *object, PxCallbackFunction callback, float radius);			// 0x452140 (unknown_px_callbacks.cpp: the callback for a PxCallbackType, a sphere's)  // NAME 1 [type, callback, radius]: what the constructors take
+PxCallback *Unknown_452460(int type, PxObject *object, PxCallbackFunction callback, const Vector3 &extent);	// 0x452460 (as above, a box's)  // NAME 1 [type, callback, extent]: as above
 
 class PxWrapper
 {
@@ -48,8 +48,8 @@ public:
 	std::vector<DynObj *> &Unknown_4568E0();								// 0x4568E0 (the callback box's Owners)
 	void Unknown_456900(const Vector3 &low, const Vector3 &high);		// 0x456900 (FAIL_IF '!low.Is_Valid()' l.247, '!high.Is_Valid()' l.248)
 	void Update(const Vector3 &pos, float radius);						// 0x456B60 'PxWrapper::Update' (FAIL_IF '!pos.Is_Valid()' l.272, '!WWMath::Is_Valid_Float(radius)')
-	PxCallback *Unknown_456F60(int a, int b, int c);					// 0x456F60 (adds 0x452140's callback)  // NAME 1 [a, b, c]: neutral
-	PxCallback *Unknown_457190(int a, int b, int c);					// 0x457190 (adds 0x452460's callback)  // NAME 1 [a, b, c]: neutral
+	PxCallback *Unknown_456F60(int type, PxCallbackFunction callback, float radius);			// 0x456F60 (adds 0x452140's callback)  // NAME 1 [type, callback, radius]: the factory's
+	PxCallback *Unknown_457190(int type, PxCallbackFunction callback, const Vector3 &extent);	// 0x457190 (adds 0x452460's callback)  // NAME 1 [type, callback, extent]: the factory's
 	void Add_Callback(PxCallback *callback);							// 0x4573C0  // NAME 2: what it does
 	bool Unknown_4575E0(void *callback);								// 0x4575E0 (removes it from Callbacks)  // NAME 1 [callback]: what it searches for
 

@@ -94,15 +94,15 @@ void DynObj::Unknown_Dyn6C(const Matrix3D &tm)
 }
 
 // 0x44AF50
-void *DynObj::Unknown_44AF50(int a, int b, int c)
+void *DynObj::Unknown_44AF50(int type, PxCallbackFunction callback, float radius)
 {
-	return(ProximityObject->Unknown_456F60(a, b, c));
+	return(ProximityObject->Unknown_456F60(type, callback, radius));
 }
 
 // 0x44AF80
-void *DynObj::Unknown_44AF80(int a, int b, int c)
+void *DynObj::Unknown_44AF80(int type, PxCallbackFunction callback, const Vector3 &extent)
 {
-	return(ProximityObject->Unknown_457190(a, b, c));
+	return(ProximityObject->Unknown_457190(type, callback, extent));
 }
 
 // 0x44AFB0

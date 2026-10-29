@@ -67,10 +67,10 @@ void PxBoxCallback::On_Exit(PxBox *box)
 /*
 ** Notes
 **
-** The object 0x451C00-0x452770 sits between px_callback_accurate.cpp (its guarded <string> static at 0x451BD0) and
-** px_callback_poll.cpp (from 0x452780); its own guard is at 0x452750. It has no __FILE__ string, so its name is
-** unknown (D10). It holds this-adjusting thunks for px_callback_accurate.cpp's classes (0x451C00-0x451C20),
-** PxBoxCallback (0x451C30-0x452130) and the two factories 0x452140 / 0x452460 (not rebuilt: they construct
-** px_callback_accurate.cpp's classes). The copy constructor copies the PxBox's owner only (PxBox(object), not
+** The object 0x451C00-0x452130 sits after px_callback_accurate.cpp (its guarded <string> static at 0x451BD0). It
+** has no __FILE__ string, so its name is unknown (D10). It holds this-adjusting thunks for px_callback_accurate.cpp's
+** classes (0x451C00-0x451C20) and PxBoxCallback (0x451C30-0x452130). The factories 0x452140 / 0x452460 that
+** follow (to the guard 0x452750) are unknown_px_factories.cpp's (PX3: compiled here they inline PxBoxCallback's
+** constructor, which the client calls). The copy constructor copies the PxBox's owner only (PxBox(object), not
 ** PxBox's copy), unlike the polling boxes.
 */
