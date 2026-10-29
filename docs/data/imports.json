@@ -7670,23 +7670,33 @@
    },
    "sbaseview": {
     "ambiguous": [
-     "0x42B2F0"
+     "0x42B2F0",
+     "0x46BE90",
+     "0x474080",
+     "0x64EFC0"
     ],
     "copy": "reconstructed",
     "expected": {},
     "in_tree": [
      "0x42F250",
      "0x69D930",
+     "0x69D9D0",
      "0x69DB50",
+     "0x69DBA0",
      "0x69F460",
+     "0x69F480",
+     "0x69F850",
      "0x6A0540",
      "0x6A0E00",
      "0x6A0E50",
      "0x6A0E80",
      "0x6A0FD0",
+     "0x6A1000",
+     "0x6A1130",
      "0x6A20C0",
      "0x6A23E0",
-     "0x6A2430"
+     "0x6A2430",
+     "0x6A2480"
     ],
     "merged": [],
     "name": "client/sbaseview.cpp"
