@@ -139,6 +139,12 @@ tools/re/README.md, tools/vc6 and tools/harness/README.md.
 
 ### 3.1 VC6 code generation
 
+* **Small budget levers from HL2's round** (2026-10-29): an extra inline accessor in a test (`def->Get_Type()`)
+  can push an earlier string assign out of line and pull a later destructor inline: try it when a sibling without
+  the test is already exact (Play_2D_Sound 0x43ED30 against Play_3D_Sound). When the client calls a file's own
+  helpers out of line in every caller, try `#pragma auto_inline(off)` around their definitions (fixed Load_String's
+  frame and dead parameter slots). A helper put into a blank-line area must replace exactly as many lines as it
+  takes: one short moved Start_Step's `__LINE__` and showed as a lost pair.
 * **A large struct copy inlines only through an explicit inline operator=** (2026-10-29, FU1): the implicit one is
   called out of line, and can move a load in an unrelated function that includes the header (H21's Load_Init
   knock-on). A member whose inline twin is 'own begin / ++ called out of line' is a .cpp function the caller

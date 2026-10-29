@@ -1403,7 +1403,7 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
   Record in D89 that scratch-copy probes count as forms (so the cap means what it says), and either accept this
   round's overrun after the fact or raise the cap for a whole-object round like D134's?
   The same happened in HL1's round (2026-10-29): Resolve 0x487660 took 9 forms against its brief's 3, so the
-  rule needs stating for Opus rounds as well as Fable ones.
+  rule needs stating for Opus rounds as well as Fable ones (HL2 the same day: 4 forms on two functions against 3).
 
 * **P-IB2-1** (2026-10-29, IB2; recommend yes): one more short round on 0x6FD310 past LIMIT REACHED (3 Opus rounds,
   F8's Fable round, IB2's lever round): at most 2 forms, IB2's form (1) plus a find-if-changed helper with the mark
@@ -1621,7 +1621,13 @@ client's own code: [kernel-map.md](kernel-map.md) §6 and, for step 9's dependen
    P9's worktree scripts (item 3); the compare-and-swap commit rule (`update-ref master NEW OLD`) into commit_mine
    (H17's race); gen_stubs' by-value returns (P-T18-2); H16's `.work/h16/fm_gen.py` / `commit_h16.py` pattern for
    generated files.
-10. Leftovers: attrib_dir.cpp / spln_db.cpp after HL1's round (2026-10-29, 5b6efec +3: Detach_Callback 0x4D5000, ~AttributeInfo
+10. Leftovers: fontdatabase.cpp / tutorial_manager.cpp / soundlib.cpp after HL2's round (2026-10-29, 6b74446 / d843c83 / 3194f25,
+   +5: FontStringStruct::Reset 0x6BE0E0 and Play_2D_Sound 0x43ED30 exact, Load 0x6C52B0's Files-table helpers 0x6C8DF0 /
+   0x6C8F20 / 0x6C9740; NOT EXACT Load_String 0x6C0430 register at 4 rows with auto_inline(off) around the word
+   parsers (P-HL2-1: one form, `misses` before `text` or Offset / Target / BoxOffset as TPoint2D<float>; the three
+   StringClass copies 0x48C500 / 0x510CC0 / 0x78D810 it moves out are D66 (i) moves), Read_Completed_File 0x6AD4B0
+   order (P-HL2-2: one order round), Set_Font 0x6C38F0 register, Load 0x6C52B0 frame, the tutorial ctor 0x6AC600 /
+   Reload 0x6AD7B0, SoundDefClass 0x43D3E0 and Load 0x43FE30 parked); attrib_dir.cpp / spln_db.cpp after HL1's round (2026-10-29, 5b6efec +3: Detach_Callback 0x4D5000, ~AttributeInfo
    0x4D6620, Advance's copy 0x4D9C50 exact through while loops in attrib_dir.h; no shared static helper in either
    file; parked Notify 0x4D71D0, Unlock 0x4D8690, Attach_Mod 0x4D6820 / 0x4D4810, Create_Hermite / Create_Color
    0x485C10 / 0x487400 (only the `new HashNodeClass`'s EH state differs: when VC6 compiles GenericNode's
