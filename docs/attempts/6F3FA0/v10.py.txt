@@ -1,0 +1,28 @@
+"""F8: the position of one dead find in the roll 0x6F3FA0 (r1 had the client's calls but Rotate_X out of line), and
+dead finds placed between the damage decals' finds (0x6FD310)."""
+import os
+WT = r'C:\EnBDevelopment\EnB\.work\wt\f8'
+C = 'app/client/co.cpp'
+src = open(os.path.join(WT, C.replace('/', os.sep)), 'rb').read().decode('latin1').replace('\r\n', '\n')
+FF = 'Unknown_Find_Field<DeltaTemplateClass<int> >(NULL, *(NameClass *)this); '
+
+ROLL_END = '\tUnknown144 = Unknown134.Unknown04[2] + Unknown144;\n\ttm.Rotate_X(Unknown144);\n}\n'
+assert src.count(ROLL_END) == 1
+ROLL_MID = '\tfloat accel = 0.0f;\n\tif (diff > limit) {\n'
+assert src.count(ROLL_MID) == 1
+ROLL_HEAD = 'void ClientObjectClass::Unknown_6F3FA0(Matrix3D &tm)\n{\n\tif (!Unknown_6F5A10()) {\n'
+
+SPOT_END = '\t\t\tmemset(spot_changed, 0, sizeof(spot_changed));\n\t\t}\n\t}\n'
+assert src.count(SPOT_END) == 1
+LINE_END = '\t\t\tmemset(line_changed, 0, sizeof(line_changed));\n\t\t}\n\t}\n'
+assert src.count(LINE_END) == 1
+
+V = {
+    'r1_end': [(C, ROLL_END, '\tUnknown144 = Unknown134.Unknown04[2] + Unknown144;\n\ttm.Rotate_X(Unknown144);\n\t' + FF.rstrip() + '\n}\n')],
+    'r1_mid': [(C, ROLL_MID, '\t' + FF.rstrip() + '\n\tfloat accel = 0.0f;\n\tif (diff > limit) {\n')],
+    'r1_top_rotfirst': [(C, ROLL_HEAD, 'void ClientObjectClass::Unknown_6F3FA0(Matrix3D &tm)\n{\n\t' + FF.rstrip() + '\n\tif (!Unknown_6F5A10()) {\n'),
+                        (C, ROLL_END, '\tUnknown144 = Unknown134.Unknown04[2] + Unknown144;\n\tMatrix3D &m = tm; m.Rotate_X(Unknown144);\n}\n')],
+    'd_after1': [(C, SPOT_END, SPOT_END + '\t' + (FF * 6).rstrip() + '\n')],
+    'd_split': [(C, SPOT_END, SPOT_END + '\t' + (FF * 3).rstrip() + '\n'), (C, LINE_END, LINE_END + '\t' + (FF * 3).rstrip() + '\n')],
+}
+ONLY = {0x6F3FA0, 0x6FD310}
