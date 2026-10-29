@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 36 |
 | 3 | by convention from a client-named file or sibling | 948 |
 | 2 | describes what the code does | 2327 |
-| 1 | neutral placeholder | 5341 |
+| 1 | neutral placeholder | 5340 |
 
 ## For review (score 3 and below)
 
@@ -3750,17 +3750,16 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown20` | `app/packets/pkclientchat.h:109` | untagged neutral name (D10) |
 | 1 | `Unknown30` | `app/packets/pkclientchat.h:110` | untagged neutral name (D10) |
 | 1 | `pkclientship` | `app/packets/pkclientship.h:16` | provisional, pk + its first named class's name |
-| 1 | `Unknown_14` | `app/packets/pkcolorization.cpp:11` | untagged neutral name (D10) |
-| 1 | `Unknown00` | `app/packets/pkcolorization.cpp:22` | untagged neutral name (D10) |
-| 1 | `Unknown04` | `app/packets/pkcolorization.cpp:23` | untagged neutral name (D10) |
-| 1 | `Unknown10` | `app/packets/pkcolorization.cpp:24` | untagged neutral name (D10) |
-| 1 | `Unknown14` | `app/packets/pkcolorization.cpp:25` | untagged neutral name (D10) |
+| 1 | `Unknown_14` | `app/packets/pkcolorization.cpp:9` | untagged neutral name (D10) |
+| 1 | `Unknown00` | `app/packets/pkcolorization.cpp:20` | untagged neutral name (D10) |
+| 1 | `Unknown04` | `app/packets/pkcolorization.cpp:21` | untagged neutral name (D10) |
+| 1 | `Unknown10` | `app/packets/pkcolorization.cpp:22` | untagged neutral name (D10) |
 | 1 | `pkcolorization` | `app/packets/pkcolorization.h:15` | provisional, pk + its class's name |
-| 1 | `ColorizationRegionStruct` | `app/packets/pkcolorization.h:24` | neutral (D10), the packet's 'NumRegions' |
-| 1 | `Unknown00` | `app/packets/pkcolorization.h:26` | untagged neutral name (D10) |
-| 1 | `Unknown04` | `app/packets/pkcolorization.h:27` | untagged neutral name (D10) |
-| 1 | `Unknown10` | `app/packets/pkcolorization.h:28` | untagged neutral name (D10) |
-| 1 | `Unknown14` | `app/packets/pkcolorization.h:29` | untagged neutral name (D10) |
+| 1 | `ColorizationHalfStruct` | `app/packets/pkcolorization.h:26` | neutral (D10), half of a region |
+| 1 | `Unknown00` | `app/packets/pkcolorization.h:28` | untagged neutral name (D10) |
+| 1 | `Unknown04` | `app/packets/pkcolorization.h:29` | untagged neutral name (D10) |
+| 1 | `ColorizationRegionStruct` | `app/packets/pkcolorization.h:32` | neutral (D10), the packet's 'NumRegions' |
+| 1 | `Unknown10` | `app/packets/pkcolorization.h:35` | untagged neutral name (D10) |
 | 1 | `pkconfirmedaction` | `app/packets/pkconfirmedaction.h:15` | provisional, pk + its classes' common name |
 | 1 | `ConfirmedActionEnum` | `app/packets/pkconfirmedaction.h:21` | neutral placeholder (D10) |
 | 1 | `CONFIRMED_ACTION_NONE` | `app/packets/pkconfirmedaction.h:23` | neutral placeholder (D10) |
@@ -6509,7 +6508,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `TargetSize` | `app/packets/pkclientchat.h:41` | Target's Size |
 | 2 | `Owned` | `app/packets/pkclientchat.h:42` | what it means |
 | 2 | `ClientChatRequestPacketClass` | `app/packets/pkclientchat.h:46` | the reference decoder's opcode name CLIENT_CHAT_REQUEST (the Net-7 opcode table; no structure check) |
-| 2 | `Channel` | `app/packets/pkcolorization.h:46` | Get_Channel returns it |
+| 2 | `Channel` | `app/packets/pkcolorization.h:52` | Get_Channel returns it |
 | 2 | `ConfirmedActionOfferPacketClass` | `app/packets/pkconfirmedaction.h:27` | the reference decoder's opcode name CONFIRMED_ACTION_OFFER (the Net-7 opcode table; no structure check) |
 | 2 | `ConfirmedActionResponsePacketClass` | `app/packets/pkconfirmedaction.h:58` | the reference decoder's opcode name CONFIRMED_ACTION_RESPONSE (the Net-7 opcode table; no structure check) |
 | 2 | `pkcreatecharacter` | `app/packets/pkcreatecharacter.h:15` | provisional, pk + its class's Print text 'Create Character' |
@@ -7972,8 +7971,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `Type` | `app/packets/pkclientchat.h:39` | the client's Print text 'Type=' |
 | 3 | `Target` | `app/packets/pkclientchat.h:40` | the client's Print text 'Target=' |
 | 3 | `ShipID` | `app/packets/pkclientship.h:32` | the client's Print text 'ShipID=' |
-| 3 | `GameID` | `app/packets/pkcolorization.h:44` | the client's Print text 'GameID=' |
-| 3 | `std:` | `app/packets/pkcolorization.h:45` | the client's Print text 'NumRegions=' |
+| 3 | `GameID` | `app/packets/pkcolorization.h:50` | the client's Print text 'GameID=' |
+| 3 | `std:` | `app/packets/pkcolorization.h:51` | the client's Print text 'NumRegions=' |
 | 3 | `ID` | `app/packets/pkconfirmedaction.h:37` | the client's Print text 'ID=' |
 | 3 | `std:` | `app/packets/pkconfirmedaction.h:38` | the client's Print text 'Message=' |
 | 3 | `Type` | `app/packets/pkconfirmedaction.h:39` | the client's Print text 'Type=' |

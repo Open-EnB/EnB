@@ -2,8 +2,6 @@
 #include "pkcolorization.h"
 #include <stdio.h>
 
-// NOT EXACT: 0x87F320, the inline vector copy's loop addresses each region from its last dword in
-// the client (shape; attempts.py show 0x87F320)
 ColorizationPacketClass::ColorizationPacketClass(int game_id, const std::vector<ColorizationRegionStruct> &regions) :
 	GameID(game_id),
 	Regions(regions)
@@ -19,10 +17,10 @@ ColorizationPacketClass::ColorizationPacketClass(RawPacketClass *raw)
 	Regions.reserve(count);
 	for (int i = 0; i < count; i++) {
 		ColorizationRegionStruct region;
-		raw->Get(&region.Unknown00, sizeof(region.Unknown00));
-		raw->Get(&region.Unknown04, sizeof(region.Unknown04));
-		raw->Get(&region.Unknown10, sizeof(region.Unknown10));
-		raw->Get(&region.Unknown14, sizeof(region.Unknown14));
+		raw->Get(&region.Unknown00.Unknown00, sizeof(region.Unknown00.Unknown00));
+		raw->Get(&region.Unknown00.Unknown04, sizeof(region.Unknown00.Unknown04));
+		raw->Get(&region.Unknown10.Unknown00, sizeof(region.Unknown10.Unknown00));
+		raw->Get(&region.Unknown10.Unknown04, sizeof(region.Unknown10.Unknown04));
 		Regions.push_back(region);
 	}
 }
@@ -34,10 +32,10 @@ RawPacketClass *ColorizationPacketClass::Build()
 	int count = Regions.size();
 	raw->Add(&count, sizeof(short));
 	for (std::vector<ColorizationRegionStruct>::iterator it = Regions.begin(); it != Regions.end(); ++it) {
-		raw->Add(&it->Unknown00, sizeof(it->Unknown00));
-		raw->Add(&it->Unknown04, sizeof(it->Unknown04));
-		raw->Add(&it->Unknown10, sizeof(it->Unknown10));
-		raw->Add(&it->Unknown14, sizeof(it->Unknown14));
+		raw->Add(&it->Unknown00.Unknown00, sizeof(it->Unknown00.Unknown00));
+		raw->Add(&it->Unknown00.Unknown04, sizeof(it->Unknown00.Unknown04));
+		raw->Add(&it->Unknown10.Unknown00, sizeof(it->Unknown10.Unknown00));
+		raw->Add(&it->Unknown10.Unknown04, sizeof(it->Unknown10.Unknown04));
 	}
 	return(raw);
 }
@@ -59,7 +57,8 @@ int ColorizationPacketClass::Print(char *buffer, int)
 **	* Client 0x87F2F0-0x87F8F0 (the object ends with the guarded static every <string> includer has,
 **	  0xC416FC, atexit 0x42B320). Written by hand (builder P3, 2026-10-26), 4 of 5 exact in appfile.py
 **	  match: a std::vector of 32-byte regions (Vector3 members: the client copies them member by
-**	  member); the raw constructor reserves the count first. The value constructor is NOT EXACT
-**	  (parked, attempts.csv).
+**	  member); the raw constructor reserves the count first. The value constructor 0x87F320 exact
+**	  (builder PK3, 2026-10-29) once a region is two {int, Vector3} halves: the nested copy
+**	  constructors put the inline copy's pointer on the region's last dword, as the client's.
 **	* The file name is provisional (no assert names it).
 */

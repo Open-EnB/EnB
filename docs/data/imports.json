@@ -1,6 +1,6 @@
 {
  "app": {
-  "ambiguous_total": 131,
+  "ambiguous_total": 132,
   "base": "reconstructed",
   "compile_errors": [],
   "files": {
@@ -3548,7 +3548,8 @@
    "pkcolorization": {
     "ambiguous": [
      "0x42A900",
-     "0x42B2F0"
+     "0x42B2F0",
+     "0x62A5D0"
     ],
     "copy": "reconstructed",
     "expected": {},
@@ -3558,7 +3559,9 @@
      "0x52B270",
      "0x52B2A0",
      "0x52B350",
+     "0x62A0A0",
      "0x62A560",
+     "0x87F320",
      "0x87F4A0",
      "0x87F4D0",
      "0x87F510",
@@ -9185,7 +9188,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 4558,
+  "in_tree_total": 4560,
   "totals": {}
  },
  "binkmovie": {

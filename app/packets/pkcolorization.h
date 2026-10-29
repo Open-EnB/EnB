@@ -21,12 +21,18 @@
 
 // One region of a COLORIZATION packet: 32 bytes, read and written field by field (its vector's
 // copy and insert are another object's instances, 0x62A560 / 0x62A0A0)
-struct ColorizationRegionStruct  // NAME 1: neutral (D10), the packet's 'NumRegions'
+// Half a region: an int and a Vector3. The client copies a region as two of these (the inline copy in
+// 0x87F320 addresses each region from its last dword, as a nested copy constructor does)
+struct ColorizationHalfStruct  // NAME 1: neutral (D10), half of a region
 {
 	int Unknown00;	// +0x00
 	Vector3 Unknown04;	// +0x04
-	int Unknown10;	// +0x10
-	Vector3 Unknown14;	// +0x14
+};
+
+struct ColorizationRegionStruct  // NAME 1: neutral (D10), the packet's 'NumRegions'
+{
+	ColorizationHalfStruct Unknown00;	// +0x00
+	ColorizationHalfStruct Unknown10;	// +0x10
 };
 
 // opcode 17 (0x0011, COLORIZATION): vtable 0xB0A110, constructor 0x87F510, 0x24 bytes
