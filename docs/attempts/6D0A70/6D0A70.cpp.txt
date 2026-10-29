@@ -1,0 +1,20 @@
+// NOT EXACT: inline budget, 58 rows: the client inlines std::string(const char *) for the key, ours calls it (and two of the six 4-string loops swap lea operands; attempts.csv)
+void ManagedFontClass::Unknown_6D0A70(const char *name, const char *text)
+{
+	FontStringStruct def;
+	std::hash_map<std::string, FontStyleClass *>::iterator it = Styles.begin();
+	while (it != Styles.end()) {
+		FontStyleClass *style = (*it).second;
+		std::hash_map<std::string, FontStyleClass *>::iterator next = ++it;
+		if (strcmp(name, style->Info.StringID) == 0) {
+			def = style->Info;
+			style->Unknown_6D5140();
+			std::string key = "";
+			key = def.Unknown04.Is_Empty() ? (const char *)def.StringID : (const char *)def.Unknown04;
+			Styles.erase(key);
+		}
+		it = next;
+	}
+	def.Text = text;
+	Unknown_6CF930(&def, Id);
+}
