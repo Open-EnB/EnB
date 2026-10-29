@@ -37,6 +37,45 @@
 
 
 
+
+
+
+
+
+
+void ManagedFontClass::Unknown_Set_Styles(int value)
+{
+	for (std::hash_map<std::string, FontStyleClass *>::iterator style = Styles.begin(); style != Styles.end(); ++style) {
+		style->second->Unknown250 = value;
+	}
+}
+
+void ManagedFontClass::Unknown_6D07D0(int unknown)
+{
+	for (std::hash_map<std::string, FontStyleClass *>::iterator style = Styles.begin(); style != Styles.end(); ++style) {
+		style->second->Unknown_6CE7D0(unknown);
+	}
+}
+
+void ManagedFontClass::Unknown_6D0890()
+{
+	for (std::hash_map<std::string, FontStyleClass *>::iterator style = Styles.begin(); style != Styles.end(); ++style) {
+		style->second->Unknown_6D5D40();
+	}
+}
+
+void ManagedFontClass::Unknown_All_Styles(int unknown1, int unknown2)
+{
+	for (std::hash_map<std::string, FontStyleClass *>::iterator style = Styles.begin(); style != Styles.end(); ++style) {
+		style->second->Unknown_6CD950(unknown1, unknown2);
+	}
+}
+
+void ManagedFontClass::Unknown_6D0A20(const char *name, const char *text, int unknown)
+{
+	Unknown_6D1600(name)->Change_Text(text, unknown);
+}
+
 // NOT EXACT: inline budget, 58 rows: the client inlines std::string(const char *) for the key, ours calls it (and two of the six 4-string loops swap lea operands; attempts.csv)
 void ManagedFontClass::Unknown_6D0A70(const char *name, const char *text)
 {
@@ -57,45 +96,6 @@ void ManagedFontClass::Unknown_6D0A70(const char *name, const char *text)
 	def.Text = text;
 	Unknown_6CF930(&def, Id);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // NOT EXACT: inline budget: the client calls the std::string(const char *, allocator) constructor out of line, ours inlines it (attempts.csv)
 void ManagedFontClass::Unknown_6D1010(const char *name, TPoint3D<int> color)
@@ -475,9 +475,9 @@ void FontManagerClass::Unknown_6D2480(unsigned int id)
 	Peek_Font(id)->Unknown_6D0550(NULL);
 }
 
-void FontManagerClass::Unknown_6D2500(unsigned int id)
+void FontManagerClass::Unknown_6D2500(const char *name, const char *text, unsigned int id, int unknown)
 {
-	Peek_Font(id)->Unknown_6D0A20(NULL);
+	Peek_Font(id)->Unknown_6D0A20(name, text, unknown);
 }
 
 // Find 0x6D2A70 out of line here and in 0x6D2700 (auto_inline off); Peek_Font is its inlined twin elsewhere (H19)
