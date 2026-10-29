@@ -68,7 +68,7 @@ public:
 	virtual float Unknown_Dyn94() { return(0.25f); }	// +0x94 0x44B6C0
 	virtual bool Unknown_Dyn98() { return(false); }		// +0x98 0x44B6E0
 	virtual bool Unknown_Dyn9C() { return(false); }		// +0x9C 0x44B700
-	virtual bool Unknown_DynA0(int a, int b, int c, int d) { return(false); }	// +0xA0 0x44B720  // NAME 1 [a, b, c, d]: neutral
+	virtual bool Unknown_DynA0(DynObj *other, const Vector3 &impulse, const Vector3 &point, bool flag) { return(false); }	// +0xA0 0x44B720 (PxCollision 0x453C20: true asks for slot +0x64)  // NAME 1 [other, impulse, point, flag]: what 0x453C20 passes
 	virtual bool Unknown_DynA4(int a) { return(true); }	// +0xA4 0x44B740  // NAME 1 [a]: neutral
 
 	void *Unknown_44AF50(int type, PxCallbackFunction callback, float radius);			// 0x44AF50 (PxWrapper 0x456F60)  // NAME 1 [type, callback, radius]: the factory 0x452140's
