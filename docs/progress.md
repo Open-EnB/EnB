@@ -1394,6 +1394,7 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 | D137 | 2026-10-29 | Interim placement is the coordinator's to decide: where a function, class or global sits (which file, which header) while the evidence for its real home is missing. Each such placement is marked where it sits (`// PLACEMENT: provisional (D137): <the evidence that would place it>`) and listed in §4's provisional placements item; it is corrected when new evidence (a __FILE__, a string, an assert's line, an inlining or static-initialiser boundary) allows a better one. Placements with evidence on both sides still go to the user | user |
 | D138 | 2026-10-29 | P-LD4-2 (under D137): the view at SClient +0x1358 (0x514CC0's class) stays at mainview.cpp's end, provisional, until a __FILE__ or a static initialiser places it | coordinator (D137) |
 | D139 | 2026-10-29 | P-PX3-1 (under D137): the factories 0x452140-0x452770 are an object of their own, `app/shared/unknown_px_factories.cpp` (provisional, neutral name, D10), split from D124's unknown_px_callbacks.cpp: compiled together the factories inline PxBoxCallback's constructor 0x451C30, which the client calls; apart both are exact | coordinator (D137) |
+| D140 | 2026-10-29 | P-IB2-1 accepted: one more short round on 0x6FD310 past LIMIT REACHED, at most 2 forms (IB2's form (1) plus a find-if-changed helper with the mark test inside, for all three finds and for Spot / Line only); neither exact: parked for good | user (IB2's proposal) |
 
 ## 3. Open decisions
 
@@ -1404,13 +1405,6 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
   round's overrun after the fact or raise the cap for a whole-object round like D134's?
   The same happened in HL1's round (2026-10-29): Resolve 0x487660 took 9 forms against its brief's 3, so the
   rule needs stating for Opus rounds as well as Fable ones (HL2 the same day: 4 forms on two functions against 3).
-
-* **P-IB2-1** (2026-10-29, IB2; recommend yes): one more short round on 0x6FD310 past LIMIT REACHED (3 Opus rounds,
-  F8's Fable round, IB2's lever round): at most 2 forms, IB2's form (1) plus a find-if-changed helper with the mark
-  test inside (`G_ASSERT(t); if (!t) return NULL; if (t->m_Unknown70 <= 1) return NULL; return t;`), for all three
-  finds and for Spot / Line only. It would merge the find's NULL exits and the failed mark test into one exit, as
-  the client's `xor ebp, ebp` does at 0x6FD39B-0x6FD3F1, and applies the same lever (no new one). Neither exact:
-  park for good. About 30 minutes of Opus.
 
 ## 4. Next steps
 
