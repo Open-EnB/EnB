@@ -695,9 +695,15 @@ public:
 class UIMeshClass	// NAME 3: class-from-file (D24) for ui_mesh.cpp
 {
 public:
+	~UIMeshClass();										// 0x5B8640 (Destroy_Object deletes it)
+	void Unknown_5B92B0();								// 0x5B92B0 (Destroy_Object, before the delete)
+	void Unknown_5B9550(int arg);						// 0x5B9550 (the Play_Animation commands pass 0)  // NAME 1 [arg]: neutral
+	void Unknown_5B8DF0(int a, const char *anim_name, bool loop, int b, int c, int d, int e);	// 0x5B8DF0: an animation onto the mesh  // NAME 1 [a, loop, b, c, d, e]: neutral; NAME 2 [anim_name]: the FAIL_IF's
 	RenderObjClass *Peek_Object();						// 0x5B8B00 (its +0x1C; the asserts' '(*itor).Mesh->Peek_Object()')  // NAME 3: the assert's
 	char Unknown00[0x1C];								// +0x00
 	RenderObjClass *Unknown1C;							// +0x1C: the model (Toggle_Engine_Trails reads it without Peek_Object)
+	char Unknown20[0x70 - 0x20];						// +0x20
+	int Unknown70;										// +0x70: flags (the Play_Animation commands clear bit 0, set or clear bit 1)
 };
 // one of the scripted movie's objects (0x0C bytes, in a vector at +0x58)
 struct ScriptedMovieObjectStruct	// NAME 1: neutral (D10)
@@ -735,6 +741,9 @@ public:
 	bool Enable_Letterbox(ScriptedMovieParamsClass *params, bool on);	// 0x808BB0 (FAIL_IF line 3167): the letterbox in or out over a time (0x7FF830)  // NAME 2: the user error's 'Enable_Letterbox'; NAME 1 [params, on]: neutral
 	bool Set_Clip_Plane(ScriptedMovieParamsClass *params);		// 0x808AD0 (FAIL_IF lines 3137 / 3141): the camera's clip planes  // NAME 2: the user error's 'Set_Clip_Plane'; NAME 1 [params]: neutral
 	bool Stop_Audio(ScriptedMovieParamsClass *params);			// 0x807020 (FAIL_IF line 2435): the sound of that name stopped  // NAME 2: the user error's 'Stop_Audio'; NAME 1 [params]: neutral
+	bool Play_Animation(ScriptedMovieParamsClass *params);		// 0x805000 (FAIL_IF lines 1673 / 1682, G_ASSERT 1679): the slot's animation (loop, two numbers)  // NAME 2: the user error's 'Play_Animation'; NAME 1 [params]: neutral
+	bool Unknown_8051B0(ScriptedMovieParamsClass *params);		// 0x8051B0 (FAIL_IF lines 1731 / 1740, G_ASSERT 1737; its user errors say Play_Animation): the slot's animation, held  // NAME 1 [params]: neutral
+	bool Destroy_Object(ScriptedMovieParamsClass *params);		// 0x8046E0 (FAIL_IF line 1494, G_ASSERT 'mesh' 1501): the slot's object deleted  // NAME 2: the user error's 'Destroy_Object'; NAME 1 [params]: neutral
 	bool Toggle_Engine_Trails(ScriptedMovieParamsClass *params, bool on);	// 0x808F00 (FAIL_IF line 3252, G_ASSERT 3258): the slot's engine trails (shiputils.cpp's 0x810750)  // NAME 2: the user error's 'Toggle_Engine_Trails'; NAME 1 [params, on]: neutral
 	bool Hide_Object(ScriptedMovieParamsClass *params, bool hide);	// 0x809890 (FAIL_IF line 3595, G_ASSERTs 3601 / 3602): the slot's model hidden or shown, its trails the other way  // NAME 2: the user error's 'Hide_Object'; NAME 1 [params, hide]: neutral
 	bool Skip_Frames(ScriptedMovieParamsClass *params);			// 0x8097D0 (FAIL_IF line 3567): +0x164 on by the frames at 30 a second  // NAME 2: the user error's 'Skip_Frames'; NAME 1 [params]: neutral

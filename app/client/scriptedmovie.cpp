@@ -1487,8 +1487,26 @@ void ScriptedMovieViewClass::Unknown_802D30()
 
 
 
+// 0x8046E0: the slot's object deleted and taken off the list
+bool ScriptedMovieViewClass::Destroy_Object(ScriptedMovieParamsClass *params)
+{
+	const char *param = params->Unknown_7FFDC0();
+	FAIL_IF((param == NULL) && "User error: Destroy_Object: Need slot number") {return(false);}
+	int slot = atoi(param);
+	for (std::vector<ScriptedMovieObjectStruct>::iterator itor = Objects.begin(); itor != Objects.end(); itor++) {
+		if ((*itor).Slot == slot) {
+			UIMeshClass *mesh = (*itor).Mesh;
 
 
+			G_ASSERT(mesh);
+			mesh->Unknown_5B92B0();
+			delete mesh;
+			Objects.erase(itor);
+			return(true);
+		}
+	}
+	return(false);
+}
 
 
 
@@ -1648,9 +1666,44 @@ void ScriptedMovieViewClass::Unknown_802D30()
 
 
 
+// 0x805000: the slot's animation: its name, then loop (non-zero), and two numbers (0 and -1 by default)
+bool ScriptedMovieViewClass::Play_Animation(ScriptedMovieParamsClass *params)
+{
+	const char *param = params->Unknown_7FFDC0();
+	FAIL_IF((param == NULL) && "User error: Play_Animation: Need slot number") {return(false);}
+	int slot = atoi(param);
+	for (std::vector<ScriptedMovieObjectStruct>::iterator itor = Objects.begin(); itor != Objects.end(); itor++) {
+		if ((*itor).Slot == slot) {
 
 
+			G_ASSERT((*itor).Mesh);
+			const char *anim_name = params->Unknown_7FFDC0();
 
+			FAIL_IF((anim_name == NULL) && "User error: Play_Animation: Need animation name") {return(false);}
+			bool loop = false;
+			param = params->Unknown_7FFDC0();
+			if (param && atoi(param)) {
+				loop = true;
+			}
+			int first = 0;
+			param = params->Unknown_7FFDC0();
+			if (param) {
+				first = atoi(param);
+			}
+			int last = -1;
+			param = params->Unknown_7FFDC0();
+			if (param) {
+				last = atoi(param);
+			}
+			(*itor).Mesh->Unknown_5B9550(0);
+			(*itor).Mesh->Unknown70 &= ~1;
+			(*itor).Mesh->Unknown_5B8DF0(0, anim_name, loop, 0, 0, first, last);
+			(*itor).Mesh->Unknown70 &= ~2;
+			return(true);
+		}
+	}
+	return(false);
+}
 
 
 
@@ -1671,82 +1724,29 @@ void ScriptedMovieViewClass::Unknown_802D30()
 
 
 
+// 0x8051B0: the slot's animation, held (its flag bit 1 set)
+bool ScriptedMovieViewClass::Unknown_8051B0(ScriptedMovieParamsClass *params)
+{
+	const char *param = params->Unknown_7FFDC0();
+	FAIL_IF((param == NULL) && "User error: Play_Animation: Need slot number") {return(false);}
+	int slot = atoi(param);
+	for (std::vector<ScriptedMovieObjectStruct>::iterator itor = Objects.begin(); itor != Objects.end(); itor++) {
+		if ((*itor).Slot == slot) {
 
 
+			G_ASSERT((*itor).Mesh);
+			const char *anim_name = params->Unknown_7FFDC0();
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+			FAIL_IF((anim_name == NULL) && "User error: Play_Animation: Need animation name") {return(false);}
+			(*itor).Mesh->Unknown_5B9550(0);
+			(*itor).Mesh->Unknown70 &= ~1;
+			(*itor).Mesh->Unknown_5B8DF0(0, anim_name, false, 0, 0, 0, -1);
+			(*itor).Mesh->Unknown70 |= 2;
+			return(true);
+		}
+	}
+	return(false);
+}
 
 
 
