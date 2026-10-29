@@ -1412,6 +1412,10 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
   registers and stack slots, and nothing calls it or its thunk 0x40C8A1. D89 keeps register-only residues out of
   the Fable queue: leave it parked, or make an exception for it?
 
+* **P-PK3-1** (2026-10-29, PK3; recommend yes): add the verb packets' inline-budget trio (VerbList ctor 0x8AF150,
+  Print 0x8AF6D0, VerbUpdate 0x8AFD10) to the Fable queue (§4 item 7) as one round: two Opus rounds are spent and no
+  lever is left.
+
 * **D101's sbs criterion** (2026-10-28, LD1; recommend accept as met; since LD2's sun fix the means are 2.03-2.09 %,
   inside vidland's 1.9-2.4 %, frames 600-900 1.4-2.0 %): the means moved 0.4-0.7 points (2.6-2.8 %
   against vidland's 1.9-2.4 %), within ±1.5 points; frames 600-900 are 2.8-3.0 % against 1.5-2.4 %. LD1 reads
@@ -1499,11 +1503,13 @@ client's own code: [kernel-map.md](kernel-map.md) §6 and, for step 9's dependen
    0x864090 exact with the union kept (ShipCustDescClass's `operator=` written out inline, ccd455d), GLOBAL_ERROR
    0x864A10, 230 / 231's sizes, AuxData Print 0x8770A0: +9; 181 / 182 were already exact (P10, 9e54d08); the
    decoder's destructor failures are all hand-rebuilt; `.work/pk1/tv.py` / `hv.py` duplicate tryv2.py and are not
-   promoted). Left: 45 and 117 (item 1); the inline-budget group where the client inlines a large callee but calls
-   its deepest small callees out of line (VerbList ctor 0x8AF150 0.82 and Print 0x8AF6D0, VerbUpdate 0x8AFD10, DECAL's
-   raw ctor 0x8807B0; neither `inline_depth` nor the declaration count explains it: a Fable candidate); COLORIZATION
-   0x87F320 / DECAL 0x8805C0 shape, 0x867250 register (SIB order of `_Eos`); P-PK2-2: pkverbrequest.cpp and
-   pkverblist.cpp are one client object 0x8AEAE0-0x8B15C0, merge them with a D66 (v) move. Tools to promote:
+   promoted; 2026-10-29, PK3 7fd99e8..f131376, +10: P-PK2-2 done (pkverblist merged into pkverbrequest, a D66 (v)
+   move), DECAL 0x8805C0 / 0x8807B0 exact (DecalStruct's 16-byte field is a Vector4), COLORIZATION 0x87F320 exact
+   (a region is two {int, Vector3} halves), 0x62A520 / 0x62A0A0 / 0x8810F0-0x881250 with them). Left: 45 and 117
+   (item 1); the inline-budget trio VerbList ctor 0x8AF150 0.82, Print 0x8AF6D0, VerbUpdate 0x8AFD10 (two Opus rounds:
+   VerbEnum as a struct, Adds / Drops as set<int> / set<unsigned> all fail; P-PK3-1); 0x867250 register (LIMIT
+   REACHED); P-PK3-2 (work item): one sweep over other near misses of the inline vector / struct copy kind with
+   PK3's two levers (workflow.md §3.1, 2026-10-29). Tools to promote:
    `.work/p9/wt.py`'s leftovers, `checks.sh`, `commit_wt.py`; commit_json.py must keep imports.json's maps sorted.
 4. The SGI hash_map's users (D87): left are the key-name object after inpdsp (0x42B610 / 0x42B7E0, init 0x42BC90),
    client_lego_impl's seven NOT EXACT (Get_Lego_Transform 0x72B000, Child_Moved 0x72CE40, Attach 0x72D0E0

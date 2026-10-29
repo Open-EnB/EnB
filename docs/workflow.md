@@ -139,6 +139,11 @@ tools/re/README.md, tools/vc6 and tools/harness/README.md.
 
 ### 3.1 VC6 code generation
 
+* **An inline element copy's form names the element's members** (2026-10-29, PK3): a `rep movsd` where the client
+  copies member by member means the element has a member with a user copy constructor (Vector4 / Vector3; the
+  same change flipped an out-of-line insert to inline, 0x8807B0). VC6 puts the loop pointer on the third dword of
+  the first member with a copy constructor: when the client's pointer sits elsewhere, nest the members into
+  sub-structs (0x87F320: two {int, Vector3} halves).
 **Triage.** Classify a near miss first: `python tools/re/explain.py OBJ SYMBOL ADDR` prints one class,
 the first mismatch and the masked residue. Fix the classes in this order, since an earlier one masks
 the later ones: **relocation** (wrong or unresolved target, string or symbol) -> **misplaced start**
@@ -812,6 +817,8 @@ unless `--lever` cites a new row of this table.
 
 ### 3.8 Git, docs and scripting hygiene
 
+* **Deleting a tracked app file breaks build.py's definitions scan (FileNotFoundError)** (2026-10-29, PK3) until
+  the deletion is staged: `git rm --cached` your own file (names.py had the same crash; fixed in 7fd99e8).
 * **`\a` in a non-raw Python string becomes BEL** (2026-10-29, SC3): an `#include` written as
   `'..\shared\a...'` lands with a control character; use raw strings or forward slashes (a §3.0 variant).
 * **While other builders land on imports.json, automate the bring-over rebase** (2026-10-28, SC2):
