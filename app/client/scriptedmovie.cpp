@@ -9,6 +9,7 @@
 #include "..\..\ww3d2\camera.h"
 #include "..\..\ww3d2\light.h"
 #include "..\..\ww3d2\dazzle.h"
+#include "..\shared\stars.h"
 #include "wwmath.h"
 #include <stdlib.h>
 #include <string.h>
@@ -540,7 +541,6 @@ static float Unknown_B07C60 = 1.0f;	// NAME 1: neutral (D10)
 
 
 
-
 // 0x801860: the Unknown120 scene through the scripted camera at its own depth range and clip planes, then the camera's back
 void ScriptedMovieViewClass::Unknown_801860()
 {
@@ -582,10 +582,10 @@ void ScriptedMovieViewClass::Unknown_801860()
 
 
 
-// 0x8019A0: the Unknown128 scene through the scripted camera at its own depth range and clip planes, then the camera's back
+// 0x8019A0: the StarsScene scene through the scripted camera at its own depth range and clip planes, then the camera's back
 void ScriptedMovieViewClass::Unknown_8019A0()
 {
-	if (Unknown128) {
+	if (StarsScene) {
 		G_ASSERT(ScriptedCamera);
 		float znear;
 		float zfar;
@@ -595,7 +595,7 @@ void ScriptedMovieViewClass::Unknown_8019A0()
 		ScriptedCamera->Get_Depth_Range(&zmin, &zmax);
 		ScriptedCamera->Set_Depth_Range(Unknown_B07C3C, Unknown_B07C3C);
 		ScriptedCamera->Set_Clip_Planes(Unknown_B07C54, Unknown_B07C50);
-		WW3D::Render(Unknown128, ScriptedCamera);
+		WW3D::Render(StarsScene, ScriptedCamera);
 		ScriptedCamera->Set_Clip_Planes(znear, zfar);
 		ScriptedCamera->Set_Depth_Range(zmin, zmax);
 	}
@@ -1582,28 +1582,28 @@ bool ScriptedMovieViewClass::Destroy_Object(ScriptedMovieParamsClass *params)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// 0x804A70: the star field in a scene of its own (the system's stars.ini, its polygon budget)
+bool ScriptedMovieViewClass::Unknown_804A70(ScriptedMovieParamsClass *params)
+{
+	int system = 800;
+	const char *param = params->Unknown_7FFDC0();
+	if (param) {
+		system = atoi(param);
+	}
+	unsigned int budget = 1000;
+	param = params->Unknown_7FFDC0();
+	if (param) {
+		budget = atoi(param);
+	}
+	G_ASSERT(StarsScene == NULL);
+	G_ASSERT(Stars == NULL);
+	StarsScene = new SimpleSceneClass;
+	Stars = Create_NEW(new StarFieldClass(budget));
+	Stars->Init(system);
+	StarsScene->Add_Render_Object(Stars.Peek());
+	StarsScene->Set_Fog_Enable(false);
+	return(true);
+}
 
 
 

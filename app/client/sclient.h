@@ -754,7 +754,8 @@ public:
 	void Unknown_802960(KernelEventClass event);		// 0x802960 (SClient::Do_Frame: the input events while the scripted movie view is up)  // NAME 1 [event]: what it gets
 	void Unknown_8027C0();								// 0x8027C0 (G_ASSERTs 'CurrentCameraIndex < size' l.972, 973; 0x802960's key 0x22): the camera onto the next one of CameraList
 	void Unknown_801860();								// 0x801860 (G_ASSERT 'ScriptedCamera', l.548): the +0x120 scene's pass
-	void Unknown_8019A0();								// 0x8019A0 (G_ASSERT 'ScriptedCamera', l.589): the +0x128 scene's pass
+	void Unknown_8019A0();								// 0x8019A0 (G_ASSERT 'ScriptedCamera', l.589): the stars' pass
+	bool Unknown_804A70(ScriptedMovieParamsClass *params);	// 0x804A70 (G_ASSERTs 'StarsScene == NULL' / 'Stars == NULL', l.1598 / 1599): the star field (its system, 800, and polygon budget, 1000)  // NAME 1 [params]: neutral
 	void Unknown_801AE0(float znear, float zfar);		// 0x801AE0 (G_ASSERTs 'OrbitalScene' / 'ScriptedCamera', l.624 / 625; the render 0x8012C0): the orbital scene's pass  // NAME 2 [znear, zfar]: Set_Clip_Planes'
 	void Unknown_801C40(float znear, float zfar);		// 0x801C40 (G_ASSERTs 'ScriptedCamera' / 'BackgroundDazzleLayer', l.661 / 662): the background dazzle's pass  // NAME 2 [znear, zfar]: Set_Clip_Planes'
 	void Unknown_801D70(float *znear, float *zfar);		// 0x801D70 (G_ASSERTs 'ScriptedCamera' / 'OrbitalManager', l.702 / 703): the orbitals' clip planes for the camera's FOV (as the main view's 0x50CCF0)  // NAME 2 [znear, zfar]: the main view's
@@ -818,8 +819,8 @@ public:
 	std::vector<ScriptedMovieCameraStruct> CameraList;	// +0x110  // NAME 3: the asserts' 'CameraList[CurrentCameraIndex]'
 	SimpleSceneClass *Unknown120;						// +0x120: a scene rendered at depth 1 between clip planes 20 and 100000 (0x801860)
 	char Unknown124[0x128 - 0x124];						// +0x124
-	SimpleSceneClass *Unknown128;						// +0x128: one between 50 and 150 (0x8019A0)
-	char Unknown12C[0x130 - 0x12C];						// +0x12C
+	SimpleSceneClass *StarsScene;						// +0x128: the stars' scene, rendered between 50 and 150 (0x8019A0)  // NAME 3: the asserts' 'StarsScene == NULL' (0x804A70)
+	RefCountPtr<StarFieldClass> Stars;					// +0x12C (stars.h)  // NAME 3: the asserts' 'Stars == NULL'
 	class OrbitalManager *OrbitalManager;				// +0x130: its near / far planes (0x801D70)  // NAME 3: the assert's
 	SimpleSceneClass *OrbitalScene;						// +0x134 (0x801AE0 renders it at depth 0.95..1)  // NAME 3: the assert's
 	char Unknown138[0x13C - 0x138];						// +0x138
