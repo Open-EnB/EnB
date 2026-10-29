@@ -168,13 +168,17 @@ static void Cpit_5C_Slot() { Trace("cockpit +0x5C (off)"); }
 static void *Scene10C_Table[32];
 static void __stdcall Scene10C_Add_Slot(RenderObjClass *obj) { Trace("mainview scene Add_Render_Object"); }	// slot 3
 static void Scene10C_Remove_All_Slot() { Trace("mainview scene Remove_All_Render_Objects"); }	// slot 24 (0x514010)
+// The view slot +0x1C gives (ViewClass 0x50B720 returns the view itself): Do_Frame's dialog helpers 0x7429B0, 0x74EDB0,
+// 0x751660 and 0x74F5C0 read its +0x34 dialog and the dialog's type at +0x18C. A zeroed dialog: no type matches
+static int Fake_Dialog_Storage[0x190 / sizeof(int)];
+static struct FakeUIViewStruct { char Unknown00[0x34]; void *Dialog; } Fake_UI_View = { { 0 }, Fake_Dialog_Storage };
 class FakeMainViewClass
 {
 public:
 	FakeMainViewClass() { memset(Unknown04, 0, sizeof(Unknown04)); }	// the radar (+0x80) and the rest null: WARP_INDEX's FAIL_IF
 	virtual ~FakeMainViewClass() {}
 	virtual void S04() {} virtual void S08() {} virtual void S0C() {} virtual void S10() {}
-	virtual void S14() {} virtual void S18() {} virtual void S1C() {} virtual void S20() {}
+	virtual void S14() {} virtual void S18() {} virtual void *S1C() { return(&Fake_UI_View); } virtual void S20() {}
 	virtual void S24() {} virtual void S28() {} virtual void S2C() {} virtual void S30() {}
 	virtual void S34() {} virtual void S38() {} virtual void S3C() {} virtual void S40() {}
 	virtual void S44() {} virtual void S48() {} virtual void S4C() {} virtual void S50() {}
