@@ -687,9 +687,12 @@ public:
 class ScriptedMovieFadeClass	// NAME 1: neutral (D10)
 {
 public:
-	void Unknown_80A5A0(float time);					// 0x80A5A0  // NAME 1 [time]: neutral
+	ScriptedMovieFadeClass();							// 0x80A570: all zero
+	void Unknown_80A5A0(float time);					// 0x80A5A0: one step on (time times the rate, stopping at the target)  // NAME 1 [time]: neutral
+	void Unknown_80A730(float time, Vector3 from, Vector3 to);	// 0x80A730: from to to over time  // NAME 1 [time, from, to]: neutral
 	Vector3 Current;									// +0x00 (what the scene gets)  // NAME 2: what it holds
-	char Unknown0C[0x24 - 0x0C];						// +0x0C (+0x0C the target, +0x18 the rate)
+	Vector3 Target;										// +0x0C  // NAME 2: what it holds
+	Vector3 Rate;										// +0x18: per unit of time  // NAME 2: what it holds
 };
 // ui_mesh.cpp's mesh (the scripted movie's objects), as far as scriptedmovie.cpp calls it
 class UIMeshClass	// NAME 3: class-from-file (D24) for ui_mesh.cpp
@@ -741,6 +744,7 @@ public:
 	bool Set_Light_Diffuse_Color(ScriptedMovieParamsClass *params);	// 0x8068A0 (FAIL_IF lines 2254-2270)  // NAME 2: the user error's 'Set_Light_Diffuse_Color'; NAME 1 [params]: neutral
 	bool Set_Camera_View_Plane(ScriptedMovieParamsClass *params);	// 0x806AF0 (FAIL_IF lines 2318 / 2323): the camera's view plane, in degrees  // NAME 2: the user error's 'Set_Camera_View_Plane'; NAME 1 [params]: neutral
 	bool Shake_Camera(ScriptedMovieParamsClass *params);		// 0x808220 (FAIL_IF lines 2905 / 2909, G_ASSERT 'CameraEffects' 2912)  // NAME 2: the user error's 'Shake_Camera'; NAME 1 [params]: neutral
+	bool Unknown_808840();								// 0x808840 (FAIL_IF 'ScriptedScene == NULL', l.3045): the scene's fog off
 	bool Set_Screen_Fade_Color(ScriptedMovieParamsClass *params);	// 0x808880 (FAIL_IF lines 3069-3081): the screen fade's colour over a time (0x7FFA30)  // NAME 2: the user error's 'Set_Screen_Fade_Color'; NAME 1 [params]: neutral
 	bool Set_Screen_Fade_Opacity(ScriptedMovieParamsClass *params);	// 0x808A00 (FAIL_IF lines 3107 / 3111): its opacity over a time (0x7FFBE0)  // NAME 2: the user error's 'Set_Screen_Fade_Opacity'; NAME 1 [params]: neutral
 	bool Enable_Letterbox(ScriptedMovieParamsClass *params, bool on);	// 0x808BB0 (FAIL_IF line 3167): the letterbox in or out over a time (0x7FF830)  // NAME 2: the user error's 'Enable_Letterbox'; NAME 1 [params, on]: neutral

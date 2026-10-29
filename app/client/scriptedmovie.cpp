@@ -3039,13 +3039,13 @@ bool ScriptedMovieViewClass::Shake_Camera(ScriptedMovieParamsClass *params)
 
 
 
-
-
-
-
-
-
-
+// 0x808840: the scene's fog off
+bool ScriptedMovieViewClass::Unknown_808840()
+{
+	FAIL_IF(ScriptedScene == NULL) {return(false);}
+	ScriptedScene->Set_Fog_Enable(false);
+	return(true);
+}
 
 
 
@@ -3606,6 +3606,82 @@ bool ScriptedMovieViewClass::Hide_Object(ScriptedMovieParamsClass *params, bool 
 		}
 	}
 	return(false);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 0x80A570
+ScriptedMovieFadeClass::ScriptedMovieFadeClass() :
+	Current(0.0f, 0.0f, 0.0f),
+	Target(0.0f, 0.0f, 0.0f),
+	Rate(0.0f, 0.0f, 0.0f)
+{
+}
+
+// 0x80A5A0: one step on: time times the rate, each component stopping at its target
+void ScriptedMovieFadeClass::Unknown_80A5A0(float time)
+{
+	if (Rate.X == 0.0f && Rate.Y == 0.0f && Rate.Z == 0.0f) {
+		return;
+	}
+	float step = time * Rate.X;
+	if (WWMath::Fabs(step) > WWMath::Fabs(Target.X - Current.X)) {
+		Current.X = Target.X;
+		Rate.X = 0.0f;
+	} else {
+		Current.X += step;
+	}
+	step = time * Rate.Y;
+	if (WWMath::Fabs(step) > WWMath::Fabs(Target.Y - Current.Y)) {
+		Current.Y = Target.Y;
+		Rate.Y = 0.0f;
+	} else {
+		Current.Y += step;
+	}
+	step = time * Rate.Z;
+	if (WWMath::Fabs(step) > WWMath::Fabs(Target.Z - Current.Z)) {
+		Current.Z = Target.Z;
+		Rate.Z = 0.0f;
+	} else {
+		Current.Z += step;
+	}
+}
+
+// 0x80A730: from to to over time
+void ScriptedMovieFadeClass::Unknown_80A730(float time, Vector3 from, Vector3 to)
+{
+	Current = from;
+	Target = to;
+	Rate.X = (to.X - from.X) / time;
+	Rate.Y = (to.Y - from.Y) / time;
+	Rate.Z = (to.Z - from.Z) / time;
 }
 
 /*
