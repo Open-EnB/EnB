@@ -4,6 +4,35 @@ Newest first within each section. Dates are when the entry was written.
 
 ## 1. Log
 
+### 2026-10-29 (14:55, day): slow pace, two Fable rounds, D126-D141; app 4,549 -> 4,761 in tree, +289 pairs, 52 D66 moves, 0 lost outright
+
+Coordinator Opus 5.5, 08:40 to 14:55 (the user online all day; launches closed 14:30, IB3 at the user's word at 14:18). Base 97a1df5 (the history
+rewrite's new master: every commit re-authored, old tip aeeb5bc). 19 builders, up to five at a time (17 Opus; F8 / F9
+Fable); weekly usage 38 % -> 47 % (the Fable rounds about 2.5 points of it). Plan log: `.work/run-2026-10-29/plan.md`.
+
+* **History rewrite (D126):** tools resolve refs at run time and are unaffected; the tracked files' old short hashes
+  were rewritten through the old -> new map at this handoff (same length, no line moves; full verify 0 / 0), and the
+  map is kept as `docs/commit-map.txt` for the old hashes in commit messages.
+* **Fable (D135, outside the day's budget):** F9 made the verb object's five inline-budget functions exact (+6: the
+  client's three static set helpers, a new §3.1 lever); F8 narrowed co.cpp's per-find spender (0 pairs; the
+  'non-tail nested multi-return expansion' lever, 0x6FBEF0's frame). Measured cost: ~1.6 % of the week per hour per
+  Fable builder, F8 ~1.1 % in all. D136: the queue is not pruned; rounds are scheduled more often.
+* **Builds:** sclient's leftovers (SC3, 0x750260), the packet classes (PK3: DECAL / COLORIZATION, the verb merge),
+  views (LD4: view.cpp / uiview.cpp / loadingview.cpp, +54; UI1: intrface.h, sbaseview.cpp, scriptedmovie.cpp),
+  co_subtype_base.cpp (CS2, D132), land's vertex struct (LD5), fontmanager (FU1 +35, LS1 split_string.cpp +28), the
+  proximity leftovers (PX3 +30), the shared-helper / while-loop rounds (HL1, HL2, HL3). Last: PX4 (0x454730's OBBox helpers +4), HL3 (Load_String in the client's form, 2 rows), IB3 (0x6FD310 parked for good, D140), UI1 (+62 in all).
+* **Decisions:** D126-D141 (§2): the hash rewrite, D101's sbs criterion met, 0x750C20 parked, the ??_E / ??_G rule
+  kept (D129), D130's one limit of 6 dead inline-budget spenders per function, D131 / D132, the aux_roots pad kept
+  (D133), the two Fable rounds (D134 / D135), D136, interim placements delegated to the coordinator (D137; §4 item 8
+  lists them), D138 / D139 under it, D140 (0x6FD310's last round: parked for good), D141 (every variant compile
+  counts as a form; F9's, HL1's and HL2's overruns accepted). Open for the user (§3): P-UI1-1 (clienttest needs
+  build/art/MSS32.DLL).
+* **Coordinator lesson:** S8's five items were already done; check a §4 item's addresses against imports.json and
+  attempts.py before briefing it (workflow.md §3.6).
+* **Next:** §4 items 2, 5, 10 carry the builders' leads (sclient 0x74CA90 / 0x740050, P-LD4-1's follow-ups, the
+  stand-in switches to SplitStringClass / FontSplitStringClass, P-FU1-1 FontSys, Resolve 0x487660's stash); one
+  Fable round per run from item 7 (D136); the symbols.json names 0xB006F4 / 0xAEDE88 on a quiet tree.
+
 ### 2026-10-28 (17:00, day): the 24-hour run; packets -> object model; app 3,797 -> 4,549 pairs, 0 lost; D119-D125
 
 Coordinator Opus 5.5, 2026-10-27 21:55 to 2026-10-28 17:00 (the user closed launches at 15:50; the hold 07:20-08:45).
