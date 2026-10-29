@@ -747,7 +747,7 @@ void SClient::Unknown_7429B0()
 
 
 		FAIL_IF(!CurrentView) return;
-		ViewClass *ui_view = CurrentView->Unknown_1C();
+		UIViewClass *ui_view = CurrentView->Unknown_1C();
 
 		FAIL_IF(!ui_view) return;
 		ViewUnknown34Class *dialog = ui_view->Get_Unknown34();
@@ -889,7 +889,7 @@ int SClient::Do_Frame(bool focused)
 
 	// the lost-connection box answered
 	if (Unknown1388) {
-		ViewClass *view = (CurrentView && CurrentView == Unknown135C) ? Unknown135C : MainView;
+		UIViewClass *view = (CurrentView && CurrentView == Unknown135C) ? Unknown135C : MainView;
 		if (view->Get_Unknown34()->Unknown_5890B0(NULL) > 0) {
 			Unknown12D4 = 1;
 			MainView->Get_Unknown34()->Unknown_5C();
@@ -4739,7 +4739,7 @@ void SClient::Unknown_74E580(const char *text, const char *type, const char *val
 {
 
 	FAIL_IF(!CurrentView) return;
-	ViewClass *ui_view = CurrentView->Unknown_1C();
+	UIViewClass *ui_view = CurrentView->Unknown_1C();
 
 	FAIL_IF(!ui_view) return;
 	ViewUnknown34Class *dialog = ui_view->Get_Unknown34();
@@ -4756,7 +4756,7 @@ void SClient::Unknown_74E710(const std::string &message, int id, int type)
 {
 
 	FAIL_IF(!CurrentView) return;
-	ViewClass *ui_view = CurrentView->Unknown_1C();
+	UIViewClass *ui_view = CurrentView->Unknown_1C();
 
 	FAIL_IF(!ui_view) return;
 	switch (type) {
@@ -4802,7 +4802,7 @@ void SClient::Unknown_74EB00(int type, int id)
 void SClient::Unknown_74EDB0()
 {	bool changed = false;
 	FAIL_IF(!CurrentView) return;
-	ViewClass *ui_view = CurrentView->Unknown_1C();
+	UIViewClass *ui_view = CurrentView->Unknown_1C();
 
 	FAIL_IF(!ui_view) return;
 	ViewUnknown34Class *dialog = ui_view->Get_Unknown34();
@@ -4976,7 +4976,7 @@ void SClient::Unknown_74EDB0()
 void SClient::Unknown_74F5C0()
 {
 	FAIL_IF(!CurrentView) return;
-	ViewClass *ui_view = CurrentView->Unknown_1C();
+	UIViewClass *ui_view = CurrentView->Unknown_1C();
 
 	FAIL_IF(!ui_view) return;
 	ViewUnknown34Class *dialog = ui_view->Get_Unknown34();
@@ -5026,7 +5026,7 @@ void SClient::Unknown_74FA30()
 {
 
 	FAIL_IF(!CurrentView) return;
-	ViewClass *ui_view = CurrentView->Unknown_1C();
+	UIViewClass *ui_view = CurrentView->Unknown_1C();
 
 	FAIL_IF(!ui_view) return;
 	ViewUnknown34Class *dialog = ui_view->Get_Unknown34();
@@ -5361,7 +5361,7 @@ void SClient::Unknown_751460(int points_total, int points_spent)
 
 
 	FAIL_IF(!CurrentView) return;
-	ViewClass *ui_view = CurrentView->Unknown_1C();
+	UIViewClass *ui_view = CurrentView->Unknown_1C();
 
 	FAIL_IF(!ui_view) return;
 	ViewUnknown34Class *dialog = ui_view->Get_Unknown34();
@@ -5405,7 +5405,7 @@ void SClient::Unknown_751660()
 
 
 	FAIL_IF(!CurrentView) return;
-	ViewClass *ui_view = CurrentView->Unknown_1C();
+	UIViewClass *ui_view = CurrentView->Unknown_1C();
 
 	FAIL_IF(!ui_view) return;
 	ViewUnknown34Class *dialog = ui_view->Get_Unknown34();
@@ -5578,7 +5578,7 @@ bool SClient::Unknown_34(const char *text)
 	}
 	if (stricmp(text, "/resetship") == 0) {
 		if (CurrentView && Unknown1378 == 0) {
-			ViewClass *ui_view = CurrentView->Unknown_1C();
+			UIViewClass *ui_view = CurrentView->Unknown_1C();
 			ViewUnknown34Class *dialog;
 			if (ui_view && (dialog = ui_view->Get_Unknown34()) != NULL) {
 				Unknown1378 = 1;

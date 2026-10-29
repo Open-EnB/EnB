@@ -10,7 +10,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 33 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 36 |
 | 3 | by convention from a client-named file or sibling | 948 |
-| 2 | describes what the code does | 2328 |
+| 2 | describes what the code does | 2327 |
 | 1 | neutral placeholder | 5333 |
 
 ## For review (score 3 and below)
@@ -6029,7 +6029,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Credits` | `app/client/sclient.h:51` | the text it fills |
 | 2 | `button` | `app/client/sclient.h:157` | tsk_login.h's |
 | 2 | `Type` | `app/client/sclient.h:168` | what 0x74F5C0 compares |
-| 2 | `ViewClass` | `app/client/sclient.h:173` | what the six objects share (kernel-map-step9.md 9f's view.cpp) |
 | 2 | `OrbitalManager` | `app/client/sclient.h:335` | the client's (OrbitalManager::Update) |
 | 2 | `model` | `app/client/sclient.h:437` | what 0x513540 passes |
 | 2 | `ctask` | `app/client/sclient.h:485` | the assert's |

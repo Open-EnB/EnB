@@ -109,7 +109,7 @@ public:
 
 // the interface objects' first base (0x38 bytes, its table at +0x00); a RefCountClass follows it at +0x38 in each
 // (the main view's Shutdown 0x50C2F0 releases them through it: dec [p+0x3C], then [[p+0x38]]'s slot 0)
-class ViewClass;
+class UIViewClass;
 class UIUnknownBaseClass	// NAME 1: neutral (D10): the interface base of kernel-map-step9.md 9f (sclient.cpp's interface objects, the PDA, the main view's)
 {
 public:
@@ -144,7 +144,7 @@ public:
 	virtual void Unknown_70();
 	virtual void Unknown_74();
 	virtual void Unknown_78();
-	virtual void Unknown_7C(ViewClass *view, int arg);	// +0x7C Init: the talk tree gets the main view and 0
+	virtual void Unknown_7C(UIViewClass *view, int arg);	// +0x7C Init: the talk tree gets the main view and 0
 
 	char Unknown04[0x38 - 0x04];						// +0x04
 };
@@ -167,13 +167,13 @@ public:
 	char Type[4];										// +0x18C the dialog's type, a string (0x74F5C0 compares it; its length not known)  // NAME 2: what 0x74F5C0 compares
 };
 
-// view.cpp's view: the base of the six views at SClient +0x1354..+0x1368 (the slots every one of them
-// gets: the deleting destructor, +0x04 after construction, +0x10 in Shutdown)
-class ViewClass			// NAME 2: what the six objects share (kernel-map-step9.md 9f's view.cpp)
+// uiview.cpp's view (its base, view.cpp's 0x6B4480 / 0x6B45D0, not declared): the base of the six views at SClient +0x1354..+0x1368 (the slots
+// every one of them gets: the deleting destructor, +0x04 after construction, +0x10 in Shutdown)
+class UIViewClass			// NAME 5: the client's profile label 'UIViewClass::Render' (0x65B330, uiview.cpp's __FILE__)
 {
 public:
-	ViewClass(ClientTaskClass *task, int arg);			// 0x65A6C0 (table 0xAF97E4; the task to +0x14, arg to +0x18; 0x514CC0's view passes 1, 0x65B810 inlines it with 0)  // NAME 1 [task, arg]: what the callers pass
-	virtual ~ViewClass();								// +0x00 0x65A760 (Shutdown deletes through it; the main view's destructor calls it)
+	UIViewClass(ClientTaskClass *task, int arg);			// 0x65A6C0 (table 0xAF97E4; the task to +0x14, arg to +0x18; 0x514CC0's view passes 1, 0x65B810 inlines it with 0)  // NAME 1 [task, arg]: what the callers pass
+	virtual ~UIViewClass();								// +0x00 0x65A760 (Shutdown deletes through it; the main view's destructor calls it)
 	virtual void Unknown_04();							// +0x04 Init calls it after construction
 	virtual void Unknown_08();							// +0x08 Init (the main view, +0x1358)
 	void Unknown_6B4940(UIUnknownBaseClass *object);	// 0x6B4940 (the main view's 0x50C690 hands it its interface objects)  // NAME 1 [object]: neutral
@@ -181,11 +181,11 @@ public:
 	virtual void Unknown_10();							// +0x10 0x65B4A0 Shutdown (the main view's 0x50C2F0 calls this one, past 0x65B810's 0x65B8B0)
 	virtual void Unknown_14();							// +0x14 SClient::Do_Frame: the current view's, after Process_AI
 	virtual void Unknown_18(int arg) {}					// +0x18 0x514CF0  // NAME 1 [arg]: neutral
-	virtual ViewClass *Unknown_1C() { return(this); }	// +0x1C 0x50B720
-	virtual ViewClass *Unknown_20() { return(NULL); }	// +0x20 0x514D10 (Unknown65B810ViewClass's 0x50B7E0 returns the view)
-	virtual ViewClass *Unknown_24() { return(NULL); }	// +0x24 0x514D30 (the main view's 0x50B800 returns the view)
+	virtual UIViewClass *Unknown_1C() { return(this); }	// +0x1C 0x50B720
+	virtual UIViewClass *Unknown_20() { return(NULL); }	// +0x20 0x514D10 (Unknown65B810ViewClass's 0x50B7E0 returns the view)
+	virtual UIViewClass *Unknown_24() { return(NULL); }	// +0x24 0x514D30 (the main view's 0x50B800 returns the view)
 	virtual int Unknown_28() { return(0); }				// +0x28 0x50B680
-	virtual ViewClass *Unknown_2C() { return(NULL); }	// +0x2C 0x50B6A0 (Unknown514CC0ViewClass's 0x514D90 returns the view)
+	virtual UIViewClass *Unknown_2C() { return(NULL); }	// +0x2C 0x50B6A0 (Unknown514CC0ViewClass's 0x514D90 returns the view)
 	virtual int Unknown_30() { return(0); }				// +0x30 0x50B6C0
 	virtual int Unknown_34() { return(0); }				// +0x34 0x50B6E0
 	virtual int Unknown_38() { return(0); }				// +0x38 0x50B700
@@ -208,19 +208,19 @@ public:
 	SimpleSceneClass *Unknown24;						// +0x24 (slots +0x3C, +0x48; checked with +0x28)
 	CameraClass *Unknown28;								// +0x28 (slot +0x4C)
 	char Unknown2C[0x34 - 0x2C];						// +0x2C
-	ViewUnknown34Class *Unknown34;						// +0x34 (view.cpp's constructors 0x65A6C0 / 0x65B810 set it; cpacket.cpp's GROUP 30 and DIALOG 98 call it)
+	ViewUnknown34Class *Unknown34;						// +0x34 (uiview.cpp's constructors 0x65A6C0 / 0x65B810 set it; cpacket.cpp's GROUP 30 and DIALOG 98 call it)
 };
 
-// view.cpp's second view (constructor 0x65B810, table 0xAF9854): the base of the main, loading and 3-D movie views
+// uiview.cpp's second view (constructor 0x65B810, table 0xAF9854): the base of the main, loading and 3-D movie views
 // (0x50B360, 0x691570, 0x7EEF90 and 0x69AD30 call 0x65B810); its destructor is implicit: the main view's object holds
 // its out-of-line copy 0x50B930 (jmp 0x65A760, called by 0x50B360's unwind and by 0x65B880, this class's deleting
 // destructor), and the main view's destructor 0x50B950 inlines it
-class Unknown65B810ViewClass : public ViewClass	// NAME 1: neutral (D10)
+class Unknown65B810ViewClass : public UIViewClass	// NAME 1: neutral (D10)
 {
 public:
 	Unknown65B810ViewClass(ClientTaskClass *task, int arg);	// 0x65B810 (the base with 0; the task's Client (+0x78) to +0x4C; arg unused)  // NAME 1 [task, arg]: what the main view passes
 	virtual void Unknown_10();							// +0x10 0x65B8B0 (+0x4C cleared, then the base's 0x65B4A0)
-	virtual ViewClass *Unknown_20() { return(this); }	// +0x20 0x50B7E0
+	virtual UIViewClass *Unknown_20() { return(this); }	// +0x20 0x50B7E0
 	virtual int Unknown_44();							// +0x44 0x65B8D0 (+0x4C's +0x1274, 0 without one)
 };
 
@@ -228,20 +228,20 @@ public:
 class Unknown5B7AB0Class : public UIUnknownBaseClass, public RefCountClass	// NAME 1: neutral (D10)
 {
 public:
-	Unknown5B7AB0Class(ViewClass *view, const LayerClass &layer);	// 0x5B7AB0 (0x514E70 passes its view and a layer of the base's +0x1C / +0x20)  // NAME 1 [view, layer]: what 0x514E70 passes
+	Unknown5B7AB0Class(UIViewClass *view, const LayerClass &layer);	// 0x5B7AB0 (0x514E70 passes its view and a layer of the base's +0x1C / +0x20)  // NAME 1 [view, layer]: what 0x514E70 passes
 
 	char Unknown40[0xAC - 0x40];						// +0x40
 };
 
 // The 0x50-byte view at SClient +0x1358 (SClient::Init; constructor 0x514CC0, table 0xAED114): its functions follow
 // mainview.cpp's, with no static initializer of their own before them, so they are kept at mainview.cpp's end
-class Unknown514CC0ViewClass : public ViewClass	// NAME 1: neutral (D10)
+class Unknown514CC0ViewClass : public UIViewClass	// NAME 1: neutral (D10)
 {
 public:
 	Unknown514CC0ViewClass(ClientTaskClass *task);		// 0x514CC0 (the base with 1)  // NAME 1 [task]: what SClient::Init passes
 	virtual ~Unknown514CC0ViewClass();					// +0x00 0x514DE0 (deleting 0x514DB0)
 	virtual void Unknown_08();							// +0x08 0x514E70 (its interface object, on through +0x54, to 0x6B4940)
-	virtual ViewClass *Unknown_2C() { return(this); }	// +0x2C 0x514D90
+	virtual UIViewClass *Unknown_2C() { return(this); }	// +0x2C 0x514D90
 
 	char Unknown38[0x4C - 0x38];						// +0x38
 	Unknown5B7AB0Class *Unknown4C;						// +0x4C (0x514E70 makes it; the destructor releases it)
@@ -395,7 +395,7 @@ public:
 	MainViewUnknown1E4Class(SClient *client);			// 0x5E1BE0 (0xE8 bytes)  // NAME 1 [client]: what 0x50C690 passes
 	virtual void Unknown_60(); virtual void Unknown_64(); virtual void Unknown_68(); virtual void Unknown_6C();
 	virtual void Unknown_70(); virtual void Unknown_74(); virtual void Unknown_78();
-	virtual void Unknown_7C(ViewClass *view, int arg);	// +0x7C (0x50C690: the view, 0)  // NAME 1 [view, arg]: what 0x50C690 passes
+	virtual void Unknown_7C(UIViewClass *view, int arg);	// +0x7C (0x50C690: the view, 0)  // NAME 1 [view, arg]: what 0x50C690 passes
 	char Unknown40[0xE8 - 0x40];						// +0x40
 };
 
@@ -489,7 +489,7 @@ public:
 	virtual void Unknown_10();							// +0x10 0x50C2F0 (Shutdown: the counterpart of +0x04)
 	virtual void Unknown_14();							// +0x14 0x5129D0 (0x512400, then the base's 0x65B470)
 	virtual void Unknown_18(int arg);					// +0x18 0x514930 (hands it to the radar)  // NAME 1 [arg]: neutral
-	virtual ViewClass *Unknown_24() { return(this); }	// +0x24 0x50B800
+	virtual UIViewClass *Unknown_24() { return(this); }	// +0x24 0x50B800
 	virtual CameraClass *Unknown_58() { return(Camera); }	// +0x58 0x50B8C0
 	virtual ClientObjectClass *Unknown_5C();			// +0x5C 0x5136D0 (the scanner's +0x88; SClient 0x744E70's FAIL_IF '!target' on its result)
 	virtual ClientObjectClass *Unknown_60(float x, float y, bool skip_avatar, int arg4);	// +0x60 0x512BB0 (the object under a screen point; arg4 unused) (asserts 'cam_dist_idx < InfoCount', 'cos_occluder_size > 0.0f')  // NAME 1 [x, y, skip_avatar, arg4]: what the body does with them
@@ -565,7 +565,7 @@ public:
 	char Unknown38[0x48 - 0x38];						// +0x38
 	MainViewUnknown48Class *Unknown48;					// +0x48 (the base clears it; the constructor makes it)
 	SClient *Get_Client() { return(Client); }			// (inline: 0x514010's G_ASSERT 'Get_Client()->Get_Mode() == newmode')  // NAME 3: the assert's
-	SClient *Client;									// +0x4C view.cpp's 0x65B810 copies the task's Client (+0x78); 0x5137F0 asks its slot +0x18 for the SClient  // NAME 2: what it holds
+	SClient *Client;									// +0x4C uiview.cpp's 0x65B810 copies the task's Client (+0x78); 0x5137F0 asks its slot +0x18 for the SClient  // NAME 2: what it holds
 	bool GraphicsDefault;							// +0x50 (0x514480: the option 'Graphics_Default')  // NAME 2: its option's
 	float GraphicsGamma;								// +0x54 ('Graphics_Gamma', percent)  // NAME 2: its option's
 	float GraphicsLandPoly;							// +0x58 ('Graphics_Land_Poly')  // NAME 2: its option's
@@ -642,7 +642,7 @@ public:
 class SClientMovieCallbackClass;
 
 // The scripted movie view (constructor 0x8000C0, 0x178 bytes; SClient 0x74BD90 makes it, 0x74BF00 deletes it)
-class ScriptedMovieViewClass : public ViewClass	// NAME 2: SClient's member 'ScriptedMovieView' (G_ASSERT l.4127)
+class ScriptedMovieViewClass : public UIViewClass	// NAME 2: SClient's member 'ScriptedMovieView' (G_ASSERT l.4127)
 {
 public:
 	ScriptedMovieViewClass(ClientTaskClass *task, int arg, SClientMovieCallbackClass *callback);	// 0x8000C0  // NAME 1 [task, arg, callback]: what 0x74BD90 passes
@@ -758,7 +758,7 @@ public:
 	virtual void Unknown_64();							// +0x64 0x744690: ClientTaskClass::Render, Wait_For_Redirect
 
 	void Print(int channel, const char *format, ...);	// 0x74DF70 (cdecl): a line in the chat panel  // NAME 2: what it does
-	void Unknown_742530(ViewClass *view);				// 0x742530 (Shutdown passes 0; 0x745F30 the view of the new view mode)  // NAME 1 [view]: what it gets
+	void Unknown_742530(UIViewClass *view);				// 0x742530 (Shutdown passes 0; 0x745F30 the view of the new view mode)  // NAME 1 [view]: what it gets
 	void Unknown_7429B0();								// 0x7429B0 (Do_Frame, after the lost-dialog check; FAIL_IF '!CurrentView', l.749)
 	void Unknown_743380(KernelEventClass *event);		// 0x743380 (Do_Frame: the input queue's event without the +0x1278 source)  // NAME 1 [event]: what it gets
 	bool Unknown_7436A0(KernelEventClass event);		// 0x7436A0 (Do_Frame: an event no dispatcher took; false: 0x744240)  // NAME 1 [event]: what it gets
@@ -878,10 +878,10 @@ public:
 	SClientUnknown1338Class *Unknown1338;				// +0x1338
 	ProjDecalManagerClass *ProjDecalManager;			// +0x133C  // NAME 3: its file's
 	VectorClass<Vector3> Unknown1340;					// +0x1340 vtable 0xAE9B0C
-	ViewClass *CurrentView;								// +0x1350 (0x7429B0's FAIL_IF '!CurrentView')
+	UIViewClass *CurrentView;								// +0x1350 (0x7429B0's FAIL_IF '!CurrentView')
 	MainViewClass *MainView;							// +0x1354 Init  // NAME 3: its file's
-	ViewClass *Unknown1358;								// +0x1358 Init (0x514CC0, 0x50 bytes)
-	ViewClass *Unknown135C;								// +0x135C
+	UIViewClass *Unknown1358;								// +0x1358 Init (0x514CC0, 0x50 bytes)
+	UIViewClass *Unknown135C;								// +0x135C
 	Movie3DViewClass *Movie3DView;						// +0x1360 view mode 3 (the client's G_ASSERT names, ll.4090 / 4104)
 	ScriptedMovieViewClass *ScriptedMovieView;			// +0x1364 view mode 6 (the client's G_ASSERT names, ll.4117 / 4127)
 	LoadingViewClass *LoadingView;						// +0x1368 Init  // NAME 3: its file's

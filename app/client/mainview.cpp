@@ -184,7 +184,7 @@ MainViewClass::~MainViewClass()
 // NOT EXACT: similarity 0.84, registers only (the first light's and the stars' RefCountPtr assignments); attempts.csv 0x50BA60
 void MainViewClass::Unknown_04()
 {
-	ViewClass::Unknown_04();
+	UIViewClass::Unknown_04();
 	Unknown1C->Set_Fog_Enable(false);
 	Unknown110 = new SimpleSceneClass;
 	Unknown114 = new SimpleSceneClass;
@@ -231,7 +231,7 @@ void MainViewClass::Unknown_04()
 // interface objects, the radar, the scenes, the land, the orbitals and the profile iterator
 void MainViewClass::Unknown_10()
 {
-	ViewClass::Unknown_10();
+	UIViewClass::Unknown_10();
 	for (int i = 0; i < 4; i++) {
 		Unknown120->Remove_Render_Object(Unknown154[i].Peek());
 		Unknown154[i] = NULL;
@@ -1600,7 +1600,7 @@ void MainViewClass::Unknown_512400()
 void MainViewClass::Unknown_14()
 {
 	Unknown_512400();
-	ViewClass::Unknown_14();
+	UIViewClass::Unknown_14();
 	Unknown48->Unknown_34();
 }
 
@@ -2358,7 +2358,7 @@ void MainViewClass::Unknown_18(int arg)
 
 // 0x514CC0: the view at SClient +0x1358 (sclient.h): the base with 1
 Unknown514CC0ViewClass::Unknown514CC0ViewClass(ClientTaskClass *task) :
-	ViewClass(task, 1)
+	UIViewClass(task, 1)
 {
 }
 

@@ -20,7 +20,7 @@ public:
 	virtual void Unknown_58(); virtual void Unknown_5C(); virtual void Unknown_60(); virtual void Unknown_64();
 	virtual void Unknown_68(); virtual void Unknown_6C(); virtual void Unknown_70(); virtual void Unknown_74();
 	virtual void Unknown_78();
-	virtual void Unknown_7C(ViewClass *view, int arg);	// +0x7C (0x50C690: the view, 0)  // NAME 1 [view, arg]: what 0x50C690 passes
+	virtual void Unknown_7C(UIViewClass *view, int arg);	// +0x7C (0x50C690: the view, 0)  // NAME 1 [view, arg]: what 0x50C690 passes
 	void Unknown_597080(const char *text, const char *name, int index);	// 0x597080 (CLIENT_CHAT_EVENT 165: a 'group' message '<S>n name`text')  // NAME 1 [text, name, index]: the message's parts
 	void Unknown_5981B0();								// 0x5981B0 (cpacket.cpp: CTA_RESPONSE 189's request type 14, when the player doesn't lead the group)
 	void Unknown_598200(bool on);						// 0x598200 (CTA_RESPONSE 189's type 15 passes true)  // NAME 1 [on]: what the handler passes

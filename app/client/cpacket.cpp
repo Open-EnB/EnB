@@ -949,7 +949,7 @@ bool GroupPacketClass::Process_Packet(void *instance)
 {
 	WWPROFILE("GroupPacketClass::Process_Packet()");
 	SClient *sclient = (SClient *)instance;
-	ViewClass *view;
+	UIViewClass *view;
 	if (sclient->Unknown_744B60()) {
 		view = sclient->Unknown135C;
 	} else {
@@ -1026,7 +1026,7 @@ bool DialogPacketClass::Process_Packet(void *instance)
 {
 	WWPROFILE("DialogPacketClass::Process_Packet()");
 	SClient *sclient = (SClient *)instance;
-	ViewClass *view;
+	UIViewClass *view;
 	if (sclient->Unknown_744B60()) {
 		view = sclient->Unknown135C;
 	} else {
@@ -1825,7 +1825,7 @@ public:
 	virtual void Unknown_2C(); virtual void Unknown_30(); virtual void Unknown_34(); virtual void Unknown_38();
 	virtual void Unknown_3C();
 	virtual void Unknown_40(bool on);	// +0x40 (GADGET 103: Function bits 4 / 8)  // NAME 1 [on]: what the handler passes
-	void Unknown_6603A0(int arg, ViewClass *view);	// 0x6603A0 (GADGET 103: bit 0x10, the current view's slot +0x1C)  // NAME 1 [arg, view]: what the handler passes
+	void Unknown_6603A0(int arg, UIViewClass *view);	// 0x6603A0 (GADGET 103: bit 0x10, the current view's slot +0x1C)  // NAME 1 [arg, view]: what the handler passes
 	void Unknown_6607D0();	// 0x6607D0 (GADGET 103: bit 0x20)
 };
 class GadgetListManagerClass	// NAME 3: class-from-file (D24) for app\client\gadget_list_manager.cpp (its FAIL_IF '!Manager' on this)

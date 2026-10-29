@@ -168,7 +168,7 @@ static void Cpit_5C_Slot() { Trace("cockpit +0x5C (off)"); }
 static void *Scene10C_Table[32];
 static void __stdcall Scene10C_Add_Slot(RenderObjClass *obj) { Trace("mainview scene Add_Render_Object"); }	// slot 3
 static void Scene10C_Remove_All_Slot() { Trace("mainview scene Remove_All_Render_Objects"); }	// slot 24 (0x514010)
-// The view slot +0x1C gives (ViewClass 0x50B720 returns the view itself): Do_Frame's dialog helpers 0x7429B0, 0x74EDB0,
+// The view slot +0x1C gives (UIViewClass 0x50B720 returns the view itself): Do_Frame's dialog helpers 0x7429B0, 0x74EDB0,
 // 0x751660 and 0x74F5C0 read its +0x34 dialog and the dialog's type at +0x18C. A zeroed dialog: no type matches
 static int Fake_Dialog_Storage[0x190 / sizeof(int)];
 static struct FakeUIViewStruct { char Unknown00[0x34]; void *Dialog; } Fake_UI_View = { { 0 }, Fake_Dialog_Storage };
@@ -892,7 +892,7 @@ static void Test_Path(SClient *client, FakeMainViewClass *main_view)
 	int toggle = client->Unknown1128;
 	static char fake_bridge[0xC4];			// bridge_int.cpp's object: +0x14 0, so Do_Frame doesn't call it
 	client->Unknown1198 = false;
-	client->CurrentView = (ViewClass *)main_view;
+	client->CurrentView = (UIViewClass *)main_view;
 	client->BridgeInterface = (BridgeInterfaceClass *)fake_bridge;
 	Path_Views = true;
 	// 0x512A00 (Do_Frame, the main view current): a radar (its 0x7BCA70 is client_stubs.cpp's) and a PDA whose +0xA8
@@ -1061,7 +1061,7 @@ class UIGadgetInterfaceClass;
 class GadgetClass
 {
 public:
-	void Unknown_6603A0(int arg, ViewClass *view);
+	void Unknown_6603A0(int arg, UIViewClass *view);
 	void Unknown_6607D0();
 };
 class GadgetListManagerClass
@@ -1082,7 +1082,7 @@ GadgetClass *GadgetListManagerClass::Unknown_661940(const char *name)
 	Trace("stub GadgetListManagerClass::Unknown_661940 '%s'", name ? name : "(null)");
 	return((name && strcmp(name, "gadget_test") == 0) ? (GadgetClass *)&Fake_Gadget : 0);
 }
-void GadgetClass::Unknown_6603A0(int arg, ViewClass *view) { Gadget_Log += arg == 1 && view ? "6603A0(1, view) " : "6603A0(?) "; }
+void GadgetClass::Unknown_6603A0(int arg, UIViewClass *view) { Gadget_Log += arg == 1 && view ? "6603A0(1, view) " : "6603A0(?) "; }
 void GadgetClass::Unknown_6607D0() { Gadget_Log += "6607D0 "; }
 static void *Incap_Packet = 0;
 static std::string Incap_Name;
@@ -1110,10 +1110,10 @@ static void Test_Gadget(SClient *client, FakeMainViewClass *main_view)
 	Gadget_Table[0x40 / 4] = (void *)Gadget_40_Slot;
 	Gadget_Iface_Table[0x8C / 4] = (void *)Gadget_Iface_8C_Slot;
 	int list = client->Unknown1278;
-	ViewClass *view = client->CurrentView;
+	UIViewClass *view = client->CurrentView;
 	static char fake_list[0x40];
 	client->Unknown1278 = (int)fake_list;
-	client->CurrentView = (ViewClass *)main_view;
+	client->CurrentView = (UIViewClass *)main_view;
 
 	Gadget_Log = "";
 	Memory->Incoming.push_back(Built_Message(&GadgetPacketClass(0x3F, "gadget_test")));
@@ -1302,7 +1302,7 @@ static void Test_Starbase(SClient *client)
 		Check(false, "the memory connection");
 		return;
 	}
-	ViewClass *saved = client->Unknown135C;
+	UIViewClass *saved = client->Unknown135C;
 	static double fake_view[0x200 / 8];
 	static double fake_starbase[0x100 / 8];
 	char *view = (char *)fake_view;
@@ -1316,7 +1316,7 @@ static void Test_Starbase(SClient *client)
 	Memory->Incoming.push_back(Starbase_Avatar_Message(77, 1.5f, 10.0f, 20.0f, 30.0f, 2, 3));
 	client->Process_Packets();
 	Check(Starbase_Log == "", "STARBASE_AVATAR_UPDATE 158 without a starbase view: nothing called");
-	client->Unknown135C = (ViewClass *)view;
+	client->Unknown135C = (UIViewClass *)view;
 	Memory->Incoming.push_back(Starbase_Avatar_Message(77, 1.5f, 10.0f, 20.0f, 30.0f, 2, 3));
 	Memory->Incoming.push_back(Starbase_Avatar_Message(78, 0.5f, 1.0f, 2.0f, 3.0f, 1, 4));
 	client->Process_Packets();
@@ -1366,14 +1366,14 @@ static void Test_Recustomize(SClient *client)
 		Check(false, "the memory connection");
 		return;
 	}
-	ViewClass *saved = client->Unknown135C;
+	UIViewClass *saved = client->Unknown135C;
 	static double fake_view[0x200 / 8];
 	static double fake_starbase[0x100 / 8];
 	static char fake_ship_ui[4], fake_avatar_ui[4];
 	char *view = (char *)fake_view;
 	*(int *)((char *)fake_starbase + 0x3C) = 5;
 	*(double **)(view + 0x60) = fake_starbase;
-	client->Unknown135C = (ViewClass *)view;
+	client->Unknown135C = (UIViewClass *)view;
 	// 129 and 131 are called directly: their cost classes (shipcust / recustomization costs) are stand-ins here, so
 	// the packets can't go through Build and the factory; 133 goes through the connection
 	ShipCustDescClass desc;
@@ -1440,9 +1440,9 @@ static void Test_GM(SClient *client)
 	}
 	GM_Table[0x54 / 4] = (void *)GM_54_Slot;
 	GM_Table[0x7C / 4] = (void *)GM_7C_Slot;
-	ViewClass *saved = client->Unknown135C;
+	UIViewClass *saved = client->Unknown135C;
 	static double fake_view[0x200 / 8];
-	client->Unknown135C = (ViewClass *)fake_view;
+	client->Unknown135C = (UIViewClass *)fake_view;
 	std::vector<std::string> strings;
 	strings.push_back("mission one");
 	strings.push_back("mission two");
@@ -1597,7 +1597,7 @@ static void Test_Chat(SClient *client)
 	*(char **)((char *)fake_sbview + 0x1A4) = (char *)fake_trade;
 	char *main = (char *)client->MainView;
 	void *saved_trade = *(void **)(main + 0x1E4);
-	ViewClass *saved_view = client->Unknown135C;
+	UIViewClass *saved_view = client->Unknown135C;
 	*(void **)(main + 0x1E4) = 0;
 	Trade_Log = "";
 	Memory->Incoming.push_back(Trade_Message(44, 0));
@@ -1616,7 +1616,7 @@ static void Test_Chat(SClient *client)
 		"TRADE 31 in space: types 0-6 to the main view's trade interface (slots +0x58 / +0x5C, 0x5E3130, 0x5E2F70, 0x5E3050), 7 ignored, +0x1134 cleared");
 	Trade_Log = "";
 	Stub_744B60 = true;
-	client->Unknown135C = (ViewClass *)fake_sbview;
+	client->Unknown135C = (UIViewClass *)fake_sbview;
 	Memory->Incoming.push_back(Trade_Message(45, 0));
 	Memory->Incoming.push_back(Trade_Message(45, 2));
 	client->Process_Packets();
@@ -1716,8 +1716,8 @@ static void Test_Guild(SClient *client, FakeMainViewClass *main_view)
 		Check(false, "the memory connection");
 		return;
 	}
-	ViewClass *view = client->CurrentView;
-	client->CurrentView = (ViewClass *)main_view;
+	UIViewClass *view = client->CurrentView;
+	client->CurrentView = (UIViewClass *)main_view;
 	client->Unknown119C = "";
 	Memory->Incoming.push_back(Two_Strings(200, "Alex", "Earthlings"));
 	client->Process_Packets();
@@ -1821,8 +1821,8 @@ static void Test_Chat_Lists(SClient *client)
 	Check(Lines - before == 6, "CLIENT_CHAT_ERROR 166 success: five lines (and the sound for 22), type 4 none");
 	*panel = saved_panel;
 
-	ViewClass *view = client->CurrentView;
-	client->CurrentView = (ViewClass *)Test_Main_View;
+	UIViewClass *view = client->CurrentView;
+	client->CurrentView = (UIViewClass *)Test_Main_View;
 	int types[] = { 0, 1, 3, 5, 7, 9, 11, 13, 16, 18, 20 };
 	int asked = 0;
 	for (int t = 0; t < (int)(sizeof(types) / sizeof(types[0])); t++) {
