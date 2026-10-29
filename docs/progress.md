@@ -1384,7 +1384,7 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 | D127 | 2026-10-29 | D101's sbs criterion is met: since LD2's sun fix the means are 2.03-2.09 % against vidland's 1.9-2.4 %, frames 600-900 1.4-2.0 % ("within ±1.5 %" read as points of difference) | user (LD1's proposal) |
 | D128 | 2026-10-29 | P-SC3-1: 0x750C20 (testeffects.ini's player, 0.54, register / stack slots, no caller) stays parked; no exception to D89's rule for register-only residues | user (SC3's proposal) |
 | D129 | 2026-10-29 | bada317's matching rule (now 32fd4b3) is kept as an extension of D88's self-name round: a vtable slot 0's `??_E` name in symbols.json counts for the object's `??_G` and the reverse (symbols.py names slot 0 `??_E`; VC6 emits `??_G` for a class never new[]'d); bytes still match with relocations masked, so a vector deleting destructor or a slot-0 thunk cannot be credited. +293 pairs (276 addresses), 0 lost. D118's numbers predate it (M4's README notes the alias unmeasured) | user (PK1's P-PK1-1, coordinator) |
-| D130 | 2026-10-29 | P-IB1-1 accepted: dead root-NULL finds (`Unknown_Find_Field<...>(NULL, ...)`, no code emitted) may stand as an inline-budget spender, up to 4 per function, each marked (IB1's 4 in 0x6FDBD0, fc348e7; 0x6FBEF0's 20 stays out). P-DM1-1 (what else counts toward the 4) stays open | user (IB1's proposal) |
+| D130 | 2026-10-29 | P-IB1-1 with P-DM1-1: dead code that spends VC6's inline budget without emitting code (a root-NULL find, an unused type test, an unused accessor read) may stand in for budget the client's source spent invisibly. Every kind counts toward one limit of 6 per function; each is marked in the source as not the client's; each must be needed (removing any one loses a pair, checked at commit). A function that needs more stays NOT EXACT and parked, no exception: 0x6FBEF0 needs 20 and goes to the Fable round on the per-find cost (§4 item 7). When a real source form for the missing budget is found, it replaces the dead spenders it explains | user (IB1's and DM1's proposals) |
 | D131 | 2026-10-29 | P-CS1-1 accepted: the setter at slot +0x24, `Set_Debug_Object`, becomes `Set_Avatar_ID` like D123's getter (it sends the DEBUG packet; expected 0 / 0 pairs); a work item in §4 item 2 | user (CS1's proposal) |
 | D132 | 2026-10-29 | P-CS1-3: split co_subtypes.cpp now: type 24's base (0x70DBC0-0x70E2D0: constructor, destructor, update, thunks) goes to a file of its own with a neutral name (D10), types 24 / 28 (0x70E2E0-0x70F030) stay; the `#pragma auto_inline(off)` around the base, which stood in for the file boundary, goes; a D66 (v) move, 0 lost; a work item in §4 item 2 | user (CS1's evidence: the client never inlines the base into type 24) |
 | D133 | 2026-10-29 | P-HX1-1: auxroots.py's `SYMBOL_PAD` enum stays in the generated aux_roots.cpp for now (marked as not the client's; it carries e062fb2 and 45bf5c0, +16 pairs); revisit when client code (a real declaration the file sees) can take its place | user (HX1's proposal) |
@@ -1392,9 +1392,8 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 
 ## 3. Open decisions
 
-* **P-DM1-1** (2026-10-28, DM1; recommend; D130 accepted P-IB1-1's 4 dead finds per function): count only dead
-  finds toward D130's 4; DM1 also used 1 dead type test in 0x6FDBD0 (without it acd5e81 loses 0x531590 outright)
-  and a dead `UnknownB8.size()` in 0x6FEF70, all marked.
+(none)
+
 ## 4. Next steps
 
 Milestones M1 and M2 are met (D42, D63; [milestones.md](milestones.md)). Order and detail of the
