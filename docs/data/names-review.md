@@ -10,8 +10,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 33 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 36 |
 | 3 | by convention from a client-named file or sibling | 956 |
-| 2 | describes what the code does | 2333 |
-| 1 | neutral placeholder | 5440 |
+| 2 | describes what the code does | 2331 |
+| 1 | neutral placeholder | 5444 |
 
 ## For review (score 3 and below)
 
@@ -1550,24 +1550,27 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_14` | `app/client/fontdatabase.h:81` | neutral (D10) |
 | 1 | `Unknown_1C` | `app/client/fontdatabase.h:83` | neutral (D10) |
 | 1 | `Unknown0C` | `app/client/fontdatabase.h:92` | neutral (D10) |
-| 1 | `Unknown04` | `app/client/fontdatabase.h:114` | neutral (D10) |
-| 1 | `Unknown_6BE520` | `app/client/fontdatabase.h:158` | neutral (D10) |
-| 1 | `Unknown_6BF910` | `app/client/fontdatabase.h:160` | neutral (D10) |
-| 1 | `Unknown_6BFD00` | `app/client/fontdatabase.h:161` | neutral (D10) |
-| 1 | `Unknown_6C2080` | `app/client/fontdatabase.h:162` | untagged neutral name (D10) |
-| 1 | `Get_Unknown98` | `app/client/fontdatabase.h:187` | neutral (D10) |
-| 1 | `Unknown_6C1500` | `app/client/fontdatabase.h:189` | neutral (D10) |
-| 1 | `Unknown_6C1AA0` | `app/client/fontdatabase.h:190` | neutral (D10) |
-| 1 | `Unknown_6C47B0` | `app/client/fontdatabase.h:191` | neutral (D10) |
-| 1 | `Unknown_6C49C0` | `app/client/fontdatabase.h:192` | neutral (D10) |
-| 1 | `Unknown_BE67B8` | `app/client/fontdatabase.h:202` | neutral (D10) |
+| 1 | `Unknown04` | `app/client/fontdatabase.h:142` | neutral (D10) |
+| 1 | `Unknown_6BE520` | `app/client/fontdatabase.h:180` | neutral (D10) |
+| 1 | `Unknown_6BF910` | `app/client/fontdatabase.h:182` | neutral (D10) |
+| 1 | `Unknown_6BFD00` | `app/client/fontdatabase.h:183` | neutral (D10) |
+| 1 | `Unknown_6C2080` | `app/client/fontdatabase.h:184` | untagged neutral name (D10) |
+| 1 | `Get_Unknown98` | `app/client/fontdatabase.h:209` | neutral (D10) |
+| 1 | `Unknown_6C1500` | `app/client/fontdatabase.h:211` | neutral (D10) |
+| 1 | `Unknown_6C1AA0` | `app/client/fontdatabase.h:212` | neutral (D10) |
+| 1 | `Unknown_6C47B0` | `app/client/fontdatabase.h:213` | neutral (D10) |
+| 1 | `Unknown_6C49C0` | `app/client/fontdatabase.h:214` | neutral (D10) |
+| 1 | `Unknown_BE67B8` | `app/client/fontdatabase.h:224` | neutral (D10) |
+| 1 | `Unknown_6D0A70` | `app/client/fontmanager.cpp:41` | untagged neutral name (D10) |
+| 1 | `Unknown_6D5140` | `app/client/fontmanager.cpp:50` | untagged neutral name (D10) |
+| 1 | `Unknown04` | `app/client/fontmanager.cpp:52` | untagged neutral name (D10) |
+| 1 | `Unknown_6CF930` | `app/client/fontmanager.cpp:58` | untagged neutral name (D10) |
 | 1 | `Unknown_6D1010` | `app/client/fontmanager.cpp:101` | untagged neutral name (D10) |
 | 1 | `Unknown_6D1600` | `app/client/fontmanager.cpp:103` | untagged neutral name (D10) |
 | 1 | `Unknown494` | `app/client/fontmanager.cpp:104` | untagged neutral name (D10) |
 | 1 | `Unknown4A4` | `app/client/fontmanager.cpp:105` | untagged neutral name (D10) |
 | 1 | `Unknown_6D10B0` | `app/client/fontmanager.cpp:109` | untagged neutral name (D10) |
 | 1 | `Unknown_6D1220` | `app/client/fontmanager.cpp:345` | untagged neutral name (D10) |
-| 1 | `Unknown0F8` | `app/client/fontmanager.cpp:349` | untagged neutral name (D10) |
 | 1 | `Unknown_6D1480` | `app/client/fontmanager.cpp:368` | untagged neutral name (D10) |
 | 1 | `Unknown_6D1C10` | `app/client/fontmanager.cpp:420` | untagged neutral name (D10) |
 | 1 | `Unknown_All_Styles` | `app/client/fontmanager.cpp:423` | untagged neutral name (D10) |
@@ -1586,10 +1589,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown0C` | `app/client/fontmanager.h:36` | neutral (D10) |
 | 1 | `FontStyleClass` | `app/client/fontmanager.h:39` | neutral (D10): the debug font's class (0x4E8 bytes, reference counted) |
 | 1 | `unknown1` | `app/client/fontmanager.h:42` | neutral (D10) |
-| 1 | `Unknown_6CD950` | `app/client/fontmanager.h:45` | neutral (D10) |
-| 1 | `Unknown08` | `app/client/fontmanager.h:47` | neutral (D10) |
-| 1 | `Unknown0F8` | `app/client/fontmanager.h:49` | neutral (D10) |
-| 1 | `Unknown0FC` | `app/client/fontmanager.h:50` | neutral (D10) |
+| 1 | `Unknown_6D5140` | `app/client/fontmanager.h:45` | neutral (D10) |
+| 1 | `Unknown_6CD950` | `app/client/fontmanager.h:46` | neutral (D10) |
+| 1 | `Unknown08` | `app/client/fontmanager.h:48` | neutral (D10) |
+| 1 | `Unknown1E0` | `app/client/fontmanager.h:50` | neutral (D10) |
 | 1 | `Unknown250` | `app/client/fontmanager.h:51` | neutral (D10) |
 | 1 | `Unknown254` | `app/client/fontmanager.h:52` | neutral (D10) |
 | 1 | `Unknown494` | `app/client/fontmanager.h:53` | neutral (D10) |
@@ -1607,17 +1610,18 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_6D1010` | `app/client/fontmanager.h:88` | neutral (D10) |
 | 1 | `Unknown_6D0390` | `app/client/fontmanager.h:89` | neutral (D10) |
 | 1 | `Unknown_6D0550` | `app/client/fontmanager.h:90` | neutral (D10) |
-| 1 | `Unknown_6D0A20` | `app/client/fontmanager.h:91` | neutral (D10) |
-| 1 | `Unknown08` | `app/client/fontmanager.h:95` | neutral (D10) |
-| 1 | `Unknown_6D1C10` | `app/client/fontmanager.h:105` | neutral (D10) |
-| 1 | `Unknown_6D2310` | `app/client/fontmanager.h:110` | neutral (D10) |
-| 1 | `Unknown_6D2400` | `app/client/fontmanager.h:111` | neutral (D10) |
-| 1 | `Unknown_6D2480` | `app/client/fontmanager.h:112` | neutral (D10) |
-| 1 | `Unknown_6D2500` | `app/client/fontmanager.h:113` | neutral (D10) |
-| 1 | `Unknown_6D2580` | `app/client/fontmanager.h:114` | neutral (D10) |
-| 1 | `Unknown_6D2700` | `app/client/fontmanager.h:116` | neutral (D10) |
-| 1 | `Unknown_6D28C0` | `app/client/fontmanager.h:117` | neutral (D10) |
-| 1 | `Peek_Font` | `app/client/fontmanager.h:119` | neutral (D10) |
+| 1 | `Unknown_6D0A70` | `app/client/fontmanager.h:91` | neutral (D10) |
+| 1 | `Unknown_6D0A20` | `app/client/fontmanager.h:92` | neutral (D10) |
+| 1 | `Unknown08` | `app/client/fontmanager.h:96` | neutral (D10) |
+| 1 | `Unknown_6D1C10` | `app/client/fontmanager.h:106` | neutral (D10) |
+| 1 | `Unknown_6D2310` | `app/client/fontmanager.h:111` | neutral (D10) |
+| 1 | `Unknown_6D2400` | `app/client/fontmanager.h:112` | neutral (D10) |
+| 1 | `Unknown_6D2480` | `app/client/fontmanager.h:113` | neutral (D10) |
+| 1 | `Unknown_6D2500` | `app/client/fontmanager.h:114` | neutral (D10) |
+| 1 | `Unknown_6D2580` | `app/client/fontmanager.h:115` | neutral (D10) |
+| 1 | `Unknown_6D2700` | `app/client/fontmanager.h:117` | neutral (D10) |
+| 1 | `Unknown_6D28C0` | `app/client/fontmanager.h:118` | neutral (D10) |
+| 1 | `Peek_Font` | `app/client/fontmanager.h:120` | neutral (D10) |
 | 1 | `Unknown08` | `app/client/gutter_data.h:26` | untagged neutral name (D10) |
 | 1 | `Unknown86CRecordClass` | `app/client/influence.h:24` | untagged neutral name (D10) |
 | 1 | `client, id, model` | `app/client/influence.h:27` | what CREATE passes |
@@ -5845,100 +5849,98 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `FontStruct` | `app/client/fontdatabase.h:95` | one of the fonts in use (0xC bytes) |
 | 2 | `Name` | `app/client/fontdatabase.h:100` | what Find_Font compares |
 | 2 | `Scale` | `app/client/fontdatabase.h:101` | Scale%d is copied in |
-| 2 | `FontStringStruct` | `app/client/fontdatabase.h:107` | one string template of a string file (Template%d / String%d keys; 0xEC bytes; "NewStringInfo" by default) |
-| 2 | `Reset` | `app/client/fontdatabase.h:111` | what it does |
-| 2 | `StringID` | `app/client/fontdatabase.h:113` | the ini key |
-| 2 | `Text` | `app/client/fontdatabase.h:115` | what it holds |
-| 2 | `RenderObj` | `app/client/fontdatabase.h:116` | the ini key |
-| 2 | `Attach` | `app/client/fontdatabase.h:117` | the ini key |
-| 2 | `BlendType` | `app/client/fontdatabase.h:118` | the ini keys |
-| 2 | `FontType` | `app/client/fontdatabase.h:119` | the ini keys |
-| 2 | `Color` | `app/client/fontdatabase.h:120` | the ini keys |
-| 2 | `Justify` | `app/client/fontdatabase.h:121` | the ini key |
-| 2 | `Offset` | `app/client/fontdatabase.h:122` | the ini key |
-| 2 | `Target` | `app/client/fontdatabase.h:123` | the ini key |
-| 2 | `BoxOffset` | `app/client/fontdatabase.h:124` | the ini key |
-| 2 | `Width` | `app/client/fontdatabase.h:125` | the ini key |
-| 2 | `Wait` | `app/client/fontdatabase.h:126` | the ini key |
-| 2 | `TimeSpacing` | `app/client/fontdatabase.h:127` | the ini key |
-| 2 | `TriggerTime` | `app/client/fontdatabase.h:128` | the ini key |
-| 2 | `Spacing` | `app/client/fontdatabase.h:129` | the ini key |
-| 2 | `WrapWidth` | `app/client/fontdatabase.h:130` | the ini key |
-| 2 | `Rotate90` | `app/client/fontdatabase.h:131` | the ini key |
-| 2 | `Underline` | `app/client/fontdatabase.h:132` | the ini key |
-| 2 | `SoundOnID` | `app/client/fontdatabase.h:133` | the ini key |
-| 2 | `SoundOnVol` | `app/client/fontdatabase.h:134` | the ini key |
-| 2 | `SoundOnDur` | `app/client/fontdatabase.h:135` | the ini key |
-| 2 | `SoundOverID` | `app/client/fontdatabase.h:136` | the ini key |
-| 2 | `SoundOverVol` | `app/client/fontdatabase.h:137` | the ini key |
-| 2 | `SoundOverDur` | `app/client/fontdatabase.h:138` | the ini key |
-| 2 | `SoundClickID` | `app/client/fontdatabase.h:139` | the ini key |
-| 2 | `SoundClickVol` | `app/client/fontdatabase.h:140` | the ini key |
-| 2 | `SoundClickDur` | `app/client/fontdatabase.h:141` | the ini key |
-| 2 | `EffectOn` | `app/client/fontdatabase.h:142` | the ini key |
-| 2 | `EffectConst` | `app/client/fontdatabase.h:143` | the ini key |
-| 2 | `EffectOff` | `app/client/fontdatabase.h:144` | the ini key |
-| 2 | `MouseOver` | `app/client/fontdatabase.h:145` | the ini key |
-| 2 | `MouseClick` | `app/client/fontdatabase.h:146` | the ini key |
-| 2 | `EffectTriggered` | `app/client/fontdatabase.h:147` | the ini key |
-| 2 | `Reload` | `app/client/fontdatabase.h:155` | what it does |
-| 2 | `Load` | `app/client/fontdatabase.h:156` | what it does |
-| 2 | `Load_Init` | `app/client/fontdatabase.h:157` | what it does |
-| 2 | `Load_String` | `app/client/fontdatabase.h:159` | what it does |
-| 2 | `Get_Blend_Type` | `app/client/fontdatabase.h:163` | what it does |
-| 2 | `Get_Direction` | `app/client/fontdatabase.h:164` | what it does |
-| 2 | `Get_Effect_Type` | `app/client/fontdatabase.h:165` | what it does												// 0x6C2080  // NAME 1 [Unknown_6C2080]: neutral (D10) |
-| 2 | `Parse_Directions` | `app/client/fontdatabase.h:166` | what it does |
-| 2 | `Split_Four` | `app/client/fontdatabase.h:167` | what it does |
-| 2 | `Find_Font` | `app/client/fontdatabase.h:168` | what it does |
-| 2 | `Get_Info` | `app/client/fontdatabase.h:169` | as Get_Info, for a given resolution |
-| 2 | `Find_Color` | `app/client/fontdatabase.h:170` | what it does |
-| 2 | `Find_Effect` | `app/client/fontdatabase.h:171` | what it does |
-| 2 | `Find_String` | `app/client/fontdatabase.h:172` | what it does |
-| 2 | `Remove_String` | `app/client/fontdatabase.h:173` | what it does |
-| 2 | `Add_String` | `app/client/fontdatabase.h:174` | what it does |
-| 2 | `Add_Effect` | `app/client/fontdatabase.h:175` | what it does |
-| 2 | `Add_Color` | `app/client/fontdatabase.h:176` | what it does |
-| 2 | `Clear_Infos` | `app/client/fontdatabase.h:177` | what it does |
-| 2 | `Clear_Tables` | `app/client/fontdatabase.h:178` | what it does |
-| 2 | `Clear_Strings` | `app/client/fontdatabase.h:179` | what it does |
-| 2 | `Set_Font` | `app/client/fontdatabase.h:180` | what it does |
-| 2 | `Restore_Font` | `app/client/fontdatabase.h:181` | what it does |
-| 2 | `Get_Font_File_Index` | `app/client/fontdatabase.h:183` | what it does |
-| 2 | `Get_Font_File_Name` | `app/client/fontdatabase.h:184` | what it does |
-| 2 | `Get_Scale` | `app/client/fontdatabase.h:185` | what it returns |
-| 2 | `Get_Spacing` | `app/client/fontdatabase.h:186` | what it returns |
-| 2 | `Get_Info` | `app/client/fontdatabase.h:188` | the INIT section for the resolution |
-| 2 | `std:` | `app/client/fontdatabase.h:194` | the INIT sections, by resolution |
-| 2 | `std:` | `app/client/fontdatabase.h:195` | what it holds |
-| 2 | `std:` | `app/client/fontdatabase.h:196` | what it holds |
-| 2 | `std:` | `app/client/fontdatabase.h:197` | what it holds |
-| 2 | `FontStringFileStruct` | `app/client/fontdatabase.h:204` | one loaded string file (0x14 bytes) |
-| 2 | `std:` | `app/client/fontdatabase.h:208` | what it holds |
-| 2 | `Count` | `app/client/fontdatabase.h:209` | what it counts |
-| 2 | `FontStringFilesClass` | `app/client/fontdatabase.h:212` | the string files in use, counted (0x18 bytes, 0xBE67BC; fc_default.ini always) |
-| 2 | `std:` | `app/client/fontdatabase.h:218` | what it does |
-| 2 | `Find` | `app/client/fontdatabase.h:219` | what it does |
-| 2 | `Load` | `app/client/fontdatabase.h:220` | what it does |
-| 2 | `Unload` | `app/client/fontdatabase.h:221` | what it does |
-| 2 | `std:` | `app/client/fontdatabase.h:223` | what it holds |
+| 2 | `FontSoundStruct` | `app/client/fontdatabase.h:107` | a string template's sound: the ini keys Sound*ID / Sound*Vol / Sound*Dur |
+| 2 | `ID` | `app/client/fontdatabase.h:109` | the ini key |
+| 2 | `Vol` | `app/client/fontdatabase.h:110` | the ini key |
+| 2 | `Dur` | `app/client/fontdatabase.h:111` | the ini key |
+| 2 | `FontStringStruct` | `app/client/fontdatabase.h:114` | one string template of a string file (Template%d / String%d keys; 0xEC bytes; "NewStringInfo" by default) |
+| 2 | `Reset` | `app/client/fontdatabase.h:139` | what it does |
+| 2 | `StringID` | `app/client/fontdatabase.h:141` | the ini key |
+| 2 | `Text` | `app/client/fontdatabase.h:143` | what it holds |
+| 2 | `RenderObj` | `app/client/fontdatabase.h:144` | the ini key |
+| 2 | `Attach` | `app/client/fontdatabase.h:145` | the ini key |
+| 2 | `BlendType` | `app/client/fontdatabase.h:146` | the ini keys |
+| 2 | `FontType` | `app/client/fontdatabase.h:147` | the ini keys |
+| 2 | `Color` | `app/client/fontdatabase.h:148` | the ini keys |
+| 2 | `Justify` | `app/client/fontdatabase.h:149` | the ini key |
+| 2 | `Offset` | `app/client/fontdatabase.h:150` | the ini key |
+| 2 | `Target` | `app/client/fontdatabase.h:151` | the ini key |
+| 2 | `BoxOffset` | `app/client/fontdatabase.h:152` | the ini key |
+| 2 | `Width` | `app/client/fontdatabase.h:153` | the ini key |
+| 2 | `Wait` | `app/client/fontdatabase.h:154` | the ini key |
+| 2 | `TimeSpacing` | `app/client/fontdatabase.h:155` | the ini key |
+| 2 | `TriggerTime` | `app/client/fontdatabase.h:156` | the ini key |
+| 2 | `Spacing` | `app/client/fontdatabase.h:157` | the ini key |
+| 2 | `WrapWidth` | `app/client/fontdatabase.h:158` | the ini key |
+| 2 | `Rotate90` | `app/client/fontdatabase.h:159` | the ini key |
+| 2 | `Underline` | `app/client/fontdatabase.h:160` | the ini key |
+| 2 | `SoundOn` | `app/client/fontdatabase.h:161` | the ini keys |
+| 2 | `SoundOver` | `app/client/fontdatabase.h:162` | the ini keys |
+| 2 | `SoundClick` | `app/client/fontdatabase.h:163` | the ini keys |
+| 2 | `EffectOn` | `app/client/fontdatabase.h:164` | the ini key |
+| 2 | `EffectConst` | `app/client/fontdatabase.h:165` | the ini key |
+| 2 | `EffectOff` | `app/client/fontdatabase.h:166` | the ini key |
+| 2 | `MouseOver` | `app/client/fontdatabase.h:167` | the ini key |
+| 2 | `MouseClick` | `app/client/fontdatabase.h:168` | the ini key |
+| 2 | `EffectTriggered` | `app/client/fontdatabase.h:169` | the ini key |
+| 2 | `Reload` | `app/client/fontdatabase.h:177` | what it does |
+| 2 | `Load` | `app/client/fontdatabase.h:178` | what it does |
+| 2 | `Load_Init` | `app/client/fontdatabase.h:179` | what it does |
+| 2 | `Load_String` | `app/client/fontdatabase.h:181` | what it does |
+| 2 | `Get_Blend_Type` | `app/client/fontdatabase.h:185` | what it does |
+| 2 | `Get_Direction` | `app/client/fontdatabase.h:186` | what it does |
+| 2 | `Get_Effect_Type` | `app/client/fontdatabase.h:187` | what it does												// 0x6C2080  // NAME 1 [Unknown_6C2080]: neutral (D10) |
+| 2 | `Parse_Directions` | `app/client/fontdatabase.h:188` | what it does |
+| 2 | `Split_Four` | `app/client/fontdatabase.h:189` | what it does |
+| 2 | `Find_Font` | `app/client/fontdatabase.h:190` | what it does |
+| 2 | `Get_Info` | `app/client/fontdatabase.h:191` | as Get_Info, for a given resolution |
+| 2 | `Find_Color` | `app/client/fontdatabase.h:192` | what it does |
+| 2 | `Find_Effect` | `app/client/fontdatabase.h:193` | what it does |
+| 2 | `Find_String` | `app/client/fontdatabase.h:194` | what it does |
+| 2 | `Remove_String` | `app/client/fontdatabase.h:195` | what it does |
+| 2 | `Add_String` | `app/client/fontdatabase.h:196` | what it does |
+| 2 | `Add_Effect` | `app/client/fontdatabase.h:197` | what it does |
+| 2 | `Add_Color` | `app/client/fontdatabase.h:198` | what it does |
+| 2 | `Clear_Infos` | `app/client/fontdatabase.h:199` | what it does |
+| 2 | `Clear_Tables` | `app/client/fontdatabase.h:200` | what it does |
+| 2 | `Clear_Strings` | `app/client/fontdatabase.h:201` | what it does |
+| 2 | `Set_Font` | `app/client/fontdatabase.h:202` | what it does |
+| 2 | `Restore_Font` | `app/client/fontdatabase.h:203` | what it does |
+| 2 | `Get_Font_File_Index` | `app/client/fontdatabase.h:205` | what it does |
+| 2 | `Get_Font_File_Name` | `app/client/fontdatabase.h:206` | what it does |
+| 2 | `Get_Scale` | `app/client/fontdatabase.h:207` | what it returns |
+| 2 | `Get_Spacing` | `app/client/fontdatabase.h:208` | what it returns |
+| 2 | `Get_Info` | `app/client/fontdatabase.h:210` | the INIT section for the resolution |
+| 2 | `std:` | `app/client/fontdatabase.h:216` | the INIT sections, by resolution |
+| 2 | `std:` | `app/client/fontdatabase.h:217` | what it holds |
+| 2 | `std:` | `app/client/fontdatabase.h:218` | what it holds |
+| 2 | `std:` | `app/client/fontdatabase.h:219` | what it holds |
+| 2 | `FontStringFileStruct` | `app/client/fontdatabase.h:226` | one loaded string file (0x14 bytes) |
+| 2 | `std:` | `app/client/fontdatabase.h:230` | what it holds |
+| 2 | `Count` | `app/client/fontdatabase.h:231` | what it counts |
+| 2 | `FontStringFilesClass` | `app/client/fontdatabase.h:234` | the string files in use, counted (0x18 bytes, 0xBE67BC; fc_default.ini always) |
+| 2 | `std:` | `app/client/fontdatabase.h:240` | what it does |
+| 2 | `Find` | `app/client/fontdatabase.h:241` | what it does |
+| 2 | `Load` | `app/client/fontdatabase.h:242` | what it does |
+| 2 | `Unload` | `app/client/fontdatabase.h:243` | what it does |
+| 2 | `std:` | `app/client/fontdatabase.h:245` | what it holds |
 | 2 | `Color` | `app/client/fontmanager.h:35` | what 0x6D1010 stores |
 | 2 | `Set_Color` | `app/client/fontmanager.h:43` | describes what it does |
-| 2 | `Name` | `app/client/fontmanager.h:48` | what it holds |
+| 2 | `Info` | `app/client/fontmanager.h:49` | what it holds |
 | 2 | `ManagedFontClass` | `app/client/fontmanager.h:58` | what the manager holds per id (0x24 bytes; its +4 is the id) |
-| 2 | `Name` | `app/client/fontmanager.h:93` | the name 0x6D1FD0 looks up in the font database |
-| 2 | `Id` | `app/client/fontmanager.h:94` | what it holds |
-| 2 | `std:` | `app/client/fontmanager.h:96` | what it holds |
-| 2 | `Remove_All` | `app/client/fontmanager.h:104` | describes what it does |
-| 2 | `Add` | `app/client/fontmanager.h:106` | describes what it does |
+| 2 | `Name` | `app/client/fontmanager.h:94` | the name 0x6D1FD0 looks up in the font database |
+| 2 | `Id` | `app/client/fontmanager.h:95` | what it holds |
+| 2 | `std:` | `app/client/fontmanager.h:97` | what it holds |
+| 2 | `Remove_All` | `app/client/fontmanager.h:105` | describes what it does |
 | 2 | `Add` | `app/client/fontmanager.h:107` | describes what it does |
-| 2 | `Create` | `app/client/fontmanager.h:108` | describes what it does |
-| 2 | `Remove` | `app/client/fontmanager.h:109` | describes what it does |
-| 2 | `Get_Style` | `app/client/fontmanager.h:115` | describes what it does |
-| 2 | `Add` | `app/client/fontmanager.h:118` | describes what it does |
-| 2 | `Find` | `app/client/fontmanager.h:120` | describes what it does |
-| 2 | `std:` | `app/client/fontmanager.h:122` | what it holds |
-| 2 | `DebugFont` | `app/client/fontmanager.h:123` | what it holds |
+| 2 | `Add` | `app/client/fontmanager.h:108` | describes what it does |
+| 2 | `Create` | `app/client/fontmanager.h:109` | describes what it does |
+| 2 | `Remove` | `app/client/fontmanager.h:110` | describes what it does |
+| 2 | `Get_Style` | `app/client/fontmanager.h:116` | describes what it does |
+| 2 | `Add` | `app/client/fontmanager.h:119` | describes what it does |
+| 2 | `Find` | `app/client/fontmanager.h:121` | describes what it does |
+| 2 | `std:` | `app/client/fontmanager.h:123` | what it holds |
+| 2 | `DebugFont` | `app/client/fontmanager.h:124` | what it holds |
 | 2 | `view` | `app/client/intrface.h:81` | the member's assert '!View'; NAME 1 [unknown]: neutral |
 | 2 | `Client` | `app/client/mainview.cpp:36` | what it holds |
 | 2 | `View` | `app/client/mainview.cpp:54` | what it holds |
@@ -7886,9 +7888,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `StartTime` | `app/client/extrap.h:223` | the client's assert 'EndTime >= StartTime' |
 | 3 | `EndTime` | `app/client/extrap.h:224` | as StartTime |
 | 3 | `fontdatabase.h` | `app/client/fontdatabase.h:19` | header name assumed from the client's fontdatabase.cpp |
-| 3 | `FontDatabaseClass` | `app/client/fontdatabase.h:150` | by convention (D24) from the client's fontdatabase.cpp |
+| 3 | `FontDatabaseClass` | `app/client/fontdatabase.h:172` | by convention (D24) from the client's fontdatabase.cpp |
 | 3 | `fontmanager.h` | `app/client/fontmanager.h:17` | header name assumed from the client's fontmanager.cpp |
-| 3 | `FontManagerClass` | `app/client/fontmanager.h:99` | by convention (D24) from the client's fontmanager.cpp |
+| 3 | `FontManagerClass` | `app/client/fontmanager.h:100` | by convention (D24) from the client's fontmanager.cpp |
 | 3 | `gutter_data.h` | `app/client/gutter_data.h:16` | header name assumed from the client's gutter_data.cpp |
 | 3 | `influence.h` | `app/client/influence.h:17` | header name assumed from the client's influence.cpp |
 | 3 | `InfluenceClass` | `app/client/influence.h:24` | class-from-file (D24) for app\client\influence.cpp |

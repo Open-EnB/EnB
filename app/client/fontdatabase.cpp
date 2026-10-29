@@ -86,12 +86,12 @@ void FontStringStruct::Reset()
 	TriggerTime = 1.0f;
 	Rotate90 = false;
 	Underline = false;
-	SoundOnVol = 1.0f;
-	SoundOnDur = -1.0f;
-	SoundOverVol = 1.0f;
-	SoundOverDur = -1.0f;
-	SoundClickVol = 1.0f;
-	SoundClickDur = -1.0f;
+	SoundOn.Vol = 1.0f;
+	SoundOn.Dur = -1.0f;
+	SoundOver.Vol = 1.0f;
+	SoundOver.Dur = -1.0f;
+	SoundClick.Vol = 1.0f;
+	SoundClick.Dur = -1.0f;
 	for (int i = 0; i < 4; i++) {
 		EffectOn[i] = "";
 		EffectConst[i] = "";
@@ -422,31 +422,31 @@ void FontDatabaseClass::Load_String(INIClass &ini, char *section, FontStringStru
 		str->Underline = ini.Get_Bool(section, "Underline", false);
 	}
 	if (ini.Find_Entry(section, "SoundOnID")->Is_Valid()) {
-		ini.Get_String(str->SoundOnID, section, "SoundOnID", "");
+		ini.Get_String(str->SoundOn.ID, section, "SoundOnID", "");
 	}
 	if (ini.Find_Entry(section, "SoundOnVol")->Is_Valid()) {
-		str->SoundOnVol = ini.Get_Float(section, "SoundOnVol", 1.0f);
+		str->SoundOn.Vol = ini.Get_Float(section, "SoundOnVol", 1.0f);
 	}
 	if (ini.Find_Entry(section, "SoundOnDur")->Is_Valid()) {
-		str->SoundOnDur = ini.Get_Float(section, "SoundOnDur", -1.0f);
+		str->SoundOn.Dur = ini.Get_Float(section, "SoundOnDur", -1.0f);
 	}
 	if (ini.Find_Entry(section, "SoundOverID")->Is_Valid()) {
-		ini.Get_String(str->SoundOverID, section, "SoundOverID", "");
+		ini.Get_String(str->SoundOver.ID, section, "SoundOverID", "");
 	}
 	if (ini.Find_Entry(section, "SoundOverVol")->Is_Valid()) {
-		str->SoundOverVol = ini.Get_Float(section, "SoundOverVol", 1.0f);
+		str->SoundOver.Vol = ini.Get_Float(section, "SoundOverVol", 1.0f);
 	}
 	if (ini.Find_Entry(section, "SoundOverDur")->Is_Valid()) {
-		str->SoundOverDur = ini.Get_Float(section, "SoundOverDur", -1.0f);
+		str->SoundOver.Dur = ini.Get_Float(section, "SoundOverDur", -1.0f);
 	}
 	if (ini.Find_Entry(section, "SoundClickID")->Is_Valid()) {
-		ini.Get_String(str->SoundClickID, section, "SoundClickID", "");
+		ini.Get_String(str->SoundClick.ID, section, "SoundClickID", "");
 	}
 	if (ini.Find_Entry(section, "SoundClickVol")->Is_Valid()) {
-		str->SoundClickVol = ini.Get_Float(section, "SoundClickVol", 1.0f);
+		str->SoundClick.Vol = ini.Get_Float(section, "SoundClickVol", 1.0f);
 	}
 	if (ini.Find_Entry(section, "SoundClickDur")->Is_Valid()) {
-		str->SoundClickDur = ini.Get_Float(section, "SoundClickDur", -1.0f);
+		str->SoundClick.Dur = ini.Get_Float(section, "SoundClickDur", -1.0f);
 	}
 	if (ini.Find_Entry(section, "EffectOn")->Is_Valid()) {
 		ini.Get_String(text, section, "EffectOn", "");

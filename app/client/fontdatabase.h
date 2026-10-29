@@ -104,10 +104,38 @@ struct FontStruct  // NAME 2: one of the fonts in use (0xC bytes)
 struct FontColorStruct;		// fontdatabase.cpp (its TPoint3D<int> member instantiated after the INIT loaders, see the notes)
 struct FontEffectStruct;	// fontdatabase.cpp
 
+struct FontSoundStruct  // NAME 2 [FontSoundStruct]: a string template's sound: the ini keys Sound*ID / Sound*Vol / Sound*Dur
+{
+	StringClass ID;														// +0x00  // NAME 2: the ini key
+	float Vol;															// +0x04  // NAME 2: the ini key
+	float Dur;															// +0x08  // NAME 2: the ini key
+};
+
 struct FontStringStruct  // NAME 2: one string template of a string file (Template%d / String%d keys; 0xEC bytes; "NewStringInfo" by default)
 {
 	FontStringStruct();													// 0x6BDA40
 	FontStringStruct(const char *string_id, const char *text);				// 0x6BDD30
+	FontStringStruct &operator=(const FontStringStruct &that)	// inlined in 0x6D0A70, which calls the sounds' 0x6D0F70 (the implicit one is not inlined in it)
+	{
+		StringID = that.StringID; Unknown04 = that.Unknown04; Text = that.Text; RenderObj = that.RenderObj; Attach = that.Attach;
+		int i;
+		for (i = 0; i < 2; i++) BlendType[i] = that.BlendType[i];
+		for (i = 0; i < 2; i++) FontType[i] = that.FontType[i];
+		for (i = 0; i < 2; i++) Color[i] = that.Color[i];
+		for (i = 0; i < 2; i++) Justify[i] = that.Justify[i];
+		Offset[0] = that.Offset[0]; Offset[1] = that.Offset[1]; Target[0] = that.Target[0]; Target[1] = that.Target[1];
+		BoxOffset[0] = that.BoxOffset[0]; BoxOffset[1] = that.BoxOffset[1]; Width = that.Width; Wait = that.Wait;
+		TimeSpacing = that.TimeSpacing; TriggerTime = that.TriggerTime; Spacing = that.Spacing; WrapWidth = that.WrapWidth;
+		Rotate90 = that.Rotate90; Underline = that.Underline;
+		SoundOn = that.SoundOn; SoundOver = that.SoundOver; SoundClick = that.SoundClick;
+		for (i = 0; i < 4; i++) EffectOn[i] = that.EffectOn[i];
+		for (i = 0; i < 4; i++) EffectConst[i] = that.EffectConst[i];
+		for (i = 0; i < 4; i++) EffectOff[i] = that.EffectOff[i];
+		for (i = 0; i < 4; i++) MouseOver[i] = that.MouseOver[i];
+		for (i = 0; i < 4; i++) MouseClick[i] = that.MouseClick[i];
+		for (i = 0; i < 4; i++) EffectTriggered[i] = that.EffectTriggered[i];
+		return *this;
+	}
 	void Reset();														// 0x6BE0E0: the defaults  // NAME 2: what it does
 
 	StringClass StringID;													// +0x00, StringID (the table's key)  // NAME 2: the ini key
@@ -130,15 +158,9 @@ struct FontStringStruct  // NAME 2: one string template of a string file (Templa
 	float WrapWidth;														// +0x60, WrapWidth  // NAME 2: the ini key
 	bool Rotate90;															// +0x64, Rotate90  // NAME 2: the ini key
 	bool Underline;															// +0x65, Underline  // NAME 2: the ini key
-	StringClass SoundOnID;													// +0x68, SoundOnID  // NAME 2: the ini key
-	float SoundOnVol;														// +0x6C, SoundOnVol  // NAME 2: the ini key
-	float SoundOnDur;														// +0x70, SoundOnDur  // NAME 2: the ini key
-	StringClass SoundOverID;												// +0x74, SoundOverID  // NAME 2: the ini key
-	float SoundOverVol;														// +0x78, SoundOverVol  // NAME 2: the ini key
-	float SoundOverDur;														// +0x7C, SoundOverDur  // NAME 2: the ini key
-	StringClass SoundClickID;												// +0x80, SoundClickID  // NAME 2: the ini key
-	float SoundClickVol;													// +0x84, SoundClickVol  // NAME 2: the ini key
-	float SoundClickDur;													// +0x88, SoundClickDur  // NAME 2: the ini key
+	FontSoundStruct SoundOn;													// +0x68, SoundOnID / SoundOnVol / SoundOnDur  // NAME 2: the ini keys
+	FontSoundStruct SoundOver;												// +0x74, SoundOverID / SoundOverVol / SoundOverDur  // NAME 2: the ini keys
+	FontSoundStruct SoundClick;												// +0x80, SoundClickID / SoundClickVol / SoundClickDur  // NAME 2: the ini keys
 	StringClass EffectOn[4];												// +0x8C, EffectOn  // NAME 2: the ini key
 	StringClass EffectConst[4];												// +0x9C, EffectConst  // NAME 2: the ini key
 	StringClass EffectOff[4];												// +0xAC, EffectOff  // NAME 2: the ini key

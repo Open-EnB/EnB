@@ -42,12 +42,12 @@ public:
 	FontStyleClass(const char *name, int unknown1, int unknown2);		// 0x6D47C0  // NAME 1 [unknown1]: neutral (D10)
 	void Set_Color(const TPoint3D<int> &color) { Unknown494.Color = color; Unknown4A4 = Unknown494; }	// inlined in 0x6D10B0  // NAME 2: describes what it does
 
+	void Unknown_6D5140();	// 0x6D5140: its +0x38 virtual, then Release_Ref  // NAME 1 [Unknown_6D5140]: neutral (D10)
 	void Unknown_6CD950(int unknown1, int unknown2);						// 0x6CD950  // NAME 1 [Unknown_6CD950]: neutral (D10)
 
 	char Unknown08[0xEC];												// +0x08  // NAME 1: neutral (D10)
-	StringClass Name;													// +0xF4: what 0x6D10B0 compares  // NAME 2: what it holds
-	StringClass Unknown0F8;												// +0xF8  // NAME 1: neutral (D10)
-	char Unknown0FC[0x154];											// +0xFC  // NAME 1: neutral (D10)
+	FontStringStruct Info;	// +0xF4: its string template (0x6D0A70 copies it; +0xF4 its name, what 0x6D10B0 compares)  // NAME 2 [Info]: what it holds
+	char Unknown1E0[0x70];	// +0x1E0  // NAME 1: neutral (D10)
 	int Unknown250;														// +0x250: 0x6D28C0 sets it in every style of a font  // NAME 1: neutral (D10)
 	char Unknown254[0x240];											// +0x254  // NAME 1: neutral (D10)
 	FontStyleColorStruct Unknown494;									// +0x494: 0x6D1010's color  // NAME 1: neutral (D10)
@@ -88,6 +88,7 @@ public:
 	void Unknown_6D1010(const char *name, TPoint3D<int> color);			// 0x6D1010: the named style's color (+0x494, +0x4A4)  // NAME 1 [Unknown_6D1010]: neutral (D10)
 	void Unknown_6D0390(void *unknown);									// 0x6D0390  // NAME 1 [Unknown_6D0390]: neutral (D10)
 	void Unknown_6D0550(void *unknown);									// 0x6D0550  // NAME 1 [Unknown_6D0550]: neutral (D10)
+	void Unknown_6D0A70(const char *name, const char *text);	// 0x6D0A70: reloads the styles named name with the text  // NAME 1 [Unknown_6D0A70]: neutral (D10)
 	void Unknown_6D0A20(void *unknown);									// 0x6D0A20  // NAME 1 [Unknown_6D0A20]: neutral (D10)
 
 	StringClass Name;													// +0x00  // NAME 2: the name 0x6D1FD0 looks up in the font database

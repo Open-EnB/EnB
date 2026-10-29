@@ -37,26 +37,26 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// NOT EXACT: inline budget, 58 rows: the client inlines std::string(const char *) for the key, ours calls it (and two of the six 4-string loops swap lea operands; attempts.csv)
+void ManagedFontClass::Unknown_6D0A70(const char *name, const char *text)
+{
+	FontStringStruct def;
+	std::hash_map<std::string, FontStyleClass *>::iterator it = Styles.begin();
+	while (it != Styles.end()) {
+		FontStyleClass *style = (*it).second;
+		std::hash_map<std::string, FontStyleClass *>::iterator next = ++it;
+		if (strcmp(name, style->Info.StringID) == 0) {
+			def = style->Info;
+			style->Unknown_6D5140();
+			std::string key = "";
+			key = def.Unknown04.Is_Empty() ? (const char *)def.StringID : (const char *)def.Unknown04;
+			Styles.erase(key);
+		}
+		it = next;
+	}
+	def.Text = text;
+	Unknown_6CF930(&def, Id);
+}
 
 
 
@@ -110,7 +110,7 @@ void ManagedFontClass::Unknown_6D10B0(const char *name, TPoint3D<int> color)
 {
 	for (std::hash_map<std::string, FontStyleClass *>::iterator it = Styles.begin(); it != Styles.end(); ++it) {
 		FontStyleClass *style = it->second;
-		if (strcmp(name, style->Name) == 0) {
+		if (strcmp(name, style->Info.StringID) == 0) {
 			style->Set_Color(color);
 		}
 	}
@@ -344,12 +344,12 @@ void ManagedFontClass::Unknown_6D10B0(const char *name, TPoint3D<int> color)
 
 void ManagedFontClass::Unknown_6D1220(FontStyleClass *style)
 {
-	if (style && style->Name) {
+	if (style && style->Info.StringID) {
 		std::string key = "";
-		if (!style->Unknown0F8.Is_Empty()) {
-			key = style->Unknown0F8;
+		if (!style->Info.Unknown04.Is_Empty()) {
+			key = style->Info.Unknown04;
 		} else {
-			key = style->Name;
+			key = style->Info.StringID;
 		}
 		if (Unknown_6D1600(key)) {
 
@@ -575,14 +575,14 @@ ManagedFontClass *FontManagerClass::Find(unsigned int id)
 /*
 **	Reconstruction notes
 **
-**	client.exe: the window 0x6D0F70-0x6D2A70 (asserts on lines 360, 524, 533 and 550), then the
-**	containers' instances. Not rebuilt yet: 0x6D0F70, the out-of-line operator= of FontStringStruct's
-**	sound triples {StringClass ID; float Vol, Dur} at +0x68 / +0x74 / +0x80 (H21; 0x6D0A70 copies a
-**	FontStringStruct). Its first caller 0x6D0A70 is this file's: it calls the table instances 0x6D2D70,
-**	0x6D3350, 0x6D3730 and 0x6D3DB0, which the linker placed after 0x6D2A70, so its object is this one
-**	(so is ManagedFontClass's block from 0x6CF520, a caller of 0x6D3350). A FontSoundStruct with an
-**	out-of-line operator= here is exact, but every placement in fontdatabase.h moves one load in
-**	fontdatabase.cpp's Load_Init 0x6BF330 (order-only; attempts.csv, docs/attempts/6D0F70). 0x6D2700 exact (H21: a flat style test and a key copy). 0x6D2400 / 0x6D2480 / 0x6D2500 differ only by their callee: one pattern, not counted.
+**	client.exe: the window 0x6CE990-0x6D2A70 (asserts on lines 360, 524, 533 and 550), then the
+**	containers' instances. 0x6D0A70 is this file's: it calls the table instances 0x6D2D70, 0x6D3350,
+**	0x6D3730 and 0x6D3DB0, which the linker placed after 0x6D2A70, so its object is this one (so is
+**	ManagedFontClass's block from 0x6CE990: its constructor calls 0x6D2BA0 / 0x6D3F40, 0x6CF520 calls
+**	0x6D3350). 0x6D0F70 is FontSoundStruct's implicit operator=, emitted after its first caller
+**	0x6D0A70 (FU1): 0x6D0A70 inlines FontStringStruct's copy only through the explicit inline operator=
+**	in fontdatabase.h; with the implicit one it is called out of line and fontdatabase.cpp's Load_Init
+**	0x6BF330 moves one load (H21's order-only knock-on; attempts.csv, docs/attempts/6D0F70). 0x6D2700 exact (H21: a flat style test and a key copy). 0x6D2400 / 0x6D2480 / 0x6D2500 differ only by their callee: one pattern, not counted.
 **	The depth lever (workflow.md 3.1) made the destructor and 0x6D1C10 exact: the client calls the
 **	nested table helpers out of line when they sit one inline level deeper.
 **	Find 0x6D2A70 is never inlined (#pragma auto_inline(off)): the client calls it out of line in
