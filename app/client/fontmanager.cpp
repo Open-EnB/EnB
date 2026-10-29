@@ -19,6 +19,15 @@ ManagedFontClass::ManagedFontClass(RenderObjClass *object)
 	}
 }
 
+ManagedFontClass::ManagedFontClass(const char *name, int unknown)
+{
+	FontStringStruct *def = Unknown_BE67B8->Find_String(name);
+	Styles.clear();
+	if (def) {
+		Unknown_6CF930(def, unknown);
+	}
+}
+
 ManagedFontClass::~ManagedFontClass()
 {
 	for (std::hash_map<std::string, FontStyleClass *>::iterator style = Styles.begin(); style != Styles.end(); ++style) {
@@ -145,15 +154,6 @@ void ManagedFontClass::Unknown_6D10B0(const char *name, TPoint3D<int> color)
 		}
 	}
 }
-
-
-
-
-
-
-
-
-
 
 
 

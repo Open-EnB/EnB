@@ -63,14 +63,7 @@ class ManagedFontClass  // NAME 2 [ManagedFontClass]: what the manager holds per
 {
 public:
 	ManagedFontClass(RenderObjClass *object);							// 0x6CE990: the render object's styles from the font database
-	ManagedFontClass(const char *name, int unknown)						// inlined in 0x6D1FD0  // NAME 1 [unknown]: neutral (D10)
-	{
-		FontStringStruct *def = Unknown_BE67B8->Find_String(name);
-		Styles.clear();
-		if (def) {
-			Unknown_6CF930(def, unknown);
-		}
-	}
+	ManagedFontClass(const char *name, int unknown);						// 0x6CF520 (no caller), inlined in 0x6D1FD0  // NAME 1 [unknown]: neutral (D10)
 	void Unknown_6CF930(FontStringStruct *def, int unknown);				// 0x6CF930: loads the font from its database entry  // NAME 1 [Unknown_6CF930]: neutral (D10)
 	~ManagedFontClass();												// 0x6CF730
 	void Unknown_All_Styles(int unknown1, int unknown2);					// 0x6D0950, inlined in 0x6D1C10 (its own begin / ++ called out of line there)  // NAME 1 [Unknown_All_Styles]: neutral (D10)
