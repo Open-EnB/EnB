@@ -366,6 +366,10 @@ unless `--lever` cites a new row of this table.
 
 ### 3.3 E&B app code
 
+* **client.h's partial EffectObjectClass clashes with eff_o.h (C2011)** (2026-10-29, SC3): include eff_o.h before
+  client.h / sclient.h; to add the include at the top without moving asserts, shorten the file's opening comment by
+  a line. `#pragma auto_inline(off)` / `(on)` around a same-file callee the client calls out of line took 0x7511A0
+  from 0.28 to 0.89 (put the pragmas on existing comment lines).
 * **A base virtual whose signature differs from a subclass's same-named virtual adds a slot** (2026-10-28, UP1):
   it shifts the subclass's later slots (`Unknown86CRecordClass::Unknown_08(const Vector3 &)` against
   `InfluenceClass::Unknown_08()` lost CREATE 0x733700). Grep the subclasses before declaring one.
@@ -514,6 +518,8 @@ unless `--lever` cites a new row of this table.
 
 ### 3.4 Importer, verify and pairs
 
+* **`commit_mine.py --file` leaves out imports.json's `in_tree_total` line** (2026-10-29, SC3): add
+  `--refresh-totals`, or the count needs a follow-up commit (a45ccfb).
 * **Header origins live in `imports.json`'s `headers` map** (`headers_from`: swapped with the
   file). `trial.py` and refine update both; a hand-made header change must update `headers`.
 * **Refine** checks only its file (splices aren't checked elsewhere): verify the affected
@@ -720,6 +726,11 @@ unless `--lever` cites a new row of this table.
 
 ### 3.7 Harnesses, programs, unattended runs
 
+* **clienttest stand-ins** (2026-10-29, SC3): `#define protected public` in a test file changes a member's mangled
+  name (`1` becomes `2`) and gen_stubs quietly writes a second one (DX8Wrapper::D3DDevice): reach the member through
+  a derived class. DX8Wrapper::Init clears D3DDevice after the static initialisers, so install a fake device from
+  main (d3d_stubs.cpp). A rebuilt member that calls one WWAudio member pulls in WWAudio.obj (LNK2005 on
+  client_stubs.cpp's `_theInstance`): stand in for each WWAudio member the new code calls.
 * **No registry changes (D69):** E&BConfig (HKLM `Software\Westwood Studios\Earth and
   Beyond\Render`) only in a supervised run with a registry backup.
 * **Exes from Python by absolute path** (`subprocess` can't start a relative `/` path).
@@ -801,6 +812,8 @@ unless `--lever` cites a new row of this table.
 
 ### 3.8 Git, docs and scripting hygiene
 
+* **`\a` in a non-raw Python string becomes BEL** (2026-10-29, SC3): an `#include` written as
+  `'..\shared\a...'` lands with a control character; use raw strings or forward slashes (a §3.0 variant).
 * **While other builders land on imports.json, automate the bring-over rebase** (2026-10-28, SC2):
   `.work/sc2/rebase.sh` runs rebase, verify, clienttest, udpreplay and replay in one cycle.
 * **A Python edit that appends a declaration to a line ending in a `//` comment swallows it** (C2039): prepend

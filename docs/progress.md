@@ -1408,6 +1408,10 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
   ungated, P-PK1-2) and 45bf5c0 (P-PK1-3's Clone form, now gains-only), +16 pairs, 0 lost; reverting both loses
   the 16. (P-PK1-3's D66 trade is no longer needed.)
 
+* **P-SC3-1** (2026-10-29, SC3; recommend leave parked): 0x750C20 (testeffects.ini's player, 0.54) differs only in
+  registers and stack slots, and nothing calls it or its thunk 0x40C8A1. D89 keeps register-only residues out of
+  the Fable queue: leave it parked, or make an exception for it?
+
 * **D101's sbs criterion** (2026-10-28, LD1; recommend accept as met; since LD2's sun fix the means are 2.03-2.09 %,
   inside vidland's 1.9-2.4 %, frames 600-900 1.4-2.0 %): the means moved 0.4-0.7 points (2.6-2.8 %
   against vidland's 1.9-2.4 %), within ±1.5 points; frames 600-900 are 2.8-3.0 % against 1.5-2.4 %. LD1 reads
@@ -1474,12 +1478,12 @@ client's own code: [kernel-map.md](kernel-map.md) §6 and, for step 9's dependen
    NOT EXACT 0x744C10 shape, 0x7429B0 register, 0x74C3B0 / 0x745750 / 0x7436A0 budget (0x728300 was an inline member
    of client.h); SC2 20ae000..a58224e, +15: 0x74E710, 0x74EB00, 0x74FA30, 0x74FEC0, Print 0x74DF70, 0x74D950,
    0x751460 exact; NOT EXACT 0x74C8D0 budget, 0x74ABC0 / 0x74EDB0 / 0x74F5C0 / 0x750F70 shape, 0x750800 frame; Init's
-   inline 0x744D80 form changes nothing; left in sclient.cpp: 0x750260 (audio debug display: check Commando first),
-   0x750C20 (testeffects.ini records through the 0x6E9490 factory), 0x7511A0 (AvatarDesc); P-SC2-1: sclient.cpp
-   declares UIStarbaseClass / SBaseViewClass locally because ui_line_display.h clashes with its own UILineDisplayClass
-   (C2011): replace that with ui_line_display.h (Init's `new` changes: verify Init), then include sbaseview.h;
-   P-SC2-2: clienttest's FakeMainViewClass slot +0x1C returns void but Do_Frame's helpers use eax as the view: return
-   a fake view whose +0x34 dialog has a zeroed +0x18C) P-T16-2 (Unknown831340Class's 4th constructor parameter is `const RefCountPtr<ItemBaseInfoClass> &`,
+   inline 0x744D80 form changes nothing; 2026-10-29, SC3 16d5c1d..a45ccfb, +3: P-SC2-1 (ui_line_display.h and
+   sbaseview.h included, Init unchanged at 0.69) and P-SC2-2 (the fake view's slot +0x1C returns a view) done; the
+   audio debug page 0x750260 exact (Commando's 'stats audio' differs: rebuilt by hand); NOT EXACT 0x7511A0 shape
+   0.89 (the client calls `vector<unsigned>::insert(P, X)` 0x755E60 out of line; P-SC3-2: one tryv2 round of vector
+   forms, low priority) and 0x750C20 0.54 register / stack slots (dead code: no caller, parked, P-SC3-1); next lead:
+   the testeffects.ini loader 0x74CA90 that fills 0xBE7D80 and the 0x740050 clear, now that TestEffectStruct exists) P-T16-2 (Unknown831340Class's 4th constructor parameter is `const RefCountPtr<ItemBaseInfoClass> &`,
    with client.cpp's "Null Item" call); P-T16-3 (one Opus round on 62, then Fable). sclient.cpp: P-T18-1 (the
    rebuilding commit deletes the member's hand-written clienttest stub: Do_Frame 0x742B60, Render 0x744690, the chat
    commands 0x74ABC0, Print, Unknown_34 / _64, ...), P-T18-2 (gen_stubs: class-by-value returns and template
