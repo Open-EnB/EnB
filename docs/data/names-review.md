@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 36 |
 | 3 | by convention from a client-named file or sibling | 978 |
 | 2 | describes what the code does | 2396 |
-| 1 | neutral placeholder | 5754 |
+| 1 | neutral placeholder | 5756 |
 
 ## For review (score 3 and below)
 
@@ -5305,31 +5305,33 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_453A10` | `app/shared/px_callback_type.cpp:110` | untagged neutral name (D10) |
 | 1 | `px_callback_type.h` | `app/shared/px_callback_type.h:13` | provisional header name (px_callback_type.cpp's) |
 | 1 | `Unknown_453A10` | `app/shared/px_callback_type.h:35` | untagged neutral name (D10) |
-| 1 | `Unknown_453B10` | `app/shared/px_collision.cpp:14` | untagged neutral name (D10) |
-| 1 | `Unknown_453C20` | `app/shared/px_collision.cpp:17` | untagged neutral name (D10) |
-| 1 | `Unknown_Dyn2C` | `app/shared/px_collision.cpp:25` | untagged neutral name (D10) |
-| 1 | `Unknown_24` | `app/shared/px_collision.cpp:26` | untagged neutral name (D10) |
-| 1 | `Unknown04` | `app/shared/px_collision.cpp:28` | untagged neutral name (D10) |
-| 1 | `Unknown_Dyn84` | `app/shared/px_collision.cpp:31` | untagged neutral name (D10) |
-| 1 | `Unknown_454730` | `app/shared/px_collision.cpp:34` | untagged neutral name (D10) |
-| 1 | `Unknown_Dyn88` | `app/shared/px_collision.cpp:44` | untagged neutral name (D10) |
-| 1 | `Unknown_Dyn8C` | `app/shared/px_collision.cpp:48` | untagged neutral name (D10) |
-| 1 | `Unknown_2C` | `app/shared/px_collision.cpp:55` | untagged neutral name (D10) |
-| 1 | `Unknown08` | `app/shared/px_collision.cpp:55` | untagged neutral name (D10) |
-| 1 | `Unknown24` | `app/shared/px_collision.cpp:60` | untagged neutral name (D10) |
-| 1 | `Unknown_Dyn94` | `app/shared/px_collision.cpp:68` | untagged neutral name (D10) |
-| 1 | `Unknown_DynA0` | `app/shared/px_collision.cpp:76` | untagged neutral name (D10) |
-| 1 | `Unknown14` | `app/shared/px_collision.cpp:76` | untagged neutral name (D10) |
-| 1 | `Unknown20` | `app/shared/px_collision.cpp:76` | untagged neutral name (D10) |
-| 1 | `Unknown_Dyn64` | `app/shared/px_collision.cpp:77` | untagged neutral name (D10) |
+| 1 | `Unknown_453B10` | `app/shared/px_collision.cpp:20` | untagged neutral name (D10) |
+| 1 | `Unknown_453C20` | `app/shared/px_collision.cpp:23` | untagged neutral name (D10) |
+| 1 | `Unknown_Dyn2C` | `app/shared/px_collision.cpp:31` | untagged neutral name (D10) |
+| 1 | `Unknown_24` | `app/shared/px_collision.cpp:32` | untagged neutral name (D10) |
+| 1 | `Unknown04` | `app/shared/px_collision.cpp:34` | untagged neutral name (D10) |
+| 1 | `Unknown_Dyn84` | `app/shared/px_collision.cpp:37` | untagged neutral name (D10) |
+| 1 | `Unknown_454730` | `app/shared/px_collision.cpp:40` | untagged neutral name (D10) |
+| 1 | `Unknown_Dyn88` | `app/shared/px_collision.cpp:50` | untagged neutral name (D10) |
+| 1 | `Unknown_Dyn8C` | `app/shared/px_collision.cpp:54` | untagged neutral name (D10) |
+| 1 | `Unknown_2C` | `app/shared/px_collision.cpp:61` | untagged neutral name (D10) |
+| 1 | `Unknown08` | `app/shared/px_collision.cpp:61` | untagged neutral name (D10) |
+| 1 | `Unknown24` | `app/shared/px_collision.cpp:66` | untagged neutral name (D10) |
+| 1 | `Unknown_Dyn94` | `app/shared/px_collision.cpp:74` | untagged neutral name (D10) |
+| 1 | `Unknown_DynA0` | `app/shared/px_collision.cpp:82` | untagged neutral name (D10) |
+| 1 | `Unknown14` | `app/shared/px_collision.cpp:82` | untagged neutral name (D10) |
+| 1 | `Unknown20` | `app/shared/px_collision.cpp:82` | untagged neutral name (D10) |
+| 1 | `Unknown_Dyn64` | `app/shared/px_collision.cpp:83` | untagged neutral name (D10) |
+| 1 | `Unknown_Dyn3C` | `app/shared/px_collision.cpp:236` | untagged neutral name (D10) |
+| 1 | `Unknown_Dyn7C` | `app/shared/px_collision.cpp:237` | untagged neutral name (D10) |
 | 1 | `px_collision.h` | `app/shared/px_collision.h:12` | provisional header name (px_collision.cpp's) |
-| 1 | `Unknown08` | `app/shared/px_collision.h:40` | untagged neutral name (D10) |
-| 1 | `Unknown14` | `app/shared/px_collision.h:40` | untagged neutral name (D10) |
-| 1 | `Unknown20` | `app/shared/px_collision.h:40` | untagged neutral name (D10) |
-| 1 | `Unknown24` | `app/shared/px_collision.h:40` | untagged neutral name (D10) |
-| 1 | `Unknown_453B10` | `app/shared/px_collision.h:42` | untagged neutral name (D10) |
-| 1 | `Unknown_453C20` | `app/shared/px_collision.h:43` | untagged neutral name (D10) |
-| 1 | `Unknown_454730` | `app/shared/px_collision.h:44` | untagged neutral name (D10) |
+| 1 | `Unknown08` | `app/shared/px_collision.h:41` | untagged neutral name (D10) |
+| 1 | `Unknown14` | `app/shared/px_collision.h:41` | untagged neutral name (D10) |
+| 1 | `Unknown20` | `app/shared/px_collision.h:41` | untagged neutral name (D10) |
+| 1 | `Unknown24` | `app/shared/px_collision.h:41` | untagged neutral name (D10) |
+| 1 | `Unknown_453B10` | `app/shared/px_collision.h:43` | untagged neutral name (D10) |
+| 1 | `Unknown_453C20` | `app/shared/px_collision.h:44` | untagged neutral name (D10) |
+| 1 | `Unknown_454730` | `app/shared/px_collision.h:45` | untagged neutral name (D10) |
 | 1 | `px_process.h` | `app/shared/px_process.h:14` | provisional header name (px_process.cpp's) |
 | 1 | `Unknown0C` | `app/shared/px_wrapper.cpp:17` | untagged neutral name (D10) |
 | 1 | `Unknown0D` | `app/shared/px_wrapper.cpp:18` | untagged neutral name (D10) |
@@ -7886,15 +7888,15 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `PxCallbackEvent_Name` | `app/shared/px_callback_type.h:32` | what it returns |
 | 2 | `string, event` | `app/shared/px_callback_type.h:33` | what it does |
 | 2 | `size` | `app/shared/px_callback_type.h:34` | what it does |
-| 2 | `PxObject` | `app/shared/px_collision.h:24` | the boxes' owner (PxBox::Owner) |
-| 2 | `owner` | `app/shared/px_collision.h:27` | stored at +0x00 |
-| 2 | `owner, src` | `app/shared/px_collision.h:28` | as PxBox's |
-| 2 | `Owner` | `app/shared/px_collision.h:31` | the constructor's argument |
-| 2 | `Pos` | `app/shared/px_collision.h:32` | Update's pos |
-| 2 | `Radius` | `app/shared/px_collision.h:33` | Update's radius |
-| 2 | `a, b` | `app/shared/px_collision.h:39` | _Collision_Callback's arguments |
-| 2 | `A` | `app/shared/px_collision.h:46` | the constructor's argument |
-| 2 | `B` | `app/shared/px_collision.h:47` | as above |
+| 2 | `PxObject` | `app/shared/px_collision.h:25` | the boxes' owner (PxBox::Owner) |
+| 2 | `owner` | `app/shared/px_collision.h:28` | stored at +0x00 |
+| 2 | `owner, src` | `app/shared/px_collision.h:29` | as PxBox's |
+| 2 | `Owner` | `app/shared/px_collision.h:32` | the constructor's argument |
+| 2 | `Pos` | `app/shared/px_collision.h:33` | Update's pos |
+| 2 | `Radius` | `app/shared/px_collision.h:34` | Update's radius |
+| 2 | `a, b` | `app/shared/px_collision.h:40` | _Collision_Callback's arguments |
+| 2 | `A` | `app/shared/px_collision.h:47` | the constructor's argument |
+| 2 | `B` | `app/shared/px_collision.h:48` | as above |
 | 2 | `PxProcessNode` | `app/shared/px_process.h:23` | px_process.cpp's list entries (the asserts' 'node') |
 | 2 | `Process` | `app/shared/px_process.h:29` | what PxProcessClass::Process calls |
 | 2 | `Remove` | `app/shared/px_process.h:30` | what it does |
@@ -9127,7 +9129,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `PX_EVENT_ENTER` | `app/shared/px_callback_type.h:24` | _EventStrings[0] 'Enter' |
 | 3 | `PX_EVENT_EXIT` | `app/shared/px_callback_type.h:25` | _EventStrings[1] 'Exit' |
 | 3 | `PX_EVENT_UPDATE` | `app/shared/px_callback_type.h:26` | _EventStrings[2] 'Update' (the loose box's process passes 2) |
-| 3 | `aobj_coll_rep, bobj_coll_rep` | `app/shared/px_collision.h:44` | the FAIL_IF's |
+| 3 | `aobj_coll_rep, bobj_coll_rep` | `app/shared/px_collision.h:45` | the FAIL_IF's |
 | 3 | `PxProcessClass` | `app/shared/px_process.h:39` | class-from-file (D24) for px_process.cpp |
 | 3 | `TightBox` | `app/shared/px_wrapper.h:62` | 'PxWrapper::Update(TightBox)' |
 | 3 | `LooseBox` | `app/shared/px_wrapper.h:63` | 'PxWrapper::Update(LooseBox)' |
