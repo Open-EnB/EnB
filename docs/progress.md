@@ -1384,17 +1384,14 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 | D127 | 2026-10-29 | D101's sbs criterion is met: since LD2's sun fix the means are 2.03-2.09 % against vidland's 1.9-2.4 %, frames 600-900 1.4-2.0 % ("within ±1.5 %" read as points of difference) | user (LD1's proposal) |
 | D128 | 2026-10-29 | P-SC3-1: 0x750C20 (testeffects.ini's player, 0.54, register / stack slots, no caller) stays parked; no exception to D89's rule for register-only residues | user (SC3's proposal) |
 | D129 | 2026-10-29 | bada317's matching rule (now 32fd4b3) is kept as an extension of D88's self-name round: a vtable slot 0's `??_E` name in symbols.json counts for the object's `??_G` and the reverse (symbols.py names slot 0 `??_E`; VC6 emits `??_G` for a class never new[]'d); bytes still match with relocations masked, so a vector deleting destructor or a slot-0 thunk cannot be credited. +293 pairs (276 addresses), 0 lost. D118's numbers predate it (M4's README notes the alias unmeasured) | user (PK1's P-PK1-1, coordinator) |
+| D130 | 2026-10-29 | P-IB1-1 accepted: dead root-NULL finds (`Unknown_Find_Field<...>(NULL, ...)`, no code emitted) may stand as an inline-budget spender, up to 4 per function, each marked (IB1's 4 in 0x6FDBD0, fc348e7; 0x6FBEF0's 20 stays out). P-DM1-1 (what else counts toward the 4) stays open | user (IB1's proposal) |
+| D131 | 2026-10-29 | P-CS1-1 accepted: the setter at slot +0x24, `Set_Debug_Object`, becomes `Set_Avatar_ID` like D123's getter (it sends the DEBUG packet; expected 0 / 0 pairs); a work item in §4 item 2 | user (CS1's proposal) |
 
 ## 3. Open decisions
 
-* **P-IB1-1** (2026-10-28, IB1; recommend accept for up to 4 per function): dead root-NULL finds
-  (`Unknown_Find_Field<DeltaTemplateClass<int> >(NULL, *(NameClass *)this)`, no code emitted) as an inline-budget
-  spender, like 0x6FFC80's dead 0x6F5A40 calls. IB1 used 4 in 0x6FDBD0 (fc348e7); 0x6FBEF0 would need 20 (not
-  committed).
-  P-DM1-1 (DM1; recommend): count only dead finds toward the 4; DM1 also used 1 dead type test in 0x6FDBD0 (without
-  it acd5e81 loses 0x531590 outright) and a dead `UnknownB8.size()` in 0x6FEF70, all marked.
-* **P-CS1-1** (2026-10-28, CS1; recommend accept): D123 renamed the getter; rename the setter at slot +0x24,
-  `Set_Debug_Object`, to `Set_Avatar_ID` too (it sends the DEBUG packet; expected 0/0 pairs).
+* **P-DM1-1** (2026-10-28, DM1; recommend; D130 accepted P-IB1-1's 4 dead finds per function): count only dead
+  finds toward D130's 4; DM1 also used 1 dead type test in 0x6FDBD0 (without it acd5e81 loses 0x531590 outright)
+  and a dead `UnknownB8.size()` in 0x6FEF70, all marked.
 * **P-CS1-3** (2026-10-28, CS1; recommend one file for now): the client never inlines type 24's base constructor,
   destructor or update into type 24 though they come first in the run, which suggests two objects (the base
   0x70DBC0-0x70E2D0, types 24 / 28 0x70E2E0-0x70F030). Keep D122's one provisional file until a string names them,
@@ -1436,7 +1433,8 @@ client's own code: [kernel-map.md](kernel-map.md) §6 and, for step 9's dependen
    cpacket's Unknown98StateClass, a `std::vector<ColorizationRegionStruct>` at +0xC8, declarations for 0x6F2820 /
    0x6F5140 / 0x6F33F0; clienttest's `new ClientObjectClass` stand-in changes with them), which unblocks CREATE 4; (2026-10-28, CS1: D121 / D123 renames done, co_subtypes.cpp new (D122, +33: types 24 / 28
    and type 24's base with dynamic_obj.cpp's proximity object `Unknown44AC70Class` at +0x188), clienttest 66 checks;
-   0x6F3FA0 0.62 with `auto_inline(off)` around 0x6F3ED0; left: type 28's aim 0x70E850 frame / shape, retype
+   0x6F3FA0 0.62 with `auto_inline(off)` around 0x6F3ED0; left: D131's rename (`Set_Debug_Object` at slot +0x24
+   -> `Set_Avatar_ID`), type 28's aim 0x70E850 frame / shape, retype
    `ClientClass::Unknown1144` as `HeightFieldClass *`; dynamic_obj.cpp done by DO1 (f413f9f, +11: the client's
    `DynObj`, 0x44AC70-0x44B740; NOT EXACT ctor 0x44AC70 shape, copy 0x44ADA0 register; its `ProximityObject` is a
    `PxWrapper`, px_wrapper.h provisional); px.cpp and px_wrapper.cpp done by PX1 (fea8f8a, 8ad641d: +39; the client's
