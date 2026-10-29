@@ -156,7 +156,7 @@ static const float BridgeNear = 1.0f, BridgeFar = 150.0f;	// NAME 1: neutral (D1
 
 // NOT EXACT: scheduling only (the array-ctor pushes, two float constants, one register); attempts.csv 0x50B360
 MainViewClass::MainViewClass(ClientTaskClass *ctask) :
-	ViewClass(ctask, 0),
+	Unknown65B810ViewClass(ctask, 0),
 	GraphicsDefault(false), GraphicsGamma(0), GraphicsLandPoly(0), GraphicsLandDetail(0), GraphicsSpacePoly(0), GraphicsTextureSize(0), GraphicsChanged(false), DefaultChanged(false),
 	Gamma(0), LandPolyBudget(0), LandLOD(0), PolyBudget(0), TextureReduction(0), Radar(NULL), Unknown84(0),
 	Scene(NULL), Unknown110(NULL), Unknown114(NULL), Unknown118(NULL), Unknown11C(NULL), Unknown120(NULL),

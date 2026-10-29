@@ -171,17 +171,17 @@ public:
 class ViewClass			// NAME 2: what the six objects share (kernel-map-step9.md 9f's view.cpp)
 {
 public:
-	ViewClass(ClientTaskClass *task, int arg);			// 0x65B810 (the main, loading and 3-D movie views' base; it copies the task's Client to +0x4C)  // NAME 1 [task, arg]: what the main view passes
-	virtual ~ViewClass();								// +0x00 (Shutdown deletes through it; the main view's destructor calls 0x65A760)
+	ViewClass(ClientTaskClass *task, int arg);			// 0x65A6C0 (table 0xAF97E4; the task to +0x14, arg to +0x18; 0x514CC0's view passes 1, 0x65B810 inlines it with 0)  // NAME 1 [task, arg]: what the callers pass
+	virtual ~ViewClass();								// +0x00 0x65A760 (Shutdown deletes through it; the main view's destructor calls it)
 	virtual void Unknown_04();							// +0x04 Init calls it after construction
 	virtual void Unknown_08();							// +0x08 Init (the main view, +0x1358)
 	void Unknown_6B4940(UIUnknownBaseClass *object);	// 0x6B4940 (the main view's 0x50C690 hands it its interface objects)  // NAME 1 [object]: neutral
 	virtual int Unknown_0C(bool on);					// +0x0C Process_Packets passes true to the loading view (the main view's renders and returns a WW3DErrorType)
-	virtual void Unknown_10();							// +0x10 Shutdown
+	virtual void Unknown_10();							// +0x10 0x65B4A0 Shutdown (the main view's 0x50C2F0 calls this one, past 0x65B810's 0x65B8B0)
 	virtual void Unknown_14();							// +0x14 SClient::Do_Frame: the current view's, after Process_AI
 	virtual void Unknown_18(int arg);					// +0x18 (0x514CF0)  // NAME 1 [arg]: neutral
 	virtual ViewClass *Unknown_1C() { return(this); }	// +0x1C 0x50B720
-	virtual ViewClass *Unknown_20() { return(this); }	// +0x20 0x50B7E0 (0x65B810's table; 0x65A6C0's has 0x514D10)
+	virtual ViewClass *Unknown_20() { return(NULL); }	// +0x20 0x514D10 (Unknown65B810ViewClass's 0x50B7E0 returns the view)
 	virtual ViewClass *Unknown_24();					// +0x24 0x514D30
 	virtual int Unknown_28() { return(0); }				// +0x28 0x50B680
 	virtual int Unknown_2C() { return(0); }				// +0x2C 0x50B6A0
@@ -190,7 +190,7 @@ public:
 	virtual int Unknown_38() { return(0); }				// +0x38 0x50B700
 	virtual int Unknown_3C() { return((int)Unknown24); }	// +0x3C 0x50B7C0
 	virtual void Unknown_40();							// +0x40 0x65AB10
-	virtual void Unknown_44();							// +0x44 0x65B8D0
+	virtual int Unknown_44() { return(0); }				// +0x44 0x514D50 (Unknown65B810ViewClass's 0x65B8D0)
 	virtual int Unknown_48() { return((int)Unknown24); }	// +0x48 0x50B740 (CLIENT_DAMAGE 100 hands its result to Add_Effect)
 	virtual int Unknown_4C() { return((int)Unknown28); }	// +0x4C 0x50B760
 	virtual int Unknown_50() { return((int)Unknown1C); }	// +0x50 0x50B780 (the main view's 0x50BA60 holds its result in a RefCountPtr)
@@ -208,6 +208,19 @@ public:
 	CameraClass *Unknown28;								// +0x28 (slot +0x4C)
 	char Unknown2C[0x34 - 0x2C];						// +0x2C
 	ViewUnknown34Class *Unknown34;						// +0x34 (view.cpp's constructors 0x65A6C0 / 0x65B810 set it; cpacket.cpp's GROUP 30 and DIALOG 98 call it)
+};
+
+// view.cpp's second view (constructor 0x65B810, table 0xAF9854): the base of the main, loading and 3-D movie views
+// (0x50B360, 0x691570, 0x7EEF90 and 0x69AD30 call 0x65B810); its destructor is implicit: the main view's object holds
+// its out-of-line copy 0x50B930 (jmp 0x65A760, called by 0x50B360's unwind and by 0x65B880, this class's deleting
+// destructor), and the main view's destructor 0x50B950 inlines it
+class Unknown65B810ViewClass : public ViewClass	// NAME 1: neutral (D10)
+{
+public:
+	Unknown65B810ViewClass(ClientTaskClass *task, int arg);	// 0x65B810 (the base with 0; the task's Client (+0x78) to +0x4C; arg unused)  // NAME 1 [task, arg]: what the main view passes
+	virtual void Unknown_10();							// +0x10 0x65B8B0 (+0x4C cleared, then the base's 0x65B4A0)
+	virtual ViewClass *Unknown_20() { return(this); }	// +0x20 0x50B7E0
+	virtual int Unknown_44();							// +0x44 0x65B8D0 (+0x4C's +0x1274, 0 without one)
 };
 
 // radar_system.cpp's radar (the main view's +0x80), declared as far as cpacket.cpp calls it
@@ -441,7 +454,7 @@ public:
 };
 
 // mainview.cpp's view (constructor 0x50B360, 0x1EC bytes): SClient's Add_Object / Remove_Object tell it
-class MainViewClass : public ViewClass	// NAME 3: class-from-file (D24) for mainview.cpp
+class MainViewClass : public Unknown65B810ViewClass	// NAME 3: class-from-file (D24) for mainview.cpp
 {
 public:
 	MainViewClass(ClientTaskClass *ctask);				// 0x50B360 (G_ASSERT 'ctask', l.176)  // NAME 2 [ctask]: the assert's
@@ -588,7 +601,7 @@ public:
 };
 
 // loadingview.cpp's view (constructor 0x691570, 0x6C bytes)
-class LoadingViewClass : public ViewClass	// NAME 3: class-from-file (D24) for loadingview.cpp
+class LoadingViewClass : public Unknown65B810ViewClass	// NAME 3: class-from-file (D24) for loadingview.cpp
 {
 public:
 	LoadingViewClass(ClientTaskClass *task);			// 0x691570  // NAME 1 [task]: SClient::Init passes its task
@@ -600,7 +613,7 @@ public:
 };
 
 // The 3-D movie view (constructor 0x7EEF90, 0x2A8 bytes; SClient 0x74BC20 makes it, 0x74BD10 deletes it)
-class Movie3DViewClass : public ViewClass	// NAME 2: SClient's member 'Movie3DView' (G_ASSERT l.4104)
+class Movie3DViewClass : public Unknown65B810ViewClass	// NAME 2: SClient's member 'Movie3DView' (G_ASSERT l.4104)
 {
 public:
 	Movie3DViewClass(ClientTaskClass *task, int arg);	// 0x7EEF90  // NAME 1 [task, arg]: what 0x74BC20 passes
