@@ -1,0 +1,60 @@
+"""IB2 (P-F8-2): three forms after F8's v11 lever (one static inline helper around the finds).
+f1: the helper for Spot and Line, Blotch's find written out (unchanged block).
+f2: the helper without the loop (find + mark test, returns t); the loops / memsets stay in the caller.
+f3: the helper with the count as a template argument (one instantiation per pool).
+Line-neutral regions."""
+import os
+WT = r'C:\EnBDevelopment\EnB\.work\wt\ib2'
+C = 'app/client/co.cpp'
+src = open(os.path.join(WT, C.replace('/', os.sep)), 'rb').read().decode('latin1').replace('\r\n', '\n')
+
+BLANK = '}\n\n\n// 0x6FD2C0\n'
+assert src.count(BLANK) == 1
+AT = 'DeltaArrayClass<UnknownB01A40Type>'
+FIND = (f'NameClass name(field); {AT} *t = Unknown_Find_Field<{AT} >((DeltaCompoundClass *)o->AuxData, name); '
+        'if (t && t->m_Unknown70 <= 1) t = NULL; ')
+POOL = ('static inline void F8_Pool(ClientObjectClass *o, const char *field, ' + AT + ' *&array, bool *changed, int count) '
+        '{ ' + FIND + 'array = t; if (t) { for (int i = 0; i < count; i++) changed[i] = t->Children[i]->m_Unknown70 > 1; } else { memset(changed, 0, count); } }')
+FINDH = ('static inline ' + AT + ' *F8_Find(ClientObjectClass *o, const char *field) { ' + FIND + 'return t; }')
+POOLT = ('template<int count> static inline void F8_PoolT(ClientObjectClass *o, const char *field, ' + AT + ' *&array, bool *changed) '
+         '{ ' + FIND + 'array = t; if (t) { for (int i = 0; i < count; i++) changed[i] = t->Children[i]->m_Unknown70 > 1; } else { memset(changed, 0, count); } }')
+
+
+def helper(h):
+    return (C, BLANK, '}\n' + h + '\n\n// 0x6FD2C0\n')
+
+
+S0 = '\t{\n\t\tNameClass name("DamageSpot");\n'
+S2 = '\t{\n\t\tNameClass name("DamageBlotch");\n'
+END = '\tif (arrays[0] || arrays[1] || arrays[2]) {\n'
+a, m, b = src.index(S0), src.index(S2), src.index(END)
+
+
+def region(text, lo, hi):
+    old = src[lo:hi]
+    n = old.count('\n')
+    assert text.count('\n') <= n, (text.count('\n'), n)
+    return (C, old, text + '\n' * (n - text.count('\n')))
+
+
+F1 = region('\tF8_Pool(this, "DamageSpot", arrays[0], spot_changed, 15);\n'
+            '\tF8_Pool(this, "DamageLine", arrays[1], line_changed, 10);\n', a, m)
+
+
+def loopform(k, field, arr, cnt):
+    return (f'\t{{ {AT} *t = arrays[{k}] = F8_Find(this, "{field}"); '
+            f'if (t) {{ for (int i = 0; i < {cnt}; i++) {arr}[i] = t->Children[i]->m_Unknown70 > 1; }} else {{ memset({arr}, 0, sizeof({arr})); }} }}\n')
+
+
+F2 = region(loopform(0, 'DamageSpot', 'spot_changed', 15) + loopform(1, 'DamageLine', 'line_changed', 10)
+            + loopform(2, 'DamageBlotch', 'blotch_changed', 5), a, b)
+F3 = region('\tF8_PoolT<15>(this, "DamageSpot", arrays[0], spot_changed);\n'
+            '\tF8_PoolT<10>(this, "DamageLine", arrays[1], line_changed);\n'
+            '\tF8_PoolT<5>(this, "DamageBlotch", arrays[2], blotch_changed);\n', a, b)
+
+V = {
+    'f1': [helper(POOL), F1],
+    'f2': [helper(FINDH), F2],
+    'f3': [helper(POOLT), F3],
+}
+ONLY = {0x6FD310}
