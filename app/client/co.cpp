@@ -1469,7 +1469,7 @@ bool ClientObjectClass::Unknown_6F5F60()
 
 
 
-// NOT EXACT: inline budget (the client calls the four finds' Casts 0x531590 / 0x7099F0 out of line, ours inlines them; 74 calls vs 70; 1 form, attempts.py show 0x6FBEF0)
+// NOT EXACT: inline budget (the client calls the four finds' Casts 0x531590 / 0x7099F0 out of line, ours inlines them; 74 calls vs 70; frame 0x270 since F8; attempts.py show 0x6FBEF0)
 // 0x6FBEF0 (the warp state: PrivateWarpState's messages, then GlobalWarpState's sounds, effects and camera modes)
 void ClientObjectClass::Unknown_6FBEF0()
 {
@@ -1505,8 +1505,8 @@ void ClientObjectClass::Unknown_6FBEF0()
 			}
 		}
 	}
-	NameClass name("GlobalWarpState");
-	DeltaTemplateClass<int> *t = Unknown_Find_Field<DeltaTemplateClass<int> >((DeltaCompoundClass *)AuxData, name);
+	DeltaTemplateClass<int> *t;
+	{ NameClass name("GlobalWarpState"); t = Unknown_Find_Field<DeltaTemplateClass<int> >((DeltaCompoundClass *)AuxData, name); }	// a block: the client's names 1-3 share one slot (F8)
 	if (!t || t->m_Unknown70 <= 1) {
 		return;
 	}
@@ -1514,9 +1514,9 @@ void ClientObjectClass::Unknown_6FBEF0()
 		return;
 	}
 	UnknownF8 = t->Value;
-	NameClass stats_name("CurrentStats");
-	DeltaStatsClass *stats = Unknown_Find_Field<DeltaStatsClass>((DeltaCompoundClass *)AuxData, stats_name);
-	if (stats && !stats->m_Unknown70) stats = NULL;
+	DeltaStatsClass *stats;
+	{ NameClass stats_name("CurrentStats"); stats = Unknown_Find_Valid<DeltaStatsClass>((DeltaCompoundClass *)AuxData, stats_name); }
+
 	int level = 1;
 	if (stats) {
 		level = stats->WarpPowerLevel.Value;
@@ -1532,8 +1532,8 @@ void ClientObjectClass::Unknown_6FBEF0()
 	switch (UnknownF8) {
 		case 1: {
 			NameClass trail_name("EngineTrailType");
-			DeltaTemplateClass<int> *trail = Unknown_Find_Field<DeltaTemplateClass<int> >((DeltaCompoundClass *)AuxData, trail_name);
-			if (trail && !trail->m_Unknown70) trail = NULL;
+			DeltaTemplateClass<int> *trail = Unknown_Find_Valid<DeltaTemplateClass<int> >((DeltaCompoundClass *)AuxData, trail_name);
+
 			_snprintf(loop, sizeof(loop), "engine_loop_%d", trail ? trail->Value + 22 : 22);
 			_snprintf(sound, sizeof(sound), "warp_start_%d", level);
 			if (player) {
@@ -1551,7 +1551,7 @@ void ClientObjectClass::Unknown_6FBEF0()
 				Unknown11C->Remove_From_Scene();
 				Unknown11C->Release_Ref();
 			}
-			Unknown118 = SoundLibraryClass::Play_3D_Sound(loop, Unknown_28(true), 0, player ? 2.5f : 1.0f);
+			if (player) { Unknown118 = SoundLibraryClass::Play_3D_Sound(loop, Unknown_28(true), 0, 2.5f); } else { Unknown118 = SoundLibraryClass::Play_3D_Sound(loop, Unknown_28(true), 0, 1.0f); }	// two calls, as the client pushes 2.5f and 1.0f separately (F8)
 			Unknown11C = SoundLibraryClass::Play_3D_Sound("Warp_Secondary", Unknown_28(true), 0, 1.0f);
 			if (Unknown118) {
 				Unknown118->Attach_To_Object(Model, -1);
