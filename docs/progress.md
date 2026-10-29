@@ -1550,6 +1550,13 @@ client's own code: [kernel-map.md](kernel-map.md) §6 and, for step 9's dependen
    instead of Vector3 / Vector3 / Vector2: the client's insert 0x47DE10 copies the element as one block (`mov ecx,8;
    rep movsd`, four sites; Build_Decorations 0x47A2F0 twice), ours member by member; likely 0x47DE10, 0x47A2F0,
    0x47C6A0, 0x479D00. Lead: 0x4667D0 / 0x466820 are probably vector<Vector3> helpers in heightfield's range.
+   Done by LD5 (9de9c9b, +1): the struct as float[3] / float[3] / float[2], insert 0x47DE10 exact (0x62A560 a D66 (i)
+   move: ColorizationRegionStruct's identical _Construct COMDAT, still held by cpacket / pkcolorization); drawcheck
+   PASS, sbs mean 2.16 %; Land_Append_Decoration_Mesh 0x47C6A0 rewritten nearer the client (frame 0x6C as the
+   client's, residue 215 -> 105 rows) but NOT EXACT inline budget (the third push_back's reallocation inlines the
+   first _Ucopy; 13 forms: Fable-eligible); Build_Decorations 0x47A2F0 and Create_Decorations 0x479D00 unmoved
+   (0x479D00 never uses the struct); 0x4667D0 / 0x466820 are vector<Vector3>::_Ucopy / _Ufill, blocked behind the
+   inline budget of their only callers insert 0x466180 (Get_Triangles 0x465D30) and Render 0x474B30.
 6. Step 8's tail: Key_Exchange (LIMIT), the UDP constructor over a CordCon 0x82CBF0 (register), Open_Fixed_Channel
    0x82D8C0 (field offset), `Send_Data` (wlib's Dictionary layout), 0x82E1D0 (needs CordMgr 0x8598F0), the
    TimedLog ctor, the memconn option slot, Rate Count (LIMIT), Listen.
@@ -1570,7 +1577,8 @@ client's own code: [kernel-map.md](kernel-map.md) §6 and, for step 9's dependen
    unknown_rate.cpp (D86); inpkeys.cpp (H19). Markers in the source are added at each file's next edit.
 9. Tools: done 2026-10-27 (commit_mine `--file`, attempts.py line endings, build.py's UNRES regex). Left: P-LD3-2
    (`wt.py bring-over` accepts named D119 ambiguous addresses, checked against the ambiguous column) with P-CS1-2
-   (the same flag for D66 (i) / (v) moves when pairs_cmp's lost-outright list is empty); promote
+   (the same flag for D66 (i) / (v) moves when pairs_cmp's lost-outright list is empty; LD5 hit it again on
+   2026-10-29 and landed through commit_mine); promote
    P9's worktree scripts (item 3); the compare-and-swap commit rule (`update-ref master NEW OLD`) into commit_mine
    (H17's race); gen_stubs' by-value returns (P-T18-2); H16's `.work/h16/fm_gen.py` / `commit_h16.py` pattern for
    generated files.

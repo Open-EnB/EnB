@@ -530,6 +530,10 @@ unless `--lever` cites a new row of this table.
 
 ### 3.4 Importer, verify and pairs
 
+* **A struct change can move an unrelated struct's identical COMDAT** (2026-10-29, LD5): a 32-byte element's
+  _Construct matched ColorizationRegionStruct's identical copy (0x62A560); changing the element moved the pair:
+  a D66 (i) move, not a loss. `wt.py bring-over` refuses it (P-CS1-2): land such a commit through commit_mine from
+  the main tree with the worktree-verified imports.json block.
 * **A tryv2 variant's gains can be another type's identical code** (2026-10-29, PK4): KeyMappingStruct with a
   user operator= "gained" vector<Vector3>::erase 0x47D3D0, with a copy constructor 0x4667D0 / 0x466820: folding
   onto a twin, not progress. Check that a gained address belongs to the function you changed.
