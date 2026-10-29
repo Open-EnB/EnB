@@ -1,3 +1,4 @@
+#include <windows.h>
 #include "sclient.h"
 #include "..\shared\unknown_debug.h"
 #include "..\..\ww3d2\scene.h"
@@ -25,15 +26,8 @@ void Unknown_7FFA30(float red, float green, float blue, float time);	// 0x7FFA30
 void Unknown_810750(RenderObjClass *model, bool on);					// 0x810750 (shiputils.cpp; co.h declares it so): a ship model's engine trails  // NAME 1 [model, on]: what co.cpp passes
 void Unknown_7FFBE0(float opacity, float time);						// 0x7FFBE0: the fade's opacity  // NAME 1 [opacity, time]: what Set_Screen_Fade_Opacity passes
 
-// one line of the script (std::sort orders them, 0x8099B0)
-struct ScriptedMovieLineStruct	// NAME 1: neutral (D10)
-{
-	unsigned int Frame;	// +0x00  // NAME 2: what the order compares
-	char *Text;			// +0x04: the command line  // NAME 2: what it holds
-};
-
 // 0x7FFEA0: by frame; within a frame the objects and lights are made first
-bool operator < (const ScriptedMovieLineStruct &a, const ScriptedMovieLineStruct &b)
+bool operator < (const ScriptedMovieLineClass &a, const ScriptedMovieLineClass &b)
 {
 	if (a.Frame < b.Frame) {
 		return(true);
@@ -128,6 +122,12 @@ static float Unknown_B07C54 = 50.0f;	// NAME 1: neutral (D10)
 static float Unknown_B07C58 = 1.0f;	// NAME 1: neutral (D10)
 static float Unknown_B07C5C = 0.95f;	// NAME 1: neutral (D10)
 static float Unknown_B07C60 = 1.0f;	// NAME 1: neutral (D10)
+
+
+
+
+
+
 
 
 
@@ -1130,29 +1130,29 @@ void ScriptedMovieViewClass::Unknown_802AD0(int arg)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// 0x802B20: the movie's time on, the effects that are over ended, then every line due run (a line that is not a
+// command ends the movie)
+// NOT EXACT: the inlined effect sweep (0x807520) swaps ebx / ebp with the client's (0.65); one form
+void ScriptedMovieViewClass::Unknown_802B20()
+{
+	Unknown80 += WW3D::Get_Frame_Time();
+	Unknown_807520(Unknown80);
+	std::vector<ScriptedMovieLineClass *>::iterator itor = Lines.begin();
+	while (itor != Lines.end()) {
+		G_ASSERT(*itor);
+		if (Unknown80 < (*itor)->Frame) {
+			return;
+		}
+		if (!Unknown_803310(*itor)) {
+			Unknown6E = true;
+			MessageBox(NULL, (*itor)->Text, "Script Error", MB_OK);
+			G_ASSERT(!"Invalid command.  Ending Movie");
+			return;
+		}
+		delete *itor;
+		Lines.erase(itor);
+	}
+}
 
 
 

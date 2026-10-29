@@ -66,6 +66,15 @@ class SceneClass;
 class LandClass;
 class SimpleSceneClass;
 class DazzleLayerClass;
+// one line of the script (0x0C bytes; std::sort orders them by its operator <, 0x7FFEA0)
+class ScriptedMovieLineClass	// NAME 1: neutral (D10) (a class: clienttest's gen_stubs declares pointer parameters' types as classes)
+{
+public:
+	~ScriptedMovieLineClass();							// 0x7FFC70: the text freed
+	unsigned int Frame;									// +0x00 (the movie's time it runs at)  // NAME 2: what the order compares
+	char *Text;											// +0x04: the command line  // NAME 2: what it holds
+	int Unknown08;										// +0x08 (the destructor clears it)
+};
 class ScriptedMovieEffectClass { public: void Unknown_6E6E30(); };	// NAME 1: neutral (D10): eff_o.cpp's effect, as far as 0x807520 ends it (0x6E6E30)
 // a timed effect of the scripted movie (8 bytes, in a vector at +0x148)
 struct ScriptedMovieEffectStruct	// NAME 1: neutral (D10)
@@ -751,6 +760,8 @@ public:
 	void Unknown_801D70(float *znear, float *zfar);		// 0x801D70 (G_ASSERTs 'ScriptedCamera' / 'OrbitalManager', l.702 / 703): the orbitals' clip planes for the camera's FOV (as the main view's 0x50CCF0)  // NAME 2 [znear, zfar]: the main view's
 	ScriptedMovieInterfaceUnknown00Class *Get_Client() { return(ClientInterface->Unknown_00()); }	// (inline: 0x807520's G_ASSERT 'Get_Client()')  // NAME 3: the assert's
 	void Unknown_807520(unsigned int time);				// 0x807520 (G_ASSERT 'Get_Client()', l.2546): the effects whose time is up ended  // NAME 1 [time]: neutral
+	bool Unknown_803310(ScriptedMovieLineClass *line);	// 0x803310: one line's command run (false: not a command)  // NAME 1 [line]: neutral
+	void Unknown_802B20();								// 0x802B20 (G_ASSERTs '*itor' l.1142, '!"Invalid command.  Ending Movie"' 1149): the script run up to the movie's time
 	void Unknown_8022C0(float time);					// 0x8022C0 (FAIL_IF 'ScriptedScene == NULL', l.832): the ambient light's fade one step on  // NAME 1 [time]: what the fade gets
 	void Unknown_802330(float time);					// 0x802330 (FAIL_IF 'ScriptedScene == NULL', l.855): the fog colour's fade one step on  // NAME 1 [time]: what the fade gets
 	void Unknown_8023A0(bool on);						// 0x8023A0 (G_ASSERT 'ClientInterface', l.877)  // NAME 1 [on]: neutral
@@ -794,13 +805,14 @@ public:
 	bool Unknown6E;										// +0x6E (0x802930: the movie ends once +0x6C..+0x6E are set)
 	char Unknown6F[0x7C - 0x6F];						// +0x6F
 	bool Unknown7C;										// +0x7C
-	char Unknown7D[0x84 - 0x7D];						// +0x7D
+	char Unknown7D[0x80 - 0x7D];						// +0x7D
+	unsigned int Unknown80;								// +0x80: the movie's time (0x802B20 adds the frame time)
 	int CurrentCameraIndex;								// +0x84: CameraList's next  // NAME 3: the asserts'
 	ScriptedMovieFadeClass Unknown88;					// +0x88: the ambient light (0x8022C0)
 	ScriptedMovieFadeClass UnknownAC;					// +0xAC: the fog colour (0x802330)
 	enum { MAX_LIGHTS_PER_SCENE = 4 };					// NAME 3: the FAIL_IFs' 'lightslot >= MAX_LIGHTS_PER_SCENE' ('Exceeding 4 lights per scene')
 	LightClass *Lights[MAX_LIGHTS_PER_SCENE];			// +0xD0: the script's lights by slot  // NAME 3: the FAIL_IFs' 'Lights[lightslot]'
-	char UnknownE0[0xF0 - 0xE0];						// +0xE0
+	std::vector<ScriptedMovieLineClass *> Lines;		// +0xE0: the script's lines still to run, by frame  // NAME 2: what it holds
 	std::vector<ScriptedMovieSoundClass *> UnknownF0;	// +0xF0: mv3dsnd.cpp's objects (0x802AD0)
 	char Unknown100[0x110 - 0x100];						// +0x100
 	std::vector<ScriptedMovieCameraStruct> CameraList;	// +0x110  // NAME 3: the asserts' 'CameraList[CurrentCameraIndex]'
