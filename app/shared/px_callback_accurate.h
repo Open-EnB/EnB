@@ -28,16 +28,20 @@ __STL_TEMPLATE_NULL struct hash<PxObject *> {  // the key's address (as co_data.
 };
 __STL_END_NAMESPACE
 
-struct PxAccurateOverlapStruct  // NAME 1: Overlaps' value (0x44E470 reads a state 1 / 2 and a flag); layout not confirmed
+struct PxAccurateOverlapStruct  // NAME 1: Overlaps' value (the overlap handling 0x44E470-0x44F200)
 {
-	int State;							// NAME 1: what it holds
-	bool Flag;							// NAME 1: as above
+	PxAccurateOverlapStruct() : State(0), Flag(false) {}	// the hash_map's operator[] stores 0 / false
+
+	int State;							// +0x00 1: only a loose box overlaps (in Active), 2: a tight box overlaps  // NAME 1: what it holds
+	bool Flag;							// +0x04 reported as inside (Enter sent)  // NAME 1: as above
 };
 
 struct PxAccurateActiveStruct  // NAME 2: Active's element (8 bytes; the FAIL_IF 'it->Object != object')
 {
 	PxObject *Object;					// +0x00 (the client's name, the FAIL_IF)
 	bool Inside;						// +0x04 (Process's last test result)  // NAME 2: what it holds
+
+	bool operator<(const PxAccurateActiveStruct &b) const { return(Object < b.Object); }	// Active is sorted by address (lower_bound 0x451B60)
 };
 
 /*
@@ -56,6 +60,14 @@ public:
 	virtual void Enter(PxObject *object);				// 0x44F370 (PX_EVENT_ENTER)  // NAME 2: what it reports
 	virtual void Exit(PxObject *object);				// 0x44F3A0 (PX_EVENT_EXIT)  // NAME 2: as above
 
+	void Overlap(PxBox *box, bool enter);				// 0x44E470 (no caller; PxAccurateBox's On_Enter / On_Exit inline it)  // NAME 1 [box, enter]: what it does
+	void Tight_Enter(PxObject *object);					// 0x44E780 (no caller; a box with Self bit 2, a wrapper's tight box)  // NAME 1: what it does
+	void Loose_Enter(PxObject *object);					// 0x44E960 (no caller; any other box)  // NAME 1: what it does
+	void Tight_Exit(PxObject *object);					// 0x44EAE0 (no caller)  // NAME 1: what it does
+	void Loose_Exit(PxObject *object);					// 0x44EDB0 (no caller; FAIL_IF 'it == Overlaps.end()' l.133)  // NAME 1: what it does
+	void Activate(PxObject *object, bool inside);		// 0x44EF80 (into Active; the first one adds the node to the current PxProcessClass)  // NAME 1 [object, inside]: what it does
+	void Deactivate(PxObject *object, bool &inside);	// 0x44F200 (FAIL_IF l.170; the last one removes the node)  // NAME 1 [object, inside]: what it does
+
 	PxObject *Object;															// +0x10  // NAME 2: the constructor's argument
 	PxCallbackFunction Callback;												// +0x14  // NAME 2: as PxPollCallback's
 	std::hash_map<PxObject *, PxAccurateOverlapStruct> Overlaps;				// +0x18 (the client's name, the FAIL_IF 'it == Overlaps.end()'; 100 buckets)
@@ -65,7 +77,7 @@ public:
 
 /*
 ** The box of an accurate callback (0x24 bytes, vtable 0xAE7B44: the deleting destructor 0x44F870, On_Enter
-** 0x44F5D0, On_Exit 0x44F6E0, not rebuilt): it hands its overlaps to its callback's Overlaps / Active.
+** 0x44F5D0, On_Exit 0x44F6E0): it hands its overlaps to its callback's Overlaps / Active.
 */
 class PxAccurateBox : public PxBox  // NAME 2: what it is
 {
@@ -73,8 +85,8 @@ public:
 	PxAccurateBox(PxObject *object, PxAccurateCallback *callback) : PxBox(object), Callback(callback) {}	// NAME 2 [object, callback]: what it stores
 	PxAccurateBox(PxObject *object, const PxBox &src, PxAccurateCallback *callback) : PxBox(object, src), Callback(callback) {}	// NAME 2 [src]: the copy's
 
-	virtual void On_Enter(PxBox *box);					// 0x44F5D0 (not rebuilt)
-	virtual void On_Exit(PxBox *box);					// 0x44F6E0 (not rebuilt)
+	virtual void On_Enter(PxBox *box);					// 0x44F5D0
+	virtual void On_Exit(PxBox *box);					// 0x44F6E0
 
 	PxAccurateCallback *Callback;						// +0x20 (both accurate classes' boxes)  // NAME 2: its owner
 };

@@ -2,6 +2,7 @@
 #include "px_callback_accurate.h"
 #include "px_callback_type.h"
 #include "px_collision.h"
+#include <algorithm>
 #include "..\shared\unknown_debug.h"
 
 // 0x44E020
@@ -27,6 +28,151 @@ PxAccurateCallback::PxAccurateCallback(PxObject *object, const PxAccurateCallbac
 // 0x44E390
 PxAccurateCallback::~PxAccurateCallback()
 {
+}
+
+// 0x44E470
+// NOT EXACT: inline budget (the client inlines Activate / Deactivate in the exit half only and calls the hash_map's find_or_insert 0x4517C0 out of line; ours inlines Deactivate in Tight_Enter; attempts.py show 0x44E470)
+void PxAccurateCallback::Overlap(PxBox *box, bool enter)
+{
+	if (enter) {
+		if (box->Self & 2) {
+			Tight_Enter((PxObject *)box->Owner);
+		} else {
+			Loose_Enter((PxObject *)box->Owner);
+		}
+	} else {
+		if (box->Self & 2) {
+			Tight_Exit((PxObject *)box->Owner);
+		} else {
+			Loose_Exit((PxObject *)box->Owner);
+		}
+	}
+}
+
+// 0x44E780
+void PxAccurateCallback::Tight_Enter(PxObject *object)
+{
+	PxAccurateOverlapStruct &overlap = Overlaps[object];
+	if (overlap.State == 1) {
+		Deactivate(object, overlap.Flag);
+	}
+	if (!overlap.Flag) {
+		Enter(object);
+	}
+	overlap.State = 2;
+	overlap.Flag = true;
+}
+
+// 0x44E960
+void PxAccurateCallback::Loose_Enter(PxObject *object)
+{
+	PxAccurateOverlapStruct &overlap = Overlaps[object];
+	if (overlap.State != 2) {
+		overlap.State = 1;
+		Activate(object, overlap.Flag);
+	}
+}
+
+// 0x44EAE0
+void PxAccurateCallback::Tight_Exit(PxObject *object)
+{
+	std::hash_map<PxObject *, PxAccurateOverlapStruct>::iterator it = Overlaps.find(object);
+	if (it != Overlaps.end()) {
+		PxAccurateOverlapStruct &overlap = (*it).second;
+		bool inside = overlap.Flag;
+		overlap.State = 1;
+		Activate(object, inside);
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 0x44EDB0
+void PxAccurateCallback::Loose_Exit(PxObject *object)
+{
+	std::hash_map<PxObject *, PxAccurateOverlapStruct>::iterator it = Overlaps.find(object);
+	FAIL_IF(it == Overlaps.end()) return;
+	PxAccurateOverlapStruct &overlap = (*it).second;
+	if (overlap.State == 1) {
+		Deactivate(object, overlap.Flag);
+	}
+	if (overlap.Flag) {
+		Exit(object);
+	}
+	Overlaps.erase(it);
+}
+
+// 0x44EF80
+void PxAccurateCallback::Activate(PxObject *object, bool inside)
+{
+	if (Active.empty()) {
+		PxProcessClass::Get_Current()->Add(this);
+	}
+	PxAccurateActiveStruct active;
+	active.Object = object;
+	active.Inside = inside;
+	std::vector<PxAccurateActiveStruct>::iterator it = std::lower_bound(Active.begin(), Active.end(), active);
+	Active.insert(it, active);
+}
+
+
+
+
+
+
+
+
+
+// 0x44F200
+void PxAccurateCallback::Deactivate(PxObject *object, bool &inside)
+{
+	PxAccurateActiveStruct key = { object, false };
+	std::vector<PxAccurateActiveStruct>::iterator it = std::lower_bound(Active.begin(), Active.end(), key);
+	FAIL_IF(it == Active.end() || it->Object != object) return;
+	inside = it->Inside;
+	Active.erase(it);
+	if (Active.empty()) {
+		PxProcessClass::Get_Current()->Remove(this);
+	}
 }
 
 // 0x44F2F0
@@ -69,6 +215,20 @@ PxAccurateBoxCallback::PxAccurateBoxCallback(PxObject *object, PxCallbackFunctio
 	Box->Set_Test(1);
 	Box->Set_Mask(1);
 	Update();
+}
+
+// 0x44F5D0
+// NOT EXACT: inline budget (the client calls Activate 0x44EF80 out of line, ours inlines it; attempts.py show 0x44F5D0)
+void PxAccurateBox::On_Enter(PxBox *box)
+{
+	Callback->Overlap(box, true);
+}
+
+// 0x44F6E0
+// NOT EXACT: inline budget (as 0x44F5D0; attempts.py show 0x44F6E0)
+void PxAccurateBox::On_Exit(PxBox *box)
+{
+	Callback->Overlap(box, false);
 }
 
 // 0x44F8F0
@@ -239,9 +399,18 @@ bool PxAccurateSphereCallback::Test(PxObject *object)
 **
 ** px_callback_accurate.cpp is client 0x44E020-0x451BF0 (its guarded <string> static at 0x451BD0), after
 ** px_box_list.cpp; its __FILE__ is pushed by the FAIL_IFs 'it == Overlaps.end()' (l.133) and
-** 'it == Active.end() || it->Object != object' (l.170) in 0x44E470-0x44F6E0. Only the base class's constructors,
-** destructor, Process, Enter and Exit are rebuilt (0x44E020-0x44E390, 0x44F2F0-0x44F3A0); the overlap handling
-** 0x44E470-0x44F200, the two derived classes (vtables 0xAE7B44 / 0xAE7B54 / 0xAE7B70: a box, 0x44F3D0-0x44FF40;
-** 0xAE7B8C / 0xAE7BA8: 0x450030-0x450AC0) and the hash_map / vector instances 0x450B40-0x451B60 are not. They sit
-** in the proximity system's dormant path: PxAccurateCallback::Process runs only from PxProcessClass::Process.
+** 'it == Active.end() || it->Object != object' (l.170) in 0x44E470-0x44F6E0 (the blank lines before Loose_Exit and
+** Deactivate keep them there). Every function from 0x44E020 to 0x451B60 is in source.
+**
+** The overlap handling (PX3, 2026-10-29). A box b reaching an accurate callback's box is either a tight one (Self
+** bit 2: the other object's sphere certainly touches) or a loose one (it may). Overlaps keeps, per object, State 1
+** (only loose: the object is in Active and Process tests it each frame) or 2 (tight: no test needed) and Flag (Enter
+** reported). Tight_Enter takes it out of Active and reports Enter once; Loose_Enter puts it in Active unless tight;
+** Tight_Exit puts it back in Active; Loose_Exit takes it out, reports Exit if it was in and forgets it. Activate /
+** Deactivate keep Active sorted and add / remove the node to / from PxProcessClass::Get_Current() as it fills and
+** empties. Overlap 0x44E470, Tight_Enter .. Deactivate and the hash_map's Overlaps have no caller (client.py refs):
+** only PxAccurateBox::On_Enter / On_Exit (vtable 0xAE7B44) reach this code, through Overlap inlined. The template
+** instances 0x450B40-0x451B60 come from these functions (vector insert / erase / _Insert_n / _Ufill / _Ucopy,
+** the hashtable's constructor / find / find_or_insert / erase / resize / bucket vector, _Lower_bound).
+** They sit in the proximity system's dormant path: PxAccurateCallback::Process runs only from PxProcessClass::Process.
 */
