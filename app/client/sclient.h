@@ -668,7 +668,14 @@ class SClientMovieCallbackClass;
 // what the scripted movie view's +0x4C points to, as far as scriptedmovie.cpp calls it
 class ScriptedMovieInterfaceUnknown00Class { public: virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C(); virtual void Unknown_10(); virtual void Unknown_14(); virtual void Unknown_18(); virtual int Unknown_1C(); };	// NAME 1: neutral (D10)
 // the script line's parameters (0x7FFDC0 returns the next one, NULL at the end; its cursor at +0x08)
-class ScriptedMovieParamsClass { public: const char *Unknown_7FFDC0(); char Unknown00[8]; char *Unknown08; };	// NAME 1: neutral (D10)
+class ScriptedMovieParamsClass	// NAME 1: neutral (D10)
+{
+public:
+	bool Unknown_7FFD30(const char *name);				// 0x7FFD30: the line starts with the command name (any case): past it and its comma  // NAME 1 [name]: what the dispatcher 0x803310 passes
+	char *Unknown_7FFDC0();								// 0x7FFDC0: the next comma-separated parameter, trimmed and unquoted; NULL at the end
+	char Unknown00[8];									// +0x00
+	char *Unknown08;									// +0x08: the cursor
+};
 class ScriptedMovieInterfaceClass	// NAME 1: neutral (D10)
 {
 public:
@@ -683,7 +690,7 @@ public:
 	Vector3 Current;									// +0x00 (what the scene gets)  // NAME 2: what it holds
 	char Unknown0C[0x24 - 0x0C];						// +0x0C (+0x0C the target, +0x18 the rate)
 };
-class ScriptedMovieSoundClass { public: void Unknown_7ED6C0(int a, int b); };	// NAME 1: neutral (D10): mv3dsnd.cpp's object (0x7ED6C0)  // NAME 1 [a, b]: what 0x802AD0 passes
+class ScriptedMovieSoundClass { public: void Unknown_7ED6C0(int a, int b); bool Unknown_7EDA60(const char *name); void Unknown_7ED630(int arg); };	// NAME 1: neutral (D10): mv3dsnd.cpp's object (0x7ED6C0)  // NAME 1 [a, b]: what 0x802AD0 passes
 class ScriptedMovieViewClass : public UIViewClass	// NAME 2: SClient's member 'ScriptedMovieView' (G_ASSERT l.4127)
 {
 public:
@@ -699,8 +706,10 @@ public:
 	bool Unknown_806AD0();								// 0x806AD0: +0x6E set
 	bool Unknown_809710();								// 0x809710: +0x7C cleared
 	bool Unknown_809730();								// 0x809730: +0x7C set
+	bool Set_Light_Intensity(ScriptedMovieParamsClass *params);	// 0x806100 (FAIL_IF lines 2096-2104): Lights[slot]'s intensity  // NAME 2: the user error's 'Set_Light_Intensity'; NAME 1 [params]: neutral
 	bool Set_Camera_View_Plane(ScriptedMovieParamsClass *params);	// 0x806AF0 (FAIL_IF lines 2318 / 2323): the camera's view plane, in degrees  // NAME 2: the user error's 'Set_Camera_View_Plane'; NAME 1 [params]: neutral
 	bool Set_Clip_Plane(ScriptedMovieParamsClass *params);		// 0x808AD0 (FAIL_IF lines 3137 / 3141): the camera's clip planes  // NAME 2: the user error's 'Set_Clip_Plane'; NAME 1 [params]: neutral
+	bool Stop_Audio(ScriptedMovieParamsClass *params);			// 0x807020 (FAIL_IF line 2435): the sound of that name stopped  // NAME 2: the user error's 'Stop_Audio'; NAME 1 [params]: neutral
 	bool Skip_Frames(ScriptedMovieParamsClass *params);			// 0x8097D0 (FAIL_IF line 3567): +0x164 on by the frames at 30 a second  // NAME 2: the user error's 'Skip_Frames'; NAME 1 [params]: neutral
 
 	ScriptedMovieInterfaceClass *ClientInterface;		// +0x4C (0x8023A0's G_ASSERT)  // NAME 3: the assert's
@@ -715,7 +724,9 @@ public:
 	char Unknown7D[0x88 - 0x7D];						// +0x7D
 	ScriptedMovieFadeClass Unknown88;					// +0x88: the ambient light (0x8022C0)
 	ScriptedMovieFadeClass UnknownAC;					// +0xAC: the fog colour (0x802330)
-	char UnknownD0[0xF0 - 0xD0];						// +0xD0
+	enum { MAX_LIGHTS_PER_SCENE = 4 };					// NAME 3: the FAIL_IFs' 'lightslot >= MAX_LIGHTS_PER_SCENE' ('Exceeding 4 lights per scene')
+	LightClass *Lights[MAX_LIGHTS_PER_SCENE];			// +0xD0: the script's lights by slot  // NAME 3: the FAIL_IFs' 'Lights[lightslot]'
+	char UnknownE0[0xF0 - 0xE0];						// +0xE0
 	std::vector<ScriptedMovieSoundClass *> UnknownF0;	// +0xF0: mv3dsnd.cpp's objects (0x802AD0)
 	char Unknown100[0x164 - 0x100];						// +0x100
 	int Unknown164;										// +0x164 (Skip_Frames adds to it)

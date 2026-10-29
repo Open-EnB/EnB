@@ -6,8 +6,10 @@
 #include "..\..\ww3d2\dx8renderer.h"
 #include "..\..\ww3d2\dx8wrapper.h"
 #include "..\..\ww3d2\camera.h"
+#include "..\..\ww3d2\light.h"
 #include "wwmath.h"
 #include <stdlib.h>
+#include <string.h>
 
 // E&B's asset manager at 0xBDADC0 (co.cpp's UnknownBDADC0Class): the asserts name it AssetManager
 class UnknownBDADC0Class : public WW3DAssetManager	// NAME 1: neutral (D10)
@@ -16,58 +18,56 @@ class UnknownBDADC0Class : public WW3DAssetManager	// NAME 1: neutral (D10)
 extern UnknownBDADC0Class *Unknown_BDADC0;	// NAME 1 [Unknown_BDADC0]: 0xBDADC0
 #define AssetManager Unknown_BDADC0	// NAME 3 [AssetManager]: the asserts' text 'AssetManager' (0x802D30, the destructor)
 
+// 0x7FFD30: the line starts with name (any case): the cursor past it and its comma
+bool ScriptedMovieParamsClass::Unknown_7FFD30(const char *name)
+{
+	int len = strlen(name);
+	if (strnicmp(Unknown08, name, len) == 0) {
+		Unknown08 += len;
+		while (*Unknown08 != 0 && *Unknown08 != ',') {
+			Unknown08++;
+		}
+		if (*Unknown08 == ',') {
+			Unknown08++;
+		}
+		return(true);
+	}
+	return(false);
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// 0x7FFDC0: the next parameter (up to a comma; leading blanks skipped, a quoted one unquoted, trailing blanks cut)
+char *ScriptedMovieParamsClass::Unknown_7FFDC0()
+{
+	if (Unknown08 == NULL || *Unknown08 == 0) {
+		return(NULL);
+	}
+	char *param = Unknown08;
+	while (*param != 0 && *param <= ' ') {
+		param++;
+	}
+	if (*param == '"') {
+		param++;
+		Unknown08 = param;
+		while (*Unknown08 != 0 && *Unknown08 != '"') {
+			Unknown08++;
+		}
+	}
+	while (*Unknown08 != 0 && *Unknown08 != ',') {
+		Unknown08++;
+	}
+	if (*Unknown08 != 0) {
+		*Unknown08 = 0;
+		Unknown08++;
+	}
+	unsigned int len = strlen(param);
+	while (len != 0 && param[len - 1] <= ' ') {
+		param[--len] = 0;
+	}
+	if (len != 0 && param[len - 1] == '"') {
+		param[len - 1] = 0;
+	}
+	return(param);
+}
 
 
 
@@ -2089,22 +2089,22 @@ void ScriptedMovieViewClass::Unknown_802D30()
 
 
 
+// 0x806100: Lights[slot]'s intensity
+bool ScriptedMovieViewClass::Set_Light_Intensity(ScriptedMovieParamsClass *params)
+{
+	const char *param = params->Unknown_7FFDC0();
+	FAIL_IF((param == NULL) && "User error: Need light slot") {return(false);}
+	int lightslot = atoi(param);
 
+	FAIL_IF((lightslot < 0) && "User error: Set_Light_Intensity: Invalid light slot") {return(false);}
+	FAIL_IF((lightslot >= MAX_LIGHTS_PER_SCENE) && "User error: Set_Light_Intensity: Exceeding 4 lights per scene") {return(false);}
+	FAIL_IF((Lights[lightslot] == NULL) && "User error: Set_Light_Intensity: Can't change intensity if light doesn't exist") {return(false);}
+	param = params->Unknown_7FFDC0();
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	FAIL_IF((param == NULL) && "User error: Set_Light_Intensity: Need light intensity") {return(false);}
+	Lights[lightslot]->Set_Intensity(atof(param));
+	return(true);
+}
 
 
 
@@ -2428,19 +2428,19 @@ bool ScriptedMovieViewClass::Set_Camera_View_Plane(ScriptedMovieParamsClass *par
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+// 0x807020: the sound of that name stopped
+bool ScriptedMovieViewClass::Stop_Audio(ScriptedMovieParamsClass *params)
+{
+	const char *audio_name = params->Unknown_7FFDC0();
+	FAIL_IF((audio_name == NULL) && "User error: Stop_Audio: Need audio name") {return(false);}
+	for (std::vector<ScriptedMovieSoundClass *>::iterator i = UnknownF0.begin(); i != UnknownF0.end(); i++) {
+		if ((*i)->Unknown_7EDA60(audio_name)) {
+			(*i)->Unknown_7ED630(0);
+			return(true);
+		}
+	}
+	return(false);
+}
 
 
 
