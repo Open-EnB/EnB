@@ -2123,8 +2123,28 @@ bool ScriptedMovieViewClass::Set_Light_Intensity(ScriptedMovieParamsClass *param
 
 
 
+// 0x806280: Lights[slot]'s far attenuation (the end defaults to the start)
+bool ScriptedMovieViewClass::Set_Light_Far_Attenuation(ScriptedMovieParamsClass *params)
+{
+	const char *param = params->Unknown_7FFDC0();
+	FAIL_IF((param == NULL) && "User error: Set_Light_Far_Attenuation: Need light slot") {return(false);}
+	int lightslot = atoi(param);
 
+	FAIL_IF((lightslot < 0) && "User error: Set_Light_Far_Attenuation: Invalid light slot") {return(false);}
+	FAIL_IF((lightslot >= MAX_LIGHTS_PER_SCENE) && "User error: Set_Light_Far_Attenuation: Exceeding 4 lights per scene") {return(false);}
+	FAIL_IF((Lights[lightslot] == NULL) && "User error: Set_Light_Far_Attenuation: Can't change attenuation if light doesn't exist") {return(false);}
+	param = params->Unknown_7FFDC0();
 
+	FAIL_IF((param == NULL) && "User error: Set_Light_Far_Attenuation: Need start of far attenuation") {return(false);}
+	float start = atof(param);
+	float end = start;
+	param = params->Unknown_7FFDC0();
+	if (param) {
+		end = atof(param);
+	}
+	Lights[lightslot]->Set_Far_Attenuation_Range(start, end);
+	return(true);
+}
 
 
 
@@ -2143,10 +2163,31 @@ bool ScriptedMovieViewClass::Set_Light_Intensity(ScriptedMovieParamsClass *param
 
 
 
+// 0x806440: Lights[slot]'s ambient color
+bool ScriptedMovieViewClass::Set_Light_Ambient_Color(ScriptedMovieParamsClass *params)
+{
+	const char *param = params->Unknown_7FFDC0();
+	FAIL_IF((param == NULL) && "User error: Set_Light_Ambient_Color: Need light slot") {return(false);}
+	int lightslot = atoi(param);
 
+	FAIL_IF((lightslot < 0) && "User error: Set_Light_Ambient_Color: Invalid light slot") {return(false);}
+	FAIL_IF((lightslot >= MAX_LIGHTS_PER_SCENE) && "User error: Set_Light_Ambient_Color: Exceeding 4 lights per scene") {return(false);}
+	FAIL_IF((Lights[lightslot] == NULL) && "User error: Set_Light_Ambient_Color: Can't change ambient color if light doesn't exist") {return(false);}
+	param = params->Unknown_7FFDC0();
 
+	FAIL_IF((param == NULL) && "User error: Set_Light_Ambient_Color: Need red") {return(false);}
+	float red = atof(param);
+	param = params->Unknown_7FFDC0();
 
+	FAIL_IF((param == NULL) && "User error: Set_Light_Ambient_Color: Need green") {return(false);}
+	float green = atof(param);
+	param = params->Unknown_7FFDC0();
 
+	FAIL_IF((param == NULL) && "User error: Set_Light_Ambient_Color: Need blue") {return(false);}
+	float blue = atof(param);
+	Lights[lightslot]->Set_Ambient(Vector3(red, green, blue));
+	return(true);
+}
 
 
 
@@ -2164,10 +2205,31 @@ bool ScriptedMovieViewClass::Set_Light_Intensity(ScriptedMovieParamsClass *param
 
 
 
+// 0x806670: Lights[slot]'s specular color
+bool ScriptedMovieViewClass::Set_Light_Specular_Color(ScriptedMovieParamsClass *params)
+{
+	const char *param = params->Unknown_7FFDC0();
+	FAIL_IF((param == NULL) && "User error: Set_Light_Specular_Color: Need light slot") {return(false);}
+	int lightslot = atoi(param);
 
+	FAIL_IF((lightslot < 0) && "User error: Set_Light_Specular_Color: Invalid light slot") {return(false);}
+	FAIL_IF((lightslot >= MAX_LIGHTS_PER_SCENE) && "User error: Set_Light_Specular_Color: Exceeding 4 lights per scene") {return(false);}
+	FAIL_IF((Lights[lightslot] == NULL) && "User error: Set_Light_Specular_Color: Can't change specular color if light doesn't exist") {return(false);}
+	param = params->Unknown_7FFDC0();
 
+	FAIL_IF((param == NULL) && "User error: Set_Light_Specular_Color: Need red") {return(false);}
+	float red = atof(param);
+	param = params->Unknown_7FFDC0();
 
+	FAIL_IF((param == NULL) && "User error: Set_Light_Specular_Color: Need green") {return(false);}
+	float green = atof(param);
+	param = params->Unknown_7FFDC0();
 
+	FAIL_IF((param == NULL) && "User error: Set_Light_Specular_Color: Need blue") {return(false);}
+	float blue = atof(param);
+	Lights[lightslot]->Set_Specular(Vector3(red, green, blue));
+	return(true);
+}
 
 
 
@@ -2185,93 +2247,31 @@ bool ScriptedMovieViewClass::Set_Light_Intensity(ScriptedMovieParamsClass *param
 
 
 
+// 0x8068A0: Lights[slot]'s diffuse color
+bool ScriptedMovieViewClass::Set_Light_Diffuse_Color(ScriptedMovieParamsClass *params)
+{
+	const char *param = params->Unknown_7FFDC0();
+	FAIL_IF((param == NULL) && "User error: Set_Light_Diffuse_Color: Need light slot") {return(false);}
+	int lightslot = atoi(param);
 
+	FAIL_IF((lightslot < 0) && "User error: Set_Light_Diffuse_Color: Invalid light slot") {return(false);}
+	FAIL_IF((lightslot >= MAX_LIGHTS_PER_SCENE) && "User error: Set_Light_Diffuse_Color: Exceeding 4 lights per scene") {return(false);}
+	FAIL_IF((Lights[lightslot] == NULL) && "User error: Set_Light_Diffuse_Color: Can't change diffuse color if light doesn't exist") {return(false);}
+	param = params->Unknown_7FFDC0();
 
+	FAIL_IF((param == NULL) && "User error: Set_Light_Diffuse_Color: Need red") {return(false);}
+	float red = atof(param);
+	param = params->Unknown_7FFDC0();
 
+	FAIL_IF((param == NULL) && "User error: Set_Light_Diffuse_Color: Need green") {return(false);}
+	float green = atof(param);
+	param = params->Unknown_7FFDC0();
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	FAIL_IF((param == NULL) && "User error: Set_Light_Diffuse_Color: Need blue") {return(false);}
+	float blue = atof(param);
+	Lights[lightslot]->Set_Diffuse(Vector3(red, green, blue));
+	return(true);
+}
 
 
 

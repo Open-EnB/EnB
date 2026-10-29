@@ -707,6 +707,10 @@ public:
 	bool Unknown_809710();								// 0x809710: +0x7C cleared
 	bool Unknown_809730();								// 0x809730: +0x7C set
 	bool Set_Light_Intensity(ScriptedMovieParamsClass *params);	// 0x806100 (FAIL_IF lines 2096-2104): Lights[slot]'s intensity  // NAME 2: the user error's 'Set_Light_Intensity'; NAME 1 [params]: neutral
+	bool Set_Light_Far_Attenuation(ScriptedMovieParamsClass *params);	// 0x806280 (FAIL_IF lines 2130-2138)  // NAME 2: the user error's 'Set_Light_Far_Attenuation'; NAME 1 [params]: neutral
+	bool Set_Light_Ambient_Color(ScriptedMovieParamsClass *params);	// 0x806440 (FAIL_IF lines 2170-2186)  // NAME 2: the user error's 'Set_Light_Ambient_Color'; NAME 1 [params]: neutral
+	bool Set_Light_Specular_Color(ScriptedMovieParamsClass *params);	// 0x806670 (FAIL_IF lines 2212-2228)  // NAME 2: the user error's 'Set_Light_Specular_Color'; NAME 1 [params]: neutral
+	bool Set_Light_Diffuse_Color(ScriptedMovieParamsClass *params);	// 0x8068A0 (FAIL_IF lines 2254-2270)  // NAME 2: the user error's 'Set_Light_Diffuse_Color'; NAME 1 [params]: neutral
 	bool Set_Camera_View_Plane(ScriptedMovieParamsClass *params);	// 0x806AF0 (FAIL_IF lines 2318 / 2323): the camera's view plane, in degrees  // NAME 2: the user error's 'Set_Camera_View_Plane'; NAME 1 [params]: neutral
 	bool Set_Clip_Plane(ScriptedMovieParamsClass *params);		// 0x808AD0 (FAIL_IF lines 3137 / 3141): the camera's clip planes  // NAME 2: the user error's 'Set_Clip_Plane'; NAME 1 [params]: neutral
 	bool Stop_Audio(ScriptedMovieParamsClass *params);			// 0x807020 (FAIL_IF line 2435): the sound of that name stopped  // NAME 2: the user error's 'Stop_Audio'; NAME 1 [params]: neutral
