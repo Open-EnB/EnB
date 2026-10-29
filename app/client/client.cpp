@@ -306,7 +306,7 @@ void ClientClass::Open_Connection(unsigned long ip, unsigned short port)
 
 // NOT EXACT: register-only (the flag in dl, the id in eax; two forms; attempts.py show 0x728010)
 // 0x728010
-unsigned ClientClass::Set_Debug_Object(unsigned id)
+unsigned ClientClass::Set_Avatar_ID(unsigned id)
 {
 	unsigned old = AvatarID;
 	AvatarID = id;

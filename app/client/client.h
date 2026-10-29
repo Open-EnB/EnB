@@ -123,7 +123,7 @@ public:
 	virtual int Unknown_18() { return(0); }				// +0x18 0x7268E0
 	virtual int Unknown_1C() { return(0); }				// +0x1C 0x726900
 	virtual int Unknown_20() { return(0); }				// +0x20 0x726920
-	virtual unsigned Set_Debug_Object(unsigned id);		// +0x24 0x728010: returns the previous id  // NAME 2: what it does (the DEBUG packet's game id)
+	virtual unsigned Set_Avatar_ID(unsigned id);		// +0x24 0x728010: returns the previous id  // NAME 2: what it does (D131: sets AvatarID, D123; sends the DEBUG packet)
 	virtual ClientObjectClass *Get_Avatar() { return(Find_Object(AvatarID)); }	// +0x28 0x726940 (D123)  // NAME 2: what it does
 	virtual unsigned Set_Ship_ID(unsigned id) { unsigned old = ShipID; ShipID = id; return(old); }	// +0x2C 0x726A00  // NAME 2: what it does (Get_Ship's id)
 	virtual ClientObjectClass *Get_Ship() { return(Find_Object(ShipID)); }	// +0x30 0x726A30  // NAME 2: client.cpp's FAIL_IF '!ship' on its result
@@ -159,7 +159,7 @@ public:
 	PxList *Px;											// +0x08  // NAME 3: px.cpp's
 	PxProcessClass *PxProcess;							// +0x0C  // NAME 3: px_process.cpp's
 	bool DebugMode;										// +0x10 (slots +0x38 / +0x3C, the DEBUG packet's user data)  // NAME 2: what it holds
-	bool Unknown11;										// +0x11 (Set_Debug_Object's DEBUG packet's user data)
+	bool Unknown11;										// +0x11 (Set_Avatar_ID's DEBUG packet's user data)
 	KernelClass *Kernel;								// +0x14 ClientTaskClass::Init sets it  // NAME 2: what it holds
 	Unknown763E00Class *Unknown18;						// +0x18
 	HashListClass<ClientObjectClass *> ObjectList;		// +0x1C (the assert's name)

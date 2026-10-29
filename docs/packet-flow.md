@@ -586,8 +586,8 @@ the 2000-tick blend the model follows the second packet. Not exact yet: 0x6F4610
   (REMOVE's test).
 * Whether any client handler returns false: the rebuilt ones never do, and a scan of the returns of all
   110 attributed handlers (cpacket.cpp, the tasks) found no `xor al, al` before a `ret` (a heuristic, not a proof).
-* **P-PF1-1, accepted as D123** (applied 2026-10-28, CS1: `AvatarID`, `Get_Avatar`; the setter keeps
-  `Set_Debug_Object`, it sends the DEBUG packet): rename `ClientClass::DebugObjectID` (+0x112C) to the player's avatar id
+* **P-PF1-1, accepted as D123** (applied 2026-10-28, CS1: `AvatarID`, `Get_Avatar`; the setter, which sends the DEBUG packet,
+  became `Set_Avatar_ID` by D131 on 2026-10-29): rename `ClientClass::DebugObjectID` (+0x112C) to the player's avatar id
   (e.g. `AvatarID`, with `Set_Debug_Object` / `Get_Debug_Object` -> `Set_Avatar_ID` / `Get_Avatar`):
   CLIENT_AVATAR 55 sets it from the packet's `AvatarID`, ADVANCED 62 / FORMATION 65 / 0x6F3C60 treat it
   as the player's own object, DAMAGE 100 as the player's avatar; only the DEBUG packet's send suggests

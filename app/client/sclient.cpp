@@ -722,9 +722,9 @@ ClientObjectClass *SClient::Remove_Object(unsigned id)
 }
 
 // 0x745730
-unsigned SClient::Set_Debug_Object(unsigned id)
+unsigned SClient::Set_Avatar_ID(unsigned id)
 {
-	return(ClientClass::Set_Debug_Object(id));
+	return(ClientClass::Set_Avatar_ID(id));
 }
 #include "..\packets\pkclientchat.h"
 // 0x744D80 (inline: Init's camera block, 0x7436A0's camera keys; 0x6B58A0 calls the out-of-line copy)

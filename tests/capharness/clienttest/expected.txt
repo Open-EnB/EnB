@@ -56,9 +56,9 @@ memconn connect 7000
 step end: done
 check the redirect opened the memory connection: ok
 sent DEBUG (26) size 16: e80300002100000000000000
-check Set_Debug_Object 1000 returns the old id 0: ok
+check Set_Avatar_ID 1000 returns the old id 0: ok
   parsed back: Debug {GameID=1000 Command=Snoop UserData=0}
-check Set_Debug_Object sends DEBUG {1000, 0x21, 0}: ok
+check Set_Avatar_ID sends DEBUG {1000, 0x21, 0}: ok
 check Get_Avatar is object 1000: ok
 sent DEBUG (26) size 16: e80300001e00000000000000
 stub SClient::Unknown_74D990 0x17 'Debug mode turned OFF.' 0
@@ -72,7 +72,7 @@ check Toggle_Debug_Mode returns true: ok
   parsed back: Debug {GameID=1000 Command=Toggle_invulnerability,Buff_skills UserData=1}
 check Toggle_Debug_Mode sends DEBUG {1000, 0x1E, 1}: ok
 sent DEBUG (26) size 16: 060000002100000001000000
-check Set_Debug_Object 6 returns 1000: ok
+check Set_Avatar_ID 6 returns 1000: ok
   parsed back: Debug {GameID=6 Command=Snoop UserData=1}
 check with +0x11 set, DEBUG {6, 0x21, 1}: ok
 check four DEBUG messages over the memory connection: ok

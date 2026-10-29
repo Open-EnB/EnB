@@ -5532,7 +5532,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Init` | `app/client/client.h:116` | what SClient's does |
 | 2 | `Shutdown` | `app/client/client.h:117` | what SClient's does |
 | 2 | `Do_Frame` | `app/client/client.h:121` | what SClient's does  // NAME 1 [focused]: Is_Focused() |
-| 2 | `Set_Debug_Object` | `app/client/client.h:126` | what it does (the DEBUG packet's game id) |
+| 2 | `Set_Avatar_ID` | `app/client/client.h:126` | what it does (D131: sets AvatarID, D123; sends the DEBUG packet) |
 | 2 | `Get_Avatar` | `app/client/client.h:127` | what it does |
 | 2 | `Set_Ship_ID` | `app/client/client.h:128` | what it does (Get_Ship's id) |
 | 2 | `Get_Ship` | `app/client/client.h:129` | client.cpp's FAIL_IF '!ship' on its result |

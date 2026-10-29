@@ -8,7 +8,7 @@
 // (1) ClientClass's object, effect and record lists keyed by game id (wwlib's 257-bucket hash list):
 //     ids 257 apart share a bucket; Add / Find / Remove through SClient's overrides, which tell a fake
 //     main view; the name lookup; the ship.
-// (2) The DEBUG packet's setters (Set_Debug_Mode, Set_Debug_Object, Toggle_Debug_Mode) before and
+// (2) The DEBUG packet's setters (Set_Debug_Mode, Set_Avatar_ID, Toggle_Debug_Mode) before and
 //     after the redirect (Open_Connection 0x727F00: connect.cpp's factory, MEMORY protocol, the memory
 //     connection below); each DEBUG message sent is parsed back by the factory and its fields checked.
 // (3) SClient::Process_Packets over the redirected connection loaded with MESSAGES (a capture's
@@ -616,8 +616,8 @@ static void Test_Debug(SClient *client)
 		return;
 	}
 	size_t before = Memory->Sent.size();
-	Check(client->Set_Debug_Object(1000) == 0, "Set_Debug_Object 1000 returns the old id 0");
-	Check_Debug("Set_Debug_Object sends DEBUG {1000, 0x21, 0}", 1000, 0x21, 0);
+	Check(client->Set_Avatar_ID(1000) == 0, "Set_Avatar_ID 1000 returns the old id 0");
+	Check_Debug("Set_Avatar_ID sends DEBUG {1000, 0x21, 0}", 1000, 0x21, 0);
 	Check(client->Get_Avatar() == client->Find_Object(1000), "Get_Avatar is object 1000");
 	client->Set_Debug_Mode(false);
 	Check_Debug("Set_Debug_Mode false sends DEBUG {1000, 0x1E, 0}", 1000, 0x1E, 0);
@@ -627,7 +627,7 @@ static void Test_Debug(SClient *client)
 	Check(client->Toggle_Debug_Mode(0), "Toggle_Debug_Mode returns true");
 	Check_Debug("Toggle_Debug_Mode sends DEBUG {1000, 0x1E, 1}", 1000, 0x1E, 1);
 	client->Unknown11 = true;
-	Check(client->Set_Debug_Object(6) == 1000, "Set_Debug_Object 6 returns 1000");
+	Check(client->Set_Avatar_ID(6) == 1000, "Set_Avatar_ID 6 returns 1000");
 	Check_Debug("with +0x11 set, DEBUG {6, 0x21, 1}", 6, 0x21, 1);
 	client->Unknown11 = false;
 	Check(Memory->Sent.size() - before == 4, "four DEBUG messages over the memory connection");

@@ -178,7 +178,7 @@ bool ClientAvatarPacketClass::Process_Packet(void *instance)
 {
 	WWPROFILE("ClientAvatarPacketClass::Process_Packet()");
 	ClientClass *client = (ClientClass *)instance;
-	client->Set_Debug_Object(AvatarID);
+	client->Set_Avatar_ID(AvatarID);
 	ClientObjectClass *object = client->Get_Avatar(); object->Model->Set_LOD_Bias(1000000000.0f);
 	return(true);
 }
