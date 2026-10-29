@@ -5,6 +5,9 @@
 #include "..\..\ww3d2\assetmgr.h"
 #include "..\..\ww3d2\dx8renderer.h"
 #include "..\..\ww3d2\dx8wrapper.h"
+#include "..\..\ww3d2\camera.h"
+#include "wwmath.h"
+#include <stdlib.h>
 
 // E&B's asset manager at 0xBDADC0 (co.cpp's UnknownBDADC0Class): the asserts name it AssetManager
 class UnknownBDADC0Class : public WW3DAssetManager	// NAME 1: neutral (D10)
@@ -12,9 +15,6 @@ class UnknownBDADC0Class : public WW3DAssetManager	// NAME 1: neutral (D10)
 };
 extern UnknownBDADC0Class *Unknown_BDADC0;	// NAME 1 [Unknown_BDADC0]: 0xBDADC0
 #define AssetManager Unknown_BDADC0	// NAME 3 [AssetManager]: the asserts' text 'AssetManager' (0x802D30, the destructor)
-
-
-
 
 
 
@@ -2309,8 +2309,22 @@ bool ScriptedMovieViewClass::Unknown_806AD0()
 
 
 
+// 0x806AF0
+// NOT EXACT: the client multiplies by a float in memory (fmul dword, 0xAFDF14: pi / 180); every constant form here
+// folds to a double (fmul qword): a const float variable, probably
+bool ScriptedMovieViewClass::Set_Camera_View_Plane(ScriptedMovieParamsClass *params)
+{
+	const char *param = params->Unknown_7FFDC0();
+	FAIL_IF((param == NULL) && "User error: Set_Camera_View_Plane: Need x view plane value") {return(false);}
+	float x = atof(param) * (float)(WWMATH_PI / 180.0f);
 
+	param = params->Unknown_7FFDC0();
 
+	FAIL_IF((param == NULL) && "User error: Set_Camera_View_Plane: Need y view plane value") {return(false);}
+	float y = atof(param) * (float)(WWMATH_PI / 180.0f);
+	Unknown50->Set_View_Plane(x, y);
+	return(true);
+}
 
 
 
@@ -3116,33 +3130,19 @@ bool ScriptedMovieViewClass::Unknown_806AD0()
 
 
 
+// 0x808AD0
+bool ScriptedMovieViewClass::Set_Clip_Plane(ScriptedMovieParamsClass *params)
+{
+	const char *param = params->Unknown_7FFDC0();
+	FAIL_IF((param == NULL) && "User error: Set_Clip_Plane: Need near plane") {return(false);}
+	float znear = atof(param);
+	param = params->Unknown_7FFDC0();
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	FAIL_IF((param == NULL) && "User error: Set_Clip_Plane: Need far plane") {return(false);}
+	float zfar = atof(param);
+	Unknown50->Set_Clip_Planes(znear, zfar);
+	return(true);
+}
 
 
 
@@ -3508,6 +3508,65 @@ bool ScriptedMovieViewClass::Unknown_809710()
 bool ScriptedMovieViewClass::Unknown_809730()
 {
 	Unknown7C = true;
+	return(true);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 0x8097D0
+bool ScriptedMovieViewClass::Skip_Frames(ScriptedMovieParamsClass *params)
+{
+	if (Unknown171 && ClientInterface->Unknown_00()->Unknown_1C()) {
+		const char *param = params->Unknown_7FFDC0();
+		FAIL_IF((param == NULL) && "User error: Skip_Frames: Need number of frames") {return(false);}
+		Unknown164 += (atoi(param) * 1000) / 30;
+	}
 	return(true);
 }
 

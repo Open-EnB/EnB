@@ -666,11 +666,14 @@ class SClientMovieCallbackClass;
 
 // The scripted movie view (constructor 0x8000C0, 0x178 bytes; SClient 0x74BD90 makes it, 0x74BF00 deletes it)
 // what the scripted movie view's +0x4C points to, as far as scriptedmovie.cpp calls it
+class ScriptedMovieInterfaceUnknown00Class { public: virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C(); virtual void Unknown_10(); virtual void Unknown_14(); virtual void Unknown_18(); virtual int Unknown_1C(); };	// NAME 1: neutral (D10)
+// the script line's parameters (0x7FFDC0 returns the next one, NULL at the end; its cursor at +0x08)
+class ScriptedMovieParamsClass { public: const char *Unknown_7FFDC0(); char Unknown00[8]; char *Unknown08; };	// NAME 1: neutral (D10)
 class ScriptedMovieInterfaceClass	// NAME 1: neutral (D10)
 {
 public:
-	virtual ~ScriptedMovieInterfaceClass();
-	virtual void Unknown_04(int arg);					// +0x04 (0x8023A0)  // NAME 1 [arg]: neutral
+	virtual ScriptedMovieInterfaceUnknown00Class *Unknown_00();	// +0x00 (Skip_Frames 0x8097D0 asks the result's +0x1C)
+	virtual void Unknown_04(CameraClass *camera);		// +0x04 (0x8023A0: the view's camera or NULL)  // NAME 1 [camera]: what 0x8023A0 passes
 };
 // a Vector3 that fades to a target (0x24 bytes; the scripted movie view's +0x88 and +0xAC): 0x80A5A0 steps it
 class ScriptedMovieFadeClass	// NAME 1: neutral (D10)
@@ -696,9 +699,12 @@ public:
 	bool Unknown_806AD0();								// 0x806AD0: +0x6E set
 	bool Unknown_809710();								// 0x809710: +0x7C cleared
 	bool Unknown_809730();								// 0x809730: +0x7C set
+	bool Set_Camera_View_Plane(ScriptedMovieParamsClass *params);	// 0x806AF0 (FAIL_IF lines 2318 / 2323): the camera's view plane, in degrees  // NAME 2: the user error's 'Set_Camera_View_Plane'; NAME 1 [params]: neutral
+	bool Set_Clip_Plane(ScriptedMovieParamsClass *params);		// 0x808AD0 (FAIL_IF lines 3137 / 3141): the camera's clip planes  // NAME 2: the user error's 'Set_Clip_Plane'; NAME 1 [params]: neutral
+	bool Skip_Frames(ScriptedMovieParamsClass *params);			// 0x8097D0 (FAIL_IF line 3567): +0x164 on by the frames at 30 a second  // NAME 2: the user error's 'Skip_Frames'; NAME 1 [params]: neutral
 
 	ScriptedMovieInterfaceClass *ClientInterface;		// +0x4C (0x8023A0's G_ASSERT)  // NAME 3: the assert's
-	int Unknown50;										// +0x50 (0x8023A0 hands it to ClientInterface's +0x04)
+	CameraClass *Unknown50;								// +0x50: the camera (Set_Camera_View_Plane, Set_Clip_Plane; 0x8023A0 hands it to ClientInterface's +0x04)
 	SimpleSceneClass *ScriptedScene;					// +0x54 (its ambient light +0x1C, its fog colour +0x2C)  // NAME 3: the FAIL_IF's
 	char Unknown58[0x6C - 0x58];						// +0x58
 	bool Unknown6C;										// +0x6C
@@ -711,7 +717,11 @@ public:
 	ScriptedMovieFadeClass UnknownAC;					// +0xAC: the fog colour (0x802330)
 	char UnknownD0[0xF0 - 0xD0];						// +0xD0
 	std::vector<ScriptedMovieSoundClass *> UnknownF0;	// +0xF0: mv3dsnd.cpp's objects (0x802AD0)
-	char Unknown100[0x178 - 0x100];						// +0x100
+	char Unknown100[0x164 - 0x100];						// +0x100
+	int Unknown164;										// +0x164 (Skip_Frames adds to it)
+	char Unknown168[0x171 - 0x168];						// +0x168
+	bool Unknown171;									// +0x171 (Skip_Frames only while it is set)
+	char Unknown172[0x178 - 0x172];						// +0x172
 };
 
 // The 0x120 bytes at SClient +0x13CC: 24 colours set to (1, 1, 1) by the out-of-line constructor 0x764FD0

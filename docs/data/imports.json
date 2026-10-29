@@ -7881,7 +7881,9 @@
      "0x8023A0",
      "0x802900",
      "0x802AD0",
-     "0x802D30"
+     "0x802D30",
+     "0x808AD0",
+     "0x8097D0"
     ],
     "merged": [],
     "name": "client/scriptedmovie.cpp"

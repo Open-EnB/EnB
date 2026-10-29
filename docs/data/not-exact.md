@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-337 entries in 70 files.
+338 entries in 70 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -146,6 +146,7 @@ edit the comments in the code, not this file.
 | `app/client/sclient.cpp:5522` | `SClient::Unknown_34` | marker | NOT EXACT: shape (explain.py: 606 instructions, the client 640, 127 masked rows; 69 calls, the client 70): VC6 merges the two beacon sends' tails here, the client keeps both; the logoff packet a named local, '/fps' enable first and the dialog read once moved nothing; two rounds 0x74ABC0 (slot +0x34: the chat line's '/' commands; true when the line was a command) |
 | `app/client/sclient.cpp:5693` | `SClient::Unknown_750F70` | marker | NOT EXACT: shape (explain.py: 144 instructions, the client 159; 36 masked rows, 35 of them registers; 10 calls, the client 11): the client sends the empty sender, a NULL starbase view and a NULL interface to one _Tidy(true) exit and destroys the string inline elsewhere (ebx holds this); two forms (early return on empty: 58 rows) 0x750F70 (cpacket.cpp: CLIENT_CHAT_EVENT 165, the sender and 2..15 by... |
 | `app/client/scriptedmovie.cpp:994` | `ScriptedMovieViewClass::Unknown_802930` | marker | NOT EXACT: the client normalizes the last test (setne) and returns the early true through mov al, 1; ours jumps to one mov eax, 1 (forms: the && chain, an if with != false, this \|\| chain) |
+| `app/client/scriptedmovie.cpp:2313` | `ScriptedMovieViewClass::Set_Camera_View_Plane` | marker | NOT EXACT: the client multiplies by a float in memory (fmul dword, 0xAFDF14: pi / 180); every constant form here folds to a double (fmul qword): a const float variable, probably |
 | `app/client/tasks/tsk_login.cpp:219` | `LoginTaskClass::Pre_Run` | marker | NOT EXACT: shape (the event's bit 12 test and the dispatchers' argument order; attempts.py show 0x767DA0) 0x767DA0 |
 | `app/client/tasks/tsk_login.cpp:271` | `LoginTaskClass::Run` | marker | NOT EXACT: register-only (the final Process_Packets call loads the vtable in edx, the client eax; attempts.py show 0x767F50) |
 | `app/client/tasks/tsk_login.cpp:456` | `LoginTaskClass::Unknown_50` | marker | NOT EXACT: inline budget (the client inlines AvatarDescClass's implicit assignment and calls the 0x160 object's constructor 0x7688F0; ours the reverse; the two trade against one budget: a cheaper assignment (POD/grouped Vector3s) inlines it and puts the constructor out of line, exact at 0x7688F0, but changes the copy's bytes; attempts.py show 0x7683F0) 0x7683F0 |
