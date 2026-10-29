@@ -16,7 +16,7 @@ UIViewClass::UIViewClass(ClientTaskClass *task, int arg) :
 	Unknown2C(NULL),
 	Unknown30(NULL),
 	Unknown34(NULL),
-	Unknown48(NULL)
+	CameraEffects(NULL)
 {
 }
 

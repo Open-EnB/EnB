@@ -179,7 +179,7 @@ public:
 
 class GadgetListManagerClass;
 class UIViewUnknown30Class;
-class MainViewUnknown48Class;
+class CameraEffectsClass;
 
 // uiview.cpp's view (0x4C bytes): the base of the six views at SClient +0x1354..+0x1368 (the slots every one of
 // them gets: the deleting destructor, +0x04 after construction, +0x10 in Shutdown)
@@ -222,7 +222,7 @@ public:
 	ViewUnknown34Class *Unknown34;						// +0x34 (uiview.cpp's constructors 0x65A6C0 / 0x65B810 set it; cpacket.cpp's GROUP 30 and DIALOG 98 call it)
 	Vector2 Unknown38;									// +0x38 the view plane's min (0x65B570: the camera's, scaled by its z)
 	Vector2 Unknown40;									// +0x40 the view plane's max
-	MainViewUnknown48Class *Unknown48;					// +0x48 (the constructors clear it; the main view's constructor makes it)
+	CameraEffectsClass *CameraEffects;					// +0x48 (the constructors clear it; the main view's constructor makes it)  // NAME 3: the scripted movie's G_ASSERT 'CameraEffects' (0x808220)
 };
 
 // uiview.cpp's second view (constructor 0x65B810, table 0xAF9854): the base of the main, loading and 3-D movie views
@@ -382,16 +382,17 @@ public:
 };
 
 // what the main view's +0x48 points to (0x28 bytes, constructor 0x6E2BD0; slot +0x14 calls its +0x34)
-class MainViewUnknown48Class	// NAME 1: neutral (D10)
+class CameraEffectsClass	// NAME 3: class-from-file (D24) for cameraeffects.cpp (0x6E32E0's; the member's name CameraEffects)
 {
 public:
-	MainViewUnknown48Class(MainViewClass *view, SClient *client);	// 0x6E2BD0  // NAME 1 [view, client]: what the main view passes
-	virtual ~MainViewUnknown48Class();					// +0x00 (deleting; the main view's Shutdown 0x50C2F0)
+	CameraEffectsClass(MainViewClass *view, SClient *client);	// 0x6E2BD0  // NAME 1 [view, client]: what the main view passes
+	virtual ~CameraEffectsClass();					// +0x00 (deleting; the main view's Shutdown 0x50C2F0)
 	virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
 	virtual void Unknown_10(); virtual void Unknown_14(); virtual void Unknown_18(); virtual void Unknown_1C();
 	virtual void Unknown_20(); virtual void Unknown_24(); virtual void Unknown_28(); virtual void Unknown_2C();
 	virtual void Unknown_30();
 	virtual void Unknown_34();							// +0x34 (the main view's slot +0x14)
+	void Unknown_6E32E0(int type, float amount, float time);	// 0x6E32E0 (the scripted movie's Shake_Camera passes 3)  // NAME 1 [type, amount, time]: what Shake_Camera passes
 
 	char Unknown04[0x28 - 0x04];
 };
@@ -712,6 +713,7 @@ public:
 	bool Set_Light_Specular_Color(ScriptedMovieParamsClass *params);	// 0x806670 (FAIL_IF lines 2212-2228)  // NAME 2: the user error's 'Set_Light_Specular_Color'; NAME 1 [params]: neutral
 	bool Set_Light_Diffuse_Color(ScriptedMovieParamsClass *params);	// 0x8068A0 (FAIL_IF lines 2254-2270)  // NAME 2: the user error's 'Set_Light_Diffuse_Color'; NAME 1 [params]: neutral
 	bool Set_Camera_View_Plane(ScriptedMovieParamsClass *params);	// 0x806AF0 (FAIL_IF lines 2318 / 2323): the camera's view plane, in degrees  // NAME 2: the user error's 'Set_Camera_View_Plane'; NAME 1 [params]: neutral
+	bool Shake_Camera(ScriptedMovieParamsClass *params);		// 0x808220 (FAIL_IF lines 2905 / 2909, G_ASSERT 'CameraEffects' 2912)  // NAME 2: the user error's 'Shake_Camera'; NAME 1 [params]: neutral
 	bool Set_Screen_Fade_Color(ScriptedMovieParamsClass *params);	// 0x808880 (FAIL_IF lines 3069-3081): the screen fade's colour over a time (0x7FFA30)  // NAME 2: the user error's 'Set_Screen_Fade_Color'; NAME 1 [params]: neutral
 	bool Set_Screen_Fade_Opacity(ScriptedMovieParamsClass *params);	// 0x808A00 (FAIL_IF lines 3107 / 3111): its opacity over a time (0x7FFBE0)  // NAME 2: the user error's 'Set_Screen_Fade_Opacity'; NAME 1 [params]: neutral
 	bool Enable_Letterbox(ScriptedMovieParamsClass *params, bool on);	// 0x808BB0 (FAIL_IF line 3167): the letterbox in or out over a time (0x7FF830)  // NAME 2: the user error's 'Enable_Letterbox'; NAME 1 [params, on]: neutral

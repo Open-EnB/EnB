@@ -174,7 +174,7 @@ MainViewClass::MainViewClass(ClientTaskClass *ctask) :
 	// (0x50B360 sets the table after the members)
 	// (line 176 next)
 	G_ASSERT(ctask);
-	Unknown48 = new MainViewUnknown48Class(this, ctask->Client);
+	CameraEffects = new CameraEffectsClass(this, ctask->Client);
 }
 
 MainViewClass::~MainViewClass()
@@ -247,8 +247,8 @@ void MainViewClass::Unknown_10()
 	REF_PTR_RELEASE(Unknown138);
 	delete DazzleLayer;
 	DazzleLayer = NULL;
-	delete Unknown48;
-	Unknown48 = NULL;
+	delete CameraEffects;
+	CameraEffects = NULL;
 	delete Radar;
 	Radar = NULL;
 	delete Unknown84;
@@ -1601,7 +1601,7 @@ void MainViewClass::Unknown_14()
 {
 	Unknown_512400();
 	UIViewClass::Unknown_14();
-	Unknown48->Unknown_34();
+	CameraEffects->Unknown_34();
 }
 
 // 0x512A00: every frame while the main view is current (SClient::Do_Frame): inside local_interface_sort.cpp's sort,

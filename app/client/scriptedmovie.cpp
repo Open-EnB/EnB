@@ -2898,21 +2898,21 @@ bool ScriptedMovieViewClass::Stop_Audio(ScriptedMovieParamsClass *params)
 
 
 
+// 0x808220: the camera shaken by an amount over a time
+bool ScriptedMovieViewClass::Shake_Camera(ScriptedMovieParamsClass *params)
+{
+	const char *param = params->Unknown_7FFDC0();
+	FAIL_IF((param == NULL) && "User error: Shake_Camera: Need amount") {return(false);}
+	float amount = atof(param);
+	param = params->Unknown_7FFDC0();
 
+	FAIL_IF((param == NULL) && "User error: Shake_Camera: Need time") {return(false);}
+	float time = atof(param);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+	G_ASSERT(CameraEffects);
+	CameraEffects->Unknown_6E32E0(3, amount, time);
+	return(true);
+}
 
 
 
