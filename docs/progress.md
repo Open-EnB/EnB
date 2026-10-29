@@ -1425,8 +1425,10 @@ client's own code: [kernel-map.md](kernel-map.md) §6 and, for step 9's dependen
    cpacket's Unknown98StateClass, a `std::vector<ColorizationRegionStruct>` at +0xC8, declarations for 0x6F2820 /
    0x6F5140 / 0x6F33F0; clienttest's `new ClientObjectClass` stand-in changes with them), which unblocks CREATE 4; (2026-10-28, CS1: D121 / D123 renames done, co_subtypes.cpp new (D122, +33: types 24 / 28
    and type 24's base with dynamic_obj.cpp's proximity object `Unknown44AC70Class` at +0x188), clienttest 66 checks;
-   0x6F3FA0 0.62 with `auto_inline(off)` around 0x6F3ED0; left: D132's split of co_subtypes.cpp (the base
-   0x70DBC0-0x70E2D0 to its own file, the pragma goes), D131's rename (`Set_Debug_Object` at slot +0x24
+   0x6F3FA0 0.62 with `auto_inline(off)` around 0x6F3ED0; 2026-10-29, CS2: D131's rename done (035edbe, 0 / 0) and
+   D132's split done (22af6a7, +1: the base 0x70DBC0-0x70E240 in co_subtype_base.cpp, NAME 1, 17 D66 (v) moves, the
+   pragma gone with no loss; 0x70E550, an atexit registration behind the guard byte 0xC416FC, new in co_subtypes);
+   left: the thunks 0x70E2A0-0x70E2D0 (too short for verify to count) (`Set_Debug_Object` at slot +0x24
    -> `Set_Avatar_ID`), type 28's aim 0x70E850 frame / shape, retype
    `ClientClass::Unknown1144` as `HeightFieldClass *`; dynamic_obj.cpp done by DO1 (f413f9f, +11: the client's
    `DynObj`, 0x44AC70-0x44B740; NOT EXACT ctor 0x44AC70 shape, copy 0x44ADA0 register; its `ProximityObject` is a

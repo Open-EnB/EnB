@@ -530,6 +530,10 @@ unless `--lever` cites a new row of this table.
 
 ### 3.4 Importer, verify and pairs
 
+* **names.py rewrites rows outside your own files** (2026-10-29, CS2): clienttest's client_stubs.cpp rows (line
+  numbers shifted) and the score-5 count. commit_mine takes only your rows; restore the leftover diff afterwards.
+  docs/imports.md on HEAD can be stale (`importer.py report` regenerates ~100 unrelated lines): don't sweep that
+  into your commit; the coordinator regenerates it.
 * **objdiff shows the client's float immediates as REL** (2026-10-29, LD4), so its row counts overstate a
   difference: judge by pairs_cmp.
 * **`commit_mine.py --file` leaves out imports.json's `in_tree_total` line** (2026-10-29, SC3): add
