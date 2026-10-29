@@ -1,0 +1,44 @@
+PAIRS = [
+("""void PxAccurateCallback::Overlap(PxBox *box, bool enter)
+{
+	if (enter) {
+		if (box->Self & 2) {
+			Tight_Enter((PxObject *)box->Owner);
+		} else {
+			Loose_Enter((PxObject *)box->Owner);
+		}
+	} else {
+		if (box->Self & 2) {
+			Tight_Exit((PxObject *)box->Owner);
+		} else {
+			Loose_Exit((PxObject *)box->Owner);
+		}
+	}
+}
+""",
+"""inline void PxAccurateCallback_Box_Enter(PxAccurateCallback *cb, PxBox *box)
+{
+	if (box->Self & 2) {
+		cb->Tight_Enter((PxObject *)box->Owner);
+	} else {
+		cb->Loose_Enter((PxObject *)box->Owner);
+	}
+}
+inline void PxAccurateCallback_Box_Exit(PxAccurateCallback *cb, PxBox *box)
+{
+	if (box->Self & 2) {
+		cb->Tight_Exit((PxObject *)box->Owner);
+	} else {
+		cb->Loose_Exit((PxObject *)box->Owner);
+	}
+}
+void PxAccurateCallback::Overlap(PxBox *box, bool enter)
+{
+	if (enter) {
+		PxAccurateCallback_Box_Enter(this, box);
+	} else {
+		PxAccurateCallback_Box_Exit(this, box);
+	}
+}
+"""),
+]
