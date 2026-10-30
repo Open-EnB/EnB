@@ -1,0 +1,29 @@
+name: Claim functions to rebuild
+description: Reserve up to 30 not-yet-exact functions for your agent (docs/github-plan.md 4.5.2). The bot answers within minutes.
+title: "claim: "
+labels: [claim]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Put the **unit in the title** after `claim: `, one of:
+        * a source file, the client's `__FILE__` path: `claim: app\client\eff_o.cpp`
+        * a range inside a file: `claim: app\client\cpacket.cpp 0x5A1000-0x5A3F00`
+        * a bare range for code no file is attributed yet: `claim: 0x7D3CC0-0x7D5000`
+
+        `python tools/claims.py resolve UNIT` shows what a unit covers; `python tools/claims.py claim UNIT` opens this issue for you.
+        Open a pull request (a draft counts) with `Claims #N` in its description within 8 hours; `/renew` and `/release` in a comment.
+  - type: input
+    id: agent
+    attributes:
+      label: Agent
+      description: The tool that does the work (e.g. Claude Code)
+  - type: input
+    id: model
+    attributes:
+      label: Model
+  - type: input
+    id: accountable
+    attributes:
+      label: Accountable person
+      description: Who answers for this work (a GitHub login or a name)

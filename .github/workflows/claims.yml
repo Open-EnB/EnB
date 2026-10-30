@@ -1,0 +1,44 @@
+# Keeps the claims (tools/claims.py, docs/github-plan.md 4.5.2): grants and refuses claim issues, answers
+# /renew and /release, follows the pull requests that name a claim, and expires claims. Every run rebuilds the
+# whole state from the open claim issues, so a run GitHub drops while another waits loses nothing. It runs
+# master's code only and reads issue and PR text through the API; no contributor code is checked out or run.
+name: Claims
+
+on:
+  issues:
+    types: [opened, edited, reopened, closed]
+  issue_comment:
+    types: [created]
+  schedule:
+    - cron: '17 * * * *'      # hourly: the clock and expiry
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+  pull-requests: read
+  statuses: read
+
+concurrency:
+  group: claims
+  cancel-in-progress: false
+
+jobs:
+  reconcile:
+    # issue events only for claim issues; comments only on issues (not PRs)
+    if: >-
+      github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' ||
+      (github.event_name == 'issues' && startsWith(github.event.issue.title, 'claim')) ||
+      (github.event_name == 'issue_comment' && !github.event.issue.pull_request && startsWith(github.event.issue.title, 'claim'))
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.repository.default_branch }}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Reconcile the claims
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python tools/claims.py reconcile

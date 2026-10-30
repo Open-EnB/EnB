@@ -27,7 +27,7 @@ in a way that cannot compromise the project's integrity.
 | P-GH-7 | Integrity model and permissions | The three layers and settings of §2 | **org settings applied 2026-10-29 (D152); repository rules when it exists** |
 | P-GH-8 | Pre-push checklist | §3.7 | **D152: Open-EnB/EnB, master, private first; in progress** |
 | P-GH-9 | Community and continuity | §3.8, §3.9 | **closed 2026-10-30: Net-7 contacted; no new names; labels only, no issues yet; recovery codes saved; no second owner, no archive policy for now** |
-| P-GH-10 | Coordinating outside contributors' agents: claims, expiry, PR size | §4 | **decided 2026-10-30: 4.2A, plan in §4.5; the claim unit (4.5.2) awaits confirmation** |
+| P-GH-10 | Coordinating outside contributors' agents: claims, expiry, PR size | §4 | **decided 2026-10-30: 4.2A, plan in §4.5; building (4.5.6)** |
 
 ## P-GH-1: line endings (revised 2026-10-29 after the LF test and the transcript audit)
 
@@ -302,10 +302,10 @@ Neither changes the last row, the real bottleneck; 4.3 is where that is addresse
 | # | Question | Decision |
 |---|---|---|
 | 1 | Claim mechanism | **4.2A**: claims are issues kept by an Action; 4.2B not adopted (D148's "never master", no Write role for contributors) |
-| 2 | Claim unit | asked for more exposition (4.5.2); the refined unit there awaits confirmation |
-| 3 | Numbers | 72 h without a PR, 7 days of PR inactivity, 3 live claims per account: accepted |
+| 2 | Claim unit | at most 30 not-yet-exact functions in one file's window; a claim never stops edits to the file (4.5.2) |
+| 3 | Numbers | tightened: 8 h without a PR (a draft counts), 3 days of PR inactivity, 7 days in all, both counted only while it is the contributor's turn; 3 live claims per account (4.5.2) |
 | 4 | PR size | squash-merge accepted; the file limit questioned (4.5.4: dropped) |
-| 5 | Maintainer's runs | claim through the same issues, one register |
+| 5 | Maintainer's runs | claim through the same issues, one register; the run's PR opens as a draft at run start (4.5.3) |
 | 6 | A or B | A |
 | 4.3 | D148 merge rule | split by what a PR touches: accepted |
 | 4.3 | D146 | automated verification accepted: **all work is verified before it reaches master**, the maintainer's run PRs included |
@@ -330,27 +330,53 @@ files (452 file changes in 367 commits), and three files took 40 or more each (`
 one contributor holding `cpacket.cpp` for 72 hours, or for weeks behind an active PR, would stop the work where
 it is busiest. So:
 
-* **A claim is an address range of not-yet-exact functions, at most 30 of them**, inside one source file (by
-  `__FILE__` path or provisional file, D137). A small file is claimed whole (`claims.py claim app/x/y.cpp`); a
-  big one by range (`claims.py claim app/client/cpacket.cpp:0x5A1000-0x5A3F00`, or by class name, which
-  `claims.py` resolves to its functions' range). The Action counts the functions with `appfile.py`'s data and
-  refuses a claim over the cap.
+* **A claim is at most 30 not-yet-exact functions** (neither in a file's `in_tree` nor `ambiguous` in
+  imports.json) **inside one source file's window** (the client's `__FILE__` path, as `docs/data/app-functions.json`
+  attributes functions). A small file is claimed whole (`claim: app\client\eff_o.cpp`); a big one by range
+  (`claim: app\client\cpacket.cpp 0x5A1000-0x5A3F00`); code no file is attributed yet is claimed by a bare range
+  (`claim: 0x7D3CC0-0x7D5000`). Two claims conflict when they share a function. The data is master's.
 * **A claim covers which functions you rebuild, not which files you may edit.** Anyone may change a claimed
   file for cross-cutting work: a rename, a header retype, a D66 move. The claim holder rebases.
-* **Lifetime.** 72 h without a PR (`/renew` adds 72 h, twice at most); while its PR is open, until 7 days pass
-  with no activity; **never more than 14 days in all**, after which the Action closes it and the PR is reviewed
-  as it stands. A merged PR closes its claim; a PR closed unmerged frees it after 24 hours.
-* **Per account:** 3 live claims. The maintainer's coordinator account has no count limit but the same 30-function
-  cap and lifetime per claim.
+* **Lifetime, counted only while it is the contributor's turn:**
+
+  | Phase | Limit |
+  |---|---|
+  | no PR yet (a draft PR counts as a PR) | 8 h; `/renew` adds 8 h, twice at most (24 h) |
+  | a PR names the claim (`Claims #N` in its description) | 3 days without the contributor's activity (a push, or a comment by the PR's author) |
+  | in all | 7 days |
+  | the PR closed unmerged | 24 h (wall clock) for another PR to name it |
+  | the PR merged | the claim closes, landed |
+
+  **Whose turn it is:** the contributor's before a PR exists, while the PR is a draft, and after the maintainer
+  answered (a failed `vc6-verify` on the head commit, or a review asking for changes) until the next push. Waiting
+  for verification, approval, review or merge is the maintainer's turn and stops the clock, so a weekend with the
+  maintainer's host off costs no one a claim. The clock advances on the hourly sweep, at most 2 h per sweep.
+* **Per account:** 3 live claims. Maintainers (the repository's members and collaborators) have no count limit
+  but the same 30-function cap and lifetime per claim.
+* **Commands** (a comment on the claim issue): `/renew` (the claimant, before a PR), `/release` (the claimant or a
+  maintainer). Closing the issue releases it too.
 * **Not a lock:** a PR for unclaimed or expired code is welcome; on a conflict the claimant's PR is verified
   first.
 
 #### 4.5.3 The maintainer's runs
 
-* At run start the coordinator lists live claims and assigns builders only unclaimed ranges.
-* It claims each builder's range before launching it (one issue per range, opened through `claims.py` from the
-  run), and the run's PR closes those claims (`Claims #N` lines in its description).
+* At run start the coordinator lists live claims (`claims.py list`) and assigns builders only unclaimed ranges.
+* **The run's PR opens as a draft at run start**, and the coordinator pushes the run branch after each builder's
+  work is merged into it (D148 already lets it push its run branch), so the run's claims stay alive and
+  contributors see the work before master does. The PR leaves draft at handoff.
+* It claims each builder's range before launching it (`claims.py claim`, one issue per range) and adds
+  `Claims #N` to the run's PR; the merged PR closes them.
 * A builder that strays into a claimed range stops and reports, as it does today for another builder's file.
+
+#### 4.5.3a How the claims are kept
+
+`tools/claims.py` is both the contributor's command and the Action's code. The Action
+(`.github/workflows/claims.yml`) runs `claims.py reconcile` on every claim issue event, every comment, hourly and
+by hand; each run rebuilds the whole state from the open issues, so a run that GitHub drops while another is
+queued loses nothing. The state of each claim lives in a comment by `github-actions[bot]` (a JSON marker that only
+the bot's own comments are trusted for). Requests are granted first come, first served, by issue number. The
+workflow checks out master, reads only issue and PR text through the API, and has `issues: write` and read
+permissions otherwise; no contributor code runs.
 
 #### 4.5.4 Pull requests and commits
 
