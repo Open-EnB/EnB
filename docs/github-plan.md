@@ -352,7 +352,7 @@ it is busiest. So:
   answered (a failed `vc6-verify` on the head commit, or a review asking for changes) until the next push. Waiting
   for verification, approval, review or merge is the maintainer's turn and stops the clock, so a weekend with the
   maintainer's host off costs no one a claim. The clock advances on the hourly sweep, at most 2 h per sweep.
-* **Per account:** 3 live claims. Maintainers (the repository's members and collaborators) have no count limit
+* **Per account:** 3 live claims. Maintainers (the org's owners and members; an outside collaborator counts as a contributor) have no count limit
   but the same 30-function cap and lifetime per claim.
 * **Commands** (a comment on the claim issue): `/renew` (the claimant, before a PR), `/release` (the claimant or a
   maintainer). Closing the issue releases it too.

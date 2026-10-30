@@ -19,7 +19,7 @@ an older master. A draft is skipped: its author is still working (a maintainer's
 leaves draft at handoff). verify_pr.py's gate stops a PR that changes anything a verify would run on the
 host; the PR is then marked `vc6-verify: pending` until a maintainer has read it and comments
 `/verify-approved SHA` (at least 7 hex digits of the head commit; a new push needs a new approval).
-A maintainer's own PRs (author association OWNER, MEMBER or COLLABORATOR) are approved by their authorship.
+A maintainer's own PRs (author association OWNER or MEMBER: the org's people) are approved by their authorship.
 
 Landing (a contributor's PR; a maintainer's own PRs are merged by the maintainer as they are). A contributor
 without VC6 cannot commit the verified record, so the PR is not merged as it is: its landing is one commit on
@@ -58,7 +58,7 @@ AUTOMERGE = os.path.join(OUT, 'automerge')
 VERIFIER = wt.wt_path('verifier')
 TASK = 'EnB verify watch'
 LANDING = 'verified/pr'
-MAINTAINER = {'OWNER', 'MEMBER', 'COLLABORATOR'}
+MAINTAINER = {'OWNER', 'MEMBER'}
 APPROVE = re.compile(r'^/verify-approved\s+([0-9a-f]{7,40})\b', re.I | re.M)
 LAND = re.compile(r'^/land\s+([0-9a-f]{7,40})\b', re.I | re.M)
 HOLD = re.compile(r'^/(hold|unhold)\b', re.I | re.M)

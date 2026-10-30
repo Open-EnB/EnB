@@ -49,7 +49,7 @@ PER_ACCOUNT = 3
 TICK_CAP_H = 2          # the clock advances at most this much per reconcile (a stalled schedule costs no one)
 
 BOT = 'github-actions[bot]'
-MAINTAINER = {'OWNER', 'MEMBER', 'COLLABORATOR'}
+MAINTAINER = {'OWNER', 'MEMBER'}
 MARK = re.compile(r'<!-- enb-claim (\{.*?\}) -->', re.S)
 TITLE = re.compile(r'^\s*claim\s*:\s*(.+?)\s*$', re.I)
 RANGE = re.compile(r'^(0x[0-9a-f]+)\s*-\s*(0x[0-9a-f]+)$', re.I)

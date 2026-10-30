@@ -137,7 +137,7 @@ def main():
                          'number,headRefOid,baseRefName,mergeable,state,author,isCrossRepository,labels'))
     pr = {'number': a.pr, 'head': info['headRefOid'], 'author': info['author']['login']}
     assoc = json.loads(gh('api', f'repos/{r}/pulls/{a.pr}')).get('author_association')
-    maint = assoc in ('OWNER', 'MEMBER', 'COLLABORATOR')
+    maint = assoc in ('OWNER', 'MEMBER')
     if info['state'] != 'OPEN':
         sys.exit(f'verify_pr: PR #{a.pr} is {info["state"].lower()}')
     if info['baseRefName'] != 'master':
