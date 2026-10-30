@@ -4,6 +4,35 @@ Newest first within each section. Dates are when the entry was written.
 
 ## 1. Log
 
+### 2026-10-30 (day): the repository on GitHub (Open-EnB/EnB, private); claims and the verify service; the final public read; D153-D159
+
+Interactive session with the user, no builders. The repository went up to GitHub private (D152), after the
+history rewrite that removed the private reference decoder (D153); EA's reference traces froze into a release
+asset (D154); the test programs became siblings under tests/ and capharness retired (D155).
+
+* **P-GH-10, coordinating outside contributors' agents** ([github-plan.md](github-plan.md) §4): claims are
+  GitHub issues kept by the Claims workflow (`tools/claims.py`, D156); every PR is verified before master by a
+  polling service on the maintainer's host (`tools/vc6/verify_watch.py` as the scheduled task "EnB verify watch",
+  `verify_pr.py`; no self-hosted runner), posting the `vc6-verify` check; contributors' PRs land through
+  `verified/prN` landing PRs (D157); the coordinator's run branch, draft PR and claims go through
+  `tools/run_branch.py`. Live on master since PR #1; the first automatic verify ran on PR #8. The rehearsal waits
+  for the first outside contributor; automerge stays off until it has passed.
+* **The final read before going public** (PR #9): every hand-written doc read; personal and machine detail
+  removed, the earlier unpublished research described generically, conduct reports through GitHub's private
+  reporting, the SDK copies recorded with SHA-256 hashes (D5), stale statements updated.
+* **File headers (D158)** and **unknown members (D159)**: about 330 of our files now start with `// Earth &
+  Beyond client (reconstruction)`; 157 imported files changed for E&B carry importer.py's note; 590 uses of
+  `m_UnknownXX` became `UnknownXX` (WWAudio's kept). Full verify gained [] lost [], imports.json unchanged, replay
+  0 files differ.
+* **Org profile:** `Open-EnB/.github` created private (profile README with the non-affiliation notice, default
+  SECURITY and code of conduct); it goes public with EnB.
+* **Trap** (filed in workflow.md §3.8): app code can name an imported library's own members
+  (soundlib.cpp's `using AudibleSoundClass::m_Unknown7C`): a rename across our files must leave those alone. The
+  first verify caught it as compile errors.
+* **Left (github-plan.md §4.5.7):** the public switch (`.github` first, then EnB; the ruleset with `checks` and
+  `vc6-verify` required; private reporting; secret scanning), the rehearsal, a token scoped to EnB for the
+  coordinator, the Actions version bump. P-VM-1 (the build VMs need replacing by 2027-01-20) stays open.
+
 ### 2026-10-29 (14:55, day): slow pace, two Fable rounds, D126-D141; app 4,549 -> 4,761 in tree, +289 pairs, 52 D66 moves, 0 lost outright
 
 Coordinator Opus 5.5, 08:40 to 14:55 (launches closed 14:30; IB3 at the user's word). Base ad6562e (the history
@@ -1413,6 +1442,8 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 | D155 | 2026-10-30 | The test programs are siblings under `tests/`, one folder each (tests/udpreplay, auxreplay, clienttest, auxdata_smoke, kerneltest, movietest), no longer under `tests/capharness/` (D45, D67). The M1.0 skeleton `capharness.cpp` and `tools/harness/build.py`, which built it, are retired: udpreplay and auxreplay carry M1's gates. | user |
 | D156 | 2026-10-30 | P-GH-10, claims: contributors' agents and the maintainer's runs claim the functions they rebuild in one register, GitHub issues titled `claim: UNIT` kept by the Claims workflow (`tools/claims.py`); a claim is at most 30 not-yet-exact functions in one file's window (or a bare range), never a lock on editing the file; it lives 8 h without a PR (a draft counts; `/renew` +8 h twice), 3 days without the contributor's activity on its PR, 7 days in all, all counted only while it is the contributor's turn; 3 live claims per account, maintainers excepted. Option B (contributors with write access pushing branches) not adopted. [github-plan.md](github-plan.md) §4.5.1-4.5.3 | user |
 | D157 | 2026-10-30 | P-GH-10, verification and merging (amends D148, D149(1), extends D146): every PR is verified before it reaches master, the maintainer's run PRs included, by a polling service on the maintainer's host (`tools/vc6/verify_watch.py`, a scheduled task running master's code; no self-hosted runner), which posts the required check `vc6-verify`; a PR that changes anything that would run on the host waits for a maintainer's `/verify-approved SHA`. Contributors' PRs land as one commit (the test merge plus the verified record, the PR's author kept) through a `verified/prN` landing PR the service pushes and merges: by itself (automerge on) when gain-only, CI green and only sources, headers and docs/data changed, otherwise on a maintainer's `/land SHA`; the maintainer's own PRs and any D66 case are merged by hand. One PR per claim, any number of commits; "one verified function per commit" retired. The run's PR opens as a draft at run start (`tools/run_branch.py`). [github-plan.md](github-plan.md) §4.5.4-4.5.5 | user |
+| D158 | 2026-10-30 | File headers say where the file came from: our own files (app/, programs/, stubs/, tests/, the tools' C/C++, files written from the client inside a library) start with `// Earth & Beyond client (reconstruction)`, without Westwood's banner box or an EA copyright line; Westwood's banner and EA's licence header stay only on files imported from EA's C&C releases, and an imported file changed for E&B says so on the line under EA's copyright, written by importer.py itself (`MODIFIED_NOTE`, on assemble, add and replay); third-party code that is not EA's keeps its own notice (libs/sgistl). Header changes never move a code line (`__LINE__`). [conventions.md](conventions.md) §4 | user |
+| D159 | 2026-10-30 | Unknown members follow §1's patterns like any member: `Unknown7C` (CamelCase, no prefix), `UnknownFlag`, `Unknown_7C` for a method; Generals' `GameEngine` code (`m_` members, camelCase methods, `AsciiString`) is the counterexample, not E&B's style. Inside an imported library its own style holds: WWAudio's members are `m_`-prefixed, so its unknowns stay `m_Unknown7C`. [conventions.md](conventions.md) §1 | user |
 
 ## 3. Open decisions
 
